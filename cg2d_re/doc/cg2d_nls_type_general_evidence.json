@@ -1,0 +1,1907 @@
+{
+  "spec_id": "BWY01",
+  "recorded_on": "2026-10-08",
+  "mode": "原会话只读取证/源码集中静态，禁止编译测试运行样例或hash",
+  "evidence_refs": [
+    "doc/cg2d_nls_type_general_spec.md#nls-type-general-baseline",
+    "doc/cg2d_nls_type_general_spec.md#nls-type-general-decision",
+    "doc/cg2d_nls_type_general_spec.md#nls-type-general-acceptance",
+    "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state"
+  ],
+  "implementation_static_scope": "BWY01补原545208完整123条329B/两页七参数NLS分类，原两个参数消费窗口39条98B/一scope与相邻15CC有证。两现源两改、一个完整GetLegacyStringTypes_545208及声明、原info1薄转调，零ASM/C桥/owner/依赖或新应用调用。原W32 infoType/CP-locale-strict与S32源长度直接交API，不缩源；分类专用10862E4、A-locale0/W-CP0回退、首次strict flags1或9/实际1和实际转换数量/完整W32返回保。原SEH内计算count*2低W32字节数，_alloca用+3低两位清零对齐请求，Fill5419D0只原字节数；原filter1/置空指针/失败0与全部caller/掩码和表生产保，不造FS/旧栈或故障样例。完善既有341和填充连接当前源符号、一个F adapted/F1027及CRT204、E1187两限定I-S；一个15CC仅对齐用途/R7已审483余2578。语义1859/有效1852、文档1969/3680（53.51%）和队列/pending保持；完整间接父/SEH链-CRT库存及寿命、系统NLS/SDK-ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。",
+  "original_function": {
+    "start": "0x545208",
+    "end_exclusive": "0x545351",
+    "count": 123,
+    "chunks": [
+      [
+        "0x545208",
+        "0x545351"
+      ]
+    ],
+    "inbound": [
+      {
+        "type": 17,
+        "code": true,
+        "function": "0x541955",
+        "text": "call    ___crtGetStringTypeA",
+        "from": "0x5419b3"
+      },
+      {
+        "type": 17,
+        "code": true,
+        "function": "0x546b29",
+        "text": "call    ___crtGetStringTypeA",
+        "from": "0x546bc3"
+      }
+    ],
+    "instructions": [
+      {
+        "ea": "0x545208",
+        "size": 1,
+        "bytes": "55",
+        "mnemonic": "push",
+        "text": "push    ebp",
+        "call_target": null
+      },
+      {
+        "ea": "0x545209",
+        "size": 2,
+        "bytes": "8bec",
+        "mnemonic": "mov",
+        "text": "mov     ebp, esp",
+        "call_target": null
+      },
+      {
+        "ea": "0x54520b",
+        "size": 2,
+        "bytes": "6aff",
+        "mnemonic": "push",
+        "text": "push    0FFFFFFFFh",
+        "call_target": null
+      },
+      {
+        "ea": "0x54520d",
+        "size": 5,
+        "bytes": "6870fe5400",
+        "mnemonic": "push",
+        "text": "push    offset stru_54FE70",
+        "call_target": null
+      },
+      {
+        "ea": "0x545212",
+        "size": 5,
+        "bytes": "68342e5400",
+        "mnemonic": "push",
+        "text": "push    offset __except_handler3",
+        "call_target": null
+      },
+      {
+        "ea": "0x545217",
+        "size": 6,
+        "bytes": "64a100000000",
+        "mnemonic": "mov",
+        "text": "mov     eax, large fs:0",
+        "call_target": null
+      },
+      {
+        "ea": "0x54521d",
+        "size": 1,
+        "bytes": "50",
+        "mnemonic": "push",
+        "text": "push    eax",
+        "call_target": null
+      },
+      {
+        "ea": "0x54521e",
+        "size": 7,
+        "bytes": "64892500000000",
+        "mnemonic": "mov",
+        "text": "mov     large fs:0, esp",
+        "call_target": null
+      },
+      {
+        "ea": "0x545225",
+        "size": 3,
+        "bytes": "83ec18",
+        "mnemonic": "sub",
+        "text": "sub     esp, 18h",
+        "call_target": null
+      },
+      {
+        "ea": "0x545228",
+        "size": 1,
+        "bytes": "53",
+        "mnemonic": "push",
+        "text": "push    ebx",
+        "call_target": null
+      },
+      {
+        "ea": "0x545229",
+        "size": 1,
+        "bytes": "56",
+        "mnemonic": "push",
+        "text": "push    esi",
+        "call_target": null
+      },
+      {
+        "ea": "0x54522a",
+        "size": 1,
+        "bytes": "57",
+        "mnemonic": "push",
+        "text": "push    edi",
+        "call_target": null
+      },
+      {
+        "ea": "0x54522b",
+        "size": 3,
+        "bytes": "8965e8",
+        "mnemonic": "mov",
+        "text": "mov     [ebp+ms_exc.old_esp], esp",
+        "call_target": null
+      },
+      {
+        "ea": "0x54522e",
+        "size": 5,
+        "bytes": "a1e4620801",
+        "mnemonic": "mov",
+        "text": "mov     eax, dword_10862E4",
+        "call_target": null
+      },
+      {
+        "ea": "0x545233",
+        "size": 2,
+        "bytes": "33db",
+        "mnemonic": "xor",
+        "text": "xor     ebx, ebx",
+        "call_target": null
+      },
+      {
+        "ea": "0x545235",
+        "size": 2,
+        "bytes": "3bc3",
+        "mnemonic": "cmp",
+        "text": "cmp     eax, ebx",
+        "call_target": null
+      },
+      {
+        "ea": "0x545237",
+        "size": 2,
+        "bytes": "753e",
+        "mnemonic": "jnz",
+        "text": "jnz     short loc_545277",
+        "call_target": null
+      },
+      {
+        "ea": "0x545239",
+        "size": 3,
+        "bytes": "8d45e4",
+        "mnemonic": "lea",
+        "text": "lea     eax, [ebp+CharType]",
+        "call_target": null
+      },
+      {
+        "ea": "0x54523c",
+        "size": 1,
+        "bytes": "50",
+        "mnemonic": "push",
+        "text": "push    eax; lpCharType",
+        "call_target": null
+      },
+      {
+        "ea": "0x54523d",
+        "size": 2,
+        "bytes": "6a01",
+        "mnemonic": "push",
+        "text": "push    1",
+        "call_target": null
+      },
+      {
+        "ea": "0x54523f",
+        "size": 1,
+        "bytes": "5e",
+        "mnemonic": "pop",
+        "text": "pop     esi",
+        "call_target": null
+      },
+      {
+        "ea": "0x545240",
+        "size": 1,
+        "bytes": "56",
+        "mnemonic": "push",
+        "text": "push    esi; cchSrc",
+        "call_target": null
+      },
+      {
+        "ea": "0x545241",
+        "size": 5,
+        "bytes": "6860fb5400",
+        "mnemonic": "push",
+        "text": "push    offset String2; lpSrcStr",
+        "call_target": null
+      },
+      {
+        "ea": "0x545246",
+        "size": 1,
+        "bytes": "56",
+        "mnemonic": "push",
+        "text": "push    esi; dwInfoType",
+        "call_target": null
+      },
+      {
+        "ea": "0x545247",
+        "size": 6,
+        "bytes": "ff1540d15400",
+        "mnemonic": "call",
+        "text": "call    ds:GetStringTypeW",
+        "call_target": null
+      },
+      {
+        "ea": "0x54524d",
+        "size": 2,
+        "bytes": "85c0",
+        "mnemonic": "test",
+        "text": "test    eax, eax",
+        "call_target": null
+      },
+      {
+        "ea": "0x54524f",
+        "size": 2,
+        "bytes": "7404",
+        "mnemonic": "jz",
+        "text": "jz      short loc_545255",
+        "call_target": null
+      },
+      {
+        "ea": "0x545251",
+        "size": 2,
+        "bytes": "8bc6",
+        "mnemonic": "mov",
+        "text": "mov     eax, esi",
+        "call_target": null
+      },
+      {
+        "ea": "0x545253",
+        "size": 2,
+        "bytes": "eb1d",
+        "mnemonic": "jmp",
+        "text": "jmp     short loc_545272",
+        "call_target": null
+      },
+      {
+        "ea": "0x545255",
+        "size": 3,
+        "bytes": "8d45e4",
+        "mnemonic": "lea",
+        "text": "lea     eax, [ebp+CharType]",
+        "call_target": null
+      },
+      {
+        "ea": "0x545258",
+        "size": 1,
+        "bytes": "50",
+        "mnemonic": "push",
+        "text": "push    eax; lpCharType",
+        "call_target": null
+      },
+      {
+        "ea": "0x545259",
+        "size": 1,
+        "bytes": "56",
+        "mnemonic": "push",
+        "text": "push    esi; cchSrc",
+        "call_target": null
+      },
+      {
+        "ea": "0x54525a",
+        "size": 5,
+        "bytes": "687c8ad600",
+        "mnemonic": "push",
+        "text": "push    offset String1; lpSrcStr",
+        "call_target": null
+      },
+      {
+        "ea": "0x54525f",
+        "size": 1,
+        "bytes": "56",
+        "mnemonic": "push",
+        "text": "push    esi; dwInfoType",
+        "call_target": null
+      },
+      {
+        "ea": "0x545260",
+        "size": 1,
+        "bytes": "53",
+        "mnemonic": "push",
+        "text": "push    ebx; Locale",
+        "call_target": null
+      },
+      {
+        "ea": "0x545261",
+        "size": 6,
+        "bytes": "ff1544d15400",
+        "mnemonic": "call",
+        "text": "call    ds:GetStringTypeA",
+        "call_target": null
+      },
+      {
+        "ea": "0x545267",
+        "size": 2,
+        "bytes": "85c0",
+        "mnemonic": "test",
+        "text": "test    eax, eax",
+        "call_target": null
+      },
+      {
+        "ea": "0x545269",
+        "size": 6,
+        "bytes": "0f84ce000000",
+        "mnemonic": "jz",
+        "text": "jz      loc_54533D",
+        "call_target": null
+      },
+      {
+        "ea": "0x54526f",
+        "size": 2,
+        "bytes": "6a02",
+        "mnemonic": "push",
+        "text": "push    2",
+        "call_target": null
+      },
+      {
+        "ea": "0x545271",
+        "size": 1,
+        "bytes": "58",
+        "mnemonic": "pop",
+        "text": "pop     eax",
+        "call_target": null
+      },
+      {
+        "ea": "0x545272",
+        "size": 5,
+        "bytes": "a3e4620801",
+        "mnemonic": "mov",
+        "text": "mov     dword_10862E4, eax",
+        "call_target": null
+      },
+      {
+        "ea": "0x545277",
+        "size": 3,
+        "bytes": "83f802",
+        "mnemonic": "cmp",
+        "text": "cmp     eax, 2",
+        "call_target": null
+      },
+      {
+        "ea": "0x54527a",
+        "size": 2,
+        "bytes": "7524",
+        "mnemonic": "jnz",
+        "text": "jnz     short loc_5452A0",
+        "call_target": null
+      },
+      {
+        "ea": "0x54527c",
+        "size": 3,
+        "bytes": "8b451c",
+        "mnemonic": "mov",
+        "text": "mov     eax, [ebp+Locale]",
+        "call_target": null
+      },
+      {
+        "ea": "0x54527f",
+        "size": 2,
+        "bytes": "3bc3",
+        "mnemonic": "cmp",
+        "text": "cmp     eax, ebx",
+        "call_target": null
+      },
+      {
+        "ea": "0x545281",
+        "size": 2,
+        "bytes": "7505",
+        "mnemonic": "jnz",
+        "text": "jnz     short loc_545288",
+        "call_target": null
+      },
+      {
+        "ea": "0x545283",
+        "size": 5,
+        "bytes": "a160610801",
+        "mnemonic": "mov",
+        "text": "mov     eax, dword_1086160",
+        "call_target": null
+      },
+      {
+        "ea": "0x545288",
+        "size": 3,
+        "bytes": "ff7514",
+        "mnemonic": "push",
+        "text": "push    [ebp+lpCharType]; lpCharType",
+        "call_target": null
+      },
+      {
+        "ea": "0x54528b",
+        "size": 3,
+        "bytes": "ff7510",
+        "mnemonic": "push",
+        "text": "push    [ebp+cchSrc]; cchSrc",
+        "call_target": null
+      },
+      {
+        "ea": "0x54528e",
+        "size": 3,
+        "bytes": "ff750c",
+        "mnemonic": "push",
+        "text": "push    [ebp+lpSrcStr]; lpSrcStr",
+        "call_target": null
+      },
+      {
+        "ea": "0x545291",
+        "size": 3,
+        "bytes": "ff7508",
+        "mnemonic": "push",
+        "text": "push    [ebp+dwInfoType]; dwInfoType",
+        "call_target": null
+      },
+      {
+        "ea": "0x545294",
+        "size": 1,
+        "bytes": "50",
+        "mnemonic": "push",
+        "text": "push    eax; Locale",
+        "call_target": null
+      },
+      {
+        "ea": "0x545295",
+        "size": 6,
+        "bytes": "ff1544d15400",
+        "mnemonic": "call",
+        "text": "call    ds:GetStringTypeA",
+        "call_target": null
+      },
+      {
+        "ea": "0x54529b",
+        "size": 5,
+        "bytes": "e99f000000",
+        "mnemonic": "jmp",
+        "text": "jmp     loc_54533F",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452a0",
+        "size": 3,
+        "bytes": "83f801",
+        "mnemonic": "cmp",
+        "text": "cmp     eax, 1",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452a3",
+        "size": 6,
+        "bytes": "0f8594000000",
+        "mnemonic": "jnz",
+        "text": "jnz     loc_54533D",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452a9",
+        "size": 3,
+        "bytes": "395d18",
+        "mnemonic": "cmp",
+        "text": "cmp     [ebp+CodePage], ebx",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452ac",
+        "size": 2,
+        "bytes": "7508",
+        "mnemonic": "jnz",
+        "text": "jnz     short loc_5452B6",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452ae",
+        "size": 5,
+        "bytes": "a170610801",
+        "mnemonic": "mov",
+        "text": "mov     eax, CodePage",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452b3",
+        "size": 3,
+        "bytes": "894518",
+        "mnemonic": "mov",
+        "text": "mov     [ebp+CodePage], eax",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452b6",
+        "size": 1,
+        "bytes": "53",
+        "mnemonic": "push",
+        "text": "push    ebx; cchWideChar",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452b7",
+        "size": 1,
+        "bytes": "53",
+        "mnemonic": "push",
+        "text": "push    ebx; lpWideCharStr",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452b8",
+        "size": 3,
+        "bytes": "ff7510",
+        "mnemonic": "push",
+        "text": "push    [ebp+cchSrc]; cbMultiByte",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452bb",
+        "size": 3,
+        "bytes": "ff750c",
+        "mnemonic": "push",
+        "text": "push    [ebp+lpSrcStr]; lpMultiByteStr",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452be",
+        "size": 3,
+        "bytes": "8b4520",
+        "mnemonic": "mov",
+        "text": "mov     eax, [ebp+arg_18]",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452c1",
+        "size": 2,
+        "bytes": "f7d8",
+        "mnemonic": "neg",
+        "text": "neg     eax",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452c3",
+        "size": 2,
+        "bytes": "1bc0",
+        "mnemonic": "sbb",
+        "text": "sbb     eax, eax",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452c5",
+        "size": 3,
+        "bytes": "83e008",
+        "mnemonic": "and",
+        "text": "and     eax, 8",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452c8",
+        "size": 1,
+        "bytes": "40",
+        "mnemonic": "inc",
+        "text": "inc     eax",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452c9",
+        "size": 1,
+        "bytes": "50",
+        "mnemonic": "push",
+        "text": "push    eax; dwFlags",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452ca",
+        "size": 3,
+        "bytes": "ff7518",
+        "mnemonic": "push",
+        "text": "push    [ebp+CodePage]; CodePage",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452cd",
+        "size": 6,
+        "bytes": "ff15dcd05400",
+        "mnemonic": "call",
+        "text": "call    ds:MultiByteToWideChar",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452d3",
+        "size": 3,
+        "bytes": "8945e0",
+        "mnemonic": "mov",
+        "text": "mov     [ebp+cchWideChar], eax",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452d6",
+        "size": 2,
+        "bytes": "3bc3",
+        "mnemonic": "cmp",
+        "text": "cmp     eax, ebx",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452d8",
+        "size": 2,
+        "bytes": "7463",
+        "mnemonic": "jz",
+        "text": "jz      short loc_54533D",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452da",
+        "size": 3,
+        "bytes": "895dfc",
+        "mnemonic": "mov",
+        "text": "mov     [ebp+ms_exc.registration.TryLevel], ebx",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452dd",
+        "size": 3,
+        "bytes": "8d3c00",
+        "mnemonic": "lea",
+        "text": "lea     edi, [eax+eax]",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452e0",
+        "size": 2,
+        "bytes": "8bc7",
+        "mnemonic": "mov",
+        "text": "mov     eax, edi",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452e2",
+        "size": 3,
+        "bytes": "83c003",
+        "mnemonic": "add",
+        "text": "add     eax, 3",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452e5",
+        "size": 2,
+        "bytes": "24fc",
+        "mnemonic": "and",
+        "text": "and     al, 0FCh",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452e7",
+        "size": 5,
+        "bytes": "e8d46affff",
+        "mnemonic": "call",
+        "text": "call    __alloca_probe",
+        "call_target": "0x53bdc0"
+      },
+      {
+        "ea": "0x5452ec",
+        "size": 3,
+        "bytes": "8965e8",
+        "mnemonic": "mov",
+        "text": "mov     [ebp+ms_exc.old_esp], esp",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452ef",
+        "size": 2,
+        "bytes": "8bf4",
+        "mnemonic": "mov",
+        "text": "mov     esi, esp",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452f1",
+        "size": 3,
+        "bytes": "8975dc",
+        "mnemonic": "mov",
+        "text": "mov     [ebp+var_24], esi",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452f4",
+        "size": 1,
+        "bytes": "57",
+        "mnemonic": "push",
+        "text": "push    edi; Size",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452f5",
+        "size": 1,
+        "bytes": "53",
+        "mnemonic": "push",
+        "text": "push    ebx; Val",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452f6",
+        "size": 1,
+        "bytes": "56",
+        "mnemonic": "push",
+        "text": "push    esi; void *",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452f7",
+        "size": 5,
+        "bytes": "e8d4c6ffff",
+        "mnemonic": "call",
+        "text": "call    _memset",
+        "call_target": "0x5419d0"
+      },
+      {
+        "ea": "0x5452fc",
+        "size": 3,
+        "bytes": "83c40c",
+        "mnemonic": "add",
+        "text": "add     esp, 0Ch",
+        "call_target": null
+      },
+      {
+        "ea": "0x5452ff",
+        "size": 2,
+        "bytes": "eb0b",
+        "mnemonic": "jmp",
+        "text": "jmp     short loc_54530C",
+        "call_target": null
+      },
+      {
+        "ea": "0x545301",
+        "size": 2,
+        "bytes": "6a01",
+        "mnemonic": "push",
+        "text": "push    1",
+        "call_target": null
+      },
+      {
+        "ea": "0x545303",
+        "size": 1,
+        "bytes": "58",
+        "mnemonic": "pop",
+        "text": "pop     eax",
+        "call_target": null
+      },
+      {
+        "ea": "0x545304",
+        "size": 1,
+        "bytes": "c3",
+        "mnemonic": "retn",
+        "text": "retn",
+        "call_target": null
+      },
+      {
+        "ea": "0x545305",
+        "size": 3,
+        "bytes": "8b65e8",
+        "mnemonic": "mov",
+        "text": "mov     esp, [ebp+ms_exc.old_esp]",
+        "call_target": null
+      },
+      {
+        "ea": "0x545308",
+        "size": 2,
+        "bytes": "33db",
+        "mnemonic": "xor",
+        "text": "xor     ebx, ebx",
+        "call_target": null
+      },
+      {
+        "ea": "0x54530a",
+        "size": 2,
+        "bytes": "33f6",
+        "mnemonic": "xor",
+        "text": "xor     esi, esi",
+        "call_target": null
+      },
+      {
+        "ea": "0x54530c",
+        "size": 4,
+        "bytes": "834dfcff",
+        "mnemonic": "or",
+        "text": "or      [ebp+ms_exc.registration.TryLevel], 0FFFFFFFFh",
+        "call_target": null
+      },
+      {
+        "ea": "0x545310",
+        "size": 2,
+        "bytes": "3bf3",
+        "mnemonic": "cmp",
+        "text": "cmp     esi, ebx",
+        "call_target": null
+      },
+      {
+        "ea": "0x545312",
+        "size": 2,
+        "bytes": "7429",
+        "mnemonic": "jz",
+        "text": "jz      short loc_54533D",
+        "call_target": null
+      },
+      {
+        "ea": "0x545314",
+        "size": 3,
+        "bytes": "ff75e0",
+        "mnemonic": "push",
+        "text": "push    [ebp+cchWideChar]; cchWideChar",
+        "call_target": null
+      },
+      {
+        "ea": "0x545317",
+        "size": 1,
+        "bytes": "56",
+        "mnemonic": "push",
+        "text": "push    esi; lpWideCharStr",
+        "call_target": null
+      },
+      {
+        "ea": "0x545318",
+        "size": 3,
+        "bytes": "ff7510",
+        "mnemonic": "push",
+        "text": "push    [ebp+cchSrc]; cbMultiByte",
+        "call_target": null
+      },
+      {
+        "ea": "0x54531b",
+        "size": 3,
+        "bytes": "ff750c",
+        "mnemonic": "push",
+        "text": "push    [ebp+lpSrcStr]; lpMultiByteStr",
+        "call_target": null
+      },
+      {
+        "ea": "0x54531e",
+        "size": 2,
+        "bytes": "6a01",
+        "mnemonic": "push",
+        "text": "push    1; dwFlags",
+        "call_target": null
+      },
+      {
+        "ea": "0x545320",
+        "size": 3,
+        "bytes": "ff7518",
+        "mnemonic": "push",
+        "text": "push    [ebp+CodePage]; CodePage",
+        "call_target": null
+      },
+      {
+        "ea": "0x545323",
+        "size": 6,
+        "bytes": "ff15dcd05400",
+        "mnemonic": "call",
+        "text": "call    ds:MultiByteToWideChar",
+        "call_target": null
+      },
+      {
+        "ea": "0x545329",
+        "size": 2,
+        "bytes": "3bc3",
+        "mnemonic": "cmp",
+        "text": "cmp     eax, ebx",
+        "call_target": null
+      },
+      {
+        "ea": "0x54532b",
+        "size": 2,
+        "bytes": "7410",
+        "mnemonic": "jz",
+        "text": "jz      short loc_54533D",
+        "call_target": null
+      },
+      {
+        "ea": "0x54532d",
+        "size": 3,
+        "bytes": "ff7514",
+        "mnemonic": "push",
+        "text": "push    [ebp+lpCharType]; lpCharType",
+        "call_target": null
+      },
+      {
+        "ea": "0x545330",
+        "size": 1,
+        "bytes": "50",
+        "mnemonic": "push",
+        "text": "push    eax; cchSrc",
+        "call_target": null
+      },
+      {
+        "ea": "0x545331",
+        "size": 1,
+        "bytes": "56",
+        "mnemonic": "push",
+        "text": "push    esi; lpSrcStr",
+        "call_target": null
+      },
+      {
+        "ea": "0x545332",
+        "size": 3,
+        "bytes": "ff7508",
+        "mnemonic": "push",
+        "text": "push    [ebp+dwInfoType]; dwInfoType",
+        "call_target": null
+      },
+      {
+        "ea": "0x545335",
+        "size": 6,
+        "bytes": "ff1540d15400",
+        "mnemonic": "call",
+        "text": "call    ds:GetStringTypeW",
+        "call_target": null
+      },
+      {
+        "ea": "0x54533b",
+        "size": 2,
+        "bytes": "eb02",
+        "mnemonic": "jmp",
+        "text": "jmp     short loc_54533F",
+        "call_target": null
+      },
+      {
+        "ea": "0x54533d",
+        "size": 2,
+        "bytes": "33c0",
+        "mnemonic": "xor",
+        "text": "xor     eax, eax",
+        "call_target": null
+      },
+      {
+        "ea": "0x54533f",
+        "size": 3,
+        "bytes": "8d65cc",
+        "mnemonic": "lea",
+        "text": "lea     esp, [ebp-34h]",
+        "call_target": null
+      },
+      {
+        "ea": "0x545342",
+        "size": 3,
+        "bytes": "8b4df0",
+        "mnemonic": "mov",
+        "text": "mov     ecx, [ebp+ms_exc.registration.Next]",
+        "call_target": null
+      },
+      {
+        "ea": "0x545345",
+        "size": 7,
+        "bytes": "64890d00000000",
+        "mnemonic": "mov",
+        "text": "mov     large fs:0, ecx",
+        "call_target": null
+      },
+      {
+        "ea": "0x54534c",
+        "size": 1,
+        "bytes": "5f",
+        "mnemonic": "pop",
+        "text": "pop     edi",
+        "call_target": null
+      },
+      {
+        "ea": "0x54534d",
+        "size": 1,
+        "bytes": "5e",
+        "mnemonic": "pop",
+        "text": "pop     esi",
+        "call_target": null
+      },
+      {
+        "ea": "0x54534e",
+        "size": 1,
+        "bytes": "5b",
+        "mnemonic": "pop",
+        "text": "pop     ebx",
+        "call_target": null
+      },
+      {
+        "ea": "0x54534f",
+        "size": 1,
+        "bytes": "c9",
+        "mnemonic": "leave",
+        "text": "leave",
+        "call_target": null
+      },
+      {
+        "ea": "0x545350",
+        "size": 1,
+        "bytes": "c3",
+        "mnemonic": "retn",
+        "text": "retn",
+        "call_target": null
+      }
+    ],
+    "page_count": 2,
+    "code_bytes": 329
+  },
+  "original_callsite_windows": [
+    {
+      "call_site": "0x5419b3",
+      "root": "0x541955",
+      "start": "0x541987",
+      "end_exclusive": "0x5419c1",
+      "instructions": [
+        {
+          "ea": "0x541987",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "ops": [
+            {
+              "type": 1,
+              "reg": 6,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x541988",
+          "size": 2,
+          "bytes": "740e",
+          "mnemonic": "jz",
+          "text": "jz      short loc_541998",
+          "ops": [
+            {
+              "type": 7,
+              "reg": 0,
+              "dtype": 0,
+              "addr": "0x541998",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x54198a",
+          "size": 4,
+          "bytes": "8065fe00",
+          "mnemonic": "and",
+          "text": "and     [ebp+var_2], 0",
+          "ops": [
+            {
+              "type": 4,
+              "reg": 5,
+              "dtype": 0,
+              "addr": "0xfffffffffffffffe",
+              "value": "0x0"
+            },
+            {
+              "type": 5,
+              "reg": 0,
+              "dtype": 0,
+              "addr": "0x0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x54198e",
+          "size": 3,
+          "bytes": "884dfc",
+          "mnemonic": "mov",
+          "text": "mov     [ebp+SrcStr], cl",
+          "ops": [
+            {
+              "type": 4,
+              "reg": 5,
+              "dtype": 0,
+              "addr": "0xfffffffffffffffc",
+              "value": "0x0"
+            },
+            {
+              "type": 1,
+              "reg": 17,
+              "dtype": 0,
+              "addr": "0x0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x541991",
+          "size": 3,
+          "bytes": "8845fd",
+          "mnemonic": "mov",
+          "text": "mov     [ebp+var_3], al",
+          "ops": [
+            {
+              "type": 4,
+              "reg": 5,
+              "dtype": 0,
+              "addr": "0xfffffffffffffffd",
+              "value": "0x0"
+            },
+            {
+              "type": 1,
+              "reg": 16,
+              "dtype": 0,
+              "addr": "0x0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x541994",
+          "size": 2,
+          "bytes": "6a02",
+          "mnemonic": "push",
+          "text": "push    2",
+          "ops": [
+            {
+              "type": 5,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x2"
+            }
+          ]
+        },
+        {
+          "ea": "0x541996",
+          "size": 2,
+          "bytes": "eb09",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_5419A1",
+          "ops": [
+            {
+              "type": 7,
+              "reg": 0,
+              "dtype": 0,
+              "addr": "0x5419a1",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x541998",
+          "size": 4,
+          "bytes": "8065fd00",
+          "mnemonic": "and",
+          "text": "and     [ebp+var_3], 0",
+          "ops": [
+            {
+              "type": 4,
+              "reg": 5,
+              "dtype": 0,
+              "addr": "0xfffffffffffffffd",
+              "value": "0x0"
+            },
+            {
+              "type": 5,
+              "reg": 0,
+              "dtype": 0,
+              "addr": "0x0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x54199c",
+          "size": 3,
+          "bytes": "8845fc",
+          "mnemonic": "mov",
+          "text": "mov     [ebp+SrcStr], al",
+          "ops": [
+            {
+              "type": 4,
+              "reg": 5,
+              "dtype": 0,
+              "addr": "0xfffffffffffffffc",
+              "value": "0x0"
+            },
+            {
+              "type": 1,
+              "reg": 16,
+              "dtype": 0,
+              "addr": "0x0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x54199f",
+          "size": 2,
+          "bytes": "6a01",
+          "mnemonic": "push",
+          "text": "push    1",
+          "ops": [
+            {
+              "type": 5,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x1"
+            }
+          ]
+        },
+        {
+          "ea": "0x5419a1",
+          "size": 1,
+          "bytes": "58",
+          "mnemonic": "pop",
+          "text": "pop     eax",
+          "ops": [
+            {
+              "type": 1,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x5419a2",
+          "size": 3,
+          "bytes": "8d4d0a",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [ebp+C+2]",
+          "ops": [
+            {
+              "type": 1,
+              "reg": 1,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            },
+            {
+              "type": 4,
+              "reg": 5,
+              "dtype": 2,
+              "addr": "0xa",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x5419a5",
+          "size": 2,
+          "bytes": "6a01",
+          "mnemonic": "push",
+          "text": "push    1; int",
+          "ops": [
+            {
+              "type": 5,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x1"
+            }
+          ]
+        },
+        {
+          "ea": "0x5419a7",
+          "size": 2,
+          "bytes": "6a00",
+          "mnemonic": "push",
+          "text": "push    0; Locale",
+          "ops": [
+            {
+              "type": 5,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x5419a9",
+          "size": 2,
+          "bytes": "6a00",
+          "mnemonic": "push",
+          "text": "push    0; CodePage",
+          "ops": [
+            {
+              "type": 5,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x5419ab",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx; lpCharType",
+          "ops": [
+            {
+              "type": 1,
+              "reg": 1,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x5419ac",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; cchSrc",
+          "ops": [
+            {
+              "type": 1,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x5419ad",
+          "size": 3,
+          "bytes": "8d45fc",
+          "mnemonic": "lea",
+          "text": "lea     eax, [ebp+SrcStr]",
+          "ops": [
+            {
+              "type": 1,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            },
+            {
+              "type": 4,
+              "reg": 5,
+              "dtype": 2,
+              "addr": "0xfffffffffffffffc",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x5419b0",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; lpSrcStr",
+          "ops": [
+            {
+              "type": 1,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x5419b1",
+          "size": 2,
+          "bytes": "6a01",
+          "mnemonic": "push",
+          "text": "push    1; dwInfoType",
+          "ops": [
+            {
+              "type": 5,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x1"
+            }
+          ]
+        },
+        {
+          "ea": "0x5419b3",
+          "size": 5,
+          "bytes": "e850380000",
+          "mnemonic": "call",
+          "text": "call    ___crtGetStringTypeA",
+          "ops": [
+            {
+              "type": 7,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x545208",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x5419b8",
+          "size": 3,
+          "bytes": "83c41c",
+          "mnemonic": "add",
+          "text": "add     esp, 1Ch",
+          "ops": [
+            {
+              "type": 1,
+              "reg": 4,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            },
+            {
+              "type": 5,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x1c"
+            }
+          ]
+        },
+        {
+          "ea": "0x5419bb",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "ops": [
+            {
+              "type": 1,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            },
+            {
+              "type": 1,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x5419bd",
+          "size": 2,
+          "bytes": "7502",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_5419C1",
+          "ops": [
+            {
+              "type": 7,
+              "reg": 0,
+              "dtype": 0,
+              "addr": "0x5419c1",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x5419bf",
+          "size": 1,
+          "bytes": "c9",
+          "mnemonic": "leave",
+          "text": "leave",
+          "ops": []
+        },
+        {
+          "ea": "0x5419c0",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "ops": []
+        }
+      ]
+    },
+    {
+      "call_site": "0x546bc3",
+      "root": "0x546b29",
+      "start": "0x546ba2",
+      "end_exclusive": "0x546bca",
+      "instructions": [
+        {
+          "ea": "0x546ba2",
+          "size": 1,
+          "bytes": "5f",
+          "mnemonic": "pop",
+          "text": "pop     edi",
+          "ops": [
+            {
+              "type": 1,
+              "reg": 7,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x546ba3",
+          "size": 1,
+          "bytes": "5b",
+          "mnemonic": "pop",
+          "text": "pop     ebx",
+          "ops": [
+            {
+              "type": 1,
+              "reg": 3,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x546ba4",
+          "size": 2,
+          "bytes": "6a00",
+          "mnemonic": "push",
+          "text": "push    0; int",
+          "ops": [
+            {
+              "type": 5,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x546ba6",
+          "size": 6,
+          "bytes": "8d85ecfaffff",
+          "mnemonic": "lea",
+          "text": "lea     eax, [ebp+CharType]",
+          "ops": [
+            {
+              "type": 1,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            },
+            {
+              "type": 4,
+              "reg": 5,
+              "dtype": 2,
+              "addr": "0xfffffffffffffaec",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x546bac",
+          "size": 6,
+          "bytes": "ff3584690801",
+          "mnemonic": "push",
+          "text": "push    Locale; Locale",
+          "ops": [
+            {
+              "type": 2,
+              "reg": 5,
+              "dtype": 2,
+              "addr": "0x1086984",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x546bb2",
+          "size": 6,
+          "bytes": "ff3564670801",
+          "mnemonic": "push",
+          "text": "push    dword_1086764; CodePage",
+          "ops": [
+            {
+              "type": 2,
+              "reg": 5,
+              "dtype": 2,
+              "addr": "0x1086764",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x546bb8",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; lpCharType",
+          "ops": [
+            {
+              "type": 1,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x546bb9",
+          "size": 6,
+          "bytes": "8d85ecfeffff",
+          "mnemonic": "lea",
+          "text": "lea     eax, [ebp+SrcStr]",
+          "ops": [
+            {
+              "type": 1,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            },
+            {
+              "type": 4,
+              "reg": 5,
+              "dtype": 2,
+              "addr": "0xfffffffffffffeec",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x546bbf",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi; cchSrc",
+          "ops": [
+            {
+              "type": 1,
+              "reg": 6,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x546bc0",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; lpSrcStr",
+          "ops": [
+            {
+              "type": 1,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x546bc1",
+          "size": 2,
+          "bytes": "6a01",
+          "mnemonic": "push",
+          "text": "push    1; dwInfoType",
+          "ops": [
+            {
+              "type": 5,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x1"
+            }
+          ]
+        },
+        {
+          "ea": "0x546bc3",
+          "size": 5,
+          "bytes": "e840e6ffff",
+          "mnemonic": "call",
+          "text": "call    ___crtGetStringTypeA",
+          "ops": [
+            {
+              "type": 7,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x545208",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x546bc8",
+          "size": 2,
+          "bytes": "6a00",
+          "mnemonic": "push",
+          "text": "push    0; int",
+          "ops": [
+            {
+              "type": 5,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "original_scope_table": {
+    "ea": "0x54fe70",
+    "bytes": "ffffffff0153540005535400",
+    "words": [
+      "0xffffffff",
+      "0x545301",
+      "0x545305"
+    ]
+  },
+  "original_unassigned_range": {
+    "id": "X:00145351-00145360",
+    "start": "0x545351",
+    "end_exclusive": "0x545360",
+    "size": 15,
+    "bytes": "cccccccccccccccccccccccccccccc",
+    "previous": {
+      "ea": "0x545350",
+      "function": "0x545208",
+      "function_end": "0x545351",
+      "text": "retn"
+    },
+    "next": {
+      "ea": "0x545360",
+      "text": "fld     [esp+arg_C]"
+    },
+    "refs": [],
+    "classification": "alignment_padding",
+    "source_path": "src/platform/LegacyMultibyte.cpp",
+    "source_symbols": [
+      "GetLegacyStringTypes_545208"
+    ],
+    "reason": "原完整15CC处分类入口RET末界至545360真实除法入口前，无已知入向；仅对齐用途，不生成空入口或代前后完整链验收。"
+  },
+  "original_totals": {
+    "instructions": 123,
+    "code_bytes": 329,
+    "page_count": 2,
+    "calls": 8,
+    "direct_calls": 2,
+    "import_calls": 6,
+    "jumps": 14,
+    "returns": 2,
+    "callsite_window_instructions": 39,
+    "callsite_window_bytes": 98,
+    "CC_bytes": 15,
+    "new_R7_count": 1
+  },
+  "source_function": {
+    "index": 341,
+    "id": "F:00145208",
+    "symbol": "GetLegacyStringTypes_545208",
+    "fixed_wrapper": "GetLegacyCharacterTypes_545208",
+    "contract": "完整七参数infoType原值/S32长度直接传API、分类专用共享后端与CP-locale回退、严格查询1或9/实际1、实际转换数量/W32返回；原SEH内W32字节数/对齐栈请求及原填充数/filter1置空，原固定info1两caller保持。"
+  },
+  "source_transformations": [
+    {
+      "path": "cg2d_re/src/platform/LegacyMultibyte.cpp",
+      "patches": [
+        {
+          "before": "// 原545208：infoType=1；表生产用256/false，541955字符分类用1或2/true。\nint GetLegacyCharacterTypes_545208(const char* const source, const std::int32_t sourceCount,\n    std::uint16_t* const types, std::uint32_t codePage, std::uint32_t locale,\n    const bool strict)\n{\n    std::uint32_t backend = gLegacyMultibyteTypeBackend10862E4;\n    if (backend == 0) {\n        WORD probe;\n        if (::GetStringTypeW(CT_CTYPE1, L\"\", 1, &probe) != 0) {\n            backend = 1;\n        } else {\n            if (::GetStringTypeA(0, CT_CTYPE1, &gNlsProbeD68A7C, 1, &probe) == 0) {\n                return 0;\n            }\n            backend = 2;\n        }\n        gLegacyMultibyteTypeBackend10862E4 = backend;\n    }\n    if (backend == 2) {\n        if (locale == 0) {\n            locale = gLegacyTextLocale1086160.ctypeLocale;\n        }\n        return ::GetStringTypeA(locale, CT_CTYPE1, source, sourceCount, types);\n    }\n    if (backend != 1) {\n        return 0;\n    }\n    if (codePage == 0) {\n        codePage = gConversionCodePage_1086170;\n    }\n    const int wideCount = ::MultiByteToWideChar(\n        codePage, MB_PRECOMPOSED | (strict ? MB_ERR_INVALID_CHARS : 0),\n        source, sourceCount, nullptr, 0);\n    if (wideCount == 0) {\n        return 0;\n    }\n    wchar_t* wide;\n    __try {\n        wide = static_cast<wchar_t*>(_alloca(sizeof(wchar_t) * wideCount));\n        static_cast<void>(FillLegacyMemory_5419D0(wide, 0,\n            static_cast<std::uint32_t>(sizeof(wchar_t) * wideCount)));\n    } __except (EXCEPTION_EXECUTE_HANDLER) {\n        wide = nullptr;\n    }\n    if (wide == nullptr) {\n        return 0;\n    }\n    const int converted = ::MultiByteToWideChar(\n        codePage, MB_PRECOMPOSED, source, sourceCount, wide, wideCount);\n    return converted == 0 ? 0 : ::GetStringTypeW(CT_CTYPE1, wide, converted, types);\n}\n",
+          "after": "// 原545208完整七参数分类；原S32长度/实际infoType及W32申请-填充/SEH见通用分类SPEC。\nstd::int32_t GetLegacyStringTypes_545208(const std::uint32_t infoType,\n    const char* const source, const std::int32_t sourceCount,\n    std::uint16_t* const types, std::uint32_t codePage, std::uint32_t locale,\n    const std::int32_t strict)\n{\n    std::uint32_t backend = gLegacyMultibyteTypeBackend10862E4;\n    if (backend == 0) {\n        WORD probe;\n        if (::GetStringTypeW(CT_CTYPE1, L\"\", 1, &probe) != 0) {\n            backend = 1;\n        } else {\n            if (::GetStringTypeA(0, CT_CTYPE1, &gNlsProbeD68A7C, 1, &probe) == 0) {\n                return 0;\n            }\n            backend = 2;\n        }\n        gLegacyMultibyteTypeBackend10862E4 = backend;\n    }\n    if (backend == 2) {\n        if (locale == 0) {\n            locale = gLegacyTextLocale1086160.ctypeLocale;\n        }\n        return ::GetStringTypeA(locale, infoType, source, sourceCount, types);\n    }\n    if (backend != 1) {\n        return 0;\n    }\n    if (codePage == 0) {\n        codePage = gConversionCodePage_1086170;\n    }\n    const int wideCount = ::MultiByteToWideChar(\n        codePage, MB_PRECOMPOSED | (strict != 0 ? MB_ERR_INVALID_CHARS : 0),\n        source, sourceCount, nullptr, 0);\n    if (wideCount == 0) {\n        return 0;\n    }\n    wchar_t* wide;\n    __try {\n        // 原申请按4B对齐，原填充只接count*2低W32；两种数量不能混用。\n        const std::uint32_t wideBytes = static_cast<std::uint32_t>(wideCount) * 2u;\n        const std::uint32_t allocationBytes = (wideBytes + 3u) & ~3u;\n        wide = static_cast<wchar_t*>(_alloca(allocationBytes));\n        static_cast<void>(FillLegacyMemory_5419D0(wide, 0, wideBytes));\n    } __except (EXCEPTION_EXECUTE_HANDLER) {\n        wide = nullptr;\n    }\n    if (wide == nullptr) {\n        return 0;\n    }\n    const int converted = ::MultiByteToWideChar(\n        codePage, MB_PRECOMPOSED, source, sourceCount, wide, wideCount);\n    return converted == 0 ? 0 : ::GetStringTypeW(infoType, wide, converted, types);\n}\n\n// 原541955/546B29两个info1域转同一完整体，调用参数/返回消费保持。\nint GetLegacyCharacterTypes_545208(const char* const source, const std::int32_t sourceCount,\n    std::uint16_t* const types, const std::uint32_t codePage, const std::uint32_t locale,\n    const bool strict)\n{\n    return GetLegacyStringTypes_545208(\n        CT_CTYPE1, source, sourceCount, types, codePage, locale, strict ? 1 : 0);\n}\n"
+        }
+      ]
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyMultibyte.hpp",
+      "patches": [
+        {
+          "before": "// 原545208的CT_CTYPE1调用域；复用共享A/W后端，types按实际字符数写出。\nstd::int32_t GetLegacyCharacterTypes_545208(const char* source, std::int32_t sourceCount,\n    std::uint16_t* types, std::uint32_t codePage, std::uint32_t locale, bool strict);\n",
+          "after": "// 原545208完整七参数；数值原W32/S32，源及W16分类目标仅借用。\nstd::int32_t GetLegacyStringTypes_545208(std::uint32_t infoType,\n    const char* source, std::int32_t sourceCount, std::uint16_t* types,\n    std::uint32_t codePage, std::uint32_t locale, std::int32_t strict);\n\n// 原CT_CTYPE1调用域转完整体；541955/546B29仍用原参数/实际字符数写出。\nstd::int32_t GetLegacyCharacterTypes_545208(const char* source, std::int32_t sourceCount,\n    std::uint16_t* types, std::uint32_t codePage, std::uint32_t locale, bool strict);\n"
+        }
+      ]
+    }
+  ],
+  "source_bodies": {
+    "general": "// 原545208完整七参数分类；原S32长度/实际infoType及W32申请-填充/SEH见通用分类SPEC。\nstd::int32_t GetLegacyStringTypes_545208(const std::uint32_t infoType,\n    const char* const source, const std::int32_t sourceCount,\n    std::uint16_t* const types, std::uint32_t codePage, std::uint32_t locale,\n    const std::int32_t strict)\n{\n    std::uint32_t backend = gLegacyMultibyteTypeBackend10862E4;\n    if (backend == 0) {\n        WORD probe;\n        if (::GetStringTypeW(CT_CTYPE1, L\"\", 1, &probe) != 0) {\n            backend = 1;\n        } else {\n            if (::GetStringTypeA(0, CT_CTYPE1, &gNlsProbeD68A7C, 1, &probe) == 0) {\n                return 0;\n            }\n            backend = 2;\n        }\n        gLegacyMultibyteTypeBackend10862E4 = backend;\n    }\n    if (backend == 2) {\n        if (locale == 0) {\n            locale = gLegacyTextLocale1086160.ctypeLocale;\n        }\n        return ::GetStringTypeA(locale, infoType, source, sourceCount, types);\n    }\n    if (backend != 1) {\n        return 0;\n    }\n    if (codePage == 0) {\n        codePage = gConversionCodePage_1086170;\n    }\n    const int wideCount = ::MultiByteToWideChar(\n        codePage, MB_PRECOMPOSED | (strict != 0 ? MB_ERR_INVALID_CHARS : 0),\n        source, sourceCount, nullptr, 0);\n    if (wideCount == 0) {\n        return 0;\n    }\n    wchar_t* wide;\n    __try {\n        // 原申请按4B对齐，原填充只接count*2低W32；两种数量不能混用。\n        const std::uint32_t wideBytes = static_cast<std::uint32_t>(wideCount) * 2u;\n        const std::uint32_t allocationBytes = (wideBytes + 3u) & ~3u;\n        wide = static_cast<wchar_t*>(_alloca(allocationBytes));\n        static_cast<void>(FillLegacyMemory_5419D0(wide, 0, wideBytes));\n    } __except (EXCEPTION_EXECUTE_HANDLER) {\n        wide = nullptr;\n    }\n    if (wide == nullptr) {\n        return 0;\n    }\n    const int converted = ::MultiByteToWideChar(\n        codePage, MB_PRECOMPOSED, source, sourceCount, wide, wideCount);\n    return converted == 0 ? 0 : ::GetStringTypeW(infoType, wide, converted, types);\n}\n",
+    "fixed_wrapper": "\n// 原541955/546B29两个info1域转同一完整体，调用参数/返回消费保持。\nint GetLegacyCharacterTypes_545208(const char* const source, const std::int32_t sourceCount,\n    std::uint16_t* const types, const std::uint32_t codePage, const std::uint32_t locale,\n    const bool strict)\n{\n    return GetLegacyStringTypes_545208(\n        CT_CTYPE1, source, sourceCount, types, codePage, locale, strict ? 1 : 0);\n}\n"
+  },
+  "source_contracts": {
+    "original_infoType_value_not_fixed_CT_CTYPE1": true,
+    "only_probe_and_fixed_wrapper_CT_CTYPE1": true,
+    "original_source_count_not_shortened": true,
+    "original_W32_strict_nonzero_preserved": true,
+    "original_allocation_and_fill_counts_distinct": true,
+    "U32_allocation_request": "(static_cast<uint32_t>(wideCount)*2u+3u)&~3u",
+    "U32_fill_count": "static_cast<uint32_t>(wideCount)*2u",
+    "both_calculated_inside_original_SEH": true
+  },
+  "artifacts": [
+    "doc/cg2d_nls_type_general_evidence.json",
+    "doc/cg2d_nls_type_general_spec.md",
+    "doc/cg2d_legacy_multibyte.md",
+    "src/platform/LegacyMultibyte.cpp",
+    "src/platform/LegacyMultibyte.hpp",
+    "doc/cg2d_nls_type_general_spec.md#nls-type-general-baseline",
+    "doc/cg2d_nls_type_general_spec.md#nls-type-general-decision",
+    "doc/cg2d_nls_type_general_spec.md#nls-type-general-acceptance",
+    "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state"
+  ],
+  "static_limits": {
+    "source_file_count": 2,
+    "source_patch_count": 2,
+    "new_CPP_body_count": 1,
+    "new_CPP_declaration_count": 1,
+    "new_ASM_body_count": 0,
+    "new_private_C_bridge_count": 0,
+    "new_shared_owner_count": 0,
+    "new_original_semantic_identity_count": 0,
+    "new_function_disposition_count": 1,
+    "new_CRT_member_count": 1,
+    "new_R7_classification_count": 1,
+    "new_dependency_count": 0,
+    "new_source_file_count": 0,
+    "numeric_width_changed": false,
+    "caller_input_domain_changed": false,
+    "new_guard_sentinel_default_value_added": false,
+    "old_virtual_stack_simulated": false,
+    "new_fault_sample_or_gate_added": false,
+    "full_indirect_callers_verified": false,
+    "full_CRT_member_inventory_closed": false,
+    "full_SEH_private_chain_closed": false,
+    "full_lifecycle_closed": false,
+    "runtime_verified": false,
+    "system_NLS_API_verified": false,
+    "compilation_verified": false,
+    "linking_verified": false,
+    "machine_abi_verified": false,
+    "machine_unwind_verified": false,
+    "fault_equivalence_claimed": false,
+    "wire_format_changed": false,
+    "encryption_added": false,
+    "audio_pause_kept": true
+  },
+  "source_states": [
+    {
+      "path": "cg2d_re/src/platform/LegacyMultibyte.cpp",
+      "before": "#include \"LegacyMultibyte.hpp\"\n\n#include \"LegacyStringCompareState.hpp\"\n#include \"cg/platform/LegacyTime.hpp\"\n#include \"cg/platform/LegacyMemory.hpp\"\n#include \"cg/platform/LegacyStringCompare.hpp\"\n\n#include <bit>\n#include <cstring>\n#include <malloc.h>\n\n#ifndef WIN32_LEAN_AND_MEAN\n#define WIN32_LEAN_AND_MEAN\n#endif\n#ifndef NOMINMAX\n#define NOMINMAX\n#endif\n#include <Windows.h>\n\nnamespace cg::platform {\n\nstatic_assert(sizeof(wchar_t) == 2);\n\n// 原58FE3C已加载S32初值1；不是多字节代码页对象108677C的标志。\nstd::int32_t gLegacyCtypeMaxBytes58FE3C = 1;\n\nLegacyMultibyteStorage gLegacyMultibyte1086764 {};\n\nstd::uint32_t gLegacyMultibyteTypeBackend10862E4 = 0;\nstd::uint32_t gLegacyMultibyteSystemCodePage10862E8 = 0;\nstd::uint32_t gLegacyMultibyteInitGuard1087AEC = 0;\n\nnamespace {\n\n// 原5923F0的五个48B记录；参数按原三个W32保存，不解释为指针。\nstruct MultibyteCodePageDefinition {\n    std::uint32_t codePage;\n    std::uint32_t parameters[3];\n    std::uint8_t ranges[4][8];\n};\nstatic_assert(sizeof(MultibyteCodePageDefinition) == 48);\n\nconstexpr MultibyteCodePageDefinition kMultibyteCodePages5923F0[] {\n    {932, {0x82798260u, 0x21u, 0x0u},\n        {{0xA6, 0xDF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0xA1, 0xA5, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0x81, 0x9F, 0xE0, 0xFC, 0x00, 0x00, 0x00, 0x00},\n         {0x40, 0x7E, 0x80, 0xFC, 0x00, 0x00, 0x00, 0x00}}},\n    {936, {0xA3DAA3C1u, 0x20u, 0x0u},\n        {{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0x81, 0xFE, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0x40, 0xFE, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}}},\n    {949, {0xA3DAA3C1u, 0x20u, 0x0u},\n        {{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0x81, 0xFE, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0x41, 0xFE, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}}},\n    {950, {0xA2E4A2CFu, 0xA2E5001Au, 0x5BA2E8u},\n        {{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0x81, 0xFE, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0x40, 0x7E, 0xA1, 0xFE, 0x00, 0x00, 0x00, 0x00}}},\n    {1361, {0xDA5EDA51u, 0xDA5F0020u, 0x32DA6Au},\n        {{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0x81, 0xD3, 0xD8, 0xDE, 0xE0, 0xF9, 0x00, 0x00},\n         {0x31, 0x7E, 0x81, 0xFE, 0x00, 0x00, 0x00, 0x00}}}\n};\nconstexpr std::uint8_t kMultibyteRangeMasks5923E8[] {1, 2, 4, 8};\n\n} // namespace\n\n// 原545208：infoType=1；表生产用256/false，541955字符分类用1或2/true。\nint GetLegacyCharacterTypes_545208(const char* const source, const std::int32_t sourceCount,\n    std::uint16_t* const types, std::uint32_t codePage, std::uint32_t locale,\n    const bool strict)\n{\n    std::uint32_t backend = gLegacyMultibyteTypeBackend10862E4;\n    if (backend == 0) {\n        WORD probe;\n        if (::GetStringTypeW(CT_CTYPE1, L\"\", 1, &probe) != 0) {\n            backend = 1;\n        } else {\n            if (::GetStringTypeA(0, CT_CTYPE1, &gNlsProbeD68A7C, 1, &probe) == 0) {\n                return 0;\n            }\n            backend = 2;\n        }\n        gLegacyMultibyteTypeBackend10862E4 = backend;\n    }\n    if (backend == 2) {\n        if (locale == 0) {\n            locale = gLegacyTextLocale1086160.ctypeLocale;\n        }\n        return ::GetStringTypeA(locale, CT_CTYPE1, source, sourceCount, types);\n    }\n    if (backend != 1) {\n        return 0;\n    }\n    if (codePage == 0) {\n        codePage = gConversionCodePage_1086170;\n    }\n    const int wideCount = ::MultiByteToWideChar(\n        codePage, MB_PRECOMPOSED | (strict ? MB_ERR_INVALID_CHARS : 0),\n        source, sourceCount, nullptr, 0);\n    if (wideCount == 0) {\n        return 0;\n    }\n    wchar_t* wide;\n    __try {\n        wide = static_cast<wchar_t*>(_alloca(sizeof(wchar_t) * wideCount));\n        static_cast<void>(FillLegacyMemory_5419D0(wide, 0,\n            static_cast<std::uint32_t>(sizeof(wchar_t) * wideCount)));\n    } __except (EXCEPTION_EXECUTE_HANDLER) {\n        wide = nullptr;\n    }\n    if (wide == nullptr) {\n        return 0;\n    }\n    const int converted = ::MultiByteToWideChar(\n        codePage, MB_PRECOMPOSED, source, sourceCount, wide, wideCount);\n    return converted == 0 ? 0 : ::GetStringTypeW(CT_CTYPE1, wide, converted, types);\n}\n\n// 原541955：-1..255直接查表；其余输入按原高字节lead位构造NLS源。\nstd::uint32_t ClassifyLegacyCharacter_541955(\n    const std::int32_t value, const std::uint32_t mask)\n{\n    if (static_cast<std::uint32_t>(value) + 1u <= 256u) {\n        return gCtypePointer58FC30[value] & mask;\n    }\n    const auto highByte = static_cast<std::uint8_t>(\n        static_cast<std::uint32_t>(value) >> 8);\n    const auto lowByte = static_cast<std::uint8_t>(value);\n    char source[3];\n    int sourceSize;\n    if ((gCtypePointer58FC30[highByte] & 0x8000u) != 0) {\n        source[0] = std::bit_cast<char>(highByte);\n        source[1] = std::bit_cast<char>(lowByte);\n        source[2] = '\\0';\n        sourceSize = 2;\n    } else {\n        source[0] = std::bit_cast<char>(lowByte);\n        source[1] = '\\0';\n        sourceSize = 1;\n    }\n    // 原lpCharType指向参数C的高W16，随后紧邻mask；保留两个输出时的别名。\n    std::uint16_t types[3];\n    types[0] = static_cast<std::uint16_t>(static_cast<std::uint32_t>(value) >> 16);\n    types[1] = static_cast<std::uint16_t>(mask);\n    types[2] = static_cast<std::uint16_t>(mask >> 16);\n    if (GetLegacyCharacterTypes_545208(source, sourceSize, types, 0, 0, true) == 0) {\n        return 0;\n    }\n    const std::uint32_t resultingMask = types[1]\n        | (static_cast<std::uint32_t>(types[2]) << 16);\n    return types[0] & resultingMask;\n}\n\nnamespace {\n\n// 原546CDB；mb分类和固定ctype表独立，后者不能改读可变58FC30指针。\nstd::int32_t ClassifyMultibyteType_546CDB(const std::uint32_t character,\n    const std::uint32_t ctypeMask, const std::uint32_t multibyteMask)\n{\n    const auto byte = static_cast<std::uint8_t>(character);\n    if ((gLegacyMultibyte1086764.classification[byte + 1]\n            & static_cast<std::uint8_t>(multibyteMask)) != 0) {\n        return 1;\n    }\n    if (ctypeMask != 0 && (gCtypeTable58FC38[byte + 1] & ctypeMask) != 0) {\n        return 1;\n    }\n    return 0;\n}\n\n// 原543AE8完整通用体；八参数/两SEH/SORTKEY与普通字节回转见通用NLS映射SPEC。\nstd::int32_t MapLegacyString_543AE8(const std::uint32_t locale,\n    const std::uint32_t flags, const char* const source, std::int32_t sourceCount,\n    char* const destination, const std::int32_t destinationCount,\n    std::uint32_t codePage, const std::int32_t strict)\n{\n    if (gLegacyTextLocale1086160.mapBackend == 0) {\n        if (::LCMapStringW(0, LCMAP_LOWERCASE, L\"\", 1, nullptr, 0) != 0) {\n            gLegacyTextLocale1086160.mapBackend = 1;\n        } else {\n            if (::LCMapStringA(0, LCMAP_LOWERCASE, &gNlsProbeD68A7C, 1, nullptr, 0) == 0) {\n                return 0;\n            }\n            gLegacyTextLocale1086160.mapBackend = 2;\n        }\n    }\n    if (sourceCount > 0) {\n        sourceCount = static_cast<std::int32_t>(CountLegacyBytes_543D0C(\n            source, static_cast<std::uint32_t>(sourceCount)));\n    }\n    const std::uint32_t backend = gLegacyTextLocale1086160.mapBackend;\n    if (backend == 2) {\n        return ::LCMapStringA(locale, flags, source, sourceCount,\n            destination, destinationCount);\n    }\n    if (backend != 1) {\n        return 0;\n    }\n    if (codePage == 0) {\n        codePage = gConversionCodePage_1086170;\n    }\n    const int wideCount = ::MultiByteToWideChar(codePage,\n        MB_PRECOMPOSED | (strict != 0 ? MB_ERR_INVALID_CHARS : 0),\n        source, sourceCount, nullptr, 0);\n    if (wideCount == 0) {\n        return 0;\n    }\n    // 原请求在W32内计算；本机栈承载不模拟旧ESP或扩大数字字段。\n    const std::uint32_t wideBytes = (static_cast<std::uint32_t>(wideCount) * 2u + 3u) & ~3u;\n    wchar_t* wide;\n    __try {\n        wide = static_cast<wchar_t*>(_alloca(wideBytes));\n    } __except (EXCEPTION_EXECUTE_HANDLER) {\n        wide = nullptr;\n    }\n    if (wide == nullptr\n        || ::MultiByteToWideChar(codePage, MB_PRECOMPOSED,\n            source, sourceCount, wide, wideCount) == 0) {\n        return 0;\n    }\n    const int mappedCount = ::LCMapStringW(locale, flags, wide, wideCount, nullptr, 0);\n    if (mappedCount == 0) {\n        return 0;\n    }\n    if ((flags & LCMAP_SORTKEY) != 0) {\n        if (destinationCount == 0) {\n            return mappedCount;\n        }\n        if (mappedCount > destinationCount) {\n            return 0;\n        }\n        if (::LCMapStringW(locale, flags, wide, wideCount,\n                reinterpret_cast<wchar_t*>(destination), destinationCount) == 0) {\n            return 0;\n        }\n        return mappedCount;\n    }\n    const std::uint32_t mappedBytes =\n        (static_cast<std::uint32_t>(mappedCount) * 2u + 3u) & ~3u;\n    wchar_t* mapped;\n    __try {\n        mapped = static_cast<wchar_t*>(_alloca(mappedBytes));\n    } __except (EXCEPTION_EXECUTE_HANDLER) {\n        mapped = nullptr;\n    }\n    if (mapped == nullptr\n        || ::LCMapStringW(locale, flags, wide, wideCount, mapped, mappedCount) == 0) {\n        return 0;\n    }\n    return ::WideCharToMultiByte(codePage, WC_COMPOSITECHECK | WC_SEPCHARS,\n        mapped, mappedCount, destinationCount == 0 ? nullptr : destination,\n        destinationCount == 0 ? 0 : destinationCount, nullptr, nullptr);\n}\n\n// 原546B29的两固定生产点；数量256、显式CP/strict0实际交完整543AE8。\nint MapLegacyCaseTable_543AE8(const std::uint32_t locale, const DWORD flags,\n    const char* const source, char* const destination, const std::uint32_t codePage)\n{\n    return MapLegacyString_543AE8(\n        locale, flags, source, 256, destination, 256, codePage, 0);\n}\n\n} // namespace\n\n\n// 原543A1A：保留S32比较、分类门禁、共享NLS状态及失败时返回原值。\nstd::int32_t UpperLegacyCharacter_543A1A(const std::int32_t value)\n{\n    if (gLegacyTextLocale1086160.ctypeLocale == 0) {\n        return value >= 'a' && value <= 'z' ? value - 32 : value;\n    }\n    if (value < 256) {\n        const std::uint32_t lowerCase = gLegacyCtypeMaxBytes58FE3C > 1\n            ? ClassifyLegacyCharacter_541955(value, 2)\n            : gCtypePointer58FC30[value] & 2u;\n        if (lowerCase == 0) {\n            return value;\n        }\n    }\n    const auto highByte = static_cast<std::uint8_t>(\n        static_cast<std::uint32_t>(value) >> 8);\n    const auto lowByte = static_cast<std::uint8_t>(value);\n    char source[3];\n    int sourceSize;\n    if ((gCtypePointer58FC30[highByte] & 0x8000u) != 0) {\n        source[0] = std::bit_cast<char>(highByte);\n        source[1] = std::bit_cast<char>(lowByte);\n        source[2] = '\\0';\n        sourceSize = 2;\n    } else {\n        source[0] = std::bit_cast<char>(lowByte);\n        source[1] = '\\0';\n        sourceSize = 1;\n    }\n    char destination[4];\n    const int count = MapLegacyCase_543AE8(\n        gLegacyTextLocale1086160.ctypeLocale, LCMAP_UPPERCASE,\n        source, sourceSize, destination);\n    if (count == 0) {\n        return value;\n    }\n    const std::uint32_t first = static_cast<std::uint8_t>(destination[0]);\n    return static_cast<std::int32_t>(count == 1 ? first\n        : first | (static_cast<std::uint32_t>(\n            static_cast<std::uint8_t>(destination[1])) << 8));\n}\n\nstd::int32_t LowerLegacyCharacter_53DC64(const std::int32_t value)\n{\n    if (gLegacyTextLocale1086160.ctypeLocale == 0) {\n        return value >= 'A' && value <= 'Z' ? value + 32 : value;\n    }\n    if (value < 256) {\n        const std::uint32_t upperCase = gLegacyCtypeMaxBytes58FE3C > 1\n            ? ClassifyLegacyCharacter_541955(value, 1)\n            : gCtypePointer58FC30[value] & 1u;\n        if (upperCase == 0) {\n            return value;\n        }\n    }\n    const auto highByte = static_cast<std::uint8_t>(\n        static_cast<std::uint32_t>(value) >> 8);\n    const auto lowByte = static_cast<std::uint8_t>(value);\n    char source[3];\n    int sourceSize;\n    if ((gCtypePointer58FC30[highByte] & 0x8000u) != 0) {\n        source[0] = std::bit_cast<char>(highByte);\n        source[1] = std::bit_cast<char>(lowByte);\n        source[2] = '\\0';\n        sourceSize = 2;\n    } else {\n        source[0] = std::bit_cast<char>(lowByte);\n        source[1] = '\\0';\n        sourceSize = 1;\n    }\n    char destination[4];\n    const int count = MapLegacyCase_543AE8(\n        gLegacyTextLocale1086160.ctypeLocale, LCMAP_LOWERCASE,\n        source, sourceSize, destination);\n    if (count == 0) {\n        return value;\n    }\n    const std::uint32_t first = static_cast<std::uint8_t>(destination[0]);\n    return static_cast<std::int32_t>(count == 1 ? first\n        : first | (static_cast<std::uint32_t>(\n            static_cast<std::uint8_t>(destination[1])) << 8));\n}\n\nstd::uint32_t MultibyteCodePageToLocale_546ACD(const std::uint32_t codePage)\n{\n    switch (codePage) {\n    case 932:\n        return 1041;\n    case 936:\n        return 2052;\n    case 949:\n        return 1042;\n    case 950:\n        return 1028;\n    default:\n        return 0;\n    }\n}\n\nstd::int32_t ResetLegacySingleByte_546B00()\n{\n    gLegacyMultibyte1086764.classification.fill(0);\n    gLegacyMultibyte1086764.codePage = 0;\n    gLegacyMultibyte1086764.isMultibyte = 0;\n    gLegacyMultibyte1086764.locale = 0;\n    gLegacyMultibyte1086764.codePageParameters[0] = 0;\n    gLegacyMultibyte1086764.codePageParameters[1] = 0;\n    gLegacyMultibyte1086764.codePageParameters[2] = 0;\n    return 0;\n}\n\n// 原543D37完整W32输入；U8表分支与原高低BYTE/lead-NLS和非零后双BYTE实读保持。\nstd::uint32_t UpperLegacyMultibyteCharacter_543D37(const std::uint32_t value)\n{\n    if (value <= 0xFFu) {\n        if ((gLegacyMultibyte1086764.classification[value + 1] & 0x20u) != 0) {\n            return gLegacyMultibyte1086764.caseMap[value];\n        }\n        return value;\n    }\n    const auto highByte = static_cast<std::uint8_t>(value >> 8);\n    const auto lowByte = static_cast<std::uint8_t>(value);\n    if ((gLegacyMultibyte1086764.classification[highByte + 1] & 4u) == 0) {\n        return value;\n    }\n    const char source[2] {std::bit_cast<char>(highByte), std::bit_cast<char>(lowByte)};\n    char destination[4];\n    if (MapLegacyString_543AE8(gLegacyMultibyte1086764.locale,\n            LCMAP_UPPERCASE, source, 2, destination, 2,\n            gLegacyMultibyte1086764.codePage, 1) == 0) {\n        return value;\n    }\n    return detail::Cg2dReadLegacyMappedPair(destination);\n}\n\nstd::uint32_t UpperLegacyDirectoryByte_543D37(const std::uint8_t value)\n{\n    return UpperLegacyMultibyteCharacter_543D37(value);\n}\n\nstd::uint32_t ResolveLegacyMultibyteCodePage_546A83(const std::uint32_t requested)\n{\n    gLegacyMultibyteSystemCodePage10862E8 = 0;\n    if (requested == 0xFFFFFFFEu) {\n        gLegacyMultibyteSystemCodePage10862E8 = 1;\n        return ::GetOEMCP();\n    }\n    if (requested == 0xFFFFFFFDu) {\n        gLegacyMultibyteSystemCodePage10862E8 = 1;\n        return ::GetACP();\n    }\n    if (requested == 0xFFFFFFFCu) {\n        const std::uint32_t codePage = gConversionCodePage_1086170;\n        gLegacyMultibyteSystemCodePage10862E8 = 1;\n        return codePage;\n    }\n    return requested;\n}\n\nstd::uint32_t RefreshLegacySingleByteCase_546B29()\n{\n    CPINFO info;\n    if (::GetCPInfo(gLegacyMultibyte1086764.codePage, &info) == TRUE) {\n        char source[256];\n        for (std::uint32_t index = 0; index < 256; ++index) {\n            source[index] = std::bit_cast<char>(static_cast<std::uint8_t>(index));\n        }\n        source[0] = ' ';\n        for (const BYTE* range = info.LeadByte; range[0] != 0; range += 2) {\n            for (std::uint32_t value = range[0]; value <= range[1]; ++value) {\n                source[value] = ' ';\n            }\n        }\n\n        // 原三个输出不预清零，调用返回均忽略；失败未写内容不声称旧栈等价。\n        std::uint16_t types[256];\n        char lower[256];\n        char upper[256];\n        static_cast<void>(GetLegacyCharacterTypes_545208(source, 256, types,\n            gLegacyMultibyte1086764.codePage, gLegacyMultibyte1086764.locale, false));\n        static_cast<void>(MapLegacyCaseTable_543AE8(gLegacyMultibyte1086764.locale,\n            LCMAP_LOWERCASE, source, lower, gLegacyMultibyte1086764.codePage));\n        static_cast<void>(MapLegacyCaseTable_543AE8(gLegacyMultibyte1086764.locale,\n            LCMAP_UPPERCASE, source, upper, gLegacyMultibyte1086764.codePage));\n        for (std::uint32_t index = 0; index < 256; ++index) {\n            if ((types[index] & 1u) != 0) {\n                gLegacyMultibyte1086764.classification[index + 1] |= 0x10u;\n                gLegacyMultibyte1086764.caseMap[index] = static_cast<std::uint8_t>(lower[index]);\n            } else if ((types[index] & 2u) != 0) {\n                gLegacyMultibyte1086764.classification[index + 1] |= 0x20u;\n                gLegacyMultibyte1086764.caseMap[index] = static_cast<std::uint8_t>(upper[index]);\n            } else {\n                gLegacyMultibyte1086764.caseMap[index] = 0;\n            }\n        }\n        return 256;\n    }\n\n    for (std::uint32_t index = 0; index < 256; ++index) {\n        if (index >= 'A' && index <= 'Z') {\n            gLegacyMultibyte1086764.classification[index + 1] |= 0x10u;\n            gLegacyMultibyte1086764.caseMap[index] = static_cast<std::uint8_t>(index + 32);\n        } else if (index >= 'a' && index <= 'z') {\n            gLegacyMultibyte1086764.classification[index + 1] |= 0x20u;\n            gLegacyMultibyte1086764.caseMap[index] = static_cast<std::uint8_t>(index - 32);\n        } else {\n            gLegacyMultibyte1086764.caseMap[index] = 0;\n        }\n    }\n    return 256;\n}\n\nstd::int32_t SetLegacyMultibyteCodePage_5468EA(const std::uint32_t requested)\n{\n    const std::uint32_t codePage = ResolveLegacyMultibyteCodePage_546A83(requested);\n    if (codePage == gLegacyMultibyte1086764.codePage) {\n        return 0;\n    }\n    if (codePage == 0) {\n        static_cast<void>(ResetLegacySingleByte_546B00());\n    } else {\n        const MultibyteCodePageDefinition* definition = nullptr;\n        for (const auto& candidate : kMultibyteCodePages5923F0) {\n            if (candidate.codePage == codePage) {\n                definition = &candidate;\n                break;\n            }\n        }\n        if (definition != nullptr) {\n            gLegacyMultibyte1086764.classification.fill(0);\n            for (std::uint32_t kind = 0; kind < 4; ++kind) {\n                for (const std::uint8_t* range = definition->ranges[kind];\n                     range[0] != 0; range += 2) {\n                    if (range[1] == 0) {\n                        break;\n                    }\n                    for (std::uint32_t value = range[0]; value <= range[1]; ++value) {\n                        gLegacyMultibyte1086764.classification[value + 1]\n                            |= kMultibyteRangeMasks5923E8[kind];\n                    }\n                }\n            }\n            gLegacyMultibyte1086764.isMultibyte = 1;\n            gLegacyMultibyte1086764.codePage = codePage;\n            const std::uint32_t locale = MultibyteCodePageToLocale_546ACD(codePage);\n            gLegacyMultibyte1086764.codePageParameters[0] = definition->parameters[0];\n            gLegacyMultibyte1086764.codePageParameters[1] = definition->parameters[1];\n            gLegacyMultibyte1086764.locale = locale;\n            gLegacyMultibyte1086764.codePageParameters[2] = definition->parameters[2];\n        } else {\n            CPINFO info;\n            if (::GetCPInfo(codePage, &info) != TRUE) {\n                if (gLegacyMultibyteSystemCodePage10862E8 == 0) {\n                    return -1;\n                }\n                static_cast<void>(ResetLegacySingleByte_546B00());\n            } else {\n                gLegacyMultibyte1086764.codePage = codePage;\n                gLegacyMultibyte1086764.classification.fill(0);\n                gLegacyMultibyte1086764.locale = 0;\n                if (info.MaxCharSize <= 1) {\n                    gLegacyMultibyte1086764.isMultibyte = 0;\n                } else {\n                    for (const BYTE* range = info.LeadByte; range[0] != 0; range += 2) {\n                        if (range[1] == 0) {\n                            break;\n                        }\n                        for (std::uint32_t value = range[0]; value <= range[1]; ++value) {\n                            gLegacyMultibyte1086764.classification[value + 1] |= 4u;\n                        }\n                    }\n                    for (std::uint32_t value = 1; value < 255; ++value) {\n                        gLegacyMultibyte1086764.classification[value + 1] |= 8u;\n                    }\n                    gLegacyMultibyte1086764.locale = MultibyteCodePageToLocale_546ACD(codePage);\n                    gLegacyMultibyte1086764.isMultibyte = 1;\n                }\n                gLegacyMultibyte1086764.codePageParameters[0] = 0;\n                gLegacyMultibyte1086764.codePageParameters[1] = 0;\n                gLegacyMultibyte1086764.codePageParameters[2] = 0;\n            }\n        }\n    }\n    static_cast<void>(RefreshLegacySingleByteCase_546B29());\n    return 0;\n}\n\nvoid InitializeLegacyMultibyte_546CAE()\n{\n    if (gLegacyMultibyteInitGuard1087AEC == 0) {\n        static_cast<void>(SetLegacyMultibyteCodePage_5468EA(0xFFFFFFFDu));\n        gLegacyMultibyteInitGuard1087AEC = 1;\n    }\n}\n\n// 原544552；保留lead分支中先有符号、后无符号的两个数量判断。\nstd::int32_t Mbtowc_544552(wchar_t* const destination, const char* const source,\n    const std::uint32_t sourceCount)\n{\n    if (source == nullptr || sourceCount == 0) {\n        return 0;\n    }\n    const auto first = static_cast<std::uint8_t>(source[0]);\n    if (first == 0) {\n        if (destination != nullptr) {\n            *destination = 0;\n        }\n        return 0;\n    }\n    if (gLegacyTextLocale1086160.ctypeLocale == 0) {\n        if (destination != nullptr) {\n            *destination = static_cast<wchar_t>(first);\n        }\n        return 1;\n    }\n    if ((gCtypePointer58FC30[first] & 0x8000u) != 0) {\n        std::int32_t width = gLegacyCtypeMaxBytes58FE3C;\n        if (width > 1) {\n            if (std::bit_cast<std::int32_t>(sourceCount) < width) {\n                gLegacyErrno_1085FE0 = 42;\n                return -1;\n            }\n            const int converted = ::MultiByteToWideChar(gConversionCodePage_1086170,\n                MB_PRECOMPOSED | MB_ERR_INVALID_CHARS, source, width,\n                destination, destination != nullptr ? 1 : 0);\n            width = gLegacyCtypeMaxBytes58FE3C;\n            if (converted != 0) {\n                return width;\n            }\n        }\n        if (sourceCount >= static_cast<std::uint32_t>(width) && source[1] != '\\0') {\n            return width;\n        }\n    } else if (::MultiByteToWideChar(gConversionCodePage_1086170,\n            MB_PRECOMPOSED | MB_ERR_INVALID_CHARS, source, 1,\n            destination, destination != nullptr ? 1 : 0) != 0) {\n        return 1;\n    }\n    gLegacyErrno_1085FE0 = 42;\n    return -1;\n}\n\n// 原54472B；真实API写入和默认字符标志均保留，不在失败时清目的区。\nstd::int32_t Wctomb_54472B(char* const destination, const std::uint16_t character)\n{\n    if (destination == nullptr) {\n        return 0;\n    }\n    if (gLegacyTextLocale1086160.ctypeLocale == 0) {\n        if (character <= 0xFFu) {\n            destination[0] = std::bit_cast<char>(static_cast<std::uint8_t>(character));\n            return 1;\n        }\n    } else {\n        const wchar_t wideCharacter = static_cast<wchar_t>(character);\n        BOOL usedDefault = FALSE;\n        const int converted = ::WideCharToMultiByte(gConversionCodePage_1086170,\n            WC_COMPOSITECHECK | WC_SEPCHARS, &wideCharacter, 1, destination,\n            gLegacyCtypeMaxBytes58FE3C, nullptr, &usedDefault);\n        if (converted != 0 && usedDefault == FALSE) {\n            return converted;\n        }\n    }\n    gLegacyErrno_1085FE0 = 42;\n    return -1;\n}\n\n// 原54A9C3；state按W32判断，低U8续接写和整个W32清理分别执行。\nstd::int32_t Mbrtowc_54A9C3(wchar_t* const destination, const char* const source,\n    const std::uint32_t sourceCount, std::uint32_t* const state,\n    const LegacyConversionLocale54A9C3* const locale)\n{\n    if (source == nullptr || sourceCount == 0) {\n        return 0;\n    }\n    const auto first = static_cast<std::uint8_t>(source[0]);\n    if (first == 0) {\n        if (destination != nullptr) {\n            *destination = 0;\n        }\n        return 0;\n    }\n    std::uint32_t ctypeLocale;\n    std::uint32_t codePage;\n    if (locale == nullptr) {\n        ctypeLocale = gLegacyTextLocale1086160.ctypeLocale;\n        codePage = gConversionCodePage_1086170;\n    } else {\n        ctypeLocale = locale->ctypeLocale;\n        codePage = locale->codePage;\n    }\n    if (ctypeLocale == 0) {\n        if (destination != nullptr) {\n            *destination = static_cast<wchar_t>(first);\n        }\n        return 1;\n    }\n    if (*state != 0) {\n        reinterpret_cast<unsigned char*>(state)[1] = first;\n        if (gLegacyCtypeMaxBytes58FE3C > 1\n            && ::MultiByteToWideChar(codePage, MB_PRECOMPOSED | MB_ERR_INVALID_CHARS,\n                reinterpret_cast<const char*>(state), 2, destination,\n                destination != nullptr ? 1 : 0) != 0) {\n            *state = 0;\n            return gLegacyCtypeMaxBytes58FE3C;\n        }\n        *state = 0;\n        gLegacyErrno_1085FE0 = 42;\n        return -1;\n    }\n    if ((gCtypePointer58FC30[first] & 0x8000u) != 0) {\n        const std::int32_t width = gLegacyCtypeMaxBytes58FE3C;\n        if (sourceCount < static_cast<std::uint32_t>(width)) {\n            reinterpret_cast<unsigned char*>(state)[0] = first;\n            return -2;\n        }\n        if (width > 1\n            && ::MultiByteToWideChar(codePage, MB_PRECOMPOSED | MB_ERR_INVALID_CHARS,\n                source, width, destination, destination != nullptr ? 1 : 0) != 0) {\n            return gLegacyCtypeMaxBytes58FE3C;\n        }\n        if (source[1] != '\\0') {\n            return gLegacyCtypeMaxBytes58FE3C;\n        }\n        *state = 0;\n    } else if (::MultiByteToWideChar(codePage, MB_PRECOMPOSED | MB_ERR_INVALID_CHARS,\n            source, 1, destination, destination != nullptr ? 1 : 0) != 0) {\n        return 1;\n    }\n    gLegacyErrno_1085FE0 = 42;\n    return -1;\n}\n\n// 原54AAD5；只初始化原W32状态，输出沿被调函数真实写入。\nstd::uint16_t Btowc_54AAD5(const std::int32_t character)\n{\n    if (character == -1) {\n        return 0xFFFFu;\n    }\n    const char byte = std::bit_cast<char>(static_cast<std::uint8_t>(character));\n    std::uint32_t state = 0;\n    wchar_t converted;\n    const std::int32_t result = Mbrtowc_54A9C3(&converted, &byte, 1, &state, nullptr);\n    return result < 0 ? 0xFFFFu : static_cast<std::uint16_t>(converted);\n}\n\n// 原53C9DD：整串转换；数量/返回保持U32，目标可空，不使用宿主locale。\nstd::uint32_t Mbstowcs_53C9DD(wchar_t* const destination, const char* const source,\n    const std::uint32_t destinationCount)\n{\n    if (destination == nullptr) {\n        if (gLegacyTextLocale1086160.ctypeLocale == 0) {\n            return StrLen_53F9E0(source);\n        }\n        const std::int32_t converted = ::MultiByteToWideChar(\n            gConversionCodePage_1086170, MB_PRECOMPOSED | MB_ERR_INVALID_CHARS,\n            source, -1, nullptr, 0);\n        if (converted != 0) {\n            return static_cast<std::uint32_t>(converted - 1);\n        }\n        gLegacyErrno_1085FE0 = 42;\n        return 0xFFFFFFFFu;\n    }\n    if (destinationCount == 0) {\n        return 0;\n    }\n    if (gLegacyTextLocale1086160.ctypeLocale == 0) {\n        std::uint32_t completed = 0;\n        wchar_t* target = destination;\n        do {\n            *target = static_cast<std::uint8_t>(source[completed]);\n            // 原53CA19在W16写入之后重读同一源字节，保源/目标可能的别名。\n            if (source[completed] == '\\0') {\n                break;\n            }\n            ++completed;\n            ++target;\n        } while (completed < destinationCount);\n        return completed;\n    }\n\n    const std::int32_t converted = ::MultiByteToWideChar(\n        gConversionCodePage_1086170, MB_PRECOMPOSED | MB_ERR_INVALID_CHARS,\n        source, -1, destination, std::bit_cast<std::int32_t>(destinationCount));\n    if (converted != 0) {\n        return static_cast<std::uint32_t>(converted - 1);\n    }\n    if (::GetLastError() != ERROR_INSUFFICIENT_BUFFER) {\n        gLegacyErrno_1085FE0 = 42;\n        return 0xFFFFFFFFu;\n    }\n\n    const char* cursor = source;\n    std::uint32_t remaining = destinationCount - 1u;\n    for (;;) {\n        const std::uint8_t current = static_cast<std::uint8_t>(*cursor);\n        if (current == 0) {\n            break;\n        }\n        if ((gCtypePointer58FC30[current] & 0x8000u) != 0) {\n            ++cursor;\n        }\n        ++cursor;\n        const std::uint32_t previous = remaining;\n        --remaining;\n        if (previous == 0) {\n            break;\n        }\n    }\n    // 原53CA93以W32字节差传API，截取转换的结果不再减去NUL。\n    const std::uint32_t sourceBytes = static_cast<std::uint32_t>(cursor - source);\n    const std::int32_t prefixConverted = ::MultiByteToWideChar(\n        gConversionCodePage_1086170, MB_PRECOMPOSED, source,\n        std::bit_cast<std::int32_t>(sourceBytes), destination,\n        std::bit_cast<std::int32_t>(destinationCount));\n    if (prefixConverted != 0) {\n        return static_cast<std::uint32_t>(prefixConverted);\n    }\n    gLegacyErrno_1085FE0 = 42;\n    return 0xFFFFFFFFu;\n}\n\n// 原53BDEF；完整入口保留共享最大宽度门禁，0..255/EOF域沿同一分类表。\nstd::int32_t ClassifyLegacySpace_53BDEF(const std::int32_t character)\n{\n    if (gLegacyCtypeMaxBytes58FE3C > 1) {\n        return static_cast<std::int32_t>(ClassifyLegacyCharacter_541955(character, 8));\n    }\n    return gCtypePointer58FC30[character] & 8;\n}\n\n// 原53BE17；控制字符mask20H，在输入校验中位于空白分类之后。\nstd::int32_t ClassifyLegacyControl_53BE17(const std::int32_t character)\n{\n    if (gLegacyCtypeMaxBytes58FE3C > 1) {\n        return static_cast<std::int32_t>(ClassifyLegacyCharacter_541955(character, 0x20));\n    }\n    return gCtypePointer58FC30[character] & 0x20;\n}\n\n// 原53E919；仅数字类别保持输入，其余照原位运算，不替caller减去字符0。\nstd::int32_t NormalizeLegacyHexCharacter_53E919(const std::int32_t character)\n{\n    const std::uint32_t digit = gLegacyCtypeMaxBytes58FE3C > 1\n        ? ClassifyLegacyCharacter_541955(character, 4)\n        : gCtypePointer58FC30[character] & 4u;\n    if (digit != 0) {\n        return character;\n    }\n    return std::bit_cast<std::int32_t>(\n        (static_cast<std::uint32_t>(character) & 0xFFFFFFDFu) - 7u);\n}\n\n// 原546CCA只有546CDB委托；保持固定mask及0/1返回。\nstd::int32_t IsLegacyMultibyteLead_546CCA(const std::uint32_t character)\n{\n    return ClassifyMultibyteType_546CDB(character, 0, 4);\n}\n\n} // namespace cg::platform\n",
+      "after": "#include \"LegacyMultibyte.hpp\"\n\n#include \"LegacyStringCompareState.hpp\"\n#include \"cg/platform/LegacyTime.hpp\"\n#include \"cg/platform/LegacyMemory.hpp\"\n#include \"cg/platform/LegacyStringCompare.hpp\"\n\n#include <bit>\n#include <cstring>\n#include <malloc.h>\n\n#ifndef WIN32_LEAN_AND_MEAN\n#define WIN32_LEAN_AND_MEAN\n#endif\n#ifndef NOMINMAX\n#define NOMINMAX\n#endif\n#include <Windows.h>\n\nnamespace cg::platform {\n\nstatic_assert(sizeof(wchar_t) == 2);\n\n// 原58FE3C已加载S32初值1；不是多字节代码页对象108677C的标志。\nstd::int32_t gLegacyCtypeMaxBytes58FE3C = 1;\n\nLegacyMultibyteStorage gLegacyMultibyte1086764 {};\n\nstd::uint32_t gLegacyMultibyteTypeBackend10862E4 = 0;\nstd::uint32_t gLegacyMultibyteSystemCodePage10862E8 = 0;\nstd::uint32_t gLegacyMultibyteInitGuard1087AEC = 0;\n\nnamespace {\n\n// 原5923F0的五个48B记录；参数按原三个W32保存，不解释为指针。\nstruct MultibyteCodePageDefinition {\n    std::uint32_t codePage;\n    std::uint32_t parameters[3];\n    std::uint8_t ranges[4][8];\n};\nstatic_assert(sizeof(MultibyteCodePageDefinition) == 48);\n\nconstexpr MultibyteCodePageDefinition kMultibyteCodePages5923F0[] {\n    {932, {0x82798260u, 0x21u, 0x0u},\n        {{0xA6, 0xDF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0xA1, 0xA5, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0x81, 0x9F, 0xE0, 0xFC, 0x00, 0x00, 0x00, 0x00},\n         {0x40, 0x7E, 0x80, 0xFC, 0x00, 0x00, 0x00, 0x00}}},\n    {936, {0xA3DAA3C1u, 0x20u, 0x0u},\n        {{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0x81, 0xFE, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0x40, 0xFE, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}}},\n    {949, {0xA3DAA3C1u, 0x20u, 0x0u},\n        {{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0x81, 0xFE, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0x41, 0xFE, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}}},\n    {950, {0xA2E4A2CFu, 0xA2E5001Au, 0x5BA2E8u},\n        {{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0x81, 0xFE, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0x40, 0x7E, 0xA1, 0xFE, 0x00, 0x00, 0x00, 0x00}}},\n    {1361, {0xDA5EDA51u, 0xDA5F0020u, 0x32DA6Au},\n        {{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},\n         {0x81, 0xD3, 0xD8, 0xDE, 0xE0, 0xF9, 0x00, 0x00},\n         {0x31, 0x7E, 0x81, 0xFE, 0x00, 0x00, 0x00, 0x00}}}\n};\nconstexpr std::uint8_t kMultibyteRangeMasks5923E8[] {1, 2, 4, 8};\n\n} // namespace\n\n// 原545208完整七参数分类；原S32长度/实际infoType及W32申请-填充/SEH见通用分类SPEC。\nstd::int32_t GetLegacyStringTypes_545208(const std::uint32_t infoType,\n    const char* const source, const std::int32_t sourceCount,\n    std::uint16_t* const types, std::uint32_t codePage, std::uint32_t locale,\n    const std::int32_t strict)\n{\n    std::uint32_t backend = gLegacyMultibyteTypeBackend10862E4;\n    if (backend == 0) {\n        WORD probe;\n        if (::GetStringTypeW(CT_CTYPE1, L\"\", 1, &probe) != 0) {\n            backend = 1;\n        } else {\n            if (::GetStringTypeA(0, CT_CTYPE1, &gNlsProbeD68A7C, 1, &probe) == 0) {\n                return 0;\n            }\n            backend = 2;\n        }\n        gLegacyMultibyteTypeBackend10862E4 = backend;\n    }\n    if (backend == 2) {\n        if (locale == 0) {\n            locale = gLegacyTextLocale1086160.ctypeLocale;\n        }\n        return ::GetStringTypeA(locale, infoType, source, sourceCount, types);\n    }\n    if (backend != 1) {\n        return 0;\n    }\n    if (codePage == 0) {\n        codePage = gConversionCodePage_1086170;\n    }\n    const int wideCount = ::MultiByteToWideChar(\n        codePage, MB_PRECOMPOSED | (strict != 0 ? MB_ERR_INVALID_CHARS : 0),\n        source, sourceCount, nullptr, 0);\n    if (wideCount == 0) {\n        return 0;\n    }\n    wchar_t* wide;\n    __try {\n        // 原申请按4B对齐，原填充只接count*2低W32；两种数量不能混用。\n        const std::uint32_t wideBytes = static_cast<std::uint32_t>(wideCount) * 2u;\n        const std::uint32_t allocationBytes = (wideBytes + 3u) & ~3u;\n        wide = static_cast<wchar_t*>(_alloca(allocationBytes));\n        static_cast<void>(FillLegacyMemory_5419D0(wide, 0, wideBytes));\n    } __except (EXCEPTION_EXECUTE_HANDLER) {\n        wide = nullptr;\n    }\n    if (wide == nullptr) {\n        return 0;\n    }\n    const int converted = ::MultiByteToWideChar(\n        codePage, MB_PRECOMPOSED, source, sourceCount, wide, wideCount);\n    return converted == 0 ? 0 : ::GetStringTypeW(infoType, wide, converted, types);\n}\n\n// 原541955/546B29两个info1域转同一完整体，调用参数/返回消费保持。\nint GetLegacyCharacterTypes_545208(const char* const source, const std::int32_t sourceCount,\n    std::uint16_t* const types, const std::uint32_t codePage, const std::uint32_t locale,\n    const bool strict)\n{\n    return GetLegacyStringTypes_545208(\n        CT_CTYPE1, source, sourceCount, types, codePage, locale, strict ? 1 : 0);\n}\n\n// 原541955：-1..255直接查表；其余输入按原高字节lead位构造NLS源。\nstd::uint32_t ClassifyLegacyCharacter_541955(\n    const std::int32_t value, const std::uint32_t mask)\n{\n    if (static_cast<std::uint32_t>(value) + 1u <= 256u) {\n        return gCtypePointer58FC30[value] & mask;\n    }\n    const auto highByte = static_cast<std::uint8_t>(\n        static_cast<std::uint32_t>(value) >> 8);\n    const auto lowByte = static_cast<std::uint8_t>(value);\n    char source[3];\n    int sourceSize;\n    if ((gCtypePointer58FC30[highByte] & 0x8000u) != 0) {\n        source[0] = std::bit_cast<char>(highByte);\n        source[1] = std::bit_cast<char>(lowByte);\n        source[2] = '\\0';\n        sourceSize = 2;\n    } else {\n        source[0] = std::bit_cast<char>(lowByte);\n        source[1] = '\\0';\n        sourceSize = 1;\n    }\n    // 原lpCharType指向参数C的高W16，随后紧邻mask；保留两个输出时的别名。\n    std::uint16_t types[3];\n    types[0] = static_cast<std::uint16_t>(static_cast<std::uint32_t>(value) >> 16);\n    types[1] = static_cast<std::uint16_t>(mask);\n    types[2] = static_cast<std::uint16_t>(mask >> 16);\n    if (GetLegacyCharacterTypes_545208(source, sourceSize, types, 0, 0, true) == 0) {\n        return 0;\n    }\n    const std::uint32_t resultingMask = types[1]\n        | (static_cast<std::uint32_t>(types[2]) << 16);\n    return types[0] & resultingMask;\n}\n\nnamespace {\n\n// 原546CDB；mb分类和固定ctype表独立，后者不能改读可变58FC30指针。\nstd::int32_t ClassifyMultibyteType_546CDB(const std::uint32_t character,\n    const std::uint32_t ctypeMask, const std::uint32_t multibyteMask)\n{\n    const auto byte = static_cast<std::uint8_t>(character);\n    if ((gLegacyMultibyte1086764.classification[byte + 1]\n            & static_cast<std::uint8_t>(multibyteMask)) != 0) {\n        return 1;\n    }\n    if (ctypeMask != 0 && (gCtypeTable58FC38[byte + 1] & ctypeMask) != 0) {\n        return 1;\n    }\n    return 0;\n}\n\n// 原543AE8完整通用体；八参数/两SEH/SORTKEY与普通字节回转见通用NLS映射SPEC。\nstd::int32_t MapLegacyString_543AE8(const std::uint32_t locale,\n    const std::uint32_t flags, const char* const source, std::int32_t sourceCount,\n    char* const destination, const std::int32_t destinationCount,\n    std::uint32_t codePage, const std::int32_t strict)\n{\n    if (gLegacyTextLocale1086160.mapBackend == 0) {\n        if (::LCMapStringW(0, LCMAP_LOWERCASE, L\"\", 1, nullptr, 0) != 0) {\n            gLegacyTextLocale1086160.mapBackend = 1;\n        } else {\n            if (::LCMapStringA(0, LCMAP_LOWERCASE, &gNlsProbeD68A7C, 1, nullptr, 0) == 0) {\n                return 0;\n            }\n            gLegacyTextLocale1086160.mapBackend = 2;\n        }\n    }\n    if (sourceCount > 0) {\n        sourceCount = static_cast<std::int32_t>(CountLegacyBytes_543D0C(\n            source, static_cast<std::uint32_t>(sourceCount)));\n    }\n    const std::uint32_t backend = gLegacyTextLocale1086160.mapBackend;\n    if (backend == 2) {\n        return ::LCMapStringA(locale, flags, source, sourceCount,\n            destination, destinationCount);\n    }\n    if (backend != 1) {\n        return 0;\n    }\n    if (codePage == 0) {\n        codePage = gConversionCodePage_1086170;\n    }\n    const int wideCount = ::MultiByteToWideChar(codePage,\n        MB_PRECOMPOSED | (strict != 0 ? MB_ERR_INVALID_CHARS : 0),\n        source, sourceCount, nullptr, 0);\n    if (wideCount == 0) {\n        return 0;\n    }\n    // 原请求在W32内计算；本机栈承载不模拟旧ESP或扩大数字字段。\n    const std::uint32_t wideBytes = (static_cast<std::uint32_t>(wideCount) * 2u + 3u) & ~3u;\n    wchar_t* wide;\n    __try {\n        wide = static_cast<wchar_t*>(_alloca(wideBytes));\n    } __except (EXCEPTION_EXECUTE_HANDLER) {\n        wide = nullptr;\n    }\n    if (wide == nullptr\n        || ::MultiByteToWideChar(codePage, MB_PRECOMPOSED,\n            source, sourceCount, wide, wideCount) == 0) {\n        return 0;\n    }\n    const int mappedCount = ::LCMapStringW(locale, flags, wide, wideCount, nullptr, 0);\n    if (mappedCount == 0) {\n        return 0;\n    }\n    if ((flags & LCMAP_SORTKEY) != 0) {\n        if (destinationCount == 0) {\n            return mappedCount;\n        }\n        if (mappedCount > destinationCount) {\n            return 0;\n        }\n        if (::LCMapStringW(locale, flags, wide, wideCount,\n                reinterpret_cast<wchar_t*>(destination), destinationCount) == 0) {\n            return 0;\n        }\n        return mappedCount;\n    }\n    const std::uint32_t mappedBytes =\n        (static_cast<std::uint32_t>(mappedCount) * 2u + 3u) & ~3u;\n    wchar_t* mapped;\n    __try {\n        mapped = static_cast<wchar_t*>(_alloca(mappedBytes));\n    } __except (EXCEPTION_EXECUTE_HANDLER) {\n        mapped = nullptr;\n    }\n    if (mapped == nullptr\n        || ::LCMapStringW(locale, flags, wide, wideCount, mapped, mappedCount) == 0) {\n        return 0;\n    }\n    return ::WideCharToMultiByte(codePage, WC_COMPOSITECHECK | WC_SEPCHARS,\n        mapped, mappedCount, destinationCount == 0 ? nullptr : destination,\n        destinationCount == 0 ? 0 : destinationCount, nullptr, nullptr);\n}\n\n// 原546B29的两固定生产点；数量256、显式CP/strict0实际交完整543AE8。\nint MapLegacyCaseTable_543AE8(const std::uint32_t locale, const DWORD flags,\n    const char* const source, char* const destination, const std::uint32_t codePage)\n{\n    return MapLegacyString_543AE8(\n        locale, flags, source, 256, destination, 256, codePage, 0);\n}\n\n} // namespace\n\n\n// 原543A1A：保留S32比较、分类门禁、共享NLS状态及失败时返回原值。\nstd::int32_t UpperLegacyCharacter_543A1A(const std::int32_t value)\n{\n    if (gLegacyTextLocale1086160.ctypeLocale == 0) {\n        return value >= 'a' && value <= 'z' ? value - 32 : value;\n    }\n    if (value < 256) {\n        const std::uint32_t lowerCase = gLegacyCtypeMaxBytes58FE3C > 1\n            ? ClassifyLegacyCharacter_541955(value, 2)\n            : gCtypePointer58FC30[value] & 2u;\n        if (lowerCase == 0) {\n            return value;\n        }\n    }\n    const auto highByte = static_cast<std::uint8_t>(\n        static_cast<std::uint32_t>(value) >> 8);\n    const auto lowByte = static_cast<std::uint8_t>(value);\n    char source[3];\n    int sourceSize;\n    if ((gCtypePointer58FC30[highByte] & 0x8000u) != 0) {\n        source[0] = std::bit_cast<char>(highByte);\n        source[1] = std::bit_cast<char>(lowByte);\n        source[2] = '\\0';\n        sourceSize = 2;\n    } else {\n        source[0] = std::bit_cast<char>(lowByte);\n        source[1] = '\\0';\n        sourceSize = 1;\n    }\n    char destination[4];\n    const int count = MapLegacyCase_543AE8(\n        gLegacyTextLocale1086160.ctypeLocale, LCMAP_UPPERCASE,\n        source, sourceSize, destination);\n    if (count == 0) {\n        return value;\n    }\n    const std::uint32_t first = static_cast<std::uint8_t>(destination[0]);\n    return static_cast<std::int32_t>(count == 1 ? first\n        : first | (static_cast<std::uint32_t>(\n            static_cast<std::uint8_t>(destination[1])) << 8));\n}\n\nstd::int32_t LowerLegacyCharacter_53DC64(const std::int32_t value)\n{\n    if (gLegacyTextLocale1086160.ctypeLocale == 0) {\n        return value >= 'A' && value <= 'Z' ? value + 32 : value;\n    }\n    if (value < 256) {\n        const std::uint32_t upperCase = gLegacyCtypeMaxBytes58FE3C > 1\n            ? ClassifyLegacyCharacter_541955(value, 1)\n            : gCtypePointer58FC30[value] & 1u;\n        if (upperCase == 0) {\n            return value;\n        }\n    }\n    const auto highByte = static_cast<std::uint8_t>(\n        static_cast<std::uint32_t>(value) >> 8);\n    const auto lowByte = static_cast<std::uint8_t>(value);\n    char source[3];\n    int sourceSize;\n    if ((gCtypePointer58FC30[highByte] & 0x8000u) != 0) {\n        source[0] = std::bit_cast<char>(highByte);\n        source[1] = std::bit_cast<char>(lowByte);\n        source[2] = '\\0';\n        sourceSize = 2;\n    } else {\n        source[0] = std::bit_cast<char>(lowByte);\n        source[1] = '\\0';\n        sourceSize = 1;\n    }\n    char destination[4];\n    const int count = MapLegacyCase_543AE8(\n        gLegacyTextLocale1086160.ctypeLocale, LCMAP_LOWERCASE,\n        source, sourceSize, destination);\n    if (count == 0) {\n        return value;\n    }\n    const std::uint32_t first = static_cast<std::uint8_t>(destination[0]);\n    return static_cast<std::int32_t>(count == 1 ? first\n        : first | (static_cast<std::uint32_t>(\n            static_cast<std::uint8_t>(destination[1])) << 8));\n}\n\nstd::uint32_t MultibyteCodePageToLocale_546ACD(const std::uint32_t codePage)\n{\n    switch (codePage) {\n    case 932:\n        return 1041;\n    case 936:\n        return 2052;\n    case 949:\n        return 1042;\n    case 950:\n        return 1028;\n    default:\n        return 0;\n    }\n}\n\nstd::int32_t ResetLegacySingleByte_546B00()\n{\n    gLegacyMultibyte1086764.classification.fill(0);\n    gLegacyMultibyte1086764.codePage = 0;\n    gLegacyMultibyte1086764.isMultibyte = 0;\n    gLegacyMultibyte1086764.locale = 0;\n    gLegacyMultibyte1086764.codePageParameters[0] = 0;\n    gLegacyMultibyte1086764.codePageParameters[1] = 0;\n    gLegacyMultibyte1086764.codePageParameters[2] = 0;\n    return 0;\n}\n\n// 原543D37完整W32输入；U8表分支与原高低BYTE/lead-NLS和非零后双BYTE实读保持。\nstd::uint32_t UpperLegacyMultibyteCharacter_543D37(const std::uint32_t value)\n{\n    if (value <= 0xFFu) {\n        if ((gLegacyMultibyte1086764.classification[value + 1] & 0x20u) != 0) {\n            return gLegacyMultibyte1086764.caseMap[value];\n        }\n        return value;\n    }\n    const auto highByte = static_cast<std::uint8_t>(value >> 8);\n    const auto lowByte = static_cast<std::uint8_t>(value);\n    if ((gLegacyMultibyte1086764.classification[highByte + 1] & 4u) == 0) {\n        return value;\n    }\n    const char source[2] {std::bit_cast<char>(highByte), std::bit_cast<char>(lowByte)};\n    char destination[4];\n    if (MapLegacyString_543AE8(gLegacyMultibyte1086764.locale,\n            LCMAP_UPPERCASE, source, 2, destination, 2,\n            gLegacyMultibyte1086764.codePage, 1) == 0) {\n        return value;\n    }\n    return detail::Cg2dReadLegacyMappedPair(destination);\n}\n\nstd::uint32_t UpperLegacyDirectoryByte_543D37(const std::uint8_t value)\n{\n    return UpperLegacyMultibyteCharacter_543D37(value);\n}\n\nstd::uint32_t ResolveLegacyMultibyteCodePage_546A83(const std::uint32_t requested)\n{\n    gLegacyMultibyteSystemCodePage10862E8 = 0;\n    if (requested == 0xFFFFFFFEu) {\n        gLegacyMultibyteSystemCodePage10862E8 = 1;\n        return ::GetOEMCP();\n    }\n    if (requested == 0xFFFFFFFDu) {\n        gLegacyMultibyteSystemCodePage10862E8 = 1;\n        return ::GetACP();\n    }\n    if (requested == 0xFFFFFFFCu) {\n        const std::uint32_t codePage = gConversionCodePage_1086170;\n        gLegacyMultibyteSystemCodePage10862E8 = 1;\n        return codePage;\n    }\n    return requested;\n}\n\nstd::uint32_t RefreshLegacySingleByteCase_546B29()\n{\n    CPINFO info;\n    if (::GetCPInfo(gLegacyMultibyte1086764.codePage, &info) == TRUE) {\n        char source[256];\n        for (std::uint32_t index = 0; index < 256; ++index) {\n            source[index] = std::bit_cast<char>(static_cast<std::uint8_t>(index));\n        }\n        source[0] = ' ';\n        for (const BYTE* range = info.LeadByte; range[0] != 0; range += 2) {\n            for (std::uint32_t value = range[0]; value <= range[1]; ++value) {\n                source[value] = ' ';\n            }\n        }\n\n        // 原三个输出不预清零，调用返回均忽略；失败未写内容不声称旧栈等价。\n        std::uint16_t types[256];\n        char lower[256];\n        char upper[256];\n        static_cast<void>(GetLegacyCharacterTypes_545208(source, 256, types,\n            gLegacyMultibyte1086764.codePage, gLegacyMultibyte1086764.locale, false));\n        static_cast<void>(MapLegacyCaseTable_543AE8(gLegacyMultibyte1086764.locale,\n            LCMAP_LOWERCASE, source, lower, gLegacyMultibyte1086764.codePage));\n        static_cast<void>(MapLegacyCaseTable_543AE8(gLegacyMultibyte1086764.locale,\n            LCMAP_UPPERCASE, source, upper, gLegacyMultibyte1086764.codePage));\n        for (std::uint32_t index = 0; index < 256; ++index) {\n            if ((types[index] & 1u) != 0) {\n                gLegacyMultibyte1086764.classification[index + 1] |= 0x10u;\n                gLegacyMultibyte1086764.caseMap[index] = static_cast<std::uint8_t>(lower[index]);\n            } else if ((types[index] & 2u) != 0) {\n                gLegacyMultibyte1086764.classification[index + 1] |= 0x20u;\n                gLegacyMultibyte1086764.caseMap[index] = static_cast<std::uint8_t>(upper[index]);\n            } else {\n                gLegacyMultibyte1086764.caseMap[index] = 0;\n            }\n        }\n        return 256;\n    }\n\n    for (std::uint32_t index = 0; index < 256; ++index) {\n        if (index >= 'A' && index <= 'Z') {\n            gLegacyMultibyte1086764.classification[index + 1] |= 0x10u;\n            gLegacyMultibyte1086764.caseMap[index] = static_cast<std::uint8_t>(index + 32);\n        } else if (index >= 'a' && index <= 'z') {\n            gLegacyMultibyte1086764.classification[index + 1] |= 0x20u;\n            gLegacyMultibyte1086764.caseMap[index] = static_cast<std::uint8_t>(index - 32);\n        } else {\n            gLegacyMultibyte1086764.caseMap[index] = 0;\n        }\n    }\n    return 256;\n}\n\nstd::int32_t SetLegacyMultibyteCodePage_5468EA(const std::uint32_t requested)\n{\n    const std::uint32_t codePage = ResolveLegacyMultibyteCodePage_546A83(requested);\n    if (codePage == gLegacyMultibyte1086764.codePage) {\n        return 0;\n    }\n    if (codePage == 0) {\n        static_cast<void>(ResetLegacySingleByte_546B00());\n    } else {\n        const MultibyteCodePageDefinition* definition = nullptr;\n        for (const auto& candidate : kMultibyteCodePages5923F0) {\n            if (candidate.codePage == codePage) {\n                definition = &candidate;\n                break;\n            }\n        }\n        if (definition != nullptr) {\n            gLegacyMultibyte1086764.classification.fill(0);\n            for (std::uint32_t kind = 0; kind < 4; ++kind) {\n                for (const std::uint8_t* range = definition->ranges[kind];\n                     range[0] != 0; range += 2) {\n                    if (range[1] == 0) {\n                        break;\n                    }\n                    for (std::uint32_t value = range[0]; value <= range[1]; ++value) {\n                        gLegacyMultibyte1086764.classification[value + 1]\n                            |= kMultibyteRangeMasks5923E8[kind];\n                    }\n                }\n            }\n            gLegacyMultibyte1086764.isMultibyte = 1;\n            gLegacyMultibyte1086764.codePage = codePage;\n            const std::uint32_t locale = MultibyteCodePageToLocale_546ACD(codePage);\n            gLegacyMultibyte1086764.codePageParameters[0] = definition->parameters[0];\n            gLegacyMultibyte1086764.codePageParameters[1] = definition->parameters[1];\n            gLegacyMultibyte1086764.locale = locale;\n            gLegacyMultibyte1086764.codePageParameters[2] = definition->parameters[2];\n        } else {\n            CPINFO info;\n            if (::GetCPInfo(codePage, &info) != TRUE) {\n                if (gLegacyMultibyteSystemCodePage10862E8 == 0) {\n                    return -1;\n                }\n                static_cast<void>(ResetLegacySingleByte_546B00());\n            } else {\n                gLegacyMultibyte1086764.codePage = codePage;\n                gLegacyMultibyte1086764.classification.fill(0);\n                gLegacyMultibyte1086764.locale = 0;\n                if (info.MaxCharSize <= 1) {\n                    gLegacyMultibyte1086764.isMultibyte = 0;\n                } else {\n                    for (const BYTE* range = info.LeadByte; range[0] != 0; range += 2) {\n                        if (range[1] == 0) {\n                            break;\n                        }\n                        for (std::uint32_t value = range[0]; value <= range[1]; ++value) {\n                            gLegacyMultibyte1086764.classification[value + 1] |= 4u;\n                        }\n                    }\n                    for (std::uint32_t value = 1; value < 255; ++value) {\n                        gLegacyMultibyte1086764.classification[value + 1] |= 8u;\n                    }\n                    gLegacyMultibyte1086764.locale = MultibyteCodePageToLocale_546ACD(codePage);\n                    gLegacyMultibyte1086764.isMultibyte = 1;\n                }\n                gLegacyMultibyte1086764.codePageParameters[0] = 0;\n                gLegacyMultibyte1086764.codePageParameters[1] = 0;\n                gLegacyMultibyte1086764.codePageParameters[2] = 0;\n            }\n        }\n    }\n    static_cast<void>(RefreshLegacySingleByteCase_546B29());\n    return 0;\n}\n\nvoid InitializeLegacyMultibyte_546CAE()\n{\n    if (gLegacyMultibyteInitGuard1087AEC == 0) {\n        static_cast<void>(SetLegacyMultibyteCodePage_5468EA(0xFFFFFFFDu));\n        gLegacyMultibyteInitGuard1087AEC = 1;\n    }\n}\n\n// 原544552；保留lead分支中先有符号、后无符号的两个数量判断。\nstd::int32_t Mbtowc_544552(wchar_t* const destination, const char* const source,\n    const std::uint32_t sourceCount)\n{\n    if (source == nullptr || sourceCount == 0) {\n        return 0;\n    }\n    const auto first = static_cast<std::uint8_t>(source[0]);\n    if (first == 0) {\n        if (destination != nullptr) {\n            *destination = 0;\n        }\n        return 0;\n    }\n    if (gLegacyTextLocale1086160.ctypeLocale == 0) {\n        if (destination != nullptr) {\n            *destination = static_cast<wchar_t>(first);\n        }\n        return 1;\n    }\n    if ((gCtypePointer58FC30[first] & 0x8000u) != 0) {\n        std::int32_t width = gLegacyCtypeMaxBytes58FE3C;\n        if (width > 1) {\n            if (std::bit_cast<std::int32_t>(sourceCount) < width) {\n                gLegacyErrno_1085FE0 = 42;\n                return -1;\n            }\n            const int converted = ::MultiByteToWideChar(gConversionCodePage_1086170,\n                MB_PRECOMPOSED | MB_ERR_INVALID_CHARS, source, width,\n                destination, destination != nullptr ? 1 : 0);\n            width = gLegacyCtypeMaxBytes58FE3C;\n            if (converted != 0) {\n                return width;\n            }\n        }\n        if (sourceCount >= static_cast<std::uint32_t>(width) && source[1] != '\\0') {\n            return width;\n        }\n    } else if (::MultiByteToWideChar(gConversionCodePage_1086170,\n            MB_PRECOMPOSED | MB_ERR_INVALID_CHARS, source, 1,\n            destination, destination != nullptr ? 1 : 0) != 0) {\n        return 1;\n    }\n    gLegacyErrno_1085FE0 = 42;\n    return -1;\n}\n\n// 原54472B；真实API写入和默认字符标志均保留，不在失败时清目的区。\nstd::int32_t Wctomb_54472B(char* const destination, const std::uint16_t character)\n{\n    if (destination == nullptr) {\n        return 0;\n    }\n    if (gLegacyTextLocale1086160.ctypeLocale == 0) {\n        if (character <= 0xFFu) {\n            destination[0] = std::bit_cast<char>(static_cast<std::uint8_t>(character));\n            return 1;\n        }\n    } else {\n        const wchar_t wideCharacter = static_cast<wchar_t>(character);\n        BOOL usedDefault = FALSE;\n        const int converted = ::WideCharToMultiByte(gConversionCodePage_1086170,\n            WC_COMPOSITECHECK | WC_SEPCHARS, &wideCharacter, 1, destination,\n            gLegacyCtypeMaxBytes58FE3C, nullptr, &usedDefault);\n        if (converted != 0 && usedDefault == FALSE) {\n            return converted;\n        }\n    }\n    gLegacyErrno_1085FE0 = 42;\n    return -1;\n}\n\n// 原54A9C3；state按W32判断，低U8续接写和整个W32清理分别执行。\nstd::int32_t Mbrtowc_54A9C3(wchar_t* const destination, const char* const source,\n    const std::uint32_t sourceCount, std::uint32_t* const state,\n    const LegacyConversionLocale54A9C3* const locale)\n{\n    if (source == nullptr || sourceCount == 0) {\n        return 0;\n    }\n    const auto first = static_cast<std::uint8_t>(source[0]);\n    if (first == 0) {\n        if (destination != nullptr) {\n            *destination = 0;\n        }\n        return 0;\n    }\n    std::uint32_t ctypeLocale;\n    std::uint32_t codePage;\n    if (locale == nullptr) {\n        ctypeLocale = gLegacyTextLocale1086160.ctypeLocale;\n        codePage = gConversionCodePage_1086170;\n    } else {\n        ctypeLocale = locale->ctypeLocale;\n        codePage = locale->codePage;\n    }\n    if (ctypeLocale == 0) {\n        if (destination != nullptr) {\n            *destination = static_cast<wchar_t>(first);\n        }\n        return 1;\n    }\n    if (*state != 0) {\n        reinterpret_cast<unsigned char*>(state)[1] = first;\n        if (gLegacyCtypeMaxBytes58FE3C > 1\n            && ::MultiByteToWideChar(codePage, MB_PRECOMPOSED | MB_ERR_INVALID_CHARS,\n                reinterpret_cast<const char*>(state), 2, destination,\n                destination != nullptr ? 1 : 0) != 0) {\n            *state = 0;\n            return gLegacyCtypeMaxBytes58FE3C;\n        }\n        *state = 0;\n        gLegacyErrno_1085FE0 = 42;\n        return -1;\n    }\n    if ((gCtypePointer58FC30[first] & 0x8000u) != 0) {\n        const std::int32_t width = gLegacyCtypeMaxBytes58FE3C;\n        if (sourceCount < static_cast<std::uint32_t>(width)) {\n            reinterpret_cast<unsigned char*>(state)[0] = first;\n            return -2;\n        }\n        if (width > 1\n            && ::MultiByteToWideChar(codePage, MB_PRECOMPOSED | MB_ERR_INVALID_CHARS,\n                source, width, destination, destination != nullptr ? 1 : 0) != 0) {\n            return gLegacyCtypeMaxBytes58FE3C;\n        }\n        if (source[1] != '\\0') {\n            return gLegacyCtypeMaxBytes58FE3C;\n        }\n        *state = 0;\n    } else if (::MultiByteToWideChar(codePage, MB_PRECOMPOSED | MB_ERR_INVALID_CHARS,\n            source, 1, destination, destination != nullptr ? 1 : 0) != 0) {\n        return 1;\n    }\n    gLegacyErrno_1085FE0 = 42;\n    return -1;\n}\n\n// 原54AAD5；只初始化原W32状态，输出沿被调函数真实写入。\nstd::uint16_t Btowc_54AAD5(const std::int32_t character)\n{\n    if (character == -1) {\n        return 0xFFFFu;\n    }\n    const char byte = std::bit_cast<char>(static_cast<std::uint8_t>(character));\n    std::uint32_t state = 0;\n    wchar_t converted;\n    const std::int32_t result = Mbrtowc_54A9C3(&converted, &byte, 1, &state, nullptr);\n    return result < 0 ? 0xFFFFu : static_cast<std::uint16_t>(converted);\n}\n\n// 原53C9DD：整串转换；数量/返回保持U32，目标可空，不使用宿主locale。\nstd::uint32_t Mbstowcs_53C9DD(wchar_t* const destination, const char* const source,\n    const std::uint32_t destinationCount)\n{\n    if (destination == nullptr) {\n        if (gLegacyTextLocale1086160.ctypeLocale == 0) {\n            return StrLen_53F9E0(source);\n        }\n        const std::int32_t converted = ::MultiByteToWideChar(\n            gConversionCodePage_1086170, MB_PRECOMPOSED | MB_ERR_INVALID_CHARS,\n            source, -1, nullptr, 0);\n        if (converted != 0) {\n            return static_cast<std::uint32_t>(converted - 1);\n        }\n        gLegacyErrno_1085FE0 = 42;\n        return 0xFFFFFFFFu;\n    }\n    if (destinationCount == 0) {\n        return 0;\n    }\n    if (gLegacyTextLocale1086160.ctypeLocale == 0) {\n        std::uint32_t completed = 0;\n        wchar_t* target = destination;\n        do {\n            *target = static_cast<std::uint8_t>(source[completed]);\n            // 原53CA19在W16写入之后重读同一源字节，保源/目标可能的别名。\n            if (source[completed] == '\\0') {\n                break;\n            }\n            ++completed;\n            ++target;\n        } while (completed < destinationCount);\n        return completed;\n    }\n\n    const std::int32_t converted = ::MultiByteToWideChar(\n        gConversionCodePage_1086170, MB_PRECOMPOSED | MB_ERR_INVALID_CHARS,\n        source, -1, destination, std::bit_cast<std::int32_t>(destinationCount));\n    if (converted != 0) {\n        return static_cast<std::uint32_t>(converted - 1);\n    }\n    if (::GetLastError() != ERROR_INSUFFICIENT_BUFFER) {\n        gLegacyErrno_1085FE0 = 42;\n        return 0xFFFFFFFFu;\n    }\n\n    const char* cursor = source;\n    std::uint32_t remaining = destinationCount - 1u;\n    for (;;) {\n        const std::uint8_t current = static_cast<std::uint8_t>(*cursor);\n        if (current == 0) {\n            break;\n        }\n        if ((gCtypePointer58FC30[current] & 0x8000u) != 0) {\n            ++cursor;\n        }\n        ++cursor;\n        const std::uint32_t previous = remaining;\n        --remaining;\n        if (previous == 0) {\n            break;\n        }\n    }\n    // 原53CA93以W32字节差传API，截取转换的结果不再减去NUL。\n    const std::uint32_t sourceBytes = static_cast<std::uint32_t>(cursor - source);\n    const std::int32_t prefixConverted = ::MultiByteToWideChar(\n        gConversionCodePage_1086170, MB_PRECOMPOSED, source,\n        std::bit_cast<std::int32_t>(sourceBytes), destination,\n        std::bit_cast<std::int32_t>(destinationCount));\n    if (prefixConverted != 0) {\n        return static_cast<std::uint32_t>(prefixConverted);\n    }\n    gLegacyErrno_1085FE0 = 42;\n    return 0xFFFFFFFFu;\n}\n\n// 原53BDEF；完整入口保留共享最大宽度门禁，0..255/EOF域沿同一分类表。\nstd::int32_t ClassifyLegacySpace_53BDEF(const std::int32_t character)\n{\n    if (gLegacyCtypeMaxBytes58FE3C > 1) {\n        return static_cast<std::int32_t>(ClassifyLegacyCharacter_541955(character, 8));\n    }\n    return gCtypePointer58FC30[character] & 8;\n}\n\n// 原53BE17；控制字符mask20H，在输入校验中位于空白分类之后。\nstd::int32_t ClassifyLegacyControl_53BE17(const std::int32_t character)\n{\n    if (gLegacyCtypeMaxBytes58FE3C > 1) {\n        return static_cast<std::int32_t>(ClassifyLegacyCharacter_541955(character, 0x20));\n    }\n    return gCtypePointer58FC30[character] & 0x20;\n}\n\n// 原53E919；仅数字类别保持输入，其余照原位运算，不替caller减去字符0。\nstd::int32_t NormalizeLegacyHexCharacter_53E919(const std::int32_t character)\n{\n    const std::uint32_t digit = gLegacyCtypeMaxBytes58FE3C > 1\n        ? ClassifyLegacyCharacter_541955(character, 4)\n        : gCtypePointer58FC30[character] & 4u;\n    if (digit != 0) {\n        return character;\n    }\n    return std::bit_cast<std::int32_t>(\n        (static_cast<std::uint32_t>(character) & 0xFFFFFFDFu) - 7u);\n}\n\n// 原546CCA只有546CDB委托；保持固定mask及0/1返回。\nstd::int32_t IsLegacyMultibyteLead_546CCA(const std::uint32_t character)\n{\n    return ClassifyMultibyteType_546CDB(character, 0, 4);\n}\n\n} // namespace cg::platform\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyMultibyte.hpp",
+      "before": "#pragma once\n\n#include <array>\n#include <cstddef>\n#include <cstdint>\n#include <type_traits>\n\nnamespace cg::platform {\n\n// 原[1086764,1086988)；字节映射/分类和多字节locale的唯一存储，生产链见局部SPEC。\nstruct LegacyMultibyteStorage {\n    std::uint32_t codePage;                         // 1086764；5468EA发布。\n    std::array<std::uint8_t, 8> remaining04;         // 未解释原字节间隔。\n    std::array<std::uint32_t, 3> codePageParameters; // 1086770/74/78；固定代码页记录参数。\n    std::int32_t isMultibyte;                       // 108677C。\n    std::array<std::uint8_t, 256> caseMap;           // 1086780；546B29生产。\n    std::array<std::uint8_t, 257> classification;    // 1086880；字符value读取value+1项。\n    std::array<std::uint8_t, 3> remaining21D;        // 原locale前的字节间隔。\n    std::uint32_t locale;                           // 1086984；与1086160的C locale不同。\n};\nstatic_assert(std::is_standard_layout_v<LegacyMultibyteStorage>);\nstatic_assert(std::is_trivially_copyable_v<LegacyMultibyteStorage>);\nstatic_assert(offsetof(LegacyMultibyteStorage, codePageParameters) == 0x0C);\nstatic_assert(offsetof(LegacyMultibyteStorage, isMultibyte) == 0x18);\nstatic_assert(offsetof(LegacyMultibyteStorage, caseMap) == 0x1C);\nstatic_assert(offsetof(LegacyMultibyteStorage, classification) == 0x11C);\nstatic_assert(offsetof(LegacyMultibyteStorage, locale) == 0x220);\nstatic_assert(sizeof(LegacyMultibyteStorage) == 0x224);\n\nextern LegacyMultibyteStorage gLegacyMultibyte1086764;\nextern std::int32_t gLegacyCtypeMaxBytes58FE3C; // 原MB_CUR_MAX；543A1A决定分类分支。\nextern std::uint32_t gLegacyMultibyteTypeBackend10862E4;   // 分类A/W探测，独立于LCMap后端。\nextern std::uint32_t gLegacyMultibyteSystemCodePage10862E8; // 原getSystemCP的回退标记。\nextern std::uint32_t gLegacyMultibyteInitGuard1087AEC;     // 初始化调用后置1，不按失败重试。\n\n// 原545208的CT_CTYPE1调用域；复用共享A/W后端，types按实际字符数写出。\nstd::int32_t GetLegacyCharacterTypes_545208(const char* source, std::int32_t sourceCount,\n    std::uint16_t* types, std::uint32_t codePage, std::uint32_t locale, bool strict);\n\n// 原546A83/5468EA；保留特殊U32代码页参数、固定表和系统CPINFO路径。\nstd::uint32_t ResolveLegacyMultibyteCodePage_546A83(std::uint32_t requested);\nstd::int32_t SetLegacyMultibyteCodePage_5468EA(std::uint32_t requested);\n\n// 原546B29；生产分类/大小写表，原NLS返回不检查，失败未写局部内容仍未验。\nstd::uint32_t RefreshLegacySingleByteCase_546B29();\n\n// 原546CAE；当前CRT553178调用不消费返回，不伪造门禁已置时的未定义EAX。\nvoid InitializeLegacyMultibyte_546CAE();\n\n// 原546ACD；只有原四种代码页返回特定locale，其他均0。\nstd::uint32_t MultibyteCodePageToLocale_546ACD(std::uint32_t codePage);\n\n// 原546B00；清分类及代码页状态，保留大小写映射和间隔字节，返回0。\nstd::int32_t ResetLegacySingleByte_546B00();\n\n// 原543A1A；S32输入，供53DA5C解析字母数字，保留旧ctype/NLS分支。\nstd::int32_t UpperLegacyCharacter_543A1A(std::int32_t value);\n\n// 原53DC64；与大写转换共用ctype/NLS状态，失败返回原S32输入。\nstd::int32_t LowerLegacyCharacter_53DC64(std::int32_t value);\n\n// 原541955；供浮点数字分类复用既有本体，保留可变ctype及NLS输出别名。\nstd::uint32_t ClassifyLegacyCharacter_541955(std::int32_t value, std::uint32_t mask);\n\n// 原543AE8完整通用映射；数量S32/locale-flags-CP-strict原W32，指针只借用。\nstd::int32_t MapLegacyString_543AE8(std::uint32_t locale, std::uint32_t flags,\n    const char* source, std::int32_t sourceCount, char* destination,\n    std::int32_t destinationCount, std::uint32_t codePage, std::int32_t strict);\n\n// 原543D37完整W32输入/返回；仅低两BYTE用于原>255 NLS尝试，失败返原完整值。\nstd::uint32_t UpperLegacyMultibyteCharacter_543D37(std::uint32_t value);\n// 唯一直接目录caller仍用已证U8域，转同一完整543D37，不新增应用调用。\nstd::uint32_t UpperLegacyDirectoryByte_543D37(std::uint8_t value);\n\nnamespace detail {\n// 原543D89/8D/91/94；借当前目标，两个真实U8读后按首BYTE<<8+次BYTE返W32。\nextern \"C\" std::uint32_t Cg2dReadLegacyMappedPair(const char* bytes) noexcept;\n} // namespace detail\n\n// 原54A9C3可空locale参数只读取两个W32；不包含MB_CUR_MAX或lead-byte表。\nstruct LegacyConversionLocale54A9C3 final {\n    std::uint32_t ctypeLocale; // +0，非零进入系统转换。\n    std::uint32_t codePage;    // +4，直接传给MultiByteToWideChar。\n};\nstatic_assert(sizeof(LegacyConversionLocale54A9C3) == 8);\nstatic_assert(offsetof(LegacyConversionLocale54A9C3, codePage) == 4);\n\n// 原544552；数量保留W32，目标可空；失败沿原共享errno，不预清目标。\nstd::int32_t Mbtowc_544552(wchar_t* destination, const char* source,\n    std::uint32_t sourceCount);\n\n// 原54472B；一个W16到旧字节串，容量取共享MB_CUR_MAX，目标可空。\nstd::int32_t Wctomb_54472B(char* destination, std::uint16_t character);\n\n// 原54A9C3；调用者持有W32待续状态，可空locale只覆盖locale/代码页两个值。\nstd::int32_t Mbrtowc_54A9C3(wchar_t* destination, const char* source,\n    std::uint32_t sourceCount, std::uint32_t* state,\n    const LegacyConversionLocale54A9C3* locale);\n\n// 原54AAD5；S32仅-1作EOF，其余取低U8，负转换结果返回W16 FFFF。\nstd::uint16_t Btowc_54AAD5(std::int32_t character);\n\n// 原53C9DD；目标可空，数量/返回保持U32，旧locale/代码页/ctype和errno同源。\nstd::uint32_t Mbstowcs_53C9DD(wchar_t* destination, const char* source,\n    std::uint32_t destinationCount);\n\n// 原53BDEF/53BE17；保留S32输入和mask8/20H返回，不使用宿主ctype。\nstd::int32_t ClassifyLegacySpace_53BDEF(std::int32_t character);\nstd::int32_t ClassifyLegacyControl_53BE17(std::int32_t character);\n\n// 原53E919；数字不变，其他作W32位变换，不是直接返回0..15。\nstd::int32_t NormalizeLegacyHexCharacter_53E919(std::int32_t character);\n\n// 原546CCA；读取现有多字节分类表的lead位，仅输入低U8参与。\nstd::int32_t IsLegacyMultibyteLead_546CCA(std::uint32_t character);\n\n} // namespace cg::platform\n",
+      "after": "#pragma once\n\n#include <array>\n#include <cstddef>\n#include <cstdint>\n#include <type_traits>\n\nnamespace cg::platform {\n\n// 原[1086764,1086988)；字节映射/分类和多字节locale的唯一存储，生产链见局部SPEC。\nstruct LegacyMultibyteStorage {\n    std::uint32_t codePage;                         // 1086764；5468EA发布。\n    std::array<std::uint8_t, 8> remaining04;         // 未解释原字节间隔。\n    std::array<std::uint32_t, 3> codePageParameters; // 1086770/74/78；固定代码页记录参数。\n    std::int32_t isMultibyte;                       // 108677C。\n    std::array<std::uint8_t, 256> caseMap;           // 1086780；546B29生产。\n    std::array<std::uint8_t, 257> classification;    // 1086880；字符value读取value+1项。\n    std::array<std::uint8_t, 3> remaining21D;        // 原locale前的字节间隔。\n    std::uint32_t locale;                           // 1086984；与1086160的C locale不同。\n};\nstatic_assert(std::is_standard_layout_v<LegacyMultibyteStorage>);\nstatic_assert(std::is_trivially_copyable_v<LegacyMultibyteStorage>);\nstatic_assert(offsetof(LegacyMultibyteStorage, codePageParameters) == 0x0C);\nstatic_assert(offsetof(LegacyMultibyteStorage, isMultibyte) == 0x18);\nstatic_assert(offsetof(LegacyMultibyteStorage, caseMap) == 0x1C);\nstatic_assert(offsetof(LegacyMultibyteStorage, classification) == 0x11C);\nstatic_assert(offsetof(LegacyMultibyteStorage, locale) == 0x220);\nstatic_assert(sizeof(LegacyMultibyteStorage) == 0x224);\n\nextern LegacyMultibyteStorage gLegacyMultibyte1086764;\nextern std::int32_t gLegacyCtypeMaxBytes58FE3C; // 原MB_CUR_MAX；543A1A决定分类分支。\nextern std::uint32_t gLegacyMultibyteTypeBackend10862E4;   // 分类A/W探测，独立于LCMap后端。\nextern std::uint32_t gLegacyMultibyteSystemCodePage10862E8; // 原getSystemCP的回退标记。\nextern std::uint32_t gLegacyMultibyteInitGuard1087AEC;     // 初始化调用后置1，不按失败重试。\n\n// 原545208完整七参数；数值原W32/S32，源及W16分类目标仅借用。\nstd::int32_t GetLegacyStringTypes_545208(std::uint32_t infoType,\n    const char* source, std::int32_t sourceCount, std::uint16_t* types,\n    std::uint32_t codePage, std::uint32_t locale, std::int32_t strict);\n\n// 原CT_CTYPE1调用域转完整体；541955/546B29仍用原参数/实际字符数写出。\nstd::int32_t GetLegacyCharacterTypes_545208(const char* source, std::int32_t sourceCount,\n    std::uint16_t* types, std::uint32_t codePage, std::uint32_t locale, bool strict);\n\n// 原546A83/5468EA；保留特殊U32代码页参数、固定表和系统CPINFO路径。\nstd::uint32_t ResolveLegacyMultibyteCodePage_546A83(std::uint32_t requested);\nstd::int32_t SetLegacyMultibyteCodePage_5468EA(std::uint32_t requested);\n\n// 原546B29；生产分类/大小写表，原NLS返回不检查，失败未写局部内容仍未验。\nstd::uint32_t RefreshLegacySingleByteCase_546B29();\n\n// 原546CAE；当前CRT553178调用不消费返回，不伪造门禁已置时的未定义EAX。\nvoid InitializeLegacyMultibyte_546CAE();\n\n// 原546ACD；只有原四种代码页返回特定locale，其他均0。\nstd::uint32_t MultibyteCodePageToLocale_546ACD(std::uint32_t codePage);\n\n// 原546B00；清分类及代码页状态，保留大小写映射和间隔字节，返回0。\nstd::int32_t ResetLegacySingleByte_546B00();\n\n// 原543A1A；S32输入，供53DA5C解析字母数字，保留旧ctype/NLS分支。\nstd::int32_t UpperLegacyCharacter_543A1A(std::int32_t value);\n\n// 原53DC64；与大写转换共用ctype/NLS状态，失败返回原S32输入。\nstd::int32_t LowerLegacyCharacter_53DC64(std::int32_t value);\n\n// 原541955；供浮点数字分类复用既有本体，保留可变ctype及NLS输出别名。\nstd::uint32_t ClassifyLegacyCharacter_541955(std::int32_t value, std::uint32_t mask);\n\n// 原543AE8完整通用映射；数量S32/locale-flags-CP-strict原W32，指针只借用。\nstd::int32_t MapLegacyString_543AE8(std::uint32_t locale, std::uint32_t flags,\n    const char* source, std::int32_t sourceCount, char* destination,\n    std::int32_t destinationCount, std::uint32_t codePage, std::int32_t strict);\n\n// 原543D37完整W32输入/返回；仅低两BYTE用于原>255 NLS尝试，失败返原完整值。\nstd::uint32_t UpperLegacyMultibyteCharacter_543D37(std::uint32_t value);\n// 唯一直接目录caller仍用已证U8域，转同一完整543D37，不新增应用调用。\nstd::uint32_t UpperLegacyDirectoryByte_543D37(std::uint8_t value);\n\nnamespace detail {\n// 原543D89/8D/91/94；借当前目标，两个真实U8读后按首BYTE<<8+次BYTE返W32。\nextern \"C\" std::uint32_t Cg2dReadLegacyMappedPair(const char* bytes) noexcept;\n} // namespace detail\n\n// 原54A9C3可空locale参数只读取两个W32；不包含MB_CUR_MAX或lead-byte表。\nstruct LegacyConversionLocale54A9C3 final {\n    std::uint32_t ctypeLocale; // +0，非零进入系统转换。\n    std::uint32_t codePage;    // +4，直接传给MultiByteToWideChar。\n};\nstatic_assert(sizeof(LegacyConversionLocale54A9C3) == 8);\nstatic_assert(offsetof(LegacyConversionLocale54A9C3, codePage) == 4);\n\n// 原544552；数量保留W32，目标可空；失败沿原共享errno，不预清目标。\nstd::int32_t Mbtowc_544552(wchar_t* destination, const char* source,\n    std::uint32_t sourceCount);\n\n// 原54472B；一个W16到旧字节串，容量取共享MB_CUR_MAX，目标可空。\nstd::int32_t Wctomb_54472B(char* destination, std::uint16_t character);\n\n// 原54A9C3；调用者持有W32待续状态，可空locale只覆盖locale/代码页两个值。\nstd::int32_t Mbrtowc_54A9C3(wchar_t* destination, const char* source,\n    std::uint32_t sourceCount, std::uint32_t* state,\n    const LegacyConversionLocale54A9C3* locale);\n\n// 原54AAD5；S32仅-1作EOF，其余取低U8，负转换结果返回W16 FFFF。\nstd::uint16_t Btowc_54AAD5(std::int32_t character);\n\n// 原53C9DD；目标可空，数量/返回保持U32，旧locale/代码页/ctype和errno同源。\nstd::uint32_t Mbstowcs_53C9DD(wchar_t* destination, const char* source,\n    std::uint32_t destinationCount);\n\n// 原53BDEF/53BE17；保留S32输入和mask8/20H返回，不使用宿主ctype。\nstd::int32_t ClassifyLegacySpace_53BDEF(std::int32_t character);\nstd::int32_t ClassifyLegacyControl_53BE17(std::int32_t character);\n\n// 原53E919；数字不变，其他作W32位变换，不是直接返回0..15。\nstd::int32_t NormalizeLegacyHexCharacter_53E919(std::int32_t character);\n\n// 原546CCA；读取现有多字节分类表的lead位，仅输入低U8参与。\nstd::int32_t IsLegacyMultibyteLead_546CCA(std::uint32_t character);\n\n} // namespace cg::platform\n"
+    }
+  ],
+  "semantic_before": {
+    "original_entry": "0x545208",
+    "inventory_id": "F:00145208",
+    "status": "已接多字节表生产及解析字符分类；限定NLS域及运行未验",
+    "original_end_exclusive": "0x545351",
+    "instruction_count": 123,
+    "sources": [
+      {
+        "path": "src/platform/LegacyMultibyte.cpp",
+        "symbols": [
+          "GetLegacyCharacterTypes_545208"
+        ]
+      }
+    ],
+    "evidence_documents": [
+      "doc/cg2d_legacy_multibyte.md",
+      "doc/cg2d_resource_sources.md",
+      "doc/cg2d_semantic_function_mappings.md",
+      "doc/cg2d_legacy_string_compare.md"
+    ],
+    "boundary": "既有546B29仍传256字节/info1/strict0；新增541955传1或2字节/info1/strict1。独立10862E4 A/W探测、代码页/locale回退、首转换flags1或9、次转换flags1、同栈宽缓冲清零与实际转换长度保持。只拓展这两个已证调用域，不声称任意infoType等完整接口已承接；未执行NLS/目录操作、构建、测试或客户端。；2026-10-04仅既有原填充点改接真实FillLegacyMemory_5419D0，当前容量/目标/数值/时点及原失败/owner保持；其余父正文不重验。",
+    "verification_level": "既有父合同/静态级别保持；仅原填充call邻窗与限定标识符/数量低U32接线静态核对，未构建或执行",
+    "memory_fill_connections": [
+      {
+        "target_entry": "0x5419D0",
+        "call_site": "0x5452F7",
+        "source": "src/platform/LegacyMultibyte.cpp",
+        "symbol": "GetLegacyTableCharacterTypes_545208",
+        "relationship": "当前系统调用结果wideCount先乘2保留低U32；同原SEH/alloca区域内，不改API结果/失败"
+      }
+    ]
+  }
+}

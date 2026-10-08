@@ -71,10 +71,11 @@ constexpr std::uint8_t kMultibyteRangeMasks5923E8[] {1, 2, 4, 8};
 
 } // namespace
 
-// 原545208：infoType=1；表生产用256/false，541955字符分类用1或2/true。
-int GetLegacyCharacterTypes_545208(const char* const source, const std::int32_t sourceCount,
+// 原545208完整七参数分类；原S32长度/实际infoType及W32申请-填充/SEH见通用分类SPEC。
+std::int32_t GetLegacyStringTypes_545208(const std::uint32_t infoType,
+    const char* const source, const std::int32_t sourceCount,
     std::uint16_t* const types, std::uint32_t codePage, std::uint32_t locale,
-    const bool strict)
+    const std::int32_t strict)
 {
     std::uint32_t backend = gLegacyMultibyteTypeBackend10862E4;
     if (backend == 0) {
@@ -93,7 +94,7 @@ int GetLegacyCharacterTypes_545208(const char* const source, const std::int32_t 
         if (locale == 0) {
             locale = gLegacyTextLocale1086160.ctypeLocale;
         }
-        return ::GetStringTypeA(locale, CT_CTYPE1, source, sourceCount, types);
+        return ::GetStringTypeA(locale, infoType, source, sourceCount, types);
     }
     if (backend != 1) {
         return 0;
@@ -102,16 +103,18 @@ int GetLegacyCharacterTypes_545208(const char* const source, const std::int32_t 
         codePage = gConversionCodePage_1086170;
     }
     const int wideCount = ::MultiByteToWideChar(
-        codePage, MB_PRECOMPOSED | (strict ? MB_ERR_INVALID_CHARS : 0),
+        codePage, MB_PRECOMPOSED | (strict != 0 ? MB_ERR_INVALID_CHARS : 0),
         source, sourceCount, nullptr, 0);
     if (wideCount == 0) {
         return 0;
     }
     wchar_t* wide;
     __try {
-        wide = static_cast<wchar_t*>(_alloca(sizeof(wchar_t) * wideCount));
-        static_cast<void>(FillLegacyMemory_5419D0(wide, 0,
-            static_cast<std::uint32_t>(sizeof(wchar_t) * wideCount)));
+        // 原申请按4B对齐，原填充只接count*2低W32；两种数量不能混用。
+        const std::uint32_t wideBytes = static_cast<std::uint32_t>(wideCount) * 2u;
+        const std::uint32_t allocationBytes = (wideBytes + 3u) & ~3u;
+        wide = static_cast<wchar_t*>(_alloca(allocationBytes));
+        static_cast<void>(FillLegacyMemory_5419D0(wide, 0, wideBytes));
     } __except (EXCEPTION_EXECUTE_HANDLER) {
         wide = nullptr;
     }
@@ -120,7 +123,16 @@ int GetLegacyCharacterTypes_545208(const char* const source, const std::int32_t 
     }
     const int converted = ::MultiByteToWideChar(
         codePage, MB_PRECOMPOSED, source, sourceCount, wide, wideCount);
-    return converted == 0 ? 0 : ::GetStringTypeW(CT_CTYPE1, wide, converted, types);
+    return converted == 0 ? 0 : ::GetStringTypeW(infoType, wide, converted, types);
+}
+
+// 原541955/546B29两个info1域转同一完整体，调用参数/返回消费保持。
+int GetLegacyCharacterTypes_545208(const char* const source, const std::int32_t sourceCount,
+    std::uint16_t* const types, const std::uint32_t codePage, const std::uint32_t locale,
+    const bool strict)
+{
+    return GetLegacyStringTypes_545208(
+        CT_CTYPE1, source, sourceCount, types, codePage, locale, strict ? 1 : 0);
 }
 
 // 原541955：-1..255直接查表；其余输入按原高字节lead位构造NLS源。

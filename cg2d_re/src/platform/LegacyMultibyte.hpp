@@ -33,7 +33,12 @@ extern std::uint32_t gLegacyMultibyteTypeBackend10862E4;   // 分类A/W探测，
 extern std::uint32_t gLegacyMultibyteSystemCodePage10862E8; // 原getSystemCP的回退标记。
 extern std::uint32_t gLegacyMultibyteInitGuard1087AEC;     // 初始化调用后置1，不按失败重试。
 
-// 原545208的CT_CTYPE1调用域；复用共享A/W后端，types按实际字符数写出。
+// 原545208完整七参数；数值原W32/S32，源及W16分类目标仅借用。
+std::int32_t GetLegacyStringTypes_545208(std::uint32_t infoType,
+    const char* source, std::int32_t sourceCount, std::uint16_t* types,
+    std::uint32_t codePage, std::uint32_t locale, std::int32_t strict);
+
+// 原CT_CTYPE1调用域转完整体；541955/546B29仍用原参数/实际字符数写出。
 std::int32_t GetLegacyCharacterTypes_545208(const char* source, std::int32_t sourceCount,
     std::uint16_t* types, std::uint32_t codePage, std::uint32_t locale, bool strict);
 

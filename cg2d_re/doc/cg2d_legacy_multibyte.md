@@ -76,10 +76,10 @@ MapLowercase实现保持；新256项生产共享同一1086198后端、1086170代
 
 ### NLS范围和失败
 
-分类只承接本生产器的infoType=1/sourceCount=256/strict=0，保留独立10862E4
-A/W探测状态；ANSI分支的locale=0回退到1086160，宽分支代码页0回退1086170。
-宽分支按flags=1查长，在同一栈帧分配并清对应WCHAR字节，然后真实转换，
-只把第二次转换返回的长度传GetStringTypeW。分配/转换/API失败返回0。
+本生产器仍用infoType=1/sourceCount=256/strict=0，现转BWY01完整七参数分类体；541955的1/2字符严格域也保持。
+独立10862E4 A/W探测、A-locale0回退1086160与W-CP0回退1086170保持，实际infoType/原S32长度直接交API。
+宽分支首次flags1或9、实际1；同一SEH内原U32对齐栈请求和原未对齐清零数分开，
+只把第二次转换实际长度传GetStringTypeW并原样返回W32，原分配/转换/API失败0保持。
 
 256项大小写生产仍用flags=100h或200h、source/destinationCount=256、strict=0，现转BWX01完整八参数体；
 正源长度按原真实Count循环/末端复读缩源，复用1086198 A/W探测和1086170代码页。
@@ -335,3 +335,9 @@ Input.cpp的IsRejectedInputText_404060两处原来使用U8限定表接口；
 第3/4节的原固定域已实际转完整八参数543AE8，不再把缺SORTKEY/目的0query的表达式当完整本体。原543D37补>255的highBYTE lead/源2目的2严格NLS，任何非零后真实两U8组合；唯一直接目录caller仍原U8路径，表生产与目录正文不扩展。
 
 原256源无新增哨兵，真实Count单U8循环/末端复读由原生读取叶承载；CPP仅借当前地址，不直接求值数组外/未生产字节。两个原SEH/filter1/置空、原W32请求与API原失败保持，不处理或模拟故障。完整系统NLS/SDK/SEH、表失败未写实际值、间接调用/启动寿命与机器验收仍待。
+
+## BWY01完整字符分类与W32栈申请/填充更新（2026-10-08）
+
+[完整七参数合同](cg2d_nls_type_general_spec.md#nls-type-general-decision)、[原全根/两参数消费窗口和scope及两源差集](cg2d_nls_type_general_evidence.json)。原545208已有两个固定info1接口现转完整体，实际infoType不再固定为1；原源长度不缩源，专用后端/CP-locale、strict和转换数量/返回保持，不改变两个应用参数域。
+
+原栈字节请求恢复U32 count*2后+3低两位清零，原清零仍仅count*2低W32，两者同一原SEH区域；5452F7填充连接当前源名已纠正。原filter1/指针置空/失败0保持，不加额外异常处理或超过原填充范围清零；相邻15CC只对齐用途。系统NLS、未知间接父、失败未写实际值、完整SEH/寿命和机器验收继续原门禁。

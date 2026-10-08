@@ -331,7 +331,8 @@
         "doc/cg2d_math_final_exits_spec.md#math-final-exits-baseline",
         "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-baseline",
         "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-baseline",
-        "doc/cg2d_nls_map_general_spec.md#nls-map-general-baseline"
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-baseline",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-baseline"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -536,7 +537,8 @@
         "F:00144620",
         "F:00143AE8",
         "F:00143D37",
-        "F:00143D0C"
+        "F:00143D0C",
+        "F:00145208"
       ],
       "closure_task_ids": [
         "C01",
@@ -597,7 +599,8 @@
         "doc/cg2d_math_final_exits_spec.md#math-final-exits-decision",
         "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-decision",
         "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-decision",
-        "doc/cg2d_nls_map_general_spec.md#nls-map-general-decision"
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-decision",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -648,7 +651,8 @@
         "BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。",
         "BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。",
         "BWW01补原543383四条7B CL/ST0条件变号和54341C七条25B EAX/ST0位样本叶，两源三改/两真实ASM叶及导出和私有寄存器合同。原OR/JZ/FCHS与TEST 80000H/类型7或实际FADD同位F64常量后类型1、连续ST0和整数标志保，无context指针/CPP double ABI/栈帧/新owner/保护/默认值或故障样例。五实际R7共66B（代码32B/十一条、CC34B）完整源码对应或对齐用途，R7已审477→482/余2584→2579。零新F/语义/CRT成员，F1023/CRT200及其它计数和门禁保持；没有已知外部入向，只限定S/E1183，不造外部父或给I通过。原实际入向/完整父与描述符生产、成员库存/正常寿命/机器ABI链接运行继续，原格式明文/音频暂停/RPLAN.24保。",
-        "BWX01补原543AE8完整193条548B八参数NLS、543D37四十三条123B完整W32大写及543D0C二十条43B真实计数读，三完整256条714B/五页。五现源九改、两完整CPP、三原薄转调、计数两个读位置及两个真实ASM读取叶/C桥；共享1086198/1086170与NLS producer/原五映射点及目录U8域保持。原仅正源长度缩源、A/W探测/严格第一次1或9和实际1、SORTKEY目标/容量0与查询数量返回、普通flags220/目标0查询、两U32栈请求及原filter1/置空SEH保持，不造FS/旧帧/故障样例。完整W32大写按原无符号分域、highBYTE lead、显式locale-CP/源2-目标2-strict1、失败完整输入及非零后两U8/W32组合；Count循环/末端复读实际单U8，CPP只借地址消费真返回，不补值/哨兵或根据数量少读。完善既有340/342/438及三F adapted、CRT200→203/F1026/E1185两限定I-S，语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和队列保持。原GetEnv两私有点仍宿主承接；完整间接父/SEH链、CRT库存/正常寿命、实际NLS/SDK/ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。"
+        "BWX01补原543AE8完整193条548B八参数NLS、543D37四十三条123B完整W32大写及543D0C二十条43B真实计数读，三完整256条714B/五页。五现源九改、两完整CPP、三原薄转调、计数两个读位置及两个真实ASM读取叶/C桥；共享1086198/1086170与NLS producer/原五映射点及目录U8域保持。原仅正源长度缩源、A/W探测/严格第一次1或9和实际1、SORTKEY目标/容量0与查询数量返回、普通flags220/目标0查询、两U32栈请求及原filter1/置空SEH保持，不造FS/旧帧/故障样例。完整W32大写按原无符号分域、highBYTE lead、显式locale-CP/源2-目标2-strict1、失败完整输入及非零后两U8/W32组合；Count循环/末端复读实际单U8，CPP只借地址消费真返回，不补值/哨兵或根据数量少读。完善既有340/342/438及三F adapted、CRT200→203/F1026/E1185两限定I-S，语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和队列保持。原GetEnv两私有点仍宿主承接；完整间接父/SEH链、CRT库存/正常寿命、实际NLS/SDK/ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。",
+        "BWY01补原545208完整123条329B/两页七参数NLS分类，原两个参数消费窗口39条98B/一scope与相邻15CC有证。两现源两改、一个完整GetLegacyStringTypes_545208及声明、原info1薄转调，零ASM/C桥/owner/依赖或新应用调用。原W32 infoType/CP-locale-strict与S32源长度直接交API，不缩源；分类专用10862E4、A-locale0/W-CP0回退、首次strict flags1或9/实际1和实际转换数量/完整W32返回保。原SEH内计算count*2低W32字节数，_alloca用+3低两位清零对齐请求，Fill5419D0只原字节数；原filter1/置空指针/失败0与全部caller/掩码和表生产保，不造FS/旧栈或故障样例。完善既有341和填充连接当前源符号、一个F adapted/F1027及CRT204、E1187两限定I-S；一个15CC仅对齐用途/R7已审483余2578。语义1859/有效1852、文档1969/3680（53.51%）和队列/pending保持；完整间接父/SEH链-CRT库存及寿命、系统NLS/SDK-ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -702,7 +706,8 @@
         "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state",
         "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state",
         "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state",
-        "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state"
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state"
       ]
     },
     {
@@ -52180,6 +52185,68 @@
       "observation": "BWX01补原543AE8完整193条548B八参数NLS、543D37四十三条123B完整W32大写及543D0C二十条43B真实计数读，三完整256条714B/五页。五现源九改、两完整CPP、三原薄转调、计数两个读位置及两个真实ASM读取叶/C桥；共享1086198/1086170与NLS producer/原五映射点及目录U8域保持。原仅正源长度缩源、A/W探测/严格第一次1或9和实际1、SORTKEY目标/容量0与查询数量返回、普通flags220/目标0查询、两U32栈请求及原filter1/置空SEH保持，不造FS/旧帧/故障样例。完整W32大写按原无符号分域、highBYTE lead、显式locale-CP/源2-目标2-strict1、失败完整输入及非零后两U8/W32组合；Count循环/末端复读实际单U8，CPP只借地址消费真返回，不补值/哨兵或根据数量少读。完善既有340/342/438及三F adapted、CRT200→203/F1026/E1185两限定I-S，语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和队列保持。原GetEnv两私有点仍宿主承接；完整间接父/SEH链、CRT库存/正常寿命、实际NLS/SDK/ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 仅三全根256条714B/五页、六对齐参数消费窗口与两原scope、五源九改及原位宽/API顺序-SORTKEY/普通query和原两BYTE/Count复读集中静态，不代原未写值或机器。",
       "expected": "BWX01补原543AE8完整193条548B八参数NLS、543D37四十三条123B完整W32大写及543D0C二十条43B真实计数读，三完整256条714B/五页。五现源九改、两完整CPP、三原薄转调、计数两个读位置及两个真实ASM读取叶/C桥；共享1086198/1086170与NLS producer/原五映射点及目录U8域保持。原仅正源长度缩源、A/W探测/严格第一次1或9和实际1、SORTKEY目标/容量0与查询数量返回、普通flags220/目标0查询、两U32栈请求及原filter1/置空SEH保持，不造FS/旧帧/故障样例。完整W32大写按原无符号分域、highBYTE lead、显式locale-CP/源2-目标2-strict1、失败完整输入及非零后两U8/W32组合；Count循环/末端复读实际单U8，CPP只借地址消费真返回，不补值/哨兵或根据数量少读。完善既有340/342/438及三F adapted、CRT200→203/F1026/E1185两限定I-S，语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和队列保持。原GetEnv两私有点仍宿主承接；完整间接父/SEH链、CRT库存/正常寿命、实际NLS/SDK/ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 仅三全根256条714B/五页、六对齐参数消费窗口与两原scope、五源九改及原位宽/API顺序-SORTKEY/普通query和原两BYTE/Count复读集中静态，不代原未写值或机器。",
       "actual": "BWX01补原543AE8完整193条548B八参数NLS、543D37四十三条123B完整W32大写及543D0C二十条43B真实计数读，三完整256条714B/五页。五现源九改、两完整CPP、三原薄转调、计数两个读位置及两个真实ASM读取叶/C桥；共享1086198/1086170与NLS producer/原五映射点及目录U8域保持。原仅正源长度缩源、A/W探测/严格第一次1或9和实际1、SORTKEY目标/容量0与查询数量返回、普通flags220/目标0查询、两U32栈请求及原filter1/置空SEH保持，不造FS/旧帧/故障样例。完整W32大写按原无符号分域、highBYTE lead、显式locale-CP/源2-目标2-strict1、失败完整输入及非零后两U8/W32组合；Count循环/末端复读实际单U8，CPP只借地址消费真返回，不补值/哨兵或根据数量少读。完善既有340/342/438及三F adapted、CRT200→203/F1026/E1185两限定I-S，语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和队列保持。原GetEnv两私有点仍宿主承接；完整间接父/SEH链、CRT库存/正常寿命、实际NLS/SDK/ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 仅三全根256条714B/五页、六对齐参数消费窗口与两原scope、五源九改及原位宽/API顺序-SORTKEY/普通query和原两BYTE/Count复读集中静态，不代原未写值或机器。"
+    },
+    {
+      "id": "E-NLS-TYPE-GENERAL-FUNC-CRT-I-20261008",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWY01原完整123条329B/两页、两窗口/54FE70 scope，实际infoType和W32申请-填充不同；15CC用途。doc/cg2d_nls_type_general_spec.md#nls-type-general-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-nls-type-general-body-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_nls_type_general_evidence.json",
+        "doc/cg2d_nls_type_general_spec.md",
+        "doc/cg2d_legacy_multibyte.md",
+        "src/platform/LegacyMultibyte.cpp",
+        "src/platform/LegacyMultibyte.hpp",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-baseline",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-decision",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-acceptance",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWY01补原545208完整123条329B/两页七参数NLS分类，原两个参数消费窗口39条98B/一scope与相邻15CC有证。两现源两改、一个完整GetLegacyStringTypes_545208及声明、原info1薄转调，零ASM/C桥/owner/依赖或新应用调用。原W32 infoType/CP-locale-strict与S32源长度直接交API，不缩源；分类专用10862E4、A-locale0/W-CP0回退、首次strict flags1或9/实际1和实际转换数量/完整W32返回保。原SEH内计算count*2低W32字节数，_alloca用+3低两位清零对齐请求，Fill5419D0只原字节数；原filter1/置空指针/失败0与全部caller/掩码和表生产保，不造FS/旧栈或故障样例。完善既有341和填充连接当前源符号、一个F adapted/F1027及CRT204、E1187两限定I-S；一个15CC仅对齐用途/R7已审483余2578。语义1859/有效1852、文档1969/3680（53.51%）和队列/pending保持；完整间接父/SEH链-CRT库存及寿命、系统NLS/SDK-ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 仅一个完整七参数分类体、两已证固定info1源/目标域和原Fill/API源级消费/真实SEH，不代更多间接父、实际系统NLS或完整SEH-ABI链。",
+          "decision_ref": "doc/cg2d_nls_type_general_spec.md#nls-type-general-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWY01补原545208完整123条329B/两页七参数NLS分类，原两个参数消费窗口39条98B/一scope与相邻15CC有证。两现源两改、一个完整GetLegacyStringTypes_545208及声明、原info1薄转调，零ASM/C桥/owner/依赖或新应用调用。原W32 infoType/CP-locale-strict与S32源长度直接交API，不缩源；分类专用10862E4、A-locale0/W-CP0回退、首次strict flags1或9/实际1和实际转换数量/完整W32返回保。原SEH内计算count*2低W32字节数，_alloca用+3低两位清零对齐请求，Fill5419D0只原字节数；原filter1/置空指针/失败0与全部caller/掩码和表生产保，不造FS/旧栈或故障样例。完善既有341和填充连接当前源符号、一个F adapted/F1027及CRT204、E1187两限定I-S；一个15CC仅对齐用途/R7已审483余2578。语义1859/有效1852、文档1969/3680（53.51%）和队列/pending保持；完整间接父/SEH链-CRT库存及寿命、系统NLS/SDK-ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 仅一个完整七参数分类体、两已证固定info1源/目标域和原Fill/API源级消费/真实SEH，不代更多间接父、实际系统NLS或完整SEH-ABI链。",
+      "expected": "BWY01补原545208完整123条329B/两页七参数NLS分类，原两个参数消费窗口39条98B/一scope与相邻15CC有证。两现源两改、一个完整GetLegacyStringTypes_545208及声明、原info1薄转调，零ASM/C桥/owner/依赖或新应用调用。原W32 infoType/CP-locale-strict与S32源长度直接交API，不缩源；分类专用10862E4、A-locale0/W-CP0回退、首次strict flags1或9/实际1和实际转换数量/完整W32返回保。原SEH内计算count*2低W32字节数，_alloca用+3低两位清零对齐请求，Fill5419D0只原字节数；原filter1/置空指针/失败0与全部caller/掩码和表生产保，不造FS/旧栈或故障样例。完善既有341和填充连接当前源符号、一个F adapted/F1027及CRT204、E1187两限定I-S；一个15CC仅对齐用途/R7已审483余2578。语义1859/有效1852、文档1969/3680（53.51%）和队列/pending保持；完整间接父/SEH链-CRT库存及寿命、系统NLS/SDK-ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 仅一个完整七参数分类体、两已证固定info1源/目标域和原Fill/API源级消费/真实SEH，不代更多间接父、实际系统NLS或完整SEH-ABI链。",
+      "actual": "BWY01补原545208完整123条329B/两页七参数NLS分类，原两个参数消费窗口39条98B/一scope与相邻15CC有证。两现源两改、一个完整GetLegacyStringTypes_545208及声明、原info1薄转调，零ASM/C桥/owner/依赖或新应用调用。原W32 infoType/CP-locale-strict与S32源长度直接交API，不缩源；分类专用10862E4、A-locale0/W-CP0回退、首次strict flags1或9/实际1和实际转换数量/完整W32返回保。原SEH内计算count*2低W32字节数，_alloca用+3低两位清零对齐请求，Fill5419D0只原字节数；原filter1/置空指针/失败0与全部caller/掩码和表生产保，不造FS/旧栈或故障样例。完善既有341和填充连接当前源符号、一个F adapted/F1027及CRT204、E1187两限定I-S；一个15CC仅对齐用途/R7已审483余2578。语义1859/有效1852、文档1969/3680（53.51%）和队列/pending保持；完整间接父/SEH链-CRT库存及寿命、系统NLS/SDK-ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 仅一个完整七参数分类体、两已证固定info1源/目标域和原Fill/API源级消费/真实SEH，不代更多间接父、实际系统NLS或完整SEH-ABI链。"
+    },
+    {
+      "id": "E-NLS-TYPE-GENERAL-FUNC-CRT-S-20261008",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWY01原完整123条329B/两页、两窗口/54FE70 scope，实际infoType和W32申请-填充不同；15CC用途。doc/cg2d_nls_type_general_spec.md#nls-type-general-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-nls-type-general-body-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_nls_type_general_evidence.json",
+        "doc/cg2d_nls_type_general_spec.md",
+        "doc/cg2d_legacy_multibyte.md",
+        "src/platform/LegacyMultibyte.cpp",
+        "src/platform/LegacyMultibyte.hpp",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-baseline",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-decision",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-acceptance",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWY01补原545208完整123条329B/两页七参数NLS分类，原两个参数消费窗口39条98B/一scope与相邻15CC有证。两现源两改、一个完整GetLegacyStringTypes_545208及声明、原info1薄转调，零ASM/C桥/owner/依赖或新应用调用。原W32 infoType/CP-locale-strict与S32源长度直接交API，不缩源；分类专用10862E4、A-locale0/W-CP0回退、首次strict flags1或9/实际1和实际转换数量/完整W32返回保。原SEH内计算count*2低W32字节数，_alloca用+3低两位清零对齐请求，Fill5419D0只原字节数；原filter1/置空指针/失败0与全部caller/掩码和表生产保，不造FS/旧栈或故障样例。完善既有341和填充连接当前源符号、一个F adapted/F1027及CRT204、E1187两限定I-S；一个15CC仅对齐用途/R7已审483余2578。语义1859/有效1852、文档1969/3680（53.51%）和队列/pending保持；完整间接父/SEH链-CRT库存及寿命、系统NLS/SDK-ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 仅完整123条329B、两窗口39条98B/原scope与15CC用途、两源两改及原infoType/不同W32请求-填充/非缩源合同，不代运行或整个CRT。",
+          "decision_ref": "doc/cg2d_nls_type_general_spec.md#nls-type-general-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWY01补原545208完整123条329B/两页七参数NLS分类，原两个参数消费窗口39条98B/一scope与相邻15CC有证。两现源两改、一个完整GetLegacyStringTypes_545208及声明、原info1薄转调，零ASM/C桥/owner/依赖或新应用调用。原W32 infoType/CP-locale-strict与S32源长度直接交API，不缩源；分类专用10862E4、A-locale0/W-CP0回退、首次strict flags1或9/实际1和实际转换数量/完整W32返回保。原SEH内计算count*2低W32字节数，_alloca用+3低两位清零对齐请求，Fill5419D0只原字节数；原filter1/置空指针/失败0与全部caller/掩码和表生产保，不造FS/旧栈或故障样例。完善既有341和填充连接当前源符号、一个F adapted/F1027及CRT204、E1187两限定I-S；一个15CC仅对齐用途/R7已审483余2578。语义1859/有效1852、文档1969/3680（53.51%）和队列/pending保持；完整间接父/SEH链-CRT库存及寿命、系统NLS/SDK-ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 仅完整123条329B、两窗口39条98B/原scope与15CC用途、两源两改及原infoType/不同W32请求-填充/非缩源合同，不代运行或整个CRT。",
+      "expected": "BWY01补原545208完整123条329B/两页七参数NLS分类，原两个参数消费窗口39条98B/一scope与相邻15CC有证。两现源两改、一个完整GetLegacyStringTypes_545208及声明、原info1薄转调，零ASM/C桥/owner/依赖或新应用调用。原W32 infoType/CP-locale-strict与S32源长度直接交API，不缩源；分类专用10862E4、A-locale0/W-CP0回退、首次strict flags1或9/实际1和实际转换数量/完整W32返回保。原SEH内计算count*2低W32字节数，_alloca用+3低两位清零对齐请求，Fill5419D0只原字节数；原filter1/置空指针/失败0与全部caller/掩码和表生产保，不造FS/旧栈或故障样例。完善既有341和填充连接当前源符号、一个F adapted/F1027及CRT204、E1187两限定I-S；一个15CC仅对齐用途/R7已审483余2578。语义1859/有效1852、文档1969/3680（53.51%）和队列/pending保持；完整间接父/SEH链-CRT库存及寿命、系统NLS/SDK-ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 仅完整123条329B、两窗口39条98B/原scope与15CC用途、两源两改及原infoType/不同W32请求-填充/非缩源合同，不代运行或整个CRT。",
+      "actual": "BWY01补原545208完整123条329B/两页七参数NLS分类，原两个参数消费窗口39条98B/一scope与相邻15CC有证。两现源两改、一个完整GetLegacyStringTypes_545208及声明、原info1薄转调，零ASM/C桥/owner/依赖或新应用调用。原W32 infoType/CP-locale-strict与S32源长度直接交API，不缩源；分类专用10862E4、A-locale0/W-CP0回退、首次strict flags1或9/实际1和实际转换数量/完整W32返回保。原SEH内计算count*2低W32字节数，_alloca用+3低两位清零对齐请求，Fill5419D0只原字节数；原filter1/置空指针/失败0与全部caller/掩码和表生产保，不造FS/旧栈或故障样例。完善既有341和填充连接当前源符号、一个F adapted/F1027及CRT204、E1187两限定I-S；一个15CC仅对齐用途/R7已审483余2578。语义1859/有效1852、文档1969/3680（53.51%）和队列/pending保持；完整间接父/SEH链-CRT库存及寿命、系统NLS/SDK-ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 仅完整123条329B、两窗口39条98B/原scope与15CC用途、两源两改及原infoType/不同W32请求-填充/非缩源合同，不代运行或整个CRT。"
     }
   ],
   "task_acceptance": [
@@ -52504,7 +52571,8 @@
         "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure",
         "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
         "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state",
-        "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state"
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state"
       ],
       "task_id": "C06",
       "state": "open"
@@ -52547,7 +52615,8 @@
         "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state",
         "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state",
         "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-source-state",
-        "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state"
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state"
       ],
       "task_id": "C01",
       "state": "open"
@@ -53019,7 +53088,8 @@
         "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state",
         "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state",
         "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-source-state",
-        "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state"
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state"
       ]
     },
     {
@@ -53070,7 +53140,8 @@
         "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state",
         "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state",
         "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-source-state",
-        "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state"
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state"
       ]
     },
     {
@@ -53485,7 +53556,8 @@
         "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-source-state",
         "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state",
         "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-source-state",
-        "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state"
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state"
       ]
     },
     {
@@ -54222,7 +54294,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-source-state",
-        "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state"
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state"
       ]
     },
     {
@@ -66417,6 +66490,18 @@
         "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state"
       ],
       "boundary": "完整原20条43B计数逻辑，仅两个原U8读位置改借址到真实ASM，循环/复读、数量0/耗尽及U32返回保持；256域真实接计数，不预填哨兵或模拟旧栈；另两GetEnv私有调用继续既定宿主承接。 BWX01补原543AE8完整193条548B八参数NLS、543D37四十三条123B完整W32大写及543D0C二十条43B真实计数读，三完整256条714B/五页。五现源九改、两完整CPP、三原薄转调、计数两个读位置及两个真实ASM读取叶/C桥；共享1086198/1086170与NLS producer/原五映射点及目录U8域保持。原仅正源长度缩源、A/W探测/严格第一次1或9和实际1、SORTKEY目标/容量0与查询数量返回、普通flags220/目标0查询、两U32栈请求及原filter1/置空SEH保持，不造FS/旧帧/故障样例。完整W32大写按原无符号分域、highBYTE lead、显式locale-CP/源2-目标2-strict1、失败完整输入及非零后两U8/W32组合；Count循环/末端复读实际单U8，CPP只借地址消费真返回，不补值/哨兵或根据数量少读。完善既有340/342/438及三F adapted、CRT200→203/F1026/E1185两限定I-S，语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和队列保持。原GetEnv两私有点仍宿主承接；完整间接父/SEH链、CRT库存/正常寿命、实际NLS/SDK/ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:00145208",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-baseline",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-decision",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-acceptance",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state"
+      ],
+      "boundary": "完整七参数infoType原值/S32长度直接传API、分类专用共享后端与CP-locale回退、严格查询1或9/实际1、实际转换数量/W32返回；原SEH内W32字节数/对齐栈请求及原填充数/filter1置空，原固定info1两caller保持。 BWY01补原545208完整123条329B/两页七参数NLS分类，原两个参数消费窗口39条98B/一scope与相邻15CC有证。两现源两改、一个完整GetLegacyStringTypes_545208及声明、原info1薄转调，零ASM/C桥/owner/依赖或新应用调用。原W32 infoType/CP-locale-strict与S32源长度直接交API，不缩源；分类专用10862E4、A-locale0/W-CP0回退、首次strict flags1或9/实际1和实际转换数量/完整W32返回保。原SEH内计算count*2低W32字节数，_alloca用+3低两位清零对齐请求，Fill5419D0只原字节数；原filter1/置空指针/失败0与全部caller/掩码和表生产保，不造FS/旧栈或故障样例。完善既有341和填充连接当前源符号、一个F adapted/F1027及CRT204、E1187两限定I-S；一个15CC仅对齐用途/R7已审483余2578。语义1859/有效1852、文档1969/3680（53.51%）和队列/pending保持；完整间接父/SEH链-CRT库存及寿命、系统NLS/SDK-ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。"
     }
   ],
   "auxiliary_dispositions": [
@@ -96117,6 +96202,37 @@
         "encryption_added": false,
         "audio_pause_kept": true
       }
+    },
+    {
+      "id": "X:00145351-00145360",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-baseline",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-decision",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-acceptance",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state",
+        "doc/cg2d_nls_type_general_evidence.json"
+      ],
+      "reason": "原完整15CC处分类入口RET末界至545360真实除法入口前，无已知入向；仅对齐用途，不生成空入口或代前后完整链验收。",
+      "classification": "alignment_padding",
+      "original_size": 15,
+      "original_bytes": "cccccccccccccccccccccccccccccc",
+      "original_previous_boundary": {
+        "ea": "0x545350",
+        "function": "0x545208",
+        "function_end": "0x545351",
+        "text": "retn"
+      },
+      "original_next_boundary": {
+        "ea": "0x545360",
+        "text": "fld     [esp+arg_C]"
+      },
+      "source_path": "src/platform/LegacyMultibyte.cpp",
+      "source_symbols": [
+        "GetLegacyStringTypes_545208"
+      ],
+      "boundary": "仅完整15CC对齐用途，不造入口或代前后完整链验收。 BWY01补原545208完整123条329B/两页七参数NLS分类，原两个参数消费窗口39条98B/一scope与相邻15CC有证。两现源两改、一个完整GetLegacyStringTypes_545208及声明、原info1薄转调，零ASM/C桥/owner/依赖或新应用调用。原W32 infoType/CP-locale-strict与S32源长度直接交API，不缩源；分类专用10862E4、A-locale0/W-CP0回退、首次strict flags1或9/实际1和实际转换数量/完整W32返回保。原SEH内计算count*2低W32字节数，_alloca用+3低两位清零对齐请求，Fill5419D0只原字节数；原filter1/置空指针/失败0与全部caller/掩码和表生产保，不造FS/旧栈或故障样例。完善既有341和填充连接当前源符号、一个F adapted/F1027及CRT204、E1187两限定I-S；一个15CC仅对齐用途/R7已审483余2578。语义1859/有效1852、文档1969/3680（53.51%）和队列/pending保持；完整间接父/SEH链-CRT库存及寿命、系统NLS/SDK-ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。"
     }
   ]
 }

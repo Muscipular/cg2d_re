@@ -4225,3 +4225,11 @@ X:00143383-00143390的7B实际代码对应Cg2dApplyLegacyConditionalSignX87，�
 342/F:00143AE8从固定3/256域补完整MapLegacyString_543AE8，保八参数/SORTKEY及普通query/原SEH和字段宽度；340/F:00143D37补完整UpperLegacyMultibyteCharacter_543D37，原U8包装与目录caller保持；438/F:00143D0C原两个读位置接真实单U8 ASM，循环/终端复读和U32返回不变。原大写非零后两U8实读再W32组合，不预清或据返回count少读。
 
 五源九改、两完整CPP/两个ASM读取叶、三薄转调；无新语义/原身份，新增三完整F处置及CRT成员，F1026/CRT203/E1185。语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和定位队列保持。两私有GetEnv旧Count点仍获批宿主承接，不恢复旧链；完整间接入向/实际NLS-ABI-寿命/机器未代验。
+
+## BWY01既有分类固定域身份补完整七参数（2026-10-08）
+
+[完整123条329B/两页、两窗口39条98B-原scope与15CC/源前后态](cg2d_nls_type_general_evidence.json)、[合同](cg2d_nls_type_general_spec.md#nls-type-general-decision)。
+
+341/F:00145208现对应完整GetLegacyStringTypes_545208与原info1固定接口，补实际infoType/W32 strict及原S32长度、专用后端和正常A/W分支。原U32栈申请对齐和原填充数在同一SEH内分开，5452F7填充连接的过时源名纠正为实际完整体。零新语义/原身份，已有字段不扩宽。
+
+新增一完整F处置/CRT成员及一个15CC用途，F1027/CRT204/E1187两限定I-S，R7已审483余2578；语义1859/有效1852、文档1969/3680（53.51%）和定位/pending保持。两原caller全部其他正文保持，不把完整七参数源入口或本机SEH算作系统API/SDK-ABI/完整CRT验收。

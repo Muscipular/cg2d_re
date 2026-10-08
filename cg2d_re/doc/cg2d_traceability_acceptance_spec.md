@@ -2254,3 +2254,11 @@ S只两完整片段十一条32B、CL单BYTE与EAX原W32/ST0、整数OR/TEST标�
 I只三已证完整体、五已证映射点/原U8目录、原参数/共享owner及两个真字节读取的源级生产消费；S只256条714B、两原SEH/六对齐窗口、五源九改/原NLS各分支和W32大写/Count复读。零更多间接父、原未写字节值/原栈故障、完整SEH或系统API/机器通过。
 
 预计F1026/CRT203/E1185，语义1859/有效1852、文档1969/3680（53.51%）、R7已审482/余2579、队列129及pending18保持，以文本汇总核实。C01/C06/C12/R01/V02/R04仍open，所有完整门禁保持；本步源码缺口不继续列未实现，也不据静态结果给运行验收。
+
+## BWY01完整NLS分类与不同W32申请/填充限定验收（2026-10-08）
+
+[标准](cg2d_nls_type_general_spec.md#nls-type-general-acceptance)、[状态](cg2d_nls_type_general_spec.md#nls-type-general-source-state)及[原全根/两窗口-原scope与源差集](cg2d_nls_type_general_evidence.json)。
+
+I只完整七参数及两个已证info1源/目标域、原Fill/API源级消费与真实SEH；S只123条329B、两窗口39条98B/原scope、两源两改、原W32申请/填充不同与实际infoType/非缩源合同和15CC用途，不代更多间接父、真实系统API/机器或全SEH。
+
+预计F1027/CRT204/E1187，R7已审483余2578；语义1859/有效1852、文档1969/3680（53.51%）、队列129及pending18保持，以文本度量核实。C01/C06/C12/R01/V02/R04继续open，整体/叶/机器门禁不关闭。

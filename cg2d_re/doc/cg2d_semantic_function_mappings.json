@@ -30385,34 +30385,119 @@
     {
       "original_entry": "0x545208",
       "inventory_id": "F:00145208",
-      "status": "已接多字节表生产及解析字符分类；限定NLS域及运行未验",
+      "status": "BWY01补原545208完整123条329B/两页七参数NLS分类，原两个参数消费窗口39条98B/一scope与相邻15CC有证。两现源两改、一个完整GetLegacyStringTypes_545208及声明、原info1薄转调，零ASM/C桥/owner/依赖或新应用调用。原W32 infoType/CP-locale-strict与S32源长度直接交API，不缩源；分类专用10862E4、A-locale0/W-CP0回退、首次strict flags1或9/实际1和实际转换数量/完整W32返回保。原SEH内计算count*2低W32字节数，_alloca用+3低两位清零对齐请求，Fill5419D0只原字节数；原filter1/置空指针/失败0与全部caller/掩码和表生产保，不造FS/旧栈或故障样例。完善既有341和填充连接当前源符号、一个F adapted/F1027及CRT204、E1187两限定I-S；一个15CC仅对齐用途/R7已审483余2578。语义1859/有效1852、文档1969/3680（53.51%）和队列/pending保持；完整间接父/SEH链-CRT库存及寿命、系统NLS/SDK-ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。",
       "original_end_exclusive": "0x545351",
       "instruction_count": 123,
       "sources": [
         {
           "path": "src/platform/LegacyMultibyte.cpp",
           "symbols": [
+            "GetLegacyStringTypes_545208",
+            "GetLegacyCharacterTypes_545208",
+            "FillLegacyMemory_5419D0"
+          ],
+          "relationship": "完整七参数/infoType原值-S32长度不缩源、分类专用后端/A-locale-W-CP与严格第一次1或9/实际1；原SEH中W32字节数/不同对齐请求与实际Fill、原filter1/置空/API返回保持，原两个caller薄转调"
+        },
+        {
+          "path": "src/platform/LegacyMultibyte.hpp",
+          "symbols": [
+            "GetLegacyStringTypes_545208",
             "GetLegacyCharacterTypes_545208"
-          ]
+          ],
+          "relationship": "完整七参数原W32/S32与借用W16目标；固定info1六参数域保持，零地址截断/owner或输入拒绝"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_multibyte.md",
         "doc/cg2d_resource_sources.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_legacy_string_compare.md"
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-baseline",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-decision",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-acceptance",
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state",
+        "doc/cg2d_nls_type_general_evidence.json"
       ],
-      "boundary": "既有546B29仍传256字节/info1/strict0；新增541955传1或2字节/info1/strict1。独立10862E4 A/W探测、代码页/locale回退、首转换flags1或9、次转换flags1、同栈宽缓冲清零与实际转换长度保持。只拓展这两个已证调用域，不声称任意infoType等完整接口已承接；未执行NLS/目录操作、构建、测试或客户端。；2026-10-04仅既有原填充点改接真实FillLegacyMemory_5419D0，当前容量/目标/数值/时点及原失败/owner保持；其余父正文不重验。",
-      "verification_level": "既有父合同/静态级别保持；仅原填充call邻窗与限定标识符/数量低U32接线静态核对，未构建或执行",
+      "boundary": "完整七参数infoType原值/S32长度直接传API、分类专用共享后端与CP-locale回退、严格查询1或9/实际1、实际转换数量/W32返回；原SEH内W32字节数/对齐栈请求及原填充数/filter1置空，原固定info1两caller保持。 BWY01补原545208完整123条329B/两页七参数NLS分类，原两个参数消费窗口39条98B/一scope与相邻15CC有证。两现源两改、一个完整GetLegacyStringTypes_545208及声明、原info1薄转调，零ASM/C桥/owner/依赖或新应用调用。原W32 infoType/CP-locale-strict与S32源长度直接交API，不缩源；分类专用10862E4、A-locale0/W-CP0回退、首次strict flags1或9/实际1和实际转换数量/完整W32返回保。原SEH内计算count*2低W32字节数，_alloca用+3低两位清零对齐请求，Fill5419D0只原字节数；原filter1/置空指针/失败0与全部caller/掩码和表生产保，不造FS/旧栈或故障样例。完善既有341和填充连接当前源符号、一个F adapted/F1027及CRT204、E1187两限定I-S；一个15CC仅对齐用途/R7已审483余2578。语义1859/有效1852、文档1969/3680（53.51%）和队列/pending保持；完整间接父/SEH链-CRT库存及寿命、系统NLS/SDK-ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWY01补原545208完整123条329B/两页七参数NLS分类，原两个参数消费窗口39条98B/一scope与相邻15CC有证。两现源两改、一个完整GetLegacyStringTypes_545208及声明、原info1薄转调，零ASM/C桥/owner/依赖或新应用调用。原W32 infoType/CP-locale-strict与S32源长度直接交API，不缩源；分类专用10862E4、A-locale0/W-CP0回退、首次strict flags1或9/实际1和实际转换数量/完整W32返回保。原SEH内计算count*2低W32字节数，_alloca用+3低两位清零对齐请求，Fill5419D0只原字节数；原filter1/置空指针/失败0与全部caller/掩码和表生产保，不造FS/旧栈或故障样例。完善既有341和填充连接当前源符号、一个F adapted/F1027及CRT204、E1187两限定I-S；一个15CC仅对齐用途/R7已审483余2578。语义1859/有效1852、文档1969/3680（53.51%）和队列/pending保持；完整间接父/SEH链-CRT库存及寿命、系统NLS/SDK-ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。",
       "memory_fill_connections": [
         {
           "target_entry": "0x5419D0",
           "call_site": "0x5452F7",
           "source": "src/platform/LegacyMultibyte.cpp",
-          "symbol": "GetLegacyTableCharacterTypes_545208",
-          "relationship": "当前系统调用结果wideCount先乘2保留低U32；同原SEH/alloca区域内，不改API结果/失败"
+          "symbol": "GetLegacyStringTypes_545208",
+          "relationship": "完整七参数体同原SEH区域调用现有Fill；Size=count*2低W32，不与+3低两位清零后的栈请求混用，不新增填充/预清或扩大数值"
         }
-      ]
+      ],
+      "original_direct_reference_count": 2,
+      "inbound_evidence_complete": true,
+      "inbound_evidence": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x541955",
+          "text": "call    ___crtGetStringTypeA",
+          "from": "0x5419b3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x546b29",
+          "text": "call    ___crtGetStringTypeA",
+          "from": "0x546bc3"
+        }
+      ],
+      "nls_type_general": {
+        "spec_id": "BWY01",
+        "evidence_refs": [
+          "doc/cg2d_nls_type_general_spec.md#nls-type-general-baseline",
+          "doc/cg2d_nls_type_general_spec.md#nls-type-general-decision",
+          "doc/cg2d_nls_type_general_spec.md#nls-type-general-acceptance",
+          "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state"
+        ],
+        "full_original_function_captured": true,
+        "original_instruction_count": 123,
+        "original_code_bytes": 329,
+        "original_page_count": 2,
+        "original_callsite_window_instruction_count": 39,
+        "original_callsite_window_bytes": 98,
+        "source_body_added": true,
+        "source_file_count": 2,
+        "source_patch_count": 2,
+        "new_CPP_body_count": 1,
+        "new_CPP_declaration_count": 1,
+        "fixed_info1_wrapper_rewritten": 1,
+        "new_ASM_body_count": 0,
+        "new_private_C_bridge_count": 0,
+        "new_shared_owner_count": 0,
+        "new_original_semantic_identity_count": 0,
+        "new_function_disposition_count": 1,
+        "new_CRT_member_count": 1,
+        "new_R7_classification_count": 1,
+        "original_infoType_W32_value_and_S32_length_directly_passed_to_API": true,
+        "original_classification_backend_and_map_backend_remain_two_owners": true,
+        "original_strict_flags_1_or_9_then_1_actual_conversion_count_and_W32_BOOL_return": true,
+        "original_SEH_internal_W32_twice_count_and_rounded_stack_request_distinct_from_fill_count": true,
+        "original_filter1_null_pointer_and_failure0_kept": true,
+        "original_two_info1_callers_and_all_other_source_kept": true,
+        "no_new_guard_input_limit_sentinel_fill_or_fault_model": true,
+        "caller_input_domain_changed": false,
+        "numeric_width_changed": false,
+        "full_indirect_callers_verified": false,
+        "full_CRT_member_inventory_closed": false,
+        "full_SEH_private_chain_closed": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "system_NLS_API_verified": false,
+        "compilation_verified": false,
+        "linking_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true
+      }
     },
     {
       "original_entry": "0x543AE8",

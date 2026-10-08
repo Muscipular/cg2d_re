@@ -288,3 +288,11 @@ CRT195→198/F1021两限定I-S，已列CRT未定位3→0/全源码定位128；R7
 原543AE8补完整八参数/A-W与正长度缩源、SORTKEY直目标/容量0查询数量返回、普通flags220回字节/目标0查询及两原filter1-置空SEH；543D37补完整W32无符号分域/高BYTE lead-NLS、源2-目标2-strict1和失败原完整值。五现源九改，两完整CPP和三薄转调，两个真实ASM读取叶/C桥承原Count循环/末端单U8及映射返回两U8组合；不让CPP直接求值未生产/数组外字节，不补值或造旧栈。
 
 两原栈请求在U32计算后交本机_alloca，原caller/共享后端-CP-表生产保持。完善340/342/438、三F adapted/F1026与CRT203、E1185两限定I-S；无新语义/R7或应用调用。完整间接父、其余SEH链/CRT库存和寿命、实际系统NLS/SDK/ABI/链接/运行仍待；RPLAN.24不新增越界/溢出处理、模拟/故障门禁或默认值。
+
+## BWY01完整七参数NLS分类开发（2026-10-08）
+
+[原基线](cg2d_nls_type_general_spec.md#nls-type-general-baseline)、[决定](cg2d_nls_type_general_spec.md#nls-type-general-decision)、[验收](cg2d_nls_type_general_spec.md#nls-type-general-acceptance)及[完整123条329B/两窗口-原scope与两源前后态](cg2d_nls_type_general_evidence.json)。
+
+原545208已补完整GetLegacyStringTypes_545208七参数，既有info1包装转调，两个caller/掩码和表生产全文保持。实际infoType、原S32源长度直接传API，分类10862E4与映射1086198仍独立；原A-locale/W-CP回退、strict查询1或9/实际1和实际转换数量/完整W32返回保持。
+
+两现源两改/一完整CPP与声明，原SEH内U32 count*2、+3低两位清零后的申请和未对齐填充数分开；真实_alloca/Fill5419D0和原filter1/置空失败0保持。现341/一F adapted、F1027/CRT204/E1187两限定I-S；15CC仅对齐用途/R7已审483余2578。完整间接父、SEH链/CRT库存与寿命、系统NLS/SDK-ABI链接运行仍待，RPLAN.24不加异常模拟/保护或超出原范围填充。

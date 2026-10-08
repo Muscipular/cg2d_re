@@ -254,3 +254,11 @@ LegacyUiRecord.cpp一个既有体两个片段：入口initialX→initialWidth→
 现有QueryPanelButtonState原局部初始化left/top/width/height读源，已用top/left/height/width四S32持样恢复503998/9B/9E/A1原序，再构造相同矩形并交原核心/沿完整返回；一cpp一桥一片段。三个主体/核心/所有其它源正确保持：16B原全清合法，面板mix4/按钮mix0、五页含零图号/原除2/unsigned999返回、按下与两悬停查询/低W16和层次不改。BVL已修入口/action与音频源头保持。
 
 新1766..1768/三adapted F，公共UI流16→19/两限定I-S各18来源，I仅现有桥接一个取样片段；U04/U11/V03/R04仍open。预期语义1769/有效1762、合同1879（51.06%）、F917/E1092，R7已审467余2594及pending18/closed11/全叶0/globalfalse保。原格式明文/音频暂停/99项同owner及0/100空handler、完整门禁和执行限制保持；全373调用处/其他父-callee、生产/正常owner-alias寿命/像素/机器ABI链接运行与R8未验。
+
+## BWA01旧面板选择类别取样与控制链（2026-10-08）
+
+[基线](../cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline)、[决定](../cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision)、[验收](../cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance)、[状态](../cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state)及[原证](../cg2d_legacy_selection_category_sampling_evidence.json)。
+
+五个旧面板控制入口完整210条681B/六页、11直接六目标/零间接、38跳13RET与267普通CALL纳管。一个CPP仅504180三个片段恢复查询后类别重取、首选择同样本及两个分支S8类别读取；四正确本体保持。三U32共享选择槽、99行唯一owner/初值/非拥有action/dirty布局、id0查找、类别2清除回退第三槽、id100/Esc条件与原返回保持，无新helper/API/owner，全部其它音频本体与现有播放调用保持，音频继续暂停。
+
+新原新1807..1811、五adapted F、公共UI49→54及两限定I/S登记；I仅三个取样片段，不重称四正确本体新实现。实际预期语义1812/有效1805、合同1922（52.23%）、F974/E1137；四任务和完整门禁仍open。历史模块名不改变本步旧UI控制职责。全267父/所有callee与正常寿命、旧表+04实际handler消费、商店模式生产及画面运行仍按原事实验收；原格式明文/RPLAN.24保持。

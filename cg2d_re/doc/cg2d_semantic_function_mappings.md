@@ -4035,3 +4035,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 六旧技能/宠物技能页面各一个片段已修复：公开类型边界内一次保存预览指针，原判空后交既有SetYobiActionFlag2(false)清W32 bit1；消除直接访问opaque字段和共享槽重复读取。六原阶段24条78B，四比较寄存器的零值/关闭返回上下文单列。六父其余正文、原生helper/头、数据生产/关闭、格式与原字节保持，无新接口、helper或owner。
 
 更新已有770/771/772/1007/1008/1009，新增六adapted F；旧55..60各纳一个实际主父、十二限定I/S，完整枚举/gates仍open。语义1807/有效1800及合同1917（52.09%）保持，F963→969、E1123→1135。只核本阶段，完整旧外路由、正常owner/alias寿命、画面及运行继续原验收；原格式明文、音频暂停、RPLAN.24和执行限制保持。
+
+## BWA01旧面板选择类别取样与控制链（2026-10-08）
+
+[基线](cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline)、[决定](cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision)、[验收](cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance)、[状态](cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state)及[原证](cg2d_legacy_selection_category_sampling_evidence.json)。
+
+五个旧面板控制入口完整210条681B/六页、11直接六目标/零间接、38跳13RET与267普通CALL纳管。一个CPP仅504180三个片段恢复查询后类别重取、首选择同样本及两个分支S8类别读取；四正确本体保持。三U32共享选择槽、99行唯一owner/初值/非拥有action/dirty布局、id0查找、类别2清除回退第三槽、id100/Esc条件与原返回保持，无新helper/API/owner，全部其它音频本体与现有播放调用保持，音频继续暂停。
+
+新原新1807..1811、五adapted F、公共UI49→54及两限定I/S登记；I仅三个取样片段，不重称四正确本体新实现。实际预期语义1812/有效1805、合同1922（52.23%）、F974/E1137；四任务和完整门禁仍open。历史模块名不改变本步旧UI控制职责。全267父/所有callee与正常寿命、旧表+04实际handler消费、商店模式生产及画面运行仍按原事实验收；原格式明文/RPLAN.24保持。

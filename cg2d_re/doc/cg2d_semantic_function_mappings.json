@@ -205408,6 +205408,476 @@
         "machine_abi_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x504180",
+      "inventory_id": "F:00104180",
+      "original_role": "504180保留scene10/原id门禁与真实99项查找；初始低BYTE类别仅门禁使用，查询返回后重读类别再取首选择样本，同样本判断类别2并送旧选择查找；另两分支各在原位置重读S8类别后写共享槽/dirty。",
+      "original_end_exclusive": "0x5042c6",
+      "original_chunks": [
+        [
+          "0x504180",
+          "0x5042c6"
+        ]
+      ],
+      "instruction_count": 85,
+      "status": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "Sub_504180"
+          ],
+          "relationship": "504180保留scene10/原id门禁与真实99项查找；初始低BYTE类别仅门禁使用，查询返回后重读类别再取首选择样本，同样本判断类别2并送旧选择查找；另两分支各在原位置重读S8类别后写共享槽/dirty。"
+        },
+        {
+          "path": "include/cg/LegacyAudio.hpp",
+          "symbols": [
+            "Sub_504180"
+          ],
+          "relationship": "既有U32 id/S32返回公开声明保持；历史模块内旧面板控制，不恢复音频实施"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+      ],
+      "boundary": "504180保留scene10/原id门禁与真实99项查找；初始低BYTE类别仅门禁使用，查询返回后重读类别再取首选择样本，同样本判断类别2并送旧选择查找；另两分支各在原位置重读S8类别后写共享槽/dirty。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "verification_level": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "legacy_selection_category_sampling": {
+        "spec_id": "BWA01",
+        "evidence_refs": [
+          "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
+          "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
+          "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
+          "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 85,
+        "original_code_bytes": 326,
+        "original_page_count": 2,
+        "original_direct_call_count": 3,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 18,
+        "original_return_count": 4,
+        "original_inbound_call_count": 99,
+        "original_inbound_data_reference_count": 0,
+        "original_total_instruction_count": 210,
+        "original_total_code_bytes": 681,
+        "original_total_page_count": 6,
+        "original_total_direct_call_count": 11,
+        "original_total_unique_direct_callee_count": 6,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 38,
+        "original_total_return_count": 13,
+        "original_total_inbound_call_count": 267,
+        "original_total_inbound_tail_count": 0,
+        "original_total_inbound_data_reference_count": 0,
+        "source_body_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 3,
+        "root_source_patch_count": 3,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": true,
+        "producer_after_query_fresh_category_and_first_selection_snapshot_restored": true,
+        "two_branch_signed_category_reloads_restored": true,
+        "four_correct_control_bodies_kept": true,
+        "shared_three_U32_selection_slots_and_unique_99_row_owner_kept": true,
+        "category2_clear_fallback_third_slot_and_id100_Esc_condition_kept": true,
+        "all_other_cpp_and_paused_audio_bodies_and_actual_audio_calls_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_handler_dispatch_verified": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x5042d0",
+      "inventory_id": "F:001042D0",
+      "original_role": "5042D0先取第二选择样本；id100清两槽后按原Esc/旧值条件恢复，普通原id范围/查找与S8类别消费保持；类别2首槽匹配清两槽返回0，否则仍按category索引消费，包括类别2回退第三槽，不删分支。",
+      "original_end_exclusive": "0x504373",
+      "original_chunks": [
+        [
+          "0x5042d0",
+          "0x504373"
+        ]
+      ],
+      "instruction_count": 54,
+      "status": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "Sub_5042D0"
+          ],
+          "relationship": "5042D0先取第二选择样本；id100清两槽后按原Esc/旧值条件恢复，普通原id范围/查找与S8类别消费保持；类别2首槽匹配清两槽返回0，否则仍按category索引消费，包括类别2回退第三槽，不删分支。"
+        },
+        {
+          "path": "include/cg/LegacyAudio.hpp",
+          "symbols": [
+            "Sub_5042D0"
+          ],
+          "relationship": "既有U32 id/S32返回公开声明保持；历史模块内旧面板控制，不恢复音频实施"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+      ],
+      "boundary": "5042D0先取第二选择样本；id100清两槽后按原Esc/旧值条件恢复，普通原id范围/查找与S8类别消费保持；类别2首槽匹配清两槽返回0，否则仍按category索引消费，包括类别2回退第三槽，不删分支。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "verification_level": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "legacy_selection_category_sampling": {
+        "spec_id": "BWA01",
+        "evidence_refs": [
+          "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
+          "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
+          "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
+          "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 54,
+        "original_code_bytes": 163,
+        "original_page_count": 1,
+        "original_direct_call_count": 3,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 12,
+        "original_return_count": 2,
+        "original_inbound_call_count": 131,
+        "original_inbound_data_reference_count": 0,
+        "original_total_instruction_count": 210,
+        "original_total_code_bytes": 681,
+        "original_total_page_count": 6,
+        "original_total_direct_call_count": 11,
+        "original_total_unique_direct_callee_count": 6,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 38,
+        "original_total_return_count": 13,
+        "original_total_inbound_call_count": 267,
+        "original_total_inbound_tail_count": 0,
+        "original_total_inbound_data_reference_count": 0,
+        "source_body_changed": false,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 3,
+        "root_source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "producer_after_query_fresh_category_and_first_selection_snapshot_restored": true,
+        "two_branch_signed_category_reloads_restored": true,
+        "four_correct_control_bodies_kept": true,
+        "shared_three_U32_selection_slots_and_unique_99_row_owner_kept": true,
+        "category2_clear_fallback_third_slot_and_id100_Esc_condition_kept": true,
+        "all_other_cpp_and_paused_audio_bodies_and_actual_audio_calls_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_handler_dispatch_verified": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x504410",
+      "inventory_id": "F:00104410",
+      "original_role": "504410沿原无符号id范围与99项查找，低BYTE类别2只比较首槽，其它S8类别索引唯一共享选择表；返回真实比较结果，未匹配0，不增加保护。",
+      "original_end_exclusive": "0x50445f",
+      "original_chunks": [
+        [
+          "0x504410",
+          "0x50445f"
+        ]
+      ],
+      "instruction_count": 31,
+      "status": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "Sub_504410"
+          ],
+          "relationship": "504410沿原无符号id范围与99项查找，低BYTE类别2只比较首槽，其它S8类别索引唯一共享选择表；返回真实比较结果，未匹配0，不增加保护。"
+        },
+        {
+          "path": "include/cg/LegacyAudio.hpp",
+          "symbols": [
+            "Sub_504410"
+          ],
+          "relationship": "既有U32 id/S32返回公开声明保持；历史模块内旧面板控制，不恢复音频实施"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+      ],
+      "boundary": "504410沿原无符号id范围与99项查找，低BYTE类别2只比较首槽，其它S8类别索引唯一共享选择表；返回真实比较结果，未匹配0，不增加保护。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "verification_level": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "legacy_selection_category_sampling": {
+        "spec_id": "BWA01",
+        "evidence_refs": [
+          "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
+          "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
+          "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
+          "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 31,
+        "original_code_bytes": 79,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 4,
+        "original_return_count": 3,
+        "original_inbound_call_count": 23,
+        "original_inbound_data_reference_count": 0,
+        "original_total_instruction_count": 210,
+        "original_total_code_bytes": 681,
+        "original_total_page_count": 6,
+        "original_total_direct_call_count": 11,
+        "original_total_unique_direct_callee_count": 6,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 38,
+        "original_total_return_count": 13,
+        "original_total_inbound_call_count": 267,
+        "original_total_inbound_tail_count": 0,
+        "original_total_inbound_data_reference_count": 0,
+        "source_body_changed": false,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 3,
+        "root_source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "producer_after_query_fresh_category_and_first_selection_snapshot_restored": true,
+        "two_branch_signed_category_reloads_restored": true,
+        "four_correct_control_bodies_kept": true,
+        "shared_three_U32_selection_slots_and_unique_99_row_owner_kept": true,
+        "category2_clear_fallback_third_slot_and_id100_Esc_condition_kept": true,
+        "all_other_cpp_and_paused_audio_bodies_and_actual_audio_calls_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_handler_dispatch_verified": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x504460",
+      "inventory_id": "F:00104460",
+      "original_role": "504460未匹配返-1；同源运行期action为空沿原选择发布并返1，非空沿原清除与SE57调用再返0，不清action或返回callee结果，不重新生产对象。",
+      "original_end_exclusive": "0x5044b2",
+      "original_chunks": [
+        [
+          "0x504460",
+          "0x5044b2"
+        ]
+      ],
+      "instruction_count": 29,
+      "status": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "Sub_504460"
+          ],
+          "relationship": "504460未匹配返-1；同源运行期action为空沿原选择发布并返1，非空沿原清除与SE57调用再返0，不清action或返回callee结果，不重新生产对象。"
+        },
+        {
+          "path": "include/cg/LegacyAudio.hpp",
+          "symbols": [
+            "Sub_504460"
+          ],
+          "relationship": "既有U32 id/S32返回公开声明保持；历史模块内旧面板控制，不恢复音频实施"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+      ],
+      "boundary": "504460未匹配返-1；同源运行期action为空沿原选择发布并返1，非空沿原清除与SE57调用再返0，不清action或返回callee结果，不重新生产对象。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "verification_level": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "legacy_selection_category_sampling": {
+        "spec_id": "BWA01",
+        "evidence_refs": [
+          "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
+          "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
+          "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
+          "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 29,
+        "original_code_bytes": 82,
+        "original_page_count": 1,
+        "original_direct_call_count": 4,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 2,
+        "original_return_count": 3,
+        "original_inbound_call_count": 8,
+        "original_inbound_data_reference_count": 0,
+        "original_total_instruction_count": 210,
+        "original_total_code_bytes": 681,
+        "original_total_page_count": 6,
+        "original_total_direct_call_count": 11,
+        "original_total_unique_direct_callee_count": 6,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 38,
+        "original_total_return_count": 13,
+        "original_total_inbound_call_count": 267,
+        "original_total_inbound_tail_count": 0,
+        "original_total_inbound_data_reference_count": 0,
+        "source_body_changed": false,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 3,
+        "root_source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "producer_after_query_fresh_category_and_first_selection_snapshot_restored": true,
+        "two_branch_signed_category_reloads_restored": true,
+        "four_correct_control_bodies_kept": true,
+        "shared_three_U32_selection_slots_and_unique_99_row_owner_kept": true,
+        "category2_clear_fallback_third_slot_and_id100_Esc_condition_kept": true,
+        "all_other_cpp_and_paused_audio_bodies_and_actual_audio_calls_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_handler_dispatch_verified": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x5044c0",
+      "inventory_id": "F:001044C0",
+      "original_role": "5044C0按原99项20B证据顺序比较U32 id，返首次物理索引，未匹配-1；原生唯一owner行宽32B按类型索引，允许查找id0，不给共享表增加范围或新路由。",
+      "original_end_exclusive": "0x5044df",
+      "original_chunks": [
+        [
+          "0x5044c0",
+          "0x5044df"
+        ]
+      ],
+      "instruction_count": 11,
+      "status": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "Sub_5044C0"
+          ],
+          "relationship": "5044C0按原99项20B证据顺序比较U32 id，返首次物理索引，未匹配-1；原生唯一owner行宽32B按类型索引，允许查找id0，不给共享表增加范围或新路由。"
+        },
+        {
+          "path": "include/cg/LegacyAudio.hpp",
+          "symbols": [
+            "Sub_5044C0"
+          ],
+          "relationship": "既有U32 id/S32返回公开声明保持；历史模块内旧面板控制，不恢复音频实施"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+      ],
+      "boundary": "5044C0按原99项20B证据顺序比较U32 id，返首次物理索引，未匹配-1；原生唯一owner行宽32B按类型索引，允许查找id0，不给共享表增加范围或新路由。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "verification_level": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "legacy_selection_category_sampling": {
+        "spec_id": "BWA01",
+        "evidence_refs": [
+          "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
+          "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
+          "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
+          "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 11,
+        "original_code_bytes": 31,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 2,
+        "original_return_count": 1,
+        "original_inbound_call_count": 6,
+        "original_inbound_data_reference_count": 0,
+        "original_total_instruction_count": 210,
+        "original_total_code_bytes": 681,
+        "original_total_page_count": 6,
+        "original_total_direct_call_count": 11,
+        "original_total_unique_direct_callee_count": 6,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 38,
+        "original_total_return_count": 13,
+        "original_total_inbound_call_count": 267,
+        "original_total_inbound_tail_count": 0,
+        "original_total_inbound_data_reference_count": 0,
+        "source_body_changed": false,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 3,
+        "root_source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "producer_after_query_fresh_category_and_first_selection_snapshot_restored": true,
+        "two_branch_signed_category_reloads_restored": true,
+        "four_correct_control_bodies_kept": true,
+        "shared_three_U32_selection_slots_and_unique_99_row_owner_kept": true,
+        "category2_clear_fallback_third_slot_and_id100_Esc_condition_kept": true,
+        "all_other_cpp_and_paused_audio_bodies_and_actual_audio_calls_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_handler_dispatch_verified": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

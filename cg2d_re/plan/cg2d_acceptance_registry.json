@@ -2780,7 +2780,8 @@
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline",
         "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-baseline",
         "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-baseline",
-        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-baseline"
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-baseline",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline"
       ],
       "original_inventory_ids": [
         "F:00077160",
@@ -2831,7 +2832,12 @@
         "F:00103CD0",
         "F:00071270",
         "F:00072190",
-        "F:00072220"
+        "F:00072220",
+        "F:00104180",
+        "F:001042D0",
+        "F:00104410",
+        "F:00104460",
+        "F:001044C0"
       ],
       "closure_task_ids": [
         "U04",
@@ -2862,7 +2868,8 @@
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
         "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-decision",
         "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-decision",
-        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-decision"
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-decision",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -2879,7 +2886,8 @@
         "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
         "BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。",
         "BVR01三完整184条565B/四页、14direct六目标/一release间接、28跳3RET，11CALL/四尾跳分列与原7类释放表有据。FreeWindow单既有根六阶段实修：焦点/载荷读取原序，同data/text/数组样本判断和释放，类型2经唯一新Yobi边界承接原直接deathFlag=1替代通用MarkDeath额外空判断；所有回调后fresh槽/字段、原W32 flags、正常释放次序和两正确全关闭/marker主体保持，通用MarkDeath正文/载荷与窗口接口头保。三原新/F、公共UI49两限定I-S各24来源，I仅单根六阶段；原MIS62/七占用W32/71标记/实际结果保持，两个CPP/一个Yobi公共头、一个必要native边界helper/API，无新原身份/owner/保护、异常模拟或故障等价。全部15入向/各父/release目标/callee、资源生产/正常owner-alias寿命、机器ABI/画面运行待；网络原格式明文/音频暂停/RPLAN.24与执行限制保。",
-        "BVS01修复4FA8E0表情请求跨opaque YobiAction直接取imageNo的真实源码缺口；原4FA9C1一次W32读取由既有GetYobiActionField2A8原样承接，仍仅在附件44为空且计时门禁已过后同action读取。一个CPP一个调用表达式，零新函数/helper/API/owner/保护；正文其余、现有getter/公共头和两动作表保持。复用BVP01完整117条437B/两页基线，本步只重取一实际指令；既有1782/F:000FA8E0和公共UI49不重计，两个限定I/S，原格式明文/音频暂停/RPLAN.24保。只验本源码边界，未宣编译链接、机器ABI或运行通过，四任务仍open。"
+        "BVS01修复4FA8E0表情请求跨opaque YobiAction直接取imageNo的真实源码缺口；原4FA9C1一次W32读取由既有GetYobiActionField2A8原样承接，仍仅在附件44为空且计时门禁已过后同action读取。一个CPP一个调用表达式，零新函数/helper/API/owner/保护；正文其余、现有getter/公共头和两动作表保持。复用BVP01完整117条437B/两页基线，本步只重取一实际指令；既有1782/F:000FA8E0和公共UI49不重计，两个限定I/S，原格式明文/音频暂停/RPLAN.24保。只验本源码边界，未宣编译链接、机器ABI或运行通过，四任务仍open。",
+        "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2898,7 +2906,8 @@
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state",
         "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state",
         "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-state",
-        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-source-state"
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-source-state",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
       ]
     },
     {
@@ -50351,6 +50360,82 @@
       "observation": "宠物技能槽4D8230：原0x4d82f7..0x4d8304四条13B，一次取gLegacyPetSkillSlotsActionD67C64，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
       "expected": "宠物技能槽4D8230：原0x4d82f7..0x4d8304四条13B，一次取gLegacyPetSkillSlotsActionD67C64，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
       "actual": "宠物技能槽4D8230：原0x4d82f7..0x4d8304四条13B，一次取gLegacyPetSkillSlotsActionD67C64，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。"
+    },
+    {
+      "id": "E-LEGACY-SELECTION-CATEGORY-FUNC-UIRUNTIME-I-20261008",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWA01五完整210条681B/六页及267普通CALL；I仅504180三个取样片段，四正确本体不伪新I。doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-legacy-selection-category-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyAudio.cpp#Sub_504180",
+        "src/LegacyAudio.cpp#Sub_5042D0",
+        "src/LegacyAudio.cpp#Sub_504410",
+        "src/LegacyAudio.cpp#Sub_504460",
+        "src/LegacyAudio.cpp#Sub_5044C0",
+        "src/LegacyAudio.cpp#gSoundRecords57C368",
+        "src/LegacyAudio.cpp#gSoundSelectionCC236C",
+        "include/cg/LegacyAudio.hpp",
+        "src/LegacyUiRecord.cpp#Sub_503160",
+        "src/ui/WindowRuntime.cpp#ProcessWindowShortcuts_4C7AE0",
+        "doc/ui_windows/shared_legacy_panels.md",
+        "doc/cg2d_legacy_selection_category_sampling_evidence.json",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+          "decision_ref": "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "expected": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "actual": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。"
+    },
+    {
+      "id": "E-LEGACY-SELECTION-CATEGORY-FUNC-UIRUNTIME-S-20261008",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWA01五完整210条681B/六页及267普通CALL；I仅504180三个取样片段，四正确本体不伪新I。doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-legacy-selection-category-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyAudio.cpp#Sub_504180",
+        "src/LegacyAudio.cpp#Sub_5042D0",
+        "src/LegacyAudio.cpp#Sub_504410",
+        "src/LegacyAudio.cpp#Sub_504460",
+        "src/LegacyAudio.cpp#Sub_5044C0",
+        "src/LegacyAudio.cpp#gSoundRecords57C368",
+        "src/LegacyAudio.cpp#gSoundSelectionCC236C",
+        "include/cg/LegacyAudio.hpp",
+        "src/LegacyUiRecord.cpp#Sub_503160",
+        "src/ui/WindowRuntime.cpp#ProcessWindowShortcuts_4C7AE0",
+        "doc/ui_windows/shared_legacy_panels.md",
+        "doc/cg2d_legacy_selection_category_sampling_evidence.json",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+          "decision_ref": "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "expected": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+      "actual": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。"
     }
   ],
   "task_acceptance": [
@@ -51258,7 +51343,8 @@
         "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state",
         "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state",
         "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
       ]
     },
     {
@@ -51567,7 +51653,8 @@
         "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state",
         "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state",
         "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
       ]
     },
     {
@@ -51756,7 +51843,8 @@
         "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state",
         "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state",
         "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
       ]
     },
     {
@@ -51908,7 +51996,8 @@
         "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state",
         "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state",
         "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
       ]
     },
     {
@@ -63741,6 +63830,66 @@
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
       ],
       "boundary": "宠物技能槽4D8230：原0x4d82f7..0x4d8304四条13B，一次取gLegacyPetSkillSlotsActionD67C64，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+    },
+    {
+      "inventory_id": "F:00104180",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+      ],
+      "boundary": "504180保留scene10/原id门禁与真实99项查找；初始低BYTE类别仅门禁使用，查询返回后重读类别再取首选择样本，同样本判断类别2并送旧选择查找；另两分支各在原位置重读S8类别后写共享槽/dirty。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。"
+    },
+    {
+      "inventory_id": "F:001042D0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+      ],
+      "boundary": "5042D0先取第二选择样本；id100清两槽后按原Esc/旧值条件恢复，普通原id范围/查找与S8类别消费保持；类别2首槽匹配清两槽返回0，否则仍按category索引消费，包括类别2回退第三槽，不删分支。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。"
+    },
+    {
+      "inventory_id": "F:00104410",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+      ],
+      "boundary": "504410沿原无符号id范围与99项查找，低BYTE类别2只比较首槽，其它S8类别索引唯一共享选择表；返回真实比较结果，未匹配0，不增加保护。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。"
+    },
+    {
+      "inventory_id": "F:00104460",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+      ],
+      "boundary": "504460未匹配返-1；同源运行期action为空沿原选择发布并返1，非空沿原清除与SE57调用再返0，不清action或返回callee结果，不重新生产对象。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。"
+    },
+    {
+      "inventory_id": "F:001044C0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
+        "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+      ],
+      "boundary": "5044C0按原99项20B证据顺序比较U32 id，返首次物理索引，未匹配-1；原生唯一owner行宽32B按类型索引，允许查找id0，不给共享表增加范围或新路由。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。"
     }
   ],
   "auxiliary_dispositions": [

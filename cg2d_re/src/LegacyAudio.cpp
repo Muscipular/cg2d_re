@@ -834,8 +834,11 @@ std::int32_t __cdecl Sub_504180(const std::uint32_t id)
             static_cast<std::uint32_t>(Sub_504410(1));
     }
 
-    if (categoryByte == 2) {
-        if (gSoundSelectionCC236C[0] == id) {
+    const std::uint8_t categoryGate =
+        static_cast<std::uint8_t>(record.categoryBits);
+    const std::uint32_t previousSelection = gSoundSelectionCC236C[0];
+    if (categoryGate == 2) {
+        if (previousSelection == id) {
             return 0;
         }
         gSoundSelectionCC236C[0] = id;
@@ -844,7 +847,7 @@ std::int32_t __cdecl Sub_504180(const std::uint32_t id)
         return 1;
     }
 
-    const std::int32_t previousIndex = Sub_5044C0(gSoundSelectionCC236C[0]);
+    const std::int32_t previousIndex = Sub_5044C0(previousSelection);
     if (previousIndex < 0) {
         return 0;
     }
@@ -852,7 +855,8 @@ std::int32_t __cdecl Sub_504180(const std::uint32_t id)
         && static_cast<std::uint8_t>(
             gSoundRecords57C368[static_cast<std::size_t>(previousIndex)].categoryBits)
             == 2) {
-        const std::int8_t category = std::bit_cast<std::int8_t>(categoryByte);
+        const std::int8_t category = std::bit_cast<std::int8_t>(
+            static_cast<std::uint8_t>(record.categoryBits));
         gSoundSelectionCC236C[0] = 0;
         gSoundSelectionCC236C[1] = 0;
         gSoundSelectionCC236C[static_cast<std::size_t>(category)] = id;
@@ -860,7 +864,8 @@ std::int32_t __cdecl Sub_504180(const std::uint32_t id)
         return 1;
     }
 
-    const std::int8_t category = std::bit_cast<std::int8_t>(categoryByte);
+    const std::int8_t category = std::bit_cast<std::int8_t>(
+        static_cast<std::uint8_t>(record.categoryBits));
     if (gSoundSelectionCC236C[static_cast<std::size_t>(category)] == id) {
         return 0;
     }

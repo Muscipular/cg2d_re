@@ -1,5 +1,4 @@
 #include "cg/platform/SdlAudioBackend.hpp"
-#include "LegacyMidiSynth.hpp"
 
 #include <SDL3/SDL.h>
 
@@ -33,6 +32,7 @@ struct SdlAudioBackend::Impl {
         float panLeft {1.0f};
         float panRight {1.0f};
         bool loop {};
+        std::uint32_t remainingRepeats {}; // 固定WAV的有限重复次数；普通音效/BGM仍由loop控制。
         bool playing {};
         bool feedFailed {};
     };
@@ -49,22 +49,9 @@ struct SdlAudioBackend::Impl {
     std::atomic<std::uint32_t>* bgmReady {};
     std::atomic<bool> bgmAbort {false};
     bool bgmBound {};
-    LegacyMidiSynth midi;
-    SDL_AudioStream* midiStream {};
-
-    static void SDLCALL FeedMidi(void* userdata, SDL_AudioStream* stream, int additionalAmount, int)
-    {
-        auto& self = *static_cast<Impl*>(userdata);
-        constexpr int kFrameBytes = 2 * sizeof(float);
-        std::array<float, 1024> buffer;
-        while (additionalAmount > 0 && self.midi.IsPlaying()) {
-            const int frames = (std::min)(512, additionalAmount / kFrameBytes + (additionalAmount % kFrameBytes != 0));
-            self.midi.Render(buffer.data(), static_cast<std::size_t>(frames));
-            if (!SDL_PutAudioStreamData(stream, buffer.data(), frames * kFrameBytes)) { self.midi.Stop(); return; }
-            additionalAmount -= frames * kFrameBytes;
-        }
-        if (!self.midi.IsPlaying()) { static_cast<void>(SDL_FlushAudioStream(stream)); }
-    }
+    Sample fixedMusicSample;
+    Channel fixedMusic;
+    bool fixedMusicPrepared {};
 
     static int SDLCALL RunBgmStopWorker(void* const userdata)
     {
@@ -118,12 +105,12 @@ struct SdlAudioBackend::Impl {
         sample = {};
     }
 
-    static bool LoadSample(Sample& sample, const char* const path)
+    static bool LoadSample(Sample& sample, SDL_IOStream* const input)
     {
         SDL_AudioSpec spec {};
         Uint8* data = nullptr;
         Uint32 length = 0;
-        if (!SDL_LoadWAV(path, &spec, &data, &length)) {
+        if (input == nullptr || !SDL_LoadWAV_IO(input, true, &spec, &data, &length)) {
             return false;
         }
 
@@ -151,6 +138,11 @@ struct SdlAudioBackend::Impl {
         return true;
     }
 
+    static bool LoadSample(Sample& sample, const char* const path)
+    {
+        return LoadSample(sample, SDL_IOFromFile(path, "rb"));
+    }
+
     static void SDLCALL FeedChannel(
         void* userdata, SDL_AudioStream* stream, int additionalAmount, int)
     {
@@ -176,7 +168,8 @@ struct SdlAudioBackend::Impl {
             for (; count < limit; ++count) {
                 if (channel.cursor == end) {
                     if (!channel.loop) {
-                        break;
+                        if (channel.remainingRepeats == 0) { break; }
+                        --channel.remainingRepeats;
                     }
                     channel.cursor = channel.loopStart;
                 }
@@ -197,16 +190,34 @@ struct SdlAudioBackend::Impl {
                 return;
             }
             additionalAmount -= static_cast<int>(count) * kFrameBytes;
-            if (count < limit || (!channel.loop && channel.cursor == end)) {
+            if (count < limit || (!channel.loop && channel.remainingRepeats == 0 && channel.cursor == end)) {
                 channel.playing = false;
                 static_cast<void>(SDL_FlushAudioStream(stream));
             }
         }
     }
 
+    // 音效与固定WAV共用绑定流程；采样资源由各自owner持有，回调不借临时对象。
+    static bool PrepareChannel(Channel& channel, Sample& sample, SDL_AudioDeviceID device)
+    {
+        if (channel.stream != nullptr || sample.pcmStereo == nullptr) { return false; }
+        SDL_AudioStream* const stream = SDL_CreateAudioStream(&sample.mixSpec, nullptr);
+        if (stream == nullptr) { return false; }
+        channel.sample = &sample;
+        channel.stream = stream;
+        if (!SDL_SetAudioStreamGetCallback(stream, &Impl::FeedChannel, &channel)
+            || !SDL_BindAudioStream(device, stream)) {
+            SDL_DestroyAudioStream(stream);
+            channel = {};
+            return false;
+        }
+        return true;
+    }
+
     ~Impl()
     {
-        if (midiStream != nullptr) { SDL_DestroyAudioStream(std::exchange(midiStream, nullptr)); }
+        if (fixedMusic.stream != nullptr) { SDL_DestroyAudioStream(std::exchange(fixedMusic.stream, nullptr)); }
+        FreeSample(fixedMusicSample);
         StopBgmWorker();
         if (bgm.stream != nullptr) {
             SDL_DestroyAudioStream(std::exchange(bgm.stream, nullptr));
@@ -293,23 +304,7 @@ bool SdlAudioBackend::PrepareChannel(
     }
     Impl::Channel& channel = impl_->channels[channelIndex];
     Impl::Sample& sample = impl_->samples[sampleIndex];
-    if (channel.stream != nullptr || sample.pcmStereo == nullptr) {
-        return false;
-    }
-
-    SDL_AudioStream* const stream = SDL_CreateAudioStream(&sample.mixSpec, nullptr);
-    if (stream == nullptr) {
-        return false;
-    }
-    channel.sample = &sample;
-    channel.stream = stream;
-    if (!SDL_SetAudioStreamGetCallback(stream, &Impl::FeedChannel, &channel)
-        || !SDL_BindAudioStream(impl_->device, stream)) {
-        SDL_DestroyAudioStream(stream);
-        channel = {};
-        return false;
-    }
-    return true;
+    return Impl::PrepareChannel(channel, sample, impl_->device);
 }
 
 bool SdlAudioBackend::HasChannel(const std::size_t index) const noexcept
@@ -595,69 +590,85 @@ void SdlAudioBackend::Close() noexcept
     impl_.reset();
 }
 
-bool SdlAudioBackend::InitializeMidi(const char* bankUtf8Path) noexcept
+bool SdlAudioBackend::InitializeFixedMusic(std::span<const std::uint8_t> wav) noexcept
 {
     if (impl_ == nullptr) { return false; }
-    ShutdownMidi();
-    if (!impl_->midi.LoadBank(bankUtf8Path)) { return false; }
-    const SDL_AudioSpec input {SDL_AUDIO_F32, 2, LegacyMidiSynth::kSampleRate};
-    SDL_AudioStream* stream = SDL_CreateAudioStream(&input, nullptr);
-    if (stream == nullptr) { return false; }
-    if (!SDL_SetAudioStreamGetCallback(stream, &Impl::FeedMidi, impl_.get()) || !SDL_BindAudioStream(impl_->device, stream)) {
-        SDL_DestroyAudioStream(stream); return false;
+    ShutdownFixedMusic();
+    if (!Impl::LoadSample(impl_->fixedMusicSample, SDL_IOFromConstMem(wav.data(), wav.size()))
+        || !Impl::PrepareChannel(impl_->fixedMusic, impl_->fixedMusicSample, impl_->device)) {
+        ShutdownFixedMusic();
+        return false;
     }
-    impl_->midiStream = stream;
     return true;
 }
 
-bool SdlAudioBackend::HasMidi() const noexcept { return impl_ != nullptr && impl_->midiStream != nullptr; }
-
-bool SdlAudioBackend::LoadMidiSequence(std::span<const std::uint8_t> bytes) noexcept
+bool SdlAudioBackend::HasFixedMusic() const noexcept
 {
-    if (!HasMidi() || !SDL_LockAudioStream(impl_->midiStream)) { return false; }
-    impl_->midi.Stop();
-    const bool cleared = SDL_ClearAudioStream(impl_->midiStream);
-    const bool loaded = cleared && impl_->midi.LoadSequence(bytes);
-    static_cast<void>(SDL_UnlockAudioStream(impl_->midiStream));
-    return loaded;
+    return impl_ != nullptr && impl_->fixedMusic.stream != nullptr;
 }
 
-bool SdlAudioBackend::PlayMidi(std::uint32_t repeats) noexcept
+bool SdlAudioBackend::PrepareFixedMusic() noexcept
 {
-    if (!HasMidi() || !SDL_LockAudioStream(impl_->midiStream)) { return false; }
-    impl_->midi.Start(repeats);
-    const bool started = impl_->midi.IsPlaying();
-    static_cast<void>(SDL_UnlockAudioStream(impl_->midiStream));
-    return started && SDL_ResumeAudioDevice(impl_->device);
+    if (!HasFixedMusic() || !SDL_LockAudioStream(impl_->fixedMusic.stream)) { return false; }
+    auto& channel = impl_->fixedMusic;
+    channel.playing = false;
+    const bool cleared = SDL_ClearAudioStream(channel.stream);
+    channel.cursor = 0;
+    channel.loop = false;
+    channel.remainingRepeats = 0;
+    channel.feedFailed = false;
+    impl_->fixedMusicPrepared = cleared;
+    static_cast<void>(SDL_UnlockAudioStream(channel.stream));
+    return cleared;
 }
 
-bool SdlAudioBackend::SetMidiVolume(std::int32_t hundredthDb) noexcept
+bool SdlAudioBackend::PlayFixedMusic(std::uint32_t repeats) noexcept
 {
-    if (!HasMidi() || hundredthDb < -10000 || hundredthDb > 0) { return false; }
-    return SDL_SetAudioStreamGain(impl_->midiStream, static_cast<float>(std::pow(10.0, hundredthDb / 2000.0)));
+    if (!HasFixedMusic() || !SDL_LockAudioStream(impl_->fixedMusic.stream)) { return false; }
+    auto& channel = impl_->fixedMusic;
+    const bool prepared = impl_->fixedMusicPrepared;
+    if (prepared) {
+        channel.loop = repeats == 0xFFFFFFFFu;
+        channel.remainingRepeats = repeats;
+        channel.playing = true;
+    }
+    static_cast<void>(SDL_UnlockAudioStream(channel.stream));
+    return prepared && SDL_ResumeAudioDevice(impl_->device);
 }
 
-void SdlAudioBackend::StopMidi() noexcept
+bool SdlAudioBackend::SetFixedMusicVolume(std::int32_t hundredthDb) noexcept
 {
-    if (HasMidi() && SDL_LockAudioStream(impl_->midiStream)) {
-        impl_->midi.Stop(); static_cast<void>(SDL_ClearAudioStream(impl_->midiStream));
-        static_cast<void>(SDL_UnlockAudioStream(impl_->midiStream));
+    if (!HasFixedMusic() || hundredthDb < -10000 || hundredthDb > 0) { return false; }
+    return SDL_SetAudioStreamGain(impl_->fixedMusic.stream, static_cast<float>(std::pow(10.0, hundredthDb / 2000.0)));
+}
+
+void SdlAudioBackend::StopFixedMusic() noexcept
+{
+    if (HasFixedMusic() && SDL_LockAudioStream(impl_->fixedMusic.stream)) {
+        impl_->fixedMusic.playing = false;
+        static_cast<void>(SDL_ClearAudioStream(impl_->fixedMusic.stream));
+        static_cast<void>(SDL_UnlockAudioStream(impl_->fixedMusic.stream));
     }
 }
 
-void SdlAudioBackend::ShutdownMidi() noexcept
+void SdlAudioBackend::ReleaseFixedMusicPlayback() noexcept
+{
+    if (HasFixedMusic() && SDL_LockAudioStream(impl_->fixedMusic.stream)) {
+        impl_->fixedMusic.playing = false;
+        impl_->fixedMusic.cursor = 0;
+        impl_->fixedMusicPrepared = false;
+        static_cast<void>(SDL_ClearAudioStream(impl_->fixedMusic.stream));
+        static_cast<void>(SDL_UnlockAudioStream(impl_->fixedMusic.stream));
+    }
+}
+
+void SdlAudioBackend::ShutdownFixedMusic() noexcept
 {
     if (impl_ == nullptr) { return; }
-    if (impl_->midiStream != nullptr) { SDL_DestroyAudioStream(std::exchange(impl_->midiStream, nullptr)); }
-    impl_->midi.Clear();
-}
-
-void SdlAudioBackend::ReleaseMidiSequence() noexcept
-{
-    if (HasMidi() && SDL_LockAudioStream(impl_->midiStream)) {
-        impl_->midi.UnloadSequence(); static_cast<void>(SDL_ClearAudioStream(impl_->midiStream));
-        static_cast<void>(SDL_UnlockAudioStream(impl_->midiStream));
-    }
+    if (impl_->fixedMusic.stream != nullptr) { SDL_DestroyAudioStream(std::exchange(impl_->fixedMusic.stream, nullptr)); }
+    impl_->fixedMusic = {};
+    impl_->fixedMusicPrepared = false;
+    Impl::FreeSample(impl_->fixedMusicSample);
 }
 
 } // namespace cg::platform

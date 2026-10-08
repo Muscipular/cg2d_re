@@ -4143,7 +4143,9 @@
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
         "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-baseline",
         "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
-        "doc/cg2d_client_link_sdl_audio_evidence.json"
+        "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state",
+        "doc/cg2d_fixed_music_wav_evidence.json"
       ],
       "original_inventory_ids": [
         "F:00054C30",
@@ -4190,17 +4192,19 @@
         "V05"
       ],
       "dependencies": [],
-      "acceptance_focus": "CAA01五个必要根和固定音乐基础SDL提供者已开发/链接；完整设备/资源、效果、循环/通知与退出和运行未验，剩余范围暂停",
+      "acceptance_focus": "CAB02固定音乐已预转换WAV并内置，客户端仅SDL WAV播放；完整资源/设备、声音效果、循环/通知与退出和运行未验",
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-decision",
         "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-decision",
         "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
-        "doc/cg2d_client_link_sdl_audio_evidence.json"
+        "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state",
+        "doc/cg2d_fixed_music_wav_evidence.json"
       ],
       "blockers": [
-        "CAA01已恢复五个必要根/固定音乐依赖并完成Debug链接；FUNC-AUDIO scope=paused仅保留完整剩余范围，不覆盖本次具名恢复或把其源码记为缺失",
-        "AUDIO32原成员枚举仍未闭；旧7/旧8、完整WAV/通知/生命周期以及原KS混响/合唱、DLS动态调制、真实声音/失败/退出仍未完成验收，不用基础PCM源代全音频"
+        "CAB02按用户最新要求替换五根所需的固定MIDI依赖为内置WAV并已Debug链接；scope=paused仅保留其余完整范围，不覆盖本次具名恢复",
+        "AUDIO32原成员枚举仍未闭；旧7/旧8、完整WAV/通知/生命周期及音源效果/听感、真实声音/失败/退出仍未验收；类型1原16B资源按用户最新要求视为空音频，停止旧播放后立即成功，零时长不循环"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -4208,7 +4212,9 @@
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state",
         "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state",
         "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
-        "doc/cg2d_client_link_sdl_audio_evidence.json"
+        "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state",
+        "doc/cg2d_fixed_music_wav_evidence.json"
       ],
       "resumed_original_inventory_ids": [
         "F:00054C30",
@@ -4219,7 +4225,9 @@
       ],
       "resumed_source_evidence_refs": [
         "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
-        "doc/cg2d_client_link_sdl_audio_evidence.json"
+        "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state",
+        "doc/cg2d_fixed_music_wav_evidence.json"
       ]
     },
     {
@@ -66562,9 +66570,11 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
-        "doc/cg2d_client_link_sdl_audio_evidence.json"
+        "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state",
+        "doc/cg2d_fixed_music_wav_evidence.json"
       ],
-      "boundary": "实际SDL设备、系统GM DLS/固定音乐流初始化与独立音量表；成功0，设备失败1，GM/流失败2；必要SDL提供者已实现/链接，完整音频与运行未验；原COM私有机制不伪造，正常上层语义和原格式明文保持"
+      "boundary": "实际SDL设备、内置固定WAV流初始化与独立音量表；成功0，设备失败1，WAV/流失败2；用户最新要求固定MIDI离线转WAV，客户端后续不使用MIDI；类型0内置13.8秒WAV，类型1按用户要求为空音频并立即成功1，原W32重复/音量/停止释放与两字段明文派发保持。离线统一衰减峰值至0.98，波形/KS效果及真实声音/失败/寿命未验；不代完整功能、旧7/旧8或整体SPEC。"
     },
     {
       "inventory_id": "F:00054EE0",
@@ -66572,9 +66582,11 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
-        "doc/cg2d_client_link_sdl_audio_evidence.json"
+        "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state",
+        "doc/cg2d_fixed_music_wav_evidence.json"
       ],
-      "boundary": "停止音乐、释放流/序列/样本，依WAV owner决定共享设备关闭；返回0；必要SDL提供者已实现/链接，完整音频与运行未验；原COM私有机制不伪造，正常上层语义和原格式明文保持"
+      "boundary": "停止固定WAV、释放音乐流/样本，依WAV owner决定共享设备关闭；返回0；用户最新要求固定MIDI离线转WAV，客户端后续不使用MIDI；类型0内置13.8秒WAV，类型1按用户要求为空音频并立即成功1，原W32重复/音量/停止释放与两字段明文派发保持。离线统一衰减峰值至0.98，波形/KS效果及真实声音/失败/寿命未验；不代完整功能、旧7/旧8或整体SPEC。"
     },
     {
       "inventory_id": "F:00058AE0",
@@ -66582,9 +66594,11 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
-        "doc/cg2d_client_link_sdl_audio_evidence.json"
+        "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state",
+        "doc/cg2d_fixed_music_wav_evidence.json"
       ],
-      "boundary": "实际SDL设备能力与独立DINPUT入口观察；返回来自真实结果而非固定成功；必要SDL提供者已实现/链接，完整音频与运行未验；原COM私有机制不伪造，正常上层语义和原格式明文保持"
+      "boundary": "实际SDL设备能力与独立DINPUT入口观察；返回来自真实结果而非固定成功；用户最新要求固定MIDI离线转WAV，客户端后续不使用MIDI；类型0内置13.8秒WAV，类型1按用户要求为空音频并立即成功1，原W32重复/音量/停止释放与两字段明文派发保持。离线统一衰减峰值至0.98，波形/KS效果及真实声音/失败/寿命未验；不代完整功能、旧7/旧8或整体SPEC。"
     },
     {
       "inventory_id": "F:0010E680",
@@ -66592,9 +66606,11 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
-        "doc/cg2d_client_link_sdl_audio_evidence.json"
+        "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state",
+        "doc/cg2d_fixed_music_wav_evidence.json"
       ],
-      "boundary": "原socket后两个S32字段分流，第三派发字段不消费；固定原MIDI长度/重复及停止释放顺序；必要SDL提供者已实现/链接，完整音频与运行未验；原COM私有机制不伪造，正常上层语义和原格式明文保持"
+      "boundary": "原socket后两个S32字段分流；固定音乐预转换WAV、原重复/停止释放，类型1按用户要求为空音频并立即成功；用户最新要求固定MIDI离线转WAV，客户端后续不使用MIDI；类型0内置13.8秒WAV，类型1按用户要求为空音频并立即成功1，原W32重复/音量/停止释放与两字段明文派发保持。离线统一衰减峰值至0.98，波形/KS效果及真实声音/失败/寿命未验；不代完整功能、旧7/旧8或整体SPEC。"
     },
     {
       "inventory_id": "F:0012C3D0",
@@ -66602,9 +66618,11 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
-        "doc/cg2d_client_link_sdl_audio_evidence.json"
+        "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state",
+        "doc/cg2d_fixed_music_wav_evidence.json"
       ],
-      "boundary": "原音频/索引/enable门槛、0..15钳制和同一BGM记录/128槽表，实际应用SDL音量；必要SDL提供者已实现/链接，完整音频与运行未验；原COM私有机制不伪造，正常上层语义和原格式明文保持"
+      "boundary": "原音频/索引/enable门槛、0..15钳制和同一BGM记录/128槽表，实际应用SDL音量；用户最新要求固定MIDI离线转WAV，客户端后续不使用MIDI；类型0内置13.8秒WAV，类型1按用户要求为空音频并立即成功1，原W32重复/音量/停止释放与两字段明文派发保持。离线统一衰减峰值至0.98，波形/KS效果及真实声音/失败/寿命未验；不代完整功能、旧7/旧8或整体SPEC。"
     }
   ],
   "auxiliary_dispositions": [
@@ -96339,7 +96357,7 @@
     }
   ],
   "build_validation": {
-    "step": "CAB01",
+    "step": "CAB02",
     "recorded_on": "2026-10-08",
     "configuration": "Debug",
     "configure_exit_code": 0,
@@ -96354,9 +96372,10 @@
       "doc/cg2d_build_acceptance_spec.md",
       "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
       "doc/cg2d_client_link_sdl_audio_evidence.json",
-      "plan/cg2d_full_reconstruction_progress.md"
+      "plan/cg2d_full_reconstruction_progress.md",
+      "doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state",
+      "doc/cg2d_fixed_music_wav_evidence.json"
     ],
-    "note": "本步启动提示UTF-8/Win32显示边界必要Debug编译链接通过；配置沿用CAA01。原图档版本参数已按真实文件修正，未再启动客户端；V02与完整音频/整体SPEC不关闭",
-    "configure_reused_from": "CAA01"
+    "note": "本次离线转换与内置WAV资源检查通过，Debug配置/三库/客户端链接通过；客户端map无MIDI合成器。未启动客户端，V02与完整音频/整体SPEC不关闭。"
   }
 }

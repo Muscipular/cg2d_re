@@ -102,12 +102,12 @@ P 编号对应机器 pending_records 的原入口，不增加或缩减该分母�
 | P08 / 4626A0 | 源码工作项已关闭：WorldUpdate显式gate=1，旧声明已清 | 本体及顺序保持；完整创建/数据/请求验收沿U03/V03继续 | [静态证据](../doc/cg2d_creation_and_module_adaptation_evidence.md#p08-创建入口显式gate)；不算整体功能验收 |
 | P09 / 403C50 | 源码工作项已关闭：完整154条明文取包与真实Loop调用已接 | 原W16整包/容量/CRLF/NUL/队列/状态保持；完整互通及V03仍待 | [源码收口](../doc/cg2d_network_plaintext_frame_spec.md#frame-source-closure)；仅401AB0位置旁路，无新分包门槛 |
 | P10 / 403E50 | 源码工作项已关闭：完整146条明文帧与真实发送回调已接 | 原首标记/正文/旧尾/报告/原头和长度发布保持；完整互通及V03仍待 | [源码收口](../doc/cg2d_network_plaintext_frame_spec.md#frame-source-closure)；仅401960位置旁路，无加密或新格式 |
-| P11 / 454C30 | CAA01系统GM DLS、独立MIDI流/音量表真实SDL初始化已实现并已链接；完整功能仍open | 继续补原效果/动态调制，验实际资源/设备失败/声音 | [CAA01](../doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state)；[持久证据](../doc/cg2d_client_link_sdl_audio_evidence.json)；APS01/BOY01身份与完整初始化/owner门禁保持 |
-| P12 / 454EE0 | CAA01停止/销毁音乐流、释放序列/样本及共享设备owner清理已实现并已链接；仍open | 验回调停止、共享设备及真实退出寿命 | [CAA01](../doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state)；[证据](../doc/cg2d_client_link_sdl_audio_evidence.json)；原停止/线程/流/设备顺序合同保持 |
+| P11 / 454C30 | CAB02内置固定WAV、独立音乐流/音量表初始化已实现并已链接；完整功能仍open | 验实际资源/设备失败/声音与音源效果对照 | [固定WAV交付](../doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state)；[证据](../doc/cg2d_fixed_music_wav_evidence.json)；原owner与完整初始化门禁保持 |
+| P12 / 454EE0 | CAB02停止/销毁固定WAV流、释放PCM及共享设备owner清理已实现并已链接；仍open | 验回调停止、共享设备及真实退出寿命 | [固定WAV交付](../doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state)；先销毁流再释放样本，原退出顺序保持 |
 | P13 / 458AE0 | CAA01实际SDL设备能力与独立DINPUT入口观察已实现并已链接，非固定成功；仍open | 验实际能力及设备/输入失败分支 | [CAA01](../doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state)；原返回与消费者、完整后端门禁保持 |
 | P14 / 4FDBD0 | BOY01旧7初始化包装/绑定及两音量回调补暂停归属，源码未登记；APS01旧7暂停原身份已关联；暂停；旧7音乐页未完 | 恢复音频后实现并接旧路由 | [BOY01](../doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state)；[APS01](../doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state)；原状态/音量应用/文字与选择；[设置](../doc/cg2d_display_settings.md) |
 | P15 / 4FE0E0 | BOY01旧8初始化包装/绑定及音量/立体声回调补暂停归属，源码未登记；APS01旧8暂停原身份已关联；暂停；旧8音效页未完 | 同上，保留音乐/音效状态分工 | [BOY01](../doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state)；[APS01](../doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state)；原事件与实际后端应用；[设置](../doc/cg2d_display_settings.md) |
-| P16 / 50E680 | CAA01原两字段分流与固定MIDI原字节/长度、重复/停止释放已实现并已链接；仍open | 补全效果并验固定资源声音、murD完整互通 | [CAA01](../doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state)；原协议明文/第三字段不消费、完整派发副作用保持 |
+| P16 / 50E680 | CAB02原两字段分流与固定音乐WAV、原W32重复/停止释放已实现并已链接；类型1空音频立即成功；仍open | 验WAV声音/音源效果、有限/无限重复与murD完整互通 | [固定WAV交付](../doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state)；原明文格式/第三字段不消费及派发副作用保持 |
 | P17 / 52C3D0 | CAA01同一BGM记录/表和原门槛/钳制的真实SDL音量应用已实现并已链接；仍open | 验声音变化及实际失败/owner | [CAA01](../doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state)；共享值与应用时点合同保持 |
 | P18 / 5202E0 | 核对工作项已关闭：现有256B一次预清经静态核对 | 原API/后续失败与成功消费保持；完整登录/API及运行沿V03继续 | [静态证据](../doc/cg2d_creation_and_module_adaptation_evidence.md#p18-模块路径预清)；未计算/执行摘要 |
 

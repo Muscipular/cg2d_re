@@ -27,15 +27,15 @@ public:
     [[nodiscard]] bool Open() noexcept;
     [[nodiscard]] bool IsOpen() const noexcept;
 
-    // 原固定MThd音乐独立于WAV BGM；系统DLS提供实际样本，事件生成PCM供SDL流播放。
-    [[nodiscard]] bool InitializeMidi(const char* bankUtf8Path) noexcept;
-    [[nodiscard]] bool HasMidi() const noexcept;
-    [[nodiscard]] bool LoadMidiSequence(std::span<const std::uint8_t> bytes) noexcept;
-    [[nodiscard]] bool PlayMidi(std::uint32_t repeats) noexcept;
-    [[nodiscard]] bool SetMidiVolume(std::int32_t hundredthDb) noexcept;
-    void StopMidi() noexcept;
-    void ReleaseMidiSequence() noexcept;
-    void ShutdownMidi() noexcept;
+    // 原固定音乐预转换的内置WAV，独立于普通BGM与64音效通道；初始化复制并独占PCM。
+    [[nodiscard]] bool InitializeFixedMusic(std::span<const std::uint8_t> wav) noexcept;
+    [[nodiscard]] bool HasFixedMusic() const noexcept;
+    [[nodiscard]] bool PrepareFixedMusic() noexcept;
+    [[nodiscard]] bool PlayFixedMusic(std::uint32_t repeats) noexcept; // 原W32额外重复次数；全1为无限。
+    [[nodiscard]] bool SetFixedMusicVolume(std::int32_t hundredthDb) noexcept;
+    void StopFixedMusic() noexcept;
+    void ReleaseFixedMusicPlayback() noexcept;
+    void ShutdownFixedMusic() noexcept;
 
     // path 是现代 SDL 文件边界的 UTF-8 路径；旧原字节路径须由调用者另行转换。
     // 保留各 WAV 自身的格式和 PCM 数据；失败不改已有槽内容。

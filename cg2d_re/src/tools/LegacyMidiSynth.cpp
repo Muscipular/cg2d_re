@@ -423,6 +423,7 @@ void LegacyMidiSynth::UnloadSequence() noexcept
 }
 void LegacyMidiSynth::Clear() noexcept { impl_.reset(); }
 bool LegacyMidiSynth::IsPlaying() const noexcept { return impl_ != nullptr && impl_->playing; }
+std::uint64_t LegacyMidiSynth::FrameCount() const noexcept { return impl_ != nullptr ? impl_->duration : 0; }
 void LegacyMidiSynth::Render(float* stereo, std::size_t frames) noexcept
 {
     if (impl_ != nullptr) { impl_->Render(stereo, frames); } else { std::fill_n(stereo, frames * 2, 0.0f); }

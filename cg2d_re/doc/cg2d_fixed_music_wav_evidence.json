@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "step": "CAB02",
+  "recorded_on": "2026-10-08",
+  "authorization": [
+    "用户要求“midi你帮我直接转成wav吧，后续不再使用midi”",
+    "必要离线实际转换、配置编译链接和资源封装检查；不运行客户端或桌面操作",
+    "用户随后明确“第二段视为空音频”，类型1原失败0改为零时长成功1"
+  ],
+  "original_evidence_ref": "doc/cg2d_client_link_sdl_audio_evidence.json",
+  "original_resources": [
+    {
+      "address": "0x556744",
+      "length": 1204,
+      "track_end_ticks": [
+        0,
+        1656,
+        1656,
+        1656,
+        1656,
+        1656,
+        1656,
+        1656
+      ],
+      "note_on_counts": [
+        0,
+        10,
+        10,
+        10,
+        30,
+        30,
+        16,
+        13
+      ],
+      "tempo_us": 800000,
+      "division": 96
+    },
+    {
+      "address": "0x556BF8",
+      "length": 16,
+      "result": "原16B片段缺少音轨；按用户最新要求生成0帧空WAV，类型1停止旧播放后立即成功1"
+    }
+  ],
+  "prior_summary_correction": "CAA01旧static_midi_summary的部分轨道终点不准确；本次按原1204B实际解析，所有音乐轨终点1656tick，转换器同为304290frame/13.8s；原字节不变，旧证据作为历史保留。",
+  "wav": {
+    "path": "src/audio/fixed_0.wav",
+    "file_bytes": 2434376,
+    "format": "IEEE float32",
+    "format_tag": 3,
+    "channels": 2,
+    "sample_rate": 22050,
+    "bits": 32,
+    "frames": 304290,
+    "seconds": 13.8,
+    "peak": 0.9800000190734863,
+    "rms": 0.13578688133702382,
+    "nonzero_samples": 599758,
+    "nonfinite_samples": 0
+  },
+  "conversion": {
+    "source": "原固定1204B MIDI",
+    "synth": "原CAA01 LegacyMidiSynth，仅离线工具目标",
+    "sound_bank": "本机系统gm.dls，只读，不下载或复制音色",
+    "source_peak": 2.18281579,
+    "uniform_gain": 0.448961385,
+    "target_peak": 0.98,
+    "integer_quantization": false,
+    "sample_clipping": false,
+    "log": "build/windows-msvc-x64/fixed_0_conversion.log",
+    "quality_boundary": "继承现有合成链，只做统一衰减；不宣原KS混响/合唱、DLS动态调制或旧驱动波形等价，听感仍待验收"
+  },
+  "runtime": {
+    "fixed_source": "内置RCDATA资源1001，格式WAV",
+    "separate_from_wav_bgm_and_64_channels": true,
+    "midi_parser_linked": false,
+    "system_dls_read": false,
+    "external_dependency_added": false,
+    "fixed_types": {
+      "0": "内置WAV",
+      "1": "用户指定为空音频，停止旧播放后立即成功1；零时长不启动循环",
+      "other": "停止旧播放后失败0"
+    },
+    "repeats": {
+      "0": "单次",
+      "1": "总共两次",
+      "0xFFFFFFFF": "无限循环"
+    },
+    "wire_format_changed": false,
+    "encryption_added": false,
+    "volume_contract": "原独立128槽百分之一dB表；原音乐音量计算与失败返回保持",
+    "owner": "共享SDL设备、独立固定音乐流/PCM；销毁流等待回调后释放PCM",
+    "empty_audio_repeats": "任意W32重复次数均立即成功结束，不创建零长度循环"
+  },
+  "verification": {
+    "converter_debug_build_exit": 0,
+    "actual_conversion_exit": 0,
+    "configure_exit": 0,
+    "first_client_build_exit": 1,
+    "first_client_build_fix": "FindResourceW的资源类型从ANSI宏改用MAKEINTRESOURCEW(10)，不改变全工程字符集",
+    "final_client_build_exit": 0,
+    "first_build_existing_warnings_retained": true,
+    "final_audio_warning_count": 0,
+    "wav_format_and_pcm_checked": true,
+    "exe_loaded_as_data_only": true,
+    "embedded_resource_bytes_match": true,
+    "client_runtime_started": false,
+    "tests_run": false,
+    "hash_computed": false,
+    "build_log": "build/windows-msvc-x64/build-fixed-wav-20261008-final.log",
+    "map": "build/windows-msvc-x64/Debug/cg2d_re_client.map",
+    "midi_synth_and_converter_absent_from_client_map": true,
+    "full_audio_accepted": false,
+    "whole_spec_accepted": false,
+    "embedded_resource_ids_checked": [
+      1001,
+      1002
+    ],
+    "empty_audio_source_branch_checked": true
+  },
+  "implementation_snapshot": "cg2d-re-fixed-music-wav-20261008",
+  "empty_wav": {
+    "path": "src/audio/fixed_1.wav",
+    "file_bytes": 56,
+    "format": "IEEE float32",
+    "format_tag": 3,
+    "channels": 2,
+    "sample_rate": 22050,
+    "bits": 32,
+    "frames": 0,
+    "seconds": 0,
+    "data_bytes": 0,
+    "resource_id": 1002
+  },
+  "deployment": {
+    "path": "H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2d_re_client.exe",
+    "backup": "H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2d_re_client.exe.before-fixed-wav-20261008",
+    "copied": true,
+    "runtime_started": false
+  }
+}

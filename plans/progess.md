@@ -845,3 +845,7 @@
 ## 2026-10-08 cg2d_re MIDI 播放方案确认
 
 用户确认保留系统 gm.dls 音色、项目 LegacyMidiSynth 合成与 SDL3 播放链，已更新既有音频基线；未新增依赖、源码改动、编译或运行。音频效果与实际声音/生命周期缺口仍待完成，具体记录见 cg2d_re/plan/cg2d_full_reconstruction_progress.md。
+
+## 2026-10-08 cg2d_re 固定音乐 WAV 与空音频
+
+按用户最新要求将完整固定MIDI转换为13.8秒WAV，第二段生成零时长空WAV；客户端只用SDL3播放内置WAV，不再读取gm.dls或链接MIDI合成器。原重复/音量/明文派发与owner清理保持，空音频停止旧播放后立即成功。必要Debug链接、实际转换及两份内置资源字节检查通过，游戏目录客户端已更新并备份旧版；未启动客户端或操作桌面，完整声音与生命周期仍待验收。具体见cg2d_re/plan/cg2d_full_reconstruction_progress.md；快照cg2d-re-fixed-music-wav-20261008。

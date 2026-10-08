@@ -4072,8 +4072,9 @@ std::uintptr_t Sub_4D9220(const std::int32_t opened)
         }
         return reinterpret_cast<std::uintptr_t>(action);
     }
-    if (gLegacyBuyActionD67C6C != nullptr) {
-        SetYobiActionFlag2(gLegacyBuyActionD67C6C, false);
+    YobiAction* const previewAction = gLegacyBuyActionD67C6C;
+    if (previewAction != nullptr) {
+        SetYobiActionFlag2(previewAction, false);
     }
     if (ui::detail::Sub_4D3040(2, 2) != 0) {
         static_cast<void>(audio::Sub_5042D0(gLegacyBuyPanel5823A0.id));
@@ -4458,8 +4459,9 @@ std::uintptr_t Sub_4DAA40(const std::int32_t opened)
         }
         return reinterpret_cast<std::uintptr_t>(action);
     }
-    if (gLegacySellActionD67C74 != nullptr) {
-        SetYobiActionFlag2(gLegacySellActionD67C74, false);
+    YobiAction* const previewAction = gLegacySellActionD67C74;
+    if (previewAction != nullptr) {
+        SetYobiActionFlag2(previewAction, false);
     }
     if (ui::detail::Sub_4D3040(2, 2) != 0) {
         static_cast<void>(audio::Sub_5042D0(gLegacySellPanel582530.id));
@@ -4948,8 +4950,9 @@ std::uintptr_t Sub_4DC7E0(const std::int32_t opened)
         }
         return reinterpret_cast<std::uintptr_t>(action);
     }
-    if (gLegacyRepairActionD67C7C != nullptr) {
-        SetYobiActionFlag2(gLegacyRepairActionD67C7C, false);
+    YobiAction* const previewAction = gLegacyRepairActionD67C7C;
+    if (previewAction != nullptr) {
+        SetYobiActionFlag2(previewAction, false);
     }
     if (ui::detail::Sub_4D3040(2, 2) != 0) {
         static_cast<void>(audio::Sub_5042D0(gLegacyRepairPanel582788.id));
@@ -5329,8 +5332,9 @@ std::uintptr_t Sub_4DDFC0(const std::int32_t opened)
         }
         return reinterpret_cast<std::uintptr_t>(action);
     }
-    if (gLegacyIdentifyActionD67C84 != nullptr) {
-        SetYobiActionFlag2(gLegacyIdentifyActionD67C84, false);
+    YobiAction* const previewAction = gLegacyIdentifyActionD67C84;
+    if (previewAction != nullptr) {
+        SetYobiActionFlag2(previewAction, false);
     }
     if (ui::detail::Sub_4D3040(2, 2) != 0) {
         static_cast<void>(audio::Sub_5042D0(gLegacyIdentifyPanel582918.id));
@@ -5893,8 +5897,9 @@ std::uintptr_t Sub_4D36F0(const std::int32_t opened)
         }
         return reinterpret_cast<std::uintptr_t>(action);
     }
-    if (gLegacyBarterActionD67C50 != nullptr) {
-        SetYobiActionFlag2(gLegacyBarterActionD67C50, false);
+    YobiAction* const previewAction = gLegacyBarterActionD67C50;
+    if (previewAction != nullptr) {
+        SetYobiActionFlag2(previewAction, false);
     }
     if (ui::detail::Sub_4D3040(2, 2) != 0) {
         static_cast<void>(audio::Sub_5042D0(gLegacyBarterPanel5818B0.id));
@@ -6423,8 +6428,9 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
         }
         return reinterpret_cast<std::uintptr_t>(action);
     }
-    if (gLegacyGiveReceiveQuantityActionCB1DD4 != nullptr) {
-        SetYobiActionFlag2(gLegacyGiveReceiveQuantityActionCB1DD4, false);
+    YobiAction* const previewAction = gLegacyGiveReceiveQuantityActionCB1DD4;
+    if (previewAction != nullptr) {
+        SetYobiActionFlag2(previewAction, false);
     }
     if (ui::detail::Sub_4D3040(2, 2) != 0) {
         static_cast<void>(audio::Sub_5042D0(gLegacyGiveReceiveQuantityPanel581BD0.id));

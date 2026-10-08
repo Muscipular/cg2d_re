@@ -7576,9 +7576,12 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/legacy_buy_list.md"
+        "doc/ui_windows/legacy_buy_list.md",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:000D9220"
+      ],
       "closure_task_ids": [
         "U04",
         "V04"
@@ -7587,13 +7590,18 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision"
+      ],
       "blockers": [
-        "原成员、传递依赖和逐门禁证据待归档"
+        "原成员、传递依赖和逐门禁证据待归档",
+        "4D9220 买入：恢复gLegacyBuyActionD67C6C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 仅一清标志阶段，完整成员/父/生产及旧路由/运行未闭。"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ]
     },
     {
       "id": "UI-L-064",
@@ -7603,9 +7611,12 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/legacy_sell_list.md"
+        "doc/ui_windows/legacy_sell_list.md",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:000DAA40"
+      ],
       "closure_task_ids": [
         "U04",
         "V04",
@@ -7615,13 +7626,18 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision"
+      ],
       "blockers": [
-        "原成员、传递依赖和逐门禁证据待归档"
+        "原成员、传递依赖和逐门禁证据待归档",
+        "4DAA40 卖出：恢复gLegacySellActionD67C74一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 仅一清标志阶段，完整成员/父/生产及旧路由/运行未闭。"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ]
     },
     {
       "id": "UI-L-065",
@@ -7712,9 +7728,12 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/legacy_identify_list.md"
+        "doc/ui_windows/legacy_identify_list.md",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:000DDFC0"
+      ],
       "closure_task_ids": [
         "U04",
         "V04",
@@ -7724,13 +7743,18 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision"
+      ],
       "blockers": [
-        "原成员、传递依赖和逐门禁证据待归档"
+        "原成员、传递依赖和逐门禁证据待归档",
+        "4DDFC0 鉴定：恢复gLegacyIdentifyActionD67C84一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 仅一清标志阶段，完整成员/父/生产及旧路由/运行未闭。"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ]
     },
     {
       "id": "UI-L-069",
@@ -7768,9 +7792,12 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/legacy_repair_list.md"
+        "doc/ui_windows/legacy_repair_list.md",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:000DC7E0"
+      ],
       "closure_task_ids": [
         "U04",
         "V04",
@@ -7780,13 +7807,18 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision"
+      ],
       "blockers": [
-        "原成员、传递依赖和逐门禁证据待归档"
+        "原成员、传递依赖和逐门禁证据待归档",
+        "4DC7E0 修理：恢复gLegacyRepairActionD67C7C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 仅一清标志阶段，完整成员/父/生产及旧路由/运行未闭。"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ]
     },
     {
       "id": "UI-L-071",
@@ -7906,9 +7938,12 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/legacy_barter_list.md"
+        "doc/ui_windows/legacy_barter_list.md",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:000D36F0"
+      ],
       "closure_task_ids": [
         "U04",
         "V04",
@@ -7918,13 +7953,18 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision"
+      ],
       "blockers": [
-        "原成员、传递依赖和逐门禁证据待归档"
+        "原成员、传递依赖和逐门禁证据待归档",
+        "4D36F0 交换：恢复gLegacyBarterActionD67C50一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 仅一清标志阶段，完整成员/父/生产及旧路由/运行未闭。"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ]
     },
     {
       "id": "UI-L-076",
@@ -8152,9 +8192,12 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/legacy_give_receive_quantity.md"
+        "doc/ui_windows/legacy_give_receive_quantity.md",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:000D55C0"
+      ],
       "closure_task_ids": [
         "U04",
         "V04",
@@ -8164,13 +8207,18 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision"
+      ],
       "blockers": [
-        "原成员、传递依赖和逐门禁证据待归档"
+        "原成员、传递依赖和逐门禁证据待归档",
+        "4D55C0 交出/接受数量：恢复gLegacyGiveReceiveQuantityActionCB1DD4一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 仅一清标志阶段，完整成员/父/生产及旧路由/运行未闭。"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ]
     },
     {
       "id": "UI-L-085",
@@ -49410,6 +49458,366 @@
       "observation": "BVV01修复旧62商店选择4D8DA0对opaque YobiAction::flags的直接访问及D67C68重复读取；原4D8EA1/A6/A8/AA四指令13B一次持样/判空/清W32 bit1，经现有SetYobiActionFlag2(previewAction,false)承接，无额外action判空或新接口。一个CPP一个片段，其它完整父体、预览生产叶、Yobi helper/头、模式/命令/格式/原字节及原格式明文保持。复用SCP01完整321条1080B根与原表/八字节合同，不重新取全根或外推真实外路由；已有1226/Fmixed及pending6/18保持，UI-L-062两个成员不重计，只两限定I/S。模式真实生产、低两位零的第二命令及旧路由/完整画面运行仍按原事实和验收处理，不填值或模拟原栈，未宣编译/链接/运行或故障等价通过；音频暂停/RPLAN.24及完整门禁保。",
       "expected": "BVV01修复旧62商店选择4D8DA0对opaque YobiAction::flags的直接访问及D67C68重复读取；原4D8EA1/A6/A8/AA四指令13B一次持样/判空/清W32 bit1，经现有SetYobiActionFlag2(previewAction,false)承接，无额外action判空或新接口。一个CPP一个片段，其它完整父体、预览生产叶、Yobi helper/头、模式/命令/格式/原字节及原格式明文保持。复用SCP01完整321条1080B根与原表/八字节合同，不重新取全根或外推真实外路由；已有1226/Fmixed及pending6/18保持，UI-L-062两个成员不重计，只两限定I/S。模式真实生产、低两位零的第二命令及旧路由/完整画面运行仍按原事实和验收处理，不填值或模拟原栈，未宣编译/链接/运行或故障等价通过；音频暂停/RPLAN.24及完整门禁保。",
       "actual": "BVV01修复旧62商店选择4D8DA0对opaque YobiAction::flags的直接访问及D67C68重复读取；原4D8EA1/A6/A8/AA四指令13B一次持样/判空/清W32 bit1，经现有SetYobiActionFlag2(previewAction,false)承接，无额外action判空或新接口。一个CPP一个片段，其它完整父体、预览生产叶、Yobi helper/头、模式/命令/格式/原字节及原格式明文保持。复用SCP01完整321条1080B根与原表/八字节合同，不重新取全根或外推真实外路由；已有1226/Fmixed及pending6/18保持，UI-L-062两个成员不重计，只两限定I/S。模式真实生产、低两位零的第二命令及旧路由/完整画面运行仍按原事实和验收处理，不填值或模拟原栈，未宣编译/链接/运行或故障等价通过；音频暂停/RPLAN.24及完整门禁保。"
+    },
+    {
+      "id": "E-LEGACY-PREVIEW-FLAG-UI-L-063-I-20261008",
+      "feature_id": "UI-L-063",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVW01Sub_4D9220仅4条/13B一持样清位阶段，旧完整父/格式与其它字段不重验；整源六改之一。doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-legacy-preview-flag-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4D9220",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_legacy_preview_flag_sampling_evidence.json",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ],
+      "differences": [
+        {
+          "description": "4D9220 买入：恢复gLegacyBuyActionD67C6C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+          "decision_ref": "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "4D9220 买入：恢复gLegacyBuyActionD67C6C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+      "expected": "4D9220 买入：恢复gLegacyBuyActionD67C6C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+      "actual": "4D9220 买入：恢复gLegacyBuyActionD67C6C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。"
+    },
+    {
+      "id": "E-LEGACY-PREVIEW-FLAG-UI-L-063-S-20261008",
+      "feature_id": "UI-L-063",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVW01Sub_4D9220仅4条/13B一持样清位阶段，旧完整父/格式与其它字段不重验；整源六改之一。doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-legacy-preview-flag-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4D9220",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_legacy_preview_flag_sampling_evidence.json",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ],
+      "differences": [
+        {
+          "description": "4D9220 买入：恢复gLegacyBuyActionD67C6C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+          "decision_ref": "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "4D9220 买入：恢复gLegacyBuyActionD67C6C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+      "expected": "4D9220 买入：恢复gLegacyBuyActionD67C6C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+      "actual": "4D9220 买入：恢复gLegacyBuyActionD67C6C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。"
+    },
+    {
+      "id": "E-LEGACY-PREVIEW-FLAG-UI-L-064-I-20261008",
+      "feature_id": "UI-L-064",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVW01Sub_4DAA40仅5条/15B一持样清位阶段，旧完整父/格式与其它字段不重验；整源六改之一。doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-legacy-preview-flag-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4DAA40",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_legacy_preview_flag_sampling_evidence.json",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ],
+      "differences": [
+        {
+          "description": "4DAA40 卖出：恢复gLegacySellActionD67C74一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+          "decision_ref": "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "4DAA40 卖出：恢复gLegacySellActionD67C74一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+      "expected": "4DAA40 卖出：恢复gLegacySellActionD67C74一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+      "actual": "4DAA40 卖出：恢复gLegacySellActionD67C74一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。"
+    },
+    {
+      "id": "E-LEGACY-PREVIEW-FLAG-UI-L-064-S-20261008",
+      "feature_id": "UI-L-064",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVW01Sub_4DAA40仅5条/15B一持样清位阶段，旧完整父/格式与其它字段不重验；整源六改之一。doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-legacy-preview-flag-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4DAA40",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_legacy_preview_flag_sampling_evidence.json",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ],
+      "differences": [
+        {
+          "description": "4DAA40 卖出：恢复gLegacySellActionD67C74一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+          "decision_ref": "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "4DAA40 卖出：恢复gLegacySellActionD67C74一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+      "expected": "4DAA40 卖出：恢复gLegacySellActionD67C74一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+      "actual": "4DAA40 卖出：恢复gLegacySellActionD67C74一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。"
+    },
+    {
+      "id": "E-LEGACY-PREVIEW-FLAG-UI-L-070-I-20261008",
+      "feature_id": "UI-L-070",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVW01Sub_4DC7E0仅4条/13B一持样清位阶段，旧完整父/格式与其它字段不重验；整源六改之一。doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-legacy-preview-flag-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4DC7E0",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_legacy_preview_flag_sampling_evidence.json",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ],
+      "differences": [
+        {
+          "description": "4DC7E0 修理：恢复gLegacyRepairActionD67C7C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+          "decision_ref": "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "4DC7E0 修理：恢复gLegacyRepairActionD67C7C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+      "expected": "4DC7E0 修理：恢复gLegacyRepairActionD67C7C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+      "actual": "4DC7E0 修理：恢复gLegacyRepairActionD67C7C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。"
+    },
+    {
+      "id": "E-LEGACY-PREVIEW-FLAG-UI-L-070-S-20261008",
+      "feature_id": "UI-L-070",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVW01Sub_4DC7E0仅4条/13B一持样清位阶段，旧完整父/格式与其它字段不重验；整源六改之一。doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-legacy-preview-flag-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4DC7E0",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_legacy_preview_flag_sampling_evidence.json",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ],
+      "differences": [
+        {
+          "description": "4DC7E0 修理：恢复gLegacyRepairActionD67C7C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+          "decision_ref": "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "4DC7E0 修理：恢复gLegacyRepairActionD67C7C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+      "expected": "4DC7E0 修理：恢复gLegacyRepairActionD67C7C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+      "actual": "4DC7E0 修理：恢复gLegacyRepairActionD67C7C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。"
+    },
+    {
+      "id": "E-LEGACY-PREVIEW-FLAG-UI-L-068-I-20261008",
+      "feature_id": "UI-L-068",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVW01Sub_4DDFC0仅4条/13B一持样清位阶段，旧完整父/格式与其它字段不重验；整源六改之一。doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-legacy-preview-flag-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4DDFC0",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_legacy_preview_flag_sampling_evidence.json",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ],
+      "differences": [
+        {
+          "description": "4DDFC0 鉴定：恢复gLegacyIdentifyActionD67C84一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+          "decision_ref": "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "4DDFC0 鉴定：恢复gLegacyIdentifyActionD67C84一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+      "expected": "4DDFC0 鉴定：恢复gLegacyIdentifyActionD67C84一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+      "actual": "4DDFC0 鉴定：恢复gLegacyIdentifyActionD67C84一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。"
+    },
+    {
+      "id": "E-LEGACY-PREVIEW-FLAG-UI-L-068-S-20261008",
+      "feature_id": "UI-L-068",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVW01Sub_4DDFC0仅4条/13B一持样清位阶段，旧完整父/格式与其它字段不重验；整源六改之一。doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-legacy-preview-flag-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4DDFC0",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_legacy_preview_flag_sampling_evidence.json",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ],
+      "differences": [
+        {
+          "description": "4DDFC0 鉴定：恢复gLegacyIdentifyActionD67C84一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+          "decision_ref": "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "4DDFC0 鉴定：恢复gLegacyIdentifyActionD67C84一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+      "expected": "4DDFC0 鉴定：恢复gLegacyIdentifyActionD67C84一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+      "actual": "4DDFC0 鉴定：恢复gLegacyIdentifyActionD67C84一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。"
+    },
+    {
+      "id": "E-LEGACY-PREVIEW-FLAG-UI-L-075-I-20261008",
+      "feature_id": "UI-L-075",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVW01Sub_4D36F0仅4条/13B一持样清位阶段，旧完整父/格式与其它字段不重验；整源六改之一。doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-legacy-preview-flag-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4D36F0",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_legacy_preview_flag_sampling_evidence.json",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ],
+      "differences": [
+        {
+          "description": "4D36F0 交换：恢复gLegacyBarterActionD67C50一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+          "decision_ref": "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "4D36F0 交换：恢复gLegacyBarterActionD67C50一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+      "expected": "4D36F0 交换：恢复gLegacyBarterActionD67C50一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+      "actual": "4D36F0 交换：恢复gLegacyBarterActionD67C50一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。"
+    },
+    {
+      "id": "E-LEGACY-PREVIEW-FLAG-UI-L-075-S-20261008",
+      "feature_id": "UI-L-075",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVW01Sub_4D36F0仅4条/13B一持样清位阶段，旧完整父/格式与其它字段不重验；整源六改之一。doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-legacy-preview-flag-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4D36F0",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_legacy_preview_flag_sampling_evidence.json",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ],
+      "differences": [
+        {
+          "description": "4D36F0 交换：恢复gLegacyBarterActionD67C50一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+          "decision_ref": "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "4D36F0 交换：恢复gLegacyBarterActionD67C50一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+      "expected": "4D36F0 交换：恢复gLegacyBarterActionD67C50一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+      "actual": "4D36F0 交换：恢复gLegacyBarterActionD67C50一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。"
+    },
+    {
+      "id": "E-LEGACY-PREVIEW-FLAG-UI-L-084-I-20261008",
+      "feature_id": "UI-L-084",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVW01Sub_4D55C0仅4条/13B一持样清位阶段，旧完整父/格式与其它字段不重验；整源六改之一。doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-legacy-preview-flag-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4D55C0",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_legacy_preview_flag_sampling_evidence.json",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ],
+      "differences": [
+        {
+          "description": "4D55C0 交出/接受数量：恢复gLegacyGiveReceiveQuantityActionCB1DD4一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+          "decision_ref": "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "4D55C0 交出/接受数量：恢复gLegacyGiveReceiveQuantityActionCB1DD4一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+      "expected": "4D55C0 交出/接受数量：恢复gLegacyGiveReceiveQuantityActionCB1DD4一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+      "actual": "4D55C0 交出/接受数量：恢复gLegacyGiveReceiveQuantityActionCB1DD4一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。"
+    },
+    {
+      "id": "E-LEGACY-PREVIEW-FLAG-UI-L-084-S-20261008",
+      "feature_id": "UI-L-084",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVW01Sub_4D55C0仅4条/13B一持样清位阶段，旧完整父/格式与其它字段不重验；整源六改之一。doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-legacy-preview-flag-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4D55C0",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_legacy_preview_flag_sampling_evidence.json",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ],
+      "differences": [
+        {
+          "description": "4D55C0 交出/接受数量：恢复gLegacyGiveReceiveQuantityActionCB1DD4一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+          "decision_ref": "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "4D55C0 交出/接受数量：恢复gLegacyGiveReceiveQuantityActionCB1DD4一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+      "expected": "4D55C0 交出/接受数量：恢复gLegacyGiveReceiveQuantityActionCB1DD4一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
+      "actual": "4D55C0 交出/接受数量：恢复gLegacyGiveReceiveQuantityActionCB1DD4一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。"
     }
   ],
   "task_acceptance": [
@@ -50313,7 +50721,8 @@
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-source-state",
         "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state",
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state",
-        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state"
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
       ]
     },
     {
@@ -50618,7 +51027,8 @@
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-source-state",
         "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state",
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state",
-        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state"
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
       ]
     },
     {
@@ -50803,7 +51213,8 @@
         "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
         "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state",
         "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state",
-        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state"
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
       ]
     },
     {
@@ -50951,7 +51362,8 @@
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-source-state",
         "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state",
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state",
-        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state"
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
       ]
     },
     {
@@ -62604,6 +63016,78 @@
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
       ],
       "boundary": "46FAF0区间：upper==-1时返0且不取随机数，其余先调用同一rand一次，再按普通S32 upper-lower+1、signed余数加lower返回。沿已有RPLAN.24普通算术/异常不专项处理裁决，不新增除零、越界、上下界排序/拒绝/钳制或故障模拟；129CALL仅引用定位。 BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。"
+    },
+    {
+      "inventory_id": "F:000D9220",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ],
+      "boundary": "4D9220 买入：恢复gLegacyBuyActionD67C6C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+    },
+    {
+      "inventory_id": "F:000DAA40",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ],
+      "boundary": "4DAA40 卖出：恢复gLegacySellActionD67C74一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+    },
+    {
+      "inventory_id": "F:000DC7E0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ],
+      "boundary": "4DC7E0 修理：恢复gLegacyRepairActionD67C7C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+    },
+    {
+      "inventory_id": "F:000DDFC0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ],
+      "boundary": "4DDFC0 鉴定：恢复gLegacyIdentifyActionD67C84一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+    },
+    {
+      "inventory_id": "F:000D36F0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ],
+      "boundary": "4D36F0 交换：恢复gLegacyBarterActionD67C50一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+    },
+    {
+      "inventory_id": "F:000D55C0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ],
+      "boundary": "4D55C0 交出/接受数量：恢复gLegacyGiveReceiveQuantityActionCB1DD4一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
     }
   ],
   "auxiliary_dispositions": [

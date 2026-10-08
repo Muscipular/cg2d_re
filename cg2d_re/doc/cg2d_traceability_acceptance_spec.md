@@ -2032,3 +2032,11 @@ BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳�
 BVV01修复旧62商店选择4D8DA0对opaque YobiAction::flags的直接访问及D67C68重复读取；原4D8EA1/A6/A8/AA四指令13B一次持样/判空/清W32 bit1，经现有SetYobiActionFlag2(previewAction,false)承接，无额外action判空或新接口。一个CPP一个片段，其它完整父体、预览生产叶、Yobi helper/头、模式/命令/格式/原字节及原格式明文保持。复用SCP01完整321条1080B根与原表/八字节合同，不重新取全根或外推真实外路由；已有1226/Fmixed及pending6/18保持，UI-L-062两个成员不重计，只两限定I/S。模式真实生产、低两位零的第二命令及旧路由/完整画面运行仍按原事实和验收处理，不填值或模拟原栈，未宣编译/链接/运行或故障等价通过；音频暂停/RPLAN.24及完整门禁保。
 
 SCP01是历史本体落位记录，本次只纠正当前预览字段访问与重复槽读取。语义1805/有效1798、合同1915（52.04%）、F954保持，仅E1106→1108。原八字符串、唯一模式槽、命令条件和路由证据保持，未编译或运行，不关闭原事实待证和完整门禁。
+
+## BVW01六页面预览持样实修（2026-10-08）
+
+[基线](cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline)、[决定](cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision)、[验收](cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance)、[状态](cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state)及[原证](cg2d_legacy_preview_flag_sampling_evidence.json)。
+
+BVW01旧买入/卖出/修理/鉴定/交换/交出接受数量六父各一标志阶段：六定点共25条80B，不重验六完整父或全部消费者。仅LegacyUiRecord.cpp六既有片段恢复共享action一次持样→同样本判空→既有SetYobiActionFlag2(false)清W32 bit1；卖出多一原XOR置零分列。其它父正文/初始化与生产/关闭回收、旧八叶格式/原字节和网络原格式明文保持，一CPP六片段、零新函数/helper/API/owner，原正常值未证明错误，不宣并发/机器故障。更新既有773/775/777/779/781/1015不重计语义，六adapted F及六页面各一实际成员/两限定I-S；原上游/旧表外路由/正常owner-alias寿命、SDK/机器ABI/画面与运行未验。已修旧62和交换/交出接受等已持样片段保，pending18/原混合与完整门禁不关闭；音频暂停/RPLAN.24保。
+
+六阶段25条80B，仅恢复同样本判空/清W32 bit1，原已存完整父/文件格式证据保持。语义1805/有效1798、合同1915（52.04%）不重计，F954→960、E1108→1120；六页面各一个主父并保持枚举open，当前合同候选共享本SPEC不当实际成员或完整通过。未构建或运行，不以源取样恢复宣正常值/并发故障。

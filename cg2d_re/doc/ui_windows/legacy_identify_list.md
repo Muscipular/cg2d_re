@@ -69,3 +69,11 @@ C8B390原记录+C24/C28、gold、CB1E3C合计、CC3F00页+1/C9A950页数
 完整记录/图号/页数生产、旧表实际路由及输入/收发/画面仍待；不构建、
 查产物、新增/执行测试、模拟点击或格式/拼接/发包/绘制样例、读写资源、
 运行客户端或校验哈希，不记整个界面已验收。
+
+## BVW01本页预览取样修复（2026-10-08）
+
+[组级基线/合同](../cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline)、[实施决定](../cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision)、[验收](../cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance)及[状态](../cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state)。
+
+4DDFC0 鉴定：恢复gLegacyIdentifyActionD67C84一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。
+
+本页只4条/13B原标志阶段，对一个现有片段实修；原新779与所有旧文件/格式/字节/消费者字段保持，纳一个主父成员与限定I/S，枚举及完整门禁仍open，不代创建叶/整个父或正常寿命/运行验收。

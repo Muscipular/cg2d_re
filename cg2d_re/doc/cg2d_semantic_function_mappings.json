@@ -96408,7 +96408,7 @@
     {
       "original_entry": "0x4D9220",
       "inventory_id": "F:000D9220",
-      "status": "既有旧买卖父的全部格式已接真实核心；上游/旧表路由及完整运行未验",
+      "status": "4D9220 买入：恢复gLegacyBuyActionD67C6C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 BVW01旧买入/卖出/修理/鉴定/交换/交出接受数量六父各一标志阶段：六定点共25条80B，不重验六完整父或全部消费者。仅LegacyUiRecord.cpp六既有片段恢复共享action一次持样→同样本判空→既有SetYobiActionFlag2(false)清W32 bit1；卖出多一原XOR置零分列。其它父正文/初始化与生产/关闭回收、旧八叶格式/原字节和网络原格式明文保持，一CPP六片段、零新函数/helper/API/owner，原正常值未证明错误，不宣并发/机器故障。更新既有773/775/777/779/781/1015不重计语义，六adapted F及六页面各一实际成员/两限定I-S；原上游/旧表外路由/正常owner-alias寿命、SDK/机器ABI/画面与运行未验。已修旧62和交换/交出接受等已持样片段保，pending18/原混合与完整门禁不关闭；音频暂停/RPLAN.24保。",
       "original_end_exclusive": "0x4DA3F2",
       "instruction_count": 1081,
       "original_direct_reference_count": 0,
@@ -96417,7 +96417,22 @@
           "path": "src/LegacyUiRecord.cpp",
           "symbols": [
             "Sub_4D9220"
-          ]
+          ],
+          "relationship": "4D9220 买入：恢复gLegacyBuyActionD67C6C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "SetYobiActionFlag2"
+          ],
+          "relationship": "既有native清W32 bit1边界保持，同保存指针传入，原内联AND不新原身份"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "SetYobiActionFlag2"
+          ],
+          "relationship": "现有非拥有T*声明/opaque布局保持，不新增API"
         }
       ],
       "inbound_evidence": [],
@@ -96550,10 +96565,52 @@
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
-        "doc/ui_windows/legacy_buy_list.md"
+        "doc/ui_windows/legacy_buy_list.md",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
       ],
-      "verification_level": "父边界/1081条统计/当前引用为空，格式相邻194条及确认拼接/发送补充取证；全部原格式点/表达式关系/原字节/S32字段与消费者、整份源码四父仅十六标识符替换/文档追加/JSON限定差异静态核对；不重验其余父或消费者内部，未执行",
-      "boundary": "买入列表五格式接真实53B304，价格/选择数/gold/合计/页码的S32参数及%7d/%2d/%d/%d、128B未清buffer及每次即时绘制/原价格与合计色号保持。 其余数量、分页、许可、预览、按钮、提示、音效调用、共享owner、指针与数值返回正文逐字不改；不新增清尾、补零、限长、转码、钳制或异常保护，不恢复暂停音频/包加解密。完整商品/图号/页数生产、旧表路由及真实输入/收发/画面仍未闭合，不记整个界面已运行验收。"
+      "verification_level": "4D9220 买入：恢复gLegacyBuyActionD67C6C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 BVW01旧买入/卖出/修理/鉴定/交换/交出接受数量六父各一标志阶段：六定点共25条80B，不重验六完整父或全部消费者。仅LegacyUiRecord.cpp六既有片段恢复共享action一次持样→同样本判空→既有SetYobiActionFlag2(false)清W32 bit1；卖出多一原XOR置零分列。其它父正文/初始化与生产/关闭回收、旧八叶格式/原字节和网络原格式明文保持，一CPP六片段、零新函数/helper/API/owner，原正常值未证明错误，不宣并发/机器故障。更新既有773/775/777/779/781/1015不重计语义，六adapted F及六页面各一实际成员/两限定I-S；原上游/旧表外路由/正常owner-alias寿命、SDK/机器ABI/画面与运行未验。已修旧62和交换/交出接受等已持样片段保，pending18/原混合与完整门禁不关闭；音频暂停/RPLAN.24保。",
+      "boundary": "买入列表五格式接真实53B304，价格/选择数/gold/合计/页码的S32参数及%7d/%2d/%d/%d、128B未清buffer及每次即时绘制/原价格与合计色号保持。 其余数量、分页、许可、预览、按钮、提示、音效调用、共享owner、指针与数值返回正文逐字不改；不新增清尾、补零、限长、转码、钳制或异常保护，不恢复暂停音频/包加解密。完整商品/图号/页数生产、旧表路由及真实输入/收发/画面仍未闭合，不记整个界面已运行验收。 4D9220 买入：恢复gLegacyBuyActionD67C6C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 BVW01旧买入/卖出/修理/鉴定/交换/交出接受数量六父各一标志阶段：六定点共25条80B，不重验六完整父或全部消费者。仅LegacyUiRecord.cpp六既有片段恢复共享action一次持样→同样本判空→既有SetYobiActionFlag2(false)清W32 bit1；卖出多一原XOR置零分列。其它父正文/初始化与生产/关闭回收、旧八叶格式/原字节和网络原格式明文保持，一CPP六片段、零新函数/helper/API/owner，原正常值未证明错误，不宣并发/机器故障。更新既有773/775/777/779/781/1015不重计语义，六adapted F及六页面各一实际成员/两限定I-S；原上游/旧表外路由/正常owner-alias寿命、SDK/机器ABI/画面与运行未验。已修旧62和交换/交出接受等已持样片段保，pending18/原混合与完整门禁不关闭；音频暂停/RPLAN.24保。",
+      "legacy_preview_flag_sampling": {
+        "spec_id": "BVW01",
+        "evidence_refs": [
+          "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+          "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+          "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+          "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+        ],
+        "previous_status": "既有旧买卖父的全部格式已接真实核心；上游/旧表路由及完整运行未验",
+        "previous_verification_level": "父边界/1081条统计/当前引用为空，格式相邻194条及确认拼接/发送补充取证；全部原格式点/表达式关系/原字节/S32字段与消费者、整份源码四父仅十六标识符替换/文档追加/JSON限定差异静态核对；不重验其余父或消费者内部，未执行",
+        "original_parent_boundary_kept": true,
+        "full_original_root_reverified": false,
+        "original_focus_instruction_count": 4,
+        "original_focus_code_bytes": 13,
+        "original_total_focus_instruction_count": 25,
+        "original_total_focus_code_bytes": 80,
+        "source_body_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 6,
+        "root_specific_source_patch_count": 1,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "one_pointer_sample_for_check_and_clear_restored": true,
+        "original_W32_bit1_and_other_bits_kept": true,
+        "other_complete_body_and_producer_kept": true,
+        "file_format_byte_and_consumer_evidence_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x4DA580",
@@ -96678,7 +96735,7 @@
     {
       "original_entry": "0x4DAA40",
       "inventory_id": "F:000DAA40",
-      "status": "既有旧买卖父的全部格式已接真实核心；上游/旧表路由及完整运行未验",
+      "status": "4DAA40 卖出：恢复gLegacySellActionD67C74一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 BVW01旧买入/卖出/修理/鉴定/交换/交出接受数量六父各一标志阶段：六定点共25条80B，不重验六完整父或全部消费者。仅LegacyUiRecord.cpp六既有片段恢复共享action一次持样→同样本判空→既有SetYobiActionFlag2(false)清W32 bit1；卖出多一原XOR置零分列。其它父正文/初始化与生产/关闭回收、旧八叶格式/原字节和网络原格式明文保持，一CPP六片段、零新函数/helper/API/owner，原正常值未证明错误，不宣并发/机器故障。更新既有773/775/777/779/781/1015不重计语义，六adapted F及六页面各一实际成员/两限定I-S；原上游/旧表外路由/正常owner-alias寿命、SDK/机器ABI/画面与运行未验。已修旧62和交换/交出接受等已持样片段保，pending18/原混合与完整门禁不关闭；音频暂停/RPLAN.24保。",
       "original_end_exclusive": "0x4DBD23",
       "instruction_count": 1175,
       "original_direct_reference_count": 0,
@@ -96687,7 +96744,22 @@
           "path": "src/LegacyUiRecord.cpp",
           "symbols": [
             "Sub_4DAA40"
-          ]
+          ],
+          "relationship": "4DAA40 卖出：恢复gLegacySellActionD67C74一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "SetYobiActionFlag2"
+          ],
+          "relationship": "既有native清W32 bit1边界保持，同保存指针传入，原内联AND不新原身份"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "SetYobiActionFlag2"
+          ],
+          "relationship": "现有非拥有T*声明/opaque布局保持，不新增API"
         }
       ],
       "inbound_evidence": [],
@@ -96815,10 +96887,52 @@
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
-        "doc/ui_windows/legacy_sell_list.md"
+        "doc/ui_windows/legacy_sell_list.md",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
       ],
-      "verification_level": "父边界/1175条统计/当前引用为空，格式相邻186条及确认拼接/发送补充取证；全部原格式点/表达式关系/原字节/S32字段与消费者、整份源码四父仅十六标识符替换/文档追加/JSON限定差异静态核对；不重验其余父或消费者内部，未执行",
-      "boundary": "卖出列表五格式接真实53B304，价格/选择数/gold/合计/页码的S32参数及%7d/%2d/%d/%d、128B未清buffer与每次即时绘制/原价格色6或0/7保持。 其余数量、分页、许可、预览、按钮、提示、音效调用、共享owner、指针与数值返回正文逐字不改；不新增清尾、补零、限长、转码、钳制或异常保护，不恢复暂停音频/包加解密。完整商品/图号/页数生产、旧表路由及真实输入/收发/画面仍未闭合，不记整个界面已运行验收。"
+      "verification_level": "4DAA40 卖出：恢复gLegacySellActionD67C74一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 BVW01旧买入/卖出/修理/鉴定/交换/交出接受数量六父各一标志阶段：六定点共25条80B，不重验六完整父或全部消费者。仅LegacyUiRecord.cpp六既有片段恢复共享action一次持样→同样本判空→既有SetYobiActionFlag2(false)清W32 bit1；卖出多一原XOR置零分列。其它父正文/初始化与生产/关闭回收、旧八叶格式/原字节和网络原格式明文保持，一CPP六片段、零新函数/helper/API/owner，原正常值未证明错误，不宣并发/机器故障。更新既有773/775/777/779/781/1015不重计语义，六adapted F及六页面各一实际成员/两限定I-S；原上游/旧表外路由/正常owner-alias寿命、SDK/机器ABI/画面与运行未验。已修旧62和交换/交出接受等已持样片段保，pending18/原混合与完整门禁不关闭；音频暂停/RPLAN.24保。",
+      "boundary": "卖出列表五格式接真实53B304，价格/选择数/gold/合计/页码的S32参数及%7d/%2d/%d/%d、128B未清buffer与每次即时绘制/原价格色6或0/7保持。 其余数量、分页、许可、预览、按钮、提示、音效调用、共享owner、指针与数值返回正文逐字不改；不新增清尾、补零、限长、转码、钳制或异常保护，不恢复暂停音频/包加解密。完整商品/图号/页数生产、旧表路由及真实输入/收发/画面仍未闭合，不记整个界面已运行验收。 4DAA40 卖出：恢复gLegacySellActionD67C74一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 BVW01旧买入/卖出/修理/鉴定/交换/交出接受数量六父各一标志阶段：六定点共25条80B，不重验六完整父或全部消费者。仅LegacyUiRecord.cpp六既有片段恢复共享action一次持样→同样本判空→既有SetYobiActionFlag2(false)清W32 bit1；卖出多一原XOR置零分列。其它父正文/初始化与生产/关闭回收、旧八叶格式/原字节和网络原格式明文保持，一CPP六片段、零新函数/helper/API/owner，原正常值未证明错误，不宣并发/机器故障。更新既有773/775/777/779/781/1015不重计语义，六adapted F及六页面各一实际成员/两限定I-S；原上游/旧表外路由/正常owner-alias寿命、SDK/机器ABI/画面与运行未验。已修旧62和交换/交出接受等已持样片段保，pending18/原混合与完整门禁不关闭；音频暂停/RPLAN.24保。",
+      "legacy_preview_flag_sampling": {
+        "spec_id": "BVW01",
+        "evidence_refs": [
+          "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+          "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+          "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+          "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+        ],
+        "previous_status": "既有旧买卖父的全部格式已接真实核心；上游/旧表路由及完整运行未验",
+        "previous_verification_level": "父边界/1175条统计/当前引用为空，格式相邻186条及确认拼接/发送补充取证；全部原格式点/表达式关系/原字节/S32字段与消费者、整份源码四父仅十六标识符替换/文档追加/JSON限定差异静态核对；不重验其余父或消费者内部，未执行",
+        "original_parent_boundary_kept": true,
+        "full_original_root_reverified": false,
+        "original_focus_instruction_count": 5,
+        "original_focus_code_bytes": 15,
+        "original_total_focus_instruction_count": 25,
+        "original_total_focus_code_bytes": 80,
+        "source_body_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 6,
+        "root_specific_source_patch_count": 1,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "one_pointer_sample_for_check_and_clear_restored": true,
+        "original_W32_bit1_and_other_bits_kept": true,
+        "other_complete_body_and_producer_kept": true,
+        "file_format_byte_and_consumer_evidence_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x4DBD30",
@@ -97001,7 +97115,7 @@
     {
       "original_entry": "0x4DC7E0",
       "inventory_id": "F:000DC7E0",
-      "status": "既有旧修理/鉴定父的全部格式已接真实核心；上游/旧表路由及完整运行未验",
+      "status": "4DC7E0 修理：恢复gLegacyRepairActionD67C7C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 BVW01旧买入/卖出/修理/鉴定/交换/交出接受数量六父各一标志阶段：六定点共25条80B，不重验六完整父或全部消费者。仅LegacyUiRecord.cpp六既有片段恢复共享action一次持样→同样本判空→既有SetYobiActionFlag2(false)清W32 bit1；卖出多一原XOR置零分列。其它父正文/初始化与生产/关闭回收、旧八叶格式/原字节和网络原格式明文保持，一CPP六片段、零新函数/helper/API/owner，原正常值未证明错误，不宣并发/机器故障。更新既有773/775/777/779/781/1015不重计语义，六adapted F及六页面各一实际成员/两限定I-S；原上游/旧表外路由/正常owner-alias寿命、SDK/机器ABI/画面与运行未验。已修旧62和交换/交出接受等已持样片段保，pending18/原混合与完整门禁不关闭；音频暂停/RPLAN.24保。",
       "original_end_exclusive": "0x4DDA2A",
       "instruction_count": 1140,
       "original_direct_reference_count": 0,
@@ -97010,7 +97124,22 @@
           "path": "src/LegacyUiRecord.cpp",
           "symbols": [
             "Sub_4DC7E0"
-          ]
+          ],
+          "relationship": "4DC7E0 修理：恢复gLegacyRepairActionD67C7C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "SetYobiActionFlag2"
+          ],
+          "relationship": "既有native清W32 bit1边界保持，同保存指针传入，原内联AND不新原身份"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "SetYobiActionFlag2"
+          ],
+          "relationship": "现有非拥有T*声明/opaque布局保持，不新增API"
         }
       ],
       "inbound_evidence": [],
@@ -97138,10 +97267,52 @@
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
-        "doc/ui_windows/legacy_repair_list.md"
+        "doc/ui_windows/legacy_repair_list.md",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
       ],
-      "verification_level": "父边界/1140条统计/当前引用为空，格式/拼接/发送/显示相邻186条取证；全部格式/原字节/S32字段/重读与消费者、整份源码四父仅十四标识符替换/文档追加/JSON限定差异静态核对；不重验其余父或消费者内部，未执行",
-      "boundary": "本列表五格式接真实53B304，原S32价格/选择数/gold/合计/页+1及页数、%7d/%2d/%d/%d及共用未清128B buffer保持；额外选择数取样用于价格色0/7，价格绘制后重读选择数，各格式均原时点即时绘制。 原记录及图号/页数owner、其他数量、资格、分页、预览、名称、按钮、提示、音效调用与返回正文逐字保持；不新增转码、限长、扩容、补零、清尾、钳制或异常保护，不恢复暂停音频/包加解密。完整记录/图号/页数生产、旧表实际路由及输入/收发/画面仍未闭合，不计整个界面已运行验收。"
+      "verification_level": "4DC7E0 修理：恢复gLegacyRepairActionD67C7C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 BVW01旧买入/卖出/修理/鉴定/交换/交出接受数量六父各一标志阶段：六定点共25条80B，不重验六完整父或全部消费者。仅LegacyUiRecord.cpp六既有片段恢复共享action一次持样→同样本判空→既有SetYobiActionFlag2(false)清W32 bit1；卖出多一原XOR置零分列。其它父正文/初始化与生产/关闭回收、旧八叶格式/原字节和网络原格式明文保持，一CPP六片段、零新函数/helper/API/owner，原正常值未证明错误，不宣并发/机器故障。更新既有773/775/777/779/781/1015不重计语义，六adapted F及六页面各一实际成员/两限定I-S；原上游/旧表外路由/正常owner-alias寿命、SDK/机器ABI/画面与运行未验。已修旧62和交换/交出接受等已持样片段保，pending18/原混合与完整门禁不关闭；音频暂停/RPLAN.24保。",
+      "boundary": "本列表五格式接真实53B304，原S32价格/选择数/gold/合计/页+1及页数、%7d/%2d/%d/%d及共用未清128B buffer保持；额外选择数取样用于价格色0/7，价格绘制后重读选择数，各格式均原时点即时绘制。 原记录及图号/页数owner、其他数量、资格、分页、预览、名称、按钮、提示、音效调用与返回正文逐字保持；不新增转码、限长、扩容、补零、清尾、钳制或异常保护，不恢复暂停音频/包加解密。完整记录/图号/页数生产、旧表实际路由及输入/收发/画面仍未闭合，不计整个界面已运行验收。 4DC7E0 修理：恢复gLegacyRepairActionD67C7C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 BVW01旧买入/卖出/修理/鉴定/交换/交出接受数量六父各一标志阶段：六定点共25条80B，不重验六完整父或全部消费者。仅LegacyUiRecord.cpp六既有片段恢复共享action一次持样→同样本判空→既有SetYobiActionFlag2(false)清W32 bit1；卖出多一原XOR置零分列。其它父正文/初始化与生产/关闭回收、旧八叶格式/原字节和网络原格式明文保持，一CPP六片段、零新函数/helper/API/owner，原正常值未证明错误，不宣并发/机器故障。更新既有773/775/777/779/781/1015不重计语义，六adapted F及六页面各一实际成员/两限定I-S；原上游/旧表外路由/正常owner-alias寿命、SDK/机器ABI/画面与运行未验。已修旧62和交换/交出接受等已持样片段保，pending18/原混合与完整门禁不关闭；音频暂停/RPLAN.24保。",
+      "legacy_preview_flag_sampling": {
+        "spec_id": "BVW01",
+        "evidence_refs": [
+          "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+          "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+          "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+          "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+        ],
+        "previous_status": "既有旧修理/鉴定父的全部格式已接真实核心；上游/旧表路由及完整运行未验",
+        "previous_verification_level": "父边界/1140条统计/当前引用为空，格式/拼接/发送/显示相邻186条取证；全部格式/原字节/S32字段/重读与消费者、整份源码四父仅十四标识符替换/文档追加/JSON限定差异静态核对；不重验其余父或消费者内部，未执行",
+        "original_parent_boundary_kept": true,
+        "full_original_root_reverified": false,
+        "original_focus_instruction_count": 4,
+        "original_focus_code_bytes": 13,
+        "original_total_focus_instruction_count": 25,
+        "original_total_focus_code_bytes": 80,
+        "source_body_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 6,
+        "root_specific_source_patch_count": 1,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "one_pointer_sample_for_check_and_clear_restored": true,
+        "original_W32_bit1_and_other_bits_kept": true,
+        "other_complete_body_and_producer_kept": true,
+        "file_format_byte_and_consumer_evidence_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x4DDB20",
@@ -97239,7 +97410,7 @@
     {
       "original_entry": "0x4DDFC0",
       "inventory_id": "F:000DDFC0",
-      "status": "既有旧修理/鉴定父的全部格式已接真实核心；上游/旧表路由及完整运行未验",
+      "status": "4DDFC0 鉴定：恢复gLegacyIdentifyActionD67C84一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 BVW01旧买入/卖出/修理/鉴定/交换/交出接受数量六父各一标志阶段：六定点共25条80B，不重验六完整父或全部消费者。仅LegacyUiRecord.cpp六既有片段恢复共享action一次持样→同样本判空→既有SetYobiActionFlag2(false)清W32 bit1；卖出多一原XOR置零分列。其它父正文/初始化与生产/关闭回收、旧八叶格式/原字节和网络原格式明文保持，一CPP六片段、零新函数/helper/API/owner，原正常值未证明错误，不宣并发/机器故障。更新既有773/775/777/779/781/1015不重计语义，六adapted F及六页面各一实际成员/两限定I-S；原上游/旧表外路由/正常owner-alias寿命、SDK/机器ABI/画面与运行未验。已修旧62和交换/交出接受等已持样片段保，pending18/原混合与完整门禁不关闭；音频暂停/RPLAN.24保。",
       "original_end_exclusive": "0x4DF20A",
       "instruction_count": 1140,
       "original_direct_reference_count": 0,
@@ -97248,7 +97419,22 @@
           "path": "src/LegacyUiRecord.cpp",
           "symbols": [
             "Sub_4DDFC0"
-          ]
+          ],
+          "relationship": "4DDFC0 鉴定：恢复gLegacyIdentifyActionD67C84一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "SetYobiActionFlag2"
+          ],
+          "relationship": "既有native清W32 bit1边界保持，同保存指针传入，原内联AND不新原身份"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "SetYobiActionFlag2"
+          ],
+          "relationship": "现有非拥有T*声明/opaque布局保持，不新增API"
         }
       ],
       "inbound_evidence": [],
@@ -97376,10 +97562,52 @@
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
-        "doc/ui_windows/legacy_identify_list.md"
+        "doc/ui_windows/legacy_identify_list.md",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
       ],
-      "verification_level": "父边界/1140条统计/当前引用为空，格式/拼接/发送/显示相邻186条取证；全部格式/原字节/S32字段/重读与消费者、整份源码四父仅十四标识符替换/文档追加/JSON限定差异静态核对；不重验其余父或消费者内部，未执行",
-      "boundary": "本列表五格式接真实53B304，原S32价格/选择数/gold/合计/页+1及页数、%7d/%2d/%d/%d及共用未清128B buffer保持；额外选择数取样用于价格色0/7，价格绘制后重读选择数，各格式均原时点即时绘制。 原记录及图号/页数owner、其他数量、资格、分页、预览、名称、按钮、提示、音效调用与返回正文逐字保持；不新增转码、限长、扩容、补零、清尾、钳制或异常保护，不恢复暂停音频/包加解密。完整记录/图号/页数生产、旧表实际路由及输入/收发/画面仍未闭合，不计整个界面已运行验收。"
+      "verification_level": "4DDFC0 鉴定：恢复gLegacyIdentifyActionD67C84一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 BVW01旧买入/卖出/修理/鉴定/交换/交出接受数量六父各一标志阶段：六定点共25条80B，不重验六完整父或全部消费者。仅LegacyUiRecord.cpp六既有片段恢复共享action一次持样→同样本判空→既有SetYobiActionFlag2(false)清W32 bit1；卖出多一原XOR置零分列。其它父正文/初始化与生产/关闭回收、旧八叶格式/原字节和网络原格式明文保持，一CPP六片段、零新函数/helper/API/owner，原正常值未证明错误，不宣并发/机器故障。更新既有773/775/777/779/781/1015不重计语义，六adapted F及六页面各一实际成员/两限定I-S；原上游/旧表外路由/正常owner-alias寿命、SDK/机器ABI/画面与运行未验。已修旧62和交换/交出接受等已持样片段保，pending18/原混合与完整门禁不关闭；音频暂停/RPLAN.24保。",
+      "boundary": "本列表五格式接真实53B304，原S32价格/选择数/gold/合计/页+1及页数、%7d/%2d/%d/%d及共用未清128B buffer保持；额外选择数取样用于价格色0/7，价格绘制后重读选择数，各格式均原时点即时绘制。 原记录及图号/页数owner、其他数量、资格、分页、预览、名称、按钮、提示、音效调用与返回正文逐字保持；不新增转码、限长、扩容、补零、清尾、钳制或异常保护，不恢复暂停音频/包加解密。完整记录/图号/页数生产、旧表实际路由及输入/收发/画面仍未闭合，不计整个界面已运行验收。 4DDFC0 鉴定：恢复gLegacyIdentifyActionD67C84一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 BVW01旧买入/卖出/修理/鉴定/交换/交出接受数量六父各一标志阶段：六定点共25条80B，不重验六完整父或全部消费者。仅LegacyUiRecord.cpp六既有片段恢复共享action一次持样→同样本判空→既有SetYobiActionFlag2(false)清W32 bit1；卖出多一原XOR置零分列。其它父正文/初始化与生产/关闭回收、旧八叶格式/原字节和网络原格式明文保持，一CPP六片段、零新函数/helper/API/owner，原正常值未证明错误，不宣并发/机器故障。更新既有773/775/777/779/781/1015不重计语义，六adapted F及六页面各一实际成员/两限定I-S；原上游/旧表外路由/正常owner-alias寿命、SDK/机器ABI/画面与运行未验。已修旧62和交换/交出接受等已持样片段保，pending18/原混合与完整门禁不关闭；音频暂停/RPLAN.24保。",
+      "legacy_preview_flag_sampling": {
+        "spec_id": "BVW01",
+        "evidence_refs": [
+          "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+          "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+          "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+          "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+        ],
+        "previous_status": "既有旧修理/鉴定父的全部格式已接真实核心；上游/旧表路由及完整运行未验",
+        "previous_verification_level": "父边界/1140条统计/当前引用为空，格式/拼接/发送/显示相邻186条取证；全部格式/原字节/S32字段/重读与消费者、整份源码四父仅十四标识符替换/文档追加/JSON限定差异静态核对；不重验其余父或消费者内部，未执行",
+        "original_parent_boundary_kept": true,
+        "full_original_root_reverified": false,
+        "original_focus_instruction_count": 4,
+        "original_focus_code_bytes": 13,
+        "original_total_focus_instruction_count": 25,
+        "original_total_focus_code_bytes": 80,
+        "source_body_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 6,
+        "root_specific_source_patch_count": 1,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "one_pointer_sample_for_check_and_clear_restored": true,
+        "original_W32_bit1_and_other_bits_kept": true,
+        "other_complete_body_and_producer_kept": true,
+        "file_format_byte_and_consumer_evidence_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x4DF300",
@@ -97477,7 +97705,7 @@
     {
       "original_entry": "0x4D36F0",
       "inventory_id": "F:000D36F0",
-      "status": "既有旧以物易物父的全部格式已接真实核心；上游/旧表路由及完整运行未验",
+      "status": "4D36F0 交换：恢复gLegacyBarterActionD67C50一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 BVW01旧买入/卖出/修理/鉴定/交换/交出接受数量六父各一标志阶段：六定点共25条80B，不重验六完整父或全部消费者。仅LegacyUiRecord.cpp六既有片段恢复共享action一次持样→同样本判空→既有SetYobiActionFlag2(false)清W32 bit1；卖出多一原XOR置零分列。其它父正文/初始化与生产/关闭回收、旧八叶格式/原字节和网络原格式明文保持，一CPP六片段、零新函数/helper/API/owner，原正常值未证明错误，不宣并发/机器故障。更新既有773/775/777/779/781/1015不重计语义，六adapted F及六页面各一实际成员/两限定I-S；原上游/旧表外路由/正常owner-alias寿命、SDK/机器ABI/画面与运行未验。已修旧62和交换/交出接受等已持样片段保，pending18/原混合与完整门禁不关闭；音频暂停/RPLAN.24保。",
       "original_end_exclusive": "0x4D495D",
       "instruction_count": 1112,
       "original_direct_reference_count": 0,
@@ -97486,7 +97714,22 @@
           "path": "src/LegacyUiRecord.cpp",
           "symbols": [
             "Sub_4D36F0"
-          ]
+          ],
+          "relationship": "4D36F0 交换：恢复gLegacyBarterActionD67C50一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "SetYobiActionFlag2"
+          ],
+          "relationship": "既有native清W32 bit1边界保持，同保存指针传入，原内联AND不新原身份"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "SetYobiActionFlag2"
+          ],
+          "relationship": "现有非拥有T*声明/opaque布局保持，不新增API"
         }
       ],
       "inbound_evidence": [],
@@ -97614,10 +97857,52 @@
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
-        "doc/ui_windows/legacy_barter_list.md"
+        "doc/ui_windows/legacy_barter_list.md",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
       ],
-      "verification_level": "父边界/1112条统计/当前引用为空，格式/拼接/回传/测宽/显示相邻216条取证；全部格式/原字节/S32字段与名称借用/消费者、整份源码两父仅八标识符替换/文档追加/JSON限定差异静态核对；不重验其余父或消费者内部，未执行",
-      "boundary": "列表五格式接真实53B304，材料数/选择数/可用数/总需求/页+1及页数皆S32，原%7d/%2d/%d/%d及128B未清buffer保持；图标后cost/total/available采样和有符号价格色7/0、价格绘制后重读选择数/各次即时文字/原单位色4保持。 同一CA0B30记录及共享材料/名称owner、其他统计、资格、数量、分页、预览、按钮、提示、音效调用、末尾回存及返回正文逐字保持；不新增转码、限长、扩容、补零、清尾、钳制或异常保护，不恢复音频/包加解密。完整商品/图号/页数生产、旧表实际路由及输入/收发/画面仍未闭合，不计整个界面已运行验收。"
+      "verification_level": "4D36F0 交换：恢复gLegacyBarterActionD67C50一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 BVW01旧买入/卖出/修理/鉴定/交换/交出接受数量六父各一标志阶段：六定点共25条80B，不重验六完整父或全部消费者。仅LegacyUiRecord.cpp六既有片段恢复共享action一次持样→同样本判空→既有SetYobiActionFlag2(false)清W32 bit1；卖出多一原XOR置零分列。其它父正文/初始化与生产/关闭回收、旧八叶格式/原字节和网络原格式明文保持，一CPP六片段、零新函数/helper/API/owner，原正常值未证明错误，不宣并发/机器故障。更新既有773/775/777/779/781/1015不重计语义，六adapted F及六页面各一实际成员/两限定I-S；原上游/旧表外路由/正常owner-alias寿命、SDK/机器ABI/画面与运行未验。已修旧62和交换/交出接受等已持样片段保，pending18/原混合与完整门禁不关闭；音频暂停/RPLAN.24保。",
+      "boundary": "列表五格式接真实53B304，材料数/选择数/可用数/总需求/页+1及页数皆S32，原%7d/%2d/%d/%d及128B未清buffer保持；图标后cost/total/available采样和有符号价格色7/0、价格绘制后重读选择数/各次即时文字/原单位色4保持。 同一CA0B30记录及共享材料/名称owner、其他统计、资格、数量、分页、预览、按钮、提示、音效调用、末尾回存及返回正文逐字保持；不新增转码、限长、扩容、补零、清尾、钳制或异常保护，不恢复音频/包加解密。完整商品/图号/页数生产、旧表实际路由及输入/收发/画面仍未闭合，不计整个界面已运行验收。 4D36F0 交换：恢复gLegacyBarterActionD67C50一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 BVW01旧买入/卖出/修理/鉴定/交换/交出接受数量六父各一标志阶段：六定点共25条80B，不重验六完整父或全部消费者。仅LegacyUiRecord.cpp六既有片段恢复共享action一次持样→同样本判空→既有SetYobiActionFlag2(false)清W32 bit1；卖出多一原XOR置零分列。其它父正文/初始化与生产/关闭回收、旧八叶格式/原字节和网络原格式明文保持，一CPP六片段、零新函数/helper/API/owner，原正常值未证明错误，不宣并发/机器故障。更新既有773/775/777/779/781/1015不重计语义，六adapted F及六页面各一实际成员/两限定I-S；原上游/旧表外路由/正常owner-alias寿命、SDK/机器ABI/画面与运行未验。已修旧62和交换/交出接受等已持样片段保，pending18/原混合与完整门禁不关闭；音频暂停/RPLAN.24保。",
+      "legacy_preview_flag_sampling": {
+        "spec_id": "BVW01",
+        "evidence_refs": [
+          "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+          "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+          "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+          "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+        ],
+        "previous_status": "既有旧以物易物父的全部格式已接真实核心；上游/旧表路由及完整运行未验",
+        "previous_verification_level": "父边界/1112条统计/当前引用为空，格式/拼接/回传/测宽/显示相邻216条取证；全部格式/原字节/S32字段与名称借用/消费者、整份源码两父仅八标识符替换/文档追加/JSON限定差异静态核对；不重验其余父或消费者内部，未执行",
+        "original_parent_boundary_kept": true,
+        "full_original_root_reverified": false,
+        "original_focus_instruction_count": 4,
+        "original_focus_code_bytes": 13,
+        "original_total_focus_instruction_count": 25,
+        "original_total_focus_code_bytes": 80,
+        "source_body_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 6,
+        "root_specific_source_patch_count": 1,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "one_pointer_sample_for_check_and_clear_restored": true,
+        "original_W32_bit1_and_other_bits_kept": true,
+        "other_complete_body_and_producer_kept": true,
+        "file_format_byte_and_consumer_evidence_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x4D4A50",
@@ -137565,7 +137850,7 @@
     {
       "original_entry": "0x4D55C0",
       "inventory_id": "F:000D55C0",
-      "status": "旧交出/接受5格式已接线；原父/生产/路由与验收未闭合",
+      "status": "4D55C0 交出/接受数量：恢复gLegacyGiveReceiveQuantityActionCB1DD4一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 BVW01旧买入/卖出/修理/鉴定/交换/交出接受数量六父各一标志阶段：六定点共25条80B，不重验六完整父或全部消费者。仅LegacyUiRecord.cpp六既有片段恢复共享action一次持样→同样本判空→既有SetYobiActionFlag2(false)清W32 bit1；卖出多一原XOR置零分列。其它父正文/初始化与生产/关闭回收、旧八叶格式/原字节和网络原格式明文保持，一CPP六片段、零新函数/helper/API/owner，原正常值未证明错误，不宣并发/机器故障。更新既有773/775/777/779/781/1015不重计语义，六adapted F及六页面各一实际成员/两限定I-S；原上游/旧表外路由/正常owner-alias寿命、SDK/机器ABI/画面与运行未验。已修旧62和交换/交出接受等已持样片段保，pending18/原混合与完整门禁不关闭；音频暂停/RPLAN.24保。",
       "original_end_exclusive": "0x4D61DC",
       "instruction_count": 862,
       "sources": [
@@ -137574,14 +137859,32 @@
           "symbols": [
             "Sub_4D55C0"
           ],
-          "relationship": "仅5格式标识符改变，其他正文/uintptr_t混合返回保持"
+          "relationship": "4D55C0 交出/接受数量：恢复gLegacyGiveReceiveQuantityActionCB1DD4一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "SetYobiActionFlag2"
+          ],
+          "relationship": "既有native清W32 bit1边界保持，同保存指针传入，原内联AND不新原身份"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "SetYobiActionFlag2"
+          ],
+          "relationship": "现有非拥有T*声明/opaque布局保持，不新增API"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_give_receive_quantity.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
       ],
-      "boundary": "只改五显示格式接口；同未清128B，固定CC3210基址但各数值按原时点读取，图后+C34 S32、当前D046C4 %2d、正文后重取CAFEA4选择入口available或新+C24的共享单点、后再读D046C4 %7d、固定1/1无消费参数。各格式后Y/X取样、原两组单位/按钮/增减/提示覆盖/本帧金额与可用数快照/非拥有预览T*及uintptr_t返回保持。旧85待批未写局部、C8AA98/D2D814生产与旧路由不由本步授权或闭合。",
+      "boundary": "只改五显示格式接口；同未清128B，固定CC3210基址但各数值按原时点读取，图后+C34 S32、当前D046C4 %2d、正文后重取CAFEA4选择入口available或新+C24的共享单点、后再读D046C4 %7d、固定1/1无消费参数。各格式后Y/X取样、原两组单位/按钮/增减/提示覆盖/本帧金额与可用数快照/非拥有预览T*及uintptr_t返回保持。旧85待批未写局部、C8AA98/D2D814生产与旧路由不由本步授权或闭合。 4D55C0 交出/接受数量：恢复gLegacyGiveReceiveQuantityActionCB1DD4一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 BVW01旧买入/卖出/修理/鉴定/交换/交出接受数量六父各一标志阶段：六定点共25条80B，不重验六完整父或全部消费者。仅LegacyUiRecord.cpp六既有片段恢复共享action一次持样→同样本判空→既有SetYobiActionFlag2(false)清W32 bit1；卖出多一原XOR置零分列。其它父正文/初始化与生产/关闭回收、旧八叶格式/原字节和网络原格式明文保持，一CPP六片段、零新函数/helper/API/owner，原正常值未证明错误，不宣并发/机器故障。更新既有773/775/777/779/781/1015不重计语义，六adapted F及六页面各一实际成员/两限定I-S；原上游/旧表外路由/正常owner-alias寿命、SDK/机器ABI/画面与运行未验。已修旧62和交换/交出接受等已持样片段保，pending18/原混合与完整门禁不关闭；音频暂停/RPLAN.24保。",
       "original_incoming": [],
       "original_data_references": [],
       "business_call_connections": [
@@ -137729,7 +138032,45 @@
           "relationship": "后一个数量与单位绘制后，原588B0C固定1/1无25H以格式接口写同128B，再新Y/X画页码；不改成strcpy或新增变参，之后原按钮/提示和flags1完整uintptr_t尾"
         }
       ],
-      "verification_level": "本步新读178/862原邻窗、余684沿既有父合同；限定源5标识符、字段/容量/原读序与完整返回、JSON增量/文档末追加/编码和差异静态核对通过。禁构建/测试/客户端/hash，原父/未证生产/旧路由/往返/生命周期/运行未闭合；旧85待批和RPLAN.24标准保持。"
+      "verification_level": "4D55C0 交出/接受数量：恢复gLegacyGiveReceiveQuantityActionCB1DD4一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 BVW01旧买入/卖出/修理/鉴定/交换/交出接受数量六父各一标志阶段：六定点共25条80B，不重验六完整父或全部消费者。仅LegacyUiRecord.cpp六既有片段恢复共享action一次持样→同样本判空→既有SetYobiActionFlag2(false)清W32 bit1；卖出多一原XOR置零分列。其它父正文/初始化与生产/关闭回收、旧八叶格式/原字节和网络原格式明文保持，一CPP六片段、零新函数/helper/API/owner，原正常值未证明错误，不宣并发/机器故障。更新既有773/775/777/779/781/1015不重计语义，六adapted F及六页面各一实际成员/两限定I-S；原上游/旧表外路由/正常owner-alias寿命、SDK/机器ABI/画面与运行未验。已修旧62和交换/交出接受等已持样片段保，pending18/原混合与完整门禁不关闭；音频暂停/RPLAN.24保。",
+      "legacy_preview_flag_sampling": {
+        "spec_id": "BVW01",
+        "evidence_refs": [
+          "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+          "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+          "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+          "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+        ],
+        "previous_status": "旧交出/接受5格式已接线；原父/生产/路由与验收未闭合",
+        "previous_verification_level": "本步新读178/862原邻窗、余684沿既有父合同；限定源5标识符、字段/容量/原读序与完整返回、JSON增量/文档末追加/编码和差异静态核对通过。禁构建/测试/客户端/hash，原父/未证生产/旧路由/往返/生命周期/运行未闭合；旧85待批和RPLAN.24标准保持。",
+        "original_parent_boundary_kept": true,
+        "full_original_root_reverified": false,
+        "original_focus_instruction_count": 4,
+        "original_focus_code_bytes": 13,
+        "original_total_focus_instruction_count": 25,
+        "original_total_focus_code_bytes": 80,
+        "source_body_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 6,
+        "root_specific_source_patch_count": 1,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "one_pointer_sample_for_check_and_clear_restored": true,
+        "original_W32_bit1_and_other_bits_kept": true,
+        "other_complete_body_and_producer_kept": true,
+        "file_format_byte_and_consumer_evidence_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x4E4460",

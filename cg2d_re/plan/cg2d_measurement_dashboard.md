@@ -14,7 +14,7 @@
 | 语义登记 | 1805条/1798个原ID | 无独立函数ID另列7条，其中原区间绑定 |
 | 具名分类引用 | 120个原ID | 含排除/混合/合并，不计为实现 |
 | 已具名全入口排除 / 混合入口 | 113 / 3 | 不计为实现/验收；混合入口不得整体扣除 |
-| 已审核函数处置 | 954/3680 | 初始仅导入关系，未逐ID重新认定 |
+| 已审核函数处置 | 960/3680 | 初始仅导入关系，未逐ID重新认定 |
 | 导入槽 / 未归属区间 | 218 / 3061 | 全部保留稳定ID；已审处置16 / 467 |
 | 已登记叶功能 | 182 | 非全功能分母；域不重复计入，暂停保留 |
 | 已验收叶功能 | 0/182 | 仅登记集合，不能代表整体完成率 |
@@ -186,19 +186,19 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 | UI-L-060 | included：旧选择60：宠物技能槽 | [legacy_pet_skill_catalog](../doc/ui_windows/legacy_pet_skill_catalog.md)、[cg2d_pet_catalog_production_spec](../doc/cg2d_pet_catalog_production_spec.md) | 0/7 | U04、V04、U01 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-061 | included：旧选择61：宠物技能学习确认 | [legacy_pet_skill_catalog](../doc/ui_windows/legacy_pet_skill_catalog.md)、[cg2d_pet_catalog_production_spec](../doc/cg2d_pet_catalog_production_spec.md) | 0/7 | U04、V04、U01 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-062 | included：旧选择62：买卖选择 | [legacy_shop_choice](../doc/ui_windows/legacy_shop_choice.md)、[cg2d_shop_choice_body_spec](../doc/cg2d_shop_choice_body_spec.md)、[cg2d_shop_choice_body_spec](../doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-baseline) | 2/3 | U04、V04、P07、U05 | unassessed/unassessed/unassessed/unassessed/blocked |
-| UI-L-063 | included：旧选择63：买入列表 | [legacy_buy_list](../doc/ui_windows/legacy_buy_list.md) | 0/2 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
-| UI-L-064 | included：旧选择64：卖出列表 | [legacy_sell_list](../doc/ui_windows/legacy_sell_list.md) | 0/2 | U04、V04、U05 | unassessed/unassessed/unassessed/unassessed/blocked |
+| UI-L-063 | included：旧选择63：买入列表 | [legacy_buy_list](../doc/ui_windows/legacy_buy_list.md)、[cg2d_legacy_preview_flag_sampling_spec](../doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline) | 1/7 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
+| UI-L-064 | included：旧选择64：卖出列表 | [legacy_sell_list](../doc/ui_windows/legacy_sell_list.md)、[cg2d_legacy_preview_flag_sampling_spec](../doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline) | 1/7 | U04、V04、U05 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-065 | included：旧选择65：买入确认 | [legacy_buy_confirmation](../doc/ui_windows/legacy_buy_confirmation.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-066 | included：旧选择66：卖出确认 | [legacy_sell_confirmation](../doc/ui_windows/legacy_sell_confirmation.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-067 | included：旧选择67：治疗 | [legacy_healing](../doc/ui_windows/legacy_healing.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
-| UI-L-068 | included：旧选择68：鉴定列表 | [legacy_identify_list](../doc/ui_windows/legacy_identify_list.md) | 0/2 | U04、V04、U05 | unassessed/unassessed/unassessed/unassessed/blocked |
+| UI-L-068 | included：旧选择68：鉴定列表 | [legacy_identify_list](../doc/ui_windows/legacy_identify_list.md)、[cg2d_legacy_preview_flag_sampling_spec](../doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline) | 1/7 | U04、V04、U05 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-069 | included：旧选择69：鉴定确认 | [legacy_identify_confirmation](../doc/ui_windows/legacy_identify_confirmation.md) | 0/1 | U04、V04、U05 | unassessed/unassessed/unassessed/unassessed/blocked |
-| UI-L-070 | included：旧选择70：修理列表 | [legacy_repair_list](../doc/ui_windows/legacy_repair_list.md) | 0/2 | U04、V04、U05 | unassessed/unassessed/unassessed/unassessed/blocked |
+| UI-L-070 | included：旧选择70：修理列表 | [legacy_repair_list](../doc/ui_windows/legacy_repair_list.md)、[cg2d_legacy_preview_flag_sampling_spec](../doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline) | 1/7 | U04、V04、U05 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-071 | included：旧选择71：修理确认 | [legacy_repair_confirmation](../doc/ui_windows/legacy_repair_confirmation.md) | 0/1 | U04、V04、U05 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-072 | included：旧选择72：存放 | [legacy_storage_items](../doc/ui_windows/legacy_storage_items.md) | 0/11 | U04、V04、U06 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-073 | included：旧选择73：留言 | [legacy_message_board](../doc/ui_windows/legacy_message_board.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-074 | included：旧选择74：交易选择 | [legacy_exchange_dialog](../doc/ui_windows/legacy_exchange_dialog.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
-| UI-L-075 | included：旧选择75：交换列表 | [legacy_barter_list](../doc/ui_windows/legacy_barter_list.md) | 0/2 | U04、V04、U06 | unassessed/unassessed/unassessed/unassessed/blocked |
+| UI-L-075 | included：旧选择75：交换列表 | [legacy_barter_list](../doc/ui_windows/legacy_barter_list.md)、[cg2d_legacy_preview_flag_sampling_spec](../doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline) | 1/7 | U04、V04、U06 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-076 | included：旧选择76：交换确认 | [legacy_barter_confirmation](../doc/ui_windows/legacy_barter_confirmation.md) | 0/1 | U04、V04、U06 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-077 | included：旧选择77：物品目标名单 | [legacy_item_target_list](../doc/ui_windows/legacy_item_target_list.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-078 | included：旧选择78：物品目标属性 | [legacy_item_use_status](../doc/ui_windows/legacy_item_use_status.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
@@ -207,7 +207,7 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 | UI-L-081 | included：旧选择81：固定文字提示 | [legacy_text_notices](../doc/ui_windows/legacy_text_notices.md) | 0/2 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-082 | included：旧选择82：固定文字提示 | [legacy_text_notices](../doc/ui_windows/legacy_text_notices.md) | 0/2 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-083 | included：旧选择83：交出/接受对话 | [legacy_give_receive_dialog](../doc/ui_windows/legacy_give_receive_dialog.md) | 0/2 | U04、V04、U06 | unassessed/unassessed/unassessed/unassessed/blocked |
-| UI-L-084 | included：旧选择84：交出/接受数量 | [legacy_give_receive_quantity](../doc/ui_windows/legacy_give_receive_quantity.md) | 0/3 | U04、V04、U06 | unassessed/unassessed/unassessed/unassessed/blocked |
+| UI-L-084 | included：旧选择84：交出/接受数量 | [legacy_give_receive_quantity](../doc/ui_windows/legacy_give_receive_quantity.md)、[cg2d_legacy_preview_flag_sampling_spec](../doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline) | 1/8 | U04、V04、U06 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-085 | included：旧选择85：交出/接受确认 | [legacy_give_receive_confirmation](../doc/ui_windows/legacy_give_receive_confirmation.md) | 1/2 | U04、V04、P05、U06 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-086 | included：旧选择86：公会邮件赠品 | [legacy_guild_mail_gift_items](../doc/ui_windows/legacy_guild_mail_gift_items.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-087 | included：旧选择87：公会宠物邮件 | [legacy_guild_pet_mail_compose](../doc/ui_windows/legacy_guild_pet_mail_compose.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |

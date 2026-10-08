@@ -74,3 +74,11 @@ used商品先读每格数量再选择数量，非正每格数量仅局部按2；
 仅限定源码/文档/JSON静态核对；完整商品/图号/页数生产与旧表路由/
 输入/收发/画面仍待，不构建、查产物、新增/执行测试、模拟点击/
 格式/拼接/发包/绘制样例、读写资源、运行客户端或校验哈希。
+
+## BVW01本页预览取样修复（2026-10-08）
+
+[组级基线/合同](../cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline)、[实施决定](../cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision)、[验收](../cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance)及[状态](../cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state)。
+
+4D9220 买入：恢复gLegacyBuyActionD67C6C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。
+
+本页只4条/13B原标志阶段，对一个现有片段实修；原新773与所有旧文件/格式/字节/消费者字段保持，纳一个主父成员与限定I/S，枚举及完整门禁仍open，不代创建叶/整个父或正常寿命/运行验收。

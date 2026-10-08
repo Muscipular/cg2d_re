@@ -115,3 +115,11 @@ used W16且id匹配累加count。原FDB4E4至FF0EF4以C5CH推进，不限背包2
 ### 新增差异核对与边界
 
 原[4D55C0,4D61DC)862条、格式5处；本步只读178新邻窗、余684沿既有父合同，incoming/data均0，不代替旧路由。5889A8/553FB4沿已核字节，新588B0C四字节312f3100直接读取，与现1/1静态对应。整份源仅5标识符、所有其他正文/uintptr_t签名不变，参数/容量/读序与JSON增量/文档末追加/编码和差异静态核对通过。原父/未证生产/真实旧路由/完整往返与生命周期/运行及总PLAN未完成；旧85待批问题不由本步授权，禁构建/测试/客户端/哈希、音频暂停与RPLAN.24保持。
+
+## BVW01本页预览取样修复（2026-10-08）
+
+[组级基线/合同](../cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline)、[实施决定](../cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision)、[验收](../cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance)及[状态](../cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state)。
+
+4D55C0 交出/接受数量：恢复gLegacyGiveReceiveQuantityActionCB1DD4一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。
+
+本页只4条/13B原标志阶段，对一个现有片段实修；原新1015与所有旧文件/格式/字节/消费者字段保持，纳一个主父成员与限定I/S，枚举及完整门禁仍open，不代创建叶/整个父或正常寿命/运行验收。

@@ -394,6 +394,7 @@ LegacyMidiSynth::LegacyMidiSynth() noexcept = default;
 LegacyMidiSynth::~LegacyMidiSynth() = default;
 bool LegacyMidiSynth::LoadBank(const char* path) noexcept
 {
+    Clear(); // 原455100先释放旧集合；离线重载失败也不保留旧bank/voice引用。
     try {
         std::size_t length = 0;
         std::unique_ptr<void, decltype(&SDL_free)> data(SDL_LoadFile(path, &length), &SDL_free);

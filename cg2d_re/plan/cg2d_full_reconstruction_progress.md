@@ -5085,3 +5085,13 @@ SDL增加实际准备片段查询及独立重复设置，PlayFixedMusic只启动
 系统64位Waves CLSID已注册至dsdmo.dll；本机SDK同参数/单位、两父序、线程/借用/失败/尾音/关闭、公开SDK边界和普通音频其余正文限定静态通过，注册不代实际对象创建、float32支持、调度/声音/原驱动波形或正常寿命。一个原身份adapted与三限定I/W/S纳管、两已有父仅追加当前接线证据；P16 pending与P11/P16/V05仍open，AUDIO32/18pending、184叶、60任务/关闭11和验收0/整体false保持。
 
 实际文本汇总：语义1888/有效1881、文档关联1991/3680、函数处置1056；差集107（106待定位，3音色/loader原职责/103排除，另1元数据）。现有SPEC/任务表/台账与生成看板同步，未编译、测试、运行、试听、部署、重生成WAV或摘要；游戏EXE仍CAB05明文修复版，真实登录待用户反馈。454FE0/455100/455260、旧99外层及完整音频/原生ABI/整体SPEC继续。证据doc/cg2d_fixed_wav_reverb_evidence.json，固定快照cg2d-re-fixed-wav-reverb-20261009；根进度只追加本步，排除用户原差异。
+
+## CAB12 离线音色寿命修正与三原职责来源（2026-10-09）
+
+发现离线LoadBank重载失败保留旧impl，与原455100先Release/清旧集合不同；已在该入口先Clear后读文件/申请pending/解析，实际成功才发布，失败不保留旧音色/序列/voice。MidiToWav最后PCM渲染/写出后显式Clear再close，提前退出仍由原析构释放同一owner。两源各只一行新增且逐片对HEAD重放保持其余正文，未改解析/合成/衰减/时长/当前WAV，离线目标仍独立且不进客户端。
+
+当前原454FE0/455100/455260三完整根138条450B、54F6E4 GUID实读与清理父454EE0完整86条244B有据；SDK集合GetInstrument/EnumInstrument及port DownloadInstrument槽和参数对应原指令。三原职责分别具名适配到实际离线bank/样本池/instrument/region持有及音符消费、CAB02历史真实转换/客户端内置WAV载入、离线Clear/析构和现有SDL固定流/效果/样本清理。原Source非空路径/私有HRESULT/失败残留与全DLS不宣复刻，不补空函数/COM假体、恢复运行时MIDI或将三原身份范围排除；不凭原GUID或系统gm.dls推定默认波形等价。
+
+UTF-8、先清后载/真实成功发布、最后PCM后释放再close、提前退出RAII、两源其余正文及客户端链接边界限定静态通过。三新语义/三adapted及三限定I/W/S纳管，P16 pending和P11/P16/V05仍open；已知AUDIO32均有来源但成员枚举/完整门禁不闭，18pending、184叶、60任务/关闭11与验收0/整体false保持。实际文本汇总：语义1891/有效1884、文档关联1994/3680、函数处置1059；差集104仅含103排除/1元数据，已列音频待定位3→0不等于全功能通过。
+
+现有SPEC/任务表/台账及生成看板同步；当前源码未编译、执行转换/客户端、试听、重生成资产、部署或摘要，游戏EXE仍CAB05明文修复版，实际登录待用户反馈。当前Waves实际创建/float32支持、全部DLS/原默认波形/控制器/声音、原私有失败/通知/设备和正常寿命、原生ABI与旧99外层继续。证据doc/cg2d_offline_bank_lifetime_evidence.json，固定快照cg2d-re-offline-bank-lifetime-20261009；根进度仅追加本步并排除用户原差异，整体目标保持。

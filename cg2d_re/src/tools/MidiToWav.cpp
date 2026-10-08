@@ -76,6 +76,7 @@ int wmain(int argc, wchar_t** argv)
         written = SDL_WriteIO(io, pcm.data(), count * 2 * sizeof(float)) == count * 2 * sizeof(float);
         rendered += count;
     }
+    synth.Clear(); // 离线音色/序列owner完成最后一次PCM生产后释放，承接原loader清理职责。
     const bool closed = SDL_CloseIO(io);
     if (!written || !closed || nonzero == 0) { std::fprintf(stderr, "WAV写入失败或没有有效声音\n"); return 5; }
     std::printf("frames=%llu rate=%d channels=2 float_bits=32 seconds=%.6f source_peak=%.9f gain=%.9f peak=%.9f rms=%.9f nonzero_samples=%llu\n",

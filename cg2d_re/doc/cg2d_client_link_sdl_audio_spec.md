@@ -151,3 +151,21 @@ LegacyAudio.cpp已新增原void配置适配，在初始化音量表后调用(25,
 原455030完整60条208B、GUID/16B四参数、两caller、SDK声明/系统注册与静态结果见[持久证据](cg2d_fixed_wav_reverb_evidence.json)。UTF-8、两原配置/参数位样本、COM线程边界/平衡清理、PCM借用同步、尾音/失败、固定通道边界、流→线程→样本释放和普通音频其余正文限定静态通过。仅一个原职责adapted纳管，不以系统注册代实际创建/float32支持、调度/波形/原驱动听感、完整失败/通知/正常寿命或原生ABI验收。
 
 固定快照cg2d-re-fixed-wav-reverb-20261009；当前未编译、运行、试听、部署或重生成WAV，游戏EXE仍CAB05明文修复版，实际登录待用户反馈。剩余454FE0/455100音色下载/载入、455260原loader清理和旧99外层继续，P11/P16/V05及完整音频/整体SPEC仍开放。
+
+<a id="offline-bank-lifetime-decision"></a>
+## CAB12 原音色职责与离线载入寿命（2026-10-09）
+
+原454FE0/455100/455260三完整根138条450B：集合先GetInstrument，再DownloadInstrument，分别失败1/2、成功Release并0；载入入口先释放/清旧集合，零填350H描述，Source为空使用54F6E4原GUID和flags3，非空用260个宽字符的mbstowcs并flags32H。GetObject失败1，EnumInstrument恰S_OK才从索引0逐项调用下载，下载非0由父返回1；枚举其他结果释放/清集合并0。455260只判原loader非空后Release/清0，454EE0首先真实调用该体，再清其余原音乐对象。原默认GUID已实读F17E8673-C3B4-11D1-870B-00600893B1BD，不凭名称、当前系统文件或加载字节推定原驱动声音等价。
+
+沿用户“不再使用MIDI”的WAV选择，音色载入/逐项变为离线LegacyMidiSynth::LoadBank/Impl::LoadDls的真实文件→样本池→instrument/region持有职责，CAB02实际转换已使用本机系统gm.dls；客户端只载入内置WAV，不新增运行时Source/COM下载入口。原loader清理关联离线Clear/析构与现有SDL固定样本/流清理，不补空原函数或造loader影子状态，三原身份仍属于音频范围而非排除。离线不同格式/实际文件/配置失败使用实际结果和RAII清理，不宣复刻原私有HRESULT/失败残留或全部DLS动态调制。
+
+已发现LoadBank失败会保留旧impl，而原455100先释放旧集合；本步在离线LoadBank入口先Clear，使旧事件/voices/regions/样本同源释放后再加载，失败不保留旧bank。转换器最后一次PCM渲染后显式Clear再关闭输出，所有提前退出仍由同一owner析构清理。此变更只补资源寿命，既有解析/合成、统一衰减、WAV资产和客户端清理正文保持；不编译、执行转换或重生成资产。三原职责可关联来源不等于WAV质量/原驱动听感、全部DLS/失败/设备/正常寿命或整体SPEC通过，完整音频门禁继续开放。
+
+<a id="offline-bank-lifetime-source-state"></a>
+## CAB12 实际源码与限定结果（2026-10-09）
+
+两离线现源各只新增一行：LegacyMidiSynth::LoadBank入口Clear后再读取bank/加载pending、成功才发布；MidiToWav最后Render/写PCM后Clear、再关闭输出。旧序列/voice/区域/样本归同一impl，重载先销毁；bank文件数据仅局部持有，LoadDls复制波形和区域后释放，未成功pending由RAII释放。提前退出仍由原析构释放实际owner。两处新增逐片对HEAD重放完全保持其余正文，不改解析/合成/衰减/时长/资产，工具仍EXCLUDE_FROM_ALL独立目标，客户端不链接合成器或访问gm.dls。
+
+原三根138条450B、默认GUID与清理父86条244B、SDK两接口槽/参数，以及既有离线载入/样本区域/音符消费和SDL固定资源清理关联见[持久证据](cg2d_offline_bank_lifetime_evidence.json)。UTF-8、先清后载、实际成功发布、最后PCM后释放再close、提前退出RAII、两源其余正文和客户端链接边界静态通过；三身份按用户WAV方案adapted纳管，没有生成空原入口/COM假体或范围排除，也不凭WAV存在填成功。
+
+固定快照cg2d-re-offline-bank-lifetime-20261009。已知AUDIO32均有具名来源，成员枚举和完整门禁仍开放，P11/P16/V05继续open；原默认波形、全部DLS动态调制/控制器、原私有失败残留、设备/通知/当前创建/格式/声音/正常寿命仍待。当前源码未编译、转换、运行、重生成WAV或部署，游戏EXE仍CAB05，旧99外层及真实本机登录继续；局部静态与CAB02历史转换不代当前或整体验收。

@@ -889,3 +889,7 @@
 ## 2026-10-09 cg2d_re 固定 WAV 原 Waves 混响
 
 还原原455030四参数及25/6、30/7两父配置，新增平台系统Waves PCM效果，同线程COM/同步借PCM、重复尾音和流→线程→样本关闭已接；播放仍用SDL3/WAV，仅增加系统ole32链接。原60条208B、SDK/注册和新增源限定静态通过，音频待定位4→3；当前未编译/运行/试听，实际创建/格式、三音色/loader、旧外层与完整声音/失败/寿命继续。SPEC/台账同步，整体目标保持；详见cg2d_re/plan/cg2d_full_reconstruction_progress.md，快照cg2d-re-fixed-wav-reverb-20261009。
+
+## 2026-10-09 cg2d_re 离线音色寿命与原职责来源
+
+修正离线LoadBank失败保留旧音色：先Clear后实际载入，最后PCM后显式Clear再close，两源各一行且其余正文保持；三原音色/loader职责具名适配至实际离线载入/样本区域与清理，原138条450B、GUID/清理父及新增差异静态通过。已知AUDIO32均有来源，未定位音频3→0；当前未编译/运行/重生成WAV，成员枚举/全部DLS/原默认波形/声音/设备/失败/寿命、旧外层和完整门禁仍开放。SPEC/台账同步，整体目标继续；详见cg2d_re/plan/cg2d_full_reconstruction_progress.md，快照cg2d-re-offline-bank-lifetime-20261009。

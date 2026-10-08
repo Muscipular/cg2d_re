@@ -191,6 +191,8 @@ PUBLIC Cg2dCheckLegacyOverflowExitX87
 PUBLIC Cg2dReadLegacyShopCommandW32
 PUBLIC Cg2dApplyLegacyConditionalSignX87
 PUBLIC Cg2dClassifyLegacyQuietBitX87
+PUBLIC Cg2dReadLegacyCountByte
+PUBLIC Cg2dReadLegacyMappedPair
 EXTERN Cg2dReadLegacyFdivBug:PROC
 EXTERN Cg2dLegacyPowerFastExitGate1085FBC:DWORD
 EXTERN Cg2dRaiseLegacyFloatExceptionHost:PROC
@@ -3939,5 +3941,20 @@ LegacyQuietBitAdd:
     mov eax, 1
     ret
 Cg2dClassifyLegacyQuietBitX87 ENDP
+
+; 原543D0C循环/末端复读实际U8边界；不检测/模拟越界或补默认字节。
+Cg2dReadLegacyCountByte PROC
+    movzx eax, byte ptr [rcx]
+    ret
+Cg2dReadLegacyCountByte ENDP
+
+; 原543D89/8D/91/94；两个U8按原读取序组合W32，不凭NLS count少读或预清目标。
+Cg2dReadLegacyMappedPair PROC
+    movzx eax, byte ptr [rcx]
+    movzx edx, byte ptr [rcx+1]
+    shl eax, 8
+    add eax, edx
+    ret
+Cg2dReadLegacyMappedPair ENDP
 
 END

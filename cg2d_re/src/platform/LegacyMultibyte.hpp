@@ -62,8 +62,20 @@ std::int32_t LowerLegacyCharacter_53DC64(std::int32_t value);
 // 原541955；供浮点数字分类复用既有本体，保留可变ctype及NLS输出别名。
 std::uint32_t ClassifyLegacyCharacter_541955(std::int32_t value, std::uint32_t mask);
 
-// 原543D37在唯一caller 53DD2F的U8输入域；不公开一般宽字符转换。
+// 原543AE8完整通用映射；数量S32/locale-flags-CP-strict原W32，指针只借用。
+std::int32_t MapLegacyString_543AE8(std::uint32_t locale, std::uint32_t flags,
+    const char* source, std::int32_t sourceCount, char* destination,
+    std::int32_t destinationCount, std::uint32_t codePage, std::int32_t strict);
+
+// 原543D37完整W32输入/返回；仅低两BYTE用于原>255 NLS尝试，失败返原完整值。
+std::uint32_t UpperLegacyMultibyteCharacter_543D37(std::uint32_t value);
+// 唯一直接目录caller仍用已证U8域，转同一完整543D37，不新增应用调用。
 std::uint32_t UpperLegacyDirectoryByte_543D37(std::uint8_t value);
+
+namespace detail {
+// 原543D89/8D/91/94；借当前目标，两个真实U8读后按首BYTE<<8+次BYTE返W32。
+extern "C" std::uint32_t Cg2dReadLegacyMappedPair(const char* bytes) noexcept;
+} // namespace detail
 
 // 原54A9C3可空locale参数只读取两个W32；不包含MB_CUR_MAX或lead-byte表。
 struct LegacyConversionLocale54A9C3 final {

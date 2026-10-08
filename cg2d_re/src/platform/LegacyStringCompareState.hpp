@@ -30,10 +30,15 @@ extern std::array<std::uint16_t, 257> gCtypeTable58FC38;
 extern std::uint16_t* gCtypePointer58FC30;
 extern char gNlsProbeD68A7C;
 
-// 原543D0C；按U32限制计数，结束时仍读取当前字节；仅接已证末端可读的NLS消费域。
+// 原543D0C；按U32限制计数，循环与结束复读均真实读一个BYTE，不补哨兵或模拟旧栈。
 std::uint32_t CountLegacyBytes_543D0C(const char* source, std::uint32_t limit);
 
-// 原543AE8的小范围大小写调用域；flags仅接100H/200H，目标长3、CP0、strict1。
+namespace detail {
+// 原543D1C/543D29；只借当前读取地址，由真实ASM返回一个U8，不在CPP求值该对象字节。
+extern "C" std::uint8_t Cg2dReadLegacyCountByte(const volatile char* byte) noexcept;
+} // namespace detail
+
+// 原543AE8的小范围大小写调用域转完整体；保100H/200H、目标长3、CP0、strict1。
 std::int32_t MapLegacyCase_543AE8(std::uint32_t locale, std::uint32_t flags,
     const char* source, std::int32_t sourceSize, char* destination);
 

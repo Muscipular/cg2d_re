@@ -4217,3 +4217,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 X:00143383-00143390的7B实际代码对应Cg2dApplyLegacyConditionalSignX87，其余6CC只对齐；X:0014341C-00143435的25B对应Cg2dClassifyLegacyQuietBitX87，保原CL/EAX/ST0、OR/TEST整数标志和FADD同位常量。三个相邻纯CC区间完整作对齐用途；不生成原空函数或迁移旧地址。
 
 两片段不属于IDA函数、已知只有段内入向，故零新语义/F/CRT成员；语义1859/有效1852、文档1969/3680（53.51%）/F1023/CRT200保持。五用途记录与一个限定S使R7已审482余2579/E1183；未证外部父、全CRT/寿命或机器不由本步代验。
+
+## BWX01三既有NLS/大写/计数身份补完整本体（2026-10-08）
+
+[三全根256条714B/五页、六原参数消费窗口和两SEH/源码差集](cg2d_nls_map_general_evidence.json)、[合同](cg2d_nls_map_general_spec.md#nls-map-general-decision)。
+
+342/F:00143AE8从固定3/256域补完整MapLegacyString_543AE8，保八参数/SORTKEY及普通query/原SEH和字段宽度；340/F:00143D37补完整UpperLegacyMultibyteCharacter_543D37，原U8包装与目录caller保持；438/F:00143D0C原两个读位置接真实单U8 ASM，循环/终端复读和U32返回不变。原大写非零后两U8实读再W32组合，不预清或据返回count少读。
+
+五源九改、两完整CPP/两个ASM读取叶、三薄转调；无新语义/原身份，新增三完整F处置及CRT成员，F1026/CRT203/E1185。语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和定位队列保持。两私有GetEnv旧Count点仍获批宿主承接，不恢复旧链；完整间接入向/实际NLS-ABI-寿命/机器未代验。

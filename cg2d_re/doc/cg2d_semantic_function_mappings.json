@@ -30265,37 +30265,122 @@
     {
       "original_entry": "0x543D37",
       "inventory_id": "F:00143D37",
-      "status": "基础本体已由多字节初始化/目录链实际调用；失败与运行边界未验",
+      "status": "BWX01补原543AE8完整193条548B八参数NLS、543D37四十三条123B完整W32大写及543D0C二十条43B真实计数读，三完整256条714B/五页。五现源九改、两完整CPP、三原薄转调、计数两个读位置及两个真实ASM读取叶/C桥；共享1086198/1086170与NLS producer/原五映射点及目录U8域保持。原仅正源长度缩源、A/W探测/严格第一次1或9和实际1、SORTKEY目标/容量0与查询数量返回、普通flags220/目标0查询、两U32栈请求及原filter1/置空SEH保持，不造FS/旧帧/故障样例。完整W32大写按原无符号分域、highBYTE lead、显式locale-CP/源2-目标2-strict1、失败完整输入及非零后两U8/W32组合；Count循环/末端复读实际单U8，CPP只借地址消费真返回，不补值/哨兵或根据数量少读。完善既有340/342/438及三F adapted、CRT200→203/F1026/E1185两限定I-S，语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和队列保持。原GetEnv两私有点仍宿主承接；完整间接父/SEH链、CRT库存/正常寿命、实际NLS/SDK/ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。",
       "original_end_exclusive": "0x543DB2",
       "instruction_count": 43,
       "sources": [
         {
           "path": "src/platform/LegacyMultibyte.cpp",
           "symbols": [
+            "UpperLegacyMultibyteCharacter_543D37",
             "UpperLegacyDirectoryByte_543D37",
+            "MapLegacyString_543AE8",
             "gLegacyMultibyte1086764"
-          ]
+          ],
+          "relationship": "完整W32两域/原lead-NLS/失败原值，成功非零后借址真实双U8组合；原目录U8包装保持"
         },
         {
           "path": "src/platform/LegacyMultibyte.hpp",
           "symbols": [
+            "UpperLegacyMultibyteCharacter_543D37",
             "UpperLegacyDirectoryByte_543D37",
+            "Cg2dReadLegacyMappedPair",
             "LegacyMultibyteStorage"
-          ]
+          ],
+          "relationship": "完整数值接口/原U8 caller与私有真读取C桥，不截输入或补未生产BYTE"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dReadLegacyMappedPair"
+          ],
+          "relationship": "原两个U8先后实读，再W32首BYTE<<8加次BYTE；CPP不求值未生产字符，不根据count少读"
         },
         {
           "path": "src/platform/LegacyTime.cpp",
           "symbols": [
             "ChangeLegacyDirectory_53DD2F"
-          ]
+          ],
+          "relationship": "原唯一直接caller经MOVZX生产U8，现接口/调用全文保持，不虚构更高值生产"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_multibyte.md",
         "doc/cg2d_resource_sources.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-baseline",
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-decision",
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-acceptance",
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state",
+        "doc/cg2d_nls_map_general_evidence.json"
       ],
-      "boundary": "只承接唯一直接caller 53DD2F经movzx传入的U8域：classification[value+1] bit20命中取caseMap，否则原值，返回U32。大于255的NLS分支未实现；共享表已由546CAE/5468EA/546B29生产，目录53DD2F实际读取；NLS失败局部内容、全启动顺序及运行仍未验。"
+      "boundary": "完整原W32无符号域、<=255表/原>255 highBYTE lead-NLS、显式locale/CP与源2目的2/strict1、失败原完整值/非零后两U8真实读取并原W32组合；目录唯一直调U8接口保，不宣更高值原应用生产已证。 BWX01补原543AE8完整193条548B八参数NLS、543D37四十三条123B完整W32大写及543D0C二十条43B真实计数读，三完整256条714B/五页。五现源九改、两完整CPP、三原薄转调、计数两个读位置及两个真实ASM读取叶/C桥；共享1086198/1086170与NLS producer/原五映射点及目录U8域保持。原仅正源长度缩源、A/W探测/严格第一次1或9和实际1、SORTKEY目标/容量0与查询数量返回、普通flags220/目标0查询、两U32栈请求及原filter1/置空SEH保持，不造FS/旧帧/故障样例。完整W32大写按原无符号分域、highBYTE lead、显式locale-CP/源2-目标2-strict1、失败完整输入及非零后两U8/W32组合；Count循环/末端复读实际单U8，CPP只借地址消费真返回，不补值/哨兵或根据数量少读。完善既有340/342/438及三F adapted、CRT200→203/F1026/E1185两限定I-S，语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和队列保持。原GetEnv两私有点仍宿主承接；完整间接父/SEH链、CRT库存/正常寿命、实际NLS/SDK/ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWX01补原543AE8完整193条548B八参数NLS、543D37四十三条123B完整W32大写及543D0C二十条43B真实计数读，三完整256条714B/五页。五现源九改、两完整CPP、三原薄转调、计数两个读位置及两个真实ASM读取叶/C桥；共享1086198/1086170与NLS producer/原五映射点及目录U8域保持。原仅正源长度缩源、A/W探测/严格第一次1或9和实际1、SORTKEY目标/容量0与查询数量返回、普通flags220/目标0查询、两U32栈请求及原filter1/置空SEH保持，不造FS/旧帧/故障样例。完整W32大写按原无符号分域、highBYTE lead、显式locale-CP/源2-目标2-strict1、失败完整输入及非零后两U8/W32组合；Count循环/末端复读实际单U8，CPP只借地址消费真返回，不补值/哨兵或根据数量少读。完善既有340/342/438及三F adapted、CRT200→203/F1026/E1185两限定I-S，语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和队列保持。原GetEnv两私有点仍宿主承接；完整间接父/SEH链、CRT库存/正常寿命、实际NLS/SDK/ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。",
+      "original_direct_reference_count": 1,
+      "inbound_evidence_complete": true,
+      "inbound_evidence": [
+        {
+          "from": "0x53dd79",
+          "type": 17,
+          "code": true,
+          "function": "0x53dd2f",
+          "text": "call    __mbctoupper"
+        }
+      ],
+      "nls_map_general": {
+        "spec_id": "BWX01",
+        "evidence_refs": [
+          "doc/cg2d_nls_map_general_spec.md#nls-map-general-baseline",
+          "doc/cg2d_nls_map_general_spec.md#nls-map-general-decision",
+          "doc/cg2d_nls_map_general_spec.md#nls-map-general-acceptance",
+          "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state"
+        ],
+        "full_original_function_captured": true,
+        "original_instruction_count": 43,
+        "original_code_bytes": 123,
+        "original_page_count": 1,
+        "whole_group_instruction_count": 256,
+        "whole_group_code_bytes": 714,
+        "whole_group_page_count": 5,
+        "source_body_added": true,
+        "source_file_count": 5,
+        "source_patch_count": 9,
+        "new_CPP_body_count": 2,
+        "new_ASM_body_count": 2,
+        "new_private_C_bridge_count": 2,
+        "old_fixed_wrappers_rewritten": 3,
+        "existing_Count_read_positions": 2,
+        "new_original_semantic_identity_count": 0,
+        "new_original_function_disposition_count": 3,
+        "new_CRT_member_count": 3,
+        "new_R7_count": 0,
+        "new_shared_owner_count": 0,
+        "original_general_NLS_A_W_positive_source_count_SORTKEY_and_zero_capacity_queries_kept": true,
+        "original_first_MB_flags_1_or_9_then_1_and_back_220_kept": true,
+        "original_two_U32_stack_requests_and_filter1_null_pointer_SEH_kept": true,
+        "original_W32_unsigned_split_high_BYTE_lead_full_input_failure_and_two_U8_result_kept": true,
+        "existing_U8_directory_caller_and_four_active_map_calls_kept": true,
+        "original_fifth_map_call_in_W32_body_implemented": true,
+        "original_Count_loop_and_terminal_reread_true_U8_not_CPP_direct_evaluation": true,
+        "no_guard_sentinel_default_fill_stack_model_or_fault_sample": true,
+        "old_private_GetEnv_Count_calls_remain_approved_host_boundary": true,
+        "numeric_width_changed": false,
+        "full_indirect_callers_verified": false,
+        "original_unproduced_byte_value_verified": false,
+        "full_CRT_member_inventory_closed": false,
+        "full_SEH_private_chain_closed": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "system_NLS_API_verified": false,
+        "compilation_verified": false,
+        "linking_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true
+      }
     },
     {
       "original_entry": "0x545208",
@@ -30332,32 +30417,148 @@
     {
       "original_entry": "0x543AE8",
       "inventory_id": "F:00143AE8",
-      "status": "多字节生产及目录调用已接；限定NLS域、失败局部内容和运行未验",
+      "status": "BWX01补原543AE8完整193条548B八参数NLS、543D37四十三条123B完整W32大写及543D0C二十条43B真实计数读，三完整256条714B/五页。五现源九改、两完整CPP、三原薄转调、计数两个读位置及两个真实ASM读取叶/C桥；共享1086198/1086170与NLS producer/原五映射点及目录U8域保持。原仅正源长度缩源、A/W探测/严格第一次1或9和实际1、SORTKEY目标/容量0与查询数量返回、普通flags220/目标0查询、两U32栈请求及原filter1/置空SEH保持，不造FS/旧帧/故障样例。完整W32大写按原无符号分域、highBYTE lead、显式locale-CP/源2-目标2-strict1、失败完整输入及非零后两U8/W32组合；Count循环/末端复读实际单U8，CPP只借地址消费真返回，不补值/哨兵或根据数量少读。完善既有340/342/438及三F adapted、CRT200→203/F1026/E1185两限定I-S，语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和队列保持。原GetEnv两私有点仍宿主承接；完整间接父/SEH链、CRT库存/正常寿命、实际NLS/SDK/ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。",
       "original_end_exclusive": "0x543D0C",
       "instruction_count": 193,
       "sources": [
         {
           "path": "src/platform/LegacyMultibyte.cpp",
           "symbols": [
-            "MapLegacyCaseTable_543AE8",
-            "UpperLegacyCharacter_543A1A"
-          ]
+            "MapLegacyString_543AE8",
+            "MapLegacyCaseTable_543AE8"
+          ],
+          "relationship": "完整原八参数/A-W/SORTKEY-容量0查询与普通220回转、两真实原SEH及U32栈请求；两个原256点薄转调，共享后端/CP不造owner"
+        },
+        {
+          "path": "src/platform/LegacyMultibyte.hpp",
+          "symbols": [
+            "MapLegacyString_543AE8"
+          ],
+          "relationship": "原S32数量/W32 locale-flags-CP-strict和借用地址的完整接口，数值不扩宽"
         },
         {
           "path": "src/platform/LegacyStringCompare.cpp",
           "symbols": [
             "MapLegacyCase_543AE8",
             "LowerCompareValue_53DC64"
-          ]
+          ],
+          "relationship": "两原小范围3-CP0-strict1固定域转完整体，原大小写父/消费保持"
+        },
+        {
+          "path": "src/platform/LegacyStringCompareState.hpp",
+          "symbols": [
+            "MapLegacyCase_543AE8",
+            "CountLegacyBytes_543D0C"
+          ],
+          "relationship": "原现有私有接口/缩源依赖，已真实接完整映射；零新共享状态"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_multibyte.md",
         "doc/cg2d_resource_sources.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_legacy_string_compare.md"
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-baseline",
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-decision",
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-acceptance",
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state",
+        "doc/cg2d_nls_map_general_evidence.json"
       ],
-      "boundary": "546B29固定256项lower/upper、strict0域保持；原小范围MapLowercase扩为MapLegacyCase，既有53DC64显式传LOWERCASE、新543A1A传UPPERCASE，均目的长3/codePage0/strict1。复用1086198后端/1086170代码页，探测仍固定LOWERCASE，缩源、栈申请/宽映射及flags220回转保持。未实现SORTKEY/其他通用域，未构建或执行。"
+      "boundary": "完整八参数NLS原A/W及sourceCount>0、SORTKEY查询/直写与普通flags220回转、两filter1/置空SEH、原U32栈请求；五已证原直接映射点由完整体承接，不造间接调用或改代码页/编码。 BWX01补原543AE8完整193条548B八参数NLS、543D37四十三条123B完整W32大写及543D0C二十条43B真实计数读，三完整256条714B/五页。五现源九改、两完整CPP、三原薄转调、计数两个读位置及两个真实ASM读取叶/C桥；共享1086198/1086170与NLS producer/原五映射点及目录U8域保持。原仅正源长度缩源、A/W探测/严格第一次1或9和实际1、SORTKEY目标/容量0与查询数量返回、普通flags220/目标0查询、两U32栈请求及原filter1/置空SEH保持，不造FS/旧帧/故障样例。完整W32大写按原无符号分域、highBYTE lead、显式locale-CP/源2-目标2-strict1、失败完整输入及非零后两U8/W32组合；Count循环/末端复读实际单U8，CPP只借地址消费真返回，不补值/哨兵或根据数量少读。完善既有340/342/438及三F adapted、CRT200→203/F1026/E1185两限定I-S，语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和队列保持。原GetEnv两私有点仍宿主承接；完整间接父/SEH链、CRT库存/正常寿命、实际NLS/SDK/ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWX01补原543AE8完整193条548B八参数NLS、543D37四十三条123B完整W32大写及543D0C二十条43B真实计数读，三完整256条714B/五页。五现源九改、两完整CPP、三原薄转调、计数两个读位置及两个真实ASM读取叶/C桥；共享1086198/1086170与NLS producer/原五映射点及目录U8域保持。原仅正源长度缩源、A/W探测/严格第一次1或9和实际1、SORTKEY目标/容量0与查询数量返回、普通flags220/目标0查询、两U32栈请求及原filter1/置空SEH保持，不造FS/旧帧/故障样例。完整W32大写按原无符号分域、highBYTE lead、显式locale-CP/源2-目标2-strict1、失败完整输入及非零后两U8/W32组合；Count循环/末端复读实际单U8，CPP只借地址消费真返回，不补值/哨兵或根据数量少读。完善既有340/342/438及三F adapted、CRT200→203/F1026/E1185两限定I-S，语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和队列保持。原GetEnv两私有点仍宿主承接；完整间接父/SEH链、CRT库存/正常寿命、实际NLS/SDK/ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。",
+      "original_direct_reference_count": 5,
+      "inbound_evidence_complete": true,
+      "inbound_evidence": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x53dc64",
+          "text": "call    ___crtLCMapStringA",
+          "from": "0x53dd07"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x543a1a",
+          "text": "call    ___crtLCMapStringA",
+          "from": "0x543abf"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x543d37",
+          "text": "call    ___crtLCMapStringA",
+          "from": "0x543d7d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x546b29",
+          "text": "call    ___crtLCMapStringA",
+          "from": "0x546be7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x546b29",
+          "text": "call    ___crtLCMapStringA",
+          "from": "0x546c0f"
+        }
+      ],
+      "nls_map_general": {
+        "spec_id": "BWX01",
+        "evidence_refs": [
+          "doc/cg2d_nls_map_general_spec.md#nls-map-general-baseline",
+          "doc/cg2d_nls_map_general_spec.md#nls-map-general-decision",
+          "doc/cg2d_nls_map_general_spec.md#nls-map-general-acceptance",
+          "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state"
+        ],
+        "full_original_function_captured": true,
+        "original_instruction_count": 193,
+        "original_code_bytes": 548,
+        "original_page_count": 3,
+        "whole_group_instruction_count": 256,
+        "whole_group_code_bytes": 714,
+        "whole_group_page_count": 5,
+        "source_body_added": true,
+        "source_file_count": 5,
+        "source_patch_count": 9,
+        "new_CPP_body_count": 2,
+        "new_ASM_body_count": 2,
+        "new_private_C_bridge_count": 2,
+        "old_fixed_wrappers_rewritten": 3,
+        "existing_Count_read_positions": 2,
+        "new_original_semantic_identity_count": 0,
+        "new_original_function_disposition_count": 3,
+        "new_CRT_member_count": 3,
+        "new_R7_count": 0,
+        "new_shared_owner_count": 0,
+        "original_general_NLS_A_W_positive_source_count_SORTKEY_and_zero_capacity_queries_kept": true,
+        "original_first_MB_flags_1_or_9_then_1_and_back_220_kept": true,
+        "original_two_U32_stack_requests_and_filter1_null_pointer_SEH_kept": true,
+        "original_W32_unsigned_split_high_BYTE_lead_full_input_failure_and_two_U8_result_kept": true,
+        "existing_U8_directory_caller_and_four_active_map_calls_kept": true,
+        "original_fifth_map_call_in_W32_body_implemented": true,
+        "original_Count_loop_and_terminal_reread_true_U8_not_CPP_direct_evaluation": true,
+        "no_guard_sentinel_default_fill_stack_model_or_fault_sample": true,
+        "old_private_GetEnv_Count_calls_remain_approved_host_boundary": true,
+        "numeric_width_changed": false,
+        "full_indirect_callers_verified": false,
+        "original_unproduced_byte_value_verified": false,
+        "full_CRT_member_inventory_closed": false,
+        "full_SEH_private_chain_closed": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "system_NLS_API_verified": false,
+        "compilation_verified": false,
+        "linking_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true
+      }
     },
     {
       "original_entry": "0x546A83",
@@ -44203,7 +44404,7 @@
     {
       "original_entry": "0x543D0C",
       "inventory_id": "F:00143D0C",
-      "status": "原有界计数本体及NLS小写窄域已接；环境比较私有调用随GetEnv承接，运行未验",
+      "status": "BWX01补原543AE8完整193条548B八参数NLS、543D37四十三条123B完整W32大写及543D0C二十条43B真实计数读，三完整256条714B/五页。五现源九改、两完整CPP、三原薄转调、计数两个读位置及两个真实ASM读取叶/C桥；共享1086198/1086170与NLS producer/原五映射点及目录U8域保持。原仅正源长度缩源、A/W探测/严格第一次1或9和实际1、SORTKEY目标/容量0与查询数量返回、普通flags220/目标0查询、两U32栈请求及原filter1/置空SEH保持，不造FS/旧帧/故障样例。完整W32大写按原无符号分域、highBYTE lead、显式locale-CP/源2-目标2-strict1、失败完整输入及非零后两U8/W32组合；Count循环/末端复读实际单U8，CPP只借地址消费真返回，不补值/哨兵或根据数量少读。完善既有340/342/438及三F adapted、CRT200→203/F1026/E1185两限定I-S，语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和队列保持。原GetEnv两私有点仍宿主承接；完整间接父/SEH链、CRT库存/正常寿命、实际NLS/SDK/ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。",
       "original_end_exclusive": "0x543D37",
       "instruction_count": 20,
       "original_direct_reference_count": 3,
@@ -44211,25 +44412,123 @@
         {
           "path": "src/platform/LegacyStringCompare.cpp",
           "symbols": [
-            "CountLegacyBytes_543D0C",
-            "MapLowercase_543AE8",
-            "LowerCompareValue_53DC64"
+            "CountLegacyBytes_543D0C"
           ],
-          "relationship": "原U32计数及末端复读本体，接入已有source[3]且显式写NUL的1/2字节小写转换域"
+          "relationship": "既有完整原循环/复读和U32返回，仅两个U8读取位置改真实ASM返回；不造原地址或输入限制"
         },
         {
           "path": "src/platform/LegacyStringCompareState.hpp",
           "symbols": [
-            "CountLegacyBytes_543D0C"
+            "CountLegacyBytes_543D0C",
+            "Cg2dReadLegacyCountByte"
           ],
-          "relationship": "既有NLS内部边界声明，不新增状态owner"
+          "relationship": "原私有计数与单U8实读C桥，只借当前地址，无新owner/哨兵"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dReadLegacyCountByte"
+          ],
+          "relationship": "真实MOVZX EAX,BYTE PTR[RCX];RET单U8读取，CPP仅借址/消费实际返回，不模拟越界/旧栈或补字节"
+        },
+        {
+          "path": "src/platform/LegacyMultibyte.cpp",
+          "symbols": [
+            "MapLegacyString_543AE8",
+            "MapLegacyCaseTable_543AE8"
+          ],
+          "relationship": "唯一现原映射父只sourceCount>0调用计数；256表域现真实承接末端读，旧私有GetEnv两点继续宿主承接"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-baseline",
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-decision",
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-acceptance",
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state",
+        "doc/cg2d_nls_map_general_evidence.json"
       ],
-      "boundary": "原543D29在数量耗尽/数量0也读取当前字节，提前遇NUL则复读；使用非拥有const volatile char*保留读取，数量/返回U32。固定256字符表域原末端读越出source[256]，按RPLAN.24不新增模拟/哨兵，保留现有有界返回256表达式且不称故障等价；不据此阻塞已证可读窄域。547C0D的两处旧计数调用只属GetEnv已批准整体承接的私有链，不再列为必须接入旧计数本体的独立缺口；该归属不是三处原访问/故障等价。"
+      "boundary": "完整原20条43B计数逻辑，仅两个原U8读位置改借址到真实ASM，循环/复读、数量0/耗尽及U32返回保持；256域真实接计数，不预填哨兵或模拟旧栈；另两GetEnv私有调用继续既定宿主承接。 BWX01补原543AE8完整193条548B八参数NLS、543D37四十三条123B完整W32大写及543D0C二十条43B真实计数读，三完整256条714B/五页。五现源九改、两完整CPP、三原薄转调、计数两个读位置及两个真实ASM读取叶/C桥；共享1086198/1086170与NLS producer/原五映射点及目录U8域保持。原仅正源长度缩源、A/W探测/严格第一次1或9和实际1、SORTKEY目标/容量0与查询数量返回、普通flags220/目标0查询、两U32栈请求及原filter1/置空SEH保持，不造FS/旧帧/故障样例。完整W32大写按原无符号分域、highBYTE lead、显式locale-CP/源2-目标2-strict1、失败完整输入及非零后两U8/W32组合；Count循环/末端复读实际单U8，CPP只借地址消费真返回，不补值/哨兵或根据数量少读。完善既有340/342/438及三F adapted、CRT200→203/F1026/E1185两限定I-S，语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和队列保持。原GetEnv两私有点仍宿主承接；完整间接父/SEH链、CRT库存/正常寿命、实际NLS/SDK/ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWX01补原543AE8完整193条548B八参数NLS、543D37四十三条123B完整W32大写及543D0C二十条43B真实计数读，三完整256条714B/五页。五现源九改、两完整CPP、三原薄转调、计数两个读位置及两个真实ASM读取叶/C桥；共享1086198/1086170与NLS producer/原五映射点及目录U8域保持。原仅正源长度缩源、A/W探测/严格第一次1或9和实际1、SORTKEY目标/容量0与查询数量返回、普通flags220/目标0查询、两U32栈请求及原filter1/置空SEH保持，不造FS/旧帧/故障样例。完整W32大写按原无符号分域、highBYTE lead、显式locale-CP/源2-目标2-strict1、失败完整输入及非零后两U8/W32组合；Count循环/末端复读实际单U8，CPP只借地址消费真返回，不补值/哨兵或根据数量少读。完善既有340/342/438及三F adapted、CRT200→203/F1026/E1185两限定I-S，语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和队列保持。原GetEnv两私有点仍宿主承接；完整间接父/SEH链、CRT库存/正常寿命、实际NLS/SDK/ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。",
+      "inbound_evidence_complete": true,
+      "inbound_evidence": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x543ae8",
+          "text": "call    _strncnt",
+          "from": "0x543b69"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x547c0d",
+          "text": "call    _strncnt",
+          "from": "0x547c8b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x547c0d",
+          "text": "call    _strncnt",
+          "from": "0x547ca2"
+        }
+      ],
+      "nls_map_general": {
+        "spec_id": "BWX01",
+        "evidence_refs": [
+          "doc/cg2d_nls_map_general_spec.md#nls-map-general-baseline",
+          "doc/cg2d_nls_map_general_spec.md#nls-map-general-decision",
+          "doc/cg2d_nls_map_general_spec.md#nls-map-general-acceptance",
+          "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state"
+        ],
+        "full_original_function_captured": true,
+        "original_instruction_count": 20,
+        "original_code_bytes": 43,
+        "original_page_count": 1,
+        "whole_group_instruction_count": 256,
+        "whole_group_code_bytes": 714,
+        "whole_group_page_count": 5,
+        "source_body_added": true,
+        "source_file_count": 5,
+        "source_patch_count": 9,
+        "new_CPP_body_count": 2,
+        "new_ASM_body_count": 2,
+        "new_private_C_bridge_count": 2,
+        "old_fixed_wrappers_rewritten": 3,
+        "existing_Count_read_positions": 2,
+        "new_original_semantic_identity_count": 0,
+        "new_original_function_disposition_count": 3,
+        "new_CRT_member_count": 3,
+        "new_R7_count": 0,
+        "new_shared_owner_count": 0,
+        "original_general_NLS_A_W_positive_source_count_SORTKEY_and_zero_capacity_queries_kept": true,
+        "original_first_MB_flags_1_or_9_then_1_and_back_220_kept": true,
+        "original_two_U32_stack_requests_and_filter1_null_pointer_SEH_kept": true,
+        "original_W32_unsigned_split_high_BYTE_lead_full_input_failure_and_two_U8_result_kept": true,
+        "existing_U8_directory_caller_and_four_active_map_calls_kept": true,
+        "original_fifth_map_call_in_W32_body_implemented": true,
+        "original_Count_loop_and_terminal_reread_true_U8_not_CPP_direct_evaluation": true,
+        "no_guard_sentinel_default_fill_stack_model_or_fault_sample": true,
+        "old_private_GetEnv_Count_calls_remain_approved_host_boundary": true,
+        "numeric_width_changed": false,
+        "full_indirect_callers_verified": false,
+        "original_unproduced_byte_value_verified": false,
+        "full_CRT_member_inventory_closed": false,
+        "full_SEH_private_chain_closed": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "system_NLS_API_verified": false,
+        "compilation_verified": false,
+        "linking_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true
+      }
     },
     {
       "original_entry": "0x547C0D",

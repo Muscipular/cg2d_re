@@ -280,3 +280,11 @@ CRT195→198/F1021两限定I-S，已列CRT未定位3→0/全源码定位128；R7
 原543383四条7B和54341C七条25B现有两个完整ASM叶；CL单BYTE条件变号/原OR整数标志、EAX原W32位样本TEST 80000H与类型7或真实FADD后类型1、连续ST0保持，原54FB10常量复用现有同位只读F64存储。两现源三改，零CPP/C桥/帧/owner/输入验证或故障样例。
 
 五R7共66B（32B代码、34B CC）完整正文或对齐用途映射，R7已审482余2579。两段无已知外部入向，只有限定S/E1183，不造F/成员或外部调用，不给I通过；F1023/CRT200与其它计数和完整门禁保持。完整原父/入向及描述符生产、成员库存/正常寿命和机器ABI/链接/运行继续。
+
+## BWX01完整通用NLS与W32大写开发（2026-10-08）
+
+[三完整原根](cg2d_nls_map_general_spec.md#nls-map-general-baseline)、[实施](cg2d_nls_map_general_spec.md#nls-map-general-decision)、[验收](cg2d_nls_map_general_spec.md#nls-map-general-acceptance)及[原256条714B/六窗口-两scope与五源前后态](cg2d_nls_map_general_evidence.json)。
+
+原543AE8补完整八参数/A-W与正长度缩源、SORTKEY直目标/容量0查询数量返回、普通flags220回字节/目标0查询及两原filter1-置空SEH；543D37补完整W32无符号分域/高BYTE lead-NLS、源2-目标2-strict1和失败原完整值。五现源九改，两完整CPP和三薄转调，两个真实ASM读取叶/C桥承原Count循环/末端单U8及映射返回两U8组合；不让CPP直接求值未生产/数组外字节，不补值或造旧栈。
+
+两原栈请求在U32计算后交本机_alloca，原caller/共享后端-CP-表生产保持。完善340/342/438、三F adapted/F1026与CRT203、E1185两限定I-S；无新语义/R7或应用调用。完整间接父、其余SEH链/CRT库存和寿命、实际系统NLS/SDK/ABI/链接/运行仍待；RPLAN.24不新增越界/溢出处理、模拟/故障门禁或默认值。

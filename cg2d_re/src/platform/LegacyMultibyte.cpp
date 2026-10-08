@@ -175,9 +175,11 @@ std::int32_t ClassifyMultibyteType_546CDB(const std::uint32_t character,
     return 0;
 }
 
-// 原543AE8的256项生产域；仅LOWERCASE/UPPERCASE，不进入SORTKEY分支。
-int MapLegacyCaseTable_543AE8(const std::uint32_t locale, const DWORD flags,
-    const char* const source, char* const destination, std::uint32_t codePage)
+// 原543AE8完整通用体；八参数/两SEH/SORTKEY与普通字节回转见通用NLS映射SPEC。
+std::int32_t MapLegacyString_543AE8(const std::uint32_t locale,
+    const std::uint32_t flags, const char* const source, std::int32_t sourceCount,
+    char* const destination, const std::int32_t destinationCount,
+    std::uint32_t codePage, const std::int32_t strict)
 {
     if (gLegacyTextLocale1086160.mapBackend == 0) {
         if (::LCMapStringW(0, LCMAP_LOWERCASE, L"", 1, nullptr, 0) != 0) {
@@ -189,13 +191,14 @@ int MapLegacyCaseTable_543AE8(const std::uint32_t locale, const DWORD flags,
             gLegacyTextLocale1086160.mapBackend = 2;
         }
     }
-    int length = 0;
-    while (length < 256 && source[length] != '\0') {
-        ++length;
+    if (sourceCount > 0) {
+        sourceCount = static_cast<std::int32_t>(CountLegacyBytes_543D0C(
+            source, static_cast<std::uint32_t>(sourceCount)));
     }
     const std::uint32_t backend = gLegacyTextLocale1086160.mapBackend;
     if (backend == 2) {
-        return ::LCMapStringA(locale, flags, source, length, destination, 256);
+        return ::LCMapStringA(locale, flags, source, sourceCount,
+            destination, destinationCount);
     }
     if (backend != 1) {
         return 0;
@@ -203,28 +206,47 @@ int MapLegacyCaseTable_543AE8(const std::uint32_t locale, const DWORD flags,
     if (codePage == 0) {
         codePage = gConversionCodePage_1086170;
     }
-    const int wideCount = ::MultiByteToWideChar(
-        codePage, MB_PRECOMPOSED, source, length, nullptr, 0);
+    const int wideCount = ::MultiByteToWideChar(codePage,
+        MB_PRECOMPOSED | (strict != 0 ? MB_ERR_INVALID_CHARS : 0),
+        source, sourceCount, nullptr, 0);
     if (wideCount == 0) {
         return 0;
     }
+    // 原请求在W32内计算；本机栈承载不模拟旧ESP或扩大数字字段。
+    const std::uint32_t wideBytes = (static_cast<std::uint32_t>(wideCount) * 2u + 3u) & ~3u;
     wchar_t* wide;
     __try {
-        wide = static_cast<wchar_t*>(_alloca(sizeof(wchar_t) * wideCount));
+        wide = static_cast<wchar_t*>(_alloca(wideBytes));
     } __except (EXCEPTION_EXECUTE_HANDLER) {
         wide = nullptr;
     }
     if (wide == nullptr
-        || ::MultiByteToWideChar(codePage, MB_PRECOMPOSED, source, length, wide, wideCount) == 0) {
+        || ::MultiByteToWideChar(codePage, MB_PRECOMPOSED,
+            source, sourceCount, wide, wideCount) == 0) {
         return 0;
     }
     const int mappedCount = ::LCMapStringW(locale, flags, wide, wideCount, nullptr, 0);
     if (mappedCount == 0) {
         return 0;
     }
+    if ((flags & LCMAP_SORTKEY) != 0) {
+        if (destinationCount == 0) {
+            return mappedCount;
+        }
+        if (mappedCount > destinationCount) {
+            return 0;
+        }
+        if (::LCMapStringW(locale, flags, wide, wideCount,
+                reinterpret_cast<wchar_t*>(destination), destinationCount) == 0) {
+            return 0;
+        }
+        return mappedCount;
+    }
+    const std::uint32_t mappedBytes =
+        (static_cast<std::uint32_t>(mappedCount) * 2u + 3u) & ~3u;
     wchar_t* mapped;
     __try {
-        mapped = static_cast<wchar_t*>(_alloca(sizeof(wchar_t) * mappedCount));
+        mapped = static_cast<wchar_t*>(_alloca(mappedBytes));
     } __except (EXCEPTION_EXECUTE_HANDLER) {
         mapped = nullptr;
     }
@@ -233,7 +255,16 @@ int MapLegacyCaseTable_543AE8(const std::uint32_t locale, const DWORD flags,
         return 0;
     }
     return ::WideCharToMultiByte(codePage, WC_COMPOSITECHECK | WC_SEPCHARS,
-        mapped, mappedCount, destination, 256, nullptr, nullptr);
+        mapped, mappedCount, destinationCount == 0 ? nullptr : destination,
+        destinationCount == 0 ? 0 : destinationCount, nullptr, nullptr);
+}
+
+// 原546B29的两固定生产点；数量256、显式CP/strict0实际交完整543AE8。
+int MapLegacyCaseTable_543AE8(const std::uint32_t locale, const DWORD flags,
+    const char* const source, char* const destination, const std::uint32_t codePage)
+{
+    return MapLegacyString_543AE8(
+        locale, flags, source, 256, destination, 256, codePage, 0);
 }
 
 } // namespace
@@ -350,12 +381,33 @@ std::int32_t ResetLegacySingleByte_546B00()
     return 0;
 }
 
+// 原543D37完整W32输入；U8表分支与原高低BYTE/lead-NLS和非零后双BYTE实读保持。
+std::uint32_t UpperLegacyMultibyteCharacter_543D37(const std::uint32_t value)
+{
+    if (value <= 0xFFu) {
+        if ((gLegacyMultibyte1086764.classification[value + 1] & 0x20u) != 0) {
+            return gLegacyMultibyte1086764.caseMap[value];
+        }
+        return value;
+    }
+    const auto highByte = static_cast<std::uint8_t>(value >> 8);
+    const auto lowByte = static_cast<std::uint8_t>(value);
+    if ((gLegacyMultibyte1086764.classification[highByte + 1] & 4u) == 0) {
+        return value;
+    }
+    const char source[2] {std::bit_cast<char>(highByte), std::bit_cast<char>(lowByte)};
+    char destination[4];
+    if (MapLegacyString_543AE8(gLegacyMultibyte1086764.locale,
+            LCMAP_UPPERCASE, source, 2, destination, 2,
+            gLegacyMultibyte1086764.codePage, 1) == 0) {
+        return value;
+    }
+    return detail::Cg2dReadLegacyMappedPair(destination);
+}
+
 std::uint32_t UpperLegacyDirectoryByte_543D37(const std::uint8_t value)
 {
-    if ((gLegacyMultibyte1086764.classification[value + 1] & 0x20u) != 0) {
-        return gLegacyMultibyte1086764.caseMap[value];
-    }
-    return value;
+    return UpperLegacyMultibyteCharacter_543D37(value);
 }
 
 std::uint32_t ResolveLegacyMultibyteCodePage_546A83(const std::uint32_t requested)

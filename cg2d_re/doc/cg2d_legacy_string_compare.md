@@ -74,7 +74,7 @@
    used-default 指针均空；透传长度（零同样表示失败）。
 
 该固定 flags 不进入原 SORTKEY 分支，目的区始终非空、长 3。
-原两个 alloca 区有捕获后返回零的路径，窄实现保留栈分配及该失败出口，
+原两个 alloca 区有捕获后返回零的路径，BWX01完整映射体保原U32请求和两处原生SEH/置空失败出口，
 不另加堆分配、字符集猜测、Unicode 正规化或现代 `_stricmp` 回退。
 API 的环境行为仍由 Windows 提供；不声称跨系统版本 NLS 数据相同。
 
@@ -1302,3 +1302,11 @@ LegacyException.cpp已有MatchLegacyExceptionType_5404FA真实名称比较，
 Count0、未对齐U8、原W32/FF0000尾读取及正常-1/0/+1保持，不把普通对象强转W32别名。
 共享54B1AC按正常Count0/相等路径merged归同一核心，无独立置零体或新caller；边界records/3的过时“承接未判定”更新为当前归属。
 本机MSVC标准头只证明源码编译器约束，实际生成指令/读次数/ABI、全alias/CRT及运行未验；RPLAN.24不评异常故障等价，音频暂停不变。
+
+## BWX01窄大小写包装转完整映射与真实计数读取（2026-10-08）
+
+[完整八参数合同](cg2d_nls_map_general_spec.md#nls-map-general-decision)、[原三全根/六窗口及五源差集](cg2d_nls_map_general_evidence.json)。MapLegacyCase_543AE8保原3-CP0-strict1和两个caller参数，现实际转MapLegacyString_543AE8完整体；原比较/大小写父、ctype/NLS生产和共享owner全文保持。
+
+CountLegacyBytes_543D0C仅两个读位置改借址给真实ASM单U8叶，循环/末端复读/剩余数及U32返回公式不变。256表域现接同一计数，原更小源可读域保持；不补NUL/哨兵、删除数量耗尽读、造原局部地址或称未写字节/故障等价。543D37原非零后的两U8实读也由真实ASM承载，避免CPP求值未生产第二BYTE。
+
+旧GetEnv两私有Count点继续批准宿主边界，不从本组反向恢复。三身份/F及CRT203两限定I-S不代完整系统API、更多间接父、SEH/SDK-ABI-寿命和运行；原格式明文/音频暂停/RPLAN.24保持。

@@ -1,6 +1,7 @@
 #include "cg/platform/LegacyStringCompare.hpp"
 
 #include "LegacyStringCompareState.hpp"
+#include "LegacyMultibyte.hpp"
 
 #include <bit>
 #include <malloc.h>
@@ -46,70 +47,22 @@ std::uint32_t CountLegacyBytes_543D0C(const char* const source, const std::uint3
     std::uint32_t remaining = limit;
     if (remaining != 0) {
         do {
-            if (*cursor == '\0') {
+            if (detail::Cg2dReadLegacyCountByte(cursor) == 0) {
                 break;
             }
             ++cursor;
             --remaining;
         } while (remaining != 0);
     }
-    return *cursor == '\0' ? static_cast<std::uint32_t>(cursor - source) : limit;
+    return detail::Cg2dReadLegacyCountByte(cursor) == 0 ? static_cast<std::uint32_t>(cursor - source) : limit;
 }
 
 // 53DC64/543A1A调用域：LOWERCASE/UPPERCASE、目的长3、代码页参数0、strict=1。
 std::int32_t MapLegacyCase_543AE8(const std::uint32_t locale, const std::uint32_t flags,
     const char* source, const int sourceSize, char* destination)
 {
-    if (gLegacyTextLocale1086160.mapBackend == 0) {
-        if (LCMapStringW(0, LCMAP_LOWERCASE, L"", 1, nullptr, 0) != 0) {
-            gLegacyTextLocale1086160.mapBackend = 1;
-        } else {
-            if (LCMapStringA(0, LCMAP_LOWERCASE, &gNlsProbeD68A7C, 1, nullptr, 0) == 0) {
-                return 0;
-            }
-            gLegacyTextLocale1086160.mapBackend = 2;
-        }
-    }
-    const int length = static_cast<int>(CountLegacyBytes_543D0C(
-        source, static_cast<std::uint32_t>(sourceSize)));
-    if (gLegacyTextLocale1086160.mapBackend == 2) {
-        return LCMapStringA(locale, flags, source, length, destination, 3);
-    }
-    if (gLegacyTextLocale1086160.mapBackend != 1) {
-        return 0;
-    }
-    const UINT codePage = gConversionCodePage_1086170;
-    const int wideCount = MultiByteToWideChar(
-        codePage, MB_PRECOMPOSED | MB_ERR_INVALID_CHARS, source, length, nullptr, 0);
-    if (wideCount == 0) {
-        return 0;
-    }
-    wchar_t* wide;
-    __try {
-        wide = static_cast<wchar_t*>(_alloca(sizeof(wchar_t) * wideCount));
-    } __except (EXCEPTION_EXECUTE_HANDLER) {
-        wide = nullptr;
-    }
-    if (wide == nullptr
-        || MultiByteToWideChar(codePage, MB_PRECOMPOSED, source, length, wide, wideCount) == 0) {
-        return 0;
-    }
-    const int mappedCount = LCMapStringW(locale, flags, wide, wideCount, nullptr, 0);
-    if (mappedCount == 0) {
-        return 0;
-    }
-    wchar_t* mapped;
-    __try {
-        mapped = static_cast<wchar_t*>(_alloca(sizeof(wchar_t) * mappedCount));
-    } __except (EXCEPTION_EXECUTE_HANDLER) {
-        mapped = nullptr;
-    }
-    if (mapped == nullptr
-        || LCMapStringW(locale, flags, wide, wideCount, mapped, mappedCount) == 0) {
-        return 0;
-    }
-    return WideCharToMultiByte(codePage, WC_COMPOSITECHECK | WC_SEPCHARS,
-        mapped, mappedCount, destination, 3, nullptr, nullptr);
+    return MapLegacyString_543AE8(
+        locale, flags, source, sourceSize, destination, 3, 0, 1);
 }
 
 namespace {

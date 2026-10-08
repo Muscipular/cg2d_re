@@ -2152,3 +2152,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 先SPEC后补四完整159条554B/五页、一般core及真实分类/原FPU保存恢复。一CPP/四ASM五本体与13ASM调用的限定I/S覆盖内部真实接线/完整源算法，普通外部值桥的F64转换、原尾CALL适配与未生产结果边界明确；不以固定域、原无值FF、帧声明或不解释的环境区代通用算法/机器验收。
 
 预计语义1837/有效1830、文档1947/3680（52.91%）、F999/CRT176、E1158；定位150/CRT未定位22、总队列151，以汇总核实。旧活动地图原点/共享CRT分派及全应用生命周期、机器环境/ABI/链接运行仍open，原格式明文/音频暂停/RPLAN.24保持。
+
+## BWL01两应用CI原点与当前绑定的限定验收（2026-10-08）
+
+[标准](cg2d_power_application_wiring_spec.md#power-app-acceptance)、[状态](cg2d_power_application_wiring_spec.md#power-app-source-state)与[原证/源差集](cg2d_power_application_wiring_evidence.json)。
+
+先SPEC后接两已证生产消费窗口42条148B/四CALL。I覆盖现两spawn/除数入口到完整CI/core/真实依赖，S覆盖两源五改动/72B帧和指针跨CALL、原参数/连续ST0/截断/CW及Cpp和RNG保持；MAP/CRT各I-S共四，仅局部源码证据，不代机器/未知alias或全应用。
+
+语义1837/有效1830、文档1947/3680（52.91%）、F999/CRT176/MAP129、定位150/CRT未定位22及总队列151保持，E1158→1162。原身份不新计、已定位成员不再削差集，完整gates/执行限制与原格式明文/音频暂停/RPLAN.24保持。

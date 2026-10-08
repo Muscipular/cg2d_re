@@ -1,0 +1,1728 @@
+{
+  "schema_version": 1,
+  "spec_id": "BWL01",
+  "recorded_on": "2026-10-08",
+  "baseline_snapshot": "cg2d-re-power-generic-body-20261008",
+  "implementation_snapshot": "cg2d-re-power-application-wiring-20261008",
+  "evidence_refs": [
+    "doc/cg2d_power_application_wiring_spec.md#power-app-baseline",
+    "doc/cg2d_power_application_wiring_spec.md#power-app-decision",
+    "doc/cg2d_power_application_wiring_spec.md#power-app-acceptance",
+    "doc/cg2d_power_application_wiring_spec.md#power-app-source-state"
+  ],
+  "artifacts": [
+    "doc/cg2d_power_application_wiring_evidence.json",
+    "doc/cg2d_power_application_wiring_spec.md",
+    "src/platform/MapEffectMath.asm",
+    "src/platform/MapEffectMath.hpp",
+    "src/world/SceneState.cpp",
+    "src/platform/LegacyFloatEnvironment.asm",
+    "doc/cg2d_power_application_wiring_spec.md#power-app-baseline",
+    "doc/cg2d_power_application_wiring_spec.md#power-app-decision",
+    "doc/cg2d_power_application_wiring_spec.md#power-app-acceptance",
+    "doc/cg2d_power_application_wiring_spec.md#power-app-source-state"
+  ],
+  "original_application_windows": [
+    {
+      "start": "0x46f37b",
+      "end_exclusive": "0x46f3c5",
+      "instructions": [
+        {
+          "ea": "0x46f37b",
+          "size": 6,
+          "bytes": "dd0538e25400",
+          "mnemonic": "fld",
+          "text": "fld     ds:dbl_54E238"
+        },
+        {
+          "ea": "0x46f381",
+          "size": 3,
+          "bytes": "0fbfd1",
+          "mnemonic": "movsx",
+          "text": "movsx   edx, cx"
+        },
+        {
+          "ea": "0x46f384",
+          "size": 1,
+          "bytes": "4a",
+          "mnemonic": "dec",
+          "text": "dec     edx"
+        },
+        {
+          "ea": "0x46f385",
+          "size": 4,
+          "bytes": "89542418",
+          "mnemonic": "mov",
+          "text": "mov     dword ptr [esp+38h+var_20], edx"
+        },
+        {
+          "ea": "0x46f389",
+          "size": 4,
+          "bytes": "db442418",
+          "mnemonic": "fild",
+          "text": "fild    dword ptr [esp+38h+var_20]"
+        },
+        {
+          "ea": "0x46f38d",
+          "size": 5,
+          "bytes": "e86edc0c00",
+          "mnemonic": "call",
+          "text": "call    __CIpow"
+        },
+        {
+          "ea": "0x46f392",
+          "size": 4,
+          "bytes": "dc4c2420",
+          "mnemonic": "fmul",
+          "text": "fmul    [esp+38h+var_18]"
+        },
+        {
+          "ea": "0x46f396",
+          "size": 6,
+          "bytes": "d81520d45400",
+          "mnemonic": "fcom",
+          "text": "fcom    ds:flt_54D420"
+        },
+        {
+          "ea": "0x46f39c",
+          "size": 2,
+          "bytes": "dfe0",
+          "mnemonic": "fnstsw",
+          "text": "fnstsw  ax"
+        },
+        {
+          "ea": "0x46f39e",
+          "size": 3,
+          "bytes": "f6c440",
+          "mnemonic": "test",
+          "text": "test    ah, 40h"
+        },
+        {
+          "ea": "0x46f3a1",
+          "size": 2,
+          "bytes": "7408",
+          "mnemonic": "jz",
+          "text": "jz      short loc_46F3AB"
+        },
+        {
+          "ea": "0x46f3a3",
+          "size": 2,
+          "bytes": "ddd8",
+          "mnemonic": "fstp",
+          "text": "fstp    st"
+        },
+        {
+          "ea": "0x46f3a5",
+          "size": 6,
+          "bytes": "d90530e25400",
+          "mnemonic": "fld",
+          "text": "fld     ds:flt_54E230"
+        },
+        {
+          "ea": "0x46f3ab",
+          "size": 6,
+          "bytes": "d9052ce25400",
+          "mnemonic": "fld",
+          "text": "fld     ds:flt_54E22C"
+        },
+        {
+          "ea": "0x46f3b1",
+          "size": 2,
+          "bytes": "d8f1",
+          "mnemonic": "fdiv",
+          "text": "fdiv    st, st(1)"
+        },
+        {
+          "ea": "0x46f3b3",
+          "size": 5,
+          "bytes": "e8e0c00c00",
+          "mnemonic": "call",
+          "text": "call    __ftol"
+        },
+        {
+          "ea": "0x46f3b8",
+          "size": 2,
+          "bytes": "8bf8",
+          "mnemonic": "mov",
+          "text": "mov     edi, eax"
+        },
+        {
+          "ea": "0x46f3ba",
+          "size": 2,
+          "bytes": "3bfd",
+          "mnemonic": "cmp",
+          "text": "cmp     edi, ebp"
+        },
+        {
+          "ea": "0x46f3bc",
+          "size": 2,
+          "bytes": "ddd8",
+          "mnemonic": "fstp",
+          "text": "fstp    st"
+        },
+        {
+          "ea": "0x46f3be",
+          "size": 2,
+          "bytes": "7505",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_46F3C5"
+        },
+        {
+          "ea": "0x46f3c0",
+          "size": 5,
+          "bytes": "bf01000000",
+          "mnemonic": "mov",
+          "text": "mov     edi, 1"
+        }
+      ],
+      "query_start": "0x46f37a",
+      "query_end_exclusive": "0x46f3c5",
+      "instruction_count": 21,
+      "code_bytes": 74
+    },
+    {
+      "start": "0x46f428",
+      "end_exclusive": "0x46f472",
+      "instructions": [
+        {
+          "ea": "0x46f428",
+          "size": 6,
+          "bytes": "dd0538e25400",
+          "mnemonic": "fld",
+          "text": "fld     ds:dbl_54E238"
+        },
+        {
+          "ea": "0x46f42e",
+          "size": 3,
+          "bytes": "0fbfd1",
+          "mnemonic": "movsx",
+          "text": "movsx   edx, cx"
+        },
+        {
+          "ea": "0x46f431",
+          "size": 1,
+          "bytes": "4a",
+          "mnemonic": "dec",
+          "text": "dec     edx"
+        },
+        {
+          "ea": "0x46f432",
+          "size": 4,
+          "bytes": "89542418",
+          "mnemonic": "mov",
+          "text": "mov     dword ptr [esp+38h+var_20], edx"
+        },
+        {
+          "ea": "0x46f436",
+          "size": 4,
+          "bytes": "db442418",
+          "mnemonic": "fild",
+          "text": "fild    dword ptr [esp+38h+var_20]"
+        },
+        {
+          "ea": "0x46f43a",
+          "size": 5,
+          "bytes": "e8c1db0c00",
+          "mnemonic": "call",
+          "text": "call    __CIpow"
+        },
+        {
+          "ea": "0x46f43f",
+          "size": 4,
+          "bytes": "dc4c2420",
+          "mnemonic": "fmul",
+          "text": "fmul    [esp+38h+var_18]"
+        },
+        {
+          "ea": "0x46f443",
+          "size": 6,
+          "bytes": "d81520d45400",
+          "mnemonic": "fcom",
+          "text": "fcom    ds:flt_54D420"
+        },
+        {
+          "ea": "0x46f449",
+          "size": 2,
+          "bytes": "dfe0",
+          "mnemonic": "fnstsw",
+          "text": "fnstsw  ax"
+        },
+        {
+          "ea": "0x46f44b",
+          "size": 3,
+          "bytes": "f6c440",
+          "mnemonic": "test",
+          "text": "test    ah, 40h"
+        },
+        {
+          "ea": "0x46f44e",
+          "size": 2,
+          "bytes": "7408",
+          "mnemonic": "jz",
+          "text": "jz      short loc_46F458"
+        },
+        {
+          "ea": "0x46f450",
+          "size": 2,
+          "bytes": "ddd8",
+          "mnemonic": "fstp",
+          "text": "fstp    st"
+        },
+        {
+          "ea": "0x46f452",
+          "size": 6,
+          "bytes": "d90530e25400",
+          "mnemonic": "fld",
+          "text": "fld     ds:flt_54E230"
+        },
+        {
+          "ea": "0x46f458",
+          "size": 6,
+          "bytes": "d9052ce25400",
+          "mnemonic": "fld",
+          "text": "fld     ds:flt_54E22C"
+        },
+        {
+          "ea": "0x46f45e",
+          "size": 2,
+          "bytes": "d8f1",
+          "mnemonic": "fdiv",
+          "text": "fdiv    st, st(1)"
+        },
+        {
+          "ea": "0x46f460",
+          "size": 5,
+          "bytes": "e833c00c00",
+          "mnemonic": "call",
+          "text": "call    __ftol"
+        },
+        {
+          "ea": "0x46f465",
+          "size": 2,
+          "bytes": "8bf8",
+          "mnemonic": "mov",
+          "text": "mov     edi, eax"
+        },
+        {
+          "ea": "0x46f467",
+          "size": 2,
+          "bytes": "3bfd",
+          "mnemonic": "cmp",
+          "text": "cmp     edi, ebp"
+        },
+        {
+          "ea": "0x46f469",
+          "size": 2,
+          "bytes": "ddd8",
+          "mnemonic": "fstp",
+          "text": "fstp    st"
+        },
+        {
+          "ea": "0x46f46b",
+          "size": 2,
+          "bytes": "7505",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_46F472"
+        },
+        {
+          "ea": "0x46f46d",
+          "size": 5,
+          "bytes": "bf01000000",
+          "mnemonic": "mov",
+          "text": "mov     edi, 1"
+        }
+      ],
+      "query_start": "0x46f427",
+      "query_end_exclusive": "0x46f471",
+      "instruction_count": 21,
+      "code_bytes": 74
+    }
+  ],
+  "original_window_totals": {
+    "instruction_count": 42,
+    "code_bytes": 148,
+    "call_count": 4,
+    "CI_call_count": 2,
+    "integer_conversion_call_count": 2
+  },
+  "reused_original_full_parent_and_pow_evidence": [
+    "doc/cg2d_map_effect_arithmetic_evidence.json",
+    "doc/cg2d_power_generic_body_evidence.json"
+  ],
+  "source_functions": [
+    {
+      "index": 1265,
+      "id": "F:0006F1D0",
+      "entry": "0x46f1d0",
+      "relationship": "原46F1D0两spawn的除数接口以原FLD底数/FILD S32指数顺序真调完整CI/core，72B正常帧跨CALL保存幅值指针、幂ST0连续消费；其它方向/运动/步进及原PC53/CW/截断/RNG和Cpp完整保持"
+    },
+    {
+      "index": 1266,
+      "id": "F:0013D000",
+      "entry": "0x53d000",
+      "relationship": "现两原地图CI点经Cg2dMapEffectDivisor真调用独立Cg2dLegacyCIPowerX87，不再以内联固定1.25算法代53D000；原参数序/连续ST0/幅值后消费与CW阶段保持"
+    },
+    {
+      "index": 1267,
+      "id": "F:0013D022",
+      "entry": "0x53d022",
+      "relationship": "Cg2dMapEffectDivisor经真实CI进入独立完整Cg2dLegacyPowerCoreX87，原应用正域不再内联core算法；真实全依赖/错误范围链可达，原幂ST0连续后消费保持，不代运行"
+    },
+    {
+      "index": 1424,
+      "id": "F:001433F0",
+      "entry": "0x5433f0",
+      "relationship": "除数接口不再内联TwoToTOS十操作，经真实CI/core到独立Cg2dLegacyTwoToTOSX87；原ST0连续结果、外层PC53/CW和后消费保持，历史BPJ/MFA内联记录保留在原证/前态"
+    },
+    {
+      "index": 1426,
+      "id": "F:00143405",
+      "entry": "0x543405",
+      "relationship": "原地图除数外层027F/保存恢复保持，经真实CI/core按原CW判定条件调用独立控制字帮助体；027F原绕过仍保，不把这两个活动点称叶必执行或把外层固定PC53称整个通用叶"
+    },
+    {
+      "index": 1427,
+      "id": "F:00143435",
+      "entry": "0x543435",
+      "relationship": "除数接口FLD底数/FILD指数后真调CI，独立core经真实Cg2dLoadLegacyPowerOperandX87重新加载原X，保F64/F80与EAX/ECX/FLAGS合同；不再把直接常量加载称独立通用加载已内联"
+    }
+  ],
+  "source_transformations": [
+    {
+      "path": "cg2d_re/src/platform/MapEffectMath.asm",
+      "patches": [
+        {
+          "before": "PUBLIC Cg2dMapEffectDivisor\n",
+          "after": "PUBLIC Cg2dMapEffectDivisor\nEXTERN Cg2dLegacyCIPowerX87:PROC\n"
+        },
+        {
+          "before": "; 所有叶仅借用参数暂存区 [rsp+8,rsp+40)，不改 RSP 或非易失寄存器。\n",
+          "after": "; 其余叶仍只借用参数暂存区 [rsp+8,rsp+40)，不改RSP或非易失寄存器。\n; 除数接口用72B正常展开帧调用完整CI幂，其余接口不变。\n"
+        },
+        {
+          "before": "Cg2dMapEffectDivisor PROC\n    mov dword ptr [rsp+8], ecx\n    fnstcw word ptr [rsp+12]\n    mov word ptr [rsp+14], 027Fh\n    mov word ptr [rsp+16], 0E7Fh\n    fldcw word ptr [rsp+14]\n    fild dword ptr [rsp+8]\n    fld qword ptr [PowBase54E238]\n    fyl2x\n    ; 原 __twoToTOS@5433F0，不将幂结果存回 F64 后再消费。\n    fld st(0)\n    frndint\n    fsubr st(1), st(0)\n    fxch st(1)\n    fchs\n    f2xm1\n    fld1\n    faddp st(1), st(0)\n    fscale\n    fstp st(1)\n    fmul qword ptr [rdx]\n    fcom dword ptr [Zero54D5D0]\n    fnstsw ax\n    test ah, 040h\n    jz DivisorHasMagnitude\n    fstp st(0)\n    fld dword ptr [Fallback54E230]\nDivisorHasMagnitude:\n    fld dword ptr [SpawnScale54E22C]\n    fdiv st(0), st(1)\n    fldcw word ptr [rsp+16]\n    fistp qword ptr [rsp+24]\n    fldcw word ptr [rsp+14]\n    fstp st(0)\n    fldcw word ptr [rsp+12]\n    mov eax, dword ptr [rsp+24]\n    ret\nCg2dMapEffectDivisor ENDP\n",
+          "after": "; 原46F38D/46F43A两CI调用点经同一接口接完整一般幂，不再内联固定域算法。\n; 72B正常帧保32B调用区、S32指数/三CW值、借用幅值指针和原I64截断槽。\nCg2dMapEffectDivisor PROC FRAME\n    sub rsp, 72\n    .allocstack 72\n    .endprolog\n    mov dword ptr [rsp+32], ecx\n    mov qword ptr [rsp+48], rdx\n    fnstcw word ptr [rsp+36]\n    mov word ptr [rsp+38], 027Fh\n    mov word ptr [rsp+40], 0E7Fh\n    fldcw word ptr [rsp+38]\n    fld qword ptr [PowBase54E238]\n    fild dword ptr [rsp+32]\n    call Cg2dLegacyCIPowerX87\n    mov rdx, qword ptr [rsp+48]\n    fmul qword ptr [rdx]\n    fcom dword ptr [Zero54D5D0]\n    fnstsw ax\n    test ah, 040h\n    jz DivisorHasMagnitude\n    fstp st(0)\n    fld dword ptr [Fallback54E230]\nDivisorHasMagnitude:\n    fld dword ptr [SpawnScale54E22C]\n    fdiv st(0), st(1)\n    fldcw word ptr [rsp+40]\n    fistp qword ptr [rsp+56]\n    fldcw word ptr [rsp+38]\n    fstp st(0)\n    fldcw word ptr [rsp+36]\n    mov eax, dword ptr [rsp+56]\n    add rsp, 72\n    ret\nCg2dMapEffectDivisor ENDP\n"
+        }
+      ]
+    },
+    {
+      "path": "cg2d_re/src/platform/MapEffectMath.hpp",
+      "patches": [
+        {
+          "before": "// 私有 MASM 叶保留 x87 指令/存储边界，恢复控制字；见场景 SPEC §20.19。\n",
+          "after": "// 私有MASM接口保留x87指令/存储边界并恢复控制字；见场景SPEC§20.19。\n"
+        },
+        {
+          "before": "extern \"C\" std::int32_t Cg2dMapEffectDivisor(\n",
+          "after": "// 原46F38D/46F43A：S32指数/借用幅值经完整CI幂，ST0连续消费后返回原截断低S32。\n// 正常72B调用帧保存幅值指针，不以通用幂返回EDX当原指针；见幂应用接线SPEC。\nextern \"C\" std::int32_t Cg2dMapEffectDivisor(\n"
+        }
+      ]
+    }
+  ],
+  "implementation_static_scope": "BWL01将46F38D/46F43A两已证地图CI窗口经现spawn/除数接口接完整一般CI/core与全部真实依赖。两原窗42条148B/四CALL，保FLD1.25→FILD signedLevel-1→CI→连续ST0幅值/回退/除法/原I64截断低S32消费。两现文件五改动，一已有ASM本体替换/零新本体或F/owner；72B正常帧保32B调用区、S32/三CW/原生幅值指针和I64结果，跨CALL保存重读指针，不拿EDX原CW载体当地址。撤固定域FYL2X/TwoToTOS内联，真实CI EXTERN/call接入同startup库；现PC53/控制字尾恢复、Cpp两spawn的字段门槛/零divisor/RNG/记录后消费及通用提供者/CMake保持。六既有映射/F当前关系由内联改真实传递调用，前态与MFA/BPJ/BPM/BWF/BWK历史可追；MAP129/CRT176与F999/全部数量/定位150及CRT余22保持，两域四限定I-S。共享CRT分派/未知父与全应用生命周期、机器ABI/链接运行继续，原格式明文/音频暂停/RPLAN.24保。",
+  "source_asm_changed_count": 1,
+  "source_header_changed_count": 1,
+  "source_cpp_changed_count": 0,
+  "source_patch_count": 5,
+  "changed_native_function_body_count": 1,
+  "new_native_function_body_count": 0,
+  "new_original_mapped_function_count": 0,
+  "new_private_C_bridge_count": 0,
+  "new_mutable_shared_owner_count": 0,
+  "native_divisor_frame_bytes": 72,
+  "original_two_known_map_CI_windows_connected": true,
+  "original_FLDbottom_base_then_FILDtop_exponent_then_true_CI_kept": true,
+  "magnitude_native_pointer_saved_before_call_and_reloaded_after_CW_EDX_return": true,
+  "original_continuous_ST0_power_magnitude_fallback_division_I64_truncation_low_S32_kept": true,
+  "old_inline_FYL2X_and_TwoToTOS_removed_from_divisor": true,
+  "outer_PC53_CW_save_truncation_and_restore_kept": true,
+  "six_current_Map_source_relationships_corrected_with_history": true,
+  "cpp_two_spawn_calls_order_signed_level_zero_divisor_RNG_record_and_postconsume_kept": true,
+  "source_files_kept": [
+    "cg2d_re/src/world/SceneState.cpp",
+    "cg2d_re/src/platform/LegacyFloatEnvironment.cpp",
+    "cg2d_re/src/platform/LegacyFloatEnvironment.hpp",
+    "cg2d_re/src/platform/LegacyFloatEnvironment.asm",
+    "cg2d_re/CMakeLists.txt"
+  ],
+  "shared_startup_library_existing_providers_no_build_changes": true,
+  "no_new_input_limit_protection_clamp_fault_sample_or_host_pow": true,
+  "wire_format_changed": false,
+  "encryption_added": false,
+  "audio_pause_kept": true,
+  "full_unknown_callers_or_aliases_closed": false,
+  "full_shared_CRT_dispatch_verified": false,
+  "full_all_parents_verified": false,
+  "full_lifecycle_closed": false,
+  "runtime_verified": false,
+  "machine_abi_verified": false,
+  "machine_unwind_verified": false,
+  "fault_equivalence_claimed": false,
+  "source_states": [
+    {
+      "path": "cg2d_re/src/platform/MapEffectMath.asm",
+      "before": "OPTION CASEMAP:NONE\n\n.const\nALIGN 8\nRadians54DD18 QWORD 03F91DF46A2506B91h\nPowBase54E238 QWORD 03FF4000000000000h\nFixedScale54E220 QWORD 040F0000000000000h\nZero54D5D0 QWORD 0\nSpeedScale54E228 DWORD 03A83126Fh\nFallback54E230 DWORD 038D1B717h\nSpawnScale54E22C DWORD 044340000h\nPercent54D4AC DWORD 042C80000h\nHeight54D47C DWORD 043F00000h\nPercentScale54D4E4 DWORD 03C23D70Ah\nHalfHeight54D408 DWORD 043700000h\nArcCenter54DD38 DWORD 042200000h\nArcScale54DD34 DWORD 03D088889h\nActorRate54DD3C DWORD 03FCCCCCDh\nActorRate54DD40 DWORD 03F99999Ah\nActorRate54D4A4 DWORD 040000000h\nActorStep54DD44 DWORD 040800000h\nActorSpiralScale54DD14 DWORD 03FE00000h\nActorSpiralScale54DD10 DWORD 03F19999Ah\nALIGN 8\nObserverAngles QWORD 04002D97C7F30D173h, 03FF921FB54411744h\n    QWORD 03FE921FB54411744h, 0000000000000000h\n    QWORD 04015FDBBE9B8F45Ch, 04012D97C7F30D173h\n    QWORD 0400F6A7A29515D15h, 0400921FB54411744h\n\n.code\nPUBLIC Cg2dMapEffectDirection\nPUBLIC Cg2dMapEffectMotion\nPUBLIC Cg2dMapEffectDivisor\nPUBLIC Cg2dMapEffectStep\nPUBLIC Cg2dMapObserverProjection\nPUBLIC Cg2dMapObserverArc\nPUBLIC Cg2dMapActorVelocity\nPUBLIC Cg2dMapMoveDirection\nPUBLIC Cg2dMapActorSpiralOffset\nPUBLIC Cg2dMapObserverExitOffset\nPUBLIC Cg2dMapTimedOffset\n\n; 所有叶仅借用参数暂存区 [rsp+8,rsp+40)，不改 RSP 或非易失寄存器。\nCg2dMapEffectDirection PROC\n    mov dword ptr [rsp+8], ecx\n    fnstcw word ptr [rsp+12]\n    mov word ptr [rsp+14], 027Fh\n    fldcw word ptr [rsp+14]\n    mov r10, qword ptr [rsp+40]\n    fild dword ptr [rsp+8]\n    fmul qword ptr [Radians54DD18]\n    fld st(0)\n    fcos\n    fmul dword ptr [rdx]\n    fadd dword ptr [r8]\n    fstp qword ptr [r10]\n    fld dword ptr [r9]\n    fxch st(1)\n    fsin\n    fmul dword ptr [rdx]\n    fsubp st(1), st(0)\n    fstp qword ptr [r10+8]\n    fldcw word ptr [rsp+12]\n    ret\nCg2dMapEffectDirection ENDP\n\nCg2dMapEffectMotion PROC\n    mov dword ptr [rsp+8], edx\n    mov dword ptr [rsp+12], r8d\n    fnstcw word ptr [rsp+16]\n    mov word ptr [rsp+18], 027Fh\n    fldcw word ptr [rsp+18]\n    fild dword ptr [rsp+12]\n    fadd qword ptr [rcx+8]\n    fld st(0)\n    fstp qword ptr [rsp+24]\n    fild dword ptr [rsp+8]\n    fadd qword ptr [rcx]\n    fld st(0)\n    fld st(0)\n    fmul st(0), st(1)\n    fld qword ptr [rsp+24]\n    fmul qword ptr [rsp+24]\n    faddp st(1), st(0)\n    fsqrt\n    fstp qword ptr [r9]\n    fstp st(0)\n    xor ecx, ecx\n    fcom qword ptr [Zero54D5D0]\n    fnstsw ax\n    test ah, 041h\n    jnz MotionXNotPositive\n    mov ecx, 1\nMotionXNotPositive:\n    fcomp qword ptr [Zero54D5D0]\n    fnstsw ax\n    test ah, 1\n    jz MotionXDone\n    mov ecx, -1\nMotionXDone:\n    mov dword ptr [r9+8], ecx\n    xor ecx, ecx\n    fcom qword ptr [Zero54D5D0]\n    fnstsw ax\n    test ah, 041h\n    jnz MotionYNotPositive\n    mov ecx, 1\nMotionYNotPositive:\n    fcomp qword ptr [Zero54D5D0]\n    fnstsw ax\n    test ah, 1\n    jz MotionYDone\n    mov ecx, -1\nMotionYDone:\n    mov dword ptr [r9+12], ecx\n    fldcw word ptr [rsp+16]\n    ret\nCg2dMapEffectMotion ENDP\n\nCg2dMapEffectDivisor PROC\n    mov dword ptr [rsp+8], ecx\n    fnstcw word ptr [rsp+12]\n    mov word ptr [rsp+14], 027Fh\n    mov word ptr [rsp+16], 0E7Fh\n    fldcw word ptr [rsp+14]\n    fild dword ptr [rsp+8]\n    fld qword ptr [PowBase54E238]\n    fyl2x\n    ; 原 __twoToTOS@5433F0，不将幂结果存回 F64 后再消费。\n    fld st(0)\n    frndint\n    fsubr st(1), st(0)\n    fxch st(1)\n    fchs\n    f2xm1\n    fld1\n    faddp st(1), st(0)\n    fscale\n    fstp st(1)\n    fmul qword ptr [rdx]\n    fcom dword ptr [Zero54D5D0]\n    fnstsw ax\n    test ah, 040h\n    jz DivisorHasMagnitude\n    fstp st(0)\n    fld dword ptr [Fallback54E230]\nDivisorHasMagnitude:\n    fld dword ptr [SpawnScale54E22C]\n    fdiv st(0), st(1)\n    fldcw word ptr [rsp+16]\n    fistp qword ptr [rsp+24]\n    fldcw word ptr [rsp+14]\n    fstp st(0)\n    fldcw word ptr [rsp+12]\n    mov eax, dword ptr [rsp+24]\n    ret\nCg2dMapEffectDivisor ENDP\n\nCg2dMapEffectStep PROC\n    mov dword ptr [rsp+8], ecx\n    fnstcw word ptr [rsp+12]\n    mov word ptr [rsp+14], 027Fh\n    mov word ptr [rsp+16], 0E7Fh\n    fldcw word ptr [rsp+14]\n    fild dword ptr [rsp+8]\n    fmul dword ptr [SpeedScale54E228]\n    fld st(0)\n    fmul qword ptr [rdx]\n    fmul qword ptr [FixedScale54E220]\n    fldcw word ptr [rsp+16]\n    fistp qword ptr [r8]\n    fldcw word ptr [rsp+14]\n    fmul qword ptr [rdx+8]\n    fmul qword ptr [FixedScale54E220]\n    fldcw word ptr [rsp+16]\n    fistp qword ptr [r8+8]\n    fldcw word ptr [rsp+12]\n    ret\nCg2dMapEffectStep ENDP\n\nCg2dMapObserverProjection PROC\n    mov dword ptr [rsp+8], ecx\n    fnstcw word ptr [rsp+12]\n    mov word ptr [rsp+14], 027Fh\n    mov word ptr [rsp+16], 0E7Fh\n    fldcw word ptr [rsp+14]\n    fild dword ptr [rsp+8]\n    fmul dword ptr [Percent54D4AC]\n    fidiv dword ptr [rdx]\n    fst dword ptr [r9+16]\n    fmul dword ptr [Height54D47C]\n    fmul dword ptr [PercentScale54D4E4]\n    fsub dword ptr [HalfHeight54D408]\n    lea r10, ObserverAngles\n    movsxd r8, r8d\n    fld qword ptr [r10+r8*8]\n    fld st(0)\n    fcos\n    fld st(2)\n    fmulp st(1), st(0)\n    fldcw word ptr [rsp+16]\n    fistp qword ptr [r9]\n    fldcw word ptr [rsp+14]\n    fsin\n    fxch st(1)\n    fmulp st(1), st(0)\n    fchs\n    fldcw word ptr [rsp+16]\n    fistp qword ptr [r9+8]\n    fldcw word ptr [rsp+12]\n    ret\nCg2dMapObserverProjection ENDP\n\nCg2dMapObserverArc PROC\n    fnstcw word ptr [rsp+8]\n    mov word ptr [rsp+10], 027Fh\n    mov word ptr [rsp+12], 0E7Fh\n    fldcw word ptr [rsp+10]\n    fld dword ptr [rcx]\n    fsub dword ptr [ArcCenter54DD38]\n    fld st(0)\n    fmul st(0), st(1)\n    fmul dword ptr [ArcScale54DD34]\n    fldcw word ptr [rsp+12]\n    fistp qword ptr [rsp+16]\n    fldcw word ptr [rsp+10]\n    fstp st(0)\n    fldcw word ptr [rsp+8]\n    mov rax, qword ptr [rsp+16]\n    ret\nCg2dMapObserverArc ENDP\n\nCg2dMapActorVelocity PROC\n    fnstcw word ptr [rsp+8]\n    mov word ptr [rsp+10], 027Fh\n    fldcw word ptr [rsp+10]\n    fld1\n    fld dword ptr [rcx+16]\n    fcomp dword ptr [Zero54D5D0]\n    fnstsw ax\n    test ah, 040h\n    jnz ActorVelocitySelectRate\n    mov eax, dword ptr [rcx+16]\n    fstp st(0)\n    mov dword ptr [rdx], eax\n    jmp ActorVelocityNormalize\nActorVelocitySelectRate:\n    movsx eax, word ptr [rcx+12]\n    cmp eax, 5\n    jle ActorVelocityRateAtMostFive\n    fstp st(0)\n    fld dword ptr [ActorRate54D4A4]\n    jmp ActorVelocityScaleRate\nActorVelocityRateAtMostFive:\n    cmp eax, 4\n    jl ActorVelocityRateBelowFour\n    fstp st(0)\n    fld dword ptr [ActorRate54DD3C]\n    jmp ActorVelocityScaleRate\nActorVelocityRateBelowFour:\n    cmp eax, 2\n    jl ActorVelocityScaleRate\n    fstp st(0)\n    fld dword ptr [ActorRate54DD40]\nActorVelocityScaleRate:\n    fild dword ptr [rcx+8]\n    fmul st(0), st(1)\n    fmul dword ptr [PercentScale54D4E4]\n    fstp dword ptr [rdx]\n    fstp st(0)\nActorVelocityNormalize:\n    mov eax, dword ptr [rcx]\n    shl eax, 6\n    mov dword ptr [rsp+12], eax\n    fild dword ptr [rsp+12]\n    fsub dword ptr [rcx+20]\n    mov eax, dword ptr [rcx+4]\n    shl eax, 6\n    mov dword ptr [rsp+12], eax\n    fild dword ptr [rsp+12]\n    fsub dword ptr [rcx+24]\n    fst dword ptr [rsp+20]\n    fmul dword ptr [rsp+20]\n    fld st(1)\n    fmul st(0), st(2)\n    faddp st(1), st(0)\n    fsqrt\n    fst dword ptr [rsp+16]\n    fcomp dword ptr [Zero54D5D0]\n    fnstsw ax\n    test ah, 041h\n    jnz ActorVelocityZeroDistance\n    fdiv dword ptr [rsp+16]\n    fstp dword ptr [rdx+4]\n    fld dword ptr [rsp+20]\n    fdiv dword ptr [rsp+16]\n    fstp dword ptr [rdx+8]\n    jmp ActorVelocityStoreStep\nActorVelocityZeroDistance:\n    fstp st(0)\n    mov dword ptr [rdx+4], 0\n    mov dword ptr [rdx+8], 0\nActorVelocityStoreStep:\n    fld dword ptr [rdx+4]\n    fmul dword ptr [rdx]\n    fmul dword ptr [ActorStep54DD44]\n    fstp dword ptr [rdx+12]\n    fld dword ptr [rdx+8]\n    fmul dword ptr [rdx]\n    fmul dword ptr [ActorStep54DD44]\n    fstp dword ptr [rdx+16]\n    fldcw word ptr [rsp+8]\n    ret\nCg2dMapActorVelocity ENDP\n\nCg2dMapMoveDirection PROC\n    fnstcw word ptr [rsp+8]\n    mov word ptr [rsp+10], 027Fh\n    fldcw word ptr [rsp+10]\n    fld qword ptr [rcx+8]\n    fst dword ptr [rsp+12]\n    fmul dword ptr [rsp+12]\n    fld qword ptr [rcx]\n    fmul qword ptr [rcx]\n    faddp st(1), st(0)\n    fsqrt\n    fst dword ptr [rsp+16]\n    fcomp dword ptr [Zero54D5D0]\n    fnstsw ax\n    test ah, 041h\n    jnz MapMoveDirectionZero\n    fld qword ptr [rcx]\n    fdiv dword ptr [rsp+16]\n    fst dword ptr [rdx+8]\n    fstp qword ptr [rdx]\n    fld dword ptr [rsp+12]\n    fdiv dword ptr [rsp+16]\n    fstp dword ptr [rdx+12]\n    jmp MapMoveDirectionDone\nMapMoveDirectionZero:\n    fldz\n    fstp qword ptr [rdx]\n    mov dword ptr [rdx+8], 0\n    mov dword ptr [rdx+12], 0\nMapMoveDirectionDone:\n    fldcw word ptr [rsp+8]\n    ret\nCg2dMapMoveDirection ENDP\n\nCg2dMapActorSpiralOffset PROC\n    mov dword ptr [rsp+8], ecx\n    mov dword ptr [rsp+12], edx\n    fnstcw word ptr [rsp+16]\n    mov word ptr [rsp+18], 027Fh\n    mov word ptr [rsp+20], 0E7Fh\n    fldcw word ptr [rsp+18]\n    fild dword ptr [rsp+8]\n    fild dword ptr [rsp+12]\n    fmul qword ptr [Radians54DD18]\n    fld st(0)\n    fcos\n    fld st(2)\n    fmul dword ptr [ActorSpiralScale54DD14]\n    fmulp st(1), st(0)\n    fldcw word ptr [rsp+20]\n    fistp qword ptr [r8]\n    fldcw word ptr [rsp+18]\n    fsin\n    fchs\n    fxch st(1)\n    fmul dword ptr [ActorSpiralScale54DD10]\n    fmulp st(1), st(0)\n    fldcw word ptr [rsp+20]\n    fistp qword ptr [r8+8]\n    fldcw word ptr [rsp+16]\n    ret\nCg2dMapActorSpiralOffset ENDP\n\nCg2dMapObserverExitOffset PROC\n    fnstcw word ptr [rsp+16]\n    mov word ptr [rsp+18], 027Fh\n    mov word ptr [rsp+20], 0E7Fh\n    fldcw word ptr [rsp+18]\n    lea r10, ObserverAngles\n    movsxd rdx, edx\n    fld qword ptr [r10+rdx*8]\n    fld st(0)\n    fcos\n    mov eax, ecx\n    sub eax, 50\n    imul eax, eax, 10\n    mov dword ptr [rsp+8], eax\n    fild dword ptr [rsp+8]\n    fmulp st(1), st(0)\n    fldcw word ptr [rsp+20]\n    fistp qword ptr [r8]\n    fldcw word ptr [rsp+18]\n    fsin\n    mov eax, 50\n    sub eax, ecx\n    imul eax, eax, 10\n    mov dword ptr [rsp+8], eax\n    fild dword ptr [rsp+8]\n    fmulp st(1), st(0)\n    fldcw word ptr [rsp+20]\n    fistp qword ptr [r8+8]\n    fldcw word ptr [rsp+16]\n    ret\nCg2dMapObserverExitOffset ENDP\n\nCg2dMapTimedOffset PROC\n    mov dword ptr [rsp+8], ecx\n    fnstcw word ptr [rsp+12]\n    mov word ptr [rsp+14], 027Fh\n    fldcw word ptr [rsp+14]\n    fild dword ptr [rsp+8]\n    fmul qword ptr [Radians54DD18]\n    fld st(0)\n    fcos\n    fmul dword ptr [rdx]\n    fstp dword ptr [r8]\n    fsin\n    fmul dword ptr [rdx]\n    fchs\n    fstp dword ptr [r9]\n    fldcw word ptr [rsp+12]\n    ret\nCg2dMapTimedOffset ENDP\n\nEND\n",
+      "after": "OPTION CASEMAP:NONE\n\n.const\nALIGN 8\nRadians54DD18 QWORD 03F91DF46A2506B91h\nPowBase54E238 QWORD 03FF4000000000000h\nFixedScale54E220 QWORD 040F0000000000000h\nZero54D5D0 QWORD 0\nSpeedScale54E228 DWORD 03A83126Fh\nFallback54E230 DWORD 038D1B717h\nSpawnScale54E22C DWORD 044340000h\nPercent54D4AC DWORD 042C80000h\nHeight54D47C DWORD 043F00000h\nPercentScale54D4E4 DWORD 03C23D70Ah\nHalfHeight54D408 DWORD 043700000h\nArcCenter54DD38 DWORD 042200000h\nArcScale54DD34 DWORD 03D088889h\nActorRate54DD3C DWORD 03FCCCCCDh\nActorRate54DD40 DWORD 03F99999Ah\nActorRate54D4A4 DWORD 040000000h\nActorStep54DD44 DWORD 040800000h\nActorSpiralScale54DD14 DWORD 03FE00000h\nActorSpiralScale54DD10 DWORD 03F19999Ah\nALIGN 8\nObserverAngles QWORD 04002D97C7F30D173h, 03FF921FB54411744h\n    QWORD 03FE921FB54411744h, 0000000000000000h\n    QWORD 04015FDBBE9B8F45Ch, 04012D97C7F30D173h\n    QWORD 0400F6A7A29515D15h, 0400921FB54411744h\n\n.code\nPUBLIC Cg2dMapEffectDirection\nPUBLIC Cg2dMapEffectMotion\nPUBLIC Cg2dMapEffectDivisor\nEXTERN Cg2dLegacyCIPowerX87:PROC\nPUBLIC Cg2dMapEffectStep\nPUBLIC Cg2dMapObserverProjection\nPUBLIC Cg2dMapObserverArc\nPUBLIC Cg2dMapActorVelocity\nPUBLIC Cg2dMapMoveDirection\nPUBLIC Cg2dMapActorSpiralOffset\nPUBLIC Cg2dMapObserverExitOffset\nPUBLIC Cg2dMapTimedOffset\n\n; 其余叶仍只借用参数暂存区 [rsp+8,rsp+40)，不改RSP或非易失寄存器。\n; 除数接口用72B正常展开帧调用完整CI幂，其余接口不变。\nCg2dMapEffectDirection PROC\n    mov dword ptr [rsp+8], ecx\n    fnstcw word ptr [rsp+12]\n    mov word ptr [rsp+14], 027Fh\n    fldcw word ptr [rsp+14]\n    mov r10, qword ptr [rsp+40]\n    fild dword ptr [rsp+8]\n    fmul qword ptr [Radians54DD18]\n    fld st(0)\n    fcos\n    fmul dword ptr [rdx]\n    fadd dword ptr [r8]\n    fstp qword ptr [r10]\n    fld dword ptr [r9]\n    fxch st(1)\n    fsin\n    fmul dword ptr [rdx]\n    fsubp st(1), st(0)\n    fstp qword ptr [r10+8]\n    fldcw word ptr [rsp+12]\n    ret\nCg2dMapEffectDirection ENDP\n\nCg2dMapEffectMotion PROC\n    mov dword ptr [rsp+8], edx\n    mov dword ptr [rsp+12], r8d\n    fnstcw word ptr [rsp+16]\n    mov word ptr [rsp+18], 027Fh\n    fldcw word ptr [rsp+18]\n    fild dword ptr [rsp+12]\n    fadd qword ptr [rcx+8]\n    fld st(0)\n    fstp qword ptr [rsp+24]\n    fild dword ptr [rsp+8]\n    fadd qword ptr [rcx]\n    fld st(0)\n    fld st(0)\n    fmul st(0), st(1)\n    fld qword ptr [rsp+24]\n    fmul qword ptr [rsp+24]\n    faddp st(1), st(0)\n    fsqrt\n    fstp qword ptr [r9]\n    fstp st(0)\n    xor ecx, ecx\n    fcom qword ptr [Zero54D5D0]\n    fnstsw ax\n    test ah, 041h\n    jnz MotionXNotPositive\n    mov ecx, 1\nMotionXNotPositive:\n    fcomp qword ptr [Zero54D5D0]\n    fnstsw ax\n    test ah, 1\n    jz MotionXDone\n    mov ecx, -1\nMotionXDone:\n    mov dword ptr [r9+8], ecx\n    xor ecx, ecx\n    fcom qword ptr [Zero54D5D0]\n    fnstsw ax\n    test ah, 041h\n    jnz MotionYNotPositive\n    mov ecx, 1\nMotionYNotPositive:\n    fcomp qword ptr [Zero54D5D0]\n    fnstsw ax\n    test ah, 1\n    jz MotionYDone\n    mov ecx, -1\nMotionYDone:\n    mov dword ptr [r9+12], ecx\n    fldcw word ptr [rsp+16]\n    ret\nCg2dMapEffectMotion ENDP\n\n; 原46F38D/46F43A两CI调用点经同一接口接完整一般幂，不再内联固定域算法。\n; 72B正常帧保32B调用区、S32指数/三CW值、借用幅值指针和原I64截断槽。\nCg2dMapEffectDivisor PROC FRAME\n    sub rsp, 72\n    .allocstack 72\n    .endprolog\n    mov dword ptr [rsp+32], ecx\n    mov qword ptr [rsp+48], rdx\n    fnstcw word ptr [rsp+36]\n    mov word ptr [rsp+38], 027Fh\n    mov word ptr [rsp+40], 0E7Fh\n    fldcw word ptr [rsp+38]\n    fld qword ptr [PowBase54E238]\n    fild dword ptr [rsp+32]\n    call Cg2dLegacyCIPowerX87\n    mov rdx, qword ptr [rsp+48]\n    fmul qword ptr [rdx]\n    fcom dword ptr [Zero54D5D0]\n    fnstsw ax\n    test ah, 040h\n    jz DivisorHasMagnitude\n    fstp st(0)\n    fld dword ptr [Fallback54E230]\nDivisorHasMagnitude:\n    fld dword ptr [SpawnScale54E22C]\n    fdiv st(0), st(1)\n    fldcw word ptr [rsp+40]\n    fistp qword ptr [rsp+56]\n    fldcw word ptr [rsp+38]\n    fstp st(0)\n    fldcw word ptr [rsp+36]\n    mov eax, dword ptr [rsp+56]\n    add rsp, 72\n    ret\nCg2dMapEffectDivisor ENDP\n\nCg2dMapEffectStep PROC\n    mov dword ptr [rsp+8], ecx\n    fnstcw word ptr [rsp+12]\n    mov word ptr [rsp+14], 027Fh\n    mov word ptr [rsp+16], 0E7Fh\n    fldcw word ptr [rsp+14]\n    fild dword ptr [rsp+8]\n    fmul dword ptr [SpeedScale54E228]\n    fld st(0)\n    fmul qword ptr [rdx]\n    fmul qword ptr [FixedScale54E220]\n    fldcw word ptr [rsp+16]\n    fistp qword ptr [r8]\n    fldcw word ptr [rsp+14]\n    fmul qword ptr [rdx+8]\n    fmul qword ptr [FixedScale54E220]\n    fldcw word ptr [rsp+16]\n    fistp qword ptr [r8+8]\n    fldcw word ptr [rsp+12]\n    ret\nCg2dMapEffectStep ENDP\n\nCg2dMapObserverProjection PROC\n    mov dword ptr [rsp+8], ecx\n    fnstcw word ptr [rsp+12]\n    mov word ptr [rsp+14], 027Fh\n    mov word ptr [rsp+16], 0E7Fh\n    fldcw word ptr [rsp+14]\n    fild dword ptr [rsp+8]\n    fmul dword ptr [Percent54D4AC]\n    fidiv dword ptr [rdx]\n    fst dword ptr [r9+16]\n    fmul dword ptr [Height54D47C]\n    fmul dword ptr [PercentScale54D4E4]\n    fsub dword ptr [HalfHeight54D408]\n    lea r10, ObserverAngles\n    movsxd r8, r8d\n    fld qword ptr [r10+r8*8]\n    fld st(0)\n    fcos\n    fld st(2)\n    fmulp st(1), st(0)\n    fldcw word ptr [rsp+16]\n    fistp qword ptr [r9]\n    fldcw word ptr [rsp+14]\n    fsin\n    fxch st(1)\n    fmulp st(1), st(0)\n    fchs\n    fldcw word ptr [rsp+16]\n    fistp qword ptr [r9+8]\n    fldcw word ptr [rsp+12]\n    ret\nCg2dMapObserverProjection ENDP\n\nCg2dMapObserverArc PROC\n    fnstcw word ptr [rsp+8]\n    mov word ptr [rsp+10], 027Fh\n    mov word ptr [rsp+12], 0E7Fh\n    fldcw word ptr [rsp+10]\n    fld dword ptr [rcx]\n    fsub dword ptr [ArcCenter54DD38]\n    fld st(0)\n    fmul st(0), st(1)\n    fmul dword ptr [ArcScale54DD34]\n    fldcw word ptr [rsp+12]\n    fistp qword ptr [rsp+16]\n    fldcw word ptr [rsp+10]\n    fstp st(0)\n    fldcw word ptr [rsp+8]\n    mov rax, qword ptr [rsp+16]\n    ret\nCg2dMapObserverArc ENDP\n\nCg2dMapActorVelocity PROC\n    fnstcw word ptr [rsp+8]\n    mov word ptr [rsp+10], 027Fh\n    fldcw word ptr [rsp+10]\n    fld1\n    fld dword ptr [rcx+16]\n    fcomp dword ptr [Zero54D5D0]\n    fnstsw ax\n    test ah, 040h\n    jnz ActorVelocitySelectRate\n    mov eax, dword ptr [rcx+16]\n    fstp st(0)\n    mov dword ptr [rdx], eax\n    jmp ActorVelocityNormalize\nActorVelocitySelectRate:\n    movsx eax, word ptr [rcx+12]\n    cmp eax, 5\n    jle ActorVelocityRateAtMostFive\n    fstp st(0)\n    fld dword ptr [ActorRate54D4A4]\n    jmp ActorVelocityScaleRate\nActorVelocityRateAtMostFive:\n    cmp eax, 4\n    jl ActorVelocityRateBelowFour\n    fstp st(0)\n    fld dword ptr [ActorRate54DD3C]\n    jmp ActorVelocityScaleRate\nActorVelocityRateBelowFour:\n    cmp eax, 2\n    jl ActorVelocityScaleRate\n    fstp st(0)\n    fld dword ptr [ActorRate54DD40]\nActorVelocityScaleRate:\n    fild dword ptr [rcx+8]\n    fmul st(0), st(1)\n    fmul dword ptr [PercentScale54D4E4]\n    fstp dword ptr [rdx]\n    fstp st(0)\nActorVelocityNormalize:\n    mov eax, dword ptr [rcx]\n    shl eax, 6\n    mov dword ptr [rsp+12], eax\n    fild dword ptr [rsp+12]\n    fsub dword ptr [rcx+20]\n    mov eax, dword ptr [rcx+4]\n    shl eax, 6\n    mov dword ptr [rsp+12], eax\n    fild dword ptr [rsp+12]\n    fsub dword ptr [rcx+24]\n    fst dword ptr [rsp+20]\n    fmul dword ptr [rsp+20]\n    fld st(1)\n    fmul st(0), st(2)\n    faddp st(1), st(0)\n    fsqrt\n    fst dword ptr [rsp+16]\n    fcomp dword ptr [Zero54D5D0]\n    fnstsw ax\n    test ah, 041h\n    jnz ActorVelocityZeroDistance\n    fdiv dword ptr [rsp+16]\n    fstp dword ptr [rdx+4]\n    fld dword ptr [rsp+20]\n    fdiv dword ptr [rsp+16]\n    fstp dword ptr [rdx+8]\n    jmp ActorVelocityStoreStep\nActorVelocityZeroDistance:\n    fstp st(0)\n    mov dword ptr [rdx+4], 0\n    mov dword ptr [rdx+8], 0\nActorVelocityStoreStep:\n    fld dword ptr [rdx+4]\n    fmul dword ptr [rdx]\n    fmul dword ptr [ActorStep54DD44]\n    fstp dword ptr [rdx+12]\n    fld dword ptr [rdx+8]\n    fmul dword ptr [rdx]\n    fmul dword ptr [ActorStep54DD44]\n    fstp dword ptr [rdx+16]\n    fldcw word ptr [rsp+8]\n    ret\nCg2dMapActorVelocity ENDP\n\nCg2dMapMoveDirection PROC\n    fnstcw word ptr [rsp+8]\n    mov word ptr [rsp+10], 027Fh\n    fldcw word ptr [rsp+10]\n    fld qword ptr [rcx+8]\n    fst dword ptr [rsp+12]\n    fmul dword ptr [rsp+12]\n    fld qword ptr [rcx]\n    fmul qword ptr [rcx]\n    faddp st(1), st(0)\n    fsqrt\n    fst dword ptr [rsp+16]\n    fcomp dword ptr [Zero54D5D0]\n    fnstsw ax\n    test ah, 041h\n    jnz MapMoveDirectionZero\n    fld qword ptr [rcx]\n    fdiv dword ptr [rsp+16]\n    fst dword ptr [rdx+8]\n    fstp qword ptr [rdx]\n    fld dword ptr [rsp+12]\n    fdiv dword ptr [rsp+16]\n    fstp dword ptr [rdx+12]\n    jmp MapMoveDirectionDone\nMapMoveDirectionZero:\n    fldz\n    fstp qword ptr [rdx]\n    mov dword ptr [rdx+8], 0\n    mov dword ptr [rdx+12], 0\nMapMoveDirectionDone:\n    fldcw word ptr [rsp+8]\n    ret\nCg2dMapMoveDirection ENDP\n\nCg2dMapActorSpiralOffset PROC\n    mov dword ptr [rsp+8], ecx\n    mov dword ptr [rsp+12], edx\n    fnstcw word ptr [rsp+16]\n    mov word ptr [rsp+18], 027Fh\n    mov word ptr [rsp+20], 0E7Fh\n    fldcw word ptr [rsp+18]\n    fild dword ptr [rsp+8]\n    fild dword ptr [rsp+12]\n    fmul qword ptr [Radians54DD18]\n    fld st(0)\n    fcos\n    fld st(2)\n    fmul dword ptr [ActorSpiralScale54DD14]\n    fmulp st(1), st(0)\n    fldcw word ptr [rsp+20]\n    fistp qword ptr [r8]\n    fldcw word ptr [rsp+18]\n    fsin\n    fchs\n    fxch st(1)\n    fmul dword ptr [ActorSpiralScale54DD10]\n    fmulp st(1), st(0)\n    fldcw word ptr [rsp+20]\n    fistp qword ptr [r8+8]\n    fldcw word ptr [rsp+16]\n    ret\nCg2dMapActorSpiralOffset ENDP\n\nCg2dMapObserverExitOffset PROC\n    fnstcw word ptr [rsp+16]\n    mov word ptr [rsp+18], 027Fh\n    mov word ptr [rsp+20], 0E7Fh\n    fldcw word ptr [rsp+18]\n    lea r10, ObserverAngles\n    movsxd rdx, edx\n    fld qword ptr [r10+rdx*8]\n    fld st(0)\n    fcos\n    mov eax, ecx\n    sub eax, 50\n    imul eax, eax, 10\n    mov dword ptr [rsp+8], eax\n    fild dword ptr [rsp+8]\n    fmulp st(1), st(0)\n    fldcw word ptr [rsp+20]\n    fistp qword ptr [r8]\n    fldcw word ptr [rsp+18]\n    fsin\n    mov eax, 50\n    sub eax, ecx\n    imul eax, eax, 10\n    mov dword ptr [rsp+8], eax\n    fild dword ptr [rsp+8]\n    fmulp st(1), st(0)\n    fldcw word ptr [rsp+20]\n    fistp qword ptr [r8+8]\n    fldcw word ptr [rsp+16]\n    ret\nCg2dMapObserverExitOffset ENDP\n\nCg2dMapTimedOffset PROC\n    mov dword ptr [rsp+8], ecx\n    fnstcw word ptr [rsp+12]\n    mov word ptr [rsp+14], 027Fh\n    fldcw word ptr [rsp+14]\n    fild dword ptr [rsp+8]\n    fmul qword ptr [Radians54DD18]\n    fld st(0)\n    fcos\n    fmul dword ptr [rdx]\n    fstp dword ptr [r8]\n    fsin\n    fmul dword ptr [rdx]\n    fchs\n    fstp dword ptr [r9]\n    fldcw word ptr [rsp+12]\n    ret\nCg2dMapTimedOffset ENDP\n\nEND\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/MapEffectMath.hpp",
+      "before": "#pragma once\n\n#include <cstddef>\n#include <cstdint>\n\nnamespace cg::platform::detail {\n\n// 46F243–46F2B9 的局部结果；不是共享状态或原记录布局。\nstruct MapEffectMotion {\n    double magnitude;\n    std::int32_t horizontalSign;\n    std::int32_t verticalSign;\n};\n\nstatic_assert(offsetof(MapEffectMotion, magnitude) == 0);\nstatic_assert(offsetof(MapEffectMotion, horizontalSign) == 8);\nstatic_assert(offsetof(MapEffectMotion, verticalSign) == 12);\nstatic_assert(sizeof(MapEffectMotion) == 16);\n\n// 私有 MASM 叶保留 x87 指令/存储边界，恢复控制字；见场景 SPEC §20.19。\nextern \"C\" void Cg2dMapEffectDirection(\n    std::int32_t angle,\n    const float* speed,\n    const std::uint32_t* offsetXBits,\n    const std::uint32_t* offsetYBits,\n    double* direction) noexcept;\n\nextern \"C\" void Cg2dMapEffectMotion(\n    const double* direction,\n    std::int32_t cameraX,\n    std::int32_t cameraY,\n    MapEffectMotion* result) noexcept;\n\nextern \"C\" std::int32_t Cg2dMapEffectDivisor(\n    std::int32_t exponent,\n    const double* magnitude) noexcept;\n\nextern \"C\" void Cg2dMapEffectStep(\n    std::int32_t speed,\n    const double* direction,\n    std::int64_t* delta) noexcept;\n\n// 440C50 在 FrameMove 之前计算两轴截断值，并单独保留 FST 的 F32 progress。\nstruct MapObserverProjection {\n    std::int64_t x;\n    std::int64_t y;\n    float progress;\n};\n\nstatic_assert(offsetof(MapObserverProjection, x) == 0);\nstatic_assert(offsetof(MapObserverProjection, y) == 8);\nstatic_assert(offsetof(MapObserverProjection, progress) == 16);\nstatic_assert(sizeof(MapObserverProjection) == 24);\n\nextern \"C\" void Cg2dMapObserverProjection(\n    std::int32_t frame,\n    const std::int32_t* duration,\n    std::int32_t direction,\n    MapObserverProjection* result) noexcept;\n\n// 原 440D41–440D61；在 FrameMove 之后重新读取已存 F32 progress。\nextern \"C\" std::int64_t Cg2dMapObserverArc(const float* progress) noexcept;\n\n// 442110 的同步数值快照；既非 action 布局，也非共享状态。\nstruct MapActorVelocityInput {\n    std::int32_t targetX;\n    std::int32_t targetY;\n    std::int32_t speed;\n    std::int16_t pathCount;\n    std::uint16_t reserved;\n    float overrideRate;\n    float worldX;\n    float worldY;\n};\n\nstruct MapActorVelocity {\n    float rate;\n    float directionX;\n    float directionY;\n    float stepX;\n    float stepY;\n};\n\nstatic_assert(offsetof(MapActorVelocityInput, targetX) == 0);\nstatic_assert(offsetof(MapActorVelocityInput, targetY) == 4);\nstatic_assert(offsetof(MapActorVelocityInput, speed) == 8);\nstatic_assert(offsetof(MapActorVelocityInput, pathCount) == 12);\nstatic_assert(offsetof(MapActorVelocityInput, overrideRate) == 16);\nstatic_assert(offsetof(MapActorVelocityInput, worldX) == 20);\nstatic_assert(offsetof(MapActorVelocityInput, worldY) == 24);\nstatic_assert(sizeof(MapActorVelocityInput) == 28);\nstatic_assert(offsetof(MapActorVelocity, rate) == 0);\nstatic_assert(offsetof(MapActorVelocity, directionX) == 4);\nstatic_assert(offsetof(MapActorVelocity, directionY) == 8);\nstatic_assert(offsetof(MapActorVelocity, stepX) == 12);\nstatic_assert(offsetof(MapActorVelocity, stepY) == 16);\nstatic_assert(sizeof(MapActorVelocity) == 20);\n\nextern \"C\" void Cg2dMapActorVelocity(\n    const MapActorVelocityInput* input, MapActorVelocity* result) noexcept;\n\n// 46A410先将X差落F32，4422F0不落；调用方分别形成实际差值后借用此数值叶。\nstruct MapMoveDifference {\n    double x;\n    double y;\n};\n\nstruct MapMoveDirection {\n    double unroundedX; // 原X方向未落F32的寄存器值，仍按PC53承接。\n    float x;\n    float y;\n};\n\nstatic_assert(offsetof(MapMoveDifference, x) == 0);\nstatic_assert(offsetof(MapMoveDifference, y) == 8);\nstatic_assert(sizeof(MapMoveDifference) == 16);\nstatic_assert(offsetof(MapMoveDirection, unroundedX) == 0);\nstatic_assert(offsetof(MapMoveDirection, x) == 8);\nstatic_assert(offsetof(MapMoveDirection, y) == 12);\nstatic_assert(sizeof(MapMoveDirection) == 16);\n\nextern \"C\" void Cg2dMapMoveDirection(\n    const MapMoveDifference* difference, MapMoveDirection* result) noexcept;\n\n// 原43EED2–43EF01：FCOS/FSIN与progress的原序乘法，输出两个截断I64偏移。\nextern \"C\" void Cg2dMapActorSpiralOffset(\n    std::int32_t progress, std::int32_t angle, std::int64_t* result) noexcept;\n\n// 原440188-4401D2：固定方向的退出轨迹；整数抛物线仍由父回调计算。\nextern \"C\" void Cg2dMapObserverExitOffset(\n    std::int32_t frame, std::int32_t direction, std::int64_t* result) noexcept;\n\n// 原448542-448560/448795-4487B3：两次重读幅值，直接按X→Y写共享F32位槽。\nextern \"C\" void Cg2dMapTimedOffset(\n    std::int32_t angle, const float* amplitude,\n    std::uint32_t* xBits, std::uint32_t* yBits) noexcept;\n\n} // namespace cg::platform::detail\n",
+      "after": "#pragma once\n\n#include <cstddef>\n#include <cstdint>\n\nnamespace cg::platform::detail {\n\n// 46F243–46F2B9 的局部结果；不是共享状态或原记录布局。\nstruct MapEffectMotion {\n    double magnitude;\n    std::int32_t horizontalSign;\n    std::int32_t verticalSign;\n};\n\nstatic_assert(offsetof(MapEffectMotion, magnitude) == 0);\nstatic_assert(offsetof(MapEffectMotion, horizontalSign) == 8);\nstatic_assert(offsetof(MapEffectMotion, verticalSign) == 12);\nstatic_assert(sizeof(MapEffectMotion) == 16);\n\n// 私有MASM接口保留x87指令/存储边界并恢复控制字；见场景SPEC§20.19。\nextern \"C\" void Cg2dMapEffectDirection(\n    std::int32_t angle,\n    const float* speed,\n    const std::uint32_t* offsetXBits,\n    const std::uint32_t* offsetYBits,\n    double* direction) noexcept;\n\nextern \"C\" void Cg2dMapEffectMotion(\n    const double* direction,\n    std::int32_t cameraX,\n    std::int32_t cameraY,\n    MapEffectMotion* result) noexcept;\n\n// 原46F38D/46F43A：S32指数/借用幅值经完整CI幂，ST0连续消费后返回原截断低S32。\n// 正常72B调用帧保存幅值指针，不以通用幂返回EDX当原指针；见幂应用接线SPEC。\nextern \"C\" std::int32_t Cg2dMapEffectDivisor(\n    std::int32_t exponent,\n    const double* magnitude) noexcept;\n\nextern \"C\" void Cg2dMapEffectStep(\n    std::int32_t speed,\n    const double* direction,\n    std::int64_t* delta) noexcept;\n\n// 440C50 在 FrameMove 之前计算两轴截断值，并单独保留 FST 的 F32 progress。\nstruct MapObserverProjection {\n    std::int64_t x;\n    std::int64_t y;\n    float progress;\n};\n\nstatic_assert(offsetof(MapObserverProjection, x) == 0);\nstatic_assert(offsetof(MapObserverProjection, y) == 8);\nstatic_assert(offsetof(MapObserverProjection, progress) == 16);\nstatic_assert(sizeof(MapObserverProjection) == 24);\n\nextern \"C\" void Cg2dMapObserverProjection(\n    std::int32_t frame,\n    const std::int32_t* duration,\n    std::int32_t direction,\n    MapObserverProjection* result) noexcept;\n\n// 原 440D41–440D61；在 FrameMove 之后重新读取已存 F32 progress。\nextern \"C\" std::int64_t Cg2dMapObserverArc(const float* progress) noexcept;\n\n// 442110 的同步数值快照；既非 action 布局，也非共享状态。\nstruct MapActorVelocityInput {\n    std::int32_t targetX;\n    std::int32_t targetY;\n    std::int32_t speed;\n    std::int16_t pathCount;\n    std::uint16_t reserved;\n    float overrideRate;\n    float worldX;\n    float worldY;\n};\n\nstruct MapActorVelocity {\n    float rate;\n    float directionX;\n    float directionY;\n    float stepX;\n    float stepY;\n};\n\nstatic_assert(offsetof(MapActorVelocityInput, targetX) == 0);\nstatic_assert(offsetof(MapActorVelocityInput, targetY) == 4);\nstatic_assert(offsetof(MapActorVelocityInput, speed) == 8);\nstatic_assert(offsetof(MapActorVelocityInput, pathCount) == 12);\nstatic_assert(offsetof(MapActorVelocityInput, overrideRate) == 16);\nstatic_assert(offsetof(MapActorVelocityInput, worldX) == 20);\nstatic_assert(offsetof(MapActorVelocityInput, worldY) == 24);\nstatic_assert(sizeof(MapActorVelocityInput) == 28);\nstatic_assert(offsetof(MapActorVelocity, rate) == 0);\nstatic_assert(offsetof(MapActorVelocity, directionX) == 4);\nstatic_assert(offsetof(MapActorVelocity, directionY) == 8);\nstatic_assert(offsetof(MapActorVelocity, stepX) == 12);\nstatic_assert(offsetof(MapActorVelocity, stepY) == 16);\nstatic_assert(sizeof(MapActorVelocity) == 20);\n\nextern \"C\" void Cg2dMapActorVelocity(\n    const MapActorVelocityInput* input, MapActorVelocity* result) noexcept;\n\n// 46A410先将X差落F32，4422F0不落；调用方分别形成实际差值后借用此数值叶。\nstruct MapMoveDifference {\n    double x;\n    double y;\n};\n\nstruct MapMoveDirection {\n    double unroundedX; // 原X方向未落F32的寄存器值，仍按PC53承接。\n    float x;\n    float y;\n};\n\nstatic_assert(offsetof(MapMoveDifference, x) == 0);\nstatic_assert(offsetof(MapMoveDifference, y) == 8);\nstatic_assert(sizeof(MapMoveDifference) == 16);\nstatic_assert(offsetof(MapMoveDirection, unroundedX) == 0);\nstatic_assert(offsetof(MapMoveDirection, x) == 8);\nstatic_assert(offsetof(MapMoveDirection, y) == 12);\nstatic_assert(sizeof(MapMoveDirection) == 16);\n\nextern \"C\" void Cg2dMapMoveDirection(\n    const MapMoveDifference* difference, MapMoveDirection* result) noexcept;\n\n// 原43EED2–43EF01：FCOS/FSIN与progress的原序乘法，输出两个截断I64偏移。\nextern \"C\" void Cg2dMapActorSpiralOffset(\n    std::int32_t progress, std::int32_t angle, std::int64_t* result) noexcept;\n\n// 原440188-4401D2：固定方向的退出轨迹；整数抛物线仍由父回调计算。\nextern \"C\" void Cg2dMapObserverExitOffset(\n    std::int32_t frame, std::int32_t direction, std::int64_t* result) noexcept;\n\n// 原448542-448560/448795-4487B3：两次重读幅值，直接按X→Y写共享F32位槽。\nextern \"C\" void Cg2dMapTimedOffset(\n    std::int32_t angle, const float* amplitude,\n    std::uint32_t* xBits, std::uint32_t* yBits) noexcept;\n\n} // namespace cg::platform::detail\n"
+    }
+  ],
+  "mapping_states_before": [
+    {
+      "index": 1265,
+      "record": {
+        "original_entry": "0x46f1d0",
+        "inventory_id": "F:0006F1D0",
+        "status": "MFA01效果固定点正常S32实修与原身份纳管；全父/运行未验",
+        "original_end_exclusive": "0x46f678",
+        "instruction_count": 357,
+        "original_reference_count": 2,
+        "sources": [
+          {
+            "path": "src/world/SceneState.cpp",
+            "symbols": [
+              "Sub_46F1D0"
+            ],
+            "relationship": "既有完整效果本体，本次只一段固定点正常S32/原位型写回"
+          },
+          {
+            "path": "src/platform/MapEffectMath.asm",
+            "symbols": [
+              "Cg2dMapEffectDirection",
+              "Cg2dMapEffectMotion",
+              "Cg2dMapEffectDivisor",
+              "Cg2dMapEffectStep"
+            ],
+            "relationship": "既有专用x87四叶，原PC53与控制字/不落F64幂消费保持，本次不改"
+          },
+          {
+            "path": "src/platform/MapEffectMath.hpp",
+            "symbols": [
+              "Cg2dMapEffectDirection",
+              "Cg2dMapEffectMotion",
+              "Cg2dMapEffectDivisor",
+              "Cg2dMapEffectStep"
+            ],
+            "relationship": "既有真实x64数值接口，限定业务边界，不扩通用库"
+          }
+        ],
+        "inbound_evidence": [
+          {
+            "address": "0x44109e",
+            "parent_entry": "0x440ff0",
+            "reference_type": 17
+          },
+          {
+            "address": "0x46e4b9",
+            "parent_entry": "0x46e4a0",
+            "reference_type": 19
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json"
+        ],
+        "verification_level": "三个原495条1697B与引用类型保存，仅固定点局部/两pow点及正底数路径和一段源差异静态；不重验全357条场景/一般pow/全部父/实际运行",
+        "boundary": "既有完整效果父，本次只固定点四加法/相机两正常S32×65536；原delta低S32、W32位型、四固定点/两像素写序与SAR16/原边界及全部其它正文保持。三体保存不重验完整357条/两个上游父/场景生成RNG结果/所有alias或owner寿命。 数学异常不专项保护或模拟/称等价，完整场景/生成RNG结果/所有alias与owner寿命、实际CPU浮点环境/ABI/SDK/画面未验。"
+      },
+      "disposition": {
+        "inventory_id": "F:0006F1D0",
+        "disposition": "adapted",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json"
+        ]
+      }
+    },
+    {
+      "index": 1266,
+      "record": {
+        "original_entry": "0x53d000",
+        "inventory_id": "F:0013D000",
+        "status": "BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。 原历史：MFA01仅现有两正底数调用的内联路径身份；一般pow职责未闭，不计新增幂实现",
+        "original_end_exclusive": "0x53d019",
+        "instruction_count": 8,
+        "original_reference_count": 2,
+        "sources": [
+          {
+            "path": "src/platform/MapEffectMath.asm",
+            "symbols": [
+              "Cg2dMapEffectDivisor"
+            ],
+            "relationship": "只实际正底数1.25/整数指数路径内联，既有原x87序列；完整一般pow未闭"
+          },
+          {
+            "path": "src/platform/MapEffectMath.hpp",
+            "symbols": [
+              "Cg2dMapEffectDivisor"
+            ],
+            "relationship": "现有S32指数/幅值借用接口，非原x86 _pow通用ABI"
+          },
+          {
+            "path": "src/world/SceneState.cpp",
+            "symbols": [
+              "Sub_46F1D0"
+            ],
+            "relationship": "实际两原点由spawn两次调用Divisor复用，保level/速度/除数/RNG消费"
+          },
+          {
+            "path": "src/platform/LegacyFloatEnvironment.asm",
+            "symbols": [
+              "Cg2dLegacyCIPowerX87"
+            ],
+            "relationship": "原53D000完整CI入口：ST0=Y/ST1=X，FXCH/FSTP X/FST Y/高W32样本及真实完整core；连续ST0输出只在ASM，不把现MFA固定1.25内联当通用本体。"
+          },
+          {
+            "path": "src/platform/LegacyFloatEnvironment.asm",
+            "symbols": [
+              "Cg2dLegacyCIPowerX87",
+              "Cg2dLegacyPowerCoreX87"
+            ],
+            "relationship": "四ASM完整本体/13真实调用、原连续ST0/字段和状态；232B core/两56B接口帧，108B原FSAVE-FRSTOR不解释保存区，原未生产结果不补值"
+          },
+          {
+            "path": "src/platform/LegacyFloatEnvironment.hpp",
+            "symbols": [
+              "Cg2dLegacyCIPowerX87",
+              "Cg2dLegacyCIPowerX87"
+            ],
+            "relationship": "普通Win64外部F64值接口与内部CI/core/真实指数消费ST0合同，不冒CPP x87返回"
+          },
+          {
+            "path": "src/platform/LegacyFloatEnvironment.cpp",
+            "symbols": [
+              "PowerLegacyFloat_53D019",
+              "Cg2dLegacyPowerFastExitGate1085FBC"
+            ],
+            "relationship": "普通值入口只借两个F64/结果，原未初始化静态W32唯一owner；不借宿主pow或将IDA无值FF作初值"
+          }
+        ],
+        "inbound_evidence": [
+          {
+            "address": "0x46f38d",
+            "parent_entry": "0x46f1d0",
+            "reference_type": 17
+          },
+          {
+            "address": "0x46f43a",
+            "parent_entry": "0x46f1d0",
+            "reference_type": 17
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-baseline",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-decision",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-acceptance",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-source-state"
+        ],
+        "verification_level": "BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。 原历史：三个原495条1697B与引用类型保存，仅固定点局部/两pow点及正底数路径和一段源差异静态；不重验全357条场景/一般pow/全部父/实际运行",
+        "boundary": "BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。 原历史：原x87 __CIpow只有两直接call均来自46F1D0，底数F64 1.25与signedLevel−1；新端这两点由真实spawn/Cg2dMapEffectDivisor内联承接正底数路径，不创建同名x86寄存器包装或迁std::pow。只本调用正常路径，完整通用职责/未知间接调用/错误和浮点状态/机器ABI未闭。 数学异常不专项保护或模拟/称等价，完整场景/生成RNG结果/所有alias与owner寿命、实际CPU浮点环境/ABI/SDK/画面未验。",
+        "power_generic_body": {
+          "spec_id": "BWK01",
+          "evidence_refs": [
+            "doc/cg2d_power_generic_body_spec.md#power-generic-baseline",
+            "doc/cg2d_power_generic_body_spec.md#power-generic-decision",
+            "doc/cg2d_power_generic_body_spec.md#power-generic-acceptance",
+            "doc/cg2d_power_generic_body_spec.md#power-generic-source-state"
+          ],
+          "full_original_root_captured": true,
+          "original_instruction_count": 8,
+          "original_code_bytes": 25,
+          "original_page_count": 1,
+          "original_direct_call_count": 1,
+          "original_indirect_call_count": 0,
+          "original_jump_count": 0,
+          "original_return_count": 1,
+          "original_total_instruction_count": 159,
+          "original_total_code_bytes": 554,
+          "original_total_page_count": 5,
+          "original_total_direct_call_count": 11,
+          "original_total_unique_direct_callee_count": 7,
+          "original_total_indirect_call_count": 0,
+          "original_total_jump_count": 36,
+          "original_total_return_count": 5,
+          "original_total_inbound_call_count": 5,
+          "original_total_inbound_flow_count": 1,
+          "original_core_first_page_reuse_reference": "doc/cg2d_power_general_helpers_evidence.json",
+          "source_body_added": true,
+          "source_cpp_file_count": 1,
+          "source_asm_file_count": 1,
+          "source_header_file_count": 1,
+          "source_patch_count": 7,
+          "new_original_mapped_function_count": 2,
+          "expanded_existing_mapping_count": 2,
+          "new_native_function_body_count": 5,
+          "new_cpp_body_count": 1,
+          "new_asm_proc_count": 4,
+          "new_private_C_bridge_count": 1,
+          "new_mutable_shared_owner_count": 1,
+          "full_generic_core_two_chunks_all_paths_and_real_exponent_consumer_kept": true,
+          "loaded_Y_EAX_ECX_FLAGS_samples_and_CW_full_W32_carrier_kept": true,
+          "PC_bridge_ECX_restore_kept": true,
+          "original_two_F64_stores_FSAVE108_true_helper_FRSTOR_and_result_load_kept": true,
+          "unwritten_helper_result_and_unconsumed_bytes_not_filled": true,
+          "opaque_environment_not_interpreted_or_pointer_simulated": true,
+          "original_range_tail_adapted_to_real_call_and_native_frame_release": true,
+          "original_all_CW_and_complete_EDX_carrier_returns_kept": true,
+          "original_uninitialized_static_W32_owner_not_FF_value_kept": true,
+          "native_ASM_real_call_count": 13,
+          "internal_CI_core_and_exponent_only_ST0_ASM_interfaces": true,
+          "external_value_bridge_only_F64_conversion": true,
+          "old_MFA_history_sources_and_active_application_fixed_domain_kept": true,
+          "no_host_pow_finite_guard_or_protection_or_fault_sample": true,
+          "wire_format_changed": false,
+          "encryption_added": false,
+          "audio_pause_kept": true,
+          "all_application_original_calls_switched": false,
+          "full_shared_CRT_dispatch_verified": false,
+          "full_all_parents_verified": false,
+          "full_lifecycle_closed": false,
+          "machine_FPU_environment_equivalence_verified": false,
+          "runtime_verified": false,
+          "machine_abi_verified": false,
+          "machine_unwind_verified": false,
+          "fault_equivalence_claimed": false
+        }
+      },
+      "disposition": {
+        "inventory_id": "F:0013D000",
+        "disposition": "adapted",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-baseline",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-decision",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-acceptance",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-source-state"
+        ],
+        "boundary": "BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。"
+      }
+    },
+    {
+      "index": 1267,
+      "record": {
+        "original_entry": "0x53d022",
+        "inventory_id": "F:0013D022",
+        "status": "BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。 原历史：MFA01仅现有两正底数调用的内联路径身份；一般pow职责未闭，不计新增幂实现",
+        "original_end_exclusive": "0x53d1f5",
+        "instruction_count": 130,
+        "original_reference_count": 2,
+        "sources": [
+          {
+            "path": "src/platform/MapEffectMath.asm",
+            "symbols": [
+              "Cg2dMapEffectDivisor"
+            ],
+            "relationship": "只实际正底数1.25/整数指数路径内联，既有原x87序列；完整一般pow未闭"
+          },
+          {
+            "path": "src/platform/MapEffectMath.hpp",
+            "symbols": [
+              "Cg2dMapEffectDivisor"
+            ],
+            "relationship": "现有S32指数/幅值借用接口，非原x86 _pow通用ABI"
+          },
+          {
+            "path": "src/world/SceneState.cpp",
+            "symbols": [
+              "Sub_46F1D0"
+            ],
+            "relationship": "实际两原点由spawn两次调用Divisor复用，保level/速度/除数/RNG消费"
+          },
+          {
+            "path": "src/platform/LegacyFloatEnvironment.asm",
+            "symbols": [
+              "Cg2dLegacyPowerCoreX87"
+            ],
+            "relationship": "原53D022完整130条/两块一般pow：原CW W32载体/低W16保存与PC选择、加载EAX/ECX/FLAGS及所有正常/零/负底数/特殊值分支和连续x87算法保；原FSAVE108/真实powhlp/FRSTOR与未补值结果、原槽/范围错误/共同恢复及完整EDX载体保，232B正常帧的尾CALL适配明确。"
+          },
+          {
+            "path": "src/platform/LegacyFloatEnvironment.asm",
+            "symbols": [
+              "Cg2dLegacyPowerCoreX87",
+              "Cg2dLoadLegacyPowerControlWord",
+              "Cg2dLoadLegacyPowerOperandX87",
+              "Cg2dLegacyTwoToTOSX87",
+              "Cg2dCheckLegacyRangeExitX87",
+              "Cg2dStartLegacyTwoArgumentErrorX87",
+              "Cg2dProcessLegacyPowerSpecial",
+              "Cg2dClassifyLegacyPowerExponentX87",
+              "Cg2dLegacyPowerFastExitGate1085FBC"
+            ],
+            "relationship": "四ASM完整本体/13真实调用、原连续ST0/字段和状态；232B core/两56B接口帧，108B原FSAVE-FRSTOR不解释保存区，原未生产结果不补值"
+          },
+          {
+            "path": "src/platform/LegacyFloatEnvironment.hpp",
+            "symbols": [
+              "Cg2dLegacyPowerCoreX87",
+              "Cg2dLegacyPowerCoreX87"
+            ],
+            "relationship": "普通Win64外部F64值接口与内部CI/core/真实指数消费ST0合同，不冒CPP x87返回"
+          },
+          {
+            "path": "src/platform/LegacyFloatEnvironment.cpp",
+            "symbols": [
+              "PowerLegacyFloat_53D019",
+              "Cg2dLegacyPowerFastExitGate1085FBC"
+            ],
+            "relationship": "普通值入口只借两个F64/结果，原未初始化静态W32唯一owner；不借宿主pow或将IDA无值FF作初值"
+          }
+        ],
+        "inbound_evidence": [
+          {
+            "address": "0x53d01d",
+            "parent_entry": "0x53d019",
+            "reference_type": 21
+          },
+          {
+            "address": "0x53d010",
+            "parent_entry": "0x53d000",
+            "reference_type": 17
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-baseline",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-decision",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-acceptance",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-source-state"
+        ],
+        "verification_level": "BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。 原历史：三个原495条1697B与引用类型保存，仅固定点局部/两pow点及正底数路径和一段源差异静态；不重验全357条场景/一般pow/全部父/实际运行",
+        "boundary": "BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。 原历史：原130条含54348E..54349B共享尾块，当前仅46F1D0两正底数活动点的FYL2X→__twoToTOS正常路径由既有专用x87 Divisor内联承接；53D019的flow不记call，原完整一般pow/负底数检查/其它边界和父仍未迁/未验，不将局部定位当整个数学库实现。 数学异常不专项保护或模拟/称等价，完整场景/生成RNG结果/所有alias与owner寿命、实际CPU浮点环境/ABI/SDK/画面未验。",
+        "power_generic_body": {
+          "spec_id": "BWK01",
+          "evidence_refs": [
+            "doc/cg2d_power_generic_body_spec.md#power-generic-baseline",
+            "doc/cg2d_power_generic_body_spec.md#power-generic-decision",
+            "doc/cg2d_power_generic_body_spec.md#power-generic-acceptance",
+            "doc/cg2d_power_generic_body_spec.md#power-generic-source-state"
+          ],
+          "full_original_root_captured": true,
+          "original_instruction_count": 130,
+          "original_code_bytes": 480,
+          "original_page_count": 2,
+          "original_direct_call_count": 9,
+          "original_indirect_call_count": 0,
+          "original_jump_count": 34,
+          "original_return_count": 2,
+          "original_total_instruction_count": 159,
+          "original_total_code_bytes": 554,
+          "original_total_page_count": 5,
+          "original_total_direct_call_count": 11,
+          "original_total_unique_direct_callee_count": 7,
+          "original_total_indirect_call_count": 0,
+          "original_total_jump_count": 36,
+          "original_total_return_count": 5,
+          "original_total_inbound_call_count": 5,
+          "original_total_inbound_flow_count": 1,
+          "original_core_first_page_reuse_reference": "doc/cg2d_power_general_helpers_evidence.json",
+          "source_body_added": true,
+          "source_cpp_file_count": 1,
+          "source_asm_file_count": 1,
+          "source_header_file_count": 1,
+          "source_patch_count": 7,
+          "new_original_mapped_function_count": 2,
+          "expanded_existing_mapping_count": 2,
+          "new_native_function_body_count": 5,
+          "new_cpp_body_count": 1,
+          "new_asm_proc_count": 4,
+          "new_private_C_bridge_count": 1,
+          "new_mutable_shared_owner_count": 1,
+          "full_generic_core_two_chunks_all_paths_and_real_exponent_consumer_kept": true,
+          "loaded_Y_EAX_ECX_FLAGS_samples_and_CW_full_W32_carrier_kept": true,
+          "PC_bridge_ECX_restore_kept": true,
+          "original_two_F64_stores_FSAVE108_true_helper_FRSTOR_and_result_load_kept": true,
+          "unwritten_helper_result_and_unconsumed_bytes_not_filled": true,
+          "opaque_environment_not_interpreted_or_pointer_simulated": true,
+          "original_range_tail_adapted_to_real_call_and_native_frame_release": true,
+          "original_all_CW_and_complete_EDX_carrier_returns_kept": true,
+          "original_uninitialized_static_W32_owner_not_FF_value_kept": true,
+          "native_ASM_real_call_count": 13,
+          "internal_CI_core_and_exponent_only_ST0_ASM_interfaces": true,
+          "external_value_bridge_only_F64_conversion": true,
+          "old_MFA_history_sources_and_active_application_fixed_domain_kept": true,
+          "no_host_pow_finite_guard_or_protection_or_fault_sample": true,
+          "wire_format_changed": false,
+          "encryption_added": false,
+          "audio_pause_kept": true,
+          "all_application_original_calls_switched": false,
+          "full_shared_CRT_dispatch_verified": false,
+          "full_all_parents_verified": false,
+          "full_lifecycle_closed": false,
+          "machine_FPU_environment_equivalence_verified": false,
+          "runtime_verified": false,
+          "machine_abi_verified": false,
+          "machine_unwind_verified": false,
+          "fault_equivalence_claimed": false
+        }
+      },
+      "disposition": {
+        "inventory_id": "F:0013D022",
+        "disposition": "adapted",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-baseline",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-decision",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-acceptance",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-source-state"
+        ],
+        "boundary": "BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。"
+      }
+    },
+    {
+      "index": 1424,
+      "record": {
+        "original_entry": "0x5433F0",
+        "inventory_id": "F:001433F0",
+        "original_end_exclusive": "0x543405",
+        "instruction_count": 11,
+        "original_code_bytes": 21,
+        "original_reference_count": 1,
+        "original_direct_call_reference_count": 1,
+        "original_inbound_parent_count": 1,
+        "status": "BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
+        "sources": [
+          {
+            "path": "src/platform/MapEffectMath.asm",
+            "symbols": [
+              "Cg2dMapEffectDivisor"
+            ],
+            "relationship": "BPJ01原__twoToTOS完整11条21B由现有Cg2dMapEffectDivisor中的十条x87操作按原栈序内联承担；x86call/ret不保留，结果不落F64，PC53/控制字沿MFA01。只既有两个1.25底数/S32指数活动点的正常专用域，不扩成一般_pow/负底数、错误链或全环境等价；不新增幂实现或改变正确源码"
+          },
+          {
+            "path": "src/platform/MapEffectMath.hpp",
+            "symbols": [
+              "Cg2dMapEffectDivisor"
+            ],
+            "relationship": "既有Win64私有S32指数/幅值借用入口；非原__twoToTOS的通用x86/x87调用ABI"
+          },
+          {
+            "path": "src/platform/LegacyFloatEnvironment.asm",
+            "symbols": [
+              "Cg2dLegacyTwoToTOSX87"
+            ],
+            "relationship": "5433F0新增完整通用x87帮助体，ST0输入经原十条操作/RET输出连续扩展精度结果，沿当前控制字，不落F64/固定底数或用CPP double ABI。旧地图内联活动域保持，但不再把它当通用本体；完整pow父仍待接。"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+        ],
+        "boundary": "5433F0新增完整通用x87帮助体，ST0输入经原十条操作/RET输出连续扩展精度结果，沿当前控制字，不落F64/固定底数或用CPP double ABI。旧地图内联活动域保持，但不再把它当通用本体；完整pow父仍待接。 BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
+        "verification_level": "BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
+        "inbound_evidence": [
+          {
+            "call_site": "0x53d071",
+            "type": 17,
+            "iscode": true,
+            "parent_entry": "0x53d022",
+            "parent_end_exclusive": "0x53d1f5",
+            "relationship": "只原普通call/父身份与邻窗，不重验整个53D022或一般_pow"
+          }
+        ],
+        "pow_twotos_baseline": {
+          "spec_id": "BPJ01",
+          "evidence_refs": [
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-baseline",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-decision",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-acceptance",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state",
+            "doc/cg2d_map_effect_arithmetic_evidence.json"
+          ],
+          "full_original_helper_captured": true,
+          "native_operation_count": 10,
+          "original_call_ret_inlined": true,
+          "source_body_already_implemented": true,
+          "source_body_changed": false,
+          "full_general_pow_closed": false,
+          "runtime_verified": false,
+          "fault_equivalence_claimed": false
+        },
+        "power_general_helpers": {
+          "spec_id": "BWF01",
+          "evidence_refs": [
+            "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+            "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+            "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+            "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+          ],
+          "general_source_body_added": true,
+          "existing_semantic_index": 1424,
+          "previous_limited_status": "BPJ01现有专用幂的实际x87内联帮助体独立身份已纳管；非新增幂实现，完整一般数学库/运行未验",
+          "previous_limited_boundary": "BPJ01原__twoToTOS完整11条21B由现有Cg2dMapEffectDivisor中的十条x87操作按原栈序内联承担；x86call/ret不保留，结果不落F64，PC53/控制字沿MFA01。只既有两个1.25底数/S32指数活动点的正常专用域，不扩成一般_pow/负底数、错误链或全环境等价；不新增幂实现或改变正确源码 完整11条21B、一页/零call零jump一ret及53D071唯一普通call/53D022父邻窗，仅当前内联对应和独立身份静态；所有源码/头/ASM保持。完整一般数学库、全部父/环境/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG/像素运行仍未验；异常依RPLAN.24不保护/模拟或称等价",
+          "previous_limited_verification_level": "完整11条21B、一页/零call零jump一ret及53D071唯一普通call/53D022父邻窗，仅当前内联对应和独立身份静态；所有源码/头/ASM保持。完整一般数学库、全部父/环境/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG/像素运行仍未验；异常依RPLAN.24不保护/模拟或称等价",
+          "original_complete_instruction_count": 11,
+          "original_code_bytes": 21,
+          "original_page_count": 1,
+          "original_total_instruction_count": 38,
+          "original_total_code_bytes": 111,
+          "original_total_page_count": 3,
+          "original_total_direct_call_count": 0,
+          "original_total_indirect_call_count": 0,
+          "original_total_jump_count": 1,
+          "original_total_return_count": 4,
+          "original_total_inbound_call_count": 6,
+          "original_helper_inbound_flow_count": 0,
+          "pow_entry_call_to_operand_and_flow_to_parent_split_by_target": true,
+          "original_complete_evidence_reused_without_new_root_reads": true,
+          "source_cpp_file_count": 1,
+          "source_asm_file_count": 1,
+          "source_header_file_count": 1,
+          "source_patch_count": 5,
+          "existing_semantic_record_updated_count": 3,
+          "new_original_mapped_function_count": 0,
+          "new_native_function_body_count": 4,
+          "new_cpp_body_count": 1,
+          "new_asm_proc_count": 3,
+          "new_C_parameter_bridge_count": 1,
+          "new_shared_owner_count": 0,
+          "native_general_helper_not_only_old_map_fixed_domain": true,
+          "old_map_inline_and_controlled_normal_domain_kept": true,
+          "original_ST0_continuous_result_and_current_control_kept": true,
+          "original_PC_mask_temporary_CW_FLDCW_kept": true,
+          "original_normal_CMP_and_special_overlapping_10B_F80_ST0_EAX_FLAGS_ECX_contract_kept": true,
+          "two_ST0_interfaces_only_between_ASM_functions": true,
+          "native_private_home_slots_not_old_stack_mirror": true,
+          "unconsumed_control_carrier_upper_W16_not_business_input": true,
+          "no_host_pow_exp2_finite_guard_or_limit_added": true,
+          "only_original_CW_leaf_writes_control": true,
+          "no_MXCSR_exception_clear_or_environment_save_restore_added": true,
+          "control_CPP_to_real_ASM_call_implemented": true,
+          "two_other_general_helpers_real_pow_parent_calls_implemented": false,
+          "full_pow_dispatch_and_parent_lifecycle_closed": false,
+          "old_classification_integer_special_helper_environment_startup_map_power_and_build_rules_kept": true,
+          "new_identity_count_or_location_queue_reduction_claimed": false,
+          "wire_format_changed": false,
+          "encryption_added": false,
+          "audio_pause_kept": true,
+          "full_generic_pow_verified": false,
+          "full_all_parents_verified": false,
+          "full_lifecycle_closed": false,
+          "runtime_verified": false,
+          "machine_abi_verified": false,
+          "fault_equivalence_claimed": false
+        }
+      },
+      "disposition": {
+        "inventory_id": "F:001433F0",
+        "disposition": "adapted",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+        ],
+        "boundary": "5433F0新增完整通用x87帮助体，ST0输入经原十条操作/RET输出连续扩展精度结果，沿当前控制字，不落F64/固定底数或用CPP double ABI。旧地图内联活动域保持，但不再把它当通用本体；完整pow父仍待接。 BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。"
+      }
+    },
+    {
+      "index": 1426,
+      "record": {
+        "original_entry": "0x543405",
+        "inventory_id": "F:00143405",
+        "original_role": "__load_CW",
+        "original_end_exclusive": "0x54341c",
+        "instruction_count": 6,
+        "original_code_bytes": 23,
+        "original_reference_count": 1,
+        "original_direct_call_reference_count": 1,
+        "original_inbound_parent_count": 1,
+        "status": "BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
+        "sources": [
+          {
+            "path": "src/platform/MapEffectMath.asm",
+            "symbols": [
+              "Cg2dMapEffectDivisor"
+            ],
+            "relationship": "BPM01原__load_CW完整6条23B：只取原保存CW的PC两位(0300)，并入007F、以W16写临时槽后FLDCW；53D022先FSTCW/CMP027F，相同则绕过唯一53D031调用。现有Cg2dMapEffectDivisor按MFA01保存CW、固定027F供正常专用路径、尾恢复原CW，登记该PC53阶段适配来源；不把固定值称完整泛用帮助体、不新增同名体或改正确源。"
+          },
+          {
+            "path": "src/platform/MapEffectMath.hpp",
+            "symbols": [
+              "Cg2dMapEffectDivisor"
+            ],
+            "relationship": "MFA01既有Win64私有S32指数/幅值借用接口，只正常1.25活动域，未改变接口或新增原帮助体通用ABI"
+          },
+          {
+            "path": "src/platform/LegacyFloatEnvironment.cpp",
+            "symbols": [
+              "LoadLegacyPowerControlWord_543405"
+            ],
+            "relationship": "543405新增通用控制字加载本体，W16保存控制字按原PC0300与007F构造临时W16后FLDCW；旧载体未消费高W16不作为输入/补零，Win64CX值桥/EDX计算。原父027F绕过条件与恢复责任仍须真实父接，不强改地图固定027F。"
+          },
+          {
+            "path": "src/platform/LegacyFloatEnvironment.hpp",
+            "symbols": [
+              "LoadLegacyPowerControlWord_543405",
+              "Cg2dLoadLegacyPowerControlWord"
+            ],
+            "relationship": "保存控制字W16值与真实Win64 C桥，只消费原PC位，不伪旧载体高W16"
+          },
+          {
+            "path": "src/platform/LegacyFloatEnvironment.asm",
+            "symbols": [
+              "Cg2dLoadLegacyPowerControlWord"
+            ],
+            "relationship": "原0300/007F构造临时CW、写W16借用暂存槽并FLDCW；恢复与寄存器样本归真实调用父"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+        ],
+        "boundary": "543405新增通用控制字加载本体，W16保存控制字按原PC0300与007F构造临时W16后FLDCW；旧载体未消费高W16不作为输入/补零，Win64CX值桥/EDX计算。原父027F绕过条件与恢复责任仍须真实父接，不强改地图固定027F。 BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
+        "verification_level": "BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
+        "function_chunks": [
+          {
+            "start": "0x543405",
+            "end_exclusive": "0x54341c"
+          }
+        ],
+        "inbound_evidence": [
+          {
+            "from": "0x53d031",
+            "type": 17,
+            "iscode": true,
+            "parent_entry": "0x53d022",
+            "parent_end_exclusive": "0x53d1f5",
+            "window_start": "0x53d022",
+            "window_end_exclusive": "0x53d051",
+            "rows": [
+              {
+                "ea": "0x53d022",
+                "size": 2,
+                "bytes": "8bc8",
+                "text": "mov     ecx, eax"
+              },
+              {
+                "ea": "0x53d024",
+                "size": 1,
+                "bytes": "50",
+                "text": "push    eax"
+              },
+              {
+                "ea": "0x53d025",
+                "size": 4,
+                "bytes": "9bd93c24",
+                "text": "fstcw   word ptr [esp+4+var_4]"
+              },
+              {
+                "ea": "0x53d029",
+                "size": 6,
+                "bytes": "66813c247f02",
+                "text": "cmp     word ptr [esp+4+var_4], 27Fh"
+              },
+              {
+                "ea": "0x53d02f",
+                "size": 2,
+                "bytes": "7405",
+                "text": "jz      short loc_53D036"
+              },
+              {
+                "ea": "0x53d031",
+                "size": 5,
+                "bytes": "e8cf630000",
+                "text": "call    __load_CW"
+              },
+              {
+                "ea": "0x53d036",
+                "size": 6,
+                "bytes": "81e10000f07f",
+                "text": "and     ecx, 7FF00000h"
+              },
+              {
+                "ea": "0x53d03c",
+                "size": 4,
+                "bytes": "8d542408",
+                "text": "lea     edx, [esp+4+arg_0]"
+              },
+              {
+                "ea": "0x53d040",
+                "size": 6,
+                "bytes": "81f90000f07f",
+                "text": "cmp     ecx, 7FF00000h"
+              },
+              {
+                "ea": "0x53d046",
+                "size": 6,
+                "bytes": "0f849d000000",
+                "text": "jz      loc_53D0E9"
+              },
+              {
+                "ea": "0x53d04c",
+                "size": 5,
+                "bytes": "e8e4630000",
+                "text": "call    __fload_withFB"
+              }
+            ]
+          }
+        ],
+        "pow_input_control_baseline": {
+          "spec_id": "BPM01",
+          "evidence_refs": [
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+            "doc/cg2d_map_effect_arithmetic_evidence.json"
+          ],
+          "full_original_helper_captured": true,
+          "normal_native_stage_already_implemented": true,
+          "normal_native_stage_source_bound": true,
+          "full_original_general_helper_source_implemented": false,
+          "source_body_changed": false,
+          "original_default_027f_bypasses_control_loader": true,
+          "source_original_general_helper_body_added": false,
+          "full_general_pow_closed": false,
+          "full_lifecycle_closed": false,
+          "runtime_verified": false,
+          "fault_equivalence_claimed": false
+        },
+        "power_general_helpers": {
+          "spec_id": "BWF01",
+          "evidence_refs": [
+            "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+            "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+            "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+            "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+          ],
+          "general_source_body_added": true,
+          "existing_semantic_index": 1426,
+          "previous_limited_status": "BPM01完整原基线及当前专用幂正常阶段来源独立纳管；原泛用帮助体源码未新增/未称完整实现，运行未验",
+          "previous_limited_boundary": "BPM01原__load_CW完整6条23B：只取原保存CW的PC两位(0300)，并入007F、以W16写临时槽后FLDCW；53D022先FSTCW/CMP027F，相同则绕过唯一53D031调用。现有Cg2dMapEffectDivisor按MFA01保存CW、固定027F供正常专用路径、尾恢复原CW，登记该PC53阶段适配来源；不把固定值称完整泛用帮助体、不新增同名体或改正确源。 本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。",
+          "previous_limited_verification_level": "本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。",
+          "original_complete_instruction_count": 6,
+          "original_code_bytes": 23,
+          "original_page_count": 1,
+          "original_total_instruction_count": 38,
+          "original_total_code_bytes": 111,
+          "original_total_page_count": 3,
+          "original_total_direct_call_count": 0,
+          "original_total_indirect_call_count": 0,
+          "original_total_jump_count": 1,
+          "original_total_return_count": 4,
+          "original_total_inbound_call_count": 6,
+          "original_helper_inbound_flow_count": 0,
+          "pow_entry_call_to_operand_and_flow_to_parent_split_by_target": true,
+          "original_complete_evidence_reused_without_new_root_reads": true,
+          "source_cpp_file_count": 1,
+          "source_asm_file_count": 1,
+          "source_header_file_count": 1,
+          "source_patch_count": 5,
+          "existing_semantic_record_updated_count": 3,
+          "new_original_mapped_function_count": 0,
+          "new_native_function_body_count": 4,
+          "new_cpp_body_count": 1,
+          "new_asm_proc_count": 3,
+          "new_C_parameter_bridge_count": 1,
+          "new_shared_owner_count": 0,
+          "native_general_helper_not_only_old_map_fixed_domain": true,
+          "old_map_inline_and_controlled_normal_domain_kept": true,
+          "original_ST0_continuous_result_and_current_control_kept": true,
+          "original_PC_mask_temporary_CW_FLDCW_kept": true,
+          "original_normal_CMP_and_special_overlapping_10B_F80_ST0_EAX_FLAGS_ECX_contract_kept": true,
+          "two_ST0_interfaces_only_between_ASM_functions": true,
+          "native_private_home_slots_not_old_stack_mirror": true,
+          "unconsumed_control_carrier_upper_W16_not_business_input": true,
+          "no_host_pow_exp2_finite_guard_or_limit_added": true,
+          "only_original_CW_leaf_writes_control": true,
+          "no_MXCSR_exception_clear_or_environment_save_restore_added": true,
+          "control_CPP_to_real_ASM_call_implemented": true,
+          "two_other_general_helpers_real_pow_parent_calls_implemented": false,
+          "full_pow_dispatch_and_parent_lifecycle_closed": false,
+          "old_classification_integer_special_helper_environment_startup_map_power_and_build_rules_kept": true,
+          "new_identity_count_or_location_queue_reduction_claimed": false,
+          "wire_format_changed": false,
+          "encryption_added": false,
+          "audio_pause_kept": true,
+          "full_generic_pow_verified": false,
+          "full_all_parents_verified": false,
+          "full_lifecycle_closed": false,
+          "runtime_verified": false,
+          "machine_abi_verified": false,
+          "fault_equivalence_claimed": false
+        }
+      },
+      "disposition": {
+        "inventory_id": "F:00143405",
+        "disposition": "adapted",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+        ],
+        "boundary": "543405新增通用控制字加载本体，W16保存控制字按原PC0300与007F构造临时W16后FLDCW；旧载体未消费高W16不作为输入/补零，Win64CX值桥/EDX计算。原父027F绕过条件与恢复责任仍须真实父接，不强改地图固定027F。 BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。"
+      }
+    },
+    {
+      "index": 1427,
+      "record": {
+        "original_entry": "0x543435",
+        "inventory_id": "F:00143435",
+        "original_role": "__fload_withFB",
+        "original_end_exclusive": "0x543478",
+        "instruction_count": 21,
+        "original_code_bytes": 67,
+        "original_reference_count": 4,
+        "original_direct_call_reference_count": 4,
+        "original_inbound_parent_count": 2,
+        "status": "BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
+        "sources": [
+          {
+            "path": "src/platform/MapEffectMath.asm",
+            "symbols": [
+              "Cg2dMapEffectDivisor"
+            ],
+            "relationship": "BPM01原__fload_withFB完整21条67B：正常F64指数域不为7FF时原FLD qword并保CMP返回标志，特殊分支的原F80字节构造保留原证据。当前53D04C对应既有两个1.25底数活动点的实际加载，Cg2dMapEffectDivisor直接FLD相同F64常量、FILD真实S32指数且结果连续消费；其余三原点只纳盘，不外推通用加载/特殊值源码已实现，不新增包装或改正确源。"
+          },
+          {
+            "path": "src/platform/MapEffectMath.hpp",
+            "symbols": [
+              "Cg2dMapEffectDivisor"
+            ],
+            "relationship": "MFA01既有Win64私有S32指数/幅值借用接口，只正常1.25活动域，未改变接口或新增原帮助体通用ABI"
+          },
+          {
+            "path": "src/platform/LegacyFloatEnvironment.asm",
+            "symbols": [
+              "Cg2dLoadLegacyPowerOperandX87"
+            ],
+            "relationship": "543435新增完整普通/特殊输入加载：RDX借用F64，普通分支EAX为7FF00000指数掩码/保CMP标志后FLD F64，ECX保持；特殊分支按原OR7FFF0000/SHLD11/SHL11与重叠W32写出全部10B后FLD F80，TEST EAX,0再MOV原高W32，返回ST0/EAX/FLAGS并按原改ECX。仅ASM间接口，无F64返回落存/CLR异常、补零或新增finite保护。"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+        ],
+        "boundary": "543435新增完整普通/特殊输入加载：RDX借用F64，普通分支EAX为7FF00000指数掩码/保CMP标志后FLD F64，ECX保持；特殊分支按原OR7FFF0000/SHLD11/SHL11与重叠W32写出全部10B后FLD F80，TEST EAX,0再MOV原高W32，返回ST0/EAX/FLAGS并按原改ECX。仅ASM间接口，无F64返回落存/CLR异常、补零或新增finite保护。 BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
+        "verification_level": "BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
+        "function_chunks": [
+          {
+            "start": "0x543435",
+            "end_exclusive": "0x543478"
+          }
+        ],
+        "inbound_evidence": [
+          {
+            "from": "0x53d01d",
+            "type": 17,
+            "iscode": true,
+            "parent_entry": "0x53d019",
+            "parent_end_exclusive": "0x53d022",
+            "window_start": "0x53d019",
+            "window_end_exclusive": "0x53d022",
+            "rows": [
+              {
+                "ea": "0x53d019",
+                "size": 4,
+                "bytes": "8d54240c",
+                "text": "lea     edx, [esp+Y]"
+              },
+              {
+                "ea": "0x53d01d",
+                "size": 5,
+                "bytes": "e813640000",
+                "text": "call    __fload_withFB"
+              }
+            ]
+          },
+          {
+            "from": "0x53d04c",
+            "type": 17,
+            "iscode": true,
+            "parent_entry": "0x53d022",
+            "parent_end_exclusive": "0x53d1f5",
+            "window_start": "0x53d031",
+            "window_end_exclusive": "0x53d069",
+            "rows": [
+              {
+                "ea": "0x53d031",
+                "size": 5,
+                "bytes": "e8cf630000",
+                "text": "call    __load_CW"
+              },
+              {
+                "ea": "0x53d036",
+                "size": 6,
+                "bytes": "81e10000f07f",
+                "text": "and     ecx, 7FF00000h"
+              },
+              {
+                "ea": "0x53d03c",
+                "size": 4,
+                "bytes": "8d542408",
+                "text": "lea     edx, [esp+4+arg_0]"
+              },
+              {
+                "ea": "0x53d040",
+                "size": 6,
+                "bytes": "81f90000f07f",
+                "text": "cmp     ecx, 7FF00000h"
+              },
+              {
+                "ea": "0x53d046",
+                "size": 6,
+                "bytes": "0f849d000000",
+                "text": "jz      loc_53D0E9"
+              },
+              {
+                "ea": "0x53d04c",
+                "size": 5,
+                "bytes": "e8e4630000",
+                "text": "call    __fload_withFB"
+              },
+              {
+                "ea": "0x53d051",
+                "size": 6,
+                "bytes": "0f848e000000",
+                "text": "jz      loc_53D0E5"
+              },
+              {
+                "ea": "0x53d057",
+                "size": 5,
+                "bytes": "a90000f07f",
+                "text": "test    eax, 7FF00000h"
+              },
+              {
+                "ea": "0x53d05c",
+                "size": 6,
+                "bytes": "0f84f6000000",
+                "text": "jz      loc_53D158"
+              },
+              {
+                "ea": "0x53d062",
+                "size": 4,
+                "bytes": "8a4c240f",
+                "text": "mov     cl, byte ptr [esp+4+arg_4+3]"
+              },
+              {
+                "ea": "0x53d066",
+                "size": 3,
+                "bytes": "80e180",
+                "text": "and     cl, 80h"
+              }
+            ]
+          },
+          {
+            "from": "0x53d0bd",
+            "type": 17,
+            "iscode": true,
+            "parent_entry": "0x53d022",
+            "parent_end_exclusive": "0x53d1f5",
+            "window_start": "0x53d0ad",
+            "window_end_exclusive": "0x53d0ce",
+            "rows": [
+              {
+                "ea": "0x53d0ad",
+                "size": 5,
+                "bytes": "ba1d000000",
+                "text": "mov     edx, 1Dh"
+              },
+              {
+                "ea": "0x53d0b2",
+                "size": 5,
+                "bytes": "e8d9620000",
+                "text": "call    __startTwoArgErrorHandling"
+              },
+              {
+                "ea": "0x53d0b7",
+                "size": 1,
+                "bytes": "5a",
+                "text": "pop     edx"
+              },
+              {
+                "ea": "0x53d0b8",
+                "size": 1,
+                "bytes": "c3",
+                "text": "retn"
+              },
+              {
+                "ea": "0x53d0b9",
+                "size": 4,
+                "bytes": "8d542408",
+                "text": "lea     edx, [esp+4+arg_0]"
+              },
+              {
+                "ea": "0x53d0bd",
+                "size": 5,
+                "bytes": "e873630000",
+                "text": "call    __fload_withFB"
+              },
+              {
+                "ea": "0x53d0c2",
+                "size": 5,
+                "bytes": "f644241608",
+                "text": "test    byte ptr [esp+4+arg_C+2], 8"
+              },
+              {
+                "ea": "0x53d0c7",
+                "size": 2,
+                "bytes": "7503",
+                "text": "jnz     short loc_53D0CC"
+              },
+              {
+                "ea": "0x53d0c9",
+                "size": 1,
+                "bytes": "41",
+                "text": "inc     ecx"
+              },
+              {
+                "ea": "0x53d0ca",
+                "size": 2,
+                "bytes": "eb33",
+                "text": "jmp     short loc_53D0FF"
+              },
+              {
+                "ea": "0x53d0cc",
+                "size": 2,
+                "bytes": "dec1",
+                "text": "faddp   st(1), st"
+              }
+            ]
+          },
+          {
+            "from": "0x53d0fa",
+            "type": 17,
+            "iscode": true,
+            "parent_entry": "0x53d022",
+            "parent_end_exclusive": "0x53d1f5",
+            "window_start": "0x53d0e9",
+            "window_end_exclusive": "0x53d115",
+            "rows": [
+              {
+                "ea": "0x53d0e9",
+                "size": 2,
+                "bytes": "33c9",
+                "text": "xor     ecx, ecx"
+              },
+              {
+                "ea": "0x53d0eb",
+                "size": 5,
+                "bytes": "25ffff0f00",
+                "text": "and     eax, 0FFFFFh"
+              },
+              {
+                "ea": "0x53d0f0",
+                "size": 4,
+                "bytes": "0b442410",
+                "text": "or      eax, [esp+4+arg_8]"
+              },
+              {
+                "ea": "0x53d0f4",
+                "size": 2,
+                "bytes": "75c3",
+                "text": "jnz     short loc_53D0B9"
+              },
+              {
+                "ea": "0x53d0f6",
+                "size": 4,
+                "bytes": "8d542408",
+                "text": "lea     edx, [esp+4+arg_0]"
+              },
+              {
+                "ea": "0x53d0fa",
+                "size": 5,
+                "bytes": "e836630000",
+                "text": "call    __fload_withFB"
+              },
+              {
+                "ea": "0x53d0ff",
+                "size": 4,
+                "bytes": "8b44240c",
+                "text": "mov     eax, [esp+4+arg_4]"
+              },
+              {
+                "ea": "0x53d103",
+                "size": 2,
+                "bytes": "8bd0",
+                "text": "mov     edx, eax"
+              },
+              {
+                "ea": "0x53d105",
+                "size": 5,
+                "bytes": "250000f07f",
+                "text": "and     eax, 7FF00000h"
+              },
+              {
+                "ea": "0x53d10a",
+                "size": 6,
+                "bytes": "81e2ffff0f00",
+                "text": "and     edx, 0FFFFFh"
+              },
+              {
+                "ea": "0x53d110",
+                "size": 5,
+                "bytes": "3d0000f07f",
+                "text": "cmp     eax, 7FF00000h"
+              }
+            ]
+          }
+        ],
+        "pow_input_control_baseline": {
+          "spec_id": "BPM01",
+          "evidence_refs": [
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+            "doc/cg2d_map_effect_arithmetic_evidence.json"
+          ],
+          "full_original_helper_captured": true,
+          "normal_native_stage_already_implemented": true,
+          "normal_native_stage_source_bound": true,
+          "full_original_general_helper_source_implemented": false,
+          "source_body_changed": false,
+          "original_default_027f_bypasses_control_loader": null,
+          "source_original_general_helper_body_added": false,
+          "full_general_pow_closed": false,
+          "full_lifecycle_closed": false,
+          "runtime_verified": false,
+          "fault_equivalence_claimed": false
+        },
+        "power_general_helpers": {
+          "spec_id": "BWF01",
+          "evidence_refs": [
+            "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+            "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+            "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+            "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+          ],
+          "general_source_body_added": true,
+          "existing_semantic_index": 1427,
+          "previous_limited_status": "BPM01完整原基线及当前专用幂正常阶段来源独立纳管；原泛用帮助体源码未新增/未称完整实现，运行未验",
+          "previous_limited_boundary": "BPM01原__fload_withFB完整21条67B：正常F64指数域不为7FF时原FLD qword并保CMP返回标志，特殊分支的原F80字节构造保留原证据。当前53D04C对应既有两个1.25底数活动点的实际加载，Cg2dMapEffectDivisor直接FLD相同F64常量、FILD真实S32指数且结果连续消费；其余三原点只纳盘，不外推通用加载/特殊值源码已实现，不新增包装或改正确源。 本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。",
+          "previous_limited_verification_level": "本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。",
+          "original_complete_instruction_count": 21,
+          "original_code_bytes": 67,
+          "original_page_count": 1,
+          "original_total_instruction_count": 38,
+          "original_total_code_bytes": 111,
+          "original_total_page_count": 3,
+          "original_total_direct_call_count": 0,
+          "original_total_indirect_call_count": 0,
+          "original_total_jump_count": 1,
+          "original_total_return_count": 4,
+          "original_total_inbound_call_count": 6,
+          "original_helper_inbound_flow_count": 0,
+          "pow_entry_call_to_operand_and_flow_to_parent_split_by_target": true,
+          "original_complete_evidence_reused_without_new_root_reads": true,
+          "source_cpp_file_count": 1,
+          "source_asm_file_count": 1,
+          "source_header_file_count": 1,
+          "source_patch_count": 5,
+          "existing_semantic_record_updated_count": 3,
+          "new_original_mapped_function_count": 0,
+          "new_native_function_body_count": 4,
+          "new_cpp_body_count": 1,
+          "new_asm_proc_count": 3,
+          "new_C_parameter_bridge_count": 1,
+          "new_shared_owner_count": 0,
+          "native_general_helper_not_only_old_map_fixed_domain": true,
+          "old_map_inline_and_controlled_normal_domain_kept": true,
+          "original_ST0_continuous_result_and_current_control_kept": true,
+          "original_PC_mask_temporary_CW_FLDCW_kept": true,
+          "original_normal_CMP_and_special_overlapping_10B_F80_ST0_EAX_FLAGS_ECX_contract_kept": true,
+          "two_ST0_interfaces_only_between_ASM_functions": true,
+          "native_private_home_slots_not_old_stack_mirror": true,
+          "unconsumed_control_carrier_upper_W16_not_business_input": true,
+          "no_host_pow_exp2_finite_guard_or_limit_added": true,
+          "only_original_CW_leaf_writes_control": true,
+          "no_MXCSR_exception_clear_or_environment_save_restore_added": true,
+          "control_CPP_to_real_ASM_call_implemented": true,
+          "two_other_general_helpers_real_pow_parent_calls_implemented": false,
+          "full_pow_dispatch_and_parent_lifecycle_closed": false,
+          "old_classification_integer_special_helper_environment_startup_map_power_and_build_rules_kept": true,
+          "new_identity_count_or_location_queue_reduction_claimed": false,
+          "wire_format_changed": false,
+          "encryption_added": false,
+          "audio_pause_kept": true,
+          "full_generic_pow_verified": false,
+          "full_all_parents_verified": false,
+          "full_lifecycle_closed": false,
+          "runtime_verified": false,
+          "machine_abi_verified": false,
+          "fault_equivalence_claimed": false
+        }
+      },
+      "disposition": {
+        "inventory_id": "F:00143435",
+        "disposition": "adapted",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+        ],
+        "boundary": "543435新增完整普通/特殊输入加载：RDX借用F64，普通分支EAX为7FF00000指数掩码/保CMP标志后FLD F64，ECX保持；特殊分支按原OR7FFF0000/SHLD11/SHL11与重叠W32写出全部10B后FLD F80，TEST EAX,0再MOV原高W32，返回ST0/EAX/FLAGS并按原改ECX。仅ASM间接口，无F64返回落存/CLR异常、补零或新增finite保护。 BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。"
+      }
+    }
+  ]
+}

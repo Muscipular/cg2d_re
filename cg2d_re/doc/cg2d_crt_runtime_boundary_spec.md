@@ -206,3 +206,11 @@ NCE01已接业务copy/单owner、消息/析构及所有旧构析正文保持，�
 53D000/53D019/53D022两块与53D1F5四完整159条554B/五页已整组开发，一CPP/四ASM五本体、一个外部C值桥及原未初始化静态W32槽owner；三现文件七追加。CI/普通入口到core及全部依赖真接，13ASM调用、真实指数ST0消费/CL分类、原CW/加载样本/所有分支保。
 
 原两实参F64落存/FSAVE108/真实powhlp/FRSTOR/结果读取与S32分派保，保存区不解释、未生产结果不填，只有外部值桥转换F64；原范围尾适为真CALL后释放正常帧。复用1266/1267、两新身份，CRT174→176/F999限定I/S，定位152→150/CRT未定位24→22；旧活动地图原点及共享分派/全应用和机器环境/运行继续原门禁。
+
+## BWL01完整CI接入两个地图应用原点（2026-10-08）
+
+[基线](cg2d_power_application_wiring_spec.md#power-app-baseline)、[决定](cg2d_power_application_wiring_spec.md#power-app-decision)、[验收](cg2d_power_application_wiring_spec.md#power-app-acceptance)与[窗口/源和六映射前态](cg2d_power_application_wiring_evidence.json)。
+
+46F38D/46F43A两原CI点由现spawn/除数接口接完整CI/core/真实依赖，撤固定域FYL2X/TwoToTOS内联；两现文件五改动、一已有本体替换/零新身份。72B正常帧保原参数顺序/连续ST0消费与幅值指针跨CALL重读，不以EDX CW载体当地址；PC53/CW/截断、Cpp/RNG及提供者/CMake保持。
+
+六旧映射/F当前绑定纠正，原历史/前态可追，MAP129/CRT176不增；两域四限定I/S、E1158→1162，定位150/CRT未定位22和全部数量保持。共享CRT分派/未知父和全应用/FPU生命周期及机器运行仍沿门禁。

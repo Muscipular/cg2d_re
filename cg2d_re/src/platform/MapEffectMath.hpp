@@ -17,7 +17,7 @@ static_assert(offsetof(MapEffectMotion, horizontalSign) == 8);
 static_assert(offsetof(MapEffectMotion, verticalSign) == 12);
 static_assert(sizeof(MapEffectMotion) == 16);
 
-// 私有 MASM 叶保留 x87 指令/存储边界，恢复控制字；见场景 SPEC §20.19。
+// 私有MASM接口保留x87指令/存储边界并恢复控制字；见场景SPEC§20.19。
 extern "C" void Cg2dMapEffectDirection(
     std::int32_t angle,
     const float* speed,
@@ -31,6 +31,8 @@ extern "C" void Cg2dMapEffectMotion(
     std::int32_t cameraY,
     MapEffectMotion* result) noexcept;
 
+// 原46F38D/46F43A：S32指数/借用幅值经完整CI幂，ST0连续消费后返回原截断低S32。
+// 正常72B调用帧保存幅值指针，不以通用幂返回EDX当原指针；见幂应用接线SPEC。
 extern "C" std::int32_t Cg2dMapEffectDivisor(
     std::int32_t exponent,
     const double* magnitude) noexcept;

@@ -4123,3 +4123,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 扩展1266/F:0013D000→Cg2dLegacyCIPowerX87、1267/F:0013D022→Cg2dLegacyPowerCoreX87；保旧MFA source/历史，不重复计F。新增1835/F:0013D019→PowerLegacyFloat及Cg2dComputeLegacyPower，1836/F:0013D1F5→真实ST0消费/CL分类。五新本体/一个值桥只有两新原身份。
 
 四完整159条554B/五页与13实际ASM调用保原CW/字段/加载FLAGS与全分支，FSAVE108/真实helper/FRSTOR不解释保存区或填未生产结果；原无初始字节的静态槽FF不作原值。CRT176/F999限定I/S不代活动地图全原点切换/共享分派、机器环境或运行，pending18保持。
+
+## BWL01六既有幂应用关系的当前纠正（2026-10-08）
+
+[两原窗口/两源前后态/六完整旧记录](cg2d_power_application_wiring_evidence.json)、[实际接线](cg2d_power_application_wiring_spec.md#power-app-decision)。
+
+1265/1266/1267/1424/1426/1427的MapEffectMath.asm/.hpp当前关系由旧内联/只固定域/本次不改，更新为除数接口经完整CI/core/实际独立帮助体的传递调用。旧MFA/BPJ/BPM/BWF/BWK证据和完整前态保，原F及所有成员数量不重计。
+
+两已证应用窗口已真接，原S32指数/F64底数/连续ST0/原幅值指针和截断/CW/后消费有据；不把六来源纠正当六新函数或削减定位队列。语义1837/F999、MAP129/CRT176及pending18保持，未知父/alias、全应用和机器运行未闭。

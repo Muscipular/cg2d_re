@@ -31,6 +31,7 @@ ObserverAngles QWORD 04002D97C7F30D173h, 03FF921FB54411744h
 PUBLIC Cg2dMapEffectDirection
 PUBLIC Cg2dMapEffectMotion
 PUBLIC Cg2dMapEffectDivisor
+EXTERN Cg2dLegacyCIPowerX87:PROC
 PUBLIC Cg2dMapEffectStep
 PUBLIC Cg2dMapObserverProjection
 PUBLIC Cg2dMapObserverArc
@@ -40,7 +41,8 @@ PUBLIC Cg2dMapActorSpiralOffset
 PUBLIC Cg2dMapObserverExitOffset
 PUBLIC Cg2dMapTimedOffset
 
-; 所有叶仅借用参数暂存区 [rsp+8,rsp+40)，不改 RSP 或非易失寄存器。
+; 其余叶仍只借用参数暂存区 [rsp+8,rsp+40)，不改RSP或非易失寄存器。
+; 除数接口用72B正常展开帧调用完整CI幂，其余接口不变。
 Cg2dMapEffectDirection PROC
     mov dword ptr [rsp+8], ecx
     fnstcw word ptr [rsp+12]
@@ -117,26 +119,22 @@ MotionYDone:
     ret
 Cg2dMapEffectMotion ENDP
 
-Cg2dMapEffectDivisor PROC
-    mov dword ptr [rsp+8], ecx
-    fnstcw word ptr [rsp+12]
-    mov word ptr [rsp+14], 027Fh
-    mov word ptr [rsp+16], 0E7Fh
-    fldcw word ptr [rsp+14]
-    fild dword ptr [rsp+8]
+; 原46F38D/46F43A两CI调用点经同一接口接完整一般幂，不再内联固定域算法。
+; 72B正常帧保32B调用区、S32指数/三CW值、借用幅值指针和原I64截断槽。
+Cg2dMapEffectDivisor PROC FRAME
+    sub rsp, 72
+    .allocstack 72
+    .endprolog
+    mov dword ptr [rsp+32], ecx
+    mov qword ptr [rsp+48], rdx
+    fnstcw word ptr [rsp+36]
+    mov word ptr [rsp+38], 027Fh
+    mov word ptr [rsp+40], 0E7Fh
+    fldcw word ptr [rsp+38]
     fld qword ptr [PowBase54E238]
-    fyl2x
-    ; 原 __twoToTOS@5433F0，不将幂结果存回 F64 后再消费。
-    fld st(0)
-    frndint
-    fsubr st(1), st(0)
-    fxch st(1)
-    fchs
-    f2xm1
-    fld1
-    faddp st(1), st(0)
-    fscale
-    fstp st(1)
+    fild dword ptr [rsp+32]
+    call Cg2dLegacyCIPowerX87
+    mov rdx, qword ptr [rsp+48]
     fmul qword ptr [rdx]
     fcom dword ptr [Zero54D5D0]
     fnstsw ax
@@ -147,12 +145,13 @@ Cg2dMapEffectDivisor PROC
 DivisorHasMagnitude:
     fld dword ptr [SpawnScale54E22C]
     fdiv st(0), st(1)
-    fldcw word ptr [rsp+16]
-    fistp qword ptr [rsp+24]
-    fldcw word ptr [rsp+14]
+    fldcw word ptr [rsp+40]
+    fistp qword ptr [rsp+56]
+    fldcw word ptr [rsp+38]
     fstp st(0)
-    fldcw word ptr [rsp+12]
-    mov eax, dword ptr [rsp+24]
+    fldcw word ptr [rsp+36]
+    mov eax, dword ptr [rsp+56]
+    add rsp, 72
     ret
 Cg2dMapEffectDivisor ENDP
 

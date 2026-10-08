@@ -125,3 +125,11 @@ BPJ01/BPM01的地图专用对应及命名快照保持。当前已在LegacyFloatE
 [完整通用基线/决定](cg2d_power_generic_body_spec.md#power-generic-decision)与[原体/源前后态](cg2d_power_generic_body_evidence.json)。
 
 原1266/1267过去只纳管MFA实际1.25域；现已另外开发完整CI/core本体及普通入口/真实指数消费，含所有分支和原FSAVE-FRSTOR/错误范围链。旧原新/F身份不重复计数，旧MFA source和活动地图/RNG/状态/后消费保持。当前限定I/S只计新增内部真实接线与源算法，未切换应用原点不称已全部切换，完整父/机器和运行继续。
+
+## BWL01两个活动幂原点已接完整CI（2026-10-08）
+
+[应用接线决定](cg2d_power_application_wiring_spec.md#power-app-decision)与[两原窗口/真实源前后态](cg2d_power_application_wiring_evidence.json)。
+
+BWK01补完整CI/core后，本步将MapEffectMath除数从旧固定域内联切为真实CI调用；原两spawn接口/Cpp/RNG/状态和幅值后消费保持。72B正常调用帧跨CALL保存幅值指针，按原FLD1.25/FILD signedLevel−1/CI顺序，幂ST0不落F64、原I64截断低S32与外层CW恢复保。
+
+1265/1266/1267及三帮助体的当前Map关系均更新为真实传递调用，旧历史/前态保留。原两直接点的源码接通不代未知调用父/alias、全部地图/FPU生命周期或机器运行，完整门禁不变。

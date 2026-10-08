@@ -228,3 +228,9 @@ NCE01已接业务copy/单owner、消息/析构及所有旧构析正文保持，�
 [基线](cg2d_math_divide_shared_spec.md#math-divide-shared-baseline)、[决定](cg2d_math_divide_shared_spec.md#math-divide-shared-decision)、[验收](cg2d_math_divide_shared_spec.md#math-divide-shared-acceptance)与[全部原体/原数据/源前后态](cg2d_math_divide_shared_evidence.json)。
 
 沿542FEF真实依赖实现545360/545B51，两完整身份91条300B/三页；两现源四追加/两ASM本体，零CPP/C桥/新owner。原44B片段/T80/未生产padding、16B表/三F32、CW及非规格化循环和EAX/ECX/EDX真实合同保，核心实际调用。CRT177→179/F1002仅限定I/S，源码定位149→147/CRT余21→19。完整共享目标/原描述符生产及其它原调用父、机器运行仍待开发验收。
+
+## BWO01完整共享幂、指数与对数目标（2026-10-08）
+
+[基线](cg2d_math_shared_targets_spec.md#math-targets-baseline)、[决定](cg2d_math_shared_targets_spec.md#math-targets-decision)、[验收](cg2d_math_shared_targets_spec.md#math-targets-acceptance)及[整段原体/三R7/源前后态](cg2d_math_shared_targets_evidence.json)。
+
+542FB0..543185全159条469B已开发，七原身份和三R7合并完整覆盖，26ASM/一个唯一已有FDIV owner只读桥、三源六追加。原幂/指数/对数和零无穷目标、保ST0的整数EAX0-1-2及三个共同RET真实接线；原越界丢内层返回以续行/JRCXZ/LEA保持控制流及末标志。CRT179→186/F1009仅限定I-S，定位147→140/CRT余19→12。三R7 mapped，已审470/余2591；原描述符生产/其它父与机器生命周期继续。

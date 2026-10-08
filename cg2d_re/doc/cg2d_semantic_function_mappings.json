@@ -209629,6 +209629,763 @@
         "machine_unwind_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x543097",
+      "inventory_id": "F:00143097",
+      "original_role": "原543097一RET和零底幂完整生产分支一并实现；保真实不消费ST0的整数判定、两弹栈、零/无穷及奇数负零符号，原返回保持。",
+      "original_end_exclusive": "0x543098",
+      "original_chunks": [
+        [
+          "0x543097",
+          "0x543098"
+        ]
+      ],
+      "instruction_count": 1,
+      "status": "BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dLegacySharedZeroPowerReturnX87",
+            "Cg2dLegacySharedZeroPowerX87",
+            "Cg2dLegacySharedNegativeZeroPowerX87"
+          ],
+          "relationship": "原543097一RET和零底幂完整生产分支一并实现；保真实不消费ST0的整数判定、两弹栈、零/无穷及奇数负零符号，原返回保持。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "LegacyMathDispatchContext",
+            "Cg2dClassifyLegacySharedIntegerX87",
+            "Cg2dReadLegacyFdivBug"
+          ],
+          "relationship": "共享原context/内部ST0与续行合同；原数值不扩宽，私有原owner值桥不持有、不预填"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "Cg2dReadLegacyFdivBug",
+            "gLegacyFdivBug1085FC0"
+          ],
+          "relationship": "只将真实幂/指数父的原探测接已有唯一owner，保完整W32值；不新增owner或改变整数/特殊值叶"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-baseline",
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-decision",
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-acceptance",
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state"
+      ],
+      "boundary": "原543097一RET和零底幂完整生产分支一并实现；保真实不消费ST0的整数判定、两弹栈、零/无穷及奇数负零符号，原返回保持。 BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。",
+      "math_shared_targets": {
+        "spec_id": "BWO01",
+        "evidence_refs": [
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-baseline",
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-decision",
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-acceptance",
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state"
+        ],
+        "full_original_function_captured": true,
+        "original_instruction_count": 1,
+        "original_code_bytes": 1,
+        "whole_group_instruction_count": 159,
+        "whole_group_code_bytes": 469,
+        "whole_group_direct_calls": 4,
+        "whole_group_unique_direct_callees": 3,
+        "whole_group_jumps": 35,
+        "whole_group_returns": 11,
+        "whole_group_function_count": 7,
+        "whole_group_mapped_range_count": 3,
+        "whole_group_range_bytes": 307,
+        "actual_alignment_bytes": 5,
+        "source_body_added": true,
+        "source_asm_file_count": 1,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 6,
+        "new_native_function_body_count": 27,
+        "new_asm_proc_count": 26,
+        "new_cpp_body_count": 1,
+        "new_original_mapped_function_count": 7,
+        "new_private_C_bridge_count": 1,
+        "new_mutable_shared_owner_count": 0,
+        "new_layout_count": 0,
+        "original_x87_T80_status_sign_error_and_integer_ST0_kept": true,
+        "original_integer_EAX0_1_2_real_parents_and_all_RET_leaves_kept": true,
+        "original_return_address_discard_adapted_to_actual_native_continuation": true,
+        "continuation_not_original_math_status_or_stack_address_simulation": true,
+        "last_flags_kept_by_JRCXZ_MOV_LEA": true,
+        "native_frames_bytes": [
+          40,
+          56
+        ],
+        "existing_fdiv_owner_only_read_true_wrapper_and_special_targets_wired": true,
+        "native_direct_call_count": 7,
+        "native_direct_jump_count": 42,
+        "native_return_count": 18,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_original_descriptor_production_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x5430e2",
+      "inventory_id": "F:001430E2",
+      "original_role": "原5430E2一RET与完整指数帮助越界分支一并实现；帮助体返回地址丢弃的控制流由实际续行选择承接，保原无穷/符号及末标志，不单记空RET成功。",
+      "original_end_exclusive": "0x5430e3",
+      "original_chunks": [
+        [
+          "0x5430e2",
+          "0x5430e3"
+        ]
+      ],
+      "instruction_count": 1,
+      "status": "BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dLegacySharedExpBigReturnX87",
+            "Cg2dLegacyExpMinusOneX87"
+          ],
+          "relationship": "原5430E2一RET与完整指数帮助越界分支一并实现；帮助体返回地址丢弃的控制流由实际续行选择承接，保原无穷/符号及末标志，不单记空RET成功。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "LegacyMathDispatchContext",
+            "Cg2dClassifyLegacySharedIntegerX87",
+            "Cg2dReadLegacyFdivBug"
+          ],
+          "relationship": "共享原context/内部ST0与续行合同；原数值不扩宽，私有原owner值桥不持有、不预填"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "Cg2dReadLegacyFdivBug",
+            "gLegacyFdivBug1085FC0"
+          ],
+          "relationship": "只将真实幂/指数父的原探测接已有唯一owner，保完整W32值；不新增owner或改变整数/特殊值叶"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-baseline",
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-decision",
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-acceptance",
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state"
+      ],
+      "boundary": "原5430E2一RET与完整指数帮助越界分支一并实现；帮助体返回地址丢弃的控制流由实际续行选择承接，保原无穷/符号及末标志，不单记空RET成功。 BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。",
+      "math_shared_targets": {
+        "spec_id": "BWO01",
+        "evidence_refs": [
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-baseline",
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-decision",
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-acceptance",
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state"
+        ],
+        "full_original_function_captured": true,
+        "original_instruction_count": 1,
+        "original_code_bytes": 1,
+        "whole_group_instruction_count": 159,
+        "whole_group_code_bytes": 469,
+        "whole_group_direct_calls": 4,
+        "whole_group_unique_direct_callees": 3,
+        "whole_group_jumps": 35,
+        "whole_group_returns": 11,
+        "whole_group_function_count": 7,
+        "whole_group_mapped_range_count": 3,
+        "whole_group_range_bytes": 307,
+        "actual_alignment_bytes": 5,
+        "source_body_added": true,
+        "source_asm_file_count": 1,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 6,
+        "new_native_function_body_count": 27,
+        "new_asm_proc_count": 26,
+        "new_cpp_body_count": 1,
+        "new_original_mapped_function_count": 7,
+        "new_private_C_bridge_count": 1,
+        "new_mutable_shared_owner_count": 0,
+        "new_layout_count": 0,
+        "original_x87_T80_status_sign_error_and_integer_ST0_kept": true,
+        "original_integer_EAX0_1_2_real_parents_and_all_RET_leaves_kept": true,
+        "original_return_address_discard_adapted_to_actual_native_continuation": true,
+        "continuation_not_original_math_status_or_stack_address_simulation": true,
+        "last_flags_kept_by_JRCXZ_MOV_LEA": true,
+        "native_frames_bytes": [
+          40,
+          56
+        ],
+        "existing_fdiv_owner_only_read_true_wrapper_and_special_targets_wired": true,
+        "native_direct_call_count": 7,
+        "native_direct_jump_count": 42,
+        "native_return_count": 18,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_original_descriptor_production_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x54310e",
+      "inventory_id": "F:0014310E",
+      "original_role": "原54310E全部34条/113B及越界分块已完整实现，保原T80阈值/CW下x87分数与状态、越界结束外层续行和全部幂/指数父/真实FDIV依赖；不造原状态或宿主数学。",
+      "original_end_exclusive": "0x543151",
+      "original_chunks": [
+        [
+          "0x54310e",
+          "0x543151"
+        ],
+        [
+          "0x5430c0",
+          "0x5430e2"
+        ],
+        [
+          "0x5430e3",
+          "0x5430ef"
+        ]
+      ],
+      "instruction_count": 34,
+      "status": "BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dLegacyExpMinusOneX87",
+            "Cg2dLegacySharedExpFinishX87",
+            "Cg2dLegacySharedPowerX87",
+            "Cg2dLegacySharedExpX87"
+          ],
+          "relationship": "原54310E全部34条/113B及越界分块已完整实现，保原T80阈值/CW下x87分数与状态、越界结束外层续行和全部幂/指数父/真实FDIV依赖；不造原状态或宿主数学。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "LegacyMathDispatchContext",
+            "Cg2dClassifyLegacySharedIntegerX87",
+            "Cg2dReadLegacyFdivBug"
+          ],
+          "relationship": "共享原context/内部ST0与续行合同；原数值不扩宽，私有原owner值桥不持有、不预填"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "Cg2dReadLegacyFdivBug",
+            "gLegacyFdivBug1085FC0"
+          ],
+          "relationship": "只将真实幂/指数父的原探测接已有唯一owner，保完整W32值；不新增owner或改变整数/特殊值叶"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-baseline",
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-decision",
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-acceptance",
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state"
+      ],
+      "boundary": "原54310E全部34条/113B及越界分块已完整实现，保原T80阈值/CW下x87分数与状态、越界结束外层续行和全部幂/指数父/真实FDIV依赖；不造原状态或宿主数学。 BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。",
+      "math_shared_targets": {
+        "spec_id": "BWO01",
+        "evidence_refs": [
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-baseline",
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-decision",
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-acceptance",
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state"
+        ],
+        "full_original_function_captured": true,
+        "original_instruction_count": 34,
+        "original_code_bytes": 113,
+        "whole_group_instruction_count": 159,
+        "whole_group_code_bytes": 469,
+        "whole_group_direct_calls": 4,
+        "whole_group_unique_direct_callees": 3,
+        "whole_group_jumps": 35,
+        "whole_group_returns": 11,
+        "whole_group_function_count": 7,
+        "whole_group_mapped_range_count": 3,
+        "whole_group_range_bytes": 307,
+        "actual_alignment_bytes": 5,
+        "source_body_added": true,
+        "source_asm_file_count": 1,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 6,
+        "new_native_function_body_count": 27,
+        "new_asm_proc_count": 26,
+        "new_cpp_body_count": 1,
+        "new_original_mapped_function_count": 7,
+        "new_private_C_bridge_count": 1,
+        "new_mutable_shared_owner_count": 0,
+        "new_layout_count": 0,
+        "original_x87_T80_status_sign_error_and_integer_ST0_kept": true,
+        "original_integer_EAX0_1_2_real_parents_and_all_RET_leaves_kept": true,
+        "original_return_address_discard_adapted_to_actual_native_continuation": true,
+        "continuation_not_original_math_status_or_stack_address_simulation": true,
+        "last_flags_kept_by_JRCXZ_MOV_LEA": true,
+        "native_frames_bytes": [
+          40,
+          56
+        ],
+        "existing_fdiv_owner_only_read_true_wrapper_and_special_targets_wired": true,
+        "native_direct_call_count": 7,
+        "native_direct_jump_count": 42,
+        "native_return_count": 18,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_original_descriptor_production_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x543151",
+      "inventory_id": "F:00143151",
+      "original_role": "原543151两次x87舍入/比较及FSTSW AX/SAHF判定；保持ST0并返回EAX0/1/2，与消费指数叶分开，真实供负底和零底幂调用。",
+      "original_end_exclusive": "0x543176",
+      "original_chunks": [
+        [
+          "0x543151",
+          "0x543176"
+        ]
+      ],
+      "instruction_count": 15,
+      "status": "BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dClassifyLegacySharedIntegerX87",
+            "Cg2dLegacySharedIntegerReturnX87",
+            "Cg2dLegacySharedNotIntegerX87",
+            "Cg2dLegacySharedEvenIntegerX87"
+          ],
+          "relationship": "原543151两次x87舍入/比较及FSTSW AX/SAHF判定；保持ST0并返回EAX0/1/2，与消费指数叶分开，真实供负底和零底幂调用。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "LegacyMathDispatchContext",
+            "Cg2dClassifyLegacySharedIntegerX87",
+            "Cg2dReadLegacyFdivBug"
+          ],
+          "relationship": "共享原context/内部ST0与续行合同；原数值不扩宽，私有原owner值桥不持有、不预填"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "Cg2dReadLegacyFdivBug",
+            "gLegacyFdivBug1085FC0"
+          ],
+          "relationship": "只将真实幂/指数父的原探测接已有唯一owner，保完整W32值；不新增owner或改变整数/特殊值叶"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-baseline",
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-decision",
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-acceptance",
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state"
+      ],
+      "boundary": "原543151两次x87舍入/比较及FSTSW AX/SAHF判定；保持ST0并返回EAX0/1/2，与消费指数叶分开，真实供负底和零底幂调用。 BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。",
+      "math_shared_targets": {
+        "spec_id": "BWO01",
+        "evidence_refs": [
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-baseline",
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-decision",
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-acceptance",
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state"
+        ],
+        "full_original_function_captured": true,
+        "original_instruction_count": 15,
+        "original_code_bytes": 37,
+        "whole_group_instruction_count": 159,
+        "whole_group_code_bytes": 469,
+        "whole_group_direct_calls": 4,
+        "whole_group_unique_direct_callees": 3,
+        "whole_group_jumps": 35,
+        "whole_group_returns": 11,
+        "whole_group_function_count": 7,
+        "whole_group_mapped_range_count": 3,
+        "whole_group_range_bytes": 307,
+        "actual_alignment_bytes": 5,
+        "source_body_added": true,
+        "source_asm_file_count": 1,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 6,
+        "new_native_function_body_count": 27,
+        "new_asm_proc_count": 26,
+        "new_cpp_body_count": 1,
+        "new_original_mapped_function_count": 7,
+        "new_private_C_bridge_count": 1,
+        "new_mutable_shared_owner_count": 0,
+        "new_layout_count": 0,
+        "original_x87_T80_status_sign_error_and_integer_ST0_kept": true,
+        "original_integer_EAX0_1_2_real_parents_and_all_RET_leaves_kept": true,
+        "original_return_address_discard_adapted_to_actual_native_continuation": true,
+        "continuation_not_original_math_status_or_stack_address_simulation": true,
+        "last_flags_kept_by_JRCXZ_MOV_LEA": true,
+        "native_frames_bytes": [
+          40,
+          56
+        ],
+        "existing_fdiv_owner_only_read_true_wrapper_and_special_targets_wired": true,
+        "native_direct_call_count": 7,
+        "native_direct_jump_count": 42,
+        "native_return_count": 18,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_original_descriptor_production_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x543176",
+      "inventory_id": "F:00143176",
+      "original_role": "原543176共同一RET，所有0/1/2生产与实际幂调用同时接线，不把单返回当整个判定功能。",
+      "original_end_exclusive": "0x543177",
+      "original_chunks": [
+        [
+          "0x543176",
+          "0x543177"
+        ]
+      ],
+      "instruction_count": 1,
+      "status": "BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dLegacySharedIntegerReturnX87",
+            "Cg2dClassifyLegacySharedIntegerX87",
+            "Cg2dLegacySharedNotIntegerX87",
+            "Cg2dLegacySharedEvenIntegerX87"
+          ],
+          "relationship": "原543176共同一RET，所有0/1/2生产与实际幂调用同时接线，不把单返回当整个判定功能。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "LegacyMathDispatchContext",
+            "Cg2dClassifyLegacySharedIntegerX87",
+            "Cg2dReadLegacyFdivBug"
+          ],
+          "relationship": "共享原context/内部ST0与续行合同；原数值不扩宽，私有原owner值桥不持有、不预填"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "Cg2dReadLegacyFdivBug",
+            "gLegacyFdivBug1085FC0"
+          ],
+          "relationship": "只将真实幂/指数父的原探测接已有唯一owner，保完整W32值；不新增owner或改变整数/特殊值叶"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-baseline",
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-decision",
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-acceptance",
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state"
+      ],
+      "boundary": "原543176共同一RET，所有0/1/2生产与实际幂调用同时接线，不把单返回当整个判定功能。 BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。",
+      "math_shared_targets": {
+        "spec_id": "BWO01",
+        "evidence_refs": [
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-baseline",
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-decision",
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-acceptance",
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state"
+        ],
+        "full_original_function_captured": true,
+        "original_instruction_count": 1,
+        "original_code_bytes": 1,
+        "whole_group_instruction_count": 159,
+        "whole_group_code_bytes": 469,
+        "whole_group_direct_calls": 4,
+        "whole_group_unique_direct_callees": 3,
+        "whole_group_jumps": 35,
+        "whole_group_returns": 11,
+        "whole_group_function_count": 7,
+        "whole_group_mapped_range_count": 3,
+        "whole_group_range_bytes": 307,
+        "actual_alignment_bytes": 5,
+        "source_body_added": true,
+        "source_asm_file_count": 1,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 6,
+        "new_native_function_body_count": 27,
+        "new_asm_proc_count": 26,
+        "new_cpp_body_count": 1,
+        "new_original_mapped_function_count": 7,
+        "new_private_C_bridge_count": 1,
+        "new_mutable_shared_owner_count": 0,
+        "new_layout_count": 0,
+        "original_x87_T80_status_sign_error_and_integer_ST0_kept": true,
+        "original_integer_EAX0_1_2_real_parents_and_all_RET_leaves_kept": true,
+        "original_return_address_discard_adapted_to_actual_native_continuation": true,
+        "continuation_not_original_math_status_or_stack_address_simulation": true,
+        "last_flags_kept_by_JRCXZ_MOV_LEA": true,
+        "native_frames_bytes": [
+          40,
+          56
+        ],
+        "existing_fdiv_owner_only_read_true_wrapper_and_special_targets_wired": true,
+        "native_direct_call_count": 7,
+        "native_direct_jump_count": 42,
+        "native_return_count": 18,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_original_descriptor_production_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x543177",
+      "inventory_id": "F:00143177",
+      "original_role": "原543177原EAX0与共同RET尾跳，真实只由完整x87判定的原非整数分支进入，保持原输入ST0和末标志。",
+      "original_end_exclusive": "0x54317e",
+      "original_chunks": [
+        [
+          "0x543177",
+          "0x54317e"
+        ]
+      ],
+      "instruction_count": 2,
+      "status": "BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dLegacySharedNotIntegerX87",
+            "Cg2dLegacySharedIntegerReturnX87"
+          ],
+          "relationship": "原543177原EAX0与共同RET尾跳，真实只由完整x87判定的原非整数分支进入，保持原输入ST0和末标志。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "LegacyMathDispatchContext",
+            "Cg2dClassifyLegacySharedIntegerX87",
+            "Cg2dReadLegacyFdivBug"
+          ],
+          "relationship": "共享原context/内部ST0与续行合同；原数值不扩宽，私有原owner值桥不持有、不预填"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "Cg2dReadLegacyFdivBug",
+            "gLegacyFdivBug1085FC0"
+          ],
+          "relationship": "只将真实幂/指数父的原探测接已有唯一owner，保完整W32值；不新增owner或改变整数/特殊值叶"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-baseline",
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-decision",
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-acceptance",
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state"
+      ],
+      "boundary": "原543177原EAX0与共同RET尾跳，真实只由完整x87判定的原非整数分支进入，保持原输入ST0和末标志。 BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。",
+      "math_shared_targets": {
+        "spec_id": "BWO01",
+        "evidence_refs": [
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-baseline",
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-decision",
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-acceptance",
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state"
+        ],
+        "full_original_function_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 7,
+        "whole_group_instruction_count": 159,
+        "whole_group_code_bytes": 469,
+        "whole_group_direct_calls": 4,
+        "whole_group_unique_direct_callees": 3,
+        "whole_group_jumps": 35,
+        "whole_group_returns": 11,
+        "whole_group_function_count": 7,
+        "whole_group_mapped_range_count": 3,
+        "whole_group_range_bytes": 307,
+        "actual_alignment_bytes": 5,
+        "source_body_added": true,
+        "source_asm_file_count": 1,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 6,
+        "new_native_function_body_count": 27,
+        "new_asm_proc_count": 26,
+        "new_cpp_body_count": 1,
+        "new_original_mapped_function_count": 7,
+        "new_private_C_bridge_count": 1,
+        "new_mutable_shared_owner_count": 0,
+        "new_layout_count": 0,
+        "original_x87_T80_status_sign_error_and_integer_ST0_kept": true,
+        "original_integer_EAX0_1_2_real_parents_and_all_RET_leaves_kept": true,
+        "original_return_address_discard_adapted_to_actual_native_continuation": true,
+        "continuation_not_original_math_status_or_stack_address_simulation": true,
+        "last_flags_kept_by_JRCXZ_MOV_LEA": true,
+        "native_frames_bytes": [
+          40,
+          56
+        ],
+        "existing_fdiv_owner_only_read_true_wrapper_and_special_targets_wired": true,
+        "native_direct_call_count": 7,
+        "native_direct_jump_count": 42,
+        "native_return_count": 18,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_original_descriptor_production_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x54317e",
+      "inventory_id": "F:0014317E",
+      "original_role": "原54317E原EAX2与共同RET尾跳，真实只由完整x87判定的原偶数分支进入，保持原输入ST0和末标志。",
+      "original_end_exclusive": "0x543185",
+      "original_chunks": [
+        [
+          "0x54317e",
+          "0x543185"
+        ]
+      ],
+      "instruction_count": 2,
+      "status": "BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dLegacySharedEvenIntegerX87",
+            "Cg2dLegacySharedIntegerReturnX87"
+          ],
+          "relationship": "原54317E原EAX2与共同RET尾跳，真实只由完整x87判定的原偶数分支进入，保持原输入ST0和末标志。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "LegacyMathDispatchContext",
+            "Cg2dClassifyLegacySharedIntegerX87",
+            "Cg2dReadLegacyFdivBug"
+          ],
+          "relationship": "共享原context/内部ST0与续行合同；原数值不扩宽，私有原owner值桥不持有、不预填"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "Cg2dReadLegacyFdivBug",
+            "gLegacyFdivBug1085FC0"
+          ],
+          "relationship": "只将真实幂/指数父的原探测接已有唯一owner，保完整W32值；不新增owner或改变整数/特殊值叶"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-baseline",
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-decision",
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-acceptance",
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state"
+      ],
+      "boundary": "原54317E原EAX2与共同RET尾跳，真实只由完整x87判定的原偶数分支进入，保持原输入ST0和末标志。 BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。",
+      "math_shared_targets": {
+        "spec_id": "BWO01",
+        "evidence_refs": [
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-baseline",
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-decision",
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-acceptance",
+          "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state"
+        ],
+        "full_original_function_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 7,
+        "whole_group_instruction_count": 159,
+        "whole_group_code_bytes": 469,
+        "whole_group_direct_calls": 4,
+        "whole_group_unique_direct_callees": 3,
+        "whole_group_jumps": 35,
+        "whole_group_returns": 11,
+        "whole_group_function_count": 7,
+        "whole_group_mapped_range_count": 3,
+        "whole_group_range_bytes": 307,
+        "actual_alignment_bytes": 5,
+        "source_body_added": true,
+        "source_asm_file_count": 1,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 6,
+        "new_native_function_body_count": 27,
+        "new_asm_proc_count": 26,
+        "new_cpp_body_count": 1,
+        "new_original_mapped_function_count": 7,
+        "new_private_C_bridge_count": 1,
+        "new_mutable_shared_owner_count": 0,
+        "new_layout_count": 0,
+        "original_x87_T80_status_sign_error_and_integer_ST0_kept": true,
+        "original_integer_EAX0_1_2_real_parents_and_all_RET_leaves_kept": true,
+        "original_return_address_discard_adapted_to_actual_native_continuation": true,
+        "continuation_not_original_math_status_or_stack_address_simulation": true,
+        "last_flags_kept_by_JRCXZ_MOV_LEA": true,
+        "native_frames_bytes": [
+          40,
+          56
+        ],
+        "existing_fdiv_owner_only_read_true_wrapper_and_special_targets_wired": true,
+        "native_direct_call_count": 7,
+        "native_direct_jump_count": 42,
+        "native_return_count": 18,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_original_descriptor_production_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

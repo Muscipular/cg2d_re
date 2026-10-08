@@ -31,6 +31,9 @@ LegacyDivideScale592270 DWORD 03F700000h
 LegacyDivideScale592274 DWORD 03F880000h
 LegacyDivideNormalize592278 DWORD 05F000000h
 
+LegacySharedNegativeInfinity591FFA BYTE 00h, 00h, 00h, 00h, 00h, 00h, 00h, 080h, 0FFh, 0FFh
+LegacySharedExpLimit59200E BYTE 00h, 00h, 00h, 00h, 00h, 00h, 0FFh, 0FFh, 0Dh, 040h
+
 .code
 EXTERN Cg2dClassifyLegacySpecialFloat:PROC
 PUBLIC Cg2dClassifyLegacyFloat
@@ -65,6 +68,33 @@ PUBLIC Cg2dLegacyMathQuietEitherNaNX87
 PUBLIC Cg2dLegacyMathInvalidBinaryX87
 PUBLIC Cg2dDivideLegacyExtendedX87
 PUBLIC Cg2dReverseDivideLegacyStackX87
+PUBLIC Cg2dLegacySharedIntegerReturnX87
+PUBLIC Cg2dLegacySharedNotIntegerX87
+PUBLIC Cg2dLegacySharedEvenIntegerX87
+PUBLIC Cg2dClassifyLegacySharedIntegerX87
+PUBLIC Cg2dLegacySharedZeroPowerReturnX87
+PUBLIC Cg2dLegacySharedExpBigReturnX87
+PUBLIC Cg2dLegacySharedZeroOnePopX87
+PUBLIC Cg2dLegacySharedInvalidOnePopX87
+PUBLIC Cg2dLegacyExpMinusOneX87
+PUBLIC Cg2dLegacySharedExpFinishX87
+PUBLIC Cg2dLegacySharedPowerX87
+PUBLIC Cg2dLegacySharedExpX87
+PUBLIC Cg2dLegacySharedNegativeZeroPowerX87
+PUBLIC Cg2dLegacySharedZeroPowerX87
+PUBLIC Cg2dLegacySharedInfinitePoleOnePopX87
+PUBLIC Cg2dLegacySharedInfinitePoleTwoPopX87
+PUBLIC Cg2dLegacySharedNaturalLogX87
+PUBLIC Cg2dLegacySharedNaturalLogZeroX87
+PUBLIC Cg2dLegacySharedLogInfinityX87
+PUBLIC Cg2dLegacySharedLogMagnitudeX87
+PUBLIC Cg2dLegacySharedLog10MagnitudeX87
+PUBLIC Cg2dLegacySharedNaturalLogMagnitudeX87
+PUBLIC Cg2dLegacySharedSetOverflowX87
+PUBLIC Cg2dLegacySharedInfiniteOverflowOnePopX87
+PUBLIC Cg2dLegacySharedInfiniteOverflowTwoPopX87
+PUBLIC Cg2dLegacySharedExpInfinityX87
+EXTERN Cg2dReadLegacyFdivBug:PROC
 EXTERN Cg2dLegacyPowerFastExitGate1085FBC:DWORD
 EXTERN Cg2dRaiseLegacyFloatExceptionHost:PROC
 EXTERN Cg2dDefaultLegacyMathError:PROC
@@ -1965,5 +1995,380 @@ Cg2dReverseDivideLegacyStackX87 PROC FRAME
     add rsp, 88
     ret
 Cg2dReverseDivideLegacyStackX87 ENDP
+
+; 原543176：完整RET，与原0/1/2判定及全部调用入口一并实现。
+Cg2dLegacySharedIntegerReturnX87 PROC
+    ret
+Cg2dLegacySharedIntegerReturnX87 ENDP
+
+; 原543177：原完整EAX=0再尾入公共RET，保ST0。
+Cg2dLegacySharedNotIntegerX87 PROC
+    mov eax, 0
+    jmp Cg2dLegacySharedIntegerReturnX87
+Cg2dLegacySharedNotIntegerX87 ENDP
+
+; 原54317E：原完整EAX=2再尾入公共RET，保ST0。
+Cg2dLegacySharedEvenIntegerX87 PROC
+    mov eax, 2
+    jmp Cg2dLegacySharedIntegerReturnX87
+Cg2dLegacySharedEvenIntegerX87 ENDP
+
+; 原543151：不消费ST0，以原两次x87舍入/SAHF判整数奇偶，不能借消费指数叶。
+Cg2dClassifyLegacySharedIntegerX87 PROC
+    fld st(0)
+    frndint
+    fcomp st(1)
+    fstsw ax
+    sahf
+    jnz Cg2dLegacySharedNotIntegerX87
+    fld st(0)
+    fmul qword ptr [LegacyGenericPowerHalf58F890]
+    fld st(0)
+    frndint
+    fcompp
+    fstsw ax
+    sahf
+    jz Cg2dLegacySharedEvenIntegerX87
+    mov eax, 1
+    jmp Cg2dLegacySharedIntegerReturnX87
+Cg2dClassifyLegacySharedIntegerX87 ENDP
+
+; 原543097：原零底幂分支的共同RET；全部生产入口同时实现。
+Cg2dLegacySharedZeroPowerReturnX87 PROC
+    ret
+Cg2dLegacySharedZeroPowerReturnX87 ENDP
+
+; 原5430E2：原指数越界大值共同RET，真实续行由帮助体提供。
+Cg2dLegacySharedExpBigReturnX87 PROC
+    ret
+Cg2dLegacySharedExpBigReturnX87 ENDP
+
+; 原5432C6：共享尾的一个真实FSTP/FLDZ，与两个弹栈入口分开。
+Cg2dLegacySharedZeroOnePopX87 PROC
+    fstp st(0)
+    fldz
+    mov r9, rcx
+    mov ecx, dword ptr [r9+28]
+    ret
+Cg2dLegacySharedZeroOnePopX87 ENDP
+
+; 原543368：一个真实FSTP/T80未定义值与原signed错误选择/末OR CL。
+Cg2dLegacySharedInvalidOnePopX87 PROC
+    mov r9, rcx
+    fstp st(0)
+    fld tbyte ptr [LegacyGenericPowerUndefined592060]
+    cmp byte ptr [r9+24], 0
+    jg LegacySharedInvalidTypeReady
+    mov byte ptr [r9+24], 1
+LegacySharedInvalidTypeReady:
+    mov ecx, dword ptr [r9+28]
+    or cl, cl
+    ret
+Cg2dLegacySharedInvalidOnePopX87 ENDP
+
+; 原54310E及其5430C0/C3异常分块；R11D只传内层继续0/直接结束外层1，不伪作原状态。
+Cg2dLegacyExpMinusOneX87 PROC
+    mov r9, rcx
+    mov ecx, dword ptr [r9+28]
+    fld st(0)
+    fabs
+    fld tbyte ptr [LegacySharedExpLimit59200E]
+    fcompp
+    fstsw word ptr [r9+4]
+    fwait
+    test byte ptr [r9+5], 041h
+    jnz LegacySharedExpArgumentOutside
+    fld st(0)
+    frndint
+    ftst
+    fstsw word ptr [r9+4]
+    fwait
+    mov dl, byte ptr [r9+5]
+    fxch st(1)
+    fsub st(0), st(1)
+    ftst
+    fstsw word ptr [r9+4]
+    fabs
+    f2xm1
+    mov r11d, 0
+    ret
+LegacySharedExpArgumentOutside:
+    mov r11d, 1
+    ftst
+    fstsw word ptr [r9+4]
+    fwait
+    test byte ptr [r9+5], 1
+    jnz LegacySharedExpUnderflow
+    fstp st(0)
+    fld tbyte ptr [LegacyGenericPowerInfinity591FF0]
+    or ch, ch
+    jz Cg2dLegacySharedExpBigReturnX87
+    fchs
+    jmp Cg2dLegacySharedExpBigReturnX87
+LegacySharedExpUnderflow:
+    mov byte ptr [r9+24], 4
+    fstp st(0)
+    fldz
+    ret
+Cg2dLegacyExpMinusOneX87 ENDP
+
+; 原542FCE..543005：真实expm1/原探测与除法/可选缩放；JRCXZ保帮助体末标志。
+Cg2dLegacySharedExpFinishX87 PROC FRAME
+    sub rsp, 56
+    .allocstack 56
+    .endprolog
+    mov qword ptr [rsp+32], rcx
+    call Cg2dLegacyExpMinusOneX87
+    mov r9, qword ptr [rsp+32]
+    mov ecx, r11d
+    jrcxz LegacySharedExpContinue
+    mov ecx, dword ptr [r9+28]
+    lea rsp, [rsp+56]
+    ret
+LegacySharedExpContinue:
+    mov ecx, dword ptr [r9+28]
+    fld1
+    faddp st(1), st(0)
+    test byte ptr [r9+5], 1
+    jz LegacySharedExpDivideDone
+    fld1
+    mov dword ptr [rsp+44], eax
+    mov dword ptr [rsp+40], edx
+    call Cg2dReadLegacyFdivBug
+    cmp eax, 1
+    mov r9, qword ptr [rsp+32]
+    mov eax, dword ptr [rsp+44]
+    mov edx, dword ptr [rsp+40]
+    mov ecx, dword ptr [r9+28]
+    jz LegacySharedExpBadFdiv
+    fdivrp st(1), st(0)
+    jmp LegacySharedExpDivideDone
+LegacySharedExpBadFdiv:
+    call Cg2dReverseDivideLegacyStackX87
+LegacySharedExpDivideDone:
+    test dl, 040h
+    jnz LegacySharedExpScaled
+    fscale
+LegacySharedExpScaled:
+    or ch, ch
+    jz LegacySharedExpPositive
+    fchs
+LegacySharedExpPositive:
+    fxch st(1)
+    fstp st(0)
+    mov dword ptr [r9+28], ecx
+    lea rsp, [rsp+56]
+    ret
+Cg2dLegacySharedExpFinishX87 ENDP
+
+; 原542FB0/543006：真实幂主目标，保原FE错误预样本/负底奇偶/FYL2X与全部外尾。
+Cg2dLegacySharedPowerX87 PROC FRAME
+    sub rsp, 40
+    .allocstack 40
+    .endprolog
+    mov qword ptr [rsp+32], rcx
+    mov r9, rcx
+    mov ecx, dword ptr [r9+28]
+    mov byte ptr [r9+24], 0FEh
+    or ch, ch
+    jnz LegacySharedPowerNegativeBase
+    fxch st(1)
+LegacySharedPowerLogarithm:
+    fyl2x
+    mov dword ptr [r9+28], ecx
+    mov rcx, r9
+    call Cg2dLegacySharedExpFinishX87
+    lea rsp, [rsp+40]
+    ret
+LegacySharedPowerNegativeBase:
+    call Cg2dClassifyLegacySharedIntegerX87
+    or eax, eax
+    jz LegacySharedPowerInvalid
+    xor ch, ch
+    cmp eax, 2
+    jz LegacySharedPowerEvenExponent
+    not ch
+LegacySharedPowerEvenExponent:
+    fxch st(1)
+    fabs
+    jmp LegacySharedPowerLogarithm
+LegacySharedPowerInvalid:
+    mov rcx, r9
+    call Cg2dLegacyMathInvalidBinaryX87
+    lea rsp, [rsp+40]
+    ret
+Cg2dLegacySharedPowerX87 ENDP
+
+; 原542FC1：原FE/XOR CH、FLDL2E/FMULP后真实尾入共享指数收束。
+Cg2dLegacySharedExpX87 PROC
+    mov r9, rcx
+    mov ecx, dword ptr [r9+28]
+    mov byte ptr [r9+24], 0FEh
+    xor ch, ch
+    fldl2e
+    fmulp st(1), st(0)
+    mov dword ptr [r9+28], ecx
+    mov rcx, r9
+    jmp Cg2dLegacySharedExpFinishX87
+Cg2dLegacySharedExpX87 ENDP
+
+; 原543098：error2/原T80无穷及奇数负零符号，再真尾公共RET。
+Cg2dLegacySharedNegativeZeroPowerX87 PROC
+    mov r9, rcx
+    mov ecx, dword ptr [r9+28]
+    mov byte ptr [r9+24], 2
+    fld tbyte ptr [LegacyGenericPowerInfinity591FF0]
+    cmp eax, 1
+    jnz Cg2dLegacySharedZeroPowerReturnX87
+    or ch, ch
+    jz Cg2dLegacySharedZeroPowerReturnX87
+    fchs
+    jmp Cg2dLegacySharedZeroPowerReturnX87
+Cg2dLegacySharedNegativeZeroPowerX87 ENDP
+
+; 原54307D：原不消费整数判定、两个弹栈与零/无穷及符号分支。
+Cg2dLegacySharedZeroPowerX87 PROC FRAME
+    sub rsp, 40
+    .allocstack 40
+    .endprolog
+    mov qword ptr [rsp+32], rcx
+    mov r9, rcx
+    mov ecx, dword ptr [r9+28]
+    call Cg2dClassifyLegacySharedIntegerX87
+    fstp st(0)
+    fstp st(0)
+    or cl, cl
+    jnz LegacySharedZeroPowerNegative
+    fldz
+    cmp eax, 1
+    jnz LegacySharedZeroPowerDone
+    or ch, ch
+    jz LegacySharedZeroPowerDone
+    fchs
+LegacySharedZeroPowerDone:
+    lea rsp, [rsp+40]
+    jmp Cg2dLegacySharedZeroPowerReturnX87
+LegacySharedZeroPowerNegative:
+    mov rcx, r9
+    lea rsp, [rsp+40]
+    jmp Cg2dLegacySharedNegativeZeroPowerX87
+Cg2dLegacySharedZeroPowerX87 ENDP
+
+; 原54302A：原一个弹栈/T80无穷/error2。
+Cg2dLegacySharedInfinitePoleOnePopX87 PROC
+    fstp st(0)
+    fld tbyte ptr [LegacyGenericPowerInfinity591FF0]
+    mov r9, rcx
+    mov byte ptr [r9+24], 2
+    mov ecx, dword ptr [r9+28]
+    ret
+Cg2dLegacySharedInfinitePoleOnePopX87 ENDP
+
+; 原543028：额外原弹栈后真尾一个弹栈目标。
+Cg2dLegacySharedInfinitePoleTwoPopX87 PROC
+    fstp st(0)
+    jmp Cg2dLegacySharedInfinitePoleOnePopX87
+Cg2dLegacySharedInfinitePoleTwoPopX87 ENDP
+
+; 原54303A：FLDLN2/实际FTST与等待状态41H分支，失败走已实现双弹栈目标。
+Cg2dLegacySharedNaturalLogX87 PROC
+    mov r9, rcx
+    mov ecx, dword ptr [r9+28]
+    fldln2
+    fxch st(1)
+    ftst
+    fstsw word ptr [r9+4]
+    fwait
+    test byte ptr [r9+5], 041h
+    jnz LegacySharedNaturalLogInvalid
+    fyl2x
+    ret
+LegacySharedNaturalLogInvalid:
+    mov rcx, r9
+    jmp Cg2dLegacyMathInvalidBinaryX87
+Cg2dLegacySharedNaturalLogX87 ENDP
+
+; 原543054：error2、真实弹栈和原T80负无穷。
+Cg2dLegacySharedNaturalLogZeroX87 PROC
+    mov r9, rcx
+    mov byte ptr [r9+24], 2
+    fstp st(0)
+    fld tbyte ptr [LegacySharedNegativeInfinity591FFA]
+    mov ecx, dword ptr [r9+28]
+    ret
+Cg2dLegacySharedNaturalLogZeroX87 ENDP
+
+; 原543064：原CL符号分支，不新增错误或缺值填充。
+Cg2dLegacySharedLogInfinityX87 PROC
+    mov r9, rcx
+    mov ecx, dword ptr [r9+28]
+    or cl, cl
+    jnz LegacySharedLogInfinityInvalid
+    ret
+LegacySharedLogInfinityInvalid:
+    mov rcx, r9
+    jmp Cg2dLegacySharedInvalidOnePopX87
+Cg2dLegacySharedLogInfinityX87 ENDP
+
+; 原54306F：原FXCH/OR CL及FY L2X或双弹栈错误，供原LOGm/LNm两个入口。
+Cg2dLegacySharedLogMagnitudeX87 PROC
+    mov r9, rcx
+    mov ecx, dword ptr [r9+28]
+    fxch st(1)
+    or cl, cl
+    jnz LegacySharedLogMagnitudeInvalid
+    fyl2x
+    ret
+LegacySharedLogMagnitudeInvalid:
+    mov rcx, r9
+    jmp Cg2dLegacyMathInvalidBinaryX87
+Cg2dLegacySharedLogMagnitudeX87 ENDP
+
+; 原543069：原FLDLG2后真实尾公共对数目标。
+Cg2dLegacySharedLog10MagnitudeX87 PROC
+    fldlg2
+    jmp Cg2dLegacySharedLogMagnitudeX87
+Cg2dLegacySharedLog10MagnitudeX87 ENDP
+
+; 原54306D：原FLDLN2后真实尾公共对数目标。
+Cg2dLegacySharedNaturalLogMagnitudeX87 PROC
+    fldln2
+    jmp Cg2dLegacySharedLogMagnitudeX87
+Cg2dLegacySharedNaturalLogMagnitudeX87 ENDP
+
+; 原5430F9：原error3目标，不假造默认结果。
+Cg2dLegacySharedSetOverflowX87 PROC
+    mov r9, rcx
+    mov byte ptr [r9+24], 3
+    mov ecx, dword ptr [r9+28]
+    ret
+Cg2dLegacySharedSetOverflowX87 ENDP
+
+; 原5430F1：真实一个弹栈/T80无穷后原error3目标。
+Cg2dLegacySharedInfiniteOverflowOnePopX87 PROC
+    fstp st(0)
+    fld tbyte ptr [LegacyGenericPowerInfinity591FF0]
+    jmp Cg2dLegacySharedSetOverflowX87
+Cg2dLegacySharedInfiniteOverflowOnePopX87 ENDP
+
+; 原5430EF：额外原弹栈后真尾一弹栈overflow目标。
+Cg2dLegacySharedInfiniteOverflowTwoPopX87 PROC
+    fstp st(0)
+    jmp Cg2dLegacySharedInfiniteOverflowOnePopX87
+Cg2dLegacySharedInfiniteOverflowTwoPopX87 ENDP
+
+; 原543101：原CL符号选择一弹栈零或一弹栈T80无穷，不更改原error。
+Cg2dLegacySharedExpInfinityX87 PROC
+    mov r9, rcx
+    mov ecx, dword ptr [r9+28]
+    or cl, cl
+    jnz LegacySharedExpInfinityZero
+    fstp st(0)
+    fld tbyte ptr [LegacyGenericPowerInfinity591FF0]
+    ret
+LegacySharedExpInfinityZero:
+    mov rcx, r9
+    jmp Cg2dLegacySharedZeroOnePopX87
+Cg2dLegacySharedExpInfinityX87 ENDP
 
 END

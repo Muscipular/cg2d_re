@@ -4145,3 +4145,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 [两原完整身份与源前后态](cg2d_math_divide_shared_evidence.json)、[合同](cg2d_math_divide_shared_spec.md#math-divide-shared-decision)。
 
 新增1838/F:00145360→Cg2dDivideLegacyExtendedX87、1839/F:00145B51→Cg2dReverseDivideLegacyStackX87，均在既有LegacyFloatEnvironment.asm；HPP仅私有x87合同。83条279B核心与八条21B包装全部实现，不截为一RET、不代宿主除法。原T80帧、CW/表/F32缩放与重写循环、真实包装调用/数值恢复有据，原位宽与未生产字节保持。其它父与完整共享链仍待，pending18保持。
+
+## BWO01七身份与三个共享数学区间整组映射（2026-10-08）
+
+[全部原体/命名入口/三R7与源前后态](cg2d_math_shared_targets_evidence.json)、[合同](cg2d_math_shared_targets_spec.md#math-targets-decision)。
+
+新增1840..1846/F:00143097、001430E2、0014310E、00143151、00143176、00143177、0014317E；七F仅56条167B，与三R7的103条302B合完整159条469B，不单映三个RET来代功能。三R7合307B，首区前五BYTE实际CC对齐，其余所有共享代码已有真实本体/原尾接线。
+
+26ASM与一个只读原owner的C桥位于三既有源，原T80/状态/错误/符号与整数ST0保持，实际续行和原除法/特殊值真调用。三R7只作mapped分类，不新增函数/范围排除。原描述符生产/其它父及机器/运行继续，pending18保持。

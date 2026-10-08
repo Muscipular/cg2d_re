@@ -2174,3 +2174,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 [标准](cg2d_math_divide_shared_spec.md#math-divide-shared-acceptance)、[状态](cg2d_math_divide_shared_spec.md#math-divide-shared-source-state)及[原证/源差集](cg2d_math_divide_shared_evidence.json)。
 
 I只覆盖545B51→545360内部实际调用与借用帧，S覆盖91条300B完整原体、两源四追加/两ASM、原T80-表三F32-CW循环及正常帧集中静态，不代共享指数接线/其它父或机器。预计语义1840/有效1833、文档1950/3680（52.99%）、F1002/CRT179/E1166，定位147/CRT未定位19、总队列148，以文本汇总核实；整体任务/门禁保持open。
+
+## BWO01共享数学整段开发限定验收（2026-10-08）
+
+[标准](cg2d_math_shared_targets_spec.md#math-targets-acceptance)、[状态](cg2d_math_shared_targets_spec.md#math-targets-source-state)及[全部原证/源差集](cg2d_math_shared_targets_evidence.json)。
+
+I覆盖共享幂/指数/对数内部父与全部目标、判定/帮助体→真实原除法及既有特殊值、唯一FDIV owner；S覆盖159条469B/七F三R7、26ASM一实际C桥/三源六追加、原x87与续行分支/末标志集中静态。源码接线/区间分类不代原描述符生产/其它父或机器门禁。
+
+预计语义1847/有效1840、文档1957/3680（53.18%）、F1009/CRT186/E1168；定位140/CRT未定位12、总队列141；R7已审470/余2591，以文本汇总核实。完整任务/门禁保持open。

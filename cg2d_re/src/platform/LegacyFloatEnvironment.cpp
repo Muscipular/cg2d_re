@@ -328,6 +328,12 @@ extern "C" std::int32_t Cg2dSetLegacyMathErrno(const std::int32_t type) noexcept
     return SetLegacyMathErrno_5478B2(type);
 }
 
+// 原542FE2读取唯一已有1085FC0探测owner；仅做Win64私有值桥，不缓存/改写。
+extern "C" std::int32_t Cg2dReadLegacyFdivBug() noexcept
+{
+    return gLegacyFdivBug1085FC0;
+}
+
 } // namespace detail
 
 } // namespace cg::platform

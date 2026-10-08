@@ -63,3 +63,7 @@ C01/R01/V02/R04及完整CRT枚举/gates保持open；pending18、商店mixed-pend
 ## BWN01共享指数目标的原除法依赖已开发（2026-10-08）
 
 [依赖SPEC](cg2d_math_divide_shared_spec.md#math-divide-shared-decision)与[原体/父窗口/源前后态](cg2d_math_divide_shared_evidence.json)。原542FE2/542FEF探测分支需真实545B51/545360，现已完整实现两本体及内部调用，原T80落存/16B表三F32/CW缩放/非规格化循环保；不以宿主除法或固定成功补依赖。542FB0..543185完整共享目标、原描述符生产和其它调用父继续开发，当前内部依赖完成不提前计外部接线/机器验收。
+
+## BWO01共享幂、指数、对数目标已完整开发（2026-10-08）
+
+[目标SPEC](cg2d_math_shared_targets_spec.md#math-targets-decision)与[全部原体/七F三R7/源前后态](cg2d_math_shared_targets_evidence.json)。542FB0..543185全159条469B已开发，26ASM及一个只读原owner桥；共同RET和全部生产/分支一并映射，三个未知区间按实际代码/五BYTE对齐完整分类。幂/指数/对数与零无穷目标、保ST0的整数判定和帮助体→真实除法及特殊值内部接线完成。原描述符生产/其它调用父仍沿真实证据继续，不提前计机器或全应用验收。

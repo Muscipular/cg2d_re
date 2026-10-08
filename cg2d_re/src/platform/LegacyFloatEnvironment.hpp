@@ -118,6 +118,14 @@ struct LegacyBinaryMathDescriptor {
 // Cg2dReverseDivideLegacyStackX87只在ASM间以ST0/ST1进出，保原EAX/ECX数值及EDX。
 // 不声明CPP double ABI；完整分支和生命周期见共享除法依赖SPEC。
 
+// 原542FB0..543185共享幂/指数/对数目标，RCX借同一LegacyMathDispatchContext。
+// Cg2dLegacySharedPowerX87/ExpX87/ZeroPowerX87及对数/特殊值目标只在ASM间传ST0/ST1。
+// 原542FEF真实调用Cg2dReverseDivideLegacyStackX87；其探测值来自唯一已有gLegacyFdivBug1085FC0。
+// Cg2dLegacyExpMinusOneX87的R11D仅承接原继续内层0/丢内层返回后结束外层1的控制流；
+// 不作为原数学状态/成功值，调用父以JRCXZ消费以保持末标志，不模拟原栈地址。
+// Cg2dClassifyLegacySharedIntegerX87保持ST0/返回EAX0-1-2；不是消费ST0的幂指数分类叶。
+// 三个R7共享区间和七原函数身份一起映射，完整原表生产/其它调用父仍沿真实依赖补齐。
+
 // 原控制字抽象/硬件表示转换，只消费和生成原已定义位。
 std::uint32_t AbstractLegacyControlWord_5448A4(std::uint32_t hardware);
 std::uint32_t HardwareLegacyControlWord_544936(std::uint32_t abstractValue);
@@ -178,6 +186,9 @@ extern "C" std::uint32_t Cg2dLegacyMathErrorCallbackGate5925B8;
 // Win64普通值桥；只借用两个F64输入/结果，外部转换边界见通用幂本体SPEC。
 extern "C" void Cg2dComputeLegacyPower(const double* inputs, double* result) noexcept;
 extern "C" std::uint32_t Cg2dLegacyPowerFastExitGate1085FBC;
+
+// 仅承接原542FE2对已有1085FC0的W32读取，供ASM真实探测分支使用。
+extern "C" std::int32_t Cg2dReadLegacyFdivBug() noexcept;
 
 } // namespace detail
 } // namespace cg::platform

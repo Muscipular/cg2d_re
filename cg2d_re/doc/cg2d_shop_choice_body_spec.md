@@ -60,3 +60,45 @@ C9A94C为独立S32、原PE虚拟零初值；本步提供唯一真实槽，不把
 321条已证本体承载在既有LegacyUiRecord，补C9A94C唯一S32槽和内部头声明；
 原mode0第二命令仍不伪造。R1登记mixed准确表达本体已落位、该事实与真实数据/路由尚未闭合，
 不能当equivalent或整体验收。格式接口原4D8F68已接，但其未写参数路径仍随P07取证。
+
+## BVV01商店预览标志的opaque边界修正（2026-10-08）
+
+<a id="shop-preview-flag-baseline"></a>
+### 实际缺口与原证
+
+`src/LegacyUiRecord.cpp::Sub_4D8DA0`仅能看到`cg::login::YobiAction`的前置声明，却直接写`gLegacyShopChoiceActionD67C68->flags`；判空与写入还各读一次共享槽。原4D8EA1先保存D67C68指针，4D8EA6/A8以同样本判空，4D8EAA对同对象+24的W32只清bit1。四指令13B由当前cg2d会话只读定点确认，完整321条1080B原父及八字符串/路由/模式事实复用SCP01证据。
+
+既有`SetYobiActionFlag2(YobiAction*,bool) noexcept`在完整类型所在YobiRuntime.cpp内操作W32 flags；false分支只有`action->flags &= ~2u`，无额外action判空。公共声明、原生非拥有指针边界及其它调用正确。
+
+<a id="shop-preview-flag-decision"></a>
+### 决定与实施
+
+在原state0/2分流之后、4D3040之前，仅将直接访问片段替换为一次`previewAction=D67C68`取样，原判空借同指针，再调用既有`SetYobiActionFlag2(previewAction,false)`。同样本决定是否清位并承接原W32掩码；不公开/复制布局、不新增helper、接口、所有权、保护或业务分支。
+
+其余父正文和4D8D70生产叶保持。C9A94C真实模式生产、低两位零的未写第二命令及旧外路由仍须原事实；本步不填默认值、删行、模拟原栈或据初值宣称功能关闭。既有1226/混合F处置/pending6保持，同步当前源码状态而不降低完整验收。
+
+<a id="shop-preview-flag-acceptance"></a>
+### 可度量验收
+
+| 项目 | 本步标准 |
+| --- | --- |
+| 原合同 | 四定点指令13B与SCP01原父吻合，同D67C68样本判空后只清flags的W32 bit1 |
+| 源修 | 一个CPP、一个片段，消除直接不完整类型访问及重复槽读取；其它父体/生产叶/helper与声明保持 |
+| 台账 | 已有1226/F更新，不新增语义或F；UI-L-062两个成员、pending18及原混合处置保持 |
+| 限定证据 | 两I/S，只本片段；E1106→1108，不提升全页或编译/运行门禁 |
+| 度量与任务 | 语义1805/有效1798、合同1915（52.04%）、F954保持；U04/U11/V04/R04仍open |
+
+集中静态须证明整份LegacyUiRecord.cpp只有该替换、公共声明/既有helper和其余源码保持、原指令与完整根吻合、pending保留及机器/派生精确差集成立；随后文本汇总/`-Check`。原格式明文、音频暂停与RPLAN.24保持，不构建/测试/运行或计算hash。
+
+<a id="shop-preview-flag-source-state"></a>
+### 当前状态
+
+方案依既有工程委托决定；修正及实际静态结果随后记录。SCP01本体落位是历史阶段结论，不能代当前编译证明。仅解决已证源码边界和取样差异，完整模式/命令/路由、正常owner-alias寿命、SDK/机器ABI、画面和运行验收仍按原标准推进。
+
+### BVV01本步实际静态结果
+
+已修复旧62预览的opaque成员访问与重复共享指针读取：一CPP一片段保存D67C68样本，同样本判空后经既有SetYobiActionFlag2(false)清W32 bit1。原4D8EA1/A6/A8/AA四指令13B与SCP01完整321条1080B根一致；新端不公开YobiAction布局，无新函数/helper/API/owner或额外action门禁。
+
+整份LegacyUiRecord.cpp仅该片段变化；其余父体、4D8D70预览生产叶、既有Yobi helper与公共/私有头保持。原状态0/2分流后、4D3040之前位置与其它bits保；唯一模式槽、原命令写/读分支、八原字节和原格式明文发送保持。本步不填未知命令、删行或模拟原栈，原事实待证仍按原验收推进。
+
+完整机器和派生精确差集、文本汇总/-Check通过。既有1226/混合F与pending6当前状态追加，不重计语义/F/旧62两个成员，仅两限定I/S；实际语义1805/有效1798、合同1915（52.04%）、F954保持，E1106→1108。U04/U11/V04/R04仍open，pending18/R7已审467余2594/closed11/全叶0/globalfalse及原差队列/CRT43保持。编译、链接、真实模式/第二命令/旧外路由、正常owner-alias寿命、SDK/机器ABI/画面与运行未验；音频暂停/RPLAN.24及执行限制保，整体SPEC目标继续推进。

@@ -7536,7 +7536,8 @@
       "scope": "included",
       "baseline_documents": [
         "doc/ui_windows/legacy_shop_choice.md",
-        "doc/cg2d_shop_choice_body_spec.md"
+        "doc/cg2d_shop_choice_body_spec.md",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-baseline"
       ],
       "original_inventory_ids": [
         "F:000D8D70",
@@ -7553,15 +7554,19 @@
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
       "decision_refs": [
-        "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-decision"
+        "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-decision",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-decision"
       ],
       "blockers": [
         "SCP01完整本体已落位；独立模式真实生产、低两位零的未写第二命令与旧外层路由仍未证，不评原栈等价",
-        "成员枚举、完整父/间接路由/生命周期及运行门禁未闭合"
+        "成员枚举、完整父/间接路由/生命周期及运行门禁未闭合",
+        "BVV01修复旧62商店选择4D8DA0对opaque YobiAction::flags的直接访问及D67C68重复读取；原4D8EA1/A6/A8/AA四指令13B一次持样/判空/清W32 bit1，经现有SetYobiActionFlag2(previewAction,false)承接，无额外action判空或新接口。一个CPP一个片段，其它完整父体、预览生产叶、Yobi helper/头、模式/命令/格式/原字节及原格式明文保持。复用SCP01完整321条1080B根与原表/八字节合同，不重新取全根或外推真实外路由；已有1226/Fmixed及pending6/18保持，UI-L-062两个成员不重计，只两限定I/S。模式真实生产、低两位零的第二命令及旧路由/完整画面运行仍按原事实和验收处理，不填值或模拟原栈，未宣编译/链接/运行或故障等价通过；音频暂停/RPLAN.24及完整门禁保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state"
+      ]
     },
     {
       "id": "UI-L-063",
@@ -49337,6 +49342,74 @@
       "observation": "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
       "expected": "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
       "actual": "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。"
+    },
+    {
+      "id": "E-SHOP-PREVIEW-FLAG-BOUNDARY-UI-L-062-I-20261008",
+      "feature_id": "UI-L-062",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVV01复用SCP01完整321条1080B，仅定点四指令13B；一片段修opaque清标志和一次指针取样，不重计已有F/成员、不解决无事实模式/命令。doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-shop-preview-flag-boundary-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4D8DA0",
+        "src/LegacyUiRecord.cpp#Sub_4D8D70",
+        "src/LegacyUiRecord.cpp#gLegacyShopChoiceActionD67C68",
+        "src/LegacyPanelRuntime.hpp#Sub_4D8DA0",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_shop_choice_body_evidence.json",
+        "doc/ui_windows/legacy_shop_choice.md",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-baseline",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-decision",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-acceptance",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BVV01修复旧62商店选择4D8DA0对opaque YobiAction::flags的直接访问及D67C68重复读取；原4D8EA1/A6/A8/AA四指令13B一次持样/判空/清W32 bit1，经现有SetYobiActionFlag2(previewAction,false)承接，无额外action判空或新接口。一个CPP一个片段，其它完整父体、预览生产叶、Yobi helper/头、模式/命令/格式/原字节及原格式明文保持。复用SCP01完整321条1080B根与原表/八字节合同，不重新取全根或外推真实外路由；已有1226/Fmixed及pending6/18保持，UI-L-062两个成员不重计，只两限定I/S。模式真实生产、低两位零的第二命令及旧路由/完整画面运行仍按原事实和验收处理，不填值或模拟原栈，未宣编译/链接/运行或故障等价通过；音频暂停/RPLAN.24及完整门禁保。",
+          "decision_ref": "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVV01修复旧62商店选择4D8DA0对opaque YobiAction::flags的直接访问及D67C68重复读取；原4D8EA1/A6/A8/AA四指令13B一次持样/判空/清W32 bit1，经现有SetYobiActionFlag2(previewAction,false)承接，无额外action判空或新接口。一个CPP一个片段，其它完整父体、预览生产叶、Yobi helper/头、模式/命令/格式/原字节及原格式明文保持。复用SCP01完整321条1080B根与原表/八字节合同，不重新取全根或外推真实外路由；已有1226/Fmixed及pending6/18保持，UI-L-062两个成员不重计，只两限定I/S。模式真实生产、低两位零的第二命令及旧路由/完整画面运行仍按原事实和验收处理，不填值或模拟原栈，未宣编译/链接/运行或故障等价通过；音频暂停/RPLAN.24及完整门禁保。",
+      "expected": "BVV01修复旧62商店选择4D8DA0对opaque YobiAction::flags的直接访问及D67C68重复读取；原4D8EA1/A6/A8/AA四指令13B一次持样/判空/清W32 bit1，经现有SetYobiActionFlag2(previewAction,false)承接，无额外action判空或新接口。一个CPP一个片段，其它完整父体、预览生产叶、Yobi helper/头、模式/命令/格式/原字节及原格式明文保持。复用SCP01完整321条1080B根与原表/八字节合同，不重新取全根或外推真实外路由；已有1226/Fmixed及pending6/18保持，UI-L-062两个成员不重计，只两限定I/S。模式真实生产、低两位零的第二命令及旧路由/完整画面运行仍按原事实和验收处理，不填值或模拟原栈，未宣编译/链接/运行或故障等价通过；音频暂停/RPLAN.24及完整门禁保。",
+      "actual": "BVV01修复旧62商店选择4D8DA0对opaque YobiAction::flags的直接访问及D67C68重复读取；原4D8EA1/A6/A8/AA四指令13B一次持样/判空/清W32 bit1，经现有SetYobiActionFlag2(previewAction,false)承接，无额外action判空或新接口。一个CPP一个片段，其它完整父体、预览生产叶、Yobi helper/头、模式/命令/格式/原字节及原格式明文保持。复用SCP01完整321条1080B根与原表/八字节合同，不重新取全根或外推真实外路由；已有1226/Fmixed及pending6/18保持，UI-L-062两个成员不重计，只两限定I/S。模式真实生产、低两位零的第二命令及旧路由/完整画面运行仍按原事实和验收处理，不填值或模拟原栈，未宣编译/链接/运行或故障等价通过；音频暂停/RPLAN.24及完整门禁保。"
+    },
+    {
+      "id": "E-SHOP-PREVIEW-FLAG-BOUNDARY-UI-L-062-S-20261008",
+      "feature_id": "UI-L-062",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVV01复用SCP01完整321条1080B，仅定点四指令13B；一片段修opaque清标志和一次指针取样，不重计已有F/成员、不解决无事实模式/命令。doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-shop-preview-flag-boundary-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4D8DA0",
+        "src/LegacyUiRecord.cpp#Sub_4D8D70",
+        "src/LegacyUiRecord.cpp#gLegacyShopChoiceActionD67C68",
+        "src/LegacyPanelRuntime.hpp#Sub_4D8DA0",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_shop_choice_body_evidence.json",
+        "doc/ui_windows/legacy_shop_choice.md",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-baseline",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-decision",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-acceptance",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BVV01修复旧62商店选择4D8DA0对opaque YobiAction::flags的直接访问及D67C68重复读取；原4D8EA1/A6/A8/AA四指令13B一次持样/判空/清W32 bit1，经现有SetYobiActionFlag2(previewAction,false)承接，无额外action判空或新接口。一个CPP一个片段，其它完整父体、预览生产叶、Yobi helper/头、模式/命令/格式/原字节及原格式明文保持。复用SCP01完整321条1080B根与原表/八字节合同，不重新取全根或外推真实外路由；已有1226/Fmixed及pending6/18保持，UI-L-062两个成员不重计，只两限定I/S。模式真实生产、低两位零的第二命令及旧路由/完整画面运行仍按原事实和验收处理，不填值或模拟原栈，未宣编译/链接/运行或故障等价通过；音频暂停/RPLAN.24及完整门禁保。",
+          "decision_ref": "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVV01修复旧62商店选择4D8DA0对opaque YobiAction::flags的直接访问及D67C68重复读取；原4D8EA1/A6/A8/AA四指令13B一次持样/判空/清W32 bit1，经现有SetYobiActionFlag2(previewAction,false)承接，无额外action判空或新接口。一个CPP一个片段，其它完整父体、预览生产叶、Yobi helper/头、模式/命令/格式/原字节及原格式明文保持。复用SCP01完整321条1080B根与原表/八字节合同，不重新取全根或外推真实外路由；已有1226/Fmixed及pending6/18保持，UI-L-062两个成员不重计，只两限定I/S。模式真实生产、低两位零的第二命令及旧路由/完整画面运行仍按原事实和验收处理，不填值或模拟原栈，未宣编译/链接/运行或故障等价通过；音频暂停/RPLAN.24及完整门禁保。",
+      "expected": "BVV01修复旧62商店选择4D8DA0对opaque YobiAction::flags的直接访问及D67C68重复读取；原4D8EA1/A6/A8/AA四指令13B一次持样/判空/清W32 bit1，经现有SetYobiActionFlag2(previewAction,false)承接，无额外action判空或新接口。一个CPP一个片段，其它完整父体、预览生产叶、Yobi helper/头、模式/命令/格式/原字节及原格式明文保持。复用SCP01完整321条1080B根与原表/八字节合同，不重新取全根或外推真实外路由；已有1226/Fmixed及pending6/18保持，UI-L-062两个成员不重计，只两限定I/S。模式真实生产、低两位零的第二命令及旧路由/完整画面运行仍按原事实和验收处理，不填值或模拟原栈，未宣编译/链接/运行或故障等价通过；音频暂停/RPLAN.24及完整门禁保。",
+      "actual": "BVV01修复旧62商店选择4D8DA0对opaque YobiAction::flags的直接访问及D67C68重复读取；原4D8EA1/A6/A8/AA四指令13B一次持样/判空/清W32 bit1，经现有SetYobiActionFlag2(previewAction,false)承接，无额外action判空或新接口。一个CPP一个片段，其它完整父体、预览生产叶、Yobi helper/头、模式/命令/格式/原字节及原格式明文保持。复用SCP01完整321条1080B根与原表/八字节合同，不重新取全根或外推真实外路由；已有1226/Fmixed及pending6/18保持，UI-L-062两个成员不重计，只两限定I/S。模式真实生产、低两位零的第二命令及旧路由/完整画面运行仍按原事实和验收处理，不填值或模拟原栈，未宣编译/链接/运行或故障等价通过；音频暂停/RPLAN.24及完整门禁保。"
     }
   ],
   "task_acceptance": [
@@ -50239,7 +50312,8 @@
         "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-state",
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-source-state",
         "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state",
-        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state"
       ]
     },
     {
@@ -50543,7 +50617,8 @@
         "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-state",
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-source-state",
         "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state",
-        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state"
       ]
     },
     {
@@ -50727,7 +50802,8 @@
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state",
         "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
         "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state",
-        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state"
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state"
       ]
     },
     {
@@ -50874,7 +50950,8 @@
         "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-state",
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-source-state",
         "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state",
-        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state"
       ]
     },
     {
@@ -53004,8 +53081,13 @@
       "disposition": "mixed",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-source-state"
-      ]
+        "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-source-state",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-baseline",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-decision",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-acceptance",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state"
+      ],
+      "boundary": "BVV01修复旧62商店选择4D8DA0对opaque YobiAction::flags的直接访问及D67C68重复读取；原4D8EA1/A6/A8/AA四指令13B一次持样/判空/清W32 bit1，经现有SetYobiActionFlag2(previewAction,false)承接，无额外action判空或新接口。一个CPP一个片段，其它完整父体、预览生产叶、Yobi helper/头、模式/命令/格式/原字节及原格式明文保持。复用SCP01完整321条1080B根与原表/八字节合同，不重新取全根或外推真实外路由；已有1226/Fmixed及pending6/18保持，UI-L-062两个成员不重计，只两限定I/S。模式真实生产、低两位零的第二命令及旧路由/完整画面运行仍按原事实和验收处理，不填值或模拟原栈，未宣编译/链接/运行或故障等价通过；音频暂停/RPLAN.24及完整门禁保。"
     },
     {
       "inventory_id": "F:0013C9DD",

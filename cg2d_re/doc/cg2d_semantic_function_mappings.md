@@ -3995,3 +3995,11 @@ BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET
 BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。
 
 旧RAND文档的并行、独立review/待批要求仅为历史阶段记录；当前由本线程按子项目AGENTS和既有工程委托完成，RPLAN.24持续有效。现有普通S32区间表达已落位，三正确正文不重建。预期语义1805/有效1798、合同1915（52.04%）、F954/E1106；不以primitive静态基线宣全消费者、所有RNG时序或运行已验收。
+
+## BVV01预览标志类型边界修正（2026-10-08）
+
+[基线](cg2d_shop_choice_body_spec.md#shop-preview-flag-baseline)、[决定](cg2d_shop_choice_body_spec.md#shop-preview-flag-decision)、[验收](cg2d_shop_choice_body_spec.md#shop-preview-flag-acceptance)、[状态](cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state)；旧完整原证JSON追加`shop_preview_flag_boundary_correction`。
+
+BVV01修复旧62商店选择4D8DA0对opaque YobiAction::flags的直接访问及D67C68重复读取；原4D8EA1/A6/A8/AA四指令13B一次持样/判空/清W32 bit1，经现有SetYobiActionFlag2(previewAction,false)承接，无额外action判空或新接口。一个CPP一个片段，其它完整父体、预览生产叶、Yobi helper/头、模式/命令/格式/原字节及原格式明文保持。复用SCP01完整321条1080B根与原表/八字节合同，不重新取全根或外推真实外路由；已有1226/Fmixed及pending6/18保持，UI-L-062两个成员不重计，只两限定I/S。模式真实生产、低两位零的第二命令及旧路由/完整画面运行仍按原事实和验收处理，不填值或模拟原栈，未宣编译/链接/运行或故障等价通过；音频暂停/RPLAN.24及完整门禁保。
+
+SCP01是历史本体落位记录，本次只纠正当前预览字段访问与重复槽读取。语义1805/有效1798、合同1915（52.04%）、F954保持，仅E1106→1108。原八字符串、唯一模式槽、命令条件和路由证据保持，未编译或运行，不关闭原事实待证和完整门禁。

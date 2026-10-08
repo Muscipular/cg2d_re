@@ -4418,3 +4418,17 @@ BVU01播种/rand/区间三primitive与初值1同源W32基线纳管；三新原�
 播种完整写返、一次递推写回后持同结果提取位16..30、区间upper==-1不消费及其它一次同源RNG后普通S32区间/余数保持，原SAR+7FFFH与现有移位后同掩码只输出这十五位。只原合同及源静态，不执行随机样例，不新加保护/异常模拟、CRT/TLS状态或所有权；所有父和消费者时序不外推。
 
 完整机器及派生精确差集、文本汇总/-Check通过。三新原新1802..1804/三adapted F、LOOP178，仅一个限定S；实际语义1805/有效1798、合同1915（52.04%）、F954/E1106。U04/U11/V03/R04仍open；pending18/R7已审467余2594/closed11/全叶0/globalfalse、原差队列及CRT43保持。源码正确不伪实现数量，外部键盘排除/音频暂停保；原格式明文/RPLAN.24及执行限制保持，完整232入向/父和全部共享RNG消费者、SDK/生成机器ABI/正常寿命及运行仍待验，整体SPEC目标继续推进。
+
+## BVV01旧62预览清标志源码实修（2026-10-08）
+
+BVV01旧62预览清bit1已修：一次D67C68指针取样/判空，经既有Yobi边界写W32；消除opaque直接访问，旧mixed与pending6保，模式/命令/外路由仍待原事实。
+
+[决定与验收](../doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-decision)、[完整原证及源前后态](../doc/cg2d_shop_choice_body_evidence.json)。复用SCP01完整321条1080B，只定点四指令13B；一个CPP一个片段持样后借现有SetYobiActionFlag2(false)，无新接口/helper/owner。其余父体/生产叶、模式/命令/八原字节保持；已有1226/混合F/pending6当前状态同步，旧62两个成员不重计、两限定I/S，U04/U11/V04/R04仍open。静态结果随后追加。
+
+### BVV01本步实际静态结果
+
+已修复旧62预览的opaque成员访问与重复共享指针读取：一CPP一片段保存D67C68样本，同样本判空后经既有SetYobiActionFlag2(false)清W32 bit1。原4D8EA1/A6/A8/AA四指令13B与SCP01完整321条1080B根一致；新端不公开YobiAction布局，无新函数/helper/API/owner或额外action门禁。
+
+整份LegacyUiRecord.cpp仅该片段变化；其余父体、4D8D70预览生产叶、既有Yobi helper与公共/私有头保持。原状态0/2分流后、4D3040之前位置与其它bits保；唯一模式槽、原命令写/读分支、八原字节和原格式明文发送保持。本步不填未知命令、删行或模拟原栈，原事实待证仍按原验收推进。
+
+完整机器和派生精确差集、文本汇总/-Check通过。既有1226/混合F与pending6当前状态追加，不重计语义/F/旧62两个成员，仅两限定I/S；实际语义1805/有效1798、合同1915（52.04%）、F954保持，E1106→1108。U04/U11/V04/R04仍open，pending18/R7已审467余2594/closed11/全叶0/globalfalse及原差队列/CRT43保持。编译、链接、真实模式/第二命令/旧外路由、正常owner-alias寿命、SDK/机器ABI/画面与运行未验；音频暂停/RPLAN.24及执行限制保，整体SPEC目标继续推进。

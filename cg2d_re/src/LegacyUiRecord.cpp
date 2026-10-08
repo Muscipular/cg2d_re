@@ -3931,8 +3931,9 @@ std::uintptr_t Sub_4D8DA0(const std::int32_t opened)
         }
         return reinterpret_cast<std::uintptr_t>(result);
     }
-    if (gLegacyShopChoiceActionD67C68 != nullptr) {
-        gLegacyShopChoiceActionD67C68->flags &= ~2U;
+    YobiAction* const previewAction = gLegacyShopChoiceActionD67C68;
+    if (previewAction != nullptr) {
+        SetYobiActionFlag2(previewAction, false);
     }
     if (ui::detail::Sub_4D3040(2, 2) != 0) {
         static_cast<void>(audio::Sub_5042D0(gLegacyShopChoicePanel5822D8.id));

@@ -98,11 +98,15 @@
       "original_entry": "0x4D8DA0",
       "inventory_id": "F:000D8DA0",
       "status": "原端事实待证",
-      "implementation_state": "SCP01完整321条旧62本体/八原字节/唯一S32模式槽已落位；未注册外层或解决未写值",
+      "implementation_state": "SCP01完整321条旧62本体/八原字节/唯一S32模式槽已落位；未注册外层或解决未写值 BVV01修复旧62商店选择4D8DA0对opaque YobiAction::flags的直接访问及D67C68重复读取；原4D8EA1/A6/A8/AA四指令13B一次持样/判空/清W32 bit1，经现有SetYobiActionFlag2(previewAction,false)承接，无额外action判空或新接口。一个CPP一个片段，其它完整父体、预览生产叶、Yobi helper/头、模式/命令/格式/原字节及原格式明文保持。复用SCP01完整321条1080B根与原表/八字节合同，不重新取全根或外推真实外路由；已有1226/Fmixed及pending6/18保持，UI-L-062两个成员不重计，只两限定I/S。模式真实生产、低两位零的第二命令及旧路由/完整画面运行仍按原事实和验收处理，不填值或模拟原栈，未宣编译/链接/运行或故障等价通过；音频暂停/RPLAN.24及完整门禁保。",
       "remaining_requirement": "原57C368物理68/57C8B8裸表指向本父，不能由缺xref判不可达。C9A94C唯一原零初值槽已有、真实生产未证；低两位零时仍扫描两行且第二命令未写。源码保原写/读分支，不猜值/删行/模拟原栈，不将C++未初始化值当等价；真实模式/第二命令/旧路由和运行继续P07。",
       "evidence_documents": [
         "doc/ui_windows/legacy_shop_choice.md",
-        "doc/cg2d_shop_choice_body_spec.md"
+        "doc/cg2d_shop_choice_body_spec.md",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-baseline",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-decision",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-acceptance",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state"
       ]
     },
     {
@@ -161671,7 +161675,7 @@
     {
       "original_entry": "0x4D8DA0",
       "inventory_id": "F:000D8DA0",
-      "status": "SCP01完整本体已承载；模式生产/未写命令/外路由及运行未闭",
+      "status": "BVV01修复旧62商店选择4D8DA0对opaque YobiAction::flags的直接访问及D67C68重复读取；原4D8EA1/A6/A8/AA四指令13B一次持样/判空/清W32 bit1，经现有SetYobiActionFlag2(previewAction,false)承接，无额外action判空或新接口。一个CPP一个片段，其它完整父体、预览生产叶、Yobi helper/头、模式/命令/格式/原字节及原格式明文保持。复用SCP01完整321条1080B根与原表/八字节合同，不重新取全根或外推真实外路由；已有1226/Fmixed及pending6/18保持，UI-L-062两个成员不重计，只两限定I/S。模式真实生产、低两位零的第二命令及旧路由/完整画面运行仍按原事实和验收处理，不填值或模拟原栈，未宣编译/链接/运行或故障等价通过；音频暂停/RPLAN.24及完整门禁保。",
       "original_end_exclusive": "0x4D91D8",
       "instruction_count": 321,
       "original_direct_reference_count": 0,
@@ -161681,7 +161685,8 @@
           "symbols": [
             "Sub_4D8DA0",
             "gLegacyShopChoiceModeC9A94C"
-          ]
+          ],
+          "relationship": "BVV01复用SetYobiActionFlag2：同D67C68原样本判空后清W32 bit1，其余完整SCP01本体与模式/命令要求保持"
         },
         {
           "path": "src/LegacyPanelRuntime.hpp",
@@ -161689,6 +161694,20 @@
             "Sub_4D8DA0",
             "gLegacyShopChoiceModeC9A94C"
           ]
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "SetYobiActionFlag2"
+          ],
+          "relationship": "既有opaque native边界，false分支只清W32 bit1，无额外action判空或新F"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "SetYobiActionFlag2"
+          ],
+          "relationship": "既有非拥有T*公开声明保持，布局继续私有"
         }
       ],
       "inbound_evidence": [],
@@ -161912,10 +161931,51 @@
       "evidence_documents": [
         "doc/ui_windows/legacy_shop_choice.md",
         "doc/cg2d_shop_choice_body_spec.md",
-        "doc/cg2d_shop_choice_body_evidence.json"
+        "doc/cg2d_shop_choice_body_evidence.json",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-baseline",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-decision",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-acceptance",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state"
       ],
-      "verification_level": "现有原IDA只读核完整321条、25原call及原get_bytes；限定源码静态，未执行/未验未写值",
-      "boundary": "三个原28B记录仅文本指针拓宽、首X/Y/三Y164/190/216；完整mode==3扫描3否则2，低位写1/2/末尾3，低两位零的commands[1]不补值/删行/模拟原栈。503160返0→0/返2→581800=-1与非空预览标死清槽并返原生指针；普通清flag2/退出键只关闭仍继续。行<=1 %d 16B→Stringify16B/cap15，target/request/Y/X/socket单次新读、mode0发送弃返回；各命中行SE79/关闭并继续。标题及五81B正文逐Y/X新读/绘制，文字按钮font2/color0/mode1/218；两行提示第一Query后缓存command0，失败后重查第一，再第二；三行close/买/卖/停止优先，末尾503440(panel,1)完整W32。原401EA0单尾跳401EC0，Y/X读序和RNG保持；未改原99表、现代4A0140或已有callee。不证明模式生产/可达域、未初始化命令值/原栈等价，P07/U04/U05/V04仍open。"
+      "verification_level": "BVV01修复旧62商店选择4D8DA0对opaque YobiAction::flags的直接访问及D67C68重复读取；原4D8EA1/A6/A8/AA四指令13B一次持样/判空/清W32 bit1，经现有SetYobiActionFlag2(previewAction,false)承接，无额外action判空或新接口。一个CPP一个片段，其它完整父体、预览生产叶、Yobi helper/头、模式/命令/格式/原字节及原格式明文保持。复用SCP01完整321条1080B根与原表/八字节合同，不重新取全根或外推真实外路由；已有1226/Fmixed及pending6/18保持，UI-L-062两个成员不重计，只两限定I/S。模式真实生产、低两位零的第二命令及旧路由/完整画面运行仍按原事实和验收处理，不填值或模拟原栈，未宣编译/链接/运行或故障等价通过；音频暂停/RPLAN.24及完整门禁保。",
+      "boundary": "三个原28B记录仅文本指针拓宽、首X/Y/三Y164/190/216；完整mode==3扫描3否则2，低位写1/2/末尾3，低两位零的commands[1]不补值/删行/模拟原栈。503160返0→0/返2→581800=-1与非空预览标死清槽并返原生指针；普通清flag2/退出键只关闭仍继续。行<=1 %d 16B→Stringify16B/cap15，target/request/Y/X/socket单次新读、mode0发送弃返回；各命中行SE79/关闭并继续。标题及五81B正文逐Y/X新读/绘制，文字按钮font2/color0/mode1/218；两行提示第一Query后缓存command0，失败后重查第一，再第二；三行close/买/卖/停止优先，末尾503440(panel,1)完整W32。原401EA0单尾跳401EC0，Y/X读序和RNG保持；未改原99表、现代4A0140或已有callee。不证明模式生产/可达域、未初始化命令值/原栈等价，P07/U04/U05/V04仍open。 BVV01修复旧62商店选择4D8DA0对opaque YobiAction::flags的直接访问及D67C68重复读取；原4D8EA1/A6/A8/AA四指令13B一次持样/判空/清W32 bit1，经现有SetYobiActionFlag2(previewAction,false)承接，无额外action判空或新接口。一个CPP一个片段，其它完整父体、预览生产叶、Yobi helper/头、模式/命令/格式/原字节及原格式明文保持。复用SCP01完整321条1080B根与原表/八字节合同，不重新取全根或外推真实外路由；已有1226/Fmixed及pending6/18保持，UI-L-062两个成员不重计，只两限定I/S。模式真实生产、低两位零的第二命令及旧路由/完整画面运行仍按原事实和验收处理，不填值或模拟原栈，未宣编译/链接/运行或故障等价通过；音频暂停/RPLAN.24及完整门禁保。",
+      "shop_preview_flag_boundary_correction": {
+        "spec_id": "BVV01",
+        "evidence_refs": [
+          "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-baseline",
+          "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-decision",
+          "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-acceptance",
+          "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state"
+        ],
+        "full_root_reused_from_SCP01": true,
+        "original_instruction_count_reused": 321,
+        "original_code_bytes_reused": 1080,
+        "new_original_instruction_count": 4,
+        "new_original_code_bytes": 13,
+        "source_body_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 1,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "new_semantic_record_count": 0,
+        "new_function_disposition_count": 0,
+        "opaque_member_access_removed": true,
+        "single_pointer_check_and_clear_sample_restored": true,
+        "original_W32_bit1_and_other_bits_kept": true,
+        "existing_helper_reused": true,
+        "mixed_disposition_and_pending6_kept": true,
+        "original_mode_unwritten_command_and_route_requirements_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "compilation_verified": false,
+        "linking_verified": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x53C9DD",

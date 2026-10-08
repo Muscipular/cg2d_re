@@ -65,3 +65,11 @@ P07保留待事实，不补默认命令、不删第二按钮、不注册半页�
 三个原记录仅文本指针拓宽，三S32命令按实际门槛写1/2/3；C9A94C沿原PE零初值唯一持有。低两位零的第二命令未写，不补默认值/删行/保护或模拟栈；C++未初始化读不称原值/故障等价，P07仍open。
 已承载503160返0/返2预览清理指针返回、普通清flag2/退出键只关、逐行<=1格式/转义/原mode0发送、各命中SE79/关闭仍继续、标题/五行/按钮绘制、两行提示重复Query/首命令采样、三行优先级及503440(...,1)完整W32。八新串取实际原字节，关闭/停止及%d复用；25原call保原入口，401EA0单尾跳由Read401EC0承接，Y/X单读/RNG序不变。
 未改现代4A0140、原99表或注册外层；运行模式/真实生产/第二命令、旧路由、整个买卖回复/寿命/画面/运行仍按P07/U04/U05/V04验收。R1 mixed保该边界，三限定证据不升整页门禁。
+
+## BVV01预览标志类型边界修正（2026-10-08）
+
+[基线](../cg2d_shop_choice_body_spec.md#shop-preview-flag-baseline)、[决定](../cg2d_shop_choice_body_spec.md#shop-preview-flag-decision)、[验收](../cg2d_shop_choice_body_spec.md#shop-preview-flag-acceptance)、[状态](../cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state)；旧完整原证JSON追加`shop_preview_flag_boundary_correction`。
+
+BVV01修复旧62商店选择4D8DA0对opaque YobiAction::flags的直接访问及D67C68重复读取；原4D8EA1/A6/A8/AA四指令13B一次持样/判空/清W32 bit1，经现有SetYobiActionFlag2(previewAction,false)承接，无额外action判空或新接口。一个CPP一个片段，其它完整父体、预览生产叶、Yobi helper/头、模式/命令/格式/原字节及原格式明文保持。复用SCP01完整321条1080B根与原表/八字节合同，不重新取全根或外推真实外路由；已有1226/Fmixed及pending6/18保持，UI-L-062两个成员不重计，只两限定I/S。模式真实生产、低两位零的第二命令及旧路由/完整画面运行仍按原事实和验收处理，不填值或模拟原栈，未宣编译/链接/运行或故障等价通过；音频暂停/RPLAN.24及完整门禁保。
+
+SCP01是历史本体落位记录，本次只纠正当前预览字段访问与重复槽读取。语义1805/有效1798、合同1915（52.04%）、F954保持，仅E1106→1108。原八字符串、唯一模式槽、命令条件和路由证据保持，未编译或运行，不关闭原事实待证和完整门禁。

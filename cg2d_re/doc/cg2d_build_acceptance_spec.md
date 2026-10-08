@@ -78,3 +78,10 @@
 沿同一CAA01音频必要构建授权，执行 `cmake --build --preset windows-msvc-x64-debug --target cg2d_re_client --parallel 4`。CMake因新增实际MASM源自动再配置/生成成功，三库/客户端编译链接全部返回0，0错误/0增量警告；日志 `build/windows-msvc-x64/build-audio-table-x87-20261009.log`，MAP包含Cg2dInitializeSoundTablesX87。仅编译当前数值段与必要依赖，不是全量诊断/机器状态/表值运行验收，CAB15的窗口警告未因此关闭。离线工具本步未构建，最近通过仍CAB15。
 
 8024064B客户端已更新用户原游戏目录，旧同长版备份cg2d_re_client.exe.before-audio-table-x87-20261009；只核复制成功及长度，不以同长证明同内容、不计算摘要。[CAB16记录](cg2d_audio_table_x87_evidence.json)与[当前源码](cg2d_audio_update.md#audio-table-x87-source-state)保存边界，未运行客户端/工具/算法、测试或重生成WAV；IP2登录、真实音频/正常寿命及V02/整体SPEC仍未验收。
+
+<a id="fixed-volume-x87-debug-build"></a>
+## CAB17 固定音乐表当前编译（2026-10-09）
+
+沿同一CAA01相关音频构建授权，执行 `cmake --build --preset windows-msvc-x64-debug --target cg2d_re_client --parallel 4`。本步只编译既有LegacyAudioMath.asm/LegacyAudio.cpp及必要依赖，无需再配置；三库与真实客户端链接全部返回0，0错误/0增量警告，日志 `build/windows-msvc-x64/build-fixed-volume-x87-20261009.log`。MAP含Cg2dInitializeFixedMusicVolumeX87及既有普通表接口，客户端仍未链接离线合成/转换代码。
+
+8024064B客户端已更新原游戏目录，旧同长版备份cg2d_re_client.exe.before-fixed-volume-x87-20261009；复制成功/长度只证明部署操作，未计算摘要或比对内容。详见[源码](cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-source-state)及[记录](cg2d_fixed_volume_x87_evidence.json)。本步未运行客户端/算法、测试、重生成WAV或构建离线工具；该工具最近通过仍CAB15。0增量诊断不关闭旧窗口警告，0槽/全表、机器状态/CW、声音/正常寿命与IP2登录及整体SPEC仍未验收。

@@ -1305,7 +1305,11 @@
         "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
         "doc/cg2d_build_acceptance_spec.md#current-audio-debug-build",
         "doc/cg2d_client_link_sdl_audio_spec.md#current-audio-debug-source-state",
-        "doc/cg2d_current_audio_build_evidence.json"
+        "doc/cg2d_current_audio_build_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-source-state",
+        "doc/cg2d_fixed_volume_x87_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -4284,9 +4288,14 @@
         "doc/cg2d_audio_update.md#audio-table-x87-source-state",
         "doc/cg2d_audio_table_x87_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#audio-table-x87-debug-build",
-        "doc/cg2d_client_link_sdl_audio_spec.md#audio-table-x87-source-state"
+        "doc/cg2d_client_link_sdl_audio_spec.md#audio-table-x87-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-source-state",
+        "doc/cg2d_fixed_volume_x87_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build"
       ],
       "blockers": [
+        "CAB17固定454C30独立音量表恢复原连续x87、S64低W32及正常127..0槽路径，33条数值投影/当前Debug链接部署通过；0槽/全表实际输出、CW上游/机器状态/声音与正常寿命仍待。AUDIO33成员枚举未闭，旧99设置页外层及全部运行门禁保持",
         "CAB16补52B9E0真实初始化成员至AUDIO33，并恢复原声像/音量表x87数值段；116条投影/十截断与当前Debug链接部署通过。完整成员枚举、当前CW上游/全部消费者/机器状态与声音/设备/失败/通知/正常寿命仍未验，旧99设置页外层继续",
         "CAB12三原音色/loader身份已具名适配到实际离线载入/样本区域与清理，两寿命写点已修；CAB15当前客户端/转换器编译链接通过，工具未运行/WAV未重生成。AUDIO32已知身份有来源不代成员枚举/全DLS/设备/失败/声音/正常寿命，旧99外层及完整门禁继续",
         "CAB11原Waves四参数/两父配置和固定WAV PCM效果、重复尾音/关闭顺序已实现；CAB15补两系统头解决实际编译错误，当前提供者已链接。实际效果创建/float32支持/处理/声音、旧99外层与全部状态/正常寿命仍待，注册/符号不代功能验收",
@@ -53547,6 +53556,75 @@
       "recorded_on": "2026-10-09"
     },
     {
+      "id": "E-AUDIO-FIXED-VOLUME-X87-I-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原454C30完整225条679B、33条数值段，原128槽固定表及53B498局部S64截断来源",
+      "implementation_reference": "Git固定命名快照 cg2d-re-fixed-volume-x87-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-source-state",
+        "doc/cg2d_fixed_volume_x87_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build",
+        "src/LegacyAudio.cpp#InitializeMusic_454C30",
+        "src/platform/LegacyAudioMath.asm#Cg2dInitializeFixedMusicVolumeX87"
+      ],
+      "observation": "仅固定独立音量表数值/初始化接线，不代全部音乐/音量或实际0档/机器状态验收",
+      "expected": "正常127..0均按原连续x87和独立S64低W32计算，原下降写序/比较与清尾值、同源表及后续25/6配置保持，不特化0槽",
+      "actual": "同一MASM添加私有表接口，原33条数值源投影相同、复用既证转换；CPP只替换六行数学段/声明，当前Debug链接0错误/0增量警告、两个实际符号和部署有据，未运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-AUDIO-FIXED-VOLUME-X87-W-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原454C30完整225条679B、33条数值段，原128槽固定表及53B498局部S64截断来源",
+      "implementation_reference": "Git固定命名快照 cg2d-re-fixed-volume-x87-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-source-state",
+        "doc/cg2d_fixed_volume_x87_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build",
+        "src/LegacyAudio.cpp#InitializeMusic_454C30",
+        "src/platform/LegacyAudioMath.asm#Cg2dInitializeFixedMusicVolumeX87"
+      ],
+      "observation": "仅固定独立音量表数值/初始化接线，不代全部音乐/音量或实际0档/机器状态验收",
+      "expected": "正常127..0均按原连续x87和独立S64低W32计算，原下降写序/比较与清尾值、同源表及后续25/6配置保持，不特化0槽",
+      "actual": "同一MASM添加私有表接口，原33条数值源投影相同、复用既证转换；CPP只替换六行数学段/声明，当前Debug链接0错误/0增量警告、两个实际符号和部署有据，未运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-AUDIO-FIXED-VOLUME-X87-S-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原454C30完整225条679B、33条数值段，原128槽固定表及53B498局部S64截断来源",
+      "implementation_reference": "Git固定命名快照 cg2d-re-fixed-volume-x87-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-source-state",
+        "doc/cg2d_fixed_volume_x87_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build",
+        "src/LegacyAudio.cpp#InitializeMusic_454C30",
+        "src/platform/LegacyAudioMath.asm#Cg2dInitializeFixedMusicVolumeX87"
+      ],
+      "observation": "仅固定独立音量表数值/初始化接线，不代全部音乐/音量或实际0档/机器状态验收",
+      "expected": "正常127..0均按原连续x87和独立S64低W32计算，原下降写序/比较与清尾值、同源表及后续25/6配置保持，不特化0槽",
+      "actual": "同一MASM添加私有表接口，原33条数值源投影相同、复用既证转换；CPP只替换六行数学段/声明，当前Debug链接0错误/0增量警告、两个实际符号和部署有据，未运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
       "id": "E-AUDIO-TABLE-X87-I-20261009",
       "feature_id": "FUNC-AUDIO",
       "gate": "I",
@@ -54662,7 +54740,11 @@
         "doc/cg2d_build_acceptance_spec.md",
         "doc/cg2d_build_acceptance_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
-        "doc/cg2d_client_link_sdl_audio_evidence.json"
+        "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-source-state",
+        "doc/cg2d_fixed_volume_x87_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build"
       ]
     },
     {
@@ -55511,7 +55593,11 @@
         "doc/cg2d_audio_update.md#audio-table-x87-source-state",
         "doc/cg2d_audio_table_x87_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#audio-table-x87-debug-build",
-        "doc/cg2d_client_link_sdl_audio_spec.md#audio-table-x87-source-state"
+        "doc/cg2d_client_link_sdl_audio_spec.md#audio-table-x87-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-source-state",
+        "doc/cg2d_fixed_volume_x87_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build"
       ]
     },
     {
@@ -55586,7 +55672,11 @@
         "doc/cg2d_offline_bank_lifetime_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#current-audio-debug-build",
         "doc/cg2d_client_link_sdl_audio_spec.md#current-audio-debug-source-state",
-        "doc/cg2d_current_audio_build_evidence.json"
+        "doc/cg2d_current_audio_build_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-source-state",
+        "doc/cg2d_fixed_volume_x87_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build"
       ]
     },
     {
@@ -55629,7 +55719,11 @@
         "doc/cg2d_offline_bank_lifetime_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#current-audio-debug-build",
         "doc/cg2d_client_link_sdl_audio_spec.md#current-audio-debug-source-state",
-        "doc/cg2d_current_audio_build_evidence.json"
+        "doc/cg2d_current_audio_build_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-source-state",
+        "doc/cg2d_fixed_volume_x87_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build"
       ]
     },
     {
@@ -68128,7 +68222,11 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
         "doc/cg2d_client_link_sdl_audio_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state",
-        "doc/cg2d_fixed_music_wav_evidence.json"
+        "doc/cg2d_fixed_music_wav_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-source-state",
+        "doc/cg2d_fixed_volume_x87_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build"
       ],
       "boundary": "实际SDL设备、内置固定WAV流初始化与独立音量表；成功0，设备失败1，WAV/流失败2；用户最新要求固定MIDI离线转WAV，客户端后续不使用MIDI；类型0内置13.8秒WAV，类型1按用户要求为空音频并立即成功1，原W32重复/音量/停止释放与两字段明文派发保持。离线统一衰减峰值至0.98，波形/KS效果及真实声音/失败/寿命未验；不代完整功能、旧7/旧8或整体SPEC。"
     },
@@ -98251,12 +98349,11 @@
     }
   ],
   "build_validation": {
-    "step": "CAB16",
+    "step": "CAB17",
     "recorded_on": "2026-10-09",
     "configuration": "Debug",
-    "source_snapshot": "cg2d-re-audio-table-x87-20261009",
-    "configure_performed": true,
-    "configure_mode": "automatic-regeneration",
+    "source_snapshot": "cg2d-re-fixed-volume-x87-20261009",
+    "configure_performed": false,
     "configure_exit_code": 0,
     "build_exit_code": 0,
     "incremental_warning_count": 0,
@@ -98270,7 +98367,7 @@
     "whole_project_accepted": false,
     "converter_build_performed": false,
     "converter_last_build_step": "CAB15",
-    "note": "CAB16当前音频表数值段及必要依赖Debug自动再配置、三库和客户端编译链接返回0，0错误/0增量警告，非全量警告计数。116条原计算/比较/写序投影与十处局部CW/S64截断、MAP实际符号有据；8024064B客户端已更新游戏目录并保留CAB15旧版同长备份。离线工具源码未改、本步未构建，其最近通过仍CAB15。未运行客户端/算法/工具、测试、重生成WAV或计算摘要；表值/机器状态/CW上游/音频和IP2登录及整体SPEC未验收。",
+    "note": "CAB17沿同一CAA01音频必要构建授权完成固定音乐表局部x87段，未重新配置；三库/当前客户端Debug编译链接返回0，0错误/0增量警告，非全量警告统计。33条数值投影含正常127..0槽及原S64低W32/清x87尾值，两实际表接口符号均存在；8024064B客户端已更新游戏目录并保留CAB16同长旧版备份。离线工具最近通过仍CAB15，本步未构建/执行；未运行客户端/算法、测试、重生成WAV或摘要。0槽/全表、CW上游/机器状态/声音/正常寿命、IP2登录及整体SPEC未验收。",
     "evidence_refs": [
       "doc/cg2d_build_acceptance_spec.md",
       "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
@@ -98289,7 +98386,11 @@
       "doc/cg2d_audio_update.md#audio-table-x87-source-state",
       "doc/cg2d_audio_table_x87_evidence.json",
       "doc/cg2d_build_acceptance_spec.md#audio-table-x87-debug-build",
-      "doc/cg2d_client_link_sdl_audio_spec.md#audio-table-x87-source-state"
+      "doc/cg2d_client_link_sdl_audio_spec.md#audio-table-x87-source-state",
+      "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-decision",
+      "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-source-state",
+      "doc/cg2d_fixed_volume_x87_evidence.json",
+      "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build"
     ]
   }
 }

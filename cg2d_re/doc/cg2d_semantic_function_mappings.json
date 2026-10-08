@@ -212444,7 +212444,7 @@
       "original_role": "实际SDL设备、内置固定WAV流初始化与独立音量表；成功0，设备失败1，WAV/流失败2",
       "original_end_exclusive": "0x454ed7",
       "instruction_count": 225,
-      "status": "CAB02固定音乐已预转换WAV并内置、客户端不含MIDI合成器、Debug已链接；完整音频/运行未验",
+      "status": "CAB17固定音乐独立表已恢复连续x87/原S64低W32及正常127..0槽路径，当前Debug链接部署通过；WAV/资源及既有控制接线保持，零档/全表实际值、声音/机器状态/正常寿命未验",
       "sources": [
         {
           "path": "src/LegacyAudio.cpp",
@@ -212459,6 +212459,13 @@
             "SdlAudioBackend"
           ],
           "relationship": "普通WAV/BGM及独立固定WAV的实际SDL播放、有限/无限重复、音量与资源寿命；无运行时MIDI合成"
+        },
+        {
+          "path": "src/platform/LegacyAudioMath.asm",
+          "symbols": [
+            "Cg2dInitializeFixedMusicVolumeX87"
+          ],
+          "relationship": "原固定独立128*S32表数值段33条与正常127..0计数/写序；连续x87及局部CW/S64转换，不增加通用CRT入口"
         }
       ],
       "native_provider": {
@@ -212476,10 +212483,14 @@
         "doc/cg2d_fixed_music_wav_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-decision",
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-source-state",
-        "doc/cg2d_fixed_wav_reverb_evidence.json"
+        "doc/cg2d_fixed_wav_reverb_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-source-state",
+        "doc/cg2d_fixed_volume_x87_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build"
       ],
       "boundary": "用户最新要求固定MIDI离线转WAV，客户端后续不使用MIDI；类型0内置13.8秒WAV，类型1按用户要求为空音频并立即成功1，原W32重复/音量/停止释放与两字段明文派发保持。离线统一衰减峰值至0.98，波形/KS效果及真实声音/失败/寿命未验；不代完整功能、旧7/旧8或整体SPEC。",
-      "verification_level": "沿用原根取证；本次离线实际转换、WAV格式/PCM与内置资源字节检查、Debug编译链接与map；未运行客户端、测试或计算摘要",
+      "verification_level": "保留CAB02实际转换/内置资源历史证据；CAB17原225条679B父与33条数值投影/两个截断位置、两现源差异限定静态，Debug链接0错误/0增量警告和实际符号/部署；未执行客户端或算法、未重生成WAV",
       "fixed_wav_reverb_connection": {
         "step": "CAB11",
         "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-decision",
@@ -212488,6 +212499,12 @@
           25,
           6
         ],
+        "runtime_verified": false
+      },
+      "fixed_volume_x87_connection": {
+        "step": "CAB17",
+        "source_snapshot": "cg2d-re-fixed-volume-x87-20261009",
+        "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-decision",
         "runtime_verified": false
       }
     },

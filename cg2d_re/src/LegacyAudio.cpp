@@ -32,6 +32,7 @@
 // 原52BA38..52BBC8局部数值段；只同步借128项S32表，不暴露x87或SDL对象。
 namespace cg::platform {
 extern "C" void Cg2dInitializeSoundTablesX87(std::int32_t* pan, std::int32_t* volume) noexcept;
+extern "C" void Cg2dInitializeFixedMusicVolumeX87(std::int32_t* volume) noexcept; // 原454E49数值段，含0槽。
 }
 
 namespace cg::login::detail {
@@ -1591,12 +1592,7 @@ std::int32_t InitializeMusic_454C30(std::uintptr_t)
     const DWORD size = resource != nullptr ? ::SizeofResource(module, resource) : 0;
     if (wav == nullptr || size == 0 || !audio::gSdlAudioBackend.InitializeFixedMusic(
             {static_cast<const std::uint8_t*>(wav), static_cast<std::size_t>(size)})) { return 2; }
-    const std::int32_t base = static_cast<std::int32_t>(std::log(127.0) / std::log(100.0) * -10000.0);
-    for (std::int32_t value = 127; value >= 0; --value) {
-        std::int32_t attenuation = -base - static_cast<std::int32_t>(std::log(static_cast<double>(value)) / std::log(100.0) * 10000.0);
-        if (attenuation > 10000) { attenuation = 10000; }
-        gFixedMusicVolume62B0C8[static_cast<std::size_t>(value)] = -attenuation;
-    }
+    Cg2dInitializeFixedMusicVolumeX87(gFixedMusicVolume62B0C8.data());
     audio::SetFixedMusicReverb_455030(25, 6);
     return 0;
 }

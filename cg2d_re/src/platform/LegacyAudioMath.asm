@@ -27,6 +27,7 @@ ENDM
 
 .code
 PUBLIC Cg2dInitializeSoundTablesX87
+PUBLIC Cg2dInitializeFixedMusicVolumeX87
 
 ; 原52BA38..52BBC8，RCX借128*S32声像表，RDX借128*S32音量表。
 ; 连续x87中间值/原CW、奇数写点和端点覆盖序保持，不调用F64宿主对数。
@@ -176,5 +177,59 @@ SoundVolumeWrite:
     pop rsi
     ret
 Cg2dInitializeSoundTablesX87 ENDP
+
+; 原454E49..454EB8及454EBC，RCX借独立128*S32固定音乐音量表。
+; S32计数含正常0槽，原S64截断后只取低W32，不特化log(0)或设默认值。
+Cg2dInitializeFixedMusicVolumeX87 PROC FRAME
+    push rsi
+    .pushreg rsi
+    push rdi
+    .pushreg rdi
+    sub rsp, 72
+    .allocstack 72
+    .endprolog
+    mov r11, rcx
+
+    fldln2
+    mov dword ptr [rsp+32], 7Fh
+    fld qword ptr [SoundLogBase54DDA0]
+    fyl2x
+    fldln2
+    fld qword ptr [SoundMaximum54DD98]
+    fyl2x
+    fdiv st(0), st(1)
+    fmul qword ptr [SoundNegativeScale54DD90]
+    TruncateSoundIntermediate
+    mov edi, eax
+    lea rsi, [r11+1FCh]
+FixedMusicVolume:
+    fldln2
+    fild dword ptr [rsp+32]
+    fyl2x
+    fdiv st(0), st(1)
+    fmul qword ptr [SoundVolumeScale54DD88]
+    TruncateSoundIntermediate
+    mov ecx, edi
+    neg ecx
+    sub ecx, eax
+    cmp ecx, 2710h
+    jle FixedMusicVolumeWrite
+    mov ecx, 2710h
+FixedMusicVolumeWrite:
+    mov edx, dword ptr [rsp+32]
+    sub rsi, 4
+    neg ecx
+    mov dword ptr [rsi+4], ecx
+    dec edx
+    cmp rsi, r11
+    mov dword ptr [rsp+32], edx
+    jge FixedMusicVolume
+    fstp st(0)
+
+    add rsp, 72
+    pop rdi
+    pop rsi
+    ret
+Cg2dInitializeFixedMusicVolumeX87 ENDP
 
 END

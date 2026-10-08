@@ -242,3 +242,7 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 ## CAB19 V05/V02/R01 的空间记录生产者（2026-10-09）
 
 [52CDE0当前数值/发布](../doc/cg2d_audio_update.md#spatial-projection-x87-source-state)已恢复六条世界缩放和33条投影后计算/发布，原52条183B、栈字节/唯一caller/三F32常量有据；三个S64低W32与读X-索引-转X-读Y-写X-转Y-余字段顺序、同源表/两种返回保持。当前Debug链接0错误/0增量警告并更新游戏EXE/备份，一个原语义/F及AUDIO36纳管但枚举仍false；只限定I/W/S及链接，三任务/完整门禁仍open，46CE30全部数值/消费者、CW/机器状态、实际声音/失败/正常寿命与运行/IP2反馈继续。
+
+## CAB20 U10/V03/R04/V05/V02 的双向投影数值（2026-10-09）
+
+[正反投影当前实现](../doc/cg2d_projection_sampling_return_spec.md#projection-x87-source-state)已恢复原19/16条连续x87与F32输出，原35条136B、六F32/S32位样本及当前入向有据；正向先X/u后Y/v、反向X写后fresh Y读、四BYTE别名输出与native outX返回保持。当前Debug链接0错误/0增量警告，游戏EXE已更新并备份；只既有两语义/F补来源，LOOP178/MAP129/AUDIO36已知成员不增、枚举false。五任务及全CW/全部父/机器ABI、数据/别名正常寿命、画面/声音/完整运行门禁仍open，IP2反馈未代验。

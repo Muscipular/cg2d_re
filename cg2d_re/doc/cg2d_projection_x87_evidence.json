@@ -1,0 +1,671 @@
+{
+  "schema_version": 1,
+  "step": "CAB20",
+  "recorded_on": "2026-10-09",
+  "source_snapshot": "cg2d-re-projection-x87-20261009",
+  "source_base_commit": "457b13aa",
+  "decision_ref": "doc/cg2d_projection_sampling_return_spec.md#projection-x87-decision",
+  "authorization": "沿用户整体SPEC/音频继续开发、AGENTS第8条工程委托和第12条CAA01音频依赖必要Debug授权；客户端/算法运行、测试、摘要和桌面操作不执行。",
+  "verification_level": "双原完整35条136B及36当前入向、六四BYTE实样本；原正反19/16条静态投影，Scene两正文/两个声明之外与旧MapEffectMath全体保持；当前Debug链接/MAP及实际复制。不代全部父、CW上游/全机器ABI、画面/声音/失败/正常寿命或客户端运行。",
+  "original_functions": [
+    {
+      "start": "0x46ce30",
+      "end": "0x46ce7d",
+      "name": "sub_46CE30",
+      "bytes": "d9442404d825a851c7008b44240c8b4c2410d80d48dd5400d9442408d825a451c700d80d48dd5400d9c0d8c2d80dccd55400da0580da5500d918d8e1d80d14e25400da0584da5500d919ddd8c3",
+      "instructions": [
+        {
+          "ea": "0x46ce30",
+          "asm": "fld     [esp+a1]"
+        },
+        {
+          "ea": "0x46ce34",
+          "asm": "fsub    flt_C751A8"
+        },
+        {
+          "ea": "0x46ce3a",
+          "asm": "mov     eax, [esp+a3]"
+        },
+        {
+          "ea": "0x46ce3e",
+          "asm": "mov     ecx, [esp+a4]"
+        },
+        {
+          "ea": "0x46ce42",
+          "asm": "fmul    ds:flt_54DD48"
+        },
+        {
+          "ea": "0x46ce48",
+          "asm": "fld     [esp+a2]"
+        },
+        {
+          "ea": "0x46ce4c",
+          "asm": "fsub    flt_C751A4"
+        },
+        {
+          "ea": "0x46ce52",
+          "asm": "fmul    ds:flt_54DD48"
+        },
+        {
+          "ea": "0x46ce58",
+          "asm": "fld     st"
+        },
+        {
+          "ea": "0x46ce5a",
+          "asm": "fadd    st, st(2)"
+        },
+        {
+          "ea": "0x46ce5c",
+          "asm": "fmul    ds:flt_54D5CC"
+        },
+        {
+          "ea": "0x46ce62",
+          "asm": "fiadd   flt_55DA80"
+        },
+        {
+          "ea": "0x46ce68",
+          "asm": "fstp    dword ptr [eax]"
+        },
+        {
+          "ea": "0x46ce6a",
+          "asm": "fsub    st, st(1)"
+        },
+        {
+          "ea": "0x46ce6c",
+          "asm": "fmul    ds:flt_54E214"
+        },
+        {
+          "ea": "0x46ce72",
+          "asm": "fiadd   flt_55DA84"
+        },
+        {
+          "ea": "0x46ce78",
+          "asm": "fstp    dword ptr [ecx]"
+        },
+        {
+          "ea": "0x46ce7a",
+          "asm": "fstp    st"
+        },
+        {
+          "ea": "0x46ce7c",
+          "asm": "retn"
+        }
+      ],
+      "callers": [
+        {
+          "ea": "0x43e4b8",
+          "type": 17,
+          "parent": "0x43e490"
+        },
+        {
+          "ea": "0x43edf2",
+          "type": 17,
+          "parent": "0x43e490"
+        },
+        {
+          "ea": "0x43f4d5",
+          "type": 17,
+          "parent": "0x43f330"
+        },
+        {
+          "ea": "0x43f582",
+          "type": 17,
+          "parent": "0x43f520"
+        },
+        {
+          "ea": "0x440029",
+          "type": 17,
+          "parent": "0x43feb0"
+        },
+        {
+          "ea": "0x44011a",
+          "type": 17,
+          "parent": "0x440070"
+        },
+        {
+          "ea": "0x44054c",
+          "type": 17,
+          "parent": "0x440440"
+        },
+        {
+          "ea": "0x44128e",
+          "type": 17,
+          "parent": "0x441130"
+        },
+        {
+          "ea": "0x44193b",
+          "type": 17,
+          "parent": "0x4417e0"
+        },
+        {
+          "ea": "0x441f1d",
+          "type": 17,
+          "parent": "0x441db0"
+        },
+        {
+          "ea": "0x444165",
+          "type": 17,
+          "parent": "0x444000"
+        },
+        {
+          "ea": "0x4441be",
+          "type": 17,
+          "parent": "0x4441a0"
+        },
+        {
+          "ea": "0x4443cc",
+          "type": 17,
+          "parent": "0x444260"
+        },
+        {
+          "ea": "0x447137",
+          "type": 17,
+          "parent": "0x447070"
+        },
+        {
+          "ea": "0x4472d2",
+          "type": 17,
+          "parent": "0x447230"
+        },
+        {
+          "ea": "0x447452",
+          "type": 17,
+          "parent": "0x4473b0"
+        },
+        {
+          "ea": "0x44757e",
+          "type": 17,
+          "parent": "0x4474e0"
+        },
+        {
+          "ea": "0x447772",
+          "type": 17,
+          "parent": "0x447610"
+        },
+        {
+          "ea": "0x447989",
+          "type": 17,
+          "parent": "0x447820"
+        },
+        {
+          "ea": "0x447ae2",
+          "type": 17,
+          "parent": "0x447a20"
+        },
+        {
+          "ea": "0x447d02",
+          "type": 17,
+          "parent": "0x447c40"
+        },
+        {
+          "ea": "0x447f59",
+          "type": 17,
+          "parent": "0x447e60"
+        },
+        {
+          "ea": "0x4481ad",
+          "type": 17,
+          "parent": "0x448040"
+        },
+        {
+          "ea": "0x448bba",
+          "type": 17,
+          "parent": "0x448a50"
+        },
+        {
+          "ea": "0x448d5a",
+          "type": 17,
+          "parent": "0x448bf0"
+        },
+        {
+          "ea": "0x449455",
+          "type": 17,
+          "parent": "0x449400"
+        },
+        {
+          "ea": "0x449b0c",
+          "type": 17,
+          "parent": "0x449a00"
+        },
+        {
+          "ea": "0x468f82",
+          "type": 17,
+          "parent": "0x468f70"
+        },
+        {
+          "ea": "0x46ddae",
+          "type": 17,
+          "parent": "0x46dd90"
+        },
+        {
+          "ea": "0x46dfb1",
+          "type": 17,
+          "parent": "0x46de50"
+        },
+        {
+          "ea": "0x46f012",
+          "type": 17,
+          "parent": "0x46f000"
+        },
+        {
+          "ea": "0x46f72f",
+          "type": 17,
+          "parent": "0x46f680"
+        },
+        {
+          "ea": "0x5219da",
+          "type": 17,
+          "parent": "0x5219c0"
+        },
+        {
+          "ea": "0x5219f6",
+          "type": 17,
+          "parent": "0x5219c0"
+        },
+        {
+          "ea": "0x52ce08",
+          "type": 17,
+          "parent": "0x52cde0"
+        }
+      ],
+      "inventory_id": "F:0006CE30",
+      "instruction_count": 19,
+      "byte_count": 77,
+      "scope": "原完整数值体，正向35/反向1入向只为身份/当前调用来源，不代全部33父验收"
+    },
+    {
+      "start": "0x46ce80",
+      "end": "0x46cebb",
+      "name": "sub_46CE80",
+      "bytes": "db0580da55008b44240c8b4c2410d86c2404db0584da5500d86c2408d80d18e25400d9c1d8e1d805a851c700d918d8c1d805a451c700d919ddd8c3",
+      "instructions": [
+        {
+          "ea": "0x46ce80",
+          "asm": "fild    flt_55DA80"
+        },
+        {
+          "ea": "0x46ce86",
+          "asm": "mov     eax, [esp+arg_8]"
+        },
+        {
+          "ea": "0x46ce8a",
+          "asm": "mov     ecx, [esp+arg_C]"
+        },
+        {
+          "ea": "0x46ce8e",
+          "asm": "fsubr   [esp+arg_0]"
+        },
+        {
+          "ea": "0x46ce92",
+          "asm": "fild    flt_55DA84"
+        },
+        {
+          "ea": "0x46ce98",
+          "asm": "fsubr   [esp+arg_4]"
+        },
+        {
+          "ea": "0x46ce9c",
+          "asm": "fmul    ds:flt_54E218"
+        },
+        {
+          "ea": "0x46cea2",
+          "asm": "fld     st(1)"
+        },
+        {
+          "ea": "0x46cea4",
+          "asm": "fsub    st, st(1)"
+        },
+        {
+          "ea": "0x46cea6",
+          "asm": "fadd    flt_C751A8"
+        },
+        {
+          "ea": "0x46ceac",
+          "asm": "fstp    dword ptr [eax]"
+        },
+        {
+          "ea": "0x46ceae",
+          "asm": "fadd    st, st(1)"
+        },
+        {
+          "ea": "0x46ceb0",
+          "asm": "fadd    flt_C751A4"
+        },
+        {
+          "ea": "0x46ceb6",
+          "asm": "fstp    dword ptr [ecx]"
+        },
+        {
+          "ea": "0x46ceb8",
+          "asm": "fstp    st"
+        },
+        {
+          "ea": "0x46ceba",
+          "asm": "retn"
+        }
+      ],
+      "callers": [
+        {
+          "ea": "0x46f6ac",
+          "type": 17,
+          "parent": "0x46f680"
+        }
+      ],
+      "inventory_id": "F:0006CE80",
+      "instruction_count": 16,
+      "byte_count": 59,
+      "scope": "原完整数值体，正向35/反向1入向只为身份/当前调用来源，不代全部33父验收"
+    }
+  ],
+  "original_constants": [
+    {
+      "address": "0x55da80",
+      "bytes": "40010000",
+      "type": "S32",
+      "value": 320,
+      "word_bits": "0x140"
+    },
+    {
+      "address": "0x55da84",
+      "bytes": "f0000000",
+      "type": "S32",
+      "value": 240,
+      "word_bits": "0xf0"
+    },
+    {
+      "address": "0x54dd48",
+      "bytes": "0000803c",
+      "type": "F32",
+      "value": 0.015625,
+      "word_bits": "0x3c800000"
+    },
+    {
+      "address": "0x54d5cc",
+      "bytes": "00000042",
+      "type": "F32",
+      "value": 32,
+      "word_bits": "0x42000000"
+    },
+    {
+      "address": "0x54e214",
+      "bytes": "0000c041",
+      "type": "F32",
+      "value": 24,
+      "word_bits": "0x41c00000"
+    },
+    {
+      "address": "0x54e218",
+      "bytes": "abaaaa3f",
+      "type": "F32",
+      "value": 1.3333333730697632,
+      "word_bits": "0x3faaaaab"
+    }
+  ],
+  "projection_checks": {
+    "roots": [
+      {
+        "inventory_id": "F:0006CE30",
+        "symbol": "Cg2dProjectWorldToScreenX87",
+        "original_instruction_count": 19,
+        "source_projection_instruction_count": 19,
+        "original_projection": [
+          "fld dword ptr [rsp+8]",
+          "fsub dword ptr [r10]",
+          "mov rax,r8",
+          "mov rcx,r9",
+          "fmul dword ptr [projectionscale54dd48]",
+          "fld dword ptr [rsp+12]",
+          "fsub dword ptr [r11]",
+          "fmul dword ptr [projectionscale54dd48]",
+          "fld st(0)",
+          "fadd st(0),st(2)",
+          "fmul dword ptr [projectionxscale54d5cc]",
+          "fiadd dword ptr [projectioncenterx55da80]",
+          "fstp dword ptr [rax]",
+          "fsub st(0),st(1)",
+          "fmul dword ptr [projectionyscale54e214]",
+          "fiadd dword ptr [projectioncentery55da84]",
+          "fstp dword ptr [rcx]",
+          "fstp st(0)",
+          "ret"
+        ],
+        "source_projection": [
+          "fld dword ptr [rsp+8]",
+          "fsub dword ptr [r10]",
+          "mov rax,r8",
+          "mov rcx,r9",
+          "fmul dword ptr [projectionscale54dd48]",
+          "fld dword ptr [rsp+12]",
+          "fsub dword ptr [r11]",
+          "fmul dword ptr [projectionscale54dd48]",
+          "fld st(0)",
+          "fadd st(0),st(2)",
+          "fmul dword ptr [projectionxscale54d5cc]",
+          "fiadd dword ptr [projectioncenterx55da80]",
+          "fstp dword ptr [rax]",
+          "fsub st(0),st(1)",
+          "fmul dword ptr [projectionyscale54e214]",
+          "fiadd dword ptr [projectioncentery55da84]",
+          "fstp dword ptr [rcx]",
+          "fstp st(0)",
+          "ret"
+        ],
+        "differences": []
+      },
+      {
+        "inventory_id": "F:0006CE80",
+        "symbol": "Cg2dProjectScreenToWorldX87",
+        "original_instruction_count": 16,
+        "source_projection_instruction_count": 16,
+        "original_projection": [
+          "fild dword ptr [projectioncenterx55da80]",
+          "mov rax,r8",
+          "mov rcx,r9",
+          "fsubr dword ptr [rsp+8]",
+          "fild dword ptr [projectioncentery55da84]",
+          "fsubr dword ptr [rsp+12]",
+          "fmul dword ptr [projectioninversescale54e218]",
+          "fld st(0)(1)",
+          "fsub st(0),st(1)",
+          "fadd dword ptr [r10]",
+          "fstp dword ptr [rax]",
+          "fadd st(0),st(1)",
+          "fadd dword ptr [r11]",
+          "fstp dword ptr [rcx]",
+          "fstp st(0)",
+          "ret"
+        ],
+        "source_projection": [
+          "fild dword ptr [projectioncenterx55da80]",
+          "mov rax,r8",
+          "mov rcx,r9",
+          "fsubr dword ptr [rsp+8]",
+          "fild dword ptr [projectioncentery55da84]",
+          "fsubr dword ptr [rsp+12]",
+          "fmul dword ptr [projectioninversescale54e218]",
+          "fld st(0)(1)",
+          "fsub st(0),st(1)",
+          "fadd dword ptr [r10]",
+          "fstp dword ptr [rax]",
+          "fadd st(0),st(1)",
+          "fadd dword ptr [r11]",
+          "fstp dword ptr [rcx]",
+          "fstp st(0)",
+          "ret"
+        ],
+        "differences": []
+      }
+    ],
+    "cpp_outside_two_bodies_and_private_declarations_unchanged": true,
+    "existing_map_math_interfaces_unchanged": true,
+    "abi_preparation_instructions_per_body": 4,
+    "leaf_shadow_slots": {
+      "inputX_F32": [
+        8,
+        12
+      ],
+      "inputY_F32": [
+        12,
+        16
+      ],
+      "referenceX_pointer_arg5": [
+        40,
+        48
+      ],
+      "referenceY_pointer_arg6": [
+        48,
+        56
+      ]
+    },
+    "rsp_or_nonvolatile_changed": false,
+    "cw_modified": false,
+    "constants": [
+      {
+        "address": "0x55da80",
+        "bytes": "40010000",
+        "type": "S32",
+        "value": 320,
+        "word_bits": "0x140"
+      },
+      {
+        "address": "0x55da84",
+        "bytes": "f0000000",
+        "type": "S32",
+        "value": 240,
+        "word_bits": "0xf0"
+      },
+      {
+        "address": "0x54dd48",
+        "bytes": "0000803c",
+        "type": "F32",
+        "value": 0.015625,
+        "word_bits": "0x3c800000"
+      },
+      {
+        "address": "0x54d5cc",
+        "bytes": "00000042",
+        "type": "F32",
+        "value": 32,
+        "word_bits": "0x42000000"
+      },
+      {
+        "address": "0x54e214",
+        "bytes": "0000c041",
+        "type": "F32",
+        "value": 24,
+        "word_bits": "0x41c00000"
+      },
+      {
+        "address": "0x54e218",
+        "bytes": "abaaaa3f",
+        "type": "F32",
+        "value": 1.3333333730697632,
+        "word_bits": "0x3faaaaab"
+      }
+    ],
+    "float_output_stores_per_body": 2,
+    "outX_pointer_return": true,
+    "inverse_referenceY_load_after_outputX": true,
+    "normal_center_adaptation_unchanged": true,
+    "runtime_output_verified": false
+  },
+  "reference_and_alias_contract": {
+    "owner": "原生volatile gWorldProjectionReferenceXBits/gWorldProjectionReferenceYBits，原C751A8/C751A4的W32位槽",
+    "native_parameters": "两F32输入值、两个借用输出float*、两个const volatile uint32_t*参考位槽地址；只同步借用",
+    "forward_order": "实际参考X减法/u计算后再实际参考Y减法/v计算；两个样本在首输出之前",
+    "inverse_order": "原X参考加法→FSTP dword输出X→加法/实际fresh Y参考加法→FSTP dword输出Y",
+    "outputs": "两处原4B位写每根；ASM FSTP直接写内存，不在CPP用float左值访问W32参考槽，源指针别名合同保持",
+    "return": "两接口RAX持原native outX，不持有/分配/释放",
+    "center": "沿BUF01正常320/240具名适配，常量按原S32 FIADD/FILD类型；不建立动态视口owner/宣全部间接中心别名已排除"
+  },
+  "source_changes": [
+    {
+      "path": "src/world/SceneState.cpp",
+      "scope": "只两个平台私有声明和两个既有正文转真实ASM值接口，原公开签名/调用者与其他全文保持"
+    },
+    {
+      "path": "src/platform/MapEffectMath.asm",
+      "scope": "仅六F32/S32常量、两个PUBLIC和两个19/16条实际原数值入口；旧所有地图数值/CW接口保持，现有CMake源项不改"
+    }
+  ],
+  "source_gap": "已有double/SSE表达式未承接原连续x87和当前CW下FSTP F32；本步恢复原数值体与参考取样/位输出/指针返回。没有当前运行数值或可闻/可见故障证据，完整CW来源/机器状态与全部消费者仍待。",
+  "build": {
+    "command": "cmake --build --preset windows-msvc-x64-debug --target cg2d_re_client --parallel 4",
+    "log": "build/windows-msvc-x64/build-projection-x87-20261009.log",
+    "configure_performed": false,
+    "configure_exit_code": 0,
+    "build_exit_code": 0,
+    "static_libraries_exit_code": 0,
+    "client_link_exit_code": 0,
+    "errors": [],
+    "incremental_warning_count": 0,
+    "full_warning_count_unmeasured": true,
+    "client_bytes": 8024064,
+    "symbols": {
+      "Cg2dProjectWorldToScreenX87": true,
+      "Cg2dProjectScreenToWorldX87": true,
+      "ProjectWorldToScreen_46CE30": true,
+      "ProjectScreenToWorld_46CE80": true,
+      "Cg2dPublishSpatialProjectionX87": true,
+      "LegacyMidiSynth": false,
+      "MidiToWav": false
+    },
+    "converter_build_performed": false,
+    "converter_last_build_step": "CAB15"
+  },
+  "deployment": {
+    "destination": "H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2d_re_client.exe",
+    "backup": "H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2d_re_client.exe.before-projection-x87-20261009",
+    "previous_bytes": 8024064,
+    "source_bytes": 8024064,
+    "current_bytes": 8024064,
+    "performed": true,
+    "client_launched": false,
+    "verification": "实际Copy-Item成功并核源/目标长度一致，同长不证明内容，未计算摘要/内容比对"
+  },
+  "execution": {
+    "tests_performed": false,
+    "client_executed": false,
+    "algorithm_executed": false,
+    "converter_executed": false,
+    "wav_regenerated": false,
+    "hash_performed": false,
+    "desktop_operated": false
+  },
+  "inventory_change": {
+    "semantic_records_added": 0,
+    "function_dispositions_added": 0,
+    "feature_members_added": 0,
+    "audio_known_members": 36,
+    "loop_known_members": 178,
+    "map_known_members": 129,
+    "member_inventory_closed": false,
+    "r7_unchanged": true,
+    "correction": "方案初稿将首轮功能展示误读为ID缺失；逐ID核当前列表，LOOP/MAP两ID均为true，已修正文案，不伪增加成员/功能分母。"
+  },
+  "remaining": [
+    "全应用CW/精度来源、所有输入实际数值/机器状态/ABI",
+    "35+1入向的全部父/输出别名及正常数据/资源寿命",
+    "原中心可写数据的全部间接别名，既有正常常量适配不代完整数据验收",
+    "地图画面/声音、完整音频失败/通知/退出及整体门禁",
+    "客户端运行授权/IP2真实登录和完整启动退出",
+    "旧窗口诊断逐项原行为/ABI，不因本步增量0关闭"
+  ],
+  "registry_validation": {
+    "expected_json_text_matches": true,
+    "semantic_records": 1898,
+    "function_dispositions": 1063,
+    "members": {
+      "FUNC-LOOP": 178,
+      "FUNC-MAP": 129,
+      "FUNC-AUDIO": 36
+    },
+    "task_acceptance_rows": 55,
+    "generate_exit_code": 0,
+    "check_exit_code": 0,
+    "scope": "仅两JSON与本步明确预期、派生文本和引用一致，不代功能运行验收。"
+  },
+  "compile_verified": true,
+  "runtime_verified": false,
+  "global_accepted": false
+}

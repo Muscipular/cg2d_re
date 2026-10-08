@@ -49,6 +49,16 @@
 #include <utility>
 #include <vector>
 
+// 原46CE30/46CE80连续x87段；同步借参考W32位槽与输出，不保存指针。
+namespace cg::platform {
+extern "C" float* Cg2dProjectWorldToScreenX87(
+    float x, float y, float* outX, float* outY,
+    const volatile std::uint32_t* referenceX, const volatile std::uint32_t* referenceY) noexcept;
+extern "C" float* Cg2dProjectScreenToWorldX87(
+    float x, float y, float* outX, float* outY,
+    const volatile std::uint32_t* referenceX, const volatile std::uint32_t* referenceY) noexcept;
+}
+
 namespace cg::world {
 namespace {
 
@@ -1063,39 +1073,18 @@ float* ProjectWorldToScreen_46CE30(
     float* const outX,
     float* const outY) noexcept
 {
-    const std::uint32_t referenceXBits = gWorldProjectionReferenceXBits;
-    const float referenceX = std::bit_cast<float>(referenceXBits);
-    const double u =
-        (static_cast<double>(worldX) - static_cast<double>(referenceX))
-        * 0.015625;
-    const std::uint32_t referenceYBits = gWorldProjectionReferenceYBits;
-    const float referenceY = std::bit_cast<float>(referenceYBits);
-    const double v =
-        (static_cast<double>(worldY) - static_cast<double>(referenceY))
-        * 0.015625;
-    const float screenX = static_cast<float>((v + u) * 32.0 + 320.0);
-    std::memcpy(outX, &screenX, sizeof(screenX));
-    const float screenY = static_cast<float>((v - u) * 24.0 + 240.0);
-    std::memcpy(outY, &screenY, sizeof(screenY));
-    return outX;
+    return platform::Cg2dProjectWorldToScreenX87(
+        worldX, worldY, outX, outY,
+        &gWorldProjectionReferenceXBits, &gWorldProjectionReferenceYBits);
 }
 
 float* ProjectScreenToWorld_46CE80(
     const float screenX, const float screenY,
     float* const outX, float* const outY) noexcept
 {
-    const double u = static_cast<double>(screenX) - 320.0;
-    const double v = (static_cast<double>(screenY) - 240.0)
-        * static_cast<double>(std::bit_cast<float>(0x3FAAAAABu));
-    const std::uint32_t referenceXBits = gWorldProjectionReferenceXBits;
-    const float worldX =
-        static_cast<float>(u - v + std::bit_cast<float>(referenceXBits));
-    std::memcpy(outX, &worldX, sizeof(worldX));
-    const std::uint32_t referenceYBits = gWorldProjectionReferenceYBits;
-    const float worldY =
-        static_cast<float>(v + u + std::bit_cast<float>(referenceYBits));
-    std::memcpy(outY, &worldY, sizeof(worldY));
-    return outX;
+    return platform::Cg2dProjectScreenToWorldX87(
+        screenX, screenY, outX, outY,
+        &gWorldProjectionReferenceXBits, &gWorldProjectionReferenceYBits);
 }
 
 std::int32_t SetCurrentSceneType(std::int32_t sceneType)

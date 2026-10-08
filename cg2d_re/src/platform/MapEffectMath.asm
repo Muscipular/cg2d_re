@@ -21,6 +21,13 @@ ActorRate54D4A4 DWORD 040000000h
 ActorStep54DD44 DWORD 040800000h
 ActorSpiralScale54DD14 DWORD 03FE00000h
 ActorSpiralScale54DD10 DWORD 03F19999Ah
+; 原双向投影的四F32比例和两S32中心，保持既有320/240正常中心适配。
+ProjectionScale54DD48 DWORD 03C800000h
+ProjectionXScale54D5CC DWORD 042000000h
+ProjectionYScale54E214 DWORD 041C00000h
+ProjectionInverseScale54E218 DWORD 03FAAAAABh
+ProjectionCenterX55DA80 DWORD 140h
+ProjectionCenterY55DA84 DWORD 0F0h
 ALIGN 8
 ObserverAngles QWORD 04002D97C7F30D173h, 03FF921FB54411744h
     QWORD 03FE921FB54411744h, 0000000000000000h
@@ -40,6 +47,8 @@ PUBLIC Cg2dMapMoveDirection
 PUBLIC Cg2dMapActorSpiralOffset
 PUBLIC Cg2dMapObserverExitOffset
 PUBLIC Cg2dMapTimedOffset
+PUBLIC Cg2dProjectWorldToScreenX87
+PUBLIC Cg2dProjectScreenToWorldX87
 
 ; 其余叶仍只借用参数暂存区 [rsp+8,rsp+40)，不改RSP或非易失寄存器。
 ; 除数接口用72B正常展开帧调用完整CI幂，其余接口不变。
@@ -425,5 +434,60 @@ Cg2dMapTimedOffset PROC
     fldcw word ptr [rsp+12]
     ret
 Cg2dMapTimedOffset ENDP
+
+; 原46CE30完整19条；F32 X/Y来自XMM0/1，R8/R9为借用输出。
+; 第5/6参借volatile W32参考位槽；只保存地址，按原浮点时点取样。
+; 叶借[Rsp+8,Rsp+16)，不改RSP/非易失寄存器/当前CW，返回原outX。
+Cg2dProjectWorldToScreenX87 PROC
+    movss dword ptr [rsp+8], xmm0
+    movss dword ptr [rsp+12], xmm1
+    mov r10, qword ptr [rsp+40]
+    mov r11, qword ptr [rsp+48]
+
+    fld dword ptr [rsp+8]
+    fsub dword ptr [r10]
+    mov rax, r8
+    mov rcx, r9
+    fmul dword ptr [ProjectionScale54DD48]
+    fld dword ptr [rsp+12]
+    fsub dword ptr [r11]
+    fmul dword ptr [ProjectionScale54DD48]
+    fld st(0)
+    fadd st(0), st(2)
+    fmul dword ptr [ProjectionXScale54D5CC]
+    fiadd dword ptr [ProjectionCenterX55DA80]
+    fstp dword ptr [rax]
+    fsub st(0), st(1)
+    fmul dword ptr [ProjectionYScale54E214]
+    fiadd dword ptr [ProjectionCenterY55DA84]
+    fstp dword ptr [rcx]
+    fstp st(0)
+    ret
+Cg2dProjectWorldToScreenX87 ENDP
+
+; 原46CE80完整16条；参考Y仍在四BYTE X输出之后fresh读取。
+Cg2dProjectScreenToWorldX87 PROC
+    movss dword ptr [rsp+8], xmm0
+    movss dword ptr [rsp+12], xmm1
+    mov r10, qword ptr [rsp+40]
+    mov r11, qword ptr [rsp+48]
+
+    fild dword ptr [ProjectionCenterX55DA80]
+    mov rax, r8
+    mov rcx, r9
+    fsubr dword ptr [rsp+8]
+    fild dword ptr [ProjectionCenterY55DA84]
+    fsubr dword ptr [rsp+12]
+    fmul dword ptr [ProjectionInverseScale54E218]
+    fld st(1)
+    fsub st(0), st(1)
+    fadd dword ptr [r10]
+    fstp dword ptr [rax]
+    fadd st(0), st(1)
+    fadd dword ptr [r11]
+    fstp dword ptr [rcx]
+    fstp st(0)
+    ret
+Cg2dProjectScreenToWorldX87 ENDP
 
 END

@@ -195655,14 +195655,21 @@
         ]
       ],
       "instruction_count": 19,
-      "status": "BUF01双投影两完整根35条136B/两页，正向原outX指针返回与refX/u后refY/v恢复；两正文四片段及一声明片段，四处四BYTE memcpy承接W32参考槽别名，反向X写后fresh Y读保持。正常中心320/240具名保，算式/调用者保持；全父/数据寿命/数值/x87/机器ABI与运行未验",
+      "status": "CAB20完整正反投影数值体已恢复连续x87/F32与原取样/位输出/指针返回；当前Debug链接部署通过，全CW/父/机器ABI与画面/声音/正常寿命仍待",
       "sources": [
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "ProjectWorldToScreen_46CE30"
           ],
-          "relationship": "BUF01投影46CE30/46CE80两完整根35条136B/两页两块，无call/jump、两RET、36入向来自33父；只复用三相关局部调用窗口，不代全父。Scene两既有正文四片段和既有头文件一片段：正向void恢复原生非拥有float*原outX返回，按原先refX/u后refY/v取样；两根每个F32输出以四BYTE memcpy写X再写Y，承接现有W32参考位槽的合法别名。正向两参考在首输出前取得，反向仍X输出后fresh读取refY；不合并取样，不加空指针检查。六已加载4B数据24B证明中心S32 320/240和四F32位值；中心在可写.data，各仅两直接读、无直接写/取地址引用，具名保现正常320/240承接，不造未证动态viewport/影子owner，不据直接引用排除全部间接别名。所有算式、double/F32承载、调用者和其它正文保持，无新helper/lambda/共享owner/外依赖。468F70源局部F32/ftol消费并返回Y的S64正确保持，不误改为透传投影指针。两个尾区3+5B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/所有数据与别名寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。"
+          "relationship": "CAB20既有公开投影转调平台真实x87体；BUF01参考时点/四BYTE位别名输出和native outX返回保持，其他Scene正文/调用者不改。"
+        },
+        {
+          "path": "src/platform/MapEffectMath.asm",
+          "symbols": [
+            "Cg2dProjectWorldToScreenX87"
+          ],
+          "relationship": "CAB20在现有平台地图数值ASM恢复完整正反19/16条连续x87/当前CW及FSTP F32；正向先refX/u后refY/v、反向X写后fresh读refY、四BYTE位输出/参考槽别名和native outX借用指针返回保持。四比例保原F32，中心按原S32 FIADD/FILD承接BUF01正常320/240具名适配，不宣全部间接中心别名关闭。两CPP正文仅转真实接口/两个私有声明，公開签名/所有调用者、原参考owner/其他CPP和旧地图数值接口保持，无新owner/保护/异常门禁或强设PC。全CW上游/所有父/数据与别名正常寿命/机器ABI/画面/声音/完整运行未验，当前链接不代整体验收。"
         }
       ],
       "evidence_documents": [
@@ -195670,10 +195677,15 @@
         "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-decision",
         "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-acceptance",
         "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-source-state",
-        "doc/cg2d_projection_sampling_return_evidence.json"
+        "doc/cg2d_projection_sampling_return_evidence.json",
+        "doc/cg2d_projection_sampling_return_spec.md#projection-x87-decision",
+        "doc/cg2d_projection_sampling_return_spec.md#projection-x87-source-state",
+        "doc/cg2d_projection_x87_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#projection-x87-source-state",
+        "doc/cg2d_build_acceptance_spec.md#projection-x87-debug-build"
       ],
-      "boundary": "BUF01投影46CE30/46CE80两完整根35条136B/两页两块，无call/jump、两RET、36入向来自33父；只复用三相关局部调用窗口，不代全父。Scene两既有正文四片段和既有头文件一片段：正向void恢复原生非拥有float*原outX返回，按原先refX/u后refY/v取样；两根每个F32输出以四BYTE memcpy写X再写Y，承接现有W32参考位槽的合法别名。正向两参考在首输出前取得，反向仍X输出后fresh读取refY；不合并取样，不加空指针检查。六已加载4B数据24B证明中心S32 320/240和四F32位值；中心在可写.data，各仅两直接读、无直接写/取地址引用，具名保现正常320/240承接，不造未证动态viewport/影子owner，不据直接引用排除全部间接别名。所有算式、double/F32承载、调用者和其它正文保持，无新helper/lambda/共享owner/外依赖。468F70源局部F32/ftol消费并返回Y的S64正确保持，不误改为透传投影指针。两个尾区3+5B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/所有数据与别名寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
-      "verification_level": "BUF01投影46CE30/46CE80两完整根35条136B/两页两块，无call/jump、两RET、36入向来自33父；只复用三相关局部调用窗口，不代全父。Scene两既有正文四片段和既有头文件一片段：正向void恢复原生非拥有float*原outX返回，按原先refX/u后refY/v取样；两根每个F32输出以四BYTE memcpy写X再写Y，承接现有W32参考位槽的合法别名。正向两参考在首输出前取得，反向仍X输出后fresh读取refY；不合并取样，不加空指针检查。六已加载4B数据24B证明中心S32 320/240和四F32位值；中心在可写.data，各仅两直接读、无直接写/取地址引用，具名保现正常320/240承接，不造未证动态viewport/影子owner，不据直接引用排除全部间接别名。所有算式、double/F32承载、调用者和其它正文保持，无新helper/lambda/共享owner/外依赖。468F70源局部F32/ftol消费并返回Y的S64正确保持，不误改为透传投影指针。两个尾区3+5B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/所有数据与别名寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "boundary": "CAB20在现有平台地图数值ASM恢复完整正反19/16条连续x87/当前CW及FSTP F32；正向先refX/u后refY/v、反向X写后fresh读refY、四BYTE位输出/参考槽别名和native outX借用指针返回保持。四比例保原F32，中心按原S32 FIADD/FILD承接BUF01正常320/240具名适配，不宣全部间接中心别名关闭。两CPP正文仅转真实接口/两个私有声明，公開签名/所有调用者、原参考owner/其他CPP和旧地图数值接口保持，无新owner/保护/异常门禁或强设PC。全CW上游/所有父/数据与别名正常寿命/机器ABI/画面/声音/完整运行未验，当前链接不代整体验收。",
+      "verification_level": "完整两根35条136B及六四BYTE样本；19/16条实际源投影、两CPP正文之外/旧ASM保持；Debug0错误/0增量警告、MAP/部署。未运行客户端/算法、测试或摘要，不代全部数值输出/CW上游/机器ABI。",
       "projection_sampling_return": {
         "spec_id": "BUF01",
         "evidence_refs": [
@@ -195714,7 +195726,24 @@
         "full_lifecycle_closed": false,
         "full_numeric_or_x87_rounding_verified": false,
         "runtime_verified": false,
-        "fault_equivalence_claimed": false
+        "fault_equivalence_claimed": false,
+        "current_source_superseded_by": "CAB20投影数值段，BUF01原取样/指针返回和别名合同继续，旧静态源片段作为历史"
+      },
+      "native_provider": {
+        "source": "src/world/SceneState.cpp",
+        "symbol": "cg::world::ProjectWorldToScreen_46CE30",
+        "source_body_implemented": true,
+        "client_link_verified": true,
+        "runtime_verified": false
+      },
+      "projection_x87_connection": {
+        "step": "CAB20",
+        "source_snapshot": "cg2d-re-projection-x87-20261009",
+        "decision_ref": "doc/cg2d_projection_sampling_return_spec.md#projection-x87-decision",
+        "helper": "Cg2dProjectWorldToScreenX87",
+        "original_instruction_count": 19,
+        "source_projection_verified": true,
+        "runtime_verified": false
       }
     },
     {
@@ -195729,14 +195758,21 @@
         ]
       ],
       "instruction_count": 16,
-      "status": "BUF01双投影两完整根35条136B/两页，正向原outX指针返回与refX/u后refY/v恢复；两正文四片段及一声明片段，四处四BYTE memcpy承接W32参考槽别名，反向X写后fresh Y读保持。正常中心320/240具名保，算式/调用者保持；全父/数据寿命/数值/x87/机器ABI与运行未验",
+      "status": "CAB20完整正反投影数值体已恢复连续x87/F32与原取样/位输出/指针返回；当前Debug链接部署通过，全CW/父/机器ABI与画面/声音/正常寿命仍待",
       "sources": [
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "ProjectScreenToWorld_46CE80"
           ],
-          "relationship": "BUF01投影46CE30/46CE80两完整根35条136B/两页两块，无call/jump、两RET、36入向来自33父；只复用三相关局部调用窗口，不代全父。Scene两既有正文四片段和既有头文件一片段：正向void恢复原生非拥有float*原outX返回，按原先refX/u后refY/v取样；两根每个F32输出以四BYTE memcpy写X再写Y，承接现有W32参考位槽的合法别名。正向两参考在首输出前取得，反向仍X输出后fresh读取refY；不合并取样，不加空指针检查。六已加载4B数据24B证明中心S32 320/240和四F32位值；中心在可写.data，各仅两直接读、无直接写/取地址引用，具名保现正常320/240承接，不造未证动态viewport/影子owner，不据直接引用排除全部间接别名。所有算式、double/F32承载、调用者和其它正文保持，无新helper/lambda/共享owner/外依赖。468F70源局部F32/ftol消费并返回Y的S64正确保持，不误改为透传投影指针。两个尾区3+5B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/所有数据与别名寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。"
+          "relationship": "CAB20既有公开投影转调平台真实x87体；BUF01参考时点/四BYTE位别名输出和native outX返回保持，其他Scene正文/调用者不改。"
+        },
+        {
+          "path": "src/platform/MapEffectMath.asm",
+          "symbols": [
+            "Cg2dProjectScreenToWorldX87"
+          ],
+          "relationship": "CAB20在现有平台地图数值ASM恢复完整正反19/16条连续x87/当前CW及FSTP F32；正向先refX/u后refY/v、反向X写后fresh读refY、四BYTE位输出/参考槽别名和native outX借用指针返回保持。四比例保原F32，中心按原S32 FIADD/FILD承接BUF01正常320/240具名适配，不宣全部间接中心别名关闭。两CPP正文仅转真实接口/两个私有声明，公開签名/所有调用者、原参考owner/其他CPP和旧地图数值接口保持，无新owner/保护/异常门禁或强设PC。全CW上游/所有父/数据与别名正常寿命/机器ABI/画面/声音/完整运行未验，当前链接不代整体验收。"
         }
       ],
       "evidence_documents": [
@@ -195744,10 +195780,15 @@
         "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-decision",
         "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-acceptance",
         "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-source-state",
-        "doc/cg2d_projection_sampling_return_evidence.json"
+        "doc/cg2d_projection_sampling_return_evidence.json",
+        "doc/cg2d_projection_sampling_return_spec.md#projection-x87-decision",
+        "doc/cg2d_projection_sampling_return_spec.md#projection-x87-source-state",
+        "doc/cg2d_projection_x87_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#projection-x87-source-state",
+        "doc/cg2d_build_acceptance_spec.md#projection-x87-debug-build"
       ],
-      "boundary": "BUF01投影46CE30/46CE80两完整根35条136B/两页两块，无call/jump、两RET、36入向来自33父；只复用三相关局部调用窗口，不代全父。Scene两既有正文四片段和既有头文件一片段：正向void恢复原生非拥有float*原outX返回，按原先refX/u后refY/v取样；两根每个F32输出以四BYTE memcpy写X再写Y，承接现有W32参考位槽的合法别名。正向两参考在首输出前取得，反向仍X输出后fresh读取refY；不合并取样，不加空指针检查。六已加载4B数据24B证明中心S32 320/240和四F32位值；中心在可写.data，各仅两直接读、无直接写/取地址引用，具名保现正常320/240承接，不造未证动态viewport/影子owner，不据直接引用排除全部间接别名。所有算式、double/F32承载、调用者和其它正文保持，无新helper/lambda/共享owner/外依赖。468F70源局部F32/ftol消费并返回Y的S64正确保持，不误改为透传投影指针。两个尾区3+5B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/所有数据与别名寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
-      "verification_level": "BUF01投影46CE30/46CE80两完整根35条136B/两页两块，无call/jump、两RET、36入向来自33父；只复用三相关局部调用窗口，不代全父。Scene两既有正文四片段和既有头文件一片段：正向void恢复原生非拥有float*原outX返回，按原先refX/u后refY/v取样；两根每个F32输出以四BYTE memcpy写X再写Y，承接现有W32参考位槽的合法别名。正向两参考在首输出前取得，反向仍X输出后fresh读取refY；不合并取样，不加空指针检查。六已加载4B数据24B证明中心S32 320/240和四F32位值；中心在可写.data，各仅两直接读、无直接写/取地址引用，具名保现正常320/240承接，不造未证动态viewport/影子owner，不据直接引用排除全部间接别名。所有算式、double/F32承载、调用者和其它正文保持，无新helper/lambda/共享owner/外依赖。468F70源局部F32/ftol消费并返回Y的S64正确保持，不误改为透传投影指针。两个尾区3+5B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/所有数据与别名寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "boundary": "CAB20在现有平台地图数值ASM恢复完整正反19/16条连续x87/当前CW及FSTP F32；正向先refX/u后refY/v、反向X写后fresh读refY、四BYTE位输出/参考槽别名和native outX借用指针返回保持。四比例保原F32，中心按原S32 FIADD/FILD承接BUF01正常320/240具名适配，不宣全部间接中心别名关闭。两CPP正文仅转真实接口/两个私有声明，公開签名/所有调用者、原参考owner/其他CPP和旧地图数值接口保持，无新owner/保护/异常门禁或强设PC。全CW上游/所有父/数据与别名正常寿命/机器ABI/画面/声音/完整运行未验，当前链接不代整体验收。",
+      "verification_level": "完整两根35条136B及六四BYTE样本；19/16条实际源投影、两CPP正文之外/旧ASM保持；Debug0错误/0增量警告、MAP/部署。未运行客户端/算法、测试或摘要，不代全部数值输出/CW上游/机器ABI。",
       "projection_sampling_return": {
         "spec_id": "BUF01",
         "evidence_refs": [
@@ -195788,7 +195829,24 @@
         "full_lifecycle_closed": false,
         "full_numeric_or_x87_rounding_verified": false,
         "runtime_verified": false,
-        "fault_equivalence_claimed": false
+        "fault_equivalence_claimed": false,
+        "current_source_superseded_by": "CAB20投影数值段，BUF01原取样/指针返回和别名合同继续，旧静态源片段作为历史"
+      },
+      "native_provider": {
+        "source": "src/world/SceneState.cpp",
+        "symbol": "cg::world::ProjectScreenToWorld_46CE80",
+        "source_body_implemented": true,
+        "client_link_verified": true,
+        "runtime_verified": false
+      },
+      "projection_x87_connection": {
+        "step": "CAB20",
+        "source_snapshot": "cg2d-re-projection-x87-20261009",
+        "decision_ref": "doc/cg2d_projection_sampling_return_spec.md#projection-x87-decision",
+        "helper": "Cg2dProjectScreenToWorldX87",
+        "original_instruction_count": 16,
+        "source_projection_verified": true,
+        "runtime_verified": false
       }
     },
     {

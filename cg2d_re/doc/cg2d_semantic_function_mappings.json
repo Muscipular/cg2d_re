@@ -206469,6 +206469,211 @@
         "machine_abi_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x5436ac",
+      "inventory_id": "F:001436AC",
+      "original_role": "5436AC整数奇偶判定：原F64落存后调用546311，TEST AL,90H非零返S32零；第一次5462FF返回后F64落存/重载比较原值，不等返零；原FDIV54FB58后覆参数F64并再落存给第二5462FF，直接FCOMP该商，原ZF分支等返2/不等返1。三个真实CALL及FLD/FSTP/FCOMP/FNSTSW/SAHF顺序保，原值/返回宽度不扩，没有新finite门禁/控制字写。",
+      "original_end_exclusive": "0x543711",
+      "original_chunks": [
+        [
+          "0x5436ac",
+          "0x543711"
+        ]
+      ],
+      "instruction_count": 49,
+      "status": "BWD01开发原5436AC整数奇偶判定与5462FF真实舍入叶，两完整59条119B/两页、三direct两callee/零indirect/四跳三RET、三CALL入向；54364F父邻窗与54FB58常量另列。三现文件六处追加：一CPP值入口/两ASM本体与一私有参数桥，原分类TEST AL90H、两次舍入、F64落存重载/商覆写和x87比较状态分支保，舍入沿当前控制字不写环境。Win64正常56B展开帧/32B调用区/三个F64槽与ASM私有ST(0)返回保，不伪CPP F64 ABI、故障等价或新finite保护。两新原新/F、CRT159限定I-S，源码定位167/CRT余39；完整pow父和机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "ClassifyLegacyInteger_5436AC"
+          ],
+          "relationship": "5436AC整数奇偶判定：原F64落存后调用546311，TEST AL,90H非零返S32零；第一次5462FF返回后F64落存/重载比较原值，不等返零；原FDIV54FB58后覆参数F64并再落存给第二5462FF，直接FCOMP该商，原ZF分支等返2/不等返1。三个真实CALL及FLD/FSTP/FCOMP/FNSTSW/SAHF顺序保，原值/返回宽度不扩，没有新finite门禁/控制字写。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "ClassifyLegacyInteger_5436AC",
+            "Cg2dClassifyLegacyInteger"
+          ],
+          "relationship": "原F64值/S32返回声明，参数桥只借用本调用值，不宽原数值"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dClassifyLegacyInteger",
+            "Cg2dClassifyLegacyFloat",
+            "Cg2dRoundLegacyFloatX87",
+            "LegacyIntegerDivisor54FB58"
+          ],
+          "relationship": "56B正常展开帧/三F64槽保分类与两次真实舍入、商覆写、比较状态/返回；舍入ST0仅ASM间传递"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-baseline",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-decision",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-acceptance",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-source-state"
+      ],
+      "boundary": "5436AC整数奇偶判定：原F64落存后调用546311，TEST AL,90H非零返S32零；第一次5462FF返回后F64落存/重载比较原值，不等返零；原FDIV54FB58后覆参数F64并再落存给第二5462FF，直接FCOMP该商，原ZF分支等返2/不等返1。三个真实CALL及FLD/FSTP/FCOMP/FNSTSW/SAHF顺序保，原值/返回宽度不扩，没有新finite门禁/控制字写。 BWD01开发原5436AC整数奇偶判定与5462FF真实舍入叶，两完整59条119B/两页、三direct两callee/零indirect/四跳三RET、三CALL入向；54364F父邻窗与54FB58常量另列。三现文件六处追加：一CPP值入口/两ASM本体与一私有参数桥，原分类TEST AL90H、两次舍入、F64落存重载/商覆写和x87比较状态分支保，舍入沿当前控制字不写环境。Win64正常56B展开帧/32B调用区/三个F64槽与ASM私有ST(0)返回保，不伪CPP F64 ABI、故障等价或新finite保护。两新原新/F、CRT159限定I-S，源码定位167/CRT余39；完整pow父和机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWD01开发原5436AC整数奇偶判定与5462FF真实舍入叶，两完整59条119B/两页、三direct两callee/零indirect/四跳三RET、三CALL入向；54364F父邻窗与54FB58常量另列。三现文件六处追加：一CPP值入口/两ASM本体与一私有参数桥，原分类TEST AL90H、两次舍入、F64落存重载/商覆写和x87比较状态分支保，舍入沿当前控制字不写环境。Win64正常56B展开帧/32B调用区/三个F64槽与ASM私有ST(0)返回保，不伪CPP F64 ABI、故障等价或新finite保护。两新原新/F、CRT159限定I-S，源码定位167/CRT余39；完整pow父和机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "integer_parity_rounding": {
+        "spec_id": "BWD01",
+        "evidence_refs": [
+          "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-baseline",
+          "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-decision",
+          "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-acceptance",
+          "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 49,
+        "original_code_bytes": 101,
+        "original_page_count": 1,
+        "original_direct_call_count": 3,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 4,
+        "original_return_count": 2,
+        "original_inbound_call_count": 1,
+        "original_total_instruction_count": 59,
+        "original_total_code_bytes": 119,
+        "original_total_page_count": 2,
+        "original_total_direct_call_count": 3,
+        "original_total_unique_direct_callee_count": 2,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 4,
+        "original_total_return_count": 3,
+        "original_total_inbound_call_count": 3,
+        "full_pow_parent_reverified": false,
+        "source_body_added": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 6,
+        "new_original_mapped_function_count": 2,
+        "new_native_function_body_count": 3,
+        "new_cpp_body_count": 1,
+        "new_asm_proc_count": 2,
+        "new_private_bridge_count": 1,
+        "new_shared_owner_count": 0,
+        "original_F64_input_and_result_contract_kept": true,
+        "result_contract": "S32整数判定0/1/2",
+        "original_classification_and_two_rounding_calls_kept": true,
+        "original_F64_store_reload_quotient_parameter_overwrite_and_x87_status_branches_kept": true,
+        "rounding_uses_current_x87_control_without_write": true,
+        "rounding_private_ST0_return_only_between_ASM_functions": true,
+        "no_CPP_Win64_double_return_declaration_for_ST0_leaf": true,
+        "native_private_slots_not_x86_stack_mirror": true,
+        "no_new_finite_gate_host_rounding_or_exception_policy": true,
+        "no_new_control_MXCSR_write_or_exception_clear": true,
+        "old_classification_environment_startup_map_power_and_build_rules_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_generic_pow_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x5462ff",
+      "inventory_id": "F:001462FF",
+      "original_role": "5462FF真实舍入叶：FLD F64→FRNDINT→FSTP F64→FLD F64，返回ST(0)；沿当前x87控制字，不固定舍入方向/不修改环境。唯一两个原入向5436CC/5436F5均归5436AC；新ASM间RCX借用F64/ST(0)私有合同，原落存重载保。无CPP F64返回声明或宿主round/trunc/floor替代。",
+      "original_end_exclusive": "0x546311",
+      "original_chunks": [
+        [
+          "0x5462ff",
+          "0x546311"
+        ]
+      ],
+      "instruction_count": 10,
+      "status": "BWD01开发原5436AC整数奇偶判定与5462FF真实舍入叶，两完整59条119B/两页、三direct两callee/零indirect/四跳三RET、三CALL入向；54364F父邻窗与54FB58常量另列。三现文件六处追加：一CPP值入口/两ASM本体与一私有参数桥，原分类TEST AL90H、两次舍入、F64落存重载/商覆写和x87比较状态分支保，舍入沿当前控制字不写环境。Win64正常56B展开帧/32B调用区/三个F64槽与ASM私有ST(0)返回保，不伪CPP F64 ABI、故障等价或新finite保护。两新原新/F、CRT159限定I-S，源码定位167/CRT余39；完整pow父和机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dRoundLegacyFloatX87"
+          ],
+          "relationship": "5462FF真实舍入叶：FLD F64→FRNDINT→FSTP F64→FLD F64，返回ST(0)；沿当前x87控制字，不固定舍入方向/不修改环境。唯一两个原入向5436CC/5436F5均归5436AC；新ASM间RCX借用F64/ST(0)私有合同，原落存重载保。无CPP F64返回声明或宿主round/trunc/floor替代。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dClassifyLegacyInteger"
+          ],
+          "relationship": "唯一原两个CALL对应本父两次真实舍入，返回ST0；无CPP double声明或额外环境写"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-baseline",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-decision",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-acceptance",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-source-state"
+      ],
+      "boundary": "5462FF真实舍入叶：FLD F64→FRNDINT→FSTP F64→FLD F64，返回ST(0)；沿当前x87控制字，不固定舍入方向/不修改环境。唯一两个原入向5436CC/5436F5均归5436AC；新ASM间RCX借用F64/ST(0)私有合同，原落存重载保。无CPP F64返回声明或宿主round/trunc/floor替代。 BWD01开发原5436AC整数奇偶判定与5462FF真实舍入叶，两完整59条119B/两页、三direct两callee/零indirect/四跳三RET、三CALL入向；54364F父邻窗与54FB58常量另列。三现文件六处追加：一CPP值入口/两ASM本体与一私有参数桥，原分类TEST AL90H、两次舍入、F64落存重载/商覆写和x87比较状态分支保，舍入沿当前控制字不写环境。Win64正常56B展开帧/32B调用区/三个F64槽与ASM私有ST(0)返回保，不伪CPP F64 ABI、故障等价或新finite保护。两新原新/F、CRT159限定I-S，源码定位167/CRT余39；完整pow父和机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWD01开发原5436AC整数奇偶判定与5462FF真实舍入叶，两完整59条119B/两页、三direct两callee/零indirect/四跳三RET、三CALL入向；54364F父邻窗与54FB58常量另列。三现文件六处追加：一CPP值入口/两ASM本体与一私有参数桥，原分类TEST AL90H、两次舍入、F64落存重载/商覆写和x87比较状态分支保，舍入沿当前控制字不写环境。Win64正常56B展开帧/32B调用区/三个F64槽与ASM私有ST(0)返回保，不伪CPP F64 ABI、故障等价或新finite保护。两新原新/F、CRT159限定I-S，源码定位167/CRT余39；完整pow父和机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "integer_parity_rounding": {
+        "spec_id": "BWD01",
+        "evidence_refs": [
+          "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-baseline",
+          "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-decision",
+          "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-acceptance",
+          "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 10,
+        "original_code_bytes": 18,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_call_count": 2,
+        "original_total_instruction_count": 59,
+        "original_total_code_bytes": 119,
+        "original_total_page_count": 2,
+        "original_total_direct_call_count": 3,
+        "original_total_unique_direct_callee_count": 2,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 4,
+        "original_total_return_count": 3,
+        "original_total_inbound_call_count": 3,
+        "full_pow_parent_reverified": false,
+        "source_body_added": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 6,
+        "new_original_mapped_function_count": 2,
+        "new_native_function_body_count": 3,
+        "new_cpp_body_count": 1,
+        "new_asm_proc_count": 2,
+        "new_private_bridge_count": 1,
+        "new_shared_owner_count": 0,
+        "original_F64_input_and_result_contract_kept": true,
+        "result_contract": "ST0载入原F64舍入结果，仅ASM间返回",
+        "original_classification_and_two_rounding_calls_kept": true,
+        "original_F64_store_reload_quotient_parameter_overwrite_and_x87_status_branches_kept": true,
+        "rounding_uses_current_x87_control_without_write": true,
+        "rounding_private_ST0_return_only_between_ASM_functions": true,
+        "no_CPP_Win64_double_return_declaration_for_ST0_leaf": true,
+        "native_private_slots_not_x86_stack_mirror": true,
+        "no_new_finite_gate_host_rounding_or_exception_policy": true,
+        "no_new_control_MXCSR_write_or_exception_clear": true,
+        "old_classification_environment_startup_map_power_and_build_rules_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_generic_pow_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

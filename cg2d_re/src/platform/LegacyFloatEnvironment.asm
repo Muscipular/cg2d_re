@@ -6,10 +6,12 @@ LegacyDivisor54F9E8 QWORD 04147FFFF80000000h
 LegacyDividend54F9E0 QWORD 04150017EC0000000h
 LegacyThreshold54D5C0 QWORD 03FF0000000000000h
 LegacyZero54D5D0 QWORD 0
+LegacyIntegerDivisor54FB58 QWORD 04000000000000000h
 
 .code
 EXTERN Cg2dClassifyLegacySpecialFloat:PROC
 PUBLIC Cg2dClassifyLegacyFloat
+PUBLIC Cg2dClassifyLegacyInteger
 PUBLIC Cg2dReadLegacyX87Control
 PUBLIC Cg2dWriteLegacyX87Control
 PUBLIC Cg2dClearLegacyX87Exceptions
@@ -143,5 +145,62 @@ LegacyFloatClassDone:
     add rsp, 56
     ret
 Cg2dClassifyLegacyFloat ENDP
+
+; 原5462FF；私有ASM合同为RCX借用F64、ST(0)返回，不能由CPP按Win64 F64返回调用。
+; FRNDINT沿当前x87舍入模式；原F64落存/重载保留，借用调用方8B暂存槽。
+Cg2dRoundLegacyFloatX87 PROC
+    fld qword ptr [rcx]
+    frndint
+    fstp qword ptr [rsp+8]
+    fld qword ptr [rsp+8]
+    ret
+Cg2dRoundLegacyFloatX87 ENDP
+
+; 原5436AC；56B展开帧保留32B调用区及原值、传参、舍入落存三个F64槽。
+; 三个CALL与原FLD/FSTP、FDIV、FCOMP/FNSTSW/SAHF顺序保持，不设额外有限值门禁。
+Cg2dClassifyLegacyInteger PROC FRAME
+    sub rsp, 56
+    .allocstack 56
+    .endprolog
+    mov r8, qword ptr [rcx]
+    mov qword ptr [rsp+32], r8
+    fld qword ptr [rsp+32]
+    fstp qword ptr [rsp+40]
+    lea rcx, [rsp+40]
+    call Cg2dClassifyLegacyFloat
+    test al, 090h
+    jnz LegacyIntegerClassNoninteger
+    fld qword ptr [rsp+32]
+    fstp qword ptr [rsp+40]
+    lea rcx, [rsp+40]
+    call Cg2dRoundLegacyFloatX87
+    fstp qword ptr [rsp+48]
+    fld qword ptr [rsp+48]
+    fcomp qword ptr [rsp+32]
+    fnstsw ax
+    sahf
+    jne LegacyIntegerClassNoninteger
+    fld qword ptr [rsp+32]
+    fdiv qword ptr [LegacyIntegerDivisor54FB58]
+    fstp qword ptr [rsp+32]
+    fld qword ptr [rsp+32]
+    fstp qword ptr [rsp+40]
+    lea rcx, [rsp+40]
+    call Cg2dRoundLegacyFloatX87
+    fcomp qword ptr [rsp+32]
+    fnstsw ax
+    sahf
+    jne LegacyIntegerClassOdd
+    mov eax, 2
+    jmp LegacyIntegerClassDone
+LegacyIntegerClassOdd:
+    mov eax, 1
+    jmp LegacyIntegerClassDone
+LegacyIntegerClassNoninteger:
+    xor eax, eax
+LegacyIntegerClassDone:
+    add rsp, 56
+    ret
+Cg2dClassifyLegacyInteger ENDP
 
 END

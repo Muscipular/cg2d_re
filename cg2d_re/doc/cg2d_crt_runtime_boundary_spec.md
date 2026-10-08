@@ -142,3 +142,11 @@ NCE01已接业务copy/单owner、消息/析构及所有旧构析正文保持，�
 546311/5461E4两完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL有据。沿既有浮点环境CPP/HPP/ASM实现两原入口与两私有桥，共四原生本体；特殊位分类、真实x87落存后callee、正常零/正规比较和状态读取、次正规纯位分支与原S32掩码操作保。Win64私有值承载不镜像原参数栈，未消费W16不补零或作为输入；控制字/MXCSR与异常清理不增加，原环境/初始化/CMake和地图专用幂保持。
 
 新原新1816/1817、两adapted F/CRT155→157及限定I/S登记；预期语义1818/有效1811、合同1928（52.39%）、F980/E1142，源码定位缺口171→169/CRT未知43→41。仅两个真实叶，全部pow父/机器ABI与正常运行继续原门禁，RPLAN.24不专项故障模拟；音频暂停、原格式明文与执行限制保持，C01/R01/V02/R04仍open。
+
+## BWD01整数奇偶判定与舍入叶开发（2026-10-08）
+
+[基线](cg2d_integer_parity_rounding_spec.md#integer-parity-baseline)、[决定](cg2d_integer_parity_rounding_spec.md#integer-parity-decision)、[验收](cg2d_integer_parity_rounding_spec.md#integer-parity-acceptance)与[原证/完整源前后态](cg2d_integer_parity_rounding_evidence.json)。
+
+5436AC/5462FF两完整59条119B、三direct/两callee已落为真实本体。前者保TEST AL90H与两次舍入/F64落存、商覆写、状态比较及0/1/2分支；后者保FLD/FRNDINT/FSTP F64/FLD，沿当前控制字在ASM间返回ST(0)。不用宿主舍入、不增有限值门禁或环境写；既有分类、初始化、地图专用幂与构建归属保持。
+
+两新映射1818/1819及两adapted F，CRT157→159；限定I/S不代完整提供者、__powhlp/pow父、机器ABI及运行验收。定位缺口169→167、范围内未定位CRT41→39，按生成台账核实；C01/R01/V02/R04仍open，音频暂停/原格式明文/RPLAN.24保持。

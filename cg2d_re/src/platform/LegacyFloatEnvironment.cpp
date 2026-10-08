@@ -143,6 +143,12 @@ std::int32_t ClassifyLegacyFloat_546311(const double value) noexcept
     return detail::Cg2dClassifyLegacyFloat(&value);
 }
 
+// 原5436AC；原两次舍入、F64落存和x87比较顺序见整数奇偶判定SPEC。
+std::int32_t ClassifyLegacyInteger_5436AC(const double value) noexcept
+{
+    return detail::Cg2dClassifyLegacyInteger(&value);
+}
+
 namespace detail {
 
 extern "C" std::int32_t Cg2dClassifyLegacySpecialFloat(

@@ -2088,3 +2088,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 546311/5461E4两完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL有据。沿既有浮点环境CPP/HPP/ASM实现两原入口与两私有桥，共四原生本体；特殊位分类、真实x87落存后callee、正常零/正规比较和状态读取、次正规纯位分支与原S32掩码操作保。Win64私有值承载不镜像原参数栈，未消费W16不补零或作为输入；控制字/MXCSR与异常清理不增加，原环境/初始化/CMake和地图专用幂保持。
 
 新原新1816/1817、两adapted F/CRT155→157及限定I/S登记；预期语义1818/有效1811、合同1928（52.39%）、F980/E1142，源码定位缺口171→169/CRT未知43→41。仅两个真实叶，全部pow父/机器ABI与正常运行继续原门禁，RPLAN.24不专项故障模拟；音频暂停、原格式明文与执行限制保持，C01/R01/V02/R04仍open。
+
+## BWD01整数奇偶判定依赖开发的限定证据（2026-10-08）
+
+[标准](cg2d_integer_parity_rounding_spec.md#integer-parity-acceptance)、[状态](cg2d_integer_parity_rounding_spec.md#integer-parity-source-state)及[原体/完整源差集](cg2d_integer_parity_rounding_evidence.json)。
+
+本步先SPEC、再补5436AC/5462FF两个缺失本体和三个真实内部CALL。以两完整59条119B、原x87舍入/落存/状态比较、三既有文件六处追加与旧源保持作为限定I/S证据；两adapted F将CRT157→159，不改变完整gates、成员枚举或最终验收状态。
+
+预计语义1820/有效1813、合同1930/3680（52.45%）、F982/E1144；定位差集167、范围内未定位CRT39，总队列168。四任务继续open，不以局部数量代完整CRT/__powhlp/pow、链接/机器ABI和真实FPU运行，RPLAN.24/执行限制、音频暂停与原格式明文保持。

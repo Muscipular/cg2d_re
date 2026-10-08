@@ -312,7 +312,8 @@
         "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-baseline",
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
         "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-baseline",
-        "doc/cg2d_float_classification_leaf_spec.md#float-class-baseline"
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-baseline",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-baseline"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -471,7 +472,9 @@
         "F:00143435",
         "F:00146F36",
         "F:00146311",
-        "F:001461E4"
+        "F:001461E4",
+        "F:001436AC",
+        "F:001462FF"
       ],
       "closure_task_ids": [
         "C01",
@@ -513,7 +516,8 @@
         "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-decision",
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
         "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-decision",
-        "doc/cg2d_float_classification_leaf_spec.md#float-class-decision"
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-decision",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -545,7 +549,8 @@
         "BPK01两私有查找/捕获复制职责host具名承接，完整315条875B和两唯一call/父邻窗纳管，原捕获数据/业务copy与单owner保。当前SDK源码不代生成ABI；实际typed捕获/清理、全部成员/硬件SEH/owner寿命与链接/展开及正常快速退出运行仍待，CRT152枚举open",
         "BPM01两帮助体完整27条90B/五call两父邻窗及当前PC53/1.25加载阶段纳管，CRT154枚举open；原027F绕过543405，固定PC不代泛用PC选择，53D04C不代其余三点/特殊F80。一般_pow/其它浮点链、全环境/父/alias/owner寿命/SDK机器ABI及场景RNG与画面运行仍待，非新增实现或完整帮助体闭合",
         "BPN01数字生成正常估算一表达式恢复S32，原15条52B/真实fltout邻窗局部静态纳管，CRT155枚举open；原232全部算法、e/f/g正常及失败/全部调用消费、初始化/owner-alias寿命/SDK机器ABI/链接与浮点环境及完整运行仍待，不代整个格式库验收",
-        "BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。"
+        "BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。",
+        "BWD01开发原5436AC整数奇偶判定与5462FF真实舍入叶，两完整59条119B/两页、三direct两callee/零indirect/四跳三RET、三CALL入向；54364F父邻窗与54FB58常量另列。三现文件六处追加：一CPP值入口/两ASM本体与一私有参数桥，原分类TEST AL90H、两次舍入、F64落存重载/商覆写和x87比较状态分支保，舍入沿当前控制字不写环境。Win64正常56B展开帧/32B调用区/三个F64槽与ASM私有ST(0)返回保，不伪CPP F64 ABI、故障等价或新finite保护。两新原新/F、CRT159限定I-S，源码定位167/CRT余39；完整pow父和机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -581,7 +586,8 @@
         "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state",
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
         "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-source-state",
-        "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state"
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-source-state"
       ]
     },
     {
@@ -50655,6 +50661,74 @@
       "observation": "BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。",
       "expected": "BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。",
       "actual": "BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。"
+    },
+    {
+      "id": "E-INTEGER-PARITY-ROUNDING-FUNC-CRT-I-20261008",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWD01两完整59条119B/两页，三真实CALL/两callee及父邻窗/常量；三现文件六追加、两个原身份/三本体，完整pow与机器运行未外推。doc/cg2d_integer_parity_rounding_spec.md#integer-parity-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-integer-parity-rounding-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/platform/LegacyFloatEnvironment.cpp#ClassifyLegacyInteger_5436AC",
+        "src/platform/LegacyFloatEnvironment.asm#Cg2dRoundLegacyFloatX87",
+        "src/platform/LegacyFloatEnvironment.hpp",
+        "src/platform/LegacyFloatEnvironment.asm#Cg2dClassifyLegacyInteger",
+        "src/platform/LegacyFloatEnvironment.asm#LegacyIntegerDivisor54FB58",
+        "src/platform/LegacyFloatEnvironment.asm#Cg2dClassifyLegacyFloat",
+        "CMakeLists.txt",
+        "doc/cg2d_integer_parity_rounding_evidence.json",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-baseline",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-decision",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-acceptance",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWD01开发原5436AC整数奇偶判定与5462FF真实舍入叶，两完整59条119B/两页、三direct两callee/零indirect/四跳三RET、三CALL入向；54364F父邻窗与54FB58常量另列。三现文件六处追加：一CPP值入口/两ASM本体与一私有参数桥，原分类TEST AL90H、两次舍入、F64落存重载/商覆写和x87比较状态分支保，舍入沿当前控制字不写环境。Win64正常56B展开帧/32B调用区/三个F64槽与ASM私有ST(0)返回保，不伪CPP F64 ABI、故障等价或新finite保护。两新原新/F、CRT159限定I-S，源码定位167/CRT余39；完整pow父和机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+          "decision_ref": "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWD01开发原5436AC整数奇偶判定与5462FF真实舍入叶，两完整59条119B/两页、三direct两callee/零indirect/四跳三RET、三CALL入向；54364F父邻窗与54FB58常量另列。三现文件六处追加：一CPP值入口/两ASM本体与一私有参数桥，原分类TEST AL90H、两次舍入、F64落存重载/商覆写和x87比较状态分支保，舍入沿当前控制字不写环境。Win64正常56B展开帧/32B调用区/三个F64槽与ASM私有ST(0)返回保，不伪CPP F64 ABI、故障等价或新finite保护。两新原新/F、CRT159限定I-S，源码定位167/CRT余39；完整pow父和机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "expected": "BWD01开发原5436AC整数奇偶判定与5462FF真实舍入叶，两完整59条119B/两页、三direct两callee/零indirect/四跳三RET、三CALL入向；54364F父邻窗与54FB58常量另列。三现文件六处追加：一CPP值入口/两ASM本体与一私有参数桥，原分类TEST AL90H、两次舍入、F64落存重载/商覆写和x87比较状态分支保，舍入沿当前控制字不写环境。Win64正常56B展开帧/32B调用区/三个F64槽与ASM私有ST(0)返回保，不伪CPP F64 ABI、故障等价或新finite保护。两新原新/F、CRT159限定I-S，源码定位167/CRT余39；完整pow父和机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "actual": "BWD01开发原5436AC整数奇偶判定与5462FF真实舍入叶，两完整59条119B/两页、三direct两callee/零indirect/四跳三RET、三CALL入向；54364F父邻窗与54FB58常量另列。三现文件六处追加：一CPP值入口/两ASM本体与一私有参数桥，原分类TEST AL90H、两次舍入、F64落存重载/商覆写和x87比较状态分支保，舍入沿当前控制字不写环境。Win64正常56B展开帧/32B调用区/三个F64槽与ASM私有ST(0)返回保，不伪CPP F64 ABI、故障等价或新finite保护。两新原新/F、CRT159限定I-S，源码定位167/CRT余39；完整pow父和机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "id": "E-INTEGER-PARITY-ROUNDING-FUNC-CRT-S-20261008",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWD01两完整59条119B/两页，三真实CALL/两callee及父邻窗/常量；三现文件六追加、两个原身份/三本体，完整pow与机器运行未外推。doc/cg2d_integer_parity_rounding_spec.md#integer-parity-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-integer-parity-rounding-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/platform/LegacyFloatEnvironment.cpp#ClassifyLegacyInteger_5436AC",
+        "src/platform/LegacyFloatEnvironment.asm#Cg2dRoundLegacyFloatX87",
+        "src/platform/LegacyFloatEnvironment.hpp",
+        "src/platform/LegacyFloatEnvironment.asm#Cg2dClassifyLegacyInteger",
+        "src/platform/LegacyFloatEnvironment.asm#LegacyIntegerDivisor54FB58",
+        "src/platform/LegacyFloatEnvironment.asm#Cg2dClassifyLegacyFloat",
+        "CMakeLists.txt",
+        "doc/cg2d_integer_parity_rounding_evidence.json",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-baseline",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-decision",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-acceptance",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWD01开发原5436AC整数奇偶判定与5462FF真实舍入叶，两完整59条119B/两页、三direct两callee/零indirect/四跳三RET、三CALL入向；54364F父邻窗与54FB58常量另列。三现文件六处追加：一CPP值入口/两ASM本体与一私有参数桥，原分类TEST AL90H、两次舍入、F64落存重载/商覆写和x87比较状态分支保，舍入沿当前控制字不写环境。Win64正常56B展开帧/32B调用区/三个F64槽与ASM私有ST(0)返回保，不伪CPP F64 ABI、故障等价或新finite保护。两新原新/F、CRT159限定I-S，源码定位167/CRT余39；完整pow父和机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+          "decision_ref": "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWD01开发原5436AC整数奇偶判定与5462FF真实舍入叶，两完整59条119B/两页、三direct两callee/零indirect/四跳三RET、三CALL入向；54364F父邻窗与54FB58常量另列。三现文件六处追加：一CPP值入口/两ASM本体与一私有参数桥，原分类TEST AL90H、两次舍入、F64落存重载/商覆写和x87比较状态分支保，舍入沿当前控制字不写环境。Win64正常56B展开帧/32B调用区/三个F64槽与ASM私有ST(0)返回保，不伪CPP F64 ABI、故障等价或新finite保护。两新原新/F、CRT159限定I-S，源码定位167/CRT余39；完整pow父和机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "expected": "BWD01开发原5436AC整数奇偶判定与5462FF真实舍入叶，两完整59条119B/两页、三direct两callee/零indirect/四跳三RET、三CALL入向；54364F父邻窗与54FB58常量另列。三现文件六处追加：一CPP值入口/两ASM本体与一私有参数桥，原分类TEST AL90H、两次舍入、F64落存重载/商覆写和x87比较状态分支保，舍入沿当前控制字不写环境。Win64正常56B展开帧/32B调用区/三个F64槽与ASM私有ST(0)返回保，不伪CPP F64 ABI、故障等价或新finite保护。两新原新/F、CRT159限定I-S，源码定位167/CRT余39；完整pow父和机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "actual": "BWD01开发原5436AC整数奇偶判定与5462FF真实舍入叶，两完整59条119B/两页、三direct两callee/零indirect/四跳三RET、三CALL入向；54364F父邻窗与54FB58常量另列。三现文件六处追加：一CPP值入口/两ASM本体与一私有参数桥，原分类TEST AL90H、两次舍入、F64落存重载/商覆写和x87比较状态分支保，舍入沿当前控制字不写环境。Win64正常56B展开帧/32B调用区/三个F64槽与ASM私有ST(0)返回保，不伪CPP F64 ABI、故障等价或新finite保护。两新原新/F、CRT159限定I-S，源码定位167/CRT余39；完整pow父和机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
     }
   ],
   "task_acceptance": [
@@ -51002,7 +51076,8 @@
         "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
         "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
         "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state",
-        "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state"
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-source-state"
       ],
       "task_id": "C01",
       "state": "open"
@@ -51453,7 +51528,8 @@
         "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state",
         "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-source-state",
         "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-source-state",
-        "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state"
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-source-state"
       ]
     },
     {
@@ -51485,7 +51561,8 @@
         "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
         "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
         "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-source-state",
-        "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state"
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-source-state"
       ]
     },
     {
@@ -51879,7 +51956,8 @@
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state",
         "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state",
-        "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state"
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-source-state"
       ]
     },
     {
@@ -64189,6 +64267,30 @@
         "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state"
       ],
       "boundary": "5461E4完整特殊位类型：按原高/低W32先分+Inf=1/-Inf=2，再高端低W16与7FF8分quiet=3；7FF0且剩余19高fraction位或低W32非零分signaling=4，其它0。F64 bit_cast只消费原位，无浮点算术/异常清理或额外输入限制；真实唯一callee接在546311 x87落存后。 BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。"
+    },
+    {
+      "inventory_id": "F:001436AC",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-baseline",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-decision",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-acceptance",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-source-state"
+      ],
+      "boundary": "5436AC整数奇偶判定：原F64落存后调用546311，TEST AL,90H非零返S32零；第一次5462FF返回后F64落存/重载比较原值，不等返零；原FDIV54FB58后覆参数F64并再落存给第二5462FF，直接FCOMP该商，原ZF分支等返2/不等返1。三个真实CALL及FLD/FSTP/FCOMP/FNSTSW/SAHF顺序保，原值/返回宽度不扩，没有新finite门禁/控制字写。 BWD01开发原5436AC整数奇偶判定与5462FF真实舍入叶，两完整59条119B/两页、三direct两callee/零indirect/四跳三RET、三CALL入向；54364F父邻窗与54FB58常量另列。三现文件六处追加：一CPP值入口/两ASM本体与一私有参数桥，原分类TEST AL90H、两次舍入、F64落存重载/商覆写和x87比较状态分支保，舍入沿当前控制字不写环境。Win64正常56B展开帧/32B调用区/三个F64槽与ASM私有ST(0)返回保，不伪CPP F64 ABI、故障等价或新finite保护。两新原新/F、CRT159限定I-S，源码定位167/CRT余39；完整pow父和机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:001462FF",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-baseline",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-decision",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-acceptance",
+        "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-source-state"
+      ],
+      "boundary": "5462FF真实舍入叶：FLD F64→FRNDINT→FSTP F64→FLD F64，返回ST(0)；沿当前x87控制字，不固定舍入方向/不修改环境。唯一两个原入向5436CC/5436F5均归5436AC；新ASM间RCX借用F64/ST(0)私有合同，原落存重载保。无CPP F64返回声明或宿主round/trunc/floor替代。 BWD01开发原5436AC整数奇偶判定与5462FF真实舍入叶，两完整59条119B/两页、三direct两callee/零indirect/四跳三RET、三CALL入向；54364F父邻窗与54FB58常量另列。三现文件六处追加：一CPP值入口/两ASM本体与一私有参数桥，原分类TEST AL90H、两次舍入、F64落存重载/商覆写和x87比较状态分支保，舍入沿当前控制字不写环境。Win64正常56B展开帧/32B调用区/三个F64槽与ASM私有ST(0)返回保，不伪CPP F64 ABI、故障等价或新finite保护。两新原新/F、CRT159限定I-S，源码定位167/CRT余39；完整pow父和机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
     }
   ],
   "auxiliary_dispositions": [

@@ -4059,3 +4059,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 546311/5461E4两完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL有据。沿既有浮点环境CPP/HPP/ASM实现两原入口与两私有桥，共四原生本体；特殊位分类、真实x87落存后callee、正常零/正规比较和状态读取、次正规纯位分支与原S32掩码操作保。Win64私有值承载不镜像原参数栈，未消费W16不补零或作为输入；控制字/MXCSR与异常清理不增加，原环境/初始化/CMake和地图专用幂保持。
 
 新原新1816/1817、两adapted F/CRT155→157及限定I/S登记；预期语义1818/有效1811、合同1928（52.39%）、F980/E1142，源码定位缺口171→169/CRT未知43→41。仅两个真实叶，全部pow父/机器ABI与正常运行继续原门禁，RPLAN.24不专项故障模拟；音频暂停、原格式明文与执行限制保持，C01/R01/V02/R04仍open。
+
+## BWD01两个真实整数/舍入职责纳管（2026-10-08）
+
+[两完整原体与三文件完整前后态](cg2d_integer_parity_rounding_evidence.json)、[合同与接线](cg2d_integer_parity_rounding_spec.md#integer-parity-decision)。
+
+新增1818/F:001436AC对应ClassifyLegacyInteger_5436AC与私有Cg2dClassifyLegacyInteger；1819/F:001462FF对应Cg2dRoundLegacyFloatX87。原59条119B/两页、三CALL两callee与三普通入向完整，54364F父邻窗和54FB58八字节常量另列。新1 CPP/2 ASM本体与一个参数桥只计两个原身份；既有1816/1817分类映射不重复计数。
+
+原第一次舍入后落存重载比较、商F64覆写与第二次直接比较保持；舍入ST(0)接口只在ASM内部，不登记为CPP double返回。两adapted F/CRT159和限定I/S已同步，pending18及全pow父/机器运行门禁保留，实际数量由文本汇总核实。

@@ -480,6 +480,28 @@ std::array<std::uint32_t, 3> gSoundSelectionCC236C {};
 static_assert(sizeof(gSoundRecords57C368) == 99 * sizeof(SoundRecord57C368));
 static_assert(sizeof(gSoundSelectionCC236C) == 3 * sizeof(std::uint32_t));
 
+// 原52C160的SDL创建适配：首段按完整PCM预填；smpl终点由52BE60在ready后发布。
+std::int32_t LoadStreamingBgm_52C160(
+    const char* const path, const std::uint32_t startFrame)
+{
+    if (!gSdlAudioBackend.LoadBgmWav(path, startFrame, 0)) {
+        return 0;
+    }
+    gBgmLoopEnd103DEA4 = gSdlAudioBackend.ReadBgmDataLength();
+    if (!gSdlAudioBackend.StartBgmStopWorker(
+            gBgmStopNotice105081C, gBgmReady105083C)) {
+        return 0;
+    }
+    std::uint32_t ready;
+    while ((ready = gBgmReady105083C.load(std::memory_order_acquire)) == 0) {
+    }
+    if (ready != 1) {
+        gSdlAudioBackend.ReleaseBgm();
+        return 0;
+    }
+    return 1;
+}
+
 } // namespace
 
 std::uint32_t gValue103DE80 = 0;
@@ -1440,7 +1462,7 @@ std::uint32_t Sub_52B990() noexcept
 
 namespace cg::login::detail {
 
-// 原 World::LoadAndPlayBGM@[52BE60,52C15B)；仅原生缓冲与播放机制映射 SDL3。
+// 原 World::LoadAndPlayBGM@[52BE60,52C15C)；仅原生缓冲与播放机制映射 SDL3。
 std::int32_t LoadAndPlayBGM(const std::uint32_t bgmId)
 {
     if (std::bit_cast<std::uint32_t>(gRecordIndex) == bgmId && gFlag == 0) {
@@ -1491,21 +1513,11 @@ std::int32_t LoadAndPlayBGM(const std::uint32_t bgmId)
         }
         std::fclose(file);
         audio::gBgmLoopStart103CFB8 = blockAlign * startFrame;
-        if (!audio::gSdlAudioBackend.LoadBgmWav(
-                path.c_str(), startFrame, endFrame)
-            || !audio::gSdlAudioBackend.StartBgmStopWorker(
-                gBgmStopNotice105081C, audio::gBgmReady105083C)) {
-            return 0;
-        }
-        std::uint32_t ready;
-        while ((ready = audio::gBgmReady105083C.load(
-                    std::memory_order_acquire)) == 0) {
-        }
-        if (ready != 1) {
-            audio::gSdlAudioBackend.ReleaseBgm();
+        if (audio::LoadStreamingBgm_52C160(path.c_str(), startFrame) == 0) {
             return 0;
         }
         audio::gBgmLoopEnd103DEA4 = blockAlign * endFrame;
+        static_cast<void>(audio::gSdlAudioBackend.SetBgmLoopEnd(endFrame));
     } else {
         gBgmMode1050820 = 0;
         if (!audio::gSdlAudioBackend.LoadBgmWav(path.c_str(), 0, 0)) {

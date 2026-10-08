@@ -28,7 +28,6 @@ struct SdlAudioBackend::Impl {
         std::size_t cursor {};
         std::size_t loopStart {};
         std::size_t loopEnd {};
-        float volume {1.0f};
         float panLeft {1.0f};
         float panRight {1.0f};
         bool loop {};
@@ -156,8 +155,7 @@ struct SdlAudioBackend::Impl {
         std::array<float, kBatchFrames * 2> buffer {};
         const Sample& sample = *channel.sample;
         const auto* source = reinterpret_cast<const float*>(sample.pcmStereo);
-        const std::size_t end =
-            channel.loopEnd == 0 ? sample.frames : channel.loopEnd;
+        const std::size_t end = channel.loopEnd;
 
         while (additionalAmount > 0 && channel.playing) {
             const std::size_t requested = static_cast<std::size_t>(
@@ -175,9 +173,9 @@ struct SdlAudioBackend::Impl {
                 }
                 const std::size_t offset = channel.cursor++ * 2;
                 buffer[count * 2] =
-                    source[offset] * channel.volume * channel.panLeft;
+                    source[offset] * channel.panLeft;
                 buffer[count * 2 + 1] =
-                    source[offset + 1] * channel.volume * channel.panRight;
+                    source[offset + 1] * channel.panRight;
             }
 
             if (count != 0 && !SDL_PutAudioStreamData(
@@ -205,6 +203,7 @@ struct SdlAudioBackend::Impl {
         if (stream == nullptr) { return false; }
         channel.sample = &sample;
         channel.stream = stream;
+        channel.loopEnd = sample.frames;
         if (!SDL_SetAudioStreamGetCallback(stream, &Impl::FeedChannel, &channel)
             || !SDL_BindAudioStream(device, stream)) {
             SDL_DestroyAudioStream(stream);
@@ -362,14 +361,10 @@ bool SdlAudioBackend::SetChannelVolume(
     if (!HasChannel(index) || hundredthDb < -10000 || hundredthDb > 0) {
         return false;
     }
-    Impl::Channel& channel = impl_->channels[index];
-    if (!SDL_LockAudioStream(channel.stream)) {
-        return false;
-    }
-    channel.volume = static_cast<float>(
-        std::pow(10.0, static_cast<double>(hundredthDb) / 2000.0));
-    static_cast<void>(SDL_UnlockAudioStream(channel.stream));
-    return true;
+    // 增益在SDL取出数据时应用，音量变化也覆盖尚未消费的已排队PCM。
+    return SDL_SetAudioStreamGain(
+        impl_->channels[index].stream, static_cast<float>(
+            std::pow(10.0, static_cast<double>(hundredthDb) / 2000.0)));
 }
 
 bool SdlAudioBackend::SetChannelPan(
@@ -458,6 +453,22 @@ bool SdlAudioBackend::LoadBgmWav(
     return true;
 }
 
+bool SdlAudioBackend::SetBgmLoopEnd(const std::size_t endFrame) noexcept
+{
+    if (!HasBgm() || !SDL_LockAudioStream(impl_->bgm.stream)) {
+        return false;
+    }
+    // 原创建入口先按完整PCM预填；调用父在ready后才发布当前循环终点。
+    impl_->bgm.loopEnd = endFrame;
+    static_cast<void>(SDL_UnlockAudioStream(impl_->bgm.stream));
+    return true;
+}
+
+std::uint32_t SdlAudioBackend::ReadBgmDataLength() const noexcept
+{
+    return HasBgm() ? impl_->bgmSample.length : 0;
+}
+
 bool SdlAudioBackend::HasBgm() const noexcept
 {
     return impl_ != nullptr && impl_->bgm.stream != nullptr;
@@ -469,14 +480,10 @@ bool SdlAudioBackend::SetBgmVolume(
     if (!HasBgm() || hundredthDb < -10000 || hundredthDb > 0) {
         return false;
     }
-    Impl::Channel& channel = impl_->bgm;
-    if (!SDL_LockAudioStream(channel.stream)) {
-        return false;
-    }
-    channel.volume = static_cast<float>(
-        std::pow(10.0, static_cast<double>(hundredthDb) / 2000.0));
-    static_cast<void>(SDL_UnlockAudioStream(channel.stream));
-    return true;
+    // 流式首段已在设置音量前预填；不将旧音量烘焙进PCM或重复衰减。
+    return SDL_SetAudioStreamGain(
+        impl_->bgm.stream, static_cast<float>(
+            std::pow(10.0, static_cast<double>(hundredthDb) / 2000.0)));
 }
 
 bool SdlAudioBackend::SetBgmFrequency(const std::uint32_t hz) noexcept

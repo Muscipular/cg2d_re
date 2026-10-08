@@ -4180,7 +4180,9 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state",
         "doc/cg2d_fixed_music_wav_evidence.json",
         "doc/cg2d_display_settings.md#audio-settings-callback-source-state",
-        "doc/cg2d_display_settings.md#audio-settings-pages-source-state"
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-source-state",
+        "doc/cg2d_streaming_bgm_prefill_evidence.json"
       ],
       "original_inventory_ids": [
         "F:00054C30",
@@ -4237,9 +4239,12 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state",
         "doc/cg2d_fixed_music_wav_evidence.json",
         "doc/cg2d_display_settings.md#audio-settings-callback-source-state",
-        "doc/cg2d_display_settings.md#audio-settings-pages-decision"
+        "doc/cg2d_display_settings.md#audio-settings-pages-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-source-state",
+        "doc/cg2d_streaming_bgm_prefill_evidence.json"
       ],
       "blockers": [
+        "CAB08流式首段完整PCM预填→ready→smpl终点发布已修正、四原职责有SDL来源；当前源码未编译/运行，全部失败/诊断状态、调度/波形与正常寿命仍未验，局部静态不代完整门禁",
         "CAB07两音频设置初始化/完整页面及控件/CRT原生绑定源码已实现；scope=included只表示开发范围。真实旧99表外层接线、当前源码编译/运行与全部音频效果/寿命仍待",
         "AUDIO32原成员枚举仍未闭；旧7/旧8、完整WAV/通知/生命周期及音源效果/听感、真实声音/失败/退出仍未验收；类型1原16B资源按用户最新要求视为空音频，停止旧播放后立即成功，零时长不循环"
       ],
@@ -4255,7 +4260,9 @@
         "doc/cg2d_display_settings.md#audio-settings-callback-source-state",
         "doc/cg2d_audio_settings_callback_evidence.json",
         "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
-        "doc/cg2d_audio_settings_pages_evidence.json"
+        "doc/cg2d_audio_settings_pages_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-source-state",
+        "doc/cg2d_streaming_bgm_prefill_evidence.json"
       ]
     },
     {
@@ -52911,6 +52918,102 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-STREAMING-BGM-PREFILL-FUNC-AUDIO-I-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前cg2d.exe四根706条1999B；52C160/52BD40完整PCM一秒预填及52BE60 ready后发布smpl终点",
+      "implementation_reference": "Git固定命名快照 cg2d-re-streaming-bgm-prefill-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-source-state",
+        "doc/cg2d_streaming_bgm_prefill_evidence.json",
+        "src/LegacyAudio.cpp#LoadStreamingBgm_52C160",
+        "src/LegacyAudio.cpp#LoadAndPlayBGM",
+        "src/platform/SdlAudioBackend.cpp#RunBgmStopWorker",
+        "src/platform/SdlAudioBackend.cpp#FeedChannel",
+        "src/platform/SdlAudioBackend.cpp#ReadBgmDataLength",
+        "src/platform/SdlAudioBackend.cpp#SetBgmLoopEnd",
+        "include/cg/platform/SdlAudioBackend.hpp"
+      ],
+      "observation": "仅CAB08首段预填和终点发布的源码/实际父接线/共享长度限定证据，非完整音频或运行门禁",
+      "expected": "实际PCM长度先发布；游标0按完整PCM终点预填一秒、ready后发布smpl终点；保留已排队PCM/游标及普通音效/固定WAV完整终点",
+      "actual": "三现源修正两阶段终点，私有流式创建和两轻量值接口已接；声明/定义、写序、同源长度、队列/游标保持和未变正文静态通过，未编译或运行",
+      "differences": [
+        {
+          "description": "原DirectSound两半缓冲/COM/事件由既有SDL流/回调/工作线程承接；只关联四原职责，不以本步关闭全部失败、诊断状态、调度/波形或生命周期",
+          "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-STREAMING-BGM-PREFILL-FUNC-AUDIO-W-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前cg2d.exe四根706条1999B；52C160/52BD40完整PCM一秒预填及52BE60 ready后发布smpl终点",
+      "implementation_reference": "Git固定命名快照 cg2d-re-streaming-bgm-prefill-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-source-state",
+        "doc/cg2d_streaming_bgm_prefill_evidence.json",
+        "src/LegacyAudio.cpp#LoadStreamingBgm_52C160",
+        "src/LegacyAudio.cpp#LoadAndPlayBGM",
+        "src/platform/SdlAudioBackend.cpp#RunBgmStopWorker",
+        "src/platform/SdlAudioBackend.cpp#FeedChannel",
+        "src/platform/SdlAudioBackend.cpp#ReadBgmDataLength",
+        "src/platform/SdlAudioBackend.cpp#SetBgmLoopEnd",
+        "include/cg/platform/SdlAudioBackend.hpp"
+      ],
+      "observation": "仅CAB08首段预填和终点发布的源码/实际父接线/共享长度限定证据，非完整音频或运行门禁",
+      "expected": "实际PCM长度先发布；游标0按完整PCM终点预填一秒、ready后发布smpl终点；保留已排队PCM/游标及普通音效/固定WAV完整终点",
+      "actual": "三现源修正两阶段终点，私有流式创建和两轻量值接口已接；声明/定义、写序、同源长度、队列/游标保持和未变正文静态通过，未编译或运行",
+      "differences": [
+        {
+          "description": "原DirectSound两半缓冲/COM/事件由既有SDL流/回调/工作线程承接；只关联四原职责，不以本步关闭全部失败、诊断状态、调度/波形或生命周期",
+          "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-STREAMING-BGM-PREFILL-FUNC-AUDIO-S-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前cg2d.exe四根706条1999B；52C160/52BD40完整PCM一秒预填及52BE60 ready后发布smpl终点",
+      "implementation_reference": "Git固定命名快照 cg2d-re-streaming-bgm-prefill-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-source-state",
+        "doc/cg2d_streaming_bgm_prefill_evidence.json",
+        "src/LegacyAudio.cpp#LoadStreamingBgm_52C160",
+        "src/LegacyAudio.cpp#LoadAndPlayBGM",
+        "src/platform/SdlAudioBackend.cpp#RunBgmStopWorker",
+        "src/platform/SdlAudioBackend.cpp#FeedChannel",
+        "src/platform/SdlAudioBackend.cpp#ReadBgmDataLength",
+        "src/platform/SdlAudioBackend.cpp#SetBgmLoopEnd",
+        "include/cg/platform/SdlAudioBackend.hpp"
+      ],
+      "observation": "仅CAB08首段预填和终点发布的源码/实际父接线/共享长度限定证据，非完整音频或运行门禁",
+      "expected": "实际PCM长度先发布；游标0按完整PCM终点预填一秒、ready后发布smpl终点；保留已排队PCM/游标及普通音效/固定WAV完整终点",
+      "actual": "三现源修正两阶段终点，私有流式创建和两轻量值接口已接；声明/定义、写序、同源长度、队列/游标保持和未变正文静态通过，未编译或运行",
+      "differences": [
+        {
+          "description": "原DirectSound两半缓冲/COM/事件由既有SDL流/回调/工作线程承接；只关联四原职责，不以本步关闭全部失败、诊断状态、调度/波形或生命周期",
+          "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
     }
   ],
   "task_acceptance": [
@@ -54746,7 +54849,9 @@
         "doc/cg2d_audio_settings_callback_evidence.json",
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state",
-        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state"
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-source-state",
+        "doc/cg2d_streaming_bgm_prefill_evidence.json"
       ]
     },
     {
@@ -67394,6 +67499,42 @@
       "evidence_refs": [
         "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
         "doc/cg2d_audio_settings_pages_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0012C160",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-source-state",
+        "doc/cg2d_streaming_bgm_prefill_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0012BBE0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-source-state",
+        "doc/cg2d_streaming_bgm_prefill_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0012BD40",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-source-state",
+        "doc/cg2d_streaming_bgm_prefill_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0012BE60",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-source-state",
+        "doc/cg2d_streaming_bgm_prefill_evidence.json"
       ]
     }
   ],

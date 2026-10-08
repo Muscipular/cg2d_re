@@ -212988,6 +212988,153 @@
         "runtime_verified": false
       },
       "verification_level": "当前原会话六完整根/原加载面板/字串/两handler数据行和156字段逐点、三个源码新增差异及两源槽顺序限定静态；未编译、测试、运行或摘要"
+    },
+    {
+      "original_entry": "0x52C160",
+      "inventory_id": "F:0012C160",
+      "status": "CAB08原音频职责已关联SDL真实提供者，首段预填/终点发布正常时序已修正并限定静态通过；完整功能/失败副作用/生命周期与编译运行未验",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "LoadStreamingBgm_52C160"
+          ]
+        },
+        {
+          "path": "src/platform/SdlAudioBackend.cpp",
+          "symbols": [
+            "SdlAudioBackend::LoadBgmWav",
+            "SdlAudioBackend::ReadBgmDataLength",
+            "SdlAudioBackend::StartBgmStopWorker"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-source-state",
+        "doc/cg2d_streaming_bgm_prefill_evidence.json"
+      ],
+      "original_end_exclusive": "0x52C3C9",
+      "instruction_count": 202,
+      "original_byte_count": 617,
+      "boundary": "原四根706条1999B；完整PCM字节数先发布，零游标一秒首段预填后ready，再由父发布smpl终点并保持频率/音量/播放/当前号/tick/active序。SDL解码/转换/队列/回调/工作线程沿CAA01替换，非原COM/两半缓冲或Hook ABI复刻；来源关联不代全部失败残留、诊断状态、线程调度、声音效果与生命周期验收，不降低完整门禁。",
+      "streaming_bgm_prefill_contract": {
+        "step": "CAB08",
+        "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-decision",
+        "source_snapshot": "cg2d-re-streaming-bgm-prefill-20261009",
+        "initial_prefill_end": "actual_complete_pcm",
+        "loop_end_publication": "after_ready",
+        "queued_pcm_preserved": true,
+        "compile_verified": false,
+        "runtime_verified": false
+      },
+      "verification_level": "当前原会话四根完整字节/指令与三个现源新增差异限定静态，未编译/测试/运行或摘要"
+    },
+    {
+      "original_entry": "0x52BBE0",
+      "inventory_id": "F:0012BBE0",
+      "status": "CAB08原音频职责已关联SDL真实提供者，首段预填/终点发布正常时序已修正并限定静态通过；完整功能/失败副作用/生命周期与编译运行未验",
+      "sources": [
+        {
+          "path": "src/platform/SdlAudioBackend.cpp",
+          "symbols": [
+            "FeedChannel"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-source-state",
+        "doc/cg2d_streaming_bgm_prefill_evidence.json"
+      ],
+      "original_end_exclusive": "0x52BD31",
+      "instruction_count": 133,
+      "original_byte_count": 337,
+      "boundary": "原四根706条1999B；完整PCM字节数先发布，零游标一秒首段预填后ready，再由父发布smpl终点并保持频率/音量/播放/当前号/tick/active序。SDL解码/转换/队列/回调/工作线程沿CAA01替换，非原COM/两半缓冲或Hook ABI复刻；来源关联不代全部失败残留、诊断状态、线程调度、声音效果与生命周期验收，不降低完整门禁。",
+      "streaming_bgm_prefill_contract": {
+        "step": "CAB08",
+        "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-decision",
+        "source_snapshot": "cg2d-re-streaming-bgm-prefill-20261009",
+        "initial_prefill_end": "actual_complete_pcm",
+        "loop_end_publication": "after_ready",
+        "queued_pcm_preserved": true,
+        "compile_verified": false,
+        "runtime_verified": false
+      },
+      "verification_level": "当前原会话四根完整字节/指令与三个现源新增差异限定静态，未编译/测试/运行或摘要"
+    },
+    {
+      "original_entry": "0x52BD40",
+      "inventory_id": "F:0012BD40",
+      "status": "CAB08原音频职责已关联SDL真实提供者，首段预填/终点发布正常时序已修正并限定静态通过；完整功能/失败副作用/生命周期与编译运行未验",
+      "sources": [
+        {
+          "path": "src/platform/SdlAudioBackend.cpp",
+          "symbols": [
+            "RunBgmStopWorker",
+            "SdlAudioBackend::StartBgmStopWorker"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-source-state",
+        "doc/cg2d_streaming_bgm_prefill_evidence.json"
+      ],
+      "original_end_exclusive": "0x52BE59",
+      "instruction_count": 85,
+      "original_byte_count": 281,
+      "boundary": "原四根706条1999B；完整PCM字节数先发布，零游标一秒首段预填后ready，再由父发布smpl终点并保持频率/音量/播放/当前号/tick/active序。SDL解码/转换/队列/回调/工作线程沿CAA01替换，非原COM/两半缓冲或Hook ABI复刻；来源关联不代全部失败残留、诊断状态、线程调度、声音效果与生命周期验收，不降低完整门禁。",
+      "streaming_bgm_prefill_contract": {
+        "step": "CAB08",
+        "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-decision",
+        "source_snapshot": "cg2d-re-streaming-bgm-prefill-20261009",
+        "initial_prefill_end": "actual_complete_pcm",
+        "loop_end_publication": "after_ready",
+        "queued_pcm_preserved": true,
+        "compile_verified": false,
+        "runtime_verified": false
+      },
+      "verification_level": "当前原会话四根完整字节/指令与三个现源新增差异限定静态，未编译/测试/运行或摘要"
+    },
+    {
+      "original_entry": "0x52BE60",
+      "inventory_id": "F:0012BE60",
+      "status": "CAB08原音频职责已关联SDL真实提供者，首段预填/终点发布正常时序已修正并限定静态通过；完整功能/失败副作用/生命周期与编译运行未验",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "LoadAndPlayBGM"
+          ]
+        },
+        {
+          "path": "src/platform/SdlAudioBackend.cpp",
+          "symbols": [
+            "SdlAudioBackend::SetBgmLoopEnd"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-source-state",
+        "doc/cg2d_streaming_bgm_prefill_evidence.json"
+      ],
+      "original_end_exclusive": "0x52C15C",
+      "instruction_count": 286,
+      "original_byte_count": 764,
+      "boundary": "原四根706条1999B；完整PCM字节数先发布，零游标一秒首段预填后ready，再由父发布smpl终点并保持频率/音量/播放/当前号/tick/active序。SDL解码/转换/队列/回调/工作线程沿CAA01替换，非原COM/两半缓冲或Hook ABI复刻；来源关联不代全部失败残留、诊断状态、线程调度、声音效果与生命周期验收，不降低完整门禁。",
+      "streaming_bgm_prefill_contract": {
+        "step": "CAB08",
+        "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#streaming-bgm-prefill-decision",
+        "source_snapshot": "cg2d-re-streaming-bgm-prefill-20261009",
+        "initial_prefill_end": "actual_complete_pcm",
+        "loop_end_publication": "after_ready",
+        "queued_pcm_preserved": true,
+        "compile_verified": false,
+        "runtime_verified": false
+      },
+      "verification_level": "当前原会话四根完整字节/指令与三个现源新增差异限定静态，未编译/测试/运行或摘要"
     }
   ]
 }

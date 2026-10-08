@@ -873,3 +873,7 @@
 ## 2026-10-09 cg2d_re 旧音乐/音效设置完整页面
 
 补齐两音频设置初始化/包装及完整页面六根、13控件与156次原序发布，并按原槽序接入两真实构造，复用既有回调/SDL3/WAV。六根511条2140B与新增差异静态通过，11新字串转GBK，未编译或运行；实际旧表外层、保存/声音和完整寿命仍待。新增UI-L-007/008独立追踪，原SPEC/台账同步，整体目标继续；详见cg2d_re/plan/cg2d_full_reconstruction_progress.md，快照cg2d-re-audio-settings-pages-20261009。
+
+## 2026-10-09 cg2d_re 流式预填与排队音量修正
+
+修正流式BGM完整PCM长度→一秒预填→ready→smpl终点发布，并改用SDL流增益使音量在取出排队数据时应用，固定WAV不重复衰减。四原根706条1999B与三现源新增差异静态通过，音频待定位16→12；未编译或运行，旧外层/全部失败状态、真实声音/通知与正常寿命仍待。现有SPEC/台账同步，整体目标继续；详见cg2d_re/plan/cg2d_full_reconstruction_progress.md，快照cg2d-re-streaming-bgm-prefill-20261009。

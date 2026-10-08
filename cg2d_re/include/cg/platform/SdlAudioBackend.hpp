@@ -60,6 +60,9 @@ public:
     // 非零时按原 smpl 端点作为排他循环终点。
     [[nodiscard]] bool LoadBgmWav(
         const char* path, std::size_t startFrame, std::size_t endFrame) noexcept;
+    // 原52BE60在流式首段预填/ready之后发布smpl终点；不清空已排队PCM或重置游标。
+    [[nodiscard]] bool SetBgmLoopEnd(std::size_t endFrame) noexcept;
+    [[nodiscard]] std::uint32_t ReadBgmDataLength() const noexcept; // 原流式创建先发布实际读取的PCM字节数。
     [[nodiscard]] bool HasBgm() const noexcept;
     [[nodiscard]] bool SetBgmVolume(std::int32_t hundredthDb) noexcept;
     [[nodiscard]] bool SetBgmFrequency(std::uint32_t hz) noexcept;

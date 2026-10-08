@@ -48,3 +48,11 @@
 现有Windows/MSVC/x64 Debug配置、core/startup/render三库及真实客户端链接均返回0，八个缺口不再出现在当前客户端链接。第5次全量重建和最后第7次增量构建通过，产物为 `build/windows-msvc-x64/Debug/cg2d_re_client.exe`。保留131条全量编译警告，未新增音乐后端/提供者警告；不以零链接错误代音频效果、完整启动退出或整体SPEC通过。
 
 原553000表与CA0478/CB1D1C生产容量仍按各合同保留：旧入口与八个窗口正文/状态迁入独立静态库成员，正常客户端未抽取它们，未定义假数据或取消原功能。实际源码/构建/map证据见[CAA01记录](cg2d_client_link_sdl_audio_evidence.json)。未运行客户端、测试或样例，未计算摘要；V02完整任务仍open。
+
+<a id="gbk-songti-debug-build"></a>
+
+## CAB04 GBK、宋体与ASCII光标编译复验（2026-10-09）
+
+用户要求“编译项目”，本次复用现有Windows/MSVC/x64配置，执行 `cmake --build --preset windows-msvc-x64-debug --parallel 8`。源码为提交 `b27173e4` / 快照 `cg2d-re-big5-to-gbk-20261009`，core/startup/render三库与真实客户端编译链接全部通过，退出码0；无需新增源码修复。产物 `build/windows-msvc-x64/Debug/cg2d_re_client.exe` 为7980032B，完整日志 `build/windows-msvc-x64/build-gbk-songti-20261009.log`。
+
+本次增量构建记录0错误、100条既有源码警告（C4244/C4701/C4996/C4456/C4703），没有文字转码、Font.cpp或InputCaret.cpp相关诊断；增量警告数不作为全量警告总数。构建证据记入[文字更新记录](cg2d_big5_to_gbk_evidence.json)及登记簿build_validation；未重新配置、运行客户端、执行测试/算法样例或计算摘要，V02、文字画面及整体SPEC验收保持未关闭。

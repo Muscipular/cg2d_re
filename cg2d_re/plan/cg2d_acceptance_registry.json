@@ -96398,9 +96398,14 @@
     }
   ],
   "build_validation": {
-    "step": "CAB02",
-    "recorded_on": "2026-10-08",
+    "step": "CAB04",
+    "recorded_on": "2026-10-09",
     "configuration": "Debug",
+    "source_snapshot": "cg2d-re-big5-to-gbk-20261009",
+    "configure_performed": false,
+    "build_exit_code": 0,
+    "incremental_warning_count": 100,
+    "text_font_caret_diagnostic_count": 0,
     "configure_exit_code": 0,
     "static_libraries_exit_code": 0,
     "client_link_exit_code": 0,
@@ -96415,8 +96420,10 @@
       "doc/cg2d_client_link_sdl_audio_evidence.json",
       "plan/cg2d_full_reconstruction_progress.md",
       "doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state",
-      "doc/cg2d_fixed_music_wav_evidence.json"
+      "doc/cg2d_fixed_music_wav_evidence.json",
+      "doc/cg2d_build_acceptance_spec.md#gbk-songti-debug-build",
+      "doc/cg2d_big5_to_gbk_evidence.json"
     ],
-    "note": "本次离线转换与内置WAV资源检查通过，Debug配置/三库/客户端链接通过；客户端map无MIDI合成器。未启动客户端，V02与完整音频/整体SPEC不关闭。"
+    "note": "CAB04按用户编译授权复用现有配置，对GBK、宋体与ASCII光标源码完成Debug增量构建，三库和真实客户端链接返回0，0错误/100条既有源码警告，无本次文字/字体/光标诊断。configure_exit_code沿既有配置历史；本次未重新配置、测试或启动客户端，V02及文字画面/完整音频/整体SPEC不关闭。"
   }
 }

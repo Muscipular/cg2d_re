@@ -5013,3 +5013,7 @@ AGENTS、原编译/音频/宿主/旧生产SPEC及总计划和任务表已同步�
 ## 2026-10-09 静态Big5转GBK、宋体与ASCII光标
 
 按用户要求完成43个源码文件、1663处静态文本处理：1661处Big5转GBK，保留繁体及原长度/NUL；五处GBK不可表示的中点明确改为双字节「·」。字体全部统一GBK「宋体」与GB2312_CHARSET，含NUL名字长度7→5；光标改ASCII「|」，含NUL长度3→2，普通/IME偏移同步采用sWidth/2。源码UTF-8与既有行尾、协议/资源/存档、共享容量和输入索引保持；68处非Big5或混合非法字节原样保留。现有文本SPEC/AGENTS、结构化证据及验收登记簿同步更新；本步只核新增源码差异，未编译或运行客户端，完整文字/画面验收仍待。快照cg2d-re-big5-to-gbk-20261009。
+
+## CAB04 GBK、宋体与ASCII光标编译复验（2026-10-09）
+
+按用户“编译项目”授权，对源码b27173e4复用Windows/MSVC/x64 Debug预设执行增量构建，core/startup/render三库及cg2d_re_client编译链接通过，退出码0；无需源码修复或新增依赖。日志build/windows-msvc-x64/build-gbk-songti-20261009.log记录0错误、100条既有源码警告，无文字转码/字体/光标相关诊断；产物Debug/cg2d_re_client.exe为7980032B。既有编译SPEC、文字证据与登记簿build_validation同步；未重新配置、执行测试、启动客户端、操作桌面或计算摘要，完整画面/音频与整体SPEC仍未验收。

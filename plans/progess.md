@@ -841,3 +841,7 @@
 ## 2026-10-08 cg2d_re 启动提示与资源参数
 
 启动/初始化提示改为UTF-8中文，Win32边界以UTF-16/MessageBoxW显示；协议与资源原字节不变。用户提供的cg2a - 2.bat两处Joy_EX图档版本102改为实际存在的195，原稿备份保留。必要Debug客户端编译链接通过，已更新游戏目录重建EXE并备份旧版。用户质疑AutoHotkey后停止桌面操作，未再启动客户端；完整流程仍未验收。无新增SPEC，具体记录见cg2d_re/plan/cg2d_full_reconstruction_progress.md。快照cg2d-re-startup-utf8-resource-fix-20261008。
+
+## 2026-10-08 cg2d_re MIDI 播放方案确认
+
+用户确认保留系统 gm.dls 音色、项目 LegacyMidiSynth 合成与 SDL3 播放链，已更新既有音频基线；未新增依赖、源码改动、编译或运行。音频效果与实际声音/生命周期缺口仍待完成，具体记录见 cg2d_re/plan/cg2d_full_reconstruction_progress.md。

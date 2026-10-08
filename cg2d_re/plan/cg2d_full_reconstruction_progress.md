@@ -4989,3 +4989,7 @@ AGENTS、原编译/音频/宿主/旧生产SPEC及总计划和任务表已同步�
 用户确认截图来自cg2a - 2.bat；该脚本已有updated，原缺参判断已纠正。实际提示来自GraphicInit返回7：脚本图档/索引Joy_EX为102，目录仅有195对应文件；已仅修正这两参数并备份原稿，其余参数保持。启动/初始化十个提示常量与入口提示已由Big5转义转为原义UTF-8中文，新增ShowUtf8Message在Win32显示边界转UTF-16/MessageBoxW；原ShowLegacyMessage及协议/资源字节不变。
 
 必要Debug客户端编译链接返回0，日志build/windows-msvc-x64/build-startup-utf8-20261008.log；游戏目录重建EXE已更新、旧EXE已备份。此前自行选用AutoHotkey的复现已结束，用户质疑后停止桌面操作，未再启动客户端；本步不宣完整启动、音频或运行验收。未新增SPEC，多余启动脚本/文档已撤回。简步按用户最新规则同时同步根plans/progess.md；原用户改动不夹带。快照cg2d-re-startup-utf8-resource-fix-20261008。
+
+## 2026-10-08 MIDI 播放方案确认
+
+用户明确选择保留现有 gm.dls + SDL3 播放链：系统音色、LegacyMidiSynth 合成 PCM、SDL3 音频流输出。已将这一选择记入既有 CAA01 音频基线，不另建 SPEC；不引入 SDL3_mixer/TiMidity++，不切换 Windows 自带 MIDI 合成器。仅固定现有方案，未修改源码、编译或运行；混响、合唱、DLS 动态调制、控制器效果与实际声音/生命周期仍未完成，不关闭音频任务或提升验收状态。

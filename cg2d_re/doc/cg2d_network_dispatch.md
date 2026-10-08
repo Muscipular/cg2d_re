@@ -472,3 +472,11 @@ MIC与GP/黑名单/2048B非NUL快照/S32长度/对象气泡和其他正文保持
 108命令、类型/编号、全部callback及原普通/末三返回规则保持。
 这是账号与文本取值限定修正，不将整根5779条、所有整数/108回复、
 完整owner/alias/正常失败/ABI/链接/真实明文往返或运行记通过；音频暂停与两算法叶排除保持。
+
+## BWU01全部命令头比较的原U8循环开发（2026-10-08）
+
+[基线](cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-baseline)、[合同](cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-decision)及[108完整比较块/原标记/完整源前后态](cg2d_dispatch_header_byte_evidence.json)。
+
+既有TryDispatchReply只改一个头比较片段：先取头U8再取命令U8、不符false，匹配才同头样本判NUL；非NUL取第二对、比较后两地址各加2，再判同第二样本NUL或回环。原107×24及iKe25比较块全2593条6307B/648跳零CALL、108含NUL标记433B均有原证；原TEST零/非零由既有bool合同消费，不另造原函数身份。
+
+108命令源行/顺序/类型/读序掩码、全部解码/tuple/回调、末三继续路径和原接收头生产全文保持。只记局部108比较及共享接线，不称整个5779条分派/所有callee、正常寿命或机器互通已验。

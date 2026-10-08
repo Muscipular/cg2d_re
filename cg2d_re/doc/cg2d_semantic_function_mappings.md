@@ -4193,3 +4193,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 完善已有1226/F:000D8DA0：原4D8F5B8B07读取W32，新增私有Cg2dReadLegacyShopCommandW32真实MOV EAX,DWORD PTR[RCX];RET承载；CPP格式参数仅取元素地址，再消费实际S32返回。三源四改/一ASM叶声明，原三S32槽、写规则/扫描与全部其余父/BVV预览保持。
 
 零新语义/F/原成员，mixed与pending6/18保，原模式/未写命令值及旧外层仍待；两限定I-S/E1178及五任务同步，原隐式open的P07/U05显式登记为open，登记53→55不增加已闭任务。完整页/机器运行未代验。
+
+## BWU01既有分派父108头比较局部接线（2026-10-08）
+
+[完整受影响比较块/原字节与单源前后态](cg2d_dispatch_header_byte_evidence.json)、[合同](cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-decision)。
+
+完善已有1216/F:00112E40的TryDispatchReply共享模板：108块共2593条6307B、433B原标记，原头先/命令后两个U8对、比较再同头判NUL/地址加2回环及TEST零非零消费保；107块24条，一iKe25条原形态有据。
+
+一个CPP一个片段，108命令及所有参数/掩码/解码/实际回调和末三源行保持，零新helper/原身份/全函数处置/R7。NETWORK69两限定I-S/E1180，原根5779全部正文及生命周期/机器互通继续，不将比较子集扩为全根验收。

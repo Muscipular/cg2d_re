@@ -161810,7 +161810,7 @@
     {
       "original_entry": "0x00512E40",
       "inventory_id": "F:00112E40",
-      "status": "NDR01接收分派原账号与85文本取值顺序已修；仅限定映射，原5779条整根/整数路径/全部回复与owner/运行未闭",
+      "status": "BWU01补原512E40全部108命令比较块的头U8读取/条件/回环到既有TryDispatchReply：当前2593条6307B/107×24加iKe25、433B命令含NUL/648跳零CALL，原两个U8对均头先/命令后、比较后同头判NUL及第二对后两地址加2保。一个现CPP一个模板片段，宿主strcmp改原两字节一轮的实际CPP循环，零新函数/接口/owner/原身份；原TEST相等/不等消费由既有bool合同承接，108源行/命令/类型/掩码/全部解码与callback及末三路径/原接收头和格式明文保持。仅已有1216局部证据及NETWORK69两限定I-S/E1180，无新原新/F处置/R7/成员；全根5779及全父/callee/正常寿命/机器ABI链接运行和真实互通未代验，模式真实生产未证不补造，RPLAN.24/音频暂停保持。",
       "original_chunks": [
         [
           "0x00512E40",
@@ -161829,7 +161829,7 @@
             "DecodeDispatchArguments",
             "TryDispatchReply"
           ],
-          "relationship": "既有父与三个模板限定修改；37块/32掩码/一账号引用，不记整根5779条逐段已验"
+          "relationship": "既有父与三个模板限定修改；37块/32掩码/一账号引用，不记整根5779条逐段已验 BWU01只共享TryDispatchReply头比较恢复原两对U8读取/不符及同样本NUL/加2回环；108命令/类型/掩码/解码/回调源行全保，仍不记整5779条已验。"
         }
       ],
       "evidence_documents": [
@@ -161838,10 +161838,15 @@
         "doc/cg2d_network_dispatch.md",
         "doc/cg2d_network_runtime.md",
         "doc/cg2d_workspace_byte_pointer_spec.md",
-        "doc/cg2d_workspace_byte_pointer_evidence.json"
+        "doc/cg2d_workspace_byte_pointer_evidence.json",
+        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-baseline",
+        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-decision",
+        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-acceptance",
+        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-source-state",
+        "doc/cg2d_dispatch_header_byte_evidence.json"
       ],
-      "boundary": "原512E8D账号操作数DA38DC、512E94密码DA3A5C；现有两个64B char owner独立，错误DA3A1C改原DA38DC，不执行/改可执行文件校验。108原命令含NUL字节与既有顺序、85源字段槽=同编号工作区槽=源码T位置具名；38处/32命令工作区基址→容量→槽，47处容量→基址→槽。文本解码后才两次取值，各字段先完成再下字段；私有掩码不进协议/状态，不造owner。108 callback/类型/位置与首105返回0/末三继续比较和尾-1保持。限定原操作数/窗口/接口映射，不归档或验收整根5779条/所有整数路径/108回复，不新增R1整根处置；owner/alias/真实ABI/链接/失败/明文互通与运行仍待，音频暂停/算法叶排除及RPLAN.24保持。；2026-10-05 NWT01已证DA3F98的90直接引用仅三父及85文本字段，workspaceSlots/借用快照/表与元素分配/目的槽收敛std::uint8_t**/std::uint8_t*，18槽/SDK同域、原失败/不清槽/退出/两类读序不改；未知间接alias/owner/重进及整分派/整数/回复/真实ABI/运行不据此提升。",
-      "verification_level": "当前原会话账号四操作数/108命令字节/85文本窗口及源码同编号位置与38/47读取序静态核；一CPP37块、限定新语义/登记簿重放；未构建/测试/运行/摘要；NWT01五类型块及90直接引用限定对照，三父分类不重复增量",
+      "boundary": "原512E8D账号操作数DA38DC、512E94密码DA3A5C；现有两个64B char owner独立，错误DA3A1C改原DA38DC，不执行/改可执行文件校验。108原命令含NUL字节与既有顺序、85源字段槽=同编号工作区槽=源码T位置具名；38处/32命令工作区基址→容量→槽，47处容量→基址→槽。文本解码后才两次取值，各字段先完成再下字段；私有掩码不进协议/状态，不造owner。108 callback/类型/位置与首105返回0/末三继续比较和尾-1保持。限定原操作数/窗口/接口映射，不归档或验收整根5779条/所有整数路径/108回复，不新增R1整根处置；owner/alias/真实ABI/链接/失败/明文互通与运行仍待，音频暂停/算法叶排除及RPLAN.24保持。；2026-10-05 NWT01已证DA3F98的90直接引用仅三父及85文本字段，workspaceSlots/借用快照/表与元素分配/目的槽收敛std::uint8_t**/std::uint8_t*，18槽/SDK同域、原失败/不清槽/退出/两类读序不改；未知间接alias/owner/重进及整分派/整数/回复/真实ABI/运行不据此提升。 BWU01补原512E40全部108命令比较块的头U8读取/条件/回环到既有TryDispatchReply：当前2593条6307B/107×24加iKe25、433B命令含NUL/648跳零CALL，原两个U8对均头先/命令后、比较后同头判NUL及第二对后两地址加2保。一个现CPP一个模板片段，宿主strcmp改原两字节一轮的实际CPP循环，零新函数/接口/owner/原身份；原TEST相等/不等消费由既有bool合同承接，108源行/命令/类型/掩码/全部解码与callback及末三路径/原接收头和格式明文保持。仅已有1216局部证据及NETWORK69两限定I-S/E1180，无新原新/F处置/R7/成员；全根5779及全父/callee/正常寿命/机器ABI链接运行和真实互通未代验，模式真实生产未证不补造，RPLAN.24/音频暂停保持。",
+      "verification_level": "BWU01补原512E40全部108命令比较块的头U8读取/条件/回环到既有TryDispatchReply：当前2593条6307B/107×24加iKe25、433B命令含NUL/648跳零CALL，原两个U8对均头先/命令后、比较后同头判NUL及第二对后两地址加2保。一个现CPP一个模板片段，宿主strcmp改原两字节一轮的实际CPP循环，零新函数/接口/owner/原身份；原TEST相等/不等消费由既有bool合同承接，108源行/命令/类型/掩码/全部解码与callback及末三路径/原接收头和格式明文保持。仅已有1216局部证据及NETWORK69两限定I-S/E1180，无新原新/F处置/R7/成员；全根5779及全父/callee/正常寿命/机器ABI链接运行和真实互通未代验，模式真实生产未证不补造，RPLAN.24/音频暂停保持。",
       "dispatch_account_field_contract": {
         "group": "NDR01",
         "spec": "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure",
@@ -161870,6 +161875,52 @@
         "read_or_lifecycle_order_changed": false,
         "full_owners_closed": false,
         "runtime_verified": false
+      },
+      "dispatch_header_byte_comparison": {
+        "spec_id": "BWU01",
+        "evidence_refs": [
+          "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-baseline",
+          "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-decision",
+          "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-acceptance",
+          "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-source-state"
+        ],
+        "original_comparison_block_count": 108,
+        "original_comparison_instruction_count": 2593,
+        "original_comparison_code_bytes": 6307,
+        "original_command_bytes_with_nul": 433,
+        "original_comparison_jump_count": 648,
+        "original_comparison_call_count": 0,
+        "original_24_instruction_block_count": 107,
+        "original_25_instruction_iKe_block_count": 1,
+        "original_full_function_inventory_instruction_count": 5779,
+        "source_body_changed": true,
+        "source_cpp_file_count": 1,
+        "source_patch_count": 1,
+        "new_cpp_body_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_owner_count": 0,
+        "new_semantic_record_count": 0,
+        "new_function_disposition_count": 0,
+        "new_R7_classification_count": 0,
+        "original_two_pairs_received_BYTE_before_command_BYTE_compare_then_same_received_NUL": true,
+        "original_second_pair_then_both_pointer_plus2_and_loop": true,
+        "original_result_only_TEST_zero_nonzero_consumed_by_existing_bool": true,
+        "original_iKe_fd_MOV_shape_recorded_not_machine_register_equivalence": true,
+        "all_108_command_source_rows_types_masks_decoders_and_callbacks_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "new_guard_default_success_input_limit_or_fault_sample": false,
+        "full_dispatcher_body_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "real_protocol_interoperation_verified": false,
+        "runtime_verified": false,
+        "compilation_verified": false,
+        "linking_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
       }
     },
     {

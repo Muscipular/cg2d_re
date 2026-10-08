@@ -1460,7 +1460,8 @@
         "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline",
         "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline",
-        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-baseline"
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-baseline",
+        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-baseline"
       ],
       "original_inventory_ids": [
         "F:00003C50",
@@ -1570,7 +1571,8 @@
         "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-decision",
         "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision",
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
-        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision"
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision",
+        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-decision"
       ],
       "blockers": [
         "本次只核两帧父成员；全部命令/回复/状态生产、数据与间接目标及生命周期枚举未闭合",
@@ -1601,7 +1603,8 @@
         "BVI01限定静态：创建启动/轮询/aSEl三个完整根210条703B/五页、30直接/两计时间接/两跳转/五RET，两个真实父局部28条119B含重叠；一cpp一个elapsed片段恢复508EB4计时调用后508EBA读取共享起始W32，原完成回复/严格600000阈值/15B格式及未清状态保。153/154已有原新承接、新1763/F:001128C0正确13字段组包及每项容量/格式后输出重读/发送结果透传保持，BRW已正确创建回复/DZ接线和所有其它源保；两X17B用途。CHARACTER两I-S/NETWORK一S，各28来源，完整请求往返/其他父-callee/owner-alias寿命/ABI运行未验，原格式明文不改",
         "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。",
         "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
-        "BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。"
+        "BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
+        "BWU01补原512E40全部108命令比较块的头U8读取/条件/回环到既有TryDispatchReply：当前2593条6307B/107×24加iKe25、433B命令含NUL/648跳零CALL，原两个U8对均头先/命令后、比较后同头判NUL及第二对后两地址加2保。一个现CPP一个模板片段，宿主strcmp改原两字节一轮的实际CPP循环，零新函数/接口/owner/原身份；原TEST相等/不等消费由既有bool合同承接，108源行/命令/类型/掩码/全部解码与callback及末三路径/原接收头和格式明文保持。仅已有1216局部证据及NETWORK69两限定I-S/E1180，无新原新/F处置/R7/成员；全根5779及全父/callee/正常寿命/机器ABI链接运行和真实互通未代验，模式真实生产未证不补造，RPLAN.24/音频暂停保持。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1632,7 +1635,8 @@
         "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state",
         "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state",
-        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state"
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state",
+        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-source-state"
       ]
     },
     {
@@ -51934,6 +51938,68 @@
       "observation": "BWT01修复旧商店4D8DA0命令格式参数的C++未生产整数直接求值：原3×S32命令与低位写1/2/末尾3、mode==3三行否则两行保持；同原row<=1命中后只借&commands[row]到真实Cg2dReadLegacyShopCommandW32，MOV EAX,DWORD PTR[RCX];RET实际读W32后给既有53B304 %d。三现源四改、一ASM私有读取叶/声明，零CPP新正文/owner/依赖/原身份；不补值、改写、保护、删行或造旧栈。当前39条152B原命令窗口及4D8F5B8B07对照，复用SCP01全321条1080B与原格式/转义/明文发送和BVV预览修复。仅已有1226/mixed/pending6、UI-L-062两成员及两限定I-S/E1178；所有数量/完整门禁保持，原实际模式/未写命令值/旧外层和机器运行继续，RPLAN.24/音频暂停保。 只三源四改及原39条152B窗口/W32单读、原三槽写与扫描/其它完整父保持，不代机器/完整页或原值等价。",
       "expected": "BWT01修复旧商店4D8DA0命令格式参数的C++未生产整数直接求值：原3×S32命令与低位写1/2/末尾3、mode==3三行否则两行保持；同原row<=1命中后只借&commands[row]到真实Cg2dReadLegacyShopCommandW32，MOV EAX,DWORD PTR[RCX];RET实际读W32后给既有53B304 %d。三现源四改、一ASM私有读取叶/声明，零CPP新正文/owner/依赖/原身份；不补值、改写、保护、删行或造旧栈。当前39条152B原命令窗口及4D8F5B8B07对照，复用SCP01全321条1080B与原格式/转义/明文发送和BVV预览修复。仅已有1226/mixed/pending6、UI-L-062两成员及两限定I-S/E1178；所有数量/完整门禁保持，原实际模式/未写命令值/旧外层和机器运行继续，RPLAN.24/音频暂停保。 只三源四改及原39条152B窗口/W32单读、原三槽写与扫描/其它完整父保持，不代机器/完整页或原值等价。",
       "actual": "BWT01修复旧商店4D8DA0命令格式参数的C++未生产整数直接求值：原3×S32命令与低位写1/2/末尾3、mode==3三行否则两行保持；同原row<=1命中后只借&commands[row]到真实Cg2dReadLegacyShopCommandW32，MOV EAX,DWORD PTR[RCX];RET实际读W32后给既有53B304 %d。三现源四改、一ASM私有读取叶/声明，零CPP新正文/owner/依赖/原身份；不补值、改写、保护、删行或造旧栈。当前39条152B原命令窗口及4D8F5B8B07对照，复用SCP01全321条1080B与原格式/转义/明文发送和BVV预览修复。仅已有1226/mixed/pending6、UI-L-062两成员及两限定I-S/E1178；所有数量/完整门禁保持，原实际模式/未写命令值/旧外层和机器运行继续，RPLAN.24/音频暂停保。 只三源四改及原39条152B窗口/W32单读、原三槽写与扫描/其它完整父保持，不代机器/完整页或原值等价。"
+    },
+    {
+      "id": "E-DISPATCH-HEADER-BYTE-FUNC-NETWORK-I-20261008",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWU01原108完整头比较块2593条6307B/433B含NUL命令、107×24及iKe25两形态/648跳零CALL；两对U8顺序/同头NUL/加2及TEST消费。doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-dispatch-header-byte-read-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_dispatch_header_byte_evidence.json",
+        "doc/cg2d_dispatch_header_byte_spec.md",
+        "doc/cg2d_network_dispatch.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "src/network/NetworkRuntime.cpp",
+        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-baseline",
+        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-decision",
+        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-acceptance",
+        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWU01补原512E40全部108命令比较块的头U8读取/条件/回环到既有TryDispatchReply：当前2593条6307B/107×24加iKe25、433B命令含NUL/648跳零CALL，原两个U8对均头先/命令后、比较后同头判NUL及第二对后两地址加2保。一个现CPP一个模板片段，宿主strcmp改原两字节一轮的实际CPP循环，零新函数/接口/owner/原身份；原TEST相等/不等消费由既有bool合同承接，108源行/命令/类型/掩码/全部解码与callback及末三路径/原接收头和格式明文保持。仅已有1216局部证据及NETWORK69两限定I-S/E1180，无新原新/F处置/R7/成员；全根5779及全父/callee/正常寿命/机器ABI链接运行和真实互通未代验，模式真实生产未证不补造，RPLAN.24/音频暂停保持。 只108原命令相等/不等→既有解码和真实callback的共享源接线，未代全部父/callee或互通。",
+          "decision_ref": "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWU01补原512E40全部108命令比较块的头U8读取/条件/回环到既有TryDispatchReply：当前2593条6307B/107×24加iKe25、433B命令含NUL/648跳零CALL，原两个U8对均头先/命令后、比较后同头判NUL及第二对后两地址加2保。一个现CPP一个模板片段，宿主strcmp改原两字节一轮的实际CPP循环，零新函数/接口/owner/原身份；原TEST相等/不等消费由既有bool合同承接，108源行/命令/类型/掩码/全部解码与callback及末三路径/原接收头和格式明文保持。仅已有1216局部证据及NETWORK69两限定I-S/E1180，无新原新/F处置/R7/成员；全根5779及全父/callee/正常寿命/机器ABI链接运行和真实互通未代验，模式真实生产未证不补造，RPLAN.24/音频暂停保持。 只108原命令相等/不等→既有解码和真实callback的共享源接线，未代全部父/callee或互通。",
+      "expected": "BWU01补原512E40全部108命令比较块的头U8读取/条件/回环到既有TryDispatchReply：当前2593条6307B/107×24加iKe25、433B命令含NUL/648跳零CALL，原两个U8对均头先/命令后、比较后同头判NUL及第二对后两地址加2保。一个现CPP一个模板片段，宿主strcmp改原两字节一轮的实际CPP循环，零新函数/接口/owner/原身份；原TEST相等/不等消费由既有bool合同承接，108源行/命令/类型/掩码/全部解码与callback及末三路径/原接收头和格式明文保持。仅已有1216局部证据及NETWORK69两限定I-S/E1180，无新原新/F处置/R7/成员；全根5779及全父/callee/正常寿命/机器ABI链接运行和真实互通未代验，模式真实生产未证不补造，RPLAN.24/音频暂停保持。 只108原命令相等/不等→既有解码和真实callback的共享源接线，未代全部父/callee或互通。",
+      "actual": "BWU01补原512E40全部108命令比较块的头U8读取/条件/回环到既有TryDispatchReply：当前2593条6307B/107×24加iKe25、433B命令含NUL/648跳零CALL，原两个U8对均头先/命令后、比较后同头判NUL及第二对后两地址加2保。一个现CPP一个模板片段，宿主strcmp改原两字节一轮的实际CPP循环，零新函数/接口/owner/原身份；原TEST相等/不等消费由既有bool合同承接，108源行/命令/类型/掩码/全部解码与callback及末三路径/原接收头和格式明文保持。仅已有1216局部证据及NETWORK69两限定I-S/E1180，无新原新/F处置/R7/成员；全根5779及全父/callee/正常寿命/机器ABI链接运行和真实互通未代验，模式真实生产未证不补造，RPLAN.24/音频暂停保持。 只108原命令相等/不等→既有解码和真实callback的共享源接线，未代全部父/callee或互通。"
+    },
+    {
+      "id": "E-DISPATCH-HEADER-BYTE-FUNC-NETWORK-S-20261008",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWU01原108完整头比较块2593条6307B/433B含NUL命令、107×24及iKe25两形态/648跳零CALL；两对U8顺序/同头NUL/加2及TEST消费。doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-dispatch-header-byte-read-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_dispatch_header_byte_evidence.json",
+        "doc/cg2d_dispatch_header_byte_spec.md",
+        "doc/cg2d_network_dispatch.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "src/network/NetworkRuntime.cpp",
+        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-baseline",
+        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-decision",
+        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-acceptance",
+        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWU01补原512E40全部108命令比较块的头U8读取/条件/回环到既有TryDispatchReply：当前2593条6307B/107×24加iKe25、433B命令含NUL/648跳零CALL，原两个U8对均头先/命令后、比较后同头判NUL及第二对后两地址加2保。一个现CPP一个模板片段，宿主strcmp改原两字节一轮的实际CPP循环，零新函数/接口/owner/原身份；原TEST相等/不等消费由既有bool合同承接，108源行/命令/类型/掩码/全部解码与callback及末三路径/原接收头和格式明文保持。仅已有1216局部证据及NETWORK69两限定I-S/E1180，无新原新/F处置/R7/成员；全根5779及全父/callee/正常寿命/机器ABI链接运行和真实互通未代验，模式真实生产未证不补造，RPLAN.24/音频暂停保持。 只全部108比较块/2593条6307B和433B原标记、原两对U8-NUL-加2循环/TEST消费及108原样源行和一个源片段，不代全5779条或机器。",
+          "decision_ref": "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWU01补原512E40全部108命令比较块的头U8读取/条件/回环到既有TryDispatchReply：当前2593条6307B/107×24加iKe25、433B命令含NUL/648跳零CALL，原两个U8对均头先/命令后、比较后同头判NUL及第二对后两地址加2保。一个现CPP一个模板片段，宿主strcmp改原两字节一轮的实际CPP循环，零新函数/接口/owner/原身份；原TEST相等/不等消费由既有bool合同承接，108源行/命令/类型/掩码/全部解码与callback及末三路径/原接收头和格式明文保持。仅已有1216局部证据及NETWORK69两限定I-S/E1180，无新原新/F处置/R7/成员；全根5779及全父/callee/正常寿命/机器ABI链接运行和真实互通未代验，模式真实生产未证不补造，RPLAN.24/音频暂停保持。 只全部108比较块/2593条6307B和433B原标记、原两对U8-NUL-加2循环/TEST消费及108原样源行和一个源片段，不代全5779条或机器。",
+      "expected": "BWU01补原512E40全部108命令比较块的头U8读取/条件/回环到既有TryDispatchReply：当前2593条6307B/107×24加iKe25、433B命令含NUL/648跳零CALL，原两个U8对均头先/命令后、比较后同头判NUL及第二对后两地址加2保。一个现CPP一个模板片段，宿主strcmp改原两字节一轮的实际CPP循环，零新函数/接口/owner/原身份；原TEST相等/不等消费由既有bool合同承接，108源行/命令/类型/掩码/全部解码与callback及末三路径/原接收头和格式明文保持。仅已有1216局部证据及NETWORK69两限定I-S/E1180，无新原新/F处置/R7/成员；全根5779及全父/callee/正常寿命/机器ABI链接运行和真实互通未代验，模式真实生产未证不补造，RPLAN.24/音频暂停保持。 只全部108比较块/2593条6307B和433B原标记、原两对U8-NUL-加2循环/TEST消费及108原样源行和一个源片段，不代全5779条或机器。",
+      "actual": "BWU01补原512E40全部108命令比较块的头U8读取/条件/回环到既有TryDispatchReply：当前2593条6307B/107×24加iKe25、433B命令含NUL/648跳零CALL，原两个U8对均头先/命令后、比较后同头判NUL及第二对后两地址加2保。一个现CPP一个模板片段，宿主strcmp改原两字节一轮的实际CPP循环，零新函数/接口/owner/原身份；原TEST相等/不等消费由既有bool合同承接，108源行/命令/类型/掩码/全部解码与callback及末三路径/原接收头和格式明文保持。仅已有1216局部证据及NETWORK69两限定I-S/E1180，无新原新/F处置/R7/成员；全根5779及全父/callee/正常寿命/机器ABI链接运行和真实互通未代验，模式真实生产未证不补造，RPLAN.24/音频暂停保持。 只全部108比较块/2593条6307B和433B原标记、原两对U8-NUL-加2循环/TEST消费及108原样源行和一个源片段，不代全5779条或机器。"
     }
   ],
   "task_acceptance": [
@@ -52459,7 +52525,8 @@
         "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
         "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state",
         "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state",
-        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state"
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
+        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-source-state"
       ]
     },
     {
@@ -52555,7 +52622,8 @@
         "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state",
         "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-state",
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-source-state",
-        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state",
+        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-source-state"
       ]
     },
     {
@@ -53223,7 +53291,8 @@
         "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state",
         "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state",
         "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state",
-        "doc/cg2d_shop_command_read_spec.md#shop-command-read-source-state"
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-source-state",
+        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-source-state"
       ]
     },
     {

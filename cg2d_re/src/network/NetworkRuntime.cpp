@@ -4360,8 +4360,28 @@ bool TryDispatchReply(
     const char* const head, const char* const command, const std::uintptr_t socket,
     const std::uint32_t workspaceBeforeCapacityMask = 0U)
 {
-    if (std::strcmp(head, command) != 0) {
-        return false;
+    // 原108块均先取头U8再取命令U8；每对比较后以同头样本判NUL。
+    auto* receivedBytes = reinterpret_cast<const unsigned char*>(head);
+    auto* commandBytes = reinterpret_cast<const unsigned char*>(command);
+    for (;;) {
+        const unsigned char receivedFirst = receivedBytes[0];
+        const unsigned char commandFirst = commandBytes[0];
+        if (receivedFirst != commandFirst) {
+            return false;
+        }
+        if (receivedFirst == 0) {
+            break;
+        }
+        const unsigned char receivedSecond = receivedBytes[1];
+        const unsigned char commandSecond = commandBytes[1];
+        if (receivedSecond != commandSecond) {
+            return false;
+        }
+        receivedBytes += 2;
+        commandBytes += 2;
+        if (receivedSecond == 0) {
+            break;
+        }
     }
     const auto values = DecodeDispatchArguments<Values...>(
         std::index_sequence_for<Values...> {}, workspaceBeforeCapacityMask);

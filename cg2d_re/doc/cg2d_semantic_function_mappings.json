@@ -144635,8 +144635,8 @@
     {
       "original_entry": "0x503160",
       "inventory_id": "F:00103160",
-      "status": "旧称号/地图/公共页签已证格式已接线；原父及整体验收未闭合",
-      "original_end_exclusive": "0x50343F",
+      "status": "BVL01限定静态：旧面板公共503160完整231条735B/四页、13直接九目标/一初始化间接调用、22跳/5RET与97真实CALL定位（96已归父和一未归代码点）。LegacyUiRecord.cpp一个既有体两片段恢复入口x→width明确取样及关闭模式一次native非拥有action持样供判空/MarkDeath，原正常数值不变、不称运行错误；六整源其余五源/声明保持。原布局发布、共享99表/分类与action-dirty同owner、创建失败仍SE56/初始化、fresh槽与LTE0、五页/hint128B及同源提示、点击BYTE/两次关闭查询/各原音频调用和结果保。既有1061全部原格式/入向字段保、完整根及单adapted F处置追加；UIRUNTIME15→16、仅两限定I-S各实际来源，四任务仍open。99表+04有97非零行/97目标与唯一数据owner，当前xref/指定立即数不足证明外路由或运行间接用途，不新造97回调分派/第二表/owner或恢复暂停音频；43未归CRT幂/浮点链不擅换std::pow。原格式明文/RPLAN.24/执行限制及完整门禁保持，未闭全父/callee、数据生产/正常寿命/机器ABI链接运行或实际旧输入路由。",
+      "original_end_exclusive": "0x50343f",
       "instruction_count": 231,
       "sources": [
         {
@@ -144644,14 +144644,19 @@
           "symbols": [
             "Sub_503160"
           ],
-          "relationship": "仅1格式接口改变，其他正文/原返回域保持"
+          "relationship": "已有公共旧面板完整正文；BVL01一个既有体两个取样片段实修，原格式/字段与其余正文保"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/shared_legacy_panels.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-baseline",
+        "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-decision",
+        "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-acceptance",
+        "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state",
+        "doc/cg2d_legacy_panel_native_sampling_evidence.json"
       ],
-      "boundary": "只换一页签提示格式，五页原S8选中/悬停、命中后新image W32非零/新hint T*非空，未清128B/%s复制同源共享提示，后才读取点击低bit0保持。原查表/同源action及dirty引用/创建失败仍SE与初始化/调用者初始化回调/状态门槛/关闭按钮/命中编号/关闭请求/返回1等全部其它正文不动。97原incoming只登记引用，不当caller完成或旧分派证据；音频父与既有待批不触碰。 原父/旧真实路由/数据生产/运行未闭合。",
+      "boundary": "BVL01公共旧面板完整原根及限定取样实修：入口明确x→width、关闭一次native非拥有action供判空/MarkDeath后清共享槽。原按钮发布/id/查表、same action-dirty owner、创建失败仍SE56/初始化、fresh槽/LTE0、五页/原hint128B及%s同源提示、BYTE点击/两次关闭查询/音频调用和0/1/2结果保持。原99表+04/真实外路由不猜、音频暂停不解除，完整所有父-callee/生产/正常寿命/机器ABI链接运行未验。",
       "original_incoming": [
         "0x40151B",
         "0x4023A5",
@@ -144789,7 +144794,76 @@
           "condition_expression": "已通过原action/状态门槛；首tab image非零且当前tab非选中，矩形命中后新tab image非零，hint非空"
         }
       ],
-      "verification_level": "本步只读50/231新格式邻窗，余181沿既有父合同；地图两新格式只读原加载字节，其余两常量沿已核字节，源码字节字面量静态对齐。整份源码仅本父格式标识符，字段/符号性/参数/容量/取数与getter次序/条件/布局/共享提示/返回、JSON唯一增量/文档末追加/UTF-8无BOM/LF与差异静态核对通过。禁构建/测试/客户端/hash；原父/旧路由/生产/运行未验。"
+      "verification_level": "BVL01限定静态：旧面板公共503160完整231条735B/四页、13直接九目标/一初始化间接调用、22跳/5RET与97真实CALL定位（96已归父和一未归代码点）。LegacyUiRecord.cpp一个既有体两片段恢复入口x→width明确取样及关闭模式一次native非拥有action持样供判空/MarkDeath，原正常数值不变、不称运行错误；六整源其余五源/声明保持。原布局发布、共享99表/分类与action-dirty同owner、创建失败仍SE56/初始化、fresh槽与LTE0、五页/hint128B及同源提示、点击BYTE/两次关闭查询/各原音频调用和结果保。既有1061全部原格式/入向字段保、完整根及单adapted F处置追加；UIRUNTIME15→16、仅两限定I-S各实际来源，四任务仍open。99表+04有97非零行/97目标与唯一数据owner，当前xref/指定立即数不足证明外路由或运行间接用途，不新造97回调分派/第二表/owner或恢复暂停音频；43未归CRT幂/浮点链不擅换std::pow。原格式明文/RPLAN.24/执行限制及完整门禁保持，未闭全父/callee、数据生产/正常寿命/机器ABI链接运行或实际旧输入路由。",
+      "original_chunks": [
+        [
+          "0x503160",
+          "0x50343f"
+        ]
+      ],
+      "legacy_panel_native_sampling": {
+        "spec_id": "BVL01",
+        "evidence_refs": [
+          "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-baseline",
+          "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-decision",
+          "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-acceptance",
+          "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state",
+          "doc/cg2d_legacy_panel_native_sampling_evidence.json"
+        ],
+        "previous_status": "旧称号/地图/公共页签已证格式已接线；原父及整体验收未闭合",
+        "previous_boundary": "只换一页签提示格式，五页原S8选中/悬停、命中后新image W32非零/新hint T*非空，未清128B/%s复制同源共享提示，后才读取点击低bit0保持。原查表/同源action及dirty引用/创建失败仍SE与初始化/调用者初始化回调/状态门槛/关闭按钮/命中编号/关闭请求/返回1等全部其它正文不动。97原incoming只登记引用，不当caller完成或旧分派证据；音频父与既有待批不触碰。 原父/旧真实路由/数据生产/运行未闭合。",
+        "previous_verification_level": "本步只读50/231新格式邻窗，余181沿既有父合同；地图两新格式只读原加载字节，其余两常量沿已核字节，源码字节字面量静态对齐。整份源码仅本父格式标识符，字段/符号性/参数/容量/取数与getter次序/条件/布局/共享提示/返回、JSON唯一增量/文档末追加/UTF-8无BOM/LF与差异静态核对通过。禁构建/测试/客户端/hash；原父/旧路由/生产/运行未验。",
+        "full_original_root_captured": true,
+        "original_instruction_count": 231,
+        "original_code_bytes": 735,
+        "original_page_count": 4,
+        "original_direct_call_count": 13,
+        "original_unique_direct_callee_count": 9,
+        "original_indirect_call_count": 1,
+        "original_jump_count": 22,
+        "original_return_count": 5,
+        "original_inbound_call_count": 97,
+        "original_named_parent_count": 96,
+        "original_unattributed_code_call_count": 1,
+        "source_body_changed": true,
+        "root_specific_new_I_claimed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 2,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "original_x_before_width_samples_restored": true,
+        "original_close_native_action_single_sample_restored": true,
+        "original_right_top_and_button_publication_kept": true,
+        "original_shared_action_and_dirty_owner_kept": true,
+        "original_creation_failure_then_sound_and_initialization_kept": true,
+        "original_fresh_action_after_initializer_and_LTE0_kept": true,
+        "original_five_tabs_hint_copy_and_click_byte_kept": true,
+        "original_two_independent_close_button_queries_kept": true,
+        "original_audio_calls_and_pause_kept": true,
+        "original_table_row_count": 99,
+        "original_nonzero_handler_row_count": 97,
+        "original_zero_handler_ids": [
+          0,
+          100
+        ],
+        "original_unique_nonzero_handler_count": 97,
+        "no_direct_reference_does_not_prove_unreachable": true,
+        "new_native_99_callback_dispatch_added": false,
+        "new_table_or_owner_added": false,
+        "general_pow_or_CRT43_host_migration_claimed": false,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "original_format_and_97_inbound_fields_retained": true,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "full_machine_abi_verified": false,
+        "old_input_route_runtime_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x505170",

@@ -18455,7 +18455,9 @@ std::int32_t Sub_503160(
     const std::int32_t opened, LegacyPanelRecord* const panel,
     void (*const initialize)(), const std::int32_t flags)
 {
-    const std::int32_t right = panel->x + panel->width;
+    const std::int32_t initialX = panel->x;
+    const std::int32_t initialWidth = panel->width;
+    const std::int32_t right = initialX + initialWidth;
     const std::int32_t top = panel->y;
     panel->closeButton.normalImage = 22509;
     panel->closeButton.pressedImage = 22510;
@@ -18472,8 +18474,9 @@ std::int32_t Sub_503160(
     }
     YobiAction*& actionSlot = audio::BorrowLegacyPanelAction57C374(index);
     if (opened == 0) {
-        if (actionSlot != nullptr) {
-            static_cast<void>(MarkDeath(actionSlot));
+        YobiAction* const actionToDestroy = actionSlot;
+        if (actionToDestroy != nullptr) {
+            static_cast<void>(MarkDeath(actionToDestroy));
             actionSlot = nullptr;
         }
         std::uint8_t& dirty = audio::BorrowLegacyPanelDirty57C378(index);

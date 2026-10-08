@@ -2753,7 +2753,8 @@
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-baseline",
         "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-baseline",
         "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-baseline",
-        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-baseline"
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-baseline",
+        "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-baseline"
       ],
       "original_inventory_ids": [
         "F:00077160",
@@ -2770,7 +2771,8 @@
         "F:000FACE0",
         "F:000EF5F0",
         "F:000EDB20",
-        "F:00104120"
+        "F:00104120",
+        "F:00103160"
       ],
       "closure_task_ids": [
         "U04",
@@ -2793,7 +2795,8 @@
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-decision",
         "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-decision",
         "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-decision",
-        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-decision"
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-decision",
+        "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -2802,7 +2805,8 @@
         "LUA01共用工具正常S32已修，149调用表达式保持；完整页面/原成员、外层路由/数据/寿命/ABI/画面/运行仍未验，不将本机工具当原独立函数",
         "UPS01旧页共用预览三入口身份/一X587B用途纳管，结果判定先于图号读取已修；一代码片段不是库存函数，两F同YOBI。八父/所有页面和外层路由/数据资源、owner寿命/SDK/ABI/PC53/时钟RNG/画面运行未闭，不计完整旧UI通过",
         "GRS01真实旧39采集结果父四取样/descriptor宽度片段已修，一旧F纳管/同UI-L-039；437条1538B保存与空入向只相关局部，不代旧57C368路由/所有数据资源/完整页面和owner寿命/SDK/ABI/PC53/RNG/画面运行",
-        "WRS01现代窗口循环三先判后共享发布已修/旧WMB保持，504120实际转生入口和两场景16消费纳管；旧99表+04调用来源仍待证，不新建推测分派，全部callback/输入/数据资源、完整场景与owner寿命/ABI/SDK/PC53/RNG/画面运行未验"
+        "WRS01现代窗口循环三先判后共享发布已修/旧WMB保持，504120实际转生入口和两场景16消费纳管；旧99表+04调用来源仍待证，不新建推测分派，全部callback/输入/数据资源、完整场景与owner寿命/ABI/SDK/PC53/RNG/画面运行未验",
+        "BVL01限定静态：旧面板公共503160完整231条735B/四页、13直接九目标/一初始化间接调用、22跳/5RET与97真实CALL定位（96已归父和一未归代码点）。LegacyUiRecord.cpp一个既有体两片段恢复入口x→width明确取样及关闭模式一次native非拥有action持样供判空/MarkDeath，原正常数值不变、不称运行错误；六整源其余五源/声明保持。原布局发布、共享99表/分类与action-dirty同owner、创建失败仍SE56/初始化、fresh槽与LTE0、五页/hint128B及同源提示、点击BYTE/两次关闭查询/各原音频调用和结果保。既有1061全部原格式/入向字段保、完整根及单adapted F处置追加；UIRUNTIME15→16、仅两限定I-S各实际来源，四任务仍open。99表+04有97非零行/97目标与唯一数据owner，当前xref/指定立即数不足证明外路由或运行间接用途，不新造97回调分派/第二表/owner或恢复暂停音频；43未归CRT幂/浮点链不擅换std::pow。原格式明文/RPLAN.24/执行限制及完整门禁保持，未闭全父/callee、数据生产/正常寿命/机器ABI链接运行或实际旧输入路由。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2813,7 +2817,8 @@
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
         "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
         "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
-        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state"
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
+        "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state"
       ]
     },
     {
@@ -48493,6 +48498,88 @@
       "observation": "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。",
       "expected": "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。",
       "actual": "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。"
+    },
+    {
+      "id": "E-LEGACY-PANEL-NATIVE-FUNC-UIRUNTIME-I-20261008",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVL01完整231条735B/四页、13直接九目标/一间接、22跳5RET/97真实入向；一既有体两个取样实修，真实表/其余父/完整外路由及运行未验。doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-legacy-panel-native-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-baseline",
+        "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-decision",
+        "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-acceptance",
+        "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state",
+        "doc/cg2d_legacy_panel_native_sampling_evidence.json",
+        "src/LegacyUiRecord.cpp",
+        "src/LegacyPanelRuntime.hpp",
+        "src/LegacyAudio.cpp",
+        "include/cg/LegacyAudio.hpp",
+        "src/CharacterSelectSceneDependencies.hpp",
+        "src/InputKeyDispatch.cpp",
+        "doc/ui_windows/shared_legacy_panels.md",
+        "doc/cg2d_ui_window_runtime.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_input_key_dispatch.md",
+        "doc/cg2d_crt_host_migration_spec.md",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+        "doc/cg2d_semantic_function_mappings.json",
+        "plan/cg2d_acceptance_registry.json"
+      ],
+      "differences": [
+        {
+          "description": "BVL01限定静态：旧面板公共503160完整231条735B/四页、13直接九目标/一初始化间接调用、22跳/5RET与97真实CALL定位（96已归父和一未归代码点）。LegacyUiRecord.cpp一个既有体两片段恢复入口x→width明确取样及关闭模式一次native非拥有action持样供判空/MarkDeath，原正常数值不变、不称运行错误；六整源其余五源/声明保持。原布局发布、共享99表/分类与action-dirty同owner、创建失败仍SE56/初始化、fresh槽与LTE0、五页/hint128B及同源提示、点击BYTE/两次关闭查询/各原音频调用和结果保。既有1061全部原格式/入向字段保、完整根及单adapted F处置追加；UIRUNTIME15→16、仅两限定I-S各实际来源，四任务仍open。99表+04有97非零行/97目标与唯一数据owner，当前xref/指定立即数不足证明外路由或运行间接用途，不新造97回调分派/第二表/owner或恢复暂停音频；43未归CRT幂/浮点链不擅换std::pow。原格式明文/RPLAN.24/执行限制及完整门禁保持，未闭全父/callee、数据生产/正常寿命/机器ABI链接运行或实际旧输入路由。",
+          "decision_ref": "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVL01限定静态：旧面板公共503160完整231条735B/四页、13直接九目标/一初始化间接调用、22跳/5RET与97真实CALL定位（96已归父和一未归代码点）。LegacyUiRecord.cpp一个既有体两片段恢复入口x→width明确取样及关闭模式一次native非拥有action持样供判空/MarkDeath，原正常数值不变、不称运行错误；六整源其余五源/声明保持。原布局发布、共享99表/分类与action-dirty同owner、创建失败仍SE56/初始化、fresh槽与LTE0、五页/hint128B及同源提示、点击BYTE/两次关闭查询/各原音频调用和结果保。既有1061全部原格式/入向字段保、完整根及单adapted F处置追加；UIRUNTIME15→16、仅两限定I-S各实际来源，四任务仍open。99表+04有97非零行/97目标与唯一数据owner，当前xref/指定立即数不足证明外路由或运行间接用途，不新造97回调分派/第二表/owner或恢复暂停音频；43未归CRT幂/浮点链不擅换std::pow。原格式明文/RPLAN.24/执行限制及完整门禁保持，未闭全父/callee、数据生产/正常寿命/机器ABI链接运行或实际旧输入路由。",
+      "expected": "BVL01限定静态：旧面板公共503160完整231条735B/四页、13直接九目标/一初始化间接调用、22跳/5RET与97真实CALL定位（96已归父和一未归代码点）。LegacyUiRecord.cpp一个既有体两片段恢复入口x→width明确取样及关闭模式一次native非拥有action持样供判空/MarkDeath，原正常数值不变、不称运行错误；六整源其余五源/声明保持。原布局发布、共享99表/分类与action-dirty同owner、创建失败仍SE56/初始化、fresh槽与LTE0、五页/hint128B及同源提示、点击BYTE/两次关闭查询/各原音频调用和结果保。既有1061全部原格式/入向字段保、完整根及单adapted F处置追加；UIRUNTIME15→16、仅两限定I-S各实际来源，四任务仍open。99表+04有97非零行/97目标与唯一数据owner，当前xref/指定立即数不足证明外路由或运行间接用途，不新造97回调分派/第二表/owner或恢复暂停音频；43未归CRT幂/浮点链不擅换std::pow。原格式明文/RPLAN.24/执行限制及完整门禁保持，未闭全父/callee、数据生产/正常寿命/机器ABI链接运行或实际旧输入路由。",
+      "actual": "BVL01限定静态：旧面板公共503160完整231条735B/四页、13直接九目标/一初始化间接调用、22跳/5RET与97真实CALL定位（96已归父和一未归代码点）。LegacyUiRecord.cpp一个既有体两片段恢复入口x→width明确取样及关闭模式一次native非拥有action持样供判空/MarkDeath，原正常数值不变、不称运行错误；六整源其余五源/声明保持。原布局发布、共享99表/分类与action-dirty同owner、创建失败仍SE56/初始化、fresh槽与LTE0、五页/hint128B及同源提示、点击BYTE/两次关闭查询/各原音频调用和结果保。既有1061全部原格式/入向字段保、完整根及单adapted F处置追加；UIRUNTIME15→16、仅两限定I-S各实际来源，四任务仍open。99表+04有97非零行/97目标与唯一数据owner，当前xref/指定立即数不足证明外路由或运行间接用途，不新造97回调分派/第二表/owner或恢复暂停音频；43未归CRT幂/浮点链不擅换std::pow。原格式明文/RPLAN.24/执行限制及完整门禁保持，未闭全父/callee、数据生产/正常寿命/机器ABI链接运行或实际旧输入路由。"
+    },
+    {
+      "id": "E-LEGACY-PANEL-NATIVE-FUNC-UIRUNTIME-S-20261008",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVL01完整231条735B/四页、13直接九目标/一间接、22跳5RET/97真实入向；一既有体两个取样实修，真实表/其余父/完整外路由及运行未验。doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-legacy-panel-native-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-baseline",
+        "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-decision",
+        "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-acceptance",
+        "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state",
+        "doc/cg2d_legacy_panel_native_sampling_evidence.json",
+        "src/LegacyUiRecord.cpp",
+        "src/LegacyPanelRuntime.hpp",
+        "src/LegacyAudio.cpp",
+        "include/cg/LegacyAudio.hpp",
+        "src/CharacterSelectSceneDependencies.hpp",
+        "src/InputKeyDispatch.cpp",
+        "doc/ui_windows/shared_legacy_panels.md",
+        "doc/cg2d_ui_window_runtime.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_input_key_dispatch.md",
+        "doc/cg2d_crt_host_migration_spec.md",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+        "doc/cg2d_semantic_function_mappings.json",
+        "plan/cg2d_acceptance_registry.json"
+      ],
+      "differences": [
+        {
+          "description": "BVL01限定静态：旧面板公共503160完整231条735B/四页、13直接九目标/一初始化间接调用、22跳/5RET与97真实CALL定位（96已归父和一未归代码点）。LegacyUiRecord.cpp一个既有体两片段恢复入口x→width明确取样及关闭模式一次native非拥有action持样供判空/MarkDeath，原正常数值不变、不称运行错误；六整源其余五源/声明保持。原布局发布、共享99表/分类与action-dirty同owner、创建失败仍SE56/初始化、fresh槽与LTE0、五页/hint128B及同源提示、点击BYTE/两次关闭查询/各原音频调用和结果保。既有1061全部原格式/入向字段保、完整根及单adapted F处置追加；UIRUNTIME15→16、仅两限定I-S各实际来源，四任务仍open。99表+04有97非零行/97目标与唯一数据owner，当前xref/指定立即数不足证明外路由或运行间接用途，不新造97回调分派/第二表/owner或恢复暂停音频；43未归CRT幂/浮点链不擅换std::pow。原格式明文/RPLAN.24/执行限制及完整门禁保持，未闭全父/callee、数据生产/正常寿命/机器ABI链接运行或实际旧输入路由。",
+          "decision_ref": "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVL01限定静态：旧面板公共503160完整231条735B/四页、13直接九目标/一初始化间接调用、22跳/5RET与97真实CALL定位（96已归父和一未归代码点）。LegacyUiRecord.cpp一个既有体两片段恢复入口x→width明确取样及关闭模式一次native非拥有action持样供判空/MarkDeath，原正常数值不变、不称运行错误；六整源其余五源/声明保持。原布局发布、共享99表/分类与action-dirty同owner、创建失败仍SE56/初始化、fresh槽与LTE0、五页/hint128B及同源提示、点击BYTE/两次关闭查询/各原音频调用和结果保。既有1061全部原格式/入向字段保、完整根及单adapted F处置追加；UIRUNTIME15→16、仅两限定I-S各实际来源，四任务仍open。99表+04有97非零行/97目标与唯一数据owner，当前xref/指定立即数不足证明外路由或运行间接用途，不新造97回调分派/第二表/owner或恢复暂停音频；43未归CRT幂/浮点链不擅换std::pow。原格式明文/RPLAN.24/执行限制及完整门禁保持，未闭全父/callee、数据生产/正常寿命/机器ABI链接运行或实际旧输入路由。",
+      "expected": "BVL01限定静态：旧面板公共503160完整231条735B/四页、13直接九目标/一初始化间接调用、22跳/5RET与97真实CALL定位（96已归父和一未归代码点）。LegacyUiRecord.cpp一个既有体两片段恢复入口x→width明确取样及关闭模式一次native非拥有action持样供判空/MarkDeath，原正常数值不变、不称运行错误；六整源其余五源/声明保持。原布局发布、共享99表/分类与action-dirty同owner、创建失败仍SE56/初始化、fresh槽与LTE0、五页/hint128B及同源提示、点击BYTE/两次关闭查询/各原音频调用和结果保。既有1061全部原格式/入向字段保、完整根及单adapted F处置追加；UIRUNTIME15→16、仅两限定I-S各实际来源，四任务仍open。99表+04有97非零行/97目标与唯一数据owner，当前xref/指定立即数不足证明外路由或运行间接用途，不新造97回调分派/第二表/owner或恢复暂停音频；43未归CRT幂/浮点链不擅换std::pow。原格式明文/RPLAN.24/执行限制及完整门禁保持，未闭全父/callee、数据生产/正常寿命/机器ABI链接运行或实际旧输入路由。",
+      "actual": "BVL01限定静态：旧面板公共503160完整231条735B/四页、13直接九目标/一初始化间接调用、22跳/5RET与97真实CALL定位（96已归父和一未归代码点）。LegacyUiRecord.cpp一个既有体两片段恢复入口x→width明确取样及关闭模式一次native非拥有action持样供判空/MarkDeath，原正常数值不变、不称运行错误；六整源其余五源/声明保持。原布局发布、共享99表/分类与action-dirty同owner、创建失败仍SE56/初始化、fresh槽与LTE0、五页/hint128B及同源提示、点击BYTE/两次关闭查询/各原音频调用和结果保。既有1061全部原格式/入向字段保、完整根及单adapted F处置追加；UIRUNTIME15→16、仅两限定I-S各实际来源，四任务仍open。99表+04有97非零行/97目标与唯一数据owner，当前xref/指定立即数不足证明外路由或运行间接用途，不新造97回调分派/第二表/owner或恢复暂停音频；43未归CRT幂/浮点链不擅换std::pow。原格式明文/RPLAN.24/执行限制及完整门禁保持，未闭全父/callee、数据生产/正常寿命/机器ABI链接运行或实际旧输入路由。"
     }
   ],
   "task_acceptance": [
@@ -49088,7 +49175,8 @@
         "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-source-state",
         "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state",
         "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state",
-        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state"
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
+        "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state"
       ]
     },
     {
@@ -49376,7 +49464,8 @@
         "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-source-state",
         "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-source-state",
         "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state",
-        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state"
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
+        "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state"
       ]
     },
     {
@@ -49670,7 +49759,8 @@
         "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-source-state",
         "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state",
         "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state",
-        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state"
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
+        "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state"
       ]
     },
     {
@@ -49990,7 +50080,8 @@
         "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
         "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
-        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state"
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
+        "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state"
       ]
     },
     {
@@ -61138,6 +61229,19 @@
         "doc/cg2d_login_deletion_send_chain_baseline_evidence.json"
       ],
       "boundary": "BVK01完整49条130B发送包装正确保持：路径首BYTE非零才a+打开、成功才->%s换行日志并关闭；失败继续。日志后持样观察回调一次/非空调用方向1和原buffer，再strlen取W32长度、fresh共享W32容量形成原正常3N门槛；L<3N时LF→NUL→长度+1，否则不改。最后不判空经callback(socket,buffer,L)透传S32结果，现InitializeNetworkRuntime实际绑定D04明文Sub403E50，516B60空参缺省原NULL_FUNC合法零返回保。仅沿既定CRT/宿主socket/D04适配，零新源码/I/加解密/格式；84 CALL/83父只定位、本链两caller原体覆盖，不外推全部父/寿命/ABI或真实互通。"
+    },
+    {
+      "inventory_id": "F:00103160",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-baseline",
+        "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-decision",
+        "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-acceptance",
+        "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state",
+        "doc/cg2d_legacy_panel_native_sampling_evidence.json"
+      ],
+      "boundary": "BVL01公共旧面板完整原根及限定取样实修：入口明确x→width、关闭一次native非拥有action供判空/MarkDeath后清共享槽。原按钮发布/id/查表、same action-dirty owner、创建失败仍SE56/初始化、fresh槽/LTE0、五页/原hint128B及%s同源提示、BYTE点击/两次关闭查询/音频调用和0/1/2结果保持。原99表+04/真实外路由不猜、音频暂停不解除，完整所有父-callee/生产/正常寿命/机器ABI链接运行未验。"
     }
   ],
   "auxiliary_dispositions": [

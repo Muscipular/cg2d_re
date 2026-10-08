@@ -236,3 +236,13 @@ NewYobi分配与517880后续链不因登记两个工厂自动验收。不得补�
 [真实现代窗口路径](../cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state)继续504120→473F80的原类型/参数/返回；现有SceneState两真实场景各8调用表达式保持，本次只纳管入口身份及该消费事实。473F80三判定先于对应共享发布已修、原WMB/callback和共享复读不动；不将现代窗口回调解释成旧99表handler来源。
 
 [原16普通call/1尾跳与126条453B](../cg2d_window_routing_sampling_evidence.json)只本组局部静态。原57C368访问没有已证+04分派来源的有界结论保持，后续须具体取址/调用证据；原全部处理器本体/未决数据仍在范围，不能用新轮询、全局不可达或排除解决。完整旧路由/输入/场景和资源owner/SDK/ABI/运行仍未闭。
+
+## BVL01公共面板入口及关闭对象取样（2026-10-08）
+
+[BVL01完整原基线](../cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-baseline)、[实施决定](../cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-decision)与[原证](../cg2d_legacy_panel_native_sampling_evidence.json)：503160完整231条735B/四页，13直接九目标/一初始化间接调用、22跳五RET，97真实CALL只定位96已归父/一未归点。
+
+LegacyUiRecord.cpp一个既有体两个片段：入口initialX→initialWidth→right明确原50316F/503172取样；opened0以一次native非拥有action样本供判空/MarkDeath，再清唯一共享槽。正常旧值/分支结果未证明错误，原按钮发布和id/查表、dirty清理/返回2、非零创建失败仍SE56与初始化/fresh槽LTE0、五页与hint后读/点击BYTE、两次关闭查询及所有音频调用/返回保持，六整源仅这两片段变化。
+
+99原表+04的97非零行/97目标与原99项owner已证，xref和指定立即数不足证明外层间接用途；本公共入口不调+04，不补造回调表或绕过真实旧输入来源。
+
+1061原格式/%s/128B及97入向等全部旧字段保，新增单adapted F处置/公共UI流15→16和两限定I-S，各19真实来源；U04/U11/V03/R04仍open。预期F914/E1090，语义1766/有效1759、合同1876（50.98%）及R7已审467余2594保持。所有父/callee、生产和正常owner-alias寿命、旧输入外路由/机器ABI链接/运行及R8未验，音频暂停/原格式明文/RPLAN.24和完整门禁保持。

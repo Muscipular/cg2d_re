@@ -237,3 +237,11 @@ git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show 810c6f75:cg2d_re
 既有X命中短路/跳过Y读取、阶段1回调后重读及阶段2入口限定、type4 X后Y、入口element借用与按钮低W8映射可追。
 三根源码及共享helper保持，不新增旧表外层或输入框架；两void根只针对当前caller弃返回，不假设原EAX固定值或全ABI等价。
 这只是基线/登记收口，全上游/父/间接目标、owner/alias、完整输入/寿命、旧路由及运行仍未验收。
+
+## BVL01公共旧面板原生取样及表用途边界（2026-10-08）
+
+[BVL01完整原基线](cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-baseline)、[实施决定](cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-decision)与[原证](cg2d_legacy_panel_native_sampling_evidence.json)：503160完整231条735B/四页，13直接九目标/一初始化间接调用、22跳五RET，97真实CALL只定位96已归父/一未归点。
+
+一cpp两片段恢复入口x→width、关闭一次非拥有action供判断/清理，原normal数值及全部公共页签/提示/关闭等余体保持。共享99表仍借LegacyAudio唯一owner的action/dirty，模块名称不作为新音频恢复授权；现不写音频源/头，不加原+04回调分派或新表。43个未归属幂/浮点入口保既有专用x87裁决，无直接入向不能当不可达/宿主已迁移证明。
+
+1061原格式/%s/128B及97入向等全部旧字段保，新增单adapted F处置/公共UI流15→16和两限定I-S，各19真实来源；U04/U11/V03/R04仍open。预期F914/E1090，语义1766/有效1759、合同1876（50.98%）及R7已审467余2594保持。所有父/callee、生产和正常owner-alias寿命、旧输入外路由/机器ABI链接/运行及R8未验，音频暂停/原格式明文/RPLAN.24和完整门禁保持。

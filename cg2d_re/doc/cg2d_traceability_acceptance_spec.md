@@ -1942,3 +1942,11 @@ G02/R04/V04仅current/引用仍open，完整机器/派生只具名差集、成�
 [验收要求](cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-acceptance)/[源态](cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state)限定四根正常合同/本链数据接线及当前文档纠正，八整源保持；LOGIN/CHARACTER/NETWORK各一S与21来源，源码0改动无新I。四任务进展/来源同步但继续open，原成员闭包及叶/global门禁保持。
 
 151/752已有原新更新、1764/1765补缺失组包映射，四F处置/三域仅S各21来源、无新I；预期语义1766/有效1759、文档1876（50.98%）、F913/E1088、LOGIN15/CHARACTER29/NETWORK67，R7已审467余2594保持。原格式明文/合法NULL_FUNC缺省、排除和执行限制保持；全83发送父/其它callee、正常owner-alias寿命、完整登录/删除往返、机器ABI链接/运行与R8未验，完整门禁不解除。
+
+## BVL01公共旧面板限定实现验收（2026-10-08）
+
+[BVL01完整原基线](cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-baseline)、[实施决定](cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-decision)与[原证](cg2d_legacy_panel_native_sampling_evidence.json)：503160完整231条735B/四页，13直接九目标/一初始化间接调用、22跳五RET，97真实CALL只定位96已归父/一未归点。
+
+[验收](cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-acceptance)/[源态](cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state)仅覆盖两取样片段、完整共享入口与原表用途观察；六整源其余内容/暂停音频源头保持。公共UI流I只两真实源码取样，S只本根/现同owner等合同，不称全97调用处、真实旧输入分派或一般pow/CRT43迁移完成。
+
+1061原格式/%s/128B及97入向等全部旧字段保，新增单adapted F处置/公共UI流15→16和两限定I-S，各19真实来源；U04/U11/V03/R04仍open。预期F914/E1090，语义1766/有效1759、合同1876（50.98%）及R7已审467余2594保持。所有父/callee、生产和正常owner-alias寿命、旧输入外路由/机器ABI链接/运行及R8未验，音频暂停/原格式明文/RPLAN.24和完整门禁保持。

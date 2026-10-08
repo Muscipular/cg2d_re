@@ -3913,3 +3913,11 @@ LOOP174→175/RENDER75→76/MAP128→129/BATTLE263→264、八限定I-S各28来�
 151/F:00108AF0启动及752/F:00117480包装已有映射更新，旧status/boundary具名留存；新增1764/F:00112B00 emRV和1765/F:00112AB0 Godf，来源为既有cpp/hpp和各唯一请求启动父。四F分别按平台计时/CRT宿主adapted与两正确组包equivalent登记，正文保持，不冒充新增实现或所有83父完成。
 
 151/752已有原新更新、1764/1765补缺失组包映射，四F处置/三域仅S各21来源、无新I；预期语义1766/有效1759、文档1876（50.98%）、F913/E1088、LOGIN15/CHARACTER29/NETWORK67，R7已审467余2594保持。原格式明文/合法NULL_FUNC缺省、排除和执行限制保持；全83发送父/其它callee、正常owner-alias寿命、完整登录/删除往返、机器ABI链接/运行与R8未验，完整门禁不解除。
+
+## BVL01已有1061完整根与两取样实修（2026-10-08）
+
+[BVL01完整原基线](cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-baseline)、[实施决定](cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-decision)与[原证](cg2d_legacy_panel_native_sampling_evidence.json)：503160完整231条735B/四页，13直接九目标/一初始化间接调用、22跳五RET，97真实CALL只定位96已归父/一未归点。
+
+已有1061/F:00103160更新完整原证/当前状态与主源关系，原business格式、调用、incoming列表等字段原样保；旧状态/边界/验证级别具名留存。仅新增该原根adapted处置及FUNC-UIRUNTIME一真实成员/两限定I-S，不新增语义或其它97父/99页通过身份。
+
+1061原格式/%s/128B及97入向等全部旧字段保，新增单adapted F处置/公共UI流15→16和两限定I-S，各19真实来源；U04/U11/V03/R04仍open。预期F914/E1090，语义1766/有效1759、合同1876（50.98%）及R7已审467余2594保持。所有父/callee、生产和正常owner-alias寿命、旧输入外路由/机器ABI链接/运行及R8未验，音频暂停/原格式明文/RPLAN.24和完整门禁保持。

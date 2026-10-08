@@ -213854,6 +213854,102 @@
       ],
       "boundary": "两表容量/写序与原常量/比较/向零S64低W32保持，当前CW不强设PC；完整147条502B父与15条39B截断有来源。CPP其它正文不改；仅该父与原已知初始化/数值接线，不代全上游CW/全消费者/机器ABI/声音/正常寿命或成员枚举，F13B498其余CPH01 host处置不变。",
       "verification_level": "原完整两根/七常量及新源116条投影/十展开转换限定静态；本次Debug编译链接0错误/0增量警告、符号部署，未执行算法或客户端"
+    },
+    {
+      "original_entry": "0x52C9E0",
+      "inventory_id": "F:0012C9E0",
+      "original_role": "250..299空间音效请求的距离/音量/计数及双表索引更新",
+      "original_end_exclusive": "0x52cb43",
+      "instruction_count": 107,
+      "original_byte_count": 355,
+      "status": "CAB18局部距离/商已恢复真实x87/S64低W32；既有父源码及同源表接线保持，当前Debug已链接部署，完整数值/机器状态/声音/正常寿命未验",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "cg::audio::Sub_52C9E0"
+          ],
+          "relationship": "250..299空间音效请求的距离/音量/计数及双表索引更新，本步只替局部数学段，其余父正文保持"
+        },
+        {
+          "path": "src/platform/LegacyAudioMath.asm",
+          "symbols": [
+            "Cg2dComputeSpatialSoundX87"
+          ],
+          "relationship": "本步数值段24条：W32偏移320/240后FILD/x87平方和/FSQRT，S64向零截断取低W32，原SHL/IMUL/SAR符号修正得到/106。250..299门槛、请求id-250/定义id-249、较近距离门禁、仅新且channel=-1写seNo、距离/音量/X/计数写序保持；不追加下界/异常保护，未验整父机器状态/全部数值/声音/失败/正常寿命。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_audio_update.md#spatial-sound-x87-decision",
+        "doc/cg2d_audio_update.md#spatial-sound-x87-source-state",
+        "doc/cg2d_spatial_sound_x87_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#spatial-sound-x87-source-state",
+        "doc/cg2d_build_acceptance_spec.md#spatial-sound-x87-debug-build"
+      ],
+      "boundary": "本步数值段24条：W32偏移320/240后FILD/x87平方和/FSQRT，S64向零截断取低W32，原SHL/IMUL/SAR符号修正得到/106。250..299门槛、请求id-250/定义id-249、较近距离门禁、仅新且channel=-1写seNo、距离/音量/X/计数写序保持；不追加下界/异常保护，未验整父机器状态/全部数值/声音/失败/正常寿命。",
+      "verification_level": "完整父及当前直接入向只读取证；局部数值逐行静态投影和两源差异保持，当前Debug链接/MAP/部署通过。未运行客户端/算法、测试或摘要，不代整父ABI或音频完整验收。",
+      "native_provider": {
+        "source": "src/LegacyAudio.cpp",
+        "symbol": "cg::audio::Sub_52C9E0",
+        "source_body_implemented": true,
+        "client_link_verified": true,
+        "runtime_verified": false
+      },
+      "spatial_x87_connection": {
+        "step": "CAB18",
+        "source_snapshot": "cg2d-re-spatial-sound-x87-20261009",
+        "decision_ref": "doc/cg2d_audio_update.md#spatial-sound-x87-decision",
+        "helper": "Cg2dComputeSpatialSoundX87",
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x52CD60",
+      "inventory_id": "F:0012CD60",
+      "original_role": "同一50项空间记录扫描、距离商门禁及音效请求生产",
+      "original_end_exclusive": "0x52cddb",
+      "instruction_count": 48,
+      "original_byte_count": 123,
+      "status": "CAB18局部距离/商已恢复真实x87/S64低W32；既有父源码及同源表接线保持，当前Debug已链接部署，完整数值/机器状态/声音/正常寿命未验",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "cg::audio::Sub_52CD60"
+          ],
+          "relationship": "同一50项空间记录扫描、距离商门禁及音效请求生产，本步只替局部数学段，其余父正文保持"
+        },
+        {
+          "path": "src/platform/LegacyAudioMath.asm",
+          "symbols": [
+            "Cg2dComputeSpatialScanQuotientX87"
+          ],
+          "relationship": "本步数值段17条：先两W32 IMUL/ADD，再FILD有符号和/FSQRT和S64向零截断低W32及原/106商。原-1跳过、同源+8/+C读取、首个商不在[20,127)即返回、id+249调用52C9E0后+0=1及50项表保持；不改continue/浮点平方或追加异常保护，未验整父机器状态/数值/声音/失败/正常寿命。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_audio_update.md#spatial-sound-x87-decision",
+        "doc/cg2d_audio_update.md#spatial-sound-x87-source-state",
+        "doc/cg2d_spatial_sound_x87_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#spatial-sound-x87-source-state",
+        "doc/cg2d_build_acceptance_spec.md#spatial-sound-x87-debug-build"
+      ],
+      "boundary": "本步数值段17条：先两W32 IMUL/ADD，再FILD有符号和/FSQRT和S64向零截断低W32及原/106商。原-1跳过、同源+8/+C读取、首个商不在[20,127)即返回、id+249调用52C9E0后+0=1及50项表保持；不改continue/浮点平方或追加异常保护，未验整父机器状态/数值/声音/失败/正常寿命。",
+      "verification_level": "完整父及当前直接入向只读取证；局部数值逐行静态投影和两源差异保持，当前Debug链接/MAP/部署通过。未运行客户端/算法、测试或摘要，不代整父ABI或音频完整验收。",
+      "native_provider": {
+        "source": "src/LegacyAudio.cpp",
+        "symbol": "cg::audio::Sub_52CD60",
+        "source_body_implemented": true,
+        "client_link_verified": true,
+        "runtime_verified": false
+      },
+      "spatial_x87_connection": {
+        "step": "CAB18",
+        "source_snapshot": "cg2d-re-spatial-sound-x87-20261009",
+        "decision_ref": "doc/cg2d_audio_update.md#spatial-sound-x87-decision",
+        "helper": "Cg2dComputeSpatialScanQuotientX87",
+        "runtime_verified": false
+      }
     }
   ]
 }

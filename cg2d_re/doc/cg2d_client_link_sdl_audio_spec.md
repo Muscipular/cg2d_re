@@ -205,3 +205,10 @@ LegacyAudioMath.asm在原普通表数值段之外追加Cg2dInitializeFixedMusicV
 同一CAA01音频必要Debug增量构建返回0，0错误/0增量警告，未重新配置；MAP同时存在普通表/固定表两个实际接口，客户端仍无LegacyMidiSynth/MidiToWav。8024064B客户端已更新用户原游戏目录，旧同长版备份before-fixed-volume-x87-20261009；只核复制成功/长度，不做摘要或内容比对，旧窗口警告未因增量输出0而关闭。离线工具和固定WAV资产未改，工具最近构建仍CAB15。
 
 只更新已有454C30语义/F来源与三限定I/W/S，语义/处置/成员和R7数量不增加，AUDIO33仍未闭枚举。P11/P16/V05/V02完整门禁保持，0槽/全表、实际音量/CW上游/机器状态/设备/失败/通知/循环/正常寿命与IP2登录仍待。未运行客户端/算法、测试、重生成WAV或摘要，快照cg2d-re-fixed-volume-x87-20261009。
+
+<a id="spatial-sound-x87-source-state"></a>
+## CAB18 空间音效距离的当前接线（2026-10-09）
+
+按[音频局部方案](cg2d_audio_update.md#spatial-sound-x87-decision)，52C9E0请求和52CD60扫描各交既有平台ASM的真实数值接口，原浮点平方/整数平方两路径分别保持，x87/向零S64低W32及/106商已恢复；24/17条投影与完整两父155条478B见[记录](cg2d_spatial_sound_x87_evidence.json)。两原表索引/门槛、较近请求更新、扫描首次范围外立即返回与调用后标记，以及资源/SDL播放/其他CPP全文保持，不新增CRT通用体、表owner、CMake项或依赖。
+
+当前Debug链接0错误/0增量警告、两接口和原父实际符号可追，游戏EXE已更新并备份before-spatial-sound-x87-20261009；同长8024064B只说明实际长度，未核摘要/内容。新增两个原语义/F及已知音频成员，AUDIO35仍不是完整分母，三限定I/W/S不关闭V05/V02/R01；52CDE0与完整数值/CW/机器状态/声音/失败/正常寿命、旧外层/完整枚举和IP2真实登录继续。没有运行客户端/算法、测试或重生成WAV，离线工具最近通过仍CAB15，快照cg2d-re-spatial-sound-x87-20261009。

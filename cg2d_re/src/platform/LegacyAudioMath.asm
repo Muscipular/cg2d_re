@@ -28,6 +28,8 @@ ENDM
 .code
 PUBLIC Cg2dInitializeSoundTablesX87
 PUBLIC Cg2dInitializeFixedMusicVolumeX87
+PUBLIC Cg2dComputeSpatialSoundX87
+PUBLIC Cg2dComputeSpatialScanQuotientX87
 
 ; 原52BA38..52BBC8，RCX借128*S32声像表，RDX借128*S32音量表。
 ; 连续x87中间值/原CW、奇数写点和端点覆盖序保持，不调用F64宿主对数。
@@ -231,5 +233,79 @@ FixedMusicVolumeWrite:
     pop rsi
     ret
 Cg2dInitializeFixedMusicVolumeX87 ENDP
+
+; 原52CA07..52CA4E：RCX/RDX为S32坐标，R8同步借本地S32距离。
+; 浮点平方在FILD之后；返回原W32左移及有符号常数除法的S32商。
+Cg2dComputeSpatialSoundX87 PROC FRAME
+    push rsi
+    .pushreg rsi
+    sub rsp, 64
+    .allocstack 64
+    .endprolog
+    mov r9d, ecx
+    mov ecx, edx
+
+    add ecx, -0F0h
+    lea eax, [r9-140h]
+    mov dword ptr [rsp+32], eax
+    fild dword ptr [rsp+32]
+    mov dword ptr [rsp+32], ecx
+    fild dword ptr [rsp+32]
+    fld st(0)
+    fmul st(0), st(1)
+    fld st(2)
+    fmul st(0), st(3)
+    faddp st(1), st(0)
+    fsqrt
+    TruncateSoundIntermediate
+    mov esi, eax
+    mov eax, 4D4873EDh
+    mov ecx, esi
+    shl ecx, 4
+    imul ecx
+    fstp st(0)
+    fstp st(0)
+    sar edx, 5
+    mov eax, edx
+    shr eax, 1Fh
+    add edx, eax
+
+    mov dword ptr [r8], esi
+    mov eax, edx
+    add rsp, 64
+    pop rsi
+    ret
+Cg2dComputeSpatialSoundX87 ENDP
+
+; 原52CD77..52CDA6：RCX/RDX为已取样S32坐标；先W32平方和，再FILD。
+; 仅返回S32距离商，扫描阈值/原请求调用及标记仍由既有CPP消费。
+Cg2dComputeSpatialScanQuotientX87 PROC FRAME
+    sub rsp, 72
+    .allocstack 72
+    .endprolog
+    mov r9d, ecx
+
+    mov eax, edx
+    mov ecx, r9d
+    imul eax, edx
+    imul ecx, r9d
+    add eax, ecx
+    mov dword ptr [rsp+32], eax
+    fild dword ptr [rsp+32]
+    fsqrt
+    TruncateSoundIntermediate
+    mov ecx, eax
+    mov eax, 4D4873EDh
+    shl ecx, 4
+    imul ecx
+    sar edx, 5
+    mov eax, edx
+    shr eax, 1Fh
+    add edx, eax
+
+    mov eax, edx
+    add rsp, 72
+    ret
+Cg2dComputeSpatialScanQuotientX87 ENDP
 
 END

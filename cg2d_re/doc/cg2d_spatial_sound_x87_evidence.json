@@ -1,0 +1,975 @@
+{
+  "schema_version": 1,
+  "step": "CAB18",
+  "recorded_on": "2026-10-09",
+  "source_snapshot": "cg2d-re-spatial-sound-x87-20261009",
+  "source_base_commit": "afd55ec4",
+  "decision_ref": "doc/cg2d_audio_update.md#spatial-sound-x87-decision",
+  "authorization": "沿用户继续完善音频/整体SPEC开发及AGENTS第8条工程委托、第12条CAA01相关必要Debug构建例外；没有恢复客户端/算法运行、测试或摘要授权。",
+  "verification_level": "原完整两根155条478B及当前会话直接入向；两个数学段24/17条静态逐行投影，既有CW/S64宏及两CPP片段之外保持；当前Debug编译/链接及限定实际符号/部署。未执行算法、客户端或试听，不代整根机器状态/数值输出、声音/失败/正常寿命或整体SPEC。",
+  "original_functions": [
+    {
+      "start": "0x52c9e0",
+      "end": "0x52cb43",
+      "name": "sub_52C9E0",
+      "bytes": "5356578b7c241081fffa0000000f8c4a01000081ff2b0100000f8f3e0100008b5c24148b4c241881c110ffffff8d83c0feffff89442410db442410894c2410db442410d9c0d8c9d9c2d8cbdec1d9fae864ea00008bf0b8ed73484d8bcec1e104f7e9ddd8ddd8c1fa058bc2c1e81f03d083fa7f0f8de40000008d8706ffffff8d0cc08d7801c1e1028b81c0c9040185c075668d047f55c1e005bd7f00000089b1c4c904018bb0bce703012bea0faff5b8090402815df7ee03d6c1fa068bc2c1e81f03d0b8898888888bf20faf35c8d35800f7ee03d6c1fa038bc2c1e81f03d08991c8c904018b81b8c9040183f8ff756189b9bcc90401eb5939b1c4c904017e578d047fbf7f000000c1e00589b1c4c904012bfa8bb0bce70301b8090402810faff7f7ee03d6c1fa068bc2c1e81f03d0b8898888888bf20faf35c8d35800f7ee03d6c1fa038bc2c1e81f03d08991c8c904018999d0c90401ff81c0c904015f5e33c05bc3",
+      "instructions": [
+        {
+          "ea": "0x52c9e0",
+          "asm": "push    ebx"
+        },
+        {
+          "ea": "0x52c9e1",
+          "asm": "push    esi"
+        },
+        {
+          "ea": "0x52c9e2",
+          "asm": "push    edi"
+        },
+        {
+          "ea": "0x52c9e3",
+          "asm": "mov     edi, [esp+0Ch+arg_0]"
+        },
+        {
+          "ea": "0x52c9e7",
+          "asm": "cmp     edi, 0FAh"
+        },
+        {
+          "ea": "0x52c9ed",
+          "asm": "jl      loc_52CB3D"
+        },
+        {
+          "ea": "0x52c9f3",
+          "asm": "cmp     edi, 12Bh"
+        },
+        {
+          "ea": "0x52c9f9",
+          "asm": "jg      loc_52CB3D"
+        },
+        {
+          "ea": "0x52c9ff",
+          "asm": "mov     ebx, [esp+0Ch+arg_4]"
+        },
+        {
+          "ea": "0x52ca03",
+          "asm": "mov     ecx, [esp+0Ch+arg_8]"
+        },
+        {
+          "ea": "0x52ca07",
+          "asm": "add     ecx, 0FFFFFF10h"
+        },
+        {
+          "ea": "0x52ca0d",
+          "asm": "lea     eax, [ebx-140h]"
+        },
+        {
+          "ea": "0x52ca13",
+          "asm": "mov     [esp+0Ch+arg_0], eax"
+        },
+        {
+          "ea": "0x52ca17",
+          "asm": "fild    [esp+0Ch+arg_0]"
+        },
+        {
+          "ea": "0x52ca1b",
+          "asm": "mov     [esp+0Ch+arg_0], ecx"
+        },
+        {
+          "ea": "0x52ca1f",
+          "asm": "fild    [esp+0Ch+arg_0]"
+        },
+        {
+          "ea": "0x52ca23",
+          "asm": "fld     st"
+        },
+        {
+          "ea": "0x52ca25",
+          "asm": "fmul    st, st(1)"
+        },
+        {
+          "ea": "0x52ca27",
+          "asm": "fld     st(2)"
+        },
+        {
+          "ea": "0x52ca29",
+          "asm": "fmul    st, st(3)"
+        },
+        {
+          "ea": "0x52ca2b",
+          "asm": "faddp   st(1), st"
+        },
+        {
+          "ea": "0x52ca2d",
+          "asm": "fsqrt"
+        },
+        {
+          "ea": "0x52ca2f",
+          "asm": "call    __ftol"
+        },
+        {
+          "ea": "0x52ca34",
+          "asm": "mov     esi, eax"
+        },
+        {
+          "ea": "0x52ca36",
+          "asm": "mov     eax, 4D4873EDh"
+        },
+        {
+          "ea": "0x52ca3b",
+          "asm": "mov     ecx, esi"
+        },
+        {
+          "ea": "0x52ca3d",
+          "asm": "shl     ecx, 4"
+        },
+        {
+          "ea": "0x52ca40",
+          "asm": "imul    ecx"
+        },
+        {
+          "ea": "0x52ca42",
+          "asm": "fstp    st"
+        },
+        {
+          "ea": "0x52ca44",
+          "asm": "fstp    st"
+        },
+        {
+          "ea": "0x52ca46",
+          "asm": "sar     edx, 5"
+        },
+        {
+          "ea": "0x52ca49",
+          "asm": "mov     eax, edx"
+        },
+        {
+          "ea": "0x52ca4b",
+          "asm": "shr     eax, 1Fh"
+        },
+        {
+          "ea": "0x52ca4e",
+          "asm": "add     edx, eax"
+        },
+        {
+          "ea": "0x52ca50",
+          "asm": "cmp     edx, 7Fh"
+        },
+        {
+          "ea": "0x52ca53",
+          "asm": "jge     loc_52CB3D"
+        },
+        {
+          "ea": "0x52ca59",
+          "asm": "lea     eax, [edi-0FAh]"
+        },
+        {
+          "ea": "0x52ca5f",
+          "asm": "lea     ecx, [eax+eax*8]"
+        },
+        {
+          "ea": "0x52ca62",
+          "asm": "lea     edi, [eax+1]"
+        },
+        {
+          "ea": "0x52ca65",
+          "asm": "shl     ecx, 2"
+        },
+        {
+          "ea": "0x52ca68",
+          "asm": "mov     eax, stru_104C9B8.requestCount[ecx]"
+        },
+        {
+          "ea": "0x52ca6e",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x52ca70",
+          "asm": "jnz     short loc_52CAD8"
+        },
+        {
+          "ea": "0x52ca72",
+          "asm": "lea     eax, [edi+edi*2]"
+        },
+        {
+          "ea": "0x52ca75",
+          "asm": "push    ebp"
+        },
+        {
+          "ea": "0x52ca76",
+          "asm": "shl     eax, 5"
+        },
+        {
+          "ea": "0x52ca79",
+          "asm": "mov     ebp, 7Fh"
+        },
+        {
+          "ea": "0x52ca7e",
+          "asm": "mov     stru_104C9B8.distanceOrAtten[ecx], esi"
+        },
+        {
+          "ea": "0x52ca84",
+          "asm": "mov     esi, gSeList.volume[eax]"
+        },
+        {
+          "ea": "0x52ca8a",
+          "asm": "sub     ebp, edx"
+        },
+        {
+          "ea": "0x52ca8c",
+          "asm": "imul    esi, ebp"
+        },
+        {
+          "ea": "0x52ca8f",
+          "asm": "mov     eax, 81020409h"
+        },
+        {
+          "ea": "0x52ca94",
+          "asm": "pop     ebp"
+        },
+        {
+          "ea": "0x52ca95",
+          "asm": "imul    esi"
+        },
+        {
+          "ea": "0x52ca97",
+          "asm": "add     edx, esi"
+        },
+        {
+          "ea": "0x52ca99",
+          "asm": "sar     edx, 6"
+        },
+        {
+          "ea": "0x52ca9c",
+          "asm": "mov     eax, edx"
+        },
+        {
+          "ea": "0x52ca9e",
+          "asm": "shr     eax, 1Fh"
+        },
+        {
+          "ea": "0x52caa1",
+          "asm": "add     edx, eax"
+        },
+        {
+          "ea": "0x52caa3",
+          "asm": "mov     eax, 88888889h"
+        },
+        {
+          "ea": "0x52caa8",
+          "asm": "mov     esi, edx"
+        },
+        {
+          "ea": "0x52caaa",
+          "asm": "imul    esi, dword_58D3C8"
+        },
+        {
+          "ea": "0x52cab1",
+          "asm": "imul    esi"
+        },
+        {
+          "ea": "0x52cab3",
+          "asm": "add     edx, esi"
+        },
+        {
+          "ea": "0x52cab5",
+          "asm": "sar     edx, 3"
+        },
+        {
+          "ea": "0x52cab8",
+          "asm": "mov     eax, edx"
+        },
+        {
+          "ea": "0x52caba",
+          "asm": "shr     eax, 1Fh"
+        },
+        {
+          "ea": "0x52cabd",
+          "asm": "add     edx, eax"
+        },
+        {
+          "ea": "0x52cabf",
+          "asm": "mov     stru_104C9B8.targetVolumeIndex[ecx], edx"
+        },
+        {
+          "ea": "0x52cac5",
+          "asm": "mov     eax, dword ptr stru_104C9B8.channelIndex[ecx]"
+        },
+        {
+          "ea": "0x52cacb",
+          "asm": "cmp     eax, 0FFFFFFFFh"
+        },
+        {
+          "ea": "0x52cace",
+          "asm": "jnz     short loc_52CB31"
+        },
+        {
+          "ea": "0x52cad0",
+          "asm": "mov     stru_104C9B8.seNo[ecx], edi"
+        },
+        {
+          "ea": "0x52cad6",
+          "asm": "jmp     short loc_52CB31"
+        },
+        {
+          "ea": "0x52cad8",
+          "asm": "cmp     stru_104C9B8.distanceOrAtten[ecx], esi"
+        },
+        {
+          "ea": "0x52cade",
+          "asm": "jle     short loc_52CB37"
+        },
+        {
+          "ea": "0x52cae0",
+          "asm": "lea     eax, [edi+edi*2]"
+        },
+        {
+          "ea": "0x52cae3",
+          "asm": "mov     edi, 7Fh"
+        },
+        {
+          "ea": "0x52cae8",
+          "asm": "shl     eax, 5"
+        },
+        {
+          "ea": "0x52caeb",
+          "asm": "mov     stru_104C9B8.distanceOrAtten[ecx], esi"
+        },
+        {
+          "ea": "0x52caf1",
+          "asm": "sub     edi, edx"
+        },
+        {
+          "ea": "0x52caf3",
+          "asm": "mov     esi, gSeList.volume[eax]"
+        },
+        {
+          "ea": "0x52caf9",
+          "asm": "mov     eax, 81020409h"
+        },
+        {
+          "ea": "0x52cafe",
+          "asm": "imul    esi, edi"
+        },
+        {
+          "ea": "0x52cb01",
+          "asm": "imul    esi"
+        },
+        {
+          "ea": "0x52cb03",
+          "asm": "add     edx, esi"
+        },
+        {
+          "ea": "0x52cb05",
+          "asm": "sar     edx, 6"
+        },
+        {
+          "ea": "0x52cb08",
+          "asm": "mov     eax, edx"
+        },
+        {
+          "ea": "0x52cb0a",
+          "asm": "shr     eax, 1Fh"
+        },
+        {
+          "ea": "0x52cb0d",
+          "asm": "add     edx, eax"
+        },
+        {
+          "ea": "0x52cb0f",
+          "asm": "mov     eax, 88888889h"
+        },
+        {
+          "ea": "0x52cb14",
+          "asm": "mov     esi, edx"
+        },
+        {
+          "ea": "0x52cb16",
+          "asm": "imul    esi, dword_58D3C8"
+        },
+        {
+          "ea": "0x52cb1d",
+          "asm": "imul    esi"
+        },
+        {
+          "ea": "0x52cb1f",
+          "asm": "add     edx, esi"
+        },
+        {
+          "ea": "0x52cb21",
+          "asm": "sar     edx, 3"
+        },
+        {
+          "ea": "0x52cb24",
+          "asm": "mov     eax, edx"
+        },
+        {
+          "ea": "0x52cb26",
+          "asm": "shr     eax, 1Fh"
+        },
+        {
+          "ea": "0x52cb29",
+          "asm": "add     edx, eax"
+        },
+        {
+          "ea": "0x52cb2b",
+          "asm": "mov     stru_104C9B8.targetVolumeIndex[ecx], edx"
+        },
+        {
+          "ea": "0x52cb31",
+          "asm": "mov     stru_104C9B8.screenX[ecx], ebx"
+        },
+        {
+          "ea": "0x52cb37",
+          "asm": "inc     stru_104C9B8.requestCount[ecx]"
+        },
+        {
+          "ea": "0x52cb3d",
+          "asm": "pop     edi"
+        },
+        {
+          "ea": "0x52cb3e",
+          "asm": "pop     esi"
+        },
+        {
+          "ea": "0x52cb3f",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "ea": "0x52cb41",
+          "asm": "pop     ebx"
+        },
+        {
+          "ea": "0x52cb42",
+          "asm": "retn"
+        }
+      ],
+      "callers": [
+        {
+          "ea": "0x46d6f1",
+          "type": 17,
+          "parent_start": "0x46cf60",
+          "asm": "call    sub_52C9E0"
+        },
+        {
+          "ea": "0x46d8b8",
+          "type": 17,
+          "parent_start": "0x46cf60",
+          "asm": "call    sub_52C9E0"
+        },
+        {
+          "ea": "0x52cdbb",
+          "type": 17,
+          "parent_start": "0x52cd60",
+          "asm": "call    sub_52C9E0"
+        }
+      ],
+      "inventory_id": "F:0012C9E0",
+      "instruction_count": 107,
+      "byte_count": 355,
+      "scope": "完整父取证；本步实施仅其中距离/商数值段与既有实际接线"
+    },
+    {
+      "start": "0x52cd60",
+      "end": "0x52cddb",
+      "name": "sub_52CD60",
+      "bytes": "5153555657bec8d103018b6efc83fdff74588b3e8b5e048bc38bcf0fafc30fafcf03c189442410db442410d9fae806e700008bc8b8ed73484dc1e104f7e9c1fa058bc2c1e81f03d083fa7f7d2883fa147c235381c5f90000005755e820fcffff83c40cc746f80100000083c61481feb0d503017c955f5e5d5b59c3",
+      "instructions": [
+        {
+          "ea": "0x52cd60",
+          "asm": "push    ecx"
+        },
+        {
+          "ea": "0x52cd61",
+          "asm": "push    ebx"
+        },
+        {
+          "ea": "0x52cd62",
+          "asm": "push    ebp"
+        },
+        {
+          "ea": "0x52cd63",
+          "asm": "push    esi"
+        },
+        {
+          "ea": "0x52cd64",
+          "asm": "push    edi"
+        },
+        {
+          "ea": "0x52cd65",
+          "asm": "mov     esi, offset dword_103D1C8"
+        },
+        {
+          "ea": "0x52cd6a",
+          "asm": "mov     ebp, [esi-4]"
+        },
+        {
+          "ea": "0x52cd6d",
+          "asm": "cmp     ebp, 0FFFFFFFFh"
+        },
+        {
+          "ea": "0x52cd70",
+          "asm": "jz      short loc_52CDCA"
+        },
+        {
+          "ea": "0x52cd72",
+          "asm": "mov     edi, [esi]"
+        },
+        {
+          "ea": "0x52cd74",
+          "asm": "mov     ebx, [esi+4]"
+        },
+        {
+          "ea": "0x52cd77",
+          "asm": "mov     eax, ebx"
+        },
+        {
+          "ea": "0x52cd79",
+          "asm": "mov     ecx, edi"
+        },
+        {
+          "ea": "0x52cd7b",
+          "asm": "imul    eax, ebx"
+        },
+        {
+          "ea": "0x52cd7e",
+          "asm": "imul    ecx, edi"
+        },
+        {
+          "ea": "0x52cd81",
+          "asm": "add     eax, ecx"
+        },
+        {
+          "ea": "0x52cd83",
+          "asm": "mov     [esp+14h+var_4], eax"
+        },
+        {
+          "ea": "0x52cd87",
+          "asm": "fild    [esp+14h+var_4]"
+        },
+        {
+          "ea": "0x52cd8b",
+          "asm": "fsqrt"
+        },
+        {
+          "ea": "0x52cd8d",
+          "asm": "call    __ftol"
+        },
+        {
+          "ea": "0x52cd92",
+          "asm": "mov     ecx, eax"
+        },
+        {
+          "ea": "0x52cd94",
+          "asm": "mov     eax, 4D4873EDh"
+        },
+        {
+          "ea": "0x52cd99",
+          "asm": "shl     ecx, 4"
+        },
+        {
+          "ea": "0x52cd9c",
+          "asm": "imul    ecx"
+        },
+        {
+          "ea": "0x52cd9e",
+          "asm": "sar     edx, 5"
+        },
+        {
+          "ea": "0x52cda1",
+          "asm": "mov     eax, edx"
+        },
+        {
+          "ea": "0x52cda3",
+          "asm": "shr     eax, 1Fh"
+        },
+        {
+          "ea": "0x52cda6",
+          "asm": "add     edx, eax"
+        },
+        {
+          "ea": "0x52cda8",
+          "asm": "cmp     edx, 7Fh"
+        },
+        {
+          "ea": "0x52cdab",
+          "asm": "jge     short loc_52CDD5"
+        },
+        {
+          "ea": "0x52cdad",
+          "asm": "cmp     edx, 14h"
+        },
+        {
+          "ea": "0x52cdb0",
+          "asm": "jl      short loc_52CDD5"
+        },
+        {
+          "ea": "0x52cdb2",
+          "asm": "push    ebx"
+        },
+        {
+          "ea": "0x52cdb3",
+          "asm": "add     ebp, 0F9h"
+        },
+        {
+          "ea": "0x52cdb9",
+          "asm": "push    edi"
+        },
+        {
+          "ea": "0x52cdba",
+          "asm": "push    ebp"
+        },
+        {
+          "ea": "0x52cdbb",
+          "asm": "call    sub_52C9E0"
+        },
+        {
+          "ea": "0x52cdc0",
+          "asm": "add     esp, 0Ch"
+        },
+        {
+          "ea": "0x52cdc3",
+          "asm": "mov     dword ptr [esi-8], 1"
+        },
+        {
+          "ea": "0x52cdca",
+          "asm": "add     esi, 14h"
+        },
+        {
+          "ea": "0x52cdcd",
+          "asm": "cmp     esi, (offset gSePrimaryBuffers+8)"
+        },
+        {
+          "ea": "0x52cdd3",
+          "asm": "jl      short loc_52CD6A"
+        },
+        {
+          "ea": "0x52cdd5",
+          "asm": "pop     edi"
+        },
+        {
+          "ea": "0x52cdd6",
+          "asm": "pop     esi"
+        },
+        {
+          "ea": "0x52cdd7",
+          "asm": "pop     ebp"
+        },
+        {
+          "ea": "0x52cdd8",
+          "asm": "pop     ebx"
+        },
+        {
+          "ea": "0x52cdd9",
+          "asm": "pop     ecx"
+        },
+        {
+          "ea": "0x52cdda",
+          "asm": "retn"
+        }
+      ],
+      "callers": [
+        {
+          "ea": "0x46d4b8",
+          "type": 17,
+          "parent_start": "0x46cf60",
+          "asm": "call    sub_52CD60"
+        },
+        {
+          "ea": "0x46d9ac",
+          "type": 17,
+          "parent_start": "0x46cf60",
+          "asm": "call    sub_52CD60"
+        }
+      ],
+      "inventory_id": "F:0012CD60",
+      "instruction_count": 48,
+      "byte_count": 123,
+      "scope": "完整父取证；本步实施仅其中距离/商数值段与既有实际接线"
+    }
+  ],
+  "original_conversion_source": {
+    "inventory_id": "F:0013B498",
+    "range": [
+      "0x53B498",
+      "0x53B4BF"
+    ],
+    "instruction_count": 15,
+    "bytes": 39,
+    "evidence_ref": "doc/cg2d_audio_table_x87_evidence.json",
+    "scope": "复用原10条CW/S64展开；宏正文保持，不新增通用CRT入口，CPH01 host及其他消费者处置不变"
+  },
+  "original_data_boundaries": [
+    {
+      "owner": "gSpatialRecords103D1C0",
+      "count": 50,
+      "element_bytes": 20,
+      "scope": "扫描从同一记录+8/+C取S32，+4为-1跳过；不另建表"
+    },
+    {
+      "owner": "gSoundRequests104C9B8",
+      "count": 50,
+      "element_bytes": 36,
+      "index": "id-250",
+      "scope": "较近/新请求门禁与距离/目标音量/seNo/X/计数原写序"
+    },
+    {
+      "owner": "gSoundEffects103E7B0",
+      "count": 500,
+      "element_bytes": 96,
+      "index": "id-249",
+      "scope": "只在应更新请求时实际读取音量；不与请求/空间表合并"
+    }
+  ],
+  "source_changes": [
+    {
+      "path": "src/LegacyAudio.cpp",
+      "scope": "五行平台私有声明、52C9E0一个数学片段与52CD60一个数学片段；其余全文与HEAD保持"
+    },
+    {
+      "path": "src/platform/LegacyAudioMath.asm",
+      "scope": "仅两个PUBLIC与两局部数值接口，既有两个表接口/CW宏及常量保持；已有CMake源项不改"
+    }
+  ],
+  "projection_checks": {
+    "numeric_segments": [
+      {
+        "inventory_id": "F:0012C9E0",
+        "symbol": "Cg2dComputeSpatialSoundX87",
+        "original_range": [
+          "0x52ca07",
+          "0x52ca50"
+        ],
+        "original_instruction_count": 24,
+        "source_instruction_count": 24,
+        "differences": [],
+        "original_projection": [
+          "add ecx,-0f0h",
+          "lea eax,[r9-140h]",
+          "mov dword ptr [rsp+32],eax",
+          "fild dword ptr [rsp+32]",
+          "mov dword ptr [rsp+32],ecx",
+          "fild dword ptr [rsp+32]",
+          "fld st(0)",
+          "fmul st(0),st(1)",
+          "fld st(0)(2)",
+          "fmul st(0),st(3)",
+          "faddp st(1),st(0)",
+          "fsqrt",
+          "truncatesoundintermediate",
+          "mov esi,eax",
+          "mov eax,4d4873edh",
+          "mov ecx,esi",
+          "shl ecx,4",
+          "imul ecx",
+          "fstp st(0)",
+          "fstp st(0)",
+          "sar edx,5",
+          "mov eax,edx",
+          "shr eax,1fh",
+          "add edx,eax"
+        ],
+        "source_projection": [
+          "add ecx,-0f0h",
+          "lea eax,[r9-140h]",
+          "mov dword ptr [rsp+32],eax",
+          "fild dword ptr [rsp+32]",
+          "mov dword ptr [rsp+32],ecx",
+          "fild dword ptr [rsp+32]",
+          "fld st(0)",
+          "fmul st(0),st(1)",
+          "fld st(0)(2)",
+          "fmul st(0),st(3)",
+          "faddp st(1),st(0)",
+          "fsqrt",
+          "truncatesoundintermediate",
+          "mov esi,eax",
+          "mov eax,4d4873edh",
+          "mov ecx,esi",
+          "shl ecx,4",
+          "imul ecx",
+          "fstp st(0)",
+          "fstp st(0)",
+          "sar edx,5",
+          "mov eax,edx",
+          "shr eax,1fh",
+          "add edx,eax"
+        ]
+      },
+      {
+        "inventory_id": "F:0012CD60",
+        "symbol": "Cg2dComputeSpatialScanQuotientX87",
+        "original_range": [
+          "0x52cd77",
+          "0x52cda8"
+        ],
+        "original_instruction_count": 17,
+        "source_instruction_count": 17,
+        "differences": [],
+        "original_projection": [
+          "mov eax,edx",
+          "mov ecx,r9d",
+          "imul eax,edx",
+          "imul ecx,r9d",
+          "add eax,ecx",
+          "mov dword ptr [rsp+32],eax",
+          "fild dword ptr [rsp+32]",
+          "fsqrt",
+          "truncatesoundintermediate",
+          "mov ecx,eax",
+          "mov eax,4d4873edh",
+          "shl ecx,4",
+          "imul ecx",
+          "sar edx,5",
+          "mov eax,edx",
+          "shr eax,1fh",
+          "add edx,eax"
+        ],
+        "source_projection": [
+          "mov eax,edx",
+          "mov ecx,r9d",
+          "imul eax,edx",
+          "imul ecx,r9d",
+          "add eax,ecx",
+          "mov dword ptr [rsp+32],eax",
+          "fild dword ptr [rsp+32]",
+          "fsqrt",
+          "truncatesoundintermediate",
+          "mov ecx,eax",
+          "mov eax,4d4873edh",
+          "shl ecx,4",
+          "imul ecx",
+          "sar edx,5",
+          "mov eax,edx",
+          "shr eax,1fh",
+          "add edx,eax"
+        ]
+      }
+    ],
+    "cpp_outside_two_segments_and_declarations_unchanged": true,
+    "existing_asm_and_truncation_macro_unchanged": true,
+    "inline_truncation_sites": 2,
+    "frames": [
+      {
+        "bytes": 64,
+        "saved": [
+          "RSI"
+        ],
+        "scratch_S32": [
+          32,
+          36
+        ],
+        "scratch_CW": [
+          [
+            40,
+            42
+          ],
+          [
+            42,
+            44
+          ]
+        ],
+        "scratch_S64": [
+          48,
+          56
+        ]
+      },
+      {
+        "bytes": 72,
+        "saved": [],
+        "scratch_S32": [
+          32,
+          36
+        ],
+        "scratch_CW": [
+          [
+            40,
+            42
+          ],
+          [
+            42,
+            44
+          ]
+        ],
+        "scratch_S64": [
+          48,
+          56
+        ]
+      }
+    ],
+    "algorithm_executed": false
+  },
+  "source_gap": "原两个FSQRT后采用S64向零再取低W32，现源以前经double/std::sqrt后直接S32；本步恢复实际x87及宽度。没有当前算法运行/可闻故障证据，不将此解释为已验证音效故障或整函数逐位等价。",
+  "mechanism_boundary": "x64非拥有本地S32距离指针只同步借用；C9接口返回商、输出距离，CD接口只返回商。RC只在FISTP S64临时设置向零并恢复当前CW，无强设PC/F64中间落存/异常补值。原W32平方顺序及有符号常数除法保持，不添加保护或异常专项门禁。",
+  "build": {
+    "command": "cmake --build --preset windows-msvc-x64-debug --target cg2d_re_client --parallel 4",
+    "log": "build/windows-msvc-x64/build-spatial-sound-x87-20261009.log",
+    "configure_performed": false,
+    "configure_exit_code": 0,
+    "build_exit_code": 0,
+    "static_libraries_exit_code": 0,
+    "client_link_exit_code": 0,
+    "errors": [],
+    "incremental_warning_count": 0,
+    "full_warning_count_unmeasured": true,
+    "client_bytes": 8024064,
+    "symbols": {
+      "Cg2dComputeSpatialSoundX87": true,
+      "Cg2dComputeSpatialScanQuotientX87": true,
+      "Cg2dInitializeSoundTablesX87": true,
+      "Cg2dInitializeFixedMusicVolumeX87": true,
+      "LegacyMidiSynth": false,
+      "MidiToWav": false,
+      "Sub_52C9E0": true,
+      "Sub_52CD60": true
+    },
+    "converter_build_performed": false,
+    "converter_last_build_step": "CAB15"
+  },
+  "deployment": {
+    "destination": "H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2d_re_client.exe",
+    "backup": "H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2d_re_client.exe.before-spatial-sound-x87-20261009",
+    "previous_bytes": 8024064,
+    "current_bytes": 8024064,
+    "performed": true,
+    "verification": "Copy-Item成功且源/目标实际长度一致；同长不证明同内容，未计算摘要或比对内容",
+    "client_launched": false
+  },
+  "execution": {
+    "tests_performed": false,
+    "client_executed": false,
+    "algorithm_executed": false,
+    "converter_executed": false,
+    "wav_regenerated": false,
+    "hash_performed": false,
+    "desktop_operated": false
+  },
+  "inventory_change": {
+    "added_semantic_ids": [
+      "F:0012C9E0",
+      "F:0012CD60"
+    ],
+    "added_function_dispositions": 2,
+    "audio_known_members": 35,
+    "audio_member_inventory_closed": false,
+    "r7_unchanged": true
+  },
+  "remaining": [
+    "52CDE0投影后距离与两坐标x87/S64转换",
+    "同一应用CW/精度来源与机器状态/全部正常数值输出",
+    "音效声音/完整失败分支/owner别名和正常寿命及完整音频门禁",
+    "旧音频外层与全部已知成员之外完整枚举",
+    "客户端运行授权/IP2实际登录反馈及启动退出",
+    "旧窗口警告逐项原行为/ABI验收，不能用本步增量0关闭"
+  ],
+  "registry_validation": {
+    "initial_result": "fail",
+    "initial_reason": "生成补丁上下文过短，使两个F处置误落到任务数组、部分重复引用位置不准确；汇总器拒绝空task_id，没有形成通过快照。",
+    "repair": "以HEAD加本步明确变更重新生成期望JSON，用14行上下文修正；两文件全文与期望一致，两个F落回function_dispositions，任务仍55项且没有无效行。",
+    "generate_exit_code": 0,
+    "check_exit_code": 0,
+    "scope": "只证明JSON/引用/派生文本一致，不代算法或功能验收；没有修改汇总器或降低门禁。"
+  },
+  "compile_verified": true,
+  "runtime_verified": false,
+  "global_accepted": false
+}

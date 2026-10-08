@@ -33,6 +33,11 @@
 namespace cg::platform {
 extern "C" void Cg2dInitializeSoundTablesX87(std::int32_t* pan, std::int32_t* volume) noexcept;
 extern "C" void Cg2dInitializeFixedMusicVolumeX87(std::int32_t* volume) noexcept; // 原454E49数值段，含0槽。
+// 原52CA07/52CD77数值段；只同步借本地S32距离，不持有记录或资源。
+extern "C" std::int32_t Cg2dComputeSpatialSoundX87(
+    std::int32_t x, std::int32_t y, std::int32_t* distance) noexcept;
+extern "C" std::int32_t Cg2dComputeSpatialScanQuotientX87(
+    std::int32_t x, std::int32_t y) noexcept;
 }
 
 namespace cg::login::detail {
@@ -1030,13 +1035,9 @@ std::int32_t __cdecl Sub_52C9E0(
         return 0;
     }
 
-    const std::int32_t dx = x - 320;
-    const std::int32_t dy = y - 240;
-    const std::int32_t distance = static_cast<std::int32_t>(
-        std::sqrt(
-            static_cast<double>(dx) * dx
-            + static_cast<double>(dy) * dy));
-    const std::int32_t quotient = (distance * 16) / 106;
+    std::int32_t distance;
+    const std::int32_t quotient =
+        platform::Cg2dComputeSpatialSoundX87(x, y, &distance);
     if (quotient >= 127) {
         return 0;
     }
@@ -1331,12 +1332,8 @@ void __cdecl Sub_52CD60()
 
         const std::int32_t x = record.value08;
         const std::int32_t y = record.value0C;
-        const std::uint32_t sumBits =
-            static_cast<std::uint32_t>(x) * static_cast<std::uint32_t>(x)
-            + static_cast<std::uint32_t>(y) * static_cast<std::uint32_t>(y);
-        const std::int32_t distance = static_cast<std::int32_t>(
-            std::sqrt(static_cast<double>(std::bit_cast<std::int32_t>(sumBits))));
-        const std::int32_t quotient = (distance * 16) / 106;
+        const std::int32_t quotient =
+            platform::Cg2dComputeSpatialScanQuotientX87(x, y);
         if (quotient >= 127 || quotient < 20) {
             return;
         }

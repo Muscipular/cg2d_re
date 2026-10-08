@@ -4210,7 +4210,12 @@
         "doc/cg2d_offline_bank_lifetime_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#current-audio-debug-build",
         "doc/cg2d_client_link_sdl_audio_spec.md#current-audio-debug-source-state",
-        "doc/cg2d_current_audio_build_evidence.json"
+        "doc/cg2d_current_audio_build_evidence.json",
+        "doc/cg2d_audio_update.md#spatial-sound-x87-decision",
+        "doc/cg2d_audio_update.md#spatial-sound-x87-source-state",
+        "doc/cg2d_spatial_sound_x87_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#spatial-sound-x87-source-state",
+        "doc/cg2d_build_acceptance_spec.md#spatial-sound-x87-debug-build"
       ],
       "original_inventory_ids": [
         "F:00054C30",
@@ -4245,7 +4250,9 @@
         "F:000FE320",
         "F:000FE370",
         "F:000FE3B0",
-        "F:0012B9E0"
+        "F:0012B9E0",
+        "F:0012C9E0",
+        "F:0012CD60"
       ],
       "closure_task_ids": [
         "P11",
@@ -4292,7 +4299,8 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-decision",
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-source-state",
         "doc/cg2d_fixed_volume_x87_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build",
+        "doc/cg2d_audio_update.md#spatial-sound-x87-decision"
       ],
       "blockers": [
         "CAB17固定454C30独立音量表恢复原连续x87、S64低W32及正常127..0槽路径，33条数值投影/当前Debug链接部署通过；0槽/全表实际输出、CW上游/机器状态/声音与正常寿命仍待。AUDIO33成员枚举未闭，旧99设置页外层及全部运行门禁保持",
@@ -4303,7 +4311,7 @@
         "CAB09共用18B MMIO头和音效/BGM父接线已修，三原职责可追；CAB15当前客户端编译链接通过，全部失败/资源/声音/正常寿命与运行未验，局部来源/符号不代完整门禁",
         "CAB08首段完整PCM预填→ready→smpl终点发布已修、四原职责有SDL来源；CAB15当前客户端编译链接通过，全部失败/诊断状态、调度/波形与正常寿命仍未验",
         "CAB07两设置初始化/完整页面与原生绑定已实现并随CAB15当前客户端链接；真实旧99表外层接线、全部音频效果/寿命与运行仍待，scope=included只表示开发范围",
-        "AUDIO33原成员枚举仍未闭；旧7/旧8、完整WAV/通知/生命周期及音源效果/听感、真实声音/失败/退出仍未验收；类型1原16B资源按用户最新要求视为空音频，停止旧播放后立即成功，零时长不循环"
+        "AUDIO35原成员枚举仍未闭；旧7/旧8、完整WAV/通知/生命周期及音源效果/听感、真实声音/失败/退出仍未验收；类型1原16B资源按用户最新要求视为空音频，停止旧播放后立即成功，零时长不循环"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -4334,7 +4342,10 @@
         "doc/cg2d_audio_update.md#audio-table-x87-source-state",
         "doc/cg2d_audio_table_x87_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#audio-table-x87-debug-build",
-        "doc/cg2d_client_link_sdl_audio_spec.md#audio-table-x87-source-state"
+        "doc/cg2d_client_link_sdl_audio_spec.md#audio-table-x87-source-state",
+        "doc/cg2d_audio_update.md#spatial-sound-x87-decision",
+        "doc/cg2d_audio_update.md#spatial-sound-x87-source-state",
+        "doc/cg2d_spatial_sound_x87_evidence.json"
       ]
     },
     {
@@ -53807,6 +53818,84 @@
       "differences": [],
       "result": "pass",
       "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-SPATIAL-SOUND-X87-I-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原52C9E0/52CD60两完整父155条478B、局部数学段24/17条，53B498已证CW/S64展开",
+      "implementation_reference": "Git固定命名快照 cg2d-re-spatial-sound-x87-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_audio_update.md#spatial-sound-x87-decision",
+        "doc/cg2d_audio_update.md#spatial-sound-x87-source-state",
+        "doc/cg2d_spatial_sound_x87_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#spatial-sound-x87-source-state",
+        "doc/cg2d_build_acceptance_spec.md#spatial-sound-x87-debug-build",
+        "src/LegacyAudio.cpp#Sub_52C9E0",
+        "src/LegacyAudio.cpp#Sub_52CD60",
+        "src/platform/LegacyAudioMath.asm#Cg2dComputeSpatialSoundX87",
+        "src/platform/LegacyAudioMath.asm#Cg2dComputeSpatialScanQuotientX87"
+      ],
+      "observation": "仅两局部数值段/真实调用及既有父正文保持，不代完整父机器状态/音频验收",
+      "expected": "请求浮点平方与扫描W32整数平方分别保持，FSQRT/向零S64低W32/原有符号商；门槛/双表索引/计数与扫描首个范围外返回/调用后标记保持",
+      "actual": "两段24/17条源投影零差异；既有CW宏/两表接口、其他CPP全文不改。Debug0错误/0增量警告、两新接口/原父MAP符号与实际部署有据；未运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-SPATIAL-SOUND-X87-W-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原52C9E0/52CD60两完整父155条478B、局部数学段24/17条，53B498已证CW/S64展开",
+      "implementation_reference": "Git固定命名快照 cg2d-re-spatial-sound-x87-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_audio_update.md#spatial-sound-x87-decision",
+        "doc/cg2d_audio_update.md#spatial-sound-x87-source-state",
+        "doc/cg2d_spatial_sound_x87_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#spatial-sound-x87-source-state",
+        "doc/cg2d_build_acceptance_spec.md#spatial-sound-x87-debug-build",
+        "src/LegacyAudio.cpp#Sub_52C9E0",
+        "src/LegacyAudio.cpp#Sub_52CD60",
+        "src/platform/LegacyAudioMath.asm#Cg2dComputeSpatialSoundX87",
+        "src/platform/LegacyAudioMath.asm#Cg2dComputeSpatialScanQuotientX87"
+      ],
+      "observation": "仅两局部数值段/真实调用及既有父正文保持，不代完整父机器状态/音频验收",
+      "expected": "请求浮点平方与扫描W32整数平方分别保持，FSQRT/向零S64低W32/原有符号商；门槛/双表索引/计数与扫描首个范围外返回/调用后标记保持",
+      "actual": "两段24/17条源投影零差异；既有CW宏/两表接口、其他CPP全文不改。Debug0错误/0增量警告、两新接口/原父MAP符号与实际部署有据；未运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-SPATIAL-SOUND-X87-S-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原52C9E0/52CD60两完整父155条478B、局部数学段24/17条，53B498已证CW/S64展开",
+      "implementation_reference": "Git固定命名快照 cg2d-re-spatial-sound-x87-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_audio_update.md#spatial-sound-x87-decision",
+        "doc/cg2d_audio_update.md#spatial-sound-x87-source-state",
+        "doc/cg2d_spatial_sound_x87_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#spatial-sound-x87-source-state",
+        "doc/cg2d_build_acceptance_spec.md#spatial-sound-x87-debug-build",
+        "src/LegacyAudio.cpp#Sub_52C9E0",
+        "src/LegacyAudio.cpp#Sub_52CD60",
+        "src/platform/LegacyAudioMath.asm#Cg2dComputeSpatialSoundX87",
+        "src/platform/LegacyAudioMath.asm#Cg2dComputeSpatialScanQuotientX87"
+      ],
+      "observation": "仅两局部数值段/真实调用及既有父正文保持，不代完整父机器状态/音频验收",
+      "expected": "请求浮点平方与扫描W32整数平方分别保持，FSQRT/向零S64低W32/原有符号商；门槛/双表索引/计数与扫描首个范围外返回/调用后标记保持",
+      "actual": "两段24/17条源投影零差异；既有CW宏/两表接口、其他CPP全文不改。Debug0错误/0增量警告、两新接口/原父MAP符号与实际部署有据；未运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
     }
   ],
   "task_acceptance": [
@@ -54684,7 +54773,12 @@
         "doc/cg2d_audio_update.md#audio-table-x87-source-state",
         "doc/cg2d_audio_table_x87_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#audio-table-x87-debug-build",
-        "doc/cg2d_client_link_sdl_audio_spec.md#audio-table-x87-source-state"
+        "doc/cg2d_client_link_sdl_audio_spec.md#audio-table-x87-source-state",
+        "doc/cg2d_audio_update.md#spatial-sound-x87-decision",
+        "doc/cg2d_audio_update.md#spatial-sound-x87-source-state",
+        "doc/cg2d_spatial_sound_x87_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#spatial-sound-x87-source-state",
+        "doc/cg2d_build_acceptance_spec.md#spatial-sound-x87-debug-build"
       ]
     },
     {
@@ -54744,7 +54838,12 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-decision",
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-source-state",
         "doc/cg2d_fixed_volume_x87_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build",
+        "doc/cg2d_audio_update.md#spatial-sound-x87-decision",
+        "doc/cg2d_audio_update.md#spatial-sound-x87-source-state",
+        "doc/cg2d_spatial_sound_x87_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#spatial-sound-x87-source-state",
+        "doc/cg2d_build_acceptance_spec.md#spatial-sound-x87-debug-build"
       ]
     },
     {
@@ -55723,7 +55822,12 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-decision",
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-source-state",
         "doc/cg2d_fixed_volume_x87_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build",
+        "doc/cg2d_audio_update.md#spatial-sound-x87-decision",
+        "doc/cg2d_audio_update.md#spatial-sound-x87-source-state",
+        "doc/cg2d_spatial_sound_x87_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#spatial-sound-x87-source-state",
+        "doc/cg2d_build_acceptance_spec.md#spatial-sound-x87-debug-build"
       ]
     },
     {
@@ -68532,6 +68636,32 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-source-state",
         "doc/cg2d_offline_bank_lifetime_evidence.json"
       ]
+    },
+    {
+      "inventory_id": "F:0012C9E0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_audio_update.md#spatial-sound-x87-decision",
+        "doc/cg2d_audio_update.md#spatial-sound-x87-source-state",
+        "doc/cg2d_spatial_sound_x87_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#spatial-sound-x87-source-state",
+        "doc/cg2d_build_acceptance_spec.md#spatial-sound-x87-debug-build"
+      ],
+      "boundary": "本步数值段24条：W32偏移320/240后FILD/x87平方和/FSQRT，S64向零截断取低W32，原SHL/IMUL/SAR符号修正得到/106。250..299门槛、请求id-250/定义id-249、较近距离门禁、仅新且channel=-1写seNo、距离/音量/X/计数写序保持；不追加下界/异常保护，未验整父机器状态/全部数值/声音/失败/正常寿命。"
+    },
+    {
+      "inventory_id": "F:0012CD60",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_audio_update.md#spatial-sound-x87-decision",
+        "doc/cg2d_audio_update.md#spatial-sound-x87-source-state",
+        "doc/cg2d_spatial_sound_x87_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#spatial-sound-x87-source-state",
+        "doc/cg2d_build_acceptance_spec.md#spatial-sound-x87-debug-build"
+      ],
+      "boundary": "本步数值段17条：先两W32 IMUL/ADD，再FILD有符号和/FSQRT和S64向零截断低W32及原/106商。原-1跳过、同源+8/+C读取、首个商不在[20,127)即返回、id+249调用52C9E0后+0=1及50项表保持；不改continue/浮点平方或追加异常保护，未验整父机器状态/数值/声音/失败/正常寿命。"
     }
   ],
   "auxiliary_dispositions": [
@@ -98349,10 +98479,10 @@
     }
   ],
   "build_validation": {
-    "step": "CAB17",
+    "step": "CAB18",
     "recorded_on": "2026-10-09",
     "configuration": "Debug",
-    "source_snapshot": "cg2d-re-fixed-volume-x87-20261009",
+    "source_snapshot": "cg2d-re-spatial-sound-x87-20261009",
     "configure_performed": false,
     "configure_exit_code": 0,
     "build_exit_code": 0,
@@ -98367,7 +98497,7 @@
     "whole_project_accepted": false,
     "converter_build_performed": false,
     "converter_last_build_step": "CAB15",
-    "note": "CAB17沿同一CAA01音频必要构建授权完成固定音乐表局部x87段，未重新配置；三库/当前客户端Debug编译链接返回0，0错误/0增量警告，非全量警告统计。33条数值投影含正常127..0槽及原S64低W32/清x87尾值，两实际表接口符号均存在；8024064B客户端已更新游戏目录并保留CAB16同长旧版备份。离线工具最近通过仍CAB15，本步未构建/执行；未运行客户端/算法、测试、重生成WAV或摘要。0槽/全表、CW上游/机器状态/声音/正常寿命、IP2登录及整体SPEC未验收。",
+    "note": "CAB18沿同一CAA01音频必要构建授权完成空间音效两局部x87段；三库/当前客户端Debug链接返回0，0错误/0增量警告，无再配置。请求先浮点平方/扫描先W32平方和，各FSQRT经向零S64低W32及原有符号/106商，24/17条静态投影；两新接口/原父实际符号和8024064B游戏EXE/旧同长备份有据。离线工具最近通过仍CAB15，本步未构建/执行；未运行客户端/算法、测试、重生成WAV或摘要。52CDE0、完整数值/CW/机器状态、声音/正常寿命、IP2登录与整体SPEC未验收，旧窗口警告不因增量0关闭。",
     "evidence_refs": [
       "doc/cg2d_build_acceptance_spec.md",
       "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
@@ -98390,7 +98520,12 @@
       "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-decision",
       "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-source-state",
       "doc/cg2d_fixed_volume_x87_evidence.json",
-      "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build"
+      "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build",
+      "doc/cg2d_audio_update.md#spatial-sound-x87-decision",
+      "doc/cg2d_audio_update.md#spatial-sound-x87-source-state",
+      "doc/cg2d_spatial_sound_x87_evidence.json",
+      "doc/cg2d_client_link_sdl_audio_spec.md#spatial-sound-x87-source-state",
+      "doc/cg2d_build_acceptance_spec.md#spatial-sound-x87-debug-build"
     ]
   }
 }

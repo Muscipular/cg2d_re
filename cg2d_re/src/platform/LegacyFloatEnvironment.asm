@@ -100,6 +100,10 @@ LegacyDivisionDispatchTable5922BE QWORD OFFSET LegacyDivisionCase545484
     QWORD OFFSET LegacyDivisionCase5458EA
     QWORD OFFSET LegacyDivisionCase545902
 
+LegacyRemainderScaleUp592294 QWORD 043F0000000000000h
+LegacyRemainderScaleDown59229C QWORD 03BF0000000000000h
+LegacyRemainderLimit5922B4 BYTE 00h, 00h, 00h, 00h, 00h, 00h, 0FFh, 0FFh, 0FEh, 07Fh
+
 .code
 EXTERN Cg2dClassifyLegacySpecialFloat:PROC
 PUBLIC Cg2dClassifyLegacyFloat
@@ -172,6 +176,14 @@ PUBLIC Cg2dReverseDivideLegacyMemoryF32X87
 PUBLIC Cg2dReverseDivideLegacyMemoryF64X87
 PUBLIC Cg2dReverseDivideLegacyMemoryS16X87
 PUBLIC Cg2dReverseDivideLegacyMemoryS32X87
+PUBLIC Cg2dLegacyRemainderCoreX87
+PUBLIC Cg2dLegacyRemainderPairX87
+PUBLIC Cg2dLegacyNearestRemainderCoreX87
+PUBLIC Cg2dLegacyNearestRemainderPairX87
+PUBLIC Cg2dLegacyRemainderX87
+PUBLIC Cg2dLegacyNearestRemainderX87
+PUBLIC Cg2dLegacyArctangentX87
+PUBLIC Cg2dLegacyTangentX87
 EXTERN Cg2dReadLegacyFdivBug:PROC
 EXTERN Cg2dLegacyPowerFastExitGate1085FBC:DWORD
 EXTERN Cg2dRaiseLegacyFloatExceptionHost:PROC
@@ -3336,5 +3348,501 @@ LegacyMemoryReverseS32TopZero:
     add rsp, 72
     ret
 Cg2dReverseDivideLegacyMemoryS32X87 ENDP
+
+; 原545B66：RCX借原48B片段/EDX原模式，保完整余数循环和28B环境；
+Cg2dLegacyRemainderCoreX87 PROC FRAME
+    push rbx
+    .pushreg rbx
+    sub rsp, 48
+    .allocstack 48
+    .endprolog
+    mov dword ptr [rsp], eax
+    mov qword ptr [rsp+8], rcx
+    mov r10, rcx
+    mov eax, dword ptr [r10+6]
+    xor eax, 700h
+    test eax, 700h
+    jnz LegacyRemainder545D00
+    shr eax, 0Bh
+    and eax, 0Fh
+    lea r11, LegacyDivideClass592260
+    cmp byte ptr [r11+rax], 0
+    jz LegacyRemainder545D00
+    mov eax, dword ptr [r10+6]
+    and eax, 7FFF0000h
+    cmp eax, 7FFF0000h
+    jz LegacyRemainder545D00
+    mov eax, dword ptr [r10+30]
+    and eax, 7FFF0000h
+    jz LegacyRemainder545D00
+    cmp eax, 7FFF0000h
+    jz LegacyRemainder545D00
+    mov eax, dword ptr [r10+28]
+    add eax, eax
+    jnz LegacyRemainder545D00
+    mov eax, dword ptr [r10+4]
+    add eax, eax
+    jnz LegacyRemainder545D00
+    mov eax, dword ptr [r10+8]
+    and eax, 7FFFh
+    add eax, 3Fh
+    mov ebx, dword ptr [r10+32]
+    and ebx, 7FFFh
+    sub ebx, eax
+    ja LegacyRemainder545C4E
+LegacyRemainder545BF0:
+    mov eax, dword ptr [r10+8]
+    and eax, 7FFFh
+    add eax, 0Ah
+    mov ebx, dword ptr [r10+32]
+    and ebx, 7FFFh
+    sub ebx, eax
+    js LegacyRemainder545D00
+    fld tbyte ptr [r10+24]
+    mov eax, dword ptr [r10+8]
+    mov ebx, dword ptr [r10+32]
+    and ebx, 7FFFh
+    mov ecx, ebx
+    sub ebx, eax
+    and ebx, 7
+    or ebx, 4
+    sub ecx, ebx
+    mov ebx, eax
+    and ebx, 8000h
+    or ecx, ebx
+    mov dword ptr [r10+8], ecx
+    fld tbyte ptr [r10]
+    mov dword ptr [r10+8], eax
+    fxch st(1)
+    fprem
+    fstp tbyte ptr [r10+24]
+    fstp st(0)
+    jmp LegacyRemainder545BF0
+LegacyRemainder545C4E:
+    test edx, 2
+    jnz LegacyRemainder545C5E
+    fld tbyte ptr [r10]
+    fstp tbyte ptr [r10+12]
+LegacyRemainder545C5E:
+    fnstcw word ptr [r10+36]
+    mov eax, dword ptr [r10+36]
+    or eax, 33Fh
+    mov dword ptr [r10+40], eax
+    fldcw word ptr [r10+40]
+    mov eax, dword ptr [r10+8]
+    and eax, 7FFFh
+    mov ebx, dword ptr [r10+32]
+    and ebx, 7FFFh
+    sub ebx, eax
+    and ebx, 3Fh
+    or ebx, 20h
+    add ebx, 1
+    mov ecx, ebx
+    mov eax, dword ptr [r10+8]
+    mov ebx, dword ptr [r10+32]
+    and ebx, 7FFFh
+    and eax, 8000h
+    or ebx, eax
+    mov dword ptr [r10+8], ebx
+    fld tbyte ptr [r10]
+    fabs
+    fld tbyte ptr [r10+24]
+    fabs
+LegacyRemainder545CB8:
+    fcom st(1)
+    fnstsw ax
+    and eax, 100h
+    jnz LegacyRemainder545CC5
+    fsub st(0), st(1)
+LegacyRemainder545CC5:
+    fxch st(1)
+    fmul qword ptr [LegacyGenericPowerHalf58F890]
+    fxch st(1)
+    sub ecx, 1
+    jnz LegacyRemainder545CB8
+    mov ebx, dword ptr [r10+32]
+    fstp tbyte ptr [r10+24]
+    fstp st(0)
+    fld tbyte ptr [r10+12]
+    fld tbyte ptr [LegacyRemainderLimit5922B4]
+    fprem
+    fstp st(0)
+    fld tbyte ptr [r10+24]
+    fldcw word ptr [r10+36]
+    and ebx, 8000h
+    jz LegacyRemainder545D0A
+    fchs
+    jmp LegacyRemainder545D0A
+LegacyRemainder545D00:
+    fld tbyte ptr [r10]
+    fld tbyte ptr [r10+24]
+    fprem
+LegacyRemainder545D0A:
+    test edx, 3
+    jz LegacyRemainder545D68
+    fnstsw word ptr [r10+44]
+    test edx, 1
+    jz LegacyRemainder545D3D
+    fnstcw word ptr [r10+36]
+    mov eax, dword ptr [r10+36]
+    or eax, 300h
+    mov dword ptr [r10+40], eax
+    fldcw word ptr [r10+40]
+    fmul qword ptr [LegacyRemainderScaleDown59229C]
+    fldcw word ptr [r10+36]
+LegacyRemainder545D3D:
+    mov eax, dword ptr [r10+44]
+    fxch st(1)
+    fstp st(0)
+    fld tbyte ptr [r10+12]
+    fxch st(1)
+    and eax, 4300h
+    fnstenv [rsp+16]
+    and dword ptr [rsp+20], 0BCFFh
+    or dword ptr [rsp+20], eax
+    fldenv [rsp+16]
+LegacyRemainder545D68:
+    mov rcx, qword ptr [rsp+8]
+    mov eax, dword ptr [rsp]
+    lea rsp, [rsp+48]
+    pop rbx
+    ret
+Cg2dLegacyRemainderCoreX87 ENDP
+
+; 原545D6C：实际两T80生产/缩放与真实核心调用，原EDX保持；
+Cg2dLegacyRemainderPairX87 PROC FRAME
+    sub rsp, 104
+    .allocstack 104
+    .endprolog
+    mov dword ptr [rsp+80], edx
+    mov qword ptr [rsp+88], rcx
+    fstp tbyte ptr [rsp+56]
+    fstp tbyte ptr [rsp+32]
+    xor edx, edx
+    mov eax, dword ptr [rsp+38]
+    test eax, 7FFF0000h
+    jz LegacyRemainder545D8E
+    lea rcx, [rsp+32]
+    call Cg2dLegacyRemainderCoreX87
+    mov rcx, qword ptr [rsp+88]
+    mov edx, dword ptr [rsp+80]
+    mov rcx, qword ptr [rsp+88]
+    add rsp, 104
+    ret
+LegacyRemainder545D8E:
+    fld tbyte ptr [rsp+32]
+    fld tbyte ptr [rsp+56]
+    mov eax, dword ptr [rsp+32]
+    or eax, dword ptr [rsp+36]
+    jz LegacyRemainder545E17
+    fxch st(1)
+    fstp tbyte ptr [rsp+44]
+    fld tbyte ptr [rsp+32]
+    fxch st(1)
+    or edx, 2
+    fnstcw word ptr [rsp+68]
+    mov eax, dword ptr [rsp+68]
+    or eax, 33Fh
+    mov dword ptr [rsp+72], eax
+    fldcw word ptr [rsp+72]
+    mov eax, dword ptr [rsp+64]
+    and eax, 7FFFh
+    cmp eax, 7FBEh
+    ja LegacyRemainder545DE9
+    or edx, 1
+    fmul qword ptr [LegacyRemainderScaleUp592294]
+    fstp tbyte ptr [rsp+56]
+    fmul qword ptr [LegacyRemainderScaleUp592294]
+    fstp tbyte ptr [rsp+32]
+    jmp LegacyRemainder545E09
+LegacyRemainder545DE9:
+    fnstcw word ptr [rsp+68]
+    mov eax, dword ptr [rsp+68]
+    or eax, 300h
+    mov dword ptr [rsp+72], eax
+    fldcw word ptr [rsp+72]
+    fstp st(0)
+    fmul qword ptr [LegacyRemainderScaleUp592294]
+    fstp tbyte ptr [rsp+32]
+LegacyRemainder545E09:
+    fldcw word ptr [rsp+68]
+    lea rcx, [rsp+32]
+    call Cg2dLegacyRemainderCoreX87
+    mov rcx, qword ptr [rsp+88]
+    mov edx, dword ptr [rsp+80]
+    mov rcx, qword ptr [rsp+88]
+    add rsp, 104
+    ret
+LegacyRemainder545E17:
+    fprem
+    mov edx, dword ptr [rsp+80]
+    mov rcx, qword ptr [rsp+88]
+    add rsp, 104
+    ret
+Cg2dLegacyRemainderPairX87 ENDP
+
+; 原545E1E：RCX借原48B片段/EDX原模式，保完整余数循环和28B环境；
+Cg2dLegacyNearestRemainderCoreX87 PROC FRAME
+    push rbx
+    .pushreg rbx
+    sub rsp, 48
+    .allocstack 48
+    .endprolog
+    mov dword ptr [rsp], eax
+    mov qword ptr [rsp+8], rcx
+    mov r10, rcx
+    mov eax, dword ptr [r10+6]
+    xor eax, 700h
+    test eax, 700h
+    jnz LegacyRemainder545FB8
+    shr eax, 0Bh
+    and eax, 0Fh
+    lea r11, LegacyDivideClass592260
+    cmp byte ptr [r11+rax], 0
+    jz LegacyRemainder545FB8
+    mov eax, dword ptr [r10+6]
+    and eax, 7FFF0000h
+    cmp eax, 7FFF0000h
+    jz LegacyRemainder545FB8
+    mov eax, dword ptr [r10+30]
+    and eax, 7FFF0000h
+    jz LegacyRemainder545FB8
+    cmp eax, 7FFF0000h
+    jz LegacyRemainder545FB8
+    mov eax, dword ptr [r10+28]
+    add eax, eax
+    jnz LegacyRemainder545FB8
+    mov eax, dword ptr [r10+4]
+    add eax, eax
+    jnz LegacyRemainder545FB8
+    mov eax, dword ptr [r10+8]
+    and eax, 7FFFh
+    add eax, 3Fh
+    mov ebx, dword ptr [r10+32]
+    and ebx, 7FFFh
+    sub ebx, eax
+    ja LegacyRemainder545F06
+LegacyRemainder545EA8:
+    mov eax, dword ptr [r10+8]
+    and eax, 7FFFh
+    add eax, 0Ah
+    mov ebx, dword ptr [r10+32]
+    and ebx, 7FFFh
+    sub ebx, eax
+    js LegacyRemainder545FB8
+    fld tbyte ptr [r10+24]
+    mov eax, dword ptr [r10+8]
+    mov ebx, dword ptr [r10+32]
+    and ebx, 7FFFh
+    mov ecx, ebx
+    sub ebx, eax
+    and ebx, 7
+    or ebx, 4
+    sub ecx, ebx
+    mov ebx, eax
+    and ebx, 8000h
+    or ecx, ebx
+    mov dword ptr [r10+8], ecx
+    fld tbyte ptr [r10]
+    mov dword ptr [r10+8], eax
+    fxch st(1)
+    fprem
+    fstp tbyte ptr [r10+24]
+    fstp st(0)
+    jmp LegacyRemainder545EA8
+LegacyRemainder545F06:
+    test ebx, 2
+    jnz LegacyRemainder545F16
+    fld tbyte ptr [r10]
+    fstp tbyte ptr [r10+12]
+LegacyRemainder545F16:
+    fnstcw word ptr [r10+36]
+    mov eax, dword ptr [r10+36]
+    or eax, 33Fh
+    mov dword ptr [r10+40], eax
+    fldcw word ptr [r10+40]
+    mov eax, dword ptr [r10+8]
+    and eax, 7FFFh
+    mov ebx, dword ptr [r10+32]
+    and ebx, 7FFFh
+    sub ebx, eax
+    and ebx, 3Fh
+    or ebx, 20h
+    add ebx, 1
+    mov ecx, ebx
+    mov eax, dword ptr [r10+8]
+    mov ebx, dword ptr [r10+32]
+    and ebx, 7FFFh
+    and eax, 8000h
+    or ebx, eax
+    mov dword ptr [r10+8], ebx
+    fld tbyte ptr [r10]
+    fabs
+    fld tbyte ptr [r10+24]
+    fabs
+LegacyRemainder545F70:
+    fcom st(1)
+    fnstsw ax
+    and eax, 100h
+    jnz LegacyRemainder545F7D
+    fsub st(0), st(1)
+LegacyRemainder545F7D:
+    fxch st(1)
+    fmul qword ptr [LegacyGenericPowerHalf58F890]
+    fxch st(1)
+    sub ecx, 1
+    jnz LegacyRemainder545F70
+    mov ebx, dword ptr [r10+32]
+    fstp tbyte ptr [r10+24]
+    fstp st(0)
+    fld tbyte ptr [r10+12]
+    fld tbyte ptr [LegacyRemainderLimit5922B4]
+    fprem1
+    fstp st(0)
+    fld tbyte ptr [r10+24]
+    fldcw word ptr [r10+36]
+    and ebx, 8000h
+    jz LegacyRemainder545FC2
+    fchs
+    jmp LegacyRemainder545FC2
+LegacyRemainder545FB8:
+    fld tbyte ptr [r10]
+    fld tbyte ptr [r10+24]
+    fprem1
+LegacyRemainder545FC2:
+    test edx, 3
+    jz LegacyRemainder546020
+    fnstsw word ptr [r10+44]
+    test edx, 1
+    jz LegacyRemainder545FF5
+    fnstcw word ptr [r10+36]
+    mov eax, dword ptr [r10+36]
+    or eax, 300h
+    mov dword ptr [r10+40], eax
+    fldcw word ptr [r10+40]
+    fmul qword ptr [LegacyRemainderScaleDown59229C]
+    fldcw word ptr [r10+36]
+LegacyRemainder545FF5:
+    mov eax, dword ptr [r10+44]
+    fxch st(1)
+    fstp st(0)
+    fld tbyte ptr [r10+12]
+    fxch st(1)
+    and eax, 4300h
+    fnstenv [rsp+16]
+    and dword ptr [rsp+20], 0BCFFh
+    or dword ptr [rsp+20], eax
+    fldenv [rsp+16]
+LegacyRemainder546020:
+    mov rcx, qword ptr [rsp+8]
+    mov eax, dword ptr [rsp]
+    lea rsp, [rsp+48]
+    pop rbx
+    ret
+Cg2dLegacyNearestRemainderCoreX87 ENDP
+
+; 原546024：实际两T80生产/缩放与真实核心调用，原EDX保持；
+Cg2dLegacyNearestRemainderPairX87 PROC FRAME
+    sub rsp, 104
+    .allocstack 104
+    .endprolog
+    mov dword ptr [rsp+80], edx
+    mov qword ptr [rsp+88], rcx
+    fstp tbyte ptr [rsp+56]
+    fstp tbyte ptr [rsp+32]
+    mov edx, 0
+    mov eax, dword ptr [rsp+38]
+    test eax, 7FFF0000h
+    jz LegacyRemainder546049
+    lea rcx, [rsp+32]
+    call Cg2dLegacyNearestRemainderCoreX87
+    mov rcx, qword ptr [rsp+88]
+    mov edx, dword ptr [rsp+80]
+    mov rcx, qword ptr [rsp+88]
+    add rsp, 104
+    ret
+LegacyRemainder546049:
+    fld tbyte ptr [rsp+32]
+    fld tbyte ptr [rsp+56]
+    mov eax, dword ptr [rsp+32]
+    or eax, dword ptr [rsp+36]
+    jz LegacyRemainder5460D2
+    fxch st(1)
+    fstp tbyte ptr [rsp+44]
+    fld tbyte ptr [rsp+32]
+    fxch st(1)
+    or edx, 2
+    fnstcw word ptr [rsp+68]
+    mov eax, dword ptr [rsp+68]
+    or eax, 33Fh
+    mov dword ptr [rsp+72], eax
+    fldcw word ptr [rsp+72]
+    mov eax, dword ptr [rsp+64]
+    and eax, 7FFFh
+    cmp eax, 7FBEh
+    ja LegacyRemainder5460A4
+    or edx, 1
+    fmul qword ptr [LegacyRemainderScaleUp592294]
+    fstp tbyte ptr [rsp+56]
+    fmul qword ptr [LegacyRemainderScaleUp592294]
+    fstp tbyte ptr [rsp+32]
+    jmp LegacyRemainder5460C4
+LegacyRemainder5460A4:
+    fnstcw word ptr [rsp+68]
+    mov eax, dword ptr [rsp+68]
+    or eax, 300h
+    mov dword ptr [rsp+72], eax
+    fldcw word ptr [rsp+72]
+    fstp st(0)
+    fmul qword ptr [LegacyRemainderScaleUp592294]
+    fstp tbyte ptr [rsp+32]
+LegacyRemainder5460C4:
+    fldcw word ptr [rsp+68]
+    lea rcx, [rsp+32]
+    call Cg2dLegacyNearestRemainderCoreX87
+    mov rcx, qword ptr [rsp+88]
+    mov edx, dword ptr [rsp+80]
+    mov rcx, qword ptr [rsp+88]
+    add rsp, 104
+    ret
+LegacyRemainder5460D2:
+    fprem
+    mov edx, dword ptr [rsp+80]
+    mov rcx, qword ptr [rsp+88]
+    add rsp, 104
+    ret
+Cg2dLegacyNearestRemainderPairX87 ENDP
+
+; 原5460D9：真实父CALL/RET，保原余数结果和ST1栈形状。
+Cg2dLegacyRemainderX87 PROC FRAME
+    sub rsp, 40
+    .allocstack 40
+    .endprolog
+    call Cg2dLegacyRemainderPairX87
+    lea rsp, [rsp+40]
+    ret
+Cg2dLegacyRemainderX87 ENDP
+
+; 原5460DF：真实父CALL/RET，保原余数结果和ST1栈形状。
+Cg2dLegacyNearestRemainderX87 PROC FRAME
+    sub rsp, 40
+    .allocstack 40
+    .endprolog
+    call Cg2dLegacyNearestRemainderPairX87
+    lea rsp, [rsp+40]
+    ret
+Cg2dLegacyNearestRemainderX87 ENDP
+
+; 原5460E5：完整FPATAN/RET，不借宿主atan或增加分支。
+Cg2dLegacyArctangentX87 PROC
+    fpatan
+    ret
+Cg2dLegacyArctangentX87 ENDP
+
+; 原5460E8：完整FPTAN/RET，保原双值/状态栈结果，不丢栈伪作CPP double。
+Cg2dLegacyTangentX87 PROC
+    fptan
+    ret
+Cg2dLegacyTangentX87 ENDP
 
 END

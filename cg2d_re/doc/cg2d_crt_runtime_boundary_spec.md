@@ -248,3 +248,11 @@ NCE01已接业务copy/单owner、消息/析构及所有旧构析正文保持，�
 54593C..545B3C八个F32/F64/S16/S32正逆加载父已开发，全172条512B/16CALL两callee、12跳20RET。545A65九条27B是逆向F32父的内部TOP=0分支，与两个R7整体补齐，不造八个原F。两现源三追加/八ASM，原指数位直接运算、非等待TOP样本/额外T80交换保存恢复、输入位宽和原EAX保持，实际包装→核心接线。
 
 CRT190→191/F1014仅限定I-S，定位136→135/CRT余8→7；两R7 mapped，已审472/余2589。外层原调用/未知描述符生产及机器生命周期继续。
+
+## BWR01原余数双链与四共享入口完整开发（2026-10-08）
+
+[基线](cg2d_math_remainder_chain_spec.md#math-remainder-chain-baseline)、[决定](cg2d_math_remainder_chain_spec.md#math-remainder-chain-decision)、[验收](cg2d_math_remainder_chain_spec.md#math-remainder-chain-acceptance)及[全部原链/帧常量/源前后态](cg2d_math_remainder_chain_evidence.json)。
+
+545B66..5460EB全400条1413B/九页已开发，四原F与一个18B R7整组覆盖，六CALL四callee/42跳12RET；两现源四追加/八ASM，零CPP/C桥/owner。原48B片段/交叠W32、余数循环/缩放/模式/CW/状态及28B FNSTENV-FLDENV位规则、EBX2/中间及直接FPREM差异和FPATAN-FPTAN栈形状保，真实双父/入口接线。
+
+CRT191→195/F1018仅限定I-S，定位135→131/CRT余7→3；R7已审473/余2588。外层原调用/未知描述符及全应用/机器生命周期继续。

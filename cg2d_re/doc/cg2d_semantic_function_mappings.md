@@ -4169,3 +4169,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 新增1851/F:00145A65→Cg2dReverseDivideLegacyMemoryF32X87的LegacyMemoryReverseF32Preserve内部路径；原九条27B与两R7的163条485B互补。所有八类型/方向父完整开发，按实际原函数/区间身份登记，不额外造七个原函数或排除无直入代码。
 
 八ASM沿两既有源三追加，原F32/F64/S16/S32读取、指数位/TOP分支、T80恢复与16真包装调用保；RCX只是Win64原值参数借址，不改变数值/模拟原栈清理。外层未知原调用/机器继续，pending18保持。
+
+## BWR01四余数原身份及一个共享入口区间映射（2026-10-08）
+
+[完整400条/四F一R7及源前后态](cg2d_math_remainder_chain_evidence.json)、[合同](cg2d_math_remainder_chain_spec.md#math-remainder-chain-decision)。
+
+新增1852/F:00145B66→Cg2dLegacyRemainderCoreX87、1853/F:00145D6C→Cg2dLegacyRemainderPairX87、1854/F:00145E1E→Cg2dLegacyNearestRemainderCoreX87、1855/F:00146024→Cg2dLegacyNearestRemainderPairX87。另18B R7的双真入口与FPATAN/FPTAN两叶完整纳管，不造四个原函数身份。
+
+四原体合392条1395B加八条18B区间，完整400条1413B。原48B数值、交叠读写/CW高W16及28B环境、原所有循环和差异分支有据；正常原生帧与输出ST0/ST1不改为CPP双精度ABI。外层未知原调用/机器继续，pending18保持。

@@ -143,6 +143,14 @@ struct LegacyBinaryMathDescriptor {
 // 原545A65是逆向F32父的中间分支，在该完整父中实现，原W32 EAX恢复。
 // 借址只是Win64值参数传送边界，不模拟原RET4/8或栈地址，所有输入字段/结果仍原宽。
 
+// 原545B66/545E1E的Cg2dLegacyRemainderCoreX87/Cg2dLegacyNearestRemainderCoreX87：
+// RCX借原48B片段（T80起始0/12/24，保存CW36/工作CW40/状态44），EDX为原W32模式。
+// 保原DWORD非对齐读写/原循环及FNSTENV-FLDENV的28B不解释环境，只改原状态DWORD位。
+// 原545D6C/546024的Cg2dLegacyRemainderPairX87/Cg2dLegacyNearestRemainderPairX87，
+// 原5460D9/DF的Cg2dLegacyRemainderX87/Cg2dLegacyNearestRemainderX87只以ST0/ST1传值。
+// 原5460E5/E8的Cg2dLegacyArctangentX87/Cg2dLegacyTangentX87保原FPATAN/FPTAN栈形状。
+// 全部只在ASM间调用；不声明CPP double ABI，不模拟原栈地址或扩大原数值字段。
+
 // 原控制字抽象/硬件表示转换，只消费和生成原已定义位。
 std::uint32_t AbstractLegacyControlWord_5448A4(std::uint32_t hardware);
 std::uint32_t HardwareLegacyControlWord_544936(std::uint32_t abstractValue);

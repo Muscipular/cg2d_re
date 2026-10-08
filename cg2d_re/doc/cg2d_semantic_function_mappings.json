@@ -210877,6 +210877,414 @@
         "machine_unwind_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x545b66",
+      "inventory_id": "F:00145B66",
+      "original_role": "原545B66全142条518B余数核心；借原48B片段/EDX原模式，保所有T80/非对齐W32、筛选/指数/部分约减与比较相减循环、缩放符号及FPREM条件，原28B FNSTENV-FLDENV状态DWORD恢复。",
+      "original_end_exclusive": "0x545d6c",
+      "original_chunks": [
+        [
+          "0x545b66",
+          "0x545d6c"
+        ]
+      ],
+      "instruction_count": 142,
+      "status": "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dLegacyRemainderCoreX87",
+            "LegacyRemainderScaleUp592294",
+            "LegacyRemainderScaleDown59229C",
+            "LegacyRemainderLimit5922B4",
+            "LegacyDivideClass592260",
+            "LegacyGenericPowerHalf58F890"
+          ],
+          "relationship": "原545B66全142条518B余数核心；借原48B片段/EDX原模式，保所有T80/非对齐W32、筛选/指数/部分约减与比较相减循环、缩放符号及FPREM条件，原28B FNSTENV-FLDENV状态DWORD恢复。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "Cg2dLegacyRemainderCoreX87"
+          ],
+          "relationship": "原48B片段/28B不解释环境、原余数条件与实际ST0-ST1合同；只借地址、不扩大数值或包装CPP double"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-baseline",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-decision",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-acceptance",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state"
+      ],
+      "boundary": "原545B66全142条518B余数核心；借原48B片段/EDX原模式，保所有T80/非对齐W32、筛选/指数/部分约减与比较相减循环、缩放符号及FPREM条件，原28B FNSTENV-FLDENV状态DWORD恢复。 BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_remainder_chain": {
+        "spec_id": "BWR01",
+        "evidence_refs": [
+          "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-baseline",
+          "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-decision",
+          "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-acceptance",
+          "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state"
+        ],
+        "full_original_function_captured": true,
+        "original_instruction_count": 142,
+        "original_code_bytes": 518,
+        "original_page_count": 3,
+        "whole_group_instruction_count": 400,
+        "whole_group_code_bytes": 1413,
+        "whole_group_direct_calls": 6,
+        "whole_group_unique_direct_callees": 4,
+        "whole_group_jumps": 42,
+        "whole_group_returns": 12,
+        "whole_group_mapped_range_count": 1,
+        "whole_group_range_bytes": 18,
+        "source_body_added": true,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_cpp_file_count": 0,
+        "source_patch_count": 4,
+        "new_native_function_body_count": 8,
+        "new_asm_proc_count": 8,
+        "new_cpp_body_count": 0,
+        "new_original_mapped_function_count": 4,
+        "new_private_C_bridge_count": 0,
+        "new_mutable_shared_owner_count": 0,
+        "original_numeric_frame_bytes": 48,
+        "original_opaque_environment_bytes": 28,
+        "native_core_frame_bytes": 48,
+        "native_core_RBX_saved": true,
+        "native_parent_frame_bytes": 104,
+        "native_entry_frame_bytes": 40,
+        "original_T80_overlapping_non_aligned_DWORD_CW_status_and_unwritten_upper_word_kept": true,
+        "original_reduction_subtract_halving_scaling_sign_mode_and_environment_kept": true,
+        "nearest_EBX2_intermediate_FPREM_and_parent_direct_FPREM_kept": true,
+        "native_environment_preallocated_no_original_stack_address_simulation": true,
+        "original_FNSTENV_FLDENV_and_status_DWORD_bits_kept": true,
+        "true_parents_entries_and_FPatan_FPTan_result_shapes_kept": true,
+        "native_direct_call_count": 6,
+        "native_direct_jump_count": 42,
+        "native_return_count": 12,
+        "no_new_guard_host_math_default_fill_or_fault_sample": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_outer_original_callers_verified": false,
+        "full_original_descriptor_production_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x545d6c",
+      "inventory_id": "F:00145D6C",
+      "original_role": "原545D6C全54条178B余数父；真实两T80生产/零与指数和临时CW-缩放分支、原模式EDX与实际核心调用，恢复原EDX，保原ST0/ST1栈形状。",
+      "original_end_exclusive": "0x545e1e",
+      "original_chunks": [
+        [
+          "0x545d6c",
+          "0x545e1e"
+        ]
+      ],
+      "instruction_count": 54,
+      "status": "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dLegacyRemainderPairX87",
+            "LegacyRemainderScaleUp592294",
+            "LegacyRemainderScaleDown59229C",
+            "LegacyRemainderLimit5922B4",
+            "LegacyDivideClass592260",
+            "LegacyGenericPowerHalf58F890"
+          ],
+          "relationship": "原545D6C全54条178B余数父；真实两T80生产/零与指数和临时CW-缩放分支、原模式EDX与实际核心调用，恢复原EDX，保原ST0/ST1栈形状。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "Cg2dLegacyRemainderPairX87"
+          ],
+          "relationship": "原48B片段/28B不解释环境、原余数条件与实际ST0-ST1合同；只借地址、不扩大数值或包装CPP double"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-baseline",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-decision",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-acceptance",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state"
+      ],
+      "boundary": "原545D6C全54条178B余数父；真实两T80生产/零与指数和临时CW-缩放分支、原模式EDX与实际核心调用，恢复原EDX，保原ST0/ST1栈形状。 BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_remainder_chain": {
+        "spec_id": "BWR01",
+        "evidence_refs": [
+          "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-baseline",
+          "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-decision",
+          "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-acceptance",
+          "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state"
+        ],
+        "full_original_function_captured": true,
+        "original_instruction_count": 54,
+        "original_code_bytes": 178,
+        "original_page_count": 1,
+        "whole_group_instruction_count": 400,
+        "whole_group_code_bytes": 1413,
+        "whole_group_direct_calls": 6,
+        "whole_group_unique_direct_callees": 4,
+        "whole_group_jumps": 42,
+        "whole_group_returns": 12,
+        "whole_group_mapped_range_count": 1,
+        "whole_group_range_bytes": 18,
+        "source_body_added": true,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_cpp_file_count": 0,
+        "source_patch_count": 4,
+        "new_native_function_body_count": 8,
+        "new_asm_proc_count": 8,
+        "new_cpp_body_count": 0,
+        "new_original_mapped_function_count": 4,
+        "new_private_C_bridge_count": 0,
+        "new_mutable_shared_owner_count": 0,
+        "original_numeric_frame_bytes": 48,
+        "original_opaque_environment_bytes": 28,
+        "native_core_frame_bytes": 48,
+        "native_core_RBX_saved": true,
+        "native_parent_frame_bytes": 104,
+        "native_entry_frame_bytes": 40,
+        "original_T80_overlapping_non_aligned_DWORD_CW_status_and_unwritten_upper_word_kept": true,
+        "original_reduction_subtract_halving_scaling_sign_mode_and_environment_kept": true,
+        "nearest_EBX2_intermediate_FPREM_and_parent_direct_FPREM_kept": true,
+        "native_environment_preallocated_no_original_stack_address_simulation": true,
+        "original_FNSTENV_FLDENV_and_status_DWORD_bits_kept": true,
+        "true_parents_entries_and_FPatan_FPTan_result_shapes_kept": true,
+        "native_direct_call_count": 6,
+        "native_direct_jump_count": 42,
+        "native_return_count": 12,
+        "no_new_guard_host_math_default_fill_or_fault_sample": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_outer_original_callers_verified": false,
+        "full_original_descriptor_production_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x545e1e",
+      "inventory_id": "F:00145E1E",
+      "original_role": "原545E1E全142条518B最近余数核心；全部原循环/环境恢复与真实EBX,2测试、中间FPREM及两处FPREM1保持，不用名称替换原指令或修改原分支。",
+      "original_end_exclusive": "0x546024",
+      "original_chunks": [
+        [
+          "0x545e1e",
+          "0x546024"
+        ]
+      ],
+      "instruction_count": 142,
+      "status": "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dLegacyNearestRemainderCoreX87",
+            "LegacyRemainderScaleUp592294",
+            "LegacyRemainderScaleDown59229C",
+            "LegacyRemainderLimit5922B4",
+            "LegacyDivideClass592260",
+            "LegacyGenericPowerHalf58F890"
+          ],
+          "relationship": "原545E1E全142条518B最近余数核心；全部原循环/环境恢复与真实EBX,2测试、中间FPREM及两处FPREM1保持，不用名称替换原指令或修改原分支。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "Cg2dLegacyNearestRemainderCoreX87"
+          ],
+          "relationship": "原48B片段/28B不解释环境、原余数条件与实际ST0-ST1合同；只借地址、不扩大数值或包装CPP double"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-baseline",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-decision",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-acceptance",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state"
+      ],
+      "boundary": "原545E1E全142条518B最近余数核心；全部原循环/环境恢复与真实EBX,2测试、中间FPREM及两处FPREM1保持，不用名称替换原指令或修改原分支。 BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_remainder_chain": {
+        "spec_id": "BWR01",
+        "evidence_refs": [
+          "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-baseline",
+          "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-decision",
+          "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-acceptance",
+          "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state"
+        ],
+        "full_original_function_captured": true,
+        "original_instruction_count": 142,
+        "original_code_bytes": 518,
+        "original_page_count": 3,
+        "whole_group_instruction_count": 400,
+        "whole_group_code_bytes": 1413,
+        "whole_group_direct_calls": 6,
+        "whole_group_unique_direct_callees": 4,
+        "whole_group_jumps": 42,
+        "whole_group_returns": 12,
+        "whole_group_mapped_range_count": 1,
+        "whole_group_range_bytes": 18,
+        "source_body_added": true,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_cpp_file_count": 0,
+        "source_patch_count": 4,
+        "new_native_function_body_count": 8,
+        "new_asm_proc_count": 8,
+        "new_cpp_body_count": 0,
+        "new_original_mapped_function_count": 4,
+        "new_private_C_bridge_count": 0,
+        "new_mutable_shared_owner_count": 0,
+        "original_numeric_frame_bytes": 48,
+        "original_opaque_environment_bytes": 28,
+        "native_core_frame_bytes": 48,
+        "native_core_RBX_saved": true,
+        "native_parent_frame_bytes": 104,
+        "native_entry_frame_bytes": 40,
+        "original_T80_overlapping_non_aligned_DWORD_CW_status_and_unwritten_upper_word_kept": true,
+        "original_reduction_subtract_halving_scaling_sign_mode_and_environment_kept": true,
+        "nearest_EBX2_intermediate_FPREM_and_parent_direct_FPREM_kept": true,
+        "native_environment_preallocated_no_original_stack_address_simulation": true,
+        "original_FNSTENV_FLDENV_and_status_DWORD_bits_kept": true,
+        "true_parents_entries_and_FPatan_FPTan_result_shapes_kept": true,
+        "native_direct_call_count": 6,
+        "native_direct_jump_count": 42,
+        "native_return_count": 12,
+        "no_new_guard_host_math_default_fill_or_fault_sample": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_outer_original_callers_verified": false,
+        "full_original_descriptor_production_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x546024",
+      "inventory_id": "F:00146024",
+      "original_role": "原546024全54条181B最近余数父；真实两T80/原MOV EDX0及零/缩放/临时CW与核心调用、原EDX保持，零值尾实际FPREM不更改，保原输出栈形状。",
+      "original_end_exclusive": "0x5460d9",
+      "original_chunks": [
+        [
+          "0x546024",
+          "0x5460d9"
+        ]
+      ],
+      "instruction_count": 54,
+      "status": "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dLegacyNearestRemainderPairX87",
+            "LegacyRemainderScaleUp592294",
+            "LegacyRemainderScaleDown59229C",
+            "LegacyRemainderLimit5922B4",
+            "LegacyDivideClass592260",
+            "LegacyGenericPowerHalf58F890"
+          ],
+          "relationship": "原546024全54条181B最近余数父；真实两T80/原MOV EDX0及零/缩放/临时CW与核心调用、原EDX保持，零值尾实际FPREM不更改，保原输出栈形状。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "Cg2dLegacyNearestRemainderPairX87"
+          ],
+          "relationship": "原48B片段/28B不解释环境、原余数条件与实际ST0-ST1合同；只借地址、不扩大数值或包装CPP double"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-baseline",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-decision",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-acceptance",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state"
+      ],
+      "boundary": "原546024全54条181B最近余数父；真实两T80/原MOV EDX0及零/缩放/临时CW与核心调用、原EDX保持，零值尾实际FPREM不更改，保原输出栈形状。 BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_remainder_chain": {
+        "spec_id": "BWR01",
+        "evidence_refs": [
+          "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-baseline",
+          "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-decision",
+          "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-acceptance",
+          "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state"
+        ],
+        "full_original_function_captured": true,
+        "original_instruction_count": 54,
+        "original_code_bytes": 181,
+        "original_page_count": 1,
+        "whole_group_instruction_count": 400,
+        "whole_group_code_bytes": 1413,
+        "whole_group_direct_calls": 6,
+        "whole_group_unique_direct_callees": 4,
+        "whole_group_jumps": 42,
+        "whole_group_returns": 12,
+        "whole_group_mapped_range_count": 1,
+        "whole_group_range_bytes": 18,
+        "source_body_added": true,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_cpp_file_count": 0,
+        "source_patch_count": 4,
+        "new_native_function_body_count": 8,
+        "new_asm_proc_count": 8,
+        "new_cpp_body_count": 0,
+        "new_original_mapped_function_count": 4,
+        "new_private_C_bridge_count": 0,
+        "new_mutable_shared_owner_count": 0,
+        "original_numeric_frame_bytes": 48,
+        "original_opaque_environment_bytes": 28,
+        "native_core_frame_bytes": 48,
+        "native_core_RBX_saved": true,
+        "native_parent_frame_bytes": 104,
+        "native_entry_frame_bytes": 40,
+        "original_T80_overlapping_non_aligned_DWORD_CW_status_and_unwritten_upper_word_kept": true,
+        "original_reduction_subtract_halving_scaling_sign_mode_and_environment_kept": true,
+        "nearest_EBX2_intermediate_FPREM_and_parent_direct_FPREM_kept": true,
+        "native_environment_preallocated_no_original_stack_address_simulation": true,
+        "original_FNSTENV_FLDENV_and_status_DWORD_bits_kept": true,
+        "true_parents_entries_and_FPatan_FPTan_result_shapes_kept": true,
+        "native_direct_call_count": 6,
+        "native_direct_jump_count": 42,
+        "native_return_count": 12,
+        "no_new_guard_host_math_default_fill_or_fault_sample": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_outer_original_callers_verified": false,
+        "full_original_descriptor_production_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

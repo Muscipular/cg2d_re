@@ -326,7 +326,8 @@
         "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-baseline",
         "doc/cg2d_math_shared_targets_spec.md#math-targets-baseline",
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-baseline",
-        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-baseline"
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-baseline",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-baseline"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -519,7 +520,11 @@
         "F:00145916",
         "F:00145929",
         "F:00145B3C",
-        "F:00145A65"
+        "F:00145A65",
+        "F:00145B66",
+        "F:00145D6C",
+        "F:00145E1E",
+        "F:00146024"
       ],
       "closure_task_ids": [
         "C01",
@@ -575,7 +580,8 @@
         "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-decision",
         "doc/cg2d_math_shared_targets_spec.md#math-targets-decision",
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision",
-        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-decision"
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-decision",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -621,7 +627,8 @@
         "BWN01沿共享指数542FEF真实依赖补完整545360/545B51：91条300B/三页、一CALL一callee、14跳七RET；两现源四处追加/两真实ASM，零CPP/C桥/新owner。借原44B数值片段不扩宽，两个T80及其padding/+24保存CW高W16不补；原16B表/三F32、尾数/指数/进位/CW与全部FDIVP/非规格化重写循环保。包装保原FSTP序、EAX/ECX数值及EDX/真核心调用、88B正常帧；源码静态非机器等价。新增1838/1839、CRT179/F1002限定I-S，定位147/CRT余19，完整共享目标/未知描述符生产和其它原调用父及机器运行继续，原格式明文/音频暂停/RPLAN.24保持。",
         "BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。",
         "BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
-        "BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
+        "BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+        "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -671,7 +678,8 @@
         "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-source-state",
         "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state",
-        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state"
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state"
       ]
     },
     {
@@ -51729,6 +51737,66 @@
       "observation": "BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 全172条512B、一F两R7互补/八实际ASM两源三追加、原指数/位宽-TOP-T80及原分支/正常帧集中静态，不代机器或异常等价。",
       "expected": "BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 全172条512B、一F两R7互补/八实际ASM两源三追加、原指数/位宽-TOP-T80及原分支/正常帧集中静态，不代机器或异常等价。",
       "actual": "BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 全172条512B、一F两R7互补/八实际ASM两源三追加、原指数/位宽-TOP-T80及原分支/正常帧集中静态，不代机器或异常等价。"
+    },
+    {
+      "id": "E-MATH-REMAINDER-CHAIN-FUNC-CRT-I-20261008",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWR01连续400条1413B/九页、四原F加18B共享R7、六CALL四callee/42跳12RET、原帧/环境及常量和差异指令。doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-math-remainder-chain-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_math_remainder_chain_evidence.json",
+        "doc/cg2d_math_remainder_chain_spec.md",
+        "src/platform/LegacyFloatEnvironment.asm",
+        "src/platform/LegacyFloatEnvironment.hpp",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-baseline",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-decision",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-acceptance",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 只完整双余数核心/父和四共享入口的真实内部调用/原栈形状，未代外层实际调用或未知描述符。",
+          "decision_ref": "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 只完整双余数核心/父和四共享入口的真实内部调用/原栈形状，未代外层实际调用或未知描述符。",
+      "expected": "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 只完整双余数核心/父和四共享入口的真实内部调用/原栈形状，未代外层实际调用或未知描述符。",
+      "actual": "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 只完整双余数核心/父和四共享入口的真实内部调用/原栈形状，未代外层实际调用或未知描述符。"
+    },
+    {
+      "id": "E-MATH-REMAINDER-CHAIN-FUNC-CRT-S-20261008",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWR01连续400条1413B/九页、四原F加18B共享R7、六CALL四callee/42跳12RET、原帧/环境及常量和差异指令。doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-math-remainder-chain-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_math_remainder_chain_evidence.json",
+        "doc/cg2d_math_remainder_chain_spec.md",
+        "src/platform/LegacyFloatEnvironment.asm",
+        "src/platform/LegacyFloatEnvironment.hpp",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-baseline",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-decision",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-acceptance",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 400条1413B/四F一R7、八ASM两源四追加、原交叠位宽/CW/循环及28B环境状态DWORD和差异分支集中静态，不代机器与异常等价。",
+          "decision_ref": "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 400条1413B/四F一R7、八ASM两源四追加、原交叠位宽/CW/循环及28B环境状态DWORD和差异分支集中静态，不代机器与异常等价。",
+      "expected": "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 400条1413B/四F一R7、八ASM两源四追加、原交叠位宽/CW/循环及28B环境状态DWORD和差异分支集中静态，不代机器与异常等价。",
+      "actual": "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 400条1413B/四F一R7、八ASM两源四追加、原交叠位宽/CW/循环及28B环境状态DWORD和差异分支集中静态，不代机器与异常等价。"
     }
   ],
   "task_acceptance": [
@@ -52090,7 +52158,8 @@
         "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-source-state",
         "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state",
-        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state"
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state"
       ],
       "task_id": "C01",
       "state": "open"
@@ -52555,7 +52624,8 @@
         "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-source-state",
         "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state",
-        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state"
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state"
       ]
     },
     {
@@ -52601,7 +52671,8 @@
         "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-source-state",
         "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state",
-        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state"
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state"
       ]
     },
     {
@@ -53009,7 +53080,8 @@
         "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-source-state",
         "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state",
-        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state"
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state"
       ]
     },
     {
@@ -65774,6 +65846,54 @@
         "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state"
       ],
       "boundary": "原545A65九条27B是逆向F32内存加载父的TOP=0保存/重载分支；与八父172条512B及两R7整组实现，保原额外T80、原标量F32加载、真实逆向包装调用及W32 EAX/原返回，不发明独立调用父。 BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:00145B66",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-baseline",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-decision",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-acceptance",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state"
+      ],
+      "boundary": "原545B66全142条518B余数核心；借原48B片段/EDX原模式，保所有T80/非对齐W32、筛选/指数/部分约减与比较相减循环、缩放符号及FPREM条件，原28B FNSTENV-FLDENV状态DWORD恢复。 BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:00145D6C",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-baseline",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-decision",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-acceptance",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state"
+      ],
+      "boundary": "原545D6C全54条178B余数父；真实两T80生产/零与指数和临时CW-缩放分支、原模式EDX与实际核心调用，恢复原EDX，保原ST0/ST1栈形状。 BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:00145E1E",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-baseline",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-decision",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-acceptance",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state"
+      ],
+      "boundary": "原545E1E全142条518B最近余数核心；全部原循环/环境恢复与真实EBX,2测试、中间FPREM及两处FPREM1保持，不用名称替换原指令或修改原分支。 BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:00146024",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-baseline",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-decision",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-acceptance",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state"
+      ],
+      "boundary": "原546024全54条181B最近余数父；真实两T80/原MOV EDX0及零/缩放/临时CW与核心调用、原EDX保持，零值尾实际FPREM不更改，保原输出栈形状。 BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
     }
   ],
   "auxiliary_dispositions": [
@@ -94158,6 +94278,124 @@
         "Cg2dReverseDivideLegacyMemoryS32X87"
       ],
       "boundary": "BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "id": "X:001460D9-001460EB",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-baseline",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-decision",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-acceptance",
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state",
+        "doc/cg2d_math_remainder_chain_evidence.json"
+      ],
+      "reason": "18B全部为两个实际余数父CALL/RET及FPATAN/FPTAN原指令入口，已完整实现/接线；不因无直入排除，不另造原函数身份。",
+      "classification": "shared_remainder_and_trigonometric_entries",
+      "original_size": 18,
+      "original_bytes": "e88efcffffc3e840ffffffc3d9f3c3d9f2c3",
+      "original_instructions": [
+        {
+          "ea": "0x5460d9",
+          "size": 5,
+          "bytes": "e88efcffff",
+          "code": true,
+          "name": "unknown_libname_69",
+          "text": "call    unknown_libname_66; Microsoft VisualC 2-14/net runtime",
+          "mnemonic": "call",
+          "call_target": "0x545d6c",
+          "refs": []
+        },
+        {
+          "ea": "0x5460de",
+          "size": 1,
+          "bytes": "c3",
+          "code": true,
+          "name": "",
+          "text": "retn",
+          "mnemonic": "retn",
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5460df",
+          "size": 5,
+          "bytes": "e840ffffff",
+          "code": true,
+          "name": "unknown_libname_70",
+          "text": "call    unknown_libname_68; Microsoft VisualC 2-14/net runtime",
+          "mnemonic": "call",
+          "call_target": "0x546024",
+          "refs": []
+        },
+        {
+          "ea": "0x5460e4",
+          "size": 1,
+          "bytes": "c3",
+          "code": true,
+          "name": "",
+          "text": "retn",
+          "mnemonic": "retn",
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5460e5",
+          "size": 2,
+          "bytes": "d9f3",
+          "code": true,
+          "name": "unknown_libname_71",
+          "text": "fpatan; Microsoft VisualC 2-14/net runtime",
+          "mnemonic": "fpatan",
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5460e7",
+          "size": 1,
+          "bytes": "c3",
+          "code": true,
+          "name": "",
+          "text": "retn",
+          "mnemonic": "retn",
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5460e8",
+          "size": 2,
+          "bytes": "d9f2",
+          "code": true,
+          "name": "unknown_libname_72",
+          "text": "fptan; Microsoft VisualC 2-14/net runtime",
+          "mnemonic": "fptan",
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5460ea",
+          "size": 1,
+          "bytes": "c3",
+          "code": true,
+          "name": "",
+          "text": "retn",
+          "mnemonic": "retn",
+          "call_target": null,
+          "refs": []
+        }
+      ],
+      "source_path": "src/platform/LegacyFloatEnvironment.asm",
+      "source_symbols": [
+        "Cg2dLegacyRemainderCoreX87",
+        "Cg2dLegacyRemainderPairX87",
+        "Cg2dLegacyNearestRemainderCoreX87",
+        "Cg2dLegacyNearestRemainderPairX87",
+        "Cg2dLegacyRemainderX87",
+        "Cg2dLegacyNearestRemainderX87",
+        "Cg2dLegacyArctangentX87",
+        "Cg2dLegacyTangentX87"
+      ],
+      "boundary": "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
     }
   ]
 }

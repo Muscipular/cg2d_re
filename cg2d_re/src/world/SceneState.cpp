@@ -2813,14 +2813,17 @@ namespace {
 // 原六个入口共享473060发送尾；选项修改后重新读取，不按发送结果回滚。
 std::int32_t TogglePlayerOptionAndSend(const std::uint16_t mask)
 {
-    const auto options = static_cast<std::uint8_t>(gPlayerRuntime.options194);
+    // 六个原入口先读低W8判位；写回仍操作同一options194低W16。
+    const std::uint8_t options = *reinterpret_cast<const unsigned char*>(&gPlayerRuntime.options194);
     if ((options & mask) != 0) {
         gPlayerRuntime.options194 &= static_cast<std::uint16_t>(~mask);
     } else {
         gPlayerRuntime.options194 |= mask;
     }
-    const std::int32_t value = gPlayerRuntime.options194;
+    // 原473060取样后先读socket再保留低W16；原高W16被丢弃，不借新端下一字段冒充。
+    const std::uint32_t sampledOptions = gPlayerRuntime.options194;
     const std::uintptr_t socket = platform::gConnectionSocket;
+    const std::int32_t value = static_cast<std::uint16_t>(sampledOptions);
     return network::Sub_511A00(socket, value);
 }
 
@@ -2833,7 +2836,7 @@ std::int32_t Sub_472F40()
 
 std::uint8_t ReadPlayerOptions194LowByte() noexcept
 {
-    return static_cast<std::uint8_t>(gPlayerRuntime.options194);
+    return *reinterpret_cast<const unsigned char*>(&gPlayerRuntime.options194);
 }
 
 std::int32_t Sub_472F70()

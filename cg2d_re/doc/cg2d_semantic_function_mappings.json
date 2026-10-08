@@ -200688,6 +200688,1386 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x470050",
+      "inventory_id": "F:00070050",
+      "original_role": "470050：direction S32<0拒绝55；表X/Y两S16依次取样，CryptInt加Y后X查4450D0范围8；follow低W16为0或1且flags18A bit100才续，target恰1、两个W16状态均0、原Eq低AL通过；先tick后fresh共享起点+500 unsigned严格小于，Y→X→socket发510880，忽略发送结果后重新tick发布，合格但未到时间仍声51。",
+      "original_end_exclusive": "0x47014e",
+      "original_chunks": [
+        [
+          "0x470050",
+          "0x47014e"
+        ]
+      ],
+      "instruction_count": 68,
+      "status": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_470050"
+          ],
+          "relationship": "470050：direction S32<0拒绝55；表X/Y两S16依次取样，CryptInt加Y后X查4450D0范围8；follow低W16为0或1且flags18A bit100才续，target恰1、两个W16状态均0、原Eq低AL通过；先tick后fresh共享起点+500 unsigned严格小于，Y→X→socket发510880，忽略发送结果后重新tick发布，合格但未到时间仍声51。"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_470050"
+          ],
+          "relationship": "既有实际声明保持，不新接口"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ProcessWindowShortcuts_4C7AE0",
+            "Sub_46FC60"
+          ],
+          "relationship": "六请求两实际UI父接线保；BVN完整父复用，另一父仅实际引用/现有callback归纳，不验全父"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+      ],
+      "boundary": "470050：direction S32<0拒绝55；表X/Y两S16依次取样，CryptInt加Y后X查4450D0范围8；follow低W16为0或1且flags18A bit100才续，target恰1、两个W16状态均0、原Eq低AL通过；先tick后fresh共享起点+500 unsigned严格小于，Y→X→socket发510880，忽略发送结果后重新tick发布，合格但未到时间仍声51。 BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "verification_level": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "shortcut_request_option_sampling": {
+        "spec_id": "BVO01",
+        "evidence_refs": [
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 68,
+        "original_code_bytes": 254,
+        "original_page_count": 1,
+        "original_direct_call_count": 9,
+        "original_unique_direct_callee_count": 6,
+        "original_indirect_call_count": 2,
+        "original_jump_count": 9,
+        "original_return_count": 2,
+        "original_inbound_call_count": 3,
+        "original_total_instruction_count": 511,
+        "original_total_code_bytes": 1915,
+        "original_total_page_count": 16,
+        "original_total_direct_call_count": 62,
+        "original_total_unique_direct_callee_count": 16,
+        "original_total_tick_indirect_call_count": 13,
+        "original_total_jump_count": 72,
+        "original_total_return_count": 15,
+        "original_total_inbound_call_count": 36,
+        "source_body_changed": false,
+        "root_specific_new_I_claimed": false,
+        "existing_shared_helpers_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_changed_body_count": 2,
+        "source_patch_count": 3,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_storage_field_count": 0,
+        "all_twelve_root_bodies_kept": true,
+        "six_correct_requests_not_new_I": true,
+        "original_shared_tail_owned_by_473030": true,
+        "original_shared_tail_counted_once": true,
+        "original_shared_tail_not_new_F": true,
+        "ui471DF0_only_byte_window_verified": true,
+        "actual_low_byte_samples_restored": true,
+        "original_U16_option_writes_kept": true,
+        "native_sample_socket_conversion_order_restored": true,
+        "original_W32_tail_machine_access_width_restored": false,
+        "unused_high_word_not_given_fake_owner": true,
+        "native_sparse_U16_consumed_value_adaptation_decided": true,
+        "existing_read_thunk_401EA0_and_semantic219_reused": true,
+        "normal_original_request_gates_and_timing_and_send_result_kept": true,
+        "new_99_dispatch_added": false,
+        "audio_pause_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x470150",
+      "inventory_id": "F:00070150",
+      "original_role": "470150：同源direction/表两S16；455A90恰1才加Y/X查4451F0参数8/C400/0，其他target原置0；后follow/flags/target及两状态/Eq门禁与470050相同，时间后发510940，刷新tick与声51/55原序保。",
+      "original_end_exclusive": "0x470265",
+      "original_chunks": [
+        [
+          "0x470150",
+          "0x470265"
+        ]
+      ],
+      "instruction_count": 77,
+      "status": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_470150"
+          ],
+          "relationship": "470150：同源direction/表两S16；455A90恰1才加Y/X查4451F0参数8/C400/0，其他target原置0；后follow/flags/target及两状态/Eq门禁与470050相同，时间后发510940，刷新tick与声51/55原序保。"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_470150"
+          ],
+          "relationship": "既有实际声明保持，不新接口"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ProcessWindowShortcuts_4C7AE0",
+            "Sub_46FC60"
+          ],
+          "relationship": "六请求两实际UI父接线保；BVN完整父复用，另一父仅实际引用/现有callback归纳，不验全父"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+      ],
+      "boundary": "470150：同源direction/表两S16；455A90恰1才加Y/X查4451F0参数8/C400/0，其他target原置0；后follow/flags/target及两状态/Eq门禁与470050相同，时间后发510940，刷新tick与声51/55原序保。 BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "verification_level": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "shortcut_request_option_sampling": {
+        "spec_id": "BVO01",
+        "evidence_refs": [
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 77,
+        "original_code_bytes": 277,
+        "original_page_count": 2,
+        "original_direct_call_count": 10,
+        "original_unique_direct_callee_count": 7,
+        "original_indirect_call_count": 2,
+        "original_jump_count": 11,
+        "original_return_count": 2,
+        "original_inbound_call_count": 3,
+        "original_total_instruction_count": 511,
+        "original_total_code_bytes": 1915,
+        "original_total_page_count": 16,
+        "original_total_direct_call_count": 62,
+        "original_total_unique_direct_callee_count": 16,
+        "original_total_tick_indirect_call_count": 13,
+        "original_total_jump_count": 72,
+        "original_total_return_count": 15,
+        "original_total_inbound_call_count": 36,
+        "source_body_changed": false,
+        "root_specific_new_I_claimed": false,
+        "existing_shared_helpers_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_changed_body_count": 2,
+        "source_patch_count": 3,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_storage_field_count": 0,
+        "all_twelve_root_bodies_kept": true,
+        "six_correct_requests_not_new_I": true,
+        "original_shared_tail_owned_by_473030": true,
+        "original_shared_tail_counted_once": true,
+        "original_shared_tail_not_new_F": true,
+        "ui471DF0_only_byte_window_verified": true,
+        "actual_low_byte_samples_restored": true,
+        "original_U16_option_writes_kept": true,
+        "native_sample_socket_conversion_order_restored": true,
+        "original_W32_tail_machine_access_width_restored": false,
+        "unused_high_word_not_given_fake_owner": true,
+        "native_sparse_U16_consumed_value_adaptation_decided": true,
+        "existing_read_thunk_401EA0_and_semantic219_reused": true,
+        "normal_original_request_gates_and_timing_and_send_result_kept": true,
+        "new_99_dispatch_added": false,
+        "audio_pause_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x470270",
+      "inventory_id": "F:00070270",
+      "original_role": "470270：入口follow==0选择加入路径，仅此查direction和4452A0参数28/400/0；加入和离开各原两状态/Eq门禁和时间调用由现有公共片段承接，保存入口选择不重新判follow；加入仅过500门禁后flags bit100拒绝且不发声，发送mode1，离开mode0；Y/X/socket511A50/更新tick和正常声51保持。",
+      "original_end_exclusive": "0x4703be",
+      "original_chunks": [
+        [
+          "0x470270",
+          "0x4703be"
+        ]
+      ],
+      "instruction_count": 85,
+      "status": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_470270"
+          ],
+          "relationship": "470270：入口follow==0选择加入路径，仅此查direction和4452A0参数28/400/0；加入和离开各原两状态/Eq门禁和时间调用由现有公共片段承接，保存入口选择不重新判follow；加入仅过500门禁后flags bit100拒绝且不发声，发送mode1，离开mode0；Y/X/socket511A50/更新tick和正常声51保持。"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_470270"
+          ],
+          "relationship": "既有实际声明保持，不新接口"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ProcessWindowShortcuts_4C7AE0",
+            "Sub_46FC60"
+          ],
+          "relationship": "六请求两实际UI父接线保；BVN完整父复用，另一父仅实际引用/现有callback归纳，不验全父"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+      ],
+      "boundary": "470270：入口follow==0选择加入路径，仅此查direction和4452A0参数28/400/0；加入和离开各原两状态/Eq门禁和时间调用由现有公共片段承接，保存入口选择不重新判follow；加入仅过500门禁后flags bit100拒绝且不发声，发送mode1，离开mode0；Y/X/socket511A50/更新tick和正常声51保持。 BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "verification_level": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "shortcut_request_option_sampling": {
+        "spec_id": "BVO01",
+        "evidence_refs": [
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 85,
+        "original_code_bytes": 334,
+        "original_page_count": 2,
+        "original_direct_call_count": 10,
+        "original_unique_direct_callee_count": 6,
+        "original_indirect_call_count": 3,
+        "original_jump_count": 13,
+        "original_return_count": 2,
+        "original_inbound_call_count": 3,
+        "original_total_instruction_count": 511,
+        "original_total_code_bytes": 1915,
+        "original_total_page_count": 16,
+        "original_total_direct_call_count": 62,
+        "original_total_unique_direct_callee_count": 16,
+        "original_total_tick_indirect_call_count": 13,
+        "original_total_jump_count": 72,
+        "original_total_return_count": 15,
+        "original_total_inbound_call_count": 36,
+        "source_body_changed": false,
+        "root_specific_new_I_claimed": false,
+        "existing_shared_helpers_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_changed_body_count": 2,
+        "source_patch_count": 3,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_storage_field_count": 0,
+        "all_twelve_root_bodies_kept": true,
+        "six_correct_requests_not_new_I": true,
+        "original_shared_tail_owned_by_473030": true,
+        "original_shared_tail_counted_once": true,
+        "original_shared_tail_not_new_F": true,
+        "ui471DF0_only_byte_window_verified": true,
+        "actual_low_byte_samples_restored": true,
+        "original_U16_option_writes_kept": true,
+        "native_sample_socket_conversion_order_restored": true,
+        "original_W32_tail_machine_access_width_restored": false,
+        "unused_high_word_not_given_fake_owner": true,
+        "native_sparse_U16_consumed_value_adaptation_decided": true,
+        "existing_read_thunk_401EA0_and_semantic219_reused": true,
+        "normal_original_request_gates_and_timing_and_send_result_kept": true,
+        "new_99_dispatch_added": false,
+        "audio_pause_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x4703c0",
+      "inventory_id": "F:000703C0",
+      "original_role": "4703C0：direction/table/AddY/X/4450D0范围8后target恰1、两个W16/Eq；无需470050的follow/flags门禁；时间后Y/X/socket5111E0、刷新tick，原失败55和正常51保持。",
+      "original_end_exclusive": "0x470499",
+      "original_chunks": [
+        [
+          "0x4703c0",
+          "0x470499"
+        ]
+      ],
+      "instruction_count": 60,
+      "status": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_4703C0"
+          ],
+          "relationship": "4703C0：direction/table/AddY/X/4450D0范围8后target恰1、两个W16/Eq；无需470050的follow/flags门禁；时间后Y/X/socket5111E0、刷新tick，原失败55和正常51保持。"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_4703C0"
+          ],
+          "relationship": "既有实际声明保持，不新接口"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ProcessWindowShortcuts_4C7AE0",
+            "Sub_46FC60"
+          ],
+          "relationship": "六请求两实际UI父接线保；BVN完整父复用，另一父仅实际引用/现有callback归纳，不验全父"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+      ],
+      "boundary": "4703C0：direction/table/AddY/X/4450D0范围8后target恰1、两个W16/Eq；无需470050的follow/flags门禁；时间后Y/X/socket5111E0、刷新tick，原失败55和正常51保持。 BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "verification_level": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "shortcut_request_option_sampling": {
+        "spec_id": "BVO01",
+        "evidence_refs": [
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 60,
+        "original_code_bytes": 217,
+        "original_page_count": 1,
+        "original_direct_call_count": 9,
+        "original_unique_direct_callee_count": 6,
+        "original_indirect_call_count": 2,
+        "original_jump_count": 6,
+        "original_return_count": 2,
+        "original_inbound_call_count": 3,
+        "original_total_instruction_count": 511,
+        "original_total_code_bytes": 1915,
+        "original_total_page_count": 16,
+        "original_total_direct_call_count": 62,
+        "original_total_unique_direct_callee_count": 16,
+        "original_total_tick_indirect_call_count": 13,
+        "original_total_jump_count": 72,
+        "original_total_return_count": 15,
+        "original_total_inbound_call_count": 36,
+        "source_body_changed": false,
+        "root_specific_new_I_claimed": false,
+        "existing_shared_helpers_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_changed_body_count": 2,
+        "source_patch_count": 3,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_storage_field_count": 0,
+        "all_twelve_root_bodies_kept": true,
+        "six_correct_requests_not_new_I": true,
+        "original_shared_tail_owned_by_473030": true,
+        "original_shared_tail_counted_once": true,
+        "original_shared_tail_not_new_F": true,
+        "ui471DF0_only_byte_window_verified": true,
+        "actual_low_byte_samples_restored": true,
+        "original_U16_option_writes_kept": true,
+        "native_sample_socket_conversion_order_restored": true,
+        "original_W32_tail_machine_access_width_restored": false,
+        "unused_high_word_not_given_fake_owner": true,
+        "native_sparse_U16_consumed_value_adaptation_decided": true,
+        "existing_read_thunk_401EA0_and_semantic219_reused": true,
+        "normal_original_request_gates_and_timing_and_send_result_kept": true,
+        "new_99_dispatch_added": false,
+        "audio_pause_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x4704a0",
+      "inventory_id": "F:000704A0",
+      "original_role": "4704A0：原两次4450D0分别一倍和两倍delta，每次AddY后AddX；follow!=1且两个target都!=1才原提示556CC4/4/0和55返回。随后两状态/Eq失败仍声51；时间合格仅socket511FB0、不读玩家X/Y，忽略发后刷新tick；所有正常声51保持。",
+      "original_end_exclusive": "0x4705c1",
+      "original_chunks": [
+        [
+          "0x4704a0",
+          "0x4705c1"
+        ]
+      ],
+      "instruction_count": 89,
+      "status": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_4704A0"
+          ],
+          "relationship": "4704A0：原两次4450D0分别一倍和两倍delta，每次AddY后AddX；follow!=1且两个target都!=1才原提示556CC4/4/0和55返回。随后两状态/Eq失败仍声51；时间合格仅socket511FB0、不读玩家X/Y，忽略发后刷新tick；所有正常声51保持。"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_4704A0"
+          ],
+          "relationship": "既有实际声明保持，不新接口"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ProcessWindowShortcuts_4C7AE0",
+            "Sub_46FC60"
+          ],
+          "relationship": "六请求两实际UI父接线保；BVN完整父复用，另一父仅实际引用/现有callback归纳，不验全父"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+      ],
+      "boundary": "4704A0：原两次4450D0分别一倍和两倍delta，每次AddY后AddX；follow!=1且两个target都!=1才原提示556CC4/4/0和55返回。随后两状态/Eq失败仍声51；时间合格仅socket511FB0、不读玩家X/Y，忽略发后刷新tick；所有正常声51保持。 BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "verification_level": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "shortcut_request_option_sampling": {
+        "spec_id": "BVO01",
+        "evidence_refs": [
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 89,
+        "original_code_bytes": 289,
+        "original_page_count": 2,
+        "original_direct_call_count": 12,
+        "original_unique_direct_callee_count": 6,
+        "original_indirect_call_count": 2,
+        "original_jump_count": 8,
+        "original_return_count": 3,
+        "original_inbound_call_count": 3,
+        "original_total_instruction_count": 511,
+        "original_total_code_bytes": 1915,
+        "original_total_page_count": 16,
+        "original_total_direct_call_count": 62,
+        "original_total_unique_direct_callee_count": 16,
+        "original_total_tick_indirect_call_count": 13,
+        "original_total_jump_count": 72,
+        "original_total_return_count": 15,
+        "original_total_inbound_call_count": 36,
+        "source_body_changed": false,
+        "root_specific_new_I_claimed": false,
+        "existing_shared_helpers_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_changed_body_count": 2,
+        "source_patch_count": 3,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_storage_field_count": 0,
+        "all_twelve_root_bodies_kept": true,
+        "six_correct_requests_not_new_I": true,
+        "original_shared_tail_owned_by_473030": true,
+        "original_shared_tail_counted_once": true,
+        "original_shared_tail_not_new_F": true,
+        "ui471DF0_only_byte_window_verified": true,
+        "actual_low_byte_samples_restored": true,
+        "original_U16_option_writes_kept": true,
+        "native_sample_socket_conversion_order_restored": true,
+        "original_W32_tail_machine_access_width_restored": false,
+        "unused_high_word_not_given_fake_owner": true,
+        "native_sparse_U16_consumed_value_adaptation_decided": true,
+        "existing_read_thunk_401EA0_and_semantic219_reused": true,
+        "normal_original_request_gates_and_timing_and_send_result_kept": true,
+        "new_99_dispatch_added": false,
+        "audio_pause_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x470670",
+      "inventory_id": "F:00070670",
+      "original_role": "470670：direction/AddY/X/4450D0及target/两状态/Eq后，rank W32索引48B原行，实际权限BYTE&1；缺权限原5862AC/4/0提示与55；时间后Y/X/socket5113C0，刷新tick、正常声51保持。",
+      "original_end_exclusive": "0x470791",
+      "original_chunks": [
+        [
+          "0x470670",
+          "0x470791"
+        ]
+      ],
+      "instruction_count": 76,
+      "status": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_470670"
+          ],
+          "relationship": "470670：direction/AddY/X/4450D0及target/两状态/Eq后，rank W32索引48B原行，实际权限BYTE&1；缺权限原5862AC/4/0提示与55；时间后Y/X/socket5113C0，刷新tick、正常声51保持。"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_470670"
+          ],
+          "relationship": "既有实际声明保持，不新接口"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ProcessWindowShortcuts_4C7AE0",
+            "Sub_46FC60"
+          ],
+          "relationship": "六请求两实际UI父接线保；BVN完整父复用，另一父仅实际引用/现有callback归纳，不验全父"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+      ],
+      "boundary": "470670：direction/AddY/X/4450D0及target/两状态/Eq后，rank W32索引48B原行，实际权限BYTE&1；缺权限原5862AC/4/0提示与55；时间后Y/X/socket5113C0，刷新tick、正常声51保持。 BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "verification_level": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "shortcut_request_option_sampling": {
+        "spec_id": "BVO01",
+        "evidence_refs": [
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 76,
+        "original_code_bytes": 289,
+        "original_page_count": 2,
+        "original_direct_call_count": 11,
+        "original_unique_direct_callee_count": 7,
+        "original_indirect_call_count": 2,
+        "original_jump_count": 7,
+        "original_return_count": 3,
+        "original_inbound_call_count": 3,
+        "original_total_instruction_count": 511,
+        "original_total_code_bytes": 1915,
+        "original_total_page_count": 16,
+        "original_total_direct_call_count": 62,
+        "original_total_unique_direct_callee_count": 16,
+        "original_total_tick_indirect_call_count": 13,
+        "original_total_jump_count": 72,
+        "original_total_return_count": 15,
+        "original_total_inbound_call_count": 36,
+        "source_body_changed": false,
+        "root_specific_new_I_claimed": false,
+        "existing_shared_helpers_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_changed_body_count": 2,
+        "source_patch_count": 3,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_storage_field_count": 0,
+        "all_twelve_root_bodies_kept": true,
+        "six_correct_requests_not_new_I": true,
+        "original_shared_tail_owned_by_473030": true,
+        "original_shared_tail_counted_once": true,
+        "original_shared_tail_not_new_F": true,
+        "ui471DF0_only_byte_window_verified": true,
+        "actual_low_byte_samples_restored": true,
+        "original_U16_option_writes_kept": true,
+        "native_sample_socket_conversion_order_restored": true,
+        "original_W32_tail_machine_access_width_restored": false,
+        "unused_high_word_not_given_fake_owner": true,
+        "native_sparse_U16_consumed_value_adaptation_decided": true,
+        "existing_read_thunk_401EA0_and_semantic219_reused": true,
+        "normal_original_request_gates_and_timing_and_send_result_kept": true,
+        "new_99_dispatch_added": false,
+        "audio_pause_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x472f40",
+      "inventory_id": "F:00072F40",
+      "original_role": "Sub_472F40：原低BYTE读取options194并判掩码4h，低W16清/置该位后转同一473060共享发送尾；同源已写值样本→socket→低W16/S32交511A00并透传结果。实际BYTE和两既有helper取样片段修正；原共尾W32的高W16即丢弃，native稀疏owner采用现有同源U16承载消费值，不跨读原1A0替代196，不宣机器读宽等价。六包装主体保持、共尾只计一次。",
+      "original_end_exclusive": "0x472f66",
+      "original_chunks": [
+        [
+          "0x472f40",
+          "0x472f66"
+        ]
+      ],
+      "instruction_count": 8,
+      "status": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_472F40"
+          ],
+          "relationship": "Sub_472F40：原低BYTE读取options194并判掩码4h，低W16清/置该位后转同一473060共享发送尾；同源已写值样本→socket→低W16/S32交511A00并透传结果。实际BYTE和两既有helper取样片段修正；原共尾W32的高W16即丢弃，native稀疏owner采用现有同源U16承载消费值，不跨读原1A0替代196，不宣机器读宽等价。六包装主体保持、共尾只计一次。"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_472F40"
+          ],
+          "relationship": "既有实际声明保持，不新接口"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "TogglePlayerOptionAndSend",
+            "ReadPlayerOptions194LowByte"
+          ],
+          "relationship": "两既有helper三个片段实修；低BYTE真实读和同源U16消费值/socket/掩码原序，原共尾未消费高W16不假造承载"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ProcessWindowShortcuts_4C7AE0",
+            "Sub_471DF0"
+          ],
+          "relationship": "两个实际UI父接线保；BVN完整父复用，471DF0仅六BYTE窗口/六现有callback归纳，不验全父"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+      ],
+      "boundary": "Sub_472F40：原低BYTE读取options194并判掩码4h，低W16清/置该位后转同一473060共享发送尾；同源已写值样本→socket→低W16/S32交511A00并透传结果。实际BYTE和两既有helper取样片段修正；原共尾W32的高W16即丢弃，native稀疏owner采用现有同源U16承载消费值，不跨读原1A0替代196，不宣机器读宽等价。六包装主体保持、共尾只计一次。 BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "verification_level": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "shortcut_request_option_sampling": {
+        "spec_id": "BVO01",
+        "evidence_refs": [
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 8,
+        "original_code_bytes": 38,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_unique_direct_callee_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 3,
+        "original_return_count": 0,
+        "original_inbound_call_count": 3,
+        "original_total_instruction_count": 511,
+        "original_total_code_bytes": 1915,
+        "original_total_page_count": 16,
+        "original_total_direct_call_count": 62,
+        "original_total_unique_direct_callee_count": 16,
+        "original_total_tick_indirect_call_count": 13,
+        "original_total_jump_count": 72,
+        "original_total_return_count": 15,
+        "original_total_inbound_call_count": 36,
+        "source_body_changed": false,
+        "root_specific_new_I_claimed": false,
+        "existing_shared_helpers_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_changed_body_count": 2,
+        "source_patch_count": 3,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_storage_field_count": 0,
+        "all_twelve_root_bodies_kept": true,
+        "six_correct_requests_not_new_I": true,
+        "original_shared_tail_owned_by_473030": true,
+        "original_shared_tail_counted_once": true,
+        "original_shared_tail_not_new_F": true,
+        "ui471DF0_only_byte_window_verified": true,
+        "actual_low_byte_samples_restored": true,
+        "original_U16_option_writes_kept": true,
+        "native_sample_socket_conversion_order_restored": true,
+        "original_W32_tail_machine_access_width_restored": false,
+        "unused_high_word_not_given_fake_owner": true,
+        "native_sparse_U16_consumed_value_adaptation_decided": true,
+        "existing_read_thunk_401EA0_and_semantic219_reused": true,
+        "normal_original_request_gates_and_timing_and_send_result_kept": true,
+        "new_99_dispatch_added": false,
+        "audio_pause_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x472f70",
+      "inventory_id": "F:00072F70",
+      "original_role": "Sub_472F70：原低BYTE读取options194并判掩码8h，低W16清/置该位后转同一473060共享发送尾；同源已写值样本→socket→低W16/S32交511A00并透传结果。实际BYTE和两既有helper取样片段修正；原共尾W32的高W16即丢弃，native稀疏owner采用现有同源U16承载消费值，不跨读原1A0替代196，不宣机器读宽等价。六包装主体保持、共尾只计一次。",
+      "original_end_exclusive": "0x472f96",
+      "original_chunks": [
+        [
+          "0x472f70",
+          "0x472f96"
+        ]
+      ],
+      "instruction_count": 8,
+      "status": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_472F70"
+          ],
+          "relationship": "Sub_472F70：原低BYTE读取options194并判掩码8h，低W16清/置该位后转同一473060共享发送尾；同源已写值样本→socket→低W16/S32交511A00并透传结果。实际BYTE和两既有helper取样片段修正；原共尾W32的高W16即丢弃，native稀疏owner采用现有同源U16承载消费值，不跨读原1A0替代196，不宣机器读宽等价。六包装主体保持、共尾只计一次。"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_472F70"
+          ],
+          "relationship": "既有实际声明保持，不新接口"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "TogglePlayerOptionAndSend",
+            "ReadPlayerOptions194LowByte"
+          ],
+          "relationship": "两既有helper三个片段实修；低BYTE真实读和同源U16消费值/socket/掩码原序，原共尾未消费高W16不假造承载"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ProcessWindowShortcuts_4C7AE0",
+            "Sub_471DF0"
+          ],
+          "relationship": "两个实际UI父接线保；BVN完整父复用，471DF0仅六BYTE窗口/六现有callback归纳，不验全父"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+      ],
+      "boundary": "Sub_472F70：原低BYTE读取options194并判掩码8h，低W16清/置该位后转同一473060共享发送尾；同源已写值样本→socket→低W16/S32交511A00并透传结果。实际BYTE和两既有helper取样片段修正；原共尾W32的高W16即丢弃，native稀疏owner采用现有同源U16承载消费值，不跨读原1A0替代196，不宣机器读宽等价。六包装主体保持、共尾只计一次。 BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "verification_level": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "shortcut_request_option_sampling": {
+        "spec_id": "BVO01",
+        "evidence_refs": [
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 8,
+        "original_code_bytes": 38,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_unique_direct_callee_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 3,
+        "original_return_count": 0,
+        "original_inbound_call_count": 3,
+        "original_total_instruction_count": 511,
+        "original_total_code_bytes": 1915,
+        "original_total_page_count": 16,
+        "original_total_direct_call_count": 62,
+        "original_total_unique_direct_callee_count": 16,
+        "original_total_tick_indirect_call_count": 13,
+        "original_total_jump_count": 72,
+        "original_total_return_count": 15,
+        "original_total_inbound_call_count": 36,
+        "source_body_changed": false,
+        "root_specific_new_I_claimed": false,
+        "existing_shared_helpers_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_changed_body_count": 2,
+        "source_patch_count": 3,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_storage_field_count": 0,
+        "all_twelve_root_bodies_kept": true,
+        "six_correct_requests_not_new_I": true,
+        "original_shared_tail_owned_by_473030": true,
+        "original_shared_tail_counted_once": true,
+        "original_shared_tail_not_new_F": true,
+        "ui471DF0_only_byte_window_verified": true,
+        "actual_low_byte_samples_restored": true,
+        "original_U16_option_writes_kept": true,
+        "native_sample_socket_conversion_order_restored": true,
+        "original_W32_tail_machine_access_width_restored": false,
+        "unused_high_word_not_given_fake_owner": true,
+        "native_sparse_U16_consumed_value_adaptation_decided": true,
+        "existing_read_thunk_401EA0_and_semantic219_reused": true,
+        "normal_original_request_gates_and_timing_and_send_result_kept": true,
+        "new_99_dispatch_added": false,
+        "audio_pause_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x472fa0",
+      "inventory_id": "F:00072FA0",
+      "original_role": "Sub_472FA0：原低BYTE读取options194并判掩码1h，低W16清/置该位后转同一473060共享发送尾；同源已写值样本→socket→低W16/S32交511A00并透传结果。实际BYTE和两既有helper取样片段修正；原共尾W32的高W16即丢弃，native稀疏owner采用现有同源U16承载消费值，不跨读原1A0替代196，不宣机器读宽等价。六包装主体保持、共尾只计一次。",
+      "original_end_exclusive": "0x472fc6",
+      "original_chunks": [
+        [
+          "0x472fa0",
+          "0x472fc6"
+        ]
+      ],
+      "instruction_count": 8,
+      "status": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_472FA0"
+          ],
+          "relationship": "Sub_472FA0：原低BYTE读取options194并判掩码1h，低W16清/置该位后转同一473060共享发送尾；同源已写值样本→socket→低W16/S32交511A00并透传结果。实际BYTE和两既有helper取样片段修正；原共尾W32的高W16即丢弃，native稀疏owner采用现有同源U16承载消费值，不跨读原1A0替代196，不宣机器读宽等价。六包装主体保持、共尾只计一次。"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_472FA0"
+          ],
+          "relationship": "既有实际声明保持，不新接口"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "TogglePlayerOptionAndSend",
+            "ReadPlayerOptions194LowByte"
+          ],
+          "relationship": "两既有helper三个片段实修；低BYTE真实读和同源U16消费值/socket/掩码原序，原共尾未消费高W16不假造承载"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ProcessWindowShortcuts_4C7AE0",
+            "Sub_471DF0"
+          ],
+          "relationship": "两个实际UI父接线保；BVN完整父复用，471DF0仅六BYTE窗口/六现有callback归纳，不验全父"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+      ],
+      "boundary": "Sub_472FA0：原低BYTE读取options194并判掩码1h，低W16清/置该位后转同一473060共享发送尾；同源已写值样本→socket→低W16/S32交511A00并透传结果。实际BYTE和两既有helper取样片段修正；原共尾W32的高W16即丢弃，native稀疏owner采用现有同源U16承载消费值，不跨读原1A0替代196，不宣机器读宽等价。六包装主体保持、共尾只计一次。 BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "verification_level": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "shortcut_request_option_sampling": {
+        "spec_id": "BVO01",
+        "evidence_refs": [
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 8,
+        "original_code_bytes": 38,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_unique_direct_callee_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 3,
+        "original_return_count": 0,
+        "original_inbound_call_count": 3,
+        "original_total_instruction_count": 511,
+        "original_total_code_bytes": 1915,
+        "original_total_page_count": 16,
+        "original_total_direct_call_count": 62,
+        "original_total_unique_direct_callee_count": 16,
+        "original_total_tick_indirect_call_count": 13,
+        "original_total_jump_count": 72,
+        "original_total_return_count": 15,
+        "original_total_inbound_call_count": 36,
+        "source_body_changed": false,
+        "root_specific_new_I_claimed": false,
+        "existing_shared_helpers_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_changed_body_count": 2,
+        "source_patch_count": 3,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_storage_field_count": 0,
+        "all_twelve_root_bodies_kept": true,
+        "six_correct_requests_not_new_I": true,
+        "original_shared_tail_owned_by_473030": true,
+        "original_shared_tail_counted_once": true,
+        "original_shared_tail_not_new_F": true,
+        "ui471DF0_only_byte_window_verified": true,
+        "actual_low_byte_samples_restored": true,
+        "original_U16_option_writes_kept": true,
+        "native_sample_socket_conversion_order_restored": true,
+        "original_W32_tail_machine_access_width_restored": false,
+        "unused_high_word_not_given_fake_owner": true,
+        "native_sparse_U16_consumed_value_adaptation_decided": true,
+        "existing_read_thunk_401EA0_and_semantic219_reused": true,
+        "normal_original_request_gates_and_timing_and_send_result_kept": true,
+        "new_99_dispatch_added": false,
+        "audio_pause_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x472fd0",
+      "inventory_id": "F:00072FD0",
+      "original_role": "Sub_472FD0：原低BYTE读取options194并判掩码10h，低W16清/置该位后转同一473060共享发送尾；同源已写值样本→socket→低W16/S32交511A00并透传结果。实际BYTE和两既有helper取样片段修正；原共尾W32的高W16即丢弃，native稀疏owner采用现有同源U16承载消费值，不跨读原1A0替代196，不宣机器读宽等价。六包装主体保持、共尾只计一次。",
+      "original_end_exclusive": "0x472ff6",
+      "original_chunks": [
+        [
+          "0x472fd0",
+          "0x472ff6"
+        ]
+      ],
+      "instruction_count": 8,
+      "status": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_472FD0"
+          ],
+          "relationship": "Sub_472FD0：原低BYTE读取options194并判掩码10h，低W16清/置该位后转同一473060共享发送尾；同源已写值样本→socket→低W16/S32交511A00并透传结果。实际BYTE和两既有helper取样片段修正；原共尾W32的高W16即丢弃，native稀疏owner采用现有同源U16承载消费值，不跨读原1A0替代196，不宣机器读宽等价。六包装主体保持、共尾只计一次。"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_472FD0"
+          ],
+          "relationship": "既有实际声明保持，不新接口"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "TogglePlayerOptionAndSend",
+            "ReadPlayerOptions194LowByte"
+          ],
+          "relationship": "两既有helper三个片段实修；低BYTE真实读和同源U16消费值/socket/掩码原序，原共尾未消费高W16不假造承载"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ProcessWindowShortcuts_4C7AE0",
+            "Sub_471DF0"
+          ],
+          "relationship": "两个实际UI父接线保；BVN完整父复用，471DF0仅六BYTE窗口/六现有callback归纳，不验全父"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+      ],
+      "boundary": "Sub_472FD0：原低BYTE读取options194并判掩码10h，低W16清/置该位后转同一473060共享发送尾；同源已写值样本→socket→低W16/S32交511A00并透传结果。实际BYTE和两既有helper取样片段修正；原共尾W32的高W16即丢弃，native稀疏owner采用现有同源U16承载消费值，不跨读原1A0替代196，不宣机器读宽等价。六包装主体保持、共尾只计一次。 BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "verification_level": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "shortcut_request_option_sampling": {
+        "spec_id": "BVO01",
+        "evidence_refs": [
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 8,
+        "original_code_bytes": 38,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_unique_direct_callee_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 3,
+        "original_return_count": 0,
+        "original_inbound_call_count": 3,
+        "original_total_instruction_count": 511,
+        "original_total_code_bytes": 1915,
+        "original_total_page_count": 16,
+        "original_total_direct_call_count": 62,
+        "original_total_unique_direct_callee_count": 16,
+        "original_total_tick_indirect_call_count": 13,
+        "original_total_jump_count": 72,
+        "original_total_return_count": 15,
+        "original_total_inbound_call_count": 36,
+        "source_body_changed": false,
+        "root_specific_new_I_claimed": false,
+        "existing_shared_helpers_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_changed_body_count": 2,
+        "source_patch_count": 3,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_storage_field_count": 0,
+        "all_twelve_root_bodies_kept": true,
+        "six_correct_requests_not_new_I": true,
+        "original_shared_tail_owned_by_473030": true,
+        "original_shared_tail_counted_once": true,
+        "original_shared_tail_not_new_F": true,
+        "ui471DF0_only_byte_window_verified": true,
+        "actual_low_byte_samples_restored": true,
+        "original_U16_option_writes_kept": true,
+        "native_sample_socket_conversion_order_restored": true,
+        "original_W32_tail_machine_access_width_restored": false,
+        "unused_high_word_not_given_fake_owner": true,
+        "native_sparse_U16_consumed_value_adaptation_decided": true,
+        "existing_read_thunk_401EA0_and_semantic219_reused": true,
+        "normal_original_request_gates_and_timing_and_send_result_kept": true,
+        "new_99_dispatch_added": false,
+        "audio_pause_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x473000",
+      "inventory_id": "F:00073000",
+      "original_role": "Sub_473000：原低BYTE读取options194并判掩码20h，低W16清/置该位后转同一473060共享发送尾；同源已写值样本→socket→低W16/S32交511A00并透传结果。实际BYTE和两既有helper取样片段修正；原共尾W32的高W16即丢弃，native稀疏owner采用现有同源U16承载消费值，不跨读原1A0替代196，不宣机器读宽等价。六包装主体保持、共尾只计一次。",
+      "original_end_exclusive": "0x473026",
+      "original_chunks": [
+        [
+          "0x473000",
+          "0x473026"
+        ]
+      ],
+      "instruction_count": 8,
+      "status": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_473000"
+          ],
+          "relationship": "Sub_473000：原低BYTE读取options194并判掩码20h，低W16清/置该位后转同一473060共享发送尾；同源已写值样本→socket→低W16/S32交511A00并透传结果。实际BYTE和两既有helper取样片段修正；原共尾W32的高W16即丢弃，native稀疏owner采用现有同源U16承载消费值，不跨读原1A0替代196，不宣机器读宽等价。六包装主体保持、共尾只计一次。"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_473000"
+          ],
+          "relationship": "既有实际声明保持，不新接口"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "TogglePlayerOptionAndSend",
+            "ReadPlayerOptions194LowByte"
+          ],
+          "relationship": "两既有helper三个片段实修；低BYTE真实读和同源U16消费值/socket/掩码原序，原共尾未消费高W16不假造承载"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ProcessWindowShortcuts_4C7AE0",
+            "Sub_471DF0"
+          ],
+          "relationship": "两个实际UI父接线保；BVN完整父复用，471DF0仅六BYTE窗口/六现有callback归纳，不验全父"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+      ],
+      "boundary": "Sub_473000：原低BYTE读取options194并判掩码20h，低W16清/置该位后转同一473060共享发送尾；同源已写值样本→socket→低W16/S32交511A00并透传结果。实际BYTE和两既有helper取样片段修正；原共尾W32的高W16即丢弃，native稀疏owner采用现有同源U16承载消费值，不跨读原1A0替代196，不宣机器读宽等价。六包装主体保持、共尾只计一次。 BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "verification_level": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "shortcut_request_option_sampling": {
+        "spec_id": "BVO01",
+        "evidence_refs": [
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 8,
+        "original_code_bytes": 38,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_unique_direct_callee_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 3,
+        "original_return_count": 0,
+        "original_inbound_call_count": 3,
+        "original_total_instruction_count": 511,
+        "original_total_code_bytes": 1915,
+        "original_total_page_count": 16,
+        "original_total_direct_call_count": 62,
+        "original_total_unique_direct_callee_count": 16,
+        "original_total_tick_indirect_call_count": 13,
+        "original_total_jump_count": 72,
+        "original_total_return_count": 15,
+        "original_total_inbound_call_count": 36,
+        "source_body_changed": false,
+        "root_specific_new_I_claimed": false,
+        "existing_shared_helpers_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_changed_body_count": 2,
+        "source_patch_count": 3,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_storage_field_count": 0,
+        "all_twelve_root_bodies_kept": true,
+        "six_correct_requests_not_new_I": true,
+        "original_shared_tail_owned_by_473030": true,
+        "original_shared_tail_counted_once": true,
+        "original_shared_tail_not_new_F": true,
+        "ui471DF0_only_byte_window_verified": true,
+        "actual_low_byte_samples_restored": true,
+        "original_U16_option_writes_kept": true,
+        "native_sample_socket_conversion_order_restored": true,
+        "original_W32_tail_machine_access_width_restored": false,
+        "unused_high_word_not_given_fake_owner": true,
+        "native_sparse_U16_consumed_value_adaptation_decided": true,
+        "existing_read_thunk_401EA0_and_semantic219_reused": true,
+        "normal_original_request_gates_and_timing_and_send_result_kept": true,
+        "new_99_dispatch_added": false,
+        "audio_pause_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x473030",
+      "inventory_id": "F:00073030",
+      "original_role": "Sub_473030：原低BYTE读取options194并判掩码40h，低W16清/置该位后转同一473060共享发送尾；同源已写值样本→socket→低W16/S32交511A00并透传结果。实际BYTE和两既有helper取样片段修正；原共尾W32的高W16即丢弃，native稀疏owner采用现有同源U16承载消费值，不跨读原1A0替代196，不宣机器读宽等价。六包装主体保持、共尾只计一次。",
+      "original_end_exclusive": "0x47307b",
+      "original_chunks": [
+        [
+          "0x473030",
+          "0x47307b"
+        ]
+      ],
+      "instruction_count": 16,
+      "status": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_473030"
+          ],
+          "relationship": "Sub_473030：原低BYTE读取options194并判掩码40h，低W16清/置该位后转同一473060共享发送尾；同源已写值样本→socket→低W16/S32交511A00并透传结果。实际BYTE和两既有helper取样片段修正；原共尾W32的高W16即丢弃，native稀疏owner采用现有同源U16承载消费值，不跨读原1A0替代196，不宣机器读宽等价。六包装主体保持、共尾只计一次。"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_473030"
+          ],
+          "relationship": "既有实际声明保持，不新接口"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "TogglePlayerOptionAndSend",
+            "ReadPlayerOptions194LowByte"
+          ],
+          "relationship": "两既有helper三个片段实修；低BYTE真实读和同源U16消费值/socket/掩码原序，原共尾未消费高W16不假造承载"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ProcessWindowShortcuts_4C7AE0",
+            "Sub_471DF0"
+          ],
+          "relationship": "两个实际UI父接线保；BVN完整父复用，471DF0仅六BYTE窗口/六现有callback归纳，不验全父"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+      ],
+      "boundary": "Sub_473030：原低BYTE读取options194并判掩码40h，低W16清/置该位后转同一473060共享发送尾；同源已写值样本→socket→低W16/S32交511A00并透传结果。实际BYTE和两既有helper取样片段修正；原共尾W32的高W16即丢弃，native稀疏owner采用现有同源U16承载消费值，不跨读原1A0替代196，不宣机器读宽等价。六包装主体保持、共尾只计一次。 BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "verification_level": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "shortcut_request_option_sampling": {
+        "spec_id": "BVO01",
+        "evidence_refs": [
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+          "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 16,
+        "original_code_bytes": 65,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_unique_direct_callee_count": 1,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 3,
+        "original_return_count": 1,
+        "original_inbound_call_count": 3,
+        "original_total_instruction_count": 511,
+        "original_total_code_bytes": 1915,
+        "original_total_page_count": 16,
+        "original_total_direct_call_count": 62,
+        "original_total_unique_direct_callee_count": 16,
+        "original_total_tick_indirect_call_count": 13,
+        "original_total_jump_count": 72,
+        "original_total_return_count": 15,
+        "original_total_inbound_call_count": 36,
+        "source_body_changed": false,
+        "root_specific_new_I_claimed": false,
+        "existing_shared_helpers_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_changed_body_count": 2,
+        "source_patch_count": 3,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_storage_field_count": 0,
+        "all_twelve_root_bodies_kept": true,
+        "six_correct_requests_not_new_I": true,
+        "original_shared_tail_owned_by_473030": true,
+        "original_shared_tail_counted_once": true,
+        "original_shared_tail_not_new_F": true,
+        "ui471DF0_only_byte_window_verified": true,
+        "actual_low_byte_samples_restored": true,
+        "original_U16_option_writes_kept": true,
+        "native_sample_socket_conversion_order_restored": true,
+        "original_W32_tail_machine_access_width_restored": false,
+        "unused_high_word_not_given_fake_owner": true,
+        "native_sparse_U16_consumed_value_adaptation_decided": true,
+        "existing_read_thunk_401EA0_and_semantic219_reused": true,
+        "normal_original_request_gates_and_timing_and_send_result_kept": true,
+        "new_99_dispatch_added": false,
+        "audio_pause_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

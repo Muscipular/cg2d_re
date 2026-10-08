@@ -2756,7 +2756,8 @@
         "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-baseline",
         "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-baseline",
         "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-baseline",
-        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-baseline"
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline"
       ],
       "original_inventory_ids": [
         "F:00077160",
@@ -2778,7 +2779,19 @@
         "F:00103440",
         "F:00103590",
         "F:001035E0",
-        "F:000C7AE0"
+        "F:000C7AE0",
+        "F:00070050",
+        "F:00070150",
+        "F:00070270",
+        "F:000703C0",
+        "F:000704A0",
+        "F:00070670",
+        "F:00072F40",
+        "F:00072F70",
+        "F:00072FA0",
+        "F:00072FD0",
+        "F:00073000",
+        "F:00073030"
       ],
       "closure_task_ids": [
         "U04",
@@ -2804,7 +2817,8 @@
         "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-decision",
         "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-decision",
         "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-decision",
-        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-decision"
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -2816,7 +2830,8 @@
         "WRS01现代窗口循环三先判后共享发布已修/旧WMB保持，504120实际转生入口和两场景16消费纳管；旧99表+04调用来源仍待证，不新建推测分派，全部callback/输入/数据资源、完整场景与owner寿命/ABI/SDK/PC53/RNG/画面运行未验",
         "BVL01限定静态：旧面板公共503160完整231条735B/四页、13直接九目标/一初始化间接调用、22跳/5RET与97真实CALL定位（96已归父和一未归代码点）。LegacyUiRecord.cpp一个既有体两片段恢复入口x→width明确取样及关闭模式一次native非拥有action持样供判空/MarkDeath，原正常数值不变、不称运行错误；六整源其余五源/声明保持。原布局发布、共享99表/分类与action-dirty同owner、创建失败仍SE56/初始化、fresh槽与LTE0、五页/hint128B及同源提示、点击BYTE/两次关闭查询/各原音频调用和结果保。既有1061全部原格式/入向字段保、完整根及单adapted F处置追加；UIRUNTIME15→16、仅两限定I-S各实际来源，四任务仍open。99表+04有97非零行/97目标与唯一数据owner，当前xref/指定立即数不足证明外路由或运行间接用途，不新造97回调分派/第二表/owner或恢复暂停音频；43未归CRT幂/浮点链不擅换std::pow。原格式明文/RPLAN.24/执行限制及完整门禁保持，未闭全父/callee、数据生产/正常寿命/机器ABI链接运行或实际旧输入路由。",
         "BVM01限定静态：公共旧面板绘制503440/关闭查询503590/图形按钮5035E0三完整根252条662B/五页、10直接五目标/零间接、15跳/4RET，373实际CALL只引用定位；503990已有BSP01完整基线复用，本步新读取前25条仅取样/第一命中邻窗，不重计472调用或新F。三正文已正确保持，只有LegacyUiRecord.cpp既有QueryPanelButtonState一个桥接片段恢复top→left→height→width四个源字段取齐，再沿原矩形/核心/返回传递；不改变正常值/0-40-各BIT/S32返回或新helper、owner/API。16B descriptor原确实全清、面板mode4/按钮mode0保，五页/原unsigned999、两除2/层次/悬停/几何与BVL原action-dirty/99表及全部音频调用保。三新原新1766..1768/三adapted F，公共UI流16→19两限定I-S各真实来源，I仅桥接实修；其他族/外路由和全373调用处/数据生产/正常寿命/像素/机器ABI链接运行未验，原格式明文/音频暂停/RPLAN.24和完整门禁保持。",
-        "BVN01完整快捷根1507条5500B/22页、256直接32目标/零间接224跳5RET及唯一473F80真实父；只现有四个Shift范围/聊天片段恢复先判后共享S32发布，四表达式承接八模式原点，原1..5轮换/聊天回退与计时180、键查询/窗口/动作/RNG/音效和其它正文保持。一个CPP四片段、零新函数/helper/owner/API；单F纳管及公共UI20两个限定I-S，不代完整输入生产/焦点、32callee/寿命、生成EFLAGS/ABI、音频或画面运行，不当旧99路由，原格式明文/音频暂停/RPLAN.24及执行限制保持。"
+        "BVN01完整快捷根1507条5500B/22页、256直接32目标/零间接224跳5RET及唯一473F80真实父；只现有四个Shift范围/聊天片段恢复先判后共享S32发布，四表达式承接八模式原点，原1..5轮换/聊天回退与计时180、键查询/窗口/动作/RNG/音效和其它正文保持。一个CPP四片段、零新函数/helper/owner/API；单F纳管及公共UI20两个限定I-S，不代完整输入生产/焦点、32callee/寿命、生成EFLAGS/ABI、音频或画面运行，不当旧99路由，原格式明文/音频暂停/RPLAN.24及执行限制保持。",
+        "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2830,7 +2845,8 @@
         "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
         "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state",
         "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state",
-        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state"
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
       ]
     },
     {
@@ -48746,6 +48762,106 @@
       "observation": "BVN01完整快捷根1507条5500B/22页、256直接32目标/零间接224跳5RET及唯一473F80真实父；只现有四个Shift范围/聊天片段恢复先判后共享S32发布，四表达式承接八模式原点，原1..5轮换/聊天回退与计时180、键查询/窗口/动作/RNG/音效和其它正文保持。一个CPP四片段、零新函数/helper/owner/API；单F纳管及公共UI20两个限定I-S，不代完整输入生产/焦点、32callee/寿命、生成EFLAGS/ABI、音频或画面运行，不当旧99路由，原格式明文/音频暂停/RPLAN.24及执行限制保持。",
       "expected": "BVN01完整快捷根1507条5500B/22页、256直接32目标/零间接224跳5RET及唯一473F80真实父；只现有四个Shift范围/聊天片段恢复先判后共享S32发布，四表达式承接八模式原点，原1..5轮换/聊天回退与计时180、键查询/窗口/动作/RNG/音效和其它正文保持。一个CPP四片段、零新函数/helper/owner/API；单F纳管及公共UI20两个限定I-S，不代完整输入生产/焦点、32callee/寿命、生成EFLAGS/ABI、音频或画面运行，不当旧99路由，原格式明文/音频暂停/RPLAN.24及执行限制保持。",
       "actual": "BVN01完整快捷根1507条5500B/22页、256直接32目标/零间接224跳5RET及唯一473F80真实父；只现有四个Shift范围/聊天片段恢复先判后共享S32发布，四表达式承接八模式原点，原1..5轮换/聊天回退与计时180、键查询/窗口/动作/RNG/音效和其它正文保持。一个CPP四片段、零新函数/helper/owner/API；单F纳管及公共UI20两个限定I-S，不代完整输入生产/焦点、32callee/寿命、生成EFLAGS/ABI、音频或画面运行，不当旧99路由，原格式明文/音频暂停/RPLAN.24及执行限制保持。"
+    },
+    {
+      "id": "E-SHORTCUT-REQUEST-OPTION-FUNC-UIRUNTIME-I-20261008",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVO01十二完整511条1915B/16页、36CALL/六共尾跳，I仅两既有helper三片段，六正确请求/十二包装保持，原W32尾读与稀疏nativeU16消费差异明列。doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-shortcut-request-option-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/world/SceneState.cpp#Sub_470050",
+        "src/world/SceneState.cpp#Sub_470150",
+        "src/world/SceneState.cpp#Sub_470270",
+        "src/world/SceneState.cpp#Sub_4703C0",
+        "src/world/SceneState.cpp#Sub_4704A0",
+        "src/world/SceneState.cpp#Sub_470670",
+        "src/world/SceneState.cpp#Sub_472F40",
+        "src/world/SceneState.cpp#Sub_472F70",
+        "src/world/SceneState.cpp#Sub_472FA0",
+        "src/world/SceneState.cpp#Sub_472FD0",
+        "src/world/SceneState.cpp#Sub_473000",
+        "src/world/SceneState.cpp#Sub_473030",
+        "src/world/SceneState.cpp#TogglePlayerOptionAndSend",
+        "src/world/SceneState.cpp#ReadPlayerOptions194LowByte",
+        "src/ui/WindowRuntime.cpp#ProcessWindowShortcuts_4C7AE0",
+        "src/ui/WindowRuntime.cpp#Sub_46FC60",
+        "src/ui/WindowRuntime.cpp#Sub_471DF0",
+        "src/world/WorldUpdateDependencies.hpp",
+        "doc/cg2d_window_shortcut_publication_evidence.json",
+        "doc/cg2d_shortcut_request_option_sampling_evidence.json",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state",
+        "doc/ui_windows/shared_runtime.md",
+        "doc/cg2d_ui_window_runtime.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+          "decision_ref": "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "expected": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "actual": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。"
+    },
+    {
+      "id": "E-SHORTCUT-REQUEST-OPTION-FUNC-UIRUNTIME-S-20261008",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVO01十二完整511条1915B/16页、36CALL/六共尾跳，I仅两既有helper三片段，六正确请求/十二包装保持，原W32尾读与稀疏nativeU16消费差异明列。doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-shortcut-request-option-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/world/SceneState.cpp#Sub_470050",
+        "src/world/SceneState.cpp#Sub_470150",
+        "src/world/SceneState.cpp#Sub_470270",
+        "src/world/SceneState.cpp#Sub_4703C0",
+        "src/world/SceneState.cpp#Sub_4704A0",
+        "src/world/SceneState.cpp#Sub_470670",
+        "src/world/SceneState.cpp#Sub_472F40",
+        "src/world/SceneState.cpp#Sub_472F70",
+        "src/world/SceneState.cpp#Sub_472FA0",
+        "src/world/SceneState.cpp#Sub_472FD0",
+        "src/world/SceneState.cpp#Sub_473000",
+        "src/world/SceneState.cpp#Sub_473030",
+        "src/world/SceneState.cpp#TogglePlayerOptionAndSend",
+        "src/world/SceneState.cpp#ReadPlayerOptions194LowByte",
+        "src/ui/WindowRuntime.cpp#ProcessWindowShortcuts_4C7AE0",
+        "src/ui/WindowRuntime.cpp#Sub_46FC60",
+        "src/ui/WindowRuntime.cpp#Sub_471DF0",
+        "src/world/WorldUpdateDependencies.hpp",
+        "doc/cg2d_window_shortcut_publication_evidence.json",
+        "doc/cg2d_shortcut_request_option_sampling_evidence.json",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state",
+        "doc/ui_windows/shared_runtime.md",
+        "doc/cg2d_ui_window_runtime.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+          "decision_ref": "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "expected": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
+      "actual": "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。"
     }
   ],
   "task_acceptance": [
@@ -49344,7 +49460,8 @@
         "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
         "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state",
         "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state",
-        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state"
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
       ]
     },
     {
@@ -49635,7 +49752,8 @@
         "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
         "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state",
         "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state",
-        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state"
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
       ]
     },
     {
@@ -49932,7 +50050,8 @@
         "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
         "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state",
         "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state",
-        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state"
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
       ]
     },
     {
@@ -50255,7 +50374,8 @@
         "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
         "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state",
         "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state",
-        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state"
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
       ]
     },
     {
@@ -61467,6 +61587,150 @@
         "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state"
       ],
       "boundary": "BVN01完整快捷根1507条5500B/22页、256直接32目标/零间接224跳5RET及唯一473F80真实父；只现有四个Shift范围/聊天片段恢复先判后共享S32发布，四表达式承接八模式原点，原1..5轮换/聊天回退与计时180、键查询/窗口/动作/RNG/音效和其它正文保持。一个CPP四片段、零新函数/helper/owner/API；单F纳管及公共UI20两个限定I-S，不代完整输入生产/焦点、32callee/寿命、生成EFLAGS/ABI、音频或画面运行，不当旧99路由，原格式明文/音频暂停/RPLAN.24及执行限制保持。"
+    },
+    {
+      "inventory_id": "F:00070050",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+      ],
+      "boundary": "470050：direction S32<0拒绝55；表X/Y两S16依次取样，CryptInt加Y后X查4450D0范围8；follow低W16为0或1且flags18A bit100才续，target恰1、两个W16状态均0、原Eq低AL通过；先tick后fresh共享起点+500 unsigned严格小于，Y→X→socket发510880，忽略发送结果后重新tick发布，合格但未到时间仍声51。 BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。"
+    },
+    {
+      "inventory_id": "F:00070150",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+      ],
+      "boundary": "470150：同源direction/表两S16；455A90恰1才加Y/X查4451F0参数8/C400/0，其他target原置0；后follow/flags/target及两状态/Eq门禁与470050相同，时间后发510940，刷新tick与声51/55原序保。 BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。"
+    },
+    {
+      "inventory_id": "F:00070270",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+      ],
+      "boundary": "470270：入口follow==0选择加入路径，仅此查direction和4452A0参数28/400/0；加入和离开各原两状态/Eq门禁和时间调用由现有公共片段承接，保存入口选择不重新判follow；加入仅过500门禁后flags bit100拒绝且不发声，发送mode1，离开mode0；Y/X/socket511A50/更新tick和正常声51保持。 BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。"
+    },
+    {
+      "inventory_id": "F:000703C0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+      ],
+      "boundary": "4703C0：direction/table/AddY/X/4450D0范围8后target恰1、两个W16/Eq；无需470050的follow/flags门禁；时间后Y/X/socket5111E0、刷新tick，原失败55和正常51保持。 BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。"
+    },
+    {
+      "inventory_id": "F:000704A0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+      ],
+      "boundary": "4704A0：原两次4450D0分别一倍和两倍delta，每次AddY后AddX；follow!=1且两个target都!=1才原提示556CC4/4/0和55返回。随后两状态/Eq失败仍声51；时间合格仅socket511FB0、不读玩家X/Y，忽略发后刷新tick；所有正常声51保持。 BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。"
+    },
+    {
+      "inventory_id": "F:00070670",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+      ],
+      "boundary": "470670：direction/AddY/X/4450D0及target/两状态/Eq后，rank W32索引48B原行，实际权限BYTE&1；缺权限原5862AC/4/0提示与55；时间后Y/X/socket5113C0，刷新tick、正常声51保持。 BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。"
+    },
+    {
+      "inventory_id": "F:00072F40",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+      ],
+      "boundary": "Sub_472F40：原低BYTE读取options194并判掩码4h，低W16清/置该位后转同一473060共享发送尾；同源已写值样本→socket→低W16/S32交511A00并透传结果。实际BYTE和两既有helper取样片段修正；原共尾W32的高W16即丢弃，native稀疏owner采用现有同源U16承载消费值，不跨读原1A0替代196，不宣机器读宽等价。六包装主体保持、共尾只计一次。 BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。"
+    },
+    {
+      "inventory_id": "F:00072F70",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+      ],
+      "boundary": "Sub_472F70：原低BYTE读取options194并判掩码8h，低W16清/置该位后转同一473060共享发送尾；同源已写值样本→socket→低W16/S32交511A00并透传结果。实际BYTE和两既有helper取样片段修正；原共尾W32的高W16即丢弃，native稀疏owner采用现有同源U16承载消费值，不跨读原1A0替代196，不宣机器读宽等价。六包装主体保持、共尾只计一次。 BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。"
+    },
+    {
+      "inventory_id": "F:00072FA0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+      ],
+      "boundary": "Sub_472FA0：原低BYTE读取options194并判掩码1h，低W16清/置该位后转同一473060共享发送尾；同源已写值样本→socket→低W16/S32交511A00并透传结果。实际BYTE和两既有helper取样片段修正；原共尾W32的高W16即丢弃，native稀疏owner采用现有同源U16承载消费值，不跨读原1A0替代196，不宣机器读宽等价。六包装主体保持、共尾只计一次。 BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。"
+    },
+    {
+      "inventory_id": "F:00072FD0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+      ],
+      "boundary": "Sub_472FD0：原低BYTE读取options194并判掩码10h，低W16清/置该位后转同一473060共享发送尾；同源已写值样本→socket→低W16/S32交511A00并透传结果。实际BYTE和两既有helper取样片段修正；原共尾W32的高W16即丢弃，native稀疏owner采用现有同源U16承载消费值，不跨读原1A0替代196，不宣机器读宽等价。六包装主体保持、共尾只计一次。 BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。"
+    },
+    {
+      "inventory_id": "F:00073000",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+      ],
+      "boundary": "Sub_473000：原低BYTE读取options194并判掩码20h，低W16清/置该位后转同一473060共享发送尾；同源已写值样本→socket→低W16/S32交511A00并透传结果。实际BYTE和两既有helper取样片段修正；原共尾W32的高W16即丢弃，native稀疏owner采用现有同源U16承载消费值，不跨读原1A0替代196，不宣机器读宽等价。六包装主体保持、共尾只计一次。 BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。"
+    },
+    {
+      "inventory_id": "F:00073030",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance",
+        "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state"
+      ],
+      "boundary": "Sub_473030：原低BYTE读取options194并判掩码40h，低W16清/置该位后转同一473060共享发送尾；同源已写值样本→socket→低W16/S32交511A00并透传结果。实际BYTE和两既有helper取样片段修正；原共尾W32的高W16即丢弃，native稀疏owner采用现有同源U16承载消费值，不跨读原1A0替代196，不宣机器读宽等价。六包装主体保持、共尾只计一次。 BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。"
     }
   ],
   "auxiliary_dispositions": [

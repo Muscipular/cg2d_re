@@ -1680,3 +1680,13 @@ CC4238长度及默认回退、修补、应用、捕获中的共享读取/写入�
 完整原根1507条5500B/22页、256直接32目标、零间接224跳5RET；唯一473F80父复用WRS01已有原证。本步只现有快捷键根四片段：范围>5/<1、聊天>count/<0判定保存后才发布原S32共享值，再据同判定分流；四片段承接两套键位八原点。原范围轮换/聊天回退、计时180、键位/修饰键优先、逐键新读取、四窗口与动作/RNG/音效顺序及其它正文保持。
 
 新增1769/F:000C7AE0和adapted处置，公共UI19→20、两个限定I/S，各15来源；零新实现函数/helper/owner。U04/U11/V03/R04仍open；预期语义1770/有效1763、基线1880（51.09%）、F918/E1094。完整输入生产/焦点、32callee/owner寿命、机器ABI/画面运行与R8待验，旧99表路由不因此闭合；音频暂停、原格式明文及执行限制保持。
+
+## BVO01快捷请求依赖与选项BYTE生产消费（2026-10-08）
+
+[BVO01基线](../cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline)、[实施与类型差异](../cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision)、[验收](../cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-acceptance)及[原证](../cg2d_shortcut_request_option_sampling_evidence.json)。
+
+十二完整根511条1915B/16页、62直接16目标/13时钟间接、72跳15RET，36真实CALL定位；六个473060共尾跳保原归属，不新F。六正确请求与十二包装全文保持，两个现有helper三片段恢复同源BYTE读及值样本→socket→低W16/S32消费，原U16位写和实际网络返回保。
+
+原生玩家结构是稀疏承载；原473060 W32高W16随即被掩掉。本步按具名裁决保现有同源U16消费值，不读下一1A0冒充原196，不扩字段/补零或宣机器访问宽度等价。471DF0只六BYTE窗口取证，401EA0一跳及既有219复用，不验全父/读取核心。
+
+新1770..1781/十二adapted F，公共UI20→32，两限定I/S各28来源，I仅两既有helper实修；六正确请求不计新I。预期语义1782/有效1775、基线1892（51.41%）、F930/E1096；U04/U11/V03/R04仍open。全部父/16callee、输入/资源生产、正常owner-alias寿命、机器ABI/画面运行与R8待验；音频暂停、原格式明文及执行限制保持。

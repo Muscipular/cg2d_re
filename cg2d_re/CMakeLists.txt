@@ -99,6 +99,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/LegacyMultibyte.cpp
     src/platform/LegacyNetworkAdapter.cpp
     src/platform/SdlAudioBackend.cpp
+    src/platform/LegacyWavesReverb.cpp
     src/platform/LegacyMouse.cpp
     src/platform/LegacyMouseTracker.cpp
     src/platform/LegacyCursor.cpp
@@ -168,7 +169,7 @@ target_compile_options(cg2d_re_startup PRIVATE
     "$<$<COMPILE_LANGUAGE:CXX>:/GR-;/utf-8;/W4;/fp:strict>")
 target_compile_definitions(cg2d_re_startup PRIVATE
     "$<$<COMPILE_LANGUAGE:CXX>:_CRT_SECURE_NO_WARNINGS>")
-target_link_libraries(cg2d_re_startup PUBLIC cg2d_re_core PRIVATE SDL3::SDL3 user32 gdi32 imm32 ws2_32 winmm iphlpapi)
+target_link_libraries(cg2d_re_startup PUBLIC cg2d_re_core PRIVATE SDL3::SDL3 user32 gdi32 imm32 ws2_32 winmm iphlpapi ole32)
 
 add_library(cg2d_re_render STATIC
     src/render/SdlPresenter.cpp

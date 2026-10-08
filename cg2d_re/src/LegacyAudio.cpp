@@ -1511,6 +1511,12 @@ std::int32_t Sub_52C3D0()
     return result;
 }
 
+// 原455030：两个S32生成Waves四F32参数，效果失败不改变父的加载/播放返回。
+void SetFixedMusicReverb_455030(const std::int32_t decay, const std::int32_t mix)
+{
+    static_cast<void>(gSdlAudioBackend.SetFixedMusicReverb(decay, mix));
+}
+
 // 原455400：按同源音乐音量缩放，只在原0..127域应用独立固定音乐表。
 void ApplyFixedMusicVolume_455400(const std::int32_t scale)
 {
@@ -1557,6 +1563,7 @@ std::int32_t PlayFixedMusic_455280(const std::int32_t type, const std::uint32_t 
     if (type == 1) { return 1; }
     if (type != 0) { return 0; }
     if (!gSdlAudioBackend.PrepareFixedMusic()) { return 0; }
+    SetFixedMusicReverb_455030(30, 7);
     static_cast<void>(SetFixedMusicRepeats_455470(repeats));
     static_cast<void>(PlayFixedMusicSegment_4553B0());
     return 1;
@@ -1624,6 +1631,7 @@ std::int32_t InitializeMusic_454C30(std::uintptr_t)
         if (attenuation > 10000) { attenuation = 10000; }
         gFixedMusicVolume62B0C8[static_cast<std::size_t>(value)] = -attenuation;
     }
+    audio::SetFixedMusicReverb_455030(25, 6);
     return 0;
 }
 

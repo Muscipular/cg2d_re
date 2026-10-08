@@ -4186,7 +4186,10 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#pcm-wave-header-source-state",
         "doc/cg2d_pcm_wave_header_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-control-source-state",
-        "doc/cg2d_fixed_wav_control_evidence.json"
+        "doc/cg2d_fixed_wav_control_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-source-state",
+        "doc/cg2d_fixed_wav_reverb_evidence.json"
       ],
       "original_inventory_ids": [
         "F:00054C30",
@@ -4249,9 +4252,13 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#pcm-wave-header-source-state",
         "doc/cg2d_pcm_wave_header_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-control-source-state",
-        "doc/cg2d_fixed_wav_control_evidence.json"
+        "doc/cg2d_fixed_wav_control_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-source-state",
+        "doc/cg2d_fixed_wav_reverb_evidence.json"
       ],
       "blockers": [
+        "CAB11原Waves四参数/两父配置和固定WAV PCM系统效果、重复尾音/关闭顺序源码已实现；仅系统注册/新增源静态，未编译或实际创建/处理/试听。剩余三音色/loader、旧99外层与全部状态/声音/正常寿命继续，完整门禁保持",
         "CAB10四固定WAV控制入口、原FF初值字节/清0及父阶段接线已实现；五原职责来源可追，原音色/效果/loader四项继续；当前源码未编译或运行，完整失败/设备/声音/正常寿命与原生ABI仍待",
         "CAB09共用18B MMIO头读取和音效/BGM父接线已修正；三原职责来源可追，剩余固定WAV九项继续，全部失败/资源/声音/正常寿命与当前源码编译运行仍待，局部静态不代完整门禁",
         "CAB08流式首段完整PCM预填→ready→smpl终点发布已修正、四原职责有SDL来源；当前源码未编译/运行，全部失败/诊断状态、调度/波形与正常寿命仍未验，局部静态不代完整门禁",
@@ -4276,7 +4283,10 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#pcm-wave-header-source-state",
         "doc/cg2d_pcm_wave_header_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-control-source-state",
-        "doc/cg2d_fixed_wav_control_evidence.json"
+        "doc/cg2d_fixed_wav_control_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-source-state",
+        "doc/cg2d_fixed_wav_reverb_evidence.json"
       ]
     },
     {
@@ -53229,6 +53239,99 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-FIXED-WAV-REVERB-FUNC-AUDIO-I-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前原455030完整60条208B、54F744 GUID/16B参数及25/6、30/7两个真实caller；本机SDK同参数与已注册系统类",
+      "implementation_reference": "Git固定命名快照 cg2d-re-fixed-wav-reverb-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-source-state",
+        "doc/cg2d_fixed_wav_reverb_evidence.json",
+        "src/LegacyAudio.cpp#SetFixedMusicReverb_455030",
+        "src/platform/LegacyWavesReverb.cpp",
+        "include/cg/platform/LegacyWavesReverb.hpp",
+        "src/platform/SdlAudioBackend.cpp#SetFixedMusicReverb",
+        "src/platform/SdlAudioBackend.cpp#FeedChannel",
+        "CMakeLists.txt"
+      ],
+      "observation": "仅CAB11四参数/两父真实接线、固定PCM效果来源与线程/借用/重复尾音关闭序静态证据；不是效果实际运行或全音频门禁",
+      "expected": "原参数/单位/位样本和两caller顺序、原忽略配置返回，实际SDK结果、COM线程边界及同步PCM寿命；不恢复运行时MIDI",
+      "actual": "原void适配和25/6、30/7真实父接线，独立SDL线程持系统Waves效果，串行处理/尾音排出与流→线程→样本关闭；UTF-8、SDK边界和普通音频正文静态通过，当前未编译/实际创建/处理/试听",
+      "differences": [
+        {
+          "description": "原DirectMusic端口属性由系统Waves PCM效果承接，播放仍为SDL3/WAV；原驱动波形、实际创建/float32格式/调度和全部失败/通知/正常寿命不代验收",
+          "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-FIXED-WAV-REVERB-FUNC-AUDIO-W-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前原455030完整60条208B、54F744 GUID/16B参数及25/6、30/7两个真实caller；本机SDK同参数与已注册系统类",
+      "implementation_reference": "Git固定命名快照 cg2d-re-fixed-wav-reverb-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-source-state",
+        "doc/cg2d_fixed_wav_reverb_evidence.json",
+        "src/LegacyAudio.cpp#SetFixedMusicReverb_455030",
+        "src/platform/LegacyWavesReverb.cpp",
+        "include/cg/platform/LegacyWavesReverb.hpp",
+        "src/platform/SdlAudioBackend.cpp#SetFixedMusicReverb",
+        "src/platform/SdlAudioBackend.cpp#FeedChannel",
+        "CMakeLists.txt"
+      ],
+      "observation": "仅CAB11四参数/两父真实接线、固定PCM效果来源与线程/借用/重复尾音关闭序静态证据；不是效果实际运行或全音频门禁",
+      "expected": "原参数/单位/位样本和两caller顺序、原忽略配置返回，实际SDK结果、COM线程边界及同步PCM寿命；不恢复运行时MIDI",
+      "actual": "原void适配和25/6、30/7真实父接线，独立SDL线程持系统Waves效果，串行处理/尾音排出与流→线程→样本关闭；UTF-8、SDK边界和普通音频正文静态通过，当前未编译/实际创建/处理/试听",
+      "differences": [
+        {
+          "description": "原DirectMusic端口属性由系统Waves PCM效果承接，播放仍为SDL3/WAV；原驱动波形、实际创建/float32格式/调度和全部失败/通知/正常寿命不代验收",
+          "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-FIXED-WAV-REVERB-FUNC-AUDIO-S-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前原455030完整60条208B、54F744 GUID/16B参数及25/6、30/7两个真实caller；本机SDK同参数与已注册系统类",
+      "implementation_reference": "Git固定命名快照 cg2d-re-fixed-wav-reverb-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-source-state",
+        "doc/cg2d_fixed_wav_reverb_evidence.json",
+        "src/LegacyAudio.cpp#SetFixedMusicReverb_455030",
+        "src/platform/LegacyWavesReverb.cpp",
+        "include/cg/platform/LegacyWavesReverb.hpp",
+        "src/platform/SdlAudioBackend.cpp#SetFixedMusicReverb",
+        "src/platform/SdlAudioBackend.cpp#FeedChannel",
+        "CMakeLists.txt"
+      ],
+      "observation": "仅CAB11四参数/两父真实接线、固定PCM效果来源与线程/借用/重复尾音关闭序静态证据；不是效果实际运行或全音频门禁",
+      "expected": "原参数/单位/位样本和两caller顺序、原忽略配置返回，实际SDK结果、COM线程边界及同步PCM寿命；不恢复运行时MIDI",
+      "actual": "原void适配和25/6、30/7真实父接线，独立SDL线程持系统Waves效果，串行处理/尾音排出与流→线程→样本关闭；UTF-8、SDK边界和普通音频正文静态通过，当前未编译/实际创建/处理/试听",
+      "differences": [
+        {
+          "description": "原DirectMusic端口属性由系统Waves PCM效果承接，播放仍为SDL3/WAV；原驱动波形、实际创建/float32格式/调度和全部失败/通知/正常寿命不代验收",
+          "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
     }
   ],
   "task_acceptance": [
@@ -54972,7 +55075,10 @@
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state",
         "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state",
         "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
-        "doc/cg2d_client_link_sdl_audio_evidence.json"
+        "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-source-state",
+        "doc/cg2d_fixed_wav_reverb_evidence.json"
       ]
     },
     {
@@ -55038,7 +55144,10 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
         "doc/cg2d_client_link_sdl_audio_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-control-source-state",
-        "doc/cg2d_fixed_wav_control_evidence.json"
+        "doc/cg2d_fixed_wav_control_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-source-state",
+        "doc/cg2d_fixed_wav_reverb_evidence.json"
       ]
     },
     {
@@ -55072,7 +55181,10 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#pcm-wave-header-source-state",
         "doc/cg2d_pcm_wave_header_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-control-source-state",
-        "doc/cg2d_fixed_wav_control_evidence.json"
+        "doc/cg2d_fixed_wav_control_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-source-state",
+        "doc/cg2d_fixed_wav_reverb_evidence.json"
       ]
     },
     {
@@ -67828,6 +67940,15 @@
       "evidence_refs": [
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-control-source-state",
         "doc/cg2d_fixed_wav_control_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00055030",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-source-state",
+        "doc/cg2d_fixed_wav_reverb_evidence.json"
       ]
     }
   ],

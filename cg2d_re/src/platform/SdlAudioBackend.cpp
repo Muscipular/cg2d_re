@@ -1,4 +1,5 @@
 #include "cg/platform/SdlAudioBackend.hpp"
+#include "cg/platform/LegacyWavesReverb.hpp"
 
 #include <SDL3/SDL.h>
 
@@ -34,6 +35,10 @@ struct SdlAudioBackend::Impl {
         std::uint32_t remainingRepeats {}; // 固定WAV的有限重复次数；普通音效/BGM仍由loop控制。
         bool playing {};
         bool feedFailed {};
+        LegacyWavesReverb* reverb {}; // 仅固定WAV借同一Impl效果owner，普通BGM/音效为空。
+        std::uint64_t outputFrames {}; // 固定效果连续时点，样本游标回环时不重置。
+        bool reverbHasTail {}; // 当前效果返回S_FALSE，尚有尾音。
+        bool drainingReverb {}; // 最后一遍已结束，后续只给效果零输入。
     };
 
     bool audioInitialized {};
@@ -51,6 +56,7 @@ struct SdlAudioBackend::Impl {
     Sample fixedMusicSample;
     Channel fixedMusic;
     bool fixedMusicPrepared {};
+    LegacyWavesReverb fixedMusicReverb; // 唯一固定效果线程owner，流退出回调后Close。
 
     static int SDLCALL RunBgmStopWorker(void* const userdata)
     {
@@ -163,7 +169,7 @@ struct SdlAudioBackend::Impl {
                 + (additionalAmount % kFrameBytes != 0));
             const std::size_t limit = (std::min)(requested, kBatchFrames);
             std::size_t count = 0;
-            for (; count < limit; ++count) {
+            for (; !channel.drainingReverb && count < limit; ++count) {
                 if (channel.cursor == end) {
                     if (!channel.loop) {
                         if (channel.remainingRepeats == 0) { break; }
@@ -178,6 +184,19 @@ struct SdlAudioBackend::Impl {
                     source[offset + 1] * channel.panRight;
             }
 
+            if (channel.drainingReverb) {
+                buffer.fill(0.0f);
+                count = limit;
+            }
+            if (channel.reverb != nullptr && count != 0) {
+                if (!channel.reverb->Process({buffer.data(), count * 2}, channel.outputFrames,
+                        channel.drainingReverb, channel.reverbHasTail)) {
+                    channel.playing = false;
+                    channel.feedFailed = true;
+                    return;
+                }
+                channel.outputFrames += count;
+            }
             if (count != 0 && !SDL_PutAudioStreamData(
                     stream, buffer.data(), static_cast<int>(count) * kFrameBytes)) {
                 channel.playing = false;
@@ -188,9 +207,18 @@ struct SdlAudioBackend::Impl {
                 return;
             }
             additionalAmount -= static_cast<int>(count) * kFrameBytes;
-            if (count < limit || (!channel.loop && channel.remainingRepeats == 0 && channel.cursor == end)) {
-                channel.playing = false;
-                static_cast<void>(SDL_FlushAudioStream(stream));
+            if (channel.drainingReverb) {
+                if (!channel.reverbHasTail) {
+                    channel.playing = false;
+                    static_cast<void>(SDL_FlushAudioStream(stream));
+                }
+            } else if (count < limit || (!channel.loop && channel.remainingRepeats == 0 && channel.cursor == end)) {
+                if (channel.reverb != nullptr && channel.reverbHasTail) {
+                    channel.drainingReverb = true;
+                } else {
+                    channel.playing = false;
+                    static_cast<void>(SDL_FlushAudioStream(stream));
+                }
             }
         }
     }
@@ -216,6 +244,7 @@ struct SdlAudioBackend::Impl {
     ~Impl()
     {
         if (fixedMusic.stream != nullptr) { SDL_DestroyAudioStream(std::exchange(fixedMusic.stream, nullptr)); }
+        fixedMusicReverb.Close();
         FreeSample(fixedMusicSample);
         StopBgmWorker();
         if (bgm.stream != nullptr) {
@@ -606,6 +635,8 @@ bool SdlAudioBackend::InitializeFixedMusic(std::span<const std::uint8_t> wav) no
         ShutdownFixedMusic();
         return false;
     }
+    // 原455030属性失败不使音乐初始化失败；真实配置成功后才接入PCM效果。
+    static_cast<void>(impl_->fixedMusicReverb.Open(impl_->fixedMusicSample.mixSpec.freq));
     return true;
 }
 
@@ -624,6 +655,10 @@ bool SdlAudioBackend::PrepareFixedMusic() noexcept
     channel.loop = false;
     channel.remainingRepeats = 0;
     channel.feedFailed = false;
+    channel.outputFrames = 0;
+    channel.reverbHasTail = false;
+    channel.drainingReverb = false;
+    if (channel.reverb != nullptr) { static_cast<void>(channel.reverb->Reset()); }
     impl_->fixedMusicPrepared = cleared;
     static_cast<void>(SDL_UnlockAudioStream(channel.stream));
     return cleared;
@@ -665,11 +700,24 @@ bool SdlAudioBackend::SetFixedMusicVolume(std::int32_t hundredthDb) noexcept
     return SDL_SetAudioStreamGain(impl_->fixedMusic.stream, static_cast<float>(std::pow(10.0, hundredthDb / 2000.0)));
 }
 
+bool SdlAudioBackend::SetFixedMusicReverb(const std::int32_t decay, const std::int32_t mix) noexcept
+{
+    if (!HasFixedMusic() || !SDL_LockAudioStream(impl_->fixedMusic.stream)) { return false; }
+    const bool configured = impl_->fixedMusicReverb.Configure(decay, mix);
+    if (configured) { impl_->fixedMusic.reverb = &impl_->fixedMusicReverb; }
+    static_cast<void>(SDL_UnlockAudioStream(impl_->fixedMusic.stream));
+    return configured;
+}
+
 void SdlAudioBackend::StopFixedMusic() noexcept
 {
     if (HasFixedMusic() && SDL_LockAudioStream(impl_->fixedMusic.stream)) {
         impl_->fixedMusic.playing = false;
         static_cast<void>(SDL_ClearAudioStream(impl_->fixedMusic.stream));
+        impl_->fixedMusic.outputFrames = 0;
+        impl_->fixedMusic.reverbHasTail = false;
+        impl_->fixedMusic.drainingReverb = false;
+        if (impl_->fixedMusic.reverb != nullptr) { static_cast<void>(impl_->fixedMusic.reverb->Reset()); }
         static_cast<void>(SDL_UnlockAudioStream(impl_->fixedMusic.stream));
     }
 }
@@ -689,6 +737,7 @@ void SdlAudioBackend::ShutdownFixedMusic() noexcept
 {
     if (impl_ == nullptr) { return; }
     if (impl_->fixedMusic.stream != nullptr) { SDL_DestroyAudioStream(std::exchange(impl_->fixedMusic.stream, nullptr)); }
+    impl_->fixedMusicReverb.Close();
     impl_->fixedMusic = {};
     impl_->fixedMusicPrepared = false;
     Impl::FreeSample(impl_->fixedMusicSample);

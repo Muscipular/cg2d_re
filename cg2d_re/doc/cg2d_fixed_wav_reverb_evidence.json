@@ -1,0 +1,542 @@
+{
+  "schema_version": 1,
+  "step": "CAB11",
+  "recorded_on": "2026-10-09",
+  "source_snapshot": "cg2d-re-fixed-wav-reverb-20261009",
+  "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-decision",
+  "verification_level": "当前原会话只读完整指令/字节及两caller、SDK声明/系统注册和新增源限定静态；未编译、测试、实际创建、处理、运行、试听或摘要",
+  "authorization": "用户继续完善音频及整体SPEC目标，沿既有工程委托、SDL3/WAV与第二段空音频选择",
+  "original_function_count": 1,
+  "instruction_count": 60,
+  "original_byte_count": 208,
+  "original_functions": [
+    {
+      "start": "0x455030",
+      "end": "0x455100",
+      "name": "sub_455030",
+      "bytes": "83ec288b442430c74424000000000083c0f0c744240c6f12833a894424308b44242cdb4424308d0480d95c24048d0c80a1bcb06200c1e102894c2430db44243085c0d95c24080f84800000008b108d4c24305168a4f6540050ff1285c07c6d8b1544f7540057b90600000033c08d7c2414f3aba148f75400895424148b1550f754008b0d4cf75400895424208d542430528d5424088944241c8b4424386a10528d542420894c2428c744243000000000c7442434020000008b086a185250ff510c8b442434508b08ff51085f83c428c3",
+      "instructions": [
+        {
+          "ea": "0x455030",
+          "asm": "sub     esp, 28h"
+        },
+        {
+          "ea": "0x455033",
+          "asm": "mov     eax, [esp+28h+arg_4]"
+        },
+        {
+          "ea": "0x455037",
+          "asm": "mov     [esp+28h+var_28], 0"
+        },
+        {
+          "ea": "0x45503f",
+          "asm": "add     eax, 0FFFFFFF0h"
+        },
+        {
+          "ea": "0x455042",
+          "asm": "mov     [esp+28h+var_1C], 3A83126Fh"
+        },
+        {
+          "ea": "0x45504a",
+          "asm": "mov     [esp+28h+arg_4], eax"
+        },
+        {
+          "ea": "0x45504e",
+          "asm": "mov     eax, [esp+28h+arg_0]"
+        },
+        {
+          "ea": "0x455052",
+          "asm": "fild    [esp+28h+arg_4]"
+        },
+        {
+          "ea": "0x455056",
+          "asm": "lea     eax, [eax+eax*4]"
+        },
+        {
+          "ea": "0x455059",
+          "asm": "fstp    [esp+28h+var_24]"
+        },
+        {
+          "ea": "0x45505d",
+          "asm": "lea     ecx, [eax+eax*4]"
+        },
+        {
+          "ea": "0x455060",
+          "asm": "mov     eax, IDirectMusicPort"
+        },
+        {
+          "ea": "0x455065",
+          "asm": "shl     ecx, 2"
+        },
+        {
+          "ea": "0x455068",
+          "asm": "mov     [esp+28h+arg_4], ecx"
+        },
+        {
+          "ea": "0x45506c",
+          "asm": "fild    [esp+28h+arg_4]"
+        },
+        {
+          "ea": "0x455070",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x455072",
+          "asm": "fstp    [esp+28h+var_20]"
+        },
+        {
+          "ea": "0x455076",
+          "asm": "jz      loc_4550FC"
+        },
+        {
+          "ea": "0x45507c",
+          "asm": "mov     edx, [eax]"
+        },
+        {
+          "ea": "0x45507e",
+          "asm": "lea     ecx, [esp+28h+arg_4]"
+        },
+        {
+          "ea": "0x455082",
+          "asm": "push    ecx"
+        },
+        {
+          "ea": "0x455083",
+          "asm": "push    offset CLSID_IID_IKsControl; CLSID_IID_IKsControl"
+        },
+        {
+          "ea": "0x455088",
+          "asm": "push    eax"
+        },
+        {
+          "ea": "0x455089",
+          "asm": "call    dword ptr [edx]"
+        },
+        {
+          "ea": "0x45508b",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x45508d",
+          "asm": "jl      short loc_4550FC"
+        },
+        {
+          "ea": "0x45508f",
+          "asm": "mov     edx, ds:dword_54F744"
+        },
+        {
+          "ea": "0x455095",
+          "asm": "push    edi"
+        },
+        {
+          "ea": "0x455096",
+          "asm": "mov     ecx, 6"
+        },
+        {
+          "ea": "0x45509b",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "ea": "0x45509d",
+          "asm": "lea     edi, [esp+2Ch+var_18]"
+        },
+        {
+          "ea": "0x4550a1",
+          "asm": "rep stosd"
+        },
+        {
+          "ea": "0x4550a3",
+          "asm": "mov     eax, ds:dword_54F748"
+        },
+        {
+          "ea": "0x4550a8",
+          "asm": "mov     [esp+2Ch+var_18], edx"
+        },
+        {
+          "ea": "0x4550ac",
+          "asm": "mov     edx, ds:dword_54F750"
+        },
+        {
+          "ea": "0x4550b2",
+          "asm": "mov     ecx, ds:dword_54F74C"
+        },
+        {
+          "ea": "0x4550b8",
+          "asm": "mov     [esp+2Ch+var_C], edx"
+        },
+        {
+          "ea": "0x4550bc",
+          "asm": "lea     edx, [esp+2Ch+arg_0]"
+        },
+        {
+          "ea": "0x4550c0",
+          "asm": "push    edx"
+        },
+        {
+          "ea": "0x4550c1",
+          "asm": "lea     edx, [esp+30h+var_28]"
+        },
+        {
+          "ea": "0x4550c5",
+          "asm": "mov     [esp+30h+var_14], eax"
+        },
+        {
+          "ea": "0x4550c9",
+          "asm": "mov     eax, [esp+30h+arg_4]"
+        },
+        {
+          "ea": "0x4550cd",
+          "asm": "push    10h"
+        },
+        {
+          "ea": "0x4550cf",
+          "asm": "push    edx"
+        },
+        {
+          "ea": "0x4550d0",
+          "asm": "lea     edx, [esp+38h+var_18]"
+        },
+        {
+          "ea": "0x4550d4",
+          "asm": "mov     [esp+38h+var_10], ecx"
+        },
+        {
+          "ea": "0x4550d8",
+          "asm": "mov     dword ptr [esp+38h+var_8], 0"
+        },
+        {
+          "ea": "0x4550e0",
+          "asm": "mov     [esp+38h+var_4], 2"
+        },
+        {
+          "ea": "0x4550e8",
+          "asm": "mov     ecx, [eax]"
+        },
+        {
+          "ea": "0x4550ea",
+          "asm": "push    18h"
+        },
+        {
+          "ea": "0x4550ec",
+          "asm": "push    edx"
+        },
+        {
+          "ea": "0x4550ed",
+          "asm": "push    eax"
+        },
+        {
+          "ea": "0x4550ee",
+          "asm": "call    dword ptr [ecx+0Ch]"
+        },
+        {
+          "ea": "0x4550f1",
+          "asm": "mov     eax, [esp+2Ch+arg_4]"
+        },
+        {
+          "ea": "0x4550f5",
+          "asm": "push    eax"
+        },
+        {
+          "ea": "0x4550f6",
+          "asm": "mov     ecx, [eax]"
+        },
+        {
+          "ea": "0x4550f8",
+          "asm": "call    dword ptr [ecx+8]"
+        },
+        {
+          "ea": "0x4550fb",
+          "asm": "pop     edi"
+        },
+        {
+          "ea": "0x4550fc",
+          "asm": "add     esp, 28h"
+        },
+        {
+          "ea": "0x4550ff",
+          "asm": "retn"
+        }
+      ],
+      "incoming": [
+        {
+          "ea": "0x454ec7",
+          "function": "0x454c30",
+          "asm": "call    sub_455030"
+        },
+        {
+          "ea": "0x455386",
+          "function": "0x455280",
+          "asm": "call    sub_455030"
+        }
+      ]
+    }
+  ],
+  "original_guids": [
+    {
+      "address": "0x54f6a4",
+      "bytes": "8546f528fd06d211b27a00a0c9223196",
+      "guid": "28f54685-06fd-11d2-b27a-00a0c9223196"
+    },
+    {
+      "address": "0x54f744",
+      "bytes": "2256cb04e532d211afa600aa0024d8b6",
+      "guid": "04cb5622-32e5-11d2-afa6-00aa0024d8b6"
+    },
+    {
+      "address": "0x54f754",
+      "bytes": "7c28acd29bb3d111870400600893b1bd",
+      "guid": "d2ac287c-b39b-11d1-8704-00600893b1bd"
+    },
+    {
+      "address": "0x54f764",
+      "bytes": "b0f40f48b228d111bef700c04fbf8fef",
+      "guid": "480ff4b0-28b2-11d1-bef7-00c04fbf8fef"
+    }
+  ],
+  "original_call_windows": [
+    {
+      "parent": "0x454C30",
+      "call": "0x454EC7",
+      "arguments": [
+        25,
+        6
+      ],
+      "instructions": [
+        {
+          "ea": "0x454eb4",
+          "asm": "mov     [esp+58h+arg_0], edx"
+        },
+        {
+          "ea": "0x454eb8",
+          "asm": "jge     short loc_454E79"
+        },
+        {
+          "ea": "0x454eba",
+          "asm": "push    0; Source"
+        },
+        {
+          "ea": "0x454ebc",
+          "asm": "fstp    st"
+        },
+        {
+          "ea": "0x454ebe",
+          "asm": "call    sub_455100"
+        },
+        {
+          "ea": "0x454ec3",
+          "asm": "push    6"
+        },
+        {
+          "ea": "0x454ec5",
+          "asm": "push    19h"
+        },
+        {
+          "ea": "0x454ec7",
+          "asm": "call    sub_455030"
+        },
+        {
+          "ea": "0x454ecc",
+          "asm": "add     esp, 0Ch"
+        },
+        {
+          "ea": "0x454ecf",
+          "asm": "pop     edi"
+        },
+        {
+          "ea": "0x454ed0",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "ea": "0x454ed2",
+          "asm": "pop     esi"
+        },
+        {
+          "ea": "0x454ed3",
+          "asm": "add     esp, 50h"
+        },
+        {
+          "ea": "0x454ed6",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "parent": "0x455280",
+      "call": "0x455386",
+      "arguments": [
+        30,
+        7
+      ],
+      "instructions": [
+        {
+          "ea": "0x455382",
+          "asm": "push    7"
+        },
+        {
+          "ea": "0x455384",
+          "asm": "push    1Eh"
+        },
+        {
+          "ea": "0x455386",
+          "asm": "call    sub_455030"
+        },
+        {
+          "ea": "0x45538b",
+          "asm": "mov     eax, [esp+358h+repeats]"
+        },
+        {
+          "ea": "0x455392",
+          "asm": "push    eax"
+        },
+        {
+          "ea": "0x455393",
+          "asm": "call    sub_455470"
+        },
+        {
+          "ea": "0x455398",
+          "asm": "add     esp, 0Ch"
+        },
+        {
+          "ea": "0x45539b",
+          "asm": "call    World__PlaySegment"
+        }
+      ]
+    }
+  ],
+  "original_contract": {
+    "property_guid": "04cb5622-32e5-11d2-afa6-00aa0024d8b6",
+    "property_guid_address": "0x54F744",
+    "parameter_bytes": 16,
+    "parameter_fields": [
+      "F32输入增益0",
+      "S32(arg1-16)转F32混响量dB",
+      "S32(arg0*100)转F32衰减ms",
+      "F32位样本3A83126F高频衰减比例"
+    ],
+    "initialization_parameters": [
+      0,
+      -10,
+      2500,
+      "F32:3A83126F"
+    ],
+    "fixed_play_parameters": [
+      0,
+      -9,
+      3000,
+      "F32:3A83126F"
+    ],
+    "port_null": "参数转换后直接返回，不设效果",
+    "query_failure": "IKsControl查询失败直接返回",
+    "property_result": "原调用者不消费设置结果，接口使用后Release",
+    "chorus_in_this_root": false
+  },
+  "local_sdk": {
+    "version": "10.0.26100.0",
+    "files": [
+      {
+        "path": "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/um/dmusicc.h",
+        "declarations": [
+          "DMUS_WAVES_REVERB_PARAMS@206",
+          "GUID_DMUS_PROP_WavesReverb@829"
+        ],
+        "association": "原GUID及四F32参数字段/单位匹配"
+      },
+      {
+        "path": "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/um/dsound.h",
+        "declarations": [
+          "IID_IDirectSoundFXWavesReverb",
+          "DSFXWavesReverb",
+          "GUID_DSFX_WAVES_REVERB"
+        ],
+        "association": "系统Waves效果类及四同单位参数；两组参数均在SDK定义域"
+      },
+      {
+        "path": "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/um/mediaobj.h",
+        "declarations": [
+          "IMediaObject",
+          "IMediaObjectInPlace::Process"
+        ],
+        "association": "只在工作线程内持有/调用"
+      },
+      {
+        "path": "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/shared/uuids.h",
+        "declarations": [
+          "MEDIATYPE_Audio",
+          "MEDIASUBTYPE_IEEE_FLOAT",
+          "FORMAT_WaveFormatEx"
+        ],
+        "association": "实际SDL固定样本频率、float32双声道输入/输出格式；运行支持尚未验证"
+      }
+    ],
+    "system_component": {
+      "clsid": "87fc0268-9a55-4360-95aa-004a1d9de26c",
+      "registry_path": "HKEY_CLASSES_ROOT\\CLSID\\{87FC0268-9A55-4360-95AA-004A1D9DE26C}\\InprocServer32",
+      "dll": "C:\\Windows\\System32\\dsdmo.dll",
+      "threading_model": "Both",
+      "registration_read": true,
+      "com_creation_performed": false
+    },
+    "system_link_library": "ole32",
+    "downloaded_dependencies": false,
+    "official_references": [
+      {
+        "url": "https://learn.microsoft.com/en-us/previous-versions/windows/desktop/ee419021(v=vs.85)",
+        "supports": "Waves混响四参数含义"
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/windows/win32/directshow/setting-media-types-on-a-dmo",
+        "supports": "DMO输入/输出媒体类型设置"
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/windows/win32/directshow/in-place-processing",
+        "supports": "原地处理、S_FALSE尾音和零输入排出；不混用ProcessInput/Output"
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/previous-versions/windows/desktop/api/Mediaobj/nf-mediaobj-imediaobjectinplace-process",
+        "supports": "同步Process、100ns开始时点、失败数据不得消费"
+      }
+    ]
+  },
+  "source_contract": {
+    "adapter": "src/LegacyAudio.cpp#SetFixedMusicReverb_455030",
+    "provider": "src/platform/LegacyWavesReverb.cpp#LegacyWavesReverb::Impl::Run",
+    "wiring": "src/platform/SdlAudioBackend.cpp#SdlAudioBackend::SetFixedMusicReverb",
+    "format": "当前固定WAV实际频率、F32双声道；所有播放仍走SDL3",
+    "owners": "SdlAudioBackend::Impl唯一效果owner；COM apartment及三接口仅Run线程局部持有",
+    "synchronization": "音频流锁→control串行锁→请求release/acquire→工作线程Process→完成result release/acquire→借用PCM清指针；工作线程不获取流锁或control锁",
+    "reset": "Flush→FreeStreamingResources→AllocateStreamingResources→重新应用上次成功参数",
+    "repeat": "单一连续outputFrames，重复边界不重置效果；最后一遍之后DMO_INPLACE_ZERO零输入排尾，S_FALSE继续，S_OK停止并flush",
+    "failure": "真实创建/格式/参数HRESULT，不用固定成功；配置结果由原父忽略；处理失败停止供数且不将可能损坏的PCM交SDL",
+    "close": "DestroyAudioStream等待回调退出→效果Close/线程join及同线程Release/CoUninitialize→释放WAV样本",
+    "other_channels": "仅固定WAV附着，普通BGM/SE为空指针、沿既有处理",
+    "assets_changed": false,
+    "offline_conversion_run": false,
+    "midi_runtime_restored": false,
+    "adaptation": "原DirectMusic端口属性由系统Waves PCM处理与实际SDL固定流承接；不创建DirectSound播放设备、虚假旧COM或运行时音色"
+  },
+  "static_checks": {
+    "utf8": true,
+    "original_two_configuration_calls": true,
+    "original_parameter_order_and_bits": true,
+    "thread_owned_com_and_balanced_cleanup": true,
+    "serial_request_and_pcm_borrow_lifetime": true,
+    "repeat_tail_and_failure_data_handling": true,
+    "fixed_only_effect_attachment": true,
+    "stream_thread_sample_close_order": true,
+    "public_sdk_boundary": true,
+    "existing_other_content_kept": true
+  },
+  "acceptance_limits": {
+    "compile_verified": false,
+    "runtime_verified": false,
+    "sound_verified": false,
+    "original_waveform_equivalence_verified": false,
+    "complete_audio_gate_closed": false,
+    "remaining_original_inventory_ids": [
+      "F:00054FE0",
+      "F:00055100",
+      "F:00055260"
+    ],
+    "remaining": "三音色/loader原职责、旧99表外层、当前源码编译/原生ABI、全部状态/设备失败/调度/通知/听感/正常寿命和真实本机登录；本步不关闭整体SPEC"
+  }
+}

@@ -243,6 +243,14 @@ static_assert(offsetof(LegacyFloatExceptionRecord, operand2) == 40);
 static_assert(offsetof(LegacyFloatExceptionRecord, result) == 64);
 static_assert(sizeof(LegacyFloatExceptionRecord) == 88);
 
+// 原错误入口值快照；只把已证名称指针承为原生指针，不拓数值或填未生产字段。
+static_assert(offsetof(LegacyMathErrorInputs, savedControl) == 0);
+static_assert(offsetof(LegacyMathErrorInputs, operationId) == 4);
+static_assert(offsetof(LegacyMathErrorInputs, functionName) == 8);
+static_assert(offsetof(LegacyMathErrorInputs, argument1) == 16);
+static_assert(offsetof(LegacyMathErrorInputs, argument2) == 24);
+static_assert(sizeof(LegacyMathErrorInputs) == 32);
+
 // 原5473E8；原字段生产、x87落存与系统调用前后读取留在ASM。
 void RaiseLegacyFloatingPointException_5473E8(
     LegacyFloatExceptionRecord* const record, std::uint32_t* const control,

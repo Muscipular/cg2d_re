@@ -70,6 +70,19 @@ std::int32_t ProcessLegacyX87Exception_5460EB(
     std::uint32_t operationId, LegacyMathErrorRecord* record,
     const std::uint16_t* savedControl) noexcept;
 
+// 原543390/5433A7/5434D9的借用输入快照；由调用父生产，数值不扩宽/不默认初始化。
+struct LegacyMathErrorInputs {
+    std::uint32_t savedControl; // 原4B载体：CW只读W16，范围返回EDX读完整W32；不补高W16。
+    std::uint32_t operationId;  // 原EDX完整W32；范围出口以1DH选择双参。
+    const char* functionName;   // 原ECX借用名称指针；只扩已证地址。
+    double argument1;          // 原两个W32原样复制到数学记录第一F64。
+    double argument2;          // 双参入口才复制；单参路径不预填记录第二F64。
+};
+
+// ASM私有合同（不声明CPP double返回）：RCX借用LegacyMathErrorInputs，ST(0)为结果。
+// Cg2dStartLegacyTwoArgumentErrorX87/Cg2dStartLegacyOneArgumentErrorX87另以EDX传S32类型。
+// Cg2dCheckLegacyRangeExitX87仅消费RCX与ST(0)；三入口均在ASM间返回ST(0)，范围出口另还原EDX的完整原CW载体。
+
 // 原控制字抽象/硬件表示转换，只消费和生成原已定义位。
 std::uint32_t AbstractLegacyControlWord_5448A4(std::uint32_t hardware);
 std::uint32_t HardwareLegacyControlWord_544936(std::uint32_t abstractValue);

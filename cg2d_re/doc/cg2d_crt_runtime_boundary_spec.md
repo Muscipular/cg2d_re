@@ -190,3 +190,11 @@ NCE01已接业务copy/单owner、消息/析构及所有旧构析正文保持，�
 两完整5473E8/5460EB共352条899B/六页、七direct一IAT/八原调用位点已开发，现三文件七追加/七本体与五私有桥。原88B记录/24B单元/条件第二F64、位映射及未生产字节保；真实系统API与原硬件、ctrlfp/matherr/errno同源接线。
 
 原共享5925B8实值2694H，不假设零或折叠原分支；保存CW仅读W16到局部W32，系统返回重读/原FFFFF3FFH及CH掩码/x87写回与S32尾返保。两新原新/F、CRT169→171限定I/S，定位157→155/CRT未定位29→27；上游记录/范围出口与pow父/FPU生命周期/机器运行继续原门禁。
+
+## BWJ01数学错误记录生产与范围出口（2026-10-08）
+
+[基线](cg2d_math_record_range_spec.md#math-record-range-baseline)、[决定](cg2d_math_record_range_spec.md#math-record-range-decision)、[验收](cg2d_math_record_range_spec.md#math-record-range-acceptance)与[原体/共享与载体窗/完整前后态](cg2d_math_record_range_evidence.json)。
+
+543390/5433A7及5433B0真实共享段、5434D9三完整86条246B/三页已开发，三现文件五追加/三ASM本体，CPP仅六布局断言。单参不生产第二F64、双参原低高W32序/同一40B记录与88B展开帧，全局共享标签/真实87except和范围两CALL接通。
+
+保原FST连续结果、六常量/缩放比较/真FMUL、原CW状态/类型与分参和027FH恢复。原上游PUSH W32再只覆盖低W16，32B借用输入与范围三EDX原载体返回不补零高W16；三原新/F、CRT171→174限定I/S，定位155→152/CRT未定位27→24。完整pow/分派与FPU生命周期/机器运行沿原门禁继续。

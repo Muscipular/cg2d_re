@@ -4107,3 +4107,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 新增1830/F:001473E8→RaiseLegacyFloatingPointException及ASM，1831/F:001460EB→ProcessLegacyX87Exception及ASM。五CPP/两ASM共七本体、五C桥只有两原身份；另补原共享槽5925B8唯一owner，初始原字节94260000。原88B数值记录不扩宽/不填未生产字节，已有数学记录40B仅名称指针扩宽。
 
 原七CRT依赖与一IAT系统调用全部真实承接，88B记录/选择性第二参数、W16到局部W32、原槽读取/掩码和x87F64生产写回有据。六参/正常展开帧仅局部源码静态，CRT171/F994及限定I/S不代完整上游/生命周期/机器运行，pending18保持。
+
+## BWJ01三完整记录生产/范围入口映射（2026-10-08）
+
+[原三完整本体/共享入向及原载体生产窗](cg2d_math_record_range_evidence.json)、[真实共享/记录与返回合同](cg2d_math_record_range_spec.md#math-record-range-decision)。
+
+新增1832/F:00143390→Cg2dStartLegacyTwoArgumentErrorX87，1833/F:001433A7→Cg2dStartLegacyOneArgumentErrorX87，1834/F:001434D9→Cg2dCheckLegacyRangeExitX87。只有三ASM本体/三原身份，共享段不另算F，零CPP本体/新C桥或mutable owner。
+
+双参九条前缀的尾依赖接唯一真实共享段，两88B帧/40B记录、单参不写第二F64、原W32载体与三EDX返回、三CALL和六只读常量均有据。只拓名称/借用指针，ST0不冒CPP double ABI；CRT174/F997限定I/S不代完整pow/机器展开或运行，pending18保持。

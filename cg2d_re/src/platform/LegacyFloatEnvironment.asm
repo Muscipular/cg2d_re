@@ -15,6 +15,10 @@ LegacyMaximum5923D0 QWORD 07FEFFFFFFFFFFFFFh
 LegacyStatusHuge5925BC BYTE 00h, 00h, 00h, 00h, 00h, 00h, 00h, 080h, 010h, 044h
 LegacyStatusTiny5925C8 BYTE 01h, 00h, 00h, 00h, 00h, 00h, 00h, 080h, 00h, 030h
 
+LegacyRangeMinimum54FB2C QWORD 0010000000000000h
+LegacyRangeScaleDown54FB34 QWORD 0C098000000000000h
+LegacyRangeScaleUp54FB3C QWORD 04098000000000000h
+
 .code
 EXTERN Cg2dClassifyLegacySpecialFloat:PROC
 PUBLIC Cg2dClassifyLegacyFloat
@@ -28,6 +32,9 @@ PUBLIC Cg2dHandleLegacyMathException
 PUBLIC Cg2dSetLegacyRawX87Status
 PUBLIC Cg2dRaiseLegacyFloatingPointException
 PUBLIC Cg2dProcessLegacyX87Exception
+PUBLIC Cg2dStartLegacyTwoArgumentErrorX87
+PUBLIC Cg2dStartLegacyOneArgumentErrorX87
+PUBLIC Cg2dCheckLegacyRangeExitX87
 EXTERN Cg2dRaiseLegacyFloatExceptionHost:PROC
 EXTERN Cg2dDefaultLegacyMathError:PROC
 EXTERN Cg2dSetLegacyMathErrno:PROC
@@ -1195,5 +1202,125 @@ Legacy87_5461B6:
     pop rbx
     ret
 Cg2dProcessLegacyX87Exception ENDP
+
+; 原543390；RCX借用输入/EDX为S32类型/ST(0)为结果；双参低后高两个W32原样复制。
+; 与单参入口有同一88B展开帧，尾转真实共享段，不另复制共享体或补默认第二参数。
+Cg2dStartLegacyTwoArgumentErrorX87 PROC FRAME
+    sub rsp, 88
+    .allocstack 88
+    .endprolog
+    mov qword ptr [rsp+72], rcx
+    mov dword ptr [rsp+32], edx
+    mov eax, dword ptr [rcx+24]
+    mov dword ptr [rsp+56], eax
+    mov eax, dword ptr [rcx+28]
+    mov dword ptr [rsp+60], eax
+    jmp LegacyMathErrorContinue
+Cg2dStartLegacyTwoArgumentErrorX87 ENDP
+
+; 原5433A7及5433B0共享段；两入口同一88B正常帧/40B原数学记录/借用上下文槽。
+; 单参仅生产类型后落结果，不写第二F64；共享段真调原87except，重载结果后条件恢复CW。
+Cg2dStartLegacyOneArgumentErrorX87 PROC FRAME
+    sub rsp, 88
+    .allocstack 88
+    .endprolog
+    mov qword ptr [rsp+72], rcx
+    mov dword ptr [rsp+32], edx
+LegacyMathErrorContinue::
+    fstp qword ptr [rsp+64]
+    mov rax, qword ptr [rcx+8]
+    mov qword ptr [rsp+40], rax
+    mov eax, dword ptr [rcx+16]
+    mov r9d, dword ptr [rcx+20]
+    mov dword ptr [rsp+48], eax
+    mov dword ptr [rsp+52], r9d
+    lea r8, [rcx]
+    lea rdx, [rsp+32]
+    mov ecx, dword ptr [rcx+4]
+    call Cg2dProcessLegacyX87Exception
+    fld qword ptr [rsp+64]
+    mov rcx, qword ptr [rsp+72]
+    cmp word ptr [rcx], 027Fh
+    jz LegacyMathErrorControlRestored
+    fldcw word ptr [rcx]
+LegacyMathErrorControlRestored:
+    add rsp, 88
+    ret
+Cg2dStartLegacyOneArgumentErrorX87 ENDP
+
+; 原5434D9；RCX借用输入/ST(0)连续结果，56B正常帧保32B调用区/输入指针与原FST临时值。
+; 保原FST不弹栈、CW/状态读取、缩放比较/乘法及三个返回路径；没有新增异常保护。
+Cg2dCheckLegacyRangeExitX87 PROC FRAME
+    sub rsp, 56
+    .allocstack 56
+    .endprolog
+    mov qword ptr [rsp+32], rcx
+    fst qword ptr [rsp+40]
+    mov eax, dword ptr [rsp+44]
+    and eax, 07FF00000h
+    jz LegacyRangeUnderflow
+    cmp eax, 07FF00000h
+    jz LegacyRangeOverflow
+    mov ax, word ptr [rcx]
+    cmp ax, 027Fh
+    jz LegacyRangeDone
+    and ax, 020h
+    jnz LegacyRangeRestoreControl
+    fstsw ax
+    and ax, 020h
+    jz LegacyRangeRestoreControl
+    mov eax, 8
+LegacyRangeHaveError:
+    cmp dword ptr [rcx+4], 01Dh
+    jz LegacyRangeTwoArguments
+    mov edx, eax
+    call Cg2dStartLegacyOneArgumentErrorX87
+    mov rcx, qword ptr [rsp+32]
+    mov edx, dword ptr [rcx]
+    add rsp, 56
+    ret
+LegacyRangeTwoArguments:
+    mov edx, eax
+    call Cg2dStartLegacyTwoArgumentErrorX87
+    mov rcx, qword ptr [rsp+32]
+    mov edx, dword ptr [rcx]
+    add rsp, 56
+    ret
+LegacyRangeRestoreControl:
+    fldcw word ptr [rcx]
+LegacyRangeDone:
+    mov rcx, qword ptr [rsp+32]
+    mov edx, dword ptr [rcx]
+    add rsp, 56
+    ret
+LegacyRangeUnderflow:
+    fld qword ptr [LegacyRangeScaleUp54FB3C]
+    fxch st(1)
+    fscale
+    fstp st(1)
+    fld st(0)
+    fabs
+    fcomp qword ptr [LegacyRangeMinimum54FB2C]
+    fstsw ax
+    sahf
+    mov eax, 4
+    jnb LegacyRangeHaveError
+    fmul qword ptr [LegacyZero54D5D0]
+    jmp LegacyRangeHaveError
+LegacyRangeOverflow:
+    fld qword ptr [LegacyRangeScaleDown54FB34]
+    fxch st(1)
+    fscale
+    fstp st(1)
+    fld st(0)
+    fabs
+    fcomp qword ptr [LegacyMaximum5923D0]
+    fstsw ax
+    sahf
+    mov eax, 3
+    jbe LegacyRangeHaveError
+    fmul qword ptr [LegacyPowerInfinity5923C0]
+    jmp LegacyRangeHaveError
+Cg2dCheckLegacyRangeExitX87 ENDP
 
 END

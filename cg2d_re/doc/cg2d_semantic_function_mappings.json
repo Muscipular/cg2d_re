@@ -208211,6 +208211,360 @@
         "machine_abi_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x543390",
+      "inventory_id": "F:00143390",
+      "original_role": "543390完整九条前缀：保存原S32类型、第二F64低W32/高W32序复制后尾真实5433B0共享段；新88B与单参一致展开帧、同一40B数学记录，RCX借用32B输入/EDX类型/ST0结果，不另造共享体或填参数。",
+      "original_end_exclusive": "0x5433a7",
+      "original_chunks": [
+        [
+          "0x543390",
+          "0x5433a7"
+        ]
+      ],
+      "instruction_count": 9,
+      "status": "BWJ01开发原543390双参/5433A7单参与共享5433B0、5434D9范围出口，三完整86条246B/三页、三direct三callee/零indirect、12跳四RET、四CALL一尾入向及共享尾/顺流。三现文件五追加：CPP六布局断言/HPP借用32B输入与三ASM本体，零CPP本体/新桥/mutable owner。双参低高W32复制后尾共享、单参不写第二F64，同一40B记录/88B共享展开帧真实接87except并保x87结果落存重载/条件FLDCW。范围56B正常帧保FST不弹ST0、原CW/等待状态与三返回，六原常量/FSCALE-比较-FMUL及8/4/3类型和1DH分参保持；原W32控制字载体不补高W16，范围三EDX完整返回。全局共享标签明确声明，仅拓名称/借用指针，不增保护或故障样例。三新原新/F、CRT174限定I-S，定位152/CRT余24；generic pow/完整分派及FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dStartLegacyTwoArgumentErrorX87",
+            "LegacyMathErrorContinue",
+            "Cg2dStartLegacyOneArgumentErrorX87"
+          ],
+          "relationship": "543390完整九条前缀：保存原S32类型、第二F64低W32/高W32序复制后尾真实5433B0共享段；新88B与单参一致展开帧、同一40B数学记录，RCX借用32B输入/EDX类型/ST0结果，不另造共享体或填参数。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "LegacyMathErrorInputs",
+            "Cg2dStartLegacyTwoArgumentErrorX87"
+          ],
+          "relationship": "32B借用输入保存完整原W32 CW载体/操作号/名称指针与两F64，不默认填字段；三ST0接口只作ASM合同，不声明CPP double返回"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "LegacyMathErrorInputs"
+          ],
+          "relationship": "六实际布局断言；0/4/8/16/24与32B输入，只有名称指针拓宽，CPP不新增本体/owner"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_record_range_spec.md#math-record-range-baseline",
+        "doc/cg2d_math_record_range_spec.md#math-record-range-decision",
+        "doc/cg2d_math_record_range_spec.md#math-record-range-acceptance",
+        "doc/cg2d_math_record_range_spec.md#math-record-range-source-state"
+      ],
+      "boundary": "543390完整九条前缀：保存原S32类型、第二F64低W32/高W32序复制后尾真实5433B0共享段；新88B与单参一致展开帧、同一40B数学记录，RCX借用32B输入/EDX类型/ST0结果，不另造共享体或填参数。 BWJ01开发原543390双参/5433A7单参与共享5433B0、5434D9范围出口，三完整86条246B/三页、三direct三callee/零indirect、12跳四RET、四CALL一尾入向及共享尾/顺流。三现文件五追加：CPP六布局断言/HPP借用32B输入与三ASM本体，零CPP本体/新桥/mutable owner。双参低高W32复制后尾共享、单参不写第二F64，同一40B记录/88B共享展开帧真实接87except并保x87结果落存重载/条件FLDCW。范围56B正常帧保FST不弹ST0、原CW/等待状态与三返回，六原常量/FSCALE-比较-FMUL及8/4/3类型和1DH分参保持；原W32控制字载体不补高W16，范围三EDX完整返回。全局共享标签明确声明，仅拓名称/借用指针，不增保护或故障样例。三新原新/F、CRT174限定I-S，定位152/CRT余24；generic pow/完整分派及FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWJ01开发原543390双参/5433A7单参与共享5433B0、5434D9范围出口，三完整86条246B/三页、三direct三callee/零indirect、12跳四RET、四CALL一尾入向及共享尾/顺流。三现文件五追加：CPP六布局断言/HPP借用32B输入与三ASM本体，零CPP本体/新桥/mutable owner。双参低高W32复制后尾共享、单参不写第二F64，同一40B记录/88B共享展开帧真实接87except并保x87结果落存重载/条件FLDCW。范围56B正常帧保FST不弹ST0、原CW/等待状态与三返回，六原常量/FSCALE-比较-FMUL及8/4/3类型和1DH分参保持；原W32控制字载体不补高W16，范围三EDX完整返回。全局共享标签明确声明，仅拓名称/借用指针，不增保护或故障样例。三新原新/F、CRT174限定I-S，定位152/CRT余24；generic pow/完整分派及FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_record_range": {
+        "spec_id": "BWJ01",
+        "evidence_refs": [
+          "doc/cg2d_math_record_range_spec.md#math-record-range-baseline",
+          "doc/cg2d_math_record_range_spec.md#math-record-range-decision",
+          "doc/cg2d_math_record_range_spec.md#math-record-range-acceptance",
+          "doc/cg2d_math_record_range_spec.md#math-record-range-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 9,
+        "original_code_bytes": 23,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 1,
+        "original_return_count": 0,
+        "original_inbound_call_count": 2,
+        "original_inbound_tail_count": 0,
+        "original_total_instruction_count": 86,
+        "original_total_code_bytes": 246,
+        "original_total_page_count": 3,
+        "original_total_direct_call_count": 3,
+        "original_total_unique_direct_callee_count": 3,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 12,
+        "original_total_return_count": 4,
+        "original_total_inbound_call_count": 4,
+        "original_total_inbound_tail_count": 1,
+        "original_shared_interior_tail_count": 1,
+        "original_shared_interior_flow_count": 1,
+        "reused_original_root_evidence": "doc/cg2d_math_error_hardware_leaves_evidence.json",
+        "current_session_complete_metadata_shared_refs_and_constants_rechecked": true,
+        "source_body_added": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 5,
+        "new_original_mapped_function_count": 3,
+        "new_native_function_body_count": 3,
+        "new_cpp_body_count": 0,
+        "new_asm_proc_count": 3,
+        "new_private_C_bridge_count": 0,
+        "new_mutable_shared_owner_count": 0,
+        "new_layout_assertion_count": 6,
+        "original_two_low_high_W32_copies_then_true_shared_tail_kept": true,
+        "single_argument_second_F64_not_written": true,
+        "one_true_global_shared_suffix_equal_88B_frames_and_40B_record_kept": true,
+        "original_shared_FSTP_name_first_arg_calls_FLD_and_027F_FLDCW_kept": true,
+        "original_full_W32_CW_carrier_and_three_EDX_returns_without_high_W16_zero_fill": true,
+        "original_range_FST_continuous_ST0_classification_CW_status_types_and_operation1D_selection_kept": true,
+        "original_FSCALE_FCOMP_FMUL_constant_bits_comparison_order_and_three_returns_kept": true,
+        "three_real_calls_shared_tail_and_six_real_readonly_constant_providers_connected": true,
+        "three_ST0_interfaces_only_between_ASM_functions": true,
+        "borrowed_32B_inputs_numeric_widths_and_proven_pointer_only_widening": true,
+        "unproduced_padding_or_record_fields_not_initialized": true,
+        "no_new_protection_refusal_clamp_fault_sample_or_host_math": true,
+        "old_environment_math_hardware_errno_startup_map_and_build_rules_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_generic_pow_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x5433a7",
+      "inventory_id": "F:001433A7",
+      "original_role": "5433A7完整原单参及共享段：仅存类型后FSTP结果、名称指针与第一F64两W32原样复制，真实87except调用、FLD结果与027FH条件FLDCW；不写第二F64/未生产padding。共享全局标签与双参同88B帧，ST0仅ASM返回。",
+      "original_end_exclusive": "0x5433e3",
+      "original_chunks": [
+        [
+          "0x5433a7",
+          "0x5433e3"
+        ]
+      ],
+      "instruction_count": 23,
+      "status": "BWJ01开发原543390双参/5433A7单参与共享5433B0、5434D9范围出口，三完整86条246B/三页、三direct三callee/零indirect、12跳四RET、四CALL一尾入向及共享尾/顺流。三现文件五追加：CPP六布局断言/HPP借用32B输入与三ASM本体，零CPP本体/新桥/mutable owner。双参低高W32复制后尾共享、单参不写第二F64，同一40B记录/88B共享展开帧真实接87except并保x87结果落存重载/条件FLDCW。范围56B正常帧保FST不弹ST0、原CW/等待状态与三返回，六原常量/FSCALE-比较-FMUL及8/4/3类型和1DH分参保持；原W32控制字载体不补高W16，范围三EDX完整返回。全局共享标签明确声明，仅拓名称/借用指针，不增保护或故障样例。三新原新/F、CRT174限定I-S，定位152/CRT余24；generic pow/完整分派及FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dStartLegacyOneArgumentErrorX87",
+            "LegacyMathErrorContinue",
+            "Cg2dProcessLegacyX87Exception"
+          ],
+          "relationship": "5433A7完整原单参及共享段：仅存类型后FSTP结果、名称指针与第一F64两W32原样复制，真实87except调用、FLD结果与027FH条件FLDCW；不写第二F64/未生产padding。共享全局标签与双参同88B帧，ST0仅ASM返回。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "LegacyMathErrorInputs",
+            "Cg2dStartLegacyOneArgumentErrorX87"
+          ],
+          "relationship": "32B借用输入保存完整原W32 CW载体/操作号/名称指针与两F64，不默认填字段；三ST0接口只作ASM合同，不声明CPP double返回"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "LegacyMathErrorInputs"
+          ],
+          "relationship": "六实际布局断言；0/4/8/16/24与32B输入，只有名称指针拓宽，CPP不新增本体/owner"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_record_range_spec.md#math-record-range-baseline",
+        "doc/cg2d_math_record_range_spec.md#math-record-range-decision",
+        "doc/cg2d_math_record_range_spec.md#math-record-range-acceptance",
+        "doc/cg2d_math_record_range_spec.md#math-record-range-source-state"
+      ],
+      "boundary": "5433A7完整原单参及共享段：仅存类型后FSTP结果、名称指针与第一F64两W32原样复制，真实87except调用、FLD结果与027FH条件FLDCW；不写第二F64/未生产padding。共享全局标签与双参同88B帧，ST0仅ASM返回。 BWJ01开发原543390双参/5433A7单参与共享5433B0、5434D9范围出口，三完整86条246B/三页、三direct三callee/零indirect、12跳四RET、四CALL一尾入向及共享尾/顺流。三现文件五追加：CPP六布局断言/HPP借用32B输入与三ASM本体，零CPP本体/新桥/mutable owner。双参低高W32复制后尾共享、单参不写第二F64，同一40B记录/88B共享展开帧真实接87except并保x87结果落存重载/条件FLDCW。范围56B正常帧保FST不弹ST0、原CW/等待状态与三返回，六原常量/FSCALE-比较-FMUL及8/4/3类型和1DH分参保持；原W32控制字载体不补高W16，范围三EDX完整返回。全局共享标签明确声明，仅拓名称/借用指针，不增保护或故障样例。三新原新/F、CRT174限定I-S，定位152/CRT余24；generic pow/完整分派及FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWJ01开发原543390双参/5433A7单参与共享5433B0、5434D9范围出口，三完整86条246B/三页、三direct三callee/零indirect、12跳四RET、四CALL一尾入向及共享尾/顺流。三现文件五追加：CPP六布局断言/HPP借用32B输入与三ASM本体，零CPP本体/新桥/mutable owner。双参低高W32复制后尾共享、单参不写第二F64，同一40B记录/88B共享展开帧真实接87except并保x87结果落存重载/条件FLDCW。范围56B正常帧保FST不弹ST0、原CW/等待状态与三返回，六原常量/FSCALE-比较-FMUL及8/4/3类型和1DH分参保持；原W32控制字载体不补高W16，范围三EDX完整返回。全局共享标签明确声明，仅拓名称/借用指针，不增保护或故障样例。三新原新/F、CRT174限定I-S，定位152/CRT余24；generic pow/完整分派及FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_record_range": {
+        "spec_id": "BWJ01",
+        "evidence_refs": [
+          "doc/cg2d_math_record_range_spec.md#math-record-range-baseline",
+          "doc/cg2d_math_record_range_spec.md#math-record-range-decision",
+          "doc/cg2d_math_record_range_spec.md#math-record-range-acceptance",
+          "doc/cg2d_math_record_range_spec.md#math-record-range-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 23,
+        "original_code_bytes": 60,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 1,
+        "original_return_count": 1,
+        "original_inbound_call_count": 2,
+        "original_inbound_tail_count": 0,
+        "original_total_instruction_count": 86,
+        "original_total_code_bytes": 246,
+        "original_total_page_count": 3,
+        "original_total_direct_call_count": 3,
+        "original_total_unique_direct_callee_count": 3,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 12,
+        "original_total_return_count": 4,
+        "original_total_inbound_call_count": 4,
+        "original_total_inbound_tail_count": 1,
+        "original_shared_interior_tail_count": 1,
+        "original_shared_interior_flow_count": 1,
+        "reused_original_root_evidence": "doc/cg2d_math_error_hardware_leaves_evidence.json",
+        "current_session_complete_metadata_shared_refs_and_constants_rechecked": true,
+        "source_body_added": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 5,
+        "new_original_mapped_function_count": 3,
+        "new_native_function_body_count": 3,
+        "new_cpp_body_count": 0,
+        "new_asm_proc_count": 3,
+        "new_private_C_bridge_count": 0,
+        "new_mutable_shared_owner_count": 0,
+        "new_layout_assertion_count": 6,
+        "original_two_low_high_W32_copies_then_true_shared_tail_kept": true,
+        "single_argument_second_F64_not_written": true,
+        "one_true_global_shared_suffix_equal_88B_frames_and_40B_record_kept": true,
+        "original_shared_FSTP_name_first_arg_calls_FLD_and_027F_FLDCW_kept": true,
+        "original_full_W32_CW_carrier_and_three_EDX_returns_without_high_W16_zero_fill": true,
+        "original_range_FST_continuous_ST0_classification_CW_status_types_and_operation1D_selection_kept": true,
+        "original_FSCALE_FCOMP_FMUL_constant_bits_comparison_order_and_three_returns_kept": true,
+        "three_real_calls_shared_tail_and_six_real_readonly_constant_providers_connected": true,
+        "three_ST0_interfaces_only_between_ASM_functions": true,
+        "borrowed_32B_inputs_numeric_widths_and_proven_pointer_only_widening": true,
+        "unproduced_padding_or_record_fields_not_initialized": true,
+        "no_new_protection_refusal_clamp_fault_sample_or_host_math": true,
+        "old_environment_math_hardware_errno_startup_map_and_build_rules_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_generic_pow_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x5434d9",
+      "inventory_id": "F:001434D9",
+      "original_role": "5434D9完整原范围出口：FST F64不弹ST0及高W32指数分类，原027FH/屏蔽位与等待FSTSW、原上下FSCALE/比较/FMUL及8/4/3类型与操作1DH分参保，两真实错误入口CALL/原条件CW恢复；三个返回还原完整原W32载体到EDX，不补高W16，ST0仅ASM返回。",
+      "original_end_exclusive": "0x54357c",
+      "original_chunks": [
+        [
+          "0x5434d9",
+          "0x54357c"
+        ]
+      ],
+      "instruction_count": 54,
+      "status": "BWJ01开发原543390双参/5433A7单参与共享5433B0、5434D9范围出口，三完整86条246B/三页、三direct三callee/零indirect、12跳四RET、四CALL一尾入向及共享尾/顺流。三现文件五追加：CPP六布局断言/HPP借用32B输入与三ASM本体，零CPP本体/新桥/mutable owner。双参低高W32复制后尾共享、单参不写第二F64，同一40B记录/88B共享展开帧真实接87except并保x87结果落存重载/条件FLDCW。范围56B正常帧保FST不弹ST0、原CW/等待状态与三返回，六原常量/FSCALE-比较-FMUL及8/4/3类型和1DH分参保持；原W32控制字载体不补高W16，范围三EDX完整返回。全局共享标签明确声明，仅拓名称/借用指针，不增保护或故障样例。三新原新/F、CRT174限定I-S，定位152/CRT余24；generic pow/完整分派及FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dCheckLegacyRangeExitX87",
+            "Cg2dStartLegacyOneArgumentErrorX87",
+            "Cg2dStartLegacyTwoArgumentErrorX87",
+            "LegacyRangeMinimum54FB2C",
+            "LegacyRangeScaleDown54FB34",
+            "LegacyRangeScaleUp54FB3C",
+            "LegacyZero54D5D0",
+            "LegacyMaximum5923D0",
+            "LegacyPowerInfinity5923C0"
+          ],
+          "relationship": "5434D9完整原范围出口：FST F64不弹ST0及高W32指数分类，原027FH/屏蔽位与等待FSTSW、原上下FSCALE/比较/FMUL及8/4/3类型与操作1DH分参保，两真实错误入口CALL/原条件CW恢复；三个返回还原完整原W32载体到EDX，不补高W16，ST0仅ASM返回。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "LegacyMathErrorInputs",
+            "Cg2dCheckLegacyRangeExitX87"
+          ],
+          "relationship": "32B借用输入保存完整原W32 CW载体/操作号/名称指针与两F64，不默认填字段；三ST0接口只作ASM合同，不声明CPP double返回"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "LegacyMathErrorInputs"
+          ],
+          "relationship": "六实际布局断言；0/4/8/16/24与32B输入，只有名称指针拓宽，CPP不新增本体/owner"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_record_range_spec.md#math-record-range-baseline",
+        "doc/cg2d_math_record_range_spec.md#math-record-range-decision",
+        "doc/cg2d_math_record_range_spec.md#math-record-range-acceptance",
+        "doc/cg2d_math_record_range_spec.md#math-record-range-source-state"
+      ],
+      "boundary": "5434D9完整原范围出口：FST F64不弹ST0及高W32指数分类，原027FH/屏蔽位与等待FSTSW、原上下FSCALE/比较/FMUL及8/4/3类型与操作1DH分参保，两真实错误入口CALL/原条件CW恢复；三个返回还原完整原W32载体到EDX，不补高W16，ST0仅ASM返回。 BWJ01开发原543390双参/5433A7单参与共享5433B0、5434D9范围出口，三完整86条246B/三页、三direct三callee/零indirect、12跳四RET、四CALL一尾入向及共享尾/顺流。三现文件五追加：CPP六布局断言/HPP借用32B输入与三ASM本体，零CPP本体/新桥/mutable owner。双参低高W32复制后尾共享、单参不写第二F64，同一40B记录/88B共享展开帧真实接87except并保x87结果落存重载/条件FLDCW。范围56B正常帧保FST不弹ST0、原CW/等待状态与三返回，六原常量/FSCALE-比较-FMUL及8/4/3类型和1DH分参保持；原W32控制字载体不补高W16，范围三EDX完整返回。全局共享标签明确声明，仅拓名称/借用指针，不增保护或故障样例。三新原新/F、CRT174限定I-S，定位152/CRT余24；generic pow/完整分派及FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWJ01开发原543390双参/5433A7单参与共享5433B0、5434D9范围出口，三完整86条246B/三页、三direct三callee/零indirect、12跳四RET、四CALL一尾入向及共享尾/顺流。三现文件五追加：CPP六布局断言/HPP借用32B输入与三ASM本体，零CPP本体/新桥/mutable owner。双参低高W32复制后尾共享、单参不写第二F64，同一40B记录/88B共享展开帧真实接87except并保x87结果落存重载/条件FLDCW。范围56B正常帧保FST不弹ST0、原CW/等待状态与三返回，六原常量/FSCALE-比较-FMUL及8/4/3类型和1DH分参保持；原W32控制字载体不补高W16，范围三EDX完整返回。全局共享标签明确声明，仅拓名称/借用指针，不增保护或故障样例。三新原新/F、CRT174限定I-S，定位152/CRT余24；generic pow/完整分派及FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_record_range": {
+        "spec_id": "BWJ01",
+        "evidence_refs": [
+          "doc/cg2d_math_record_range_spec.md#math-record-range-baseline",
+          "doc/cg2d_math_record_range_spec.md#math-record-range-decision",
+          "doc/cg2d_math_record_range_spec.md#math-record-range-acceptance",
+          "doc/cg2d_math_record_range_spec.md#math-record-range-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 54,
+        "original_code_bytes": 163,
+        "original_page_count": 1,
+        "original_direct_call_count": 2,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 10,
+        "original_return_count": 3,
+        "original_inbound_call_count": 0,
+        "original_inbound_tail_count": 1,
+        "original_total_instruction_count": 86,
+        "original_total_code_bytes": 246,
+        "original_total_page_count": 3,
+        "original_total_direct_call_count": 3,
+        "original_total_unique_direct_callee_count": 3,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 12,
+        "original_total_return_count": 4,
+        "original_total_inbound_call_count": 4,
+        "original_total_inbound_tail_count": 1,
+        "original_shared_interior_tail_count": 1,
+        "original_shared_interior_flow_count": 1,
+        "reused_original_root_evidence": "doc/cg2d_math_error_hardware_leaves_evidence.json",
+        "current_session_complete_metadata_shared_refs_and_constants_rechecked": true,
+        "source_body_added": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 5,
+        "new_original_mapped_function_count": 3,
+        "new_native_function_body_count": 3,
+        "new_cpp_body_count": 0,
+        "new_asm_proc_count": 3,
+        "new_private_C_bridge_count": 0,
+        "new_mutable_shared_owner_count": 0,
+        "new_layout_assertion_count": 6,
+        "original_two_low_high_W32_copies_then_true_shared_tail_kept": true,
+        "single_argument_second_F64_not_written": true,
+        "one_true_global_shared_suffix_equal_88B_frames_and_40B_record_kept": true,
+        "original_shared_FSTP_name_first_arg_calls_FLD_and_027F_FLDCW_kept": true,
+        "original_full_W32_CW_carrier_and_three_EDX_returns_without_high_W16_zero_fill": true,
+        "original_range_FST_continuous_ST0_classification_CW_status_types_and_operation1D_selection_kept": true,
+        "original_FSCALE_FCOMP_FMUL_constant_bits_comparison_order_and_three_returns_kept": true,
+        "three_real_calls_shared_tail_and_six_real_readonly_constant_providers_connected": true,
+        "three_ST0_interfaces_only_between_ASM_functions": true,
+        "borrowed_32B_inputs_numeric_widths_and_proven_pointer_only_widening": true,
+        "unproduced_padding_or_record_fields_not_initialized": true,
+        "no_new_protection_refusal_clamp_fault_sample_or_host_math": true,
+        "old_environment_math_hardware_errno_startup_map_and_build_rules_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_generic_pow_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

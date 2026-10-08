@@ -1,0 +1,400 @@
+{
+  "step": "BWZ01",
+  "date": "2026-10-08",
+  "scope": "cg2d_re本次Debug配置、编译和链接；必要符号诊断；无测试、运行或摘要",
+  "baseline_git_reference": "cg2d-re-nls-type-general-body-20261008",
+  "implementation_git_reference": "cg2d-re-debug-build-fixes-20261008",
+  "environment": {
+    "generator": "Visual Studio 18 2026",
+    "architecture": "x64",
+    "cmake": "4.2.3-msvc3",
+    "msbuild": "18.5.4+cb4e32d21",
+    "msvc_toolset": "14.50.35717",
+    "windows_sdk": "10.0.26100.0",
+    "target_windows": "10.0.19045",
+    "sdl": "3.4.8，本机现有",
+    "powershell": "7.6.5"
+  },
+  "configure": {
+    "preset": "windows-msvc-x64",
+    "command": "cmake --preset windows-msvc-x64",
+    "exit_code": 0
+  },
+  "build_command": "cmake --build --preset windows-msvc-x64-debug --parallel 4 -- /nologo /verbosity:minimal",
+  "attempts": [
+    {
+      "errors": [
+        "cg2d_re\\src\\platform\\LegacyFloatEnvironment.asm(1): fatal error A1000: cannot open file : cg2d_re_startup.dir\\Debug\\/src/platform/LegacyFloatEnvironment.asm.obj [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\MSBuild\\Microsoft\\VC\\v180\\BuildCustomizations\\masm.targets(70,5): error MSB3721: 命令“ml64.exe /c /nologo /Fo\"cg2d_re_startup.dir\\Debug\\/src/platform/LegacyFloatEnvironment.asm.obj\" /D\"WIN32\" /D\"_WINDOWS\" /D\"_CRT_SECURE_NO_WARNINGS\" /D\"CMAKE_INTDIR=\"Debug\"\" /I \"cg2d_re\\include\" /I \"third_party\\sdl\\SDL3-3.4.8\\include\" /W3 /errorReport:prompt  /Tacg2d_re\\src\\platform\\LegacyFloatEnvironment.asm”已退出，返回代码为 1。 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+      ],
+      "attempt": 1,
+      "exit_code": 1,
+      "clean_first": false,
+      "local_log": "build/windows-msvc-x64/build-debug-20261008-1.log",
+      "targets": "ALL_BUILD"
+    },
+    {
+      "errors": [
+        "cg2d_re\\src\\platform\\LegacyFloatEnvironment.asm(1830): error A2218: AH, BH, CH, or DH may not be used with R8-R15, BPL, DIL, SIL, or SPL [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\MSBuild\\Microsoft\\VC\\v180\\BuildCustomizations\\masm.targets(70,5): error MSB3721: 命令“ml64.exe /c /nologo /Fo\"cg2d_re_startup.dir\\Debug\\LegacyFloatEnvironment.asm.obj\" /D\"WIN32\" /D\"_WINDOWS\" /D\"_CRT_SECURE_NO_WARNINGS\" /D\"CMAKE_INTDIR=\"Debug\"\" /I \"cg2d_re\\include\" /I \"third_party\\sdl\\SDL3-3.4.8\\include\" /W3 /errorReport:prompt  /Tacg2d_re\\src\\platform\\LegacyFloatEnvironment.asm”已退出，返回代码为 1。 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+      ],
+      "attempt": 2,
+      "exit_code": 1,
+      "clean_first": false,
+      "local_log": "build/windows-msvc-x64/build-debug-20261008-2.log",
+      "targets": "ALL_BUILD"
+    },
+    {
+      "errors": [
+        "cg2d_re\\src\\platform\\LegacyException.cpp(18,47): error C2065: “TerminateLegacyRuntime_540A5C”: 未声明的标识符 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\platform\\LegacyException.cpp(736,9): error C3861: “TerminateLegacyRuntime_540A5C”: 找不到标识符 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\platform\\LegacyMultibyte.cpp(412,9): error C2668: “cg::platform::MapLegacyString_543AE8”: 对重载函数的调用不明确 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\platform\\LegacyTime.cpp(1227,27): error C2668: “cg::platform::MapLegacyFileError_542F44”: 对重载函数的调用不明确 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\platform\\LegacyTime.cpp(1253,23): error C2668: “cg::platform::MapLegacyFileError_542F44”: 对重载函数的调用不明确 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\platform\\LegacyTime.cpp(1310,27): error C2668: “cg::platform::MapLegacyFileError_542F44”: 对重载函数的调用不明确 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\LegacyUiRecord.cpp(3968,42): error C2039: \"Stringify_52D2D0\": 不是 \"cg::input\" 的成员 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\LegacyUiRecord.cpp(3968,42): error C3861: “Stringify_52D2D0”: 找不到标识符 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\YobiRuntime.cpp(12267,120): error C2065: “SprimaryGraphic”: 未声明的标识符 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\YobiRuntime.cpp(26692,42): error C3861: “GetBattlePetPosition_405B40”: 找不到标识符 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\YobiRuntime.cpp(26698,53): error C3861: “GetBattlePetPosition_405B40”: 找不到标识符 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowRuntime.cpp(44336,24): error C2039: \"gValue9A6E0C\": 不是 \"cg::world::detail\" 的成员 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowRuntime.cpp(44336,24): error C2065: “gValue9A6E0C”: 未声明的标识符 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowRuntime.cpp(44352,24): error C2039: \"gValue9A6E0C\": 不是 \"cg::world::detail\" 的成员 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowRuntime.cpp(44352,24): error C2065: “gValue9A6E0C”: 未声明的标识符 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowRuntime.cpp(44391,24): error C2039: \"gValue9A6E0C\": 不是 \"cg::world::detail\" 的成员 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowRuntime.cpp(44391,24): error C2065: “gValue9A6E0C”: 未声明的标识符 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowRuntime.cpp(44446,24): error C2039: \"gValue9A6E0C\": 不是 \"cg::world::detail\" 的成员 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowRuntime.cpp(44446,24): error C2065: “gValue9A6E0C”: 未声明的标识符 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowRuntime.cpp(44457,24): error C2039: \"gValue9A6E0C\": 不是 \"cg::world::detail\" 的成员 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowRuntime.cpp(44457,24): error C2065: “gValue9A6E0C”: 未声明的标识符 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowRuntime.cpp(44473,47): error C2039: \"gValue9A6E0C\": 不是 \"cg::world::detail\" 的成员 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowRuntime.cpp(44473,47): error C2065: “gValue9A6E0C”: 未声明的标识符 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowRuntime.cpp(44487,47): error C2039: \"gValue9A6E0C\": 不是 \"cg::world::detail\" 的成员 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowRuntime.cpp(44487,47): error C2065: “gValue9A6E0C”: 未声明的标识符 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowRuntime.cpp(44501,47): error C2039: \"gValue9A6E0C\": 不是 \"cg::world::detail\" 的成员 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowRuntime.cpp(44501,47): error C2065: “gValue9A6E0C”: 未声明的标识符 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowRuntime.cpp(44515,47): error C2039: \"gValue9A6E0C\": 不是 \"cg::world::detail\" 的成员 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowRuntime.cpp(44515,47): error C2065: “gValue9A6E0C”: 未声明的标识符 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowRuntime.cpp(44529,47): error C2039: \"gValue9A6E0C\": 不是 \"cg::world::detail\" 的成员 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowRuntime.cpp(44529,47): error C2065: “gValue9A6E0C”: 未声明的标识符 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowRuntime.cpp(44542,47): error C2039: \"gValue9A6E0C\": 不是 \"cg::world::detail\" 的成员 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowRuntime.cpp(44542,47): error C2065: “gValue9A6E0C”: 未声明的标识符 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowRuntime.cpp(44561,24): error C2039: \"gValue9A6E0C\": 不是 \"cg::world::detail\" 的成员 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowRuntime.cpp(44561,24): error C2065: “gValue9A6E0C”: 未声明的标识符 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowPrototypes.cpp(2153,48): error C2440: “初始化”: 无法从“uint32_t *”转换为“int32_t *” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\ui\\WindowPrototypes.cpp(2326,49): error C2440: “初始化”: 无法从“uint32_t *”转换为“int32_t *” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\network\\NetworkRuntime.cpp(4398,12): error C2039: \"NullSub_509080\": 不是 \"cg::input\" 的成员 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\world\\SceneState.cpp(6598,46): error C2039: \"Sub_520200\": 不是 \"cg::login::detail\" 的成员 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\world\\SceneState.cpp(6598,46): error C3861: “Sub_520200”: 找不到标识符 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\world\\SceneState.cpp(6716,50): error C2039: \"Sub_520200\": 不是 \"cg::login::detail\" 的成员 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\world\\SceneState.cpp(6716,50): error C3861: “Sub_520200”: 找不到标识符 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\world\\SceneState.cpp(6806,46): error C2039: \"Sub_520200\": 不是 \"cg::login::detail\" 的成员 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\world\\SceneState.cpp(6806,46): error C3861: “Sub_520200”: 找不到标识符 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\world\\SceneState.cpp(6849,54): error C2039: \"Sub_520200\": 不是 \"cg::login::detail\" 的成员 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+        "cg2d_re\\src\\world\\SceneState.cpp(6849,54): error C3861: “Sub_520200”: 找不到标识符 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+      ],
+      "attempt": 3,
+      "exit_code": 1,
+      "clean_first": false,
+      "local_log": "build/windows-msvc-x64/build-debug-20261008-3.log",
+      "targets": "ALL_BUILD"
+    },
+    {
+      "errors": [
+        "cg2d_re_startup.lib(MainLoopSupport.obj) : error LNK2019: 无法解析的外部符号 \"int __cdecl cg::platform::Sub_458AE0(void)\" (?Sub_458AE0@platform@cg@@YAHXZ)，函数 \"int __cdecl cg::platform::CheckLegacyDxCapability_458DC0(void)\" (?CheckLegacyDxCapability_458DC0@platform@cg@@YAHXZ) 中引用了该符号 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(GraphicPendingQueue.obj) : error LNK2019: 无法解析的外部符号 \"void __cdecl cg::render::Sub_451350(struct tagRECT *,unsigned short,int)\" (?Sub_451350@render@cg@@YAXPEAUtagRECT@@GH@Z)，函数 \"void __cdecl cg::render::Sub_522210(struct cg::render::GraphicCacheItem32 const *,unsigned int)\" (?Sub_522210@render@cg@@YAXPEBUGraphicCacheItem32@12@I@Z) 中引用了该符号 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(WindowRuntime.obj) : error LNK2019: 无法解析的外部符号 \"int __cdecl cg::audio::Sub_52C3D0(void)\" (?Sub_52C3D0@audio@cg@@YAHXZ)，函数 \"int __cdecl cg::ui::detail::Sub_4949C0(int,int)\" (?Sub_4949C0@detail@ui@cg@@YAHHH@Z) 中引用了该符号 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(ClientShutdown.obj) : error LNK2019: 无法解析的外部符号 \"int __cdecl cg::platform::shutdown_detail::Sub_454EE0(void)\" (?Sub_454EE0@shutdown_detail@platform@cg@@YAHXZ)，函数 \"int __cdecl cg::platform::ShutdownClient_457A40(void)\" (?ShutdownClient_457A40@platform@cg@@YAHXZ) 中引用了该符号 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(NetworkRuntime.obj) : error LNK2019: 无法解析的外部符号 \"void __cdecl cg::network::detail::Sub_50E680(unsigned __int64,int,int,int)\" (?Sub_50E680@detail@network@cg@@YAX_KHHH@Z)，函数 \"public: auto __cdecl `bool __cdecl cg::network::`anonymous namespace'::TryDispatchReply<&void __cdecl cg::network::detail::Sub_50E680(unsigned __int64,int,int,int),int,int,int>(char const * const,char const * const,unsigned __int64,unsigned int)'::`2'::<lambda_1>::operator()<int,int,int>(int,int,int)const \" (??$?RHHH@<lambda_1>@?1???$TryDispatchReply@$MP6AX_KHHH@Z1?Sub_50E680@detail@network@cg@@YAX0HHH@ZHHH@?A0xa19e507b@network@cg@@YA_NQEBD0_KI@Z@QEBA?A_PHHH@Z) 中引用了该符号 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(ClientInitialization.obj) : error LNK2019: 无法解析的外部符号 \"int __cdecl cg::platform::initialization_detail::InitializeMusic_454C30(unsigned __int64)\" (?InitializeMusic_454C30@initialization_detail@platform@cg@@YAH_K@Z)，函数 \"int __cdecl cg::platform::InitializeClient_4576B0(void)\" (?InitializeClient_4576B0@platform@cg@@YAHXZ) 中引用了该符号 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(YobiRuntime.obj) : error LNK2019: 无法解析的外部符号 \"int __cdecl cg::login::detail::MeasureDefaultText_44B260(char const *)\" (?MeasureDefaultText_44B260@detail@login@cg@@YAHPEBD@Z)，函数 \"int __cdecl cg::login::detail::NewBattleNumber_41F1A0(int,int,int,int,int,unsigned int)\" (?NewBattleNumber_41F1A0@detail@login@cg@@YAHHHHHHI@Z) 中引用了该符号 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(LegacyUiRecord.obj) : error LNK2001: 无法解析的外部符号 \"int __cdecl cg::login::detail::MeasureDefaultText_44B260(char const *)\" (?MeasureDefaultText_44B260@detail@login@cg@@YAHPEBD@Z) [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(LegacyRuntimeExit.obj) : error LNK2001: 无法解析的外部符号 \"void (__cdecl** cg::platform::gLegacyCppInitializationTable553000)(void)\" (?gLegacyCppInitializationTable553000@platform@cg@@3PAP6AXXZA) [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(LegacyUiRecord.obj) : error LNK2001: 无法解析的外部符号 \"struct cg::login::detail::LegacyPetSkillCatalogRecord * cg::login::detail::gLegacyPetSkillCatalogCA0478\" (?gLegacyPetSkillCatalogCA0478@detail@login@cg@@3PAULegacyPetSkillCatalogRecord@123@A) [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(LegacyUiRecord.obj) : error LNK2001: 无法解析的外部符号 \"class std::array<char,17> * cg::login::detail::gLegacyTradeTargetNamesCB1D1C\" (?gLegacyTradeTargetNamesCB1D1C@detail@login@cg@@3PAV?$array@D$0BB@@std@@A) [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re\\build\\windows-msvc-x64\\Debug\\cg2d_re_client.exe : fatal error LNK1120: 10 个无法解析的外部命令 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]"
+      ],
+      "attempt": 4,
+      "exit_code": 1,
+      "clean_first": false,
+      "local_log": "build/windows-msvc-x64/build-debug-20261008-4.log",
+      "targets": "ALL_BUILD"
+    },
+    {
+      "errors": [
+        "cg2d_re_startup.lib(MainLoopSupport.obj) : error LNK2019: 无法解析的外部符号 \"int __cdecl cg::platform::Sub_458AE0(void)\" (?Sub_458AE0@platform@cg@@YAHXZ)，函数 \"int __cdecl cg::platform::CheckLegacyDxCapability_458DC0(void)\" (?CheckLegacyDxCapability_458DC0@platform@cg@@YAHXZ) 中引用了该符号 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(GraphicPendingQueue.obj) : error LNK2019: 无法解析的外部符号 \"void __cdecl cg::render::Sub_451350(struct tagRECT *,unsigned short,int)\" (?Sub_451350@render@cg@@YAXPEAUtagRECT@@GH@Z)，函数 \"void __cdecl cg::render::Sub_522210(struct cg::render::GraphicCacheItem32 const *,unsigned int)\" (?Sub_522210@render@cg@@YAXPEBUGraphicCacheItem32@12@I@Z) 中引用了该符号 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(WindowRuntime.obj) : error LNK2019: 无法解析的外部符号 \"int __cdecl cg::audio::Sub_52C3D0(void)\" (?Sub_52C3D0@audio@cg@@YAHXZ)，函数 \"int __cdecl cg::ui::detail::Sub_4949C0(int,int)\" (?Sub_4949C0@detail@ui@cg@@YAHHH@Z) 中引用了该符号 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(ClientShutdown.obj) : error LNK2019: 无法解析的外部符号 \"int __cdecl cg::platform::shutdown_detail::Sub_454EE0(void)\" (?Sub_454EE0@shutdown_detail@platform@cg@@YAHXZ)，函数 \"int __cdecl cg::platform::ShutdownClient_457A40(void)\" (?ShutdownClient_457A40@platform@cg@@YAHXZ) 中引用了该符号 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(NetworkRuntime.obj) : error LNK2019: 无法解析的外部符号 \"void __cdecl cg::network::detail::Sub_50E680(unsigned __int64,int,int,int)\" (?Sub_50E680@detail@network@cg@@YAX_KHHH@Z)，函数 \"public: auto __cdecl `bool __cdecl cg::network::`anonymous namespace'::TryDispatchReply<&void __cdecl cg::network::detail::Sub_50E680(unsigned __int64,int,int,int),int,int,int>(char const * const,char const * const,unsigned __int64,unsigned int)'::`2'::<lambda_1>::operator()<int,int,int>(int,int,int)const \" (??$?RHHH@<lambda_1>@?1???$TryDispatchReply@$MP6AX_KHHH@Z1?Sub_50E680@detail@network@cg@@YAX0HHH@ZHHH@?A0xa19e507b@network@cg@@YA_NQEBD0_KI@Z@QEBA?A_PHHH@Z) 中引用了该符号 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(ClientInitialization.obj) : error LNK2019: 无法解析的外部符号 \"int __cdecl cg::platform::initialization_detail::InitializeMusic_454C30(unsigned __int64)\" (?InitializeMusic_454C30@initialization_detail@platform@cg@@YAH_K@Z)，函数 \"int __cdecl cg::platform::InitializeClient_4576B0(void)\" (?InitializeClient_4576B0@platform@cg@@YAHXZ) 中引用了该符号 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(YobiRuntime.obj) : error LNK2019: 无法解析的外部符号 \"int __cdecl cg::login::detail::MeasureDefaultText_44B260(char const *)\" (?MeasureDefaultText_44B260@detail@login@cg@@YAHPEBD@Z)，函数 \"int __cdecl cg::login::detail::NewBattleNumber_41F1A0(int,int,int,int,int,unsigned int)\" (?NewBattleNumber_41F1A0@detail@login@cg@@YAHHHHHHI@Z) 中引用了该符号 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(LegacyUiRecord.obj) : error LNK2001: 无法解析的外部符号 \"int __cdecl cg::login::detail::MeasureDefaultText_44B260(char const *)\" (?MeasureDefaultText_44B260@detail@login@cg@@YAHPEBD@Z) [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(LegacyRuntimeExit.obj) : error LNK2001: 无法解析的外部符号 \"void (__cdecl** cg::platform::gLegacyCppInitializationTable553000)(void)\" (?gLegacyCppInitializationTable553000@platform@cg@@3PAP6AXXZA) [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(LegacyUiRecord.obj) : error LNK2001: 无法解析的外部符号 \"struct cg::login::detail::LegacyPetSkillCatalogRecord * cg::login::detail::gLegacyPetSkillCatalogCA0478\" (?gLegacyPetSkillCatalogCA0478@detail@login@cg@@3PAULegacyPetSkillCatalogRecord@123@A) [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(LegacyUiRecord.obj) : error LNK2001: 无法解析的外部符号 \"class std::array<char,17> * cg::login::detail::gLegacyTradeTargetNamesCB1D1C\" (?gLegacyTradeTargetNamesCB1D1C@detail@login@cg@@3PAV?$array@D$0BB@@std@@A) [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re\\build\\windows-msvc-x64\\Debug\\cg2d_re_client.exe : fatal error LNK1120: 10 个无法解析的外部命令 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]"
+      ],
+      "attempt": 5,
+      "exit_code": 1,
+      "clean_first": true,
+      "local_log": "build/windows-msvc-x64/build-debug-20261008-5.log",
+      "targets": "ALL_BUILD"
+    },
+    {
+      "errors": [
+        "cg2d_re_startup.lib(MainLoopSupport.obj) : error LNK2019: 无法解析的外部符号 \"int __cdecl cg::platform::Sub_458AE0(void)\" (?Sub_458AE0@platform@cg@@YAHXZ)，函数 \"int __cdecl cg::platform::CheckLegacyDxCapability_458DC0(void)\" (?CheckLegacyDxCapability_458DC0@platform@cg@@YAHXZ) 中引用了该符号 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(WindowRuntime.obj) : error LNK2019: 无法解析的外部符号 \"int __cdecl cg::audio::Sub_52C3D0(void)\" (?Sub_52C3D0@audio@cg@@YAHXZ)，函数 \"int __cdecl cg::ui::detail::Sub_4949C0(int,int)\" (?Sub_4949C0@detail@ui@cg@@YAHHH@Z) 中引用了该符号 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(ClientShutdown.obj) : error LNK2019: 无法解析的外部符号 \"int __cdecl cg::platform::shutdown_detail::Sub_454EE0(void)\" (?Sub_454EE0@shutdown_detail@platform@cg@@YAHXZ)，函数 \"int __cdecl cg::platform::ShutdownClient_457A40(void)\" (?ShutdownClient_457A40@platform@cg@@YAHXZ) 中引用了该符号 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(NetworkRuntime.obj) : error LNK2019: 无法解析的外部符号 \"void __cdecl cg::network::detail::Sub_50E680(unsigned __int64,int,int,int)\" (?Sub_50E680@detail@network@cg@@YAX_KHHH@Z)，函数 \"public: auto __cdecl `bool __cdecl cg::network::`anonymous namespace'::TryDispatchReply<&void __cdecl cg::network::detail::Sub_50E680(unsigned __int64,int,int,int),int,int,int>(char const * const,char const * const,unsigned __int64,unsigned int)'::`2'::<lambda_1>::operator()<int,int,int>(int,int,int)const \" (??$?RHHH@<lambda_1>@?1???$TryDispatchReply@$MP6AX_KHHH@Z1?Sub_50E680@detail@network@cg@@YAX0HHH@ZHHH@?A0xa19e507b@network@cg@@YA_NQEBD0_KI@Z@QEBA?A_PHHH@Z) 中引用了该符号 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(ClientInitialization.obj) : error LNK2019: 无法解析的外部符号 \"int __cdecl cg::platform::initialization_detail::InitializeMusic_454C30(unsigned __int64)\" (?InitializeMusic_454C30@initialization_detail@platform@cg@@YAH_K@Z)，函数 \"int __cdecl cg::platform::InitializeClient_4576B0(void)\" (?InitializeClient_4576B0@platform@cg@@YAHXZ) 中引用了该符号 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(LegacyRuntimeExit.obj) : error LNK2001: 无法解析的外部符号 \"void (__cdecl** cg::platform::gLegacyCppInitializationTable553000)(void)\" (?gLegacyCppInitializationTable553000@platform@cg@@3PAP6AXXZA) [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(LegacyUiRecord.obj) : error LNK2001: 无法解析的外部符号 \"struct cg::login::detail::LegacyPetSkillCatalogRecord * cg::login::detail::gLegacyPetSkillCatalogCA0478\" (?gLegacyPetSkillCatalogCA0478@detail@login@cg@@3PAULegacyPetSkillCatalogRecord@123@A) [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re_startup.lib(LegacyUiRecord.obj) : error LNK2001: 无法解析的外部符号 \"class std::array<char,17> * cg::login::detail::gLegacyTradeTargetNamesCB1D1C\" (?gLegacyTradeTargetNamesCB1D1C@detail@login@cg@@3PAV?$array@D$0BB@@std@@A) [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]",
+        "cg2d_re\\build\\windows-msvc-x64\\Debug\\cg2d_re_client.exe : fatal error LNK1120: 8 个无法解析的外部命令 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_client.vcxproj]"
+      ],
+      "attempt": 6,
+      "exit_code": 1,
+      "clean_first": false,
+      "local_log": "build/windows-msvc-x64/build-debug-20261008-6.log",
+      "targets": "ALL_BUILD"
+    },
+    {
+      "errors": [],
+      "attempt": 7,
+      "exit_code": 0,
+      "clean_first": false,
+      "local_log": "build/windows-msvc-x64/build-debug-20261008-7-libraries.log",
+      "targets": [
+        "cg2d_re_core",
+        "cg2d_re_startup",
+        "cg2d_re_render"
+      ]
+    }
+  ],
+  "final": {
+    "all_target_cxx_and_masm_compiled": true,
+    "three_static_libraries_build_exit": 0,
+    "client_link_exit": 1,
+    "client_link_passed": false,
+    "unresolved_symbol_count": 8,
+    "client_delivery_accepted": false,
+    "runtime_executed": false,
+    "tests_executed": false,
+    "hash_calculated": false
+  },
+  "unresolved": {
+    "paused_audio": [
+      "cg::platform::Sub_458AE0",
+      "cg::platform::initialization_detail::InitializeMusic_454C30",
+      "cg::platform::shutdown_detail::Sub_454EE0",
+      "cg::network::detail::Sub_50E680",
+      "cg::audio::Sub_52C3D0"
+    ],
+    "existing_contract_gaps": [
+      "cg::platform::gLegacyCppInitializationTable553000",
+      "cg::login::detail::gLegacyPetSkillCatalogCA0478",
+      "cg::login::detail::gLegacyTradeTargetNamesCB1D1C"
+    ]
+  },
+  "link_symbol_diagnostics": {
+    "core_exports_before": [
+      "?MeasureDefaultText_44B260@detail@login@cg@@YAHQEBD@Z",
+      "?Sub_451350@render@cg@@YAXQEAUtagRECT@@GH@Z"
+    ],
+    "consumer_requires": [
+      "?MeasureDefaultText_44B260@detail@login@cg@@YAHPEBD@Z",
+      "?Sub_451350@render@cg@@YAXPEAUtagRECT@@GH@Z"
+    ],
+    "inspection": "仅本次缺失链接符号的库成员符号诊断，不作机器行为验收",
+    "confirmed_fixed_by_attempt": 6
+  },
+  "full_rebuild_warning_count": 131,
+  "full_rebuild_warnings": [
+    "cg2d_re\\src\\platform\\MainLoopSupport.cpp(303,23): warning C4996: 'GetVersionExA': 被声明为已否决 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyMemory.cpp(67,11): warning C4996: 'GetVersionExA': 被声明为已否决 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyHeap.cpp(585,83): warning C4366: 一元“&”运算符的结果可能是未对齐的 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyHeap.cpp(587,69): warning C4366: 一元“&”运算符的结果可能是未对齐的 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyStreamBuffer.hpp(190,30): warning C4324: “cg::platform::LegacyStreamPosition”: 由于对齐说明符，结构被填充 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyStreamBuffer.cpp(166,25): warning C4100: 'ignoredMode': 未引用的参数 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyStreamBuffer.cpp(165,60): warning C4100: 'ignoredOrigin': 未引用的参数 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyStreamBuffer.cpp(165,25): warning C4100: 'ignoredOffset': 未引用的参数 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyStreamBuffer.cpp(164,49): warning C4100: 'storage': 未引用的参数 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyStreamBuffer.cpp(182,69): warning C4100: 'ignoredMode': 未引用的参数 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyStreamBuffer.cpp(182,32): warning C4100: 'ignoredPosition': 未引用的参数 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyStreamBuffer.cpp(181,49): warning C4100: 'storage': 未引用的参数 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyStreamBuffer.cpp(196,78): warning C4100: 'ignoredStackValue': 未引用的参数 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyStreamBuffer.cpp(196,49): warning C4100: 'storage': 未引用的参数 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyStreamBuffer.hpp(190,30): warning C4324: “cg::platform::LegacyStreamPosition”: 由于对齐说明符，结构被填充 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyStreamBuffer.hpp(190,30): warning C4324: “cg::platform::LegacyStreamPosition”: 由于对齐说明符，结构被填充 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyRuntimeExit.cpp(405,41): warning C4996: 'GetVersion': 被声明为已否决 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyNetworkAdapter.cpp(61,1): warning C4701: 使用了可能未初始化的局部变量“selectedType” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyScan.cpp(147,1): warning C4701: 使用了可能未初始化的局部变量“current” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyScan.cpp(429,1): warning C4701: 使用了可能未初始化的局部变量“numeric64” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyScan.cpp(219,1): warning C4701: 使用了可能未初始化的局部变量“destination” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyScan.cpp(219,1): warning C4703: 使用了可能未初始化的本地指针变量“destination” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyFormat.cpp(425,1): warning C4701: 使用了可能未初始化的局部变量“wideText” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyFormat.cpp(143,1): warning C4701: 使用了可能未初始化的局部变量“precision” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyFormat.cpp(293,1): warning C4701: 使用了可能未初始化的局部变量“uppercase” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyFormat.cpp(404,1): warning C4701: 使用了可能未初始化的局部变量“suppress” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyFormat.cpp(130,1): warning C4701: 使用了可能未初始化的局部变量“width” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacyFormat.cpp(417,1): warning C4701: 使用了可能未初始化的局部变量“prefixLength” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacySignal.cpp(123,1): warning C4701: 使用了可能未初始化的局部变量“previousInformation” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacySignal.cpp(123,1): warning C4703: 使用了可能未初始化的本地指针变量“previousInformation” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\platform\\LegacySignal.cpp(125,1): warning C4701: 使用了可能未初始化的局部变量“previousSubtype” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\LegacyUiRecord.cpp(5781,48): warning C4244: “参数”: 从“const int”转换到“const int8_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\LegacyUiRecord.cpp(10012,48): warning C4244: “参数”: 从“const int”转换到“const int8_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\LegacyUiRecord.cpp(10694,48): warning C4244: “参数”: 从“const int”转换到“const int8_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\LegacyUiRecord.cpp(9109,1): warning C4701: 使用了可能未初始化的局部变量“hoverRow” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\LegacyUiRecord.cpp(9110,1): warning C4701: 使用了可能未初始化的局部变量“hoverColumn” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\LegacyUiRecord.cpp(9242,1): warning C4701: 使用了可能未初始化的局部变量“hoverRow” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\LegacyUiRecord.cpp(9243,1): warning C4701: 使用了可能未初始化的局部变量“hoverColumn” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\LegacyUiRecord.cpp(9374,1): warning C4701: 使用了可能未初始化的局部变量“hoverRow” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\LegacyUiRecord.cpp(9375,1): warning C4701: 使用了可能未初始化的局部变量“hoverColumn” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\LegacyUiRecord.cpp(10367,1): warning C4701: 使用了可能未初始化的局部变量“hoverRow” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\LegacyUiRecord.cpp(10368,1): warning C4701: 使用了可能未初始化的局部变量“hoverColumn” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(8096,36): warning C4456: “index”的声明隐藏了上一个本地声明 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(8142,36): warning C4456: “index”的声明隐藏了上一个本地声明 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(14943,36): warning C4456: “casterPosition”的声明隐藏了上一个本地声明 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(14949,36): warning C4456: “casterPosition”的声明隐藏了上一个本地声明 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(14956,36): warning C4456: “casterPosition”的声明隐藏了上一个本地声明 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(14963,36): warning C4456: “casterPosition”的声明隐藏了上一个本地声明 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(30186,27): warning C4456: “gear”的声明隐藏了上一个本地声明 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(2957,37): warning C4244: “参数”: 从“int32_t”转换到“int8_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(3245,37): warning C4244: “参数”: 从“int32_t”转换到“int8_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(10528,36): warning C4244: “参数”: 从“int”转换到“int16_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(10528,26): warning C4244: “参数”: 从“int”转换到“int16_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(10817,26): warning C4244: “参数”: 从“int”转换到“int16_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(10817,19): warning C4244: “参数”: 从“int”转换到“int16_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(32219,64): warning C4244: “参数”: 从“int”转换到“int16_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(32219,57): warning C4244: “参数”: 从“int”转换到“int16_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(34911,66): warning C4244: “参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(35101,66): warning C4244: “参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(35130,66): warning C4244: “参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(37074,36): warning C4244: “参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(37078,37): warning C4244: “参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(37082,33): warning C4244: “参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(37085,36): warning C4244: “参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(37097,25): warning C4244: “参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(37099,26): warning C4244: “参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(37101,15): warning C4244: “参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(37240,25): warning C4244: “参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(37276,25): warning C4244: “参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(37443,23): warning C4456: “index”的声明隐藏了上一个本地声明 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(37489,23): warning C4456: “index”的声明隐藏了上一个本地声明 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\network\\NetworkRuntime.cpp(4389,36): warning C4244: “参数”: 从“const uintptr_t”转换到“uint32_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\network\\NetworkRuntime.cpp(4389,36): warning C4244: “参数”: 从“const uintptr_t”转换到“int32_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\network\\NetworkRuntime.cpp(4389,44): warning C4244: “参数”: 从“const int”转换到“uint8_t”，可能丢失数据 [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(5947,1): warning C4701: 使用了可能未初始化的局部变量“ownPet” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(6298,1): warning C4701: 使用了可能未初始化的局部变量“displayAmount” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(14268,1): warning C4701: 使用了可能未初始化的局部变量“maximum” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(14291,1): warning C4701: 使用了可能未初始化的局部变量“result” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(20021,1): warning C4701: 使用了可能未初始化的局部变量“decrement” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(20333,1): warning C4701: 使用了可能未初始化的局部变量“message” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(20337,1): warning C4701: 使用了可能未初始化的局部变量“increment” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(20358,1): warning C4701: 使用了可能未初始化的局部变量“detailSelected” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(20810,1): warning C4701: 使用了可能未初始化的局部变量“scanSlot” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(25337,1): warning C4701: 使用了可能未初始化的局部变量“record” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(25395,1): warning C4701: 使用了可能未初始化的局部变量“privileged” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(25456,1): warning C4701: 使用了可能未初始化的局部变量“record” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(27228,1): warning C4701: 使用了可能未初始化的局部变量“name” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(27228,1): warning C4703: 使用了可能未初始化的本地指针变量“name” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(28048,1): warning C4701: 使用了可能未初始化的局部变量“count” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(28027,1): warning C4701: 使用了可能未初始化的局部变量“maximum” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(28027,1): warning C4701: 使用了可能未初始化的局部变量“position” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(28905,1): warning C4701: 使用了可能未初始化的局部变量“count” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(37652,1): warning C4701: 使用了可能未初始化的局部变量“position” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(39975,1): warning C4701: 使用了可能未初始化的局部变量“savedX” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\ui\\WindowRuntime.cpp(39971,1): warning C4701: 使用了可能未初始化的局部变量“savedY” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(2517,1): warning C4701: 使用了可能未初始化的局部变量“relativeX” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(2519,1): warning C4701: 使用了可能未初始化的局部变量“relativeY” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(2634,1): warning C4701: 使用了可能未初始化的局部变量“relativeX” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(2631,1): warning C4701: 使用了可能未初始化的局部变量“relativeY” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(8248,1): warning C4701: 使用了可能未初始化的局部变量“trailImage” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(8248,1): warning C4701: 使用了可能未初始化的局部变量“trailY” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(8247,1): warning C4701: 使用了可能未初始化的局部变量“randomX” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(8418,1): warning C4701: 使用了可能未初始化的局部变量“trailImage” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(8418,1): warning C4701: 使用了可能未初始化的局部变量“trailY” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(8417,1): warning C4701: 使用了可能未初始化的局部变量“randomX” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(8588,1): warning C4701: 使用了可能未初始化的局部变量“sound” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(8692,1): warning C4701: 使用了可能未初始化的局部变量“fixedTarget” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(8692,1): warning C4703: 使用了可能未初始化的本地指针变量“fixedTarget” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(9813,1): warning C4701: 使用了可能未初始化的局部变量“ratio” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(9838,1): warning C4701: 使用了可能未初始化的局部变量“ratio” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(14129,1): warning C4701: 使用了可能未初始化的局部变量“lastCreated” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(14129,1): warning C4703: 使用了可能未初始化的本地指针变量“lastCreated” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(12881,1): warning C4701: 使用了可能未初始化的局部变量“skill81Value” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(27545,1): warning C4701: 使用了可能未初始化的局部变量“facingX” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(27545,1): warning C4701: 使用了可能未初始化的局部变量“facingY” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(28624,1): warning C4701: 使用了可能未初始化的局部变量“imageNo” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(28692,1): warning C4701: 使用了可能未初始化的局部变量“imageNo” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(4575,1): warning C4701: 使用了可能未初始化的局部变量“nextChild” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(4575,1): warning C4703: 使用了可能未初始化的本地指针变量“nextChild” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(4585,1): warning C4701: 使用了可能未初始化的局部变量“graphicChild” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(4585,1): warning C4703: 使用了可能未初始化的本地指针变量“graphicChild” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(15558,1): warning C4701: 使用了可能未初始化的局部变量“amount” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(19719,1): warning C4701: 使用了可能未初始化的局部变量“statusType” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(20798,1): warning C4701: 使用了可能未初始化的局部变量“lastAmount” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(18922,1): warning C4701: 使用了可能未初始化的局部变量“effectCasterPosition” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(19232,1): warning C4701: 使用了可能未初始化的局部变量“selfFlags” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(20006,1): warning C4701: 使用了可能未初始化的局部变量“statusType” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(20510,1): warning C4701: 使用了可能未初始化的局部变量“lastAmount” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\YobiRuntime.cpp(21183,1): warning C4701: 使用了可能未初始化的局部变量“redirectPosition” [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\LoginState.cpp(178,37): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]",
+    "cg2d_re\\src\\LoginState.cpp(180,37): warning C4996: 'gethostbyname': Use getaddrinfo() or GetAddrInfoW() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings [cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+  ],
+  "source_diffs": [
+    {
+      "path": "CMakeLists.txt",
+      "patch": "diff --git a/cg2d_re/CMakeLists.txt b/cg2d_re/CMakeLists.txt\nindex e9c4639e..8b1832ec 100644\n--- a/cg2d_re/CMakeLists.txt\n+++ b/cg2d_re/CMakeLists.txt\n@@ -14,6 +14,11 @@ endif()\n \n enable_language(ASM_MASM)\n \n+# 同名 CPP/ASM 的默认对象路径含子目录；MASM 不负责创建该目录。\n+# 使用独立、扁平的 ASM 对象名，避免全新构建先于 CXX 时写入失败。\n+set_source_files_properties(src/platform/LegacyFloatEnvironment.asm PROPERTIES\n+    VS_SETTINGS \"ObjectFileName=$(IntDir)%(Filename).asm.obj\")\n+\n set(SDL3_DIR \"${CMAKE_CURRENT_SOURCE_DIR}/../third_party/sdl/SDL3-3.4.8/cmake\"\n     CACHE PATH \"本机已有 SDL3 3.4.8 SDK 的 CMake 配置目录\")\n find_package(SDL3 3.4.8 EXACT CONFIG REQUIRED)\n"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.asm",
+      "patch": "diff --git a/cg2d_re/src/platform/LegacyFloatEnvironment.asm b/cg2d_re/src/platform/LegacyFloatEnvironment.asm\nindex 836726df..20e0afd2 100644\n--- a/cg2d_re/src/platform/LegacyFloatEnvironment.asm\n+++ b/cg2d_re/src/platform/LegacyFloatEnvironment.asm\n@@ -1827,7 +1827,9 @@ LegacyDispatchBinaryControlReady:\n     fxam\n     fstsw word ptr [r9+4]\n     fxch st(1)\n-    mov ch, byte ptr [r9+5]\n+    ; x64 REX 寻址不能直接写 CH；经 AL 保持一次 U8 读取及原 CH 后续运算。\n+    mov al, byte ptr [r9+5]\n+    mov ch, al\n     shl ch, 1\n     sar ch, 1\n     rol ch, 1\n"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "patch": "diff --git a/cg2d_re/src/platform/LegacyException.cpp b/cg2d_re/src/platform/LegacyException.cpp\nindex 57d98adf..d125b1b8 100644\n--- a/cg2d_re/src/platform/LegacyException.cpp\n+++ b/cg2d_re/src/platform/LegacyException.cpp\n@@ -2,6 +2,7 @@\n #include \"NativeCppException.hpp\"\n \n #include \"LegacyHeap.hpp\"\n+#include \"LegacyRuntimeError.hpp\"\n #include \"cg/platform/LegacyTime.hpp\"\n #include \"cg/Input.hpp\"\n \n"
+    },
+    {
+      "path": "src/platform/LegacyMultibyte.cpp",
+      "patch": "diff --git a/cg2d_re/src/platform/LegacyMultibyte.cpp b/cg2d_re/src/platform/LegacyMultibyte.cpp\nindex 62fc6f7a..dd89b203 100644\n--- a/cg2d_re/src/platform/LegacyMultibyte.cpp\n+++ b/cg2d_re/src/platform/LegacyMultibyte.cpp\n@@ -187,6 +187,8 @@ std::int32_t ClassifyMultibyteType_546CDB(const std::uint32_t character,\n     return 0;\n }\n \n+} // namespace\n+\n // 原543AE8完整通用体；八参数/两SEH/SORTKEY与普通字节回转见通用NLS映射SPEC。\n std::int32_t MapLegacyString_543AE8(const std::uint32_t locale,\n     const std::uint32_t flags, const char* const source, std::int32_t sourceCount,\n@@ -271,6 +273,8 @@ std::int32_t MapLegacyString_543AE8(const std::uint32_t locale,\n         destinationCount == 0 ? 0 : destinationCount, nullptr, nullptr);\n }\n \n+namespace {\n+\n // 原546B29的两固定生产点；数量256、显式CP/strict0实际交完整543AE8。\n int MapLegacyCaseTable_543AE8(const std::uint32_t locale, const DWORD flags,\n     const char* const source, char* const destination, const std::uint32_t codePage)\n"
+    },
+    {
+      "path": "src/platform/LegacyTime.cpp",
+      "patch": "diff --git a/cg2d_re/src/platform/LegacyTime.cpp b/cg2d_re/src/platform/LegacyTime.cpp\nindex 94e21e21..fde384b4 100644\n--- a/cg2d_re/src/platform/LegacyTime.cpp\n+++ b/cg2d_re/src/platform/LegacyTime.cpp\n@@ -720,6 +720,8 @@ constexpr LegacyFileErrorEntry kLegacyFileErrors591E80[] {\n };\n static_assert(sizeof(kLegacyFileErrors591E80) == 0x168);\n \n+} // namespace\n+\n std::uintptr_t MapLegacyFileError_542F44(const std::uint32_t code)\n {\n     gLegacyDosError_1085FE4 = code;\n@@ -742,6 +744,8 @@ std::uintptr_t MapLegacyFileError_542F44(const std::uint32_t code)\n     return reinterpret_cast<std::uintptr_t>(kLegacyFileErrors591E80 + 45);\n }\n \n+namespace {\n+\n // GMT@0x541158 恒返回这一份共享对象；原运行初值不由未加载区字节推断。\n LegacyTm53B8C6 gLegacyTm_1086128;\n \n"
+    },
+    {
+      "path": "src/LegacyUiRecord.cpp",
+      "patch": "diff --git a/cg2d_re/src/LegacyUiRecord.cpp b/cg2d_re/src/LegacyUiRecord.cpp\nindex f8004827..bf8a5f29 100644\n--- a/cg2d_re/src/LegacyUiRecord.cpp\n+++ b/cg2d_re/src/LegacyUiRecord.cpp\n@@ -3965,7 +3965,7 @@ std::uintptr_t Sub_4D8DA0(const std::int32_t opened)\n             if (row <= 1) {\n                 platform::FormatLegacyString_53B304(buffer, \"%d\",\n                     platform::Cg2dReadLegacyShopCommandW32(&commands[row]));\n-                static_cast<void>(input::Stringify_52D2D0(buffer, escaped, 15));\n+                static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));\n                 const std::int32_t target = world::detail::gDialogTargetD2DE6C;\n                 const std::int32_t request = world::detail::gDialogRequestCC21E0;\n                 const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);\n"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "patch": "diff --git a/cg2d_re/src/YobiRuntime.cpp b/cg2d_re/src/YobiRuntime.cpp\nindex 0c15c1e3..7f66f923 100644\n--- a/cg2d_re/src/YobiRuntime.cpp\n+++ b/cg2d_re/src/YobiRuntime.cpp\n@@ -12264,7 +12264,7 @@ AppendTechniqueMainEffect:\n                 }\n                 mainAuxIndex = mainScanIndexDefault;\n AppendMainAuxiliaryEffects:\n-                AppendBattleAuxEffects_43BC10(gBattleAllEntries59E980[(*sourcePosition)], (*currentTarget), mainFlags, SprimaryGraphic, mainSecondGraphic, mainFirstImages[mainAuxIndex]);\n+                AppendBattleAuxEffects_43BC10(gBattleAllEntries59E980[(*sourcePosition)], (*currentTarget), mainFlags, primaryGraphic, mainSecondGraphic, mainFirstImages[mainAuxIndex]);\n                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 14);\n                 break;\n             case 72:\n@@ -26685,6 +26685,7 @@ YobiAction* UpdateBattleAction51_40BE70(YobiAction* const action)\n void UpdateBattleAction52_40BE90(YobiAction* const action)\n {\n     using world::detail::gBattleAllEntries59E980;\n+    using world::detail::GetBattlePetPosition_405B40;\n     auto* const payload = static_cast<BattleActorPayload*>(action->payload);\n     const std::uint8_t flags = static_cast<std::uint8_t>(payload->flagsFDC);\n     YobiAction* const caster = payload->caster1070;\n"
+    },
+    {
+      "path": "src/ui/WindowPrototypes.cpp",
+      "patch": "diff --git a/cg2d_re/src/ui/WindowPrototypes.cpp b/cg2d_re/src/ui/WindowPrototypes.cpp\nindex ac6fc8c3..3712dc75 100644\n--- a/cg2d_re/src/ui/WindowPrototypes.cpp\n+++ b/cg2d_re/src/ui/WindowPrototypes.cpp\n@@ -2150,7 +2150,7 @@ WindowElementPrototype gWindowElements5659C0[66] {\n     {3, 44, 256, 0, 0, 1, {.text = &gWindowText565988}, &Sub_4B0F10},\n     {3, 63, 48, 0, 0, 1, {.text = &gWindowText5659A8}, &Sub_4B0F10},\n     {3, 39, 115, 0, 0, 1, {.text = &gWindowText5659B0}, &Sub_4B0F10},\n-    {2, 80, 220, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage5659B8}, &Sub_4B0F10},\n+    {2, 80, 220, 0, 0, 1, {.animationImageNo = reinterpret_cast<std::int32_t*>(&gWindowAnimationImage5659B8)}, &Sub_4B0F10},\n     {1, 157, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &Sub_4B0F10},\n     {1, 163, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &Sub_4B0F10},\n     {1, 169, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &Sub_4B0F10},\n@@ -2323,7 +2323,7 @@ WindowElementPrototype gWindowElements567028[71] {\n \n WindowElementPrototype gWindowElements567AE8[82] {\n     {1, 235, 8, 11, 11, 1, {.graphic = &gWindowGraphic5679B0}, &Sub_4C1FB0},\n-    {2, 186, 135, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage567AE0}, &Sub_4B0F10},\n+    {2, 186, 135, 0, 0, 1, {.animationImageNo = reinterpret_cast<std::int32_t*>(&gWindowAnimationImage567AE0)}, &Sub_4B0F10},\n     {3, 60, 28, 0, 0, 1, {.text = &gWindowText567AB8}, &Sub_4B0F10},\n     {3, 214, 28, 0, 0, 1, {.text = &gWindowText567AC0}, &Sub_4B0F10},\n     {3, 95, 47, 0, 0, 1, {.text = &gWindowText567AC8}, &Sub_4B0F10},\n"
+    },
+    {
+      "path": "src/network/NetworkRuntime.cpp",
+      "patch": "diff --git a/cg2d_re/src/network/NetworkRuntime.cpp b/cg2d_re/src/network/NetworkRuntime.cpp\nindex eb896830..46d36a45 100644\n--- a/cg2d_re/src/network/NetworkRuntime.cpp\n+++ b/cg2d_re/src/network/NetworkRuntime.cpp\n@@ -4395,7 +4395,7 @@ bool TryDispatchReply(\n template <typename... Values>\n void IgnoreReplyArguments_509080(const std::uintptr_t, Values...)\n {\n-    input::NullSub_509080();\n+    cg::NullSub_509080();\n }\n \n } // namespace\n"
+    },
+    {
+      "path": "src/world/SceneState.cpp",
+      "patch": "diff --git a/cg2d_re/src/world/SceneState.cpp b/cg2d_re/src/world/SceneState.cpp\nindex cd61c4b8..fb05e21c 100644\n--- a/cg2d_re/src/world/SceneState.cpp\n+++ b/cg2d_re/src/world/SceneState.cpp\n@@ -5,6 +5,7 @@\n #include \"../LoginMessageDependencies.hpp\"\n #include \"../LoginInputDependencies.hpp\"\n #include \"../LoginRequestDependencies.hpp\"\n+#include \"../LoginSceneDependencies.hpp\"\n #include \"../ui/WindowRuntimeState.hpp\"\n #include \"../platform/LegacyRuntimeExit.hpp\"\n #include \"cg/Input.hpp\"\n"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "patch": "diff --git a/cg2d_re/src/ui/WindowRuntime.cpp b/cg2d_re/src/ui/WindowRuntime.cpp\nindex ab40db09..1fc7abb3 100644\n--- a/cg2d_re/src/ui/WindowRuntime.cpp\n+++ b/cg2d_re/src/ui/WindowRuntime.cpp\n@@ -44333,7 +44333,7 @@ void Sub_50E110(\n     const std::uintptr_t unusedSocket, const std::int32_t type, const std::int32_t value,\n     const std::int32_t request, const std::int32_t target, char* const text)\n {\n-    if (world::detail::gValue9A6E0C != 0) {\n+    if (world::gValue9A6E0C != 0) {\n         return;\n     }\n     if (world::gValueD67E78 != 0) {\n@@ -44349,7 +44349,7 @@ void Sub_50F990(\n     const std::uintptr_t, const std::int32_t type, const std::int32_t value,\n     const std::int32_t request, const std::int32_t target, char* const text)\n {\n-    if (world::detail::gValue9A6E0C != 0) {\n+    if (world::gValue9A6E0C != 0) {\n         return;\n     }\n     if (world::gValueD67E78 != 0) {\n@@ -44388,7 +44388,7 @@ void Sub_50C7F0(\n     const std::uintptr_t, const std::int32_t result,\n     const std::int32_t kind, const char* const text)\n {\n-    if (world::detail::gValue9A6E0C != 0 || world::ReadRippleGateOnce() != 0) {\n+    if (world::gValue9A6E0C != 0 || world::ReadRippleGateOnce() != 0) {\n         return;\n     }\n     switch (kind) {\n@@ -44443,7 +44443,7 @@ void Sub_50E3A0(const std::uintptr_t, const char* const text)\n \n void Sub_50E3C0(const std::uintptr_t, const char* const text)\n {\n-    if (world::detail::gValue9A6E0C != 0) {\n+    if (world::gValue9A6E0C != 0) {\n         return;\n     }\n     if (world::ReadRippleGateOnce() != 0) {\n@@ -44454,7 +44454,7 @@ void Sub_50E3C0(const std::uintptr_t, const char* const text)\n \n void Sub_50E3F0(const std::uintptr_t, char* const text, const std::int32_t)\n {\n-    if (world::detail::gValue9A6E0C != 0) {\n+    if (world::gValue9A6E0C != 0) {\n         return;\n     }\n     if (world::gValueD67E78 != 0) {\n@@ -44470,7 +44470,7 @@ void Sub_50E3F0(const std::uintptr_t, char* const text, const std::int32_t)\n \n std::int32_t Sub_50E440(const std::uintptr_t)\n {\n-    const std::int32_t scene = world::detail::gValue9A6E0C;\n+    const std::int32_t scene = world::gValue9A6E0C;\n     if (scene != 0) {\n         return scene;\n     }\n@@ -44484,7 +44484,7 @@ std::int32_t Sub_50E440(const std::uintptr_t)\n \n std::int32_t Sub_50E470(const std::uintptr_t, const std::int32_t value)\n {\n-    const std::int32_t scene = world::detail::gValue9A6E0C;\n+    const std::int32_t scene = world::gValue9A6E0C;\n     if (scene != 0) {\n         return scene;\n     }\n@@ -44498,7 +44498,7 @@ std::int32_t Sub_50E470(const std::uintptr_t, const std::int32_t value)\n \n std::int32_t Sub_50E4A0(const std::uintptr_t, const char* const text)\n {\n-    const std::int32_t scene = world::detail::gValue9A6E0C;\n+    const std::int32_t scene = world::gValue9A6E0C;\n     if (scene != 0) {\n         return scene;\n     }\n@@ -44512,7 +44512,7 @@ std::int32_t Sub_50E4A0(const std::uintptr_t, const char* const text)\n std::int32_t Sub_50E4D0(\n     const std::uintptr_t, const std::int32_t index, const char* const text)\n {\n-    const std::int32_t scene = world::detail::gValue9A6E0C;\n+    const std::int32_t scene = world::gValue9A6E0C;\n     if (scene != 0) {\n         return scene;\n     }\n@@ -44526,7 +44526,7 @@ std::int32_t Sub_50E4D0(\n std::int32_t Sub_50E500(\n     const std::uintptr_t, const std::int32_t index, const char* const text)\n {\n-    const std::int32_t scene = world::detail::gValue9A6E0C;\n+    const std::int32_t scene = world::gValue9A6E0C;\n     if (scene != 0) {\n         return scene;\n     }\n@@ -44539,7 +44539,7 @@ std::int32_t Sub_50E500(\n \n std::int32_t Sub_50E530(const std::uintptr_t)\n {\n-    const std::int32_t scene = world::detail::gValue9A6E0C;\n+    const std::int32_t scene = world::gValue9A6E0C;\n     if (scene != 0) {\n         return scene;\n     }\n@@ -44558,7 +44558,7 @@ std::int32_t Sub_50E530(const std::uintptr_t)\n \n void Sub_50E570(const std::uintptr_t, const std::int32_t value)\n {\n-    if (world::detail::gValue9A6E0C != 0) {\n+    if (world::gValue9A6E0C != 0) {\n         return;\n     }\n     if (world::ReadRippleGateOnce() != 0) {\n"
+    },
+    {
+      "path": "src/render/Font.cpp",
+      "patch": "diff --git a/cg2d_re/src/render/Font.cpp b/cg2d_re/src/render/Font.cpp\nindex 7a208ebe..19c61ffb 100644\n--- a/cg2d_re/src/render/Font.cpp\n+++ b/cg2d_re/src/render/Font.cpp\n@@ -265,7 +265,7 @@ std::int32_t Font::measure(\n \n namespace cg::login::detail {\n \n-std::int32_t MeasureDefaultText_44B260(const char* const text)\n+std::int32_t MeasureDefaultText_44B260(const char* text)\n {\n     const auto* cursor = reinterpret_cast<const std::uint8_t*>(text);\n     std::uint8_t first = *cursor;\n"
+    },
+    {
+      "path": "src/render/SurfaceState.cpp",
+      "patch": "diff --git a/cg2d_re/src/render/SurfaceState.cpp b/cg2d_re/src/render/SurfaceState.cpp\nindex a91a2f3b..24a4d04e 100644\n--- a/cg2d_re/src/render/SurfaceState.cpp\n+++ b/cg2d_re/src/render/SurfaceState.cpp\n@@ -536,7 +536,7 @@ std::int32_t ClearSurface_4512C0() noexcept\n     return 0;\n }\n \n-void Sub_451350(RECT* const rect, const std::uint16_t colorIndex, const std::int32_t mode)\n+void Sub_451350(RECT* rect, const std::uint16_t colorIndex, const std::int32_t mode)\n {\n     if (rect->left >= GetRendererLogicalWidth() || rect->right < 0\n         || rect->top >= GetRendererLogicalHeight() || rect->bottom < 0) {\n"
+    }
+  ]
+}

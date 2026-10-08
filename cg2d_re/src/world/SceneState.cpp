@@ -5,6 +5,7 @@
 #include "../LoginMessageDependencies.hpp"
 #include "../LoginInputDependencies.hpp"
 #include "../LoginRequestDependencies.hpp"
+#include "../LoginSceneDependencies.hpp"
 #include "../ui/WindowRuntimeState.hpp"
 #include "../platform/LegacyRuntimeExit.hpp"
 #include "cg/Input.hpp"

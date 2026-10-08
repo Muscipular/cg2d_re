@@ -11,9 +11,10 @@
   "execution_policy": {
     "runtime_allowed": false,
     "audio_paused": true,
-    "no_build": true,
+    "no_build": false,
     "no_tests": true,
-    "no_hash": true
+    "no_hash": true,
+    "build_scope": "BWZ01：2026-10-08仅本次现有Windows/MSVC/x64配置、Debug编译/链接及必要符号诊断；不自动恢复后续构建，音频仍暂停"
   },
   "closures": {
     "function_classification": {
@@ -53141,7 +53142,9 @@
         "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state",
         "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-source-state",
         "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state",
-        "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state"
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state",
+        "doc/cg2d_build_acceptance_spec.md",
+        "doc/cg2d_build_acceptance_evidence.json"
       ]
     },
     {
@@ -96234,5 +96237,22 @@
       ],
       "boundary": "仅完整15CC对齐用途，不造入口或代前后完整链验收。 BWY01补原545208完整123条329B/两页七参数NLS分类，原两个参数消费窗口39条98B/一scope与相邻15CC有证。两现源两改、一个完整GetLegacyStringTypes_545208及声明、原info1薄转调，零ASM/C桥/owner/依赖或新应用调用。原W32 infoType/CP-locale-strict与S32源长度直接交API，不缩源；分类专用10862E4、A-locale0/W-CP0回退、首次strict flags1或9/实际1和实际转换数量/完整W32返回保。原SEH内计算count*2低W32字节数，_alloca用+3低两位清零对齐请求，Fill5419D0只原字节数；原filter1/置空指针/失败0与全部caller/掩码和表生产保，不造FS/旧栈或故障样例。完善既有341和填充连接当前源符号、一个F adapted/F1027及CRT204、E1187两限定I-S；一个15CC仅对齐用途/R7已审483余2578。语义1859/有效1852、文档1969/3680（53.51%）和队列/pending保持；完整间接父/SEH链-CRT库存及寿命、系统NLS/SDK-ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。"
     }
-  ]
+  ],
+  "build_validation": {
+    "step": "BWZ01",
+    "recorded_on": "2026-10-08",
+    "configuration": "Debug",
+    "configure_exit_code": 0,
+    "static_libraries_exit_code": 0,
+    "client_link_exit_code": 1,
+    "client_link_passed": false,
+    "unresolved_symbol_count": 8,
+    "unresolved_paused_audio_count": 5,
+    "whole_project_accepted": false,
+    "evidence_refs": [
+      "doc/cg2d_build_acceptance_spec.md",
+      "doc/cg2d_build_acceptance_evidence.json"
+    ],
+    "note": "编译全部现有源/三库已过；八个实际缺口未消除，V02及原功能门禁不关闭；未执行测试或客户端"
+  }
 }

@@ -720,6 +720,8 @@ constexpr LegacyFileErrorEntry kLegacyFileErrors591E80[] {
 };
 static_assert(sizeof(kLegacyFileErrors591E80) == 0x168);
 
+} // namespace
+
 std::uintptr_t MapLegacyFileError_542F44(const std::uint32_t code)
 {
     gLegacyDosError_1085FE4 = code;
@@ -741,6 +743,8 @@ std::uintptr_t MapLegacyFileError_542F44(const std::uint32_t code)
     }
     return reinterpret_cast<std::uintptr_t>(kLegacyFileErrors591E80 + 45);
 }
+
+namespace {
 
 // GMT@0x541158 恒返回这一份共享对象；原运行初值不由未加载区字节推断。
 LegacyTm53B8C6 gLegacyTm_1086128;

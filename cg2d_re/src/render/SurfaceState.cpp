@@ -536,7 +536,7 @@ std::int32_t ClearSurface_4512C0() noexcept
     return 0;
 }
 
-void Sub_451350(RECT* const rect, const std::uint16_t colorIndex, const std::int32_t mode)
+void Sub_451350(RECT* rect, const std::uint16_t colorIndex, const std::int32_t mode)
 {
     if (rect->left >= GetRendererLogicalWidth() || rect->right < 0
         || rect->top >= GetRendererLogicalHeight() || rect->bottom < 0) {

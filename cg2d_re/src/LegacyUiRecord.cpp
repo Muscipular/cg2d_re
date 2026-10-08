@@ -3965,7 +3965,7 @@ std::uintptr_t Sub_4D8DA0(const std::int32_t opened)
             if (row <= 1) {
                 platform::FormatLegacyString_53B304(buffer, "%d",
                     platform::Cg2dReadLegacyShopCommandW32(&commands[row]));
-                static_cast<void>(input::Stringify_52D2D0(buffer, escaped, 15));
+                static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
                 const std::int32_t target = world::detail::gDialogTargetD2DE6C;
                 const std::int32_t request = world::detail::gDialogRequestCC21E0;
                 const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);

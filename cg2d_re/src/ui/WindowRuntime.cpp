@@ -44333,7 +44333,7 @@ void Sub_50E110(
     const std::uintptr_t unusedSocket, const std::int32_t type, const std::int32_t value,
     const std::int32_t request, const std::int32_t target, char* const text)
 {
-    if (world::detail::gValue9A6E0C != 0) {
+    if (world::gValue9A6E0C != 0) {
         return;
     }
     if (world::gValueD67E78 != 0) {
@@ -44349,7 +44349,7 @@ void Sub_50F990(
     const std::uintptr_t, const std::int32_t type, const std::int32_t value,
     const std::int32_t request, const std::int32_t target, char* const text)
 {
-    if (world::detail::gValue9A6E0C != 0) {
+    if (world::gValue9A6E0C != 0) {
         return;
     }
     if (world::gValueD67E78 != 0) {
@@ -44388,7 +44388,7 @@ void Sub_50C7F0(
     const std::uintptr_t, const std::int32_t result,
     const std::int32_t kind, const char* const text)
 {
-    if (world::detail::gValue9A6E0C != 0 || world::ReadRippleGateOnce() != 0) {
+    if (world::gValue9A6E0C != 0 || world::ReadRippleGateOnce() != 0) {
         return;
     }
     switch (kind) {
@@ -44443,7 +44443,7 @@ void Sub_50E3A0(const std::uintptr_t, const char* const text)
 
 void Sub_50E3C0(const std::uintptr_t, const char* const text)
 {
-    if (world::detail::gValue9A6E0C != 0) {
+    if (world::gValue9A6E0C != 0) {
         return;
     }
     if (world::ReadRippleGateOnce() != 0) {
@@ -44454,7 +44454,7 @@ void Sub_50E3C0(const std::uintptr_t, const char* const text)
 
 void Sub_50E3F0(const std::uintptr_t, char* const text, const std::int32_t)
 {
-    if (world::detail::gValue9A6E0C != 0) {
+    if (world::gValue9A6E0C != 0) {
         return;
     }
     if (world::gValueD67E78 != 0) {
@@ -44470,7 +44470,7 @@ void Sub_50E3F0(const std::uintptr_t, char* const text, const std::int32_t)
 
 std::int32_t Sub_50E440(const std::uintptr_t)
 {
-    const std::int32_t scene = world::detail::gValue9A6E0C;
+    const std::int32_t scene = world::gValue9A6E0C;
     if (scene != 0) {
         return scene;
     }
@@ -44484,7 +44484,7 @@ std::int32_t Sub_50E440(const std::uintptr_t)
 
 std::int32_t Sub_50E470(const std::uintptr_t, const std::int32_t value)
 {
-    const std::int32_t scene = world::detail::gValue9A6E0C;
+    const std::int32_t scene = world::gValue9A6E0C;
     if (scene != 0) {
         return scene;
     }
@@ -44498,7 +44498,7 @@ std::int32_t Sub_50E470(const std::uintptr_t, const std::int32_t value)
 
 std::int32_t Sub_50E4A0(const std::uintptr_t, const char* const text)
 {
-    const std::int32_t scene = world::detail::gValue9A6E0C;
+    const std::int32_t scene = world::gValue9A6E0C;
     if (scene != 0) {
         return scene;
     }
@@ -44512,7 +44512,7 @@ std::int32_t Sub_50E4A0(const std::uintptr_t, const char* const text)
 std::int32_t Sub_50E4D0(
     const std::uintptr_t, const std::int32_t index, const char* const text)
 {
-    const std::int32_t scene = world::detail::gValue9A6E0C;
+    const std::int32_t scene = world::gValue9A6E0C;
     if (scene != 0) {
         return scene;
     }
@@ -44526,7 +44526,7 @@ std::int32_t Sub_50E4D0(
 std::int32_t Sub_50E500(
     const std::uintptr_t, const std::int32_t index, const char* const text)
 {
-    const std::int32_t scene = world::detail::gValue9A6E0C;
+    const std::int32_t scene = world::gValue9A6E0C;
     if (scene != 0) {
         return scene;
     }
@@ -44539,7 +44539,7 @@ std::int32_t Sub_50E500(
 
 std::int32_t Sub_50E530(const std::uintptr_t)
 {
-    const std::int32_t scene = world::detail::gValue9A6E0C;
+    const std::int32_t scene = world::gValue9A6E0C;
     if (scene != 0) {
         return scene;
     }
@@ -44558,7 +44558,7 @@ std::int32_t Sub_50E530(const std::uintptr_t)
 
 void Sub_50E570(const std::uintptr_t, const std::int32_t value)
 {
-    if (world::detail::gValue9A6E0C != 0) {
+    if (world::gValue9A6E0C != 0) {
         return;
     }
     if (world::ReadRippleGateOnce() != 0) {

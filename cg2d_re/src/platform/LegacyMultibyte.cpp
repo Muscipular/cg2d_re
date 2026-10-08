@@ -187,6 +187,8 @@ std::int32_t ClassifyMultibyteType_546CDB(const std::uint32_t character,
     return 0;
 }
 
+} // namespace
+
 // 原543AE8完整通用体；八参数/两SEH/SORTKEY与普通字节回转见通用NLS映射SPEC。
 std::int32_t MapLegacyString_543AE8(const std::uint32_t locale,
     const std::uint32_t flags, const char* const source, std::int32_t sourceCount,
@@ -270,6 +272,8 @@ std::int32_t MapLegacyString_543AE8(const std::uint32_t locale,
         mapped, mappedCount, destinationCount == 0 ? nullptr : destination,
         destinationCount == 0 ? 0 : destinationCount, nullptr, nullptr);
 }
+
+namespace {
 
 // 原546B29的两固定生产点；数量256、显式CP/strict0实际交完整543AE8。
 int MapLegacyCaseTable_543AE8(const std::uint32_t locale, const DWORD flags,

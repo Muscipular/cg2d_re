@@ -265,7 +265,7 @@ std::int32_t Font::measure(
 
 namespace cg::login::detail {
 
-std::int32_t MeasureDefaultText_44B260(const char* const text)
+std::int32_t MeasureDefaultText_44B260(const char* text)
 {
     const auto* cursor = reinterpret_cast<const std::uint8_t*>(text);
     std::uint8_t first = *cursor;

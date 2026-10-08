@@ -1827,7 +1827,9 @@ LegacyDispatchBinaryControlReady:
     fxam
     fstsw word ptr [r9+4]
     fxch st(1)
-    mov ch, byte ptr [r9+5]
+    ; x64 REX 寻址不能直接写 CH；经 AL 保持一次 U8 读取及原 CH 后续运算。
+    mov al, byte ptr [r9+5]
+    mov ch, al
     shl ch, 1
     sar ch, 1
     rol ch, 1

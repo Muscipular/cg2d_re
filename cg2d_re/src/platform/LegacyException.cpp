@@ -2,6 +2,7 @@
 #include "NativeCppException.hpp"
 
 #include "LegacyHeap.hpp"
+#include "LegacyRuntimeError.hpp"
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/Input.hpp"
 

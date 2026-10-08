@@ -14,6 +14,11 @@ endif()
 
 enable_language(ASM_MASM)
 
+# 同名 CPP/ASM 的默认对象路径含子目录；MASM 不负责创建该目录。
+# 使用独立、扁平的 ASM 对象名，避免全新构建先于 CXX 时写入失败。
+set_source_files_properties(src/platform/LegacyFloatEnvironment.asm PROPERTIES
+    VS_SETTINGS "ObjectFileName=$(IntDir)%(Filename).asm.obj")
+
 set(SDL3_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../third_party/sdl/SDL3-3.4.8/cmake"
     CACHE PATH "本机已有 SDL3 3.4.8 SDK 的 CMake 配置目录")
 find_package(SDL3 3.4.8 EXACT CONFIG REQUIRED)

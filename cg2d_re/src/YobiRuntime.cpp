@@ -12264,7 +12264,7 @@ AppendTechniqueMainEffect:
                 }
                 mainAuxIndex = mainScanIndexDefault;
 AppendMainAuxiliaryEffects:
-                AppendBattleAuxEffects_43BC10(gBattleAllEntries59E980[(*sourcePosition)], (*currentTarget), mainFlags, SprimaryGraphic, mainSecondGraphic, mainFirstImages[mainAuxIndex]);
+                AppendBattleAuxEffects_43BC10(gBattleAllEntries59E980[(*sourcePosition)], (*currentTarget), mainFlags, primaryGraphic, mainSecondGraphic, mainFirstImages[mainAuxIndex]);
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 14);
                 break;
             case 72:
@@ -26685,6 +26685,7 @@ YobiAction* UpdateBattleAction51_40BE70(YobiAction* const action)
 void UpdateBattleAction52_40BE90(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
+    using world::detail::GetBattlePetPosition_405B40;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     const std::uint8_t flags = static_cast<std::uint8_t>(payload->flagsFDC);
     YobiAction* const caster = payload->caster1070;

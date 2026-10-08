@@ -4395,7 +4395,7 @@ bool TryDispatchReply(
 template <typename... Values>
 void IgnoreReplyArguments_509080(const std::uintptr_t, Values...)
 {
-    input::NullSub_509080();
+    cg::NullSub_509080();
 }
 
 } // namespace

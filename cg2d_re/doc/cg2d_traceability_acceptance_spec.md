@@ -3,6 +3,8 @@
 > 2026-10-04：按用户“构建一个可度量，可验收的体系”采用本方案。属于现有工程委托的文档/度量建设，不增加业务范围，不解除执行限制。
 > 上位：[总SPEC](../plan/cg2d_full_reconstruction_plan.md)、[具名裁决](cg2d_closure_decisions_spec.md)。实际推进只写[唯一进度](../plan/cg2d_full_reconstruction_progress.md)。
 
+> BWZ01（2026-10-08）按用户明确要求恢复本次Debug配置/编译和链接。实际三库通过、客户端链接八项缺口，记录于登记簿的独立 `build_validation` 和[编译SPEC](cg2d_build_acceptance_spec.md)。构建结果独立显示，不转为功能门禁通过；有链接失败时整体验收不得通过。测试/运行/摘要限制及音频暂停保持。
+
 ## 1. 交付与单一来源
 
 | 文件 | 职责 | 更新方式 |

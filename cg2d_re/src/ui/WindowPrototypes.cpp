@@ -2150,7 +2150,7 @@ WindowElementPrototype gWindowElements5659C0[66] {
     {3, 44, 256, 0, 0, 1, {.text = &gWindowText565988}, &Sub_4B0F10},
     {3, 63, 48, 0, 0, 1, {.text = &gWindowText5659A8}, &Sub_4B0F10},
     {3, 39, 115, 0, 0, 1, {.text = &gWindowText5659B0}, &Sub_4B0F10},
-    {2, 80, 220, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage5659B8}, &Sub_4B0F10},
+    {2, 80, 220, 0, 0, 1, {.animationImageNo = reinterpret_cast<std::int32_t*>(&gWindowAnimationImage5659B8)}, &Sub_4B0F10},
     {1, 157, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &Sub_4B0F10},
     {1, 163, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &Sub_4B0F10},
     {1, 169, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &Sub_4B0F10},
@@ -2323,7 +2323,7 @@ WindowElementPrototype gWindowElements567028[71] {
 
 WindowElementPrototype gWindowElements567AE8[82] {
     {1, 235, 8, 11, 11, 1, {.graphic = &gWindowGraphic5679B0}, &Sub_4C1FB0},
-    {2, 186, 135, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage567AE0}, &Sub_4B0F10},
+    {2, 186, 135, 0, 0, 1, {.animationImageNo = reinterpret_cast<std::int32_t*>(&gWindowAnimationImage567AE0)}, &Sub_4B0F10},
     {3, 60, 28, 0, 0, 1, {.text = &gWindowText567AB8}, &Sub_4B0F10},
     {3, 214, 28, 0, 0, 1, {.text = &gWindowText567AC0}, &Sub_4B0F10},
     {3, 95, 47, 0, 0, 1, {.text = &gWindowText567AC8}, &Sub_4B0F10},

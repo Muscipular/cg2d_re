@@ -431,6 +431,14 @@ $metrics=[ordered]@{
     tasks=$tasks.Count;tasks_closed=@($tasks.Values|Where-Object acceptance -eq 'closed').Count
     full_feature_denominator=$(if ($registry.closures.feature_enumeration.state -eq 'closed') { $leaf.Count } else { $null });global_accepted=$globalReady
 }
+if ($registry.Contains('build_validation')) {
+    $build = $registry.build_validation
+    foreach ($ref in $build.evidence_refs) { Check-Path $ref '构建验收' }
+    Require ($build.client_link_passed -eq ($build.client_link_exit_code -eq 0)) '构建验收链接状态与退出码不符'
+    Require ($build.unresolved_symbol_count -ge 0 -and $build.unresolved_paused_audio_count -ge 0 -and $build.unresolved_paused_audio_count -le $build.unresolved_symbol_count) '构建验收未解析符号计数不符'
+    $globalReady = $globalReady -and $build.client_link_passed
+    $metrics.global_accepted = $globalReady
+}
 if ($errors.Count -gt 0) {
     foreach ($message in $errors) { Write-Error $message -ErrorAction Continue }
     throw "静态台账校验失败：$($errors.Count)项；未写派生文件。"
@@ -444,6 +452,7 @@ $snapshot=[ordered]@{
     imports=$imports;unassigned_ranges=$ranges;classification_sources=@($classifications)
     features=@($featureRows);tasks=@($tasks.Keys|Sort-Object|ForEach-Object {$tasks[$_]})
 }
+if ($registry.Contains('build_validation')) { $snapshot.build_validation = $registry.build_validation }
 # 每个身份/功能一行，避免派生快照制造十万行缩进差异；内容仍为标准JSON。
 $jsonLines=[System.Collections.Generic.List[string]]::new()
 $jsonLines.Add('{')
@@ -488,6 +497,13 @@ $lines.Add("| 导入槽 / 未归属区间 | $($imports.Count) / $($ranges.Count)
 $lines.Add("| 已登记叶功能 | $($leaf.Count) | 非全功能分母；域不重复计入，暂停保留 |")
 $lines.Add("| 已验收叶功能 | $acceptedCount/$($leaf.Count) | 仅登记集合，不能代表整体完成率 |")
 $lines.Add("| 已知收尾任务 | $($tasks.Count)；验收关闭$($metrics.tasks_closed) | 任务不是全功能目录 |")
+if ($registry.Contains('build_validation')) {
+    $build = $registry.build_validation
+    $configureState = if ($build.configure_exit_code -eq 0) { '通过' } else { '失败' }
+    $libraryState = if ($build.static_libraries_exit_code -eq 0) { '通过' } else { '失败' }
+    $linkState = if ($build.client_link_passed) { '通过' } else { '失败' }
+    $lines.Add("| 实际构建（$($build.configuration)） | 配置$configureState / 三库$libraryState / 客户端链接$linkState | $($build.recorded_on)；未解析$($build.unresolved_symbol_count)项，其中暂停音频$($build.unresolved_paused_audio_count)项；[构建证据](../doc/cg2d_build_acceptance_spec.md)，不代运行或功能验收 |")
+}
 $lines.Add('')
 $lines.Add('## 2. 门禁与闭包')
 $lines.Add('')

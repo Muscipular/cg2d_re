@@ -253,3 +253,11 @@ git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show 810c6f75:cg2d_re
 桥接四源字段按原顺序取齐，不引入新原地址、helper或第二记录owner；Query core不用图号尾作文本，既有局部转换保。三原根已正确，补真实原新/处置即可；原descriptor全清与mode差异有完整指令证据，不为统一而删除、改造正常像素或新增拒绝。七整源只一桥片段，其余六源/声明与BVL公共入口保。
 
 新1766..1768/三adapted F，公共UI流16→19/两限定I-S各18来源，I仅现有桥接一个取样片段；U04/U11/V03/R04仍open。预期语义1769/有效1762、合同1879（51.06%）、F917/E1092，R7已审467余2594及pending18/closed11/全叶0/globalfalse保。原格式明文/音频暂停/99项同owner及0/100空handler、完整门禁和执行限制保持；全373调用处/其他父-callee、生产/正常owner-alias寿命/像素/机器ABI链接运行与R8未验。
+
+## BVN01现代快捷键完整根与四处实修（2026-10-08）
+
+[BVN01基线](cg2d_window_shortcut_publication_spec.md#window-shortcut-baseline)、[实施决定](cg2d_window_shortcut_publication_spec.md#window-shortcut-decision)、[验收](cg2d_window_shortcut_publication_spec.md#window-shortcut-acceptance)及[原证](cg2d_window_shortcut_publication_evidence.json)。
+
+完整原根1507条5500B/22页、256直接32目标、零间接224跳5RET；唯一473F80父复用WRS01已有原证。本步只现有快捷键根四片段：范围>5/<1、聊天>count/<0判定保存后才发布原S32共享值，再据同判定分流；四片段承接两套键位八原点。原范围轮换/聊天回退、计时180、键位/修饰键优先、逐键新读取、四窗口与动作/RNG/音效顺序及其它正文保持。
+
+新增1769/F:000C7AE0和adapted处置，公共UI19→20、两个限定I/S，各15来源；零新实现函数/helper/owner。U04/U11/V03/R04仍open；预期语义1770/有效1763、基线1880（51.09%）、F918/E1094。完整输入生产/焦点、32callee/owner寿命、机器ABI/画面运行与R8待验，旧99表路由不因此闭合；音频暂停、原格式明文及执行限制保持。

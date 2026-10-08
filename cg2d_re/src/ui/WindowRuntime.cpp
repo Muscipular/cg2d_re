@@ -15643,8 +15643,9 @@ void ProcessWindowShortcuts_4C7AE0()
         }
         if ((platform::gKeyStates[0x27] & 4u) != 0) {
             const std::int32_t range = platform::gValue554640 + 1;
+            const bool pastLastRange = range > 5;
             platform::gValue554640 = range;
-            if (range > 5) {
+            if (pastLastRange) {
                 platform::gValue554640 = 1;
             }
             world::detail::gValue626BFC = 180;
@@ -15652,8 +15653,9 @@ void ProcessWindowShortcuts_4C7AE0()
         }
         if ((platform::gKeyStates[0x25] & 4u) != 0) {
             const std::int32_t range = platform::gValue554640 - 1;
+            const bool belowFirstRange = range < 1;
             platform::gValue554640 = range;
-            if (range < 1) {
+            if (belowFirstRange) {
                 platform::gValue554640 = 5;
             }
             world::detail::gValue626BFC = 180;
@@ -15663,8 +15665,9 @@ void ProcessWindowShortcuts_4C7AE0()
             const std::int32_t previous = gChatScrollOffsetC9A940;
             const std::int32_t count = world::detail::gCountC9A944;
             const std::int32_t scroll = previous + 1;
+            const bool pastChatCount = scroll > count;
             gChatScrollOffsetC9A940 = scroll;
-            if (scroll > count) {
+            if (pastChatCount) {
                 gChatScrollOffsetC9A940 = count;
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
@@ -15673,8 +15676,9 @@ void ProcessWindowShortcuts_4C7AE0()
         }
         if ((platform::gKeyStates[0x28] & 0x10u) != 0) {
             const std::int32_t scroll = gChatScrollOffsetC9A940 - 1;
+            const bool belowFirstChatLine = scroll < 0;
             gChatScrollOffsetC9A940 = scroll;
-            if (scroll < 0) {
+            if (belowFirstChatLine) {
                 gChatScrollOffsetC9A940 = 0;
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {

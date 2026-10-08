@@ -2755,7 +2755,8 @@
         "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-baseline",
         "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-baseline",
         "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-baseline",
-        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-baseline"
+        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-baseline",
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-baseline"
       ],
       "original_inventory_ids": [
         "F:00077160",
@@ -2776,7 +2777,8 @@
         "F:00103160",
         "F:00103440",
         "F:00103590",
-        "F:001035E0"
+        "F:001035E0",
+        "F:000C7AE0"
       ],
       "closure_task_ids": [
         "U04",
@@ -2801,7 +2803,8 @@
         "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-decision",
         "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-decision",
         "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-decision",
-        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-decision"
+        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-decision",
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -2812,7 +2815,8 @@
         "GRS01真实旧39采集结果父四取样/descriptor宽度片段已修，一旧F纳管/同UI-L-039；437条1538B保存与空入向只相关局部，不代旧57C368路由/所有数据资源/完整页面和owner寿命/SDK/ABI/PC53/RNG/画面运行",
         "WRS01现代窗口循环三先判后共享发布已修/旧WMB保持，504120实际转生入口和两场景16消费纳管；旧99表+04调用来源仍待证，不新建推测分派，全部callback/输入/数据资源、完整场景与owner寿命/ABI/SDK/PC53/RNG/画面运行未验",
         "BVL01限定静态：旧面板公共503160完整231条735B/四页、13直接九目标/一初始化间接调用、22跳/5RET与97真实CALL定位（96已归父和一未归代码点）。LegacyUiRecord.cpp一个既有体两片段恢复入口x→width明确取样及关闭模式一次native非拥有action持样供判空/MarkDeath，原正常数值不变、不称运行错误；六整源其余五源/声明保持。原布局发布、共享99表/分类与action-dirty同owner、创建失败仍SE56/初始化、fresh槽与LTE0、五页/hint128B及同源提示、点击BYTE/两次关闭查询/各原音频调用和结果保。既有1061全部原格式/入向字段保、完整根及单adapted F处置追加；UIRUNTIME15→16、仅两限定I-S各实际来源，四任务仍open。99表+04有97非零行/97目标与唯一数据owner，当前xref/指定立即数不足证明外路由或运行间接用途，不新造97回调分派/第二表/owner或恢复暂停音频；43未归CRT幂/浮点链不擅换std::pow。原格式明文/RPLAN.24/执行限制及完整门禁保持，未闭全父/callee、数据生产/正常寿命/机器ABI链接运行或实际旧输入路由。",
-        "BVM01限定静态：公共旧面板绘制503440/关闭查询503590/图形按钮5035E0三完整根252条662B/五页、10直接五目标/零间接、15跳/4RET，373实际CALL只引用定位；503990已有BSP01完整基线复用，本步新读取前25条仅取样/第一命中邻窗，不重计472调用或新F。三正文已正确保持，只有LegacyUiRecord.cpp既有QueryPanelButtonState一个桥接片段恢复top→left→height→width四个源字段取齐，再沿原矩形/核心/返回传递；不改变正常值/0-40-各BIT/S32返回或新helper、owner/API。16B descriptor原确实全清、面板mode4/按钮mode0保，五页/原unsigned999、两除2/层次/悬停/几何与BVL原action-dirty/99表及全部音频调用保。三新原新1766..1768/三adapted F，公共UI流16→19两限定I-S各真实来源，I仅桥接实修；其他族/外路由和全373调用处/数据生产/正常寿命/像素/机器ABI链接运行未验，原格式明文/音频暂停/RPLAN.24和完整门禁保持。"
+        "BVM01限定静态：公共旧面板绘制503440/关闭查询503590/图形按钮5035E0三完整根252条662B/五页、10直接五目标/零间接、15跳/4RET，373实际CALL只引用定位；503990已有BSP01完整基线复用，本步新读取前25条仅取样/第一命中邻窗，不重计472调用或新F。三正文已正确保持，只有LegacyUiRecord.cpp既有QueryPanelButtonState一个桥接片段恢复top→left→height→width四个源字段取齐，再沿原矩形/核心/返回传递；不改变正常值/0-40-各BIT/S32返回或新helper、owner/API。16B descriptor原确实全清、面板mode4/按钮mode0保，五页/原unsigned999、两除2/层次/悬停/几何与BVL原action-dirty/99表及全部音频调用保。三新原新1766..1768/三adapted F，公共UI流16→19两限定I-S各真实来源，I仅桥接实修；其他族/外路由和全373调用处/数据生产/正常寿命/像素/机器ABI链接运行未验，原格式明文/音频暂停/RPLAN.24和完整门禁保持。",
+        "BVN01完整快捷根1507条5500B/22页、256直接32目标/零间接224跳5RET及唯一473F80真实父；只现有四个Shift范围/聊天片段恢复先判后共享S32发布，四表达式承接八模式原点，原1..5轮换/聊天回退与计时180、键查询/窗口/动作/RNG/音效和其它正文保持。一个CPP四片段、零新函数/helper/owner/API；单F纳管及公共UI20两个限定I-S，不代完整输入生产/焦点、32callee/寿命、生成EFLAGS/ABI、音频或画面运行，不当旧99路由，原格式明文/音频暂停/RPLAN.24及执行限制保持。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2825,7 +2829,8 @@
         "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
         "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
         "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state",
-        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state"
+        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state",
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state"
       ]
     },
     {
@@ -48667,6 +48672,80 @@
       "observation": "BVM01限定静态：公共旧面板绘制503440/关闭查询503590/图形按钮5035E0三完整根252条662B/五页、10直接五目标/零间接、15跳/4RET，373实际CALL只引用定位；503990已有BSP01完整基线复用，本步新读取前25条仅取样/第一命中邻窗，不重计472调用或新F。三正文已正确保持，只有LegacyUiRecord.cpp既有QueryPanelButtonState一个桥接片段恢复top→left→height→width四个源字段取齐，再沿原矩形/核心/返回传递；不改变正常值/0-40-各BIT/S32返回或新helper、owner/API。16B descriptor原确实全清、面板mode4/按钮mode0保，五页/原unsigned999、两除2/层次/悬停/几何与BVL原action-dirty/99表及全部音频调用保。三新原新1766..1768/三adapted F，公共UI流16→19两限定I-S各真实来源，I仅桥接实修；其他族/外路由和全373调用处/数据生产/正常寿命/像素/机器ABI链接运行未验，原格式明文/音频暂停/RPLAN.24和完整门禁保持。",
       "expected": "BVM01限定静态：公共旧面板绘制503440/关闭查询503590/图形按钮5035E0三完整根252条662B/五页、10直接五目标/零间接、15跳/4RET，373实际CALL只引用定位；503990已有BSP01完整基线复用，本步新读取前25条仅取样/第一命中邻窗，不重计472调用或新F。三正文已正确保持，只有LegacyUiRecord.cpp既有QueryPanelButtonState一个桥接片段恢复top→left→height→width四个源字段取齐，再沿原矩形/核心/返回传递；不改变正常值/0-40-各BIT/S32返回或新helper、owner/API。16B descriptor原确实全清、面板mode4/按钮mode0保，五页/原unsigned999、两除2/层次/悬停/几何与BVL原action-dirty/99表及全部音频调用保。三新原新1766..1768/三adapted F，公共UI流16→19两限定I-S各真实来源，I仅桥接实修；其他族/外路由和全373调用处/数据生产/正常寿命/像素/机器ABI链接运行未验，原格式明文/音频暂停/RPLAN.24和完整门禁保持。",
       "actual": "BVM01限定静态：公共旧面板绘制503440/关闭查询503590/图形按钮5035E0三完整根252条662B/五页、10直接五目标/零间接、15跳/4RET，373实际CALL只引用定位；503990已有BSP01完整基线复用，本步新读取前25条仅取样/第一命中邻窗，不重计472调用或新F。三正文已正确保持，只有LegacyUiRecord.cpp既有QueryPanelButtonState一个桥接片段恢复top→left→height→width四个源字段取齐，再沿原矩形/核心/返回传递；不改变正常值/0-40-各BIT/S32返回或新helper、owner/API。16B descriptor原确实全清、面板mode4/按钮mode0保，五页/原unsigned999、两除2/层次/悬停/几何与BVL原action-dirty/99表及全部音频调用保。三新原新1766..1768/三adapted F，公共UI流16→19两限定I-S各真实来源，I仅桥接实修；其他族/外路由和全373调用处/数据生产/正常寿命/像素/机器ABI链接运行未验，原格式明文/音频暂停/RPLAN.24和完整门禁保持。"
+    },
+    {
+      "id": "E-WINDOW-SHORTCUT-PUBLICATION-FUNC-UIRUNTIME-I-20261008",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVN01完整1507条5500B/22页及唯一原父，四现有片段承接八互斥模式点；仅判定先于共享发布，不闭输入/寿命/运行。doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-window-shortcut-publication-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/ui/WindowRuntime.cpp#ProcessWindowShortcuts_4C7AE0",
+        "src/ui/WindowRuntime.cpp#ToggleShortcutWindow",
+        "src/ui/WindowRuntime.cpp#PlayShortcutEmote",
+        "src/ui/WindowRuntime.cpp#kShortcutEmotes",
+        "src/ui/WindowRuntime.cpp#UpdateWindows_473F80",
+        "doc/cg2d_window_routing_sampling_evidence.json",
+        "doc/cg2d_window_shortcut_publication_evidence.json",
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-baseline",
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-decision",
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-acceptance",
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state",
+        "doc/ui_windows/shared_runtime.md",
+        "doc/cg2d_ui_window_runtime.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BVN01完整快捷根1507条5500B/22页、256直接32目标/零间接224跳5RET及唯一473F80真实父；只现有四个Shift范围/聊天片段恢复先判后共享S32发布，四表达式承接八模式原点，原1..5轮换/聊天回退与计时180、键查询/窗口/动作/RNG/音效和其它正文保持。一个CPP四片段、零新函数/helper/owner/API；单F纳管及公共UI20两个限定I-S，不代完整输入生产/焦点、32callee/寿命、生成EFLAGS/ABI、音频或画面运行，不当旧99路由，原格式明文/音频暂停/RPLAN.24及执行限制保持。",
+          "decision_ref": "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVN01完整快捷根1507条5500B/22页、256直接32目标/零间接224跳5RET及唯一473F80真实父；只现有四个Shift范围/聊天片段恢复先判后共享S32发布，四表达式承接八模式原点，原1..5轮换/聊天回退与计时180、键查询/窗口/动作/RNG/音效和其它正文保持。一个CPP四片段、零新函数/helper/owner/API；单F纳管及公共UI20两个限定I-S，不代完整输入生产/焦点、32callee/寿命、生成EFLAGS/ABI、音频或画面运行，不当旧99路由，原格式明文/音频暂停/RPLAN.24及执行限制保持。",
+      "expected": "BVN01完整快捷根1507条5500B/22页、256直接32目标/零间接224跳5RET及唯一473F80真实父；只现有四个Shift范围/聊天片段恢复先判后共享S32发布，四表达式承接八模式原点，原1..5轮换/聊天回退与计时180、键查询/窗口/动作/RNG/音效和其它正文保持。一个CPP四片段、零新函数/helper/owner/API；单F纳管及公共UI20两个限定I-S，不代完整输入生产/焦点、32callee/寿命、生成EFLAGS/ABI、音频或画面运行，不当旧99路由，原格式明文/音频暂停/RPLAN.24及执行限制保持。",
+      "actual": "BVN01完整快捷根1507条5500B/22页、256直接32目标/零间接224跳5RET及唯一473F80真实父；只现有四个Shift范围/聊天片段恢复先判后共享S32发布，四表达式承接八模式原点，原1..5轮换/聊天回退与计时180、键查询/窗口/动作/RNG/音效和其它正文保持。一个CPP四片段、零新函数/helper/owner/API；单F纳管及公共UI20两个限定I-S，不代完整输入生产/焦点、32callee/寿命、生成EFLAGS/ABI、音频或画面运行，不当旧99路由，原格式明文/音频暂停/RPLAN.24及执行限制保持。"
+    },
+    {
+      "id": "E-WINDOW-SHORTCUT-PUBLICATION-FUNC-UIRUNTIME-S-20261008",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVN01完整1507条5500B/22页及唯一原父，四现有片段承接八互斥模式点；仅判定先于共享发布，不闭输入/寿命/运行。doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-window-shortcut-publication-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/ui/WindowRuntime.cpp#ProcessWindowShortcuts_4C7AE0",
+        "src/ui/WindowRuntime.cpp#ToggleShortcutWindow",
+        "src/ui/WindowRuntime.cpp#PlayShortcutEmote",
+        "src/ui/WindowRuntime.cpp#kShortcutEmotes",
+        "src/ui/WindowRuntime.cpp#UpdateWindows_473F80",
+        "doc/cg2d_window_routing_sampling_evidence.json",
+        "doc/cg2d_window_shortcut_publication_evidence.json",
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-baseline",
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-decision",
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-acceptance",
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state",
+        "doc/ui_windows/shared_runtime.md",
+        "doc/cg2d_ui_window_runtime.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BVN01完整快捷根1507条5500B/22页、256直接32目标/零间接224跳5RET及唯一473F80真实父；只现有四个Shift范围/聊天片段恢复先判后共享S32发布，四表达式承接八模式原点，原1..5轮换/聊天回退与计时180、键查询/窗口/动作/RNG/音效和其它正文保持。一个CPP四片段、零新函数/helper/owner/API；单F纳管及公共UI20两个限定I-S，不代完整输入生产/焦点、32callee/寿命、生成EFLAGS/ABI、音频或画面运行，不当旧99路由，原格式明文/音频暂停/RPLAN.24及执行限制保持。",
+          "decision_ref": "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVN01完整快捷根1507条5500B/22页、256直接32目标/零间接224跳5RET及唯一473F80真实父；只现有四个Shift范围/聊天片段恢复先判后共享S32发布，四表达式承接八模式原点，原1..5轮换/聊天回退与计时180、键查询/窗口/动作/RNG/音效和其它正文保持。一个CPP四片段、零新函数/helper/owner/API；单F纳管及公共UI20两个限定I-S，不代完整输入生产/焦点、32callee/寿命、生成EFLAGS/ABI、音频或画面运行，不当旧99路由，原格式明文/音频暂停/RPLAN.24及执行限制保持。",
+      "expected": "BVN01完整快捷根1507条5500B/22页、256直接32目标/零间接224跳5RET及唯一473F80真实父；只现有四个Shift范围/聊天片段恢复先判后共享S32发布，四表达式承接八模式原点，原1..5轮换/聊天回退与计时180、键查询/窗口/动作/RNG/音效和其它正文保持。一个CPP四片段、零新函数/helper/owner/API；单F纳管及公共UI20两个限定I-S，不代完整输入生产/焦点、32callee/寿命、生成EFLAGS/ABI、音频或画面运行，不当旧99路由，原格式明文/音频暂停/RPLAN.24及执行限制保持。",
+      "actual": "BVN01完整快捷根1507条5500B/22页、256直接32目标/零间接224跳5RET及唯一473F80真实父；只现有四个Shift范围/聊天片段恢复先判后共享S32发布，四表达式承接八模式原点，原1..5轮换/聊天回退与计时180、键查询/窗口/动作/RNG/音效和其它正文保持。一个CPP四片段、零新函数/helper/owner/API；单F纳管及公共UI20两个限定I-S，不代完整输入生产/焦点、32callee/寿命、生成EFLAGS/ABI、音频或画面运行，不当旧99路由，原格式明文/音频暂停/RPLAN.24及执行限制保持。"
     }
   ],
   "task_acceptance": [
@@ -49264,7 +49343,8 @@
         "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state",
         "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
         "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state",
-        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state"
+        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state",
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state"
       ]
     },
     {
@@ -49554,7 +49634,8 @@
         "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state",
         "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
         "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state",
-        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state"
+        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state",
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state"
       ]
     },
     {
@@ -49850,7 +49931,8 @@
         "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state",
         "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
         "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state",
-        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state"
+        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state",
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state"
       ]
     },
     {
@@ -50172,7 +50254,8 @@
         "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
         "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
         "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state",
-        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state"
+        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state",
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state"
       ]
     },
     {
@@ -61372,6 +61455,18 @@
         "doc/cg2d_legacy_panel_button_bridge_sampling_evidence.json"
       ],
       "boundary": "BVM01完整107条265B/两页图形按钮正文正确保持：原top/height/left/width首查询，区域命中才读按下BYTE/低bit0再style0，按下/普通各image→y→x绘制；hoverMode非零才第二独立查询，style0和命中才第三fresh四边，±2/低W16边框、hoverMode==2细节1否则0。16B descriptor原全清/FFFFFFF、mode0正确保，不套面板mode4；void结果、层低W8与全部几何/失败/参数保，无新该体I，完整208调用处/65父/像素寿命/机器ABI运行未验。"
+    },
+    {
+      "inventory_id": "F:000C7AE0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-baseline",
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-decision",
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-acceptance",
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state"
+      ],
+      "boundary": "BVN01完整快捷根1507条5500B/22页、256直接32目标/零间接224跳5RET及唯一473F80真实父；只现有四个Shift范围/聊天片段恢复先判后共享S32发布，四表达式承接八模式原点，原1..5轮换/聊天回退与计时180、键查询/窗口/动作/RNG/音效和其它正文保持。一个CPP四片段、零新函数/helper/owner/API；单F纳管及公共UI20两个限定I-S，不代完整输入生产/焦点、32callee/寿命、生成EFLAGS/ABI、音频或画面运行，不当旧99路由，原格式明文/音频暂停/RPLAN.24及执行限制保持。"
     }
   ],
   "auxiliary_dispositions": [

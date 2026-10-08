@@ -200592,6 +200592,102 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x4C7AE0",
+      "inventory_id": "F:000C7AE0",
+      "original_role": "现代窗口快捷键两套模式、窗口/动作与聊天分支",
+      "original_end_exclusive": "0x4c905c",
+      "original_chunks": [
+        [
+          "0x4c7ae0",
+          "0x4c905c"
+        ]
+      ],
+      "instruction_count": 1507,
+      "status": "BVN01完整快捷根1507条5500B/22页、256直接32目标/零间接224跳5RET及唯一473F80真实父；只现有四个Shift范围/聊天片段恢复先判后共享S32发布，四表达式承接八模式原点，原1..5轮换/聊天回退与计时180、键查询/窗口/动作/RNG/音效和其它正文保持。一个CPP四片段、零新函数/helper/owner/API；单F纳管及公共UI20两个限定I-S，不代完整输入生产/焦点、32callee/寿命、生成EFLAGS/ABI、音频或画面运行，不当旧99路由，原格式明文/音频暂停/RPLAN.24及执行限制保持。",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ProcessWindowShortcuts_4C7AE0"
+          ],
+          "relationship": "BVN01完整快捷根1507条5500B/22页、256直接32目标/零间接224跳5RET及唯一473F80真实父；只现有四个Shift范围/聊天片段恢复先判后共享S32发布，四表达式承接八模式原点，原1..5轮换/聊天回退与计时180、键查询/窗口/动作/RNG/音效和其它正文保持。一个CPP四片段、零新函数/helper/owner/API；单F纳管及公共UI20两个限定I-S，不代完整输入生产/焦点、32callee/寿命、生成EFLAGS/ABI、音频或画面运行，不当旧99路由，原格式明文/音频暂停/RPLAN.24及执行限制保持。"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ToggleShortcutWindow",
+            "PlayShortcutEmote",
+            "kShortcutEmotes"
+          ],
+          "relationship": "既有窗口切换/动作三调用和十五项顺序归纳正确保持，归纳表不是原端静态键表"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "UpdateWindows_473F80"
+          ],
+          "relationship": "唯一实际现代父4740B8调用，本步复用WRS01原完整父证据，只当前调用保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-baseline",
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-decision",
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-acceptance",
+        "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state"
+      ],
+      "boundary": "BVN01完整快捷根1507条5500B/22页、256直接32目标/零间接224跳5RET及唯一473F80真实父；只现有四个Shift范围/聊天片段恢复先判后共享S32发布，四表达式承接八模式原点，原1..5轮换/聊天回退与计时180、键查询/窗口/动作/RNG/音效和其它正文保持。一个CPP四片段、零新函数/helper/owner/API；单F纳管及公共UI20两个限定I-S，不代完整输入生产/焦点、32callee/寿命、生成EFLAGS/ABI、音频或画面运行，不当旧99路由，原格式明文/音频暂停/RPLAN.24及执行限制保持。",
+      "verification_level": "BVN01完整快捷根1507条5500B/22页、256直接32目标/零间接224跳5RET及唯一473F80真实父；只现有四个Shift范围/聊天片段恢复先判后共享S32发布，四表达式承接八模式原点，原1..5轮换/聊天回退与计时180、键查询/窗口/动作/RNG/音效和其它正文保持。一个CPP四片段、零新函数/helper/owner/API；单F纳管及公共UI20两个限定I-S，不代完整输入生产/焦点、32callee/寿命、生成EFLAGS/ABI、音频或画面运行，不当旧99路由，原格式明文/音频暂停/RPLAN.24及执行限制保持。",
+      "window_shortcut_publication": {
+        "spec_id": "BVN01",
+        "evidence_refs": [
+          "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-baseline",
+          "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-decision",
+          "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-acceptance",
+          "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 1507,
+        "original_code_bytes": 5500,
+        "original_page_count": 22,
+        "original_direct_call_count": 256,
+        "original_unique_direct_callee_count": 32,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 224,
+        "original_return_count": 5,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 4,
+        "physical_original_sampling_points": 8,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_comparison_before_S32_publication_restored": true,
+        "original_business_range_and_chat_fallbacks_kept": true,
+        "original_mode_and_modifier_precedence_kept": true,
+        "original_sequential_fresh_key_reads_kept": true,
+        "original_four_window_reads_and_per_window_sound_kept": true,
+        "original_emote_order_and_one_random_consumption_kept": true,
+        "source_emote_summary_table_not_original_storage": true,
+        "sole_parent_reference_reused_from_WRS01": true,
+        "original_parent_body_changed": false,
+        "void_source_only_for_verified_parent_ignoring_return": true,
+        "original_EAX_not_claimed_fixed": true,
+        "new_99_dispatch_added": false,
+        "audio_pause_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

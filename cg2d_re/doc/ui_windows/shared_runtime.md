@@ -1672,3 +1672,11 @@ CC4238长度及默认回退、修补、应用、捕获中的共享读取/写入�
 [裁决](../cg2d_window_routing_sampling_spec.md#window-routing-sampling-decision)仅473F80三片段：保存count>0后发布CC4844、保存focused!=0后发布元素索引=-1、原phase读取/低W8鼠标写之后先保存phase==4再发布focus=1，三处按同判定分流。原window.id两次读取、callback后的窗口/共享索引复读和每轮count、visible严格1、update/元素/focus-drag/draw/carry与快捷键/热键及尾返回保持；原WMB宽度/高三字节不动。
 
 [两完整126条453B](../cg2d_window_routing_sampling_evidence.json)及实际504120转生到期入口、两场景各8消费纳管，16普通call与1尾跳分列。源仅三判定取样，不代所有callback/间接目标、完整输入/场景和资源/owner寿命/生成EFLAGS/ABI/SDK/PC53/时钟RNG/画面运行。
+
+## BVN01现代快捷键四判定发布（2026-10-08）
+
+[BVN01基线](../cg2d_window_shortcut_publication_spec.md#window-shortcut-baseline)、[实施决定](../cg2d_window_shortcut_publication_spec.md#window-shortcut-decision)、[验收](../cg2d_window_shortcut_publication_spec.md#window-shortcut-acceptance)及[原证](../cg2d_window_shortcut_publication_evidence.json)。
+
+完整原根1507条5500B/22页、256直接32目标、零间接224跳5RET；唯一473F80父复用WRS01已有原证。本步只现有快捷键根四片段：范围>5/<1、聊天>count/<0判定保存后才发布原S32共享值，再据同判定分流；四片段承接两套键位八原点。原范围轮换/聊天回退、计时180、键位/修饰键优先、逐键新读取、四窗口与动作/RNG/音效顺序及其它正文保持。
+
+新增1769/F:000C7AE0和adapted处置，公共UI19→20、两个限定I/S，各15来源；零新实现函数/helper/owner。U04/U11/V03/R04仍open；预期语义1770/有效1763、基线1880（51.09%）、F918/E1094。完整输入生产/焦点、32callee/owner寿命、机器ABI/画面运行与R8待验，旧99表路由不因此闭合；音频暂停、原格式明文及执行限制保持。

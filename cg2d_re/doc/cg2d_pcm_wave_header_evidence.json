@@ -1,0 +1,1275 @@
+{
+  "schema_version": 1,
+  "step": "CAB09",
+  "recorded_on": "2026-10-09",
+  "source_snapshot": "cg2d-re-pcm-wave-header-20261009",
+  "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#pcm-wave-header-decision",
+  "verification_level": "原会话只读指令/字节、复用既有原根与现源新增差异限定静态；未编译、测试、运行或计算摘要",
+  "authorization": "用户设置整体SPEC目标、优先开发并继续完善音频，沿现有SDL3/WAV/第二段空音频及工程委托推进",
+  "original_function_count": 3,
+  "instruction_count": 186,
+  "original_byte_count": 441,
+  "original_functions": [
+    {
+      "start": "0x52b710",
+      "end": "0x52b810",
+      "name": "sub_52B710",
+      "bytes": "83ec285355565733edb9050000008d7424108d7c2424896c2410896c2414896c2418896c241c896c24206a20f3a58b7424408b3d40d354008d442414555056c744242857415645ffd785c0740a5f5e5d33c05b83c428c38d4c24106a108d542428515256c7442434666d7420ffd785c0740a5f5e5d33c05b83c428c38b5c24406a125356ff152cd3540083f812740a5f5e5d33c05b83c428c366833b01740a5f5e5d33c05b83c428c38d442424555056ff1530d3540085c0740a5f5e5d33c05b83c428c38d4c24106a108d542428515256c744243464617461ffd785c0740a5f5e5d33c05b83c428c38b4424448b4c24285f5e89085db8010000005b83c428c3",
+      "instructions": [
+        {
+          "ea": "0x52b710",
+          "asm": "sub     esp, 28h"
+        },
+        {
+          "ea": "0x52b713",
+          "asm": "push    ebx"
+        },
+        {
+          "ea": "0x52b714",
+          "asm": "push    ebp"
+        },
+        {
+          "ea": "0x52b715",
+          "asm": "push    esi"
+        },
+        {
+          "ea": "0x52b716",
+          "asm": "push    edi"
+        },
+        {
+          "ea": "0x52b717",
+          "asm": "xor     ebp, ebp"
+        },
+        {
+          "ea": "0x52b719",
+          "asm": "mov     ecx, 5"
+        },
+        {
+          "ea": "0x52b71e",
+          "asm": "lea     esi, [esp+38h+pmmcki]"
+        },
+        {
+          "ea": "0x52b722",
+          "asm": "lea     edi, [esp+38h+var_14]"
+        },
+        {
+          "ea": "0x52b726",
+          "asm": "mov     [esp+38h+pmmcki.ckid], ebp"
+        },
+        {
+          "ea": "0x52b72a",
+          "asm": "mov     [esp+38h+pmmcki.cksize], ebp"
+        },
+        {
+          "ea": "0x52b72e",
+          "asm": "mov     [esp+38h+pmmcki.fccType], ebp"
+        },
+        {
+          "ea": "0x52b732",
+          "asm": "mov     [esp+38h+pmmcki.dwDataOffset], ebp"
+        },
+        {
+          "ea": "0x52b736",
+          "asm": "mov     [esp+38h+pmmcki.dwFlags], ebp"
+        },
+        {
+          "ea": "0x52b73a",
+          "asm": "push    20h ; ' '; fuDescend"
+        },
+        {
+          "ea": "0x52b73c",
+          "asm": "rep movsd"
+        },
+        {
+          "ea": "0x52b73e",
+          "asm": "mov     esi, [esp+3Ch+hmmio]"
+        },
+        {
+          "ea": "0x52b742",
+          "asm": "mov     edi, ds:mmioDescend"
+        },
+        {
+          "ea": "0x52b748",
+          "asm": "lea     eax, [esp+3Ch+pmmcki]"
+        },
+        {
+          "ea": "0x52b74c",
+          "asm": "push    ebp; pmmckiParent"
+        },
+        {
+          "ea": "0x52b74d",
+          "asm": "push    eax; pmmcki"
+        },
+        {
+          "ea": "0x52b74e",
+          "asm": "push    esi; hmmio"
+        },
+        {
+          "ea": "0x52b74f",
+          "asm": "mov     [esp+48h+pmmcki.fccType], 45564157h"
+        },
+        {
+          "ea": "0x52b757",
+          "asm": "call    edi ; mmioDescend"
+        },
+        {
+          "ea": "0x52b759",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x52b75b",
+          "asm": "jz      short loc_52B767"
+        },
+        {
+          "ea": "0x52b75d",
+          "asm": "pop     edi"
+        },
+        {
+          "ea": "0x52b75e",
+          "asm": "pop     esi"
+        },
+        {
+          "ea": "0x52b75f",
+          "asm": "pop     ebp"
+        },
+        {
+          "ea": "0x52b760",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "ea": "0x52b762",
+          "asm": "pop     ebx"
+        },
+        {
+          "ea": "0x52b763",
+          "asm": "add     esp, 28h"
+        },
+        {
+          "ea": "0x52b766",
+          "asm": "retn"
+        },
+        {
+          "ea": "0x52b767",
+          "asm": "lea     ecx, [esp+38h+pmmcki]"
+        },
+        {
+          "ea": "0x52b76b",
+          "asm": "push    10h; fuDescend"
+        },
+        {
+          "ea": "0x52b76d",
+          "asm": "lea     edx, [esp+3Ch+var_14]"
+        },
+        {
+          "ea": "0x52b771",
+          "asm": "push    ecx; pmmckiParent"
+        },
+        {
+          "ea": "0x52b772",
+          "asm": "push    edx; pmmcki"
+        },
+        {
+          "ea": "0x52b773",
+          "asm": "push    esi; hmmio"
+        },
+        {
+          "ea": "0x52b774",
+          "asm": "mov     [esp+48h+var_14.ckid], 20746D66h"
+        },
+        {
+          "ea": "0x52b77c",
+          "asm": "call    edi ; mmioDescend"
+        },
+        {
+          "ea": "0x52b77e",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x52b780",
+          "asm": "jz      short loc_52B78C"
+        },
+        {
+          "ea": "0x52b782",
+          "asm": "pop     edi"
+        },
+        {
+          "ea": "0x52b783",
+          "asm": "pop     esi"
+        },
+        {
+          "ea": "0x52b784",
+          "asm": "pop     ebp"
+        },
+        {
+          "ea": "0x52b785",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "ea": "0x52b787",
+          "asm": "pop     ebx"
+        },
+        {
+          "ea": "0x52b788",
+          "asm": "add     esp, 28h"
+        },
+        {
+          "ea": "0x52b78b",
+          "asm": "retn"
+        },
+        {
+          "ea": "0x52b78c",
+          "asm": "mov     ebx, [esp+38h+pch]"
+        },
+        {
+          "ea": "0x52b790",
+          "asm": "push    12h; cch"
+        },
+        {
+          "ea": "0x52b792",
+          "asm": "push    ebx; pch"
+        },
+        {
+          "ea": "0x52b793",
+          "asm": "push    esi; hmmio"
+        },
+        {
+          "ea": "0x52b794",
+          "asm": "call    ds:mmioRead"
+        },
+        {
+          "ea": "0x52b79a",
+          "asm": "cmp     eax, 12h"
+        },
+        {
+          "ea": "0x52b79d",
+          "asm": "jz      short loc_52B7A9"
+        },
+        {
+          "ea": "0x52b79f",
+          "asm": "pop     edi"
+        },
+        {
+          "ea": "0x52b7a0",
+          "asm": "pop     esi"
+        },
+        {
+          "ea": "0x52b7a1",
+          "asm": "pop     ebp"
+        },
+        {
+          "ea": "0x52b7a2",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "ea": "0x52b7a4",
+          "asm": "pop     ebx"
+        },
+        {
+          "ea": "0x52b7a5",
+          "asm": "add     esp, 28h"
+        },
+        {
+          "ea": "0x52b7a8",
+          "asm": "retn"
+        },
+        {
+          "ea": "0x52b7a9",
+          "asm": "cmp     word ptr [ebx], 1"
+        },
+        {
+          "ea": "0x52b7ad",
+          "asm": "jz      short loc_52B7B9"
+        },
+        {
+          "ea": "0x52b7af",
+          "asm": "pop     edi"
+        },
+        {
+          "ea": "0x52b7b0",
+          "asm": "pop     esi"
+        },
+        {
+          "ea": "0x52b7b1",
+          "asm": "pop     ebp"
+        },
+        {
+          "ea": "0x52b7b2",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "ea": "0x52b7b4",
+          "asm": "pop     ebx"
+        },
+        {
+          "ea": "0x52b7b5",
+          "asm": "add     esp, 28h"
+        },
+        {
+          "ea": "0x52b7b8",
+          "asm": "retn"
+        },
+        {
+          "ea": "0x52b7b9",
+          "asm": "lea     eax, [esp+38h+var_14]"
+        },
+        {
+          "ea": "0x52b7bd",
+          "asm": "push    ebp; fuAscend"
+        },
+        {
+          "ea": "0x52b7be",
+          "asm": "push    eax; pmmcki"
+        },
+        {
+          "ea": "0x52b7bf",
+          "asm": "push    esi; hmmio"
+        },
+        {
+          "ea": "0x52b7c0",
+          "asm": "call    ds:mmioAscend"
+        },
+        {
+          "ea": "0x52b7c6",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x52b7c8",
+          "asm": "jz      short loc_52B7D4"
+        },
+        {
+          "ea": "0x52b7ca",
+          "asm": "pop     edi"
+        },
+        {
+          "ea": "0x52b7cb",
+          "asm": "pop     esi"
+        },
+        {
+          "ea": "0x52b7cc",
+          "asm": "pop     ebp"
+        },
+        {
+          "ea": "0x52b7cd",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "ea": "0x52b7cf",
+          "asm": "pop     ebx"
+        },
+        {
+          "ea": "0x52b7d0",
+          "asm": "add     esp, 28h"
+        },
+        {
+          "ea": "0x52b7d3",
+          "asm": "retn"
+        },
+        {
+          "ea": "0x52b7d4",
+          "asm": "lea     ecx, [esp+38h+pmmcki]"
+        },
+        {
+          "ea": "0x52b7d8",
+          "asm": "push    10h; fuDescend"
+        },
+        {
+          "ea": "0x52b7da",
+          "asm": "lea     edx, [esp+3Ch+var_14]"
+        },
+        {
+          "ea": "0x52b7de",
+          "asm": "push    ecx; pmmckiParent"
+        },
+        {
+          "ea": "0x52b7df",
+          "asm": "push    edx; pmmcki"
+        },
+        {
+          "ea": "0x52b7e0",
+          "asm": "push    esi; hmmio"
+        },
+        {
+          "ea": "0x52b7e1",
+          "asm": "mov     [esp+48h+var_14.ckid], 61746164h"
+        },
+        {
+          "ea": "0x52b7e9",
+          "asm": "call    edi ; mmioDescend"
+        },
+        {
+          "ea": "0x52b7eb",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x52b7ed",
+          "asm": "jz      short loc_52B7F9"
+        },
+        {
+          "ea": "0x52b7ef",
+          "asm": "pop     edi"
+        },
+        {
+          "ea": "0x52b7f0",
+          "asm": "pop     esi"
+        },
+        {
+          "ea": "0x52b7f1",
+          "asm": "pop     ebp"
+        },
+        {
+          "ea": "0x52b7f2",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "ea": "0x52b7f4",
+          "asm": "pop     ebx"
+        },
+        {
+          "ea": "0x52b7f5",
+          "asm": "add     esp, 28h"
+        },
+        {
+          "ea": "0x52b7f8",
+          "asm": "retn"
+        },
+        {
+          "ea": "0x52b7f9",
+          "asm": "mov     eax, [esp+38h+arg_8]"
+        },
+        {
+          "ea": "0x52b7fd",
+          "asm": "mov     ecx, [esp+38h+var_14.cksize]"
+        },
+        {
+          "ea": "0x52b801",
+          "asm": "pop     edi"
+        },
+        {
+          "ea": "0x52b802",
+          "asm": "pop     esi"
+        },
+        {
+          "ea": "0x52b803",
+          "asm": "mov     [eax], ecx"
+        },
+        {
+          "ea": "0x52b805",
+          "asm": "pop     ebp"
+        },
+        {
+          "ea": "0x52b806",
+          "asm": "mov     eax, 1"
+        },
+        {
+          "ea": "0x52b80b",
+          "asm": "pop     ebx"
+        },
+        {
+          "ea": "0x52b80c",
+          "asm": "add     esp, 28h"
+        },
+        {
+          "ea": "0x52b80f",
+          "asm": "retn"
+        }
+      ],
+      "incoming": [
+        {
+          "ea": "0x52b392",
+          "function": "0x524230",
+          "asm": "call    sub_52B710"
+        },
+        {
+          "ea": "0x52bf3a",
+          "function": "0x52be60",
+          "asm": "call    sub_52B710"
+        }
+      ],
+      "inventory_id": "F:0012B710",
+      "instruction_count": 114,
+      "byte_count": 256
+    },
+    {
+      "start": "0x52b810",
+      "end": "0x52b877",
+      "name": "sub_52B810",
+      "bytes": "568b742410578b7c24108b066a008b0f6a006a005768b4cf0301516a0056ff502c85c074055f33c05ec38b17a1b4cf03018b4c240c525051ff152cd354006a006a0089078b1650a1b4cf03015056ff524c33c95f85c00f94c1c705b4cf0301000000008bc15ec3",
+      "instructions": [
+        {
+          "ea": "0x52b810",
+          "asm": "push    esi"
+        },
+        {
+          "ea": "0x52b811",
+          "asm": "mov     esi, [esp+4+arg_8]"
+        },
+        {
+          "ea": "0x52b815",
+          "asm": "push    edi"
+        },
+        {
+          "ea": "0x52b816",
+          "asm": "mov     edi, [esp+8+arg_4]"
+        },
+        {
+          "ea": "0x52b81a",
+          "asm": "mov     eax, [esi]"
+        },
+        {
+          "ea": "0x52b81c",
+          "asm": "push    0"
+        },
+        {
+          "ea": "0x52b81e",
+          "asm": "mov     ecx, [edi]"
+        },
+        {
+          "ea": "0x52b820",
+          "asm": "push    0"
+        },
+        {
+          "ea": "0x52b822",
+          "asm": "push    0"
+        },
+        {
+          "ea": "0x52b824",
+          "asm": "push    edi"
+        },
+        {
+          "ea": "0x52b825",
+          "asm": "push    offset pch"
+        },
+        {
+          "ea": "0x52b82a",
+          "asm": "push    ecx"
+        },
+        {
+          "ea": "0x52b82b",
+          "asm": "push    0"
+        },
+        {
+          "ea": "0x52b82d",
+          "asm": "push    esi"
+        },
+        {
+          "ea": "0x52b82e",
+          "asm": "call    dword ptr [eax+2Ch]"
+        },
+        {
+          "ea": "0x52b831",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x52b833",
+          "asm": "jz      short loc_52B83A"
+        },
+        {
+          "ea": "0x52b835",
+          "asm": "pop     edi"
+        },
+        {
+          "ea": "0x52b836",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "ea": "0x52b838",
+          "asm": "pop     esi"
+        },
+        {
+          "ea": "0x52b839",
+          "asm": "retn"
+        },
+        {
+          "ea": "0x52b83a",
+          "asm": "mov     edx, [edi]"
+        },
+        {
+          "ea": "0x52b83c",
+          "asm": "mov     eax, pch"
+        },
+        {
+          "ea": "0x52b841",
+          "asm": "mov     ecx, [esp+8+hmmio]"
+        },
+        {
+          "ea": "0x52b845",
+          "asm": "push    edx; cch"
+        },
+        {
+          "ea": "0x52b846",
+          "asm": "push    eax; pch"
+        },
+        {
+          "ea": "0x52b847",
+          "asm": "push    ecx; hmmio"
+        },
+        {
+          "ea": "0x52b848",
+          "asm": "call    ds:mmioRead"
+        },
+        {
+          "ea": "0x52b84e",
+          "asm": "push    0"
+        },
+        {
+          "ea": "0x52b850",
+          "asm": "push    0"
+        },
+        {
+          "ea": "0x52b852",
+          "asm": "mov     [edi], eax"
+        },
+        {
+          "ea": "0x52b854",
+          "asm": "mov     edx, [esi]"
+        },
+        {
+          "ea": "0x52b856",
+          "asm": "push    eax"
+        },
+        {
+          "ea": "0x52b857",
+          "asm": "mov     eax, pch"
+        },
+        {
+          "ea": "0x52b85c",
+          "asm": "push    eax"
+        },
+        {
+          "ea": "0x52b85d",
+          "asm": "push    esi"
+        },
+        {
+          "ea": "0x52b85e",
+          "asm": "call    dword ptr [edx+4Ch]"
+        },
+        {
+          "ea": "0x52b861",
+          "asm": "xor     ecx, ecx"
+        },
+        {
+          "ea": "0x52b863",
+          "asm": "pop     edi"
+        },
+        {
+          "ea": "0x52b864",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x52b866",
+          "asm": "setz    cl"
+        },
+        {
+          "ea": "0x52b869",
+          "asm": "mov     pch, 0"
+        },
+        {
+          "ea": "0x52b873",
+          "asm": "mov     eax, ecx"
+        },
+        {
+          "ea": "0x52b875",
+          "asm": "pop     esi"
+        },
+        {
+          "ea": "0x52b876",
+          "asm": "retn"
+        }
+      ],
+      "incoming": [
+        {
+          "ea": "0x52b3e0",
+          "function": "0x524230",
+          "asm": "call    sub_52B810"
+        },
+        {
+          "ea": "0x52c104",
+          "function": "0x52be60",
+          "asm": "call    sub_52B810"
+        }
+      ],
+      "inventory_id": "F:0012B810",
+      "instruction_count": 45,
+      "byte_count": 103
+    },
+    {
+      "start": "0x52b880",
+      "end": "0x52b8d2",
+      "name": "sub_52B880",
+      "bytes": "83ec2457b90900000033c08d7c2404f3ab8b4c242c8b442430894c24148b4c24348944240ca1d80705016a00518d4c240cc744240c24000000c7442410c28001008b105150ff520cf7d81bc05f4083c424c3",
+      "instructions": [
+        {
+          "ea": "0x52b880",
+          "asm": "sub     esp, 24h"
+        },
+        {
+          "ea": "0x52b883",
+          "asm": "push    edi"
+        },
+        {
+          "ea": "0x52b884",
+          "asm": "mov     ecx, 9"
+        },
+        {
+          "ea": "0x52b889",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "ea": "0x52b88b",
+          "asm": "lea     edi, [esp+28h+var_24]"
+        },
+        {
+          "ea": "0x52b88f",
+          "asm": "rep stosd"
+        },
+        {
+          "ea": "0x52b891",
+          "asm": "mov     ecx, [esp+28h+arg_0]"
+        },
+        {
+          "ea": "0x52b895",
+          "asm": "mov     eax, [esp+28h+arg_4]"
+        },
+        {
+          "ea": "0x52b899",
+          "asm": "mov     [esp+28h+var_14], ecx"
+        },
+        {
+          "ea": "0x52b89d",
+          "asm": "mov     ecx, [esp+28h+arg_8]"
+        },
+        {
+          "ea": "0x52b8a1",
+          "asm": "mov     [esp+28h+var_1C], eax"
+        },
+        {
+          "ea": "0x52b8a5",
+          "asm": "mov     eax, gDirectSound"
+        },
+        {
+          "ea": "0x52b8aa",
+          "asm": "push    0"
+        },
+        {
+          "ea": "0x52b8ac",
+          "asm": "push    ecx"
+        },
+        {
+          "ea": "0x52b8ad",
+          "asm": "lea     ecx, [esp+30h+var_24]"
+        },
+        {
+          "ea": "0x52b8b1",
+          "asm": "mov     [esp+30h+var_24], 24h ; '$'"
+        },
+        {
+          "ea": "0x52b8b9",
+          "asm": "mov     [esp+30h+var_20], 180C2h"
+        },
+        {
+          "ea": "0x52b8c1",
+          "asm": "mov     edx, [eax]"
+        },
+        {
+          "ea": "0x52b8c3",
+          "asm": "push    ecx"
+        },
+        {
+          "ea": "0x52b8c4",
+          "asm": "push    eax"
+        },
+        {
+          "ea": "0x52b8c5",
+          "asm": "call    dword ptr [edx+0Ch]"
+        },
+        {
+          "ea": "0x52b8c8",
+          "asm": "neg     eax"
+        },
+        {
+          "ea": "0x52b8ca",
+          "asm": "sbb     eax, eax"
+        },
+        {
+          "ea": "0x52b8cc",
+          "asm": "pop     edi"
+        },
+        {
+          "ea": "0x52b8cd",
+          "asm": "inc     eax"
+        },
+        {
+          "ea": "0x52b8ce",
+          "asm": "add     esp, 24h"
+        },
+        {
+          "ea": "0x52b8d1",
+          "asm": "retn"
+        }
+      ],
+      "incoming": [
+        {
+          "ea": "0x52b3c1",
+          "function": "0x524230",
+          "asm": "call    sub_52B880"
+        },
+        {
+          "ea": "0x52c0e3",
+          "function": "0x52be60",
+          "asm": "call    sub_52B880"
+        }
+      ],
+      "inventory_id": "F:0012B880",
+      "instruction_count": 27,
+      "byte_count": 82
+    }
+  ],
+  "original_caller_windows": [
+    {
+      "function": "0x524230",
+      "range": "[0x52B330,0x52B406)",
+      "instructions": [
+        {
+          "ea": "0x52b330",
+          "asm": "cmp     ebp, 5622h"
+        },
+        {
+          "ea": "0x52b336",
+          "asm": "jz      short loc_52B34C"
+        },
+        {
+          "ea": "0x52b338",
+          "asm": "cmp     ebp, 0AC44h"
+        },
+        {
+          "ea": "0x52b33e",
+          "asm": "jnz     short loc_52B362"
+        },
+        {
+          "ea": "0x52b340",
+          "asm": "mov     gSeList.freqBaseIndex[esi], 31h ; '1'"
+        },
+        {
+          "ea": "0x52b34a",
+          "asm": "jmp     short loc_52B362"
+        },
+        {
+          "ea": "0x52b34c",
+          "asm": "mov     gSeList.freqBaseIndex[esi], 25h ; '%'"
+        },
+        {
+          "ea": "0x52b356",
+          "asm": "jmp     short loc_52B362"
+        },
+        {
+          "ea": "0x52b358",
+          "asm": "mov     gSeList.freqBaseIndex[esi], 19h"
+        },
+        {
+          "ea": "0x52b362",
+          "asm": "push    10000h; fdwOpen"
+        },
+        {
+          "ea": "0x52b367",
+          "asm": "lea     edx, [esp+4AE0h+pszFileName]"
+        },
+        {
+          "ea": "0x52b36e",
+          "asm": "push    ebx; pmmioinfo"
+        },
+        {
+          "ea": "0x52b36f",
+          "asm": "push    edx; pszFileName"
+        },
+        {
+          "ea": "0x52b370",
+          "asm": "call    ds:mmioOpenA"
+        },
+        {
+          "ea": "0x52b376",
+          "asm": "mov     esi, eax"
+        },
+        {
+          "ea": "0x52b378",
+          "asm": "cmp     esi, ebx"
+        },
+        {
+          "ea": "0x52b37a",
+          "asm": "mov     [esp+4ADCh+hmmio], esi"
+        },
+        {
+          "ea": "0x52b37e",
+          "asm": "jz      loc_52B445"
+        },
+        {
+          "ea": "0x52b384",
+          "asm": "lea     eax, [esp+4ADCh+var_4A98]"
+        },
+        {
+          "ea": "0x52b388",
+          "asm": "lea     ecx, [esp+4ADCh+pch]"
+        },
+        {
+          "ea": "0x52b38f",
+          "asm": "push    eax; int"
+        },
+        {
+          "ea": "0x52b390",
+          "asm": "push    ecx; pch"
+        },
+        {
+          "ea": "0x52b391",
+          "asm": "push    esi; hmmio"
+        },
+        {
+          "ea": "0x52b392",
+          "asm": "call    sub_52B710"
+        },
+        {
+          "ea": "0x52b397",
+          "asm": "add     esp, 0Ch"
+        },
+        {
+          "ea": "0x52b39a",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x52b39c",
+          "asm": "jz      loc_52B445"
+        },
+        {
+          "ea": "0x52b3a2",
+          "asm": "mov     edx, dword_104DFCC"
+        },
+        {
+          "ea": "0x52b3a8",
+          "asm": "mov     eax, [esp+4ADCh+var_4A98]"
+        },
+        {
+          "ea": "0x52b3ac",
+          "asm": "mov     [esp+4ADCh+var_4A9C], eax"
+        },
+        {
+          "ea": "0x52b3b0",
+          "asm": "lea     ecx, ds:103D5A8h[edx*4]"
+        },
+        {
+          "ea": "0x52b3b7",
+          "asm": "lea     edx, [esp+4ADCh+pch]"
+        },
+        {
+          "ea": "0x52b3be",
+          "asm": "push    ecx"
+        },
+        {
+          "ea": "0x52b3bf",
+          "asm": "push    eax"
+        },
+        {
+          "ea": "0x52b3c0",
+          "asm": "push    edx"
+        },
+        {
+          "ea": "0x52b3c1",
+          "asm": "call    sub_52B880"
+        },
+        {
+          "ea": "0x52b3c6",
+          "asm": "add     esp, 0Ch"
+        },
+        {
+          "ea": "0x52b3c9",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x52b3cb",
+          "asm": "jz      short loc_52B445"
+        },
+        {
+          "ea": "0x52b3cd",
+          "asm": "mov     eax, dword_104DFCC"
+        },
+        {
+          "ea": "0x52b3d2",
+          "asm": "lea     edx, [esp+4ADCh+var_4A9C]"
+        },
+        {
+          "ea": "0x52b3d6",
+          "asm": "mov     ecx, gSePrimaryBuffers[eax*4]"
+        },
+        {
+          "ea": "0x52b3dd",
+          "asm": "push    ecx; int"
+        },
+        {
+          "ea": "0x52b3de",
+          "asm": "push    edx; int"
+        },
+        {
+          "ea": "0x52b3df",
+          "asm": "push    esi; hmmio"
+        },
+        {
+          "ea": "0x52b3e0",
+          "asm": "call    sub_52B810"
+        },
+        {
+          "ea": "0x52b3e5",
+          "asm": "add     esp, 0Ch"
+        },
+        {
+          "ea": "0x52b3e8",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x52b3ea",
+          "asm": "jz      short loc_52B445"
+        },
+        {
+          "ea": "0x52b3ec",
+          "asm": "push    ebx; fuClose"
+        },
+        {
+          "ea": "0x52b3ed",
+          "asm": "push    esi; hmmio"
+        },
+        {
+          "ea": "0x52b3ee",
+          "asm": "call    ds:mmioClose"
+        },
+        {
+          "ea": "0x52b3f4",
+          "asm": "mov     ebp, [esp+4ADCh+var_4ABC]"
+        },
+        {
+          "ea": "0x52b3f8",
+          "asm": "mov     edi, [esp+4ADCh+var_4AB8]"
+        },
+        {
+          "ea": "0x52b3fc",
+          "asm": "mov     esi, [esp+4ADCh+var_4AC8]"
+        },
+        {
+          "ea": "0x52b400",
+          "asm": "mov     edx, [esp+4ADCh+var_4AC4]"
+        },
+        {
+          "ea": "0x52b404",
+          "asm": "mov     ecx, [esp+4ADCh+var_4AC0]"
+        }
+      ],
+      "note": "当前原会话只读；0x10000 mmioOpenA→52B710→52B880→52B810→mmioClose"
+    },
+    {
+      "function": "0x52BE60",
+      "range": "[0x52BF00,0x52BF4E)",
+      "instructions": [
+        {
+          "ea": "0x52bf00",
+          "asm": "lea     eax, [esi+esi*8]"
+        },
+        {
+          "ea": "0x52bf03",
+          "asm": "push    10000h; fdwOpen"
+        },
+        {
+          "ea": "0x52bf08",
+          "asm": "push    0; pmmioinfo"
+        },
+        {
+          "ea": "0x52bf0a",
+          "asm": "lea     ebp, [esi+eax*2]"
+        },
+        {
+          "ea": "0x52bf0d",
+          "asm": "shl     ebp, 2"
+        },
+        {
+          "ea": "0x52bf10",
+          "asm": "lea     ebx, byte_104DFD0[ebp]"
+        },
+        {
+          "ea": "0x52bf16",
+          "asm": "push    ebx; pszFileName"
+        },
+        {
+          "ea": "0x52bf17",
+          "asm": "call    ds:mmioOpenA"
+        },
+        {
+          "ea": "0x52bf1d",
+          "asm": "mov     edi, eax"
+        },
+        {
+          "ea": "0x52bf1f",
+          "asm": "test    edi, edi"
+        },
+        {
+          "ea": "0x52bf21",
+          "asm": "mov     [esp+34h+hmmio], edi"
+        },
+        {
+          "ea": "0x52bf25",
+          "asm": "jnz     short loc_52BF2F"
+        },
+        {
+          "ea": "0x52bf27",
+          "asm": "pop     edi"
+        },
+        {
+          "ea": "0x52bf28",
+          "asm": "pop     esi"
+        },
+        {
+          "ea": "0x52bf29",
+          "asm": "pop     ebp"
+        },
+        {
+          "ea": "0x52bf2a",
+          "asm": "pop     ebx"
+        },
+        {
+          "ea": "0x52bf2b",
+          "asm": "add     esp, 24h"
+        },
+        {
+          "ea": "0x52bf2e",
+          "asm": "retn"
+        },
+        {
+          "ea": "0x52bf2f",
+          "asm": "lea     ecx, [esp+34h+var_1C]"
+        },
+        {
+          "ea": "0x52bf33",
+          "asm": "lea     edx, [esp+34h+pch]"
+        },
+        {
+          "ea": "0x52bf37",
+          "asm": "push    ecx; int"
+        },
+        {
+          "ea": "0x52bf38",
+          "asm": "push    edx; pch"
+        },
+        {
+          "ea": "0x52bf39",
+          "asm": "push    edi; hmmio"
+        },
+        {
+          "ea": "0x52bf3a",
+          "asm": "call    sub_52B710"
+        },
+        {
+          "ea": "0x52bf3f",
+          "asm": "add     esp, 0Ch"
+        },
+        {
+          "ea": "0x52bf42",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x52bf44",
+          "asm": "jnz     short loc_52BF4E"
+        },
+        {
+          "ea": "0x52bf46",
+          "asm": "pop     edi"
+        },
+        {
+          "ea": "0x52bf47",
+          "asm": "pop     esi"
+        },
+        {
+          "ea": "0x52bf48",
+          "asm": "pop     ebp"
+        },
+        {
+          "ea": "0x52bf49",
+          "asm": "pop     ebx"
+        },
+        {
+          "ea": "0x52bf4a",
+          "asm": "add     esp, 24h"
+        },
+        {
+          "ea": "0x52bf4d",
+          "asm": "retn"
+        }
+      ],
+      "note": "复用CAB08已固化完整原根；相同0x10000 mmioOpenA与52B710头读取"
+    }
+  ],
+  "trace": [
+    {
+      "original": "52B726–52B73C",
+      "fact": "两个20B MMCKINFO先零填/同源复制，未先预清调用者format或length",
+      "source": "MMCKINFO riff {}; MMCKINFO chunk = riff;"
+    },
+    {
+      "original": "52B74F / 52B757 / 52B774 / 52B77C",
+      "fact": "MMIO_FINDRIFF/WAVE，随后在同一riff父块内MMIO_FINDCHUNK/fmt",
+      "source": "ReadPcmWaveHeader_52B710两次mmioDescend沿原父范围"
+    },
+    {
+      "original": "52B790–52B7AD",
+      "fact": "恰好18B mmioRead；短读失败0，格式W16不为1失败0；无额外fmt尺寸门禁",
+      "source": "同一18B WAVEFORMATEX，原PCM比较；无16B解析/额外大小判断"
+    },
+    {
+      "original": "52B7B9–52B7EB",
+      "fact": "mmioAscend成功后同父范围找data；API失败返回0",
+      "source": "第三次mmioDescend使用同一riff/复用chunk"
+    },
+    {
+      "original": "52B7F9–52B80F",
+      "fact": "只在成功公共尾写W32 chunk.cksize，然后返回1；六种失败均不写长度",
+      "source": "一处*dataLength = chunk.cksize；六个return 0及一个return 1"
+    },
+    {
+      "original": "52B810 / 52B880",
+      "fact": "原缓冲创建/锁定/读取PCM/解锁提交由两个函数承担，原私有COM机制仍保留证据",
+      "source": "既有SDL LoadSample实际解码/转换并持有样本，LoadWav/LoadBgmWav与真实通道/流承接缓冲职责；具名原生适配，非原私有参数/返回和全部失败副作用等价"
+    }
+  ],
+  "source_changes": [
+    {
+      "path": "src/LegacyAudio.cpp",
+      "symbols": [
+        "ReadPcmWaveHeader_52B710",
+        "ReadPcmWaveDataLength",
+        "Sub_524230",
+        "LoadAndPlayBGM"
+      ],
+      "change": "用完整原MMIO头入口替换两套手写16B/18B扫描，音效/BGM共用同一路径包装；局部探测HMMIO使用后关闭，SDL仍独占样本/流；移除仅旧扫描使用的limits"
+    },
+    {
+      "path": "src/platform/SdlAudioBackend.cpp",
+      "symbols": [
+        "LoadSample",
+        "SdlAudioBackend::LoadWav",
+        "SdlAudioBackend::LoadBgmWav",
+        "PrepareChannel"
+      ],
+      "change": "本轮无源码改动；仅关联原52B810/52B880的现有SDL样本/缓冲职责，不恢复COM或新增空函数"
+    }
+  ],
+  "static_checks": {
+    "utf8": "pass",
+    "six_failure_branches_and_success_only_output": "pass",
+    "format_18_bytes_and_same_riff_parent": "pass",
+    "original_two_callers_use_single_header": "pass",
+    "existing_winmm_and_sdl_dependency": "pass",
+    "probe_handle_closed": "pass",
+    "unrelated_source_kept": "pass"
+  },
+  "mechanism_boundary": "MMIO头入口保原字段/顺序/返回，HMMIO/format/dataLength的地址按x64拓宽，非地址W16/W32与20B/18B容量保持。路径包装只探测头部，关闭后仍由SDL加载解码；原两父全部失败残留、截短PCM读取/提交返回、设备/所有权/正常退出不因职责映射视为已验收。",
+  "remaining": [
+    "固定WAV九个原职责继续开发/映射，旧音频设置外层仍待真实路由",
+    "当前源码未编译/运行，不覆盖游戏目录CAB05修复版，真实登录仍待反馈",
+    "完整音频/设备/资源/波形/通知/失败与生命周期、原生ABI及整体SPEC保持开放"
+  ],
+  "compile_verified": false,
+  "runtime_verified": false,
+  "global_accepted": false
+}

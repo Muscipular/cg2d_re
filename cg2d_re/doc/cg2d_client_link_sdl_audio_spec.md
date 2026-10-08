@@ -93,3 +93,21 @@ SetBgmVolume/SetChannelVolume已改用SDL流增益，删除Channel.volume和回�
 当前四根706条1999B已固化在[原指令与源码证据](cg2d_streaming_bgm_prefill_evidence.json)，对应原身份分开登记为SDL职责适配。新增三现源的UTF-8、完整PCM长度→线程→ready→smpl终点→原后续父序、队列/游标保持、普通通道终点及声明/定义限定静态通过；根据HEAD逐片重放新增差异，其他源码正文保持。静态结果不代当前链接、原全部失败/诊断状态、线程调度或波形/停止通知/正常退出验收，FUNC-AUDIO和V05完整门禁保持开放。
 
 固定源码快照cg2d-re-streaming-bgm-prefill-20261009。本步未编译、运行或替换游戏目录程序；当前游戏EXE仍为CAB05网络修复版，真实登录结果待用户反馈。旧99表实际外层来源仍未确定，未以缺少引用判不可达，也未新增轮询或强转原x86地址。剩余12个音频待映射项须按实际职责/代码继续推进，不以范围恢复或局部关联计为完成。
+
+<a id="pcm-wave-header-decision"></a>
+## CAB09 共用 PCM WAV 头读取与 SDL 样本职责（2026-10-09）
+
+原524230@52B392及52BE60@52BF3A共用52B710完整114条256B：两个20B MMCKINFO先同源清零/复制，以MMIO_FINDRIFF找WAVE，再在该父块内以MMIO_FINDCHUNK找fmt；向调用者缓冲读取恰好18B、确认W16格式1，mmioAscend成功后找data，最后才写W32长度并返回1。每个API失败/短读/非PCM均返回0；不额外判断fmt大小、预清格式输出或改成16B读取，失败不写长度。两父mmioOpenA均使用原0x10000。
+
+现有两套手写解析分别读16B/18B，且自行扫描块，不能替原共同定位合同。本步还原私有ReadPcmWaveHeader_52B710，使用既有WinMM mmio文件API与原字段/宽度/顺序；一条现有职责内的路径包装供音效/BGM共用，保持本线探测文件使用后关闭的寿命。WinMM仅读取头部，SDL3继续实际样本加载、转换、缓冲创建和播放，不改CMake或引入依赖。原52B880缓冲创建和52B810填充/提交职责关联真实SDL LoadSample/LoadWav/LoadBgmWav，沿CAA01原生机制替换，不补伪造COM对象、锁区或空函数；原完整失败残留、线程/资源/声音与正常退出仍单独验收。
+
+本次只修已发现的共用读取差异及具名来源，静态核对原114条/两caller窗口和现源新增差异；不编译、测试、运行或计算摘要，WAV、第二段空音频、GBK/宋体/ASCII光标与原明文网络格式保持。
+
+<a id="pcm-wave-header-source-state"></a>
+## CAB09 实际源码与限定结果（2026-10-09）
+
+LegacyAudio.cpp已用ReadPcmWaveHeader_52B710完整体替换IsPcmWave/ReadBgmWaveDataLength两套手写扫描；ReadPcmWaveDataLength按原MMIO_ALLOCBUF打开、借18B格式缓冲和W32长度调用同一真实入口、使用后关闭HMMIO。音效524230与BGM 52BE60各接一次，SDL样本/流所有权保持。本轮不改SDL提供者或CMake，winmm已有链接；地址按x64拓宽，两个20B块结构和18B格式容量设静态断言。
+
+三个原根186条441B及两caller窗口90条保存在[持久证据](cg2d_pcm_wave_header_evidence.json)。新增源的UTF-8、六失败/唯一成功输出、18B与同一父块、两调用接线、局部文件关闭和现有依赖静态通过；逐片对HEAD重放仅本步差异，其他正文保持。52B710按原头入口纳管，52B810/52B880只按已批准SDL样本/缓冲职责适配纳管，不生成旧COM假体，不以来源对应宣称原全部失败残留/截短PCM/提交返回或声音/寿命已通过。
+
+源码快照cg2d-re-pcm-wave-header-20261009；三项原身份已有具名来源，固定WAV剩余九项继续开发。当前源码未编译或运行，游戏目录仍是CAB05明文连接修复版，真实登录待用户反馈；完整音频、旧页面外层、原生ABI和整体SPEC门禁保持开放。

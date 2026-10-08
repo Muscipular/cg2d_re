@@ -213135,6 +213135,111 @@
         "runtime_verified": false
       },
       "verification_level": "当前原会话四根完整字节/指令与三个现源新增差异限定静态，未编译/测试/运行或摘要"
+    },
+    {
+      "original_entry": "0x52B710",
+      "inventory_id": "F:0012B710",
+      "status": "CAB09共用PCM头入口已完整还原并真实接音效/BGM；原缓冲创建/填充职责具名关联现有SDL提供者，限定静态通过，全部失败/正常寿命及编译运行未验",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "ReadPcmWaveHeader_52B710",
+            "ReadPcmWaveDataLength",
+            "Sub_524230",
+            "LoadAndPlayBGM"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#pcm-wave-header-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#pcm-wave-header-source-state",
+        "doc/cg2d_pcm_wave_header_evidence.json"
+      ],
+      "original_end_exclusive": "0x52B810",
+      "instruction_count": 114,
+      "original_byte_count": 256,
+      "boundary": "三个原根186条441B、两caller窗口90条；52B710原两20B零填/复制、同一RIFF父范围WAVE/fmt/data定位、18B格式/PCM门槛、六失败与成功后唯一W32长度发布保持。WinMM仅私有头探测，现有SDL负责样本解码/转换、创建与填充；52B810/52B880来源适配不代原COM/锁区、全部失败残留/截短PCM/提交返回、设备/声音/生命周期验收。",
+      "pcm_wave_header_contract": {
+        "step": "CAB09",
+        "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#pcm-wave-header-decision",
+        "source_snapshot": "cg2d-re-pcm-wave-header-20261009",
+        "shared_header_wired": true,
+        "buffer_native_mechanism": "existing_sdl3",
+        "compile_verified": false,
+        "runtime_verified": false
+      },
+      "verification_level": "完整原52B710 114条256B与两caller窗口、既有52B810/52B880字节和一个现源新增差异限定静态；未编译/测试/运行或摘要"
+    },
+    {
+      "original_entry": "0x52B810",
+      "inventory_id": "F:0012B810",
+      "status": "CAB09共用PCM头入口已完整还原并真实接音效/BGM；原缓冲创建/填充职责具名关联现有SDL提供者，限定静态通过，全部失败/正常寿命及编译运行未验",
+      "sources": [
+        {
+          "path": "src/platform/SdlAudioBackend.cpp",
+          "symbols": [
+            "LoadSample",
+            "SdlAudioBackend::LoadWav",
+            "SdlAudioBackend::LoadBgmWav",
+            "PrepareChannel"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#pcm-wave-header-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#pcm-wave-header-source-state",
+        "doc/cg2d_pcm_wave_header_evidence.json"
+      ],
+      "original_end_exclusive": "0x52B877",
+      "instruction_count": 45,
+      "original_byte_count": 103,
+      "boundary": "三个原根186条441B、两caller窗口90条；52B710原两20B零填/复制、同一RIFF父范围WAVE/fmt/data定位、18B格式/PCM门槛、六失败与成功后唯一W32长度发布保持。WinMM仅私有头探测，现有SDL负责样本解码/转换、创建与填充；52B810/52B880来源适配不代原COM/锁区、全部失败残留/截短PCM/提交返回、设备/声音/生命周期验收。",
+      "pcm_wave_header_contract": {
+        "step": "CAB09",
+        "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#pcm-wave-header-decision",
+        "source_snapshot": "cg2d-re-pcm-wave-header-20261009",
+        "shared_header_wired": true,
+        "buffer_native_mechanism": "existing_sdl3",
+        "compile_verified": false,
+        "runtime_verified": false
+      },
+      "verification_level": "完整原52B710 114条256B与两caller窗口、既有52B810/52B880字节和一个现源新增差异限定静态；未编译/测试/运行或摘要"
+    },
+    {
+      "original_entry": "0x52B880",
+      "inventory_id": "F:0012B880",
+      "status": "CAB09共用PCM头入口已完整还原并真实接音效/BGM；原缓冲创建/填充职责具名关联现有SDL提供者，限定静态通过，全部失败/正常寿命及编译运行未验",
+      "sources": [
+        {
+          "path": "src/platform/SdlAudioBackend.cpp",
+          "symbols": [
+            "LoadSample",
+            "SdlAudioBackend::LoadWav",
+            "SdlAudioBackend::LoadBgmWav",
+            "PrepareChannel"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#pcm-wave-header-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#pcm-wave-header-source-state",
+        "doc/cg2d_pcm_wave_header_evidence.json"
+      ],
+      "original_end_exclusive": "0x52B8D2",
+      "instruction_count": 27,
+      "original_byte_count": 82,
+      "boundary": "三个原根186条441B、两caller窗口90条；52B710原两20B零填/复制、同一RIFF父范围WAVE/fmt/data定位、18B格式/PCM门槛、六失败与成功后唯一W32长度发布保持。WinMM仅私有头探测，现有SDL负责样本解码/转换、创建与填充；52B810/52B880来源适配不代原COM/锁区、全部失败残留/截短PCM/提交返回、设备/声音/生命周期验收。",
+      "pcm_wave_header_contract": {
+        "step": "CAB09",
+        "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#pcm-wave-header-decision",
+        "source_snapshot": "cg2d-re-pcm-wave-header-20261009",
+        "shared_header_wired": true,
+        "buffer_native_mechanism": "existing_sdl3",
+        "compile_verified": false,
+        "runtime_verified": false
+      },
+      "verification_level": "完整原52B710 114条256B与两caller窗口、既有52B810/52B880字节和一个现源新增差异限定静态；未编译/测试/运行或摘要"
     }
   ]
 }

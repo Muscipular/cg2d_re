@@ -877,3 +877,7 @@
 ## 2026-10-09 cg2d_re 流式预填与排队音量修正
 
 修正流式BGM完整PCM长度→一秒预填→ready→smpl终点发布，并改用SDL流增益使音量在取出排队数据时应用，固定WAV不重复衰减。四原根706条1999B与三现源新增差异静态通过，音频待定位16→12；未编译或运行，旧外层/全部失败状态、真实声音/通知与正常寿命仍待。现有SPEC/台账同步，整体目标继续；详见cg2d_re/plan/cg2d_full_reconstruction_progress.md，快照cg2d-re-streaming-bgm-prefill-20261009。
+
+## 2026-10-09 cg2d_re 共用 PCM WAV 头读取
+
+还原原52B710完整18B MMIO头读取，替换音效/BGM两套不同解析并接两实际父；SDL3继续样本/缓冲/播放，原两缓冲职责具名关联，不新增依赖或COM假体。三根186条441B、两caller窗口90条与一个现源差异静态通过，待定位音频12→9；未编译/运行，完整失败/资源/声音/寿命仍待。SPEC/台账同步，整体目标继续；详见cg2d_re/plan/cg2d_full_reconstruction_progress.md，快照cg2d-re-pcm-wave-header-20261009。

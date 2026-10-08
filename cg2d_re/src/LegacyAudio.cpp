@@ -22,7 +22,6 @@
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
-#include <limits>
 #include <string>
 
 #define WIN32_LEAN_AND_MEAN
@@ -194,107 +193,50 @@ constexpr std::array<SeInitEntry, 270> kSeInit524230 {{
 #include "LegacySeDefinitions.inc"
 }};
 
-// 原 52B710 的 RIFF/WAVE、PCM fmt 和后续 data 门禁，样本解码仍交给 SDL。
-bool IsPcmWave(const char* const path)
+// 原52B710：同一RIFF父块内定位fmt/data，完整18B格式读取后才发布W32数据长度。
+std::int32_t ReadPcmWaveHeader_52B710(
+    const HMMIO input, WAVEFORMATEX* const format, std::uint32_t* const dataLength)
 {
-    std::FILE* const file = std::fopen(path, "rb");
-    if (file == nullptr) {
-        return false;
+    static_assert(sizeof(MMCKINFO) == 20);
+    static_assert(sizeof(WAVEFORMATEX) == 18);
+    MMCKINFO riff {};
+    MMCKINFO chunk = riff;
+    riff.fccType = mmioFOURCC('W', 'A', 'V', 'E');
+    if (::mmioDescend(input, &riff, nullptr, MMIO_FINDRIFF) != 0) {
+        return 0;
     }
-
-    std::uint8_t header[12] {};
-    bool valid = false;
-    if (std::fread(header, 1, sizeof(header), file) == sizeof(header)
-        && std::memcmp(header, "RIFF", 4) == 0
-        && std::memcmp(header + 8, "WAVE", 4) == 0) {
-        bool pcmFormat = false;
-        std::uint8_t chunk[8] {};
-        while (std::fread(chunk, 1, sizeof(chunk), file) == sizeof(chunk)) {
-            const std::uint32_t size =
-                static_cast<std::uint32_t>(chunk[4])
-                | static_cast<std::uint32_t>(chunk[5]) << 8
-                | static_cast<std::uint32_t>(chunk[6]) << 16
-                | static_cast<std::uint32_t>(chunk[7]) << 24;
-            if (std::memcmp(chunk, "data", 4) == 0 && pcmFormat) {
-                valid = true;
-                break;
-            }
-            if (std::memcmp(chunk, "fmt ", 4) == 0) {
-                std::uint8_t format[16] {};
-                if (size < sizeof(format)
-                    || std::fread(format, 1, sizeof(format), file) != sizeof(format)
-                    || format[0] != 1 || format[1] != 0) {
-                    break;
-                }
-                pcmFormat = true;
-                if (size - sizeof(format)
-                    > static_cast<std::uint32_t>((std::numeric_limits<long>::max)() - 1)
-                    || std::fseek(file,
-                        static_cast<long>(size - sizeof(format) + (size & 1u)),
-                        SEEK_CUR) != 0) {
-                    break;
-                }
-            } else if (size > static_cast<std::uint32_t>(
-                    (std::numeric_limits<long>::max)() - 1)
-                || std::fseek(file, static_cast<long>(size + (size & 1u)),
-                    SEEK_CUR) != 0) {
-                break;
-            }
-        }
+    chunk.ckid = mmioFOURCC('f', 'm', 't', ' ');
+    if (::mmioDescend(input, &chunk, &riff, MMIO_FINDCHUNK) != 0) {
+        return 0;
     }
-    std::fclose(file);
-    return valid;
+    if (::mmioRead(input, reinterpret_cast<HPSTR>(format), 18) != 18) {
+        return 0;
+    }
+    if (format->wFormatTag != WAVE_FORMAT_PCM) {
+        return 0;
+    }
+    if (::mmioAscend(input, &chunk, 0) != 0) {
+        return 0;
+    }
+    chunk.ckid = mmioFOURCC('d', 'a', 't', 'a');
+    if (::mmioDescend(input, &chunk, &riff, MMIO_FINDCHUNK) != 0) {
+        return 0;
+    }
+    *dataLength = chunk.cksize;
+    return 1;
 }
 
-// 52B710：先定位 WAVE/fmt，再读 18 字节并定位 data；16 字节 fmt 可跨读后续 chunk 头。
-bool ReadBgmWaveDataLength(const char* const path, std::uint32_t& dataLength)
+// 音效与BGM共用原头读取；仅探测文件，样本解码/缓冲与播放继续由SDL持有。
+bool ReadPcmWaveDataLength(const char* const path, std::uint32_t& dataLength)
 {
-    std::FILE* const file = std::fopen(path, "rb");
-    if (file == nullptr) {
+    const HMMIO input = ::mmioOpenA(const_cast<char*>(path), nullptr, MMIO_ALLOCBUF);
+    if (input == nullptr) {
         return false;
     }
-
-    std::uint8_t header[12] {};
-    bool valid = false;
-    if (std::fread(header, 1, sizeof(header), file) == sizeof(header)
-        && std::memcmp(header, "RIFF", 4) == 0
-        && std::memcmp(header + 8, "WAVE", 4) == 0) {
-        bool pcmFormat = false;
-        std::uint8_t chunk[8] {};
-        while (std::fread(chunk, 1, sizeof(chunk), file) == sizeof(chunk)) {
-            const std::uint32_t size =
-                static_cast<std::uint32_t>(chunk[4])
-                | static_cast<std::uint32_t>(chunk[5]) << 8
-                | static_cast<std::uint32_t>(chunk[6]) << 16
-                | static_cast<std::uint32_t>(chunk[7]) << 24;
-            if (std::memcmp(chunk, "data", 4) == 0 && pcmFormat) {
-                dataLength = size;
-                valid = true;
-                break;
-            }
-            if (std::memcmp(chunk, "fmt ", 4) == 0) {
-                std::uint8_t format[18] {};
-                const long offset = std::ftell(file);
-                if (std::fread(format, 1, sizeof(format), file) != sizeof(format)
-                    || format[0] != 1 || format[1] != 0) {
-                    break;
-                }
-                pcmFormat = true;
-                if (std::fseek(
-                        file,
-                        offset + static_cast<long>(size + (size & 1u)),
-                        SEEK_SET) != 0) {
-                    break;
-                }
-            } else if (std::fseek(
-                    file, static_cast<long>(size + (size & 1u)),
-                    SEEK_CUR) != 0) {
-                break;
-            }
-        }
-    }
-    std::fclose(file);
-    return valid;
+    WAVEFORMATEX format;
+    const std::int32_t result = ReadPcmWaveHeader_52B710(input, &format, &dataLength);
+    static_cast<void>(::mmioClose(input, 0));
+    return result != 0;
 }
 
 std::string AudioPathToUtf8(const char* const path)
@@ -617,7 +559,8 @@ std::int32_t Sub_524230()
         }
 
         const std::string utf8Path = AudioPathToUtf8(openPath);
-        if (utf8Path.empty() || !IsPcmWave(openPath)
+        std::uint32_t dataLength;
+        if (utf8Path.empty() || !ReadPcmWaveDataLength(openPath, dataLength)
             || !gSdlAudioBackend.LoadWav(
                 static_cast<std::size_t>(gSampleCount104DFCC),
                 utf8Path.c_str())) {
@@ -1486,7 +1429,7 @@ std::int32_t LoadAndPlayBGM(const std::uint32_t bgmId)
     const LegacyAudioRecord& record =
         gRecords[static_cast<std::size_t>(bgmId)];
     std::uint32_t dataLength = 0;
-    if (!audio::ReadBgmWaveDataLength(record.path, dataLength)) {
+    if (!audio::ReadPcmWaveDataLength(record.path, dataLength)) {
         return 0;
     }
     const std::string path = audio::AudioPathToUtf8(record.path);

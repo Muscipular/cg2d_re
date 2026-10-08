@@ -6479,10 +6479,13 @@
       "scope": "included",
       "baseline_documents": [
         "doc/ui_windows/legacy_album_detail.md",
-        "doc/cg2d_album_preview_sampling_spec.md#album-preview-baseline"
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-baseline",
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-baseline"
       ],
       "original_inventory_ids": [
-        "F:000F6220"
+        "F:000F6220",
+        "F:000F61C0",
+        "F:000F6BF0"
       ],
       "closure_task_ids": [
         "U04",
@@ -6493,16 +6496,19 @@
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
       "decision_refs": [
-        "doc/cg2d_album_preview_sampling_spec.md#album-preview-decision"
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-decision",
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-decision"
       ],
       "blockers": [
         "原成员、传递依赖和逐门禁证据待归档",
-        "BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。"
+        "BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。",
+        "BVY01图鉴生产/评级两正确叶完整70条208B/两页、两direct两目标/零间接、六跳两RET；五评级CALL与一个初始化callback DATA引用分列。D67D14先取→CC40D0清→存在返原对象/空才按原读序创建发布，原图号/221层和失败空发布、评级1..10及两图/坐标/逐项绘制保持；原关闭13条43B沿BVX01窗口复用：先5186A0保存再fresh预览→同MarkDeath→清槽/原混合返回。源码/头全保持、零新I/函数/API/helper/owner，两新原新1805/1806与两adapted F、旧24一主父→三实际成员，仅一个限定S。旧1044与有记录fresh/空记录实修和731存档/1126共享工厂既有合同复用，通用资源回收/全部父消费者/旧外路由/正常alias寿命、机器ABI/画面运行仍待；原格式明文、音频暂停/RPLAN.24与完整门禁保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
-        "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state"
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state",
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state"
       ]
     },
     {
@@ -49900,6 +49906,46 @@
       "observation": "BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。",
       "expected": "BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。",
       "actual": "BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。"
+    },
+    {
+      "id": "E-ALBUM-PREVIEW-LIFECYCLE-UI-L-024-S-20261008",
+      "feature_id": "UI-L-024",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVY01两正确叶70条208B/两页；五CALL/一DATA分列，关闭13条43B复用旧窗，源码保持、零新I。doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-album-preview-lifecycle-baseline-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4F61C0",
+        "src/LegacyUiRecord.cpp#Sub_4F6BF0",
+        "src/LegacyUiRecord.cpp#Sub_4F6220",
+        "src/LegacyUiRecord.cpp#gLegacyAlbumActionD67D14",
+        "src/LegacyUiRecord.cpp#gLegacyAlbumReturningCC40D0",
+        "src/YobiRuntime.cpp#Sub_4F9FF0",
+        "src/YobiRuntime.cpp#MarkDeath",
+        "src/world/SceneState.cpp#Sub_5186A0",
+        "src/world/SceneState.cpp#BorrowSelectedAlbumRecords",
+        "src/LegacyPanelRuntime.hpp",
+        "doc/ui_windows/legacy_album_detail.md",
+        "doc/cg2d_album_preview_sampling_evidence.json",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_album_preview_lifecycle_baseline_evidence.json",
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-baseline",
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-decision",
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-acceptance",
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BVY01图鉴生产/评级两正确叶完整70条208B/两页、两direct两目标/零间接、六跳两RET；五评级CALL与一个初始化callback DATA引用分列。D67D14先取→CC40D0清→存在返原对象/空才按原读序创建发布，原图号/221层和失败空发布、评级1..10及两图/坐标/逐项绘制保持；原关闭13条43B沿BVX01窗口复用：先5186A0保存再fresh预览→同MarkDeath→清槽/原混合返回。源码/头全保持、零新I/函数/API/helper/owner，两新原新1805/1806与两adapted F、旧24一主父→三实际成员，仅一个限定S。旧1044与有记录fresh/空记录实修和731存档/1126共享工厂既有合同复用，通用资源回收/全部父消费者/旧外路由/正常alias寿命、机器ABI/画面运行仍待；原格式明文、音频暂停/RPLAN.24与完整门禁保。",
+          "decision_ref": "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVY01图鉴生产/评级两正确叶完整70条208B/两页、两direct两目标/零间接、六跳两RET；五评级CALL与一个初始化callback DATA引用分列。D67D14先取→CC40D0清→存在返原对象/空才按原读序创建发布，原图号/221层和失败空发布、评级1..10及两图/坐标/逐项绘制保持；原关闭13条43B沿BVX01窗口复用：先5186A0保存再fresh预览→同MarkDeath→清槽/原混合返回。源码/头全保持、零新I/函数/API/helper/owner，两新原新1805/1806与两adapted F、旧24一主父→三实际成员，仅一个限定S。旧1044与有记录fresh/空记录实修和731存档/1126共享工厂既有合同复用，通用资源回收/全部父消费者/旧外路由/正常alias寿命、机器ABI/画面运行仍待；原格式明文、音频暂停/RPLAN.24与完整门禁保。",
+      "expected": "BVY01图鉴生产/评级两正确叶完整70条208B/两页、两direct两目标/零间接、六跳两RET；五评级CALL与一个初始化callback DATA引用分列。D67D14先取→CC40D0清→存在返原对象/空才按原读序创建发布，原图号/221层和失败空发布、评级1..10及两图/坐标/逐项绘制保持；原关闭13条43B沿BVX01窗口复用：先5186A0保存再fresh预览→同MarkDeath→清槽/原混合返回。源码/头全保持、零新I/函数/API/helper/owner，两新原新1805/1806与两adapted F、旧24一主父→三实际成员，仅一个限定S。旧1044与有记录fresh/空记录实修和731存档/1126共享工厂既有合同复用，通用资源回收/全部父消费者/旧外路由/正常alias寿命、机器ABI/画面运行仍待；原格式明文、音频暂停/RPLAN.24与完整门禁保。",
+      "actual": "BVY01图鉴生产/评级两正确叶完整70条208B/两页、两direct两目标/零间接、六跳两RET；五评级CALL与一个初始化callback DATA引用分列。D67D14先取→CC40D0清→存在返原对象/空才按原读序创建发布，原图号/221层和失败空发布、评级1..10及两图/坐标/逐项绘制保持；原关闭13条43B沿BVX01窗口复用：先5186A0保存再fresh预览→同MarkDeath→清槽/原混合返回。源码/头全保持、零新I/函数/API/helper/owner，两新原新1805/1806与两adapted F、旧24一主父→三实际成员，仅一个限定S。旧1044与有记录fresh/空记录实修和731存档/1126共享工厂既有合同复用，通用资源回收/全部父消费者/旧外路由/正常alias寿命、机器ABI/画面运行仍待；原格式明文、音频暂停/RPLAN.24与完整门禁保。"
     }
   ],
   "task_acceptance": [
@@ -50805,7 +50851,8 @@
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state",
         "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state",
         "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state",
-        "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state"
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state",
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state"
       ]
     },
     {
@@ -51112,7 +51159,8 @@
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state",
         "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state",
         "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state",
-        "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state"
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state",
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state"
       ]
     },
     {
@@ -51299,7 +51347,8 @@
         "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state",
         "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state",
         "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state",
-        "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state"
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state",
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state"
       ]
     },
     {
@@ -51449,7 +51498,8 @@
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state",
         "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state",
         "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state",
-        "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state"
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state",
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state"
       ]
     },
     {
@@ -63186,6 +63236,30 @@
         "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state"
       ],
       "boundary": "BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。"
+    },
+    {
+      "inventory_id": "F:000F61C0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-baseline",
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-decision",
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-acceptance",
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state"
+      ],
+      "boundary": "4F61C0图鉴初始化：先持样D67D14，随后无条件清CC40D0；旧预览存在直接返同T*，空才原序读panel Y/X、当前角色S16/选择S32/记录image+8，以(x+136,y+145,221)原工厂创建并发布包括空返回，不要求used或提前重映图号。唯一4F62B3初始化指针DATA引用分列，原503160回调语境/当前void lambda弃返及共享槽消费者有据，不当普通CALL或旧表分派证明。 BVY01图鉴生产/评级两正确叶完整70条208B/两页、两direct两目标/零间接、六跳两RET；五评级CALL与一个初始化callback DATA引用分列。D67D14先取→CC40D0清→存在返原对象/空才按原读序创建发布，原图号/221层和失败空发布、评级1..10及两图/坐标/逐项绘制保持；原关闭13条43B沿BVX01窗口复用：先5186A0保存再fresh预览→同MarkDeath→清槽/原混合返回。源码/头全保持、零新I/函数/API/helper/owner，两新原新1805/1806与两adapted F、旧24一主父→三实际成员，仅一个限定S。旧1044与有记录fresh/空记录实修和731存档/1126共享工厂既有合同复用，通用资源回收/全部父消费者/旧外路由/正常alias寿命、机器ABI/画面运行仍待；原格式明文、音频暂停/RPLAN.24与完整门禁保。"
+    },
+    {
+      "inventory_id": "F:000F6BF0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-baseline",
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-decision",
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-acceptance",
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state"
+      ],
+      "boundary": "4F6BF0评级绘制：原S32 rating+1，只1..10继续；x+4/y+8，逐项x间隔8、图号22901/22902按序号signed余数2选择，layer沿原低U8绘图边界；五活动父点弃原不确定EAX返回，当前void接口不扩成通用机器ABI。真DrawGraphic逐项结果按原弃用，不加钳制、额外取数/条件或异常模拟，原正常RPLAN.24算术保。 BVY01图鉴生产/评级两正确叶完整70条208B/两页、两direct两目标/零间接、六跳两RET；五评级CALL与一个初始化callback DATA引用分列。D67D14先取→CC40D0清→存在返原对象/空才按原读序创建发布，原图号/221层和失败空发布、评级1..10及两图/坐标/逐项绘制保持；原关闭13条43B沿BVX01窗口复用：先5186A0保存再fresh预览→同MarkDeath→清槽/原混合返回。源码/头全保持、零新I/函数/API/helper/owner，两新原新1805/1806与两adapted F、旧24一主父→三实际成员，仅一个限定S。旧1044与有记录fresh/空记录实修和731存档/1126共享工厂既有合同复用，通用资源回收/全部父消费者/旧外路由/正常alias寿命、机器ABI/画面运行仍待；原格式明文、音频暂停/RPLAN.24与完整门禁保。"
     }
   ],
   "auxiliary_dispositions": [

@@ -8,13 +8,13 @@
 | 指标 | 当前值 | 含义/限制 |
 |---|---:|---|
 | 原函数纳管 | 3680/3680 | 仅库存身份完整 |
-| 合同文件关联 | 1915/3680（52.04%） | 文件关联率，不是功能/基线验收完成率 |
-| 尚无合同关联 | 1765 | 完整ID见快照metrics.functions_without_document_links；可能已有局部合同尚未机器登记 |
+| 合同文件关联 | 1917/3680（52.09%） | 文件关联率，不是功能/基线验收完成率 |
+| 尚无合同关联 | 1763 | 完整ID见快照metrics.functions_without_document_links；可能已有局部合同尚未机器登记 |
 | 历史源码定位 | 2762 | 自动定位快照，非当前实现数 |
-| 语义登记 | 1805条/1798个原ID | 无独立函数ID另列7条，其中原区间绑定 |
+| 语义登记 | 1807条/1800个原ID | 无独立函数ID另列7条，其中原区间绑定 |
 | 具名分类引用 | 120个原ID | 含排除/混合/合并，不计为实现 |
 | 已具名全入口排除 / 混合入口 | 113 / 3 | 不计为实现/验收；混合入口不得整体扣除 |
-| 已审核函数处置 | 961/3680 | 初始仅导入关系，未逐ID重新认定 |
+| 已审核函数处置 | 963/3680 | 初始仅导入关系，未逐ID重新认定 |
 | 导入槽 / 未归属区间 | 218 / 3061 | 全部保留稳定ID；已审处置16 / 467 |
 | 已登记叶功能 | 182 | 非全功能分母；域不重复计入，暂停保留 |
 | 已验收叶功能 | 0/182 | 仅登记集合，不能代表整体完成率 |
@@ -147,7 +147,7 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 | UI-L-021 | included：旧选择21：宠物资料 | [legacy_pet_detail](../doc/ui_windows/legacy_pet_detail.md) | 0/3 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-022 | included：旧选择22：宠物改名 | [legacy_pet_rename](../doc/ui_windows/legacy_pet_rename.md) | 0/0 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-023 | included：旧选择23：图鉴列表 | [legacy_album_list](../doc/ui_windows/legacy_album_list.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
-| UI-L-024 | included：旧选择24：图鉴详情 | [legacy_album_detail](../doc/ui_windows/legacy_album_detail.md)、[cg2d_album_preview_sampling_spec](../doc/cg2d_album_preview_sampling_spec.md#album-preview-baseline) | 1/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
+| UI-L-024 | included：旧选择24：图鉴详情 | [legacy_album_detail](../doc/ui_windows/legacy_album_detail.md)、[cg2d_album_preview_sampling_spec](../doc/cg2d_album_preview_sampling_spec.md#album-preview-baseline)、[cg2d_album_preview_lifecycle_baseline_spec](../doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-baseline) | 3/3 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-025 | included：旧选择25：制造配方 | [legacy_craft_recipes](../doc/ui_windows/legacy_craft_recipes.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-026 | included：旧选择26：制造执行 | [legacy_craft_execution](../doc/ui_windows/legacy_craft_execution.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-027 | included：旧选择27：制造材料 | [legacy_craft_materials](../doc/ui_windows/legacy_craft_materials.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |

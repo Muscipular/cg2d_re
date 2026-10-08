@@ -1,0 +1,1279 @@
+{
+  "schema_version": 1,
+  "spec_id": "BVY01",
+  "recorded_on": "2026-10-08",
+  "baseline_snapshot": "cg2d-re-album-preview-sampling-20261008",
+  "implementation_snapshot": "cg2d-re-album-preview-lifecycle-baseline-20261008",
+  "evidence_refs": [
+    "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-baseline",
+    "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-decision",
+    "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-acceptance",
+    "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state"
+  ],
+  "artifacts": [
+    "src/LegacyUiRecord.cpp#Sub_4F61C0",
+    "src/LegacyUiRecord.cpp#Sub_4F6BF0",
+    "src/LegacyUiRecord.cpp#Sub_4F6220",
+    "src/LegacyUiRecord.cpp#gLegacyAlbumActionD67D14",
+    "src/LegacyUiRecord.cpp#gLegacyAlbumReturningCC40D0",
+    "src/YobiRuntime.cpp#Sub_4F9FF0",
+    "src/YobiRuntime.cpp#MarkDeath",
+    "src/world/SceneState.cpp#Sub_5186A0",
+    "src/world/SceneState.cpp#BorrowSelectedAlbumRecords",
+    "src/LegacyPanelRuntime.hpp",
+    "doc/ui_windows/legacy_album_detail.md",
+    "doc/cg2d_album_preview_sampling_evidence.json",
+    "doc/cg2d_stdio_contract.md",
+    "doc/cg2d_album_preview_lifecycle_baseline_evidence.json",
+    "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-baseline",
+    "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-decision",
+    "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-acceptance",
+    "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state"
+  ],
+  "original_functions": [
+    {
+      "start": "0x4f61c0",
+      "end_exclusive": "0x4f6220",
+      "count": 24,
+      "chunks": [
+        [
+          "0x4f61c0",
+          "0x4f6220"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 1,
+          "code": false,
+          "function": "0x4f6220",
+          "text": "push    offset sub_4F61C0",
+          "from": "0x4f62b3"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x4f61c0",
+          "size": 5,
+          "bytes": "a1147dd600",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_D67D14",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f61c5",
+          "size": 10,
+          "bytes": "c705d040cc0000000000",
+          "mnemonic": "mov",
+          "text": "mov     dword_CC40D0, 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f61cf",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f61d1",
+          "size": 2,
+          "bytes": "754c",
+          "mnemonic": "jnz",
+          "text": "jnz     short locret_4F621F",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f61d3",
+          "size": 5,
+          "bytes": "a1c4465800",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_5846C4",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f61d8",
+          "size": 6,
+          "bytes": "8b0dc0465800",
+          "mnemonic": "mov",
+          "text": "mov     ecx, dword_5846C0",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f61de",
+          "size": 5,
+          "bytes": "0591000000",
+          "mnemonic": "add",
+          "text": "add     eax, 91h",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f61e3",
+          "size": 5,
+          "bytes": "68dd000000",
+          "mnemonic": "push",
+          "text": "push    0DDh",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f61e8",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f61e9",
+          "size": 6,
+          "bytes": "81c188000000",
+          "mnemonic": "add",
+          "text": "add     ecx, 88h",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f61ef",
+          "size": 7,
+          "bytes": "0fbf05080cff00",
+          "mnemonic": "movsx",
+          "text": "movsx   eax, gSelectedChara",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f61f6",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f61f7",
+          "size": 6,
+          "bytes": "8b0d7cafc800",
+          "mnemonic": "mov",
+          "text": "mov     ecx, dword_C8AF7C",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f61fd",
+          "size": 3,
+          "bytes": "8d0440",
+          "mnemonic": "lea",
+          "text": "lea     eax, [eax+eax*2]",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6200",
+          "size": 3,
+          "bytes": "8d1480",
+          "mnemonic": "lea",
+          "text": "lea     edx, [eax+eax*4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6203",
+          "size": 3,
+          "bytes": "c1e206",
+          "mnemonic": "shl",
+          "text": "shl     edx, 6",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6206",
+          "size": 2,
+          "bytes": "03d1",
+          "mnemonic": "add",
+          "text": "add     edx, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6208",
+          "size": 3,
+          "bytes": "c1e207",
+          "mnemonic": "shl",
+          "text": "shl     edx, 7",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f620b",
+          "size": 6,
+          "bytes": "8b82fc43da00",
+          "mnemonic": "mov",
+          "text": "mov     eax, gAlbum.entries.imageNo[edx]",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6211",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6212",
+          "size": 5,
+          "bytes": "e8d93d0000",
+          "mnemonic": "call",
+          "text": "call    sub_4F9FF0",
+          "call_target": "0x4f9ff0"
+        },
+        {
+          "ea": "0x4f6217",
+          "size": 3,
+          "bytes": "83c410",
+          "mnemonic": "add",
+          "text": "add     esp, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f621a",
+          "size": 5,
+          "bytes": "a3147dd600",
+          "mnemonic": "mov",
+          "text": "mov     dword_D67D14, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f621f",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "page_count": 1,
+      "pages": [
+        {
+          "offset": 0,
+          "count": 24
+        }
+      ],
+      "code_bytes": 96,
+      "calls": [
+        {
+          "ea": "0x4f6212",
+          "size": 5,
+          "bytes": "e8d93d0000",
+          "mnemonic": "call",
+          "text": "call    sub_4F9FF0",
+          "call_target": "0x4f9ff0"
+        }
+      ],
+      "indirect_calls": [],
+      "jump_count": 1,
+      "return_count": 1
+    },
+    {
+      "start": "0x4f6bf0",
+      "end_exclusive": "0x4f6c60",
+      "count": 46,
+      "chunks": [
+        [
+          "0x4f6bf0",
+          "0x4f6c60"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6220",
+          "text": "call    sub_4F6BF0",
+          "from": "0x4f67e5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6220",
+          "text": "call    sub_4F6BF0",
+          "from": "0x4f6826"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6220",
+          "text": "call    sub_4F6BF0",
+          "from": "0x4f686c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6220",
+          "text": "call    sub_4F6BF0",
+          "from": "0x4f68ae"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6220",
+          "text": "call    sub_4F6BF0",
+          "from": "0x4f68ee"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x4f6bf0",
+          "size": 3,
+          "bytes": "83ec08",
+          "mnemonic": "sub",
+          "text": "sub     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6bf3",
+          "size": 1,
+          "bytes": "53",
+          "mnemonic": "push",
+          "text": "push    ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6bf4",
+          "size": 4,
+          "bytes": "8b5c2418",
+          "mnemonic": "mov",
+          "text": "mov     ebx, [esp+0Ch+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6bf8",
+          "size": 1,
+          "bytes": "43",
+          "mnemonic": "inc",
+          "text": "inc     ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6bf9",
+          "size": 1,
+          "bytes": "55",
+          "mnemonic": "push",
+          "text": "push    ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6bfa",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6bfb",
+          "size": 3,
+          "bytes": "83fb01",
+          "mnemonic": "cmp",
+          "text": "cmp     ebx, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6bfe",
+          "size": 1,
+          "bytes": "57",
+          "mnemonic": "push",
+          "text": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6bff",
+          "size": 8,
+          "bytes": "c744241075590000",
+          "mnemonic": "mov",
+          "text": "mov     [esp+18h+var_8], 5975h",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c07",
+          "size": 8,
+          "bytes": "c744241476590000",
+          "mnemonic": "mov",
+          "text": "mov     [esp+18h+var_4], 5976h",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c0f",
+          "size": 2,
+          "bytes": "7c47",
+          "mnemonic": "jl",
+          "text": "jl      short loc_4F6C58",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c11",
+          "size": 3,
+          "bytes": "83fb0a",
+          "mnemonic": "cmp",
+          "text": "cmp     ebx, 0Ah",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c14",
+          "size": 2,
+          "bytes": "7f42",
+          "mnemonic": "jg",
+          "text": "jg      short loc_4F6C58",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c16",
+          "size": 4,
+          "bytes": "8b7c241c",
+          "mnemonic": "mov",
+          "text": "mov     edi, [esp+18h+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c1a",
+          "size": 4,
+          "bytes": "8b6c2420",
+          "mnemonic": "mov",
+          "text": "mov     ebp, [esp+18h+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c1e",
+          "size": 3,
+          "bytes": "83c704",
+          "mnemonic": "add",
+          "text": "add     edi, 4",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c21",
+          "size": 3,
+          "bytes": "83c508",
+          "mnemonic": "add",
+          "text": "add     ebp, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c24",
+          "size": 2,
+          "bytes": "33f6",
+          "mnemonic": "xor",
+          "text": "xor     esi, esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c26",
+          "size": 2,
+          "bytes": "85db",
+          "mnemonic": "test",
+          "text": "test    ebx, ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c28",
+          "size": 2,
+          "bytes": "7e2e",
+          "mnemonic": "jle",
+          "text": "jle     short loc_4F6C58",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c2a",
+          "size": 2,
+          "bytes": "8bc6",
+          "mnemonic": "mov",
+          "text": "mov     eax, esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c2c",
+          "size": 2,
+          "bytes": "6a00",
+          "mnemonic": "push",
+          "text": "push    0",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c2e",
+          "size": 5,
+          "bytes": "2501000080",
+          "mnemonic": "and",
+          "text": "and     eax, 80000001h",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c33",
+          "size": 2,
+          "bytes": "6a00",
+          "mnemonic": "push",
+          "text": "push    0",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c35",
+          "size": 2,
+          "bytes": "7905",
+          "mnemonic": "jns",
+          "text": "jns     short loc_4F6C3C",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c37",
+          "size": 1,
+          "bytes": "48",
+          "mnemonic": "dec",
+          "text": "dec     eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c38",
+          "size": 3,
+          "bytes": "83c8fe",
+          "mnemonic": "or",
+          "text": "or      eax, 0FFFFFFFEh",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c3b",
+          "size": 1,
+          "bytes": "40",
+          "mnemonic": "inc",
+          "text": "inc     eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c3c",
+          "size": 4,
+          "bytes": "8b4c8418",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [esp+eax*4+20h+var_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c40",
+          "size": 4,
+          "bytes": "8b542430",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+20h+arg_C]",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c44",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c45",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c46",
+          "size": 1,
+          "bytes": "55",
+          "mnemonic": "push",
+          "text": "push    ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c47",
+          "size": 1,
+          "bytes": "57",
+          "mnemonic": "push",
+          "text": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c48",
+          "size": 5,
+          "bytes": "e8c3ae0200",
+          "mnemonic": "call",
+          "text": "call    Renderer__DrawGraphic",
+          "call_target": "0x521b10"
+        },
+        {
+          "ea": "0x4f6c4d",
+          "size": 3,
+          "bytes": "83c418",
+          "mnemonic": "add",
+          "text": "add     esp, 18h",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c50",
+          "size": 3,
+          "bytes": "83c708",
+          "mnemonic": "add",
+          "text": "add     edi, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c53",
+          "size": 1,
+          "bytes": "46",
+          "mnemonic": "inc",
+          "text": "inc     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c54",
+          "size": 2,
+          "bytes": "3bf3",
+          "mnemonic": "cmp",
+          "text": "cmp     esi, ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c56",
+          "size": 2,
+          "bytes": "7cd2",
+          "mnemonic": "jl",
+          "text": "jl      short loc_4F6C2A",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c58",
+          "size": 1,
+          "bytes": "5f",
+          "mnemonic": "pop",
+          "text": "pop     edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c59",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c5a",
+          "size": 1,
+          "bytes": "5d",
+          "mnemonic": "pop",
+          "text": "pop     ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c5b",
+          "size": 1,
+          "bytes": "5b",
+          "mnemonic": "pop",
+          "text": "pop     ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c5c",
+          "size": 3,
+          "bytes": "83c408",
+          "mnemonic": "add",
+          "text": "add     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x4f6c5f",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "page_count": 1,
+      "pages": [
+        {
+          "offset": 0,
+          "count": 46
+        }
+      ],
+      "code_bytes": 112,
+      "calls": [
+        {
+          "ea": "0x4f6c48",
+          "size": 5,
+          "bytes": "e8c3ae0200",
+          "mnemonic": "call",
+          "text": "call    Renderer__DrawGraphic",
+          "call_target": "0x521b10"
+        }
+      ],
+      "indirect_calls": [],
+      "jump_count": 5,
+      "return_count": 1
+    }
+  ],
+  "original_totals": {
+    "instruction_count": 70,
+    "code_bytes": 208,
+    "page_count": 2,
+    "direct_call_count": 2,
+    "unique_direct_callee_count": 2,
+    "indirect_call_count": 0,
+    "jump_count": 6,
+    "return_count": 2,
+    "inbound_call_count": 5,
+    "inbound_data_reference_count": 1
+  },
+  "reused_original_close_window": {
+    "source": "BVX01同会话只读原窗口缓存，本步首次完整归档；末三条已存doc/cg2d_album_preview_sampling_evidence.json#original_close_return_context",
+    "start": "0x4f63c8",
+    "end_exclusive": "0x4f63f3",
+    "instruction_count": 13,
+    "code_bytes": 43,
+    "instructions": [
+      {
+        "ea": "0x4f63c8",
+        "size": 5,
+        "bytes": "e8d3220200",
+        "mnemonic": "call",
+        "text": "call    sub_5186A0",
+        "call_target": "0x5186a0"
+      },
+      {
+        "ea": "0x4f63cd",
+        "size": 5,
+        "bytes": "a1147dd600",
+        "mnemonic": "mov",
+        "text": "mov     eax, dword_D67D14",
+        "call_target": null
+      },
+      {
+        "ea": "0x4f63d2",
+        "size": 2,
+        "bytes": "3bc3",
+        "mnemonic": "cmp",
+        "text": "cmp     eax, ebx",
+        "call_target": null
+      },
+      {
+        "ea": "0x4f63d4",
+        "size": 6,
+        "bytes": "0f8408080000",
+        "mnemonic": "jz",
+        "text": "jz      loc_4F6BE2",
+        "call_target": null
+      },
+      {
+        "ea": "0x4f63da",
+        "size": 1,
+        "bytes": "50",
+        "mnemonic": "push",
+        "text": "push    eax",
+        "call_target": null
+      },
+      {
+        "ea": "0x4f63db",
+        "size": 5,
+        "bytes": "e820e9f0ff",
+        "mnemonic": "call",
+        "text": "call    Yobi__MarkDeath",
+        "call_target": "0x404d00"
+      },
+      {
+        "ea": "0x4f63e0",
+        "size": 3,
+        "bytes": "83c404",
+        "mnemonic": "add",
+        "text": "add     esp, 4",
+        "call_target": null
+      },
+      {
+        "ea": "0x4f63e3",
+        "size": 6,
+        "bytes": "891d147dd600",
+        "mnemonic": "mov",
+        "text": "mov     dword_D67D14, ebx",
+        "call_target": null
+      },
+      {
+        "ea": "0x4f63e9",
+        "size": 1,
+        "bytes": "5f",
+        "mnemonic": "pop",
+        "text": "pop     edi",
+        "call_target": null
+      },
+      {
+        "ea": "0x4f63ea",
+        "size": 1,
+        "bytes": "5e",
+        "mnemonic": "pop",
+        "text": "pop     esi",
+        "call_target": null
+      },
+      {
+        "ea": "0x4f63eb",
+        "size": 1,
+        "bytes": "5b",
+        "mnemonic": "pop",
+        "text": "pop     ebx"
+      },
+      {
+        "ea": "0x4f63ec",
+        "size": 6,
+        "bytes": "81c438010000",
+        "mnemonic": "add",
+        "text": "add     esp, 138h"
+      },
+      {
+        "ea": "0x4f63f2",
+        "size": 1,
+        "bytes": "c3",
+        "mnemonic": "retn",
+        "text": "retn"
+      }
+    ],
+    "included_in_two_leaf_totals": false,
+    "full_parent_reverified": false
+  },
+  "source_functions": [
+    {
+      "id": "F:000F61C0",
+      "entry": "0x4f61c0",
+      "index": 1805,
+      "original_index": 0,
+      "symbol": "Sub_4F61C0",
+      "source_path": "src/LegacyUiRecord.cpp",
+      "contract": "4F61C0图鉴初始化：先持样D67D14，随后无条件清CC40D0；旧预览存在直接返同T*，空才原序读panel Y/X、当前角色S16/选择S32/记录image+8，以(x+136,y+145,221)原工厂创建并发布包括空返回，不要求used或提前重映图号。唯一4F62B3初始化指针DATA引用分列，原503160回调语境/当前void lambda弃返及共享槽消费者有据，不当普通CALL或旧表分派证明。"
+    },
+    {
+      "id": "F:000F6BF0",
+      "entry": "0x4f6bf0",
+      "index": 1806,
+      "original_index": 1,
+      "symbol": "Sub_4F6BF0",
+      "source_path": "src/LegacyUiRecord.cpp",
+      "contract": "4F6BF0评级绘制：原S32 rating+1，只1..10继续；x+4/y+8，逐项x间隔8、图号22901/22902按序号signed余数2选择，layer沿原低U8绘图边界；五活动父点弃原不确定EAX返回，当前void接口不扩成通用机器ABI。真DrawGraphic逐项结果按原弃用，不加钳制、额外取数/条件或异常模拟，原正常RPLAN.24算术保。"
+    }
+  ],
+  "implementation_static_scope": "BVY01图鉴生产/评级两正确叶完整70条208B/两页、两direct两目标/零间接、六跳两RET；五评级CALL与一个初始化callback DATA引用分列。D67D14先取→CC40D0清→存在返原对象/空才按原读序创建发布，原图号/221层和失败空发布、评级1..10及两图/坐标/逐项绘制保持；原关闭13条43B沿BVX01窗口复用：先5186A0保存再fresh预览→同MarkDeath→清槽/原混合返回。源码/头全保持、零新I/函数/API/helper/owner，两新原新1805/1806与两adapted F、旧24一主父→三实际成员，仅一个限定S。旧1044与有记录fresh/空记录实修和731存档/1126共享工厂既有合同复用，通用资源回收/全部父消费者/旧外路由/正常alias寿命、机器ABI/画面运行仍待；原格式明文、音频暂停/RPLAN.24与完整门禁保。",
+  "source_cpp_changed_count": 0,
+  "source_header_changed_count": 0,
+  "source_patch_count": 0,
+  "new_function_count": 0,
+  "new_helper_count": 0,
+  "new_api_count": 0,
+  "new_owner_count": 0,
+  "new_I_claimed": false,
+  "all_two_existing_bodies_kept": true,
+  "existing_callback_and_shared_slot_publication_kept": true,
+  "save_before_fresh_close_sample_kept": true,
+  "existing_1044_consumption_and_empty_sampling_kept": true,
+  "existing_731_save_and_1126_factory_contracts_reused": true,
+  "source_files_kept": [
+    "src/LegacyUiRecord.cpp",
+    "src/LegacyPanelRuntime.hpp",
+    "src/YobiRuntime.cpp",
+    "include/cg/YobiRuntime.hpp",
+    "src/world/SceneState.cpp"
+  ],
+  "wire_format_changed": false,
+  "encryption_added": false,
+  "audio_pause_kept": true,
+  "full_all_parents_verified": false,
+  "full_all_callees_verified": false,
+  "full_input_production_verified": false,
+  "full_lifecycle_closed": false,
+  "full_pixels_files_verified": false,
+  "runtime_verified": false,
+  "machine_abi_verified": false,
+  "fault_equivalence_claimed": false,
+  "source_bodies_kept": [
+    {
+      "path": "src/LegacyUiRecord.cpp",
+      "symbol": "Sub_4F61C0",
+      "body": "YobiAction* Sub_4F61C0()\n{\n    YobiAction* action = gLegacyAlbumActionD67D14;\n    gLegacyAlbumReturningCC40D0 = 0;\n    if (action == nullptr) {\n        const std::int32_t y = gLegacyAlbumDetailPanel5846C0.y + 145;\n        const std::int32_t x = gLegacyAlbumDetailPanel5846C0.x + 136;\n        const std::byte* const records = world::detail::BorrowSelectedAlbumRecords();\n        const std::int32_t index = gLegacyAlbumSelectionC8AF7C;\n        const std::int32_t image = ReadRecordW32(records + index * 0x80, 8);\n        action = Sub_4F9FF0(image, x, y, 221);\n        gLegacyAlbumActionD67D14 = action;\n    }\n    return action;\n}\n\n"
+    },
+    {
+      "path": "src/LegacyUiRecord.cpp",
+      "symbol": "Sub_4F6BF0",
+      "body": "void Sub_4F6BF0(const std::int32_t x, const std::int32_t y,\n    const std::int32_t rating, const std::uint8_t layer)\n{\n    const std::int32_t count = rating + 1;\n    constexpr std::array<std::int32_t, 2> images {22901, 22902};\n    if (count < 1 || count > 10) {\n        return;\n    }\n    for (std::int32_t part = 0; part < count; ++part) {\n        static_cast<void>(DrawGraphic(x + 4 + 8 * part, y + 8, layer, images[part % 2], 0, nullptr));\n    }\n}\n\n"
+    },
+    {
+      "path": "src/LegacyUiRecord.cpp",
+      "symbol": "Sub_4F6220",
+      "body": "std::uintptr_t Sub_4F6220(const std::int32_t opened)\n{\n    const std::int32_t x = gLegacyAlbumDetailPanel5846C0.x;\n    const std::int32_t y = gLegacyAlbumDetailPanel5846C0.y;\n    LegacyPanelButtonRecord back {x + 48, y + 418, x + 8, y + 408, 80, 20, 22891, 22892};\n    LegacyPanelButtonRecord previousTen {x + 102, y + 418, x + 92, y + 408, 20, 20, 22893, 22894};\n    LegacyPanelButtonRecord previous {x + 130, y + 418, x + 120, y + 408, 20, 20, 22895, 22896};\n    LegacyPanelButtonRecord next {x + 226, y + 418, x + 216, y + 408, 20, 20, 22897, 22898};\n    LegacyPanelButtonRecord nextTen {x + 254, y + 418, x + 244, y + 408, 20, 20, 22899, 22900};\n    constexpr std::array<std::int32_t, 2> firstMarks {22904, 22903};\n    constexpr std::array<std::int32_t, 3> secondMarks {0, 22905, 22906};\n    const std::int32_t state = Sub_503160(opened, &gLegacyAlbumDetailPanel5846C0,\n        +[] { static_cast<void>(Sub_4F61C0()); }, 1);\n    if (state == 0) {\n        return 0;\n    }\n    if (state == 2) {\n        world::detail::Sub_5186A0();\n        YobiAction* action = gLegacyAlbumActionD67D14;\n        if (action != nullptr) {\n            action = MarkDeath(action);\n            gLegacyAlbumActionD67D14 = nullptr;\n        }\n        return reinterpret_cast<std::uintptr_t>(action);\n    }\n    if ((QueryPanelButtonState(&back) & 1) != 0) {\n        gLegacyAlbumReturningCC40D0 = 1;\n        static_cast<void>(audio::Sub_504180(23));\n    } else {\n        bool changed = true;\n        if ((QueryPanelButtonState(&previous) & 0x10) != 0) {\n            --gLegacyAlbumSelectionC8AF7C;\n            if (gLegacyAlbumSelectionC8AF7C < 0) {\n                gLegacyAlbumSelectionC8AF7C += std::bit_cast<std::int32_t>(resource::gValueD2D5FC);\n            }\n        } else if ((QueryPanelButtonState(&next) & 0x10) != 0) {\n            const std::int32_t selection = gLegacyAlbumSelectionC8AF7C;\n            const std::int32_t count = std::bit_cast<std::int32_t>(resource::gValueD2D5FC);\n            gLegacyAlbumSelectionC8AF7C = selection + 1;\n            if (gLegacyAlbumSelectionC8AF7C >= count) {\n                gLegacyAlbumSelectionC8AF7C -= count;\n            }\n        } else if ((QueryPanelButtonState(&previousTen) & 0x10) != 0) {\n            gLegacyAlbumSelectionC8AF7C -= 10;\n            if (gLegacyAlbumSelectionC8AF7C < 0) {\n                gLegacyAlbumSelectionC8AF7C += std::bit_cast<std::int32_t>(resource::gValueD2D5FC);\n            }\n        } else if ((QueryPanelButtonState(&nextTen) & 0x10) != 0) {\n            const std::int32_t selection = gLegacyAlbumSelectionC8AF7C;\n            const std::int32_t count = std::bit_cast<std::int32_t>(resource::gValueD2D5FC);\n            gLegacyAlbumSelectionC8AF7C = selection + 10;\n            if (gLegacyAlbumSelectionC8AF7C >= count) {\n                gLegacyAlbumSelectionC8AF7C -= count;\n            }\n        } else {\n            changed = false;\n        }\n        if (changed) {\n            static_cast<void>(audio::PlaySe_52C450(51, 320));\n        }\n    }\n    const auto selectedRecord = [] {\n        const std::byte* const records = world::detail::BorrowSelectedAlbumRecords();\n        const std::int32_t index = gLegacyAlbumSelectionC8AF7C;\n        return records + index * 0x80;\n    };\n    const auto drawAt = [](const char* const text, const std::int32_t offsetX,\n        const std::int32_t offsetY, const std::int8_t font) {\n        const std::int32_t top = gLegacyAlbumDetailPanel5846C0.y + offsetY;\n        const std::int32_t left = gLegacyAlbumDetailPanel5846C0.x + offsetX;\n        static_cast<void>(DrawText(static_cast<std::int16_t>(left),\n            static_cast<std::int16_t>(top), 2, font, 0, text, 0, 0));\n    };\n    char buffer[128];\n    const std::int16_t selected = login::gSelectedCharacterIndex;\n    const std::byte* const records = world::detail::BorrowSelectedAlbumRecords();\n    const std::int32_t index = gLegacyAlbumSelectionC8AF7C;\n    const std::byte* const record = records + index * 0x80;\n    if (record[0] != std::byte{0}) {\n        YobiAction* const action = gLegacyAlbumActionD67D14;\n        static_cast<void>(world::detail::ClearAlbumNewFlagAndBorrowName(selected, index));\n        if (action != nullptr) {\n            const std::int32_t mapped = character_select::detail::Sub_51B740(ReadRecordW32(record, 8));\n            SetYobiActionField2A8(gLegacyAlbumActionD67D14, mapped);\n            SetYobiActionFlag2(gLegacyAlbumActionD67D14, false);\n            ClearYobiActionFlags0C(gLegacyAlbumActionD67D14);\n        }\n        platform::FormatLegacyString_53B304(buffer, \"%03d\", ReadRecordW32(selectedRecord(), 4));\n        drawAt(buffer, 46, 170, 1);\n        const std::int32_t nameWidth = TextMeasure(reinterpret_cast<const char*>(selectedRecord() + 0x34), 0);\n        const char* const name = reinterpret_cast<const char*>(selectedRecord() + 0x34);\n        drawAt(name, 154 - nameWidth / 2, 168, 0);\n        const auto firstMark = std::bit_cast<std::int8_t>(selectedRecord()[1]);\n        const std::int32_t firstY = gLegacyAlbumDetailPanel5846C0.y + 207;\n        const std::int32_t firstImage = firstMarks[firstMark];\n        const std::int32_t firstX = gLegacyAlbumDetailPanel5846C0.x + 44;\n        static_cast<void>(DrawGraphic(firstX, firstY, 213, firstImage, 0, nullptr));\n        const auto secondMark = std::bit_cast<std::int8_t>(selectedRecord()[2]);\n        const std::int32_t secondY = gLegacyAlbumDetailPanel5846C0.y + 207;\n        const std::int32_t secondImage = secondMarks[secondMark];\n        const std::int32_t secondX = gLegacyAlbumDetailPanel5846C0.x + 98;\n        static_cast<void>(DrawGraphic(secondX, secondY, 213, secondImage, 0, nullptr));\n        const auto tribe = std::bit_cast<std::int8_t>(selectedRecord()[3]);\n        std::strcpy(buffer, ui::detail::gTribeNames57CB54[tribe]);\n        const std::int32_t tribeWidth = TextMeasure(buffer, 1);\n        drawAt(buffer, 215 - tribeWidth / 2, 193, 1);\n        platform::FormatLegacyString_53B304(buffer, \"%2d\", ReadRecordW32(selectedRecord(), 0x30));\n        drawAt(buffer, 195, 325, 1);\n        for (std::int32_t rating = 0; rating < 5; ++rating) {\n            const std::byte* const ratingRecord = selectedRecord();\n            const std::int32_t top = gLegacyAlbumDetailPanel5846C0.y + 228 + 24 * rating;\n            const std::int32_t value = ReadRecordW32(ratingRecord, 0x0C + 4 * rating);\n            const std::int32_t left = gLegacyAlbumDetailPanel5846C0.x + 45;\n            Sub_4F6BF0(left, top, value, 213);\n        }\n        for (std::int32_t element = 0; element < 4; ++element) {\n            const std::int32_t top = gLegacyAlbumDetailPanel5846C0.y + 240 + 20 * element;\n            const std::int32_t left = gLegacyAlbumDetailPanel5846C0.x + 187;\n            const std::int32_t elementIndex = gLegacyAlbumSelectionC8AF7C;\n            const std::byte* const elementRecords = world::detail::BorrowSelectedAlbumRecords();\n            const std::uint32_t color = kLegacyAttributeBars57CBB8[element][0];\n            const std::int32_t value = ReadRecordW32(elementRecords + elementIndex * 0x80, 0x20 + 4 * element);\n            const std::int32_t right = left + 7 * value;\n            DrawGraphicHover(Low16(left), Low16(top), Low16(right), Low16(top + 9), 215, color, 1);\n            DrawGraphicHover(Low16(left + 1), Low16(top + 1), Low16(right + 1), Low16(top + 10),\n                214, kLegacyAttributeBars57CBB8[element][1], 0);\n            DrawGraphicHover(Low16(left + 2), Low16(top + 2), Low16(right + 2), Low16(top + 11),\n                214, kLegacyAttributeBars57CBB8[element][1], 0);\n        }\n        for (std::int32_t line = 0; line < 2; ++line) {\n            const char* const text = reinterpret_cast<const char*>(selectedRecord() + 0x45 + 29 * line);\n            drawAt(text, 10, 354 + 20 * line, 0);\n        }\n    } else {\n        YobiAction* const previewAction = gLegacyAlbumActionD67D14;\n        if (previewAction != nullptr) {\n            SetYobiActionFlag2(previewAction, true);\n        }\n    }\n    const std::int32_t current = gLegacyAlbumSelectionC8AF7C;\n    const std::int32_t count = std::bit_cast<std::int32_t>(resource::gValueD2D5FC);\n    platform::FormatLegacyString_53B304(buffer, \"%3d/%3d\", current + 1, count);\n    drawAt(buffer, 150, 411, 1);\n    Sub_5035E0(&back, 212, 1, gValueD69768, 0);\n    Sub_5035E0(&previousTen, 212, 1, gValueD69768, 0);\n    Sub_5035E0(&previous, 212, 1, gValueD69768, 0);\n    Sub_5035E0(&next, 212, 1, gValueD69768, 0);\n    Sub_5035E0(&nextTen, 212, 1, gValueD69768, 0);\n    const char* hint = nullptr;\n    if (Sub_503590(&gLegacyAlbumDetailPanel5846C0) != 0) {\n        hint = kLegacyLogout553FD0;\n    } else if ((QueryPanelButtonState(&previous) & 0x40) != 0 || (QueryPanelButtonState(&next) & 0x40) != 0) {\n        hint = kLegacyRecipePage586D2C;\n    } else if ((QueryPanelButtonState(&previousTen) & 0x40) != 0 || (QueryPanelButtonState(&nextTen) & 0x40) != 0) {\n        hint = kLegacyAlbumSkipTen58A0F0;\n    } else if ((QueryPanelButtonState(&back) & 0x40) != 0) {\n        hint = kLegacyAlbumBack58A0FC;\n    }\n    if (hint != nullptr) {\n        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);\n    }\n    return Sub_503440(&gLegacyAlbumDetailPanel5846C0, 1);\n}\n\n"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "Sub_4F9FF0",
+      "body": "YobiAction* Sub_4F9FF0(const std::int32_t image, const std::int32_t x,\n    const std::int32_t y, const std::uint8_t displayPriority)\n{\n    YobiAction* const action = NewYobiAction_404AE0(2, 0);\n    if (action == nullptr) {\n        return nullptr;\n    }\n    action->imageNo = image;\n    action->displayPriority = displayPriority;\n    action->callback = [](YobiAction* const value) { static_cast<void>(Sub_4D6690(value)); };\n    action->characterAction = 0;\n    action->direction = 5;\n    action->flags = 0x16;\n    action->x = x;\n    action->y = y;\n    return action;\n}\n\n"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "MarkDeath",
+      "body": "YobiAction* MarkDeath(YobiAction* const action)\n{\n    if (action != nullptr) {\n        action->deathFlag = 1;\n    }\n    return action;\n}\n\n"
+    },
+    {
+      "path": "src/world/SceneState.cpp",
+      "symbol": "Sub_5186A0",
+      "body": "void Sub_5186A0()\n{\n    auto* const encoded = static_cast<std::uint8_t*>(\n        platform::AllocateLegacyByteBuffer(0x78018));\n    char path[128];\n    platform::FormatLegacyString_53B304(\n        path, \"%s\\\\%s\", platform::gDataPath, \"album.dat\");\n    platform::LegacyFile* const stream =\n        platform::OpenLegacyStream_53B2F1(path, \"wb\");\n    if (stream == nullptr) {\n        platform::FreeLegacyByteBuffer(encoded);\n        return;\n    }\n    std::array<std::uint8_t, 0x3C00C> snapshot;\n    std::memcpy(snapshot.data(), gAlbumStorage.data(), snapshot.size());\n    std::int32_t encodedBytes;\n    login::detail::EncodeSavedBytes(\n        snapshot.data(), 0x3C00C, 0, encoded, &encodedBytes, 4);\n    const std::uint32_t count = static_cast<std::uint32_t>(encodedBytes);\n    const std::uint32_t written =\n        platform::WriteLegacyStream_53C680(encoded, 1, count, stream);\n    // 原51873D在写后重新读取编码长度，再以U32比较。\n    const std::uint32_t expectedCount = static_cast<std::uint32_t>(encodedBytes);\n    if (written < expectedCount) {\n        platform::FreeLegacyByteBuffer(encoded);\n        return;\n    }\n    static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));\n    platform::FreeLegacyByteBuffer(encoded);\n}\n\n"
+    },
+    {
+      "path": "src/world/SceneState.cpp",
+      "symbol": "BorrowSelectedAlbumRecords",
+      "body": "const std::byte* BorrowSelectedAlbumRecords()\n{\n    const std::int16_t selected = login::gSelectedCharacterIndex;\n    return AlbumRecordAt(0, selected);\n}\n\n"
+    }
+  ],
+  "reused_existing_records": [
+    {
+      "index": 1044,
+      "record": {
+        "original_entry": "0x4F6220",
+        "inventory_id": "F:000F6220",
+        "status": "BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。",
+        "original_end_exclusive": "0x4F6BEC",
+        "instruction_count": 688,
+        "sources": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbols": [
+              "Sub_4F6220"
+            ],
+            "relationship": "BVX01只空记录一阶段恢复单指针持样，有记录映图后三次fresh指针和其他完整父/文件格式保持"
+          },
+          {
+            "path": "src/YobiRuntime.cpp",
+            "symbols": [
+              "SetYobiActionFlag2",
+              "SetYobiActionField2A8",
+              "ClearYobiActionFlags0C"
+            ],
+            "relationship": "既有native边界保持；空记录同样本置bit1，有记录各fresh sample不合并"
+          },
+          {
+            "path": "include/cg/YobiRuntime.hpp",
+            "symbols": [
+              "SetYobiActionFlag2"
+            ],
+            "relationship": "现有非拥有T*公开声明与opaque布局保持，无新API"
+          }
+        ],
+        "evidence_documents": [
+          "doc/ui_windows/legacy_album_detail.md",
+          "doc/cg2d_stdio_contract.md",
+          "doc/cg2d_album_preview_sampling_spec.md#album-preview-baseline",
+          "doc/cg2d_album_preview_sampling_spec.md#album-preview-decision",
+          "doc/cg2d_album_preview_sampling_spec.md#album-preview-acceptance",
+          "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state"
+        ],
+        "boundary": "只换三格式接口，used W8后的清new/动画更新与各次角色S16/选择重读、80H+04/%03d与种族绘后+30/%2d、used正文或unused隐藏后新当前/总数双S32/%3d/%3d、同未清128B/新布局font1保持。名称/标记/种族/评级/元素/说明/五按钮/共享选择与动画生命期、关闭实际T*/正常W32的uintptr_t混合返回等所有其他正文不动，原父/旧路由/数据生产/运行未闭合。 BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。",
+        "original_incoming": [],
+        "original_data_references": [],
+        "business_call_connections": [
+          {
+            "parent_entry": "0x4F6220",
+            "call_site": "0x4F6574",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4F6220"
+          },
+          {
+            "parent_entry": "0x4F6220",
+            "call_site": "0x4F6775",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4F6220"
+          },
+          {
+            "parent_entry": "0x4F6220",
+            "call_site": "0x4F6A55",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4F6220"
+          }
+        ],
+        "business_format_points": [
+          {
+            "parent_entry": "0x4F6220",
+            "call_site": "0x4F6574",
+            "target_entry": "0x53B304",
+            "format_address": "0x58A10C",
+            "format_bytes": "2530336400",
+            "argument_widths": [
+              "S32"
+            ],
+            "source_format_symbol": "Sub_4F6220",
+            "source_format_expression": "\"%03d\"",
+            "source_expression": "ReadRecordW32(selectedRecord(), 4)",
+            "destination_expression": "buffer",
+            "destination_capacity": 128,
+            "original_record_stride": 128,
+            "original_field_offset": 4,
+            "original_value_read_order": [
+              "0x4F6544",
+              "0x4F654B",
+              "0x4F6567"
+            ],
+            "condition_expression": "最初图鉴记录used W8非零，原清newFlag/映射图号/动画槽旗标更新后才格式",
+            "consumer_expression": "drawAt(buffer, 46, 170, 1)",
+            "relationship": "动画状态更新后新读取同源角色S16/当前C8AF7C S32选择、80H记录+04 W32按S32传入，零填充最小宽3写共用未清128B；格式后新Y/X，X+46/Y+170/font1/color0。名称/标记/种族各自继续重读，不用初始record替代"
+          },
+          {
+            "parent_entry": "0x4F6220",
+            "call_site": "0x4F6775",
+            "target_entry": "0x53B304",
+            "format_address": "0x553FB4",
+            "format_bytes": "25326400",
+            "argument_widths": [
+              "S32"
+            ],
+            "source_format_symbol": "Sub_4F6220",
+            "source_format_expression": "\"%2d\"",
+            "source_expression": "ReadRecordW32(selectedRecord(), 0x30)",
+            "destination_expression": "buffer",
+            "destination_capacity": 128,
+            "original_record_stride": 128,
+            "original_field_offset": 48,
+            "original_value_read_order": [
+              "0x4F673E",
+              "0x4F6743",
+              "0x4F674A",
+              "0x4F6768"
+            ],
+            "consumer_expression": "drawAt(buffer, 195, 325, 1)",
+            "relationship": "种族串复制/测宽/绘制后新角色S16→新当前选择S32→同源80H记录+30 W32按S32取数，宽2覆同128B；格式后新布局X+195/Y+325/font1，然后评级/元素/说明仍各按原时点取数"
+          },
+          {
+            "parent_entry": "0x4F6220",
+            "call_site": "0x4F6A55",
+            "target_entry": "0x53B304",
+            "format_address": "0x586DE0",
+            "format_bytes": "2533642f25336400",
+            "argument_widths": [
+              "S32",
+              "S32"
+            ],
+            "source_format_symbol": "Sub_4F6220",
+            "source_format_expression": "\"%3d/%3d\"",
+            "source_expression": "current + 1, count",
+            "destination_expression": "buffer",
+            "destination_capacity": 128,
+            "original_value_read_order": [
+              "0x4F6A3A",
+              "0x4F6A40"
+            ],
+            "consumer_expression": "drawAt(buffer, 150, 411, 1)",
+            "relationship": "used记录全部正文绘完或unused动画隐藏后，新C8AF7C S32当前选择→D2D5FC W32按S32总数，以当前+1/总数覆同128B；两边均宽3空格填充非零填充，格式后新布局X+150/Y+411/font1/color0，再五按钮/提示与原uintptr_t混合返回"
+          }
+        ],
+        "verification_level": "BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。",
+        "album_preview_sampling": {
+          "spec_id": "BVX01",
+          "evidence_refs": [
+            "doc/cg2d_album_preview_sampling_spec.md#album-preview-baseline",
+            "doc/cg2d_album_preview_sampling_spec.md#album-preview-decision",
+            "doc/cg2d_album_preview_sampling_spec.md#album-preview-acceptance",
+            "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state"
+          ],
+          "previous_status": "旧配方或图鉴页已证格式已接线；原父及整体验收未闭合",
+          "previous_verification_level": "本步只读177/688新格式邻窗，余511沿既有父合同；新58A10C只读加载字节，其余五常量沿已核字节。整份源仅3格式标识符，字段/符号性/参数/容量/原快照消费和新取数/布局/返回、JSON增量/文档末追加/编码/差异静态核对通过。禁构建/测试/客户端/hash；原父/旧路由/生产/运行未闭合。",
+          "original_parent_instruction_count": 688,
+          "full_original_parent_reverified": false,
+          "original_valid_record_instruction_count": 16,
+          "original_valid_record_code_bytes": 67,
+          "original_empty_record_instruction_count": 4,
+          "original_empty_record_code_bytes": 13,
+          "original_total_focus_instruction_count": 20,
+          "original_total_focus_code_bytes": 80,
+          "source_body_changed": true,
+          "source_cpp_file_count": 1,
+          "source_header_file_count": 0,
+          "source_patch_count": 1,
+          "new_implementation_function_count": 0,
+          "new_helper_count": 0,
+          "new_api_count": 0,
+          "new_shared_owner_count": 0,
+          "new_semantic_record_count": 0,
+          "valid_record_initial_pointer_before_newFlag_clear_and_three_fresh_samples_kept": true,
+          "empty_record_single_pointer_sample_restored": true,
+          "original_W32_bit1_and_other_bits_kept": true,
+          "other_complete_body_format_byte_and_consumer_evidence_kept": true,
+          "wire_format_changed": false,
+          "encryption_added": false,
+          "full_all_parents_verified": false,
+          "full_all_callees_verified": false,
+          "full_lifecycle_closed": false,
+          "runtime_verified": false,
+          "machine_abi_verified": false,
+          "fault_equivalence_claimed": false
+        }
+      }
+    },
+    {
+      "index": 731,
+      "record": {
+        "original_entry": "0x5186A0",
+        "inventory_id": "F:001186A0",
+        "status": "既有相册或CUT/AUT本体的真实FILE/格式化整链已接；完整CRT/内容/运行验收仍待",
+        "original_end_exclusive": "0x518774",
+        "instruction_count": 72,
+        "original_direct_reference_count": 7,
+        "sources": [
+          {
+            "path": "src/world/SceneState.cpp",
+            "symbols": [
+              "Sub_5186A0"
+            ]
+          }
+        ],
+        "inbound_evidence": [
+          {
+            "address": "0x4705F5",
+            "parent_entry": "0x4705F0"
+          },
+          {
+            "address": "0x4707A5",
+            "parent_entry": "0x503E80"
+          },
+          {
+            "address": "0x4F63C8",
+            "parent_entry": "0x4F6220"
+          },
+          {
+            "address": "0x5187D6",
+            "parent_entry": "0x518780"
+          },
+          {
+            "address": "0x518836",
+            "parent_entry": "0x518780"
+          },
+          {
+            "address": "0x518A2B",
+            "parent_entry": "0x518870"
+          },
+          {
+            "address": "0x518C0B",
+            "parent_entry": "0x518BE0"
+          }
+        ],
+        "business_call_connections": [
+          {
+            "parent_entry": "0x5186A0",
+            "call_site": "0x5186CF",
+            "source": "src/world/SceneState.cpp",
+            "symbol": "Sub_5186A0",
+            "target_entry": "0x53B304",
+            "target_symbol": "FormatLegacyString_53B304"
+          },
+          {
+            "parent_entry": "0x5186A0",
+            "call_site": "0x5186DE",
+            "source": "src/world/SceneState.cpp",
+            "symbol": "Sub_5186A0",
+            "target_entry": "0x53B2F1",
+            "target_symbol": "OpenLegacyStream_53B2F1"
+          },
+          {
+            "parent_entry": "0x5186A0",
+            "call_site": "0x518738",
+            "source": "src/world/SceneState.cpp",
+            "symbol": "Sub_5186A0",
+            "target_entry": "0x53C680",
+            "target_symbol": "WriteLegacyStream_53C680"
+          },
+          {
+            "parent_entry": "0x5186A0",
+            "call_site": "0x51875D",
+            "source": "src/world/SceneState.cpp",
+            "symbol": "Sub_5186A0",
+            "target_entry": "0x53B1D0",
+            "target_symbol": "CloseLegacyStream_53B1D0"
+          }
+        ],
+        "business_byte_evidence": [
+          {
+            "address": "0x58B6A4",
+            "bytes": "616c62756d2e64617400"
+          },
+          {
+            "address": "0x553514",
+            "bytes": "25735c257300"
+          },
+          {
+            "address": "0x55491C",
+            "bytes": "776200"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_scene_state.md",
+          "doc/cg2d_stdio_contract.md"
+        ],
+        "verification_level": "四父完整322条/十二直接入向、25文件格式调用/flags低U8/写后长度重读/关闭释放与消息返回、原路径mode字节和限定源码差异静态核对；未执行",
+        "boundary": "先分配78018H编码块，再128B路径/gDataPath/album.dat/wb，失败只释放缓冲；成功复制3C00CH完整快照并调用原52D310(capacity4)，不改成完整持久化。按U32长度写入，51873D写后重读encodedBytes再以U32比较，恢复当前冻结比较量；短写只释放不关闭，写足关闭后释放。分配适配、codec、共享相册/字段及待批保持，未增加RAII/重试/补写，完整CRT/内容/运行未验。",
+        "business_count_read_evidence": [
+          {
+            "address": "0x51872F",
+            "relationship": "写前读取encodedBytes作为ElementCount"
+          },
+          {
+            "address": "0x51873D",
+            "compare_address": "0x518744",
+            "branch_address": "0x518748",
+            "relationship": "写后重读encodedBytes，U32 cmp/jnb决定短写路径"
+          }
+        ]
+      }
+    },
+    {
+      "index": 1126,
+      "record": {
+        "original_entry": "0x4F9FF0",
+        "inventory_id": "F:000F9FF0",
+        "original_end_exclusive": "0x4FA043",
+        "original_entry_chunk_end": "0x4FA043",
+        "instruction_count": 20,
+        "function_chunks": [
+          [
+            "0x4F9FF0",
+            "0x4FA043"
+          ]
+        ],
+        "status": "已有完整真实预览工厂或共用回调本体；原身份/实际依赖已关联，完整上游/生命周期与运行未验",
+        "sources": [
+          {
+            "path": "src/YobiRuntime.cpp",
+            "symbols": [
+              "Sub_4F9FF0"
+            ],
+            "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
+          },
+          {
+            "path": "include/cg/YobiRuntime.hpp",
+            "symbols": [
+              "Sub_4F9FF0"
+            ],
+            "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+          }
+        ],
+        "evidence_documents": [
+          "doc/ui_windows/legacy_storage_items.md",
+          "doc/ui_windows/shared_legacy_panels.md"
+        ],
+        "boundary": "本轮新增语义身份关联，不称新增本体/原指令实现；已过完整本体沿既有页面合同，不重复取证或运行。原S32图号/坐标、低U8层、失败空指针、采样/副作用/RNG与非拥有槽均由原正文保留，不注册未证旧表、补生产/默认值或推整体通过。",
+        "verification_level": "原3680库存身份/原chunk边界与既有完整指令合同关联；当前实际定义/声明、工厂/回调与状态消费、本步源不变/限定清单及文档增量静态核对。未重核旧本体、未构建/测试/运行/hash。",
+        "native_signature": "YobiAction* Sub_4F9FF0(const std::int32_t image, const std::int32_t x,\n    const std::int32_t y, const std::uint8_t displayPriority)",
+        "identity_evidence": {
+          "inventory": "doc/cg2d_ida_inventory.json",
+          "instruction_count_source": "doc/ui_windows/legacy_storage_items.md",
+          "implementation_state": "既有本体，非本轮新增代码"
+        },
+        "existing_factory_dependencies": [
+          {
+            "target_entry": "0x404AE0",
+            "target_symbol": "NewYobiAction_404AE0",
+            "arguments": "2,0",
+            "relationship": "沿既有真实分配/失败，成功才写对象字段，未在本步验收完整分配器"
+          },
+          {
+            "target_entry": "0x4D6690",
+            "target_symbol": "Sub_4D6690",
+            "relationship": "既有typed lambda以同一YobiAction*调用并弃S32返回，不强转函数指针"
+          }
+        ],
+        "display_priority": "实际参数低U8"
+      }
+    }
+  ]
+}

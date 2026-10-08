@@ -204851,6 +204851,218 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x4f61c0",
+      "inventory_id": "F:000F61C0",
+      "original_role": "4F61C0图鉴初始化：先持样D67D14，随后无条件清CC40D0；旧预览存在直接返同T*，空才原序读panel Y/X、当前角色S16/选择S32/记录image+8，以(x+136,y+145,221)原工厂创建并发布包括空返回，不要求used或提前重映图号。唯一4F62B3初始化指针DATA引用分列，原503160回调语境/当前void lambda弃返及共享槽消费者有据，不当普通CALL或旧表分派证明。",
+      "original_end_exclusive": "0x4f6220",
+      "original_chunks": [
+        [
+          "0x4f61c0",
+          "0x4f6220"
+        ]
+      ],
+      "instruction_count": 24,
+      "status": "BVY01图鉴生产/评级两正确叶完整70条208B/两页、两direct两目标/零间接、六跳两RET；五评级CALL与一个初始化callback DATA引用分列。D67D14先取→CC40D0清→存在返原对象/空才按原读序创建发布，原图号/221层和失败空发布、评级1..10及两图/坐标/逐项绘制保持；原关闭13条43B沿BVX01窗口复用：先5186A0保存再fresh预览→同MarkDeath→清槽/原混合返回。源码/头全保持、零新I/函数/API/helper/owner，两新原新1805/1806与两adapted F、旧24一主父→三实际成员，仅一个限定S。旧1044与有记录fresh/空记录实修和731存档/1126共享工厂既有合同复用，通用资源回收/全部父消费者/旧外路由/正常alias寿命、机器ABI/画面运行仍待；原格式明文、音频暂停/RPLAN.24与完整门禁保。",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4F61C0"
+          ],
+          "relationship": "4F61C0图鉴初始化：先持样D67D14，随后无条件清CC40D0；旧预览存在直接返同T*，空才原序读panel Y/X、当前角色S16/选择S32/记录image+8，以(x+136,y+145,221)原工厂创建并发布包括空返回，不要求used或提前重映图号。唯一4F62B3初始化指针DATA引用分列，原503160回调语境/当前void lambda弃返及共享槽消费者有据，不当普通CALL或旧表分派证明。"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4F61C0"
+          ],
+          "relationship": "既有公开至旧页面的T*/S32/U8声明保持，无新接口"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_4F9FF0",
+            "MarkDeath"
+          ],
+          "relationship": "公共工厂1126与既有MarkDeath回收标记边界复用，不称实际对象已经释放"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "BorrowSelectedAlbumRecords",
+            "Sub_5186A0"
+          ],
+          "relationship": "当前角色S16借记录；关闭先既有731存档再fresh取预览，原保存容量/失败合同保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-baseline",
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-decision",
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-acceptance",
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state"
+      ],
+      "boundary": "4F61C0图鉴初始化：先持样D67D14，随后无条件清CC40D0；旧预览存在直接返同T*，空才原序读panel Y/X、当前角色S16/选择S32/记录image+8，以(x+136,y+145,221)原工厂创建并发布包括空返回，不要求used或提前重映图号。唯一4F62B3初始化指针DATA引用分列，原503160回调语境/当前void lambda弃返及共享槽消费者有据，不当普通CALL或旧表分派证明。 BVY01图鉴生产/评级两正确叶完整70条208B/两页、两direct两目标/零间接、六跳两RET；五评级CALL与一个初始化callback DATA引用分列。D67D14先取→CC40D0清→存在返原对象/空才按原读序创建发布，原图号/221层和失败空发布、评级1..10及两图/坐标/逐项绘制保持；原关闭13条43B沿BVX01窗口复用：先5186A0保存再fresh预览→同MarkDeath→清槽/原混合返回。源码/头全保持、零新I/函数/API/helper/owner，两新原新1805/1806与两adapted F、旧24一主父→三实际成员，仅一个限定S。旧1044与有记录fresh/空记录实修和731存档/1126共享工厂既有合同复用，通用资源回收/全部父消费者/旧外路由/正常alias寿命、机器ABI/画面运行仍待；原格式明文、音频暂停/RPLAN.24与完整门禁保。",
+      "verification_level": "BVY01图鉴生产/评级两正确叶完整70条208B/两页、两direct两目标/零间接、六跳两RET；五评级CALL与一个初始化callback DATA引用分列。D67D14先取→CC40D0清→存在返原对象/空才按原读序创建发布，原图号/221层和失败空发布、评级1..10及两图/坐标/逐项绘制保持；原关闭13条43B沿BVX01窗口复用：先5186A0保存再fresh预览→同MarkDeath→清槽/原混合返回。源码/头全保持、零新I/函数/API/helper/owner，两新原新1805/1806与两adapted F、旧24一主父→三实际成员，仅一个限定S。旧1044与有记录fresh/空记录实修和731存档/1126共享工厂既有合同复用，通用资源回收/全部父消费者/旧外路由/正常alias寿命、机器ABI/画面运行仍待；原格式明文、音频暂停/RPLAN.24与完整门禁保。",
+      "album_preview_lifecycle_baseline": {
+        "spec_id": "BVY01",
+        "evidence_refs": [
+          "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-baseline",
+          "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-decision",
+          "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-acceptance",
+          "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 24,
+        "original_code_bytes": 96,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 1,
+        "original_return_count": 1,
+        "original_inbound_call_count": 0,
+        "original_inbound_data_reference_count": 1,
+        "original_total_instruction_count": 70,
+        "original_total_code_bytes": 208,
+        "original_total_page_count": 2,
+        "original_total_direct_call_count": 2,
+        "original_total_unique_direct_callee_count": 2,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 6,
+        "original_total_return_count": 2,
+        "original_total_inbound_call_count": 5,
+        "original_total_inbound_data_reference_count": 1,
+        "reused_close_window_instruction_count": 13,
+        "reused_close_window_code_bytes": 43,
+        "close_window_included_in_two_leaf_totals": false,
+        "full_parent_reverified": false,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "all_two_source_bodies_and_relevant_files_kept": true,
+        "init_sample_before_returning_clear_and_empty_create_publish_kept": true,
+        "factory_failure_null_published": true,
+        "no_used_gate_or_image_mapping_added": true,
+        "callback_data_reference_not_ordinary_call_or_dispatch_proof": true,
+        "rating_original_count_range_and_two_images_coordinates_kept": true,
+        "five_parent_rating_calls_ignore_return_kept": true,
+        "save_before_fresh_close_sample_and_mark_clear_return_kept": true,
+        "old_1044_consumption_and_731_save_and_1126_factory_contracts_reused": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x4f6bf0",
+      "inventory_id": "F:000F6BF0",
+      "original_role": "4F6BF0评级绘制：原S32 rating+1，只1..10继续；x+4/y+8，逐项x间隔8、图号22901/22902按序号signed余数2选择，layer沿原低U8绘图边界；五活动父点弃原不确定EAX返回，当前void接口不扩成通用机器ABI。真DrawGraphic逐项结果按原弃用，不加钳制、额外取数/条件或异常模拟，原正常RPLAN.24算术保。",
+      "original_end_exclusive": "0x4f6c60",
+      "original_chunks": [
+        [
+          "0x4f6bf0",
+          "0x4f6c60"
+        ]
+      ],
+      "instruction_count": 46,
+      "status": "BVY01图鉴生产/评级两正确叶完整70条208B/两页、两direct两目标/零间接、六跳两RET；五评级CALL与一个初始化callback DATA引用分列。D67D14先取→CC40D0清→存在返原对象/空才按原读序创建发布，原图号/221层和失败空发布、评级1..10及两图/坐标/逐项绘制保持；原关闭13条43B沿BVX01窗口复用：先5186A0保存再fresh预览→同MarkDeath→清槽/原混合返回。源码/头全保持、零新I/函数/API/helper/owner，两新原新1805/1806与两adapted F、旧24一主父→三实际成员，仅一个限定S。旧1044与有记录fresh/空记录实修和731存档/1126共享工厂既有合同复用，通用资源回收/全部父消费者/旧外路由/正常alias寿命、机器ABI/画面运行仍待；原格式明文、音频暂停/RPLAN.24与完整门禁保。",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4F6BF0"
+          ],
+          "relationship": "4F6BF0评级绘制：原S32 rating+1，只1..10继续；x+4/y+8，逐项x间隔8、图号22901/22902按序号signed余数2选择，layer沿原低U8绘图边界；五活动父点弃原不确定EAX返回，当前void接口不扩成通用机器ABI。真DrawGraphic逐项结果按原弃用，不加钳制、额外取数/条件或异常模拟，原正常RPLAN.24算术保。"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4F6BF0"
+          ],
+          "relationship": "既有公开至旧页面的T*/S32/U8声明保持，无新接口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-baseline",
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-decision",
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-acceptance",
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state"
+      ],
+      "boundary": "4F6BF0评级绘制：原S32 rating+1，只1..10继续；x+4/y+8，逐项x间隔8、图号22901/22902按序号signed余数2选择，layer沿原低U8绘图边界；五活动父点弃原不确定EAX返回，当前void接口不扩成通用机器ABI。真DrawGraphic逐项结果按原弃用，不加钳制、额外取数/条件或异常模拟，原正常RPLAN.24算术保。 BVY01图鉴生产/评级两正确叶完整70条208B/两页、两direct两目标/零间接、六跳两RET；五评级CALL与一个初始化callback DATA引用分列。D67D14先取→CC40D0清→存在返原对象/空才按原读序创建发布，原图号/221层和失败空发布、评级1..10及两图/坐标/逐项绘制保持；原关闭13条43B沿BVX01窗口复用：先5186A0保存再fresh预览→同MarkDeath→清槽/原混合返回。源码/头全保持、零新I/函数/API/helper/owner，两新原新1805/1806与两adapted F、旧24一主父→三实际成员，仅一个限定S。旧1044与有记录fresh/空记录实修和731存档/1126共享工厂既有合同复用，通用资源回收/全部父消费者/旧外路由/正常alias寿命、机器ABI/画面运行仍待；原格式明文、音频暂停/RPLAN.24与完整门禁保。",
+      "verification_level": "BVY01图鉴生产/评级两正确叶完整70条208B/两页、两direct两目标/零间接、六跳两RET；五评级CALL与一个初始化callback DATA引用分列。D67D14先取→CC40D0清→存在返原对象/空才按原读序创建发布，原图号/221层和失败空发布、评级1..10及两图/坐标/逐项绘制保持；原关闭13条43B沿BVX01窗口复用：先5186A0保存再fresh预览→同MarkDeath→清槽/原混合返回。源码/头全保持、零新I/函数/API/helper/owner，两新原新1805/1806与两adapted F、旧24一主父→三实际成员，仅一个限定S。旧1044与有记录fresh/空记录实修和731存档/1126共享工厂既有合同复用，通用资源回收/全部父消费者/旧外路由/正常alias寿命、机器ABI/画面运行仍待；原格式明文、音频暂停/RPLAN.24与完整门禁保。",
+      "album_preview_lifecycle_baseline": {
+        "spec_id": "BVY01",
+        "evidence_refs": [
+          "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-baseline",
+          "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-decision",
+          "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-acceptance",
+          "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 46,
+        "original_code_bytes": 112,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 5,
+        "original_return_count": 1,
+        "original_inbound_call_count": 5,
+        "original_inbound_data_reference_count": 0,
+        "original_total_instruction_count": 70,
+        "original_total_code_bytes": 208,
+        "original_total_page_count": 2,
+        "original_total_direct_call_count": 2,
+        "original_total_unique_direct_callee_count": 2,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 6,
+        "original_total_return_count": 2,
+        "original_total_inbound_call_count": 5,
+        "original_total_inbound_data_reference_count": 1,
+        "reused_close_window_instruction_count": 13,
+        "reused_close_window_code_bytes": 43,
+        "close_window_included_in_two_leaf_totals": false,
+        "full_parent_reverified": false,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "all_two_source_bodies_and_relevant_files_kept": true,
+        "init_sample_before_returning_clear_and_empty_create_publish_kept": true,
+        "factory_failure_null_published": true,
+        "no_used_gate_or_image_mapping_added": true,
+        "callback_data_reference_not_ordinary_call_or_dispatch_proof": true,
+        "rating_original_count_range_and_two_images_coordinates_kept": true,
+        "five_parent_rating_calls_ignore_return_kept": true,
+        "save_before_fresh_close_sample_and_mark_clear_return_kept": true,
+        "old_1044_consumption_and_731_save_and_1126_factory_contracts_reused": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

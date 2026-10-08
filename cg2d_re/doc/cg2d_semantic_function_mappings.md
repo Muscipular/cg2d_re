@@ -4019,3 +4019,11 @@ BVW01旧买入/卖出/修理/鉴定/交换/交出接受数量六父各一标志�
 BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。
 
 有记录阶段正确保持，空记录仅一片段恢复同样本判空/置W32 bit1；原文件/格式/字节及其它父字段不覆盖。语义1805/有效1798、合同1915（52.04%）保持，F960→961、E1120→1122；旧24只纳一个主父，枚举与完整门禁仍open，不代完整图鉴/旧路由或运行通过。
+
+## BVY01图鉴预览生产与评级基线（2026-10-08）
+
+[基线](cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-baseline)、[决定](cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-decision)、[验收](cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-acceptance)、[状态](cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state)及[原证](cg2d_album_preview_lifecycle_baseline_evidence.json)。
+
+初始化4F61C0、评级4F6BF0的现有正确代码保持，补齐独立原新1805/1806和adapted处置。两完整原体70条208B；初始化一个DATA引用与评级五个CALL分列。初始化先取共享预览、清返回标记，空才按原取参创建，连工厂失败的空返回也发布；评级保留1..10项、两图交替、坐标与逐项绘制。原初始化参数/当前lambda、同槽生产消费及关闭先保存再fresh取预览、标记回收清槽的接线可追。关闭13条43B复用BVX01窗口；旧1044/731/1126记录与合同保持。
+
+零源码改动、零新增I，UI-L-024实际成员1→3，只新增一个限定S；语义1805→1807、有效1798→1800、合同1915→1917（52.09%）、F961→963、E1122→1123。U04/U11/V04/R04仍open。完整父、其他消费者、正常owner/alias寿命、实际释放和画面/文件运行按原门禁继续验收，不能以本步局部基线宣整个图鉴或整体SPEC完成。原格式明文、音频暂停及RPLAN.24保持。

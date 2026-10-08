@@ -4378,3 +4378,15 @@ BVD控制父已固定，本轮继续两大FX完整根：正向570条2320B/九页
 FreeWindow单根六阶段精确实修：focusId→window.id、focusedData→elementData原序保存，类型2同data样本且经唯一Yobi边界承接原直接deathFlag=1，类型3固定text、类型4/6/7固定data，最后固定fresh元素数组。两个CPP/一个Yobi公共头、唯一必要native helper/API；UI不直接访问不完整YobiAction。局部变量各自case作用域，回调后fresh字段/槽、文本free后的fresh清null、元素数量复读和最终实例释放保。通用MarkDeath的额外空判断只在本原调用点不再借用，通用正文及其它调用/载荷/窗口接口保；为opaque YobiAction新增唯一void MarkDeathUnchecked(T*)在既有runtime/公共头内只写flag，不公开布局、不造原函数地址/身份；不加action保护、异常模拟或故障等价验收。全关闭与marker两正确主体全文保持、不计新增I。
 
 完整机器和派生差集通过，文本汇总/-Check均退出0。新增1797..1799三adapted F、公共UI49，两限定I/S各24来源，I仅单根六阶段；实际语义1800/有效1793、基线1910（51.90%）、F948/E1102。四任务仍open，R7已审467余2594、pending18/closed11/全叶0/globalfalse、原差队列与CRT43保持。原格式明文/MIS62与实际结果、音频暂停/RPLAN.24及执行限制保；所有15入向/父/release目标/callee、资源生产与正常owner-alias寿命、机器ABI/完整画面运行与R8待验，整体SPEC目标继续推进。
+
+## BVS01修复表情请求opaque字段访问（2026-10-08）
+
+BVS01表情请求单处opaque访问已改为既有GetYobiActionField2A8；S32读取位置/次数保持，零新接口，已有1782/F和公共UI49不重计。
+
+[实施与验收SPEC](../doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-decision)；[原证及源前后态](../doc/cg2d_emote_chat_mis_chain_evidence.json)。复用BVP01完整根，只定点重取4FA9C1一次W32指令。一个CPP一个表达式；表情分支、两表及发送→本地→tick结果保持，其他源码/公共头不动。台账仅更新已有记录并追加两限定I/S，四任务仍open。验证结果完成后追加，不宣编译、链接或运行通过。
+
+### BVS01本步实际静态结果
+
+已修复表情请求4FA8E0直接访问不完整YobiAction的源码缺口，单处改用既有GetYobiActionField2A8。原4FA9C1六字节W32读取与BVP01完整根一致；调用方整源仅一个表达式替换，getter/声明及其它源码保持，无新增接口、保护或函数身份。只在原分支以同action读取一次S32图号，所有表情选择、两表、Y/X/MIS→本地动作→完成tick及返回保持，网络原格式明文。
+
+源码、完整机器台账与派生差集通过，文本汇总/-Check退出0。旧1782/F更新不重计，语义1800/有效1793、基线1910（51.90%）、F948、公共UI49保持，仅E1102→1104；四任务仍open，pending18/R7已审467余2594/closed11/全叶0/globalfalse、原差队列及CRT43保持。BVP01“正文保持”仅为历史快照，不代当前编译结论；未执行编译、链接或运行。音频暂停/RPLAN.24及执行限制保，整体SPEC目标继续推进。

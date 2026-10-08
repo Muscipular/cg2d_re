@@ -9414,7 +9414,7 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
     login::YobiAction* const action = gPlayerRuntime.action;
     bool useLimitedActions = login::detail::ReadMapActorAttachment44(action) != nullptr;
     if (!useLimitedActions) {
-        const std::int32_t image = action->imageNo;
+        const std::int32_t image = login::detail::GetYobiActionField2A8(action);
         useLimitedActions = !((image >= 0x186A0 && image <= 0x18A87)
             || (image >= 0x19A28 && image <= 0x1A130)
             || (image >= 0x1AF0E && image <= 0x1AF25)

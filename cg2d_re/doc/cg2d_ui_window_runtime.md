@@ -295,3 +295,11 @@ git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show 810c6f75:cg2d_re
 三完整根184条565B/四页、14direct六目标/一个release间接、28跳3RET；11CALL/四尾跳及七类释放表分列有据。FreeWindow单既有根六阶段实修：焦点/载荷按原顺序读取，同data/text/数组样本判断和释放，类型2经唯一Yobi native边界承接直接deathFlag=1恢复原写、撤本调用点借通用MarkDeath产生的额外空判断。原release后fresh字段/槽、两W32 flags、循环数量与释放次序保，通用MarkDeath正文/载荷与窗口接口头及全关闭/marker两正确主体不动。
 
 新1797..1799三adapted F、公共UI46→49，两限定I/S各24来源，I仅单根六阶段，两个正确主体不计新I；两个CPP/一个Yobi公共头，一个必要native边界helper/API不新原身份，无新owner/保护或故障模拟。预期语义1800/有效1793、基线1910（51.90%）、F948/E1102；U04/U11/V03/R04仍open。MIS62/七W32占用清理/71标记和实际返回保；全部release目标/15入向及父/callee、生产和正常owner-alias寿命、机器ABI/画面运行待，原格式明文/音频暂停/RPLAN.24及执行限制保持。
+
+## BVS01表情请求类型边界修正（2026-10-08）
+
+[BVS01基线](cg2d_emote_chat_mis_chain_spec.md#emote-opaque-baseline)、[实施决定](cg2d_emote_chat_mis_chain_spec.md#emote-opaque-decision)、[验收](cg2d_emote_chat_mis_chain_spec.md#emote-opaque-acceptance)及[状态](cg2d_emote_chat_mis_chain_spec.md#emote-opaque-source-state)。原证JSON追加`emote_opaque_boundary_correction`。
+
+BVS01修复4FA8E0表情请求跨opaque YobiAction直接取imageNo的真实源码缺口；原4FA9C1一次W32读取由既有GetYobiActionField2A8原样承接，仍仅在附件44为空且计时门禁已过后同action读取。一个CPP一个调用表达式，零新函数/helper/API/owner/保护；正文其余、现有getter/公共头和两动作表保持。复用BVP01完整117条437B/两页基线，本步只重取一实际指令；既有1782/F:000FA8E0和公共UI49不重计，两个限定I/S，原格式明文/音频暂停/RPLAN.24保。只验本源码边界，未宣编译链接、机器ABI或运行通过，四任务仍open。
+
+BVP01七整源/十三正文保持是原命名快照历史；本次只纠正4FA8E0当前跨opaque直接访问，既有getter/声明及其它源保持。语义1800/有效1793、F948、公共UI49、基线1910（51.90%）保持，仅E1102→1104；编译、链接与运行未执行。

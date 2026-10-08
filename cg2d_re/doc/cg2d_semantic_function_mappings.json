@@ -202081,14 +202081,14 @@
         ]
       ],
       "instruction_count": 117,
-      "status": "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "status": "BVS01修复4FA8E0表情请求跨opaque YobiAction直接取imageNo的真实源码缺口；原4FA9C1一次W32读取由既有GetYobiActionField2A8原样承接，仍仅在附件44为空且计时门禁已过后同action读取。一个CPP一个调用表达式，零新函数/helper/API/owner/保护；正文其余、现有getter/公共头和两动作表保持。复用BVP01完整117条437B/两页基线，本步只重取一实际指令；既有1782/F:000FA8E0和公共UI49不重计，两个限定I/S，原格式明文/音频暂停/RPLAN.24保。只验本源码边界，未宣编译链接、机器ABI或运行通过，四任务仍open。",
       "sources": [
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "RequestEmoteWithResult_4FA8E0"
           ],
-          "relationship": "4FA8E0：初始action地址与scene10/两个W16状态短路；一次Eq读取的AL/高24位，负索引及先tick后起点+500 unsigned门禁。过门fresh action/payload附件、六signed图号区间与十受限动作改1；同selected协议表→Y/X/socket原MIS→fresh本地表→51A060→fresh tick发布并原混合结果返回；两十八项S32表及uintptr/void包装保，不加上限或新状态。"
+          "relationship": "4FA8E0：初始action地址与scene10/两个W16状态短路；一次Eq读取的AL/高24位，负索引及先tick后起点+500 unsigned门禁。过门fresh action/payload附件、六signed图号区间与十受限动作改1；同selected协议表→Y/X/socket原MIS→fresh本地表→51A060→fresh tick发布并原混合结果返回；两十八项S32表及uintptr/void包装保，不加上限或新状态。 BVS01同分支复用既有GetYobiActionField2A8，单次S32读取跨opaque边界。"
         },
         {
           "path": "src/world/SceneState.cpp",
@@ -202105,16 +202105,34 @@
             "RequestEmoteWithResult_4FA8E0"
           ],
           "relationship": "已证原生action地址/W32混合返回声明保持，不新接口"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "GetYobiActionField2A8"
+          ],
+          "relationship": "既有native单字段读取桥接，正文保持；不对应新增原独立函数或所有权"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "GetYobiActionField2A8"
+          ],
+          "relationship": "既有公开声明保持，YobiAction继续前置声明"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline",
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-acceptance",
-        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-baseline",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-decision",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-acceptance",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-source-state"
       ],
-      "boundary": "4FA8E0：初始action地址与scene10/两个W16状态短路；一次Eq读取的AL/高24位，负索引及先tick后起点+500 unsigned门禁。过门fresh action/payload附件、六signed图号区间与十受限动作改1；同selected协议表→Y/X/socket原MIS→fresh本地表→51A060→fresh tick发布并原混合结果返回；两十八项S32表及uintptr/void包装保，不加上限或新状态。 BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
-      "verification_level": "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "boundary": "4FA8E0：初始action地址与scene10/两个W16状态短路；一次Eq读取的AL/高24位，负索引及先tick后起点+500 unsigned门禁。过门fresh action/payload附件、六signed图号区间与十受限动作改1；同selected协议表→Y/X/socket原MIS→fresh本地表→51A060→fresh tick发布并原混合结果返回；两十八项S32表及uintptr/void包装保，不加上限或新状态。 BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。 BVS01修复4FA8E0表情请求跨opaque YobiAction直接取imageNo的真实源码缺口；原4FA9C1一次W32读取由既有GetYobiActionField2A8原样承接，仍仅在附件44为空且计时门禁已过后同action读取。一个CPP一个调用表达式，零新函数/helper/API/owner/保护；正文其余、现有getter/公共头和两动作表保持。复用BVP01完整117条437B/两页基线，本步只重取一实际指令；既有1782/F:000FA8E0和公共UI49不重计，两个限定I/S，原格式明文/音频暂停/RPLAN.24保。只验本源码边界，未宣编译链接、机器ABI或运行通过，四任务仍open。",
+      "verification_level": "BVS01修复4FA8E0表情请求跨opaque YobiAction直接取imageNo的真实源码缺口；原4FA9C1一次W32读取由既有GetYobiActionField2A8原样承接，仍仅在附件44为空且计时门禁已过后同action读取。一个CPP一个调用表达式，零新函数/helper/API/owner/保护；正文其余、现有getter/公共头和两动作表保持。复用BVP01完整117条437B/两页基线，本步只重取一实际指令；既有1782/F:000FA8E0和公共UI49不重计，两个限定I/S，原格式明文/音频暂停/RPLAN.24保。只验本源码边界，未宣编译链接、机器ABI或运行通过，四任务仍open。",
       "emote_chat_mis_chain": {
         "spec_id": "BVP01",
         "evidence_refs": [
@@ -202167,6 +202185,42 @@
         "full_pixels_verified": false,
         "full_machine_abi_verified": false,
         "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      },
+      "emote_opaque_boundary_correction": {
+        "spec_id": "BVS01",
+        "evidence_refs": [
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-baseline",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-decision",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-acceptance",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-source-state"
+        ],
+        "historical_BVP01_source_state_preserved": true,
+        "full_root_reused_from_BVP01": true,
+        "original_instruction_count_reused": 117,
+        "original_code_bytes_reused": 437,
+        "original_page_count_reused": 2,
+        "new_original_instruction_count": 1,
+        "source_body_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 1,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "new_semantic_record_count": 0,
+        "new_function_disposition_count": 0,
+        "existing_getter_reused": true,
+        "getter_and_declaration_kept": true,
+        "single_S32_image_read_in_same_branch_kept": true,
+        "extra_guard_added": false,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "compilation_verified": false,
+        "linking_verified": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
         "fault_equivalence_claimed": false
       }
     },

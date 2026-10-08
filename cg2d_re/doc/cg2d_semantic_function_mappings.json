@@ -134,7 +134,7 @@
       "original_entry": "0x403C50",
       "inventory_id": "F:00003C50",
       "status": "源码工作项已关闭，完整互通与功能门禁仍未验",
-      "implementation_state": "完整154条接收非加密职责与真实Loop调用已接；原W16帧/容量/CRLF/NUL/队列/状态保持，D04直接明文",
+      "implementation_state": "CAB05旧W16正文保留作原端对照但退出当前客户端链，原命令/字段/LF提供者已接并Debug链接；完整登录往返和V03仍待",
       "remaining_requirement": "D04明文旁路及真实帧本体/既有接线已落位；全部业务生产/依赖、连接往返及V03仍待，音频暂停、运行限制保持。",
       "evidence_documents": [
         "doc/cg2d_network_plaintext_frame_spec.md",
@@ -146,7 +146,7 @@
       "original_entry": "0x403E50",
       "inventory_id": "F:00003E50",
       "status": "源码工作项已关闭，完整互通与功能门禁仍未验",
-      "implementation_state": "完整146条发送非加密职责与真实回调绑定已接；原首标记/正文/旧尾/帧/报告/长度/状态保持，D04直接明文",
+      "implementation_state": "CAB05旧W16正文保留作原端对照但退出当前客户端链，原命令/字段/LF提供者已接并Debug链接；完整登录往返和V03仍待",
       "remaining_requirement": "D04明文旁路及真实帧本体/既有接线已落位；全部业务生产/依赖、连接往返及V03仍待，音频暂停、运行限制保持。",
       "evidence_documents": [
         "doc/cg2d_network_plaintext_frame_spec.md",
@@ -95471,7 +95471,17 @@
     {
       "original_entry": "0x517510",
       "inventory_id": "F:00117510",
-      "status": "NCS01命令校验和恢复局部S32计算与转换后ASCII发布；原格式/调用保持，完整父/owner/真实收发与运行未闭",
+      "status": "CAB05在用cgmsv明文合同适配已落码，原命令/字段/LF、重连计数和EOF接线已编译，完整互通未验",
+      "plaintext_server_contract": {
+        "decision_ref": "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract",
+        "source_state_ref": "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
+        "evidence_ref": "doc/cg2d_local_plaintext_login_evidence.json",
+        "implementation_snapshot": "cg2d-re-local-plaintext-login-20261009",
+        "legacy_frame_runtime_wired": false,
+        "runtime_verified": false,
+        "role": "current_plaintext_adaptation",
+        "verification": "仅本次新增源码差异与接线静态核对、Debug编译链接；旧校验和/密文帧结论为历史基线"
+      },
       "original_end_exclusive": "0x51766C",
       "instruction_count": 113,
       "original_direct_reference_count": 83,
@@ -157208,7 +157218,17 @@
     {
       "original_entry": "0x403C50",
       "inventory_id": "F:00003C50",
-      "status": "完整154条接收非加密职责与真实Loop调用已接；原W16帧/容量/CRLF/NUL/队列/状态保持，D04直接明文；完整网络/生命周期/互通未验",
+      "status": "CAB05旧帧正文保留但退出当前明文收发；实际cgmsv原命令/字段/LF已接，Debug链接通过，完整互通未验",
+      "plaintext_server_contract": {
+        "decision_ref": "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract",
+        "source_state_ref": "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
+        "evidence_ref": "doc/cg2d_local_plaintext_login_evidence.json",
+        "implementation_snapshot": "cg2d-re-local-plaintext-login-20261009",
+        "legacy_frame_runtime_wired": false,
+        "runtime_verified": false,
+        "role": "legacy_comparison",
+        "verification": "仅本次新增源码差异与接线静态核对、Debug编译链接；旧校验和/密文帧结论为历史基线"
+      },
       "sources": [
         {
           "path": "src/network/NetworkRuntime.cpp",
@@ -157244,7 +157264,17 @@
     {
       "original_entry": "0x403E50",
       "inventory_id": "F:00003E50",
-      "status": "完整146条发送非加密职责与真实回调绑定已接；原首标记/正文/旧尾/帧/报告/长度/状态保持，D04直接明文；完整网络/生命周期/互通未验",
+      "status": "CAB05旧帧正文保留但退出当前明文收发；实际cgmsv原命令/字段/LF已接，Debug链接通过，完整互通未验",
+      "plaintext_server_contract": {
+        "decision_ref": "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract",
+        "source_state_ref": "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
+        "evidence_ref": "doc/cg2d_local_plaintext_login_evidence.json",
+        "implementation_snapshot": "cg2d-re-local-plaintext-login-20261009",
+        "legacy_frame_runtime_wired": false,
+        "runtime_verified": false,
+        "role": "legacy_comparison",
+        "verification": "仅本次新增源码差异与接线静态核对、Debug编译链接；旧校验和/密文帧结论为历史基线"
+      },
       "sources": [
         {
           "path": "src/network/NetworkRuntime.cpp",
@@ -161970,7 +162000,17 @@
     {
       "original_entry": "0x507DF0",
       "inventory_id": "F:00107DF0",
-      "status": "NLC01原已存在网络生产/轮询/启动/退出入口静态纳管；九缓冲取值/发布与单次flags已实修，完整父/SDK/运行未闭",
+      "status": "CAB05在用cgmsv明文合同适配已落码，原命令/字段/LF、重连计数和EOF接线已编译，完整互通未验",
+      "plaintext_server_contract": {
+        "decision_ref": "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract",
+        "source_state_ref": "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
+        "evidence_ref": "doc/cg2d_local_plaintext_login_evidence.json",
+        "implementation_snapshot": "cg2d-re-local-plaintext-login-20261009",
+        "legacy_frame_runtime_wired": false,
+        "runtime_verified": false,
+        "role": "current_plaintext_adaptation",
+        "verification": "仅本次新增源码差异与接线静态核对、Debug编译链接；旧校验和/密文帧结论为历史基线"
+      },
       "original_chunks": [
         [
           "0x00507DF0",
@@ -162019,7 +162059,17 @@
     {
       "original_entry": "0x508140",
       "inventory_id": "F:00108140",
-      "status": "NLC01原已存在网络生产/轮询/启动/退出入口静态纳管；九缓冲取值/发布与单次flags已实修，完整父/SDK/运行未闭",
+      "status": "CAB05在用cgmsv明文合同适配已落码，原命令/字段/LF、重连计数和EOF接线已编译，完整互通未验",
+      "plaintext_server_contract": {
+        "decision_ref": "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract",
+        "source_state_ref": "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
+        "evidence_ref": "doc/cg2d_local_plaintext_login_evidence.json",
+        "implementation_snapshot": "cg2d-re-local-plaintext-login-20261009",
+        "legacy_frame_runtime_wired": false,
+        "runtime_verified": false,
+        "role": "current_plaintext_adaptation",
+        "verification": "仅本次新增源码差异与接线静态核对、Debug编译链接；旧校验和/密文帧结论为历史基线"
+      },
       "original_chunks": [
         [
           "0x00508140",
@@ -162488,7 +162538,17 @@
     {
       "original_entry": "0x00512E40",
       "inventory_id": "F:00112E40",
-      "status": "BWU01补原512E40全部108命令比较块的头U8读取/条件/回环到既有TryDispatchReply：当前2593条6307B/107×24加iKe25、433B命令含NUL/648跳零CALL，原两个U8对均头先/命令后、比较后同头判NUL及第二对后两地址加2保。一个现CPP一个模板片段，宿主strcmp改原两字节一轮的实际CPP循环，零新函数/接口/owner/原身份；原TEST相等/不等消费由既有bool合同承接，108源行/命令/类型/掩码/全部解码与callback及末三路径/原接收头和格式明文保持。仅已有1216局部证据及NETWORK69两限定I-S/E1180，无新原新/F处置/R7/成员；全根5779及全父/callee/正常寿命/机器ABI链接运行和真实互通未代验，模式真实生产未证不补造，RPLAN.24/音频暂停保持。",
+      "status": "CAB05在用cgmsv明文合同适配已落码，原命令/字段/LF、重连计数和EOF接线已编译，完整互通未验",
+      "plaintext_server_contract": {
+        "decision_ref": "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract",
+        "source_state_ref": "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
+        "evidence_ref": "doc/cg2d_local_plaintext_login_evidence.json",
+        "implementation_snapshot": "cg2d-re-local-plaintext-login-20261009",
+        "legacy_frame_runtime_wired": false,
+        "runtime_verified": false,
+        "role": "current_plaintext_adaptation",
+        "verification": "仅本次新增源码差异与接线静态核对、Debug编译链接；旧校验和/密文帧结论为历史基线"
+      },
       "original_chunks": [
         [
           "0x00512E40",

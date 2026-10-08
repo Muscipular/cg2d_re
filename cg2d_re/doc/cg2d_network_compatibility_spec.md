@@ -4,6 +4,30 @@
 > **原帧结构、正文组装与协议处理保留，只旁路加解密传明文。** 不恢复401960/401AB0；此前本轮曾写的自定义明文候选及恢复加密解释均撤回，未实施。
 > 上位：[收尾决议](cg2d_closure_decisions_spec.md)、[网络接线SPEC](cg2d_network_exclusion_wiring_spec.md)；原证据：[网络合同](cg2d_network_runtime.md)。P09/P10源码与局部静态对照已落位，见[帧实施子SPEC](cg2d_network_plaintext_frame_spec.md)；完整网络与互通未验。
 
+> 2026-10-09当前实施以[本机服务端明文合同](#local-server-plaintext-contract)为准。旧“仅去算法、保留密文帧外壳和命令变换”的实现不能与当前服务端互通，下列旧W16合同仅保留为原端历史基线。
+
+<a id="local-server-plaintext-contract"></a>
+
+## 2026-10-09：本机连接卡住的协议修复决议
+
+用户选择IP:2（127.0.0.1:9030）。本机端口已监听，客户端systemlog记录CONNECT OK；服务进程来自 `D:/Source/cgmsv/cgmsv_server/cmake-build-release-mingw/cgmsv.exe`。实际服务端现有格式由net.c的GetOneLine_fix（628–655）、nrproto_util.c的nrproto_CreateHeader/nrproto_Send（619–622、598–613）及nrproto_GetMessageInfo（148–157）证明：直接原命令、原字段和LF，不含W16头、随机前缀、滚动状态尾或命令混淆。include/version.h定义VERSION_TW，include/nrproto_util.h在该版本不启用nrproto__ENCRYPT。
+
+原客户端仍发W16头/随机前缀/变换命令，且按W16长度等待原命令开头的服务端回复，双方无法按相同格式派发。按用户“兼容原有格式、只传明文”和既有工程委托，本线程裁决：客户端实际收发直接兼容上述已经存在的服务端格式；撤回2026-10-04把密文传输外壳解释为明文业务必保项的实施决定。不改服务端、不恢复加解密、不加入格式协商/自动检测或另一套协议。
+
+实施边界：既有NetworkRuntime.cpp增加真实明文入队/取行提供者，InitializeNetworkRuntime绑定它，NetworkLoop以LF取完整行后交既有派发；命令生产与消费直接使用JFVf/whV等原命令。JFVf四字段顺序、base62整数、旧转义/空格/GBK正文、回调、发送队列及部分发送保持。半行不消费、多行逐行消费；重新初始化清实际收发数量、轮询相位与计时状态，远端recv=0转现有断线路径，防止连接界面继续等待。旧403C50/403E50和4038A0/403A70正文保留作原端对照，退出当前明文客户端收发链，不能把保留源码称为当前接线或新增范围排除。
+
+验收只核当前新增差异、真实接线与必要Debug编译；客户端/算法样例与试包仍不自行运行。实际登录成功、半包/多包及完整生命周期必须另有运行证据，不能以服务启动、CONNECT OK或编译通过代替。
+
+<a id="local-server-plaintext-source-state"></a>
+
+### CAB05 当前落地结果
+
+源码仅修改NetworkRuntime.cpp：两个私有明文提供者、命令组装与派发、初始化接线/队列数量重置及recv=0断线处理。JFVf四字段、108个原回复命令/参数及回调、原整数/转义工具保持；四个旧帧/命令变换函数正文保留，当前明文链不再调用。服务端五份相关源码与提交cecfb008b1a8fb5116345c7fcea91047bce247ae一致；仅取证，未改动或重启服务端。
+
+复用Windows/MSVC/x64 Debug预设增量构建，三库及真实客户端链接返回0，0错误、3条既有C4244警告。日志为build/windows-msvc-x64/build-plaintext-login-20261009.log，EXE为7980032B；已更新H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2d_re_client.exe，旧版备份带.before-plaintext-login-20261009后缀。未自行启动客户端、试包、执行测试或计算摘要；用户重新运行IP:2的结果尚待确认，FUNC-NETWORK/FUNC-LOGIN、V03及整体SPEC完整门禁不关闭。
+
+证据：[CAB05记录](cg2d_local_plaintext_login_evidence.json)；源码快照：cg2d-re-local-plaintext-login-20261009。旧D04证据按原历史范围保留，不改写为本次运行通过。
+
 ## 1. 唯一允许的传输差异
 
 | 边界 | 新端做法 | 继续保留 |

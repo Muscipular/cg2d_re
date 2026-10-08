@@ -5017,3 +5017,13 @@ AGENTS、原编译/音频/宿主/旧生产SPEC及总计划和任务表已同步�
 ## CAB04 GBK、宋体与ASCII光标编译复验（2026-10-09）
 
 按用户“编译项目”授权，对源码b27173e4复用Windows/MSVC/x64 Debug预设执行增量构建，core/startup/render三库及cg2d_re_client编译链接通过，退出码0；无需源码修复或新增依赖。日志build/windows-msvc-x64/build-gbk-songti-20261009.log记录0错误、100条既有源码警告，无文字转码/字体/光标相关诊断；产物Debug/cg2d_re_client.exe为7980032B。既有编译SPEC、文字证据与登记簿build_validation同步；未重新配置、执行测试、启动客户端、操作桌面或计算摘要，完整画面/音频与整体SPEC仍未验收。
+
+## CAB05 本机明文连接修复与整体目标（2026-10-09）
+
+用户选择IP:2并确认本机服务已启动；9030端口监听与CONNECT OK证明TCP连接已建立。实际服务端VERSION_TW格式为原命令/原字段/LF，旧客户端W16外壳及命令变换与其不兼容。已依用户明文要求和工程委托修正现有网络SPEC，仅改NetworkRuntime.cpp的真实明文入队/取行、原命令组装/消费、初始化队列数量重置和远端关闭处理；字段、108回复表、部分发送及旧四函数正文保持，不修改服务端或增加协议。
+
+必要Debug增量编译及三库/客户端链接返回0，0错误、3条既有C4244警告，EXE7980032B。已更新H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2d_re_client.exe，旧版备份.before-plaintext-login-20261009；未运行客户端、试包、测试或摘要，实际登录仍待用户反馈。证据doc/cg2d_local_plaintext_login_evidence.json，源码快照cg2d-re-local-plaintext-login-20261009。
+
+用户再次明确设置完成整体SPEC目标；已建立active目标，以cg2d_full_reconstruction_plan.md及登记簿聚焦缺口推进开发。源码/接线/编译与运行分别记录，本步不关闭FUNC-NETWORK、FUNC-LOGIN、V03或整体门禁；同步既有SPEC、规则、台账和根plans/progess.md，原用户改动排除提交。
+
+CAB05新增差异静态核对及台账汇总通过；六个既有原ID同步当前适配/历史对照角色，五处已有adapted及P09/P10/V03补当前证据，未增加排除或原函数分母。新增三条限定I/W/S，不提升完整叶验收；3680函数、218导入、3061区间、182叶功能、60任务及关闭11保持，整体验收仍为false。

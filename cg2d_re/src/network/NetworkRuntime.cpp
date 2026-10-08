@@ -149,6 +149,57 @@ struct ProtocolOutputAccess {
     }
 };
 
+// 现有cgmsv明文合同：原命令/字段和LF原样入唯一发送队列，不包密文帧。
+std::int32_t QueuePlaintextProtocolBytes(
+    const std::uintptr_t,
+    const void* const data,
+    const std::uint32_t size)
+{
+    if (login::gRequestPollingEnabled == 0) {
+        return -100;
+    }
+
+    std::int32_t sendLength;
+    std::uint8_t* const send = gNetworkRuntimeState.queueBytes.data();
+    std::memcpy(&sendLength, send + kSendLengthOffset, sizeof(sendLength));
+    const std::int32_t nextLength = sendLength + static_cast<std::int32_t>(size);
+    if (nextLength > static_cast<std::int32_t>(kQueueCapacity)) {
+        return -1;
+    }
+
+    std::memcpy(send + sendLength, data, size);
+    std::memcpy(send + kSendLengthOffset, &nextLength, sizeof(nextLength));
+    return 0;
+}
+
+// 对齐服务端GetOneLine_fix；半行保留，多行由NetworkLoop依序消费。
+std::int32_t ReceivePlaintextProtocolLine(
+    void* const destination,
+    const std::int32_t capacity)
+{
+    if (login::gRequestPollingEnabled == 0) {
+        return -100;
+    }
+
+    std::uint8_t* const receive =
+        gNetworkRuntimeState.queueBytes.data() + kReceiveQueueOffset;
+    const auto* const newline = static_cast<const std::uint8_t*>(std::memchr(
+        receive, '\n', static_cast<std::size_t>(gNetworkRuntimeState.receiveLengthD69790)));
+    if (newline == nullptr) {
+        return -1;
+    }
+    const std::int32_t lineLength = static_cast<std::int32_t>(newline - receive) + 1;
+    if (capacity <= lineLength) {
+        ::OutputDebugStringA("\nBuffer Too Small\n");
+        return -1;
+    }
+
+    std::memcpy(destination, receive, static_cast<std::size_t>(lineLength));
+    static_cast<char*>(destination)[lineLength] = '\0';
+    static_cast<void>(ConsumeReceiveQueue_508230(lineLength));
+    return 0;
+}
+
 } // namespace
 
 namespace detail {
@@ -1044,104 +1095,8 @@ std::int32_t BuildProtocolCommand_517510(
     char* const buffer,
     const char* const command)
 {
-    std::array<char, 8> temp;
-    temp[0] = input::LegacyText593850()[0];
-    const std::size_t commandLength = std::strlen(command);
-
-    const std::uint32_t clearedBytes = 0;
-    std::memcpy(temp.data() + 1, &clearedBytes, sizeof(clearedBytes));
-
-    const std::size_t dwordLength = commandLength & ~std::size_t {3};
-    std::size_t copyOffset = 0;
-    while (copyOffset < dwordLength) {
-        std::uint32_t commandDword;
-        std::memcpy(
-            &commandDword,
-            command + copyOffset,
-            sizeof(commandDword));
-        std::memcpy(
-            temp.data() + copyOffset,
-            &commandDword,
-            sizeof(commandDword));
-        copyOffset += sizeof(commandDword);
-    }
-
-    const std::uint16_t firstMode =
-        gNetworkRuntimeState.protocolModeDA3B22;
-    while (copyOffset < commandLength) {
-        temp[copyOffset] = command[copyOffset];
-        ++copyOffset;
-    }
-
-    if (firstMode == 0) {
-        static_cast<void>(detail::Sub_4038A0(
-            temp.data(), 25, "uCYPWdjs", 120, "MsItMVhgbWP"));
-    } else {
-        static_cast<void>(detail::Sub_4038A0(
-            temp.data(),
-            31,
-            login::gValueDA3A5C,
-            121,
-            login::gValueDA38DC));
-    }
-
-    static_cast<void>(platform::FormatLegacyString_53B304(buffer, "%s ", temp.data()));
-
-    std::array<char, 8> checksumSlot;
-    checksumSlot[0] = input::LegacyText593850()[0];
-    const std::int32_t passwordLength = static_cast<std::int32_t>(
-        std::strlen(login::gValueDA3A5C));
-
-    WriteProtocolStateW16(0, 0);
-    checksumSlot[1] = 0;
-    checksumSlot[2] = 0;
-    gNetworkRuntimeState.protocolState593FC4[2] = 0;
-
-    // 原5175D3..51761B仅使用局部ESI；转换前不发布共享中间和。
-    std::int32_t checksum = 0;
-    if (temp[0] != '\0') {
-        std::size_t index = 0;
-        do {
-            checksum += static_cast<std::int32_t>(
-                static_cast<std::uint8_t>(temp[index]) & 0x7FU);
-            if (checksum > 255) {
-                checksum -= 255;
-            }
-            ++index;
-        } while (temp[index] != '\0');
-    }
-    const std::uint16_t secondMode =
-        gNetworkRuntimeState.protocolModeDA3B22;
-    if (secondMode == 0) {
-        checksum ^= 0x59;
-    } else {
-        const std::int32_t divisor = passwordLength == 0
-            ? 1 : passwordLength;
-        const std::int32_t passwordIndex = 82 % divisor;
-        const std::int8_t passwordByte = std::bit_cast<std::int8_t>(
-            static_cast<std::uint8_t>(
-                login::gValueDA3A5C[passwordIndex]));
-        const std::int16_t widenedPasswordByte =
-            static_cast<std::int16_t>(passwordByte);
-        const std::uint32_t passwordValue = static_cast<std::uint32_t>(
-            std::bit_cast<std::uint16_t>(widenedPasswordByte));
-        checksum = static_cast<std::int32_t>(
-            static_cast<std::uint32_t>(checksum) ^ passwordValue);
-    }
-
-    static_cast<void>(platform::Itoa_54ABDD(
-        static_cast<int>(checksum),
-        checksumSlot.data(),
-        16));
-    const std::size_t checksumLength = std::strlen(checksumSlot.data());
-    std::memcpy(
-        gNetworkRuntimeState.protocolState593FC4.data(),
-        checksumSlot.data(),
-        checksumLength);
-    const std::size_t storedLength = std::strlen(
-        reinterpret_cast<const char*>(
-            gNetworkRuntimeState.protocolState593FC4.data()));
-    WriteProtocolStateW16(8, static_cast<std::uint16_t>(storedLength));
+    // 与服务端nrproto_CreateHeader一致；明文命令不混淆、不生成密文状态尾。
+    static_cast<void>(platform::FormatLegacyString_53B304(buffer, "%s ", command));
     return 0;
 }
 
@@ -4416,8 +4371,7 @@ std::int32_t NetworkDispatch_512E40(
     char head[1024];
     Sub_517040(&headerValue, reinterpret_cast<std::uint8_t*>(head), sizeof(head),
         gNetworkRuntimeState.pointerTable58B614);
-    const auto passwordByte = static_cast<std::uint8_t>(login::gValueDA3A5C[0]);
-    Sub_403A70(head, passwordByte, login::gValueDA3A5C, 20, login::gValueDA38DC);
+    // 服务端明文头直接是原命令（如whV），不再执行原密文命令逆变换。
 
     // I为完整S32解析，T为同编号工作区char*；顺序与原108条比较路径一致。
     using I = std::int32_t;
@@ -4576,9 +4530,17 @@ std::int32_t InitializeNetworkRuntime_508140()
     }
 
     static_cast<void>(AllocateNetworkWorkspace_516B60(
-        &detail::Sub_403E50,
+        &QueuePlaintextProtocolBytes,
         0x10000U,
         platform::gConnectionSocket));
+    // 新会话复用同一队列owner，仅重置有效数量与轮询状态，避免遗留半包。
+    constexpr std::int32_t emptyLength = 0;
+    std::memcpy(gNetworkRuntimeState.queueBytes.data() + kSendLengthOffset,
+        &emptyLength, sizeof(emptyLength));
+    gNetworkRuntimeState.receiveLengthD69790 = 0;
+    gNetworkRuntimeState.frameModuloD9F3C8 = 0;
+    gNetworkRuntimeState.flagsD9F2C0 = 0;
+    gNetworkRuntimeState.errorD9F2CC = 0;
     gNetworkRuntimeState.active = 1;
     world::gValueD9F2CA = 0;
     return 1;
@@ -4639,6 +4601,13 @@ std::uint8_t NetworkLoop_507DF0()
             static_cast<void>(AppendReceiveQueue_5081E0(
                 received, static_cast<std::uint32_t>(receivedLength)));
         }
+        else if (receivedLength == 0) {
+            // 对端正常关闭也必须进入既有断线路径，不能继续等待登录回复。
+            static_cast<void>(::closesocket(
+                static_cast<SOCKET>(platform::gConnectionSocket)));
+            world::gValueD9F2CA = 1;
+            gNetworkRuntimeState.errorD9F2CC = 0;
+        }
         else if (receivedLength == -1) {
             const std::int32_t error = detail::Sub_5082D0();
             if (error > 0) {
@@ -4655,7 +4624,7 @@ std::uint8_t NetworkLoop_507DF0()
     const volatile std::uint32_t* const length =
         &gNetworkRuntimeState.bufferLength;
     while (gNetworkRuntimeState.receiveLengthD69790 > 0) {
-        if (detail::Sub_403C50(dispatch, static_cast<std::int32_t>(kDispatchSize)) != 0) {
+        if (ReceivePlaintextProtocolLine(dispatch, static_cast<std::int32_t>(kDispatchSize)) != 0) {
             break;
         }
         static_cast<void>(detail::NetworkDispatch_512E40(

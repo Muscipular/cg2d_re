@@ -861,3 +861,7 @@
 ## 2026-10-09 cg2d_re GBK、宋体与ASCII光标编译复验
 
 按用户要求，复用Windows/MSVC/x64 Debug预设编译源码b27173e4，三库及真实客户端链接均通过，退出码0；0错误、100条既有源码警告，无本次文字/字体/光标诊断。产物cg2d_re/build/windows-msvc-x64/Debug/cg2d_re_client.exe，完整日志build-gbk-songti-20261009.log；编译SPEC、证据、登记簿与子项目进度已同步。未运行客户端、测试或算法样例，未计算摘要；本次编译通过不代替画面、音频或整体SPEC验收。
+
+## 2026-10-09 cg2d_re 本机明文连接修复
+
+已按实际服务端原命令/原字段/LF格式修复客户端收发、重连队列重置和远端关闭处理，不改服务端或新增协议。必要Debug编译链接返回0，0错误/3条既有警告；游戏目录EXE已更新并备份旧版。实际登录仍待用户反馈，未自行运行客户端或测试。整体SPEC目标已设为active，以cg2d_re总计划聚焦缺口开发验收；具体证据及进度见cg2d_re/plan/cg2d_full_reconstruction_progress.md，快照cg2d-re-local-plaintext-login-20261009。

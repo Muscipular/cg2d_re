@@ -1,5 +1,7 @@
 # 原格式明文网络接线总 SPEC
 
+> 2026-10-09当前接线沿[本机服务端明文合同](cg2d_network_compatibility_spec.md#local-server-plaintext-contract)：InitializeNetworkRuntime绑定QueuePlaintextProtocolBytes，NetworkLoop调用ReceivePlaintextProtocolLine；原命令和原字段以LF收发。下文旧W16/403C50/403E50接线为历史实施记录，不能作为当前客户端接线。两算法叶排除不变，实际互通仍待验收。
+
 > 2026-10-04最新有效要求：兼容原有格式、不自创或修改协议；不做加解密，只做明文传送。两算法叶继续排除，403E50/403C50非加密职责保留。
 > 已决定按[原格式明文子SPEC](cg2d_network_compatibility_spec.md)实施，**两帧父源码及既有直接/回调接线已落位，完整功能与互通未验**。旧候选协议选择不再生效；历史全文见Git命名快照 `cg2d-re-spec-history-20261004-before-delegated-decisions`。
 

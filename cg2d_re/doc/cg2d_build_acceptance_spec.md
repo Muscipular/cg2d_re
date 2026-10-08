@@ -56,3 +56,7 @@
 用户要求“编译项目”，本次复用现有Windows/MSVC/x64配置，执行 `cmake --build --preset windows-msvc-x64-debug --parallel 8`。源码为提交 `b27173e4` / 快照 `cg2d-re-big5-to-gbk-20261009`，core/startup/render三库与真实客户端编译链接全部通过，退出码0；无需新增源码修复。产物 `build/windows-msvc-x64/Debug/cg2d_re_client.exe` 为7980032B，完整日志 `build/windows-msvc-x64/build-gbk-songti-20261009.log`。
 
 本次增量构建记录0错误、100条既有源码警告（C4244/C4701/C4996/C4456/C4703），没有文字转码、Font.cpp或InputCaret.cpp相关诊断；增量警告数不作为全量警告总数。构建证据记入[文字更新记录](cg2d_big5_to_gbk_evidence.json)及登记簿build_validation；未重新配置、运行客户端、执行测试/算法样例或计算摘要，V02、文字画面及整体SPEC验收保持未关闭。
+
+## CAB05 本机明文连接修复编译（2026-10-09）
+
+按本次连接问题及既有编译授权，复用同一Debug预设编译NetworkRuntime.cpp；三库及真实客户端链接全部返回0，0错误、3条既有C4244警告，未重新配置。产物仍为7980032B，日志build/windows-msvc-x64/build-plaintext-login-20261009.log；游戏目录EXE已更新且旧版已备份。具体源差异与收发合同见[当前源码状态](cg2d_network_compatibility_spec.md#local-server-plaintext-source-state)及[CAB05记录](cg2d_local_plaintext_login_evidence.json)。未运行客户端或测试；登录互通、V02/V03及整体SPEC仍未验收。

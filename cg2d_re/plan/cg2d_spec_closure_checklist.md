@@ -50,7 +50,7 @@
 | [DX x64 SPEC §10–16](../doc/cg2d_graphic_dx_cache_x64_spec.md) | 原生非拥有指针、32B 图项、48B 队列、共享 owner；SDL/CPU 替换保留上层契约 | 表/节点、双变换缓存、RenderChara、DrawAllQueued、507140 指定调用及初始化探测已有 | 完整清理、两树原 CRT 生命周期、模式 2/3/4 与像素对照未闭合 | C09、G01–G05 |
 | [文本 SPEC §2–3、§5–7](../doc/cg2d_text_encoding_spec.md) | 原字节权威、容量/NUL/索引和布局不变；沿D05保留现有输入/显示边界 | 连接提示原 12 字节已对齐；GDI 原字节消费及队列 case 4 已接 | 各来源编码、输入/IME 索引和既存额外门禁、字体/字形验收仍未闭合 | T01–T03、V04 |
 | [创建 gate SPEC](../doc/cg2d_creation_gate_adaptation_spec.md) | 固定 entryGate=1 已按本轮委托裁决 | 显式参数完整本体已存在 | WorldUpdate已显式传1，源码接线差异收口；创建数据和真实流程仍待 | P08 |
-| [网络排除接线 SPEC](../doc/cg2d_network_exclusion_wiring_spec.md) | 只排除两加解密叶；保留帧、队列、发送长度及状态副作用 | 上层组包/分发与两完整非加密帧父、真实接线已有 | 保留原帧/正文/状态，仅旁路加解密传明文；全部业务/生命周期与互通待验，不自定义分包 | P09、P10、U10 |
+| [网络排除接线 SPEC](../doc/cg2d_network_exclusion_wiring_spec.md) | 只排除两加解密叶；当前兼容服务端原命令/原字段/LF格式 | CAB05真实明文入队/取行、组包/分发与重连/断线已修正并编译链接；旧两帧父仅历史对照 | [当前合同](../doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract)；实际登录、全部业务/生命周期与互通待验，不自定义协议 | P09、P10、U10、V03 |
 | [CRT 宿主提案](../doc/cg2d_crt_host_migration_spec.md) | 受限宿主承接已获本轮具名裁决；私有库差异单列 | 已批准的窄替代继续有效；大量旧 CRT 本体已落位 | 按两个子SPEC落实真实提供者/分配域/应用语义，既有兼容层和真实流程验收保留 | C01–C12 |
 | [启动局部 SPEC](../doc/cg2d_startup_flow.md) | 原启动顺序、C/C++ 表、退出登记、唯一构析与共享对象 | 父入口/C5/浮点槽、多个 CRT provider、七共享槽和 14 标准流存储已有 | C++90 表、登记数据、SI01本组以外活动构析与完整退出 | C01–C04、V02 |
 | [stdio / 内存局部 SPEC](../doc/cg2d_stdio_contract.md)、[堆合同](../doc/cg2d_crt_memory_contract.md) | 原 FILE/描述符和分配域、正常失败、副作用及所有权保留 | 文件核心、流对象方法表、模式 2 和原堆外层已有 | 剩余调用点、codecvt 生产、模式3整域宿主迁移、应用分配域逐项处理 | C05、C08、C10–C12 |
@@ -81,7 +81,7 @@
 | R2 启动/主循环/退出 | MainLoop、状态更新、WinMain 与 CRT 父源码已有 | 实际 CRT 启用、共享构析、入口/退出所有传递依赖未闭合 | C01–C12、U11、V02 |
 | R3 平台/资源 | 地图、graphic、anime、输入及存档已有局部实现/接线 | 实际来源、生命周期、文件链、输入差异、原资源与音频尚缺 | G01、G05、T01–T03、P11–P17 |
 | R4 渲染替换 | CPU Back/Temp/节点、队列、命中与提交已有 | 缓存初始化/重建/清理闭环和模式/像素对照 | C09、G01–G04、V04 |
-| R5 网络 | 108 路分发、两帧父及大量请求/回复已有 | 全部业务数据/生命周期、murD与实际收发未闭合 | P09、P10、P16、U01–U10、V03 |
+| R5 网络 | 108路分发、大量请求/回复及CAB05原命令/原字段/LF真实明文收发已接并编译；旧两帧父仅历史对照 | 本机登录实际结果、全部业务数据/生命周期与完整往返未闭合 | P09、P10、P16、U01–U10、V03 |
 | R6 世界/UI/战斗 | 现代直接表及大量旧页面、Yobi、战斗动作已有 | 旧路由、适配待实施页面、数据 owner、攻击/载荷和生命周期 | P01–P08、U01–U11 |
 | R7 覆盖收口 | 已有函数边界/未归属区间增量分类 | 全量差集、间接调用、共享尾和例外核算未完成 | R01–R05 |
 | R8 整体对照 | 只有历史局部验证，本轮仅静态文档核对 | 完整链接及同输入/资源/初值的原新流程对照均未验 | V01–V06 |
@@ -100,8 +100,8 @@ P 编号对应机器 pending_records 的原入口，不增加或缩减该分母�
 | P06 / 4F7870 | 源码工作项已关闭：完整634条及唯一父调用已接 | 两hover入口-1；正常扫描/尾重查保持，旧外层与运行仍待 | [源码收口](../doc/ui_windows/legacy_pet_list.md#pet-state-source-closure)；五独立S16待提交状态及数量保持 |
 | P07 / 4D8DA0 | BWT01旧62命令CPP直接未生产整数求值已修：真实ASM单W32读取返回原%d，三槽写/两三行扫描及其它完整父保；已有1226/mixed/pending6，两限定I-S，原模式/未写原值及旧外层继续。 SCP01完整321条本体、唯一模式槽/八原串与格式已承载；仍待事实 | C9A94C实际生产/输入域、未写第二命令原值及旧外层/完整页与机器门禁；CPP直接未生产整数求值已修，不猜值/删行或评原栈等价 | BWT01借址→真实W32读取→原格式/明文消费限定I-S通过；原实际模式/未写命令值、旧外层与完整页/机器运行仍待。 [SCP01状态](../doc/cg2d_shop_choice_body_spec.md#shop-choice-body-source-state)；本体落位不改变P07关闭条件 |
 | P08 / 4626A0 | 源码工作项已关闭：WorldUpdate显式gate=1，旧声明已清 | 本体及顺序保持；完整创建/数据/请求验收沿U03/V03继续 | [静态证据](../doc/cg2d_creation_and_module_adaptation_evidence.md#p08-创建入口显式gate)；不算整体功能验收 |
-| P09 / 403C50 | 源码工作项已关闭：完整154条明文取包与真实Loop调用已接 | 原W16整包/容量/CRLF/NUL/队列/状态保持；完整互通及V03仍待 | [源码收口](../doc/cg2d_network_plaintext_frame_spec.md#frame-source-closure)；仅401AB0位置旁路，无新分包门槛 |
-| P10 / 403E50 | 源码工作项已关闭：完整146条明文帧与真实发送回调已接 | 原首标记/正文/旧尾/报告/原头和长度发布保持；完整互通及V03仍待 | [源码收口](../doc/cg2d_network_plaintext_frame_spec.md#frame-source-closure)；仅401960位置旁路，无加密或新格式 |
+| P09 / 403C50 | 历史源码工作项已关闭：154条旧帧正文保留；当前Loop改接真实LF取行提供者 | CAB05已编译链接；半行/连续行与实际登录及V03仍待运行证据 | [当前源码状态](../doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state)；旧W16链退出当前明文收发，不新增范围排除 |
+| P10 / 403E50 | 历史源码工作项已关闭：146条旧帧正文保留；当前回调改接真实明文入队提供者 | 原字段、队列owner和部分发送保留；完整互通及V03仍待运行证据 | [当前源码状态](../doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state)；兼容现有服务端原命令/原字段/LF，无加解密或新协议 |
 | P11 / 454C30 | CAB02内置固定WAV、独立音乐流/音量表初始化已实现并已链接；完整功能仍open | 验实际资源/设备失败/声音与音源效果对照 | [固定WAV交付](../doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state)；[证据](../doc/cg2d_fixed_music_wav_evidence.json)；原owner与完整初始化门禁保持 |
 | P12 / 454EE0 | CAB02停止/销毁固定WAV流、释放PCM及共享设备owner清理已实现并已链接；仍open | 验回调停止、共享设备及真实退出寿命 | [固定WAV交付](../doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state)；先销毁流再释放样本，原退出顺序保持 |
 | P13 / 458AE0 | CAA01实际SDL设备能力与独立DINPUT入口观察已实现并已链接，非固定成功；仍open | 验实际能力及设备/输入失败分支 | [CAA01](../doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state)；原返回与消费者、完整后端门禁保持 |

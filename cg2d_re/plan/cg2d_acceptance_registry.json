@@ -14,7 +14,7 @@
     "no_build": false,
     "no_tests": true,
     "no_hash": true,
-    "build_scope": "CAA01：按用户先完成客户端链接、用SDL播音频，恢复必要五根/固定音乐依赖及现有Windows/MSVC/x64 Debug配置编译链接；无关后续构建、测试/运行/摘要未恢复",
+    "build_scope": "CAA01恢复必要SDL音频链接；CAB04/CAB05沿用户编译及连接修复授权复用现有Windows/MSVC/x64 Debug配置编译链接。测试/客户端运行/摘要限制保持，无关后续构建未自动恢复",
     "audio_resumed_for_client_link": [
       "F:00054C30",
       "F:00054EE0",
@@ -1235,7 +1235,9 @@
         "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
         "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
         "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-baseline",
-        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline"
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract",
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state"
       ],
       "original_inventory_ids": [
         "F:001202E0",
@@ -1279,7 +1281,9 @@
         "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
         "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-decision",
         "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision",
-        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract",
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1498,7 +1502,9 @@
         "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline",
         "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-baseline",
-        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-baseline"
+        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-baseline",
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract",
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state"
       ],
       "original_inventory_ids": [
         "F:00003C50",
@@ -1610,7 +1616,9 @@
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
         "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision",
         "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-decision",
-        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract",
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state"
       ],
       "blockers": [
         "本次只核两帧父成员；全部命令/回复/状态生产、数据与间接目标及生命周期枚举未闭合",
@@ -52325,6 +52333,99 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-LOCAL-PLAINTEXT-LOGIN-I-20261009",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "服务端源提交cecfb008b1a8fb5116345c7fcea91047bce247ae；客户端先前提交2fa1891e",
+      "implementation_reference": "Git固定命名快照 cg2d-re-local-plaintext-login-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract",
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
+        "doc/cg2d_local_plaintext_login_evidence.json",
+        "src/network/NetworkRuntime.cpp#QueuePlaintextProtocolBytes",
+        "src/network/NetworkRuntime.cpp#ReceivePlaintextProtocolLine",
+        "src/network/NetworkRuntime.cpp#BuildProtocolCommand_517510",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40",
+        "src/network/NetworkRuntime.cpp#InitializeNetworkRuntime_508140",
+        "src/network/NetworkRuntime.cpp#NetworkLoop_507DF0"
+      ],
+      "observation": "四个既有入口与两个真实明文提供者的源码差异；仅当前修复范围，不代完整网络/登录运行验收",
+      "expected": "沿实际服务端原命令/原字段/LF收发；保留字段、队列owner和部分发送；远端关闭沿既有断线消费",
+      "actual": "明文正文及LF原样入队，完整行才消费；命令直传/直派发，初始化重置原队列数量与状态，recv=0转断线。Debug编译链接返回0/既有警告3；游戏目录已更新，未运行客户端",
+      "differences": [
+        {
+          "description": "撤回旧W16外壳/命令变换作为当前明文必保项的解释；四旧函数正文仅历史对照，不接当前链，不改服务端或新增协议",
+          "decision_ref": "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-LOCAL-PLAINTEXT-LOGIN-W-20261009",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "服务端源提交cecfb008b1a8fb5116345c7fcea91047bce247ae；客户端先前提交2fa1891e",
+      "implementation_reference": "Git固定命名快照 cg2d-re-local-plaintext-login-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract",
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
+        "doc/cg2d_local_plaintext_login_evidence.json",
+        "src/network/NetworkRuntime.cpp#QueuePlaintextProtocolBytes",
+        "src/network/NetworkRuntime.cpp#ReceivePlaintextProtocolLine",
+        "src/network/NetworkRuntime.cpp#BuildProtocolCommand_517510",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40",
+        "src/network/NetworkRuntime.cpp#InitializeNetworkRuntime_508140",
+        "src/network/NetworkRuntime.cpp#NetworkLoop_507DF0"
+      ],
+      "observation": "初始化真实发送绑定、Loop按LF取行并沿原108回复表派发；仅当前修复范围，不代完整网络/登录运行验收",
+      "expected": "沿实际服务端原命令/原字段/LF收发；保留字段、队列owner和部分发送；远端关闭沿既有断线消费",
+      "actual": "明文正文及LF原样入队，完整行才消费；命令直传/直派发，初始化重置原队列数量与状态，recv=0转断线。Debug编译链接返回0/既有警告3；游戏目录已更新，未运行客户端",
+      "differences": [
+        {
+          "description": "撤回旧W16外壳/命令变换作为当前明文必保项的解释；四旧函数正文仅历史对照，不接当前链，不改服务端或新增协议",
+          "decision_ref": "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-LOCAL-PLAINTEXT-LOGIN-S-20261009",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "服务端源提交cecfb008b1a8fb5116345c7fcea91047bce247ae；客户端先前提交2fa1891e",
+      "implementation_reference": "Git固定命名快照 cg2d-re-local-plaintext-login-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract",
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
+        "doc/cg2d_local_plaintext_login_evidence.json",
+        "src/network/NetworkRuntime.cpp#QueuePlaintextProtocolBytes",
+        "src/network/NetworkRuntime.cpp#ReceivePlaintextProtocolLine",
+        "src/network/NetworkRuntime.cpp#BuildProtocolCommand_517510",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40",
+        "src/network/NetworkRuntime.cpp#InitializeNetworkRuntime_508140",
+        "src/network/NetworkRuntime.cpp#NetworkLoop_507DF0"
+      ],
+      "observation": "服务端既有明文合同与新增源差异限定静态核对；仅当前修复范围，不代完整网络/登录运行验收",
+      "expected": "沿实际服务端原命令/原字段/LF收发；保留字段、队列owner和部分发送；远端关闭沿既有断线消费",
+      "actual": "明文正文及LF原样入队，完整行才消费；命令直传/直派发，初始化重置原队列数量与状态，recv=0转断线。Debug编译链接返回0/既有警告3；游戏目录已更新，未运行客户端",
+      "differences": [
+        {
+          "description": "撤回旧W16外壳/命令变换作为当前明文必保项的解释；四旧函数正文仅历史对照，不接当前链，不改服务端或新增协议",
+          "decision_ref": "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
     }
   ],
   "task_acceptance": [
@@ -52389,6 +52490,8 @@
       "state": "closed",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
+        "doc/cg2d_local_plaintext_login_evidence.json",
         "doc/cg2d_network_plaintext_frame_spec.md#frame-source-closure"
       ]
     },
@@ -52397,6 +52500,8 @@
       "state": "closed",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
+        "doc/cg2d_local_plaintext_login_evidence.json",
         "doc/cg2d_network_plaintext_frame_spec.md#frame-source-closure"
       ]
     },
@@ -52869,6 +52974,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
+        "doc/cg2d_local_plaintext_login_evidence.json",
         "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
         "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
         "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure",
@@ -54475,7 +54582,9 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_network_plaintext_frame_spec.md#frame-source-closure",
-        "doc/cg2d_network_compatibility_spec.md"
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
+        "doc/cg2d_local_plaintext_login_evidence.json"
       ]
     },
     {
@@ -54485,7 +54594,9 @@
       "evidence_refs": [
         "doc/cg2d_network_plaintext_frame_spec.md#frame-source-closure",
         "doc/cg2d_network_compatibility_spec.md",
-        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state"
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
+        "doc/cg2d_local_plaintext_login_evidence.json"
       ]
     },
     {
@@ -55930,7 +56041,9 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure"
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
+        "doc/cg2d_local_plaintext_login_evidence.json"
       ]
     },
     {
@@ -55938,7 +56051,9 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure"
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
+        "doc/cg2d_local_plaintext_login_evidence.json"
       ]
     },
     {
@@ -55986,7 +56101,9 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure"
+        "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure",
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
+        "doc/cg2d_local_plaintext_login_evidence.json"
       ]
     },
     {
@@ -96398,13 +96515,13 @@
     }
   ],
   "build_validation": {
-    "step": "CAB04",
+    "step": "CAB05",
     "recorded_on": "2026-10-09",
     "configuration": "Debug",
-    "source_snapshot": "cg2d-re-big5-to-gbk-20261009",
+    "source_snapshot": "cg2d-re-local-plaintext-login-20261009",
     "configure_performed": false,
     "build_exit_code": 0,
-    "incremental_warning_count": 100,
+    "incremental_warning_count": 3,
     "text_font_caret_diagnostic_count": 0,
     "configure_exit_code": 0,
     "static_libraries_exit_code": 0,
@@ -96422,8 +96539,10 @@
       "doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state",
       "doc/cg2d_fixed_music_wav_evidence.json",
       "doc/cg2d_build_acceptance_spec.md#gbk-songti-debug-build",
-      "doc/cg2d_big5_to_gbk_evidence.json"
+      "doc/cg2d_big5_to_gbk_evidence.json",
+      "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
+      "doc/cg2d_local_plaintext_login_evidence.json"
     ],
-    "note": "CAB04按用户编译授权复用现有配置，对GBK、宋体与ASCII光标源码完成Debug增量构建，三库和真实客户端链接返回0，0错误/100条既有源码警告，无本次文字/字体/光标诊断。configure_exit_code沿既有配置历史；本次未重新配置、测试或启动客户端，V02及文字画面/完整音频/整体SPEC不关闭。"
+    "note": "CAB05沿当前连接修复及编译授权完成Debug增量编译，三库及真实客户端链接返回0，0错误/3条既有C4244警告。游戏目录EXE已更新并备份旧版；未重新配置、测试、试包或启动客户端，完整登录/网络与整体SPEC仍未验收。"
   }
 }

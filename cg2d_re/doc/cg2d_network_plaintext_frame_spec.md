@@ -3,6 +3,8 @@
 > 2026-10-04；P09/P10、FUNC-NETWORK。依用户委托裁决，先记实施合同，再补两个真实父本体。
 > 上位：[原格式明文](cg2d_network_compatibility_spec.md)、[接线总SPEC](cg2d_network_exclusion_wiring_spec.md)、[验收体系](cg2d_traceability_acceptance_spec.md)。本子SPEC仅展开D04，不定义新协议。
 
+> 2026-10-09：以下W16/状态尾为原cg2d帧的历史对照，当前客户端明文收发沿[本机服务端合同](cg2d_network_compatibility_spec.md#local-server-plaintext-contract)，不再调用旧帧/命令变换入口；旧局部证据不代表当前服务端互通。
+
 <a id="frame-baseline"></a>
 ## 1. 原端边界与批准差异
 

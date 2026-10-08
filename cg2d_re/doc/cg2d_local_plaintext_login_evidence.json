@@ -1,0 +1,78 @@
+{
+  "step": "CAB05",
+  "recorded_on": "2026-10-09",
+  "scope": "本机现有服务端明文收发适配，不作为完整登录或网络运行验收",
+  "decision_ref": "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract",
+  "source_state_ref": "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
+  "source_snapshot": "cg2d-re-local-plaintext-login-20261009",
+  "client_previous_commit": "2fa1891e",
+  "server": {
+    "endpoint": "127.0.0.1:9030",
+    "listen_observed": true,
+    "process_id_at_observation": 14904,
+    "executable": "D:/Source/cgmsv/cgmsv_server/cmake-build-release-mingw/cgmsv.exe",
+    "source_commit": "cecfb008b1a8fb5116345c7fcea91047bce247ae",
+    "relevant_sources_clean": true,
+    "build_version": "VERSION_TW",
+    "encryption_macro_enabled": false,
+    "source_references": [
+      { "path": "include/version.h", "lines": "8", "fact": "定义VERSION_TW" },
+      { "path": "include/nrproto_util.h", "lines": "13-17", "fact": "VERSION_TW分支不定义nrproto__ENCRYPT" },
+      { "path": "net.c", "lines": "628-655", "symbol": "GetOneLine_fix", "fact": "LF就绪后复制含LF的整行、补NUL并消费相同字节数" },
+      { "path": "nrproto_util.c", "lines": "148-157", "symbol": "nrproto_GetMessageInfo", "fact": "直接读取原命令token" },
+      { "path": "nrproto_util.c", "lines": "494-528", "symbol": "nrproto_splitString", "fact": "TW直接使用明文；原空格/0x17字段及CR/LF规则" },
+      { "path": "nrproto_util.c", "lines": "598-613", "symbol": "nrproto_Send", "fact": "TW直接发送正文加LF" },
+      { "path": "nrproto_util.c", "lines": "619-622", "symbol": "nrproto_CreateHeader", "fact": "%s加空格构造原命令头" },
+      { "path": "nrproto_serv.c", "lines": "1666-1678", "fact": "JFVf接收四个原文本字段" },
+      { "path": "nrproto_serv.c", "lines": "2739-2744", "fact": "whV发送原整数结果和文本字段" }
+    ],
+    "modified": false,
+    "restarted": false,
+    "running_binary_source_identity_proven": false
+  },
+  "diagnosis": {
+    "client_log": "H:/Games/cgmsv_21.2a/CrossGate7.1.0/systemlog.txt",
+    "observed_transport_message": "CONNECT OK",
+    "previous_client_transport": "W16包头、随机前缀/状态尾和命令变换",
+    "server_source_transport": "原命令、原字段、LF",
+    "application_interoperation_previously_proven": false
+  },
+  "source_changes": {
+    "path": "src/network/NetworkRuntime.cpp",
+    "private_providers": ["QueuePlaintextProtocolBytes", "ReceivePlaintextProtocolLine"],
+    "modified_functions": ["BuildProtocolCommand_517510", "NetworkDispatch_512E40", "InitializeNetworkRuntime_508140", "NetworkLoop_507DF0"],
+    "send": "将已有SendProtocolBuffer产生的正文和LF按实际长度写入原发送队列；不增加帧或状态尾",
+    "receive": "仅完整LF行才复制/补NUL/消费，半行返回未就绪，多行由既有循环逐行派发",
+    "session_reset": "重置原owner的收发数量、轮询相位、flags及error",
+    "peer_close": "recv返回0关闭socket并进入既有断线处理",
+    "preserved": ["JFVf四字段顺序", "108个原回复命令/参数/回调", "整数与转义工具", "原队列owner和容量", "部分发送", "旧Sub_403C50/Sub_403E50/Sub_4038A0/Sub_403A70完整正文"],
+    "legacy_frame_and_command_functions_wired": false,
+    "protocol_negotiation_added": false,
+    "cipher_implementation_added": false
+  },
+  "verification": {
+    "method": "static_and_authorized_debug_build",
+    "source_difference_scope_checked": true,
+    "configuration": "windows-msvc-x64-debug",
+    "configure_performed": false,
+    "build_command": "cmake --build --preset windows-msvc-x64-debug --parallel 8",
+    "build_log": "build/windows-msvc-x64/build-plaintext-login-20261009.log",
+    "build_exit_code": 0,
+    "error_count": 0,
+    "warning_count": 3,
+    "warning_codes": ["C4244"],
+    "client_size_bytes": 7980032,
+    "client_run_performed": false,
+    "tests_or_packet_probes_performed": false,
+    "hash_performed": false,
+    "login_runtime_verified": false,
+    "whole_project_accepted": false
+  },
+  "deployment": {
+    "destination": "H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2d_re_client.exe",
+    "backup": "H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2d_re_client.exe.before-plaintext-login-20261009",
+    "copied": true,
+    "started": false
+  },
+  "remaining": ["用户重新运行IP:2后的真实登录结果", "半行/连续行实际往返", "完整网络owner与重连/退出寿命", "FUNC-NETWORK/FUNC-LOGIN与V03完整验收"]
+}

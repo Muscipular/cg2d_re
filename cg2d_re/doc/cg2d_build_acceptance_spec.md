@@ -120,3 +120,10 @@
 沿同一CAA01授权编译现有Debug客户端目标，LegacyAudio.cpp及必要三库/客户端返回0，无再配置，0错误/0增量警告。日志build/windows-msvc-x64/build-se-property-sampling-20261009.log，MAP含PlaySe_52C450及SetChannelVolume/Pan/Frequency，运行时仍无离线合成/转换代码；0增量不消除旧窗口诊断。
 
 8023040B客户端已更新游戏目录，旧同长版备份cg2d_re_client.exe.before-se-property-sampling-20261009，仅核复制/长度，不作摘要/内容比对。[源序合同](cg2d_audio_update.md#se-property-sampling-source-state)和[记录](cg2d_se_property_sampling_evidence.json)不代完整父/实际声音/失败/正常寿命/机器ABI或IP2及整体SPEC；未运行客户端/算法、测试/工具、重生成WAV，离线最近构建仍CAB15。
+
+<a id="se-request-properties-debug-build"></a>
+## CAB23 请求音效属性当前编译（2026-10-09）
+
+沿同一CAA01必要音频授权编译现有Debug客户端目标，LegacyAudio.cpp与必要三库/客户端返回0，无再配置，0错误/0增量警告。日志build/windows-msvc-x64/build-se-request-properties-20261009.log，MAP含两父/主循环及三个属性/播放提供者，仍无离线合成/转换代码；旧窗口诊断不因增量0关闭。
+
+8023040B游戏客户端已更新，旧同长版备份cg2d_re_client.exe.before-se-request-properties-20261009，仅核复制/长度，不作摘要/内容比对。[原正常分支/取样](cg2d_audio_update.md#se-request-properties-source-state)与[记录](cg2d_se_request_properties_evidence.json)不代完整数值/正常资源寿命/声音/失败/机器ABI、旧外层/IP2和整体SPEC。未运行客户端/算法/工具、测试、重生成WAV；离线最近构建仍CAB15。

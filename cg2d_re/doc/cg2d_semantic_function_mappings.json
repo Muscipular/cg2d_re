@@ -214203,6 +214203,100 @@
         "pitch_field_read_count": 1,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x52C680",
+      "inventory_id": "F:0012C680",
+      "original_role": "空间请求音效通道属性、循环保留及播放更新",
+      "original_end_exclusive": "0x52C90D",
+      "instruction_count": 173,
+      "original_byte_count": 653,
+      "status": "CAB23单声道分支/属性W32取样已恢复，当前SDL3提供者Debug链接部署；两父完整数值/资源寿命/声音/失败/机器ABI及运行未验",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "cg::audio::Sub_52C680"
+          ],
+          "relationship": "仅恢复52CB50单声道先写64再进新/旧分支、立体声原/5/0..127及单次旧声像[-2,2]步进；52C680持有目标/已应用索引→判变化→通道/表值→实际SDL属性→fresh目标写缓存，base→通道→频率及一次playChannel供标记/Play。四局部之外正文/后端/边界/正常距离公式/请求清理/轮换/返回保持，不增异常处理/模拟、保护或owner。COM owner/vtable与SDL正常资源寿命、整父/全部数值/声音/失败/机器ABI与运行分别未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_audio_update.md#se-request-properties-decision",
+        "doc/cg2d_audio_update.md#se-request-properties-source-state",
+        "doc/cg2d_se_request_properties_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#se-request-properties-source-state",
+        "doc/cg2d_build_acceptance_spec.md#se-request-properties-debug-build"
+      ],
+      "boundary": "仅恢复52CB50单声道先写64再进新/旧分支、立体声原/5/0..127及单次旧声像[-2,2]步进；52C680持有目标/已应用索引→判变化→通道/表值→实际SDL属性→fresh目标写缓存，base→通道→频率及一次playChannel供标记/Play。四局部之外正文/后端/边界/正常距离公式/请求清理/轮换/返回保持，不增异常处理/模拟、保护或owner。COM owner/vtable与SDL正常资源寿命、整父/全部数值/声音/失败/机器ABI与运行分别未验。",
+      "verification_level": "原两完整父257条890B/实际52CCA0→52CB50→52C680直接链及四局部外保持静态；单声道前置写/旧声像单读和属性SDK后fresh目标缓存顺序有据。Debug0错误/0增量警告及MAP/部署，未运行客户端/算法、测试或摘要，不代整父/机器ABI与完整声音/寿命。",
+      "native_provider": {
+        "source": "src/LegacyAudio.cpp",
+        "symbol": "cg::audio::Sub_52C680",
+        "source_body_implemented": true,
+        "client_link_verified": true,
+        "runtime_verified": false
+      },
+      "request_property_connection": {
+        "step": "CAB23",
+        "source_snapshot": "cg2d-re-se-request-properties-20261009",
+        "decision_ref": "doc/cg2d_audio_update.md#se-request-properties-decision",
+        "original_direct_callers": [
+          {
+            "ea": "0x52cc1d",
+            "asm": "call    sub_52C680",
+            "parent": "0x52cb50"
+          }
+        ],
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x52CB50",
+      "inventory_id": "F:0012CB50",
+      "original_role": "50项请求消费、单/立体声声像、无请求停止及计数清理",
+      "original_end_exclusive": "0x52CC3D",
+      "instruction_count": 84,
+      "original_byte_count": 237,
+      "status": "CAB23单声道分支/属性W32取样已恢复，当前SDL3提供者Debug链接部署；两父完整数值/资源寿命/声音/失败/机器ABI及运行未验",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "cg::audio::Sub_52CB50"
+          ],
+          "relationship": "仅恢复52CB50单声道先写64再进新/旧分支、立体声原/5/0..127及单次旧声像[-2,2]步进；52C680持有目标/已应用索引→判变化→通道/表值→实际SDL属性→fresh目标写缓存，base→通道→频率及一次playChannel供标记/Play。四局部之外正文/后端/边界/正常距离公式/请求清理/轮换/返回保持，不增异常处理/模拟、保护或owner。COM owner/vtable与SDL正常资源寿命、整父/全部数值/声音/失败/机器ABI与运行分别未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_audio_update.md#se-request-properties-decision",
+        "doc/cg2d_audio_update.md#se-request-properties-source-state",
+        "doc/cg2d_se_request_properties_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#se-request-properties-source-state",
+        "doc/cg2d_build_acceptance_spec.md#se-request-properties-debug-build"
+      ],
+      "boundary": "仅恢复52CB50单声道先写64再进新/旧分支、立体声原/5/0..127及单次旧声像[-2,2]步进；52C680持有目标/已应用索引→判变化→通道/表值→实际SDL属性→fresh目标写缓存，base→通道→频率及一次playChannel供标记/Play。四局部之外正文/后端/边界/正常距离公式/请求清理/轮换/返回保持，不增异常处理/模拟、保护或owner。COM owner/vtable与SDL正常资源寿命、整父/全部数值/声音/失败/机器ABI与运行分别未验。",
+      "verification_level": "原两完整父257条890B/实际52CCA0→52CB50→52C680直接链及四局部外保持静态；单声道前置写/旧声像单读和属性SDK后fresh目标缓存顺序有据。Debug0错误/0增量警告及MAP/部署，未运行客户端/算法、测试或摘要，不代整父/机器ABI与完整声音/寿命。",
+      "native_provider": {
+        "source": "src/LegacyAudio.cpp",
+        "symbol": "cg::audio::Sub_52CB50",
+        "source_body_implemented": true,
+        "client_link_verified": true,
+        "runtime_verified": false
+      },
+      "request_property_connection": {
+        "step": "CAB23",
+        "source_snapshot": "cg2d-re-se-request-properties-20261009",
+        "decision_ref": "doc/cg2d_audio_update.md#se-request-properties-decision",
+        "original_direct_callers": [
+          {
+            "ea": "0x52ccc1",
+            "asm": "call    sub_52CB50",
+            "parent": "0x52cca0"
+          }
+        ],
+        "runtime_verified": false
+      }
     }
   ]
 }

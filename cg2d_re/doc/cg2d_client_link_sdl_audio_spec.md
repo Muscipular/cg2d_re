@@ -240,3 +240,10 @@ CAB19空间音频生产者使用的46CE30已由[真实连续x87体](cg2d_project
 [PlaySe当前属性段](cg2d_audio_update.md#se-property-sampling-source-state)已恢复通道/音量、fresh通道/声像及单次pitch后base→fresh通道→频率的原顺序；保留现SDL3提供者/正常整数公式、原声像门槛、Play/冷却/轮换/返回。完整164条551B与局部源码保持/取样次数有[证据](cg2d_se_property_sampling_evidence.json)，不以W32样本次序代原COM owner/vtable与SDL资源寿命或整个父行为。
 
 当前Debug0错误/0增量警告、实际父/三个属性提供者已链接，8023040B游戏EXE更新并备份旧同长版before-se-property-sampling-20261009，只核复制/长度。一个原语义/F及AUDIO38纳管但枚举false，完整声音/失败/正常寿命/机器ABI、旧7/8外层与IP2互通仍未验收；未运行客户端/算法、测试/工具、重生成WAV/摘要，离线最近通过仍CAB15，旧窗口诊断保持。
+
+<a id="se-request-properties-source-state"></a>
+## CAB23 请求音效单声道与属性合同（2026-10-09）
+
+[现52CB50/52C680](cg2d_audio_update.md#se-request-properties-source-state)修复单声道旧请求每帧两格归中的差异，恢复原立即64；立体声仍原步进/门槛。属性目标先持有、变化才调用、调用后fresh目标写缓存，频率/循环播放各原W32样本序明确；四局部之外、SDL后端/通道owner及原轮换/清计数/失败/返回保持。两完整父257条890B与实际主循环调用链、源序/次数有[证据](cg2d_se_request_properties_evidence.json)，不代COM→SDL资源/整父/机器ABI或真实声音验收。
+
+当前Debug0错误/0增量警告、真实提供者已链接，8023040B游戏EXE更新/备份before-se-request-properties-20261009，只核复制/长度。两个原语义/F及AUDIO40纳管但枚举false；完整寿命/声音/失败/旧7/8外层与IP2及整体SPEC未验，旧窗口诊断保持。未运行客户端/算法/工具、测试、重生成WAV或摘要，离线最近通过仍CAB15。

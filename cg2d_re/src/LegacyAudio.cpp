@@ -1185,18 +1185,25 @@ std::int32_t __cdecl Sub_52C680(
         }
     }
 
-    if (request.targetVolumeIndex != request.appliedVolumeIndex) {
+    const std::int32_t targetVolumeIndex = request.targetVolumeIndex;
+    const std::int32_t appliedVolumeIndex = request.appliedVolumeIndex;
+    if (targetVolumeIndex != appliedVolumeIndex) {
+        const std::int32_t volumeChannel = request.channelIndex;
+        const std::int32_t volumeValue =
+            gSoundVolValue10505D0[static_cast<std::size_t>(targetVolumeIndex)];
         static_cast<void>(gSdlAudioBackend.SetChannelVolume(
-            static_cast<std::size_t>(request.channelIndex),
-            gSoundVolValue10505D0[static_cast<std::size_t>(
-                request.targetVolumeIndex)]));
+            static_cast<std::size_t>(volumeChannel), volumeValue));
+        // 原52C7F4在属性调用后重新读目标，再发布已应用缓存。
         request.appliedVolumeIndex = request.targetVolumeIndex;
     }
-    if (request.targetPanIndex != request.appliedPanIndex) {
+    const std::int32_t targetPanIndex = request.targetPanIndex;
+    const std::int32_t appliedPanIndex = request.appliedPanIndex;
+    if (targetPanIndex != appliedPanIndex) {
+        const std::int32_t panChannel = request.channelIndex;
+        const std::int32_t panValue =
+            gPanVal103CFBC[static_cast<std::size_t>(targetPanIndex)];
         static_cast<void>(gSdlAudioBackend.SetChannelPan(
-            static_cast<std::size_t>(request.channelIndex),
-            gPanVal103CFBC[static_cast<std::size_t>(
-                request.targetPanIndex)]));
+            static_cast<std::size_t>(panChannel), panValue));
         request.appliedPanIndex = request.targetPanIndex;
     }
 
@@ -1207,9 +1214,11 @@ std::int32_t __cdecl Sub_52C680(
         const std::int32_t base =
             gSoundEffects103E7B0[static_cast<std::size_t>(
                 currentSeNo)].baseFrequency;
+        const std::int32_t frequencyChannel = request.channelIndex;
+        const std::uint32_t frequency =
+            gPitchFrequencies58D3D4[static_cast<std::size_t>(base + pitch)];
         static_cast<void>(gSdlAudioBackend.SetChannelFrequency(
-            static_cast<std::size_t>(request.channelIndex),
-            gPitchFrequencies58D3D4[static_cast<std::size_t>(base + pitch)]));
+            static_cast<std::size_t>(frequencyChannel), frequency));
     }
 
     if (isNew != 0) {
@@ -1217,12 +1226,13 @@ std::int32_t __cdecl Sub_52C680(
             static_cast<std::size_t>(request.channelIndex)));
         const bool loop =
             gSoundEffects103E7B0[static_cast<std::size_t>(request.seNo)].loop != 0;
+        const std::int32_t playChannel = request.channelIndex;
         if (loop) {
             gSoundChannels104D0C8[static_cast<std::size_t>(
-                request.channelIndex)].value30 = 1;
+                playChannel)].value30 = 1;
         }
         static_cast<void>(gSdlAudioBackend.PlayChannel(
-            static_cast<std::size_t>(request.channelIndex), loop));
+            static_cast<std::size_t>(playChannel), loop));
 
         std::uint32_t next =
             static_cast<std::uint32_t>(gNextSeChannel105082C);
@@ -1265,14 +1275,20 @@ std::int32_t __cdecl Sub_52CB50()
             request.appliedPanIndex = -1;
         }
 
-        const std::int32_t desired = platform::gUseStereo == 0
-            ? 64
-            : (std::clamp)(request.screenX / 5, 0, 127);
+        std::int32_t desired;
+        if (platform::gUseStereo == 0) {
+            desired = 64;
+            // 原52CBCA先归中；现有请求也立即消费64，不再渐变。
+            request.targetPanIndex = desired;
+        } else {
+            desired = (std::clamp)(request.screenX / 5, 0, 127);
+        }
         if (isNew) {
             request.targetPanIndex = desired;
         } else {
-            request.targetPanIndex += (std::clamp)(
-                desired - request.targetPanIndex, -2, 2);
+            const std::int32_t previousPanIndex = request.targetPanIndex;
+            request.targetPanIndex = previousPanIndex + (std::clamp)(
+                desired - previousPanIndex, -2, 2);
         }
         result = Sub_52C680(
             static_cast<std::int32_t>(index), static_cast<std::int32_t>(isNew));

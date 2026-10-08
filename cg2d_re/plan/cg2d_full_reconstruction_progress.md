@@ -4446,3 +4446,17 @@ BVW01六旧页面预览指针持样已修：一CPP六片段，25条80B原点；�
 整份LegacyUiRecord.cpp精确六片段变化；六完整源父前后态/所有其余父、已修旧62及已有持样片段、预览生产/关闭回收、原文件/格式/字节与消费者保持。既有Yobi helper/公共头/私有声明全文保持，无新函数/helper/API/owner或保护/异常模拟；只恢复源取样，不称已观察正常值/并发/机器故障。
 
 集中静态、完整机器和派生差集及文本汇总/-Check通过。既有773/775/777/779/781/1015全部旧字段保持并追加当前状态，六adapted F、六页面各一个真实主父与限定I/S，共十二证据；合同共享候选不当实际成员或完整通过。实际语义1805/有效1798、合同1915（52.04%）保持，F954→960、E1108→1120；U04/U11/V04/R04仍open，pending18/旧62 mixed-pending6/创建pending7、R7已审467余2594/closed11/全叶0/globalfalse和原差队列/CRT43保持。完整父/其它成员及上游/旧路由、正常owner-alias寿命、SDK/机器ABI/画面与运行待验；原格式明文、音频暂停/RPLAN.24及执行限制保，整体SPEC目标继续推进。
+
+## BVX01图鉴详情两种预览取样与空记录实修（2026-10-08）
+
+BVX01旧24空记录预览一次持样判空后置W32 bit1已修；有记录映图后三次fresh指针保；20条80B局部、旧1044更新/一F、单主父与限定I-S，完整图鉴/运行待。
+
+[决定与验收](../doc/cg2d_album_preview_sampling_spec.md#album-preview-decision)、[原点/完整源前后态](../doc/cg2d_album_preview_sampling_evidence.json)。有记录16条67B保持initial action→clear newFlag→原判空，以及映图返回后fresh图号写/fresh清2位/fresh清0CH；空记录四条13B单样本取样一CPP一片段实修。现有helper/头及其它完整父、格式/字节和消费者保持；已有1044/F及旧24主父纳管、两限定I/S，U04/U11/V04/R04仍open。实际静态结果随后追加。
+
+### BVX01本步实际静态结果
+
+已修复空记录分支D67D14重复读取：一次previewAction持样，同判空和既有SetYobiActionFlag2(true)借同指针置W32 bit1。原四条13B与现一片段对应，EBX零值源及关闭支路恢复后直接返回有据；原空记录从4F64FB进入4F6A2D，不消费有记录显示阶段。
+
+有记录16条67B正确保持：先取action后清newFlag，原初始样本判断；映图51B740返回后分别fresh取action写图号、清bit1和清0CH，原两掩码不合并。整份LegacyUiRecord.cpp只有空记录片段变化，所有其它父/预览生产、格式/字节/消费者、native helper/公共与私有头全文保持，无新函数/helper/API/owner、保护或异常模拟。
+
+集中静态、完整机器和派生差集及文本汇总/-Check通过。旧1044全部原字段保持并追加当前信息，一adapted F、UI-L-024一个实际主父与两限定I/S；实际语义1805/有效1798、合同1915（52.04%）保持，F960→961、E1120→1122。U04/U11/V04/R04仍open；pending18/旧62mixed-pending6/创建pending7、R7已审467余2594/closed11/全叶0/globalfalse和原差队列/CRT43保持。完整688父/其它成员与上游/旧外路由、正常owner-alias寿命、SDK/机器ABI/画面及运行未验；原格式明文、音频暂停/RPLAN.24及执行限制保，整体SPEC目标继续推进。

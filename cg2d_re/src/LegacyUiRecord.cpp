@@ -14506,8 +14506,11 @@ std::uintptr_t Sub_4F6220(const std::int32_t opened)
             const char* const text = reinterpret_cast<const char*>(selectedRecord() + 0x45 + 29 * line);
             drawAt(text, 10, 354 + 20 * line, 0);
         }
-    } else if (gLegacyAlbumActionD67D14 != nullptr) {
-        SetYobiActionFlag2(gLegacyAlbumActionD67D14, true);
+    } else {
+        YobiAction* const previewAction = gLegacyAlbumActionD67D14;
+        if (previewAction != nullptr) {
+            SetYobiActionFlag2(previewAction, true);
+        }
     }
     const std::int32_t current = gLegacyAlbumSelectionC8AF7C;
     const std::int32_t count = std::bit_cast<std::int32_t>(resource::gValueD2D5FC);

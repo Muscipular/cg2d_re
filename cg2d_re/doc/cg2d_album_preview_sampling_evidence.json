@@ -1,0 +1,390 @@
+{
+  "schema_version": 1,
+  "spec_id": "BVX01",
+  "recorded_on": "2026-10-08",
+  "baseline_snapshot": "cg2d-re-legacy-preview-flag-sampling-20261008",
+  "implementation_snapshot": "cg2d-re-album-preview-sampling-20261008",
+  "inventory_id": "F:000F6220",
+  "semantic_index": 1044,
+  "feature_id": "UI-L-024",
+  "evidence_refs": [
+    "doc/cg2d_album_preview_sampling_spec.md#album-preview-baseline",
+    "doc/cg2d_album_preview_sampling_spec.md#album-preview-decision",
+    "doc/cg2d_album_preview_sampling_spec.md#album-preview-acceptance",
+    "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state"
+  ],
+  "artifacts": [
+    "src/LegacyUiRecord.cpp#Sub_4F6220",
+    "src/LegacyUiRecord.cpp#gLegacyAlbumActionD67D14",
+    "src/YobiRuntime.cpp#SetYobiActionFlag2",
+    "src/YobiRuntime.cpp#SetYobiActionField2A8",
+    "src/YobiRuntime.cpp#ClearYobiActionFlags0C",
+    "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+    "src/LegacyPanelRuntime.hpp",
+    "doc/ui_windows/legacy_album_detail.md",
+    "doc/cg2d_stdio_contract.md",
+    "doc/cg2d_legacy_preview_flag_sampling_evidence.json",
+    "doc/cg2d_album_preview_sampling_evidence.json",
+    "doc/cg2d_album_preview_sampling_spec.md#album-preview-baseline",
+    "doc/cg2d_album_preview_sampling_spec.md#album-preview-decision",
+    "doc/cg2d_album_preview_sampling_spec.md#album-preview-acceptance",
+    "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state"
+  ],
+  "original_parent": {
+    "start": "0x4f6220",
+    "end_exclusive": "0x4f6bec",
+    "instruction_count": 688,
+    "full_parent_reverified": false
+  },
+  "original_valid_record_points": [
+    {
+      "ea": "0x4f6501",
+      "size": 6,
+      "bytes": "8b0d147dd600",
+      "mnemonic": "mov",
+      "text": "mov     ecx, dword_D67D14",
+      "call_target": null
+    },
+    {
+      "ea": "0x4f6507",
+      "size": 7,
+      "bytes": "c6807344da0000",
+      "mnemonic": "mov",
+      "text": "mov     gAlbum.entries.newFlag[eax], 0",
+      "call_target": null
+    },
+    {
+      "ea": "0x4f650e",
+      "size": 2,
+      "bytes": "3bcb",
+      "mnemonic": "cmp",
+      "text": "cmp     ecx, ebx",
+      "call_target": null
+    },
+    {
+      "ea": "0x4f6510",
+      "size": 2,
+      "bytes": "7432",
+      "mnemonic": "jz",
+      "text": "jz      short loc_4F6544",
+      "call_target": null
+    },
+    {
+      "ea": "0x4f6512",
+      "size": 6,
+      "bytes": "8b88fc43da00",
+      "mnemonic": "mov",
+      "text": "mov     ecx, gAlbum.entries.imageNo[eax]",
+      "call_target": null
+    },
+    {
+      "ea": "0x4f6518",
+      "size": 1,
+      "bytes": "51",
+      "mnemonic": "push",
+      "text": "push    ecx",
+      "call_target": null
+    },
+    {
+      "ea": "0x4f6519",
+      "size": 5,
+      "bytes": "e822520200",
+      "mnemonic": "call",
+      "text": "call    sub_51B740",
+      "call_target": "0x51b740"
+    },
+    {
+      "ea": "0x4f651e",
+      "size": 6,
+      "bytes": "8b15147dd600",
+      "mnemonic": "mov",
+      "text": "mov     edx, dword_D67D14",
+      "call_target": null
+    },
+    {
+      "ea": "0x4f6524",
+      "size": 3,
+      "bytes": "83c404",
+      "mnemonic": "add",
+      "text": "add     esp, 4",
+      "call_target": null
+    },
+    {
+      "ea": "0x4f6527",
+      "size": 6,
+      "bytes": "8982a8020000",
+      "mnemonic": "mov",
+      "text": "mov     [edx+2A8h], eax",
+      "call_target": null
+    },
+    {
+      "ea": "0x4f652d",
+      "size": 5,
+      "bytes": "a1147dd600",
+      "mnemonic": "mov",
+      "text": "mov     eax, dword_D67D14",
+      "call_target": null
+    },
+    {
+      "ea": "0x4f6532",
+      "size": 3,
+      "bytes": "8b5024",
+      "mnemonic": "mov",
+      "text": "mov     edx, [eax+24h]",
+      "call_target": null
+    },
+    {
+      "ea": "0x4f6535",
+      "size": 3,
+      "bytes": "83e2fd",
+      "mnemonic": "and",
+      "text": "and     edx, 0FFFFFFFDh",
+      "call_target": null
+    },
+    {
+      "ea": "0x4f6538",
+      "size": 3,
+      "bytes": "895024",
+      "mnemonic": "mov",
+      "text": "mov     [eax+24h], edx",
+      "call_target": null
+    },
+    {
+      "ea": "0x4f653b",
+      "size": 5,
+      "bytes": "a1147dd600",
+      "mnemonic": "mov",
+      "text": "mov     eax, dword_D67D14",
+      "call_target": null
+    },
+    {
+      "ea": "0x4f6540",
+      "size": 4,
+      "bytes": "836024f3",
+      "mnemonic": "and",
+      "text": "and     dword ptr [eax+24h], 0FFFFFFF3h",
+      "call_target": null
+    }
+  ],
+  "original_empty_record_points": [
+    {
+      "ea": "0x4f6a2d",
+      "size": 5,
+      "bytes": "a1147dd600",
+      "mnemonic": "mov",
+      "text": "mov     eax, dword_D67D14",
+      "call_target": null
+    },
+    {
+      "ea": "0x4f6a32",
+      "size": 2,
+      "bytes": "3bc3",
+      "mnemonic": "cmp",
+      "text": "cmp     eax, ebx",
+      "call_target": null
+    },
+    {
+      "ea": "0x4f6a34",
+      "size": 2,
+      "bytes": "7404",
+      "mnemonic": "jz",
+      "text": "jz      short loc_4F6A3A",
+      "call_target": null
+    },
+    {
+      "ea": "0x4f6a36",
+      "size": 4,
+      "bytes": "83482402",
+      "mnemonic": "or",
+      "text": "or      dword ptr [eax+24h], 2",
+      "call_target": null
+    }
+  ],
+  "original_comparison_zero_context": [
+    {
+      "ea": "0x4f62c2",
+      "size": 2,
+      "bytes": "33db",
+      "mnemonic": "xor",
+      "text": "xor     ebx, ebx"
+    },
+    {
+      "ea": "0x4f63eb",
+      "size": 1,
+      "bytes": "5b",
+      "mnemonic": "pop",
+      "text": "pop     ebx"
+    }
+  ],
+  "original_close_return_context": [
+    {
+      "ea": "0x4f63eb",
+      "size": 1,
+      "bytes": "5b",
+      "mnemonic": "pop",
+      "text": "pop     ebx"
+    },
+    {
+      "ea": "0x4f63ec",
+      "size": 6,
+      "bytes": "81c438010000",
+      "mnemonic": "add",
+      "text": "add     esp, 138h"
+    },
+    {
+      "ea": "0x4f63f2",
+      "size": 1,
+      "bytes": "c3",
+      "mnemonic": "retn",
+      "text": "retn"
+    }
+  ],
+  "source_patch_before": "    } else if (gLegacyAlbumActionD67D14 != nullptr) {\n        SetYobiActionFlag2(gLegacyAlbumActionD67D14, true);\n    }",
+  "source_patch_after": "    } else {\n        YobiAction* const previewAction = gLegacyAlbumActionD67D14;\n        if (previewAction != nullptr) {\n            SetYobiActionFlag2(previewAction, true);\n        }\n    }",
+  "implementation_static_scope": "BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。",
+  "source_cpp_changed_count": 1,
+  "source_header_changed_count": 0,
+  "source_patch_count": 1,
+  "new_function_count": 0,
+  "new_helper_count": 0,
+  "new_api_count": 0,
+  "new_owner_count": 0,
+  "new_semantic_record_count": 0,
+  "new_I_claimed": true,
+  "valid_record_three_fresh_samples_and_initial_pointer_before_newFlag_clear_kept": true,
+  "empty_record_single_pointer_sample_restored": true,
+  "original_W32_bit1_and_other_bits_kept": true,
+  "wire_format_changed": false,
+  "encryption_added": false,
+  "full_all_parents_verified": false,
+  "full_all_callees_verified": false,
+  "full_lifecycle_closed": false,
+  "runtime_verified": false,
+  "machine_abi_verified": false,
+  "fault_equivalence_claimed": false,
+  "record_before": {
+    "original_entry": "0x4F6220",
+    "inventory_id": "F:000F6220",
+    "status": "旧配方或图鉴页已证格式已接线；原父及整体验收未闭合",
+    "original_end_exclusive": "0x4F6BEC",
+    "instruction_count": 688,
+    "sources": [
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbols": [
+          "Sub_4F6220"
+        ],
+        "relationship": "仅3个格式接口改变，其他正文/原返回域保持"
+      }
+    ],
+    "evidence_documents": [
+      "doc/ui_windows/legacy_album_detail.md",
+      "doc/cg2d_stdio_contract.md"
+    ],
+    "boundary": "只换三格式接口，used W8后的清new/动画更新与各次角色S16/选择重读、80H+04/%03d与种族绘后+30/%2d、used正文或unused隐藏后新当前/总数双S32/%3d/%3d、同未清128B/新布局font1保持。名称/标记/种族/评级/元素/说明/五按钮/共享选择与动画生命期、关闭实际T*/正常W32的uintptr_t混合返回等所有其他正文不动，原父/旧路由/数据生产/运行未闭合。",
+    "original_incoming": [],
+    "original_data_references": [],
+    "business_call_connections": [
+      {
+        "parent_entry": "0x4F6220",
+        "call_site": "0x4F6574",
+        "source": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F6220"
+      },
+      {
+        "parent_entry": "0x4F6220",
+        "call_site": "0x4F6775",
+        "source": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F6220"
+      },
+      {
+        "parent_entry": "0x4F6220",
+        "call_site": "0x4F6A55",
+        "source": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F6220"
+      }
+    ],
+    "business_format_points": [
+      {
+        "parent_entry": "0x4F6220",
+        "call_site": "0x4F6574",
+        "target_entry": "0x53B304",
+        "format_address": "0x58A10C",
+        "format_bytes": "2530336400",
+        "argument_widths": [
+          "S32"
+        ],
+        "source_format_symbol": "Sub_4F6220",
+        "source_format_expression": "\"%03d\"",
+        "source_expression": "ReadRecordW32(selectedRecord(), 4)",
+        "destination_expression": "buffer",
+        "destination_capacity": 128,
+        "original_record_stride": 128,
+        "original_field_offset": 4,
+        "original_value_read_order": [
+          "0x4F6544",
+          "0x4F654B",
+          "0x4F6567"
+        ],
+        "condition_expression": "最初图鉴记录used W8非零，原清newFlag/映射图号/动画槽旗标更新后才格式",
+        "consumer_expression": "drawAt(buffer, 46, 170, 1)",
+        "relationship": "动画状态更新后新读取同源角色S16/当前C8AF7C S32选择、80H记录+04 W32按S32传入，零填充最小宽3写共用未清128B；格式后新Y/X，X+46/Y+170/font1/color0。名称/标记/种族各自继续重读，不用初始record替代"
+      },
+      {
+        "parent_entry": "0x4F6220",
+        "call_site": "0x4F6775",
+        "target_entry": "0x53B304",
+        "format_address": "0x553FB4",
+        "format_bytes": "25326400",
+        "argument_widths": [
+          "S32"
+        ],
+        "source_format_symbol": "Sub_4F6220",
+        "source_format_expression": "\"%2d\"",
+        "source_expression": "ReadRecordW32(selectedRecord(), 0x30)",
+        "destination_expression": "buffer",
+        "destination_capacity": 128,
+        "original_record_stride": 128,
+        "original_field_offset": 48,
+        "original_value_read_order": [
+          "0x4F673E",
+          "0x4F6743",
+          "0x4F674A",
+          "0x4F6768"
+        ],
+        "consumer_expression": "drawAt(buffer, 195, 325, 1)",
+        "relationship": "种族串复制/测宽/绘制后新角色S16→新当前选择S32→同源80H记录+30 W32按S32取数，宽2覆同128B；格式后新布局X+195/Y+325/font1，然后评级/元素/说明仍各按原时点取数"
+      },
+      {
+        "parent_entry": "0x4F6220",
+        "call_site": "0x4F6A55",
+        "target_entry": "0x53B304",
+        "format_address": "0x586DE0",
+        "format_bytes": "2533642f25336400",
+        "argument_widths": [
+          "S32",
+          "S32"
+        ],
+        "source_format_symbol": "Sub_4F6220",
+        "source_format_expression": "\"%3d/%3d\"",
+        "source_expression": "current + 1, count",
+        "destination_expression": "buffer",
+        "destination_capacity": 128,
+        "original_value_read_order": [
+          "0x4F6A3A",
+          "0x4F6A40"
+        ],
+        "consumer_expression": "drawAt(buffer, 150, 411, 1)",
+        "relationship": "used记录全部正文绘完或unused动画隐藏后，新C8AF7C S32当前选择→D2D5FC W32按S32总数，以当前+1/总数覆同128B；两边均宽3空格填充非零填充，格式后新布局X+150/Y+411/font1/color0，再五按钮/提示与原uintptr_t混合返回"
+      }
+    ],
+    "verification_level": "本步只读177/688新格式邻窗，余511沿既有父合同；新58A10C只读加载字节，其余五常量沿已核字节。整份源仅3格式标识符，字段/符号性/参数/容量/原快照消费和新取数/布局/返回、JSON增量/文档末追加/编码/差异静态核对通过。禁构建/测试/客户端/hash；原父/旧路由/生产/运行未闭合。"
+  },
+  "source_body_before": "std::uintptr_t Sub_4F6220(const std::int32_t opened)\n{\n    const std::int32_t x = gLegacyAlbumDetailPanel5846C0.x;\n    const std::int32_t y = gLegacyAlbumDetailPanel5846C0.y;\n    LegacyPanelButtonRecord back {x + 48, y + 418, x + 8, y + 408, 80, 20, 22891, 22892};\n    LegacyPanelButtonRecord previousTen {x + 102, y + 418, x + 92, y + 408, 20, 20, 22893, 22894};\n    LegacyPanelButtonRecord previous {x + 130, y + 418, x + 120, y + 408, 20, 20, 22895, 22896};\n    LegacyPanelButtonRecord next {x + 226, y + 418, x + 216, y + 408, 20, 20, 22897, 22898};\n    LegacyPanelButtonRecord nextTen {x + 254, y + 418, x + 244, y + 408, 20, 20, 22899, 22900};\n    constexpr std::array<std::int32_t, 2> firstMarks {22904, 22903};\n    constexpr std::array<std::int32_t, 3> secondMarks {0, 22905, 22906};\n    const std::int32_t state = Sub_503160(opened, &gLegacyAlbumDetailPanel5846C0,\n        +[] { static_cast<void>(Sub_4F61C0()); }, 1);\n    if (state == 0) {\n        return 0;\n    }\n    if (state == 2) {\n        world::detail::Sub_5186A0();\n        YobiAction* action = gLegacyAlbumActionD67D14;\n        if (action != nullptr) {\n            action = MarkDeath(action);\n            gLegacyAlbumActionD67D14 = nullptr;\n        }\n        return reinterpret_cast<std::uintptr_t>(action);\n    }\n    if ((QueryPanelButtonState(&back) & 1) != 0) {\n        gLegacyAlbumReturningCC40D0 = 1;\n        static_cast<void>(audio::Sub_504180(23));\n    } else {\n        bool changed = true;\n        if ((QueryPanelButtonState(&previous) & 0x10) != 0) {\n            --gLegacyAlbumSelectionC8AF7C;\n            if (gLegacyAlbumSelectionC8AF7C < 0) {\n                gLegacyAlbumSelectionC8AF7C += std::bit_cast<std::int32_t>(resource::gValueD2D5FC);\n            }\n        } else if ((QueryPanelButtonState(&next) & 0x10) != 0) {\n            const std::int32_t selection = gLegacyAlbumSelectionC8AF7C;\n            const std::int32_t count = std::bit_cast<std::int32_t>(resource::gValueD2D5FC);\n            gLegacyAlbumSelectionC8AF7C = selection + 1;\n            if (gLegacyAlbumSelectionC8AF7C >= count) {\n                gLegacyAlbumSelectionC8AF7C -= count;\n            }\n        } else if ((QueryPanelButtonState(&previousTen) & 0x10) != 0) {\n            gLegacyAlbumSelectionC8AF7C -= 10;\n            if (gLegacyAlbumSelectionC8AF7C < 0) {\n                gLegacyAlbumSelectionC8AF7C += std::bit_cast<std::int32_t>(resource::gValueD2D5FC);\n            }\n        } else if ((QueryPanelButtonState(&nextTen) & 0x10) != 0) {\n            const std::int32_t selection = gLegacyAlbumSelectionC8AF7C;\n            const std::int32_t count = std::bit_cast<std::int32_t>(resource::gValueD2D5FC);\n            gLegacyAlbumSelectionC8AF7C = selection + 10;\n            if (gLegacyAlbumSelectionC8AF7C >= count) {\n                gLegacyAlbumSelectionC8AF7C -= count;\n            }\n        } else {\n            changed = false;\n        }\n        if (changed) {\n            static_cast<void>(audio::PlaySe_52C450(51, 320));\n        }\n    }\n    const auto selectedRecord = [] {\n        const std::byte* const records = world::detail::BorrowSelectedAlbumRecords();\n        const std::int32_t index = gLegacyAlbumSelectionC8AF7C;\n        return records + index * 0x80;\n    };\n    const auto drawAt = [](const char* const text, const std::int32_t offsetX,\n        const std::int32_t offsetY, const std::int8_t font) {\n        const std::int32_t top = gLegacyAlbumDetailPanel5846C0.y + offsetY;\n        const std::int32_t left = gLegacyAlbumDetailPanel5846C0.x + offsetX;\n        static_cast<void>(DrawText(static_cast<std::int16_t>(left),\n            static_cast<std::int16_t>(top), 2, font, 0, text, 0, 0));\n    };\n    char buffer[128];\n    const std::int16_t selected = login::gSelectedCharacterIndex;\n    const std::byte* const records = world::detail::BorrowSelectedAlbumRecords();\n    const std::int32_t index = gLegacyAlbumSelectionC8AF7C;\n    const std::byte* const record = records + index * 0x80;\n    if (record[0] != std::byte{0}) {\n        YobiAction* const action = gLegacyAlbumActionD67D14;\n        static_cast<void>(world::detail::ClearAlbumNewFlagAndBorrowName(selected, index));\n        if (action != nullptr) {\n            const std::int32_t mapped = character_select::detail::Sub_51B740(ReadRecordW32(record, 8));\n            SetYobiActionField2A8(gLegacyAlbumActionD67D14, mapped);\n            SetYobiActionFlag2(gLegacyAlbumActionD67D14, false);\n            ClearYobiActionFlags0C(gLegacyAlbumActionD67D14);\n        }\n        platform::FormatLegacyString_53B304(buffer, \"%03d\", ReadRecordW32(selectedRecord(), 4));\n        drawAt(buffer, 46, 170, 1);\n        const std::int32_t nameWidth = TextMeasure(reinterpret_cast<const char*>(selectedRecord() + 0x34), 0);\n        const char* const name = reinterpret_cast<const char*>(selectedRecord() + 0x34);\n        drawAt(name, 154 - nameWidth / 2, 168, 0);\n        const auto firstMark = std::bit_cast<std::int8_t>(selectedRecord()[1]);\n        const std::int32_t firstY = gLegacyAlbumDetailPanel5846C0.y + 207;\n        const std::int32_t firstImage = firstMarks[firstMark];\n        const std::int32_t firstX = gLegacyAlbumDetailPanel5846C0.x + 44;\n        static_cast<void>(DrawGraphic(firstX, firstY, 213, firstImage, 0, nullptr));\n        const auto secondMark = std::bit_cast<std::int8_t>(selectedRecord()[2]);\n        const std::int32_t secondY = gLegacyAlbumDetailPanel5846C0.y + 207;\n        const std::int32_t secondImage = secondMarks[secondMark];\n        const std::int32_t secondX = gLegacyAlbumDetailPanel5846C0.x + 98;\n        static_cast<void>(DrawGraphic(secondX, secondY, 213, secondImage, 0, nullptr));\n        const auto tribe = std::bit_cast<std::int8_t>(selectedRecord()[3]);\n        std::strcpy(buffer, ui::detail::gTribeNames57CB54[tribe]);\n        const std::int32_t tribeWidth = TextMeasure(buffer, 1);\n        drawAt(buffer, 215 - tribeWidth / 2, 193, 1);\n        platform::FormatLegacyString_53B304(buffer, \"%2d\", ReadRecordW32(selectedRecord(), 0x30));\n        drawAt(buffer, 195, 325, 1);\n        for (std::int32_t rating = 0; rating < 5; ++rating) {\n            const std::byte* const ratingRecord = selectedRecord();\n            const std::int32_t top = gLegacyAlbumDetailPanel5846C0.y + 228 + 24 * rating;\n            const std::int32_t value = ReadRecordW32(ratingRecord, 0x0C + 4 * rating);\n            const std::int32_t left = gLegacyAlbumDetailPanel5846C0.x + 45;\n            Sub_4F6BF0(left, top, value, 213);\n        }\n        for (std::int32_t element = 0; element < 4; ++element) {\n            const std::int32_t top = gLegacyAlbumDetailPanel5846C0.y + 240 + 20 * element;\n            const std::int32_t left = gLegacyAlbumDetailPanel5846C0.x + 187;\n            const std::int32_t elementIndex = gLegacyAlbumSelectionC8AF7C;\n            const std::byte* const elementRecords = world::detail::BorrowSelectedAlbumRecords();\n            const std::uint32_t color = kLegacyAttributeBars57CBB8[element][0];\n            const std::int32_t value = ReadRecordW32(elementRecords + elementIndex * 0x80, 0x20 + 4 * element);\n            const std::int32_t right = left + 7 * value;\n            DrawGraphicHover(Low16(left), Low16(top), Low16(right), Low16(top + 9), 215, color, 1);\n            DrawGraphicHover(Low16(left + 1), Low16(top + 1), Low16(right + 1), Low16(top + 10),\n                214, kLegacyAttributeBars57CBB8[element][1], 0);\n            DrawGraphicHover(Low16(left + 2), Low16(top + 2), Low16(right + 2), Low16(top + 11),\n                214, kLegacyAttributeBars57CBB8[element][1], 0);\n        }\n        for (std::int32_t line = 0; line < 2; ++line) {\n            const char* const text = reinterpret_cast<const char*>(selectedRecord() + 0x45 + 29 * line);\n            drawAt(text, 10, 354 + 20 * line, 0);\n        }\n    } else if (gLegacyAlbumActionD67D14 != nullptr) {\n        SetYobiActionFlag2(gLegacyAlbumActionD67D14, true);\n    }\n    const std::int32_t current = gLegacyAlbumSelectionC8AF7C;\n    const std::int32_t count = std::bit_cast<std::int32_t>(resource::gValueD2D5FC);\n    platform::FormatLegacyString_53B304(buffer, \"%3d/%3d\", current + 1, count);\n    drawAt(buffer, 150, 411, 1);\n    Sub_5035E0(&back, 212, 1, gValueD69768, 0);\n    Sub_5035E0(&previousTen, 212, 1, gValueD69768, 0);\n    Sub_5035E0(&previous, 212, 1, gValueD69768, 0);\n    Sub_5035E0(&next, 212, 1, gValueD69768, 0);\n    Sub_5035E0(&nextTen, 212, 1, gValueD69768, 0);\n    const char* hint = nullptr;\n    if (Sub_503590(&gLegacyAlbumDetailPanel5846C0) != 0) {\n        hint = kLegacyLogout553FD0;\n    } else if ((QueryPanelButtonState(&previous) & 0x40) != 0 || (QueryPanelButtonState(&next) & 0x40) != 0) {\n        hint = kLegacyRecipePage586D2C;\n    } else if ((QueryPanelButtonState(&previousTen) & 0x40) != 0 || (QueryPanelButtonState(&nextTen) & 0x40) != 0) {\n        hint = kLegacyAlbumSkipTen58A0F0;\n    } else if ((QueryPanelButtonState(&back) & 0x40) != 0) {\n        hint = kLegacyAlbumBack58A0FC;\n    }\n    if (hint != nullptr) {\n        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);\n    }\n    return Sub_503440(&gLegacyAlbumDetailPanel5846C0, 1);\n}\n\n",
+  "source_body_after": "std::uintptr_t Sub_4F6220(const std::int32_t opened)\n{\n    const std::int32_t x = gLegacyAlbumDetailPanel5846C0.x;\n    const std::int32_t y = gLegacyAlbumDetailPanel5846C0.y;\n    LegacyPanelButtonRecord back {x + 48, y + 418, x + 8, y + 408, 80, 20, 22891, 22892};\n    LegacyPanelButtonRecord previousTen {x + 102, y + 418, x + 92, y + 408, 20, 20, 22893, 22894};\n    LegacyPanelButtonRecord previous {x + 130, y + 418, x + 120, y + 408, 20, 20, 22895, 22896};\n    LegacyPanelButtonRecord next {x + 226, y + 418, x + 216, y + 408, 20, 20, 22897, 22898};\n    LegacyPanelButtonRecord nextTen {x + 254, y + 418, x + 244, y + 408, 20, 20, 22899, 22900};\n    constexpr std::array<std::int32_t, 2> firstMarks {22904, 22903};\n    constexpr std::array<std::int32_t, 3> secondMarks {0, 22905, 22906};\n    const std::int32_t state = Sub_503160(opened, &gLegacyAlbumDetailPanel5846C0,\n        +[] { static_cast<void>(Sub_4F61C0()); }, 1);\n    if (state == 0) {\n        return 0;\n    }\n    if (state == 2) {\n        world::detail::Sub_5186A0();\n        YobiAction* action = gLegacyAlbumActionD67D14;\n        if (action != nullptr) {\n            action = MarkDeath(action);\n            gLegacyAlbumActionD67D14 = nullptr;\n        }\n        return reinterpret_cast<std::uintptr_t>(action);\n    }\n    if ((QueryPanelButtonState(&back) & 1) != 0) {\n        gLegacyAlbumReturningCC40D0 = 1;\n        static_cast<void>(audio::Sub_504180(23));\n    } else {\n        bool changed = true;\n        if ((QueryPanelButtonState(&previous) & 0x10) != 0) {\n            --gLegacyAlbumSelectionC8AF7C;\n            if (gLegacyAlbumSelectionC8AF7C < 0) {\n                gLegacyAlbumSelectionC8AF7C += std::bit_cast<std::int32_t>(resource::gValueD2D5FC);\n            }\n        } else if ((QueryPanelButtonState(&next) & 0x10) != 0) {\n            const std::int32_t selection = gLegacyAlbumSelectionC8AF7C;\n            const std::int32_t count = std::bit_cast<std::int32_t>(resource::gValueD2D5FC);\n            gLegacyAlbumSelectionC8AF7C = selection + 1;\n            if (gLegacyAlbumSelectionC8AF7C >= count) {\n                gLegacyAlbumSelectionC8AF7C -= count;\n            }\n        } else if ((QueryPanelButtonState(&previousTen) & 0x10) != 0) {\n            gLegacyAlbumSelectionC8AF7C -= 10;\n            if (gLegacyAlbumSelectionC8AF7C < 0) {\n                gLegacyAlbumSelectionC8AF7C += std::bit_cast<std::int32_t>(resource::gValueD2D5FC);\n            }\n        } else if ((QueryPanelButtonState(&nextTen) & 0x10) != 0) {\n            const std::int32_t selection = gLegacyAlbumSelectionC8AF7C;\n            const std::int32_t count = std::bit_cast<std::int32_t>(resource::gValueD2D5FC);\n            gLegacyAlbumSelectionC8AF7C = selection + 10;\n            if (gLegacyAlbumSelectionC8AF7C >= count) {\n                gLegacyAlbumSelectionC8AF7C -= count;\n            }\n        } else {\n            changed = false;\n        }\n        if (changed) {\n            static_cast<void>(audio::PlaySe_52C450(51, 320));\n        }\n    }\n    const auto selectedRecord = [] {\n        const std::byte* const records = world::detail::BorrowSelectedAlbumRecords();\n        const std::int32_t index = gLegacyAlbumSelectionC8AF7C;\n        return records + index * 0x80;\n    };\n    const auto drawAt = [](const char* const text, const std::int32_t offsetX,\n        const std::int32_t offsetY, const std::int8_t font) {\n        const std::int32_t top = gLegacyAlbumDetailPanel5846C0.y + offsetY;\n        const std::int32_t left = gLegacyAlbumDetailPanel5846C0.x + offsetX;\n        static_cast<void>(DrawText(static_cast<std::int16_t>(left),\n            static_cast<std::int16_t>(top), 2, font, 0, text, 0, 0));\n    };\n    char buffer[128];\n    const std::int16_t selected = login::gSelectedCharacterIndex;\n    const std::byte* const records = world::detail::BorrowSelectedAlbumRecords();\n    const std::int32_t index = gLegacyAlbumSelectionC8AF7C;\n    const std::byte* const record = records + index * 0x80;\n    if (record[0] != std::byte{0}) {\n        YobiAction* const action = gLegacyAlbumActionD67D14;\n        static_cast<void>(world::detail::ClearAlbumNewFlagAndBorrowName(selected, index));\n        if (action != nullptr) {\n            const std::int32_t mapped = character_select::detail::Sub_51B740(ReadRecordW32(record, 8));\n            SetYobiActionField2A8(gLegacyAlbumActionD67D14, mapped);\n            SetYobiActionFlag2(gLegacyAlbumActionD67D14, false);\n            ClearYobiActionFlags0C(gLegacyAlbumActionD67D14);\n        }\n        platform::FormatLegacyString_53B304(buffer, \"%03d\", ReadRecordW32(selectedRecord(), 4));\n        drawAt(buffer, 46, 170, 1);\n        const std::int32_t nameWidth = TextMeasure(reinterpret_cast<const char*>(selectedRecord() + 0x34), 0);\n        const char* const name = reinterpret_cast<const char*>(selectedRecord() + 0x34);\n        drawAt(name, 154 - nameWidth / 2, 168, 0);\n        const auto firstMark = std::bit_cast<std::int8_t>(selectedRecord()[1]);\n        const std::int32_t firstY = gLegacyAlbumDetailPanel5846C0.y + 207;\n        const std::int32_t firstImage = firstMarks[firstMark];\n        const std::int32_t firstX = gLegacyAlbumDetailPanel5846C0.x + 44;\n        static_cast<void>(DrawGraphic(firstX, firstY, 213, firstImage, 0, nullptr));\n        const auto secondMark = std::bit_cast<std::int8_t>(selectedRecord()[2]);\n        const std::int32_t secondY = gLegacyAlbumDetailPanel5846C0.y + 207;\n        const std::int32_t secondImage = secondMarks[secondMark];\n        const std::int32_t secondX = gLegacyAlbumDetailPanel5846C0.x + 98;\n        static_cast<void>(DrawGraphic(secondX, secondY, 213, secondImage, 0, nullptr));\n        const auto tribe = std::bit_cast<std::int8_t>(selectedRecord()[3]);\n        std::strcpy(buffer, ui::detail::gTribeNames57CB54[tribe]);\n        const std::int32_t tribeWidth = TextMeasure(buffer, 1);\n        drawAt(buffer, 215 - tribeWidth / 2, 193, 1);\n        platform::FormatLegacyString_53B304(buffer, \"%2d\", ReadRecordW32(selectedRecord(), 0x30));\n        drawAt(buffer, 195, 325, 1);\n        for (std::int32_t rating = 0; rating < 5; ++rating) {\n            const std::byte* const ratingRecord = selectedRecord();\n            const std::int32_t top = gLegacyAlbumDetailPanel5846C0.y + 228 + 24 * rating;\n            const std::int32_t value = ReadRecordW32(ratingRecord, 0x0C + 4 * rating);\n            const std::int32_t left = gLegacyAlbumDetailPanel5846C0.x + 45;\n            Sub_4F6BF0(left, top, value, 213);\n        }\n        for (std::int32_t element = 0; element < 4; ++element) {\n            const std::int32_t top = gLegacyAlbumDetailPanel5846C0.y + 240 + 20 * element;\n            const std::int32_t left = gLegacyAlbumDetailPanel5846C0.x + 187;\n            const std::int32_t elementIndex = gLegacyAlbumSelectionC8AF7C;\n            const std::byte* const elementRecords = world::detail::BorrowSelectedAlbumRecords();\n            const std::uint32_t color = kLegacyAttributeBars57CBB8[element][0];\n            const std::int32_t value = ReadRecordW32(elementRecords + elementIndex * 0x80, 0x20 + 4 * element);\n            const std::int32_t right = left + 7 * value;\n            DrawGraphicHover(Low16(left), Low16(top), Low16(right), Low16(top + 9), 215, color, 1);\n            DrawGraphicHover(Low16(left + 1), Low16(top + 1), Low16(right + 1), Low16(top + 10),\n                214, kLegacyAttributeBars57CBB8[element][1], 0);\n            DrawGraphicHover(Low16(left + 2), Low16(top + 2), Low16(right + 2), Low16(top + 11),\n                214, kLegacyAttributeBars57CBB8[element][1], 0);\n        }\n        for (std::int32_t line = 0; line < 2; ++line) {\n            const char* const text = reinterpret_cast<const char*>(selectedRecord() + 0x45 + 29 * line);\n            drawAt(text, 10, 354 + 20 * line, 0);\n        }\n    } else {\n        YobiAction* const previewAction = gLegacyAlbumActionD67D14;\n        if (previewAction != nullptr) {\n            SetYobiActionFlag2(previewAction, true);\n        }\n    }\n    const std::int32_t current = gLegacyAlbumSelectionC8AF7C;\n    const std::int32_t count = std::bit_cast<std::int32_t>(resource::gValueD2D5FC);\n    platform::FormatLegacyString_53B304(buffer, \"%3d/%3d\", current + 1, count);\n    drawAt(buffer, 150, 411, 1);\n    Sub_5035E0(&back, 212, 1, gValueD69768, 0);\n    Sub_5035E0(&previousTen, 212, 1, gValueD69768, 0);\n    Sub_5035E0(&previous, 212, 1, gValueD69768, 0);\n    Sub_5035E0(&next, 212, 1, gValueD69768, 0);\n    Sub_5035E0(&nextTen, 212, 1, gValueD69768, 0);\n    const char* hint = nullptr;\n    if (Sub_503590(&gLegacyAlbumDetailPanel5846C0) != 0) {\n        hint = kLegacyLogout553FD0;\n    } else if ((QueryPanelButtonState(&previous) & 0x40) != 0 || (QueryPanelButtonState(&next) & 0x40) != 0) {\n        hint = kLegacyRecipePage586D2C;\n    } else if ((QueryPanelButtonState(&previousTen) & 0x40) != 0 || (QueryPanelButtonState(&nextTen) & 0x40) != 0) {\n        hint = kLegacyAlbumSkipTen58A0F0;\n    } else if ((QueryPanelButtonState(&back) & 0x40) != 0) {\n        hint = kLegacyAlbumBack58A0FC;\n    }\n    if (hint != nullptr) {\n        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);\n    }\n    return Sub_503440(&gLegacyAlbumDetailPanel5846C0, 1);\n}\n\n",
+  "source_files_kept": [
+    "src/YobiRuntime.cpp",
+    "include/cg/YobiRuntime.hpp",
+    "src/LegacyPanelRuntime.hpp"
+  ]
+}

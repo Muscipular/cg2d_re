@@ -4011,3 +4011,11 @@ SCP01是历史本体落位记录，本次只纠正当前预览字段访问与重
 BVW01旧买入/卖出/修理/鉴定/交换/交出接受数量六父各一标志阶段：六定点共25条80B，不重验六完整父或全部消费者。仅LegacyUiRecord.cpp六既有片段恢复共享action一次持样→同样本判空→既有SetYobiActionFlag2(false)清W32 bit1；卖出多一原XOR置零分列。其它父正文/初始化与生产/关闭回收、旧八叶格式/原字节和网络原格式明文保持，一CPP六片段、零新函数/helper/API/owner，原正常值未证明错误，不宣并发/机器故障。更新既有773/775/777/779/781/1015不重计语义，六adapted F及六页面各一实际成员/两限定I-S；原上游/旧表外路由/正常owner-alias寿命、SDK/机器ABI/画面与运行未验。已修旧62和交换/交出接受等已持样片段保，pending18/原混合与完整门禁不关闭；音频暂停/RPLAN.24保。
 
 六阶段25条80B，仅恢复同样本判空/清W32 bit1，原已存完整父/文件格式证据保持。语义1805/有效1798、合同1915（52.04%）不重计，F954→960、E1108→1120；六页面各一个主父并保持枚举open，当前合同候选共享本SPEC不当实际成员或完整通过。未构建或运行，不以源取样恢复宣正常值/并发故障。
+
+## BVX01相册详情预览取样（2026-10-08）
+
+[基线](cg2d_album_preview_sampling_spec.md#album-preview-baseline)、[决定](cg2d_album_preview_sampling_spec.md#album-preview-decision)、[验收](cg2d_album_preview_sampling_spec.md#album-preview-acceptance)、[状态](cg2d_album_preview_sampling_spec.md#album-preview-source-state)及[原证](cg2d_album_preview_sampling_evidence.json)。
+
+BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。
+
+有记录阶段正确保持，空记录仅一片段恢复同样本判空/置W32 bit1；原文件/格式/字节及其它父字段不覆盖。语义1805/有效1798、合同1915（52.04%）保持，F960→961、E1120→1122；旧24只纳一个主父，枚举与完整门禁仍open，不代完整图鉴/旧路由或运行通过。

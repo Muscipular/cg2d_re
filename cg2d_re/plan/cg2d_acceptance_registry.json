@@ -6478,9 +6478,12 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/legacy_album_detail.md"
+        "doc/ui_windows/legacy_album_detail.md",
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-baseline"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:000F6220"
+      ],
       "closure_task_ids": [
         "U04",
         "V04"
@@ -6489,13 +6492,18 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-decision"
+      ],
       "blockers": [
-        "原成员、传递依赖和逐门禁证据待归档"
+        "原成员、传递依赖和逐门禁证据待归档",
+        "BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state"
+      ]
     },
     {
       "id": "UI-L-025",
@@ -49818,6 +49826,80 @@
       "observation": "4D55C0 交出/接受数量：恢复gLegacyGiveReceiveQuantityActionCB1DD4一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
       "expected": "4D55C0 交出/接受数量：恢复gLegacyGiveReceiveQuantityActionCB1DD4一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。",
       "actual": "4D55C0 交出/接受数量：恢复gLegacyGiveReceiveQuantityActionCB1DD4一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。"
+    },
+    {
+      "id": "E-ALBUM-PREVIEW-UI-L-024-I-20261008",
+      "feature_id": "UI-L-024",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVX01两阶段20条80B：有记录16/67B正确保、空记录4/13B一片段实修；旧完整父/格式/原字节不重核。doc/cg2d_album_preview_sampling_spec.md#album-preview-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-album-preview-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4F6220",
+        "src/LegacyUiRecord.cpp#gLegacyAlbumActionD67D14",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "src/YobiRuntime.cpp#SetYobiActionField2A8",
+        "src/YobiRuntime.cpp#ClearYobiActionFlags0C",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "src/LegacyPanelRuntime.hpp",
+        "doc/ui_windows/legacy_album_detail.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_legacy_preview_flag_sampling_evidence.json",
+        "doc/cg2d_album_preview_sampling_evidence.json",
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-baseline",
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-decision",
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-acceptance",
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。",
+          "decision_ref": "doc/cg2d_album_preview_sampling_spec.md#album-preview-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。",
+      "expected": "BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。",
+      "actual": "BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。"
+    },
+    {
+      "id": "E-ALBUM-PREVIEW-UI-L-024-S-20261008",
+      "feature_id": "UI-L-024",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVX01两阶段20条80B：有记录16/67B正确保、空记录4/13B一片段实修；旧完整父/格式/原字节不重核。doc/cg2d_album_preview_sampling_spec.md#album-preview-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-album-preview-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4F6220",
+        "src/LegacyUiRecord.cpp#gLegacyAlbumActionD67D14",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "src/YobiRuntime.cpp#SetYobiActionField2A8",
+        "src/YobiRuntime.cpp#ClearYobiActionFlags0C",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "src/LegacyPanelRuntime.hpp",
+        "doc/ui_windows/legacy_album_detail.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_legacy_preview_flag_sampling_evidence.json",
+        "doc/cg2d_album_preview_sampling_evidence.json",
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-baseline",
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-decision",
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-acceptance",
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。",
+          "decision_ref": "doc/cg2d_album_preview_sampling_spec.md#album-preview-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。",
+      "expected": "BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。",
+      "actual": "BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。"
     }
   ],
   "task_acceptance": [
@@ -50722,7 +50804,8 @@
         "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state",
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state",
         "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state",
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state",
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state"
       ]
     },
     {
@@ -51028,7 +51111,8 @@
         "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state",
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state",
         "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state",
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state",
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state"
       ]
     },
     {
@@ -51214,7 +51298,8 @@
         "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state",
         "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state",
         "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state",
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state",
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state"
       ]
     },
     {
@@ -51363,7 +51448,8 @@
         "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state",
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state",
         "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state",
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state",
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state"
       ]
     },
     {
@@ -63088,6 +63174,18 @@
         "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
       ],
       "boundary": "4D55C0 交出/接受数量：恢复gLegacyGiveReceiveQuantityActionCB1DD4一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+    },
+    {
+      "inventory_id": "F:000F6220",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-baseline",
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-decision",
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-acceptance",
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state"
+      ],
+      "boundary": "BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。"
     }
   ],
   "auxiliary_dispositions": [

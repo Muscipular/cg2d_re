@@ -140754,7 +140754,7 @@
     {
       "original_entry": "0x4F6220",
       "inventory_id": "F:000F6220",
-      "status": "旧配方或图鉴页已证格式已接线；原父及整体验收未闭合",
+      "status": "BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。",
       "original_end_exclusive": "0x4F6BEC",
       "instruction_count": 688,
       "sources": [
@@ -140763,14 +140763,34 @@
           "symbols": [
             "Sub_4F6220"
           ],
-          "relationship": "仅3个格式接口改变，其他正文/原返回域保持"
+          "relationship": "BVX01只空记录一阶段恢复单指针持样，有记录映图后三次fresh指针和其他完整父/文件格式保持"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "SetYobiActionFlag2",
+            "SetYobiActionField2A8",
+            "ClearYobiActionFlags0C"
+          ],
+          "relationship": "既有native边界保持；空记录同样本置bit1，有记录各fresh sample不合并"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "SetYobiActionFlag2"
+          ],
+          "relationship": "现有非拥有T*公开声明与opaque布局保持，无新API"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_album_detail.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-baseline",
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-decision",
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-acceptance",
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state"
       ],
-      "boundary": "只换三格式接口，used W8后的清new/动画更新与各次角色S16/选择重读、80H+04/%03d与种族绘后+30/%2d、used正文或unused隐藏后新当前/总数双S32/%3d/%3d、同未清128B/新布局font1保持。名称/标记/种族/评级/元素/说明/五按钮/共享选择与动画生命期、关闭实际T*/正常W32的uintptr_t混合返回等所有其他正文不动，原父/旧路由/数据生产/运行未闭合。",
+      "boundary": "只换三格式接口，used W8后的清new/动画更新与各次角色S16/选择重读、80H+04/%03d与种族绘后+30/%2d、used正文或unused隐藏后新当前/总数双S32/%3d/%3d、同未清128B/新布局font1保持。名称/标记/种族/评级/元素/说明/五按钮/共享选择与动画生命期、关闭实际T*/正常W32的uintptr_t混合返回等所有其他正文不动，原父/旧路由/数据生产/运行未闭合。 BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。",
       "original_incoming": [],
       "original_data_references": [],
       "business_call_connections": [
@@ -140867,7 +140887,47 @@
           "relationship": "used记录全部正文绘完或unused动画隐藏后，新C8AF7C S32当前选择→D2D5FC W32按S32总数，以当前+1/总数覆同128B；两边均宽3空格填充非零填充，格式后新布局X+150/Y+411/font1/color0，再五按钮/提示与原uintptr_t混合返回"
         }
       ],
-      "verification_level": "本步只读177/688新格式邻窗，余511沿既有父合同；新58A10C只读加载字节，其余五常量沿已核字节。整份源仅3格式标识符，字段/符号性/参数/容量/原快照消费和新取数/布局/返回、JSON增量/文档末追加/编码/差异静态核对通过。禁构建/测试/客户端/hash；原父/旧路由/生产/运行未闭合。"
+      "verification_level": "BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。",
+      "album_preview_sampling": {
+        "spec_id": "BVX01",
+        "evidence_refs": [
+          "doc/cg2d_album_preview_sampling_spec.md#album-preview-baseline",
+          "doc/cg2d_album_preview_sampling_spec.md#album-preview-decision",
+          "doc/cg2d_album_preview_sampling_spec.md#album-preview-acceptance",
+          "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state"
+        ],
+        "previous_status": "旧配方或图鉴页已证格式已接线；原父及整体验收未闭合",
+        "previous_verification_level": "本步只读177/688新格式邻窗，余511沿既有父合同；新58A10C只读加载字节，其余五常量沿已核字节。整份源仅3格式标识符，字段/符号性/参数/容量/原快照消费和新取数/布局/返回、JSON增量/文档末追加/编码/差异静态核对通过。禁构建/测试/客户端/hash；原父/旧路由/生产/运行未闭合。",
+        "original_parent_instruction_count": 688,
+        "full_original_parent_reverified": false,
+        "original_valid_record_instruction_count": 16,
+        "original_valid_record_code_bytes": 67,
+        "original_empty_record_instruction_count": 4,
+        "original_empty_record_code_bytes": 13,
+        "original_total_focus_instruction_count": 20,
+        "original_total_focus_code_bytes": 80,
+        "source_body_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 1,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "new_semantic_record_count": 0,
+        "valid_record_initial_pointer_before_newFlag_clear_and_three_fresh_samples_kept": true,
+        "empty_record_single_pointer_sample_restored": true,
+        "original_W32_bit1_and_other_bits_kept": true,
+        "other_complete_body_format_byte_and_consumer_evidence_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x4F6CA0",

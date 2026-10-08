@@ -74,3 +74,11 @@ Yobi新增窄接口只清0CH，不将两次标志更新合并或缓存旧预览�
 4F673E种族串绘后4F6743/4F674A新角色/当前选择、4F6768取+30 W32按S32，4F6775沿553FB4（`%2d`）覆同128B；新布局X+195/Y+325/font1。used正文/评级/元素/两说明绘完，或unused隐藏动画后，4F6A3A/4F6A40新当前选择→D2D5FC总数W32按S32，4F6A55沿586DE0（`%3d/%3d`）以当前+1/总数覆缓冲，保留空格宽3，新布局X+150/Y+411/font1/color0；后五按钮/原提示/混合uintptr_t返回。
 
 原标记S8、每次selectedRecord借用、共享选择与图鉴数据/动画生命期/关闭T*及所有其他正文不动。本步只读177/688新格式邻窗，余511沿既有父合同；新常量只读原加载字节，另两沿已核字节。源码仅三个格式标识符，参数/字段/容量/重读取数与绘制顺序/返回、JSON唯一增量/文档末追加/编码及差异静态核对通过。禁构建/测试/客户端/hash；原父/旧真实路由/生产/运行未验。
+
+## BVX01相册详情预览取样（2026-10-08）
+
+[基线](../cg2d_album_preview_sampling_spec.md#album-preview-baseline)、[决定](../cg2d_album_preview_sampling_spec.md#album-preview-decision)、[验收](../cg2d_album_preview_sampling_spec.md#album-preview-acceptance)、[状态](../cg2d_album_preview_sampling_spec.md#album-preview-source-state)及[原证](../cg2d_album_preview_sampling_evidence.json)。
+
+BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。
+
+有记录阶段正确保持，空记录仅一片段恢复同样本判空/置W32 bit1；原文件/格式/字节及其它父字段不覆盖。语义1805/有效1798、合同1915（52.04%）保持，F960→961、E1120→1122；旧24只纳一个主父，枚举与完整门禁仍open，不代完整图鉴/旧路由或运行通过。

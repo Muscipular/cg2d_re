@@ -629,7 +629,12 @@ bool SdlAudioBackend::PrepareFixedMusic() noexcept
     return cleared;
 }
 
-bool SdlAudioBackend::PlayFixedMusic(std::uint32_t repeats) noexcept
+bool SdlAudioBackend::HasFixedMusicPlayback() const noexcept
+{
+    return HasFixedMusic() && impl_->fixedMusicPrepared;
+}
+
+bool SdlAudioBackend::SetFixedMusicRepeats(const std::uint32_t repeats) noexcept
 {
     if (!HasFixedMusic() || !SDL_LockAudioStream(impl_->fixedMusic.stream)) { return false; }
     auto& channel = impl_->fixedMusic;
@@ -637,6 +642,17 @@ bool SdlAudioBackend::PlayFixedMusic(std::uint32_t repeats) noexcept
     if (prepared) {
         channel.loop = repeats == 0xFFFFFFFFu;
         channel.remainingRepeats = repeats;
+    }
+    static_cast<void>(SDL_UnlockAudioStream(channel.stream));
+    return prepared;
+}
+
+bool SdlAudioBackend::PlayFixedMusic() noexcept
+{
+    if (!HasFixedMusic() || !SDL_LockAudioStream(impl_->fixedMusic.stream)) { return false; }
+    auto& channel = impl_->fixedMusic;
+    const bool prepared = impl_->fixedMusicPrepared;
+    if (prepared) {
         channel.playing = true;
     }
     static_cast<void>(SDL_UnlockAudioStream(channel.stream));

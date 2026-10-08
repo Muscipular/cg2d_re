@@ -881,3 +881,7 @@
 ## 2026-10-09 cg2d_re 共用 PCM WAV 头读取
 
 还原原52B710完整18B MMIO头读取，替换音效/BGM两套不同解析并接两实际父；SDL3继续样本/缓冲/播放，原两缓冲职责具名关联，不新增依赖或COM假体。三根186条441B、两caller窗口90条与一个现源差异静态通过，待定位音频12→9；未编译/运行，完整失败/资源/声音/寿命仍待。SPEC/台账同步，整体目标继续；详见cg2d_re/plan/cg2d_full_reconstruction_progress.md，快照cg2d-re-pcm-wave-header-20261009。
+
+## 2026-10-09 cg2d_re 固定 WAV 控制阶段
+
+补齐停止/重复/音量/播放四原控制适配及455280父真实接线，重复→原FF初值字节清0→音量→实际播放，原返回分工和第二段空音频保持；SDL重复设置/启动分开。五根146条512B、原字节/引用与三现源差异静态通过，音频待定位9→4；未编译或运行，音色/效果/loader与完整声音/失败/正常寿命仍待。SPEC/台账同步，整体目标继续；详见cg2d_re/plan/cg2d_full_reconstruction_progress.md，快照cg2d-re-fixed-wav-controls-20261009。

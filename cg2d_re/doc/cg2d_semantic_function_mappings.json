@@ -219,15 +219,17 @@
     {
       "original_entry": "0x50E680",
       "inventory_id": "F:0010E680",
-      "status": "必要SDL提供者已实现并已链接；完整功能未验",
-      "implementation_state": "原socket后两个S32字段分流；固定音乐预转换WAV、原重复/停止释放，类型1按用户要求为空音频并立即成功",
-      "remaining_requirement": "本体不再缺失；当前固定音乐沿CAB02内置WAV，原效果转音源质量对照，实际资源/设备失败、owner寿命及声音/运行仍待验收，不以链接关闭全功能。",
+      "status": "CAB10固定WAV控制源码已更新，历史CAB02已链接；当前源码未编译，完整功能未验",
+      "implementation_state": "原两S32字段分流保持；CAB10固定WAV四原控制入口与父真实接线，重复→原W8清0→音量→实际播放，返回分工和第二段空音频保持",
+      "remaining_requirement": "当前控制源码未编译/运行；原四音色/效果/loader职责继续，WAV质量、资源/设备失败、全部owner正常寿命、重复/停止及完整murD互通仍待，不以历史链接或本次静态关闭全功能",
       "evidence_documents": [
         "doc/cg2d_audio_update.md",
         "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
         "doc/cg2d_client_link_sdl_audio_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state",
-        "doc/cg2d_fixed_music_wav_evidence.json"
+        "doc/cg2d_fixed_music_wav_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-control-source-state",
+        "doc/cg2d_fixed_wav_control_evidence.json"
       ]
     },
     {
@@ -213240,6 +213242,200 @@
         "runtime_verified": false
       },
       "verification_level": "完整原52B710 114条256B与两caller窗口、既有52B810/52B880字节和一个现源新增差异限定静态；未编译/测试/运行或摘要"
+    },
+    {
+      "original_entry": "0x455280",
+      "inventory_id": "F:00055280",
+      "status": "CAB10固定WAV五原控制职责/四新适配及父阶段接线已落码，原W8 FF初值/播放前清零与返回分工限定静态通过；当前源码未编译/运行，完整音频/失败/正常寿命未验",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "PlayFixedMusic_455280",
+            "SetFixedMusicRepeats_455470",
+            "PlayFixedMusicSegment_4553B0",
+            "StopFixedMusic_455450"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-control-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-control-source-state",
+        "doc/cg2d_fixed_wav_control_evidence.json"
+      ],
+      "original_end_exclusive": "0x4553AC",
+      "instruction_count": 70,
+      "original_byte_count": 300,
+      "boundary": "五原根146条512B；停止/释放/类型/准备→W32重复→播放入口存在门槛/原W8清0/原127音量表/真实播放BOOL，父不消费重复/播放返回仍1。SDL固定流/已准备片段承接原存在门槛，不恢复COM/运行时MIDI或造通知。空音频、0..127域与有限/无限重复保持；全失败/设备/声音效果/正常寿命和原生ABI独立验收，剩余音色/效果/loader四项继续。",
+      "fixed_wav_control_contract": {
+        "step": "CAB10",
+        "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-control-decision",
+        "source_snapshot": "cg2d-re-fixed-wav-controls-20261009",
+        "loaded_w8": "FF",
+        "repeat_before_play": true,
+        "parent_ignores_stage_returns": true,
+        "compile_verified": false,
+        "runtime_verified": false
+      },
+      "verification_level": "原五根/原字节加载值与当前引用、三现源新增差异限定静态，未编译/测试/运行或摘要"
+    },
+    {
+      "original_entry": "0x4553B0",
+      "inventory_id": "F:000553B0",
+      "status": "CAB10固定WAV五原控制职责/四新适配及父阶段接线已落码，原W8 FF初值/播放前清零与返回分工限定静态通过；当前源码未编译/运行，完整音频/失败/正常寿命未验",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "PlayFixedMusicSegment_4553B0",
+            "gValue62B2DC"
+          ]
+        },
+        {
+          "path": "src/platform/SdlAudioBackend.cpp",
+          "symbols": [
+            "SdlAudioBackend::HasFixedMusicPlayback",
+            "SdlAudioBackend::PlayFixedMusic"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-control-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-control-source-state",
+        "doc/cg2d_fixed_wav_control_evidence.json"
+      ],
+      "original_end_exclusive": "0x455400",
+      "instruction_count": 29,
+      "original_byte_count": 80,
+      "boundary": "五原根146条512B；停止/释放/类型/准备→W32重复→播放入口存在门槛/原W8清0/原127音量表/真实播放BOOL，父不消费重复/播放返回仍1。SDL固定流/已准备片段承接原存在门槛，不恢复COM/运行时MIDI或造通知。空音频、0..127域与有限/无限重复保持；全失败/设备/声音效果/正常寿命和原生ABI独立验收，剩余音色/效果/loader四项继续。",
+      "fixed_wav_control_contract": {
+        "step": "CAB10",
+        "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-control-decision",
+        "source_snapshot": "cg2d-re-fixed-wav-controls-20261009",
+        "loaded_w8": "FF",
+        "repeat_before_play": true,
+        "parent_ignores_stage_returns": true,
+        "compile_verified": false,
+        "runtime_verified": false
+      },
+      "verification_level": "原五根/原字节加载值与当前引用、三现源新增差异限定静态，未编译/测试/运行或摘要"
+    },
+    {
+      "original_entry": "0x455400",
+      "inventory_id": "F:00055400",
+      "status": "CAB10固定WAV五原控制职责/四新适配及父阶段接线已落码，原W8 FF初值/播放前清零与返回分工限定静态通过；当前源码未编译/运行，完整音频/失败/正常寿命未验",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "ApplyFixedMusicVolume_455400"
+          ]
+        },
+        {
+          "path": "src/platform/SdlAudioBackend.cpp",
+          "symbols": [
+            "SdlAudioBackend::SetFixedMusicVolume"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-control-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-control-source-state",
+        "doc/cg2d_fixed_wav_control_evidence.json"
+      ],
+      "original_end_exclusive": "0x45544B",
+      "instruction_count": 23,
+      "original_byte_count": 75,
+      "boundary": "五原根146条512B；停止/释放/类型/准备→W32重复→播放入口存在门槛/原W8清0/原127音量表/真实播放BOOL，父不消费重复/播放返回仍1。SDL固定流/已准备片段承接原存在门槛，不恢复COM/运行时MIDI或造通知。空音频、0..127域与有限/无限重复保持；全失败/设备/声音效果/正常寿命和原生ABI独立验收，剩余音色/效果/loader四项继续。",
+      "fixed_wav_control_contract": {
+        "step": "CAB10",
+        "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-control-decision",
+        "source_snapshot": "cg2d-re-fixed-wav-controls-20261009",
+        "loaded_w8": "FF",
+        "repeat_before_play": true,
+        "parent_ignores_stage_returns": true,
+        "compile_verified": false,
+        "runtime_verified": false
+      },
+      "verification_level": "原五根/原字节加载值与当前引用、三现源新增差异限定静态，未编译/测试/运行或摘要"
+    },
+    {
+      "original_entry": "0x455450",
+      "inventory_id": "F:00055450",
+      "status": "CAB10固定WAV五原控制职责/四新适配及父阶段接线已落码，原W8 FF初值/播放前清零与返回分工限定静态通过；当前源码未编译/运行，完整音频/失败/正常寿命未验",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "StopFixedMusic_455450"
+          ]
+        },
+        {
+          "path": "src/platform/SdlAudioBackend.cpp",
+          "symbols": [
+            "SdlAudioBackend::StopFixedMusic"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-control-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-control-source-state",
+        "doc/cg2d_fixed_wav_control_evidence.json"
+      ],
+      "original_end_exclusive": "0x45546E",
+      "instruction_count": 13,
+      "original_byte_count": 30,
+      "boundary": "五原根146条512B；停止/释放/类型/准备→W32重复→播放入口存在门槛/原W8清0/原127音量表/真实播放BOOL，父不消费重复/播放返回仍1。SDL固定流/已准备片段承接原存在门槛，不恢复COM/运行时MIDI或造通知。空音频、0..127域与有限/无限重复保持；全失败/设备/声音效果/正常寿命和原生ABI独立验收，剩余音色/效果/loader四项继续。",
+      "fixed_wav_control_contract": {
+        "step": "CAB10",
+        "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-control-decision",
+        "source_snapshot": "cg2d-re-fixed-wav-controls-20261009",
+        "loaded_w8": "FF",
+        "repeat_before_play": true,
+        "parent_ignores_stage_returns": true,
+        "compile_verified": false,
+        "runtime_verified": false
+      },
+      "verification_level": "原五根/原字节加载值与当前引用、三现源新增差异限定静态，未编译/测试/运行或摘要"
+    },
+    {
+      "original_entry": "0x455470",
+      "inventory_id": "F:00055470",
+      "status": "CAB10固定WAV五原控制职责/四新适配及父阶段接线已落码，原W8 FF初值/播放前清零与返回分工限定静态通过；当前源码未编译/运行，完整音频/失败/正常寿命未验",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "SetFixedMusicRepeats_455470"
+          ]
+        },
+        {
+          "path": "src/platform/SdlAudioBackend.cpp",
+          "symbols": [
+            "SdlAudioBackend::SetFixedMusicRepeats"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-control-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-control-source-state",
+        "doc/cg2d_fixed_wav_control_evidence.json"
+      ],
+      "original_end_exclusive": "0x45548B",
+      "instruction_count": 11,
+      "original_byte_count": 27,
+      "boundary": "五原根146条512B；停止/释放/类型/准备→W32重复→播放入口存在门槛/原W8清0/原127音量表/真实播放BOOL，父不消费重复/播放返回仍1。SDL固定流/已准备片段承接原存在门槛，不恢复COM/运行时MIDI或造通知。空音频、0..127域与有限/无限重复保持；全失败/设备/声音效果/正常寿命和原生ABI独立验收，剩余音色/效果/loader四项继续。",
+      "fixed_wav_control_contract": {
+        "step": "CAB10",
+        "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-control-decision",
+        "source_snapshot": "cg2d-re-fixed-wav-controls-20261009",
+        "loaded_w8": "FF",
+        "repeat_before_play": true,
+        "parent_ignores_stage_returns": true,
+        "compile_verified": false,
+        "runtime_verified": false
+      },
+      "verification_level": "原五根/原字节加载值与当前引用、三现源新增差异限定静态，未编译/测试/运行或摘要"
     }
   ]
 }

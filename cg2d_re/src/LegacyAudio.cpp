@@ -68,6 +68,7 @@ constexpr int kFixedMusicResourceId = 1001;
 
 // 原454C30为固定音乐生成的独立128槽，不能借普通WAV BGM的另一音量表。
 std::array<std::int32_t, 128> gFixedMusicVolume62B0C8 {};
+std::uint8_t gValue62B2DC = 0xFF; // 原加载W8=FFH，4553B0在实际播放前清0；不当作SDL通知。
 
 static_assert(sizeof(gRecords) == 0x2600);
 
@@ -1510,21 +1511,54 @@ std::int32_t Sub_52C3D0()
     return result;
 }
 
-// 原455280：加载失败0；加载成功后设置音量/重复并发起播放，原父不消费播放BOOL。
-std::int32_t PlayFixedMusic_455280(const std::int32_t type, const std::uint32_t repeats)
+// 原455400：按同源音乐音量缩放，只在原0..127域应用独立固定音乐表。
+void ApplyFixedMusicVolume_455400(const std::int32_t scale)
+{
+    const std::int32_t index = scale * platform::gMusicVolume / 15;
+    if (static_cast<std::uint32_t>(index) < 128u) {
+        static_cast<void>(gSdlAudioBackend.SetFixedMusicVolume(
+            gFixedMusicVolume62B0C8[static_cast<std::size_t>(index)]));
+    }
+}
+
+// 原455450：不存在返回0；实际停止后不消费后端失败，返回1。
+std::int32_t StopFixedMusic_455450()
 {
     if (!gSdlAudioBackend.HasFixedMusic()) { return 0; }
     gSdlAudioBackend.StopFixedMusic();
+    return 1;
+}
+
+// 原455470：仅当前已准备片段接重复值，原本体不消费设置HRESULT。
+std::int32_t SetFixedMusicRepeats_455470(const std::uint32_t repeats)
+{
+    if (!gSdlAudioBackend.HasFixedMusicPlayback()) { return 0; }
+    static_cast<void>(gSdlAudioBackend.SetFixedMusicRepeats(repeats));
+    return 1;
+}
+
+// 原4553B0：两存在门槛→清原W8→音量→实际播放结果；父455280不消费该返回。
+std::int32_t PlayFixedMusicSegment_4553B0()
+{
+    if (!gSdlAudioBackend.HasFixedMusic()) { return 0; }
+    if (!gSdlAudioBackend.HasFixedMusicPlayback()) { return 0; }
+    gValue62B2DC = 0;
+    ApplyFixedMusicVolume_455400(127);
+    return gSdlAudioBackend.PlayFixedMusic() ? 1 : 0;
+}
+
+// 原455280：加载失败0；加载成功后设置重复、调用播放入口，原父不消费两返回。
+std::int32_t PlayFixedMusic_455280(const std::int32_t type, const std::uint32_t repeats)
+{
+    if (!gSdlAudioBackend.HasFixedMusic()) { return 0; }
+    static_cast<void>(StopFixedMusic_455450());
     gSdlAudioBackend.ReleaseFixedMusicPlayback();
     // 用户将原16B片段指定为空音频：停止旧播放后立即成功，不产生零时长循环。
     if (type == 1) { return 1; }
     if (type != 0) { return 0; }
     if (!gSdlAudioBackend.PrepareFixedMusic()) { return 0; }
-    const std::int32_t volume = 127 * platform::gMusicVolume / 15;
-    if (static_cast<std::uint32_t>(volume) < 128u) {
-        static_cast<void>(gSdlAudioBackend.SetFixedMusicVolume(gFixedMusicVolume62B0C8[static_cast<std::size_t>(volume)]));
-    }
-    static_cast<void>(gSdlAudioBackend.PlayFixedMusic(repeats));
+    static_cast<void>(SetFixedMusicRepeats_455470(repeats));
+    static_cast<void>(PlayFixedMusicSegment_4553B0());
     return 1;
 }
 

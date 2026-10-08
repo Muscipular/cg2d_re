@@ -31,7 +31,9 @@ public:
     [[nodiscard]] bool InitializeFixedMusic(std::span<const std::uint8_t> wav) noexcept;
     [[nodiscard]] bool HasFixedMusic() const noexcept;
     [[nodiscard]] bool PrepareFixedMusic() noexcept;
-    [[nodiscard]] bool PlayFixedMusic(std::uint32_t repeats) noexcept; // 原W32额外重复次数；全1为无限。
+    [[nodiscard]] bool HasFixedMusicPlayback() const noexcept; // 对应原已加载片段，区别于初始化的固定流。
+    [[nodiscard]] bool SetFixedMusicRepeats(std::uint32_t repeats) noexcept; // 原W32额外重复次数；全1为无限。
+    [[nodiscard]] bool PlayFixedMusic() noexcept; // 重复由上一阶段设置，本阶段只启动实际播放。
     [[nodiscard]] bool SetFixedMusicVolume(std::int32_t hundredthDb) noexcept;
     void StopFixedMusic() noexcept;
     void ReleaseFixedMusicPlayback() noexcept;

@@ -1,0 +1,1089 @@
+{
+  "schema_version": 1,
+  "step": "CAB10",
+  "recorded_on": "2026-10-09",
+  "source_snapshot": "cg2d-re-fixed-wav-controls-20261009",
+  "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-control-decision",
+  "verification_level": "原会话只读指令/字节及W8加载值/引用、三现源新增差异限定静态；未编译、测试、运行或计算摘要",
+  "authorization": "用户整体SPEC/优先开发与继续完善音频要求，沿既有工程委托、SDL3/WAV与第二段空音频决定",
+  "original_function_count": 5,
+  "instruction_count": 146,
+  "original_byte_count": 512,
+  "original_functions": [
+    {
+      "start": "0x455280",
+      "end": "0x4553ac",
+      "name": "World::PlayFixedBGM",
+      "bytes": "a1c4b0620081ec5003000085c0750933c081c450030000c3e8b3010000a1e0b2620085c074108b0850ff5108c705e0b2620000000000a128f754008b1524f754008b0d2cf754008944241c8b842454030000895424188b1530f7540083e800894c242089542424c744240050030000742f48740933c081c450030000c3c784244003000010000000c784244403000000000000c7842448030000f86b5500eb21c7842440030000b4040000c784244403000000000000c784244803000044675500a1c4b0620068e0b262008d542404c7442408020400008b0868c4f654005250ff510c85c07d0933c081c450030000c3a1e0b2620085c0750933c081c450030000c36a076a1ee8a5fcffff8b84246003000050e8d800000083c40ce810000000b80100000081c450030000c3",
+      "instructions": [
+        {
+          "ea": "0x455280",
+          "asm": "mov     eax, IDirectMusicLoader8.field_0"
+        },
+        {
+          "ea": "0x455285",
+          "asm": "sub     esp, 350h"
+        },
+        {
+          "ea": "0x45528b",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x45528d",
+          "asm": "jnz     short loc_455298"
+        },
+        {
+          "ea": "0x45528f",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "ea": "0x455291",
+          "asm": "add     esp, 350h"
+        },
+        {
+          "ea": "0x455297",
+          "asm": "retn"
+        },
+        {
+          "ea": "0x455298",
+          "asm": "call    World__StopBGM"
+        },
+        {
+          "ea": "0x45529d",
+          "asm": "mov     eax, gIDirectMusicSegment"
+        },
+        {
+          "ea": "0x4552a2",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x4552a4",
+          "asm": "jz      short loc_4552B6"
+        },
+        {
+          "ea": "0x4552a6",
+          "asm": "mov     ecx, [eax]"
+        },
+        {
+          "ea": "0x4552a8",
+          "asm": "push    eax"
+        },
+        {
+          "ea": "0x4552a9",
+          "asm": "call    dword ptr [ecx+8]"
+        },
+        {
+          "ea": "0x4552ac",
+          "asm": "mov     gIDirectMusicSegment, 0"
+        },
+        {
+          "ea": "0x4552b6",
+          "asm": "mov     eax, dword ptr ds:stru_54F724.Data2"
+        },
+        {
+          "ea": "0x4552bb",
+          "asm": "mov     edx, ds:stru_54F724.Data1"
+        },
+        {
+          "ea": "0x4552c1",
+          "asm": "mov     ecx, dword ptr ds:stru_54F724.Data4"
+        },
+        {
+          "ea": "0x4552c7",
+          "asm": "mov     dword ptr [esp+350h+var_350.guidClass.Data2], eax"
+        },
+        {
+          "ea": "0x4552cb",
+          "asm": "mov     eax, [esp+350h+type]"
+        },
+        {
+          "ea": "0x4552d2",
+          "asm": "mov     [esp+350h+var_350.guidClass.Data1], edx"
+        },
+        {
+          "ea": "0x4552d6",
+          "asm": "mov     edx, dword ptr ds:stru_54F724.Data4+4"
+        },
+        {
+          "ea": "0x4552dc",
+          "asm": "sub     eax, 0"
+        },
+        {
+          "ea": "0x4552df",
+          "asm": "mov     dword ptr [esp+350h+var_350.guidClass.Data4], ecx"
+        },
+        {
+          "ea": "0x4552e3",
+          "asm": "mov     dword ptr [esp+350h+var_350.guidClass.Data4+4], edx"
+        },
+        {
+          "ea": "0x4552e7",
+          "asm": "mov     [esp+350h+var_350.dwSize], 350h"
+        },
+        {
+          "ea": "0x4552ef",
+          "asm": "jz      short loc_455320"
+        },
+        {
+          "ea": "0x4552f1",
+          "asm": "dec     eax"
+        },
+        {
+          "ea": "0x4552f2",
+          "asm": "jz      short loc_4552FD"
+        },
+        {
+          "ea": "0x4552f4",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "ea": "0x4552f6",
+          "asm": "add     esp, 350h"
+        },
+        {
+          "ea": "0x4552fc",
+          "asm": "retn"
+        },
+        {
+          "ea": "0x4552fd",
+          "asm": "mov     dword ptr [esp+350h+var_350.llMemLength], 10h"
+        },
+        {
+          "ea": "0x455308",
+          "asm": "mov     dword ptr [esp+350h+var_350.llMemLength+4], 0"
+        },
+        {
+          "ea": "0x455313",
+          "asm": "mov     [esp+350h+var_350.pbMemData], offset aMthd; \"MThd\\x00\\x00\\x00\\x06\\x00\\x00\\x00\\x01\"..."
+        },
+        {
+          "ea": "0x45531e",
+          "asm": "jmp     short loc_455341"
+        },
+        {
+          "ea": "0x455320",
+          "asm": "mov     dword ptr [esp+350h+var_350.llMemLength], 4B4h"
+        },
+        {
+          "ea": "0x45532b",
+          "asm": "mov     dword ptr [esp+350h+var_350.llMemLength+4], 0"
+        },
+        {
+          "ea": "0x455336",
+          "asm": "mov     [esp+350h+var_350.pbMemData], offset aMthd_0; \"MThd\\x00\\x00\\x00\\x06\\x00\\x01\\x00\\b\\x00`\"..."
+        },
+        {
+          "ea": "0x455341",
+          "asm": "mov     eax, IDirectMusicLoader8.field_0"
+        },
+        {
+          "ea": "0x455346",
+          "asm": "push    offset gIDirectMusicSegment"
+        },
+        {
+          "ea": "0x45534b",
+          "asm": "lea     edx, [esp+354h+var_350]"
+        },
+        {
+          "ea": "0x45534f",
+          "asm": "mov     [esp+354h+var_350.dwValidData], 402h"
+        },
+        {
+          "ea": "0x455357",
+          "asm": "mov     ecx, [eax]"
+        },
+        {
+          "ea": "0x455359",
+          "asm": "push    offset stru_54F6C4"
+        },
+        {
+          "ea": "0x45535e",
+          "asm": "push    edx"
+        },
+        {
+          "ea": "0x45535f",
+          "asm": "push    eax"
+        },
+        {
+          "ea": "0x455360",
+          "asm": "call    dword ptr [ecx+0Ch]"
+        },
+        {
+          "ea": "0x455363",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x455365",
+          "asm": "jge     short loc_455370"
+        },
+        {
+          "ea": "0x455367",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "ea": "0x455369",
+          "asm": "add     esp, 350h"
+        },
+        {
+          "ea": "0x45536f",
+          "asm": "retn"
+        },
+        {
+          "ea": "0x455370",
+          "asm": "mov     eax, gIDirectMusicSegment"
+        },
+        {
+          "ea": "0x455375",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x455377",
+          "asm": "jnz     short loc_455382"
+        },
+        {
+          "ea": "0x455379",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "ea": "0x45537b",
+          "asm": "add     esp, 350h"
+        },
+        {
+          "ea": "0x455381",
+          "asm": "retn"
+        },
+        {
+          "ea": "0x455382",
+          "asm": "push    7"
+        },
+        {
+          "ea": "0x455384",
+          "asm": "push    1Eh"
+        },
+        {
+          "ea": "0x455386",
+          "asm": "call    sub_455030"
+        },
+        {
+          "ea": "0x45538b",
+          "asm": "mov     eax, [esp+358h+repeats]"
+        },
+        {
+          "ea": "0x455392",
+          "asm": "push    eax"
+        },
+        {
+          "ea": "0x455393",
+          "asm": "call    sub_455470"
+        },
+        {
+          "ea": "0x455398",
+          "asm": "add     esp, 0Ch"
+        },
+        {
+          "ea": "0x45539b",
+          "asm": "call    World__PlaySegment"
+        },
+        {
+          "ea": "0x4553a0",
+          "asm": "mov     eax, 1"
+        },
+        {
+          "ea": "0x4553a5",
+          "asm": "add     esp, 350h"
+        },
+        {
+          "ea": "0x4553ab",
+          "asm": "retn"
+        }
+      ],
+      "incoming": [
+        {
+          "ea": "0x50e696",
+          "function": "0x50e680",
+          "asm": "call    World__PlayFixedBGM"
+        }
+      ],
+      "inventory_id": "F:00055280",
+      "instruction_count": 70,
+      "byte_count": 300
+    },
+    {
+      "start": "0x4553b0",
+      "end": "0x455400",
+      "name": "World::PlaySegment",
+      "bytes": "a1b8b0620085c0750333c0c3a1e0b2620085c0750333c0c36a7fc605dcb2620000e82a000000a1b8b062008b15e0b2620083c4048b086a006a006a0068001000005250ff511033c985c00f9dc18bc1c3",
+      "instructions": [
+        {
+          "ea": "0x4553b0",
+          "asm": "mov     eax, IDirectMusicPerformance8"
+        },
+        {
+          "ea": "0x4553b5",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x4553b7",
+          "asm": "jnz     short loc_4553BC"
+        },
+        {
+          "ea": "0x4553b9",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "ea": "0x4553bb",
+          "asm": "retn"
+        },
+        {
+          "ea": "0x4553bc",
+          "asm": "mov     eax, gIDirectMusicSegment"
+        },
+        {
+          "ea": "0x4553c1",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x4553c3",
+          "asm": "jnz     short loc_4553C8"
+        },
+        {
+          "ea": "0x4553c5",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "ea": "0x4553c7",
+          "asm": "retn"
+        },
+        {
+          "ea": "0x4553c8",
+          "asm": "push    7Fh"
+        },
+        {
+          "ea": "0x4553ca",
+          "asm": "mov     byte_62B2DC, 0"
+        },
+        {
+          "ea": "0x4553d1",
+          "asm": "call    sub_455400"
+        },
+        {
+          "ea": "0x4553d6",
+          "asm": "mov     eax, IDirectMusicPerformance8"
+        },
+        {
+          "ea": "0x4553db",
+          "asm": "mov     edx, gIDirectMusicSegment"
+        },
+        {
+          "ea": "0x4553e1",
+          "asm": "add     esp, 4"
+        },
+        {
+          "ea": "0x4553e4",
+          "asm": "mov     ecx, [eax]"
+        },
+        {
+          "ea": "0x4553e6",
+          "asm": "push    0"
+        },
+        {
+          "ea": "0x4553e8",
+          "asm": "push    0"
+        },
+        {
+          "ea": "0x4553ea",
+          "asm": "push    0"
+        },
+        {
+          "ea": "0x4553ec",
+          "asm": "push    1000h"
+        },
+        {
+          "ea": "0x4553f1",
+          "asm": "push    edx"
+        },
+        {
+          "ea": "0x4553f2",
+          "asm": "push    eax"
+        },
+        {
+          "ea": "0x4553f3",
+          "asm": "call    dword ptr [ecx+10h]"
+        },
+        {
+          "ea": "0x4553f6",
+          "asm": "xor     ecx, ecx"
+        },
+        {
+          "ea": "0x4553f8",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x4553fa",
+          "asm": "setnl   cl"
+        },
+        {
+          "ea": "0x4553fd",
+          "asm": "mov     eax, ecx"
+        },
+        {
+          "ea": "0x4553ff",
+          "asm": "retn"
+        }
+      ],
+      "incoming": [
+        {
+          "ea": "0x45539b",
+          "function": "0x455280",
+          "asm": "call    World__PlaySegment"
+        }
+      ],
+      "inventory_id": "F:000553B0",
+      "instruction_count": 29,
+      "byte_count": 80
+    },
+    {
+      "start": "0x455400",
+      "end": "0x45544b",
+      "name": "sub_455400",
+      "bytes": "8b0dccd35800b8898888880faf4c2404f7e903d1c1fa038bc2c1e81f03d0782a83fa7f7f258b0c95c8b06200a1b8b06200894c24048d4c24048b106a045168f4f6540050ff9288000000c3",
+      "instructions": [
+        {
+          "ea": "0x455400",
+          "asm": "mov     ecx, dword_58D3CC"
+        },
+        {
+          "ea": "0x455406",
+          "asm": "mov     eax, 88888889h"
+        },
+        {
+          "ea": "0x45540b",
+          "asm": "imul    ecx, [esp+arg_0]"
+        },
+        {
+          "ea": "0x455410",
+          "asm": "imul    ecx"
+        },
+        {
+          "ea": "0x455412",
+          "asm": "add     edx, ecx"
+        },
+        {
+          "ea": "0x455414",
+          "asm": "sar     edx, 3"
+        },
+        {
+          "ea": "0x455417",
+          "asm": "mov     eax, edx"
+        },
+        {
+          "ea": "0x455419",
+          "asm": "shr     eax, 1Fh"
+        },
+        {
+          "ea": "0x45541c",
+          "asm": "add     edx, eax"
+        },
+        {
+          "ea": "0x45541e",
+          "asm": "js      short locret_45544A"
+        },
+        {
+          "ea": "0x455420",
+          "asm": "cmp     edx, 7Fh"
+        },
+        {
+          "ea": "0x455423",
+          "asm": "jg      short locret_45544A"
+        },
+        {
+          "ea": "0x455425",
+          "asm": "mov     ecx, dword_62B0C8[edx*4]"
+        },
+        {
+          "ea": "0x45542c",
+          "asm": "mov     eax, IDirectMusicPerformance8"
+        },
+        {
+          "ea": "0x455431",
+          "asm": "mov     [esp+arg_0], ecx"
+        },
+        {
+          "ea": "0x455435",
+          "asm": "lea     ecx, [esp+arg_0]"
+        },
+        {
+          "ea": "0x455439",
+          "asm": "mov     edx, [eax]"
+        },
+        {
+          "ea": "0x45543b",
+          "asm": "push    4"
+        },
+        {
+          "ea": "0x45543d",
+          "asm": "push    ecx"
+        },
+        {
+          "ea": "0x45543e",
+          "asm": "push    offset unk_54F6F4"
+        },
+        {
+          "ea": "0x455443",
+          "asm": "push    eax"
+        },
+        {
+          "ea": "0x455444",
+          "asm": "call    dword ptr [edx+88h]"
+        },
+        {
+          "ea": "0x45544a",
+          "asm": "retn"
+        }
+      ],
+      "incoming": [
+        {
+          "ea": "0x4553d1",
+          "function": "0x4553b0",
+          "asm": "call    sub_455400"
+        }
+      ],
+      "inventory_id": "F:00055400",
+      "instruction_count": 23,
+      "byte_count": 75
+    },
+    {
+      "start": "0x455450",
+      "end": "0x45546e",
+      "name": "World::StopBGM",
+      "bytes": "a1b8b0620085c07501c38b086a006a006a006a0050ff5114b801000000c3",
+      "instructions": [
+        {
+          "ea": "0x455450",
+          "asm": "mov     eax, IDirectMusicPerformance8"
+        },
+        {
+          "ea": "0x455455",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x455457",
+          "asm": "jnz     short loc_45545A"
+        },
+        {
+          "ea": "0x455459",
+          "asm": "retn"
+        },
+        {
+          "ea": "0x45545a",
+          "asm": "mov     ecx, [eax]"
+        },
+        {
+          "ea": "0x45545c",
+          "asm": "push    0"
+        },
+        {
+          "ea": "0x45545e",
+          "asm": "push    0"
+        },
+        {
+          "ea": "0x455460",
+          "asm": "push    0"
+        },
+        {
+          "ea": "0x455462",
+          "asm": "push    0"
+        },
+        {
+          "ea": "0x455464",
+          "asm": "push    eax"
+        },
+        {
+          "ea": "0x455465",
+          "asm": "call    dword ptr [ecx+14h]"
+        },
+        {
+          "ea": "0x455468",
+          "asm": "mov     eax, 1"
+        },
+        {
+          "ea": "0x45546d",
+          "asm": "retn"
+        }
+      ],
+      "incoming": [
+        {
+          "ea": "0x455298",
+          "function": "0x455280",
+          "asm": "call    World__StopBGM"
+        }
+      ],
+      "inventory_id": "F:00055450",
+      "instruction_count": 13,
+      "byte_count": 30
+    },
+    {
+      "start": "0x455470",
+      "end": "0x45548b",
+      "name": "sub_455470",
+      "bytes": "a1e0b2620085c07501c38b5424048b085250ff5118b801000000c3",
+      "instructions": [
+        {
+          "ea": "0x455470",
+          "asm": "mov     eax, gIDirectMusicSegment"
+        },
+        {
+          "ea": "0x455475",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x455477",
+          "asm": "jnz     short loc_45547A"
+        },
+        {
+          "ea": "0x455479",
+          "asm": "retn"
+        },
+        {
+          "ea": "0x45547a",
+          "asm": "mov     edx, [esp+arg_0]"
+        },
+        {
+          "ea": "0x45547e",
+          "asm": "mov     ecx, [eax]"
+        },
+        {
+          "ea": "0x455480",
+          "asm": "push    edx"
+        },
+        {
+          "ea": "0x455481",
+          "asm": "push    eax"
+        },
+        {
+          "ea": "0x455482",
+          "asm": "call    dword ptr [ecx+18h]"
+        },
+        {
+          "ea": "0x455485",
+          "asm": "mov     eax, 1"
+        },
+        {
+          "ea": "0x45548a",
+          "asm": "retn"
+        }
+      ],
+      "incoming": [
+        {
+          "ea": "0x455393",
+          "function": "0x455280",
+          "asm": "call    sub_455470"
+        }
+      ],
+      "inventory_id": "F:00055470",
+      "instruction_count": 11,
+      "byte_count": 27
+    }
+  ],
+  "original_loaded_flag": {
+    "address": "0x62B2DC",
+    "bytes": "ff"
+  },
+  "original_state_references": [
+    {
+      "target": "0x62b2dc",
+      "references": [
+        {
+          "ea": "0x4553ca",
+          "function": "0x4553b0",
+          "asm": "mov     byte_62B2DC, 0"
+        }
+      ]
+    },
+    {
+      "target": "0x62b2d0",
+      "references": [
+        {
+          "ea": "0x454f46",
+          "function": "0x454ee0",
+          "asm": "mov     eax, dword_62B2D0"
+        },
+        {
+          "ea": "0x454f55",
+          "function": "0x454ee0",
+          "asm": "mov     dword_62B2D0, esi"
+        },
+        {
+          "ea": "0x45500e",
+          "function": "0x454fe0",
+          "asm": "push    offset dword_62B2D0"
+        }
+      ]
+    },
+    {
+      "target": "0x62b0b4",
+      "references": [
+        {
+          "ea": "0x454f5b",
+          "function": "0x454ee0",
+          "asm": "mov     eax, dword_62B0B4"
+        },
+        {
+          "ea": "0x454f6a",
+          "function": "0x454ee0",
+          "asm": "mov     dword_62B0B4, esi"
+        },
+        {
+          "ea": "0x454fe0",
+          "function": "0x454fe0",
+          "asm": "mov     eax, dword_62B0B4"
+        },
+        {
+          "ea": "0x455100",
+          "function": "0x455100",
+          "asm": "mov     eax, dword_62B0B4"
+        },
+        {
+          "ea": "0x455115",
+          "function": "0x455100",
+          "asm": "mov     dword_62B0B4, 0"
+        },
+        {
+          "ea": "0x4551bc",
+          "function": "0x455100",
+          "asm": "push    offset dword_62B0B4"
+        },
+        {
+          "ea": "0x4551e2",
+          "function": "0x455100",
+          "asm": "mov     eax, dword_62B0B4"
+        },
+        {
+          "ea": "0x455217",
+          "function": "0x455100",
+          "asm": "mov     eax, dword_62B0B4"
+        },
+        {
+          "ea": "0x45523a",
+          "function": "0x455100",
+          "asm": "mov     eax, dword_62B0B4"
+        },
+        {
+          "ea": "0x455245",
+          "function": "0x455100",
+          "asm": "mov     dword_62B0B4, 0"
+        }
+      ]
+    },
+    {
+      "target": "0x62b0b8",
+      "references": [
+        {
+          "ea": "0x454c5c",
+          "function": "0x454c30",
+          "asm": "push    offset IDirectMusicPerformance8; ppv"
+        },
+        {
+          "ea": "0x454c84",
+          "function": "0x454c30",
+          "asm": "mov     eax, IDirectMusicPerformance8"
+        },
+        {
+          "ea": "0x454d6b",
+          "function": "0x454c30",
+          "asm": "mov     eax, IDirectMusicPerformance8"
+        },
+        {
+          "ea": "0x454d85",
+          "function": "0x454c30",
+          "asm": "mov     eax, IDirectMusicPerformance8"
+        },
+        {
+          "ea": "0x454ef1",
+          "function": "0x454ee0",
+          "asm": "mov     ecx, IDirectMusicPerformance8"
+        },
+        {
+          "ea": "0x454fbb",
+          "function": "0x454ee0",
+          "asm": "mov     eax, IDirectMusicPerformance8"
+        },
+        {
+          "ea": "0x454fca",
+          "function": "0x454ee0",
+          "asm": "mov     IDirectMusicPerformance8, esi"
+        },
+        {
+          "ea": "0x4553b0",
+          "function": "0x4553b0",
+          "asm": "mov     eax, IDirectMusicPerformance8"
+        },
+        {
+          "ea": "0x4553d6",
+          "function": "0x4553b0",
+          "asm": "mov     eax, IDirectMusicPerformance8"
+        },
+        {
+          "ea": "0x45542c",
+          "function": "0x455400",
+          "asm": "mov     eax, IDirectMusicPerformance8"
+        },
+        {
+          "ea": "0x455450",
+          "function": "0x455450",
+          "asm": "mov     eax, IDirectMusicPerformance8"
+        }
+      ]
+    },
+    {
+      "target": "0x62b0bc",
+      "references": [
+        {
+          "ea": "0x454d4b",
+          "function": "0x454c30",
+          "asm": "push    offset IDirectMusicPort"
+        },
+        {
+          "ea": "0x454d70",
+          "function": "0x454c30",
+          "asm": "mov     ecx, IDirectMusicPort"
+        },
+        {
+          "ea": "0x454d8a",
+          "function": "0x454c30",
+          "asm": "mov     ecx, IDirectMusicPort"
+        },
+        {
+          "ea": "0x454daa",
+          "function": "0x454c30",
+          "asm": "mov     eax, IDirectMusicPort"
+        },
+        {
+          "ea": "0x454e2a",
+          "function": "0x454c30",
+          "asm": "mov     eax, IDirectMusicPort"
+        },
+        {
+          "ea": "0x454f85",
+          "function": "0x454ee0",
+          "asm": "mov     eax, IDirectMusicPort"
+        },
+        {
+          "ea": "0x454f95",
+          "function": "0x454ee0",
+          "asm": "mov     eax, IDirectMusicPort"
+        },
+        {
+          "ea": "0x454fa0",
+          "function": "0x454ee0",
+          "asm": "mov     IDirectMusicPort, esi"
+        },
+        {
+          "ea": "0x454fff",
+          "function": "0x454fe0",
+          "asm": "mov     eax, IDirectMusicPort"
+        },
+        {
+          "ea": "0x455060",
+          "function": "0x455030",
+          "asm": "mov     eax, IDirectMusicPort"
+        }
+      ]
+    },
+    {
+      "target": "0x62b0c4",
+      "references": [
+        {
+          "ea": "0x454c9c",
+          "function": "0x454c30",
+          "asm": "push    offset IDirectMusicLoader8; ppv"
+        },
+        {
+          "ea": "0x454cc0",
+          "function": "0x454c30",
+          "asm": "mov     eax, IDirectMusicLoader8.field_0"
+        },
+        {
+          "ea": "0x454f70",
+          "function": "0x454ee0",
+          "asm": "mov     eax, IDirectMusicLoader8.field_0"
+        },
+        {
+          "ea": "0x454f7f",
+          "function": "0x454ee0",
+          "asm": "mov     IDirectMusicLoader8.field_0, esi"
+        },
+        {
+          "ea": "0x4551b6",
+          "function": "0x455100",
+          "asm": "mov     eax, IDirectMusicLoader8.field_0"
+        },
+        {
+          "ea": "0x455260",
+          "function": "0x455260",
+          "asm": "mov     eax, IDirectMusicLoader8.field_0"
+        },
+        {
+          "ea": "0x45526f",
+          "function": "0x455260",
+          "asm": "mov     IDirectMusicLoader8.field_0, 0"
+        },
+        {
+          "ea": "0x455280",
+          "function": "0x455280",
+          "asm": "mov     eax, IDirectMusicLoader8.field_0"
+        },
+        {
+          "ea": "0x455341",
+          "function": "0x455280",
+          "asm": "mov     eax, IDirectMusicLoader8.field_0"
+        }
+      ]
+    },
+    {
+      "target": "0x62b2e0",
+      "references": [
+        {
+          "ea": "0x454ee6",
+          "function": "0x454ee0",
+          "asm": "mov     eax, gIDirectMusicSegment"
+        },
+        {
+          "ea": "0x454f0b",
+          "function": "0x454ee0",
+          "asm": "mov     eax, gIDirectMusicSegment"
+        },
+        {
+          "ea": "0x454f16",
+          "function": "0x454ee0",
+          "asm": "mov     gIDirectMusicSegment, esi"
+        },
+        {
+          "ea": "0x45529d",
+          "function": "0x455280",
+          "asm": "mov     eax, gIDirectMusicSegment"
+        },
+        {
+          "ea": "0x4552ac",
+          "function": "0x455280",
+          "asm": "mov     gIDirectMusicSegment, 0"
+        },
+        {
+          "ea": "0x455346",
+          "function": "0x455280",
+          "asm": "push    offset gIDirectMusicSegment"
+        },
+        {
+          "ea": "0x455370",
+          "function": "0x455280",
+          "asm": "mov     eax, gIDirectMusicSegment"
+        },
+        {
+          "ea": "0x4553bc",
+          "function": "0x4553b0",
+          "asm": "mov     eax, gIDirectMusicSegment"
+        },
+        {
+          "ea": "0x4553db",
+          "function": "0x4553b0",
+          "asm": "mov     edx, gIDirectMusicSegment"
+        },
+        {
+          "ea": "0x455470",
+          "function": "0x455470",
+          "asm": "mov     eax, gIDirectMusicSegment"
+        }
+      ]
+    }
+  ],
+  "trace": [
+    {
+      "original": "455280 / 455298 / 45529D–4552AC",
+      "fact": "先loader存在门槛，停止旧播放，再释放旧片段，之后类型选择/准备",
+      "source": "HasFixedMusic→StopFixedMusic_455450→ReleaseFixedMusicPlayback→type1空/非法type/PrepareFixedMusic"
+    },
+    {
+      "original": "45538B–4553A0",
+      "fact": "加载成功后先原W32 repeats给455470，再4553B0；父不消费二者返回，仍1",
+      "source": "SetFixedMusicRepeats_455470(repeats)→PlayFixedMusicSegment_4553B0→return1"
+    },
+    {
+      "original": "4553B0–4553D1 / 4553F3–4553FD",
+      "fact": "两实际对象门槛→W8[62B2DC]=0→455400(127)→播放HRESULT符号的BOOL",
+      "source": "真实固定流/准备片段存在检查→唯一原字节清0→音量127→SDL实际播放bool"
+    },
+    {
+      "original": "62B2DC / 4553CA",
+      "fact": "当前加载字节FF；已查直接xref只见4553CA写0，不推断间接消费者或完成通知",
+      "source": "私有原W8 gValue62B2DC=0xFF，仅本播放入口清0，不与SDL feedFailed/notice合并"
+    },
+    {
+      "original": "455400",
+      "fact": "原S32 scale*58D3CC/15，只在0..127域从独立62B0C8取量，未新增钳制",
+      "source": "ApplyFixedMusicVolume_455400(scale)→同源音乐音量/独立表→SDL流增益"
+    },
+    {
+      "original": "455450 / 455470",
+      "fact": "不存在返回0；实际停止/设置后忽略私有HRESULT返回1",
+      "source": "真实存在门槛后调用实际SDL提供者，忽略后端失败与原一致，不以假体提供初始化/准备"
+    },
+    {
+      "original": "455470 / 4553B0",
+      "fact": "重复设置与启动是两个原阶段",
+      "source": "新SetFixedMusicRepeats只设置loop/remainingRepeats；PlayFixedMusic只置playing/恢复设备，不覆盖重复状态"
+    }
+  ],
+  "source_changes": [
+    {
+      "path": "src/LegacyAudio.cpp",
+      "symbols": [
+        "PlayFixedMusic_455280",
+        "SetFixedMusicRepeats_455470",
+        "PlayFixedMusicSegment_4553B0",
+        "ApplyFixedMusicVolume_455400",
+        "StopFixedMusic_455450",
+        "gValue62B2DC"
+      ],
+      "change": "四真实原控制适配/唯一FF初值W8与既有父的原序接线，原返回分工、0..127音量表、类型1空音频保持"
+    },
+    {
+      "path": "src/platform/SdlAudioBackend.cpp",
+      "symbols": [
+        "SdlAudioBackend::HasFixedMusicPlayback",
+        "SdlAudioBackend::SetFixedMusicRepeats",
+        "SdlAudioBackend::PlayFixedMusic"
+      ],
+      "change": "实际准备状态查询，重复设置从启动拆回独立阶段；原有限/无限loop消费/固定流所有权保持"
+    },
+    {
+      "path": "include/cg/platform/SdlAudioBackend.hpp",
+      "symbols": [
+        "HasFixedMusicPlayback",
+        "SetFixedMusicRepeats",
+        "PlayFixedMusic"
+      ],
+      "change": "值接口声明与定义同步，不暴露SDL/COM对象，无新依赖"
+    }
+  ],
+  "static_checks": {
+    "utf8": "pass",
+    "original_five_entry_order": "pass",
+    "loaded_ff_then_clear_w8": "pass",
+    "signed_volume_table_and_bounds": "pass",
+    "repeat_setting_does_not_start_playback": "pass",
+    "playback_preserves_repeat_state": "pass",
+    "real_presence_and_stage_returns": "pass",
+    "empty_second_audio_kept": "pass",
+    "declaration_definition_pair": "pass",
+    "unrelated_source_kept": "pass"
+  },
+  "mechanism_boundary": "原performance/loader/segment的COM对象由既有实际SDL固定流/已准备片段提供存在门槛，原HRESULT机制不伪造；父原忽略返回与独立播放阶段bool分开保留。本步不代全部失败/延迟/声音效果、资源/设备/寿命或原生ABI验收，原四个音色/效果/loader职责继续。",
+  "remaining": [
+    "454FE0/455100音色下载与载入、455260 loader清理和455030效果参数四个原职责继续，WAV替换不自动计为完成",
+    "当前源码未编译或运行，固定WAV质量/设备/有限无限重复/停止与正常退出仍未验",
+    "旧设置99表外层及真实本机登录仍待事实/用户反馈；不覆盖游戏目录CAB05程序"
+  ],
+  "compile_verified": false,
+  "runtime_verified": false,
+  "global_accepted": false
+}

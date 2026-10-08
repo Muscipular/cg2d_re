@@ -4153,3 +4153,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 新增1840..1846/F:00143097、001430E2、0014310E、00143151、00143176、00143177、0014317E；七F仅56条167B，与三R7的103条302B合完整159条469B，不单映三个RET来代功能。三R7合307B，首区前五BYTE实际CC对齐，其余所有共享代码已有真实本体/原尾接线。
 
 26ASM与一个只读原owner的C桥位于三既有源，原T80/状态/错误/符号与整数ST0保持，实际续行和原除法/特殊值真调用。三R7只作mapped分类，不新增函数/范围排除。原描述符生产/其它父及机器/运行继续，pending18保持。
+
+## BWP01完整分派与三个原包装映射（2026-10-08）
+
+[四原体/原表及源前后态](cg2d_math_division_dispatch_evidence.json)、[合同](cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision)。
+
+新增1847/F:00145477→Cg2dDispatchLegacyDivisionX87、1848/F:00145916→Cg2dDivideLegacyPairX87、1849/F:00145929→Cg2dReverseDivideLegacyPairX87、1850/F:00145B3C→Cg2dDivideLegacyStackX87，均在既有LegacyFloatEnvironment.asm；HPP仅私有ST0/原数值片段合同。
+
+四完整本体432条1242B，64项实际代码表/全部case与126个T80操作数及45核心调用均有据；不能将多种ST交换/弹栈操作合成宿主除法。原INT 6失败分支保持，原W32 EAX仅最后包装保存，RCX暂借为原生寄存器机制；未知父与运行仍待，pending18保持。

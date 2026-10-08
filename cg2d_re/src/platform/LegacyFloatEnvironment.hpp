@@ -126,6 +126,13 @@ struct LegacyBinaryMathDescriptor {
 // Cg2dClassifyLegacySharedIntegerX87保持ST0/返回EAX0-1-2；不是消费ST0的幂指数分类叶。
 // 三个R7共享区间和七原函数身份一起映射，完整原表生产/其它调用父仍沿真实依赖补齐。
 
+// 原545477完整64项除法分派：Cg2dDispatchLegacyDivisionX87只在ASM间调用，
+// EAX原操作低六位/ST栈按原体消费，表项仅拓已证代码地址，不加selector拒绝。
+// 原545916/545929的Cg2dDivideLegacyPairX87/Cg2dReverseDivideLegacyPairX87，
+// 以及原545B3C的Cg2dDivideLegacyStackX87均真实落存两T80并调用完整除法核心。
+// 545B3C只按原W32 EAX保存恢复；RCX的原生寄存器暂存用于借址，不改变原44B数值片段。
+// 私有ST0返回不声明CPP double ABI；原INT 6分支保持，完整其它父和机器验收继续。
+
 // 原控制字抽象/硬件表示转换，只消费和生成原已定义位。
 std::uint32_t AbstractLegacyControlWord_5448A4(std::uint32_t hardware);
 std::uint32_t HardwareLegacyControlWord_544936(std::uint32_t abstractValue);

@@ -55,3 +55,7 @@ C01/R01/V02/R04、完整CRT枚举/gates仍open；pending18、R7已审467/余2594
 ## BWO01原共享指数调用父已接实际除法依赖（2026-10-08）
 
 [完整目标与接线SPEC](cg2d_math_shared_targets_spec.md#math-targets-decision)、[原调用和源前后态](cg2d_math_shared_targets_evidence.json)。原542FE2/542FEF分支在完整指数收束中已接唯一已有FDIV owner及Cg2dReverseDivideLegacyStackX87→完整核心，另一分支仍原FDIVRP；原EAX/EDX及ECX样本跨原生值桥保持，比较/后续TEST DL/可选缩放保。没有宿主数学替代或删除探测。其它545477等原父继续，不以本步一个真实父接线代全部除法生命周期。
+
+## BWP01原64项分派及三个包装已接完整核心（2026-10-08）
+
+[完整分派SPEC](cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision)与[四原体/64项表/源前后态](cg2d_math_division_dispatch_evidence.json)。545477全部64个case及545916/545929/545B3C三包装已开发，45次真实调用Cg2dDivideLegacyExtendedX87；各原T80/交换/弹栈/重载、原输入顺序及EAX选择性保存保持，原表仅拓已证代码地址。此前BWO01共享指数调用父与既有545B51保持。未知分派调用父/其它内存加载父及机器生命周期继续，不以供应方完成代全量接线。

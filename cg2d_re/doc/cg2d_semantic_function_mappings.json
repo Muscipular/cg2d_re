@@ -210386,6 +210386,398 @@
         "machine_unwind_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x545477",
+      "inventory_id": "F:00145477",
+      "original_role": "原545477完整412条1183B/64项分派；原EAX低六位及原表顺序，全部FDIV类操作数/FXCH与T80复制弹栈重载、42次真实核心调用及16INT 6原分支完整保持，仅拓已证表/片段地址。",
+      "original_end_exclusive": "0x545916",
+      "original_chunks": [
+        [
+          "0x545477",
+          "0x545916"
+        ]
+      ],
+      "instruction_count": 412,
+      "status": "BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dDispatchLegacyDivisionX87",
+            "LegacyDivisionDispatchTable5922BE",
+            "Cg2dDivideLegacyExtendedX87"
+          ],
+          "relationship": "原545477完整412条1183B/64项分派；原EAX低六位及原表顺序，全部FDIV类操作数/FXCH与T80复制弹栈重载、42次真实核心调用及16INT 6原分支完整保持，仅拓已证表/片段地址。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "Cg2dDispatchLegacyDivisionX87"
+          ],
+          "relationship": "原64项分派/三真实T80包装及内部x87合同，原44B数值不扩宽；原生RCX暂借/已证指针与原W32 EAX选择性保存，非CPP double ABI"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-baseline",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-acceptance",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state"
+      ],
+      "boundary": "原545477完整412条1183B/64项分派；原EAX低六位及原表顺序，全部FDIV类操作数/FXCH与T80复制弹栈重载、42次真实核心调用及16INT 6原分支完整保持，仅拓已证表/片段地址。 BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_division_dispatch": {
+        "spec_id": "BWP01",
+        "evidence_refs": [
+          "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-baseline",
+          "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision",
+          "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-acceptance",
+          "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state"
+        ],
+        "full_original_function_captured": true,
+        "original_instruction_count": 412,
+        "original_code_bytes": 1183,
+        "original_page_count": 6,
+        "whole_group_instruction_count": 432,
+        "whole_group_code_bytes": 1242,
+        "whole_group_direct_calls": 45,
+        "whole_group_unique_direct_callees": 1,
+        "whole_group_indirect_jumps": 1,
+        "whole_group_returns": 51,
+        "whole_group_original_interrupts": 16,
+        "source_body_added": true,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_cpp_file_count": 0,
+        "source_patch_count": 4,
+        "new_native_function_body_count": 4,
+        "new_asm_proc_count": 4,
+        "new_cpp_body_count": 0,
+        "new_original_mapped_function_count": 4,
+        "new_private_C_bridge_count": 0,
+        "new_mutable_shared_owner_count": 0,
+        "original_table_entries": 64,
+        "original_table_bytes": 256,
+        "native_table_bytes": 512,
+        "actual_stack_T80_operand_count": 126,
+        "original_numeric_frame_bytes": 44,
+        "native_frame_bytes": 88,
+        "only_proven_code_and_frame_pointers_widened": true,
+        "native_rcx_register_save_not_original_numeric_field_widening": true,
+        "all_original_64_case_order_fdiv_operands_x87_T80_and_INT6_kept": true,
+        "all_real_core_calls_and_original_wrapper_input_order_kept": true,
+        "EAX_only_saved_for_545B3C_as_original_W32": true,
+        "no_new_guard_host_divide_fault_sample_or_padding_fill": true,
+        "native_direct_call_count": 45,
+        "native_indirect_jump_count": 1,
+        "native_return_count": 51,
+        "native_interrupt_count": 16,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_original_dispatch_caller_production_verified": false,
+        "full_other_memory_operand_parents_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x545916",
+      "inventory_id": "F:00145916",
+      "original_role": "原545916完整六条19B；ST0/ST1真实T80按0/+12落存并调用完整545360，保原ST0结果及原生RCX暂借还原，不额外保原未保存EAX。",
+      "original_end_exclusive": "0x545929",
+      "original_chunks": [
+        [
+          "0x545916",
+          "0x545929"
+        ]
+      ],
+      "instruction_count": 6,
+      "status": "BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dDivideLegacyPairX87",
+            "LegacyDivisionDispatchTable5922BE",
+            "Cg2dDivideLegacyExtendedX87"
+          ],
+          "relationship": "原545916完整六条19B；ST0/ST1真实T80按0/+12落存并调用完整545360，保原ST0结果及原生RCX暂借还原，不额外保原未保存EAX。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "Cg2dDivideLegacyPairX87"
+          ],
+          "relationship": "原64项分派/三真实T80包装及内部x87合同，原44B数值不扩宽；原生RCX暂借/已证指针与原W32 EAX选择性保存，非CPP double ABI"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-baseline",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-acceptance",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state"
+      ],
+      "boundary": "原545916完整六条19B；ST0/ST1真实T80按0/+12落存并调用完整545360，保原ST0结果及原生RCX暂借还原，不额外保原未保存EAX。 BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_division_dispatch": {
+        "spec_id": "BWP01",
+        "evidence_refs": [
+          "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-baseline",
+          "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision",
+          "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-acceptance",
+          "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state"
+        ],
+        "full_original_function_captured": true,
+        "original_instruction_count": 6,
+        "original_code_bytes": 19,
+        "original_page_count": 1,
+        "whole_group_instruction_count": 432,
+        "whole_group_code_bytes": 1242,
+        "whole_group_direct_calls": 45,
+        "whole_group_unique_direct_callees": 1,
+        "whole_group_indirect_jumps": 1,
+        "whole_group_returns": 51,
+        "whole_group_original_interrupts": 16,
+        "source_body_added": true,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_cpp_file_count": 0,
+        "source_patch_count": 4,
+        "new_native_function_body_count": 4,
+        "new_asm_proc_count": 4,
+        "new_cpp_body_count": 0,
+        "new_original_mapped_function_count": 4,
+        "new_private_C_bridge_count": 0,
+        "new_mutable_shared_owner_count": 0,
+        "original_table_entries": 64,
+        "original_table_bytes": 256,
+        "native_table_bytes": 512,
+        "actual_stack_T80_operand_count": 126,
+        "original_numeric_frame_bytes": 44,
+        "native_frame_bytes": 88,
+        "only_proven_code_and_frame_pointers_widened": true,
+        "native_rcx_register_save_not_original_numeric_field_widening": true,
+        "all_original_64_case_order_fdiv_operands_x87_T80_and_INT6_kept": true,
+        "all_real_core_calls_and_original_wrapper_input_order_kept": true,
+        "EAX_only_saved_for_545B3C_as_original_W32": true,
+        "no_new_guard_host_divide_fault_sample_or_padding_fill": true,
+        "native_direct_call_count": 45,
+        "native_indirect_jump_count": 1,
+        "native_return_count": 51,
+        "native_interrupt_count": 16,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_original_dispatch_caller_production_verified": false,
+        "full_other_memory_operand_parents_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x545929",
+      "inventory_id": "F:00145929",
+      "original_role": "原545929完整六条19B；ST0/ST1真实T80按+12/0落存并调用完整545360，保原ST0结果及原生RCX暂借还原，不额外保原未保存EAX。",
+      "original_end_exclusive": "0x54593c",
+      "original_chunks": [
+        [
+          "0x545929",
+          "0x54593c"
+        ]
+      ],
+      "instruction_count": 6,
+      "status": "BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dReverseDivideLegacyPairX87",
+            "LegacyDivisionDispatchTable5922BE",
+            "Cg2dDivideLegacyExtendedX87"
+          ],
+          "relationship": "原545929完整六条19B；ST0/ST1真实T80按+12/0落存并调用完整545360，保原ST0结果及原生RCX暂借还原，不额外保原未保存EAX。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "Cg2dReverseDivideLegacyPairX87"
+          ],
+          "relationship": "原64项分派/三真实T80包装及内部x87合同，原44B数值不扩宽；原生RCX暂借/已证指针与原W32 EAX选择性保存，非CPP double ABI"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-baseline",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-acceptance",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state"
+      ],
+      "boundary": "原545929完整六条19B；ST0/ST1真实T80按+12/0落存并调用完整545360，保原ST0结果及原生RCX暂借还原，不额外保原未保存EAX。 BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_division_dispatch": {
+        "spec_id": "BWP01",
+        "evidence_refs": [
+          "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-baseline",
+          "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision",
+          "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-acceptance",
+          "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state"
+        ],
+        "full_original_function_captured": true,
+        "original_instruction_count": 6,
+        "original_code_bytes": 19,
+        "original_page_count": 1,
+        "whole_group_instruction_count": 432,
+        "whole_group_code_bytes": 1242,
+        "whole_group_direct_calls": 45,
+        "whole_group_unique_direct_callees": 1,
+        "whole_group_indirect_jumps": 1,
+        "whole_group_returns": 51,
+        "whole_group_original_interrupts": 16,
+        "source_body_added": true,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_cpp_file_count": 0,
+        "source_patch_count": 4,
+        "new_native_function_body_count": 4,
+        "new_asm_proc_count": 4,
+        "new_cpp_body_count": 0,
+        "new_original_mapped_function_count": 4,
+        "new_private_C_bridge_count": 0,
+        "new_mutable_shared_owner_count": 0,
+        "original_table_entries": 64,
+        "original_table_bytes": 256,
+        "native_table_bytes": 512,
+        "actual_stack_T80_operand_count": 126,
+        "original_numeric_frame_bytes": 44,
+        "native_frame_bytes": 88,
+        "only_proven_code_and_frame_pointers_widened": true,
+        "native_rcx_register_save_not_original_numeric_field_widening": true,
+        "all_original_64_case_order_fdiv_operands_x87_T80_and_INT6_kept": true,
+        "all_real_core_calls_and_original_wrapper_input_order_kept": true,
+        "EAX_only_saved_for_545B3C_as_original_W32": true,
+        "no_new_guard_host_divide_fault_sample_or_padding_fill": true,
+        "native_direct_call_count": 45,
+        "native_indirect_jump_count": 1,
+        "native_return_count": 51,
+        "native_interrupt_count": 16,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_original_dispatch_caller_production_verified": false,
+        "full_other_memory_operand_parents_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x545b3c",
+      "inventory_id": "F:00145B3C",
+      "original_role": "原545B3C完整八条21B；ST0/ST1真实T80按0/+12落存并调用完整545360，按原W32保存恢复EAX，原生RCX暂借还原。",
+      "original_end_exclusive": "0x545b51",
+      "original_chunks": [
+        [
+          "0x545b3c",
+          "0x545b51"
+        ]
+      ],
+      "instruction_count": 8,
+      "status": "BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dDivideLegacyStackX87",
+            "LegacyDivisionDispatchTable5922BE",
+            "Cg2dDivideLegacyExtendedX87"
+          ],
+          "relationship": "原545B3C完整八条21B；ST0/ST1真实T80按0/+12落存并调用完整545360，按原W32保存恢复EAX，原生RCX暂借还原。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "Cg2dDivideLegacyStackX87"
+          ],
+          "relationship": "原64项分派/三真实T80包装及内部x87合同，原44B数值不扩宽；原生RCX暂借/已证指针与原W32 EAX选择性保存，非CPP double ABI"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-baseline",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-acceptance",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state"
+      ],
+      "boundary": "原545B3C完整八条21B；ST0/ST1真实T80按0/+12落存并调用完整545360，按原W32保存恢复EAX，原生RCX暂借还原。 BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_division_dispatch": {
+        "spec_id": "BWP01",
+        "evidence_refs": [
+          "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-baseline",
+          "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision",
+          "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-acceptance",
+          "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state"
+        ],
+        "full_original_function_captured": true,
+        "original_instruction_count": 8,
+        "original_code_bytes": 21,
+        "original_page_count": 1,
+        "whole_group_instruction_count": 432,
+        "whole_group_code_bytes": 1242,
+        "whole_group_direct_calls": 45,
+        "whole_group_unique_direct_callees": 1,
+        "whole_group_indirect_jumps": 1,
+        "whole_group_returns": 51,
+        "whole_group_original_interrupts": 16,
+        "source_body_added": true,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_cpp_file_count": 0,
+        "source_patch_count": 4,
+        "new_native_function_body_count": 4,
+        "new_asm_proc_count": 4,
+        "new_cpp_body_count": 0,
+        "new_original_mapped_function_count": 4,
+        "new_private_C_bridge_count": 0,
+        "new_mutable_shared_owner_count": 0,
+        "original_table_entries": 64,
+        "original_table_bytes": 256,
+        "native_table_bytes": 512,
+        "actual_stack_T80_operand_count": 126,
+        "original_numeric_frame_bytes": 44,
+        "native_frame_bytes": 88,
+        "only_proven_code_and_frame_pointers_widened": true,
+        "native_rcx_register_save_not_original_numeric_field_widening": true,
+        "all_original_64_case_order_fdiv_operands_x87_T80_and_INT6_kept": true,
+        "all_real_core_calls_and_original_wrapper_input_order_kept": true,
+        "EAX_only_saved_for_545B3C_as_original_W32": true,
+        "no_new_guard_host_divide_fault_sample_or_padding_fill": true,
+        "native_direct_call_count": 45,
+        "native_indirect_jump_count": 1,
+        "native_return_count": 51,
+        "native_interrupt_count": 16,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_original_dispatch_caller_production_verified": false,
+        "full_other_memory_operand_parents_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

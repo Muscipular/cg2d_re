@@ -324,7 +324,8 @@
         "doc/cg2d_power_application_wiring_spec.md#power-app-baseline",
         "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-baseline",
         "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-baseline",
-        "doc/cg2d_math_shared_targets_spec.md#math-targets-baseline"
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-baseline",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-baseline"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -512,7 +513,11 @@
         "F:00143151",
         "F:00143176",
         "F:00143177",
-        "F:0014317E"
+        "F:0014317E",
+        "F:00145477",
+        "F:00145916",
+        "F:00145929",
+        "F:00145B3C"
       ],
       "closure_task_ids": [
         "C01",
@@ -566,7 +571,8 @@
         "doc/cg2d_power_application_wiring_spec.md#power-app-decision",
         "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-decision",
         "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-decision",
-        "doc/cg2d_math_shared_targets_spec.md#math-targets-decision"
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-decision",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -610,7 +616,8 @@
         "BWL01将46F38D/46F43A两已证地图CI窗口经现spawn/除数接口接完整一般CI/core与全部真实依赖。两原窗42条148B/四CALL，保FLD1.25→FILD signedLevel-1→CI→连续ST0幅值/回退/除法/原I64截断低S32消费。两现文件五改动，一已有ASM本体替换/零新本体或F/owner；72B正常帧保32B调用区、S32/三CW/原生幅值指针和I64结果，跨CALL保存重读指针，不拿EDX原CW载体当地址。撤固定域FYL2X/TwoToTOS内联，真实CI EXTERN/call接入同startup库；现PC53/控制字尾恢复、Cpp两spawn的字段门槛/零divisor/RNG/记录后消费及通用提供者/CMake保持。六既有映射/F当前关系由内联改真实传递调用，前态与MFA/BPJ/BPM/BWF/BWK历史可追；MAP129/CRT176与F999/全部数量/定位150及CRT余22保持，两域四限定I-S。共享CRT分派/未知父与全应用生命周期、机器ABI/链接运行继续，原格式明文/音频暂停/RPLAN.24保。",
         "BWM01完整开发543185共享数学身份全部146条501B/三页、多入口/三direct两callee与两表JMP、16跳九RET；原特殊值外尾三点与共享尾入向另列。三现文件五追加、十二ASM真实本体/13布局断言，零CPP本体/新mutable owner或固定目标表。原32B实际context数值W16/T80/错误BYTE和ECX样本保，4/16借用目标指针只拓地址；原分类16字节/CW-FXAM-等待状态-CL/CH-XLAT-索引与真实间接CALL/frame返回、目标末标志LEA恢复保。原幂F64实参-FSAVE108-真helper-FRSTOR-结果/状态与实际ECX数值保，未生产结果不填；真实丢栈/零一/T80 quiet/error0-1-7与FADD/FADDP/OR CL,CL保持。不因未见初始化地址引用排除，不猜描述符生产/父帧，函数原身份仅一份；CRT177/F1000限定I-S，定位149/CRT余21，共享生产/未知父及机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
         "BWN01沿共享指数542FEF真实依赖补完整545360/545B51：91条300B/三页、一CALL一callee、14跳七RET；两现源四处追加/两真实ASM，零CPP/C桥/新owner。借原44B数值片段不扩宽，两个T80及其padding/+24保存CW高W16不补；原16B表/三F32、尾数/指数/进位/CW与全部FDIVP/非规格化重写循环保。包装保原FSTP序、EAX/ECX数值及EDX/真核心调用、88B正常帧；源码静态非机器等价。新增1838/1839、CRT179/F1002限定I-S，定位147/CRT余19，完整共享目标/未知描述符生产和其它原调用父及机器运行继续，原格式明文/音频暂停/RPLAN.24保持。",
-        "BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。"
+        "BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。",
+        "BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -658,7 +665,8 @@
         "doc/cg2d_power_application_wiring_spec.md#power-app-source-state",
         "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-source-state",
         "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-source-state",
-        "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state"
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state"
       ]
     },
     {
@@ -51596,6 +51604,66 @@
       "observation": "BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。 全159条469B与七F三R7逐字节、26ASM/唯一owner桥和三源六追加、原x87及续行/符号/状态/末标志集中静态；不代机器展开/ABI/运行。",
       "expected": "BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。 全159条469B与七F三R7逐字节、26ASM/唯一owner桥和三源六追加、原x87及续行/符号/状态/末标志集中静态；不代机器展开/ABI/运行。",
       "actual": "BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。 全159条469B与七F三R7逐字节、26ASM/唯一owner桥和三源六追加、原x87及续行/符号/状态/末标志集中静态；不代机器展开/ABI/运行。"
+    },
+    {
+      "id": "E-MATH-DIVISION-DISPATCH-FUNC-CRT-I-20261008",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWP01完整四身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT及64项实际代码地址表。doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-math-division-dispatch-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_math_division_dispatch_evidence.json",
+        "doc/cg2d_math_division_dispatch_spec.md",
+        "src/platform/LegacyFloatEnvironment.asm",
+        "src/platform/LegacyFloatEnvironment.hpp",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-baseline",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-acceptance",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 只64项完整分派及三包装的45次真实545360调用/原表间接跳转和T80合同；未代未知分派调用父/内存加载父。",
+          "decision_ref": "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 只64项完整分派及三包装的45次真实545360调用/原表间接跳转和T80合同；未代未知分派调用父/内存加载父。",
+      "expected": "BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 只64项完整分派及三包装的45次真实545360调用/原表间接跳转和T80合同；未代未知分派调用父/内存加载父。",
+      "actual": "BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 只64项完整分派及三包装的45次真实545360调用/原表间接跳转和T80合同；未代未知分派调用父/内存加载父。"
+    },
+    {
+      "id": "E-MATH-DIVISION-DISPATCH-FUNC-CRT-S-20261008",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWP01完整四身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT及64项实际代码地址表。doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-math-division-dispatch-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_math_division_dispatch_evidence.json",
+        "doc/cg2d_math_division_dispatch_spec.md",
+        "src/platform/LegacyFloatEnvironment.asm",
+        "src/platform/LegacyFloatEnvironment.hpp",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-baseline",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-acceptance",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 432条1242B四完整原体/64原表逐项及126实际T80操作数、两源四追加/四正常帧及原分支静态；不代机器或异常等价。",
+          "decision_ref": "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 432条1242B四完整原体/64原表逐项及126实际T80操作数、两源四追加/四正常帧及原分支静态；不代机器或异常等价。",
+      "expected": "BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 432条1242B四完整原体/64原表逐项及126实际T80操作数、两源四追加/四正常帧及原分支静态；不代机器或异常等价。",
+      "actual": "BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 432条1242B四完整原体/64原表逐项及126实际T80操作数、两源四追加/四正常帧及原分支静态；不代机器或异常等价。"
     }
   ],
   "task_acceptance": [
@@ -51955,7 +52023,8 @@
         "doc/cg2d_power_application_wiring_spec.md#power-app-source-state",
         "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-source-state",
         "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-source-state",
-        "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state"
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state"
       ],
       "task_id": "C01",
       "state": "open"
@@ -52418,7 +52487,8 @@
         "doc/cg2d_power_application_wiring_spec.md#power-app-source-state",
         "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-source-state",
         "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-source-state",
-        "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state"
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state"
       ]
     },
     {
@@ -52462,7 +52532,8 @@
         "doc/cg2d_power_application_wiring_spec.md#power-app-source-state",
         "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-source-state",
         "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-source-state",
-        "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state"
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state"
       ]
     },
     {
@@ -52868,7 +52939,8 @@
         "doc/cg2d_power_application_wiring_spec.md#power-app-source-state",
         "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-source-state",
         "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-source-state",
-        "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state"
+        "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state"
       ]
     },
     {
@@ -65573,6 +65645,54 @@
         "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state"
       ],
       "boundary": "原54317E原EAX2与共同RET尾跳，真实只由完整x87判定的原偶数分支进入，保持原输入ST0和末标志。 BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:00145477",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-baseline",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-acceptance",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state"
+      ],
+      "boundary": "原545477完整412条1183B/64项分派；原EAX低六位及原表顺序，全部FDIV类操作数/FXCH与T80复制弹栈重载、42次真实核心调用及16INT 6原分支完整保持，仅拓已证表/片段地址。 BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:00145916",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-baseline",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-acceptance",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state"
+      ],
+      "boundary": "原545916完整六条19B；ST0/ST1真实T80按0/+12落存并调用完整545360，保原ST0结果及原生RCX暂借还原，不额外保原未保存EAX。 BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:00145929",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-baseline",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-acceptance",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state"
+      ],
+      "boundary": "原545929完整六条19B；ST0/ST1真实T80按+12/0落存并调用完整545360，保原ST0结果及原生RCX暂借还原，不额外保原未保存EAX。 BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:00145B3C",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-baseline",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-acceptance",
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state"
+      ],
+      "boundary": "原545B3C完整八条21B；ST0/ST1真实T80按0/+12落存并调用完整545360，按原W32保存恢复EAX，原生RCX暂借还原。 BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
     }
   ],
   "auxiliary_dispositions": [

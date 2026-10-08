@@ -34,6 +34,72 @@ LegacyDivideNormalize592278 DWORD 05F000000h
 LegacySharedNegativeInfinity591FFA BYTE 00h, 00h, 00h, 00h, 00h, 00h, 00h, 080h, 0FFh, 0FFh
 LegacySharedExpLimit59200E BYTE 00h, 00h, 00h, 00h, 00h, 00h, 0FFh, 0FFh, 0Dh, 040h
 
+ALIGN 8
+LegacyDivisionDispatchTable5922BE QWORD OFFSET LegacyDivisionCase545484
+    QWORD OFFSET LegacyDivisionCase54548A
+    QWORD OFFSET LegacyDivisionCase54548F
+    QWORD OFFSET LegacyDivisionCase545495
+    QWORD OFFSET LegacyDivisionCase54549A
+    QWORD OFFSET LegacyDivisionCase5454A0
+    QWORD OFFSET LegacyDivisionCase5454A6
+    QWORD OFFSET LegacyDivisionCase5454AC
+    QWORD OFFSET LegacyDivisionCase5454B2
+    QWORD OFFSET LegacyDivisionCase5454CE
+    QWORD OFFSET LegacyDivisionCase5454D3
+    QWORD OFFSET LegacyDivisionCase5454E9
+    QWORD OFFSET LegacyDivisionCase5454EE
+    QWORD OFFSET LegacyDivisionCase54550A
+    QWORD OFFSET LegacyDivisionCase54551A
+    QWORD OFFSET LegacyDivisionCase54552E
+    QWORD OFFSET LegacyDivisionCase54553E
+    QWORD OFFSET LegacyDivisionCase54555E
+    QWORD OFFSET LegacyDivisionCase545563
+    QWORD OFFSET LegacyDivisionCase54557D
+    QWORD OFFSET LegacyDivisionCase545582
+    QWORD OFFSET LegacyDivisionCase5455A2
+    QWORD OFFSET LegacyDivisionCase5455B6
+    QWORD OFFSET LegacyDivisionCase5455CE
+    QWORD OFFSET LegacyDivisionCase5455E2
+    QWORD OFFSET LegacyDivisionCase545602
+    QWORD OFFSET LegacyDivisionCase545607
+    QWORD OFFSET LegacyDivisionCase545621
+    QWORD OFFSET LegacyDivisionCase545626
+    QWORD OFFSET LegacyDivisionCase545646
+    QWORD OFFSET LegacyDivisionCase54565A
+    QWORD OFFSET LegacyDivisionCase545672
+    QWORD OFFSET LegacyDivisionCase545686
+    QWORD OFFSET LegacyDivisionCase5456A6
+    QWORD OFFSET LegacyDivisionCase5456AB
+    QWORD OFFSET LegacyDivisionCase5456C5
+    QWORD OFFSET LegacyDivisionCase5456CA
+    QWORD OFFSET LegacyDivisionCase5456EA
+    QWORD OFFSET LegacyDivisionCase5456FE
+    QWORD OFFSET LegacyDivisionCase545716
+    QWORD OFFSET LegacyDivisionCase54572A
+    QWORD OFFSET LegacyDivisionCase54574A
+    QWORD OFFSET LegacyDivisionCase54574F
+    QWORD OFFSET LegacyDivisionCase545769
+    QWORD OFFSET LegacyDivisionCase54576E
+    QWORD OFFSET LegacyDivisionCase54578E
+    QWORD OFFSET LegacyDivisionCase5457A2
+    QWORD OFFSET LegacyDivisionCase5457BA
+    QWORD OFFSET LegacyDivisionCase5457CE
+    QWORD OFFSET LegacyDivisionCase5457EE
+    QWORD OFFSET LegacyDivisionCase5457F3
+    QWORD OFFSET LegacyDivisionCase54580D
+    QWORD OFFSET LegacyDivisionCase545812
+    QWORD OFFSET LegacyDivisionCase545832
+    QWORD OFFSET LegacyDivisionCase545846
+    QWORD OFFSET LegacyDivisionCase54585E
+    QWORD OFFSET LegacyDivisionCase545872
+    QWORD OFFSET LegacyDivisionCase545892
+    QWORD OFFSET LegacyDivisionCase545897
+    QWORD OFFSET LegacyDivisionCase5458B1
+    QWORD OFFSET LegacyDivisionCase5458B6
+    QWORD OFFSET LegacyDivisionCase5458D6
+    QWORD OFFSET LegacyDivisionCase5458EA
+    QWORD OFFSET LegacyDivisionCase545902
+
 .code
 EXTERN Cg2dClassifyLegacySpecialFloat:PROC
 PUBLIC Cg2dClassifyLegacyFloat
@@ -94,6 +160,10 @@ PUBLIC Cg2dLegacySharedSetOverflowX87
 PUBLIC Cg2dLegacySharedInfiniteOverflowOnePopX87
 PUBLIC Cg2dLegacySharedInfiniteOverflowTwoPopX87
 PUBLIC Cg2dLegacySharedExpInfinityX87
+PUBLIC Cg2dDispatchLegacyDivisionX87
+PUBLIC Cg2dDivideLegacyPairX87
+PUBLIC Cg2dReverseDivideLegacyPairX87
+PUBLIC Cg2dDivideLegacyStackX87
 EXTERN Cg2dReadLegacyFdivBug:PROC
 EXTERN Cg2dLegacyPowerFastExitGate1085FBC:DWORD
 EXTERN Cg2dRaiseLegacyFloatExceptionHost:PROC
@@ -2370,5 +2440,620 @@ LegacySharedExpInfinityZero:
     mov rcx, r9
     jmp Cg2dLegacySharedZeroOnePopX87
 Cg2dLegacySharedExpInfinityX87 ENDP
+
+; 原545477：EAX原操作低六位/实际x87栈；64原表项与全部T80/INT 6分支保持。
+Cg2dDispatchLegacyDivisionX87 PROC FRAME
+    sub rsp, 88
+    .allocstack 88
+    .endprolog
+    mov qword ptr [rsp+80], rcx
+    and eax, 3Fh
+    lea r11, LegacyDivisionDispatchTable5922BE
+    jmp qword ptr [r11+rax*8]
+LegacyDivisionCase545484::
+    fdiv st(0), st(0)
+    add rsp, 88
+    ret
+LegacyDivisionCase54548A::
+    add rsp, 88
+    int 6
+LegacyDivisionCase54548F::
+    fdivr st(0), st(0)
+    add rsp, 88
+    ret
+LegacyDivisionCase545495::
+    add rsp, 88
+    int 6
+LegacyDivisionCase54549A::
+    fdiv st(0), st(0)
+    add rsp, 88
+    ret
+LegacyDivisionCase5454A0::
+    fdivp st(0), st(0)
+    add rsp, 88
+    ret
+LegacyDivisionCase5454A6::
+    fdivr st(0), st(0)
+    add rsp, 88
+    ret
+LegacyDivisionCase5454AC::
+    fdivrp st(0), st(0)
+    add rsp, 88
+    ret
+LegacyDivisionCase5454B2::
+    fstp tbyte ptr [rsp+44]
+    fld st(0)
+    fstp tbyte ptr [rsp+32]
+    fstp tbyte ptr [rsp+64]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fld tbyte ptr [rsp+64]
+    fxch st(1)
+    add rsp, 88
+    ret
+LegacyDivisionCase5454CE::
+    add rsp, 88
+    int 6
+LegacyDivisionCase5454D3::
+    fstp tbyte ptr [rsp+32]
+    fstp tbyte ptr [rsp+44]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fld tbyte ptr [rsp+44]
+    fxch st(1)
+    add rsp, 88
+    ret
+LegacyDivisionCase5454E9::
+    add rsp, 88
+    int 6
+LegacyDivisionCase5454EE::
+    fxch st(1)
+    fstp tbyte ptr [rsp+44]
+    fld st(0)
+    fstp tbyte ptr [rsp+32]
+    fstp tbyte ptr [rsp+64]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fld tbyte ptr [rsp+64]
+    add rsp, 88
+    ret
+LegacyDivisionCase54550A::
+    fstp tbyte ptr [rsp+32]
+    fstp tbyte ptr [rsp+44]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    add rsp, 88
+    ret
+LegacyDivisionCase54551A::
+    fstp tbyte ptr [rsp+44]
+    fstp tbyte ptr [rsp+32]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fld tbyte ptr [rsp+44]
+    add rsp, 88
+    ret
+LegacyDivisionCase54552E::
+    fstp tbyte ptr [rsp+44]
+    fstp tbyte ptr [rsp+32]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    add rsp, 88
+    ret
+LegacyDivisionCase54553E::
+    fstp tbyte ptr [rsp+44]
+    fxch st(1)
+    fld st(0)
+    fstp tbyte ptr [rsp+32]
+    fstp tbyte ptr [rsp+64]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(1)
+    fld tbyte ptr [rsp+64]
+    fxch st(2)
+    add rsp, 88
+    ret
+LegacyDivisionCase54555E::
+    add rsp, 88
+    int 6
+LegacyDivisionCase545563::
+    fstp tbyte ptr [rsp+32]
+    fxch st(1)
+    fstp tbyte ptr [rsp+44]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(1)
+    fld tbyte ptr [rsp+44]
+    fxch st(2)
+    add rsp, 88
+    ret
+LegacyDivisionCase54557D::
+    add rsp, 88
+    int 6
+LegacyDivisionCase545582::
+    fxch st(2)
+    fstp tbyte ptr [rsp+44]
+    fxch st(1)
+    fld st(0)
+    fstp tbyte ptr [rsp+32]
+    fstp tbyte ptr [rsp+64]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(1)
+    fld tbyte ptr [rsp+64]
+    add rsp, 88
+    ret
+LegacyDivisionCase5455A2::
+    fstp tbyte ptr [rsp+32]
+    fxch st(1)
+    fstp tbyte ptr [rsp+44]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(1)
+    add rsp, 88
+    ret
+LegacyDivisionCase5455B6::
+    fstp tbyte ptr [rsp+44]
+    fxch st(1)
+    fstp tbyte ptr [rsp+32]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(1)
+    fld tbyte ptr [rsp+44]
+    add rsp, 88
+    ret
+LegacyDivisionCase5455CE::
+    fstp tbyte ptr [rsp+44]
+    fxch st(1)
+    fstp tbyte ptr [rsp+32]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(1)
+    add rsp, 88
+    ret
+LegacyDivisionCase5455E2::
+    fstp tbyte ptr [rsp+44]
+    fxch st(2)
+    fld st(0)
+    fstp tbyte ptr [rsp+32]
+    fstp tbyte ptr [rsp+64]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(2)
+    fld tbyte ptr [rsp+64]
+    fxch st(3)
+    add rsp, 88
+    ret
+LegacyDivisionCase545602::
+    add rsp, 88
+    int 6
+LegacyDivisionCase545607::
+    fstp tbyte ptr [rsp+32]
+    fxch st(2)
+    fstp tbyte ptr [rsp+44]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(2)
+    fld tbyte ptr [rsp+44]
+    fxch st(3)
+    add rsp, 88
+    ret
+LegacyDivisionCase545621::
+    add rsp, 88
+    int 6
+LegacyDivisionCase545626::
+    fxch st(3)
+    fstp tbyte ptr [rsp+44]
+    fxch st(2)
+    fld st(0)
+    fstp tbyte ptr [rsp+32]
+    fstp tbyte ptr [rsp+64]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(2)
+    fld tbyte ptr [rsp+64]
+    add rsp, 88
+    ret
+LegacyDivisionCase545646::
+    fstp tbyte ptr [rsp+32]
+    fxch st(2)
+    fstp tbyte ptr [rsp+44]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(2)
+    add rsp, 88
+    ret
+LegacyDivisionCase54565A::
+    fstp tbyte ptr [rsp+44]
+    fxch st(2)
+    fstp tbyte ptr [rsp+32]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(2)
+    fld tbyte ptr [rsp+44]
+    add rsp, 88
+    ret
+LegacyDivisionCase545672::
+    fstp tbyte ptr [rsp+44]
+    fxch st(2)
+    fstp tbyte ptr [rsp+32]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(2)
+    add rsp, 88
+    ret
+LegacyDivisionCase545686::
+    fstp tbyte ptr [rsp+44]
+    fxch st(3)
+    fld st(0)
+    fstp tbyte ptr [rsp+32]
+    fstp tbyte ptr [rsp+64]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(3)
+    fld tbyte ptr [rsp+64]
+    fxch st(4)
+    add rsp, 88
+    ret
+LegacyDivisionCase5456A6::
+    add rsp, 88
+    int 6
+LegacyDivisionCase5456AB::
+    fstp tbyte ptr [rsp+32]
+    fxch st(3)
+    fstp tbyte ptr [rsp+44]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(3)
+    fld tbyte ptr [rsp+44]
+    fxch st(4)
+    add rsp, 88
+    ret
+LegacyDivisionCase5456C5::
+    add rsp, 88
+    int 6
+LegacyDivisionCase5456CA::
+    fxch st(4)
+    fstp tbyte ptr [rsp+44]
+    fxch st(3)
+    fld st(0)
+    fstp tbyte ptr [rsp+32]
+    fstp tbyte ptr [rsp+64]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(3)
+    fld tbyte ptr [rsp+64]
+    add rsp, 88
+    ret
+LegacyDivisionCase5456EA::
+    fstp tbyte ptr [rsp+32]
+    fxch st(3)
+    fstp tbyte ptr [rsp+44]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(3)
+    add rsp, 88
+    ret
+LegacyDivisionCase5456FE::
+    fstp tbyte ptr [rsp+44]
+    fxch st(3)
+    fstp tbyte ptr [rsp+32]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(3)
+    fld tbyte ptr [rsp+44]
+    add rsp, 88
+    ret
+LegacyDivisionCase545716::
+    fstp tbyte ptr [rsp+44]
+    fxch st(3)
+    fstp tbyte ptr [rsp+32]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(3)
+    add rsp, 88
+    ret
+LegacyDivisionCase54572A::
+    fstp tbyte ptr [rsp+44]
+    fxch st(4)
+    fld st(0)
+    fstp tbyte ptr [rsp+32]
+    fstp tbyte ptr [rsp+64]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(4)
+    fld tbyte ptr [rsp+64]
+    fxch st(5)
+    add rsp, 88
+    ret
+LegacyDivisionCase54574A::
+    add rsp, 88
+    int 6
+LegacyDivisionCase54574F::
+    fstp tbyte ptr [rsp+32]
+    fxch st(4)
+    fstp tbyte ptr [rsp+44]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(4)
+    fld tbyte ptr [rsp+44]
+    fxch st(5)
+    add rsp, 88
+    ret
+LegacyDivisionCase545769::
+    add rsp, 88
+    int 6
+LegacyDivisionCase54576E::
+    fxch st(5)
+    fstp tbyte ptr [rsp+44]
+    fxch st(4)
+    fld st(0)
+    fstp tbyte ptr [rsp+32]
+    fstp tbyte ptr [rsp+64]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(4)
+    fld tbyte ptr [rsp+64]
+    add rsp, 88
+    ret
+LegacyDivisionCase54578E::
+    fstp tbyte ptr [rsp+32]
+    fxch st(4)
+    fstp tbyte ptr [rsp+44]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(4)
+    add rsp, 88
+    ret
+LegacyDivisionCase5457A2::
+    fstp tbyte ptr [rsp+44]
+    fxch st(4)
+    fstp tbyte ptr [rsp+32]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(4)
+    fld tbyte ptr [rsp+44]
+    add rsp, 88
+    ret
+LegacyDivisionCase5457BA::
+    fstp tbyte ptr [rsp+44]
+    fxch st(4)
+    fstp tbyte ptr [rsp+32]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(4)
+    add rsp, 88
+    ret
+LegacyDivisionCase5457CE::
+    fstp tbyte ptr [rsp+44]
+    fxch st(5)
+    fld st(0)
+    fstp tbyte ptr [rsp+32]
+    fstp tbyte ptr [rsp+64]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(5)
+    fld tbyte ptr [rsp+64]
+    fxch st(6)
+    add rsp, 88
+    ret
+LegacyDivisionCase5457EE::
+    add rsp, 88
+    int 6
+LegacyDivisionCase5457F3::
+    fstp tbyte ptr [rsp+32]
+    fxch st(5)
+    fstp tbyte ptr [rsp+44]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(5)
+    fld tbyte ptr [rsp+44]
+    fxch st(6)
+    add rsp, 88
+    ret
+LegacyDivisionCase54580D::
+    add rsp, 88
+    int 6
+LegacyDivisionCase545812::
+    fxch st(6)
+    fstp tbyte ptr [rsp+44]
+    fxch st(5)
+    fld st(0)
+    fstp tbyte ptr [rsp+32]
+    fstp tbyte ptr [rsp+64]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(5)
+    fld tbyte ptr [rsp+64]
+    add rsp, 88
+    ret
+LegacyDivisionCase545832::
+    fstp tbyte ptr [rsp+32]
+    fxch st(5)
+    fstp tbyte ptr [rsp+44]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(5)
+    add rsp, 88
+    ret
+LegacyDivisionCase545846::
+    fstp tbyte ptr [rsp+44]
+    fxch st(5)
+    fstp tbyte ptr [rsp+32]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(5)
+    fld tbyte ptr [rsp+44]
+    add rsp, 88
+    ret
+LegacyDivisionCase54585E::
+    fstp tbyte ptr [rsp+44]
+    fxch st(5)
+    fstp tbyte ptr [rsp+32]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(5)
+    add rsp, 88
+    ret
+LegacyDivisionCase545872::
+    fstp tbyte ptr [rsp+44]
+    fxch st(6)
+    fld st(0)
+    fstp tbyte ptr [rsp+32]
+    fstp tbyte ptr [rsp+64]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(6)
+    fld tbyte ptr [rsp+64]
+    fxch st(7)
+    add rsp, 88
+    ret
+LegacyDivisionCase545892::
+    add rsp, 88
+    int 6
+LegacyDivisionCase545897::
+    fstp tbyte ptr [rsp+32]
+    fxch st(6)
+    fstp tbyte ptr [rsp+44]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(6)
+    fld tbyte ptr [rsp+44]
+    fxch st(7)
+    add rsp, 88
+    ret
+LegacyDivisionCase5458B1::
+    add rsp, 88
+    int 6
+LegacyDivisionCase5458B6::
+    fxch st(7)
+    fstp tbyte ptr [rsp+44]
+    fxch st(6)
+    fld st(0)
+    fstp tbyte ptr [rsp+32]
+    fstp tbyte ptr [rsp+64]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(6)
+    fld tbyte ptr [rsp+64]
+    add rsp, 88
+    ret
+LegacyDivisionCase5458D6::
+    fstp tbyte ptr [rsp+32]
+    fxch st(6)
+    fstp tbyte ptr [rsp+44]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(6)
+    add rsp, 88
+    ret
+LegacyDivisionCase5458EA::
+    fstp tbyte ptr [rsp+44]
+    fxch st(6)
+    fstp tbyte ptr [rsp+32]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(6)
+    fld tbyte ptr [rsp+44]
+    add rsp, 88
+    ret
+LegacyDivisionCase545902::
+    fstp tbyte ptr [rsp+44]
+    fxch st(6)
+    fstp tbyte ptr [rsp+32]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    fxch st(6)
+    add rsp, 88
+    ret
+Cg2dDispatchLegacyDivisionX87 ENDP
+
+; 原545916：真实T80落存0/+12，调用完整核心，原ST0结果。
+Cg2dDivideLegacyPairX87 PROC FRAME
+    sub rsp, 88
+    .allocstack 88
+    .endprolog
+    mov qword ptr [rsp+80], rcx
+    fstp tbyte ptr [rsp+32]
+    fstp tbyte ptr [rsp+44]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    add rsp, 88
+    ret
+Cg2dDivideLegacyPairX87 ENDP
+
+; 原545929：真实T80落存+12/0，调用完整核心，原ST0结果。
+Cg2dReverseDivideLegacyPairX87 PROC FRAME
+    sub rsp, 88
+    .allocstack 88
+    .endprolog
+    mov qword ptr [rsp+80], rcx
+    fstp tbyte ptr [rsp+44]
+    fstp tbyte ptr [rsp+32]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov rcx, qword ptr [rsp+80]
+    add rsp, 88
+    ret
+Cg2dReverseDivideLegacyPairX87 ENDP
+
+; 原545B3C：原序两T80/真实核心及原W32 EAX保存恢复。
+Cg2dDivideLegacyStackX87 PROC FRAME
+    sub rsp, 88
+    .allocstack 88
+    .endprolog
+    mov dword ptr [rsp+76], eax
+    mov qword ptr [rsp+80], rcx
+    fstp tbyte ptr [rsp+32]
+    fstp tbyte ptr [rsp+44]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov eax, dword ptr [rsp+76]
+    mov rcx, qword ptr [rsp+80]
+    add rsp, 88
+    ret
+Cg2dDivideLegacyStackX87 ENDP
 
 END

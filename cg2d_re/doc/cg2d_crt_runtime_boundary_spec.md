@@ -234,3 +234,9 @@ NCE01已接业务copy/单owner、消息/析构及所有旧构析正文保持，�
 [基线](cg2d_math_shared_targets_spec.md#math-targets-baseline)、[决定](cg2d_math_shared_targets_spec.md#math-targets-decision)、[验收](cg2d_math_shared_targets_spec.md#math-targets-acceptance)及[整段原体/三R7/源前后态](cg2d_math_shared_targets_evidence.json)。
 
 542FB0..543185全159条469B已开发，七原身份和三R7合并完整覆盖，26ASM/一个唯一已有FDIV owner只读桥、三源六追加。原幂/指数/对数和零无穷目标、保ST0的整数EAX0-1-2及三个共同RET真实接线；原越界丢内层返回以续行/JRCXZ/LEA保持控制流及末标志。CRT179→186/F1009仅限定I-S，定位147→140/CRT余19→12。三R7 mapped，已审470/余2591；原描述符生产/其它父与机器生命周期继续。
+
+## BWP01完整64项除法分派及三包装（2026-10-08）
+
+[基线](cg2d_math_division_dispatch_spec.md#math-division-dispatch-baseline)、[决定](cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision)、[验收](cg2d_math_division_dispatch_spec.md#math-division-dispatch-acceptance)及[四原体/64表项/源前后态](cg2d_math_division_dispatch_evidence.json)。
+
+545477全412条及545916/545929/545B3C三完整包装已开发，合432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6；四ASM、两现源四追加，零CPP/C桥/owner。64项原表只拓代码地址，126个T80实际偏移、原全部FXCH/弹栈重载/FDIV操作数和真实核心调用保。CRT186→190/F1013限定I-S，源码定位140→136/CRT未定位12→8；未知分派/内存加载父与机器生命周期继续。

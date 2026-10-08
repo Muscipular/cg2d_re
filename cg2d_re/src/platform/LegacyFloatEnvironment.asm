@@ -16,6 +16,7 @@ EXTERN Cg2dClassifyLegacySpecialFloat:PROC
 PUBLIC Cg2dClassifyLegacyFloat
 PUBLIC Cg2dClassifyLegacyInteger
 PUBLIC Cg2dProcessLegacyPowerSpecial
+PUBLIC Cg2dLoadLegacyPowerControlWord
 PUBLIC Cg2dReadLegacyX87Control
 PUBLIC Cg2dWriteLegacyX87Control
 PUBLIC Cg2dClearLegacyX87Exceptions
@@ -338,5 +339,57 @@ LegacyPowerSpecialDone:
     add rsp, 72
     ret
 Cg2dProcessLegacyPowerSpecial ENDP
+
+; 原5433F0；私有ASM间ST(0)输入/输出，保全部十条x87操作与当前控制字。
+; 不将连续扩展精度结果落成F64，不通过CPP double返回ABI调用。
+Cg2dLegacyTwoToTOSX87 PROC
+    fld st(0)
+    frndint
+    fsubr st(1), st(0)
+    fxch st(1)
+    fchs
+    f2xm1
+    fld1
+    faddp st(1), st(0)
+    fscale
+    fstp st(1)
+    ret
+Cg2dLegacyTwoToTOSX87 ENDP
+
+; 原543405；Win64 CX承载保存的W16控制字，只有原PC两位参与计算。
+; 只借用调用暂存槽加载原临时CW，原载体的额外W16不复制为业务值。
+Cg2dLoadLegacyPowerControlWord PROC
+    movzx edx, cx
+    and edx, 0300h
+    or edx, 07Fh
+    mov word ptr [rsp+8], dx
+    fldcw word ptr [rsp+8]
+    ret
+Cg2dLoadLegacyPowerControlWord ENDP
+
+; 原543435；私有ASM间RDX借用F64输入，ST(0)/EAX/FLAGS返回。
+; 普通分支保指数CMP标志；特殊分支原三个重叠W32写出10B F80后TEST EAX,0。
+Cg2dLoadLegacyPowerOperandX87 PROC
+    mov eax, dword ptr [rdx+4]
+    and eax, 07FF00000h
+    cmp eax, 07FF00000h
+    je LegacyPowerOperandSpecial
+    fld qword ptr [rdx]
+    ret
+LegacyPowerOperandSpecial:
+    mov eax, dword ptr [rdx+4]
+    or eax, 07FFF0000h
+    mov dword ptr [rsp+14], eax
+    mov eax, dword ptr [rdx+4]
+    mov ecx, dword ptr [rdx]
+    shld eax, ecx, 0Bh
+    shl ecx, 0Bh
+    mov dword ptr [rsp+12], eax
+    mov dword ptr [rsp+8], ecx
+    fld tbyte ptr [rsp+8]
+    test eax, 0
+    mov eax, dword ptr [rdx+4]
+    ret
+Cg2dLoadLegacyPowerOperandX87 ENDP
 
 END

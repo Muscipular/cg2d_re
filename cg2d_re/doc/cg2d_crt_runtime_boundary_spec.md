@@ -158,3 +158,11 @@ NCE01已接业务copy/单owner、消息/析构及所有旧构析正文保持，�
 54357C完整114条304B/两页、唯一callee5436AC已开发并接真实依赖。三现文件六追加，一CPP入口/一ASM本体/一个参数桥；保原重复比较、条件FCHS、指数F64覆写重载及五常量。原S32零同时包含写出与不写出，不改是否处理布尔或补默认结果。
 
 新1820/F:0014357C与一adapted F将CRT159→160，限定I/S不代两pow父的FSAVE/FRSTOR生命周期、完整提供者及机器运行。定位167→166/未定位CRT39→38，按汇总核实；原初始化、分类/整数舍入、地图幂及CMake保持，音频暂停/原格式明文/RPLAN.24与四open任务保持。
+
+## BWF01三个通用幂依赖帮助体开发（2026-10-08）
+
+[基线](cg2d_power_general_helpers_spec.md#power-helpers-baseline)、[决定](cg2d_power_general_helpers_spec.md#power-helpers-decision)、[验收](cg2d_power_general_helpers_spec.md#power-helpers-acceptance)与[原证/完整源前后态](cg2d_power_general_helpers_evidence.json)。
+
+已补5433F0/543405/543435完整通用本体，复用BPJ01/BPM01三个38条111B原体，六CALL入向按实际目标统计；53D01D的CALL到543435及FLOW到53D022分列。三现文件五追加，一CPP入口/三ASM本体，保ST0连续结果、PC0300/007F临时CW与普通CMP/特殊10B F80重叠写、ST0/EAX/FLAGS合同。
+
+三旧语义1424/1426/1427及adapted F扩展当前实现边界，CRT160/语义/F/定位队列数量保持。限定I仅控制字CPP→ASM真实桥，S覆盖三帮助体，E1146→1148；另外两ST0叶通用pow父与CRT分派/环境生命周期继续，原地图固定域/其它源码及CMake保持。

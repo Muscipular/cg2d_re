@@ -4075,3 +4075,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 新增1820/F:0014357C→ProcessLegacyPowerSpecial_54357C与Cg2dProcessLegacyPowerSpecial，只计一个原身份/两原生本体。唯一原callee5436AC直接接既有整数判定，不重复计1818/1819；两原入向53D135/54319C与各自环境保存恢复邻窗独列。
 
 五F64常量原位、重复状态比较、条件变号/符号零和指数落存重载可追；公开入口保S32状态，原无输出分支不初始化调用方结果。原新/F/CRT160及限定I/S同步，pending18与两调用父/机器运行等完整门禁保留。
+
+## BWF01三旧身份补齐通用幂依赖本体（2026-10-08）
+
+[三完整原体复用/当前父取证与源前后态](cg2d_power_general_helpers_evidence.json)、[当前通用合同](cg2d_power_general_helpers_spec.md#power-helpers-decision)。
+
+1424/F:001433F0新增Cg2dLegacyTwoToTOSX87；1426/F:00143405新增LoadLegacyPowerControlWord_543405及ASM桥；1427/F:00143435新增Cg2dLoadLegacyPowerOperandX87。旧地图内联/固定控制路径继续保留，当前通用本体单独登记，过去限定域状态存入本步字段和固定前态。
+
+普通加载保EAX指数/CMP标志与ECX，特殊加载保原三个重叠W32写满10B F80、ST0/原高W32/TEST返回；控制字只按原PC位加载，连续幂结果不落F64。三旧记录/F仅扩展来源/边界及证据，不新增ID、减少历史差集或称一般pow父已接；实际开发为四新原生本体。

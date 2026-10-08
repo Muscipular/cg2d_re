@@ -177647,7 +177647,7 @@
       "original_reference_count": 1,
       "original_direct_call_reference_count": 1,
       "original_inbound_parent_count": 1,
-      "status": "BPJ01现有专用幂的实际x87内联帮助体独立身份已纳管；非新增幂实现，完整一般数学库/运行未验",
+      "status": "BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
       "sources": [
         {
           "path": "src/platform/MapEffectMath.asm",
@@ -177662,6 +177662,13 @@
             "Cg2dMapEffectDivisor"
           ],
           "relationship": "既有Win64私有S32指数/幅值借用入口；非原__twoToTOS的通用x86/x87调用ABI"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dLegacyTwoToTOSX87"
+          ],
+          "relationship": "5433F0新增完整通用x87帮助体，ST0输入经原十条操作/RET输出连续扩展精度结果，沿当前控制字，不落F64/固定底数或用CPP double ABI。旧地图内联活动域保持，但不再把它当通用本体；完整pow父仍待接。"
         }
       ],
       "evidence_documents": [
@@ -177669,10 +177676,14 @@
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-decision",
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-acceptance",
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state",
-        "doc/cg2d_map_effect_arithmetic_evidence.json"
+        "doc/cg2d_map_effect_arithmetic_evidence.json",
+        "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+        "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+        "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+        "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
       ],
-      "boundary": "BPJ01原__twoToTOS完整11条21B由现有Cg2dMapEffectDivisor中的十条x87操作按原栈序内联承担；x86call/ret不保留，结果不落F64，PC53/控制字沿MFA01。只既有两个1.25底数/S32指数活动点的正常专用域，不扩成一般_pow/负底数、错误链或全环境等价；不新增幂实现或改变正确源码 完整11条21B、一页/零call零jump一ret及53D071唯一普通call/53D022父邻窗，仅当前内联对应和独立身份静态；所有源码/头/ASM保持。完整一般数学库、全部父/环境/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG/像素运行仍未验；异常依RPLAN.24不保护/模拟或称等价",
-      "verification_level": "完整11条21B、一页/零call零jump一ret及53D071唯一普通call/53D022父邻窗，仅当前内联对应和独立身份静态；所有源码/头/ASM保持。完整一般数学库、全部父/环境/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG/像素运行仍未验；异常依RPLAN.24不保护/模拟或称等价",
+      "boundary": "5433F0新增完整通用x87帮助体，ST0输入经原十条操作/RET输出连续扩展精度结果，沿当前控制字，不落F64/固定底数或用CPP double ABI。旧地图内联活动域保持，但不再把它当通用本体；完整pow父仍待接。 BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
       "inbound_evidence": [
         {
           "call_site": "0x53d071",
@@ -177699,6 +177710,70 @@
         "source_body_changed": false,
         "full_general_pow_closed": false,
         "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      },
+      "power_general_helpers": {
+        "spec_id": "BWF01",
+        "evidence_refs": [
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+        ],
+        "general_source_body_added": true,
+        "existing_semantic_index": 1424,
+        "previous_limited_status": "BPJ01现有专用幂的实际x87内联帮助体独立身份已纳管；非新增幂实现，完整一般数学库/运行未验",
+        "previous_limited_boundary": "BPJ01原__twoToTOS完整11条21B由现有Cg2dMapEffectDivisor中的十条x87操作按原栈序内联承担；x86call/ret不保留，结果不落F64，PC53/控制字沿MFA01。只既有两个1.25底数/S32指数活动点的正常专用域，不扩成一般_pow/负底数、错误链或全环境等价；不新增幂实现或改变正确源码 完整11条21B、一页/零call零jump一ret及53D071唯一普通call/53D022父邻窗，仅当前内联对应和独立身份静态；所有源码/头/ASM保持。完整一般数学库、全部父/环境/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG/像素运行仍未验；异常依RPLAN.24不保护/模拟或称等价",
+        "previous_limited_verification_level": "完整11条21B、一页/零call零jump一ret及53D071唯一普通call/53D022父邻窗，仅当前内联对应和独立身份静态；所有源码/头/ASM保持。完整一般数学库、全部父/环境/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG/像素运行仍未验；异常依RPLAN.24不保护/模拟或称等价",
+        "original_complete_instruction_count": 11,
+        "original_code_bytes": 21,
+        "original_page_count": 1,
+        "original_total_instruction_count": 38,
+        "original_total_code_bytes": 111,
+        "original_total_page_count": 3,
+        "original_total_direct_call_count": 0,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 1,
+        "original_total_return_count": 4,
+        "original_total_inbound_call_count": 6,
+        "original_helper_inbound_flow_count": 0,
+        "pow_entry_call_to_operand_and_flow_to_parent_split_by_target": true,
+        "original_complete_evidence_reused_without_new_root_reads": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 5,
+        "existing_semantic_record_updated_count": 3,
+        "new_original_mapped_function_count": 0,
+        "new_native_function_body_count": 4,
+        "new_cpp_body_count": 1,
+        "new_asm_proc_count": 3,
+        "new_C_parameter_bridge_count": 1,
+        "new_shared_owner_count": 0,
+        "native_general_helper_not_only_old_map_fixed_domain": true,
+        "old_map_inline_and_controlled_normal_domain_kept": true,
+        "original_ST0_continuous_result_and_current_control_kept": true,
+        "original_PC_mask_temporary_CW_FLDCW_kept": true,
+        "original_normal_CMP_and_special_overlapping_10B_F80_ST0_EAX_FLAGS_ECX_contract_kept": true,
+        "two_ST0_interfaces_only_between_ASM_functions": true,
+        "native_private_home_slots_not_old_stack_mirror": true,
+        "unconsumed_control_carrier_upper_W16_not_business_input": true,
+        "no_host_pow_exp2_finite_guard_or_limit_added": true,
+        "only_original_CW_leaf_writes_control": true,
+        "no_MXCSR_exception_clear_or_environment_save_restore_added": true,
+        "control_CPP_to_real_ASM_call_implemented": true,
+        "two_other_general_helpers_real_pow_parent_calls_implemented": false,
+        "full_pow_dispatch_and_parent_lifecycle_closed": false,
+        "old_classification_integer_special_helper_environment_startup_map_power_and_build_rules_kept": true,
+        "new_identity_count_or_location_queue_reduction_claimed": false,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_generic_pow_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
         "fault_equivalence_claimed": false
       }
     },
@@ -177933,7 +178008,7 @@
       "original_reference_count": 1,
       "original_direct_call_reference_count": 1,
       "original_inbound_parent_count": 1,
-      "status": "BPM01完整原基线及当前专用幂正常阶段来源独立纳管；原泛用帮助体源码未新增/未称完整实现，运行未验",
+      "status": "BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
       "sources": [
         {
           "path": "src/platform/MapEffectMath.asm",
@@ -177948,6 +178023,28 @@
             "Cg2dMapEffectDivisor"
           ],
           "relationship": "MFA01既有Win64私有S32指数/幅值借用接口，只正常1.25活动域，未改变接口或新增原帮助体通用ABI"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "LoadLegacyPowerControlWord_543405"
+          ],
+          "relationship": "543405新增通用控制字加载本体，W16保存控制字按原PC0300与007F构造临时W16后FLDCW；旧载体未消费高W16不作为输入/补零，Win64CX值桥/EDX计算。原父027F绕过条件与恢复责任仍须真实父接，不强改地图固定027F。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "LoadLegacyPowerControlWord_543405",
+            "Cg2dLoadLegacyPowerControlWord"
+          ],
+          "relationship": "保存控制字W16值与真实Win64 C桥，只消费原PC位，不伪旧载体高W16"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dLoadLegacyPowerControlWord"
+          ],
+          "relationship": "原0300/007F构造临时CW、写W16借用暂存槽并FLDCW；恢复与寄存器样本归真实调用父"
         }
       ],
       "evidence_documents": [
@@ -177955,10 +178052,14 @@
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
-        "doc/cg2d_map_effect_arithmetic_evidence.json"
+        "doc/cg2d_map_effect_arithmetic_evidence.json",
+        "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+        "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+        "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+        "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
       ],
-      "boundary": "BPM01原__load_CW完整6条23B：只取原保存CW的PC两位(0300)，并入007F、以W16写临时槽后FLDCW；53D022先FSTCW/CMP027F，相同则绕过唯一53D031调用。现有Cg2dMapEffectDivisor按MFA01保存CW、固定027F供正常专用路径、尾恢复原CW，登记该PC53阶段适配来源；不把固定值称完整泛用帮助体、不新增同名体或改正确源。 本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。",
-      "verification_level": "本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。",
+      "boundary": "543405新增通用控制字加载本体，W16保存控制字按原PC0300与007F构造临时W16后FLDCW；旧载体未消费高W16不作为输入/补零，Win64CX值桥/EDX计算。原父027F绕过条件与恢复责任仍须真实父接，不强改地图固定027F。 BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
       "function_chunks": [
         {
           "start": "0x543405",
@@ -178064,6 +178165,70 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "power_general_helpers": {
+        "spec_id": "BWF01",
+        "evidence_refs": [
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+        ],
+        "general_source_body_added": true,
+        "existing_semantic_index": 1426,
+        "previous_limited_status": "BPM01完整原基线及当前专用幂正常阶段来源独立纳管；原泛用帮助体源码未新增/未称完整实现，运行未验",
+        "previous_limited_boundary": "BPM01原__load_CW完整6条23B：只取原保存CW的PC两位(0300)，并入007F、以W16写临时槽后FLDCW；53D022先FSTCW/CMP027F，相同则绕过唯一53D031调用。现有Cg2dMapEffectDivisor按MFA01保存CW、固定027F供正常专用路径、尾恢复原CW，登记该PC53阶段适配来源；不把固定值称完整泛用帮助体、不新增同名体或改正确源。 本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。",
+        "previous_limited_verification_level": "本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。",
+        "original_complete_instruction_count": 6,
+        "original_code_bytes": 23,
+        "original_page_count": 1,
+        "original_total_instruction_count": 38,
+        "original_total_code_bytes": 111,
+        "original_total_page_count": 3,
+        "original_total_direct_call_count": 0,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 1,
+        "original_total_return_count": 4,
+        "original_total_inbound_call_count": 6,
+        "original_helper_inbound_flow_count": 0,
+        "pow_entry_call_to_operand_and_flow_to_parent_split_by_target": true,
+        "original_complete_evidence_reused_without_new_root_reads": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 5,
+        "existing_semantic_record_updated_count": 3,
+        "new_original_mapped_function_count": 0,
+        "new_native_function_body_count": 4,
+        "new_cpp_body_count": 1,
+        "new_asm_proc_count": 3,
+        "new_C_parameter_bridge_count": 1,
+        "new_shared_owner_count": 0,
+        "native_general_helper_not_only_old_map_fixed_domain": true,
+        "old_map_inline_and_controlled_normal_domain_kept": true,
+        "original_ST0_continuous_result_and_current_control_kept": true,
+        "original_PC_mask_temporary_CW_FLDCW_kept": true,
+        "original_normal_CMP_and_special_overlapping_10B_F80_ST0_EAX_FLAGS_ECX_contract_kept": true,
+        "two_ST0_interfaces_only_between_ASM_functions": true,
+        "native_private_home_slots_not_old_stack_mirror": true,
+        "unconsumed_control_carrier_upper_W16_not_business_input": true,
+        "no_host_pow_exp2_finite_guard_or_limit_added": true,
+        "only_original_CW_leaf_writes_control": true,
+        "no_MXCSR_exception_clear_or_environment_save_restore_added": true,
+        "control_CPP_to_real_ASM_call_implemented": true,
+        "two_other_general_helpers_real_pow_parent_calls_implemented": false,
+        "full_pow_dispatch_and_parent_lifecycle_closed": false,
+        "old_classification_integer_special_helper_environment_startup_map_power_and_build_rules_kept": true,
+        "new_identity_count_or_location_queue_reduction_claimed": false,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_generic_pow_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
       }
     },
     {
@@ -178076,7 +178241,7 @@
       "original_reference_count": 4,
       "original_direct_call_reference_count": 4,
       "original_inbound_parent_count": 2,
-      "status": "BPM01完整原基线及当前专用幂正常阶段来源独立纳管；原泛用帮助体源码未新增/未称完整实现，运行未验",
+      "status": "BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
       "sources": [
         {
           "path": "src/platform/MapEffectMath.asm",
@@ -178091,6 +178256,13 @@
             "Cg2dMapEffectDivisor"
           ],
           "relationship": "MFA01既有Win64私有S32指数/幅值借用接口，只正常1.25活动域，未改变接口或新增原帮助体通用ABI"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dLoadLegacyPowerOperandX87"
+          ],
+          "relationship": "543435新增完整普通/特殊输入加载：RDX借用F64，普通分支EAX为7FF00000指数掩码/保CMP标志后FLD F64，ECX保持；特殊分支按原OR7FFF0000/SHLD11/SHL11与重叠W32写出全部10B后FLD F80，TEST EAX,0再MOV原高W32，返回ST0/EAX/FLAGS并按原改ECX。仅ASM间接口，无F64返回落存/CLR异常、补零或新增finite保护。"
         }
       ],
       "evidence_documents": [
@@ -178098,10 +178270,14 @@
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
-        "doc/cg2d_map_effect_arithmetic_evidence.json"
+        "doc/cg2d_map_effect_arithmetic_evidence.json",
+        "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+        "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+        "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+        "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
       ],
-      "boundary": "BPM01原__fload_withFB完整21条67B：正常F64指数域不为7FF时原FLD qword并保CMP返回标志，特殊分支的原F80字节构造保留原证据。当前53D04C对应既有两个1.25底数活动点的实际加载，Cg2dMapEffectDivisor直接FLD相同F64常量、FILD真实S32指数且结果连续消费；其余三原点只纳盘，不外推通用加载/特殊值源码已实现，不新增包装或改正确源。 本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。",
-      "verification_level": "本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。",
+      "boundary": "543435新增完整普通/特殊输入加载：RDX借用F64，普通分支EAX为7FF00000指数掩码/保CMP标志后FLD F64，ECX保持；特殊分支按原OR7FFF0000/SHLD11/SHL11与重叠W32写出全部10B后FLD F80，TEST EAX,0再MOV原高W32，返回ST0/EAX/FLAGS并按原改ECX。仅ASM间接口，无F64返回落存/CLR异常、补零或新增finite保护。 BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
       "function_chunks": [
         {
           "start": "0x543435",
@@ -178383,6 +178559,70 @@
         "full_general_pow_closed": false,
         "full_lifecycle_closed": false,
         "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      },
+      "power_general_helpers": {
+        "spec_id": "BWF01",
+        "evidence_refs": [
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+        ],
+        "general_source_body_added": true,
+        "existing_semantic_index": 1427,
+        "previous_limited_status": "BPM01完整原基线及当前专用幂正常阶段来源独立纳管；原泛用帮助体源码未新增/未称完整实现，运行未验",
+        "previous_limited_boundary": "BPM01原__fload_withFB完整21条67B：正常F64指数域不为7FF时原FLD qword并保CMP返回标志，特殊分支的原F80字节构造保留原证据。当前53D04C对应既有两个1.25底数活动点的实际加载，Cg2dMapEffectDivisor直接FLD相同F64常量、FILD真实S32指数且结果连续消费；其余三原点只纳盘，不外推通用加载/特殊值源码已实现，不新增包装或改正确源。 本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。",
+        "previous_limited_verification_level": "本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。",
+        "original_complete_instruction_count": 21,
+        "original_code_bytes": 67,
+        "original_page_count": 1,
+        "original_total_instruction_count": 38,
+        "original_total_code_bytes": 111,
+        "original_total_page_count": 3,
+        "original_total_direct_call_count": 0,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 1,
+        "original_total_return_count": 4,
+        "original_total_inbound_call_count": 6,
+        "original_helper_inbound_flow_count": 0,
+        "pow_entry_call_to_operand_and_flow_to_parent_split_by_target": true,
+        "original_complete_evidence_reused_without_new_root_reads": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 5,
+        "existing_semantic_record_updated_count": 3,
+        "new_original_mapped_function_count": 0,
+        "new_native_function_body_count": 4,
+        "new_cpp_body_count": 1,
+        "new_asm_proc_count": 3,
+        "new_C_parameter_bridge_count": 1,
+        "new_shared_owner_count": 0,
+        "native_general_helper_not_only_old_map_fixed_domain": true,
+        "old_map_inline_and_controlled_normal_domain_kept": true,
+        "original_ST0_continuous_result_and_current_control_kept": true,
+        "original_PC_mask_temporary_CW_FLDCW_kept": true,
+        "original_normal_CMP_and_special_overlapping_10B_F80_ST0_EAX_FLAGS_ECX_contract_kept": true,
+        "two_ST0_interfaces_only_between_ASM_functions": true,
+        "native_private_home_slots_not_old_stack_mirror": true,
+        "unconsumed_control_carrier_upper_W16_not_business_input": true,
+        "no_host_pow_exp2_finite_guard_or_limit_added": true,
+        "only_original_CW_leaf_writes_control": true,
+        "no_MXCSR_exception_clear_or_environment_save_restore_added": true,
+        "control_CPP_to_real_ASM_call_implemented": true,
+        "two_other_general_helpers_real_pow_parent_calls_implemented": false,
+        "full_pow_dispatch_and_parent_lifecycle_closed": false,
+        "old_classification_integer_special_helper_environment_startup_map_power_and_build_rules_kept": true,
+        "new_identity_count_or_location_queue_reduction_claimed": false,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_generic_pow_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
         "fault_equivalence_claimed": false
       }
     },

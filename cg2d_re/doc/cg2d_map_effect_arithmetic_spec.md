@@ -113,3 +113,9 @@ F:001433F0/__twoToTOS尚无独立语义/处置或源码定位；现有MapEffectM
 交付完整原帮助体、普通引用/取参邻窗、独立身份及局部来源处置；本步源码没有变化。具名快照：`cg2d-re-pow-input-control-baseline-20261007`。现有专用幂仍沿MFA01/BPJ01，未替换std::pow或建立一般浮点错误模型。
 
 语义1428/原ID1423、文档关联1541/3680（41.88%）、分类552、CRT154枚举open、E728局部证据；队列172/位置缺失171/待归属43。完整门禁、R7已审67/3061、音频暂停、网络原格式明文、不构建/测试/运行/摘要及整体未完成保持。
+
+## BWF01同源帮助体的当前通用实现补充（2026-10-08）
+
+BPJ01/BPM01的地图专用对应及命名快照保持。当前已在LegacyFloatEnvironment.cpp/.hpp/.asm补齐5433F0连续ST0运算、543405原PC位控制字加载、543435普通/特殊F64-F80加载的通用本体，旧MapEffectMath及两1.25活动点不改。
+
+[新通用SPEC](cg2d_power_general_helpers_spec.md#power-helpers-decision)、[完整原证复用与源码/机器前后态](cg2d_power_general_helpers_evidence.json)。三旧身份1424/1426/1427扩展当前来源/边界，不新增F/semantic或改历史原证；原控制字入口的I与三帮助体S仅局部，通用pow父/CRT分派及环境生命周期和运行继续原门禁。

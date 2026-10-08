@@ -1,0 +1,4744 @@
+{
+  "schema_version": 1,
+  "spec_id": "BWF01",
+  "recorded_on": "2026-10-08",
+  "baseline_snapshot": "cg2d-re-power-special-helper-20261008",
+  "implementation_snapshot": "cg2d-re-power-general-helpers-20261008",
+  "evidence_refs": [
+    "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+    "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+    "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+    "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+  ],
+  "artifacts": [
+    "src/platform/LegacyFloatEnvironment.asm#Cg2dLegacyTwoToTOSX87",
+    "src/platform/LegacyFloatEnvironment.cpp#LoadLegacyPowerControlWord_543405",
+    "src/platform/LegacyFloatEnvironment.asm#Cg2dLoadLegacyPowerOperandX87",
+    "src/platform/LegacyFloatEnvironment.hpp",
+    "src/platform/LegacyFloatEnvironment.asm#Cg2dLoadLegacyPowerControlWord",
+    "src/platform/MapEffectMath.asm#Cg2dMapEffectDivisor",
+    "doc/cg2d_map_effect_arithmetic_evidence.json",
+    "CMakeLists.txt",
+    "doc/cg2d_power_general_helpers_evidence.json",
+    "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+    "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+    "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+    "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+  ],
+  "original_functions": [
+    {
+      "start": "0x5433f0",
+      "end_exclusive": "0x543405",
+      "count": 11,
+      "chunks": [
+        [
+          "0x5433f0",
+          "0x543405"
+        ]
+      ],
+      "instructions": [
+        {
+          "ea": "0x5433f0",
+          "size": 2,
+          "bytes": "d9c0",
+          "text": "fld     st",
+          "mnemonic": "fld",
+          "call_target": null
+        },
+        {
+          "ea": "0x5433f2",
+          "size": 2,
+          "bytes": "d9fc",
+          "text": "frndint",
+          "mnemonic": "frndint",
+          "call_target": null
+        },
+        {
+          "ea": "0x5433f4",
+          "size": 2,
+          "bytes": "dce1",
+          "text": "fsubr   st(1), st",
+          "mnemonic": "fsubr",
+          "call_target": null
+        },
+        {
+          "ea": "0x5433f6",
+          "size": 2,
+          "bytes": "d9c9",
+          "text": "fxch    st(1)",
+          "mnemonic": "fxch",
+          "call_target": null
+        },
+        {
+          "ea": "0x5433f8",
+          "size": 2,
+          "bytes": "d9e0",
+          "text": "fchs",
+          "mnemonic": "fchs",
+          "call_target": null
+        },
+        {
+          "ea": "0x5433fa",
+          "size": 2,
+          "bytes": "d9f0",
+          "text": "f2xm1",
+          "mnemonic": "f2xm1",
+          "call_target": null
+        },
+        {
+          "ea": "0x5433fc",
+          "size": 2,
+          "bytes": "d9e8",
+          "text": "fld1",
+          "mnemonic": "fld1",
+          "call_target": null
+        },
+        {
+          "ea": "0x5433fe",
+          "size": 2,
+          "bytes": "dec1",
+          "text": "faddp   st(1), st",
+          "mnemonic": "faddp",
+          "call_target": null
+        },
+        {
+          "ea": "0x543400",
+          "size": 2,
+          "bytes": "d9fd",
+          "text": "fscale",
+          "mnemonic": "fscale",
+          "call_target": null
+        },
+        {
+          "ea": "0x543402",
+          "size": 2,
+          "bytes": "ddd9",
+          "text": "fstp    st(1)",
+          "mnemonic": "fstp",
+          "call_target": null
+        },
+        {
+          "ea": "0x543404",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn",
+          "mnemonic": "retn",
+          "call_target": null
+        }
+      ],
+      "page_count": 1,
+      "pages": [
+        {
+          "offset": 0,
+          "count": 11
+        }
+      ],
+      "code_bytes": 21,
+      "calls": [],
+      "indirect_calls": [],
+      "jump_count": 0,
+      "return_count": 1,
+      "inbound": [
+        {
+          "from": "0x53d071",
+          "type": 17,
+          "code": true,
+          "function": "0x53d022"
+        }
+      ]
+    },
+    {
+      "start": "0x543405",
+      "end_exclusive": "0x54341c",
+      "count": 6,
+      "chunks": [
+        [
+          "0x543405",
+          "0x54341c"
+        ]
+      ],
+      "instructions": [
+        {
+          "ea": "0x543405",
+          "size": 4,
+          "bytes": "8b542404",
+          "text": "mov     edx, [esp+arg_0]",
+          "mnemonic": "mov",
+          "call_target": null
+        },
+        {
+          "ea": "0x543409",
+          "size": 6,
+          "bytes": "81e200030000",
+          "text": "and     edx, 300h",
+          "mnemonic": "and",
+          "call_target": null
+        },
+        {
+          "ea": "0x54340f",
+          "size": 3,
+          "bytes": "83ca7f",
+          "text": "or      edx, 7Fh",
+          "mnemonic": "or",
+          "call_target": null
+        },
+        {
+          "ea": "0x543412",
+          "size": 5,
+          "bytes": "6689542406",
+          "text": "mov     word ptr [esp+arg_0+2], dx",
+          "mnemonic": "mov",
+          "call_target": null
+        },
+        {
+          "ea": "0x543417",
+          "size": 4,
+          "bytes": "d96c2406",
+          "text": "fldcw   word ptr [esp+arg_0+2]",
+          "mnemonic": "fldcw",
+          "call_target": null
+        },
+        {
+          "ea": "0x54341b",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn",
+          "mnemonic": "retn",
+          "call_target": null
+        }
+      ],
+      "page_count": 1,
+      "pages": [
+        {
+          "offset": 0,
+          "count": 6
+        }
+      ],
+      "code_bytes": 23,
+      "calls": [],
+      "indirect_calls": [],
+      "jump_count": 0,
+      "return_count": 1,
+      "inbound": [
+        {
+          "from": "0x53d031",
+          "type": 17,
+          "code": true,
+          "function": "0x53d022"
+        }
+      ]
+    },
+    {
+      "start": "0x543435",
+      "end_exclusive": "0x543478",
+      "count": 21,
+      "chunks": [
+        [
+          "0x543435",
+          "0x543478"
+        ]
+      ],
+      "instructions": [
+        {
+          "ea": "0x543435",
+          "size": 3,
+          "bytes": "8b4204",
+          "text": "mov     eax, [edx+4]",
+          "mnemonic": "mov",
+          "call_target": null
+        },
+        {
+          "ea": "0x543438",
+          "size": 5,
+          "bytes": "250000f07f",
+          "text": "and     eax, 7FF00000h",
+          "mnemonic": "and",
+          "call_target": null
+        },
+        {
+          "ea": "0x54343d",
+          "size": 5,
+          "bytes": "3d0000f07f",
+          "text": "cmp     eax, 7FF00000h",
+          "mnemonic": "cmp",
+          "call_target": null
+        },
+        {
+          "ea": "0x543442",
+          "size": 2,
+          "bytes": "7403",
+          "text": "jz      short fpload_special",
+          "mnemonic": "jz",
+          "call_target": null
+        },
+        {
+          "ea": "0x543444",
+          "size": 2,
+          "bytes": "dd02",
+          "text": "fld     qword ptr [edx]",
+          "mnemonic": "fld",
+          "call_target": null
+        },
+        {
+          "ea": "0x543446",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn",
+          "mnemonic": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x543447",
+          "size": 3,
+          "bytes": "8b4204",
+          "text": "mov     eax, [edx+4]",
+          "mnemonic": "mov",
+          "call_target": null
+        },
+        {
+          "ea": "0x54344a",
+          "size": 3,
+          "bytes": "83ec0a",
+          "text": "sub     esp, 0Ah",
+          "mnemonic": "sub",
+          "call_target": null
+        },
+        {
+          "ea": "0x54344d",
+          "size": 5,
+          "bytes": "0d0000ff7f",
+          "text": "or      eax, 7FFF0000h",
+          "mnemonic": "or",
+          "call_target": null
+        },
+        {
+          "ea": "0x543452",
+          "size": 4,
+          "bytes": "89442406",
+          "text": "mov     dword ptr [esp+0Ah+var_A+6], eax",
+          "mnemonic": "mov",
+          "call_target": null
+        },
+        {
+          "ea": "0x543456",
+          "size": 3,
+          "bytes": "8b4204",
+          "text": "mov     eax, [edx+4]",
+          "mnemonic": "mov",
+          "call_target": null
+        },
+        {
+          "ea": "0x543459",
+          "size": 2,
+          "bytes": "8b0a",
+          "text": "mov     ecx, [edx]",
+          "mnemonic": "mov",
+          "call_target": null
+        },
+        {
+          "ea": "0x54345b",
+          "size": 4,
+          "bytes": "0fa4c80b",
+          "text": "shld    eax, ecx, 0Bh",
+          "mnemonic": "shld",
+          "call_target": null
+        },
+        {
+          "ea": "0x54345f",
+          "size": 3,
+          "bytes": "c1e10b",
+          "text": "shl     ecx, 0Bh",
+          "mnemonic": "shl",
+          "call_target": null
+        },
+        {
+          "ea": "0x543462",
+          "size": 4,
+          "bytes": "89442404",
+          "text": "mov     dword ptr [esp+0Ah+var_A+4], eax",
+          "mnemonic": "mov",
+          "call_target": null
+        },
+        {
+          "ea": "0x543466",
+          "size": 3,
+          "bytes": "890c24",
+          "text": "mov     dword ptr [esp+0Ah+var_A], ecx",
+          "mnemonic": "mov",
+          "call_target": null
+        },
+        {
+          "ea": "0x543469",
+          "size": 3,
+          "bytes": "db2c24",
+          "text": "fld     [esp+0Ah+var_A]",
+          "mnemonic": "fld",
+          "call_target": null
+        },
+        {
+          "ea": "0x54346c",
+          "size": 3,
+          "bytes": "83c40a",
+          "text": "add     esp, 0Ah",
+          "mnemonic": "add",
+          "call_target": null
+        },
+        {
+          "ea": "0x54346f",
+          "size": 5,
+          "bytes": "a900000000",
+          "text": "test    eax, 0",
+          "mnemonic": "test",
+          "call_target": null
+        },
+        {
+          "ea": "0x543474",
+          "size": 3,
+          "bytes": "8b4204",
+          "text": "mov     eax, [edx+4]",
+          "mnemonic": "mov",
+          "call_target": null
+        },
+        {
+          "ea": "0x543477",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn",
+          "mnemonic": "retn",
+          "call_target": null
+        }
+      ],
+      "page_count": 1,
+      "pages": [
+        {
+          "offset": 0,
+          "count": 21
+        }
+      ],
+      "code_bytes": 67,
+      "calls": [],
+      "indirect_calls": [],
+      "jump_count": 1,
+      "return_count": 2,
+      "inbound": [
+        {
+          "from": "0x53d01d",
+          "type": 17,
+          "code": true,
+          "function": "0x53d019"
+        },
+        {
+          "from": "0x53d04c",
+          "type": 17,
+          "code": true,
+          "function": "0x53d022"
+        },
+        {
+          "from": "0x53d0bd",
+          "type": 17,
+          "code": true,
+          "function": "0x53d022"
+        },
+        {
+          "from": "0x53d0fa",
+          "type": 17,
+          "code": true,
+          "function": "0x53d022"
+        }
+      ]
+    }
+  ],
+  "original_totals": {
+    "instruction_count": 38,
+    "code_bytes": 111,
+    "page_count": 3,
+    "direct_call_count": 0,
+    "unique_direct_callee_count": 0,
+    "indirect_call_count": 0,
+    "jump_count": 1,
+    "return_count": 4,
+    "inbound_call_count": 6,
+    "inbound_flow_count": 0,
+    "inbound_tail_count": 0,
+    "inbound_data_reference_count": 0
+  },
+  "original_evidence_reused_from": "doc/cg2d_map_effect_arithmetic_evidence.json#bpj01_twotos+bpm01_input_control",
+  "original_evidence_reused_without_new_IDA_root_reads": true,
+  "original_archive_selected_records": {
+    "twotos": {
+      "start": "0x5433f0",
+      "end_exclusive": "0x543405",
+      "parent_entry": "0x5433f0",
+      "instruction_count": 11,
+      "code_bytes": 21,
+      "page_count": 1,
+      "outgoing_calls": [],
+      "branches": [],
+      "switches": [],
+      "instruction_pages": [
+        {
+          "page_index": 0,
+          "start": "0x5433f0",
+          "end_exclusive": "0x543405",
+          "instructions": [
+            {
+              "ea": "0x5433f0",
+              "size": 2,
+              "bytes": "d9c0",
+              "text": "fld     st"
+            },
+            {
+              "ea": "0x5433f2",
+              "size": 2,
+              "bytes": "d9fc",
+              "text": "frndint"
+            },
+            {
+              "ea": "0x5433f4",
+              "size": 2,
+              "bytes": "dce1",
+              "text": "fsubr   st(1), st"
+            },
+            {
+              "ea": "0x5433f6",
+              "size": 2,
+              "bytes": "d9c9",
+              "text": "fxch    st(1)"
+            },
+            {
+              "ea": "0x5433f8",
+              "size": 2,
+              "bytes": "d9e0",
+              "text": "fchs"
+            },
+            {
+              "ea": "0x5433fa",
+              "size": 2,
+              "bytes": "d9f0",
+              "text": "f2xm1"
+            },
+            {
+              "ea": "0x5433fc",
+              "size": 2,
+              "bytes": "d9e8",
+              "text": "fld1"
+            },
+            {
+              "ea": "0x5433fe",
+              "size": 2,
+              "bytes": "dec1",
+              "text": "faddp   st(1), st"
+            },
+            {
+              "ea": "0x543400",
+              "size": 2,
+              "bytes": "d9fd",
+              "text": "fscale"
+            },
+            {
+              "ea": "0x543402",
+              "size": 2,
+              "bytes": "ddd9",
+              "text": "fstp    st(1)"
+            },
+            {
+              "ea": "0x543404",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    },
+    "twotos_inbound": [
+      {
+        "from": "0x53d071",
+        "type": 17,
+        "iscode": true,
+        "parent": "0x53d022",
+        "parent_end": "0x53d1f5",
+        "window_start": "0x53d05c",
+        "window_end_exclusive": "0x53d08a",
+        "rows": [
+          {
+            "ea": "0x53d05c",
+            "size": 6,
+            "bytes": "0f84f6000000",
+            "text": "jz      loc_53D158"
+          },
+          {
+            "ea": "0x53d062",
+            "size": 4,
+            "bytes": "8a4c240f",
+            "text": "mov     cl, byte ptr [esp+4+arg_4+3]"
+          },
+          {
+            "ea": "0x53d066",
+            "size": 3,
+            "bytes": "80e180",
+            "text": "and     cl, 80h"
+          },
+          {
+            "ea": "0x53d069",
+            "size": 6,
+            "bytes": "0f8561010000",
+            "text": "jnz     loc_53D1D0"
+          },
+          {
+            "ea": "0x53d06f",
+            "size": 2,
+            "bytes": "d9f1",
+            "text": "fyl2x"
+          },
+          {
+            "ea": "0x53d071",
+            "size": 5,
+            "bytes": "e87a630000",
+            "text": "call    __twoToTOS"
+          },
+          {
+            "ea": "0x53d076",
+            "size": 3,
+            "bytes": "80f901",
+            "text": "cmp     cl, 1"
+          },
+          {
+            "ea": "0x53d079",
+            "size": 2,
+            "bytes": "7502",
+            "text": "jnz     short loc_53D07D"
+          },
+          {
+            "ea": "0x53d07b",
+            "size": 2,
+            "bytes": "d9e0",
+            "text": "fchs"
+          },
+          {
+            "ea": "0x53d07d",
+            "size": 7,
+            "bytes": "833dbc5f080100",
+            "text": "cmp     dword_1085FBC, 0"
+          },
+          {
+            "ea": "0x53d084",
+            "size": 6,
+            "bytes": "0f8504640000",
+            "text": "jnz     __fast_exit"
+          }
+        ]
+      }
+    ],
+    "input_control": [
+      {
+        "original_entry": "0x543405",
+        "original_role": "__load_CW",
+        "start": "0x543405",
+        "end_exclusive": "0x54341c",
+        "instruction_count": 6,
+        "code_bytes": 23,
+        "page_count": 1,
+        "outgoing_calls": [],
+        "branches": [],
+        "return_sites": [
+          "0x54341b"
+        ],
+        "inbound_evidence": [
+          {
+            "from": "0x53d031",
+            "type": 17,
+            "iscode": true,
+            "parent_entry": "0x53d022",
+            "parent_end_exclusive": "0x53d1f5",
+            "window_start": "0x53d022",
+            "window_end_exclusive": "0x53d051",
+            "rows": [
+              {
+                "ea": "0x53d022",
+                "size": 2,
+                "bytes": "8bc8",
+                "text": "mov     ecx, eax"
+              },
+              {
+                "ea": "0x53d024",
+                "size": 1,
+                "bytes": "50",
+                "text": "push    eax"
+              },
+              {
+                "ea": "0x53d025",
+                "size": 4,
+                "bytes": "9bd93c24",
+                "text": "fstcw   word ptr [esp+4+var_4]"
+              },
+              {
+                "ea": "0x53d029",
+                "size": 6,
+                "bytes": "66813c247f02",
+                "text": "cmp     word ptr [esp+4+var_4], 27Fh"
+              },
+              {
+                "ea": "0x53d02f",
+                "size": 2,
+                "bytes": "7405",
+                "text": "jz      short loc_53D036"
+              },
+              {
+                "ea": "0x53d031",
+                "size": 5,
+                "bytes": "e8cf630000",
+                "text": "call    __load_CW"
+              },
+              {
+                "ea": "0x53d036",
+                "size": 6,
+                "bytes": "81e10000f07f",
+                "text": "and     ecx, 7FF00000h"
+              },
+              {
+                "ea": "0x53d03c",
+                "size": 4,
+                "bytes": "8d542408",
+                "text": "lea     edx, [esp+4+arg_0]"
+              },
+              {
+                "ea": "0x53d040",
+                "size": 6,
+                "bytes": "81f90000f07f",
+                "text": "cmp     ecx, 7FF00000h"
+              },
+              {
+                "ea": "0x53d046",
+                "size": 6,
+                "bytes": "0f849d000000",
+                "text": "jz      loc_53D0E9"
+              },
+              {
+                "ea": "0x53d04c",
+                "size": 5,
+                "bytes": "e8e4630000",
+                "text": "call    __fload_withFB"
+              }
+            ]
+          }
+        ],
+        "instruction_pages": [
+          {
+            "page_index": 0,
+            "start": "0x543405",
+            "end_exclusive": "0x54341c",
+            "instructions": [
+              {
+                "ea": "0x543405",
+                "size": 4,
+                "bytes": "8b542404",
+                "text": "mov     edx, [esp+arg_0]"
+              },
+              {
+                "ea": "0x543409",
+                "size": 6,
+                "bytes": "81e200030000",
+                "text": "and     edx, 300h"
+              },
+              {
+                "ea": "0x54340f",
+                "size": 3,
+                "bytes": "83ca7f",
+                "text": "or      edx, 7Fh"
+              },
+              {
+                "ea": "0x543412",
+                "size": 5,
+                "bytes": "6689542406",
+                "text": "mov     word ptr [esp+arg_0+2], dx"
+              },
+              {
+                "ea": "0x543417",
+                "size": 4,
+                "bytes": "d96c2406",
+                "text": "fldcw   word ptr [esp+arg_0+2]"
+              },
+              {
+                "ea": "0x54341b",
+                "size": 1,
+                "bytes": "c3",
+                "text": "retn"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "original_entry": "0x543435",
+        "original_role": "__fload_withFB",
+        "start": "0x543435",
+        "end_exclusive": "0x543478",
+        "instruction_count": 21,
+        "code_bytes": 67,
+        "page_count": 1,
+        "outgoing_calls": [],
+        "branches": [
+          {
+            "ea": "0x543442",
+            "target": "0x543447"
+          }
+        ],
+        "return_sites": [
+          "0x543446",
+          "0x543477"
+        ],
+        "inbound_evidence": [
+          {
+            "from": "0x53d01d",
+            "type": 17,
+            "iscode": true,
+            "parent_entry": "0x53d019",
+            "parent_end_exclusive": "0x53d022",
+            "window_start": "0x53d019",
+            "window_end_exclusive": "0x53d022",
+            "rows": [
+              {
+                "ea": "0x53d019",
+                "size": 4,
+                "bytes": "8d54240c",
+                "text": "lea     edx, [esp+Y]"
+              },
+              {
+                "ea": "0x53d01d",
+                "size": 5,
+                "bytes": "e813640000",
+                "text": "call    __fload_withFB"
+              }
+            ]
+          },
+          {
+            "from": "0x53d04c",
+            "type": 17,
+            "iscode": true,
+            "parent_entry": "0x53d022",
+            "parent_end_exclusive": "0x53d1f5",
+            "window_start": "0x53d031",
+            "window_end_exclusive": "0x53d069",
+            "rows": [
+              {
+                "ea": "0x53d031",
+                "size": 5,
+                "bytes": "e8cf630000",
+                "text": "call    __load_CW"
+              },
+              {
+                "ea": "0x53d036",
+                "size": 6,
+                "bytes": "81e10000f07f",
+                "text": "and     ecx, 7FF00000h"
+              },
+              {
+                "ea": "0x53d03c",
+                "size": 4,
+                "bytes": "8d542408",
+                "text": "lea     edx, [esp+4+arg_0]"
+              },
+              {
+                "ea": "0x53d040",
+                "size": 6,
+                "bytes": "81f90000f07f",
+                "text": "cmp     ecx, 7FF00000h"
+              },
+              {
+                "ea": "0x53d046",
+                "size": 6,
+                "bytes": "0f849d000000",
+                "text": "jz      loc_53D0E9"
+              },
+              {
+                "ea": "0x53d04c",
+                "size": 5,
+                "bytes": "e8e4630000",
+                "text": "call    __fload_withFB"
+              },
+              {
+                "ea": "0x53d051",
+                "size": 6,
+                "bytes": "0f848e000000",
+                "text": "jz      loc_53D0E5"
+              },
+              {
+                "ea": "0x53d057",
+                "size": 5,
+                "bytes": "a90000f07f",
+                "text": "test    eax, 7FF00000h"
+              },
+              {
+                "ea": "0x53d05c",
+                "size": 6,
+                "bytes": "0f84f6000000",
+                "text": "jz      loc_53D158"
+              },
+              {
+                "ea": "0x53d062",
+                "size": 4,
+                "bytes": "8a4c240f",
+                "text": "mov     cl, byte ptr [esp+4+arg_4+3]"
+              },
+              {
+                "ea": "0x53d066",
+                "size": 3,
+                "bytes": "80e180",
+                "text": "and     cl, 80h"
+              }
+            ]
+          },
+          {
+            "from": "0x53d0bd",
+            "type": 17,
+            "iscode": true,
+            "parent_entry": "0x53d022",
+            "parent_end_exclusive": "0x53d1f5",
+            "window_start": "0x53d0ad",
+            "window_end_exclusive": "0x53d0ce",
+            "rows": [
+              {
+                "ea": "0x53d0ad",
+                "size": 5,
+                "bytes": "ba1d000000",
+                "text": "mov     edx, 1Dh"
+              },
+              {
+                "ea": "0x53d0b2",
+                "size": 5,
+                "bytes": "e8d9620000",
+                "text": "call    __startTwoArgErrorHandling"
+              },
+              {
+                "ea": "0x53d0b7",
+                "size": 1,
+                "bytes": "5a",
+                "text": "pop     edx"
+              },
+              {
+                "ea": "0x53d0b8",
+                "size": 1,
+                "bytes": "c3",
+                "text": "retn"
+              },
+              {
+                "ea": "0x53d0b9",
+                "size": 4,
+                "bytes": "8d542408",
+                "text": "lea     edx, [esp+4+arg_0]"
+              },
+              {
+                "ea": "0x53d0bd",
+                "size": 5,
+                "bytes": "e873630000",
+                "text": "call    __fload_withFB"
+              },
+              {
+                "ea": "0x53d0c2",
+                "size": 5,
+                "bytes": "f644241608",
+                "text": "test    byte ptr [esp+4+arg_C+2], 8"
+              },
+              {
+                "ea": "0x53d0c7",
+                "size": 2,
+                "bytes": "7503",
+                "text": "jnz     short loc_53D0CC"
+              },
+              {
+                "ea": "0x53d0c9",
+                "size": 1,
+                "bytes": "41",
+                "text": "inc     ecx"
+              },
+              {
+                "ea": "0x53d0ca",
+                "size": 2,
+                "bytes": "eb33",
+                "text": "jmp     short loc_53D0FF"
+              },
+              {
+                "ea": "0x53d0cc",
+                "size": 2,
+                "bytes": "dec1",
+                "text": "faddp   st(1), st"
+              }
+            ]
+          },
+          {
+            "from": "0x53d0fa",
+            "type": 17,
+            "iscode": true,
+            "parent_entry": "0x53d022",
+            "parent_end_exclusive": "0x53d1f5",
+            "window_start": "0x53d0e9",
+            "window_end_exclusive": "0x53d115",
+            "rows": [
+              {
+                "ea": "0x53d0e9",
+                "size": 2,
+                "bytes": "33c9",
+                "text": "xor     ecx, ecx"
+              },
+              {
+                "ea": "0x53d0eb",
+                "size": 5,
+                "bytes": "25ffff0f00",
+                "text": "and     eax, 0FFFFFh"
+              },
+              {
+                "ea": "0x53d0f0",
+                "size": 4,
+                "bytes": "0b442410",
+                "text": "or      eax, [esp+4+arg_8]"
+              },
+              {
+                "ea": "0x53d0f4",
+                "size": 2,
+                "bytes": "75c3",
+                "text": "jnz     short loc_53D0B9"
+              },
+              {
+                "ea": "0x53d0f6",
+                "size": 4,
+                "bytes": "8d542408",
+                "text": "lea     edx, [esp+4+arg_0]"
+              },
+              {
+                "ea": "0x53d0fa",
+                "size": 5,
+                "bytes": "e836630000",
+                "text": "call    __fload_withFB"
+              },
+              {
+                "ea": "0x53d0ff",
+                "size": 4,
+                "bytes": "8b44240c",
+                "text": "mov     eax, [esp+4+arg_4]"
+              },
+              {
+                "ea": "0x53d103",
+                "size": 2,
+                "bytes": "8bd0",
+                "text": "mov     edx, eax"
+              },
+              {
+                "ea": "0x53d105",
+                "size": 5,
+                "bytes": "250000f07f",
+                "text": "and     eax, 7FF00000h"
+              },
+              {
+                "ea": "0x53d10a",
+                "size": 6,
+                "bytes": "81e2ffff0f00",
+                "text": "and     edx, 0FFFFFh"
+              },
+              {
+                "ea": "0x53d110",
+                "size": 5,
+                "bytes": "3d0000f07f",
+                "text": "cmp     eax, 7FF00000h"
+              }
+            ]
+          }
+        ],
+        "instruction_pages": [
+          {
+            "page_index": 0,
+            "start": "0x543435",
+            "end_exclusive": "0x543478",
+            "instructions": [
+              {
+                "ea": "0x543435",
+                "size": 3,
+                "bytes": "8b4204",
+                "text": "mov     eax, [edx+4]"
+              },
+              {
+                "ea": "0x543438",
+                "size": 5,
+                "bytes": "250000f07f",
+                "text": "and     eax, 7FF00000h"
+              },
+              {
+                "ea": "0x54343d",
+                "size": 5,
+                "bytes": "3d0000f07f",
+                "text": "cmp     eax, 7FF00000h"
+              },
+              {
+                "ea": "0x543442",
+                "size": 2,
+                "bytes": "7403",
+                "text": "jz      short fpload_special"
+              },
+              {
+                "ea": "0x543444",
+                "size": 2,
+                "bytes": "dd02",
+                "text": "fld     qword ptr [edx]"
+              },
+              {
+                "ea": "0x543446",
+                "size": 1,
+                "bytes": "c3",
+                "text": "retn"
+              },
+              {
+                "ea": "0x543447",
+                "size": 3,
+                "bytes": "8b4204",
+                "text": "mov     eax, [edx+4]"
+              },
+              {
+                "ea": "0x54344a",
+                "size": 3,
+                "bytes": "83ec0a",
+                "text": "sub     esp, 0Ah"
+              },
+              {
+                "ea": "0x54344d",
+                "size": 5,
+                "bytes": "0d0000ff7f",
+                "text": "or      eax, 7FFF0000h"
+              },
+              {
+                "ea": "0x543452",
+                "size": 4,
+                "bytes": "89442406",
+                "text": "mov     dword ptr [esp+0Ah+var_A+6], eax"
+              },
+              {
+                "ea": "0x543456",
+                "size": 3,
+                "bytes": "8b4204",
+                "text": "mov     eax, [edx+4]"
+              },
+              {
+                "ea": "0x543459",
+                "size": 2,
+                "bytes": "8b0a",
+                "text": "mov     ecx, [edx]"
+              },
+              {
+                "ea": "0x54345b",
+                "size": 4,
+                "bytes": "0fa4c80b",
+                "text": "shld    eax, ecx, 0Bh"
+              },
+              {
+                "ea": "0x54345f",
+                "size": 3,
+                "bytes": "c1e10b",
+                "text": "shl     ecx, 0Bh"
+              },
+              {
+                "ea": "0x543462",
+                "size": 4,
+                "bytes": "89442404",
+                "text": "mov     dword ptr [esp+0Ah+var_A+4], eax"
+              },
+              {
+                "ea": "0x543466",
+                "size": 3,
+                "bytes": "890c24",
+                "text": "mov     dword ptr [esp+0Ah+var_A], ecx"
+              },
+              {
+                "ea": "0x543469",
+                "size": 3,
+                "bytes": "db2c24",
+                "text": "fld     [esp+0Ah+var_A]"
+              },
+              {
+                "ea": "0x54346c",
+                "size": 3,
+                "bytes": "83c40a",
+                "text": "add     esp, 0Ah"
+              },
+              {
+                "ea": "0x54346f",
+                "size": 5,
+                "bytes": "a900000000",
+                "text": "test    eax, 0"
+              },
+              {
+                "ea": "0x543474",
+                "size": 3,
+                "bytes": "8b4204",
+                "text": "mov     eax, [edx+4]"
+              },
+              {
+                "ea": "0x543477",
+                "size": 1,
+                "bytes": "c3",
+                "text": "retn"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "parent_inspection": {
+    "wrapper_IDA_range": {
+      "start": "0x543185",
+      "end_exclusive": "0x543383",
+      "count": 146,
+      "chunks": [
+        [
+          "0x543185",
+          "0x543383"
+        ]
+      ],
+      "inbound": [],
+      "instructions": [
+        {
+          "ea": "0x543185",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x543186",
+          "size": 3,
+          "bytes": "83ec74",
+          "mnemonic": "sub",
+          "text": "sub     esp, 74h",
+          "call_target": null
+        },
+        {
+          "ea": "0x543189",
+          "size": 2,
+          "bytes": "8bf4",
+          "mnemonic": "mov",
+          "text": "mov     esi, esp",
+          "call_target": null
+        },
+        {
+          "ea": "0x54318b",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi; int",
+          "call_target": null
+        },
+        {
+          "ea": "0x54318c",
+          "size": 3,
+          "bytes": "83ec08",
+          "mnemonic": "sub",
+          "text": "sub     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x54318f",
+          "size": 3,
+          "bytes": "dd1c24",
+          "mnemonic": "fstp",
+          "text": "fstp    [esp+84h+var_84]; double",
+          "call_target": null
+        },
+        {
+          "ea": "0x543192",
+          "size": 3,
+          "bytes": "83ec08",
+          "mnemonic": "sub",
+          "text": "sub     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x543195",
+          "size": 3,
+          "bytes": "dd1c24",
+          "mnemonic": "fstp",
+          "text": "fstp    [esp+8Ch+var_8C]; double",
+          "call_target": null
+        },
+        {
+          "ea": "0x543198",
+          "size": 4,
+          "bytes": "9bdd7608",
+          "mnemonic": "fsave",
+          "text": "fsave   byte ptr [esi+8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x54319c",
+          "size": 5,
+          "bytes": "e8db030000",
+          "mnemonic": "call",
+          "text": "call    __powhlp",
+          "call_target": "0x54357c"
+        },
+        {
+          "ea": "0x5431a1",
+          "size": 3,
+          "bytes": "83c414",
+          "mnemonic": "add",
+          "text": "add     esp, 14h",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431a4",
+          "size": 3,
+          "bytes": "dd6608",
+          "mnemonic": "frstor",
+          "text": "frstor  byte ptr [esi+8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431a7",
+          "size": 2,
+          "bytes": "dd06",
+          "mnemonic": "fld",
+          "text": "fld     qword ptr [esi]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431a9",
+          "size": 3,
+          "bytes": "83c474",
+          "mnemonic": "add",
+          "text": "add     esp, 74h",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431ac",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431ad",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431af",
+          "size": 2,
+          "bytes": "7405",
+          "mnemonic": "jz",
+          "text": "jz      short noerror",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431b1",
+          "size": 5,
+          "bytes": "e9c3010000",
+          "mnemonic": "jmp",
+          "text": "jmp     loc_543379",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431b6",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431c0",
+          "size": 4,
+          "bytes": "807a0e05",
+          "mnemonic": "cmp",
+          "text": "cmp     byte ptr [edx+0Eh], 5",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431c4",
+          "size": 2,
+          "bytes": "7511",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_5431D7",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431c6",
+          "size": 7,
+          "bytes": "668b9d5cffffff",
+          "mnemonic": "mov",
+          "text": "mov     bx, [ebp-0A4h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431cd",
+          "size": 3,
+          "bytes": "80cf02",
+          "mnemonic": "or",
+          "text": "or      bh, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431d0",
+          "size": 3,
+          "bytes": "80e7fe",
+          "mnemonic": "and",
+          "text": "and     bh, 0FEh",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431d3",
+          "size": 2,
+          "bytes": "b33f",
+          "mnemonic": "mov",
+          "text": "mov     bl, 3Fh ; '?'",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431d5",
+          "size": 2,
+          "bytes": "eb04",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_5431DB",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431d7",
+          "size": 4,
+          "bytes": "66bb3f13",
+          "mnemonic": "mov",
+          "text": "mov     bx, 133Fh",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431db",
+          "size": 7,
+          "bytes": "66899d5effffff",
+          "mnemonic": "mov",
+          "text": "mov     [ebp-0A2h], bx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431e2",
+          "size": 6,
+          "bytes": "d9ad5effffff",
+          "mnemonic": "fldcw",
+          "text": "fldcw   word ptr [ebp-0A2h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431e8",
+          "size": 5,
+          "bytes": "bb7d205900",
+          "mnemonic": "mov",
+          "text": "mov     ebx, offset unk_59207D",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431ed",
+          "size": 2,
+          "bytes": "d9e5",
+          "mnemonic": "fxam",
+          "text": "fxam",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431ef",
+          "size": 6,
+          "bytes": "89956cffffff",
+          "mnemonic": "mov",
+          "text": "mov     [ebp-94h], edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431f5",
+          "size": 7,
+          "bytes": "9bddbd60ffffff",
+          "mnemonic": "fstsw",
+          "text": "fstsw   word ptr [ebp-0A0h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431fc",
+          "size": 7,
+          "bytes": "c68570ffffff00",
+          "mnemonic": "mov",
+          "text": "mov     byte ptr [ebp-90h], 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x543203",
+          "size": 1,
+          "bytes": "9b",
+          "mnemonic": "wait",
+          "text": "wait",
+          "call_target": null
+        },
+        {
+          "ea": "0x543204",
+          "size": 6,
+          "bytes": "8a8d61ffffff",
+          "mnemonic": "mov",
+          "text": "mov     cl, [ebp-9Fh]",
+          "call_target": null
+        },
+        {
+          "ea": "0x54320a",
+          "size": 2,
+          "bytes": "d0e1",
+          "mnemonic": "shl",
+          "text": "shl     cl, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x54320c",
+          "size": 2,
+          "bytes": "d0f9",
+          "mnemonic": "sar",
+          "text": "sar     cl, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x54320e",
+          "size": 2,
+          "bytes": "d0c1",
+          "mnemonic": "rol",
+          "text": "rol     cl, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x543210",
+          "size": 2,
+          "bytes": "8ac1",
+          "mnemonic": "mov",
+          "text": "mov     al, cl",
+          "call_target": null
+        },
+        {
+          "ea": "0x543212",
+          "size": 2,
+          "bytes": "240f",
+          "mnemonic": "and",
+          "text": "and     al, 0Fh",
+          "call_target": null
+        },
+        {
+          "ea": "0x543214",
+          "size": 1,
+          "bytes": "d7",
+          "mnemonic": "xlat",
+          "text": "xlat",
+          "call_target": null
+        },
+        {
+          "ea": "0x543215",
+          "size": 3,
+          "bytes": "0fbec0",
+          "mnemonic": "movsx",
+          "text": "movsx   eax, al",
+          "call_target": null
+        },
+        {
+          "ea": "0x543218",
+          "size": 6,
+          "bytes": "81e104040000",
+          "mnemonic": "and",
+          "text": "and     ecx, 404h",
+          "call_target": null
+        },
+        {
+          "ea": "0x54321e",
+          "size": 2,
+          "bytes": "8bda",
+          "mnemonic": "mov",
+          "text": "mov     ebx, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x543220",
+          "size": 2,
+          "bytes": "03d8",
+          "mnemonic": "add",
+          "text": "add     ebx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x543222",
+          "size": 3,
+          "bytes": "83c310",
+          "mnemonic": "add",
+          "text": "add     ebx, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x543225",
+          "size": 2,
+          "bytes": "ff23",
+          "mnemonic": "jmp",
+          "text": "jmp     dword ptr [ebx]",
+          "call_target": null
+        },
+        {
+          "ea": "0x543227",
+          "size": 4,
+          "bytes": "807a0e05",
+          "mnemonic": "cmp",
+          "text": "cmp     byte ptr [edx+0Eh], 5",
+          "call_target": null
+        },
+        {
+          "ea": "0x54322b",
+          "size": 2,
+          "bytes": "7511",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_54323E",
+          "call_target": null
+        },
+        {
+          "ea": "0x54322d",
+          "size": 7,
+          "bytes": "668b9d5cffffff",
+          "mnemonic": "mov",
+          "text": "mov     bx, [ebp-0A4h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x543234",
+          "size": 3,
+          "bytes": "80cf02",
+          "mnemonic": "or",
+          "text": "or      bh, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x543237",
+          "size": 3,
+          "bytes": "80e7fe",
+          "mnemonic": "and",
+          "text": "and     bh, 0FEh",
+          "call_target": null
+        },
+        {
+          "ea": "0x54323a",
+          "size": 2,
+          "bytes": "b33f",
+          "mnemonic": "mov",
+          "text": "mov     bl, 3Fh ; '?'",
+          "call_target": null
+        },
+        {
+          "ea": "0x54323c",
+          "size": 2,
+          "bytes": "eb04",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_543242",
+          "call_target": null
+        },
+        {
+          "ea": "0x54323e",
+          "size": 4,
+          "bytes": "66bb3f13",
+          "mnemonic": "mov",
+          "text": "mov     bx, 133Fh",
+          "call_target": null
+        },
+        {
+          "ea": "0x543242",
+          "size": 7,
+          "bytes": "66899d5effffff",
+          "mnemonic": "mov",
+          "text": "mov     [ebp-0A2h], bx",
+          "call_target": null
+        },
+        {
+          "ea": "0x543249",
+          "size": 6,
+          "bytes": "d9ad5effffff",
+          "mnemonic": "fldcw",
+          "text": "fldcw   word ptr [ebp-0A2h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x54324f",
+          "size": 5,
+          "bytes": "bb7d205900",
+          "mnemonic": "mov",
+          "text": "mov     ebx, offset unk_59207D",
+          "call_target": null
+        },
+        {
+          "ea": "0x543254",
+          "size": 2,
+          "bytes": "d9e5",
+          "mnemonic": "fxam",
+          "text": "fxam",
+          "call_target": null
+        },
+        {
+          "ea": "0x543256",
+          "size": 6,
+          "bytes": "89956cffffff",
+          "mnemonic": "mov",
+          "text": "mov     [ebp-94h], edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x54325c",
+          "size": 7,
+          "bytes": "9bddbd60ffffff",
+          "mnemonic": "fstsw",
+          "text": "fstsw   word ptr [ebp-0A0h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x543263",
+          "size": 7,
+          "bytes": "c68570ffffff00",
+          "mnemonic": "mov",
+          "text": "mov     byte ptr [ebp-90h], 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x54326a",
+          "size": 2,
+          "bytes": "d9c9",
+          "mnemonic": "fxch",
+          "text": "fxch    st(1)",
+          "call_target": null
+        },
+        {
+          "ea": "0x54326c",
+          "size": 6,
+          "bytes": "8a8d61ffffff",
+          "mnemonic": "mov",
+          "text": "mov     cl, [ebp-9Fh]",
+          "call_target": null
+        },
+        {
+          "ea": "0x543272",
+          "size": 2,
+          "bytes": "d9e5",
+          "mnemonic": "fxam",
+          "text": "fxam",
+          "call_target": null
+        },
+        {
+          "ea": "0x543274",
+          "size": 7,
+          "bytes": "9bddbd60ffffff",
+          "mnemonic": "fstsw",
+          "text": "fstsw   word ptr [ebp-0A0h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x54327b",
+          "size": 2,
+          "bytes": "d9c9",
+          "mnemonic": "fxch",
+          "text": "fxch    st(1)",
+          "call_target": null
+        },
+        {
+          "ea": "0x54327d",
+          "size": 6,
+          "bytes": "8aad61ffffff",
+          "mnemonic": "mov",
+          "text": "mov     ch, [ebp-9Fh]",
+          "call_target": null
+        },
+        {
+          "ea": "0x543283",
+          "size": 2,
+          "bytes": "d0e5",
+          "mnemonic": "shl",
+          "text": "shl     ch, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x543285",
+          "size": 2,
+          "bytes": "d0fd",
+          "mnemonic": "sar",
+          "text": "sar     ch, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x543287",
+          "size": 2,
+          "bytes": "d0c5",
+          "mnemonic": "rol",
+          "text": "rol     ch, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x543289",
+          "size": 2,
+          "bytes": "8ac5",
+          "mnemonic": "mov",
+          "text": "mov     al, ch",
+          "call_target": null
+        },
+        {
+          "ea": "0x54328b",
+          "size": 2,
+          "bytes": "240f",
+          "mnemonic": "and",
+          "text": "and     al, 0Fh",
+          "call_target": null
+        },
+        {
+          "ea": "0x54328d",
+          "size": 1,
+          "bytes": "d7",
+          "mnemonic": "xlat",
+          "text": "xlat",
+          "call_target": null
+        },
+        {
+          "ea": "0x54328e",
+          "size": 2,
+          "bytes": "8ae0",
+          "mnemonic": "mov",
+          "text": "mov     ah, al",
+          "call_target": null
+        },
+        {
+          "ea": "0x543290",
+          "size": 2,
+          "bytes": "d0e1",
+          "mnemonic": "shl",
+          "text": "shl     cl, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x543292",
+          "size": 2,
+          "bytes": "d0f9",
+          "mnemonic": "sar",
+          "text": "sar     cl, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x543294",
+          "size": 2,
+          "bytes": "d0c1",
+          "mnemonic": "rol",
+          "text": "rol     cl, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x543296",
+          "size": 2,
+          "bytes": "8ac1",
+          "mnemonic": "mov",
+          "text": "mov     al, cl",
+          "call_target": null
+        },
+        {
+          "ea": "0x543298",
+          "size": 2,
+          "bytes": "240f",
+          "mnemonic": "and",
+          "text": "and     al, 0Fh",
+          "call_target": null
+        },
+        {
+          "ea": "0x54329a",
+          "size": 1,
+          "bytes": "d7",
+          "mnemonic": "xlat",
+          "text": "xlat",
+          "call_target": null
+        },
+        {
+          "ea": "0x54329b",
+          "size": 2,
+          "bytes": "d0e4",
+          "mnemonic": "shl",
+          "text": "shl     ah, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x54329d",
+          "size": 2,
+          "bytes": "d0e4",
+          "mnemonic": "shl",
+          "text": "shl     ah, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x54329f",
+          "size": 2,
+          "bytes": "0ac4",
+          "mnemonic": "or",
+          "text": "or      al, ah",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432a1",
+          "size": 3,
+          "bytes": "0fbec0",
+          "mnemonic": "movsx",
+          "text": "movsx   eax, al",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432a4",
+          "size": 6,
+          "bytes": "81e104040000",
+          "mnemonic": "and",
+          "text": "and     ecx, 404h",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432aa",
+          "size": 2,
+          "bytes": "8bda",
+          "mnemonic": "mov",
+          "text": "mov     ebx, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432ac",
+          "size": 2,
+          "bytes": "03d8",
+          "mnemonic": "add",
+          "text": "add     ebx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432ae",
+          "size": 3,
+          "bytes": "83c310",
+          "mnemonic": "add",
+          "text": "add     ebx, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432b1",
+          "size": 2,
+          "bytes": "ff23",
+          "mnemonic": "jmp",
+          "text": "jmp     dword ptr [ebx]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432b3",
+          "size": 5,
+          "bytes": "e8c1000000",
+          "mnemonic": "call",
+          "text": "call    loc_543379",
+          "call_target": "0x543379"
+        },
+        {
+          "ea": "0x5432b8",
+          "size": 2,
+          "bytes": "d9c9",
+          "mnemonic": "fxch",
+          "text": "fxch    st(1)",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432ba",
+          "size": 2,
+          "bytes": "ddd8",
+          "mnemonic": "fstp",
+          "text": "fstp    st",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432bc",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432bd",
+          "size": 5,
+          "bytes": "e8b7000000",
+          "mnemonic": "call",
+          "text": "call    loc_543379",
+          "call_target": "0x543379"
+        },
+        {
+          "ea": "0x5432c2",
+          "size": 2,
+          "bytes": "ebf6",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_5432BA",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432c4",
+          "size": 2,
+          "bytes": "ddd8",
+          "mnemonic": "fstp",
+          "text": "fstp    st",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432c6",
+          "size": 2,
+          "bytes": "ddd8",
+          "mnemonic": "fstp",
+          "text": "fstp    st",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432c8",
+          "size": 2,
+          "bytes": "d9ee",
+          "mnemonic": "fldz",
+          "text": "fldz",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432ca",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432cb",
+          "size": 2,
+          "bytes": "ddd8",
+          "mnemonic": "fstp",
+          "text": "fstp    st",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432cd",
+          "size": 2,
+          "bytes": "ddd8",
+          "mnemonic": "fstp",
+          "text": "fstp    st",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432cf",
+          "size": 2,
+          "bytes": "d9e8",
+          "mnemonic": "fld1",
+          "text": "fld1",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432d1",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432d2",
+          "size": 6,
+          "bytes": "dbbd62ffffff",
+          "mnemonic": "fstp",
+          "text": "fstp    tbyte ptr [ebp-9Eh]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432d8",
+          "size": 6,
+          "bytes": "dbad62ffffff",
+          "mnemonic": "fld",
+          "text": "fld     tbyte ptr [ebp-9Eh]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432de",
+          "size": 7,
+          "bytes": "f68569ffffff40",
+          "mnemonic": "test",
+          "text": "test    byte ptr [ebp-97h], 40h",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432e5",
+          "size": 2,
+          "bytes": "7408",
+          "mnemonic": "jz",
+          "text": "jz      short loc_5432EF",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432e7",
+          "size": 7,
+          "bytes": "c68570ffffff07",
+          "mnemonic": "mov",
+          "text": "mov     byte ptr [ebp-90h], 7",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432ee",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432ef",
+          "size": 7,
+          "bytes": "c68570ffffff01",
+          "mnemonic": "mov",
+          "text": "mov     byte ptr [ebp-90h], 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432f6",
+          "size": 6,
+          "bytes": "dc0574205900",
+          "mnemonic": "fadd",
+          "text": "fadd    dbl_592074",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432fc",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432fd",
+          "size": 2,
+          "bytes": "d9c9",
+          "mnemonic": "fxch",
+          "text": "fxch    st(1)",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432ff",
+          "size": 6,
+          "bytes": "dbbd62ffffff",
+          "mnemonic": "fstp",
+          "text": "fstp    tbyte ptr [ebp-9Eh]",
+          "call_target": null
+        },
+        {
+          "ea": "0x543305",
+          "size": 6,
+          "bytes": "dbad62ffffff",
+          "mnemonic": "fld",
+          "text": "fld     tbyte ptr [ebp-9Eh]",
+          "call_target": null
+        },
+        {
+          "ea": "0x54330b",
+          "size": 7,
+          "bytes": "f68569ffffff40",
+          "mnemonic": "test",
+          "text": "test    byte ptr [ebp-97h], 40h",
+          "call_target": null
+        },
+        {
+          "ea": "0x543312",
+          "size": 2,
+          "bytes": "7409",
+          "mnemonic": "jz",
+          "text": "jz      short loc_54331D",
+          "call_target": null
+        },
+        {
+          "ea": "0x543314",
+          "size": 7,
+          "bytes": "c68570ffffff07",
+          "mnemonic": "mov",
+          "text": "mov     byte ptr [ebp-90h], 7",
+          "call_target": null
+        },
+        {
+          "ea": "0x54331b",
+          "size": 2,
+          "bytes": "eb07",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_543324",
+          "call_target": null
+        },
+        {
+          "ea": "0x54331d",
+          "size": 7,
+          "bytes": "c68570ffffff01",
+          "mnemonic": "mov",
+          "text": "mov     byte ptr [ebp-90h], 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x543324",
+          "size": 2,
+          "bytes": "dec1",
+          "mnemonic": "faddp",
+          "text": "faddp   st(1), st",
+          "call_target": null
+        },
+        {
+          "ea": "0x543326",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x543327",
+          "size": 6,
+          "bytes": "dbbd62ffffff",
+          "mnemonic": "fstp",
+          "text": "fstp    tbyte ptr [ebp-9Eh]",
+          "call_target": null
+        },
+        {
+          "ea": "0x54332d",
+          "size": 6,
+          "bytes": "dbad62ffffff",
+          "mnemonic": "fld",
+          "text": "fld     tbyte ptr [ebp-9Eh]",
+          "call_target": null
+        },
+        {
+          "ea": "0x543333",
+          "size": 7,
+          "bytes": "f68569ffffff40",
+          "mnemonic": "test",
+          "text": "test    byte ptr [ebp-97h], 40h",
+          "call_target": null
+        },
+        {
+          "ea": "0x54333a",
+          "size": 2,
+          "bytes": "7420",
+          "mnemonic": "jz",
+          "text": "jz      short loc_54335C",
+          "call_target": null
+        },
+        {
+          "ea": "0x54333c",
+          "size": 2,
+          "bytes": "d9c9",
+          "mnemonic": "fxch",
+          "text": "fxch    st(1)",
+          "call_target": null
+        },
+        {
+          "ea": "0x54333e",
+          "size": 6,
+          "bytes": "dbbd62ffffff",
+          "mnemonic": "fstp",
+          "text": "fstp    tbyte ptr [ebp-9Eh]",
+          "call_target": null
+        },
+        {
+          "ea": "0x543344",
+          "size": 6,
+          "bytes": "dbad62ffffff",
+          "mnemonic": "fld",
+          "text": "fld     tbyte ptr [ebp-9Eh]",
+          "call_target": null
+        },
+        {
+          "ea": "0x54334a",
+          "size": 7,
+          "bytes": "f68569ffffff40",
+          "mnemonic": "test",
+          "text": "test    byte ptr [ebp-97h], 40h",
+          "call_target": null
+        },
+        {
+          "ea": "0x543351",
+          "size": 2,
+          "bytes": "7409",
+          "mnemonic": "jz",
+          "text": "jz      short loc_54335C",
+          "call_target": null
+        },
+        {
+          "ea": "0x543353",
+          "size": 7,
+          "bytes": "c68570ffffff07",
+          "mnemonic": "mov",
+          "text": "mov     byte ptr [ebp-90h], 7",
+          "call_target": null
+        },
+        {
+          "ea": "0x54335a",
+          "size": 2,
+          "bytes": "eb07",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_543363",
+          "call_target": null
+        },
+        {
+          "ea": "0x54335c",
+          "size": 7,
+          "bytes": "c68570ffffff01",
+          "mnemonic": "mov",
+          "text": "mov     byte ptr [ebp-90h], 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x543363",
+          "size": 2,
+          "bytes": "dec1",
+          "mnemonic": "faddp",
+          "text": "faddp   st(1), st",
+          "call_target": null
+        },
+        {
+          "ea": "0x543365",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x543366",
+          "size": 2,
+          "bytes": "ddd8",
+          "mnemonic": "fstp",
+          "text": "fstp    st",
+          "call_target": null
+        },
+        {
+          "ea": "0x543368",
+          "size": 2,
+          "bytes": "ddd8",
+          "mnemonic": "fstp",
+          "text": "fstp    st",
+          "call_target": null
+        },
+        {
+          "ea": "0x54336a",
+          "size": 6,
+          "bytes": "db2d60205900",
+          "mnemonic": "fld",
+          "text": "fld     tbyte_592060",
+          "call_target": null
+        },
+        {
+          "ea": "0x543370",
+          "size": 7,
+          "bytes": "80bd70ffffff00",
+          "mnemonic": "cmp",
+          "text": "cmp     byte ptr [ebp-90h], 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x543377",
+          "size": 2,
+          "bytes": "7f07",
+          "mnemonic": "jg",
+          "text": "jg      short loc_543380",
+          "call_target": null
+        },
+        {
+          "ea": "0x543379",
+          "size": 7,
+          "bytes": "c68570ffffff01",
+          "mnemonic": "mov",
+          "text": "mov     byte ptr [ebp-90h], 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x543380",
+          "size": 2,
+          "bytes": "0ac9",
+          "mnemonic": "or",
+          "text": "or      cl, cl",
+          "call_target": null
+        },
+        {
+          "ea": "0x543382",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "pages": [
+        {
+          "offset": 0,
+          "count": 70
+        },
+        {
+          "offset": 70,
+          "count": 70
+        },
+        {
+          "offset": 140,
+          "count": 6
+        }
+      ],
+      "IDA_range_contains_multiple_internal_entry_blocks": true,
+      "full_semantic_parent_closed": false
+    },
+    "pow_parent_first_page": {
+      "start": "0x53d022",
+      "end_exclusive": "0x53d1f5",
+      "count": 130,
+      "chunks": [
+        [
+          "0x53d022",
+          "0x53d1f5"
+        ],
+        [
+          "0x54348e",
+          "0x54349b"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 21,
+          "code": true,
+          "function": "0x53d019",
+          "text": "call    __fload_withFB",
+          "from": "0x53d01d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x53d000",
+          "text": "call    sub_53D022",
+          "from": "0x53d010"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x53d022",
+          "size": 2,
+          "bytes": "8bc8",
+          "mnemonic": "mov",
+          "text": "mov     ecx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d024",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d025",
+          "size": 4,
+          "bytes": "9bd93c24",
+          "mnemonic": "fstcw",
+          "text": "fstcw   word ptr [esp+4+var_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d029",
+          "size": 6,
+          "bytes": "66813c247f02",
+          "mnemonic": "cmp",
+          "text": "cmp     word ptr [esp+4+var_4], 27Fh",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d02f",
+          "size": 2,
+          "bytes": "7405",
+          "mnemonic": "jz",
+          "text": "jz      short loc_53D036",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d031",
+          "size": 5,
+          "bytes": "e8cf630000",
+          "mnemonic": "call",
+          "text": "call    __load_CW",
+          "call_target": "0x543405"
+        },
+        {
+          "ea": "0x53d036",
+          "size": 6,
+          "bytes": "81e10000f07f",
+          "mnemonic": "and",
+          "text": "and     ecx, 7FF00000h",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d03c",
+          "size": 4,
+          "bytes": "8d542408",
+          "mnemonic": "lea",
+          "text": "lea     edx, [esp+4+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d040",
+          "size": 6,
+          "bytes": "81f90000f07f",
+          "mnemonic": "cmp",
+          "text": "cmp     ecx, 7FF00000h",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d046",
+          "size": 6,
+          "bytes": "0f849d000000",
+          "mnemonic": "jz",
+          "text": "jz      loc_53D0E9",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d04c",
+          "size": 5,
+          "bytes": "e8e4630000",
+          "mnemonic": "call",
+          "text": "call    __fload_withFB",
+          "call_target": "0x543435"
+        },
+        {
+          "ea": "0x53d051",
+          "size": 6,
+          "bytes": "0f848e000000",
+          "mnemonic": "jz",
+          "text": "jz      loc_53D0E5",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d057",
+          "size": 5,
+          "bytes": "a90000f07f",
+          "mnemonic": "test",
+          "text": "test    eax, 7FF00000h",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d05c",
+          "size": 6,
+          "bytes": "0f84f6000000",
+          "mnemonic": "jz",
+          "text": "jz      loc_53D158",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d062",
+          "size": 4,
+          "bytes": "8a4c240f",
+          "mnemonic": "mov",
+          "text": "mov     cl, byte ptr [esp+4+arg_4+3]",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d066",
+          "size": 3,
+          "bytes": "80e180",
+          "mnemonic": "and",
+          "text": "and     cl, 80h",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d069",
+          "size": 6,
+          "bytes": "0f8561010000",
+          "mnemonic": "jnz",
+          "text": "jnz     loc_53D1D0",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d06f",
+          "size": 2,
+          "bytes": "d9f1",
+          "mnemonic": "fyl2x",
+          "text": "fyl2x",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d071",
+          "size": 5,
+          "bytes": "e87a630000",
+          "mnemonic": "call",
+          "text": "call    __twoToTOS",
+          "call_target": "0x5433f0"
+        },
+        {
+          "ea": "0x53d076",
+          "size": 3,
+          "bytes": "80f901",
+          "mnemonic": "cmp",
+          "text": "cmp     cl, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d079",
+          "size": 2,
+          "bytes": "7502",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_53D07D",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d07b",
+          "size": 2,
+          "bytes": "d9e0",
+          "mnemonic": "fchs",
+          "text": "fchs",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d07d",
+          "size": 7,
+          "bytes": "833dbc5f080100",
+          "mnemonic": "cmp",
+          "text": "cmp     dword_1085FBC, 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d084",
+          "size": 6,
+          "bytes": "0f8504640000",
+          "mnemonic": "jnz",
+          "text": "jnz     __fast_exit",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d08a",
+          "size": 6,
+          "bytes": "8d0d98f85800",
+          "mnemonic": "lea",
+          "text": "lea     ecx, aPow",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d090",
+          "size": 5,
+          "bytes": "ba1d000000",
+          "mnemonic": "mov",
+          "text": "mov     edx, 1Dh",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d095",
+          "size": 5,
+          "bytes": "e93f640000",
+          "mnemonic": "jmp",
+          "text": "jmp     __check_range_exit",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d09a",
+          "size": 7,
+          "bytes": "833dbc5f080100",
+          "mnemonic": "cmp",
+          "text": "cmp     dword_1085FBC, 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0a1",
+          "size": 6,
+          "bytes": "0f85e7630000",
+          "mnemonic": "jnz",
+          "text": "jnz     __fast_exit",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0a7",
+          "size": 6,
+          "bytes": "8d0d98f85800",
+          "mnemonic": "lea",
+          "text": "lea     ecx, aPow",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0ad",
+          "size": 5,
+          "bytes": "ba1d000000",
+          "mnemonic": "mov",
+          "text": "mov     edx, 1Dh",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0b2",
+          "size": 5,
+          "bytes": "e8d9620000",
+          "mnemonic": "call",
+          "text": "call    __startTwoArgErrorHandling",
+          "call_target": "0x543390"
+        },
+        {
+          "ea": "0x53d0b7",
+          "size": 1,
+          "bytes": "5a",
+          "mnemonic": "pop",
+          "text": "pop     edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0b8",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0b9",
+          "size": 4,
+          "bytes": "8d542408",
+          "mnemonic": "lea",
+          "text": "lea     edx, [esp+4+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0bd",
+          "size": 5,
+          "bytes": "e873630000",
+          "mnemonic": "call",
+          "text": "call    __fload_withFB",
+          "call_target": "0x543435"
+        },
+        {
+          "ea": "0x53d0c2",
+          "size": 5,
+          "bytes": "f644241608",
+          "mnemonic": "test",
+          "text": "test    byte ptr [esp+4+arg_C+2], 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0c7",
+          "size": 2,
+          "bytes": "7503",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_53D0CC",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0c9",
+          "size": 1,
+          "bytes": "41",
+          "mnemonic": "inc",
+          "text": "inc     ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0ca",
+          "size": 2,
+          "bytes": "eb33",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_53D0FF",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0cc",
+          "size": 2,
+          "bytes": "dec1",
+          "mnemonic": "faddp",
+          "text": "faddp   st(1), st",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0ce",
+          "size": 5,
+          "bytes": "b801000000",
+          "mnemonic": "mov",
+          "text": "mov     eax, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0d3",
+          "size": 2,
+          "bytes": "ebc5",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_53D09A",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0d5",
+          "size": 5,
+          "bytes": "f644240e08",
+          "mnemonic": "test",
+          "text": "test    byte ptr [esp+4+arg_4+2], 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0da",
+          "size": 2,
+          "bytes": "75f0",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_53D0CC",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0dc",
+          "size": 2,
+          "bytes": "dec1",
+          "mnemonic": "faddp",
+          "text": "faddp   st(1), st",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0de",
+          "size": 5,
+          "bytes": "b807000000",
+          "mnemonic": "mov",
+          "text": "mov     eax, 7",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0e3",
+          "size": 2,
+          "bytes": "ebb5",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_53D09A",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0e5",
+          "size": 2,
+          "bytes": "33c9",
+          "mnemonic": "xor",
+          "text": "xor     ecx, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0e7",
+          "size": 2,
+          "bytes": "eb16",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_53D0FF",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0e9",
+          "size": 2,
+          "bytes": "33c9",
+          "mnemonic": "xor",
+          "text": "xor     ecx, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0eb",
+          "size": 5,
+          "bytes": "25ffff0f00",
+          "mnemonic": "and",
+          "text": "and     eax, 0FFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0f0",
+          "size": 4,
+          "bytes": "0b442410",
+          "mnemonic": "or",
+          "text": "or      eax, [esp+4+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0f4",
+          "size": 2,
+          "bytes": "75c3",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_53D0B9",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0f6",
+          "size": 4,
+          "bytes": "8d542408",
+          "mnemonic": "lea",
+          "text": "lea     edx, [esp+4+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d0fa",
+          "size": 5,
+          "bytes": "e836630000",
+          "mnemonic": "call",
+          "text": "call    __fload_withFB",
+          "call_target": "0x543435"
+        },
+        {
+          "ea": "0x53d0ff",
+          "size": 4,
+          "bytes": "8b44240c",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esp+4+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d103",
+          "size": 2,
+          "bytes": "8bd0",
+          "mnemonic": "mov",
+          "text": "mov     edx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d105",
+          "size": 5,
+          "bytes": "250000f07f",
+          "mnemonic": "and",
+          "text": "and     eax, 7FF00000h",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d10a",
+          "size": 6,
+          "bytes": "81e2ffff0f00",
+          "mnemonic": "and",
+          "text": "and     edx, 0FFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d110",
+          "size": 5,
+          "bytes": "3d0000f07f",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 7FF00000h",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d115",
+          "size": 2,
+          "bytes": "7506",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_53D11D",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d117",
+          "size": 4,
+          "bytes": "0b542408",
+          "mnemonic": "or",
+          "text": "or      edx, [esp+4+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d11b",
+          "size": 2,
+          "bytes": "75b8",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_53D0D5",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d11d",
+          "size": 2,
+          "bytes": "85c9",
+          "mnemonic": "test",
+          "text": "test    ecx, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d11f",
+          "size": 2,
+          "bytes": "75bb",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_53D0DC",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d121",
+          "size": 3,
+          "bytes": "83ec74",
+          "mnemonic": "sub",
+          "text": "sub     esp, 74h",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d124",
+          "size": 2,
+          "bytes": "8bcc",
+          "mnemonic": "mov",
+          "text": "mov     ecx, esp",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d126",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx; int",
+          "call_target": null
+        },
+        {
+          "ea": "0x53d127",
+          "size": 3,
+          "bytes": "83ec10",
+          "mnemonic": "sub",
+          "text": "sub     esp, 10h",
+          "call_target": null
+        }
+      ]
+    },
+    "callee_metadata": [
+      {
+        "ea": "0x5433f0",
+        "name": "__twoToTOS",
+        "function_start": "0x5433f0",
+        "function_end": "0x543405",
+        "instruction_count": 11,
+        "chunks": [
+          [
+            "0x5433f0",
+            "0x543405"
+          ]
+        ],
+        "function_refs": [
+          {
+            "from_": "0x53d071",
+            "type": 17,
+            "code": true
+          }
+        ]
+      },
+      {
+        "ea": "0x543405",
+        "name": "__load_CW",
+        "function_start": "0x543405",
+        "function_end": "0x54341c",
+        "instruction_count": 6,
+        "chunks": [
+          [
+            "0x543405",
+            "0x54341c"
+          ]
+        ],
+        "function_refs": [
+          {
+            "from_": "0x53d031",
+            "type": 17,
+            "code": true
+          }
+        ]
+      },
+      {
+        "ea": "0x543435",
+        "name": "__fload_withFB",
+        "function_start": "0x543435",
+        "function_end": "0x543478",
+        "instruction_count": 21,
+        "chunks": [
+          [
+            "0x543435",
+            "0x543478"
+          ]
+        ],
+        "function_refs": [
+          {
+            "from_": "0x53d01d",
+            "type": 17,
+            "code": true
+          },
+          {
+            "from_": "0x53d04c",
+            "type": 17,
+            "code": true
+          },
+          {
+            "from_": "0x53d0bd",
+            "type": 17,
+            "code": true
+          },
+          {
+            "from_": "0x53d0fa",
+            "type": 17,
+            "code": true
+          }
+        ]
+      },
+      {
+        "ea": "0x543489",
+        "name": "special_exp",
+        "function_start": "0x543489",
+        "function_end": "0x54348e",
+        "instruction_count": 2,
+        "chunks": [
+          [
+            "0x543489",
+            "0x54348e"
+          ]
+        ],
+        "function_refs": [
+          {
+            "from_": "0x543486",
+            "type": 19,
+            "code": true
+          }
+        ]
+      },
+      {
+        "ea": "0x5434d9",
+        "name": "__check_range_exit",
+        "function_start": "0x5434d9",
+        "function_end": "0x54357c",
+        "instruction_count": 54,
+        "chunks": [
+          [
+            "0x5434d9",
+            "0x54357c"
+          ]
+        ],
+        "function_refs": [
+          {
+            "from_": "0x53d095",
+            "type": 19,
+            "code": true
+          }
+        ]
+      },
+      {
+        "ea": "0x543390",
+        "name": "__startTwoArgErrorHandling",
+        "function_start": "0x543390",
+        "function_end": "0x5433a7",
+        "instruction_count": 9,
+        "chunks": [
+          [
+            "0x543390",
+            "0x5433a7"
+          ]
+        ],
+        "function_refs": [
+          {
+            "from_": "0x53d0b2",
+            "type": 17,
+            "code": true
+          },
+          {
+            "from_": "0x54351e",
+            "type": 17,
+            "code": true
+          }
+        ]
+      },
+      {
+        "ea": "0x543379",
+        "name": "loc_543379",
+        "function_start": "0x543185",
+        "function_end": "0x543383",
+        "instruction_count": 146,
+        "chunks": [
+          [
+            "0x543185",
+            "0x543383"
+          ]
+        ],
+        "function_refs": [
+          {
+            "from_": "0x543377",
+            "type": 21,
+            "code": true
+          },
+          {
+            "from_": "0x5431b1",
+            "type": 19,
+            "code": true
+          },
+          {
+            "from_": "0x5432b3",
+            "type": 17,
+            "code": true
+          },
+          {
+            "from_": "0x5432bd",
+            "type": 17,
+            "code": true
+          }
+        ]
+      },
+      {
+        "ea": "0x543383",
+        "name": "",
+        "function_start": null,
+        "function_end": null,
+        "instruction_count": 0,
+        "chunks": [],
+        "function_refs": []
+      }
+    ],
+    "parent_ranges_included_in_three_helper_totals": false,
+    "full_pow_parent_or_wrapper_semantics_closed": false
+  },
+  "source_functions": [
+    {
+      "symbol": "Cg2dLegacyTwoToTOSX87",
+      "id": "F:001433F0",
+      "entry": "0x5433f0",
+      "index": 1424,
+      "original_index": 0,
+      "source_path": "src/platform/LegacyFloatEnvironment.asm",
+      "contract": "5433F0新增完整通用x87帮助体，ST0输入经原十条操作/RET输出连续扩展精度结果，沿当前控制字，不落F64/固定底数或用CPP double ABI。旧地图内联活动域保持，但不再把它当通用本体；完整pow父仍待接。"
+    },
+    {
+      "symbol": "LoadLegacyPowerControlWord_543405",
+      "id": "F:00143405",
+      "entry": "0x543405",
+      "index": 1426,
+      "original_index": 1,
+      "source_path": "src/platform/LegacyFloatEnvironment.cpp",
+      "contract": "543405新增通用控制字加载本体，W16保存控制字按原PC0300与007F构造临时W16后FLDCW；旧载体未消费高W16不作为输入/补零，Win64CX值桥/EDX计算。原父027F绕过条件与恢复责任仍须真实父接，不强改地图固定027F。"
+    },
+    {
+      "symbol": "Cg2dLoadLegacyPowerOperandX87",
+      "id": "F:00143435",
+      "entry": "0x543435",
+      "index": 1427,
+      "original_index": 2,
+      "source_path": "src/platform/LegacyFloatEnvironment.asm",
+      "contract": "543435新增完整普通/特殊输入加载：RDX借用F64，普通分支EAX为7FF00000指数掩码/保CMP标志后FLD F64，ECX保持；特殊分支按原OR7FFF0000/SHLD11/SHL11与重叠W32写出全部10B后FLD F80，TEST EAX,0再MOV原高W32，返回ST0/EAX/FLAGS并按原改ECX。仅ASM间接口，无F64返回落存/CLR异常、补零或新增finite保护。"
+    }
+  ],
+  "source_transformations": [
+    {
+      "path": "cg2d_re/src/platform/LegacyFloatEnvironment.cpp",
+      "patches": [
+        {
+          "before": "namespace detail {\n",
+          "after": "// 原543405；按保存控制字的原PC位构造并加载临时x87控制字，恢复由调用父负责。\nvoid LoadLegacyPowerControlWord_543405(const std::uint16_t savedControl) noexcept\n{\n    detail::Cg2dLoadLegacyPowerControlWord(savedControl);\n}\n\nnamespace detail {\n"
+        }
+      ]
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyFloatEnvironment.hpp",
+      "patches": [
+        {
+          "before": "// 原控制字抽象/硬件表示转换，只消费和生成原已定义位。\n",
+          "after": "// 原543405；W16保存控制字值，仅消费PC两位并加载原临时控制字。\nvoid LoadLegacyPowerControlWord_543405(std::uint16_t savedControl) noexcept;\n\n// 原控制字抽象/硬件表示转换，只消费和生成原已定义位。\n"
+        },
+        {
+          "before": "} // namespace detail\n",
+          "after": "// Win64控制字值桥；另外两通用帮助体仅在ASM间用x87/寄存器合同调用。\nextern \"C\" void Cg2dLoadLegacyPowerControlWord(std::uint16_t savedControl) noexcept;\n\n} // namespace detail\n"
+        }
+      ]
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyFloatEnvironment.asm",
+      "patches": [
+        {
+          "before": "PUBLIC Cg2dProcessLegacyPowerSpecial\n",
+          "after": "PUBLIC Cg2dProcessLegacyPowerSpecial\nPUBLIC Cg2dLoadLegacyPowerControlWord\n"
+        },
+        {
+          "before": "END\n",
+          "after": "; 原5433F0；私有ASM间ST(0)输入/输出，保全部十条x87操作与当前控制字。\n; 不将连续扩展精度结果落成F64，不通过CPP double返回ABI调用。\nCg2dLegacyTwoToTOSX87 PROC\n    fld st(0)\n    frndint\n    fsubr st(1), st(0)\n    fxch st(1)\n    fchs\n    f2xm1\n    fld1\n    faddp st(1), st(0)\n    fscale\n    fstp st(1)\n    ret\nCg2dLegacyTwoToTOSX87 ENDP\n\n; 原543405；Win64 CX承载保存的W16控制字，只有原PC两位参与计算。\n; 只借用调用暂存槽加载原临时CW，原载体的额外W16不复制为业务值。\nCg2dLoadLegacyPowerControlWord PROC\n    movzx edx, cx\n    and edx, 0300h\n    or edx, 07Fh\n    mov word ptr [rsp+8], dx\n    fldcw word ptr [rsp+8]\n    ret\nCg2dLoadLegacyPowerControlWord ENDP\n\n; 原543435；私有ASM间RDX借用F64输入，ST(0)/EAX/FLAGS返回。\n; 普通分支保指数CMP标志；特殊分支原三个重叠W32写出10B F80后TEST EAX,0。\nCg2dLoadLegacyPowerOperandX87 PROC\n    mov eax, dword ptr [rdx+4]\n    and eax, 07FF00000h\n    cmp eax, 07FF00000h\n    je LegacyPowerOperandSpecial\n    fld qword ptr [rdx]\n    ret\nLegacyPowerOperandSpecial:\n    mov eax, dword ptr [rdx+4]\n    or eax, 07FFF0000h\n    mov dword ptr [rsp+14], eax\n    mov eax, dword ptr [rdx+4]\n    mov ecx, dword ptr [rdx]\n    shld eax, ecx, 0Bh\n    shl ecx, 0Bh\n    mov dword ptr [rsp+12], eax\n    mov dword ptr [rsp+8], ecx\n    fld tbyte ptr [rsp+8]\n    test eax, 0\n    mov eax, dword ptr [rdx+4]\n    ret\nCg2dLoadLegacyPowerOperandX87 ENDP\n\nEND\n"
+        }
+      ]
+    }
+  ],
+  "implementation_static_scope": "BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
+  "source_cpp_changed_count": 1,
+  "source_asm_changed_count": 1,
+  "source_header_changed_count": 1,
+  "source_patch_count": 5,
+  "existing_semantic_record_updated_count": 3,
+  "new_original_mapped_function_count": 0,
+  "new_native_function_body_count": 4,
+  "new_cpp_function_body_count": 1,
+  "new_asm_proc_count": 3,
+  "new_C_parameter_bridge_count": 1,
+  "new_shared_owner_count": 0,
+  "original_x87_continuous_result_and_current_control_kept": true,
+  "original_PC_0300_and_007F_temporary_control_word_and_FLDCW_kept": true,
+  "original_normal_CMP_and_special_overlapping_F80_writes_ST0_EAX_FLAGS_and_ECX_contract_kept": true,
+  "two_ST0_interfaces_only_between_ASM_functions": true,
+  "native_private_home_slots_not_old_stack_mirror": true,
+  "unconsumed_control_carrier_upper_W16_not_zero_filled_or_made_business_input": true,
+  "no_new_host_pow_exp2_finite_guard_or_input_limit": true,
+  "only_original_control_word_leaf_writes_control": true,
+  "no_new_MXCSR_exception_clear_or_environment_save_restore": true,
+  "old_map_fixed_domain_and_environment_classification_integer_special_helper_build_rules_kept": true,
+  "new_I_claim_scope": "仅W16控制字CPP值入口→真实ASM桥；不称另两ST0叶的通用pow父已接",
+  "new_S_claim_scope": "三个完整通用帮助体新增/三文件精确五追加与旧源保持",
+  "source_files_kept": [
+    "CMakeLists.txt",
+    "src/platform/MapEffectMath.asm",
+    "src/platform/MapEffectMath.hpp"
+  ],
+  "new_identity_count_and_queue_reduction_claimed": false,
+  "wire_format_changed": false,
+  "encryption_added": false,
+  "audio_pause_kept": true,
+  "full_generic_pow_verified": false,
+  "full_all_parents_verified": false,
+  "full_lifecycle_closed": false,
+  "runtime_verified": false,
+  "machine_abi_verified": false,
+  "fault_equivalence_claimed": false,
+  "source_files_before": [
+    {
+      "path": "cg2d_re/src/platform/LegacyFloatEnvironment.cpp",
+      "text": "#include \"LegacyFloatEnvironment.hpp\"\n#include \"LegacyFloatFormat.hpp\"\n\n#include <bit>\n\n#ifndef WIN32_LEAN_AND_MEAN\n#define WIN32_LEAN_AND_MEAN\n#endif\n#ifndef NOMINMAX\n#define NOMINMAX\n#endif\n#include <Windows.h>\n\nnamespace cg::platform {\n\nstd::int32_t gLegacyFdivBug1085FC0 = 0;\n\nstd::uint32_t AbstractLegacyControlWord_5448A4(const std::uint32_t hardware)\n{\n    std::uint32_t result = 0;\n    if ((hardware & 0x01u) != 0) result |= 0x10u;\n    if ((hardware & 0x04u) != 0) result |= 0x08u;\n    if ((hardware & 0x08u) != 0) result |= 0x04u;\n    if ((hardware & 0x10u) != 0) result |= 0x02u;\n    if ((hardware & 0x20u) != 0) result |= 0x01u;\n    if ((hardware & 0x02u) != 0) result |= 0x80000u;\n    switch (hardware & 0xC00u) {\n    case 0x400u: result |= 0x100u; break;\n    case 0x800u: result |= 0x200u; break;\n    case 0xC00u: result |= 0x300u; break;\n    }\n    switch (hardware & 0x300u) {\n    case 0: result |= 0x20000u; break;\n    case 0x200u: result |= 0x10000u; break;\n    }\n    if ((hardware & 0x1000u) != 0) result |= 0x40000u;\n    return result;\n}\n\nstd::uint32_t HardwareLegacyControlWord_544936(const std::uint32_t abstractValue)\n{\n    std::uint32_t result = 0;\n    if ((abstractValue & 0x10u) != 0) result |= 0x01u;\n    if ((abstractValue & 0x08u) != 0) result |= 0x04u;\n    if ((abstractValue & 0x04u) != 0) result |= 0x08u;\n    if ((abstractValue & 0x02u) != 0) result |= 0x10u;\n    if ((abstractValue & 0x01u) != 0) result |= 0x20u;\n    if ((abstractValue & 0x80000u) != 0) result |= 0x02u;\n    switch (abstractValue & 0x300u) {\n    case 0x100u: result |= 0x400u; break;\n    case 0x200u: result |= 0x800u; break;\n    case 0x300u: result |= 0xC00u; break;\n    }\n    switch (abstractValue & 0x30000u) {\n    case 0: result |= 0x300u; break;\n    case 0x10000u: result |= 0x200u; break;\n    }\n    if ((abstractValue & 0x40000u) != 0) result |= 0x1000u;\n    return result;\n}\n\nstd::uint32_t ControlLegacyX87_544859(\n    const std::uint32_t value, const std::uint32_t mask)\n{\n    const std::uint32_t before = AbstractLegacyControlWord_5448A4(\n        detail::Cg2dReadLegacyX87Control());\n    const std::uint32_t merged = (before & ~mask) | (value & mask);\n    const std::uint32_t hardware = HardwareLegacyControlWord_544936(merged);\n    detail::Cg2dWriteLegacyX87Control(static_cast<std::uint16_t>(hardware));\n    return merged;\n}\n\nstd::uint32_t ControlLegacyFloatingPoint_54488E(\n    const std::uint32_t value, const std::uint32_t mask)\n{\n    return ControlLegacyX87_544859(value, mask & 0xFFF7FFFFu);\n}\n\nvoid SetLegacyDefaultPrecision_53FD5C()\n{\n    static_cast<void>(ControlLegacyFloatingPoint_54488E(0x10000u, 0x30000u));\n}\n\nstd::int32_t TestLegacyFloatingPointDivision_53FD6E()\n{\n    return detail::Cg2dTestLegacyFdiv();\n}\n\nstd::int32_t ProbeLegacyFloatingPointDivision_53FDAC()\n{\n    const HMODULE module = ::GetModuleHandleA(\"KERNEL32\");\n    if (module != nullptr) {\n        using FeatureQuery = BOOL (WINAPI*)(DWORD);\n        const auto query = reinterpret_cast<FeatureQuery>(\n            ::GetProcAddress(module, \"IsProcessorFeaturePresent\"));\n        if (query != nullptr) {\n            return static_cast<std::int32_t>(query(0));\n        }\n    }\n    return TestLegacyFloatingPointDivision_53FD6E();\n}\n\nvoid InitializeLegacyFloatingPoint_53B447()\n{\n    InstallLegacyFloatCallbacks_53B45F();\n    gLegacyFdivBug1085FC0 = ProbeLegacyFloatingPointDivision_53FDAC();\n    SetLegacyDefaultPrecision_53FD5C();\n    detail::Cg2dClearLegacyX87Exceptions();\n}\n\n// 原5461E4；只按F64存储位返回特殊类型，不进行浮点算术。\nstd::int32_t ClassifyLegacySpecialFloat_5461E4(const double value) noexcept\n{\n    enum : std::int32_t {\n        kOrdinary = 0,\n        kPositiveInfinity = 1,\n        kNegativeInfinity = 2,\n        kQuietNaN = 3,\n        kSignalingNaN = 4,\n    };\n    const std::uint64_t bits = std::bit_cast<std::uint64_t>(value);\n    const std::uint32_t low = static_cast<std::uint32_t>(bits);\n    const std::uint32_t high = static_cast<std::uint32_t>(bits >> 32);\n    if (high == 0x7FF00000u && low == 0) {\n        return kPositiveInfinity;\n    }\n    if (high == 0xFFF00000u && low == 0) {\n        return kNegativeInfinity;\n    }\n    const std::uint32_t top = (high >> 16) & 0x7FF8u;\n    if (top == 0x7FF8u) {\n        return kQuietNaN;\n    }\n    if (top == 0x7FF0u && ((high & 0x7FFFFu) != 0 || low != 0)) {\n        return kSignalingNaN;\n    }\n    return kOrdinary;\n}\n\n// 原546311；原x87落存、比较和状态读取留在私有ASM边界。\nstd::int32_t ClassifyLegacyFloat_546311(const double value) noexcept\n{\n    return detail::Cg2dClassifyLegacyFloat(&value);\n}\n\n// 原5436AC；原两次舍入、F64落存和x87比较顺序见整数奇偶判定SPEC。\nstd::int32_t ClassifyLegacyInteger_5436AC(const double value) noexcept\n{\n    return detail::Cg2dClassifyLegacyInteger(&value);\n}\n\n// 原54357C；保原S32状态与选择性F64输出，不将状态改为是否处理布尔值。\nstd::int32_t ProcessLegacyPowerSpecial_54357C(\n    const double base, const double exponent, double* const result) noexcept\n{\n    return detail::Cg2dProcessLegacyPowerSpecial(&base, &exponent, result);\n}\n\nnamespace detail {\n\nextern \"C\" std::int32_t Cg2dClassifyLegacySpecialFloat(\n    const double* const value) noexcept\n{\n    return ClassifyLegacySpecialFloat_5461E4(*value);\n}\n\n} // namespace detail\n\n} // namespace cg::platform\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyFloatEnvironment.hpp",
+      "text": "#pragma once\n\n#include <cstdint>\n\nnamespace cg::platform {\n\n// 原1085FC0；初始化组合发布系统/回退探测的完整W32返回值。\nextern std::int32_t gLegacyFdivBug1085FC0;\n\n// 原546311/5461E4；F64值与S32分类结果，实际x87合同见浮点分类叶SPEC。\nstd::int32_t ClassifyLegacyFloat_546311(double value) noexcept;\nstd::int32_t ClassifyLegacySpecialFloat_5461E4(double value) noexcept;\n\n// 原5436AC；F64输入，原分支返回S32的0/1/2，不写浮点控制字。\nstd::int32_t ClassifyLegacyInteger_5436AC(double value) noexcept;\n\n// 原54357C；F64值参数/借用结果指针，原S32状态与不写出分支见幂特殊值SPEC。\nstd::int32_t ProcessLegacyPowerSpecial_54357C(\n    double base, double exponent, double* result) noexcept;\n\n// 原控制字抽象/硬件表示转换，只消费和生成原已定义位。\nstd::uint32_t AbstractLegacyControlWord_5448A4(std::uint32_t hardware);\nstd::uint32_t HardwareLegacyControlWord_544936(std::uint32_t abstractValue);\nstd::uint32_t ControlLegacyX87_544859(std::uint32_t value, std::uint32_t mask);\nstd::uint32_t ControlLegacyFloatingPoint_54488E(std::uint32_t value, std::uint32_t mask);\nvoid SetLegacyDefaultPrecision_53FD5C();\n\n// 原系统查询及x87回退；保留系统BOOL的完整W32返回值。\nstd::int32_t TestLegacyFloatingPointDivision_53FD6E();\nstd::int32_t ProbeLegacyFloatingPointDivision_53FDAC();\nvoid InitializeLegacyFloatingPoint_53B447();\n\nnamespace detail {\n\n// Win64私有叶；不借宿主CRT控制字接口或改变MXCSR。\nextern \"C\" std::uint16_t Cg2dReadLegacyX87Control() noexcept;\nextern \"C\" void Cg2dWriteLegacyX87Control(std::uint16_t control) noexcept;\nextern \"C\" void Cg2dClearLegacyX87Exceptions() noexcept;\nextern \"C\" std::int32_t Cg2dTestLegacyFdiv() noexcept;\nextern \"C\" std::int32_t Cg2dLegacyFloatNonnegative(const double* value) noexcept;\n// Win64分类参数桥；只在本调用内借用F64，不持有或修改调用方值。\nextern \"C\" std::int32_t Cg2dClassifyLegacyFloat(const double* value) noexcept;\nextern \"C\" std::int32_t Cg2dClassifyLegacySpecialFloat(const double* value) noexcept;\n// Win64整数判定参数桥；内部5462FF舍入叶仅在ASM间用ST(0)传值。\nextern \"C\" std::int32_t Cg2dClassifyLegacyInteger(const double* value) noexcept;\n// Win64幂特殊值桥；仅在本调用内借用F64参数与调用方结果槽。\nextern \"C\" std::int32_t Cg2dProcessLegacyPowerSpecial(\n    const double* base, const double* exponent, double* result) noexcept;\n\n} // namespace detail\n} // namespace cg::platform\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyFloatEnvironment.asm",
+      "text": "OPTION CASEMAP:NONE\n\n.const\nALIGN 8\nLegacyDivisor54F9E8 QWORD 04147FFFF80000000h\nLegacyDividend54F9E0 QWORD 04150017EC0000000h\nLegacyThreshold54D5C0 QWORD 03FF0000000000000h\nLegacyZero54D5D0 QWORD 0\nLegacyIntegerDivisor54FB58 QWORD 04000000000000000h\nLegacyPowerInfinity5923C0 QWORD 07FF0000000000000h\nLegacyPowerUndefined5923C8 QWORD 0FFF8000000000000h\nLegacyPowerNegativeZero5923E0 QWORD 08000000000000000h\n\n.code\nEXTERN Cg2dClassifyLegacySpecialFloat:PROC\nPUBLIC Cg2dClassifyLegacyFloat\nPUBLIC Cg2dClassifyLegacyInteger\nPUBLIC Cg2dProcessLegacyPowerSpecial\nPUBLIC Cg2dReadLegacyX87Control\nPUBLIC Cg2dWriteLegacyX87Control\nPUBLIC Cg2dClearLegacyX87Exceptions\nPUBLIC Cg2dTestLegacyFdiv\nPUBLIC Cg2dLegacyFloatNonnegative\n\n; 叶函数只借用Win64参数暂存区，不改变RSP或非易失通用寄存器。\nCg2dReadLegacyX87Control PROC\n    fstcw word ptr [rsp+8]\n    movzx eax, word ptr [rsp+8]\n    ret\nCg2dReadLegacyX87Control ENDP\n\nCg2dWriteLegacyX87Control PROC\n    mov word ptr [rsp+8], cx\n    fldcw word ptr [rsp+8]\n    ret\nCg2dWriteLegacyX87Control ENDP\n\nCg2dClearLegacyX87Exceptions PROC\n    fnclex\n    ret\nCg2dClearLegacyX87Exceptions ENDP\n\n; 原53FD6E的三处F64落栈边界和比较；探测前不调整控制字。\nCg2dTestLegacyFdiv PROC\n    fld qword ptr [LegacyDivisor54F9E8]\n    fstp qword ptr [rsp+8]\n    fld qword ptr [LegacyDividend54F9E0]\n    fstp qword ptr [rsp+16]\n    fld qword ptr [rsp+16]\n    fdiv qword ptr [rsp+8]\n    fmul qword ptr [rsp+8]\n    fsubr qword ptr [rsp+16]\n    fstp qword ptr [rsp+24]\n    fld qword ptr [rsp+24]\n    fcomp qword ptr [LegacyThreshold54D5C0]\n    fnstsw ax\n    test ah, 041h\n    jnz LegacyFdivNoBug\n    mov eax, 1\n    ret\nLegacyFdivNoBug:\n    xor eax, eax\n    ret\nCg2dTestLegacyFdiv ENDP\n\n; 原53FE7D；C0置位表示小于或无序，原JB分支均返回0。\nCg2dLegacyFloatNonnegative PROC\n    fld qword ptr [rcx]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    test ah, 1\n    jnz LegacyFloatNegativeOrUnordered\n    mov eax, 1\n    ret\nLegacyFloatNegativeOrUnordered:\n    xor eax, eax\n    ret\nCg2dLegacyFloatNonnegative ENDP\n\n; 原546311；原值槽与真实x87落存槽分离，高端W32仅消费低W16。\n; Win64保留32B调用暂存区与两个F64槽；不写控制字/MXCSR或清异常。\nCg2dClassifyLegacyFloat PROC FRAME\n    sub rsp, 56\n    .allocstack 56\n    .endprolog\n    mov r8, qword ptr [rcx]\n    mov qword ptr [rsp+32], r8\n    mov eax, dword ptr [rsp+38]\n    mov ecx, 07FF0h\n    mov edx, eax\n    and edx, ecx\n    cmp dx, cx\n    jne LegacyFloatClassOrdinary\n    fld qword ptr [rsp+32]\n    fstp qword ptr [rsp+40]\n    lea rcx, [rsp+40]\n    call Cg2dClassifyLegacySpecialFloat\n    dec eax\n    jz LegacyFloatClassPositiveInfinity\n    dec eax\n    jz LegacyFloatClassNegativeInfinity\n    dec eax\n    jz LegacyFloatClassQuietNaN\n    mov eax, 1\n    jmp LegacyFloatClassDone\nLegacyFloatClassQuietNaN:\n    mov eax, 2\n    jmp LegacyFloatClassDone\nLegacyFloatClassNegativeInfinity:\n    mov eax, 4\n    jmp LegacyFloatClassDone\nLegacyFloatClassPositiveInfinity:\n    mov eax, 0200h\n    jmp LegacyFloatClassDone\nLegacyFloatClassOrdinary:\n    and eax, 08000h\n    test dx, dx\n    mov ecx, eax\n    jnz LegacyFloatClassCompareZero\n    test dword ptr [rsp+36], 0FFFFFh\n    jnz LegacyFloatClassDenormal\n    cmp dword ptr [rsp+32], 0\n    je LegacyFloatClassCompareZero\nLegacyFloatClassDenormal:\n    mov eax, ecx\n    neg eax\n    sbb eax, eax\n    and al, 090h\n    add eax, 080h\n    jmp LegacyFloatClassDone\nLegacyFloatClassCompareZero:\n    fld qword ptr [rsp+32]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    mov eax, ecx\n    jne LegacyFloatClassNormal\n    neg eax\n    sbb eax, eax\n    and al, 0E0h\n    add eax, 040h\n    jmp LegacyFloatClassDone\nLegacyFloatClassNormal:\n    neg eax\n    sbb eax, eax\n    and al, 08h\n    add eax, 0100h\nLegacyFloatClassDone:\n    add rsp, 56\n    ret\nCg2dClassifyLegacyFloat ENDP\n\n; 原5462FF；私有ASM合同为RCX借用F64、ST(0)返回，不能由CPP按Win64 F64返回调用。\n; FRNDINT沿当前x87舍入模式；原F64落存/重载保留，借用调用方8B暂存槽。\nCg2dRoundLegacyFloatX87 PROC\n    fld qword ptr [rcx]\n    frndint\n    fstp qword ptr [rsp+8]\n    fld qword ptr [rsp+8]\n    ret\nCg2dRoundLegacyFloatX87 ENDP\n\n; 原5436AC；56B展开帧保留32B调用区及原值、传参、舍入落存三个F64槽。\n; 三个CALL与原FLD/FSTP、FDIV、FCOMP/FNSTSW/SAHF顺序保持，不设额外有限值门禁。\nCg2dClassifyLegacyInteger PROC FRAME\n    sub rsp, 56\n    .allocstack 56\n    .endprolog\n    mov r8, qword ptr [rcx]\n    mov qword ptr [rsp+32], r8\n    fld qword ptr [rsp+32]\n    fstp qword ptr [rsp+40]\n    lea rcx, [rsp+40]\n    call Cg2dClassifyLegacyFloat\n    test al, 090h\n    jnz LegacyIntegerClassNoninteger\n    fld qword ptr [rsp+32]\n    fstp qword ptr [rsp+40]\n    lea rcx, [rsp+40]\n    call Cg2dRoundLegacyFloatX87\n    fstp qword ptr [rsp+48]\n    fld qword ptr [rsp+48]\n    fcomp qword ptr [rsp+32]\n    fnstsw ax\n    sahf\n    jne LegacyIntegerClassNoninteger\n    fld qword ptr [rsp+32]\n    fdiv qword ptr [LegacyIntegerDivisor54FB58]\n    fstp qword ptr [rsp+32]\n    fld qword ptr [rsp+32]\n    fstp qword ptr [rsp+40]\n    lea rcx, [rsp+40]\n    call Cg2dRoundLegacyFloatX87\n    fcomp qword ptr [rsp+32]\n    fnstsw ax\n    sahf\n    jne LegacyIntegerClassOdd\n    mov eax, 2\n    jmp LegacyIntegerClassDone\nLegacyIntegerClassOdd:\n    mov eax, 1\n    jmp LegacyIntegerClassDone\nLegacyIntegerClassNoninteger:\n    xor eax, eax\nLegacyIntegerClassDone:\n    add rsp, 56\n    ret\nCg2dClassifyLegacyInteger ENDP\n\n; 原54357C；72B正常展开帧承载32B调用区、四F64槽与一个x64结果指针。\n; 原0返回同时包含已写出与未写出分支，不增默认结果或有限值保护。\nCg2dProcessLegacyPowerSpecial PROC FRAME\n    sub rsp, 72\n    .allocstack 72\n    .endprolog\n    mov r9, qword ptr [rcx]\n    mov qword ptr [rsp+32], r9\n    mov r9, qword ptr [rdx]\n    mov qword ptr [rsp+40], r9\n    mov qword ptr [rsp+64], r8\n    fld qword ptr [rsp+32]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fld qword ptr [rsp+32]\n    xor edx, edx\n    fnstsw ax\n    sahf\n    jnb LegacyPowerSpecialMagnitudeReady\n    fchs\nLegacyPowerSpecialMagnitudeReady:\n    fstp qword ptr [rsp+48]\n    mov eax, 07FF00000h\n    mov ecx, 0FFF00000h\n    cmp dword ptr [rsp+44], eax\n    jne LegacyPowerSpecialNegativeExponentInfinity\n    cmp dword ptr [rsp+40], edx\n    jne LegacyPowerSpecialPositiveBaseInfinity\n    fld qword ptr [rsp+48]\n    fcomp qword ptr [LegacyThreshold54D5C0]\n    fnstsw ax\n    sahf\n    ja LegacyPowerSpecialPositiveInfinity\n    fld qword ptr [rsp+48]\n    fcomp qword ptr [LegacyThreshold54D5C0]\n    fnstsw ax\n    sahf\n    jb LegacyPowerSpecialPositiveZero\nLegacyPowerSpecialUndefined:\n    fld qword ptr [LegacyPowerUndefined5923C8]\n    mov rax, qword ptr [rsp+64]\n    fstp qword ptr [rax]\n    mov eax, 1\n    jmp LegacyPowerSpecialDone\nLegacyPowerSpecialNegativeExponentInfinity:\n    cmp dword ptr [rsp+44], ecx\n    jne LegacyPowerSpecialPositiveBaseInfinity\n    cmp dword ptr [rsp+40], edx\n    jne LegacyPowerSpecialPositiveBaseInfinity\n    fld qword ptr [rsp+48]\n    fcomp qword ptr [LegacyThreshold54D5C0]\n    fnstsw ax\n    sahf\n    ja LegacyPowerSpecialPositiveZero\n    fld qword ptr [rsp+48]\n    fcomp qword ptr [LegacyThreshold54D5C0]\n    fnstsw ax\n    sahf\n    jnb LegacyPowerSpecialUndefined\n    jmp LegacyPowerSpecialPositiveInfinity\nLegacyPowerSpecialPositiveBaseInfinity:\n    cmp dword ptr [rsp+36], eax\n    jne LegacyPowerSpecialNegativeBaseInfinity\n    cmp dword ptr [rsp+32], edx\n    jne LegacyPowerSpecialNoOutput\n    fld qword ptr [rsp+40]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    jbe LegacyPowerSpecialPositiveBaseNonpositiveExponent\nLegacyPowerSpecialPositiveInfinity:\n    fld qword ptr [LegacyPowerInfinity5923C0]\n    jmp LegacyPowerSpecialWriteResult\nLegacyPowerSpecialPositiveBaseNonpositiveExponent:\n    fld qword ptr [rsp+40]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    jnb LegacyPowerSpecialOne\nLegacyPowerSpecialPositiveZero:\n    fldz\n    jmp LegacyPowerSpecialWriteResult\nLegacyPowerSpecialNegativeBaseInfinity:\n    cmp dword ptr [rsp+36], ecx\n    jne LegacyPowerSpecialNoOutput\n    cmp dword ptr [rsp+32], edx\n    jne LegacyPowerSpecialNoOutput\n    fld qword ptr [rsp+40]\n    fstp qword ptr [rsp+56]\n    lea rcx, [rsp+56]\n    call Cg2dClassifyLegacyInteger\n    fld qword ptr [rsp+40]\n    fcomp qword ptr [LegacyZero54D5D0]\n    mov ecx, eax\n    fnstsw ax\n    sahf\n    jbe LegacyPowerSpecialNegativeBaseNonpositiveExponent\n    fld qword ptr [LegacyPowerInfinity5923C0]\n    cmp ecx, 1\n    jne LegacyPowerSpecialSignedInfinityReady\n    fchs\nLegacyPowerSpecialSignedInfinityReady:\n    fstp qword ptr [rsp+40]\n    fld qword ptr [rsp+40]\n    jmp LegacyPowerSpecialWriteResult\nLegacyPowerSpecialNegativeBaseNonpositiveExponent:\n    fld qword ptr [rsp+40]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    jnb LegacyPowerSpecialOne\n    cmp ecx, 1\n    jne LegacyPowerSpecialNegativeBasePositiveZero\n    fld qword ptr [LegacyPowerNegativeZero5923E0]\n    jmp LegacyPowerSpecialSignedZeroReady\nLegacyPowerSpecialNegativeBasePositiveZero:\n    fldz\nLegacyPowerSpecialSignedZeroReady:\n    fstp qword ptr [rsp+40]\n    fld qword ptr [rsp+40]\n    jmp LegacyPowerSpecialWriteResult\nLegacyPowerSpecialOne:\n    fld1\nLegacyPowerSpecialWriteResult:\n    mov rax, qword ptr [rsp+64]\n    fstp qword ptr [rax]\nLegacyPowerSpecialNoOutput:\n    xor eax, eax\nLegacyPowerSpecialDone:\n    add rsp, 72\n    ret\nCg2dProcessLegacyPowerSpecial ENDP\n\nEND\n"
+    }
+  ],
+  "source_files_after": [
+    {
+      "path": "cg2d_re/src/platform/LegacyFloatEnvironment.cpp",
+      "text": "#include \"LegacyFloatEnvironment.hpp\"\n#include \"LegacyFloatFormat.hpp\"\n\n#include <bit>\n\n#ifndef WIN32_LEAN_AND_MEAN\n#define WIN32_LEAN_AND_MEAN\n#endif\n#ifndef NOMINMAX\n#define NOMINMAX\n#endif\n#include <Windows.h>\n\nnamespace cg::platform {\n\nstd::int32_t gLegacyFdivBug1085FC0 = 0;\n\nstd::uint32_t AbstractLegacyControlWord_5448A4(const std::uint32_t hardware)\n{\n    std::uint32_t result = 0;\n    if ((hardware & 0x01u) != 0) result |= 0x10u;\n    if ((hardware & 0x04u) != 0) result |= 0x08u;\n    if ((hardware & 0x08u) != 0) result |= 0x04u;\n    if ((hardware & 0x10u) != 0) result |= 0x02u;\n    if ((hardware & 0x20u) != 0) result |= 0x01u;\n    if ((hardware & 0x02u) != 0) result |= 0x80000u;\n    switch (hardware & 0xC00u) {\n    case 0x400u: result |= 0x100u; break;\n    case 0x800u: result |= 0x200u; break;\n    case 0xC00u: result |= 0x300u; break;\n    }\n    switch (hardware & 0x300u) {\n    case 0: result |= 0x20000u; break;\n    case 0x200u: result |= 0x10000u; break;\n    }\n    if ((hardware & 0x1000u) != 0) result |= 0x40000u;\n    return result;\n}\n\nstd::uint32_t HardwareLegacyControlWord_544936(const std::uint32_t abstractValue)\n{\n    std::uint32_t result = 0;\n    if ((abstractValue & 0x10u) != 0) result |= 0x01u;\n    if ((abstractValue & 0x08u) != 0) result |= 0x04u;\n    if ((abstractValue & 0x04u) != 0) result |= 0x08u;\n    if ((abstractValue & 0x02u) != 0) result |= 0x10u;\n    if ((abstractValue & 0x01u) != 0) result |= 0x20u;\n    if ((abstractValue & 0x80000u) != 0) result |= 0x02u;\n    switch (abstractValue & 0x300u) {\n    case 0x100u: result |= 0x400u; break;\n    case 0x200u: result |= 0x800u; break;\n    case 0x300u: result |= 0xC00u; break;\n    }\n    switch (abstractValue & 0x30000u) {\n    case 0: result |= 0x300u; break;\n    case 0x10000u: result |= 0x200u; break;\n    }\n    if ((abstractValue & 0x40000u) != 0) result |= 0x1000u;\n    return result;\n}\n\nstd::uint32_t ControlLegacyX87_544859(\n    const std::uint32_t value, const std::uint32_t mask)\n{\n    const std::uint32_t before = AbstractLegacyControlWord_5448A4(\n        detail::Cg2dReadLegacyX87Control());\n    const std::uint32_t merged = (before & ~mask) | (value & mask);\n    const std::uint32_t hardware = HardwareLegacyControlWord_544936(merged);\n    detail::Cg2dWriteLegacyX87Control(static_cast<std::uint16_t>(hardware));\n    return merged;\n}\n\nstd::uint32_t ControlLegacyFloatingPoint_54488E(\n    const std::uint32_t value, const std::uint32_t mask)\n{\n    return ControlLegacyX87_544859(value, mask & 0xFFF7FFFFu);\n}\n\nvoid SetLegacyDefaultPrecision_53FD5C()\n{\n    static_cast<void>(ControlLegacyFloatingPoint_54488E(0x10000u, 0x30000u));\n}\n\nstd::int32_t TestLegacyFloatingPointDivision_53FD6E()\n{\n    return detail::Cg2dTestLegacyFdiv();\n}\n\nstd::int32_t ProbeLegacyFloatingPointDivision_53FDAC()\n{\n    const HMODULE module = ::GetModuleHandleA(\"KERNEL32\");\n    if (module != nullptr) {\n        using FeatureQuery = BOOL (WINAPI*)(DWORD);\n        const auto query = reinterpret_cast<FeatureQuery>(\n            ::GetProcAddress(module, \"IsProcessorFeaturePresent\"));\n        if (query != nullptr) {\n            return static_cast<std::int32_t>(query(0));\n        }\n    }\n    return TestLegacyFloatingPointDivision_53FD6E();\n}\n\nvoid InitializeLegacyFloatingPoint_53B447()\n{\n    InstallLegacyFloatCallbacks_53B45F();\n    gLegacyFdivBug1085FC0 = ProbeLegacyFloatingPointDivision_53FDAC();\n    SetLegacyDefaultPrecision_53FD5C();\n    detail::Cg2dClearLegacyX87Exceptions();\n}\n\n// 原5461E4；只按F64存储位返回特殊类型，不进行浮点算术。\nstd::int32_t ClassifyLegacySpecialFloat_5461E4(const double value) noexcept\n{\n    enum : std::int32_t {\n        kOrdinary = 0,\n        kPositiveInfinity = 1,\n        kNegativeInfinity = 2,\n        kQuietNaN = 3,\n        kSignalingNaN = 4,\n    };\n    const std::uint64_t bits = std::bit_cast<std::uint64_t>(value);\n    const std::uint32_t low = static_cast<std::uint32_t>(bits);\n    const std::uint32_t high = static_cast<std::uint32_t>(bits >> 32);\n    if (high == 0x7FF00000u && low == 0) {\n        return kPositiveInfinity;\n    }\n    if (high == 0xFFF00000u && low == 0) {\n        return kNegativeInfinity;\n    }\n    const std::uint32_t top = (high >> 16) & 0x7FF8u;\n    if (top == 0x7FF8u) {\n        return kQuietNaN;\n    }\n    if (top == 0x7FF0u && ((high & 0x7FFFFu) != 0 || low != 0)) {\n        return kSignalingNaN;\n    }\n    return kOrdinary;\n}\n\n// 原546311；原x87落存、比较和状态读取留在私有ASM边界。\nstd::int32_t ClassifyLegacyFloat_546311(const double value) noexcept\n{\n    return detail::Cg2dClassifyLegacyFloat(&value);\n}\n\n// 原5436AC；原两次舍入、F64落存和x87比较顺序见整数奇偶判定SPEC。\nstd::int32_t ClassifyLegacyInteger_5436AC(const double value) noexcept\n{\n    return detail::Cg2dClassifyLegacyInteger(&value);\n}\n\n// 原54357C；保原S32状态与选择性F64输出，不将状态改为是否处理布尔值。\nstd::int32_t ProcessLegacyPowerSpecial_54357C(\n    const double base, const double exponent, double* const result) noexcept\n{\n    return detail::Cg2dProcessLegacyPowerSpecial(&base, &exponent, result);\n}\n\n// 原543405；按保存控制字的原PC位构造并加载临时x87控制字，恢复由调用父负责。\nvoid LoadLegacyPowerControlWord_543405(const std::uint16_t savedControl) noexcept\n{\n    detail::Cg2dLoadLegacyPowerControlWord(savedControl);\n}\n\nnamespace detail {\n\nextern \"C\" std::int32_t Cg2dClassifyLegacySpecialFloat(\n    const double* const value) noexcept\n{\n    return ClassifyLegacySpecialFloat_5461E4(*value);\n}\n\n} // namespace detail\n\n} // namespace cg::platform\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyFloatEnvironment.hpp",
+      "text": "#pragma once\n\n#include <cstdint>\n\nnamespace cg::platform {\n\n// 原1085FC0；初始化组合发布系统/回退探测的完整W32返回值。\nextern std::int32_t gLegacyFdivBug1085FC0;\n\n// 原546311/5461E4；F64值与S32分类结果，实际x87合同见浮点分类叶SPEC。\nstd::int32_t ClassifyLegacyFloat_546311(double value) noexcept;\nstd::int32_t ClassifyLegacySpecialFloat_5461E4(double value) noexcept;\n\n// 原5436AC；F64输入，原分支返回S32的0/1/2，不写浮点控制字。\nstd::int32_t ClassifyLegacyInteger_5436AC(double value) noexcept;\n\n// 原54357C；F64值参数/借用结果指针，原S32状态与不写出分支见幂特殊值SPEC。\nstd::int32_t ProcessLegacyPowerSpecial_54357C(\n    double base, double exponent, double* result) noexcept;\n\n// 原543405；W16保存控制字值，仅消费PC两位并加载原临时控制字。\nvoid LoadLegacyPowerControlWord_543405(std::uint16_t savedControl) noexcept;\n\n// 原控制字抽象/硬件表示转换，只消费和生成原已定义位。\nstd::uint32_t AbstractLegacyControlWord_5448A4(std::uint32_t hardware);\nstd::uint32_t HardwareLegacyControlWord_544936(std::uint32_t abstractValue);\nstd::uint32_t ControlLegacyX87_544859(std::uint32_t value, std::uint32_t mask);\nstd::uint32_t ControlLegacyFloatingPoint_54488E(std::uint32_t value, std::uint32_t mask);\nvoid SetLegacyDefaultPrecision_53FD5C();\n\n// 原系统查询及x87回退；保留系统BOOL的完整W32返回值。\nstd::int32_t TestLegacyFloatingPointDivision_53FD6E();\nstd::int32_t ProbeLegacyFloatingPointDivision_53FDAC();\nvoid InitializeLegacyFloatingPoint_53B447();\n\nnamespace detail {\n\n// Win64私有叶；不借宿主CRT控制字接口或改变MXCSR。\nextern \"C\" std::uint16_t Cg2dReadLegacyX87Control() noexcept;\nextern \"C\" void Cg2dWriteLegacyX87Control(std::uint16_t control) noexcept;\nextern \"C\" void Cg2dClearLegacyX87Exceptions() noexcept;\nextern \"C\" std::int32_t Cg2dTestLegacyFdiv() noexcept;\nextern \"C\" std::int32_t Cg2dLegacyFloatNonnegative(const double* value) noexcept;\n// Win64分类参数桥；只在本调用内借用F64，不持有或修改调用方值。\nextern \"C\" std::int32_t Cg2dClassifyLegacyFloat(const double* value) noexcept;\nextern \"C\" std::int32_t Cg2dClassifyLegacySpecialFloat(const double* value) noexcept;\n// Win64整数判定参数桥；内部5462FF舍入叶仅在ASM间用ST(0)传值。\nextern \"C\" std::int32_t Cg2dClassifyLegacyInteger(const double* value) noexcept;\n// Win64幂特殊值桥；仅在本调用内借用F64参数与调用方结果槽。\nextern \"C\" std::int32_t Cg2dProcessLegacyPowerSpecial(\n    const double* base, const double* exponent, double* result) noexcept;\n\n// Win64控制字值桥；另外两通用帮助体仅在ASM间用x87/寄存器合同调用。\nextern \"C\" void Cg2dLoadLegacyPowerControlWord(std::uint16_t savedControl) noexcept;\n\n} // namespace detail\n} // namespace cg::platform\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyFloatEnvironment.asm",
+      "text": "OPTION CASEMAP:NONE\n\n.const\nALIGN 8\nLegacyDivisor54F9E8 QWORD 04147FFFF80000000h\nLegacyDividend54F9E0 QWORD 04150017EC0000000h\nLegacyThreshold54D5C0 QWORD 03FF0000000000000h\nLegacyZero54D5D0 QWORD 0\nLegacyIntegerDivisor54FB58 QWORD 04000000000000000h\nLegacyPowerInfinity5923C0 QWORD 07FF0000000000000h\nLegacyPowerUndefined5923C8 QWORD 0FFF8000000000000h\nLegacyPowerNegativeZero5923E0 QWORD 08000000000000000h\n\n.code\nEXTERN Cg2dClassifyLegacySpecialFloat:PROC\nPUBLIC Cg2dClassifyLegacyFloat\nPUBLIC Cg2dClassifyLegacyInteger\nPUBLIC Cg2dProcessLegacyPowerSpecial\nPUBLIC Cg2dLoadLegacyPowerControlWord\nPUBLIC Cg2dReadLegacyX87Control\nPUBLIC Cg2dWriteLegacyX87Control\nPUBLIC Cg2dClearLegacyX87Exceptions\nPUBLIC Cg2dTestLegacyFdiv\nPUBLIC Cg2dLegacyFloatNonnegative\n\n; 叶函数只借用Win64参数暂存区，不改变RSP或非易失通用寄存器。\nCg2dReadLegacyX87Control PROC\n    fstcw word ptr [rsp+8]\n    movzx eax, word ptr [rsp+8]\n    ret\nCg2dReadLegacyX87Control ENDP\n\nCg2dWriteLegacyX87Control PROC\n    mov word ptr [rsp+8], cx\n    fldcw word ptr [rsp+8]\n    ret\nCg2dWriteLegacyX87Control ENDP\n\nCg2dClearLegacyX87Exceptions PROC\n    fnclex\n    ret\nCg2dClearLegacyX87Exceptions ENDP\n\n; 原53FD6E的三处F64落栈边界和比较；探测前不调整控制字。\nCg2dTestLegacyFdiv PROC\n    fld qword ptr [LegacyDivisor54F9E8]\n    fstp qword ptr [rsp+8]\n    fld qword ptr [LegacyDividend54F9E0]\n    fstp qword ptr [rsp+16]\n    fld qword ptr [rsp+16]\n    fdiv qword ptr [rsp+8]\n    fmul qword ptr [rsp+8]\n    fsubr qword ptr [rsp+16]\n    fstp qword ptr [rsp+24]\n    fld qword ptr [rsp+24]\n    fcomp qword ptr [LegacyThreshold54D5C0]\n    fnstsw ax\n    test ah, 041h\n    jnz LegacyFdivNoBug\n    mov eax, 1\n    ret\nLegacyFdivNoBug:\n    xor eax, eax\n    ret\nCg2dTestLegacyFdiv ENDP\n\n; 原53FE7D；C0置位表示小于或无序，原JB分支均返回0。\nCg2dLegacyFloatNonnegative PROC\n    fld qword ptr [rcx]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    test ah, 1\n    jnz LegacyFloatNegativeOrUnordered\n    mov eax, 1\n    ret\nLegacyFloatNegativeOrUnordered:\n    xor eax, eax\n    ret\nCg2dLegacyFloatNonnegative ENDP\n\n; 原546311；原值槽与真实x87落存槽分离，高端W32仅消费低W16。\n; Win64保留32B调用暂存区与两个F64槽；不写控制字/MXCSR或清异常。\nCg2dClassifyLegacyFloat PROC FRAME\n    sub rsp, 56\n    .allocstack 56\n    .endprolog\n    mov r8, qword ptr [rcx]\n    mov qword ptr [rsp+32], r8\n    mov eax, dword ptr [rsp+38]\n    mov ecx, 07FF0h\n    mov edx, eax\n    and edx, ecx\n    cmp dx, cx\n    jne LegacyFloatClassOrdinary\n    fld qword ptr [rsp+32]\n    fstp qword ptr [rsp+40]\n    lea rcx, [rsp+40]\n    call Cg2dClassifyLegacySpecialFloat\n    dec eax\n    jz LegacyFloatClassPositiveInfinity\n    dec eax\n    jz LegacyFloatClassNegativeInfinity\n    dec eax\n    jz LegacyFloatClassQuietNaN\n    mov eax, 1\n    jmp LegacyFloatClassDone\nLegacyFloatClassQuietNaN:\n    mov eax, 2\n    jmp LegacyFloatClassDone\nLegacyFloatClassNegativeInfinity:\n    mov eax, 4\n    jmp LegacyFloatClassDone\nLegacyFloatClassPositiveInfinity:\n    mov eax, 0200h\n    jmp LegacyFloatClassDone\nLegacyFloatClassOrdinary:\n    and eax, 08000h\n    test dx, dx\n    mov ecx, eax\n    jnz LegacyFloatClassCompareZero\n    test dword ptr [rsp+36], 0FFFFFh\n    jnz LegacyFloatClassDenormal\n    cmp dword ptr [rsp+32], 0\n    je LegacyFloatClassCompareZero\nLegacyFloatClassDenormal:\n    mov eax, ecx\n    neg eax\n    sbb eax, eax\n    and al, 090h\n    add eax, 080h\n    jmp LegacyFloatClassDone\nLegacyFloatClassCompareZero:\n    fld qword ptr [rsp+32]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    mov eax, ecx\n    jne LegacyFloatClassNormal\n    neg eax\n    sbb eax, eax\n    and al, 0E0h\n    add eax, 040h\n    jmp LegacyFloatClassDone\nLegacyFloatClassNormal:\n    neg eax\n    sbb eax, eax\n    and al, 08h\n    add eax, 0100h\nLegacyFloatClassDone:\n    add rsp, 56\n    ret\nCg2dClassifyLegacyFloat ENDP\n\n; 原5462FF；私有ASM合同为RCX借用F64、ST(0)返回，不能由CPP按Win64 F64返回调用。\n; FRNDINT沿当前x87舍入模式；原F64落存/重载保留，借用调用方8B暂存槽。\nCg2dRoundLegacyFloatX87 PROC\n    fld qword ptr [rcx]\n    frndint\n    fstp qword ptr [rsp+8]\n    fld qword ptr [rsp+8]\n    ret\nCg2dRoundLegacyFloatX87 ENDP\n\n; 原5436AC；56B展开帧保留32B调用区及原值、传参、舍入落存三个F64槽。\n; 三个CALL与原FLD/FSTP、FDIV、FCOMP/FNSTSW/SAHF顺序保持，不设额外有限值门禁。\nCg2dClassifyLegacyInteger PROC FRAME\n    sub rsp, 56\n    .allocstack 56\n    .endprolog\n    mov r8, qword ptr [rcx]\n    mov qword ptr [rsp+32], r8\n    fld qword ptr [rsp+32]\n    fstp qword ptr [rsp+40]\n    lea rcx, [rsp+40]\n    call Cg2dClassifyLegacyFloat\n    test al, 090h\n    jnz LegacyIntegerClassNoninteger\n    fld qword ptr [rsp+32]\n    fstp qword ptr [rsp+40]\n    lea rcx, [rsp+40]\n    call Cg2dRoundLegacyFloatX87\n    fstp qword ptr [rsp+48]\n    fld qword ptr [rsp+48]\n    fcomp qword ptr [rsp+32]\n    fnstsw ax\n    sahf\n    jne LegacyIntegerClassNoninteger\n    fld qword ptr [rsp+32]\n    fdiv qword ptr [LegacyIntegerDivisor54FB58]\n    fstp qword ptr [rsp+32]\n    fld qword ptr [rsp+32]\n    fstp qword ptr [rsp+40]\n    lea rcx, [rsp+40]\n    call Cg2dRoundLegacyFloatX87\n    fcomp qword ptr [rsp+32]\n    fnstsw ax\n    sahf\n    jne LegacyIntegerClassOdd\n    mov eax, 2\n    jmp LegacyIntegerClassDone\nLegacyIntegerClassOdd:\n    mov eax, 1\n    jmp LegacyIntegerClassDone\nLegacyIntegerClassNoninteger:\n    xor eax, eax\nLegacyIntegerClassDone:\n    add rsp, 56\n    ret\nCg2dClassifyLegacyInteger ENDP\n\n; 原54357C；72B正常展开帧承载32B调用区、四F64槽与一个x64结果指针。\n; 原0返回同时包含已写出与未写出分支，不增默认结果或有限值保护。\nCg2dProcessLegacyPowerSpecial PROC FRAME\n    sub rsp, 72\n    .allocstack 72\n    .endprolog\n    mov r9, qword ptr [rcx]\n    mov qword ptr [rsp+32], r9\n    mov r9, qword ptr [rdx]\n    mov qword ptr [rsp+40], r9\n    mov qword ptr [rsp+64], r8\n    fld qword ptr [rsp+32]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fld qword ptr [rsp+32]\n    xor edx, edx\n    fnstsw ax\n    sahf\n    jnb LegacyPowerSpecialMagnitudeReady\n    fchs\nLegacyPowerSpecialMagnitudeReady:\n    fstp qword ptr [rsp+48]\n    mov eax, 07FF00000h\n    mov ecx, 0FFF00000h\n    cmp dword ptr [rsp+44], eax\n    jne LegacyPowerSpecialNegativeExponentInfinity\n    cmp dword ptr [rsp+40], edx\n    jne LegacyPowerSpecialPositiveBaseInfinity\n    fld qword ptr [rsp+48]\n    fcomp qword ptr [LegacyThreshold54D5C0]\n    fnstsw ax\n    sahf\n    ja LegacyPowerSpecialPositiveInfinity\n    fld qword ptr [rsp+48]\n    fcomp qword ptr [LegacyThreshold54D5C0]\n    fnstsw ax\n    sahf\n    jb LegacyPowerSpecialPositiveZero\nLegacyPowerSpecialUndefined:\n    fld qword ptr [LegacyPowerUndefined5923C8]\n    mov rax, qword ptr [rsp+64]\n    fstp qword ptr [rax]\n    mov eax, 1\n    jmp LegacyPowerSpecialDone\nLegacyPowerSpecialNegativeExponentInfinity:\n    cmp dword ptr [rsp+44], ecx\n    jne LegacyPowerSpecialPositiveBaseInfinity\n    cmp dword ptr [rsp+40], edx\n    jne LegacyPowerSpecialPositiveBaseInfinity\n    fld qword ptr [rsp+48]\n    fcomp qword ptr [LegacyThreshold54D5C0]\n    fnstsw ax\n    sahf\n    ja LegacyPowerSpecialPositiveZero\n    fld qword ptr [rsp+48]\n    fcomp qword ptr [LegacyThreshold54D5C0]\n    fnstsw ax\n    sahf\n    jnb LegacyPowerSpecialUndefined\n    jmp LegacyPowerSpecialPositiveInfinity\nLegacyPowerSpecialPositiveBaseInfinity:\n    cmp dword ptr [rsp+36], eax\n    jne LegacyPowerSpecialNegativeBaseInfinity\n    cmp dword ptr [rsp+32], edx\n    jne LegacyPowerSpecialNoOutput\n    fld qword ptr [rsp+40]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    jbe LegacyPowerSpecialPositiveBaseNonpositiveExponent\nLegacyPowerSpecialPositiveInfinity:\n    fld qword ptr [LegacyPowerInfinity5923C0]\n    jmp LegacyPowerSpecialWriteResult\nLegacyPowerSpecialPositiveBaseNonpositiveExponent:\n    fld qword ptr [rsp+40]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    jnb LegacyPowerSpecialOne\nLegacyPowerSpecialPositiveZero:\n    fldz\n    jmp LegacyPowerSpecialWriteResult\nLegacyPowerSpecialNegativeBaseInfinity:\n    cmp dword ptr [rsp+36], ecx\n    jne LegacyPowerSpecialNoOutput\n    cmp dword ptr [rsp+32], edx\n    jne LegacyPowerSpecialNoOutput\n    fld qword ptr [rsp+40]\n    fstp qword ptr [rsp+56]\n    lea rcx, [rsp+56]\n    call Cg2dClassifyLegacyInteger\n    fld qword ptr [rsp+40]\n    fcomp qword ptr [LegacyZero54D5D0]\n    mov ecx, eax\n    fnstsw ax\n    sahf\n    jbe LegacyPowerSpecialNegativeBaseNonpositiveExponent\n    fld qword ptr [LegacyPowerInfinity5923C0]\n    cmp ecx, 1\n    jne LegacyPowerSpecialSignedInfinityReady\n    fchs\nLegacyPowerSpecialSignedInfinityReady:\n    fstp qword ptr [rsp+40]\n    fld qword ptr [rsp+40]\n    jmp LegacyPowerSpecialWriteResult\nLegacyPowerSpecialNegativeBaseNonpositiveExponent:\n    fld qword ptr [rsp+40]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    jnb LegacyPowerSpecialOne\n    cmp ecx, 1\n    jne LegacyPowerSpecialNegativeBasePositiveZero\n    fld qword ptr [LegacyPowerNegativeZero5923E0]\n    jmp LegacyPowerSpecialSignedZeroReady\nLegacyPowerSpecialNegativeBasePositiveZero:\n    fldz\nLegacyPowerSpecialSignedZeroReady:\n    fstp qword ptr [rsp+40]\n    fld qword ptr [rsp+40]\n    jmp LegacyPowerSpecialWriteResult\nLegacyPowerSpecialOne:\n    fld1\nLegacyPowerSpecialWriteResult:\n    mov rax, qword ptr [rsp+64]\n    fstp qword ptr [rax]\nLegacyPowerSpecialNoOutput:\n    xor eax, eax\nLegacyPowerSpecialDone:\n    add rsp, 72\n    ret\nCg2dProcessLegacyPowerSpecial ENDP\n\n; 原5433F0；私有ASM间ST(0)输入/输出，保全部十条x87操作与当前控制字。\n; 不将连续扩展精度结果落成F64，不通过CPP double返回ABI调用。\nCg2dLegacyTwoToTOSX87 PROC\n    fld st(0)\n    frndint\n    fsubr st(1), st(0)\n    fxch st(1)\n    fchs\n    f2xm1\n    fld1\n    faddp st(1), st(0)\n    fscale\n    fstp st(1)\n    ret\nCg2dLegacyTwoToTOSX87 ENDP\n\n; 原543405；Win64 CX承载保存的W16控制字，只有原PC两位参与计算。\n; 只借用调用暂存槽加载原临时CW，原载体的额外W16不复制为业务值。\nCg2dLoadLegacyPowerControlWord PROC\n    movzx edx, cx\n    and edx, 0300h\n    or edx, 07Fh\n    mov word ptr [rsp+8], dx\n    fldcw word ptr [rsp+8]\n    ret\nCg2dLoadLegacyPowerControlWord ENDP\n\n; 原543435；私有ASM间RDX借用F64输入，ST(0)/EAX/FLAGS返回。\n; 普通分支保指数CMP标志；特殊分支原三个重叠W32写出10B F80后TEST EAX,0。\nCg2dLoadLegacyPowerOperandX87 PROC\n    mov eax, dword ptr [rdx+4]\n    and eax, 07FF00000h\n    cmp eax, 07FF00000h\n    je LegacyPowerOperandSpecial\n    fld qword ptr [rdx]\n    ret\nLegacyPowerOperandSpecial:\n    mov eax, dword ptr [rdx+4]\n    or eax, 07FFF0000h\n    mov dword ptr [rsp+14], eax\n    mov eax, dword ptr [rdx+4]\n    mov ecx, dword ptr [rdx]\n    shld eax, ecx, 0Bh\n    shl ecx, 0Bh\n    mov dword ptr [rsp+12], eax\n    mov dword ptr [rsp+8], ecx\n    fld tbyte ptr [rsp+8]\n    test eax, 0\n    mov eax, dword ptr [rdx+4]\n    ret\nCg2dLoadLegacyPowerOperandX87 ENDP\n\nEND\n"
+    }
+  ],
+  "original_pow_entry_edges": {
+    "ea": "0x53d01d",
+    "bytes": "e813640000",
+    "text": "call    __fload_withFB",
+    "outgoing": [
+      {
+        "to": "0x53d022",
+        "type": 21,
+        "code": true
+      },
+      {
+        "to": "0x543435",
+        "type": 17,
+        "code": true
+      }
+    ]
+  },
+  "semantic_records_before": [
+    {
+      "index": 1424,
+      "record": {
+        "original_entry": "0x5433F0",
+        "inventory_id": "F:001433F0",
+        "original_end_exclusive": "0x543405",
+        "instruction_count": 11,
+        "original_code_bytes": 21,
+        "original_reference_count": 1,
+        "original_direct_call_reference_count": 1,
+        "original_inbound_parent_count": 1,
+        "status": "BPJ01现有专用幂的实际x87内联帮助体独立身份已纳管；非新增幂实现，完整一般数学库/运行未验",
+        "sources": [
+          {
+            "path": "src/platform/MapEffectMath.asm",
+            "symbols": [
+              "Cg2dMapEffectDivisor"
+            ],
+            "relationship": "BPJ01原__twoToTOS完整11条21B由现有Cg2dMapEffectDivisor中的十条x87操作按原栈序内联承担；x86call/ret不保留，结果不落F64，PC53/控制字沿MFA01。只既有两个1.25底数/S32指数活动点的正常专用域，不扩成一般_pow/负底数、错误链或全环境等价；不新增幂实现或改变正确源码"
+          },
+          {
+            "path": "src/platform/MapEffectMath.hpp",
+            "symbols": [
+              "Cg2dMapEffectDivisor"
+            ],
+            "relationship": "既有Win64私有S32指数/幅值借用入口；非原__twoToTOS的通用x86/x87调用ABI"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json"
+        ],
+        "boundary": "BPJ01原__twoToTOS完整11条21B由现有Cg2dMapEffectDivisor中的十条x87操作按原栈序内联承担；x86call/ret不保留，结果不落F64，PC53/控制字沿MFA01。只既有两个1.25底数/S32指数活动点的正常专用域，不扩成一般_pow/负底数、错误链或全环境等价；不新增幂实现或改变正确源码 完整11条21B、一页/零call零jump一ret及53D071唯一普通call/53D022父邻窗，仅当前内联对应和独立身份静态；所有源码/头/ASM保持。完整一般数学库、全部父/环境/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG/像素运行仍未验；异常依RPLAN.24不保护/模拟或称等价",
+        "verification_level": "完整11条21B、一页/零call零jump一ret及53D071唯一普通call/53D022父邻窗，仅当前内联对应和独立身份静态；所有源码/头/ASM保持。完整一般数学库、全部父/环境/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG/像素运行仍未验；异常依RPLAN.24不保护/模拟或称等价",
+        "inbound_evidence": [
+          {
+            "call_site": "0x53d071",
+            "type": 17,
+            "iscode": true,
+            "parent_entry": "0x53d022",
+            "parent_end_exclusive": "0x53d1f5",
+            "relationship": "只原普通call/父身份与邻窗，不重验整个53D022或一般_pow"
+          }
+        ],
+        "pow_twotos_baseline": {
+          "spec_id": "BPJ01",
+          "evidence_refs": [
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-baseline",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-decision",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-acceptance",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state",
+            "doc/cg2d_map_effect_arithmetic_evidence.json"
+          ],
+          "full_original_helper_captured": true,
+          "native_operation_count": 10,
+          "original_call_ret_inlined": true,
+          "source_body_already_implemented": true,
+          "source_body_changed": false,
+          "full_general_pow_closed": false,
+          "runtime_verified": false,
+          "fault_equivalence_claimed": false
+        }
+      }
+    },
+    {
+      "index": 1426,
+      "record": {
+        "original_entry": "0x543405",
+        "inventory_id": "F:00143405",
+        "original_role": "__load_CW",
+        "original_end_exclusive": "0x54341c",
+        "instruction_count": 6,
+        "original_code_bytes": 23,
+        "original_reference_count": 1,
+        "original_direct_call_reference_count": 1,
+        "original_inbound_parent_count": 1,
+        "status": "BPM01完整原基线及当前专用幂正常阶段来源独立纳管；原泛用帮助体源码未新增/未称完整实现，运行未验",
+        "sources": [
+          {
+            "path": "src/platform/MapEffectMath.asm",
+            "symbols": [
+              "Cg2dMapEffectDivisor"
+            ],
+            "relationship": "BPM01原__load_CW完整6条23B：只取原保存CW的PC两位(0300)，并入007F、以W16写临时槽后FLDCW；53D022先FSTCW/CMP027F，相同则绕过唯一53D031调用。现有Cg2dMapEffectDivisor按MFA01保存CW、固定027F供正常专用路径、尾恢复原CW，登记该PC53阶段适配来源；不把固定值称完整泛用帮助体、不新增同名体或改正确源。"
+          },
+          {
+            "path": "src/platform/MapEffectMath.hpp",
+            "symbols": [
+              "Cg2dMapEffectDivisor"
+            ],
+            "relationship": "MFA01既有Win64私有S32指数/幅值借用接口，只正常1.25活动域，未改变接口或新增原帮助体通用ABI"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json"
+        ],
+        "boundary": "BPM01原__load_CW完整6条23B：只取原保存CW的PC两位(0300)，并入007F、以W16写临时槽后FLDCW；53D022先FSTCW/CMP027F，相同则绕过唯一53D031调用。现有Cg2dMapEffectDivisor按MFA01保存CW、固定027F供正常专用路径、尾恢复原CW，登记该PC53阶段适配来源；不把固定值称完整泛用帮助体、不新增同名体或改正确源。 本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。",
+        "verification_level": "本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。",
+        "function_chunks": [
+          {
+            "start": "0x543405",
+            "end_exclusive": "0x54341c"
+          }
+        ],
+        "inbound_evidence": [
+          {
+            "from": "0x53d031",
+            "type": 17,
+            "iscode": true,
+            "parent_entry": "0x53d022",
+            "parent_end_exclusive": "0x53d1f5",
+            "window_start": "0x53d022",
+            "window_end_exclusive": "0x53d051",
+            "rows": [
+              {
+                "ea": "0x53d022",
+                "size": 2,
+                "bytes": "8bc8",
+                "text": "mov     ecx, eax"
+              },
+              {
+                "ea": "0x53d024",
+                "size": 1,
+                "bytes": "50",
+                "text": "push    eax"
+              },
+              {
+                "ea": "0x53d025",
+                "size": 4,
+                "bytes": "9bd93c24",
+                "text": "fstcw   word ptr [esp+4+var_4]"
+              },
+              {
+                "ea": "0x53d029",
+                "size": 6,
+                "bytes": "66813c247f02",
+                "text": "cmp     word ptr [esp+4+var_4], 27Fh"
+              },
+              {
+                "ea": "0x53d02f",
+                "size": 2,
+                "bytes": "7405",
+                "text": "jz      short loc_53D036"
+              },
+              {
+                "ea": "0x53d031",
+                "size": 5,
+                "bytes": "e8cf630000",
+                "text": "call    __load_CW"
+              },
+              {
+                "ea": "0x53d036",
+                "size": 6,
+                "bytes": "81e10000f07f",
+                "text": "and     ecx, 7FF00000h"
+              },
+              {
+                "ea": "0x53d03c",
+                "size": 4,
+                "bytes": "8d542408",
+                "text": "lea     edx, [esp+4+arg_0]"
+              },
+              {
+                "ea": "0x53d040",
+                "size": 6,
+                "bytes": "81f90000f07f",
+                "text": "cmp     ecx, 7FF00000h"
+              },
+              {
+                "ea": "0x53d046",
+                "size": 6,
+                "bytes": "0f849d000000",
+                "text": "jz      loc_53D0E9"
+              },
+              {
+                "ea": "0x53d04c",
+                "size": 5,
+                "bytes": "e8e4630000",
+                "text": "call    __fload_withFB"
+              }
+            ]
+          }
+        ],
+        "pow_input_control_baseline": {
+          "spec_id": "BPM01",
+          "evidence_refs": [
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+            "doc/cg2d_map_effect_arithmetic_evidence.json"
+          ],
+          "full_original_helper_captured": true,
+          "normal_native_stage_already_implemented": true,
+          "normal_native_stage_source_bound": true,
+          "full_original_general_helper_source_implemented": false,
+          "source_body_changed": false,
+          "original_default_027f_bypasses_control_loader": true,
+          "source_original_general_helper_body_added": false,
+          "full_general_pow_closed": false,
+          "full_lifecycle_closed": false,
+          "runtime_verified": false,
+          "fault_equivalence_claimed": false
+        }
+      }
+    },
+    {
+      "index": 1427,
+      "record": {
+        "original_entry": "0x543435",
+        "inventory_id": "F:00143435",
+        "original_role": "__fload_withFB",
+        "original_end_exclusive": "0x543478",
+        "instruction_count": 21,
+        "original_code_bytes": 67,
+        "original_reference_count": 4,
+        "original_direct_call_reference_count": 4,
+        "original_inbound_parent_count": 2,
+        "status": "BPM01完整原基线及当前专用幂正常阶段来源独立纳管；原泛用帮助体源码未新增/未称完整实现，运行未验",
+        "sources": [
+          {
+            "path": "src/platform/MapEffectMath.asm",
+            "symbols": [
+              "Cg2dMapEffectDivisor"
+            ],
+            "relationship": "BPM01原__fload_withFB完整21条67B：正常F64指数域不为7FF时原FLD qword并保CMP返回标志，特殊分支的原F80字节构造保留原证据。当前53D04C对应既有两个1.25底数活动点的实际加载，Cg2dMapEffectDivisor直接FLD相同F64常量、FILD真实S32指数且结果连续消费；其余三原点只纳盘，不外推通用加载/特殊值源码已实现，不新增包装或改正确源。"
+          },
+          {
+            "path": "src/platform/MapEffectMath.hpp",
+            "symbols": [
+              "Cg2dMapEffectDivisor"
+            ],
+            "relationship": "MFA01既有Win64私有S32指数/幅值借用接口，只正常1.25活动域，未改变接口或新增原帮助体通用ABI"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json"
+        ],
+        "boundary": "BPM01原__fload_withFB完整21条67B：正常F64指数域不为7FF时原FLD qword并保CMP返回标志，特殊分支的原F80字节构造保留原证据。当前53D04C对应既有两个1.25底数活动点的实际加载，Cg2dMapEffectDivisor直接FLD相同F64常量、FILD真实S32指数且结果连续消费；其余三原点只纳盘，不外推通用加载/特殊值源码已实现，不新增包装或改正确源。 本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。",
+        "verification_level": "本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。",
+        "function_chunks": [
+          {
+            "start": "0x543435",
+            "end_exclusive": "0x543478"
+          }
+        ],
+        "inbound_evidence": [
+          {
+            "from": "0x53d01d",
+            "type": 17,
+            "iscode": true,
+            "parent_entry": "0x53d019",
+            "parent_end_exclusive": "0x53d022",
+            "window_start": "0x53d019",
+            "window_end_exclusive": "0x53d022",
+            "rows": [
+              {
+                "ea": "0x53d019",
+                "size": 4,
+                "bytes": "8d54240c",
+                "text": "lea     edx, [esp+Y]"
+              },
+              {
+                "ea": "0x53d01d",
+                "size": 5,
+                "bytes": "e813640000",
+                "text": "call    __fload_withFB"
+              }
+            ]
+          },
+          {
+            "from": "0x53d04c",
+            "type": 17,
+            "iscode": true,
+            "parent_entry": "0x53d022",
+            "parent_end_exclusive": "0x53d1f5",
+            "window_start": "0x53d031",
+            "window_end_exclusive": "0x53d069",
+            "rows": [
+              {
+                "ea": "0x53d031",
+                "size": 5,
+                "bytes": "e8cf630000",
+                "text": "call    __load_CW"
+              },
+              {
+                "ea": "0x53d036",
+                "size": 6,
+                "bytes": "81e10000f07f",
+                "text": "and     ecx, 7FF00000h"
+              },
+              {
+                "ea": "0x53d03c",
+                "size": 4,
+                "bytes": "8d542408",
+                "text": "lea     edx, [esp+4+arg_0]"
+              },
+              {
+                "ea": "0x53d040",
+                "size": 6,
+                "bytes": "81f90000f07f",
+                "text": "cmp     ecx, 7FF00000h"
+              },
+              {
+                "ea": "0x53d046",
+                "size": 6,
+                "bytes": "0f849d000000",
+                "text": "jz      loc_53D0E9"
+              },
+              {
+                "ea": "0x53d04c",
+                "size": 5,
+                "bytes": "e8e4630000",
+                "text": "call    __fload_withFB"
+              },
+              {
+                "ea": "0x53d051",
+                "size": 6,
+                "bytes": "0f848e000000",
+                "text": "jz      loc_53D0E5"
+              },
+              {
+                "ea": "0x53d057",
+                "size": 5,
+                "bytes": "a90000f07f",
+                "text": "test    eax, 7FF00000h"
+              },
+              {
+                "ea": "0x53d05c",
+                "size": 6,
+                "bytes": "0f84f6000000",
+                "text": "jz      loc_53D158"
+              },
+              {
+                "ea": "0x53d062",
+                "size": 4,
+                "bytes": "8a4c240f",
+                "text": "mov     cl, byte ptr [esp+4+arg_4+3]"
+              },
+              {
+                "ea": "0x53d066",
+                "size": 3,
+                "bytes": "80e180",
+                "text": "and     cl, 80h"
+              }
+            ]
+          },
+          {
+            "from": "0x53d0bd",
+            "type": 17,
+            "iscode": true,
+            "parent_entry": "0x53d022",
+            "parent_end_exclusive": "0x53d1f5",
+            "window_start": "0x53d0ad",
+            "window_end_exclusive": "0x53d0ce",
+            "rows": [
+              {
+                "ea": "0x53d0ad",
+                "size": 5,
+                "bytes": "ba1d000000",
+                "text": "mov     edx, 1Dh"
+              },
+              {
+                "ea": "0x53d0b2",
+                "size": 5,
+                "bytes": "e8d9620000",
+                "text": "call    __startTwoArgErrorHandling"
+              },
+              {
+                "ea": "0x53d0b7",
+                "size": 1,
+                "bytes": "5a",
+                "text": "pop     edx"
+              },
+              {
+                "ea": "0x53d0b8",
+                "size": 1,
+                "bytes": "c3",
+                "text": "retn"
+              },
+              {
+                "ea": "0x53d0b9",
+                "size": 4,
+                "bytes": "8d542408",
+                "text": "lea     edx, [esp+4+arg_0]"
+              },
+              {
+                "ea": "0x53d0bd",
+                "size": 5,
+                "bytes": "e873630000",
+                "text": "call    __fload_withFB"
+              },
+              {
+                "ea": "0x53d0c2",
+                "size": 5,
+                "bytes": "f644241608",
+                "text": "test    byte ptr [esp+4+arg_C+2], 8"
+              },
+              {
+                "ea": "0x53d0c7",
+                "size": 2,
+                "bytes": "7503",
+                "text": "jnz     short loc_53D0CC"
+              },
+              {
+                "ea": "0x53d0c9",
+                "size": 1,
+                "bytes": "41",
+                "text": "inc     ecx"
+              },
+              {
+                "ea": "0x53d0ca",
+                "size": 2,
+                "bytes": "eb33",
+                "text": "jmp     short loc_53D0FF"
+              },
+              {
+                "ea": "0x53d0cc",
+                "size": 2,
+                "bytes": "dec1",
+                "text": "faddp   st(1), st"
+              }
+            ]
+          },
+          {
+            "from": "0x53d0fa",
+            "type": 17,
+            "iscode": true,
+            "parent_entry": "0x53d022",
+            "parent_end_exclusive": "0x53d1f5",
+            "window_start": "0x53d0e9",
+            "window_end_exclusive": "0x53d115",
+            "rows": [
+              {
+                "ea": "0x53d0e9",
+                "size": 2,
+                "bytes": "33c9",
+                "text": "xor     ecx, ecx"
+              },
+              {
+                "ea": "0x53d0eb",
+                "size": 5,
+                "bytes": "25ffff0f00",
+                "text": "and     eax, 0FFFFFh"
+              },
+              {
+                "ea": "0x53d0f0",
+                "size": 4,
+                "bytes": "0b442410",
+                "text": "or      eax, [esp+4+arg_8]"
+              },
+              {
+                "ea": "0x53d0f4",
+                "size": 2,
+                "bytes": "75c3",
+                "text": "jnz     short loc_53D0B9"
+              },
+              {
+                "ea": "0x53d0f6",
+                "size": 4,
+                "bytes": "8d542408",
+                "text": "lea     edx, [esp+4+arg_0]"
+              },
+              {
+                "ea": "0x53d0fa",
+                "size": 5,
+                "bytes": "e836630000",
+                "text": "call    __fload_withFB"
+              },
+              {
+                "ea": "0x53d0ff",
+                "size": 4,
+                "bytes": "8b44240c",
+                "text": "mov     eax, [esp+4+arg_4]"
+              },
+              {
+                "ea": "0x53d103",
+                "size": 2,
+                "bytes": "8bd0",
+                "text": "mov     edx, eax"
+              },
+              {
+                "ea": "0x53d105",
+                "size": 5,
+                "bytes": "250000f07f",
+                "text": "and     eax, 7FF00000h"
+              },
+              {
+                "ea": "0x53d10a",
+                "size": 6,
+                "bytes": "81e2ffff0f00",
+                "text": "and     edx, 0FFFFFh"
+              },
+              {
+                "ea": "0x53d110",
+                "size": 5,
+                "bytes": "3d0000f07f",
+                "text": "cmp     eax, 7FF00000h"
+              }
+            ]
+          }
+        ],
+        "pow_input_control_baseline": {
+          "spec_id": "BPM01",
+          "evidence_refs": [
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+            "doc/cg2d_map_effect_arithmetic_evidence.json"
+          ],
+          "full_original_helper_captured": true,
+          "normal_native_stage_already_implemented": true,
+          "normal_native_stage_source_bound": true,
+          "full_original_general_helper_source_implemented": false,
+          "source_body_changed": false,
+          "original_default_027f_bypasses_control_loader": null,
+          "source_original_general_helper_body_added": false,
+          "full_general_pow_closed": false,
+          "full_lifecycle_closed": false,
+          "runtime_verified": false,
+          "fault_equivalence_claimed": false
+        }
+      }
+    }
+  ],
+  "semantic_records_after": [
+    {
+      "index": 1424,
+      "record": {
+        "original_entry": "0x5433F0",
+        "inventory_id": "F:001433F0",
+        "original_end_exclusive": "0x543405",
+        "instruction_count": 11,
+        "original_code_bytes": 21,
+        "original_reference_count": 1,
+        "original_direct_call_reference_count": 1,
+        "original_inbound_parent_count": 1,
+        "status": "BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
+        "sources": [
+          {
+            "path": "src/platform/MapEffectMath.asm",
+            "symbols": [
+              "Cg2dMapEffectDivisor"
+            ],
+            "relationship": "BPJ01原__twoToTOS完整11条21B由现有Cg2dMapEffectDivisor中的十条x87操作按原栈序内联承担；x86call/ret不保留，结果不落F64，PC53/控制字沿MFA01。只既有两个1.25底数/S32指数活动点的正常专用域，不扩成一般_pow/负底数、错误链或全环境等价；不新增幂实现或改变正确源码"
+          },
+          {
+            "path": "src/platform/MapEffectMath.hpp",
+            "symbols": [
+              "Cg2dMapEffectDivisor"
+            ],
+            "relationship": "既有Win64私有S32指数/幅值借用入口；非原__twoToTOS的通用x86/x87调用ABI"
+          },
+          {
+            "path": "src/platform/LegacyFloatEnvironment.asm",
+            "symbols": [
+              "Cg2dLegacyTwoToTOSX87"
+            ],
+            "relationship": "5433F0新增完整通用x87帮助体，ST0输入经原十条操作/RET输出连续扩展精度结果，沿当前控制字，不落F64/固定底数或用CPP double ABI。旧地图内联活动域保持，但不再把它当通用本体；完整pow父仍待接。"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+        ],
+        "boundary": "5433F0新增完整通用x87帮助体，ST0输入经原十条操作/RET输出连续扩展精度结果，沿当前控制字，不落F64/固定底数或用CPP double ABI。旧地图内联活动域保持，但不再把它当通用本体；完整pow父仍待接。 BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
+        "verification_level": "BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
+        "inbound_evidence": [
+          {
+            "call_site": "0x53d071",
+            "type": 17,
+            "iscode": true,
+            "parent_entry": "0x53d022",
+            "parent_end_exclusive": "0x53d1f5",
+            "relationship": "只原普通call/父身份与邻窗，不重验整个53D022或一般_pow"
+          }
+        ],
+        "pow_twotos_baseline": {
+          "spec_id": "BPJ01",
+          "evidence_refs": [
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-baseline",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-decision",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-acceptance",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state",
+            "doc/cg2d_map_effect_arithmetic_evidence.json"
+          ],
+          "full_original_helper_captured": true,
+          "native_operation_count": 10,
+          "original_call_ret_inlined": true,
+          "source_body_already_implemented": true,
+          "source_body_changed": false,
+          "full_general_pow_closed": false,
+          "runtime_verified": false,
+          "fault_equivalence_claimed": false
+        },
+        "power_general_helpers": {
+          "spec_id": "BWF01",
+          "evidence_refs": [
+            "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+            "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+            "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+            "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+          ],
+          "general_source_body_added": true,
+          "existing_semantic_index": 1424,
+          "previous_limited_status": "BPJ01现有专用幂的实际x87内联帮助体独立身份已纳管；非新增幂实现，完整一般数学库/运行未验",
+          "previous_limited_boundary": "BPJ01原__twoToTOS完整11条21B由现有Cg2dMapEffectDivisor中的十条x87操作按原栈序内联承担；x86call/ret不保留，结果不落F64，PC53/控制字沿MFA01。只既有两个1.25底数/S32指数活动点的正常专用域，不扩成一般_pow/负底数、错误链或全环境等价；不新增幂实现或改变正确源码 完整11条21B、一页/零call零jump一ret及53D071唯一普通call/53D022父邻窗，仅当前内联对应和独立身份静态；所有源码/头/ASM保持。完整一般数学库、全部父/环境/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG/像素运行仍未验；异常依RPLAN.24不保护/模拟或称等价",
+          "previous_limited_verification_level": "完整11条21B、一页/零call零jump一ret及53D071唯一普通call/53D022父邻窗，仅当前内联对应和独立身份静态；所有源码/头/ASM保持。完整一般数学库、全部父/环境/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG/像素运行仍未验；异常依RPLAN.24不保护/模拟或称等价",
+          "original_complete_instruction_count": 11,
+          "original_code_bytes": 21,
+          "original_page_count": 1,
+          "original_total_instruction_count": 38,
+          "original_total_code_bytes": 111,
+          "original_total_page_count": 3,
+          "original_total_direct_call_count": 0,
+          "original_total_indirect_call_count": 0,
+          "original_total_jump_count": 1,
+          "original_total_return_count": 4,
+          "original_total_inbound_call_count": 6,
+          "original_helper_inbound_flow_count": 0,
+          "pow_entry_call_to_operand_and_flow_to_parent_split_by_target": true,
+          "original_complete_evidence_reused_without_new_root_reads": true,
+          "source_cpp_file_count": 1,
+          "source_asm_file_count": 1,
+          "source_header_file_count": 1,
+          "source_patch_count": 5,
+          "existing_semantic_record_updated_count": 3,
+          "new_original_mapped_function_count": 0,
+          "new_native_function_body_count": 4,
+          "new_cpp_body_count": 1,
+          "new_asm_proc_count": 3,
+          "new_C_parameter_bridge_count": 1,
+          "new_shared_owner_count": 0,
+          "native_general_helper_not_only_old_map_fixed_domain": true,
+          "old_map_inline_and_controlled_normal_domain_kept": true,
+          "original_ST0_continuous_result_and_current_control_kept": true,
+          "original_PC_mask_temporary_CW_FLDCW_kept": true,
+          "original_normal_CMP_and_special_overlapping_10B_F80_ST0_EAX_FLAGS_ECX_contract_kept": true,
+          "two_ST0_interfaces_only_between_ASM_functions": true,
+          "native_private_home_slots_not_old_stack_mirror": true,
+          "unconsumed_control_carrier_upper_W16_not_business_input": true,
+          "no_host_pow_exp2_finite_guard_or_limit_added": true,
+          "only_original_CW_leaf_writes_control": true,
+          "no_MXCSR_exception_clear_or_environment_save_restore_added": true,
+          "control_CPP_to_real_ASM_call_implemented": true,
+          "two_other_general_helpers_real_pow_parent_calls_implemented": false,
+          "full_pow_dispatch_and_parent_lifecycle_closed": false,
+          "old_classification_integer_special_helper_environment_startup_map_power_and_build_rules_kept": true,
+          "new_identity_count_or_location_queue_reduction_claimed": false,
+          "wire_format_changed": false,
+          "encryption_added": false,
+          "audio_pause_kept": true,
+          "full_generic_pow_verified": false,
+          "full_all_parents_verified": false,
+          "full_lifecycle_closed": false,
+          "runtime_verified": false,
+          "machine_abi_verified": false,
+          "fault_equivalence_claimed": false
+        }
+      }
+    },
+    {
+      "index": 1426,
+      "record": {
+        "original_entry": "0x543405",
+        "inventory_id": "F:00143405",
+        "original_role": "__load_CW",
+        "original_end_exclusive": "0x54341c",
+        "instruction_count": 6,
+        "original_code_bytes": 23,
+        "original_reference_count": 1,
+        "original_direct_call_reference_count": 1,
+        "original_inbound_parent_count": 1,
+        "status": "BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
+        "sources": [
+          {
+            "path": "src/platform/MapEffectMath.asm",
+            "symbols": [
+              "Cg2dMapEffectDivisor"
+            ],
+            "relationship": "BPM01原__load_CW完整6条23B：只取原保存CW的PC两位(0300)，并入007F、以W16写临时槽后FLDCW；53D022先FSTCW/CMP027F，相同则绕过唯一53D031调用。现有Cg2dMapEffectDivisor按MFA01保存CW、固定027F供正常专用路径、尾恢复原CW，登记该PC53阶段适配来源；不把固定值称完整泛用帮助体、不新增同名体或改正确源。"
+          },
+          {
+            "path": "src/platform/MapEffectMath.hpp",
+            "symbols": [
+              "Cg2dMapEffectDivisor"
+            ],
+            "relationship": "MFA01既有Win64私有S32指数/幅值借用接口，只正常1.25活动域，未改变接口或新增原帮助体通用ABI"
+          },
+          {
+            "path": "src/platform/LegacyFloatEnvironment.cpp",
+            "symbols": [
+              "LoadLegacyPowerControlWord_543405"
+            ],
+            "relationship": "543405新增通用控制字加载本体，W16保存控制字按原PC0300与007F构造临时W16后FLDCW；旧载体未消费高W16不作为输入/补零，Win64CX值桥/EDX计算。原父027F绕过条件与恢复责任仍须真实父接，不强改地图固定027F。"
+          },
+          {
+            "path": "src/platform/LegacyFloatEnvironment.hpp",
+            "symbols": [
+              "LoadLegacyPowerControlWord_543405",
+              "Cg2dLoadLegacyPowerControlWord"
+            ],
+            "relationship": "保存控制字W16值与真实Win64 C桥，只消费原PC位，不伪旧载体高W16"
+          },
+          {
+            "path": "src/platform/LegacyFloatEnvironment.asm",
+            "symbols": [
+              "Cg2dLoadLegacyPowerControlWord"
+            ],
+            "relationship": "原0300/007F构造临时CW、写W16借用暂存槽并FLDCW；恢复与寄存器样本归真实调用父"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+        ],
+        "boundary": "543405新增通用控制字加载本体，W16保存控制字按原PC0300与007F构造临时W16后FLDCW；旧载体未消费高W16不作为输入/补零，Win64CX值桥/EDX计算。原父027F绕过条件与恢复责任仍须真实父接，不强改地图固定027F。 BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
+        "verification_level": "BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
+        "function_chunks": [
+          {
+            "start": "0x543405",
+            "end_exclusive": "0x54341c"
+          }
+        ],
+        "inbound_evidence": [
+          {
+            "from": "0x53d031",
+            "type": 17,
+            "iscode": true,
+            "parent_entry": "0x53d022",
+            "parent_end_exclusive": "0x53d1f5",
+            "window_start": "0x53d022",
+            "window_end_exclusive": "0x53d051",
+            "rows": [
+              {
+                "ea": "0x53d022",
+                "size": 2,
+                "bytes": "8bc8",
+                "text": "mov     ecx, eax"
+              },
+              {
+                "ea": "0x53d024",
+                "size": 1,
+                "bytes": "50",
+                "text": "push    eax"
+              },
+              {
+                "ea": "0x53d025",
+                "size": 4,
+                "bytes": "9bd93c24",
+                "text": "fstcw   word ptr [esp+4+var_4]"
+              },
+              {
+                "ea": "0x53d029",
+                "size": 6,
+                "bytes": "66813c247f02",
+                "text": "cmp     word ptr [esp+4+var_4], 27Fh"
+              },
+              {
+                "ea": "0x53d02f",
+                "size": 2,
+                "bytes": "7405",
+                "text": "jz      short loc_53D036"
+              },
+              {
+                "ea": "0x53d031",
+                "size": 5,
+                "bytes": "e8cf630000",
+                "text": "call    __load_CW"
+              },
+              {
+                "ea": "0x53d036",
+                "size": 6,
+                "bytes": "81e10000f07f",
+                "text": "and     ecx, 7FF00000h"
+              },
+              {
+                "ea": "0x53d03c",
+                "size": 4,
+                "bytes": "8d542408",
+                "text": "lea     edx, [esp+4+arg_0]"
+              },
+              {
+                "ea": "0x53d040",
+                "size": 6,
+                "bytes": "81f90000f07f",
+                "text": "cmp     ecx, 7FF00000h"
+              },
+              {
+                "ea": "0x53d046",
+                "size": 6,
+                "bytes": "0f849d000000",
+                "text": "jz      loc_53D0E9"
+              },
+              {
+                "ea": "0x53d04c",
+                "size": 5,
+                "bytes": "e8e4630000",
+                "text": "call    __fload_withFB"
+              }
+            ]
+          }
+        ],
+        "pow_input_control_baseline": {
+          "spec_id": "BPM01",
+          "evidence_refs": [
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+            "doc/cg2d_map_effect_arithmetic_evidence.json"
+          ],
+          "full_original_helper_captured": true,
+          "normal_native_stage_already_implemented": true,
+          "normal_native_stage_source_bound": true,
+          "full_original_general_helper_source_implemented": false,
+          "source_body_changed": false,
+          "original_default_027f_bypasses_control_loader": true,
+          "source_original_general_helper_body_added": false,
+          "full_general_pow_closed": false,
+          "full_lifecycle_closed": false,
+          "runtime_verified": false,
+          "fault_equivalence_claimed": false
+        },
+        "power_general_helpers": {
+          "spec_id": "BWF01",
+          "evidence_refs": [
+            "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+            "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+            "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+            "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+          ],
+          "general_source_body_added": true,
+          "existing_semantic_index": 1426,
+          "previous_limited_status": "BPM01完整原基线及当前专用幂正常阶段来源独立纳管；原泛用帮助体源码未新增/未称完整实现，运行未验",
+          "previous_limited_boundary": "BPM01原__load_CW完整6条23B：只取原保存CW的PC两位(0300)，并入007F、以W16写临时槽后FLDCW；53D022先FSTCW/CMP027F，相同则绕过唯一53D031调用。现有Cg2dMapEffectDivisor按MFA01保存CW、固定027F供正常专用路径、尾恢复原CW，登记该PC53阶段适配来源；不把固定值称完整泛用帮助体、不新增同名体或改正确源。 本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。",
+          "previous_limited_verification_level": "本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。",
+          "original_complete_instruction_count": 6,
+          "original_code_bytes": 23,
+          "original_page_count": 1,
+          "original_total_instruction_count": 38,
+          "original_total_code_bytes": 111,
+          "original_total_page_count": 3,
+          "original_total_direct_call_count": 0,
+          "original_total_indirect_call_count": 0,
+          "original_total_jump_count": 1,
+          "original_total_return_count": 4,
+          "original_total_inbound_call_count": 6,
+          "original_helper_inbound_flow_count": 0,
+          "pow_entry_call_to_operand_and_flow_to_parent_split_by_target": true,
+          "original_complete_evidence_reused_without_new_root_reads": true,
+          "source_cpp_file_count": 1,
+          "source_asm_file_count": 1,
+          "source_header_file_count": 1,
+          "source_patch_count": 5,
+          "existing_semantic_record_updated_count": 3,
+          "new_original_mapped_function_count": 0,
+          "new_native_function_body_count": 4,
+          "new_cpp_body_count": 1,
+          "new_asm_proc_count": 3,
+          "new_C_parameter_bridge_count": 1,
+          "new_shared_owner_count": 0,
+          "native_general_helper_not_only_old_map_fixed_domain": true,
+          "old_map_inline_and_controlled_normal_domain_kept": true,
+          "original_ST0_continuous_result_and_current_control_kept": true,
+          "original_PC_mask_temporary_CW_FLDCW_kept": true,
+          "original_normal_CMP_and_special_overlapping_10B_F80_ST0_EAX_FLAGS_ECX_contract_kept": true,
+          "two_ST0_interfaces_only_between_ASM_functions": true,
+          "native_private_home_slots_not_old_stack_mirror": true,
+          "unconsumed_control_carrier_upper_W16_not_business_input": true,
+          "no_host_pow_exp2_finite_guard_or_limit_added": true,
+          "only_original_CW_leaf_writes_control": true,
+          "no_MXCSR_exception_clear_or_environment_save_restore_added": true,
+          "control_CPP_to_real_ASM_call_implemented": true,
+          "two_other_general_helpers_real_pow_parent_calls_implemented": false,
+          "full_pow_dispatch_and_parent_lifecycle_closed": false,
+          "old_classification_integer_special_helper_environment_startup_map_power_and_build_rules_kept": true,
+          "new_identity_count_or_location_queue_reduction_claimed": false,
+          "wire_format_changed": false,
+          "encryption_added": false,
+          "audio_pause_kept": true,
+          "full_generic_pow_verified": false,
+          "full_all_parents_verified": false,
+          "full_lifecycle_closed": false,
+          "runtime_verified": false,
+          "machine_abi_verified": false,
+          "fault_equivalence_claimed": false
+        }
+      }
+    },
+    {
+      "index": 1427,
+      "record": {
+        "original_entry": "0x543435",
+        "inventory_id": "F:00143435",
+        "original_role": "__fload_withFB",
+        "original_end_exclusive": "0x543478",
+        "instruction_count": 21,
+        "original_code_bytes": 67,
+        "original_reference_count": 4,
+        "original_direct_call_reference_count": 4,
+        "original_inbound_parent_count": 2,
+        "status": "BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
+        "sources": [
+          {
+            "path": "src/platform/MapEffectMath.asm",
+            "symbols": [
+              "Cg2dMapEffectDivisor"
+            ],
+            "relationship": "BPM01原__fload_withFB完整21条67B：正常F64指数域不为7FF时原FLD qword并保CMP返回标志，特殊分支的原F80字节构造保留原证据。当前53D04C对应既有两个1.25底数活动点的实际加载，Cg2dMapEffectDivisor直接FLD相同F64常量、FILD真实S32指数且结果连续消费；其余三原点只纳盘，不外推通用加载/特殊值源码已实现，不新增包装或改正确源。"
+          },
+          {
+            "path": "src/platform/MapEffectMath.hpp",
+            "symbols": [
+              "Cg2dMapEffectDivisor"
+            ],
+            "relationship": "MFA01既有Win64私有S32指数/幅值借用接口，只正常1.25活动域，未改变接口或新增原帮助体通用ABI"
+          },
+          {
+            "path": "src/platform/LegacyFloatEnvironment.asm",
+            "symbols": [
+              "Cg2dLoadLegacyPowerOperandX87"
+            ],
+            "relationship": "543435新增完整普通/特殊输入加载：RDX借用F64，普通分支EAX为7FF00000指数掩码/保CMP标志后FLD F64，ECX保持；特殊分支按原OR7FFF0000/SHLD11/SHL11与重叠W32写出全部10B后FLD F80，TEST EAX,0再MOV原高W32，返回ST0/EAX/FLAGS并按原改ECX。仅ASM间接口，无F64返回落存/CLR异常、补零或新增finite保护。"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+        ],
+        "boundary": "543435新增完整普通/特殊输入加载：RDX借用F64，普通分支EAX为7FF00000指数掩码/保CMP标志后FLD F64，ECX保持；特殊分支按原OR7FFF0000/SHLD11/SHL11与重叠W32写出全部10B后FLD F80，TEST EAX,0再MOV原高W32，返回ST0/EAX/FLAGS并按原改ECX。仅ASM间接口，无F64返回落存/CLR异常、补零或新增finite保护。 BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
+        "verification_level": "BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
+        "function_chunks": [
+          {
+            "start": "0x543435",
+            "end_exclusive": "0x543478"
+          }
+        ],
+        "inbound_evidence": [
+          {
+            "from": "0x53d01d",
+            "type": 17,
+            "iscode": true,
+            "parent_entry": "0x53d019",
+            "parent_end_exclusive": "0x53d022",
+            "window_start": "0x53d019",
+            "window_end_exclusive": "0x53d022",
+            "rows": [
+              {
+                "ea": "0x53d019",
+                "size": 4,
+                "bytes": "8d54240c",
+                "text": "lea     edx, [esp+Y]"
+              },
+              {
+                "ea": "0x53d01d",
+                "size": 5,
+                "bytes": "e813640000",
+                "text": "call    __fload_withFB"
+              }
+            ]
+          },
+          {
+            "from": "0x53d04c",
+            "type": 17,
+            "iscode": true,
+            "parent_entry": "0x53d022",
+            "parent_end_exclusive": "0x53d1f5",
+            "window_start": "0x53d031",
+            "window_end_exclusive": "0x53d069",
+            "rows": [
+              {
+                "ea": "0x53d031",
+                "size": 5,
+                "bytes": "e8cf630000",
+                "text": "call    __load_CW"
+              },
+              {
+                "ea": "0x53d036",
+                "size": 6,
+                "bytes": "81e10000f07f",
+                "text": "and     ecx, 7FF00000h"
+              },
+              {
+                "ea": "0x53d03c",
+                "size": 4,
+                "bytes": "8d542408",
+                "text": "lea     edx, [esp+4+arg_0]"
+              },
+              {
+                "ea": "0x53d040",
+                "size": 6,
+                "bytes": "81f90000f07f",
+                "text": "cmp     ecx, 7FF00000h"
+              },
+              {
+                "ea": "0x53d046",
+                "size": 6,
+                "bytes": "0f849d000000",
+                "text": "jz      loc_53D0E9"
+              },
+              {
+                "ea": "0x53d04c",
+                "size": 5,
+                "bytes": "e8e4630000",
+                "text": "call    __fload_withFB"
+              },
+              {
+                "ea": "0x53d051",
+                "size": 6,
+                "bytes": "0f848e000000",
+                "text": "jz      loc_53D0E5"
+              },
+              {
+                "ea": "0x53d057",
+                "size": 5,
+                "bytes": "a90000f07f",
+                "text": "test    eax, 7FF00000h"
+              },
+              {
+                "ea": "0x53d05c",
+                "size": 6,
+                "bytes": "0f84f6000000",
+                "text": "jz      loc_53D158"
+              },
+              {
+                "ea": "0x53d062",
+                "size": 4,
+                "bytes": "8a4c240f",
+                "text": "mov     cl, byte ptr [esp+4+arg_4+3]"
+              },
+              {
+                "ea": "0x53d066",
+                "size": 3,
+                "bytes": "80e180",
+                "text": "and     cl, 80h"
+              }
+            ]
+          },
+          {
+            "from": "0x53d0bd",
+            "type": 17,
+            "iscode": true,
+            "parent_entry": "0x53d022",
+            "parent_end_exclusive": "0x53d1f5",
+            "window_start": "0x53d0ad",
+            "window_end_exclusive": "0x53d0ce",
+            "rows": [
+              {
+                "ea": "0x53d0ad",
+                "size": 5,
+                "bytes": "ba1d000000",
+                "text": "mov     edx, 1Dh"
+              },
+              {
+                "ea": "0x53d0b2",
+                "size": 5,
+                "bytes": "e8d9620000",
+                "text": "call    __startTwoArgErrorHandling"
+              },
+              {
+                "ea": "0x53d0b7",
+                "size": 1,
+                "bytes": "5a",
+                "text": "pop     edx"
+              },
+              {
+                "ea": "0x53d0b8",
+                "size": 1,
+                "bytes": "c3",
+                "text": "retn"
+              },
+              {
+                "ea": "0x53d0b9",
+                "size": 4,
+                "bytes": "8d542408",
+                "text": "lea     edx, [esp+4+arg_0]"
+              },
+              {
+                "ea": "0x53d0bd",
+                "size": 5,
+                "bytes": "e873630000",
+                "text": "call    __fload_withFB"
+              },
+              {
+                "ea": "0x53d0c2",
+                "size": 5,
+                "bytes": "f644241608",
+                "text": "test    byte ptr [esp+4+arg_C+2], 8"
+              },
+              {
+                "ea": "0x53d0c7",
+                "size": 2,
+                "bytes": "7503",
+                "text": "jnz     short loc_53D0CC"
+              },
+              {
+                "ea": "0x53d0c9",
+                "size": 1,
+                "bytes": "41",
+                "text": "inc     ecx"
+              },
+              {
+                "ea": "0x53d0ca",
+                "size": 2,
+                "bytes": "eb33",
+                "text": "jmp     short loc_53D0FF"
+              },
+              {
+                "ea": "0x53d0cc",
+                "size": 2,
+                "bytes": "dec1",
+                "text": "faddp   st(1), st"
+              }
+            ]
+          },
+          {
+            "from": "0x53d0fa",
+            "type": 17,
+            "iscode": true,
+            "parent_entry": "0x53d022",
+            "parent_end_exclusive": "0x53d1f5",
+            "window_start": "0x53d0e9",
+            "window_end_exclusive": "0x53d115",
+            "rows": [
+              {
+                "ea": "0x53d0e9",
+                "size": 2,
+                "bytes": "33c9",
+                "text": "xor     ecx, ecx"
+              },
+              {
+                "ea": "0x53d0eb",
+                "size": 5,
+                "bytes": "25ffff0f00",
+                "text": "and     eax, 0FFFFFh"
+              },
+              {
+                "ea": "0x53d0f0",
+                "size": 4,
+                "bytes": "0b442410",
+                "text": "or      eax, [esp+4+arg_8]"
+              },
+              {
+                "ea": "0x53d0f4",
+                "size": 2,
+                "bytes": "75c3",
+                "text": "jnz     short loc_53D0B9"
+              },
+              {
+                "ea": "0x53d0f6",
+                "size": 4,
+                "bytes": "8d542408",
+                "text": "lea     edx, [esp+4+arg_0]"
+              },
+              {
+                "ea": "0x53d0fa",
+                "size": 5,
+                "bytes": "e836630000",
+                "text": "call    __fload_withFB"
+              },
+              {
+                "ea": "0x53d0ff",
+                "size": 4,
+                "bytes": "8b44240c",
+                "text": "mov     eax, [esp+4+arg_4]"
+              },
+              {
+                "ea": "0x53d103",
+                "size": 2,
+                "bytes": "8bd0",
+                "text": "mov     edx, eax"
+              },
+              {
+                "ea": "0x53d105",
+                "size": 5,
+                "bytes": "250000f07f",
+                "text": "and     eax, 7FF00000h"
+              },
+              {
+                "ea": "0x53d10a",
+                "size": 6,
+                "bytes": "81e2ffff0f00",
+                "text": "and     edx, 0FFFFFh"
+              },
+              {
+                "ea": "0x53d110",
+                "size": 5,
+                "bytes": "3d0000f07f",
+                "text": "cmp     eax, 7FF00000h"
+              }
+            ]
+          }
+        ],
+        "pow_input_control_baseline": {
+          "spec_id": "BPM01",
+          "evidence_refs": [
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
+            "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+            "doc/cg2d_map_effect_arithmetic_evidence.json"
+          ],
+          "full_original_helper_captured": true,
+          "normal_native_stage_already_implemented": true,
+          "normal_native_stage_source_bound": true,
+          "full_original_general_helper_source_implemented": false,
+          "source_body_changed": false,
+          "original_default_027f_bypasses_control_loader": null,
+          "source_original_general_helper_body_added": false,
+          "full_general_pow_closed": false,
+          "full_lifecycle_closed": false,
+          "runtime_verified": false,
+          "fault_equivalence_claimed": false
+        },
+        "power_general_helpers": {
+          "spec_id": "BWF01",
+          "evidence_refs": [
+            "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+            "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+            "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+            "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+          ],
+          "general_source_body_added": true,
+          "existing_semantic_index": 1427,
+          "previous_limited_status": "BPM01完整原基线及当前专用幂正常阶段来源独立纳管；原泛用帮助体源码未新增/未称完整实现，运行未验",
+          "previous_limited_boundary": "BPM01原__fload_withFB完整21条67B：正常F64指数域不为7FF时原FLD qword并保CMP返回标志，特殊分支的原F80字节构造保留原证据。当前53D04C对应既有两个1.25底数活动点的实际加载，Cg2dMapEffectDivisor直接FLD相同F64常量、FILD真实S32指数且结果连续消费；其余三原点只纳盘，不外推通用加载/特殊值源码已实现，不新增包装或改正确源。 本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。",
+          "previous_limited_verification_level": "本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。",
+          "original_complete_instruction_count": 21,
+          "original_code_bytes": 67,
+          "original_page_count": 1,
+          "original_total_instruction_count": 38,
+          "original_total_code_bytes": 111,
+          "original_total_page_count": 3,
+          "original_total_direct_call_count": 0,
+          "original_total_indirect_call_count": 0,
+          "original_total_jump_count": 1,
+          "original_total_return_count": 4,
+          "original_total_inbound_call_count": 6,
+          "original_helper_inbound_flow_count": 0,
+          "pow_entry_call_to_operand_and_flow_to_parent_split_by_target": true,
+          "original_complete_evidence_reused_without_new_root_reads": true,
+          "source_cpp_file_count": 1,
+          "source_asm_file_count": 1,
+          "source_header_file_count": 1,
+          "source_patch_count": 5,
+          "existing_semantic_record_updated_count": 3,
+          "new_original_mapped_function_count": 0,
+          "new_native_function_body_count": 4,
+          "new_cpp_body_count": 1,
+          "new_asm_proc_count": 3,
+          "new_C_parameter_bridge_count": 1,
+          "new_shared_owner_count": 0,
+          "native_general_helper_not_only_old_map_fixed_domain": true,
+          "old_map_inline_and_controlled_normal_domain_kept": true,
+          "original_ST0_continuous_result_and_current_control_kept": true,
+          "original_PC_mask_temporary_CW_FLDCW_kept": true,
+          "original_normal_CMP_and_special_overlapping_10B_F80_ST0_EAX_FLAGS_ECX_contract_kept": true,
+          "two_ST0_interfaces_only_between_ASM_functions": true,
+          "native_private_home_slots_not_old_stack_mirror": true,
+          "unconsumed_control_carrier_upper_W16_not_business_input": true,
+          "no_host_pow_exp2_finite_guard_or_limit_added": true,
+          "only_original_CW_leaf_writes_control": true,
+          "no_MXCSR_exception_clear_or_environment_save_restore_added": true,
+          "control_CPP_to_real_ASM_call_implemented": true,
+          "two_other_general_helpers_real_pow_parent_calls_implemented": false,
+          "full_pow_dispatch_and_parent_lifecycle_closed": false,
+          "old_classification_integer_special_helper_environment_startup_map_power_and_build_rules_kept": true,
+          "new_identity_count_or_location_queue_reduction_claimed": false,
+          "wire_format_changed": false,
+          "encryption_added": false,
+          "audio_pause_kept": true,
+          "full_generic_pow_verified": false,
+          "full_all_parents_verified": false,
+          "full_lifecycle_closed": false,
+          "runtime_verified": false,
+          "machine_abi_verified": false,
+          "fault_equivalence_claimed": false
+        }
+      }
+    }
+  ],
+  "function_dispositions_before": [
+    {
+      "id": "F:001433F0",
+      "record": {
+        "inventory_id": "F:001433F0",
+        "disposition": "adapted",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json"
+        ],
+        "boundary": "BPJ01原__twoToTOS完整11条21B由现有Cg2dMapEffectDivisor中的十条x87操作按原栈序内联承担；x86call/ret不保留，结果不落F64，PC53/控制字沿MFA01。只既有两个1.25底数/S32指数活动点的正常专用域，不扩成一般_pow/负底数、错误链或全环境等价；不新增幂实现或改变正确源码 完整11条21B、一页/零call零jump一ret及53D071唯一普通call/53D022父邻窗，仅当前内联对应和独立身份静态；所有源码/头/ASM保持。完整一般数学库、全部父/环境/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG/像素运行仍未验；异常依RPLAN.24不保护/模拟或称等价"
+      }
+    },
+    {
+      "id": "F:00143405",
+      "record": {
+        "inventory_id": "F:00143405",
+        "disposition": "adapted",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json"
+        ],
+        "boundary": "BPM01原__load_CW完整6条23B：只取原保存CW的PC两位(0300)，并入007F、以W16写临时槽后FLDCW；53D022先FSTCW/CMP027F，相同则绕过唯一53D031调用。现有Cg2dMapEffectDivisor按MFA01保存CW、固定027F供正常专用路径、尾恢复原CW，登记该PC53阶段适配来源；不把固定值称完整泛用帮助体、不新增同名体或改正确源。 本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。"
+      }
+    },
+    {
+      "id": "F:00143435",
+      "record": {
+        "inventory_id": "F:00143435",
+        "disposition": "adapted",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json"
+        ],
+        "boundary": "BPM01原__fload_withFB完整21条67B：正常F64指数域不为7FF时原FLD qword并保CMP返回标志，特殊分支的原F80字节构造保留原证据。当前53D04C对应既有两个1.25底数活动点的实际加载，Cg2dMapEffectDivisor直接FLD相同F64常量、FILD真实S32指数且结果连续消费；其余三原点只纳盘，不外推通用加载/特殊值源码已实现，不新增包装或改正确源。 本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。"
+      }
+    }
+  ],
+  "function_dispositions_after": [
+    {
+      "id": "F:001433F0",
+      "record": {
+        "inventory_id": "F:001433F0",
+        "disposition": "adapted",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+        ],
+        "boundary": "5433F0新增完整通用x87帮助体，ST0输入经原十条操作/RET输出连续扩展精度结果，沿当前控制字，不落F64/固定底数或用CPP double ABI。旧地图内联活动域保持，但不再把它当通用本体；完整pow父仍待接。 BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。"
+      }
+    },
+    {
+      "id": "F:00143405",
+      "record": {
+        "inventory_id": "F:00143405",
+        "disposition": "adapted",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+        ],
+        "boundary": "543405新增通用控制字加载本体，W16保存控制字按原PC0300与007F构造临时W16后FLDCW；旧载体未消费高W16不作为输入/补零，Win64CX值桥/EDX计算。原父027F绕过条件与恢复责任仍须真实父接，不强改地图固定027F。 BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。"
+      }
+    },
+    {
+      "id": "F:00143435",
+      "record": {
+        "inventory_id": "F:00143435",
+        "disposition": "adapted",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-acceptance",
+          "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+        ],
+        "boundary": "543435新增完整普通/特殊输入加载：RDX借用F64，普通分支EAX为7FF00000指数掩码/保CMP标志后FLD F64，ECX保持；特殊分支按原OR7FFF0000/SHLD11/SHL11与重叠W32写出全部10B后FLD F80，TEST EAX,0再MOV原高W32，返回ST0/EAX/FLAGS并按原改ECX。仅ASM间接口，无F64返回落存/CLR异常、补零或新增finite保护。 BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。"
+      }
+    }
+  ]
+}

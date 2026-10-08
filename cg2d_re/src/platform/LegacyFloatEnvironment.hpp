@@ -18,6 +18,9 @@ std::int32_t ClassifyLegacyInteger_5436AC(double value) noexcept;
 std::int32_t ProcessLegacyPowerSpecial_54357C(
     double base, double exponent, double* result) noexcept;
 
+// 原543405；W16保存控制字值，仅消费PC两位并加载原临时控制字。
+void LoadLegacyPowerControlWord_543405(std::uint16_t savedControl) noexcept;
+
 // 原控制字抽象/硬件表示转换，只消费和生成原已定义位。
 std::uint32_t AbstractLegacyControlWord_5448A4(std::uint32_t hardware);
 std::uint32_t HardwareLegacyControlWord_544936(std::uint32_t abstractValue);
@@ -46,6 +49,9 @@ extern "C" std::int32_t Cg2dClassifyLegacyInteger(const double* value) noexcept;
 // Win64幂特殊值桥；仅在本调用内借用F64参数与调用方结果槽。
 extern "C" std::int32_t Cg2dProcessLegacyPowerSpecial(
     const double* base, const double* exponent, double* result) noexcept;
+
+// Win64控制字值桥；另外两通用帮助体仅在ASM间用x87/寄存器合同调用。
+extern "C" void Cg2dLoadLegacyPowerControlWord(std::uint16_t savedControl) noexcept;
 
 } // namespace detail
 } // namespace cg::platform

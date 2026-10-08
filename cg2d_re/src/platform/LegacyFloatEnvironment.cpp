@@ -156,6 +156,12 @@ std::int32_t ProcessLegacyPowerSpecial_54357C(
     return detail::Cg2dProcessLegacyPowerSpecial(&base, &exponent, result);
 }
 
+// 原543405；按保存控制字的原PC位构造并加载临时x87控制字，恢复由调用父负责。
+void LoadLegacyPowerControlWord_543405(const std::uint16_t savedControl) noexcept
+{
+    detail::Cg2dLoadLegacyPowerControlWord(savedControl);
+}
+
 namespace detail {
 
 extern "C" std::int32_t Cg2dClassifyLegacySpecialFloat(

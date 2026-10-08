@@ -1,4 +1,5 @@
 #include "cg/platform/SdlAudioBackend.hpp"
+#include "LegacyMidiSynth.hpp"
 
 #include <SDL3/SDL.h>
 
@@ -48,6 +49,22 @@ struct SdlAudioBackend::Impl {
     std::atomic<std::uint32_t>* bgmReady {};
     std::atomic<bool> bgmAbort {false};
     bool bgmBound {};
+    LegacyMidiSynth midi;
+    SDL_AudioStream* midiStream {};
+
+    static void SDLCALL FeedMidi(void* userdata, SDL_AudioStream* stream, int additionalAmount, int)
+    {
+        auto& self = *static_cast<Impl*>(userdata);
+        constexpr int kFrameBytes = 2 * sizeof(float);
+        std::array<float, 1024> buffer;
+        while (additionalAmount > 0 && self.midi.IsPlaying()) {
+            const int frames = (std::min)(512, additionalAmount / kFrameBytes + (additionalAmount % kFrameBytes != 0));
+            self.midi.Render(buffer.data(), static_cast<std::size_t>(frames));
+            if (!SDL_PutAudioStreamData(stream, buffer.data(), frames * kFrameBytes)) { self.midi.Stop(); return; }
+            additionalAmount -= frames * kFrameBytes;
+        }
+        if (!self.midi.IsPlaying()) { static_cast<void>(SDL_FlushAudioStream(stream)); }
+    }
 
     static int SDLCALL RunBgmStopWorker(void* const userdata)
     {
@@ -189,6 +206,7 @@ struct SdlAudioBackend::Impl {
 
     ~Impl()
     {
+        if (midiStream != nullptr) { SDL_DestroyAudioStream(std::exchange(midiStream, nullptr)); }
         StopBgmWorker();
         if (bgm.stream != nullptr) {
             SDL_DestroyAudioStream(std::exchange(bgm.stream, nullptr));
@@ -575,6 +593,71 @@ void SdlAudioBackend::ReleaseBgm() noexcept
 void SdlAudioBackend::Close() noexcept
 {
     impl_.reset();
+}
+
+bool SdlAudioBackend::InitializeMidi(const char* bankUtf8Path) noexcept
+{
+    if (impl_ == nullptr) { return false; }
+    ShutdownMidi();
+    if (!impl_->midi.LoadBank(bankUtf8Path)) { return false; }
+    const SDL_AudioSpec input {SDL_AUDIO_F32, 2, LegacyMidiSynth::kSampleRate};
+    SDL_AudioStream* stream = SDL_CreateAudioStream(&input, nullptr);
+    if (stream == nullptr) { return false; }
+    if (!SDL_SetAudioStreamGetCallback(stream, &Impl::FeedMidi, impl_.get()) || !SDL_BindAudioStream(impl_->device, stream)) {
+        SDL_DestroyAudioStream(stream); return false;
+    }
+    impl_->midiStream = stream;
+    return true;
+}
+
+bool SdlAudioBackend::HasMidi() const noexcept { return impl_ != nullptr && impl_->midiStream != nullptr; }
+
+bool SdlAudioBackend::LoadMidiSequence(std::span<const std::uint8_t> bytes) noexcept
+{
+    if (!HasMidi() || !SDL_LockAudioStream(impl_->midiStream)) { return false; }
+    impl_->midi.Stop();
+    const bool cleared = SDL_ClearAudioStream(impl_->midiStream);
+    const bool loaded = cleared && impl_->midi.LoadSequence(bytes);
+    static_cast<void>(SDL_UnlockAudioStream(impl_->midiStream));
+    return loaded;
+}
+
+bool SdlAudioBackend::PlayMidi(std::uint32_t repeats) noexcept
+{
+    if (!HasMidi() || !SDL_LockAudioStream(impl_->midiStream)) { return false; }
+    impl_->midi.Start(repeats);
+    const bool started = impl_->midi.IsPlaying();
+    static_cast<void>(SDL_UnlockAudioStream(impl_->midiStream));
+    return started && SDL_ResumeAudioDevice(impl_->device);
+}
+
+bool SdlAudioBackend::SetMidiVolume(std::int32_t hundredthDb) noexcept
+{
+    if (!HasMidi() || hundredthDb < -10000 || hundredthDb > 0) { return false; }
+    return SDL_SetAudioStreamGain(impl_->midiStream, static_cast<float>(std::pow(10.0, hundredthDb / 2000.0)));
+}
+
+void SdlAudioBackend::StopMidi() noexcept
+{
+    if (HasMidi() && SDL_LockAudioStream(impl_->midiStream)) {
+        impl_->midi.Stop(); static_cast<void>(SDL_ClearAudioStream(impl_->midiStream));
+        static_cast<void>(SDL_UnlockAudioStream(impl_->midiStream));
+    }
+}
+
+void SdlAudioBackend::ShutdownMidi() noexcept
+{
+    if (impl_ == nullptr) { return; }
+    if (impl_->midiStream != nullptr) { SDL_DestroyAudioStream(std::exchange(impl_->midiStream, nullptr)); }
+    impl_->midi.Clear();
+}
+
+void SdlAudioBackend::ReleaseMidiSequence() noexcept
+{
+    if (HasMidi() && SDL_LockAudioStream(impl_->midiStream)) {
+        impl_->midi.UnloadSequence(); static_cast<void>(SDL_ClearAudioStream(impl_->midiStream));
+        static_cast<void>(SDL_UnlockAudioStream(impl_->midiStream));
+    }
 }
 
 } // namespace cg::platform

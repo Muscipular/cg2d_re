@@ -24,6 +24,20 @@ struct LegacyPanelButtonRecord {
     std::int32_t pressedImage;
 };
 
+// 面板按钮只按原top/left/height/width次序借矩形；旧目录拆分共用同一帮助合同。
+inline std::int32_t QueryPanelButtonState(const LegacyPanelButtonRecord* const button)
+{
+    // 503990仅消费矩形；按原top/left/height/width次序取齐，避免将图号尾部当作文本指针。
+    const std::int32_t top = button->top;
+    const std::int32_t left = button->left;
+    const std::int32_t height = button->height;
+    const std::int32_t width = button->width;
+    const cg::character_select::detail::CharacterModalUiRecord rectangle {
+        0, 0, left, top, width, height, nullptr,
+    };
+    return cg::character_select::detail::Sub_503990(&rectangle);
+}
+
 // 原CA0478目录的单条96B消费布局；文本保持原字节，数组总容量/生产尚未确定。
 struct LegacyPetSkillCatalogRecord {
     std::uint16_t used; // +00：非零才参与旧58行命中/绘制。
@@ -41,7 +55,7 @@ static_assert(offsetof(LegacyPetSkillCatalogRecord, text0C) == 12);
 extern LegacyPetSkillCatalogRecord gLegacyPetSkillCatalogCA0478[];
 extern std::int32_t gLegacyPetSkillCatalogImageCC3E64;
 extern std::int32_t gLegacyPetSkillCatalogPageCountC8AF84;
-extern std::int32_t gLegacyPetSkillCatalogPageD45F74; // 唯一存储在LegacyUiRecord；旧58翻页写入。
+extern std::int32_t gLegacyPetSkillCatalogPageD45F74; // 唯一存储在LegacyCatalogWindows；旧58翻页写入。
 extern std::int32_t gLegacyPetSkillCatalogSelectionC8AF70; // 旧58发布相对行，旧59/60/61共用。
 extern std::int32_t gLegacyPetSkillCatalogMessageD2E818; // 旧58错误说明选择，不属于邻接确认表。
 extern std::int32_t gLegacyPetSkillPetSelectionC8A94C; // 旧59发送后发布的候选下标，旧60/61消费。
@@ -51,7 +65,7 @@ extern std::int32_t gLegacyShopChoiceModeC9A94C; // 旧62独立S32模式，生�
 extern std::array<char, 17> gLegacyTradeTargetNamesCB1D1C[];
 extern std::int32_t gLegacyTradeTargetCountD30134;
 extern std::int32_t gLegacyTradeTargetPageCountCF46D0;
-extern std::int32_t gLegacyTradeTargetPageCC3208; // 唯一存储在LegacyUiRecord；旧51翻页写入。
+extern std::int32_t gLegacyTradeTargetPageCC3208; // 唯一存储在LegacyCatalogWindows；旧51翻页写入。
 
 // 原面板+28H起五条24B页签，只有末槽为地址。
 struct LegacyPanelTabRecord {

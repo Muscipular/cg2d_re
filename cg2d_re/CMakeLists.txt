@@ -86,6 +86,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/LegacyException.cpp
     src/platform/LegacyRuntimeError.cpp
     src/platform/LegacyRuntimeExit.cpp
+    src/platform/LegacyProcessEntry.cpp
     src/platform/LegacySignal.cpp
     src/platform/LegacyLowIo.cpp
     src/platform/LegacyStdio.cpp
@@ -98,6 +99,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/LegacyMultibyte.cpp
     src/platform/LegacyNetworkAdapter.cpp
     src/platform/SdlAudioBackend.cpp
+    src/platform/LegacyMidiSynth.cpp
     src/platform/LegacyMouse.cpp
     src/platform/LegacyMouseTracker.cpp
     src/platform/LegacyCursor.cpp
@@ -106,6 +108,7 @@ add_library(cg2d_re_startup STATIC
     # 用户排除屏幕键盘；LegacyExternalKeyboard*.cpp仅保留为历史源码。
     src/LegacyHitTest.cpp
     src/LegacyUiRecord.cpp
+    src/LegacyCatalogWindows.cpp
     src/LegacyRecordOrder.cpp
     src/LegacyAudio.cpp
     src/Blacklist.cpp
@@ -187,3 +190,5 @@ set_target_properties(cg2d_re_client PROPERTIES CXX_EXTENSIONS OFF)
 target_compile_options(cg2d_re_client PRIVATE /GR- /utf-8 /W4 /fp:strict)
 target_compile_definitions(cg2d_re_client PRIVATE _CRT_SECURE_NO_WARNINGS)
 target_link_libraries(cg2d_re_client PRIVATE cg2d_re_startup cg2d_re_render)
+# 保留实际归档成员和入口的链接证据；不以源码未引用推断原端可达性。
+target_link_options(cg2d_re_client PRIVATE "/MAP:$<TARGET_FILE_DIR:cg2d_re_client>/cg2d_re_client.map")

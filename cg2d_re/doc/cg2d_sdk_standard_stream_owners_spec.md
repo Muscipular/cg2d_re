@@ -3,6 +3,8 @@
 2026-10-05按[D03](cg2d_crt_startup_lifecycle_spec.md)推进剩余15个标准流表槽。
 固定快照：`cg2d-re-sdk-standard-stream-owners-source-20261005`。
 
+> CAA01（2026-10-08）仅迁移旧53C8CD/53DDB5及私有筛选正文到 `src/platform/LegacyProcessEntry.cpp` 独立归档成员；活动退出及四OS槽仍在LegacyRuntimeExit。真实客户端由宿主CRT进入WinMain，实际链接未抽取旧入口成员；原55300090槽表仍未启用，未补零表/重复宿主构造。[当前链接合同](cg2d_client_link_sdl_audio_spec.md)，完整CRT生命周期门禁保持。
+
 <a id="sdk-standard-owners-baseline"></a>
 ## 原基线
 

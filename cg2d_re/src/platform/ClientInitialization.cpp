@@ -34,7 +34,7 @@ namespace initialization_detail {
 
 // 原加载入口，完整本体位于 LoadingScreen.cpp。
 std::int32_t InitLoading_457B10();
-// 原直接目标尚待完整实现；不以固定返回或省略调用代替音频副作用。
+// 原直接目标的SDL音乐提供者，实现在LegacyAudio.cpp；保留本父调用顺序。
 std::int32_t InitializeMusic_454C30(std::uintptr_t window);
 
 } // namespace initialization_detail

@@ -24,7 +24,7 @@ std::int32_t InitializeAudio_5241A0(); // 原初始化包装；524230 使用 SDL
 void Sub_52B630(); // 原退出入口；先处理流式 BGM，再按序释放音效与设备。
 std::int32_t SelectBgmTarget_52C9C0(std::int32_t index);
 std::int32_t UpdateBgmRequest_52C910(); // 原四阶段跳表，完整透传各分支返回。
-std::int32_t Sub_52C3D0(); // 原 [52C3D0,52C449)，应用当前BGM音量；本体暂缓，仅真实依赖声明。
+std::int32_t Sub_52C3D0(); // 原 [52C3D0,52C449)，沿原门槛和音量表应用实际SDL BGM音量。
 
 // 原 [0x52CCE0,0x52CD25)：标志为 1 时返回 1，否则停止、关闭并只覆写返回低 AL。
 std::uint32_t Sub_52CCE0() noexcept;

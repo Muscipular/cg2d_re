@@ -2,6 +2,8 @@
 
 2026-10-07，按“启动 → 选择服务器 → 登录 → 选择人物／创建人物 → 主地图”的新优先级推进。工程委托沿子项目规则第8条和 D03；本步先解除工程入口没有目标的实际缺口，不以新增目标代替链接、运行或完整流程验收。
 
+> CAA01（2026-10-08）已完成现有Windows/MSVC/x64 Debug三库及真实客户端链接，WinMain正文不变、宿主CRT入口保持。[实际结果](cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state)与[构建/map证据](cg2d_client_link_sdl_audio_evidence.json)单独登记；完整启动、退出及运行仍未验，V02保持open。
+
 <a id="hosted-client-target-baseline"></a>
 ## 实证与既有基线
 

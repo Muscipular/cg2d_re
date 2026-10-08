@@ -1,4 +1,4 @@
-# BWZ01 当前项目编译与链接
+# 当前项目编译与链接（BWZ01 / CAA01）
 
 ## 授权与范围
 
@@ -28,7 +28,7 @@
 
 现有 `windows-msvc-x64` 配置返回零；`windows-msvc-x64-debug` 完成 core、startup、render 三库及真实 `cg2d_re_client` 的编译和链接，构建返回零。保留完整构建日志和仍存在的诊断，不将编译成功当作原新行为、机器 ABI、运行或整体 SPEC 验收。
 
-## 当前结果
+## BWZ01 阶段结果（历史）
 
 配置成功，当前目标列入的全部C++/MASM源已编译；含一次全量重建。最终单独构建 core、startup、render 三库返回0，客户端链接返回1（LNK1120，八个未解析符号）。两已有正文的修饰名缺口已实际消除，全部编译错误已修复；客户端尚未生成可交付EXE，本次整项目验收未通过。
 
@@ -40,3 +40,11 @@
 | `gLegacyTradeTargetNamesCB1D1C` | [旧交易名单生产](cg2d_trade_target_production_spec.md)：总容量/运行生产未证 | 核真实原生产和容量后定义唯一存储；不可借现代十项名单 |
 
 [构建记录](cg2d_build_acceptance_evidence.json)保存环境、命令/返回码、全量重建诊断、最终未解析符号及本步源码前后差异。原始完整日志仅保存在本地构建目录，不作为已验收运行证据。
+
+## CAA01 当前结果（2026-10-08）
+
+用户随后要求“先完成客户端链接”“用sdl播音频”，已恢复必要五根音频开发和构建。[CAA01 SPEC](cg2d_client_link_sdl_audio_spec.md)明确SDL实际提供者与独立归档成员边界，替代上节“待恢复”的当前状态，BWZ01失败记录仍保留为历史。
+
+现有Windows/MSVC/x64 Debug配置、core/startup/render三库及真实客户端链接均返回0，八个缺口不再出现在当前客户端链接。第5次全量重建和最后第7次增量构建通过，产物为 `build/windows-msvc-x64/Debug/cg2d_re_client.exe`。保留131条全量编译警告，未新增音乐后端/提供者警告；不以零链接错误代音频效果、完整启动退出或整体SPEC通过。
+
+原553000表与CA0478/CB1D1C生产容量仍按各合同保留：旧入口与八个窗口正文/状态迁入独立静态库成员，正常客户端未抽取它们，未定义假数据或取消原功能。实际源码/构建/map证据见[CAA01记录](cg2d_client_link_sdl_audio_evidence.json)。未运行客户端、测试或样例，未计算摘要；V02完整任务仍open。

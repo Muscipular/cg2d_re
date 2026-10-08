@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <memory>
+#include <span>
 
 namespace cg::platform {
 
@@ -25,6 +26,16 @@ public:
     // 获取本对象独占的默认逻辑播放设备；失败不保留 AUDIO 子系统引用。
     [[nodiscard]] bool Open() noexcept;
     [[nodiscard]] bool IsOpen() const noexcept;
+
+    // 原固定MThd音乐独立于WAV BGM；系统DLS提供实际样本，事件生成PCM供SDL流播放。
+    [[nodiscard]] bool InitializeMidi(const char* bankUtf8Path) noexcept;
+    [[nodiscard]] bool HasMidi() const noexcept;
+    [[nodiscard]] bool LoadMidiSequence(std::span<const std::uint8_t> bytes) noexcept;
+    [[nodiscard]] bool PlayMidi(std::uint32_t repeats) noexcept;
+    [[nodiscard]] bool SetMidiVolume(std::int32_t hundredthDb) noexcept;
+    void StopMidi() noexcept;
+    void ReleaseMidiSequence() noexcept;
+    void ShutdownMidi() noexcept;
 
     // path 是现代 SDL 文件边界的 UTF-8 路径；旧原字节路径须由调用者另行转换。
     // 保留各 WAV 自身的格式和 PCM 数据；失败不改已有槽内容。

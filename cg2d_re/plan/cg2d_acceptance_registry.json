@@ -14,7 +14,18 @@
     "no_build": false,
     "no_tests": true,
     "no_hash": true,
-    "build_scope": "BWZ01：2026-10-08仅本次现有Windows/MSVC/x64配置、Debug编译/链接及必要符号诊断；不自动恢复后续构建，音频仍暂停"
+    "build_scope": "CAA01：按用户先完成客户端链接、用SDL播音频，恢复必要五根/固定音乐依赖及现有Windows/MSVC/x64 Debug配置编译链接；无关后续构建、测试/运行/摘要未恢复",
+    "audio_resumed_for_client_link": [
+      "F:00054C30",
+      "F:00054EE0",
+      "F:00058AE0",
+      "F:0010E680",
+      "F:0012C3D0"
+    ],
+    "audio_resume_evidence_refs": [
+      "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+      "doc/cg2d_client_link_sdl_audio_evidence.json"
+    ]
   },
   "closures": {
     "function_classification": {
@@ -4130,7 +4141,9 @@
         "doc/cg2d_audio_update.md",
         "doc/cg2d_display_settings.md",
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
-        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-baseline"
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-baseline",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ],
       "original_inventory_ids": [
         "F:00054C30",
@@ -4177,21 +4190,36 @@
         "V05"
       ],
       "dependencies": [],
-      "acceptance_focus": "设备/资源、音量/循环/通知及退出；当前暂停",
+      "acceptance_focus": "CAA01五个必要根和固定音乐基础SDL提供者已开发/链接；完整设备/资源、效果、循环/通知与退出和运行未验，剩余范围暂停",
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-decision",
-        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-decision"
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-decision",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ],
       "blockers": [
-        "用户暂停音频；基线成员和门禁证据待归档",
-        "APS01七既定暂停根与16音乐/WAV依赖、BOY01九个旧7/旧8专属初始化/音量-立体声子入口共32原成员，仅范围关联不代源码或最终逐ID处置。音频仍paused且成员枚举未闭；固定MThd/WAV两链、完整旧7/旧8及资源/后端/音量/通知/退出与运行待，不用已有SDL WAV代全音频"
+        "CAA01已恢复五个必要根/固定音乐依赖并完成Debug链接；FUNC-AUDIO scope=paused仅保留完整剩余范围，不覆盖本次具名恢复或把其源码记为缺失",
+        "AUDIO32原成员枚举仍未闭；旧7/旧8、完整WAV/通知/生命周期以及原KS混响/合唱、DLS动态调制、真实声音/失败/退出仍未完成验收，不用基础PCM源代全音频"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state",
-        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state"
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
+      ],
+      "resumed_original_inventory_ids": [
+        "F:00054C30",
+        "F:00054EE0",
+        "F:00058AE0",
+        "F:0010E680",
+        "F:0012C3D0"
+      ],
+      "resumed_source_evidence_refs": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ]
     },
     {
@@ -52364,7 +52392,9 @@
         "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure",
         "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
         "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
-        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-source-state"
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ]
     },
     {
@@ -52387,7 +52417,9 @@
         "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
         "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
         "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
-        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-source-state"
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ]
     },
     {
@@ -53090,7 +53122,9 @@
         "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state",
         "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-source-state",
         "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state",
-        "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state"
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ]
     },
     {
@@ -53144,7 +53178,9 @@
         "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state",
         "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state",
         "doc/cg2d_build_acceptance_spec.md",
-        "doc/cg2d_build_acceptance_evidence.json"
+        "doc/cg2d_build_acceptance_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ]
     },
     {
@@ -53560,7 +53596,9 @@
         "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state",
         "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-source-state",
         "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state",
-        "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state"
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ]
     },
     {
@@ -53945,7 +53983,9 @@
         "doc/ui_windows/legacy_trade_target_list.md",
         "doc/cg2d_trade_target_production_spec.md#trade-target-production-gap",
         "doc/cg2d_trade_target_production_spec.md#trade-target-production-permission",
-        "doc/cg2d_trade_target_production_spec.md#trade-target-production-source-state"
+        "doc/cg2d_trade_target_production_spec.md#trade-target-production-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ]
     },
     {
@@ -53955,7 +53995,9 @@
       "evidence_refs": [
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state",
-        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state"
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ]
     },
     {
@@ -53965,7 +54007,9 @@
       "evidence_refs": [
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state",
-        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state"
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ]
     },
     {
@@ -53975,7 +54019,9 @@
       "evidence_refs": [
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state",
-        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state"
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ]
     },
     {
@@ -54005,7 +54051,9 @@
       "evidence_refs": [
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state",
-        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state"
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ]
     },
     {
@@ -54015,7 +54063,9 @@
       "evidence_refs": [
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state",
-        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state"
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ]
     },
     {
@@ -66505,6 +66555,56 @@
         "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state"
       ],
       "boundary": "完整七参数infoType原值/S32长度直接传API、分类专用共享后端与CP-locale回退、严格查询1或9/实际1、实际转换数量/W32返回；原SEH内W32字节数/对齐栈请求及原填充数/filter1置空，原固定info1两caller保持。 BWY01补原545208完整123条329B/两页七参数NLS分类，原两个参数消费窗口39条98B/一scope与相邻15CC有证。两现源两改、一个完整GetLegacyStringTypes_545208及声明、原info1薄转调，零ASM/C桥/owner/依赖或新应用调用。原W32 infoType/CP-locale-strict与S32源长度直接交API，不缩源；分类专用10862E4、A-locale0/W-CP0回退、首次strict flags1或9/实际1和实际转换数量/完整W32返回保。原SEH内计算count*2低W32字节数，_alloca用+3低两位清零对齐请求，Fill5419D0只原字节数；原filter1/置空指针/失败0与全部caller/掩码和表生产保，不造FS/旧栈或故障样例。完善既有341和填充连接当前源符号、一个F adapted/F1027及CRT204、E1187两限定I-S；一个15CC仅对齐用途/R7已审483余2578。语义1859/有效1852、文档1969/3680（53.51%）和队列/pending保持；完整间接父/SEH链-CRT库存及寿命、系统NLS/SDK-ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:00054C30",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
+      ],
+      "boundary": "实际SDL设备、系统GM DLS/固定音乐流初始化与独立音量表；成功0，设备失败1，GM/流失败2；必要SDL提供者已实现/链接，完整音频与运行未验；原COM私有机制不伪造，正常上层语义和原格式明文保持"
+    },
+    {
+      "inventory_id": "F:00054EE0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
+      ],
+      "boundary": "停止音乐、释放流/序列/样本，依WAV owner决定共享设备关闭；返回0；必要SDL提供者已实现/链接，完整音频与运行未验；原COM私有机制不伪造，正常上层语义和原格式明文保持"
+    },
+    {
+      "inventory_id": "F:00058AE0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
+      ],
+      "boundary": "实际SDL设备能力与独立DINPUT入口观察；返回来自真实结果而非固定成功；必要SDL提供者已实现/链接，完整音频与运行未验；原COM私有机制不伪造，正常上层语义和原格式明文保持"
+    },
+    {
+      "inventory_id": "F:0010E680",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
+      ],
+      "boundary": "原socket后两个S32字段分流，第三派发字段不消费；固定原MIDI长度/重复及停止释放顺序；必要SDL提供者已实现/链接，完整音频与运行未验；原COM私有机制不伪造，正常上层语义和原格式明文保持"
+    },
+    {
+      "inventory_id": "F:0012C3D0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
+      ],
+      "boundary": "原音频/索引/enable门槛、0..15钳制和同一BGM记录/128槽表，实际应用SDL音量；必要SDL提供者已实现/链接，完整音频与运行未验；原COM私有机制不伪造，正常上层语义和原格式明文保持"
     }
   ],
   "auxiliary_dispositions": [
@@ -96239,20 +96339,22 @@
     }
   ],
   "build_validation": {
-    "step": "BWZ01",
+    "step": "CAA01",
     "recorded_on": "2026-10-08",
     "configuration": "Debug",
     "configure_exit_code": 0,
     "static_libraries_exit_code": 0,
-    "client_link_exit_code": 1,
-    "client_link_passed": false,
-    "unresolved_symbol_count": 8,
-    "unresolved_paused_audio_count": 5,
+    "client_link_exit_code": 0,
+    "client_link_passed": true,
+    "unresolved_symbol_count": 0,
+    "unresolved_paused_audio_count": 0,
+    "client_link_accepted": true,
     "whole_project_accepted": false,
     "evidence_refs": [
       "doc/cg2d_build_acceptance_spec.md",
-      "doc/cg2d_build_acceptance_evidence.json"
+      "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+      "doc/cg2d_client_link_sdl_audio_evidence.json"
     ],
-    "note": "编译全部现有源/三库已过；八个实际缺口未消除，V02及原功能门禁不关闭；未执行测试或客户端"
+    "note": "全量重建及最后源改动增量构建通过；五实际SDL提供者，旧三符号保留原独立归档成员。未执行客户端/测试，V02完整流程、全音频与整体SPEC不关闭"
   }
 }

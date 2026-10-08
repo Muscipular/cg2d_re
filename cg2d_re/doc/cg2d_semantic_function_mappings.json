@@ -2,7 +2,7 @@
   "schema_version": 1,
   "inventory": "doc/cg2d_ida_inventory.json",
   "scope": "R1显式语义映射、已知待决状态与独立分类引用；未列函数仍须单独分类，不能按此计算总完成率。",
-  "verification": "仅地址与当前源码/既有取证文档的静态映射，不新增构建、测试、运行或哈希校验。",
+  "verification": "静态身份/源码/原证据映射；CAA01五个SDL提供者另有实际Debug编译链接与map证据，不外推其余函数或完整运行验收。",
   "classification_references": [
     {
       "path": "doc/cg2d_external_keyboard_scope.json",
@@ -25,7 +25,7 @@
       "scope": "三个函数边界条目及已登记未归属区间用途；4C2634与本文件映射重叠时按稳定ID去重，4D6650并入工厂失败返回，4C48EB只分类为指定五字节NOP填充，不扩大为其他代码排除。"
     }
   ],
-  "pending_record_policy": "18个未闭合功能入口身份保留：8项适配中7项源码接线/核对已完成，1项待实施；2项原格式明文已定待接；1项事实待证；7项音频暂停。源码工作项关闭不代表完整功能或运行验收。最新具名决议见doc/cg2d_closure_decisions_spec.md。",
+  "pending_record_policy": "18个未闭合功能入口身份保留：8项具名适配及2项原格式明文源码均已落位，1项原事实待证；音频7项中CAA01五个必要SDL提供者已实现并Debug链接、完整功能待验，旧7/旧8两根仍暂停。源码/链接不代表完整功能或运行验收。",
   "pending_records": [
     {
       "original_entry": "0x424620",
@@ -157,31 +157,37 @@
     {
       "original_entry": "0x454C30",
       "inventory_id": "F:00054C30",
-      "status": "用户要求暂缓音频",
-      "implementation_state": "音乐初始化真实依赖尚缺",
-      "remaining_requirement": "继续暂停本入口实施；已有SDL设备或局部音频能力不代表初始化全链完成。",
+      "status": "必要SDL提供者已实现并已链接；完整功能未验",
+      "implementation_state": "实际SDL设备、系统GM DLS/固定音乐流初始化与独立音量表；成功0，设备失败1，GM/流失败2",
+      "remaining_requirement": "本体不再缺失；完整音频资源、效果/动态调制、失败与owner寿命及实际声音/运行按原门禁推进，不以客户端链接关闭全功能。",
       "evidence_documents": [
-        "doc/cg2d_audio_update.md"
+        "doc/cg2d_audio_update.md",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ]
     },
     {
       "original_entry": "0x454EE0",
       "inventory_id": "F:00054EE0",
-      "status": "用户要求暂缓音频",
-      "implementation_state": "退出清理真实依赖尚缺",
-      "remaining_requirement": "ClientShutdown仍有真实清理调用；不以空析构消除缺口，不恢复暂停的音频工作。",
+      "status": "必要SDL提供者已实现并已链接；完整功能未验",
+      "implementation_state": "停止音乐、释放流/序列/样本，依WAV owner决定共享设备关闭；返回0",
+      "remaining_requirement": "本体不再缺失；完整音频资源、效果/动态调制、失败与owner寿命及实际声音/运行按原门禁推进，不以客户端链接关闭全功能。",
       "evidence_documents": [
-        "doc/cg2d_audio_update.md"
+        "doc/cg2d_audio_update.md",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ]
     },
     {
       "original_entry": "0x458AE0",
       "inventory_id": "F:00058AE0",
-      "status": "用户要求暂缓音频",
-      "implementation_state": "平台能力探测真实依赖尚缺",
-      "remaining_requirement": "458DC0包装已有但底层探测未实现；不返回固定版本码伪造原探测。",
+      "status": "必要SDL提供者已实现并已链接；完整功能未验",
+      "implementation_state": "实际SDL设备能力与独立DINPUT入口观察；返回来自真实结果而非固定成功",
+      "remaining_requirement": "本体不再缺失；完整音频资源、效果/动态调制、失败与owner寿命及实际声音/运行按原门禁推进，不以客户端链接关闭全功能。",
       "evidence_documents": [
-        "doc/cg2d_audio_update.md"
+        "doc/cg2d_audio_update.md",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ]
     },
     {
@@ -207,21 +213,25 @@
     {
       "original_entry": "0x50E680",
       "inventory_id": "F:0010E680",
-      "status": "用户要求暂缓音频",
-      "implementation_state": "murD回复本体暂缓",
-      "remaining_requirement": "现有NetworkRuntime保留真实三参回复声明/调用；不提供空处理器，也不恢复暂停范围。",
+      "status": "必要SDL提供者已实现并已链接；完整功能未验",
+      "implementation_state": "原socket后两个S32字段分流，第三派发字段不消费；固定原MIDI长度/重复及停止释放顺序",
+      "remaining_requirement": "本体不再缺失；完整音频资源、效果/动态调制、失败与owner寿命及实际声音/运行按原门禁推进，不以客户端链接关闭全功能。",
       "evidence_documents": [
-        "doc/cg2d_audio_update.md"
+        "doc/cg2d_audio_update.md",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ]
     },
     {
       "original_entry": "0x52C3D0",
       "inventory_id": "F:0012C3D0",
-      "status": "用户要求暂缓音频",
-      "implementation_state": "应用BGM音量本体暂缓",
-      "remaining_requirement": "窗口设置已有四个真实消费点；不新增固定返回或只写表值代替实际应用。",
+      "status": "必要SDL提供者已实现并已链接；完整功能未验",
+      "implementation_state": "原音频/索引/enable门槛、0..15钳制和同一BGM记录/128槽表，实际应用SDL音量",
+      "remaining_requirement": "本体不再缺失；完整音频资源、效果/动态调制、失败与owner寿命及实际声音/运行按原门禁推进，不以客户端链接关闭全功能。",
       "evidence_documents": [
-        "doc/cg2d_audio_update.md"
+        "doc/cg2d_audio_update.md",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ]
     },
     {
@@ -15208,7 +15218,7 @@
           ]
         },
         {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "path": "src/platform/LegacyProcessEntry.cpp",
           "symbols": [
             "RunLegacyProcessEntry_53DDB5"
           ],
@@ -15344,7 +15354,7 @@
           "call_site": "0x53DE7E",
           "target_entry": "0x465790",
           "target_symbol": "WinMain",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "RunLegacyProcessEntry_53DDB5",
           "arguments": "GetModuleHandleA(nullptr)真实instance,nullptr,借用commandLine,原U16 show或10",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
@@ -29636,7 +29646,7 @@
           ]
         },
         {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "path": "src/platform/LegacyProcessEntry.cpp",
           "symbols": [
             "InitializeLegacyCrt_53C8CD"
           ],
@@ -29727,7 +29737,7 @@
           ]
         },
         {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "path": "src/platform/LegacyProcessEntry.cpp",
           "symbols": [
             "RunLegacyProcessEntry_53DDB5"
           ],
@@ -29765,7 +29775,7 @@
           "call_site": "0x53DE87",
           "target_entry": "0x53C8FA",
           "target_symbol": "ExitLegacyRuntime_53C8FA",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "RunLegacyProcessEntry_53DDB5",
           "arguments": "WinMain返回完整S32",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
@@ -29792,7 +29802,7 @@
           ]
         },
         {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "path": "src/platform/LegacyProcessEntry.cpp",
           "symbols": [
             "RunLegacyProcessEntry_53DDB5"
           ],
@@ -29846,7 +29856,7 @@
           "call_site": "0x53DEA6",
           "target_entry": "0x53C90B",
           "target_symbol": "QuickExitLegacyRuntime_53C90B",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "RunLegacyProcessEntry_53DDB5",
           "arguments": "原已缓存Code位型S32，SEH选择handler后",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
@@ -29923,7 +29933,7 @@
           ]
         },
         {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "path": "src/platform/LegacyProcessEntry.cpp",
           "symbols": [
             "InitializeLegacyCrt_53C8CD"
           ],
@@ -29973,7 +29983,7 @@
           "call_site": "0x53C8E2",
           "target_entry": "0x53C9B5",
           "target_symbol": "RunLegacyInitializers_53C9B5",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "InitializeLegacyCrt_53C8CD",
           "arguments": "真实C表[0,5)，首null/四目标",
           "relationship": "原先缓存浮点初始化回调后先C再C++，既有正序void调度不改，不增失败返回短路"
@@ -29983,7 +29993,7 @@
           "call_site": "0x53C8F1",
           "target_entry": "0x53C9B5",
           "target_symbol": "RunLegacyInitializers_53C9B5",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "InitializeLegacyCrt_53C8CD",
           "arguments": "真实C++表[0,90)，仅extern/完整迁移未启用",
           "relationship": "原先缓存浮点初始化回调后先C再C++，既有正序void调度不改，不增失败返回短路"
@@ -30728,7 +30738,7 @@
           ]
         },
         {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "path": "src/platform/LegacyProcessEntry.cpp",
           "symbols": [
             "InitializeLegacyCrt_53C8CD"
           ],
@@ -31212,7 +31222,7 @@
           "relationship": "应用入口依赖宿主CRT启动，非原库函数直接定义；当前仅静态库；旧局部/宿主职责关联保留，不作为本次完整父源码提供者"
         },
         {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "path": "src/platform/LegacyProcessEntry.cpp",
           "symbols": [
             "InitializeLegacyCrt_53C8CD"
           ],
@@ -31256,7 +31266,9 @@
         "doc/cg2d_world_state_lifecycle_evidence.json",
         "doc/cg2d_ui_input_lifecycle_spec.md",
         "doc/cg2d_ui_input_lifecycle_evidence.json",
-        "doc/cg2d_active_initializer_order_spec.md"
+        "doc/cg2d_active_initializer_order_spec.md",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ],
       "boundary": "原非空浮点初始化后执行两组void初始化表；宿主exe启动使用_initterm_e处理C表并保留非零失败，C++表再_initterm。仅职责关联，不能判等原两表返回/失败/锁/异常。最终可执行目标未接。；2026-10-04两原父共78+12=90完整指令源码实现：GetVersion依序四W32→heap(0)/失败28在保护区外，tryLevel0起io→两旧捕获片段→argv→envp→cinit→dwFlags0/GetStartupInfoA→切片→show U16或10→GetModuleHandleA(nullptr)/WinMain→正常exit；原SEH先缓存information->Code并保存本帧，再真实Filter，handler沿缓存W32位型quick_exit，不用catch替SEH或改错误28范围。cinit仅一次读浮点地址、非空调用缓存，再正序5 C槽/90 C++槽，返回不消费。已加载58F864初值真实53B447，C5首null/四真实目标定义，pointer返回仅类型适配；CPP90与OS四共享字段只extern，不补初值或造表。旧叶/数组不改或复检，当前不替换/启用启动、宿主CRT提案未代批，C++表绑定/存储生产/模式3/SDK及完整运行仍待。；本次C++553020/553024早段两provider已有真实六入口源码，整Cpp90表仍仅extern，不能据两provider源码齐备计整表或宿主避免双执行完成。；2026-10-04Cpp553004/08/0C/10四provider真实入口源码已落位，表values/整体定义状态不改；双执行/生命周期迁移仍未批，不启用整表。；2026-10-04Cpp553054/553098/5530A4三个provider真实入口落位，原表values/定义状态保持，不开启父入口或迁移宿主。；2026-10-04Cpp553064..553094十三独立provider实际源码落位，表值/定义状态保持；宿主双执行/生命周期迁移未授权启用。；2026-10-04Cpp55309C/5530A0两个真实provider落位，表值和整体定义状态保持，宿主/完整启动迁移未启用。；2026-10-04Cpp5530F8/5530FC/553100三provider真实入口落位，表值/定义状态保持，构析/EH及实际迁移未闭。；2026-10-04Cpp553014真实世界对象表provider落位，表值/定义状态保持，不开启入口或迁移宿主。；AIS01只将既有C5多字节活动调用移至应用前，并补当前68槽投影；旧cinit/CRT根未激活、原回调数组仍extern，音频/键盘/17标准流或经典locale状态单列，全应用/SDK/运行不闭。",
       "verification_level": "；两完整新父90条/14数值call与浮点槽、C5绑定及SEH scope三W32/95原表值和新增源码静态，实际x64编译/SDK/启动未验",
@@ -31266,7 +31278,7 @@
           "call_site": "0x53C8E2",
           "target_entry": "0x53C9B5",
           "target_symbol": "RunLegacyInitializers_53C9B5",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "InitializeLegacyCrt_53C8CD",
           "arguments": "真实C表[0,5)，首null/四目标",
           "relationship": "原先缓存浮点初始化回调后先C再C++，既有正序void调度不改，不增失败返回短路"
@@ -31276,7 +31288,7 @@
           "call_site": "0x53C8F1",
           "target_entry": "0x53C9B5",
           "target_symbol": "RunLegacyInitializers_53C9B5",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "InitializeLegacyCrt_53C8CD",
           "arguments": "真实C++表[0,90)，仅extern/完整迁移未启用",
           "relationship": "原先缓存浮点初始化回调后先C再C++，既有正序void调度不改，不增失败返回短路"
@@ -33302,7 +33314,15 @@
           "state": "active_application",
           "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
         }
-      ]
+      ],
+      "client_link_relocation": {
+        "step": "CAA01",
+        "original_body_and_state_kept": true,
+        "archive_member_only": true,
+        "source_check_ref": "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "runtime_verified": false,
+        "full_feature_accepted": false
+      }
     },
     {
       "original_entry": "0x53FD5C",
@@ -37286,7 +37306,7 @@
           ]
         },
         {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "path": "src/platform/LegacyProcessEntry.cpp",
           "symbols": [
             "RunLegacyProcessEntry_53DDB5"
           ],
@@ -37324,7 +37344,7 @@
           "call_site": "0x53DE1B",
           "target_entry": "0x53DED0",
           "target_symbol": "FastLegacyRuntimeErrorExit_53DED0",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "RunLegacyProcessEntry_53DDB5",
           "arguments": "28 S32，仅原heap返回0，保护区外",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
@@ -43735,7 +43755,7 @@
           ]
         },
         {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "path": "src/platform/LegacyProcessEntry.cpp",
           "symbols": [
             "InitializeLegacyCrt_53C8CD"
           ],
@@ -43907,7 +43927,7 @@
           ]
         },
         {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "path": "src/platform/LegacyProcessEntry.cpp",
           "symbols": [
             "RunLegacyProcessEntry_53DDB5"
           ],
@@ -43955,7 +43975,7 @@
           "call_site": "0x53DE24",
           "target_entry": "0x53F52D",
           "target_symbol": "InitializeLegacyDescriptors_53F52D",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "RunLegacyProcessEntry_53DDB5",
           "arguments": "无参/返回未消费，tryLevel0第一项",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
@@ -45111,12 +45131,7 @@
             "Sub_4E4A50",
             "Sub_4F0CD0",
             "Sub_4F0E20",
-            "Sub_4D7470",
-            "Sub_4D7C20",
-            "Sub_4D8230",
-            "Sub_4D88C0",
             "Sub_4DC290",
-            "Sub_4E4EA0",
             "Sub_4DF730",
             "Sub_4D5250",
             "Sub_4D55C0",
@@ -45175,6 +45190,17 @@
             "Sub_4FF650",
             "Sub_4D62A0",
             "Sub_4D8DA0"
+          ],
+          "relationship": "本步只迁移已证格式化调用，不据此宣布整段父本体通过验收"
+        },
+        {
+          "path": "src/LegacyCatalogWindows.cpp",
+          "symbols": [
+            "Sub_4D7470",
+            "Sub_4D7C20",
+            "Sub_4D8230",
+            "Sub_4D88C0",
+            "Sub_4E4EA0"
           ],
           "relationship": "本步只迁移已证格式化调用，不据此宣布整段父本体通过验收"
         },
@@ -45293,7 +45319,9 @@
         "doc/ui_windows/legacy_log_viewer.md",
         "doc/ui_windows/legacy_skill_panels.md",
         "doc/ui_windows/legacy_give_receive_confirmation.md",
-        "doc/cg2d_shop_choice_body_spec.md"
+        "doc/cg2d_shop_choice_body_spec.md",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ],
       "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处、动画及坐标提示2处、资源路径及缓存路径7处、聊天及现代查看器5处、入口命令行1处、截图公共及GDI3处、连接请求及收发错误10处、协议回包提示及命令前缀4处、创建页数值3处、回车黑名单2处及角色槽3处及配置路径/命令行4处、存档复位1处、删除3处及旧技能选择/学习/遗忘9处及旧买卖列表/确认18处及旧修理/鉴定14处及旧以物易物8处及仓库金币存取10处及仓库外层/物品/宠物23处及旧交易23处及摊位编辑/上架5处及窗口交易公开2处共203点已接，其他819点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。 动画45BDA9及坐标45C1CF两原容量提示已接，256B未清消息、原%d参数的S32提升/先后顺序和旧编码标题保持；共45个业务点，其他977个原引用未计完成。 六组资源路径456050六点及auto.dat包装45A14B已接，原%s反斜杠%s、容量/顺序/末次S32返回保持；共52个业务点，其他970个原引用未计完成。 聊天路径两格式、现代查看器文件名/路径三格式已接，容量/旧时间字段采样/共享文件名及原顺序保持；业务点累计57，其他965个原引用未计完成。 WinMain465805生成argument.ini路径已与真实FILE读取/EOF/关闭整链迁移，%s及原路径/64B容量保持；业务点累计58，其他964个原引用未计完成。 截图4537DF/453823/453B45三原格式点已与r探测/关闭及既有GDI链迁移，对应八现有格式表达式；公共GDI六格式动态恰一次，原字节/缓冲/参数与消息顺序保持，Primary三格式沿已批准原生替换另记。业务点累计61，其他961个原引用未计完成。 508360八请求/日志格式及5082D0/508310两错误格式已整链接既有请求提示和真实系统日志消费者；六无参提示移除额外%s包装，恢复原常量格式，已采样S32错误/尾空格/SNED拼写与日志先于过滤保持。业务点累计71，其他951个原引用未计完成。 50CF38/50E71A/50F23A/517590四原点已接三回复提示与非加密命令前缀，公会两格式保持同一表达式、原外部姓名参数及后续保存/音效/消息顺序；地址双提示后回写、命令变换后%s尾空格与校验和正文保持。业务点累计75，其他947个原引用未计完成。 创建页464197/4641D4/464221三原点已整链接真实格式与既有绘制消费者，%02d/S8→S32、32B未清buffer及三表达式/七动态格式保持；仅新增差异不重验其余创建本体或放行入口gate。业务点累计78，其他944个原引用未计完成。 回车44AD13/44AD66两原点已接真实黑名单提示/消费者，对应现有三互斥格式表达式；四原格式字节/%s源/AL分支及首字节→caret→length→通知→切换保持。业务点累计80，其他942个原引用未计完成。 角色槽461EC2/461F0E/461F48三原点已接真实格式及三个即刻456670绘制，原%4d/%s、+12 S16→S32、+14 S32局部业务阈值和+54借用文本保持；256B未清buffer及预览相邻顺序不改。业务点累计83，其他939个原引用未计完成。 配置465B49/465C43/465D5A/465EE0四原点已接真实核心及既有A接口/命令行消费者，原路径/前缀/%s字节、参数借用/容量/预清差异、格式后指针切换与末次S32计数返回保持；屏幕键盘仍排除。业务点累计87，其他935个原引用未计完成。 存档复位533399及删除533885/5338AA/5338C9四原点接真实格式及共享路径/三DeleteFileA消费者，S32十槽索引/原data反斜杠%d/%s反斜杠%s与三个文件名、固定records[0]重复清零及三次删除/最终BOOL32返回保持。业务点累计91，其他931个原引用未计完成。 旧技能4D6710/4D6A60/4D6EA0九原格式点接真实53B304及转义/非加密选择回传和即刻文字绘制；S32参数、六原格式/旧字节、16B/64B/256B未清局部、许可/逐行重读及原绘制/取样次序保持。只核新增格式差异，旧正文/图号衔接/旧表路由仍未闭合；业务点累计100，其他922个原引用未计完成。 旧买卖4D9220/4DA580/4DAA40/4DBD30十八原格式点与既有十六表达式整链接真实53B304，卖出数量三互斥原点仍共用一表达式/动态一次；S32字段/索引差异、八原字节、128B/512B/32B缓冲、跨面板坐标/原色号与拼接/转义/回传/即刻绘制次序保持。只核新增格式差异，上游与旧表路由仍待；业务点累计118，其他904个原引用未计完成。 旧修理/鉴定4DC7E0/4DDB20/4DDFC0/4DF300十四原点/十四表达式接真实53B304及列表/汇总即时绘制、索引拼接转义回传；S32字段与各自owner、六原字节组、128B/512B/32B容量及重复读取/取样/关闭次序保持。确认只回传+C2C物品索引，选择数仍仅作许可，不换列表索引或追加数量；上游/旧表路由仍待。业务点累计132，其他890个原引用未计完成。 旧以物易物4D36F0/4D4A50八点/八表达式接真实53B304及列表即时显示、索引数量拼接转义回传、确认数量显示和汇总固定字体测宽后居中绘制；原S32字段/名称借用/六字节组、128B/512B/32B容量与颜色/重读/取样/关闭顺序保持。零选择仍发送、非零数量包括负值及44B260字体快照保持，旧上游/路由仍待。业务点累计140，其他882个原引用未计完成。 仓库金额4E2D90/4E3750十点/十表达式接真实53B304及各次即时绘制，原%7d/金币字节、S32余额/上限/草稿/费用、64B未清buffer与side/金额/面板取样次序保持；CC4B58别名和外层原函数指针表不改。前三font0、后二font1/均mode2/color0；完整生产/旧表路由及运行仍待。业务点累计150，其他872个原引用未计完成。 仓库外层/物品/宠物六父剩余23原格式点/14表达式接真实53B304，六字段转义回传、六汇总逐项采样/即时绘制、数量/拆分/九宠物数值和底部金额保持；公共lambda/五属性循环及原字节/S32参数/缓冲不变，五原直接call和两局部表装载区分。完整生产/路由及运行仍待，业务点累计173，其他849个原引用未计完成。 旧交易六父23原点/14表达式接真实53B304，物品槽号+8/宠物索引公开载荷保留两次1024B复制，六汇总逐项采样、五属性循环/5FCH偏移、数量/拆分/双方金额原快照与读取保持；三交易文案无空格、原参数/缓冲/21文字消费者及五直接call/两表装载保持。完整生产/旧表路由与运行仍待，业务点累计196，其他826个原引用未计完成。 摊位4CD4F0/4CFE70五原格式点接真实53B304及同源共享金额/报价拼接/姓名说明转义复制回传；%d/%d|/%s、S32参数/借用原字节和缓冲、条件与三次转义/复制/尾NUL/socket顺序保持。共享目标立即数与格式第二参数区分，不推断整窗运行；业务点累计201，其他821原引用未计完成。 窗口交易公开4B0B29/4B0BEC两%d|%d已接，原S32 slot/position、52B未清buffer与两循环逐次格式/拼接/计数次序保持；同链两1024B复制接真实53BEC0，完整交易/路由/运行仍待。业务累计203，其他819原引用未计完成。 摆摊宠物行4D0EB0十五原点一一接真实53B304，十三信息及两价格分支的原%s/%4d/%3d/%d、S32字段/两次401EC0和借用指针、32B未清buffer与即刻绘制/价格再次取样保持。业务累计218，其他804原引用未计完成；本步不改表路由或验收完整67/68。 自身4B3BF0五属性/重量六原点及浏览4D0A80五属性五原点由现三个格式表达式接真实53B304；原%10d/%3d / %3d、各自owner的S32字段与最大重量>0后取重量、100B未清buffer/忽略返回及即时绘制次序保持。业务累计229，其他793原引用未计完成，不据此验收完整详情/生产/路由。 宠物候选行4D16F0五原点接真实53B304，原借用名称/种族、S32等级/两%4d/%4d当前值在前、maxHp→hp→maxFp→fp和页重读、32B未清buffer/忽略返回与即时绘制次序保持，其他正文/路由不动。业务累计234，其他788原引用未计完成。 摆摊物品4D04A0两个价格/数量点与4D1D50一个循环数量点接真实53B304，S32价格先选owner后的同一快照、正数量门槛、20B未清局部及原颜色/绘制/图框/选择/返回保持，整份源仅三个callee。业务累计237，其他785原引用未计完成。 晶石商店69/70四父十二原格式点接真实53B304，提示两互斥表达式各共一原call，两个金额点各由一循环表达式承接；原[kok]/[han]字节、借用名称/memo/S32数量-factor-quantity-金额、256B/52B局部及逐次采样/复制/立即绘制次序保持，其他正文/表绑定不动。业务累计249，其他773原引用未计完成。 晶石商店69/70余额两原点与四无参确认文案接真实53B304，原S32金额来源/51B5F0时点、%10d和原hex文案含NUL字节/零变参/共享12B余额前缀与50/21/48/21B文案owner及生产/复制/可见state次序保持，其他正文不动。业务累计255，其他767原引用未计完成。 外观确认4C5C8C与图号回复4C5FC8两%d原点接真实53B304，原S32图号来源/52B与256B未清buffer、格式后转义和target/request/Y/X/原button及发送后状态/音效顺序保持，其他正文不动。业务累计257，其他765原引用未计完成。 技能选择/确认四父九原点接真实53B304，遗忘索引+1/宠物和学习原索引与发布时点、16B转义容量15/确认替换槽无转义、256B显示借名称或S32金币/报价、固定示例名测宽及原消息/发送/状态/音效/绘制次序保持，其他正文不动。业务累计266，其他756原引用未计完成。 技能列表/金额生产六父十原点接真实53B304，原S32与requiredSlots S8提升、零值/报价、元素借用text/D45F78现12B前缀和11B行槽、total二次取样/未分页存在性与分页内容/之后price重读及其他映射/可见/回调次序保持，既有void签名与正文不动。业务累计276，其他746原引用未计完成。 技能模式刷新/替换槽/主更新四父七原点接真实53B304，原usedSlots/total二次读取、所需槽位文案/CF4A3C/候选capacity与已用槽/所选报价/slot值/玩家金币S32及共享元素text/12B前缀/11B行步长、消息和回调时点保持，其他正文不动。业务累计283，其他739原引用未计完成。 商店53三父八原格式点接真实53B304，九现表达式分组保留提示1→2与金额2→1；CF4FE0完整U32 flags和玩家W16 flags不合并，两模式数量各独立S32正值门槛，256B/52B未清buffer、factor非0含负及两12B金额S32 value后S16坐标、共享回调/按钮提示owner与其余正文保持。业务累计291，其他731原引用未计完成。 窗口54默认/取消回传4BFCB0@4BFDB9的mode1真实%d接53B304，S32=99、16B未清text/escaped、转义15及target/request-Y-X发送后重取窗口state时点保持，其余模式/生命周期/音效/图号/返回不动。业务累计292，其他730原引用未计完成。 资料查询/邮件五父九原格式点接真实53B304，七现表达式保留翻页三call到一表达式分组；S32字段/常量0、借用已转义文本、未清256/1024/64B局部与原容量、target/request-Y-X发送后独立重取/费用与联系人时间戳消费者顺序保持，其余正文不动。业务累计301，其他721原引用未计完成。 黑名单删除4CC6E0@4CC876三结果格式共一原call，两现互斥表达式接真实53B304并动态一次；原编码%s/借用name/既有128B message与17B name清理、立即44B050及之后页号/记录/context/焦点重取次序保持，其余正文不动。业务累计302，其他720原引用未计完成。 摆摊4CE700名称与4CFCA0携装拒绝两原点接真实53B304；非空摊名%s/33B默认前缀与清尾、零变参31B原文案/128B未清提示立即消费者及无携装价格输入路径和其余正文保持。业务累计304，其他718原引用未计完成。 摆摊价格输入4D2260及购买详情4D2840共17原点接真实53B304；20B/32B未清局部、S32价格/正count/完整属性或借名称、S16种族门槛与两独立CryptInt、选择号/模式原重读取样和立即绘制次序保持，其余正文不动。业务累计321，其他701原引用未计完成。 晶石商店69/70数量/总额/剩余/回复七原点接真实53B304；五行11B首字节清理/S32字段、两窗不同owned-total顺序、剩余先visible后重读与借元素text、低U8回复门槛/非零数量含负值/32B-256B局部/分隔符和转义发送次序及其余正文保持。业务累计328，其他694原引用未计完成。 商店53数量/总额/价格六父七原点接真实53B304；槽S8/字段S32、C58同源记录、五行11B首字节/可见与重复slot、两路径乘加取样及双格式三次数量读取、价格后名称分行/共享owner与其余正文保持。业务累计335，其他687原引用未计完成。 商店53主更新/回复/确认三父20原点接真实53B304，九现表达式保留3个组包点到一表达式与五标题/六问题分组；S32独立取样、低U8与S8模式/512B同源偏移256/32B片段/容量256或255、原编码零变参文案与%-24s借名/共享回调和发布次序及其余正文保持。业务累计355，其他667原引用未计完成。 晶石69剩余4C1700@4C1794接真实53B304，先可见后重读scroll/窗口/S32 remaining与原元素text借指针、owner/未消费尾及正文保持。业务累计356，其他666原引用未计完成。 选择器宠物负重4C69B0@4C6A89接真实53B304，S32 maximum先weight后取样、原text借指针和格式后text/U8字体重读测宽/元素1坐标居中及全部正文保持。业务累计357，其他665原引用未计完成。 仓库4A9B00六原点接真实53B304，四W16占用计数/S32值、20B未清局部共用与money/side余额取样、逐次window重读/六显示次序和正文保持。业务累计363，其他659原引用未计完成。 仓库存取款4ABB20六原点接真实53B304，五现表达式保留G/D共用请求与四金额；S32位模式取样/384B同源偏移128/转义255、发送后重取确认值和side/清state/两个11B显示区与原未初始化局部及正文保持。业务累计369，其他653原引用未计完成。 人物面板474FB0七原点接真实53B304，256B未清局部/七点S32、最大值先取/nextExp比较与重读/格式后元素重取复制及惩罚可见发布/void正文保持。业务累计376，其他646原引用未计完成。 技能窗口47A7A0十原点/六现表达式接真实53B304，256B未清同源数字/描述局部、S32变参与W16/S16/S8槽位来源、next/最大值先取、共享分支与skill/位置/窗口重取及签名/返回1/正文保持。业务累计386，其他636原引用未计完成。 制作材料请求4810A0六原点/六现callee接真实53B304，两256B局部与既有mode13清理、S32变参/两遍六槽/普通-特殊顺序/未初始化路径及消费时发送请求宽度/状态次序/签名正文保持。业务累计392，其他630原引用未计完成。 图鉴详情492F70五原点/五现callee接真实53B304，256B未清局部/全S32变参/原960、索引和记录重取、扫描前后目标取得差异/void签名与正文保持。业务累计397，其他625原引用未计完成。 战斗命令498520六原点接真实53B304，未清256B std::array/U32命令位模式/借name T*/S32费用、发送后状态及名称绘制后重取宠物技能/坐标次序/void正文和音频暂停边界保持。业务累计403，其他619原引用未计完成。 战斗物品499C30五原点接真实53B304，未清12B计数和256B命令局部/S32计数及原U32 255/索引位模式、格式前窗口选择/发送后动作状态与原绘制消费/S32签名及consumed正文和音频暂停边界保持。业务累计408，其他614原引用未计完成。 窗口13结果4876B0已证非IDA函数代码范围，十一现callee接十二原点，含487879错位23B补解码实际call；window/返回T*、借原name/text与S32门槛/未清256B局部/三增量追加和尾动作顺序/正文与音频暂停边界保持。累计420，其中419个IDA直接引用及1个原字节补证；原1022直接引用保持，已确认原调用池1023，其他603待。 宠物状态48F8F0九原点接真实53B304，未清256B/S32/原S16 pair重读及哨兵-取值分支、最大值先取/扫描前后data时序/U32含NUL长度返回和正文保持。累计429/已确认1023，其中428IDA引用+1既有原字节补证，原1022引用与补证明细不变，其他594待。 制作/技能结果485AF0四点与4EEA40七点，共十一原点/十现callee；485CAF两类型/4EEDF8四零变参格式和appendValue四原点共享关系保持，T*输入返回/owner/未清256B/两类加号与LF/段数门槛/结果解析-追加-尾动作及正文和音频暂停边界不动。累计440/已确认1023，其中439IDA引用+1既有原字节补证，原1022引用/补证字段保持，其他583待。 制造/物品作业结果47E5E0和47F3D0八原点接真实53B304，T*输入返回/未清256B/元素先NUL后三增量/物品门槛取制造回复而显示取物品回复的独立来源/尾部模式2或5发布及正文和音频暂停边界保持。累计448/已确认1023，其中447IDA引用+1既有补证，原1022引用/补证字段与120格式常量保持，其他575待。 宠物详细属性490780二十七原点/四现callee接真实53B304，writeNumber单表达式24字段/原元素/扫描前后阶段逐项匹配；+6C S32不缩宽、S16 pair重读/最大值先取/未清256B/原5及U32含NUL返回和全部正文保持。累计475/已确认1023，其中474IDA引用+1既有补证，原1022引用/补证字段与120格式常量保持，其他548待。 状态选择49F7E0三原点接真实53B304，name T*/五数值S32、十一/二十八空格/原记录重取和maxFp-fp-maxHp-hp取样、窗口text owner/行清理与可见/void-S32签名正文保持。累计478/已确认1023，其中477IDA引用+1既有补证，原1022引用/补证字段保持，其他545待。 采集/制造回复4ED6B0和4F39F0十二原点/六现callee接真实53B304，appendValue各四原点共一表达式，S32/T*输入返回/未清256B/零变参Nothing与16B段清理-尾LF、双256B丢失文本同源/28和8门槛-原LF/解析追加和尾创建及正文/音频暂停边界保持。累计490/已确认1023，其中489IDA引用+1既有补证，原1022引用/补证字段保持，其他533待。 库存488FB0三现callee接两原点，悬浮两T*/格式原共享、name/memo来源与Word门槛/未清256B同源/内联消费、S32 count与S16绘制和返回正文/音频暂停边界保持。累计492/已确认1023，其中491IDA引用+1既有补证，原1022引用/补证字段与124格式常量保持，其他531待。 宠物列表48C920三现callee接三原点，S16索引重取、S32等级/HP/FP读取次序、256B未清与格式后重新取window/data消费保持；累计495/已确认1023，其中494IDA引用+1既有补证，原引用1022/补证字段和124格式常量保持，余528。 宠物仓库外部行4AB710三现callee接三原点，零参数拒绝提示/两个S32转移命令/等级S32直接消费及原门槛、512B未清偏移、转义/发送顺序保持；累计498/已确认1023，其中497IDA引用+1既有补证，原1022引用/补证字段保持，格式126，余525。 DP结果499790两现callee接两原点，World变化/总量S32、原三空格/符号宽度、两次window取样/元素2和3直接消费与共享计时原公共尾保持；累计500/已确认1023，其中499IDA引用+1既有补证，原1022引用/补证字段保持，格式128，余523。 状态栏4723D0三现callee接三原点，宠物加点T*/S32、玩家S32及四伤势T*格式共享一点，原门槛/未清256B/同源消费与伤势复制中重读保持；累计503/已确认1023，其中502IDA引用+1既有补证，原1022引用/补证字段保持，格式134，余520。 邮件详情4A49B0三现callee接六原点，三时间/两姓名（普通迷你共call）/一页码按真实数登记，未清2048B/T*原owner/S32页码/既有斜线及消费者取样和U32返回保持；既有父只追加格式证据，累计509/已确认1023，其中508IDA引用+1既有补证，原1022引用/补证字段和134格式常量保持，余514。 宠物仓库自有行4AAEC0两现callee接拖放/双击两个零参数拒绝格式点，未清128B/原自有行重量或装备门槛/消息次序/两次拖动源与费用正文保持；累计511/已确认1023，其中510IDA引用+1既有补证，原1022引用/补证字段及134格式常量保持，余512。 宠物技能刷新491AA0两现callee接费用/页码两原点，S16编号重取/S32费用和页码、256B未清/对应11B费用槽与元素12消费/原T*返回身份正文保持；累计513/已确认1023，其中512IDA引用+1既有补证，原1022引用/补证字段和134格式常量保持，余510。 设置494180两现callee接两S32音量显示原点，各沿既有12B文本→测宽→重读偏移→居中及全部正文，音频继续暂停不转排除；累计515/已确认1023，其中514IDA引用+1既有补证，原1022引用/补证字段和134格式常量保持，余508。 装备489760两现callee接一共享悬浮原点，固定item借用/两T*格式变体/Word门槛/未清256B与同源消费和正文保持；累计516/已确认1023，其中515IDA引用+1既有补证，原1022引用/补证字段与134格式常量保持，余507。 库存选物489F00三原点/两现表达式与说明4C75A0两原点/两现表达式接真实格式，mode count/四属性变体原共享、S32-T*/未清256B+独立16B与512B/发包和绘制消费/返回正文保持；累计521/已确认1023，其中520IDA引用+1既有补证，原1022引用/补证字段保持，格式139，余502。 倒计时4982C0两现callee接两原点，S32秒数/16B前两S8图号消费与原模式下5ABC08回合/原字节/同buffer绘制、超时后本帧与正文保持；累计523/已确认1023，其中522IDA引用+1既有补证，原1022引用/补证字段保持，格式140，余500。 战斗结果4991C0两现callee接两S32经验原点，先固定window/再读借用结果/13及45实例text直写、原满经验/满级占位与数据/计时/返回正文保持；累计525/已确认1023，其中524IDA引用+1既有补证，原1022引用/补证字段保持，格式142，余498。 战斗装备49AC40两現callee接两个U32 Q原点，source/原FF、未清256B与关闭-选择-格式-发送-动作顺序及正文保持；累计527/已确认1023，其中526IDA引用+1既有补证，原1022引用/补证字段和142格式常量保持，余496。 交易4B0290两现callee接姓名T*对齐两原点，交错写中窗口快照/分隔符前借玩家名/复制后重取载荷及直写、原字节/初始化与阶段正文保持；累计529/已确认1023，其中528IDA引用+1既有补证，原1022引用/补证字段保持，格式143，余494。 物品作业4F1800两现callee接四数值S32/一升级零参数五原点，%+d/256B未清与28B换行/8段门槛、原LF/追加计数/返回正文保持；累计534/已确认1023，其中533IDA引用+1既有补证，原1022引用/补证字段及143格式常量保持，余489。 技能槽4740F0一现callee接S32累计原点，原十配对/S16槽数正文、未清256B/%2d/10与借用目标含NUL复制和void返回保持；累计535/已确认1023，其中534IDA引用+1既有补证，原1022引用/补证字段保持，格式144，余488。 玩家属性4767E0一现callee接28原点，原普通S32/逐项字段-元素-三个格式与未清256B/data先取后测长/逐项消费及全部正文保持，复用已有逐项原证不重查核心；累计563/已确认1023，其中562IDA引用+1既有补证，原1022引用/补证字段和144格式常量保持，余460。 称号478010/简介478A10两现callee接等级S32两独立原点，各自256B未清与data先取后测长/元素7和1消费及全部正文保持，既有资料缺口不补；累计565/已确认1023，其中564IDA引用+1既有补证，原1022引用/补证字段和144格式常量保持，余458。 制作材料47DF50和装饰47FAE0/47FD00三现callee接三原点，材料T*/S32与固定window/row规则/recipe后取、两原100 S32与21空格/原字节/动作返回与模式发布正文保持；累计568/已确认1023，其中567IDA引用+1既有补证，原1022引用/补证字段保持，格式146，余455。 物品移动4885A0两窗口原点及488E60/488E80各一库存数值原点由三现callee接入；保持S32/未清384B与转义状态坐标发送顺序、各12B显示及返回0。累计572/已确认1023，571IDA引用+1既有补证、格式147，余451，完整库存/协议父/CRT/运行未闭合。 数量48A950和技能拖动4920F0各接一真实原格式，保留回调-SE后window重取与名称后两索引重取/S32/各12B/真实返回，现音频和暂停范围保持。累计574/已确认1023（573直接引用+1既有补证）、格式147、余449；完整父路由/画面/CRT/运行未闭合。 制作482270与背包483150各接一原格式点；FP比较后重取单选等级/元素11魔力与图形后count正值/未清12B文字消费保持，完整正文和原返回不动。累计576/已确认1023（575直接引用+1既有补证）、格式147，余447；完整制作/上游/父路由/CRT/运行未闭合。 设置四音量按钮各一真实格式callee接入；音量应用后重取S32/%d/两12B与测宽后偏移和window采样保持，52C3D0本体及音频仍暂停。累计580/已确认1023（579直接引用+1既有补证）、格式147，余443；完整音量应用/窗口父/CRT/运行未闭合。 三宠物详情各一现callee接各十原点，保留十S32逐项读取/三原格式/未清256B与字体13/13/8消费，自有CryptInt与两普通记录字段、used零/背景真实返回及完整正文保持。累计610/已确认1023（609直接引用+1既有补证）、格式147、余413；完整数据生产/父路由/CRT/画面/运行未闭合。 宠物卡三原点和交易统计四原点接七现callee，保持HP/FP最大值先读/当前值前置参数/256B及callback后的tab2与四统计/52B逐项消费、完整签名和真实返回。累计617/已确认1023（616直接引用+1既有补证）、格式147、余406；完整数据生产/父路由/CRT/画面/运行未闭合。 宠物移动与两个战斗库存数值各一原格式接入，保留P命令S32×2/未清384B/同区转义后状态-Y-X-socket/void与各S32 %10d独立12B/返回0。累计620/已确认1023（619直接引用+1既有补证）、格式147、余403；完整协议父/库存/CRT/画面/运行未闭合。 查看/接收资料各一原格式接入，保留独立owner/value108 S32/%3d或%d/未清256B和当前窗口载荷后取/含NUL消费、两种分行与U32返回正文。累计622/已确认1023（621直接引用+1既有补证）、格式147、余401；完整资料生产/父路由/CRT/画面/运行未闭合。 三交易物品页九现callee接六原点，名称两T*变体共享原call/玩家W16和交易W32标志、图形后count S32/256B含NUL提示和数量消费、多参void与完整正文保持。累计628/已确认1023（627直接引用+1既有补证）、格式147、余395；完整交易/父路由/CRT/画面/运行未闭合。 对话回复三原格式接入，保留五个连续256B区/原位转义、两T*拼接和两个S32行格式、校验短路及按钮后独立行回复/各状态坐标重取/真实返回。累计631/已确认1023（630直接引用+1既有补证）、格式148、余392；完整对话/协议父/CRT/画面/运行未闭合。 治疗创建与更新七原格式接入，六callee替换并恢复一原空格式显式入口；六加载原字节与D68A7C已确认虚拟零来源、S32/T*/无变参及64B/512B逐项消费、记录owner/真实创建返回和既有row=-1等价处理保持。累计638/已确认1023（637直接引用+1既有补证）、格式155、余385；完整治疗/父路由/CRT/画面/运行未闭合。 四选择命令各一原格式接入，保留S8→S32或index+1/合法范围和拒绝原返回、32B/+16/cap15同区转义、状态-Y-X-socket后取与真实发送返回，原命令表和共享尾不动。累计642/已确认1023（641直接引用+1既有补证）、格式155、余381；完整选择/协议父/CRT/画面/运行未闭合。 外部/交易宠物详情十一原点接三现callee，五字段偏移差异/普通S32/100B逐项读-格式-绘制及外部容量先取与绝对Y31、低S8索引/owner/真实返回和完整正文保持。累计653/已确认1023（652直接引用+1既有补证）、格式155、余370；完整数据生产/父路由/CRT/画面/运行未闭合。 窗口51标题/选择请求各一原格式接入，T*/N|%s与512B/+256两次转义、S32/I|%d与52B直接发送/不添负选择门槛、原状态-Y-X-socket/消费返回与图号正文保持。累计655/已确认1023（654直接引用+1既有补证）、格式157、余368；完整窗口51/协议父/CRT/画面/运行未闭合。 存放金额刷新一原格式接入；CC4218普通S32/%10d/未清16B→后取元素13复制含NUL与两滚动/预览/绘图/返回1保持，累计656/已确认1023（655直接引用+1既有补证）、格式157、余367；完整数据/父路由/CRT/画面/运行未闭合。 窗口41/38两侧数量四原点接入；玩家+C44/外部+8普通S32图形后读取、正值%3d/未清12B/中心差异及38额外普通图/文字消费和事件返回保持，累计660/已确认1023（659直接引用+1既有补证）、格式157、余363；完整数据/父路由/CRT/画面/运行未闭合。 窗口50删除共用一点/四日期原点接入，仅两现callee；四删除S32汇入/512B两区转义与五S32日期来源/未清256B后取载荷、原其他分支/void裁决保持。累计665/已确认1023（664直接引用+1既有补证）、格式158、余358；完整数据/父路由/CRT/画面/运行未闭合。 商店数量和合计两原点接入；五行逐读scroll/只清首NUL/+C28普通S32/%2d/11B及55B owner、20使用项乘加发布/%10d同源48B区后取金额颜色与void裁决保持。累计667/已确认1023（666直接引用+1既有补证）、格式158、余356；完整商品数据/父路由/CRT/画面/运行未闭合。 窗口33X/Y两直接引用原点接入；入口固定data/查询非零仅首NUL，零路径对应CryptInt S32后取同源text/%3d/恒返回0保持，两个代码段无函数元数据不伪目录ID。累计669/已确认1023（668直接引用+1既有补证）、格式158、余354；完整数据/父路由/CRT/画面/运行未闭合。 技能/技术行四原点接入；固定技能S32等级/S8槽数逐项%2d与技术重取需求等级%2d/kind非1-2折算FP%3d同一未清20B、逐项数字消费/原层宽度及void裁决保持。累计673/已确认1023（672直接引用+1既有补证）、格式158、余350；完整数据/父路由/CRT/画面/运行未闭合。 配方/宠物/骑乘费用三原点接入；名称后配方重取技能折算FP或同一固定技术重新读取S32 FP/%3d/未清20B→数字→原图形，原索引查询/层与形参宽度、W32描述符/void裁决保持。累计676/已确认1023（675直接引用+1既有补证）、格式158、余347；完整数据/父路由/CRT/画面/运行未闭合。 战斗宠物等级/快照HP-FP及归还/召唤五原点接入；普通S32逐项读取/消费与U32 M|%X命令、未清256B/原门槛-发送后状态-消费返回和图形正文保持。累计681/已确认1023（680直接引用+1既有补证）、格式159、余342；完整数据/父路由/CRT/画面/运行未闭合。 窗口26两模式共用FP一点及三个战斗命令接入，五现callee承接四原点；FP独立最大/当前来源-后取载荷与三个U32 S/W命令/未清256B-状态重读-发送后原写序/void全文保持。累计685/已确认1023（684直接引用+1既有补证）、格式159、余338；完整数据/父路由/CRT/画面/运行未闭合。 三邮件删除确认原点接入；各原初始化/独立名字T*/旧字节格式和未清1024B→同源CC426C含NUL复制→真实建窗T*返回全文保持。累计688/已确认1023（687直接引用+1既有补证）、格式162、余335；完整数据/父路由/CRT/画面/运行未闭合。 邮件4A09E0两视图七原点由四现callee/两个私有helper和原父数值承接；T*表别名/状态重读覆盖及U8颜色、S32/未清240B数字后取载荷/两视图时点及原刷新108/3672返回保持。累计695/已确认1023（694直接引用+1既有补证）、格式164、余328；完整数据/父路由/CRT/画面/运行未闭合。 两邮件父七时间原点及迷你组合一点由两个现callee承接，实际发送后独立time/localtime/五S32原日期/64B及S32-T*-T*迷你组合1024B分区、实时正文记录/原写序和返回保持，4A6450本体不变。累计703/已确认1023（702直接引用+1既有补证）、格式165、余320；完整数据/父路由/时钟/CRT/画面/运行未闭合。 宠物邮件附件数量一原点接入，绘后重读槽/count S32/%3d/未清64B→后取窗口Y/X低S16文字消费，完整正文及476570真实U8返回保持。累计704/已确认1023（703直接引用+1既有补证）、格式165、余319；完整数据/父路由/CRT/画面/运行未闭合。 两状态栏六原点由共用helper四现callee承接；两HP原点/共享FP单点、最大后当前S32对/未清256B/同源HP24B及FP28B/原位置采样-父复制差异/所有正文及void保持。累计710/已确认1023（709直接引用+1既有补证）、格式165、余313；完整数据/父路由/CRT/画面/运行未闭合。；本步新增旧54行选择4D3410@4D3543，%d单S32/512B/+256转义，保留仅按钮chosen=-1、原读序/发送和完整返回；本步新增旧技能属性目标4EFB70三原格式点，128B/17B名称、四值原采样与格式后绘制顺序保持；本步新增旧技能/物品使用目标两页4F0460/4E4A50页码，各同源两S32/128B、多页快照、格式后布局与完整返回保持；本步新增旧固定提示4F0CD0/4F0E20四原点，四无25H原字节/256B与各次格式后布局不变，原额外W32沿既有无消费裁决；本步新增旧58目录4D7470五原点，绝对索引/相对选择、16B双缓冲与256B、逐行原字段/读序及返回保持，三外部数据缺口不补；本步新增旧59候选页4D7C20五原点，16B双缓冲/64B、发送后发布相对选择、目录与候选字段读序/原颜色和返回保持；本步新增旧60技能槽4D8230五原点，64B共用S32/96B与40B和92B字段、名字绘后/各次新采样及slots与used门槛区别保持；本步新增旧61确认4D88C0六原点，16B直接请求/256B、三T*两S32文本、固定宠物示例测宽与空槽原复制、各次读序和完整返回保持；本步新增旧67治疗4DC290六原点，128B/独立转义16B、七行扫描与六行绘制、图后重读S32累加和合计后金额、原字节/布局/完整返回保持；本步新增旧51交易目标4E4EA0页码一原点，CC3208页号/CF46D0页数两S32/128B、原多页快照/新取样与完整返回保持，三外部缺口不补；本步新增旧73留言4DF730删除/日期两原点，384B/+128转义、继续扫描、每记录时间W32与五S32读取/原斜线、输入uintptr_t返回保持；本步新增旧交出/接受4D5250/4D55C0六原点，16B双缓冲与128B显示、先SE再关闭继续扫描、两模式同点与各次S32读取/固定1/1及uintptr_t返回保持；本步新增旧78物品属性4E4460三原点，52B/20B名称T*/128B、活数量与名称绘后四S32读序/格式后布局及完整返回保持；本步新增旧刻印/埋起/赠物三页四原点，128B/C5CB绘图后数量、埋起selected转义16B、原描述/筛选/关闭/完整尾和hover发布保持；本步新增旧49/48普通邮件与宠物三原点，发送前五S32/64B、图后赠物数量128B与固定宠物+08/同色/128B、原副作用/读序/完整返回保持；本步新增旧42联系人4EC240两原点，128B/74H+08与图后新排序读取、页号S32+1/15及font1/原混合返回保持；本步新增旧47阅读4EAAA0与旧46普通群发4EB1C0四原点，图后联系人+08/十行后页码/发送前一次时间/各次发送后新排序联系人保存/四行后页码及原返回保持；本步新增公会赠物52D7B0、宠物送信52DCE0/宠物列表52E240四原点，图后+C44/名字绘后+08与发送前时间/发送后新目标保存、原布局色/返回保持；本步新增公会阅读52E650/普通群发52ED50四原点，缓存成员+10/十行后页+1与发送前一次时间/200排序项发送后新联系人保存/四行后页+1及原返回保持；本步新增公会联系人52FD60两原点，图后新同排序成员+10/四行后新页+1/50共128B、布局色与原混合返回保持；本步新增公会详情530BA0/职级修改532450两原点，按钮绘后新页/页数S32、384B+256或独立128B/新布局font0与原返回保持；本步新增旧点数4ECE00与战斗结果4ED020五原点，四源码格式接口/未清128B/S32及互斥人物宠物门槛、技能名后门槛/原布局返回保持；本步新增采集4EDB20/技能结果4EF0F0六原点，帧内技能快照/绘后等级经验与上限门槛/共256B或128B/新布局及原返回保持；本步新增加工4F1C40/制作4F3ED0七原点，技能快照/绘后字段与门槛/未清256B，加工满级仍格式而制作满级跳过的差异、原布局及返回保持；本步新增FP提示4F0B40/拆分4F0F70四原点，兼容原字节/零参数/所需值与原快照限制后新来源量/图后新拆分量，共256B/布局及原返回保持；本步原位更新加工选择4F2A30三原点，图后数量/阶段2成本与17固定格式共享单点；沿既有CA0ACC NUL owner/256B局部桥接不猜原容量，原复制/次数及其他正文保持；本步新增制作材料4F4790/执行4F51D0六原点，图后网格与到期配方/逐槽片段组包、名后新配方成本/需求量、选中图后量，共256B或独立128B/原布局返回保持；本步新增制作配方4F5A60/图鉴详情4F6220七原点，原16B快照首W32消费/低S8槽倍率与图鉴动画或种族绘后新记录、256B/128B和原布局返回保持 本步接通4F6CA0两处/4F7150三处；固定本行图鉴index与同pet引用、名绘后原+08及最大值先于当前值getter读取、参数当前在前、共用未清128B/新布局/完整U32返回保持。累计827/1023（826直接+唯一补证1），余196；不据此宣原父/旧真实路由/数据生产/运行/总PLAN完成。 本步4F8550八源码格式接口承接十三原点，六属性逐项循环映射各原点，同pet/经验等级门槛/getter最大值先/参数当前先、共用未清256B及输入布局/页码新面板坐标/返回0保持。累计840/1023（839直接+唯一补证1），余183；原父/旧真实路由/数据生产/运行/总PLAN未闭合。 本步4F8E40十一源码接口承接二十七原点，四循环二十点逐项读取、导航前固定pet/资格快照及getter最大值先/参数当前先、未清256B/宽度正号/新布局、页码后新剩余点及再读门槛/返回0保持。累计867/1023（866直接+唯一补证1），余156；原父/旧真实路由/数据生产/运行/总PLAN未闭合。 本步4F9B10两原格式接线，入口同pet/槽数、used W16/S16索引、名绘后同8CH技能+84 FP与行/说明后新位置/数量、未清256B/原布局/font1及返回0保持。累计869/1023（868直接+唯一补证1），余154；三宠物子页42原格式已接，原父/旧路由/数据生产/运行/总PLAN未闭合。 本步4FAEF0四点/4FBB40两点接线；图后count S32、提示memo扫描/flags W16与两原字符串T*格式、金额同快照/绘后新草稿、未清256B/新布局/font1与混合返回域保持。累计875/1023（874直接+唯一补证1），余148；原父/旧路由/数据生产/运行/总PLAN未闭合。 本步4FD1A0两点、4FD6A0三提示分支共用一点、4FF1A0一点，六源码接口对应四原点；新S32设置值/预设S8页及共享提示/扫描线S16直接索引T*、原字节/未清容量/布局/font0/返回域保持。累计879/1023（878直接+唯一补证1），余144；原父/旧路由/数据生产/别名运行/CRT/总PLAN未闭合。 本步4FE860三格式接线，光标W32非零/移动W32直接索引两T*与原S32速度×F32精确提升的F64/%2.1f、未清128B/新布局/font0/完整U32返回保持。借既有double消费/真实转换回调与注册链，累计882/1023（881直接+唯一补证1），余141；原父/旧路由/生产/CRT/浮点环境与运行/总PLAN未闭合。 本步500370三格式接线，固定同技能/需求槽低U8加局部W8/名绘后level S32、等级绘后需求槽S8/十五行后局部W8按S8解释的10-used、未清128B/新布局/font0/完整R32位型保持。累计885/1023（884直接+唯一补证1），余138；原父/旧路由/生产/CRT与运行/总PLAN未闭合，原待批不补。 本步5008C0四接口承接十六原点，现drawNumber十三绑定/三直接格式、逐项读数及格式后新版本/旧新布局、血魔最大值先/下级经验门槛/penalty图后新取、未清256B/输入坐标/font1/返回0保持。累计901/1023（900直接+唯一补证1），余122；原父/旧路由/版本与数据生产/CRT和运行/总PLAN未闭合。 本步5014A0三接口承接三十原点，现drawNumber二十八绑定/血魔两直接格式、入口资格快照/后期BP新读与颜色只读一次而各值重读、getter最大值先/六抗性字段/原Y269与268差异、未清256B/输入布局/font1/返回0保持。累计931/1023（930直接+唯一补证1），余92；原父/旧路由/生产/CRT与运行/总PLAN未闭合。 本步501FD0一点/5029B0两点/503160一点，输入绘后页/页数S8、地图X先/Y后独立getter与原字节格式、公共页签新image/hint及同源提示/后点击读取、未清32B/256B/128B与原返回域保持。共享97incoming不加计调用或宣caller验收；累计935/1023（934直接+唯一补证1），余88；原父/旧路由/生产/CRT和运行/总PLAN未闭合。 本步505170一点/505C20四点，图后count、phase6严格S32时间门槛后的首/末槽协议复制追加/未清128B与256B、名绘后倍率与技术FP新读/S32费用、首图门槛与六格图后数量/布局/完整U32返回保持。不补未写载荷；累计940/1023（939直接+唯一补证1），余83；原父/旧路由/生产/CRT和运行/总PLAN未闭合。 本步4014B0三接口承接人数/共享增删结果两个原点，人数快照/横线原字节/512B、操作后新输入T*/四变体与128B/格式后清除/满72早返保留输入、布局与混合返回域保持。结果点不多计variants/表达式；累计942/1023（941直接+唯一补证1），余81；原父/旧路由/生产/CRT与运行/总PLAN未闭合。 图像命中描述helper新增12原点/17源码表达式，原共享完整数值/等级/黑名单尾按实际call计数；只格式callee及一已有内部头改变，原对象重借/原字节/局部与共享缓冲/分段门禁保持。 五请求轮询的原超时定长复制恢复实际53B304，无变参/原字节含NUL/共享DA34DC余部和各独立完成态保持；非超时发送/调用者正文不动。 邮件时间戳534564与适配器534FEF两个原点仅格式callee变化，一既有内部声明头；原五S32取时/日期补宽、六U8零扩展W32十六进制/共尾、目标写域与原失败/释放保持。 普通/宠物及迷你既有/首次三收信通知点只更换格式callee，三原字节%s/同源姓名T*/未清256B及各不同插入/保存/扫描/SE/通知先后顺序保持；HTTP旧五函数排除与音频暂停不动。 数值/计时两个实际原点各仅标准callee替换；S32/未清256B、模式后读/符号追加/负号或借当前593850前缀、有符号除余60及旧对象与资源/失败尾保持。 实体名称十个实际原call由原同一%s/借各T*共一个现表达式承接；仅一个callee，S16模式、玩家称号表/非玩家字段和回退、颜色/未清256B/Y测宽X顺序及其他正文保持。 战斗M事件技能2013一索引提示只实际43390F接53B304，原S32采样/ASCII/源64B未清buffer和调试输出后新结果gate/continue保持；原完整容量本步不证明，不伪helper原地址或整父通过。 世界金币标签/聊天命令/断线错误提示三个原点仅stdcallee转真实格式加一已有内部头，S32 count/错误码与T* escaped、原字节和未清1024/1024/256B、原门禁/采样及RNG/发送/绘制时序保持。 渲染模式文件/缓存不足两个实际原点仅格式callee和两个已有内部头；成功打开后支持模式S8→S32/源11B已清承载、缓存S32扫描索引/原字节LF/未清256B与失败及资源状态保持。模式原完整容量本步不证明，不扩DX豁免。 存档失败/连接提示/登录标题七原点：一sprintfcallee、一固定复制恢复、三snprintf转原接口撤容量参，原U8码→S32/无变参/T*字节与1024/256/256B承载、状态写序/slot9普通后特殊/窗口发布保持。 2026-10-04补齐旧日志已实施的3原点及旧19本步5原点；992→997真实，26余点独立归属，循环不重复计原点。 本步旧85完整确认两原格式点已接，连续两256B与P05格式后首字节1不混为入口预清；999真实、余24分列。 2026-10-04原403E50@403F47沿原%s/FC8目标及FC4来源、旧尾复制后清W16/U8再格式化的实际位置接53B304；真实999→1000，原格式常量241不增，未运行。 SCP01旧62新增4D8F68原调用，未清16B→%d/原S32命令→未清16B转义/cap15→mode0发送；已接原点1000→1001/1023（1000直接+1既有补证），241格式不增。低两位零模式的第二命令未写，源接口落位不证明该值/真实模式生产或原栈等价，仍沿P07取证；其余22=13排除+6暂停+3SDL原生替换，完整业务/CRT/运行不提升。",
       "function_chunks": [
@@ -49655,127 +49683,127 @@
         {
           "parent_entry": "0x4D7470",
           "call_site": "0x4D76EF",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D7470"
         },
         {
           "parent_entry": "0x4D7470",
           "call_site": "0x4D7861",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D7470"
         },
         {
           "parent_entry": "0x4D7470",
           "call_site": "0x4D78AF",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D7470"
         },
         {
           "parent_entry": "0x4D7470",
           "call_site": "0x4D7973",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D7470"
         },
         {
           "parent_entry": "0x4D7470",
           "call_site": "0x4D79DB",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D7470"
         },
         {
           "parent_entry": "0x4D7C20",
           "call_site": "0x4D7EB0",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D7C20"
         },
         {
           "parent_entry": "0x4D7C20",
           "call_site": "0x4D7F04",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D7C20"
         },
         {
           "parent_entry": "0x4D7C20",
           "call_site": "0x4D7FA0",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D7C20"
         },
         {
           "parent_entry": "0x4D7C20",
           "call_site": "0x4D8036",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D7C20"
         },
         {
           "parent_entry": "0x4D7C20",
           "call_site": "0x4D812B",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D7C20"
         },
         {
           "parent_entry": "0x4D8230",
           "call_site": "0x4D84C0",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D8230"
         },
         {
           "parent_entry": "0x4D8230",
           "call_site": "0x4D8514",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D8230"
         },
         {
           "parent_entry": "0x4D8230",
           "call_site": "0x4D85AD",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D8230"
         },
         {
           "parent_entry": "0x4D8230",
           "call_site": "0x4D8639",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D8230"
         },
         {
           "parent_entry": "0x4D8230",
           "call_site": "0x4D87A0",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D8230"
         },
         {
           "parent_entry": "0x4D88C0",
           "call_site": "0x4D89D2",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D88C0"
         },
         {
           "parent_entry": "0x4D88C0",
           "call_site": "0x4D8A82",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D88C0"
         },
         {
           "parent_entry": "0x4D88C0",
           "call_site": "0x4D8AE2",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D88C0"
         },
         {
           "parent_entry": "0x4D88C0",
           "call_site": "0x4D8B54",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D88C0"
         },
         {
           "parent_entry": "0x4D88C0",
           "call_site": "0x4D8C13",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D88C0"
         },
         {
           "parent_entry": "0x4D88C0",
           "call_site": "0x4D8C67",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D88C0"
         },
         {
@@ -49817,7 +49845,7 @@
         {
           "parent_entry": "0x4E4EA0",
           "call_site": "0x4E5126",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4E4EA0"
         },
         {
@@ -53326,7 +53354,7 @@
           ]
         },
         {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "path": "src/platform/LegacyProcessEntry.cpp",
           "symbols": [
             "InitializeLegacyCrt_53C8CD"
           ],
@@ -54764,7 +54792,7 @@
           ]
         },
         {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "path": "src/platform/LegacyProcessEntry.cpp",
           "symbols": [
             "RunLegacyProcessEntry_53DDB5"
           ],
@@ -54804,7 +54832,7 @@
           "call_site": "0x53DE0F",
           "target_entry": "0x541BB8",
           "target_symbol": "InitializeLegacyHeap_541BB8",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "RunLegacyProcessEntry_53DDB5",
           "arguments": "0 S32，GetVersion四字段写后/tryLevel-1",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
@@ -58150,7 +58178,7 @@
           ]
         },
         {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "path": "src/platform/LegacyProcessEntry.cpp",
           "symbols": [
             "InitializeLegacyCrt_53C8CD"
           ],
@@ -84005,7 +84033,7 @@
           ]
         },
         {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "path": "src/platform/LegacyProcessEntry.cpp",
           "symbols": [
             "RunLegacyProcessEntry_53DDB5"
           ],
@@ -84022,7 +84050,7 @@
           "call_site": "0x53DE3E",
           "target_entry": "0x544047",
           "target_symbol": "InitializeLegacyArguments_544047",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "RunLegacyProcessEntry_53DDB5",
           "arguments": "无参/原S32返回未消费，命令行与环境原块发布后",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
@@ -84063,7 +84091,7 @@
           ]
         },
         {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "path": "src/platform/LegacyProcessEntry.cpp",
           "symbols": [
             "RunLegacyProcessEntry_53DDB5"
           ],
@@ -84080,7 +84108,7 @@
           "call_site": "0x53DE5A",
           "target_entry": "0x543F36",
           "target_symbol": "SliceLegacyWinMainCommandLine_543F36",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "RunLegacyProcessEntry_53DDB5",
           "arguments": "无参，GetStartupInfoA之后",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
@@ -84273,7 +84301,7 @@
           ]
         },
         {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "path": "src/platform/LegacyProcessEntry.cpp",
           "symbols": [
             "RunLegacyProcessEntry_53DDB5"
           ],
@@ -84291,7 +84319,7 @@
           "call_site": "0x53DE98",
           "target_entry": "0x543DB2",
           "target_symbol": "FilterLegacyRuntimeException_543DB2",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "RunLegacyProcessEntry_53DDB5",
           "arguments": "原information真实指针/先保存其ExceptionCode到本帧U32槽；原筛选完整S32返回",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
@@ -137184,14 +137212,14 @@
       "instruction_count": 570,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
+          "path": "src/LegacyCatalogWindows.cpp",
           "symbols": [
             "Sub_4D7470"
           ],
           "relationship": "宠物技能目录4D7470：原0x4d75ab..0x4d75b8四条13B，一次取gLegacyPetSkillCatalogActionD67C5C，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。"
         },
         {
-          "path": "src/LegacyUiRecord.cpp",
+          "path": "src/LegacyCatalogWindows.cpp",
           "symbols": [
             "gLegacyPetSkillCatalogImageCC3E64",
             "gLegacyPetSkillCatalogPageCountC8AF84"
@@ -137220,7 +137248,9 @@
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ],
       "boundary": "只替换五处原格式接口，保留绝对发送索引与相对选择发布差异、16B/16B/cap15及读序、256B共用显示、每行96B/U16门槛/+4值/+8费用S32、各次新页号/金额/价格与格式后布局。原失败/翻页/预览/关闭/SE返回/完整尾返回保持；CA0478容量与生产、CC3E64图号、C8AF84页数仍仅外部声明，D45F74既有定义不再报缺，旧路由/运行未闭合。；2026-10-04依据PE.data载入填零尾证据建立已消费S32槽真实唯一存储；仅装载初值0，不添加运行时复位/补值/生产，未定数组继续extern，既有全部正文/读取/发送及后续重读保持。 宠物技能目录4D7470：原0x4d75ab..0x4d75b8四条13B，一次取gLegacyPetSkillCatalogActionD67C5C，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 BVZ01六技能/宠物技能页面一CPP六片段实修：消除opaque YobiAction::flags直接访问，恢复共享预览一次持样、同样本判空并以既有SetYobiActionFlag2(false)清W32 bit1。原六阶段24条78B及四零寄存器上下文有据，六完整父其余正文、生产/关闭、格式/字节/消费者和原生helper/头保持；无新函数/API/helper/owner或保护，六已有原新追加/六adapted F，六页各一实际父与限定I-S。仅本阶段，不重验全部父/旧外路由或正常owner-alias寿命/画面运行；原格式明文、音频暂停及RPLAN.24保持。",
       "original_incoming": [],
@@ -137229,31 +137259,31 @@
         {
           "parent_entry": "0x4D7470",
           "call_site": "0x4D76EF",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D7470"
         },
         {
           "parent_entry": "0x4D7470",
           "call_site": "0x4D7861",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D7470"
         },
         {
           "parent_entry": "0x4D7470",
           "call_site": "0x4D78AF",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D7470"
         },
         {
           "parent_entry": "0x4D7470",
           "call_site": "0x4D7973",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D7470"
         },
         {
           "parent_entry": "0x4D7470",
           "call_site": "0x4D79DB",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D7470"
         }
       ],
@@ -137387,7 +137417,7 @@
             "Sub_4D8200"
           ],
           "meaning": "宠物技能目录图号",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "declaration": "src/LegacyPanelRuntime.hpp",
           "type": "std::int32_t",
           "original_consumed_bytes": 4,
@@ -137418,7 +137448,7 @@
             "Sub_4D7470"
           ],
           "meaning": "宠物技能目录页数",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "declaration": "src/LegacyPanelRuntime.hpp",
           "type": "std::int32_t",
           "original_consumed_bytes": 4,
@@ -137481,6 +137511,14 @@
         "runtime_verified": false,
         "machine_abi_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "client_link_relocation": {
+        "step": "CAA01",
+        "original_body_and_state_kept": true,
+        "archive_member_only": true,
+        "source_check_ref": "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "runtime_verified": false,
+        "full_feature_accepted": false
       }
     },
     {
@@ -137491,14 +137529,14 @@
       "instruction_count": 454,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
+          "path": "src/LegacyCatalogWindows.cpp",
           "symbols": [
             "Sub_4D7C20"
           ],
           "relationship": "候选宠物4D7C20：原0x4d7ce2..0x4d7cef四条13B，一次取gLegacyPetSkillPetActionD67C60，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。"
         },
         {
-          "path": "src/LegacyUiRecord.cpp",
+          "path": "src/LegacyCatalogWindows.cpp",
           "symbols": [
             "gLegacyPetSkillCatalogImageCC3E64"
           ],
@@ -137526,7 +137564,9 @@
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ],
       "boundary": "只替换五格式标识符；相对行16B/独立转义16B/cap15、发送后才发布C8A94C、取消原共享593850不变。64B共用显示、目录96B各次页号/相对选择/+4值/+8费用、五候选40B/used绘制而allowed只影响原颜色与点击、名称前颜色快照和名称绘后数值S32、原完整返回保持。目录三外部缺口/真实旧路由与运行未闭合。；2026-10-04依据PE.data载入填零尾证据建立已消费S32槽真实唯一存储；仅装载初值0，不添加运行时复位/补值/生产，未定数组继续extern，既有全部正文/读取/发送及后续重读保持。 候选宠物4D7C20：原0x4d7ce2..0x4d7cef四条13B，一次取gLegacyPetSkillPetActionD67C60，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 BVZ01六技能/宠物技能页面一CPP六片段实修：消除opaque YobiAction::flags直接访问，恢复共享预览一次持样、同样本判空并以既有SetYobiActionFlag2(false)清W32 bit1。原六阶段24条78B及四零寄存器上下文有据，六完整父其余正文、生产/关闭、格式/字节/消费者和原生helper/头保持；无新函数/API/helper/owner或保护，六已有原新追加/六adapted F，六页各一实际父与限定I-S。仅本阶段，不重验全部父/旧外路由或正常owner-alias寿命/画面运行；原格式明文、音频暂停及RPLAN.24保持。",
       "original_incoming": [],
@@ -137535,31 +137575,31 @@
         {
           "parent_entry": "0x4D7C20",
           "call_site": "0x4D7EB0",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D7C20"
         },
         {
           "parent_entry": "0x4D7C20",
           "call_site": "0x4D7F04",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D7C20"
         },
         {
           "parent_entry": "0x4D7C20",
           "call_site": "0x4D7FA0",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D7C20"
         },
         {
           "parent_entry": "0x4D7C20",
           "call_site": "0x4D8036",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D7C20"
         },
         {
           "parent_entry": "0x4D7C20",
           "call_site": "0x4D812B",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D7C20"
         }
       ],
@@ -137687,7 +137727,7 @@
             "Sub_4D8200"
           ],
           "meaning": "宠物技能目录图号",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "declaration": "src/LegacyPanelRuntime.hpp",
           "type": "std::int32_t",
           "original_consumed_bytes": 4,
@@ -137750,6 +137790,14 @@
         "runtime_verified": false,
         "machine_abi_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "client_link_relocation": {
+        "step": "CAA01",
+        "original_body_and_state_kept": true,
+        "archive_member_only": true,
+        "source_check_ref": "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "runtime_verified": false,
+        "full_feature_accepted": false
       }
     },
     {
@@ -137760,14 +137808,14 @@
       "instruction_count": 509,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
+          "path": "src/LegacyCatalogWindows.cpp",
           "symbols": [
             "Sub_4D8230"
           ],
           "relationship": "宠物技能槽4D8230：原0x4d82f7..0x4d8304四条13B，一次取gLegacyPetSkillSlotsActionD67C64，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。"
         },
         {
-          "path": "src/LegacyUiRecord.cpp",
+          "path": "src/LegacyCatalogWindows.cpp",
           "symbols": [
             "gLegacyPetSkillCatalogImageCC3E64"
           ],
@@ -137795,7 +137843,9 @@
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ],
       "boundary": "只替换五原格式接口，同64B共用未清缓冲/五S32；目录96B各次新页号/选择/+4值/+8价、候选40B名称绘后新选择/+4值、92B技能槽名称绘后+4值、说明后独立金额、各格式后Y/X和原字体保持。十槽点击依slots、绘名/值依used、可用图独立依slots、hover说明不查used的区别保持；原确认页关联关闭、预览/网络/副作用与完整返回不动。目录三外部缺口、原路由及运行未闭合。；2026-10-04依据PE.data载入填零尾证据建立已消费S32槽真实唯一存储；仅装载初值0，不添加运行时复位/补值/生产，未定数组继续extern，既有全部正文/读取/发送及后续重读保持。 宠物技能槽4D8230：原0x4d82f7..0x4d8304四条13B，一次取gLegacyPetSkillSlotsActionD67C64，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 BVZ01六技能/宠物技能页面一CPP六片段实修：消除opaque YobiAction::flags直接访问，恢复共享预览一次持样、同样本判空并以既有SetYobiActionFlag2(false)清W32 bit1。原六阶段24条78B及四零寄存器上下文有据，六完整父其余正文、生产/关闭、格式/字节/消费者和原生helper/头保持；无新函数/API/helper/owner或保护，六已有原新追加/六adapted F，六页各一实际父与限定I-S。仅本阶段，不重验全部父/旧外路由或正常owner-alias寿命/画面运行；原格式明文、音频暂停及RPLAN.24保持。",
       "original_incoming": [],
@@ -137804,31 +137854,31 @@
         {
           "parent_entry": "0x4D8230",
           "call_site": "0x4D84C0",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D8230"
         },
         {
           "parent_entry": "0x4D8230",
           "call_site": "0x4D8514",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D8230"
         },
         {
           "parent_entry": "0x4D8230",
           "call_site": "0x4D85AD",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D8230"
         },
         {
           "parent_entry": "0x4D8230",
           "call_site": "0x4D8639",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D8230"
         },
         {
           "parent_entry": "0x4D8230",
           "call_site": "0x4D87A0",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D8230"
         }
       ],
@@ -137959,7 +138009,7 @@
             "Sub_4D8200"
           ],
           "meaning": "宠物技能目录图号",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "declaration": "src/LegacyPanelRuntime.hpp",
           "type": "std::int32_t",
           "original_consumed_bytes": 4,
@@ -138022,6 +138072,14 @@
         "runtime_verified": false,
         "machine_abi_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "client_link_relocation": {
+        "step": "CAA01",
+        "original_body_and_state_kept": true,
+        "archive_member_only": true,
+        "source_check_ref": "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "runtime_verified": false,
+        "full_feature_accepted": false
       }
     },
     {
@@ -138032,7 +138090,7 @@
       "instruction_count": 363,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
+          "path": "src/LegacyCatalogWindows.cpp",
           "symbols": [
             "Sub_4D88C0"
           ],
@@ -138041,7 +138099,9 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_pet_skill_catalog.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ],
       "boundary": "只替换六原格式标识符；槽号S32/未清16B直接mode0发送无转义，三非拥有T*名和两个S32金额/费用共用未清256B。96B目录/40B候选/92B槽字段与各次选择读取、技能/槽真实buffer测宽、宠物固定588320示例测宽却画真实buffer、空槽仅原strcpy、原各次布局/前缀空白/按钮副作用/完整返回保持。目录三外部缺口/旧路由与运行不宣闭合。",
       "original_incoming": [],
@@ -138050,37 +138110,37 @@
         {
           "parent_entry": "0x4D88C0",
           "call_site": "0x4D89D2",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D88C0"
         },
         {
           "parent_entry": "0x4D88C0",
           "call_site": "0x4D8A82",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D88C0"
         },
         {
           "parent_entry": "0x4D88C0",
           "call_site": "0x4D8AE2",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D88C0"
         },
         {
           "parent_entry": "0x4D88C0",
           "call_site": "0x4D8B54",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D88C0"
         },
         {
           "parent_entry": "0x4D88C0",
           "call_site": "0x4D8C13",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D88C0"
         },
         {
           "parent_entry": "0x4D88C0",
           "call_site": "0x4D8C67",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4D88C0"
         }
       ],
@@ -138225,7 +138285,15 @@
           "relationship": "金额绘制后新取目录页号/相对选择/+8费用S32，保留原前缀三空格/%7d/后缀字节写同256B，格式后Y/X绘费用，随后问题/确认按钮/提示与flags0完整返回"
         }
       ],
-      "verification_level": "新读236/363格式邻窗、余127沿既有父合同；四既有原格式复用字节，新588D5C/588D48直接读完整原串并与现constexpr逐字节静态对应。整份源仅六标识符、字段/容量/参数/消费顺序与JSON增量/文档末追加/编码/差异核对通过。禁构建/测试/客户端/哈希；目录数据/原父/旧路由/生命周期/运行未闭合。"
+      "verification_level": "新读236/363格式邻窗、余127沿既有父合同；四既有原格式复用字节，新588D5C/588D48直接读完整原串并与现constexpr逐字节静态对应。整份源仅六标识符、字段/容量/参数/消费顺序与JSON增量/文档末追加/编码/差异核对通过。禁构建/测试/客户端/哈希；目录数据/原父/旧路由/生命周期/运行未闭合。",
+      "client_link_relocation": {
+        "step": "CAA01",
+        "original_body_and_state_kept": true,
+        "archive_member_only": true,
+        "source_check_ref": "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "runtime_verified": false,
+        "full_feature_accepted": false
+      }
     },
     {
       "original_entry": "0x4DC290",
@@ -138423,14 +138491,14 @@
       "instruction_count": 304,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
+          "path": "src/LegacyCatalogWindows.cpp",
           "symbols": [
             "Sub_4E4EA0"
           ],
           "relationship": "仅页码一格式标识符改变，所有其他正文保持"
         },
         {
-          "path": "src/LegacyUiRecord.cpp",
+          "path": "src/LegacyCatalogWindows.cpp",
           "symbols": [
             "gLegacyTradeTargetCountD30134",
             "gLegacyTradeTargetPageCountCF46D0"
@@ -138447,7 +138515,9 @@
         "doc/cg2d_trade_target_production_spec.md#trade-target-production-permission",
         "doc/cg2d_trade_target_production_spec.md#trade-target-production-implementation",
         "doc/cg2d_trade_target_production_spec.md#trade-target-production-source-state",
-        "doc/cg2d_trade_target_production_evidence.json"
+        "doc/cg2d_trade_target_production_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ],
       "boundary": "只替换页码原4E5126，586D48 %d/%d/两S32/未清128B；CF46D0>1布局快照、标题后新读CC3208页号/CF46D0页数、格式后新Y/X、另读页号及原各次扫描/绘制缓存、CC4D48发布后发送后重读选择/借原名称4E5620、提示和完整尾返回不动。CC3208已有唯一定义不报缺；CB1D1C名单容量/生产、D30134总数、CF46D0页数三项继续外部未闭合，不注册或补空数据。；2026-10-04依据PE.data载入填零尾证据建立已消费S32槽真实唯一存储；仅装载初值0，不添加运行时复位/补值/生产，未定数组继续extern，既有全部正文/读取/发送及后续重读保持。 TTP01三生产字段定点采集工具/方案已准备，当前原端未在调试，容量/写者未证；基类补完整断点范围冲突检查。未安装/执行采集，不增加客户端功能或完整门禁，动态许可须独立恢复。",
       "original_incoming": [],
@@ -138456,7 +138526,7 @@
         {
           "parent_entry": "0x4E4EA0",
           "call_site": "0x4E5126",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4E4EA0"
         }
       ],
@@ -138464,7 +138534,7 @@
         {
           "parent_entry": "0x4E4EA0",
           "call_site": "0x4E5126",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "symbol": "Sub_4E4EA0",
           "target_entry": "0x53B304",
           "format_address": "0x586D48",
@@ -138500,7 +138570,7 @@
             "Sub_4E4EA0"
           ],
           "meaning": "旧交易目标总数",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "declaration": "src/LegacyPanelRuntime.hpp",
           "type": "std::int32_t",
           "original_consumed_bytes": 4,
@@ -138531,7 +138601,7 @@
             "Sub_4E4EA0"
           ],
           "meaning": "旧交易目标页数",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "declaration": "src/LegacyPanelRuntime.hpp",
           "type": "std::int32_t",
           "original_consumed_bytes": 4,
@@ -138555,7 +138625,15 @@
           "initialization_evidence": "PE.data zero_tail [0x593000,0x1087B08)，槽完整4B在尾内；不是根据IDA未加载值猜零",
           "runtime_production": "仍待定位；本步不增加开页/网络/初始化写入或复位"
         }
-      ]
+      ],
+      "client_link_relocation": {
+        "step": "CAA01",
+        "original_body_and_state_kept": true,
+        "archive_member_only": true,
+        "source_check_ref": "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "runtime_verified": false,
+        "full_feature_accepted": false
+      }
     },
     {
       "original_entry": "0x4DF730",
@@ -148973,7 +149051,7 @@
           "relationship": "原宽/窄API后端、双NUL数量、两次ACP转换/失败释放或真实541620复制；返回指定Malloc拥有的原字节块"
         },
         {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "path": "src/platform/LegacyProcessEntry.cpp",
           "symbols": [
             "RunLegacyProcessEntry_53DDB5"
           ],
@@ -148992,7 +149070,7 @@
           "call_site": "0x53DE34",
           "target_entry": "0x544294",
           "target_symbol": "GetLegacyEnvironmentBlock_544294",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "RunLegacyProcessEntry_53DDB5",
           "arguments": "通过既有CaptureLegacyEnvironment_53DE34原片段：真实生产并立即发布1086030，非新增原身份",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
@@ -149024,7 +149102,7 @@
           "relationship": "同源原块输入/两遍生产char*表；数值W32、表槽地址x64，发布/错误9/原块释放清槽/末空槽/标志顺序保持"
         },
         {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "path": "src/platform/LegacyProcessEntry.cpp",
           "symbols": [
             "RunLegacyProcessEntry_53DDB5"
           ],
@@ -149072,7 +149150,7 @@
           "call_site": "0x53DE43",
           "target_entry": "0x543F8E",
           "target_symbol": "InitializeLegacyEnvironment_543F8E",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "RunLegacyProcessEntry_53DDB5",
           "arguments": "无参，argv之后/原块→表生产",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
@@ -149094,7 +149172,7 @@
           "relationship": "仅53DE34调用544294、53DE39发布1086030；独立命名片段，不作为完整原启动本体；旧局部/宿主职责关联保留，不作为本次完整父源码提供者"
         },
         {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "path": "src/platform/LegacyProcessEntry.cpp",
           "symbols": [
             "RunLegacyProcessEntry_53DDB5"
           ],
@@ -149148,7 +149226,9 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_pe_zero_initialization_evidence.json",
         "doc/cg2d_hosted_runtime_prefix_spec.md",
-        "doc/cg2d_hosted_runtime_prefix_evidence.json"
+        "doc/cg2d_hosted_runtime_prefix_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ],
       "implemented_instruction_fragments": [
         {
@@ -149166,7 +149246,7 @@
           "call_site": "0x53DE0F",
           "target_entry": "0x541BB8",
           "target_symbol": "InitializeLegacyHeap_541BB8",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "RunLegacyProcessEntry_53DDB5",
           "arguments": "0 S32，GetVersion四字段写后/tryLevel-1",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
@@ -149176,7 +149256,7 @@
           "call_site": "0x53DE1B",
           "target_entry": "0x53DED0",
           "target_symbol": "FastLegacyRuntimeErrorExit_53DED0",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "RunLegacyProcessEntry_53DDB5",
           "arguments": "28 S32，仅原heap返回0，保护区外",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
@@ -149186,7 +149266,7 @@
           "call_site": "0x53DE24",
           "target_entry": "0x53F52D",
           "target_symbol": "InitializeLegacyDescriptors_53F52D",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "RunLegacyProcessEntry_53DDB5",
           "arguments": "无参/返回未消费，tryLevel0第一项",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
@@ -149196,7 +149276,7 @@
           "call_site": "0x53DE34",
           "target_entry": "0x544294",
           "target_symbol": "GetLegacyEnvironmentBlock_544294",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "RunLegacyProcessEntry_53DDB5",
           "arguments": "通过既有CaptureLegacyEnvironment_53DE34原片段：真实生产并立即发布1086030，非新增原身份",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
@@ -149206,7 +149286,7 @@
           "call_site": "0x53DE3E",
           "target_entry": "0x544047",
           "target_symbol": "InitializeLegacyArguments_544047",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "RunLegacyProcessEntry_53DDB5",
           "arguments": "无参/原S32返回未消费，命令行与环境原块发布后",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
@@ -149216,7 +149296,7 @@
           "call_site": "0x53DE43",
           "target_entry": "0x543F8E",
           "target_symbol": "InitializeLegacyEnvironment_543F8E",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "RunLegacyProcessEntry_53DDB5",
           "arguments": "无参，argv之后/原块→表生产",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
@@ -149226,7 +149306,7 @@
           "call_site": "0x53DE48",
           "target_entry": "0x53C8CD",
           "target_symbol": "InitializeLegacyCrt_53C8CD",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "RunLegacyProcessEntry_53DDB5",
           "arguments": "无参，envp之后/StartupInfo之前",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
@@ -149236,7 +149316,7 @@
           "call_site": "0x53DE5A",
           "target_entry": "0x543F36",
           "target_symbol": "SliceLegacyWinMainCommandLine_543F36",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "RunLegacyProcessEntry_53DDB5",
           "arguments": "无参，GetStartupInfoA之后",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
@@ -149246,7 +149326,7 @@
           "call_site": "0x53DE7E",
           "target_entry": "0x465790",
           "target_symbol": "WinMain",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "RunLegacyProcessEntry_53DDB5",
           "arguments": "GetModuleHandleA(nullptr)真实instance,nullptr,借用commandLine,原U16 show或10",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
@@ -149256,7 +149336,7 @@
           "call_site": "0x53DE87",
           "target_entry": "0x53C8FA",
           "target_symbol": "ExitLegacyRuntime_53C8FA",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "RunLegacyProcessEntry_53DDB5",
           "arguments": "WinMain返回完整S32",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
@@ -149266,7 +149346,7 @@
           "call_site": "0x53DE98",
           "target_entry": "0x543DB2",
           "target_symbol": "FilterLegacyRuntimeException_543DB2",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "RunLegacyProcessEntry_53DDB5",
           "arguments": "原information真实指针/先保存其ExceptionCode到本帧U32槽；原筛选完整S32返回",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
@@ -149276,7 +149356,7 @@
           "call_site": "0x53DEA6",
           "target_entry": "0x53C90B",
           "target_symbol": "QuickExitLegacyRuntime_53C90B",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source": "src/platform/LegacyProcessEntry.cpp",
           "symbol": "RunLegacyProcessEntry_53DDB5",
           "arguments": "原已缓存Code位型S32，SEH选择handler后",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
@@ -149395,6 +149475,14 @@
         "initializer": "LegacyMultibyteStaticInitializer",
         "normal_exit": "FinishHostedLegacyStdio",
         "scope": "已有provider消费及同TU应用序前置/普通stdio；旧入口仍未启用，完整跨TU/退出/ABI待验"
+      },
+      "client_link_relocation": {
+        "step": "CAA01",
+        "original_body_and_state_kept": true,
+        "archive_member_only": true,
+        "source_check_ref": "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "runtime_verified": false,
+        "full_feature_accepted": false
       }
     },
     {
@@ -154331,7 +154419,7 @@
       "status": "既有12条预览初始化完整本体已实现；同一图号真实装载存储已接，图号生产/路由与运行未闭合",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
+          "path": "src/LegacyCatalogWindows.cpp",
           "symbols": [
             "Sub_4D7440",
             "gLegacyPetSkillCatalogImageCC3E64",
@@ -154350,7 +154438,9 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_pet_skill_catalog.md",
-        "doc/cg2d_pe_zero_initialization_evidence.json"
+        "doc/cg2d_pe_zero_initialization_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ],
       "boundary": "原x86地址仅作身份；图号S32不扩宽，预览只原生T*非拥有。Y/X/image读取、x+468/y+245、创建/发布/返回按已有完整合同，未造新增原函数或推数组/图号生产。装载初值不等于开页/网络复位，不注册旧表或记完整生命周期/故障等价。",
       "verification_level": "本轮原库存身份/边界与已有12条完整合同关联、当前实际源签名/三个不同预览槽及唯一定义、PE完整4B范围和限定新增差异静态核对；未重复取证旧本体，未构建/测试/运行",
@@ -154364,7 +154454,7 @@
             "Sub_4D8200"
           ],
           "meaning": "宠物技能目录图号",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "declaration": "src/LegacyPanelRuntime.hpp",
           "type": "std::int32_t",
           "original_consumed_bytes": 4,
@@ -154403,6 +154493,14 @@
         "symbol": "Sub_4D6640",
         "arguments": "image,x+468,y+245",
         "result": "gLegacyPetSkillCatalogActionD67C5C"
+      },
+      "client_link_relocation": {
+        "step": "CAA01",
+        "original_body_and_state_kept": true,
+        "archive_member_only": true,
+        "source_check_ref": "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "runtime_verified": false,
+        "full_feature_accepted": false
       }
     },
     {
@@ -154413,7 +154511,7 @@
       "status": "既有12条预览初始化完整本体已实现；同一图号真实装载存储已接，图号生产/路由与运行未闭合",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
+          "path": "src/LegacyCatalogWindows.cpp",
           "symbols": [
             "Sub_4D7BF0",
             "gLegacyPetSkillCatalogImageCC3E64",
@@ -154432,7 +154530,9 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_pet_skill_catalog.md",
-        "doc/cg2d_pe_zero_initialization_evidence.json"
+        "doc/cg2d_pe_zero_initialization_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ],
       "boundary": "原x86地址仅作身份；图号S32不扩宽，预览只原生T*非拥有。Y/X/image读取、x+468/y+245、创建/发布/返回按已有完整合同，未造新增原函数或推数组/图号生产。装载初值不等于开页/网络复位，不注册旧表或记完整生命周期/故障等价。",
       "verification_level": "本轮原库存身份/边界与已有12条完整合同关联、当前实际源签名/三个不同预览槽及唯一定义、PE完整4B范围和限定新增差异静态核对；未重复取证旧本体，未构建/测试/运行",
@@ -154446,7 +154546,7 @@
             "Sub_4D8200"
           ],
           "meaning": "宠物技能目录图号",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "declaration": "src/LegacyPanelRuntime.hpp",
           "type": "std::int32_t",
           "original_consumed_bytes": 4,
@@ -154485,6 +154585,14 @@
         "symbol": "Sub_4D6640",
         "arguments": "image,x+468,y+245",
         "result": "gLegacyPetSkillPetActionD67C60"
+      },
+      "client_link_relocation": {
+        "step": "CAA01",
+        "original_body_and_state_kept": true,
+        "archive_member_only": true,
+        "source_check_ref": "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "runtime_verified": false,
+        "full_feature_accepted": false
       }
     },
     {
@@ -154495,7 +154603,7 @@
       "status": "既有12条预览初始化完整本体已实现；同一图号真实装载存储已接，图号生产/路由与运行未闭合",
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
+          "path": "src/LegacyCatalogWindows.cpp",
           "symbols": [
             "Sub_4D8200",
             "gLegacyPetSkillCatalogImageCC3E64",
@@ -154514,7 +154622,9 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_pet_skill_catalog.md",
-        "doc/cg2d_pe_zero_initialization_evidence.json"
+        "doc/cg2d_pe_zero_initialization_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json"
       ],
       "boundary": "原x86地址仅作身份；图号S32不扩宽，预览只原生T*非拥有。Y/X/image读取、x+468/y+245、创建/发布/返回按已有完整合同，未造新增原函数或推数组/图号生产。装载初值不等于开页/网络复位，不注册旧表或记完整生命周期/故障等价。",
       "verification_level": "本轮原库存身份/边界与已有12条完整合同关联、当前实际源签名/三个不同预览槽及唯一定义、PE完整4B范围和限定新增差异静态核对；未重复取证旧本体，未构建/测试/运行",
@@ -154528,7 +154638,7 @@
             "Sub_4D8200"
           ],
           "meaning": "宠物技能目录图号",
-          "source": "src/LegacyUiRecord.cpp",
+          "source": "src/LegacyCatalogWindows.cpp",
           "declaration": "src/LegacyPanelRuntime.hpp",
           "type": "std::int32_t",
           "original_consumed_bytes": 4,
@@ -154567,6 +154677,14 @@
         "symbol": "Sub_4D6640",
         "arguments": "image,x+468,y+245",
         "result": "gLegacyPetSkillSlotsActionD67C64"
+      },
+      "client_link_relocation": {
+        "step": "CAA01",
+        "original_body_and_state_kept": true,
+        "archive_member_only": true,
+        "source_check_ref": "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "runtime_verified": false,
+        "full_feature_accepted": false
       }
     },
     {
@@ -202705,7 +202823,7 @@
           "relationship": "既有公共旧面板/图形按钮声明与类型保持，无新接口"
         },
         {
-          "path": "src/LegacyUiRecord.cpp",
+          "path": "src/LegacyPanelRuntime.hpp",
           "symbols": [
             "QueryPanelButtonState"
           ],
@@ -212213,6 +212331,231 @@
         "machine_unwind_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x454C30",
+      "inventory_id": "F:00054C30",
+      "original_role": "实际SDL设备、系统GM DLS/固定音乐流初始化与独立音量表；成功0，设备失败1，GM/流失败2",
+      "original_end_exclusive": "0x454ed7",
+      "instruction_count": 225,
+      "status": "CAA01必要SDL提供者已实现、Debug已链接；完整音频/运行未验",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "cg::platform::initialization_detail::InitializeMusic_454C30"
+          ],
+          "relationship": "实际SDL设备、系统GM DLS/固定音乐流初始化与独立音量表；成功0，设备失败1，GM/流失败2"
+        },
+        {
+          "path": "src/platform/SdlAudioBackend.cpp",
+          "symbols": [
+            "SdlAudioBackend"
+          ],
+          "relationship": "既有WAV/BGM及新增独立MIDI流实际SDL设备/PCM输出、音量和资源寿命"
+        },
+        {
+          "path": "src/platform/LegacyMidiSynth.cpp",
+          "symbols": [
+            "LegacyMidiSynth"
+          ],
+          "relationship": "系统GM DLS样本与SMF事件转换为PCM；固定资源播放基础，不宣全效果/动态调制"
+        }
+      ],
+      "native_provider": {
+        "source": "src/LegacyAudio.cpp",
+        "symbol": "cg::platform::initialization_detail::InitializeMusic_454C30",
+        "source_body_implemented": true,
+        "client_link_verified": true,
+        "runtime_verified": false
+      },
+      "evidence_documents": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "doc/cg2d_audio_paused_identity_spec.md"
+      ],
+      "boundary": "用户恢复必要音频开发；SDL后端机制为具名适配，原wire/明文/调用数据与正常分支保持。原KS混响/合唱、DLS动态调制及实际声音/失败/寿命未验；不代完整功能、旧7/旧8或整体SPEC。",
+      "verification_level": "完整原根取证、必要源码静态、实际Debug编译链接与map；未运行客户端/测试/样例或计算摘要"
+    },
+    {
+      "original_entry": "0x454EE0",
+      "inventory_id": "F:00054EE0",
+      "original_role": "停止音乐、释放流/序列/样本，依WAV owner决定共享设备关闭；返回0",
+      "original_end_exclusive": "0x454fd4",
+      "instruction_count": 86,
+      "status": "CAA01必要SDL提供者已实现、Debug已链接；完整音频/运行未验",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "cg::platform::shutdown_detail::Sub_454EE0"
+          ],
+          "relationship": "停止音乐、释放流/序列/样本，依WAV owner决定共享设备关闭；返回0"
+        },
+        {
+          "path": "src/platform/SdlAudioBackend.cpp",
+          "symbols": [
+            "SdlAudioBackend"
+          ],
+          "relationship": "既有WAV/BGM及新增独立MIDI流实际SDL设备/PCM输出、音量和资源寿命"
+        },
+        {
+          "path": "src/platform/LegacyMidiSynth.cpp",
+          "symbols": [
+            "LegacyMidiSynth"
+          ],
+          "relationship": "系统GM DLS样本与SMF事件转换为PCM；固定资源播放基础，不宣全效果/动态调制"
+        }
+      ],
+      "native_provider": {
+        "source": "src/LegacyAudio.cpp",
+        "symbol": "cg::platform::shutdown_detail::Sub_454EE0",
+        "source_body_implemented": true,
+        "client_link_verified": true,
+        "runtime_verified": false
+      },
+      "evidence_documents": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "doc/cg2d_audio_paused_identity_spec.md"
+      ],
+      "boundary": "用户恢复必要音频开发；SDL后端机制为具名适配，原wire/明文/调用数据与正常分支保持。原KS混响/合唱、DLS动态调制及实际声音/失败/寿命未验；不代完整功能、旧7/旧8或整体SPEC。",
+      "verification_level": "完整原根取证、必要源码静态、实际Debug编译链接与map；未运行客户端/测试/样例或计算摘要"
+    },
+    {
+      "original_entry": "0x458AE0",
+      "inventory_id": "F:00058AE0",
+      "original_role": "实际SDL设备能力与独立DINPUT入口观察；返回来自真实结果而非固定成功",
+      "original_end_exclusive": "0x458db5",
+      "instruction_count": 268,
+      "status": "CAA01必要SDL提供者已实现、Debug已链接；完整音频/运行未验",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "cg::platform::Sub_458AE0"
+          ],
+          "relationship": "实际SDL设备能力与独立DINPUT入口观察；返回来自真实结果而非固定成功"
+        },
+        {
+          "path": "src/platform/SdlAudioBackend.cpp",
+          "symbols": [
+            "SdlAudioBackend"
+          ],
+          "relationship": "既有WAV/BGM及新增独立MIDI流实际SDL设备/PCM输出、音量和资源寿命"
+        },
+        {
+          "path": "src/platform/LegacyMidiSynth.cpp",
+          "symbols": [
+            "LegacyMidiSynth"
+          ],
+          "relationship": "系统GM DLS样本与SMF事件转换为PCM；固定资源播放基础，不宣全效果/动态调制"
+        }
+      ],
+      "native_provider": {
+        "source": "src/LegacyAudio.cpp",
+        "symbol": "cg::platform::Sub_458AE0",
+        "source_body_implemented": true,
+        "client_link_verified": true,
+        "runtime_verified": false
+      },
+      "evidence_documents": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "doc/cg2d_audio_paused_identity_spec.md"
+      ],
+      "boundary": "用户恢复必要音频开发；SDL后端机制为具名适配，原wire/明文/调用数据与正常分支保持。原KS混响/合唱、DLS动态调制及实际声音/失败/寿命未验；不代完整功能、旧7/旧8或整体SPEC。",
+      "verification_level": "完整原根取证、必要源码静态、实际Debug编译链接与map；未运行客户端/测试/样例或计算摘要"
+    },
+    {
+      "original_entry": "0x50E680",
+      "inventory_id": "F:0010E680",
+      "original_role": "原socket后两个S32字段分流，第三派发字段不消费；固定原MIDI长度/重复及停止释放顺序",
+      "original_end_exclusive": "0x50e6b3",
+      "instruction_count": 18,
+      "status": "CAA01必要SDL提供者已实现、Debug已链接；完整音频/运行未验",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "cg::network::detail::Sub_50E680"
+          ],
+          "relationship": "原socket后两个S32字段分流，第三派发字段不消费；固定原MIDI长度/重复及停止释放顺序"
+        },
+        {
+          "path": "src/platform/SdlAudioBackend.cpp",
+          "symbols": [
+            "SdlAudioBackend"
+          ],
+          "relationship": "既有WAV/BGM及新增独立MIDI流实际SDL设备/PCM输出、音量和资源寿命"
+        },
+        {
+          "path": "src/platform/LegacyMidiSynth.cpp",
+          "symbols": [
+            "LegacyMidiSynth"
+          ],
+          "relationship": "系统GM DLS样本与SMF事件转换为PCM；固定资源播放基础，不宣全效果/动态调制"
+        }
+      ],
+      "native_provider": {
+        "source": "src/LegacyAudio.cpp",
+        "symbol": "cg::network::detail::Sub_50E680",
+        "source_body_implemented": true,
+        "client_link_verified": true,
+        "runtime_verified": false
+      },
+      "evidence_documents": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "doc/cg2d_audio_paused_identity_spec.md"
+      ],
+      "boundary": "用户恢复必要音频开发；SDL后端机制为具名适配，原wire/明文/调用数据与正常分支保持。原KS混响/合唱、DLS动态调制及实际声音/失败/寿命未验；不代完整功能、旧7/旧8或整体SPEC。",
+      "verification_level": "完整原根取证、必要源码静态、实际Debug编译链接与map；未运行客户端/测试/样例或计算摘要"
+    },
+    {
+      "original_entry": "0x52C3D0",
+      "inventory_id": "F:0012C3D0",
+      "original_role": "原音频/索引/enable门槛、0..15钳制和同一BGM记录/128槽表，实际应用SDL音量",
+      "original_end_exclusive": "0x52c449",
+      "instruction_count": 42,
+      "status": "CAA01必要SDL提供者已实现、Debug已链接；完整音频/运行未验",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "cg::audio::Sub_52C3D0"
+          ],
+          "relationship": "原音频/索引/enable门槛、0..15钳制和同一BGM记录/128槽表，实际应用SDL音量"
+        },
+        {
+          "path": "src/platform/SdlAudioBackend.cpp",
+          "symbols": [
+            "SdlAudioBackend"
+          ],
+          "relationship": "既有WAV/BGM及新增独立MIDI流实际SDL设备/PCM输出、音量和资源寿命"
+        },
+        {
+          "path": "src/platform/LegacyMidiSynth.cpp",
+          "symbols": [
+            "LegacyMidiSynth"
+          ],
+          "relationship": "系统GM DLS样本与SMF事件转换为PCM；固定资源播放基础，不宣全效果/动态调制"
+        }
+      ],
+      "native_provider": {
+        "source": "src/LegacyAudio.cpp",
+        "symbol": "cg::audio::Sub_52C3D0",
+        "source_body_implemented": true,
+        "client_link_verified": true,
+        "runtime_verified": false
+      },
+      "evidence_documents": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
+        "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "doc/cg2d_audio_paused_identity_spec.md"
+      ],
+      "boundary": "用户恢复必要音频开发；SDL后端机制为具名适配，原wire/明文/调用数据与正常分支保持。原KS混响/合唱、DLS动态调制及实际声音/失败/寿命未验；不代完整功能、旧7/旧8或整体SPEC。",
+      "verification_level": "完整原根取证、必要源码静态、实际Debug编译链接与map；未运行客户端/测试/样例或计算摘要"
     }
   ]
 }

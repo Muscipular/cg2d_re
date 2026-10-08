@@ -1,5 +1,7 @@
 # Sub52CCA0 主循环音频更新事实与待决映射
 
+> 2026-10-08当前增量：[CAA01](cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state)已依用户“先完成客户端链接”“用sdl播音频”恢复五个必要音频根及固定MIDI基础依赖，实现SDL流播放源并通过客户端Debug链接。本文原报告/早期授权状态作为历史保留；主循环WAV合同不因此改写，全音乐效果与实际声音/运行未验。
+
 ## 1. 范围与门禁
 
 - 单项：`R6.1.3.161.D`；仓库基点：`D:\Source\cgmsv\cg3a`，`HEAD 259c179`。

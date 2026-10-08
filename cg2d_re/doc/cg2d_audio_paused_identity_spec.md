@@ -1,5 +1,7 @@
 # APS01 暂停音频的原身份范围关联
 
+> 2026-10-08最新授权与实现：[CAA01](cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state)恢复454C30/454EE0/458AE0/50E680/52C3D0及必要固定音乐依赖，已接真实SDL提供者并完成客户端Debug链接。五pending保留完整功能未闭身份，但不再标为“本体缺失/待用户恢复”；旧7/旧8及全效果/运行仍待。以下APS01/BOY01暂停范围与数量为当时记录，不覆盖本次具名恢复。
+
 <a id="audio-paused-identity-baseline"></a>
 ## 当前缺口与原依据
 

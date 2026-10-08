@@ -1,5 +1,7 @@
 # TTP01 旧交易名单生产取证
 
+> CAA01（2026-10-08）将旧51入口4E4EA0及其原唯一状态迁入 `src/LegacyCatalogWindows.cpp` 独立归档成员，原正文/初值不变；当前真实客户端未抽取该成员。CB1D1C仍无猜测容量/空表，U02生产合同未关闭；本次链接通过不证明原不可达/排除。[当前链接合同](cg2d_client_link_sdl_audio_spec.md)。
+
 <a id="trade-target-production-gap"></a>
 ## 本步缺口和证据
 

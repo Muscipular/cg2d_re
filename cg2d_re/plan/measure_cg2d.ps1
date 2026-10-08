@@ -267,7 +267,16 @@ foreach ($f in $registry.features) {
     $isAccepted=($f.kind -eq 'flow' -and $f.scope -eq 'included' -and @($states.Values|Where-Object {$_ -ne 'pass'}).Count -eq 0 -and $f.blockers.Count -eq 0)
     $accepted[$f.id]=$isAccepted
     $candidates=Unique @($f.baseline_documents | ForEach-Object { if ($documentMembers.ContainsKey($_)) { $documentMembers[$_] } })
-    $featureRows.Add([ordered]@{candidate_function_ids=@($candidates);id=$f.id;title=$f.title;kind=$f.kind;scope=$f.scope;baseline_documents=$f.baseline_documents;original_inventory_ids=$f.original_inventory_ids;closure_task_ids=$f.closure_task_ids;dependencies=$f.dependencies;gates=$states;accepted=$isAccepted;blockers=$f.blockers})
+    $featureRow=[ordered]@{candidate_function_ids=@($candidates);id=$f.id;title=$f.title;kind=$f.kind;scope=$f.scope;baseline_documents=$f.baseline_documents;original_inventory_ids=$f.original_inventory_ids;closure_task_ids=$f.closure_task_ids;dependencies=$f.dependencies;gates=$states;accepted=$isAccepted;blockers=$f.blockers}
+    if ($f.Contains('resumed_original_inventory_ids') -and @($f.resumed_original_inventory_ids).Count -gt 0) {
+        Require ($f.scope -eq 'paused' -and @($f.resumed_source_evidence_refs).Count -gt 0) "$($f.id) 局部恢复缺范围/证据"
+        Require ((Unique $f.resumed_original_inventory_ids).Count -eq @($f.resumed_original_inventory_ids).Count) "$($f.id) 局部恢复ID重复"
+        foreach ($id in $f.resumed_original_inventory_ids) { Require ($id -in $f.original_inventory_ids) "$($f.id) 局部恢复ID超出原成员：$id" }
+        foreach ($ref in $f.resumed_source_evidence_refs) { Check-Path $ref $f.id }
+        $featureRow['resumed_original_inventory_ids']=$f.resumed_original_inventory_ids
+        $featureRow['resumed_source_evidence_refs']=$f.resumed_source_evidence_refs
+    }
+    $featureRows.Add($featureRow)
 }
 foreach ($f in $registry.features) {
     if ($accepted[$f.id]) {
@@ -522,17 +531,18 @@ $lines.Add('|---|---|---|---:|---|---|')
 foreach ($f in $featureRows) {
     $docLinks=@($f.baseline_documents|ForEach-Object {'['+[System.IO.Path]::GetFileNameWithoutExtension($_)+'](../'+$_+')'}) -join '、'
     $state=@($gateOrder|ForEach-Object {$f.gates[$_]}) -join '/'
-    $lines.Add("| $($f.id) | $($f.scope)：$(Cell $f.title) | $docLinks | $($f.original_inventory_ids.Count)/$($f.candidate_function_ids.Count) | $($f.closure_task_ids -join '、') | $state |")
+    $scopeNote = if ($f.Contains('resumed_original_inventory_ids') -and @($f.resumed_original_inventory_ids).Count -gt 0) { "（已恢复$(@($f.resumed_original_inventory_ids).Count)根；其余范围保留）" } else { '' }
+    $lines.Add("| $($f.id) | $($f.scope)$($scopeNote)：$(Cell $f.title) | $docLinks | $($f.original_inventory_ids.Count)/$($f.candidate_function_ids.Count) | $($f.closure_task_ids -join '、') | $state |")
 }
 $lines.Add('')
 $lines.Add('## 4. 当前推进规则')
 $lines.Add('')
-$lines.Add('先从已有合同补原成员和B证据，再逐项推进I/W/S；R保持blocked。优先处理已知P/C/U任务及无合同关联ID的归属，不把历史定位缺失当作未实现。原格式明文、音频暂停、无构建/测试/运行/摘要限制保持。')
+$lines.Add('先从已有合同补原成员和B证据，再逐项推进I/W/S；R保持blocked。优先处理已知P/C/U任务及无合同关联ID的归属，不把历史定位缺失当作未实现。原格式明文保持；必要音频/本次构建授权及局部恢复沿登记簿，未恢复范围和测试/运行/摘要限制保留。')
 $lines.Add('本看板只汇总结构化登记；变更后需做人工影响分析。静态汇总器退出0不等于软件验收通过。')
 $lines.Add('')
 $lines.Add('## 5. 开发差集队列')
 $lines.Add('')
-$lines.Add('下表只列定位/语义身份登记的缺口，供下一步选项推进；历史定位缺失不证明当前源码未实现。先核具名范围及当前代码，确有缺口再开发，原库存名称只供定位。音频暂停与原格式明文等限制保持，队列不参与完成率。')
+$lines.Add('下表只列定位/语义身份登记的缺口，供下一步选项推进；历史定位缺失不证明当前源码未实现。先核具名范围及当前代码，确有缺口再开发，原库存名称只供定位。必要音频局部恢复不代表整项验收，未恢复范围与原格式明文等边界保留，队列不参与完成率。')
 $lines.Add('')
 $lines.Add('| 登记差集 | 数量 | 判定与下一步 |')
 $lines.Add('|---|---:|---|')

@@ -5,6 +5,8 @@
 采集工具：[IDA采集器](../plan/cg2d_pet_catalog_capture.py)，固定快照 `cg2d-re-pet-catalog-capture-ready-20261005`。
 **本步仅准备工具与方案，尚未获得动态执行许可，未安装断点、运行原端或提升验收。**
 
+> CAA01（2026-10-08）将旧58–61七入口、相关唯一状态迁入 `src/LegacyCatalogWindows.cpp`，原正文/初值不变；与旧51组成独立静态库成员，真实客户端本次链接未抽取。CA0478仍未定义，U01总容量/生产缺口未关闭；不能将归档抽取结果当原不可达或范围排除。[迁移/链接证据](cg2d_client_link_sdl_audio_evidence.json)。
+
 <a id="pet-catalog-production-gap"></a>
 ## 缺口与现有证据
 

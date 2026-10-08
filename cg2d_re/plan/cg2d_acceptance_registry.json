@@ -328,7 +328,8 @@
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-baseline",
         "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-baseline",
         "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-baseline",
-        "doc/cg2d_math_final_exits_spec.md#math-final-exits-baseline"
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-baseline",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-baseline"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -528,7 +529,9 @@
         "F:00146024",
         "F:0013DEF3",
         "F:00143489",
-        "F:001434C5"
+        "F:001434C5",
+        "F:00142F10",
+        "F:00144620"
       ],
       "closure_task_ids": [
         "C01",
@@ -586,7 +589,8 @@
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision",
         "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-decision",
         "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-decision",
-        "doc/cg2d_math_final_exits_spec.md#math-final-exits-decision"
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-decision",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -634,7 +638,8 @@
         "BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
         "BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
         "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
-        "BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。"
+        "BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。",
+        "BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -686,7 +691,8 @@
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state",
         "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state",
         "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state",
-        "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state"
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state"
       ]
     },
     {
@@ -52000,6 +52006,70 @@
       "observation": "BWU01补原512E40全部108命令比较块的头U8读取/条件/回环到既有TryDispatchReply：当前2593条6307B/107×24加iKe25、433B命令含NUL/648跳零CALL，原两个U8对均头先/命令后、比较后同头判NUL及第二对后两地址加2保。一个现CPP一个模板片段，宿主strcmp改原两字节一轮的实际CPP循环，零新函数/接口/owner/原身份；原TEST相等/不等消费由既有bool合同承接，108源行/命令/类型/掩码/全部解码与callback及末三路径/原接收头和格式明文保持。仅已有1216局部证据及NETWORK69两限定I-S/E1180，无新原新/F处置/R7/成员；全根5779及全父/callee/正常寿命/机器ABI链接运行和真实互通未代验，模式真实生产未证不补造，RPLAN.24/音频暂停保持。 只全部108比较块/2593条6307B和433B原标记、原两对U8-NUL-加2循环/TEST消费及108原样源行和一个源片段，不代全5779条或机器。",
       "expected": "BWU01补原512E40全部108命令比较块的头U8读取/条件/回环到既有TryDispatchReply：当前2593条6307B/107×24加iKe25、433B命令含NUL/648跳零CALL，原两个U8对均头先/命令后、比较后同头判NUL及第二对后两地址加2保。一个现CPP一个模板片段，宿主strcmp改原两字节一轮的实际CPP循环，零新函数/接口/owner/原身份；原TEST相等/不等消费由既有bool合同承接，108源行/命令/类型/掩码/全部解码与callback及末三路径/原接收头和格式明文保持。仅已有1216局部证据及NETWORK69两限定I-S/E1180，无新原新/F处置/R7/成员；全根5779及全父/callee/正常寿命/机器ABI链接运行和真实互通未代验，模式真实生产未证不补造，RPLAN.24/音频暂停保持。 只全部108比较块/2593条6307B和433B原标记、原两对U8-NUL-加2循环/TEST消费及108原样源行和一个源片段，不代全5779条或机器。",
       "actual": "BWU01补原512E40全部108命令比较块的头U8读取/条件/回环到既有TryDispatchReply：当前2593条6307B/107×24加iKe25、433B命令含NUL/648跳零CALL，原两个U8对均头先/命令后、比较后同头判NUL及第二对后两地址加2保。一个现CPP一个模板片段，宿主strcmp改原两字节一轮的实际CPP循环，零新函数/接口/owner/原身份；原TEST相等/不等消费由既有bool合同承接，108源行/命令/类型/掩码/全部解码与callback及末三路径/原接收头和格式明文保持。仅已有1216局部证据及NETWORK69两限定I-S/E1180，无新原新/F处置/R7/成员；全根5779及全父/callee/正常寿命/机器ABI链接运行和真实互通未代验，模式真实生产未证不补造，RPLAN.24/音频暂停保持。 只全部108比较块/2593条6307B和433B原标记、原两对U8-NUL-加2循环/TEST消费及108原样源行和一个源片段，不代全5779条或机器。"
+    },
+    {
+      "id": "E-U64-MULTIPLY-SHIFT-FUNC-CRT-I-20261008",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWV01两完整根34条83B及三原入向/调用后数字扩展ADD-ADC，原乘法快慢和CL三分支/两CC用途。doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-u64-multiply-shift-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_u64_multiply_shift_evidence.json",
+        "doc/cg2d_u64_multiply_shift_spec.md",
+        "doc/cg2d_stdio_contract.md",
+        "src/platform/LegacyFormat.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyScan.cpp",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-baseline",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-decision",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-acceptance",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 只两完整原数学helper与全部三已证输入点4/3/10、结果后原数字扩展消费接线，不代更多间接别名或完整输入父。",
+          "decision_ref": "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 只两完整原数学helper与全部三已证输入点4/3/10、结果后原数字扩展消费接线，不代更多间接别名或完整输入父。",
+      "expected": "BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 只两完整原数学helper与全部三已证输入点4/3/10、结果后原数字扩展消费接线，不代更多间接别名或完整输入父。",
+      "actual": "BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 只两完整原数学helper与全部三已证输入点4/3/10、结果后原数字扩展消费接线，不代更多间接别名或完整输入父。"
+    },
+    {
+      "id": "E-U64-MULTIPLY-SHIFT-FUNC-CRT-S-20261008",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWV01两完整根34条83B及三原入向/调用后数字扩展ADD-ADC，原乘法快慢和CL三分支/两CC用途。doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-u64-multiply-shift-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_u64_multiply_shift_evidence.json",
+        "doc/cg2d_u64_multiply_shift_spec.md",
+        "doc/cg2d_stdio_contract.md",
+        "src/platform/LegacyFormat.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyScan.cpp",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-baseline",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-decision",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-acceptance",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 只两全根34条83B/原高半快慢-W32合成与CL三个正常分支、三源三改及10B CC用途，不代机器/全CRT或异常等价。",
+          "decision_ref": "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 只两全根34条83B/原高半快慢-W32合成与CL三个正常分支、三源三改及10B CC用途，不代机器/全CRT或异常等价。",
+      "expected": "BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 只两全根34条83B/原高半快慢-W32合成与CL三个正常分支、三源三改及10B CC用途，不代机器/全CRT或异常等价。",
+      "actual": "BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 只两全根34条83B/原高半快慢-W32合成与CL三个正常分支、三源三改及10B CC用途，不代机器/全CRT或异常等价。"
     }
   ],
   "task_acceptance": [
@@ -52363,7 +52433,8 @@
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state",
         "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state",
         "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state",
-        "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state"
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state"
       ],
       "task_id": "C01",
       "state": "open"
@@ -52832,7 +52903,8 @@
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state",
         "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state",
         "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state",
-        "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state"
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state"
       ]
     },
     {
@@ -52880,7 +52952,8 @@
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state",
         "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state",
         "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state",
-        "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state"
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state"
       ]
     },
     {
@@ -53292,7 +53365,8 @@
         "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state",
         "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state",
         "doc/cg2d_shop_command_read_spec.md#shop-command-read-source-state",
-        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-source-state"
+        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-source-state",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state"
       ]
     },
     {
@@ -66163,6 +66237,30 @@
         "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state"
       ],
       "boundary": "原5434C5六条20B完整溢出前缀，FST不弹ST0并读高W32/AND，真实直达原5434ED已实现共享后缀，绕过下溢；同56B帧/借用输入/完整CW W32恢复，不造尾部或伪接线。 BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:00142F10",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-baseline",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-decision",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-acceptance",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state"
+      ],
+      "boundary": "原完整542F10十九条52B，两原两W32合成64位数值；保高半均零快路及原两交叉低W32乘加/低×低合成低64结果，原唯一53E6EC以乘数10真实调用。 BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:00144620",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-baseline",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-decision",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-acceptance",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state"
+      ],
+      "boundary": "原完整544620十五条31B，U64位模式与CL单BYTE；原>=64返回0、32..63低半搬高/清低/低五位及0..31双字结果，原53E68B/53E6DB计数4/3真实接线。 BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。"
     }
   ],
   "auxiliary_dispositions": [
@@ -95241,6 +95339,68 @@
         "Cg2dCheckLegacyPrecisionExitX87"
       ],
       "boundary": "BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "id": "X:00142F0C-00142F10",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-baseline",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-decision",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-acceptance",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state",
+        "doc/cg2d_u64_multiply_shift_evidence.json"
+      ],
+      "reason": "完整CC编译对齐，前邻RET4或无条件回跳后至该已实现真实通用入口前；无已知入向，仅记录用途，不造空函数/默认返回或代前邻函数与异常链验收。",
+      "classification": "alignment_padding",
+      "original_size": 4,
+      "original_bytes": "cccccccc",
+      "original_previous_boundary": {
+        "ea": "0x542f09",
+        "function": "0x542ef1",
+        "function_end": "0x542f0c",
+        "text": "retn    4"
+      },
+      "original_next_boundary": {
+        "ea": "0x542f10",
+        "text": "mov     eax, dword ptr [esp+arg_0+4]"
+      },
+      "source_path": "src/platform/LegacyFormat.cpp",
+      "source_symbols": [
+        "MultiplyLegacyUnsigned64_542F10"
+      ],
+      "boundary": "仅完整CC对齐用途，无新函数/运行入口/故障模型，不代前邻根。 BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "id": "X:0014461A-00144620",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-baseline",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-decision",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-acceptance",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state",
+        "doc/cg2d_u64_multiply_shift_evidence.json"
+      ],
+      "reason": "完整CC编译对齐，前邻RET4或无条件回跳后至该已实现真实通用入口前；无已知入向，仅记录用途，不造空函数/默认返回或代前邻函数与异常链验收。",
+      "classification": "alignment_padding",
+      "original_size": 6,
+      "original_bytes": "cccccccccccc",
+      "original_previous_boundary": {
+        "ea": "0x544618",
+        "function": "0x544552",
+        "function_end": "0x54461a",
+        "text": "jmp     short loc_5445E4"
+      },
+      "original_next_boundary": {
+        "ea": "0x544620",
+        "text": "cmp     cl, 40h ; '@'"
+      },
+      "source_path": "src/platform/LegacyFormat.cpp",
+      "source_symbols": [
+        "ShiftLegacyUnsigned64_544620"
+      ],
+      "boundary": "仅完整CC对齐用途，无新函数/运行入口/故障模型，不代前邻根。 BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。"
     }
   ]
 }

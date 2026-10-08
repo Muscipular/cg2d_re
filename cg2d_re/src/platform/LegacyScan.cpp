@@ -367,11 +367,11 @@ std::int32_t ScanLegacyInput_53DEF4(
                             }
                             if (useInt64 != 0) {
                                 if (hex) {
-                                    numeric64 <<= 4;
+                                    numeric64 = ShiftLegacyUnsigned64_544620(numeric64, 4);
                                 } else if (radixKind == 'o') {
-                                    numeric64 <<= 3;
+                                    numeric64 = ShiftLegacyUnsigned64_544620(numeric64, 3);
                                 } else {
-                                    numeric64 *= 10;
+                                    numeric64 = MultiplyLegacyUnsigned64_542F10(numeric64, 10);
                                 }
                             } else if (kind == 'p') {
                                 address <<= 4;

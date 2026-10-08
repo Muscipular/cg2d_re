@@ -506,6 +506,37 @@ std::int32_t FormatLegacyStream_53BC0F(LegacyFile* const stream, const char* con
     return result;
 }
 
+std::uint64_t MultiplyLegacyUnsigned64_542F10(
+    const std::uint64_t first, const std::uint64_t second)
+{
+    const auto firstHigh = static_cast<std::uint32_t>(first >> 32);
+    const auto secondHigh = static_cast<std::uint32_t>(second >> 32);
+    const auto secondLow = static_cast<std::uint32_t>(second);
+    const auto firstLow = static_cast<std::uint32_t>(first);
+    if ((firstHigh | secondHigh) == 0) {
+        return static_cast<std::uint64_t>(firstLow) * secondLow;
+    }
+    std::uint32_t cross = firstHigh * secondLow;
+    cross += firstLow * secondHigh;
+    const std::uint64_t lowProduct =
+        static_cast<std::uint64_t>(firstLow) * secondLow;
+    return lowProduct + (static_cast<std::uint64_t>(cross) << 32);
+}
+
+std::uint64_t ShiftLegacyUnsigned64_544620(
+    const std::uint64_t value, const std::uint8_t count)
+{
+    if (count >= 64) {
+        return 0;
+    }
+    if (count >= 32) {
+        const auto low = static_cast<std::uint32_t>(value);
+        const std::uint32_t high = low << (count & 0x1Fu);
+        return static_cast<std::uint64_t>(high) << 32;
+    }
+    return value << count;
+}
+
 std::uint64_t RemainderLegacyUnsigned64_5447A0(
     const std::uint64_t dividend, const std::uint64_t divisor)
 {

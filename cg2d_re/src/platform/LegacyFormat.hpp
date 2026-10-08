@@ -52,6 +52,13 @@ std::int32_t ScanLegacyInput_53DEF4(
     LegacyFile* stream, const char* format, std::va_list arguments);
 std::int32_t ScanLegacyString_53CADC(const char* buffer, const char* format, ...);
 
+// 原542F10合成乘积低64位，保原高半零快路与交叉W32乘加；不是地址扩宽。
+std::uint64_t MultiplyLegacyUnsigned64_542F10(
+    std::uint64_t first, std::uint64_t second);
+// 原544620只消费CL计数BYTE，保>=64原返回0/32..63低半搬高/0..31双字移位。
+std::uint64_t ShiftLegacyUnsigned64_544620(
+    std::uint64_t value, std::uint8_t count);
+
 // 原U64两helper，参数/返回各64位而非地址；原生无符号算符，不增除零保护或替代值。
 std::uint64_t RemainderLegacyUnsigned64_5447A0(
     std::uint64_t dividend, std::uint64_t divisor);

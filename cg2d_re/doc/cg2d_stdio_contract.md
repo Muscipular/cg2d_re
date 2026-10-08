@@ -1591,8 +1591,8 @@ h/l/L/w、F/N、重复*及I64的原增减/符号扩展，宽度按S32累计。
 
 整数保留i/x前缀探测与回推、p独立原路径、符号吃完宽度时的停止门禁、
 数字分类及hextodec再减30H、正常W32/W64算术、宽度耗尽不额外读/回推等规则。
-I64只在原显式修饰时启用数值64位分支；固定3/4位左移及乘10直接用U64表达，
-仅覆盖原两移位和一乘法调用域，不宣称实现通用__allshl/__allmul。
+I64只在原显式修饰时启用数值64位分支；原3/4位左移及乘10现真实接完整U64通用入口，
+见[BWV01合同](cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-decision)；原计数/乘数和结果后数字扩展相加保持，不代完整输入核心验收。
 n不增加赋值数，按原length0写W16/其他写W32；I64n原64位局部初清0，
 仍写该0而不擅自改为字符计数。
 
@@ -4340,3 +4340,9 @@ virtualTable从const void*改对应const方法表指针，内部头四块、stre
 [BPN01正常算术裁决](cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-decision)/[限定原证据](cg2d_float_decimal_estimate_evidence.json)。既有546F36的一估算片段恢复S32乘加减和算术右移，退休该片段U32/bit_cast包装；原15位指数/最高U8自然域确保中间值在S32内，不增检查。正常旧值一致，真实96位多字进位/所有字段、三个归零/四特殊串及复制、缩放/局部0.1/21位上限/舍入/裁剪和S8-NUL、真实fltout唯一记录与所有其它源保持。
 
 本步只原[547041,547075)15条52B及唯一544F43/544F17取参/发布邻窗。旧完整232元数据/来源和此前算法证据保，不重验完整数字生成/96位与e/f/g；正常S32并不免除真实字节存储。CRT154→155枚举open，C12/R01/R04与SDK/ABI/环境及全部格式业务/owner寿命/运行仍未闭。
+
+## BWV01完整通用U64入口承接原输入三个点（2026-10-08）
+
+[实施合同](cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-decision)、[两全根/三原点及完整源差集](cg2d_u64_multiply_shift_evidence.json)。原输入I64三处4/3/10分别真实调用ShiftLegacyUnsigned64_544620与MultiplyLegacyUnsigned64_542F10，原正常初始化/数字扩展ADD-ADC、字符/符号/宽度/流及其他W32/地址域保持。
+
+两完整helper保原乘法高半零快/交叉W32合成与原CL三个左移分支；计数>=64零分支原已存在，不新增越界保护、默认结果或故障模拟。原数值已由两W32组成64位，不扩普通数字字段。两根及三已证消费者的限定I-S通过，完整输入父、其他CRT/间接别名、机器ABI/链接/运行仍未代验。

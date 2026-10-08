@@ -1,0 +1,905 @@
+{
+  "schema_version": 1,
+  "spec_id": "BWV01",
+  "recorded_on": "2026-10-08",
+  "baseline_snapshot": "cg2d-re-dispatch-header-byte-read-20261008",
+  "implementation_snapshot": "cg2d-re-u64-multiply-shift-20261008",
+  "evidence_refs": [
+    "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-baseline",
+    "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-decision",
+    "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-acceptance",
+    "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state"
+  ],
+  "artifacts": [
+    "doc/cg2d_u64_multiply_shift_evidence.json",
+    "doc/cg2d_u64_multiply_shift_spec.md",
+    "doc/cg2d_stdio_contract.md",
+    "src/platform/LegacyFormat.cpp",
+    "src/platform/LegacyFormat.hpp",
+    "src/platform/LegacyScan.cpp",
+    "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-baseline",
+    "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-decision",
+    "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-acceptance",
+    "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state"
+  ],
+  "original_functions": [
+    {
+      "start": "0x542f10",
+      "end_exclusive": "0x542f44",
+      "count": 19,
+      "chunks": [
+        [
+          "0x542f10",
+          "0x542f44"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x53def4",
+          "text": "call    __allmul",
+          "from": "0x53e6ec"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x542f10",
+          "size": 4,
+          "bytes": "8b442408",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword ptr [esp+arg_0+4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x542f14",
+          "size": 4,
+          "bytes": "8b4c2410",
+          "mnemonic": "mov",
+          "text": "mov     ecx, dword ptr [esp+arg_8+4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x542f18",
+          "size": 2,
+          "bytes": "0bc8",
+          "mnemonic": "or",
+          "text": "or      ecx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x542f1a",
+          "size": 4,
+          "bytes": "8b4c240c",
+          "mnemonic": "mov",
+          "text": "mov     ecx, dword ptr [esp+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x542f1e",
+          "size": 2,
+          "bytes": "7509",
+          "mnemonic": "jnz",
+          "text": "jnz     short hard",
+          "call_target": null
+        },
+        {
+          "ea": "0x542f20",
+          "size": 4,
+          "bytes": "8b442404",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword ptr [esp+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x542f24",
+          "size": 2,
+          "bytes": "f7e1",
+          "mnemonic": "mul",
+          "text": "mul     ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x542f26",
+          "size": 3,
+          "bytes": "c21000",
+          "mnemonic": "retn",
+          "text": "retn    10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x542f29",
+          "size": 1,
+          "bytes": "53",
+          "mnemonic": "push",
+          "text": "push    ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x542f2a",
+          "size": 2,
+          "bytes": "f7e1",
+          "mnemonic": "mul",
+          "text": "mul     ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x542f2c",
+          "size": 2,
+          "bytes": "8bd8",
+          "mnemonic": "mov",
+          "text": "mov     ebx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x542f2e",
+          "size": 4,
+          "bytes": "8b442408",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword ptr [esp+4+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x542f32",
+          "size": 4,
+          "bytes": "f7642414",
+          "mnemonic": "mul",
+          "text": "mul     dword ptr [esp+4+arg_8+4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x542f36",
+          "size": 2,
+          "bytes": "03d8",
+          "mnemonic": "add",
+          "text": "add     ebx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x542f38",
+          "size": 4,
+          "bytes": "8b442408",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword ptr [esp+4+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x542f3c",
+          "size": 2,
+          "bytes": "f7e1",
+          "mnemonic": "mul",
+          "text": "mul     ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x542f3e",
+          "size": 2,
+          "bytes": "03d3",
+          "mnemonic": "add",
+          "text": "add     edx, ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x542f40",
+          "size": 1,
+          "bytes": "5b",
+          "mnemonic": "pop",
+          "text": "pop     ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x542f41",
+          "size": 3,
+          "bytes": "c21000",
+          "mnemonic": "retn",
+          "text": "retn    10h",
+          "call_target": null
+        }
+      ],
+      "code_bytes": 52,
+      "page_count": 1
+    },
+    {
+      "start": "0x544620",
+      "end_exclusive": "0x54463f",
+      "count": 15,
+      "chunks": [
+        [
+          "0x544620",
+          "0x54463f"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x53def4",
+          "text": "call    __allshl",
+          "from": "0x53e68b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x53def4",
+          "text": "call    __allshl",
+          "from": "0x53e6db"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x544620",
+          "size": 3,
+          "bytes": "80f940",
+          "mnemonic": "cmp",
+          "text": "cmp     cl, 40h ; '@'",
+          "call_target": null
+        },
+        {
+          "ea": "0x544623",
+          "size": 2,
+          "bytes": "7315",
+          "mnemonic": "jnb",
+          "text": "jnb     short RETZERO",
+          "call_target": null
+        },
+        {
+          "ea": "0x544625",
+          "size": 3,
+          "bytes": "80f920",
+          "mnemonic": "cmp",
+          "text": "cmp     cl, 20h ; ' '",
+          "call_target": null
+        },
+        {
+          "ea": "0x544628",
+          "size": 2,
+          "bytes": "7306",
+          "mnemonic": "jnb",
+          "text": "jnb     short MORE32",
+          "call_target": null
+        },
+        {
+          "ea": "0x54462a",
+          "size": 3,
+          "bytes": "0fa5c2",
+          "mnemonic": "shld",
+          "text": "shld    edx, eax, cl",
+          "call_target": null
+        },
+        {
+          "ea": "0x54462d",
+          "size": 2,
+          "bytes": "d3e0",
+          "mnemonic": "shl",
+          "text": "shl     eax, cl",
+          "call_target": null
+        },
+        {
+          "ea": "0x54462f",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x544630",
+          "size": 2,
+          "bytes": "8bd0",
+          "mnemonic": "mov",
+          "text": "mov     edx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x544632",
+          "size": 2,
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "text": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x544634",
+          "size": 3,
+          "bytes": "80e11f",
+          "mnemonic": "and",
+          "text": "and     cl, 1Fh",
+          "call_target": null
+        },
+        {
+          "ea": "0x544637",
+          "size": 2,
+          "bytes": "d3e2",
+          "mnemonic": "shl",
+          "text": "shl     edx, cl",
+          "call_target": null
+        },
+        {
+          "ea": "0x544639",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x54463a",
+          "size": 2,
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "text": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x54463c",
+          "size": 2,
+          "bytes": "33d2",
+          "mnemonic": "xor",
+          "text": "xor     edx, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x54463e",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "code_bytes": 31,
+      "page_count": 1
+    }
+  ],
+  "original_totals": {
+    "instructions": 34,
+    "code_bytes": 83,
+    "page_count": 2,
+    "calls": 0,
+    "jumps": 3,
+    "returns": 5,
+    "original_direct_inbound_calls": 3
+  },
+  "original_callsite_windows": [
+    {
+      "query_start": "0x53e67b",
+      "query_end_exclusive": "0x53e6a0",
+      "instructions": [
+        {
+          "ea": "0x53e67c",
+          "size": 6,
+          "bytes": "0f84a3000000",
+          "mnemonic": "jz",
+          "text": "jz      loc_53E725"
+        },
+        {
+          "ea": "0x53e682",
+          "size": 3,
+          "bytes": "8b45d8",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword ptr [ebp+var_28]"
+        },
+        {
+          "ea": "0x53e685",
+          "size": 3,
+          "bytes": "8b55dc",
+          "mnemonic": "mov",
+          "text": "mov     edx, dword ptr [ebp+var_28+4]"
+        },
+        {
+          "ea": "0x53e688",
+          "size": 2,
+          "bytes": "6a04",
+          "mnemonic": "push",
+          "text": "push    4"
+        },
+        {
+          "ea": "0x53e68a",
+          "size": 1,
+          "bytes": "59",
+          "mnemonic": "pop",
+          "text": "pop     ecx"
+        },
+        {
+          "ea": "0x53e68b",
+          "size": 5,
+          "bytes": "e8905f0000",
+          "mnemonic": "call",
+          "text": "call    __allshl"
+        },
+        {
+          "ea": "0x53e690",
+          "size": 1,
+          "bytes": "53",
+          "mnemonic": "push",
+          "text": "push    ebx; C"
+        },
+        {
+          "ea": "0x53e691",
+          "size": 3,
+          "bytes": "8945d8",
+          "mnemonic": "mov",
+          "text": "mov     dword ptr [ebp+var_28], eax"
+        },
+        {
+          "ea": "0x53e694",
+          "size": 3,
+          "bytes": "8955dc",
+          "mnemonic": "mov",
+          "text": "mov     dword ptr [ebp+var_28+4], edx"
+        },
+        {
+          "ea": "0x53e697",
+          "size": 5,
+          "bytes": "e87d020000",
+          "mnemonic": "call",
+          "text": "call    __hextodec"
+        },
+        {
+          "ea": "0x53e69c",
+          "size": 2,
+          "bytes": "8bd8",
+          "mnemonic": "mov",
+          "text": "mov     ebx, eax"
+        },
+        {
+          "ea": "0x53e69e",
+          "size": 1,
+          "bytes": "59",
+          "mnemonic": "pop",
+          "text": "pop     ecx"
+        },
+        {
+          "ea": "0x53e69f",
+          "size": 3,
+          "bytes": "895dec",
+          "mnemonic": "mov",
+          "text": "mov     [ebp+C], ebx"
+        }
+      ],
+      "start": "0x53e67c",
+      "end_exclusive": "0x53e6a2",
+      "count": 13,
+      "code_bytes": 38
+    },
+    {
+      "query_start": "0x53e6cb",
+      "query_end_exclusive": "0x53e712",
+      "instructions": [
+        {
+          "ea": "0x53e6cb",
+          "size": 2,
+          "bytes": "7515",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_53E6E2"
+        },
+        {
+          "ea": "0x53e6cd",
+          "size": 3,
+          "bytes": "83fb38",
+          "mnemonic": "cmp",
+          "text": "cmp     ebx, 38h ; '8'"
+        },
+        {
+          "ea": "0x53e6d0",
+          "size": 2,
+          "bytes": "7d53",
+          "mnemonic": "jge",
+          "text": "jge     short loc_53E725"
+        },
+        {
+          "ea": "0x53e6d2",
+          "size": 3,
+          "bytes": "8b45d8",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword ptr [ebp+var_28]"
+        },
+        {
+          "ea": "0x53e6d5",
+          "size": 3,
+          "bytes": "8b55dc",
+          "mnemonic": "mov",
+          "text": "mov     edx, dword ptr [ebp+var_28+4]"
+        },
+        {
+          "ea": "0x53e6d8",
+          "size": 2,
+          "bytes": "6a03",
+          "mnemonic": "push",
+          "text": "push    3"
+        },
+        {
+          "ea": "0x53e6da",
+          "size": 1,
+          "bytes": "59",
+          "mnemonic": "pop",
+          "text": "pop     ecx"
+        },
+        {
+          "ea": "0x53e6db",
+          "size": 5,
+          "bytes": "e8405f0000",
+          "mnemonic": "call",
+          "text": "call    __allshl"
+        },
+        {
+          "ea": "0x53e6e0",
+          "size": 2,
+          "bytes": "eb0f",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_53E6F1"
+        },
+        {
+          "ea": "0x53e6e2",
+          "size": 2,
+          "bytes": "6a00",
+          "mnemonic": "push",
+          "text": "push    0"
+        },
+        {
+          "ea": "0x53e6e4",
+          "size": 2,
+          "bytes": "6a0a",
+          "mnemonic": "push",
+          "text": "push    0Ah"
+        },
+        {
+          "ea": "0x53e6e6",
+          "size": 3,
+          "bytes": "ff75dc",
+          "mnemonic": "push",
+          "text": "push    dword ptr [ebp+var_28+4]"
+        },
+        {
+          "ea": "0x53e6e9",
+          "size": 3,
+          "bytes": "ff75d8",
+          "mnemonic": "push",
+          "text": "push    dword ptr [ebp+var_28]"
+        },
+        {
+          "ea": "0x53e6ec",
+          "size": 5,
+          "bytes": "e81f480000",
+          "mnemonic": "call",
+          "text": "call    __allmul"
+        },
+        {
+          "ea": "0x53e6f1",
+          "size": 3,
+          "bytes": "8945d8",
+          "mnemonic": "mov",
+          "text": "mov     dword ptr [ebp+var_28], eax"
+        },
+        {
+          "ea": "0x53e6f4",
+          "size": 3,
+          "bytes": "8955dc",
+          "mnemonic": "mov",
+          "text": "mov     dword ptr [ebp+var_28+4], edx"
+        },
+        {
+          "ea": "0x53e6f7",
+          "size": 3,
+          "bytes": "ff45e4",
+          "mnemonic": "inc",
+          "text": "inc     [ebp+var_1C]"
+        },
+        {
+          "ea": "0x53e6fa",
+          "size": 3,
+          "bytes": "8d43d0",
+          "mnemonic": "lea",
+          "text": "lea     eax, [ebx-30h]"
+        },
+        {
+          "ea": "0x53e6fd",
+          "size": 1,
+          "bytes": "99",
+          "mnemonic": "cdq",
+          "text": "cdq"
+        },
+        {
+          "ea": "0x53e6fe",
+          "size": 3,
+          "bytes": "0145d8",
+          "mnemonic": "add",
+          "text": "add     dword ptr [ebp+var_28], eax"
+        },
+        {
+          "ea": "0x53e701",
+          "size": 3,
+          "bytes": "1155dc",
+          "mnemonic": "adc",
+          "text": "adc     dword ptr [ebp+var_28+4], edx"
+        },
+        {
+          "ea": "0x53e704",
+          "size": 4,
+          "bytes": "837de000",
+          "mnemonic": "cmp",
+          "text": "cmp     [ebp+var_20], 0"
+        },
+        {
+          "ea": "0x53e708",
+          "size": 2,
+          "bytes": "7405",
+          "mnemonic": "jz",
+          "text": "jz      short loc_53E70F"
+        },
+        {
+          "ea": "0x53e70a",
+          "size": 3,
+          "bytes": "ff4df4",
+          "mnemonic": "dec",
+          "text": "dec     [ebp+var_C]"
+        },
+        {
+          "ea": "0x53e70d",
+          "size": 2,
+          "bytes": "7424",
+          "mnemonic": "jz",
+          "text": "jz      short loc_53E733"
+        },
+        {
+          "ea": "0x53e70f",
+          "size": 3,
+          "bytes": "ff7508",
+          "mnemonic": "push",
+          "text": "push    [ebp+Stream]; Stream"
+        }
+      ],
+      "start": "0x53e6cb",
+      "end_exclusive": "0x53e712",
+      "count": 26,
+      "code_bytes": 71
+    }
+  ],
+  "original_call_connections": [
+    {
+      "call_site": "0x53e68b",
+      "target": "0x544620",
+      "source_symbol": "ScanLegacyInput_53DEF4",
+      "native_target": "ShiftLegacyUnsigned64_544620",
+      "count_or_multiplier": 4
+    },
+    {
+      "call_site": "0x53e6db",
+      "target": "0x544620",
+      "source_symbol": "ScanLegacyInput_53DEF4",
+      "native_target": "ShiftLegacyUnsigned64_544620",
+      "count_or_multiplier": 3
+    },
+    {
+      "call_site": "0x53e6ec",
+      "target": "0x542f10",
+      "source_symbol": "ScanLegacyInput_53DEF4",
+      "native_target": "MultiplyLegacyUnsigned64_542F10",
+      "count_or_multiplier": 10
+    }
+  ],
+  "original_unassigned_ranges": [
+    {
+      "start": "0x542f0c",
+      "end_exclusive": "0x542f10",
+      "bytes": "cccccccc",
+      "previous": {
+        "ea": "0x542f09",
+        "function": "0x542ef1",
+        "function_end": "0x542f0c",
+        "text": "retn    4"
+      },
+      "next": {
+        "ea": "0x542f10",
+        "text": "mov     eax, dword ptr [esp+arg_0+4]"
+      },
+      "instructions": [
+        {
+          "ea": "0x542f0c",
+          "size": 1,
+          "bytes": "cc",
+          "code": false,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ],
+      "refs": [],
+      "id": "X:00142F0C-00142F10",
+      "original_size": 4,
+      "original_bytes": "cccccccc",
+      "classification": "alignment_padding",
+      "source_symbols": [
+        "MultiplyLegacyUnsigned64_542F10"
+      ],
+      "reason": "完整CC编译对齐，前邻RET4或无条件回跳后至该已实现真实通用入口前；无已知入向，仅记录用途，不造空函数/默认返回或代前邻函数与异常链验收。"
+    },
+    {
+      "start": "0x54461a",
+      "end_exclusive": "0x544620",
+      "bytes": "cccccccccccc",
+      "previous": {
+        "ea": "0x544618",
+        "function": "0x544552",
+        "function_end": "0x54461a",
+        "text": "jmp     short loc_5445E4"
+      },
+      "next": {
+        "ea": "0x544620",
+        "text": "cmp     cl, 40h ; '@'"
+      },
+      "instructions": [
+        {
+          "ea": "0x54461a",
+          "size": 1,
+          "bytes": "cc",
+          "code": false,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ],
+      "refs": [],
+      "id": "X:0014461A-00144620",
+      "original_size": 6,
+      "original_bytes": "cccccccccccc",
+      "classification": "alignment_padding",
+      "source_symbols": [
+        "ShiftLegacyUnsigned64_544620"
+      ],
+      "reason": "完整CC编译对齐，前邻RET4或无条件回跳后至该已实现真实通用入口前；无已知入向，仅记录用途，不造空函数/默认返回或代前邻函数与异常链验收。"
+    }
+  ],
+  "source_functions": [
+    {
+      "id": "F:00142F10",
+      "entry": "0x542f10",
+      "index": 463,
+      "original_index": 0,
+      "symbol": "MultiplyLegacyUnsigned64_542F10",
+      "native_symbols": [
+        "MultiplyLegacyUnsigned64_542F10",
+        "ScanLegacyInput_53DEF4"
+      ],
+      "contract": "原完整542F10十九条52B，两原两W32合成64位数值；保高半均零快路及原两交叉低W32乘加/低×低合成低64结果，原唯一53E6EC以乘数10真实调用。"
+    },
+    {
+      "id": "F:00144620",
+      "entry": "0x544620",
+      "index": 462,
+      "original_index": 1,
+      "symbol": "ShiftLegacyUnsigned64_544620",
+      "native_symbols": [
+        "ShiftLegacyUnsigned64_544620",
+        "ScanLegacyInput_53DEF4"
+      ],
+      "contract": "原完整544620十五条31B，U64位模式与CL单BYTE；原>=64返回0、32..63低半搬高/清低/低五位及0..31双字结果，原53E68B/53E6DB计数4/3真实接线。"
+    }
+  ],
+  "source_transformations": [
+    {
+      "path": "cg2d_re/src/platform/LegacyFormat.cpp",
+      "patches": [
+        {
+          "before": "std::uint64_t RemainderLegacyUnsigned64_5447A0(\n",
+          "after": "std::uint64_t MultiplyLegacyUnsigned64_542F10(\n    const std::uint64_t first, const std::uint64_t second)\n{\n    const auto firstHigh = static_cast<std::uint32_t>(first >> 32);\n    const auto secondHigh = static_cast<std::uint32_t>(second >> 32);\n    const auto secondLow = static_cast<std::uint32_t>(second);\n    const auto firstLow = static_cast<std::uint32_t>(first);\n    if ((firstHigh | secondHigh) == 0) {\n        return static_cast<std::uint64_t>(firstLow) * secondLow;\n    }\n    std::uint32_t cross = firstHigh * secondLow;\n    cross += firstLow * secondHigh;\n    const std::uint64_t lowProduct =\n        static_cast<std::uint64_t>(firstLow) * secondLow;\n    return lowProduct + (static_cast<std::uint64_t>(cross) << 32);\n}\n\nstd::uint64_t ShiftLegacyUnsigned64_544620(\n    const std::uint64_t value, const std::uint8_t count)\n{\n    if (count >= 64) {\n        return 0;\n    }\n    if (count >= 32) {\n        const auto low = static_cast<std::uint32_t>(value);\n        const std::uint32_t high = low << (count & 0x1Fu);\n        return static_cast<std::uint64_t>(high) << 32;\n    }\n    return value << count;\n}\n\nstd::uint64_t RemainderLegacyUnsigned64_5447A0(\n"
+        }
+      ]
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyFormat.hpp",
+      "patches": [
+        {
+          "before": "// 原U64两helper，参数/返回各64位而非地址；原生无符号算符，不增除零保护或替代值。\n",
+          "after": "// 原542F10合成乘积低64位，保原高半零快路与交叉W32乘加；不是地址扩宽。\nstd::uint64_t MultiplyLegacyUnsigned64_542F10(\n    std::uint64_t first, std::uint64_t second);\n// 原544620只消费CL计数BYTE，保>=64原返回0/32..63低半搬高/0..31双字移位。\nstd::uint64_t ShiftLegacyUnsigned64_544620(\n    std::uint64_t value, std::uint8_t count);\n\n// 原U64两helper，参数/返回各64位而非地址；原生无符号算符，不增除零保护或替代值。\n"
+        }
+      ]
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyScan.cpp",
+      "patches": [
+        {
+          "before": "                            if (useInt64 != 0) {\n                                if (hex) {\n                                    numeric64 <<= 4;\n                                } else if (radixKind == 'o') {\n                                    numeric64 <<= 3;\n                                } else {\n                                    numeric64 *= 10;\n                                }\n",
+          "after": "                            if (useInt64 != 0) {\n                                if (hex) {\n                                    numeric64 = ShiftLegacyUnsigned64_544620(numeric64, 4);\n                                } else if (radixKind == 'o') {\n                                    numeric64 = ShiftLegacyUnsigned64_544620(numeric64, 3);\n                                } else {\n                                    numeric64 = MultiplyLegacyUnsigned64_542F10(numeric64, 10);\n                                }\n"
+        }
+      ]
+    }
+  ],
+  "source_two_native_bodies": "std::uint64_t MultiplyLegacyUnsigned64_542F10(\n    const std::uint64_t first, const std::uint64_t second)\n{\n    const auto firstHigh = static_cast<std::uint32_t>(first >> 32);\n    const auto secondHigh = static_cast<std::uint32_t>(second >> 32);\n    const auto secondLow = static_cast<std::uint32_t>(second);\n    const auto firstLow = static_cast<std::uint32_t>(first);\n    if ((firstHigh | secondHigh) == 0) {\n        return static_cast<std::uint64_t>(firstLow) * secondLow;\n    }\n    std::uint32_t cross = firstHigh * secondLow;\n    cross += firstLow * secondHigh;\n    const std::uint64_t lowProduct =\n        static_cast<std::uint64_t>(firstLow) * secondLow;\n    return lowProduct + (static_cast<std::uint64_t>(cross) << 32);\n}\n\nstd::uint64_t ShiftLegacyUnsigned64_544620(\n    const std::uint64_t value, const std::uint8_t count)\n{\n    if (count >= 64) {\n        return 0;\n    }\n    if (count >= 32) {\n        const auto low = static_cast<std::uint32_t>(value);\n        const std::uint32_t high = low << (count & 0x1Fu);\n        return static_cast<std::uint64_t>(high) << 32;\n    }\n    return value << count;\n}\n\n",
+  "source_two_native_declarations": "// 原542F10合成乘积低64位，保原高半零快路与交叉W32乘加；不是地址扩宽。\nstd::uint64_t MultiplyLegacyUnsigned64_542F10(\n    std::uint64_t first, std::uint64_t second);\n// 原544620只消费CL计数BYTE，保>=64原返回0/32..63低半搬高/0..31双字移位。\nstd::uint64_t ShiftLegacyUnsigned64_544620(\n    std::uint64_t value, std::uint8_t count);\n\n",
+  "source_three_call_block": "                            if (useInt64 != 0) {\n                                if (hex) {\n                                    numeric64 = ShiftLegacyUnsigned64_544620(numeric64, 4);\n                                } else if (radixKind == 'o') {\n                                    numeric64 = ShiftLegacyUnsigned64_544620(numeric64, 3);\n                                } else {\n                                    numeric64 = MultiplyLegacyUnsigned64_542F10(numeric64, 10);\n                                }\n",
+  "implementation_static_scope": "BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。",
+  "source_cpp_file_count": 2,
+  "source_header_file_count": 1,
+  "source_patch_count": 3,
+  "new_cpp_body_count": 2,
+  "new_asm_body_count": 0,
+  "new_private_C_bridge_count": 0,
+  "new_semantic_record_count": 0,
+  "new_original_function_disposition_count": 2,
+  "new_CRT_member_count": 2,
+  "new_R7_classification_count": 2,
+  "new_shared_owner_count": 0,
+  "native_U64_is_original_two_W32_numeric_value_not_address_widening": true,
+  "multiply_original_high_zero_and_cross_W32_low_product_paths_kept": true,
+  "shift_original_three_count_branches_and_CL_only_kept": true,
+  "shift_ge64_zero_is_original_normal_branch_not_new_protection": true,
+  "three_known_original_calls_connected_to_real_general_helpers": true,
+  "original_numeric64_I64_only_initialization_sign_digit_extend_ADD_ADC_and_other_paths_kept": true,
+  "no_original_register_or_RET16_stack_address_simulation": true,
+  "no_new_guard_input_limit_saturation_or_fault_sample": true,
+  "wire_format_changed": false,
+  "encryption_added": false,
+  "audio_pause_kept": true,
+  "full_original_indirect_aliases_verified": false,
+  "full_input_core_verified": false,
+  "full_CRT_member_inventory_closed": false,
+  "full_all_parents_verified": false,
+  "full_lifecycle_closed": false,
+  "runtime_verified": false,
+  "compilation_verified": false,
+  "linking_verified": false,
+  "machine_abi_verified": false,
+  "fault_equivalence_claimed": false,
+  "source_states": [
+    {
+      "path": "cg2d_re/src/platform/LegacyFormat.cpp",
+      "before": "#include \"LegacyFormat.hpp\"\n#include \"LegacyMultibyte.hpp\"\n#include \"LegacyRuntimeError.hpp\"\n#include \"LegacyStringCompareState.hpp\"\n#include \"cg/platform/LegacyMemory.hpp\"\n#include \"cg/platform/LegacyTime.hpp\"\n\n#include <bit>\n#include <cstring>\n\nnamespace cg::platform {\n\nnamespace {\n\n// 原54F96C：低半为20H..78H字符类别，高半为类别*8+旧状态的转移。\nconstexpr std::uint8_t kFormatTable54F96C[89] = {\n    6, 0, 0, 6, 0, 1, 0, 0, 16, 0, 3, 6, 0, 6, 2, 16, 4, 69, 69, 69, 5, 5, 5, 5, 5, 53, 48, 0, 80, 0, 0, 0, 0, 32, 40, 56, 80, 88, 7, 8, 0, 55, 48, 48, 87, 80, 7, 0, 0, 32, 32, 8, 0, 0, 0, 0, 8, 96, 104, 96, 96, 96, 96, 0, 0, 112, 112, 120, 120, 120, 120, 8, 7, 8, 0, 0, 7, 0, 8, 8, 8, 0, 0, 8, 0, 8, 0, 7, 8\n};\n\nenum FormatFlags : std::uint32_t {\n    kPlus = 1, kSpace = 2, kLeft = 4, kZero = 8,\n    kLong = 0x10, kShort = 0x20, kSigned = 0x40, kAlternate = 0x80,\n    kNegative = 0x100, kOctalPrefix = 0x200, kWide = 0x800, kInt64 = 0x8000\n};\n\n// 原同一无参trap经不同参数形态调用；原生C++使用精确类型适配入口。\nchar* TrapFloatFormat(double*, char*, std::int32_t, std::int32_t, std::int32_t)\n{\n    LegacyFloatingPointTrap_545031();\n}\n\nvoid TrapFloatText(char*)\n{\n    LegacyFloatingPointTrap_545031();\n}\n\nvoid TrapFloatAssign(std::int32_t, void*, const char*)\n{\n    LegacyFloatingPointTrap_545031();\n}\n\nstd::int32_t TrapFloatNonnegative(double*)\n{\n    LegacyFloatingPointTrap_545031();\n}\n\n} // namespace\n\nconst char* gLegacyFormatNullText58FB38 = \"(null)\";\nconst wchar_t* gLegacyFormatNullWide58FB3C = L\"(null)\";\nLegacyFloatFormatCallback gLegacyFloatFormat58FB50 = TrapFloatFormat;\nLegacyFloatTextCallback gLegacyFloatCropZeros58FB54 = TrapFloatText;\nLegacyFloatAssignCallback gLegacyFloatAssign58FB58 = TrapFloatAssign;\nLegacyFloatTextCallback gLegacyFloatForcePoint58FB5C = TrapFloatText;\nLegacyFloatNonnegativeCallback gLegacyFloatNonnegative58FB60 = TrapFloatNonnegative;\nLegacyFloatFormatCallback gLegacyFloatFormatAlias58FB64 = TrapFloatFormat;\n\n[[noreturn]] void LegacyFloatingPointTrap_545031()\n{\n    ExitLegacyRuntimeError_53DEAB(2);\n    __assume(0);\n}\n\nstd::int32_t FormatLegacyOutput_53EB28(LegacyFile* const stream,\n    const char* format, std::va_list arguments)\n{\n    char scratch[512];\n    char prefix[2];\n    std::int32_t textLength = 0;\n    // 初始长度0不消费该指针；随后保留前一字段正文，不在%入口重置。\n    const char* text = scratch;\n    std::int32_t written = 0;\n    std::int32_t state = 0;\n    char* allocated = nullptr;\n    std::uint32_t flags;\n    std::int32_t width;\n    std::int32_t precision;\n    std::int32_t prefixLength;\n    std::int32_t uppercase;\n    bool suppress;\n    bool wideText;\n    char character = *format++;\n    while (character != '\\0') {\n        if (written < 0) {\n            break;\n        }\n        const auto signedCharacter =\n            std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(character));\n        const std::uint32_t category = signedCharacter >= 0x20 && signedCharacter <= 0x78\n            ? kFormatTable54F96C[static_cast<std::uint8_t>(character) - 0x20] & 0xFu : 0u;\n        state = std::bit_cast<std::int8_t>(kFormatTable54F96C[category * 8 + state]) >> 4;\n        switch (state) {\n        case 0:\n        writeOrdinaryCharacter:\n            wideText = false;\n            if ((gCtypePointer58FC30[static_cast<std::uint8_t>(character)] & 0x8000u) != 0) {\n                WriteLegacyFormatByte_53F2C6(signedCharacter, stream, &written);\n                character = *format++;\n            }\n            WriteLegacyFormatByte_53F2C6(\n                std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(character)),\n                stream, &written);\n            break;\n        case 1:\n            precision = -1;\n            uppercase = 0;\n            suppress = false;\n            width = 0;\n            prefixLength = 0;\n            flags = 0;\n            wideText = false;\n            break;\n        case 2:\n            switch (character) {\n            case ' ': flags |= kSpace; break;\n            case '#': flags |= kAlternate; break;\n            case '+': flags |= kPlus; break;\n            case '-': flags |= kLeft; break;\n            case '0': flags |= kZero; break;\n            }\n            break;\n        case 3:\n            if (character == '*') {\n                width = va_arg(arguments, int);\n                if (width < 0) {\n                    flags |= kLeft;\n                    width = -width;\n                }\n            } else {\n                width = width * 10 + signedCharacter - '0';\n            }\n            break;\n        case 4:\n            precision = 0;\n            break;\n        case 5:\n            if (character == '*') {\n                precision = va_arg(arguments, int);\n                if (precision < 0) {\n                    precision = -1;\n                }\n            } else {\n                precision = precision * 10 + signedCharacter - '0';\n            }\n            break;\n        case 6:\n            switch (character) {\n            case 'h': flags |= kShort; break;\n            case 'l': flags |= kLong; break;\n            case 'w': flags |= kWide; break;\n            case 'I':\n                if (format[0] == '6' && format[1] == '4') {\n                    format += 2;\n                    flags |= kInt64;\n                } else {\n                    state = 0;\n                    goto writeOrdinaryCharacter;\n                }\n                break;\n            }\n            break;\n        case 7: {\n            bool integer = false;\n            bool pointer = false;\n            std::uint32_t radix = 10;\n            std::int32_t digitOffset = 0;\n            switch (character) {\n            case 'C':\n                if ((flags & (kWide | kLong | kShort)) == 0) {\n                    flags |= kWide;\n                }\n                [[fallthrough]];\n            case 'c':\n                if ((flags & (kWide | kLong)) != 0) {\n                    const auto value = static_cast<std::uint16_t>(va_arg(arguments, int));\n                    textLength = Wctomb_54472B(scratch, value);\n                    if (textLength < 0) {\n                        suppress = true;\n                    }\n                } else {\n                    scratch[0] = std::bit_cast<char>(\n                        static_cast<std::uint8_t>(va_arg(arguments, int)));\n                    textLength = 1;\n                }\n                text = scratch;\n                break;\n            case 'S':\n                if ((flags & (kWide | kLong | kShort)) == 0) {\n                    flags |= kWide;\n                }\n                [[fallthrough]];\n            case 's': {\n                std::int32_t limit = precision == -1 ? 0x7FFFFFFF : precision;\n                if ((flags & (kWide | kLong)) != 0) {\n                    const wchar_t* value = va_arg(arguments, const wchar_t*);\n                    if (value == nullptr) {\n                        value = gLegacyFormatNullWide58FB3C;\n                    }\n                    text = reinterpret_cast<const char*>(value);\n                    wideText = true;\n                    const char* cursor = text;\n                    while (limit != 0) {\n                        std::uint16_t codeUnit;\n                        std::memcpy(&codeUnit, cursor, sizeof(codeUnit));\n                        if (codeUnit == 0) {\n                            break;\n                        }\n                        --limit;\n                        cursor += 2;\n                    }\n                    textLength = static_cast<std::int32_t>((cursor - text) / 2);\n                } else {\n                    const char* value = va_arg(arguments, const char*);\n                    if (value == nullptr) {\n                        value = gLegacyFormatNullText58FB38;\n                    }\n                    text = value;\n                    const char* cursor = value;\n                    while (limit != 0 && *cursor != '\\0') {\n                        --limit;\n                        ++cursor;\n                    }\n                    textLength = static_cast<std::int32_t>(cursor - value);\n                }\n                break;\n            }\n            case 'Z': {\n                const auto* value = va_arg(arguments, const LegacyCountedFormatString*);\n                const void* source = value != nullptr ? value->text : nullptr;\n                if (source == nullptr) {\n                    text = gLegacyFormatNullText58FB38;\n                    textLength = static_cast<std::int32_t>(StrLen_53F9E0(text));\n                } else {\n                    text = static_cast<const char*>(source);\n                    textLength = value->length;\n                    if ((flags & kWide) != 0) {\n                        textLength = static_cast<std::int32_t>(\n                            static_cast<std::uint32_t>(textLength) >> 1);\n                        wideText = true;\n                    } else {\n                        wideText = false;\n                    }\n                }\n                break;\n            }\n            case 'n':\n                if ((flags & kShort) != 0) {\n                    auto* const destination = va_arg(arguments, std::int16_t*);\n                    const auto value = static_cast<std::uint16_t>(written);\n                    std::memcpy(destination, &value, sizeof(value));\n                } else if ((flags & kLong) != 0) {\n                    auto* const destination = va_arg(arguments, long*);\n                    std::memcpy(destination, &written, sizeof(written));\n                } else {\n                    auto* const destination = va_arg(arguments, std::int32_t*);\n                    std::memcpy(destination, &written, sizeof(written));\n                }\n                suppress = true;\n                break;\n            case 'E':\n            case 'G':\n                uppercase = 1;\n                character = static_cast<char>(character + 0x20);\n                [[fallthrough]];\n            case 'e':\n            case 'f':\n            case 'g': {\n                flags |= kSigned;\n                char* output = scratch;\n                text = output;\n                if (precision < 0) {\n                    precision = 6;\n                } else if (precision == 0) {\n                    if (character == 'g') {\n                        precision = 1;\n                    }\n                } else {\n                    if (precision > 512) {\n                        precision = 512;\n                    }\n                    if (precision > 163) {\n                        allocated = static_cast<char*>(Malloc_53C3AC(\n                            static_cast<std::uint32_t>(precision + 349)));\n                        if (allocated != nullptr) {\n                            output = allocated;\n                            text = output;\n                        } else {\n                            precision = 163;\n                        }\n                    }\n                }\n                double value = va_arg(arguments, double);\n                gLegacyFloatFormat58FB50(&value, output, character, precision, uppercase);\n                const bool alternate = (flags & kAlternate) != 0;\n                if (alternate && precision == 0) {\n                    gLegacyFloatForcePoint58FB5C(output);\n                }\n                if (character == 'g' && !alternate) {\n                    gLegacyFloatCropZeros58FB54(output);\n                }\n                if (*output == '-') {\n                    flags |= kNegative;\n                    ++output;\n                    text = output;\n                }\n                textLength = static_cast<std::int32_t>(StrLen_53F9E0(output));\n                break;\n            }\n            case 'd':\n            case 'i':\n                flags |= kSigned;\n                integer = true;\n                break;\n            case 'u':\n                integer = true;\n                break;\n            case 'o':\n                radix = 8;\n                integer = true;\n                if ((flags & kAlternate) != 0) {\n                    flags |= kOctalPrefix;\n                }\n                break;\n            case 'p':\n                precision = static_cast<std::int32_t>(sizeof(void*) * 2);\n                pointer = true;\n                [[fallthrough]];\n            case 'X':\n                digitOffset = 7;\n                radix = 16;\n                integer = true;\n                break;\n            case 'x':\n                digitOffset = 0x27;\n                radix = 16;\n                integer = true;\n                break;\n            }\n            if (integer) {\n                if (radix == 16 && (flags & kAlternate) != 0) {\n                    prefix[0] = '0';\n                    prefix[1] = static_cast<char>(digitOffset + 0x51);\n                    prefixLength = 2;\n                }\n                std::uint64_t value;\n                if (pointer) {\n                    value = reinterpret_cast<std::uintptr_t>(va_arg(arguments, void*));\n                } else if ((flags & kInt64) != 0) {\n                    value = (flags & kSigned) != 0\n                        ? static_cast<std::uint64_t>(va_arg(arguments, std::int64_t))\n                        : va_arg(arguments, std::uint64_t);\n                } else if ((flags & kShort) != 0) {\n                    const auto word = static_cast<std::uint16_t>(va_arg(arguments, int));\n                    value = (flags & kSigned) != 0\n                        ? static_cast<std::uint64_t>(std::bit_cast<std::int16_t>(word)) : word;\n                } else if ((flags & kLong) != 0) {\n                    value = (flags & kSigned) != 0\n                        ? static_cast<std::uint64_t>(va_arg(arguments, long))\n                        : va_arg(arguments, unsigned long);\n                } else {\n                    value = (flags & kSigned) != 0\n                        ? static_cast<std::uint64_t>(va_arg(arguments, int))\n                        : va_arg(arguments, unsigned int);\n                }\n                if ((flags & kSigned) != 0 && std::bit_cast<std::int64_t>(value) < 0) {\n                    value = 0u - value;\n                    flags |= kNegative;\n                }\n                if (!pointer && (flags & kInt64) == 0) {\n                    value = static_cast<std::uint32_t>(value);\n                }\n                if (precision < 0) {\n                    precision = 1;\n                } else {\n                    flags &= ~kZero;\n                    if (precision > 512) {\n                        precision = 512;\n                    }\n                }\n                if (value == 0) {\n                    prefixLength = 0;\n                }\n                std::int32_t index = 512;\n                for (;;) {\n                    const std::int32_t previousPrecision = precision--;\n                    if (previousPrecision <= 0 && value == 0) {\n                        break;\n                    }\n                    std::int32_t digit = static_cast<std::int32_t>(\n                        RemainderLegacyUnsigned64_5447A0(value, radix)) + '0';\n                    value = DivideLegacyUnsigned64_53CB10(value, radix);\n                    if (digit > '9') {\n                        digit += digitOffset;\n                    }\n                    scratch[--index] = static_cast<char>(digit);\n                }\n                textLength = 512 - index;\n                if ((flags & kOctalPrefix) != 0 && (textLength == 0 || scratch[index] != '0')) {\n                    scratch[--index] = '0';\n                    ++textLength;\n                }\n                text = scratch + index;\n            }\n            if (!suppress) {\n                if ((flags & kSigned) != 0) {\n                    if ((flags & kNegative) != 0) {\n                        prefix[0] = '-';\n                        prefixLength = 1;\n                    } else if ((flags & kPlus) != 0) {\n                        prefix[0] = '+';\n                        prefixLength = 1;\n                    } else if ((flags & kSpace) != 0) {\n                        prefix[0] = ' ';\n                        prefixLength = 1;\n                    }\n                }\n                const std::int32_t padding = width - prefixLength - textLength;\n                if ((flags & (kLeft | kZero)) == 0) {\n                    RepeatLegacyFormatByte_53F2FB(' ', padding, stream, &written);\n                }\n                WriteLegacyFormatString_53F32C(prefix, prefixLength, stream, &written);\n                if ((flags & kZero) != 0 && (flags & kLeft) == 0) {\n                    RepeatLegacyFormatByte_53F2FB('0', padding, stream, &written);\n                }\n                if (wideText && textLength > 0) {\n                    const char* cursor = text;\n                    for (std::int32_t remaining = textLength; remaining != 0; --remaining) {\n                        std::uint16_t value;\n                        std::memcpy(&value, cursor, sizeof(value));\n                        cursor += 2;\n                        char bytes[4];\n                        const std::int32_t count = Wctomb_54472B(bytes, value);\n                        if (count <= 0) {\n                            break;\n                        }\n                        WriteLegacyFormatString_53F32C(bytes, count, stream, &written);\n                    }\n                } else {\n                    WriteLegacyFormatString_53F32C(text, textLength, stream, &written);\n                }\n                if ((flags & kLeft) != 0) {\n                    RepeatLegacyFormatByte_53F2FB(' ', padding, stream, &written);\n                }\n            }\n            if (allocated != nullptr) {\n                Free_53C0A9(allocated);\n                allocated = nullptr;\n            }\n            break;\n        }\n        }\n        character = *format++;\n    }\n    return written;\n}\n\nstd::int32_t FormatLegacyString_53B304(char* const buffer, const char* const format, ...)\n{\n    LegacyFile stream;\n    stream.base = buffer;\n    stream.current = buffer;\n    stream.flags = 0x42;\n    stream.remaining = 0x7FFFFFFF;\n    std::va_list arguments;\n    va_start(arguments, format);\n    const std::int32_t result = FormatLegacyOutput_53EB28(&stream, format, arguments);\n    va_end(arguments);\n    --stream.remaining;\n    if (stream.remaining >= 0) {\n        *stream.current = '\\0';\n    } else {\n        static_cast<void>(FlushAndWriteLegacyStreamByte_53F8C0(0, &stream));\n    }\n    return result;\n}\n\nstd::int32_t FormatLegacyBoundedString_53D21D(char* const buffer,\n    const std::uint32_t capacity, const char* const format, ...)\n{\n    LegacyFile stream;\n    stream.base = buffer;\n    stream.current = buffer;\n    stream.flags = 0x42;\n    stream.remaining = std::bit_cast<std::int32_t>(capacity);\n    std::va_list arguments;\n    va_start(arguments, format);\n    const std::int32_t result = FormatLegacyOutput_53EB28(&stream, format, arguments);\n    va_end(arguments);\n    --stream.remaining;\n    if (stream.remaining >= 0) {\n        *stream.current = '\\0';\n    } else {\n        static_cast<void>(FlushAndWriteLegacyStreamByte_53F8C0(0, &stream));\n    }\n    return result;\n}\n\nstd::int32_t FormatLegacyStream_53BC0F(LegacyFile* const stream, const char* const format, ...)\n{\n    const std::int32_t started = BeginLegacyTemporaryBuffer_53EA5E(stream);\n    std::va_list arguments;\n    va_start(arguments, format);\n    const std::int32_t result = FormatLegacyOutput_53EB28(stream, format, arguments);\n    va_end(arguments);\n    EndLegacyTemporaryBuffer_53EAEB(started, stream);\n    return result;\n}\n\nstd::uint64_t RemainderLegacyUnsigned64_5447A0(\n    const std::uint64_t dividend, const std::uint64_t divisor)\n{\n    return dividend % divisor;\n}\n\nstd::uint64_t DivideLegacyUnsigned64_53CB10(\n    const std::uint64_t dividend, const std::uint64_t divisor)\n{\n    return dividend / divisor;\n}\n\n} // namespace cg::platform\n",
+      "after": "#include \"LegacyFormat.hpp\"\n#include \"LegacyMultibyte.hpp\"\n#include \"LegacyRuntimeError.hpp\"\n#include \"LegacyStringCompareState.hpp\"\n#include \"cg/platform/LegacyMemory.hpp\"\n#include \"cg/platform/LegacyTime.hpp\"\n\n#include <bit>\n#include <cstring>\n\nnamespace cg::platform {\n\nnamespace {\n\n// 原54F96C：低半为20H..78H字符类别，高半为类别*8+旧状态的转移。\nconstexpr std::uint8_t kFormatTable54F96C[89] = {\n    6, 0, 0, 6, 0, 1, 0, 0, 16, 0, 3, 6, 0, 6, 2, 16, 4, 69, 69, 69, 5, 5, 5, 5, 5, 53, 48, 0, 80, 0, 0, 0, 0, 32, 40, 56, 80, 88, 7, 8, 0, 55, 48, 48, 87, 80, 7, 0, 0, 32, 32, 8, 0, 0, 0, 0, 8, 96, 104, 96, 96, 96, 96, 0, 0, 112, 112, 120, 120, 120, 120, 8, 7, 8, 0, 0, 7, 0, 8, 8, 8, 0, 0, 8, 0, 8, 0, 7, 8\n};\n\nenum FormatFlags : std::uint32_t {\n    kPlus = 1, kSpace = 2, kLeft = 4, kZero = 8,\n    kLong = 0x10, kShort = 0x20, kSigned = 0x40, kAlternate = 0x80,\n    kNegative = 0x100, kOctalPrefix = 0x200, kWide = 0x800, kInt64 = 0x8000\n};\n\n// 原同一无参trap经不同参数形态调用；原生C++使用精确类型适配入口。\nchar* TrapFloatFormat(double*, char*, std::int32_t, std::int32_t, std::int32_t)\n{\n    LegacyFloatingPointTrap_545031();\n}\n\nvoid TrapFloatText(char*)\n{\n    LegacyFloatingPointTrap_545031();\n}\n\nvoid TrapFloatAssign(std::int32_t, void*, const char*)\n{\n    LegacyFloatingPointTrap_545031();\n}\n\nstd::int32_t TrapFloatNonnegative(double*)\n{\n    LegacyFloatingPointTrap_545031();\n}\n\n} // namespace\n\nconst char* gLegacyFormatNullText58FB38 = \"(null)\";\nconst wchar_t* gLegacyFormatNullWide58FB3C = L\"(null)\";\nLegacyFloatFormatCallback gLegacyFloatFormat58FB50 = TrapFloatFormat;\nLegacyFloatTextCallback gLegacyFloatCropZeros58FB54 = TrapFloatText;\nLegacyFloatAssignCallback gLegacyFloatAssign58FB58 = TrapFloatAssign;\nLegacyFloatTextCallback gLegacyFloatForcePoint58FB5C = TrapFloatText;\nLegacyFloatNonnegativeCallback gLegacyFloatNonnegative58FB60 = TrapFloatNonnegative;\nLegacyFloatFormatCallback gLegacyFloatFormatAlias58FB64 = TrapFloatFormat;\n\n[[noreturn]] void LegacyFloatingPointTrap_545031()\n{\n    ExitLegacyRuntimeError_53DEAB(2);\n    __assume(0);\n}\n\nstd::int32_t FormatLegacyOutput_53EB28(LegacyFile* const stream,\n    const char* format, std::va_list arguments)\n{\n    char scratch[512];\n    char prefix[2];\n    std::int32_t textLength = 0;\n    // 初始长度0不消费该指针；随后保留前一字段正文，不在%入口重置。\n    const char* text = scratch;\n    std::int32_t written = 0;\n    std::int32_t state = 0;\n    char* allocated = nullptr;\n    std::uint32_t flags;\n    std::int32_t width;\n    std::int32_t precision;\n    std::int32_t prefixLength;\n    std::int32_t uppercase;\n    bool suppress;\n    bool wideText;\n    char character = *format++;\n    while (character != '\\0') {\n        if (written < 0) {\n            break;\n        }\n        const auto signedCharacter =\n            std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(character));\n        const std::uint32_t category = signedCharacter >= 0x20 && signedCharacter <= 0x78\n            ? kFormatTable54F96C[static_cast<std::uint8_t>(character) - 0x20] & 0xFu : 0u;\n        state = std::bit_cast<std::int8_t>(kFormatTable54F96C[category * 8 + state]) >> 4;\n        switch (state) {\n        case 0:\n        writeOrdinaryCharacter:\n            wideText = false;\n            if ((gCtypePointer58FC30[static_cast<std::uint8_t>(character)] & 0x8000u) != 0) {\n                WriteLegacyFormatByte_53F2C6(signedCharacter, stream, &written);\n                character = *format++;\n            }\n            WriteLegacyFormatByte_53F2C6(\n                std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(character)),\n                stream, &written);\n            break;\n        case 1:\n            precision = -1;\n            uppercase = 0;\n            suppress = false;\n            width = 0;\n            prefixLength = 0;\n            flags = 0;\n            wideText = false;\n            break;\n        case 2:\n            switch (character) {\n            case ' ': flags |= kSpace; break;\n            case '#': flags |= kAlternate; break;\n            case '+': flags |= kPlus; break;\n            case '-': flags |= kLeft; break;\n            case '0': flags |= kZero; break;\n            }\n            break;\n        case 3:\n            if (character == '*') {\n                width = va_arg(arguments, int);\n                if (width < 0) {\n                    flags |= kLeft;\n                    width = -width;\n                }\n            } else {\n                width = width * 10 + signedCharacter - '0';\n            }\n            break;\n        case 4:\n            precision = 0;\n            break;\n        case 5:\n            if (character == '*') {\n                precision = va_arg(arguments, int);\n                if (precision < 0) {\n                    precision = -1;\n                }\n            } else {\n                precision = precision * 10 + signedCharacter - '0';\n            }\n            break;\n        case 6:\n            switch (character) {\n            case 'h': flags |= kShort; break;\n            case 'l': flags |= kLong; break;\n            case 'w': flags |= kWide; break;\n            case 'I':\n                if (format[0] == '6' && format[1] == '4') {\n                    format += 2;\n                    flags |= kInt64;\n                } else {\n                    state = 0;\n                    goto writeOrdinaryCharacter;\n                }\n                break;\n            }\n            break;\n        case 7: {\n            bool integer = false;\n            bool pointer = false;\n            std::uint32_t radix = 10;\n            std::int32_t digitOffset = 0;\n            switch (character) {\n            case 'C':\n                if ((flags & (kWide | kLong | kShort)) == 0) {\n                    flags |= kWide;\n                }\n                [[fallthrough]];\n            case 'c':\n                if ((flags & (kWide | kLong)) != 0) {\n                    const auto value = static_cast<std::uint16_t>(va_arg(arguments, int));\n                    textLength = Wctomb_54472B(scratch, value);\n                    if (textLength < 0) {\n                        suppress = true;\n                    }\n                } else {\n                    scratch[0] = std::bit_cast<char>(\n                        static_cast<std::uint8_t>(va_arg(arguments, int)));\n                    textLength = 1;\n                }\n                text = scratch;\n                break;\n            case 'S':\n                if ((flags & (kWide | kLong | kShort)) == 0) {\n                    flags |= kWide;\n                }\n                [[fallthrough]];\n            case 's': {\n                std::int32_t limit = precision == -1 ? 0x7FFFFFFF : precision;\n                if ((flags & (kWide | kLong)) != 0) {\n                    const wchar_t* value = va_arg(arguments, const wchar_t*);\n                    if (value == nullptr) {\n                        value = gLegacyFormatNullWide58FB3C;\n                    }\n                    text = reinterpret_cast<const char*>(value);\n                    wideText = true;\n                    const char* cursor = text;\n                    while (limit != 0) {\n                        std::uint16_t codeUnit;\n                        std::memcpy(&codeUnit, cursor, sizeof(codeUnit));\n                        if (codeUnit == 0) {\n                            break;\n                        }\n                        --limit;\n                        cursor += 2;\n                    }\n                    textLength = static_cast<std::int32_t>((cursor - text) / 2);\n                } else {\n                    const char* value = va_arg(arguments, const char*);\n                    if (value == nullptr) {\n                        value = gLegacyFormatNullText58FB38;\n                    }\n                    text = value;\n                    const char* cursor = value;\n                    while (limit != 0 && *cursor != '\\0') {\n                        --limit;\n                        ++cursor;\n                    }\n                    textLength = static_cast<std::int32_t>(cursor - value);\n                }\n                break;\n            }\n            case 'Z': {\n                const auto* value = va_arg(arguments, const LegacyCountedFormatString*);\n                const void* source = value != nullptr ? value->text : nullptr;\n                if (source == nullptr) {\n                    text = gLegacyFormatNullText58FB38;\n                    textLength = static_cast<std::int32_t>(StrLen_53F9E0(text));\n                } else {\n                    text = static_cast<const char*>(source);\n                    textLength = value->length;\n                    if ((flags & kWide) != 0) {\n                        textLength = static_cast<std::int32_t>(\n                            static_cast<std::uint32_t>(textLength) >> 1);\n                        wideText = true;\n                    } else {\n                        wideText = false;\n                    }\n                }\n                break;\n            }\n            case 'n':\n                if ((flags & kShort) != 0) {\n                    auto* const destination = va_arg(arguments, std::int16_t*);\n                    const auto value = static_cast<std::uint16_t>(written);\n                    std::memcpy(destination, &value, sizeof(value));\n                } else if ((flags & kLong) != 0) {\n                    auto* const destination = va_arg(arguments, long*);\n                    std::memcpy(destination, &written, sizeof(written));\n                } else {\n                    auto* const destination = va_arg(arguments, std::int32_t*);\n                    std::memcpy(destination, &written, sizeof(written));\n                }\n                suppress = true;\n                break;\n            case 'E':\n            case 'G':\n                uppercase = 1;\n                character = static_cast<char>(character + 0x20);\n                [[fallthrough]];\n            case 'e':\n            case 'f':\n            case 'g': {\n                flags |= kSigned;\n                char* output = scratch;\n                text = output;\n                if (precision < 0) {\n                    precision = 6;\n                } else if (precision == 0) {\n                    if (character == 'g') {\n                        precision = 1;\n                    }\n                } else {\n                    if (precision > 512) {\n                        precision = 512;\n                    }\n                    if (precision > 163) {\n                        allocated = static_cast<char*>(Malloc_53C3AC(\n                            static_cast<std::uint32_t>(precision + 349)));\n                        if (allocated != nullptr) {\n                            output = allocated;\n                            text = output;\n                        } else {\n                            precision = 163;\n                        }\n                    }\n                }\n                double value = va_arg(arguments, double);\n                gLegacyFloatFormat58FB50(&value, output, character, precision, uppercase);\n                const bool alternate = (flags & kAlternate) != 0;\n                if (alternate && precision == 0) {\n                    gLegacyFloatForcePoint58FB5C(output);\n                }\n                if (character == 'g' && !alternate) {\n                    gLegacyFloatCropZeros58FB54(output);\n                }\n                if (*output == '-') {\n                    flags |= kNegative;\n                    ++output;\n                    text = output;\n                }\n                textLength = static_cast<std::int32_t>(StrLen_53F9E0(output));\n                break;\n            }\n            case 'd':\n            case 'i':\n                flags |= kSigned;\n                integer = true;\n                break;\n            case 'u':\n                integer = true;\n                break;\n            case 'o':\n                radix = 8;\n                integer = true;\n                if ((flags & kAlternate) != 0) {\n                    flags |= kOctalPrefix;\n                }\n                break;\n            case 'p':\n                precision = static_cast<std::int32_t>(sizeof(void*) * 2);\n                pointer = true;\n                [[fallthrough]];\n            case 'X':\n                digitOffset = 7;\n                radix = 16;\n                integer = true;\n                break;\n            case 'x':\n                digitOffset = 0x27;\n                radix = 16;\n                integer = true;\n                break;\n            }\n            if (integer) {\n                if (radix == 16 && (flags & kAlternate) != 0) {\n                    prefix[0] = '0';\n                    prefix[1] = static_cast<char>(digitOffset + 0x51);\n                    prefixLength = 2;\n                }\n                std::uint64_t value;\n                if (pointer) {\n                    value = reinterpret_cast<std::uintptr_t>(va_arg(arguments, void*));\n                } else if ((flags & kInt64) != 0) {\n                    value = (flags & kSigned) != 0\n                        ? static_cast<std::uint64_t>(va_arg(arguments, std::int64_t))\n                        : va_arg(arguments, std::uint64_t);\n                } else if ((flags & kShort) != 0) {\n                    const auto word = static_cast<std::uint16_t>(va_arg(arguments, int));\n                    value = (flags & kSigned) != 0\n                        ? static_cast<std::uint64_t>(std::bit_cast<std::int16_t>(word)) : word;\n                } else if ((flags & kLong) != 0) {\n                    value = (flags & kSigned) != 0\n                        ? static_cast<std::uint64_t>(va_arg(arguments, long))\n                        : va_arg(arguments, unsigned long);\n                } else {\n                    value = (flags & kSigned) != 0\n                        ? static_cast<std::uint64_t>(va_arg(arguments, int))\n                        : va_arg(arguments, unsigned int);\n                }\n                if ((flags & kSigned) != 0 && std::bit_cast<std::int64_t>(value) < 0) {\n                    value = 0u - value;\n                    flags |= kNegative;\n                }\n                if (!pointer && (flags & kInt64) == 0) {\n                    value = static_cast<std::uint32_t>(value);\n                }\n                if (precision < 0) {\n                    precision = 1;\n                } else {\n                    flags &= ~kZero;\n                    if (precision > 512) {\n                        precision = 512;\n                    }\n                }\n                if (value == 0) {\n                    prefixLength = 0;\n                }\n                std::int32_t index = 512;\n                for (;;) {\n                    const std::int32_t previousPrecision = precision--;\n                    if (previousPrecision <= 0 && value == 0) {\n                        break;\n                    }\n                    std::int32_t digit = static_cast<std::int32_t>(\n                        RemainderLegacyUnsigned64_5447A0(value, radix)) + '0';\n                    value = DivideLegacyUnsigned64_53CB10(value, radix);\n                    if (digit > '9') {\n                        digit += digitOffset;\n                    }\n                    scratch[--index] = static_cast<char>(digit);\n                }\n                textLength = 512 - index;\n                if ((flags & kOctalPrefix) != 0 && (textLength == 0 || scratch[index] != '0')) {\n                    scratch[--index] = '0';\n                    ++textLength;\n                }\n                text = scratch + index;\n            }\n            if (!suppress) {\n                if ((flags & kSigned) != 0) {\n                    if ((flags & kNegative) != 0) {\n                        prefix[0] = '-';\n                        prefixLength = 1;\n                    } else if ((flags & kPlus) != 0) {\n                        prefix[0] = '+';\n                        prefixLength = 1;\n                    } else if ((flags & kSpace) != 0) {\n                        prefix[0] = ' ';\n                        prefixLength = 1;\n                    }\n                }\n                const std::int32_t padding = width - prefixLength - textLength;\n                if ((flags & (kLeft | kZero)) == 0) {\n                    RepeatLegacyFormatByte_53F2FB(' ', padding, stream, &written);\n                }\n                WriteLegacyFormatString_53F32C(prefix, prefixLength, stream, &written);\n                if ((flags & kZero) != 0 && (flags & kLeft) == 0) {\n                    RepeatLegacyFormatByte_53F2FB('0', padding, stream, &written);\n                }\n                if (wideText && textLength > 0) {\n                    const char* cursor = text;\n                    for (std::int32_t remaining = textLength; remaining != 0; --remaining) {\n                        std::uint16_t value;\n                        std::memcpy(&value, cursor, sizeof(value));\n                        cursor += 2;\n                        char bytes[4];\n                        const std::int32_t count = Wctomb_54472B(bytes, value);\n                        if (count <= 0) {\n                            break;\n                        }\n                        WriteLegacyFormatString_53F32C(bytes, count, stream, &written);\n                    }\n                } else {\n                    WriteLegacyFormatString_53F32C(text, textLength, stream, &written);\n                }\n                if ((flags & kLeft) != 0) {\n                    RepeatLegacyFormatByte_53F2FB(' ', padding, stream, &written);\n                }\n            }\n            if (allocated != nullptr) {\n                Free_53C0A9(allocated);\n                allocated = nullptr;\n            }\n            break;\n        }\n        }\n        character = *format++;\n    }\n    return written;\n}\n\nstd::int32_t FormatLegacyString_53B304(char* const buffer, const char* const format, ...)\n{\n    LegacyFile stream;\n    stream.base = buffer;\n    stream.current = buffer;\n    stream.flags = 0x42;\n    stream.remaining = 0x7FFFFFFF;\n    std::va_list arguments;\n    va_start(arguments, format);\n    const std::int32_t result = FormatLegacyOutput_53EB28(&stream, format, arguments);\n    va_end(arguments);\n    --stream.remaining;\n    if (stream.remaining >= 0) {\n        *stream.current = '\\0';\n    } else {\n        static_cast<void>(FlushAndWriteLegacyStreamByte_53F8C0(0, &stream));\n    }\n    return result;\n}\n\nstd::int32_t FormatLegacyBoundedString_53D21D(char* const buffer,\n    const std::uint32_t capacity, const char* const format, ...)\n{\n    LegacyFile stream;\n    stream.base = buffer;\n    stream.current = buffer;\n    stream.flags = 0x42;\n    stream.remaining = std::bit_cast<std::int32_t>(capacity);\n    std::va_list arguments;\n    va_start(arguments, format);\n    const std::int32_t result = FormatLegacyOutput_53EB28(&stream, format, arguments);\n    va_end(arguments);\n    --stream.remaining;\n    if (stream.remaining >= 0) {\n        *stream.current = '\\0';\n    } else {\n        static_cast<void>(FlushAndWriteLegacyStreamByte_53F8C0(0, &stream));\n    }\n    return result;\n}\n\nstd::int32_t FormatLegacyStream_53BC0F(LegacyFile* const stream, const char* const format, ...)\n{\n    const std::int32_t started = BeginLegacyTemporaryBuffer_53EA5E(stream);\n    std::va_list arguments;\n    va_start(arguments, format);\n    const std::int32_t result = FormatLegacyOutput_53EB28(stream, format, arguments);\n    va_end(arguments);\n    EndLegacyTemporaryBuffer_53EAEB(started, stream);\n    return result;\n}\n\nstd::uint64_t MultiplyLegacyUnsigned64_542F10(\n    const std::uint64_t first, const std::uint64_t second)\n{\n    const auto firstHigh = static_cast<std::uint32_t>(first >> 32);\n    const auto secondHigh = static_cast<std::uint32_t>(second >> 32);\n    const auto secondLow = static_cast<std::uint32_t>(second);\n    const auto firstLow = static_cast<std::uint32_t>(first);\n    if ((firstHigh | secondHigh) == 0) {\n        return static_cast<std::uint64_t>(firstLow) * secondLow;\n    }\n    std::uint32_t cross = firstHigh * secondLow;\n    cross += firstLow * secondHigh;\n    const std::uint64_t lowProduct =\n        static_cast<std::uint64_t>(firstLow) * secondLow;\n    return lowProduct + (static_cast<std::uint64_t>(cross) << 32);\n}\n\nstd::uint64_t ShiftLegacyUnsigned64_544620(\n    const std::uint64_t value, const std::uint8_t count)\n{\n    if (count >= 64) {\n        return 0;\n    }\n    if (count >= 32) {\n        const auto low = static_cast<std::uint32_t>(value);\n        const std::uint32_t high = low << (count & 0x1Fu);\n        return static_cast<std::uint64_t>(high) << 32;\n    }\n    return value << count;\n}\n\nstd::uint64_t RemainderLegacyUnsigned64_5447A0(\n    const std::uint64_t dividend, const std::uint64_t divisor)\n{\n    return dividend % divisor;\n}\n\nstd::uint64_t DivideLegacyUnsigned64_53CB10(\n    const std::uint64_t dividend, const std::uint64_t divisor)\n{\n    return dividend / divisor;\n}\n\n} // namespace cg::platform\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyFormat.hpp",
+      "before": "#pragma once\n\n#include \"LegacyStdio.hpp\"\n\n#include <cstdarg>\n#include <cstdint>\n\nnamespace cg::platform {\n\n// 原Z记录仅地址拓宽；长度是S16字节数，remaining02不由输出核心消费。\nstruct LegacyCountedFormatString final {\n    std::int16_t length;\n    std::uint16_t remaining02;\n    const void* text;\n};\nstatic_assert(offsetof(LegacyCountedFormatString, text) == 8);\nstatic_assert(sizeof(LegacyCountedFormatString) == 16);\n\nextern const char* gLegacyFormatNullText58FB38;\nextern const wchar_t* gLegacyFormatNullWide58FB3C;\n\n// 原六个浮点槽；初值均为545031，53B45F按原序安装，启动父仍另行接线。\nusing LegacyFloatFormatCallback = char* (*)(\n    double*, char*, std::int32_t, std::int32_t, std::int32_t);\nusing LegacyFloatTextCallback = void (*)(char*);\nusing LegacyFloatAssignCallback = void (*)(std::int32_t, void*, const char*);\nusing LegacyFloatNonnegativeCallback = std::int32_t (*)(double*);\nextern LegacyFloatFormatCallback gLegacyFloatFormat58FB50;\nextern LegacyFloatTextCallback gLegacyFloatCropZeros58FB54;\nextern LegacyFloatAssignCallback gLegacyFloatAssign58FB58;\nextern LegacyFloatTextCallback gLegacyFloatForcePoint58FB5C;\nextern LegacyFloatNonnegativeCallback gLegacyFloatNonnegative58FB60;\nextern LegacyFloatFormatCallback gLegacyFloatFormatAlias58FB64;\n[[noreturn]] void LegacyFloatingPointTrap_545031();\n\n// 原核心及三公共包装；原生va_list只承接参数位置，不使用宿主格式引擎。\nstd::int32_t FormatLegacyOutput_53EB28(\n    LegacyFile* stream, const char* format, std::va_list arguments);\n// 原4D8DA0@4D8F5B单W32读取；只借对应命令元素地址，ASM真实读出S32后给原%d。\n// 命令仍仅按原分支写入；CPP该处不直接求值未生产整数，不补值/模拟原栈或外推原值等价。\nextern \"C\" std::int32_t Cg2dReadLegacyShopCommandW32(\n    const std::int32_t* command) noexcept;\n\nstd::int32_t FormatLegacyString_53B304(char* buffer, const char* format, ...);\nstd::int32_t FormatLegacyBoundedString_53D21D(\n    char* buffer, std::uint32_t capacity, const char* format, ...);\nstd::int32_t FormatLegacyStream_53BC0F(LegacyFile* stream, const char* format, ...);\n\n\n// 原输入核心/字符串包装；目标地址按Win64 va_list传递，数值写入保持原宽度。\nstd::int32_t ScanLegacyInput_53DEF4(\n    LegacyFile* stream, const char* format, std::va_list arguments);\nstd::int32_t ScanLegacyString_53CADC(const char* buffer, const char* format, ...);\n\n// 原U64两helper，参数/返回各64位而非地址；原生无符号算符，不增除零保护或替代值。\nstd::uint64_t RemainderLegacyUnsigned64_5447A0(\n    std::uint64_t dividend, std::uint64_t divisor);\nstd::uint64_t DivideLegacyUnsigned64_53CB10(\n    std::uint64_t dividend, std::uint64_t divisor);\n\n} // namespace cg::platform\n",
+      "after": "#pragma once\n\n#include \"LegacyStdio.hpp\"\n\n#include <cstdarg>\n#include <cstdint>\n\nnamespace cg::platform {\n\n// 原Z记录仅地址拓宽；长度是S16字节数，remaining02不由输出核心消费。\nstruct LegacyCountedFormatString final {\n    std::int16_t length;\n    std::uint16_t remaining02;\n    const void* text;\n};\nstatic_assert(offsetof(LegacyCountedFormatString, text) == 8);\nstatic_assert(sizeof(LegacyCountedFormatString) == 16);\n\nextern const char* gLegacyFormatNullText58FB38;\nextern const wchar_t* gLegacyFormatNullWide58FB3C;\n\n// 原六个浮点槽；初值均为545031，53B45F按原序安装，启动父仍另行接线。\nusing LegacyFloatFormatCallback = char* (*)(\n    double*, char*, std::int32_t, std::int32_t, std::int32_t);\nusing LegacyFloatTextCallback = void (*)(char*);\nusing LegacyFloatAssignCallback = void (*)(std::int32_t, void*, const char*);\nusing LegacyFloatNonnegativeCallback = std::int32_t (*)(double*);\nextern LegacyFloatFormatCallback gLegacyFloatFormat58FB50;\nextern LegacyFloatTextCallback gLegacyFloatCropZeros58FB54;\nextern LegacyFloatAssignCallback gLegacyFloatAssign58FB58;\nextern LegacyFloatTextCallback gLegacyFloatForcePoint58FB5C;\nextern LegacyFloatNonnegativeCallback gLegacyFloatNonnegative58FB60;\nextern LegacyFloatFormatCallback gLegacyFloatFormatAlias58FB64;\n[[noreturn]] void LegacyFloatingPointTrap_545031();\n\n// 原核心及三公共包装；原生va_list只承接参数位置，不使用宿主格式引擎。\nstd::int32_t FormatLegacyOutput_53EB28(\n    LegacyFile* stream, const char* format, std::va_list arguments);\n// 原4D8DA0@4D8F5B单W32读取；只借对应命令元素地址，ASM真实读出S32后给原%d。\n// 命令仍仅按原分支写入；CPP该处不直接求值未生产整数，不补值/模拟原栈或外推原值等价。\nextern \"C\" std::int32_t Cg2dReadLegacyShopCommandW32(\n    const std::int32_t* command) noexcept;\n\nstd::int32_t FormatLegacyString_53B304(char* buffer, const char* format, ...);\nstd::int32_t FormatLegacyBoundedString_53D21D(\n    char* buffer, std::uint32_t capacity, const char* format, ...);\nstd::int32_t FormatLegacyStream_53BC0F(LegacyFile* stream, const char* format, ...);\n\n\n// 原输入核心/字符串包装；目标地址按Win64 va_list传递，数值写入保持原宽度。\nstd::int32_t ScanLegacyInput_53DEF4(\n    LegacyFile* stream, const char* format, std::va_list arguments);\nstd::int32_t ScanLegacyString_53CADC(const char* buffer, const char* format, ...);\n\n// 原542F10合成乘积低64位，保原高半零快路与交叉W32乘加；不是地址扩宽。\nstd::uint64_t MultiplyLegacyUnsigned64_542F10(\n    std::uint64_t first, std::uint64_t second);\n// 原544620只消费CL计数BYTE，保>=64原返回0/32..63低半搬高/0..31双字移位。\nstd::uint64_t ShiftLegacyUnsigned64_544620(\n    std::uint64_t value, std::uint8_t count);\n\n// 原U64两helper，参数/返回各64位而非地址；原生无符号算符，不增除零保护或替代值。\nstd::uint64_t RemainderLegacyUnsigned64_5447A0(\n    std::uint64_t dividend, std::uint64_t divisor);\nstd::uint64_t DivideLegacyUnsigned64_53CB10(\n    std::uint64_t dividend, std::uint64_t divisor);\n\n} // namespace cg::platform\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyScan.cpp",
+      "before": "#include \"LegacyFormat.hpp\"\n#include \"LegacyFloatFormat.hpp\"\n#include \"LegacyMultibyte.hpp\"\n#include \"LegacyStringCompareState.hpp\"\n#include \"cg/platform/LegacyTime.hpp\"\n#include \"cg/platform/LegacyMemory.hpp\"\n\n#include <bit>\n#include <cstring>\n\nnamespace cg::platform {\n\nnamespace {\n\n// 原58F8A8/58F8B0：供同一位集构造循环消费，含终止]及NUL。\nconstexpr std::uint8_t kStringScanSet58F8A8[] = {' ', '\\t', '-', '\\r', ']', 0};\nconstexpr std::uint8_t kCharacterScanSet58F8B0[] = {']', 0};\n\n} // namespace\n\nstd::int32_t ScanLegacyInput_53DEF4(\n    LegacyFile* const stream, const char* format, std::va_list arguments)\n{\n    std::int32_t consumed = 0;\n    std::int32_t assigned = 0;\n    std::uint8_t completed = 0;\n    // 原C与DstCh未设初值；后续字段复用，不能为未读取/未转换路径补零。\n    std::int32_t current;\n    wchar_t converted;\n    char sourceCharacter[4];\n    const auto classify = [](const std::int32_t character, const std::uint32_t mask) {\n        if (gLegacyCtypeMaxBytes58FE3C > 1) {\n            return ClassifyLegacyCharacter_541955(character, mask);\n        }\n        const auto* const types = reinterpret_cast<const std::uint8_t*>(gCtypePointer58FC30);\n        return static_cast<std::uint32_t>(types[character * 2]) & mask;\n    };\n    const auto read = [&consumed, stream]() {\n        ++consumed;\n        return ReadLegacyFormatByte_53E950(stream);\n    };\n    const auto unread = [&consumed, stream](const std::int32_t character) {\n        --consumed;\n        UnreadLegacyFormatByte_53E96A(character, stream);\n    };\n\n    while (*format != '\\0') {\n        if (classify(static_cast<std::uint8_t>(*format), 8) != 0) {\n            --consumed;\n            const std::int32_t character = SkipLegacyFormatSpace_53E981(&consumed, stream);\n            UnreadLegacyFormatByte_53E96A(character, stream);\n            do {\n                ++format;\n            } while (ClassifyLegacySpace_53BDEF(static_cast<std::uint8_t>(*format)) != 0);\n        }\n        if (*format != '%') {\n            current = read();\n            const auto expected = static_cast<std::uint8_t>(*format++);\n            if (expected != current) {\n                unread(current);\n                goto finish;\n            }\n            const auto* const types = reinterpret_cast<const std::uint8_t*>(gCtypePointer58FC30);\n            if ((types[static_cast<std::uint8_t>(current) * 2 + 1] & 0x80u) != 0) {\n                const std::int32_t second = read();\n                const auto expectedSecond = static_cast<std::uint8_t>(*format++);\n                if (expectedSecond != second) {\n                    unread(second);\n                    unread(current);\n                    goto finish;\n                }\n                --consumed;\n            }\n        } else {\n            std::uint8_t inverted = 0;\n            std::uint8_t negative = 0;\n            std::uint8_t suppressed = 0;\n            std::uint8_t length = 1;\n            std::uint8_t wideMode = 0;\n            sourceCharacter[3] = 0; // 原var_35与宽转换源+3同址，字段入口清零。\n            std::uint32_t numeric = 0;\n            std::uint64_t numeric64;\n            std::uintptr_t address = 0;\n            std::int32_t digits = 0;\n            std::int32_t widthSpecified = 0;\n            std::int32_t width = 0;\n            std::uint32_t useInt64 = 0;\n            for (;;) {\n                const auto character = static_cast<std::uint8_t>(*++format);\n                if (classify(character, 4) != 0) {\n                    ++widthSpecified;\n                    width = character + width * 10 - '0';\n                    continue;\n                }\n                if (character == 'F' || character == 'N') {\n                    continue;\n                }\n                if (character == '*') {\n                    ++suppressed;\n                    continue;\n                }\n                if (character == 'I' && format[1] == '6' && format[2] == '4') {\n                    ++useInt64;\n                    numeric64 = 0;\n                    format += 2;\n                    continue;\n                }\n                if (character == 'L') {\n                    ++length;\n                    continue;\n                }\n                if (character == 'h') {\n                    --length;\n                    --wideMode;\n                    continue;\n                }\n                if (character == 'l') {\n                    ++length;\n                    ++wideMode;\n                    continue;\n                }\n                if (character == 'w') {\n                    ++wideMode;\n                    continue;\n                }\n                break;\n            }\n            if (wideMode == 0) {\n                wideMode = *format == 'S' || *format == 'C' ? 1u : 0xFFu;\n            }\n            const std::int32_t kind = static_cast<std::uint8_t>(*format) | 0x20;\n            const bool textField = kind == 'c' || kind == 's' || kind == '{';\n            const bool floatField = kind >= 'e' && kind <= 'g';\n            const bool integerField = kind == 'd' || kind == 'i' || kind == 'o'\n                || kind == 'u' || kind == 'x' || kind == 'p';\n            const bool recognized = textField || floatField || integerField || kind == 'n';\n            void* destination;\n            if (suppressed == 0 && recognized) {\n                // Win64参数均为目标地址；未知字面转换的原预取/回滚不消费参数。\n                destination = va_arg(arguments, void*);\n            }\n            if (kind != 'n') {\n                current = kind == 'c' || kind == '{'\n                    ? read() : SkipLegacyFormatSpace_53E981(&consumed, stream);\n            }\n            if (widthSpecified != 0 && width == 0) {\n                unread(current);\n                goto finish;\n            }\n\n            if (floatField) {\n                char text[352];\n                char* output = text;\n                std::int32_t character = current;\n                if (character == '-') {\n                    *output++ = '-';\n                }\n                if (character == '-' || character == '+') {\n                    --width;\n                    character = current = read();\n                }\n                if (widthSpecified == 0 || width > 349) {\n                    width = 349;\n                }\n                while (classify(character, 4) != 0) {\n                    if (width-- == 0) {\n                        break;\n                    }\n                    ++digits;\n                    *output++ = std::bit_cast<char>(static_cast<std::uint8_t>(character));\n                    character = current = read();\n                }\n                if (static_cast<std::uint8_t>(character) == gLegacyDecimalPoint58FE40) {\n                    if (width-- != 0) {\n                        character = read();\n                        *output++ = std::bit_cast<char>(gLegacyDecimalPoint58FE40);\n                        current = character;\n                        while (classify(character, 4) != 0) {\n                            if (width-- == 0) {\n                                break;\n                            }\n                            ++digits;\n                            *output++ = std::bit_cast<char>(static_cast<std::uint8_t>(character));\n                            character = current = read();\n                        }\n                    }\n                }\n                if (digits != 0 && (character == 'e' || character == 'E')) {\n                    if (width-- != 0) {\n                        *output++ = 'e';\n                        character = current = read();\n                        if (character == '-') {\n                            *output++ = '-';\n                        }\n                        if (character == '-' || character == '+') {\n                            if (width-- == 0) {\n                                width = 0;\n                            } else {\n                                character = current = read();\n                            }\n                        }\n                        while (classify(character, 4) != 0) {\n                            if (width-- == 0) {\n                                break;\n                            }\n                            ++digits;\n                            *output++ = std::bit_cast<char>(static_cast<std::uint8_t>(character));\n                            character = current = read();\n                        }\n                    }\n                }\n                unread(character);\n                if (digits == 0) {\n                    goto finish;\n                }\n                if (suppressed == 0) {\n                    ++assigned;\n                    *output = '\\0';\n                    gLegacyFloatAssign58FB58(\n                        static_cast<std::int32_t>(std::bit_cast<std::int8_t>(length)) - 1,\n                        destination, text);\n                }\n            } else if (textField) {\n                const bool wide = std::bit_cast<std::int8_t>(wideMode) > 0;\n                const std::uint8_t* setText;\n                if (kind == 'c') {\n                    if (widthSpecified == 0) {\n                        ++width;\n                        widthSpecified = 1;\n                    }\n                    setText = kCharacterScanSet58F8B0;\n                    inverted = 0xFFu;\n                } else if (kind == 's') {\n                    setText = kStringScanSet58F8A8;\n                    inverted = 0xFFu;\n                } else {\n                    ++format;\n                    setText = reinterpret_cast<const std::uint8_t*>(format);\n                    if (*setText == '^') {\n                        ++setText;\n                        inverted = 0xFFu;\n                    }\n                }\n                std::uint8_t set[32];\n                static_cast<void>(FillLegacyMemory_5419D0(\n                    set, 0, static_cast<std::uint32_t>(sizeof(set))));\n                std::uint8_t previous = 0;\n                if (kind == '{' && *setText == ']') {\n                    previous = ']';\n                    ++setText;\n                    set[11] = 0x20;\n                }\n                while (*setText != ']') {\n                    const std::uint8_t character = *setText++;\n                    if (character == '-' && previous != 0 && *setText != ']') {\n                        const std::uint8_t next = *setText++;\n                        const std::uint32_t low = previous < next ? previous : next;\n                        const std::uint32_t high = previous < next ? next : previous;\n                        for (std::uint32_t value = low; value <= high; ++value) {\n                            set[value >> 3] |= static_cast<std::uint8_t>(1u << (value & 7u));\n                        }\n                        previous = 0;\n                    } else {\n                        previous = character;\n                        set[character >> 3] |= static_cast<std::uint8_t>(1u << (character & 7u));\n                    }\n                }\n                if (*setText == 0) {\n                    goto finish;\n                }\n                if (kind == '{') {\n                    format = reinterpret_cast<const char*>(setText);\n                }\n                auto* output = suppressed == 0 ? static_cast<std::uint8_t*>(destination) : nullptr;\n                std::uint32_t accepted = 0;\n                unread(current);\n                for (;;) {\n                    if (widthSpecified != 0 && width-- == 0) {\n                        break;\n                    }\n                    current = read();\n                    if (current == -1\n                        || ((set[current >> 3] ^ inverted) & (1u << (current & 7))) == 0) {\n                        unread(current);\n                        break;\n                    }\n                    if (suppressed == 0) {\n                        if (wide) {\n                            sourceCharacter[0] = std::bit_cast<char>(\n                                static_cast<std::uint8_t>(current));\n                            const auto* const types =\n                                reinterpret_cast<const std::uint8_t*>(gCtypePointer58FC30);\n                            if ((types[static_cast<std::uint8_t>(current) * 2 + 1] & 0x80u) != 0) {\n                                sourceCharacter[1] = std::bit_cast<char>(\n                                    static_cast<std::uint8_t>(read()));\n                            }\n                            static_cast<void>(Mbtowc_544552(&converted, sourceCharacter,\n                                static_cast<std::uint32_t>(gLegacyCtypeMaxBytes58FE3C)));\n                            std::memcpy(output, &converted, 2);\n                            output += 2;\n                        } else {\n                            *output++ = static_cast<std::uint8_t>(current);\n                        }\n                        destination = output;\n                    }\n                    ++accepted;\n                }\n                if (accepted == 0) {\n                    goto finish;\n                }\n                if (suppressed == 0) {\n                    ++assigned;\n                    if (kind != 'c') {\n                        if (wide) {\n                            const std::uint16_t zero = 0;\n                            std::memcpy(destination, &zero, 2);\n                        } else {\n                            *static_cast<std::uint8_t*>(destination) = 0;\n                        }\n                    }\n                }\n            } else if (integerField || kind == 'n') {\n                if (kind == 'n') {\n                    numeric = static_cast<std::uint32_t>(consumed);\n                } else {\n                    std::int32_t radixKind = kind == 'i' ? 'd' : kind;\n                    std::int32_t character = current;\n                    bool stoppedBySign = false;\n                    if (kind == 'p') {\n                        length = 1;\n                    }\n                    if (character == '-') {\n                        negative = 1;\n                    }\n                    if (character == '-' || character == '+') {\n                        --width;\n                        if (width == 0 && widthSpecified != 0) {\n                            stoppedBySign = true;\n                        } else {\n                            character = current = read();\n                        }\n                    }\n                    if ((kind == 'i' || kind == 'x') && character == '0') {\n                        character = current = read();\n                        if (static_cast<std::uint8_t>(character) == 'x'\n                            || static_cast<std::uint8_t>(character) == 'X') {\n                            character = current = read();\n                            radixKind = 'x';\n                        } else {\n                            digits = 1;\n                            if (radixKind != 'x') {\n                                radixKind = 'o';\n                            } else {\n                                unread(character);\n                                character = current = '0';\n                            }\n                        }\n                    }\n                    if (!stoppedBySign) {\n                        for (;;) {\n                            const bool hex = radixKind == 'x'\n                                || (useInt64 == 0 && radixKind == 'p');\n                            if (classify(character, hex ? 0x80u : 4u) == 0\n                                || (!hex && radixKind == 'o' && character >= '8')) {\n                                unread(character);\n                                break;\n                            }\n                            if (useInt64 != 0) {\n                                if (hex) {\n                                    numeric64 <<= 4;\n                                } else if (radixKind == 'o') {\n                                    numeric64 <<= 3;\n                                } else {\n                                    numeric64 *= 10;\n                                }\n                            } else if (kind == 'p') {\n                                address <<= 4;\n                            } else if (hex) {\n                                numeric <<= 4;\n                            } else if (radixKind == 'o') {\n                                numeric <<= 3;\n                            } else {\n                                numeric *= 10;\n                            }\n                            if (hex) {\n                                character = current = NormalizeLegacyHexCharacter_53E919(character);\n                            }\n                            ++digits;\n                            if (useInt64 != 0) {\n                                const auto digit = static_cast<std::int32_t>(character - '0');\n                                numeric64 += static_cast<std::uint64_t>(\n                                    static_cast<std::int64_t>(digit));\n                            } else if (kind == 'p') {\n                                address += static_cast<std::uintptr_t>(character - '0');\n                            } else {\n                                numeric += static_cast<std::uint32_t>(character - '0');\n                            }\n                            if (widthSpecified != 0 && --width == 0) {\n                                break;\n                            }\n                            character = current = read();\n                        }\n                    }\n                    if (negative != 0) {\n                        if (useInt64 != 0) {\n                            numeric64 = 0u - numeric64;\n                        } else if (kind == 'p') {\n                            address = 0u - address;\n                        } else {\n                            numeric = 0u - numeric;\n                        }\n                    }\n                    if (digits == 0) {\n                        goto finish;\n                    }\n                    if (suppressed == 0) {\n                        ++assigned;\n                    }\n                }\n                if (suppressed == 0) {\n                    if (kind == 'p') {\n                        if (useInt64 != 0) {\n                            address = static_cast<std::uintptr_t>(numeric64);\n                        }\n                        void* const pointer = reinterpret_cast<void*>(address);\n                        std::memcpy(destination, &pointer, sizeof(pointer));\n                    } else if (useInt64 != 0) {\n                        // 原I64n仍写入口清零的numeric64；原顺序先低W32再高W32。\n                        const auto low = static_cast<std::uint32_t>(numeric64);\n                        const auto high = static_cast<std::uint32_t>(numeric64 >> 32);\n                        std::memcpy(destination, &low, 4);\n                        std::memcpy(static_cast<std::uint8_t*>(destination) + 4, &high, 4);\n                    } else if (length != 0) {\n                        std::memcpy(destination, &numeric, 4);\n                    } else {\n                        const auto low = static_cast<std::uint16_t>(numeric);\n                        std::memcpy(destination, &low, 2);\n                    }\n                }\n            } else {\n                if (static_cast<std::uint8_t>(*format) != current) {\n                    unread(current);\n                    goto finish;\n                }\n                --completed;\n            }\n            ++completed;\n            ++format;\n        }\n        if (current == -1 && !(format[0] == '%' && format[1] == 'n')) {\n            goto eof;\n        }\n    }\nfinish:\n    if (current != -1) {\n        return assigned;\n    }\neof:\n    return assigned == 0 && completed == 0 ? -1 : assigned;\n}\n\nstd::int32_t ScanLegacyString_53CADC(const char* const buffer, const char* const format, ...)\n{\n    LegacyFile stream;\n    stream.flags = 0x49;\n    stream.base = const_cast<char*>(buffer);\n    stream.current = const_cast<char*>(buffer);\n    stream.remaining = std::bit_cast<std::int32_t>(\n        static_cast<std::uint32_t>(StrLen_53F9E0(buffer)));\n    std::va_list arguments;\n    va_start(arguments, format);\n    const std::int32_t result = ScanLegacyInput_53DEF4(&stream, format, arguments);\n    va_end(arguments);\n    return result;\n}\n\n} // namespace cg::platform\n",
+      "after": "#include \"LegacyFormat.hpp\"\n#include \"LegacyFloatFormat.hpp\"\n#include \"LegacyMultibyte.hpp\"\n#include \"LegacyStringCompareState.hpp\"\n#include \"cg/platform/LegacyTime.hpp\"\n#include \"cg/platform/LegacyMemory.hpp\"\n\n#include <bit>\n#include <cstring>\n\nnamespace cg::platform {\n\nnamespace {\n\n// 原58F8A8/58F8B0：供同一位集构造循环消费，含终止]及NUL。\nconstexpr std::uint8_t kStringScanSet58F8A8[] = {' ', '\\t', '-', '\\r', ']', 0};\nconstexpr std::uint8_t kCharacterScanSet58F8B0[] = {']', 0};\n\n} // namespace\n\nstd::int32_t ScanLegacyInput_53DEF4(\n    LegacyFile* const stream, const char* format, std::va_list arguments)\n{\n    std::int32_t consumed = 0;\n    std::int32_t assigned = 0;\n    std::uint8_t completed = 0;\n    // 原C与DstCh未设初值；后续字段复用，不能为未读取/未转换路径补零。\n    std::int32_t current;\n    wchar_t converted;\n    char sourceCharacter[4];\n    const auto classify = [](const std::int32_t character, const std::uint32_t mask) {\n        if (gLegacyCtypeMaxBytes58FE3C > 1) {\n            return ClassifyLegacyCharacter_541955(character, mask);\n        }\n        const auto* const types = reinterpret_cast<const std::uint8_t*>(gCtypePointer58FC30);\n        return static_cast<std::uint32_t>(types[character * 2]) & mask;\n    };\n    const auto read = [&consumed, stream]() {\n        ++consumed;\n        return ReadLegacyFormatByte_53E950(stream);\n    };\n    const auto unread = [&consumed, stream](const std::int32_t character) {\n        --consumed;\n        UnreadLegacyFormatByte_53E96A(character, stream);\n    };\n\n    while (*format != '\\0') {\n        if (classify(static_cast<std::uint8_t>(*format), 8) != 0) {\n            --consumed;\n            const std::int32_t character = SkipLegacyFormatSpace_53E981(&consumed, stream);\n            UnreadLegacyFormatByte_53E96A(character, stream);\n            do {\n                ++format;\n            } while (ClassifyLegacySpace_53BDEF(static_cast<std::uint8_t>(*format)) != 0);\n        }\n        if (*format != '%') {\n            current = read();\n            const auto expected = static_cast<std::uint8_t>(*format++);\n            if (expected != current) {\n                unread(current);\n                goto finish;\n            }\n            const auto* const types = reinterpret_cast<const std::uint8_t*>(gCtypePointer58FC30);\n            if ((types[static_cast<std::uint8_t>(current) * 2 + 1] & 0x80u) != 0) {\n                const std::int32_t second = read();\n                const auto expectedSecond = static_cast<std::uint8_t>(*format++);\n                if (expectedSecond != second) {\n                    unread(second);\n                    unread(current);\n                    goto finish;\n                }\n                --consumed;\n            }\n        } else {\n            std::uint8_t inverted = 0;\n            std::uint8_t negative = 0;\n            std::uint8_t suppressed = 0;\n            std::uint8_t length = 1;\n            std::uint8_t wideMode = 0;\n            sourceCharacter[3] = 0; // 原var_35与宽转换源+3同址，字段入口清零。\n            std::uint32_t numeric = 0;\n            std::uint64_t numeric64;\n            std::uintptr_t address = 0;\n            std::int32_t digits = 0;\n            std::int32_t widthSpecified = 0;\n            std::int32_t width = 0;\n            std::uint32_t useInt64 = 0;\n            for (;;) {\n                const auto character = static_cast<std::uint8_t>(*++format);\n                if (classify(character, 4) != 0) {\n                    ++widthSpecified;\n                    width = character + width * 10 - '0';\n                    continue;\n                }\n                if (character == 'F' || character == 'N') {\n                    continue;\n                }\n                if (character == '*') {\n                    ++suppressed;\n                    continue;\n                }\n                if (character == 'I' && format[1] == '6' && format[2] == '4') {\n                    ++useInt64;\n                    numeric64 = 0;\n                    format += 2;\n                    continue;\n                }\n                if (character == 'L') {\n                    ++length;\n                    continue;\n                }\n                if (character == 'h') {\n                    --length;\n                    --wideMode;\n                    continue;\n                }\n                if (character == 'l') {\n                    ++length;\n                    ++wideMode;\n                    continue;\n                }\n                if (character == 'w') {\n                    ++wideMode;\n                    continue;\n                }\n                break;\n            }\n            if (wideMode == 0) {\n                wideMode = *format == 'S' || *format == 'C' ? 1u : 0xFFu;\n            }\n            const std::int32_t kind = static_cast<std::uint8_t>(*format) | 0x20;\n            const bool textField = kind == 'c' || kind == 's' || kind == '{';\n            const bool floatField = kind >= 'e' && kind <= 'g';\n            const bool integerField = kind == 'd' || kind == 'i' || kind == 'o'\n                || kind == 'u' || kind == 'x' || kind == 'p';\n            const bool recognized = textField || floatField || integerField || kind == 'n';\n            void* destination;\n            if (suppressed == 0 && recognized) {\n                // Win64参数均为目标地址；未知字面转换的原预取/回滚不消费参数。\n                destination = va_arg(arguments, void*);\n            }\n            if (kind != 'n') {\n                current = kind == 'c' || kind == '{'\n                    ? read() : SkipLegacyFormatSpace_53E981(&consumed, stream);\n            }\n            if (widthSpecified != 0 && width == 0) {\n                unread(current);\n                goto finish;\n            }\n\n            if (floatField) {\n                char text[352];\n                char* output = text;\n                std::int32_t character = current;\n                if (character == '-') {\n                    *output++ = '-';\n                }\n                if (character == '-' || character == '+') {\n                    --width;\n                    character = current = read();\n                }\n                if (widthSpecified == 0 || width > 349) {\n                    width = 349;\n                }\n                while (classify(character, 4) != 0) {\n                    if (width-- == 0) {\n                        break;\n                    }\n                    ++digits;\n                    *output++ = std::bit_cast<char>(static_cast<std::uint8_t>(character));\n                    character = current = read();\n                }\n                if (static_cast<std::uint8_t>(character) == gLegacyDecimalPoint58FE40) {\n                    if (width-- != 0) {\n                        character = read();\n                        *output++ = std::bit_cast<char>(gLegacyDecimalPoint58FE40);\n                        current = character;\n                        while (classify(character, 4) != 0) {\n                            if (width-- == 0) {\n                                break;\n                            }\n                            ++digits;\n                            *output++ = std::bit_cast<char>(static_cast<std::uint8_t>(character));\n                            character = current = read();\n                        }\n                    }\n                }\n                if (digits != 0 && (character == 'e' || character == 'E')) {\n                    if (width-- != 0) {\n                        *output++ = 'e';\n                        character = current = read();\n                        if (character == '-') {\n                            *output++ = '-';\n                        }\n                        if (character == '-' || character == '+') {\n                            if (width-- == 0) {\n                                width = 0;\n                            } else {\n                                character = current = read();\n                            }\n                        }\n                        while (classify(character, 4) != 0) {\n                            if (width-- == 0) {\n                                break;\n                            }\n                            ++digits;\n                            *output++ = std::bit_cast<char>(static_cast<std::uint8_t>(character));\n                            character = current = read();\n                        }\n                    }\n                }\n                unread(character);\n                if (digits == 0) {\n                    goto finish;\n                }\n                if (suppressed == 0) {\n                    ++assigned;\n                    *output = '\\0';\n                    gLegacyFloatAssign58FB58(\n                        static_cast<std::int32_t>(std::bit_cast<std::int8_t>(length)) - 1,\n                        destination, text);\n                }\n            } else if (textField) {\n                const bool wide = std::bit_cast<std::int8_t>(wideMode) > 0;\n                const std::uint8_t* setText;\n                if (kind == 'c') {\n                    if (widthSpecified == 0) {\n                        ++width;\n                        widthSpecified = 1;\n                    }\n                    setText = kCharacterScanSet58F8B0;\n                    inverted = 0xFFu;\n                } else if (kind == 's') {\n                    setText = kStringScanSet58F8A8;\n                    inverted = 0xFFu;\n                } else {\n                    ++format;\n                    setText = reinterpret_cast<const std::uint8_t*>(format);\n                    if (*setText == '^') {\n                        ++setText;\n                        inverted = 0xFFu;\n                    }\n                }\n                std::uint8_t set[32];\n                static_cast<void>(FillLegacyMemory_5419D0(\n                    set, 0, static_cast<std::uint32_t>(sizeof(set))));\n                std::uint8_t previous = 0;\n                if (kind == '{' && *setText == ']') {\n                    previous = ']';\n                    ++setText;\n                    set[11] = 0x20;\n                }\n                while (*setText != ']') {\n                    const std::uint8_t character = *setText++;\n                    if (character == '-' && previous != 0 && *setText != ']') {\n                        const std::uint8_t next = *setText++;\n                        const std::uint32_t low = previous < next ? previous : next;\n                        const std::uint32_t high = previous < next ? next : previous;\n                        for (std::uint32_t value = low; value <= high; ++value) {\n                            set[value >> 3] |= static_cast<std::uint8_t>(1u << (value & 7u));\n                        }\n                        previous = 0;\n                    } else {\n                        previous = character;\n                        set[character >> 3] |= static_cast<std::uint8_t>(1u << (character & 7u));\n                    }\n                }\n                if (*setText == 0) {\n                    goto finish;\n                }\n                if (kind == '{') {\n                    format = reinterpret_cast<const char*>(setText);\n                }\n                auto* output = suppressed == 0 ? static_cast<std::uint8_t*>(destination) : nullptr;\n                std::uint32_t accepted = 0;\n                unread(current);\n                for (;;) {\n                    if (widthSpecified != 0 && width-- == 0) {\n                        break;\n                    }\n                    current = read();\n                    if (current == -1\n                        || ((set[current >> 3] ^ inverted) & (1u << (current & 7))) == 0) {\n                        unread(current);\n                        break;\n                    }\n                    if (suppressed == 0) {\n                        if (wide) {\n                            sourceCharacter[0] = std::bit_cast<char>(\n                                static_cast<std::uint8_t>(current));\n                            const auto* const types =\n                                reinterpret_cast<const std::uint8_t*>(gCtypePointer58FC30);\n                            if ((types[static_cast<std::uint8_t>(current) * 2 + 1] & 0x80u) != 0) {\n                                sourceCharacter[1] = std::bit_cast<char>(\n                                    static_cast<std::uint8_t>(read()));\n                            }\n                            static_cast<void>(Mbtowc_544552(&converted, sourceCharacter,\n                                static_cast<std::uint32_t>(gLegacyCtypeMaxBytes58FE3C)));\n                            std::memcpy(output, &converted, 2);\n                            output += 2;\n                        } else {\n                            *output++ = static_cast<std::uint8_t>(current);\n                        }\n                        destination = output;\n                    }\n                    ++accepted;\n                }\n                if (accepted == 0) {\n                    goto finish;\n                }\n                if (suppressed == 0) {\n                    ++assigned;\n                    if (kind != 'c') {\n                        if (wide) {\n                            const std::uint16_t zero = 0;\n                            std::memcpy(destination, &zero, 2);\n                        } else {\n                            *static_cast<std::uint8_t*>(destination) = 0;\n                        }\n                    }\n                }\n            } else if (integerField || kind == 'n') {\n                if (kind == 'n') {\n                    numeric = static_cast<std::uint32_t>(consumed);\n                } else {\n                    std::int32_t radixKind = kind == 'i' ? 'd' : kind;\n                    std::int32_t character = current;\n                    bool stoppedBySign = false;\n                    if (kind == 'p') {\n                        length = 1;\n                    }\n                    if (character == '-') {\n                        negative = 1;\n                    }\n                    if (character == '-' || character == '+') {\n                        --width;\n                        if (width == 0 && widthSpecified != 0) {\n                            stoppedBySign = true;\n                        } else {\n                            character = current = read();\n                        }\n                    }\n                    if ((kind == 'i' || kind == 'x') && character == '0') {\n                        character = current = read();\n                        if (static_cast<std::uint8_t>(character) == 'x'\n                            || static_cast<std::uint8_t>(character) == 'X') {\n                            character = current = read();\n                            radixKind = 'x';\n                        } else {\n                            digits = 1;\n                            if (radixKind != 'x') {\n                                radixKind = 'o';\n                            } else {\n                                unread(character);\n                                character = current = '0';\n                            }\n                        }\n                    }\n                    if (!stoppedBySign) {\n                        for (;;) {\n                            const bool hex = radixKind == 'x'\n                                || (useInt64 == 0 && radixKind == 'p');\n                            if (classify(character, hex ? 0x80u : 4u) == 0\n                                || (!hex && radixKind == 'o' && character >= '8')) {\n                                unread(character);\n                                break;\n                            }\n                            if (useInt64 != 0) {\n                                if (hex) {\n                                    numeric64 = ShiftLegacyUnsigned64_544620(numeric64, 4);\n                                } else if (radixKind == 'o') {\n                                    numeric64 = ShiftLegacyUnsigned64_544620(numeric64, 3);\n                                } else {\n                                    numeric64 = MultiplyLegacyUnsigned64_542F10(numeric64, 10);\n                                }\n                            } else if (kind == 'p') {\n                                address <<= 4;\n                            } else if (hex) {\n                                numeric <<= 4;\n                            } else if (radixKind == 'o') {\n                                numeric <<= 3;\n                            } else {\n                                numeric *= 10;\n                            }\n                            if (hex) {\n                                character = current = NormalizeLegacyHexCharacter_53E919(character);\n                            }\n                            ++digits;\n                            if (useInt64 != 0) {\n                                const auto digit = static_cast<std::int32_t>(character - '0');\n                                numeric64 += static_cast<std::uint64_t>(\n                                    static_cast<std::int64_t>(digit));\n                            } else if (kind == 'p') {\n                                address += static_cast<std::uintptr_t>(character - '0');\n                            } else {\n                                numeric += static_cast<std::uint32_t>(character - '0');\n                            }\n                            if (widthSpecified != 0 && --width == 0) {\n                                break;\n                            }\n                            character = current = read();\n                        }\n                    }\n                    if (negative != 0) {\n                        if (useInt64 != 0) {\n                            numeric64 = 0u - numeric64;\n                        } else if (kind == 'p') {\n                            address = 0u - address;\n                        } else {\n                            numeric = 0u - numeric;\n                        }\n                    }\n                    if (digits == 0) {\n                        goto finish;\n                    }\n                    if (suppressed == 0) {\n                        ++assigned;\n                    }\n                }\n                if (suppressed == 0) {\n                    if (kind == 'p') {\n                        if (useInt64 != 0) {\n                            address = static_cast<std::uintptr_t>(numeric64);\n                        }\n                        void* const pointer = reinterpret_cast<void*>(address);\n                        std::memcpy(destination, &pointer, sizeof(pointer));\n                    } else if (useInt64 != 0) {\n                        // 原I64n仍写入口清零的numeric64；原顺序先低W32再高W32。\n                        const auto low = static_cast<std::uint32_t>(numeric64);\n                        const auto high = static_cast<std::uint32_t>(numeric64 >> 32);\n                        std::memcpy(destination, &low, 4);\n                        std::memcpy(static_cast<std::uint8_t*>(destination) + 4, &high, 4);\n                    } else if (length != 0) {\n                        std::memcpy(destination, &numeric, 4);\n                    } else {\n                        const auto low = static_cast<std::uint16_t>(numeric);\n                        std::memcpy(destination, &low, 2);\n                    }\n                }\n            } else {\n                if (static_cast<std::uint8_t>(*format) != current) {\n                    unread(current);\n                    goto finish;\n                }\n                --completed;\n            }\n            ++completed;\n            ++format;\n        }\n        if (current == -1 && !(format[0] == '%' && format[1] == 'n')) {\n            goto eof;\n        }\n    }\nfinish:\n    if (current != -1) {\n        return assigned;\n    }\neof:\n    return assigned == 0 && completed == 0 ? -1 : assigned;\n}\n\nstd::int32_t ScanLegacyString_53CADC(const char* const buffer, const char* const format, ...)\n{\n    LegacyFile stream;\n    stream.flags = 0x49;\n    stream.base = const_cast<char*>(buffer);\n    stream.current = const_cast<char*>(buffer);\n    stream.remaining = std::bit_cast<std::int32_t>(\n        static_cast<std::uint32_t>(StrLen_53F9E0(buffer)));\n    std::va_list arguments;\n    va_start(arguments, format);\n    const std::int32_t result = ScanLegacyInput_53DEF4(&stream, format, arguments);\n    va_end(arguments);\n    return result;\n}\n\n} // namespace cg::platform\n"
+    }
+  ],
+  "semantic_before": [
+    {
+      "original_entry": "0x542F10",
+      "inventory_id": "F:00142F10",
+      "status": "输入核心乘10的64位累积已实现；未扩展通用乘法入口",
+      "original_end_exclusive": "0x542F44",
+      "instruction_count": 19,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyScan.cpp",
+          "symbols": [
+            "ScanLegacyInput_53DEF4"
+          ],
+          "relationship": "仅53E6EC乘10及后续原数字加法域"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "唯一53E6EC@53DEF4以高W32为0、低W32为10作乘数；原合成乘积低64位，不因__allmul命名推断有符号输入验证。乘后按53E6FA..53E701扩展并加字符减30h；输入扫描、符号、越界和失败语义不由此局部运算取证覆盖。 本次53DEF4以U64乘10、S32数字差扩展到64位相加，已接实际父链，不声明通用入口完成。"
+    },
+    {
+      "original_entry": "0x544620",
+      "inventory_id": "F:00144620",
+      "status": "输入核心两处固定64位移位已实现；未扩展通用计数域",
+      "original_end_exclusive": "0x54463F",
+      "instruction_count": 15,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyScan.cpp",
+          "symbols": [
+            "ScanLegacyInput_53DEF4"
+          ],
+          "relationship": "仅53E68B/53E6DB固定4/3位U64移位域"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "原接收EDX:EAX与CL；CL>=64返回0，32..63把低半部移到高半部，0..31双字移位。实际53DEF4两调用53E68B/53E6DB分别固定4/3；普通C++任意计数左移不能直接宣称覆盖原所有计数。未新增越界移位模拟或通用兼容包装。 本次53DEF4固定4/3位调用以U64左移实际接通，不新增通用包装。"
+    }
+  ]
+}

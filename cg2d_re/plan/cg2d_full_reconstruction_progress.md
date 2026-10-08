@@ -4344,3 +4344,20 @@ BVD控制父已固定，本轮继续两大FX完整根：正向570条2320B/九页
 集中静态通过：十完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位；两十八项S32动作表逐项匹配，原MIS含NUL字节4D495300、三容量先持样再格式化/以fresh共享buffer追加和实际返回有据。512聊天134h记录只清首BYTE，十八BYTE选中按四W32/一W16清理；原44B170两chunk及唯一4A7700尾跳、既有源拆分不新F。七相关整源/十三正文与声明全体保持，零源码改动/零新增I。
 
 完整机器及派生精确差集通过，文本汇总/-Check均退出0。新增1782..1791十adapted F，公共UI41仅前九、NETWORK68仅MIS；两个限定S各29来源，无I。实际语义1792/有效1785、基线1902（51.68%）、F940/E1098；U04/U11/V03/R04仍open，R7已审467余2594、pending18/closed11/全叶0/globalfalse、原差队列及CRT43不变。原混合结果/图号和受限动作/发送→本地→fresh tick、窗口模式/尺寸/输入发布及清理保持。网络原格式明文、音频暂停、RPLAN.24与执行限制保持；全部168调用处及各父、所有callee/输入资源生产、正常owner-alias寿命、机器ABI、互通与完整画面运行/R8未验，整体SPEC目标继续推进。
+
+## BVQ01窗口关闭/位置/模式四阶段实修（2026-10-08）
+
+[BVQ01基线](../doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-baseline)、[实施决定](../doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-decision)、[验收](../doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-acceptance)及[原证](../doc/cg2d_window_close_mode_publication_evidence.json)。
+
+五完整原根159条494B/六页、九direct四目标/零间接18跳4RET及21真实CALL与两旧键表数据引用定位；原两表各71槽、随机位置编号10/11/12/14/27有据。单CPP四既有正文四判定阶段/五文本替换，10号首判定/技能窗口存在/S32负号/S16阈值先持样再共享发布并据同判定分流。正确分类关闭保原fresh槽参数；所有其它Restore/fresh实例、六原RAND区间/消费、业务位置修正/回退与真实返回保持。
+
+新1792..1796五adapted F、公共UI41→46，两限定I/S各21来源，I仅四阶段实修/正确分类关闭不计新I；无新实现函数/helper/API/owner。预期语义1797/有效1790、基线1907（51.82%）、F945/E1100；四任务仍open，所有21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行仍待。网络原格式明文、音频暂停/RPLAN.24与执行限制保持。
+先SPEC和原证/前态后四阶段实修，正确关闭及既有随机恢复保持；集中静态与汇总后补实际结果，整体SPEC目标继续推进。
+
+### BVQ01本步实际静态结果
+
+集中静态通过：五完整159条494B/六页、九direct四目标/零间接18跳4RET；21实际CALL与559754/5596D4两旧键表type1数据引用分列，数据引用不记已接分派。窗口/原型各71槽和类别71项逐项一致，原随机位置编号10/11/12/14/27有据。
+
+一个CPP四既有正文四判定阶段/五文本替换：10号首判定、技能窗口存在、S32 DEC负号和S16阈值先持样，再共享发布及同判定分流。分类关闭全文保，原47227E释放前复读槽位不误缓存；所有其它Restore/fresh实例、六RAND表达式与原区间/消费、业务坐标修正/回退、decreased返回和后调用/实际action结果保持。正确关闭无新I、零新helper/函数/API/owner；仅源顺序对应，不宣生成EFLAGS或运行故障等价。
+
+完整机器/派生差集通过，文本汇总/-Check均退出0。新1792..1796五adapted F、公共UI46，两限定I/S各21来源；实际语义1797/有效1790、基线1907（51.82%）、F945/E1100。四任务仍open，R7已审467余2594、pending18/closed11/全叶0/globalfalse、原差队列与CRT43保持。原格式明文、音频暂停/RPLAN.24和执行限制保持；全部21调用处/各父/四callee、生产与正常owner-alias寿命、机器ABI/完整画面运行及R8待验，整体SPEC目标继续推进。

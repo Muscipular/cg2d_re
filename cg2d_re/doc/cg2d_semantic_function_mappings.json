@@ -202959,6 +202959,468 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x472240",
+      "inventory_id": "F:00072240",
+      "original_role": "472240：71槽按序跳空，id→类别S8→符号扩展W32与完整mask，命中先pub当前state/flags|2→fresh当前槽实例Free→同槽null；原47227E实际复读保，正确体无改动/无该体新I。",
+      "original_end_exclusive": "0x47229d",
+      "original_chunks": [
+        [
+          "0x472240",
+          "0x47229d"
+        ]
+      ],
+      "instruction_count": 30,
+      "status": "BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "CloseWindowsByCategory_472240"
+          ],
+          "relationship": "472240：71槽按序跳空，id→类别S8→符号扩展W32与完整mask，命中先pub当前state/flags|2→fresh当前槽实例Free→同槽null；原47227E实际复读保，正确体无改动/无该体新I。"
+        },
+        {
+          "path": "include/cg/ui/WindowRuntime.hpp",
+          "symbols": [
+            "CloseWindowsByCategory_472240"
+          ],
+          "relationship": "既有公开分类关闭声明保持，原71槽/正常生命周期不添保护或新接口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-baseline",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-decision",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-acceptance",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state"
+      ],
+      "boundary": "472240：71槽按序跳空，id→类别S8→符号扩展W32与完整mask，命中先pub当前state/flags|2→fresh当前槽实例Free→同槽null；原47227E实际复读保，正确体无改动/无该体新I。 BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "verification_level": "BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "window_close_mode_publication": {
+        "spec_id": "BVQ01",
+        "evidence_refs": [
+          "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-baseline",
+          "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-decision",
+          "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-acceptance",
+          "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 30,
+        "original_code_bytes": 93,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_unique_direct_callee_count": 1,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 3,
+        "original_return_count": 1,
+        "original_inbound_call_count": 11,
+        "original_inbound_data_reference_count": 0,
+        "original_total_instruction_count": 159,
+        "original_total_code_bytes": 494,
+        "original_total_page_count": 6,
+        "original_total_direct_call_count": 9,
+        "original_total_unique_direct_callee_count": 4,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 18,
+        "original_total_return_count": 4,
+        "original_total_inbound_call_count": 21,
+        "original_total_inbound_data_reference_count": 2,
+        "source_body_changed": false,
+        "root_specific_new_I_claimed": false,
+        "source_root_stage_count": 0,
+        "source_root_text_replacement_count": 0,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_changed_body_count": 4,
+        "source_stage_count": 4,
+        "source_text_replacement_count": 5,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_comparison_before_publication_restored": true,
+        "correct_close_body_and_fresh_window_argument_kept": true,
+        "correct_close_body_not_new_I": true,
+        "other_restore_fresh_windows_and_random_calls_kept": true,
+        "original_business_fallbacks_and_returns_kept": true,
+        "original_71_slots_and_five_offset_window_ids_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "new_99_dispatch_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x475c10",
+      "inventory_id": "F:00075C10",
+      "original_role": "475C10：默认X写入口实例、Y写fresh实例；只10首判定先持样，再原默认位置发布，后按持样及11/12/14/27决定随机。原RAND前固定偏移实例/RAND后坐标读、修正后fresh目标、六原区间/width-height/71表和随机消费保；首阶段两文本替换，其余正确体保。",
+      "original_end_exclusive": "0x475d35",
+      "original_chunks": [
+        [
+          "0x475c10",
+          "0x475d35"
+        ]
+      ],
+      "instruction_count": 99,
+      "status": "BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "RestoreWindowPositions_475C10"
+          ],
+          "relationship": "475C10：默认X写入口实例、Y写fresh实例；只10首判定先持样，再原默认位置发布，后按持样及11/12/14/27决定随机。原RAND前固定偏移实例/RAND后坐标读、修正后fresh目标、六原区间/width-height/71表和随机消费保；首阶段两文本替换，其余正确体保。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-baseline",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-decision",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-acceptance",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state"
+      ],
+      "boundary": "475C10：默认X写入口实例、Y写fresh实例；只10首判定先持样，再原默认位置发布，后按持样及11/12/14/27决定随机。原RAND前固定偏移实例/RAND后坐标读、修正后fresh目标、六原区间/width-height/71表和随机消费保；首阶段两文本替换，其余正确体保。 BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "verification_level": "BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "window_close_mode_publication": {
+        "spec_id": "BVQ01",
+        "evidence_refs": [
+          "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-baseline",
+          "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-decision",
+          "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-acceptance",
+          "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 99,
+        "original_code_bytes": 293,
+        "original_page_count": 2,
+        "original_direct_call_count": 6,
+        "original_unique_direct_callee_count": 1,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 11,
+        "original_return_count": 1,
+        "original_inbound_call_count": 2,
+        "original_inbound_data_reference_count": 0,
+        "original_total_instruction_count": 159,
+        "original_total_code_bytes": 494,
+        "original_total_page_count": 6,
+        "original_total_direct_call_count": 9,
+        "original_total_unique_direct_callee_count": 4,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 18,
+        "original_total_return_count": 4,
+        "original_total_inbound_call_count": 21,
+        "original_total_inbound_data_reference_count": 2,
+        "source_body_changed": true,
+        "root_specific_new_I_claimed": true,
+        "source_root_stage_count": 1,
+        "source_root_text_replacement_count": 2,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_changed_body_count": 4,
+        "source_stage_count": 4,
+        "source_text_replacement_count": 5,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_comparison_before_publication_restored": true,
+        "correct_close_body_and_fresh_window_argument_kept": true,
+        "correct_close_body_not_new_I": true,
+        "other_restore_fresh_windows_and_random_calls_kept": true,
+        "original_business_fallbacks_and_returns_kept": true,
+        "original_71_slots_and_five_offset_window_ids_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "new_99_dispatch_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x47a490",
+      "inventory_id": "F:0007A490",
+      "original_role": "47A490：入口取10.window，原比较存在先持样，再清callback→mode，存在仅清同window8000位；统一原Create(10,1,0,null)并返回真实action T*，包括失败；仅判定取样实修。",
+      "original_end_exclusive": "0x47a4bd",
+      "original_chunks": [
+        [
+          "0x47a490",
+          "0x47a4bd"
+        ]
+      ],
+      "instruction_count": 16,
+      "status": "BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_47A490"
+          ],
+          "relationship": "47A490：入口取10.window，原比较存在先持样，再清callback→mode，存在仅清同window8000位；统一原Create(10,1,0,null)并返回真实action T*，包括失败；仅判定取样实修。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-baseline",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-decision",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-acceptance",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state"
+      ],
+      "boundary": "47A490：入口取10.window，原比较存在先持样，再清callback→mode，存在仅清同window8000位；统一原Create(10,1,0,null)并返回真实action T*，包括失败；仅判定取样实修。 BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "verification_level": "BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "window_close_mode_publication": {
+        "spec_id": "BVQ01",
+        "evidence_refs": [
+          "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-baseline",
+          "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-decision",
+          "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-acceptance",
+          "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 16,
+        "original_code_bytes": 45,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_unique_direct_callee_count": 1,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 1,
+        "original_return_count": 1,
+        "original_inbound_call_count": 3,
+        "original_inbound_data_reference_count": 0,
+        "original_total_instruction_count": 159,
+        "original_total_code_bytes": 494,
+        "original_total_page_count": 6,
+        "original_total_direct_call_count": 9,
+        "original_total_unique_direct_callee_count": 4,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 18,
+        "original_total_return_count": 4,
+        "original_total_inbound_call_count": 21,
+        "original_total_inbound_data_reference_count": 2,
+        "source_body_changed": true,
+        "root_specific_new_I_claimed": true,
+        "source_root_stage_count": 1,
+        "source_root_text_replacement_count": 1,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_changed_body_count": 4,
+        "source_stage_count": 4,
+        "source_text_replacement_count": 5,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_comparison_before_publication_restored": true,
+        "correct_close_body_and_fresh_window_argument_kept": true,
+        "correct_close_body_not_new_I": true,
+        "other_restore_fresh_windows_and_random_calls_kept": true,
+        "original_business_fallbacks_and_returns_kept": true,
+        "original_71_slots_and_five_offset_window_ids_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "new_99_dispatch_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x503cb0",
+      "inventory_id": "F:00103CB0",
+      "original_role": "503CB0：S32现值减1后保存原负号判定，发布decreased；负数只原共享槽改2，返回decreased仍保；仅判定取样实修，不模拟溢出或改变原正常回退。",
+      "original_end_exclusive": "0x503cc8",
+      "original_chunks": [
+        [
+          "0x503cb0",
+          "0x503cc8"
+        ]
+      ],
+      "instruction_count": 6,
+      "status": "BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_503CB0"
+          ],
+          "relationship": "503CB0：S32现值减1后保存原负号判定，发布decreased；负数只原共享槽改2，返回decreased仍保；仅判定取样实修，不模拟溢出或改变原正常回退。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-baseline",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-decision",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-acceptance",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state"
+      ],
+      "boundary": "503CB0：S32现值减1后保存原负号判定，发布decreased；负数只原共享槽改2，返回decreased仍保；仅判定取样实修，不模拟溢出或改变原正常回退。 BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "verification_level": "BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "window_close_mode_publication": {
+        "spec_id": "BVQ01",
+        "evidence_refs": [
+          "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-baseline",
+          "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-decision",
+          "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-acceptance",
+          "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 6,
+        "original_code_bytes": 24,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_unique_direct_callee_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 1,
+        "original_return_count": 1,
+        "original_inbound_call_count": 3,
+        "original_inbound_data_reference_count": 1,
+        "original_total_instruction_count": 159,
+        "original_total_code_bytes": 494,
+        "original_total_page_count": 6,
+        "original_total_direct_call_count": 9,
+        "original_total_unique_direct_callee_count": 4,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 18,
+        "original_total_return_count": 4,
+        "original_total_inbound_call_count": 21,
+        "original_total_inbound_data_reference_count": 2,
+        "source_body_changed": true,
+        "root_specific_new_I_claimed": true,
+        "source_root_stage_count": 1,
+        "source_root_text_replacement_count": 1,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_changed_body_count": 4,
+        "source_stage_count": 4,
+        "source_text_replacement_count": 5,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_comparison_before_publication_restored": true,
+        "correct_close_body_and_fresh_window_argument_kept": true,
+        "correct_close_body_not_new_I": true,
+        "other_restore_fresh_windows_and_random_calls_kept": true,
+        "original_business_fallbacks_and_returns_kept": true,
+        "original_71_slots_and_five_offset_window_ids_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "new_99_dispatch_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x503cd0",
+      "inventory_id": "F:00103CD0",
+      "original_role": "503CD0：S16模式+1/先保存>=7判定→发布同W16，满足时槽写0；原520590之后520200尾职责与完整返回保，未取消模式或绘制依赖；仅判定取样实修。",
+      "original_end_exclusive": "0x503cf7",
+      "original_chunks": [
+        [
+          "0x503cd0",
+          "0x503cf7"
+        ]
+      ],
+      "instruction_count": 8,
+      "status": "BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_503CD0"
+          ],
+          "relationship": "503CD0：S16模式+1/先保存>=7判定→发布同W16，满足时槽写0；原520590之后520200尾职责与完整返回保，未取消模式或绘制依赖；仅判定取样实修。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-baseline",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-decision",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-acceptance",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state"
+      ],
+      "boundary": "503CD0：S16模式+1/先保存>=7判定→发布同W16，满足时槽写0；原520590之后520200尾职责与完整返回保，未取消模式或绘制依赖；仅判定取样实修。 BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "verification_level": "BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "window_close_mode_publication": {
+        "spec_id": "BVQ01",
+        "evidence_refs": [
+          "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-baseline",
+          "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-decision",
+          "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-acceptance",
+          "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 8,
+        "original_code_bytes": 39,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_unique_direct_callee_count": 1,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 2,
+        "original_return_count": 0,
+        "original_inbound_call_count": 2,
+        "original_inbound_data_reference_count": 1,
+        "original_total_instruction_count": 159,
+        "original_total_code_bytes": 494,
+        "original_total_page_count": 6,
+        "original_total_direct_call_count": 9,
+        "original_total_unique_direct_callee_count": 4,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 18,
+        "original_total_return_count": 4,
+        "original_total_inbound_call_count": 21,
+        "original_total_inbound_data_reference_count": 2,
+        "source_body_changed": true,
+        "root_specific_new_I_claimed": true,
+        "source_root_stage_count": 1,
+        "source_root_text_replacement_count": 1,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_changed_body_count": 4,
+        "source_stage_count": 4,
+        "source_text_replacement_count": 5,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_comparison_before_publication_restored": true,
+        "correct_close_body_and_fresh_window_argument_kept": true,
+        "correct_close_body_not_new_I": true,
+        "other_restore_fresh_windows_and_random_calls_kept": true,
+        "original_business_fallbacks_and_returns_kept": true,
+        "original_71_slots_and_five_offset_window_ids_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "new_99_dispatch_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

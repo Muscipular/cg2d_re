@@ -2763,7 +2763,8 @@
         "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-baseline",
         "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-baseline",
         "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-baseline",
-        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline"
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-baseline"
       ],
       "original_inventory_ids": [
         "F:00077160",
@@ -2806,7 +2807,12 @@
         "F:000A7740",
         "F:000A8330",
         "F:0004B170",
-        "F:0011A060"
+        "F:0011A060",
+        "F:00072240",
+        "F:00075C10",
+        "F:0007A490",
+        "F:00103CB0",
+        "F:00103CD0"
       ],
       "closure_task_ids": [
         "U04",
@@ -2834,7 +2840,8 @@
         "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-decision",
         "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-decision",
         "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-decision",
-        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision"
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -2848,7 +2855,8 @@
         "BVM01限定静态：公共旧面板绘制503440/关闭查询503590/图形按钮5035E0三完整根252条662B/五页、10直接五目标/零间接、15跳/4RET，373实际CALL只引用定位；503990已有BSP01完整基线复用，本步新读取前25条仅取样/第一命中邻窗，不重计472调用或新F。三正文已正确保持，只有LegacyUiRecord.cpp既有QueryPanelButtonState一个桥接片段恢复top→left→height→width四个源字段取齐，再沿原矩形/核心/返回传递；不改变正常值/0-40-各BIT/S32返回或新helper、owner/API。16B descriptor原确实全清、面板mode4/按钮mode0保，五页/原unsigned999、两除2/层次/悬停/几何与BVL原action-dirty/99表及全部音频调用保。三新原新1766..1768/三adapted F，公共UI流16→19两限定I-S各真实来源，I仅桥接实修；其他族/外路由和全373调用处/数据生产/正常寿命/像素/机器ABI链接运行未验，原格式明文/音频暂停/RPLAN.24和完整门禁保持。",
         "BVN01完整快捷根1507条5500B/22页、256直接32目标/零间接224跳5RET及唯一473F80真实父；只现有四个Shift范围/聊天片段恢复先判后共享S32发布，四表达式承接八模式原点，原1..5轮换/聊天回退与计时180、键查询/窗口/动作/RNG/音效和其它正文保持。一个CPP四片段、零新函数/helper/owner/API；单F纳管及公共UI20两个限定I-S，不代完整输入生产/焦点、32callee/寿命、生成EFLAGS/ABI、音频或画面运行，不当旧99路由，原格式明文/音频暂停/RPLAN.24及执行限制保持。",
         "BVO01十二完整511条1915B/16页、62直接16目标/13原时钟间接、72跳15RET及36普通入向；原六共享尾跳与473030所属尾只计一次。六目标请求与十二包装正确保持，零新请求/函数I；单CPP两个既有helper三片段恢复options194实际BYTE读取与同源持样→socket→低W16/S32发送，原U16位写/结果和原格式明文保。原473060 W32高W16未消费，按具名局部裁决以稀疏native同源U16值承接，不跨读下一1A0冒充原196、扩字段或补零，不宣机器读宽等价；UI471DF0六BYTE邻窗仅定点。十二原新/F和公共UI32两限定I-S各28来源；全部父/16callee、输入生产/焦点、正常owner-alias寿命/机器ABI/画面运行待，音频暂停/RPLAN.24与执行限制保。",
-        "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。"
+        "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+        "BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2864,7 +2872,8 @@
         "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state",
         "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state",
         "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state",
-        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state"
       ]
     },
     {
@@ -48982,6 +48991,92 @@
       "observation": "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
       "expected": "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
       "actual": "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。"
+    },
+    {
+      "id": "E-WINDOW-CLOSE-MODE-FUNC-UIRUNTIME-I-20261008",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVQ01五完整159条494B/六页、原71槽/五编号和21CALL/两旧键表地址引用，I仅四既有正文四判定阶段/五替换，正确分类关闭/其他Restore与RNG保持，不验全生命周期。doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-window-close-mode-publication-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/ui/WindowRuntime.cpp#CloseWindowsByCategory_472240",
+        "src/ui/WindowRuntime.cpp#RestoreWindowPositions_475C10",
+        "src/ui/WindowRuntime.cpp#Sub_47A490",
+        "src/ui/WindowRuntime.cpp#Sub_503CB0",
+        "src/ui/WindowRuntime.cpp#Sub_503CD0",
+        "src/ui/WindowRuntime.cpp#kWindowCategories",
+        "src/ui/WindowRuntime.cpp#gWindows",
+        "src/ui/WindowRuntime.cpp#ProcessWindowShortcuts_4C7AE0",
+        "src/ui/WindowRuntime.cpp#FreeWindow_471270",
+        "src/ui/WindowRuntime.cpp#CreateWindowAnimation_475AA0",
+        "include/cg/ui/WindowRuntime.hpp#CloseWindowsByCategory_472240",
+        "doc/cg2d_window_shortcut_publication_evidence.json",
+        "doc/cg2d_window_close_mode_publication_evidence.json",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-baseline",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-decision",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-acceptance",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state",
+        "doc/ui_windows/shared_runtime.md",
+        "doc/cg2d_ui_window_runtime.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。",
+          "decision_ref": "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "expected": "BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "actual": "BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。"
+    },
+    {
+      "id": "E-WINDOW-CLOSE-MODE-FUNC-UIRUNTIME-S-20261008",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVQ01五完整159条494B/六页、原71槽/五编号和21CALL/两旧键表地址引用，I仅四既有正文四判定阶段/五替换，正确分类关闭/其他Restore与RNG保持，不验全生命周期。doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-window-close-mode-publication-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/ui/WindowRuntime.cpp#CloseWindowsByCategory_472240",
+        "src/ui/WindowRuntime.cpp#RestoreWindowPositions_475C10",
+        "src/ui/WindowRuntime.cpp#Sub_47A490",
+        "src/ui/WindowRuntime.cpp#Sub_503CB0",
+        "src/ui/WindowRuntime.cpp#Sub_503CD0",
+        "src/ui/WindowRuntime.cpp#kWindowCategories",
+        "src/ui/WindowRuntime.cpp#gWindows",
+        "src/ui/WindowRuntime.cpp#ProcessWindowShortcuts_4C7AE0",
+        "src/ui/WindowRuntime.cpp#FreeWindow_471270",
+        "src/ui/WindowRuntime.cpp#CreateWindowAnimation_475AA0",
+        "include/cg/ui/WindowRuntime.hpp#CloseWindowsByCategory_472240",
+        "doc/cg2d_window_shortcut_publication_evidence.json",
+        "doc/cg2d_window_close_mode_publication_evidence.json",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-baseline",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-decision",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-acceptance",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state",
+        "doc/ui_windows/shared_runtime.md",
+        "doc/cg2d_ui_window_runtime.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。",
+          "decision_ref": "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "expected": "BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "actual": "BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。"
     }
   ],
   "task_acceptance": [
@@ -49582,7 +49677,8 @@
         "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state",
         "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state",
         "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state",
-        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state"
       ]
     },
     {
@@ -49875,7 +49971,8 @@
         "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state",
         "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state",
         "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state",
-        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state"
       ]
     },
     {
@@ -50174,7 +50271,8 @@
         "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state",
         "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state",
         "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state",
-        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state"
       ]
     },
     {
@@ -50499,7 +50597,8 @@
         "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state",
         "doc/cg2d_window_shortcut_publication_spec.md#window-shortcut-source-state",
         "doc/cg2d_shortcut_request_option_sampling_spec.md#shortcut-request-option-source-state",
-        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state"
       ]
     },
     {
@@ -61975,6 +62074,66 @@
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
       ],
       "boundary": "511DD0：原MIS/含NUL命令字节4D495300和三个S32字段不改；每次容量持样在格式化前、追加时fresh共享buffer且消费该容量；最后fresh buffer原发送并透传S32结果。原格式明文/已有Send基线保持，不新checksum、分包、加解密或发送失败门槛。 BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。"
+    },
+    {
+      "inventory_id": "F:00072240",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-baseline",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-decision",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-acceptance",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state"
+      ],
+      "boundary": "472240：71槽按序跳空，id→类别S8→符号扩展W32与完整mask，命中先pub当前state/flags|2→fresh当前槽实例Free→同槽null；原47227E实际复读保，正确体无改动/无该体新I。 BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。"
+    },
+    {
+      "inventory_id": "F:00075C10",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-baseline",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-decision",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-acceptance",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state"
+      ],
+      "boundary": "475C10：默认X写入口实例、Y写fresh实例；只10首判定先持样，再原默认位置发布，后按持样及11/12/14/27决定随机。原RAND前固定偏移实例/RAND后坐标读、修正后fresh目标、六原区间/width-height/71表和随机消费保；首阶段两文本替换，其余正确体保。 BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。"
+    },
+    {
+      "inventory_id": "F:0007A490",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-baseline",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-decision",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-acceptance",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state"
+      ],
+      "boundary": "47A490：入口取10.window，原比较存在先持样，再清callback→mode，存在仅清同window8000位；统一原Create(10,1,0,null)并返回真实action T*，包括失败；仅判定取样实修。 BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。"
+    },
+    {
+      "inventory_id": "F:00103CB0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-baseline",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-decision",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-acceptance",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state"
+      ],
+      "boundary": "503CB0：S32现值减1后保存原负号判定，发布decreased；负数只原共享槽改2，返回decreased仍保；仅判定取样实修，不模拟溢出或改变原正常回退。 BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。"
+    },
+    {
+      "inventory_id": "F:00103CD0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-baseline",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-decision",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-acceptance",
+        "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state"
+      ],
+      "boundary": "503CD0：S16模式+1/先保存>=7判定→发布同W16，满足时槽写0；原520590之后520200尾职责与完整返回保，未取消模式或绘制依赖；仅判定取样实修。 BVQ01五完整159条494B/六页、九direct四目标/零间接18跳4RET及21CALL/两旧键表数据引用定位；原窗口/原型各71槽、五随机编号有据。单CPP四既有正文四判定阶段/五文本替换恢复10号首判定、技能窗口存在、S32负号与S16阈值在共享发布前持样，同判定分流；正确分类关闭fresh槽Free原证保、其它Restore/fresh实例与RNG/业务位置修正、回退/真实返回/后调用和所有其它源保持。五原新/F、公共UI46两限定I-S各21来源，正确分类关闭不记新I；全部21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行待；原格式明文/音频暂停/RPLAN.24与执行限制保。"
     }
   ],
   "auxiliary_dispositions": [

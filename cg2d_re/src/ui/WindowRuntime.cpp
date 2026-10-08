@@ -15043,8 +15043,9 @@ std::int32_t Sub_4E5CD0(const std::int32_t index, const char* const text)
 std::int32_t Sub_503CB0()
 {
     const std::int32_t decreased = platform::gValue73ECBC - 1;
+    const bool belowFirstMode = decreased < 0;
     platform::gValue73ECBC = decreased;
-    if (decreased < 0) {
+    if (belowFirstMode) {
         platform::gValue73ECBC = 2;
     }
     return decreased;
@@ -15053,8 +15054,9 @@ std::int32_t Sub_503CB0()
 std::int32_t Sub_503CD0()
 {
     const auto mode = static_cast<std::int16_t>(platform::gValue5F974C + 1);
+    const bool pastLastMode = mode >= 7;
     platform::gValue5F974C = mode;
-    if (mode >= 7) {
+    if (pastLastMode) {
         platform::gValue5F974C = 0;
     }
     static_cast<void>(login::detail::Sub_520590());
@@ -15361,10 +15363,11 @@ void RestoreWindowPositions_475C10()
             continue;
         }
         const WindowPrototype* const prototype = gWindowPrototypes57C130[index];
+        const bool isPrimaryOffsetWindow = index == 10;
         window->x = prototype->defaultX;
         window = state.window;
         window->y = prototype->defaultY;
-        if (index != 10 && index != 11 && index != 12 && index != 14 && index != 27) {
+        if (!isPrimaryOffsetWindow && index != 11 && index != 12 && index != 14 && index != 27) {
             continue;
         }
 
@@ -37166,9 +37169,10 @@ std::int32_t Sub_49BB00(const std::int32_t index, const std::int32_t state)
 login::YobiAction* Sub_47A490()
 {
     WindowInstance* const window = gWindowStates[10].window;
+    const bool hasWindow = window != nullptr;
     gSkillSelectionCallbackCC4230 = nullptr;
     gSkillWindowModeD672AC = 0;
-    if (window != nullptr) {
+    if (hasWindow) {
         window->state &= ~0x8000u;
     }
     return CreateWindowAnimation_475AA0(10, 1, 0, nullptr);

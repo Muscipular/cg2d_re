@@ -127,3 +127,10 @@
 沿同一CAA01必要音频授权编译现有Debug客户端目标，LegacyAudio.cpp与必要三库/客户端返回0，无再配置，0错误/0增量警告。日志build/windows-msvc-x64/build-se-request-properties-20261009.log，MAP含两父/主循环及三个属性/播放提供者，仍无离线合成/转换代码；旧窗口诊断不因增量0关闭。
 
 8023040B游戏客户端已更新，旧同长版备份cg2d_re_client.exe.before-se-request-properties-20261009，仅核复制/长度，不作摘要/内容比对。[原正常分支/取样](cg2d_audio_update.md#se-request-properties-source-state)与[记录](cg2d_se_request_properties_evidence.json)不代完整数值/正常资源寿命/声音/失败/机器ABI、旧外层/IP2和整体SPEC。未运行客户端/算法/工具、测试、重生成WAV；离线最近构建仍CAB15。
+
+<a id="audio-loader-publication-debug-build"></a>
+## CAB24 音频初始化当前编译（2026-10-09）
+
+沿同一CAA01必要授权编译现有Debug客户端，LegacyAudio.cpp与三库/客户端返回0，无再配置，0错误/0增量警告。日志build/windows-msvc-x64/build-audio-loader-publication-20261009.log，MAP含Sub_524230及FormatLegacyString_53B304/FormatLegacyOutput_53EB28，客户端仍无离线合成/转换代码；旧窗口诊断不因增量0关闭。
+
+8022528B新版已更新游戏目录，旧8023040B备份cg2d_re_client.exe.before-audio-loader-publication-20261009，仅核复制/长度，不作摘要/内容比对。[原路径/取样发布](cg2d_audio_update.md#audio-loader-publication-source-state)与[记录](cg2d_audio_loader_publication_evidence.json)限定运行尾窗/三格式点；完整父/格式/SDK失败/正常资源寿命/声音/机器ABI、旧外层/IP2和整体SPEC未验。未运行客户端/算法/工具、测试、重生成WAV，离线最近构建仍CAB15。

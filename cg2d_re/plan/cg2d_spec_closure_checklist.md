@@ -258,3 +258,7 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 ## CAB23 V05/V02/R01 的请求音效单声道与属性（2026-10-09）
 
 [52CB50/52C680当前实现](../doc/cg2d_audio_update.md#se-request-properties-source-state)已恢复单声道旧请求立即归中/立体声原步进和属性持有目标→实际调用→fresh缓存，频率/循环Play样本序保持；两完整父257条890B/真实调用链与四局部之外全文有据。当前Debug0错误/0增量警告并更新游戏EXE/备份；两个原语义/F及AUDIO40已知成员纳管但枚举false，仅限定I/W/S及链接，三任务仍open。两父完整数值/正常资源寿命/失败/声音/机器ABI、旧7/8外层、运行/IP2实际反馈及整体门禁继续。
+
+## CAB24 V05/V02/R01 的音频初始化路径与发布（2026-10-09）
+
+[524230当前尾段](../doc/cg2d_audio_update.md#audio-loader-publication-source-state)已恢复三真实原格式点和id/sampleIndex/路径/volume检查发布/pitch检查/loop发布及BGM三样本写序；尾窗351条1191B与父元数据/实际入向有据，三局部外及现SDL/表/文件机制保持。当前Debug0错误/0增量警告并更新游戏EXE/备份，一个原语义/F及AUDIO41已知成员但枚举false，已有格式接线1004/1023、剩余19不计完成；限定AUDIO/CRT各I/W/S，三任务及完整前段/全部格式/SDK失败/正常寿命/机器ABI、声音/旧外层/运行/IP2仍open。

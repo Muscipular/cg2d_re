@@ -362,7 +362,13 @@
         "doc/cg2d_bgm_config_scan_evidence.json",
         "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
         "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
-        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build",
+        "doc/cg2d_audio_update.md#audio-loader-publication-decision",
+        "doc/cg2d_audio_update.md#audio-loader-publication-source-state",
+        "doc/cg2d_audio_loader_publication_evidence.json",
+        "doc/cg2d_stdio_contract.md#audio-loader-publication-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
+        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -631,7 +637,8 @@
         "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-decision",
         "doc/cg2d_nls_map_general_spec.md#nls-map-general-decision",
         "doc/cg2d_nls_type_general_spec.md#nls-type-general-decision",
-        "doc/cg2d_audio_update.md#bgm-config-scan-decision"
+        "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+        "doc/cg2d_audio_update.md#audio-loader-publication-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -4266,7 +4273,13 @@
         "doc/cg2d_audio_update.md#se-request-properties-source-state",
         "doc/cg2d_se_request_properties_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#se-request-properties-source-state",
-        "doc/cg2d_build_acceptance_spec.md#se-request-properties-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#se-request-properties-debug-build",
+        "doc/cg2d_audio_update.md#audio-loader-publication-decision",
+        "doc/cg2d_audio_update.md#audio-loader-publication-source-state",
+        "doc/cg2d_audio_loader_publication_evidence.json",
+        "doc/cg2d_stdio_contract.md#audio-loader-publication-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
+        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build"
       ],
       "original_inventory_ids": [
         "F:00054C30",
@@ -4308,7 +4321,8 @@
         "F:00124060",
         "F:0012C450",
         "F:0012C680",
-        "F:0012CB50"
+        "F:0012CB50",
+        "F:00124230"
       ],
       "closure_task_ids": [
         "P11",
@@ -4361,7 +4375,8 @@
         "doc/cg2d_projection_sampling_return_spec.md#projection-x87-decision",
         "doc/cg2d_audio_update.md#bgm-config-scan-decision",
         "doc/cg2d_audio_update.md#se-property-sampling-decision",
-        "doc/cg2d_audio_update.md#se-request-properties-decision"
+        "doc/cg2d_audio_update.md#se-request-properties-decision",
+        "doc/cg2d_audio_update.md#audio-loader-publication-decision"
       ],
       "blockers": [
         "CAB17固定454C30独立音量表恢复原连续x87、S64低W32及正常127..0槽路径，33条数值投影/当前Debug链接部署通过；0槽/全表实际输出、CW上游/机器状态/声音与正常寿命仍待。AUDIO33成员枚举未闭，旧99设置页外层及全部运行门禁保持",
@@ -4372,7 +4387,7 @@
         "CAB09共用18B MMIO头和音效/BGM父接线已修，三原职责可追；CAB15当前客户端编译链接通过，全部失败/资源/声音/正常寿命与运行未验，局部来源/符号不代完整门禁",
         "CAB08首段完整PCM预填→ready→smpl终点发布已修、四原职责有SDL来源；CAB15当前客户端编译链接通过，全部失败/诊断状态、调度/波形与正常寿命仍未验",
         "CAB07两设置初始化/完整页面与原生绑定已实现并随CAB15当前客户端链接；真实旧99表外层接线、全部音频效果/寿命与运行仍待，scope=included只表示开发范围",
-        "AUDIO40原成员枚举仍未闭；旧7/旧8、完整WAV/通知/生命周期及音源效果/听感、真实声音/失败/退出仍未验收；类型1原16B资源按用户最新要求视为空音频，停止旧播放后立即成功，零时长不循环"
+        "AUDIO41原成员枚举仍未闭；旧7/旧8、完整WAV/通知/生命周期及音源效果/听感、真实声音/失败/退出仍未验收；类型1原16B资源按用户最新要求视为空音频，停止旧播放后立即成功，零时长不循环"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -4418,7 +4433,10 @@
         "doc/cg2d_se_property_sampling_evidence.json",
         "doc/cg2d_audio_update.md#se-request-properties-decision",
         "doc/cg2d_audio_update.md#se-request-properties-source-state",
-        "doc/cg2d_se_request_properties_evidence.json"
+        "doc/cg2d_se_request_properties_evidence.json",
+        "doc/cg2d_audio_update.md#audio-loader-publication-decision",
+        "doc/cg2d_audio_update.md#audio-loader-publication-source-state",
+        "doc/cg2d_audio_loader_publication_evidence.json"
       ]
     },
     {
@@ -54602,6 +54620,168 @@
       "differences": [],
       "result": "pass",
       "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-AUDIO-LOADER-PUBLICATION-FUNC-AUDIO-I-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原524230运行尾窗351条1191B；三53B304调用52B23C/52B256/52B538与553514原格式、失败/字段取样发布及唯一初始化入向",
+      "implementation_reference": "Git固定命名快照 cg2d-re-audio-loader-publication-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_audio_update.md#audio-loader-publication-decision",
+        "doc/cg2d_audio_update.md#audio-loader-publication-source-state",
+        "doc/cg2d_audio_loader_publication_evidence.json",
+        "doc/cg2d_stdio_contract.md#audio-loader-publication-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
+        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build",
+        "src/LegacyAudio.cpp#Sub_524230",
+        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
+        "src/platform/LegacyFormat.cpp#FormatLegacyOutput_53EB28",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "observation": "限定初始化尾部三格式/原检查失败与字段发布；完整父前段/SDK失败残留/正常寿命/声音/机器ABI不代验",
+      "expected": "id门槛→sampleIndex/两真实原路径→volume检查/发布→pitch检查→loop读/pitch/loop写；BGM路径→40/44/48三读再三写，六%s源同型const char*，原返回忽略/表/owner/其余正文保持",
+      "actual": "三个CPP局部段恢复原序与原53B304/53EB28调用，宿主snprintf/合并检查移除；静态次序/类型/前后保持通过、当前Debug/MAP/部署有据；接线1004/1023且241格式不增，未运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-AUDIO-LOADER-PUBLICATION-FUNC-AUDIO-W-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原524230运行尾窗351条1191B；三53B304调用52B23C/52B256/52B538与553514原格式、失败/字段取样发布及唯一初始化入向",
+      "implementation_reference": "Git固定命名快照 cg2d-re-audio-loader-publication-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_audio_update.md#audio-loader-publication-decision",
+        "doc/cg2d_audio_update.md#audio-loader-publication-source-state",
+        "doc/cg2d_audio_loader_publication_evidence.json",
+        "doc/cg2d_stdio_contract.md#audio-loader-publication-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
+        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build",
+        "src/LegacyAudio.cpp#Sub_524230",
+        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
+        "src/platform/LegacyFormat.cpp#FormatLegacyOutput_53EB28",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "observation": "限定初始化尾部三格式/原检查失败与字段发布；完整父前段/SDK失败残留/正常寿命/声音/机器ABI不代验",
+      "expected": "id门槛→sampleIndex/两真实原路径→volume检查/发布→pitch检查→loop读/pitch/loop写；BGM路径→40/44/48三读再三写，六%s源同型const char*，原返回忽略/表/owner/其余正文保持",
+      "actual": "三个CPP局部段恢复原序与原53B304/53EB28调用，宿主snprintf/合并检查移除；静态次序/类型/前后保持通过、当前Debug/MAP/部署有据；接线1004/1023且241格式不增，未运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-AUDIO-LOADER-PUBLICATION-FUNC-AUDIO-S-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原524230运行尾窗351条1191B；三53B304调用52B23C/52B256/52B538与553514原格式、失败/字段取样发布及唯一初始化入向",
+      "implementation_reference": "Git固定命名快照 cg2d-re-audio-loader-publication-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_audio_update.md#audio-loader-publication-decision",
+        "doc/cg2d_audio_update.md#audio-loader-publication-source-state",
+        "doc/cg2d_audio_loader_publication_evidence.json",
+        "doc/cg2d_stdio_contract.md#audio-loader-publication-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
+        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build",
+        "src/LegacyAudio.cpp#Sub_524230",
+        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
+        "src/platform/LegacyFormat.cpp#FormatLegacyOutput_53EB28",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "observation": "限定初始化尾部三格式/原检查失败与字段发布；完整父前段/SDK失败残留/正常寿命/声音/机器ABI不代验",
+      "expected": "id门槛→sampleIndex/两真实原路径→volume检查/发布→pitch检查→loop读/pitch/loop写；BGM路径→40/44/48三读再三写，六%s源同型const char*，原返回忽略/表/owner/其余正文保持",
+      "actual": "三个CPP局部段恢复原序与原53B304/53EB28调用，宿主snprintf/合并检查移除；静态次序/类型/前后保持通过、当前Debug/MAP/部署有据；接线1004/1023且241格式不增，未运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-AUDIO-LOADER-PUBLICATION-FUNC-CRT-I-20261009",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原524230运行尾窗351条1191B；三53B304调用52B23C/52B256/52B538与553514原格式、失败/字段取样发布及唯一初始化入向",
+      "implementation_reference": "Git固定命名快照 cg2d-re-audio-loader-publication-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_audio_update.md#audio-loader-publication-decision",
+        "doc/cg2d_audio_update.md#audio-loader-publication-source-state",
+        "doc/cg2d_audio_loader_publication_evidence.json",
+        "doc/cg2d_stdio_contract.md#audio-loader-publication-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
+        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build",
+        "src/LegacyAudio.cpp#Sub_524230",
+        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
+        "src/platform/LegacyFormat.cpp#FormatLegacyOutput_53EB28",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "observation": "只三个音频格式接线及实数1001+3，核心/前1001来源不重验，非完整CRT/全语法/全部父或机器ABI验收",
+      "expected": "id门槛→sampleIndex/两真实原路径→volume检查/发布→pitch检查→loop读/pitch/loop写；BGM路径→40/44/48三读再三写，六%s源同型const char*，原返回忽略/表/owner/其余正文保持",
+      "actual": "三个CPP局部段恢复原序与原53B304/53EB28调用，宿主snprintf/合并检查移除；静态次序/类型/前后保持通过、当前Debug/MAP/部署有据；接线1004/1023且241格式不增，未运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-AUDIO-LOADER-PUBLICATION-FUNC-CRT-W-20261009",
+      "feature_id": "FUNC-CRT",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原524230运行尾窗351条1191B；三53B304调用52B23C/52B256/52B538与553514原格式、失败/字段取样发布及唯一初始化入向",
+      "implementation_reference": "Git固定命名快照 cg2d-re-audio-loader-publication-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_audio_update.md#audio-loader-publication-decision",
+        "doc/cg2d_audio_update.md#audio-loader-publication-source-state",
+        "doc/cg2d_audio_loader_publication_evidence.json",
+        "doc/cg2d_stdio_contract.md#audio-loader-publication-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
+        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build",
+        "src/LegacyAudio.cpp#Sub_524230",
+        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
+        "src/platform/LegacyFormat.cpp#FormatLegacyOutput_53EB28",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "observation": "只三个音频格式接线及实数1001+3，核心/前1001来源不重验，非完整CRT/全语法/全部父或机器ABI验收",
+      "expected": "id门槛→sampleIndex/两真实原路径→volume检查/发布→pitch检查→loop读/pitch/loop写；BGM路径→40/44/48三读再三写，六%s源同型const char*，原返回忽略/表/owner/其余正文保持",
+      "actual": "三个CPP局部段恢复原序与原53B304/53EB28调用，宿主snprintf/合并检查移除；静态次序/类型/前后保持通过、当前Debug/MAP/部署有据；接线1004/1023且241格式不增，未运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-AUDIO-LOADER-PUBLICATION-FUNC-CRT-S-20261009",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原524230运行尾窗351条1191B；三53B304调用52B23C/52B256/52B538与553514原格式、失败/字段取样发布及唯一初始化入向",
+      "implementation_reference": "Git固定命名快照 cg2d-re-audio-loader-publication-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_audio_update.md#audio-loader-publication-decision",
+        "doc/cg2d_audio_update.md#audio-loader-publication-source-state",
+        "doc/cg2d_audio_loader_publication_evidence.json",
+        "doc/cg2d_stdio_contract.md#audio-loader-publication-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
+        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build",
+        "src/LegacyAudio.cpp#Sub_524230",
+        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
+        "src/platform/LegacyFormat.cpp#FormatLegacyOutput_53EB28",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "observation": "只三个音频格式接线及实数1001+3，核心/前1001来源不重验，非完整CRT/全语法/全部父或机器ABI验收",
+      "expected": "id门槛→sampleIndex/两真实原路径→volume检查/发布→pitch检查→loop读/pitch/loop写；BGM路径→40/44/48三读再三写，六%s源同型const char*，原返回忽略/表/owner/其余正文保持",
+      "actual": "三个CPP局部段恢复原序与原53B304/53EB28调用，宿主snprintf/合并检查移除；静态次序/类型/前后保持通过、当前Debug/MAP/部署有据；接线1004/1023且241格式不增，未运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
     }
   ],
   "task_acceptance": [
@@ -55515,7 +55695,13 @@
         "doc/cg2d_audio_update.md#se-request-properties-source-state",
         "doc/cg2d_se_request_properties_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#se-request-properties-source-state",
-        "doc/cg2d_build_acceptance_spec.md#se-request-properties-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#se-request-properties-debug-build",
+        "doc/cg2d_audio_update.md#audio-loader-publication-decision",
+        "doc/cg2d_audio_update.md#audio-loader-publication-source-state",
+        "doc/cg2d_audio_loader_publication_evidence.json",
+        "doc/cg2d_stdio_contract.md#audio-loader-publication-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
+        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build"
       ]
     },
     {
@@ -55606,7 +55792,13 @@
         "doc/cg2d_audio_update.md#se-request-properties-source-state",
         "doc/cg2d_se_request_properties_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#se-request-properties-source-state",
-        "doc/cg2d_build_acceptance_spec.md#se-request-properties-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#se-request-properties-debug-build",
+        "doc/cg2d_audio_update.md#audio-loader-publication-decision",
+        "doc/cg2d_audio_update.md#audio-loader-publication-source-state",
+        "doc/cg2d_audio_loader_publication_evidence.json",
+        "doc/cg2d_stdio_contract.md#audio-loader-publication-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
+        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build"
       ]
     },
     {
@@ -56621,7 +56813,13 @@
         "doc/cg2d_audio_update.md#se-request-properties-source-state",
         "doc/cg2d_se_request_properties_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#se-request-properties-source-state",
-        "doc/cg2d_build_acceptance_spec.md#se-request-properties-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#se-request-properties-debug-build",
+        "doc/cg2d_audio_update.md#audio-loader-publication-decision",
+        "doc/cg2d_audio_update.md#audio-loader-publication-source-state",
+        "doc/cg2d_audio_loader_publication_evidence.json",
+        "doc/cg2d_stdio_contract.md#audio-loader-publication-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
+        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build"
       ]
     },
     {
@@ -69532,6 +69730,20 @@
         "doc/cg2d_build_acceptance_spec.md#se-request-properties-debug-build"
       ],
       "boundary": "仅恢复52CB50单声道先写64再进新/旧分支、立体声原/5/0..127及单次旧声像[-2,2]步进；52C680持有目标/已应用索引→判变化→通道/表值→实际SDL属性→fresh目标写缓存，base→通道→频率及一次playChannel供标记/Play。四局部之外正文/后端/边界/正常距离公式/请求清理/轮换/返回保持，不增异常处理/模拟、保护或owner。COM owner/vtable与SDL正常资源寿命、整父/全部数值/声音/失败/机器ABI与运行分别未验。"
+    },
+    {
+      "inventory_id": "F:00124230",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_audio_update.md#audio-loader-publication-decision",
+        "doc/cg2d_audio_update.md#audio-loader-publication-source-state",
+        "doc/cg2d_audio_loader_publication_evidence.json",
+        "doc/cg2d_stdio_contract.md#audio-loader-publication-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
+        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build"
+      ],
+      "boundary": "仅524230运行尾部三路径真实53B304格式与字段/检查发布：id上界→sampleIndex/两路径→S8 volume样本/失败或发布→S8 pitch样本/失败→S8 loop样本/pitch/loop发布，BGM路径后S32/W8/S32三样本先持有再40/44/48写。忽略格式返回，六const char*匹配现va_arg，保原格式/容量/字节来源；不加snprintf门槛/截短、异常处理/模拟或保护。SDL/MMIO/fileIO、270项静态表、64通道/128配置和运行表owner/频率/其余正文保持；尾窗351条1191B为本步原基线，完整5289条29687B只元数据，不宣父前段/全部失败残留/正常寿命/机器ABI/声音或全格式核心/运行等价。"
     }
   ],
   "auxiliary_dispositions": [
@@ -99349,10 +99561,10 @@
     }
   ],
   "build_validation": {
-    "step": "CAB23",
+    "step": "CAB24",
     "recorded_on": "2026-10-09",
     "configuration": "Debug",
-    "source_snapshot": "cg2d-re-se-request-properties-20261009",
+    "source_snapshot": "cg2d-re-audio-loader-publication-20261009",
     "configure_performed": false,
     "configure_exit_code": 0,
     "build_exit_code": 0,
@@ -99367,7 +99579,7 @@
     "whole_project_accepted": false,
     "converter_build_performed": false,
     "converter_last_build_step": "CAB15",
-    "note": "CAB23修复52CB50旧请求单声道缓慢归中为原先写64，立体声原/5/门槛/两格步进和单次旧样本保持；52C680目标/已应用样本→变化→通道/持有目标表值→SDK→fresh缓存，频率与循环Play样本序明确。原257条890B/实际主循环链、四局部外全文/后端保持有据。现CAA01 Debug三库/客户端0，无再配置、0错误/0增量警告，MAP真实两父/主循环与属性/播放提供者可追；8023040B游戏EXE更新、旧同长版备份，只证复制/长度，无hash/内容比对。新增两个原语义/F及AUDIO40但枚举false；完整两父/所有数值/COM→SDL正常资源寿命/机器ABI/声音/失败、旧7/8外层与IP2真实反馈/整体SPEC仍未验，旧窗口诊断保持。未运行客户端/算法/工具、测试或重生成WAV，离线最近通过仍CAB15。",
+    "note": "CAB24恢复524230运行尾部：id检查后sampleIndex/两路径→volume检查/发布→pitch检查/loop取样和两字段写，BGM路径后三值先取再40/44/48写；三原53B304路径真实用项目包装/核心、六const char*，不用宿主snprintf/提前合并guard。原尾窗351条1191B/实际三调用/格式和原入向有据，完整5289条29687B仅元数据；三个局部外、270静态项/64通道/表owner/SDL/MMIO/fileIO保持。当前CAA01 Debug三库/客户端0，无再配置，0错误/0增量警告，MAP父/原格式包装/核心可追，8022528B游戏EXE更新/旧8023040B备份，未hash/内容比对。新一个原语义/F及AUDIO41但枚举false，已有格式实际1001条独立接线追加3为1004/1023、241格式不增，旧status1000留历史并纠正，剩余19不计接线。完整前段/所有SDK失败残留/正常寿命/格式/声音/机器ABI、旧7/8外层/IP2与整体SPEC仍未验；旧窗口诊断保持，未运行客户端/算法/工具、测试或重生成WAV，离线最近通过仍CAB15。",
     "evidence_refs": [
       "doc/cg2d_build_acceptance_spec.md",
       "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
@@ -99421,7 +99633,13 @@
       "doc/cg2d_audio_update.md#se-request-properties-source-state",
       "doc/cg2d_se_request_properties_evidence.json",
       "doc/cg2d_client_link_sdl_audio_spec.md#se-request-properties-source-state",
-      "doc/cg2d_build_acceptance_spec.md#se-request-properties-debug-build"
+      "doc/cg2d_build_acceptance_spec.md#se-request-properties-debug-build",
+      "doc/cg2d_audio_update.md#audio-loader-publication-decision",
+      "doc/cg2d_audio_update.md#audio-loader-publication-source-state",
+      "doc/cg2d_audio_loader_publication_evidence.json",
+      "doc/cg2d_stdio_contract.md#audio-loader-publication-source-state",
+      "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
+      "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build"
     ]
   }
 }

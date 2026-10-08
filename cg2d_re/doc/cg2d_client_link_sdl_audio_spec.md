@@ -247,3 +247,10 @@ CAB19空间音频生产者使用的46CE30已由[真实连续x87体](cg2d_project
 [现52CB50/52C680](cg2d_audio_update.md#se-request-properties-source-state)修复单声道旧请求每帧两格归中的差异，恢复原立即64；立体声仍原步进/门槛。属性目标先持有、变化才调用、调用后fresh目标写缓存，频率/循环播放各原W32样本序明确；四局部之外、SDL后端/通道owner及原轮换/清计数/失败/返回保持。两完整父257条890B与实际主循环调用链、源序/次数有[证据](cg2d_se_request_properties_evidence.json)，不代COM→SDL资源/整父/机器ABI或真实声音验收。
 
 当前Debug0错误/0增量警告、真实提供者已链接，8023040B游戏EXE更新/备份before-se-request-properties-20261009，只核复制/长度。两个原语义/F及AUDIO40纳管但枚举false；完整寿命/声音/失败/旧7/8外层与IP2及整体SPEC未验，旧窗口诊断保持。未运行客户端/算法/工具、测试、重生成WAV或摘要，离线最近通过仍CAB15。
+
+<a id="audio-loader-publication-source-state"></a>
+## CAB24 样本与运行表的原生产顺序（2026-10-09）
+
+[524230当前加载段](cg2d_audio_update.md#audio-loader-publication-source-state)已修复提前合并volume/pitch检查，原sampleIndex/两路径→volume检查/发布→pitch检查→loop采样/两字段发布保持；三个真实53B304路径取代宿主snprintf，BGM三个值先取再写。270静态项、64通道/两128表owner及SDL/MMIO/fileIO/频率与其余正文不改。运行尾窗351条1191B和三调用/源序有[证据](cg2d_audio_loader_publication_evidence.json)，父元数据不代完整前段或所有失败/机器ABI验收。
+
+当前Debug0错误/0增量警告、父/原格式包装/核心已链接，8022528B游戏EXE更新/旧8023040B备份；一个原语义/F和AUDIO41已知成员纳管但枚举false。声音/正常资源寿命/完整SDK失败、旧7/8外层与IP2/整体门禁保持，未运行/测试/工具、重生成WAV或摘要，离线最近通过仍CAB15，旧窗口诊断未关闭。

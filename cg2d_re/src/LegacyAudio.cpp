@@ -539,9 +539,7 @@ std::int32_t Sub_524230()
     }
 
     for (const SeInitEntry& entry : kSeInit524230) {
-        if (entry.id > 500
-            || static_cast<std::int8_t>(entry.volume) < 0
-            || static_cast<std::int8_t>(entry.pitch) > 60) {
+        if (entry.id > 500) {
             gSdlAudioBackend.Close();
             return 0;
         }
@@ -550,13 +548,27 @@ std::int32_t Sub_524230()
             gSoundEffects103E7B0[static_cast<std::size_t>(entry.id)];
         effect.sampleIndex = gSampleCount104DFCC;
         char openPath[256] {};
-        std::snprintf(openPath, sizeof(openPath), "%s\\%s",
-            resource::gBinPath, entry.path);
-        std::snprintf(effect.path, sizeof(effect.path), "%s\\%s",
-            resource::gBinPath, entry.path);
-        effect.volume = static_cast<std::int8_t>(entry.volume);
-        effect.pitchIndex = static_cast<std::int8_t>(entry.pitch);
-        effect.loop = static_cast<std::int8_t>(entry.loop);
+        static_cast<void>(platform::FormatLegacyString_53B304(
+            openPath, "%s\\%s", static_cast<const char*>(resource::gBinPath),
+            static_cast<const char*>(entry.path)));
+        static_cast<void>(platform::FormatLegacyString_53B304(
+            effect.path, "%s\\%s", static_cast<const char*>(resource::gBinPath),
+            static_cast<const char*>(entry.path)));
+        // 原52B262先检查音量，再发布；音高失败仍保留此前样本/路径/音量。
+        const std::int32_t volume = static_cast<std::int8_t>(entry.volume);
+        if (volume < 0) {
+            gSdlAudioBackend.Close();
+            return 0;
+        }
+        effect.volume = volume;
+        const std::int32_t pitch = static_cast<std::int8_t>(entry.pitch);
+        if (pitch > 60) {
+            gSdlAudioBackend.Close();
+            return 0;
+        }
+        const std::int32_t loop = static_cast<std::int8_t>(entry.loop);
+        effect.pitchIndex = pitch;
+        effect.loop = loop;
 
         std::FILE* const file = std::fopen(openPath, "rb");
         if (file == nullptr) {
@@ -600,11 +612,16 @@ std::int32_t Sub_524230()
     for (std::size_t index = 0; index < gRecords.size(); ++index) {
         const BgmConfigRecord& config = gBgmConfigRecords104A3B8[index];
         LegacyAudioRecord& record = gRecords[index];
-        std::snprintf(record.path, sizeof(record.path), "%s\\%s",
-            resource::gBinPath, config.path);
-        record.value40 = config.value40;
-        record.value44 = config.value44;
-        record.value48 = config.value48;
+        static_cast<void>(platform::FormatLegacyString_53B304(
+            record.path, "%s\\%s", static_cast<const char*>(resource::gBinPath),
+            static_cast<const char*>(config.path)));
+        // 原52B53D先持有三个值，再按40/44/48发布到同源BGM运行表。
+        const std::int32_t value40 = config.value40;
+        const std::uint8_t value44 = config.value44;
+        const std::int32_t value48 = config.value48;
+        record.value40 = value40;
+        record.value44 = value44;
+        record.value48 = value48;
     }
     return 1;
 }

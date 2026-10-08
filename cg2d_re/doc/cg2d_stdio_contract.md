@@ -4353,3 +4353,10 @@ virtualTable从const void*改对应const方法表指针，内部头四块、stre
 原524060@524108→53CADC已按[原真实5B别名](cg2d_audio_update.md#bgm-config-scan-source-state)接至现有ScanLegacyString_53CADC/53DEF4，六目标显式void*，第五/第六+0/+1各按原4B memcpy写；忽略扫描返回，删除按parsed数量手拼的局部模型。原包装/核心及其他21业务点不改；本步只补原音频一处，22入向的当前来源可追，不等于全扫描语法/失败/资源/机器ABI或完整CRT验收。既有语义446的暂停状态同步为已接，UCRT __stdio_common_vsscanf旧元数据保存为历史，当前实际提供者明确为项目原扫描源。
 
 当前Debug配置父/包装/核心链接通过并更新游戏EXE，未运行算法/客户端、测试或摘要。[CAB21证据](cg2d_bgm_config_scan_evidence.json)保留99条308B父、原调用/目标字节差、源序/字节生命周期及全部未验边界；全部输入与设备/声音/正常寿命和整体门禁继续。
+
+<a id="audio-loader-publication-source-state"></a>
+## CAB24 三处音频初始化路径的原格式接线（2026-10-09）
+
+原524230@52B23C/52B256/52B538均真实53B304，现[同一加载父](cg2d_audio_update.md#audio-loader-publication-source-state)已接项目FormatLegacyString_53B304/53EB28；三原%s反斜杠%s/六显式const char*与忽略返回、字段取样/失败发布原序保持，原路径容量/字节及FILE/MMIO实际使用不改，没有新截短/容量拒绝或异常模型。现格式核心/其他业务源正文保持，当前Debug有实际包装/核心链接。[证据](cg2d_audio_loader_publication_evidence.json)只尾窗和新增三点，不重验整个原格式核心/全语法/机器ABI及所有父。
+
+已有53B304实际business_call_connections为1001条唯一记录，旧status1000滞后；本步追加三条后1004/1023，旧status保存为历史并明确当前数量，原241已登记格式和已证1023原总数不改。剩余19未记已接，全CRT/数据闭包/失败/正常寿命/运行仍未验；未运行客户端/算法/工具、测试或摘要。

@@ -2056,3 +2056,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 初始化4F61C0、评级4F6BF0的现有正确代码保持，补齐独立原新1805/1806和adapted处置。两完整原体70条208B；初始化一个DATA引用与评级五个CALL分列。初始化先取共享预览、清返回标记，空才按原取参创建，连工厂失败的空返回也发布；评级保留1..10项、两图交替、坐标与逐项绘制。原初始化参数/当前lambda、同槽生产消费及关闭先保存再fresh取预览、标记回收清槽的接线可追。关闭13条43B复用BVX01窗口；旧1044/731/1126记录与合同保持。
 
 零源码改动、零新增I，UI-L-024实际成员1→3，只新增一个限定S；语义1805→1807、有效1798→1800、合同1915→1917（52.09%）、F961→963、E1122→1123。U04/U11/V04/R04仍open。完整父、其他消费者、正常owner/alias寿命、实际释放和画面/文件运行按原门禁继续验收，不能以本步局部基线宣整个图鉴或整体SPEC完成。原格式明文、音频暂停及RPLAN.24保持。
+
+## BVZ01技能预览类型边界与取样修复（2026-10-08）
+
+[基线](cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline)、[决定](cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision)、[验收](cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance)、[状态](cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state)及[原证](cg2d_skill_preview_flag_boundary_evidence.json)。
+
+六旧技能/宠物技能页面各一个片段已修复：公开类型边界内一次保存预览指针，原判空后交既有SetYobiActionFlag2(false)清W32 bit1；消除直接访问opaque字段和共享槽重复读取。六原阶段24条78B，四比较寄存器的零值/关闭返回上下文单列。六父其余正文、原生helper/头、数据生产/关闭、格式与原字节保持，无新接口、helper或owner。
+
+更新已有770/771/772/1007/1008/1009，新增六adapted F；旧55..60各纳一个实际主父、十二限定I/S，完整枚举/gates仍open。语义1807/有效1800及合同1917（52.09%）保持，F963→969、E1123→1135。只核本阶段，完整旧外路由、正常owner/alias寿命、画面及运行继续原验收；原格式明文、音频暂停、RPLAN.24和执行限制保持。

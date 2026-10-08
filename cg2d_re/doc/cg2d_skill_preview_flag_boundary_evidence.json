@@ -1,0 +1,1699 @@
+{
+  "schema_version": 1,
+  "spec_id": "BVZ01",
+  "recorded_on": "2026-10-08",
+  "baseline_snapshot": "cg2d-re-album-preview-lifecycle-baseline-20261008",
+  "implementation_snapshot": "cg2d-re-skill-preview-flag-boundary-20261008",
+  "evidence_refs": [
+    "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+    "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
+    "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
+    "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+  ],
+  "original_functions": [
+    {
+      "start": "0x4d6710",
+      "end_exclusive": "0x4d6a26",
+      "slot": "0xd67c58",
+      "focus_start": "0x4d6815",
+      "focus_end_exclusive": "0x4d6822",
+      "focus_instruction_count": 4,
+      "focus_code_bytes": 13,
+      "full_parent_reverified": false,
+      "instructions": [
+        {
+          "ea": "0x4d6815",
+          "size": 5,
+          "bytes": "a1587cd600",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_D67C58"
+        },
+        {
+          "ea": "0x4d681a",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x4d681c",
+          "size": 2,
+          "bytes": "7404",
+          "mnemonic": "jz",
+          "text": "jz      short loc_4D6822"
+        },
+        {
+          "ea": "0x4d681e",
+          "size": 4,
+          "bytes": "836024fd",
+          "mnemonic": "and",
+          "text": "and     dword ptr [eax+24h], 0FFFFFFFDh"
+        }
+      ]
+    },
+    {
+      "start": "0x4d6a60",
+      "end_exclusive": "0x4d6e6a",
+      "slot": "0xd67c58",
+      "focus_start": "0x4d6b32",
+      "focus_end_exclusive": "0x4d6b3f",
+      "focus_instruction_count": 4,
+      "focus_code_bytes": 13,
+      "full_parent_reverified": false,
+      "instructions": [
+        {
+          "ea": "0x4d6b32",
+          "size": 5,
+          "bytes": "a1587cd600",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_D67C58"
+        },
+        {
+          "ea": "0x4d6b37",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x4d6b39",
+          "size": 2,
+          "bytes": "7404",
+          "mnemonic": "jz",
+          "text": "jz      short loc_4D6B3F"
+        },
+        {
+          "ea": "0x4d6b3b",
+          "size": 4,
+          "bytes": "836024fd",
+          "mnemonic": "and",
+          "text": "and     dword ptr [eax+24h], 0FFFFFFFDh"
+        }
+      ]
+    },
+    {
+      "start": "0x4d6ea0",
+      "end_exclusive": "0x4d743c",
+      "slot": "0xd67c58",
+      "focus_start": "0x4d6f4a",
+      "focus_end_exclusive": "0x4d6f57",
+      "focus_instruction_count": 4,
+      "focus_code_bytes": 13,
+      "full_parent_reverified": false,
+      "instructions": [
+        {
+          "ea": "0x4d6f4a",
+          "size": 5,
+          "bytes": "a1587cd600",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_D67C58"
+        },
+        {
+          "ea": "0x4d6f4f",
+          "size": 2,
+          "bytes": "3bc5",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, ebp"
+        },
+        {
+          "ea": "0x4d6f51",
+          "size": 2,
+          "bytes": "7404",
+          "mnemonic": "jz",
+          "text": "jz      short loc_4D6F57"
+        },
+        {
+          "ea": "0x4d6f53",
+          "size": 4,
+          "bytes": "836024fd",
+          "mnemonic": "and",
+          "text": "and     dword ptr [eax+24h], 0FFFFFFFDh"
+        }
+      ]
+    },
+    {
+      "start": "0x4d7470",
+      "end_exclusive": "0x4d7bea",
+      "slot": "0xd67c5c",
+      "focus_start": "0x4d75ab",
+      "focus_end_exclusive": "0x4d75b8",
+      "focus_instruction_count": 4,
+      "focus_code_bytes": 13,
+      "full_parent_reverified": false,
+      "instructions": [
+        {
+          "ea": "0x4d75ab",
+          "size": 5,
+          "bytes": "a15c7cd600",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_D67C5C"
+        },
+        {
+          "ea": "0x4d75b0",
+          "size": 2,
+          "bytes": "3bc3",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, ebx"
+        },
+        {
+          "ea": "0x4d75b2",
+          "size": 2,
+          "bytes": "7404",
+          "mnemonic": "jz",
+          "text": "jz      short loc_4D75B8"
+        },
+        {
+          "ea": "0x4d75b4",
+          "size": 4,
+          "bytes": "836024fd",
+          "mnemonic": "and",
+          "text": "and     dword ptr [eax+24h], 0FFFFFFFDh"
+        }
+      ]
+    },
+    {
+      "start": "0x4d7c20",
+      "end_exclusive": "0x4d8200",
+      "slot": "0xd67c60",
+      "focus_start": "0x4d7ce2",
+      "focus_end_exclusive": "0x4d7cef",
+      "focus_instruction_count": 4,
+      "focus_code_bytes": 13,
+      "full_parent_reverified": false,
+      "instructions": [
+        {
+          "ea": "0x4d7ce2",
+          "size": 5,
+          "bytes": "a1607cd600",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_D67C60"
+        },
+        {
+          "ea": "0x4d7ce7",
+          "size": 2,
+          "bytes": "3bc3",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, ebx"
+        },
+        {
+          "ea": "0x4d7ce9",
+          "size": 2,
+          "bytes": "7404",
+          "mnemonic": "jz",
+          "text": "jz      short loc_4D7CEF"
+        },
+        {
+          "ea": "0x4d7ceb",
+          "size": 4,
+          "bytes": "836024fd",
+          "mnemonic": "and",
+          "text": "and     dword ptr [eax+24h], 0FFFFFFFDh"
+        }
+      ]
+    },
+    {
+      "start": "0x4d8230",
+      "end_exclusive": "0x4d88b6",
+      "slot": "0xd67c64",
+      "focus_start": "0x4d82f7",
+      "focus_end_exclusive": "0x4d8304",
+      "focus_instruction_count": 4,
+      "focus_code_bytes": 13,
+      "full_parent_reverified": false,
+      "instructions": [
+        {
+          "ea": "0x4d82f7",
+          "size": 5,
+          "bytes": "a1647cd600",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_D67C64"
+        },
+        {
+          "ea": "0x4d82fc",
+          "size": 2,
+          "bytes": "3bc3",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, ebx"
+        },
+        {
+          "ea": "0x4d82fe",
+          "size": 2,
+          "bytes": "7404",
+          "mnemonic": "jz",
+          "text": "jz      short loc_4D8304"
+        },
+        {
+          "ea": "0x4d8300",
+          "size": 4,
+          "bytes": "836024fd",
+          "mnemonic": "and",
+          "text": "and     dword ptr [eax+24h], 0FFFFFFFDh"
+        }
+      ]
+    }
+  ],
+  "original_comparison_zero_contexts": [
+    {
+      "start": "0x4d6ea0",
+      "focus": "0x4d6f4a",
+      "comparison_register": "ebp",
+      "writes_before_focus": [
+        {
+          "ea": "0x4d6f02",
+          "size": 2,
+          "bytes": "33ed",
+          "mnemonic": "xor",
+          "text": "xor     ebp, ebp"
+        },
+        {
+          "ea": "0x4d6f41",
+          "size": 1,
+          "bytes": "5d",
+          "mnemonic": "pop",
+          "text": "pop     ebp",
+          "return_tail": [
+            {
+              "ea": "0x4d6f41",
+              "size": 1,
+              "bytes": "5d",
+              "mnemonic": "pop",
+              "text": "pop     ebp"
+            },
+            {
+              "ea": "0x4d6f42",
+              "size": 1,
+              "bytes": "5b",
+              "mnemonic": "pop",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x4d6f43",
+              "size": 6,
+              "bytes": "81c444010000",
+              "mnemonic": "add",
+              "text": "add     esp, 144h"
+            },
+            {
+              "ea": "0x4d6f49",
+              "size": 1,
+              "bytes": "c3",
+              "mnemonic": "retn",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": "0x4d7470",
+      "focus": "0x4d75ab",
+      "comparison_register": "ebx",
+      "writes_before_focus": [
+        {
+          "ea": "0x4d7491",
+          "size": 6,
+          "bytes": "8d98e6000000",
+          "mnemonic": "lea",
+          "text": "lea     ebx, [eax+0E6h]"
+        },
+        {
+          "ea": "0x4d7559",
+          "size": 2,
+          "bytes": "33db",
+          "mnemonic": "xor",
+          "text": "xor     ebx, ebx"
+        },
+        {
+          "ea": "0x4d75a3",
+          "size": 1,
+          "bytes": "5b",
+          "mnemonic": "pop",
+          "text": "pop     ebx",
+          "return_tail": [
+            {
+              "ea": "0x4d75a3",
+              "size": 1,
+              "bytes": "5b",
+              "mnemonic": "pop",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x4d75a4",
+              "size": 6,
+              "bytes": "81c484010000",
+              "mnemonic": "add",
+              "text": "add     esp, 184h"
+            },
+            {
+              "ea": "0x4d75aa",
+              "size": 1,
+              "bytes": "c3",
+              "mnemonic": "retn",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": "0x4d7c20",
+      "focus": "0x4d7ce2",
+      "comparison_register": "ebx",
+      "writes_before_focus": [
+        {
+          "ea": "0x4d7c92",
+          "size": 2,
+          "bytes": "33db",
+          "mnemonic": "xor",
+          "text": "xor     ebx, ebx"
+        },
+        {
+          "ea": "0x4d7cda",
+          "size": 1,
+          "bytes": "5b",
+          "mnemonic": "pop",
+          "text": "pop     ebx",
+          "return_tail": [
+            {
+              "ea": "0x4d7cda",
+              "size": 1,
+              "bytes": "5b",
+              "mnemonic": "pop",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x4d7cdb",
+              "size": 6,
+              "bytes": "81c484000000",
+              "mnemonic": "add",
+              "text": "add     esp, 84h"
+            },
+            {
+              "ea": "0x4d7ce1",
+              "size": 1,
+              "bytes": "c3",
+              "mnemonic": "retn",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": "0x4d8230",
+      "focus": "0x4d82f7",
+      "comparison_register": "ebx",
+      "writes_before_focus": [
+        {
+          "ea": "0x4d829c",
+          "size": 2,
+          "bytes": "33db",
+          "mnemonic": "xor",
+          "text": "xor     ebx, ebx"
+        },
+        {
+          "ea": "0x4d82f2",
+          "size": 1,
+          "bytes": "5b",
+          "mnemonic": "pop",
+          "text": "pop     ebx",
+          "return_tail": [
+            {
+              "ea": "0x4d82f2",
+              "size": 1,
+              "bytes": "5b",
+              "mnemonic": "pop",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x4d82f3",
+              "size": 3,
+              "bytes": "83c460",
+              "mnemonic": "add",
+              "text": "add     esp, 60h"
+            },
+            {
+              "ea": "0x4d82f6",
+              "size": 1,
+              "bytes": "c3",
+              "mnemonic": "retn",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "original_total_focus_instruction_count": 24,
+  "original_total_focus_code_bytes": 78,
+  "source_functions": [
+    {
+      "symbol": "Sub_4D6710",
+      "index": 770,
+      "feature_id": "UI-L-055",
+      "title": "技能选择",
+      "slot": "gLegacySkillChoiceActionD67C58",
+      "page_document": "doc/ui_windows/legacy_skill_choice.md",
+      "source_path": "src/LegacyUiRecord.cpp",
+      "id": "F:000D6710",
+      "entry": "0x4d6710",
+      "original_index": 0,
+      "contract": "技能选择4D6710：原0x4d6815..0x4d6822四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。"
+    },
+    {
+      "symbol": "Sub_4D6A60",
+      "index": 771,
+      "feature_id": "UI-L-056",
+      "title": "技能学习",
+      "slot": "gLegacySkillChoiceActionD67C58",
+      "page_document": "doc/ui_windows/legacy_skill_learning.md",
+      "source_path": "src/LegacyUiRecord.cpp",
+      "id": "F:000D6A60",
+      "entry": "0x4d6a60",
+      "original_index": 1,
+      "contract": "技能学习4D6A60：原0x4d6b32..0x4d6b3f四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。"
+    },
+    {
+      "symbol": "Sub_4D6EA0",
+      "index": 772,
+      "feature_id": "UI-L-057",
+      "title": "技能遗忘",
+      "slot": "gLegacySkillChoiceActionD67C58",
+      "page_document": "doc/ui_windows/legacy_skill_forgetting.md",
+      "source_path": "src/LegacyUiRecord.cpp",
+      "id": "F:000D6EA0",
+      "entry": "0x4d6ea0",
+      "original_index": 2,
+      "contract": "技能遗忘4D6EA0：原0x4d6f4a..0x4d6f57四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。"
+    },
+    {
+      "symbol": "Sub_4D7470",
+      "index": 1007,
+      "feature_id": "UI-L-058",
+      "title": "宠物技能目录",
+      "slot": "gLegacyPetSkillCatalogActionD67C5C",
+      "page_document": "doc/ui_windows/legacy_pet_skill_catalog.md",
+      "source_path": "src/LegacyUiRecord.cpp",
+      "id": "F:000D7470",
+      "entry": "0x4d7470",
+      "original_index": 3,
+      "contract": "宠物技能目录4D7470：原0x4d75ab..0x4d75b8四条13B，一次取gLegacyPetSkillCatalogActionD67C5C，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。"
+    },
+    {
+      "symbol": "Sub_4D7C20",
+      "index": 1008,
+      "feature_id": "UI-L-059",
+      "title": "候选宠物",
+      "slot": "gLegacyPetSkillPetActionD67C60",
+      "page_document": "doc/ui_windows/legacy_pet_skill_catalog.md",
+      "source_path": "src/LegacyUiRecord.cpp",
+      "id": "F:000D7C20",
+      "entry": "0x4d7c20",
+      "original_index": 4,
+      "contract": "候选宠物4D7C20：原0x4d7ce2..0x4d7cef四条13B，一次取gLegacyPetSkillPetActionD67C60，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。"
+    },
+    {
+      "symbol": "Sub_4D8230",
+      "index": 1009,
+      "feature_id": "UI-L-060",
+      "title": "宠物技能槽",
+      "slot": "gLegacyPetSkillSlotsActionD67C64",
+      "page_document": "doc/ui_windows/legacy_pet_skill_catalog.md",
+      "source_path": "src/LegacyUiRecord.cpp",
+      "id": "F:000D8230",
+      "entry": "0x4d8230",
+      "original_index": 5,
+      "contract": "宠物技能槽4D8230：原0x4d82f7..0x4d8304四条13B，一次取gLegacyPetSkillSlotsActionD67C64，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。"
+    }
+  ],
+  "implementation_static_scope": "BVZ01六技能/宠物技能页面一CPP六片段实修：消除opaque YobiAction::flags直接访问，恢复共享预览一次持样、同样本判空并以既有SetYobiActionFlag2(false)清W32 bit1。原六阶段24条78B及四零寄存器上下文有据，六完整父其余正文、生产/关闭、格式/字节/消费者和原生helper/头保持；无新函数/API/helper/owner或保护，六已有原新追加/六adapted F，六页各一实际父与限定I-S。仅本阶段，不重验全部父/旧外路由或正常owner-alias寿命/画面运行；原格式明文、音频暂停及RPLAN.24保持。",
+  "source_cpp_changed_count": 1,
+  "source_header_changed_count": 0,
+  "source_patch_count": 6,
+  "new_function_count": 0,
+  "new_helper_count": 0,
+  "new_api_count": 0,
+  "new_owner_count": 0,
+  "new_semantic_record_count": 0,
+  "new_I_claimed": true,
+  "opaque_direct_flag_access_removed": true,
+  "single_pointer_sample_for_check_and_clear_restored": true,
+  "original_W32_bit1_and_other_bits_kept": true,
+  "shared_skill_and_three_independent_pet_preview_slots_kept": true,
+  "other_complete_bodies_production_closing_format_bytes_and_consumers_kept": true,
+  "source_files_kept": [
+    "src/YobiRuntime.cpp",
+    "include/cg/YobiRuntime.hpp",
+    "src/LegacyPanelRuntime.hpp"
+  ],
+  "wire_format_changed": false,
+  "encryption_added": false,
+  "audio_pause_kept": true,
+  "full_all_parents_verified": false,
+  "full_all_callees_verified": false,
+  "full_lifecycle_closed": false,
+  "runtime_verified": false,
+  "machine_abi_verified": false,
+  "fault_equivalence_claimed": false,
+  "source_bodies_before": [
+    {
+      "symbol": "Sub_4D6710",
+      "body": "std::uintptr_t Sub_4D6710(const std::int32_t opened)\n{\n    const std::int32_t x = gLegacySkillChoicePanel581D60.x;\n    const std::int32_t y = gLegacySkillChoicePanel581D60.y;\n    std::array<character_select::detail::CharacterModalUiRecord, 3> buttons {{\n        {x + 137, y + 164, x + 112, y + 164, 136, 18, kLegacySkillChoiceLearn585AC4},\n        {x + 137, y + 190, x + 112, y + 190, 136, 18, kLegacySkillChoiceForget588BC8},\n        {x + 146, y + 216, x + 112, y + 216, 136, 18, kLegacySkillChoiceCancel588BBC},\n    }};\n    const std::int32_t state = Sub_503160(opened, &gLegacySkillChoicePanel581D60,\n        +[] { static_cast<void>(Sub_4D66E0()); }, 1);\n    if (state == 0) {\n        return 0;\n    }\n    if (state == 2) {\n        YobiAction* result = gLegacySkillChoiceActionD67C58;\n        world::detail::gValue581800 = -1;\n        if (result != nullptr) {\n            result = MarkDeath(result);\n            gLegacySkillChoiceActionD67C58 = nullptr;\n        }\n        return reinterpret_cast<std::uintptr_t>(result);\n    }\n    if (gLegacySkillChoiceActionD67C58 != nullptr) {\n        gLegacySkillChoiceActionD67C58->flags &= ~2U;\n    }\n    if (ui::detail::Sub_4D3040(2, 2) != 0) {\n        static_cast<void>(audio::Sub_5042D0(gLegacySkillChoicePanel581D60.id));\n    }\n    for (std::int32_t index = 0; index < 3; ++index) {\n        if ((character_select::detail::Sub_503990(&buttons[index]) & 1) == 0) {\n            continue;\n        }\n        if (index <= 1) {\n            char buffer[16];\n            char escaped[16];\n            platform::FormatLegacyString_53B304(buffer, \"%d\", index + 1);\n            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));\n            const std::int32_t target = world::detail::gDialogTargetD2DE6C;\n            const std::int32_t request = world::detail::gDialogRequestCC21E0;\n            const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);\n            const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);\n            const auto socket = platform::gConnectionSocket;\n            static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));\n        }\n        static_cast<void>(audio::Sub_5042D0(gLegacySkillChoicePanel581D60.id));\n        static_cast<void>(audio::PlaySe_52C450(79, 320));\n    }\n    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();\n    const std::int32_t titleWidth = TextMeasure(lines[0].text.data(), 0);\n    const std::int32_t titleY = gLegacySkillChoicePanel581D60.y + 8;\n    const std::int32_t titleX = gLegacySkillChoicePanel581D60.x - titleWidth / 2 + 142;\n    static_cast<void>(DrawText(static_cast<std::int16_t>(titleX),\n        static_cast<std::int16_t>(titleY), 2, 0, 0, lines[0].text.data(), 0, 0));\n    for (std::int32_t index = 0; index < 5; ++index) {\n        const std::int32_t top = gLegacySkillChoicePanel581D60.y + 16 * (index + 3);\n        const std::int32_t left = gLegacySkillChoicePanel581D60.x + 90;\n        static_cast<void>(DrawText(static_cast<std::int16_t>(left),\n            static_cast<std::int16_t>(top), 2, 0, 0, lines[index + 1].text.data(), 0, 0));\n    }\n    for (const auto& button : buttons) {\n        static_cast<void>(character_select::detail::Sub_503A20(&button, 2, 0, 1, gValueD69768, 218));\n    }\n    const char* hint = nullptr;\n    if (Sub_503590(&gLegacySkillChoicePanel581D60) != 0) {\n        hint = kLegacyLogout553FD0;\n    } else if ((character_select::detail::Sub_503990(&buttons[0]) & 0x40) != 0) {\n        hint = kLegacySkillChoiceLearnHint588BA8;\n    } else if ((character_select::detail::Sub_503990(&buttons[1]) & 0x40) != 0) {\n        hint = kLegacySkillChoiceForgetHint588B90;\n    } else if ((character_select::detail::Sub_503990(&buttons[2]) & 0x40) != 0) {\n        hint = kLegacySkillChoiceCancelHint588B80;\n    }\n    if (hint != nullptr) {\n        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);\n    }\n    return Sub_503440(&gLegacySkillChoicePanel581D60, 1);\n}\n\n"
+    },
+    {
+      "symbol": "Sub_4D6A60",
+      "body": "std::uintptr_t Sub_4D6A60(const std::int32_t opened)\n{\n    const std::int32_t x = gLegacySkillLearningPanel581E28.x;\n    const std::int32_t y = gLegacySkillLearningPanel581E28.y;\n    std::array<character_select::detail::CharacterModalUiRecord, 2> buttons {{\n        {x + 432, y + 344, x + 430, y + 344, 72, 18, kLegacySkillLearningAccept588C20},\n        {x + 432, y + 380, x + 430, y + 380, 72, 18, kLegacySkillLearningCancel588C18},\n    }};\n    const std::int32_t state = Sub_503160(opened, &gLegacySkillLearningPanel581E28,\n        +[] { static_cast<void>(Sub_4D6A30()); }, 1);\n    if (state == 0) {\n        return 0;\n    }\n    if (state == 2) {\n        YobiAction* result = gLegacySkillChoiceActionD67C58;\n        world::detail::gValue581800 = -1;\n        if (result != nullptr) {\n            result = MarkDeath(result);\n            gLegacySkillChoiceActionD67C58 = nullptr;\n        }\n        return reinterpret_cast<std::uintptr_t>(result);\n    }\n    if (gLegacySkillChoiceActionD67C58 != nullptr) {\n        gLegacySkillChoiceActionD67C58->flags &= ~2U;\n    }\n    if (ui::detail::Sub_4D3040(2, 2) != 0) {\n        static_cast<void>(audio::Sub_5042D0(gLegacySkillLearningPanel581E28.id));\n    }\n    for (std::int32_t index = 0; index < 2; ++index) {\n        if ((character_select::detail::Sub_503990(&buttons[index]) & 1) == 0) {\n            continue;\n        }\n        char buffer[16];\n        char escaped[16];\n        platform::FormatLegacyString_53B304(buffer, \"%d\", index + 1);\n        static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));\n        const std::int32_t target = world::detail::gDialogTargetD2DE6C;\n        const std::int32_t request = world::detail::gDialogRequestCC21E0;\n        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);\n        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);\n        const auto socket = platform::gConnectionSocket;\n        static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));\n        static_cast<void>(audio::Sub_5042D0(gLegacySkillLearningPanel581E28.id));\n        static_cast<void>(audio::PlaySe_52C450(79, 320));\n    }\n    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();\n    const std::int32_t titleWidth = TextMeasure(lines[0].text.data(), 0);\n    const std::int32_t titleY = gLegacySkillLearningPanel581E28.y + 8;\n    const std::int32_t titleX = gLegacySkillLearningPanel581E28.x - titleWidth / 2 + 288;\n    static_cast<void>(DrawText(static_cast<std::int16_t>(titleX),\n        static_cast<std::int16_t>(titleY), 2, 0, 0, lines[0].text.data(), 0, 0));\n    for (std::int32_t index = 0; index < 5; ++index) {\n        const std::int32_t top = gLegacySkillLearningPanel581E28.y + 16 * index + 58;\n        const std::int32_t left = gLegacySkillLearningPanel581E28.x + 379;\n        static_cast<void>(DrawText(static_cast<std::int16_t>(left),\n            static_cast<std::int16_t>(top), 2, 0, 0, lines[index + 1].text.data(), 0, 0));\n    }\n    char text[64];\n    const std::int32_t gold = world::detail::ReadPlayerValueFC();\n    platform::FormatLegacyString_53B304(text, \"%7d\", gold);\n    const std::int32_t goldY = gLegacySkillLearningPanel581E28.y + 287;\n    const std::int32_t goldX = gLegacySkillLearningPanel581E28.x + 463;\n    static_cast<void>(DrawText(static_cast<std::int16_t>(goldX),\n        static_cast<std::int16_t>(goldY), 2, 0, 0, text, 0, 0));\n    for (const auto& button : buttons) {\n        static_cast<void>(character_select::detail::Sub_503A20(&button, 2, 0, 1, gValueD69768, 218));\n    }\n    const std::int32_t nameWidth = TextMeasure(lines[9].text.data(), 0);\n    const std::int32_t nameY = gLegacySkillLearningPanel581E28.y + 41;\n    const std::int32_t nameX = gLegacySkillLearningPanel581E28.x - nameWidth / 2 + 182;\n    static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),\n        static_cast<std::int16_t>(nameY), 2, 0, 0, lines[9].text.data(), 0, 0));\n    for (std::int32_t index = 0; index < 8; ++index) {\n        const std::int32_t top = gLegacySkillLearningPanel581E28.y + 20 * index + 116;\n        const std::int32_t left = gLegacySkillLearningPanel581E28.x + 45;\n        static_cast<void>(DrawText(static_cast<std::int16_t>(left),\n            static_cast<std::int16_t>(top), 2, 0, 0, lines[index + 10].text.data(), 0, 0));\n    }\n    const std::int32_t slots = ui::detail::gWindow54ValueCC2E68;\n    platform::FormatLegacyString_53B304(text, kLegacySkillLearningSlots588C00, slots);\n    const std::int32_t slotsY = gLegacySkillLearningPanel581E28.y + 324;\n    const std::int32_t slotsX = gLegacySkillLearningPanel581E28.x + 45;\n    static_cast<void>(DrawText(static_cast<std::int16_t>(slotsX),\n        static_cast<std::int16_t>(slotsY), 2, 0, 0, text, 0, 0));\n    const std::int32_t cost = ui::detail::gWindow54ValueCF4A3C;\n    platform::FormatLegacyString_53B304(text, kLegacySkillLearningCost588BEC, cost);\n    const std::int32_t costY = gLegacySkillLearningPanel581E28.y + 372;\n    const std::int32_t costX = gLegacySkillLearningPanel581E28.x + 96;\n    static_cast<void>(DrawText(static_cast<std::int16_t>(costX),\n        static_cast<std::int16_t>(costY), 2, 0, 0, text, 0, 0));\n    const char* hint = nullptr;\n    if (Sub_503590(&gLegacySkillLearningPanel581E28) != 0) {\n        hint = kLegacyLogout553FD0;\n    } else if ((character_select::detail::Sub_503990(&buttons[0]) & 0x40) != 0) {\n        hint = kLegacySkillLearningAcceptHint588BE0;\n    } else if ((character_select::detail::Sub_503990(&buttons[1]) & 0x40) != 0) {\n        hint = kLegacySkillLearningCancelHint588BD4;\n    }\n    if (hint != nullptr) {\n        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);\n    }\n    return Sub_503440(&gLegacySkillLearningPanel581E28, 1);\n}\n\n"
+    },
+    {
+      "symbol": "Sub_4D6EA0",
+      "body": "std::uintptr_t Sub_4D6EA0(const std::int32_t opened)\n{\n    const std::int32_t x = gLegacySkillForgetPanel581EF0.x;\n    const std::int32_t y = gLegacySkillForgetPanel581EF0.y;\n    const character_select::detail::CharacterModalUiRecord cancel {\n        x + 400, y + 394, x + 398, y + 394, 140, 18, kLegacySkillForgetCancel588CBC,\n    };\n    std::int32_t selection = 0;\n    const std::int32_t state = Sub_503160(opened, &gLegacySkillForgetPanel581EF0,\n        +[] { static_cast<void>(Sub_4D6E70()); }, 1);\n    if (state == 0) {\n        return 0;\n    }\n    if (state == 2) {\n        YobiAction* result = gLegacySkillChoiceActionD67C58;\n        world::detail::gValue581800 = -1;\n        if (result != nullptr) {\n            result = MarkDeath(result);\n            gLegacySkillChoiceActionD67C58 = nullptr;\n        }\n        return reinterpret_cast<std::uintptr_t>(result);\n    }\n    if (gLegacySkillChoiceActionD67C58 != nullptr) {\n        gLegacySkillChoiceActionD67C58->flags &= ~2U;\n    }\n    if (ui::detail::Sub_4D3040(2, 2) != 0) {\n        static_cast<void>(audio::Sub_5042D0(gLegacySkillForgetPanel581EF0.id));\n    }\n    if ((character_select::detail::Sub_503990(&cancel) & 1) != 0) {\n        selection = 99;\n        static_cast<void>(audio::PlaySe_52C450(79, 320));\n    }\n    std::int32_t hovered = -1;\n    std::int32_t scanIndex = 0;\n    for (std::int32_t rowOffset = 0; scanIndex < 15; ++scanIndex, rowOffset += 24) {\n        const std::int32_t top = gLegacySkillForgetPanel581EF0.y + rowOffset + 142;\n        const std::int32_t left = gLegacySkillForgetPanel581EF0.x + 47;\n        if (Sub_5049A0(left, top, left + 258, top + 24, -1) == 0) {\n            continue;\n        }\n        hovered = scanIndex;\n        if ((static_cast<std::uint8_t>(gValueD68D9C) & 1U) != 0) {\n            selection = scanIndex + 1;\n            static_cast<void>(audio::PlaySe_52C450(79, 320));\n        }\n        break;\n    }\n    if (selection != 0) {\n        // 原CB01A4+15*4恰为独立CB01E0；借真实页号，不扩表或默认准许取消。\n        const std::int32_t value = scanIndex == 15 ? ui::detail::gBattleItemPageCB01E0\n            : ui::detail::gWindow54ValuesCB01A4[scanIndex];\n        if (value >= 0) {\n            char buffer[16];\n            char escaped[16];\n            platform::FormatLegacyString_53B304(buffer, \"%d\", selection);\n            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));\n            const std::int32_t target = world::detail::gDialogTargetD2DE6C;\n            const std::int32_t request = world::detail::gDialogRequestCC21E0;\n            const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);\n            const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);\n            const auto socket = platform::gConnectionSocket;\n            static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));\n            static_cast<void>(audio::Sub_5042D0(gLegacySkillForgetPanel581EF0.id));\n        }\n    }\n    const auto drawAt = [](const char* const text, const std::int32_t offsetX,\n                           const std::int32_t offsetY) {\n        const std::int32_t top = gLegacySkillForgetPanel581EF0.y + offsetY;\n        const std::int32_t left = gLegacySkillForgetPanel581EF0.x + offsetX;\n        static_cast<void>(DrawText(static_cast<std::int16_t>(left),\n            static_cast<std::int16_t>(top), 2, 0, 0, text, 0, 0));\n    };\n    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();\n    const std::int32_t titleWidth = TextMeasure(lines[0].text.data(), 0);\n    drawAt(lines[0].text.data(), 288 - titleWidth / 2, 8);\n    for (std::int32_t index = 0; index < 5; ++index) {\n        drawAt(lines[index + 1].text.data(), 379, 58 + 16 * index);\n    }\n    drawAt(kLegacySkillForgetNotes588CA4, 406, 280);\n    drawAt(kLegacySkillForgetWarning588C94, 382, 310);\n    drawAt(kLegacySkillForgetNoRestore588C88, 382, 330);\n    drawAt(kLegacySkillForgetCareful588C7C, 382, 350);\n    drawAt(kLegacySkillForgetSelect588C68, 70, 100);\n    std::int32_t total = 0;\n    char text[256];\n    for (std::int32_t index = 0, rowOffset = 0; index < 15; ++index, rowOffset += 24) {\n        if (ui::detail::gWindow54ValuesCB01A4[index] < 0) {\n            continue;\n        }\n        total += ui::detail::gWindow54ValuesCB09D8[index];\n        drawAt(lines[index + 10].text.data(), 78, 145 + rowOffset);\n        platform::FormatLegacyString_53B304(text, \"%2d\", ui::detail::gWindow54ValuesCB01A4[index]);\n        drawAt(text, 245, 145 + rowOffset);\n        platform::FormatLegacyString_53B304(text, \"%d\", ui::detail::gWindow54ValuesCB09D8[index]);\n        drawAt(text, 292, 145 + rowOffset);\n        const std::int32_t imageY = gLegacySkillForgetPanel581EF0.y + rowOffset + 154;\n        const std::int32_t imageX = gLegacySkillForgetPanel581EF0.x + 176;\n        static_cast<void>(DrawGraphic(imageX, imageY, 212, 22703, 0, nullptr));\n        if (hovered == index) {\n            const std::int32_t hoverY = gLegacySkillForgetPanel581EF0.y + rowOffset + 142;\n            const std::uint32_t image = gValueD69768;\n            const std::int32_t hoverX = gLegacySkillForgetPanel581EF0.x + 47;\n            DrawGraphicHover(Low16(hoverX), Low16(hoverY), Low16(hoverX + 258), Low16(hoverY + 24),\n                214, image, 0);\n        }\n    }\n    platform::FormatLegacyString_53B304(text, kLegacySkillForgetTotal588C48, total);\n    drawAt(text, 14, 42);\n    static_cast<void>(character_select::detail::Sub_503A20(&cancel, 2, 0, 1, gValueD69768, 218));\n    const char* hint = nullptr;\n    if (Sub_503590(&gLegacySkillForgetPanel581EF0) != 0) {\n        hint = kLegacyLogout553FD0;\n    } else if ((character_select::detail::Sub_503990(&cancel) & 0x40) != 0) {\n        hint = kLegacySkillForgetCancelHint588C38;\n    }\n    if (hint != nullptr) {\n        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);\n    }\n    if (hovered >= 0 && ui::detail::gWindow54ValuesCB01A4[hovered] >= 0) {\n        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacySkillForgetRowHint588C28);\n    }\n    return Sub_503440(&gLegacySkillForgetPanel581EF0, 1);\n}\n\n"
+    },
+    {
+      "symbol": "Sub_4D7470",
+      "body": "std::uint32_t Sub_4D7470(const std::int32_t opened)\n{\n    const std::int32_t x = gLegacyPetSkillCatalogPanel581FB8.x;\n    const std::int32_t y = gLegacyPetSkillCatalogPanel581FB8.y;\n    LegacyPanelButtonRecord cancel {x + 465, y + 390, x + 425, y + 374, 80, 32, 23076, 23077};\n    LegacyPanelButtonRecord previous {x + 140, y + 52, x + 126, y + 40, 28, 24, 23022, 23026};\n    LegacyPanelButtonRecord next {x + 230, y + 52, x + 216, y + 40, 28, 24, 23023, 23027};\n    const std::int32_t state = Sub_503160(opened, &gLegacyPetSkillCatalogPanel581FB8,\n        +[] { static_cast<void>(Sub_4D7440()); }, 1);\n    if (state == 0) {\n        return 0;\n    }\n    if (state == 2) {\n        YobiAction* const action = gLegacyPetSkillCatalogActionD67C5C;\n        world::detail::gValue581800 = -1;\n        if (action != nullptr) {\n            static_cast<void>(MarkDeath(action));\n            gLegacyPetSkillCatalogActionD67C5C = nullptr;\n        }\n        return static_cast<std::uint32_t>(audio::PlaySe_52C450(57, 320));\n    }\n    if (gLegacyPetSkillCatalogActionD67C5C != nullptr) {\n        gLegacyPetSkillCatalogActionD67C5C->flags &= ~2U;\n    }\n    if (ui::detail::Sub_4D3040(2, 2) != 0) {\n        static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillCatalogPanel581FB8.id));\n        static_cast<void>(audio::PlaySe_52C450(57, 320));\n    }\n    std::int32_t hovered = -1;\n    for (std::int32_t row = 0; row < 8; ++row) {\n        if (gLegacyPetSkillCatalogCA0478[row + 8 * gLegacyPetSkillCatalogPageD45F74].used != 0\n            && Sub_5049A0(gLegacyPetSkillCatalogPanel581FB8.x + 18,\n                gLegacyPetSkillCatalogPanel581FB8.y + 84 + 32 * row,\n                gLegacyPetSkillCatalogPanel581FB8.x + 345,\n                gLegacyPetSkillCatalogPanel581FB8.y + 105 + 32 * row, -1) != 0) {\n            hovered = row;\n            break;\n        }\n    }\n    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1) != 0) {\n        const std::int32_t index = hovered + 8 * gLegacyPetSkillCatalogPageD45F74;\n        if (world::detail::ReadPlayerValueFC() < gLegacyPetSkillCatalogCA0478[index].price08) {\n            gLegacyPetSkillCatalogMessageD2E818 = 1;\n            static_cast<void>(audio::PlaySe_52C450(55, 320));\n        } else if (world::detail::gPetCountDE0B00 == 0) {\n            gLegacyPetSkillCatalogMessageD2E818 = 2;\n            static_cast<void>(audio::PlaySe_52C450(55, 320));\n        } else {\n            char buffer[16];\n            char escaped[16];\n            gLegacyPetSkillCatalogSelectionC8AF70 = hovered;\n            platform::FormatLegacyString_53B304(buffer, \"%d\", index);\n            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));\n            const std::int32_t target = world::detail::gDialogTargetD2DE6C;\n            const std::int32_t request = world::detail::gDialogRequestCC21E0;\n            const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);\n            const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);\n            const auto socket = platform::gConnectionSocket;\n            static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));\n            static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillCatalogPanel581FB8.id));\n            static_cast<void>(audio::PlaySe_52C450(57, 320));\n        }\n    } else if ((QueryPanelButtonState(&cancel) & 1) != 0) {\n        static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillCatalogPanel581FB8.id));\n    } else if ((QueryPanelButtonState(&previous) & 0x10) != 0) {\n        --gLegacyPetSkillCatalogPageD45F74;\n        if (gLegacyPetSkillCatalogPageD45F74 < 0) {\n            gLegacyPetSkillCatalogPageD45F74 = gLegacyPetSkillCatalogPageCountC8AF84 - 1;\n        }\n        static_cast<void>(audio::PlaySe_52C450(51, 320));\n    } else if ((QueryPanelButtonState(&next) & 0x10) != 0) {\n        ++gLegacyPetSkillCatalogPageD45F74;\n        if (gLegacyPetSkillCatalogPageD45F74 >= gLegacyPetSkillCatalogPageCountC8AF84) {\n            gLegacyPetSkillCatalogPageD45F74 = 0;\n        }\n        static_cast<void>(audio::PlaySe_52C450(51, 320));\n    }\n    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();\n    const std::int32_t titleWidth = TextMeasure(lines[0].text.data(), 0);\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 288 - titleWidth / 2),\n        static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 8),\n        2, 0, 0, lines[0].text.data(), 0, 0));\n    for (std::int32_t row = 0; row < 4; ++row) {\n        const char* const text = lines[1 + 4 * gLegacyPetSkillCatalogMessageD2E818 + row].text.data();\n        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 377),\n            static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 59 + 20 * row),\n            2, 0, 0, text, 0, 0));\n    }\n    char buffer[256];\n    platform::FormatLegacyString_53B304(buffer, \"%7d\", world::detail::ReadPlayerValueFC());\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 465),\n        static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 286), 2, 0, 0, buffer, 0, 0));\n    platform::FormatLegacyString_53B304(buffer, \"%d/%d\", gLegacyPetSkillCatalogPageD45F74 + 1, gLegacyPetSkillCatalogPageCountC8AF84);\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 172),\n        static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 44), 2, 0, 0, buffer, 0, 0));\n    for (std::int32_t row = 0; row < 8; ++row) {\n        const std::int32_t index = row + 8 * gLegacyPetSkillCatalogPageD45F74;\n        if (gLegacyPetSkillCatalogCA0478[index].used == 0) {\n            continue;\n        }\n        const std::int32_t nameWidth = TextMeasure(gLegacyPetSkillCatalogCA0478[index].text0C.data(), 0);\n        const char* const name = gLegacyPetSkillCatalogCA0478[row + 8 * gLegacyPetSkillCatalogPageD45F74].text0C.data();\n        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 97 - nameWidth / 2),\n            static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 86 + 32 * row), 2, 0, 0, name, 0, 0));\n        const std::int32_t value = gLegacyPetSkillCatalogCA0478[row + 8 * gLegacyPetSkillCatalogPageD45F74].value04;\n        platform::FormatLegacyString_53B304(buffer, \"%4d\", value);\n        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 203),\n            static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 88 + 32 * row), 2, 1, 0, buffer, 0, 0));\n        const std::int32_t page = gLegacyPetSkillCatalogPageD45F74;\n        const std::int32_t gold = world::detail::ReadPlayerValueFC();\n        const std::int32_t price = gLegacyPetSkillCatalogCA0478[row + 8 * page].price08;\n        const std::uint8_t color = gold >= price ? 0 : 6;\n        platform::FormatLegacyString_53B304(buffer, \"%7d\", price);\n        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 261),\n            static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 88 + 32 * row), 2, 1, color, buffer, 0, 0));\n    }\n    if (hovered >= 0) {\n        const std::int32_t top = gLegacyPetSkillCatalogPanel581FB8.y + 32 * hovered;\n        const std::uint32_t color = gValueD69768;\n        const std::int32_t left = gLegacyPetSkillCatalogPanel581FB8.x;\n        DrawGraphicHover(Low16(left + 18), Low16(top + 84), Low16(left + 345),\n            Low16(top + 105), 214, color, 0);\n        for (std::int32_t row = 0; row < 2; ++row) {\n            const char* const text = gLegacyPetSkillCatalogCA0478[\n                hovered + 8 * gLegacyPetSkillCatalogPageD45F74].text0C.data() + 25 + 29 * row;\n            static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 70),\n                static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 359 + 32 * row),\n                2, 0, 0, text, 0, 0));\n        }\n    }\n    Sub_5035E0(&cancel, 213, 1, gValueD69768, 0);\n    Sub_5035E0(&previous, 213, 1, gValueD69768, 0);\n    Sub_5035E0(&next, 213, 1, gValueD69768, 0);\n    const char* hint = nullptr;\n    if (Sub_503590(&gLegacyPetSkillCatalogPanel581FB8) != 0) {\n        hint = kLegacyLogout553FD0;\n    } else if ((QueryPanelButtonState(&cancel) & 0x40) != 0) {\n        hint = kLegacyPetSkillCatalogCancel588CD0;\n    } else if ((QueryPanelButtonState(&previous) & 0x40) != 0 || (QueryPanelButtonState(&next) & 0x40) != 0) {\n        hint = kLegacyRecipePage586D2C;\n    } else if (hovered >= 0) {\n        hint = kLegacyPetSkillCatalogLearn588268;\n    }\n    if (hint != nullptr) {\n        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);\n    }\n    return Sub_503440(&gLegacyPetSkillCatalogPanel581FB8, 1);\n}\n\n"
+    },
+    {
+      "symbol": "Sub_4D7C20",
+      "body": "std::uint32_t Sub_4D7C20(const std::int32_t opened)\n{\n    const std::int32_t x = gLegacyPetSkillPetPanel582080.x;\n    const std::int32_t y = gLegacyPetSkillPetPanel582080.y;\n    LegacyPanelButtonRecord cancel {x + 465, y + 390, x + 425, y + 374, 80, 32, 23076, 23077};\n    const std::int32_t state = Sub_503160(opened, &gLegacyPetSkillPetPanel582080,\n        +[] { static_cast<void>(Sub_4D7BF0()); }, 1);\n    if (state == 0) {\n        return 0;\n    }\n    if (state == 2) {\n        YobiAction* const action = gLegacyPetSkillPetActionD67C60;\n        world::detail::gValue581800 = -1;\n        if (action != nullptr) {\n            static_cast<void>(MarkDeath(action));\n            gLegacyPetSkillPetActionD67C60 = nullptr;\n        }\n        return static_cast<std::uint32_t>(audio::PlaySe_52C450(57, 320));\n    }\n    if (gLegacyPetSkillPetActionD67C60 != nullptr) {\n        gLegacyPetSkillPetActionD67C60->flags &= ~2U;\n    }\n    if (ui::detail::Sub_4D3040(2, 2) != 0) {\n        static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillPetPanel582080.id));\n        static_cast<void>(audio::PlaySe_52C450(57, 320));\n    }\n    std::int32_t hovered = -1;\n    for (std::int32_t row = 0; row < 5; ++row) {\n        const auto& option = ui::detail::gWindow54PetOptionsD67448[row];\n        if (option.allowed != 0 && option.used != 0\n            && Sub_5049A0(gLegacyPetSkillPetPanel582080.x + 70,\n                gLegacyPetSkillPetPanel582080.y + 131 + 40 * row,\n                gLegacyPetSkillPetPanel582080.x + 301,\n                gLegacyPetSkillPetPanel582080.y + 152 + 40 * row, -1) != 0) {\n            hovered = row;\n            break;\n        }\n    }\n    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1) != 0) {\n        char buffer[16];\n        char escaped[16];\n        platform::FormatLegacyString_53B304(buffer, \"%d\", hovered);\n        static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));\n        const std::int32_t target = world::detail::gDialogTargetD2DE6C;\n        const std::int32_t request = world::detail::gDialogRequestCC21E0;\n        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);\n        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);\n        const auto socket = platform::gConnectionSocket;\n        static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));\n        const std::uint32_t panelId = gLegacyPetSkillPetPanel582080.id;\n        gLegacyPetSkillPetSelectionC8A94C = hovered;\n        static_cast<void>(audio::Sub_5042D0(panelId));\n        static_cast<void>(audio::PlaySe_52C450(57, 320));\n    } else if ((QueryPanelButtonState(&cancel) & 1) != 0) {\n        const std::int32_t target = world::detail::gDialogTargetD2DE6C;\n        const std::int32_t request = world::detail::gDialogRequestCC21E0;\n        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);\n        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);\n        const auto socket = platform::gConnectionSocket;\n        static_cast<void>(network::Sub_512620(\n            socket, playerX, playerY, request, target, 2, input::LegacyText593850()));\n        static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillPetPanel582080.id));\n        static_cast<void>(audio::PlaySe_52C450(57, 320));\n    }\n    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();\n    const std::int32_t titleWidth = TextMeasure(lines[0].text.data(), 0);\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 288 - titleWidth / 2),\n        static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 8), 2, 0, 0, lines[0].text.data(), 0, 0));\n    const char* const measuredName = gLegacyPetSkillCatalogCA0478[\n        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].text0C.data();\n    const std::int32_t skillWidth = TextMeasure(measuredName, 0);\n    const char* const skillName = gLegacyPetSkillCatalogCA0478[\n        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].text0C.data();\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 96 - skillWidth / 2),\n        static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 44), 2, 0, 0, skillName, 0, 0));\n    char buffer[64];\n    const std::int32_t skillValue = gLegacyPetSkillCatalogCA0478[\n        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].value04;\n    platform::FormatLegacyString_53B304(buffer, \"%4d\", skillValue);\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 202),\n        static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 46), 2, 1, 0, buffer, 0, 0));\n    const std::int32_t price = gLegacyPetSkillCatalogCA0478[\n        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].price08;\n    platform::FormatLegacyString_53B304(buffer, \"%7d\", price);\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 260),\n        static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 46), 2, 0, 0, buffer, 0, 0));\n    for (std::int32_t row = 0; row < 5; ++row) {\n        const auto& option = ui::detail::gWindow54PetOptionsD67448[row];\n        if (option.used == 0) {\n            continue;\n        }\n        const std::uint8_t color = option.allowed != 0 ? 0 : 7;\n        const std::int32_t width = TextMeasure(option.name.data(), 0);\n        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 147 - width / 2),\n            static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 133 + 40 * row),\n            2, 0, color, option.name.data(), 0, 0));\n        platform::FormatLegacyString_53B304(buffer, \"%3d\", option.value04);\n        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 272),\n            static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 135 + 40 * row), 2, 1, color, buffer, 0, 0));\n    }\n    for (std::int32_t row = 0; row < 4; ++row) {\n        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 377),\n            static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 59 + 20 * row),\n            2, 0, 0, lines[row + 1].text.data(), 0, 0));\n    }\n    platform::FormatLegacyString_53B304(buffer, \"%7d\", world::detail::ReadPlayerValueFC());\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 465),\n        static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 286), 2, 0, 0, buffer, 0, 0));\n    if (hovered >= 0) {\n        const std::int32_t top = gLegacyPetSkillPetPanel582080.y + 40 * hovered;\n        const std::uint32_t color = gValueD69768;\n        const std::int32_t left = gLegacyPetSkillPetPanel582080.x;\n        DrawGraphicHover(Low16(left + 70), Low16(top + 131), Low16(left + 301), Low16(top + 152), 214, color, 0);\n    }\n    Sub_5035E0(&cancel, 213, 1, gValueD69768, 0);\n    const char* hint = nullptr;\n    if (Sub_503590(&gLegacyPetSkillPetPanel582080) != 0) {\n        hint = kLegacyLogout553FD0;\n    } else if ((QueryPanelButtonState(&cancel) & 0x40) != 0) {\n        hint = kLegacyPetSkillPetCancel588CE8;\n    } else if (hovered >= 0) {\n        hint = kLegacyPetSkillCatalogLearn588268;\n    }\n    if (hint != nullptr) {\n        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);\n    }\n    return Sub_503440(&gLegacyPetSkillPetPanel582080, 1);\n}\n\n"
+    },
+    {
+      "symbol": "Sub_4D8230",
+      "body": "std::uint32_t Sub_4D8230(const std::int32_t opened)\n{\n    const std::int32_t x = gLegacyPetSkillSlotsPanel582148.x;\n    const std::int32_t y = gLegacyPetSkillSlotsPanel582148.y;\n    LegacyPanelButtonRecord cancel {x + 465, y + 390, x + 425, y + 374, 80, 32, 23076, 23077};\n    const std::int32_t state = Sub_503160(opened, &gLegacyPetSkillSlotsPanel582148,\n        +[] { static_cast<void>(Sub_4D8200()); }, 1);\n    if (state == 0) {\n        return 0;\n    }\n    if (state == 2) {\n        if (audio::Sub_504410(61) == 0) {\n            world::detail::gValue581800 = -1;\n        }\n        if (gLegacyPetSkillSlotsActionD67C64 != nullptr) {\n            static_cast<void>(MarkDeath(gLegacyPetSkillSlotsActionD67C64));\n            gLegacyPetSkillSlotsActionD67C64 = nullptr;\n        }\n        return static_cast<std::uint32_t>(audio::PlaySe_52C450(57, 320));\n    }\n    if (gLegacyPetSkillSlotsActionD67C64 != nullptr) {\n        gLegacyPetSkillSlotsActionD67C64->flags &= ~2U;\n    }\n    if (ui::detail::Sub_4D3040(2, 2) != 0) {\n        static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillSlotsPanel582148.id));\n        static_cast<void>(audio::PlaySe_52C450(57, 320));\n    }\n    std::int32_t selected = gLegacyPetSkillPetSelectionC8A94C;\n    std::int32_t hovered = -1;\n    for (std::int32_t row = 0; row < 10; ++row) {\n        if (ui::detail::gWindow54PetOptionsD67448[selected].slots <= row) {\n            continue;\n        }\n        if (Sub_5049A0(gLegacyPetSkillSlotsPanel582148.x + 60,\n                gLegacyPetSkillSlotsPanel582148.y + 116 + 24 * row,\n                gLegacyPetSkillSlotsPanel582148.x + 302,\n                gLegacyPetSkillSlotsPanel582148.y + 136 + 24 * row, -1) != 0) {\n            hovered = row;\n            break;\n        }\n        selected = gLegacyPetSkillPetSelectionC8A94C;\n    }\n    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1) != 0) {\n        gLegacyPetSkillSlotCF4B64 = hovered;\n        static_cast<void>(audio::Sub_504180(61));\n        static_cast<void>(audio::PlaySe_52C450(79, 320));\n    } else if ((QueryPanelButtonState(&cancel) & 1) != 0) {\n        const std::int32_t target = world::detail::gDialogTargetD2DE6C;\n        const std::int32_t request = world::detail::gDialogRequestCC21E0;\n        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);\n        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);\n        const auto socket = platform::gConnectionSocket;\n        static_cast<void>(network::Sub_512620(\n            socket, playerX, playerY, request, target, 2, input::LegacyText593850()));\n        static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillSlotsPanel582148.id));\n        static_cast<void>(audio::PlaySe_52C450(57, 320));\n    }\n    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();\n    const std::int32_t titleWidth = TextMeasure(lines[0].text.data(), 0);\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 288 - titleWidth / 2),\n        static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 8), 2, 0, 0, lines[0].text.data(), 0, 0));\n    const char* const measuredName = gLegacyPetSkillCatalogCA0478[\n        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].text0C.data();\n    const std::int32_t skillWidth = TextMeasure(measuredName, 0);\n    const char* const skillName = gLegacyPetSkillCatalogCA0478[\n        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].text0C.data();\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 96 - skillWidth / 2),\n        static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 44), 2, 0, 0, skillName, 0, 0));\n    char buffer[64];\n    const std::int32_t skillValue = gLegacyPetSkillCatalogCA0478[\n        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].value04;\n    platform::FormatLegacyString_53B304(buffer, \"%4d\", skillValue);\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 202),\n        static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 46), 2, 1, 0, buffer, 0, 0));\n    const std::int32_t price = gLegacyPetSkillCatalogCA0478[\n        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].price08;\n    platform::FormatLegacyString_53B304(buffer, \"%7d\", price);\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 260),\n        static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 46), 2, 0, 0, buffer, 0, 0));\n    const std::int32_t petWidth = TextMeasure(\n        ui::detail::gWindow54PetOptionsD67448[gLegacyPetSkillPetSelectionC8A94C].name.data(), 0);\n    const char* const petName = ui::detail::gWindow54PetOptionsD67448[gLegacyPetSkillPetSelectionC8A94C].name.data();\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 142 - petWidth / 2),\n        static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 81), 2, 0, 0, petName, 0, 0));\n    platform::FormatLegacyString_53B304(buffer, \"%3d\", ui::detail::gWindow54PetOptionsD67448[gLegacyPetSkillPetSelectionC8A94C].value04);\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 267),\n        static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 83), 2, 1, 0, buffer, 0, 0));\n    for (std::int32_t row = 0; row < 10; ++row) {\n        const auto& slot = ui::detail::gWindow54TechniqueSlotsD66E38[row];\n        if (slot.used != 0) {\n            const std::int32_t width = TextMeasure(slot.name.data(), 0);\n            static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 156 - width / 2),\n                static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 118 + 24 * row),\n                2, 0, 0, slot.name.data(), 0, 0));\n            platform::FormatLegacyString_53B304(buffer, \"%4d\", slot.value04);\n            static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 260),\n                static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 120 + 24 * row), 2, 1, 0, buffer, 0, 0));\n        }\n        if (ui::detail::gWindow54PetOptionsD67448[gLegacyPetSkillPetSelectionC8A94C].slots > row) {\n            static_cast<void>(DrawGraphic(gLegacyPetSkillSlotsPanel582148.x + 181,\n                gLegacyPetSkillSlotsPanel582148.y + 126 + 24 * row, 213, 23093, 0, nullptr));\n        }\n    }\n    for (std::int32_t row = 0; row < 4; ++row) {\n        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 377),\n            static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 59 + 20 * row),\n            2, 0, 0, lines[row + 1].text.data(), 0, 0));\n    }\n    if (hovered >= 0) {\n        const std::int32_t top = gLegacyPetSkillSlotsPanel582148.y + 24 * hovered;\n        const std::uint32_t color = gValueD69768;\n        const std::int32_t left = gLegacyPetSkillSlotsPanel582148.x;\n        DrawGraphicHover(Low16(left + 60), Low16(top + 116), Low16(left + 302), Low16(top + 136), 214, color, 0);\n        const auto& slot = ui::detail::gWindow54TechniqueSlotsD66E38[hovered];\n        for (std::int32_t row = 0; row < 2; ++row) {\n            static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 69),\n                static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 369 + 20 * row),\n                2, 0, 0, slot.description[row].data(), 0, 0));\n        }\n    }\n    platform::FormatLegacyString_53B304(buffer, \"%7d\", world::detail::ReadPlayerValueFC());\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 465),\n        static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 286), 2, 0, 0, buffer, 0, 0));\n    Sub_5035E0(&cancel, 213, 1, gValueD69768, 0);\n    const char* hint = nullptr;\n    if (Sub_503590(&gLegacyPetSkillSlotsPanel582148) != 0) {\n        hint = kLegacyLogout553FD0;\n    } else if ((QueryPanelButtonState(&cancel) & 0x40) != 0) {\n        hint = kLegacyPetSkillPetCancel588CE8;\n    } else if (hovered >= 0) {\n        hint = kLegacyPetSkillSlotHint588D00;\n    }\n    if (hint != nullptr) {\n        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);\n    }\n    return Sub_503440(&gLegacyPetSkillSlotsPanel582148, 1);\n}\n\n"
+    }
+  ],
+  "source_bodies_after": [
+    {
+      "symbol": "Sub_4D6710",
+      "body": "std::uintptr_t Sub_4D6710(const std::int32_t opened)\n{\n    const std::int32_t x = gLegacySkillChoicePanel581D60.x;\n    const std::int32_t y = gLegacySkillChoicePanel581D60.y;\n    std::array<character_select::detail::CharacterModalUiRecord, 3> buttons {{\n        {x + 137, y + 164, x + 112, y + 164, 136, 18, kLegacySkillChoiceLearn585AC4},\n        {x + 137, y + 190, x + 112, y + 190, 136, 18, kLegacySkillChoiceForget588BC8},\n        {x + 146, y + 216, x + 112, y + 216, 136, 18, kLegacySkillChoiceCancel588BBC},\n    }};\n    const std::int32_t state = Sub_503160(opened, &gLegacySkillChoicePanel581D60,\n        +[] { static_cast<void>(Sub_4D66E0()); }, 1);\n    if (state == 0) {\n        return 0;\n    }\n    if (state == 2) {\n        YobiAction* result = gLegacySkillChoiceActionD67C58;\n        world::detail::gValue581800 = -1;\n        if (result != nullptr) {\n            result = MarkDeath(result);\n            gLegacySkillChoiceActionD67C58 = nullptr;\n        }\n        return reinterpret_cast<std::uintptr_t>(result);\n    }\n    YobiAction* const previewAction = gLegacySkillChoiceActionD67C58;\n    if (previewAction != nullptr) {\n        SetYobiActionFlag2(previewAction, false);\n    }\n    if (ui::detail::Sub_4D3040(2, 2) != 0) {\n        static_cast<void>(audio::Sub_5042D0(gLegacySkillChoicePanel581D60.id));\n    }\n    for (std::int32_t index = 0; index < 3; ++index) {\n        if ((character_select::detail::Sub_503990(&buttons[index]) & 1) == 0) {\n            continue;\n        }\n        if (index <= 1) {\n            char buffer[16];\n            char escaped[16];\n            platform::FormatLegacyString_53B304(buffer, \"%d\", index + 1);\n            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));\n            const std::int32_t target = world::detail::gDialogTargetD2DE6C;\n            const std::int32_t request = world::detail::gDialogRequestCC21E0;\n            const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);\n            const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);\n            const auto socket = platform::gConnectionSocket;\n            static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));\n        }\n        static_cast<void>(audio::Sub_5042D0(gLegacySkillChoicePanel581D60.id));\n        static_cast<void>(audio::PlaySe_52C450(79, 320));\n    }\n    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();\n    const std::int32_t titleWidth = TextMeasure(lines[0].text.data(), 0);\n    const std::int32_t titleY = gLegacySkillChoicePanel581D60.y + 8;\n    const std::int32_t titleX = gLegacySkillChoicePanel581D60.x - titleWidth / 2 + 142;\n    static_cast<void>(DrawText(static_cast<std::int16_t>(titleX),\n        static_cast<std::int16_t>(titleY), 2, 0, 0, lines[0].text.data(), 0, 0));\n    for (std::int32_t index = 0; index < 5; ++index) {\n        const std::int32_t top = gLegacySkillChoicePanel581D60.y + 16 * (index + 3);\n        const std::int32_t left = gLegacySkillChoicePanel581D60.x + 90;\n        static_cast<void>(DrawText(static_cast<std::int16_t>(left),\n            static_cast<std::int16_t>(top), 2, 0, 0, lines[index + 1].text.data(), 0, 0));\n    }\n    for (const auto& button : buttons) {\n        static_cast<void>(character_select::detail::Sub_503A20(&button, 2, 0, 1, gValueD69768, 218));\n    }\n    const char* hint = nullptr;\n    if (Sub_503590(&gLegacySkillChoicePanel581D60) != 0) {\n        hint = kLegacyLogout553FD0;\n    } else if ((character_select::detail::Sub_503990(&buttons[0]) & 0x40) != 0) {\n        hint = kLegacySkillChoiceLearnHint588BA8;\n    } else if ((character_select::detail::Sub_503990(&buttons[1]) & 0x40) != 0) {\n        hint = kLegacySkillChoiceForgetHint588B90;\n    } else if ((character_select::detail::Sub_503990(&buttons[2]) & 0x40) != 0) {\n        hint = kLegacySkillChoiceCancelHint588B80;\n    }\n    if (hint != nullptr) {\n        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);\n    }\n    return Sub_503440(&gLegacySkillChoicePanel581D60, 1);\n}\n\n"
+    },
+    {
+      "symbol": "Sub_4D6A60",
+      "body": "std::uintptr_t Sub_4D6A60(const std::int32_t opened)\n{\n    const std::int32_t x = gLegacySkillLearningPanel581E28.x;\n    const std::int32_t y = gLegacySkillLearningPanel581E28.y;\n    std::array<character_select::detail::CharacterModalUiRecord, 2> buttons {{\n        {x + 432, y + 344, x + 430, y + 344, 72, 18, kLegacySkillLearningAccept588C20},\n        {x + 432, y + 380, x + 430, y + 380, 72, 18, kLegacySkillLearningCancel588C18},\n    }};\n    const std::int32_t state = Sub_503160(opened, &gLegacySkillLearningPanel581E28,\n        +[] { static_cast<void>(Sub_4D6A30()); }, 1);\n    if (state == 0) {\n        return 0;\n    }\n    if (state == 2) {\n        YobiAction* result = gLegacySkillChoiceActionD67C58;\n        world::detail::gValue581800 = -1;\n        if (result != nullptr) {\n            result = MarkDeath(result);\n            gLegacySkillChoiceActionD67C58 = nullptr;\n        }\n        return reinterpret_cast<std::uintptr_t>(result);\n    }\n    YobiAction* const previewAction = gLegacySkillChoiceActionD67C58;\n    if (previewAction != nullptr) {\n        SetYobiActionFlag2(previewAction, false);\n    }\n    if (ui::detail::Sub_4D3040(2, 2) != 0) {\n        static_cast<void>(audio::Sub_5042D0(gLegacySkillLearningPanel581E28.id));\n    }\n    for (std::int32_t index = 0; index < 2; ++index) {\n        if ((character_select::detail::Sub_503990(&buttons[index]) & 1) == 0) {\n            continue;\n        }\n        char buffer[16];\n        char escaped[16];\n        platform::FormatLegacyString_53B304(buffer, \"%d\", index + 1);\n        static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));\n        const std::int32_t target = world::detail::gDialogTargetD2DE6C;\n        const std::int32_t request = world::detail::gDialogRequestCC21E0;\n        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);\n        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);\n        const auto socket = platform::gConnectionSocket;\n        static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));\n        static_cast<void>(audio::Sub_5042D0(gLegacySkillLearningPanel581E28.id));\n        static_cast<void>(audio::PlaySe_52C450(79, 320));\n    }\n    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();\n    const std::int32_t titleWidth = TextMeasure(lines[0].text.data(), 0);\n    const std::int32_t titleY = gLegacySkillLearningPanel581E28.y + 8;\n    const std::int32_t titleX = gLegacySkillLearningPanel581E28.x - titleWidth / 2 + 288;\n    static_cast<void>(DrawText(static_cast<std::int16_t>(titleX),\n        static_cast<std::int16_t>(titleY), 2, 0, 0, lines[0].text.data(), 0, 0));\n    for (std::int32_t index = 0; index < 5; ++index) {\n        const std::int32_t top = gLegacySkillLearningPanel581E28.y + 16 * index + 58;\n        const std::int32_t left = gLegacySkillLearningPanel581E28.x + 379;\n        static_cast<void>(DrawText(static_cast<std::int16_t>(left),\n            static_cast<std::int16_t>(top), 2, 0, 0, lines[index + 1].text.data(), 0, 0));\n    }\n    char text[64];\n    const std::int32_t gold = world::detail::ReadPlayerValueFC();\n    platform::FormatLegacyString_53B304(text, \"%7d\", gold);\n    const std::int32_t goldY = gLegacySkillLearningPanel581E28.y + 287;\n    const std::int32_t goldX = gLegacySkillLearningPanel581E28.x + 463;\n    static_cast<void>(DrawText(static_cast<std::int16_t>(goldX),\n        static_cast<std::int16_t>(goldY), 2, 0, 0, text, 0, 0));\n    for (const auto& button : buttons) {\n        static_cast<void>(character_select::detail::Sub_503A20(&button, 2, 0, 1, gValueD69768, 218));\n    }\n    const std::int32_t nameWidth = TextMeasure(lines[9].text.data(), 0);\n    const std::int32_t nameY = gLegacySkillLearningPanel581E28.y + 41;\n    const std::int32_t nameX = gLegacySkillLearningPanel581E28.x - nameWidth / 2 + 182;\n    static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),\n        static_cast<std::int16_t>(nameY), 2, 0, 0, lines[9].text.data(), 0, 0));\n    for (std::int32_t index = 0; index < 8; ++index) {\n        const std::int32_t top = gLegacySkillLearningPanel581E28.y + 20 * index + 116;\n        const std::int32_t left = gLegacySkillLearningPanel581E28.x + 45;\n        static_cast<void>(DrawText(static_cast<std::int16_t>(left),\n            static_cast<std::int16_t>(top), 2, 0, 0, lines[index + 10].text.data(), 0, 0));\n    }\n    const std::int32_t slots = ui::detail::gWindow54ValueCC2E68;\n    platform::FormatLegacyString_53B304(text, kLegacySkillLearningSlots588C00, slots);\n    const std::int32_t slotsY = gLegacySkillLearningPanel581E28.y + 324;\n    const std::int32_t slotsX = gLegacySkillLearningPanel581E28.x + 45;\n    static_cast<void>(DrawText(static_cast<std::int16_t>(slotsX),\n        static_cast<std::int16_t>(slotsY), 2, 0, 0, text, 0, 0));\n    const std::int32_t cost = ui::detail::gWindow54ValueCF4A3C;\n    platform::FormatLegacyString_53B304(text, kLegacySkillLearningCost588BEC, cost);\n    const std::int32_t costY = gLegacySkillLearningPanel581E28.y + 372;\n    const std::int32_t costX = gLegacySkillLearningPanel581E28.x + 96;\n    static_cast<void>(DrawText(static_cast<std::int16_t>(costX),\n        static_cast<std::int16_t>(costY), 2, 0, 0, text, 0, 0));\n    const char* hint = nullptr;\n    if (Sub_503590(&gLegacySkillLearningPanel581E28) != 0) {\n        hint = kLegacyLogout553FD0;\n    } else if ((character_select::detail::Sub_503990(&buttons[0]) & 0x40) != 0) {\n        hint = kLegacySkillLearningAcceptHint588BE0;\n    } else if ((character_select::detail::Sub_503990(&buttons[1]) & 0x40) != 0) {\n        hint = kLegacySkillLearningCancelHint588BD4;\n    }\n    if (hint != nullptr) {\n        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);\n    }\n    return Sub_503440(&gLegacySkillLearningPanel581E28, 1);\n}\n\n"
+    },
+    {
+      "symbol": "Sub_4D6EA0",
+      "body": "std::uintptr_t Sub_4D6EA0(const std::int32_t opened)\n{\n    const std::int32_t x = gLegacySkillForgetPanel581EF0.x;\n    const std::int32_t y = gLegacySkillForgetPanel581EF0.y;\n    const character_select::detail::CharacterModalUiRecord cancel {\n        x + 400, y + 394, x + 398, y + 394, 140, 18, kLegacySkillForgetCancel588CBC,\n    };\n    std::int32_t selection = 0;\n    const std::int32_t state = Sub_503160(opened, &gLegacySkillForgetPanel581EF0,\n        +[] { static_cast<void>(Sub_4D6E70()); }, 1);\n    if (state == 0) {\n        return 0;\n    }\n    if (state == 2) {\n        YobiAction* result = gLegacySkillChoiceActionD67C58;\n        world::detail::gValue581800 = -1;\n        if (result != nullptr) {\n            result = MarkDeath(result);\n            gLegacySkillChoiceActionD67C58 = nullptr;\n        }\n        return reinterpret_cast<std::uintptr_t>(result);\n    }\n    YobiAction* const previewAction = gLegacySkillChoiceActionD67C58;\n    if (previewAction != nullptr) {\n        SetYobiActionFlag2(previewAction, false);\n    }\n    if (ui::detail::Sub_4D3040(2, 2) != 0) {\n        static_cast<void>(audio::Sub_5042D0(gLegacySkillForgetPanel581EF0.id));\n    }\n    if ((character_select::detail::Sub_503990(&cancel) & 1) != 0) {\n        selection = 99;\n        static_cast<void>(audio::PlaySe_52C450(79, 320));\n    }\n    std::int32_t hovered = -1;\n    std::int32_t scanIndex = 0;\n    for (std::int32_t rowOffset = 0; scanIndex < 15; ++scanIndex, rowOffset += 24) {\n        const std::int32_t top = gLegacySkillForgetPanel581EF0.y + rowOffset + 142;\n        const std::int32_t left = gLegacySkillForgetPanel581EF0.x + 47;\n        if (Sub_5049A0(left, top, left + 258, top + 24, -1) == 0) {\n            continue;\n        }\n        hovered = scanIndex;\n        if ((static_cast<std::uint8_t>(gValueD68D9C) & 1U) != 0) {\n            selection = scanIndex + 1;\n            static_cast<void>(audio::PlaySe_52C450(79, 320));\n        }\n        break;\n    }\n    if (selection != 0) {\n        // 原CB01A4+15*4恰为独立CB01E0；借真实页号，不扩表或默认准许取消。\n        const std::int32_t value = scanIndex == 15 ? ui::detail::gBattleItemPageCB01E0\n            : ui::detail::gWindow54ValuesCB01A4[scanIndex];\n        if (value >= 0) {\n            char buffer[16];\n            char escaped[16];\n            platform::FormatLegacyString_53B304(buffer, \"%d\", selection);\n            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));\n            const std::int32_t target = world::detail::gDialogTargetD2DE6C;\n            const std::int32_t request = world::detail::gDialogRequestCC21E0;\n            const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);\n            const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);\n            const auto socket = platform::gConnectionSocket;\n            static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));\n            static_cast<void>(audio::Sub_5042D0(gLegacySkillForgetPanel581EF0.id));\n        }\n    }\n    const auto drawAt = [](const char* const text, const std::int32_t offsetX,\n                           const std::int32_t offsetY) {\n        const std::int32_t top = gLegacySkillForgetPanel581EF0.y + offsetY;\n        const std::int32_t left = gLegacySkillForgetPanel581EF0.x + offsetX;\n        static_cast<void>(DrawText(static_cast<std::int16_t>(left),\n            static_cast<std::int16_t>(top), 2, 0, 0, text, 0, 0));\n    };\n    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();\n    const std::int32_t titleWidth = TextMeasure(lines[0].text.data(), 0);\n    drawAt(lines[0].text.data(), 288 - titleWidth / 2, 8);\n    for (std::int32_t index = 0; index < 5; ++index) {\n        drawAt(lines[index + 1].text.data(), 379, 58 + 16 * index);\n    }\n    drawAt(kLegacySkillForgetNotes588CA4, 406, 280);\n    drawAt(kLegacySkillForgetWarning588C94, 382, 310);\n    drawAt(kLegacySkillForgetNoRestore588C88, 382, 330);\n    drawAt(kLegacySkillForgetCareful588C7C, 382, 350);\n    drawAt(kLegacySkillForgetSelect588C68, 70, 100);\n    std::int32_t total = 0;\n    char text[256];\n    for (std::int32_t index = 0, rowOffset = 0; index < 15; ++index, rowOffset += 24) {\n        if (ui::detail::gWindow54ValuesCB01A4[index] < 0) {\n            continue;\n        }\n        total += ui::detail::gWindow54ValuesCB09D8[index];\n        drawAt(lines[index + 10].text.data(), 78, 145 + rowOffset);\n        platform::FormatLegacyString_53B304(text, \"%2d\", ui::detail::gWindow54ValuesCB01A4[index]);\n        drawAt(text, 245, 145 + rowOffset);\n        platform::FormatLegacyString_53B304(text, \"%d\", ui::detail::gWindow54ValuesCB09D8[index]);\n        drawAt(text, 292, 145 + rowOffset);\n        const std::int32_t imageY = gLegacySkillForgetPanel581EF0.y + rowOffset + 154;\n        const std::int32_t imageX = gLegacySkillForgetPanel581EF0.x + 176;\n        static_cast<void>(DrawGraphic(imageX, imageY, 212, 22703, 0, nullptr));\n        if (hovered == index) {\n            const std::int32_t hoverY = gLegacySkillForgetPanel581EF0.y + rowOffset + 142;\n            const std::uint32_t image = gValueD69768;\n            const std::int32_t hoverX = gLegacySkillForgetPanel581EF0.x + 47;\n            DrawGraphicHover(Low16(hoverX), Low16(hoverY), Low16(hoverX + 258), Low16(hoverY + 24),\n                214, image, 0);\n        }\n    }\n    platform::FormatLegacyString_53B304(text, kLegacySkillForgetTotal588C48, total);\n    drawAt(text, 14, 42);\n    static_cast<void>(character_select::detail::Sub_503A20(&cancel, 2, 0, 1, gValueD69768, 218));\n    const char* hint = nullptr;\n    if (Sub_503590(&gLegacySkillForgetPanel581EF0) != 0) {\n        hint = kLegacyLogout553FD0;\n    } else if ((character_select::detail::Sub_503990(&cancel) & 0x40) != 0) {\n        hint = kLegacySkillForgetCancelHint588C38;\n    }\n    if (hint != nullptr) {\n        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);\n    }\n    if (hovered >= 0 && ui::detail::gWindow54ValuesCB01A4[hovered] >= 0) {\n        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacySkillForgetRowHint588C28);\n    }\n    return Sub_503440(&gLegacySkillForgetPanel581EF0, 1);\n}\n\n"
+    },
+    {
+      "symbol": "Sub_4D7470",
+      "body": "std::uint32_t Sub_4D7470(const std::int32_t opened)\n{\n    const std::int32_t x = gLegacyPetSkillCatalogPanel581FB8.x;\n    const std::int32_t y = gLegacyPetSkillCatalogPanel581FB8.y;\n    LegacyPanelButtonRecord cancel {x + 465, y + 390, x + 425, y + 374, 80, 32, 23076, 23077};\n    LegacyPanelButtonRecord previous {x + 140, y + 52, x + 126, y + 40, 28, 24, 23022, 23026};\n    LegacyPanelButtonRecord next {x + 230, y + 52, x + 216, y + 40, 28, 24, 23023, 23027};\n    const std::int32_t state = Sub_503160(opened, &gLegacyPetSkillCatalogPanel581FB8,\n        +[] { static_cast<void>(Sub_4D7440()); }, 1);\n    if (state == 0) {\n        return 0;\n    }\n    if (state == 2) {\n        YobiAction* const action = gLegacyPetSkillCatalogActionD67C5C;\n        world::detail::gValue581800 = -1;\n        if (action != nullptr) {\n            static_cast<void>(MarkDeath(action));\n            gLegacyPetSkillCatalogActionD67C5C = nullptr;\n        }\n        return static_cast<std::uint32_t>(audio::PlaySe_52C450(57, 320));\n    }\n    YobiAction* const previewAction = gLegacyPetSkillCatalogActionD67C5C;\n    if (previewAction != nullptr) {\n        SetYobiActionFlag2(previewAction, false);\n    }\n    if (ui::detail::Sub_4D3040(2, 2) != 0) {\n        static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillCatalogPanel581FB8.id));\n        static_cast<void>(audio::PlaySe_52C450(57, 320));\n    }\n    std::int32_t hovered = -1;\n    for (std::int32_t row = 0; row < 8; ++row) {\n        if (gLegacyPetSkillCatalogCA0478[row + 8 * gLegacyPetSkillCatalogPageD45F74].used != 0\n            && Sub_5049A0(gLegacyPetSkillCatalogPanel581FB8.x + 18,\n                gLegacyPetSkillCatalogPanel581FB8.y + 84 + 32 * row,\n                gLegacyPetSkillCatalogPanel581FB8.x + 345,\n                gLegacyPetSkillCatalogPanel581FB8.y + 105 + 32 * row, -1) != 0) {\n            hovered = row;\n            break;\n        }\n    }\n    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1) != 0) {\n        const std::int32_t index = hovered + 8 * gLegacyPetSkillCatalogPageD45F74;\n        if (world::detail::ReadPlayerValueFC() < gLegacyPetSkillCatalogCA0478[index].price08) {\n            gLegacyPetSkillCatalogMessageD2E818 = 1;\n            static_cast<void>(audio::PlaySe_52C450(55, 320));\n        } else if (world::detail::gPetCountDE0B00 == 0) {\n            gLegacyPetSkillCatalogMessageD2E818 = 2;\n            static_cast<void>(audio::PlaySe_52C450(55, 320));\n        } else {\n            char buffer[16];\n            char escaped[16];\n            gLegacyPetSkillCatalogSelectionC8AF70 = hovered;\n            platform::FormatLegacyString_53B304(buffer, \"%d\", index);\n            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));\n            const std::int32_t target = world::detail::gDialogTargetD2DE6C;\n            const std::int32_t request = world::detail::gDialogRequestCC21E0;\n            const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);\n            const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);\n            const auto socket = platform::gConnectionSocket;\n            static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));\n            static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillCatalogPanel581FB8.id));\n            static_cast<void>(audio::PlaySe_52C450(57, 320));\n        }\n    } else if ((QueryPanelButtonState(&cancel) & 1) != 0) {\n        static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillCatalogPanel581FB8.id));\n    } else if ((QueryPanelButtonState(&previous) & 0x10) != 0) {\n        --gLegacyPetSkillCatalogPageD45F74;\n        if (gLegacyPetSkillCatalogPageD45F74 < 0) {\n            gLegacyPetSkillCatalogPageD45F74 = gLegacyPetSkillCatalogPageCountC8AF84 - 1;\n        }\n        static_cast<void>(audio::PlaySe_52C450(51, 320));\n    } else if ((QueryPanelButtonState(&next) & 0x10) != 0) {\n        ++gLegacyPetSkillCatalogPageD45F74;\n        if (gLegacyPetSkillCatalogPageD45F74 >= gLegacyPetSkillCatalogPageCountC8AF84) {\n            gLegacyPetSkillCatalogPageD45F74 = 0;\n        }\n        static_cast<void>(audio::PlaySe_52C450(51, 320));\n    }\n    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();\n    const std::int32_t titleWidth = TextMeasure(lines[0].text.data(), 0);\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 288 - titleWidth / 2),\n        static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 8),\n        2, 0, 0, lines[0].text.data(), 0, 0));\n    for (std::int32_t row = 0; row < 4; ++row) {\n        const char* const text = lines[1 + 4 * gLegacyPetSkillCatalogMessageD2E818 + row].text.data();\n        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 377),\n            static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 59 + 20 * row),\n            2, 0, 0, text, 0, 0));\n    }\n    char buffer[256];\n    platform::FormatLegacyString_53B304(buffer, \"%7d\", world::detail::ReadPlayerValueFC());\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 465),\n        static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 286), 2, 0, 0, buffer, 0, 0));\n    platform::FormatLegacyString_53B304(buffer, \"%d/%d\", gLegacyPetSkillCatalogPageD45F74 + 1, gLegacyPetSkillCatalogPageCountC8AF84);\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 172),\n        static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 44), 2, 0, 0, buffer, 0, 0));\n    for (std::int32_t row = 0; row < 8; ++row) {\n        const std::int32_t index = row + 8 * gLegacyPetSkillCatalogPageD45F74;\n        if (gLegacyPetSkillCatalogCA0478[index].used == 0) {\n            continue;\n        }\n        const std::int32_t nameWidth = TextMeasure(gLegacyPetSkillCatalogCA0478[index].text0C.data(), 0);\n        const char* const name = gLegacyPetSkillCatalogCA0478[row + 8 * gLegacyPetSkillCatalogPageD45F74].text0C.data();\n        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 97 - nameWidth / 2),\n            static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 86 + 32 * row), 2, 0, 0, name, 0, 0));\n        const std::int32_t value = gLegacyPetSkillCatalogCA0478[row + 8 * gLegacyPetSkillCatalogPageD45F74].value04;\n        platform::FormatLegacyString_53B304(buffer, \"%4d\", value);\n        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 203),\n            static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 88 + 32 * row), 2, 1, 0, buffer, 0, 0));\n        const std::int32_t page = gLegacyPetSkillCatalogPageD45F74;\n        const std::int32_t gold = world::detail::ReadPlayerValueFC();\n        const std::int32_t price = gLegacyPetSkillCatalogCA0478[row + 8 * page].price08;\n        const std::uint8_t color = gold >= price ? 0 : 6;\n        platform::FormatLegacyString_53B304(buffer, \"%7d\", price);\n        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 261),\n            static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 88 + 32 * row), 2, 1, color, buffer, 0, 0));\n    }\n    if (hovered >= 0) {\n        const std::int32_t top = gLegacyPetSkillCatalogPanel581FB8.y + 32 * hovered;\n        const std::uint32_t color = gValueD69768;\n        const std::int32_t left = gLegacyPetSkillCatalogPanel581FB8.x;\n        DrawGraphicHover(Low16(left + 18), Low16(top + 84), Low16(left + 345),\n            Low16(top + 105), 214, color, 0);\n        for (std::int32_t row = 0; row < 2; ++row) {\n            const char* const text = gLegacyPetSkillCatalogCA0478[\n                hovered + 8 * gLegacyPetSkillCatalogPageD45F74].text0C.data() + 25 + 29 * row;\n            static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 70),\n                static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 359 + 32 * row),\n                2, 0, 0, text, 0, 0));\n        }\n    }\n    Sub_5035E0(&cancel, 213, 1, gValueD69768, 0);\n    Sub_5035E0(&previous, 213, 1, gValueD69768, 0);\n    Sub_5035E0(&next, 213, 1, gValueD69768, 0);\n    const char* hint = nullptr;\n    if (Sub_503590(&gLegacyPetSkillCatalogPanel581FB8) != 0) {\n        hint = kLegacyLogout553FD0;\n    } else if ((QueryPanelButtonState(&cancel) & 0x40) != 0) {\n        hint = kLegacyPetSkillCatalogCancel588CD0;\n    } else if ((QueryPanelButtonState(&previous) & 0x40) != 0 || (QueryPanelButtonState(&next) & 0x40) != 0) {\n        hint = kLegacyRecipePage586D2C;\n    } else if (hovered >= 0) {\n        hint = kLegacyPetSkillCatalogLearn588268;\n    }\n    if (hint != nullptr) {\n        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);\n    }\n    return Sub_503440(&gLegacyPetSkillCatalogPanel581FB8, 1);\n}\n\n"
+    },
+    {
+      "symbol": "Sub_4D7C20",
+      "body": "std::uint32_t Sub_4D7C20(const std::int32_t opened)\n{\n    const std::int32_t x = gLegacyPetSkillPetPanel582080.x;\n    const std::int32_t y = gLegacyPetSkillPetPanel582080.y;\n    LegacyPanelButtonRecord cancel {x + 465, y + 390, x + 425, y + 374, 80, 32, 23076, 23077};\n    const std::int32_t state = Sub_503160(opened, &gLegacyPetSkillPetPanel582080,\n        +[] { static_cast<void>(Sub_4D7BF0()); }, 1);\n    if (state == 0) {\n        return 0;\n    }\n    if (state == 2) {\n        YobiAction* const action = gLegacyPetSkillPetActionD67C60;\n        world::detail::gValue581800 = -1;\n        if (action != nullptr) {\n            static_cast<void>(MarkDeath(action));\n            gLegacyPetSkillPetActionD67C60 = nullptr;\n        }\n        return static_cast<std::uint32_t>(audio::PlaySe_52C450(57, 320));\n    }\n    YobiAction* const previewAction = gLegacyPetSkillPetActionD67C60;\n    if (previewAction != nullptr) {\n        SetYobiActionFlag2(previewAction, false);\n    }\n    if (ui::detail::Sub_4D3040(2, 2) != 0) {\n        static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillPetPanel582080.id));\n        static_cast<void>(audio::PlaySe_52C450(57, 320));\n    }\n    std::int32_t hovered = -1;\n    for (std::int32_t row = 0; row < 5; ++row) {\n        const auto& option = ui::detail::gWindow54PetOptionsD67448[row];\n        if (option.allowed != 0 && option.used != 0\n            && Sub_5049A0(gLegacyPetSkillPetPanel582080.x + 70,\n                gLegacyPetSkillPetPanel582080.y + 131 + 40 * row,\n                gLegacyPetSkillPetPanel582080.x + 301,\n                gLegacyPetSkillPetPanel582080.y + 152 + 40 * row, -1) != 0) {\n            hovered = row;\n            break;\n        }\n    }\n    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1) != 0) {\n        char buffer[16];\n        char escaped[16];\n        platform::FormatLegacyString_53B304(buffer, \"%d\", hovered);\n        static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));\n        const std::int32_t target = world::detail::gDialogTargetD2DE6C;\n        const std::int32_t request = world::detail::gDialogRequestCC21E0;\n        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);\n        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);\n        const auto socket = platform::gConnectionSocket;\n        static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));\n        const std::uint32_t panelId = gLegacyPetSkillPetPanel582080.id;\n        gLegacyPetSkillPetSelectionC8A94C = hovered;\n        static_cast<void>(audio::Sub_5042D0(panelId));\n        static_cast<void>(audio::PlaySe_52C450(57, 320));\n    } else if ((QueryPanelButtonState(&cancel) & 1) != 0) {\n        const std::int32_t target = world::detail::gDialogTargetD2DE6C;\n        const std::int32_t request = world::detail::gDialogRequestCC21E0;\n        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);\n        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);\n        const auto socket = platform::gConnectionSocket;\n        static_cast<void>(network::Sub_512620(\n            socket, playerX, playerY, request, target, 2, input::LegacyText593850()));\n        static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillPetPanel582080.id));\n        static_cast<void>(audio::PlaySe_52C450(57, 320));\n    }\n    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();\n    const std::int32_t titleWidth = TextMeasure(lines[0].text.data(), 0);\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 288 - titleWidth / 2),\n        static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 8), 2, 0, 0, lines[0].text.data(), 0, 0));\n    const char* const measuredName = gLegacyPetSkillCatalogCA0478[\n        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].text0C.data();\n    const std::int32_t skillWidth = TextMeasure(measuredName, 0);\n    const char* const skillName = gLegacyPetSkillCatalogCA0478[\n        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].text0C.data();\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 96 - skillWidth / 2),\n        static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 44), 2, 0, 0, skillName, 0, 0));\n    char buffer[64];\n    const std::int32_t skillValue = gLegacyPetSkillCatalogCA0478[\n        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].value04;\n    platform::FormatLegacyString_53B304(buffer, \"%4d\", skillValue);\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 202),\n        static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 46), 2, 1, 0, buffer, 0, 0));\n    const std::int32_t price = gLegacyPetSkillCatalogCA0478[\n        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].price08;\n    platform::FormatLegacyString_53B304(buffer, \"%7d\", price);\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 260),\n        static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 46), 2, 0, 0, buffer, 0, 0));\n    for (std::int32_t row = 0; row < 5; ++row) {\n        const auto& option = ui::detail::gWindow54PetOptionsD67448[row];\n        if (option.used == 0) {\n            continue;\n        }\n        const std::uint8_t color = option.allowed != 0 ? 0 : 7;\n        const std::int32_t width = TextMeasure(option.name.data(), 0);\n        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 147 - width / 2),\n            static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 133 + 40 * row),\n            2, 0, color, option.name.data(), 0, 0));\n        platform::FormatLegacyString_53B304(buffer, \"%3d\", option.value04);\n        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 272),\n            static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 135 + 40 * row), 2, 1, color, buffer, 0, 0));\n    }\n    for (std::int32_t row = 0; row < 4; ++row) {\n        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 377),\n            static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 59 + 20 * row),\n            2, 0, 0, lines[row + 1].text.data(), 0, 0));\n    }\n    platform::FormatLegacyString_53B304(buffer, \"%7d\", world::detail::ReadPlayerValueFC());\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 465),\n        static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 286), 2, 0, 0, buffer, 0, 0));\n    if (hovered >= 0) {\n        const std::int32_t top = gLegacyPetSkillPetPanel582080.y + 40 * hovered;\n        const std::uint32_t color = gValueD69768;\n        const std::int32_t left = gLegacyPetSkillPetPanel582080.x;\n        DrawGraphicHover(Low16(left + 70), Low16(top + 131), Low16(left + 301), Low16(top + 152), 214, color, 0);\n    }\n    Sub_5035E0(&cancel, 213, 1, gValueD69768, 0);\n    const char* hint = nullptr;\n    if (Sub_503590(&gLegacyPetSkillPetPanel582080) != 0) {\n        hint = kLegacyLogout553FD0;\n    } else if ((QueryPanelButtonState(&cancel) & 0x40) != 0) {\n        hint = kLegacyPetSkillPetCancel588CE8;\n    } else if (hovered >= 0) {\n        hint = kLegacyPetSkillCatalogLearn588268;\n    }\n    if (hint != nullptr) {\n        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);\n    }\n    return Sub_503440(&gLegacyPetSkillPetPanel582080, 1);\n}\n\n"
+    },
+    {
+      "symbol": "Sub_4D8230",
+      "body": "std::uint32_t Sub_4D8230(const std::int32_t opened)\n{\n    const std::int32_t x = gLegacyPetSkillSlotsPanel582148.x;\n    const std::int32_t y = gLegacyPetSkillSlotsPanel582148.y;\n    LegacyPanelButtonRecord cancel {x + 465, y + 390, x + 425, y + 374, 80, 32, 23076, 23077};\n    const std::int32_t state = Sub_503160(opened, &gLegacyPetSkillSlotsPanel582148,\n        +[] { static_cast<void>(Sub_4D8200()); }, 1);\n    if (state == 0) {\n        return 0;\n    }\n    if (state == 2) {\n        if (audio::Sub_504410(61) == 0) {\n            world::detail::gValue581800 = -1;\n        }\n        if (gLegacyPetSkillSlotsActionD67C64 != nullptr) {\n            static_cast<void>(MarkDeath(gLegacyPetSkillSlotsActionD67C64));\n            gLegacyPetSkillSlotsActionD67C64 = nullptr;\n        }\n        return static_cast<std::uint32_t>(audio::PlaySe_52C450(57, 320));\n    }\n    YobiAction* const previewAction = gLegacyPetSkillSlotsActionD67C64;\n    if (previewAction != nullptr) {\n        SetYobiActionFlag2(previewAction, false);\n    }\n    if (ui::detail::Sub_4D3040(2, 2) != 0) {\n        static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillSlotsPanel582148.id));\n        static_cast<void>(audio::PlaySe_52C450(57, 320));\n    }\n    std::int32_t selected = gLegacyPetSkillPetSelectionC8A94C;\n    std::int32_t hovered = -1;\n    for (std::int32_t row = 0; row < 10; ++row) {\n        if (ui::detail::gWindow54PetOptionsD67448[selected].slots <= row) {\n            continue;\n        }\n        if (Sub_5049A0(gLegacyPetSkillSlotsPanel582148.x + 60,\n                gLegacyPetSkillSlotsPanel582148.y + 116 + 24 * row,\n                gLegacyPetSkillSlotsPanel582148.x + 302,\n                gLegacyPetSkillSlotsPanel582148.y + 136 + 24 * row, -1) != 0) {\n            hovered = row;\n            break;\n        }\n        selected = gLegacyPetSkillPetSelectionC8A94C;\n    }\n    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1) != 0) {\n        gLegacyPetSkillSlotCF4B64 = hovered;\n        static_cast<void>(audio::Sub_504180(61));\n        static_cast<void>(audio::PlaySe_52C450(79, 320));\n    } else if ((QueryPanelButtonState(&cancel) & 1) != 0) {\n        const std::int32_t target = world::detail::gDialogTargetD2DE6C;\n        const std::int32_t request = world::detail::gDialogRequestCC21E0;\n        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);\n        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);\n        const auto socket = platform::gConnectionSocket;\n        static_cast<void>(network::Sub_512620(\n            socket, playerX, playerY, request, target, 2, input::LegacyText593850()));\n        static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillSlotsPanel582148.id));\n        static_cast<void>(audio::PlaySe_52C450(57, 320));\n    }\n    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();\n    const std::int32_t titleWidth = TextMeasure(lines[0].text.data(), 0);\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 288 - titleWidth / 2),\n        static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 8), 2, 0, 0, lines[0].text.data(), 0, 0));\n    const char* const measuredName = gLegacyPetSkillCatalogCA0478[\n        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].text0C.data();\n    const std::int32_t skillWidth = TextMeasure(measuredName, 0);\n    const char* const skillName = gLegacyPetSkillCatalogCA0478[\n        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].text0C.data();\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 96 - skillWidth / 2),\n        static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 44), 2, 0, 0, skillName, 0, 0));\n    char buffer[64];\n    const std::int32_t skillValue = gLegacyPetSkillCatalogCA0478[\n        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].value04;\n    platform::FormatLegacyString_53B304(buffer, \"%4d\", skillValue);\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 202),\n        static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 46), 2, 1, 0, buffer, 0, 0));\n    const std::int32_t price = gLegacyPetSkillCatalogCA0478[\n        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].price08;\n    platform::FormatLegacyString_53B304(buffer, \"%7d\", price);\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 260),\n        static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 46), 2, 0, 0, buffer, 0, 0));\n    const std::int32_t petWidth = TextMeasure(\n        ui::detail::gWindow54PetOptionsD67448[gLegacyPetSkillPetSelectionC8A94C].name.data(), 0);\n    const char* const petName = ui::detail::gWindow54PetOptionsD67448[gLegacyPetSkillPetSelectionC8A94C].name.data();\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 142 - petWidth / 2),\n        static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 81), 2, 0, 0, petName, 0, 0));\n    platform::FormatLegacyString_53B304(buffer, \"%3d\", ui::detail::gWindow54PetOptionsD67448[gLegacyPetSkillPetSelectionC8A94C].value04);\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 267),\n        static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 83), 2, 1, 0, buffer, 0, 0));\n    for (std::int32_t row = 0; row < 10; ++row) {\n        const auto& slot = ui::detail::gWindow54TechniqueSlotsD66E38[row];\n        if (slot.used != 0) {\n            const std::int32_t width = TextMeasure(slot.name.data(), 0);\n            static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 156 - width / 2),\n                static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 118 + 24 * row),\n                2, 0, 0, slot.name.data(), 0, 0));\n            platform::FormatLegacyString_53B304(buffer, \"%4d\", slot.value04);\n            static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 260),\n                static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 120 + 24 * row), 2, 1, 0, buffer, 0, 0));\n        }\n        if (ui::detail::gWindow54PetOptionsD67448[gLegacyPetSkillPetSelectionC8A94C].slots > row) {\n            static_cast<void>(DrawGraphic(gLegacyPetSkillSlotsPanel582148.x + 181,\n                gLegacyPetSkillSlotsPanel582148.y + 126 + 24 * row, 213, 23093, 0, nullptr));\n        }\n    }\n    for (std::int32_t row = 0; row < 4; ++row) {\n        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 377),\n            static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 59 + 20 * row),\n            2, 0, 0, lines[row + 1].text.data(), 0, 0));\n    }\n    if (hovered >= 0) {\n        const std::int32_t top = gLegacyPetSkillSlotsPanel582148.y + 24 * hovered;\n        const std::uint32_t color = gValueD69768;\n        const std::int32_t left = gLegacyPetSkillSlotsPanel582148.x;\n        DrawGraphicHover(Low16(left + 60), Low16(top + 116), Low16(left + 302), Low16(top + 136), 214, color, 0);\n        const auto& slot = ui::detail::gWindow54TechniqueSlotsD66E38[hovered];\n        for (std::int32_t row = 0; row < 2; ++row) {\n            static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 69),\n                static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 369 + 20 * row),\n                2, 0, 0, slot.description[row].data(), 0, 0));\n        }\n    }\n    platform::FormatLegacyString_53B304(buffer, \"%7d\", world::detail::ReadPlayerValueFC());\n    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 465),\n        static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 286), 2, 0, 0, buffer, 0, 0));\n    Sub_5035E0(&cancel, 213, 1, gValueD69768, 0);\n    const char* hint = nullptr;\n    if (Sub_503590(&gLegacyPetSkillSlotsPanel582148) != 0) {\n        hint = kLegacyLogout553FD0;\n    } else if ((QueryPanelButtonState(&cancel) & 0x40) != 0) {\n        hint = kLegacyPetSkillPetCancel588CE8;\n    } else if (hovered >= 0) {\n        hint = kLegacyPetSkillSlotHint588D00;\n    }\n    if (hint != nullptr) {\n        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);\n    }\n    return Sub_503440(&gLegacyPetSkillSlotsPanel582148, 1);\n}\n\n"
+    }
+  ],
+  "records_before": [
+    {
+      "index": 770,
+      "record": {
+        "original_entry": "0x4D6710",
+        "inventory_id": "F:000D6710",
+        "status": "既有旧技能父的全部格式已接真实核心；旧表路由/完整收发及画面运行未验",
+        "original_end_exclusive": "0x4D6A26",
+        "instruction_count": 229,
+        "original_direct_reference_count": 0,
+        "sources": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbols": [
+              "Sub_4D6710"
+            ]
+          }
+        ],
+        "inbound_evidence": [],
+        "business_call_connections": [
+          {
+            "parent_entry": "0x4D6710",
+            "call_site": "0x4D686B",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D6710",
+            "target_entry": "0x53B304",
+            "target_symbol": "FormatLegacyString_53B304"
+          }
+        ],
+        "business_source_expression_count": 1,
+        "business_byte_evidence": [
+          {
+            "address": "0x5531A4",
+            "push_sites": [
+              "0x4D6865"
+            ],
+            "bytes": "256400"
+          }
+        ],
+        "business_value_evidence": [
+          {
+            "parameter": "S32 index+1",
+            "contract": "旧55仅点击0/1按钮时格式选择1/2；第三按钮不回传，16B两局部/转义容量15"
+          }
+        ],
+        "business_consumer_connections": [
+          {
+            "call_site": "0x4D687C",
+            "format_call_site": "0x4D686B",
+            "target_entry": "0x52D2D0",
+            "target_symbol": "EscapeLegacyTextAndNotify_52D2D0",
+            "relationship": "原格式后立即转义至另一16B局部，容量15；不新增清零或转码"
+          },
+          {
+            "call_site": "0x4D68B5",
+            "format_call_site": "0x4D686B",
+            "target_entry": "0x512620",
+            "target_symbol": "Sub_512620",
+            "relationship": "转义后按target/request/Y/X/socket取样以mode0发送；原返回消费/关闭时点保持，包加解密排除不改"
+          }
+        ],
+        "native_reference": "原401EA0仅单条jmp401EC0，既有Read_401EC0直接适配保持；每次回传Y后X各读一次，不新增RNG消费。",
+        "evidence_documents": [
+          "doc/cg2d_stdio_contract.md",
+          "doc/ui_windows/legacy_skill_choice.md"
+        ],
+        "verification_level": "父边界/229条统计/当前无直接或数据引用，格式相邻53条取证，全部格式/原字节/S32参数/转义回传及显示消费者、整份源码三父仅九标识符替换/文档追加/JSON限定差异静态核对；不重验其余父或消费者内部，未执行",
+        "boundary": "旧55唯一%d选择回传接真实53B304，S32 index+1/16B两局部/容量15保持，第三按钮仍不发送；原查询/预览/关闭/文字/按钮/提示/指针及W32返回正文逐字保持。 保留现有唯一预览/文本/表owner，不转码、清尾、补零、限长、钳制或新增异常保护；当前原入口无引用证据不判死代码，旧正文/独立图号衔接/旧表实际路由与生命周期/收发/画面仍未闭合，不记整个界面已验收。"
+      }
+    },
+    {
+      "index": 771,
+      "record": {
+        "original_entry": "0x4D6A60",
+        "inventory_id": "F:000D6A60",
+        "status": "既有旧技能父的全部格式已接真实核心；旧表路由/完整收发及画面运行未验",
+        "original_end_exclusive": "0x4D6E6A",
+        "instruction_count": 314,
+        "original_direct_reference_count": 0,
+        "sources": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbols": [
+              "Sub_4D6A60"
+            ]
+          }
+        ],
+        "inbound_evidence": [],
+        "business_call_connections": [
+          {
+            "parent_entry": "0x4D6A60",
+            "call_site": "0x4D6B7F",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D6A60",
+            "target_entry": "0x53B304",
+            "target_symbol": "FormatLegacyString_53B304"
+          },
+          {
+            "parent_entry": "0x4D6A60",
+            "call_site": "0x4D6C8E",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D6A60",
+            "target_entry": "0x53B304",
+            "target_symbol": "FormatLegacyString_53B304"
+          },
+          {
+            "parent_entry": "0x4D6A60",
+            "call_site": "0x4D6D7B",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D6A60",
+            "target_entry": "0x53B304",
+            "target_symbol": "FormatLegacyString_53B304"
+          },
+          {
+            "parent_entry": "0x4D6A60",
+            "call_site": "0x4D6DBE",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D6A60",
+            "target_entry": "0x53B304",
+            "target_symbol": "FormatLegacyString_53B304"
+          }
+        ],
+        "business_source_expression_count": 4,
+        "business_byte_evidence": [
+          {
+            "address": "0x5531A4",
+            "push_sites": [
+              "0x4D6B79"
+            ],
+            "bytes": "256400"
+          },
+          {
+            "address": "0x5889A8",
+            "push_sites": [
+              "0x4D6C88"
+            ],
+            "bytes": "25376400"
+          },
+          {
+            "address": "0x588C00",
+            "push_sites": [
+              "0x4D6D75"
+            ],
+            "bytes": "a8cfa5cea7deafe0c4e6a6ecbcc6a147256420c4e600"
+          },
+          {
+            "address": "0x588BEC",
+            "push_sites": [
+              "0x4D6DB8"
+            ],
+            "bytes": "bec7b2dfb64fa5cea147256420aaf7b9f400"
+          }
+        ],
+        "business_value_evidence": [
+          {
+            "parameter": "S32 index+1",
+            "contract": "两个按钮均独立格式并转义/发送，保留关闭后仍扫描"
+          },
+          {
+            "read_site": "0x4D6C7E",
+            "parameter": "gPlayerDataVal.gold/S32",
+            "contract": "格式前采样一次，原%7d最小宽度与64B未清text"
+          },
+          {
+            "read_site": "0x4D6D6A",
+            "address": "0xCC2E68",
+            "parameter": "S32 slots",
+            "contract": "原旧编码%d格式及读点保持"
+          },
+          {
+            "read_site": "0x4D6DAB",
+            "address": "0xCF4A3C",
+            "parameter": "S32 cost",
+            "contract": "紧接上次绘制后重读，再格式/绘制"
+          }
+        ],
+        "business_consumer_connections": [
+          {
+            "call_site": "0x4D6B90",
+            "format_call_site": "0x4D6B7F",
+            "target_entry": "0x52D2D0",
+            "target_symbol": "EscapeLegacyTextAndNotify_52D2D0",
+            "relationship": "原格式后立即转义至另一16B局部，容量15；不新增清零或转码"
+          },
+          {
+            "call_site": "0x4D6BC9",
+            "format_call_site": "0x4D6B7F",
+            "target_entry": "0x512620",
+            "target_symbol": "Sub_512620",
+            "relationship": "转义后按target/request/Y/X/socket取样以mode0发送；原返回消费/关闭时点保持，包加解密排除不改"
+          },
+          {
+            "call_site": "0x4D6CBA",
+            "format_call_site": "0x4D6C8E",
+            "target_entry": "0x456780",
+            "target_symbol": "DrawText_456780",
+            "relationship": "即时消费同一未清text；原坐标/mode2/font0/color0/末两参数0及其间其他绘制保持"
+          },
+          {
+            "call_site": "0x4D6DA6",
+            "format_call_site": "0x4D6D7B",
+            "target_entry": "0x456780",
+            "target_symbol": "DrawText_456780",
+            "relationship": "即时消费同一未清text；原坐标/mode2/font0/color0/末两参数0及其间其他绘制保持"
+          },
+          {
+            "call_site": "0x4D6DE7",
+            "format_call_site": "0x4D6DBE",
+            "target_entry": "0x456780",
+            "target_symbol": "DrawText_456780",
+            "relationship": "即时消费同一未清text；原坐标/mode2/font0/color0/末两参数0及其间其他绘制保持"
+          }
+        ],
+        "native_reference": "原401EA0仅单条jmp401EC0，既有Read_401EC0直接适配保持；每次回传Y后X各读一次，不新增RNG消费。",
+        "evidence_documents": [
+          "doc/cg2d_stdio_contract.md",
+          "doc/ui_windows/legacy_skill_learning.md"
+        ],
+        "verification_level": "父边界/314条统计/当前无直接或数据引用，格式相邻180条取证，全部格式/原字节/S32参数/转义回传及显示消费者、整份源码三父仅九标识符替换/文档追加/JSON限定差异静态核对；不重验其余父或消费者内部，未执行",
+        "boundary": "旧56四格式（选择、gold、slots、cost）均接真实53B304；16B回传与64B三显示、四S32参数、两个旧字节数组及即时文字入队次序保持，第二按钮仍发送，不增资格或金额门禁；其他正文逐字保持。 保留现有唯一预览/文本/表owner，不转码、清尾、补零、限长、钳制或新增异常保护；当前原入口无引用证据不判死代码，旧正文/独立图号衔接/旧表实际路由与生命周期/收发/画面仍未闭合，不记整个界面已验收。"
+      }
+    },
+    {
+      "index": 772,
+      "record": {
+        "original_entry": "0x4D6EA0",
+        "inventory_id": "F:000D6EA0",
+        "status": "既有旧技能父的全部格式已接真实核心；旧表路由/完整收发及画面运行未验",
+        "original_end_exclusive": "0x4D743C",
+        "instruction_count": 438,
+        "original_direct_reference_count": 0,
+        "sources": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbols": [
+              "Sub_4D6EA0"
+            ]
+          }
+        ],
+        "inbound_evidence": [],
+        "business_call_connections": [
+          {
+            "parent_entry": "0x4D6EA0",
+            "call_site": "0x4D702C",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D6EA0",
+            "target_entry": "0x53B304",
+            "target_symbol": "FormatLegacyString_53B304"
+          },
+          {
+            "parent_entry": "0x4D6EA0",
+            "call_site": "0x4D723A",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D6EA0",
+            "target_entry": "0x53B304",
+            "target_symbol": "FormatLegacyString_53B304"
+          },
+          {
+            "parent_entry": "0x4D6EA0",
+            "call_site": "0x4D7283",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D6EA0",
+            "target_entry": "0x53B304",
+            "target_symbol": "FormatLegacyString_53B304"
+          },
+          {
+            "parent_entry": "0x4D6EA0",
+            "call_site": "0x4D7351",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D6EA0",
+            "target_entry": "0x53B304",
+            "target_symbol": "FormatLegacyString_53B304"
+          }
+        ],
+        "business_source_expression_count": 4,
+        "business_byte_evidence": [
+          {
+            "address": "0x5531A4",
+            "push_sites": [
+              "0x4D7026",
+              "0x4D727D"
+            ],
+            "bytes": "256400"
+          },
+          {
+            "address": "0x553FB4",
+            "push_sites": [
+              "0x4D7234"
+            ],
+            "bytes": "25326400"
+          },
+          {
+            "address": "0x588C48",
+            "push_sites": [
+              "0x4D734B"
+            ],
+            "bytes": "b27ba662a7deafe0c4e6a8cfa5ceb671aabaa658ad70a1472532642f313000"
+          }
+        ],
+        "business_value_evidence": [
+          {
+            "read_site": "0x4D7018",
+            "parameter": "S32 selection与许可",
+            "contract": "非零选择后检查扫描索引许可，原扫描15恰读CB01E0的已证窄边界继续借现有页号；99取消不自动许可"
+          },
+          {
+            "read_site": "0x4D7225",
+            "address": "0xCB01A4",
+            "parameter": "S32 row value",
+            "contract": "十五行先4D71DF/4D71E6检查负值，合法行名字绘制后重新读取第一数值"
+          },
+          {
+            "read_site": "0x4D726E",
+            "address": "0xCB09D8",
+            "parameter": "S32 row slots",
+            "contract": "第一数值绘制后重新读取第二数值；原4D71EE/4D71FE先采样/累计，不能合并成同次读取"
+          },
+          {
+            "read_site": "0x4D7346",
+            "parameter": "S32 total",
+            "contract": "所有合法行原W32累加后才在循环外%2d/10显示，不钳制或增加容量许可"
+          }
+        ],
+        "business_consumer_connections": [
+          {
+            "call_site": "0x4D703D",
+            "format_call_site": "0x4D702C",
+            "target_entry": "0x52D2D0",
+            "target_symbol": "EscapeLegacyTextAndNotify_52D2D0",
+            "relationship": "原格式后立即转义至另一16B局部，容量15；不新增清零或转码"
+          },
+          {
+            "call_site": "0x4D7075",
+            "format_call_site": "0x4D702C",
+            "target_entry": "0x512620",
+            "target_symbol": "Sub_512620",
+            "relationship": "转义后按target/request/Y/X/socket取样以mode0发送；原返回消费/关闭时点保持，包加解密排除不改"
+          },
+          {
+            "call_site": "0x4D7269",
+            "format_call_site": "0x4D723A",
+            "target_entry": "0x456780",
+            "target_symbol": "DrawText_456780",
+            "relationship": "即时消费同一未清text；原坐标/mode2/font0/color0/末两参数0及其间其他绘制保持"
+          },
+          {
+            "call_site": "0x4D72B2",
+            "format_call_site": "0x4D7283",
+            "target_entry": "0x456780",
+            "target_symbol": "DrawText_456780",
+            "relationship": "即时消费同一未清text；原坐标/mode2/font0/color0/末两参数0及其间其他绘制保持"
+          },
+          {
+            "call_site": "0x4D7378",
+            "format_call_site": "0x4D7351",
+            "target_entry": "0x456780",
+            "target_symbol": "DrawText_456780",
+            "relationship": "即时消费同一未清text；原坐标/mode2/font0/color0/末两参数0及其间其他绘制保持"
+          }
+        ],
+        "native_reference": "原401EA0仅单条jmp401EC0，既有Read_401EC0直接适配保持；每次回传Y后X各读一次，不新增RNG消费。",
+        "evidence_documents": [
+          "doc/cg2d_stdio_contract.md",
+          "doc/ui_windows/legacy_skill_forgetting.md"
+        ],
+        "verification_level": "父边界/438条统计/当前无直接或数据引用，格式相邻180条及额外8条循环指令取证，全部格式/原字节/S32参数/转义回传及显示消费者、整份源码三父仅九标识符替换/文档追加/JSON限定差异静态核对；不重验其余父或消费者内部，未执行",
+        "boundary": "旧57四格式（选择、两逐行值、合计）均接真实53B304；16B回传与256B逐行/合计显示、S32参数及十五轮合法行先累计/名字/重读两值各自格式及绘制/图形次序保持，原99取消/CB01E0窄边界许可不改；其他正文逐字保持。 保留现有唯一预览/文本/表owner，不转码、清尾、补零、限长、钳制或新增异常保护；当前原入口无引用证据不判死代码，旧正文/独立图号衔接/旧表实际路由与生命周期/收发/画面仍未闭合，不记整个界面已验收。"
+      }
+    },
+    {
+      "index": 1007,
+      "record": {
+        "original_entry": "0x4D7470",
+        "inventory_id": "F:000D7470",
+        "status": "旧目录五格式已接；图号/页数装载存储已实现，CA0478容量/生产、标量生产/路由与验收未闭合",
+        "original_end_exclusive": "0x4D7BEA",
+        "instruction_count": 570,
+        "sources": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbols": [
+              "Sub_4D7470"
+            ],
+            "relationship": "仅五格式接口改变，其他正文保持，不补目录数据或注册"
+          },
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbols": [
+              "gLegacyPetSkillCatalogImageCC3E64",
+              "gLegacyPetSkillCatalogPageCountC8AF84"
+            ],
+            "relationship": "真实PE装载S32存储；既有消费直接借同一槽，运行时生产仍待"
+          }
+        ],
+        "evidence_documents": [
+          "doc/ui_windows/legacy_pet_skill_catalog.md",
+          "doc/cg2d_stdio_contract.md",
+          "doc/cg2d_pe_zero_initialization_evidence.json"
+        ],
+        "boundary": "只替换五处原格式接口，保留绝对发送索引与相对选择发布差异、16B/16B/cap15及读序、256B共用显示、每行96B/U16门槛/+4值/+8费用S32、各次新页号/金额/价格与格式后布局。原失败/翻页/预览/关闭/SE返回/完整尾返回保持；CA0478容量与生产、CC3E64图号、C8AF84页数仍仅外部声明，D45F74既有定义不再报缺，旧路由/运行未闭合。；2026-10-04依据PE.data载入填零尾证据建立已消费S32槽真实唯一存储；仅装载初值0，不添加运行时复位/补值/生产，未定数组继续extern，既有全部正文/读取/发送及后续重读保持。",
+        "original_incoming": [],
+        "original_data_references": [],
+        "business_call_connections": [
+          {
+            "parent_entry": "0x4D7470",
+            "call_site": "0x4D76EF",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D7470"
+          },
+          {
+            "parent_entry": "0x4D7470",
+            "call_site": "0x4D7861",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D7470"
+          },
+          {
+            "parent_entry": "0x4D7470",
+            "call_site": "0x4D78AF",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D7470"
+          },
+          {
+            "parent_entry": "0x4D7470",
+            "call_site": "0x4D7973",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D7470"
+          },
+          {
+            "parent_entry": "0x4D7470",
+            "call_site": "0x4D79DB",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D7470"
+          }
+        ],
+        "business_format_points": [
+          {
+            "parent_entry": "0x4D7470",
+            "target_entry": "0x53B304",
+            "source_format_symbol": "Sub_4D7470",
+            "destination_expression": "buffer",
+            "call_site": "0x4D76EF",
+            "format_address": "0x5531A4",
+            "format_bytes": "256400",
+            "argument_widths": [
+              "S32"
+            ],
+            "source_format_expression": "\"%d\"",
+            "source_expression": "index",
+            "destination_capacity": 16,
+            "consumer_expression": "escaped",
+            "consumer_capacity": 16,
+            "escape_capacity": 15,
+            "condition_expression": "hover>=0/左键，原金额足够且宠物数非零",
+            "relationship": "先固定当前页形成绝对index，发布相对hovered到C8AF70后才格式化绝对index；未清16B→另一未清16B转义/cap15→target/request/Y/X/socket→512620(mode0)，弃返回→关闭/SE57后共同绘制，不补成功门禁"
+          },
+          {
+            "parent_entry": "0x4D7470",
+            "target_entry": "0x53B304",
+            "source_format_symbol": "Sub_4D7470",
+            "destination_expression": "buffer",
+            "call_site": "0x4D7861",
+            "format_address": "0x5889A8",
+            "format_bytes": "25376400",
+            "argument_widths": [
+              "S32"
+            ],
+            "source_format_expression": "\"%7d\"",
+            "source_expression": "world::detail::ReadPlayerValueFC()",
+            "destination_capacity": 256,
+            "original_value_read_order": [
+              "0x4D784D"
+            ],
+            "original_unconsumed_variadic_register_push": {
+              "site": "0x4D7852",
+              "register": "EBP",
+              "width": "W32",
+              "relationship": "原预先压一EBP值，只有%d指令消费其后压入的真实gold值；本步保持既有源的一消费参数，不制造额外值"
+            },
+            "consumer_expression": "DrawText/X+465,Y+286/layer2,font0,color0",
+            "relationship": "四条错误说明绘制后独立读真实gold S32，%7d写共用未清256B，格式后Y→X绘金额，之后才取页号/页数"
+          },
+          {
+            "parent_entry": "0x4D7470",
+            "target_entry": "0x53B304",
+            "source_format_symbol": "Sub_4D7470",
+            "destination_expression": "buffer",
+            "call_site": "0x4D78AF",
+            "format_address": "0x586D48",
+            "format_bytes": "25642f256400",
+            "argument_widths": [
+              "S32",
+              "S32"
+            ],
+            "source_format_expression": "\"%d/%d\"",
+            "source_expression": "gLegacyPetSkillCatalogPageD45F74 + 1, gLegacyPetSkillCatalogPageCountC8AF84",
+            "destination_capacity": 256,
+            "original_value_read_order": [
+              "0x4D7891",
+              "0x4D7896"
+            ],
+            "consumer_expression": "DrawText/X+172,Y+44/layer2,font0,color0",
+            "relationship": "金额绘制后读同源D45F74页号→未定义外部C8AF84页数，参数页号+1/页数两S32写同256B；不补页数/除零保护，格式后重取Y→X画页码"
+          },
+          {
+            "parent_entry": "0x4D7470",
+            "target_entry": "0x53B304",
+            "source_format_symbol": "Sub_4D7470",
+            "destination_expression": "buffer",
+            "call_site": "0x4D7973",
+            "format_address": "0x553FDC",
+            "format_bytes": "25346400",
+            "argument_widths": [
+              "S32"
+            ],
+            "source_format_expression": "\"%4d\"",
+            "source_expression": "value",
+            "destination_capacity": 256,
+            "original_value_read_order": [
+              "0x4D794D",
+              "0x4D7966"
+            ],
+            "original_record_stride": 96,
+            "original_field_offset": 4,
+            "condition_expression": "八行原U16 used非零",
+            "consumer_expression": "DrawText/X+203,Y+88+32*row/layer2,font1,color0",
+            "relationship": "同源96B目录记录名称测宽后重取名称并完成绘制，之后再次重读D45F74，再读该行+4 S32 value格式化；格式后Y→X绘font1数值，不建立值/页号副本"
+          },
+          {
+            "parent_entry": "0x4D7470",
+            "target_entry": "0x53B304",
+            "source_format_symbol": "Sub_4D7470",
+            "destination_expression": "buffer",
+            "call_site": "0x4D79DB",
+            "format_address": "0x5889A8",
+            "format_bytes": "25376400",
+            "argument_widths": [
+              "S32"
+            ],
+            "source_format_expression": "\"%7d\"",
+            "source_expression": "price",
+            "destination_capacity": 256,
+            "original_value_read_order": [
+              "0x4D79A2",
+              "0x4D79A8",
+              "0x4D79BC"
+            ],
+            "original_record_stride": 96,
+            "original_field_offset": 8,
+            "condition_expression": "八行原U16 used非零",
+            "consumer_expression": "DrawText/X+261,Y+88+32*row/layer2,font1,color0或6",
+            "relationship": "value绘制后重读页号→真实金额→96B记录+8费用S32，先按S32金额>=费用形成U8颜色0/6，再fmt费用到同256B，格式后Y→X绘font1费用；保持每有效行独立金额读取，不统一缓存"
+          }
+        ],
+        "verification_level": "本步只读194/570新格式邻窗，余376沿既有父合同；四种原格式沿既有字节，5889A8 %7d地址按原push立即数核对。整份源仅五标识符、原宽度/容量/读序/返回、JSON增量及文档末追加/编码/差异静态核对通过。无构建/测试/运行/hash；目录三项生产/定义缺口、原父/旧路由与验收未闭合。；本步只核完整4B载入范围/唯一定义/实际消费者及限定增量，旧本体不复检，未构建/测试/运行/hash",
+        "loader_scalar_bindings": [
+          {
+            "original_address": "0xCC3E64",
+            "symbol": "gLegacyPetSkillCatalogImageCC3E64",
+            "consumers": [
+              "Sub_4D7440",
+              "Sub_4D7BF0",
+              "Sub_4D8200"
+            ],
+            "meaning": "宠物技能目录图号",
+            "source": "src/LegacyUiRecord.cpp",
+            "declaration": "src/LegacyPanelRuntime.hpp",
+            "type": "std::int32_t",
+            "original_consumed_bytes": 4,
+            "native_bytes": 4,
+            "initial_value": 0,
+            "original_loaded_query": {
+              "address": "0xcc3e64",
+              "consumed_bytes": 4,
+              "loaded_bytes": [
+                false,
+                false,
+                false,
+                false
+              ],
+              "segment": {
+                "name": ".data",
+                "start": "0x553000",
+                "end": "0x1088000"
+              }
+            },
+            "initialization_evidence": "PE.data zero_tail [0x593000,0x1087B08)，槽完整4B在尾内；不是根据IDA未加载值猜零",
+            "runtime_production": "仍待定位；本步不增加开页/网络/初始化写入或复位"
+          },
+          {
+            "original_address": "0xC8AF84",
+            "symbol": "gLegacyPetSkillCatalogPageCountC8AF84",
+            "consumers": [
+              "Sub_4D7470"
+            ],
+            "meaning": "宠物技能目录页数",
+            "source": "src/LegacyUiRecord.cpp",
+            "declaration": "src/LegacyPanelRuntime.hpp",
+            "type": "std::int32_t",
+            "original_consumed_bytes": 4,
+            "native_bytes": 4,
+            "initial_value": 0,
+            "original_loaded_query": {
+              "address": "0xc8af84",
+              "consumed_bytes": 4,
+              "loaded_bytes": [
+                false,
+                false,
+                false,
+                false
+              ],
+              "segment": {
+                "name": ".data",
+                "start": "0x553000",
+                "end": "0x1088000"
+              }
+            },
+            "initialization_evidence": "PE.data zero_tail [0x593000,0x1087B08)，槽完整4B在尾内；不是根据IDA未加载值猜零",
+            "runtime_production": "仍待定位；本步不增加开页/网络/初始化写入或复位"
+          }
+        ]
+      }
+    },
+    {
+      "index": 1008,
+      "record": {
+        "original_entry": "0x4D7C20",
+        "inventory_id": "F:000D7C20",
+        "status": "旧候选宠物页五格式已接；初始化图号装载存储已实现，目录/标量生产、路由与验收未闭合",
+        "original_end_exclusive": "0x4D8200",
+        "instruction_count": 454,
+        "sources": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbols": [
+              "Sub_4D7C20"
+            ],
+            "relationship": "仅五格式接口改变，其他正文保持，不新增数据生产/注册"
+          },
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbols": [
+              "gLegacyPetSkillCatalogImageCC3E64"
+            ],
+            "relationship": "真实PE装载S32存储；既有消费直接借同一槽，运行时生产仍待"
+          }
+        ],
+        "evidence_documents": [
+          "doc/ui_windows/legacy_pet_skill_catalog.md",
+          "doc/cg2d_stdio_contract.md",
+          "doc/cg2d_pe_zero_initialization_evidence.json"
+        ],
+        "boundary": "只替换五格式标识符；相对行16B/独立转义16B/cap15、发送后才发布C8A94C、取消原共享593850不变。64B共用显示、目录96B各次页号/相对选择/+4值/+8费用、五候选40B/used绘制而allowed只影响原颜色与点击、名称前颜色快照和名称绘后数值S32、原完整返回保持。目录三外部缺口/真实旧路由与运行未闭合。；2026-10-04依据PE.data载入填零尾证据建立已消费S32槽真实唯一存储；仅装载初值0，不添加运行时复位/补值/生产，未定数组继续extern，既有全部正文/读取/发送及后续重读保持。",
+        "original_incoming": [],
+        "original_data_references": [],
+        "business_call_connections": [
+          {
+            "parent_entry": "0x4D7C20",
+            "call_site": "0x4D7EB0",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D7C20"
+          },
+          {
+            "parent_entry": "0x4D7C20",
+            "call_site": "0x4D7F04",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D7C20"
+          },
+          {
+            "parent_entry": "0x4D7C20",
+            "call_site": "0x4D7FA0",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D7C20"
+          },
+          {
+            "parent_entry": "0x4D7C20",
+            "call_site": "0x4D8036",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D7C20"
+          },
+          {
+            "parent_entry": "0x4D7C20",
+            "call_site": "0x4D812B",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D7C20"
+          }
+        ],
+        "business_format_points": [
+          {
+            "parent_entry": "0x4D7C20",
+            "target_entry": "0x53B304",
+            "source_format_symbol": "Sub_4D7C20",
+            "destination_expression": "buffer",
+            "call_site": "0x4D7EB0",
+            "format_address": "0x553FDC",
+            "format_bytes": "25346400",
+            "argument_widths": [
+              "S32"
+            ],
+            "source_format_expression": "\"%4d\"",
+            "source_expression": "skillValue",
+            "destination_capacity": 64,
+            "original_value_read_order": [
+              "0x4D7E88",
+              "0x4D7E8D",
+              "0x4D7EA3"
+            ],
+            "original_record_stride": 96,
+            "original_field_offset": 4,
+            "consumer_expression": "DrawText/X+202,Y+46/layer2,font1,color0",
+            "relationship": "技能名称测宽/重取名称/绘制后，再读目录页号→目录相对选择→96B记录+4 S32，写共用未清64B，格式后重取本页面板Y→X画技能值"
+          },
+          {
+            "parent_entry": "0x4D7C20",
+            "target_entry": "0x53B304",
+            "source_format_symbol": "Sub_4D7C20",
+            "destination_expression": "buffer",
+            "call_site": "0x4D7F04",
+            "format_address": "0x5889A8",
+            "format_bytes": "25376400",
+            "argument_widths": [
+              "S32"
+            ],
+            "source_format_expression": "\"%7d\"",
+            "source_expression": "price",
+            "destination_capacity": 64,
+            "original_value_read_order": [
+              "0x4D7EDC",
+              "0x4D7EE5",
+              "0x4D7EF7"
+            ],
+            "original_record_stride": 96,
+            "original_field_offset": 8,
+            "consumer_expression": "DrawText/X+260,Y+46/layer2,font0,color0",
+            "relationship": "技能值绘制后独立重读目录页号→目录相对选择→96B记录+8费用S32，同64B格式后重取Y/X；字体0与旧58的字体1区别保持"
+          },
+          {
+            "parent_entry": "0x4D7C20",
+            "target_entry": "0x53B304",
+            "source_format_symbol": "Sub_4D7C20",
+            "destination_expression": "buffer",
+            "call_site": "0x4D7FA0",
+            "format_address": "0x553FCC",
+            "format_bytes": "25336400",
+            "argument_widths": [
+              "S32"
+            ],
+            "source_format_expression": "\"%3d\"",
+            "source_expression": "option.value04",
+            "destination_capacity": 64,
+            "original_value_read_order": [
+              "0x4D7F8F"
+            ],
+            "original_record_stride": 40,
+            "original_field_offset": 4,
+            "condition_expression": "五条D67448候选仅used非零才绘制，与点击allowed&&used区别保持",
+            "consumer_expression": "DrawText/X+272,Y+135+40*row/layer2,font1/color沿名称前快照0或7",
+            "relationship": "固定同源40B候选，allowed色0/7在名称测宽前形成并供名称/数值共用，名称绘制后才读取+4 S32格式化，同64B/40B步长/原同色不改"
+          },
+          {
+            "parent_entry": "0x4D7C20",
+            "target_entry": "0x53B304",
+            "source_format_symbol": "Sub_4D7C20",
+            "destination_expression": "buffer",
+            "call_site": "0x4D8036",
+            "format_address": "0x5889A8",
+            "format_bytes": "25376400",
+            "argument_widths": [
+              "S32"
+            ],
+            "source_format_expression": "\"%7d\"",
+            "source_expression": "world::detail::ReadPlayerValueFC()",
+            "destination_capacity": 64,
+            "original_value_read_order": [
+              "0x4D8025"
+            ],
+            "consumer_expression": "DrawText/X+465,Y+286/layer2,font0,color0",
+            "relationship": "五候选及右四行说明绘制后再取真实金额S32，同64B，格式后重取Y/X，之后悬停框/按钮/提示/完整503440 flags1尾返回"
+          },
+          {
+            "parent_entry": "0x4D7C20",
+            "target_entry": "0x53B304",
+            "source_format_symbol": "Sub_4D7C20",
+            "destination_expression": "buffer",
+            "call_site": "0x4D812B",
+            "format_address": "0x5531A4",
+            "format_bytes": "256400",
+            "argument_widths": [
+              "S32"
+            ],
+            "source_format_expression": "\"%d\"",
+            "source_expression": "hovered",
+            "destination_capacity": 16,
+            "consumer_expression": "escaped",
+            "consumer_capacity": 16,
+            "escape_capacity": 15,
+            "condition_expression": "候选allowed!=0且used!=0首命中hover>=0/低W8左键",
+            "relationship": "相对hover S32写未清16B→独立16B转义/cap15→target/request/Y/X/socket发送mode0弃返回；发送后才读取panelId/发布同源C8A94C相对选择，再关闭/SE57并继续共同绘制，不采用旧58发送前发布"
+          }
+        ],
+        "verification_level": "本步新读210/454原格式邻窗，余244沿既有父合同，四种格式沿已核字节。整份源仅五标识符、签名/容量/宽度/所有其他正文、JSON增量、文档仅末追加及编码/差异静态核对通过。禁构建/测试/客户端/哈希保持，未补目录定义/生产、未知数值或注册；原父/旧路由/生命周期/运行未闭合。；本步只核完整4B载入范围/唯一定义/实际消费者及限定增量，旧本体不复检，未构建/测试/运行/hash",
+        "loader_scalar_bindings": [
+          {
+            "original_address": "0xCC3E64",
+            "symbol": "gLegacyPetSkillCatalogImageCC3E64",
+            "consumers": [
+              "Sub_4D7440",
+              "Sub_4D7BF0",
+              "Sub_4D8200"
+            ],
+            "meaning": "宠物技能目录图号",
+            "source": "src/LegacyUiRecord.cpp",
+            "declaration": "src/LegacyPanelRuntime.hpp",
+            "type": "std::int32_t",
+            "original_consumed_bytes": 4,
+            "native_bytes": 4,
+            "initial_value": 0,
+            "original_loaded_query": {
+              "address": "0xcc3e64",
+              "consumed_bytes": 4,
+              "loaded_bytes": [
+                false,
+                false,
+                false,
+                false
+              ],
+              "segment": {
+                "name": ".data",
+                "start": "0x553000",
+                "end": "0x1088000"
+              }
+            },
+            "initialization_evidence": "PE.data zero_tail [0x593000,0x1087B08)，槽完整4B在尾内；不是根据IDA未加载值猜零",
+            "runtime_production": "仍待定位；本步不增加开页/网络/初始化写入或复位"
+          }
+        ]
+      }
+    },
+    {
+      "index": 1009,
+      "record": {
+        "original_entry": "0x4D8230",
+        "inventory_id": "F:000D8230",
+        "status": "旧技能槽五格式已接；初始化图号装载存储已实现，目录/标量生产、路由与验收未闭合",
+        "original_end_exclusive": "0x4D88B6",
+        "instruction_count": 509,
+        "sources": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbols": [
+              "Sub_4D8230"
+            ],
+            "relationship": "仅五格式标识符改变，其他正文保持"
+          },
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbols": [
+              "gLegacyPetSkillCatalogImageCC3E64"
+            ],
+            "relationship": "真实PE装载S32存储；既有消费直接借同一槽，运行时生产仍待"
+          }
+        ],
+        "evidence_documents": [
+          "doc/ui_windows/legacy_pet_skill_catalog.md",
+          "doc/cg2d_stdio_contract.md",
+          "doc/cg2d_pe_zero_initialization_evidence.json"
+        ],
+        "boundary": "只替换五原格式接口，同64B共用未清缓冲/五S32；目录96B各次新页号/选择/+4值/+8价、候选40B名称绘后新选择/+4值、92B技能槽名称绘后+4值、说明后独立金额、各格式后Y/X和原字体保持。十槽点击依slots、绘名/值依used、可用图独立依slots、hover说明不查used的区别保持；原确认页关联关闭、预览/网络/副作用与完整返回不动。目录三外部缺口、原路由及运行未闭合。；2026-10-04依据PE.data载入填零尾证据建立已消费S32槽真实唯一存储；仅装载初值0，不添加运行时复位/补值/生产，未定数组继续extern，既有全部正文/读取/发送及后续重读保持。",
+        "original_incoming": [],
+        "original_data_references": [],
+        "business_call_connections": [
+          {
+            "parent_entry": "0x4D8230",
+            "call_site": "0x4D84C0",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D8230"
+          },
+          {
+            "parent_entry": "0x4D8230",
+            "call_site": "0x4D8514",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D8230"
+          },
+          {
+            "parent_entry": "0x4D8230",
+            "call_site": "0x4D85AD",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D8230"
+          },
+          {
+            "parent_entry": "0x4D8230",
+            "call_site": "0x4D8639",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D8230"
+          },
+          {
+            "parent_entry": "0x4D8230",
+            "call_site": "0x4D87A0",
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D8230"
+          }
+        ],
+        "business_format_points": [
+          {
+            "parent_entry": "0x4D8230",
+            "target_entry": "0x53B304",
+            "source_format_symbol": "Sub_4D8230",
+            "argument_widths": [
+              "S32"
+            ],
+            "destination_expression": "buffer",
+            "destination_capacity": 64,
+            "call_site": "0x4D84C0",
+            "format_address": "0x553FDC",
+            "format_bytes": "25346400",
+            "source_format_expression": "\"%4d\"",
+            "source_expression": "skillValue",
+            "original_value_read_order": [
+              "0x4D8498",
+              "0x4D849E",
+              "0x4D84B3"
+            ],
+            "original_record_stride": 96,
+            "original_field_offset": 4,
+            "consumer_expression": "DrawText/X+202,Y+46/layer2,font1,color0",
+            "relationship": "技能名称测宽后重取名称并绘制，再新读目录页号/目录相对选择/+4 S32，写同未清64B，格式后新Y/X绘数值"
+          },
+          {
+            "parent_entry": "0x4D8230",
+            "target_entry": "0x53B304",
+            "source_format_symbol": "Sub_4D8230",
+            "argument_widths": [
+              "S32"
+            ],
+            "destination_expression": "buffer",
+            "destination_capacity": 64,
+            "call_site": "0x4D8514",
+            "format_address": "0x5889A8",
+            "format_bytes": "25376400",
+            "source_format_expression": "\"%7d\"",
+            "source_expression": "price",
+            "original_value_read_order": [
+              "0x4D84EB",
+              "0x4D84F1",
+              "0x4D8507"
+            ],
+            "original_record_stride": 96,
+            "original_field_offset": 8,
+            "consumer_expression": "DrawText/X+260,Y+46/layer2,font0,color0",
+            "relationship": "技能数值绘后重新取目录页号/目录相对选择/+8费用S32，同64B，格式后新Y/X绘费用，不缓存上项记录"
+          },
+          {
+            "parent_entry": "0x4D8230",
+            "target_entry": "0x53B304",
+            "source_format_symbol": "Sub_4D8230",
+            "argument_widths": [
+              "S32"
+            ],
+            "destination_expression": "buffer",
+            "destination_capacity": 64,
+            "call_site": "0x4D85AD",
+            "format_address": "0x553FCC",
+            "format_bytes": "25336400",
+            "source_format_expression": "\"%3d\"",
+            "source_expression": "ui::detail::gWindow54PetOptionsD67448[gLegacyPetSkillPetSelectionC8A94C].value04",
+            "original_value_read_order": [
+              "0x4D8590",
+              "0x4D859F"
+            ],
+            "original_record_stride": 40,
+            "original_field_offset": 4,
+            "consumer_expression": "DrawText/X+267,Y+83/layer2,font1,color0",
+            "relationship": "候选名称按C8A94C测宽后再重取选择/名称并绘制；绘制后再次读C8A94C与同源40B候选+4 S32，同64B，格式后新Y/X绘值"
+          },
+          {
+            "parent_entry": "0x4D8230",
+            "target_entry": "0x53B304",
+            "source_format_symbol": "Sub_4D8230",
+            "argument_widths": [
+              "S32"
+            ],
+            "destination_expression": "buffer",
+            "destination_capacity": 64,
+            "call_site": "0x4D8639",
+            "format_address": "0x553FDC",
+            "format_bytes": "25346400",
+            "source_format_expression": "\"%4d\"",
+            "source_expression": "slot.value04",
+            "original_value_read_order": [
+              "0x4D8628"
+            ],
+            "original_record_stride": 92,
+            "original_field_offset": 4,
+            "condition_expression": "十条92B技能槽原U16 used非零",
+            "consumer_expression": "DrawText/X+260,Y+120+24*row/layer2,font1,color0",
+            "relationship": "used非零才测宽/绘制同源技能槽名称，再读固定记录+4 S32格式化，同64B后取Y/X绘数值；随后独立重取候选选择/slots决定23093图，used门槛不扩大至图或点击"
+          },
+          {
+            "parent_entry": "0x4D8230",
+            "target_entry": "0x53B304",
+            "source_format_symbol": "Sub_4D8230",
+            "argument_widths": [
+              "S32"
+            ],
+            "destination_expression": "buffer",
+            "destination_capacity": 64,
+            "call_site": "0x4D87A0",
+            "format_address": "0x5889A8",
+            "format_bytes": "25376400",
+            "source_format_expression": "\"%7d\"",
+            "source_expression": "world::detail::ReadPlayerValueFC()",
+            "original_value_read_order": [
+              "0x4D878F"
+            ],
+            "consumer_expression": "DrawText/X+465,Y+286/layer2,font0,color0",
+            "relationship": "十行/右四说明与原hover两行说明完成后再读真实金额S32写同64B，格式后新Y/X；接按钮/提示与503440 flags1完整W32尾"
+          }
+        ],
+        "verification_level": "本步只读217/509新格式邻窗，余292沿既有父合同，三原格式沿已核字节。整份源仅五标识符、所有其他正文/签名不变，参数/字段/容量/读序、限定JSON/文档末追加与编码/差异静态核对通过。禁构建/测试/客户端/哈希，目录缺口/旧路由/完整画面与生命周期/运行未完成。；本步只核完整4B载入范围/唯一定义/实际消费者及限定增量，旧本体不复检，未构建/测试/运行/hash",
+        "loader_scalar_bindings": [
+          {
+            "original_address": "0xCC3E64",
+            "symbol": "gLegacyPetSkillCatalogImageCC3E64",
+            "consumers": [
+              "Sub_4D7440",
+              "Sub_4D7BF0",
+              "Sub_4D8200"
+            ],
+            "meaning": "宠物技能目录图号",
+            "source": "src/LegacyUiRecord.cpp",
+            "declaration": "src/LegacyPanelRuntime.hpp",
+            "type": "std::int32_t",
+            "original_consumed_bytes": 4,
+            "native_bytes": 4,
+            "initial_value": 0,
+            "original_loaded_query": {
+              "address": "0xcc3e64",
+              "consumed_bytes": 4,
+              "loaded_bytes": [
+                false,
+                false,
+                false,
+                false
+              ],
+              "segment": {
+                "name": ".data",
+                "start": "0x553000",
+                "end": "0x1088000"
+              }
+            },
+            "initialization_evidence": "PE.data zero_tail [0x593000,0x1087B08)，槽完整4B在尾内；不是根据IDA未加载值猜零",
+            "runtime_production": "仍待定位；本步不增加开页/网络/初始化写入或复位"
+          }
+        ]
+      }
+    }
+  ],
+  "source_patches": [
+    {
+      "symbol": "Sub_4D6710",
+      "before": "    if (gLegacySkillChoiceActionD67C58 != nullptr) {\n        gLegacySkillChoiceActionD67C58->flags &= ~2U;\n    }",
+      "after": "    YobiAction* const previewAction = gLegacySkillChoiceActionD67C58;\n    if (previewAction != nullptr) {\n        SetYobiActionFlag2(previewAction, false);\n    }"
+    },
+    {
+      "symbol": "Sub_4D6A60",
+      "before": "    if (gLegacySkillChoiceActionD67C58 != nullptr) {\n        gLegacySkillChoiceActionD67C58->flags &= ~2U;\n    }",
+      "after": "    YobiAction* const previewAction = gLegacySkillChoiceActionD67C58;\n    if (previewAction != nullptr) {\n        SetYobiActionFlag2(previewAction, false);\n    }"
+    },
+    {
+      "symbol": "Sub_4D6EA0",
+      "before": "    if (gLegacySkillChoiceActionD67C58 != nullptr) {\n        gLegacySkillChoiceActionD67C58->flags &= ~2U;\n    }",
+      "after": "    YobiAction* const previewAction = gLegacySkillChoiceActionD67C58;\n    if (previewAction != nullptr) {\n        SetYobiActionFlag2(previewAction, false);\n    }"
+    },
+    {
+      "symbol": "Sub_4D7470",
+      "before": "    if (gLegacyPetSkillCatalogActionD67C5C != nullptr) {\n        gLegacyPetSkillCatalogActionD67C5C->flags &= ~2U;\n    }",
+      "after": "    YobiAction* const previewAction = gLegacyPetSkillCatalogActionD67C5C;\n    if (previewAction != nullptr) {\n        SetYobiActionFlag2(previewAction, false);\n    }"
+    },
+    {
+      "symbol": "Sub_4D7C20",
+      "before": "    if (gLegacyPetSkillPetActionD67C60 != nullptr) {\n        gLegacyPetSkillPetActionD67C60->flags &= ~2U;\n    }",
+      "after": "    YobiAction* const previewAction = gLegacyPetSkillPetActionD67C60;\n    if (previewAction != nullptr) {\n        SetYobiActionFlag2(previewAction, false);\n    }"
+    },
+    {
+      "symbol": "Sub_4D8230",
+      "before": "    if (gLegacyPetSkillSlotsActionD67C64 != nullptr) {\n        gLegacyPetSkillSlotsActionD67C64->flags &= ~2U;\n    }",
+      "after": "    YobiAction* const previewAction = gLegacyPetSkillSlotsActionD67C64;\n    if (previewAction != nullptr) {\n        SetYobiActionFlag2(previewAction, false);\n    }"
+    }
+  ],
+  "existing_helper_body": "void SetYobiActionFlag2(YobiAction* const action, const bool enabled) noexcept\n{\n    if (enabled) {\n        action->flags |= 2u;\n    } else {\n        action->flags &= ~2u;\n    }\n}\n\n"
+}

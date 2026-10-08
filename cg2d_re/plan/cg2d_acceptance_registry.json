@@ -7343,9 +7343,12 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/legacy_skill_choice.md"
+        "doc/ui_windows/legacy_skill_choice.md",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:000D6710"
+      ],
       "closure_task_ids": [
         "U04",
         "V04",
@@ -7355,13 +7358,18 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision"
+      ],
       "blockers": [
-        "原成员、传递依赖和逐门禁证据待归档"
+        "原成员、传递依赖和逐门禁证据待归档",
+        "技能选择4D6710：原0x4d6815..0x4d6822四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅一清标志阶段，完整成员/父/生产及旧路由/运行未闭。"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ]
     },
     {
       "id": "UI-L-056",
@@ -7371,9 +7379,12 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/legacy_skill_learning.md"
+        "doc/ui_windows/legacy_skill_learning.md",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:000D6A60"
+      ],
       "closure_task_ids": [
         "U04",
         "V04"
@@ -7382,13 +7393,18 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision"
+      ],
       "blockers": [
-        "原成员、传递依赖和逐门禁证据待归档"
+        "原成员、传递依赖和逐门禁证据待归档",
+        "技能学习4D6A60：原0x4d6b32..0x4d6b3f四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅一清标志阶段，完整成员/父/生产及旧路由/运行未闭。"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ]
     },
     {
       "id": "UI-L-057",
@@ -7398,9 +7414,12 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/legacy_skill_forgetting.md"
+        "doc/ui_windows/legacy_skill_forgetting.md",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:000D6EA0"
+      ],
       "closure_task_ids": [
         "U04",
         "V04"
@@ -7409,13 +7428,18 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision"
+      ],
       "blockers": [
-        "原成员、传递依赖和逐门禁证据待归档"
+        "原成员、传递依赖和逐门禁证据待归档",
+        "技能遗忘4D6EA0：原0x4d6f4a..0x4d6f57四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅一清标志阶段，完整成员/父/生产及旧路由/运行未闭。"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ]
     },
     {
       "id": "UI-L-058",
@@ -7426,9 +7450,12 @@
       "scope": "included",
       "baseline_documents": [
         "doc/ui_windows/legacy_pet_skill_catalog.md",
-        "doc/cg2d_pet_catalog_production_spec.md"
+        "doc/cg2d_pet_catalog_production_spec.md",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:000D7470"
+      ],
       "closure_task_ids": [
         "U04",
         "V04",
@@ -7439,14 +7466,18 @@
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
       "decision_refs": [
-        "doc/cg2d_pet_catalog_production_spec.md#pet-catalog-production-observation"
+        "doc/cg2d_pet_catalog_production_spec.md#pet-catalog-production-observation",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision"
       ],
       "blockers": [
-        "原成员、传递依赖和逐门禁证据待归档"
+        "原成员、传递依赖和逐门禁证据待归档",
+        "宠物技能目录4D7470：原0x4d75ab..0x4d75b8四条13B，一次取gLegacyPetSkillCatalogActionD67C5C，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅一清标志阶段，完整成员/父/生产及旧路由/运行未闭。"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ]
     },
     {
       "id": "UI-L-059",
@@ -7457,9 +7488,12 @@
       "scope": "included",
       "baseline_documents": [
         "doc/ui_windows/legacy_pet_skill_catalog.md",
-        "doc/cg2d_pet_catalog_production_spec.md"
+        "doc/cg2d_pet_catalog_production_spec.md",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:000D7C20"
+      ],
       "closure_task_ids": [
         "U04",
         "V04",
@@ -7470,14 +7504,18 @@
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
       "decision_refs": [
-        "doc/cg2d_pet_catalog_production_spec.md#pet-catalog-production-observation"
+        "doc/cg2d_pet_catalog_production_spec.md#pet-catalog-production-observation",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision"
       ],
       "blockers": [
-        "原成员、传递依赖和逐门禁证据待归档"
+        "原成员、传递依赖和逐门禁证据待归档",
+        "候选宠物4D7C20：原0x4d7ce2..0x4d7cef四条13B，一次取gLegacyPetSkillPetActionD67C60，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅一清标志阶段，完整成员/父/生产及旧路由/运行未闭。"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ]
     },
     {
       "id": "UI-L-060",
@@ -7488,9 +7526,12 @@
       "scope": "included",
       "baseline_documents": [
         "doc/ui_windows/legacy_pet_skill_catalog.md",
-        "doc/cg2d_pet_catalog_production_spec.md"
+        "doc/cg2d_pet_catalog_production_spec.md",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:000D8230"
+      ],
       "closure_task_ids": [
         "U04",
         "V04",
@@ -7501,14 +7542,18 @@
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
       "decision_refs": [
-        "doc/cg2d_pet_catalog_production_spec.md#pet-catalog-production-observation"
+        "doc/cg2d_pet_catalog_production_spec.md#pet-catalog-production-observation",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision"
       ],
       "blockers": [
-        "原成员、传递依赖和逐门禁证据待归档"
+        "原成员、传递依赖和逐门禁证据待归档",
+        "宠物技能槽4D8230：原0x4d82f7..0x4d8304四条13B，一次取gLegacyPetSkillSlotsActionD67C64，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅一清标志阶段，完整成员/父/生产及旧路由/运行未闭。"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ]
     },
     {
       "id": "UI-L-061",
@@ -49946,6 +49991,366 @@
       "observation": "BVY01图鉴生产/评级两正确叶完整70条208B/两页、两direct两目标/零间接、六跳两RET；五评级CALL与一个初始化callback DATA引用分列。D67D14先取→CC40D0清→存在返原对象/空才按原读序创建发布，原图号/221层和失败空发布、评级1..10及两图/坐标/逐项绘制保持；原关闭13条43B沿BVX01窗口复用：先5186A0保存再fresh预览→同MarkDeath→清槽/原混合返回。源码/头全保持、零新I/函数/API/helper/owner，两新原新1805/1806与两adapted F、旧24一主父→三实际成员，仅一个限定S。旧1044与有记录fresh/空记录实修和731存档/1126共享工厂既有合同复用，通用资源回收/全部父消费者/旧外路由/正常alias寿命、机器ABI/画面运行仍待；原格式明文、音频暂停/RPLAN.24与完整门禁保。",
       "expected": "BVY01图鉴生产/评级两正确叶完整70条208B/两页、两direct两目标/零间接、六跳两RET；五评级CALL与一个初始化callback DATA引用分列。D67D14先取→CC40D0清→存在返原对象/空才按原读序创建发布，原图号/221层和失败空发布、评级1..10及两图/坐标/逐项绘制保持；原关闭13条43B沿BVX01窗口复用：先5186A0保存再fresh预览→同MarkDeath→清槽/原混合返回。源码/头全保持、零新I/函数/API/helper/owner，两新原新1805/1806与两adapted F、旧24一主父→三实际成员，仅一个限定S。旧1044与有记录fresh/空记录实修和731存档/1126共享工厂既有合同复用，通用资源回收/全部父消费者/旧外路由/正常alias寿命、机器ABI/画面运行仍待；原格式明文、音频暂停/RPLAN.24与完整门禁保。",
       "actual": "BVY01图鉴生产/评级两正确叶完整70条208B/两页、两direct两目标/零间接、六跳两RET；五评级CALL与一个初始化callback DATA引用分列。D67D14先取→CC40D0清→存在返原对象/空才按原读序创建发布，原图号/221层和失败空发布、评级1..10及两图/坐标/逐项绘制保持；原关闭13条43B沿BVX01窗口复用：先5186A0保存再fresh预览→同MarkDeath→清槽/原混合返回。源码/头全保持、零新I/函数/API/helper/owner，两新原新1805/1806与两adapted F、旧24一主父→三实际成员，仅一个限定S。旧1044与有记录fresh/空记录实修和731存档/1126共享工厂既有合同复用，通用资源回收/全部父消费者/旧外路由/正常alias寿命、机器ABI/画面运行仍待；原格式明文、音频暂停/RPLAN.24与完整门禁保。"
+    },
+    {
+      "id": "E-SKILL-PREVIEW-FLAG-UI-L-055-I-20261008",
+      "feature_id": "UI-L-055",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVZ01Sub_4D6710仅4条/13B一持样清位阶段，旧完整父/格式与其它字段不重验；整源六改之一。doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-skill-preview-flag-boundary-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4D6710",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_skill_preview_flag_boundary_evidence.json",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ],
+      "differences": [
+        {
+          "description": "技能选择4D6710：原0x4d6815..0x4d6822四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+          "decision_ref": "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "技能选择4D6710：原0x4d6815..0x4d6822四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+      "expected": "技能选择4D6710：原0x4d6815..0x4d6822四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+      "actual": "技能选择4D6710：原0x4d6815..0x4d6822四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。"
+    },
+    {
+      "id": "E-SKILL-PREVIEW-FLAG-UI-L-055-S-20261008",
+      "feature_id": "UI-L-055",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVZ01Sub_4D6710仅4条/13B一持样清位阶段，旧完整父/格式与其它字段不重验；整源六改之一。doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-skill-preview-flag-boundary-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4D6710",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_skill_preview_flag_boundary_evidence.json",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ],
+      "differences": [
+        {
+          "description": "技能选择4D6710：原0x4d6815..0x4d6822四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+          "decision_ref": "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "技能选择4D6710：原0x4d6815..0x4d6822四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+      "expected": "技能选择4D6710：原0x4d6815..0x4d6822四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+      "actual": "技能选择4D6710：原0x4d6815..0x4d6822四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。"
+    },
+    {
+      "id": "E-SKILL-PREVIEW-FLAG-UI-L-056-I-20261008",
+      "feature_id": "UI-L-056",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVZ01Sub_4D6A60仅4条/13B一持样清位阶段，旧完整父/格式与其它字段不重验；整源六改之一。doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-skill-preview-flag-boundary-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4D6A60",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_skill_preview_flag_boundary_evidence.json",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ],
+      "differences": [
+        {
+          "description": "技能学习4D6A60：原0x4d6b32..0x4d6b3f四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+          "decision_ref": "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "技能学习4D6A60：原0x4d6b32..0x4d6b3f四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+      "expected": "技能学习4D6A60：原0x4d6b32..0x4d6b3f四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+      "actual": "技能学习4D6A60：原0x4d6b32..0x4d6b3f四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。"
+    },
+    {
+      "id": "E-SKILL-PREVIEW-FLAG-UI-L-056-S-20261008",
+      "feature_id": "UI-L-056",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVZ01Sub_4D6A60仅4条/13B一持样清位阶段，旧完整父/格式与其它字段不重验；整源六改之一。doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-skill-preview-flag-boundary-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4D6A60",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_skill_preview_flag_boundary_evidence.json",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ],
+      "differences": [
+        {
+          "description": "技能学习4D6A60：原0x4d6b32..0x4d6b3f四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+          "decision_ref": "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "技能学习4D6A60：原0x4d6b32..0x4d6b3f四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+      "expected": "技能学习4D6A60：原0x4d6b32..0x4d6b3f四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+      "actual": "技能学习4D6A60：原0x4d6b32..0x4d6b3f四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。"
+    },
+    {
+      "id": "E-SKILL-PREVIEW-FLAG-UI-L-057-I-20261008",
+      "feature_id": "UI-L-057",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVZ01Sub_4D6EA0仅4条/13B一持样清位阶段，旧完整父/格式与其它字段不重验；整源六改之一。doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-skill-preview-flag-boundary-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4D6EA0",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_skill_preview_flag_boundary_evidence.json",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ],
+      "differences": [
+        {
+          "description": "技能遗忘4D6EA0：原0x4d6f4a..0x4d6f57四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+          "decision_ref": "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "技能遗忘4D6EA0：原0x4d6f4a..0x4d6f57四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+      "expected": "技能遗忘4D6EA0：原0x4d6f4a..0x4d6f57四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+      "actual": "技能遗忘4D6EA0：原0x4d6f4a..0x4d6f57四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。"
+    },
+    {
+      "id": "E-SKILL-PREVIEW-FLAG-UI-L-057-S-20261008",
+      "feature_id": "UI-L-057",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVZ01Sub_4D6EA0仅4条/13B一持样清位阶段，旧完整父/格式与其它字段不重验；整源六改之一。doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-skill-preview-flag-boundary-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4D6EA0",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_skill_preview_flag_boundary_evidence.json",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ],
+      "differences": [
+        {
+          "description": "技能遗忘4D6EA0：原0x4d6f4a..0x4d6f57四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+          "decision_ref": "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "技能遗忘4D6EA0：原0x4d6f4a..0x4d6f57四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+      "expected": "技能遗忘4D6EA0：原0x4d6f4a..0x4d6f57四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+      "actual": "技能遗忘4D6EA0：原0x4d6f4a..0x4d6f57四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。"
+    },
+    {
+      "id": "E-SKILL-PREVIEW-FLAG-UI-L-058-I-20261008",
+      "feature_id": "UI-L-058",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVZ01Sub_4D7470仅4条/13B一持样清位阶段，旧完整父/格式与其它字段不重验；整源六改之一。doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-skill-preview-flag-boundary-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4D7470",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_skill_preview_flag_boundary_evidence.json",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ],
+      "differences": [
+        {
+          "description": "宠物技能目录4D7470：原0x4d75ab..0x4d75b8四条13B，一次取gLegacyPetSkillCatalogActionD67C5C，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+          "decision_ref": "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "宠物技能目录4D7470：原0x4d75ab..0x4d75b8四条13B，一次取gLegacyPetSkillCatalogActionD67C5C，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+      "expected": "宠物技能目录4D7470：原0x4d75ab..0x4d75b8四条13B，一次取gLegacyPetSkillCatalogActionD67C5C，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+      "actual": "宠物技能目录4D7470：原0x4d75ab..0x4d75b8四条13B，一次取gLegacyPetSkillCatalogActionD67C5C，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。"
+    },
+    {
+      "id": "E-SKILL-PREVIEW-FLAG-UI-L-058-S-20261008",
+      "feature_id": "UI-L-058",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVZ01Sub_4D7470仅4条/13B一持样清位阶段，旧完整父/格式与其它字段不重验；整源六改之一。doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-skill-preview-flag-boundary-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4D7470",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_skill_preview_flag_boundary_evidence.json",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ],
+      "differences": [
+        {
+          "description": "宠物技能目录4D7470：原0x4d75ab..0x4d75b8四条13B，一次取gLegacyPetSkillCatalogActionD67C5C，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+          "decision_ref": "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "宠物技能目录4D7470：原0x4d75ab..0x4d75b8四条13B，一次取gLegacyPetSkillCatalogActionD67C5C，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+      "expected": "宠物技能目录4D7470：原0x4d75ab..0x4d75b8四条13B，一次取gLegacyPetSkillCatalogActionD67C5C，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+      "actual": "宠物技能目录4D7470：原0x4d75ab..0x4d75b8四条13B，一次取gLegacyPetSkillCatalogActionD67C5C，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。"
+    },
+    {
+      "id": "E-SKILL-PREVIEW-FLAG-UI-L-059-I-20261008",
+      "feature_id": "UI-L-059",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVZ01Sub_4D7C20仅4条/13B一持样清位阶段，旧完整父/格式与其它字段不重验；整源六改之一。doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-skill-preview-flag-boundary-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4D7C20",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_skill_preview_flag_boundary_evidence.json",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ],
+      "differences": [
+        {
+          "description": "候选宠物4D7C20：原0x4d7ce2..0x4d7cef四条13B，一次取gLegacyPetSkillPetActionD67C60，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+          "decision_ref": "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "候选宠物4D7C20：原0x4d7ce2..0x4d7cef四条13B，一次取gLegacyPetSkillPetActionD67C60，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+      "expected": "候选宠物4D7C20：原0x4d7ce2..0x4d7cef四条13B，一次取gLegacyPetSkillPetActionD67C60，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+      "actual": "候选宠物4D7C20：原0x4d7ce2..0x4d7cef四条13B，一次取gLegacyPetSkillPetActionD67C60，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。"
+    },
+    {
+      "id": "E-SKILL-PREVIEW-FLAG-UI-L-059-S-20261008",
+      "feature_id": "UI-L-059",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVZ01Sub_4D7C20仅4条/13B一持样清位阶段，旧完整父/格式与其它字段不重验；整源六改之一。doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-skill-preview-flag-boundary-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4D7C20",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_skill_preview_flag_boundary_evidence.json",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ],
+      "differences": [
+        {
+          "description": "候选宠物4D7C20：原0x4d7ce2..0x4d7cef四条13B，一次取gLegacyPetSkillPetActionD67C60，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+          "decision_ref": "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "候选宠物4D7C20：原0x4d7ce2..0x4d7cef四条13B，一次取gLegacyPetSkillPetActionD67C60，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+      "expected": "候选宠物4D7C20：原0x4d7ce2..0x4d7cef四条13B，一次取gLegacyPetSkillPetActionD67C60，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+      "actual": "候选宠物4D7C20：原0x4d7ce2..0x4d7cef四条13B，一次取gLegacyPetSkillPetActionD67C60，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。"
+    },
+    {
+      "id": "E-SKILL-PREVIEW-FLAG-UI-L-060-I-20261008",
+      "feature_id": "UI-L-060",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVZ01Sub_4D8230仅4条/13B一持样清位阶段，旧完整父/格式与其它字段不重验；整源六改之一。doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-skill-preview-flag-boundary-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4D8230",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_skill_preview_flag_boundary_evidence.json",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ],
+      "differences": [
+        {
+          "description": "宠物技能槽4D8230：原0x4d82f7..0x4d8304四条13B，一次取gLegacyPetSkillSlotsActionD67C64，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+          "decision_ref": "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "宠物技能槽4D8230：原0x4d82f7..0x4d8304四条13B，一次取gLegacyPetSkillSlotsActionD67C64，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+      "expected": "宠物技能槽4D8230：原0x4d82f7..0x4d8304四条13B，一次取gLegacyPetSkillSlotsActionD67C64，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+      "actual": "宠物技能槽4D8230：原0x4d82f7..0x4d8304四条13B，一次取gLegacyPetSkillSlotsActionD67C64，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。"
+    },
+    {
+      "id": "E-SKILL-PREVIEW-FLAG-UI-L-060-S-20261008",
+      "feature_id": "UI-L-060",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVZ01Sub_4D8230仅4条/13B一持样清位阶段，旧完整父/格式与其它字段不重验；整源六改之一。doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-skill-preview-flag-boundary-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/LegacyUiRecord.cpp#Sub_4D8230",
+        "src/YobiRuntime.cpp#SetYobiActionFlag2",
+        "include/cg/YobiRuntime.hpp#SetYobiActionFlag2",
+        "doc/cg2d_skill_preview_flag_boundary_evidence.json",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ],
+      "differences": [
+        {
+          "description": "宠物技能槽4D8230：原0x4d82f7..0x4d8304四条13B，一次取gLegacyPetSkillSlotsActionD67C64，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+          "decision_ref": "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "宠物技能槽4D8230：原0x4d82f7..0x4d8304四条13B，一次取gLegacyPetSkillSlotsActionD67C64，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+      "expected": "宠物技能槽4D8230：原0x4d82f7..0x4d8304四条13B，一次取gLegacyPetSkillSlotsActionD67C64，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。",
+      "actual": "宠物技能槽4D8230：原0x4d82f7..0x4d8304四条13B，一次取gLegacyPetSkillSlotsActionD67C64，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。"
     }
   ],
   "task_acceptance": [
@@ -50852,7 +51257,8 @@
         "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state",
         "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state",
         "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state",
-        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state"
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
       ]
     },
     {
@@ -51160,7 +51566,8 @@
         "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state",
         "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state",
         "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state",
-        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state"
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
       ]
     },
     {
@@ -51348,7 +51755,8 @@
         "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state",
         "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state",
         "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state",
-        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state"
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
       ]
     },
     {
@@ -51499,7 +51907,8 @@
         "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state",
         "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state",
         "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state",
-        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state"
+        "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
       ]
     },
     {
@@ -63260,6 +63669,78 @@
         "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state"
       ],
       "boundary": "4F6BF0评级绘制：原S32 rating+1，只1..10继续；x+4/y+8，逐项x间隔8、图号22901/22902按序号signed余数2选择，layer沿原低U8绘图边界；五活动父点弃原不确定EAX返回，当前void接口不扩成通用机器ABI。真DrawGraphic逐项结果按原弃用，不加钳制、额外取数/条件或异常模拟，原正常RPLAN.24算术保。 BVY01图鉴生产/评级两正确叶完整70条208B/两页、两direct两目标/零间接、六跳两RET；五评级CALL与一个初始化callback DATA引用分列。D67D14先取→CC40D0清→存在返原对象/空才按原读序创建发布，原图号/221层和失败空发布、评级1..10及两图/坐标/逐项绘制保持；原关闭13条43B沿BVX01窗口复用：先5186A0保存再fresh预览→同MarkDeath→清槽/原混合返回。源码/头全保持、零新I/函数/API/helper/owner，两新原新1805/1806与两adapted F、旧24一主父→三实际成员，仅一个限定S。旧1044与有记录fresh/空记录实修和731存档/1126共享工厂既有合同复用，通用资源回收/全部父消费者/旧外路由/正常alias寿命、机器ABI/画面运行仍待；原格式明文、音频暂停/RPLAN.24与完整门禁保。"
+    },
+    {
+      "inventory_id": "F:000D6710",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ],
+      "boundary": "技能选择4D6710：原0x4d6815..0x4d6822四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+    },
+    {
+      "inventory_id": "F:000D6A60",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ],
+      "boundary": "技能学习4D6A60：原0x4d6b32..0x4d6b3f四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+    },
+    {
+      "inventory_id": "F:000D6EA0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ],
+      "boundary": "技能遗忘4D6EA0：原0x4d6f4a..0x4d6f57四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+    },
+    {
+      "inventory_id": "F:000D7470",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ],
+      "boundary": "宠物技能目录4D7470：原0x4d75ab..0x4d75b8四条13B，一次取gLegacyPetSkillCatalogActionD67C5C，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+    },
+    {
+      "inventory_id": "F:000D7C20",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ],
+      "boundary": "候选宠物4D7C20：原0x4d7ce2..0x4d7cef四条13B，一次取gLegacyPetSkillPetActionD67C60，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+    },
+    {
+      "inventory_id": "F:000D8230",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ],
+      "boundary": "宠物技能槽4D8230：原0x4d82f7..0x4d8304四条13B，一次取gLegacyPetSkillSlotsActionD67C64，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
     }
   ],
   "auxiliary_dispositions": [

@@ -69,3 +69,11 @@ left均x+112，width136/height18。文本585AC4/588BC8/588BBC保留原字节。
 [原两体和绘制邻窗](../cg2d_legacy_line_sampling_evidence.json)及现有FillChoiceDialogBody/BorrowNpcDialogLinesCC24D4证明五行已生产；早期“现代解析不生产旧正文”及缺生产结论由本节覆盖，历史日期记录保留。
 503AB0恢复每轮首U8一次读取、缓存分流/写出与首写后尾读，原bit7/CR/LF/01、容量门禁/正常空行与返回保持。此页本体/初始化/发送/绘制和旧路由不改，不据case16现代创建调用宣称旧99表外层已接。
 U07完整状态/图号消费、旧路由、请求/覆写后的借用寿命、画面与运行保持open；本步仅源码及限定静态，无新增测试/执行。
+
+## BVZ01技能预览类型边界与取样修复（2026-10-08）
+
+[基线](../cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline)、[决定](../cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision)、[验收](../cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance)、[状态](../cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state)及[原证](../cg2d_skill_preview_flag_boundary_evidence.json)。
+
+六旧技能/宠物技能页面各一个片段已修复：公开类型边界内一次保存预览指针，原判空后交既有SetYobiActionFlag2(false)清W32 bit1；消除直接访问opaque字段和共享槽重复读取。六原阶段24条78B，四比较寄存器的零值/关闭返回上下文单列。六父其余正文、原生helper/头、数据生产/关闭、格式与原字节保持，无新接口、helper或owner。
+
+更新已有770/771/772/1007/1008/1009，新增六adapted F；旧55..60各纳一个实际主父、十二限定I/S，完整枚举/gates仍open。语义1807/有效1800及合同1917（52.09%）保持，F963→969、E1123→1135。只核本阶段，完整旧外路由、正常owner/alias寿命、画面及运行继续原验收；原格式明文、音频暂停、RPLAN.24和执行限制保持。

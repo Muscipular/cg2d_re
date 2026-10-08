@@ -273,3 +273,11 @@ U01继续按[生产取证SPEC](../cg2d_pet_catalog_production_spec.md)推进；
 [本次静态证据](../cg2d_pet_catalog_production_evidence.json)已记录三个字段引用、旧表地址槽与定点定位边界。
 三个硬件写监视工具已准备，尚未执行；须先明确恢复本项原端调试/运行。
 找到写者后追完整循环/owner并补唯一存储与生产，不从邻接或单次命中猜容量，不降低原验收门禁。
+
+## BVZ01技能预览类型边界与取样修复（2026-10-08）
+
+[基线](../cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline)、[决定](../cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision)、[验收](../cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance)、[状态](../cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state)及[原证](../cg2d_skill_preview_flag_boundary_evidence.json)。
+
+六旧技能/宠物技能页面各一个片段已修复：公开类型边界内一次保存预览指针，原判空后交既有SetYobiActionFlag2(false)清W32 bit1；消除直接访问opaque字段和共享槽重复读取。六原阶段24条78B，四比较寄存器的零值/关闭返回上下文单列。六父其余正文、原生helper/头、数据生产/关闭、格式与原字节保持，无新接口、helper或owner。
+
+更新已有770/771/772/1007/1008/1009，新增六adapted F；旧55..60各纳一个实际主父、十二限定I/S，完整枚举/gates仍open。语义1807/有效1800及合同1917（52.09%）保持，F963→969、E1123→1135。只核本阶段，完整旧外路由、正常owner/alias寿命、画面及运行继续原验收；原格式明文、音频暂停、RPLAN.24和执行限制保持。

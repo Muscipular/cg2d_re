@@ -204077,6 +204077,319 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x53b4bf",
+      "inventory_id": "F:0013B4BF",
+      "original_role": "53B4BF播种：同一58F870 W32状态写入完整U32参数并返回该值；不引入私有CRT/TLS/RNG对象或截位。原十CALL仅引用定位，现有七源码播种表达式及全部父保持，不代完整父/范围外键盘接线。",
+      "original_end_exclusive": "0x53b4c9",
+      "original_chunks": [
+        [
+          "0x53b4bf",
+          "0x53b4c9"
+        ]
+      ],
+      "instruction_count": 3,
+      "status": "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
+      "sources": [
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "SeedRandom_53B4BF"
+          ],
+          "relationship": "53B4BF播种：同一58F870 W32状态写入完整U32参数并返回该值；不引入私有CRT/TLS/RNG对象或截位。原十CALL仅引用定位，现有七源码播种表达式及全部父保持，不代完整父/范围外键盘接线。"
+        },
+        {
+          "path": "src/platform/MainLoopDependencies.hpp",
+          "symbols": [
+            "SeedRandom_53B4BF"
+          ],
+          "relationship": "既有模块依赖声明保持，不新增接口"
+        },
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "gRandomSeed"
+          ],
+          "relationship": "原58F870唯一W32 owner，初值1；两写一读原引用对应同源存储"
+        },
+        {
+          "path": "src/platform/MainLoopDependencies.hpp",
+          "symbols": [
+            "gRandomSeed"
+          ],
+          "relationship": "唯一extern声明，非私有CRT/TLS状态"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-baseline",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-decision",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-acceptance",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
+      ],
+      "boundary": "53B4BF播种：同一58F870 W32状态写入完整U32参数并返回该值；不引入私有CRT/TLS/RNG对象或截位。原十CALL仅引用定位，现有七源码播种表达式及全部父保持，不代完整父/范围外键盘接线。 BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
+      "verification_level": "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
+      "shared_random_source_baseline": {
+        "spec_id": "BVU01",
+        "evidence_refs": [
+          "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-baseline",
+          "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-decision",
+          "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-acceptance",
+          "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 3,
+        "original_code_bytes": 10,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_call_count": 10,
+        "original_inbound_tail_jump_count": 0,
+        "original_total_instruction_count": 27,
+        "original_total_code_bytes": 75,
+        "original_total_page_count": 3,
+        "original_total_direct_call_count": 1,
+        "original_total_unique_direct_callee_count": 1,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 1,
+        "original_total_return_count": 4,
+        "original_total_inbound_call_count": 220,
+        "original_total_inbound_tail_jump_count": 12,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "all_three_source_bodies_kept": true,
+        "single_shared_seed_initial_1_and_declaration_kept": true,
+        "seed_full_U32_write_return_kept": true,
+        "one_recurrence_store_before_same_sample_return_kept": true,
+        "original_upper_minus1_no_consumption_and_one_RNG_range_kept": true,
+        "ordinary_S32_math_and_RPLAN24_kept": true,
+        "seven_seed_expressions_and_parents_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "excluded_keyboard_scope_kept": true,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_all_random_consumers_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x53b4c9",
+      "inventory_id": "F:0013B4C9",
+      "original_role": "53B4C9取数：一次读取同源W32 seed，乘343FDH加269EC3H并将同一结果写回后返回位16..30；原SAR后7FFFH掩码由现有unsigned移位同掩码表达，返回int保持15位非负值。81普通CALL与12尾跳分列，只原引用定位，不称全消费者/RNG时序或异常等价。",
+      "original_end_exclusive": "0x53b4e7",
+      "original_chunks": [
+        [
+          "0x53b4c9",
+          "0x53b4e7"
+        ]
+      ],
+      "instruction_count": 7,
+      "status": "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
+      "sources": [
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "NextRandom_53B4C9"
+          ],
+          "relationship": "53B4C9取数：一次读取同源W32 seed，乘343FDH加269EC3H并将同一结果写回后返回位16..30；原SAR后7FFFH掩码由现有unsigned移位同掩码表达，返回int保持15位非负值。81普通CALL与12尾跳分列，只原引用定位，不称全消费者/RNG时序或异常等价。"
+        },
+        {
+          "path": "src/platform/MainLoopDependencies.hpp",
+          "symbols": [
+            "NextRandom_53B4C9"
+          ],
+          "relationship": "既有模块依赖声明保持，不新增接口"
+        },
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "gRandomSeed"
+          ],
+          "relationship": "原58F870唯一W32 owner，初值1；两写一读原引用对应同源存储"
+        },
+        {
+          "path": "src/platform/MainLoopDependencies.hpp",
+          "symbols": [
+            "gRandomSeed"
+          ],
+          "relationship": "唯一extern声明，非私有CRT/TLS状态"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-baseline",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-decision",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-acceptance",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
+      ],
+      "boundary": "53B4C9取数：一次读取同源W32 seed，乘343FDH加269EC3H并将同一结果写回后返回位16..30；原SAR后7FFFH掩码由现有unsigned移位同掩码表达，返回int保持15位非负值。81普通CALL与12尾跳分列，只原引用定位，不称全消费者/RNG时序或异常等价。 BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
+      "verification_level": "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
+      "shared_random_source_baseline": {
+        "spec_id": "BVU01",
+        "evidence_refs": [
+          "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-baseline",
+          "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-decision",
+          "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-acceptance",
+          "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 7,
+        "original_code_bytes": 30,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_call_count": 81,
+        "original_inbound_tail_jump_count": 12,
+        "original_total_instruction_count": 27,
+        "original_total_code_bytes": 75,
+        "original_total_page_count": 3,
+        "original_total_direct_call_count": 1,
+        "original_total_unique_direct_callee_count": 1,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 1,
+        "original_total_return_count": 4,
+        "original_total_inbound_call_count": 220,
+        "original_total_inbound_tail_jump_count": 12,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "all_three_source_bodies_kept": true,
+        "single_shared_seed_initial_1_and_declaration_kept": true,
+        "seed_full_U32_write_return_kept": true,
+        "one_recurrence_store_before_same_sample_return_kept": true,
+        "original_upper_minus1_no_consumption_and_one_RNG_range_kept": true,
+        "ordinary_S32_math_and_RPLAN24_kept": true,
+        "seven_seed_expressions_and_parents_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "excluded_keyboard_scope_kept": true,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_all_random_consumers_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x46faf0",
+      "inventory_id": "F:0006FAF0",
+      "original_role": "46FAF0区间：upper==-1时返0且不取随机数，其余先调用同一rand一次，再按普通S32 upper-lower+1、signed余数加lower返回。沿已有RPLAN.24普通算术/异常不专项处理裁决，不新增除零、越界、上下界排序/拒绝/钳制或故障模拟；129CALL仅引用定位。",
+      "original_end_exclusive": "0x46fb13",
+      "original_chunks": [
+        [
+          "0x46faf0",
+          "0x46fb13"
+        ]
+      ],
+      "instruction_count": 17,
+      "status": "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
+      "sources": [
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "RandomRange_46FAF0"
+          ],
+          "relationship": "46FAF0区间：upper==-1时返0且不取随机数，其余先调用同一rand一次，再按普通S32 upper-lower+1、signed余数加lower返回。沿已有RPLAN.24普通算术/异常不专项处理裁决，不新增除零、越界、上下界排序/拒绝/钳制或故障模拟；129CALL仅引用定位。"
+        },
+        {
+          "path": "src/platform/MainLoopDependencies.hpp",
+          "symbols": [
+            "RandomRange_46FAF0"
+          ],
+          "relationship": "既有模块依赖声明保持，不新增接口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-baseline",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-decision",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-acceptance",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
+      ],
+      "boundary": "46FAF0区间：upper==-1时返0且不取随机数，其余先调用同一rand一次，再按普通S32 upper-lower+1、signed余数加lower返回。沿已有RPLAN.24普通算术/异常不专项处理裁决，不新增除零、越界、上下界排序/拒绝/钳制或故障模拟；129CALL仅引用定位。 BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
+      "verification_level": "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
+      "shared_random_source_baseline": {
+        "spec_id": "BVU01",
+        "evidence_refs": [
+          "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-baseline",
+          "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-decision",
+          "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-acceptance",
+          "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 17,
+        "original_code_bytes": 35,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 1,
+        "original_return_count": 2,
+        "original_inbound_call_count": 129,
+        "original_inbound_tail_jump_count": 0,
+        "original_total_instruction_count": 27,
+        "original_total_code_bytes": 75,
+        "original_total_page_count": 3,
+        "original_total_direct_call_count": 1,
+        "original_total_unique_direct_callee_count": 1,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 1,
+        "original_total_return_count": 4,
+        "original_total_inbound_call_count": 220,
+        "original_total_inbound_tail_jump_count": 12,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "all_three_source_bodies_kept": true,
+        "single_shared_seed_initial_1_and_declaration_kept": true,
+        "seed_full_U32_write_return_kept": true,
+        "one_recurrence_store_before_same_sample_return_kept": true,
+        "original_upper_minus1_no_consumption_and_one_RNG_range_kept": true,
+        "ordinary_S32_math_and_RPLAN24_kept": true,
+        "seven_seed_expressions_and_parents_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "excluded_keyboard_scope_kept": true,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_all_random_consumers_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

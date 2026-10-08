@@ -1,0 +1,1855 @@
+{
+  "schema_version": 1,
+  "spec_id": "BVU01",
+  "recorded_on": "2026-10-08",
+  "baseline_snapshot": "cg2d-re-screenshot-chain-baseline-20261008",
+  "implementation_snapshot": "cg2d-re-shared-random-source-baseline-20261008",
+  "evidence_refs": [
+    "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-baseline",
+    "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-decision",
+    "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-acceptance",
+    "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
+  ],
+  "artifacts": [
+    "src/platform/MainLoopSupport.cpp#SeedRandom_53B4BF",
+    "src/platform/MainLoopSupport.cpp#NextRandom_53B4C9",
+    "src/platform/MainLoopSupport.cpp#RandomRange_46FAF0",
+    "src/platform/MainLoopSupport.cpp#gRandomSeed",
+    "src/platform/MainLoopDependencies.hpp#gRandomSeed",
+    "src/platform/MainLoopDependencies.hpp#SeedRandom_53B4BF",
+    "src/platform/MainLoopDependencies.hpp#NextRandom_53B4C9",
+    "src/platform/MainLoopDependencies.hpp#RandomRange_46FAF0",
+    "src/platform/ClientInitialization.cpp",
+    "src/platform/MainLoop.cpp",
+    "src/YobiRuntime.cpp",
+    "src/network/NetworkRuntime.cpp",
+    "src/platform/LegacyExternalKeyboard.cpp",
+    "doc/cg2d_random_range.md",
+    "doc/cg2d_window_shortcut_publication_evidence.json",
+    "doc/cg2d_shared_random_source_baseline_evidence.json",
+    "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-baseline",
+    "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-decision",
+    "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-acceptance",
+    "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
+  ],
+  "original_functions": [
+    {
+      "start": "0x53b4bf",
+      "end_exclusive": "0x53b4c9",
+      "chunks": [
+        [
+          "0x53b4bf",
+          "0x53b4c9"
+        ]
+      ],
+      "count": 3,
+      "code_bytes": 10,
+      "page_count": 1,
+      "pages": [
+        {
+          "offset": 0,
+          "count": 3
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x53b4bf",
+          "size": 4,
+          "bytes": "8b442404",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esp+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x53b4c3",
+          "size": 5,
+          "bytes": "a370f85800",
+          "mnemonic": "mov",
+          "text": "mov     randSeed, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x53b4c8",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4048e0",
+          "from": "0x4048f9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4065a0",
+          "from": "0x4065d3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x427470",
+          "from": "0x42a40c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x457020",
+          "from": "0x457414"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4576b0",
+          "from": "0x4577e6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x510b80",
+          "from": "0x510c4a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x534b80",
+          "from": "0x534e5a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x535540",
+          "from": "0x53571b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x536970",
+          "from": "0x536b61"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x536c30",
+          "from": "0x536dc8"
+        }
+      ],
+      "calls": [],
+      "indirect_calls": [],
+      "jump_count": 0,
+      "return_count": 1
+    },
+    {
+      "start": "0x53b4c9",
+      "end_exclusive": "0x53b4e7",
+      "chunks": [
+        [
+          "0x53b4c9",
+          "0x53b4e7"
+        ]
+      ],
+      "count": 7,
+      "code_bytes": 30,
+      "page_count": 1,
+      "pages": [
+        {
+          "offset": 0,
+          "count": 7
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x53b4c9",
+          "size": 5,
+          "bytes": "a170f85800",
+          "mnemonic": "mov",
+          "text": "mov     eax, randSeed",
+          "call_target": null
+        },
+        {
+          "ea": "0x53b4ce",
+          "size": 6,
+          "bytes": "69c0fd430300",
+          "mnemonic": "imul",
+          "text": "imul    eax, 343FDh",
+          "call_target": null
+        },
+        {
+          "ea": "0x53b4d4",
+          "size": 5,
+          "bytes": "05c39e2600",
+          "mnemonic": "add",
+          "text": "add     eax, 269EC3h",
+          "call_target": null
+        },
+        {
+          "ea": "0x53b4d9",
+          "size": 5,
+          "bytes": "a370f85800",
+          "mnemonic": "mov",
+          "text": "mov     randSeed, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x53b4de",
+          "size": 3,
+          "bytes": "c1f810",
+          "mnemonic": "sar",
+          "text": "sar     eax, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x53b4e1",
+          "size": 5,
+          "bytes": "25ff7f0000",
+          "mnemonic": "and",
+          "text": "and     eax, 7FFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x53b4e6",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x401c70",
+          "from": "0x401c79"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x401cc0",
+          "from": "0x401cc9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x401ec0",
+          "from": "0x401f00"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4048e0",
+          "from": "0x404901"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x412f70",
+          "from": "0x413005"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x416220",
+          "from": "0x416828"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x418ff0",
+          "from": "0x41909d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4216b0",
+          "from": "0x4216bb"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4216b0",
+          "from": "0x4216c9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x427470",
+          "from": "0x4372aa"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x457020",
+          "from": "0x45742c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x457020",
+          "from": "0x4574ae"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e4e0",
+          "from": "0x46e575"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e4e0",
+          "from": "0x46e591"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e4e0",
+          "from": "0x46e5f2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e4e0",
+          "from": "0x46e60e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e6c0",
+          "from": "0x46e752"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e6c0",
+          "from": "0x46e76e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e6c0",
+          "from": "0x46e783"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e6c0",
+          "from": "0x46e796"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e6c0",
+          "from": "0x46e7aa"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e6c0",
+          "from": "0x46e7c8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e6c0",
+          "from": "0x46e820"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e6c0",
+          "from": "0x46e83c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e6c0",
+          "from": "0x46e851"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e6c0",
+          "from": "0x46e864"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e6c0",
+          "from": "0x46e878"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e6c0",
+          "from": "0x46e896"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e940",
+          "from": "0x46e9bf"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e940",
+          "from": "0x46e9d7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e940",
+          "from": "0x46e9ec"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e940",
+          "from": "0x46e9ff"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e940",
+          "from": "0x46ea13"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e940",
+          "from": "0x46ea40"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e940",
+          "from": "0x46ea8f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e940",
+          "from": "0x46eaa7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e940",
+          "from": "0x46eabc"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e940",
+          "from": "0x46eacf"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e940",
+          "from": "0x46eae3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46e940",
+          "from": "0x46eb01"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46ebb0",
+          "from": "0x46ec29"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46ebb0",
+          "from": "0x46ec41"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46ebb0",
+          "from": "0x46ec8b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46ebb0",
+          "from": "0x46eca3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46ed50",
+          "from": "0x46eded"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46ed50",
+          "from": "0x46ee06"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46ed50",
+          "from": "0x46ee1e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46ed50",
+          "from": "0x46ee98"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46ed50",
+          "from": "0x46eeb1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46ed50",
+          "from": "0x46eecd"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46ed50",
+          "from": "0x46ef39"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46ed50",
+          "from": "0x46ef56"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46ed50",
+          "from": "0x46ef77"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46ed50",
+          "from": "0x46ef88"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46ed50",
+          "from": "0x46ef9d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46f1d0",
+          "from": "0x46f3c5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46f1d0",
+          "from": "0x46f3d1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46f1d0",
+          "from": "0x46f3df"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46f1d0",
+          "from": "0x46f3ef"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46f1d0",
+          "from": "0x46f472"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46f1d0",
+          "from": "0x46f47e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46f1d0",
+          "from": "0x46f48c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46f1d0",
+          "from": "0x46f4a0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46faf0",
+          "from": "0x46fafe"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46fb20",
+          "from": "0x46fb20"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x47e1b0",
+          "from": "0x47e499"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x47ef00",
+          "from": "0x47f27d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4801b0",
+          "from": "0x4804bf"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x480c20",
+          "from": "0x480eeb"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4c7ae0",
+          "from": "0x4c82c5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4c7ae0",
+          "from": "0x4c8d8f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f2a30",
+          "from": "0x4f2e98"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f51d0",
+          "from": "0x4f564a"
+        },
+        {
+          "type": 19,
+          "code": true,
+          "function": null,
+          "from": "0x503d0a"
+        },
+        {
+          "type": 19,
+          "code": true,
+          "function": null,
+          "from": "0x503d1a"
+        },
+        {
+          "type": 19,
+          "code": true,
+          "function": null,
+          "from": "0x503d2a"
+        },
+        {
+          "type": 19,
+          "code": true,
+          "function": null,
+          "from": "0x503d3a"
+        },
+        {
+          "type": 19,
+          "code": true,
+          "function": null,
+          "from": "0x503d4a"
+        },
+        {
+          "type": 19,
+          "code": true,
+          "function": null,
+          "from": "0x503d5a"
+        },
+        {
+          "type": 19,
+          "code": true,
+          "function": null,
+          "from": "0x503d6a"
+        },
+        {
+          "type": 19,
+          "code": true,
+          "function": null,
+          "from": "0x503d7a"
+        },
+        {
+          "type": 19,
+          "code": true,
+          "function": null,
+          "from": "0x503d8a"
+        },
+        {
+          "type": 19,
+          "code": true,
+          "function": null,
+          "from": "0x503d9a"
+        },
+        {
+          "type": 19,
+          "code": true,
+          "function": null,
+          "from": "0x503daa"
+        },
+        {
+          "type": 19,
+          "code": true,
+          "function": null,
+          "from": "0x503dba"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": null,
+          "from": "0x503dc0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x510b80",
+          "from": "0x510c52"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x534b80",
+          "from": "0x534e62"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x534b80",
+          "from": "0x534e88"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x535540",
+          "from": "0x535e1b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x535540",
+          "from": "0x536764"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x536970",
+          "from": "0x536b81"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x536c30",
+          "from": "0x536de8"
+        }
+      ],
+      "calls": [],
+      "indirect_calls": [],
+      "jump_count": 0,
+      "return_count": 1
+    },
+    {
+      "start": "0x46faf0",
+      "end_exclusive": "0x46fb13",
+      "chunks": [
+        [
+          "0x46faf0",
+          "0x46fb13"
+        ]
+      ],
+      "count": 17,
+      "code_bytes": 35,
+      "page_count": 1,
+      "pages": [
+        {
+          "offset": 0,
+          "count": 17
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x46faf0",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x46faf1",
+          "size": 4,
+          "bytes": "8b74240c",
+          "mnemonic": "mov",
+          "text": "mov     esi, [esp+4+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46faf5",
+          "size": 3,
+          "bytes": "8d4601",
+          "mnemonic": "lea",
+          "text": "lea     eax, [esi+1]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46faf8",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x46fafa",
+          "size": 2,
+          "bytes": "7502",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_46FAFE",
+          "call_target": null
+        },
+        {
+          "ea": "0x46fafc",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x46fafd",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x46fafe",
+          "size": 5,
+          "bytes": "e8c6b90c00",
+          "mnemonic": "call",
+          "text": "call    rand",
+          "call_target": "0x53b4c9"
+        },
+        {
+          "ea": "0x46fb03",
+          "size": 4,
+          "bytes": "8b4c2408",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [esp+4+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46fb07",
+          "size": 2,
+          "bytes": "2bf1",
+          "mnemonic": "sub",
+          "text": "sub     esi, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x46fb09",
+          "size": 1,
+          "bytes": "99",
+          "mnemonic": "cdq",
+          "text": "cdq",
+          "call_target": null
+        },
+        {
+          "ea": "0x46fb0a",
+          "size": 1,
+          "bytes": "46",
+          "mnemonic": "inc",
+          "text": "inc     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x46fb0b",
+          "size": 2,
+          "bytes": "f7fe",
+          "mnemonic": "idiv",
+          "text": "idiv    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x46fb0d",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x46fb0e",
+          "size": 2,
+          "bytes": "8bc2",
+          "mnemonic": "mov",
+          "text": "mov     eax, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x46fb10",
+          "size": 2,
+          "bytes": "03c1",
+          "mnemonic": "add",
+          "text": "add     eax, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x46fb12",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x403e50",
+          "from": "0x403ee2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x406930",
+          "from": "0x406995"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x406930",
+          "from": "0x4069af"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x406a80",
+          "from": "0x406ac3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x406a80",
+          "from": "0x406add"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4072e0",
+          "from": "0x407679"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4072e0",
+          "from": "0x407699"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4072e0",
+          "from": "0x4076b9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4072e0",
+          "from": "0x4076d9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4072e0",
+          "from": "0x40774d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4072e0",
+          "from": "0x4077d0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x408410",
+          "from": "0x4084d2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4087c0",
+          "from": "0x408b00"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4087c0",
+          "from": "0x408be4"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x409680",
+          "from": "0x4098cc"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x409680",
+          "from": "0x409973"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x40c780",
+          "from": "0x40c79b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x40c780",
+          "from": "0x40c7af"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x40c780",
+          "from": "0x40c7c1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x40c780",
+          "from": "0x40c7d3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x40c780",
+          "from": "0x40c7e9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x40c780",
+          "from": "0x40c7f7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x40c780",
+          "from": "0x40c807"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x40c780",
+          "from": "0x40c819"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x40c780",
+          "from": "0x40c82e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x40c780",
+          "from": "0x40c848"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x40d3c0",
+          "from": "0x40d525"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x40df80",
+          "from": "0x40e034"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x40e560",
+          "from": "0x40e68f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x40e560",
+          "from": "0x40e765"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x40f0a0",
+          "from": "0x40f11e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x40f800",
+          "from": "0x40f880"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x40f800",
+          "from": "0x40f8b5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x40f800",
+          "from": "0x40f9ab"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x40f800",
+          "from": "0x40fa85"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x412900",
+          "from": "0x412c9b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x416220",
+          "from": "0x4163b0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x416220",
+          "from": "0x41646f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x416dd0",
+          "from": "0x416f5d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x416dd0",
+          "from": "0x417000"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x417410",
+          "from": "0x417561"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x417d80",
+          "from": "0x417f81"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x417d80",
+          "from": "0x417fa1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x417d80",
+          "from": "0x417fc1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x417d80",
+          "from": "0x417fe1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x417d80",
+          "from": "0x418055"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x417d80",
+          "from": "0x4180d8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4186b0",
+          "from": "0x4187ae"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x419fc0",
+          "from": "0x41a04e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x419fc0",
+          "from": "0x41a08f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41a310",
+          "from": "0x41a429"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41a310",
+          "from": "0x41a462"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41a9e0",
+          "from": "0x41aa81"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41af00",
+          "from": "0x41afa1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41b440",
+          "from": "0x41b4d9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41bb00",
+          "from": "0x41bc8d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41bb00",
+          "from": "0x41c1cb"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41c3b0",
+          "from": "0x41c4fe"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41c3b0",
+          "from": "0x41cb2d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41c3b0",
+          "from": "0x41cb47"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41c3b0",
+          "from": "0x41cb7e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41c3b0",
+          "from": "0x41cb98"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41c3b0",
+          "from": "0x41cbcf"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41c3b0",
+          "from": "0x41cbe9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41c3b0",
+          "from": "0x41cc1c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41c3b0",
+          "from": "0x41cc36"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41c3b0",
+          "from": "0x41cc7d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41c3b0",
+          "from": "0x41cc97"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41cd00",
+          "from": "0x41d5c7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41cd00",
+          "from": "0x41d610"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41cd00",
+          "from": "0x41dd07"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41cd00",
+          "from": "0x41dd32"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41cd00",
+          "from": "0x41dd8f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41cd00",
+          "from": "0x41e0e2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41e510",
+          "from": "0x41e537"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41e510",
+          "from": "0x41e569"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41e510",
+          "from": "0x41e57d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x41e7c0",
+          "from": "0x41e804"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x420d50",
+          "from": "0x420e3d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x420d50",
+          "from": "0x420e76"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4219d0",
+          "from": "0x421db3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4219d0",
+          "from": "0x421dcd"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4219d0",
+          "from": "0x421e04"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4219d0",
+          "from": "0x421e1e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4219d0",
+          "from": "0x421e55"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4219d0",
+          "from": "0x421e6f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4219d0",
+          "from": "0x421ea2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4219d0",
+          "from": "0x421ebc"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4219d0",
+          "from": "0x421f03"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4219d0",
+          "from": "0x421f1d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x422e50",
+          "from": "0x422f30"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x423040",
+          "from": "0x423128"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x423040",
+          "from": "0x423137"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4231d0",
+          "from": "0x4232a4"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4231d0",
+          "from": "0x4232cf"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4231d0",
+          "from": "0x423328"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x423350",
+          "from": "0x42344c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x423350",
+          "from": "0x42345b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4234b0",
+          "from": "0x423595"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4234b0",
+          "from": "0x4235b9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x423640",
+          "from": "0x423680"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x423640",
+          "from": "0x423693"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x427470",
+          "from": "0x42a415"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x427470",
+          "from": "0x42a43a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x449160",
+          "from": "0x449206"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x449160",
+          "from": "0x44921b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x449160",
+          "from": "0x44923e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x449160",
+          "from": "0x44926c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x449160",
+          "from": "0x4492bb"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x449160",
+          "from": "0x44930d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x449160",
+          "from": "0x44935f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x475aa0",
+          "from": "0x475ae5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x475aa0",
+          "from": "0x475afc"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x475aa0",
+          "from": "0x475b20"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x475aa0",
+          "from": "0x475b3c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x475aa0",
+          "from": "0x475b6b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x475aa0",
+          "from": "0x475b9a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x475c10",
+          "from": "0x475c6b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x475c10",
+          "from": "0x475c7e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x475c10",
+          "from": "0x475c9b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x475c10",
+          "from": "0x475cb5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x475c10",
+          "from": "0x475ce3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x475c10",
+          "from": "0x475d11"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x51d750",
+          "from": "0x51d771"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x51ef80",
+          "from": "0x51ef8e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x51ef80",
+          "from": "0x51f0a7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x51ef80",
+          "from": "0x51f190"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x51ef80",
+          "from": "0x51f290"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x51ef80",
+          "from": "0x51f3e5"
+        }
+      ],
+      "calls": [
+        {
+          "ea": "0x46fafe",
+          "size": 5,
+          "bytes": "e8c6b90c00",
+          "mnemonic": "call",
+          "text": "call    rand",
+          "call_target": "0x53b4c9"
+        }
+      ],
+      "indirect_calls": [],
+      "jump_count": 1,
+      "return_count": 2
+    }
+  ],
+  "original_seed": {
+    "ea": "0x58f870",
+    "width": 4,
+    "is_loaded": true,
+    "bytes": "01000000",
+    "value": 1,
+    "xrefs": [
+      {
+        "type": 2,
+        "code": false,
+        "text": "mov     randSeed, eax",
+        "from": "0x53b4c3"
+      },
+      {
+        "type": 3,
+        "code": false,
+        "text": "mov     eax, randSeed",
+        "from": "0x53b4c9"
+      },
+      {
+        "type": 2,
+        "code": false,
+        "text": "mov     randSeed, eax",
+        "from": "0x53b4d9"
+      }
+    ]
+  },
+  "original_totals": {
+    "instructions": 27,
+    "bytes": 75,
+    "pages": 3,
+    "direct": 1,
+    "uniqueTargets": 1,
+    "indirect": 0,
+    "jumps": 1,
+    "returns": 4,
+    "callRefs": 220,
+    "tailRefs": 12
+  },
+  "source_functions": [
+    {
+      "id": "F:0013B4BF",
+      "entry": "0x53b4bf",
+      "index": 1802,
+      "original_index": 0,
+      "source_path": "src/platform/MainLoopSupport.cpp",
+      "symbol": "SeedRandom_53B4BF",
+      "contract": "53B4BF播种：同一58F870 W32状态写入完整U32参数并返回该值；不引入私有CRT/TLS/RNG对象或截位。原十CALL仅引用定位，现有七源码播种表达式及全部父保持，不代完整父/范围外键盘接线。"
+    },
+    {
+      "id": "F:0013B4C9",
+      "entry": "0x53b4c9",
+      "index": 1803,
+      "original_index": 1,
+      "source_path": "src/platform/MainLoopSupport.cpp",
+      "symbol": "NextRandom_53B4C9",
+      "contract": "53B4C9取数：一次读取同源W32 seed，乘343FDH加269EC3H并将同一结果写回后返回位16..30；原SAR后7FFFH掩码由现有unsigned移位同掩码表达，返回int保持15位非负值。81普通CALL与12尾跳分列，只原引用定位，不称全消费者/RNG时序或异常等价。"
+    },
+    {
+      "id": "F:0006FAF0",
+      "entry": "0x46faf0",
+      "index": 1804,
+      "original_index": 2,
+      "source_path": "src/platform/MainLoopSupport.cpp",
+      "symbol": "RandomRange_46FAF0",
+      "contract": "46FAF0区间：upper==-1时返0且不取随机数，其余先调用同一rand一次，再按普通S32 upper-lower+1、signed余数加lower返回。沿已有RPLAN.24普通算术/异常不专项处理裁决，不新增除零、越界、上下界排序/拒绝/钳制或故障模拟；129CALL仅引用定位。"
+    }
+  ],
+  "source_files_kept": [
+    "src/platform/MainLoopSupport.cpp",
+    "src/platform/MainLoopDependencies.hpp",
+    "src/platform/ClientInitialization.cpp",
+    "src/platform/MainLoop.cpp",
+    "src/YobiRuntime.cpp",
+    "src/network/NetworkRuntime.cpp",
+    "src/platform/LegacyExternalKeyboard.cpp"
+  ],
+  "implementation_static_scope": "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
+  "source_cpp_changed_count": 0,
+  "source_header_changed_count": 0,
+  "source_patch_count": 0,
+  "new_function_count": 0,
+  "new_helper_count": 0,
+  "new_api_count": 0,
+  "new_owner_count": 0,
+  "new_I_claimed": false,
+  "all_three_existing_bodies_kept": true,
+  "single_shared_seed_and_initial_1_kept": true,
+  "source_seed_expression_count": 7,
+  "upper_minus_1_no_random_consumption_kept": true,
+  "ordinary_S32_range_math_kept": true,
+  "wire_format_changed": false,
+  "encryption_added": false,
+  "audio_pause_kept": true,
+  "excluded_keyboard_scope_kept": true,
+  "full_all_parents_verified": false,
+  "full_all_callees_verified": false,
+  "full_all_random_consumers_verified": false,
+  "full_input_production_verified": false,
+  "full_lifecycle_closed": false,
+  "runtime_verified": false,
+  "machine_abi_verified": false,
+  "fault_equivalence_claimed": false,
+  "source_bodies_kept": [
+    {
+      "path": "src/platform/MainLoopSupport.cpp",
+      "symbol": "SeedRandom_53B4BF",
+      "body": "std::uint32_t SeedRandom_53B4BF(std::uint32_t seed)\n{\n    gRandomSeed = seed;\n    return seed;\n}\n\n"
+    },
+    {
+      "path": "src/platform/MainLoopSupport.cpp",
+      "symbol": "NextRandom_53B4C9",
+      "body": "int NextRandom_53B4C9()\n{\n    const std::uint32_t seed = gRandomSeed * 0x343FDu + 0x269EC3u;\n    gRandomSeed = seed;\n    // 原 sar 后的 0x7FFF 掩码只保留原位 16..30，无符号移位得到相同结果。\n    return static_cast<int>((seed >> 16) & 0x7FFFu);\n}\n\n"
+    },
+    {
+      "path": "src/platform/MainLoopSupport.cpp",
+      "symbol": "RandomRange_46FAF0",
+      "body": "std::int32_t RandomRange_46FAF0(std::int32_t lower, std::int32_t upper)\n{\n    if (upper == -1) {\n        return 0;\n    }\n\n    const std::int32_t random = NextRandom_53B4C9();\n    const std::int32_t divisor = upper - lower + 1;\n    return random % divisor + lower;\n}\n\n"
+    }
+  ]
+}

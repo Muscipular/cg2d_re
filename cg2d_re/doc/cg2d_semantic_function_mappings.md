@@ -3987,3 +3987,11 @@ BVP01七整源/十三正文保持是原命名快照历史；本次只纠正4FA8E
 BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。
 
 旧757的五文件/格式原点、十源码表达式及十条原字符串保持；早期“主函数仍待”仅是旧阶段状态。现有目录/time/localtime/探测已接真实Legacy边界，截图仍沿原GDI。预期语义1802/有效1795、基线1912（51.96%）、F951/E1105；正确本体不重建，不称新增I或完整截图运行通过。
+
+## BVU01共享随机源基线（2026-10-08）
+
+[基线](cg2d_shared_random_source_baseline_spec.md#shared-random-baseline)、[合同与决定](cg2d_shared_random_source_baseline_spec.md#shared-random-decision)、[验收](cg2d_shared_random_source_baseline_spec.md#shared-random-acceptance)、[状态](cg2d_shared_random_source_baseline_spec.md#shared-random-source-state)及[完整原证](cg2d_shared_random_source_baseline_evidence.json)。
+
+BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。
+
+旧RAND文档的并行、独立review/待批要求仅为历史阶段记录；当前由本线程按子项目AGENTS和既有工程委托完成，RPLAN.24持续有效。现有普通S32区间表达已落位，三正确正文不重建。预期语义1805/有效1798、合同1915（52.04%）、F954/E1106；不以primitive静态基线宣全消费者、所有RNG时序或运行已验收。

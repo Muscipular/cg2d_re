@@ -229,3 +229,11 @@ upper 早退判断保持在 RNG 前，非早退路径保持先取随机数、后
 `RPLAN.24` 与单项除零裁决覆盖相冲突的旧异常门禁，不实施上述软件异常候选。
 未实施候选及原故障事实保留，不记为异常已解决；文档不代替源码或调用链验收。
 本次新增差异后续仍须独立 review 和文件验证，进度由主线程记录。
+
+## BVU01共享随机源基线（2026-10-08）
+
+[基线](cg2d_shared_random_source_baseline_spec.md#shared-random-baseline)、[合同与决定](cg2d_shared_random_source_baseline_spec.md#shared-random-decision)、[验收](cg2d_shared_random_source_baseline_spec.md#shared-random-acceptance)、[状态](cg2d_shared_random_source_baseline_spec.md#shared-random-source-state)及[完整原证](cg2d_shared_random_source_baseline_evidence.json)。
+
+BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。
+
+旧RAND文档的并行、独立review/待批要求仅为历史阶段记录；当前由本线程按子项目AGENTS和既有工程委托完成，RPLAN.24持续有效。现有普通S32区间表达已落位，三正确正文不重建。预期语义1805/有效1798、合同1915（52.04%）、F954/E1106；不以primitive静态基线宣全消费者、所有RNG时序或运行已验收。

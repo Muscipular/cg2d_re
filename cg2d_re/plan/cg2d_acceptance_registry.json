@@ -655,7 +655,8 @@
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-baseline",
         "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
-        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-baseline"
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-baseline",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -832,7 +833,10 @@
         "F:0011FDE0",
         "F:0011D790",
         "F:0011E0D0",
-        "F:0011D750"
+        "F:0011D750",
+        "F:0013B4BF",
+        "F:0013B4C9",
+        "F:0006FAF0"
       ],
       "closure_task_ids": [
         "U11",
@@ -912,7 +916,8 @@
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-decision",
         "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision",
-        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-decision"
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-decision",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -983,7 +988,8 @@
         "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。",
         "BVE01正/反向FX完整两根1252条5152B/19页、35direct/零indirect/208跳转/五返回、18引用同已纳管51FDE0；18局部252条707B准确复用BVD01完整父，窗口含重叠不当全链。原51D793/51E0D3触发完整W32持样早于RECT生产；一cpp两个prefix恢复先持样后RECT/按同持样判定，完整余体/四相关源/声明/18真实消费保持。两实际9项表72B/24B NN_NOP、两X96B用途；两adapted/LOOP-RENDER四限定I-S只取样实修/接口及用途，完整数值分支/浮点精度/像素/其余callee与owner-alias寿命/ABI链接运行仍未验，不把完整取证等同完整语义验收；RPLAN.24异常不专项处理/模拟或记等价。",
         "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
-        "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验"
+        "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验",
+        "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1055,7 +1061,8 @@
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state",
         "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
-        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state"
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
       ]
     },
     {
@@ -49288,6 +49295,48 @@
       "observation": "BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。",
       "expected": "BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。",
       "actual": "BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。"
+    },
+    {
+      "id": "E-SHARED-RANDOM-SOURCE-FUNC-LOOP-S-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVU01三个正确primitive完整27条75B/三页，220CALL/12尾跳与共享seed装入初值1，源全保持零新I。doc/cg2d_shared_random_source_baseline_spec.md#shared-random-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-shared-random-source-baseline-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/platform/MainLoopSupport.cpp#SeedRandom_53B4BF",
+        "src/platform/MainLoopSupport.cpp#NextRandom_53B4C9",
+        "src/platform/MainLoopSupport.cpp#RandomRange_46FAF0",
+        "src/platform/MainLoopSupport.cpp#gRandomSeed",
+        "src/platform/MainLoopDependencies.hpp#gRandomSeed",
+        "src/platform/MainLoopDependencies.hpp#SeedRandom_53B4BF",
+        "src/platform/MainLoopDependencies.hpp#NextRandom_53B4C9",
+        "src/platform/MainLoopDependencies.hpp#RandomRange_46FAF0",
+        "src/platform/ClientInitialization.cpp",
+        "src/platform/MainLoop.cpp",
+        "src/YobiRuntime.cpp",
+        "src/network/NetworkRuntime.cpp",
+        "src/platform/LegacyExternalKeyboard.cpp",
+        "doc/cg2d_random_range.md",
+        "doc/cg2d_window_shortcut_publication_evidence.json",
+        "doc/cg2d_shared_random_source_baseline_evidence.json",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-baseline",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-decision",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-acceptance",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
+          "decision_ref": "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
+      "expected": "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
+      "actual": "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。"
     }
   ],
   "task_acceptance": [
@@ -49891,7 +49940,8 @@
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state",
         "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state",
         "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-state",
-        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-source-state"
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-source-state",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
       ]
     },
     {
@@ -50188,7 +50238,8 @@
         "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state",
         "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-state",
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-source-state",
-        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state"
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
       ]
     },
     {
@@ -50491,7 +50542,8 @@
         "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state",
         "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-state",
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-source-state",
-        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state"
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
       ]
     },
     {
@@ -50821,7 +50873,8 @@
         "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state",
         "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-state",
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-source-state",
-        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state"
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
       ]
     },
     {
@@ -62433,6 +62486,42 @@
         "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state"
       ],
       "boundary": "453760：既有文件/格式接线记录保持并补完整根/批准GDI源合同。原客户区屏幕原点、mkdir/errno17、借同localtime月→日→年、0..999读探测及满额消息保持；32位三个mask先取再写。批准沿4539BC..453B71 GDI分支，12C000H分配/640x480/24位GetDIBits非零、成功才restore/Delete及两fresh hWnd ReleaseDC→BMP→原GDI消息→free，失败残留原样，不恢复Primary锁/像素转换、低色深渲染或故障分支。 BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。"
+    },
+    {
+      "inventory_id": "F:0013B4BF",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-baseline",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-decision",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-acceptance",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
+      ],
+      "boundary": "53B4BF播种：同一58F870 W32状态写入完整U32参数并返回该值；不引入私有CRT/TLS/RNG对象或截位。原十CALL仅引用定位，现有七源码播种表达式及全部父保持，不代完整父/范围外键盘接线。 BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。"
+    },
+    {
+      "inventory_id": "F:0013B4C9",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-baseline",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-decision",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-acceptance",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
+      ],
+      "boundary": "53B4C9取数：一次读取同源W32 seed，乘343FDH加269EC3H并将同一结果写回后返回位16..30；原SAR后7FFFH掩码由现有unsigned移位同掩码表达，返回int保持15位非负值。81普通CALL与12尾跳分列，只原引用定位，不称全消费者/RNG时序或异常等价。 BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。"
+    },
+    {
+      "inventory_id": "F:0006FAF0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-baseline",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-decision",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-acceptance",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
+      ],
+      "boundary": "46FAF0区间：upper==-1时返0且不取随机数，其余先调用同一rand一次，再按普通S32 upper-lower+1、signed余数加lower返回。沿已有RPLAN.24普通算术/异常不专项处理裁决，不新增除零、越界、上下界排序/拒绝/钳制或故障模拟；129CALL仅引用定位。 BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。"
     }
   ],
   "auxiliary_dispositions": [

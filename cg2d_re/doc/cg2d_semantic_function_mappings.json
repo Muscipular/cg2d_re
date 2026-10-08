@@ -199,8 +199,8 @@
     {
       "original_entry": "0x4FDBD0",
       "inventory_id": "F:000FDBD0",
-      "status": "CAB06开发已恢复，音量/立体声子回调已实现；初始化表/完整页面及旧外层真实接线仍待",
-      "implementation_state": "CAB06五个旧设置子回调已实现；旧7/旧8完整页面本体、初始化及原路由继续开发，不计完成或范围排除",
+      "status": "CAB07初始化/完整页面及控件/CRT绑定源码已实现，实际旧外层接线和编译/运行未验",
+      "implementation_state": "CAB07两240B面板及5/8条56B记录、两初始化包装/本体/完整页面已落码，CAB06五回调与公共返回真实绑定，原两CRT槽顺序已接；旧99表外层和完整功能运行仍待",
       "remaining_requirement": "57C368旧表保留该handler证据编号；不注册部分设置页或把音频暂缓记作范围排除。",
       "evidence_documents": [
         "doc/cg2d_display_settings.md"
@@ -209,8 +209,8 @@
     {
       "original_entry": "0x4FE0E0",
       "inventory_id": "F:000FE0E0",
-      "status": "CAB06开发已恢复，音量/立体声子回调已实现；初始化表/完整页面及旧外层真实接线仍待",
-      "implementation_state": "CAB06五个旧设置子回调已实现；旧7/旧8完整页面本体、初始化及原路由继续开发，不计完成或范围排除",
+      "status": "CAB07初始化/完整页面及控件/CRT绑定源码已实现，实际旧外层接线和编译/运行未验",
+      "implementation_state": "CAB07两240B面板及5/8条56B记录、两初始化包装/本体/完整页面已落码，CAB06五回调与公共返回真实绑定，原两CRT槽顺序已接；旧99表外层和完整功能运行仍待",
       "remaining_requirement": "57C368旧表保留该handler证据编号；不注册部分设置页或把音频暂缓记作范围排除。",
       "evidence_documents": [
         "doc/cg2d_display_settings.md"
@@ -212784,6 +212784,210 @@
         "runtime_verified": false
       },
       "verification_level": "93条305B五完整原根及新增DisplaySettings.cpp/头文件差异限定静态；既有共享状态与提供者保持；未编译、测试、运行或摘要"
+    },
+    {
+      "original_entry": "0x4FD9F0",
+      "inventory_id": "F:000FD9F0",
+      "status": "CAB07旧音乐/音效初始化、完整页面与控件/CRT原生接线已落码；限定静态通过，真实旧外层/编译/运行与全功能未验",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4FD9F0"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "LegacyMusicSettingsStaticInitializer"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-decision",
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
+        "doc/cg2d_audio_control_paused_scope_evidence.json"
+      ],
+      "original_end_exclusive": "0x4FD9F5",
+      "instruction_count": 1,
+      "original_byte_count": 5,
+      "boundary": "原六根511条2140B；13个原控件156发布、196B面板/40B文本控件按既有240B/56B原生布局承载，只地址拓宽。原X/Y取样、交错字段写、未写+23H、真实音量/声道及公共返回绑定、页面503160/七项保存/交互/文本/绘制/优先提示/503440序保持；11新静态字串严格CP950转GBK，保原长度/NUL。两新CRT源槽原序恢复，不启用旧cinit/数组或新增清理/RNG；两页真正旧外层路由及SDK/全部alias/正常寿命和声音运行未验，不增假handler或新业务。",
+      "audio_settings_pages_contract": {
+        "step": "CAB07",
+        "decision_ref": "doc/cg2d_display_settings.md#audio-settings-pages-decision",
+        "source_snapshot": "cg2d-re-audio-settings-pages-20261009",
+        "actual_outer_route_wired": false,
+        "compile_verified": false,
+        "runtime_verified": false
+      },
+      "verification_level": "当前原会话六完整根/原加载面板/字串/两handler数据行和156字段逐点、三个源码新增差异及两源槽顺序限定静态；未编译、测试、运行或摘要"
+    },
+    {
+      "original_entry": "0x4FDA00",
+      "inventory_id": "F:000FDA00",
+      "status": "CAB07旧音乐/音效初始化、完整页面与控件/CRT原生接线已落码；限定静态通过，真实旧外层/编译/运行与全功能未验",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4FDA00"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-decision",
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
+        "doc/cg2d_audio_control_paused_scope_evidence.json"
+      ],
+      "original_end_exclusive": "0x4FDBCE",
+      "instruction_count": 85,
+      "original_byte_count": 462,
+      "boundary": "原六根511条2140B；13个原控件156发布、196B面板/40B文本控件按既有240B/56B原生布局承载，只地址拓宽。原X/Y取样、交错字段写、未写+23H、真实音量/声道及公共返回绑定、页面503160/七项保存/交互/文本/绘制/优先提示/503440序保持；11新静态字串严格CP950转GBK，保原长度/NUL。两新CRT源槽原序恢复，不启用旧cinit/数组或新增清理/RNG；两页真正旧外层路由及SDK/全部alias/正常寿命和声音运行未验，不增假handler或新业务。",
+      "audio_settings_pages_contract": {
+        "step": "CAB07",
+        "decision_ref": "doc/cg2d_display_settings.md#audio-settings-pages-decision",
+        "source_snapshot": "cg2d-re-audio-settings-pages-20261009",
+        "actual_outer_route_wired": false,
+        "compile_verified": false,
+        "runtime_verified": false
+      },
+      "verification_level": "当前原会话六完整根/原加载面板/字串/两handler数据行和156字段逐点、三个源码新增差异及两源槽顺序限定静态；未编译、测试、运行或摘要"
+    },
+    {
+      "original_entry": "0x4FDBD0",
+      "inventory_id": "F:000FDBD0",
+      "status": "CAB07旧音乐/音效初始化、完整页面与控件/CRT原生接线已落码；限定静态通过，真实旧外层/编译/运行与全功能未验",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4FDBD0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-decision",
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
+        "doc/cg2d_audio_control_paused_scope_evidence.json"
+      ],
+      "original_end_exclusive": "0x4FDD62",
+      "instruction_count": 126,
+      "original_byte_count": 402,
+      "boundary": "原六根511条2140B；13个原控件156发布、196B面板/40B文本控件按既有240B/56B原生布局承载，只地址拓宽。原X/Y取样、交错字段写、未写+23H、真实音量/声道及公共返回绑定、页面503160/七项保存/交互/文本/绘制/优先提示/503440序保持；11新静态字串严格CP950转GBK，保原长度/NUL。两新CRT源槽原序恢复，不启用旧cinit/数组或新增清理/RNG；两页真正旧外层路由及SDK/全部alias/正常寿命和声音运行未验，不增假handler或新业务。",
+      "audio_settings_pages_contract": {
+        "step": "CAB07",
+        "decision_ref": "doc/cg2d_display_settings.md#audio-settings-pages-decision",
+        "source_snapshot": "cg2d-re-audio-settings-pages-20261009",
+        "actual_outer_route_wired": false,
+        "compile_verified": false,
+        "runtime_verified": false
+      },
+      "verification_level": "当前原会话六完整根/原加载面板/字串/两handler数据行和156字段逐点、三个源码新增差异及两源槽顺序限定静态；未编译、测试、运行或摘要"
+    },
+    {
+      "original_entry": "0x4FDE10",
+      "inventory_id": "F:000FDE10",
+      "status": "CAB07旧音乐/音效初始化、完整页面与控件/CRT原生接线已落码；限定静态通过，真实旧外层/编译/运行与全功能未验",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4FDE10"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "LegacySoundSettingsStaticInitializer"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-decision",
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
+        "doc/cg2d_audio_control_paused_scope_evidence.json"
+      ],
+      "original_end_exclusive": "0x4FDE15",
+      "instruction_count": 1,
+      "original_byte_count": 5,
+      "boundary": "原六根511条2140B；13个原控件156发布、196B面板/40B文本控件按既有240B/56B原生布局承载，只地址拓宽。原X/Y取样、交错字段写、未写+23H、真实音量/声道及公共返回绑定、页面503160/七项保存/交互/文本/绘制/优先提示/503440序保持；11新静态字串严格CP950转GBK，保原长度/NUL。两新CRT源槽原序恢复，不启用旧cinit/数组或新增清理/RNG；两页真正旧外层路由及SDK/全部alias/正常寿命和声音运行未验，不增假handler或新业务。",
+      "audio_settings_pages_contract": {
+        "step": "CAB07",
+        "decision_ref": "doc/cg2d_display_settings.md#audio-settings-pages-decision",
+        "source_snapshot": "cg2d-re-audio-settings-pages-20261009",
+        "actual_outer_route_wired": false,
+        "compile_verified": false,
+        "runtime_verified": false
+      },
+      "verification_level": "当前原会话六完整根/原加载面板/字串/两handler数据行和156字段逐点、三个源码新增差异及两源槽顺序限定静态；未编译、测试、运行或摘要"
+    },
+    {
+      "original_entry": "0x4FDE20",
+      "inventory_id": "F:000FDE20",
+      "status": "CAB07旧音乐/音效初始化、完整页面与控件/CRT原生接线已落码；限定静态通过，真实旧外层/编译/运行与全功能未验",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4FDE20"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-decision",
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
+        "doc/cg2d_audio_control_paused_scope_evidence.json"
+      ],
+      "original_end_exclusive": "0x4FE0E0",
+      "instruction_count": 125,
+      "original_byte_count": 704,
+      "boundary": "原六根511条2140B；13个原控件156发布、196B面板/40B文本控件按既有240B/56B原生布局承载，只地址拓宽。原X/Y取样、交错字段写、未写+23H、真实音量/声道及公共返回绑定、页面503160/七项保存/交互/文本/绘制/优先提示/503440序保持；11新静态字串严格CP950转GBK，保原长度/NUL。两新CRT源槽原序恢复，不启用旧cinit/数组或新增清理/RNG；两页真正旧外层路由及SDK/全部alias/正常寿命和声音运行未验，不增假handler或新业务。",
+      "audio_settings_pages_contract": {
+        "step": "CAB07",
+        "decision_ref": "doc/cg2d_display_settings.md#audio-settings-pages-decision",
+        "source_snapshot": "cg2d-re-audio-settings-pages-20261009",
+        "actual_outer_route_wired": false,
+        "compile_verified": false,
+        "runtime_verified": false
+      },
+      "verification_level": "当前原会话六完整根/原加载面板/字串/两handler数据行和156字段逐点、三个源码新增差异及两源槽顺序限定静态；未编译、测试、运行或摘要"
+    },
+    {
+      "original_entry": "0x4FE0E0",
+      "inventory_id": "F:000FE0E0",
+      "status": "CAB07旧音乐/音效初始化、完整页面与控件/CRT原生接线已落码；限定静态通过，真实旧外层/编译/运行与全功能未验",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4FE0E0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-decision",
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
+        "doc/cg2d_audio_control_paused_scope_evidence.json"
+      ],
+      "original_end_exclusive": "0x4FE312",
+      "instruction_count": 173,
+      "original_byte_count": 562,
+      "boundary": "原六根511条2140B；13个原控件156发布、196B面板/40B文本控件按既有240B/56B原生布局承载，只地址拓宽。原X/Y取样、交错字段写、未写+23H、真实音量/声道及公共返回绑定、页面503160/七项保存/交互/文本/绘制/优先提示/503440序保持；11新静态字串严格CP950转GBK，保原长度/NUL。两新CRT源槽原序恢复，不启用旧cinit/数组或新增清理/RNG；两页真正旧外层路由及SDK/全部alias/正常寿命和声音运行未验，不增假handler或新业务。",
+      "audio_settings_pages_contract": {
+        "step": "CAB07",
+        "decision_ref": "doc/cg2d_display_settings.md#audio-settings-pages-decision",
+        "source_snapshot": "cg2d-re-audio-settings-pages-20261009",
+        "actual_outer_route_wired": false,
+        "compile_verified": false,
+        "runtime_verified": false
+      },
+      "verification_level": "当前原会话六完整根/原加载面板/字串/两handler数据行和156字段逐点、三个源码新增差异及两源槽顺序限定静态；未编译、测试、运行或摘要"
     }
   ]
 }

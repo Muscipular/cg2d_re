@@ -374,6 +374,12 @@ std::uint32_t Sub_4FC8F0(std::int32_t opened); // 旧选择编号4；服务器�
 std::int32_t Sub_4FCB90(); // 原CRT 5530AC入口，尾跳旧聊天设置18条记录构造。
 std::int32_t Sub_4FCBA0(); // D67E80同源文字记录，不重置原+23H未写字节。
 std::uint32_t Sub_4FD1A0(std::int32_t opened); // 旧选择编号5，颜色/行数/范围显示与完整交互。
+std::int32_t Sub_4FD9F0(); // 原CRT 5530B0入口，尾跳旧音乐设置五控件构造。
+std::int32_t Sub_4FDA00(); // D68150五条文字记录，绑定两个音乐音量回调及返回。
+std::uint32_t Sub_4FDBD0(std::int32_t opened); // 旧选择编号7，音乐音量绘字、交互和关闭保存。
+std::int32_t Sub_4FDE10(); // 原CRT 5530B4入口，尾跳旧音效设置八控件构造。
+std::int32_t Sub_4FDE20(); // D68218八条文字记录，绑定音效音量、立体声及返回。
+std::uint32_t Sub_4FE0E0(std::int32_t opened); // 旧选择编号8，两声道标签及完整交互/关闭保存。
 std::int32_t Sub_4FE490(); // 原CRT 5530B8入口，尾跳旧鼠标设置11条记录构造。
 std::int32_t Sub_4FE4A0(); // D68358同源文字记录，原+23H字节不写。
 std::uint32_t Sub_4FE860(std::int32_t opened); // 旧选择编号9，模式/速度绘字、交互及完整保存。

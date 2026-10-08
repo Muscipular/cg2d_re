@@ -1516,6 +1516,26 @@ constexpr char kLegacyChat58A594[] = "\xB2\xBB\xC4\xDC\xD4\xD9\x9C\x70\xC9\xD9\x
 constexpr char kLegacyChat553FB4[] = "\x25\x32\x64";
 constexpr char kLegacyChat5531A4[] = "\x25\x64";
 
+LegacyPanelRecord gLegacyMusicSettings585190 {
+    0, 0, 192, 304, 7, {22961, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+std::array<LegacyPanelTextButtonRecord, 5> gLegacyMusicRecordsD68150 {};
+LegacyPanelRecord gLegacySoundSettings585258 {
+    0, 0, 192, 304, 8, {22962, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+std::array<LegacyPanelTextButtonRecord, 8> gLegacySoundRecordsD68218 {};
+constexpr char kLegacyAudio58A6D4[] = "\xD2\xF4\xC1\xBF\xD4\x4F\xB6\xA8"; // 原58A6D4 音量設定
+constexpr char kLegacyAudio58A720[] = "\xD4\x4F\xB6\xA8\xC2\x95\xD2\xF4\xC4\xA3\xCA\xBD"; // 原58A720 設定聲音模式
+constexpr char kLegacyAudio58A76C[] = "\x86\xCE\xC2\x95\xB5\xC0"; // 原58A76C 單聲道
+constexpr char kLegacyAudio58A764[] = "\xC1\xA2\xF3\x77\xC2\x95"; // 原58A764 立體聲
+constexpr char kLegacyAudio58A714[] = "\xD5\x7B\xB8\xDF\xD2\xF4\xC1\xBF\xA1\xA3"; // 原58A714 調高音量。
+constexpr char kLegacyAudio58A700[] = "\xB2\xBB\xC4\xDC\xD4\xD9\xD5\x7B\xB8\xDF\xD2\xF4\xC1\xBF\xC1\xCB"; // 原58A700 不能再調高音量了
+constexpr char kLegacyAudio58A6F4[] = "\xBD\xB5\xB5\xCD\xD2\xF4\xC1\xBF\xA1\xA3"; // 原58A6F4 降低音量。
+constexpr char kLegacyAudio58A6E0[] = "\xB2\xBB\xC4\xDC\xD4\xD9\xBD\xB5\xB5\xCD\xD2\xF4\xC1\xBF\xC1\xCB\xA1\xA3"; // 原58A6E0 不能再降低音量了。
+constexpr char kLegacyAudio58A750[] = "\xB2\xBB\xC4\xDC\xD4\xD9\xD5\x7B\xB8\xDF\xD2\xF4\xC1\xBF\xC1\xCB\xA1\xA3"; // 原58A750 不能再調高音量了。
+constexpr char kLegacyAudio58A740[] = "\xD7\x83\xB8\xFC\x9E\xE9\x86\xCE\xC2\x95\xB5\xC0\xA1\xA3"; // 原58A740 變更為單聲道。
+constexpr char kLegacyAudio58A730[] = "\xD7\x83\xB8\xFC\x9E\xE9\xC1\xA2\xF3\x77\xC2\x95\xA1\xA3"; // 原58A730 變更為立體聲。
+
 LegacyPanelRecord gLegacyMouseSettings585320 {
     0, 0, 192, 304, 9, {22963, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -16942,6 +16962,291 @@ std::uint32_t Sub_4FD1A0(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
     }
     return Sub_503440(&gLegacyChatSettings585000, 1);
+}
+
+std::int32_t Sub_4FD9F0()
+{
+    return Sub_4FDA00();
+}
+
+// 原4FDA00：一次X/Y取样，按原交错顺序发布字段，保留+23H未写字节。
+std::int32_t Sub_4FDA00()
+{
+    const std::int32_t x = gLegacyMusicSettings585190.x;
+    const std::int32_t y = gLegacyMusicSettings585190.y;
+    auto& records = gLegacyMusicRecordsD68150;
+    records[0].label.textX = x + 20;
+    records[1].label.textX = x + 20;
+    records[2].label.textX = x + 124;
+    records[1].label.textY = y + 60;
+    records[2].label.textY = y + 60;
+    records[2].label.top = y + 60;
+    records[3].label.textY = y + 60;
+    records[3].label.top = y + 60;
+    records[0].label.textY = y + 40;
+    records[2].label.left = x + 123;
+    records[3].label.textX = x + 156;
+    records[0].reserved21[0] = std::byte {0xFF};
+    records[1].reserved21[0] = std::byte {0xFF};
+    records[4].label.textX = x + 62;
+    records[2].label.height = 18;
+    records[3].label.height = 18;
+    records[4].label.height = 18;
+    records[0].label.left = 0;
+    records[0].label.top = 0;
+    records[0].label.width = 0;
+    records[0].label.height = 0;
+    records[0].label.text = kLegacyAudio58A6D4;
+    records[0].callback = nullptr;
+    records[0].color = 4;
+    records[0].reserved21[1] = std::byte {0x00};
+    records[0].hint = nullptr;
+    records[1].label.left = 0;
+    records[1].label.top = 0;
+    records[1].label.width = 0;
+    records[1].label.height = 0;
+    records[1].label.text = kLegacyChat58A500;
+    records[1].callback = nullptr;
+    records[1].color = 0;
+    records[1].reserved21[1] = std::byte {0x00};
+    records[1].hint = nullptr;
+    records[2].label.width = 19;
+    records[2].label.text = kLegacyChat58A574;
+    records[2].callback = &Sub_4FDD70;
+    records[2].color = 0;
+    records[2].reserved21[0] = std::byte {0x01};
+    records[2].reserved21[1] = std::byte {0xF9};
+    records[2].hint = nullptr;
+    records[3].label.left = x + 155;
+    records[3].label.width = 19;
+    records[3].label.text = kLegacyChat58A570;
+    records[3].callback = &Sub_4FDDC0;
+    records[3].color = 0;
+    records[3].reserved21[0] = std::byte {0x01};
+    records[3].reserved21[1] = std::byte {0xF9};
+    records[3].hint = nullptr;
+    records[4].label.textY = y + 260;
+    records[4].label.left = x + 60;
+    records[4].label.top = y + 260;
+    records[4].label.width = 69;
+    records[4].label.text = kLegacyChat58A4F8;
+    records[4].callback = &Sub_4FE3E0;
+    records[4].color = 0;
+    records[4].reserved21[0] = std::byte {0x01};
+    records[4].reserved21[1] = std::byte {0xF9};
+    records[4].hint = kLegacyChat58A4E8;
+    return 0;
+}
+
+
+// 原[4FDBD0,4FDD62)：音乐设置完整页面；文本和提示均按原现场状态消费。
+std::uint32_t Sub_4FDBD0(const std::int32_t opened)
+{
+    const std::int32_t state = Sub_503160(opened, &gLegacyMusicSettings585190, nullptr, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        static_cast<void>(Sub_520470());
+        static_cast<void>(Sub_520590());
+        const std::int32_t selected = gSelectedCharacterIndex;
+        static_cast<void>(Sub_520510(selected));
+        static_cast<void>(Sub_520640());
+        static_cast<void>(Sub_5206F0());
+        return static_cast<std::uint32_t>(Sub_520200());
+    }
+    const std::int32_t interaction = Sub_5030A0(gLegacyMusicRecordsD68150.data(), 5);
+    if (interaction != 0) {
+        return static_cast<std::uint32_t>(interaction);
+    }
+
+    char buffer[128];
+    static_cast<void>(platform::FormatLegacyString_53B304(
+        buffer, kLegacyChat553FB4, platform::gMusicVolume));
+    const std::int32_t y = gLegacyMusicSettings585190.y;
+    const std::int32_t x = gLegacyMusicSettings585190.x;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(x + 62),
+        static_cast<std::int16_t>(y + 60), 2, 0, 0, buffer, 0, 0));
+    Sub_503120(gLegacyMusicRecordsD68150.data(), 5);
+
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacyMusicSettings585190) != 0) {
+        hint = kLegacySkillClose55331C;
+    } else if ((character_select::detail::Sub_503990(&gLegacyMusicRecordsD68150[2].label) & 0x40) != 0) {
+        hint = platform::gMusicVolume < 15 ? kLegacyAudio58A714 : kLegacyAudio58A700;
+    } else if ((character_select::detail::Sub_503990(&gLegacyMusicRecordsD68150[3].label) & 0x40) != 0) {
+        hint = platform::gMusicVolume > 0 ? kLegacyAudio58A6F4 : kLegacyAudio58A6E0;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyMusicSettings585190, 1);
+}
+
+std::int32_t Sub_4FDE10()
+{
+    return Sub_4FDE20();
+}
+
+// 原4FDE20：一次X/Y取样，按原交错顺序发布字段，保留+23H未写字节。
+std::int32_t Sub_4FDE20()
+{
+    const std::int32_t x = gLegacySoundSettings585258.x;
+    const std::int32_t y = gLegacySoundSettings585258.y;
+    auto& records = gLegacySoundRecordsD68218;
+    records[1].label.textY = y + 60;
+    records[2].label.textX = x + 124;
+    records[2].label.textY = y + 60;
+    records[2].label.top = y + 60;
+    records[3].label.textX = x + 156;
+    records[3].label.textY = y + 60;
+    records[3].label.top = y + 60;
+    records[0].label.textY = y + 40;
+    records[2].label.left = x + 123;
+    records[3].label.left = x + 155;
+    records[4].label.textY = y + 80;
+    records[0].label.textX = x + 20;
+    records[0].label.left = 0;
+    records[0].label.top = 0;
+    records[0].label.width = 0;
+    records[0].label.height = 0;
+    records[0].label.text = kLegacyAudio58A6D4;
+    records[0].callback = nullptr;
+    records[0].color = 4;
+    records[0].reserved21[0] = std::byte {0xFF};
+    records[0].reserved21[1] = std::byte {0x00};
+    records[0].hint = nullptr;
+    records[1].label.textX = x + 20;
+    records[1].label.left = 0;
+    records[1].label.top = 0;
+    records[1].label.width = 0;
+    records[1].label.height = 0;
+    records[1].label.text = kLegacyChat58A500;
+    records[1].callback = nullptr;
+    records[1].color = 0;
+    records[1].reserved21[0] = std::byte {0xFF};
+    records[1].reserved21[1] = std::byte {0x00};
+    records[1].hint = nullptr;
+    records[2].label.width = 19;
+    records[2].label.height = 18;
+    records[2].label.text = kLegacyChat58A574;
+    records[2].callback = &Sub_4FE320;
+    records[2].color = 0;
+    records[2].reserved21[0] = std::byte {0x01};
+    records[2].reserved21[1] = std::byte {0xF9};
+    records[2].hint = nullptr;
+    records[3].label.width = 19;
+    records[3].label.height = 18;
+    records[3].label.text = kLegacyChat58A570;
+    records[3].callback = &Sub_4FE370;
+    records[3].color = 0;
+    records[3].reserved21[0] = std::byte {0x01};
+    records[3].reserved21[1] = std::byte {0xF9};
+    records[3].hint = nullptr;
+    records[4].label.textX = x + 20;
+    records[4].label.left = 0;
+    records[4].label.top = 0;
+    records[4].label.width = 0;
+    records[4].label.height = 0;
+    records[4].label.text = kLegacyAudio58A720;
+    records[4].callback = nullptr;
+    records[4].color = 4;
+    records[4].reserved21[0] = std::byte {0xFF};
+    records[4].reserved21[1] = std::byte {0x00};
+    records[4].hint = nullptr;
+    records[5].label.textX = x + 20;
+    records[5].label.textY = y + 100;
+    records[5].label.left = 0;
+    records[6].label.textX = x + 120;
+    records[6].label.textY = y + 120;
+    records[6].label.top = y + 120;
+    records[6].label.left = x + 119;
+    records[7].label.textX = x + 62;
+    records[6].label.height = 18;
+    records[7].label.height = 18;
+    records[6].reserved21[1] = std::byte {0xF9};
+    records[7].reserved21[1] = std::byte {0xF9};
+    records[5].label.top = 0;
+    records[5].label.width = 0;
+    records[5].label.height = 0;
+    records[5].label.text = kLegacyChat58A500;
+    records[5].callback = nullptr;
+    records[5].color = 0;
+    records[5].reserved21[0] = std::byte {0xFF};
+    records[5].reserved21[1] = std::byte {0x00};
+    records[5].hint = nullptr;
+    records[6].label.width = 54;
+    records[6].label.text = kLegacyChat58A54C;
+    records[6].callback = &Sub_4FE3B0;
+    records[6].color = 0;
+    records[6].reserved21[0] = std::byte {0x01};
+    records[6].hint = nullptr;
+    records[7].label.textY = y + 260;
+    records[7].label.left = x + 60;
+    records[7].label.top = y + 260;
+    records[7].label.width = 69;
+    records[7].label.text = kLegacyChat58A4F8;
+    records[7].callback = &Sub_4FE3E0;
+    records[7].color = 0;
+    records[7].reserved21[0] = std::byte {0x01};
+    records[7].hint = kLegacyChat58A4E8;
+    return 0;
+}
+
+
+// 原[4FE0E0,4FE312)：音效设置完整页面；模式指针在503160前形成。
+std::uint32_t Sub_4FE0E0(const std::int32_t opened)
+{
+    const char* const modes[2] {kLegacyAudio58A76C, kLegacyAudio58A764};
+    const std::int32_t state = Sub_503160(opened, &gLegacySoundSettings585258, nullptr, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        static_cast<void>(Sub_520470());
+        static_cast<void>(Sub_520590());
+        const std::int32_t selected = gSelectedCharacterIndex;
+        static_cast<void>(Sub_520510(selected));
+        static_cast<void>(Sub_520640());
+        static_cast<void>(Sub_5206F0());
+        return static_cast<std::uint32_t>(Sub_520200());
+    }
+    const std::int32_t interaction = Sub_5030A0(gLegacySoundRecordsD68218.data(), 8);
+    if (interaction != 0) {
+        return static_cast<std::uint32_t>(interaction);
+    }
+
+    char buffer[128];
+    static_cast<void>(platform::FormatLegacyString_53B304(
+        buffer, kLegacyChat553FB4, platform::gEffectVolume));
+    const std::int32_t volumeY = gLegacySoundSettings585258.y;
+    const std::int32_t volumeX = gLegacySoundSettings585258.x;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(volumeX + 62),
+        static_cast<std::int16_t>(volumeY + 60), 2, 0, 0, buffer, 0, 0));
+
+    const std::int32_t mode = platform::gUseStereo;
+    static_cast<void>(platform::FormatLegacyString_53B304(
+        buffer, kLegacyMouse5535F8, modes[static_cast<std::size_t>(mode)]));
+    const std::int32_t modeY = gLegacySoundSettings585258.y;
+    const std::int32_t modeX = gLegacySoundSettings585258.x;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(modeX + 62),
+        static_cast<std::int16_t>(modeY + 100), 2, 0, 0, buffer, 0, 0));
+    Sub_503120(gLegacySoundRecordsD68218.data(), 8);
+
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacySoundSettings585258) != 0) {
+        hint = kLegacySkillClose55331C;
+    } else if ((character_select::detail::Sub_503990(&gLegacySoundRecordsD68218[2].label) & 0x40) != 0) {
+        hint = platform::gEffectVolume < 15 ? kLegacyAudio58A714 : kLegacyAudio58A750;
+    } else if ((character_select::detail::Sub_503990(&gLegacySoundRecordsD68218[3].label) & 0x40) != 0) {
+        hint = platform::gEffectVolume > 0 ? kLegacyAudio58A6F4 : kLegacyAudio58A6E0;
+    } else if ((character_select::detail::Sub_503990(&gLegacySoundRecordsD68218[6].label) & 0x40) != 0) {
+        hint = platform::gUseStereo != 0 ? kLegacyAudio58A740 : kLegacyAudio58A730;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacySoundSettings585258, 1);
 }
 
 std::int32_t Sub_4FE490()

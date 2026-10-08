@@ -342,7 +342,26 @@ struct LegacyChatSettingsStaticInitializer {
 
 const LegacyChatSettingsStaticInitializer gLegacyChatSettingsStaticInitializer;
 
-// 原CRT 5530B8；中间音乐/音效页仍暂缓，不注册空构造。
+// 原相邻CRT 5530B0/5530B4；真实音乐/音效控件构造位于聊天与鼠标设置之间。
+struct LegacyMusicSettingsStaticInitializer final {
+    LegacyMusicSettingsStaticInitializer()
+    {
+        static_cast<void>(cg::login::detail::Sub_4FD9F0());
+    }
+};
+static_assert(std::is_trivially_destructible_v<LegacyMusicSettingsStaticInitializer>);
+const LegacyMusicSettingsStaticInitializer gLegacyMusicSettingsStaticInitializer;
+
+struct LegacySoundSettingsStaticInitializer final {
+    LegacySoundSettingsStaticInitializer()
+    {
+        static_cast<void>(cg::login::detail::Sub_4FDE10());
+    }
+};
+static_assert(std::is_trivially_destructible_v<LegacySoundSettingsStaticInitializer>);
+const LegacySoundSettingsStaticInitializer gLegacySoundSettingsStaticInitializer;
+
+// 原CRT 5530B8；沿原序接在两音频设置构造之后。
 struct LegacyMouseSettingsStaticInitializer {
     LegacyMouseSettingsStaticInitializer()
     {

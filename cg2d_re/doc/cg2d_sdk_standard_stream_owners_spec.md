@@ -1,5 +1,7 @@
 # 标准流宿主提供者与兼容 Init 类型 SPEC（SSO01）
 
+> CAB07（2026-10-09）：[旧音频两构造](cg2d_display_settings.md#audio-settings-pages-source-state)已按原槽序接入，当前72源投影＋15 SDK＝87对应，另null1/键盘排除2，90槽身份不变。旧70/85及音频暂停叙述为历史；本次未编译或运行，不关闭完整启动/退出、SDK及所有owner门禁。
+
 2026-10-05按[D03](cg2d_crt_startup_lifecycle_spec.md)推进剩余15个标准流表槽。
 固定快照：`cg2d-re-sdk-standard-stream-owners-source-20261005`。
 

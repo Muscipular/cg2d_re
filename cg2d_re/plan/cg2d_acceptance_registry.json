@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "epoch": "2026-10-04.1",
-  "catalog_revision": 1,
+  "catalog_revision": 2,
   "scope": "已知合同导入的追踪目录，不代表全功能枚举闭合。路径相对cg2d_re。域不计叶功能。",
   "inventory_expected": {
     "functions": 3680,
@@ -70,6 +70,11 @@
       "revision": 1,
       "date": "2026-10-04",
       "reason": "建立追踪与验收体系，导入已知合同/窗口条目；未知枚举继续开放。"
+    },
+    {
+      "revision": 2,
+      "date": "2026-10-09",
+      "reason": "CAB07补纳原旧选择7音乐/8音效两独立功能，建立UI-L-007/UI-L-008及完整页面/初始化/回调源对照；全功能枚举与运行门禁仍开放。"
     }
   ],
   "newest_excluded_entries": [
@@ -103,7 +108,8 @@
         "doc/cg2d_standard_stream_exit_migration_spec.md",
         "doc/cg2d_standard_stream_controller_gates_spec.md",
         "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-baseline",
-        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline"
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -223,7 +229,9 @@
         "F:00149368",
         "F:001482DD",
         "F:00149397",
-        "F:00106870"
+        "F:00106870",
+        "F:000FD9F0",
+        "F:000FDE10"
       ],
       "closure_task_ids": [
         "C02",
@@ -245,7 +253,8 @@
         "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-decision",
         "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-decision",
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
-        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
+        "doc/cg2d_display_settings.md#audio-settings-pages-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -276,7 +285,9 @@
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-baseline",
         "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-baseline",
         "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-baseline",
-        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state"
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json"
       ]
     },
     {
@@ -4168,7 +4179,8 @@
         "doc/cg2d_client_link_sdl_audio_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state",
         "doc/cg2d_fixed_music_wav_evidence.json",
-        "doc/cg2d_display_settings.md#audio-settings-callback-source-state"
+        "doc/cg2d_display_settings.md#audio-settings-callback-source-state",
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state"
       ],
       "original_inventory_ids": [
         "F:00054C30",
@@ -4224,10 +4236,11 @@
         "doc/cg2d_client_link_sdl_audio_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state",
         "doc/cg2d_fixed_music_wav_evidence.json",
-        "doc/cg2d_display_settings.md#audio-settings-callback-source-state"
+        "doc/cg2d_display_settings.md#audio-settings-callback-source-state",
+        "doc/cg2d_display_settings.md#audio-settings-pages-decision"
       ],
       "blockers": [
-        "CAB06按用户继续完善音频要求恢复剩余开发，五个旧音量/立体声回调新增源码；scope=included仅表示开发范围，所有完整门禁仍待。旧7/旧8初始化/页面/外层接线尚未实现，五回调本步未编译运行",
+        "CAB07两音频设置初始化/完整页面及控件/CRT原生绑定源码已实现；scope=included只表示开发范围。真实旧99表外层接线、当前源码编译/运行与全部音频效果/寿命仍待",
         "AUDIO32原成员枚举仍未闭；旧7/旧8、完整WAV/通知/生命周期及音源效果/听感、真实声音/失败/退出仍未验收；类型1原16B资源按用户最新要求视为空音频，停止旧播放后立即成功，零时长不循环"
       ],
       "gates": {},
@@ -4240,7 +4253,9 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state",
         "doc/cg2d_fixed_music_wav_evidence.json",
         "doc/cg2d_display_settings.md#audio-settings-callback-source-state",
-        "doc/cg2d_audio_settings_callback_evidence.json"
+        "doc/cg2d_audio_settings_callback_evidence.json",
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json"
       ]
     },
     {
@@ -6294,6 +6309,95 @@
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-007",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择7：音乐设置",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_display_settings.md#audio-settings-callback-source-state"
+      ],
+      "original_inventory_ids": [
+        "F:000FD9F0",
+        "F:000FDA00",
+        "F:000FDBD0",
+        "F:000FDD70",
+        "F:000FDDC0"
+      ],
+      "closure_task_ids": [
+        "P14",
+        "U04",
+        "V05",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME",
+        "FUNC-AUDIO",
+        "FUNC-STARTUP"
+      ],
+      "acceptance_focus": "原初始化/共享状态/回调→完整绘字/优先提示→七项配置保存及关闭；真实进入/旧外层、设备声音、正常寿命与编译运行独立验收",
+      "decision_refs": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-decision"
+      ],
+      "blockers": [
+        "实际旧99表外层进入/路由尚未接线",
+        "未编译当前源码或运行页面，真实保存/声音与完整owner寿命未验"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json"
+      ]
+    },
+    {
+      "id": "UI-L-008",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择8：音效设置",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_display_settings.md#audio-settings-callback-source-state"
+      ],
+      "original_inventory_ids": [
+        "F:000FDE10",
+        "F:000FDE20",
+        "F:000FE0E0",
+        "F:000FE320",
+        "F:000FE370",
+        "F:000FE3B0"
+      ],
+      "closure_task_ids": [
+        "P15",
+        "U04",
+        "V05",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME",
+        "FUNC-AUDIO",
+        "FUNC-STARTUP"
+      ],
+      "acceptance_focus": "原初始化/共享状态/回调→完整绘字/优先提示→七项配置保存及关闭；真实进入/旧外层、设备声音、正常寿命与编译运行独立验收",
+      "decision_refs": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-decision"
+      ],
+      "blockers": [
+        "实际旧99表外层进入/路由尚未接线",
+        "未编译当前源码或运行页面，真实保存/声音与完整owner寿命未验"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json"
+      ]
     },
     {
       "id": "UI-L-009",
@@ -52467,6 +52571,346 @@
       "differences": [],
       "result": "pass",
       "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-AUDIO-SETTINGS-PAGES-AUDIO-I-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前cg2d.exe六根511条2140B/两196B加载面板/原99表两handler行；BOY01四初始化根复用",
+      "implementation_reference": "Git固定命名快照 cg2d-re-audio-settings-pages-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-decision",
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
+        "src/LegacyUiRecord.cpp#Sub_4FD9F0",
+        "src/LegacyUiRecord.cpp#Sub_4FDA00",
+        "src/LegacyUiRecord.cpp#Sub_4FDBD0",
+        "src/LegacyUiRecord.cpp#Sub_4FDE10",
+        "src/LegacyUiRecord.cpp#Sub_4FDE20",
+        "src/LegacyUiRecord.cpp#Sub_4FE0E0",
+        "src/platform/LegacyMouse.cpp#LegacyMusicSettingsStaticInitializer",
+        "src/platform/LegacyMouse.cpp#LegacySoundSettingsStaticInitializer",
+        "src/LegacyPanelRuntime.hpp"
+      ],
+      "observation": "仅CAB07新增页面/控件/原生构造接线或该页对应部分，非全部功能/旧外层/运行门禁",
+      "expected": "原13控件156次字段发布/未写+23H、五音量声道与公共返回绑定，原503160-保存-交互-现场绘字-绘制-优先提示-503440序；两源槽按AC/B0/B4/B8原序",
+      "actual": "三现源新增六根、两面板/两数组、11条GBK静态字串及两同TU构造；当前真实控件/CRT源码接线可追，外层旧handler不按原数值强转，未编译或运行",
+      "differences": [
+        {
+          "description": "x86面板/控件按既有x64原生类型承载；新静态Big5文字依用户GBK要求严格转码。范围纳管不当作全功能通过",
+          "decision_ref": "doc/cg2d_display_settings.md#audio-settings-pages-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-AUDIO-SETTINGS-PAGES-AUDIO-W-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前cg2d.exe六根511条2140B/两196B加载面板/原99表两handler行；BOY01四初始化根复用",
+      "implementation_reference": "Git固定命名快照 cg2d-re-audio-settings-pages-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-decision",
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
+        "src/LegacyUiRecord.cpp#Sub_4FD9F0",
+        "src/LegacyUiRecord.cpp#Sub_4FDA00",
+        "src/LegacyUiRecord.cpp#Sub_4FDBD0",
+        "src/LegacyUiRecord.cpp#Sub_4FDE10",
+        "src/LegacyUiRecord.cpp#Sub_4FDE20",
+        "src/LegacyUiRecord.cpp#Sub_4FE0E0",
+        "src/platform/LegacyMouse.cpp#LegacyMusicSettingsStaticInitializer",
+        "src/platform/LegacyMouse.cpp#LegacySoundSettingsStaticInitializer",
+        "src/LegacyPanelRuntime.hpp"
+      ],
+      "observation": "仅CAB07新增页面/控件/原生构造接线或该页对应部分，非全部功能/旧外层/运行门禁",
+      "expected": "原13控件156次字段发布/未写+23H、五音量声道与公共返回绑定，原503160-保存-交互-现场绘字-绘制-优先提示-503440序；两源槽按AC/B0/B4/B8原序",
+      "actual": "三现源新增六根、两面板/两数组、11条GBK静态字串及两同TU构造；当前真实控件/CRT源码接线可追，外层旧handler不按原数值强转，未编译或运行",
+      "differences": [
+        {
+          "description": "x86面板/控件按既有x64原生类型承载；新静态Big5文字依用户GBK要求严格转码。范围纳管不当作全功能通过",
+          "decision_ref": "doc/cg2d_display_settings.md#audio-settings-pages-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-AUDIO-SETTINGS-PAGES-AUDIO-S-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前cg2d.exe六根511条2140B/两196B加载面板/原99表两handler行；BOY01四初始化根复用",
+      "implementation_reference": "Git固定命名快照 cg2d-re-audio-settings-pages-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-decision",
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
+        "src/LegacyUiRecord.cpp#Sub_4FD9F0",
+        "src/LegacyUiRecord.cpp#Sub_4FDA00",
+        "src/LegacyUiRecord.cpp#Sub_4FDBD0",
+        "src/LegacyUiRecord.cpp#Sub_4FDE10",
+        "src/LegacyUiRecord.cpp#Sub_4FDE20",
+        "src/LegacyUiRecord.cpp#Sub_4FE0E0",
+        "src/platform/LegacyMouse.cpp#LegacyMusicSettingsStaticInitializer",
+        "src/platform/LegacyMouse.cpp#LegacySoundSettingsStaticInitializer",
+        "src/LegacyPanelRuntime.hpp"
+      ],
+      "observation": "仅CAB07新增页面/控件/原生构造接线或该页对应部分，非全部功能/旧外层/运行门禁",
+      "expected": "原13控件156次字段发布/未写+23H、五音量声道与公共返回绑定，原503160-保存-交互-现场绘字-绘制-优先提示-503440序；两源槽按AC/B0/B4/B8原序",
+      "actual": "三现源新增六根、两面板/两数组、11条GBK静态字串及两同TU构造；当前真实控件/CRT源码接线可追，外层旧handler不按原数值强转，未编译或运行",
+      "differences": [
+        {
+          "description": "x86面板/控件按既有x64原生类型承载；新静态Big5文字依用户GBK要求严格转码。范围纳管不当作全功能通过",
+          "decision_ref": "doc/cg2d_display_settings.md#audio-settings-pages-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-AUDIO-SETTINGS-PAGES-STARTUP-W-20261009",
+      "feature_id": "FUNC-STARTUP",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前cg2d.exe六根511条2140B/两196B加载面板/原99表两handler行；BOY01四初始化根复用",
+      "implementation_reference": "Git固定命名快照 cg2d-re-audio-settings-pages-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-decision",
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
+        "src/LegacyUiRecord.cpp#Sub_4FD9F0",
+        "src/LegacyUiRecord.cpp#Sub_4FDA00",
+        "src/LegacyUiRecord.cpp#Sub_4FDBD0",
+        "src/LegacyUiRecord.cpp#Sub_4FDE10",
+        "src/LegacyUiRecord.cpp#Sub_4FDE20",
+        "src/LegacyUiRecord.cpp#Sub_4FE0E0",
+        "src/platform/LegacyMouse.cpp#LegacyMusicSettingsStaticInitializer",
+        "src/platform/LegacyMouse.cpp#LegacySoundSettingsStaticInitializer",
+        "src/LegacyPanelRuntime.hpp"
+      ],
+      "observation": "仅CAB07新增页面/控件/原生构造接线或该页对应部分，非全部功能/旧外层/运行门禁",
+      "expected": "原13控件156次字段发布/未写+23H、五音量声道与公共返回绑定，原503160-保存-交互-现场绘字-绘制-优先提示-503440序；两源槽按AC/B0/B4/B8原序",
+      "actual": "三现源新增六根、两面板/两数组、11条GBK静态字串及两同TU构造；当前真实控件/CRT源码接线可追，外层旧handler不按原数值强转，未编译或运行",
+      "differences": [
+        {
+          "description": "x86面板/控件按既有x64原生类型承载；新静态Big5文字依用户GBK要求严格转码。范围纳管不当作全功能通过",
+          "decision_ref": "doc/cg2d_display_settings.md#audio-settings-pages-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-AUDIO-SETTINGS-PAGES-UI-L-007-I-20261009",
+      "feature_id": "UI-L-007",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前cg2d.exe六根511条2140B/两196B加载面板/原99表两handler行；BOY01四初始化根复用",
+      "implementation_reference": "Git固定命名快照 cg2d-re-audio-settings-pages-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-decision",
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
+        "src/LegacyUiRecord.cpp#Sub_4FD9F0",
+        "src/LegacyUiRecord.cpp#Sub_4FDA00",
+        "src/LegacyUiRecord.cpp#Sub_4FDBD0",
+        "src/LegacyUiRecord.cpp#Sub_4FDE10",
+        "src/LegacyUiRecord.cpp#Sub_4FDE20",
+        "src/LegacyUiRecord.cpp#Sub_4FE0E0",
+        "src/platform/LegacyMouse.cpp#LegacyMusicSettingsStaticInitializer",
+        "src/platform/LegacyMouse.cpp#LegacySoundSettingsStaticInitializer",
+        "src/LegacyPanelRuntime.hpp"
+      ],
+      "observation": "仅CAB07新增页面/控件/原生构造接线或该页对应部分，非全部功能/旧外层/运行门禁",
+      "expected": "原13控件156次字段发布/未写+23H、五音量声道与公共返回绑定，原503160-保存-交互-现场绘字-绘制-优先提示-503440序；两源槽按AC/B0/B4/B8原序",
+      "actual": "三现源新增六根、两面板/两数组、11条GBK静态字串及两同TU构造；当前真实控件/CRT源码接线可追，外层旧handler不按原数值强转，未编译或运行",
+      "differences": [
+        {
+          "description": "x86面板/控件按既有x64原生类型承载；新静态Big5文字依用户GBK要求严格转码。范围纳管不当作全功能通过",
+          "decision_ref": "doc/cg2d_display_settings.md#audio-settings-pages-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-AUDIO-SETTINGS-PAGES-UI-L-007-W-20261009",
+      "feature_id": "UI-L-007",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前cg2d.exe六根511条2140B/两196B加载面板/原99表两handler行；BOY01四初始化根复用",
+      "implementation_reference": "Git固定命名快照 cg2d-re-audio-settings-pages-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-decision",
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
+        "src/LegacyUiRecord.cpp#Sub_4FD9F0",
+        "src/LegacyUiRecord.cpp#Sub_4FDA00",
+        "src/LegacyUiRecord.cpp#Sub_4FDBD0",
+        "src/LegacyUiRecord.cpp#Sub_4FDE10",
+        "src/LegacyUiRecord.cpp#Sub_4FDE20",
+        "src/LegacyUiRecord.cpp#Sub_4FE0E0",
+        "src/platform/LegacyMouse.cpp#LegacyMusicSettingsStaticInitializer",
+        "src/platform/LegacyMouse.cpp#LegacySoundSettingsStaticInitializer",
+        "src/LegacyPanelRuntime.hpp"
+      ],
+      "observation": "仅CAB07新增页面/控件/原生构造接线或该页对应部分，非全部功能/旧外层/运行门禁",
+      "expected": "原13控件156次字段发布/未写+23H、五音量声道与公共返回绑定，原503160-保存-交互-现场绘字-绘制-优先提示-503440序；两源槽按AC/B0/B4/B8原序",
+      "actual": "三现源新增六根、两面板/两数组、11条GBK静态字串及两同TU构造；当前真实控件/CRT源码接线可追，外层旧handler不按原数值强转，未编译或运行",
+      "differences": [
+        {
+          "description": "x86面板/控件按既有x64原生类型承载；新静态Big5文字依用户GBK要求严格转码。范围纳管不当作全功能通过",
+          "decision_ref": "doc/cg2d_display_settings.md#audio-settings-pages-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-AUDIO-SETTINGS-PAGES-UI-L-007-S-20261009",
+      "feature_id": "UI-L-007",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前cg2d.exe六根511条2140B/两196B加载面板/原99表两handler行；BOY01四初始化根复用",
+      "implementation_reference": "Git固定命名快照 cg2d-re-audio-settings-pages-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-decision",
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
+        "src/LegacyUiRecord.cpp#Sub_4FD9F0",
+        "src/LegacyUiRecord.cpp#Sub_4FDA00",
+        "src/LegacyUiRecord.cpp#Sub_4FDBD0",
+        "src/LegacyUiRecord.cpp#Sub_4FDE10",
+        "src/LegacyUiRecord.cpp#Sub_4FDE20",
+        "src/LegacyUiRecord.cpp#Sub_4FE0E0",
+        "src/platform/LegacyMouse.cpp#LegacyMusicSettingsStaticInitializer",
+        "src/platform/LegacyMouse.cpp#LegacySoundSettingsStaticInitializer",
+        "src/LegacyPanelRuntime.hpp"
+      ],
+      "observation": "仅CAB07新增页面/控件/原生构造接线或该页对应部分，非全部功能/旧外层/运行门禁",
+      "expected": "原13控件156次字段发布/未写+23H、五音量声道与公共返回绑定，原503160-保存-交互-现场绘字-绘制-优先提示-503440序；两源槽按AC/B0/B4/B8原序",
+      "actual": "三现源新增六根、两面板/两数组、11条GBK静态字串及两同TU构造；当前真实控件/CRT源码接线可追，外层旧handler不按原数值强转，未编译或运行",
+      "differences": [
+        {
+          "description": "x86面板/控件按既有x64原生类型承载；新静态Big5文字依用户GBK要求严格转码。范围纳管不当作全功能通过",
+          "decision_ref": "doc/cg2d_display_settings.md#audio-settings-pages-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-AUDIO-SETTINGS-PAGES-UI-L-008-I-20261009",
+      "feature_id": "UI-L-008",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前cg2d.exe六根511条2140B/两196B加载面板/原99表两handler行；BOY01四初始化根复用",
+      "implementation_reference": "Git固定命名快照 cg2d-re-audio-settings-pages-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-decision",
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
+        "src/LegacyUiRecord.cpp#Sub_4FD9F0",
+        "src/LegacyUiRecord.cpp#Sub_4FDA00",
+        "src/LegacyUiRecord.cpp#Sub_4FDBD0",
+        "src/LegacyUiRecord.cpp#Sub_4FDE10",
+        "src/LegacyUiRecord.cpp#Sub_4FDE20",
+        "src/LegacyUiRecord.cpp#Sub_4FE0E0",
+        "src/platform/LegacyMouse.cpp#LegacyMusicSettingsStaticInitializer",
+        "src/platform/LegacyMouse.cpp#LegacySoundSettingsStaticInitializer",
+        "src/LegacyPanelRuntime.hpp"
+      ],
+      "observation": "仅CAB07新增页面/控件/原生构造接线或该页对应部分，非全部功能/旧外层/运行门禁",
+      "expected": "原13控件156次字段发布/未写+23H、五音量声道与公共返回绑定，原503160-保存-交互-现场绘字-绘制-优先提示-503440序；两源槽按AC/B0/B4/B8原序",
+      "actual": "三现源新增六根、两面板/两数组、11条GBK静态字串及两同TU构造；当前真实控件/CRT源码接线可追，外层旧handler不按原数值强转，未编译或运行",
+      "differences": [
+        {
+          "description": "x86面板/控件按既有x64原生类型承载；新静态Big5文字依用户GBK要求严格转码。范围纳管不当作全功能通过",
+          "decision_ref": "doc/cg2d_display_settings.md#audio-settings-pages-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-AUDIO-SETTINGS-PAGES-UI-L-008-W-20261009",
+      "feature_id": "UI-L-008",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前cg2d.exe六根511条2140B/两196B加载面板/原99表两handler行；BOY01四初始化根复用",
+      "implementation_reference": "Git固定命名快照 cg2d-re-audio-settings-pages-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-decision",
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
+        "src/LegacyUiRecord.cpp#Sub_4FD9F0",
+        "src/LegacyUiRecord.cpp#Sub_4FDA00",
+        "src/LegacyUiRecord.cpp#Sub_4FDBD0",
+        "src/LegacyUiRecord.cpp#Sub_4FDE10",
+        "src/LegacyUiRecord.cpp#Sub_4FDE20",
+        "src/LegacyUiRecord.cpp#Sub_4FE0E0",
+        "src/platform/LegacyMouse.cpp#LegacyMusicSettingsStaticInitializer",
+        "src/platform/LegacyMouse.cpp#LegacySoundSettingsStaticInitializer",
+        "src/LegacyPanelRuntime.hpp"
+      ],
+      "observation": "仅CAB07新增页面/控件/原生构造接线或该页对应部分，非全部功能/旧外层/运行门禁",
+      "expected": "原13控件156次字段发布/未写+23H、五音量声道与公共返回绑定，原503160-保存-交互-现场绘字-绘制-优先提示-503440序；两源槽按AC/B0/B4/B8原序",
+      "actual": "三现源新增六根、两面板/两数组、11条GBK静态字串及两同TU构造；当前真实控件/CRT源码接线可追，外层旧handler不按原数值强转，未编译或运行",
+      "differences": [
+        {
+          "description": "x86面板/控件按既有x64原生类型承载；新静态Big5文字依用户GBK要求严格转码。范围纳管不当作全功能通过",
+          "decision_ref": "doc/cg2d_display_settings.md#audio-settings-pages-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-AUDIO-SETTINGS-PAGES-UI-L-008-S-20261009",
+      "feature_id": "UI-L-008",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前cg2d.exe六根511条2140B/两196B加载面板/原99表两handler行；BOY01四初始化根复用",
+      "implementation_reference": "Git固定命名快照 cg2d-re-audio-settings-pages-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-decision",
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
+        "src/LegacyUiRecord.cpp#Sub_4FD9F0",
+        "src/LegacyUiRecord.cpp#Sub_4FDA00",
+        "src/LegacyUiRecord.cpp#Sub_4FDBD0",
+        "src/LegacyUiRecord.cpp#Sub_4FDE10",
+        "src/LegacyUiRecord.cpp#Sub_4FDE20",
+        "src/LegacyUiRecord.cpp#Sub_4FE0E0",
+        "src/platform/LegacyMouse.cpp#LegacyMusicSettingsStaticInitializer",
+        "src/platform/LegacyMouse.cpp#LegacySoundSettingsStaticInitializer",
+        "src/LegacyPanelRuntime.hpp"
+      ],
+      "observation": "仅CAB07新增页面/控件/原生构造接线或该页对应部分，非全部功能/旧外层/运行门禁",
+      "expected": "原13控件156次字段发布/未写+23H、五音量声道与公共返回绑定，原503160-保存-交互-现场绘字-绘制-优先提示-503440序；两源槽按AC/B0/B4/B8原序",
+      "actual": "三现源新增六根、两面板/两数组、11条GBK静态字串及两同TU构造；当前真实控件/CRT源码接线可追，外层旧handler不按原数值强转，未编译或运行",
+      "differences": [
+        {
+          "description": "x86面板/控件按既有x64原生类型承载；新静态Big5文字依用户GBK要求严格转码。范围纳管不当作全功能通过",
+          "decision_ref": "doc/cg2d_display_settings.md#audio-settings-pages-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
     }
   ],
   "task_acceptance": [
@@ -52560,6 +53004,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
         "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
         "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure",
         "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure",
@@ -52575,6 +53021,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
@@ -52597,6 +53045,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
@@ -53114,6 +53564,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
         "doc/cg2d_display_settings.md#audio-settings-callback-source-state",
         "doc/cg2d_audio_settings_callback_evidence.json",
         "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
@@ -53490,6 +53942,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
         "doc/cg2d_display_settings.md#audio-settings-callback-source-state",
         "doc/cg2d_audio_settings_callback_evidence.json",
         "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state",
@@ -54120,6 +54574,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
         "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state",
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
@@ -54230,6 +54686,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
         "doc/cg2d_display_settings.md#audio-settings-callback-source-state",
         "doc/cg2d_audio_settings_callback_evidence.json",
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
@@ -54242,6 +54700,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
         "doc/cg2d_display_settings.md#audio-settings-callback-source-state",
         "doc/cg2d_audio_settings_callback_evidence.json",
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
@@ -54280,6 +54740,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
         "doc/cg2d_display_settings.md#audio-settings-callback-source-state",
         "doc/cg2d_audio_settings_callback_evidence.json",
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
@@ -66878,6 +67340,60 @@
       "evidence_refs": [
         "doc/cg2d_display_settings.md#audio-settings-callback-source-state",
         "doc/cg2d_audio_settings_callback_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:000FD9F0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:000FDA00",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:000FDBD0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:000FDE10",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:000FDE20",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:000FE0E0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json"
       ]
     }
   ],
@@ -96641,6 +97157,6 @@
       "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
       "doc/cg2d_local_plaintext_login_evidence.json"
     ],
-    "note": "CAB05沿当前连接修复及编译授权完成Debug增量编译，三库及真实客户端链接返回0，0错误/3条既有C4244警告。游戏目录EXE已更新并备份旧版；未重新配置、测试、试包或启动客户端，完整登录/网络与整体SPEC仍未验收。 CAB06五个音频设置回调新增源码尚未编译，本构建记录仍对应CAB05快照，不代表当前源码链接通过。"
+    "note": "CAB05沿当前连接修复及编译授权完成Debug增量编译，三库及真实客户端链接返回0，0错误/3条既有C4244警告。游戏目录EXE已更新并备份旧版；未重新配置、测试、试包或启动客户端，完整登录/网络与整体SPEC仍未验收。 CAB06五个音频设置回调新增源码尚未编译，本构建记录仍对应CAB05快照，不代表当前源码链接通过。 CAB07两设置初始化/完整页面与两CRT构造新增源码亦未编译；本记录仍是CAB05快照。"
   }
 }

@@ -1,5 +1,7 @@
 # CRT 启动与生命周期迁移子 SPEC
 
+> CAB07（2026-10-09）：[旧音频两构造](cg2d_display_settings.md#audio-settings-pages-source-state)已按原槽序接入，当前72源投影＋15 SDK＝87对应，另null1/键盘排除2，90槽身份不变。旧70/85及音频暂停叙述为历史；本次未编译或运行，不关闭完整启动/退出、SDK及所有owner门禁。
+
 > **SSO01最新状态（2026-10-05）**：[标准流提供者](cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure)已完成15槽与完整SDK对象对应；70有序源投影＋15宿主预先提供＝85项对应，另null1/暂停音频2/键盘排除2。85不是85个同TU调用。下文各组数字为各固定快照；完整容量/消费者/alias和SDK运行仍待。
 
 > D03；2026-10-04采用，C02–C04/C09的实施方案。依据[宿主总SPEC](cg2d_crt_host_migration_spec.md)和[决议授权](cg2d_closure_decisions_spec.md)，上位实施方案；局部实现见下方各组合同，全应用启动/退出仍未闭。

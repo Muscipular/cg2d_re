@@ -112,6 +112,12 @@ struct LegacyBinaryMathDescriptor {
 // ASM入口Cg2dDispatchLegacyUnaryMathX87/Cg2dDispatchLegacyBinaryMathX87：
 // RCX借context、RDX借对应描述符；真实x87目标均只在ASM间消费/返回ST0。
 
+// 原545360/545B51私有ASM合同，供共享指数链的原FDIV探测分支真实调用。
+// Cg2dDivideLegacyExtendedX87以RCX借原44B片段：T80在+0/+12，CW在+24/+28。
+// 不填T80尾两字节或CW高W16；核心写原分母T80并返回ST0。
+// Cg2dReverseDivideLegacyStackX87只在ASM间以ST0/ST1进出，保原EAX/ECX数值及EDX。
+// 不声明CPP double ABI；完整分支和生命周期见共享除法依赖SPEC。
+
 // 原控制字抽象/硬件表示转换，只消费和生成原已定义位。
 std::uint32_t AbstractLegacyControlWord_5448A4(std::uint32_t hardware);
 std::uint32_t HardwareLegacyControlWord_544936(std::uint32_t abstractValue);

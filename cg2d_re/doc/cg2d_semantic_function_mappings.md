@@ -4139,3 +4139,9 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 新增1837/F:00143185→LegacyFloatEnvironment.asm的十二真实入口/目标，主符号Cg2dUseLegacyPowerHelperX87；不只映19条前缀，不给内部分派/特殊目标另计原F。原借用上下文32B、单/双描述符48/144B只拓已证指针，原数值/T80/错误BYTE和ECX样本保持。
 
 原六实际调用（四direct/两借用间接）、原分类表与位规则/特殊值/末标志及保存恢复有据；无伪造目标初始化或未知caller。CRT177/F1000限定I-S不代完整表生产/父/alias/机器运行，pending18保持。
+
+## BWN01完整除法核心及原包装映射（2026-10-08）
+
+[两原完整身份与源前后态](cg2d_math_divide_shared_evidence.json)、[合同](cg2d_math_divide_shared_spec.md#math-divide-shared-decision)。
+
+新增1838/F:00145360→Cg2dDivideLegacyExtendedX87、1839/F:00145B51→Cg2dReverseDivideLegacyStackX87，均在既有LegacyFloatEnvironment.asm；HPP仅私有x87合同。83条279B核心与八条21B包装全部实现，不截为一RET、不代宿主除法。原T80帧、CW/表/F32缩放与重写循环、真实包装调用/数值恢复有据，原位宽与未生产字节保持。其它父与完整共享链仍待，pending18保持。

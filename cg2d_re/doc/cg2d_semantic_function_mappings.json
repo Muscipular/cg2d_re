@@ -209457,6 +209457,178 @@
         "machine_unwind_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x545360",
+      "inventory_id": "F:00145360",
+      "original_role": "原545360完整83条279B除法核心；RCX借原44B数值片段，两个T80/+24低CW及原W32读取、尾数/指数/16B表、原F32双缩放、CW恢复及非规格化T80重写循环全部保持，返回ST0。",
+      "original_end_exclusive": "0x545477",
+      "original_chunks": [
+        [
+          "0x545360",
+          "0x545477"
+        ]
+      ],
+      "instruction_count": 83,
+      "status": "BWN01沿共享指数542FEF真实依赖补完整545360/545B51：91条300B/三页、一CALL一callee、14跳七RET；两现源四处追加/两真实ASM，零CPP/C桥/新owner。借原44B数值片段不扩宽，两个T80及其padding/+24保存CW高W16不补；原16B表/三F32、尾数/指数/进位/CW与全部FDIVP/非规格化重写循环保。包装保原FSTP序、EAX/ECX数值及EDX/真核心调用、88B正常帧；源码静态非机器等价。新增1838/1839、CRT179/F1002限定I-S，定位147/CRT余19，完整共享目标/未知描述符生产和其它原调用父及机器运行继续，原格式明文/音频暂停/RPLAN.24保持。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dDivideLegacyExtendedX87",
+            "LegacyDivideClass592260",
+            "LegacyDivideScale592270",
+            "LegacyDivideScale592274",
+            "LegacyDivideNormalize592278"
+          ],
+          "relationship": "原545360完整83条279B除法核心；RCX借原44B数值片段，两个T80/+24低CW及原W32读取、尾数/指数/16B表、原F32双缩放、CW恢复及非规格化T80重写循环全部保持，返回ST0。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "Cg2dDivideLegacyExtendedX87"
+          ],
+          "relationship": "原44B借用数值片段/T80/CW及内部ST0合同，只有地址承原生指针，不声明CPP double返回、不填未生产字节"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-baseline",
+        "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-decision",
+        "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-acceptance",
+        "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-source-state"
+      ],
+      "boundary": "原545360完整83条279B除法核心；RCX借原44B数值片段，两个T80/+24低CW及原W32读取、尾数/指数/16B表、原F32双缩放、CW恢复及非规格化T80重写循环全部保持，返回ST0。 BWN01沿共享指数542FEF真实依赖补完整545360/545B51：91条300B/三页、一CALL一callee、14跳七RET；两现源四处追加/两真实ASM，零CPP/C桥/新owner。借原44B数值片段不扩宽，两个T80及其padding/+24保存CW高W16不补；原16B表/三F32、尾数/指数/进位/CW与全部FDIVP/非规格化重写循环保。包装保原FSTP序、EAX/ECX数值及EDX/真核心调用、88B正常帧；源码静态非机器等价。新增1838/1839、CRT179/F1002限定I-S，定位147/CRT余19，完整共享目标/未知描述符生产和其它原调用父及机器运行继续，原格式明文/音频暂停/RPLAN.24保持。",
+      "verification_level": "BWN01沿共享指数542FEF真实依赖补完整545360/545B51：91条300B/三页、一CALL一callee、14跳七RET；两现源四处追加/两真实ASM，零CPP/C桥/新owner。借原44B数值片段不扩宽，两个T80及其padding/+24保存CW高W16不补；原16B表/三F32、尾数/指数/进位/CW与全部FDIVP/非规格化重写循环保。包装保原FSTP序、EAX/ECX数值及EDX/真核心调用、88B正常帧；源码静态非机器等价。新增1838/1839、CRT179/F1002限定I-S，定位147/CRT余19，完整共享目标/未知描述符生产和其它原调用父及机器运行继续，原格式明文/音频暂停/RPLAN.24保持。",
+      "math_divide_shared": {
+        "spec_id": "BWN01",
+        "evidence_refs": [
+          "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-baseline",
+          "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-decision",
+          "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-acceptance",
+          "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-source-state"
+        ],
+        "full_original_functions_captured": true,
+        "original_instruction_count": 83,
+        "original_code_bytes": 279,
+        "original_page_count": 2,
+        "source_body_added": true,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_cpp_file_count": 0,
+        "source_patch_count": 4,
+        "new_native_function_body_count": 2,
+        "new_asm_proc_count": 2,
+        "new_original_mapped_function_count": 2,
+        "new_cpp_body_count": 0,
+        "new_private_C_bridge_count": 0,
+        "new_mutable_shared_owner_count": 0,
+        "original_numeric_frame_bytes": 44,
+        "native_wrapper_frame_bytes": 88,
+        "only_proven_borrowed_frame_address_widened": true,
+        "original_t80_padding_and_saved_cw_high_word_not_filled": true,
+        "original_t80_classification_table_f32_scaling_cw_and_denormal_rewrite_loop_kept": true,
+        "wrapper_true_core_call_original_EAX_ECX_numeric_and_EDX_kept": true,
+        "native_direct_call_count": 1,
+        "native_direct_jump_count": 14,
+        "native_return_count": 7,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_shared_remaining_CRT_chain_verified": false,
+        "full_original_descriptor_production_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x545b51",
+      "inventory_id": "F:00145B51",
+      "original_role": "原545B51完整八条21B包装；ST0/ST1原序实际落T80，真实调用545360，原EAX与为x64借址暂用的ECX数值恢复/EDX保持；88B正常原生调用帧，供共享指数链原探测分支后续接线。",
+      "original_end_exclusive": "0x545b66",
+      "original_chunks": [
+        [
+          "0x545b51",
+          "0x545b66"
+        ]
+      ],
+      "instruction_count": 8,
+      "status": "BWN01沿共享指数542FEF真实依赖补完整545360/545B51：91条300B/三页、一CALL一callee、14跳七RET；两现源四处追加/两真实ASM，零CPP/C桥/新owner。借原44B数值片段不扩宽，两个T80及其padding/+24保存CW高W16不补；原16B表/三F32、尾数/指数/进位/CW与全部FDIVP/非规格化重写循环保。包装保原FSTP序、EAX/ECX数值及EDX/真核心调用、88B正常帧；源码静态非机器等价。新增1838/1839、CRT179/F1002限定I-S，定位147/CRT余19，完整共享目标/未知描述符生产和其它原调用父及机器运行继续，原格式明文/音频暂停/RPLAN.24保持。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dReverseDivideLegacyStackX87",
+            "LegacyDivideClass592260",
+            "LegacyDivideScale592270",
+            "LegacyDivideScale592274",
+            "LegacyDivideNormalize592278"
+          ],
+          "relationship": "原545B51完整八条21B包装；ST0/ST1原序实际落T80，真实调用545360，原EAX与为x64借址暂用的ECX数值恢复/EDX保持；88B正常原生调用帧，供共享指数链原探测分支后续接线。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "Cg2dReverseDivideLegacyStackX87"
+          ],
+          "relationship": "原44B借用数值片段/T80/CW及内部ST0合同，只有地址承原生指针，不声明CPP double返回、不填未生产字节"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-baseline",
+        "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-decision",
+        "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-acceptance",
+        "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-source-state"
+      ],
+      "boundary": "原545B51完整八条21B包装；ST0/ST1原序实际落T80，真实调用545360，原EAX与为x64借址暂用的ECX数值恢复/EDX保持；88B正常原生调用帧，供共享指数链原探测分支后续接线。 BWN01沿共享指数542FEF真实依赖补完整545360/545B51：91条300B/三页、一CALL一callee、14跳七RET；两现源四处追加/两真实ASM，零CPP/C桥/新owner。借原44B数值片段不扩宽，两个T80及其padding/+24保存CW高W16不补；原16B表/三F32、尾数/指数/进位/CW与全部FDIVP/非规格化重写循环保。包装保原FSTP序、EAX/ECX数值及EDX/真核心调用、88B正常帧；源码静态非机器等价。新增1838/1839、CRT179/F1002限定I-S，定位147/CRT余19，完整共享目标/未知描述符生产和其它原调用父及机器运行继续，原格式明文/音频暂停/RPLAN.24保持。",
+      "verification_level": "BWN01沿共享指数542FEF真实依赖补完整545360/545B51：91条300B/三页、一CALL一callee、14跳七RET；两现源四处追加/两真实ASM，零CPP/C桥/新owner。借原44B数值片段不扩宽，两个T80及其padding/+24保存CW高W16不补；原16B表/三F32、尾数/指数/进位/CW与全部FDIVP/非规格化重写循环保。包装保原FSTP序、EAX/ECX数值及EDX/真核心调用、88B正常帧；源码静态非机器等价。新增1838/1839、CRT179/F1002限定I-S，定位147/CRT余19，完整共享目标/未知描述符生产和其它原调用父及机器运行继续，原格式明文/音频暂停/RPLAN.24保持。",
+      "math_divide_shared": {
+        "spec_id": "BWN01",
+        "evidence_refs": [
+          "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-baseline",
+          "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-decision",
+          "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-acceptance",
+          "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-source-state"
+        ],
+        "full_original_functions_captured": true,
+        "original_instruction_count": 8,
+        "original_code_bytes": 21,
+        "original_page_count": 1,
+        "source_body_added": true,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_cpp_file_count": 0,
+        "source_patch_count": 4,
+        "new_native_function_body_count": 2,
+        "new_asm_proc_count": 2,
+        "new_original_mapped_function_count": 2,
+        "new_cpp_body_count": 0,
+        "new_private_C_bridge_count": 0,
+        "new_mutable_shared_owner_count": 0,
+        "original_numeric_frame_bytes": 44,
+        "native_wrapper_frame_bytes": 88,
+        "only_proven_borrowed_frame_address_widened": true,
+        "original_t80_padding_and_saved_cw_high_word_not_filled": true,
+        "original_t80_classification_table_f32_scaling_cw_and_denormal_rewrite_loop_kept": true,
+        "wrapper_true_core_call_original_EAX_ECX_numeric_and_EDX_kept": true,
+        "native_direct_call_count": 1,
+        "native_direct_jump_count": 14,
+        "native_return_count": 7,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_shared_remaining_CRT_chain_verified": false,
+        "full_original_descriptor_production_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

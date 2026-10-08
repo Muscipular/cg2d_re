@@ -222,3 +222,9 @@ NCE01已接业务copy/单owner、消息/析构及所有旧构析正文保持，�
 543185整身份146条501B/三页已开发，包含幂帮助/单参与双参FXAM分派及全部特殊值/共享错误目标；三现文件五追加/十二ASM本体、13布局断言，只有一原身份。原16B分类表/4及16借用代码指针只拓地址，原数值样本/指数/索引/CW/T80/error0-1-7及末标志保。
 
 两原间接尾改真实调用后LEA释放，幂实参/FSAVE108/真helper/FRSTOR与实际ECX数值保持，未生产结果不填。不因无已证直入或初始化指针而排除；原描述符生产/未知父与共享余链仍待。CRT176→177/F1000两限定I-S，定位150→149/CRT未定位22→21；整体门禁保持。
+
+## BWN01共享指数链完整除法依赖（2026-10-08）
+
+[基线](cg2d_math_divide_shared_spec.md#math-divide-shared-baseline)、[决定](cg2d_math_divide_shared_spec.md#math-divide-shared-decision)、[验收](cg2d_math_divide_shared_spec.md#math-divide-shared-acceptance)与[全部原体/原数据/源前后态](cg2d_math_divide_shared_evidence.json)。
+
+沿542FEF真实依赖实现545360/545B51，两完整身份91条300B/三页；两现源四追加/两ASM本体，零CPP/C桥/新owner。原44B片段/T80/未生产padding、16B表/三F32、CW及非规格化循环和EAX/ECX/EDX真实合同保，核心实际调用。CRT177→179/F1002仅限定I/S，源码定位149→147/CRT余21→19。完整共享目标/原描述符生产及其它原调用父、机器运行仍待开发验收。

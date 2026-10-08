@@ -26,6 +26,11 @@ LegacyGenericPowerName58F898 BYTE "pow", 0
 
 LegacyMathClass59207D BYTE 08h, 04h, 08h, 08h, 08h, 04h, 08h, 08h, 00h, 04h, 0Ch, 08h, 00h, 04h, 0Ch, 08h
 
+LegacyDivideClass592260 BYTE 00h, 01h, 00h, 00h, 04h, 00h, 00h, 07h, 00h, 00h, 0Ah, 00h, 00h, 0Dh, 00h, 00h
+LegacyDivideScale592270 DWORD 03F700000h
+LegacyDivideScale592274 DWORD 03F880000h
+LegacyDivideNormalize592278 DWORD 05F000000h
+
 .code
 EXTERN Cg2dClassifyLegacySpecialFloat:PROC
 PUBLIC Cg2dClassifyLegacyFloat
@@ -58,6 +63,8 @@ PUBLIC Cg2dLegacyMathQuietUnaryNaNX87
 PUBLIC Cg2dLegacyMathQuietRightNaNX87
 PUBLIC Cg2dLegacyMathQuietEitherNaNX87
 PUBLIC Cg2dLegacyMathInvalidBinaryX87
+PUBLIC Cg2dDivideLegacyExtendedX87
+PUBLIC Cg2dReverseDivideLegacyStackX87
 EXTERN Cg2dLegacyPowerFastExitGate1085FBC:DWORD
 EXTERN Cg2dRaiseLegacyFloatExceptionHost:PROC
 EXTERN Cg2dDefaultLegacyMathError:PROC
@@ -1842,5 +1849,121 @@ LegacyDispatchInvalidTypeReady:
     or cl, cl
     ret
 Cg2dLegacyMathInvalidBinaryX87 ENDP
+
+; 原545360：RCX借原44B数值片段，ST0结果；原T80/填充/CW与全部循环不改。
+Cg2dDivideLegacyExtendedX87 PROC
+    mov r10, rcx
+    fld tbyte ptr [r10+12]
+    fld tbyte ptr [r10]
+LegacyDivide545368:
+    mov eax, dword ptr [r10+4]
+    add eax, eax
+    jnb LegacyDivide5453FA
+    xor eax, 0E000000h
+    test eax, 0E000000h
+    jz LegacyDivide545383
+    fdivp st(1), st(0)
+    ret
+LegacyDivide545383:
+    shr eax, 1Ch
+    lea r11, LegacyDivideClass592260
+    cmp byte ptr [r11+rax], 0
+    jnz LegacyDivide545392
+    fdivp st(1), st(0)
+    ret
+LegacyDivide545392:
+    mov eax, dword ptr [r10+8]
+    and eax, 7FFFh
+    jz LegacyDivide545404
+    cmp eax, 7FFFh
+    jz LegacyDivide545404
+    fnstcw word ptr [r10+24]
+    mov eax, dword ptr [r10+24]
+    or eax, 33Fh
+    and eax, 0F3FFh
+    mov dword ptr [r10+28], eax
+    fldcw word ptr [r10+28]
+    mov eax, dword ptr [r10+20]
+    and eax, 7FFFh
+    cmp eax, 1
+    jz LegacyDivide5453E3
+    fmul dword ptr [LegacyDivideScale592270]
+    fxch st(1)
+    fmul dword ptr [LegacyDivideScale592270]
+    fxch st(1)
+    fldcw word ptr [r10+24]
+    fdivp st(1), st(0)
+    ret
+LegacyDivide5453E3:
+    fmul dword ptr [LegacyDivideScale592274]
+    fxch st(1)
+    fmul dword ptr [LegacyDivideScale592274]
+    fxch st(1)
+    fldcw word ptr [r10+24]
+    fdivp st(1), st(0)
+    ret
+LegacyDivide5453FA:
+    mov eax, dword ptr [r10]
+    or eax, dword ptr [r10+4]
+    jnz LegacyDivide545407
+LegacyDivide545404:
+    fdivp st(1), st(0)
+    ret
+LegacyDivide545407:
+    mov eax, dword ptr [r10+8]
+    and eax, 7FFFh
+    jnz LegacyDivide545404
+    fnstcw word ptr [r10+24]
+    mov eax, dword ptr [r10+24]
+    or eax, 33Fh
+    and eax, 0F3FFh
+    mov dword ptr [r10+28], eax
+    fldcw word ptr [r10+28]
+    mov eax, dword ptr [r10+20]
+    and eax, 7FFFh
+    jz LegacyDivide545448
+    cmp eax, 7FFFh
+    jz LegacyDivide545470
+    mov eax, dword ptr [r10+16]
+    add eax, eax
+    jnb LegacyDivide545470
+    jmp LegacyDivide545450
+LegacyDivide545448:
+    mov eax, dword ptr [r10+16]
+    add eax, eax
+    jb LegacyDivide545470
+LegacyDivide545450:
+    fxch st(1)
+    fstp st(0)
+    fld st(0)
+    fmul dword ptr [LegacyDivideNormalize592278]
+    fstp tbyte ptr [r10]
+    fld tbyte ptr [r10+12]
+    fxch st(1)
+    fwait
+    fldcw word ptr [r10+24]
+    jmp LegacyDivide545368
+LegacyDivide545470:
+    fldcw word ptr [r10+24]
+    fdivp st(1), st(0)
+    ret
+Cg2dDivideLegacyExtendedX87 ENDP
+
+; 原545B51：ST0/ST1按原序落T80，保原EAX及为原生借址暂用的ECX，EDX不改。
+Cg2dReverseDivideLegacyStackX87 PROC FRAME
+    sub rsp, 88
+    .allocstack 88
+    .endprolog
+    mov dword ptr [rsp+76], eax
+    mov dword ptr [rsp+80], ecx
+    fstp tbyte ptr [rsp+44]
+    fstp tbyte ptr [rsp+32]
+    lea rcx, [rsp+32]
+    call Cg2dDivideLegacyExtendedX87
+    mov eax, dword ptr [rsp+76]
+    mov ecx, dword ptr [rsp+80]
+    add rsp, 88
+    ret
+Cg2dReverseDivideLegacyStackX87 ENDP
 
 END

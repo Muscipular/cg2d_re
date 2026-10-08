@@ -212,3 +212,10 @@ LegacyAudioMath.asm在原普通表数值段之外追加Cg2dInitializeFixedMusicV
 按[音频局部方案](cg2d_audio_update.md#spatial-sound-x87-decision)，52C9E0请求和52CD60扫描各交既有平台ASM的真实数值接口，原浮点平方/整数平方两路径分别保持，x87/向零S64低W32及/106商已恢复；24/17条投影与完整两父155条478B见[记录](cg2d_spatial_sound_x87_evidence.json)。两原表索引/门槛、较近请求更新、扫描首次范围外立即返回与调用后标记，以及资源/SDL播放/其他CPP全文保持，不新增CRT通用体、表owner、CMake项或依赖。
 
 当前Debug链接0错误/0增量警告、两接口和原父实际符号可追，游戏EXE已更新并备份before-spatial-sound-x87-20261009；同长8024064B只说明实际长度，未核摘要/内容。新增两个原语义/F及已知音频成员，AUDIO35仍不是完整分母，三限定I/W/S不关闭V05/V02/R01；52CDE0与完整数值/CW/机器状态/声音/失败/正常寿命、旧外层/完整枚举和IP2真实登录继续。没有运行客户端/算法、测试或重生成WAV，离线工具最近通过仍CAB15，快照cg2d-re-spatial-sound-x87-20261009。
+
+<a id="spatial-projection-x87-source-state"></a>
+## CAB19 空间音频投影记录生产者（2026-10-09）
+
+沿[局部方案](cg2d_audio_update.md#spatial-projection-x87-decision)，52CDE0真实接入两个既有平台ASM私有接口：先按原CW将S32世界Y/X乘F32 64并先Y后X落F32，原46CE30调用保持；投影后原x87/S64低W32、同源表门禁与读X→写索引→转X→读Y→写X→转Y→写Y/距离/标记/返回全部恢复。完整52条183B/原栈字节、三F32常量及六/33条投影见[记录](cg2d_spatial_projection_x87_evidence.json)。只拓宽表寻址，原W32字段/index/Y返回保；没有额外owner、钳制/保护或CRT入口，其他音频/网络转发与资源保持。
+
+当前Debug链接0错误/0增量警告，两接口、原生产者/转发和既有距离接口符号可追；游戏EXE已更新并备份before-spatial-projection-x87-20261009，8024064B同长只证复制/长度。一个原语义/F及AUDIO36已知成员纳管，枚举仍false；46CE30全部数值/消费者、全应用CW/机器状态、实际声音/失败/正常寿命及完整音频/V05/V02/R01和IP2登录仍待，不因局部I/W/S关闭门禁。未执行客户端/算法、测试、重生成WAV或摘要，离线工具最近构建仍CAB15，快照cg2d-re-spatial-projection-x87-20261009。

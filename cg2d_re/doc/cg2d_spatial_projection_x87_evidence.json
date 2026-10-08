@@ -1,0 +1,558 @@
+{
+  "schema_version": 1,
+  "step": "CAB19",
+  "recorded_on": "2026-10-09",
+  "source_snapshot": "cg2d-re-spatial-projection-x87-20261009",
+  "source_base_commit": "2003610d",
+  "decision_ref": "doc/cg2d_audio_update.md#spatial-projection-x87-decision",
+  "authorization": "沿用户继续完善音频及整体SPEC开发、AGENTS第8条工程委托和第12条CAA01必要Debug授权；客户端/算法运行、测试、摘要和桌面操作不执行。",
+  "verification_level": "完整原父52条183B及唯一直接入向/三个F32位样本；六条缩放和33条投影后数值/字段静态投影，两源之外与既有ASM/CW宏保持；当前Debug链接/MAP和实际复制。不是全父机器ABI/数值输出或声音/正常寿命运行验收。",
+  "original_function": {
+    "start": "0x52cde0",
+    "end": "0x52ce97",
+    "name": "sub_52CDE0",
+    "bytes": "db44240c568d44240c578d4c2414d80d30dd5400505151d91c24db44241c51d80d30dd5400d91c24e82300f4ffd9442424d825a0f65400d9442420d82508d4540083c410d9c0d8c9d9c2d8cbdec1d9fae863e600008bf88b44240cddd88d3480c1e602ddd88b8ec0d1030185c9751183bec4d10301ff74083bbed0d103017d34d94424148986c4d10301e829e60000d94424108986c8d10301e81ae600008986ccd1030189bed0d10301c786c0d10301000000005f5ec3",
+    "instructions": [
+      {
+        "ea": "0x52cde0",
+        "asm": "fild    [esp+a3]"
+      },
+      {
+        "ea": "0x52cde4",
+        "asm": "push    esi"
+      },
+      {
+        "ea": "0x52cde5",
+        "asm": "lea     eax, [esp+4+a4]"
+      },
+      {
+        "ea": "0x52cde9",
+        "asm": "push    edi"
+      },
+      {
+        "ea": "0x52cdea",
+        "asm": "lea     ecx, [esp+8+a3]"
+      },
+      {
+        "ea": "0x52cdee",
+        "asm": "fmul    ds:flt_54DD30"
+      },
+      {
+        "ea": "0x52cdf4",
+        "asm": "push    eax; a4"
+      },
+      {
+        "ea": "0x52cdf5",
+        "asm": "push    ecx; a3"
+      },
+      {
+        "ea": "0x52cdf6",
+        "asm": "push    ecx"
+      },
+      {
+        "ea": "0x52cdf7",
+        "asm": "fstp    [esp+14h+a2]; a2"
+      },
+      {
+        "ea": "0x52cdfa",
+        "asm": "fild    [esp+14h+a4]"
+      },
+      {
+        "ea": "0x52cdfe",
+        "asm": "push    ecx"
+      },
+      {
+        "ea": "0x52cdff",
+        "asm": "fmul    ds:flt_54DD30"
+      },
+      {
+        "ea": "0x52ce05",
+        "asm": "fstp    [esp+18h+a1]; a1"
+      },
+      {
+        "ea": "0x52ce08",
+        "asm": "call    sub_46CE30"
+      },
+      {
+        "ea": "0x52ce0d",
+        "asm": "fld     [esp+18h+a3]"
+      },
+      {
+        "ea": "0x52ce11",
+        "asm": "fsub    ds:flt_54F6A0"
+      },
+      {
+        "ea": "0x52ce17",
+        "asm": "fld     [esp+18h+a4]"
+      },
+      {
+        "ea": "0x52ce1b",
+        "asm": "fsub    ds:flt_54D408"
+      },
+      {
+        "ea": "0x52ce21",
+        "asm": "add     esp, 10h"
+      },
+      {
+        "ea": "0x52ce24",
+        "asm": "fld     st"
+      },
+      {
+        "ea": "0x52ce26",
+        "asm": "fmul    st, st(1)"
+      },
+      {
+        "ea": "0x52ce28",
+        "asm": "fld     st(2)"
+      },
+      {
+        "ea": "0x52ce2a",
+        "asm": "fmul    st, st(3)"
+      },
+      {
+        "ea": "0x52ce2c",
+        "asm": "faddp   st(1), st"
+      },
+      {
+        "ea": "0x52ce2e",
+        "asm": "fsqrt"
+      },
+      {
+        "ea": "0x52ce30",
+        "asm": "call    __ftol"
+      },
+      {
+        "ea": "0x52ce35",
+        "asm": "mov     edi, eax"
+      },
+      {
+        "ea": "0x52ce37",
+        "asm": "mov     eax, [esp+8+arg_0]"
+      },
+      {
+        "ea": "0x52ce3b",
+        "asm": "fstp    st"
+      },
+      {
+        "ea": "0x52ce3d",
+        "asm": "lea     esi, [eax+eax*4]"
+      },
+      {
+        "ea": "0x52ce40",
+        "asm": "shl     esi, 2"
+      },
+      {
+        "ea": "0x52ce43",
+        "asm": "fstp    st"
+      },
+      {
+        "ea": "0x52ce45",
+        "asm": "mov     ecx, dword_103D1C0[esi]"
+      },
+      {
+        "ea": "0x52ce4b",
+        "asm": "test    ecx, ecx"
+      },
+      {
+        "ea": "0x52ce4d",
+        "asm": "jnz     short loc_52CE60"
+      },
+      {
+        "ea": "0x52ce4f",
+        "asm": "cmp     dword_103D1C4[esi], 0FFFFFFFFh"
+      },
+      {
+        "ea": "0x52ce56",
+        "asm": "jz      short loc_52CE60"
+      },
+      {
+        "ea": "0x52ce58",
+        "asm": "cmp     edi, dword_103D1D0[esi]"
+      },
+      {
+        "ea": "0x52ce5e",
+        "asm": "jge     short loc_52CE94"
+      },
+      {
+        "ea": "0x52ce60",
+        "asm": "fld     [esp+8+a3]"
+      },
+      {
+        "ea": "0x52ce64",
+        "asm": "mov     dword_103D1C4[esi], eax"
+      },
+      {
+        "ea": "0x52ce6a",
+        "asm": "call    __ftol"
+      },
+      {
+        "ea": "0x52ce6f",
+        "asm": "fld     [esp+8+a4]"
+      },
+      {
+        "ea": "0x52ce73",
+        "asm": "mov     dword_103D1C8[esi], eax"
+      },
+      {
+        "ea": "0x52ce79",
+        "asm": "call    __ftol"
+      },
+      {
+        "ea": "0x52ce7e",
+        "asm": "mov     dword_103D1CC[esi], eax"
+      },
+      {
+        "ea": "0x52ce84",
+        "asm": "mov     dword_103D1D0[esi], edi"
+      },
+      {
+        "ea": "0x52ce8a",
+        "asm": "mov     dword_103D1C0[esi], 0"
+      },
+      {
+        "ea": "0x52ce94",
+        "asm": "pop     edi"
+      },
+      {
+        "ea": "0x52ce95",
+        "asm": "pop     esi"
+      },
+      {
+        "ea": "0x52ce96",
+        "asm": "retn"
+      }
+    ],
+    "callers": [
+      {
+        "ea": "0x50e6cf",
+        "type": 17,
+        "parent_start": "0x50e6c0",
+        "asm": "call    sub_52CDE0"
+      }
+    ],
+    "constants": [
+      {
+        "address": "0x54dd30",
+        "bytes": "00008042"
+      },
+      {
+        "address": "0x54f6a0",
+        "bytes": "0000a043"
+      },
+      {
+        "address": "0x54d408",
+        "bytes": "00007043"
+      }
+    ],
+    "inventory_id": "F:0012CDE0",
+    "instruction_count": 52,
+    "byte_count": 183
+  },
+  "original_conversion_source": {
+    "inventory_id": "F:0013B498",
+    "range": [
+      "0x53B498",
+      "0x53B4BF"
+    ],
+    "instruction_count": 15,
+    "bytes": 39,
+    "evidence_ref": "doc/cg2d_audio_table_x87_evidence.json",
+    "scope": "复用三处已证10条CW→临时RC向零→FISTP S64→同CW恢复→低/高W32展开，宏正文保持，不新增通用CRT体或改变CPH01 host及其他消费者"
+  },
+  "original_input_stack": {
+    "anchor": "进入52CDE0时ESP",
+    "index": "[ESP+4] S32",
+    "sourceX": "[ESP+8] S32",
+    "sourceY": "[ESP+0C] S32",
+    "evidence": "入口DB44240C为FILD sourceY；52CDFA的DB44241C对应已下移14H的ESP，即原ESP+8 sourceX，原后续槽由46CE30覆盖为屏幕F32。只依据真实字节/ESP移动与旧全文，不依据IDA a3/a4名称猜参数。",
+    "current_mapping": "本地世界/屏幕F32，仍先世界Y后X；真实ProjectWorldToScreen_46CE30调用保持，输入/输出都是原F32边界。"
+  },
+  "original_record": {
+    "owner": "gSpatialRecords103D1C0",
+    "count": 50,
+    "element_bytes": 20,
+    "bytes": 1000,
+    "index_width_bits": 32,
+    "flag_offset": 0,
+    "index_offset": 4,
+    "x_offset": 8,
+    "y_offset": 12,
+    "distance_offset": 16,
+    "early_return": "flags==0 && oldIndex!=-1 && distance>=oldDistance时不写，返回完整index",
+    "update_order": [
+      "FLD screenX",
+      "record+4=index",
+      "向零FISTP S64，只取X低W32",
+      "FLD screenY",
+      "record+8=X",
+      "向零FISTP S64，只取Y低W32",
+      "record+C=Y",
+      "record+10=distance",
+      "record+0=0",
+      "返回Y低W32"
+    ],
+    "native_addressing": "同步借同源表，index只用于原生index*20地址，非地址字段/返回仍W32，无新owner或越界保护"
+  },
+  "source_changes": [
+    {
+      "path": "src/LegacyAudio.cpp",
+      "scope": "六行平台私有声明与一个52CDE0正文：缩放/投影后调用真实局部数值体；46CE30调用和其他全文保持"
+    },
+    {
+      "path": "src/platform/LegacyAudioMath.asm",
+      "scope": "三个F32位常量、两个PUBLIC/实际接口；旧两个音量表和两个距离接口、CW宏其余全文保持，CMake原源项不改"
+    }
+  ],
+  "projection_checks": {
+    "original_instruction_count": 52,
+    "original_byte_count": 183,
+    "segments": [
+      {
+        "phase": "scale",
+        "symbol": "Cg2dScaleSpatialSourceX87",
+        "original_instruction_count": 6,
+        "source_projection_instruction_count": 6,
+        "original_projection": [
+          "fild dword ptr [rsp+36]",
+          "fmul dword ptr [spatialgrid64_54dd30]",
+          "fstp dword ptr [r9]",
+          "fild dword ptr [rsp+32]",
+          "fmul dword ptr [spatialgrid64_54dd30]",
+          "fstp dword ptr [r8]"
+        ],
+        "source_projection": [
+          "fild dword ptr [rsp+36]",
+          "fmul dword ptr [spatialgrid64_54dd30]",
+          "fstp dword ptr [r9]",
+          "fild dword ptr [rsp+32]",
+          "fmul dword ptr [spatialgrid64_54dd30]",
+          "fstp dword ptr [r8]"
+        ],
+        "differences": []
+      },
+      {
+        "phase": "post_projection",
+        "symbol": "Cg2dPublishSpatialProjectionX87",
+        "original_instruction_count": 33,
+        "source_projection_instruction_count": 33,
+        "original_projection": [
+          "fld dword ptr [r8]",
+          "fsub dword ptr [spatialscreen320_54f6a0]",
+          "fld dword ptr [r9]",
+          "fsub dword ptr [spatialscreen240_54d408]",
+          "fld st(0)",
+          "fmul st(0),st(1)",
+          "fld st(0)(2)",
+          "fmul st(0),st(3)",
+          "faddp st(1),st(0)",
+          "fsqrt",
+          "truncatesoundintermediate",
+          "mov edi,eax",
+          "mov eax,r10d",
+          "fstp st(0)",
+          "lea rsi,[r10+r10*4]",
+          "shl rsi,2",
+          "fstp st(0)",
+          "mov ecx,dword ptr [r11+rsi]",
+          "test ecx,ecx",
+          "jnz spatialprojectionpublish",
+          "cmp dword ptr [r11+rsi+4],-1",
+          "jz spatialprojectionpublish",
+          "cmp edi,dword ptr [r11+rsi+10h]",
+          "jge spatialprojectionreturn",
+          "fld dword ptr [r8]",
+          "mov dword ptr [r11+rsi+4],eax",
+          "truncatesoundintermediate",
+          "fld dword ptr [r9]",
+          "mov dword ptr [r11+rsi+8],eax",
+          "truncatesoundintermediate",
+          "mov dword ptr [r11+rsi+0ch],eax",
+          "mov dword ptr [r11+rsi+10h],edi",
+          "mov dword ptr [r11+rsi],0"
+        ],
+        "source_projection": [
+          "fld dword ptr [r8]",
+          "fsub dword ptr [spatialscreen320_54f6a0]",
+          "fld dword ptr [r9]",
+          "fsub dword ptr [spatialscreen240_54d408]",
+          "fld st(0)",
+          "fmul st(0),st(1)",
+          "fld st(0)(2)",
+          "fmul st(0),st(3)",
+          "faddp st(1),st(0)",
+          "fsqrt",
+          "truncatesoundintermediate",
+          "mov edi,eax",
+          "mov eax,r10d",
+          "fstp st(0)",
+          "lea rsi,[r10+r10*4]",
+          "shl rsi,2",
+          "fstp st(0)",
+          "mov ecx,dword ptr [r11+rsi]",
+          "test ecx,ecx",
+          "jnz spatialprojectionpublish",
+          "cmp dword ptr [r11+rsi+4],-1",
+          "jz spatialprojectionpublish",
+          "cmp edi,dword ptr [r11+rsi+10h]",
+          "jge spatialprojectionreturn",
+          "fld dword ptr [r8]",
+          "mov dword ptr [r11+rsi+4],eax",
+          "truncatesoundintermediate",
+          "fld dword ptr [r9]",
+          "mov dword ptr [r11+rsi+8],eax",
+          "truncatesoundintermediate",
+          "mov dword ptr [r11+rsi+0ch],eax",
+          "mov dword ptr [r11+rsi+10h],edi",
+          "mov dword ptr [r11+rsi],0"
+        ],
+        "differences": []
+      }
+    ],
+    "cpp_outside_function_and_private_declarations_unchanged": true,
+    "existing_asm_interfaces_and_cw_macro_unchanged": true,
+    "projection_call_unchanged": true,
+    "inline_s64_truncation_sites": 3,
+    "constants": [
+      {
+        "address": "0x54dd30",
+        "bytes": "00008042",
+        "f32": 64,
+        "word_bits": "0x42800000"
+      },
+      {
+        "address": "0x54f6a0",
+        "bytes": "0000a043",
+        "f32": 320,
+        "word_bits": "0x43a00000"
+      },
+      {
+        "address": "0x54d408",
+        "bytes": "00007043",
+        "f32": 240,
+        "word_bits": "0x43700000"
+      }
+    ],
+    "stack_frames": [
+      {
+        "interface": "scale",
+        "bytes": 40,
+        "saved_nonvolatile": [],
+        "local_S32": [
+          [
+            32,
+            36
+          ],
+          [
+            36,
+            40
+          ]
+        ]
+      },
+      {
+        "interface": "post_projection",
+        "bytes": 72,
+        "saved_nonvolatile": [
+          "RSI",
+          "RDI"
+        ],
+        "local_CW": [
+          [
+            40,
+            42
+          ],
+          [
+            42,
+            44
+          ]
+        ],
+        "local_S64": [
+          48,
+          56
+        ]
+      }
+    ],
+    "excluded_original_instruction": [
+      {
+        "address": "0x52CE21",
+        "instruction": "add esp,10h",
+        "reason": "原四参数投影调用的x86栈清理，由原生C++调用/ABI承接，不计数值投影"
+      }
+    ],
+    "native_address_mapping": "只将index*20表寻址拓宽到RSI，字段/index/返回仍W32；不声称越界/回绕或全机器状态等价",
+    "runtime_output_verified": false
+  },
+  "source_gap": "原缩放与三截断受当前x87 CW和S64中间值约束，此前double/SSE与直接S32未承接；本步恢复局部真实数值和交叉发布顺序，不宣当前发生可闻故障、全部输入逐位/机器状态或投影callee已验。",
+  "mechanism_boundary": "两个平台私有接口只同步借世界F32输出、屏幕F32输入和既有SpatialAudioRecord原生表；不持有指针/创建资源。CW仅在三FISTP S64时向零后恢复，不强设PC/F64落存或补异常；index×20寻址拓宽，不改变原W32字段/完整index或Y返回。",
+  "build": {
+    "command": "cmake --build --preset windows-msvc-x64-debug --target cg2d_re_client --parallel 4",
+    "log": "build/windows-msvc-x64/build-spatial-projection-x87-20261009.log",
+    "configure_performed": false,
+    "configure_exit_code": 0,
+    "build_exit_code": 0,
+    "static_libraries_exit_code": 0,
+    "client_link_exit_code": 0,
+    "errors": [],
+    "incremental_warning_count": 0,
+    "full_warning_count_unmeasured": true,
+    "client_bytes": 8024064,
+    "symbols": {
+      "Cg2dScaleSpatialSourceX87": true,
+      "Cg2dPublishSpatialProjectionX87": true,
+      "Sub_52CDE0": true,
+      "Sub_50E6C0": true,
+      "Cg2dComputeSpatialSoundX87": true,
+      "Cg2dComputeSpatialScanQuotientX87": true,
+      "LegacyMidiSynth": false,
+      "MidiToWav": false
+    },
+    "converter_build_performed": false,
+    "converter_last_build_step": "CAB15"
+  },
+  "deployment": {
+    "destination": "H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2d_re_client.exe",
+    "backup": "H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2d_re_client.exe.before-spatial-projection-x87-20261009",
+    "previous_bytes": 8024064,
+    "source_bytes": 8024064,
+    "current_bytes": 8024064,
+    "performed": true,
+    "client_launched": false,
+    "verification": "Copy-Item成功且实际源/目标长度一致；同长不证明内容，未计算摘要或比对内容"
+  },
+  "execution": {
+    "tests_performed": false,
+    "client_executed": false,
+    "algorithm_executed": false,
+    "converter_executed": false,
+    "wav_regenerated": false,
+    "hash_performed": false,
+    "desktop_operated": false
+  },
+  "inventory_change": {
+    "added_semantic_id": "F:0012CDE0",
+    "added_function_dispositions": 1,
+    "audio_known_members": 36,
+    "audio_member_inventory_closed": false,
+    "r7_unchanged": true
+  },
+  "remaining": [
+    "46CE30自身完整数值、参数/输出别名和全部消费者合同",
+    "整个应用当前CW/精度上游、全正常数值及机器状态/ABI",
+    "音频完整失败/设备/声音/通知和owner别名/正常寿命",
+    "旧外层/全部成员枚举及完整音频门禁",
+    "客户端运行授权/IP2真实登录和完整启动退出",
+    "旧窗口诊断逐项原行为/ABI验收不因本步增量0关闭"
+  ],
+  "registry_validation": {
+    "expected_json_text_matches": true,
+    "semantic_records": 1898,
+    "function_dispositions": 1063,
+    "audio_known_members": 36,
+    "task_acceptance_rows": 55,
+    "generate_exit_code": 0,
+    "check_exit_code": 0,
+    "scope": "两JSON与HEAD加本步明确变更的全文预期一致，派生文本生成和-Check通过；只证明文本/引用一致，不代功能验收。"
+  },
+  "compile_verified": true,
+  "runtime_verified": false,
+  "global_accepted": false
+}

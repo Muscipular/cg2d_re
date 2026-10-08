@@ -38,6 +38,12 @@ extern "C" std::int32_t Cg2dComputeSpatialSoundX87(
     std::int32_t x, std::int32_t y, std::int32_t* distance) noexcept;
 extern "C" std::int32_t Cg2dComputeSpatialScanQuotientX87(
     std::int32_t x, std::int32_t y) noexcept;
+// 原52CDE0局部数值/发布段；只同步借同源表和本地F32，不保存指针。
+extern "C" void Cg2dScaleSpatialSourceX87(
+    std::int32_t x, std::int32_t y, float* worldX, float* worldY) noexcept;
+extern "C" std::int32_t Cg2dPublishSpatialProjectionX87(
+    audio::SpatialAudioRecord* records, std::int32_t index,
+    const float* screenX, const float* screenY) noexcept;
 }
 
 namespace cg::login::detail {
@@ -998,34 +1004,14 @@ std::int32_t __cdecl Sub_52CDE0(
     const std::int32_t sourceX,
     const std::int32_t sourceY)
 {
-    const float worldY = static_cast<float>(static_cast<double>(sourceY) * 64.0);
-    const float worldX = static_cast<float>(static_cast<double>(sourceX) * 64.0);
+    float worldX;
+    float worldY;
+    platform::Cg2dScaleSpatialSourceX87(sourceX, sourceY, &worldX, &worldY);
     float screenX;
     float screenY;
     world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
-
-    const double offsetX = static_cast<double>(screenX) - 320.0;
-    const double offsetY = static_cast<double>(screenY) - 240.0;
-    const std::int32_t distance = static_cast<std::int32_t>(
-        std::sqrt(offsetY * offsetY + offsetX * offsetX));
-
-    SpatialAudioRecord& record =
-        gSpatialRecords103D1C0[static_cast<std::size_t>(index)];
-    if (record.value00 == 0 && record.value04 != -1
-        && distance >= record.value10) {
-        return index;
-    }
-
-    const double projectedX = static_cast<double>(screenX);
-    record.value04 = index;
-    const std::int32_t x = static_cast<std::int32_t>(projectedX);
-    const double projectedY = static_cast<double>(screenY);
-    record.value08 = x;
-    const std::int32_t y = static_cast<std::int32_t>(projectedY);
-    record.value0C = y;
-    record.value10 = distance;
-    record.value00 = 0;
-    return y;
+    return platform::Cg2dPublishSpatialProjectionX87(
+        gSpatialRecords103D1C0.data(), index, &screenX, &screenY);
 }
 
 std::int32_t __cdecl Sub_52C9E0(

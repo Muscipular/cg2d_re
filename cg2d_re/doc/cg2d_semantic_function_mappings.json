@@ -213950,6 +213950,58 @@
         "helper": "Cg2dComputeSpatialScanQuotientX87",
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x52CDE0",
+      "inventory_id": "F:0012CDE0",
+      "original_role": "空间音频格坐标缩放、投影后较近坐标/距离的同源记录生产",
+      "original_end_exclusive": "0x52ce97",
+      "instruction_count": 52,
+      "original_byte_count": 183,
+      "status": "CAB19真实x87缩放/三S64低W32与交叉字段发布已实现；原世界投影/网络转发接线保持，当前Debug链接部署通过，完整投影/CW/机器状态/声音/正常寿命未验",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "cg::audio::Sub_52CDE0"
+          ],
+          "relationship": "仅替原缩放和投影后正文，继续实际46CE30调用，其他正文/同源表保持"
+        },
+        {
+          "path": "src/platform/LegacyAudioMath.asm",
+          "symbols": [
+            "Cg2dScaleSpatialSourceX87",
+            "Cg2dPublishSpatialProjectionX87"
+          ],
+          "relationship": "52CDE0输入先Y再X、FILD S32乘原F32 64并FSTP F32；原46CE30调用保持。投影后x87/FSQRT/S64低W32、两个余值清理、index*20同源表门禁及完整index早退/截断Y返回，更新读X→写索引→转X→读Y→写X→转Y→写Y/距离/零标记保持。只拓宽寻址，字段/index/返回W32，无新owner/保护/异常门禁或通用CRT入口；世界投影自身数值/全部消费者、CW上游/机器状态/ABI、实际声音/失败/正常寿命与完整音频/运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_audio_update.md#spatial-projection-x87-decision",
+        "doc/cg2d_audio_update.md#spatial-projection-x87-source-state",
+        "doc/cg2d_spatial_projection_x87_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#spatial-projection-x87-source-state",
+        "doc/cg2d_build_acceptance_spec.md#spatial-projection-x87-debug-build"
+      ],
+      "boundary": "52CDE0输入先Y再X、FILD S32乘原F32 64并FSTP F32；原46CE30调用保持。投影后x87/FSQRT/S64低W32、两个余值清理、index*20同源表门禁及完整index早退/截断Y返回，更新读X→写索引→转X→读Y→写X→转Y→写Y/距离/零标记保持。只拓宽寻址，字段/index/返回W32，无新owner/保护/异常门禁或通用CRT入口；世界投影自身数值/全部消费者、CW上游/机器状态/ABI、实际声音/失败/正常寿命与完整音频/运行未验。",
+      "verification_level": "原完整52条183B/唯一直接入向与三F32位样本；六/33条局部源投影、其他CPP/既有ASM-CW宏保持；Debug0错误/0增量警告、MAP符号与部署。不执行客户端/算法、测试或摘要，不代全父机器ABI/原声音。",
+      "native_provider": {
+        "source": "src/LegacyAudio.cpp",
+        "symbol": "cg::audio::Sub_52CDE0",
+        "source_body_implemented": true,
+        "client_link_verified": true,
+        "runtime_verified": false
+      },
+      "spatial_projection_x87_connection": {
+        "step": "CAB19",
+        "source_snapshot": "cg2d-re-spatial-projection-x87-20261009",
+        "decision_ref": "doc/cg2d_audio_update.md#spatial-projection-x87-decision",
+        "helpers": [
+          "Cg2dScaleSpatialSourceX87",
+          "Cg2dPublishSpatialProjectionX87"
+        ],
+        "runtime_verified": false
+      }
     }
   ]
 }

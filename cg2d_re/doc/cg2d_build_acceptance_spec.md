@@ -92,3 +92,10 @@
 沿同一CAA01相关构建授权执行现有Debug客户端目标，既有LegacyAudioMath.asm/LegacyAudio.cpp与必要依赖编译，三库/真实客户端链接返回0，0错误/0增量警告，无需再配置。日志build/windows-msvc-x64/build-spatial-sound-x87-20261009.log；MAP含两空间音效数值接口、52C9E0/52CD60及既有两表接口，客户端仍未链接离线合成/转换代码。本步0输出不是全量警告总数，旧窗口诊断仍待原行为/ABI验收。
 
 8024064B客户端已更新原游戏目录，旧同长版备份cg2d_re_client.exe.before-spatial-sound-x87-20261009；只核复制成功/长度，不计算摘要或比对内容。[记录](cg2d_spatial_sound_x87_evidence.json)和[源码状态](cg2d_audio_update.md#spatial-sound-x87-source-state)保留边界：未运行客户端/算法、测试、重生成WAV或构建离线工具，后者最近通过仍CAB15。编译不代完整数值/机器状态/CW/声音/正常寿命或IP2登录与整体SPEC验收。
+
+<a id="spatial-projection-x87-debug-build"></a>
+## CAB19 空间音频记录数值段当前编译（2026-10-09）
+
+沿同一CAA01音频必要构建授权，现有Debug客户端目标编译LegacyAudioMath.asm/LegacyAudio.cpp与必要依赖，三库/真实客户端链接返回0，无再配置，0错误/0增量警告。日志build/windows-msvc-x64/build-spatial-projection-x87-20261009.log；MAP含两新接口、52CDE0/50E6C0和既有两距离接口，运行时仍无离线合成/转换代码。增量0不代全量警告统计，旧窗口诊断未关闭。
+
+8024064B客户端已更新原游戏目录，旧同长版备份cg2d_re_client.exe.before-spatial-projection-x87-20261009；只核复制成功/长度，不计算摘要或比对内容。[记录](cg2d_spatial_projection_x87_evidence.json)和[源码状态](cg2d_audio_update.md#spatial-projection-x87-source-state)限定当前证据；未运行客户端/算法、测试、重生成WAV或构建离线工具，后者最近通过仍CAB15。全部投影/CW/机器状态、声音/失败/正常寿命和IP2登录/整体SPEC仍未验收。

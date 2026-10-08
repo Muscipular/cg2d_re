@@ -9,6 +9,10 @@ SoundNegativeScale54DD90 QWORD 0C0C3880000000000h
 SoundVolumeScale54DD88 QWORD 040C3880000000000h
 SoundOne54D5C0 QWORD 03FF0000000000000h
 SoundZero54D5D0 QWORD 00000000000000000h
+; 原空间音效三个F32常量，使用位样本，不从宿主F64生成。
+SpatialGrid64_54DD30 DWORD 042800000h
+SpatialScreen320_54F6A0 DWORD 043A00000h
+SpatialScreen240_54D408 DWORD 043700000h
 
 ; 原53B498的局部截断职责：消费ST0，保当前CW，只临时设置RC向零。
 ; 在当前音频数值帧内展开，不创建通用旧CRT入口；S64只消费低W32。
@@ -30,6 +34,8 @@ PUBLIC Cg2dInitializeSoundTablesX87
 PUBLIC Cg2dInitializeFixedMusicVolumeX87
 PUBLIC Cg2dComputeSpatialSoundX87
 PUBLIC Cg2dComputeSpatialScanQuotientX87
+PUBLIC Cg2dScaleSpatialSourceX87
+PUBLIC Cg2dPublishSpatialProjectionX87
 
 ; 原52BA38..52BBC8，RCX借128*S32声像表，RDX借128*S32音量表。
 ; 连续x87中间值/原CW、奇数写点和端点覆盖序保持，不调用F64宿主对数。
@@ -307,5 +313,79 @@ Cg2dComputeSpatialScanQuotientX87 PROC FRAME
     add rsp, 72
     ret
 Cg2dComputeSpatialScanQuotientX87 ENDP
+
+; 原52CDE0..52CE05中的六条数值指令；RCX/RDX为S32 X/Y。
+; R8/R9同步借本地F32世界X/Y，原当前CW下先写Y，再写X。
+Cg2dScaleSpatialSourceX87 PROC FRAME
+    sub rsp, 40
+    .allocstack 40
+    .endprolog
+    mov dword ptr [rsp+32], ecx
+    mov dword ptr [rsp+36], edx
+
+    fild dword ptr [rsp+36]
+    fmul dword ptr [SpatialGrid64_54DD30]
+    fstp dword ptr [r9]
+    fild dword ptr [rsp+32]
+    fmul dword ptr [SpatialGrid64_54DD30]
+    fstp dword ptr [r8]
+
+    add rsp, 40
+    ret
+Cg2dScaleSpatialSourceX87 ENDP
+
+; 原52CE0D..52CE8A，RCX借唯一50*20B表，EDX为原W32索引。
+; R8/R9借本地屏幕F32；只拓宽寻址，三个截断和字段发布顺序保持。
+Cg2dPublishSpatialProjectionX87 PROC FRAME
+    push rsi
+    .pushreg rsi
+    push rdi
+    .pushreg rdi
+    sub rsp, 72
+    .allocstack 72
+    .endprolog
+    mov r11, rcx
+    movsxd r10, edx
+
+    fld dword ptr [r8]
+    fsub dword ptr [SpatialScreen320_54F6A0]
+    fld dword ptr [r9]
+    fsub dword ptr [SpatialScreen240_54D408]
+    fld st(0)
+    fmul st(0), st(1)
+    fld st(2)
+    fmul st(0), st(3)
+    faddp st(1), st(0)
+    fsqrt
+    TruncateSoundIntermediate
+    mov edi, eax
+    mov eax, r10d
+    fstp st(0)
+    lea rsi, [r10+r10*4]
+    shl rsi, 2
+    fstp st(0)
+    mov ecx, dword ptr [r11+rsi]
+    test ecx, ecx
+    jnz SpatialProjectionPublish
+    cmp dword ptr [r11+rsi+4], -1
+    jz SpatialProjectionPublish
+    cmp edi, dword ptr [r11+rsi+10h]
+    jge SpatialProjectionReturn
+SpatialProjectionPublish:
+    fld dword ptr [r8]
+    mov dword ptr [r11+rsi+4], eax
+    TruncateSoundIntermediate
+    fld dword ptr [r9]
+    mov dword ptr [r11+rsi+8], eax
+    TruncateSoundIntermediate
+    mov dword ptr [r11+rsi+0Ch], eax
+    mov dword ptr [r11+rsi+10h], edi
+    mov dword ptr [r11+rsi], 0
+SpatialProjectionReturn:
+    add rsp, 72
+    pop rdi
+    pop rsi
+    ret
+Cg2dPublishSpatialProjectionX87 ENDP
 
 END

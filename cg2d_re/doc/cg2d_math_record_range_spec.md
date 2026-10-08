@@ -62,3 +62,9 @@ BWI01已有完整87except/raise及真实依赖，543390/5433A7错误记录生产
 集中源码静态、完整机器/派生差集与文本汇总/-Check通过。新增1832..1834三映射/F、CRT171→174与两限定I/S：实际语义1835/有效1828、文档1945/3680（52.85%）、F997/E1156。源码定位155→152、范围内未定位CRT27→24、总差队列156→153；暂停25/排除103/元数据1保持。这是完整记录生产/范围本体与内部接线，不把尚待开发的generic pow父、全CRT分派或FPU生命周期计完成。
 
 C01/R01/V02/R04与完整CRT枚举/gates保持open；pending18、商店mixed-pending6、创建pending7、R7已审467余2594、closed11、完整叶0/globalfalse保持。接下来沿generic pow/真实调用父和FSAVE-FRSTOR生命周期推进；机器展开/ABI/链接与真实运行仍沿原门禁，不编译、测试、运行样例或计算hash。无新保护/拒绝/补零/捕获或故障样例，旧源码/CMake、RPLAN.24/原格式明文/音频暂停保持，整体SPEC目标继续。
+
+## BWS01原溢出入口真实共享本体（2026-10-08）
+
+[出口合同](cg2d_math_final_exits_spec.md#math-final-exits-decision)、[完整原证/两源前后态](cg2d_math_final_exits_evidence.json)。新增5434C5对应Cg2dCheckLegacyOverflowExitX87使用相同56B正常帧及+32借用输入/+40 F64/+44高W32槽位，FST不弹ST0、AND原指数后真实JMP LegacyRangeOverflowStart::。该唯一全局标签只插在原5434ED对应CMP前，整个既有范围后缀和正常/错误/CW/完整W32 EDX恢复不改。
+
+溢出入口按原体绕下溢判断，不转调用完整范围入口。另54349B精度出口第一AND AX,20H后原JZ恢复，与范围出口JNZ相反；新完整精度体保差异及等待FSTSW/类型8单参真实调用，没有合并该条件。外层生产/机器验收仍未代验。

@@ -4177,3 +4177,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 新增1852/F:00145B66→Cg2dLegacyRemainderCoreX87、1853/F:00145D6C→Cg2dLegacyRemainderPairX87、1854/F:00145E1E→Cg2dLegacyNearestRemainderCoreX87、1855/F:00146024→Cg2dLegacyNearestRemainderPairX87。另18B R7的双真入口与FPATAN/FPTAN两叶完整纳管，不造四个原函数身份。
 
 四原体合392条1395B加八条18B区间，完整400条1413B。原48B数值、交叠读写/CW高W16及28B环境、原所有循环和差异分支有据；正常原生帧与输出ST0/ST1不改为CPP双精度ABI。外层未知原调用/机器继续，pending18保持。
+
+## BWS01三原CRT身份与两完整区间映射（2026-10-08）
+
+[全29条85B/当前共享跳入与原全后缀/源前后态](cg2d_math_final_exits_evidence.json)、[合同](cg2d_math_final_exits_spec.md#math-final-exits-decision)。
+
+新增1856/F:0013DEF3→Cg2dLegacyNullsub7（原实际RET）、1857/F:00143489→完整Cg2dReadLegacyExponentBits的LegacyExponentBitsSpecial分支、1858/F:001434C5→Cg2dCheckLegacyOverflowExitX87及真实共用LegacyRangeOverflowStart后缀。三F九条26B与指数父前缀/精度出口两R7二十条59B互补，零新原身份或范围排除。
+
+原指数位读取/特殊重读、精度独有JZ及等待FSTSW/类型8真单参父、溢出FST不弹ST0和直入后缀绕下溢保；CW高W16不补，EDX还原完整W32。已列CRT定位清零不代原外层调用/完整成员库存，pending18与完整门禁保持。

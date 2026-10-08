@@ -256,3 +256,11 @@ CRT190→191/F1014仅限定I-S，定位136→135/CRT余8→7；两R7 mapped，�
 545B66..5460EB全400条1413B/九页已开发，四原F与一个18B R7整组覆盖，六CALL四callee/42跳12RET；两现源四追加/八ASM，零CPP/C桥/owner。原48B片段/交叠W32、余数循环/缩放/模式/CW/状态及28B FNSTENV-FLDENV位规则、EBX2/中间及直接FPREM差异和FPATAN-FPTAN栈形状保，真实双父/入口接线。
 
 CRT191→195/F1018仅限定I-S，定位135→131/CRT余7→3；R7已审473/余2588。外层原调用/未知描述符及全应用/机器生命周期继续。
+
+## BWS01已列CRT余三身份与两共享区间开发（2026-10-08）
+
+[基线](cg2d_math_final_exits_spec.md#math-final-exits-baseline)、[决定](cg2d_math_final_exits_spec.md#math-final-exits-decision)、[验收](cg2d_math_final_exits_spec.md#math-final-exits-acceptance)及[完整原体/共享后缀/源前后态](cg2d_math_final_exits_evidence.json)。
+
+原53DEF3真实RET、543489连同完整543478指数父、5434C5完整溢出前缀及54349B精度出口已开发；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四ASM，既有范围体只增唯一全局入口，零CPP/C桥/owner。指数特殊重读、精度独有20位JZ/等待状态/类型8真实单参调用与CW完整W32恢复、溢出FST不弹ST0并直达共享后缀绕下溢均保。
+
+CRT195→198/F1021两限定I-S，已列CRT未定位3→0/全源码定位128；R7已审475/余2586。三个身份具备源码位置不代完整CRT成员库存或门禁，外层实际调用/描述符、全应用生命周期及机器验收继续。

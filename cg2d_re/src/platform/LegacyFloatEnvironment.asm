@@ -184,6 +184,10 @@ PUBLIC Cg2dLegacyRemainderX87
 PUBLIC Cg2dLegacyNearestRemainderX87
 PUBLIC Cg2dLegacyArctangentX87
 PUBLIC Cg2dLegacyTangentX87
+PUBLIC Cg2dLegacyNullsub7
+PUBLIC Cg2dReadLegacyExponentBits
+PUBLIC Cg2dCheckLegacyPrecisionExitX87
+PUBLIC Cg2dCheckLegacyOverflowExitX87
 EXTERN Cg2dReadLegacyFdivBug:PROC
 EXTERN Cg2dLegacyPowerFastExitGate1085FBC:DWORD
 EXTERN Cg2dRaiseLegacyFloatExceptionHost:PROC
@@ -1410,6 +1414,7 @@ Cg2dCheckLegacyRangeExitX87 PROC FRAME
     mov eax, dword ptr [rsp+44]
     and eax, 07FF00000h
     jz LegacyRangeUnderflow
+LegacyRangeOverflowStart::
     cmp eax, 07FF00000h
     jz LegacyRangeOverflow
     mov ax, word ptr [rcx]
@@ -3844,5 +3849,64 @@ Cg2dLegacyTangentX87 PROC
     fptan
     ret
 Cg2dLegacyTangentX87 ENDP
+
+; 原53DEF3实际仅RET；没有原证入向，不虚构成功值或调用。
+Cg2dLegacyNullsub7 PROC
+    ret
+Cg2dLegacyNullsub7 ENDP
+
+; 原543478..54348E完整指数读取父；RCX借原F64值，特殊分支只重读原高W32。
+Cg2dReadLegacyExponentBits PROC
+    mov eax, dword ptr [rcx+4]
+    and eax, 07FF00000h
+    cmp eax, 07FF00000h
+    jz LegacyExponentBitsSpecial
+    ret
+LegacyExponentBitsSpecial:
+    mov eax, dword ptr [rcx+4]
+    ret
+Cg2dReadLegacyExponentBits ENDP
+
+; 原54349B..5434C5精度出口；RCX借原输入/CW载体，独有JZ方向和等待FSTSW保留。
+Cg2dCheckLegacyPrecisionExitX87 PROC FRAME
+    sub rsp, 56
+    .allocstack 56
+    .endprolog
+    mov qword ptr [rsp+32], rcx
+    mov ax, word ptr [rcx]
+    cmp ax, 027Fh
+    jz LegacyPrecisionControlRestored
+    and ax, 020h
+    jz LegacyPrecisionRestoreControl
+    fstsw ax
+    and ax, 020h
+    jz LegacyPrecisionRestoreControl
+    mov eax, 8
+    mov edx, eax
+    call Cg2dStartLegacyOneArgumentErrorX87
+    mov rcx, qword ptr [rsp+32]
+    mov edx, dword ptr [rcx]
+    lea rsp, [rsp+56]
+    ret
+LegacyPrecisionRestoreControl:
+    fldcw word ptr [rcx]
+LegacyPrecisionControlRestored:
+    mov rcx, qword ptr [rsp+32]
+    mov edx, dword ptr [rcx]
+    lea rsp, [rsp+56]
+    ret
+Cg2dCheckLegacyPrecisionExitX87 ENDP
+
+; 原5434C5全前缀：FST不弹ST0；与既有范围出口同56B帧，直接入原5434ED共享后缀。
+Cg2dCheckLegacyOverflowExitX87 PROC FRAME
+    sub rsp, 56
+    .allocstack 56
+    .endprolog
+    mov qword ptr [rsp+32], rcx
+    fst qword ptr [rsp+40]
+    mov eax, dword ptr [rsp+44]
+    and eax, 07FF00000h
+    jmp LegacyRangeOverflowStart
+Cg2dCheckLegacyOverflowExitX87 ENDP
 
 END

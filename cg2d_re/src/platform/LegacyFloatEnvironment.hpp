@@ -151,6 +151,15 @@ struct LegacyBinaryMathDescriptor {
 // 原5460E5/E8的Cg2dLegacyArctangentX87/Cg2dLegacyTangentX87保原FPATAN/FPTAN栈形状。
 // 全部只在ASM间调用；不声明CPP double ABI，不模拟原栈地址或扩大原数值字段。
 
+// 原53DEF3的Cg2dLegacyNullsub7只按原体RET，无已知原调用不虚构接线。
+// 原543478..54348E的Cg2dReadLegacyExponentBits以RCX借原F64值，只读+4高W32；
+// 原543489映射其特殊指数内部重读标签，不加载ST0或包装宿主exp。
+// 原54349B/5434C5的Cg2dCheckLegacyPrecisionExitX87/Cg2dCheckLegacyOverflowExitX87，
+// RCX借既有LegacyMathErrorInputs、ST0传结果，返回EDX为保存CW完整W32。
+// 精度出口保原20位JZ与等待FSTSW、类型8真实单参调用；溢出入口FST后直达原共享后缀。
+// 两出口均正常56B帧；溢出与范围出口同槽位通过唯一全局标签共享，绕原下溢分支。
+// 只在ASM间调用，不声明CPP double ABI、不填高位或实参，也不外推未知原调用。
+
 // 原控制字抽象/硬件表示转换，只消费和生成原已定义位。
 std::uint32_t AbstractLegacyControlWord_5448A4(std::uint32_t hardware);
 std::uint32_t HardwareLegacyControlWord_544936(std::uint32_t abstractValue);

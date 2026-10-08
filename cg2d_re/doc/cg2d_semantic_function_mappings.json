@@ -211285,6 +211285,292 @@
         "machine_unwind_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x53def3",
+      "inventory_id": "F:0013DEF3",
+      "original_role": "原53DEF3完整一条RET；没有原证入向，按原空叶实现，不造返回值/写入/调用或不可达裁决。",
+      "original_end_exclusive": "0x53def4",
+      "original_chunks": [
+        [
+          "0x53def3",
+          "0x53def4"
+        ]
+      ],
+      "instruction_count": 1,
+      "status": "BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dLegacyNullsub7"
+          ],
+          "relationship": "原53DEF3完整一条RET；没有原证入向，按原空叶实现，不造返回值/写入/调用或不可达裁决。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "Cg2dLegacyNullsub7"
+          ],
+          "relationship": "原完整指数父/精度出口/溢出共享后缀及真实RET私有合同；原数值/CW完整W32保持，不造成功值/外层调用/CPP double ABI"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-baseline",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-decision",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-acceptance",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state"
+      ],
+      "boundary": "原53DEF3完整一条RET；没有原证入向，按原空叶实现，不造返回值/写入/调用或不可达裁决。 BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_final_exits": {
+        "spec_id": "BWS01",
+        "evidence_refs": [
+          "doc/cg2d_math_final_exits_spec.md#math-final-exits-baseline",
+          "doc/cg2d_math_final_exits_spec.md#math-final-exits-decision",
+          "doc/cg2d_math_final_exits_spec.md#math-final-exits-acceptance",
+          "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state"
+        ],
+        "full_original_function_captured": true,
+        "original_instruction_count": 1,
+        "original_code_bytes": 1,
+        "original_page_count": 1,
+        "whole_group_instruction_count": 29,
+        "whole_group_code_bytes": 85,
+        "whole_group_direct_calls": 1,
+        "whole_group_unique_direct_callees": 1,
+        "whole_group_jumps": 5,
+        "whole_group_returns": 5,
+        "whole_group_mapped_range_count": 2,
+        "whole_group_range_bytes": 59,
+        "source_body_added": true,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_cpp_file_count": 0,
+        "source_patch_count": 4,
+        "new_native_function_body_count": 4,
+        "new_asm_proc_count": 4,
+        "new_cpp_body_count": 0,
+        "new_original_mapped_function_count": 3,
+        "new_private_C_bridge_count": 0,
+        "new_mutable_shared_owner_count": 0,
+        "native_precision_frame_bytes": 56,
+        "native_overflow_frame_bytes": 56,
+        "native_shared_range_frame_bytes": 56,
+        "native_shared_range_label": "LegacyRangeOverflowStart",
+        "actual_empty_leaf_RET_without_fabricated_success_or_inbound": true,
+        "special_exp_complete_parent_high_W32_mask_compare_reread": true,
+        "original_precision_CW_027F_20_bit_JZ_waiting_FSTSW_and_true_type8_single_argument_call": true,
+        "original_precision_full_W32_CW_carrier_EDX_restore_kept": true,
+        "original_overflow_FST_not_pop_high_W32_and_direct_to_shared_suffix_bypasses_underflow": true,
+        "existing_range_suffix_only_unique_global_label_added": true,
+        "source_location_for_three_current_CRT_ids_recorded_not_member_inventory_closure": true,
+        "no_new_guard_host_math_default_fill_or_fault_sample": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_CRT_member_inventory_closed": false,
+        "full_outer_original_callers_verified": false,
+        "full_original_descriptor_production_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x543489",
+      "inventory_id": "F:00143489",
+      "original_role": "原543489两条5B是完整543478七条22B指数读取父的真实内部重读/RET，原高W32/7FF00000位规则及普通分支均实现，无x87加载或宿主exp。",
+      "original_end_exclusive": "0x54348e",
+      "original_chunks": [
+        [
+          "0x543489",
+          "0x54348e"
+        ]
+      ],
+      "instruction_count": 2,
+      "status": "BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dReadLegacyExponentBits",
+            "LegacyExponentBitsSpecial"
+          ],
+          "relationship": "原543489两条5B是完整543478七条22B指数读取父的真实内部重读/RET，原高W32/7FF00000位规则及普通分支均实现，无x87加载或宿主exp。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "Cg2dReadLegacyExponentBits"
+          ],
+          "relationship": "原完整指数父/精度出口/溢出共享后缀及真实RET私有合同；原数值/CW完整W32保持，不造成功值/外层调用/CPP double ABI"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-baseline",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-decision",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-acceptance",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state"
+      ],
+      "boundary": "原543489两条5B是完整543478七条22B指数读取父的真实内部重读/RET，原高W32/7FF00000位规则及普通分支均实现，无x87加载或宿主exp。 BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_final_exits": {
+        "spec_id": "BWS01",
+        "evidence_refs": [
+          "doc/cg2d_math_final_exits_spec.md#math-final-exits-baseline",
+          "doc/cg2d_math_final_exits_spec.md#math-final-exits-decision",
+          "doc/cg2d_math_final_exits_spec.md#math-final-exits-acceptance",
+          "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state"
+        ],
+        "full_original_function_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 5,
+        "original_page_count": 1,
+        "whole_group_instruction_count": 29,
+        "whole_group_code_bytes": 85,
+        "whole_group_direct_calls": 1,
+        "whole_group_unique_direct_callees": 1,
+        "whole_group_jumps": 5,
+        "whole_group_returns": 5,
+        "whole_group_mapped_range_count": 2,
+        "whole_group_range_bytes": 59,
+        "source_body_added": true,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_cpp_file_count": 0,
+        "source_patch_count": 4,
+        "new_native_function_body_count": 4,
+        "new_asm_proc_count": 4,
+        "new_cpp_body_count": 0,
+        "new_original_mapped_function_count": 3,
+        "new_private_C_bridge_count": 0,
+        "new_mutable_shared_owner_count": 0,
+        "native_precision_frame_bytes": 56,
+        "native_overflow_frame_bytes": 56,
+        "native_shared_range_frame_bytes": 56,
+        "native_shared_range_label": "LegacyRangeOverflowStart",
+        "actual_empty_leaf_RET_without_fabricated_success_or_inbound": true,
+        "special_exp_complete_parent_high_W32_mask_compare_reread": true,
+        "original_precision_CW_027F_20_bit_JZ_waiting_FSTSW_and_true_type8_single_argument_call": true,
+        "original_precision_full_W32_CW_carrier_EDX_restore_kept": true,
+        "original_overflow_FST_not_pop_high_W32_and_direct_to_shared_suffix_bypasses_underflow": true,
+        "existing_range_suffix_only_unique_global_label_added": true,
+        "source_location_for_three_current_CRT_ids_recorded_not_member_inventory_closure": true,
+        "no_new_guard_host_math_default_fill_or_fault_sample": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_CRT_member_inventory_closed": false,
+        "full_outer_original_callers_verified": false,
+        "full_original_descriptor_production_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x5434c5",
+      "inventory_id": "F:001434C5",
+      "original_role": "原5434C5六条20B完整溢出前缀，FST不弹ST0并读高W32/AND，真实直达原5434ED已实现共享后缀，绕过下溢；同56B帧/借用输入/完整CW W32恢复，不造尾部或伪接线。",
+      "original_end_exclusive": "0x5434d9",
+      "original_chunks": [
+        [
+          "0x5434c5",
+          "0x5434d9"
+        ]
+      ],
+      "instruction_count": 6,
+      "status": "BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dCheckLegacyOverflowExitX87",
+            "Cg2dCheckLegacyRangeExitX87",
+            "LegacyRangeOverflowStart"
+          ],
+          "relationship": "原5434C5六条20B完整溢出前缀，FST不弹ST0并读高W32/AND，真实直达原5434ED已实现共享后缀，绕过下溢；同56B帧/借用输入/完整CW W32恢复，不造尾部或伪接线。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "Cg2dCheckLegacyOverflowExitX87",
+            "Cg2dCheckLegacyRangeExitX87"
+          ],
+          "relationship": "原完整指数父/精度出口/溢出共享后缀及真实RET私有合同；原数值/CW完整W32保持，不造成功值/外层调用/CPP double ABI"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-baseline",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-decision",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-acceptance",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state"
+      ],
+      "boundary": "原5434C5六条20B完整溢出前缀，FST不弹ST0并读高W32/AND，真实直达原5434ED已实现共享后缀，绕过下溢；同56B帧/借用输入/完整CW W32恢复，不造尾部或伪接线。 BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_final_exits": {
+        "spec_id": "BWS01",
+        "evidence_refs": [
+          "doc/cg2d_math_final_exits_spec.md#math-final-exits-baseline",
+          "doc/cg2d_math_final_exits_spec.md#math-final-exits-decision",
+          "doc/cg2d_math_final_exits_spec.md#math-final-exits-acceptance",
+          "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state"
+        ],
+        "full_original_function_captured": true,
+        "original_instruction_count": 6,
+        "original_code_bytes": 20,
+        "original_page_count": 1,
+        "whole_group_instruction_count": 29,
+        "whole_group_code_bytes": 85,
+        "whole_group_direct_calls": 1,
+        "whole_group_unique_direct_callees": 1,
+        "whole_group_jumps": 5,
+        "whole_group_returns": 5,
+        "whole_group_mapped_range_count": 2,
+        "whole_group_range_bytes": 59,
+        "source_body_added": true,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_cpp_file_count": 0,
+        "source_patch_count": 4,
+        "new_native_function_body_count": 4,
+        "new_asm_proc_count": 4,
+        "new_cpp_body_count": 0,
+        "new_original_mapped_function_count": 3,
+        "new_private_C_bridge_count": 0,
+        "new_mutable_shared_owner_count": 0,
+        "native_precision_frame_bytes": 56,
+        "native_overflow_frame_bytes": 56,
+        "native_shared_range_frame_bytes": 56,
+        "native_shared_range_label": "LegacyRangeOverflowStart",
+        "actual_empty_leaf_RET_without_fabricated_success_or_inbound": true,
+        "special_exp_complete_parent_high_W32_mask_compare_reread": true,
+        "original_precision_CW_027F_20_bit_JZ_waiting_FSTSW_and_true_type8_single_argument_call": true,
+        "original_precision_full_W32_CW_carrier_EDX_restore_kept": true,
+        "original_overflow_FST_not_pop_high_W32_and_direct_to_shared_suffix_bypasses_underflow": true,
+        "existing_range_suffix_only_unique_global_label_added": true,
+        "source_location_for_three_current_CRT_ids_recorded_not_member_inventory_closure": true,
+        "no_new_guard_host_math_default_fill_or_fault_sample": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_CRT_member_inventory_closed": false,
+        "full_outer_original_callers_verified": false,
+        "full_original_descriptor_production_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

@@ -327,7 +327,8 @@
         "doc/cg2d_math_shared_targets_spec.md#math-targets-baseline",
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-baseline",
         "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-baseline",
-        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-baseline"
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-baseline",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-baseline"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -524,7 +525,10 @@
         "F:00145B66",
         "F:00145D6C",
         "F:00145E1E",
-        "F:00146024"
+        "F:00146024",
+        "F:0013DEF3",
+        "F:00143489",
+        "F:001434C5"
       ],
       "closure_task_ids": [
         "C01",
@@ -581,7 +585,8 @@
         "doc/cg2d_math_shared_targets_spec.md#math-targets-decision",
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision",
         "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-decision",
-        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-decision"
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-decision",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -628,7 +633,8 @@
         "BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。",
         "BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
         "BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
-        "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
+        "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+        "BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -679,7 +685,8 @@
         "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state",
         "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state",
-        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state"
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state"
       ]
     },
     {
@@ -51797,6 +51804,66 @@
       "observation": "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 400条1413B/四F一R7、八ASM两源四追加、原交叠位宽/CW/循环及28B环境状态DWORD和差异分支集中静态，不代机器与异常等价。",
       "expected": "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 400条1413B/四F一R7、八ASM两源四追加、原交叠位宽/CW/循环及28B环境状态DWORD和差异分支集中静态，不代机器与异常等价。",
       "actual": "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 400条1413B/四F一R7、八ASM两源四追加、原交叠位宽/CW/循环及28B环境状态DWORD和差异分支集中静态，不代机器与异常等价。"
+    },
+    {
+      "id": "E-MATH-FINAL-EXITS-FUNC-CRT-I-20261008",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWS01三F九条26B与两R7二十条59B/全29条85B、一CALL五跳五RET；完整指数父、精度出口与原共享5434ED/真单参错误父。doc/cg2d_math_final_exits_spec.md#math-final-exits-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-math-final-exits-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_math_final_exits_evidence.json",
+        "doc/cg2d_math_final_exits_spec.md",
+        "src/platform/LegacyFloatEnvironment.asm",
+        "src/platform/LegacyFloatEnvironment.hpp",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-baseline",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-decision",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-acceptance",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。 只完整指数父的内部重读分支、精度类型8真实单参父调用和溢出真实共享后缀，不代未见外层调用/描述符生产；空叶无原入向不造接线。",
+          "decision_ref": "doc/cg2d_math_final_exits_spec.md#math-final-exits-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。 只完整指数父的内部重读分支、精度类型8真实单参父调用和溢出真实共享后缀，不代未见外层调用/描述符生产；空叶无原入向不造接线。",
+      "expected": "BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。 只完整指数父的内部重读分支、精度类型8真实单参父调用和溢出真实共享后缀，不代未见外层调用/描述符生产；空叶无原入向不造接线。",
+      "actual": "BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。 只完整指数父的内部重读分支、精度类型8真实单参父调用和溢出真实共享后缀，不代未见外层调用/描述符生产；空叶无原入向不造接线。"
+    },
+    {
+      "id": "E-MATH-FINAL-EXITS-FUNC-CRT-S-20261008",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWS01三F九条26B与两R7二十条59B/全29条85B、一CALL五跳五RET；完整指数父、精度出口与原共享5434ED/真单参错误父。doc/cg2d_math_final_exits_spec.md#math-final-exits-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-math-final-exits-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_math_final_exits_evidence.json",
+        "doc/cg2d_math_final_exits_spec.md",
+        "src/platform/LegacyFloatEnvironment.asm",
+        "src/platform/LegacyFloatEnvironment.hpp",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-baseline",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-decision",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-acceptance",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。 只三F两完整R7共29条85B、四ASM两源四改、原位宽/CW-JZ-FSTSW与不弹ST0/直入共用后缀集中静态，不代机器或完整CRT。",
+          "decision_ref": "doc/cg2d_math_final_exits_spec.md#math-final-exits-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。 只三F两完整R7共29条85B、四ASM两源四改、原位宽/CW-JZ-FSTSW与不弹ST0/直入共用后缀集中静态，不代机器或完整CRT。",
+      "expected": "BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。 只三F两完整R7共29条85B、四ASM两源四改、原位宽/CW-JZ-FSTSW与不弹ST0/直入共用后缀集中静态，不代机器或完整CRT。",
+      "actual": "BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。 只三F两完整R7共29条85B、四ASM两源四改、原位宽/CW-JZ-FSTSW与不弹ST0/直入共用后缀集中静态，不代机器或完整CRT。"
     }
   ],
   "task_acceptance": [
@@ -52159,7 +52226,8 @@
         "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state",
         "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state",
-        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state"
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state"
       ],
       "task_id": "C01",
       "state": "open"
@@ -52625,7 +52693,8 @@
         "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state",
         "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state",
-        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state"
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state"
       ]
     },
     {
@@ -52672,7 +52741,8 @@
         "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state",
         "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state",
-        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state"
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state"
       ]
     },
     {
@@ -53081,7 +53151,8 @@
         "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state",
         "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state",
-        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state"
+        "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state"
       ]
     },
     {
@@ -65894,6 +65965,42 @@
         "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state"
       ],
       "boundary": "原546024全54条181B最近余数父；真实两T80/原MOV EDX0及零/缩放/临时CW与核心调用、原EDX保持，零值尾实际FPREM不更改，保原输出栈形状。 BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:0013DEF3",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-baseline",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-decision",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-acceptance",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state"
+      ],
+      "boundary": "原53DEF3完整一条RET；没有原证入向，按原空叶实现，不造返回值/写入/调用或不可达裁决。 BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:00143489",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-baseline",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-decision",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-acceptance",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state"
+      ],
+      "boundary": "原543489两条5B是完整543478七条22B指数读取父的真实内部重读/RET，原高W32/7FF00000位规则及普通分支均实现，无x87加载或宿主exp。 BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:001434C5",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-baseline",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-decision",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-acceptance",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state"
+      ],
+      "boundary": "原5434C5六条20B完整溢出前缀，FST不弹ST0并读高W32/AND，真实直达原5434ED已实现共享后缀，绕过下溢；同56B帧/借用输入/完整CW W32恢复，不造尾部或伪接线。 BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。"
     }
   ],
   "auxiliary_dispositions": [
@@ -94396,6 +94503,582 @@
         "Cg2dLegacyTangentX87"
       ],
       "boundary": "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "id": "X:00143478-00143489",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-baseline",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-decision",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-acceptance",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state",
+        "doc/cg2d_math_final_exits_evidence.json"
+      ],
+      "reason": "完整原单F64高W32指数读取父的五条17B前缀；与543489两条5B互补为完整七条22B，原JZ重读/普通RET真实实现。",
+      "classification": "shared_exponent_bits_reader",
+      "original_size": 17,
+      "original_bytes": "8b442408250000f07f3d0000f07f7401c3",
+      "original_instructions": [
+        {
+          "ea": "0x543478",
+          "size": 4,
+          "bytes": "8b442408",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esp+8]",
+          "refs": [],
+          "ops": [
+            {
+              "type": 1,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            },
+            {
+              "type": 4,
+              "reg": 4,
+              "dtype": 2,
+              "addr": "0x8",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x54347c",
+          "size": 5,
+          "bytes": "250000f07f",
+          "mnemonic": "and",
+          "text": "and     eax, 7FF00000h",
+          "refs": [
+            {
+              "source": "0x543478",
+              "type": 21,
+              "code": true,
+              "function": null,
+              "text": "mov     eax, [esp+8]"
+            }
+          ],
+          "ops": [
+            {
+              "type": 1,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            },
+            {
+              "type": 5,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x7ff00000"
+            }
+          ]
+        },
+        {
+          "ea": "0x543481",
+          "size": 5,
+          "bytes": "3d0000f07f",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 7FF00000h",
+          "refs": [
+            {
+              "source": "0x54347c",
+              "type": 21,
+              "code": true,
+              "function": null,
+              "text": "and     eax, 7FF00000h"
+            }
+          ],
+          "ops": [
+            {
+              "type": 1,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            },
+            {
+              "type": 5,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x7ff00000"
+            }
+          ]
+        },
+        {
+          "ea": "0x543486",
+          "size": 2,
+          "bytes": "7401",
+          "mnemonic": "jz",
+          "text": "jz      short special_exp",
+          "refs": [
+            {
+              "source": "0x543481",
+              "type": 21,
+              "code": true,
+              "function": null,
+              "text": "cmp     eax, 7FF00000h"
+            }
+          ],
+          "ops": [
+            {
+              "type": 7,
+              "reg": 0,
+              "dtype": 0,
+              "addr": "0x543489",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x543488",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "refs": [
+            {
+              "source": "0x543486",
+              "type": 21,
+              "code": true,
+              "function": null,
+              "text": "jz      short special_exp"
+            }
+          ],
+          "ops": []
+        }
+      ],
+      "source_path": "src/platform/LegacyFloatEnvironment.asm",
+      "source_symbols": [
+        "Cg2dReadLegacyExponentBits"
+      ],
+      "boundary": "BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "id": "X:0014349B-001434C5",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-baseline",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-decision",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-acceptance",
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state",
+        "doc/cg2d_math_final_exits_evidence.json"
+      ],
+      "reason": "原精度出口全十五条42B；独有CW20位JZ方向/等待FSTSW及真实类型8单参错误父、CW与完整W32 EDX恢复，不与范围出口相反条件合并。",
+      "classification": "shared_precision_exit",
+      "original_size": 42,
+      "original_bytes": "668b0424663d7f02741e6683e02074159bdfe06683e020740cb808000000e8e9feffff5ac3d92c245ac3",
+      "original_instructions": [
+        {
+          "ea": "0x54349b",
+          "size": 4,
+          "bytes": "668b0424",
+          "mnemonic": "mov",
+          "text": "mov     ax, [esp]",
+          "refs": [],
+          "ops": [
+            {
+              "type": 1,
+              "reg": 0,
+              "dtype": 1,
+              "addr": "0x0",
+              "value": "0x0"
+            },
+            {
+              "type": 3,
+              "reg": 4,
+              "dtype": 1,
+              "addr": "0x0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x54349f",
+          "size": 4,
+          "bytes": "663d7f02",
+          "mnemonic": "cmp",
+          "text": "cmp     ax, 27Fh",
+          "refs": [
+            {
+              "source": "0x54349b",
+              "type": 21,
+              "code": true,
+              "function": null,
+              "text": "mov     ax, [esp]"
+            }
+          ],
+          "ops": [
+            {
+              "type": 1,
+              "reg": 0,
+              "dtype": 1,
+              "addr": "0x0",
+              "value": "0x0"
+            },
+            {
+              "type": 5,
+              "reg": 0,
+              "dtype": 1,
+              "addr": "0x0",
+              "value": "0x27f"
+            }
+          ]
+        },
+        {
+          "ea": "0x5434a3",
+          "size": 2,
+          "bytes": "741e",
+          "mnemonic": "jz",
+          "text": "jz      short CW_is_restored_0",
+          "refs": [
+            {
+              "source": "0x54349f",
+              "type": 21,
+              "code": true,
+              "function": null,
+              "text": "cmp     ax, 27Fh"
+            }
+          ],
+          "ops": [
+            {
+              "type": 7,
+              "reg": 0,
+              "dtype": 0,
+              "addr": "0x5434c3",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x5434a5",
+          "size": 4,
+          "bytes": "6683e020",
+          "mnemonic": "and",
+          "text": "and     ax, 20h",
+          "refs": [
+            {
+              "source": "0x5434a3",
+              "type": 21,
+              "code": true,
+              "function": null,
+              "text": "jz      short CW_is_restored_0"
+            }
+          ],
+          "ops": [
+            {
+              "type": 1,
+              "reg": 0,
+              "dtype": 1,
+              "addr": "0x0",
+              "value": "0x0"
+            },
+            {
+              "type": 5,
+              "reg": 0,
+              "dtype": 1,
+              "addr": "0x0",
+              "value": "0x20"
+            }
+          ]
+        },
+        {
+          "ea": "0x5434a9",
+          "size": 2,
+          "bytes": "7415",
+          "mnemonic": "jz",
+          "text": "jz      short restore_CW",
+          "refs": [
+            {
+              "source": "0x5434a5",
+              "type": 21,
+              "code": true,
+              "function": null,
+              "text": "and     ax, 20h"
+            }
+          ],
+          "ops": [
+            {
+              "type": 7,
+              "reg": 0,
+              "dtype": 0,
+              "addr": "0x5434c0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x5434ab",
+          "size": 3,
+          "bytes": "9bdfe0",
+          "mnemonic": "fstsw",
+          "text": "fstsw   ax",
+          "refs": [
+            {
+              "source": "0x5434a9",
+              "type": 21,
+              "code": true,
+              "function": null,
+              "text": "jz      short restore_CW"
+            }
+          ],
+          "ops": [
+            {
+              "type": 1,
+              "reg": 0,
+              "dtype": 1,
+              "addr": "0x0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x5434ae",
+          "size": 4,
+          "bytes": "6683e020",
+          "mnemonic": "and",
+          "text": "and     ax, 20h",
+          "refs": [
+            {
+              "source": "0x5434ab",
+              "type": 21,
+              "code": true,
+              "function": null,
+              "text": "fstsw   ax"
+            }
+          ],
+          "ops": [
+            {
+              "type": 1,
+              "reg": 0,
+              "dtype": 1,
+              "addr": "0x0",
+              "value": "0x0"
+            },
+            {
+              "type": 5,
+              "reg": 0,
+              "dtype": 1,
+              "addr": "0x0",
+              "value": "0x20"
+            }
+          ]
+        },
+        {
+          "ea": "0x5434b2",
+          "size": 2,
+          "bytes": "740c",
+          "mnemonic": "jz",
+          "text": "jz      short restore_CW",
+          "refs": [
+            {
+              "source": "0x5434ae",
+              "type": 21,
+              "code": true,
+              "function": null,
+              "text": "and     ax, 20h"
+            }
+          ],
+          "ops": [
+            {
+              "type": 7,
+              "reg": 0,
+              "dtype": 0,
+              "addr": "0x5434c0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x5434b4",
+          "size": 5,
+          "bytes": "b808000000",
+          "mnemonic": "mov",
+          "text": "mov     eax, 8",
+          "refs": [
+            {
+              "source": "0x5434b2",
+              "type": 21,
+              "code": true,
+              "function": null,
+              "text": "jz      short restore_CW"
+            }
+          ],
+          "ops": [
+            {
+              "type": 1,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            },
+            {
+              "type": 5,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x8"
+            }
+          ]
+        },
+        {
+          "ea": "0x5434b9",
+          "size": 5,
+          "bytes": "e8e9feffff",
+          "mnemonic": "call",
+          "text": "call    __startOneArgErrorHandling",
+          "refs": [
+            {
+              "source": "0x5434b4",
+              "type": 21,
+              "code": true,
+              "function": null,
+              "text": "mov     eax, 8"
+            }
+          ],
+          "ops": [
+            {
+              "type": 7,
+              "reg": 0,
+              "dtype": 2,
+              "addr": "0x5433a7",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x5434be",
+          "size": 1,
+          "bytes": "5a",
+          "mnemonic": "pop",
+          "text": "pop     edx",
+          "refs": [
+            {
+              "source": "0x5434b9",
+              "type": 21,
+              "code": true,
+              "function": null,
+              "text": "call    __startOneArgErrorHandling"
+            }
+          ],
+          "ops": [
+            {
+              "type": 1,
+              "reg": 2,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x5434bf",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "refs": [
+            {
+              "source": "0x5434be",
+              "type": 21,
+              "code": true,
+              "function": null,
+              "text": "pop     edx"
+            }
+          ],
+          "ops": []
+        },
+        {
+          "ea": "0x5434c0",
+          "size": 3,
+          "bytes": "d92c24",
+          "mnemonic": "fldcw",
+          "text": "fldcw   word ptr [esp]",
+          "refs": [
+            {
+              "source": "0x5434a9",
+              "type": 19,
+              "code": true,
+              "function": null,
+              "text": "jz      short restore_CW"
+            },
+            {
+              "source": "0x5434b2",
+              "type": 19,
+              "code": true,
+              "function": null,
+              "text": "jz      short restore_CW"
+            }
+          ],
+          "ops": [
+            {
+              "type": 3,
+              "reg": 4,
+              "dtype": 1,
+              "addr": "0x0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x5434c3",
+          "size": 1,
+          "bytes": "5a",
+          "mnemonic": "pop",
+          "text": "pop     edx",
+          "refs": [
+            {
+              "source": "0x5434c0",
+              "type": 21,
+              "code": true,
+              "function": null,
+              "text": "fldcw   word ptr [esp]"
+            },
+            {
+              "source": "0x5434a3",
+              "type": 19,
+              "code": true,
+              "function": null,
+              "text": "jz      short CW_is_restored_0"
+            }
+          ],
+          "ops": [
+            {
+              "type": 1,
+              "reg": 2,
+              "dtype": 2,
+              "addr": "0x0",
+              "value": "0x0"
+            }
+          ]
+        },
+        {
+          "ea": "0x5434c4",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "refs": [
+            {
+              "source": "0x5434c3",
+              "type": 21,
+              "code": true,
+              "function": null,
+              "text": "pop     edx"
+            }
+          ],
+          "ops": []
+        }
+      ],
+      "source_path": "src/platform/LegacyFloatEnvironment.asm",
+      "source_symbols": [
+        "Cg2dCheckLegacyPrecisionExitX87"
+      ],
+      "boundary": "BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。"
     }
   ]
 }

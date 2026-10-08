@@ -1722,3 +1722,11 @@ CC4238长度及默认回退、修补、应用、捕获中的共享读取/写入�
 BVS01修复4FA8E0表情请求跨opaque YobiAction直接取imageNo的真实源码缺口；原4FA9C1一次W32读取由既有GetYobiActionField2A8原样承接，仍仅在附件44为空且计时门禁已过后同action读取。一个CPP一个调用表达式，零新函数/helper/API/owner/保护；正文其余、现有getter/公共头和两动作表保持。复用BVP01完整117条437B/两页基线，本步只重取一实际指令；既有1782/F:000FA8E0和公共UI49不重计，两个限定I/S，原格式明文/音频暂停/RPLAN.24保。只验本源码边界，未宣编译链接、机器ABI或运行通过，四任务仍open。
 
 BVP01七整源/十三正文保持是原命名快照历史；本次只纠正4FA8E0当前跨opaque直接访问，既有getter/声明及其它源保持。语义1800/有效1793、F948、公共UI49、基线1910（51.90%）保持，仅E1102→1104；编译、链接与运行未执行。
+
+## BWB01结果阶段生产消费与选择恢复基线（2026-10-08）
+
+[基线](../cg2d_legacy_result_stage_baseline_spec.md#result-stage-baseline)、[决定](../cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision)、[验收](../cg2d_legacy_result_stage_baseline_spec.md#result-stage-acceptance)、[状态](../cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state)及[原证](../cg2d_legacy_result_stage_baseline_evidence.json)。
+
+四个正确入口完整81条294B/四页，八直接六目标/零间接、11跳六RET及六CALL登记；两原父邻窗另列。DP回复先W16阶段2再依次解析/发布两S32值，既有hB/Gn分派保持；普通场景一次S16模式取样，1/2创建窗口30/31后的双槽清理、3恢复选择和其它正值只清阶段保持。战果四记录/技能十五记录完整W16扫描，恢复先真实选择发布再清CAFEA0；旧1569/Gn与914/现代窗口31原生绑定及父记录保持，不混入旧采集结果页或重造owner。
+
+零源码改动/零新增I，四原新1812..1815及四adapted F，公共UI54→56/网络68→69/战斗264→265，各一个限定S；语义1816/有效1809、合同1926（52.34%）、F978/E1140。四任务与完整枚举/gates保持open，所有生产/其它消费者、正常owner/alias寿命、网络往返与画面运行继续原验收；原格式明文、音频暂停及RPLAN.24保持。

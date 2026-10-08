@@ -205878,6 +205878,394 @@
         "machine_abi_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x504af0",
+      "inventory_id": "F:00104AF0",
+      "original_role": "504AF0先持样CAFEA0；零返0，非零调用真实504180(1)，随后清同W32槽并返回该调用结果。不得提前清零或绕过scene门禁；既有BWA01选择发布合同复用。",
+      "original_end_exclusive": "0x504b0e",
+      "original_chunks": [
+        [
+          "0x504af0",
+          "0x504b0e"
+        ]
+      ],
+      "instruction_count": 8,
+      "status": "BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "Sub_504AF0"
+          ],
+          "relationship": "504AF0先持样CAFEA0；零返0，非零调用真实504180(1)，随后清同W32槽并返回该调用结果。不得提前清零或绕过scene门禁；既有BWA01选择发布合同复用。"
+        },
+        {
+          "path": "include/cg/LegacyAudio.hpp",
+          "symbols": [
+            "Sub_504AF0"
+          ],
+          "relationship": "现有接口/字段宽度保持；没有新增公共或私有接口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-baseline",
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision",
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-acceptance",
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state"
+      ],
+      "boundary": "504AF0先持样CAFEA0；零返0，非零调用真实504180(1)，随后清同W32槽并返回该调用结果。不得提前清零或绕过scene门禁；既有BWA01选择发布合同复用。 BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
+      "verification_level": "BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
+      "result_stage_baseline": {
+        "spec_id": "BWB01",
+        "evidence_refs": [
+          "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-baseline",
+          "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision",
+          "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-acceptance",
+          "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 8,
+        "original_code_bytes": 30,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 1,
+        "original_return_count": 1,
+        "original_inbound_call_count": 3,
+        "original_inbound_data_reference_count": 0,
+        "original_total_instruction_count": 81,
+        "original_total_code_bytes": 294,
+        "original_total_page_count": 4,
+        "original_total_direct_call_count": 8,
+        "original_total_unique_direct_callee_count": 6,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 11,
+        "original_total_return_count": 6,
+        "original_total_inbound_call_count": 6,
+        "original_total_inbound_tail_count": 0,
+        "original_total_inbound_data_reference_count": 0,
+        "two_parent_windows_included_in_root_totals": false,
+        "full_parent_reverified": false,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "all_four_correct_bodies_and_related_files_kept": true,
+        "reply_stage_before_two_values_and_actual_gate_return_kept": true,
+        "single_S16_stage_sample_and_distinct_cleanup_modes_kept": true,
+        "four_results_and_fifteen_skills_full_scan_without_early_return_kept": true,
+        "restore_publish_then_clear_and_actual_return_kept": true,
+        "old_Gn_and_DP_window31_and_scene_network_parent_records_reused": true,
+        "native_modern_window31_binding_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_all_mode_producers_verified": false,
+        "full_handler_dispatch_verified": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x504a50",
+      "inventory_id": "F:00104A50",
+      "original_role": "504A50一次取W16模式按S16判断，非正不消费；1创建窗口30再完整结果标志查询/条件SE64，2创建窗口31，两者清FF0D44后清W16阶段；3恢复选择，其它正值只清阶段。当前void仅原唯一普通场景caller弃返回活动域，不宣机器ABI。",
+      "original_end_exclusive": "0x504ae5",
+      "original_chunks": [
+        [
+          "0x504a50",
+          "0x504ae5"
+        ]
+      ],
+      "instruction_count": 38,
+      "status": "BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_504A50"
+          ],
+          "relationship": "504A50一次取W16模式按S16判断，非正不消费；1创建窗口30再完整结果标志查询/条件SE64，2创建窗口31，两者清FF0D44后清W16阶段；3恢复选择，其它正值只清阶段。当前void仅原唯一普通场景caller弃返回活动域，不宣机器ABI。"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_504A50"
+          ],
+          "relationship": "现有接口/字段宽度保持；没有新增公共或私有接口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-baseline",
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision",
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-acceptance",
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state"
+      ],
+      "boundary": "504A50一次取W16模式按S16判断，非正不消费；1创建窗口30再完整结果标志查询/条件SE64，2创建窗口31，两者清FF0D44后清W16阶段；3恢复选择，其它正值只清阶段。当前void仅原唯一普通场景caller弃返回活动域，不宣机器ABI。 BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
+      "verification_level": "BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
+      "result_stage_baseline": {
+        "spec_id": "BWB01",
+        "evidence_refs": [
+          "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-baseline",
+          "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision",
+          "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-acceptance",
+          "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 38,
+        "original_code_bytes": 149,
+        "original_page_count": 1,
+        "original_direct_call_count": 5,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 5,
+        "original_return_count": 3,
+        "original_inbound_call_count": 1,
+        "original_inbound_data_reference_count": 0,
+        "original_total_instruction_count": 81,
+        "original_total_code_bytes": 294,
+        "original_total_page_count": 4,
+        "original_total_direct_call_count": 8,
+        "original_total_unique_direct_callee_count": 6,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 11,
+        "original_total_return_count": 6,
+        "original_total_inbound_call_count": 6,
+        "original_total_inbound_tail_count": 0,
+        "original_total_inbound_data_reference_count": 0,
+        "two_parent_windows_included_in_root_totals": false,
+        "full_parent_reverified": false,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "all_four_correct_bodies_and_related_files_kept": true,
+        "reply_stage_before_two_values_and_actual_gate_return_kept": true,
+        "single_S16_stage_sample_and_distinct_cleanup_modes_kept": true,
+        "four_results_and_fifteen_skills_full_scan_without_early_return_kept": true,
+        "restore_publish_then_clear_and_actual_return_kept": true,
+        "old_Gn_and_DP_window31_and_scene_network_parent_records_reused": true,
+        "native_modern_window31_binding_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_all_mode_producers_verified": false,
+        "full_handler_dispatch_verified": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x50d700",
+      "inventory_id": "F:0010D700",
+      "original_role": "50D700先持样原W32门禁，非零按S32位型返同样本；零先发布W16阶段2，再原bar/Base62第1值写FF0D04，再第2值写FF0D08并返回第二值。socket不消费，原512E40唯一入向及既有hB明文格式保持。",
+      "original_end_exclusive": "0x50d73a",
+      "original_chunks": [
+        [
+          "0x50d700",
+          "0x50d73a"
+        ]
+      ],
+      "instruction_count": 19,
+      "status": "BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_50D700"
+          ],
+          "relationship": "50D700先持样原W32门禁，非零按S32位型返同样本；零先发布W16阶段2，再原bar/Base62第1值写FF0D04，再第2值写FF0D08并返回第二值。socket不消费，原512E40唯一入向及既有hB明文格式保持。"
+        },
+        {
+          "path": "src/network/NetworkRuntimeDependencies.hpp",
+          "symbols": [
+            "Sub_50D700"
+          ],
+          "relationship": "现有接口/字段宽度保持；没有新增公共或私有接口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-baseline",
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision",
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-acceptance",
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state"
+      ],
+      "boundary": "50D700先持样原W32门禁，非零按S32位型返同样本；零先发布W16阶段2，再原bar/Base62第1值写FF0D04，再第2值写FF0D08并返回第二值。socket不消费，原512E40唯一入向及既有hB明文格式保持。 BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
+      "verification_level": "BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
+      "result_stage_baseline": {
+        "spec_id": "BWB01",
+        "evidence_refs": [
+          "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-baseline",
+          "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision",
+          "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-acceptance",
+          "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 19,
+        "original_code_bytes": 58,
+        "original_page_count": 1,
+        "original_direct_call_count": 2,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 1,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "original_inbound_data_reference_count": 0,
+        "original_total_instruction_count": 81,
+        "original_total_code_bytes": 294,
+        "original_total_page_count": 4,
+        "original_total_direct_call_count": 8,
+        "original_total_unique_direct_callee_count": 6,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 11,
+        "original_total_return_count": 6,
+        "original_total_inbound_call_count": 6,
+        "original_total_inbound_tail_count": 0,
+        "original_total_inbound_data_reference_count": 0,
+        "two_parent_windows_included_in_root_totals": false,
+        "full_parent_reverified": false,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "all_four_correct_bodies_and_related_files_kept": true,
+        "reply_stage_before_two_values_and_actual_gate_return_kept": true,
+        "single_S16_stage_sample_and_distinct_cleanup_modes_kept": true,
+        "four_results_and_fifteen_skills_full_scan_without_early_return_kept": true,
+        "restore_publish_then_clear_and_actual_return_kept": true,
+        "old_Gn_and_DP_window31_and_scene_network_parent_records_reused": true,
+        "native_modern_window31_binding_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_all_mode_producers_verified": false,
+        "full_handler_dispatch_verified": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x4ed670",
+      "inventory_id": "F:000ED670",
+      "original_role": "4ED670从0开始，按8B原步长读四战果记录+02 W16与十五技能记录+00 W16；相等1只将结果置1，仍扫描完两数组，不早返/额外读DP槽。复用既有1569生产与唯一owner/原正常姓名容量合同，不新造存储。",
+      "original_end_exclusive": "0x4ed6a9",
+      "original_chunks": [
+        [
+          "0x4ed670",
+          "0x4ed6a9"
+        ]
+      ],
+      "instruction_count": 16,
+      "status": "BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_4ED670"
+          ],
+          "relationship": "4ED670从0开始，按8B原步长读四战果记录+02 W16与十五技能记录+00 W16；相等1只将结果置1，仍扫描完两数组，不早返/额外读DP槽。复用既有1569生产与唯一owner/原正常姓名容量合同，不新造存储。"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_4ED670"
+          ],
+          "relationship": "现有接口/字段宽度保持；没有新增公共或私有接口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-baseline",
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision",
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-acceptance",
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state"
+      ],
+      "boundary": "4ED670从0开始，按8B原步长读四战果记录+02 W16与十五技能记录+00 W16；相等1只将结果置1，仍扫描完两数组，不早返/额外读DP槽。复用既有1569生产与唯一owner/原正常姓名容量合同，不新造存储。 BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
+      "verification_level": "BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
+      "result_stage_baseline": {
+        "spec_id": "BWB01",
+        "evidence_refs": [
+          "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-baseline",
+          "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision",
+          "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-acceptance",
+          "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 16,
+        "original_code_bytes": 57,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 4,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "original_inbound_data_reference_count": 0,
+        "original_total_instruction_count": 81,
+        "original_total_code_bytes": 294,
+        "original_total_page_count": 4,
+        "original_total_direct_call_count": 8,
+        "original_total_unique_direct_callee_count": 6,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 11,
+        "original_total_return_count": 6,
+        "original_total_inbound_call_count": 6,
+        "original_total_inbound_tail_count": 0,
+        "original_total_inbound_data_reference_count": 0,
+        "two_parent_windows_included_in_root_totals": false,
+        "full_parent_reverified": false,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "all_four_correct_bodies_and_related_files_kept": true,
+        "reply_stage_before_two_values_and_actual_gate_return_kept": true,
+        "single_S16_stage_sample_and_distinct_cleanup_modes_kept": true,
+        "four_results_and_fifteen_skills_full_scan_without_early_return_kept": true,
+        "restore_publish_then_clear_and_actual_return_kept": true,
+        "old_Gn_and_DP_window31_and_scene_network_parent_records_reused": true,
+        "native_modern_window31_binding_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_all_mode_producers_verified": false,
+        "full_handler_dispatch_verified": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

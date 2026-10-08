@@ -1,0 +1,1935 @@
+{
+  "schema_version": 1,
+  "spec_id": "BWB01",
+  "recorded_on": "2026-10-08",
+  "baseline_snapshot": "cg2d-re-legacy-selection-category-sampling-20261008",
+  "implementation_snapshot": "cg2d-re-legacy-result-stage-baseline-20261008",
+  "evidence_refs": [
+    "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-baseline",
+    "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision",
+    "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-acceptance",
+    "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state"
+  ],
+  "artifacts": [
+    "src/LegacyAudio.cpp#Sub_504AF0",
+    "src/world/SceneState.cpp#Sub_504A50",
+    "src/network/NetworkRuntime.cpp#Sub_50D700",
+    "src/world/SceneState.cpp#Sub_4ED670",
+    "src/world/SceneState.cpp#Sub_50D500",
+    "src/world/SceneState.cpp#Sub_51C7D0",
+    "src/network/NetworkRuntime.cpp",
+    "src/ui/WindowRuntime.cpp#Sub_499790",
+    "src/ui/WindowPrototypes.cpp",
+    "src/world/WorldUpdateDependencies.hpp",
+    "src/network/NetworkRuntimeDependencies.hpp",
+    "include/cg/LegacyAudio.hpp",
+    "doc/ui_windows/window_31.md",
+    "doc/ui_windows/shared_runtime.md",
+    "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state",
+    "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state",
+    "doc/cg2d_legacy_result_stage_baseline_evidence.json",
+    "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-baseline",
+    "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision",
+    "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-acceptance",
+    "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state"
+  ],
+  "original_functions": [
+    {
+      "start": "0x504af0",
+      "end_exclusive": "0x504b0e",
+      "count": 8,
+      "chunks": [
+        [
+          "0x504af0",
+          "0x504b0e"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5042d0",
+          "text": "call    sub_504AF0",
+          "from": "0x50433e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5042d0",
+          "text": "call    sub_504AF0",
+          "from": "0x504365"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x504a50",
+          "text": "call    sub_504AF0",
+          "from": "0x504ad6"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x504af0",
+          "size": 5,
+          "bytes": "a1a0feca00",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_CAFEA0",
+          "call_target": null
+        },
+        {
+          "ea": "0x504af5",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x504af7",
+          "size": 2,
+          "bytes": "7414",
+          "mnemonic": "jz",
+          "text": "jz      short locret_504B0D",
+          "call_target": null
+        },
+        {
+          "ea": "0x504af9",
+          "size": 2,
+          "bytes": "6a01",
+          "mnemonic": "push",
+          "text": "push    1",
+          "call_target": null
+        },
+        {
+          "ea": "0x504afb",
+          "size": 5,
+          "bytes": "e880f6ffff",
+          "mnemonic": "call",
+          "text": "call    sub_504180",
+          "call_target": "0x504180"
+        },
+        {
+          "ea": "0x504b00",
+          "size": 3,
+          "bytes": "83c404",
+          "mnemonic": "add",
+          "text": "add     esp, 4",
+          "call_target": null
+        },
+        {
+          "ea": "0x504b03",
+          "size": 10,
+          "bytes": "c705a0feca0000000000",
+          "mnemonic": "mov",
+          "text": "mov     dword_CAFEA0, 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x504b0d",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "page_count": 1,
+      "pages": [
+        {
+          "offset": 0,
+          "count": 8
+        }
+      ],
+      "code_bytes": 30,
+      "calls": [
+        {
+          "ea": "0x504afb",
+          "size": 5,
+          "bytes": "e880f6ffff",
+          "mnemonic": "call",
+          "text": "call    sub_504180",
+          "call_target": "0x504180"
+        }
+      ],
+      "indirect_calls": [],
+      "jump_count": 1,
+      "return_count": 1
+    },
+    {
+      "start": "0x504a50",
+      "end_exclusive": "0x504ae5",
+      "count": 38,
+      "chunks": [
+        [
+          "0x504a50",
+          "0x504ae5"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x51c7d0",
+          "text": "call    sub_504A50",
+          "from": "0x51d250"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x504a50",
+          "size": 6,
+          "bytes": "66a1100cff00",
+          "mnemonic": "mov",
+          "text": "mov     ax, word_FF0C10",
+          "call_target": null
+        },
+        {
+          "ea": "0x504a56",
+          "size": 3,
+          "bytes": "6685c0",
+          "mnemonic": "test",
+          "text": "test    ax, ax",
+          "call_target": null
+        },
+        {
+          "ea": "0x504a59",
+          "size": 6,
+          "bytes": "0f8e85000000",
+          "mnemonic": "jle",
+          "text": "jle     locret_504AE4",
+          "call_target": null
+        },
+        {
+          "ea": "0x504a5f",
+          "size": 4,
+          "bytes": "663d0100",
+          "mnemonic": "cmp",
+          "text": "cmp     ax, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x504a63",
+          "size": 2,
+          "bytes": "7541",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_504AA6",
+          "call_target": null
+        },
+        {
+          "ea": "0x504a65",
+          "size": 2,
+          "bytes": "6a00",
+          "mnemonic": "push",
+          "text": "push    0",
+          "call_target": null
+        },
+        {
+          "ea": "0x504a67",
+          "size": 2,
+          "bytes": "6a00",
+          "mnemonic": "push",
+          "text": "push    0",
+          "call_target": null
+        },
+        {
+          "ea": "0x504a69",
+          "size": 2,
+          "bytes": "6a01",
+          "mnemonic": "push",
+          "text": "push    1",
+          "call_target": null
+        },
+        {
+          "ea": "0x504a6b",
+          "size": 2,
+          "bytes": "6a1e",
+          "mnemonic": "push",
+          "text": "push    1Eh",
+          "call_target": null
+        },
+        {
+          "ea": "0x504a6d",
+          "size": 5,
+          "bytes": "e82e10f7ff",
+          "mnemonic": "call",
+          "text": "call    Yobi__newWindow2",
+          "call_target": "0x475aa0"
+        },
+        {
+          "ea": "0x504a72",
+          "size": 3,
+          "bytes": "83c410",
+          "mnemonic": "add",
+          "text": "add     esp, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x504a75",
+          "size": 5,
+          "bytes": "e8f68bfeff",
+          "mnemonic": "call",
+          "text": "call    sub_4ED670",
+          "call_target": "0x4ed670"
+        },
+        {
+          "ea": "0x504a7a",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x504a7c",
+          "size": 2,
+          "bytes": "7414",
+          "mnemonic": "jz",
+          "text": "jz      short loc_504A92",
+          "call_target": null
+        },
+        {
+          "ea": "0x504a7e",
+          "size": 5,
+          "bytes": "68f0000000",
+          "mnemonic": "push",
+          "text": "push    0F0h",
+          "call_target": null
+        },
+        {
+          "ea": "0x504a83",
+          "size": 5,
+          "bytes": "6840010000",
+          "mnemonic": "push",
+          "text": "push    140h",
+          "call_target": null
+        },
+        {
+          "ea": "0x504a88",
+          "size": 2,
+          "bytes": "6a40",
+          "mnemonic": "push",
+          "text": "push    40h ; '@'",
+          "call_target": null
+        },
+        {
+          "ea": "0x504a8a",
+          "size": 5,
+          "bytes": "e8c1790200",
+          "mnemonic": "call",
+          "text": "call    World__PlaySe",
+          "call_target": "0x52c450"
+        },
+        {
+          "ea": "0x504a8f",
+          "size": 3,
+          "bytes": "83c40c",
+          "mnemonic": "add",
+          "text": "add     esp, 0Ch",
+          "call_target": null
+        },
+        {
+          "ea": "0x504a92",
+          "size": 10,
+          "bytes": "c705440dff0000000000",
+          "mnemonic": "mov",
+          "text": "mov     dword_FF0D44, 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x504a9c",
+          "size": 9,
+          "bytes": "66c705100cff000000",
+          "mnemonic": "mov",
+          "text": "mov     word_FF0C10, 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x504aa5",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x504aa6",
+          "size": 4,
+          "bytes": "663d0200",
+          "mnemonic": "cmp",
+          "text": "cmp     ax, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x504aaa",
+          "size": 2,
+          "bytes": "7524",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_504AD0",
+          "call_target": null
+        },
+        {
+          "ea": "0x504aac",
+          "size": 2,
+          "bytes": "6a00",
+          "mnemonic": "push",
+          "text": "push    0",
+          "call_target": null
+        },
+        {
+          "ea": "0x504aae",
+          "size": 2,
+          "bytes": "6a00",
+          "mnemonic": "push",
+          "text": "push    0",
+          "call_target": null
+        },
+        {
+          "ea": "0x504ab0",
+          "size": 2,
+          "bytes": "6a01",
+          "mnemonic": "push",
+          "text": "push    1",
+          "call_target": null
+        },
+        {
+          "ea": "0x504ab2",
+          "size": 2,
+          "bytes": "6a1f",
+          "mnemonic": "push",
+          "text": "push    1Fh",
+          "call_target": null
+        },
+        {
+          "ea": "0x504ab4",
+          "size": 5,
+          "bytes": "e8e70ff7ff",
+          "mnemonic": "call",
+          "text": "call    Yobi__newWindow2",
+          "call_target": "0x475aa0"
+        },
+        {
+          "ea": "0x504ab9",
+          "size": 3,
+          "bytes": "83c410",
+          "mnemonic": "add",
+          "text": "add     esp, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x504abc",
+          "size": 10,
+          "bytes": "c705440dff0000000000",
+          "mnemonic": "mov",
+          "text": "mov     dword_FF0D44, 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x504ac6",
+          "size": 9,
+          "bytes": "66c705100cff000000",
+          "mnemonic": "mov",
+          "text": "mov     word_FF0C10, 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x504acf",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x504ad0",
+          "size": 4,
+          "bytes": "663d0300",
+          "mnemonic": "cmp",
+          "text": "cmp     ax, 3",
+          "call_target": null
+        },
+        {
+          "ea": "0x504ad4",
+          "size": 2,
+          "bytes": "7505",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_504ADB",
+          "call_target": null
+        },
+        {
+          "ea": "0x504ad6",
+          "size": 5,
+          "bytes": "e815000000",
+          "mnemonic": "call",
+          "text": "call    sub_504AF0",
+          "call_target": "0x504af0"
+        },
+        {
+          "ea": "0x504adb",
+          "size": 9,
+          "bytes": "66c705100cff000000",
+          "mnemonic": "mov",
+          "text": "mov     word_FF0C10, 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x504ae4",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "page_count": 1,
+      "pages": [
+        {
+          "offset": 0,
+          "count": 38
+        }
+      ],
+      "code_bytes": 149,
+      "calls": [
+        {
+          "ea": "0x504a6d",
+          "size": 5,
+          "bytes": "e82e10f7ff",
+          "mnemonic": "call",
+          "text": "call    Yobi__newWindow2",
+          "call_target": "0x475aa0"
+        },
+        {
+          "ea": "0x504a75",
+          "size": 5,
+          "bytes": "e8f68bfeff",
+          "mnemonic": "call",
+          "text": "call    sub_4ED670",
+          "call_target": "0x4ed670"
+        },
+        {
+          "ea": "0x504a8a",
+          "size": 5,
+          "bytes": "e8c1790200",
+          "mnemonic": "call",
+          "text": "call    World__PlaySe",
+          "call_target": "0x52c450"
+        },
+        {
+          "ea": "0x504ab4",
+          "size": 5,
+          "bytes": "e8e70ff7ff",
+          "mnemonic": "call",
+          "text": "call    Yobi__newWindow2",
+          "call_target": "0x475aa0"
+        },
+        {
+          "ea": "0x504ad6",
+          "size": 5,
+          "bytes": "e815000000",
+          "mnemonic": "call",
+          "text": "call    sub_504AF0",
+          "call_target": "0x504af0"
+        }
+      ],
+      "indirect_calls": [],
+      "jump_count": 5,
+      "return_count": 3
+    },
+    {
+      "start": "0x50d700",
+      "end_exclusive": "0x50d73a",
+      "count": 19,
+      "chunks": [
+        [
+          "0x50d700",
+          "0x50d73a"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512e40",
+          "text": "call    sub_50D700",
+          "from": "0x513382"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x50d700",
+          "size": 5,
+          "bytes": "a10c6e9a00",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_9A6E0C",
+          "call_target": null
+        },
+        {
+          "ea": "0x50d705",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x50d707",
+          "size": 2,
+          "bytes": "7530",
+          "mnemonic": "jnz",
+          "text": "jnz     short locret_50D739",
+          "call_target": null
+        },
+        {
+          "ea": "0x50d709",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x50d70a",
+          "size": 4,
+          "bytes": "8b74240c",
+          "mnemonic": "mov",
+          "text": "mov     esi, [esp+4+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50d70e",
+          "size": 2,
+          "bytes": "6a01",
+          "mnemonic": "push",
+          "text": "push    1",
+          "call_target": null
+        },
+        {
+          "ea": "0x50d710",
+          "size": 2,
+          "bytes": "6a7c",
+          "mnemonic": "push",
+          "text": "push    7Ch ; '|'",
+          "call_target": null
+        },
+        {
+          "ea": "0x50d712",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x50d713",
+          "size": 9,
+          "bytes": "66c705100cff000200",
+          "mnemonic": "mov",
+          "text": "mov     word_FF0C10, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x50d71c",
+          "size": 5,
+          "bytes": "e8aff90100",
+          "mnemonic": "call",
+          "text": "call    sub_52D0D0",
+          "call_target": "0x52d0d0"
+        },
+        {
+          "ea": "0x50d721",
+          "size": 2,
+          "bytes": "6a02",
+          "mnemonic": "push",
+          "text": "push    2",
+          "call_target": null
+        },
+        {
+          "ea": "0x50d723",
+          "size": 2,
+          "bytes": "6a7c",
+          "mnemonic": "push",
+          "text": "push    7Ch ; '|'",
+          "call_target": null
+        },
+        {
+          "ea": "0x50d725",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x50d726",
+          "size": 5,
+          "bytes": "a3040dff00",
+          "mnemonic": "mov",
+          "text": "mov     dword_FF0D04, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x50d72b",
+          "size": 5,
+          "bytes": "e8a0f90100",
+          "mnemonic": "call",
+          "text": "call    sub_52D0D0",
+          "call_target": "0x52d0d0"
+        },
+        {
+          "ea": "0x50d730",
+          "size": 3,
+          "bytes": "83c418",
+          "mnemonic": "add",
+          "text": "add     esp, 18h",
+          "call_target": null
+        },
+        {
+          "ea": "0x50d733",
+          "size": 5,
+          "bytes": "a3080dff00",
+          "mnemonic": "mov",
+          "text": "mov     dword_FF0D08, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x50d738",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x50d739",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "page_count": 1,
+      "pages": [
+        {
+          "offset": 0,
+          "count": 19
+        }
+      ],
+      "code_bytes": 58,
+      "calls": [
+        {
+          "ea": "0x50d71c",
+          "size": 5,
+          "bytes": "e8aff90100",
+          "mnemonic": "call",
+          "text": "call    sub_52D0D0",
+          "call_target": "0x52d0d0"
+        },
+        {
+          "ea": "0x50d72b",
+          "size": 5,
+          "bytes": "e8a0f90100",
+          "mnemonic": "call",
+          "text": "call    sub_52D0D0",
+          "call_target": "0x52d0d0"
+        }
+      ],
+      "indirect_calls": [],
+      "jump_count": 1,
+      "return_count": 1
+    },
+    {
+      "start": "0x4ed670",
+      "end_exclusive": "0x4ed6a9",
+      "count": 16,
+      "chunks": [
+        [
+          "0x4ed670",
+          "0x4ed6a9"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x504a50",
+          "text": "call    sub_4ED670",
+          "from": "0x504a75"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x4ed670",
+          "size": 2,
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "text": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x4ed672",
+          "size": 5,
+          "bytes": "b9160cff00",
+          "mnemonic": "mov",
+          "text": "mov     ecx, offset unk_FF0C16",
+          "call_target": null
+        },
+        {
+          "ea": "0x4ed677",
+          "size": 4,
+          "bytes": "66833901",
+          "mnemonic": "cmp",
+          "text": "cmp     word ptr [ecx], 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x4ed67b",
+          "size": 2,
+          "bytes": "7505",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_4ED682",
+          "call_target": null
+        },
+        {
+          "ea": "0x4ed67d",
+          "size": 5,
+          "bytes": "b801000000",
+          "mnemonic": "mov",
+          "text": "mov     eax, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x4ed682",
+          "size": 3,
+          "bytes": "83c108",
+          "mnemonic": "add",
+          "text": "add     ecx, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x4ed685",
+          "size": 6,
+          "bytes": "81f9360cff00",
+          "mnemonic": "cmp",
+          "text": "cmp     ecx, offset word_FF0C36",
+          "call_target": null
+        },
+        {
+          "ea": "0x4ed68b",
+          "size": 2,
+          "bytes": "7cea",
+          "mnemonic": "jl",
+          "text": "jl      short loc_4ED677",
+          "call_target": null
+        },
+        {
+          "ea": "0x4ed68d",
+          "size": 5,
+          "bytes": "b98c0cff00",
+          "mnemonic": "mov",
+          "text": "mov     ecx, offset word_FF0C8C",
+          "call_target": null
+        },
+        {
+          "ea": "0x4ed692",
+          "size": 4,
+          "bytes": "66833901",
+          "mnemonic": "cmp",
+          "text": "cmp     word ptr [ecx], 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x4ed696",
+          "size": 2,
+          "bytes": "7505",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_4ED69D",
+          "call_target": null
+        },
+        {
+          "ea": "0x4ed698",
+          "size": 5,
+          "bytes": "b801000000",
+          "mnemonic": "mov",
+          "text": "mov     eax, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x4ed69d",
+          "size": 3,
+          "bytes": "83c108",
+          "mnemonic": "add",
+          "text": "add     ecx, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x4ed6a0",
+          "size": 6,
+          "bytes": "81f9040dff00",
+          "mnemonic": "cmp",
+          "text": "cmp     ecx, offset dword_FF0D04",
+          "call_target": null
+        },
+        {
+          "ea": "0x4ed6a6",
+          "size": 2,
+          "bytes": "7cea",
+          "mnemonic": "jl",
+          "text": "jl      short loc_4ED692",
+          "call_target": null
+        },
+        {
+          "ea": "0x4ed6a8",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "page_count": 1,
+      "pages": [
+        {
+          "offset": 0,
+          "count": 16
+        }
+      ],
+      "code_bytes": 57,
+      "calls": [],
+      "indirect_calls": [],
+      "jump_count": 4,
+      "return_count": 1
+    }
+  ],
+  "original_totals": {
+    "instruction_count": 81,
+    "code_bytes": 294,
+    "page_count": 4,
+    "direct_call_count": 8,
+    "unique_direct_callee_count": 6,
+    "indirect_call_count": 0,
+    "jump_count": 11,
+    "return_count": 6,
+    "inbound_call_count": 6,
+    "inbound_tail_count": 0,
+    "inbound_data_reference_count": 0
+  },
+  "original_incoming_windows": [
+    {
+      "root": "0x512e40",
+      "focus": "0x513382",
+      "instructions": [
+        {
+          "ea": "0x51335d",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x51335e",
+          "size": 5,
+          "bytes": "e84d3e0000",
+          "mnemonic": "call",
+          "text": "call    sub_5171B0",
+          "call_target": "0x5171b0"
+        },
+        {
+          "ea": "0x513363",
+          "size": 6,
+          "bytes": "8b15ecb55800",
+          "mnemonic": "mov",
+          "text": "mov     edx, outBufferLen",
+          "call_target": null
+        },
+        {
+          "ea": "0x513369",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x51336a",
+          "size": 5,
+          "bytes": "a1983fda00",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_DA3F98",
+          "call_target": null
+        },
+        {
+          "ea": "0x51336f",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x513370",
+          "size": 3,
+          "bytes": "8b4804",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [eax+4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x513373",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x513374",
+          "size": 5,
+          "bytes": "e817430000",
+          "mnemonic": "call",
+          "text": "call    sub_517690",
+          "call_target": "0x517690"
+        },
+        {
+          "ea": "0x513379",
+          "size": 7,
+          "bytes": "8b942458040000",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+454h+fd]",
+          "call_target": null
+        },
+        {
+          "ea": "0x513380",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x513381",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x513382",
+          "size": 5,
+          "bytes": "e879a3ffff",
+          "mnemonic": "call",
+          "text": "call    sub_50D700",
+          "call_target": "0x50d700"
+        },
+        {
+          "ea": "0x513387",
+          "size": 3,
+          "bytes": "83c418",
+          "mnemonic": "add",
+          "text": "add     esp, 18h",
+          "call_target": null
+        },
+        {
+          "ea": "0x51338a",
+          "size": 2,
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "text": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x51338c",
+          "size": 1,
+          "bytes": "5f",
+          "mnemonic": "pop",
+          "text": "pop     edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x51338d",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        }
+      ]
+    },
+    {
+      "root": "0x51c7d0",
+      "focus": "0x51d250",
+      "instructions": [
+        {
+          "ea": "0x51d226",
+          "size": 5,
+          "bytes": "e815040000",
+          "mnemonic": "call",
+          "text": "call    sub_51D640",
+          "call_target": "0x51d640"
+        },
+        {
+          "ea": "0x51d22b",
+          "size": 10,
+          "bytes": "c705640dff0003000000",
+          "mnemonic": "mov",
+          "text": "mov     gWorld__SceneState, 3",
+          "call_target": null
+        },
+        {
+          "ea": "0x51d235",
+          "size": 6,
+          "bytes": "891dc0ec7300",
+          "mnemonic": "mov",
+          "text": "mov     dword_73ECC0, ebx; jumptable 0051C7FB case 3",
+          "call_target": null
+        },
+        {
+          "ea": "0x51d23b",
+          "size": 6,
+          "bytes": "881d0422c800",
+          "mnemonic": "mov",
+          "text": "mov     byte_C82204, bl",
+          "call_target": null
+        },
+        {
+          "ea": "0x51d241",
+          "size": 5,
+          "bytes": "e8aa040000",
+          "mnemonic": "call",
+          "text": "call    sub_51D6F0",
+          "call_target": "0x51d6f0"
+        },
+        {
+          "ea": "0x51d246",
+          "size": 5,
+          "bytes": "e8a596f2ff",
+          "mnemonic": "call",
+          "text": "call    sub_4468F0",
+          "call_target": "0x4468f0"
+        },
+        {
+          "ea": "0x51d24b",
+          "size": 5,
+          "bytes": "e83024f5ff",
+          "mnemonic": "call",
+          "text": "call    World__RendererCursorGrid",
+          "call_target": "0x46f680"
+        },
+        {
+          "ea": "0x51d250",
+          "size": 5,
+          "bytes": "e8fb77feff",
+          "mnemonic": "call",
+          "text": "call    sub_504A50",
+          "call_target": "0x504a50"
+        },
+        {
+          "ea": "0x51d255",
+          "size": 5,
+          "bytes": "e8168af3ff",
+          "mnemonic": "call",
+          "text": "call    sub_455C70",
+          "call_target": "0x455c70"
+        },
+        {
+          "ea": "0x51d25a",
+          "size": 5,
+          "bytes": "e831caf4ff",
+          "mnemonic": "call",
+          "text": "call    World__CharaMove",
+          "call_target": "0x469c90"
+        },
+        {
+          "ea": "0x51d25f",
+          "size": 5,
+          "bytes": "e8dceaf4ff",
+          "mnemonic": "call",
+          "text": "call    sub_46BD40",
+          "call_target": "0x46bd40"
+        },
+        {
+          "ea": "0x51d264",
+          "size": 5,
+          "bytes": "e8578df3ff",
+          "mnemonic": "call",
+          "text": "call    sub_455FC0",
+          "call_target": "0x455fc0"
+        },
+        {
+          "ea": "0x51d269",
+          "size": 5,
+          "bytes": "e8e279eeff",
+          "mnemonic": "call",
+          "text": "call    Yobi__UpdateAll",
+          "call_target": "0x404c50"
+        }
+      ]
+    }
+  ],
+  "incoming_windows_included_in_four_root_totals": false,
+  "original_state_slot_refs": [
+    {
+      "slot": "0xff0c10",
+      "refs": [
+        {
+          "type": 2,
+          "code": false,
+          "function": "0x43cbb0",
+          "text": "mov     word_FF0C10, si",
+          "from": "0x43cc82"
+        },
+        {
+          "type": 2,
+          "code": false,
+          "function": "0x504100",
+          "text": "mov     word_FF0C10, ax",
+          "from": "0x504107"
+        },
+        {
+          "type": 2,
+          "code": false,
+          "function": "0x504a30",
+          "text": "mov     word_FF0C10, ax",
+          "from": "0x504a3c"
+        },
+        {
+          "type": 3,
+          "code": false,
+          "function": "0x504a50",
+          "text": "mov     ax, word_FF0C10",
+          "from": "0x504a50"
+        },
+        {
+          "type": 2,
+          "code": false,
+          "function": "0x504a50",
+          "text": "mov     word_FF0C10, 0",
+          "from": "0x504a9c"
+        },
+        {
+          "type": 2,
+          "code": false,
+          "function": "0x504a50",
+          "text": "mov     word_FF0C10, 0",
+          "from": "0x504ac6"
+        },
+        {
+          "type": 2,
+          "code": false,
+          "function": "0x504a50",
+          "text": "mov     word_FF0C10, 0",
+          "from": "0x504adb"
+        },
+        {
+          "type": 1,
+          "code": false,
+          "function": "0x50a300",
+          "text": "cmp     ebx, offset word_FF0C10",
+          "from": "0x50a3a6"
+        },
+        {
+          "type": 2,
+          "code": false,
+          "function": "0x50d500",
+          "text": "mov     word_FF0C10, 1",
+          "from": "0x50d519"
+        },
+        {
+          "type": 2,
+          "code": false,
+          "function": "0x50d700",
+          "text": "mov     word_FF0C10, 2",
+          "from": "0x50d713"
+        }
+      ]
+    },
+    {
+      "slot": "0xcafea0",
+      "refs": [
+        {
+          "type": 3,
+          "code": false,
+          "function": "0x455fc0",
+          "text": "cmp     dword_CAFEA0, esi",
+          "from": "0x455fec"
+        },
+        {
+          "type": 2,
+          "code": false,
+          "function": "0x455fc0",
+          "text": "mov     dword_CAFEA0, esi",
+          "from": "0x455ffe"
+        },
+        {
+          "type": 3,
+          "code": false,
+          "function": "0x46ada0",
+          "text": "mov     eax, dword_CAFEA0",
+          "from": "0x46ada0"
+        },
+        {
+          "type": 2,
+          "code": false,
+          "function": "0x46ada0",
+          "text": "mov     dword_CAFEA0, eax",
+          "from": "0x46adb8"
+        },
+        {
+          "type": 3,
+          "code": false,
+          "function": "0x46aea0",
+          "text": "mov     eax, dword_CAFEA0",
+          "from": "0x46aea0"
+        },
+        {
+          "type": 2,
+          "code": false,
+          "function": "0x46aea0",
+          "text": "mov     dword_CAFEA0, eax",
+          "from": "0x46aeb3"
+        },
+        {
+          "type": 3,
+          "code": false,
+          "function": "0x4ece00",
+          "text": "mov     eax, dword_CAFEA0",
+          "from": "0x4ece77"
+        },
+        {
+          "type": 2,
+          "code": false,
+          "function": "0x4ece00",
+          "text": "mov     dword_CAFEA0, 0",
+          "from": "0x4ece9b"
+        },
+        {
+          "type": 3,
+          "code": false,
+          "function": "0x4ece00",
+          "text": "mov     eax, dword_CAFEA0",
+          "from": "0x4ececf"
+        },
+        {
+          "type": 3,
+          "code": false,
+          "function": "0x4ece00",
+          "text": "mov     eax, dword_CAFEA0",
+          "from": "0x4ecf0f"
+        },
+        {
+          "type": 3,
+          "code": false,
+          "function": "0x4ed020",
+          "text": "cmp     dword_CAFEA0, ebx",
+          "from": "0x4ed0a3"
+        },
+        {
+          "type": 2,
+          "code": false,
+          "function": "0x4ed020",
+          "text": "mov     dword_CAFEA0, ebx",
+          "from": "0x4ed0c6"
+        },
+        {
+          "type": 3,
+          "code": false,
+          "function": "0x4ed020",
+          "text": "mov     eax, dword_CAFEA0",
+          "from": "0x4ed0f7"
+        },
+        {
+          "type": 3,
+          "code": false,
+          "function": "0x4ed020",
+          "text": "mov     eax, dword_CAFEA0",
+          "from": "0x4ed138"
+        },
+        {
+          "type": 2,
+          "code": false,
+          "function": "0x504100",
+          "text": "mov     dword_CAFEA0, eax",
+          "from": "0x50410d"
+        },
+        {
+          "type": 3,
+          "code": false,
+          "function": "0x504180",
+          "text": "mov     eax, dword_CAFEA0",
+          "from": "0x5041f8"
+        },
+        {
+          "type": 2,
+          "code": false,
+          "function": "0x504180",
+          "text": "mov     dword_CAFEA0, eax",
+          "from": "0x50420b"
+        },
+        {
+          "type": 3,
+          "code": false,
+          "function": "0x504af0",
+          "text": "mov     eax, dword_CAFEA0",
+          "from": "0x504af0"
+        },
+        {
+          "type": 2,
+          "code": false,
+          "function": "0x504af0",
+          "text": "mov     dword_CAFEA0, 0",
+          "from": "0x504b03"
+        },
+        {
+          "type": 3,
+          "code": false,
+          "function": "0x5093f0",
+          "text": "mov     eax, dword_CAFEA0",
+          "from": "0x509418"
+        },
+        {
+          "type": 2,
+          "code": false,
+          "function": "0x5093f0",
+          "text": "mov     dword_CAFEA0, eax",
+          "from": "0x50942b"
+        },
+        {
+          "type": 3,
+          "code": false,
+          "function": "0x50d120",
+          "text": "mov     eax, dword_CAFEA0",
+          "from": "0x50d141"
+        },
+        {
+          "type": 2,
+          "code": false,
+          "function": "0x50d120",
+          "text": "mov     dword_CAFEA0, eax",
+          "from": "0x50d158"
+        },
+        {
+          "type": 3,
+          "code": false,
+          "function": "0x50d120",
+          "text": "cmp     dword_CAFEA0, ebx",
+          "from": "0x50d297"
+        },
+        {
+          "type": 2,
+          "code": false,
+          "function": "0x50d120",
+          "text": "mov     dword_CAFEA0, eax",
+          "from": "0x50d2a8"
+        },
+        {
+          "type": 3,
+          "code": false,
+          "function": "0x51c7d0",
+          "text": "cmp     dword_CAFEA0, ebx",
+          "from": "0x51d2b2"
+        },
+        {
+          "type": 2,
+          "code": false,
+          "function": "0x51c7d0",
+          "text": "mov     dword_CAFEA0, eax",
+          "from": "0x51d2c3"
+        }
+      ]
+    }
+  ],
+  "source_functions": [
+    {
+      "symbol": "Sub_504AF0",
+      "id": "F:00104AF0",
+      "title": "原选择恢复",
+      "feature_id": "FUNC-UIRUNTIME",
+      "source_path": "src/LegacyAudio.cpp",
+      "header_path": "include/cg/LegacyAudio.hpp",
+      "contract": "504AF0先持样CAFEA0；零返0，非零调用真实504180(1)，随后清同W32槽并返回该调用结果。不得提前清零或绕过scene门禁；既有BWA01选择发布合同复用。",
+      "index": 1812,
+      "entry": "0x504af0",
+      "original_index": 0
+    },
+    {
+      "symbol": "Sub_504A50",
+      "id": "F:00104A50",
+      "title": "结果阶段消费",
+      "feature_id": "FUNC-UIRUNTIME",
+      "source_path": "src/world/SceneState.cpp",
+      "header_path": "src/world/WorldUpdateDependencies.hpp",
+      "contract": "504A50一次取W16模式按S16判断，非正不消费；1创建窗口30再完整结果标志查询/条件SE64，2创建窗口31，两者清FF0D44后清W16阶段；3恢复选择，其它正值只清阶段。当前void仅原唯一普通场景caller弃返回活动域，不宣机器ABI。",
+      "index": 1813,
+      "entry": "0x504a50",
+      "original_index": 1
+    },
+    {
+      "symbol": "Sub_50D700",
+      "id": "F:0010D700",
+      "title": "DP回复生产",
+      "feature_id": "FUNC-NETWORK",
+      "source_path": "src/network/NetworkRuntime.cpp",
+      "header_path": "src/network/NetworkRuntimeDependencies.hpp",
+      "contract": "50D700先持样原W32门禁，非零按S32位型返同样本；零先发布W16阶段2，再原bar/Base62第1值写FF0D04，再第2值写FF0D08并返回第二值。socket不消费，原512E40唯一入向及既有hB明文格式保持。",
+      "index": 1814,
+      "entry": "0x50d700",
+      "original_index": 2
+    },
+    {
+      "symbol": "Sub_4ED670",
+      "id": "F:000ED670",
+      "title": "完整结果标志扫描",
+      "feature_id": "FUNC-BATTLE",
+      "source_path": "src/world/SceneState.cpp",
+      "header_path": "src/world/WorldUpdateDependencies.hpp",
+      "contract": "4ED670从0开始，按8B原步长读四战果记录+02 W16与十五技能记录+00 W16；相等1只将结果置1，仍扫描完两数组，不早返/额外读DP槽。复用既有1569生产与唯一owner/原正常姓名容量合同，不新造存储。",
+      "index": 1815,
+      "entry": "0x4ed670",
+      "original_index": 3
+    }
+  ],
+  "implementation_static_scope": "BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
+  "source_cpp_changed_count": 0,
+  "source_header_changed_count": 0,
+  "source_patch_count": 0,
+  "new_function_count": 0,
+  "new_helper_count": 0,
+  "new_api_count": 0,
+  "new_owner_count": 0,
+  "new_I_claimed": false,
+  "four_correct_source_bodies_kept": true,
+  "stage_before_two_payload_values_and_return_second_kept": true,
+  "stage_S16_single_sample_and_distinct_cleanup_modes_kept": true,
+  "full_four_and_fifteen_record_scans_kept": true,
+  "restore_publish_before_shared_flag_clear_and_actual_return_kept": true,
+  "existing_Gn_production_DP_window31_native_binding_and_caller_contracts_reused": true,
+  "source_files_kept": [
+    "src/LegacyAudio.cpp",
+    "include/cg/LegacyAudio.hpp",
+    "src/world/SceneState.cpp",
+    "src/world/WorldUpdateDependencies.hpp",
+    "src/network/NetworkRuntime.cpp",
+    "src/network/NetworkRuntimeDependencies.hpp",
+    "src/ui/WindowRuntime.cpp",
+    "src/ui/WindowPrototypes.cpp"
+  ],
+  "wire_format_changed": false,
+  "encryption_added": false,
+  "audio_pause_kept": true,
+  "full_all_mode_producers_verified": false,
+  "full_all_parents_verified": false,
+  "full_all_callees_verified": false,
+  "full_lifecycle_closed": false,
+  "full_handler_dispatch_verified": false,
+  "runtime_verified": false,
+  "machine_abi_verified": false,
+  "fault_equivalence_claimed": false,
+  "source_bodies_kept": [
+    {
+      "path": "src/LegacyAudio.cpp",
+      "symbol": "Sub_504AF0",
+      "body": "std::int32_t __cdecl Sub_504AF0()\n{\n    const std::uint32_t current = world::detail::gValueCAFEA0;\n    if (current == 0) {\n        return 0;\n    }\n    const std::int32_t result = Sub_504180(1);\n    world::detail::gValueCAFEA0 = 0;\n    return result;\n}\n\n"
+    },
+    {
+      "path": "src/world/SceneState.cpp",
+      "symbol": "Sub_504A50",
+      "body": "void Sub_504A50()\n{\n    const std::int16_t mode = std::bit_cast<std::int16_t>(gValueFF0C10);\n    if (mode <= 0) {\n        return;\n    }\n    if (mode == 1) {\n        static_cast<void>(ui::CreateWindowAnimation_475AA0(30, 1, 0, nullptr));\n        if (Sub_4ED670() != 0) {\n            static_cast<void>(audio::PlaySe_52C450(64, 320));\n        }\n        gValueFF0D44 = 0;\n        gValueFF0C10 = 0;\n    } else if (mode == 2) {\n        static_cast<void>(ui::CreateWindowAnimation_475AA0(31, 1, 0, nullptr));\n        gValueFF0D44 = 0;\n        gValueFF0C10 = 0;\n    } else {\n        if (mode == 3) {\n            static_cast<void>(audio::Sub_504AF0());\n        }\n        gValueFF0C10 = 0;\n    }\n}\n\n"
+    },
+    {
+      "path": "src/network/NetworkRuntime.cpp",
+      "symbol": "Sub_50D700",
+      "body": "std::int32_t Sub_50D700(\n    const std::uintptr_t,\n    const char* const payload)\n{\n    const std::uint32_t gate = world::gValue9A6E0C;\n    if (gate != 0U) {\n        return std::bit_cast<std::int32_t>(gate);\n    }\n\n    world::detail::gValueFF0C10 = 2;\n    world::detail::gValueFF0D04 =\n        ParseDelimitedBase62_52D0D0(payload, '|', 1);\n    const std::int32_t second =\n        ParseDelimitedBase62_52D0D0(payload, '|', 2);\n    world::detail::gValueFF0D08 = second;\n    return second;\n}\n\n"
+    },
+    {
+      "path": "src/world/SceneState.cpp",
+      "symbol": "Sub_4ED670",
+      "body": "std::int32_t Sub_4ED670()\n{\n    std::int32_t result = 0;\n    for (const BattleResultRecord& record : gBattleResultsFF0C14) {\n        if (record.value02 == 1) {\n            result = 1;\n        }\n    }\n    for (const BattleSkillResultRecord& record : gBattleSkillResultsFF0C8C) {\n        if (record.value00 == 1) {\n            result = 1;\n        }\n    }\n    return result;\n}\n\n"
+    },
+    {
+      "path": "src/world/SceneState.cpp",
+      "symbol": "Sub_50D500",
+      "body": "void Sub_50D500(const std::uintptr_t, const char* const payload)\n{\n    if (gValue9A6E0C != 0) {\n        return;\n    }\n    gValueFF0C10 = 1;\n    char row[2048];\n    char entry[2048];\n    char name[2048];\n    std::int32_t field = 1;\n    for (BattleResultRecord& record : gBattleResultsFF0C14) {\n        network::ExtractDelimitedField_52CED0(payload, ',', field, 2047, row);\n        ++field;\n        record.value00 = static_cast<std::uint16_t>(\n            network::ParseDelimitedInteger_52CFA0(row, '|', 1));\n        record.value02 = static_cast<std::uint16_t>(\n            network::ParseDelimitedInteger_52CFA0(row, '|', 2));\n        record.value04 = network::ParseDelimitedBase62_52D0D0(row, '|', 3);\n    }\n\n    network::ExtractDelimitedField_52CED0(payload, ',', field, 2047, row);\n    ++field;\n    for (std::int32_t index = 0; index < 3; ++index) {\n        network::ExtractDelimitedField_52CED0(row, '|', index + 1, 2047, entry);\n        input::UnescapeLegacyText_52D150(entry);\n        gBattleResultGraphicsFF0D0C[index] =\n            network::ParseDelimitedInteger_52CFA0(entry, '|', 1);\n        network::ExtractDelimitedField_52CED0(entry, '|', 2, 2047, name);\n        input::UnescapeLegacyTextAndNotify_52D2F0(name);\n        if (std::strlen(name) <= 28) {\n            std::strcpy(gBattleResultNamesFF0C34[index].data(), name);\n        } else {\n            gBattleResultNamesFF0C34[index][0] = '\\0';\n        }\n    }\n\n    for (BattleSkillResultRecord& record : gBattleSkillResultsFF0C8C) {\n        network::ExtractDelimitedField_52CED0(payload, ',', field, 2047, row);\n        ++field;\n        const auto bits = static_cast<std::uint16_t>(\n            network::ParseDelimitedInteger_52CFA0(row, '|', 1));\n        const std::int16_t parsedValue = std::bit_cast<std::int16_t>(bits);\n        record.value00 = parsedValue;\n        if (parsedValue < 0) {\n            record.value00 = 0;\n        }\n        const std::int32_t parsedBase62 = network::ParseDelimitedBase62_52D0D0(row, '|', 2);\n        record.value04 = parsedBase62;\n        if (parsedBase62 < 0) {\n            record.value04 = 0;\n        }\n    }\n}\n\n"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_499790",
+      "body": "std::int32_t Sub_499790(const std::int32_t value)\n{\n    if (value == -1) {\n        const std::uint32_t now = platform::ReadTickCount32();\n        WindowInstance* window = gCurrentWindow;\n        gBattleResultCloseTickCB0F78 = now + 5000u;\n        const std::int32_t delta = world::detail::gValueFF0D04;\n        platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[2].data)->text, \"DP   %+9d\", delta);\n        window = gCurrentWindow;\n        const std::int32_t total = world::detail::gValueFF0D08;\n        platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[3].data)->text, \"Total%9d\", total);\n    }\n    const std::uint32_t now = platform::ReadTickCount32();\n    if (gBattleResultCloseTickCB0F78 < now) {\n        gCurrentWindow->state |= 0x8000u;\n        static_cast<void>(audio::PlaySe_52C450(57, 320));\n    }\n    return 1;\n}\n\n"
+    }
+  ],
+  "reused_existing_records": [
+    {
+      "index": 1569,
+      "record": {
+        "original_entry": "0x50d500",
+        "inventory_id": "F:0010D500",
+        "original_role": "Sub_50D500",
+        "original_end_exclusive": "0x50d6fd",
+        "instruction_count": 159,
+        "status": "BQX01完整战斗开始/退出与战果生产、正确W16消息叶正常源纳管；两体11片段/四载体先读齐后pub/类型谓词和field阶段/held解析返回值及一次跨W32桥与布局assert落实，原4-3-15数量/W16-W32与失败/负值零写/旧文本格式保；全分派/owner寿命/资源/CRT-SDK-ABI/运行未验",
+        "sources": [
+          {
+            "path": "src/world/SceneState.cpp",
+            "symbols": [
+              "Sub_50D500"
+            ],
+            "relationship": "50D500完整战果生产：禁用门禁/W16 ready1、四8B记录/第五列三组图号和29B姓名/第六至二十列十五8B技能结果、三2048B未清栈buffer与真实2047提取容量和comma-bar/Base62/两原Unescape链不改；两field增量移到首parser前、低S16与S32 pub后TEST持有解析返回值/原负值零写保、姓名长度<=28复制否则只清首BYTE及原解析返回弃置保持。"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-baseline",
+          "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-decision",
+          "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-acceptance",
+          "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state",
+          "doc/cg2d_battle_entry_result_producer_sampling_evidence.json"
+        ],
+        "boundary": "50D500完整战果生产：禁用门禁/W16 ready1、四8B记录/第五列三组图号和29B姓名/第六至二十列十五8B技能结果、三2048B未清栈buffer与真实2047提取容量和comma-bar/Base62/两原Unescape链不改；两field增量移到首parser前、低S16与S32 pub后TEST持有解析返回值/原负值零写保、姓名长度<=28复制否则只清首BYTE及原解析返回弃置保持。 三完整323条1177B/六页、34directCALL/19callee、24普通jump/五RET无switch，三真实入向均512E40仅登记；其中53BDC0栈探测callee只元信息，C++三2048B自动未清buffer承接，不据此处理/验栈故障或整个CRT/机器ABI。两主consumer体11片段（入口5/结果6）、既有跨字段W32桥一处及相邻布局assert/注释恢复：四数值载体read-all-before-publish/独立count-first序、type2与非2 type3谓词先pub、两结果field递增阶段/低S16与S32 pub后持有返回值TEST，普通旧值/construct-destroy四次RNG及原W16/W32/失败/重读/清理/明文保持。四记录/三图名/十五技能、comma-bar/2047提取与三2048B buffer、姓名<=28否则只首BYTE清、两个原Unescape和原负值清零是既有原业务保，不新增异常保护；正确sZWu三指令叶/uint16返回及原caller覆盖EAX纳管不改。两真实X仅4/3B共7B NOP无入向/前RET后入口mapped，R7 275/3061余2786，50D3B0已IDA函数不是无父区间。三新正常F1568..1570，语义1571/有效1564、文档1682/3680（45.71%）、分类701/BATTLE253枚举open/E800。无F/有效区间各7、差队列172/缺定位171/43待归属/60源码closed10/完整验收0/叶0/globalfalse与全部完整门禁保；全512E40分派/整个CRT/全部owner-窗口寿命/资源和战果其它consumer/全技能-pet生产/SDK/机器ABI/画面运行/R8未验，音频暂停/不构建测试运行摘要/RPLAN.24/原协议明文保。",
+        "verification_level": "三完整323条1177B/六页、34directCALL/19callee、24普通jump/五RET无switch，三真实入向均512E40仅登记；其中53BDC0栈探测callee只元信息，C++三2048B自动未清buffer承接，不据此处理/验栈故障或整个CRT/机器ABI。两主consumer体11片段（入口5/结果6）、既有跨字段W32桥一处及相邻布局assert/注释恢复：四数值载体read-all-before-publish/独立count-first序、type2与非2 type3谓词先pub、两结果field递增阶段/低S16与S32 pub后持有返回值TEST，普通旧值/construct-destroy四次RNG及原W16/W32/失败/重读/清理/明文保持。四记录/三图名/十五技能、comma-bar/2047提取与三2048B buffer、姓名<=28否则只首BYTE清、两个原Unescape和原负值清零是既有原业务保，不新增异常保护；正确sZWu三指令叶/uint16返回及原caller覆盖EAX纳管不改。两真实X仅4/3B共7B NOP无入向/前RET后入口mapped，R7 275/3061余2786，50D3B0已IDA函数不是无父区间。三新正常F1568..1570，语义1571/有效1564、文档1682/3680（45.71%）、分类701/BATTLE253枚举open/E800。无F/有效区间各7、差队列172/缺定位171/43待归属/60源码closed10/完整验收0/叶0/globalfalse与全部完整门禁保；全512E40分派/整个CRT/全部owner-窗口寿命/资源和战果其它consumer/全技能-pet生产/SDK/机器ABI/画面运行/R8未验，音频暂停/不构建测试运行摘要/RPLAN.24/原协议明文保。",
+        "battle_entry_result_producer_sampling": {
+          "spec_id": "BQX01",
+          "evidence_refs": [
+            "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-baseline",
+            "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-decision",
+            "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-acceptance",
+            "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state",
+            "doc/cg2d_battle_entry_result_producer_sampling_evidence.json"
+          ],
+          "full_original_root_captured": true,
+          "original_instruction_count": 159,
+          "original_code_bytes": 509,
+          "original_page_count": 2,
+          "original_outgoing_call_count": 14,
+          "original_inbound_count": 1,
+          "source_body_changed": true,
+          "source_body_patch_count": 6,
+          "derived_player_flags_helper_changed": true,
+          "normal_previous_values_wrong": false,
+          "original_packet_delimiters_and_limits_kept": true,
+          "original_parse_returns_discarded_kept": true,
+          "original_numeric_carrier_rng_order_kept": true,
+          "original_normal_w16_w32_storage_kept": true,
+          "original_failure_and_clamp_branches_kept": true,
+          "dependency_r7_classification_count": 2,
+          "full_normal_source_static_mapped": true,
+          "full_parent_newly_verified": false,
+          "full_lifecycle_closed": false,
+          "runtime_verified": false,
+          "fault_equivalence_claimed": false
+        }
+      }
+    },
+    {
+      "index": 914,
+      "record": {
+        "original_entry": "0x499790",
+        "inventory_id": "F:00099790",
+        "status": "既有DP结果两真实格式依赖已接；完整窗口/父路由及运行未据本步验收",
+        "original_end_exclusive": "0x499828",
+        "instruction_count": 44,
+        "sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbols": [
+              "Sub_499790"
+            ],
+            "relationship": "仅两格式callee接两原点，保留既有DP结果正文/共享计时与来源消费顺序"
+          }
+        ],
+        "evidence_documents": [
+          "doc/ui_windows/window_31.md",
+          "doc/cg2d_stdio_contract.md"
+        ],
+        "boundary": "仅两现callee接4997C7/4997ED，S32(value)/返回1及全部正文保持。输入恰-1时先取tick、固定window、发布共享U32 CB0F78=tick+5000，借World FF0D04 S32变化值直接格式到该window元素2 text；再重新取当前window，借FF0D08 S32总量直接格式到元素3 text。保留DP三个空格、%+9d与Total%9d的符号/宽度；不复制共享数值或新增计时owner。随后仍重取tick，仅共享到期tick严格小于当前tick才关闭，原回调/绘制/音频暂停边界不动，不改关联函数、不增清理/保护或一次性标志，不据本步验收完整窗口31/父路由/画面或运行。",
+        "original_incoming": [],
+        "original_data_references": [
+          {
+            "site": "0x54E7B0",
+            "parent": null,
+            "code": false,
+            "type": 1
+          }
+        ],
+        "business_call_connections": [
+          {
+            "parent_entry": "0x499790",
+            "call_site": "0x4997C7",
+            "source": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_499790"
+          },
+          {
+            "parent_entry": "0x499790",
+            "call_site": "0x4997ED",
+            "source": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_499790"
+          }
+        ],
+        "business_format_points": [
+          {
+            "parent_entry": "0x499790",
+            "call_site": "0x4997C7",
+            "target_entry": "0x53B304",
+            "format_address": "0x58722C",
+            "format_bytes": "4450202020252b396400",
+            "argument_widths": [
+              "S32"
+            ],
+            "source_expression_group": "battle_dp_delta",
+            "source_expression": "delta",
+            "source_format_expression": "\"DP   %+9d\"",
+            "relationship": "输入-1时，固定window→共享CB0F78写tick+5000→借World FF0D04 S32→该window元素2 text直接写"
+          },
+          {
+            "parent_entry": "0x499790",
+            "call_site": "0x4997ED",
+            "target_entry": "0x53B304",
+            "format_address": "0x587220",
+            "format_bytes": "546f74616c25396400",
+            "argument_widths": [
+              "S32"
+            ],
+            "source_expression_group": "battle_dp_total",
+            "source_expression": "total",
+            "source_format_expression": "\"Total%9d\"",
+            "relationship": "第一格式后重新取当前window，借World FF0D08 S32→该window元素3 text直接写；随后仍进入共享计时公共尾"
+          }
+        ],
+        "verification_level": "原44仅统计，本步只读34格式/参数/消费邻窗，余10及已过主更新/计时/核心不重验。两原真实点/两现callee、58722C/587220两原字节、S32来源与两次window取样/元素2→3直接消费顺序及整份源仅两标识符限定静态核对；54E7B0一data/普通caller0只登记，未构建或执行。"
+      }
+    },
+    {
+      "index": 1580,
+      "record": {
+        "original_entry": "0x51C7D0",
+        "inventory_id": "F:0011C7D0",
+        "original_role": "DrawNormalScene_51C7D0",
+        "original_end_exclusive": "0x51d447",
+        "instruction_count": 736,
+        "status": "BSA01两完整主地图根正常基线纳管；控制器八片段恢复六原空调用/两先读发布，初始化已有正文保持；完整依赖与运行未验",
+        "sources": [
+          {
+            "path": "src/world/SceneState.cpp",
+            "symbols": [
+              "DrawNormalScene_51C7D0"
+            ],
+            "relationship": "完整736条3191B/十一页，219call（207direct/62callee、九Tick与三表面indirect）/54jump/14RET，唯一WorldUpdate51C430@51C63C。原253值/23压缩目标/22具名状态与default、同帧fallthrough/goto/5及30等待、地图/输入/窗口/队列/计时和已批表面替换保持。六真实空509080原点恢复，仍空返回不新业务；状态3两tuple mask-encoded-W8先读齐再pub、两独立zero/one原2construct2destroy/RNG及目标vft-padding保，前组已有staging不改。音频现接线保持/仍暂停，不新验全部62provider/SDK或像素运行。"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-baseline",
+          "doc/cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-decision",
+          "doc/cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-acceptance",
+          "doc/cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-source-state",
+          "doc/cg2d_normal_scene_controller_callee_order_evidence.json"
+        ],
+        "boundary": "完整736条3191B/十一页，219call（207direct/62callee、九Tick与三表面indirect）/54jump/14RET，唯一WorldUpdate51C430@51C63C。原253值/23压缩目标/22具名状态与default、同帧fallthrough/goto/5及30等待、地图/输入/窗口/队列/计时和已批表面替换保持。六真实空509080原点恢复，仍空返回不新业务；状态3两tuple mask-encoded-W8先读齐再pub、两独立zero/one原2construct2destroy/RNG及目标vft-padding保，前组已有staging不改。音频现接线保持/仍暂停，不新验全部62provider/SDK或像素运行。 BSA01两完整主地图根924条3782B/十四页，226CALL含214direct/66callee与十二indirect（九Tick三原表面），61jump/十五RET；父唯一WorldUpdate51C63C、初始化两父51C820/51CF84。源SceneState控制器八片段恢复205/251/252三点及3共六空509080，沿既有RET空叶不造业务；两数值tuple mask-encoded-W8先读齐再pub，两独立zero/one原2construct2destroy和RNG/目的vft-padding保。其余22状态/253值23目标/default、同帧/5-30阈值/地图输入窗口/队列表面计时/非拥有引用/音频全文保持；初始化原dir→Y→X→image/三文本两分隔/HP-maxHP与五petmap首匹配/五W16清已有正确正文保，只補完整基线。两真实X362B为目标表92/值表253和17真NOP，五连续part、两本父data引用/无code入向、前RET后真入口，只mapped用途。两F1580/1581 normal equivalent/MAP66→68/语义1582有效1575/文档1693/3680（46.01%）/分类714/E820/R7 288余2773。无F/code区各7/pending18/差队列172与171缺定位43待归属/closed11/完整功能叶0/globalfalse和所有完整门禁保，U09/U11仅current/refs仍open。原正常值正确不称运行故障；所有callee/正常owner-alias寿命/资源像素/主地图/SDK-ABI与互通运行R8未验；原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。",
+        "verification_level": "BSA01两完整主地图根924条3782B/十四页，226CALL含214direct/66callee与十二indirect（九Tick三原表面），61jump/十五RET；父唯一WorldUpdate51C63C、初始化两父51C820/51CF84。源SceneState控制器八片段恢复205/251/252三点及3共六空509080，沿既有RET空叶不造业务；两数值tuple mask-encoded-W8先读齐再pub，两独立zero/one原2construct2destroy和RNG/目的vft-padding保。其余22状态/253值23目标/default、同帧/5-30阈值/地图输入窗口/队列表面计时/非拥有引用/音频全文保持；初始化原dir→Y→X→image/三文本两分隔/HP-maxHP与五petmap首匹配/五W16清已有正确正文保，只補完整基线。两真实X362B为目标表92/值表253和17真NOP，五连续part、两本父data引用/无code入向、前RET后真入口，只mapped用途。两F1580/1581 normal equivalent/MAP66→68/语义1582有效1575/文档1693/3680（46.01%）/分类714/E820/R7 288余2773。无F/code区各7/pending18/差队列172与171缺定位43待归属/closed11/完整功能叶0/globalfalse和所有完整门禁保，U09/U11仅current/refs仍open。原正常值正确不称运行故障；所有callee/正常owner-alias寿命/资源像素/主地图/SDK-ABI与互通运行R8未验；原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。",
+        "normal_scene_controller_callee_order": {
+          "spec_id": "BSA01",
+          "evidence_refs": [
+            "doc/cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-baseline",
+            "doc/cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-decision",
+            "doc/cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-acceptance",
+            "doc/cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-source-state",
+            "doc/cg2d_normal_scene_controller_callee_order_evidence.json"
+          ],
+          "full_original_root_captured": true,
+          "original_instruction_count": 736,
+          "original_code_bytes": 3191,
+          "original_chunk_count": 1,
+          "original_page_count": 11,
+          "original_call_count": 219,
+          "original_direct_call_count": 207,
+          "original_unique_direct_callee_count": 62,
+          "original_indirect_call_count": 12,
+          "original_code_inbound_count": 1,
+          "source_body_changed": true,
+          "source_patch_count": 8,
+          "normal_previous_values_wrong": false,
+          "restored_original_empty_call_count": 6,
+          "staged_three_field_group_count": 2,
+          "original_direct_construct_count": 2,
+          "original_direct_destroy_count": 2,
+          "original_22_states_and_switch_kept": true,
+          "original_two_temporary_identities_kept": true,
+          "original_state_widths_vft_padding_and_return_kept": true,
+          "original_numeric_carrier_rng_order_kept": true,
+          "no_network_algorithm_changed": true,
+          "dependency_r7_classification_count": 2,
+          "existing_audio_wiring_unchanged": true,
+          "audio_pause_kept": true,
+          "full_normal_source_static_mapped": true,
+          "full_sdk_verified": false,
+          "full_lifecycle_closed": false,
+          "runtime_verified": false,
+          "fault_equivalence_claimed": false
+        }
+      }
+    },
+    {
+      "index": 1216,
+      "record": {
+        "original_entry": "0x00512E40",
+        "inventory_id": "F:00112E40",
+        "status": "NDR01接收分派原账号与85文本取值顺序已修；仅限定映射，原5779条整根/整数路径/全部回复与owner/运行未闭",
+        "original_chunks": [
+          [
+            "0x00512E40",
+            "0x00516B5D"
+          ]
+        ],
+        "original_instruction_count": 5779,
+        "original_byte_count": 15645,
+        "original_direct_reference_count": 1,
+        "sources": [
+          {
+            "path": "src/network/NetworkRuntime.cpp",
+            "symbols": [
+              "NetworkDispatch_512E40",
+              "DecodeDispatchArgument",
+              "DecodeDispatchArguments",
+              "TryDispatchReply"
+            ],
+            "relationship": "既有父与三个模板限定修改；37块/32掩码/一账号引用，不记整根5779条逐段已验"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_dispatch_account_field_read_spec.md",
+          "doc/cg2d_dispatch_account_field_read_evidence.json",
+          "doc/cg2d_network_dispatch.md",
+          "doc/cg2d_network_runtime.md",
+          "doc/cg2d_workspace_byte_pointer_spec.md",
+          "doc/cg2d_workspace_byte_pointer_evidence.json"
+        ],
+        "boundary": "原512E8D账号操作数DA38DC、512E94密码DA3A5C；现有两个64B char owner独立，错误DA3A1C改原DA38DC，不执行/改可执行文件校验。108原命令含NUL字节与既有顺序、85源字段槽=同编号工作区槽=源码T位置具名；38处/32命令工作区基址→容量→槽，47处容量→基址→槽。文本解码后才两次取值，各字段先完成再下字段；私有掩码不进协议/状态，不造owner。108 callback/类型/位置与首105返回0/末三继续比较和尾-1保持。限定原操作数/窗口/接口映射，不归档或验收整根5779条/所有整数路径/108回复，不新增R1整根处置；owner/alias/真实ABI/链接/失败/明文互通与运行仍待，音频暂停/算法叶排除及RPLAN.24保持。；2026-10-05 NWT01已证DA3F98的90直接引用仅三父及85文本字段，workspaceSlots/借用快照/表与元素分配/目的槽收敛std::uint8_t**/std::uint8_t*，18槽/SDK同域、原失败/不清槽/退出/两类读序不改；未知间接alias/owner/重进及整分派/整数/回复/真实ABI/运行不据此提升。",
+        "verification_level": "当前原会话账号四操作数/108命令字节/85文本窗口及源码同编号位置与38/47读取序静态核；一CPP37块、限定新语义/登记簿重放；未构建/测试/运行/摘要；NWT01五类型块及90直接引用限定对照，三父分类不重复增量",
+        "dispatch_account_field_contract": {
+          "group": "NDR01",
+          "spec": "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure",
+          "original_account": "0x00DA38DC",
+          "source_account": "login::gValueDA38DC",
+          "wrong_source_replaced": "login::gValueDA3A1C",
+          "commands": 108,
+          "text_fields": 85,
+          "workspace_before_capacity_fields": 38,
+          "capacity_before_workspace_fields": 47,
+          "masked_commands": 32,
+          "full_parent_verified": false,
+          "all_integer_paths_verified": false,
+          "new_r1_disposition": false,
+          "wire_format_changed": false,
+          "runtime_verified": false
+        },
+        "workspace_byte_pointer_contract": {
+          "group": "NWT01",
+          "spec": "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+          "type": "std::uint8_t**",
+          "element": "std::uint8_t*",
+          "slots": 18,
+          "allocator": "既有SDK malloc/free",
+          "new_owner": false,
+          "read_or_lifecycle_order_changed": false,
+          "full_owners_closed": false,
+          "runtime_verified": false
+        }
+      }
+    },
+    {
+      "index": 1807,
+      "record": {
+        "original_entry": "0x504180",
+        "inventory_id": "F:00104180",
+        "original_role": "504180保留scene10/原id门禁与真实99项查找；初始低BYTE类别仅门禁使用，查询返回后重读类别再取首选择样本，同样本判断类别2并送旧选择查找；另两分支各在原位置重读S8类别后写共享槽/dirty。",
+        "original_end_exclusive": "0x5042c6",
+        "original_chunks": [
+          [
+            "0x504180",
+            "0x5042c6"
+          ]
+        ],
+        "instruction_count": 85,
+        "status": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+        "sources": [
+          {
+            "path": "src/LegacyAudio.cpp",
+            "symbols": [
+              "Sub_504180"
+            ],
+            "relationship": "504180保留scene10/原id门禁与真实99项查找；初始低BYTE类别仅门禁使用，查询返回后重读类别再取首选择样本，同样本判断类别2并送旧选择查找；另两分支各在原位置重读S8类别后写共享槽/dirty。"
+          },
+          {
+            "path": "include/cg/LegacyAudio.hpp",
+            "symbols": [
+              "Sub_504180"
+            ],
+            "relationship": "既有U32 id/S32返回公开声明保持；历史模块内旧面板控制，不恢复音频实施"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
+          "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
+          "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
+          "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+        ],
+        "boundary": "504180保留scene10/原id门禁与真实99项查找；初始低BYTE类别仅门禁使用，查询返回后重读类别再取首选择样本，同样本判断类别2并送旧选择查找；另两分支各在原位置重读S8类别后写共享槽/dirty。 BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+        "verification_level": "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
+        "legacy_selection_category_sampling": {
+          "spec_id": "BWA01",
+          "evidence_refs": [
+            "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
+            "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
+            "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-acceptance",
+            "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state"
+          ],
+          "full_original_root_captured": true,
+          "original_instruction_count": 85,
+          "original_code_bytes": 326,
+          "original_page_count": 2,
+          "original_direct_call_count": 3,
+          "original_indirect_call_count": 0,
+          "original_jump_count": 18,
+          "original_return_count": 4,
+          "original_inbound_call_count": 99,
+          "original_inbound_data_reference_count": 0,
+          "original_total_instruction_count": 210,
+          "original_total_code_bytes": 681,
+          "original_total_page_count": 6,
+          "original_total_direct_call_count": 11,
+          "original_total_unique_direct_callee_count": 6,
+          "original_total_indirect_call_count": 0,
+          "original_total_jump_count": 38,
+          "original_total_return_count": 13,
+          "original_total_inbound_call_count": 267,
+          "original_total_inbound_tail_count": 0,
+          "original_total_inbound_data_reference_count": 0,
+          "source_body_changed": true,
+          "source_cpp_file_count": 1,
+          "source_header_file_count": 0,
+          "source_patch_count": 3,
+          "root_source_patch_count": 3,
+          "new_implementation_function_count": 0,
+          "new_helper_count": 0,
+          "new_api_count": 0,
+          "new_shared_owner_count": 0,
+          "new_I_claimed": true,
+          "producer_after_query_fresh_category_and_first_selection_snapshot_restored": true,
+          "two_branch_signed_category_reloads_restored": true,
+          "four_correct_control_bodies_kept": true,
+          "shared_three_U32_selection_slots_and_unique_99_row_owner_kept": true,
+          "category2_clear_fallback_third_slot_and_id100_Esc_condition_kept": true,
+          "all_other_cpp_and_paused_audio_bodies_and_actual_audio_calls_kept": true,
+          "wire_format_changed": false,
+          "encryption_added": false,
+          "audio_pause_kept": true,
+          "full_handler_dispatch_verified": false,
+          "full_all_parents_verified": false,
+          "full_all_callees_verified": false,
+          "full_lifecycle_closed": false,
+          "runtime_verified": false,
+          "machine_abi_verified": false,
+          "fault_equivalence_claimed": false
+        }
+      }
+    }
+  ],
+  "native_window31_binding": "    {3, 3, 245, 170, 150, 140, 0x80010101u, 4, gWindowElements56C2C8, &Sub_499790, &Sub_499830, &ReleaseWindow_4A4210}, // 31: 54E7B0"
+}

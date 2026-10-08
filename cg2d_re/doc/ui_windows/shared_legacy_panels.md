@@ -262,3 +262,11 @@ LegacyUiRecord.cpp一个既有体两个片段：入口initialX→initialWidth→
 五个旧面板控制入口完整210条681B/六页、11直接六目标/零间接、38跳13RET与267普通CALL纳管。一个CPP仅504180三个片段恢复查询后类别重取、首选择同样本及两个分支S8类别读取；四正确本体保持。三U32共享选择槽、99行唯一owner/初值/非拥有action/dirty布局、id0查找、类别2清除回退第三槽、id100/Esc条件与原返回保持，无新helper/API/owner，全部其它音频本体与现有播放调用保持，音频继续暂停。
 
 新原新1807..1811、五adapted F、公共UI49→54及两限定I/S登记；I仅三个取样片段，不重称四正确本体新实现。实际预期语义1812/有效1805、合同1922（52.23%）、F974/E1137；四任务和完整门禁仍open。历史模块名不改变本步旧UI控制职责。全267父/所有callee与正常寿命、旧表+04实际handler消费、商店模式生产及画面运行仍按原事实验收；原格式明文/RPLAN.24保持。
+
+## BWB01结果阶段生产消费与选择恢复基线（2026-10-08）
+
+[基线](../cg2d_legacy_result_stage_baseline_spec.md#result-stage-baseline)、[决定](../cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision)、[验收](../cg2d_legacy_result_stage_baseline_spec.md#result-stage-acceptance)、[状态](../cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state)及[原证](../cg2d_legacy_result_stage_baseline_evidence.json)。
+
+四个正确入口完整81条294B/四页，八直接六目标/零间接、11跳六RET及六CALL登记；两原父邻窗另列。DP回复先W16阶段2再依次解析/发布两S32值，既有hB/Gn分派保持；普通场景一次S16模式取样，1/2创建窗口30/31后的双槽清理、3恢复选择和其它正值只清阶段保持。战果四记录/技能十五记录完整W16扫描，恢复先真实选择发布再清CAFEA0；旧1569/Gn与914/现代窗口31原生绑定及父记录保持，不混入旧采集结果页或重造owner。
+
+零源码改动/零新增I，四原新1812..1815及四adapted F，公共UI54→56/网络68→69/战斗264→265，各一个限定S；语义1816/有效1809、合同1926（52.34%）、F978/E1140。四任务与完整枚举/gates保持open，所有生产/其它消费者、正常owner/alias寿命、网络往返与画面运行继续原验收；原格式明文、音频暂停及RPLAN.24保持。

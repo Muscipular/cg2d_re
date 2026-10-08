@@ -63,3 +63,11 @@ bit2置时向固定窗口置8000H后SE57。随后仍写最初图形载荷：
 局部 SPEC 与裁决：仅两现callee接4997C7/4997ED，S32(value)/返回1及全部正文保持。输入恰-1时先取tick、固定window、发布共享U32 CB0F78=tick+5000，借World FF0D04 S32变化值直接格式到该window元素2 text；再重新取当前window，借FF0D08 S32总量直接格式到元素3 text。保留DP三个空格、%+9d与Total%9d的符号/宽度；不复制共享数值或新增计时owner。随后仍重取tick，仅共享到期tick严格小于当前tick才关闭，原回调/绘制/音频暂停边界不动，不改关联函数、不增清理/保护或一次性标志，不据本步验收完整窗口31/父路由/画面或运行。
 
 原44仅统计，本步只读34格式/参数/消费邻窗，余10及已过主更新/计时/核心不重验。两原真实点/两现callee、58722C/587220两原字节、S32来源与两次window取样/元素2→3直接消费顺序及整份源仅两标识符限定静态核对；54E7B0一data/普通caller0只登记，未构建或执行。 语义记录914→915，其他913旧记录/pending18/分类4及其余顶层保持；已接498→500/已确认1023，余523，其中499个IDA直接引用+1个既有原字节补证；原1022直接引用/补证字段保持，格式常量126→128。
+
+## BWB01结果阶段生产消费与选择恢复基线（2026-10-08）
+
+[基线](../cg2d_legacy_result_stage_baseline_spec.md#result-stage-baseline)、[决定](../cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision)、[验收](../cg2d_legacy_result_stage_baseline_spec.md#result-stage-acceptance)、[状态](../cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state)及[原证](../cg2d_legacy_result_stage_baseline_evidence.json)。
+
+四个正确入口完整81条294B/四页，八直接六目标/零间接、11跳六RET及六CALL登记；两原父邻窗另列。DP回复先W16阶段2再依次解析/发布两S32值，既有hB/Gn分派保持；普通场景一次S16模式取样，1/2创建窗口30/31后的双槽清理、3恢复选择和其它正值只清阶段保持。战果四记录/技能十五记录完整W16扫描，恢复先真实选择发布再清CAFEA0；旧1569/Gn与914/现代窗口31原生绑定及父记录保持，不混入旧采集结果页或重造owner。
+
+零源码改动/零新增I，四原新1812..1815及四adapted F，公共UI54→56/网络68→69/战斗264→265，各一个限定S；语义1816/有效1809、合同1926（52.34%）、F978/E1140。四任务与完整枚举/gates保持open，所有生产/其它消费者、正常owner/alias寿命、网络往返与画面运行继续原验收；原格式明文、音频暂停及RPLAN.24保持。

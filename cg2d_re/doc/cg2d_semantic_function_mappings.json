@@ -207550,6 +207550,416 @@
         "machine_abi_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x54769b",
+      "inventory_id": "F:0014769B",
+      "original_role": "54769B完整原掩码处理：条件W32低五位按8/4/1/2优先级及最后16，原CW低位/RC选择保；真实54791B状态调用五处、54623E分解一处。原x87比较/F64落存、四RC结果分支、-600指数调整/有符号阈值与W32右移丢失位/符号恢复/选择性写出和剩余位0/1返回保，结果指针借用不持有，不加新钳制/输入限制。",
+      "original_end_exclusive": "0x5478b2",
+      "original_chunks": [
+        [
+          "0x54769b",
+          "0x5478b2"
+        ]
+      ],
+      "instruction_count": 189,
+      "status": "BWH01开发原掩码处理及三真实依赖54769B/54791B/54623E/5461BB，四完整313条855B/七页、八direct三callee/零indirect/57跳四RET/九CALL入向；87except父取证独列。三现文件六追加：两CPP/四ASM六本体、两C桥，两个ST0接口仅ASM间。原优先位/RC结果、F64落存、S32指数/双W32移位/丢失位/选择性写出及剩余位0/1返回、原低BYTE状态生产操作/等待与两次真实指数设置保。72B分解/88B处理正常展开帧、Win64借用槽和已证F64/T80常量保，额外W16不补零/业务化，无新owner/宿主数学或额外保护/故障样例。四新原新/F、CRT169限定I-S，定位157/CRT余29；完整87except/raise/范围与pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "HandleLegacyMathException_54769B"
+          ],
+          "relationship": "54769B完整原掩码处理：条件W32低五位按8/4/1/2优先级及最后16，原CW低位/RC选择保；真实54791B状态调用五处、54623E分解一处。原x87比较/F64落存、四RC结果分支、-600指数调整/有符号阈值与W32右移丢失位/符号恢复/选择性写出和剩余位0/1返回保，结果指针借用不持有，不加新钳制/输入限制。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "HandleLegacyMathException_54769B",
+            "Cg2dHandleLegacyMathException"
+          ],
+          "relationship": "原W32条件/控制/状态与借用F64指针、S32处理返回或原状态生产void接口，不持有/不扩非地址字段"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dHandleLegacyMathException",
+            "Cg2dSetLegacyRawX87Status",
+            "Cg2dDecomposeLegacyFloatX87",
+            "LegacyMaximum5923D0"
+          ],
+          "relationship": "真实原处理/状态本体，八内部CALL与原F64/T80数据和硬件边界保，原之外不加保护或故障样例"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_masked_handler_spec.md#math-masked-baseline",
+        "doc/cg2d_math_masked_handler_spec.md#math-masked-decision",
+        "doc/cg2d_math_masked_handler_spec.md#math-masked-acceptance",
+        "doc/cg2d_math_masked_handler_spec.md#math-masked-source-state"
+      ],
+      "boundary": "54769B完整原掩码处理：条件W32低五位按8/4/1/2优先级及最后16，原CW低位/RC选择保；真实54791B状态调用五处、54623E分解一处。原x87比较/F64落存、四RC结果分支、-600指数调整/有符号阈值与W32右移丢失位/符号恢复/选择性写出和剩余位0/1返回保，结果指针借用不持有，不加新钳制/输入限制。 BWH01开发原掩码处理及三真实依赖54769B/54791B/54623E/5461BB，四完整313条855B/七页、八direct三callee/零indirect/57跳四RET/九CALL入向；87except父取证独列。三现文件六追加：两CPP/四ASM六本体、两C桥，两个ST0接口仅ASM间。原优先位/RC结果、F64落存、S32指数/双W32移位/丢失位/选择性写出及剩余位0/1返回、原低BYTE状态生产操作/等待与两次真实指数设置保。72B分解/88B处理正常展开帧、Win64借用槽和已证F64/T80常量保，额外W16不补零/业务化，无新owner/宿主数学或额外保护/故障样例。四新原新/F、CRT169限定I-S，定位157/CRT余29；完整87except/raise/范围与pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWH01开发原掩码处理及三真实依赖54769B/54791B/54623E/5461BB，四完整313条855B/七页、八direct三callee/零indirect/57跳四RET/九CALL入向；87except父取证独列。三现文件六追加：两CPP/四ASM六本体、两C桥，两个ST0接口仅ASM间。原优先位/RC结果、F64落存、S32指数/双W32移位/丢失位/选择性写出及剩余位0/1返回、原低BYTE状态生产操作/等待与两次真实指数设置保。72B分解/88B处理正常展开帧、Win64借用槽和已证F64/T80常量保，额外W16不补零/业务化，无新owner/宿主数学或额外保护/故障样例。四新原新/F、CRT169限定I-S，定位157/CRT余29；完整87except/raise/范围与pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_masked_handler": {
+        "spec_id": "BWH01",
+        "evidence_refs": [
+          "doc/cg2d_math_masked_handler_spec.md#math-masked-baseline",
+          "doc/cg2d_math_masked_handler_spec.md#math-masked-decision",
+          "doc/cg2d_math_masked_handler_spec.md#math-masked-acceptance",
+          "doc/cg2d_math_masked_handler_spec.md#math-masked-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 189,
+        "original_code_bytes": 535,
+        "original_page_count": 3,
+        "original_direct_call_count": 6,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 40,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "original_total_instruction_count": 313,
+        "original_total_code_bytes": 855,
+        "original_total_page_count": 7,
+        "original_total_direct_call_count": 8,
+        "original_total_unique_direct_callee_count": 3,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 57,
+        "original_total_return_count": 4,
+        "original_total_inbound_call_count": 9,
+        "full_87except_parent_reverified_as_implemented": false,
+        "parent_instruction_evidence_separate": true,
+        "source_body_added": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 6,
+        "new_original_mapped_function_count": 4,
+        "new_native_function_body_count": 6,
+        "new_cpp_body_count": 2,
+        "new_asm_proc_count": 4,
+        "new_private_C_bridge_count": 2,
+        "new_shared_owner_count": 0,
+        "original_priority_RC_choices_status_production_and_remaining_bit_return_kept": true,
+        "original_F64_boundaries_S32_exponent_signed_thresholds_double_W32_shifts_loss_sample_and_selective_publish_kept": true,
+        "original_handler_five_status_one_decomposition_calls_and_two_exponent_calls_connected": true,
+        "original_low_BYTE_status_operations_waits_and_current_hardware_control_kept": true,
+        "no_added_fault_injection_sample_or_simulation_gate": true,
+        "original_decomposition_zero_ZF_denormal_sign_normal_AND_AX_and_index_publish_kept": true,
+        "original_set_exponent_AND_CX_word_store_F64_roundtrip_kept": true,
+        "two_ST0_interfaces_only_between_ASM_functions": true,
+        "unconsumed_extra_W16_not_filled_or_business_input": true,
+        "native_72B_88B_frames_shadow_slots_and_only_proven_pointers_widened": true,
+        "no_new_owner_host_math_CW_MXCSR_clear_or_extra_protection_policy": true,
+        "old_environment_classification_integer_helpers_hardware_leaves_startup_map_and_build_rules_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_generic_pow_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x54791b",
+      "inventory_id": "F:0014791B",
+      "original_role": "54791B原低BYTE样本保，按1/8/10H/4/20H次序执行原F80常量FLD/FISTP/FSTP/FSTSW、FDIVRP、FLDPI及等待，依当前x87控制字生产原状态。仅原算法操作，没有新增清除/MXCSR/环境改写或额外故障样例/注入门禁。",
+      "original_end_exclusive": "0x547971",
+      "original_chunks": [
+        [
+          "0x54791b",
+          "0x547971"
+        ]
+      ],
+      "instruction_count": 36,
+      "status": "BWH01开发原掩码处理及三真实依赖54769B/54791B/54623E/5461BB，四完整313条855B/七页、八direct三callee/零indirect/57跳四RET/九CALL入向；87except父取证独列。三现文件六追加：两CPP/四ASM六本体、两C桥，两个ST0接口仅ASM间。原优先位/RC结果、F64落存、S32指数/双W32移位/丢失位/选择性写出及剩余位0/1返回、原低BYTE状态生产操作/等待与两次真实指数设置保。72B分解/88B处理正常展开帧、Win64借用槽和已证F64/T80常量保，额外W16不补零/业务化，无新owner/宿主数学或额外保护/故障样例。四新原新/F、CRT169限定I-S，定位157/CRT余29；完整87except/raise/范围与pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "SetLegacyRawX87Status_54791B"
+          ],
+          "relationship": "54791B原低BYTE样本保，按1/8/10H/4/20H次序执行原F80常量FLD/FISTP/FSTP/FSTSW、FDIVRP、FLDPI及等待，依当前x87控制字生产原状态。仅原算法操作，没有新增清除/MXCSR/环境改写或额外故障样例/注入门禁。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "SetLegacyRawX87Status_54791B",
+            "Cg2dSetLegacyRawX87Status"
+          ],
+          "relationship": "原W32条件/控制/状态与借用F64指针、S32处理返回或原状态生产void接口，不持有/不扩非地址字段"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dSetLegacyRawX87Status",
+            "LegacyStatusHuge5925BC",
+            "LegacyStatusTiny5925C8"
+          ],
+          "relationship": "真实原处理/状态本体，八内部CALL与原F64/T80数据和硬件边界保，原之外不加保护或故障样例"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_masked_handler_spec.md#math-masked-baseline",
+        "doc/cg2d_math_masked_handler_spec.md#math-masked-decision",
+        "doc/cg2d_math_masked_handler_spec.md#math-masked-acceptance",
+        "doc/cg2d_math_masked_handler_spec.md#math-masked-source-state"
+      ],
+      "boundary": "54791B原低BYTE样本保，按1/8/10H/4/20H次序执行原F80常量FLD/FISTP/FSTP/FSTSW、FDIVRP、FLDPI及等待，依当前x87控制字生产原状态。仅原算法操作，没有新增清除/MXCSR/环境改写或额外故障样例/注入门禁。 BWH01开发原掩码处理及三真实依赖54769B/54791B/54623E/5461BB，四完整313条855B/七页、八direct三callee/零indirect/57跳四RET/九CALL入向；87except父取证独列。三现文件六追加：两CPP/四ASM六本体、两C桥，两个ST0接口仅ASM间。原优先位/RC结果、F64落存、S32指数/双W32移位/丢失位/选择性写出及剩余位0/1返回、原低BYTE状态生产操作/等待与两次真实指数设置保。72B分解/88B处理正常展开帧、Win64借用槽和已证F64/T80常量保，额外W16不补零/业务化，无新owner/宿主数学或额外保护/故障样例。四新原新/F、CRT169限定I-S，定位157/CRT余29；完整87except/raise/范围与pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWH01开发原掩码处理及三真实依赖54769B/54791B/54623E/5461BB，四完整313条855B/七页、八direct三callee/零indirect/57跳四RET/九CALL入向；87except父取证独列。三现文件六追加：两CPP/四ASM六本体、两C桥，两个ST0接口仅ASM间。原优先位/RC结果、F64落存、S32指数/双W32移位/丢失位/选择性写出及剩余位0/1返回、原低BYTE状态生产操作/等待与两次真实指数设置保。72B分解/88B处理正常展开帧、Win64借用槽和已证F64/T80常量保，额外W16不补零/业务化，无新owner/宿主数学或额外保护/故障样例。四新原新/F、CRT169限定I-S，定位157/CRT余29；完整87except/raise/范围与pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_masked_handler": {
+        "spec_id": "BWH01",
+        "evidence_refs": [
+          "doc/cg2d_math_masked_handler_spec.md#math-masked-baseline",
+          "doc/cg2d_math_masked_handler_spec.md#math-masked-decision",
+          "doc/cg2d_math_masked_handler_spec.md#math-masked-acceptance",
+          "doc/cg2d_math_masked_handler_spec.md#math-masked-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 36,
+        "original_code_bytes": 86,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 5,
+        "original_return_count": 1,
+        "original_inbound_call_count": 5,
+        "original_total_instruction_count": 313,
+        "original_total_code_bytes": 855,
+        "original_total_page_count": 7,
+        "original_total_direct_call_count": 8,
+        "original_total_unique_direct_callee_count": 3,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 57,
+        "original_total_return_count": 4,
+        "original_total_inbound_call_count": 9,
+        "full_87except_parent_reverified_as_implemented": false,
+        "parent_instruction_evidence_separate": true,
+        "source_body_added": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 6,
+        "new_original_mapped_function_count": 4,
+        "new_native_function_body_count": 6,
+        "new_cpp_body_count": 2,
+        "new_asm_proc_count": 4,
+        "new_private_C_bridge_count": 2,
+        "new_shared_owner_count": 0,
+        "original_priority_RC_choices_status_production_and_remaining_bit_return_kept": true,
+        "original_F64_boundaries_S32_exponent_signed_thresholds_double_W32_shifts_loss_sample_and_selective_publish_kept": true,
+        "original_handler_five_status_one_decomposition_calls_and_two_exponent_calls_connected": true,
+        "original_low_BYTE_status_operations_waits_and_current_hardware_control_kept": true,
+        "no_added_fault_injection_sample_or_simulation_gate": true,
+        "original_decomposition_zero_ZF_denormal_sign_normal_AND_AX_and_index_publish_kept": true,
+        "original_set_exponent_AND_CX_word_store_F64_roundtrip_kept": true,
+        "two_ST0_interfaces_only_between_ASM_functions": true,
+        "unconsumed_extra_W16_not_filled_or_business_input": true,
+        "native_72B_88B_frames_shadow_slots_and_only_proven_pointers_widened": true,
+        "no_new_owner_host_math_CW_MXCSR_clear_or_extra_protection_policy": true,
+        "old_environment_classification_integer_helpers_hardware_leaves_startup_map_and_build_rules_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_generic_pow_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x54623e",
+      "inventory_id": "F:0014623E",
+      "original_role": "54623E原F64输入复制到本调用槽，原FCOMP零/ZF与F64结果落存、次正规两W32移位和S32指数递减/符号复位、普通指数读取/AND AX/MOVSX/减3FE保；两次真实5461BB调用前F64落存、后F64结果存取保持，S32指数输出指针只借用，ST0返回仅ASM间。",
+      "original_end_exclusive": "0x5462ff",
+      "original_chunks": [
+        [
+          "0x54623e",
+          "0x5462ff"
+        ]
+      ],
+      "instruction_count": 72,
+      "status": "BWH01开发原掩码处理及三真实依赖54769B/54791B/54623E/5461BB，四完整313条855B/七页、八direct三callee/零indirect/57跳四RET/九CALL入向；87except父取证独列。三现文件六追加：两CPP/四ASM六本体、两C桥，两个ST0接口仅ASM间。原优先位/RC结果、F64落存、S32指数/双W32移位/丢失位/选择性写出及剩余位0/1返回、原低BYTE状态生产操作/等待与两次真实指数设置保。72B分解/88B处理正常展开帧、Win64借用槽和已证F64/T80常量保，额外W16不补零/业务化，无新owner/宿主数学或额外保护/故障样例。四新原新/F、CRT169限定I-S，定位157/CRT余29；完整87except/raise/范围与pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dDecomposeLegacyFloatX87"
+          ],
+          "relationship": "54623E原F64输入复制到本调用槽，原FCOMP零/ZF与F64结果落存、次正规两W32移位和S32指数递减/符号复位、普通指数读取/AND AX/MOVSX/减3FE保；两次真实5461BB调用前F64落存、后F64结果存取保持，S32指数输出指针只借用，ST0返回仅ASM间。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dSetLegacyFloatExponentX87"
+          ],
+          "relationship": "两处真实指数设置调用，调用前F64落存/调用后F64结果存取保，ST0只在ASM间"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_masked_handler_spec.md#math-masked-baseline",
+        "doc/cg2d_math_masked_handler_spec.md#math-masked-decision",
+        "doc/cg2d_math_masked_handler_spec.md#math-masked-acceptance",
+        "doc/cg2d_math_masked_handler_spec.md#math-masked-source-state"
+      ],
+      "boundary": "54623E原F64输入复制到本调用槽，原FCOMP零/ZF与F64结果落存、次正规两W32移位和S32指数递减/符号复位、普通指数读取/AND AX/MOVSX/减3FE保；两次真实5461BB调用前F64落存、后F64结果存取保持，S32指数输出指针只借用，ST0返回仅ASM间。 BWH01开发原掩码处理及三真实依赖54769B/54791B/54623E/5461BB，四完整313条855B/七页、八direct三callee/零indirect/57跳四RET/九CALL入向；87except父取证独列。三现文件六追加：两CPP/四ASM六本体、两C桥，两个ST0接口仅ASM间。原优先位/RC结果、F64落存、S32指数/双W32移位/丢失位/选择性写出及剩余位0/1返回、原低BYTE状态生产操作/等待与两次真实指数设置保。72B分解/88B处理正常展开帧、Win64借用槽和已证F64/T80常量保，额外W16不补零/业务化，无新owner/宿主数学或额外保护/故障样例。四新原新/F、CRT169限定I-S，定位157/CRT余29；完整87except/raise/范围与pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWH01开发原掩码处理及三真实依赖54769B/54791B/54623E/5461BB，四完整313条855B/七页、八direct三callee/零indirect/57跳四RET/九CALL入向；87except父取证独列。三现文件六追加：两CPP/四ASM六本体、两C桥，两个ST0接口仅ASM间。原优先位/RC结果、F64落存、S32指数/双W32移位/丢失位/选择性写出及剩余位0/1返回、原低BYTE状态生产操作/等待与两次真实指数设置保。72B分解/88B处理正常展开帧、Win64借用槽和已证F64/T80常量保，额外W16不补零/业务化，无新owner/宿主数学或额外保护/故障样例。四新原新/F、CRT169限定I-S，定位157/CRT余29；完整87except/raise/范围与pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_masked_handler": {
+        "spec_id": "BWH01",
+        "evidence_refs": [
+          "doc/cg2d_math_masked_handler_spec.md#math-masked-baseline",
+          "doc/cg2d_math_masked_handler_spec.md#math-masked-decision",
+          "doc/cg2d_math_masked_handler_spec.md#math-masked-acceptance",
+          "doc/cg2d_math_masked_handler_spec.md#math-masked-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 72,
+        "original_code_bytes": 193,
+        "original_page_count": 2,
+        "original_direct_call_count": 2,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 12,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "original_total_instruction_count": 313,
+        "original_total_code_bytes": 855,
+        "original_total_page_count": 7,
+        "original_total_direct_call_count": 8,
+        "original_total_unique_direct_callee_count": 3,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 57,
+        "original_total_return_count": 4,
+        "original_total_inbound_call_count": 9,
+        "full_87except_parent_reverified_as_implemented": false,
+        "parent_instruction_evidence_separate": true,
+        "source_body_added": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 6,
+        "new_original_mapped_function_count": 4,
+        "new_native_function_body_count": 6,
+        "new_cpp_body_count": 2,
+        "new_asm_proc_count": 4,
+        "new_private_C_bridge_count": 2,
+        "new_shared_owner_count": 0,
+        "original_priority_RC_choices_status_production_and_remaining_bit_return_kept": true,
+        "original_F64_boundaries_S32_exponent_signed_thresholds_double_W32_shifts_loss_sample_and_selective_publish_kept": true,
+        "original_handler_five_status_one_decomposition_calls_and_two_exponent_calls_connected": true,
+        "original_low_BYTE_status_operations_waits_and_current_hardware_control_kept": true,
+        "no_added_fault_injection_sample_or_simulation_gate": true,
+        "original_decomposition_zero_ZF_denormal_sign_normal_AND_AX_and_index_publish_kept": true,
+        "original_set_exponent_AND_CX_word_store_F64_roundtrip_kept": true,
+        "two_ST0_interfaces_only_between_ASM_functions": true,
+        "unconsumed_extra_W16_not_filled_or_business_input": true,
+        "native_72B_88B_frames_shadow_slots_and_only_proven_pointers_widened": true,
+        "no_new_owner_host_math_CW_MXCSR_clear_or_extra_protection_policy": true,
+        "old_environment_classification_integer_helpers_hardware_leaves_startup_map_and_build_rules_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_generic_pow_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x5461bb",
+      "inventory_id": "F:001461BB",
+      "original_role": "5461BB原S32指数加3FE/移4、高端W32读取但只AND CX低W16/OR后写AX，真实FLD/FSTP F64落存及修改结果高W16再FLD/ST0返回保；额外高W16不补零/业务消费，无CPP F64返回或宿主frexp/ldexp替代。",
+      "original_end_exclusive": "0x5461e4",
+      "original_chunks": [
+        [
+          "0x5461bb",
+          "0x5461e4"
+        ]
+      ],
+      "instruction_count": 16,
+      "status": "BWH01开发原掩码处理及三真实依赖54769B/54791B/54623E/5461BB，四完整313条855B/七页、八direct三callee/零indirect/57跳四RET/九CALL入向；87except父取证独列。三现文件六追加：两CPP/四ASM六本体、两C桥，两个ST0接口仅ASM间。原优先位/RC结果、F64落存、S32指数/双W32移位/丢失位/选择性写出及剩余位0/1返回、原低BYTE状态生产操作/等待与两次真实指数设置保。72B分解/88B处理正常展开帧、Win64借用槽和已证F64/T80常量保，额外W16不补零/业务化，无新owner/宿主数学或额外保护/故障样例。四新原新/F、CRT169限定I-S，定位157/CRT余29；完整87except/raise/范围与pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dSetLegacyFloatExponentX87"
+          ],
+          "relationship": "5461BB原S32指数加3FE/移4、高端W32读取但只AND CX低W16/OR后写AX，真实FLD/FSTP F64落存及修改结果高W16再FLD/ST0返回保；额外高W16不补零/业务消费，无CPP F64返回或宿主frexp/ldexp替代。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_masked_handler_spec.md#math-masked-baseline",
+        "doc/cg2d_math_masked_handler_spec.md#math-masked-decision",
+        "doc/cg2d_math_masked_handler_spec.md#math-masked-acceptance",
+        "doc/cg2d_math_masked_handler_spec.md#math-masked-source-state"
+      ],
+      "boundary": "5461BB原S32指数加3FE/移4、高端W32读取但只AND CX低W16/OR后写AX，真实FLD/FSTP F64落存及修改结果高W16再FLD/ST0返回保；额外高W16不补零/业务消费，无CPP F64返回或宿主frexp/ldexp替代。 BWH01开发原掩码处理及三真实依赖54769B/54791B/54623E/5461BB，四完整313条855B/七页、八direct三callee/零indirect/57跳四RET/九CALL入向；87except父取证独列。三现文件六追加：两CPP/四ASM六本体、两C桥，两个ST0接口仅ASM间。原优先位/RC结果、F64落存、S32指数/双W32移位/丢失位/选择性写出及剩余位0/1返回、原低BYTE状态生产操作/等待与两次真实指数设置保。72B分解/88B处理正常展开帧、Win64借用槽和已证F64/T80常量保，额外W16不补零/业务化，无新owner/宿主数学或额外保护/故障样例。四新原新/F、CRT169限定I-S，定位157/CRT余29；完整87except/raise/范围与pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWH01开发原掩码处理及三真实依赖54769B/54791B/54623E/5461BB，四完整313条855B/七页、八direct三callee/零indirect/57跳四RET/九CALL入向；87except父取证独列。三现文件六追加：两CPP/四ASM六本体、两C桥，两个ST0接口仅ASM间。原优先位/RC结果、F64落存、S32指数/双W32移位/丢失位/选择性写出及剩余位0/1返回、原低BYTE状态生产操作/等待与两次真实指数设置保。72B分解/88B处理正常展开帧、Win64借用槽和已证F64/T80常量保，额外W16不补零/业务化，无新owner/宿主数学或额外保护/故障样例。四新原新/F、CRT169限定I-S，定位157/CRT余29；完整87except/raise/范围与pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_masked_handler": {
+        "spec_id": "BWH01",
+        "evidence_refs": [
+          "doc/cg2d_math_masked_handler_spec.md#math-masked-baseline",
+          "doc/cg2d_math_masked_handler_spec.md#math-masked-decision",
+          "doc/cg2d_math_masked_handler_spec.md#math-masked-acceptance",
+          "doc/cg2d_math_masked_handler_spec.md#math-masked-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 16,
+        "original_code_bytes": 41,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_call_count": 2,
+        "original_total_instruction_count": 313,
+        "original_total_code_bytes": 855,
+        "original_total_page_count": 7,
+        "original_total_direct_call_count": 8,
+        "original_total_unique_direct_callee_count": 3,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 57,
+        "original_total_return_count": 4,
+        "original_total_inbound_call_count": 9,
+        "full_87except_parent_reverified_as_implemented": false,
+        "parent_instruction_evidence_separate": true,
+        "source_body_added": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 6,
+        "new_original_mapped_function_count": 4,
+        "new_native_function_body_count": 6,
+        "new_cpp_body_count": 2,
+        "new_asm_proc_count": 4,
+        "new_private_C_bridge_count": 2,
+        "new_shared_owner_count": 0,
+        "original_priority_RC_choices_status_production_and_remaining_bit_return_kept": true,
+        "original_F64_boundaries_S32_exponent_signed_thresholds_double_W32_shifts_loss_sample_and_selective_publish_kept": true,
+        "original_handler_five_status_one_decomposition_calls_and_two_exponent_calls_connected": true,
+        "original_low_BYTE_status_operations_waits_and_current_hardware_control_kept": true,
+        "no_added_fault_injection_sample_or_simulation_gate": true,
+        "original_decomposition_zero_ZF_denormal_sign_normal_AND_AX_and_index_publish_kept": true,
+        "original_set_exponent_AND_CX_word_store_F64_roundtrip_kept": true,
+        "two_ST0_interfaces_only_between_ASM_functions": true,
+        "unconsumed_extra_W16_not_filled_or_business_input": true,
+        "native_72B_88B_frames_shadow_slots_and_only_proven_pointers_widened": true,
+        "no_new_owner_host_math_CW_MXCSR_clear_or_extra_protection_policy": true,
+        "old_environment_classification_integer_helpers_hardware_leaves_startup_map_and_build_rules_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_generic_pow_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

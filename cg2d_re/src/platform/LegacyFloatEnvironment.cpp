@@ -208,6 +208,20 @@ std::int32_t ControlLegacyRawX87_5478F8(
     return detail::Cg2dControlLegacyRawX87(value, mask);
 }
 
+// 原54769B；原条件/控制字决定结果与状态生产，完整分支及依赖留在ASM。
+std::int32_t HandleLegacyMathException_54769B(
+    const std::uint32_t conditions, double* const result,
+    const std::uint32_t control) noexcept
+{
+    return detail::Cg2dHandleLegacyMathException(conditions, result, control);
+}
+
+// 原54791B；只执行原已定义的x87状态生产操作，不借宿主状态接口。
+void SetLegacyRawX87Status_54791B(const std::uint32_t status) noexcept
+{
+    detail::Cg2dSetLegacyRawX87Status(status);
+}
+
 namespace detail {
 
 extern "C" std::int32_t Cg2dClassifyLegacySpecialFloat(

@@ -4091,3 +4091,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 新增1821..1825依次对应F:001478B2/D8/DB/E9/F8：SetLegacyMathErrno、DefaultLegacyMathError、ReadLegacyRawX87Status、ReadAndClearLegacyRawX87Status、ControlLegacyRawX87。五原身份对应八原生本体，不重复计三个ASM桥；共享errno只引用旧声明/定义，原零值叶与一已证记录类型不新增owner。
 
 按实际原指令辨明DB为等待读取、E9为读后清除；保旧完整S16符号扩展/W32控制输入，不借不同返回合同的抽象控制字或现代errno。原记录生产/87except/范围出口证据独列，当前承载类型不代生产/全父接线；五F/CRT165与两限定证据同步，pending18及完整门禁保持。
+
+## BWH01处理器整组内部依赖的四项映射（2026-10-08）
+
+[四完整原体/五原常量与源前后态](cg2d_math_masked_handler_evidence.json)、[原算法及真实接线](cg2d_math_masked_handler_spec.md#math-masked-decision)。
+
+新增1826/F:0014769B→HandleLegacyMathException与ASM处理器，1827/F:0014791B→SetLegacyRawX87Status与ASM状态叶，1828/F:0014623E→Cg2dDecomposeLegacyFloatX87，1829/F:001461BB→Cg2dSetLegacyFloatExponentX87。四原身份对应六原生本体，不给C桥另计F。
+
+原八CALL/三callee及两ST0合同保持，72B分解/88B处理正常Win64帧承接原值与已证指针。普通/次正规/零ZF、AND AX/CX和F64落存/高WORD改写、原位阈值与移位/符号恢复有据；未消费额外W16不填值/业务化。父87except取证独列，四F/CRT169及限定I/S不代完整父/运行，pending18保持。

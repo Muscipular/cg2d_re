@@ -174,3 +174,11 @@ NCE01已接业务copy/单owner、消息/析构及所有旧构析正文保持，�
 5478B2/D8/DB/E9/F8五完整42条105B/五页已开发，三现文件七追加、五CPP/三ASM与三私有桥。数学errno复用1085FE0单owner，1写33/2或3写34/其它不写且原输入照返；原零值叶不访问记录。保等待FSTSW、FNSTSW后FNCLEX与完整旧S16有符号返回、原W32掩码合并/低W16控制写和旧CW返回。
 
 原32B错误记录只扩已证名称指针为x64自然40B，S32/三个F64及未写字段不预填，当前只是类型承载，真实记录生产父继续。新1821..1825/五adapted F、CRT160→165限定I/S，定位166→161/未定位CRT38→33；完整87except/raise/handle及范围出口/两pow父和运行仍按原门禁推进。
+
+## BWH01完整数学掩码处理与三依赖开发（2026-10-08）
+
+[基线](cg2d_math_masked_handler_spec.md#math-masked-baseline)、[决定](cg2d_math_masked_handler_spec.md#math-masked-decision)、[验收](cg2d_math_masked_handler_spec.md#math-masked-acceptance)与[原证/完整源前后态](cg2d_math_masked_handler_evidence.json)。
+
+54769B处理器及54791B/54623E/5461BB三依赖已整组开发，四完整313条855B/七页、八direct三callee与九CALL入向。三现文件六追加、两CPP/四ASM六本体/两C桥，处理器五状态CALL/一分解CALL、分解两指数CALL都接真实本体。
+
+原优先/RC结果、F64边界、S32指数和双W32移位/丢失位/符号恢复/选择性写出、剩余位0/1返回及原状态生产/等待保持；两个ST0接口只在ASM间，无宿主数学/新保护或额外故障样例。四新映射/F、CRT165→169限定I/S，定位161→157/未定位CRT33→29；完整87except/raise/范围出口与pow父/FPU生命周期/机器运行继续原门禁。

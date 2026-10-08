@@ -40,6 +40,11 @@ std::int32_t ReadAndClearLegacyRawX87Status_5478E9() noexcept;
 std::int32_t ControlLegacyRawX87_5478F8(
     std::uint32_t value, std::uint32_t mask) noexcept;
 
+// 原54769B/54791B；原W32条件/CW和借用F64结果，x87合同见数学掩码处理SPEC。
+std::int32_t HandleLegacyMathException_54769B(
+    std::uint32_t conditions, double* result, std::uint32_t control) noexcept;
+void SetLegacyRawX87Status_54791B(std::uint32_t status) noexcept;
+
 // 原控制字抽象/硬件表示转换，只消费和生成原已定义位。
 std::uint32_t AbstractLegacyControlWord_5448A4(std::uint32_t hardware);
 std::uint32_t HardwareLegacyControlWord_544936(std::uint32_t abstractValue);
@@ -77,6 +82,11 @@ extern "C" std::int32_t Cg2dReadLegacyRawX87Status() noexcept;
 extern "C" std::int32_t Cg2dReadAndClearLegacyRawX87Status() noexcept;
 extern "C" std::int32_t Cg2dControlLegacyRawX87(
     std::uint32_t value, std::uint32_t mask) noexcept;
+
+// Win64真实处理/状态C桥；两分解/指数帮助体只在ASM内部返回ST(0)。
+extern "C" std::int32_t Cg2dHandleLegacyMathException(
+    std::uint32_t conditions, double* result, std::uint32_t control) noexcept;
+extern "C" void Cg2dSetLegacyRawX87Status(std::uint32_t status) noexcept;
 
 } // namespace detail
 } // namespace cg::platform

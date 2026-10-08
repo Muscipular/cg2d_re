@@ -9,6 +9,8 @@
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 #include <Windows.h>
+#include <mmsystem.h>
+#include <mmreg.h>
 #include <initguid.h>
 #include <dmo.h>
 #include <dsound.h>

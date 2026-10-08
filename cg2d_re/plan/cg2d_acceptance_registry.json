@@ -14,7 +14,7 @@
     "no_build": false,
     "no_tests": true,
     "no_hash": true,
-    "build_scope": "CAA01恢复必要SDL音频链接；CAB04/CAB05沿用户编译及连接修复授权复用现有Windows/MSVC/x64 Debug配置编译链接。测试/客户端运行/摘要限制保持，无关后续构建未自动恢复",
+    "build_scope": "CAA01恢复必要SDL音频链接；CAB04/CAB05及CAB15沿用户编译、连接修复和继续完善音频授权复用现有Windows/MSVC/x64 Debug配置完成相关必要编译链接。测试/客户端运行/摘要限制保持，无关后续构建未自动恢复",
     "audio_resumed_for_client_link": [
       "F:00054C30",
       "F:00054EE0",
@@ -1248,7 +1248,10 @@
         "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-baseline",
         "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
         "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract",
-        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state"
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
+        "doc/cg2d_build_acceptance_spec.md#current-audio-debug-build",
+        "doc/cg2d_client_link_sdl_audio_spec.md#current-audio-debug-source-state",
+        "doc/cg2d_current_audio_build_evidence.json"
       ],
       "original_inventory_ids": [
         "F:001202E0",
@@ -1294,7 +1297,10 @@
         "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision",
         "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
         "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract",
-        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state"
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
+        "doc/cg2d_build_acceptance_spec.md#current-audio-debug-build",
+        "doc/cg2d_client_link_sdl_audio_spec.md#current-audio-debug-source-state",
+        "doc/cg2d_current_audio_build_evidence.json"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1633,7 +1639,7 @@
       ],
       "blockers": [
         "本次只核两帧父成员；全部命令/回复/状态生产、数据与间接目标及生命周期枚举未闭合",
-      "murD音频依赖已恢复SDL3/WAV，CAB12已知AUDIO32有来源；当前新增源码未编译/运行，完整登录/明文互通、声音/设备/正常寿命和V03仍未验，R受执行限制",
+        "murD音频依赖已恢复SDL3/WAV，CAB12已知AUDIO32有来源；CAB15当前客户端/必要音频依赖已编译链接并部署，未运行。完整登录/原格式明文互通、声音/设备/正常寿命和V03仍未验，R受执行限制",
         "NWI01仅十五Winsock导入/跳板及26范围内API调用归属、八共享读取值时点；所有父/状态/字节与完整owner/alias/R1/R7、实际外部ABI/链接/互通及运行未闭，不以接口定位关闭FUNC-NETWORK",
         "NLC01七根/九协议块/18槽局部生产消费/失败退出已具名映射，九缓冲17共享取值/三发布序及单flags实修；未知全部父/owner/alias/重进/R1/R7、SDK ABI/链接/正常失败/明文互通及运行未闭",
         "NCS01仅517510完整命令体的局部S32校验和/ASCII状态发布源码校准；83调用父完整业务、全部owner/alias/动态边、实际CRT ABI/失败、真实收发与运行未闭。六上下文根不按本轮新增源码/审核重复计数",
@@ -4192,7 +4198,10 @@
         "doc/cg2d_fixed_wav_reverb_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-decision",
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-source-state",
-        "doc/cg2d_offline_bank_lifetime_evidence.json"
+        "doc/cg2d_offline_bank_lifetime_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#current-audio-debug-build",
+        "doc/cg2d_client_link_sdl_audio_spec.md#current-audio-debug-source-state",
+        "doc/cg2d_current_audio_build_evidence.json"
       ],
       "original_inventory_ids": [
         "F:00054C30",
@@ -4261,15 +4270,18 @@
         "doc/cg2d_fixed_wav_reverb_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-decision",
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-source-state",
-        "doc/cg2d_offline_bank_lifetime_evidence.json"
+        "doc/cg2d_offline_bank_lifetime_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#current-audio-debug-build",
+        "doc/cg2d_client_link_sdl_audio_spec.md#current-audio-debug-source-state",
+        "doc/cg2d_current_audio_build_evidence.json"
       ],
       "blockers": [
-        "CAB12剩余三原音色/loader身份已具名适配到实际离线载入/样本区域与清理，两寿命写点已修；AUDIO32已知身份有来源不代表成员枚举/全DLS/设备/失败/声音/正常寿命已闭。当前源码未编译/运行，旧99外层与完整门禁继续",
-        "CAB11原Waves四参数/两父配置和固定WAV PCM系统效果、重复尾音/关闭顺序源码已实现；仅系统注册/新增源静态，未编译或实际创建/处理/试听。剩余三音色/loader、旧99外层与全部状态/声音/正常寿命继续，完整门禁保持",
-        "CAB10四固定WAV控制入口、原FF初值字节/清0及父阶段接线已实现；五原职责来源可追，原音色/效果/loader四项继续；当前源码未编译或运行，完整失败/设备/声音/正常寿命与原生ABI仍待",
-        "CAB09共用18B MMIO头读取和音效/BGM父接线已修正；三原职责来源可追，剩余固定WAV九项继续，全部失败/资源/声音/正常寿命与当前源码编译运行仍待，局部静态不代完整门禁",
-        "CAB08流式首段完整PCM预填→ready→smpl终点发布已修正、四原职责有SDL来源；当前源码未编译/运行，全部失败/诊断状态、调度/波形与正常寿命仍未验，局部静态不代完整门禁",
-        "CAB07两音频设置初始化/完整页面及控件/CRT原生绑定源码已实现；scope=included只表示开发范围。真实旧99表外层接线、当前源码编译/运行与全部音频效果/寿命仍待",
+        "CAB12三原音色/loader身份已具名适配到实际离线载入/样本区域与清理，两寿命写点已修；CAB15当前客户端/转换器编译链接通过，工具未运行/WAV未重生成。AUDIO32已知身份有来源不代成员枚举/全DLS/设备/失败/声音/正常寿命，旧99外层及完整门禁继续",
+        "CAB11原Waves四参数/两父配置和固定WAV PCM效果、重复尾音/关闭顺序已实现；CAB15补两系统头解决实际编译错误，当前提供者已链接。实际效果创建/float32支持/处理/声音、旧99外层与全部状态/正常寿命仍待，注册/符号不代功能验收",
+        "CAB10四固定WAV控制、原FF初值/清0和父阶段接线已实现；CAB15当前客户端编译链接通过。音色/效果/loader具名来源已补，完整失败/设备/声音/正常寿命与原生ABI仍待",
+        "CAB09共用18B MMIO头和音效/BGM父接线已修，三原职责可追；CAB15当前客户端编译链接通过，全部失败/资源/声音/正常寿命与运行未验，局部来源/符号不代完整门禁",
+        "CAB08首段完整PCM预填→ready→smpl终点发布已修、四原职责有SDL来源；CAB15当前客户端编译链接通过，全部失败/诊断状态、调度/波形与正常寿命仍未验",
+        "CAB07两设置初始化/完整页面与原生绑定已实现并随CAB15当前客户端链接；真实旧99表外层接线、全部音频效果/寿命与运行仍待，scope=included只表示开发范围",
         "AUDIO32原成员枚举仍未闭；旧7/旧8、完整WAV/通知/生命周期及音源效果/听感、真实声音/失败/退出仍未验收；类型1原16B资源按用户最新要求视为空音频，停止旧播放后立即成功，零时长不循环"
       ],
       "gates": {},
@@ -53757,7 +53769,10 @@
         "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
         "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-source-state",
         "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
-        "doc/cg2d_client_link_sdl_audio_evidence.json"
+        "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#current-audio-debug-build",
+        "doc/cg2d_client_link_sdl_audio_spec.md#current-audio-debug-source-state",
+        "doc/cg2d_current_audio_build_evidence.json"
       ]
     },
     {
@@ -55392,7 +55407,10 @@
         "doc/cg2d_fixed_wav_reverb_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-decision",
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-source-state",
-        "doc/cg2d_offline_bank_lifetime_evidence.json"
+        "doc/cg2d_offline_bank_lifetime_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#current-audio-debug-build",
+        "doc/cg2d_client_link_sdl_audio_spec.md#current-audio-debug-source-state",
+        "doc/cg2d_current_audio_build_evidence.json"
       ]
     },
     {
@@ -55464,7 +55482,10 @@
         "doc/cg2d_fixed_wav_reverb_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-decision",
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-source-state",
-        "doc/cg2d_offline_bank_lifetime_evidence.json"
+        "doc/cg2d_offline_bank_lifetime_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#current-audio-debug-build",
+        "doc/cg2d_client_link_sdl_audio_spec.md#current-audio-debug-source-state",
+        "doc/cg2d_current_audio_build_evidence.json"
       ]
     },
     {
@@ -55504,7 +55525,10 @@
         "doc/cg2d_fixed_wav_reverb_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-decision",
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-source-state",
-        "doc/cg2d_offline_bank_lifetime_evidence.json"
+        "doc/cg2d_offline_bank_lifetime_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#current-audio-debug-build",
+        "doc/cg2d_client_link_sdl_audio_spec.md#current-audio-debug-source-state",
+        "doc/cg2d_current_audio_build_evidence.json"
       ]
     },
     {
@@ -98114,22 +98138,29 @@
     }
   ],
   "build_validation": {
-    "step": "CAB05",
+    "step": "CAB15",
     "recorded_on": "2026-10-09",
     "configuration": "Debug",
-    "source_snapshot": "cg2d-re-local-plaintext-login-20261009",
-    "configure_performed": false,
+    "source_snapshot": "cg2d-re-current-audio-build-20261009",
+    "configure_performed": true,
+    "configure_mode": "automatic-regeneration",
     "build_exit_code": 0,
-    "incremental_warning_count": 3,
-    "text_font_caret_diagnostic_count": 0,
+    "incremental_warning_count": 43,
+    "first_attempt_exit_code": 1,
+    "first_attempt_error_count": 13,
+    "first_attempt_warning_count": 95,
+    "audio_provider_diagnostic_count": 0,
+    "offline_converter_diagnostic_count": 0,
     "configure_exit_code": 0,
     "static_libraries_exit_code": 0,
     "client_link_exit_code": 0,
+    "converter_link_exit_code": 0,
     "client_link_passed": true,
     "unresolved_symbol_count": 0,
     "unresolved_paused_audio_count": 0,
     "client_link_accepted": true,
     "whole_project_accepted": false,
+    "note": "CAB15沿同一CAA01相关构建授权覆盖CAB06–14当前累计源码。CMake自动再配置成功，补混响两系统WAV头解决首轮13项实际错误；最终三库/客户端/独立转换器Debug编译链接返回0，0错误/43条WindowRuntime.cpp增量警告，音频提供者/离线工具无诊断。非全量警告数，未以补零/钳制/抑制降低标准。MAP限定符号确认，8024064B客户端已更新游戏目录并备份旧7980032B版；未运行客户端/工具、试听、测试、重生成WAV或计算摘要。当前链接通过，IP2登录/实际效果创建/格式/声音/正常寿命/机器ABI及整体SPEC未验收。",
     "evidence_refs": [
       "doc/cg2d_build_acceptance_spec.md",
       "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
@@ -98140,8 +98171,10 @@
       "doc/cg2d_build_acceptance_spec.md#gbk-songti-debug-build",
       "doc/cg2d_big5_to_gbk_evidence.json",
       "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
-      "doc/cg2d_local_plaintext_login_evidence.json"
-    ],
-    "note": "CAB05沿当前连接修复及编译授权完成Debug增量编译，三库及真实客户端链接返回0，0错误/3条既有C4244警告。游戏目录EXE已更新并备份旧版；未重新配置、测试、试包或启动客户端，完整登录/网络与整体SPEC仍未验收。 CAB06五个音频设置回调新增源码尚未编译，本构建记录仍对应CAB05快照，不代表当前源码链接通过。 CAB07两设置初始化/完整页面与两CRT构造新增源码亦未编译；本记录仍是CAB05快照。"
+      "doc/cg2d_local_plaintext_login_evidence.json",
+      "doc/cg2d_build_acceptance_spec.md#current-audio-debug-build",
+      "doc/cg2d_client_link_sdl_audio_spec.md#current-audio-debug-source-state",
+      "doc/cg2d_current_audio_build_evidence.json"
+    ]
   }
 }

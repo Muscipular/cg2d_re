@@ -41,7 +41,7 @@
 
 [构建记录](cg2d_build_acceptance_evidence.json)保存环境、命令/返回码、全量重建诊断、最终未解析符号及本步源码前后差异。原始完整日志仅保存在本地构建目录，不作为已验收运行证据。
 
-## CAA01 当前结果（2026-10-08）
+## CAA01 阶段结果（2026-10-08）
 
 用户随后要求“先完成客户端链接”“用sdl播音频”，已恢复必要五根音频开发和构建。[CAA01 SPEC](cg2d_client_link_sdl_audio_spec.md)明确SDL实际提供者与独立归档成员边界，替代上节“待恢复”的当前状态，BWZ01失败记录仍保留为历史。
 
@@ -60,3 +60,14 @@
 ## CAB05 本机明文连接修复编译（2026-10-09）
 
 按本次连接问题及既有编译授权，复用同一Debug预设编译NetworkRuntime.cpp；三库及真实客户端链接全部返回0，0错误、3条既有C4244警告，未重新配置。产物仍为7980032B，日志build/windows-msvc-x64/build-plaintext-login-20261009.log；游戏目录EXE已更新且旧版已备份。具体源差异与收发合同见[当前源码状态](cg2d_network_compatibility_spec.md#local-server-plaintext-source-state)及[CAB05记录](cg2d_local_plaintext_login_evidence.json)。未运行客户端或测试；登录互通、V02/V03及整体SPEC仍未验收。
+
+<a id="current-audio-debug-build"></a>
+## CAB15 当前音频及客户端 Debug 构建（2026-10-09）
+
+沿AGENTS第12条既有CAA01相关构建授权，执行现有 `cmake --build --preset windows-msvc-x64-debug --target cg2d_re_client cg2d_re_midi_to_wav --parallel 4`，覆盖CAB06–14当前累计源码及必要依赖。首次构建因CMakeLists变化自动再配置/生成成功，随后LegacyWavesReverb.cpp缺少系统WAV格式声明产生13项错误；仅在Windows.h后补mmsystem.h、mmreg.h，保持PCM、效果参数、线程及资源正文，不引入依赖或修改生成项目。第二轮三库、真实客户端及独立离线转换工具编译链接全部返回0，客户端完整链接成功，13项错误全部消失。
+
+最终日志 `build/windows-msvc-x64/build-current-audio-20261009-final.log` 记录0错误、43条WindowRuntime.cpp既有源码警告：C4244×20、C4456×2、C4701×20、C4703×1；新音频提供者和离线工具无诊断。首轮另有95条警告，两轮都是实际增量输出，不代表全量工程警告总数，尚未逐项完成原行为/ABI验收；不以补默认值、钳制或抑制警告降低标准。
+
+客户端MAP存在实际混响、流式BGM、共同PCM头、两设置页和两摆摊回调符号；LegacyMidiSynth/MidiToWav未进入客户端，转换器保持独立目标。客户端8024064B，转换器780800B。游戏目录 `H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2d_re_client.exe` 已更新，旧7980032B版本备份为同目录 `cg2d_re_client.exe.before-current-audio-20261009`；只核复制后长度，未计算摘要或逐字节比对。
+
+[CAB15记录](cg2d_current_audio_build_evidence.json)保存两轮实际诊断、修复、符号和部署事实，源码快照 `cg2d-re-current-audio-build-20261009`。未运行客户端/转换器、测试或算法，未重生成WAV、计算摘要。当前编译链接通过替代CAB05历史快照作为最新构建状态；实际IP2登录、系统效果创建/格式/声音、全部失败/正常寿命、V02/V05及整体SPEC仍未验收。

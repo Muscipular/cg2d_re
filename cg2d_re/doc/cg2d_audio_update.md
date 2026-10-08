@@ -1102,3 +1102,7 @@ Yobi 生命周期须共同确定 x64 owner 后，
 ## CAB12 离线音色寿命与原职责关联（2026-10-09）
 
 修正离线LoadBank失败保留旧音色的差异：入口先Clear后实际读取/解析，成功才发布；转换器最后PCM生产后显式Clear再close输出，提前退出析构清理同一owner。两源各一行且其余正文保持，未运行转换或改WAV。原454FE0/455100/455260三完整根138条450B、默认GUID与清理父有据，分别关联实际离线bank/样本区域/音符消费和现有SDL固定资源清理；[当前状态](cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-source-state)明确已知AUDIO32有来源不代表成员枚举/全DLS/原默认波形、全部失败/设备/通知/听感/正常寿命或当前编译运行通过，完整门禁与旧外层继续。
+
+## CAB15 当前音频编译与部署（2026-10-09）
+
+当前音频及依赖已完成Debug编译/链接：仅补系统混响两WAV格式头，首轮13项实际错误消失，三库/客户端/独立离线工具返回0。最终增量43条窗口源码警告，音频提供者/工具无诊断；客户端8024064B已更新用户游戏目录并备份旧版，MAP确认运行时未链接离线合成器。详见[当前构建](cg2d_client_link_sdl_audio_spec.md#current-audio-debug-source-state)和[记录](cg2d_current_audio_build_evidence.json)。未运行、试听、测试、转换或重生成WAV；旧设置页外层、实际效果创建/格式/声音及完整寿命/机器ABI/整体门禁保持开放。

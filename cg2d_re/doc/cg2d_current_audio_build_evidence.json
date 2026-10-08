@@ -1,0 +1,1381 @@
+{
+  "schema_version": 1,
+  "step": "CAB15",
+  "recorded_on": "2026-10-09",
+  "source_snapshot": "cg2d-re-current-audio-build-20261009",
+  "source_base_commit": "83141353",
+  "authority": {
+    "rules": "AGENTS.md#工具与验证限制",
+    "scope": "沿2026-10-08用户编译当前项目、客户端链接、SDL音频及继续完善音频授权，执行同一CAA01相关Debug必要构建；此前限成CAB05快照的解释已纠正",
+    "tests_allowed": false,
+    "runtime_allowed": false,
+    "hash_allowed": false
+  },
+  "environment": {
+    "working_directory": "D:/Source/cgmsv/cg3a/cg2d_re",
+    "preset": "windows-msvc-x64-debug",
+    "configuration": "Debug",
+    "msbuild_version": "18.5.4",
+    "windows_sdk_version": "10.0.26100.0",
+    "sdl3_version": "3.4.8",
+    "cmake": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe"
+  },
+  "commands": {
+    "build": "cmake --build --preset windows-msvc-x64-debug --target cg2d_re_client cg2d_re_midi_to_wav --parallel 4",
+    "configure": "首次构建因CMakeLists变化自动再配置/生成成功；未额外执行手动配置命令"
+  },
+  "source_change": {
+    "path": "src/platform/LegacyWavesReverb.cpp",
+    "added_system_headers": [
+      "mmsystem.h",
+      "mmreg.h"
+    ],
+    "added_lines": 2,
+    "removed_lines": 0,
+    "reason": "系统WAV格式声明及WAVE_FORMAT_IEEE_FLOAT必须在dsound/DMO相关头之前可见；首轮13项错误由实际诊断确认，两系统头修复后全部消失",
+    "other_body_unchanged": true,
+    "new_third_party_dependencies": false
+  },
+  "attempts": [
+    {
+      "log": "build/windows-msvc-x64/build-current-audio-20261009.log",
+      "exit_code": 1,
+      "error_count": 13,
+      "warning_count": 95,
+      "codes": {
+        "C2143": 1,
+        "C3646": 4,
+        "C2061": 6,
+        "C2065": 1,
+        "C2440": 1,
+        "C4244": 23,
+        "C4456": 9,
+        "C4701": 58,
+        "C4703": 5
+      },
+      "diagnostics": [
+        {
+          "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\dsound.h",
+          "line": 242,
+          "column": 28,
+          "level": "error",
+          "code": "C2143",
+          "message": "语法错误: 缺少“;”(在“*”的前面) [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\dsound.h",
+          "line": 361,
+          "column": 21,
+          "level": "error",
+          "code": "C3646",
+          "message": "“lpwfxFormat”: 未知重写说明符 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\dsound.h",
+          "line": 377,
+          "column": 21,
+          "level": "error",
+          "code": "C3646",
+          "message": "“lpwfxFormat”: 未知重写说明符 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\dsound.h",
+          "line": 428,
+          "column": 21,
+          "level": "error",
+          "code": "C3646",
+          "message": "“lpwfxFormat”: 未知重写说明符 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\dsound.h",
+          "line": 437,
+          "column": 21,
+          "level": "error",
+          "code": "C3646",
+          "message": "“lpwfxFormat”: 未知重写说明符 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\dsound.h",
+          "line": 707,
+          "column": 84,
+          "level": "error",
+          "code": "C2061",
+          "message": "语法错误: 标识符“LPWAVEFORMATEX” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\dsound.h",
+          "line": 718,
+          "column": 49,
+          "level": "error",
+          "code": "C2061",
+          "message": "语法错误: 标识符“LPCWAVEFORMATEX” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\dsound.h",
+          "line": 793,
+          "column": 84,
+          "level": "error",
+          "code": "C2061",
+          "message": "语法错误: 标识符“LPWAVEFORMATEX” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\dsound.h",
+          "line": 804,
+          "column": 49,
+          "level": "error",
+          "code": "C2061",
+          "message": "语法错误: 标识符“LPCWAVEFORMATEX” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\dsound.h",
+          "line": 1066,
+          "column": 84,
+          "level": "error",
+          "code": "C2061",
+          "message": "语法错误: 标识符“LPWAVEFORMATEX” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\dsound.h",
+          "line": 1125,
+          "column": 84,
+          "level": "error",
+          "code": "C2061",
+          "message": "语法错误: 标识符“LPWAVEFORMATEX” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\platform\\LegacyWavesReverb.cpp",
+          "line": 57,
+          "column": 29,
+          "level": "error",
+          "code": "C2065",
+          "message": "“WAVE_FORMAT_IEEE_FLOAT”: 未声明的标识符 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\platform\\LegacyWavesReverb.cpp",
+          "line": 70,
+          "column": 25,
+          "level": "error",
+          "code": "C2440",
+          "message": "“reinterpret_cast”: 无法从“WAVEFORMATEX *”转换为“BYTE *” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\LegacyUiRecord.cpp",
+          "line": 5150,
+          "column": 48,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int”转换到“const int8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\LegacyUiRecord.cpp",
+          "line": 9381,
+          "column": 48,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int”转换到“const int8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\LegacyUiRecord.cpp",
+          "line": 10063,
+          "column": 48,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int”转换到“const int8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 8096,
+          "column": 36,
+          "level": "warning",
+          "code": "C4456",
+          "message": "“index”的声明隐藏了上一个本地声明 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 8142,
+          "column": 36,
+          "level": "warning",
+          "code": "C4456",
+          "message": "“index”的声明隐藏了上一个本地声明 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 14943,
+          "column": 36,
+          "level": "warning",
+          "code": "C4456",
+          "message": "“casterPosition”的声明隐藏了上一个本地声明 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 14949,
+          "column": 36,
+          "level": "warning",
+          "code": "C4456",
+          "message": "“casterPosition”的声明隐藏了上一个本地声明 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 14956,
+          "column": 36,
+          "level": "warning",
+          "code": "C4456",
+          "message": "“casterPosition”的声明隐藏了上一个本地声明 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 14963,
+          "column": 36,
+          "level": "warning",
+          "code": "C4456",
+          "message": "“casterPosition”的声明隐藏了上一个本地声明 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 30186,
+          "column": 27,
+          "level": "warning",
+          "code": "C4456",
+          "message": "“gear”的声明隐藏了上一个本地声明 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 2957,
+          "column": 37,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“int32_t”转换到“int8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 3245,
+          "column": 37,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“int32_t”转换到“int8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 10532,
+          "column": 36,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“int”转换到“int16_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 10532,
+          "column": 26,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“int”转换到“int16_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 10821,
+          "column": 26,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“int”转换到“int16_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 10821,
+          "column": 19,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“int”转换到“int16_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 32223,
+          "column": 64,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“int”转换到“int16_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 32223,
+          "column": 57,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“int”转换到“int16_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 34915,
+          "column": 66,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 35105,
+          "column": 66,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 35134,
+          "column": 66,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 37078,
+          "column": 36,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 37082,
+          "column": 37,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 37086,
+          "column": 33,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 37089,
+          "column": 36,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 37101,
+          "column": 25,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 37103,
+          "column": 26,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 37105,
+          "column": 15,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 37244,
+          "column": 25,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 37280,
+          "column": 25,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 37447,
+          "column": 23,
+          "level": "warning",
+          "code": "C4456",
+          "message": "“index”的声明隐藏了上一个本地声明 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 37493,
+          "column": 23,
+          "level": "warning",
+          "code": "C4456",
+          "message": "“index”的声明隐藏了上一个本地声明 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 5951,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“ownPet” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 6302,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“displayAmount” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 14272,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“maximum” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 14295,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“result” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 20025,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“decrement” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 20337,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“message” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 20341,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“increment” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 20362,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“detailSelected” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 20814,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“scanSlot” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 25341,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“record” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 25399,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“privileged” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 25460,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“record” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 27232,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“name” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 27232,
+          "column": 1,
+          "level": "warning",
+          "code": "C4703",
+          "message": "使用了可能未初始化的本地指针变量“name” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 28052,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“count” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 28031,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“maximum” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 28031,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“position” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 28909,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“count” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 37656,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“position” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 39979,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“savedX” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 39975,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“savedY” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 2517,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“relativeX” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 2519,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“relativeY” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 2634,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“relativeX” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 2631,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“relativeY” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 8248,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“trailImage” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 8248,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“trailY” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 8247,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“randomX” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 8418,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“trailImage” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 8418,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“trailY” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 8417,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“randomX” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 8588,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“sound” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 8692,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“fixedTarget” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 8692,
+          "column": 1,
+          "level": "warning",
+          "code": "C4703",
+          "message": "使用了可能未初始化的本地指针变量“fixedTarget” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 9813,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“ratio” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 9838,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“ratio” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 14129,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“lastCreated” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 14129,
+          "column": 1,
+          "level": "warning",
+          "code": "C4703",
+          "message": "使用了可能未初始化的本地指针变量“lastCreated” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 12881,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“skill81Value” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 27545,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“facingX” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 27545,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“facingY” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 28624,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“imageNo” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 28692,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“imageNo” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 4575,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“nextChild” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 4575,
+          "column": 1,
+          "level": "warning",
+          "code": "C4703",
+          "message": "使用了可能未初始化的本地指针变量“nextChild” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 4585,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“graphicChild” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 4585,
+          "column": 1,
+          "level": "warning",
+          "code": "C4703",
+          "message": "使用了可能未初始化的本地指针变量“graphicChild” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 15558,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“amount” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 19719,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“statusType” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 20798,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“lastAmount” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 20006,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“statusType” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 18922,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“effectCasterPosition” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 19232,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“selfFlags” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 20510,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“lastAmount” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\YobiRuntime.cpp",
+          "line": 21183,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“redirectPosition” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\LegacyUiRecord.cpp",
+          "line": 8478,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“hoverRow” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\LegacyUiRecord.cpp",
+          "line": 8479,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“hoverColumn” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\LegacyUiRecord.cpp",
+          "line": 8611,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“hoverRow” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\LegacyUiRecord.cpp",
+          "line": 8612,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“hoverColumn” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\LegacyUiRecord.cpp",
+          "line": 8743,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“hoverRow” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\LegacyUiRecord.cpp",
+          "line": 8744,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“hoverColumn” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\LegacyUiRecord.cpp",
+          "line": 9736,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“hoverRow” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\LegacyUiRecord.cpp",
+          "line": 9737,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“hoverColumn” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        }
+      ],
+      "configuration_regenerated": true,
+      "client_linked": false,
+      "converter_linked": false
+    },
+    {
+      "log": "build/windows-msvc-x64/build-current-audio-20261009-final.log",
+      "exit_code": 0,
+      "error_count": 0,
+      "warning_count": 43,
+      "codes": {
+        "C4244": 20,
+        "C4456": 2,
+        "C4701": 20,
+        "C4703": 1
+      },
+      "diagnostics": [
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 2957,
+          "column": 37,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“int32_t”转换到“int8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 3245,
+          "column": 37,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“int32_t”转换到“int8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 10532,
+          "column": 36,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“int”转换到“int16_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 10532,
+          "column": 26,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“int”转换到“int16_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 10821,
+          "column": 26,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“int”转换到“int16_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 10821,
+          "column": 19,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“int”转换到“int16_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 32223,
+          "column": 64,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“int”转换到“int16_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 32223,
+          "column": 57,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“int”转换到“int16_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 34915,
+          "column": 66,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 35105,
+          "column": 66,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 35134,
+          "column": 66,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 37078,
+          "column": 36,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 37082,
+          "column": 37,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 37086,
+          "column": 33,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 37089,
+          "column": 36,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 37101,
+          "column": 25,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 37103,
+          "column": 26,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 37105,
+          "column": 15,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 37244,
+          "column": 25,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 37280,
+          "column": 25,
+          "level": "warning",
+          "code": "C4244",
+          "message": "“参数”: 从“const int32_t”转换到“uint8_t”，可能丢失数据 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 37447,
+          "column": 23,
+          "level": "warning",
+          "code": "C4456",
+          "message": "“index”的声明隐藏了上一个本地声明 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 37493,
+          "column": 23,
+          "level": "warning",
+          "code": "C4456",
+          "message": "“index”的声明隐藏了上一个本地声明 [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 5951,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“ownPet” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 6302,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“displayAmount” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 14272,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“maximum” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 14295,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“result” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 20025,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“decrement” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 20337,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“message” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 20341,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“increment” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 20362,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“detailSelected” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 20814,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“scanSlot” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 25341,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“record” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 25399,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“privileged” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 25460,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“record” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 27232,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“name” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 27232,
+          "column": 1,
+          "level": "warning",
+          "code": "C4703",
+          "message": "使用了可能未初始化的本地指针变量“name” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 28052,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“count” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 28031,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“maximum” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 28031,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“position” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 28909,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“count” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 37656,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“position” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 39979,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“savedX” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        },
+        {
+          "path": "D:\\Source\\cgmsv\\cg3a\\cg2d_re\\src\\ui\\WindowRuntime.cpp",
+          "line": 39975,
+          "column": 1,
+          "level": "warning",
+          "code": "C4701",
+          "message": "使用了可能未初始化的局部变量“savedY” [D:\\Source\\cgmsv\\cg3a\\cg2d_re\\build\\windows-msvc-x64\\cg2d_re_startup.vcxproj]"
+        }
+      ],
+      "configuration_regenerated": false,
+      "client_linked": true,
+      "converter_linked": true
+    }
+  ],
+  "linked_libraries": [
+    "cg2d_re_core",
+    "cg2d_re_render",
+    "cg2d_re_startup"
+  ],
+  "symbol_check": {
+    "map": "build/windows-msvc-x64/Debug/cg2d_re_client.map",
+    "symbols": {
+      "LegacyWavesReverb": true,
+      "SetFixedMusicReverb": true,
+      "SetFixedMusicReverb_455030": true,
+      "LoadStreamingBgm_52C160": true,
+      "ReadPcmWaveHeader_52B710": true,
+      "Sub_4FDA00": true,
+      "Sub_4FDE20": true,
+      "Sub_4D2080": true,
+      "Sub_4D2170": true,
+      "LegacyMidiSynth": false,
+      "MidiToWav": false
+    },
+    "note": "当前音频/编辑回调符号实际出现，运行时LegacyMidiSynth/MidiToWav未进入客户端；离线转换器为单独目标。符号不代实际效果创建/格式支持/声音与运行"
+  },
+  "artifacts": [
+    {
+      "path": "cg2d_re/build/windows-msvc-x64/Debug/cg2d_re_client.exe",
+      "bytes": 8024064
+    },
+    {
+      "path": "cg2d_re/build/windows-msvc-x64/Debug/cg2d_re_midi_to_wav.exe",
+      "bytes": 780800
+    }
+  ],
+  "deployment": {
+    "destination": "H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2d_re_client.exe",
+    "backup": "H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2d_re_client.exe.before-current-audio-20261009",
+    "previous_bytes": 7980032,
+    "current_bytes": 8024064,
+    "performed": true,
+    "verification": "复制后源/目标长度相同；未计算摘要或做逐字节比对",
+    "client_launched": false
+  },
+  "result": {
+    "configure_performed": true,
+    "configure_mode": "automatic-regeneration",
+    "configure_exit_code": 0,
+    "static_libraries_exit_code": 0,
+    "client_link_exit_code": 0,
+    "converter_link_exit_code": 0,
+    "build_exit_code": 0,
+    "errors": 0,
+    "incremental_warning_count": 43,
+    "warning_codes": {
+      "C4244": 20,
+      "C4456": 2,
+      "C4701": 20,
+      "C4703": 1
+    },
+    "audio_provider_diagnostic_count": 0,
+    "offline_converter_diagnostic_count": 0,
+    "warning_scope": "第二轮增量输出43条WindowRuntime.cpp既有源码警告；首轮另有95条，非全量工程诊断总数，尚未逐项完成原行为/ABI验收；不补默认值/钳制或抑制来降低标准",
+    "client_link_accepted": true,
+    "whole_project_accepted": false
+  },
+  "execution": {
+    "tests_performed": false,
+    "client_executed": false,
+    "converter_executed": false,
+    "wav_regenerated": false,
+    "hash_performed": false,
+    "gui_or_autohotkey_used": false
+  },
+  "remaining": [
+    "本机IP2真实登录尚无使用反馈，明文协议/原命令/原字段/LF保持",
+    "实际系统Waves创建、float32格式支持、声音效果/通知/音量/循环及正常退出寿命未验收",
+    "旧音频设置页面实际外层、AUDIO成员枚举及完整功能门禁仍开放",
+    "两目标成功编译链接不代算法、PCM/原默认波形、完整客户端/机器ABI与整体SPEC验收"
+  ],
+  "traceability": {
+    "semantic_records": 1894,
+    "effective_records": 1884,
+    "code_records_without_inventory": 10,
+    "document_links": 1994,
+    "function_dispositions": 1059,
+    "r7_reviewed": 485,
+    "r7_total": 3061,
+    "r7_remaining": 2576,
+    "pending_items": 18,
+    "leaf_features": 184,
+    "accepted_leaf_features": 0,
+    "tasks": 60,
+    "closed_tasks": 11,
+    "whole_project_accepted": false
+  }
+}

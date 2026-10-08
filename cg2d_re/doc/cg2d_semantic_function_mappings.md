@@ -4067,3 +4067,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 新增1818/F:001436AC对应ClassifyLegacyInteger_5436AC与私有Cg2dClassifyLegacyInteger；1819/F:001462FF对应Cg2dRoundLegacyFloatX87。原59条119B/两页、三CALL两callee与三普通入向完整，54364F父邻窗和54FB58八字节常量另列。新1 CPP/2 ASM本体与一个参数桥只计两个原身份；既有1816/1817分类映射不重复计数。
 
 原第一次舍入后落存重载比较、商F64覆写与第二次直接比较保持；舍入ST(0)接口只在ASM内部，不登记为CPP double返回。两adapted F/CRT159和限定I/S已同步，pending18及全pow父/机器运行门禁保留，实际数量由文本汇总核实。
+
+## BWE01完整幂辅助及真实整数依赖映射（2026-10-08）
+
+[完整114条304B/两页与三文件前后态](cg2d_power_special_helper_evidence.json)、[原状态/选择性输出合同](cg2d_power_special_helper_spec.md#power-special-decision)。
+
+新增1820/F:0014357C→ProcessLegacyPowerSpecial_54357C与Cg2dProcessLegacyPowerSpecial，只计一个原身份/两原生本体。唯一原callee5436AC直接接既有整数判定，不重复计1818/1819；两原入向53D135/54319C与各自环境保存恢复邻窗独列。
+
+五F64常量原位、重复状态比较、条件变号/符号零和指数落存重载可追；公开入口保S32状态，原无输出分支不初始化调用方结果。原新/F/CRT160及限定I/S同步，pending18与两调用父/机器运行等完整门禁保留。

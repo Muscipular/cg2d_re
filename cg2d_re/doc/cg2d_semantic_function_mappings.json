@@ -206674,6 +206674,110 @@
         "machine_abi_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x54357c",
+      "inventory_id": "F:0014357C",
+      "original_role": "54357C幂特殊值完整辅助：原x87比较底数零后按CF条件FCHS、F64落存绝对值；原正/负无限指数与绝对值1重复比较分支，原无限底数沿指数零比较/负无限底数的唯一5436AC分类CALL、奇数FCHS与符号零、F64指数覆写重载保。仅正/负无限指数走原绝对值1对应分支写原FFF8000000000000并返S32一；其余写出/不写出均原S32零，不作布尔处理标记/默认补零，输出仅按原分支执行x87 FSTP。",
+      "original_end_exclusive": "0x5436ac",
+      "original_chunks": [
+        [
+          "0x54357c",
+          "0x5436ac"
+        ]
+      ],
+      "instruction_count": 114,
+      "status": "BWE01开发54357C幂特殊值辅助完整114条304B/两页、一direct一callee/零indirect/26跳一RET、两CALL入向；两父FSAVE/FRSTOR邻窗与原常量独列，不宣全父完成。三现文件六追加：一CPP值入口/一ASM本体及一私有桥，S32状态与选择性F64写出保，不将0转是否处理布尔或补默认输出。原比较状态/条件FCHS/重复比较与指数落存重载、唯一5436AC真实callee及原常量位保，72B正常展开帧/32B调用区/四F64槽/一x64结果指针，仅拓指针不宽数值。无新环境写/finite保护/owner，原环境/分类/地图幂/CMake保；一新原新/F、CRT160两限定I-S，源码定位166/CRT余38；全pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "ProcessLegacyPowerSpecial_54357C"
+          ],
+          "relationship": "54357C幂特殊值完整辅助：原x87比较底数零后按CF条件FCHS、F64落存绝对值；原正/负无限指数与绝对值1重复比较分支，原无限底数沿指数零比较/负无限底数的唯一5436AC分类CALL、奇数FCHS与符号零、F64指数覆写重载保。仅正/负无限指数走原绝对值1对应分支写原FFF8000000000000并返S32一；其余写出/不写出均原S32零，不作布尔处理标记/默认补零，输出仅按原分支执行x87 FSTP。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "ProcessLegacyPowerSpecial_54357C",
+            "Cg2dProcessLegacyPowerSpecial"
+          ],
+          "relationship": "两个F64值/S32状态与借用结果指针声明；不将0解释为未处理布尔或补默认输出"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dProcessLegacyPowerSpecial",
+            "Cg2dClassifyLegacyInteger",
+            "LegacyPowerInfinity5923C0",
+            "LegacyPowerUndefined5923C8",
+            "LegacyPowerNegativeZero5923E0",
+            "LegacyThreshold54D5C0",
+            "LegacyZero54D5D0"
+          ],
+          "relationship": "72B正常展开帧/四F64槽与一结果指针，保原状态、选择性写出/重复比较/FCHS/指数覆写重载及唯一真实callee，五常量保原位"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_power_special_helper_spec.md#power-special-baseline",
+        "doc/cg2d_power_special_helper_spec.md#power-special-decision",
+        "doc/cg2d_power_special_helper_spec.md#power-special-acceptance",
+        "doc/cg2d_power_special_helper_spec.md#power-special-source-state"
+      ],
+      "boundary": "54357C幂特殊值完整辅助：原x87比较底数零后按CF条件FCHS、F64落存绝对值；原正/负无限指数与绝对值1重复比较分支，原无限底数沿指数零比较/负无限底数的唯一5436AC分类CALL、奇数FCHS与符号零、F64指数覆写重载保。仅正/负无限指数走原绝对值1对应分支写原FFF8000000000000并返S32一；其余写出/不写出均原S32零，不作布尔处理标记/默认补零，输出仅按原分支执行x87 FSTP。 BWE01开发54357C幂特殊值辅助完整114条304B/两页、一direct一callee/零indirect/26跳一RET、两CALL入向；两父FSAVE/FRSTOR邻窗与原常量独列，不宣全父完成。三现文件六追加：一CPP值入口/一ASM本体及一私有桥，S32状态与选择性F64写出保，不将0转是否处理布尔或补默认输出。原比较状态/条件FCHS/重复比较与指数落存重载、唯一5436AC真实callee及原常量位保，72B正常展开帧/32B调用区/四F64槽/一x64结果指针，仅拓指针不宽数值。无新环境写/finite保护/owner，原环境/分类/地图幂/CMake保；一新原新/F、CRT160两限定I-S，源码定位166/CRT余38；全pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWE01开发54357C幂特殊值辅助完整114条304B/两页、一direct一callee/零indirect/26跳一RET、两CALL入向；两父FSAVE/FRSTOR邻窗与原常量独列，不宣全父完成。三现文件六追加：一CPP值入口/一ASM本体及一私有桥，S32状态与选择性F64写出保，不将0转是否处理布尔或补默认输出。原比较状态/条件FCHS/重复比较与指数落存重载、唯一5436AC真实callee及原常量位保，72B正常展开帧/32B调用区/四F64槽/一x64结果指针，仅拓指针不宽数值。无新环境写/finite保护/owner，原环境/分类/地图幂/CMake保；一新原新/F、CRT160两限定I-S，源码定位166/CRT余38；全pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "power_special_helper": {
+        "spec_id": "BWE01",
+        "evidence_refs": [
+          "doc/cg2d_power_special_helper_spec.md#power-special-baseline",
+          "doc/cg2d_power_special_helper_spec.md#power-special-decision",
+          "doc/cg2d_power_special_helper_spec.md#power-special-acceptance",
+          "doc/cg2d_power_special_helper_spec.md#power-special-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 114,
+        "original_code_bytes": 304,
+        "original_page_count": 2,
+        "original_direct_call_count": 1,
+        "original_unique_direct_callee_count": 1,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 26,
+        "original_return_count": 1,
+        "original_inbound_call_count": 2,
+        "original_constant_count": 5,
+        "full_pow_parents_reverified": false,
+        "parent_F64_result_and_FSAVE_FRSTOR_windows_captured": true,
+        "source_body_added": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 6,
+        "new_original_mapped_function_count": 1,
+        "new_native_function_body_count": 2,
+        "new_cpp_body_count": 1,
+        "new_asm_proc_count": 1,
+        "new_private_bridge_count": 1,
+        "new_shared_owner_count": 0,
+        "original_F64_values_S32_status_and_selective_result_output_kept": true,
+        "only_proven_result_pointer_widened": true,
+        "original_only_integer_classification_callee_connected": true,
+        "original_repeated_comparisons_conditional_sign_change_and_exponent_store_reload_kept": true,
+        "no_bool_handled_status_or_default_output_introduced": true,
+        "original_five_F64_constant_bits_kept": true,
+        "native_private_slots_not_x86_stack_mirror": true,
+        "no_new_control_MXCSR_write_exception_clear_or_environment_save_restore": true,
+        "no_new_finite_protection_or_host_power_policy": true,
+        "old_classification_integer_rounding_environment_startup_map_power_and_build_rules_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_generic_pow_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

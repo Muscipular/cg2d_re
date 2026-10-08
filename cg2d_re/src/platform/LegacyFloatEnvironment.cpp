@@ -149,6 +149,13 @@ std::int32_t ClassifyLegacyInteger_5436AC(const double value) noexcept
     return detail::Cg2dClassifyLegacyInteger(&value);
 }
 
+// 原54357C；保原S32状态与选择性F64输出，不将状态改为是否处理布尔值。
+std::int32_t ProcessLegacyPowerSpecial_54357C(
+    const double base, const double exponent, double* const result) noexcept
+{
+    return detail::Cg2dProcessLegacyPowerSpecial(&base, &exponent, result);
+}
+
 namespace detail {
 
 extern "C" std::int32_t Cg2dClassifyLegacySpecialFloat(

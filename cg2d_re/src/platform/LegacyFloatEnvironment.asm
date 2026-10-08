@@ -7,11 +7,15 @@ LegacyDividend54F9E0 QWORD 04150017EC0000000h
 LegacyThreshold54D5C0 QWORD 03FF0000000000000h
 LegacyZero54D5D0 QWORD 0
 LegacyIntegerDivisor54FB58 QWORD 04000000000000000h
+LegacyPowerInfinity5923C0 QWORD 07FF0000000000000h
+LegacyPowerUndefined5923C8 QWORD 0FFF8000000000000h
+LegacyPowerNegativeZero5923E0 QWORD 08000000000000000h
 
 .code
 EXTERN Cg2dClassifyLegacySpecialFloat:PROC
 PUBLIC Cg2dClassifyLegacyFloat
 PUBLIC Cg2dClassifyLegacyInteger
+PUBLIC Cg2dProcessLegacyPowerSpecial
 PUBLIC Cg2dReadLegacyX87Control
 PUBLIC Cg2dWriteLegacyX87Control
 PUBLIC Cg2dClearLegacyX87Exceptions
@@ -202,5 +206,137 @@ LegacyIntegerClassDone:
     add rsp, 56
     ret
 Cg2dClassifyLegacyInteger ENDP
+
+; 原54357C；72B正常展开帧承载32B调用区、四F64槽与一个x64结果指针。
+; 原0返回同时包含已写出与未写出分支，不增默认结果或有限值保护。
+Cg2dProcessLegacyPowerSpecial PROC FRAME
+    sub rsp, 72
+    .allocstack 72
+    .endprolog
+    mov r9, qword ptr [rcx]
+    mov qword ptr [rsp+32], r9
+    mov r9, qword ptr [rdx]
+    mov qword ptr [rsp+40], r9
+    mov qword ptr [rsp+64], r8
+    fld qword ptr [rsp+32]
+    fcomp qword ptr [LegacyZero54D5D0]
+    fld qword ptr [rsp+32]
+    xor edx, edx
+    fnstsw ax
+    sahf
+    jnb LegacyPowerSpecialMagnitudeReady
+    fchs
+LegacyPowerSpecialMagnitudeReady:
+    fstp qword ptr [rsp+48]
+    mov eax, 07FF00000h
+    mov ecx, 0FFF00000h
+    cmp dword ptr [rsp+44], eax
+    jne LegacyPowerSpecialNegativeExponentInfinity
+    cmp dword ptr [rsp+40], edx
+    jne LegacyPowerSpecialPositiveBaseInfinity
+    fld qword ptr [rsp+48]
+    fcomp qword ptr [LegacyThreshold54D5C0]
+    fnstsw ax
+    sahf
+    ja LegacyPowerSpecialPositiveInfinity
+    fld qword ptr [rsp+48]
+    fcomp qword ptr [LegacyThreshold54D5C0]
+    fnstsw ax
+    sahf
+    jb LegacyPowerSpecialPositiveZero
+LegacyPowerSpecialUndefined:
+    fld qword ptr [LegacyPowerUndefined5923C8]
+    mov rax, qword ptr [rsp+64]
+    fstp qword ptr [rax]
+    mov eax, 1
+    jmp LegacyPowerSpecialDone
+LegacyPowerSpecialNegativeExponentInfinity:
+    cmp dword ptr [rsp+44], ecx
+    jne LegacyPowerSpecialPositiveBaseInfinity
+    cmp dword ptr [rsp+40], edx
+    jne LegacyPowerSpecialPositiveBaseInfinity
+    fld qword ptr [rsp+48]
+    fcomp qword ptr [LegacyThreshold54D5C0]
+    fnstsw ax
+    sahf
+    ja LegacyPowerSpecialPositiveZero
+    fld qword ptr [rsp+48]
+    fcomp qword ptr [LegacyThreshold54D5C0]
+    fnstsw ax
+    sahf
+    jnb LegacyPowerSpecialUndefined
+    jmp LegacyPowerSpecialPositiveInfinity
+LegacyPowerSpecialPositiveBaseInfinity:
+    cmp dword ptr [rsp+36], eax
+    jne LegacyPowerSpecialNegativeBaseInfinity
+    cmp dword ptr [rsp+32], edx
+    jne LegacyPowerSpecialNoOutput
+    fld qword ptr [rsp+40]
+    fcomp qword ptr [LegacyZero54D5D0]
+    fnstsw ax
+    sahf
+    jbe LegacyPowerSpecialPositiveBaseNonpositiveExponent
+LegacyPowerSpecialPositiveInfinity:
+    fld qword ptr [LegacyPowerInfinity5923C0]
+    jmp LegacyPowerSpecialWriteResult
+LegacyPowerSpecialPositiveBaseNonpositiveExponent:
+    fld qword ptr [rsp+40]
+    fcomp qword ptr [LegacyZero54D5D0]
+    fnstsw ax
+    sahf
+    jnb LegacyPowerSpecialOne
+LegacyPowerSpecialPositiveZero:
+    fldz
+    jmp LegacyPowerSpecialWriteResult
+LegacyPowerSpecialNegativeBaseInfinity:
+    cmp dword ptr [rsp+36], ecx
+    jne LegacyPowerSpecialNoOutput
+    cmp dword ptr [rsp+32], edx
+    jne LegacyPowerSpecialNoOutput
+    fld qword ptr [rsp+40]
+    fstp qword ptr [rsp+56]
+    lea rcx, [rsp+56]
+    call Cg2dClassifyLegacyInteger
+    fld qword ptr [rsp+40]
+    fcomp qword ptr [LegacyZero54D5D0]
+    mov ecx, eax
+    fnstsw ax
+    sahf
+    jbe LegacyPowerSpecialNegativeBaseNonpositiveExponent
+    fld qword ptr [LegacyPowerInfinity5923C0]
+    cmp ecx, 1
+    jne LegacyPowerSpecialSignedInfinityReady
+    fchs
+LegacyPowerSpecialSignedInfinityReady:
+    fstp qword ptr [rsp+40]
+    fld qword ptr [rsp+40]
+    jmp LegacyPowerSpecialWriteResult
+LegacyPowerSpecialNegativeBaseNonpositiveExponent:
+    fld qword ptr [rsp+40]
+    fcomp qword ptr [LegacyZero54D5D0]
+    fnstsw ax
+    sahf
+    jnb LegacyPowerSpecialOne
+    cmp ecx, 1
+    jne LegacyPowerSpecialNegativeBasePositiveZero
+    fld qword ptr [LegacyPowerNegativeZero5923E0]
+    jmp LegacyPowerSpecialSignedZeroReady
+LegacyPowerSpecialNegativeBasePositiveZero:
+    fldz
+LegacyPowerSpecialSignedZeroReady:
+    fstp qword ptr [rsp+40]
+    fld qword ptr [rsp+40]
+    jmp LegacyPowerSpecialWriteResult
+LegacyPowerSpecialOne:
+    fld1
+LegacyPowerSpecialWriteResult:
+    mov rax, qword ptr [rsp+64]
+    fstp qword ptr [rax]
+LegacyPowerSpecialNoOutput:
+    xor eax, eax
+LegacyPowerSpecialDone:
+    add rsp, 72
+    ret
+Cg2dProcessLegacyPowerSpecial ENDP
 
 END

@@ -2096,3 +2096,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 本步先SPEC、再补5436AC/5462FF两个缺失本体和三个真实内部CALL。以两完整59条119B、原x87舍入/落存/状态比较、三既有文件六处追加与旧源保持作为限定I/S证据；两adapted F将CRT157→159，不改变完整gates、成员枚举或最终验收状态。
 
 预计语义1820/有效1813、合同1930/3680（52.45%）、F982/E1144；定位差集167、范围内未定位CRT39，总队列168。四任务继续open，不以局部数量代完整CRT/__powhlp/pow、链接/机器ABI和真实FPU运行，RPLAN.24/执行限制、音频暂停与原格式明文保持。
+
+## BWE01幂特殊值辅助开发的限定验收（2026-10-08）
+
+[标准](cg2d_power_special_helper_spec.md#power-special-acceptance)、[状态](cg2d_power_special_helper_spec.md#power-special-source-state)与[原体/源差集](cg2d_power_special_helper_evidence.json)。
+
+本步先SPEC、再开发完整54357C并接唯一真实5436AC依赖；以114条304B/两页、五常量与原状态/选择性输出、三文件六追加/旧源保持作为限定I/S证据。一adapted F将CRT159→160，完整gates/成员枚举保持open。
+
+预计语义1821/有效1814、合同1931/3680（52.47%）、F983/E1146；定位差集166/未定位CRT38，总队列167，以生成台账核实。两个真实调用父及FPU生命周期/机器ABI/链接和运行仍需完整证据，不以本辅助或数量宣完整pow/CRT完成。

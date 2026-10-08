@@ -150,3 +150,11 @@ NCE01已接业务copy/单owner、消息/析构及所有旧构析正文保持，�
 5436AC/5462FF两完整59条119B、三direct/两callee已落为真实本体。前者保TEST AL90H与两次舍入/F64落存、商覆写、状态比较及0/1/2分支；后者保FLD/FRNDINT/FSTP F64/FLD，沿当前控制字在ASM间返回ST(0)。不用宿主舍入、不增有限值门禁或环境写；既有分类、初始化、地图专用幂与构建归属保持。
 
 两新映射1818/1819及两adapted F，CRT157→159；限定I/S不代完整提供者、__powhlp/pow父、机器ABI及运行验收。定位缺口169→167、范围内未定位CRT41→39，按生成台账核实；C01/R01/V02/R04仍open，音频暂停/原格式明文/RPLAN.24保持。
+
+## BWE01完整幂特殊值辅助开发（2026-10-08）
+
+[基线](cg2d_power_special_helper_spec.md#power-special-baseline)、[决定](cg2d_power_special_helper_spec.md#power-special-decision)、[验收](cg2d_power_special_helper_spec.md#power-special-acceptance)及[原证/完整源前后态](cg2d_power_special_helper_evidence.json)。
+
+54357C完整114条304B/两页、唯一callee5436AC已开发并接真实依赖。三现文件六追加，一CPP入口/一ASM本体/一个参数桥；保原重复比较、条件FCHS、指数F64覆写重载及五常量。原S32零同时包含写出与不写出，不改是否处理布尔或补默认结果。
+
+新1820/F:0014357C与一adapted F将CRT159→160，限定I/S不代两pow父的FSAVE/FRSTOR生命周期、完整提供者及机器运行。定位167→166/未定位CRT39→38，按汇总核实；原初始化、分类/整数舍入、地图幂及CMake保持，音频暂停/原格式明文/RPLAN.24与四open任务保持。

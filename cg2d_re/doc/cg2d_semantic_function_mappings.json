@@ -13722,7 +13722,7 @@
     {
       "original_entry": "0x508F70",
       "inventory_id": "F:00108F70",
-      "status": "已有请求本体与调用映射，完整收发未验",
+      "status": "BVJ01限定静态：登出轮询与删除启动/轮询三个完整根61条244B/三页，3直接/3计时间接/5跳/8RET；仅LoginRequest.cpp一个elapsed片段恢复计时调用完成后fresh读取共享起始W32再差值。原各独立W16回复持样后清状态、登出1/2/其它与删除任意非零成功差别、严格600000门槛/各15B原格式点及超时未清状态保；删除先socket后记录+4C、正常发送失败仍状态1/tick正确保持。既有1065处置更新、155/156纳管，LOGIN13不增、CHARACTER26→28，LOGIN仅取样I/限定S、CHARACTER仅正确合同S；无新函数/组包/网络格式/加解密/owner/保护，完整父-callee/正常寿命/请求往返/机器ABI链接运行未验。",
       "original_role": "选中角色删除请求启动",
       "reference_sites": [
         "0x45DC8B"
@@ -13732,36 +13732,8 @@
           "path": "src/CharacterDeletionRequest.cpp",
           "symbols": [
             "StartCharacterDeletionRequest"
-          ]
-        },
-        {
-          "path": "src/CharacterDeletionProgress.cpp",
-          "symbols": [
-            "UpdateCharacterDeletionProgress_45DC00"
-          ]
-        }
-      ],
-      "evidence_documents": [
-        "doc/cg2d_login_request.md",
-        "doc/cg2d_character_select_scene.md",
-        "doc/cg2d_semantic_function_mappings.md"
-      ],
-      "boundary": "采S16选择、清删除回复码，再采socket及对应记录+4C编号；512AB0发送后置状态并发布/返回完整U32 tick，不重采选择或新建记录owner。"
-    },
-    {
-      "original_entry": "0x508FC0",
-      "inventory_id": "F:00108FC0",
-      "status": "已有请求轮询本体与一真实超时格式接线，完整收发/运行未验",
-      "original_role": "选中角色删除请求轮询",
-      "reference_sites": [
-        "0x45DD15"
-      ],
-      "sources": [
-        {
-          "path": "src/CharacterDeletionRequest.cpp",
-          "symbols": [
-            "PollCharacterDeletionRequest"
-          ]
+          ],
+          "relationship": "BVJ01删除启动完整原根/既有源码正确保持：先S16选择、W16独立回复清零，再socket取样及同148B记录+4C S32注册号读取，发送512AB0返回弃用；正常发送失败也继续状态1、计时调用后保存/返回完整U32 tick。socket仅按既有非地址SDK边界本机宽度承载，计时平台承接原GetTickCount；无新源码/I或新owner，完整发送callee/请求往返未验。"
         },
         {
           "path": "src/CharacterDeletionProgress.cpp",
@@ -13774,11 +13746,106 @@
         "doc/cg2d_login_request.md",
         "doc/cg2d_character_select_scene.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-baseline",
+        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-decision",
+        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-acceptance",
+        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state",
+        "doc/cg2d_logout_deletion_request_tick_sampling_evidence.json"
       ],
-      "boundary": "状态2时先采删除W16回复码再清状态，任意非零返回1、零返回-2，不能误套创建/登录的恰好1判定；超时正文/阈值与原返回保持。 本步只将原文定长复制恢复53B304真实原call，原无占位/无变参/原字节含NUL和共享1024B余部保持，不新建状态或提高超时保护，原父/实际收发/CRT运行未闭合。",
-      "original_end_exclusive": "0x509011",
-      "instruction_count": 21,
+      "boundary": "采S16选择、清删除回复码，再采socket及对应记录+4C编号；512AB0发送后置状态并发布/返回完整U32 tick，不重采选择或新建记录owner。 BVJ01删除启动完整原根/既有源码正确保持：先S16选择、W16独立回复清零，再socket取样及同148B记录+4C S32注册号读取，发送512AB0返回弃用；正常发送失败也继续状态1、计时调用后保存/返回完整U32 tick。socket仅按既有非地址SDK边界本机宽度承载，计时平台承接原GetTickCount；无新源码/I或新owner，完整发送callee/请求往返未验。",
+      "verification_level": "BVJ01限定静态：登出轮询与删除启动/轮询三个完整根61条244B/三页，3直接/3计时间接/5跳/8RET；仅LoginRequest.cpp一个elapsed片段恢复计时调用完成后fresh读取共享起始W32再差值。原各独立W16回复持样后清状态、登出1/2/其它与删除任意非零成功差别、严格600000门槛/各15B原格式点及超时未清状态保；删除先socket后记录+4C、正常发送失败仍状态1/tick正确保持。既有1065处置更新、155/156纳管，LOGIN13不增、CHARACTER26→28，LOGIN仅取样I/限定S、CHARACTER仅正确合同S；无新函数/组包/网络格式/加解密/owner/保护，完整父-callee/正常寿命/请求往返/机器ABI链接运行未验。",
+      "original_end_exclusive": "0x508fb3",
+      "original_chunks": [
+        [
+          "0x508f70",
+          "0x508fb3"
+        ]
+      ],
+      "instruction_count": 14,
+      "request_tick_sampling": {
+        "spec_id": "BVJ01",
+        "evidence_refs": [
+          "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-baseline",
+          "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-decision",
+          "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-acceptance",
+          "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state",
+          "doc/cg2d_logout_deletion_request_tick_sampling_evidence.json"
+        ],
+        "previous_status": "已有请求本体与调用映射，完整收发未验",
+        "previous_boundary": "采S16选择、清删除回复码，再采socket及对应记录+4C编号；512AB0发送后置状态并发布/返回完整U32 tick，不重采选择或新建记录owner。",
+        "full_original_root_captured": true,
+        "original_instruction_count": 14,
+        "original_code_bytes": 67,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 1,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 1,
+        "original_total_instruction_count": 61,
+        "original_total_code_bytes": 244,
+        "original_total_page_count": 3,
+        "source_body_changed": false,
+        "root_specific_new_I_claimed": false,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 1,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "timer_call_before_fresh_start_tick_sample_restored_or_kept": true,
+        "different_reply_code_rules_kept": true,
+        "reply_sample_before_completed_status_clear_kept": true,
+        "normal_U32_difference_and_strict_600000_threshold_kept": true,
+        "old_stdio_format_point_and_15B_messages_kept": true,
+        "deletion_socket_before_regist_number_kept": true,
+        "normal_send_failure_then_status_and_tick_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "full_parent_verified": false,
+        "full_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "full_machine_abi_verified": false,
+        "request_round_trip_runtime_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x508FC0",
+      "inventory_id": "F:00108FC0",
+      "status": "BVJ01限定静态：登出轮询与删除启动/轮询三个完整根61条244B/三页，3直接/3计时间接/5跳/8RET；仅LoginRequest.cpp一个elapsed片段恢复计时调用完成后fresh读取共享起始W32再差值。原各独立W16回复持样后清状态、登出1/2/其它与删除任意非零成功差别、严格600000门槛/各15B原格式点及超时未清状态保；删除先socket后记录+4C、正常发送失败仍状态1/tick正确保持。既有1065处置更新、155/156纳管，LOGIN13不增、CHARACTER26→28，LOGIN仅取样I/限定S、CHARACTER仅正确合同S；无新函数/组包/网络格式/加解密/owner/保护，完整父-callee/正常寿命/请求往返/机器ABI链接运行未验。",
+      "original_role": "选中角色删除请求轮询",
+      "reference_sites": [
+        "0x45DD15"
+      ],
+      "sources": [
+        {
+          "path": "src/CharacterDeletionRequest.cpp",
+          "symbols": [
+            "PollCharacterDeletionRequest"
+          ],
+          "relationship": "BVJ01删除轮询完整原根/既有源码正确保持：先持样独立W16删除回复、后清请求状态；任意非零→1、零→-2，不套创建恰1或登出1/2规则。非完成已先计时调用、后读取共享起始W32，正常U32差值<=600000返回0，严格大于经53B304写原15B含NUL文案并返回-1，不清状态/回复/tick及消息余部。仅既有平台计时承接，源码零改动/无新I；完整往返/ABI与运行未验。"
+        },
+        {
+          "path": "src/CharacterDeletionProgress.cpp",
+          "symbols": [
+            "UpdateCharacterDeletionProgress_45DC00"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-baseline",
+        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-decision",
+        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-acceptance",
+        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state",
+        "doc/cg2d_logout_deletion_request_tick_sampling_evidence.json"
+      ],
+      "boundary": "状态2时先采删除W16回复码再清状态，任意非零返回1、零返回-2，不能误套创建/登录的恰好1判定；超时正文/阈值与原返回保持。 本步只将原文定长复制恢复53B304真实原call，原无占位/无变参/原字节含NUL和共享1024B余部保持，不新建状态或提高超时保护，原父/实际收发/CRT运行未闭合。 BVJ01删除轮询完整原根/既有源码正确保持：先持样独立W16删除回复、后清请求状态；任意非零→1、零→-2，不套创建恰1或登出1/2规则。非完成已先计时调用、后读取共享起始W32，正常U32差值<=600000返回0，严格大于经53B304写原15B含NUL文案并返回-1，不清状态/回复/tick及消息余部。仅既有平台计时承接，源码零改动/无新I；完整往返/ABI与运行未验。",
       "original_direct_reference_count": 1,
       "original_direct_call_reference_count": 1,
       "inbound_evidence": [
@@ -13816,7 +13883,63 @@
         }
       ],
       "business_format_source_expression_count": 1,
-      "verification_level": " 本次仅15超时相邻指令读取/原call与文案字节/源码单个复制改回格式入口及已有头静态核对；完成态正文/发送和调用者不重验，未执行。"
+      "verification_level": "BVJ01限定静态：登出轮询与删除启动/轮询三个完整根61条244B/三页，3直接/3计时间接/5跳/8RET；仅LoginRequest.cpp一个elapsed片段恢复计时调用完成后fresh读取共享起始W32再差值。原各独立W16回复持样后清状态、登出1/2/其它与删除任意非零成功差别、严格600000门槛/各15B原格式点及超时未清状态保；删除先socket后记录+4C、正常发送失败仍状态1/tick正确保持。既有1065处置更新、155/156纳管，LOGIN13不增、CHARACTER26→28，LOGIN仅取样I/限定S、CHARACTER仅正确合同S；无新函数/组包/网络格式/加解密/owner/保护，完整父-callee/正常寿命/请求往返/机器ABI链接运行未验。",
+      "original_end_exclusive": "0x509011",
+      "original_chunks": [
+        [
+          "0x508fc0",
+          "0x509011"
+        ]
+      ],
+      "instruction_count": 21,
+      "request_tick_sampling": {
+        "spec_id": "BVJ01",
+        "evidence_refs": [
+          "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-baseline",
+          "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-decision",
+          "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-acceptance",
+          "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state",
+          "doc/cg2d_logout_deletion_request_tick_sampling_evidence.json"
+        ],
+        "previous_status": "已有请求轮询本体与一真实超时格式接线，完整收发/运行未验",
+        "previous_boundary": "状态2时先采删除W16回复码再清状态，任意非零返回1、零返回-2，不能误套创建/登录的恰好1判定；超时正文/阈值与原返回保持。 本步只将原文定长复制恢复53B304真实原call，原无占位/无变参/原字节含NUL和共享1024B余部保持，不新建状态或提高超时保护，原父/实际收发/CRT运行未闭合。",
+        "full_original_root_captured": true,
+        "original_instruction_count": 21,
+        "original_code_bytes": 81,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 1,
+        "original_jump_count": 2,
+        "original_return_count": 3,
+        "original_inbound_reference_count": 1,
+        "original_total_instruction_count": 61,
+        "original_total_code_bytes": 244,
+        "original_total_page_count": 3,
+        "source_body_changed": false,
+        "root_specific_new_I_claimed": false,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 1,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "timer_call_before_fresh_start_tick_sample_restored_or_kept": true,
+        "different_reply_code_rules_kept": true,
+        "reply_sample_before_completed_status_clear_kept": true,
+        "normal_U32_difference_and_strict_600000_threshold_kept": true,
+        "old_stdio_format_point_and_15B_messages_kept": true,
+        "deletion_socket_before_regist_number_kept": true,
+        "normal_send_failure_then_status_and_tick_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "full_parent_verified": false,
+        "full_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "full_machine_abi_verified": false,
+        "request_round_trip_runtime_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x510140",
@@ -144902,7 +145025,7 @@
           "symbols": [
             "Sub_508C90"
           ],
-          "relationship": "既有真实轮询正文，超时格式入口恢复53B304"
+          "relationship": "BVJ01登出轮询：完成时先持样独立W16回复再清共享状态，1→1、2→2、其它→-2；非完成先一次ReadTickCount32调用，返回后fresh读取共享起始W32，再做正常U32差值。<=600000返回0，严格大于才经53B304写原15B含NUL文案并返回-1，状态/回复/tick及1024B消息余部保持；仅一个源码片段恢复跨调用取样序，不称运行错误或异常等价。"
         }
       ],
       "evidence_documents": [
@@ -144912,12 +145035,15 @@
         "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision",
         "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-acceptance",
         "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
-        "doc/cg2d_logout_reply_sampling_evidence.json"
+        "doc/cg2d_logout_reply_sampling_evidence.json",
+        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-baseline",
+        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-decision",
+        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-acceptance",
+        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state",
+        "doc/cg2d_logout_deletion_request_tick_sampling_evidence.json"
       ],
-      "boundary": "无参数/S32结果；独立W16登出回复快照后清状态：1→1，2→2，其余→-2；非完成时一次U32tick自然回绕差值严格大于600000才写共享消息返回-1。 本步只将原文定长复制恢复53B304真实原call，原无占位/无变参/原字节含NUL和共享1024B余部保持，不新建状态或提高超时保护，原父/实际收发/CRT运行未闭合。 BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
-      "status": "已有请求轮询本体与一真实超时格式接线，完整收发/运行未验；BTE01追加三完整根及现真实回复/发送/请求消费有限静态，轮询整源保持，完整往返与运行未验",
-      "original_end_exclusive": "0x508CF0",
-      "instruction_count": 26,
+      "boundary": "无参数/S32结果；独立W16登出回复快照后清状态：1→1，2→2，其余→-2；非完成时一次U32tick自然回绕差值严格大于600000才写共享消息返回-1。 本步只将原文定长复制恢复53B304真实原call，原无占位/无变参/原字节含NUL和共享1024B余部保持，不新建状态或提高超时保护，原父/实际收发/CRT运行未闭合。 BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验 BVJ01登出轮询：完成时先持样独立W16回复再清共享状态，1→1、2→2、其它→-2；非完成先一次ReadTickCount32调用，返回后fresh读取共享起始W32，再做正常U32差值。<=600000返回0，严格大于才经53B304写原15B含NUL文案并返回-1，状态/回复/tick及1024B消息余部保持；仅一个源码片段恢复跨调用取样序，不称运行错误或异常等价。",
+      "status": "BVJ01限定静态：登出轮询与删除启动/轮询三个完整根61条244B/三页，3直接/3计时间接/5跳/8RET；仅LoginRequest.cpp一个elapsed片段恢复计时调用完成后fresh读取共享起始W32再差值。原各独立W16回复持样后清状态、登出1/2/其它与删除任意非零成功差别、严格600000门槛/各15B原格式点及超时未清状态保；删除先socket后记录+4C、正常发送失败仍状态1/tick正确保持。既有1065处置更新、155/156纳管，LOGIN13不增、CHARACTER26→28，LOGIN仅取样I/限定S、CHARACTER仅正确合同S；无新函数/组包/网络格式/加解密/owner/保护，完整父-callee/正常寿命/请求往返/机器ABI链接运行未验。",
       "original_direct_reference_count": 1,
       "original_direct_call_reference_count": 1,
       "inbound_evidence": [
@@ -144955,7 +145081,6 @@
         }
       ],
       "business_format_source_expression_count": 1,
-      "verification_level": " 本次仅15超时相邻指令读取/原call与文案字节/源码单个复制改回格式入口及已有头静态核对；完成态正文/发送和调用者不重验，未执行。；BTE01原26条96B完整读取，先W16回复取样再清状态/原Tick与格式写处及45ED90唯一caller静态，未执行。",
       "logout_reply_sampling": {
         "spec_id": "BTE01",
         "evidence_refs": [
@@ -144989,6 +145114,63 @@
         "normal_previous_values_wrong": false,
         "original_source_rest_unchanged": true,
         "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      },
+      "verification_level": "BVJ01限定静态：登出轮询与删除启动/轮询三个完整根61条244B/三页，3直接/3计时间接/5跳/8RET；仅LoginRequest.cpp一个elapsed片段恢复计时调用完成后fresh读取共享起始W32再差值。原各独立W16回复持样后清状态、登出1/2/其它与删除任意非零成功差别、严格600000门槛/各15B原格式点及超时未清状态保；删除先socket后记录+4C、正常发送失败仍状态1/tick正确保持。既有1065处置更新、155/156纳管，LOGIN13不增、CHARACTER26→28，LOGIN仅取样I/限定S、CHARACTER仅正确合同S；无新函数/组包/网络格式/加解密/owner/保护，完整父-callee/正常寿命/请求往返/机器ABI链接运行未验。",
+      "original_end_exclusive": "0x508cf0",
+      "original_chunks": [
+        [
+          "0x508c90",
+          "0x508cf0"
+        ]
+      ],
+      "instruction_count": 26,
+      "request_tick_sampling": {
+        "spec_id": "BVJ01",
+        "evidence_refs": [
+          "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-baseline",
+          "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-decision",
+          "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-acceptance",
+          "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state",
+          "doc/cg2d_logout_deletion_request_tick_sampling_evidence.json"
+        ],
+        "previous_status": "已有请求轮询本体与一真实超时格式接线，完整收发/运行未验；BTE01追加三完整根及现真实回复/发送/请求消费有限静态，轮询整源保持，完整往返与运行未验",
+        "previous_boundary": "无参数/S32结果；独立W16登出回复快照后清状态：1→1，2→2，其余→-2；非完成时一次U32tick自然回绕差值严格大于600000才写共享消息返回-1。 本步只将原文定长复制恢复53B304真实原call，原无占位/无变参/原字节含NUL和共享1024B余部保持，不新建状态或提高超时保护，原父/实际收发/CRT运行未闭合。 BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
+        "full_original_root_captured": true,
+        "original_instruction_count": 26,
+        "original_code_bytes": 96,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 1,
+        "original_jump_count": 3,
+        "original_return_count": 4,
+        "original_inbound_reference_count": 1,
+        "original_total_instruction_count": 61,
+        "original_total_code_bytes": 244,
+        "original_total_page_count": 3,
+        "source_body_changed": true,
+        "root_specific_new_I_claimed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 1,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "timer_call_before_fresh_start_tick_sample_restored_or_kept": true,
+        "different_reply_code_rules_kept": true,
+        "reply_sample_before_completed_status_clear_kept": true,
+        "normal_U32_difference_and_strict_600000_threshold_kept": true,
+        "old_stdio_format_point_and_15B_messages_kept": true,
+        "deletion_socket_before_regist_number_kept": true,
+        "normal_send_failure_then_status_and_tick_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "full_parent_verified": false,
+        "full_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "full_machine_abi_verified": false,
+        "request_round_trip_runtime_verified": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }

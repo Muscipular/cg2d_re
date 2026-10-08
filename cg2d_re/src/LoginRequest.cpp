@@ -207,8 +207,9 @@ std::int32_t Sub_508C90()
         return replyCode == 2 ? 2 : -2;
     }
 
-    const std::uint32_t elapsed =
-        platform::ReadTickCount32() - gRequestStartTick;
+    const std::uint32_t now = platform::ReadTickCount32();
+    const std::uint32_t start = gRequestStartTick;
+    const std::uint32_t elapsed = now - start;
     if (elapsed <= kRequestTimeoutMilliseconds) {
         return 0;
     }

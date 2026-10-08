@@ -1,0 +1,1125 @@
+{
+  "spec_id": "BVJ01",
+  "captured_on": "2026-10-08",
+  "original_database": "已打开cg2d.exe只读会话",
+  "original_route": "ida-17524 / a1def68e",
+  "original_functions": [
+    {
+      "start": "0x508c90",
+      "end_exclusive": "0x508cf0",
+      "count": 26,
+      "chunks": [
+        [
+          "0x508c90",
+          "0x508cf0"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x45ed90",
+          "text": "call    sub_508C90",
+          "from": "0x45eeaa"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x508c90",
+          "size": 7,
+          "bytes": "833d343bda0002",
+          "mnemonic": "cmp",
+          "text": "cmp     dword_DA3B34, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x508c97",
+          "size": 2,
+          "bytes": "752b",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_508CC4",
+          "call_target": null
+        },
+        {
+          "ea": "0x508c99",
+          "size": 6,
+          "bytes": "66a12e3bda00",
+          "mnemonic": "mov",
+          "text": "mov     ax, word_DA3B2E",
+          "call_target": null
+        },
+        {
+          "ea": "0x508c9f",
+          "size": 10,
+          "bytes": "c705343bda0000000000",
+          "mnemonic": "mov",
+          "text": "mov     dword_DA3B34, 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x508ca9",
+          "size": 4,
+          "bytes": "663d0100",
+          "mnemonic": "cmp",
+          "text": "cmp     ax, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x508cad",
+          "size": 2,
+          "bytes": "7506",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_508CB5",
+          "call_target": null
+        },
+        {
+          "ea": "0x508caf",
+          "size": 5,
+          "bytes": "b801000000",
+          "mnemonic": "mov",
+          "text": "mov     eax, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x508cb4",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x508cb5",
+          "size": 4,
+          "bytes": "662d0200",
+          "mnemonic": "sub",
+          "text": "sub     ax, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x508cb9",
+          "size": 3,
+          "bytes": "66f7d8",
+          "mnemonic": "neg",
+          "text": "neg     ax",
+          "call_target": null
+        },
+        {
+          "ea": "0x508cbc",
+          "size": 2,
+          "bytes": "1bc0",
+          "mnemonic": "sbb",
+          "text": "sbb     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x508cbe",
+          "size": 2,
+          "bytes": "24fc",
+          "mnemonic": "and",
+          "text": "and     al, 0FCh",
+          "call_target": null
+        },
+        {
+          "ea": "0x508cc0",
+          "size": 3,
+          "bytes": "83c002",
+          "mnemonic": "add",
+          "text": "add     eax, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x508cc3",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x508cc4",
+          "size": 6,
+          "bytes": "ff15f8d15400",
+          "mnemonic": "call",
+          "text": "call    ds:GetTickCount",
+          "call_target": null
+        },
+        {
+          "ea": "0x508cca",
+          "size": 6,
+          "bytes": "2b05383bda00",
+          "mnemonic": "sub",
+          "text": "sub     eax, dword_DA3B38",
+          "call_target": null
+        },
+        {
+          "ea": "0x508cd0",
+          "size": 5,
+          "bytes": "3dc0270900",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 927C0h",
+          "call_target": null
+        },
+        {
+          "ea": "0x508cd5",
+          "size": 2,
+          "bytes": "7616",
+          "mnemonic": "jbe",
+          "text": "jbe     short loc_508CED",
+          "call_target": null
+        },
+        {
+          "ea": "0x508cd7",
+          "size": 5,
+          "bytes": "6818ca5500",
+          "mnemonic": "push",
+          "text": "push    offset asc_55CA18; \"處理登出逾時。\"",
+          "call_target": null
+        },
+        {
+          "ea": "0x508cdc",
+          "size": 5,
+          "bytes": "68dc34da00",
+          "mnemonic": "push",
+          "text": "push    offset byte_DA34DC; Buffer",
+          "call_target": null
+        },
+        {
+          "ea": "0x508ce1",
+          "size": 5,
+          "bytes": "e81e260300",
+          "mnemonic": "call",
+          "text": "call    _sprintf",
+          "call_target": "0x53b304"
+        },
+        {
+          "ea": "0x508ce6",
+          "size": 3,
+          "bytes": "83c408",
+          "mnemonic": "add",
+          "text": "add     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x508ce9",
+          "size": 3,
+          "bytes": "83c8ff",
+          "mnemonic": "or",
+          "text": "or      eax, 0FFFFFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x508cec",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x508ced",
+          "size": 2,
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "text": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x508cef",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        [
+          "0x508c90",
+          "0x508cf0"
+        ]
+      ],
+      "code_bytes": 96,
+      "page_count": 1,
+      "calls": [
+        {
+          "ea": "0x508ce1",
+          "size": 5,
+          "bytes": "e81e260300",
+          "mnemonic": "call",
+          "text": "call    _sprintf",
+          "call_target": "0x53b304"
+        }
+      ],
+      "indirect_calls": [
+        {
+          "ea": "0x508cc4",
+          "size": 6,
+          "bytes": "ff15f8d15400",
+          "mnemonic": "call",
+          "text": "call    ds:GetTickCount",
+          "call_target": null
+        }
+      ],
+      "jump_count": 3,
+      "return_count": 4
+    },
+    {
+      "start": "0x508f70",
+      "end_exclusive": "0x508fb3",
+      "count": 14,
+      "chunks": [
+        [
+          "0x508f70",
+          "0x508fb3"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x45dc00",
+          "text": "call    sub_508F70",
+          "from": "0x45dc8b"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x508f70",
+          "size": 7,
+          "bytes": "0fbf05080cff00",
+          "mnemonic": "movsx",
+          "text": "movsx   eax, gSelectedChara",
+          "call_target": null
+        },
+        {
+          "ea": "0x508f77",
+          "size": 9,
+          "bytes": "66c705283bda000000",
+          "mnemonic": "mov",
+          "text": "mov     word_DA3B28, 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x508f80",
+          "size": 3,
+          "bytes": "8d0cc0",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [eax+eax*8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x508f83",
+          "size": 3,
+          "bytes": "8d1488",
+          "mnemonic": "lea",
+          "text": "lea     edx, [eax+ecx*4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x508f86",
+          "size": 6,
+          "bytes": "8b0db8b2d900",
+          "mnemonic": "mov",
+          "text": "mov     ecx, s",
+          "call_target": null
+        },
+        {
+          "ea": "0x508f8c",
+          "size": 7,
+          "bytes": "8b04952c04ff00",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_FF042C[edx*4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x508f93",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x508f94",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x508f95",
+          "size": 5,
+          "bytes": "e8169b0000",
+          "mnemonic": "call",
+          "text": "call    sub_512AB0",
+          "call_target": "0x512ab0"
+        },
+        {
+          "ea": "0x508f9a",
+          "size": 3,
+          "bytes": "83c408",
+          "mnemonic": "add",
+          "text": "add     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x508f9d",
+          "size": 10,
+          "bytes": "c705343bda0001000000",
+          "mnemonic": "mov",
+          "text": "mov     dword_DA3B34, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x508fa7",
+          "size": 6,
+          "bytes": "ff15f8d15400",
+          "mnemonic": "call",
+          "text": "call    ds:GetTickCount",
+          "call_target": null
+        },
+        {
+          "ea": "0x508fad",
+          "size": 5,
+          "bytes": "a3383bda00",
+          "mnemonic": "mov",
+          "text": "mov     dword_DA3B38, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x508fb2",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        [
+          "0x508f70",
+          "0x508fb3"
+        ]
+      ],
+      "code_bytes": 67,
+      "page_count": 1,
+      "calls": [
+        {
+          "ea": "0x508f95",
+          "size": 5,
+          "bytes": "e8169b0000",
+          "mnemonic": "call",
+          "text": "call    sub_512AB0",
+          "call_target": "0x512ab0"
+        }
+      ],
+      "indirect_calls": [
+        {
+          "ea": "0x508fa7",
+          "size": 6,
+          "bytes": "ff15f8d15400",
+          "mnemonic": "call",
+          "text": "call    ds:GetTickCount",
+          "call_target": null
+        }
+      ],
+      "jump_count": 0,
+      "return_count": 1
+    },
+    {
+      "start": "0x508fc0",
+      "end_exclusive": "0x509011",
+      "count": 21,
+      "chunks": [
+        [
+          "0x508fc0",
+          "0x509011"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x45dc00",
+          "text": "call    sub_508FC0",
+          "from": "0x45dd15"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x508fc0",
+          "size": 7,
+          "bytes": "833d343bda0002",
+          "mnemonic": "cmp",
+          "text": "cmp     dword_DA3B34, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x508fc7",
+          "size": 2,
+          "bytes": "751c",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_508FE5",
+          "call_target": null
+        },
+        {
+          "ea": "0x508fc9",
+          "size": 6,
+          "bytes": "66a1283bda00",
+          "mnemonic": "mov",
+          "text": "mov     ax, word_DA3B28",
+          "call_target": null
+        },
+        {
+          "ea": "0x508fcf",
+          "size": 10,
+          "bytes": "c705343bda0000000000",
+          "mnemonic": "mov",
+          "text": "mov     dword_DA3B34, 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x508fd9",
+          "size": 3,
+          "bytes": "66f7d8",
+          "mnemonic": "neg",
+          "text": "neg     ax",
+          "call_target": null
+        },
+        {
+          "ea": "0x508fdc",
+          "size": 2,
+          "bytes": "1bc0",
+          "mnemonic": "sbb",
+          "text": "sbb     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x508fde",
+          "size": 3,
+          "bytes": "83e003",
+          "mnemonic": "and",
+          "text": "and     eax, 3",
+          "call_target": null
+        },
+        {
+          "ea": "0x508fe1",
+          "size": 3,
+          "bytes": "83c0fe",
+          "mnemonic": "add",
+          "text": "add     eax, 0FFFFFFFEh",
+          "call_target": null
+        },
+        {
+          "ea": "0x508fe4",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x508fe5",
+          "size": 6,
+          "bytes": "ff15f8d15400",
+          "mnemonic": "call",
+          "text": "call    ds:GetTickCount",
+          "call_target": null
+        },
+        {
+          "ea": "0x508feb",
+          "size": 6,
+          "bytes": "2b05383bda00",
+          "mnemonic": "sub",
+          "text": "sub     eax, dword_DA3B38",
+          "call_target": null
+        },
+        {
+          "ea": "0x508ff1",
+          "size": 5,
+          "bytes": "3dc0270900",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 927C0h",
+          "call_target": null
+        },
+        {
+          "ea": "0x508ff6",
+          "size": 2,
+          "bytes": "7616",
+          "mnemonic": "jbe",
+          "text": "jbe     short loc_50900E",
+          "call_target": null
+        },
+        {
+          "ea": "0x508ff8",
+          "size": 5,
+          "bytes": "68d4af5800",
+          "mnemonic": "push",
+          "text": "push    offset asc_58AFD4; Format",
+          "call_target": null
+        },
+        {
+          "ea": "0x508ffd",
+          "size": 5,
+          "bytes": "68dc34da00",
+          "mnemonic": "push",
+          "text": "push    offset byte_DA34DC; Buffer",
+          "call_target": null
+        },
+        {
+          "ea": "0x509002",
+          "size": 5,
+          "bytes": "e8fd220300",
+          "mnemonic": "call",
+          "text": "call    _sprintf",
+          "call_target": "0x53b304"
+        },
+        {
+          "ea": "0x509007",
+          "size": 3,
+          "bytes": "83c408",
+          "mnemonic": "add",
+          "text": "add     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x50900a",
+          "size": 3,
+          "bytes": "83c8ff",
+          "mnemonic": "or",
+          "text": "or      eax, 0FFFFFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x50900d",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x50900e",
+          "size": 2,
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "text": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x509010",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        [
+          "0x508fc0",
+          "0x509011"
+        ]
+      ],
+      "code_bytes": 81,
+      "page_count": 1,
+      "calls": [
+        {
+          "ea": "0x509002",
+          "size": 5,
+          "bytes": "e8fd220300",
+          "mnemonic": "call",
+          "text": "call    _sprintf",
+          "call_target": "0x53b304"
+        }
+      ],
+      "indirect_calls": [
+        {
+          "ea": "0x508fe5",
+          "size": 6,
+          "bytes": "ff15f8d15400",
+          "mnemonic": "call",
+          "text": "call    ds:GetTickCount",
+          "call_target": null
+        }
+      ],
+      "jump_count": 2,
+      "return_count": 3
+    }
+  ],
+  "source_functions": [
+    {
+      "index": 1065,
+      "id": "F:00108C90",
+      "entry": "0x508C90",
+      "original_index": 0,
+      "symbol": "Sub_508C90",
+      "source_path": "src/LoginRequest.cpp",
+      "body_changed": true,
+      "features": [
+        "FUNC-LOGIN"
+      ],
+      "existing_disposition": true,
+      "disposition": "equivalent",
+      "contract": "BVJ01登出轮询：完成时先持样独立W16回复再清共享状态，1→1、2→2、其它→-2；非完成先一次ReadTickCount32调用，返回后fresh读取共享起始W32，再做正常U32差值。<=600000返回0，严格大于才经53B304写原15B含NUL文案并返回-1，状态/回复/tick及1024B消息余部保持；仅一个源码片段恢复跨调用取样序，不称运行错误或异常等价。"
+    },
+    {
+      "index": 155,
+      "id": "F:00108F70",
+      "entry": "0x508F70",
+      "original_index": 1,
+      "symbol": "StartCharacterDeletionRequest",
+      "source_path": "src/CharacterDeletionRequest.cpp",
+      "body_changed": false,
+      "features": [
+        "FUNC-CHARACTER"
+      ],
+      "existing_disposition": false,
+      "disposition": "adapted",
+      "contract": "BVJ01删除启动完整原根/既有源码正确保持：先S16选择、W16独立回复清零，再socket取样及同148B记录+4C S32注册号读取，发送512AB0返回弃用；正常发送失败也继续状态1、计时调用后保存/返回完整U32 tick。socket仅按既有非地址SDK边界本机宽度承载，计时平台承接原GetTickCount；无新源码/I或新owner，完整发送callee/请求往返未验。"
+    },
+    {
+      "index": 156,
+      "id": "F:00108FC0",
+      "entry": "0x508FC0",
+      "original_index": 2,
+      "symbol": "PollCharacterDeletionRequest",
+      "source_path": "src/CharacterDeletionRequest.cpp",
+      "body_changed": false,
+      "features": [
+        "FUNC-CHARACTER"
+      ],
+      "existing_disposition": false,
+      "disposition": "adapted",
+      "contract": "BVJ01删除轮询完整原根/既有源码正确保持：先持样独立W16删除回复、后清请求状态；任意非零→1、零→-2，不套创建恰1或登出1/2规则。非完成已先计时调用、后读取共享起始W32，正常U32差值<=600000返回0，严格大于经53B304写原15B含NUL文案并返回-1，不清状态/回复/tick及消息余部。仅既有平台计时承接，源码零改动/无新I；完整往返/ABI与运行未验。"
+    }
+  ],
+  "records_before": [
+    {
+      "index": 1065,
+      "record": {
+        "original_entry": "0x508C90",
+        "inventory_id": "F:00108C90",
+        "original_role": "登出回复及超时轮询",
+        "sources": [
+          {
+            "path": "src/LoginRequest.cpp",
+            "symbols": [
+              "Sub_508C90"
+            ],
+            "relationship": "既有真实轮询正文，超时格式入口恢复53B304"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_login_request.md",
+          "doc/cg2d_stdio_contract.md",
+          "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
+          "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision",
+          "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-acceptance",
+          "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
+          "doc/cg2d_logout_reply_sampling_evidence.json"
+        ],
+        "boundary": "无参数/S32结果；独立W16登出回复快照后清状态：1→1，2→2，其余→-2；非完成时一次U32tick自然回绕差值严格大于600000才写共享消息返回-1。 本步只将原文定长复制恢复53B304真实原call，原无占位/无变参/原字节含NUL和共享1024B余部保持，不新建状态或提高超时保护，原父/实际收发/CRT运行未闭合。 BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
+        "status": "已有请求轮询本体与一真实超时格式接线，完整收发/运行未验；BTE01追加三完整根及现真实回复/发送/请求消费有限静态，轮询整源保持，完整往返与运行未验",
+        "original_end_exclusive": "0x508CF0",
+        "instruction_count": 26,
+        "original_direct_reference_count": 1,
+        "original_direct_call_reference_count": 1,
+        "inbound_evidence": [
+          {
+            "reference_site": "0x45eeaa",
+            "parent_entry": "0x45ed90",
+            "is_code": true,
+            "reference_type": 17
+          }
+        ],
+        "business_call_connections": [
+          {
+            "parent_entry": "0x508C90",
+            "call_site": "0x508CE1",
+            "source": "src/LoginRequest.cpp",
+            "symbol": "Sub_508C90"
+          }
+        ],
+        "business_format_points": [
+          {
+            "parent_entry": "0x508C90",
+            "call_site": "0x508CE1",
+            "target_entry": "0x53B304",
+            "format_address": "0x55CA18",
+            "format_bytes": "b342b27ab56ea558b94faec9a14300",
+            "argument_widths": [],
+            "source_format_symbol": "Sub_508C90",
+            "source_format_expression": "kLogoutTimeoutMessage",
+            "source_expression": "无变参",
+            "destination_expression": "gRequestMessage",
+            "destination_capacity": 1024,
+            "condition_expression": "非完成态；U32(now-start)>600000；原登录另有首W8门禁",
+            "consumer_expression": "忽略格式返回；紧接返回-1；原调用者读取同共享消息",
+            "relationship": "原常量无占位符，现定长复制改回实际原格式入口；覆盖原文和NUL，不清共享余部。仅超时写入口变化，独立W16登出回复快照后清状态：1→1，2→2，其余→-2，原完成态/阈值/tick回绕/超时不清状态和回复/调用者保持。"
+          }
+        ],
+        "business_format_source_expression_count": 1,
+        "verification_level": " 本次仅15超时相邻指令读取/原call与文案字节/源码单个复制改回格式入口及已有头静态核对；完成态正文/发送和调用者不重验，未执行。；BTE01原26条96B完整读取，先W16回复取样再清状态/原Tick与格式写处及45ED90唯一caller静态，未执行。",
+        "logout_reply_sampling": {
+          "spec_id": "BTE01",
+          "evidence_refs": [
+            "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
+            "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision",
+            "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-acceptance",
+            "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
+            "doc/cg2d_logout_reply_sampling_evidence.json"
+          ],
+          "full_original_root_captured": true,
+          "original_instruction_count": 26,
+          "original_code_bytes": 96,
+          "original_page_count": 1,
+          "original_direct_call_count": 1,
+          "original_unique_callee_count": 1,
+          "original_indirect_call_count": 1,
+          "original_inbound_call_count": 1,
+          "source_body_changed": false,
+          "source_cpp_patch_count": 0,
+          "source_hpp_patch_count": 0,
+          "source_changed_existing_original_function_count": 0,
+          "source_callback_signed_return_contract_restored": false,
+          "source_callback_received_expected_byte_read_and_short_circuit_restored": false,
+          "source_three_tuple_samples_before_publication_restored": false,
+          "original_constructor_zero_destructor_and_rng_calls_kept": true,
+          "original_destination_vft_and_reserved_bytes_kept": true,
+          "original_start_and_poll_bodies_kept": true,
+          "original_poll_reply_read_before_status_clear_kept": true,
+          "original_pending_scene_audio_caller_and_plain_protocol_kept": true,
+          "original_caller_ignores_callback_return_verified": true,
+          "normal_previous_values_wrong": false,
+          "original_source_rest_unchanged": true,
+          "full_original_parent_or_machine_abi_verified": false,
+          "runtime_verified": false,
+          "fault_equivalence_claimed": false
+        }
+      }
+    },
+    {
+      "index": 155,
+      "record": {
+        "original_entry": "0x508F70",
+        "inventory_id": "F:00108F70",
+        "status": "已有请求本体与调用映射，完整收发未验",
+        "original_role": "选中角色删除请求启动",
+        "reference_sites": [
+          "0x45DC8B"
+        ],
+        "sources": [
+          {
+            "path": "src/CharacterDeletionRequest.cpp",
+            "symbols": [
+              "StartCharacterDeletionRequest"
+            ]
+          },
+          {
+            "path": "src/CharacterDeletionProgress.cpp",
+            "symbols": [
+              "UpdateCharacterDeletionProgress_45DC00"
+            ]
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_login_request.md",
+          "doc/cg2d_character_select_scene.md",
+          "doc/cg2d_semantic_function_mappings.md"
+        ],
+        "boundary": "采S16选择、清删除回复码，再采socket及对应记录+4C编号；512AB0发送后置状态并发布/返回完整U32 tick，不重采选择或新建记录owner。"
+      }
+    },
+    {
+      "index": 156,
+      "record": {
+        "original_entry": "0x508FC0",
+        "inventory_id": "F:00108FC0",
+        "status": "已有请求轮询本体与一真实超时格式接线，完整收发/运行未验",
+        "original_role": "选中角色删除请求轮询",
+        "reference_sites": [
+          "0x45DD15"
+        ],
+        "sources": [
+          {
+            "path": "src/CharacterDeletionRequest.cpp",
+            "symbols": [
+              "PollCharacterDeletionRequest"
+            ]
+          },
+          {
+            "path": "src/CharacterDeletionProgress.cpp",
+            "symbols": [
+              "UpdateCharacterDeletionProgress_45DC00"
+            ]
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_login_request.md",
+          "doc/cg2d_character_select_scene.md",
+          "doc/cg2d_semantic_function_mappings.md",
+          "doc/cg2d_stdio_contract.md"
+        ],
+        "boundary": "状态2时先采删除W16回复码再清状态，任意非零返回1、零返回-2，不能误套创建/登录的恰好1判定；超时正文/阈值与原返回保持。 本步只将原文定长复制恢复53B304真实原call，原无占位/无变参/原字节含NUL和共享1024B余部保持，不新建状态或提高超时保护，原父/实际收发/CRT运行未闭合。",
+        "original_end_exclusive": "0x509011",
+        "instruction_count": 21,
+        "original_direct_reference_count": 1,
+        "original_direct_call_reference_count": 1,
+        "inbound_evidence": [
+          {
+            "reference_site": "0x45dd15",
+            "parent_entry": "0x45dc00",
+            "is_code": true,
+            "reference_type": 17
+          }
+        ],
+        "business_call_connections": [
+          {
+            "parent_entry": "0x508FC0",
+            "call_site": "0x509002",
+            "source": "src/CharacterDeletionRequest.cpp",
+            "symbol": "PollCharacterDeletionRequest"
+          }
+        ],
+        "business_format_points": [
+          {
+            "parent_entry": "0x508FC0",
+            "call_site": "0x509002",
+            "target_entry": "0x53B304",
+            "format_address": "0x58AFD4",
+            "format_bytes": "a752b0a3a8a4a6e2b94faec9a14300",
+            "argument_widths": [],
+            "source_format_symbol": "PollCharacterDeletionRequest",
+            "source_format_expression": "kRequestTimeoutMessage",
+            "source_expression": "无变参",
+            "destination_expression": "gRequestMessage",
+            "destination_capacity": 1024,
+            "condition_expression": "非完成态；U32(now-start)>600000；原登录另有首W8门禁",
+            "consumer_expression": "忽略格式返回；紧接返回-1；原调用者读取同共享消息",
+            "relationship": "原常量无占位符，现定长复制改回实际原格式入口；覆盖原文和NUL，不清共享余部。仅超时写入口变化，独立W16删除回复快照后清状态：任意非零→1，零→-2，原完成态/阈值/tick回绕/超时不清状态和回复/调用者保持。"
+          }
+        ],
+        "business_format_source_expression_count": 1,
+        "verification_level": " 本次仅15超时相邻指令读取/原call与文案字节/源码单个复制改回格式入口及已有头静态核对；完成态正文/发送和调用者不重验，未执行。"
+      }
+    }
+  ],
+  "functions_before": [
+    {
+      "id": "F:00108C90",
+      "original_entry": "0x508C90",
+      "original_name": "sub_508C90",
+      "semantic_indices": [
+        1065
+      ],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/LoginRequest.cpp",
+          "symbol": "Sub_508C90",
+          "definition_line": 185,
+          "namespace": "cg::login::detail"
+        }
+      ],
+      "baseline_documents": [
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_logout_reply_sampling_evidence.json",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-acceptance",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "classification_refs": [],
+      "disposition": {
+        "inventory_id": "F:00108C90",
+        "disposition": "equivalent",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
+          "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision",
+          "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-acceptance",
+          "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
+          "doc/cg2d_logout_reply_sampling_evidence.json"
+        ],
+        "boundary": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验"
+      },
+      "feature_memberships": [
+        "FUNC-LOGIN"
+      ],
+      "sources": [
+        {
+          "path": "src/LoginRequest.cpp",
+          "symbols": [
+            "Sub_508C90"
+          ],
+          "relationship": "既有真实轮询正文，超时格式入口恢复53B304"
+        }
+      ]
+    },
+    {
+      "id": "F:00108F70",
+      "original_entry": "0x508F70",
+      "original_name": "sub_508F70",
+      "semantic_indices": [
+        155
+      ],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [],
+      "baseline_documents": [
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": [
+        {
+          "path": "src/CharacterDeletionRequest.cpp",
+          "symbols": [
+            "StartCharacterDeletionRequest"
+          ]
+        },
+        {
+          "path": "src/CharacterDeletionProgress.cpp",
+          "symbols": [
+            "UpdateCharacterDeletionProgress_45DC00"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "F:00108FC0",
+      "original_entry": "0x508FC0",
+      "original_name": "sub_508FC0",
+      "semantic_indices": [
+        156
+      ],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [],
+      "baseline_documents": [
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": [
+        {
+          "path": "src/CharacterDeletionRequest.cpp",
+          "symbols": [
+            "PollCharacterDeletionRequest"
+          ]
+        },
+        {
+          "path": "src/CharacterDeletionProgress.cpp",
+          "symbols": [
+            "UpdateCharacterDeletionProgress_45DC00"
+          ]
+        }
+      ]
+    }
+  ],
+  "source_files_before": [
+    {
+      "path": "src/LoginRequest.cpp",
+      "length": 7881
+    },
+    {
+      "path": "src/CharacterDeletionRequest.cpp",
+      "length": 2752
+    },
+    {
+      "path": "src/CharacterDeletionProgress.cpp",
+      "length": 3807
+    },
+    {
+      "path": "include/cg/CharacterDeletionRequest.hpp",
+      "length": 548
+    },
+    {
+      "path": "include/cg/LoginRequest.hpp",
+      "length": 1937
+    },
+    {
+      "path": "src/platform/LegacyFormat.hpp",
+      "length": 2205
+    }
+  ],
+  "source_bodies_before": {
+    "Sub_508C90": "std::int32_t Sub_508C90()\n{\n    if (gRequestStatus == 2) {\n        const std::uint16_t replyCode = gReplyCodeDA3B2E;\n        gRequestStatus = 0;\n        if (replyCode == 1) {\n            return 1;\n        }\n        return replyCode == 2 ? 2 : -2;\n    }\n\n    const std::uint32_t elapsed =\n        platform::ReadTickCount32() - gRequestStartTick;\n    if (elapsed <= kRequestTimeoutMilliseconds) {\n        return 0;\n    }\n\n    static_cast<void>(platform::FormatLegacyString_53B304(\n        gRequestMessage, kLogoutTimeoutMessage));\n    return -1;\n}\n\n",
+    "StartCharacterDeletionRequest": "std::uint32_t StartCharacterDeletionRequest()\n{\n    const std::int16_t selected = gSelectedCharacterIndex;\n    gCharacterDeletionReplyCode = 0;\n\n    const std::uintptr_t socket = platform::gConnectionSocket;\n    const CharacterRecordBytes* const record = gCharacterRecords.data() + selected;\n    std::int32_t registNumber;\n    std::memcpy(\n        &registNumber,\n        record->data() + kRegistNumberOffset,\n        sizeof(registNumber));\n\n    network::Sub_512AB0(socket, registNumber);\n    gRequestStatus = 1;\n    const std::uint32_t tick = platform::ReadTickCount32();\n    gRequestStartTick = tick;\n    return tick;\n}\n\n",
+    "PollCharacterDeletionRequest": "std::int32_t PollCharacterDeletionRequest()\n{\n    if (gRequestStatus == 2) {\n        const std::uint16_t replyCode = gCharacterDeletionReplyCode;\n        gRequestStatus = 0;\n        if (replyCode != 0) {\n            return 1;\n        }\n        return -2;\n    }\n\n    const std::uint32_t now = platform::ReadTickCount32();\n    const std::uint32_t elapsed = now - gRequestStartTick;\n    if (elapsed <= kRequestTimeoutMilliseconds) {\n        return 0;\n    }\n\n    static_cast<void>(platform::FormatLegacyString_53B304(\n        gRequestMessage, kRequestTimeoutMessage));\n    return -1;\n}\n\n"
+  },
+  "source_patch": {
+    "path": "src/LoginRequest.cpp",
+    "old": "    const std::uint32_t elapsed =\n        platform::ReadTickCount32() - gRequestStartTick;\n",
+    "new": "    const std::uint32_t now = platform::ReadTickCount32();\n    const std::uint32_t start = gRequestStartTick;\n    const std::uint32_t elapsed = now - start;\n"
+  },
+  "source_cpp_file_count": 1,
+  "source_header_file_count": 0,
+  "source_patch_count": 1,
+  "new_helper_count": 0,
+  "new_owner_count": 0,
+  "new_implementation_function_count": 0,
+  "evidence_refs": [
+    "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-baseline",
+    "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-decision",
+    "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-acceptance",
+    "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state",
+    "doc/cg2d_logout_deletion_request_tick_sampling_evidence.json"
+  ],
+  "artifacts": [
+    "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-baseline",
+    "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-decision",
+    "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-acceptance",
+    "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state",
+    "doc/cg2d_logout_deletion_request_tick_sampling_evidence.json",
+    "src/LoginRequest.cpp",
+    "src/CharacterDeletionRequest.cpp",
+    "src/CharacterDeletionProgress.cpp",
+    "include/cg/CharacterDeletionRequest.hpp",
+    "include/cg/LoginRequest.hpp",
+    "src/platform/LegacyFormat.hpp",
+    "doc/cg2d_login_request.md",
+    "doc/cg2d_character_select_scene.md",
+    "doc/cg2d_stdio_contract.md",
+    "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
+    "doc/cg2d_semantic_function_mappings.json",
+    "plan/cg2d_acceptance_registry.json"
+  ],
+  "task_acceptance_before": [
+    {
+      "task_id": "U10",
+      "state": "open",
+      "reference_count": 70
+    },
+    {
+      "task_id": "V03",
+      "state": "open",
+      "reference_count": 78
+    },
+    {
+      "task_id": "U11",
+      "state": "open",
+      "reference_count": 47
+    },
+    {
+      "task_id": "R04",
+      "state": "open",
+      "reference_count": 264
+    }
+  ],
+  "implementation_static_scope": "BVJ01限定静态：登出轮询与删除启动/轮询三个完整根61条244B/三页，3直接/3计时间接/5跳/8RET；仅LoginRequest.cpp一个elapsed片段恢复计时调用完成后fresh读取共享起始W32再差值。原各独立W16回复持样后清状态、登出1/2/其它与删除任意非零成功差别、严格600000门槛/各15B原格式点及超时未清状态保；删除先socket后记录+4C、正常发送失败仍状态1/tick正确保持。既有1065处置更新、155/156纳管，LOGIN13不增、CHARACTER26→28，LOGIN仅取样I/限定S、CHARACTER仅正确合同S；无新函数/组包/网络格式/加解密/owner/保护，完整父-callee/正常寿命/请求往返/机器ABI链接运行未验。",
+  "runtime_verified": false,
+  "fault_equivalence_claimed": false,
+  "network_wire_format_changed": false,
+  "encryption_added": false,
+  "full_parent_or_callee_acceptance_claimed": false
+}

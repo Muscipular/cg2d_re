@@ -773,3 +773,11 @@ NUL 终止名字与记录首字段；`51B151–51B17E`
 集中静态通过：三完整原根210条703B/五页、30直接/两计时间接/两跳/五RET，两个实际父局部28条119B含重叠、两X17B逐BYTE NN_NOP用途；七整源只一cpp一个elapsed片段，先计时调用再fresh读取共享起始W32后相减，原完成回复/严格600000阈值/15B原格式点和正常失败后状态/tick序保持。启动/正确aSEl十三字段的独立容量/格式后输出重读/结果直透、BRW创建回复与DZ接线及全部其它源/声明保持。完整机器与派生仅具名差集；十五文件UTF8无BOM/LF、四锚点/三限定证据各28真实来源通过。
 
 文本汇总及Check均退出0；实际语义1764/有效1757、合同1874（50.92%）、F907/E1082、R7已审467余2594、CHARACTER26/NETWORK64。原分类120/mixed3/完整入口排除113、BVH原新与pending7/18、closed11/差队列及完整闭包保持。只有154计时读点产生新I，153启动/1763组包保持正确且无新I；原格式明文不改，不声称实际超时运行错误或异常回绕等价。完整请求往返、其他父-callee/正常owner-alias寿命、机器ABI链接/运行与R8未验，整体目标继续。
+
+## BVJ01登出与删除请求计时取样（2026-10-08）
+
+[BVJ01原基线](cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-baseline)、[实施决定](cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-decision)与[完整原证](cg2d_logout_deletion_request_tick_sampling_evidence.json)：三根61条244B/三页，仅登出轮询一个elapsed片段恢复计时调用后fresh读取共享起始W32；删除启动/轮询现实现正确保持。
+
+原508CC4调用计时，508CCA才读取共享起始tick；现拆now/start/elapsed三语句，保留登出1→1、2→2、其它→-2。删除508F86先读socket、508F8C后读记录+4C且发送失败仍状态1/tick；删除轮询已先now后start、任意非零W16成功，源码零改动，不套创建恰1成功规则。
+
+原各独立W16回复持样后清状态、严格600000门槛/15B格式及超时未清状态保，网络原格式明文不变。LOGIN13不增、CHARACTER26→28；LOGIN仅取样I/限定S，CHARACTER仅正确合同S。完整父-callee/正常owner-alias寿命、真实往返、机器ABI链接/运行及R8仍未验，完整门禁保持。

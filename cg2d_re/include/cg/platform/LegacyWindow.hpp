@@ -10,6 +10,9 @@ extern std::uintptr_t gLegacyWindow;
 // 原 MessageBoxA 边界：仅传递原字节串，不在这里猜测或变更旧客户端编码。
 int ShowLegacyMessage(const char* text, const char* caption, std::uint32_t flags);
 
+// UTF-8提示边界：仅在Win32显示时转UTF-16，不改变协议/资源的原字节串。
+int ShowUtf8Message(const char* text, const char* caption, std::uint32_t flags);
+
 // 原 ShowCursor 边界：保留调用方传入的完整 W32，不归一化为 bool。
 std::int32_t ShowLegacyCursor(std::int32_t show);
 

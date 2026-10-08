@@ -96339,7 +96339,7 @@
     }
   ],
   "build_validation": {
-    "step": "CAA01",
+    "step": "CAB01",
     "recorded_on": "2026-10-08",
     "configuration": "Debug",
     "configure_exit_code": 0,
@@ -96353,8 +96353,10 @@
     "evidence_refs": [
       "doc/cg2d_build_acceptance_spec.md",
       "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
-      "doc/cg2d_client_link_sdl_audio_evidence.json"
+      "doc/cg2d_client_link_sdl_audio_evidence.json",
+      "plan/cg2d_full_reconstruction_progress.md"
     ],
-    "note": "全量重建及最后源改动增量构建通过；五实际SDL提供者，旧三符号保留原独立归档成员。未执行客户端/测试，V02完整流程、全音频与整体SPEC不关闭"
+    "note": "本步启动提示UTF-8/Win32显示边界必要Debug编译链接通过；配置沿用CAA01。原图档版本参数已按真实文件修正，未再启动客户端；V02与完整音频/整体SPEC不关闭",
+    "configure_reused_from": "CAA01"
   }
 }

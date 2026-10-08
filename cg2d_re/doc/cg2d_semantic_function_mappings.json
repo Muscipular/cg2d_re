@@ -15228,7 +15228,8 @@
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "plan/cg2d_full_reconstruction_progress.md"
       ],
       "boundary": "保留CGstart文件命令行、互斥量、updated门禁、窗口类注册及初始化调用次序，忽略初始化各返回并最终返回0。当前在静态库中，PE图标/光标与最终链接仍未完成。 argument.ini四原调用统一LegacyFile/真实格式，465889按同流flags低U8/10H直接检查；do先清line前1025B、S32 count1024读取忽略返回、strlen作S32累计，4096门槛先于追加，EOF先追加空串才结束；打开失败仍发布空命令行。其他启动正文不变，不补读错误门槛或未知字节。 本步4657C8/4658CD接真实53BE40，原CGstart/updated字节、commandLine/gCommandLine借用源、文件替换与互斥量先于updated检查保持，整份入口仅两标识符/已有公开头增量。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。",
       "original_end_exclusive": "0x4659ED",
@@ -15359,7 +15360,20 @@
           "arguments": "GetModuleHandleA(nullptr)真实instance,nullptr,借用commandLine,原U16 show或10",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
         }
-      ]
+      ],
+      "startup_message_encoding": {
+        "step": "CAB01",
+        "user_requested_utf8_conversion": true,
+        "source_literals": "UTF-8",
+        "win32_display": "UTF-16/MessageBoxW",
+        "message_meaning_preserved": true,
+        "protocol_and_resource_bytes_changed": false,
+        "client_link_verified": true,
+        "post_fix_runtime_verified": false,
+        "evidence_refs": [
+          "plan/cg2d_full_reconstruction_progress.md"
+        ]
+      }
     },
     {
       "original_entry": "0x4659F0",
@@ -148722,10 +148736,24 @@
       ],
       "evidence_documents": [
         "doc/cg2d_main_loop.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "plan/cg2d_full_reconstruction_progress.md"
       ],
       "verification_level": "253条统计仅读28存档错误邻指令；原call/U8零扩展/原字节与源码仅callee静态对齐，余225条/原依赖和caller不重验，未执行。",
-      "boundary": "原U8存档错误码零扩展W32后S32/%d消费，未清1024B消息→原MessageBox旗标/标题→返回0；不提前读码、不改变初始化/失败清理/游标和其他依赖、父RNG或音频暂停，不用本点代替初始化验收。仅callee及已有内部声明头，原失败MessageBox/返回与正常初始化所有正文不动，未启动客户端/恢复存档或下探原文件；原父及CRT/完整运行/总PLAN未闭合。"
+      "boundary": "原U8存档错误码零扩展W32后S32/%d消费，未清1024B消息→原MessageBox旗标/标题→返回0；不提前读码、不改变初始化/失败清理/游标和其他依赖、父RNG或音频暂停，不用本点代替初始化验收。仅callee及已有内部声明头，原失败MessageBox/返回与正常初始化所有正文不动，未启动客户端/恢复存档或下探原文件；原父及CRT/完整运行/总PLAN未闭合。",
+      "startup_message_encoding": {
+        "step": "CAB01",
+        "user_requested_utf8_conversion": true,
+        "source_literals": "UTF-8",
+        "win32_display": "UTF-16/MessageBoxW",
+        "message_meaning_preserved": true,
+        "protocol_and_resource_bytes_changed": false,
+        "client_link_verified": true,
+        "post_fix_runtime_verified": false,
+        "evidence_refs": [
+          "plan/cg2d_full_reconstruction_progress.md"
+        ]
+      }
     },
     {
       "original_entry": "0x45FEA0",

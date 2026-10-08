@@ -41,31 +41,16 @@ std::int32_t InitializeMusic_454C30(std::uintptr_t window);
 
 namespace {
 
-constexpr char kConfirmCaption[] = "\xBD\x54\xBB\x7B";
-constexpr char kRendererError[] =
-    "DirectDraw\xAA\xEC\xB4\xC1\xA4\xC6\xA5\xA2\xB1\xD1\xA1\x43";
-constexpr char kSurfaceMemoryError[] =
-    "\xB0\x4F\xBE\xD0\xC5\xE9\xB0\x74\xB8\x6D\xBF\xF9\xBB\x7E";
-constexpr char kAllocationError[] = "\xB0\x74\xB8\x6D\xBF\xF9\xBB\x7E";
-constexpr char kGraphicError[] =
-    "Graphic.bin\xB6\x7D\xB1\xD2\xA5\xA2\xB1\xD1\xA1\x43";
-constexpr char kGraphicV3Error[] =
-    "GraphicV3.bin\xB6\x7D\xB1\xD2\xA5\xA2\xB1\xD1";
-constexpr char kGraphicInformation[] =
-    "\xC0\xC9\xAE\xD7\xAC\x4F\xA7\x5F\xB7\x6C\xB7\xB4\xA1\x41"
-    "\xA5\xB2\xB6\xB7\xA8\xCF\xA5\xCE\xB7\x73\xAA\xBA\xB1\xD2"
-    "\xB0\xCA\xB5\x7B\xA6\xA1\xA1\x43\xBD\xD0\xAB\xF6\xA1\x75"
-    "\xA2\xDD\xA2\xD9\xA1\x76\xBE\x5C\xC5\xAA\xB8\xD4\xB2\xD3"
-    "\xBB\xA1\xA9\xFA\xA1\x43";
-constexpr char kGraphicVersionError[] =
-    "\xB5\x7B\xA6\xA1\xAA\xA9\xA5\xBB\xA4\xA3\xA5\xBF\xBD\x54"
-    "\xA1\x41\xBD\xD0\xC1\xCA\xB6\x52\xB8\xEA\xAE\xC6\xA4\xF9"
-    "\xA9\xCE\xA4\x55\xB8\xFC\xC2\xF7\xBD\x75\xA7\xF3\xB7\x73"
-    "\xC0\xC9\xA1\x43";
-constexpr char kSavedStateErrorFormat[] =
-    "\xC5\xAA\xA4\x4A\xA6\x73\xC0\xC9\xA5\xA2\xB1\xD1\xA1\x43"
-    "(code = %d)";
-constexpr char kAnimeError[] = "Anime.bin \xC5\xAA\xA8\xFA\xBF\xF9\xBB\x7E";
+constexpr char kConfirmCaption[] = "確認";
+constexpr char kRendererError[] = "DirectDraw初期化失敗。";
+constexpr char kSurfaceMemoryError[] = "記憶體配置錯誤";
+constexpr char kAllocationError[] = "配置錯誤";
+constexpr char kGraphicError[] = "Graphic.bin開啟失敗。";
+constexpr char kGraphicV3Error[] = "GraphicV3.bin開啟失敗";
+constexpr char kGraphicInformation[] = "檔案是否損毀，必須使用新的啟動程式。請按「ＯＫ」閱讀詳細說明。";
+constexpr char kGraphicVersionError[] = "程式版本不正確，請購買資料片或下載離線更新檔。";
+constexpr char kSavedStateErrorFormat[] = "讀入存檔失敗。(code = %d)";
+constexpr char kAnimeError[] = "Anime.bin 讀取錯誤";
 constexpr std::uint32_t kErrorMessageFlags = 0x10;
 
 // 原 73ECE8；两段淡变共用的图号，PE 零填充初值。
@@ -204,14 +189,14 @@ int InitializeClient_4576B0()
         reportRendererFailure = render::RendererInit_44B630() != 0;
     }
     if (reportRendererFailure) {
-        ShowLegacyMessage(kRendererError, kConfirmCaption, kErrorMessageFlags);
+        ShowUtf8Message(kRendererError, kConfirmCaption, kErrorMessageFlags);
         PostLegacyWindowMessage(gLegacyWindow, 0x10, 0, 0);
     }
 
     // 原失败提示/PostMessage 之后仍继续，不在此插入返回或清理。
     render::gRenderQueueMode103CF10 = 1;
     if (render::BuildSurfaceCache_5231A0() == 0) {
-        ShowLegacyMessage(kSurfaceMemoryError, "Error Code = 22", kErrorMessageFlags);
+        ShowUtf8Message(kSurfaceMemoryError, "Error Code = 22", kErrorMessageFlags);
         return 0;
     }
     render::InitializeGraphicPaletteCache_44E0C0();
@@ -219,7 +204,7 @@ int InitializeClient_4576B0()
         return 0;
     }
     if (resource::GraphicAlloc_4574E0() == 0) {
-        ShowLegacyMessage(kAllocationError, kConfirmCaption, kErrorMessageFlags);
+        ShowUtf8Message(kAllocationError, kConfirmCaption, kErrorMessageFlags);
         return 0;
     }
     static_cast<void>(render::InvalidateGraphicRefs_523350());
@@ -227,14 +212,14 @@ int InitializeClient_4576B0()
         resource::gGraphicPaths, resource::gGraphicInfoPaths);
     switch (graphicResult) {
     case 1:
-        ShowLegacyMessage(kGraphicError, kConfirmCaption, kErrorMessageFlags);
+        ShowUtf8Message(kGraphicError, kConfirmCaption, kErrorMessageFlags);
         return 0;
     case 2:
-        ShowLegacyMessage(kGraphicV3Error, kConfirmCaption, kErrorMessageFlags);
-        ShowLegacyMessage(kGraphicInformation, "INFORMATION", kErrorMessageFlags);
+        ShowUtf8Message(kGraphicV3Error, kConfirmCaption, kErrorMessageFlags);
+        ShowUtf8Message(kGraphicInformation, "INFORMATION", kErrorMessageFlags);
         return 0;
     case 7:
-        ShowLegacyMessage(kGraphicVersionError, kConfirmCaption, kErrorMessageFlags);
+        ShowUtf8Message(kGraphicVersionError, kConfirmCaption, kErrorMessageFlags);
         return 0;
     }
 
@@ -248,7 +233,7 @@ int InitializeClient_4576B0()
     if (RestoreCurrentSavedState_5201B0() == 0) {
         char message[1024];
         FormatLegacyString_53B304(message, kSavedStateErrorFormat, static_cast<int>(gValueFF4E28));
-        ShowLegacyMessage(message, kConfirmCaption, kErrorMessageFlags);
+        ShowUtf8Message(message, kConfirmCaption, kErrorMessageFlags);
         return 0;
     }
 
@@ -273,7 +258,7 @@ int InitializeClient_4576B0()
     login::detail::Sub_44B5C0("InitSprBinFileOpen Start");
     if (resource::animation::AnimeInit_45BB20(
             resource::gAnimePaths, resource::gAnimeInfoPaths) != 0) {
-        ShowLegacyMessage(kAnimeError, kConfirmCaption, kErrorMessageFlags);
+        ShowUtf8Message(kAnimeError, kConfirmCaption, kErrorMessageFlags);
         return 0;
     }
     resource::animation::CoordLoadInit_45C040(

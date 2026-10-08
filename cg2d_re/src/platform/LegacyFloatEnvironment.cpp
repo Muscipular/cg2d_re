@@ -17,6 +17,13 @@ namespace cg::platform {
 
 std::int32_t gLegacyFdivBug1085FC0 = 0;
 
+// 原1085FBC为无有效初始字节/无文件偏移的静态W32槽，不能把IDA的FF当原值。
+namespace detail {
+extern "C" {
+std::uint32_t Cg2dLegacyPowerFastExitGate1085FBC;
+}
+} // namespace detail
+
 // 原5925B8初始字节94260000；仅已证读取决定是否跳过原matherr，未见写入不等于常量。
 namespace detail {
 extern "C" {
@@ -250,6 +257,15 @@ static_assert(offsetof(LegacyMathErrorInputs, functionName) == 8);
 static_assert(offsetof(LegacyMathErrorInputs, argument1) == 16);
 static_assert(offsetof(LegacyMathErrorInputs, argument2) == 24);
 static_assert(sizeof(LegacyMathErrorInputs) == 32);
+
+// 原53D019普通pow值入口；原算法留ASM，不借宿主数学或填原未生产辅助结果。
+double PowerLegacyFloat_53D019(const double base, const double exponent) noexcept
+{
+    const double inputs[2] = {base, exponent};
+    double result;
+    detail::Cg2dComputeLegacyPower(inputs, &result);
+    return result;
+}
 
 // 原5473E8；原字段生产、x87落存与系统调用前后读取留在ASM。
 void RaiseLegacyFloatingPointException_5473E8(

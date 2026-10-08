@@ -19,6 +19,11 @@ LegacyRangeMinimum54FB2C QWORD 0010000000000000h
 LegacyRangeScaleDown54FB34 QWORD 0C098000000000000h
 LegacyRangeScaleUp54FB3C QWORD 04098000000000000h
 
+LegacyGenericPowerHalf58F890 QWORD 03FE0000000000000h
+LegacyGenericPowerInfinity591FF0 BYTE 00h, 00h, 00h, 00h, 00h, 00h, 00h, 080h, 0FFh, 07Fh
+LegacyGenericPowerUndefined592060 BYTE 00h, 00h, 00h, 00h, 00h, 00h, 00h, 0C0h, 0FFh, 0FFh
+LegacyGenericPowerName58F898 BYTE "pow", 0
+
 .code
 EXTERN Cg2dClassifyLegacySpecialFloat:PROC
 PUBLIC Cg2dClassifyLegacyFloat
@@ -35,6 +40,11 @@ PUBLIC Cg2dProcessLegacyX87Exception
 PUBLIC Cg2dStartLegacyTwoArgumentErrorX87
 PUBLIC Cg2dStartLegacyOneArgumentErrorX87
 PUBLIC Cg2dCheckLegacyRangeExitX87
+PUBLIC Cg2dComputeLegacyPower
+PUBLIC Cg2dLegacyCIPowerX87
+PUBLIC Cg2dLegacyPowerCoreX87
+PUBLIC Cg2dClassifyLegacyPowerExponentX87
+EXTERN Cg2dLegacyPowerFastExitGate1085FBC:DWORD
 EXTERN Cg2dRaiseLegacyFloatExceptionHost:PROC
 EXTERN Cg2dDefaultLegacyMathError:PROC
 EXTERN Cg2dSetLegacyMathErrno:PROC
@@ -1322,5 +1332,234 @@ LegacyRangeOverflow:
     fmul qword ptr [LegacyPowerInfinity5923C0]
     jmp LegacyRangeHaveError
 Cg2dCheckLegacyRangeExitX87 ENDP
+
+; 原53D1F5；ST0指数被原比较/半乘法/弹栈消费，CL保原0/1/2，其他ECX位不改。
+Cg2dClassifyLegacyPowerExponentX87 PROC
+    fld st(0)
+    frndint
+    fcomp st(1)
+    mov cl, 0
+    fstsw ax
+    sahf
+    jnz LegacyPowerExponentNotInteger
+    fmul qword ptr [LegacyGenericPowerHalf58F890]
+    inc cl
+    fld st(0)
+    frndint
+    fcompp
+    fstsw ax
+    sahf
+    jnz LegacyPowerExponentDone
+    inc cl
+LegacyPowerExponentDone:
+    ret
+LegacyPowerExponentNotInteger:
+    fstp st(0)
+    ret
+Cg2dClassifyLegacyPowerExponentX87 ENDP
+
+; 原53D022完整130条及54348E共同出口；RCX借用两个F64，EAX为已加载Y高W32，ST0为Y。
+; 232B正常帧保32B调用区、32B原错误输入、原样本与两实参/结果及108B不解释FPU保存区。
+Cg2dLegacyPowerCoreX87 PROC FRAME
+    sub rsp, 232
+    .allocstack 232
+    .endprolog
+    mov r10, qword ptr [rcx]
+    mov r11, qword ptr [rcx+8]
+    mov qword ptr [rsp+48], r10
+    mov qword ptr [rsp+56], r11
+    mov ecx, eax
+    mov dword ptr [rsp+64], ecx
+    mov dword ptr [rsp+32], eax
+    fstcw word ptr [rsp+32]
+    cmp word ptr [rsp+32], 027Fh
+    jz LegacyGenericPower_53D036
+    movzx ecx, word ptr [rsp+32]
+    call Cg2dLoadLegacyPowerControlWord
+    mov ecx, dword ptr [rsp+64]
+LegacyGenericPower_53D036:
+    and ecx, 7FF00000h
+    lea rdx, [rsp+48]
+    cmp ecx, 7FF00000h
+    jz LegacyGenericPower_53D0E9
+    call Cg2dLoadLegacyPowerOperandX87
+    jz LegacyGenericPower_53D0E5
+    test eax, 7FF00000h
+    jz LegacyGenericPower_53D158
+LegacyGenericPower_53D062:
+    mov cl, byte ptr [rsp+55]
+    and cl, 80h
+    jnz LegacyGenericPower_53D1D0
+LegacyGenericPower_53D06F:
+    fyl2x
+    call Cg2dLegacyTwoToTOSX87
+    cmp cl, 1
+    jnz LegacyGenericPower_53D07D
+    fchs
+LegacyGenericPower_53D07D:
+    cmp dword ptr [Cg2dLegacyPowerFastExitGate1085FBC], 0
+    jnz LegacyGenericPower_54348E
+    lea r10, LegacyGenericPowerName58F898
+    mov qword ptr [rsp+40], r10
+    mov dword ptr [rsp+36], 01Dh
+    lea rcx, [rsp+32]
+    call Cg2dCheckLegacyRangeExitX87
+    add rsp, 232
+    ret
+LegacyGenericPower_53D09A:
+    cmp dword ptr [Cg2dLegacyPowerFastExitGate1085FBC], 0
+    jnz LegacyGenericPower_54348E
+    lea r10, LegacyGenericPowerName58F898
+    mov qword ptr [rsp+40], r10
+    mov dword ptr [rsp+36], 01Dh
+    mov edx, eax
+    lea rcx, [rsp+32]
+    call Cg2dStartLegacyTwoArgumentErrorX87
+    mov edx, dword ptr [rsp+32]
+    add rsp, 232
+    ret
+LegacyGenericPower_53D0B9:
+    lea rdx, [rsp+48]
+    call Cg2dLoadLegacyPowerOperandX87
+    test byte ptr [rsp+62], 8
+    jnz LegacyGenericPower_53D0CC
+    inc ecx
+    jmp LegacyGenericPower_53D0FF
+LegacyGenericPower_53D0CC:
+    faddp st(1), st(0)
+    mov eax, 1
+    jmp LegacyGenericPower_53D09A
+LegacyGenericPower_53D0D5:
+    test byte ptr [rsp+54], 8
+    jnz LegacyGenericPower_53D0CC
+LegacyGenericPower_53D0DC:
+    faddp st(1), st(0)
+    mov eax, 7
+    jmp LegacyGenericPower_53D09A
+LegacyGenericPower_53D0E5:
+    xor ecx, ecx
+    jmp LegacyGenericPower_53D0FF
+LegacyGenericPower_53D0E9:
+    xor ecx, ecx
+    and eax, 0FFFFFh
+    or eax, [rsp+56]
+    jnz LegacyGenericPower_53D0B9
+    lea rdx, [rsp+48]
+    call Cg2dLoadLegacyPowerOperandX87
+LegacyGenericPower_53D0FF:
+    mov eax, [rsp+52]
+    mov edx, eax
+    and eax, 7FF00000h
+    and edx, 0FFFFFh
+    cmp eax, 7FF00000h
+    jnz LegacyGenericPower_53D11D
+    or edx, [rsp+48]
+    jnz LegacyGenericPower_53D0D5
+LegacyGenericPower_53D11D:
+    test ecx, ecx
+    jnz LegacyGenericPower_53D0DC
+    fstp qword ptr [rsp+80]
+    fstp qword ptr [rsp+88]
+    fsave [rsp+104]
+    lea rcx, [rsp+80]
+    lea rdx, [rsp+88]
+    lea r8, [rsp+96]
+    call Cg2dProcessLegacyPowerSpecial
+    frstor [rsp+104]
+    fld qword ptr [rsp+96]
+    test eax, eax
+    jz LegacyGenericPower_54348E
+    mov eax, 1
+    jmp LegacyGenericPower_53D09A
+LegacyGenericPower_53D158:
+    mov eax, [rsp+52]
+    and eax, 0FFFFFh
+    or eax, [rsp+48]
+    jnz LegacyGenericPower_53D062
+    fstp st(0)
+    mov eax, [rsp+60]
+    test eax, 7FF00000h
+    jz LegacyGenericPower_53D1B5
+    call Cg2dClassifyLegacyPowerExponentX87
+    mov ch, byte ptr [rsp+55]
+    shr ch, 7
+    test dword ptr [rsp+63], 80h
+    jz LegacyGenericPower_53D1A4
+    fld tbyte ptr [LegacyGenericPowerInfinity591FF0]
+    test ch, cl
+    jz LegacyGenericPower_53D19A
+    fchs
+LegacyGenericPower_53D19A:
+    mov eax, 2
+    jmp LegacyGenericPower_53D09A
+LegacyGenericPower_53D1A4:
+    fldz
+    test ch, cl
+    jz LegacyGenericPower_54348E
+    fchs
+    jmp LegacyGenericPower_54348E
+LegacyGenericPower_53D1B5:
+    fstp st(0)
+    and eax, 0FFFFFh
+    or eax, [rsp+56]
+    jnz LegacyGenericPower_53D1C9
+    fld1
+    jmp LegacyGenericPower_54348E
+LegacyGenericPower_53D1C9:
+    fldz
+    jmp LegacyGenericPower_54348E
+LegacyGenericPower_53D1D0:
+    fld st(1)
+    call Cg2dClassifyLegacyPowerExponentX87
+    fchs
+    test cl, cl
+    jnz LegacyGenericPower_53D06F
+    fstp st(0)
+    fstp st(0)
+    fld tbyte ptr [LegacyGenericPowerUndefined592060]
+    mov eax, 1
+    jmp LegacyGenericPower_53D09A
+LegacyGenericPower_54348E:
+    cmp word ptr [rsp+32], 027Fh
+    jz LegacyGenericPower_543499
+    fldcw word ptr [rsp+32]
+LegacyGenericPower_543499:
+    mov edx, dword ptr [rsp+32]
+    add rsp, 232
+    ret
+Cg2dLegacyPowerCoreX87 ENDP
+
+; 原53D000；ST0=Y/ST1=X，保原FXCH/FSTP X/FST Y与高W32，再真调完整core。
+Cg2dLegacyCIPowerX87 PROC FRAME
+    sub rsp, 56
+    .allocstack 56
+    .endprolog
+    fxch st(1)
+    fstp qword ptr [rsp+32]
+    fst qword ptr [rsp+40]
+    mov eax, dword ptr [rsp+44]
+    lea rcx, [rsp+32]
+    call Cg2dLegacyPowerCoreX87
+    add rsp, 56
+    ret
+Cg2dLegacyCIPowerX87 ENDP
+
+; 原53D019普通入口的Y加载/至core顺流承接；RCX借两个F64/RDX借F64输出。
+; 只有外部Win64值桥在core返回后FSTP F64；CI/core/帮助体连续ST0不经CPP。
+Cg2dComputeLegacyPower PROC FRAME
+    sub rsp, 56
+    .allocstack 56
+    .endprolog
+    mov qword ptr [rsp+32], rcx
+    mov qword ptr [rsp+40], rdx
+    lea rdx, [rcx+8]
+    call Cg2dLoadLegacyPowerOperandX87
+    mov rcx, qword ptr [rsp+32]
+    call Cg2dLegacyPowerCoreX87
+    mov rdx, qword ptr [rsp+40]
+    fstp qword ptr [rdx]
+    add rsp, 56
+    ret
+Cg2dComputeLegacyPower ENDP
 
 END

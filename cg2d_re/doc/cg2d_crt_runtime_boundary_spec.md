@@ -198,3 +198,11 @@ NCE01已接业务copy/单owner、消息/析构及所有旧构析正文保持，�
 543390/5433A7及5433B0真实共享段、5434D9三完整86条246B/三页已开发，三现文件五追加/三ASM本体，CPP仅六布局断言。单参不生产第二F64、双参原低高W32序/同一40B记录与88B展开帧，全局共享标签/真实87except和范围两CALL接通。
 
 保原FST连续结果、六常量/缩放比较/真FMUL、原CW状态/类型与分参和027FH恢复。原上游PUSH W32再只覆盖低W16，32B借用输入与范围三EDX原载体返回不补零高W16；三原新/F、CRT171→174限定I/S，定位155→152/CRT未定位27→24。完整pow/分派与FPU生命周期/机器运行沿原门禁继续。
+
+## BWK01完整通用幂四入口及FPU保存恢复（2026-10-08）
+
+[基线](cg2d_power_generic_body_spec.md#power-generic-baseline)、[决定](cg2d_power_generic_body_spec.md#power-generic-decision)、[验收](cg2d_power_generic_body_spec.md#power-generic-acceptance)与[完整原体/源前后态](cg2d_power_generic_body_evidence.json)。
+
+53D000/53D019/53D022两块与53D1F5四完整159条554B/五页已整组开发，一CPP/四ASM五本体、一个外部C值桥及原未初始化静态W32槽owner；三现文件七追加。CI/普通入口到core及全部依赖真接，13ASM调用、真实指数ST0消费/CL分类、原CW/加载样本/所有分支保。
+
+原两实参F64落存/FSAVE108/真实powhlp/FRSTOR/结果读取与S32分派保，保存区不解释、未生产结果不填，只有外部值桥转换F64；原范围尾适为真CALL后释放正常帧。复用1266/1267、两新身份，CRT174→176/F999限定I/S，定位152→150/CRT未定位24→22；旧活动地图原点及共享分派/全应用和机器环境/运行继续原门禁。

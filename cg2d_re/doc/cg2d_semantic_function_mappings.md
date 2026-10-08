@@ -4115,3 +4115,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 新增1832/F:00143390→Cg2dStartLegacyTwoArgumentErrorX87，1833/F:001433A7→Cg2dStartLegacyOneArgumentErrorX87，1834/F:001434D9→Cg2dCheckLegacyRangeExitX87。只有三ASM本体/三原身份，共享段不另算F，零CPP本体/新C桥或mutable owner。
 
 双参九条前缀的尾依赖接唯一真实共享段，两88B帧/40B记录、单参不写第二F64、原W32载体与三EDX返回、三CALL和六只读常量均有据。只拓名称/借用指针，ST0不冒CPP double ABI；CRT174/F997限定I/S不代完整pow/机器展开或运行，pending18保持。
+
+## BWK01通用幂本体扩展及两项新映射（2026-10-08）
+
+[四完整原体/当前真实源前后态](cg2d_power_generic_body_evidence.json)、[完整算法和生命周期合同](cg2d_power_generic_body_spec.md#power-generic-decision)。
+
+扩展1266/F:0013D000→Cg2dLegacyCIPowerX87、1267/F:0013D022→Cg2dLegacyPowerCoreX87；保旧MFA source/历史，不重复计F。新增1835/F:0013D019→PowerLegacyFloat及Cg2dComputeLegacyPower，1836/F:0013D1F5→真实ST0消费/CL分类。五新本体/一个值桥只有两新原身份。
+
+四完整159条554B/五页与13实际ASM调用保原CW/字段/加载FLAGS与全分支，FSAVE108/真实helper/FRSTOR不解释保存区或填未生产结果；原无初始字节的静态槽FF不作原值。CRT176/F999限定I/S不代活动地图全原点切换/共享分派、机器环境或运行，pending18保持。

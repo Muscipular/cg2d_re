@@ -83,6 +83,12 @@ struct LegacyMathErrorInputs {
 // Cg2dStartLegacyTwoArgumentErrorX87/Cg2dStartLegacyOneArgumentErrorX87另以EDX传S32类型。
 // Cg2dCheckLegacyRangeExitX87仅消费RCX与ST(0)；三入口均在ASM间返回ST(0)，范围出口另还原EDX的完整原CW载体。
 
+// 原53D019普通值入口；全部一般pow分支留在ASM，内部CI/core保连续ST0。
+double PowerLegacyFloat_53D019(double base, double exponent) noexcept;
+// ASM私有：Cg2dLegacyCIPowerX87以ST0=Y/ST1=X进出；Cg2dLegacyPowerCoreX87以
+// RCX借两F64/EAX为已加载Y高W32/ST0=Y调用，返回ST0及原W32 CW载体EDX。
+// Cg2dClassifyLegacyPowerExponentX87消费ST0指数/返回CL0或1或2；不声明CPP double ABI。
+
 // 原控制字抽象/硬件表示转换，只消费和生成原已定义位。
 std::uint32_t AbstractLegacyControlWord_5448A4(std::uint32_t hardware);
 std::uint32_t HardwareLegacyControlWord_544936(std::uint32_t abstractValue);
@@ -139,6 +145,10 @@ extern "C" void Cg2dRaiseLegacyFloatExceptionHost(
 extern "C" std::int32_t Cg2dDefaultLegacyMathError(LegacyMathErrorRecord* record) noexcept;
 extern "C" std::int32_t Cg2dSetLegacyMathErrno(std::int32_t type) noexcept;
 extern "C" std::uint32_t Cg2dLegacyMathErrorCallbackGate5925B8;
+
+// Win64普通值桥；只借用两个F64输入/结果，外部转换边界见通用幂本体SPEC。
+extern "C" void Cg2dComputeLegacyPower(const double* inputs, double* result) noexcept;
+extern "C" std::uint32_t Cg2dLegacyPowerFastExitGate1085FBC;
 
 } // namespace detail
 } // namespace cg::platform

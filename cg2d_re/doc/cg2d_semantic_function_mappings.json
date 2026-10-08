@@ -166040,7 +166040,7 @@
     {
       "original_entry": "0x53d000",
       "inventory_id": "F:0013D000",
-      "status": "MFA01仅现有两正底数调用的内联路径身份；一般pow职责未闭，不计新增幂实现",
+      "status": "BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。 原历史：MFA01仅现有两正底数调用的内联路径身份；一般pow职责未闭，不计新增幂实现",
       "original_end_exclusive": "0x53d019",
       "instruction_count": 8,
       "original_reference_count": 2,
@@ -166065,6 +166065,37 @@
             "Sub_46F1D0"
           ],
           "relationship": "实际两原点由spawn两次调用Divisor复用，保level/速度/除数/RNG消费"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dLegacyCIPowerX87"
+          ],
+          "relationship": "原53D000完整CI入口：ST0=Y/ST1=X，FXCH/FSTP X/FST Y/高W32样本及真实完整core；连续ST0输出只在ASM，不把现MFA固定1.25内联当通用本体。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dLegacyCIPowerX87",
+            "Cg2dLegacyPowerCoreX87"
+          ],
+          "relationship": "四ASM完整本体/13真实调用、原连续ST0/字段和状态；232B core/两56B接口帧，108B原FSAVE-FRSTOR不解释保存区，原未生产结果不补值"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "Cg2dLegacyCIPowerX87",
+            "Cg2dLegacyCIPowerX87"
+          ],
+          "relationship": "普通Win64外部F64值接口与内部CI/core/真实指数消费ST0合同，不冒CPP x87返回"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "PowerLegacyFloat_53D019",
+            "Cg2dLegacyPowerFastExitGate1085FBC"
+          ],
+          "relationship": "普通值入口只借两个F64/结果，原未初始化静态W32唯一owner；不借宿主pow或将IDA无值FF作初值"
         }
       ],
       "inbound_evidence": [
@@ -166084,15 +166115,85 @@
         "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision",
         "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-acceptance",
         "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
-        "doc/cg2d_map_effect_arithmetic_evidence.json"
+        "doc/cg2d_map_effect_arithmetic_evidence.json",
+        "doc/cg2d_power_generic_body_spec.md#power-generic-baseline",
+        "doc/cg2d_power_generic_body_spec.md#power-generic-decision",
+        "doc/cg2d_power_generic_body_spec.md#power-generic-acceptance",
+        "doc/cg2d_power_generic_body_spec.md#power-generic-source-state"
       ],
-      "verification_level": "三个原495条1697B与引用类型保存，仅固定点局部/两pow点及正底数路径和一段源差异静态；不重验全357条场景/一般pow/全部父/实际运行",
-      "boundary": "原x87 __CIpow只有两直接call均来自46F1D0，底数F64 1.25与signedLevel−1；新端这两点由真实spawn/Cg2dMapEffectDivisor内联承接正底数路径，不创建同名x86寄存器包装或迁std::pow。只本调用正常路径，完整通用职责/未知间接调用/错误和浮点状态/机器ABI未闭。 数学异常不专项保护或模拟/称等价，完整场景/生成RNG结果/所有alias与owner寿命、实际CPU浮点环境/ABI/SDK/画面未验。"
+      "verification_level": "BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。 原历史：三个原495条1697B与引用类型保存，仅固定点局部/两pow点及正底数路径和一段源差异静态；不重验全357条场景/一般pow/全部父/实际运行",
+      "boundary": "BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。 原历史：原x87 __CIpow只有两直接call均来自46F1D0，底数F64 1.25与signedLevel−1；新端这两点由真实spawn/Cg2dMapEffectDivisor内联承接正底数路径，不创建同名x86寄存器包装或迁std::pow。只本调用正常路径，完整通用职责/未知间接调用/错误和浮点状态/机器ABI未闭。 数学异常不专项保护或模拟/称等价，完整场景/生成RNG结果/所有alias与owner寿命、实际CPU浮点环境/ABI/SDK/画面未验。",
+      "power_generic_body": {
+        "spec_id": "BWK01",
+        "evidence_refs": [
+          "doc/cg2d_power_generic_body_spec.md#power-generic-baseline",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-decision",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-acceptance",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 8,
+        "original_code_bytes": 25,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_total_instruction_count": 159,
+        "original_total_code_bytes": 554,
+        "original_total_page_count": 5,
+        "original_total_direct_call_count": 11,
+        "original_total_unique_direct_callee_count": 7,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 36,
+        "original_total_return_count": 5,
+        "original_total_inbound_call_count": 5,
+        "original_total_inbound_flow_count": 1,
+        "original_core_first_page_reuse_reference": "doc/cg2d_power_general_helpers_evidence.json",
+        "source_body_added": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 7,
+        "new_original_mapped_function_count": 2,
+        "expanded_existing_mapping_count": 2,
+        "new_native_function_body_count": 5,
+        "new_cpp_body_count": 1,
+        "new_asm_proc_count": 4,
+        "new_private_C_bridge_count": 1,
+        "new_mutable_shared_owner_count": 1,
+        "full_generic_core_two_chunks_all_paths_and_real_exponent_consumer_kept": true,
+        "loaded_Y_EAX_ECX_FLAGS_samples_and_CW_full_W32_carrier_kept": true,
+        "PC_bridge_ECX_restore_kept": true,
+        "original_two_F64_stores_FSAVE108_true_helper_FRSTOR_and_result_load_kept": true,
+        "unwritten_helper_result_and_unconsumed_bytes_not_filled": true,
+        "opaque_environment_not_interpreted_or_pointer_simulated": true,
+        "original_range_tail_adapted_to_real_call_and_native_frame_release": true,
+        "original_all_CW_and_complete_EDX_carrier_returns_kept": true,
+        "original_uninitialized_static_W32_owner_not_FF_value_kept": true,
+        "native_ASM_real_call_count": 13,
+        "internal_CI_core_and_exponent_only_ST0_ASM_interfaces": true,
+        "external_value_bridge_only_F64_conversion": true,
+        "old_MFA_history_sources_and_active_application_fixed_domain_kept": true,
+        "no_host_pow_finite_guard_or_protection_or_fault_sample": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "all_application_original_calls_switched": false,
+        "full_shared_CRT_dispatch_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "machine_FPU_environment_equivalence_verified": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x53d022",
       "inventory_id": "F:0013D022",
-      "status": "MFA01仅现有两正底数调用的内联路径身份；一般pow职责未闭，不计新增幂实现",
+      "status": "BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。 原历史：MFA01仅现有两正底数调用的内联路径身份；一般pow职责未闭，不计新增幂实现",
       "original_end_exclusive": "0x53d1f5",
       "instruction_count": 130,
       "original_reference_count": 2,
@@ -166117,6 +166218,44 @@
             "Sub_46F1D0"
           ],
           "relationship": "实际两原点由spawn两次调用Divisor复用，保level/速度/除数/RNG消费"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dLegacyPowerCoreX87"
+          ],
+          "relationship": "原53D022完整130条/两块一般pow：原CW W32载体/低W16保存与PC选择、加载EAX/ECX/FLAGS及所有正常/零/负底数/特殊值分支和连续x87算法保；原FSAVE108/真实powhlp/FRSTOR与未补值结果、原槽/范围错误/共同恢复及完整EDX载体保，232B正常帧的尾CALL适配明确。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dLegacyPowerCoreX87",
+            "Cg2dLoadLegacyPowerControlWord",
+            "Cg2dLoadLegacyPowerOperandX87",
+            "Cg2dLegacyTwoToTOSX87",
+            "Cg2dCheckLegacyRangeExitX87",
+            "Cg2dStartLegacyTwoArgumentErrorX87",
+            "Cg2dProcessLegacyPowerSpecial",
+            "Cg2dClassifyLegacyPowerExponentX87",
+            "Cg2dLegacyPowerFastExitGate1085FBC"
+          ],
+          "relationship": "四ASM完整本体/13真实调用、原连续ST0/字段和状态；232B core/两56B接口帧，108B原FSAVE-FRSTOR不解释保存区，原未生产结果不补值"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "Cg2dLegacyPowerCoreX87",
+            "Cg2dLegacyPowerCoreX87"
+          ],
+          "relationship": "普通Win64外部F64值接口与内部CI/core/真实指数消费ST0合同，不冒CPP x87返回"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "PowerLegacyFloat_53D019",
+            "Cg2dLegacyPowerFastExitGate1085FBC"
+          ],
+          "relationship": "普通值入口只借两个F64/结果，原未初始化静态W32唯一owner；不借宿主pow或将IDA无值FF作初值"
         }
       ],
       "inbound_evidence": [
@@ -166136,10 +166275,80 @@
         "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision",
         "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-acceptance",
         "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
-        "doc/cg2d_map_effect_arithmetic_evidence.json"
+        "doc/cg2d_map_effect_arithmetic_evidence.json",
+        "doc/cg2d_power_generic_body_spec.md#power-generic-baseline",
+        "doc/cg2d_power_generic_body_spec.md#power-generic-decision",
+        "doc/cg2d_power_generic_body_spec.md#power-generic-acceptance",
+        "doc/cg2d_power_generic_body_spec.md#power-generic-source-state"
       ],
-      "verification_level": "三个原495条1697B与引用类型保存，仅固定点局部/两pow点及正底数路径和一段源差异静态；不重验全357条场景/一般pow/全部父/实际运行",
-      "boundary": "原130条含54348E..54349B共享尾块，当前仅46F1D0两正底数活动点的FYL2X→__twoToTOS正常路径由既有专用x87 Divisor内联承接；53D019的flow不记call，原完整一般pow/负底数检查/其它边界和父仍未迁/未验，不将局部定位当整个数学库实现。 数学异常不专项保护或模拟/称等价，完整场景/生成RNG结果/所有alias与owner寿命、实际CPU浮点环境/ABI/SDK/画面未验。"
+      "verification_level": "BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。 原历史：三个原495条1697B与引用类型保存，仅固定点局部/两pow点及正底数路径和一段源差异静态；不重验全357条场景/一般pow/全部父/实际运行",
+      "boundary": "BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。 原历史：原130条含54348E..54349B共享尾块，当前仅46F1D0两正底数活动点的FYL2X→__twoToTOS正常路径由既有专用x87 Divisor内联承接；53D019的flow不记call，原完整一般pow/负底数检查/其它边界和父仍未迁/未验，不将局部定位当整个数学库实现。 数学异常不专项保护或模拟/称等价，完整场景/生成RNG结果/所有alias与owner寿命、实际CPU浮点环境/ABI/SDK/画面未验。",
+      "power_generic_body": {
+        "spec_id": "BWK01",
+        "evidence_refs": [
+          "doc/cg2d_power_generic_body_spec.md#power-generic-baseline",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-decision",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-acceptance",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 130,
+        "original_code_bytes": 480,
+        "original_page_count": 2,
+        "original_direct_call_count": 9,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 34,
+        "original_return_count": 2,
+        "original_total_instruction_count": 159,
+        "original_total_code_bytes": 554,
+        "original_total_page_count": 5,
+        "original_total_direct_call_count": 11,
+        "original_total_unique_direct_callee_count": 7,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 36,
+        "original_total_return_count": 5,
+        "original_total_inbound_call_count": 5,
+        "original_total_inbound_flow_count": 1,
+        "original_core_first_page_reuse_reference": "doc/cg2d_power_general_helpers_evidence.json",
+        "source_body_added": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 7,
+        "new_original_mapped_function_count": 2,
+        "expanded_existing_mapping_count": 2,
+        "new_native_function_body_count": 5,
+        "new_cpp_body_count": 1,
+        "new_asm_proc_count": 4,
+        "new_private_C_bridge_count": 1,
+        "new_mutable_shared_owner_count": 1,
+        "full_generic_core_two_chunks_all_paths_and_real_exponent_consumer_kept": true,
+        "loaded_Y_EAX_ECX_FLAGS_samples_and_CW_full_W32_carrier_kept": true,
+        "PC_bridge_ECX_restore_kept": true,
+        "original_two_F64_stores_FSAVE108_true_helper_FRSTOR_and_result_load_kept": true,
+        "unwritten_helper_result_and_unconsumed_bytes_not_filled": true,
+        "opaque_environment_not_interpreted_or_pointer_simulated": true,
+        "original_range_tail_adapted_to_real_call_and_native_frame_release": true,
+        "original_all_CW_and_complete_EDX_carrier_returns_kept": true,
+        "original_uninitialized_static_W32_owner_not_FF_value_kept": true,
+        "native_ASM_real_call_count": 13,
+        "internal_CI_core_and_exponent_only_ST0_ASM_interfaces": true,
+        "external_value_bridge_only_F64_conversion": true,
+        "old_MFA_history_sources_and_active_application_fixed_domain_kept": true,
+        "no_host_pow_finite_guard_or_protection_or_fault_sample": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "all_application_original_calls_switched": false,
+        "full_shared_CRT_dispatch_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "machine_FPU_environment_equivalence_verified": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x46e4e0",
@@ -208560,6 +208769,249 @@
         "full_generic_pow_verified": false,
         "full_all_parents_verified": false,
         "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x53d019",
+      "inventory_id": "F:0013D019",
+      "original_role": "原53D019普通pow两条加载Y/顺流core用本调用两F64借用参数与真实ASM加载/core承接；外部Win64值桥最终FSTP F64/CPP原生double返回，内部CI/core连续ST0，不宿主pow、限制输入或填特殊帮助体未生产结果。",
+      "original_end_exclusive": "0x53d022",
+      "original_chunks": [
+        [
+          "0x53d019",
+          "0x53d022"
+        ]
+      ],
+      "instruction_count": 2,
+      "status": "BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "PowerLegacyFloat_53D019"
+          ],
+          "relationship": "原53D019普通pow两条加载Y/顺流core用本调用两F64借用参数与真实ASM加载/core承接；外部Win64值桥最终FSTP F64/CPP原生double返回，内部CI/core连续ST0，不宿主pow、限制输入或填特殊帮助体未生产结果。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dComputeLegacyPower",
+            "Cg2dLoadLegacyPowerOperandX87",
+            "Cg2dLegacyPowerCoreX87"
+          ],
+          "relationship": "四ASM完整本体/13真实调用、原连续ST0/字段和状态；232B core/两56B接口帧，108B原FSAVE-FRSTOR不解释保存区，原未生产结果不补值"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "PowerLegacyFloat_53D019",
+            "Cg2dComputeLegacyPower"
+          ],
+          "relationship": "普通Win64外部F64值接口与内部CI/core/真实指数消费ST0合同，不冒CPP x87返回"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "PowerLegacyFloat_53D019",
+            "Cg2dLegacyPowerFastExitGate1085FBC"
+          ],
+          "relationship": "普通值入口只借两个F64/结果，原未初始化静态W32唯一owner；不借宿主pow或将IDA无值FF作初值"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_power_generic_body_spec.md#power-generic-baseline",
+        "doc/cg2d_power_generic_body_spec.md#power-generic-decision",
+        "doc/cg2d_power_generic_body_spec.md#power-generic-acceptance",
+        "doc/cg2d_power_generic_body_spec.md#power-generic-source-state"
+      ],
+      "boundary": "原53D019普通pow两条加载Y/顺流core用本调用两F64借用参数与真实ASM加载/core承接；外部Win64值桥最终FSTP F64/CPP原生double返回，内部CI/core连续ST0，不宿主pow、限制输入或填特殊帮助体未生产结果。 BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "power_generic_body": {
+        "spec_id": "BWK01",
+        "evidence_refs": [
+          "doc/cg2d_power_generic_body_spec.md#power-generic-baseline",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-decision",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-acceptance",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 9,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 0,
+        "original_total_instruction_count": 159,
+        "original_total_code_bytes": 554,
+        "original_total_page_count": 5,
+        "original_total_direct_call_count": 11,
+        "original_total_unique_direct_callee_count": 7,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 36,
+        "original_total_return_count": 5,
+        "original_total_inbound_call_count": 5,
+        "original_total_inbound_flow_count": 1,
+        "original_core_first_page_reuse_reference": "doc/cg2d_power_general_helpers_evidence.json",
+        "source_body_added": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 7,
+        "new_original_mapped_function_count": 2,
+        "expanded_existing_mapping_count": 2,
+        "new_native_function_body_count": 5,
+        "new_cpp_body_count": 1,
+        "new_asm_proc_count": 4,
+        "new_private_C_bridge_count": 1,
+        "new_mutable_shared_owner_count": 1,
+        "full_generic_core_two_chunks_all_paths_and_real_exponent_consumer_kept": true,
+        "loaded_Y_EAX_ECX_FLAGS_samples_and_CW_full_W32_carrier_kept": true,
+        "PC_bridge_ECX_restore_kept": true,
+        "original_two_F64_stores_FSAVE108_true_helper_FRSTOR_and_result_load_kept": true,
+        "unwritten_helper_result_and_unconsumed_bytes_not_filled": true,
+        "opaque_environment_not_interpreted_or_pointer_simulated": true,
+        "original_range_tail_adapted_to_real_call_and_native_frame_release": true,
+        "original_all_CW_and_complete_EDX_carrier_returns_kept": true,
+        "original_uninitialized_static_W32_owner_not_FF_value_kept": true,
+        "native_ASM_real_call_count": 13,
+        "internal_CI_core_and_exponent_only_ST0_ASM_interfaces": true,
+        "external_value_bridge_only_F64_conversion": true,
+        "old_MFA_history_sources_and_active_application_fixed_domain_kept": true,
+        "no_host_pow_finite_guard_or_protection_or_fault_sample": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "all_application_original_calls_switched": false,
+        "full_shared_CRT_dispatch_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "machine_FPU_environment_equivalence_verified": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x53d1f5",
+      "inventory_id": "F:0013D1F5",
+      "original_role": "原53D1F5真实ST0指数消费/CL0-1-2：原FLD/FRNDINT/FCOMP/等待状态/0.5乘法/二次舍入和FCOMPP及分支弹栈保持、其他ECX位不变；不能以5436AC F64分类替代，无CPP返回或新finite门槛。",
+      "original_end_exclusive": "0x53d21d",
+      "original_chunks": [
+        [
+          "0x53d1f5",
+          "0x53d21d"
+        ]
+      ],
+      "instruction_count": 19,
+      "status": "BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dClassifyLegacyPowerExponentX87"
+          ],
+          "relationship": "原53D1F5真实ST0指数消费/CL0-1-2：原FLD/FRNDINT/FCOMP/等待状态/0.5乘法/二次舍入和FCOMPP及分支弹栈保持、其他ECX位不变；不能以5436AC F64分类替代，无CPP返回或新finite门槛。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dClassifyLegacyPowerExponentX87",
+            "LegacyGenericPowerHalf58F890"
+          ],
+          "relationship": "四ASM完整本体/13真实调用、原连续ST0/字段和状态；232B core/两56B接口帧，108B原FSAVE-FRSTOR不解释保存区，原未生产结果不补值"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "Cg2dClassifyLegacyPowerExponentX87",
+            "Cg2dClassifyLegacyPowerExponentX87"
+          ],
+          "relationship": "普通Win64外部F64值接口与内部CI/core/真实指数消费ST0合同，不冒CPP x87返回"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "PowerLegacyFloat_53D019",
+            "Cg2dLegacyPowerFastExitGate1085FBC"
+          ],
+          "relationship": "普通值入口只借两个F64/结果，原未初始化静态W32唯一owner；不借宿主pow或将IDA无值FF作初值"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_power_generic_body_spec.md#power-generic-baseline",
+        "doc/cg2d_power_generic_body_spec.md#power-generic-decision",
+        "doc/cg2d_power_generic_body_spec.md#power-generic-acceptance",
+        "doc/cg2d_power_generic_body_spec.md#power-generic-source-state"
+      ],
+      "boundary": "原53D1F5真实ST0指数消费/CL0-1-2：原FLD/FRNDINT/FCOMP/等待状态/0.5乘法/二次舍入和FCOMPP及分支弹栈保持、其他ECX位不变；不能以5436AC F64分类替代，无CPP返回或新finite门槛。 BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "power_generic_body": {
+        "spec_id": "BWK01",
+        "evidence_refs": [
+          "doc/cg2d_power_generic_body_spec.md#power-generic-baseline",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-decision",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-acceptance",
+          "doc/cg2d_power_generic_body_spec.md#power-generic-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 19,
+        "original_code_bytes": 40,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 2,
+        "original_return_count": 2,
+        "original_total_instruction_count": 159,
+        "original_total_code_bytes": 554,
+        "original_total_page_count": 5,
+        "original_total_direct_call_count": 11,
+        "original_total_unique_direct_callee_count": 7,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 36,
+        "original_total_return_count": 5,
+        "original_total_inbound_call_count": 5,
+        "original_total_inbound_flow_count": 1,
+        "original_core_first_page_reuse_reference": "doc/cg2d_power_general_helpers_evidence.json",
+        "source_body_added": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 7,
+        "new_original_mapped_function_count": 2,
+        "expanded_existing_mapping_count": 2,
+        "new_native_function_body_count": 5,
+        "new_cpp_body_count": 1,
+        "new_asm_proc_count": 4,
+        "new_private_C_bridge_count": 1,
+        "new_mutable_shared_owner_count": 1,
+        "full_generic_core_two_chunks_all_paths_and_real_exponent_consumer_kept": true,
+        "loaded_Y_EAX_ECX_FLAGS_samples_and_CW_full_W32_carrier_kept": true,
+        "PC_bridge_ECX_restore_kept": true,
+        "original_two_F64_stores_FSAVE108_true_helper_FRSTOR_and_result_load_kept": true,
+        "unwritten_helper_result_and_unconsumed_bytes_not_filled": true,
+        "opaque_environment_not_interpreted_or_pointer_simulated": true,
+        "original_range_tail_adapted_to_real_call_and_native_frame_release": true,
+        "original_all_CW_and_complete_EDX_carrier_returns_kept": true,
+        "original_uninitialized_static_W32_owner_not_FF_value_kept": true,
+        "native_ASM_real_call_count": 13,
+        "internal_CI_core_and_exponent_only_ST0_ASM_interfaces": true,
+        "external_value_bridge_only_F64_conversion": true,
+        "old_MFA_history_sources_and_active_application_fixed_domain_kept": true,
+        "no_host_pow_finite_guard_or_protection_or_fault_sample": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "all_application_original_calls_switched": false,
+        "full_shared_CRT_dispatch_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "machine_FPU_environment_equivalence_verified": false,
         "runtime_verified": false,
         "machine_abi_verified": false,
         "machine_unwind_verified": false,

@@ -119,3 +119,9 @@ F:001433F0/__twoToTOS尚无独立语义/处置或源码定位；现有MapEffectM
 BPJ01/BPM01的地图专用对应及命名快照保持。当前已在LegacyFloatEnvironment.cpp/.hpp/.asm补齐5433F0连续ST0运算、543405原PC位控制字加载、543435普通/特殊F64-F80加载的通用本体，旧MapEffectMath及两1.25活动点不改。
 
 [新通用SPEC](cg2d_power_general_helpers_spec.md#power-helpers-decision)、[完整原证复用与源码/机器前后态](cg2d_power_general_helpers_evidence.json)。三旧身份1424/1426/1427扩展当前来源/边界，不新增F/semantic或改历史原证；原控制字入口的I与三帮助体S仅局部，通用pow父/CRT分派及环境生命周期和运行继续原门禁。
+
+## BWK01原两幂身份的通用本体扩展（2026-10-08）
+
+[完整通用基线/决定](cg2d_power_generic_body_spec.md#power-generic-decision)与[原体/源前后态](cg2d_power_generic_body_evidence.json)。
+
+原1266/1267过去只纳管MFA实际1.25域；现已另外开发完整CI/core本体及普通入口/真实指数消费，含所有分支和原FSAVE-FRSTOR/错误范围链。旧原新/F身份不重复计数，旧MFA source和活动地图/RNG/状态/后消费保持。当前限定I/S只计新增内部真实接线与源算法，未切换应用原点不称已全部切换，完整父/机器和运行继续。

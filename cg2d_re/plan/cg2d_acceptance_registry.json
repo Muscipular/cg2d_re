@@ -356,7 +356,13 @@
         "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-baseline",
         "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-baseline",
         "doc/cg2d_nls_map_general_spec.md#nls-map-general-baseline",
-        "doc/cg2d_nls_type_general_spec.md#nls-type-general-baseline"
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-baseline",
+        "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+        "doc/cg2d_audio_update.md#bgm-config-scan-source-state",
+        "doc/cg2d_bgm_config_scan_evidence.json",
+        "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
+        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -624,7 +630,8 @@
         "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-decision",
         "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-decision",
         "doc/cg2d_nls_map_general_spec.md#nls-map-general-decision",
-        "doc/cg2d_nls_type_general_spec.md#nls-type-general-decision"
+        "doc/cg2d_nls_type_general_spec.md#nls-type-general-decision",
+        "doc/cg2d_audio_update.md#bgm-config-scan-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -4243,7 +4250,13 @@
         "doc/cg2d_projection_sampling_return_spec.md#projection-x87-source-state",
         "doc/cg2d_projection_x87_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#projection-x87-source-state",
-        "doc/cg2d_build_acceptance_spec.md#projection-x87-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#projection-x87-debug-build",
+        "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+        "doc/cg2d_audio_update.md#bgm-config-scan-source-state",
+        "doc/cg2d_bgm_config_scan_evidence.json",
+        "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
+        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build"
       ],
       "original_inventory_ids": [
         "F:00054C30",
@@ -4281,7 +4294,8 @@
         "F:0012B9E0",
         "F:0012C9E0",
         "F:0012CD60",
-        "F:0012CDE0"
+        "F:0012CDE0",
+        "F:00124060"
       ],
       "closure_task_ids": [
         "P11",
@@ -4331,7 +4345,8 @@
         "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build",
         "doc/cg2d_audio_update.md#spatial-sound-x87-decision",
         "doc/cg2d_audio_update.md#spatial-projection-x87-decision",
-        "doc/cg2d_projection_sampling_return_spec.md#projection-x87-decision"
+        "doc/cg2d_projection_sampling_return_spec.md#projection-x87-decision",
+        "doc/cg2d_audio_update.md#bgm-config-scan-decision"
       ],
       "blockers": [
         "CAB17固定454C30独立音量表恢复原连续x87、S64低W32及正常127..0槽路径，33条数值投影/当前Debug链接部署通过；0槽/全表实际输出、CW上游/机器状态/声音与正常寿命仍待。AUDIO33成员枚举未闭，旧99设置页外层及全部运行门禁保持",
@@ -4342,7 +4357,7 @@
         "CAB09共用18B MMIO头和音效/BGM父接线已修，三原职责可追；CAB15当前客户端编译链接通过，全部失败/资源/声音/正常寿命与运行未验，局部来源/符号不代完整门禁",
         "CAB08首段完整PCM预填→ready→smpl终点发布已修、四原职责有SDL来源；CAB15当前客户端编译链接通过，全部失败/诊断状态、调度/波形与正常寿命仍未验",
         "CAB07两设置初始化/完整页面与原生绑定已实现并随CAB15当前客户端链接；真实旧99表外层接线、全部音频效果/寿命与运行仍待，scope=included只表示开发范围",
-        "AUDIO36原成员枚举仍未闭；旧7/旧8、完整WAV/通知/生命周期及音源效果/听感、真实声音/失败/退出仍未验收；类型1原16B资源按用户最新要求视为空音频，停止旧播放后立即成功，零时长不循环"
+        "AUDIO37原成员枚举仍未闭；旧7/旧8、完整WAV/通知/生命周期及音源效果/听感、真实声音/失败/退出仍未验收；类型1原16B资源按用户最新要求视为空音频，停止旧播放后立即成功，零时长不循环"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -4379,7 +4394,10 @@
         "doc/cg2d_spatial_sound_x87_evidence.json",
         "doc/cg2d_audio_update.md#spatial-projection-x87-decision",
         "doc/cg2d_audio_update.md#spatial-projection-x87-source-state",
-        "doc/cg2d_spatial_projection_x87_evidence.json"
+        "doc/cg2d_spatial_projection_x87_evidence.json",
+        "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+        "doc/cg2d_audio_update.md#bgm-config-scan-source-state",
+        "doc/cg2d_bgm_config_scan_evidence.json"
       ]
     },
     {
@@ -54239,6 +54257,168 @@
       "differences": [],
       "result": "pass",
       "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-BGM-CONFIG-SCAN-FUNC-AUDIO-I-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原524060完整99条308B、524108→53CADC真实调用与var_B5/var_B4邻接5B目标及复制/字段发布",
+      "implementation_reference": "Git固定命名快照 cg2d-re-bgm-config-scan-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+        "doc/cg2d_audio_update.md#bgm-config-scan-source-state",
+        "doc/cg2d_bgm_config_scan_evidence.json",
+        "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
+        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build",
+        "src/LegacyAudio.cpp#LoadBgmConfig_524060",
+        "src/platform/LegacyScan.cpp#ScanLegacyString_53CADC",
+        "src/platform/LegacyScan.cpp#ScanLegacyInput_53DEF4",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "observation": "只配置父的扫描别名/复制取样发布及实际接线，不代完整音频或全配置/失败/正常寿命验收",
+      "expected": "第五/第六两%d各W32写同一5B区+0/+1，原返回忽略、记录索引持有、路径整4B/W8样本/尾BYTE及字段-末映射原序；格式/容量/owner/返回保持",
+      "actual": "既有原扫描器实际借用六void*，手拼parsed/移位分支移除，字节目标定义良好/源序与其他CPP保持；当前Debug0错误/0增量警告，MAP/部署有据，未运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-BGM-CONFIG-SCAN-FUNC-AUDIO-W-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原524060完整99条308B、524108→53CADC真实调用与var_B5/var_B4邻接5B目标及复制/字段发布",
+      "implementation_reference": "Git固定命名快照 cg2d-re-bgm-config-scan-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+        "doc/cg2d_audio_update.md#bgm-config-scan-source-state",
+        "doc/cg2d_bgm_config_scan_evidence.json",
+        "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
+        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build",
+        "src/LegacyAudio.cpp#LoadBgmConfig_524060",
+        "src/platform/LegacyScan.cpp#ScanLegacyString_53CADC",
+        "src/platform/LegacyScan.cpp#ScanLegacyInput_53DEF4",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "observation": "只配置父的扫描别名/复制取样发布及实际接线，不代完整音频或全配置/失败/正常寿命验收",
+      "expected": "第五/第六两%d各W32写同一5B区+0/+1，原返回忽略、记录索引持有、路径整4B/W8样本/尾BYTE及字段-末映射原序；格式/容量/owner/返回保持",
+      "actual": "既有原扫描器实际借用六void*，手拼parsed/移位分支移除，字节目标定义良好/源序与其他CPP保持；当前Debug0错误/0增量警告，MAP/部署有据，未运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-BGM-CONFIG-SCAN-FUNC-AUDIO-S-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原524060完整99条308B、524108→53CADC真实调用与var_B5/var_B4邻接5B目标及复制/字段发布",
+      "implementation_reference": "Git固定命名快照 cg2d-re-bgm-config-scan-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+        "doc/cg2d_audio_update.md#bgm-config-scan-source-state",
+        "doc/cg2d_bgm_config_scan_evidence.json",
+        "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
+        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build",
+        "src/LegacyAudio.cpp#LoadBgmConfig_524060",
+        "src/platform/LegacyScan.cpp#ScanLegacyString_53CADC",
+        "src/platform/LegacyScan.cpp#ScanLegacyInput_53DEF4",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "observation": "只配置父的扫描别名/复制取样发布及实际接线，不代完整音频或全配置/失败/正常寿命验收",
+      "expected": "第五/第六两%d各W32写同一5B区+0/+1，原返回忽略、记录索引持有、路径整4B/W8样本/尾BYTE及字段-末映射原序；格式/容量/owner/返回保持",
+      "actual": "既有原扫描器实际借用六void*，手拼parsed/移位分支移除，字节目标定义良好/源序与其他CPP保持；当前Debug0错误/0增量警告，MAP/部署有据，未运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-BGM-CONFIG-SCAN-FUNC-CRT-I-20261009",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原524060完整99条308B、524108→53CADC真实调用与var_B5/var_B4邻接5B目标及复制/字段发布",
+      "implementation_reference": "Git固定命名快照 cg2d-re-bgm-config-scan-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+        "doc/cg2d_audio_update.md#bgm-config-scan-source-state",
+        "doc/cg2d_bgm_config_scan_evidence.json",
+        "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
+        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build",
+        "src/LegacyAudio.cpp#LoadBgmConfig_524060",
+        "src/platform/LegacyScan.cpp#ScanLegacyString_53CADC",
+        "src/platform/LegacyScan.cpp#ScanLegacyInput_53DEF4",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "observation": "只原扫描包装暂停一音频业务点的实际恢复，其他21来源保持，不代全扫描/CRT验收",
+      "expected": "第五/第六两%d各W32写同一5B区+0/+1，原返回忽略、记录索引持有、路径整4B/W8样本/尾BYTE及字段-末映射原序；格式/容量/owner/返回保持",
+      "actual": "既有原扫描器实际借用六void*，手拼parsed/移位分支移除，字节目标定义良好/源序与其他CPP保持；当前Debug0错误/0增量警告，MAP/部署有据，未运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-BGM-CONFIG-SCAN-FUNC-CRT-W-20261009",
+      "feature_id": "FUNC-CRT",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原524060完整99条308B、524108→53CADC真实调用与var_B5/var_B4邻接5B目标及复制/字段发布",
+      "implementation_reference": "Git固定命名快照 cg2d-re-bgm-config-scan-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+        "doc/cg2d_audio_update.md#bgm-config-scan-source-state",
+        "doc/cg2d_bgm_config_scan_evidence.json",
+        "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
+        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build",
+        "src/LegacyAudio.cpp#LoadBgmConfig_524060",
+        "src/platform/LegacyScan.cpp#ScanLegacyString_53CADC",
+        "src/platform/LegacyScan.cpp#ScanLegacyInput_53DEF4",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "observation": "只原扫描包装暂停一音频业务点的实际恢复，其他21来源保持，不代全扫描/CRT验收",
+      "expected": "第五/第六两%d各W32写同一5B区+0/+1，原返回忽略、记录索引持有、路径整4B/W8样本/尾BYTE及字段-末映射原序；格式/容量/owner/返回保持",
+      "actual": "既有原扫描器实际借用六void*，手拼parsed/移位分支移除，字节目标定义良好/源序与其他CPP保持；当前Debug0错误/0增量警告，MAP/部署有据，未运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-BGM-CONFIG-SCAN-FUNC-CRT-S-20261009",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原524060完整99条308B、524108→53CADC真实调用与var_B5/var_B4邻接5B目标及复制/字段发布",
+      "implementation_reference": "Git固定命名快照 cg2d-re-bgm-config-scan-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+        "doc/cg2d_audio_update.md#bgm-config-scan-source-state",
+        "doc/cg2d_bgm_config_scan_evidence.json",
+        "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
+        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build",
+        "src/LegacyAudio.cpp#LoadBgmConfig_524060",
+        "src/platform/LegacyScan.cpp#ScanLegacyString_53CADC",
+        "src/platform/LegacyScan.cpp#ScanLegacyInput_53DEF4",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "observation": "只原扫描包装暂停一音频业务点的实际恢复，其他21来源保持，不代全扫描/CRT验收",
+      "expected": "第五/第六两%d各W32写同一5B区+0/+1，原返回忽略、记录索引持有、路径整4B/W8样本/尾BYTE及字段-末映射原序；格式/容量/owner/返回保持",
+      "actual": "既有原扫描器实际借用六void*，手拼parsed/移位分支移除，字节目标定义良好/源序与其他CPP保持；当前Debug0错误/0增量警告，MAP/部署有据，未运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
     }
   ],
   "task_acceptance": [
@@ -55136,7 +55316,13 @@
         "doc/cg2d_audio_update.md#spatial-projection-x87-source-state",
         "doc/cg2d_spatial_projection_x87_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#spatial-projection-x87-source-state",
-        "doc/cg2d_build_acceptance_spec.md#spatial-projection-x87-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#spatial-projection-x87-debug-build",
+        "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+        "doc/cg2d_audio_update.md#bgm-config-scan-source-state",
+        "doc/cg2d_bgm_config_scan_evidence.json",
+        "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
+        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build"
       ]
     },
     {
@@ -55211,7 +55397,13 @@
         "doc/cg2d_projection_sampling_return_spec.md#projection-x87-source-state",
         "doc/cg2d_projection_x87_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#projection-x87-source-state",
-        "doc/cg2d_build_acceptance_spec.md#projection-x87-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#projection-x87-debug-build",
+        "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+        "doc/cg2d_audio_update.md#bgm-config-scan-source-state",
+        "doc/cg2d_bgm_config_scan_evidence.json",
+        "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
+        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build"
       ]
     },
     {
@@ -56210,7 +56402,13 @@
         "doc/cg2d_projection_sampling_return_spec.md#projection-x87-source-state",
         "doc/cg2d_projection_x87_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#projection-x87-source-state",
-        "doc/cg2d_build_acceptance_spec.md#projection-x87-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#projection-x87-debug-build",
+        "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+        "doc/cg2d_audio_update.md#bgm-config-scan-source-state",
+        "doc/cg2d_bgm_config_scan_evidence.json",
+        "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
+        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build"
       ]
     },
     {
@@ -69068,6 +69266,20 @@
         "doc/cg2d_build_acceptance_spec.md#spatial-projection-x87-debug-build"
       ],
       "boundary": "52CDE0输入先Y再X、FILD S32乘原F32 64并FSTP F32；原46CE30调用保持。投影后x87/FSQRT/S64低W32、两个余值清理、index*20同源表门禁及完整index早退/截断Y返回，更新读X→写索引→转X→读Y→写X→转Y→写Y/距离/零标记保持。只拓宽寻址，字段/index/返回W32，无新owner/保护/异常门禁或通用CRT入口；世界投影自身数值/全部消费者、CW上游/机器状态/ABI、实际声音/失败/正常寿命与完整音频/运行未验。"
+    },
+    {
+      "inventory_id": "F:00124060",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+        "doc/cg2d_audio_update.md#bgm-config-scan-source-state",
+        "doc/cg2d_bgm_config_scan_evidence.json",
+        "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
+        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build"
+      ],
+      "boundary": "524060按原六字段/80B读取和过滤，512映射/128配置owner/fileIO/返回保持。真实53CADC扫描，六void*地址中第五/第六借同一5B区+0/+1各4B写，初值/跨行复用保持，不用parsed数量手拼别名。持有记录索引、整4B路径→读W8第五→尾BYTE、写value40后取相邻S32第六→写W8 value44/S32 value48→末映射写序保持；不加输入拒绝/保护或异常模拟。其余音频/扫描核心和21业务来源不改。全配置/扫描语法/资源失败/正常alias寿命/机器ABI/声音与运行未验，编译接线不代完整门禁。"
     }
   ],
   "auxiliary_dispositions": [
@@ -98885,10 +99097,10 @@
     }
   ],
   "build_validation": {
-    "step": "CAB20",
+    "step": "CAB21",
     "recorded_on": "2026-10-09",
     "configuration": "Debug",
-    "source_snapshot": "cg2d-re-projection-x87-20261009",
+    "source_snapshot": "cg2d-re-bgm-config-scan-20261009",
     "configure_performed": false,
     "configure_exit_code": 0,
     "build_exit_code": 0,
@@ -98903,7 +99115,7 @@
     "whole_project_accepted": false,
     "converter_build_performed": false,
     "converter_last_build_step": "CAB15",
-    "note": "CAB20完成同一CAA01音频生产者所需46CE30及配对反向投影的原连续x87/F32段，正反19/16条完整原体/六位常量有据。三库/真实客户端Debug链接0，无再配置，0错误/0增量警告；MAP两新接口/原投影/空间音频有据，8024064B游戏EXE更新并保留旧同长备份。两个已知语义/F/LOOP-MAP关联原已存在，不增身份/成员或抬高分母，AUDIO36保持。离线工具最近通过仍CAB15，本步未构建/执行；没有客户端/算法运行、测试、WAV重生成或摘要。全CW/全部父/机器ABI、数据与别名寿命、画面/声音、IP2登录及整体SPEC未验，旧窗口诊断不因增量0关闭。",
+    "note": "CAB21恢复524060原53CADC扫描点：同一5B区两4B写、复制/取样/字段和映射顺序保持，替代宿主sscanf/parsed手拼；原99条308B及实际目标有据。三库/当前客户端Debug链接0，无再配置，0错误/0增量警告；MAP父/扫描包装/核心可追，8023040B游戏EXE更新、旧8024064B备份保留，客户端仍无离线合成/转换代码。新增一个原语义/F和AUDIO37，扫描器已有语义的暂停一调用恢复，其他21来源不改；现源provider明确为项目扫描体，旧UCRT信息留历史。离线工具最近通过仍CAB15，本步未构建/执行；未运行客户端/算法、测试、WAV重生成或摘要。无新版登录日志，原协议未改；全配置/扫描/失败/声音/正常寿命/机器ABI、IP2登录和整体SPEC未验，旧窗口诊断不因增量0关闭。",
     "evidence_refs": [
       "doc/cg2d_build_acceptance_spec.md",
       "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
@@ -98941,7 +99153,13 @@
       "doc/cg2d_projection_sampling_return_spec.md#projection-x87-source-state",
       "doc/cg2d_projection_x87_evidence.json",
       "doc/cg2d_client_link_sdl_audio_spec.md#projection-x87-source-state",
-      "doc/cg2d_build_acceptance_spec.md#projection-x87-debug-build"
+      "doc/cg2d_build_acceptance_spec.md#projection-x87-debug-build",
+      "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+      "doc/cg2d_audio_update.md#bgm-config-scan-source-state",
+      "doc/cg2d_bgm_config_scan_evidence.json",
+      "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
+      "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
+      "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build"
     ]
   }
 }

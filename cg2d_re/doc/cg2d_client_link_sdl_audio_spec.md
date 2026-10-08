@@ -226,3 +226,10 @@ LegacyAudioMath.asm在原普通表数值段之外追加Cg2dInitializeFixedMusicV
 CAB19空间音频生产者使用的46CE30已由[真实连续x87体](cg2d_projection_sampling_return_spec.md#projection-x87-source-state)提供，反向配对入口同组恢复；正向19条/反向16条、四F32比例/两S32正常中心、参考样本与位输出顺序及native outX返回有原完整依据，当前CW保持。音频范围只关联正向实际依赖，共享投影不列为新增音频专属成员；既有记录表/门槛/字段发布及SDL/WAV资产保持。
 
 当前Debug链接0错误/0增量警告、两个实际接口及音频生产者符号可追，游戏EXE已更新并备份before-projection-x87-20261009；8024064B同长只证复制/长度。[记录](cg2d_projection_x87_evidence.json)限定没有新语义/F/功能成员，AUDIO36/枚举false与完整门禁保持；全应用CW/所有消费者/机器ABI、画面/声音/失败/正常寿命及IP2登录仍待，未运行客户端/算法、测试、重生成WAV或摘要，离线最近构建仍CAB15。
+
+<a id="bgm-config-scan-source-state"></a>
+## CAB21 BGM 配置的原扫描接线（2026-10-09）
+
+524060按[原扫描/别名合同](cg2d_audio_update.md#bgm-config-scan-source-state)已真实使用项目53CADC/53DEF4，不再宿主sscanf后手拼第五/第六项；同一5B字节区、原路径整DWORD/读W8/尾BYTE及字段/映射写序保持。原格式/配置asset/两配置和运行表owner、SDL/WAV方案及其他源保持；扫描器旧暂停一音频调用恢复，22来源不代完整CRT或音频。
+
+当前Debug链接0错误/0增量警告，配置父/扫描包装/核心符号有据；8023040B游戏EXE已更新，旧8024064B备份before-bgm-config-scan-20261009，只核复制/长度。新增一个原语义/F和AUDIO37已知成员，枚举false与全配置/扫描语法/资源失败/声音/正常寿命/机器ABI/旧外层及完整门禁保持。无新版登录日志，不修改原协议或宣IP2互通；未运行/测试/重生成WAV/摘要，离线最近构建仍CAB15。

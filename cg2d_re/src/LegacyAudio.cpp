@@ -3,6 +3,7 @@
 #include "LoginStateDependencies.hpp"
 #include "network/NetworkDispatchDependencies.hpp"
 #include "platform/MainLoopDependencies.hpp"
+#include "platform/LegacyFormat.hpp"
 
 #include "cg/LoginRequest.hpp"
 #include "cg/ResourcePaths.hpp"
@@ -646,8 +647,8 @@ std::int32_t LoadBgmConfig_524060()
     std::int32_t recordIndex = 0;
     std::int32_t mappingIndex = 0;
     std::int32_t value40 = 0;
-    std::int32_t value48 = 0;
-    std::uint8_t value44 = 0;
+    // 原var_B5 W8与紧邻var_B4 S32；53CADC的两个%d目标各写4B。
+    std::array<std::uint8_t, 5> values44And48 {};
     char line[80] {};
     char path[80] {};
 
@@ -657,32 +658,28 @@ std::int32_t LoadBgmConfig_524060()
             continue;
         }
 
-        std::int32_t parsed44 = value44;
-        const int parsed = std::sscanf(
+        static_cast<void>(platform::ScanLegacyString_53CADC(
             line, "%d %d %s %d %d %d",
-            &recordIndex, &mappingIndex, path, &value40, &parsed44, &value48);
-        // 原第五项写入单字节槽时覆盖紧邻第六项的低三个字节。
-        if (parsed == 5) {
-            const std::uint32_t previous =
-                std::bit_cast<std::uint32_t>(value48);
-            const std::uint32_t fifth =
-                std::bit_cast<std::uint32_t>(parsed44);
-            value48 = std::bit_cast<std::int32_t>(
-                (previous & 0xFF000000u) | (fifth >> 8));
-        }
-        if (parsed >= 5) {
-            value44 = static_cast<std::uint8_t>(parsed44);
-        }
+            static_cast<void*>(&recordIndex), static_cast<void*>(&mappingIndex),
+            static_cast<void*>(path), static_cast<void*>(&value40),
+            static_cast<void*>(values44And48.data()),
+            static_cast<void*>(values44And48.data() + 1)));
 
+        const std::int32_t selectedRecordIndex = recordIndex;
         BgmConfigRecord& record =
-            gBgmConfigRecords104A3B8[static_cast<std::size_t>(recordIndex)];
+            gBgmConfigRecords104A3B8[static_cast<std::size_t>(selectedRecordIndex)];
         const std::size_t bytes = std::strlen(path) + 1;
-        std::memcpy(record.path, path, bytes);
+        const std::size_t wordBytes = bytes & ~std::size_t{3};
+        std::memcpy(record.path, path, wordBytes);
+        const std::uint8_t value44 = values44And48[0];
+        std::memcpy(record.path + wordBytes, path + wordBytes, bytes & 3u);
         record.value40 = value40;
+        std::int32_t value48;
+        std::memcpy(&value48, values44And48.data() + 1, sizeof(value48));
         record.value44 = value44;
         record.value48 = value48;
         gBgmMapping103DFAC[static_cast<std::size_t>(mappingIndex)] =
-            recordIndex;
+            selectedRecordIndex;
     }
 
     std::fclose(file);

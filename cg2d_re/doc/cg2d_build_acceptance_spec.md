@@ -106,3 +106,10 @@
 沿同一CAA01必要音频依赖授权执行现有Debug客户端目标，既有MapEffectMath.asm/SceneState.cpp与必要依赖编译，三库/真实客户端链接返回0，无再配置，0错误/0增量警告。日志build/windows-msvc-x64/build-projection-x87-20261009.log，MAP有正反两个新接口、两原公开投影及已接音频生产者，运行时仍无离线合成/转换代码。0增量输出不是全量警告统计，旧窗口诊断不关闭。
 
 8024064B客户端已更新原游戏目录，旧同长版备份cg2d_re_client.exe.before-projection-x87-20261009；只核复制成功/长度，不做摘要/内容比对。[源码](cg2d_projection_sampling_return_spec.md#projection-x87-source-state)与[记录](cg2d_projection_x87_evidence.json)保留范围：未运行客户端/算法、测试、重生成WAV或构建离线工具，后者最近通过仍CAB15。全CW上游/机器ABI、全部调用父/别名寿命、画面/声音和IP2登录及整体SPEC仍未验收。
+
+<a id="bgm-config-scan-debug-build"></a>
+## CAB21 BGM 配置扫描当前编译（2026-10-09）
+
+沿同一CAA01音频必要授权，现有Debug客户端目标编译LegacyAudio.cpp/必要依赖，三库/客户端返回0，无再配置，0错误/0增量警告。日志build/windows-msvc-x64/build-bgm-config-scan-20261009.log；MAP含LoadBgmConfig_524060、ScanLegacyString_53CADC和ScanLegacyInput_53DEF4，客户端仍无离线合成/转换代码。旧窗口诊断不因本步增量0关闭。
+
+8023040B新版已更新原游戏目录，旧8024064B备份cg2d_re_client.exe.before-bgm-config-scan-20261009；只核实际复制成功/长度，不计算摘要/内容比对。[记录](cg2d_bgm_config_scan_evidence.json)和[源码](cg2d_audio_update.md#bgm-config-scan-source-state)不代配置/扫描全输入、失败/声音/正常寿命/机器ABI或IP2登录与整体SPEC；未运行客户端/算法、测试、重生成WAV或构建离线工具，后者最近通过仍CAB15。

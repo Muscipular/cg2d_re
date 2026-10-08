@@ -4346,3 +4346,10 @@ virtualTable从const void*改对应const方法表指针，内部头四块、stre
 [实施合同](cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-decision)、[两全根/三原点及完整源差集](cg2d_u64_multiply_shift_evidence.json)。原输入I64三处4/3/10分别真实调用ShiftLegacyUnsigned64_544620与MultiplyLegacyUnsigned64_542F10，原正常初始化/数字扩展ADD-ADC、字符/符号/宽度/流及其他W32/地址域保持。
 
 两完整helper保原乘法高半零快/交叉W32合成与原CL三个左移分支；计数>=64零分支原已存在，不新增越界保护、默认结果或故障模拟。原数值已由两W32组成64位，不扩普通数字字段。两根及三已证消费者的限定I-S通过，完整输入父、其他CRT/间接别名、机器ABI/链接/运行仍未代验。
+
+<a id="bgm-config-scan-source-state"></a>
+## CAB21 扫描包装的音频调用恢复（2026-10-09）
+
+原524060@524108→53CADC已按[原真实5B别名](cg2d_audio_update.md#bgm-config-scan-source-state)接至现有ScanLegacyString_53CADC/53DEF4，六目标显式void*，第五/第六+0/+1各按原4B memcpy写；忽略扫描返回，删除按parsed数量手拼的局部模型。原包装/核心及其他21业务点不改；本步只补原音频一处，22入向的当前来源可追，不等于全扫描语法/失败/资源/机器ABI或完整CRT验收。既有语义446的暂停状态同步为已接，UCRT __stdio_common_vsscanf旧元数据保存为历史，当前实际提供者明确为项目原扫描源。
+
+当前Debug配置父/包装/核心链接通过并更新游戏EXE，未运行算法/客户端、测试或摘要。[CAB21证据](cg2d_bgm_config_scan_evidence.json)保留99条308B父、原调用/目标字节差、源序/字节生命周期及全部未验边界；全部输入与设备/声音/正常寿命和整体门禁继续。

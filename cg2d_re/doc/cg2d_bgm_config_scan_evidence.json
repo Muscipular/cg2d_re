@@ -1,0 +1,647 @@
+{
+  "schema_version": 1,
+  "step": "CAB21",
+  "recorded_on": "2026-10-09",
+  "source_snapshot": "cg2d-re-bgm-config-scan-20261009",
+  "source_base_commit": "2630ffe0",
+  "decision_ref": "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+  "authorization": "沿用户音频继续开发/整体SPEC、AGENTS第8条工程委托和第12条CAA01相关必要Debug授权；未恢复客户端/算法运行、测试、摘要或桌面操作。",
+  "verification_level": "原完整524060的99条308B、524108真实53CADC目标/原邻接局部目标与发布；一个CPP正文/include之外保持、真实5B扫描别名与源序静态、当前Debug链接/MAP/部署。不代扫描/资源全部正常数据、机器ABI/失败/声音/正常寿命或运行。",
+  "original_function": {
+    "start": "0x524060",
+    "end": "0x524194",
+    "bytes": "81ecb80000005568084955006814d55800e87b7201008be833d283c4083bea750a33c05d81c4b8000000c3535657b90002000083c8ffbfacdf0301f3ab89542418895424208954241c8954241488542413558d44242c6a5050e86871010083c40c85c00f84b20000008a4424283c2374e03c2074dc3c0a74d83c2d74d48d4c24148d542413518d442424528d8c2480000000508d542424518d44242c52508d4c24406800d5580051e8cf8901008b5c243c8dbc249800000083c9ff33c08d14db83c4208d1453c1e202f2aef7d18db2b8a304012bf98bc1897424248bf78b7c2424c1e902f3a58bc88a44241383e103f3a48b4c2420898af8a304018b4c24148882fca30401898a00a404018b542418891c95acdf0301e936ffffff55e84f70010083c404b8010000005f5e5b5d81c4b8000000c3",
+    "instructions": [
+      {
+        "ea": "0x524060",
+        "asm": "sub     esp, 0B8h"
+      },
+      {
+        "ea": "0x524066",
+        "asm": "push    ebp"
+      },
+      {
+        "ea": "0x524067",
+        "asm": "push    offset aR; \"r\""
+      },
+      {
+        "ea": "0x52406c",
+        "asm": "push    offset aBinBgmBgmCf; \"bin\\\\bgm\\\\bgm.cf\""
+      },
+      {
+        "ea": "0x524071",
+        "asm": "call    _fopen"
+      },
+      {
+        "ea": "0x524076",
+        "asm": "mov     ebp, eax"
+      },
+      {
+        "ea": "0x524078",
+        "asm": "xor     edx, edx"
+      },
+      {
+        "ea": "0x52407a",
+        "asm": "add     esp, 8"
+      },
+      {
+        "ea": "0x52407d",
+        "asm": "cmp     ebp, edx"
+      },
+      {
+        "ea": "0x52407f",
+        "asm": "jnz     short loc_52408B"
+      },
+      {
+        "ea": "0x524081",
+        "asm": "xor     eax, eax"
+      },
+      {
+        "ea": "0x524083",
+        "asm": "pop     ebp"
+      },
+      {
+        "ea": "0x524084",
+        "asm": "add     esp, 0B8h"
+      },
+      {
+        "ea": "0x52408a",
+        "asm": "retn"
+      },
+      {
+        "ea": "0x52408b",
+        "asm": "push    ebx"
+      },
+      {
+        "ea": "0x52408c",
+        "asm": "push    esi"
+      },
+      {
+        "ea": "0x52408d",
+        "asm": "push    edi"
+      },
+      {
+        "ea": "0x52408e",
+        "asm": "mov     ecx, 200h"
+      },
+      {
+        "ea": "0x524093",
+        "asm": "or      eax, 0FFFFFFFFh"
+      },
+      {
+        "ea": "0x524096",
+        "asm": "mov     edi, offset dword_103DFAC"
+      },
+      {
+        "ea": "0x52409b",
+        "asm": "rep stosd"
+      },
+      {
+        "ea": "0x52409d",
+        "asm": "mov     [esp+0C8h+var_B0], edx"
+      },
+      {
+        "ea": "0x5240a1",
+        "asm": "mov     [esp+0C8h+var_A8], edx"
+      },
+      {
+        "ea": "0x5240a5",
+        "asm": "mov     [esp+0C8h+var_AC], edx"
+      },
+      {
+        "ea": "0x5240a9",
+        "asm": "mov     [esp+0C8h+var_B4], edx"
+      },
+      {
+        "ea": "0x5240ad",
+        "asm": "mov     [esp+0C8h+var_B5], dl"
+      },
+      {
+        "ea": "0x5240b1",
+        "asm": "push    ebp; Stream"
+      },
+      {
+        "ea": "0x5240b2",
+        "asm": "lea     eax, [esp+0CCh+Buffer]"
+      },
+      {
+        "ea": "0x5240b6",
+        "asm": "push    50h ; 'P'; MaxCount"
+      },
+      {
+        "ea": "0x5240b8",
+        "asm": "push    eax; Buffer"
+      },
+      {
+        "ea": "0x5240b9",
+        "asm": "call    _fgets"
+      },
+      {
+        "ea": "0x5240be",
+        "asm": "add     esp, 0Ch"
+      },
+      {
+        "ea": "0x5240c1",
+        "asm": "test    eax, eax"
+      },
+      {
+        "ea": "0x5240c3",
+        "asm": "jz      loc_52417B"
+      },
+      {
+        "ea": "0x5240c9",
+        "asm": "mov     al, [esp+0C8h+Buffer]"
+      },
+      {
+        "ea": "0x5240cd",
+        "asm": "cmp     al, 23h ; '#'"
+      },
+      {
+        "ea": "0x5240cf",
+        "asm": "jz      short loc_5240B1"
+      },
+      {
+        "ea": "0x5240d1",
+        "asm": "cmp     al, 20h ; ' '"
+      },
+      {
+        "ea": "0x5240d3",
+        "asm": "jz      short loc_5240B1"
+      },
+      {
+        "ea": "0x5240d5",
+        "asm": "cmp     al, 0Ah"
+      },
+      {
+        "ea": "0x5240d7",
+        "asm": "jz      short loc_5240B1"
+      },
+      {
+        "ea": "0x5240d9",
+        "asm": "cmp     al, 2Dh ; '-'"
+      },
+      {
+        "ea": "0x5240db",
+        "asm": "jz      short loc_5240B1"
+      },
+      {
+        "ea": "0x5240dd",
+        "asm": "lea     ecx, [esp+0C8h+var_B4]"
+      },
+      {
+        "ea": "0x5240e1",
+        "asm": "lea     edx, [esp+0C8h+var_B5]"
+      },
+      {
+        "ea": "0x5240e5",
+        "asm": "push    ecx"
+      },
+      {
+        "ea": "0x5240e6",
+        "asm": "lea     eax, [esp+0CCh+var_A8]"
+      },
+      {
+        "ea": "0x5240ea",
+        "asm": "push    edx"
+      },
+      {
+        "ea": "0x5240eb",
+        "asm": "lea     ecx, [esp+0D0h+var_50]"
+      },
+      {
+        "ea": "0x5240f2",
+        "asm": "push    eax"
+      },
+      {
+        "ea": "0x5240f3",
+        "asm": "lea     edx, [esp+0D4h+var_B0]"
+      },
+      {
+        "ea": "0x5240f7",
+        "asm": "push    ecx"
+      },
+      {
+        "ea": "0x5240f8",
+        "asm": "lea     eax, [esp+0D8h+var_AC]"
+      },
+      {
+        "ea": "0x5240fc",
+        "asm": "push    edx"
+      },
+      {
+        "ea": "0x5240fd",
+        "asm": "push    eax"
+      },
+      {
+        "ea": "0x5240fe",
+        "asm": "lea     ecx, [esp+0E0h+Buffer]"
+      },
+      {
+        "ea": "0x524102",
+        "asm": "push    offset aDDSDDD; \"%d %d %s %d %d %d\""
+      },
+      {
+        "ea": "0x524107",
+        "asm": "push    ecx; Buffer"
+      },
+      {
+        "ea": "0x524108",
+        "asm": "call    _sscanf"
+      },
+      {
+        "ea": "0x52410d",
+        "asm": "mov     ebx, [esp+0E8h+var_AC]"
+      },
+      {
+        "ea": "0x524111",
+        "asm": "lea     edi, [esp+0E8h+var_50]"
+      },
+      {
+        "ea": "0x524118",
+        "asm": "or      ecx, 0FFFFFFFFh"
+      },
+      {
+        "ea": "0x52411b",
+        "asm": "xor     eax, eax"
+      },
+      {
+        "ea": "0x52411d",
+        "asm": "lea     edx, [ebx+ebx*8]"
+      },
+      {
+        "ea": "0x524120",
+        "asm": "add     esp, 20h"
+      },
+      {
+        "ea": "0x524123",
+        "asm": "lea     edx, [ebx+edx*2]"
+      },
+      {
+        "ea": "0x524126",
+        "asm": "shl     edx, 2"
+      },
+      {
+        "ea": "0x524129",
+        "asm": "repne scasb"
+      },
+      {
+        "ea": "0x52412b",
+        "asm": "not     ecx"
+      },
+      {
+        "ea": "0x52412d",
+        "asm": "lea     esi, byte_104A3B8[edx]"
+      },
+      {
+        "ea": "0x524133",
+        "asm": "sub     edi, ecx"
+      },
+      {
+        "ea": "0x524135",
+        "asm": "mov     eax, ecx"
+      },
+      {
+        "ea": "0x524137",
+        "asm": "mov     [esp+0C8h+var_A4], esi"
+      },
+      {
+        "ea": "0x52413b",
+        "asm": "mov     esi, edi"
+      },
+      {
+        "ea": "0x52413d",
+        "asm": "mov     edi, [esp+0C8h+var_A4]"
+      },
+      {
+        "ea": "0x524141",
+        "asm": "shr     ecx, 2"
+      },
+      {
+        "ea": "0x524144",
+        "asm": "rep movsd"
+      },
+      {
+        "ea": "0x524146",
+        "asm": "mov     ecx, eax"
+      },
+      {
+        "ea": "0x524148",
+        "asm": "mov     al, [esp+0C8h+var_B5]"
+      },
+      {
+        "ea": "0x52414c",
+        "asm": "and     ecx, 3"
+      },
+      {
+        "ea": "0x52414f",
+        "asm": "rep movsb"
+      },
+      {
+        "ea": "0x524151",
+        "asm": "mov     ecx, [esp+0C8h+var_A8]"
+      },
+      {
+        "ea": "0x524155",
+        "asm": "mov     dword_104A3F8[edx], ecx"
+      },
+      {
+        "ea": "0x52415b",
+        "asm": "mov     ecx, [esp+0C8h+var_B4]"
+      },
+      {
+        "ea": "0x52415f",
+        "asm": "mov     byte_104A3FC[edx], al"
+      },
+      {
+        "ea": "0x524165",
+        "asm": "mov     dword_104A400[edx], ecx"
+      },
+      {
+        "ea": "0x52416b",
+        "asm": "mov     edx, [esp+0C8h+var_B0]"
+      },
+      {
+        "ea": "0x52416f",
+        "asm": "mov     dword_103DFAC[edx*4], ebx"
+      },
+      {
+        "ea": "0x524176",
+        "asm": "jmp     loc_5240B1"
+      },
+      {
+        "ea": "0x52417b",
+        "asm": "push    ebp; Stream"
+      },
+      {
+        "ea": "0x52417c",
+        "asm": "call    _fclose"
+      },
+      {
+        "ea": "0x524181",
+        "asm": "add     esp, 4"
+      },
+      {
+        "ea": "0x524184",
+        "asm": "mov     eax, 1"
+      },
+      {
+        "ea": "0x524189",
+        "asm": "pop     edi"
+      },
+      {
+        "ea": "0x52418a",
+        "asm": "pop     esi"
+      },
+      {
+        "ea": "0x52418b",
+        "asm": "pop     ebx"
+      },
+      {
+        "ea": "0x52418c",
+        "asm": "pop     ebp"
+      },
+      {
+        "ea": "0x52418d",
+        "asm": "add     esp, 0B8h"
+      },
+      {
+        "ea": "0x524193",
+        "asm": "retn"
+      }
+    ],
+    "inventory_id": "F:00124060",
+    "instruction_count": 99,
+    "byte_count": 308
+  },
+  "original_scan_call": {
+    "callsite": "0x524108",
+    "target": "0x53cadc",
+    "name": "_sscanf",
+    "end": "0x53cb10",
+    "stack_local_width_windows": [
+      {
+        "ea": "0x5240a9",
+        "asm": "mov     [esp+0C8h+var_B4], edx"
+      },
+      {
+        "ea": "0x5240ad",
+        "asm": "mov     [esp+0C8h+var_B5], dl"
+      },
+      {
+        "ea": "0x5240dd",
+        "asm": "lea     ecx, [esp+0C8h+var_B4]"
+      },
+      {
+        "ea": "0x5240e1",
+        "asm": "lea     edx, [esp+0C8h+var_B5]"
+      },
+      {
+        "ea": "0x5240e5",
+        "asm": "push    ecx"
+      },
+      {
+        "ea": "0x5240ea",
+        "asm": "push    edx"
+      },
+      {
+        "ea": "0x524151",
+        "asm": "mov     ecx, [esp+0C8h+var_A8]"
+      },
+      {
+        "ea": "0x524155",
+        "asm": "mov     dword_104A3F8[edx], ecx"
+      },
+      {
+        "ea": "0x52415b",
+        "asm": "mov     ecx, [esp+0C8h+var_B4]"
+      },
+      {
+        "ea": "0x52415f",
+        "asm": "mov     byte_104A3FC[edx], al"
+      },
+      {
+        "ea": "0x524165",
+        "asm": "mov     dword_104A400[edx], ecx"
+      }
+    ]
+  },
+  "original_alias_storage": {
+    "w8_field": "var_B5",
+    "s32_field": "var_B4",
+    "slot_bytes": 5,
+    "target5_offset": 0,
+    "target6_offset": 1,
+    "each_scan_write_bytes": 4,
+    "original_instruction_bytes": {
+      "target6_address": "8d4c2414",
+      "target5_address": "8d542413"
+    },
+    "source": "同一个本地5B字节数组，两个void*目标+0/+1；现有扫描器以memcpy做原W32写，定义良好的字节别名，生命周期到该父返回",
+    "initialization": "原W8/S32局部均零；本地5B零初值承接同样首扫描可见字节，不宣编译器初始化/整个栈写序逐机器等价"
+  },
+  "source_changes": [
+    {
+      "path": "src/LegacyAudio.cpp",
+      "scope": "一个既有LegacyFormat.hpp include及LoadBgmConfig一个正文；现有六字段格式/80B输入/过滤/512映射-128配置owner/fileIO/其他CPP保持",
+      "actual_call": "platform::ScanLegacyString_53CADC",
+      "arguments": "六目标显式void*，第五/第六借同一5B区+0/+1，忽略返回如原",
+      "publication": "持有recordIndex；路径整4B部分→读取W8值→尾BYTE→取/写value40→取相邻S32第六值→写value44/value48→末mappingIndex映射写持有recordIndex"
+    }
+  ],
+  "static_checks": {
+    "cpp_outside_one_body_and_include_unchanged": true,
+    "source_stages": [
+      "static_cast<void>(platform::ScanLegacyString_53CADC(",
+      "values44And48.data()",
+      "values44And48.data() + 1",
+      "selectedRecordIndex = recordIndex",
+      "const std::size_t bytes = std::strlen(path) + 1",
+      "std::memcpy(record.path, path, wordBytes)",
+      "const std::uint8_t value44 = values44And48[0]",
+      "std::memcpy(record.path + wordBytes",
+      "record.value40 = value40",
+      "std::memcpy(&value48, values44And48.data() + 1",
+      "record.value44 = value44",
+      "record.value48 = value48",
+      "gBgmMapping103DFAC["
+    ],
+    "positions": [
+      648,
+      920,
+      974,
+      1031,
+      1193,
+      1313,
+      1364,
+      1419,
+      1495,
+      1559,
+      1633,
+      1667,
+      1701
+    ],
+    "ordered": true,
+    "raw_alias_region_bytes": 5,
+    "scan_targets": [
+      {
+        "offset": 0,
+        "bytes_written": 4,
+        "parameter_type": "void*"
+      },
+      {
+        "offset": 1,
+        "bytes_written": 4,
+        "parameter_type": "void*"
+      }
+    ],
+    "alias_writes_fit_same_region": true,
+    "handcrafted_partial_scan_simulation_removed": true,
+    "six_void_pointer_arguments": true,
+    "scan_return_ignored": true,
+    "original_format_unchanged": true,
+    "existing_80_byte_inputs_and_skip_filter_kept": true,
+    "legacy_scanner_4_byte_write_present": true,
+    "new_global_owner": false,
+    "new_helper": false,
+    "runtime_values_verified": false
+  },
+  "existing_provider": {
+    "source": "src/platform/LegacyScan.cpp",
+    "header": "src/platform/LegacyFormat.hpp",
+    "wrapper": "ScanLegacyString_53CADC",
+    "core": "ScanLegacyInput_53DEF4",
+    "numeric_store": "std::memcpy(destination, &numeric, 4)",
+    "provider_changed": false,
+    "previous_audio_call_state": "原语义446 business_call_connections的524060@524108：音频暂停，扫描调用未迁移",
+    "current_audio_call_state": "本步真实接同源扫描体；其余21已接业务点/核心正文保持",
+    "historical_metadata_correction": "53CADC的native_provider仍写UCRT __stdio_common_vsscanf；当前源码实际为项目原扫描包装/核心，本步保留历史字段并明确当前源提供者，不凭SDK路径代当前调用"
+  },
+  "source_gap": "宿主std::sscanf加parsed==5手算别名，没有真实调用既有原扫描体；路径/字段取样也未保原整DWORD-读W8-尾BYTE、value40写后才取第六S32。恢复实际借用/原顺序，不创建越界/异常故障模拟或新输入保护。",
+  "login_followup": {
+    "server_reply_source": "本机nrproto_serv.c的ClientLogin原whV/I/T；当前Sub517040取token0、SplitReceivedBuffer保空token，HandleResponse请求1→2且result0发布mode1。只读源码未发现新错误，不代服务端运行二进制身份/当前互通",
+    "system_log": {
+      "path": "H:/Games/cgmsv_21.2a/CrossGate7.1.0/systemlog.txt",
+      "bytes": 227,
+      "last_write_utc": "2026-10-08T16:16:16.4210159Z",
+      "contents_read": false
+    },
+    "previous_deployed_client": {
+      "last_write_utc": "2026-10-08T21:53:42.9867361Z",
+      "bytes": 8024064
+    },
+    "newer_runtime_feedback": false,
+    "client_launched": false,
+    "protocol_changed": false,
+    "conclusion": "日志早于CAB20部署EXE；未读旧内容、重复监听/进程检查或运行客户端，不判IP2已修好"
+  },
+  "build": {
+    "command": "cmake --build --preset windows-msvc-x64-debug --target cg2d_re_client --parallel 4",
+    "log": "build/windows-msvc-x64/build-bgm-config-scan-20261009.log",
+    "configure_performed": false,
+    "configure_exit_code": 0,
+    "build_exit_code": 0,
+    "static_libraries_exit_code": 0,
+    "client_link_exit_code": 0,
+    "errors": [],
+    "incremental_warning_count": 0,
+    "full_warning_count_unmeasured": true,
+    "client_bytes": 8023040,
+    "symbols": {
+      "LoadBgmConfig_524060": true,
+      "ScanLegacyString_53CADC": true,
+      "ScanLegacyInput_53DEF4": true,
+      "LegacyMidiSynth": false,
+      "MidiToWav": false
+    },
+    "converter_build_performed": false,
+    "converter_last_build_step": "CAB15"
+  },
+  "deployment": {
+    "destination": "H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2d_re_client.exe",
+    "backup": "H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2d_re_client.exe.before-bgm-config-scan-20261009",
+    "previous_bytes": 8024064,
+    "source_bytes": 8023040,
+    "current_bytes": 8023040,
+    "performed": true,
+    "client_launched": false,
+    "verification": "Copy-Item成功，源/目标实际8023040B；旧8024064B备份保留，没有文件摘要/逐字节内容比对"
+  },
+  "execution": {
+    "tests_performed": false,
+    "client_executed": false,
+    "algorithm_executed": false,
+    "converter_executed": false,
+    "wav_regenerated": false,
+    "hash_performed": false,
+    "desktop_operated": false
+  },
+  "inventory_change": {
+    "added_semantic_id": "F:00124060",
+    "added_function_dispositions": 1,
+    "audio_known_members": 37,
+    "audio_member_inventory_closed": false,
+    "existing_scanner_semantic_updated": true,
+    "scanner_disposition_added": false,
+    "r7_unchanged": true
+  },
+  "remaining": [
+    "BGM配置所有正常资源/文件与扫描失败、正常owner/alias寿命及实际数据输出",
+    "CRT扫描包装/核心全语法/全类型/所有消费者及机器ABI，22调用来源不代完整门禁",
+    "旧外层与完整音频枚举/设备/声音/通知/退出",
+    "客户端运行授权/IP2实际登录和完整启动退出",
+    "旧窗口诊断逐项原行为/ABI不因本步增量0关闭"
+  ],
+  "registry_validation": {
+    "expected_json_text_matches": true,
+    "semantic_records": 1899,
+    "function_dispositions": 1064,
+    "audio_known_members": 37,
+    "task_acceptance_rows": 55,
+    "generate_exit_code": 0,
+    "check_exit_code": 0,
+    "scope": "两JSON与本步明确预期及派生文本/引用一致；不代扫描或音频行为运行验收。"
+  },
+  "compile_verified": true,
+  "runtime_verified": false,
+  "global_accepted": false
+}

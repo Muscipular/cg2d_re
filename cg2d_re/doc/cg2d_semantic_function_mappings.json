@@ -52571,7 +52571,7 @@
     {
       "original_entry": "0x53CADC",
       "inventory_id": "F:0013CADC",
-      "status": "原扫描包装/核心及21业务点与真实长度已接；1音频调用暂停，完整运行未验",
+      "status": "CAB21原扫描包装/核心与22个已知业务入向来源现均已接，恢复最后音频524108点；现提供者为项目扫描源，当前Debug链接部署通过，完整扫描语法/机器ABI/正常寿命和运行未验",
       "original_end_exclusive": "0x53CB10",
       "instruction_count": 19,
       "original_direct_reference_count": 22,
@@ -52610,18 +52610,35 @@
             "Sub_50D3C0"
           ],
           "relationship": "仅迁移3个已证扫描调用，其他网络/战斗/音效后处理不变"
+        },
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "LoadBgmConfig_524060"
+          ],
+          "relationship": "524060按原六字段/80B读取和过滤，512映射/128配置owner/fileIO/返回保持。真实53CADC扫描，六void*地址中第五/第六借同一5B区+0/+1各4B写，初值/跨行复用保持，不用parsed数量手拼别名。持有记录索引、整4B路径→读W8第五→尾BYTE、写value40后取相邻S32第六→写W8 value44/S32 value48→末映射写序保持；不加输入拒绝/保护或异常模拟。其余音频/扫描核心和21业务来源不改。全配置/扫描语法/资源失败/正常alias寿命/机器ABI/声音与运行未验，编译接线不代完整门禁。"
         }
       ],
       "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/input.cpp",
-        "symbol": "__stdio_common_vsscanf"
+        "component": "项目原扫描包装/核心",
+        "source_path": "src/platform/LegacyScan.cpp",
+        "symbol": "ScanLegacyString_53CADC",
+        "core_symbol": "ScanLegacyInput_53DEF4",
+        "source_body_implemented": true,
+        "client_link_verified": true,
+        "runtime_verified": false
       },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+        "doc/cg2d_audio_update.md#bgm-config-scan-source-state",
+        "doc/cg2d_bgm_config_scan_evidence.json",
+        "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
+        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build"
       ],
-      "boundary": "先写临时FILE flags49/base/current，strlen低W32写remaining，原生va_list交真实53DEF4；其他FILE字段不补初值，源文本不改写。原22个入向中版本1、命令16、IP1、网络字段1和战斗字段2已接；524060的BGM配置扫描仍属暂停音频，未迁移且不计排除。原格式字节、目标/返回消费和其他父逻辑保持，未构建/运行。 本步53CAF3交真实53F9E0，已有U32→S32位型remaining保持，仍flags/base/current后才取长度并调用真实input，不补FILE字段或改输入/va_list；整份LegacyScan仅长度标识符与已有公开头。",
+      "boundary": "保原临时FILE flags49/base/current→真实53F9E0长度低U32按S32写remaining→原生va_list/真实53DEF4与返回，其他FILE字段不补初值，源文本不改写。CAB21恢复原524060@524108音频扫描，22个已知原入向的源码来源均已接；其他21来源/格式/目标和返回消费保持。当前项目原扫描源取代旧UCRT元数据，真实扫描核心不在本步重验；全语法/数据和alias正常寿命/全部父/机器ABI及运行仍未验。",
       "function_chunks": [
         {
           "start": "0x53CADC",
@@ -52718,7 +52735,7 @@
           "parent_entry": "0x524060"
         }
       ],
-      "verification_level": "完整19条原指令、22原入向、临时FILE/va_list及固定调用差异静态核对；未编译执行；本步19统计17邻读取、原22代码入向/长度前FILE三字段及长度后remaining同位型/真实input次序、源仅一标识符/已有头静态核对，余2条及扫描核心不重验，音频caller仍暂停",
+      "verification_level": "保留旧19条完整包装/22入向及长度真实接线静态证据；CAB21只新增配置父99条308B与5B别名/实际原扫描调用及源序/其余CPP保持，当前Debug链接/MAP部署。未执行客户端/算法、测试或摘要；不能以调用来源和当前链接代完整扫描/失败/正常寿命或机器ABI。",
       "business_call_connections": [
         {
           "parent_entry": "0x4659F0",
@@ -52788,7 +52805,16 @@
           ],
           "source": "src/LegacyAudio.cpp",
           "symbol": "LoadBgmConfig_524060",
-          "status": "音频暂停，扫描调用未迁移"
+          "status": "CAB21真实原扫描已接；同一5B字节别名、六void*及原复制/取样/发布顺序，未运行",
+          "evidence_refs": [
+            "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+            "doc/cg2d_audio_update.md#bgm-config-scan-source-state",
+            "doc/cg2d_bgm_config_scan_evidence.json",
+            "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
+            "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
+            "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build"
+          ],
+          "runtime_verified": false
         }
       ],
       "business_format_evidence": [
@@ -52845,7 +52871,22 @@
           "result_width": "U32",
           "relationship": "原flags49/base/current后取长度低U32按S32位型写remaining，再真实va_list/input与返回"
         }
-      ]
+      ],
+      "historical_boundary_before_cab21": "先写临时FILE flags49/base/current，strlen低W32写remaining，原生va_list交真实53DEF4；其他FILE字段不补初值，源文本不改写。原22个入向中版本1、命令16、IP1、网络字段1和战斗字段2已接；524060的BGM配置扫描仍属暂停音频，未迁移且不计排除。原格式字节、目标/返回消费和其他父逻辑保持，未构建/运行。 本步53CAF3交真实53F9E0，已有U32→S32位型remaining保持，仍flags/base/current后才取长度并调用真实input，不补FILE字段或改输入/va_list；整份LegacyScan仅长度标识符与已有公开头。",
+      "historical_verification_before_cab21": "完整19条原指令、22原入向、临时FILE/va_list及固定调用差异静态核对；未编译执行；本步19统计17邻读取、原22代码入向/长度前FILE三字段及长度后remaining同位型/真实input次序、源仅一标识符/已有头静态核对，余2条及扫描核心不重验，音频caller仍暂停",
+      "historical_native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/input.cpp",
+        "symbol": "__stdio_common_vsscanf"
+      },
+      "bgm_config_scan_connection": {
+        "step": "CAB21",
+        "source_snapshot": "cg2d-re-bgm-config-scan-20261009",
+        "decision_ref": "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+        "restored_original_callsite": "0x524108",
+        "remaining_paused_known_business_calls": 0,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x53F2C6",
@@ -214058,6 +214099,57 @@
           "Cg2dScaleSpatialSourceX87",
           "Cg2dPublishSpatialProjectionX87"
         ],
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x524060",
+      "inventory_id": "F:00124060",
+      "original_role": "BGM六字段配置扫描与512映射/128条目生产，含原重叠扫描目标",
+      "original_end_exclusive": "0x524194",
+      "instruction_count": 99,
+      "original_byte_count": 308,
+      "status": "CAB21真实原扫描器/5B别名与复制-取样-发布已恢复；当前Debug链接部署通过，全配置/扫描/失败/正常寿命及运行未验",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "cg::audio::LoadBgmConfig_524060"
+          ],
+          "relationship": "524060按原六字段/80B读取和过滤，512映射/128配置owner/fileIO/返回保持。真实53CADC扫描，六void*地址中第五/第六借同一5B区+0/+1各4B写，初值/跨行复用保持，不用parsed数量手拼别名。持有记录索引、整4B路径→读W8第五→尾BYTE、写value40后取相邻S32第六→写W8 value44/S32 value48→末映射写序保持；不加输入拒绝/保护或异常模拟。其余音频/扫描核心和21业务来源不改。全配置/扫描语法/资源失败/正常alias寿命/机器ABI/声音与运行未验，编译接线不代完整门禁。"
+        },
+        {
+          "path": "src/platform/LegacyScan.cpp",
+          "symbols": [
+            "ScanLegacyString_53CADC",
+            "ScanLegacyInput_53DEF4"
+          ],
+          "relationship": "原524108真实目标；既有包装/核心不改，原W32扫描实际memcpy写两个重叠字节目标"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+        "doc/cg2d_audio_update.md#bgm-config-scan-source-state",
+        "doc/cg2d_bgm_config_scan_evidence.json",
+        "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
+        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build"
+      ],
+      "boundary": "524060按原六字段/80B读取和过滤，512映射/128配置owner/fileIO/返回保持。真实53CADC扫描，六void*地址中第五/第六借同一5B区+0/+1各4B写，初值/跨行复用保持，不用parsed数量手拼别名。持有记录索引、整4B路径→读W8第五→尾BYTE、写value40后取相邻S32第六→写W8 value44/S32 value48→末映射写序保持；不加输入拒绝/保护或异常模拟。其余音频/扫描核心和21业务来源不改。全配置/扫描语法/资源失败/正常alias寿命/机器ABI/声音与运行未验，编译接线不代完整门禁。",
+      "verification_level": "完整99条308B父/实际53CADC调用及两个邻接目标、一个CPP正文/include外保持，5B借用/宽度/原取样发布静态；Debug0错误/0增量警告、MAP/部署。未执行客户端/算法、测试/摘要，不代全数据/机器ABI或音频验收。",
+      "native_provider": {
+        "source": "src/LegacyAudio.cpp",
+        "symbol": "cg::audio::LoadBgmConfig_524060",
+        "source_body_implemented": true,
+        "client_link_verified": true,
+        "runtime_verified": false
+      },
+      "bgm_config_scan_connection": {
+        "step": "CAB21",
+        "source_snapshot": "cg2d-re-bgm-config-scan-20261009",
+        "decision_ref": "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+        "scan_target": "F:0013CADC",
+        "raw_alias_bytes": 5,
         "runtime_verified": false
       }
     }

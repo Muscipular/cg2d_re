@@ -1094,20 +1094,30 @@ std::int32_t __cdecl PlaySe_52C450(
     const std::int32_t panIndex = platform::gUseStereo == 0
         ? 64
         : (std::clamp)(screenX / 5, 0, 127);
-    const std::int32_t scaledVolume = (effect.volume * 127) / 127;
+    // 原52C58F先取当前通道，再取音量；各属性调用后重新取通道。
+    const std::int32_t volumeChannel = gNextSeChannel105082C;
+    const std::int32_t effectVolume = effect.volume;
+    const std::int32_t scaledVolume = (effectVolume * 127) / 127;
     const std::int32_t volumeIndex =
         (scaledVolume * platform::gEffectVolume) / 15;
     static_cast<void>(gSdlAudioBackend.SetChannelVolume(
-        static_cast<std::size_t>(gNextSeChannel105082C),
+        static_cast<std::size_t>(volumeChannel),
         gSoundVolValue10505D0[static_cast<std::size_t>(volumeIndex)]));
+    const std::int32_t panChannel = gNextSeChannel105082C;
+    const std::int32_t panValue =
+        gPanVal103CFBC[static_cast<std::size_t>(panIndex)];
     static_cast<void>(gSdlAudioBackend.SetChannelPan(
-        static_cast<std::size_t>(gNextSeChannel105082C),
-        gPanVal103CFBC[static_cast<std::size_t>(panIndex)]));
-    if (effect.pitchIndex != 0) {
-        static_cast<void>(gSdlAudioBackend.SetChannelFrequency(
-            static_cast<std::size_t>(gNextSeChannel105082C),
+        static_cast<std::size_t>(panChannel), panValue));
+    // 原52C601只读一次音高，非零时按基频→通道→频率表取样。
+    const std::int32_t pitchIndex = effect.pitchIndex;
+    if (pitchIndex != 0) {
+        const std::int32_t baseFrequency = effect.baseFrequency;
+        const std::int32_t frequencyChannel = gNextSeChannel105082C;
+        const std::uint32_t frequency =
             gPitchFrequencies58D3D4[static_cast<std::size_t>(
-                effect.pitchIndex + effect.baseFrequency)]));
+                baseFrequency + pitchIndex)];
+        static_cast<void>(gSdlAudioBackend.SetChannelFrequency(
+            static_cast<std::size_t>(frequencyChannel), frequency));
     }
     static_cast<void>(gSdlAudioBackend.PlayChannel(
         static_cast<std::size_t>(gNextSeChannel105082C), false));

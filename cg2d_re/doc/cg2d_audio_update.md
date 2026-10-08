@@ -1184,3 +1184,19 @@ CPP仅加私有声明并替换这一原函数的缩放与投影后正文，继�
 持有recordIndex后原长度计算、整4B路径部分→读W8第五项→尾BYTE、取/写+40→取相邻S32第六项→写+44 W8/+48 S32、末mappingIndex写持有记录索引保持；原格式/80B输入及过滤、512映射/128配置、fileIO/返回和其他CPP全文保持。一include/一原正文，已有扫描器/其他21业务调用、CMake与配置资产不改。新增原524060语义/F及一个音频成员，AUDIO37仍未闭枚举；已有53CADC“音频暂停”一调用改为真实接线，旧UCRT提供者描述由当前项目扫描源明确取代并留历史，不借22来源宣全扫描/CRT已验。
 
 同一CAA01必要Debug构建无再配置，三库/客户端返回0，0错误/0增量警告，MAP配置父/原扫描包装/核心存在且仍无离线合成/转换代码。8023040B新版已更新游戏目录，旧8024064B版备份before-bgm-config-scan-20261009；只核复制成功/长度，不计算摘要或比对内容。未运行客户端/算法/工具、测试、重生成WAV或摘要，离线工具最近通过仍CAB15；真实配置/全扫描语法/失败/正常寿命/声音/旧外层/完整音频及机器ABI门禁继续，旧窗口警告未因增量0关闭。登录回复空字段可沿现链，systemlog早于CAB20 EXE，无新运行反馈，本轮不改协议或判IP2已好；快照cg2d-re-bgm-config-scan-20261009。
+
+<a id="se-property-sampling-decision"></a>
+## CAB22 直接音效属性的原取样顺序（2026-10-09）
+
+原PlaySe_52C450完整[52C450,52C677)已只读核实，声像索引在音量前计算如现代码，不调整它。属性阶段原先取通道索引再取效果音量，SetVolume后重新取通道索引再取声像值；SetPan后只取一次pitchIndex，非零时先取baseFrequency再取当前通道索引和频率值。现代码把通道/声像/频率藏在多个C++调用参数中，且pitchIndex在判断和索引各读一次，不能承接原阶段取样合同。
+
+沿工程委托在现LegacyAudio.cpp这一正文引入S32局部样本，明确音量、声像和频率各阶段的读取顺序，保持每次SDK调用后重新读当前通道、单次pitch及base→通道→频率。音量既有正常整数公式、声像门槛、冷却/复制失败/通道轮换/返回与SDL后端机制保持，不增缓存owner/影子资源/底层SDL指针或通用工具，不重构音频。不专项处理或模拟越界/数学溢出，不宣异常等价。
+
+本步只恢复原W32属性取样和消费，DirectSound持有COM owner/取vtable时点与SDL流owner寿命仍按既有替换边界分别验收，不能因整数顺序恢复宣整个函数/机器ABI或所有资源生命周期等价。必要Debug沿同一CAA01授权；客户端/算法运行、测试、摘要仍未授权，旧7/8外层真实派发证据、实际声音与IP2反馈继续待验。
+
+<a id="se-property-sampling-source-state"></a>
+## CAB22 实际源码与限定结果（2026-10-09）
+
+PlaySe_52C450已显式持有volumeChannel/effectVolume，按原次序读取主音量/表值，再SetVolume；其后分别重读panChannel/声像值、只读一次pitchIndex，非零才按baseFrequency→frequencyChannel→频率表→SetFrequency。声像索引仍在音量前计算。原完整164条551B和各阶段地址见[证据](cg2d_se_property_sampling_evidence.json)；局部前后CPP全文相同、pitch/base各一次取样、三阶段通道读和顺序静态通过。只一个正文，后端/公开头/CMake/资源、原正常整数公式、通道准备/失败/Play/冷却/轮换/返回保持。
+
+当前Debug编译/链接0错误/0增量警告，MAP含真实父及三SDL属性提供者，客户端仍无离线合成/转换代码。8023040B新版已更新游戏目录，旧同长版备份before-se-property-sampling-20261009；只证复制/长度，不证内容相同。新增一个原语义/F与AUDIO38已知成员，完整枚举仍false；原COM owner/vtable与SDL流寿命、全部数值/失败/声音/机器ABI、旧7/8外层及完整门禁分别继续，旧窗口诊断不关闭。未运行客户端/算法/工具、测试、重生成WAV或摘要，IP2实际反馈/运行许可仍待；快照cg2d-re-se-property-sampling-20261009。

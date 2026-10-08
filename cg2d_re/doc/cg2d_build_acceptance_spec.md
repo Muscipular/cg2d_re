@@ -113,3 +113,10 @@
 沿同一CAA01音频必要授权，现有Debug客户端目标编译LegacyAudio.cpp/必要依赖，三库/客户端返回0，无再配置，0错误/0增量警告。日志build/windows-msvc-x64/build-bgm-config-scan-20261009.log；MAP含LoadBgmConfig_524060、ScanLegacyString_53CADC和ScanLegacyInput_53DEF4，客户端仍无离线合成/转换代码。旧窗口诊断不因本步增量0关闭。
 
 8023040B新版已更新原游戏目录，旧8024064B备份cg2d_re_client.exe.before-bgm-config-scan-20261009；只核实际复制成功/长度，不计算摘要/内容比对。[记录](cg2d_bgm_config_scan_evidence.json)和[源码](cg2d_audio_update.md#bgm-config-scan-source-state)不代配置/扫描全输入、失败/声音/正常寿命/机器ABI或IP2登录与整体SPEC；未运行客户端/算法、测试、重生成WAV或构建离线工具，后者最近通过仍CAB15。
+
+<a id="se-property-sampling-debug-build"></a>
+## CAB22 直接音效属性当前编译（2026-10-09）
+
+沿同一CAA01授权编译现有Debug客户端目标，LegacyAudio.cpp及必要三库/客户端返回0，无再配置，0错误/0增量警告。日志build/windows-msvc-x64/build-se-property-sampling-20261009.log，MAP含PlaySe_52C450及SetChannelVolume/Pan/Frequency，运行时仍无离线合成/转换代码；0增量不消除旧窗口诊断。
+
+8023040B客户端已更新游戏目录，旧同长版备份cg2d_re_client.exe.before-se-property-sampling-20261009，仅核复制/长度，不作摘要/内容比对。[源序合同](cg2d_audio_update.md#se-property-sampling-source-state)和[记录](cg2d_se_property_sampling_evidence.json)不代完整父/实际声音/失败/正常寿命/机器ABI或IP2及整体SPEC；未运行客户端/算法、测试/工具、重生成WAV，离线最近构建仍CAB15。

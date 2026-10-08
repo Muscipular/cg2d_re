@@ -250,3 +250,7 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 ## CAB21 V05/V02/R01 的 BGM 配置扫描（2026-10-09）
 
 [524060当前实现](../doc/cg2d_audio_update.md#bgm-config-scan-source-state)已将宿主sscanf/手拼别名换为现有原53CADC/53DEF4；同一5B区两目标4B写、原复制/取样/字段和映射顺序有99条308B与实际调用/目标字节依据。当前Debug链接0错误/0增量警告并更新游戏EXE/备份；新增一个原语义/F与AUDIO37但枚举false，旧扫描器暂停一调用恢复且其他21来源保持。只限定I/W/S及链接，三任务与全扫描/配置/失败/寿命/声音/机器ABI/完整运行仍open；无新登录反馈，IP2不代验。
+
+## CAB22 V05/V02/R01 的直接音效属性（2026-10-09）
+
+[PlaySe当前属性段](../doc/cg2d_audio_update.md#se-property-sampling-source-state)已恢复三阶段W32样本顺序与单次pitch，原完整164条551B、取样次数/次序及其余正文保持有据。当前Debug0错误/0增量警告并更新游戏EXE/备份；一个原语义/F与AUDIO38已知成员纳管但枚举false，只限定I/W/S及链接。三任务仍open；完整父/全部数值/COM与SDL正常资源寿命/机器ABI、声音/旧外层/运行及IP2实际反馈继续。

@@ -214152,6 +214152,57 @@
         "raw_alias_bytes": 5,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x52C450",
+      "inventory_id": "F:0012C450",
+      "original_role": "直接播放音效及属性取样、通道选择与冷却",
+      "original_end_exclusive": "0x52C677",
+      "instruction_count": 164,
+      "original_byte_count": 551,
+      "status": "CAB22属性W32取样和单次pitch已恢复；现SDL3真实提供者当前Debug链接部署通过，整父/声音/失败/正常寿命/机器ABI及运行未验",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "cg::audio::PlaySe_52C450"
+          ],
+          "relationship": "仅恢复PlaySe_52C450属性阶段W32取样：声像索引仍先计算；通道→效果音量→主音量/音量表→SetVolume；重新取通道→声像表→SetPan；单次pitch判非零后base→重新取通道→频率表→SetFrequency；Play前/后当前通道读与冷却/轮换/返回不改。原COM owner/vtable持有与SDL流生命周期按既有替换边界分别验收，本步不宣整父/全部数值/机器ABI/资源/声音等价，不新增异常处理/模拟或输入保护。"
+        },
+        {
+          "path": "src/platform/SdlAudioBackend.cpp",
+          "symbols": [
+            "SdlAudioBackend::SetChannelVolume",
+            "SdlAudioBackend::SetChannelPan",
+            "SdlAudioBackend::SetChannelFrequency"
+          ],
+          "relationship": "既有SDL3属性消费提供者，本步正文保持；COM/vtable机制沿替换边界分别验收，不以静态样本次序代全部owner寿命"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_audio_update.md#se-property-sampling-decision",
+        "doc/cg2d_audio_update.md#se-property-sampling-source-state",
+        "doc/cg2d_se_property_sampling_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#se-property-sampling-source-state",
+        "doc/cg2d_build_acceptance_spec.md#se-property-sampling-debug-build"
+      ],
+      "boundary": "仅恢复PlaySe_52C450属性阶段W32取样：声像索引仍先计算；通道→效果音量→主音量/音量表→SetVolume；重新取通道→声像表→SetPan；单次pitch判非零后base→重新取通道→频率表→SetFrequency；Play前/后当前通道读与冷却/轮换/返回不改。原COM owner/vtable持有与SDL流生命周期按既有替换边界分别验收，本步不宣整父/全部数值/机器ABI/资源/声音等价，不新增异常处理/模拟或输入保护。",
+      "verification_level": "完整164条551B及属性地址；一个CPP局部取样顺序/次数/前后全文保持静态通过。当前Debug0错误/0增量警告、实际MAP/部署；未运行客户端/算法、测试或摘要，非整个父/全数值/声音与机器ABI验收。",
+      "native_provider": {
+        "source": "src/LegacyAudio.cpp",
+        "symbol": "cg::audio::PlaySe_52C450",
+        "source_body_implemented": true,
+        "client_link_verified": true,
+        "runtime_verified": false
+      },
+      "se_property_sampling": {
+        "step": "CAB22",
+        "source_snapshot": "cg2d-re-se-property-sampling-20261009",
+        "decision_ref": "doc/cg2d_audio_update.md#se-property-sampling-decision",
+        "property_phase_count": 3,
+        "pitch_field_read_count": 1,
+        "runtime_verified": false
+      }
     }
   ]
 }

@@ -4256,7 +4256,12 @@
         "doc/cg2d_bgm_config_scan_evidence.json",
         "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
         "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
-        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build",
+        "doc/cg2d_audio_update.md#se-property-sampling-decision",
+        "doc/cg2d_audio_update.md#se-property-sampling-source-state",
+        "doc/cg2d_se_property_sampling_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#se-property-sampling-source-state",
+        "doc/cg2d_build_acceptance_spec.md#se-property-sampling-debug-build"
       ],
       "original_inventory_ids": [
         "F:00054C30",
@@ -4295,7 +4300,8 @@
         "F:0012C9E0",
         "F:0012CD60",
         "F:0012CDE0",
-        "F:00124060"
+        "F:00124060",
+        "F:0012C450"
       ],
       "closure_task_ids": [
         "P11",
@@ -4346,7 +4352,8 @@
         "doc/cg2d_audio_update.md#spatial-sound-x87-decision",
         "doc/cg2d_audio_update.md#spatial-projection-x87-decision",
         "doc/cg2d_projection_sampling_return_spec.md#projection-x87-decision",
-        "doc/cg2d_audio_update.md#bgm-config-scan-decision"
+        "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+        "doc/cg2d_audio_update.md#se-property-sampling-decision"
       ],
       "blockers": [
         "CAB17固定454C30独立音量表恢复原连续x87、S64低W32及正常127..0槽路径，33条数值投影/当前Debug链接部署通过；0槽/全表实际输出、CW上游/机器状态/声音与正常寿命仍待。AUDIO33成员枚举未闭，旧99设置页外层及全部运行门禁保持",
@@ -4357,7 +4364,7 @@
         "CAB09共用18B MMIO头和音效/BGM父接线已修，三原职责可追；CAB15当前客户端编译链接通过，全部失败/资源/声音/正常寿命与运行未验，局部来源/符号不代完整门禁",
         "CAB08首段完整PCM预填→ready→smpl终点发布已修、四原职责有SDL来源；CAB15当前客户端编译链接通过，全部失败/诊断状态、调度/波形与正常寿命仍未验",
         "CAB07两设置初始化/完整页面与原生绑定已实现并随CAB15当前客户端链接；真实旧99表外层接线、全部音频效果/寿命与运行仍待，scope=included只表示开发范围",
-        "AUDIO37原成员枚举仍未闭；旧7/旧8、完整WAV/通知/生命周期及音源效果/听感、真实声音/失败/退出仍未验收；类型1原16B资源按用户最新要求视为空音频，停止旧播放后立即成功，零时长不循环"
+        "AUDIO38原成员枚举仍未闭；旧7/旧8、完整WAV/通知/生命周期及音源效果/听感、真实声音/失败/退出仍未验收；类型1原16B资源按用户最新要求视为空音频，停止旧播放后立即成功，零时长不循环"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -4397,7 +4404,10 @@
         "doc/cg2d_spatial_projection_x87_evidence.json",
         "doc/cg2d_audio_update.md#bgm-config-scan-decision",
         "doc/cg2d_audio_update.md#bgm-config-scan-source-state",
-        "doc/cg2d_bgm_config_scan_evidence.json"
+        "doc/cg2d_bgm_config_scan_evidence.json",
+        "doc/cg2d_audio_update.md#se-property-sampling-decision",
+        "doc/cg2d_audio_update.md#se-property-sampling-source-state",
+        "doc/cg2d_se_property_sampling_evidence.json"
       ]
     },
     {
@@ -54419,6 +54429,84 @@
       "differences": [],
       "result": "pass",
       "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-SE-PROPERTY-SAMPLING-FUNC-AUDIO-I-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原52C450完整164条551B；52C58F/595音量与通道、52C5E7/EC声像、52C601/60C/612/621单次pitch/基频/通道/频率",
+      "implementation_reference": "Git固定命名快照 cg2d-re-se-property-sampling-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_audio_update.md#se-property-sampling-decision",
+        "doc/cg2d_audio_update.md#se-property-sampling-source-state",
+        "doc/cg2d_se_property_sampling_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#se-property-sampling-source-state",
+        "doc/cg2d_build_acceptance_spec.md#se-property-sampling-debug-build",
+        "src/LegacyAudio.cpp#PlaySe_52C450",
+        "src/platform/SdlAudioBackend.cpp#SetChannelVolume",
+        "src/platform/SdlAudioBackend.cpp#SetChannelPan",
+        "src/platform/SdlAudioBackend.cpp#SetChannelFrequency"
+      ],
+      "observation": "限定属性W32取样/真实提供者，保留COM→SDL替换边界；不代整父/全数值/正常资源寿命/声音/机器ABI或功能门禁",
+      "expected": "三阶段通道各自fresh读取，volume通道后读效果音量，pan通道后读表值，pitch字段只读一次，非零base→通道→表频率；Play/轮换/冷却/返回和既有后端保持",
+      "actual": "S32局部样本明确次序，frequency保持U32；字段次数/阶段顺序/局部前后全文静态通过，Debug/MAP/部署有据；未运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-SE-PROPERTY-SAMPLING-FUNC-AUDIO-W-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原52C450完整164条551B；52C58F/595音量与通道、52C5E7/EC声像、52C601/60C/612/621单次pitch/基频/通道/频率",
+      "implementation_reference": "Git固定命名快照 cg2d-re-se-property-sampling-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_audio_update.md#se-property-sampling-decision",
+        "doc/cg2d_audio_update.md#se-property-sampling-source-state",
+        "doc/cg2d_se_property_sampling_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#se-property-sampling-source-state",
+        "doc/cg2d_build_acceptance_spec.md#se-property-sampling-debug-build",
+        "src/LegacyAudio.cpp#PlaySe_52C450",
+        "src/platform/SdlAudioBackend.cpp#SetChannelVolume",
+        "src/platform/SdlAudioBackend.cpp#SetChannelPan",
+        "src/platform/SdlAudioBackend.cpp#SetChannelFrequency"
+      ],
+      "observation": "限定属性W32取样/真实提供者，保留COM→SDL替换边界；不代整父/全数值/正常资源寿命/声音/机器ABI或功能门禁",
+      "expected": "三阶段通道各自fresh读取，volume通道后读效果音量，pan通道后读表值，pitch字段只读一次，非零base→通道→表频率；Play/轮换/冷却/返回和既有后端保持",
+      "actual": "S32局部样本明确次序，frequency保持U32；字段次数/阶段顺序/局部前后全文静态通过，Debug/MAP/部署有据；未运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-SE-PROPERTY-SAMPLING-FUNC-AUDIO-S-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原52C450完整164条551B；52C58F/595音量与通道、52C5E7/EC声像、52C601/60C/612/621单次pitch/基频/通道/频率",
+      "implementation_reference": "Git固定命名快照 cg2d-re-se-property-sampling-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_audio_update.md#se-property-sampling-decision",
+        "doc/cg2d_audio_update.md#se-property-sampling-source-state",
+        "doc/cg2d_se_property_sampling_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#se-property-sampling-source-state",
+        "doc/cg2d_build_acceptance_spec.md#se-property-sampling-debug-build",
+        "src/LegacyAudio.cpp#PlaySe_52C450",
+        "src/platform/SdlAudioBackend.cpp#SetChannelVolume",
+        "src/platform/SdlAudioBackend.cpp#SetChannelPan",
+        "src/platform/SdlAudioBackend.cpp#SetChannelFrequency"
+      ],
+      "observation": "限定属性W32取样/真实提供者，保留COM→SDL替换边界；不代整父/全数值/正常资源寿命/声音/机器ABI或功能门禁",
+      "expected": "三阶段通道各自fresh读取，volume通道后读效果音量，pan通道后读表值，pitch字段只读一次，非零base→通道→表频率；Play/轮换/冷却/返回和既有后端保持",
+      "actual": "S32局部样本明确次序，frequency保持U32；字段次数/阶段顺序/局部前后全文静态通过，Debug/MAP/部署有据；未运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
     }
   ],
   "task_acceptance": [
@@ -55322,7 +55410,12 @@
         "doc/cg2d_bgm_config_scan_evidence.json",
         "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
         "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
-        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build",
+        "doc/cg2d_audio_update.md#se-property-sampling-decision",
+        "doc/cg2d_audio_update.md#se-property-sampling-source-state",
+        "doc/cg2d_se_property_sampling_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#se-property-sampling-source-state",
+        "doc/cg2d_build_acceptance_spec.md#se-property-sampling-debug-build"
       ]
     },
     {
@@ -55403,7 +55496,12 @@
         "doc/cg2d_bgm_config_scan_evidence.json",
         "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
         "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
-        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build",
+        "doc/cg2d_audio_update.md#se-property-sampling-decision",
+        "doc/cg2d_audio_update.md#se-property-sampling-source-state",
+        "doc/cg2d_se_property_sampling_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#se-property-sampling-source-state",
+        "doc/cg2d_build_acceptance_spec.md#se-property-sampling-debug-build"
       ]
     },
     {
@@ -56408,7 +56506,12 @@
         "doc/cg2d_bgm_config_scan_evidence.json",
         "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
         "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
-        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build",
+        "doc/cg2d_audio_update.md#se-property-sampling-decision",
+        "doc/cg2d_audio_update.md#se-property-sampling-source-state",
+        "doc/cg2d_se_property_sampling_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#se-property-sampling-source-state",
+        "doc/cg2d_build_acceptance_spec.md#se-property-sampling-debug-build"
       ]
     },
     {
@@ -69280,6 +69383,19 @@
         "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build"
       ],
       "boundary": "524060按原六字段/80B读取和过滤，512映射/128配置owner/fileIO/返回保持。真实53CADC扫描，六void*地址中第五/第六借同一5B区+0/+1各4B写，初值/跨行复用保持，不用parsed数量手拼别名。持有记录索引、整4B路径→读W8第五→尾BYTE、写value40后取相邻S32第六→写W8 value44/S32 value48→末映射写序保持；不加输入拒绝/保护或异常模拟。其余音频/扫描核心和21业务来源不改。全配置/扫描语法/资源失败/正常alias寿命/机器ABI/声音与运行未验，编译接线不代完整门禁。"
+    },
+    {
+      "inventory_id": "F:0012C450",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_audio_update.md#se-property-sampling-decision",
+        "doc/cg2d_audio_update.md#se-property-sampling-source-state",
+        "doc/cg2d_se_property_sampling_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#se-property-sampling-source-state",
+        "doc/cg2d_build_acceptance_spec.md#se-property-sampling-debug-build"
+      ],
+      "boundary": "仅恢复PlaySe_52C450属性阶段W32取样：声像索引仍先计算；通道→效果音量→主音量/音量表→SetVolume；重新取通道→声像表→SetPan；单次pitch判非零后base→重新取通道→频率表→SetFrequency；Play前/后当前通道读与冷却/轮换/返回不改。原COM owner/vtable持有与SDL流生命周期按既有替换边界分别验收，本步不宣整父/全部数值/机器ABI/资源/声音等价，不新增异常处理/模拟或输入保护。"
     }
   ],
   "auxiliary_dispositions": [
@@ -99097,10 +99213,10 @@
     }
   ],
   "build_validation": {
-    "step": "CAB21",
+    "step": "CAB22",
     "recorded_on": "2026-10-09",
     "configuration": "Debug",
-    "source_snapshot": "cg2d-re-bgm-config-scan-20261009",
+    "source_snapshot": "cg2d-re-se-property-sampling-20261009",
     "configure_performed": false,
     "configure_exit_code": 0,
     "build_exit_code": 0,
@@ -99115,7 +99231,7 @@
     "whole_project_accepted": false,
     "converter_build_performed": false,
     "converter_last_build_step": "CAB15",
-    "note": "CAB21恢复524060原53CADC扫描点：同一5B区两4B写、复制/取样/字段和映射顺序保持，替代宿主sscanf/parsed手拼；原99条308B及实际目标有据。三库/当前客户端Debug链接0，无再配置，0错误/0增量警告；MAP父/扫描包装/核心可追，8023040B游戏EXE更新、旧8024064B备份保留，客户端仍无离线合成/转换代码。新增一个原语义/F和AUDIO37，扫描器已有语义的暂停一调用恢复，其他21来源不改；现源provider明确为项目扫描体，旧UCRT信息留历史。离线工具最近通过仍CAB15，本步未构建/执行；未运行客户端/算法、测试、WAV重生成或摘要。无新版登录日志，原协议未改；全配置/扫描/失败/声音/正常寿命/机器ABI、IP2登录和整体SPEC未验，旧窗口诊断不因增量0关闭。",
+    "note": "CAB22仅PlaySe属性段恢复三阶段原W32样本顺序/单次pitch，保留声像前置、原正常整数公式、Play/轮换/冷却/返回和SDL后端。原164条551B与局部次序/次数/其余正文保持静态有据；同CAA01当前Debug三库/客户端返回0，无再配置、0错误/0增量警告。MAP父与三个真实属性提供者存在，8023040B新版复制游戏目录并备份旧同长版，未hash/内容比对；新原语义/F及AUDIO38但枚举false。COM owner/vtable与SDL正常资源寿命、完整父/声音/失败/机器ABI、旧7/8外层/IP2真实反馈及整体SPEC仍未验，旧窗口诊断保持。未运行客户端/算法/工具、测试或重生成WAV，离线最近通过仍CAB15。",
     "evidence_refs": [
       "doc/cg2d_build_acceptance_spec.md",
       "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
@@ -99159,7 +99275,12 @@
       "doc/cg2d_bgm_config_scan_evidence.json",
       "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
       "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
-      "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build"
+      "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build",
+      "doc/cg2d_audio_update.md#se-property-sampling-decision",
+      "doc/cg2d_audio_update.md#se-property-sampling-source-state",
+      "doc/cg2d_se_property_sampling_evidence.json",
+      "doc/cg2d_client_link_sdl_audio_spec.md#se-property-sampling-source-state",
+      "doc/cg2d_build_acceptance_spec.md#se-property-sampling-debug-build"
     ]
   }
 }

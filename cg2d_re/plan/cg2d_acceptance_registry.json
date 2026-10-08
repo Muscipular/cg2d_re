@@ -1288,7 +1288,11 @@
         "doc/cg2d_audio_update.md#audio-table-x87-source-state",
         "doc/cg2d_audio_table_x87_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#audio-table-x87-debug-build",
-        "doc/cg2d_client_link_sdl_audio_spec.md#audio-table-x87-source-state"
+        "doc/cg2d_client_link_sdl_audio_spec.md#audio-table-x87-source-state",
+        "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-decision",
+        "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-source-state",
+        "doc/cg2d_local_login_diagnostics_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#local-login-diagnostics-debug-build"
       ],
       "original_inventory_ids": [
         "F:001202E0",
@@ -1341,7 +1345,8 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-decision",
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-source-state",
         "doc/cg2d_fixed_volume_x87_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build",
+        "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1562,7 +1567,11 @@
         "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-baseline",
         "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-baseline",
         "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract",
-        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state"
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
+        "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-decision",
+        "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-source-state",
+        "doc/cg2d_local_login_diagnostics_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#local-login-diagnostics-debug-build"
       ],
       "original_inventory_ids": [
         "F:00003C50",
@@ -1676,7 +1685,8 @@
         "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-decision",
         "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
         "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract",
-        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state"
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
+        "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-decision"
       ],
       "blockers": [
         "本次只核两帧父成员；全部命令/回复/状态生产、数据与间接目标及生命周期枚举未闭合",
@@ -54819,6 +54829,64 @@
       "differences": [],
       "result": "pass",
       "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-LOCAL-LOGIN-DIAGNOSTICS-FUNC-NETWORK-S-20261009",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前CAB05明文/LF连接链，原Sub508360/508800/507DF0逻辑；CAB26具名额外FILE I/O诊断，非原调用列表等价",
+      "implementation_reference": "Git固定命名快照 cg2d-re-local-login-diagnostics-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-decision",
+        "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-source-state",
+        "doc/cg2d_local_login_diagnostics_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#local-login-diagnostics-debug-build",
+        "src/LoginState.cpp#Sub_508360",
+        "src/network/NetworkRuntime.cpp#HandleResponse_508800",
+        "src/network/NetworkRuntime.cpp#NetworkLoop_507DF0"
+      ],
+      "observation": "只诊断标签/类型/不含身份正文及原逻辑保留、实际当前编译；不是连接成功/全生命周期/机器ABI和完整功能验收",
+      "expected": "入队原状态发布后记录返回，实际正发送/原队列消费后登录阶段字节数，whV结果/原忽略、recv0原断线发布后标签；不改wire/队列/状态决策/返回，不录账号/密码/MAC或正文",
+      "actual": "两个CPP新增阶段日志，移除后两整文件与HEAD相同，三64B数值缓冲/两固定标签；当前Debug0错误/5既有警告、MAP/部署有据，未运行",
+      "differences": [
+        {
+          "description": "具名额外日志FILE I/O/时延，不宣原调用列表逐条相同",
+          "decision_ref": "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-LOCAL-LOGIN-DIAGNOSTICS-FUNC-LOGIN-S-20261009",
+      "feature_id": "FUNC-LOGIN",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前CAB05明文/LF连接链，原Sub508360/508800/507DF0逻辑；CAB26具名额外FILE I/O诊断，非原调用列表等价",
+      "implementation_reference": "Git固定命名快照 cg2d-re-local-login-diagnostics-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-decision",
+        "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-source-state",
+        "doc/cg2d_local_login_diagnostics_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#local-login-diagnostics-debug-build",
+        "src/LoginState.cpp#Sub_508360",
+        "src/network/NetworkRuntime.cpp#HandleResponse_508800",
+        "src/network/NetworkRuntime.cpp#NetworkLoop_507DF0"
+      ],
+      "observation": "只诊断标签/类型/不含身份正文及原逻辑保留、实际当前编译；不是连接成功/全生命周期/机器ABI和完整功能验收",
+      "expected": "入队原状态发布后记录返回，实际正发送/原队列消费后登录阶段字节数，whV结果/原忽略、recv0原断线发布后标签；不改wire/队列/状态决策/返回，不录账号/密码/MAC或正文",
+      "actual": "两个CPP新增阶段日志，移除后两整文件与HEAD相同，三64B数值缓冲/两固定标签；当前Debug0错误/5既有警告、MAP/部署有据，未运行",
+      "differences": [
+        {
+          "description": "具名额外日志FILE I/O/时延，不宣原调用列表逐条相同",
+          "decision_ref": "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
     }
   ],
   "task_acceptance": [
@@ -55490,7 +55558,11 @@
         "doc/cg2d_projection_sampling_return_spec.md#projection-x87-source-state",
         "doc/cg2d_projection_x87_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#projection-x87-source-state",
-        "doc/cg2d_build_acceptance_spec.md#projection-x87-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#projection-x87-debug-build",
+        "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-decision",
+        "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-source-state",
+        "doc/cg2d_local_login_diagnostics_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#local-login-diagnostics-debug-build"
       ]
     },
     {
@@ -99606,14 +99678,14 @@
     }
   ],
   "build_validation": {
-    "step": "CAB24",
+    "step": "CAB26",
     "recorded_on": "2026-10-09",
     "configuration": "Debug",
-    "source_snapshot": "cg2d-re-audio-loader-publication-20261009",
+    "source_snapshot": "cg2d-re-local-login-diagnostics-20261009",
     "configure_performed": false,
     "configure_exit_code": 0,
     "build_exit_code": 0,
-    "incremental_warning_count": 0,
+    "incremental_warning_count": 5,
     "audio_provider_diagnostic_count": 0,
     "static_libraries_exit_code": 0,
     "client_link_exit_code": 0,
@@ -99624,7 +99696,7 @@
     "whole_project_accepted": false,
     "converter_build_performed": false,
     "converter_last_build_step": "CAB15",
-    "note": "CAB24恢复524230运行尾部：id检查后sampleIndex/两路径→volume检查/发布→pitch检查/loop取样和两字段写，BGM路径后三值先取再40/44/48写；三原53B304路径真实用项目包装/核心、六const char*，不用宿主snprintf/提前合并guard。原尾窗351条1191B/实际三调用/格式和原入向有据，完整5289条29687B仅元数据；三个局部外、270静态项/64通道/表owner/SDL/MMIO/fileIO保持。当前CAA01 Debug三库/客户端0，无再配置，0错误/0增量警告，MAP父/原格式包装/核心可追，8022528B游戏EXE更新/旧8023040B备份，未hash/内容比对。新一个原语义/F及AUDIO41但枚举false，已有格式实际1001条独立接线追加3为1004/1023、241格式不增，旧status1000留历史并纠正，剩余19不计接线。完整前段/所有SDK失败残留/正常寿命/格式/声音/机器ABI、旧7/8外层/IP2与整体SPEC仍未验；旧窗口诊断保持，未运行客户端/算法/工具、测试或重生成WAV，离线最近通过仍CAB15。",
+    "note": "CAB26只连接诊断：原状态发布后记入队返回、登录阶段71..80正发送和队列消费后字节数、whV结果或原忽略及recv0原断线后标签；不记录账号/密码/MAC/URL/正文。额外FILE I/O为具名差异，移除新增部分后两整CPP与HEAD一致，原wire明文/LF/108派发/队列/状态/返回和原相对调用序保持。现BWZ01 Debug三库/客户端0，无再配置，0错误/5既有警告（2Winsock弃用/3回调宽度），新诊断无警告，原窗口和宽度后续未关闭。MAP实际三入口/日志存在，8022528B游戏EXE更新并备份旧同长版；仅核复制/长度，不Hash/比内容。编译诊断不能称IP2已修好，无新版实跑/试包/算法/测试；运行许可/反馈及完整网络/登录/SDK失败/正常寿命/机器ABI/整体SPEC仍待，未重生成WAV/运行工具，离线最近通过仍CAB15。三新增数值格式不加入1023原调用/241字面量或原成员数量。",
     "evidence_refs": [
       "doc/cg2d_build_acceptance_spec.md",
       "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
@@ -99684,7 +99756,11 @@
       "doc/cg2d_audio_loader_publication_evidence.json",
       "doc/cg2d_stdio_contract.md#audio-loader-publication-source-state",
       "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
-      "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build"
+      "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build",
+      "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-decision",
+      "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-source-state",
+      "doc/cg2d_local_login_diagnostics_evidence.json",
+      "doc/cg2d_build_acceptance_spec.md#local-login-diagnostics-debug-build"
     ]
   }
 }

@@ -1052,12 +1052,17 @@ void HandleResponse_508800(
     const char* const text)
 {
     if (login::gRequestStatus != 1) {
+        static_cast<void>(login::detail::Sub_44B5C0("LOGIN REPLY IGNORED"));
         return;
     }
 
     login::gRequestStatus = 2;
     login::gValueDA3B24 = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(value));
+    char diagnostic[64];
+    static_cast<void>(platform::FormatLegacyString_53B304(
+        diagnostic, "LOGIN REPLY RESULT=%d", value));
+    static_cast<void>(login::detail::Sub_44B5C0(diagnostic));
     if (value != 0) {
         if (std::strcmp(text, "busy") == 0) {
             login::gValueDA3B24 = 1234;
@@ -4607,6 +4612,7 @@ std::uint8_t NetworkLoop_507DF0()
                 static_cast<SOCKET>(platform::gConnectionSocket)));
             world::gValueD9F2CA = 1;
             gNetworkRuntimeState.errorD9F2CC = 0;
+            static_cast<void>(login::detail::Sub_44B5C0("NETWORK PEER CLOSED"));
         }
         else if (receivedLength == -1) {
             const std::int32_t error = detail::Sub_5082D0();
@@ -4667,6 +4673,13 @@ std::uint8_t NetworkLoop_507DF0()
         }
         else {
             static_cast<void>(ConsumeSendQueue_508280(sent));
+            if (sent > 0 && login::gConnectionStep >= 71
+                && login::gConnectionStep <= 80) {
+                char diagnostic[64];
+                static_cast<void>(platform::FormatLegacyString_53B304(
+                    diagnostic, "LOGIN SENT BYTES=%d", sent));
+                static_cast<void>(login::detail::Sub_44B5C0(diagnostic));
+            }
         }
     }
 

@@ -263,15 +263,19 @@ std::int32_t Sub_508360()
             std::strcpy(accountCopy, gValueDA38DC);
             std::strcpy(adapterId, adapterScratch);
             std::strcpy(gValueDA38DC, accountCopy);
-            static_cast<void>(network::Sub_512800(
+            const std::int32_t queued = network::Sub_512800(
                 platform::gConnectionSocket,
                 gValueDA3A1C,
                 accountCopy,
                 gValueDA3A5C,
-                adapterId));
+                adapterId);
             // 原508748：登录发送返回后先重读阶段，再发布请求状态。
             step = gConnectionStep;
             gRequestStatus = 1;
+            char diagnostic[64];
+            static_cast<void>(platform::FormatLegacyString_53B304(
+                diagnostic, "LOGIN QUEUE RESULT=%d", queued));
+            static_cast<void>(Sub_44B5C0(diagnostic));
         }
         else if (gRequestStatus == 2) {
             if (network::ReadProtocolModeDA3B22() == 0) {

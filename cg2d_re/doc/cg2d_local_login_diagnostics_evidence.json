@@ -1,0 +1,163 @@
+{
+  "step": "CAB26",
+  "recorded_on": "2026-10-09",
+  "source_snapshot": "cg2d-re-local-login-diagnostics-20261009",
+  "baseline": "plan/cg2d_full_reconstruction_plan.md",
+  "decision_ref": "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-decision",
+  "scope": "本机连接的固定标签/S32阶段日志；诊断实现，不是互通修复或运行验收",
+  "launcher": {
+    "path": "H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2a - 2.bat",
+    "read_method": "read_bytes后仅ASCII语法/非ASCII转义，不推断旧编码；账户参数不输出",
+    "byte_count": 919,
+    "executable": "cg2d_re_client.exe",
+    "ip2": "127.0.0.1:9030",
+    "parameters_changed": false,
+    "existing_musicoff_kept": true
+  },
+  "source_changes": [
+    {
+      "path": "src/LoginState.cpp",
+      "symbol": "Sub_508360",
+      "change": "持有原Sub512800返回，原step重读/status1之后记录LOGIN QUEUE RESULT数值；原结果继续不参与决策"
+    },
+    {
+      "path": "src/network/NetworkRuntime.cpp",
+      "symbols": [
+        "HandleResponse_508800",
+        "NetworkLoop_507DF0"
+      ],
+      "change": "whV忽略固定标签/消费结果S32，recv0原断线发布后固定标签，登录阶段71..80实际正发送/原队列消费之后字节数；不记录数据正文"
+    }
+  ],
+  "static_checks": {
+    "old_login_body_recovered_exactly": true,
+    "old_network_body_recovered_exactly": true,
+    "queue_log_after_status_publication": true,
+    "send_log_after_queue_consumption": true,
+    "peer_log_after_existing_disconnect_fields": true,
+    "numeric_only_three_formats": true,
+    "fixed_buffers_64": true
+  },
+  "diagnostic_events": [
+    {
+      "label": "LOGIN QUEUE RESULT=%d",
+      "meaning": "现有明文入队返回，0成功，其他值沿既有返回",
+      "not_proven": "不证明send或服务端已收到"
+    },
+    {
+      "label": "LOGIN SENT BYTES=%d",
+      "meaning": "阶段71..80该次发送队列实际送出字节数；可能含该阶段其他原请求",
+      "not_proven": "不推定每个字节都来自JFVf或服务端处理成功"
+    },
+    {
+      "label": "LOGIN REPLY RESULT=%d",
+      "meaning": "whV被状态1接受后的原S32结果；0走原成功路径",
+      "not_proven": "不代成功路径/角色列表/正常寿命验收"
+    },
+    {
+      "label": "LOGIN REPLY IGNORED",
+      "meaning": "whV到达时原请求状态不是1，保持原忽略",
+      "not_proven": "不记录或推断消息正文"
+    },
+    {
+      "label": "NETWORK PEER CLOSED",
+      "meaning": "recv0后原断线字段已发布",
+      "not_proven": "不宣所有断线/失败行为通过"
+    }
+  ],
+  "boundary": "新增日志FILE I/O和时延是具名诊断差异；恢复移除新增日志/仅持有返回后两整文件与HEAD全文相同。原命令/字段/LF/明文、队列/部分发送、108比较/解参/回调、状态/返回及原有调用相对顺序保持；不声称原调用列表逐条相同。日志失败只忽略原日志返回，不参与请求判断，不新增协议/自动检测/保护/工具/owner/依赖。三新数值格式为项目诊断，不加入1023原格式库存/241原字面量或原功能数量。",
+  "build": {
+    "configure_performed": false,
+    "build_exit_code": 0,
+    "error_count": 0,
+    "incremental_warning_count": 5,
+    "deprecated_winsock_warnings": 2,
+    "original_callback_width_warnings": 3,
+    "client_length": 8022528,
+    "symbols": {
+      "Sub_508360": true,
+      "HandleResponse_508800": true,
+      "NetworkLoop_507DF0": true,
+      "Sub_44B5C0": true,
+      "LegacyMidiSynth": false,
+      "ConvertFixedMidi": false
+    },
+    "log": "build/windows-msvc-x64/build-local-login-diagnostics-20261009.log",
+    "runtime_verified": false
+  },
+  "deployment": {
+    "previous_length": 8022528,
+    "source_length": 8022528,
+    "deployed_length": 8022528,
+    "backup_length": 8022528,
+    "backup_path": "H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2d_re_client.exe.before-local-login-diagnostics-20261009",
+    "deployed_path": "H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2d_re_client.exe",
+    "copied": true,
+    "content_compared": false,
+    "runtime_verified": false
+  },
+  "warnings": {
+    "count": 5,
+    "deprecated_original_winsock_api": 2,
+    "original_callback_width_conversion": 3,
+    "new_diagnostic_warning": 0,
+    "prior_window_warnings_closed": false,
+    "full_warning_audit_performed": false
+  },
+  "unclosed": [
+    "新版客户端IP2实跑与请求/发送/whV/成功或失败定位",
+    "原半包/多包/所有SDK失败/正常寿命与机器ABI",
+    "三原回调宽度警告及旧窗口警告的既有后续审查",
+    "完整网络/登录/音频和整体SPEC"
+  ],
+  "prohibited_actions_performed": {
+    "client_or_algorithm_execution": false,
+    "tests": false,
+    "converter_execution": false,
+    "wav_regeneration": false,
+    "file_hash": false
+  },
+  "runtime_verified": false,
+  "global_accepted": false,
+  "registry_validation": {
+    "full_text_matches": true,
+    "task_count": 55,
+    "all_tasks_have_id": true,
+    "new_evidence_count": 2,
+    "V03_state": "open",
+    "build_step": "CAB26",
+    "error_count": 0,
+    "warnings": 5,
+    "new_original_function_dispositions": 0,
+    "global_accepted": false,
+    "generation_exit_code": 0,
+    "check_exit_code": 0,
+    "initial_rejected_schema_entries": 4,
+    "difference_schema_repaired": "保留具名差异，字符串改description/decision_ref对象",
+    "metrics": {
+      "inventory_functions": 3680,
+      "functions_with_document_links": 2003,
+      "document_link_percent": 54.43,
+      "historical_direct_location_ids": 2762,
+      "semantic_records": 1903,
+      "semantic_inventory_ids": 1893,
+      "semantic_without_inventory_id": 10,
+      "semantic_code_range_records": 10,
+      "pending_records": 18,
+      "functions_with_classification_refs": 120,
+      "reviewed_function_dispositions": 1068,
+      "imports": 218,
+      "unassigned_ranges": 3061,
+      "reviewed_imports": 16,
+      "reviewed_ranges": 485,
+      "registered_features": 185,
+      "registered_leaf_features": 184,
+      "paused_features": 0,
+      "accepted_leaf_features": 0,
+      "tasks": 60,
+      "tasks_closed": 11,
+      "full_feature_denominator": null,
+      "global_accepted": false
+    }
+  }
+}

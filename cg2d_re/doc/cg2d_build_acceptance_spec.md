@@ -134,3 +134,10 @@
 沿同一CAA01必要授权编译现有Debug客户端，LegacyAudio.cpp与三库/客户端返回0，无再配置，0错误/0增量警告。日志build/windows-msvc-x64/build-audio-loader-publication-20261009.log，MAP含Sub_524230及FormatLegacyString_53B304/FormatLegacyOutput_53EB28，客户端仍无离线合成/转换代码；旧窗口诊断不因增量0关闭。
 
 8022528B新版已更新游戏目录，旧8023040B备份cg2d_re_client.exe.before-audio-loader-publication-20261009，仅核复制/长度，不作摘要/内容比对。[原路径/取样发布](cg2d_audio_update.md#audio-loader-publication-source-state)与[记录](cg2d_audio_loader_publication_evidence.json)限定运行尾窗/三格式点；完整父/格式/SDK失败/正常资源寿命/声音/机器ABI、旧外层/IP2和整体SPEC未验。未运行客户端/算法/工具、测试、重生成WAV，离线最近构建仍CAB15。
+
+<a id="local-login-diagnostics-debug-build"></a>
+## CAB26 本机连接诊断当前编译（2026-10-09）
+
+沿既有BWZ01客户端连接授权，现有Debug目标编译LoginState.cpp/NetworkRuntime.cpp和必要依赖，三库/客户端返回0，无再配置，0错误、5项既有警告：2原inet_addr/gethostbyname弃用、3原派发回调宽度转换；不抑制、改契约或关闭原审查。日志build/windows-msvc-x64/build-local-login-diagnostics-20261009.log，MAP含Sub508360/508800/507DF0和日志，客户端仍无离线合成/转换代码。
+
+8022528B新版已更新游戏目录，旧同长版备份cg2d_re_client.exe.before-local-login-diagnostics-20261009，只核复制/长度。新增[阶段日志](cg2d_network_compatibility_spec.md#local-login-diagnostics-source-state)和[证据](cg2d_local_login_diagnostics_evidence.json)限定额外诊断I/O与原逻辑保持；无客户端/试包/算法/测试/摘要运行，IP2互通/全网络/SDK失败/正常寿命/机器ABI和整体SPEC未验，旧窗口诊断保持。离线工具本步未编译/执行，最近通过仍CAB15。

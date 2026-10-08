@@ -5005,3 +5005,7 @@ AGENTS、原编译/音频/宿主/旧生产SPEC及总计划和任务表已同步�
 必要Debug配置、转换器、三库与客户端链接通过；初次FindResourceW的ANSI资源类型宏错误已修成MAKEINTRESOURCEW(10)，最终返回0。PE只作为数据映射，两内置资源与WAV直接字节一致，客户端map无合成器/转换器；未启动客户端、操作桌面、新增/运行测试或计算摘要。旧工程警告保留，本步音频无新增警告。原KS效果及DLS调制转音源质量对照，听感、实际循环/设备失败/回调寿命与完整音频仍待验收。
 
 已同步既有音频基线、五项当前语义与pending说明、音频域/处置/构建登记和P11/P12/P16收尾表；静态汇总及Check通过，原函数/功能/已关闭任务分母与完整门禁不提升。游戏目录cg2d_re_client.exe已更新，旧版备份为cg2d_re_client.exe.before-fixed-wav-20261008，未启动客户端。产物与证据见doc/cg2d_fixed_music_wav_evidence.json；提交快照cg2d-re-fixed-music-wav-20261008。按用户最新规则同时追加根plans/progess.md，原用户改动不夹带。
+
+## CAB03 按钮点击音效恢复（2026-10-08）
+
+按钮已有53/54/56等音效调用、PlaySe窄接口/52C450/SDL播放及初始化和逐帧冷却接线。用户启动批处理cg2a - 2.bat的soundoff令gEnableSound=0，入口直接拒绝播放；已仅移除soundoff，其他参数逐字保留，原稿备份为cg2a - 2.bat.before-button-sound-20261008。初始化引用的270项WAV全部存在且PCM头有效，按钮资源也存在。源码和EXE未改，无新增依赖或SPEC，无编译/客户端运行/桌面操作/摘要；需重新启动批处理使新参数生效，试听和完整音频验收未声明通过。既有音频基线与持久证据doc/cg2d_button_sound_evidence.json同步，根plans/progess.md仅追加本步。

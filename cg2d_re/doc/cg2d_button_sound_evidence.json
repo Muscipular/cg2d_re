@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "step": "CAB03",
+  "recorded_on": "2026-10-08",
+  "request": "用户报告按钮点击没有声音，修复该缺口",
+  "root_cause": "用户提供的启动批处理带soundoff，命令行解析将gEnableSound置0，PlaySe_52C450直接返回-1；按钮已有音效调用",
+  "changed_file": "H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2a - 2.bat",
+  "backup": "H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2a - 2.bat.before-button-sound-20261008",
+  "removed_argument": "soundoff",
+  "other_arguments_preserved": true,
+  "code_chain": [
+    "src/LoginModeScene.cpp:81/90/103，按钮结果分别调用PlaySe(53/54/56,320,240)",
+    "src/LoginMessage.cpp:17，PlaySe直接转调audio::PlaySe_52C450",
+    "src/platform/CommandOptions.cpp:253/254，soundoff关闭gEnableSound；默认值1",
+    "src/LegacyAudio.cpp:1140，音效开关0即返回-1",
+    "src/platform/ClientInitialization.cpp:267，实际初始化音效",
+    "src/platform/MainLoopSupport.cpp:555，经原52CD30逐帧调用52CCA0递减冷却",
+    "src/platform/SdlAudioBackend.cpp，PlayChannel/FeedChannel输出真实WAV"
+  ],
+  "button_assets": [
+    "bin/se/cgsys00.wav",
+    "bin/se/cgsys02.wav",
+    "bin/se/cgsys03.wav",
+    "bin/se/cgsys05.wav",
+    "bin/se/cgsys06.wav"
+  ],
+  "asset_check": {
+    "scope": "初始化引用资源，避免单一坏文件使全部音效关闭",
+    "definition_count": 270,
+    "existing_count": 270,
+    "missing_count": 0,
+    "invalid_pcm_wave_count": 0,
+    "button_wave_rate": 22050,
+    "button_wave_format": "PCM"
+  },
+  "verification": {
+    "batch_readback_matched": true,
+    "code_changed": false,
+    "dependency_added": false,
+    "compile_run": false,
+    "client_started": false,
+    "desktop_operated": false,
+    "audible_result_verified": false,
+    "hash_computed": false,
+    "whole_audio_accepted": false
+  }
+}

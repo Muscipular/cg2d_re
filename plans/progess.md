@@ -849,3 +849,7 @@
 ## 2026-10-08 cg2d_re 固定音乐 WAV 与空音频
 
 按用户最新要求将完整固定MIDI转换为13.8秒WAV，第二段生成零时长空WAV；客户端只用SDL3播放内置WAV，不再读取gm.dls或链接MIDI合成器。原重复/音量/明文派发与owner清理保持，空音频停止旧播放后立即成功。必要Debug链接、实际转换及两份内置资源字节检查通过，游戏目录客户端已更新并备份旧版；未启动客户端或操作桌面，完整声音与生命周期仍待验收。具体见cg2d_re/plan/cg2d_full_reconstruction_progress.md；快照cg2d-re-fixed-music-wav-20261008。
+
+## 2026-10-08 cg2d_re 按钮点击音效恢复
+
+按钮音效调用与SDL播放链已实现；用户启动批处理仍带soundoff导致入口拒绝播放，已仅移除此参数并备份原稿。按钮WAV及初始化引用的270项PCM资源均存在。源码/EXE未改，未编译或启动客户端；重新启动批处理使新参数生效，实际试听仍待。具体记录见cg2d_re/plan/cg2d_full_reconstruction_progress.md。

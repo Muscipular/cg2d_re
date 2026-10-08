@@ -1076,3 +1076,7 @@ Yobi 生命周期须共同确定 x64 owner 后，
 ## BOY01 音量控制入口的既定暂停归属（2026-10-06）
 
 [BOY01](cg2d_audio_control_paused_scope_spec.md#audio-control-paused-decision)补九个旧7/旧8专属控制入口至AUDIO32；两音乐回调原先写共享音量再调用52C3D0应用，音效两回调没有该应用调用，立体声写完整W32后PlaySe，具体参数与字段见[原证据](cg2d_audio_control_paused_scope_evidence.json)。只修暂停范围，不恢复播放/控制实现或软件验收；旧音乐与WAV链仍分别推进，已有SDL WAV不能代全音频。
+
+## CAB03 按钮音效启动静音修正（2026-10-08）
+
+用户报告按钮点击无声音。当前登录按钮已调用53/54/56等原音效，LoginMessage窄接口转调52C450，实际音效初始化和逐帧冷却均已接线；游戏目录对应WAV存在，初始化引用的270项均存在且PCM头有效。直接原因是用户启动批处理仍带soundoff，将gEnableSound置0，播放入口随即返回-1。本步仅移除这一个启动参数并备份原批处理，其他参数原样保留，不新增按钮播放调用或改动源码。未编译、启动客户端或操作桌面；重新运行该批处理后新参数才生效，实际试听未验收。具体来源与结果见[cg2d_button_sound_evidence.json](cg2d_button_sound_evidence.json)。

@@ -7,6 +7,10 @@ namespace cg::platform {
 // 原1085FC0；初始化组合发布系统/回退探测的完整W32返回值。
 extern std::int32_t gLegacyFdivBug1085FC0;
 
+// 原546311/5461E4；F64值与S32分类结果，实际x87合同见浮点分类叶SPEC。
+std::int32_t ClassifyLegacyFloat_546311(double value) noexcept;
+std::int32_t ClassifyLegacySpecialFloat_5461E4(double value) noexcept;
+
 // 原控制字抽象/硬件表示转换，只消费和生成原已定义位。
 std::uint32_t AbstractLegacyControlWord_5448A4(std::uint32_t hardware);
 std::uint32_t HardwareLegacyControlWord_544936(std::uint32_t abstractValue);
@@ -27,6 +31,9 @@ extern "C" void Cg2dWriteLegacyX87Control(std::uint16_t control) noexcept;
 extern "C" void Cg2dClearLegacyX87Exceptions() noexcept;
 extern "C" std::int32_t Cg2dTestLegacyFdiv() noexcept;
 extern "C" std::int32_t Cg2dLegacyFloatNonnegative(const double* value) noexcept;
+// Win64分类参数桥；只在本调用内借用F64，不持有或修改调用方值。
+extern "C" std::int32_t Cg2dClassifyLegacyFloat(const double* value) noexcept;
+extern "C" std::int32_t Cg2dClassifyLegacySpecialFloat(const double* value) noexcept;
 
 } // namespace detail
 } // namespace cg::platform

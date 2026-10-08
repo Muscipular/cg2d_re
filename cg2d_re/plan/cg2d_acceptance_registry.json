@@ -311,7 +311,8 @@
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-baseline",
         "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-baseline",
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
-        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-baseline"
+        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-baseline",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-baseline"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -468,7 +469,9 @@
         "F:001407BC",
         "F:00143405",
         "F:00143435",
-        "F:00146F36"
+        "F:00146F36",
+        "F:00146311",
+        "F:001461E4"
       ],
       "closure_task_ids": [
         "C01",
@@ -509,7 +512,8 @@
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-decision",
         "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-decision",
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
-        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-decision"
+        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-decision",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -540,7 +544,8 @@
         "BPJ01现有__twoToTOS十条x87内联/完整11条21B和唯一原call身份纳管，CRT150枚举open；一般_pow/负底数/其余私有链、全调用环境/ABI/owner寿命与场景RNG及运行仍待，非新增实现或数学库闭合",
         "BPK01两私有查找/捕获复制职责host具名承接，完整315条875B和两唯一call/父邻窗纳管，原捕获数据/业务copy与单owner保。当前SDK源码不代生成ABI；实际typed捕获/清理、全部成员/硬件SEH/owner寿命与链接/展开及正常快速退出运行仍待，CRT152枚举open",
         "BPM01两帮助体完整27条90B/五call两父邻窗及当前PC53/1.25加载阶段纳管，CRT154枚举open；原027F绕过543405，固定PC不代泛用PC选择，53D04C不代其余三点/特殊F80。一般_pow/其它浮点链、全环境/父/alias/owner寿命/SDK机器ABI及场景RNG与画面运行仍待，非新增实现或完整帮助体闭合",
-        "BPN01数字生成正常估算一表达式恢复S32，原15条52B/真实fltout邻窗局部静态纳管，CRT155枚举open；原232全部算法、e/f/g正常及失败/全部调用消费、初始化/owner-alias寿命/SDK机器ABI/链接与浮点环境及完整运行仍待，不代整个格式库验收"
+        "BPN01数字生成正常估算一表达式恢复S32，原15条52B/真实fltout邻窗局部静态纳管，CRT155枚举open；原232全部算法、e/f/g正常及失败/全部调用消费、初始化/owner-alias寿命/SDK机器ABI/链接与浮点环境及完整运行仍待，不代整个格式库验收",
+        "BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -575,7 +580,8 @@
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state",
         "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state",
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
-        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-source-state"
+        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-source-state",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state"
       ]
     },
     {
@@ -50581,6 +50587,74 @@
       "observation": "BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
       "expected": "BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
       "actual": "BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。"
+    },
+    {
+      "id": "E-FLOAT-CLASSIFICATION-LEAVES-FUNC-CRT-I-20261008",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWC01两完整100条236B/两页，一真实内部callee/两CALL；三文件实现两原身份/四原生本体，不宣完整pow/机器ABI。doc/cg2d_float_classification_leaf_spec.md#float-class-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-float-classification-leaves-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/platform/LegacyFloatEnvironment.cpp#ClassifyLegacyFloat_546311",
+        "src/platform/LegacyFloatEnvironment.cpp#ClassifyLegacySpecialFloat_5461E4",
+        "src/platform/LegacyFloatEnvironment.hpp",
+        "src/platform/LegacyFloatEnvironment.asm#Cg2dClassifyLegacyFloat",
+        "src/platform/LegacyFloatEnvironment.cpp#Cg2dClassifyLegacySpecialFloat",
+        "src/platform/LegacyFloatEnvironment.asm#LegacyZero54D5D0",
+        "CMakeLists.txt",
+        "doc/cg2d_float_classification_leaf_evidence.json",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-baseline",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-decision",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-acceptance",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。",
+          "decision_ref": "doc/cg2d_float_classification_leaf_spec.md#float-class-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。",
+      "expected": "BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。",
+      "actual": "BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。"
+    },
+    {
+      "id": "E-FLOAT-CLASSIFICATION-LEAVES-FUNC-CRT-S-20261008",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWC01两完整100条236B/两页，一真实内部callee/两CALL；三文件实现两原身份/四原生本体，不宣完整pow/机器ABI。doc/cg2d_float_classification_leaf_spec.md#float-class-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-float-classification-leaves-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/platform/LegacyFloatEnvironment.cpp#ClassifyLegacyFloat_546311",
+        "src/platform/LegacyFloatEnvironment.cpp#ClassifyLegacySpecialFloat_5461E4",
+        "src/platform/LegacyFloatEnvironment.hpp",
+        "src/platform/LegacyFloatEnvironment.asm#Cg2dClassifyLegacyFloat",
+        "src/platform/LegacyFloatEnvironment.cpp#Cg2dClassifyLegacySpecialFloat",
+        "src/platform/LegacyFloatEnvironment.asm#LegacyZero54D5D0",
+        "CMakeLists.txt",
+        "doc/cg2d_float_classification_leaf_evidence.json",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-baseline",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-decision",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-acceptance",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。",
+          "decision_ref": "doc/cg2d_float_classification_leaf_spec.md#float-class-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。",
+      "expected": "BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。",
+      "actual": "BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。"
     }
   ],
   "task_acceptance": [
@@ -50927,7 +51001,8 @@
         "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
         "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
         "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
-        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state"
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state"
       ],
       "task_id": "C01",
       "state": "open"
@@ -51377,7 +51452,8 @@
         "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-source-state",
         "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state",
         "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-source-state",
-        "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-source-state"
+        "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-source-state",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state"
       ]
     },
     {
@@ -51408,7 +51484,8 @@
         "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
         "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
         "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
-        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-source-state"
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-source-state",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state"
       ]
     },
     {
@@ -51801,7 +51878,8 @@
         "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state",
-        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state"
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state"
       ]
     },
     {
@@ -64087,6 +64165,30 @@
         "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state"
       ],
       "boundary": "4ED670从0开始，按8B原步长读四战果记录+02 W16与十五技能记录+00 W16；相等1只将结果置1，仍扫描完两数组，不早返/额外读DP槽。复用既有1569生产与唯一owner/原正常姓名容量合同，不新造存储。 BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。"
+    },
+    {
+      "inventory_id": "F:00146311",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-baseline",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-decision",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-acceptance",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state"
+      ],
+      "boundary": "546311完整浮点类掩码：原高端W32只消费低W16指数/符号，指数全1沿x87 FLD/FSTP真实F64落存后调用5461E4；普通零/正规分支保FLD/FCOMP零/FNSTSW/SAHF，非零次正规分支只读位，不新增FPU操作。原NEG/SBB/AND AL/ADD的S32掩码保，控制字/MXCSR不写，原值F64不扩宽；Win64私有参数承载与ABI不外推为原机器栈。 BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。"
+    },
+    {
+      "inventory_id": "F:001461E4",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-baseline",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-decision",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-acceptance",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state"
+      ],
+      "boundary": "5461E4完整特殊位类型：按原高/低W32先分+Inf=1/-Inf=2，再高端低W16与7FF8分quiet=3；7FF0且剩余19高fraction位或低W32非零分signaling=4，其它0。F64 bit_cast只消费原位，无浮点算术/异常清理或额外输入限制；真实唯一callee接在546311 x87落存后。 BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。"
     }
   ],
   "auxiliary_dispositions": [

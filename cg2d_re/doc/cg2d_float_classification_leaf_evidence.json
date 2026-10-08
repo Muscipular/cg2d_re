@@ -1,0 +1,1152 @@
+{
+  "schema_version": 1,
+  "spec_id": "BWC01",
+  "recorded_on": "2026-10-08",
+  "baseline_snapshot": "cg2d-re-legacy-result-stage-baseline-20261008",
+  "implementation_snapshot": "cg2d-re-float-classification-leaves-20261008",
+  "evidence_refs": [
+    "doc/cg2d_float_classification_leaf_spec.md#float-class-baseline",
+    "doc/cg2d_float_classification_leaf_spec.md#float-class-decision",
+    "doc/cg2d_float_classification_leaf_spec.md#float-class-acceptance",
+    "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state"
+  ],
+  "artifacts": [
+    "src/platform/LegacyFloatEnvironment.cpp#ClassifyLegacyFloat_546311",
+    "src/platform/LegacyFloatEnvironment.cpp#ClassifyLegacySpecialFloat_5461E4",
+    "src/platform/LegacyFloatEnvironment.hpp",
+    "src/platform/LegacyFloatEnvironment.asm#Cg2dClassifyLegacyFloat",
+    "src/platform/LegacyFloatEnvironment.cpp#Cg2dClassifyLegacySpecialFloat",
+    "src/platform/LegacyFloatEnvironment.asm#LegacyZero54D5D0",
+    "CMakeLists.txt",
+    "doc/cg2d_float_classification_leaf_evidence.json",
+    "doc/cg2d_float_classification_leaf_spec.md#float-class-baseline",
+    "doc/cg2d_float_classification_leaf_spec.md#float-class-decision",
+    "doc/cg2d_float_classification_leaf_spec.md#float-class-acceptance",
+    "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state"
+  ],
+  "original_functions": [
+    {
+      "start": "0x546311",
+      "end_exclusive": "0x5463a3",
+      "count": 65,
+      "chunks": [
+        [
+          "0x546311",
+          "0x5463a3"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5436ac",
+          "text": "call    __fpclass",
+          "from": "0x5436b9"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x546311",
+          "size": 1,
+          "bytes": "55",
+          "mnemonic": "push",
+          "text": "push    ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x546312",
+          "size": 2,
+          "bytes": "8bec",
+          "mnemonic": "mov",
+          "text": "mov     ebp, esp",
+          "call_target": null
+        },
+        {
+          "ea": "0x546314",
+          "size": 3,
+          "bytes": "8b450e",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword ptr [ebp+X+6]",
+          "call_target": null
+        },
+        {
+          "ea": "0x546317",
+          "size": 5,
+          "bytes": "b9f07f0000",
+          "mnemonic": "mov",
+          "text": "mov     ecx, 7FF0h",
+          "call_target": null
+        },
+        {
+          "ea": "0x54631c",
+          "size": 2,
+          "bytes": "8bd0",
+          "mnemonic": "mov",
+          "text": "mov     edx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x54631e",
+          "size": 2,
+          "bytes": "23d1",
+          "mnemonic": "and",
+          "text": "and     edx, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x546320",
+          "size": 3,
+          "bytes": "663bd1",
+          "mnemonic": "cmp",
+          "text": "cmp     dx, cx",
+          "call_target": null
+        },
+        {
+          "ea": "0x546323",
+          "size": 2,
+          "bytes": "752c",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_546351",
+          "call_target": null
+        },
+        {
+          "ea": "0x546325",
+          "size": 3,
+          "bytes": "dd4508",
+          "mnemonic": "fld",
+          "text": "fld     [ebp+X]",
+          "call_target": null
+        },
+        {
+          "ea": "0x546328",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x546329",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x54632a",
+          "size": 3,
+          "bytes": "dd1c24",
+          "mnemonic": "fstp",
+          "text": "fstp    [esp+8+var_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x54632d",
+          "size": 5,
+          "bytes": "e8b2feffff",
+          "mnemonic": "call",
+          "text": "call    __sptype",
+          "call_target": "0x5461e4"
+        },
+        {
+          "ea": "0x546332",
+          "size": 1,
+          "bytes": "59",
+          "mnemonic": "pop",
+          "text": "pop     ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x546333",
+          "size": 1,
+          "bytes": "48",
+          "mnemonic": "dec",
+          "text": "dec     eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x546334",
+          "size": 1,
+          "bytes": "59",
+          "mnemonic": "pop",
+          "text": "pop     ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x546335",
+          "size": 2,
+          "bytes": "7413",
+          "mnemonic": "jz",
+          "text": "jz      short loc_54634A",
+          "call_target": null
+        },
+        {
+          "ea": "0x546337",
+          "size": 1,
+          "bytes": "48",
+          "mnemonic": "dec",
+          "text": "dec     eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x546338",
+          "size": 2,
+          "bytes": "740c",
+          "mnemonic": "jz",
+          "text": "jz      short loc_546346",
+          "call_target": null
+        },
+        {
+          "ea": "0x54633a",
+          "size": 1,
+          "bytes": "48",
+          "mnemonic": "dec",
+          "text": "dec     eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x54633b",
+          "size": 2,
+          "bytes": "7405",
+          "mnemonic": "jz",
+          "text": "jz      short loc_546342",
+          "call_target": null
+        },
+        {
+          "ea": "0x54633d",
+          "size": 2,
+          "bytes": "6a01",
+          "mnemonic": "push",
+          "text": "push    1",
+          "call_target": null
+        },
+        {
+          "ea": "0x54633f",
+          "size": 1,
+          "bytes": "58",
+          "mnemonic": "pop",
+          "text": "pop     eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x546340",
+          "size": 1,
+          "bytes": "5d",
+          "mnemonic": "pop",
+          "text": "pop     ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x546341",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x546342",
+          "size": 2,
+          "bytes": "6a02",
+          "mnemonic": "push",
+          "text": "push    2",
+          "call_target": null
+        },
+        {
+          "ea": "0x546344",
+          "size": 2,
+          "bytes": "ebf9",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_54633F",
+          "call_target": null
+        },
+        {
+          "ea": "0x546346",
+          "size": 2,
+          "bytes": "6a04",
+          "mnemonic": "push",
+          "text": "push    4",
+          "call_target": null
+        },
+        {
+          "ea": "0x546348",
+          "size": 2,
+          "bytes": "ebf5",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_54633F",
+          "call_target": null
+        },
+        {
+          "ea": "0x54634a",
+          "size": 5,
+          "bytes": "b800020000",
+          "mnemonic": "mov",
+          "text": "mov     eax, 200h",
+          "call_target": null
+        },
+        {
+          "ea": "0x54634f",
+          "size": 1,
+          "bytes": "5d",
+          "mnemonic": "pop",
+          "text": "pop     ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x546350",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x546351",
+          "size": 5,
+          "bytes": "2500800000",
+          "mnemonic": "and",
+          "text": "and     eax, 8000h",
+          "call_target": null
+        },
+        {
+          "ea": "0x546356",
+          "size": 3,
+          "bytes": "6685d2",
+          "mnemonic": "test",
+          "text": "test    dx, dx",
+          "call_target": null
+        },
+        {
+          "ea": "0x546359",
+          "size": 2,
+          "bytes": "8bc8",
+          "mnemonic": "mov",
+          "text": "mov     ecx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x54635b",
+          "size": 2,
+          "bytes": "751e",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_54637B",
+          "call_target": null
+        },
+        {
+          "ea": "0x54635d",
+          "size": 7,
+          "bytes": "f7450cffff0f00",
+          "mnemonic": "test",
+          "text": "test    dword ptr [ebp+X+4], 0FFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x546364",
+          "size": 2,
+          "bytes": "7506",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_54636C",
+          "call_target": null
+        },
+        {
+          "ea": "0x546366",
+          "size": 4,
+          "bytes": "837d0800",
+          "mnemonic": "cmp",
+          "text": "cmp     dword ptr [ebp+X], 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x54636a",
+          "size": 2,
+          "bytes": "740f",
+          "mnemonic": "jz",
+          "text": "jz      short loc_54637B",
+          "call_target": null
+        },
+        {
+          "ea": "0x54636c",
+          "size": 2,
+          "bytes": "8bc1",
+          "mnemonic": "mov",
+          "text": "mov     eax, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x54636e",
+          "size": 2,
+          "bytes": "f7d8",
+          "mnemonic": "neg",
+          "text": "neg     eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x546370",
+          "size": 2,
+          "bytes": "1bc0",
+          "mnemonic": "sbb",
+          "text": "sbb     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x546372",
+          "size": 2,
+          "bytes": "2490",
+          "mnemonic": "and",
+          "text": "and     al, 90h",
+          "call_target": null
+        },
+        {
+          "ea": "0x546374",
+          "size": 5,
+          "bytes": "0580000000",
+          "mnemonic": "add",
+          "text": "add     eax, 80h",
+          "call_target": null
+        },
+        {
+          "ea": "0x546379",
+          "size": 1,
+          "bytes": "5d",
+          "mnemonic": "pop",
+          "text": "pop     ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x54637a",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x54637b",
+          "size": 3,
+          "bytes": "dd4508",
+          "mnemonic": "fld",
+          "text": "fld     [ebp+X]",
+          "call_target": null
+        },
+        {
+          "ea": "0x54637e",
+          "size": 6,
+          "bytes": "dc1dd0d55400",
+          "mnemonic": "fcomp",
+          "text": "fcomp   ds:dbl_54D5D0",
+          "call_target": null
+        },
+        {
+          "ea": "0x546384",
+          "size": 2,
+          "bytes": "dfe0",
+          "mnemonic": "fnstsw",
+          "text": "fnstsw  ax",
+          "call_target": null
+        },
+        {
+          "ea": "0x546386",
+          "size": 1,
+          "bytes": "9e",
+          "mnemonic": "sahf",
+          "text": "sahf",
+          "call_target": null
+        },
+        {
+          "ea": "0x546387",
+          "size": 2,
+          "bytes": "8bc1",
+          "mnemonic": "mov",
+          "text": "mov     eax, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x546389",
+          "size": 2,
+          "bytes": "750b",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_546396",
+          "call_target": null
+        },
+        {
+          "ea": "0x54638b",
+          "size": 2,
+          "bytes": "f7d8",
+          "mnemonic": "neg",
+          "text": "neg     eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x54638d",
+          "size": 2,
+          "bytes": "1bc0",
+          "mnemonic": "sbb",
+          "text": "sbb     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x54638f",
+          "size": 2,
+          "bytes": "24e0",
+          "mnemonic": "and",
+          "text": "and     al, 0E0h",
+          "call_target": null
+        },
+        {
+          "ea": "0x546391",
+          "size": 3,
+          "bytes": "83c040",
+          "mnemonic": "add",
+          "text": "add     eax, 40h ; '@'",
+          "call_target": null
+        },
+        {
+          "ea": "0x546394",
+          "size": 1,
+          "bytes": "5d",
+          "mnemonic": "pop",
+          "text": "pop     ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x546395",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x546396",
+          "size": 2,
+          "bytes": "f7d8",
+          "mnemonic": "neg",
+          "text": "neg     eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x546398",
+          "size": 2,
+          "bytes": "1bc0",
+          "mnemonic": "sbb",
+          "text": "sbb     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x54639a",
+          "size": 2,
+          "bytes": "2408",
+          "mnemonic": "and",
+          "text": "and     al, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x54639c",
+          "size": 5,
+          "bytes": "0500010000",
+          "mnemonic": "add",
+          "text": "add     eax, 100h",
+          "call_target": null
+        },
+        {
+          "ea": "0x5463a1",
+          "size": 1,
+          "bytes": "5d",
+          "mnemonic": "pop",
+          "text": "pop     ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x5463a2",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "page_count": 1,
+      "pages": [
+        {
+          "offset": 0,
+          "count": 65
+        }
+      ],
+      "code_bytes": 146,
+      "calls": [
+        {
+          "ea": "0x54632d",
+          "size": 5,
+          "bytes": "e8b2feffff",
+          "mnemonic": "call",
+          "text": "call    __sptype",
+          "call_target": "0x5461e4"
+        }
+      ],
+      "indirect_calls": [],
+      "jump_count": 10,
+      "return_count": 5
+    },
+    {
+      "start": "0x5461e4",
+      "end_exclusive": "0x54623e",
+      "count": 35,
+      "chunks": [
+        [
+          "0x5461e4",
+          "0x54623e"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x546311",
+          "text": "call    __sptype",
+          "from": "0x54632d"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x5461e4",
+          "size": 1,
+          "bytes": "55",
+          "mnemonic": "push",
+          "text": "push    ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x5461e5",
+          "size": 2,
+          "bytes": "8bec",
+          "mnemonic": "mov",
+          "text": "mov     ebp, esp",
+          "call_target": null
+        },
+        {
+          "ea": "0x5461e7",
+          "size": 2,
+          "bytes": "33d2",
+          "mnemonic": "xor",
+          "text": "xor     edx, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5461e9",
+          "size": 7,
+          "bytes": "817d0c0000f07f",
+          "mnemonic": "cmp",
+          "text": "cmp     [ebp+arg_4], 7FF00000h",
+          "call_target": null
+        },
+        {
+          "ea": "0x5461f0",
+          "size": 2,
+          "bytes": "7509",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_5461FB",
+          "call_target": null
+        },
+        {
+          "ea": "0x5461f2",
+          "size": 3,
+          "bytes": "395508",
+          "mnemonic": "cmp",
+          "text": "cmp     [ebp+arg_0], edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5461f5",
+          "size": 2,
+          "bytes": "7516",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_54620D",
+          "call_target": null
+        },
+        {
+          "ea": "0x5461f7",
+          "size": 2,
+          "bytes": "6a01",
+          "mnemonic": "push",
+          "text": "push    1",
+          "call_target": null
+        },
+        {
+          "ea": "0x5461f9",
+          "size": 2,
+          "bytes": "eb3c",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_546237",
+          "call_target": null
+        },
+        {
+          "ea": "0x5461fb",
+          "size": 7,
+          "bytes": "817d0c0000f0ff",
+          "mnemonic": "cmp",
+          "text": "cmp     [ebp+arg_4], 0FFF00000h",
+          "call_target": null
+        },
+        {
+          "ea": "0x546202",
+          "size": 2,
+          "bytes": "7509",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_54620D",
+          "call_target": null
+        },
+        {
+          "ea": "0x546204",
+          "size": 3,
+          "bytes": "395508",
+          "mnemonic": "cmp",
+          "text": "cmp     [ebp+arg_0], edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x546207",
+          "size": 2,
+          "bytes": "7504",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_54620D",
+          "call_target": null
+        },
+        {
+          "ea": "0x546209",
+          "size": 2,
+          "bytes": "6a02",
+          "mnemonic": "push",
+          "text": "push    2",
+          "call_target": null
+        },
+        {
+          "ea": "0x54620b",
+          "size": 2,
+          "bytes": "eb2a",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_546237",
+          "call_target": null
+        },
+        {
+          "ea": "0x54620d",
+          "size": 3,
+          "bytes": "8b4d0e",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [ebp+arg_4+2]",
+          "call_target": null
+        },
+        {
+          "ea": "0x546210",
+          "size": 5,
+          "bytes": "b8f87f0000",
+          "mnemonic": "mov",
+          "text": "mov     eax, 7FF8h",
+          "call_target": null
+        },
+        {
+          "ea": "0x546215",
+          "size": 2,
+          "bytes": "23c8",
+          "mnemonic": "and",
+          "text": "and     ecx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x546217",
+          "size": 3,
+          "bytes": "663bc8",
+          "mnemonic": "cmp",
+          "text": "cmp     cx, ax",
+          "call_target": null
+        },
+        {
+          "ea": "0x54621a",
+          "size": 2,
+          "bytes": "7504",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_546220",
+          "call_target": null
+        },
+        {
+          "ea": "0x54621c",
+          "size": 2,
+          "bytes": "6a03",
+          "mnemonic": "push",
+          "text": "push    3",
+          "call_target": null
+        },
+        {
+          "ea": "0x54621e",
+          "size": 2,
+          "bytes": "eb17",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_546237",
+          "call_target": null
+        },
+        {
+          "ea": "0x546220",
+          "size": 5,
+          "bytes": "6681f9f07f",
+          "mnemonic": "cmp",
+          "text": "cmp     cx, 7FF0h",
+          "call_target": null
+        },
+        {
+          "ea": "0x546225",
+          "size": 2,
+          "bytes": "7513",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_54623A",
+          "call_target": null
+        },
+        {
+          "ea": "0x546227",
+          "size": 7,
+          "bytes": "f7450cffff0700",
+          "mnemonic": "test",
+          "text": "test    [ebp+arg_4], 7FFFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x54622e",
+          "size": 2,
+          "bytes": "7505",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_546235",
+          "call_target": null
+        },
+        {
+          "ea": "0x546230",
+          "size": 3,
+          "bytes": "395508",
+          "mnemonic": "cmp",
+          "text": "cmp     [ebp+arg_0], edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x546233",
+          "size": 2,
+          "bytes": "7405",
+          "mnemonic": "jz",
+          "text": "jz      short loc_54623A",
+          "call_target": null
+        },
+        {
+          "ea": "0x546235",
+          "size": 2,
+          "bytes": "6a04",
+          "mnemonic": "push",
+          "text": "push    4",
+          "call_target": null
+        },
+        {
+          "ea": "0x546237",
+          "size": 1,
+          "bytes": "58",
+          "mnemonic": "pop",
+          "text": "pop     eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x546238",
+          "size": 1,
+          "bytes": "5d",
+          "mnemonic": "pop",
+          "text": "pop     ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x546239",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x54623a",
+          "size": 2,
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "text": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x54623c",
+          "size": 1,
+          "bytes": "5d",
+          "mnemonic": "pop",
+          "text": "pop     ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x54623d",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "page_count": 1,
+      "pages": [
+        {
+          "offset": 0,
+          "count": 35
+        }
+      ],
+      "code_bytes": 90,
+      "calls": [],
+      "indirect_calls": [],
+      "jump_count": 11,
+      "return_count": 2
+    }
+  ],
+  "original_totals": {
+    "instruction_count": 100,
+    "code_bytes": 236,
+    "page_count": 2,
+    "direct_call_count": 1,
+    "unique_direct_callee_count": 1,
+    "indirect_call_count": 0,
+    "jump_count": 21,
+    "return_count": 7,
+    "inbound_call_count": 2,
+    "inbound_tail_count": 0,
+    "inbound_data_reference_count": 0
+  },
+  "original_parent_window": {
+    "root": "0x5436ac",
+    "focus": "0x5436b9",
+    "full_parent_reverified": false,
+    "instructions": [
+      {
+        "ea": "0x5436b0",
+        "size": 1,
+        "bytes": "51",
+        "mnemonic": "push",
+        "text": "push    ecx"
+      },
+      {
+        "ea": "0x5436b1",
+        "size": 3,
+        "bytes": "dd4508",
+        "mnemonic": "fld",
+        "text": "fld     [ebp+arg_0]"
+      },
+      {
+        "ea": "0x5436b4",
+        "size": 1,
+        "bytes": "51",
+        "mnemonic": "push",
+        "text": "push    ecx"
+      },
+      {
+        "ea": "0x5436b5",
+        "size": 1,
+        "bytes": "51",
+        "mnemonic": "push",
+        "text": "push    ecx"
+      },
+      {
+        "ea": "0x5436b6",
+        "size": 3,
+        "bytes": "dd1c24",
+        "mnemonic": "fstp",
+        "text": "fstp    [esp+10h+X]; X"
+      },
+      {
+        "ea": "0x5436b9",
+        "size": 5,
+        "bytes": "e8532c0000",
+        "mnemonic": "call",
+        "text": "call    __fpclass"
+      },
+      {
+        "ea": "0x5436be",
+        "size": 1,
+        "bytes": "59",
+        "mnemonic": "pop",
+        "text": "pop     ecx"
+      },
+      {
+        "ea": "0x5436bf",
+        "size": 2,
+        "bytes": "a890",
+        "mnemonic": "test",
+        "text": "test    al, 90h"
+      },
+      {
+        "ea": "0x5436c1",
+        "size": 1,
+        "bytes": "59",
+        "mnemonic": "pop",
+        "text": "pop     ecx"
+      },
+      {
+        "ea": "0x5436c2",
+        "size": 2,
+        "bytes": "7549",
+        "mnemonic": "jnz",
+        "text": "jnz     short loc_54370D"
+      },
+      {
+        "ea": "0x5436c4",
+        "size": 3,
+        "bytes": "dd4508",
+        "mnemonic": "fld",
+        "text": "fld     [ebp+arg_0]"
+      },
+      {
+        "ea": "0x5436c7",
+        "size": 1,
+        "bytes": "51",
+        "mnemonic": "push",
+        "text": "push    ecx"
+      },
+      {
+        "ea": "0x5436c8",
+        "size": 1,
+        "bytes": "51",
+        "mnemonic": "push",
+        "text": "push    ecx"
+      },
+      {
+        "ea": "0x5436c9",
+        "size": 3,
+        "bytes": "dd1c24",
+        "mnemonic": "fstp",
+        "text": "fstp    [esp+10h+X]; double"
+      }
+    ],
+    "zero_constant": {
+      "ea": "0x54d5d0",
+      "bytes": "0000000000000000"
+    }
+  },
+  "parent_window_included_in_two_root_totals": false,
+  "source_functions": [
+    {
+      "symbol": "ClassifyLegacyFloat_546311",
+      "id": "F:00146311",
+      "entry": "0x546311",
+      "index": 1816,
+      "original_index": 0,
+      "source_path": "src/platform/LegacyFloatEnvironment.cpp",
+      "contract": "546311完整浮点类掩码：原高端W32只消费低W16指数/符号，指数全1沿x87 FLD/FSTP真实F64落存后调用5461E4；普通零/正规分支保FLD/FCOMP零/FNSTSW/SAHF，非零次正规分支只读位，不新增FPU操作。原NEG/SBB/AND AL/ADD的S32掩码保，控制字/MXCSR不写，原值F64不扩宽；Win64私有参数承载与ABI不外推为原机器栈。"
+    },
+    {
+      "symbol": "ClassifyLegacySpecialFloat_5461E4",
+      "id": "F:001461E4",
+      "entry": "0x5461e4",
+      "index": 1817,
+      "original_index": 1,
+      "source_path": "src/platform/LegacyFloatEnvironment.cpp",
+      "contract": "5461E4完整特殊位类型：按原高/低W32先分+Inf=1/-Inf=2，再高端低W16与7FF8分quiet=3；7FF0且剩余19高fraction位或低W32非零分signaling=4，其它0。F64 bit_cast只消费原位，无浮点算术/异常清理或额外输入限制；真实唯一callee接在546311 x87落存后。"
+    }
+  ],
+  "source_transformations": [
+    {
+      "path": "cg2d_re/src/platform/LegacyFloatEnvironment.cpp",
+      "patches": [
+        {
+          "before": "#include \"LegacyFloatFormat.hpp\"\n",
+          "after": "#include \"LegacyFloatFormat.hpp\"\n\n#include <bit>\n"
+        },
+        {
+          "before": "} // namespace cg::platform\n",
+          "after": "// 原5461E4；只按F64存储位返回特殊类型，不进行浮点算术。\nstd::int32_t ClassifyLegacySpecialFloat_5461E4(const double value) noexcept\n{\n    enum : std::int32_t {\n        kOrdinary = 0,\n        kPositiveInfinity = 1,\n        kNegativeInfinity = 2,\n        kQuietNaN = 3,\n        kSignalingNaN = 4,\n    };\n    const std::uint64_t bits = std::bit_cast<std::uint64_t>(value);\n    const std::uint32_t low = static_cast<std::uint32_t>(bits);\n    const std::uint32_t high = static_cast<std::uint32_t>(bits >> 32);\n    if (high == 0x7FF00000u && low == 0) {\n        return kPositiveInfinity;\n    }\n    if (high == 0xFFF00000u && low == 0) {\n        return kNegativeInfinity;\n    }\n    const std::uint32_t top = (high >> 16) & 0x7FF8u;\n    if (top == 0x7FF8u) {\n        return kQuietNaN;\n    }\n    if (top == 0x7FF0u && ((high & 0x7FFFFu) != 0 || low != 0)) {\n        return kSignalingNaN;\n    }\n    return kOrdinary;\n}\n\n// 原546311；原x87落存、比较和状态读取留在私有ASM边界。\nstd::int32_t ClassifyLegacyFloat_546311(const double value) noexcept\n{\n    return detail::Cg2dClassifyLegacyFloat(&value);\n}\n\nnamespace detail {\n\nextern \"C\" std::int32_t Cg2dClassifyLegacySpecialFloat(\n    const double* const value) noexcept\n{\n    return ClassifyLegacySpecialFloat_5461E4(*value);\n}\n\n} // namespace detail\n\n} // namespace cg::platform\n"
+        }
+      ]
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyFloatEnvironment.hpp",
+      "patches": [
+        {
+          "before": "// 原控制字抽象/硬件表示转换，只消费和生成原已定义位。\n",
+          "after": "// 原546311/5461E4；F64值与S32分类结果，实际x87合同见浮点分类叶SPEC。\nstd::int32_t ClassifyLegacyFloat_546311(double value) noexcept;\nstd::int32_t ClassifyLegacySpecialFloat_5461E4(double value) noexcept;\n\n// 原控制字抽象/硬件表示转换，只消费和生成原已定义位。\n"
+        },
+        {
+          "before": "extern \"C\" std::int32_t Cg2dLegacyFloatNonnegative(const double* value) noexcept;\n",
+          "after": "extern \"C\" std::int32_t Cg2dLegacyFloatNonnegative(const double* value) noexcept;\n// Win64分类参数桥；只在本调用内借用F64，不持有或修改调用方值。\nextern \"C\" std::int32_t Cg2dClassifyLegacyFloat(const double* value) noexcept;\nextern \"C\" std::int32_t Cg2dClassifyLegacySpecialFloat(const double* value) noexcept;\n"
+        }
+      ]
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyFloatEnvironment.asm",
+      "patches": [
+        {
+          "before": ".code\n",
+          "after": ".code\nEXTERN Cg2dClassifyLegacySpecialFloat:PROC\nPUBLIC Cg2dClassifyLegacyFloat\n"
+        },
+        {
+          "before": "END\n",
+          "after": "; 原546311；原值槽与真实x87落存槽分离，高端W32仅消费低W16。\n; Win64保留32B调用暂存区与两个F64槽；不写控制字/MXCSR或清异常。\nCg2dClassifyLegacyFloat PROC FRAME\n    sub rsp, 56\n    .allocstack 56\n    .endprolog\n    mov r8, qword ptr [rcx]\n    mov qword ptr [rsp+32], r8\n    mov eax, dword ptr [rsp+38]\n    mov ecx, 07FF0h\n    mov edx, eax\n    and edx, ecx\n    cmp dx, cx\n    jne LegacyFloatClassOrdinary\n    fld qword ptr [rsp+32]\n    fstp qword ptr [rsp+40]\n    lea rcx, [rsp+40]\n    call Cg2dClassifyLegacySpecialFloat\n    dec eax\n    jz LegacyFloatClassPositiveInfinity\n    dec eax\n    jz LegacyFloatClassNegativeInfinity\n    dec eax\n    jz LegacyFloatClassQuietNaN\n    mov eax, 1\n    jmp LegacyFloatClassDone\nLegacyFloatClassQuietNaN:\n    mov eax, 2\n    jmp LegacyFloatClassDone\nLegacyFloatClassNegativeInfinity:\n    mov eax, 4\n    jmp LegacyFloatClassDone\nLegacyFloatClassPositiveInfinity:\n    mov eax, 0200h\n    jmp LegacyFloatClassDone\nLegacyFloatClassOrdinary:\n    and eax, 08000h\n    test dx, dx\n    mov ecx, eax\n    jnz LegacyFloatClassCompareZero\n    test dword ptr [rsp+36], 0FFFFFh\n    jnz LegacyFloatClassDenormal\n    cmp dword ptr [rsp+32], 0\n    je LegacyFloatClassCompareZero\nLegacyFloatClassDenormal:\n    mov eax, ecx\n    neg eax\n    sbb eax, eax\n    and al, 090h\n    add eax, 080h\n    jmp LegacyFloatClassDone\nLegacyFloatClassCompareZero:\n    fld qword ptr [rsp+32]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    mov eax, ecx\n    jne LegacyFloatClassNormal\n    neg eax\n    sbb eax, eax\n    and al, 0E0h\n    add eax, 040h\n    jmp LegacyFloatClassDone\nLegacyFloatClassNormal:\n    neg eax\n    sbb eax, eax\n    and al, 08h\n    add eax, 0100h\nLegacyFloatClassDone:\n    add rsp, 56\n    ret\nCg2dClassifyLegacyFloat ENDP\n\nEND\n"
+        }
+      ]
+    }
+  ],
+  "implementation_static_scope": "BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。",
+  "source_cpp_changed_count": 1,
+  "source_asm_changed_count": 1,
+  "source_header_changed_count": 1,
+  "source_patch_count": 6,
+  "new_original_mapped_function_count": 2,
+  "new_native_function_body_count": 4,
+  "new_cpp_function_body_count": 3,
+  "new_asm_proc_count": 1,
+  "new_private_bridge_count": 2,
+  "new_shared_owner_count": 0,
+  "x87_roundtrip_special_and_normal_compare_status_operations_kept": true,
+  "original_unsigned_bit_fields_and_NEG_SBB_low_AL_operations_kept": true,
+  "native_scalar_F64_copied_to_private_value_slots_not_x86_stack_mirror": true,
+  "unconsumed_upper_W16_not_zero_filled_or_used": true,
+  "original_argument_F64_and_return_S32_widths_kept": true,
+  "no_new_FPU_control_MXCSR_write_or_clear_operation": true,
+  "existing_environment_startup_and_map_power_and_build_rules_kept": true,
+  "new_I_claimed": true,
+  "source_files_kept": [
+    "CMakeLists.txt",
+    "src/platform/MapEffectMath.asm",
+    "src/platform/MapEffectMath.hpp"
+  ],
+  "wire_format_changed": false,
+  "encryption_added": false,
+  "audio_pause_kept": true,
+  "full_generic_pow_verified": false,
+  "full_all_parents_verified": false,
+  "full_all_callees_verified": false,
+  "full_lifecycle_closed": false,
+  "runtime_verified": false,
+  "machine_abi_verified": false,
+  "fault_equivalence_claimed": false,
+  "source_files_before": [
+    {
+      "path": "cg2d_re/src/platform/LegacyFloatEnvironment.cpp",
+      "text": "#include \"LegacyFloatEnvironment.hpp\"\n#include \"LegacyFloatFormat.hpp\"\n\n#ifndef WIN32_LEAN_AND_MEAN\n#define WIN32_LEAN_AND_MEAN\n#endif\n#ifndef NOMINMAX\n#define NOMINMAX\n#endif\n#include <Windows.h>\n\nnamespace cg::platform {\n\nstd::int32_t gLegacyFdivBug1085FC0 = 0;\n\nstd::uint32_t AbstractLegacyControlWord_5448A4(const std::uint32_t hardware)\n{\n    std::uint32_t result = 0;\n    if ((hardware & 0x01u) != 0) result |= 0x10u;\n    if ((hardware & 0x04u) != 0) result |= 0x08u;\n    if ((hardware & 0x08u) != 0) result |= 0x04u;\n    if ((hardware & 0x10u) != 0) result |= 0x02u;\n    if ((hardware & 0x20u) != 0) result |= 0x01u;\n    if ((hardware & 0x02u) != 0) result |= 0x80000u;\n    switch (hardware & 0xC00u) {\n    case 0x400u: result |= 0x100u; break;\n    case 0x800u: result |= 0x200u; break;\n    case 0xC00u: result |= 0x300u; break;\n    }\n    switch (hardware & 0x300u) {\n    case 0: result |= 0x20000u; break;\n    case 0x200u: result |= 0x10000u; break;\n    }\n    if ((hardware & 0x1000u) != 0) result |= 0x40000u;\n    return result;\n}\n\nstd::uint32_t HardwareLegacyControlWord_544936(const std::uint32_t abstractValue)\n{\n    std::uint32_t result = 0;\n    if ((abstractValue & 0x10u) != 0) result |= 0x01u;\n    if ((abstractValue & 0x08u) != 0) result |= 0x04u;\n    if ((abstractValue & 0x04u) != 0) result |= 0x08u;\n    if ((abstractValue & 0x02u) != 0) result |= 0x10u;\n    if ((abstractValue & 0x01u) != 0) result |= 0x20u;\n    if ((abstractValue & 0x80000u) != 0) result |= 0x02u;\n    switch (abstractValue & 0x300u) {\n    case 0x100u: result |= 0x400u; break;\n    case 0x200u: result |= 0x800u; break;\n    case 0x300u: result |= 0xC00u; break;\n    }\n    switch (abstractValue & 0x30000u) {\n    case 0: result |= 0x300u; break;\n    case 0x10000u: result |= 0x200u; break;\n    }\n    if ((abstractValue & 0x40000u) != 0) result |= 0x1000u;\n    return result;\n}\n\nstd::uint32_t ControlLegacyX87_544859(\n    const std::uint32_t value, const std::uint32_t mask)\n{\n    const std::uint32_t before = AbstractLegacyControlWord_5448A4(\n        detail::Cg2dReadLegacyX87Control());\n    const std::uint32_t merged = (before & ~mask) | (value & mask);\n    const std::uint32_t hardware = HardwareLegacyControlWord_544936(merged);\n    detail::Cg2dWriteLegacyX87Control(static_cast<std::uint16_t>(hardware));\n    return merged;\n}\n\nstd::uint32_t ControlLegacyFloatingPoint_54488E(\n    const std::uint32_t value, const std::uint32_t mask)\n{\n    return ControlLegacyX87_544859(value, mask & 0xFFF7FFFFu);\n}\n\nvoid SetLegacyDefaultPrecision_53FD5C()\n{\n    static_cast<void>(ControlLegacyFloatingPoint_54488E(0x10000u, 0x30000u));\n}\n\nstd::int32_t TestLegacyFloatingPointDivision_53FD6E()\n{\n    return detail::Cg2dTestLegacyFdiv();\n}\n\nstd::int32_t ProbeLegacyFloatingPointDivision_53FDAC()\n{\n    const HMODULE module = ::GetModuleHandleA(\"KERNEL32\");\n    if (module != nullptr) {\n        using FeatureQuery = BOOL (WINAPI*)(DWORD);\n        const auto query = reinterpret_cast<FeatureQuery>(\n            ::GetProcAddress(module, \"IsProcessorFeaturePresent\"));\n        if (query != nullptr) {\n            return static_cast<std::int32_t>(query(0));\n        }\n    }\n    return TestLegacyFloatingPointDivision_53FD6E();\n}\n\nvoid InitializeLegacyFloatingPoint_53B447()\n{\n    InstallLegacyFloatCallbacks_53B45F();\n    gLegacyFdivBug1085FC0 = ProbeLegacyFloatingPointDivision_53FDAC();\n    SetLegacyDefaultPrecision_53FD5C();\n    detail::Cg2dClearLegacyX87Exceptions();\n}\n\n} // namespace cg::platform\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyFloatEnvironment.hpp",
+      "text": "#pragma once\n\n#include <cstdint>\n\nnamespace cg::platform {\n\n// 原1085FC0；初始化组合发布系统/回退探测的完整W32返回值。\nextern std::int32_t gLegacyFdivBug1085FC0;\n\n// 原控制字抽象/硬件表示转换，只消费和生成原已定义位。\nstd::uint32_t AbstractLegacyControlWord_5448A4(std::uint32_t hardware);\nstd::uint32_t HardwareLegacyControlWord_544936(std::uint32_t abstractValue);\nstd::uint32_t ControlLegacyX87_544859(std::uint32_t value, std::uint32_t mask);\nstd::uint32_t ControlLegacyFloatingPoint_54488E(std::uint32_t value, std::uint32_t mask);\nvoid SetLegacyDefaultPrecision_53FD5C();\n\n// 原系统查询及x87回退；保留系统BOOL的完整W32返回值。\nstd::int32_t TestLegacyFloatingPointDivision_53FD6E();\nstd::int32_t ProbeLegacyFloatingPointDivision_53FDAC();\nvoid InitializeLegacyFloatingPoint_53B447();\n\nnamespace detail {\n\n// Win64私有叶；不借宿主CRT控制字接口或改变MXCSR。\nextern \"C\" std::uint16_t Cg2dReadLegacyX87Control() noexcept;\nextern \"C\" void Cg2dWriteLegacyX87Control(std::uint16_t control) noexcept;\nextern \"C\" void Cg2dClearLegacyX87Exceptions() noexcept;\nextern \"C\" std::int32_t Cg2dTestLegacyFdiv() noexcept;\nextern \"C\" std::int32_t Cg2dLegacyFloatNonnegative(const double* value) noexcept;\n\n} // namespace detail\n} // namespace cg::platform\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyFloatEnvironment.asm",
+      "text": "OPTION CASEMAP:NONE\n\n.const\nALIGN 8\nLegacyDivisor54F9E8 QWORD 04147FFFF80000000h\nLegacyDividend54F9E0 QWORD 04150017EC0000000h\nLegacyThreshold54D5C0 QWORD 03FF0000000000000h\nLegacyZero54D5D0 QWORD 0\n\n.code\nPUBLIC Cg2dReadLegacyX87Control\nPUBLIC Cg2dWriteLegacyX87Control\nPUBLIC Cg2dClearLegacyX87Exceptions\nPUBLIC Cg2dTestLegacyFdiv\nPUBLIC Cg2dLegacyFloatNonnegative\n\n; 叶函数只借用Win64参数暂存区，不改变RSP或非易失通用寄存器。\nCg2dReadLegacyX87Control PROC\n    fstcw word ptr [rsp+8]\n    movzx eax, word ptr [rsp+8]\n    ret\nCg2dReadLegacyX87Control ENDP\n\nCg2dWriteLegacyX87Control PROC\n    mov word ptr [rsp+8], cx\n    fldcw word ptr [rsp+8]\n    ret\nCg2dWriteLegacyX87Control ENDP\n\nCg2dClearLegacyX87Exceptions PROC\n    fnclex\n    ret\nCg2dClearLegacyX87Exceptions ENDP\n\n; 原53FD6E的三处F64落栈边界和比较；探测前不调整控制字。\nCg2dTestLegacyFdiv PROC\n    fld qword ptr [LegacyDivisor54F9E8]\n    fstp qword ptr [rsp+8]\n    fld qword ptr [LegacyDividend54F9E0]\n    fstp qword ptr [rsp+16]\n    fld qword ptr [rsp+16]\n    fdiv qword ptr [rsp+8]\n    fmul qword ptr [rsp+8]\n    fsubr qword ptr [rsp+16]\n    fstp qword ptr [rsp+24]\n    fld qword ptr [rsp+24]\n    fcomp qword ptr [LegacyThreshold54D5C0]\n    fnstsw ax\n    test ah, 041h\n    jnz LegacyFdivNoBug\n    mov eax, 1\n    ret\nLegacyFdivNoBug:\n    xor eax, eax\n    ret\nCg2dTestLegacyFdiv ENDP\n\n; 原53FE7D；C0置位表示小于或无序，原JB分支均返回0。\nCg2dLegacyFloatNonnegative PROC\n    fld qword ptr [rcx]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    test ah, 1\n    jnz LegacyFloatNegativeOrUnordered\n    mov eax, 1\n    ret\nLegacyFloatNegativeOrUnordered:\n    xor eax, eax\n    ret\nCg2dLegacyFloatNonnegative ENDP\n\nEND\n"
+    }
+  ],
+  "source_files_after": [
+    {
+      "path": "cg2d_re/src/platform/LegacyFloatEnvironment.cpp",
+      "text": "#include \"LegacyFloatEnvironment.hpp\"\n#include \"LegacyFloatFormat.hpp\"\n\n#include <bit>\n\n#ifndef WIN32_LEAN_AND_MEAN\n#define WIN32_LEAN_AND_MEAN\n#endif\n#ifndef NOMINMAX\n#define NOMINMAX\n#endif\n#include <Windows.h>\n\nnamespace cg::platform {\n\nstd::int32_t gLegacyFdivBug1085FC0 = 0;\n\nstd::uint32_t AbstractLegacyControlWord_5448A4(const std::uint32_t hardware)\n{\n    std::uint32_t result = 0;\n    if ((hardware & 0x01u) != 0) result |= 0x10u;\n    if ((hardware & 0x04u) != 0) result |= 0x08u;\n    if ((hardware & 0x08u) != 0) result |= 0x04u;\n    if ((hardware & 0x10u) != 0) result |= 0x02u;\n    if ((hardware & 0x20u) != 0) result |= 0x01u;\n    if ((hardware & 0x02u) != 0) result |= 0x80000u;\n    switch (hardware & 0xC00u) {\n    case 0x400u: result |= 0x100u; break;\n    case 0x800u: result |= 0x200u; break;\n    case 0xC00u: result |= 0x300u; break;\n    }\n    switch (hardware & 0x300u) {\n    case 0: result |= 0x20000u; break;\n    case 0x200u: result |= 0x10000u; break;\n    }\n    if ((hardware & 0x1000u) != 0) result |= 0x40000u;\n    return result;\n}\n\nstd::uint32_t HardwareLegacyControlWord_544936(const std::uint32_t abstractValue)\n{\n    std::uint32_t result = 0;\n    if ((abstractValue & 0x10u) != 0) result |= 0x01u;\n    if ((abstractValue & 0x08u) != 0) result |= 0x04u;\n    if ((abstractValue & 0x04u) != 0) result |= 0x08u;\n    if ((abstractValue & 0x02u) != 0) result |= 0x10u;\n    if ((abstractValue & 0x01u) != 0) result |= 0x20u;\n    if ((abstractValue & 0x80000u) != 0) result |= 0x02u;\n    switch (abstractValue & 0x300u) {\n    case 0x100u: result |= 0x400u; break;\n    case 0x200u: result |= 0x800u; break;\n    case 0x300u: result |= 0xC00u; break;\n    }\n    switch (abstractValue & 0x30000u) {\n    case 0: result |= 0x300u; break;\n    case 0x10000u: result |= 0x200u; break;\n    }\n    if ((abstractValue & 0x40000u) != 0) result |= 0x1000u;\n    return result;\n}\n\nstd::uint32_t ControlLegacyX87_544859(\n    const std::uint32_t value, const std::uint32_t mask)\n{\n    const std::uint32_t before = AbstractLegacyControlWord_5448A4(\n        detail::Cg2dReadLegacyX87Control());\n    const std::uint32_t merged = (before & ~mask) | (value & mask);\n    const std::uint32_t hardware = HardwareLegacyControlWord_544936(merged);\n    detail::Cg2dWriteLegacyX87Control(static_cast<std::uint16_t>(hardware));\n    return merged;\n}\n\nstd::uint32_t ControlLegacyFloatingPoint_54488E(\n    const std::uint32_t value, const std::uint32_t mask)\n{\n    return ControlLegacyX87_544859(value, mask & 0xFFF7FFFFu);\n}\n\nvoid SetLegacyDefaultPrecision_53FD5C()\n{\n    static_cast<void>(ControlLegacyFloatingPoint_54488E(0x10000u, 0x30000u));\n}\n\nstd::int32_t TestLegacyFloatingPointDivision_53FD6E()\n{\n    return detail::Cg2dTestLegacyFdiv();\n}\n\nstd::int32_t ProbeLegacyFloatingPointDivision_53FDAC()\n{\n    const HMODULE module = ::GetModuleHandleA(\"KERNEL32\");\n    if (module != nullptr) {\n        using FeatureQuery = BOOL (WINAPI*)(DWORD);\n        const auto query = reinterpret_cast<FeatureQuery>(\n            ::GetProcAddress(module, \"IsProcessorFeaturePresent\"));\n        if (query != nullptr) {\n            return static_cast<std::int32_t>(query(0));\n        }\n    }\n    return TestLegacyFloatingPointDivision_53FD6E();\n}\n\nvoid InitializeLegacyFloatingPoint_53B447()\n{\n    InstallLegacyFloatCallbacks_53B45F();\n    gLegacyFdivBug1085FC0 = ProbeLegacyFloatingPointDivision_53FDAC();\n    SetLegacyDefaultPrecision_53FD5C();\n    detail::Cg2dClearLegacyX87Exceptions();\n}\n\n// 原5461E4；只按F64存储位返回特殊类型，不进行浮点算术。\nstd::int32_t ClassifyLegacySpecialFloat_5461E4(const double value) noexcept\n{\n    enum : std::int32_t {\n        kOrdinary = 0,\n        kPositiveInfinity = 1,\n        kNegativeInfinity = 2,\n        kQuietNaN = 3,\n        kSignalingNaN = 4,\n    };\n    const std::uint64_t bits = std::bit_cast<std::uint64_t>(value);\n    const std::uint32_t low = static_cast<std::uint32_t>(bits);\n    const std::uint32_t high = static_cast<std::uint32_t>(bits >> 32);\n    if (high == 0x7FF00000u && low == 0) {\n        return kPositiveInfinity;\n    }\n    if (high == 0xFFF00000u && low == 0) {\n        return kNegativeInfinity;\n    }\n    const std::uint32_t top = (high >> 16) & 0x7FF8u;\n    if (top == 0x7FF8u) {\n        return kQuietNaN;\n    }\n    if (top == 0x7FF0u && ((high & 0x7FFFFu) != 0 || low != 0)) {\n        return kSignalingNaN;\n    }\n    return kOrdinary;\n}\n\n// 原546311；原x87落存、比较和状态读取留在私有ASM边界。\nstd::int32_t ClassifyLegacyFloat_546311(const double value) noexcept\n{\n    return detail::Cg2dClassifyLegacyFloat(&value);\n}\n\nnamespace detail {\n\nextern \"C\" std::int32_t Cg2dClassifyLegacySpecialFloat(\n    const double* const value) noexcept\n{\n    return ClassifyLegacySpecialFloat_5461E4(*value);\n}\n\n} // namespace detail\n\n} // namespace cg::platform\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyFloatEnvironment.hpp",
+      "text": "#pragma once\n\n#include <cstdint>\n\nnamespace cg::platform {\n\n// 原1085FC0；初始化组合发布系统/回退探测的完整W32返回值。\nextern std::int32_t gLegacyFdivBug1085FC0;\n\n// 原546311/5461E4；F64值与S32分类结果，实际x87合同见浮点分类叶SPEC。\nstd::int32_t ClassifyLegacyFloat_546311(double value) noexcept;\nstd::int32_t ClassifyLegacySpecialFloat_5461E4(double value) noexcept;\n\n// 原控制字抽象/硬件表示转换，只消费和生成原已定义位。\nstd::uint32_t AbstractLegacyControlWord_5448A4(std::uint32_t hardware);\nstd::uint32_t HardwareLegacyControlWord_544936(std::uint32_t abstractValue);\nstd::uint32_t ControlLegacyX87_544859(std::uint32_t value, std::uint32_t mask);\nstd::uint32_t ControlLegacyFloatingPoint_54488E(std::uint32_t value, std::uint32_t mask);\nvoid SetLegacyDefaultPrecision_53FD5C();\n\n// 原系统查询及x87回退；保留系统BOOL的完整W32返回值。\nstd::int32_t TestLegacyFloatingPointDivision_53FD6E();\nstd::int32_t ProbeLegacyFloatingPointDivision_53FDAC();\nvoid InitializeLegacyFloatingPoint_53B447();\n\nnamespace detail {\n\n// Win64私有叶；不借宿主CRT控制字接口或改变MXCSR。\nextern \"C\" std::uint16_t Cg2dReadLegacyX87Control() noexcept;\nextern \"C\" void Cg2dWriteLegacyX87Control(std::uint16_t control) noexcept;\nextern \"C\" void Cg2dClearLegacyX87Exceptions() noexcept;\nextern \"C\" std::int32_t Cg2dTestLegacyFdiv() noexcept;\nextern \"C\" std::int32_t Cg2dLegacyFloatNonnegative(const double* value) noexcept;\n// Win64分类参数桥；只在本调用内借用F64，不持有或修改调用方值。\nextern \"C\" std::int32_t Cg2dClassifyLegacyFloat(const double* value) noexcept;\nextern \"C\" std::int32_t Cg2dClassifyLegacySpecialFloat(const double* value) noexcept;\n\n} // namespace detail\n} // namespace cg::platform\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyFloatEnvironment.asm",
+      "text": "OPTION CASEMAP:NONE\n\n.const\nALIGN 8\nLegacyDivisor54F9E8 QWORD 04147FFFF80000000h\nLegacyDividend54F9E0 QWORD 04150017EC0000000h\nLegacyThreshold54D5C0 QWORD 03FF0000000000000h\nLegacyZero54D5D0 QWORD 0\n\n.code\nEXTERN Cg2dClassifyLegacySpecialFloat:PROC\nPUBLIC Cg2dClassifyLegacyFloat\nPUBLIC Cg2dReadLegacyX87Control\nPUBLIC Cg2dWriteLegacyX87Control\nPUBLIC Cg2dClearLegacyX87Exceptions\nPUBLIC Cg2dTestLegacyFdiv\nPUBLIC Cg2dLegacyFloatNonnegative\n\n; 叶函数只借用Win64参数暂存区，不改变RSP或非易失通用寄存器。\nCg2dReadLegacyX87Control PROC\n    fstcw word ptr [rsp+8]\n    movzx eax, word ptr [rsp+8]\n    ret\nCg2dReadLegacyX87Control ENDP\n\nCg2dWriteLegacyX87Control PROC\n    mov word ptr [rsp+8], cx\n    fldcw word ptr [rsp+8]\n    ret\nCg2dWriteLegacyX87Control ENDP\n\nCg2dClearLegacyX87Exceptions PROC\n    fnclex\n    ret\nCg2dClearLegacyX87Exceptions ENDP\n\n; 原53FD6E的三处F64落栈边界和比较；探测前不调整控制字。\nCg2dTestLegacyFdiv PROC\n    fld qword ptr [LegacyDivisor54F9E8]\n    fstp qword ptr [rsp+8]\n    fld qword ptr [LegacyDividend54F9E0]\n    fstp qword ptr [rsp+16]\n    fld qword ptr [rsp+16]\n    fdiv qword ptr [rsp+8]\n    fmul qword ptr [rsp+8]\n    fsubr qword ptr [rsp+16]\n    fstp qword ptr [rsp+24]\n    fld qword ptr [rsp+24]\n    fcomp qword ptr [LegacyThreshold54D5C0]\n    fnstsw ax\n    test ah, 041h\n    jnz LegacyFdivNoBug\n    mov eax, 1\n    ret\nLegacyFdivNoBug:\n    xor eax, eax\n    ret\nCg2dTestLegacyFdiv ENDP\n\n; 原53FE7D；C0置位表示小于或无序，原JB分支均返回0。\nCg2dLegacyFloatNonnegative PROC\n    fld qword ptr [rcx]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    test ah, 1\n    jnz LegacyFloatNegativeOrUnordered\n    mov eax, 1\n    ret\nLegacyFloatNegativeOrUnordered:\n    xor eax, eax\n    ret\nCg2dLegacyFloatNonnegative ENDP\n\n; 原546311；原值槽与真实x87落存槽分离，高端W32仅消费低W16。\n; Win64保留32B调用暂存区与两个F64槽；不写控制字/MXCSR或清异常。\nCg2dClassifyLegacyFloat PROC FRAME\n    sub rsp, 56\n    .allocstack 56\n    .endprolog\n    mov r8, qword ptr [rcx]\n    mov qword ptr [rsp+32], r8\n    mov eax, dword ptr [rsp+38]\n    mov ecx, 07FF0h\n    mov edx, eax\n    and edx, ecx\n    cmp dx, cx\n    jne LegacyFloatClassOrdinary\n    fld qword ptr [rsp+32]\n    fstp qword ptr [rsp+40]\n    lea rcx, [rsp+40]\n    call Cg2dClassifyLegacySpecialFloat\n    dec eax\n    jz LegacyFloatClassPositiveInfinity\n    dec eax\n    jz LegacyFloatClassNegativeInfinity\n    dec eax\n    jz LegacyFloatClassQuietNaN\n    mov eax, 1\n    jmp LegacyFloatClassDone\nLegacyFloatClassQuietNaN:\n    mov eax, 2\n    jmp LegacyFloatClassDone\nLegacyFloatClassNegativeInfinity:\n    mov eax, 4\n    jmp LegacyFloatClassDone\nLegacyFloatClassPositiveInfinity:\n    mov eax, 0200h\n    jmp LegacyFloatClassDone\nLegacyFloatClassOrdinary:\n    and eax, 08000h\n    test dx, dx\n    mov ecx, eax\n    jnz LegacyFloatClassCompareZero\n    test dword ptr [rsp+36], 0FFFFFh\n    jnz LegacyFloatClassDenormal\n    cmp dword ptr [rsp+32], 0\n    je LegacyFloatClassCompareZero\nLegacyFloatClassDenormal:\n    mov eax, ecx\n    neg eax\n    sbb eax, eax\n    and al, 090h\n    add eax, 080h\n    jmp LegacyFloatClassDone\nLegacyFloatClassCompareZero:\n    fld qword ptr [rsp+32]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    mov eax, ecx\n    jne LegacyFloatClassNormal\n    neg eax\n    sbb eax, eax\n    and al, 0E0h\n    add eax, 040h\n    jmp LegacyFloatClassDone\nLegacyFloatClassNormal:\n    neg eax\n    sbb eax, eax\n    and al, 08h\n    add eax, 0100h\nLegacyFloatClassDone:\n    add rsp, 56\n    ret\nCg2dClassifyLegacyFloat ENDP\n\nEND\n"
+    }
+  ]
+}

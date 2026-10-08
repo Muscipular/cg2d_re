@@ -4051,3 +4051,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 四个正确入口完整81条294B/四页，八直接六目标/零间接、11跳六RET及六CALL登记；两原父邻窗另列。DP回复先W16阶段2再依次解析/发布两S32值，既有hB/Gn分派保持；普通场景一次S16模式取样，1/2创建窗口30/31后的双槽清理、3恢复选择和其它正值只清阶段保持。战果四记录/技能十五记录完整W16扫描，恢复先真实选择发布再清CAFEA0；旧1569/Gn与914/现代窗口31原生绑定及父记录保持，不混入旧采集结果页或重造owner。
 
 零源码改动/零新增I，四原新1812..1815及四adapted F，公共UI54→56/网络68→69/战斗264→265，各一个限定S；语义1816/有效1809、合同1926（52.34%）、F978/E1140。四任务与完整枚举/gates保持open，所有生产/其它消费者、正常owner/alias寿命、网络往返与画面运行继续原验收；原格式明文、音频暂停及RPLAN.24保持。
+
+## BWC01两个浮点分类叶实现（2026-10-08）
+
+[基线](cg2d_float_classification_leaf_spec.md#float-class-baseline)、[决定](cg2d_float_classification_leaf_spec.md#float-class-decision)、[验收](cg2d_float_classification_leaf_spec.md#float-class-acceptance)、[状态](cg2d_float_classification_leaf_spec.md#float-class-source-state)及[原证/完整源前后态](cg2d_float_classification_leaf_evidence.json)。
+
+546311/5461E4两完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL有据。沿既有浮点环境CPP/HPP/ASM实现两原入口与两私有桥，共四原生本体；特殊位分类、真实x87落存后callee、正常零/正规比较和状态读取、次正规纯位分支与原S32掩码操作保。Win64私有值承载不镜像原参数栈，未消费W16不补零或作为输入；控制字/MXCSR与异常清理不增加，原环境/初始化/CMake和地图专用幂保持。
+
+新原新1816/1817、两adapted F/CRT155→157及限定I/S登记；预期语义1818/有效1811、合同1928（52.39%）、F980/E1142，源码定位缺口171→169/CRT未知43→41。仅两个真实叶，全部pow父/机器ABI与正常运行继续原门禁，RPLAN.24不专项故障模拟；音频暂停、原格式明文与执行限制保持，C01/R01/V02/R04仍open。

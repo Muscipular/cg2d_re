@@ -8,6 +8,8 @@ LegacyThreshold54D5C0 QWORD 03FF0000000000000h
 LegacyZero54D5D0 QWORD 0
 
 .code
+EXTERN Cg2dClassifyLegacySpecialFloat:PROC
+PUBLIC Cg2dClassifyLegacyFloat
 PUBLIC Cg2dReadLegacyX87Control
 PUBLIC Cg2dWriteLegacyX87Control
 PUBLIC Cg2dClearLegacyX87Exceptions
@@ -68,5 +70,78 @@ LegacyFloatNegativeOrUnordered:
     xor eax, eax
     ret
 Cg2dLegacyFloatNonnegative ENDP
+
+; 原546311；原值槽与真实x87落存槽分离，高端W32仅消费低W16。
+; Win64保留32B调用暂存区与两个F64槽；不写控制字/MXCSR或清异常。
+Cg2dClassifyLegacyFloat PROC FRAME
+    sub rsp, 56
+    .allocstack 56
+    .endprolog
+    mov r8, qword ptr [rcx]
+    mov qword ptr [rsp+32], r8
+    mov eax, dword ptr [rsp+38]
+    mov ecx, 07FF0h
+    mov edx, eax
+    and edx, ecx
+    cmp dx, cx
+    jne LegacyFloatClassOrdinary
+    fld qword ptr [rsp+32]
+    fstp qword ptr [rsp+40]
+    lea rcx, [rsp+40]
+    call Cg2dClassifyLegacySpecialFloat
+    dec eax
+    jz LegacyFloatClassPositiveInfinity
+    dec eax
+    jz LegacyFloatClassNegativeInfinity
+    dec eax
+    jz LegacyFloatClassQuietNaN
+    mov eax, 1
+    jmp LegacyFloatClassDone
+LegacyFloatClassQuietNaN:
+    mov eax, 2
+    jmp LegacyFloatClassDone
+LegacyFloatClassNegativeInfinity:
+    mov eax, 4
+    jmp LegacyFloatClassDone
+LegacyFloatClassPositiveInfinity:
+    mov eax, 0200h
+    jmp LegacyFloatClassDone
+LegacyFloatClassOrdinary:
+    and eax, 08000h
+    test dx, dx
+    mov ecx, eax
+    jnz LegacyFloatClassCompareZero
+    test dword ptr [rsp+36], 0FFFFFh
+    jnz LegacyFloatClassDenormal
+    cmp dword ptr [rsp+32], 0
+    je LegacyFloatClassCompareZero
+LegacyFloatClassDenormal:
+    mov eax, ecx
+    neg eax
+    sbb eax, eax
+    and al, 090h
+    add eax, 080h
+    jmp LegacyFloatClassDone
+LegacyFloatClassCompareZero:
+    fld qword ptr [rsp+32]
+    fcomp qword ptr [LegacyZero54D5D0]
+    fnstsw ax
+    sahf
+    mov eax, ecx
+    jne LegacyFloatClassNormal
+    neg eax
+    sbb eax, eax
+    and al, 0E0h
+    add eax, 040h
+    jmp LegacyFloatClassDone
+LegacyFloatClassNormal:
+    neg eax
+    sbb eax, eax
+    and al, 08h
+    add eax, 0100h
+LegacyFloatClassDone:
+    add rsp, 56
+    ret
+Cg2dClassifyLegacyFloat ENDP
 
 END

@@ -1,6 +1,8 @@
 #include "LegacyFloatEnvironment.hpp"
 #include "LegacyFloatFormat.hpp"
 
+#include <bit>
+
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
 #endif
@@ -105,5 +107,50 @@ void InitializeLegacyFloatingPoint_53B447()
     SetLegacyDefaultPrecision_53FD5C();
     detail::Cg2dClearLegacyX87Exceptions();
 }
+
+// 原5461E4；只按F64存储位返回特殊类型，不进行浮点算术。
+std::int32_t ClassifyLegacySpecialFloat_5461E4(const double value) noexcept
+{
+    enum : std::int32_t {
+        kOrdinary = 0,
+        kPositiveInfinity = 1,
+        kNegativeInfinity = 2,
+        kQuietNaN = 3,
+        kSignalingNaN = 4,
+    };
+    const std::uint64_t bits = std::bit_cast<std::uint64_t>(value);
+    const std::uint32_t low = static_cast<std::uint32_t>(bits);
+    const std::uint32_t high = static_cast<std::uint32_t>(bits >> 32);
+    if (high == 0x7FF00000u && low == 0) {
+        return kPositiveInfinity;
+    }
+    if (high == 0xFFF00000u && low == 0) {
+        return kNegativeInfinity;
+    }
+    const std::uint32_t top = (high >> 16) & 0x7FF8u;
+    if (top == 0x7FF8u) {
+        return kQuietNaN;
+    }
+    if (top == 0x7FF0u && ((high & 0x7FFFFu) != 0 || low != 0)) {
+        return kSignalingNaN;
+    }
+    return kOrdinary;
+}
+
+// 原546311；原x87落存、比较和状态读取留在私有ASM边界。
+std::int32_t ClassifyLegacyFloat_546311(const double value) noexcept
+{
+    return detail::Cg2dClassifyLegacyFloat(&value);
+}
+
+namespace detail {
+
+extern "C" std::int32_t Cg2dClassifyLegacySpecialFloat(
+    const double* const value) noexcept
+{
+    return ClassifyLegacySpecialFloat_5461E4(*value);
+}
+
+} // namespace detail
 
 } // namespace cg::platform

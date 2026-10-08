@@ -134,3 +134,11 @@ C01/C08/C11不完整关闭。
 [本次合同](cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-decision)/[完整原基线及SDK定位](cg2d_native_cpp_exception_evidence.json)将5402AB查找/5407BC捕获对象构造明确登记host：当前throw/throw;与六本机类型/显式copy供compiler/VCRuntime，两个旧x86内核不再是工程待补体。原315条875B、两唯一call/父邻窗及全部旧捕获记录保留；旧SDK/handler接线false不改，不用旧布局冒充本机元数据。
 
 NCE01已接业务copy/单owner、消息/析构及所有旧构析正文保持，私有头仅加职责说明。当前安装SDK的frame.cpp能定位真实查找/复制服务，但本项目生成帧/链接和实际捕获展开仍未验。C06/C07/完整CRT继续open，实际typed捕获/清理、全成员/硬件SEH、全部owner寿命及SDK/正常快速退出运行标准不变；不新造捕获业务、异常模型或私有ABI。
+
+## BWC01两个浮点分类叶实现（2026-10-08）
+
+[基线](cg2d_float_classification_leaf_spec.md#float-class-baseline)、[决定](cg2d_float_classification_leaf_spec.md#float-class-decision)、[验收](cg2d_float_classification_leaf_spec.md#float-class-acceptance)、[状态](cg2d_float_classification_leaf_spec.md#float-class-source-state)及[原证/完整源前后态](cg2d_float_classification_leaf_evidence.json)。
+
+546311/5461E4两完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL有据。沿既有浮点环境CPP/HPP/ASM实现两原入口与两私有桥，共四原生本体；特殊位分类、真实x87落存后callee、正常零/正规比较和状态读取、次正规纯位分支与原S32掩码操作保。Win64私有值承载不镜像原参数栈，未消费W16不补零或作为输入；控制字/MXCSR与异常清理不增加，原环境/初始化/CMake和地图专用幂保持。
+
+新原新1816/1817、两adapted F/CRT155→157及限定I/S登记；预期语义1818/有效1811、合同1928（52.39%）、F980/E1142，源码定位缺口171→169/CRT未知43→41。仅两个真实叶，全部pow父/机器ABI与正常运行继续原门禁，RPLAN.24不专项故障模拟；音频暂停、原格式明文与执行限制保持，C01/R01/V02/R04仍open。

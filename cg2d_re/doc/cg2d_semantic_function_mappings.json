@@ -206266,6 +206266,209 @@
         "machine_abi_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x546311",
+      "inventory_id": "F:00146311",
+      "original_role": "546311完整浮点类掩码：原高端W32只消费低W16指数/符号，指数全1沿x87 FLD/FSTP真实F64落存后调用5461E4；普通零/正规分支保FLD/FCOMP零/FNSTSW/SAHF，非零次正规分支只读位，不新增FPU操作。原NEG/SBB/AND AL/ADD的S32掩码保，控制字/MXCSR不写，原值F64不扩宽；Win64私有参数承载与ABI不外推为原机器栈。",
+      "original_end_exclusive": "0x5463a3",
+      "original_chunks": [
+        [
+          "0x546311",
+          "0x5463a3"
+        ]
+      ],
+      "instruction_count": 65,
+      "status": "BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "ClassifyLegacyFloat_546311"
+          ],
+          "relationship": "546311完整浮点类掩码：原高端W32只消费低W16指数/符号，指数全1沿x87 FLD/FSTP真实F64落存后调用5461E4；普通零/正规分支保FLD/FCOMP零/FNSTSW/SAHF，非零次正规分支只读位，不新增FPU操作。原NEG/SBB/AND AL/ADD的S32掩码保，控制字/MXCSR不写，原值F64不扩宽；Win64私有参数承载与ABI不外推为原机器栈。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "ClassifyLegacyFloat_546311"
+          ],
+          "relationship": "新F64值/S32分类声明；Win64私有桥只借用参数，不把F64当旧指针扩宽"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dClassifyLegacyFloat",
+            "LegacyZero54D5D0"
+          ],
+          "relationship": "原x87落存/比较/状态读取与S32掩码实现，复用零常量；56BWin64正常展开栈，原环境/地图活动域保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-baseline",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-decision",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-acceptance",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state"
+      ],
+      "boundary": "546311完整浮点类掩码：原高端W32只消费低W16指数/符号，指数全1沿x87 FLD/FSTP真实F64落存后调用5461E4；普通零/正规分支保FLD/FCOMP零/FNSTSW/SAHF，非零次正规分支只读位，不新增FPU操作。原NEG/SBB/AND AL/ADD的S32掩码保，控制字/MXCSR不写，原值F64不扩宽；Win64私有参数承载与ABI不外推为原机器栈。 BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。",
+      "verification_level": "BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。",
+      "float_classification_leaf": {
+        "spec_id": "BWC01",
+        "evidence_refs": [
+          "doc/cg2d_float_classification_leaf_spec.md#float-class-baseline",
+          "doc/cg2d_float_classification_leaf_spec.md#float-class-decision",
+          "doc/cg2d_float_classification_leaf_spec.md#float-class-acceptance",
+          "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 65,
+        "original_code_bytes": 146,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 10,
+        "original_return_count": 5,
+        "original_inbound_call_count": 1,
+        "original_total_instruction_count": 100,
+        "original_total_code_bytes": 236,
+        "original_total_page_count": 2,
+        "original_total_direct_call_count": 1,
+        "original_total_unique_direct_callee_count": 1,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 21,
+        "original_total_return_count": 7,
+        "original_total_inbound_call_count": 2,
+        "full_parent_reverified": false,
+        "source_body_added": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 6,
+        "new_original_mapped_function_count": 2,
+        "new_native_function_body_count": 4,
+        "new_cpp_body_count": 3,
+        "new_asm_proc_count": 1,
+        "new_private_bridge_count": 2,
+        "new_shared_owner_count": 0,
+        "original_F64_value_and_S32_return_widths_kept": true,
+        "original_special_bit_masks_and_callee_kept": true,
+        "original_x87_roundtrip_normal_compare_status_and_low_AL_operations_kept": true,
+        "native_private_value_slots_not_x86_stack_mirror": true,
+        "unconsumed_upper_W16_not_zero_filled_or_used": true,
+        "no_new_control_MXCSR_write_or_exception_clear": true,
+        "old_environment_startup_map_power_and_build_rules_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_generic_pow_verified": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x5461e4",
+      "inventory_id": "F:001461E4",
+      "original_role": "5461E4完整特殊位类型：按原高/低W32先分+Inf=1/-Inf=2，再高端低W16与7FF8分quiet=3；7FF0且剩余19高fraction位或低W32非零分signaling=4，其它0。F64 bit_cast只消费原位，无浮点算术/异常清理或额外输入限制；真实唯一callee接在546311 x87落存后。",
+      "original_end_exclusive": "0x54623e",
+      "original_chunks": [
+        [
+          "0x5461e4",
+          "0x54623e"
+        ]
+      ],
+      "instruction_count": 35,
+      "status": "BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "ClassifyLegacySpecialFloat_5461E4"
+          ],
+          "relationship": "5461E4完整特殊位类型：按原高/低W32先分+Inf=1/-Inf=2，再高端低W16与7FF8分quiet=3；7FF0且剩余19高fraction位或低W32非零分signaling=4，其它0。F64 bit_cast只消费原位，无浮点算术/异常清理或额外输入限制；真实唯一callee接在546311 x87落存后。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "ClassifyLegacySpecialFloat_5461E4"
+          ],
+          "relationship": "新F64值/S32分类声明；Win64私有桥只借用参数，不把F64当旧指针扩宽"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "Cg2dClassifyLegacySpecialFloat"
+          ],
+          "relationship": "唯一原callee的私有C桥，消费真实x87落存F64后调用本原分类；桥不新增原F"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-baseline",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-decision",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-acceptance",
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state"
+      ],
+      "boundary": "5461E4完整特殊位类型：按原高/低W32先分+Inf=1/-Inf=2，再高端低W16与7FF8分quiet=3；7FF0且剩余19高fraction位或低W32非零分signaling=4，其它0。F64 bit_cast只消费原位，无浮点算术/异常清理或额外输入限制；真实唯一callee接在546311 x87落存后。 BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。",
+      "verification_level": "BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。",
+      "float_classification_leaf": {
+        "spec_id": "BWC01",
+        "evidence_refs": [
+          "doc/cg2d_float_classification_leaf_spec.md#float-class-baseline",
+          "doc/cg2d_float_classification_leaf_spec.md#float-class-decision",
+          "doc/cg2d_float_classification_leaf_spec.md#float-class-acceptance",
+          "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 35,
+        "original_code_bytes": 90,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 11,
+        "original_return_count": 2,
+        "original_inbound_call_count": 1,
+        "original_total_instruction_count": 100,
+        "original_total_code_bytes": 236,
+        "original_total_page_count": 2,
+        "original_total_direct_call_count": 1,
+        "original_total_unique_direct_callee_count": 1,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 21,
+        "original_total_return_count": 7,
+        "original_total_inbound_call_count": 2,
+        "full_parent_reverified": false,
+        "source_body_added": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 6,
+        "new_original_mapped_function_count": 2,
+        "new_native_function_body_count": 4,
+        "new_cpp_body_count": 3,
+        "new_asm_proc_count": 1,
+        "new_private_bridge_count": 2,
+        "new_shared_owner_count": 0,
+        "original_F64_value_and_S32_return_widths_kept": true,
+        "original_special_bit_masks_and_callee_kept": true,
+        "original_x87_roundtrip_normal_compare_status_and_low_AL_operations_kept": true,
+        "native_private_value_slots_not_x86_stack_mirror": true,
+        "unconsumed_upper_W16_not_zero_filled_or_used": true,
+        "no_new_control_MXCSR_write_or_exception_clear": true,
+        "old_environment_startup_map_power_and_build_rules_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_generic_pow_verified": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

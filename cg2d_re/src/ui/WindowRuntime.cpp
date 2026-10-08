@@ -3792,7 +3792,9 @@ std::int32_t Sub_4D2080(const std::int32_t, const std::int32_t state)
         WindowInstance* const window = gCurrentWindow;
         if (gFocusedElementDataD45F94 != window->elements[8].data) {
             std::strcpy(gStallDescriptionInput581360.text.data(), gStallDescriptionD67BF8.data());
-            static_cast<void>(Sub_476570(&gStallDescriptionInput581360, window->x, window->y, 0));
+            const std::int32_t y = window->y;
+            const std::int32_t x = window->x;
+            static_cast<void>(Sub_476570(&gStallDescriptionInput581360, x, y, 0));
             input::SetContext_44B330(&input::gInputContextCC2378);
             WindowInstance* const current = gCurrentWindow;
             gFocusedElementDataD45F94 = current->elements[8].data;
@@ -3816,7 +3818,9 @@ std::int32_t Sub_4D2170(const std::int32_t, const std::int32_t state)
         WindowInstance* const window = gCurrentWindow;
         if (gFocusedElementDataD45F94 != window->elements[6].data) {
             std::strcpy(gStallNameInput581130.text.data(), gStallNameD67BE4.data());
-            static_cast<void>(Sub_476570(&gStallNameInput581130, window->x, window->y, 0));
+            const std::int32_t y = window->y;
+            const std::int32_t x = window->x;
+            static_cast<void>(Sub_476570(&gStallNameInput581130, x, y, 0));
             input::SetContext_44B330(&input::gInputContextCB0028);
             WindowInstance* const current = gCurrentWindow;
             gFocusedElementDataD45F94 = current->elements[6].data;

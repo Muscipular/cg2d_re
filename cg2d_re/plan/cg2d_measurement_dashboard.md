@@ -11,11 +11,11 @@
 | 合同文件关联 | 1994/3680（54.18%） | 文件关联率，不是功能/基线验收完成率 |
 | 尚无合同关联 | 1686 | 完整ID见快照metrics.functions_without_document_links；可能已有局部合同尚未机器登记 |
 | 历史源码定位 | 2762 | 自动定位快照，非当前实现数 |
-| 语义登记 | 1892条/1884个原ID | 无独立函数ID另列8条，其中原区间绑定 |
+| 语义登记 | 1894条/1884个原ID | 无独立函数ID另列10条，其中原区间绑定 |
 | 具名分类引用 | 120个原ID | 含排除/混合/合并，不计为实现 |
 | 已具名全入口排除 / 混合入口 | 113 / 3 | 不计为实现/验收；混合入口不得整体扣除 |
 | 已审核函数处置 | 1059/3680 | 初始仅导入关系，未逐ID重新认定 |
-| 导入槽 / 未归属区间 | 218 / 3061 | 全部保留稳定ID；已审处置16 / 484 |
+| 导入槽 / 未归属区间 | 218 / 3061 | 全部保留稳定ID；已审处置16 / 485 |
 | 已登记叶功能 | 184 | 非全功能分母；域不重复计入，暂停保留 |
 | 已验收叶功能 | 0/184 | 仅登记集合，不能代表整体完成率 |
 | 已知收尾任务 | 60；验收关闭11 | 任务不是全功能目录 |
@@ -124,8 +124,8 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 | UI-M-064 | included：现代窗口64：资料回复展示 | [window_64](../doc/ui_windows/window_64.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-M-065 | included：现代窗口65：黑名单管理 | [window_65](../doc/ui_windows/window_65.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-M-066 | included：现代窗口66：冒险者日志 | [window_66](../doc/ui_windows/window_66.md) | 0/4 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
-| UI-M-067 | included：现代窗口67：自身摊位 | [window_67](../doc/ui_windows/window_67.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
-| UI-M-068 | included：现代窗口68：浏览摊位 | [window_68](../doc/ui_windows/window_68.md) | 0/8 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
+| UI-M-067 | included：现代窗口67：自身摊位 | [window_67](../doc/ui_windows/window_67.md)、[shared_67_68](../doc/ui_windows/shared_67_68.md#stall-edit-coordinate-source-state)、[cg2d_stall_edit_coordinate_evidence](../doc/cg2d_stall_edit_coordinate_evidence.json) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
+| UI-M-068 | included：现代窗口68：浏览摊位 | [window_68](../doc/ui_windows/window_68.md)、[shared_67_68](../doc/ui_windows/shared_67_68.md#stall-edit-coordinate-source-state)、[cg2d_stall_edit_coordinate_evidence](../doc/cg2d_stall_edit_coordinate_evidence.json) | 0/8 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-M-069 | included：现代窗口69：晶石商店69 | [window_69](../doc/ui_windows/window_69.md) | 0/0 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-M-070 | included：现代窗口70：晶石商店70 | [window_70](../doc/ui_windows/window_70.md) | 0/0 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-001 | included：旧选择1：地图 | [legacy_map_panel](../doc/ui_windows/legacy_map_panel.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |

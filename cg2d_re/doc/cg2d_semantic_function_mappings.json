@@ -213704,6 +213704,102 @@
         ]
       },
       "verification_level": "仅原缺失代码身份/完整981B区间用途与现有源/声明/五绑定关联，既有本体保持；未编译、运行、复检全部场景或摘要"
+    },
+    {
+      "original_entry": "0x4D2080",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_4D2080",
+      "original_end_exclusive": "0x4D2164",
+      "instruction_count": 74,
+      "original_byte_count": 228,
+      "status": "CAB14两摆摊编辑代码的同持有窗口Y→X取样已落实，原两回调字段/焦点上下文与483B完整X归属有据；限定静态通过，当前未编译/运行，完整输入/正常寿命未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4D2080"
+          ],
+          "relationship": "仅同窗口Y→X显式样本再交476570，原文本复制、门槛/返回、SetContext后fresh窗口及两次elements/data保持。"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4D2080"
+          ]
+        },
+        {
+          "path": "src/ui/WindowPrototypes.cpp",
+          "symbols": [
+            "Sub_4D2080"
+          ],
+          "relationship": "原57B5E4/57B624两个W32字段对应既有名称元素6/描述元素8原生回调绑定。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/shared_67_68.md#stall-edit-coordinate-source-state",
+        "doc/cg2d_stall_edit_coordinate_evidence.json"
+      ],
+      "boundary": "两无IDA函数代码各74条228B；当前只修实参求值未明确表达原Y→X的两片段，借同一窗口、字段宽度/读取次数及对象/X/Y/0不变。悬停不消费、点击已聚焦返回1及禁用/非自身0、复制后调用和独立输入context保持。一个X:000D207D-000D2260共483B连续归属，不造F或改3680分母；完整67/68所有数据/其它父/callee/焦点IME/正常owner-alias寿命与机器运行独立验收。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:000D207D-000D2260",
+        "start": "0x4D2080",
+        "end_exclusive": "0x4D2164",
+        "evidence_refs": [
+          "doc/ui_windows/shared_67_68.md#stall-edit-coordinate-source-state",
+          "doc/cg2d_stall_edit_coordinate_evidence.json"
+        ]
+      },
+      "verification_level": "原两完整代码/两回调字段/483B区间及一个现源两个参数片段限定静态，未编译/测试/运行或摘要"
+    },
+    {
+      "original_entry": "0x4D2170",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_4D2170",
+      "original_end_exclusive": "0x4D2254",
+      "instruction_count": 74,
+      "original_byte_count": 228,
+      "status": "CAB14两摆摊编辑代码的同持有窗口Y→X取样已落实，原两回调字段/焦点上下文与483B完整X归属有据；限定静态通过，当前未编译/运行，完整输入/正常寿命未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4D2170"
+          ],
+          "relationship": "仅同窗口Y→X显式样本再交476570，原文本复制、门槛/返回、SetContext后fresh窗口及两次elements/data保持。"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4D2170"
+          ]
+        },
+        {
+          "path": "src/ui/WindowPrototypes.cpp",
+          "symbols": [
+            "Sub_4D2170"
+          ],
+          "relationship": "原57B5E4/57B624两个W32字段对应既有名称元素6/描述元素8原生回调绑定。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/shared_67_68.md#stall-edit-coordinate-source-state",
+        "doc/cg2d_stall_edit_coordinate_evidence.json"
+      ],
+      "boundary": "两无IDA函数代码各74条228B；当前只修实参求值未明确表达原Y→X的两片段，借同一窗口、字段宽度/读取次数及对象/X/Y/0不变。悬停不消费、点击已聚焦返回1及禁用/非自身0、复制后调用和独立输入context保持。一个X:000D207D-000D2260共483B连续归属，不造F或改3680分母；完整67/68所有数据/其它父/callee/焦点IME/正常owner-alias寿命与机器运行独立验收。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:000D207D-000D2260",
+        "start": "0x4D2170",
+        "end_exclusive": "0x4D2254",
+        "evidence_refs": [
+          "doc/ui_windows/shared_67_68.md#stall-edit-coordinate-source-state",
+          "doc/cg2d_stall_edit_coordinate_evidence.json"
+        ]
+      },
+      "verification_level": "原两完整代码/两回调字段/483B区间及一个现源两个参数片段限定静态，未编译/测试/运行或摘要"
     }
   ]
 }

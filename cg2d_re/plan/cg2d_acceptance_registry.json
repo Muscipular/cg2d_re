@@ -6098,7 +6098,9 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/window_67.md"
+        "doc/ui_windows/window_67.md",
+        "doc/ui_windows/shared_67_68.md#stall-edit-coordinate-source-state",
+        "doc/cg2d_stall_edit_coordinate_evidence.json"
       ],
       "original_inventory_ids": [],
       "closure_task_ids": [
@@ -6109,13 +6111,20 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/ui_windows/shared_67_68.md#stall-edit-coordinate-source-state",
+        "doc/cg2d_stall_edit_coordinate_evidence.json"
+      ],
       "blockers": [
-        "原成员、传递依赖和逐门禁证据待归档"
+        "原成员、传递依赖和逐门禁证据待归档",
+        "CAB14共享名称/描述编辑两代码Y→X原序样本已显式落实，原两字段/焦点上下文/一个完整R7归属可追；仅该参数阶段静态，完整数据/全部编辑/其它父/正常寿命/IME/SDK-ABI和当前链接运行仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/ui_windows/shared_67_68.md#stall-edit-coordinate-source-state",
+        "doc/cg2d_stall_edit_coordinate_evidence.json"
+      ]
     },
     {
       "id": "UI-M-068",
@@ -6125,7 +6134,9 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/window_68.md"
+        "doc/ui_windows/window_68.md",
+        "doc/ui_windows/shared_67_68.md#stall-edit-coordinate-source-state",
+        "doc/cg2d_stall_edit_coordinate_evidence.json"
       ],
       "original_inventory_ids": [],
       "closure_task_ids": [
@@ -6136,13 +6147,20 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/ui_windows/shared_67_68.md#stall-edit-coordinate-source-state",
+        "doc/cg2d_stall_edit_coordinate_evidence.json"
+      ],
       "blockers": [
-        "原成员、传递依赖和逐门禁证据待归档"
+        "原成员、传递依赖和逐门禁证据待归档",
+        "CAB14共享名称/描述编辑两代码Y→X原序样本已显式落实，原两字段/焦点上下文/一个完整R7归属可追；仅该参数阶段静态，完整数据/全部编辑/其它父/正常寿命/IME/SDK-ABI和当前链接运行仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/ui_windows/shared_67_68.md#stall-edit-coordinate-source-state",
+        "doc/cg2d_stall_edit_coordinate_evidence.json"
+      ]
     },
     {
       "id": "UI-M-069",
@@ -53475,6 +53493,144 @@
       "differences": [],
       "result": "pass",
       "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-STALL-EDIT-COORDINATE-UI-M-067-I-20261009",
+      "feature_id": "UI-M-067",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两原无IDA函数编辑代码148条456B、两W32原字段及一个完整483B区间；4D2113/16与4D2203/06实际Y→X取样",
+      "implementation_reference": "Git固定命名快照 cg2d-re-stall-edit-coordinate-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/ui_windows/shared_67_68.md#stall-edit-coordinate-source-state",
+        "doc/cg2d_stall_edit_coordinate_evidence.json",
+        "src/ui/WindowRuntime.cpp#Sub_4D2080",
+        "src/ui/WindowRuntime.cpp#Sub_4D2170",
+        "src/ui/WindowRuntimeState.hpp",
+        "src/ui/WindowPrototypes.cpp"
+      ],
+      "observation": "仅两共享编辑回调的坐标参数阶段和现有真实绑定/区间身份静态，不是全部窗口/输入/生命周期门禁",
+      "expected": "文本复制后同一持有窗口先Y后X，交既有InputObject/X/Y/0到476570，再SetContext及fresh窗口/焦点/两次elements-data；原门槛/返回保持",
+      "actual": "一个CPP两精确参数片段显式S32 y再x，实际调用/样本/宽度/次数与其余全文保持；头/原型不改，两个无F身份和一个X可追，未编译/运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-STALL-EDIT-COORDINATE-UI-M-067-W-20261009",
+      "feature_id": "UI-M-067",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两原无IDA函数编辑代码148条456B、两W32原字段及一个完整483B区间；4D2113/16与4D2203/06实际Y→X取样",
+      "implementation_reference": "Git固定命名快照 cg2d-re-stall-edit-coordinate-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/ui_windows/shared_67_68.md#stall-edit-coordinate-source-state",
+        "doc/cg2d_stall_edit_coordinate_evidence.json",
+        "src/ui/WindowRuntime.cpp#Sub_4D2080",
+        "src/ui/WindowRuntime.cpp#Sub_4D2170",
+        "src/ui/WindowRuntimeState.hpp",
+        "src/ui/WindowPrototypes.cpp"
+      ],
+      "observation": "仅两共享编辑回调的坐标参数阶段和现有真实绑定/区间身份静态，不是全部窗口/输入/生命周期门禁",
+      "expected": "文本复制后同一持有窗口先Y后X，交既有InputObject/X/Y/0到476570，再SetContext及fresh窗口/焦点/两次elements-data；原门槛/返回保持",
+      "actual": "一个CPP两精确参数片段显式S32 y再x，实际调用/样本/宽度/次数与其余全文保持；头/原型不改，两个无F身份和一个X可追，未编译/运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-STALL-EDIT-COORDINATE-UI-M-067-S-20261009",
+      "feature_id": "UI-M-067",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两原无IDA函数编辑代码148条456B、两W32原字段及一个完整483B区间；4D2113/16与4D2203/06实际Y→X取样",
+      "implementation_reference": "Git固定命名快照 cg2d-re-stall-edit-coordinate-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/ui_windows/shared_67_68.md#stall-edit-coordinate-source-state",
+        "doc/cg2d_stall_edit_coordinate_evidence.json",
+        "src/ui/WindowRuntime.cpp#Sub_4D2080",
+        "src/ui/WindowRuntime.cpp#Sub_4D2170",
+        "src/ui/WindowRuntimeState.hpp",
+        "src/ui/WindowPrototypes.cpp"
+      ],
+      "observation": "仅两共享编辑回调的坐标参数阶段和现有真实绑定/区间身份静态，不是全部窗口/输入/生命周期门禁",
+      "expected": "文本复制后同一持有窗口先Y后X，交既有InputObject/X/Y/0到476570，再SetContext及fresh窗口/焦点/两次elements-data；原门槛/返回保持",
+      "actual": "一个CPP两精确参数片段显式S32 y再x，实际调用/样本/宽度/次数与其余全文保持；头/原型不改，两个无F身份和一个X可追，未编译/运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-STALL-EDIT-COORDINATE-UI-M-068-I-20261009",
+      "feature_id": "UI-M-068",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两原无IDA函数编辑代码148条456B、两W32原字段及一个完整483B区间；4D2113/16与4D2203/06实际Y→X取样",
+      "implementation_reference": "Git固定命名快照 cg2d-re-stall-edit-coordinate-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/ui_windows/shared_67_68.md#stall-edit-coordinate-source-state",
+        "doc/cg2d_stall_edit_coordinate_evidence.json",
+        "src/ui/WindowRuntime.cpp#Sub_4D2080",
+        "src/ui/WindowRuntime.cpp#Sub_4D2170",
+        "src/ui/WindowRuntimeState.hpp",
+        "src/ui/WindowPrototypes.cpp"
+      ],
+      "observation": "仅两共享编辑回调的坐标参数阶段和现有真实绑定/区间身份静态，不是全部窗口/输入/生命周期门禁",
+      "expected": "文本复制后同一持有窗口先Y后X，交既有InputObject/X/Y/0到476570，再SetContext及fresh窗口/焦点/两次elements-data；原门槛/返回保持",
+      "actual": "一个CPP两精确参数片段显式S32 y再x，实际调用/样本/宽度/次数与其余全文保持；头/原型不改，两个无F身份和一个X可追，未编译/运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-STALL-EDIT-COORDINATE-UI-M-068-W-20261009",
+      "feature_id": "UI-M-068",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两原无IDA函数编辑代码148条456B、两W32原字段及一个完整483B区间；4D2113/16与4D2203/06实际Y→X取样",
+      "implementation_reference": "Git固定命名快照 cg2d-re-stall-edit-coordinate-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/ui_windows/shared_67_68.md#stall-edit-coordinate-source-state",
+        "doc/cg2d_stall_edit_coordinate_evidence.json",
+        "src/ui/WindowRuntime.cpp#Sub_4D2080",
+        "src/ui/WindowRuntime.cpp#Sub_4D2170",
+        "src/ui/WindowRuntimeState.hpp",
+        "src/ui/WindowPrototypes.cpp"
+      ],
+      "observation": "仅两共享编辑回调的坐标参数阶段和现有真实绑定/区间身份静态，不是全部窗口/输入/生命周期门禁",
+      "expected": "文本复制后同一持有窗口先Y后X，交既有InputObject/X/Y/0到476570，再SetContext及fresh窗口/焦点/两次elements-data；原门槛/返回保持",
+      "actual": "一个CPP两精确参数片段显式S32 y再x，实际调用/样本/宽度/次数与其余全文保持；头/原型不改，两个无F身份和一个X可追，未编译/运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-STALL-EDIT-COORDINATE-UI-M-068-S-20261009",
+      "feature_id": "UI-M-068",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两原无IDA函数编辑代码148条456B、两W32原字段及一个完整483B区间；4D2113/16与4D2203/06实际Y→X取样",
+      "implementation_reference": "Git固定命名快照 cg2d-re-stall-edit-coordinate-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/ui_windows/shared_67_68.md#stall-edit-coordinate-source-state",
+        "doc/cg2d_stall_edit_coordinate_evidence.json",
+        "src/ui/WindowRuntime.cpp#Sub_4D2080",
+        "src/ui/WindowRuntime.cpp#Sub_4D2170",
+        "src/ui/WindowRuntimeState.hpp",
+        "src/ui/WindowPrototypes.cpp"
+      ],
+      "observation": "仅两共享编辑回调的坐标参数阶段和现有真实绑定/区间身份静态，不是全部窗口/输入/生命周期门禁",
+      "expected": "文本复制后同一持有窗口先Y后X，交既有InputObject/X/Y/0到476570，再SetContext及fresh窗口/焦点/两次elements-data；原门槛/返回保持",
+      "actual": "一个CPP两精确参数片段显式S32 y再x，实际调用/样本/宽度/次数与其余全文保持；头/原型不改，两个无F身份和一个X可追，未编译/运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
     }
   ],
   "task_acceptance": [
@@ -54819,7 +54975,9 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
         "doc/cg2d_client_link_sdl_audio_evidence.json",
         "doc/ui_windows/window_7.md#player-panel-button-range-source-state",
-        "doc/cg2d_player_panel_range_identity_evidence.json"
+        "doc/cg2d_player_panel_range_identity_evidence.json",
+        "doc/ui_windows/shared_67_68.md#stall-edit-coordinate-source-state",
+        "doc/cg2d_stall_edit_coordinate_evidence.json"
       ]
     },
     {
@@ -55013,7 +55171,9 @@
         "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state",
         "doc/cg2d_shop_command_read_spec.md#shop-command-read-source-state",
         "doc/ui_windows/window_7.md#player-panel-button-range-source-state",
-        "doc/cg2d_player_panel_range_identity_evidence.json"
+        "doc/cg2d_player_panel_range_identity_evidence.json",
+        "doc/ui_windows/shared_67_68.md#stall-edit-coordinate-source-state",
+        "doc/cg2d_stall_edit_coordinate_evidence.json"
       ]
     },
     {
@@ -55172,7 +55332,9 @@
         "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state",
         "doc/cg2d_shop_command_read_spec.md#shop-command-read-source-state",
         "doc/ui_windows/window_7.md#player-panel-button-range-source-state",
-        "doc/cg2d_player_panel_range_identity_evidence.json"
+        "doc/cg2d_player_panel_range_identity_evidence.json",
+        "doc/ui_windows/shared_67_68.md#stall-edit-coordinate-source-state",
+        "doc/cg2d_stall_edit_coordinate_evidence.json"
       ]
     },
     {
@@ -97900,6 +98062,51 @@
         {
           "start": "0x474FA4",
           "end_exclusive": "0x474FB0",
+          "kind": "nop_padding",
+          "bytes": 12
+        }
+      ]
+    },
+    {
+      "id": "X:000D207D-000D2260",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/ui_windows/shared_67_68.md#stall-edit-coordinate-source-state",
+        "doc/cg2d_stall_edit_coordinate_evidence.json"
+      ],
+      "reason": "CAB14整个483B以3B NOP/228B描述编辑/12B NOP/228B名称编辑/12B NOP连续归属；两无F代码及原字段与现源有据，只记字节用途/两样本阶段，不关全输入寿命或运行门禁。",
+      "classification": "mixed_table_data",
+      "parts": [
+        {
+          "start": "0x4D207D",
+          "end_exclusive": "0x4D2080",
+          "kind": "nop_padding",
+          "bytes": 3
+        },
+        {
+          "start": "0x4D2080",
+          "end_exclusive": "0x4D2164",
+          "kind": "source_mapped_code",
+          "bytes": 228,
+          "source_symbol": "Sub_4D2080"
+        },
+        {
+          "start": "0x4D2164",
+          "end_exclusive": "0x4D2170",
+          "kind": "nop_padding",
+          "bytes": 12
+        },
+        {
+          "start": "0x4D2170",
+          "end_exclusive": "0x4D2254",
+          "kind": "source_mapped_code",
+          "bytes": 228,
+          "source_symbol": "Sub_4D2170"
+        },
+        {
+          "start": "0x4D2254",
+          "end_exclusive": "0x4D2260",
           "kind": "nop_padding",
           "bytes": 12
         }

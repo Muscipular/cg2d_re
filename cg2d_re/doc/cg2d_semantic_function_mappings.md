@@ -4209,3 +4209,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 463/F:00142F10现对应完整MultiplyLegacyUnsigned64_542F10；462/F:00144620现对应完整ShiftLegacyUnsigned64_544620及输入父三实际调用。原两W32合64数值、乘法原快慢/交叉W32合成与CL三分支保，不从函数名猜有符号限制或扩大W32字段。
 
 零新语义/身份，新两F完整处置与CRT两成员、两CC用途及两限定I-S；F1023/CRT200/E1182，R7已审477余2584。源身份位置与文档数量/队列不因已定位函数补本体而减少；完整父/间接别名/正常寿命和机器仍待。
+
+## BWW01两个无F身份的R7浮点片段补正文（2026-10-08）
+
+[完整原证/同位常量/五区间与两源三改](cg2d_math_residual_leaves_evidence.json)、[合同](cg2d_math_residual_leaves_spec.md#math-residual-leaves-decision)。
+
+X:00143383-00143390的7B实际代码对应Cg2dApplyLegacyConditionalSignX87，其余6CC只对齐；X:0014341C-00143435的25B对应Cg2dClassifyLegacyQuietBitX87，保原CL/EAX/ST0、OR/TEST整数标志和FADD同位常量。三个相邻纯CC区间完整作对齐用途；不生成原空函数或迁移旧地址。
+
+两片段不属于IDA函数、已知只有段内入向，故零新语义/F/CRT成员；语义1859/有效1852、文档1969/3680（53.51%）/F1023/CRT200保持。五用途记录与一个限定S使R7已审482余2579/E1183；未证外部父、全CRT/寿命或机器不由本步代验。

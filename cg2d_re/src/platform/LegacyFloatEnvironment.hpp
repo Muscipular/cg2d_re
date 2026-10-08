@@ -160,6 +160,11 @@ struct LegacyBinaryMathDescriptor {
 // 两出口均正常56B帧；溢出与范围出口同槽位通过唯一全局标签共享，绕原下溢分支。
 // 只在ASM间调用，不声明CPP double ABI、不填高位或实参，也不外推未知原调用。
 
+// 原543383..54338A的Cg2dApplyLegacyConditionalSignX87：CL单BYTE/ST0进出，保OR整数标志。
+// 原54341C..543435的Cg2dClassifyLegacyQuietBitX87：EAX原W32位样本/ST0输入，
+// 返回原EAX类型7或FADD既有同位F64常量后类型1；ST0不弹，保TEST整数标志。
+// 两叶只在ASM间调用，没有context指针/CPP double ABI/栈帧，当前无已知原外部入向。
+
 // 原控制字抽象/硬件表示转换，只消费和生成原已定义位。
 std::uint32_t AbstractLegacyControlWord_5448A4(std::uint32_t hardware);
 std::uint32_t HardwareLegacyControlWord_544936(std::uint32_t abstractValue);

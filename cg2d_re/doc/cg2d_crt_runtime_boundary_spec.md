@@ -272,3 +272,11 @@ CRT195→198/F1021两限定I-S，已列CRT未定位3→0/全源码定位128；R7
 542F10/544620两完整34条83B已开发为两个CPP本体及私有数值声明，原输入53DEF4的53E6EC/53E68B/53E6DB按10/4/3真实接线。原乘法高半零快路/两交叉W32乘加/低乘合成低64结果、原CL单BYTE和>=64零/32..63低半搬高/0..31分支保；原已有64位值不扩大字段或改地址，不加保护/默认计数、宿主CRT或故障样例。
 
 完善既有462/463、两F adapted/CRT198→200/F1023两限定I-S；两个完整CC区间仅用途mapped，R7已审477/余2584。完整成员库存/输入核心和更多间接别名、正常寿命及机器ABI/链接/运行继续。
+
+## BWW01剩余浮点指令片段实际开发（2026-10-08）
+
+[原基线](cg2d_math_residual_leaves_spec.md#math-residual-leaves-baseline)、[决定](cg2d_math_residual_leaves_spec.md#math-residual-leaves-decision)、[标准](cg2d_math_residual_leaves_spec.md#math-residual-leaves-acceptance)及[两完整片段/原常量、五R7与源前后态](cg2d_math_residual_leaves_evidence.json)。
+
+原543383四条7B和54341C七条25B现有两个完整ASM叶；CL单BYTE条件变号/原OR整数标志、EAX原W32位样本TEST 80000H与类型7或真实FADD后类型1、连续ST0保持，原54FB10常量复用现有同位只读F64存储。两现源三改，零CPP/C桥/帧/owner/输入验证或故障样例。
+
+五R7共66B（32B代码、34B CC）完整正文或对齐用途映射，R7已审482余2579。两段无已知外部入向，只有限定S/E1183，不造F/成员或外部调用，不给I通过；F1023/CRT200与其它计数和完整门禁保持。完整原父/入向及描述符生产、成员库存/正常寿命和机器ABI/链接/运行继续。

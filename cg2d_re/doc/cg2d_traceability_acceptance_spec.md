@@ -2238,3 +2238,11 @@ I只原108头匹配/不符进入既有解码和callback的共享源接线；S只
 I只两个完整原数学helper与全部三已证输入点4/3/10、结果后原S32数字扩展消费；S只两全根34条83B/原快慢-W32合成与CL三正常分支、三源三改/两全CPP和两声明及10B CC用途，不代全输入、更多间接别名/完整CRT或机器。
 
 预计F1023/CRT200/E1182、R7已审477/余2584；语义1859/有效1852、文档1969/3680（53.51%）、队列129和pending18保持，以文本汇总核实。C01/R01/V02/R04仍open，全部完整门禁未关闭。
+
+## BWW01两原浮点片段与五R7用途限定S验收（2026-10-08）
+
+[标准](cg2d_math_residual_leaves_spec.md#math-residual-leaves-acceptance)、[状态](cg2d_math_residual_leaves_spec.md#math-residual-leaves-source-state)及[原完整指令/常量、区间与源码差集](cg2d_math_residual_leaves_evidence.json)。
+
+S只两完整片段十一条32B、CL单BYTE与EAX原W32/ST0、整数OR/TEST标志、同位原F64常量及五实际区间66B的源码/CC用途和两源三改。没有已知原外部入向，零新I通过、F/语义或CRT成员；禁止凭完整叶正文制造调用父或算作整项验收。
+
+预计R7已审482/余2579、E1183；语义1859/有效1852、文档1969/3680（53.51%）/F1023/CRT200、队列129与pending18保持，以文本汇总核实。C01/R01/V02/R04仍open，所有完整与机器门禁保持。

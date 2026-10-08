@@ -189,6 +189,8 @@ PUBLIC Cg2dReadLegacyExponentBits
 PUBLIC Cg2dCheckLegacyPrecisionExitX87
 PUBLIC Cg2dCheckLegacyOverflowExitX87
 PUBLIC Cg2dReadLegacyShopCommandW32
+PUBLIC Cg2dApplyLegacyConditionalSignX87
+PUBLIC Cg2dClassifyLegacyQuietBitX87
 EXTERN Cg2dReadLegacyFdivBug:PROC
 EXTERN Cg2dLegacyPowerFastExitGate1085FBC:DWORD
 EXTERN Cg2dRaiseLegacyFloatExceptionHost:PROC
@@ -3915,5 +3917,27 @@ Cg2dReadLegacyShopCommandW32 PROC
     mov eax, dword ptr [rcx]
     ret
 Cg2dReadLegacyShopCommandW32 ENDP
+
+; 原543383..54338A；CL是原符号BYTE，ST0连续进出，整数标志保持原OR。
+Cg2dApplyLegacyConditionalSignX87 PROC
+    or cl, cl
+    jz LegacyConditionalSignDone
+    fchs
+LegacyConditionalSignDone:
+    ret
+Cg2dApplyLegacyConditionalSignX87 ENDP
+
+; 原54341C..543435；EAX为原W32样本，原TEST两分支/类型7与FADD后类型1保持。
+; LegacyThreshold54D5C0和原54FB10的八字节相同；不落F64或另造常量状态。
+Cg2dClassifyLegacyQuietBitX87 PROC
+    test eax, 080000h
+    jz LegacyQuietBitAdd
+    mov eax, 7
+    ret
+LegacyQuietBitAdd:
+    fadd qword ptr [LegacyThreshold54D5C0]
+    mov eax, 1
+    ret
+Cg2dClassifyLegacyQuietBitX87 ENDP
 
 END

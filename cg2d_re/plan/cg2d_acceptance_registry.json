@@ -329,7 +329,8 @@
         "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-baseline",
         "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-baseline",
         "doc/cg2d_math_final_exits_spec.md#math-final-exits-baseline",
-        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-baseline"
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-baseline",
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-baseline"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -590,7 +591,8 @@
         "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-decision",
         "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-decision",
         "doc/cg2d_math_final_exits_spec.md#math-final-exits-decision",
-        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-decision"
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-decision",
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -639,7 +641,8 @@
         "BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
         "BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
         "BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。",
-        "BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。"
+        "BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。",
+        "BWW01补原543383四条7B CL/ST0条件变号和54341C七条25B EAX/ST0位样本叶，两源三改/两真实ASM叶及导出和私有寄存器合同。原OR/JZ/FCHS与TEST 80000H/类型7或实际FADD同位F64常量后类型1、连续ST0和整数标志保，无context指针/CPP double ABI/栈帧/新owner/保护/默认值或故障样例。五实际R7共66B（代码32B/十一条、CC34B）完整源码对应或对齐用途，R7已审477→482/余2584→2579。零新F/语义/CRT成员，F1023/CRT200及其它计数和门禁保持；没有已知外部入向，只限定S/E1183，不造外部父或给I通过。原实际入向/完整父与描述符生产、成员库存/正常寿命/机器ABI链接运行继续，原格式明文/音频暂停/RPLAN.24保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -52070,6 +52073,36 @@
       "observation": "BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 只两全根34条83B/原高半快慢-W32合成与CL三个正常分支、三源三改及10B CC用途，不代机器/全CRT或异常等价。",
       "expected": "BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 只两全根34条83B/原高半快慢-W32合成与CL三个正常分支、三源三改及10B CC用途，不代机器/全CRT或异常等价。",
       "actual": "BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 只两全根34条83B/原高半快慢-W32合成与CL三个正常分支、三源三改及10B CC用途，不代机器/全CRT或异常等价。"
+    },
+    {
+      "id": "E-MATH-RESIDUAL-LEAVES-FUNC-CRT-S-20261008",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWW01原CL/ST0变号四条7B、EAX/ST0位样本七条25B和原54FB10常量，五R7完整66B/34B CC。doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-math-residual-leaves-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_math_residual_leaves_evidence.json",
+        "doc/cg2d_math_residual_leaves_spec.md",
+        "src/platform/LegacyFloatEnvironment.asm",
+        "src/platform/LegacyFloatEnvironment.hpp",
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-baseline",
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-decision",
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-acceptance",
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWW01补原543383四条7B CL/ST0条件变号和54341C七条25B EAX/ST0位样本叶，两源三改/两真实ASM叶及导出和私有寄存器合同。原OR/JZ/FCHS与TEST 80000H/类型7或实际FADD同位F64常量后类型1、连续ST0和整数标志保，无context指针/CPP double ABI/栈帧/新owner/保护/默认值或故障样例。五实际R7共66B（代码32B/十一条、CC34B）完整源码对应或对齐用途，R7已审477→482/余2584→2579。零新F/语义/CRT成员，F1023/CRT200及其它计数和门禁保持；没有已知外部入向，只限定S/E1183，不造外部父或给I通过。原实际入向/完整父与描述符生产、成员库存/正常寿命/机器ABI链接运行继续，原格式明文/音频暂停/RPLAN.24保。 仅两完整原片段/十一条32B、CL与EAX原位宽-ST0和整数OR/TEST标志、原同位F64常量及五实际R7共66B的源码/用途和两源三改；没有已知外部入向，不给I或代全父/机器。",
+          "decision_ref": "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWW01补原543383四条7B CL/ST0条件变号和54341C七条25B EAX/ST0位样本叶，两源三改/两真实ASM叶及导出和私有寄存器合同。原OR/JZ/FCHS与TEST 80000H/类型7或实际FADD同位F64常量后类型1、连续ST0和整数标志保，无context指针/CPP double ABI/栈帧/新owner/保护/默认值或故障样例。五实际R7共66B（代码32B/十一条、CC34B）完整源码对应或对齐用途，R7已审477→482/余2584→2579。零新F/语义/CRT成员，F1023/CRT200及其它计数和门禁保持；没有已知外部入向，只限定S/E1183，不造外部父或给I通过。原实际入向/完整父与描述符生产、成员库存/正常寿命/机器ABI链接运行继续，原格式明文/音频暂停/RPLAN.24保。 仅两完整原片段/十一条32B、CL与EAX原位宽-ST0和整数OR/TEST标志、原同位F64常量及五实际R7共66B的源码/用途和两源三改；没有已知外部入向，不给I或代全父/机器。",
+      "expected": "BWW01补原543383四条7B CL/ST0条件变号和54341C七条25B EAX/ST0位样本叶，两源三改/两真实ASM叶及导出和私有寄存器合同。原OR/JZ/FCHS与TEST 80000H/类型7或实际FADD同位F64常量后类型1、连续ST0和整数标志保，无context指针/CPP double ABI/栈帧/新owner/保护/默认值或故障样例。五实际R7共66B（代码32B/十一条、CC34B）完整源码对应或对齐用途，R7已审477→482/余2584→2579。零新F/语义/CRT成员，F1023/CRT200及其它计数和门禁保持；没有已知外部入向，只限定S/E1183，不造外部父或给I通过。原实际入向/完整父与描述符生产、成员库存/正常寿命/机器ABI链接运行继续，原格式明文/音频暂停/RPLAN.24保。 仅两完整原片段/十一条32B、CL与EAX原位宽-ST0和整数OR/TEST标志、原同位F64常量及五实际R7共66B的源码/用途和两源三改；没有已知外部入向，不给I或代全父/机器。",
+      "actual": "BWW01补原543383四条7B CL/ST0条件变号和54341C七条25B EAX/ST0位样本叶，两源三改/两真实ASM叶及导出和私有寄存器合同。原OR/JZ/FCHS与TEST 80000H/类型7或实际FADD同位F64常量后类型1、连续ST0和整数标志保，无context指针/CPP double ABI/栈帧/新owner/保护/默认值或故障样例。五实际R7共66B（代码32B/十一条、CC34B）完整源码对应或对齐用途，R7已审477→482/余2584→2579。零新F/语义/CRT成员，F1023/CRT200及其它计数和门禁保持；没有已知外部入向，只限定S/E1183，不造外部父或给I通过。原实际入向/完整父与描述符生产、成员库存/正常寿命/机器ABI链接运行继续，原格式明文/音频暂停/RPLAN.24保。 仅两完整原片段/十一条32B、CL与EAX原位宽-ST0和整数OR/TEST标志、原同位F64常量及五实际R7共66B的源码/用途和两源三改；没有已知外部入向，不给I或代全父/机器。"
     }
   ],
   "task_acceptance": [
@@ -52434,7 +52467,8 @@
         "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state",
         "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state",
         "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state",
-        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state"
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state",
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-source-state"
       ],
       "task_id": "C01",
       "state": "open"
@@ -52904,7 +52938,8 @@
         "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state",
         "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state",
         "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state",
-        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state"
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state",
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-source-state"
       ]
     },
     {
@@ -52953,7 +52988,8 @@
         "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state",
         "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state",
         "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state",
-        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state"
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state",
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-source-state"
       ]
     },
     {
@@ -53366,7 +53402,8 @@
         "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state",
         "doc/cg2d_shop_command_read_spec.md#shop-command-read-source-state",
         "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-source-state",
-        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state"
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state",
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-source-state"
       ]
     },
     {
@@ -95401,6 +95438,566 @@
         "ShiftLegacyUnsigned64_544620"
       ],
       "boundary": "仅完整CC对齐用途，无新函数/运行入口/故障模型，不代前邻根。 BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "id": "X:00143383-00143390",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-baseline",
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-decision",
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-acceptance",
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-source-state",
+        "doc/cg2d_math_residual_leaves_evidence.json"
+      ],
+      "reason": "原CL/ST0完整条件变号叶四条7B及末6CC；代码原OR/JZ/FCHS/RET实际实现，CC仅对齐用途，无外部入向不造父。",
+      "classification": "conditional_sign_leaf_and_alignment",
+      "original_size": 13,
+      "original_bytes": "0ac97402d9e0c3cccccccccccc",
+      "original_instructions": [
+        {
+          "ea": "0x543383",
+          "size": 2,
+          "bytes": "0ac9",
+          "code": true,
+          "mnemonic": "or",
+          "text": "or      cl, cl"
+        },
+        {
+          "ea": "0x543385",
+          "size": 2,
+          "bytes": "7402",
+          "code": true,
+          "mnemonic": "jz",
+          "text": "jz      short locret_543389"
+        },
+        {
+          "ea": "0x543387",
+          "size": 2,
+          "bytes": "d9e0",
+          "code": true,
+          "mnemonic": "fchs",
+          "text": "fchs"
+        },
+        {
+          "ea": "0x543389",
+          "size": 1,
+          "bytes": "c3",
+          "code": true,
+          "mnemonic": "retn",
+          "text": "retn"
+        },
+        {
+          "ea": "0x54338a",
+          "size": 1,
+          "bytes": "cc",
+          "code": false,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ],
+      "original_refs": [
+        {
+          "target": "0x543385",
+          "source": "0x543383",
+          "type": 21,
+          "code": true,
+          "function": null,
+          "text": "or      cl, cl"
+        },
+        {
+          "target": "0x543387",
+          "source": "0x543385",
+          "type": 21,
+          "code": true,
+          "function": null,
+          "text": "jz      short locret_543389"
+        },
+        {
+          "target": "0x543389",
+          "source": "0x543387",
+          "type": 21,
+          "code": true,
+          "function": null,
+          "text": "fchs"
+        },
+        {
+          "target": "0x543389",
+          "source": "0x543385",
+          "type": 19,
+          "code": true,
+          "function": null,
+          "text": "jz      short locret_543389"
+        }
+      ],
+      "original_previous_boundary": {
+        "ea": "0x543382",
+        "function": "0x543185",
+        "function_end": "0x543383",
+        "text": "retn"
+      },
+      "original_next_boundary": {
+        "ea": "0x543390",
+        "text": "push    ebp"
+      },
+      "source_path": "src/platform/LegacyFloatEnvironment.asm",
+      "source_symbols": [
+        "Cg2dApplyLegacyConditionalSignX87"
+      ],
+      "boundary": "BWW01补原543383四条7B CL/ST0条件变号和54341C七条25B EAX/ST0位样本叶，两源三改/两真实ASM叶及导出和私有寄存器合同。原OR/JZ/FCHS与TEST 80000H/类型7或实际FADD同位F64常量后类型1、连续ST0和整数标志保，无context指针/CPP double ABI/栈帧/新owner/保护/默认值或故障样例。五实际R7共66B（代码32B/十一条、CC34B）完整源码对应或对齐用途，R7已审477→482/余2584→2579。零新F/语义/CRT成员，F1023/CRT200及其它计数和门禁保持；没有已知外部入向，只限定S/E1183，不造外部父或给I通过。原实际入向/完整父与描述符生产、成员库存/正常寿命/机器ABI链接运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_residual_leaves": {
+        "spec_id": "BWW01",
+        "whole_group_range_count": 5,
+        "whole_group_bytes": 66,
+        "whole_group_original_instruction_count": 11,
+        "whole_group_original_code_bytes": 32,
+        "whole_group_original_cc_bytes": 34,
+        "new_source_ASM_body_count": 2,
+        "source_file_count": 2,
+        "source_patch_count": 3,
+        "new_CPP_body_count": 0,
+        "new_C_bridge_count": 0,
+        "new_shared_owner_count": 0,
+        "new_original_function_identity_count": 0,
+        "new_semantic_record_count": 0,
+        "new_CRT_member_count": 0,
+        "raw_CL_BYTE_or_EAX_W32_inputs_not_context_addresses": true,
+        "continuous_ST0_without_F64_store_kept": true,
+        "original_integer_OR_TEST_flags_kept": true,
+        "same_bit_original_F64_constant_reuses_existing_readonly_storage": true,
+        "no_new_guard_default_fill_or_fault_sample": true,
+        "known_external_inbound_connected": false,
+        "I_gate_claimed": false,
+        "runtime_verified": false,
+        "compilation_verified": false,
+        "linking_verified": false,
+        "machine_abi_verified": false,
+        "full_CRT_member_inventory_closed": false,
+        "full_outer_original_callers_verified": false,
+        "full_descriptor_production_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "fault_equivalence_claimed": false,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true
+      }
+    },
+    {
+      "id": "X:0014341C-00143435",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-baseline",
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-decision",
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-acceptance",
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-source-state",
+        "doc/cg2d_math_residual_leaves_evidence.json"
+      ],
+      "reason": "完整EAX/ST0原位样本叶七条25B；原TEST及7或FADD原同位常量后1、原ST0/整数标志保持，不从标签推输入或造外部调用。",
+      "classification": "quiet_bit_error_leaf",
+      "original_size": 25,
+      "original_bytes": "a9000008007406b807000000c3dc0510fb5400b801000000c3",
+      "original_instructions": [
+        {
+          "ea": "0x54341c",
+          "size": 5,
+          "bytes": "a900000800",
+          "code": true,
+          "mnemonic": "test",
+          "text": "test    eax, 80000h"
+        },
+        {
+          "ea": "0x543421",
+          "size": 2,
+          "bytes": "7406",
+          "code": true,
+          "mnemonic": "jz",
+          "text": "jz      short tosIsSNaN"
+        },
+        {
+          "ea": "0x543423",
+          "size": 5,
+          "bytes": "b807000000",
+          "code": true,
+          "mnemonic": "mov",
+          "text": "mov     eax, 7"
+        },
+        {
+          "ea": "0x543428",
+          "size": 1,
+          "bytes": "c3",
+          "code": true,
+          "mnemonic": "retn",
+          "text": "retn"
+        },
+        {
+          "ea": "0x543429",
+          "size": 6,
+          "bytes": "dc0510fb5400",
+          "code": true,
+          "mnemonic": "fadd",
+          "text": "fadd    ds:dbl_54FB10"
+        },
+        {
+          "ea": "0x54342f",
+          "size": 5,
+          "bytes": "b801000000",
+          "code": true,
+          "mnemonic": "mov",
+          "text": "mov     eax, 1"
+        },
+        {
+          "ea": "0x543434",
+          "size": 1,
+          "bytes": "c3",
+          "code": true,
+          "mnemonic": "retn",
+          "text": "retn"
+        }
+      ],
+      "original_refs": [
+        {
+          "target": "0x543421",
+          "source": "0x54341c",
+          "type": 21,
+          "code": true,
+          "function": null,
+          "text": "test    eax, 80000h"
+        },
+        {
+          "target": "0x543423",
+          "source": "0x543421",
+          "type": 21,
+          "code": true,
+          "function": null,
+          "text": "jz      short tosIsSNaN"
+        },
+        {
+          "target": "0x543428",
+          "source": "0x543423",
+          "type": 21,
+          "code": true,
+          "function": null,
+          "text": "mov     eax, 7"
+        },
+        {
+          "target": "0x543429",
+          "source": "0x543421",
+          "type": 19,
+          "code": true,
+          "function": null,
+          "text": "jz      short tosIsSNaN"
+        },
+        {
+          "target": "0x54342f",
+          "source": "0x543429",
+          "type": 21,
+          "code": true,
+          "function": null,
+          "text": "fadd    ds:dbl_54FB10"
+        },
+        {
+          "target": "0x543434",
+          "source": "0x54342f",
+          "type": 21,
+          "code": true,
+          "function": null,
+          "text": "mov     eax, 1"
+        }
+      ],
+      "original_previous_boundary": {
+        "ea": "0x54341b",
+        "function": "0x543405",
+        "function_end": "0x54341c",
+        "text": "retn"
+      },
+      "original_next_boundary": {
+        "ea": "0x543435",
+        "text": "mov     eax, [edx+4]"
+      },
+      "source_path": "src/platform/LegacyFloatEnvironment.asm",
+      "source_symbols": [
+        "Cg2dClassifyLegacyQuietBitX87",
+        "LegacyThreshold54D5C0"
+      ],
+      "boundary": "BWW01补原543383四条7B CL/ST0条件变号和54341C七条25B EAX/ST0位样本叶，两源三改/两真实ASM叶及导出和私有寄存器合同。原OR/JZ/FCHS与TEST 80000H/类型7或实际FADD同位F64常量后类型1、连续ST0和整数标志保，无context指针/CPP double ABI/栈帧/新owner/保护/默认值或故障样例。五实际R7共66B（代码32B/十一条、CC34B）完整源码对应或对齐用途，R7已审477→482/余2584→2579。零新F/语义/CRT成员，F1023/CRT200及其它计数和门禁保持；没有已知外部入向，只限定S/E1183，不造外部父或给I通过。原实际入向/完整父与描述符生产、成员库存/正常寿命/机器ABI链接运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_residual_leaves": {
+        "spec_id": "BWW01",
+        "whole_group_range_count": 5,
+        "whole_group_bytes": 66,
+        "whole_group_original_instruction_count": 11,
+        "whole_group_original_code_bytes": 32,
+        "whole_group_original_cc_bytes": 34,
+        "new_source_ASM_body_count": 2,
+        "source_file_count": 2,
+        "source_patch_count": 3,
+        "new_CPP_body_count": 0,
+        "new_C_bridge_count": 0,
+        "new_shared_owner_count": 0,
+        "new_original_function_identity_count": 0,
+        "new_semantic_record_count": 0,
+        "new_CRT_member_count": 0,
+        "raw_CL_BYTE_or_EAX_W32_inputs_not_context_addresses": true,
+        "continuous_ST0_without_F64_store_kept": true,
+        "original_integer_OR_TEST_flags_kept": true,
+        "same_bit_original_F64_constant_reuses_existing_readonly_storage": true,
+        "no_new_guard_default_fill_or_fault_sample": true,
+        "known_external_inbound_connected": false,
+        "I_gate_claimed": false,
+        "runtime_verified": false,
+        "compilation_verified": false,
+        "linking_verified": false,
+        "machine_abi_verified": false,
+        "full_CRT_member_inventory_closed": false,
+        "full_outer_original_callers_verified": false,
+        "full_descriptor_production_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "fault_equivalence_claimed": false,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true
+      }
+    },
+    {
+      "id": "X:001433E3-001433F0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-baseline",
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-decision",
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-acceptance",
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-source-state",
+        "doc/cg2d_math_residual_leaves_evidence.json"
+      ],
+      "reason": "原单参错误父RET末界与已实现TwoToTOS真实入口之间的完整13CC，无已知入向，只对齐用途。",
+      "classification": "alignment_padding",
+      "original_size": 13,
+      "original_bytes": "cccccccccccccccccccccccccc",
+      "original_instructions": [
+        {
+          "ea": "0x5433e3",
+          "size": 1,
+          "bytes": "cc",
+          "code": false,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ],
+      "original_refs": [],
+      "original_previous_boundary": {
+        "ea": "0x5433e2",
+        "function": "0x5433a7",
+        "function_end": "0x5433e3",
+        "text": "retn"
+      },
+      "original_next_boundary": {
+        "ea": "0x5433f0",
+        "text": "fld     st"
+      },
+      "source_path": "src/platform/LegacyFloatEnvironment.asm",
+      "source_symbols": [
+        "Cg2dStartLegacyOneArgumentErrorX87",
+        "Cg2dLegacyTwoToTOSX87"
+      ],
+      "boundary": "BWW01补原543383四条7B CL/ST0条件变号和54341C七条25B EAX/ST0位样本叶，两源三改/两真实ASM叶及导出和私有寄存器合同。原OR/JZ/FCHS与TEST 80000H/类型7或实际FADD同位F64常量后类型1、连续ST0和整数标志保，无context指针/CPP double ABI/栈帧/新owner/保护/默认值或故障样例。五实际R7共66B（代码32B/十一条、CC34B）完整源码对应或对齐用途，R7已审477→482/余2584→2579。零新F/语义/CRT成员，F1023/CRT200及其它计数和门禁保持；没有已知外部入向，只限定S/E1183，不造外部父或给I通过。原实际入向/完整父与描述符生产、成员库存/正常寿命/机器ABI链接运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_residual_leaves": {
+        "spec_id": "BWW01",
+        "whole_group_range_count": 5,
+        "whole_group_bytes": 66,
+        "whole_group_original_instruction_count": 11,
+        "whole_group_original_code_bytes": 32,
+        "whole_group_original_cc_bytes": 34,
+        "new_source_ASM_body_count": 2,
+        "source_file_count": 2,
+        "source_patch_count": 3,
+        "new_CPP_body_count": 0,
+        "new_C_bridge_count": 0,
+        "new_shared_owner_count": 0,
+        "new_original_function_identity_count": 0,
+        "new_semantic_record_count": 0,
+        "new_CRT_member_count": 0,
+        "raw_CL_BYTE_or_EAX_W32_inputs_not_context_addresses": true,
+        "continuous_ST0_without_F64_store_kept": true,
+        "original_integer_OR_TEST_flags_kept": true,
+        "same_bit_original_F64_constant_reuses_existing_readonly_storage": true,
+        "no_new_guard_default_fill_or_fault_sample": true,
+        "known_external_inbound_connected": false,
+        "I_gate_claimed": false,
+        "runtime_verified": false,
+        "compilation_verified": false,
+        "linking_verified": false,
+        "machine_abi_verified": false,
+        "full_CRT_member_inventory_closed": false,
+        "full_outer_original_callers_verified": false,
+        "full_descriptor_production_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "fault_equivalence_claimed": false,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true
+      }
+    },
+    {
+      "id": "X:00143AE6-00143AE8",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-baseline",
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-decision",
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-acceptance",
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-source-state",
+        "doc/cg2d_math_residual_leaves_evidence.json"
+      ],
+      "reason": "原大小写父RET末界至真实后邻入口的完整2CC，无已知入向，仅对齐用途，不代两个父业务。",
+      "classification": "alignment_padding",
+      "original_size": 2,
+      "original_bytes": "cccc",
+      "original_instructions": [
+        {
+          "ea": "0x543ae6",
+          "size": 1,
+          "bytes": "cc",
+          "code": false,
+          "mnemonic": "",
+          "text": "align 4"
+        }
+      ],
+      "original_refs": [],
+      "original_previous_boundary": {
+        "ea": "0x543ae5",
+        "function": "0x543a1a",
+        "function_end": "0x543ae6",
+        "text": "retn"
+      },
+      "original_next_boundary": {
+        "ea": "0x543ae8",
+        "text": "push    ebp"
+      },
+      "source_path": "src/platform/LegacyMultibyte.cpp",
+      "source_symbols": [
+        "UpperLegacyCharacter_543A1A",
+        "MapLegacyCaseTable_543AE8"
+      ],
+      "boundary": "BWW01补原543383四条7B CL/ST0条件变号和54341C七条25B EAX/ST0位样本叶，两源三改/两真实ASM叶及导出和私有寄存器合同。原OR/JZ/FCHS与TEST 80000H/类型7或实际FADD同位F64常量后类型1、连续ST0和整数标志保，无context指针/CPP double ABI/栈帧/新owner/保护/默认值或故障样例。五实际R7共66B（代码32B/十一条、CC34B）完整源码对应或对齐用途，R7已审477→482/余2584→2579。零新F/语义/CRT成员，F1023/CRT200及其它计数和门禁保持；没有已知外部入向，只限定S/E1183，不造外部父或给I通过。原实际入向/完整父与描述符生产、成员库存/正常寿命/机器ABI链接运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_residual_leaves": {
+        "spec_id": "BWW01",
+        "whole_group_range_count": 5,
+        "whole_group_bytes": 66,
+        "whole_group_original_instruction_count": 11,
+        "whole_group_original_code_bytes": 32,
+        "whole_group_original_cc_bytes": 34,
+        "new_source_ASM_body_count": 2,
+        "source_file_count": 2,
+        "source_patch_count": 3,
+        "new_CPP_body_count": 0,
+        "new_C_bridge_count": 0,
+        "new_shared_owner_count": 0,
+        "new_original_function_identity_count": 0,
+        "new_semantic_record_count": 0,
+        "new_CRT_member_count": 0,
+        "raw_CL_BYTE_or_EAX_W32_inputs_not_context_addresses": true,
+        "continuous_ST0_without_F64_store_kept": true,
+        "original_integer_OR_TEST_flags_kept": true,
+        "same_bit_original_F64_constant_reuses_existing_readonly_storage": true,
+        "no_new_guard_default_fill_or_fault_sample": true,
+        "known_external_inbound_connected": false,
+        "I_gate_claimed": false,
+        "runtime_verified": false,
+        "compilation_verified": false,
+        "linking_verified": false,
+        "machine_abi_verified": false,
+        "full_CRT_member_inventory_closed": false,
+        "full_outer_original_callers_verified": false,
+        "full_descriptor_production_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "fault_equivalence_claimed": false,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true
+      }
+    },
+    {
+      "id": "X:00144793-001447A0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-baseline",
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-decision",
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-acceptance",
+        "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-source-state",
+        "doc/cg2d_math_residual_leaves_evidence.json"
+      ],
+      "reason": "原宽字符转换RET末界至既有U64余数入口之间的完整13CC，无已知入向，仅对齐用途，不代前邻业务。",
+      "classification": "alignment_padding",
+      "original_size": 13,
+      "original_bytes": "cccccccccccccccccccccccccc",
+      "original_instructions": [
+        {
+          "ea": "0x544793",
+          "size": 1,
+          "bytes": "cc",
+          "code": false,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ],
+      "original_refs": [],
+      "original_previous_boundary": {
+        "ea": "0x544792",
+        "function": "0x54472b",
+        "function_end": "0x544793",
+        "text": "retn"
+      },
+      "original_next_boundary": {
+        "ea": "0x5447a0",
+        "text": "push    ebx"
+      },
+      "source_path": "src/platform/LegacyFormat.cpp",
+      "source_symbols": [
+        "RemainderLegacyUnsigned64_5447A0"
+      ],
+      "boundary": "BWW01补原543383四条7B CL/ST0条件变号和54341C七条25B EAX/ST0位样本叶，两源三改/两真实ASM叶及导出和私有寄存器合同。原OR/JZ/FCHS与TEST 80000H/类型7或实际FADD同位F64常量后类型1、连续ST0和整数标志保，无context指针/CPP double ABI/栈帧/新owner/保护/默认值或故障样例。五实际R7共66B（代码32B/十一条、CC34B）完整源码对应或对齐用途，R7已审477→482/余2584→2579。零新F/语义/CRT成员，F1023/CRT200及其它计数和门禁保持；没有已知外部入向，只限定S/E1183，不造外部父或给I通过。原实际入向/完整父与描述符生产、成员库存/正常寿命/机器ABI链接运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_residual_leaves": {
+        "spec_id": "BWW01",
+        "whole_group_range_count": 5,
+        "whole_group_bytes": 66,
+        "whole_group_original_instruction_count": 11,
+        "whole_group_original_code_bytes": 32,
+        "whole_group_original_cc_bytes": 34,
+        "new_source_ASM_body_count": 2,
+        "source_file_count": 2,
+        "source_patch_count": 3,
+        "new_CPP_body_count": 0,
+        "new_C_bridge_count": 0,
+        "new_shared_owner_count": 0,
+        "new_original_function_identity_count": 0,
+        "new_semantic_record_count": 0,
+        "new_CRT_member_count": 0,
+        "raw_CL_BYTE_or_EAX_W32_inputs_not_context_addresses": true,
+        "continuous_ST0_without_F64_store_kept": true,
+        "original_integer_OR_TEST_flags_kept": true,
+        "same_bit_original_F64_constant_reuses_existing_readonly_storage": true,
+        "no_new_guard_default_fill_or_fault_sample": true,
+        "known_external_inbound_connected": false,
+        "I_gate_claimed": false,
+        "runtime_verified": false,
+        "compilation_verified": false,
+        "linking_verified": false,
+        "machine_abi_verified": false,
+        "full_CRT_member_inventory_closed": false,
+        "full_outer_original_callers_verified": false,
+        "full_descriptor_production_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "fault_equivalence_claimed": false,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true
+      }
     }
   ]
 }

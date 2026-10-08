@@ -207018,6 +207018,538 @@
         "machine_abi_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x5478b2",
+      "inventory_id": "F:001478B2",
+      "original_role": "5478B2完整signed类型分支，1只写旧1085FE0=33，2/3只写34，其它不写；返回原完整S32输入，不绑宿主errno或预清旧槽。",
+      "original_end_exclusive": "0x5478d8",
+      "original_chunks": [
+        [
+          "0x5478b2",
+          "0x5478d8"
+        ]
+      ],
+      "instruction_count": 10,
+      "status": "BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "SetLegacyMathErrno_5478B2"
+          ],
+          "relationship": "5478B2完整signed类型分支，1只写旧1085FE0=33，2/3只写34，其它不写；返回原完整S32输入，不绑宿主errno或预清旧槽。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "SetLegacyMathErrno_5478B2"
+          ],
+          "relationship": "原S32输入/有符号S16至S32返回或原零值借用接口，原非地址字段不扩宽"
+        },
+        {
+          "path": "include/cg/platform/LegacyTime.hpp",
+          "symbols": [
+            "gLegacyErrno_1085FE0"
+          ],
+          "relationship": "既有共享错误槽W32声明，当前五叶不新建owner"
+        },
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "gLegacyErrno_1085FE0"
+          ],
+          "relationship": "原错误槽单owner定义保持，直接1→33/2或3→34选择性写，非现代errno"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-acceptance",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state"
+      ],
+      "boundary": "5478B2完整signed类型分支，1只写旧1085FE0=33，2/3只写34，其它不写；返回原完整S32输入，不绑宿主errno或预清旧槽。 BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_error_hardware_leaves": {
+        "spec_id": "BWG01",
+        "evidence_refs": [
+          "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline",
+          "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision",
+          "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-acceptance",
+          "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 10,
+        "original_code_bytes": 38,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 3,
+        "original_return_count": 2,
+        "original_inbound_call_count": 1,
+        "original_total_instruction_count": 42,
+        "original_total_code_bytes": 105,
+        "original_total_page_count": 5,
+        "original_total_direct_call_count": 0,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 3,
+        "original_total_return_count": 6,
+        "original_total_inbound_call_count": 5,
+        "full_error_parents_reverified_as_implemented": false,
+        "parent_chain_instruction_evidence_separate": true,
+        "source_body_added": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 7,
+        "new_original_mapped_function_count": 5,
+        "new_native_function_body_count": 8,
+        "new_cpp_body_count": 5,
+        "new_asm_proc_count": 3,
+        "new_private_C_bridge_count": 3,
+        "new_logical_record_type_count": 1,
+        "new_shared_owner_count": 0,
+        "native_error_record_S32_three_F64_and_only_proven_name_pointer_widened": true,
+        "native_record_fields_not_default_initialized": true,
+        "record_production_parent_migrated": false,
+        "old_errno_single_owner_selective_write_and_input_return_kept": true,
+        "original_default_zero_body_ignores_borrowed_record": true,
+        "original_waiting_FSTSW_and_FNSTSW_then_FNCLEX_before_status_signed_return_kept": true,
+        "original_raw_W32_value_mask_merge_FLDCW_low_W16_and_old_signed_word_return_kept": true,
+        "extra_saved_CW_W16_not_filled_or_used_as_business_data": true,
+        "native_private_shadow_slots_not_x86_stack_mirror": true,
+        "no_new_host_errno_MXCSR_or_exception_policy_or_guard": true,
+        "old_environment_classification_integer_helpers_startup_map_power_and_build_rules_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_generic_pow_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x5478d8",
+      "inventory_id": "F:001478D8",
+      "original_role": "5478D8原完整XOR EAX,EAX/RET，S32零返回且完全不访问借用记录；记录类型按真实两错误生产/87except的五字段合同声明，不构造/默认填充或持有。",
+      "original_end_exclusive": "0x5478db",
+      "original_chunks": [
+        [
+          "0x5478d8",
+          "0x5478db"
+        ]
+      ],
+      "instruction_count": 2,
+      "status": "BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "DefaultLegacyMathError_5478D8"
+          ],
+          "relationship": "5478D8原完整XOR EAX,EAX/RET，S32零返回且完全不访问借用记录；记录类型按真实两错误生产/87except的五字段合同声明，不构造/默认填充或持有。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "DefaultLegacyMathError_5478D8"
+          ],
+          "relationship": "原S32输入/有符号S16至S32返回或原零值借用接口，原非地址字段不扩宽"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "LegacyMathErrorRecord"
+          ],
+          "relationship": "原32B五字段逻辑记录只扩名称指针为x64自然40B，不默认填字段/持有；默认原零值叶不读写借用记录"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-acceptance",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state"
+      ],
+      "boundary": "5478D8原完整XOR EAX,EAX/RET，S32零返回且完全不访问借用记录；记录类型按真实两错误生产/87except的五字段合同声明，不构造/默认填充或持有。 BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_error_hardware_leaves": {
+        "spec_id": "BWG01",
+        "evidence_refs": [
+          "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline",
+          "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision",
+          "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-acceptance",
+          "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 3,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "original_total_instruction_count": 42,
+        "original_total_code_bytes": 105,
+        "original_total_page_count": 5,
+        "original_total_direct_call_count": 0,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 3,
+        "original_total_return_count": 6,
+        "original_total_inbound_call_count": 5,
+        "full_error_parents_reverified_as_implemented": false,
+        "parent_chain_instruction_evidence_separate": true,
+        "source_body_added": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 7,
+        "new_original_mapped_function_count": 5,
+        "new_native_function_body_count": 8,
+        "new_cpp_body_count": 5,
+        "new_asm_proc_count": 3,
+        "new_private_C_bridge_count": 3,
+        "new_logical_record_type_count": 1,
+        "new_shared_owner_count": 0,
+        "native_error_record_S32_three_F64_and_only_proven_name_pointer_widened": true,
+        "native_record_fields_not_default_initialized": true,
+        "record_production_parent_migrated": false,
+        "old_errno_single_owner_selective_write_and_input_return_kept": true,
+        "original_default_zero_body_ignores_borrowed_record": true,
+        "original_waiting_FSTSW_and_FNSTSW_then_FNCLEX_before_status_signed_return_kept": true,
+        "original_raw_W32_value_mask_merge_FLDCW_low_W16_and_old_signed_word_return_kept": true,
+        "extra_saved_CW_W16_not_filled_or_used_as_business_data": true,
+        "native_private_shadow_slots_not_x86_stack_mirror": true,
+        "no_new_host_errno_MXCSR_or_exception_policy_or_guard": true,
+        "old_environment_classification_integer_helpers_startup_map_power_and_build_rules_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_generic_pow_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x5478db",
+      "inventory_id": "F:001478DB",
+      "original_role": "5478DB等待式FSTSW→MOVSX S16→S32返回，保完整状态字含高位，不改为FNSTSW/低位掩码或宿主抽象状态。",
+      "original_end_exclusive": "0x5478e9",
+      "original_chunks": [
+        [
+          "0x5478db",
+          "0x5478e9"
+        ]
+      ],
+      "instruction_count": 7,
+      "status": "BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "ReadLegacyRawX87Status_5478DB"
+          ],
+          "relationship": "5478DB等待式FSTSW→MOVSX S16→S32返回，保完整状态字含高位，不改为FNSTSW/低位掩码或宿主抽象状态。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "ReadLegacyRawX87Status_5478DB"
+          ],
+          "relationship": "原S32输入/有符号S16至S32返回或原零值借用接口，原非地址字段不扩宽"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dReadLegacyRawX87Status"
+          ],
+          "relationship": "真实Win64硬件C叶，原等待状态/读后清除或掩码合并/低W16控制写保，完整旧S16符号扩展返回"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-acceptance",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state"
+      ],
+      "boundary": "5478DB等待式FSTSW→MOVSX S16→S32返回，保完整状态字含高位，不改为FNSTSW/低位掩码或宿主抽象状态。 BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_error_hardware_leaves": {
+        "spec_id": "BWG01",
+        "evidence_refs": [
+          "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline",
+          "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision",
+          "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-acceptance",
+          "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 7,
+        "original_code_bytes": 14,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "original_total_instruction_count": 42,
+        "original_total_code_bytes": 105,
+        "original_total_page_count": 5,
+        "original_total_direct_call_count": 0,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 3,
+        "original_total_return_count": 6,
+        "original_total_inbound_call_count": 5,
+        "full_error_parents_reverified_as_implemented": false,
+        "parent_chain_instruction_evidence_separate": true,
+        "source_body_added": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 7,
+        "new_original_mapped_function_count": 5,
+        "new_native_function_body_count": 8,
+        "new_cpp_body_count": 5,
+        "new_asm_proc_count": 3,
+        "new_private_C_bridge_count": 3,
+        "new_logical_record_type_count": 1,
+        "new_shared_owner_count": 0,
+        "native_error_record_S32_three_F64_and_only_proven_name_pointer_widened": true,
+        "native_record_fields_not_default_initialized": true,
+        "record_production_parent_migrated": false,
+        "old_errno_single_owner_selective_write_and_input_return_kept": true,
+        "original_default_zero_body_ignores_borrowed_record": true,
+        "original_waiting_FSTSW_and_FNSTSW_then_FNCLEX_before_status_signed_return_kept": true,
+        "original_raw_W32_value_mask_merge_FLDCW_low_W16_and_old_signed_word_return_kept": true,
+        "extra_saved_CW_W16_not_filled_or_used_as_business_data": true,
+        "native_private_shadow_slots_not_x86_stack_mirror": true,
+        "no_new_host_errno_MXCSR_or_exception_policy_or_guard": true,
+        "old_environment_classification_integer_helpers_startup_map_power_and_build_rules_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_generic_pow_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x5478e9",
+      "inventory_id": "F:001478E9",
+      "original_role": "5478E9先FNSTSW存W16旧状态，再FNCLEX，之后MOVSX S16→S32返回旧样本；仅原x87清除，不改为清后值/宿主MXCSR。",
+      "original_end_exclusive": "0x5478f8",
+      "original_chunks": [
+        [
+          "0x5478e9",
+          "0x5478f8"
+        ]
+      ],
+      "instruction_count": 8,
+      "status": "BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "ReadAndClearLegacyRawX87Status_5478E9"
+          ],
+          "relationship": "5478E9先FNSTSW存W16旧状态，再FNCLEX，之后MOVSX S16→S32返回旧样本；仅原x87清除，不改为清后值/宿主MXCSR。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "ReadAndClearLegacyRawX87Status_5478E9"
+          ],
+          "relationship": "原S32输入/有符号S16至S32返回或原零值借用接口，原非地址字段不扩宽"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dReadAndClearLegacyRawX87Status"
+          ],
+          "relationship": "真实Win64硬件C叶，原等待状态/读后清除或掩码合并/低W16控制写保，完整旧S16符号扩展返回"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-acceptance",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state"
+      ],
+      "boundary": "5478E9先FNSTSW存W16旧状态，再FNCLEX，之后MOVSX S16→S32返回旧样本；仅原x87清除，不改为清后值/宿主MXCSR。 BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_error_hardware_leaves": {
+        "spec_id": "BWG01",
+        "evidence_refs": [
+          "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline",
+          "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision",
+          "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-acceptance",
+          "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 8,
+        "original_code_bytes": 15,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "original_total_instruction_count": 42,
+        "original_total_code_bytes": 105,
+        "original_total_page_count": 5,
+        "original_total_direct_call_count": 0,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 3,
+        "original_total_return_count": 6,
+        "original_total_inbound_call_count": 5,
+        "full_error_parents_reverified_as_implemented": false,
+        "parent_chain_instruction_evidence_separate": true,
+        "source_body_added": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 7,
+        "new_original_mapped_function_count": 5,
+        "new_native_function_body_count": 8,
+        "new_cpp_body_count": 5,
+        "new_asm_proc_count": 3,
+        "new_private_C_bridge_count": 3,
+        "new_logical_record_type_count": 1,
+        "new_shared_owner_count": 0,
+        "native_error_record_S32_three_F64_and_only_proven_name_pointer_widened": true,
+        "native_record_fields_not_default_initialized": true,
+        "record_production_parent_migrated": false,
+        "old_errno_single_owner_selective_write_and_input_return_kept": true,
+        "original_default_zero_body_ignores_borrowed_record": true,
+        "original_waiting_FSTSW_and_FNSTSW_then_FNCLEX_before_status_signed_return_kept": true,
+        "original_raw_W32_value_mask_merge_FLDCW_low_W16_and_old_signed_word_return_kept": true,
+        "extra_saved_CW_W16_not_filled_or_used_as_business_data": true,
+        "native_private_shadow_slots_not_x86_stack_mirror": true,
+        "no_new_host_errno_MXCSR_or_exception_policy_or_guard": true,
+        "old_environment_classification_integer_helpers_startup_map_power_and_build_rules_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_generic_pow_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x5478f8",
+      "inventory_id": "F:001478F8",
+      "original_role": "5478F8原FSTCW保存W16旧值，原W32(value&mask)|(old&~mask)合并后只FLDCW低W16，返回旧W16的S16符号扩展；原额外高W16不填值或消费为业务，输入mask/value W32不窄、不用旧抽象控制字接口。",
+      "original_end_exclusive": "0x54791b",
+      "original_chunks": [
+        [
+          "0x5478f8",
+          "0x54791b"
+        ]
+      ],
+      "instruction_count": 15,
+      "status": "BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "ControlLegacyRawX87_5478F8"
+          ],
+          "relationship": "5478F8原FSTCW保存W16旧值，原W32(value&mask)|(old&~mask)合并后只FLDCW低W16，返回旧W16的S16符号扩展；原额外高W16不填值或消费为业务，输入mask/value W32不窄、不用旧抽象控制字接口。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "ControlLegacyRawX87_5478F8"
+          ],
+          "relationship": "原S32输入/有符号S16至S32返回或原零值借用接口，原非地址字段不扩宽"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dControlLegacyRawX87"
+          ],
+          "relationship": "真实Win64硬件C叶，原等待状态/读后清除或掩码合并/低W16控制写保，完整旧S16符号扩展返回"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-acceptance",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state"
+      ],
+      "boundary": "5478F8原FSTCW保存W16旧值，原W32(value&mask)|(old&~mask)合并后只FLDCW低W16，返回旧W16的S16符号扩展；原额外高W16不填值或消费为业务，输入mask/value W32不窄、不用旧抽象控制字接口。 BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_error_hardware_leaves": {
+        "spec_id": "BWG01",
+        "evidence_refs": [
+          "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline",
+          "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision",
+          "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-acceptance",
+          "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 15,
+        "original_code_bytes": 35,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "original_total_instruction_count": 42,
+        "original_total_code_bytes": 105,
+        "original_total_page_count": 5,
+        "original_total_direct_call_count": 0,
+        "original_total_indirect_call_count": 0,
+        "original_total_jump_count": 3,
+        "original_total_return_count": 6,
+        "original_total_inbound_call_count": 5,
+        "full_error_parents_reverified_as_implemented": false,
+        "parent_chain_instruction_evidence_separate": true,
+        "source_body_added": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 7,
+        "new_original_mapped_function_count": 5,
+        "new_native_function_body_count": 8,
+        "new_cpp_body_count": 5,
+        "new_asm_proc_count": 3,
+        "new_private_C_bridge_count": 3,
+        "new_logical_record_type_count": 1,
+        "new_shared_owner_count": 0,
+        "native_error_record_S32_three_F64_and_only_proven_name_pointer_widened": true,
+        "native_record_fields_not_default_initialized": true,
+        "record_production_parent_migrated": false,
+        "old_errno_single_owner_selective_write_and_input_return_kept": true,
+        "original_default_zero_body_ignores_borrowed_record": true,
+        "original_waiting_FSTSW_and_FNSTSW_then_FNCLEX_before_status_signed_return_kept": true,
+        "original_raw_W32_value_mask_merge_FLDCW_low_W16_and_old_signed_word_return_kept": true,
+        "extra_saved_CW_W16_not_filled_or_used_as_business_data": true,
+        "native_private_shadow_slots_not_x86_stack_mirror": true,
+        "no_new_host_errno_MXCSR_or_exception_policy_or_guard": true,
+        "old_environment_classification_integer_helpers_startup_map_power_and_build_rules_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_generic_pow_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

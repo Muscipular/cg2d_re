@@ -21,6 +21,25 @@ std::int32_t ProcessLegacyPowerSpecial_54357C(
 // 原543405；W16保存控制字值，仅消费PC两位并加载原临时控制字。
 void LoadLegacyPowerControlWord_543405(std::uint16_t savedControl) noexcept;
 
+// 原32B栈内数学错误记录；只扩名称指针，字段不默认初始化，调用方持有。
+struct LegacyMathErrorRecord {
+    std::int32_t type;          // 原+0类型，S32。
+    const char* functionName;   // 原+4借用原字节名称，x64为+8。
+    double argument1;           // 原+8第一F64，x64为+16。
+    double argument2;           // 原+16第二F64，x64为+24；单参生产不预填。
+    double result;              // 原+24结果F64，x64为+32。
+};
+
+// 原5478B2/5478D8；共享旧errno与原不访问记录的零值叶。
+std::int32_t SetLegacyMathErrno_5478B2(std::int32_t type) noexcept;
+std::int32_t DefaultLegacyMathError_5478D8(LegacyMathErrorRecord* record) noexcept;
+
+// 原5478DB/5478E9/5478F8；硬件完整S16有符号返回，不是抽象控制字接口。
+std::int32_t ReadLegacyRawX87Status_5478DB() noexcept;
+std::int32_t ReadAndClearLegacyRawX87Status_5478E9() noexcept;
+std::int32_t ControlLegacyRawX87_5478F8(
+    std::uint32_t value, std::uint32_t mask) noexcept;
+
 // 原控制字抽象/硬件表示转换，只消费和生成原已定义位。
 std::uint32_t AbstractLegacyControlWord_5448A4(std::uint32_t hardware);
 std::uint32_t HardwareLegacyControlWord_544936(std::uint32_t abstractValue);
@@ -52,6 +71,12 @@ extern "C" std::int32_t Cg2dProcessLegacyPowerSpecial(
 
 // Win64控制字值桥；另外两通用帮助体仅在ASM间用x87/寄存器合同调用。
 extern "C" void Cg2dLoadLegacyPowerControlWord(std::uint16_t savedControl) noexcept;
+
+// Win64原硬件叶；保FSTSW等待/FNSTSW后FNCLEX与原控制字合并顺序。
+extern "C" std::int32_t Cg2dReadLegacyRawX87Status() noexcept;
+extern "C" std::int32_t Cg2dReadAndClearLegacyRawX87Status() noexcept;
+extern "C" std::int32_t Cg2dControlLegacyRawX87(
+    std::uint32_t value, std::uint32_t mask) noexcept;
 
 } // namespace detail
 } // namespace cg::platform

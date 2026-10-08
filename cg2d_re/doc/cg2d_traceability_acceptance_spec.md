@@ -2112,3 +2112,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 本步将过去仅地图正常固定域对应的三个原身份补为完整通用帮助体，新增1 CPP/3 ASM本体而不重复计semantic/F。基线复用38条111B/三页，六CALL入向按目标核清，父FLOW独列；I仅控制字入口→实际ASM桥，S覆盖三帮助体的原操作/寄存器-F80-CW合同和三文件五追加。
 
 语义1821/有效1814、文档1931（52.47%）、F983/CRT160、定位166/CRT38及总队列167保持；仅E1146→1148，不以数量保持否认实际源码新增，也不以三原身份代全pow/CRT分派及FPU生命周期。完整门禁和四任务保持open。
+
+## BWG01五项数学依赖新增实现的限定验收（2026-10-08）
+
+[标准](cg2d_math_error_hardware_leaves_spec.md#math-hardware-acceptance)、[状态](cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state)与[原体/源差集](cg2d_math_error_hardware_leaves_evidence.json)。
+
+本步先SPEC、再补五完整硬件/错误槽依赖；I限三CPP硬件接口→真实ASM及既有errno同一owner，S覆盖42条105B原体、三文件七追加和原硬件顺序/签名/记录承载。八新本体只有五原身份，既有父链取证不算源已实现。
+
+预计语义1826/有效1819、文档1936/3680（52.61%）、F988/CRT165、E1150；定位161/未定位CRT33及总队列162，以文本汇总核实。完整CRT/87except与范围出口、两pow父/FPU生命周期、机器ABI/链接和运行仍open，RPLAN.24/原格式明文/音频暂停保持。

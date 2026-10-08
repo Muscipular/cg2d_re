@@ -315,7 +315,8 @@
         "doc/cg2d_float_classification_leaf_spec.md#float-class-baseline",
         "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-baseline",
         "doc/cg2d_power_special_helper_spec.md#power-special-baseline",
-        "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline"
+        "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -477,7 +478,12 @@
         "F:001461E4",
         "F:001436AC",
         "F:001462FF",
-        "F:0014357C"
+        "F:0014357C",
+        "F:001478B2",
+        "F:001478D8",
+        "F:001478DB",
+        "F:001478E9",
+        "F:001478F8"
       ],
       "closure_task_ids": [
         "C01",
@@ -522,7 +528,8 @@
         "doc/cg2d_float_classification_leaf_spec.md#float-class-decision",
         "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-decision",
         "doc/cg2d_power_special_helper_spec.md#power-special-decision",
-        "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision"
+        "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -557,7 +564,8 @@
         "BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。",
         "BWD01开发原5436AC整数奇偶判定与5462FF真实舍入叶，两完整59条119B/两页、三direct两callee/零indirect/四跳三RET、三CALL入向；54364F父邻窗与54FB58常量另列。三现文件六处追加：一CPP值入口/两ASM本体与一私有参数桥，原分类TEST AL90H、两次舍入、F64落存重载/商覆写和x87比较状态分支保，舍入沿当前控制字不写环境。Win64正常56B展开帧/32B调用区/三个F64槽与ASM私有ST(0)返回保，不伪CPP F64 ABI、故障等价或新finite保护。两新原新/F、CRT159限定I-S，源码定位167/CRT余39；完整pow父和机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
         "BWE01开发54357C幂特殊值辅助完整114条304B/两页、一direct一callee/零indirect/26跳一RET、两CALL入向；两父FSAVE/FRSTOR邻窗与原常量独列，不宣全父完成。三现文件六追加：一CPP值入口/一ASM本体及一私有桥，S32状态与选择性F64写出保，不将0转是否处理布尔或补默认输出。原比较状态/条件FCHS/重复比较与指数落存重载、唯一5436AC真实callee及原常量位保，72B正常展开帧/32B调用区/四F64槽/一x64结果指针，仅拓指针不宽数值。无新环境写/finite保护/owner，原环境/分类/地图幂/CMake保；一新原新/F、CRT160两限定I-S，源码定位166/CRT余38；全pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
-        "BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。"
+        "BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
+        "BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -596,7 +604,8 @@
         "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state",
         "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-source-state",
         "doc/cg2d_power_special_helper_spec.md#power-special-source-state",
-        "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+        "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state"
       ]
     },
     {
@@ -50878,6 +50887,84 @@
       "observation": "BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。 三个完整通用帮助体/三文件精确五追加、寄存器-F80-CW合同与旧源码保持。",
       "expected": "BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。 三个完整通用帮助体/三文件精确五追加、寄存器-F80-CW合同与旧源码保持。",
       "actual": "BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。 三个完整通用帮助体/三文件精确五追加、寄存器-F80-CW合同与旧源码保持。"
+    },
+    {
+      "id": "E-MATH-ERROR-HARDWARE-LEAVES-FUNC-CRT-I-20261008",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWG01五完整42条105B/五页，零CALL/三跳六RET、五CALL入向；原两记录生产/87except/范围出口取证独列，原S16有符号硬件返回及旧errno同源。doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-math-error-hardware-leaves-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/platform/LegacyFloatEnvironment.cpp#SetLegacyMathErrno_5478B2",
+        "src/platform/LegacyFloatEnvironment.cpp#DefaultLegacyMathError_5478D8",
+        "src/platform/LegacyFloatEnvironment.cpp#ReadLegacyRawX87Status_5478DB",
+        "src/platform/LegacyFloatEnvironment.cpp#ReadAndClearLegacyRawX87Status_5478E9",
+        "src/platform/LegacyFloatEnvironment.cpp#ControlLegacyRawX87_5478F8",
+        "src/platform/LegacyFloatEnvironment.hpp#LegacyMathErrorRecord",
+        "src/platform/LegacyFloatEnvironment.asm#Cg2dReadLegacyRawX87Status",
+        "src/platform/LegacyFloatEnvironment.asm#Cg2dReadAndClearLegacyRawX87Status",
+        "src/platform/LegacyFloatEnvironment.asm#Cg2dControlLegacyRawX87",
+        "include/cg/platform/LegacyTime.hpp#gLegacyErrno_1085FE0",
+        "src/platform/LegacyTime.cpp#gLegacyErrno_1085FE0",
+        "CMakeLists.txt",
+        "doc/cg2d_math_error_hardware_leaves_evidence.json",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-acceptance",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。 三个CPP状态/控制接口→实际ASM C桥及旧errno同一owner，不称87except/范围出口父已接。",
+          "decision_ref": "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。 三个CPP状态/控制接口→实际ASM C桥及旧errno同一owner，不称87except/范围出口父已接。",
+      "expected": "BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。 三个CPP状态/控制接口→实际ASM C桥及旧errno同一owner，不称87except/范围出口父已接。",
+      "actual": "BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。 三个CPP状态/控制接口→实际ASM C桥及旧errno同一owner，不称87except/范围出口父已接。"
+    },
+    {
+      "id": "E-MATH-ERROR-HARDWARE-LEAVES-FUNC-CRT-S-20261008",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWG01五完整42条105B/五页，零CALL/三跳六RET、五CALL入向；原两记录生产/87except/范围出口取证独列，原S16有符号硬件返回及旧errno同源。doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-math-error-hardware-leaves-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/platform/LegacyFloatEnvironment.cpp#SetLegacyMathErrno_5478B2",
+        "src/platform/LegacyFloatEnvironment.cpp#DefaultLegacyMathError_5478D8",
+        "src/platform/LegacyFloatEnvironment.cpp#ReadLegacyRawX87Status_5478DB",
+        "src/platform/LegacyFloatEnvironment.cpp#ReadAndClearLegacyRawX87Status_5478E9",
+        "src/platform/LegacyFloatEnvironment.cpp#ControlLegacyRawX87_5478F8",
+        "src/platform/LegacyFloatEnvironment.hpp#LegacyMathErrorRecord",
+        "src/platform/LegacyFloatEnvironment.asm#Cg2dReadLegacyRawX87Status",
+        "src/platform/LegacyFloatEnvironment.asm#Cg2dReadAndClearLegacyRawX87Status",
+        "src/platform/LegacyFloatEnvironment.asm#Cg2dControlLegacyRawX87",
+        "include/cg/platform/LegacyTime.hpp#gLegacyErrno_1085FE0",
+        "src/platform/LegacyTime.cpp#gLegacyErrno_1085FE0",
+        "CMakeLists.txt",
+        "doc/cg2d_math_error_hardware_leaves_evidence.json",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-acceptance",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。 五完整42条105B/三文件七追加与原硬件顺序/签名/共享槽及记录承载静态。",
+          "decision_ref": "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。 五完整42条105B/三文件七追加与原硬件顺序/签名/共享槽及记录承载静态。",
+      "expected": "BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。 五完整42条105B/三文件七追加与原硬件顺序/签名/共享槽及记录承载静态。",
+      "actual": "BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。 五完整42条105B/三文件七追加与原硬件顺序/签名/共享槽及记录承载静态。"
     }
   ],
   "task_acceptance": [
@@ -51228,7 +51315,8 @@
         "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state",
         "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-source-state",
         "doc/cg2d_power_special_helper_spec.md#power-special-source-state",
-        "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+        "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state"
       ],
       "task_id": "C01",
       "state": "open"
@@ -51682,7 +51770,8 @@
         "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state",
         "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-source-state",
         "doc/cg2d_power_special_helper_spec.md#power-special-source-state",
-        "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+        "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state"
       ]
     },
     {
@@ -51717,7 +51806,8 @@
         "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state",
         "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-source-state",
         "doc/cg2d_power_special_helper_spec.md#power-special-source-state",
-        "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+        "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state"
       ]
     },
     {
@@ -52114,7 +52204,8 @@
         "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state",
         "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-source-state",
         "doc/cg2d_power_special_helper_spec.md#power-special-source-state",
-        "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state"
+        "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state"
       ]
     },
     {
@@ -64472,6 +64563,66 @@
         "doc/cg2d_power_special_helper_spec.md#power-special-source-state"
       ],
       "boundary": "54357C幂特殊值完整辅助：原x87比较底数零后按CF条件FCHS、F64落存绝对值；原正/负无限指数与绝对值1重复比较分支，原无限底数沿指数零比较/负无限底数的唯一5436AC分类CALL、奇数FCHS与符号零、F64指数覆写重载保。仅正/负无限指数走原绝对值1对应分支写原FFF8000000000000并返S32一；其余写出/不写出均原S32零，不作布尔处理标记/默认补零，输出仅按原分支执行x87 FSTP。 BWE01开发54357C幂特殊值辅助完整114条304B/两页、一direct一callee/零indirect/26跳一RET、两CALL入向；两父FSAVE/FRSTOR邻窗与原常量独列，不宣全父完成。三现文件六追加：一CPP值入口/一ASM本体及一私有桥，S32状态与选择性F64写出保，不将0转是否处理布尔或补默认输出。原比较状态/条件FCHS/重复比较与指数落存重载、唯一5436AC真实callee及原常量位保，72B正常展开帧/32B调用区/四F64槽/一x64结果指针，仅拓指针不宽数值。无新环境写/finite保护/owner，原环境/分类/地图幂/CMake保；一新原新/F、CRT160两限定I-S，源码定位166/CRT余38；全pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:001478B2",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-acceptance",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state"
+      ],
+      "boundary": "5478B2完整signed类型分支，1只写旧1085FE0=33，2/3只写34，其它不写；返回原完整S32输入，不绑宿主errno或预清旧槽。 BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:001478D8",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-acceptance",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state"
+      ],
+      "boundary": "5478D8原完整XOR EAX,EAX/RET，S32零返回且完全不访问借用记录；记录类型按真实两错误生产/87except的五字段合同声明，不构造/默认填充或持有。 BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:001478DB",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-acceptance",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state"
+      ],
+      "boundary": "5478DB等待式FSTSW→MOVSX S16→S32返回，保完整状态字含高位，不改为FNSTSW/低位掩码或宿主抽象状态。 BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:001478E9",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-acceptance",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state"
+      ],
+      "boundary": "5478E9先FNSTSW存W16旧状态，再FNCLEX，之后MOVSX S16→S32返回旧样本；仅原x87清除，不改为清后值/宿主MXCSR。 BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:001478F8",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-acceptance",
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state"
+      ],
+      "boundary": "5478F8原FSTCW保存W16旧值，原W32(value&mask)|(old&~mask)合并后只FLDCW低W16，返回旧W16的S16符号扩展；原额外高W16不填值或消费为业务，输入mask/value W32不窄、不用旧抽象控制字接口。 BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
     }
   ],
   "auxiliary_dispositions": [

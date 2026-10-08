@@ -166,3 +166,11 @@ NCE01已接业务copy/单owner、消息/析构及所有旧构析正文保持，�
 已补5433F0/543405/543435完整通用本体，复用BPJ01/BPM01三个38条111B原体，六CALL入向按实际目标统计；53D01D的CALL到543435及FLOW到53D022分列。三现文件五追加，一CPP入口/三ASM本体，保ST0连续结果、PC0300/007F临时CW与普通CMP/特殊10B F80重叠写、ST0/EAX/FLAGS合同。
 
 三旧语义1424/1426/1427及adapted F扩展当前实现边界，CRT160/语义/F/定位队列数量保持。限定I仅控制字CPP→ASM真实桥，S覆盖三帮助体，E1146→1148；另外两ST0叶通用pow父与CRT分派/环境生命周期继续，原地图固定域/其它源码及CMake保持。
+
+## BWG01五项数学错误链硬件依赖开发（2026-10-08）
+
+[基线](cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline)、[决定](cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision)、[验收](cg2d_math_error_hardware_leaves_spec.md#math-hardware-acceptance)及[原证/完整源前后态](cg2d_math_error_hardware_leaves_evidence.json)。
+
+5478B2/D8/DB/E9/F8五完整42条105B/五页已开发，三现文件七追加、五CPP/三ASM与三私有桥。数学errno复用1085FE0单owner，1写33/2或3写34/其它不写且原输入照返；原零值叶不访问记录。保等待FSTSW、FNSTSW后FNCLEX与完整旧S16有符号返回、原W32掩码合并/低W16控制写和旧CW返回。
+
+原32B错误记录只扩已证名称指针为x64自然40B，S32/三个F64及未写字段不预填，当前只是类型承载，真实记录生产父继续。新1821..1825/五adapted F、CRT160→165限定I/S，定位166→161/未定位CRT38→33；完整87except/raise/handle及范围出口/两pow父和运行仍按原门禁推进。

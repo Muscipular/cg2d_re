@@ -2,6 +2,7 @@
 #include "LegacyFloatFormat.hpp"
 
 #include <bit>
+#include <cstddef>
 
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
@@ -10,6 +11,7 @@
 #define NOMINMAX
 #endif
 #include <Windows.h>
+#include "cg/platform/LegacyTime.hpp"
 
 namespace cg::platform {
 
@@ -160,6 +162,50 @@ std::int32_t ProcessLegacyPowerSpecial_54357C(
 void LoadLegacyPowerControlWord_543405(const std::uint16_t savedControl) noexcept
 {
     detail::Cg2dLoadLegacyPowerControlWord(savedControl);
+}
+
+// 原32B数学错误记录只扩已证名称指针；三个F64字段和S32类型不扩宽。
+static_assert(offsetof(LegacyMathErrorRecord, type) == 0);
+static_assert(offsetof(LegacyMathErrorRecord, functionName) == 8);
+static_assert(offsetof(LegacyMathErrorRecord, argument1) == 16);
+static_assert(offsetof(LegacyMathErrorRecord, argument2) == 24);
+static_assert(offsetof(LegacyMathErrorRecord, result) == 32);
+static_assert(sizeof(LegacyMathErrorRecord) == 40);
+
+// 原5478B2；只写原共享错误槽的两个分支，返回原完整S32输入。
+std::int32_t SetLegacyMathErrno_5478B2(const std::int32_t type) noexcept
+{
+    if (type == 1) {
+        gLegacyErrno_1085FE0 = 33;
+    } else if (type > 1 && type <= 3) {
+        gLegacyErrno_1085FE0 = 34;
+    }
+    return type;
+}
+
+// 原5478D8完整XOR EAX,EAX/RET；不访问传入的借用记录。
+std::int32_t DefaultLegacyMathError_5478D8(LegacyMathErrorRecord*) noexcept
+{
+    return 0;
+}
+
+// 原5478DB；等待式FSTSW及完整S16有符号扩展留在ASM。
+std::int32_t ReadLegacyRawX87Status_5478DB() noexcept
+{
+    return detail::Cg2dReadLegacyRawX87Status();
+}
+
+// 原5478E9；先FNSTSW，再FNCLEX，返回清除前的完整有符号S16。
+std::int32_t ReadAndClearLegacyRawX87Status_5478E9() noexcept
+{
+    return detail::Cg2dReadAndClearLegacyRawX87Status();
+}
+
+// 原5478F8；原硬件位合并，返回合并前控制字的S16符号扩展。
+std::int32_t ControlLegacyRawX87_5478F8(
+    const std::uint32_t value, const std::uint32_t mask) noexcept
+{
+    return detail::Cg2dControlLegacyRawX87(value, mask);
 }
 
 namespace detail {

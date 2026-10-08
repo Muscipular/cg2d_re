@@ -17,6 +17,9 @@ PUBLIC Cg2dClassifyLegacyFloat
 PUBLIC Cg2dClassifyLegacyInteger
 PUBLIC Cg2dProcessLegacyPowerSpecial
 PUBLIC Cg2dLoadLegacyPowerControlWord
+PUBLIC Cg2dReadLegacyRawX87Status
+PUBLIC Cg2dReadAndClearLegacyRawX87Status
+PUBLIC Cg2dControlLegacyRawX87
 PUBLIC Cg2dReadLegacyX87Control
 PUBLIC Cg2dWriteLegacyX87Control
 PUBLIC Cg2dClearLegacyX87Exceptions
@@ -391,5 +394,36 @@ LegacyPowerOperandSpecial:
     mov eax, dword ptr [rdx+4]
     ret
 Cg2dLoadLegacyPowerOperandX87 ENDP
+
+; 原5478DB __statfp；等待式FSTSW后按原S16符号扩展返回S32。
+Cg2dReadLegacyRawX87Status PROC
+    fstsw word ptr [rsp+8]
+    movsx eax, word ptr [rsp+8]
+    ret
+Cg2dReadLegacyRawX87Status ENDP
+
+; 原5478E9 __clrfp；返回清除前状态，FNSTSW/FNCLEX顺序保持。
+Cg2dReadAndClearLegacyRawX87Status PROC
+    fnstsw word ptr [rsp+8]
+    fnclex
+    movsx eax, word ptr [rsp+8]
+    ret
+Cg2dReadAndClearLegacyRawX87Status ENDP
+
+; 原5478F8 __ctrlfp；保存W16旧CW，原W32合并后只加载低W16并返回旧CW。
+; 原额外高W16不填值/不当业务输入；两个槽借Win64调用暂存区。
+Cg2dControlLegacyRawX87 PROC
+    fstcw word ptr [rsp+8]
+    mov eax, edx
+    mov r8d, eax
+    and eax, ecx
+    not r8d
+    and r8d, dword ptr [rsp+8]
+    or r8d, eax
+    mov dword ptr [rsp+16], r8d
+    fldcw word ptr [rsp+16]
+    movsx eax, word ptr [rsp+8]
+    ret
+Cg2dControlLegacyRawX87 ENDP
 
 END

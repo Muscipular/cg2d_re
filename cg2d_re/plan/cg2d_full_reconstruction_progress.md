@@ -4590,3 +4590,23 @@ C01/R01/V02/R04仍open；pending18、商店mixed-pending6、创建pending7、R7�
 集中源码静态、完整机器/派生差集和文本汇总/-Check通过。限定I仅控制字CPP入口→真实ASM桥，S覆盖三通用帮助体，E1146→1148；三旧身份扩展后，实际语义1821/有效1814、文档1931/3680（52.47%）、F983/CRT160、定位166/范围内未定位CRT38与总队列167均保持。四新本体是真实开发进度，不用旧身份重复计数或虚减定位队列。
 
 C01/R01/V02/R04及CRT完整枚举/gates保持open；pending18、商店mixed-pending6、创建pending7、R7已审467余2594、closed11、完整叶0/globalfalse、暂停25/排除103/元数据1保持。另两ST0叶通用pow调用父、完整CRT分派/错误出口与FPU环境生命周期、机器ABI/链接及真实运行仍沿原依赖实施；未编译、测试、运行样例或计算hash。RPLAN.24/原格式明文/音频暂停保持，整体SPEC目标继续。
+
+## BWG01五项数学错误链真实依赖开发（2026-10-08）
+
+已补5478B2/D8/DB/E9/F8五完整42条105B/五页依赖，三现文件七追加、五CPP/三ASM与三个真实硬件桥；数学errno直接复用1085FE0单owner，原选择性写/输入返回及原零值叶不访问记录保持。保等待状态读取、读取旧样本后清除和原硬件控制字W32合并/低W16加载及旧S16有符号返回。
+
+[子SPEC与验收](../doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision)、[五完整原体/记录生产-87except-范围出口取证及源前后态](../doc/cg2d_math_error_hardware_leaves_evidence.json)。已证32B记录只扩名称指针为x64自然40B，S32/三个F64不扩且无默认初始化；当前不代真实记录生产父。未消费CW额外高W16不填值或业务消费，原其它源码与CMake保持。
+
+源码集中静态通过，五新映射/F及CRT165限定I/S已登记；预期定位161/未定位CRT33，机器与生成台账随后核实。C01/R01/V02/R04及完整87except/raise/handle、范围出口/两pow父/FPU生命周期和机器运行仍open。
+
+### BWG01本步实际静态结果
+
+五数学错误/硬件依赖已开发：SetLegacyMathErrno_5478B2、DefaultLegacyMathError_5478D8、ReadLegacyRawX87Status_5478DB、ReadAndClearLegacyRawX87Status_5478E9、ControlLegacyRawX87_5478F8。三现文件七追加，五CPP/三ASM共八本体/三个真实C桥，只计五原身份。五完整42条105B/五页、零direct/indirect CALL、三跳六RET及五普通CALL入向有据，原两记录生产/87except/范围出口链及原字节名称独列；三份完整源前后态可追。
+
+数学errno复用原1085FE0声明/单owner：原signed类型1写33、2/3写34、其它不写，完整原S32输入照返。原5478D8完整XOR EAX,EAX/RET零值合同保持，不访问/持有传入记录。已证原32B五字段记录只扩名称指针为x64自然40B，六个静态布局断言固定+0/+8/+16/+24/+32；类型S32/三个F64不扩、无默认字段填充，真实生产仍归两父待接。
+
+硬件三个CPP接口已接真实ASM：5478DB等待FSTSW后完整旧S16符号扩展；5478E9先FNSTSW记旧样本、再FNCLEX，返回清除前S16；5478F8保原W32 value/mask与旧CW读取足迹合并、FLDCW低W16及旧S16返回，未消费额外高W16不填值/业务消费。三叶只借Win64调用暂存槽，不改RSP/非易失寄存器；没有额外MXCSR、环境保存恢复、宿主errno或保护策略。原共享错误槽、其它环境/分类/整数/通用帮助体/地图源与CMake保持，不宣机器栈/故障等价。
+
+集中源码静态、完整机器/派生差集及文本汇总/-Check通过。新1821..1825/五adapted F、CRT160→165与两限定I/S登记，实际语义1826/有效1819、文档1936/3680（52.61%）、F988/E1150。定位166→161、范围内未定位CRT38→33、总差队列167→162；暂停25/排除103/元数据1保持。这是五项真实依赖新增开发与三硬件桥/旧errno同源接线，不把记录类型或父取证算生产闭合。
+
+C01/R01/V02/R04、CRT完整枚举/gates仍open；pending18、商店mixed-pending6、创建pending7、R7已审467余2594、closed11、完整叶0/globalfalse保持。完整87except/raise/handle、两记录生产与范围出口/两pow父/FPU生命周期、机器ABI/链接和真实运行沿原依赖继续；未编译、测试、运行样例或计算hash。RPLAN.24不增故障模拟/专项保护，原格式明文/音频暂停保持，整体SPEC目标继续。

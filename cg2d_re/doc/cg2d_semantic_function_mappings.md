@@ -4083,3 +4083,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 1424/F:001433F0新增Cg2dLegacyTwoToTOSX87；1426/F:00143405新增LoadLegacyPowerControlWord_543405及ASM桥；1427/F:00143435新增Cg2dLoadLegacyPowerOperandX87。旧地图内联/固定控制路径继续保留，当前通用本体单独登记，过去限定域状态存入本步字段和固定前态。
 
 普通加载保EAX指数/CMP标志与ECX，特殊加载保原三个重叠W32写满10B F80、ST0/原高W32/TEST返回；控制字只按原PC位加载，连续幂结果不落F64。三旧记录/F仅扩展来源/边界及证据，不新增ID、减少历史差集或称一般pow父已接；实际开发为四新原生本体。
+
+## BWG01数学硬件/错误槽五真实依赖映射（2026-10-08）
+
+[五完整原体与父链取证/源前后态](cg2d_math_error_hardware_leaves_evidence.json)、[原硬件/字段合同](cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision)。
+
+新增1821..1825依次对应F:001478B2/D8/DB/E9/F8：SetLegacyMathErrno、DefaultLegacyMathError、ReadLegacyRawX87Status、ReadAndClearLegacyRawX87Status、ControlLegacyRawX87。五原身份对应八原生本体，不重复计三个ASM桥；共享errno只引用旧声明/定义，原零值叶与一已证记录类型不新增owner。
+
+按实际原指令辨明DB为等待读取、E9为读后清除；保旧完整S16符号扩展/W32控制输入，不借不同返回合同的抽象控制字或现代errno。原记录生产/87except/范围出口证据独列，当前承载类型不代生产/全父接线；五F/CRT165与两限定证据同步，pending18及完整门禁保持。

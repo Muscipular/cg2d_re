@@ -1934,3 +1934,11 @@ G02/R04/V04仅current/引用仍open，完整机器/派生只具名差集、成�
 [验收合同](cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-acceptance)/[源态](cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state)只覆盖一个跨调用取样实修及删除两正确合同。三证据各17真实来源；I仅登出取样实修，不记新删除实现、组包或真实互通通过，U10/U11/V03/R04来源推进但仍open。
 
 原各独立W16回复持样后清状态、严格600000门槛/15B格式及超时未清状态保，网络原格式明文不变。LOGIN13不增、CHARACTER26→28；LOGIN仅取样I/限定S，CHARACTER仅正确合同S。完整父-callee/正常owner-alias寿命、真实往返、机器ABI链接/运行及R8仍未验，完整门禁保持。
+
+## BVK01正确发送链及现时文档限定验收（2026-10-08）
+
+[BVK01原基线](cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline)、[实施决定](cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision)和[完整原证](cg2d_login_deletion_send_chain_baseline_evidence.json)：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳4RET；四正文正确，源码改动0。
+
+[验收要求](cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-acceptance)/[源态](cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state)限定四根正常合同/本链数据接线及当前文档纠正，八整源保持；LOGIN/CHARACTER/NETWORK各一S与21来源，源码0改动无新I。四任务进展/来源同步但继续open，原成员闭包及叶/global门禁保持。
+
+151/752已有原新更新、1764/1765补缺失组包映射，四F处置/三域仅S各21来源、无新I；预期语义1766/有效1759、文档1876（50.98%）、F913/E1088、LOGIN15/CHARACTER29/NETWORK67，R7已审467余2594保持。原格式明文/合法NULL_FUNC缺省、排除和执行限制保持；全83发送父/其它callee、正常owner-alias寿命、完整登录/删除往返、机器ABI链接/运行与R8未验，完整门禁不解除。

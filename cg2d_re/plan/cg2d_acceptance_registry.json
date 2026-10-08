@@ -1081,7 +1081,8 @@
         "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-baseline",
         "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
         "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
-        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-baseline"
+        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-baseline",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline"
       ],
       "original_inventory_ids": [
         "F:001202E0",
@@ -1096,7 +1097,9 @@
         "F:0005D990",
         "F:00108C40",
         "F:00108C90",
-        "F:00108CF0"
+        "F:00108CF0",
+        "F:00108AF0",
+        "F:00112B00"
       ],
       "closure_task_ids": [
         "P18",
@@ -1121,7 +1124,8 @@
         "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-decision",
         "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision",
         "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
-        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-decision"
+        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-decision",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1135,7 +1139,8 @@
         "BSK01服务器连接控制器45D990完整165条607B/三页，20直接调用/17目标、无间接、29jump/1RET，唯一45FEA0@4601B5；17目标含既定newest五函数/六原call，继续排除，范围内12依赖不外推。单源三精确片段/一既有业务体：初始化列数保计算样本与原初值/最小2发布，x和width先算后row/x/y发布，5044E0借本地x/192/width；初始化失败与未进入phase2的两源互斥位置恢复同一原45DB0E W16现场读，成功phase2/3强制直达轮询保；绘制测宽后按row/算高/y/textY/column/算宽/x/textX阶段取样，两个S16边界保。普通几何值原正确，不称运行故障；入口W16/已批准0-1→2旁路、原失败和返回、非零MarkDeath清观察者/黑名单与ready/格式字节256B、其它整源保持，Sub_508360等不改。旧191/F:0005D990补关系不增身份或格式点/覆盖数，新增单adapted/LOGIN9→10/处置726/E842；语义1591有效1584/文档1702（46.25%）保持。单X1B真实90 NOP/无入向/前RET后真入口只用途登记，R7 297余2764。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U10/V03/R04只current/refs仍open。完整登录父及范围内12依赖/连接响应人物/全部消费与正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文往返/显示/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
         "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
         "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
-        "BVJ01限定静态：登出轮询与删除启动/轮询三个完整根61条244B/三页，3直接/3计时间接/5跳/8RET；仅LoginRequest.cpp一个elapsed片段恢复计时调用完成后fresh读取共享起始W32再差值。原各独立W16回复持样后清状态、登出1/2/其它与删除任意非零成功差别、严格600000门槛/各15B原格式点及超时未清状态保；删除先socket后记录+4C、正常发送失败仍状态1/tick正确保持。既有1065处置更新、155/156纳管，LOGIN13不增、CHARACTER26→28，LOGIN仅取样I/限定S、CHARACTER仅正确合同S；无新函数/组包/网络格式/加解密/owner/保护，完整父-callee/正常寿命/请求往返/机器ABI链接运行未验。"
+        "BVJ01限定静态：登出轮询与删除启动/轮询三个完整根61条244B/三页，3直接/3计时间接/5跳/8RET；仅LoginRequest.cpp一个elapsed片段恢复计时调用完成后fresh读取共享起始W32再差值。原各独立W16回复持样后清状态、登出1/2/其它与删除任意非零成功差别、严格600000门槛/各15B原格式点及超时未清状态保；删除先socket后记录+4C、正常发送失败仍状态1/tick正确保持。既有1065处置更新、155/156纳管，LOGIN13不增、CHARACTER26→28，LOGIN仅取样I/限定S、CHARACTER仅正确合同S；无新函数/组包/网络格式/加解密/owner/保护，完整父-callee/正常寿命/请求往返/机器ABI链接运行未验。",
+        "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1149,7 +1154,8 @@
         "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-source-state",
         "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
         "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
-        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state"
+        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state"
       ]
     },
     {
@@ -1181,7 +1187,8 @@
         "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-baseline",
         "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-baseline",
         "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline",
-        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-baseline"
+        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-baseline",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline"
       ],
       "original_inventory_ids": [
         "F:000626A0",
@@ -1211,7 +1218,8 @@
         "F:00108E90",
         "F:001128C0",
         "F:00108F70",
-        "F:00108FC0"
+        "F:00108FC0",
+        "F:00112AB0"
       ],
       "closure_task_ids": [
         "P08",
@@ -1244,7 +1252,8 @@
         "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-decision",
         "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-decision",
         "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-decision",
-        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-decision"
+        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-decision",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1267,7 +1276,8 @@
         "BTF01名称查重原45条97B/一页、无call七jump两RET，创建表单4631D0@46388D唯一消费原9A51E8文本。LoginRequest.cpp一个已有业务体一片段恢复每槽输入name BYTE先取再记录BYTE、仅相等/同输入样本判NUL、不同即下槽；每槽从name[0]重比、两连续148B记录/原两槽和末S32 0/匹配1保，无辅助函数/长度门槛/编码改写。原创建重复名消息/其它验证、记录唯一owner/非拥有name借用及所有其它源头保；15B真实NOP仅原对齐用途。只局部静态，不代创建全父/所有记录生产消费/间接别名/正常寿命、ABI/链接/画面/明文往返或运行",
         "BVH01批准适配范围限定静态：4626A0完整130条464B/两页，18直接/16目标、30跳转/一返回，唯一WorldUpdate场景4十条41B真实调度；同帧0/1/2/3→10/11/12→30/31→100/101与462726回边/两返回值判定、W16计数/恢复BYTE及清理-请求序正确保持。D01/P08入口固定1仍是具名适配，原ECX未知保；BRT01版本零正文已定义事实承接，源码0改动无新I；新1762/F:000626A0 adapted映射与CHARACTER一限定S，pending7继续保留完整功能待验，所有成员/闭包、请求往返/所有callee/owner-alias寿命/ABI运行门禁不外推",
         "BVI01限定静态：创建启动/轮询/aSEl三个完整根210条703B/五页、30直接/两计时间接/两跳转/五RET，两个真实父局部28条119B含重叠；一cpp一个elapsed片段恢复508EB4计时调用后508EBA读取共享起始W32，原完成回复/严格600000阈值/15B格式及未清状态保。153/154已有原新承接、新1763/F:001128C0正确13字段组包及每项容量/格式后输出重读/发送结果透传保持，BRW已正确创建回复/DZ接线和所有其它源保；两X17B用途。CHARACTER两I-S/NETWORK一S，各28来源，完整请求往返/其他父-callee/owner-alias寿命/ABI运行未验，原格式明文不改",
-        "BVJ01限定静态：登出轮询与删除启动/轮询三个完整根61条244B/三页，3直接/3计时间接/5跳/8RET；仅LoginRequest.cpp一个elapsed片段恢复计时调用完成后fresh读取共享起始W32再差值。原各独立W16回复持样后清状态、登出1/2/其它与删除任意非零成功差别、严格600000门槛/各15B原格式点及超时未清状态保；删除先socket后记录+4C、正常发送失败仍状态1/tick正确保持。既有1065处置更新、155/156纳管，LOGIN13不增、CHARACTER26→28，LOGIN仅取样I/限定S、CHARACTER仅正确合同S；无新函数/组包/网络格式/加解密/owner/保护，完整父-callee/正常寿命/请求往返/机器ABI链接运行未验。"
+        "BVJ01限定静态：登出轮询与删除启动/轮询三个完整根61条244B/三页，3直接/3计时间接/5跳/8RET；仅LoginRequest.cpp一个elapsed片段恢复计时调用完成后fresh读取共享起始W32再差值。原各独立W16回复持样后清状态、登出1/2/其它与删除任意非零成功差别、严格600000门槛/各15B原格式点及超时未清状态保；删除先socket后记录+4C、正常发送失败仍状态1/tick正确保持。既有1065处置更新、155/156纳管，LOGIN13不增、CHARACTER26→28，LOGIN仅取样I/限定S、CHARACTER仅正确合同S；无新函数/组包/网络格式/加解密/owner/保护，完整父-callee/正常寿命/请求往返/机器ABI链接运行未验。",
+        "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1290,7 +1300,8 @@
         "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-source-state",
         "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-source-state",
         "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state",
-        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state"
+        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state"
       ]
     },
     {
@@ -1328,7 +1339,8 @@
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-baseline",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-baseline",
         "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
-        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline"
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline"
       ],
       "original_inventory_ids": [
         "F:00003C50",
@@ -1394,7 +1406,10 @@
         "F:00109100",
         "F:0010E7B0",
         "F:00112CA0",
-        "F:001128C0"
+        "F:001128C0",
+        "F:00112B00",
+        "F:00112AB0",
+        "F:00117480"
       ],
       "closure_task_ids": [
         "P09",
@@ -1430,7 +1445,8 @@
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-decision",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-decision",
         "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
-        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-decision"
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-decision",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision"
       ],
       "blockers": [
         "本次只核两帧父成员；全部命令/回复/状态生产、数据与间接目标及生命周期枚举未闭合",
@@ -1458,7 +1474,8 @@
         "BUP01地图回包509090与复位4691D0两完整根60条213B/两页、六call/四jump/两RET；只复位两组mask W32→encoded W32→count W8先读齐再同序发布，同临时两次-1构造/析构/RNG消费保持。正确回包门禁/九参数核验/floor清零及复位后fresh BYTE清bit0、jmb原字串/模板接线保持；六复位局部后窗和两尾11B用途归档。仅必要静态，完整父/callee/寿命/数值/机器ABI/像素/明文互通及运行未验",
         "BUQ01地图增量回包509100完整197条694B/三页、22directcall/14jump/一RET；只既有根四片段：入口W32门禁一次取样原值返回，撤旧整帧外-1早退/额外终止WORD，BYTE标记与当前地图号先读齐再pub。既有连续0x10594七段布局/零初始化窄适配、原tile-obj-hit提取解码与终止轮三WORD写入、地图更新/复位/四坐标读取/三槽清零及原返回保；aBS原字串4B/85条分发局部及10B尾用途归档。仅静态与文本汇总，全部父/callee/寿命/数值/机器ABI/文件运行/像素/明文互通及R8未验",
         "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
-        "BVI01限定静态：创建启动/轮询/aSEl三个完整根210条703B/五页、30直接/两计时间接/两跳转/五RET，两个真实父局部28条119B含重叠；一cpp一个elapsed片段恢复508EB4计时调用后508EBA读取共享起始W32，原完成回复/严格600000阈值/15B格式及未清状态保。153/154已有原新承接、新1763/F:001128C0正确13字段组包及每项容量/格式后输出重读/发送结果透传保持，BRW已正确创建回复/DZ接线和所有其它源保；两X17B用途。CHARACTER两I-S/NETWORK一S，各28来源，完整请求往返/其他父-callee/owner-alias寿命/ABI运行未验，原格式明文不改"
+        "BVI01限定静态：创建启动/轮询/aSEl三个完整根210条703B/五页、30直接/两计时间接/两跳转/五RET，两个真实父局部28条119B含重叠；一cpp一个elapsed片段恢复508EB4计时调用后508EBA读取共享起始W32，原完成回复/严格600000阈值/15B格式及未清状态保。153/154已有原新承接、新1763/F:001128C0正确13字段组包及每项容量/格式后输出重读/发送结果透传保持，BRW已正确创建回复/DZ接线和所有其它源保；两X17B用途。CHARACTER两I-S/NETWORK一S，各28来源，完整请求往返/其他父-callee/owner-alias寿命/ABI运行未验，原格式明文不改",
+        "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1486,7 +1503,8 @@
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state",
         "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
-        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state"
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state"
       ]
     },
     {
@@ -48346,6 +48364,135 @@
       "observation": "BVJ01限定静态：登出轮询与删除启动/轮询三个完整根61条244B/三页，3直接/3计时间接/5跳/8RET；仅LoginRequest.cpp一个elapsed片段恢复计时调用完成后fresh读取共享起始W32再差值。原各独立W16回复持样后清状态、登出1/2/其它与删除任意非零成功差别、严格600000门槛/各15B原格式点及超时未清状态保；删除先socket后记录+4C、正常发送失败仍状态1/tick正确保持。既有1065处置更新、155/156纳管，LOGIN13不增、CHARACTER26→28，LOGIN仅取样I/限定S、CHARACTER仅正确合同S；无新函数/组包/网络格式/加解密/owner/保护，完整父-callee/正常寿命/请求往返/机器ABI链接运行未验。",
       "expected": "BVJ01限定静态：登出轮询与删除启动/轮询三个完整根61条244B/三页，3直接/3计时间接/5跳/8RET；仅LoginRequest.cpp一个elapsed片段恢复计时调用完成后fresh读取共享起始W32再差值。原各独立W16回复持样后清状态、登出1/2/其它与删除任意非零成功差别、严格600000门槛/各15B原格式点及超时未清状态保；删除先socket后记录+4C、正常发送失败仍状态1/tick正确保持。既有1065处置更新、155/156纳管，LOGIN13不增、CHARACTER26→28，LOGIN仅取样I/限定S、CHARACTER仅正确合同S；无新函数/组包/网络格式/加解密/owner/保护，完整父-callee/正常寿命/请求往返/机器ABI链接运行未验。",
       "actual": "BVJ01限定静态：登出轮询与删除启动/轮询三个完整根61条244B/三页，3直接/3计时间接/5跳/8RET；仅LoginRequest.cpp一个elapsed片段恢复计时调用完成后fresh读取共享起始W32再差值。原各独立W16回复持样后清状态、登出1/2/其它与删除任意非零成功差别、严格600000门槛/各15B原格式点及超时未清状态保；删除先socket后记录+4C、正常发送失败仍状态1/tick正确保持。既有1065处置更新、155/156纳管，LOGIN13不增、CHARACTER26→28，LOGIN仅取样I/限定S、CHARACTER仅正确合同S；无新函数/组包/网络格式/加解密/owner/保护，完整父-callee/正常寿命/请求往返/机器ABI链接运行未验。"
+    },
+    {
+      "id": "E-LOGIN-DELETION-SEND-CHAIN-FUNC-LOGIN-S-20261008",
+      "feature_id": "FUNC-LOGIN",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVK01四完整根134条426B/四页、16直接八目标/3间接/4跳4RET；正确源保持/两原新与当前文档缺口修复，三域仅限定S，无新源码I或完整运行。doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-login-deletion-send-chain-baseline-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-acceptance",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
+        "doc/cg2d_login_deletion_send_chain_baseline_evidence.json",
+        "src/LoginRequest.cpp",
+        "src/network/NetworkRuntime.cpp",
+        "include/cg/network/NetworkRuntime.hpp",
+        "include/cg/LoginRequest.hpp",
+        "src/CharacterDeletionRequest.cpp",
+        "include/cg/CharacterDeletionRequest.hpp",
+        "src/LoginState.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state",
+        "doc/cg2d_network_plaintext_frame_spec.md#frame-source-closure",
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+        "doc/cg2d_semantic_function_mappings.json",
+        "plan/cg2d_acceptance_registry.json"
+      ],
+      "differences": [
+        {
+          "description": "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。",
+          "decision_ref": "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。",
+      "expected": "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。",
+      "actual": "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。"
+    },
+    {
+      "id": "E-LOGIN-DELETION-SEND-CHAIN-FUNC-CHARACTER-S-20261008",
+      "feature_id": "FUNC-CHARACTER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVK01四完整根134条426B/四页、16直接八目标/3间接/4跳4RET；正确源保持/两原新与当前文档缺口修复，三域仅限定S，无新源码I或完整运行。doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-login-deletion-send-chain-baseline-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-acceptance",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
+        "doc/cg2d_login_deletion_send_chain_baseline_evidence.json",
+        "src/LoginRequest.cpp",
+        "src/network/NetworkRuntime.cpp",
+        "include/cg/network/NetworkRuntime.hpp",
+        "include/cg/LoginRequest.hpp",
+        "src/CharacterDeletionRequest.cpp",
+        "include/cg/CharacterDeletionRequest.hpp",
+        "src/LoginState.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state",
+        "doc/cg2d_network_plaintext_frame_spec.md#frame-source-closure",
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+        "doc/cg2d_semantic_function_mappings.json",
+        "plan/cg2d_acceptance_registry.json"
+      ],
+      "differences": [
+        {
+          "description": "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。",
+          "decision_ref": "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。",
+      "expected": "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。",
+      "actual": "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。"
+    },
+    {
+      "id": "E-LOGIN-DELETION-SEND-CHAIN-FUNC-NETWORK-S-20261008",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVK01四完整根134条426B/四页、16直接八目标/3间接/4跳4RET；正确源保持/两原新与当前文档缺口修复，三域仅限定S，无新源码I或完整运行。doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-login-deletion-send-chain-baseline-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-acceptance",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
+        "doc/cg2d_login_deletion_send_chain_baseline_evidence.json",
+        "src/LoginRequest.cpp",
+        "src/network/NetworkRuntime.cpp",
+        "include/cg/network/NetworkRuntime.hpp",
+        "include/cg/LoginRequest.hpp",
+        "src/CharacterDeletionRequest.cpp",
+        "include/cg/CharacterDeletionRequest.hpp",
+        "src/LoginState.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state",
+        "doc/cg2d_network_plaintext_frame_spec.md#frame-source-closure",
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+        "doc/cg2d_semantic_function_mappings.json",
+        "plan/cg2d_acceptance_registry.json"
+      ],
+      "differences": [
+        {
+          "description": "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。",
+          "decision_ref": "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。",
+      "expected": "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。",
+      "actual": "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。"
     }
   ],
   "task_acceptance": [
@@ -48853,7 +49000,8 @@
         "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
         "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
         "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state",
-        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state"
+        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state"
       ]
     },
     {
@@ -48939,7 +49087,8 @@
         "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
         "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-source-state",
         "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state",
-        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state"
+        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state"
       ]
     },
     {
@@ -49226,7 +49375,8 @@
         "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-source-state",
         "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-source-state",
         "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-source-state",
-        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state"
+        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state"
       ]
     },
     {
@@ -49519,7 +49669,8 @@
         "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state",
         "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-source-state",
         "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state",
-        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state"
+        "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state"
       ]
     },
     {
@@ -60935,6 +61086,58 @@
         "doc/cg2d_logout_deletion_request_tick_sampling_evidence.json"
       ],
       "boundary": "BVJ01删除轮询完整原根/既有源码正确保持：先持样独立W16删除回复、后清请求状态；任意非零→1、零→-2，不套创建恰1或登出1/2规则。非完成已先计时调用、后读取共享起始W32，正常U32差值<=600000返回0，严格大于经53B304写原15B含NUL文案并返回-1，不清状态/回复/tick及消息余部。仅既有平台计时承接，源码零改动/无新I；完整往返/ABI与运行未验。"
+    },
+    {
+      "inventory_id": "F:00108AF0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-acceptance",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
+        "doc/cg2d_login_deletion_send_chain_baseline_evidence.json"
+      ],
+      "boundary": "BVK01完整19条82B登录启动正确保持：S16选择→独立W16回复清零→同148B记录+18/+50/+4C三个S32按原取样→socket，按512B00(socket,+4C,+50,+18)发送并忽略结果；正常失败仍发布请求状态1，计时调用后保存/返回完整U32 tick。复用既有owner/平台计时与宿主socket承接，不新保护或源码/I；完整登录父/往返运行未验。"
+    },
+    {
+      "inventory_id": "F:00112B00",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-acceptance",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
+        "doc/cg2d_login_deletion_send_chain_baseline_evidence.json"
+      ],
+      "boundary": "BVK01完整44条142B的emRV原三整数+4C/+50/+18按原field序组包。各独立取共享W32容量，格式token完成后fresh读输出指针再追加；末fresh读输出交517480并完整透传S32结果。原命令/字段/空格/外帧及明文保持，现正确源码0改动、无新I/实现或状态；实际唯一启动父接线可追，不外推所有协议/ABI运行。"
+    },
+    {
+      "inventory_id": "F:00112AB0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-acceptance",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
+        "doc/cg2d_login_deletion_send_chain_baseline_evidence.json"
+      ],
+      "boundary": "BVK01完整22条72B的Godf原单S32注册号组包：命令构造后独立取W32容量，再格式整数token，格式后fresh输出指针追加，末fresh输出交517480/S32结果透传。BVJ01删除启动先socket后记录+4C/正常发送失败仍状态1及tick正确保持；原格式明文/各helper取样保持，源码0改动无新I/状态或保护，完整删除往返运行未验。"
+    },
+    {
+      "inventory_id": "F:00117480",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-acceptance",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
+        "doc/cg2d_login_deletion_send_chain_baseline_evidence.json"
+      ],
+      "boundary": "BVK01完整49条130B发送包装正确保持：路径首BYTE非零才a+打开、成功才->%s换行日志并关闭；失败继续。日志后持样观察回调一次/非空调用方向1和原buffer，再strlen取W32长度、fresh共享W32容量形成原正常3N门槛；L<3N时LF→NUL→长度+1，否则不改。最后不判空经callback(socket,buffer,L)透传S32结果，现InitializeNetworkRuntime实际绑定D04明文Sub403E50，516B60空参缺省原NULL_FUNC合法零返回保。仅沿既定CRT/宿主socket/D04适配，零新源码/I/加解密/格式；84 CALL/83父只定位、本链两caller原体覆盖，不外推全部父/寿命/ABI或真实互通。"
     }
   ],
   "auxiliary_dispositions": [

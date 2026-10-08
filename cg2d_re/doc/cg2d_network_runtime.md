@@ -309,10 +309,11 @@ NUL 终止字节串（允许空串），每个高位首字节后均有非 NUL �
 完整函数范围为 `[0x517480,0x517502)`，共 130 字节、49 条指令和 8 个基本块。
 原 x86 ABI 为 `__cdecl`，两个参数依次为 W32 `socketValue` 与可写的 NUL 终止
 `buffer` 指针，返回值为有符号 W32。新端公开为
-`std::int32_t SendProtocolBuffer_517480(std::uint32_t, char*)`，只把指针适配为
-本机宽度。IDA 识别出 83 个 caller、84 个直接 callsite；按 caller 聚合后，
+`std::int32_t SendProtocolBuffer_517480(std::uintptr_t, char*)`，socket沿既有宿主
+接口承接本机宽度，buffer为非拥有可写指针。IDA 识别出 83 个 caller、84 个直接 callsite；按 caller 聚合后，
 82 个 caller 各含 1 个 callsite，其余 1 个 caller 含 2 个 callsite。这一
-分类只确认直接调用关系；当前源码仍无本函数的调用点，不在本步猜测上游接线。
+分类只确认直接调用关系；当前源码已有上游调用，本步完整读取emRV/Godf两组包
+原体及其517480接线，其它caller不据此记全验。
 
 日志路径 `0xDA3B58` 由唯一私有 `char[0x400]` 字节数组承载，依靠
 `NetworkRuntimeState` 整体零初始化，不公开 setter。入口只检查路径首字节；
@@ -3781,3 +3782,11 @@ Copy原delimiter S8扩展与源U8比较只在源0..127分支，现U8表达在该
 517190正确包装/实际分派接线保持，两原根57条132B/两页1call13内跳4ret、158普通点（157在512E40、1在517190）只纳盘，不代全部父/回复及owner验收。两既有1217/1219全文旧映射归档并续记；六BPD具名E只拆正独立文件引用。语义1422条/1417原ID、合同关联1535/3680（41.71%）、分类543、NETWORK50枚举未闭均保持；E695→699只增加两个既有根各I/S四条正常局部证据。60任务源码closed10/完整验收0、叶验收0/global_accepted=false及完整门禁保持。
 
 仅一CPP一正文、未新增API/缓冲或传送格式，正常S32之外不专项模拟溢出/故障或加保护。全部字段/正常alias-owner/寿命、SDK机器ABI/链接及真实明文互通仍待；仅必要静态，未构建/测试/运行/摘要，原格式只明文、两加解密叶排除、内存CryptInt与音频暂停保持。
+
+## BVK01登录与删除实际发送链完整基线（2026-10-08）
+
+[BVK01原基线](cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline)、[实施决定](cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision)和[完整原证](cg2d_login_deletion_send_chain_baseline_evidence.json)：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳4RET；四正文正确，源码改动0。
+
+纠正517480现时接口为uintptr_t socket及上游已存在两处组包调用；84 CALL/83父原数量保。emRV三整数及Godf一注册号各独立容量/格式后fresh输出追加，末S32返回直透；日志/一次observer先于strlen与容量，原L<3N时LF→NUL→+1保持。当前508140实际把D04明文403E50交516B60，空参NULL_FUNC原合法缺省保，752旧描述以具名元数据留历史。
+
+151/752已有原新更新、1764/1765补缺失组包映射，四F处置/三域仅S各21来源、无新I；预期语义1766/有效1759、文档1876（50.98%）、F913/E1088、LOGIN15/CHARACTER29/NETWORK67，R7已审467余2594保持。原格式明文/合法NULL_FUNC缺省、排除和执行限制保持；全83发送父/其它callee、正常owner-alias寿命、完整登录/删除往返、机器ABI链接/运行与R8未验，完整门禁不解除。

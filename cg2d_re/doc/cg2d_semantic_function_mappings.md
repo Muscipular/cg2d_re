@@ -3905,3 +3905,11 @@ LOOP174→175/RENDER75→76/MAP128→129/BATTLE263→264、八限定I-S各28来�
 1065/F:00108C90已有equivalent处置追加本步取样边界，不新增身份；155/F:00108F70与156/F:00108FC0补完整基线并登记既有平台计时承接adapted，无新删除实现I。保留旧格式/入向和BTE01历史字段，所有其它记录及pending18保持。
 
 预期语义1764/有效1757、文档1874（50.92%）、F909/E1085、R7已审467余2594；无新组包/对齐处置。原各独立W16回复持样后清状态、严格600000门槛/15B格式及超时未清状态保，网络原格式明文不变。LOGIN13不增、CHARACTER26→28；LOGIN仅取样I/限定S，CHARACTER仅正确合同S。完整父-callee/正常owner-alias寿命、真实往返、机器ABI链接/运行及R8仍未验，完整门禁保持。
+
+## BVK01两已有与两新发送链原新（2026-10-08）
+
+[BVK01原基线](cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline)、[实施决定](cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision)和[完整原证](cg2d_login_deletion_send_chain_baseline_evidence.json)：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳4RET；四正文正确，源码改动0。
+
+151/F:00108AF0启动及752/F:00117480包装已有映射更新，旧status/boundary具名留存；新增1764/F:00112B00 emRV和1765/F:00112AB0 Godf，来源为既有cpp/hpp和各唯一请求启动父。四F分别按平台计时/CRT宿主adapted与两正确组包equivalent登记，正文保持，不冒充新增实现或所有83父完成。
+
+151/752已有原新更新、1764/1765补缺失组包映射，四F处置/三域仅S各21来源、无新I；预期语义1766/有效1759、文档1876（50.98%）、F913/E1088、LOGIN15/CHARACTER29/NETWORK67，R7已审467余2594保持。原格式明文/合法NULL_FUNC缺省、排除和执行限制保持；全83发送父/其它callee、正常owner-alias寿命、完整登录/删除往返、机器ABI链接/运行与R8未验，完整门禁不解除。

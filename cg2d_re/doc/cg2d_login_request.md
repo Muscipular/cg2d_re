@@ -781,3 +781,11 @@ NUL 终止名字与记录首字段；`51B151–51B17E`
 原508CC4调用计时，508CCA才读取共享起始tick；现拆now/start/elapsed三语句，保留登出1→1、2→2、其它→-2。删除508F86先读socket、508F8C后读记录+4C且发送失败仍状态1/tick；删除轮询已先now后start、任意非零W16成功，源码零改动，不套创建恰1成功规则。
 
 原各独立W16回复持样后清状态、严格600000门槛/15B格式及超时未清状态保，网络原格式明文不变。LOGIN13不增、CHARACTER26→28；LOGIN仅取样I/限定S，CHARACTER仅正确合同S。完整父-callee/正常owner-alias寿命、真实往返、机器ABI链接/运行及R8仍未验，完整门禁保持。
+
+## BVK01登录启动与删除原组包依赖（2026-10-08）
+
+[BVK01原基线](cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline)、[实施决定](cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision)和[完整原证](cg2d_login_deletion_send_chain_baseline_evidence.json)：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳4RET；四正文正确，源码改动0。
+
+登录启动先18/50/4C、后socket，512B00按socket/+4C/+50/+18发送；删除BVJ01先socket后+4C，512AB0只一个注册号。两者都忽略组包返回、正常失败仍状态1/计时保存与原tick返回，不套共同字段取样序；请求独立W16码/原轮询与所有回复源码保持。
+
+151/752已有原新更新、1764/1765补缺失组包映射，四F处置/三域仅S各21来源、无新I；预期语义1766/有效1759、文档1876（50.98%）、F913/E1088、LOGIN15/CHARACTER29/NETWORK67，R7已审467余2594保持。原格式明文/合法NULL_FUNC缺省、排除和执行限制保持；全83发送父/其它callee、正常owner-alias寿命、完整登录/删除往返、机器ABI链接/运行与R8未验，完整门禁不解除。

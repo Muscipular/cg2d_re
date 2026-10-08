@@ -13379,7 +13379,7 @@
     {
       "original_entry": "0x508AF0",
       "inventory_id": "F:00108AF0",
-      "status": "已有请求本体与调用映射，完整收发未验",
+      "status": "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。",
       "original_role": "选中角色登录请求启动",
       "reference_sites": [
         "0x45EAEB"
@@ -13389,7 +13389,8 @@
           "path": "src/LoginRequest.cpp",
           "symbols": [
             "StartLoginRequest"
-          ]
+          ],
+          "relationship": "BVK01完整19条82B登录启动正确保持：S16选择→独立W16回复清零→同148B记录+18/+50/+4C三个S32按原取样→socket，按512B00(socket,+4C,+50,+18)发送并忽略结果；正常失败仍发布请求状态1，计时调用后保存/返回完整U32 tick。复用既有owner/平台计时与宿主socket承接，不新保护或源码/I；完整登录父/往返运行未验。"
         },
         {
           "path": "src/LoginState.cpp",
@@ -13401,9 +13402,77 @@
       "evidence_documents": [
         "doc/cg2d_login_request.md",
         "doc/cg2d_login_state_controller.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-acceptance",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
+        "doc/cg2d_login_deletion_send_chain_baseline_evidence.json"
       ],
-      "boundary": "保留S16选择及已证有效输入前提，清回复码后依序读取记录+18/+50/+4C，按既有512B00参数序发送，再置状态和发布/返回U32 tick；不加范围钳制。"
+      "boundary": "BVK01完整19条82B登录启动正确保持：S16选择→独立W16回复清零→同148B记录+18/+50/+4C三个S32按原取样→socket，按512B00(socket,+4C,+50,+18)发送并忽略结果；正常失败仍发布请求状态1，计时调用后保存/返回完整U32 tick。复用既有owner/平台计时与宿主socket承接，不新保护或源码/I；完整登录父/往返运行未验。",
+      "verification_level": "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。",
+      "original_end_exclusive": "0x508b42",
+      "original_chunks": [
+        [
+          "0x508af0",
+          "0x508b42"
+        ]
+      ],
+      "instruction_count": 19,
+      "send_chain_baseline": {
+        "spec_id": "BVK01",
+        "evidence_refs": [
+          "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
+          "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision",
+          "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-acceptance",
+          "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
+          "doc/cg2d_login_deletion_send_chain_baseline_evidence.json"
+        ],
+        "previous_status": "已有请求本体与调用映射，完整收发未验",
+        "previous_boundary": "保留S16选择及已证有效输入前提，清回复码后依序读取记录+18/+50/+4C，按既有512B00参数序发送，再置状态和发布/返回U32 tick；不加范围钳制。",
+        "full_original_root_captured": true,
+        "original_instruction_count": 19,
+        "original_code_bytes": 82,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 1,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 1,
+        "original_total_instruction_count": 134,
+        "original_total_code_bytes": 426,
+        "original_total_page_count": 4,
+        "all_four_source_bodies_correct_and_kept": true,
+        "source_body_changed": false,
+        "root_specific_new_I_claimed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "login_record_18_then_50_then_4C_then_socket_kept": true,
+        "packet_capacity_before_token_then_fresh_output_kept": true,
+        "Godf_one_integer_and_emRV_three_integers_kept": true,
+        "normal_send_failure_then_status_and_tick_kept": true,
+        "log_then_observer_then_length_then_capacity_kept": true,
+        "LF_then_NUL_then_increment_kept": true,
+        "S32_send_callback_result_transparent": true,
+        "current_D04_plaintext_callback_wiring_recorded": true,
+        "legal_original_default_NULL_FUNC_kept": true,
+        "current_document_W32_signature_and_no_call_site_errors_corrected": true,
+        "old_752_current_status_and_boundary_corrected": true,
+        "all_84_send_reference_sites_captured": true,
+        "all_83_send_parents_verified": false,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "full_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "full_machine_abi_verified": false,
+        "request_round_trip_runtime_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x508B50",
@@ -93120,16 +93189,15 @@
     {
       "original_entry": "0x517480",
       "inventory_id": "F:00117480",
-      "status": "既有日志/现代查看器父的真实FILE完整链已接；旧待批/完整CRT与运行验收仍待",
-      "original_end_exclusive": "0x517502",
-      "instruction_count": 49,
+      "status": "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。",
       "original_direct_reference_count": 84,
       "sources": [
         {
           "path": "src/network/NetworkRuntime.cpp",
           "symbols": [
             "SendProtocolBuffer_517480"
-          ]
+          ],
+          "relationship": "BVK01完整49条130B发送包装正确保持：路径首BYTE非零才a+打开、成功才->%s换行日志并关闭；失败继续。日志后持样观察回调一次/非空调用方向1和原buffer，再strlen取W32长度、fresh共享W32容量形成原正常3N门槛；L<3N时LF→NUL→长度+1，否则不改。最后不判空经callback(socket,buffer,L)透传S32结果，现InitializeNetworkRuntime实际绑定D04明文Sub403E50，516B60空参缺省原NULL_FUNC合法零返回保。仅沿既定CRT/宿主socket/D04适配，零新源码/I/加解密/格式；84 CALL/83父只定位、本链两caller原体覆盖，不外推全部父/寿命/ABI或真实互通。"
         }
       ],
       "inbound_evidence": [
@@ -93497,10 +93565,14 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-acceptance",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
+        "doc/cg2d_login_deletion_send_chain_baseline_evidence.json"
       ],
-      "verification_level": "十父完整1097条/180直接引用、39文件格式调用对应38表达式、23共享流引用、EOF低U8/原字节/失败/重复关闭/协议回调顺序及限定源码差异静态核对；不重验UI/日期/播放/协议分发，未执行",
-      "boundary": "既有发送协议父先采样配置路径/a+写->%s换行并关闭，再observer(1)，最后原长度门槛/换行添加/发送；缺配置或打开失败继续。只迁移局部文件链，不修改或实现排除加密、发送后端及缓冲/生命周期正文。",
+      "boundary": "BVK01完整49条130B发送包装正确保持：路径首BYTE非零才a+打开、成功才->%s换行日志并关闭；失败继续。日志后持样观察回调一次/非空调用方向1和原buffer，再strlen取W32长度、fresh共享W32容量形成原正常3N门槛；L<3N时LF→NUL→长度+1，否则不改。最后不判空经callback(socket,buffer,L)透传S32结果，现InitializeNetworkRuntime实际绑定D04明文Sub403E50，516B60空参缺省原NULL_FUNC合法零返回保。仅沿既定CRT/宿主socket/D04适配，零新源码/I/加解密/格式；84 CALL/83父只定位、本链两caller原体覆盖，不外推全部父/寿命/ABI或真实互通。",
       "business_byte_evidence": [
         {
           "address": "0x58B620",
@@ -93510,7 +93582,70 @@
           "address": "0x58B624",
           "bytes": "2d3e25730a00"
         }
-      ]
+      ],
+      "verification_level": "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。",
+      "original_end_exclusive": "0x517502",
+      "original_chunks": [
+        [
+          "0x517480",
+          "0x517502"
+        ]
+      ],
+      "instruction_count": 49,
+      "send_chain_baseline": {
+        "spec_id": "BVK01",
+        "evidence_refs": [
+          "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
+          "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision",
+          "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-acceptance",
+          "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
+          "doc/cg2d_login_deletion_send_chain_baseline_evidence.json"
+        ],
+        "previous_status": "既有日志/现代查看器父的真实FILE完整链已接；旧待批/完整CRT与运行验收仍待",
+        "previous_boundary": "既有发送协议父先采样配置路径/a+写->%s换行并关闭，再observer(1)，最后原长度门槛/换行添加/发送；缺配置或打开失败继续。只迁移局部文件链，不修改或实现排除加密、发送后端及缓冲/生命周期正文。",
+        "full_original_root_captured": true,
+        "original_instruction_count": 49,
+        "original_code_bytes": 130,
+        "original_page_count": 1,
+        "original_direct_call_count": 3,
+        "original_indirect_call_count": 2,
+        "original_jump_count": 4,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 84,
+        "original_total_instruction_count": 134,
+        "original_total_code_bytes": 426,
+        "original_total_page_count": 4,
+        "all_four_source_bodies_correct_and_kept": true,
+        "source_body_changed": false,
+        "root_specific_new_I_claimed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "login_record_18_then_50_then_4C_then_socket_kept": true,
+        "packet_capacity_before_token_then_fresh_output_kept": true,
+        "Godf_one_integer_and_emRV_three_integers_kept": true,
+        "normal_send_failure_then_status_and_tick_kept": true,
+        "log_then_observer_then_length_then_capacity_kept": true,
+        "LF_then_NUL_then_increment_kept": true,
+        "S32_send_callback_result_transparent": true,
+        "current_D04_plaintext_callback_wiring_recorded": true,
+        "legal_original_default_NULL_FUNC_kept": true,
+        "current_document_W32_signature_and_no_call_site_errors_corrected": true,
+        "old_752_current_status_and_boundary_corrected": true,
+        "all_84_send_reference_sites_captured": true,
+        "all_83_send_parents_verified": false,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "full_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "full_machine_abi_verified": false,
+        "request_round_trip_runtime_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x4CC540",
@@ -199876,6 +200011,206 @@
         "full_all_parents_verified": false,
         "full_all_callees_verified": false,
         "full_pixels_verified": false,
+        "full_lifecycle_closed": false,
+        "full_machine_abi_verified": false,
+        "request_round_trip_runtime_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x512B00",
+      "inventory_id": "F:00112B00",
+      "original_role": "原emRV登录三整数组包及发送返回透传",
+      "original_end_exclusive": "0x512b8e",
+      "original_chunks": [
+        [
+          "0x512b00",
+          "0x512b8e"
+        ]
+      ],
+      "instruction_count": 44,
+      "status": "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。",
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_512B00"
+          ],
+          "relationship": "BVK01完整44条142B的emRV原三整数+4C/+50/+18按原field序组包。各独立取共享W32容量，格式token完成后fresh读输出指针再追加；末fresh读输出交517480并完整透传S32结果。原命令/字段/空格/外帧及明文保持，现正确源码0改动、无新I/实现或状态；实际唯一启动父接线可追，不外推所有协议/ABI运行。"
+        },
+        {
+          "path": "include/cg/network/NetworkRuntime.hpp",
+          "symbols": [
+            "Sub_512B00"
+          ],
+          "relationship": "既有socket/原S32字段声明保持，不新增API或格式"
+        },
+        {
+          "path": "src/LoginRequest.cpp",
+          "symbols": [
+            "StartLoginRequest"
+          ],
+          "relationship": "唯一真实请求启动字段来源/发送返回弃用及正常失败后状态与tick正确保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-acceptance",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
+        "doc/cg2d_login_deletion_send_chain_baseline_evidence.json"
+      ],
+      "boundary": "BVK01完整44条142B的emRV原三整数+4C/+50/+18按原field序组包。各独立取共享W32容量，格式token完成后fresh读输出指针再追加；末fresh读输出交517480并完整透传S32结果。原命令/字段/空格/外帧及明文保持，现正确源码0改动、无新I/实现或状态；实际唯一启动父接线可追，不外推所有协议/ABI运行。",
+      "verification_level": "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。",
+      "send_chain_baseline": {
+        "spec_id": "BVK01",
+        "evidence_refs": [
+          "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
+          "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision",
+          "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-acceptance",
+          "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
+          "doc/cg2d_login_deletion_send_chain_baseline_evidence.json"
+        ],
+        "previous_status": null,
+        "previous_boundary": null,
+        "full_original_root_captured": true,
+        "original_instruction_count": 44,
+        "original_code_bytes": 142,
+        "original_page_count": 1,
+        "original_direct_call_count": 8,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 1,
+        "original_total_instruction_count": 134,
+        "original_total_code_bytes": 426,
+        "original_total_page_count": 4,
+        "all_four_source_bodies_correct_and_kept": true,
+        "source_body_changed": false,
+        "root_specific_new_I_claimed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "login_record_18_then_50_then_4C_then_socket_kept": true,
+        "packet_capacity_before_token_then_fresh_output_kept": true,
+        "Godf_one_integer_and_emRV_three_integers_kept": true,
+        "normal_send_failure_then_status_and_tick_kept": true,
+        "log_then_observer_then_length_then_capacity_kept": true,
+        "LF_then_NUL_then_increment_kept": true,
+        "S32_send_callback_result_transparent": true,
+        "current_D04_plaintext_callback_wiring_recorded": true,
+        "legal_original_default_NULL_FUNC_kept": true,
+        "current_document_W32_signature_and_no_call_site_errors_corrected": true,
+        "old_752_current_status_and_boundary_corrected": true,
+        "all_84_send_reference_sites_captured": true,
+        "all_83_send_parents_verified": false,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "full_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "full_machine_abi_verified": false,
+        "request_round_trip_runtime_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x512AB0",
+      "inventory_id": "F:00112AB0",
+      "original_role": "原Godf删除单注册号组包及发送返回透传",
+      "original_end_exclusive": "0x512af8",
+      "original_chunks": [
+        [
+          "0x512ab0",
+          "0x512af8"
+        ]
+      ],
+      "instruction_count": 22,
+      "status": "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。",
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_512AB0"
+          ],
+          "relationship": "BVK01完整22条72B的Godf原单S32注册号组包：命令构造后独立取W32容量，再格式整数token，格式后fresh输出指针追加，末fresh输出交517480/S32结果透传。BVJ01删除启动先socket后记录+4C/正常发送失败仍状态1及tick正确保持；原格式明文/各helper取样保持，源码0改动无新I/状态或保护，完整删除往返运行未验。"
+        },
+        {
+          "path": "include/cg/network/NetworkRuntime.hpp",
+          "symbols": [
+            "Sub_512AB0"
+          ],
+          "relationship": "既有socket/原S32字段声明保持，不新增API或格式"
+        },
+        {
+          "path": "src/CharacterDeletionRequest.cpp",
+          "symbols": [
+            "StartCharacterDeletionRequest"
+          ],
+          "relationship": "唯一真实请求启动字段来源/发送返回弃用及正常失败后状态与tick正确保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-acceptance",
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
+        "doc/cg2d_login_deletion_send_chain_baseline_evidence.json"
+      ],
+      "boundary": "BVK01完整22条72B的Godf原单S32注册号组包：命令构造后独立取W32容量，再格式整数token，格式后fresh输出指针追加，末fresh输出交517480/S32结果透传。BVJ01删除启动先socket后记录+4C/正常发送失败仍状态1及tick正确保持；原格式明文/各helper取样保持，源码0改动无新I/状态或保护，完整删除往返运行未验。",
+      "verification_level": "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。",
+      "send_chain_baseline": {
+        "spec_id": "BVK01",
+        "evidence_refs": [
+          "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
+          "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision",
+          "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-acceptance",
+          "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
+          "doc/cg2d_login_deletion_send_chain_baseline_evidence.json"
+        ],
+        "previous_status": null,
+        "previous_boundary": null,
+        "full_original_root_captured": true,
+        "original_instruction_count": 22,
+        "original_code_bytes": 72,
+        "original_page_count": 1,
+        "original_direct_call_count": 4,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 1,
+        "original_total_instruction_count": 134,
+        "original_total_code_bytes": 426,
+        "original_total_page_count": 4,
+        "all_four_source_bodies_correct_and_kept": true,
+        "source_body_changed": false,
+        "root_specific_new_I_claimed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "login_record_18_then_50_then_4C_then_socket_kept": true,
+        "packet_capacity_before_token_then_fresh_output_kept": true,
+        "Godf_one_integer_and_emRV_three_integers_kept": true,
+        "normal_send_failure_then_status_and_tick_kept": true,
+        "log_then_observer_then_length_then_capacity_kept": true,
+        "LF_then_NUL_then_increment_kept": true,
+        "S32_send_callback_result_transparent": true,
+        "current_D04_plaintext_callback_wiring_recorded": true,
+        "legal_original_default_NULL_FUNC_kept": true,
+        "current_document_W32_signature_and_no_call_site_errors_corrected": true,
+        "old_752_current_status_and_boundary_corrected": true,
+        "all_84_send_reference_sites_captured": true,
+        "all_83_send_parents_verified": false,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "full_callees_verified": false,
         "full_lifecycle_closed": false,
         "full_machine_abi_verified": false,
         "request_round_trip_runtime_verified": false,

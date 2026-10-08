@@ -1,0 +1,2644 @@
+{
+  "spec_id": "BVK01",
+  "captured_on": "2026-10-08",
+  "original_database": "已打开cg2d.exe只读会话",
+  "original_route": "ida-17524 / a1def68e",
+  "original_functions": [
+    {
+      "start": "0x508af0",
+      "end_exclusive": "0x508b42",
+      "count": 19,
+      "chunks": [
+        [
+          "0x508af0",
+          "0x508b42"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x45ea60",
+          "text": "call    sub_508AF0",
+          "from": "0x45eaeb"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x508af0",
+          "size": 7,
+          "bytes": "0fbf05080cff00",
+          "mnemonic": "movsx",
+          "text": "movsx   eax, gSelectedChara",
+          "call_target": null
+        },
+        {
+          "ea": "0x508af7",
+          "size": 9,
+          "bytes": "66c7052c3bda000000",
+          "mnemonic": "mov",
+          "text": "mov     word_DA3B2C, 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x508b00",
+          "size": 3,
+          "bytes": "8d0cc0",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [eax+eax*8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x508b03",
+          "size": 3,
+          "bytes": "8d0488",
+          "mnemonic": "lea",
+          "text": "lea     eax, [eax+ecx*4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x508b06",
+          "size": 3,
+          "bytes": "c1e002",
+          "mnemonic": "shl",
+          "text": "shl     eax, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x508b09",
+          "size": 6,
+          "bytes": "8b90f803ff00",
+          "mnemonic": "mov",
+          "text": "mov     edx, dword_FF03F8[eax]",
+          "call_target": null
+        },
+        {
+          "ea": "0x508b0f",
+          "size": 6,
+          "bytes": "8b883004ff00",
+          "mnemonic": "mov",
+          "text": "mov     ecx, dword_FF0430[eax]",
+          "call_target": null
+        },
+        {
+          "ea": "0x508b15",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x508b16",
+          "size": 6,
+          "bytes": "8b902c04ff00",
+          "mnemonic": "mov",
+          "text": "mov     edx, dword_FF042C[eax]",
+          "call_target": null
+        },
+        {
+          "ea": "0x508b1c",
+          "size": 5,
+          "bytes": "a1b8b2d900",
+          "mnemonic": "mov",
+          "text": "mov     eax, s",
+          "call_target": null
+        },
+        {
+          "ea": "0x508b21",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x508b22",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x508b23",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x508b24",
+          "size": 5,
+          "bytes": "e8d79f0000",
+          "mnemonic": "call",
+          "text": "call    sub_512B00",
+          "call_target": "0x512b00"
+        },
+        {
+          "ea": "0x508b29",
+          "size": 3,
+          "bytes": "83c410",
+          "mnemonic": "add",
+          "text": "add     esp, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x508b2c",
+          "size": 10,
+          "bytes": "c705343bda0001000000",
+          "mnemonic": "mov",
+          "text": "mov     dword_DA3B34, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x508b36",
+          "size": 6,
+          "bytes": "ff15f8d15400",
+          "mnemonic": "call",
+          "text": "call    ds:GetTickCount",
+          "call_target": null
+        },
+        {
+          "ea": "0x508b3c",
+          "size": 5,
+          "bytes": "a3383bda00",
+          "mnemonic": "mov",
+          "text": "mov     dword_DA3B38, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x508b41",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "code_bytes": 82,
+      "page_count": 1,
+      "calls": [
+        {
+          "ea": "0x508b24",
+          "size": 5,
+          "bytes": "e8d79f0000",
+          "mnemonic": "call",
+          "text": "call    sub_512B00",
+          "call_target": "0x512b00"
+        }
+      ],
+      "indirect_calls": [
+        {
+          "ea": "0x508b36",
+          "size": 6,
+          "bytes": "ff15f8d15400",
+          "mnemonic": "call",
+          "text": "call    ds:GetTickCount",
+          "call_target": null
+        }
+      ],
+      "jump_count": 0,
+      "return_count": 1
+    },
+    {
+      "start": "0x512b00",
+      "end_exclusive": "0x512b8e",
+      "count": 44,
+      "chunks": [
+        [
+          "0x512b00",
+          "0x512b8e"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x508af0",
+          "text": "call    sub_512B00",
+          "from": "0x508b24"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x512b00",
+          "size": 5,
+          "bytes": "a1f0b55800",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_58B5F0",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b05",
+          "size": 5,
+          "bytes": "6874b35800",
+          "mnemonic": "push",
+          "text": "push    offset aEmrv; \"emRV\"",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b0a",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; Buffer",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b0b",
+          "size": 5,
+          "bytes": "e8004a0000",
+          "mnemonic": "call",
+          "text": "call    sub_517510",
+          "call_target": "0x517510"
+        },
+        {
+          "ea": "0x512b10",
+          "size": 6,
+          "bytes": "8b0decb55800",
+          "mnemonic": "mov",
+          "text": "mov     ecx, outBufferLen",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b16",
+          "size": 4,
+          "bytes": "8b542410",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+8+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b1a",
+          "size": 3,
+          "bytes": "83c408",
+          "mnemonic": "add",
+          "text": "add     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b1d",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b1e",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b1f",
+          "size": 5,
+          "bytes": "e8fc450000",
+          "mnemonic": "call",
+          "text": "call    sub_517120",
+          "call_target": "0x517120"
+        },
+        {
+          "ea": "0x512b24",
+          "size": 3,
+          "bytes": "83c404",
+          "mnemonic": "add",
+          "text": "add     esp, 4",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b27",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b28",
+          "size": 5,
+          "bytes": "a1f0b55800",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_58B5F0",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b2d",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b2e",
+          "size": 5,
+          "bytes": "e89d450000",
+          "mnemonic": "call",
+          "text": "call    sub_5170D0",
+          "call_target": "0x5170d0"
+        },
+        {
+          "ea": "0x512b33",
+          "size": 6,
+          "bytes": "8b0decb55800",
+          "mnemonic": "mov",
+          "text": "mov     ecx, outBufferLen",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b39",
+          "size": 4,
+          "bytes": "8b542418",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+0Ch+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b3d",
+          "size": 3,
+          "bytes": "83c40c",
+          "mnemonic": "add",
+          "text": "add     esp, 0Ch",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b40",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b41",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b42",
+          "size": 5,
+          "bytes": "e8d9450000",
+          "mnemonic": "call",
+          "text": "call    sub_517120",
+          "call_target": "0x517120"
+        },
+        {
+          "ea": "0x512b47",
+          "size": 3,
+          "bytes": "83c404",
+          "mnemonic": "add",
+          "text": "add     esp, 4",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b4a",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b4b",
+          "size": 5,
+          "bytes": "a1f0b55800",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_58B5F0",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b50",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b51",
+          "size": 5,
+          "bytes": "e87a450000",
+          "mnemonic": "call",
+          "text": "call    sub_5170D0",
+          "call_target": "0x5170d0"
+        },
+        {
+          "ea": "0x512b56",
+          "size": 6,
+          "bytes": "8b0decb55800",
+          "mnemonic": "mov",
+          "text": "mov     ecx, outBufferLen",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b5c",
+          "size": 4,
+          "bytes": "8b54241c",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+0Ch+arg_C]",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b60",
+          "size": 3,
+          "bytes": "83c40c",
+          "mnemonic": "add",
+          "text": "add     esp, 0Ch",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b63",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b64",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b65",
+          "size": 5,
+          "bytes": "e8b6450000",
+          "mnemonic": "call",
+          "text": "call    sub_517120",
+          "call_target": "0x517120"
+        },
+        {
+          "ea": "0x512b6a",
+          "size": 3,
+          "bytes": "83c404",
+          "mnemonic": "add",
+          "text": "add     esp, 4",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b6d",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b6e",
+          "size": 5,
+          "bytes": "a1f0b55800",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_58B5F0",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b73",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b74",
+          "size": 5,
+          "bytes": "e857450000",
+          "mnemonic": "call",
+          "text": "call    sub_5170D0",
+          "call_target": "0x5170d0"
+        },
+        {
+          "ea": "0x512b79",
+          "size": 6,
+          "bytes": "8b0df0b55800",
+          "mnemonic": "mov",
+          "text": "mov     ecx, dword_58B5F0",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b7f",
+          "size": 4,
+          "bytes": "8b542410",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+0Ch+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b83",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b84",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b85",
+          "size": 5,
+          "bytes": "e8f6480000",
+          "mnemonic": "call",
+          "text": "call    sub_517480",
+          "call_target": "0x517480"
+        },
+        {
+          "ea": "0x512b8a",
+          "size": 3,
+          "bytes": "83c414",
+          "mnemonic": "add",
+          "text": "add     esp, 14h",
+          "call_target": null
+        },
+        {
+          "ea": "0x512b8d",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "code_bytes": 142,
+      "page_count": 1,
+      "calls": [
+        {
+          "ea": "0x512b0b",
+          "size": 5,
+          "bytes": "e8004a0000",
+          "mnemonic": "call",
+          "text": "call    sub_517510",
+          "call_target": "0x517510"
+        },
+        {
+          "ea": "0x512b1f",
+          "size": 5,
+          "bytes": "e8fc450000",
+          "mnemonic": "call",
+          "text": "call    sub_517120",
+          "call_target": "0x517120"
+        },
+        {
+          "ea": "0x512b2e",
+          "size": 5,
+          "bytes": "e89d450000",
+          "mnemonic": "call",
+          "text": "call    sub_5170D0",
+          "call_target": "0x5170d0"
+        },
+        {
+          "ea": "0x512b42",
+          "size": 5,
+          "bytes": "e8d9450000",
+          "mnemonic": "call",
+          "text": "call    sub_517120",
+          "call_target": "0x517120"
+        },
+        {
+          "ea": "0x512b51",
+          "size": 5,
+          "bytes": "e87a450000",
+          "mnemonic": "call",
+          "text": "call    sub_5170D0",
+          "call_target": "0x5170d0"
+        },
+        {
+          "ea": "0x512b65",
+          "size": 5,
+          "bytes": "e8b6450000",
+          "mnemonic": "call",
+          "text": "call    sub_517120",
+          "call_target": "0x517120"
+        },
+        {
+          "ea": "0x512b74",
+          "size": 5,
+          "bytes": "e857450000",
+          "mnemonic": "call",
+          "text": "call    sub_5170D0",
+          "call_target": "0x5170d0"
+        },
+        {
+          "ea": "0x512b85",
+          "size": 5,
+          "bytes": "e8f6480000",
+          "mnemonic": "call",
+          "text": "call    sub_517480",
+          "call_target": "0x517480"
+        }
+      ],
+      "indirect_calls": [],
+      "jump_count": 0,
+      "return_count": 1
+    },
+    {
+      "start": "0x512ab0",
+      "end_exclusive": "0x512af8",
+      "count": 22,
+      "chunks": [
+        [
+          "0x512ab0",
+          "0x512af8"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x508f70",
+          "text": "call    sub_512AB0",
+          "from": "0x508f95"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x512ab0",
+          "size": 5,
+          "bytes": "a1f0b55800",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_58B5F0",
+          "call_target": null
+        },
+        {
+          "ea": "0x512ab5",
+          "size": 5,
+          "bytes": "686cb35800",
+          "mnemonic": "push",
+          "text": "push    offset aGodf; \"Godf\"",
+          "call_target": null
+        },
+        {
+          "ea": "0x512aba",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; Buffer",
+          "call_target": null
+        },
+        {
+          "ea": "0x512abb",
+          "size": 5,
+          "bytes": "e8504a0000",
+          "mnemonic": "call",
+          "text": "call    sub_517510",
+          "call_target": "0x517510"
+        },
+        {
+          "ea": "0x512ac0",
+          "size": 6,
+          "bytes": "8b0decb55800",
+          "mnemonic": "mov",
+          "text": "mov     ecx, outBufferLen",
+          "call_target": null
+        },
+        {
+          "ea": "0x512ac6",
+          "size": 4,
+          "bytes": "8b542410",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+8+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x512aca",
+          "size": 3,
+          "bytes": "83c408",
+          "mnemonic": "add",
+          "text": "add     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x512acd",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x512ace",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x512acf",
+          "size": 5,
+          "bytes": "e84c460000",
+          "mnemonic": "call",
+          "text": "call    sub_517120",
+          "call_target": "0x517120"
+        },
+        {
+          "ea": "0x512ad4",
+          "size": 3,
+          "bytes": "83c404",
+          "mnemonic": "add",
+          "text": "add     esp, 4",
+          "call_target": null
+        },
+        {
+          "ea": "0x512ad7",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x512ad8",
+          "size": 5,
+          "bytes": "a1f0b55800",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_58B5F0",
+          "call_target": null
+        },
+        {
+          "ea": "0x512add",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x512ade",
+          "size": 5,
+          "bytes": "e8ed450000",
+          "mnemonic": "call",
+          "text": "call    sub_5170D0",
+          "call_target": "0x5170d0"
+        },
+        {
+          "ea": "0x512ae3",
+          "size": 6,
+          "bytes": "8b0df0b55800",
+          "mnemonic": "mov",
+          "text": "mov     ecx, dword_58B5F0",
+          "call_target": null
+        },
+        {
+          "ea": "0x512ae9",
+          "size": 4,
+          "bytes": "8b542410",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+0Ch+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x512aed",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x512aee",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x512aef",
+          "size": 5,
+          "bytes": "e88c490000",
+          "mnemonic": "call",
+          "text": "call    sub_517480",
+          "call_target": "0x517480"
+        },
+        {
+          "ea": "0x512af4",
+          "size": 3,
+          "bytes": "83c414",
+          "mnemonic": "add",
+          "text": "add     esp, 14h",
+          "call_target": null
+        },
+        {
+          "ea": "0x512af7",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "code_bytes": 72,
+      "page_count": 1,
+      "calls": [
+        {
+          "ea": "0x512abb",
+          "size": 5,
+          "bytes": "e8504a0000",
+          "mnemonic": "call",
+          "text": "call    sub_517510",
+          "call_target": "0x517510"
+        },
+        {
+          "ea": "0x512acf",
+          "size": 5,
+          "bytes": "e84c460000",
+          "mnemonic": "call",
+          "text": "call    sub_517120",
+          "call_target": "0x517120"
+        },
+        {
+          "ea": "0x512ade",
+          "size": 5,
+          "bytes": "e8ed450000",
+          "mnemonic": "call",
+          "text": "call    sub_5170D0",
+          "call_target": "0x5170d0"
+        },
+        {
+          "ea": "0x512aef",
+          "size": 5,
+          "bytes": "e88c490000",
+          "mnemonic": "call",
+          "text": "call    sub_517480",
+          "call_target": "0x517480"
+        }
+      ],
+      "indirect_calls": [],
+      "jump_count": 0,
+      "return_count": 1
+    },
+    {
+      "start": "0x517480",
+      "end_exclusive": "0x517502",
+      "count": 49,
+      "chunks": [
+        [
+          "0x517480",
+          "0x517502"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x510570",
+          "text": "call    sub_517480",
+          "from": "0x510618"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x510630",
+          "text": "call    sub_517480",
+          "from": "0x5106fb"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x510710",
+          "text": "call    sub_517480",
+          "from": "0x5107fe"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x510810",
+          "text": "call    sub_517480",
+          "from": "0x510872"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x510880",
+          "text": "call    sub_517480",
+          "from": "0x5108e2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5108f0",
+          "text": "call    sub_517480",
+          "from": "0x51092f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x510940",
+          "text": "call    sub_517480",
+          "from": "0x5109a2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5109b0",
+          "text": "call    sub_517480",
+          "from": "0x5109ef"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x510a00",
+          "text": "call    sub_517480",
+          "from": "0x510aa8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x510ac0",
+          "text": "call    sub_517480",
+          "from": "0x510b68"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x510b80",
+          "text": "call    sub_517480",
+          "from": "0x510caa"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x510b80",
+          "text": "call    sub_517480",
+          "from": "0x510cc7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x510ce0",
+          "text": "call    sub_517480",
+          "from": "0x510d88"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x510da0",
+          "text": "call    sub_517480",
+          "from": "0x510e25"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x510e30",
+          "text": "call    sub_517480",
+          "from": "0x510eb5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x510ec0",
+          "text": "call    sub_517480",
+          "from": "0x510f45"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x510f50",
+          "text": "call    sub_517480",
+          "from": "0x510f8f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x510fa0",
+          "text": "call    sub_517480",
+          "from": "0x511025"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x511030",
+          "text": "call    sub_517480",
+          "from": "0x5110a4"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5110b0",
+          "text": "call    sub_517480",
+          "from": "0x51117b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x511190",
+          "text": "call    sub_517480",
+          "from": "0x5111cf"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5111e0",
+          "text": "call    sub_517480",
+          "from": "0x511242"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x511250",
+          "text": "call    sub_517480",
+          "from": "0x5112b2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5112c0",
+          "text": "call    sub_517480",
+          "from": "0x511345"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x511350",
+          "text": "call    sub_517480",
+          "from": "0x5113b2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5113c0",
+          "text": "call    sub_517480",
+          "from": "0x511422"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x511430",
+          "text": "call    sub_517480",
+          "from": "0x51146f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x511480",
+          "text": "call    sub_517480",
+          "from": "0x511505"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x511510",
+          "text": "call    sub_517480",
+          "from": "0x5115db"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5115f0",
+          "text": "call    sub_517480",
+          "from": "0x51162f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x511640",
+          "text": "call    sub_517480",
+          "from": "0x511751"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x511760",
+          "text": "call    sub_517480",
+          "from": "0x5117c2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5117d0",
+          "text": "call    sub_517480",
+          "from": "0x511832"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x511840",
+          "text": "call    sub_517480",
+          "from": "0x5118a2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5118b0",
+          "text": "call    sub_517480",
+          "from": "0x5118ef"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x511900",
+          "text": "call    sub_517480",
+          "from": "0x5119ee"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x511a00",
+          "text": "call    sub_517480",
+          "from": "0x511a3f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x511a50",
+          "text": "call    sub_517480",
+          "from": "0x511ad5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x511ae0",
+          "text": "call    sub_517480",
+          "from": "0x511bab"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x511bc0",
+          "text": "call    sub_517480",
+          "from": "0x511c22"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x511c30",
+          "text": "call    sub_517480",
+          "from": "0x511c6f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x511c80",
+          "text": "call    sub_517480",
+          "from": "0x511cbf"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x511cd0",
+          "text": "call    sub_517480",
+          "from": "0x511d03"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x511d10",
+          "text": "call    sub_517480",
+          "from": "0x511d4f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x511d60",
+          "text": "call    sub_517480",
+          "from": "0x511dc2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x511dd0",
+          "text": "call    sub_517480",
+          "from": "0x511e55"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x511e60",
+          "text": "call    sub_517480",
+          "from": "0x511ee5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x511ef0",
+          "text": "call    sub_517480",
+          "from": "0x511f98"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x511fb0",
+          "text": "call    sub_517480",
+          "from": "0x511fe3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x511ff0",
+          "text": "call    sub_517480",
+          "from": "0x51202f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512040",
+          "text": "call    sub_517480",
+          "from": "0x5120c5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5120d0",
+          "text": "call    sub_517480",
+          "from": "0x512155"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512160",
+          "text": "call    sub_517480",
+          "from": "0x51217c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512190",
+          "text": "call    sub_517480",
+          "from": "0x5121cf"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5121e0",
+          "text": "call    sub_517480",
+          "from": "0x51221f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512230",
+          "text": "call    sub_517480",
+          "from": "0x512263"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512270",
+          "text": "call    sub_517480",
+          "from": "0x5122af"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5122c0",
+          "text": "call    sub_517480",
+          "from": "0x5122ff"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512310",
+          "text": "call    sub_517480",
+          "from": "0x51234f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512360",
+          "text": "call    sub_517480",
+          "from": "0x51239f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5123b0",
+          "text": "call    sub_517480",
+          "from": "0x5123ef"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512400",
+          "text": "call    sub_517480",
+          "from": "0x512462"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512470",
+          "text": "call    sub_517480",
+          "from": "0x5124d2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5124e0",
+          "text": "call    sub_517480",
+          "from": "0x512565"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512570",
+          "text": "call    sub_517480",
+          "from": "0x5125a3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5125b0",
+          "text": "call    sub_517480",
+          "from": "0x512612"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512620",
+          "text": "call    sub_517480",
+          "from": "0x51270e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512720",
+          "text": "call    sub_517480",
+          "from": "0x5127a5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5127b0",
+          "text": "call    sub_517480",
+          "from": "0x5127ef"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512800",
+          "text": "call    sub_517480",
+          "from": "0x5128a8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5128c0",
+          "text": "call    sub_517480",
+          "from": "0x512aa3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512ab0",
+          "text": "call    sub_517480",
+          "from": "0x512aef"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512b00",
+          "text": "call    sub_517480",
+          "from": "0x512b85"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512b90",
+          "text": "call    sub_517480",
+          "from": "0x512bc3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512bd0",
+          "text": "call    sub_517480",
+          "from": "0x512c03"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512c10",
+          "text": "call    sub_517480",
+          "from": "0x512c4f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512c60",
+          "text": "call    sub_517480",
+          "from": "0x512c93"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512ca0",
+          "text": "call    sub_517480",
+          "from": "0x512cdf"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512cf0",
+          "text": "call    sub_517480",
+          "from": "0x512d23"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512d30",
+          "text": "call    sub_517480",
+          "from": "0x512d92"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512da0",
+          "text": "call    sub_517480",
+          "from": "0x512ddf"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512df0",
+          "text": "call    sub_517480",
+          "from": "0x512e2f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x516c90",
+          "text": "call    sub_517480",
+          "from": "0x516d5b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x516d70",
+          "text": "call    sub_517480",
+          "from": "0x516d8c"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x517480",
+          "size": 5,
+          "bytes": "a0583bda00",
+          "mnemonic": "mov",
+          "text": "mov     al, byte_DA3B58",
+          "call_target": null
+        },
+        {
+          "ea": "0x517485",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x517486",
+          "size": 4,
+          "bytes": "8b74240c",
+          "mnemonic": "mov",
+          "text": "mov     esi, [esp+4+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x51748a",
+          "size": 1,
+          "bytes": "57",
+          "mnemonic": "push",
+          "text": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x51748b",
+          "size": 2,
+          "bytes": "84c0",
+          "mnemonic": "test",
+          "text": "test    al, al",
+          "call_target": null
+        },
+        {
+          "ea": "0x51748d",
+          "size": 2,
+          "bytes": "742d",
+          "mnemonic": "jz",
+          "text": "jz      short loc_5174BC",
+          "call_target": null
+        },
+        {
+          "ea": "0x51748f",
+          "size": 5,
+          "bytes": "6820b65800",
+          "mnemonic": "push",
+          "text": "push    offset aA_0; \"a+\"",
+          "call_target": null
+        },
+        {
+          "ea": "0x517494",
+          "size": 5,
+          "bytes": "68583bda00",
+          "mnemonic": "push",
+          "text": "push    offset byte_DA3B58; FileName",
+          "call_target": null
+        },
+        {
+          "ea": "0x517499",
+          "size": 5,
+          "bytes": "e8533e0200",
+          "mnemonic": "call",
+          "text": "call    _fopen",
+          "call_target": "0x53b2f1"
+        },
+        {
+          "ea": "0x51749e",
+          "size": 2,
+          "bytes": "8bf8",
+          "mnemonic": "mov",
+          "text": "mov     edi, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174a0",
+          "size": 3,
+          "bytes": "83c408",
+          "mnemonic": "add",
+          "text": "add     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174a3",
+          "size": 2,
+          "bytes": "85ff",
+          "mnemonic": "test",
+          "text": "test    edi, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174a5",
+          "size": 2,
+          "bytes": "7415",
+          "mnemonic": "jz",
+          "text": "jz      short loc_5174BC",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174a7",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi; int",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174a8",
+          "size": 5,
+          "bytes": "6824b65800",
+          "mnemonic": "push",
+          "text": "push    offset aS_1; \"->%s\\n\"",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174ad",
+          "size": 1,
+          "bytes": "57",
+          "mnemonic": "push",
+          "text": "push    edi; File",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174ae",
+          "size": 5,
+          "bytes": "e85c470200",
+          "mnemonic": "call",
+          "text": "call    sub_53BC0F",
+          "call_target": "0x53bc0f"
+        },
+        {
+          "ea": "0x5174b3",
+          "size": 1,
+          "bytes": "57",
+          "mnemonic": "push",
+          "text": "push    edi; Stream",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174b4",
+          "size": 5,
+          "bytes": "e8173d0200",
+          "mnemonic": "call",
+          "text": "call    _fclose",
+          "call_target": "0x53b1d0"
+        },
+        {
+          "ea": "0x5174b9",
+          "size": 3,
+          "bytes": "83c410",
+          "mnemonic": "add",
+          "text": "add     esp, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174bc",
+          "size": 5,
+          "bytes": "a11cb65800",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_58B61C",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174c1",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174c3",
+          "size": 2,
+          "bytes": "7408",
+          "mnemonic": "jz",
+          "text": "jz      short loc_5174CD",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174c5",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174c6",
+          "size": 2,
+          "bytes": "6a01",
+          "mnemonic": "push",
+          "text": "push    1",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174c8",
+          "size": 2,
+          "bytes": "ffd0",
+          "mnemonic": "call",
+          "text": "call    eax ; dword_58B61C",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174ca",
+          "size": 3,
+          "bytes": "83c408",
+          "mnemonic": "add",
+          "text": "add     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174cd",
+          "size": 2,
+          "bytes": "8bfe",
+          "mnemonic": "mov",
+          "text": "mov     edi, esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174cf",
+          "size": 3,
+          "bytes": "83c9ff",
+          "mnemonic": "or",
+          "text": "or      ecx, 0FFFFFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174d2",
+          "size": 2,
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "text": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174d4",
+          "size": 2,
+          "bytes": "f2ae",
+          "mnemonic": "scasb",
+          "text": "repne scasb",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174d6",
+          "size": 5,
+          "bytes": "a1ecb55800",
+          "mnemonic": "mov",
+          "text": "mov     eax, outBufferLen",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174db",
+          "size": 2,
+          "bytes": "f7d1",
+          "mnemonic": "not",
+          "text": "not     ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174dd",
+          "size": 1,
+          "bytes": "49",
+          "mnemonic": "dec",
+          "text": "dec     ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174de",
+          "size": 3,
+          "bytes": "8d0440",
+          "mnemonic": "lea",
+          "text": "lea     eax, [eax+eax*2]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174e1",
+          "size": 2,
+          "bytes": "3bc8",
+          "mnemonic": "cmp",
+          "text": "cmp     ecx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174e3",
+          "size": 2,
+          "bytes": "730a",
+          "mnemonic": "jnb",
+          "text": "jnb     short loc_5174EF",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174e5",
+          "size": 4,
+          "bytes": "c604310a",
+          "mnemonic": "mov",
+          "text": "mov     byte ptr [ecx+esi], 0Ah",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174e9",
+          "size": 5,
+          "bytes": "c644310100",
+          "mnemonic": "mov",
+          "text": "mov     byte ptr [ecx+esi+1], 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174ee",
+          "size": 1,
+          "bytes": "41",
+          "mnemonic": "inc",
+          "text": "inc     ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174ef",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174f0",
+          "size": 4,
+          "bytes": "8b4c2410",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [esp+0Ch+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174f4",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174f5",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174f6",
+          "size": 6,
+          "bytes": "ff15e8b55800",
+          "mnemonic": "call",
+          "text": "call    dword_58B5E8",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174fc",
+          "size": 3,
+          "bytes": "83c40c",
+          "mnemonic": "add",
+          "text": "add     esp, 0Ch",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174ff",
+          "size": 1,
+          "bytes": "5f",
+          "mnemonic": "pop",
+          "text": "pop     edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x517500",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x517501",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "code_bytes": 130,
+      "page_count": 1,
+      "calls": [
+        {
+          "ea": "0x517499",
+          "size": 5,
+          "bytes": "e8533e0200",
+          "mnemonic": "call",
+          "text": "call    _fopen",
+          "call_target": "0x53b2f1"
+        },
+        {
+          "ea": "0x5174ae",
+          "size": 5,
+          "bytes": "e85c470200",
+          "mnemonic": "call",
+          "text": "call    sub_53BC0F",
+          "call_target": "0x53bc0f"
+        },
+        {
+          "ea": "0x5174b4",
+          "size": 5,
+          "bytes": "e8173d0200",
+          "mnemonic": "call",
+          "text": "call    _fclose",
+          "call_target": "0x53b1d0"
+        }
+      ],
+      "indirect_calls": [
+        {
+          "ea": "0x5174c8",
+          "size": 2,
+          "bytes": "ffd0",
+          "mnemonic": "call",
+          "text": "call    eax ; dword_58B61C",
+          "call_target": null
+        },
+        {
+          "ea": "0x5174f6",
+          "size": 6,
+          "bytes": "ff15e8b55800",
+          "mnemonic": "call",
+          "text": "call    dword_58B5E8",
+          "call_target": null
+        }
+      ],
+      "jump_count": 4,
+      "return_count": 1
+    }
+  ],
+  "source_functions": [
+    {
+      "index": 151,
+      "id": "F:00108AF0",
+      "entry": "0x508AF0",
+      "original_index": 0,
+      "existing": true,
+      "symbol": "StartLoginRequest",
+      "source_path": "src/LoginRequest.cpp",
+      "features": [
+        "FUNC-LOGIN"
+      ],
+      "disposition": "adapted",
+      "role": "登录请求启动/原字段取样及请求状态与计时发布",
+      "contract": "BVK01完整19条82B登录启动正确保持：S16选择→独立W16回复清零→同148B记录+18/+50/+4C三个S32按原取样→socket，按512B00(socket,+4C,+50,+18)发送并忽略结果；正常失败仍发布请求状态1，计时调用后保存/返回完整U32 tick。复用既有owner/平台计时与宿主socket承接，不新保护或源码/I；完整登录父/往返运行未验。"
+    },
+    {
+      "index": 1764,
+      "id": "F:00112B00",
+      "entry": "0x512B00",
+      "original_index": 1,
+      "existing": false,
+      "symbol": "Sub_512B00",
+      "source_path": "src/network/NetworkRuntime.cpp",
+      "features": [
+        "FUNC-LOGIN",
+        "FUNC-NETWORK"
+      ],
+      "disposition": "equivalent",
+      "role": "原emRV登录三整数组包及发送返回透传",
+      "parent_source": "src/LoginRequest.cpp",
+      "parent_symbol": "StartLoginRequest",
+      "contract": "BVK01完整44条142B的emRV原三整数+4C/+50/+18按原field序组包。各独立取共享W32容量，格式token完成后fresh读输出指针再追加；末fresh读输出交517480并完整透传S32结果。原命令/字段/空格/外帧及明文保持，现正确源码0改动、无新I/实现或状态；实际唯一启动父接线可追，不外推所有协议/ABI运行。"
+    },
+    {
+      "index": 1765,
+      "id": "F:00112AB0",
+      "entry": "0x512AB0",
+      "original_index": 2,
+      "existing": false,
+      "symbol": "Sub_512AB0",
+      "source_path": "src/network/NetworkRuntime.cpp",
+      "features": [
+        "FUNC-CHARACTER",
+        "FUNC-NETWORK"
+      ],
+      "disposition": "equivalent",
+      "role": "原Godf删除单注册号组包及发送返回透传",
+      "parent_source": "src/CharacterDeletionRequest.cpp",
+      "parent_symbol": "StartCharacterDeletionRequest",
+      "contract": "BVK01完整22条72B的Godf原单S32注册号组包：命令构造后独立取W32容量，再格式整数token，格式后fresh输出指针追加，末fresh输出交517480/S32结果透传。BVJ01删除启动先socket后记录+4C/正常发送失败仍状态1及tick正确保持；原格式明文/各helper取样保持，源码0改动无新I/状态或保护，完整删除往返运行未验。"
+    },
+    {
+      "index": 752,
+      "id": "F:00117480",
+      "entry": "0x517480",
+      "original_index": 3,
+      "existing": true,
+      "symbol": "SendProtocolBuffer_517480",
+      "source_path": "src/network/NetworkRuntime.cpp",
+      "features": [
+        "FUNC-NETWORK"
+      ],
+      "disposition": "adapted",
+      "role": "发送前日志/观察/原行尾门槛与真实明文帧回调",
+      "contract": "BVK01完整49条130B发送包装正确保持：路径首BYTE非零才a+打开、成功才->%s换行日志并关闭；失败继续。日志后持样观察回调一次/非空调用方向1和原buffer，再strlen取W32长度、fresh共享W32容量形成原正常3N门槛；L<3N时LF→NUL→长度+1，否则不改。最后不判空经callback(socket,buffer,L)透传S32结果，现InitializeNetworkRuntime实际绑定D04明文Sub403E50，516B60空参缺省原NULL_FUNC合法零返回保。仅沿既定CRT/宿主socket/D04适配，零新源码/I/加解密/格式；84 CALL/83父只定位、本链两caller原体覆盖，不外推全部父/寿命/ABI或真实互通。"
+    }
+  ],
+  "records_before": [
+    {
+      "index": 151,
+      "record": {
+        "original_entry": "0x508AF0",
+        "inventory_id": "F:00108AF0",
+        "status": "已有请求本体与调用映射，完整收发未验",
+        "original_role": "选中角色登录请求启动",
+        "reference_sites": [
+          "0x45EAEB"
+        ],
+        "sources": [
+          {
+            "path": "src/LoginRequest.cpp",
+            "symbols": [
+              "StartLoginRequest"
+            ]
+          },
+          {
+            "path": "src/LoginState.cpp",
+            "symbols": [
+              "UpdateLoginProgress"
+            ]
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_login_request.md",
+          "doc/cg2d_login_state_controller.md",
+          "doc/cg2d_semantic_function_mappings.md"
+        ],
+        "boundary": "保留S16选择及已证有效输入前提，清回复码后依序读取记录+18/+50/+4C，按既有512B00参数序发送，再置状态和发布/返回U32 tick；不加范围钳制。"
+      }
+    },
+    {
+      "index": 752,
+      "record": {
+        "original_entry": "0x517480",
+        "inventory_id": "F:00117480",
+        "status": "既有日志/现代查看器父的真实FILE完整链已接；旧待批/完整CRT与运行验收仍待",
+        "original_end_exclusive": "0x517502",
+        "instruction_count": 49,
+        "original_direct_reference_count": 84,
+        "sources": [
+          {
+            "path": "src/network/NetworkRuntime.cpp",
+            "symbols": [
+              "SendProtocolBuffer_517480"
+            ]
+          }
+        ],
+        "inbound_evidence": [
+          {
+            "address": "0x510618",
+            "parent_entry": "0x510570"
+          },
+          {
+            "address": "0x5106FB",
+            "parent_entry": "0x510630"
+          },
+          {
+            "address": "0x5107FE",
+            "parent_entry": "0x510710"
+          },
+          {
+            "address": "0x510872",
+            "parent_entry": "0x510810"
+          },
+          {
+            "address": "0x5108E2",
+            "parent_entry": "0x510880"
+          },
+          {
+            "address": "0x51092F",
+            "parent_entry": "0x5108F0"
+          },
+          {
+            "address": "0x5109A2",
+            "parent_entry": "0x510940"
+          },
+          {
+            "address": "0x5109EF",
+            "parent_entry": "0x5109B0"
+          },
+          {
+            "address": "0x510AA8",
+            "parent_entry": "0x510A00"
+          },
+          {
+            "address": "0x510B68",
+            "parent_entry": "0x510AC0"
+          },
+          {
+            "address": "0x510CAA",
+            "parent_entry": "0x510B80"
+          },
+          {
+            "address": "0x510CC7",
+            "parent_entry": "0x510B80"
+          },
+          {
+            "address": "0x510D88",
+            "parent_entry": "0x510CE0"
+          },
+          {
+            "address": "0x510E25",
+            "parent_entry": "0x510DA0"
+          },
+          {
+            "address": "0x510EB5",
+            "parent_entry": "0x510E30"
+          },
+          {
+            "address": "0x510F45",
+            "parent_entry": "0x510EC0"
+          },
+          {
+            "address": "0x510F8F",
+            "parent_entry": "0x510F50"
+          },
+          {
+            "address": "0x511025",
+            "parent_entry": "0x510FA0"
+          },
+          {
+            "address": "0x5110A4",
+            "parent_entry": "0x511030"
+          },
+          {
+            "address": "0x51117B",
+            "parent_entry": "0x5110B0"
+          },
+          {
+            "address": "0x5111CF",
+            "parent_entry": "0x511190"
+          },
+          {
+            "address": "0x511242",
+            "parent_entry": "0x5111E0"
+          },
+          {
+            "address": "0x5112B2",
+            "parent_entry": "0x511250"
+          },
+          {
+            "address": "0x511345",
+            "parent_entry": "0x5112C0"
+          },
+          {
+            "address": "0x5113B2",
+            "parent_entry": "0x511350"
+          },
+          {
+            "address": "0x511422",
+            "parent_entry": "0x5113C0"
+          },
+          {
+            "address": "0x51146F",
+            "parent_entry": "0x511430"
+          },
+          {
+            "address": "0x511505",
+            "parent_entry": "0x511480"
+          },
+          {
+            "address": "0x5115DB",
+            "parent_entry": "0x511510"
+          },
+          {
+            "address": "0x51162F",
+            "parent_entry": "0x5115F0"
+          },
+          {
+            "address": "0x511751",
+            "parent_entry": "0x511640"
+          },
+          {
+            "address": "0x5117C2",
+            "parent_entry": "0x511760"
+          },
+          {
+            "address": "0x511832",
+            "parent_entry": "0x5117D0"
+          },
+          {
+            "address": "0x5118A2",
+            "parent_entry": "0x511840"
+          },
+          {
+            "address": "0x5118EF",
+            "parent_entry": "0x5118B0"
+          },
+          {
+            "address": "0x5119EE",
+            "parent_entry": "0x511900"
+          },
+          {
+            "address": "0x511A3F",
+            "parent_entry": "0x511A00"
+          },
+          {
+            "address": "0x511AD5",
+            "parent_entry": "0x511A50"
+          },
+          {
+            "address": "0x511BAB",
+            "parent_entry": "0x511AE0"
+          },
+          {
+            "address": "0x511C22",
+            "parent_entry": "0x511BC0"
+          },
+          {
+            "address": "0x511C6F",
+            "parent_entry": "0x511C30"
+          },
+          {
+            "address": "0x511CBF",
+            "parent_entry": "0x511C80"
+          },
+          {
+            "address": "0x511D03",
+            "parent_entry": "0x511CD0"
+          },
+          {
+            "address": "0x511D4F",
+            "parent_entry": "0x511D10"
+          },
+          {
+            "address": "0x511DC2",
+            "parent_entry": "0x511D60"
+          },
+          {
+            "address": "0x511E55",
+            "parent_entry": "0x511DD0"
+          },
+          {
+            "address": "0x511EE5",
+            "parent_entry": "0x511E60"
+          },
+          {
+            "address": "0x511F98",
+            "parent_entry": "0x511EF0"
+          },
+          {
+            "address": "0x511FE3",
+            "parent_entry": "0x511FB0"
+          },
+          {
+            "address": "0x51202F",
+            "parent_entry": "0x511FF0"
+          },
+          {
+            "address": "0x5120C5",
+            "parent_entry": "0x512040"
+          },
+          {
+            "address": "0x512155",
+            "parent_entry": "0x5120D0"
+          },
+          {
+            "address": "0x51217C",
+            "parent_entry": "0x512160"
+          },
+          {
+            "address": "0x5121CF",
+            "parent_entry": "0x512190"
+          },
+          {
+            "address": "0x51221F",
+            "parent_entry": "0x5121E0"
+          },
+          {
+            "address": "0x512263",
+            "parent_entry": "0x512230"
+          },
+          {
+            "address": "0x5122AF",
+            "parent_entry": "0x512270"
+          },
+          {
+            "address": "0x5122FF",
+            "parent_entry": "0x5122C0"
+          },
+          {
+            "address": "0x51234F",
+            "parent_entry": "0x512310"
+          },
+          {
+            "address": "0x51239F",
+            "parent_entry": "0x512360"
+          },
+          {
+            "address": "0x5123EF",
+            "parent_entry": "0x5123B0"
+          },
+          {
+            "address": "0x512462",
+            "parent_entry": "0x512400"
+          },
+          {
+            "address": "0x5124D2",
+            "parent_entry": "0x512470"
+          },
+          {
+            "address": "0x512565",
+            "parent_entry": "0x5124E0"
+          },
+          {
+            "address": "0x5125A3",
+            "parent_entry": "0x512570"
+          },
+          {
+            "address": "0x512612",
+            "parent_entry": "0x5125B0"
+          },
+          {
+            "address": "0x51270E",
+            "parent_entry": "0x512620"
+          },
+          {
+            "address": "0x5127A5",
+            "parent_entry": "0x512720"
+          },
+          {
+            "address": "0x5127EF",
+            "parent_entry": "0x5127B0"
+          },
+          {
+            "address": "0x5128A8",
+            "parent_entry": "0x512800"
+          },
+          {
+            "address": "0x512AA3",
+            "parent_entry": "0x5128C0"
+          },
+          {
+            "address": "0x512AEF",
+            "parent_entry": "0x512AB0"
+          },
+          {
+            "address": "0x512B85",
+            "parent_entry": "0x512B00"
+          },
+          {
+            "address": "0x512BC3",
+            "parent_entry": "0x512B90"
+          },
+          {
+            "address": "0x512C03",
+            "parent_entry": "0x512BD0"
+          },
+          {
+            "address": "0x512C4F",
+            "parent_entry": "0x512C10"
+          },
+          {
+            "address": "0x512C93",
+            "parent_entry": "0x512C60"
+          },
+          {
+            "address": "0x512CDF",
+            "parent_entry": "0x512CA0"
+          },
+          {
+            "address": "0x512D23",
+            "parent_entry": "0x512CF0"
+          },
+          {
+            "address": "0x512D92",
+            "parent_entry": "0x512D30"
+          },
+          {
+            "address": "0x512DDF",
+            "parent_entry": "0x512DA0"
+          },
+          {
+            "address": "0x512E2F",
+            "parent_entry": "0x512DF0"
+          },
+          {
+            "address": "0x516D5B",
+            "parent_entry": "0x516C90"
+          },
+          {
+            "address": "0x516D8C",
+            "parent_entry": "0x516D70"
+          }
+        ],
+        "business_call_connections": [
+          {
+            "parent_entry": "0x517480",
+            "call_site": "0x517499",
+            "source": "src/network/NetworkRuntime.cpp",
+            "symbol": "SendProtocolBuffer_517480",
+            "target_entry": "0x53B2F1",
+            "target_symbol": "OpenLegacyStream_53B2F1"
+          },
+          {
+            "parent_entry": "0x517480",
+            "call_site": "0x5174AE",
+            "source": "src/network/NetworkRuntime.cpp",
+            "symbol": "SendProtocolBuffer_517480",
+            "target_entry": "0x53BC0F",
+            "target_symbol": "FormatLegacyStream_53BC0F"
+          },
+          {
+            "parent_entry": "0x517480",
+            "call_site": "0x5174B4",
+            "source": "src/network/NetworkRuntime.cpp",
+            "symbol": "SendProtocolBuffer_517480",
+            "target_entry": "0x53B1D0",
+            "target_symbol": "CloseLegacyStream_53B1D0"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_stdio_contract.md"
+        ],
+        "verification_level": "十父完整1097条/180直接引用、39文件格式调用对应38表达式、23共享流引用、EOF低U8/原字节/失败/重复关闭/协议回调顺序及限定源码差异静态核对；不重验UI/日期/播放/协议分发，未执行",
+        "boundary": "既有发送协议父先采样配置路径/a+写->%s换行并关闭，再observer(1)，最后原长度门槛/换行添加/发送；缺配置或打开失败继续。只迁移局部文件链，不修改或实现排除加密、发送后端及缓冲/生命周期正文。",
+        "business_byte_evidence": [
+          {
+            "address": "0x58B620",
+            "bytes": "612b00"
+          },
+          {
+            "address": "0x58B624",
+            "bytes": "2d3e25730a00"
+          }
+        ]
+      }
+    }
+  ],
+  "functions_before": [
+    {
+      "id": "F:00108AF0",
+      "original_entry": "0x508AF0",
+      "original_name": "sub_508AF0",
+      "semantic_indices": [
+        151
+      ],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [],
+      "baseline_documents": [
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": [
+        {
+          "path": "src/LoginRequest.cpp",
+          "symbols": [
+            "StartLoginRequest"
+          ]
+        },
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "UpdateLoginProgress"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "F:00112B00",
+      "original_entry": "0x512B00",
+      "original_name": "sub_512B00",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbol": "Sub_512B00",
+          "definition_line": 1974,
+          "namespace": "cg::network"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:00112AB0",
+      "original_entry": "0x512AB0",
+      "original_name": "sub_512AB0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbol": "Sub_512AB0",
+          "definition_line": 2013,
+          "namespace": "cg::network"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:00117480",
+      "original_entry": "0x517480",
+      "original_name": "sub_517480",
+      "semantic_indices": [
+        752
+      ],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbol": "SendProtocolBuffer_517480",
+          "definition_line": 1657,
+          "namespace": "cg::network"
+        }
+      ],
+      "baseline_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "SendProtocolBuffer_517480"
+          ]
+        }
+      ]
+    }
+  ],
+  "source_files_before": [
+    {
+      "path": "src/LoginRequest.cpp",
+      "length": 7947
+    },
+    {
+      "path": "src/network/NetworkRuntime.cpp",
+      "length": 190111
+    },
+    {
+      "path": "include/cg/network/NetworkRuntime.hpp",
+      "length": 17158
+    },
+    {
+      "path": "include/cg/LoginRequest.hpp",
+      "length": 1937
+    },
+    {
+      "path": "src/CharacterDeletionRequest.cpp",
+      "length": 2752
+    },
+    {
+      "path": "include/cg/CharacterDeletionRequest.hpp",
+      "length": 548
+    },
+    {
+      "path": "src/LoginState.cpp",
+      "length": 17718
+    },
+    {
+      "path": "src/platform/LegacyFormat.hpp",
+      "length": 2205
+    }
+  ],
+  "source_bodies_before": {
+    "StartLoginRequest": "std::uint32_t StartLoginRequest()\n{\n    const std::int16_t selected = gSelectedCharacterIndex;\n    gRequestReplyCode = 0;\n\n    const CharacterRecordBytes* const record = gCharacterRecords.data() + selected;\n    std::int32_t field18;\n    std::int32_t field50;\n    std::int32_t field4C;\n    std::memcpy(&field18, record->data() + kRequestField18Offset, sizeof(field18));\n    std::memcpy(&field50, record->data() + kRequestField50Offset, sizeof(field50));\n    std::memcpy(&field4C, record->data() + kRequestField4COffset, sizeof(field4C));\n\n    network::Sub_512B00(\n        platform::gConnectionSocket,\n        field4C,\n        field50,\n        field18);\n    gRequestStatus = 1;\n    const std::uint32_t tick = platform::ReadTickCount32();\n    gRequestStartTick = tick;\n    return tick;\n}\n\n",
+    "Sub_512B00": "std::int32_t Sub_512B00(\n    const std::uintptr_t socket,\n    const std::int32_t field4C,\n    const std::int32_t field50,\n    const std::int32_t field18)\n{\n    static_cast<void>(BuildProtocolCommand_517510(\n        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), \"emRV\"));\n\n    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(\n        gNetworkRuntimeState.bufferLength);\n    std::uint8_t* const firstToken = FormatProtocolIntegerToken_517120(field4C);\n    static_cast<void>(AppendProtocolText_5170D0(\n        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),\n        reinterpret_cast<const char*>(firstToken),\n        firstCapacity));\n\n    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(\n        gNetworkRuntimeState.bufferLength);\n    std::uint8_t* const secondToken = FormatProtocolIntegerToken_517120(field50);\n    static_cast<void>(AppendProtocolText_5170D0(\n        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),\n        reinterpret_cast<const char*>(secondToken),\n        secondCapacity));\n\n    const std::int32_t thirdCapacity = std::bit_cast<std::int32_t>(\n        gNetworkRuntimeState.bufferLength);\n    std::uint8_t* const thirdToken = FormatProtocolIntegerToken_517120(field18);\n    static_cast<void>(AppendProtocolText_5170D0(\n        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),\n        reinterpret_cast<const char*>(thirdToken),\n        thirdCapacity));\n\n    return SendProtocolBuffer_517480(\n        socket,\n        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));\n}\n\n",
+    "Sub_512AB0": "std::int32_t Sub_512AB0(\n    const std::uintptr_t socket,\n    const std::int32_t registNumber)\n{\n    static_cast<void>(BuildProtocolCommand_517510(\n        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), \"Godf\"));\n    const std::int32_t capacity = std::bit_cast<std::int32_t>(\n        gNetworkRuntimeState.bufferLength);\n    std::uint8_t* const token = FormatProtocolIntegerToken_517120(registNumber);\n    static_cast<void>(AppendProtocolText_5170D0(\n        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),\n        reinterpret_cast<const char*>(token),\n        capacity));\n    return SendProtocolBuffer_517480(\n        socket,\n        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));\n}\n\n",
+    "SendProtocolBuffer_517480": "std::int32_t SendProtocolBuffer_517480(\n    const std::uintptr_t socket,\n    char* const buffer)\n{\n    if (gNetworkRuntimeState.sendLogPathDA3B58[0] != '\\0') {\n        platform::LegacyFile* const file = platform::OpenLegacyStream_53B2F1(\n            gNetworkRuntimeState.sendLogPathDA3B58,\n            \"a+\");\n        if (file != nullptr) {\n            static_cast<void>(platform::FormatLegacyStream_53BC0F(file, \"->%s\\n\", buffer));\n            static_cast<void>(platform::CloseLegacyStream_53B1D0(file));\n        }\n    }\n\n    const SendProtocolObserver observer =\n        gNetworkRuntimeState.sendObserver58B61C;\n    if (observer != nullptr) {\n        observer(1U, buffer);\n    }\n\n    std::uint32_t length =\n        static_cast<std::uint32_t>(std::strlen(buffer));\n    const std::uint32_t bufferLength =\n        gNetworkRuntimeState.bufferLength;\n    const std::uint32_t threshold = bufferLength * 3U;\n    if (length < threshold) {\n        buffer[length] = '\\n';\n        buffer[length + 1U] = '\\0';\n        ++length;\n    }\n\n    return gNetworkRuntimeState.callback(socket, buffer, length);\n}\n\n",
+    "InitializeNetworkRuntime_508140": "std::int32_t InitializeNetworkRuntime_508140()\n{\n    WSADATA data;\n    if (::WSAStartup(MAKEWORD(1, 1), &data) != 0) {\n        return 0;\n    }\n\n    static_cast<void>(AllocateNetworkWorkspace_516B60(\n        &detail::Sub_403E50,\n        0x10000U,\n        platform::gConnectionSocket));\n    gNetworkRuntimeState.active = 1;\n    world::gValueD9F2CA = 0;\n    return 1;\n}\n\n",
+    "AllocateNetworkWorkspace_516B60": "std::int32_t AllocateNetworkWorkspace_516B60(\n    const NetworkCallback callback,\n    const std::uint32_t bufferLength,\n    const std::uintptr_t)\n{\n    gNetworkRuntimeState.callback = &DefaultNetworkCallback;\n    if (callback != nullptr) {\n        gNetworkRuntimeState.callback = callback;\n    }\n\n    static_cast<void>(AllocateProtocolBuffers_516DA0(bufferLength));\n\n    gNetworkRuntimeState.workspaceSlots = static_cast<std::uint8_t**>(\n        std::malloc(kWorkspaceSlotCount * sizeof(std::uint8_t*)));\n    if (gNetworkRuntimeState.workspaceSlots == nullptr) {\n        return -1;\n    }\n\n    std::fill_n(\n        gNetworkRuntimeState.workspaceSlots,\n        kWorkspaceSlotCount,\n        nullptr);\n    for (std::size_t index = 0; index < kWorkspaceSlotCount; ++index) {\n        gNetworkRuntimeState.workspaceSlots[index] = static_cast<std::uint8_t*>(\n            std::malloc(static_cast<std::size_t>(bufferLength)));\n        if (gNetworkRuntimeState.workspaceSlots[index] == nullptr) {\n            std::free(gNetworkRuntimeState.workspaceSlots[0]);\n            return -1;\n        }\n    }\n    return 0;\n}\n\n",
+    "Sub_403E50": "std::int32_t Sub_403E50(\n    const std::uintptr_t,\n    const void* const data,\n    const std::uint32_t size)\n{\n    std::array<std::uint8_t, 0x4004> plaintext;\n    std::array<std::uint8_t, 0x4002> frame;\n    if (login::gRequestPollingEnabled == 0) {\n        return -100;\n    }\n\n    std::int32_t sendLength;\n    std::memcpy(\n        &sendLength,\n        gNetworkRuntimeState.queueBytes.data() + kSendLengthOffset,\n        sizeof(sendLength));\n    const std::int32_t checkedLength =\n        sendLength + static_cast<std::int32_t>(size) + 1;\n    if (checkedLength > static_cast<std::int32_t>(kQueueCapacity)) {\n        return -1;\n    }\n\n    if (gNetworkRuntimeState.valueD9F2D0 == 1) {\n        plaintext[0] = 0x13;\n        gNetworkRuntimeState.valueD9F2D0 = 0;\n    } else if (platform::gWindowReportValue > 0\n        && login::ReadRequestOutcomeFlag() == 1\n        && std::bit_cast<std::int32_t>(platform::gWindowReportDeadline) < 0) {\n        plaintext[0] = 0xFC;\n        platform::gWindowReportValue = 0;\n    } else {\n        plaintext[0] = static_cast<std::uint8_t>(\n            platform::RandomRange_46FAF0(20, 250));\n    }\n\n    std::memcpy(plaintext.data() + 1, data, size);\n    const std::uint16_t oldTailLength = ReadProtocolStateW16(10);\n    std::memcpy(\n        plaintext.data() + size + 1U,\n        gNetworkRuntimeState.protocolState593FC4.data() + 4,\n        oldTailLength);\n    WriteProtocolStateW16(4, 0);\n    gNetworkRuntimeState.protocolState593FC4[6] = 0;\n    static_cast<void>(platform::FormatLegacyString_53B304(\n        reinterpret_cast<char*>(\n            gNetworkRuntimeState.protocolState593FC4.data() + 4),\n        \"%s\",\n        reinterpret_cast<const char*>(\n            gNetworkRuntimeState.protocolState593FC4.data())));\n\n    // 403F61/403F6D：格式后重读尾长，原算法首参是完整W32表达式。\n    const std::uint32_t plaintextLength =\n        static_cast<std::uint32_t>(ReadProtocolStateW16(10)) + size + 1U;\n    const std::uint16_t transmittedLength =\n        static_cast<std::uint16_t>(plaintextLength);\n    std::memcpy(frame.data(), &transmittedLength, sizeof(transmittedLength));\n    const std::uint32_t bodyWordBytes = transmittedLength & ~3U;\n    std::memcpy(frame.data() + 2, plaintext.data(), bodyWordBytes);\n    std::memcpy(\n        &sendLength,\n        gNetworkRuntimeState.queueBytes.data() + kSendLengthOffset,\n        sizeof(sendLength));\n    std::memcpy(\n        frame.data() + 2U + bodyWordBytes,\n        plaintext.data() + bodyWordBytes,\n        transmittedLength & 3U);\n    const std::uint32_t frameLength =\n        static_cast<std::uint32_t>(transmittedLength) + 2U;\n    std::memcpy(\n        gNetworkRuntimeState.queueBytes.data() + sendLength,\n        frame.data(),\n        frameLength & ~3U);\n    const std::int32_t nextLength =\n        sendLength + static_cast<std::int32_t>(frameLength);\n    std::memcpy(\n        gNetworkRuntimeState.queueBytes.data() + kSendLengthOffset,\n        &nextLength,\n        sizeof(nextLength));\n    // 403FCE/403FD9/403FDE：DWORD前缀入队后发布长度，再写尾byte。\n    const std::uint32_t frameWordBytes = frameLength & ~3U;\n    std::memcpy(\n        gNetworkRuntimeState.queueBytes.data() + sendLength + frameWordBytes,\n        frame.data() + frameWordBytes,\n        frameLength & 3U);\n\n    // 403FE3/403FEA独立后读，状态长度不以W16帧头或旧尾快照代替。\n    const std::uint32_t stateLength =\n        static_cast<std::uint32_t>(ReadProtocolStateW16(10)) + size + 1U;\n    if (stateLength <= 16U) {\n        const std::array<std::uint32_t*, 4> words {\n            &gNetworkRuntimeState.protocolWord4,\n            &gNetworkRuntimeState.protocolWord5,\n            &gNetworkRuntimeState.protocolWord6,\n            &gNetworkRuntimeState.protocolWord7\n        };\n        const std::uint32_t wholeWords = stateLength / 4U;\n        for (std::uint32_t index = 0; index < wholeWords; ++index) {\n            std::memcpy(words[index], plaintext.data() + index * 4U, 4);\n        }\n        for (std::uint32_t index = wholeWords * 4U;\n             index < stateLength; ++index) {\n            reinterpret_cast<std::uint8_t*>(words[index / 4U])[index % 4U] =\n                plaintext[index];\n        }\n    } else {\n        std::memcpy(\n            &gNetworkRuntimeState.protocolWord4, plaintext.data(), 4);\n        std::memcpy(\n            &gNetworkRuntimeState.protocolWord5, plaintext.data() + 4, 4);\n        std::memcpy(\n            &gNetworkRuntimeState.protocolWord6, plaintext.data() + 8, 4);\n        std::memcpy(\n            &gNetworkRuntimeState.protocolWord7, plaintext.data() + 12, 4);\n    }\n    const std::uint16_t currentTailLength = ReadProtocolStateW16(8);\n    WriteProtocolStateW16(10, currentTailLength);\n    return 0;\n}\n\n",
+    "DefaultNetworkCallback": "std::int32_t DefaultNetworkCallback(\n    std::uintptr_t,\n    const void*,\n    std::uint32_t)\n{\n    return 0;\n}\n\n"
+  },
+  "source_cpp_file_count": 0,
+  "source_header_file_count": 0,
+  "source_patch_count": 0,
+  "new_helper_count": 0,
+  "new_owner_count": 0,
+  "new_implementation_function_count": 0,
+  "evidence_refs": [
+    "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
+    "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision",
+    "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-acceptance",
+    "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
+    "doc/cg2d_login_deletion_send_chain_baseline_evidence.json"
+  ],
+  "artifacts": [
+    "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
+    "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision",
+    "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-acceptance",
+    "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
+    "doc/cg2d_login_deletion_send_chain_baseline_evidence.json",
+    "src/LoginRequest.cpp",
+    "src/network/NetworkRuntime.cpp",
+    "include/cg/network/NetworkRuntime.hpp",
+    "include/cg/LoginRequest.hpp",
+    "src/CharacterDeletionRequest.cpp",
+    "include/cg/CharacterDeletionRequest.hpp",
+    "src/LoginState.cpp",
+    "src/platform/LegacyFormat.hpp",
+    "doc/cg2d_network_runtime.md",
+    "doc/cg2d_network_compatibility_spec.md",
+    "doc/cg2d_login_request.md",
+    "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state",
+    "doc/cg2d_network_plaintext_frame_spec.md#frame-source-closure",
+    "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+    "doc/cg2d_semantic_function_mappings.json",
+    "plan/cg2d_acceptance_registry.json"
+  ],
+  "task_acceptance_before": [
+    {
+      "task_id": "U10",
+      "state": "open",
+      "reference_count": 71
+    },
+    {
+      "task_id": "V03",
+      "state": "open",
+      "reference_count": 79
+    },
+    {
+      "task_id": "U11",
+      "state": "open",
+      "reference_count": 48
+    },
+    {
+      "task_id": "R04",
+      "state": "open",
+      "reference_count": 265
+    }
+  ],
+  "implementation_static_scope": "BVK01限定静态：登录启动/emRV/Godf/发送包装四完整根134条426B/四页、16直接八目标/3间接/4跳/4RET；实际启动/组包唯一入向与发送84 CALL/83父仅定位，本链两组包到517480真实接线可追。登录18→50→4C→socket及发送失败后状态/tick、emRV三整数/Godf一注册号各自容量/格式后输出重读和发送结果直透正确；发送日志/持样observer先于strlen，正常L<3N时LF→NUL→+1，真实D04明文callback及合法NULL_FUNC缺省保。源码0改动/无新I/helper/owner/实现/保护，纠正文档现时W32接口/无调用点与752过期父边界；151/752已有更新、1764/1765新正确原新，四F及三域仅S，LOGIN15/CHARACTER29/NETWORK67。原格式明文/排除/音频暂停/RPLAN.24与完整门禁保，不外推全83父/所有callee/正常寿命/ABI链接/完整互通或运行。",
+  "runtime_verified": false,
+  "fault_equivalence_claimed": false,
+  "network_wire_format_changed": false,
+  "encryption_added": false,
+  "full_all_send_parents_or_callees_acceptance_claimed": false
+}

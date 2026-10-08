@@ -262,3 +262,7 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 ## CAB24 V05/V02/R01 的音频初始化路径与发布（2026-10-09）
 
 [524230当前尾段](../doc/cg2d_audio_update.md#audio-loader-publication-source-state)已恢复三真实原格式点和id/sampleIndex/路径/volume检查发布/pitch检查/loop发布及BGM三样本写序；尾窗351条1191B与父元数据/实际入向有据，三局部外及现SDL/表/文件机制保持。当前Debug0错误/0增量警告并更新游戏EXE/备份，一个原语义/F及AUDIO41已知成员但枚举false，已有格式接线1004/1023、剩余19不计完成；限定AUDIO/CRT各I/W/S，三任务及完整前段/全部格式/SDK失败/正常寿命/机器ABI、声音/旧外层/运行/IP2仍open。
+
+## CAB25 C03 的已知原格式调用库存（2026-10-09）
+
+[53B304已证库存](../doc/cg2d_stdio_contract.md#known-format-call-inventory)剩余19已归属：三已有设置页实际格式/绘字接线补登记，十三已批准入口排除、三个截图机制替换单列。1007真实来源+13排除+3替换覆盖1023，未知归属0；零源码/新增I/构建，不恢复排除功能或宣Primary等价。仅限定库存/范围静态，C03与完整CRT/全语法/数据/SDK/机器ABI、正常寿命及运行仍open，IP2未代验，最近编译部署仍CAB24。

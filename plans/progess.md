@@ -941,3 +941,7 @@
 ## cg2d_re：音频初始化路径与失败发布（2026-10-09）
 
 恢复524230的id/sampleIndex/两路径/volume检查发布/pitch检查/loop发布及BGM三样本写序，三个原53B304点接真实项目格式体、六const char*，移除宿主snprintf和提前合并检查；原尾窗351条1191B/实际目标、三个局部外保持有据，父元数据不代完整前段。当前Debug0错误/0增量警告，8022528B新版部署/旧8023040B备份；新增一个原语义/F及AUDIO41但枚举false，格式实数1001+3=1004/1023、旧status1000留历史纠正，原241格式不增/余19未接。SPEC/登记簿/看板与全文预期/生成/-Check通过，未运行/测试/工具/重生成WAV/摘要，SDK失败/正常寿命/机器ABI/声音/旧外层/IP2及整体仍待。详见cg2d_re/plan/cg2d_full_reconstruction_progress.md，快照cg2d-re-audio-loader-publication-20261009，用户原差异排除，整体目标继续。
+
+## cg2d_re：原格式已知调用库存归属（2026-10-09）
+
+53B304剩余19点已明确：三旧设置页已有原格式/绘字接线补登记，newest六点/屏幕键盘七点按既有排除单列，三个Primary截图点按批准GDI替换单列。1007真实来源+13排除+3替换覆盖1023，已知未归属0，不把排除/替换当接线或全CRT验收；原241格式不增，零源码/新增I/构建，最近编译部署仍CAB24。stdio合同/登记簿/看板与全文预期、原源保持/分类互斥/生成/-Check通过，C03及完整语法/正常寿命/机器ABI/旧外层/声音/IP2与整体仍open，未运行/测试/工具/摘要。详见cg2d_re/plan/cg2d_full_reconstruction_progress.md，快照cg2d-re-format-call-inventory-20261009，用户原差异排除，整体目标继续。

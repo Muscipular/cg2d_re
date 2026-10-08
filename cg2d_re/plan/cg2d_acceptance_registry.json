@@ -368,7 +368,15 @@
         "doc/cg2d_audio_loader_publication_evidence.json",
         "doc/cg2d_stdio_contract.md#audio-loader-publication-source-state",
         "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
-        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build",
+        "doc/cg2d_stdio_contract.md#known-format-call-inventory",
+        "doc/cg2d_format_call_inventory_evidence.json",
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
+        "plan/cg2d_full_reconstruction_plan.md",
+        "doc/cg2d_external_keyboard_scope.json",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state",
+        "doc/cg2d_screenshot_chain_baseline_evidence.json"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -638,7 +646,8 @@
         "doc/cg2d_nls_map_general_spec.md#nls-map-general-decision",
         "doc/cg2d_nls_type_general_spec.md#nls-type-general-decision",
         "doc/cg2d_audio_update.md#bgm-config-scan-decision",
-        "doc/cg2d_audio_update.md#audio-loader-publication-decision"
+        "doc/cg2d_audio_update.md#audio-loader-publication-decision",
+        "doc/cg2d_stdio_contract.md#known-format-call-inventory"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -54782,6 +54791,34 @@
       "differences": [],
       "result": "pass",
       "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-KNOWN-FORMAT-CALL-INVENTORY-FUNC-CRT-S-20261009",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原53B304已证1022直接+1独立补证=1023调用；剩余19实际父/调用窗和已批准完整入口排除/Primary→GDI替换",
+      "implementation_reference": "Git固定命名快照 cg2d-re-format-call-inventory-20261009；源码/最近编译部署保持CAB24",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_stdio_contract.md#known-format-call-inventory",
+        "doc/cg2d_format_call_inventory_evidence.json",
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
+        "plan/cg2d_full_reconstruction_plan.md",
+        "doc/cg2d_external_keyboard_scope.json",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state",
+        "doc/cg2d_screenshot_chain_baseline_evidence.json",
+        "src/LegacyUiRecord.cpp#Sub_4FDBD0",
+        "src/LegacyUiRecord.cpp#Sub_4FE0E0",
+        "src/render/SdlPresenter.cpp#TakeScreenshot_453760"
+      ],
+      "observation": "仅已证调用库存归属/三已有源，不代整体CRT基线/实现/机器ABI/语法、正常寿命或运行；没有新增I",
+      "expected": "1023已知原调用不删分母，1007已有真实源/13原范围排除/3原机制替换独立且穷尽，无重复/未归属，不恢复排除功能或宣Primary等价",
+      "actual": "三已有CAB07音频设置页的格式/DrawText接线补入，newest6/屏幕键盘7按已批准父范围独立登记，三个截图点沿既有GDI合同适配；源码不改/无构建运行",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
     }
   ],
   "task_acceptance": [
@@ -55086,7 +55123,15 @@
         "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure",
         "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure",
         "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure",
-        "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure"
+        "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure",
+        "doc/cg2d_stdio_contract.md#known-format-call-inventory",
+        "doc/cg2d_format_call_inventory_evidence.json",
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json",
+        "plan/cg2d_full_reconstruction_plan.md",
+        "doc/cg2d_external_keyboard_scope.json",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state",
+        "doc/cg2d_screenshot_chain_baseline_evidence.json"
       ]
     },
     {

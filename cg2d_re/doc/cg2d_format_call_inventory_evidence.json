@@ -1,0 +1,669 @@
+{
+  "step": "CAB25",
+  "recorded_on": "2026-10-09",
+  "source_snapshot": "cg2d-re-format-call-inventory-20261009",
+  "scope": "仅原53B304已证1023调用库存的剩余19归属；没有新增实现、运行或完整CRT验收",
+  "original_authority": "ida-17524/a1def68e当前只读XrefsTo/原调用窗；原1022直接+1独立补证合同保持",
+  "previous_connections": 1004,
+  "remaining_call_sites": {
+    "existing_source": [
+      {
+        "ea": "0x4fdc53",
+        "asm": "call    _sprintf",
+        "parent": "0x4fdbd0",
+        "parent_name": "sub_4FDBD0"
+      },
+      {
+        "ea": "0x4fe176",
+        "asm": "call    _sprintf",
+        "parent": "0x4fe0e0",
+        "parent_name": "sub_4FE0E0"
+      },
+      {
+        "ea": "0x4fe1ba",
+        "asm": "call    _sprintf",
+        "parent": "0x4fe0e0",
+        "parent_name": "sub_4FE0E0"
+      }
+    ],
+    "excluded_newest": [
+      {
+        "ea": "0x50fc4b",
+        "asm": "call    _sprintf",
+        "parent": "0x50fc30",
+        "parent_name": "sub_50FC30"
+      },
+      {
+        "ea": "0x50fd86",
+        "asm": "call    _sprintf",
+        "parent": "0x50fc30",
+        "parent_name": "sub_50FC30"
+      },
+      {
+        "ea": "0x50fdb5",
+        "asm": "call    _sprintf",
+        "parent": "0x50fc30",
+        "parent_name": "sub_50FC30"
+      },
+      {
+        "ea": "0x50ff2f",
+        "asm": "call    _sprintf",
+        "parent": "0x50ff10",
+        "parent_name": "sub_50FF10"
+      },
+      {
+        "ea": "0x50fff3",
+        "asm": "call    _sprintf",
+        "parent": "0x50ff70",
+        "parent_name": "sub_50FF70"
+      },
+      {
+        "ea": "0x510025",
+        "asm": "call    _sprintf",
+        "parent": "0x50ff70",
+        "parent_name": "sub_50FF70"
+      }
+    ],
+    "excluded_keyboard": [
+      {
+        "ea": "0x535785",
+        "asm": "call    _sprintf",
+        "parent": "0x535540",
+        "parent_name": "sub_535540"
+      },
+      {
+        "ea": "0x535df7",
+        "asm": "call    _sprintf",
+        "parent": "0x535540",
+        "parent_name": "sub_535540"
+      },
+      {
+        "ea": "0x5360b3",
+        "asm": "call    _sprintf",
+        "parent": "0x535540",
+        "parent_name": "sub_535540"
+      },
+      {
+        "ea": "0x536740",
+        "asm": "call    _sprintf",
+        "parent": "0x535540",
+        "parent_name": "sub_535540"
+      },
+      {
+        "ea": "0x536b28",
+        "asm": "call    _sprintf",
+        "parent": "0x536970",
+        "parent_name": "sub_536970"
+      },
+      {
+        "ea": "0x536ca2",
+        "asm": "call    _sprintf",
+        "parent": "0x536c30",
+        "parent_name": "sub_536C30"
+      },
+      {
+        "ea": "0x538242",
+        "asm": "call    _sprintf",
+        "parent": "0x538200",
+        "parent_name": "sub_538200"
+      }
+    ],
+    "native_gdi_replacement": [
+      {
+        "ea": "0x4539b4",
+        "asm": "call    _sprintf",
+        "parent": "0x453760",
+        "parent_name": "takeScreenshot"
+      },
+      {
+        "ea": "0x453d8a",
+        "asm": "call    _sprintf",
+        "parent": "0x453760",
+        "parent_name": "takeScreenshot"
+      },
+      {
+        "ea": "0x453da9",
+        "asm": "call    _sprintf",
+        "parent": "0x453760",
+        "parent_name": "takeScreenshot"
+      }
+    ]
+  },
+  "settings_original_windows": [
+    {
+      "call_site": "0x4fdc53",
+      "target": "0x53b304",
+      "window_start": "0x4fdc38",
+      "window_end": "0x4fdc6e",
+      "bytes": "85c00f851b0100008b15ccd358005657528d44240c68b43f550050e8acd603008b1594515800a1905158006a008d4c24186a00516a00",
+      "instructions": [
+        {
+          "ea": "0x4fdc38",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x4fdc3a",
+          "asm": "jnz     loc_4FDD5B"
+        },
+        {
+          "ea": "0x4fdc40",
+          "asm": "mov     edx, dword_58D3CC"
+        },
+        {
+          "ea": "0x4fdc46",
+          "asm": "push    esi"
+        },
+        {
+          "ea": "0x4fdc47",
+          "asm": "push    edi"
+        },
+        {
+          "ea": "0x4fdc48",
+          "asm": "push    edx"
+        },
+        {
+          "ea": "0x4fdc49",
+          "asm": "lea     eax, [esp+8Ch+Buffer]"
+        },
+        {
+          "ea": "0x4fdc4d",
+          "asm": "push    offset a2d_2; Format"
+        },
+        {
+          "ea": "0x4fdc52",
+          "asm": "push    eax; Buffer"
+        },
+        {
+          "ea": "0x4fdc53",
+          "asm": "call    _sprintf"
+        },
+        {
+          "ea": "0x4fdc58",
+          "asm": "mov     edx, dword_585194"
+        },
+        {
+          "ea": "0x4fdc5e",
+          "asm": "mov     eax, dword_585190"
+        },
+        {
+          "ea": "0x4fdc63",
+          "asm": "push    0; a8"
+        },
+        {
+          "ea": "0x4fdc65",
+          "asm": "lea     ecx, [esp+98h+Buffer]"
+        },
+        {
+          "ea": "0x4fdc69",
+          "asm": "push    0; a7"
+        },
+        {
+          "ea": "0x4fdc6b",
+          "asm": "push    ecx; a6"
+        },
+        {
+          "ea": "0x4fdc6c",
+          "asm": "push    0; a5"
+        }
+      ]
+    },
+    {
+      "call_site": "0x4fe176",
+      "target": "0x53b304",
+      "window_start": "0x4fe15b",
+      "window_end": "0x4fe191",
+      "bytes": "85c00f85a80100008b15c8d358005657528d44241468b43f550050e889d103008b155c525800a1585258006a008d4c24206a00516a00",
+      "instructions": [
+        {
+          "ea": "0x4fe15b",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x4fe15d",
+          "asm": "jnz     loc_4FE30B"
+        },
+        {
+          "ea": "0x4fe163",
+          "asm": "mov     edx, dword_58D3C8"
+        },
+        {
+          "ea": "0x4fe169",
+          "asm": "push    esi"
+        },
+        {
+          "ea": "0x4fe16a",
+          "asm": "push    edi"
+        },
+        {
+          "ea": "0x4fe16b",
+          "asm": "push    edx"
+        },
+        {
+          "ea": "0x4fe16c",
+          "asm": "lea     eax, [esp+94h+Buffer]"
+        },
+        {
+          "ea": "0x4fe170",
+          "asm": "push    offset a2d_2; Format"
+        },
+        {
+          "ea": "0x4fe175",
+          "asm": "push    eax; Buffer"
+        },
+        {
+          "ea": "0x4fe176",
+          "asm": "call    _sprintf"
+        },
+        {
+          "ea": "0x4fe17b",
+          "asm": "mov     edx, dword_58525C"
+        },
+        {
+          "ea": "0x4fe181",
+          "asm": "mov     eax, dword_585258"
+        },
+        {
+          "ea": "0x4fe186",
+          "asm": "push    0; a8"
+        },
+        {
+          "ea": "0x4fe188",
+          "asm": "lea     ecx, [esp+0A0h+Buffer]"
+        },
+        {
+          "ea": "0x4fe18c",
+          "asm": "push    0; a7"
+        },
+        {
+          "ea": "0x4fe18e",
+          "asm": "push    ecx; a6"
+        },
+        {
+          "ea": "0x4fe18f",
+          "asm": "push    0; a5"
+        }
+      ]
+    },
+    {
+      "call_site": "0x4fe1ba",
+      "target": "0x53b304",
+      "window_start": "0x4fe19c",
+      "window_end": "0x4fe1d5",
+      "bytes": "50e8de85f5ff8b0dc4d3580083c42c8d4424108b548c085268f835550050e845d103008b155c525800a1585258006a008d4c24206a00516a00",
+      "instructions": [
+        {
+          "ea": "0x4fe19c",
+          "asm": "push    eax; a1"
+        },
+        {
+          "ea": "0x4fe19d",
+          "asm": "call    Renderer__DrawText"
+        },
+        {
+          "ea": "0x4fe1a2",
+          "asm": "mov     ecx, gUseStereo"
+        },
+        {
+          "ea": "0x4fe1a8",
+          "asm": "add     esp, 2Ch"
+        },
+        {
+          "ea": "0x4fe1ab",
+          "asm": "lea     eax, [esp+90h+Buffer]"
+        },
+        {
+          "ea": "0x4fe1af",
+          "asm": "mov     edx, [esp+ecx*4+90h+var_88]"
+        },
+        {
+          "ea": "0x4fe1b3",
+          "asm": "push    edx"
+        },
+        {
+          "ea": "0x4fe1b4",
+          "asm": "push    offset aS_0; \"%s\""
+        },
+        {
+          "ea": "0x4fe1b9",
+          "asm": "push    eax; Buffer"
+        },
+        {
+          "ea": "0x4fe1ba",
+          "asm": "call    _sprintf"
+        },
+        {
+          "ea": "0x4fe1bf",
+          "asm": "mov     edx, dword_58525C"
+        },
+        {
+          "ea": "0x4fe1c5",
+          "asm": "mov     eax, dword_585258"
+        },
+        {
+          "ea": "0x4fe1ca",
+          "asm": "push    0; a8"
+        },
+        {
+          "ea": "0x4fe1cc",
+          "asm": "lea     ecx, [esp+0A0h+Buffer]"
+        },
+        {
+          "ea": "0x4fe1d0",
+          "asm": "push    0; a7"
+        },
+        {
+          "ea": "0x4fe1d2",
+          "asm": "push    ecx; a6"
+        },
+        {
+          "ea": "0x4fe1d3",
+          "asm": "push    0; a5"
+        }
+      ]
+    }
+  ],
+  "screenshot_original_windows": [
+    {
+      "call_site": "0x4539b4",
+      "target": "0x53b304",
+      "window_start": "0x45399a",
+      "window_end": "0x4539ca",
+      "bytes": "687c66550052eb128d4424545068646655008d8c245c01000051e84b790e0083c40c53ff1508d354006800c012008be8",
+      "instructions": [
+        {
+          "ea": "0x45399a",
+          "asm": "push    offset a6S; \"圖像保存失敗(6)。(%s)\""
+        },
+        {
+          "ea": "0x45399f",
+          "asm": "push    edx"
+        },
+        {
+          "ea": "0x4539a0",
+          "asm": "jmp     short loc_4539B4"
+        },
+        {
+          "ea": "0x4539a2",
+          "asm": "lea     eax, [esp+7D0h+Buffer]"
+        },
+        {
+          "ea": "0x4539a6",
+          "asm": "push    eax"
+        },
+        {
+          "ea": "0x4539a7",
+          "asm": "push    offset a5S; \"圖像保存失敗(5)。(%s)\""
+        },
+        {
+          "ea": "0x4539ac",
+          "asm": "lea     ecx, [esp+7D8h+var_67C]"
+        },
+        {
+          "ea": "0x4539b3",
+          "asm": "push    ecx; Buffer"
+        },
+        {
+          "ea": "0x4539b4",
+          "asm": "call    _sprintf"
+        },
+        {
+          "ea": "0x4539b9",
+          "asm": "add     esp, 0Ch"
+        },
+        {
+          "ea": "0x4539bc",
+          "asm": "push    ebx; hWnd"
+        },
+        {
+          "ea": "0x4539bd",
+          "asm": "call    ds:GetDC"
+        },
+        {
+          "ea": "0x4539c3",
+          "asm": "push    12C000h; Size"
+        },
+        {
+          "ea": "0x4539c8",
+          "asm": "mov     ebp, eax"
+        }
+      ]
+    },
+    {
+      "call_site": "0x453d8a",
+      "target": "0x53b304",
+      "window_start": "0x453d71",
+      "window_end": "0x453da3",
+      "bytes": "83c41085c08d44245450741f8d8c24d4020000688465550051e875750e006a036a048d9424e4020000eb1d8d8c24d4020000",
+      "instructions": [
+        {
+          "ea": "0x453d71",
+          "asm": "add     esp, 10h"
+        },
+        {
+          "ea": "0x453d74",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x453d76",
+          "asm": "lea     eax, [esp+7D0h+Buffer]"
+        },
+        {
+          "ea": "0x453d7a",
+          "asm": "push    eax"
+        },
+        {
+          "ea": "0x453d7b",
+          "asm": "jz      short loc_453D9C"
+        },
+        {
+          "ea": "0x453d7d",
+          "asm": "lea     ecx, [esp+7D4h+var_500]"
+        },
+        {
+          "ea": "0x453d84",
+          "asm": "push    offset aS_13; \"畫面擷取成功。(%s)\""
+        },
+        {
+          "ea": "0x453d89",
+          "asm": "push    ecx; Buffer"
+        },
+        {
+          "ea": "0x453d8a",
+          "asm": "call    _sprintf"
+        },
+        {
+          "ea": "0x453d8f",
+          "asm": "push    3"
+        },
+        {
+          "ea": "0x453d91",
+          "asm": "push    4"
+        },
+        {
+          "ea": "0x453d93",
+          "asm": "lea     edx, [esp+7E4h+var_500]"
+        },
+        {
+          "ea": "0x453d9a",
+          "asm": "jmp     short loc_453DB9"
+        },
+        {
+          "ea": "0x453d9c",
+          "asm": "lea     ecx, [esp+7D4h+var_500]"
+        }
+      ]
+    },
+    {
+      "call_site": "0x453da9",
+      "target": "0x53b304",
+      "window_start": "0x453d8a",
+      "window_end": "0x453dbf",
+      "bytes": "e875750e006a036a048d9424e4020000eb1d8d8c24d4020000687065550051e856750e006a036a048d9424e402000052e89172ffff",
+      "instructions": [
+        {
+          "ea": "0x453d8a",
+          "asm": "call    _sprintf"
+        },
+        {
+          "ea": "0x453d8f",
+          "asm": "push    3"
+        },
+        {
+          "ea": "0x453d91",
+          "asm": "push    4"
+        },
+        {
+          "ea": "0x453d93",
+          "asm": "lea     edx, [esp+7E4h+var_500]"
+        },
+        {
+          "ea": "0x453d9a",
+          "asm": "jmp     short loc_453DB9"
+        },
+        {
+          "ea": "0x453d9c",
+          "asm": "lea     ecx, [esp+7D4h+var_500]"
+        },
+        {
+          "ea": "0x453da3",
+          "asm": "push    offset aS_12; \"畫面擷取失敗。(%s)\""
+        },
+        {
+          "ea": "0x453da8",
+          "asm": "push    ecx; Buffer"
+        },
+        {
+          "ea": "0x453da9",
+          "asm": "call    _sprintf"
+        },
+        {
+          "ea": "0x453dae",
+          "asm": "push    3; int"
+        },
+        {
+          "ea": "0x453db0",
+          "asm": "push    4; Time"
+        },
+        {
+          "ea": "0x453db2",
+          "asm": "lea     edx, [esp+7E4h+var_500]"
+        },
+        {
+          "ea": "0x453db9",
+          "asm": "push    edx; int"
+        },
+        {
+          "ea": "0x453dba",
+          "asm": "call    World__AppendMsgToCharWindow"
+        }
+      ]
+    }
+  ],
+  "baseline_refs": {
+    "settings": [
+      "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+      "doc/cg2d_audio_settings_pages_evidence.json"
+    ],
+    "newest": [
+      "plan/cg2d_full_reconstruction_plan.md",
+      "doc/cg2d_login_state_controller.md"
+    ],
+    "keyboard": [
+      "doc/cg2d_external_keyboard_scope.json",
+      "doc/cg2d_external_keyboard_wrapper.md"
+    ],
+    "screenshot": [
+      "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state",
+      "doc/cg2d_screenshot_chain_baseline_evidence.json",
+      "doc/cg2d_sdl_presenter.md#screenshot-bitmap-writer"
+    ]
+  },
+  "current_source": {
+    "path": "src/LegacyUiRecord.cpp",
+    "symbols": [
+      "Sub_4FDBD0",
+      "Sub_4FE0E0"
+    ],
+    "format_calls": [
+      {
+        "parent_entry": "0x4FDBD0",
+        "call_site": "0x4FDC53",
+        "expression": "128B buffer/kLegacyChat553FB4/gMusicVolume→DrawText"
+      },
+      {
+        "parent_entry": "0x4FE0E0",
+        "call_site": "0x4FE176",
+        "expression": "128B buffer/kLegacyChat553FB4/gEffectVolume→DrawText"
+      },
+      {
+        "parent_entry": "0x4FE0E0",
+        "call_site": "0x4FE1BA",
+        "expression": "128B buffer/kLegacyMouse5535F8/modes[gUseStereo]→DrawText"
+      }
+    ],
+    "already_implemented_step": "CAB07",
+    "new_code_changed": false
+  },
+  "current_inventory": {
+    "known_original_calls": 1023,
+    "real_source_connections": 1007,
+    "excluded_call_sites": 13,
+    "mechanism_replaced_call_sites": 3,
+    "unassigned_known_call_sites": 0,
+    "known_inventory_closed": true,
+    "whole_original_or_indirect_calls_closed": false,
+    "full_crt_accepted": false
+  },
+  "boundary": "只补三已有原格式器/绘字消费者接线，并归档原newest六点/屏幕键盘七点既有完整入口排除和三个原Primary截图点的批准GDI替换。1023旧原总数不扣减，13排除和3替换不混入1007真实接线；不恢复HTTP/屏幕键盘或宣Primary等价，不以已知调用库存闭合代全语法/所有callee/SDK/机器ABI、全CRT或正常寿命/运行。",
+  "verification_level": "19剩余点原父/原调用及三已有源；限定已知库存/范围/静态；本步无新I/编译/运行",
+  "prohibited_actions_performed": {
+    "client_or_algorithm_execution": false,
+    "tests": false,
+    "build": false,
+    "converter_execution": false,
+    "wav_regeneration": false,
+    "file_hash": false
+  },
+  "registry_validation": {
+    "full_text_matches": true,
+    "connections": 1007,
+    "excluded": 13,
+    "mechanism_replaced": 3,
+    "unassigned": 0,
+    "known_total": 1023,
+    "known_inventory_closed": true,
+    "format_literals": 241,
+    "code_changed": false,
+    "new_I": false,
+    "C03_state": "open",
+    "build_step_unchanged": "CAB24",
+    "generation_exit_code": 0,
+    "check_exit_code": 0,
+    "original_implementation_kept": true,
+    "metrics": {
+      "inventory_functions": 3680,
+      "functions_with_document_links": 2003,
+      "document_link_percent": 54.43,
+      "historical_direct_location_ids": 2762,
+      "semantic_records": 1903,
+      "semantic_inventory_ids": 1893,
+      "semantic_without_inventory_id": 10,
+      "semantic_code_range_records": 10,
+      "pending_records": 18,
+      "functions_with_classification_refs": 120,
+      "reviewed_function_dispositions": 1068,
+      "imports": 218,
+      "unassigned_ranges": 3061,
+      "reviewed_imports": 16,
+      "reviewed_ranges": 485,
+      "registered_features": 185,
+      "registered_leaf_features": 184,
+      "paused_features": 0,
+      "accepted_leaf_features": 0,
+      "tasks": 60,
+      "tasks_closed": 11,
+      "full_feature_denominator": null,
+      "global_accepted": false
+    }
+  }
+}

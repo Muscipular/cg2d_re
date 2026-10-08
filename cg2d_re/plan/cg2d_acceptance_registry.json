@@ -1175,7 +1175,8 @@
         "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-baseline",
         "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-baseline",
         "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-baseline",
-        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-baseline"
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-baseline",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline"
       ],
       "original_inventory_ids": [
         "F:000626A0",
@@ -1200,7 +1201,10 @@
         "F:00061B30",
         "F:0005E3D0",
         "F:00062330",
-        "F:0011B140"
+        "F:0011B140",
+        "F:00108E00",
+        "F:00108E90",
+        "F:001128C0"
       ],
       "closure_task_ids": [
         "P08",
@@ -1231,7 +1235,8 @@
         "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-decision",
         "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-decision",
         "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-decision",
-        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-decision"
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-decision",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1252,7 +1257,8 @@
         "BSZ01人物槽461B30完整343条1375B／五页、20direct九目标／26jump一RET及两实际父调用；单源三片段移除私有IncrementWrapping及其唯一bit头依赖，空槽分支按原461DFC使用普通S32 mode+1。原七按钮／七坐标、148B记录／S16显示、局部10000→9999、%4d/%s与256B借用、两存在判定／所有门禁／预览两取槽与最终返回保持；局部源码静态不代完整两父／九依赖／全部正常alias-owner寿命、机器ABI或运行",
         "BTA01两版本升级场景313条1154B／五页、34direct十三目标／54jump两RET及WorldUpdate两实际CALL；一源六片段／两个既有业务体，case4/100/200各取一次native非拥有action，供非空判断与原EQ1／MarkDeath复用；添加case局部块隔离变量。原测宽/居中/列数业务下限、阶段写序/原版本mode2-4-5正文与旧abcdefg、两独立owner/成功清预览差异与背景、EQ401D00单Read/RNG和所有其它源头保。仅局部静态，不代完整父／十三依赖／全部正常alias-owner寿命、ABI／链接或运行",
         "BTF01名称查重原45条97B/一页、无call七jump两RET，创建表单4631D0@46388D唯一消费原9A51E8文本。LoginRequest.cpp一个已有业务体一片段恢复每槽输入name BYTE先取再记录BYTE、仅相等/同输入样本判NUL、不同即下槽；每槽从name[0]重比、两连续148B记录/原两槽和末S32 0/匹配1保，无辅助函数/长度门槛/编码改写。原创建重复名消息/其它验证、记录唯一owner/非拥有name借用及所有其它源头保；15B真实NOP仅原对齐用途。只局部静态，不代创建全父/所有记录生产消费/间接别名/正常寿命、ABI/链接/画面/明文往返或运行",
-        "BVH01批准适配范围限定静态：4626A0完整130条464B/两页，18直接/16目标、30跳转/一返回，唯一WorldUpdate场景4十条41B真实调度；同帧0/1/2/3→10/11/12→30/31→100/101与462726回边/两返回值判定、W16计数/恢复BYTE及清理-请求序正确保持。D01/P08入口固定1仍是具名适配，原ECX未知保；BRT01版本零正文已定义事实承接，源码0改动无新I；新1762/F:000626A0 adapted映射与CHARACTER一限定S，pending7继续保留完整功能待验，所有成员/闭包、请求往返/所有callee/owner-alias寿命/ABI运行门禁不外推"
+        "BVH01批准适配范围限定静态：4626A0完整130条464B/两页，18直接/16目标、30跳转/一返回，唯一WorldUpdate场景4十条41B真实调度；同帧0/1/2/3→10/11/12→30/31→100/101与462726回边/两返回值判定、W16计数/恢复BYTE及清理-请求序正确保持。D01/P08入口固定1仍是具名适配，原ECX未知保；BRT01版本零正文已定义事实承接，源码0改动无新I；新1762/F:000626A0 adapted映射与CHARACTER一限定S，pending7继续保留完整功能待验，所有成员/闭包、请求往返/所有callee/owner-alias寿命/ABI运行门禁不外推",
+        "BVI01限定静态：创建启动/轮询/aSEl三个完整根210条703B/五页、30直接/两计时间接/两跳转/五RET，两个真实父局部28条119B含重叠；一cpp一个elapsed片段恢复508EB4计时调用后508EBA读取共享起始W32，原完成回复/严格600000阈值/15B格式及未清状态保。153/154已有原新承接、新1763/F:001128C0正确13字段组包及每项容量/格式后输出重读/发送结果透传保持，BRW已正确创建回复/DZ接线和所有其它源保；两X17B用途。CHARACTER两I-S/NETWORK一S，各28来源，完整请求往返/其他父-callee/owner-alias寿命/ABI运行未验，原格式明文不改"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1273,7 +1279,8 @@
         "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-source-state",
         "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-source-state",
         "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-source-state",
-        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-source-state"
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-source-state",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state"
       ]
     },
     {
@@ -1310,7 +1317,8 @@
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-baseline",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-baseline",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-baseline",
-        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline"
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline"
       ],
       "original_inventory_ids": [
         "F:00003C50",
@@ -1375,7 +1383,8 @@
         "F:00109090",
         "F:00109100",
         "F:0010E7B0",
-        "F:00112CA0"
+        "F:00112CA0",
+        "F:001128C0"
       ],
       "closure_task_ids": [
         "P09",
@@ -1410,7 +1419,8 @@
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-decision",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-decision",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-decision",
-        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision"
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-decision"
       ],
       "blockers": [
         "本次只核两帧父成员；全部命令/回复/状态生产、数据与间接目标及生命周期枚举未闭合",
@@ -1437,7 +1447,8 @@
         "BUO01完整四根229条724B/六页，原UUN/空格6B与CRC两表768B初值、三尾28B/两个局部窗归档；只SceneState两同名同类型数据表恢复原512常量，四正确函数与网络源码/原容量-token-buffer顺序/字段-明文发送保持，不执行任何生成/校验算法或摘要，完整寿命/全父/ABI/像素/互通未验",
         "BUP01地图回包509090与复位4691D0两完整根60条213B/两页、六call/四jump/两RET；只复位两组mask W32→encoded W32→count W8先读齐再同序发布，同临时两次-1构造/析构/RNG消费保持。正确回包门禁/九参数核验/floor清零及复位后fresh BYTE清bit0、jmb原字串/模板接线保持；六复位局部后窗和两尾11B用途归档。仅必要静态，完整父/callee/寿命/数值/机器ABI/像素/明文互通及运行未验",
         "BUQ01地图增量回包509100完整197条694B/三页、22directcall/14jump/一RET；只既有根四片段：入口W32门禁一次取样原值返回，撤旧整帧外-1早退/额外终止WORD，BYTE标记与当前地图号先读齐再pub。既有连续0x10594七段布局/零初始化窄适配、原tile-obj-hit提取解码与终止轮三WORD写入、地图更新/复位/四坐标读取/三槽清零及原返回保；aBS原字串4B/85条分发局部及10B尾用途归档。仅静态与文本汇总，全部父/callee/寿命/数值/机器ABI/文件运行/像素/明文互通及R8未验",
-        "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。"
+        "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+        "BVI01限定静态：创建启动/轮询/aSEl三个完整根210条703B/五页、30直接/两计时间接/两跳转/五RET，两个真实父局部28条119B含重叠；一cpp一个elapsed片段恢复508EB4计时调用后508EBA读取共享起始W32，原完成回复/严格600000阈值/15B格式及未清状态保。153/154已有原新承接、新1763/F:001128C0正确13字段组包及每项容量/格式后输出重读/发送结果透传保持，BRW已正确创建回复/DZ接线和所有其它源保；两X17B用途。CHARACTER两I-S/NETWORK一S，各28来源，完整请求往返/其他父-callee/owner-alias寿命/ABI运行未验，原格式明文不改"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1464,7 +1475,8 @@
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-source-state",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state",
-        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state"
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state"
       ]
     },
     {
@@ -48057,6 +48069,156 @@
       "observation": "BVH01批准适配范围限定静态：4626A0完整130条464B/两页，18直接/16目标、30跳转/一返回，唯一WorldUpdate场景4十条41B真实调度；同帧0/1/2/3→10/11/12→30/31→100/101与462726回边/两返回值判定、W16计数/恢复BYTE及清理-请求序正确保持。D01/P08入口固定1仍是具名适配，原ECX未知保；BRT01版本零正文已定义事实承接，源码0改动无新I；新1762/F:000626A0 adapted映射与CHARACTER一限定S，pending7继续保留完整功能待验，所有成员/闭包、请求往返/所有callee/owner-alias寿命/ABI运行门禁不外推",
       "expected": "BVH01批准适配范围限定静态：4626A0完整130条464B/两页，18直接/16目标、30跳转/一返回，唯一WorldUpdate场景4十条41B真实调度；同帧0/1/2/3→10/11/12→30/31→100/101与462726回边/两返回值判定、W16计数/恢复BYTE及清理-请求序正确保持。D01/P08入口固定1仍是具名适配，原ECX未知保；BRT01版本零正文已定义事实承接，源码0改动无新I；新1762/F:000626A0 adapted映射与CHARACTER一限定S，pending7继续保留完整功能待验，所有成员/闭包、请求往返/所有callee/owner-alias寿命/ABI运行门禁不外推",
       "actual": "BVH01批准适配范围限定静态：4626A0完整130条464B/两页，18直接/16目标、30跳转/一返回，唯一WorldUpdate场景4十条41B真实调度；同帧0/1/2/3→10/11/12→30/31→100/101与462726回边/两返回值判定、W16计数/恢复BYTE及清理-请求序正确保持。D01/P08入口固定1仍是具名适配，原ECX未知保；BRT01版本零正文已定义事实承接，源码0改动无新I；新1762/F:000626A0 adapted映射与CHARACTER一限定S，pending7继续保留完整功能待验，所有成员/闭包、请求往返/所有callee/owner-alias寿命/ABI运行门禁不外推"
+    },
+    {
+      "id": "E-CREATION-REQUEST-TICK-FUNC-CHARACTER-I-20261008",
+      "feature_id": "FUNC-CHARACTER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVI01三完整210条703B/五页、两局部28条119B/两X17B；一cpp一个elapsed取样阶段实修，两个正确合同及BRW回复/原格式明文保持。CHARACTER I仅轮询取样，NETWORK仅正确组包S，各28真实来源，完整请求往返/寿命/ABI运行未验。doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-creation-request-tick-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-decision",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-acceptance",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state",
+        "doc/cg2d_creation_request_tick_sampling_evidence.json",
+        "src/CharacterCreationRequest.cpp",
+        "include/cg/CharacterCreationRequest.hpp",
+        "src/CharacterSelectScene.cpp",
+        "src/network/NetworkRuntime.cpp",
+        "include/cg/network/NetworkRuntime.hpp",
+        "src/CharacterSelectState.hpp",
+        "include/cg/LoginRequest.hpp",
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_semantic_function_mappings.json",
+        "doc/cg2d_ida_inventory.json",
+        "plan/cg2d_spec_closure_checklist.md",
+        "plan/cg2d_acceptance_registry.json",
+        "plan/cg2d_traceability_snapshot.json",
+        "plan/cg2d_measurement_dashboard.md",
+        "doc/cg2d_creation_controller_baseline_spec.md",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "differences": [
+        {
+          "description": "BVI01限定静态：创建启动/轮询/aSEl三个完整根210条703B/五页、30直接/两计时间接/两跳转/五RET，两个真实父局部28条119B含重叠；一cpp一个elapsed片段恢复508EB4计时调用后508EBA读取共享起始W32，原完成回复/严格600000阈值/15B格式及未清状态保。153/154已有原新承接、新1763/F:001128C0正确13字段组包及每项容量/格式后输出重读/发送结果透传保持，BRW已正确创建回复/DZ接线和所有其它源保；两X17B用途。CHARACTER两I-S/NETWORK一S，各28来源，完整请求往返/其他父-callee/owner-alias寿命/ABI运行未验，原格式明文不改",
+          "decision_ref": "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVI01限定静态：创建启动/轮询/aSEl三个完整根210条703B/五页、30直接/两计时间接/两跳转/五RET，两个真实父局部28条119B含重叠；一cpp一个elapsed片段恢复508EB4计时调用后508EBA读取共享起始W32，原完成回复/严格600000阈值/15B格式及未清状态保。153/154已有原新承接、新1763/F:001128C0正确13字段组包及每项容量/格式后输出重读/发送结果透传保持，BRW已正确创建回复/DZ接线和所有其它源保；两X17B用途。CHARACTER两I-S/NETWORK一S，各28来源，完整请求往返/其他父-callee/owner-alias寿命/ABI运行未验，原格式明文不改",
+      "expected": "BVI01限定静态：创建启动/轮询/aSEl三个完整根210条703B/五页、30直接/两计时间接/两跳转/五RET，两个真实父局部28条119B含重叠；一cpp一个elapsed片段恢复508EB4计时调用后508EBA读取共享起始W32，原完成回复/严格600000阈值/15B格式及未清状态保。153/154已有原新承接、新1763/F:001128C0正确13字段组包及每项容量/格式后输出重读/发送结果透传保持，BRW已正确创建回复/DZ接线和所有其它源保；两X17B用途。CHARACTER两I-S/NETWORK一S，各28来源，完整请求往返/其他父-callee/owner-alias寿命/ABI运行未验，原格式明文不改",
+      "actual": "BVI01限定静态：创建启动/轮询/aSEl三个完整根210条703B/五页、30直接/两计时间接/两跳转/五RET，两个真实父局部28条119B含重叠；一cpp一个elapsed片段恢复508EB4计时调用后508EBA读取共享起始W32，原完成回复/严格600000阈值/15B格式及未清状态保。153/154已有原新承接、新1763/F:001128C0正确13字段组包及每项容量/格式后输出重读/发送结果透传保持，BRW已正确创建回复/DZ接线和所有其它源保；两X17B用途。CHARACTER两I-S/NETWORK一S，各28来源，完整请求往返/其他父-callee/owner-alias寿命/ABI运行未验，原格式明文不改"
+    },
+    {
+      "id": "E-CREATION-REQUEST-TICK-FUNC-CHARACTER-S-20261008",
+      "feature_id": "FUNC-CHARACTER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVI01三完整210条703B/五页、两局部28条119B/两X17B；一cpp一个elapsed取样阶段实修，两个正确合同及BRW回复/原格式明文保持。CHARACTER I仅轮询取样，NETWORK仅正确组包S，各28真实来源，完整请求往返/寿命/ABI运行未验。doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-creation-request-tick-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-decision",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-acceptance",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state",
+        "doc/cg2d_creation_request_tick_sampling_evidence.json",
+        "src/CharacterCreationRequest.cpp",
+        "include/cg/CharacterCreationRequest.hpp",
+        "src/CharacterSelectScene.cpp",
+        "src/network/NetworkRuntime.cpp",
+        "include/cg/network/NetworkRuntime.hpp",
+        "src/CharacterSelectState.hpp",
+        "include/cg/LoginRequest.hpp",
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_semantic_function_mappings.json",
+        "doc/cg2d_ida_inventory.json",
+        "plan/cg2d_spec_closure_checklist.md",
+        "plan/cg2d_acceptance_registry.json",
+        "plan/cg2d_traceability_snapshot.json",
+        "plan/cg2d_measurement_dashboard.md",
+        "doc/cg2d_creation_controller_baseline_spec.md",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "differences": [
+        {
+          "description": "BVI01限定静态：创建启动/轮询/aSEl三个完整根210条703B/五页、30直接/两计时间接/两跳转/五RET，两个真实父局部28条119B含重叠；一cpp一个elapsed片段恢复508EB4计时调用后508EBA读取共享起始W32，原完成回复/严格600000阈值/15B格式及未清状态保。153/154已有原新承接、新1763/F:001128C0正确13字段组包及每项容量/格式后输出重读/发送结果透传保持，BRW已正确创建回复/DZ接线和所有其它源保；两X17B用途。CHARACTER两I-S/NETWORK一S，各28来源，完整请求往返/其他父-callee/owner-alias寿命/ABI运行未验，原格式明文不改",
+          "decision_ref": "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVI01限定静态：创建启动/轮询/aSEl三个完整根210条703B/五页、30直接/两计时间接/两跳转/五RET，两个真实父局部28条119B含重叠；一cpp一个elapsed片段恢复508EB4计时调用后508EBA读取共享起始W32，原完成回复/严格600000阈值/15B格式及未清状态保。153/154已有原新承接、新1763/F:001128C0正确13字段组包及每项容量/格式后输出重读/发送结果透传保持，BRW已正确创建回复/DZ接线和所有其它源保；两X17B用途。CHARACTER两I-S/NETWORK一S，各28来源，完整请求往返/其他父-callee/owner-alias寿命/ABI运行未验，原格式明文不改",
+      "expected": "BVI01限定静态：创建启动/轮询/aSEl三个完整根210条703B/五页、30直接/两计时间接/两跳转/五RET，两个真实父局部28条119B含重叠；一cpp一个elapsed片段恢复508EB4计时调用后508EBA读取共享起始W32，原完成回复/严格600000阈值/15B格式及未清状态保。153/154已有原新承接、新1763/F:001128C0正确13字段组包及每项容量/格式后输出重读/发送结果透传保持，BRW已正确创建回复/DZ接线和所有其它源保；两X17B用途。CHARACTER两I-S/NETWORK一S，各28来源，完整请求往返/其他父-callee/owner-alias寿命/ABI运行未验，原格式明文不改",
+      "actual": "BVI01限定静态：创建启动/轮询/aSEl三个完整根210条703B/五页、30直接/两计时间接/两跳转/五RET，两个真实父局部28条119B含重叠；一cpp一个elapsed片段恢复508EB4计时调用后508EBA读取共享起始W32，原完成回复/严格600000阈值/15B格式及未清状态保。153/154已有原新承接、新1763/F:001128C0正确13字段组包及每项容量/格式后输出重读/发送结果透传保持，BRW已正确创建回复/DZ接线和所有其它源保；两X17B用途。CHARACTER两I-S/NETWORK一S，各28来源，完整请求往返/其他父-callee/owner-alias寿命/ABI运行未验，原格式明文不改"
+    },
+    {
+      "id": "E-CREATION-REQUEST-TICK-FUNC-NETWORK-S-20261008",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVI01三完整210条703B/五页、两局部28条119B/两X17B；一cpp一个elapsed取样阶段实修，两个正确合同及BRW回复/原格式明文保持。CHARACTER I仅轮询取样，NETWORK仅正确组包S，各28真实来源，完整请求往返/寿命/ABI运行未验。doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-creation-request-tick-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-decision",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-acceptance",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state",
+        "doc/cg2d_creation_request_tick_sampling_evidence.json",
+        "src/CharacterCreationRequest.cpp",
+        "include/cg/CharacterCreationRequest.hpp",
+        "src/CharacterSelectScene.cpp",
+        "src/network/NetworkRuntime.cpp",
+        "include/cg/network/NetworkRuntime.hpp",
+        "src/CharacterSelectState.hpp",
+        "include/cg/LoginRequest.hpp",
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_semantic_function_mappings.json",
+        "doc/cg2d_ida_inventory.json",
+        "plan/cg2d_spec_closure_checklist.md",
+        "plan/cg2d_acceptance_registry.json",
+        "plan/cg2d_traceability_snapshot.json",
+        "plan/cg2d_measurement_dashboard.md",
+        "doc/cg2d_creation_controller_baseline_spec.md",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "differences": [
+        {
+          "description": "BVI01限定静态：创建启动/轮询/aSEl三个完整根210条703B/五页、30直接/两计时间接/两跳转/五RET，两个真实父局部28条119B含重叠；一cpp一个elapsed片段恢复508EB4计时调用后508EBA读取共享起始W32，原完成回复/严格600000阈值/15B格式及未清状态保。153/154已有原新承接、新1763/F:001128C0正确13字段组包及每项容量/格式后输出重读/发送结果透传保持，BRW已正确创建回复/DZ接线和所有其它源保；两X17B用途。CHARACTER两I-S/NETWORK一S，各28来源，完整请求往返/其他父-callee/owner-alias寿命/ABI运行未验，原格式明文不改",
+          "decision_ref": "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVI01限定静态：创建启动/轮询/aSEl三个完整根210条703B/五页、30直接/两计时间接/两跳转/五RET，两个真实父局部28条119B含重叠；一cpp一个elapsed片段恢复508EB4计时调用后508EBA读取共享起始W32，原完成回复/严格600000阈值/15B格式及未清状态保。153/154已有原新承接、新1763/F:001128C0正确13字段组包及每项容量/格式后输出重读/发送结果透传保持，BRW已正确创建回复/DZ接线和所有其它源保；两X17B用途。CHARACTER两I-S/NETWORK一S，各28来源，完整请求往返/其他父-callee/owner-alias寿命/ABI运行未验，原格式明文不改",
+      "expected": "BVI01限定静态：创建启动/轮询/aSEl三个完整根210条703B/五页、30直接/两计时间接/两跳转/五RET，两个真实父局部28条119B含重叠；一cpp一个elapsed片段恢复508EB4计时调用后508EBA读取共享起始W32，原完成回复/严格600000阈值/15B格式及未清状态保。153/154已有原新承接、新1763/F:001128C0正确13字段组包及每项容量/格式后输出重读/发送结果透传保持，BRW已正确创建回复/DZ接线和所有其它源保；两X17B用途。CHARACTER两I-S/NETWORK一S，各28来源，完整请求往返/其他父-callee/owner-alias寿命/ABI运行未验，原格式明文不改",
+      "actual": "BVI01限定静态：创建启动/轮询/aSEl三个完整根210条703B/五页、30直接/两计时间接/两跳转/五RET，两个真实父局部28条119B含重叠；一cpp一个elapsed片段恢复508EB4计时调用后508EBA读取共享起始W32，原完成回复/严格600000阈值/15B格式及未清状态保。153/154已有原新承接、新1763/F:001128C0正确13字段组包及每项容量/格式后输出重读/发送结果透传保持，BRW已正确创建回复/DZ接线和所有其它源保；两X17B用途。CHARACTER两I-S/NETWORK一S，各28来源，完整请求往返/其他父-callee/owner-alias寿命/ABI运行未验，原格式明文不改"
     }
   ],
   "task_acceptance": [
@@ -48562,7 +48724,8 @@
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state",
         "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
-        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state"
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state"
       ]
     },
     {
@@ -48646,7 +48809,8 @@
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state",
         "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
         "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
-        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-source-state"
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-source-state",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state"
       ]
     },
     {
@@ -49223,7 +49387,8 @@
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state",
         "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
         "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state",
-        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-source-state"
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-source-state",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state"
       ]
     },
     {
@@ -60569,6 +60734,45 @@
       "approved_decision_ref": "doc/cg2d_local_determinism_spec.md",
       "original_entry_ECX_unknown": true,
       "pending_function_acceptance_retained": true
+    },
+    {
+      "inventory_id": "F:00108E00",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-decision",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-acceptance",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state",
+        "doc/cg2d_creation_request_tick_sampling_evidence.json"
+      ],
+      "boundary": "原34条131B；按逆序字段取样、S16选择符号扩展/socket后清W16回复，弃aSEl发送结果后置W32请求1/取tick并原位返回，正常发送失败不早退；正确已有本体及实际owner保持。D01/P08已完成、BVH控制器静态映射及功能pending保，不再把入口门禁列待决"
+    },
+    {
+      "inventory_id": "F:00108E90",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-decision",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-acceptance",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state",
+        "doc/cg2d_creation_request_tick_sampling_evidence.json"
+      ],
+      "boundary": "原22条80B；完成先W16回复持样后清请求状态，1→1/其它→-2；非完成先计时调用再读取共享起始W32，正常U32差值<=600000等候0，严格超过原15B无占位格式后-1且不清状态/回复/tick。现一个elapsed片段显式恢复调用后fresh起始取样；只该阶段静态修复，不称实际运行错误/数学异常等价"
+    },
+    {
+      "inventory_id": "F:001128C0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-decision",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-acceptance",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state",
+        "doc/cg2d_creation_request_tick_sampling_evidence.json"
+      ],
+      "boundary": "原154条492B/三页；aSEl命令、12整数/一文本共13字段按field1..13原序，13次各自先取容量/格式后重读输出buffer，再append；12次517120/一517160、13append/末517480完整结果透传。七源中该网络整源保持，已有11字段循环沿不可变形参而非缓存共享容量/输出，原格式/转义/命令/帧/明文及正常失败不改；代码0改动无新I，NORMAL S仅本根及实际创建参数接线，不代整个协议/互通"
     }
   ],
   "auxiliary_dispositions": [
@@ -85320,6 +85524,161 @@
         },
         {
           "ea": "0x51d78f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:00108E83-00108E90",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-decision",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-acceptance",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state",
+        "doc/cg2d_creation_request_tick_sampling_evidence.json"
+      ],
+      "reason": "BVI01两X合17B，13B启动尾/4B组包尾全逐BYTE90/NN_NOP无入向后真入口；本区13B仅对齐，不新增函数/排除",
+      "classification": "alignment_nop",
+      "original_size": 13,
+      "original_bytes": "90909090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x508e83",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x508e84",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x508e85",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x508e86",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x508e87",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x508e88",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x508e89",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x508e8a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x508e8b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x508e8c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x508e8d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x508e8e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x508e8f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:00112AAC-00112AB0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-decision",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-acceptance",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state",
+        "doc/cg2d_creation_request_tick_sampling_evidence.json"
+      ],
+      "reason": "BVI01两X合17B，13B启动尾/4B组包尾全逐BYTE90/NN_NOP无入向后真入口；本区4B仅对齐，不新增函数/排除",
+      "classification": "alignment_nop",
+      "original_size": 4,
+      "original_bytes": "90909090",
+      "original_decode": [
+        {
+          "ea": "0x512aac",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x512aad",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x512aae",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x512aaf",
           "size": 1,
           "bytes": "90",
           "is_nop": true,

@@ -763,3 +763,13 @@ NUL 终止名字与记录首字段；`51B151–51B17E`
 按[BTF01裁决](cg2d_character_name_byte_sampling_spec.md#character-name-byte-decision)实修CharacterNameExists_51B140一片段：每记录索引从0重比，先取name BYTE再取record BYTE，失配即下槽、相等后借同输入样本判NUL；匹配S32返1/两槽全失败返0。两条148B/总296B唯一记录owner、非拥有name/record借用和原创建表单参数9A51E8/复制截断/重复名state102及其它验证保持，不加判空/长度/编码规则或helper。
 
 原完整45条97B/一页、无call七jump两RET，唯一4631D0@46388D真实消费；一真F新语义1612、CHARACTER22→23/单adapted与两局部I-S各15来源，单15B真实NOP只对齐用途。原正常结果此前正确，不称运行故障；完整创建父/全部记录生产消费/间接别名/正常寿命/ABI/链接/运行未验。登录508BC0按BRW既有void边界保持，登出BTE01返回合同保持，原网络格式明文及音频暂停保持。
+
+## BVI01创建启动/轮询与aSEl链取样实修（2026-10-08）
+
+[原基线](cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline)、[取样裁决](cg2d_creation_request_tick_sampling_spec.md#creation-request-decision)及[原证](cg2d_creation_request_tick_sampling_evidence.json)：创建启动/轮询/aSEl三完整根210条703B/五页，两个实际父局部28条119B含重叠/两X17B用途；启动与13字段组包正确保持，仅一cpp一个elapsed片段恢复先计时调用、后fresh读取共享起始W32再相减。原508EB4 GetTick之后508EBA才读起始W32，现表达式拆成now、start两持样再做正常U32差值，不声称已观察运行错误。启动十一项/选槽/socket按原序，13字段各自容量/格式后输出重读与末结果透传正确；原153门禁待决当前句由D01/P08与BVH事实替代，功能pending仍保。原完成W16回复持样/清状态、严格600000阈值/15B格式及未清状态、发送失败后的请求1/tick序保，七源中其余六源/声明及BRW回复/DZ接线全文保持。153/154已有原新更新、新1763正确组包；CHARACTER26/NETWORK64、CHARACTER两I-S/NETWORK一S各28来源，U10/V03/R04仍open；完整请求往返/其它父-callee/owner-alias寿命/机器ABI链接运行未验，原格式明文/完整门禁保。
+
+### BVI01 当前创建请求计时取样与原格式链限定静态结果
+
+集中静态通过：三完整原根210条703B/五页、30直接/两计时间接/两跳/五RET，两个实际父局部28条119B含重叠、两X17B逐BYTE NN_NOP用途；七整源只一cpp一个elapsed片段，先计时调用再fresh读取共享起始W32后相减，原完成回复/严格600000阈值/15B原格式点和正常失败后状态/tick序保持。启动/正确aSEl十三字段的独立容量/格式后输出重读/结果直透、BRW创建回复与DZ接线及全部其它源/声明保持。完整机器与派生仅具名差集；十五文件UTF8无BOM/LF、四锚点/三限定证据各28真实来源通过。
+
+文本汇总及Check均退出0；实际语义1764/有效1757、合同1874（50.92%）、F907/E1082、R7已审467余2594、CHARACTER26/NETWORK64。原分类120/mixed3/完整入口排除113、BVH原新与pending7/18、closed11/差队列及完整闭包保持。只有154计时读点产生新I，153启动/1763组包保持正确且无新I；原格式明文不改，不声称实际超时运行错误或异常回绕等价。完整请求往返、其他父-callee/正常owner-alias寿命、机器ABI链接/运行与R8未验，整体目标继续。

@@ -13478,7 +13478,7 @@
     {
       "original_entry": "0x508E00",
       "inventory_id": "F:00108E00",
-      "status": "已有请求本体与调用映射，完整收发未验",
+      "status": "BVI01限定静态：创建启动/轮询/aSEl三个完整根210条703B/五页、30直接/两计时间接/两跳转/五RET，两个真实父局部28条119B含重叠；一cpp一个elapsed片段恢复508EB4计时调用后508EBA读取共享起始W32，原完成回复/严格600000阈值/15B格式及未清状态保。153/154已有原新承接、新1763/F:001128C0正确13字段组包及每项容量/格式后输出重读/发送结果透传保持，BRW已正确创建回复/DZ接线和所有其它源保；两X17B用途。CHARACTER两I-S/NETWORK一S，各28来源，完整请求往返/其他父-callee/owner-alias寿命/ABI运行未验，原格式明文不改",
       "original_role": "角色创建请求启动",
       "reference_sites": [
         "0x45E88C"
@@ -13488,36 +13488,8 @@
           "path": "src/CharacterCreationRequest.cpp",
           "symbols": [
             "StartCharacterCreationRequest"
-          ]
-        },
-        {
-          "path": "src/CharacterSelectScene.cpp",
-          "symbols": [
-            "Sub_45E7D0"
-          ]
-        }
-      ],
-      "evidence_documents": [
-        "doc/cg2d_login_request.md",
-        "doc/cg2d_character_select_scene.md",
-        "doc/cg2d_semantic_function_mappings.md"
-      ],
-      "boundary": "按既有创建属性/元素/图号/动作/选择/socket取样顺序，清创建回复码，发送5128C0后置状态和发布tick；字段均复用实际创建状态owner。内层调用已有，不因此关闭4626A0外层入口门禁待决。"
-    },
-    {
-      "original_entry": "0x508E90",
-      "inventory_id": "F:00108E90",
-      "status": "已有请求轮询本体与一真实超时格式接线，完整收发/运行未验",
-      "original_role": "角色创建请求轮询",
-      "reference_sites": [
-        "0x45E8A0"
-      ],
-      "sources": [
-        {
-          "path": "src/CharacterCreationRequest.cpp",
-          "symbols": [
-            "PollCharacterCreationRequest"
-          ]
+          ],
+          "relationship": "原34条131B；按逆序字段取样、S16选择符号扩展/socket后清W16回复，弃aSEl发送结果后置W32请求1/取tick并原位返回，正常发送失败不早退；正确已有本体及实际owner保持。D01/P08已完成、BVH控制器静态映射及功能pending保，不再把入口门禁列待决"
         },
         {
           "path": "src/CharacterSelectScene.cpp",
@@ -13530,11 +13502,117 @@
         "doc/cg2d_login_request.md",
         "doc/cg2d_character_select_scene.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-decision",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-acceptance",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state",
+        "doc/cg2d_creation_request_tick_sampling_evidence.json"
       ],
-      "boundary": "完成时读取独立W16创建回复码后清状态，恰好1返回1，其他返回-2；未完成则严格大于600000时写创建超时原字节并返回-1，外层创建接线及实际收发仍未验。 本步只将原文定长复制恢复53B304真实原call，原无占位/无变参/原字节含NUL和共享1024B余部保持，不新建状态或提高超时保护，原父/实际收发/CRT运行未闭合。",
-      "original_end_exclusive": "0x508EE0",
-      "instruction_count": 22,
+      "boundary": "原34条131B；按逆序字段取样、S16选择符号扩展/socket后清W16回复，弃aSEl发送结果后置W32请求1/取tick并原位返回，正常发送失败不早退；正确已有本体及实际owner保持。D01/P08已完成、BVH控制器静态映射及功能pending保，不再把入口门禁列待决",
+      "verification_level": "BVI01限定静态：创建启动/轮询/aSEl三个完整根210条703B/五页、30直接/两计时间接/两跳转/五RET，两个真实父局部28条119B含重叠；一cpp一个elapsed片段恢复508EB4计时调用后508EBA读取共享起始W32，原完成回复/严格600000阈值/15B格式及未清状态保。153/154已有原新承接、新1763/F:001128C0正确13字段组包及每项容量/格式后输出重读/发送结果透传保持，BRW已正确创建回复/DZ接线和所有其它源保；两X17B用途。CHARACTER两I-S/NETWORK一S，各28来源，完整请求往返/其他父-callee/owner-alias寿命/ABI运行未验，原格式明文不改",
+      "original_end_exclusive": "0x508e83",
+      "original_chunks": [
+        {
+          "start": "0x508e00",
+          "end_exclusive": "0x508e83"
+        }
+      ],
+      "instruction_count": 34,
+      "creation_request_tick_sampling": {
+        "spec_id": "BVI01",
+        "evidence_refs": [
+          "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline",
+          "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-decision",
+          "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-acceptance",
+          "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state",
+          "doc/cg2d_creation_request_tick_sampling_evidence.json"
+        ],
+        "previous_status": "已有请求本体与调用映射，完整收发未验",
+        "previous_boundary": "按既有创建属性/元素/图号/动作/选择/socket取样顺序，清创建回复码，发送5128C0后置状态和发布tick；字段均复用实际创建状态owner。内层调用已有，不因此关闭4626A0外层入口门禁待决。",
+        "full_original_root_captured": true,
+        "original_instruction_count": 34,
+        "original_code_bytes": 131,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 1,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 1,
+        "original_total_instruction_count": 210,
+        "original_total_code_bytes": 703,
+        "original_total_page_count": 5,
+        "original_caller_window_count": 2,
+        "original_caller_window_instruction_count": 28,
+        "original_caller_window_code_bytes": 119,
+        "caller_window_totals_include_overlap": true,
+        "source_body_changed": false,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 1,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "root_specific_new_I_claimed": false,
+        "timer_call_before_fresh_start_tick_sample_restored": true,
+        "normal_U32_difference_and_strict_600000_threshold_retained": true,
+        "existing_completed_reply_sample_before_status_clear_retained": true,
+        "normal_send_failure_then_status_and_tick_retained": true,
+        "old_stdio_format_point_and_15B_message_retained": true,
+        "correct_thirteen_field_packet_retained": true,
+        "per_field_capacity_and_post_formatter_output_reload_retained": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "existing_BRW01_reply_and_DZ_dispatch_kept": true,
+        "old_153_gate_pending_current_fact_corrected": true,
+        "original_unassigned_range_count": 2,
+        "original_unassigned_total_bytes": 17,
+        "original_NN_NOP_bytes": 17,
+        "static_scope_only_request_tick_and_existing_chain_and_range_usage": true,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_pixels_verified": false,
+        "full_lifecycle_closed": false,
+        "full_machine_abi_verified": false,
+        "request_round_trip_runtime_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x508E90",
+      "inventory_id": "F:00108E90",
+      "status": "BVI01限定静态：创建启动/轮询/aSEl三个完整根210条703B/五页、30直接/两计时间接/两跳转/五RET，两个真实父局部28条119B含重叠；一cpp一个elapsed片段恢复508EB4计时调用后508EBA读取共享起始W32，原完成回复/严格600000阈值/15B格式及未清状态保。153/154已有原新承接、新1763/F:001128C0正确13字段组包及每项容量/格式后输出重读/发送结果透传保持，BRW已正确创建回复/DZ接线和所有其它源保；两X17B用途。CHARACTER两I-S/NETWORK一S，各28来源，完整请求往返/其他父-callee/owner-alias寿命/ABI运行未验，原格式明文不改",
+      "original_role": "角色创建请求轮询",
+      "reference_sites": [
+        "0x45E8A0"
+      ],
+      "sources": [
+        {
+          "path": "src/CharacterCreationRequest.cpp",
+          "symbols": [
+            "PollCharacterCreationRequest"
+          ],
+          "relationship": "原22条80B；完成先W16回复持样后清请求状态，1→1/其它→-2；非完成先计时调用再读取共享起始W32，正常U32差值<=600000等候0，严格超过原15B无占位格式后-1且不清状态/回复/tick。现一个elapsed片段显式恢复调用后fresh起始取样；只该阶段静态修复，不称实际运行错误/数学异常等价"
+        },
+        {
+          "path": "src/CharacterSelectScene.cpp",
+          "symbols": [
+            "Sub_45E7D0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-decision",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-acceptance",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state",
+        "doc/cg2d_creation_request_tick_sampling_evidence.json"
+      ],
+      "boundary": "原22条80B；完成先W16回复持样后清请求状态，1→1/其它→-2；非完成先计时调用再读取共享起始W32，正常U32差值<=600000等候0，严格超过原15B无占位格式后-1且不清状态/回复/tick。现一个elapsed片段显式恢复调用后fresh起始取样；只该阶段静态修复，不称实际运行错误/数学异常等价",
       "original_direct_reference_count": 1,
       "original_direct_call_reference_count": 1,
       "inbound_evidence": [
@@ -13572,7 +13650,74 @@
         }
       ],
       "business_format_source_expression_count": 1,
-      "verification_level": " 本次仅16超时相邻指令读取/原call与文案字节/源码单个复制改回格式入口及已有头静态核对；完成态正文/发送和调用者不重验，未执行。"
+      "verification_level": "BVI01限定静态：创建启动/轮询/aSEl三个完整根210条703B/五页、30直接/两计时间接/两跳转/五RET，两个真实父局部28条119B含重叠；一cpp一个elapsed片段恢复508EB4计时调用后508EBA读取共享起始W32，原完成回复/严格600000阈值/15B格式及未清状态保。153/154已有原新承接、新1763/F:001128C0正确13字段组包及每项容量/格式后输出重读/发送结果透传保持，BRW已正确创建回复/DZ接线和所有其它源保；两X17B用途。CHARACTER两I-S/NETWORK一S，各28来源，完整请求往返/其他父-callee/owner-alias寿命/ABI运行未验，原格式明文不改",
+      "original_end_exclusive": "0x508ee0",
+      "original_chunks": [
+        {
+          "start": "0x508e90",
+          "end_exclusive": "0x508ee0"
+        }
+      ],
+      "instruction_count": 22,
+      "creation_request_tick_sampling": {
+        "spec_id": "BVI01",
+        "evidence_refs": [
+          "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline",
+          "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-decision",
+          "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-acceptance",
+          "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state",
+          "doc/cg2d_creation_request_tick_sampling_evidence.json"
+        ],
+        "previous_status": "已有请求轮询本体与一真实超时格式接线，完整收发/运行未验",
+        "previous_boundary": "完成时读取独立W16创建回复码后清状态，恰好1返回1，其他返回-2；未完成则严格大于600000时写创建超时原字节并返回-1，外层创建接线及实际收发仍未验。 本步只将原文定长复制恢复53B304真实原call，原无占位/无变参/原字节含NUL和共享1024B余部保持，不新建状态或提高超时保护，原父/实际收发/CRT运行未闭合。",
+        "full_original_root_captured": true,
+        "original_instruction_count": 22,
+        "original_code_bytes": 80,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 1,
+        "original_jump_count": 2,
+        "original_return_count": 3,
+        "original_inbound_reference_count": 1,
+        "original_total_instruction_count": 210,
+        "original_total_code_bytes": 703,
+        "original_total_page_count": 5,
+        "original_caller_window_count": 2,
+        "original_caller_window_instruction_count": 28,
+        "original_caller_window_code_bytes": 119,
+        "caller_window_totals_include_overlap": true,
+        "source_body_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 1,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "root_specific_new_I_claimed": true,
+        "timer_call_before_fresh_start_tick_sample_restored": true,
+        "normal_U32_difference_and_strict_600000_threshold_retained": true,
+        "existing_completed_reply_sample_before_status_clear_retained": true,
+        "normal_send_failure_then_status_and_tick_retained": true,
+        "old_stdio_format_point_and_15B_message_retained": true,
+        "correct_thirteen_field_packet_retained": true,
+        "per_field_capacity_and_post_formatter_output_reload_retained": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "existing_BRW01_reply_and_DZ_dispatch_kept": true,
+        "old_153_gate_pending_current_fact_corrected": true,
+        "original_unassigned_range_count": 2,
+        "original_unassigned_total_bytes": 17,
+        "original_NN_NOP_bytes": 17,
+        "static_scope_only_request_tick_and_existing_chain_and_range_usage": true,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_pixels_verified": false,
+        "full_lifecycle_closed": false,
+        "full_machine_abi_verified": false,
+        "request_round_trip_runtime_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x508F70",
@@ -199443,6 +199588,111 @@
         "current_document_fact_correction_count": 2,
         "full_all_callees_verified": false,
         "full_parent_and_callee_closure_verified": false,
+        "full_pixels_verified": false,
+        "full_lifecycle_closed": false,
+        "full_machine_abi_verified": false,
+        "request_round_trip_runtime_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x5128C0",
+      "inventory_id": "F:001128C0",
+      "original_role": "原aSEl创建十三字段组包/发送结果透传",
+      "original_end_exclusive": "0x512aac",
+      "original_chunks": [
+        {
+          "start": "0x5128c0",
+          "end_exclusive": "0x512aac"
+        }
+      ],
+      "instruction_count": 154,
+      "status": "BVI01限定静态：创建启动/轮询/aSEl三个完整根210条703B/五页、30直接/两计时间接/两跳转/五RET，两个真实父局部28条119B含重叠；一cpp一个elapsed片段恢复508EB4计时调用后508EBA读取共享起始W32，原完成回复/严格600000阈值/15B格式及未清状态保。153/154已有原新承接、新1763/F:001128C0正确13字段组包及每项容量/格式后输出重读/发送结果透传保持，BRW已正确创建回复/DZ接线和所有其它源保；两X17B用途。CHARACTER两I-S/NETWORK一S，各28来源，完整请求往返/其他父-callee/owner-alias寿命/ABI运行未验，原格式明文不改",
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_5128C0"
+          ],
+          "relationship": "原154条492B/三页；aSEl命令、12整数/一文本共13字段按field1..13原序，13次各自先取容量/格式后重读输出buffer，再append；12次517120/一517160、13append/末517480完整结果透传。七源中该网络整源保持，已有11字段循环沿不可变形参而非缓存共享容量/输出，原格式/转义/命令/帧/明文及正常失败不改；代码0改动无新I，NORMAL S仅本根及实际创建参数接线，不代整个协议/互通"
+        },
+        {
+          "path": "include/cg/network/NetworkRuntime.hpp",
+          "symbols": [
+            "Sub_5128C0"
+          ],
+          "relationship": "既有socket/13字段声明完整保持，无新格式/API"
+        },
+        {
+          "path": "src/CharacterCreationRequest.cpp",
+          "symbols": [
+            "StartCharacterCreationRequest"
+          ],
+          "relationship": "唯一真实14实参来源/取样/正常失败后请求及tick序正确保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-decision",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-acceptance",
+        "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state",
+        "doc/cg2d_creation_request_tick_sampling_evidence.json"
+      ],
+      "boundary": "原154条492B/三页；aSEl命令、12整数/一文本共13字段按field1..13原序，13次各自先取容量/格式后重读输出buffer，再append；12次517120/一517160、13append/末517480完整结果透传。七源中该网络整源保持，已有11字段循环沿不可变形参而非缓存共享容量/输出，原格式/转义/命令/帧/明文及正常失败不改；代码0改动无新I，NORMAL S仅本根及实际创建参数接线，不代整个协议/互通",
+      "verification_level": "BVI01限定静态：创建启动/轮询/aSEl三个完整根210条703B/五页、30直接/两计时间接/两跳转/五RET，两个真实父局部28条119B含重叠；一cpp一个elapsed片段恢复508EB4计时调用后508EBA读取共享起始W32，原完成回复/严格600000阈值/15B格式及未清状态保。153/154已有原新承接、新1763/F:001128C0正确13字段组包及每项容量/格式后输出重读/发送结果透传保持，BRW已正确创建回复/DZ接线和所有其它源保；两X17B用途。CHARACTER两I-S/NETWORK一S，各28来源，完整请求往返/其他父-callee/owner-alias寿命/ABI运行未验，原格式明文不改",
+      "creation_request_tick_sampling": {
+        "spec_id": "BVI01",
+        "evidence_refs": [
+          "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline",
+          "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-decision",
+          "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-acceptance",
+          "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-source-state",
+          "doc/cg2d_creation_request_tick_sampling_evidence.json"
+        ],
+        "previous_status": null,
+        "previous_boundary": null,
+        "full_original_root_captured": true,
+        "original_instruction_count": 154,
+        "original_code_bytes": 492,
+        "original_page_count": 3,
+        "original_direct_call_count": 28,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 1,
+        "original_total_instruction_count": 210,
+        "original_total_code_bytes": 703,
+        "original_total_page_count": 5,
+        "original_caller_window_count": 2,
+        "original_caller_window_instruction_count": 28,
+        "original_caller_window_code_bytes": 119,
+        "caller_window_totals_include_overlap": true,
+        "source_body_changed": false,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 1,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "root_specific_new_I_claimed": false,
+        "timer_call_before_fresh_start_tick_sample_restored": true,
+        "normal_U32_difference_and_strict_600000_threshold_retained": true,
+        "existing_completed_reply_sample_before_status_clear_retained": true,
+        "normal_send_failure_then_status_and_tick_retained": true,
+        "old_stdio_format_point_and_15B_message_retained": true,
+        "correct_thirteen_field_packet_retained": true,
+        "per_field_capacity_and_post_formatter_output_reload_retained": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "existing_BRW01_reply_and_DZ_dispatch_kept": true,
+        "old_153_gate_pending_current_fact_corrected": true,
+        "original_unassigned_range_count": 2,
+        "original_unassigned_total_bytes": 17,
+        "original_NN_NOP_bytes": 17,
+        "static_scope_only_request_tick_and_existing_chain_and_range_usage": true,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
         "full_pixels_verified": false,
         "full_lifecycle_closed": false,
         "full_machine_abi_verified": false,

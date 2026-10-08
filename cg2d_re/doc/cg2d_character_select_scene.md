@@ -2510,3 +2510,13 @@ ready后文字y→x取样，依次加20／140并保持两S16；文字提交后�
 集中静态通过：完整原根130条464B/两页、18直接/16目标/零间接/30跳转/一RET、唯一World场景4十条41B，原入口ECX保存及两后半回边有实际指令；五源/完整本体及私有S32声明、唯一D01 gate1调度与BRT const[1]正文/共享消费全文保持，代码0改动无新I。入口SPEC两现时无参待接句已更正、pending7当前说明承接本体原新和已完成正文事实；pending7/18与原policy保。完整机器/派生仅一原新/F、pending7当前事实、一域S/三任务与三指标差集；十四文件UTF8无BOM/LF、四锚点/一限定S的26真实来源通过。
 
 文本汇总及Check均退出0；实际语义1763/有效1756、合同1873（50.90%）、F904/E1079，R7已审465余2596/CHARACTER23、原分类120/mixed3/完整入口排除113、closed11（P08/U03原closed）/差队列及完整闭包保持。完整controller只在D01批准固定门禁范围静态通过，原ECX仍未知，不称原寄存器等价；完整创建交互/请求回复、16个callee及正常owner-alias寿命、机器ABI链接/运行和R8未验，整体目标继续。
+
+## BVI01真实创建请求与轮询数据接线（2026-10-08）
+
+[原基线](cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline)、[取样裁决](cg2d_creation_request_tick_sampling_spec.md#creation-request-decision)及[原证](cg2d_creation_request_tick_sampling_evidence.json)：创建启动/轮询/aSEl三完整根210条703B/五页，两个实际父局部28条119B含重叠/两X17B用途；启动与13字段组包正确保持，仅一cpp一个elapsed片段恢复先计时调用、后fresh读取共享起始W32再相减。45E7D0现场phase1发送后++到2并同次轮询、返回1或负值完成/标死清action保持；姓名与十一S32字段/选择/原socket均复用真实owner，回复1574原S16 slot→W16 reply→S32 preview→4C/50及两148B record保，不新状态。原完成W16回复持样/清状态、严格600000阈值/15B格式及未清状态、发送失败后的请求1/tick序保，七源中其余六源/声明及BRW回复/DZ接线全文保持。153/154已有原新更新、新1763正确组包；CHARACTER26/NETWORK64、CHARACTER两I-S/NETWORK一S各28来源，U10/V03/R04仍open；完整请求往返/其它父-callee/owner-alias寿命/机器ABI链接运行未验，原格式明文/完整门禁保。
+
+### BVI01 当前创建请求计时取样与原格式链限定静态结果
+
+集中静态通过：三完整原根210条703B/五页、30直接/两计时间接/两跳/五RET，两个实际父局部28条119B含重叠、两X17B逐BYTE NN_NOP用途；七整源只一cpp一个elapsed片段，先计时调用再fresh读取共享起始W32后相减，原完成回复/严格600000阈值/15B原格式点和正常失败后状态/tick序保持。启动/正确aSEl十三字段的独立容量/格式后输出重读/结果直透、BRW创建回复与DZ接线及全部其它源/声明保持。完整机器与派生仅具名差集；十五文件UTF8无BOM/LF、四锚点/三限定证据各28真实来源通过。
+
+文本汇总及Check均退出0；实际语义1764/有效1757、合同1874（50.92%）、F907/E1082、R7已审467余2594、CHARACTER26/NETWORK64。原分类120/mixed3/完整入口排除113、BVH原新与pending7/18、closed11/差队列及完整闭包保持。只有154计时读点产生新I，153启动/1763组包保持正确且无新I；原格式明文不改，不声称实际超时运行错误或异常回绕等价。完整请求往返、其他父-callee/正常owner-alias寿命、机器ABI链接/运行与R8未验，整体目标继续。

@@ -114,3 +114,13 @@ BUO01必要静态已通过：完整Scene只两数据初始化改原768B/512常�
 
 十完整原根262条799B/十一页、14directcall/34jump/19RET及25引用13父身份、原17B/七65B用途、两源码仅十二批准片段、原T*字段/原nullptr-哨兵/链写序及失败发布和pool-capacity采样/index返回、固定24B只读视图移交、完整机器及派生差异模型、十六文件UTF8/LF/四锚点及六限定证据各25来源已通过。文本汇总与Check均退出0。
 实际语义1741/有效1734、文档1852（50.33%）、F882/E1032、R7已审444/余2617、LOOP154/INPUT47/NETWORK63/LOGIN13；原分母/其他域/差队列/pending18与ECX pending7/closed11和完整门禁保。七原根和BYTE桥实修/三旧helper退休，默认/网络配置/Report三正确正文保持不计新增I；未编译、链接、运行或证明完整窗口/登录/配置/明文互通验收，整体目标继续active。
+
+## BVI01aSEl原十三字段及正常失败合同（2026-10-08）
+
+[原基线](cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline)、[取样裁决](cg2d_creation_request_tick_sampling_spec.md#creation-request-decision)及[原证](cg2d_creation_request_tick_sampling_evidence.json)：创建启动/轮询/aSEl三完整根210条703B/五页，两个实际父局部28条119B含重叠/两X17B用途；启动与13字段组包正确保持，仅一cpp一个elapsed片段恢复先计时调用、后fresh读取共享起始W32再相减。命令aSEl、12整数/一文本按原field1..13，13次先取容量/格式后重读输出再append，末517480原返回直透；现剩余11整数循环不缓存共享容量/输出，正常发送失败仍由外层继续请求状态/tick，不新帧、字段或加解密。原完成W16回复持样/清状态、严格600000阈值/15B格式及未清状态、发送失败后的请求1/tick序保，七源中其余六源/声明及BRW回复/DZ接线全文保持。153/154已有原新更新、新1763正确组包；CHARACTER26/NETWORK64、CHARACTER两I-S/NETWORK一S各28来源，U10/V03/R04仍open；完整请求往返/其它父-callee/owner-alias寿命/机器ABI链接运行未验，原格式明文/完整门禁保。
+
+### BVI01 当前创建请求计时取样与原格式链限定静态结果
+
+集中静态通过：三完整原根210条703B/五页、30直接/两计时间接/两跳/五RET，两个实际父局部28条119B含重叠、两X17B逐BYTE NN_NOP用途；七整源只一cpp一个elapsed片段，先计时调用再fresh读取共享起始W32后相减，原完成回复/严格600000阈值/15B原格式点和正常失败后状态/tick序保持。启动/正确aSEl十三字段的独立容量/格式后输出重读/结果直透、BRW创建回复与DZ接线及全部其它源/声明保持。完整机器与派生仅具名差集；十五文件UTF8无BOM/LF、四锚点/三限定证据各28真实来源通过。
+
+文本汇总及Check均退出0；实际语义1764/有效1757、合同1874（50.92%）、F907/E1082、R7已审467余2594、CHARACTER26/NETWORK64。原分类120/mixed3/完整入口排除113、BVH原新与pending7/18、closed11/差队列及完整闭包保持。只有154计时读点产生新I，153启动/1763组包保持正确且无新I；原格式明文不改，不声称实际超时运行错误或异常回绕等价。完整请求往返、其他父-callee/正常owner-alias寿命、机器ABI链接/运行与R8未验，整体目标继续。

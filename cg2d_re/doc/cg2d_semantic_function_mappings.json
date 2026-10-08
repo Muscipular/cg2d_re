@@ -199,8 +199,8 @@
     {
       "original_entry": "0x4FDBD0",
       "inventory_id": "F:000FDBD0",
-      "status": "用户要求暂缓音频",
-      "implementation_state": "旧7页面本体暂缓",
+      "status": "CAB06开发已恢复，音量/立体声子回调已实现；初始化表/完整页面及旧外层真实接线仍待",
+      "implementation_state": "CAB06五个旧设置子回调已实现；旧7/旧8完整页面本体、初始化及原路由继续开发，不计完成或范围排除",
       "remaining_requirement": "57C368旧表保留该handler证据编号；不注册部分设置页或把音频暂缓记作范围排除。",
       "evidence_documents": [
         "doc/cg2d_display_settings.md"
@@ -209,8 +209,8 @@
     {
       "original_entry": "0x4FE0E0",
       "inventory_id": "F:000FE0E0",
-      "status": "用户要求暂缓音频",
-      "implementation_state": "旧8页面本体暂缓",
+      "status": "CAB06开发已恢复，音量/立体声子回调已实现；初始化表/完整页面及旧外层真实接线仍待",
+      "implementation_state": "CAB06五个旧设置子回调已实现；旧7/旧8完整页面本体、初始化及原路由继续开发，不计完成或范围排除",
       "remaining_requirement": "57C368旧表保留该handler证据编号；不注册部分设置页或把音频暂缓记作范围排除。",
       "evidence_documents": [
         "doc/cg2d_display_settings.md"
@@ -212629,6 +212629,161 @@
       ],
       "boundary": "用户最新要求固定MIDI离线转WAV，客户端后续不使用MIDI；类型0内置13.8秒WAV，类型1按用户要求为空音频并立即成功1，原W32重复/音量/停止释放与两字段明文派发保持。离线统一衰减峰值至0.98，波形/KS效果及真实声音/失败/寿命未验；不代完整功能、旧7/旧8或整体SPEC。",
       "verification_level": "沿用原根取证；本次离线实际转换、WAV格式/PCM与内置资源字节检查、Debug编译链接与map；未运行客户端、测试或计算摘要"
+    },
+    {
+      "original_entry": "0x4FDD70",
+      "inventory_id": "F:000FDD70",
+      "status": "CAB06原音频设置回调本体已实现，正常域限定静态对照通过；旧7/旧8初始化/页面及真实外层接线、编译运行未验",
+      "sources": [
+        {
+          "path": "src/DisplaySettings.cpp",
+          "symbols": [
+            "Sub_4FDD70"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_display_settings.md#audio-settings-callback-source-state",
+        "doc/cg2d_audio_settings_callback_evidence.json",
+        "doc/cg2d_audio_control_paused_scope_evidence.json"
+      ],
+      "original_end_exclusive": "0x4FDDB6",
+      "instruction_count": 21,
+      "original_byte_count": 70,
+      "boundary": "同次完整S32音量/立体声读取与原15/0门禁、先写共享platform槽后调用真实提供者/提示音；音乐应用与音效/立体声分工保持，不增加owner、立即通道重设、保护或异常回绕模型。现有SDL3/WAV及第二段空音频保持；本体落位不代旧页面/全音频接线或运行验收。",
+      "audio_settings_callback_contract": {
+        "step": "CAB06",
+        "spec": "doc/cg2d_display_settings.md#audio-settings-callback-source-state",
+        "source_snapshot": "cg2d-re-audio-settings-callbacks-20261009",
+        "new_owner": false,
+        "page_binding_implemented": false,
+        "runtime_verified": false
+      },
+      "verification_level": "93条305B五完整原根及新增DisplaySettings.cpp/头文件差异限定静态；既有共享状态与提供者保持；未编译、测试、运行或摘要"
+    },
+    {
+      "original_entry": "0x4FDDC0",
+      "inventory_id": "F:000FDDC0",
+      "status": "CAB06原音频设置回调本体已实现，正常域限定静态对照通过；旧7/旧8初始化/页面及真实外层接线、编译运行未验",
+      "sources": [
+        {
+          "path": "src/DisplaySettings.cpp",
+          "symbols": [
+            "Sub_4FDDC0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_display_settings.md#audio-settings-callback-source-state",
+        "doc/cg2d_audio_settings_callback_evidence.json",
+        "doc/cg2d_audio_control_paused_scope_evidence.json"
+      ],
+      "original_end_exclusive": "0x4FDE05",
+      "instruction_count": 21,
+      "original_byte_count": 69,
+      "boundary": "同次完整S32音量/立体声读取与原15/0门禁、先写共享platform槽后调用真实提供者/提示音；音乐应用与音效/立体声分工保持，不增加owner、立即通道重设、保护或异常回绕模型。现有SDL3/WAV及第二段空音频保持；本体落位不代旧页面/全音频接线或运行验收。",
+      "audio_settings_callback_contract": {
+        "step": "CAB06",
+        "spec": "doc/cg2d_display_settings.md#audio-settings-callback-source-state",
+        "source_snapshot": "cg2d-re-audio-settings-callbacks-20261009",
+        "new_owner": false,
+        "page_binding_implemented": false,
+        "runtime_verified": false
+      },
+      "verification_level": "93条305B五完整原根及新增DisplaySettings.cpp/头文件差异限定静态；既有共享状态与提供者保持；未编译、测试、运行或摘要"
+    },
+    {
+      "original_entry": "0x4FE320",
+      "inventory_id": "F:000FE320",
+      "status": "CAB06原音频设置回调本体已实现，正常域限定静态对照通过；旧7/旧8初始化/页面及真实外层接线、编译运行未验",
+      "sources": [
+        {
+          "path": "src/DisplaySettings.cpp",
+          "symbols": [
+            "Sub_4FE320"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_display_settings.md#audio-settings-callback-source-state",
+        "doc/cg2d_audio_settings_callback_evidence.json",
+        "doc/cg2d_audio_control_paused_scope_evidence.json"
+      ],
+      "original_end_exclusive": "0x4FE361",
+      "instruction_count": 20,
+      "original_byte_count": 65,
+      "boundary": "同次完整S32音量/立体声读取与原15/0门禁、先写共享platform槽后调用真实提供者/提示音；音乐应用与音效/立体声分工保持，不增加owner、立即通道重设、保护或异常回绕模型。现有SDL3/WAV及第二段空音频保持；本体落位不代旧页面/全音频接线或运行验收。",
+      "audio_settings_callback_contract": {
+        "step": "CAB06",
+        "spec": "doc/cg2d_display_settings.md#audio-settings-callback-source-state",
+        "source_snapshot": "cg2d-re-audio-settings-callbacks-20261009",
+        "new_owner": false,
+        "page_binding_implemented": false,
+        "runtime_verified": false
+      },
+      "verification_level": "93条305B五完整原根及新增DisplaySettings.cpp/头文件差异限定静态；既有共享状态与提供者保持；未编译、测试、运行或摘要"
+    },
+    {
+      "original_entry": "0x4FE370",
+      "inventory_id": "F:000FE370",
+      "status": "CAB06原音频设置回调本体已实现，正常域限定静态对照通过；旧7/旧8初始化/页面及真实外层接线、编译运行未验",
+      "sources": [
+        {
+          "path": "src/DisplaySettings.cpp",
+          "symbols": [
+            "Sub_4FE370"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_display_settings.md#audio-settings-callback-source-state",
+        "doc/cg2d_audio_settings_callback_evidence.json",
+        "doc/cg2d_audio_control_paused_scope_evidence.json"
+      ],
+      "original_end_exclusive": "0x4FE3B0",
+      "instruction_count": 20,
+      "original_byte_count": 64,
+      "boundary": "同次完整S32音量/立体声读取与原15/0门禁、先写共享platform槽后调用真实提供者/提示音；音乐应用与音效/立体声分工保持，不增加owner、立即通道重设、保护或异常回绕模型。现有SDL3/WAV及第二段空音频保持；本体落位不代旧页面/全音频接线或运行验收。",
+      "audio_settings_callback_contract": {
+        "step": "CAB06",
+        "spec": "doc/cg2d_display_settings.md#audio-settings-callback-source-state",
+        "source_snapshot": "cg2d-re-audio-settings-callbacks-20261009",
+        "new_owner": false,
+        "page_binding_implemented": false,
+        "runtime_verified": false
+      },
+      "verification_level": "93条305B五完整原根及新增DisplaySettings.cpp/头文件差异限定静态；既有共享状态与提供者保持；未编译、测试、运行或摘要"
+    },
+    {
+      "original_entry": "0x4FE3B0",
+      "inventory_id": "F:000FE3B0",
+      "status": "CAB06原音频设置回调本体已实现，正常域限定静态对照通过；旧7/旧8初始化/页面及真实外层接线、编译运行未验",
+      "sources": [
+        {
+          "path": "src/DisplaySettings.cpp",
+          "symbols": [
+            "Sub_4FE3B0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_display_settings.md#audio-settings-callback-source-state",
+        "doc/cg2d_audio_settings_callback_evidence.json",
+        "doc/cg2d_audio_control_paused_scope_evidence.json"
+      ],
+      "original_end_exclusive": "0x4FE3D5",
+      "instruction_count": 11,
+      "original_byte_count": 37,
+      "boundary": "同次完整S32音量/立体声读取与原15/0门禁、先写共享platform槽后调用真实提供者/提示音；音乐应用与音效/立体声分工保持，不增加owner、立即通道重设、保护或异常回绕模型。现有SDL3/WAV及第二段空音频保持；本体落位不代旧页面/全音频接线或运行验收。",
+      "audio_settings_callback_contract": {
+        "step": "CAB06",
+        "spec": "doc/cg2d_display_settings.md#audio-settings-callback-source-state",
+        "source_snapshot": "cg2d-re-audio-settings-callbacks-20261009",
+        "new_owner": false,
+        "page_binding_implemented": false,
+        "runtime_verified": false
+      },
+      "verification_level": "93条305B五完整原根及新增DisplaySettings.cpp/头文件差异限定静态；既有共享状态与提供者保持；未编译、测试、运行或摘要"
     }
   ]
 }

@@ -93,6 +93,69 @@ std::int32_t Sub_4FE3E0()
     return 0;
 }
 
+// 原[4FDD70,4FDDB6)：同次S32音量判断/加一，应用后才播放提示音。
+std::int32_t Sub_4FDD70()
+{
+    const std::int32_t volume = platform::gMusicVolume;
+    if (volume < 15) {
+        platform::gMusicVolume = volume + 1;
+        static_cast<void>(audio::Sub_52C3D0());
+        static_cast<void>(PlaySe(51, 320, 240));
+    } else {
+        static_cast<void>(PlaySe(55, 320, 240));
+    }
+    return 0;
+}
+
+// 原[4FDDC0,4FDE05)：同次S32音量判断/减一，保留音乐应用与音效顺序。
+std::int32_t Sub_4FDDC0()
+{
+    const std::int32_t volume = platform::gMusicVolume;
+    if (volume > 0) {
+        platform::gMusicVolume = volume - 1;
+        static_cast<void>(audio::Sub_52C3D0());
+        static_cast<void>(PlaySe(51, 320, 240));
+    } else {
+        static_cast<void>(PlaySe(55, 320, 240));
+    }
+    return 0;
+}
+
+// 原[4FE320,4FE361)：音效音量只写共享槽，由实际播放/逐帧更新消费。
+std::int32_t Sub_4FE320()
+{
+    const std::int32_t volume = platform::gEffectVolume;
+    if (volume < 15) {
+        platform::gEffectVolume = volume + 1;
+        static_cast<void>(PlaySe(51, 320, 240));
+    } else {
+        static_cast<void>(PlaySe(55, 320, 240));
+    }
+    return 0;
+}
+
+// 原[4FE370,4FE3B0)：先发布新音效音量，再交既有PlaySe读取。
+std::int32_t Sub_4FE370()
+{
+    const std::int32_t volume = platform::gEffectVolume;
+    if (volume > 0) {
+        platform::gEffectVolume = volume - 1;
+        static_cast<void>(PlaySe(51, 320, 240));
+    } else {
+        static_cast<void>(PlaySe(55, 320, 240));
+    }
+    return 0;
+}
+
+// 原[4FE3B0,4FE3D5)：完整S32减一后取bit0，不新增立即重设通道的调用。
+std::int32_t Sub_4FE3B0()
+{
+    const std::int32_t stereo = platform::gUseStereo;
+    platform::gUseStereo = (stereo - 1) & 1;
+    static_cast<void>(PlaySe(51, 320, 240));
+    return 0;
+}
+
 std::int32_t Sub_4FE3F0()
 {
     const std::int32_t speed = platform::gValue553438;

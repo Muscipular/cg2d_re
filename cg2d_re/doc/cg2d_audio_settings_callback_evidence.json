@@ -1,0 +1,133 @@
+{
+  "step": "CAB06",
+  "recorded_on": "2026-10-09",
+  "authorization": "用户此前明确要求继续完善音频部分；当前设置完成整体SPEC目标。恢复剩余音频源码开发，运行/测试限制不变。",
+  "scope": "五个旧音频设置回调本体和现有共享状态消费；不作为旧7/旧8页面或完整音频验收",
+  "decision_ref": "doc/cg2d_display_settings.md#audio-settings-callback-source-state",
+  "source_snapshot": "cg2d-re-audio-settings-callbacks-20261009",
+  "baseline": {
+    "authority": "当前已打开的cg2d.exe IDA数据库；只读Python查询",
+    "reference": "doc/cg2d_audio_control_paused_scope_evidence.json",
+    "functions": [
+      {
+        "original_entry": "0x4fdd70",
+        "end_exclusive": "0x4fddb6",
+        "instruction_count": 21,
+        "byte_count": 70,
+        "raw_bytes": "a1ccd3580083f80f7d258bc841890dccd35800e848e6020068f000000068400100006a33e8b7e6020083c40c33c0c368f000000068400100006a37e8a0e6020083c40c33c0c3",
+        "inbound": [
+          {
+            "from": "0x4fdb21",
+            "type": 1,
+            "parent_entry": "0x4fda00"
+          }
+        ]
+      },
+      {
+        "original_entry": "0x4fddc0",
+        "end_exclusive": "0x4fde05",
+        "instruction_count": 21,
+        "byte_count": 69,
+        "raw_bytes": "a1ccd3580085c07e258bc849890dccd35800e8f9e5020068f000000068400100006a33e868e6020083c40c33c0c368f000000068400100006a37e851e6020083c40c33c0c3",
+        "inbound": [
+          {
+            "from": "0x4fdb5c",
+            "type": 1,
+            "parent_entry": "0x4fda00"
+          }
+        ]
+      },
+      {
+        "original_entry": "0x4fe320",
+        "end_exclusive": "0x4fe361",
+        "instruction_count": 20,
+        "byte_count": 65,
+        "raw_bytes": "a1c8d3580083f80f7d208bc868f00000004168400100006a33890dc8d35800e80ce1020083c40c33c0c368f000000068400100006a37e8f5e0020083c40c33c0c3",
+        "inbound": [
+          {
+            "from": "0x4fdf39",
+            "type": 1,
+            "parent_entry": "0x4fde20"
+          }
+        ]
+      },
+      {
+        "original_entry": "0x4fe370",
+        "end_exclusive": "0x4fe3b0",
+        "instruction_count": 20,
+        "byte_count": 64,
+        "raw_bytes": "a1c8d3580085c07e208bc868f00000004968400100006a33890dc8d35800e8bde0020083c40c33c0c368f000000068400100006a37e8a6e0020083c40c33c0c3",
+        "inbound": [
+          {
+            "from": "0x4fdf74",
+            "type": 1,
+            "parent_entry": "0x4fde20"
+          }
+        ]
+      },
+      {
+        "original_entry": "0x4fe3b0",
+        "end_exclusive": "0x4fe3d5",
+        "instruction_count": 11,
+        "byte_count": 37,
+        "raw_bytes": "a1c4d3580068f000000048684001000083e0016a33a3c4d35800e881e0020083c40c33c0c3",
+        "inbound": [
+          {
+            "from": "0x4fe07d",
+            "type": 1,
+            "parent_entry": "0x4fde20"
+          }
+        ]
+      }
+    ],
+    "instruction_count": 93,
+    "byte_count": 305
+  },
+  "implementation": {
+    "files": [
+      "src/DisplaySettings.cpp",
+      "include/cg/DisplaySettings.hpp"
+    ],
+    "symbols": [
+      "Sub_4FDD70",
+      "Sub_4FDDC0",
+      "Sub_4FE320",
+      "Sub_4FE370",
+      "Sub_4FE3B0"
+    ],
+    "owners": {
+      "music": "platform::gMusicVolume / 原58D3CC S32",
+      "effect": "platform::gEffectVolume / 原58D3C8 S32",
+      "stereo": "platform::gUseStereo / 原58D3C4 S32"
+    },
+    "music": "同次S32取样，原15/0分支内写加一/减一→Sub_52C3D0→PlaySe(51,320,240)；边界只PlaySe(55,320,240)",
+    "effect": "同次S32取样，原15/0分支内写加一/减一→PlaySe(51,320,240)；边界只PlaySe(55,320,240)，不增加音乐应用调用",
+    "stereo": "同次完整S32取样，(旧值-1)&1写共享槽→PlaySe(51,320,240)",
+    "return": "五根均返回完整S32零",
+    "new_owner_or_dependency": false,
+    "new_input_protection": false,
+    "page_callback_binding_implemented": false,
+    "preserved_consumers": [
+      "LegacyAudio.cpp#Sub_52C3D0",
+      "LegacyAudio.cpp#PlaySe_52C450",
+      "LegacyAudio.cpp#Sub_52C680",
+      "LegacyAudio.cpp#Sub_52CB50"
+    ]
+  },
+  "verification": {
+    "method": "static",
+    "current_source_difference_checked": true,
+    "compile_performed": false,
+    "tests_performed": false,
+    "client_run_performed": false,
+    "hash_performed": false,
+    "whole_audio_accepted": false,
+    "whole_project_accepted": false
+  },
+  "remaining": [
+    "4FDA00/4FDE20两初始化及包装和旧7/旧8完整页面",
+    "旧选择表外层原生回调/实际路由",
+    "完整音频成员与SDK提供者映射",
+    "实际音量/立体声/提示音、设备失败与退出寿命"
+  ]
+}

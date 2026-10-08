@@ -865,3 +865,7 @@
 ## 2026-10-09 cg2d_re 本机明文连接修复
 
 已按实际服务端原命令/原字段/LF格式修复客户端收发、重连队列重置和远端关闭处理，不改服务端或新增协议。必要Debug编译链接返回0，0错误/3条既有警告；游戏目录EXE已更新并备份旧版。实际登录仍待用户反馈，未自行运行客户端或测试。整体SPEC目标已设为active，以cg2d_re总计划聚焦缺口开发验收；具体证据及进度见cg2d_re/plan/cg2d_full_reconstruction_progress.md，快照cg2d-re-local-plaintext-login-20261009。
+
+## 2026-10-09 cg2d_re 旧音频设置回调开发
+
+依用户继续完善音频要求恢复剩余开发，补齐旧7/旧8音乐音量、音效音量及立体声五个原回调，复用共享S32状态和SDL3/WAV提供者，保持原界限与调用顺序。五根93条305B及新增源码差异限定静态通过，未编译或运行；初始化/完整页面/旧外层接线及真实声音仍待，不关闭整体验收。规则、既有SPEC及台账已同步，具体见cg2d_re/plan/cg2d_full_reconstruction_progress.md；快照cg2d-re-audio-settings-callbacks-20261009。

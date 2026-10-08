@@ -1,5 +1,7 @@
 # BOY01 音频控制子入口的暂停范围纠错
 
+> 2026-10-09当前开发沿用户“继续完善音频部分”恢复剩余音频，已实现[五个设置回调](cg2d_display_settings.md#audio-settings-callback-source-state)。下文暂停/队列数量为BOY01历史记录；两初始化包装/本体、旧7/旧8页面及真实外层接线仍待开发，不计完成或排除。运行/测试限制保持。
+
 <a id="audio-control-paused-baseline"></a>
 ## 缺口与原证据
 

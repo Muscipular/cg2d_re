@@ -4,6 +4,8 @@
 > 决议前全文固定于Git命名快照 `cg2d-re-spec-history-20261004-before-delegated-decisions`。本轮只更新SPEC/台账，不修改实现，不新增原端取证。
 > **已决议不等于已实现、已接线或已验收。** 原端事实、部署服务端行为和实际运行结果不靠设计决定。
 
+> 2026-10-09当前增量：网络以[本机服务端既有明文合同](cg2d_network_compatibility_spec.md#local-server-plaintext-contract)为准，旧W16外壳/命令变换仅历史对照；音频按用户“继续完善音频部分”恢复剩余开发，先补[五个旧设置回调](cg2d_display_settings.md#audio-settings-callback-source-state)。运行时仅SDL3/WAV、第二段空音频；下文旧网络实施解释/MIDI选择/音频暂停为历史，不覆盖这些最新决定。运行、测试限制和完整验收标准保持。
+
 > 2026-10-08新增用户指令“先完成客户端链接”“用sdl播音频”：按[CAA01](cg2d_client_link_sdl_audio_spec.md)恢复五个必要音频入口及固定MIDI依赖，采用本线MIDI/DLS→PCM、SDL3音频流输出；旧CRT入口/目录消费按原正文拆独立归档成员。客户端Debug链接已通过，全音频效果、旧目录生产和运行/整体SPEC未验；原格式明文、宿主入口与其他具名边界保持。
 
 ## 1. 决议与子 SPEC

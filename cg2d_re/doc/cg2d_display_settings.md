@@ -1,5 +1,15 @@
 # 显示设置回调
 
+<a id="audio-settings-callback-source-state"></a>
+
+## CAB06 音频控制回调恢复（2026-10-09）
+
+按用户此前“继续完善音频部分”及当前整体SPEC目标，恢复剩余音频开发；旧“仅五个链接入口恢复”作为CAA01当时范围，不再把其它音频源码继续暂停。本步仅补五个已经取证、尚缺源码的旧7/旧8回调：4FDD70/4FDDC0/4FE320/4FE370/4FE3B0，放入既有DisplaySettings.cpp及头文件，不新增子SPEC、状态owner、依赖或构建目标。
+
+原五根93条305B的完整合同沿[BOY01证据](cg2d_audio_control_paused_scope_evidence.json)。音乐两回调同次S32取样，在原15/0边界内先写platform::gMusicVolume，再调用已有52C3D0实际SDL音量应用，再PlaySe(51,320,240)；边界仅PlaySe(55,320,240)。音效两回调只写同源gEffectVolume并播放提示音，不补音乐应用调用；立体声按完整S32的(旧值-1)&1写gUseStereo，再播放提示音。全部返回0，原共享音量和64通道的后续消费不改，不增加保护、钳制或异常回绕模型。
+
+本步为回调本体开发/限定静态对照；旧7/旧8初始化表、页面及旧外层真实路由仍须实现和接线，不能把五个声明/正文称为页面可用。SDL3/WAV及类型1空音频保持，不恢复运行时MIDI；未编译、启动客户端、执行测试/样例或计算摘要。完整音频/页面/听感与V05不关闭，证据见[cg2d_audio_settings_callback_evidence.json](cg2d_audio_settings_callback_evidence.json)。
+
 > 后续增量：4FCB90/4FCBA0构造及完整4FD1A0已实现，CRT5530AC已接，
 > 见[旧聊天设置页](ui_windows/legacy_chat_settings.md)。下文“构造/消费仍待”保留为当时证据；
 > 公共消费者已有本体，旧选择表上层分派及完整运行验收仍未完成。

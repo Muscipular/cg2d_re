@@ -2160,3 +2160,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 先SPEC后接两已证生产消费窗口42条148B/四CALL。I覆盖现两spawn/除数入口到完整CI/core/真实依赖，S覆盖两源五改动/72B帧和指针跨CALL、原参数/连续ST0/截断/CW及Cpp和RNG保持；MAP/CRT各I-S共四，仅局部源码证据，不代机器/未知alias或全应用。
 
 语义1837/有效1830、文档1947/3680（52.91%）、F999/CRT176/MAP129、定位150/CRT未定位22及总队列151保持，E1158→1162。原身份不新计、已定位成员不再削差集，完整gates/执行限制与原格式明文/音频暂停/RPLAN.24保持。
+
+## BWM01完整共享多入口及特殊值目标限定验收（2026-10-08）
+
+[标准](cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-acceptance)、[状态](cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-source-state)与[原证/源差集](cg2d_math_shared_dispatch_evidence.json)。
+
+先SPEC再整组开发146条501B/三页的全部入口，不把幂前缀当整个身份或无引用当排除。I只覆盖完整内部目标/真helper/Mark及借用间接调用，S覆盖十二ASM/三源五追加、原表/上下文位宽/状态和LEA末标志与不解释FPU保存恢复。原0/1结果和error编码按完整原分支有据。
+
+预计语义1838/有效1831、文档1948/3680（52.93%）、F1000/CRT177、E1164；定位149/CRT未定位21、总队列150，以汇总核实。未知描述符生产/调用父/共享余链、全应用生命周期及机器/运行仍open，原格式明文/音频暂停/RPLAN.24保持。

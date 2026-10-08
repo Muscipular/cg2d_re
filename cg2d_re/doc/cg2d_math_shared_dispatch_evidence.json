@@ -1,0 +1,1647 @@
+{
+  "schema_version": 1,
+  "spec_id": "BWM01",
+  "recorded_on": "2026-10-08",
+  "baseline_snapshot": "cg2d-re-power-application-wiring-20261008",
+  "implementation_snapshot": "cg2d-re-math-shared-dispatch-20261008",
+  "evidence_refs": [
+    "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-baseline",
+    "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-decision",
+    "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-acceptance",
+    "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-source-state"
+  ],
+  "artifacts": [
+    "doc/cg2d_math_shared_dispatch_evidence.json",
+    "doc/cg2d_math_shared_dispatch_spec.md",
+    "src/platform/LegacyFloatEnvironment.cpp",
+    "src/platform/LegacyFloatEnvironment.hpp",
+    "src/platform/LegacyFloatEnvironment.asm",
+    "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-baseline",
+    "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-decision",
+    "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-acceptance",
+    "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-source-state"
+  ],
+  "original_functions": [
+    {
+      "start": "0x543185",
+      "end_exclusive": "0x543383",
+      "count": 146,
+      "chunks": [
+        [
+          "0x543185",
+          "0x543383"
+        ]
+      ],
+      "inbound": [],
+      "instructions": [
+        {
+          "ea": "0x543185",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x543186",
+          "size": 3,
+          "bytes": "83ec74",
+          "mnemonic": "sub",
+          "text": "sub     esp, 74h",
+          "call_target": null
+        },
+        {
+          "ea": "0x543189",
+          "size": 2,
+          "bytes": "8bf4",
+          "mnemonic": "mov",
+          "text": "mov     esi, esp",
+          "call_target": null
+        },
+        {
+          "ea": "0x54318b",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi; int",
+          "call_target": null
+        },
+        {
+          "ea": "0x54318c",
+          "size": 3,
+          "bytes": "83ec08",
+          "mnemonic": "sub",
+          "text": "sub     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x54318f",
+          "size": 3,
+          "bytes": "dd1c24",
+          "mnemonic": "fstp",
+          "text": "fstp    [esp+84h+var_84]; double",
+          "call_target": null
+        },
+        {
+          "ea": "0x543192",
+          "size": 3,
+          "bytes": "83ec08",
+          "mnemonic": "sub",
+          "text": "sub     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x543195",
+          "size": 3,
+          "bytes": "dd1c24",
+          "mnemonic": "fstp",
+          "text": "fstp    [esp+8Ch+var_8C]; double",
+          "call_target": null
+        },
+        {
+          "ea": "0x543198",
+          "size": 4,
+          "bytes": "9bdd7608",
+          "mnemonic": "fsave",
+          "text": "fsave   byte ptr [esi+8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x54319c",
+          "size": 5,
+          "bytes": "e8db030000",
+          "mnemonic": "call",
+          "text": "call    __powhlp",
+          "call_target": "0x54357c"
+        },
+        {
+          "ea": "0x5431a1",
+          "size": 3,
+          "bytes": "83c414",
+          "mnemonic": "add",
+          "text": "add     esp, 14h",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431a4",
+          "size": 3,
+          "bytes": "dd6608",
+          "mnemonic": "frstor",
+          "text": "frstor  byte ptr [esi+8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431a7",
+          "size": 2,
+          "bytes": "dd06",
+          "mnemonic": "fld",
+          "text": "fld     qword ptr [esi]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431a9",
+          "size": 3,
+          "bytes": "83c474",
+          "mnemonic": "add",
+          "text": "add     esp, 74h",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431ac",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431ad",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431af",
+          "size": 2,
+          "bytes": "7405",
+          "mnemonic": "jz",
+          "text": "jz      short noerror",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431b1",
+          "size": 5,
+          "bytes": "e9c3010000",
+          "mnemonic": "jmp",
+          "text": "jmp     loc_543379",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431b6",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431c0",
+          "size": 4,
+          "bytes": "807a0e05",
+          "mnemonic": "cmp",
+          "text": "cmp     byte ptr [edx+0Eh], 5",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431c4",
+          "size": 2,
+          "bytes": "7511",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_5431D7",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431c6",
+          "size": 7,
+          "bytes": "668b9d5cffffff",
+          "mnemonic": "mov",
+          "text": "mov     bx, [ebp-0A4h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431cd",
+          "size": 3,
+          "bytes": "80cf02",
+          "mnemonic": "or",
+          "text": "or      bh, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431d0",
+          "size": 3,
+          "bytes": "80e7fe",
+          "mnemonic": "and",
+          "text": "and     bh, 0FEh",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431d3",
+          "size": 2,
+          "bytes": "b33f",
+          "mnemonic": "mov",
+          "text": "mov     bl, 3Fh ; '?'",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431d5",
+          "size": 2,
+          "bytes": "eb04",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_5431DB",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431d7",
+          "size": 4,
+          "bytes": "66bb3f13",
+          "mnemonic": "mov",
+          "text": "mov     bx, 133Fh",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431db",
+          "size": 7,
+          "bytes": "66899d5effffff",
+          "mnemonic": "mov",
+          "text": "mov     [ebp-0A2h], bx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431e2",
+          "size": 6,
+          "bytes": "d9ad5effffff",
+          "mnemonic": "fldcw",
+          "text": "fldcw   word ptr [ebp-0A2h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431e8",
+          "size": 5,
+          "bytes": "bb7d205900",
+          "mnemonic": "mov",
+          "text": "mov     ebx, offset unk_59207D",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431ed",
+          "size": 2,
+          "bytes": "d9e5",
+          "mnemonic": "fxam",
+          "text": "fxam",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431ef",
+          "size": 6,
+          "bytes": "89956cffffff",
+          "mnemonic": "mov",
+          "text": "mov     [ebp-94h], edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431f5",
+          "size": 7,
+          "bytes": "9bddbd60ffffff",
+          "mnemonic": "fstsw",
+          "text": "fstsw   word ptr [ebp-0A0h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5431fc",
+          "size": 7,
+          "bytes": "c68570ffffff00",
+          "mnemonic": "mov",
+          "text": "mov     byte ptr [ebp-90h], 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x543203",
+          "size": 1,
+          "bytes": "9b",
+          "mnemonic": "wait",
+          "text": "wait",
+          "call_target": null
+        },
+        {
+          "ea": "0x543204",
+          "size": 6,
+          "bytes": "8a8d61ffffff",
+          "mnemonic": "mov",
+          "text": "mov     cl, [ebp-9Fh]",
+          "call_target": null
+        },
+        {
+          "ea": "0x54320a",
+          "size": 2,
+          "bytes": "d0e1",
+          "mnemonic": "shl",
+          "text": "shl     cl, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x54320c",
+          "size": 2,
+          "bytes": "d0f9",
+          "mnemonic": "sar",
+          "text": "sar     cl, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x54320e",
+          "size": 2,
+          "bytes": "d0c1",
+          "mnemonic": "rol",
+          "text": "rol     cl, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x543210",
+          "size": 2,
+          "bytes": "8ac1",
+          "mnemonic": "mov",
+          "text": "mov     al, cl",
+          "call_target": null
+        },
+        {
+          "ea": "0x543212",
+          "size": 2,
+          "bytes": "240f",
+          "mnemonic": "and",
+          "text": "and     al, 0Fh",
+          "call_target": null
+        },
+        {
+          "ea": "0x543214",
+          "size": 1,
+          "bytes": "d7",
+          "mnemonic": "xlat",
+          "text": "xlat",
+          "call_target": null
+        },
+        {
+          "ea": "0x543215",
+          "size": 3,
+          "bytes": "0fbec0",
+          "mnemonic": "movsx",
+          "text": "movsx   eax, al",
+          "call_target": null
+        },
+        {
+          "ea": "0x543218",
+          "size": 6,
+          "bytes": "81e104040000",
+          "mnemonic": "and",
+          "text": "and     ecx, 404h",
+          "call_target": null
+        },
+        {
+          "ea": "0x54321e",
+          "size": 2,
+          "bytes": "8bda",
+          "mnemonic": "mov",
+          "text": "mov     ebx, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x543220",
+          "size": 2,
+          "bytes": "03d8",
+          "mnemonic": "add",
+          "text": "add     ebx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x543222",
+          "size": 3,
+          "bytes": "83c310",
+          "mnemonic": "add",
+          "text": "add     ebx, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x543225",
+          "size": 2,
+          "bytes": "ff23",
+          "mnemonic": "jmp",
+          "text": "jmp     dword ptr [ebx]",
+          "call_target": null
+        },
+        {
+          "ea": "0x543227",
+          "size": 4,
+          "bytes": "807a0e05",
+          "mnemonic": "cmp",
+          "text": "cmp     byte ptr [edx+0Eh], 5",
+          "call_target": null
+        },
+        {
+          "ea": "0x54322b",
+          "size": 2,
+          "bytes": "7511",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_54323E",
+          "call_target": null
+        },
+        {
+          "ea": "0x54322d",
+          "size": 7,
+          "bytes": "668b9d5cffffff",
+          "mnemonic": "mov",
+          "text": "mov     bx, [ebp-0A4h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x543234",
+          "size": 3,
+          "bytes": "80cf02",
+          "mnemonic": "or",
+          "text": "or      bh, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x543237",
+          "size": 3,
+          "bytes": "80e7fe",
+          "mnemonic": "and",
+          "text": "and     bh, 0FEh",
+          "call_target": null
+        },
+        {
+          "ea": "0x54323a",
+          "size": 2,
+          "bytes": "b33f",
+          "mnemonic": "mov",
+          "text": "mov     bl, 3Fh ; '?'",
+          "call_target": null
+        },
+        {
+          "ea": "0x54323c",
+          "size": 2,
+          "bytes": "eb04",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_543242",
+          "call_target": null
+        },
+        {
+          "ea": "0x54323e",
+          "size": 4,
+          "bytes": "66bb3f13",
+          "mnemonic": "mov",
+          "text": "mov     bx, 133Fh",
+          "call_target": null
+        },
+        {
+          "ea": "0x543242",
+          "size": 7,
+          "bytes": "66899d5effffff",
+          "mnemonic": "mov",
+          "text": "mov     [ebp-0A2h], bx",
+          "call_target": null
+        },
+        {
+          "ea": "0x543249",
+          "size": 6,
+          "bytes": "d9ad5effffff",
+          "mnemonic": "fldcw",
+          "text": "fldcw   word ptr [ebp-0A2h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x54324f",
+          "size": 5,
+          "bytes": "bb7d205900",
+          "mnemonic": "mov",
+          "text": "mov     ebx, offset unk_59207D",
+          "call_target": null
+        },
+        {
+          "ea": "0x543254",
+          "size": 2,
+          "bytes": "d9e5",
+          "mnemonic": "fxam",
+          "text": "fxam",
+          "call_target": null
+        },
+        {
+          "ea": "0x543256",
+          "size": 6,
+          "bytes": "89956cffffff",
+          "mnemonic": "mov",
+          "text": "mov     [ebp-94h], edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x54325c",
+          "size": 7,
+          "bytes": "9bddbd60ffffff",
+          "mnemonic": "fstsw",
+          "text": "fstsw   word ptr [ebp-0A0h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x543263",
+          "size": 7,
+          "bytes": "c68570ffffff00",
+          "mnemonic": "mov",
+          "text": "mov     byte ptr [ebp-90h], 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x54326a",
+          "size": 2,
+          "bytes": "d9c9",
+          "mnemonic": "fxch",
+          "text": "fxch    st(1)",
+          "call_target": null
+        },
+        {
+          "ea": "0x54326c",
+          "size": 6,
+          "bytes": "8a8d61ffffff",
+          "mnemonic": "mov",
+          "text": "mov     cl, [ebp-9Fh]",
+          "call_target": null
+        },
+        {
+          "ea": "0x543272",
+          "size": 2,
+          "bytes": "d9e5",
+          "mnemonic": "fxam",
+          "text": "fxam",
+          "call_target": null
+        },
+        {
+          "ea": "0x543274",
+          "size": 7,
+          "bytes": "9bddbd60ffffff",
+          "mnemonic": "fstsw",
+          "text": "fstsw   word ptr [ebp-0A0h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x54327b",
+          "size": 2,
+          "bytes": "d9c9",
+          "mnemonic": "fxch",
+          "text": "fxch    st(1)",
+          "call_target": null
+        },
+        {
+          "ea": "0x54327d",
+          "size": 6,
+          "bytes": "8aad61ffffff",
+          "mnemonic": "mov",
+          "text": "mov     ch, [ebp-9Fh]",
+          "call_target": null
+        },
+        {
+          "ea": "0x543283",
+          "size": 2,
+          "bytes": "d0e5",
+          "mnemonic": "shl",
+          "text": "shl     ch, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x543285",
+          "size": 2,
+          "bytes": "d0fd",
+          "mnemonic": "sar",
+          "text": "sar     ch, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x543287",
+          "size": 2,
+          "bytes": "d0c5",
+          "mnemonic": "rol",
+          "text": "rol     ch, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x543289",
+          "size": 2,
+          "bytes": "8ac5",
+          "mnemonic": "mov",
+          "text": "mov     al, ch",
+          "call_target": null
+        },
+        {
+          "ea": "0x54328b",
+          "size": 2,
+          "bytes": "240f",
+          "mnemonic": "and",
+          "text": "and     al, 0Fh",
+          "call_target": null
+        },
+        {
+          "ea": "0x54328d",
+          "size": 1,
+          "bytes": "d7",
+          "mnemonic": "xlat",
+          "text": "xlat",
+          "call_target": null
+        },
+        {
+          "ea": "0x54328e",
+          "size": 2,
+          "bytes": "8ae0",
+          "mnemonic": "mov",
+          "text": "mov     ah, al",
+          "call_target": null
+        },
+        {
+          "ea": "0x543290",
+          "size": 2,
+          "bytes": "d0e1",
+          "mnemonic": "shl",
+          "text": "shl     cl, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x543292",
+          "size": 2,
+          "bytes": "d0f9",
+          "mnemonic": "sar",
+          "text": "sar     cl, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x543294",
+          "size": 2,
+          "bytes": "d0c1",
+          "mnemonic": "rol",
+          "text": "rol     cl, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x543296",
+          "size": 2,
+          "bytes": "8ac1",
+          "mnemonic": "mov",
+          "text": "mov     al, cl",
+          "call_target": null
+        },
+        {
+          "ea": "0x543298",
+          "size": 2,
+          "bytes": "240f",
+          "mnemonic": "and",
+          "text": "and     al, 0Fh",
+          "call_target": null
+        },
+        {
+          "ea": "0x54329a",
+          "size": 1,
+          "bytes": "d7",
+          "mnemonic": "xlat",
+          "text": "xlat",
+          "call_target": null
+        },
+        {
+          "ea": "0x54329b",
+          "size": 2,
+          "bytes": "d0e4",
+          "mnemonic": "shl",
+          "text": "shl     ah, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x54329d",
+          "size": 2,
+          "bytes": "d0e4",
+          "mnemonic": "shl",
+          "text": "shl     ah, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x54329f",
+          "size": 2,
+          "bytes": "0ac4",
+          "mnemonic": "or",
+          "text": "or      al, ah",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432a1",
+          "size": 3,
+          "bytes": "0fbec0",
+          "mnemonic": "movsx",
+          "text": "movsx   eax, al",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432a4",
+          "size": 6,
+          "bytes": "81e104040000",
+          "mnemonic": "and",
+          "text": "and     ecx, 404h",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432aa",
+          "size": 2,
+          "bytes": "8bda",
+          "mnemonic": "mov",
+          "text": "mov     ebx, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432ac",
+          "size": 2,
+          "bytes": "03d8",
+          "mnemonic": "add",
+          "text": "add     ebx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432ae",
+          "size": 3,
+          "bytes": "83c310",
+          "mnemonic": "add",
+          "text": "add     ebx, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432b1",
+          "size": 2,
+          "bytes": "ff23",
+          "mnemonic": "jmp",
+          "text": "jmp     dword ptr [ebx]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432b3",
+          "size": 5,
+          "bytes": "e8c1000000",
+          "mnemonic": "call",
+          "text": "call    loc_543379",
+          "call_target": "0x543379"
+        },
+        {
+          "ea": "0x5432b8",
+          "size": 2,
+          "bytes": "d9c9",
+          "mnemonic": "fxch",
+          "text": "fxch    st(1)",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432ba",
+          "size": 2,
+          "bytes": "ddd8",
+          "mnemonic": "fstp",
+          "text": "fstp    st",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432bc",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432bd",
+          "size": 5,
+          "bytes": "e8b7000000",
+          "mnemonic": "call",
+          "text": "call    loc_543379",
+          "call_target": "0x543379"
+        },
+        {
+          "ea": "0x5432c2",
+          "size": 2,
+          "bytes": "ebf6",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_5432BA",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432c4",
+          "size": 2,
+          "bytes": "ddd8",
+          "mnemonic": "fstp",
+          "text": "fstp    st",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432c6",
+          "size": 2,
+          "bytes": "ddd8",
+          "mnemonic": "fstp",
+          "text": "fstp    st",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432c8",
+          "size": 2,
+          "bytes": "d9ee",
+          "mnemonic": "fldz",
+          "text": "fldz",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432ca",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432cb",
+          "size": 2,
+          "bytes": "ddd8",
+          "mnemonic": "fstp",
+          "text": "fstp    st",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432cd",
+          "size": 2,
+          "bytes": "ddd8",
+          "mnemonic": "fstp",
+          "text": "fstp    st",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432cf",
+          "size": 2,
+          "bytes": "d9e8",
+          "mnemonic": "fld1",
+          "text": "fld1",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432d1",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432d2",
+          "size": 6,
+          "bytes": "dbbd62ffffff",
+          "mnemonic": "fstp",
+          "text": "fstp    tbyte ptr [ebp-9Eh]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432d8",
+          "size": 6,
+          "bytes": "dbad62ffffff",
+          "mnemonic": "fld",
+          "text": "fld     tbyte ptr [ebp-9Eh]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432de",
+          "size": 7,
+          "bytes": "f68569ffffff40",
+          "mnemonic": "test",
+          "text": "test    byte ptr [ebp-97h], 40h",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432e5",
+          "size": 2,
+          "bytes": "7408",
+          "mnemonic": "jz",
+          "text": "jz      short loc_5432EF",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432e7",
+          "size": 7,
+          "bytes": "c68570ffffff07",
+          "mnemonic": "mov",
+          "text": "mov     byte ptr [ebp-90h], 7",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432ee",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432ef",
+          "size": 7,
+          "bytes": "c68570ffffff01",
+          "mnemonic": "mov",
+          "text": "mov     byte ptr [ebp-90h], 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432f6",
+          "size": 6,
+          "bytes": "dc0574205900",
+          "mnemonic": "fadd",
+          "text": "fadd    dbl_592074",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432fc",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432fd",
+          "size": 2,
+          "bytes": "d9c9",
+          "mnemonic": "fxch",
+          "text": "fxch    st(1)",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432ff",
+          "size": 6,
+          "bytes": "dbbd62ffffff",
+          "mnemonic": "fstp",
+          "text": "fstp    tbyte ptr [ebp-9Eh]",
+          "call_target": null
+        },
+        {
+          "ea": "0x543305",
+          "size": 6,
+          "bytes": "dbad62ffffff",
+          "mnemonic": "fld",
+          "text": "fld     tbyte ptr [ebp-9Eh]",
+          "call_target": null
+        },
+        {
+          "ea": "0x54330b",
+          "size": 7,
+          "bytes": "f68569ffffff40",
+          "mnemonic": "test",
+          "text": "test    byte ptr [ebp-97h], 40h",
+          "call_target": null
+        },
+        {
+          "ea": "0x543312",
+          "size": 2,
+          "bytes": "7409",
+          "mnemonic": "jz",
+          "text": "jz      short loc_54331D",
+          "call_target": null
+        },
+        {
+          "ea": "0x543314",
+          "size": 7,
+          "bytes": "c68570ffffff07",
+          "mnemonic": "mov",
+          "text": "mov     byte ptr [ebp-90h], 7",
+          "call_target": null
+        },
+        {
+          "ea": "0x54331b",
+          "size": 2,
+          "bytes": "eb07",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_543324",
+          "call_target": null
+        },
+        {
+          "ea": "0x54331d",
+          "size": 7,
+          "bytes": "c68570ffffff01",
+          "mnemonic": "mov",
+          "text": "mov     byte ptr [ebp-90h], 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x543324",
+          "size": 2,
+          "bytes": "dec1",
+          "mnemonic": "faddp",
+          "text": "faddp   st(1), st",
+          "call_target": null
+        },
+        {
+          "ea": "0x543326",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x543327",
+          "size": 6,
+          "bytes": "dbbd62ffffff",
+          "mnemonic": "fstp",
+          "text": "fstp    tbyte ptr [ebp-9Eh]",
+          "call_target": null
+        },
+        {
+          "ea": "0x54332d",
+          "size": 6,
+          "bytes": "dbad62ffffff",
+          "mnemonic": "fld",
+          "text": "fld     tbyte ptr [ebp-9Eh]",
+          "call_target": null
+        },
+        {
+          "ea": "0x543333",
+          "size": 7,
+          "bytes": "f68569ffffff40",
+          "mnemonic": "test",
+          "text": "test    byte ptr [ebp-97h], 40h",
+          "call_target": null
+        },
+        {
+          "ea": "0x54333a",
+          "size": 2,
+          "bytes": "7420",
+          "mnemonic": "jz",
+          "text": "jz      short loc_54335C",
+          "call_target": null
+        },
+        {
+          "ea": "0x54333c",
+          "size": 2,
+          "bytes": "d9c9",
+          "mnemonic": "fxch",
+          "text": "fxch    st(1)",
+          "call_target": null
+        },
+        {
+          "ea": "0x54333e",
+          "size": 6,
+          "bytes": "dbbd62ffffff",
+          "mnemonic": "fstp",
+          "text": "fstp    tbyte ptr [ebp-9Eh]",
+          "call_target": null
+        },
+        {
+          "ea": "0x543344",
+          "size": 6,
+          "bytes": "dbad62ffffff",
+          "mnemonic": "fld",
+          "text": "fld     tbyte ptr [ebp-9Eh]",
+          "call_target": null
+        },
+        {
+          "ea": "0x54334a",
+          "size": 7,
+          "bytes": "f68569ffffff40",
+          "mnemonic": "test",
+          "text": "test    byte ptr [ebp-97h], 40h",
+          "call_target": null
+        },
+        {
+          "ea": "0x543351",
+          "size": 2,
+          "bytes": "7409",
+          "mnemonic": "jz",
+          "text": "jz      short loc_54335C",
+          "call_target": null
+        },
+        {
+          "ea": "0x543353",
+          "size": 7,
+          "bytes": "c68570ffffff07",
+          "mnemonic": "mov",
+          "text": "mov     byte ptr [ebp-90h], 7",
+          "call_target": null
+        },
+        {
+          "ea": "0x54335a",
+          "size": 2,
+          "bytes": "eb07",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_543363",
+          "call_target": null
+        },
+        {
+          "ea": "0x54335c",
+          "size": 7,
+          "bytes": "c68570ffffff01",
+          "mnemonic": "mov",
+          "text": "mov     byte ptr [ebp-90h], 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x543363",
+          "size": 2,
+          "bytes": "dec1",
+          "mnemonic": "faddp",
+          "text": "faddp   st(1), st",
+          "call_target": null
+        },
+        {
+          "ea": "0x543365",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x543366",
+          "size": 2,
+          "bytes": "ddd8",
+          "mnemonic": "fstp",
+          "text": "fstp    st",
+          "call_target": null
+        },
+        {
+          "ea": "0x543368",
+          "size": 2,
+          "bytes": "ddd8",
+          "mnemonic": "fstp",
+          "text": "fstp    st",
+          "call_target": null
+        },
+        {
+          "ea": "0x54336a",
+          "size": 6,
+          "bytes": "db2d60205900",
+          "mnemonic": "fld",
+          "text": "fld     tbyte_592060",
+          "call_target": null
+        },
+        {
+          "ea": "0x543370",
+          "size": 7,
+          "bytes": "80bd70ffffff00",
+          "mnemonic": "cmp",
+          "text": "cmp     byte ptr [ebp-90h], 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x543377",
+          "size": 2,
+          "bytes": "7f07",
+          "mnemonic": "jg",
+          "text": "jg      short loc_543380",
+          "call_target": null
+        },
+        {
+          "ea": "0x543379",
+          "size": 7,
+          "bytes": "c68570ffffff01",
+          "mnemonic": "mov",
+          "text": "mov     byte ptr [ebp-90h], 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x543380",
+          "size": 2,
+          "bytes": "0ac9",
+          "mnemonic": "or",
+          "text": "or      cl, cl",
+          "call_target": null
+        },
+        {
+          "ea": "0x543382",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "page_count": 3,
+      "code_bytes": 501,
+      "calls": [
+        {
+          "ea": "0x54319c",
+          "size": 5,
+          "bytes": "e8db030000",
+          "mnemonic": "call",
+          "text": "call    __powhlp",
+          "call_target": "0x54357c"
+        },
+        {
+          "ea": "0x5432b3",
+          "size": 5,
+          "bytes": "e8c1000000",
+          "mnemonic": "call",
+          "text": "call    loc_543379",
+          "call_target": "0x543379"
+        },
+        {
+          "ea": "0x5432bd",
+          "size": 5,
+          "bytes": "e8b7000000",
+          "mnemonic": "call",
+          "text": "call    loc_543379",
+          "call_target": "0x543379"
+        }
+      ],
+      "indirect_calls": [],
+      "indirect_jumps": [
+        {
+          "ea": "0x543225",
+          "size": 2,
+          "bytes": "ff23",
+          "mnemonic": "jmp",
+          "text": "jmp     dword ptr [ebx]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5432b1",
+          "size": 2,
+          "bytes": "ff23",
+          "mnemonic": "jmp",
+          "text": "jmp     dword ptr [ebx]",
+          "call_target": null
+        }
+      ],
+      "jump_count": 16,
+      "return_count": 9
+    }
+  ],
+  "original_totals": {
+    "instruction_count": 146,
+    "code_bytes": 501,
+    "page_count": 3,
+    "direct_call_count": 3,
+    "unique_direct_callee_count": 2,
+    "indirect_jump_count": 2,
+    "jump_count": 16,
+    "return_count": 9
+  },
+  "original_all_entry_and_data_refs": {
+    "refs": [
+      {
+        "address": "0x543185",
+        "inbound": []
+      },
+      {
+        "address": "0x5431c0",
+        "inbound": []
+      },
+      {
+        "address": "0x543227",
+        "inbound": []
+      },
+      {
+        "address": "0x5432b3",
+        "inbound": []
+      },
+      {
+        "address": "0x5432bd",
+        "inbound": []
+      },
+      {
+        "address": "0x5432c4",
+        "inbound": []
+      },
+      {
+        "address": "0x5432cb",
+        "inbound": [
+          {
+            "from_": "0x54301e",
+            "type": 19,
+            "code": true,
+            "function": null,
+            "text": "jmp     loc_5432CB"
+          },
+          {
+            "from_": "0x543078",
+            "type": 19,
+            "code": true,
+            "function": null,
+            "text": "jmp     loc_5432CB"
+          }
+        ]
+      },
+      {
+        "address": "0x5432d2",
+        "inbound": []
+      },
+      {
+        "address": "0x5432fd",
+        "inbound": []
+      },
+      {
+        "address": "0x543327",
+        "inbound": []
+      },
+      {
+        "address": "0x543366",
+        "inbound": [
+          {
+            "from_": "0x543023",
+            "type": 19,
+            "code": true,
+            "function": null,
+            "text": "jmp     loc_543366"
+          }
+        ]
+      },
+      {
+        "address": "0x543379",
+        "inbound": [
+          {
+            "from_": "0x543377",
+            "type": 21,
+            "code": true,
+            "function": "0x543185",
+            "text": "jg      short loc_543380"
+          },
+          {
+            "from_": "0x5431b1",
+            "type": 19,
+            "code": true,
+            "function": "0x543185",
+            "text": "jmp     loc_543379"
+          },
+          {
+            "from_": "0x5432b3",
+            "type": 17,
+            "code": true,
+            "function": "0x543185",
+            "text": "call    loc_543379"
+          },
+          {
+            "from_": "0x5432bd",
+            "type": 17,
+            "code": true,
+            "function": "0x543185",
+            "text": "call    loc_543379"
+          }
+        ]
+      },
+      {
+        "address": "0x543489",
+        "inbound": [
+          {
+            "from_": "0x543486",
+            "type": 19,
+            "code": true,
+            "function": null,
+            "text": "jz      short special_exp"
+          }
+        ]
+      },
+      {
+        "address": "0x59207d",
+        "inbound": [
+          {
+            "from_": "0x5431e8",
+            "type": 1,
+            "code": false,
+            "function": "0x543185",
+            "text": "mov     ebx, offset unk_59207D"
+          },
+          {
+            "from_": "0x54324f",
+            "type": 1,
+            "code": false,
+            "function": "0x543185",
+            "text": "mov     ebx, offset unk_59207D"
+          }
+        ]
+      }
+    ],
+    "classification_table": {
+      "address": "0x59207d",
+      "bytes": "080408080804080800040c0800040c08"
+    },
+    "nan_quieting_constant": {
+      "address": "0x592074",
+      "bytes": "000000000000f03f"
+    }
+  },
+  "targeted_initialized_data_pointer_scan": {
+    "initialized_data_pointer_matches": []
+  },
+  "empty_inbound_or_pointer_scan_not_unreachable_proof": true,
+  "reused_full_original_root_evidence": "doc/cg2d_power_general_helpers_evidence.json",
+  "original_power_helper_ECX_numeric_evidence": {
+    "reference": "doc/cg2d_power_special_helper_evidence.json",
+    "instructions": [
+      {
+        "ea": "0x54357f",
+        "size": 1,
+        "bytes": "51",
+        "mnemonic": "push",
+        "text": "push    ecx",
+        "call_target": null
+      },
+      {
+        "ea": "0x543580",
+        "size": 1,
+        "bytes": "51",
+        "mnemonic": "push",
+        "text": "push    ecx",
+        "call_target": null
+      },
+      {
+        "ea": "0x5435a1",
+        "size": 5,
+        "bytes": "b90000f0ff",
+        "mnemonic": "mov",
+        "text": "mov     ecx, 0FFF00000h",
+        "call_target": null
+      },
+      {
+        "ea": "0x5435df",
+        "size": 3,
+        "bytes": "394d14",
+        "mnemonic": "cmp",
+        "text": "cmp     dword ptr [ebp+arg_8+4], ecx",
+        "call_target": null
+      },
+      {
+        "ea": "0x54363d",
+        "size": 3,
+        "bytes": "394d0c",
+        "mnemonic": "cmp",
+        "text": "cmp     dword ptr [ebp+arg_0+4], ecx",
+        "call_target": null
+      },
+      {
+        "ea": "0x54364a",
+        "size": 1,
+        "bytes": "51",
+        "mnemonic": "push",
+        "text": "push    ecx",
+        "call_target": null
+      },
+      {
+        "ea": "0x54364b",
+        "size": 1,
+        "bytes": "51",
+        "mnemonic": "push",
+        "text": "push    ecx",
+        "call_target": null
+      },
+      {
+        "ea": "0x54365d",
+        "size": 1,
+        "bytes": "59",
+        "mnemonic": "pop",
+        "text": "pop     ecx",
+        "call_target": null
+      },
+      {
+        "ea": "0x54365e",
+        "size": 1,
+        "bytes": "59",
+        "mnemonic": "pop",
+        "text": "pop     ecx",
+        "call_target": null
+      },
+      {
+        "ea": "0x54365f",
+        "size": 2,
+        "bytes": "8bc8",
+        "mnemonic": "mov",
+        "text": "mov     ecx, eax",
+        "call_target": null
+      },
+      {
+        "ea": "0x54366c",
+        "size": 3,
+        "bytes": "83f901",
+        "mnemonic": "cmp",
+        "text": "cmp     ecx, 1",
+        "call_target": null
+      },
+      {
+        "ea": "0x543689",
+        "size": 3,
+        "bytes": "83f901",
+        "mnemonic": "cmp",
+        "text": "cmp     ecx, 1",
+        "call_target": null
+      }
+    ],
+    "initial_numeric_value": "0xfff00000",
+    "integer_result_assigned_to_ECX": true
+  },
+  "source_functions": [
+    {
+      "symbol": "Cg2dUseLegacyPowerHelperX87",
+      "id": "F:00143185",
+      "entry": "0x543185",
+      "source_path": "src/platform/LegacyFloatEnvironment.asm",
+      "index": 1837,
+      "original_index": 0,
+      "native_symbols": [
+        "Cg2dUseLegacyPowerHelperX87",
+        "Cg2dDispatchLegacyUnaryMathX87",
+        "Cg2dDispatchLegacyBinaryMathX87",
+        "Cg2dMarkLegacyMathDispatchErrorX87",
+        "Cg2dLegacyMathMarkDropFirstX87",
+        "Cg2dLegacyMathMarkDropSecondX87",
+        "Cg2dLegacyMathReturnZeroX87",
+        "Cg2dLegacyMathReturnOneX87",
+        "Cg2dLegacyMathQuietUnaryNaNX87",
+        "Cg2dLegacyMathQuietRightNaNX87",
+        "Cg2dLegacyMathQuietEitherNaNX87",
+        "Cg2dLegacyMathInvalidBinaryX87"
+      ],
+      "contract": "543185完整共享身份的幂帮助/单参和双参FXAM分派、全部特殊值目标及共享错误尾；十二真实ASM入口承146条/501B原完整体，原上下文数值和已证4/16代码指针表/16B分类表、原T80/errorBYTE/ECX/FLAGS及FSAVE-FRSTOR/未生产结果保，未知生产与父不假造。"
+    }
+  ],
+  "source_transformations": [
+    {
+      "path": "cg2d_re/src/platform/LegacyFloatEnvironment.cpp",
+      "patches": [
+        {
+          "before": "// 原5473E8；原字段生产、x87落存与系统调用前后读取留在ASM。\n",
+          "after": "// 原帧数值片段保持，只拓描述符指针；conditionSample为原ECX数值的显式承载。\nstatic_assert(offsetof(LegacyMathDispatchContext, savedControl) == 0);\nstatic_assert(offsetof(LegacyMathDispatchContext, workingControl) == 2);\nstatic_assert(offsetof(LegacyMathDispatchContext, status) == 4);\nstatic_assert(offsetof(LegacyMathDispatchContext, scratch80) == 6);\nstatic_assert(offsetof(LegacyMathDispatchContext, descriptor) == 16);\nstatic_assert(offsetof(LegacyMathDispatchContext, errorType) == 24);\nstatic_assert(offsetof(LegacyMathDispatchContext, conditionSample) == 28);\nstatic_assert(sizeof(LegacyMathDispatchContext) == 32);\nstatic_assert(sizeof(LegacyMathDispatchTarget) == 8);\nstatic_assert(offsetof(LegacyUnaryMathDescriptor, targets) == 16);\nstatic_assert(offsetof(LegacyBinaryMathDescriptor, targets) == 16);\nstatic_assert(sizeof(LegacyUnaryMathDescriptor) == 48);\nstatic_assert(sizeof(LegacyBinaryMathDescriptor) == 144);\n\n// 原5473E8；原字段生产、x87落存与系统调用前后读取留在ASM。\n"
+        }
+      ]
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyFloatEnvironment.hpp",
+      "patches": [
+        {
+          "before": "// 原控制字抽象/硬件表示转换，只消费和生成原已定义位。\n",
+          "after": "// 原543185共享CRT分派的实际帧片段；原数值原宽，只有描述符地址拓为原生指针。\nstruct LegacyMathDispatchContext {\n    std::uint16_t savedControl;   // 原EBP-A4，父保存CW。\n    std::uint16_t workingControl; // 原EBP-A2，原分支生成临时CW。\n    std::uint16_t status;         // 原EBP-A0，等待式FXAM状态样本。\n    std::uint8_t scratch80[10];   // 原EBP-9E，实际T80落存/quiet位读取。\n    const std::uint8_t* descriptor; // 原EBP-94借用描述符，不持有。\n    std::uint8_t errorType;       // 原EBP-90，原0/1/7错误样本。\n    std::uint32_t conditionSample; // 原ECX数值样本，跨原分派/目标的显式承载，不默认初始化。\n};\n// 只在ASM间调用，RCX借用context、ST0（双参另ST1）传结果；void类型不作CPP FP返回。\nusing LegacyMathDispatchTarget = void (*)(LegacyMathDispatchContext*) noexcept;\nstruct LegacyUnaryMathDescriptor {\n    std::uint8_t prefix[16];      // 原16B头原样承载，本分派只读+14的控制选择BYTE。\n    LegacyMathDispatchTarget targets[4]; // 原四代码指针，只扩已证指针。\n};\nstruct LegacyBinaryMathDescriptor {\n    std::uint8_t prefix[16];\n    LegacyMathDispatchTarget targets[16]; // 原4×4代码指针，不另造固定目标表。\n};\n// ASM入口Cg2dDispatchLegacyUnaryMathX87/Cg2dDispatchLegacyBinaryMathX87：\n// RCX借context、RDX借对应描述符；真实x87目标均只在ASM间消费/返回ST0。\n\n// 原控制字抽象/硬件表示转换，只消费和生成原已定义位。\n"
+        }
+      ]
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyFloatEnvironment.asm",
+      "patches": [
+        {
+          "before": ".code\n",
+          "after": "LegacyMathClass59207D BYTE 08h, 04h, 08h, 08h, 08h, 04h, 08h, 08h, 00h, 04h, 0Ch, 08h, 00h, 04h, 0Ch, 08h\n\n.code\n"
+        },
+        {
+          "before": "PUBLIC Cg2dClassifyLegacyPowerExponentX87\n",
+          "after": "PUBLIC Cg2dClassifyLegacyPowerExponentX87\nPUBLIC Cg2dUseLegacyPowerHelperX87\nPUBLIC Cg2dDispatchLegacyUnaryMathX87\nPUBLIC Cg2dDispatchLegacyBinaryMathX87\nPUBLIC Cg2dMarkLegacyMathDispatchErrorX87\nPUBLIC Cg2dLegacyMathMarkDropFirstX87\nPUBLIC Cg2dLegacyMathMarkDropSecondX87\nPUBLIC Cg2dLegacyMathReturnZeroX87\nPUBLIC Cg2dLegacyMathReturnOneX87\nPUBLIC Cg2dLegacyMathQuietUnaryNaNX87\nPUBLIC Cg2dLegacyMathQuietRightNaNX87\nPUBLIC Cg2dLegacyMathQuietEitherNaNX87\nPUBLIC Cg2dLegacyMathInvalidBinaryX87\n"
+        },
+        {
+          "before": "END\n",
+          "after": "; 原543185幂帮助入口；正常216B帧分隔调用区、ctx指针/两F64实参/结果及108B保存区。\n; 216B帧与原无解释环境，保实际ECX数值出口到context，LEA释放不改原返回标志。\nCg2dUseLegacyPowerHelperX87 PROC FRAME\n    sub rsp, 216\n    .allocstack 216\n    .endprolog\n    mov qword ptr [rsp+32], rcx\n    fstp qword ptr [rsp+40]\n    fstp qword ptr [rsp+48]\n    fsave [rsp+64]\n    lea rcx, [rsp+48]\n    lea rdx, [rsp+40]\n    lea r8, [rsp+56]\n    call Cg2dProcessLegacyPowerSpecial\n    frstor [rsp+64]\n    fld qword ptr [rsp+56]\n    mov r9, qword ptr [rsp+32]\n    mov dword ptr [r9+28], ecx\n    test eax, eax\n    jz LegacyDispatchPowerNoError\n    mov rcx, r9\n    call Cg2dMarkLegacyMathDispatchErrorX87\nLegacyDispatchPowerNoError:\n    lea rsp, [rsp+216]\n    ret\nCg2dUseLegacyPowerHelperX87 ENDP\n\n; 原5431C0：RCX借context/RDX借4目标描述符，原ECX样本来自context+28。\nCg2dDispatchLegacyUnaryMathX87 PROC FRAME\n    push rbx\n    .pushreg rbx\n    sub rsp, 48\n    .allocstack 48\n    .endprolog\n    mov qword ptr [rsp+32], rcx\n    mov qword ptr [rsp+40], rdx\n    mov r9, rcx\n    mov ecx, dword ptr [r9+28]\n    cmp byte ptr [rdx+14], 5\n    jnz LegacyDispatchUnaryDefaultControl\n    mov bx, word ptr [r9]\n    or bh, 2\n    and bh, 0FEh\n    mov bl, 03Fh\n    jmp LegacyDispatchUnaryControlReady\nLegacyDispatchUnaryDefaultControl:\n    mov bx, 0133Fh\nLegacyDispatchUnaryControlReady:\n    mov word ptr [r9+2], bx\n    fldcw word ptr [r9+2]\n    lea rbx, LegacyMathClass59207D\n    fxam\n    mov qword ptr [r9+16], rdx\n    fstsw word ptr [r9+4]\n    mov byte ptr [r9+24], 0\n    fwait\n    mov cl, byte ptr [r9+5]\n    shl cl, 1\n    sar cl, 1\n    rol cl, 1\n    mov al, cl\n    and al, 0Fh\n    xlatb\n    movsx eax, al\n    and ecx, 0404h\n    mov dword ptr [r9+28], ecx\n    mov rbx, rdx\n    movsxd r10, eax\n    sar r10, 2\n    shl r10, 3\n    add rbx, r10\n    add rbx, 16\n    mov rcx, r9\n    call qword ptr [rbx]\n    mov r9, qword ptr [rsp+32]\n    mov ecx, dword ptr [r9+28]\n    lea rsp, [rsp+48]\n    pop rbx\n    ret\nCg2dDispatchLegacyUnaryMathX87 ENDP\n\n; 原543227：RCX借context/RDX借16目标描述符，原ECX样本来自context+28。\nCg2dDispatchLegacyBinaryMathX87 PROC FRAME\n    push rbx\n    .pushreg rbx\n    sub rsp, 48\n    .allocstack 48\n    .endprolog\n    mov qword ptr [rsp+32], rcx\n    mov qword ptr [rsp+40], rdx\n    mov r9, rcx\n    mov ecx, dword ptr [r9+28]\n    cmp byte ptr [rdx+14], 5\n    jnz LegacyDispatchBinaryDefaultControl\n    mov bx, word ptr [r9]\n    or bh, 2\n    and bh, 0FEh\n    mov bl, 03Fh\n    jmp LegacyDispatchBinaryControlReady\nLegacyDispatchBinaryDefaultControl:\n    mov bx, 0133Fh\nLegacyDispatchBinaryControlReady:\n    mov word ptr [r9+2], bx\n    fldcw word ptr [r9+2]\n    lea rbx, LegacyMathClass59207D\n    fxam\n    mov qword ptr [r9+16], rdx\n    fstsw word ptr [r9+4]\n    mov byte ptr [r9+24], 0\n    fxch st(1)\n    mov cl, byte ptr [r9+5]\n    fxam\n    fstsw word ptr [r9+4]\n    fxch st(1)\n    mov ch, byte ptr [r9+5]\n    shl ch, 1\n    sar ch, 1\n    rol ch, 1\n    mov al, ch\n    and al, 0Fh\n    xlatb\n    mov ah, al\n    shl cl, 1\n    sar cl, 1\n    rol cl, 1\n    mov al, cl\n    and al, 0Fh\n    xlatb\n    shl ah, 1\n    shl ah, 1\n    or al, ah\n    movsx eax, al\n    and ecx, 0404h\n    mov dword ptr [r9+28], ecx\n    mov rbx, rdx\n    movsxd r10, eax\n    sar r10, 2\n    shl r10, 3\n    add rbx, r10\n    add rbx, 16\n    mov rcx, r9\n    call qword ptr [rbx]\n    mov r9, qword ptr [rsp+32]\n    mov ecx, dword ptr [r9+28]\n    lea rsp, [rsp+48]\n    pop rbx\n    ret\nCg2dDispatchLegacyBinaryMathX87 ENDP\n\n; 原543379/543380；原错误BYTE置1、OR CL,CL返回标志，无新默认成功。\nCg2dMarkLegacyMathDispatchErrorX87 PROC\n    mov r9, rcx\n    mov byte ptr [r9+24], 1\n    mov ecx, dword ptr [r9+28]\n    or cl, cl\n    ret\nCg2dMarkLegacyMathDispatchErrorX87 ENDP\n\n; 原5432B3/5432BD；保存同一借用context，原Mark调用后原序丢一个ST值。\nCg2dLegacyMathMarkDropFirstX87 PROC FRAME\n    sub rsp, 40\n    .allocstack 40\n    .endprolog\n    call Cg2dMarkLegacyMathDispatchErrorX87\n    fxch st(1)\n    fstp st(0)\n    lea rsp, [rsp+40]\n    ret\nCg2dLegacyMathMarkDropFirstX87 ENDP\n\nCg2dLegacyMathMarkDropSecondX87 PROC FRAME\n    sub rsp, 40\n    .allocstack 40\n    .endprolog\n    call Cg2dMarkLegacyMathDispatchErrorX87\n    fstp st(0)\n    lea rsp, [rsp+40]\n    ret\nCg2dLegacyMathMarkDropSecondX87 ENDP\n\n; 原5432C4/5432CB，保两个真实FSTP后FLDZ或FLD1，不将输入保成原值。\nCg2dLegacyMathReturnZeroX87 PROC\n    fstp st(0)\n    fstp st(0)\n    fldz\n    ret\nCg2dLegacyMathReturnZeroX87 ENDP\n\nCg2dLegacyMathReturnOneX87 PROC\n    fstp st(0)\n    fstp st(0)\n    fld1\n    ret\nCg2dLegacyMathReturnOneX87 ENDP\n\n; 原5432D2，T80实际落存/重载与第七BYTE quiet位保；原FADD一保持。\nCg2dLegacyMathQuietUnaryNaNX87 PROC\n    mov r9, rcx\n    fstp tbyte ptr [r9+6]\n    fld tbyte ptr [r9+6]\n    test byte ptr [r9+13], 040h\n    jz LegacyDispatchUnarySignalNaN\n    mov byte ptr [r9+24], 7\n    mov ecx, dword ptr [r9+28]\n    ret\nLegacyDispatchUnarySignalNaN:\n    mov byte ptr [r9+24], 1\n    fadd qword ptr [LegacyThreshold54D5C0]\n    mov ecx, dword ptr [r9+28]\n    ret\nCg2dLegacyMathQuietUnaryNaNX87 ENDP\n\n; 原5432FD；交换后检查原T80，第七BYTE取样，再原FADDP归并。\nCg2dLegacyMathQuietRightNaNX87 PROC\n    mov r9, rcx\n    fxch st(1)\n    fstp tbyte ptr [r9+6]\n    fld tbyte ptr [r9+6]\n    test byte ptr [r9+13], 040h\n    jz LegacyDispatchRightSignalNaN\n    mov byte ptr [r9+24], 7\n    jmp LegacyDispatchRightNaNAdd\nLegacyDispatchRightSignalNaN:\n    mov byte ptr [r9+24], 1\nLegacyDispatchRightNaNAdd:\n    faddp st(1), st(0)\n    mov ecx, dword ptr [r9+28]\n    ret\nCg2dLegacyMathQuietRightNaNX87 ENDP\n\n; 原543327；依原序检查两个T80 quiet位并写1/7后FADDP，不替宿主NaN规则。\nCg2dLegacyMathQuietEitherNaNX87 PROC\n    mov r9, rcx\n    fstp tbyte ptr [r9+6]\n    fld tbyte ptr [r9+6]\n    test byte ptr [r9+13], 040h\n    jz LegacyDispatchEitherSignalNaN\n    fxch st(1)\n    fstp tbyte ptr [r9+6]\n    fld tbyte ptr [r9+6]\n    test byte ptr [r9+13], 040h\n    jz LegacyDispatchEitherSignalNaN\n    mov byte ptr [r9+24], 7\n    jmp LegacyDispatchEitherNaNAdd\nLegacyDispatchEitherSignalNaN:\n    mov byte ptr [r9+24], 1\nLegacyDispatchEitherNaNAdd:\n    faddp st(1), st(0)\n    mov ecx, dword ptr [r9+28]\n    ret\nCg2dLegacyMathQuietEitherNaNX87 ENDP\n\n; 原543366..543383；两弹栈/原T80未定义值，原signed BYTE>0只绕写1，末OR CL,CL。\nCg2dLegacyMathInvalidBinaryX87 PROC\n    mov r9, rcx\n    fstp st(0)\n    fstp st(0)\n    fld tbyte ptr [LegacyGenericPowerUndefined592060]\n    cmp byte ptr [r9+24], 0\n    jg LegacyDispatchInvalidTypeReady\n    mov byte ptr [r9+24], 1\nLegacyDispatchInvalidTypeReady:\n    mov ecx, dword ptr [r9+28]\n    or cl, cl\n    ret\nCg2dLegacyMathInvalidBinaryX87 ENDP\n\nEND\n"
+        }
+      ]
+    }
+  ],
+  "implementation_static_scope": "BWM01完整开发543185共享数学身份全部146条501B/三页、多入口/三direct两callee与两表JMP、16跳九RET；原特殊值外尾三点与共享尾入向另列。三现文件五追加、十二ASM真实本体/13布局断言，零CPP本体/新mutable owner或固定目标表。原32B实际context数值W16/T80/错误BYTE和ECX样本保，4/16借用目标指针只拓地址；原分类16字节/CW-FXAM-等待状态-CL/CH-XLAT-索引与真实间接CALL/frame返回、目标末标志LEA恢复保。原幂F64实参-FSAVE108-真helper-FRSTOR-结果/状态与实际ECX数值保，未生产结果不填；真实丢栈/零一/T80 quiet/error0-1-7与FADD/FADDP/OR CL,CL保持。不因未见初始化地址引用排除，不猜描述符生产/父帧，函数原身份仅一份；CRT177/F1000限定I-S，定位149/CRT余21，共享生产/未知父及机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+  "source_asm_changed_count": 1,
+  "source_cpp_changed_count": 1,
+  "source_header_changed_count": 1,
+  "source_patch_count": 5,
+  "new_native_function_body_count": 12,
+  "new_cpp_function_body_count": 0,
+  "new_asm_proc_count": 12,
+  "new_original_mapped_function_count": 1,
+  "new_private_C_bridge_count": 0,
+  "new_mutable_shared_owner_count": 0,
+  "new_layout_assertion_count": 13,
+  "original_full_multientry_identity_not_only_prefix_kept": true,
+  "native_context_bytes": 32,
+  "native_unary_descriptor_bytes": 48,
+  "native_binary_descriptor_bytes": 144,
+  "original_numeric_fields_T80_BYTE_samples_not_widened": true,
+  "only_proven_descriptor_and_target_pointers_widened": true,
+  "original_classification_table_and_4_16_indices_kept": true,
+  "borrowed_descriptor_targets_no_synthetic_fixed_table_or_new_guard": true,
+  "original_unary_binary_CW_FXAM_wait_status_CL_CH_XLAT_conditions_kept": true,
+  "original_pointer_tail_jumps_adapted_to_real_calls_and_frame_release": true,
+  "original_numeric_EAX_class_offset_preserved_pointer_scaling_separate": true,
+  "original_target_return_flags_preserved_by_LEA_release_and_POP": true,
+  "original_pow_two_arguments_FSAVE_true_helper_FRSTOR_result_status_ECX_kept": true,
+  "power_helper_unwritten_result_not_filled": true,
+  "original_drop_zero_one_nan_T80_error_0_1_7_and_OR_CL_flags_kept": true,
+  "native_direct_call_count": 4,
+  "native_indirect_call_count": 2,
+  "native_direct_jump_count": 12,
+  "native_return_count": 13,
+  "source_files_kept": [
+    "cg2d_re/src/platform/MapEffectMath.asm",
+    "cg2d_re/src/platform/MapEffectMath.hpp",
+    "cg2d_re/src/world/SceneState.cpp",
+    "cg2d_re/CMakeLists.txt"
+  ],
+  "no_host_pow_nan_rule_protection_fault_sample_or_byte_filling": true,
+  "wire_format_changed": false,
+  "encryption_added": false,
+  "audio_pause_kept": true,
+  "full_original_descriptor_production_verified": false,
+  "full_unknown_callers_or_aliases_verified": false,
+  "full_shared_remaining_CRT_chain_verified": false,
+  "full_all_parents_verified": false,
+  "full_lifecycle_closed": false,
+  "runtime_verified": false,
+  "machine_abi_verified": false,
+  "machine_unwind_verified": false,
+  "fault_equivalence_claimed": false,
+  "source_states": [
+    {
+      "path": "cg2d_re/src/platform/LegacyFloatEnvironment.cpp",
+      "before": "#include \"LegacyFloatEnvironment.hpp\"\n#include \"LegacyFloatFormat.hpp\"\n\n#include <bit>\n#include <cstddef>\n\n#ifndef WIN32_LEAN_AND_MEAN\n#define WIN32_LEAN_AND_MEAN\n#endif\n#ifndef NOMINMAX\n#define NOMINMAX\n#endif\n#include <Windows.h>\n#include \"cg/platform/LegacyTime.hpp\"\n\nnamespace cg::platform {\n\nstd::int32_t gLegacyFdivBug1085FC0 = 0;\n\n// 原1085FBC为无有效初始字节/无文件偏移的静态W32槽，不能把IDA的FF当原值。\nnamespace detail {\nextern \"C\" {\nstd::uint32_t Cg2dLegacyPowerFastExitGate1085FBC;\n}\n} // namespace detail\n\n// 原5925B8初始字节94260000；仅已证读取决定是否跳过原matherr，未见写入不等于常量。\nnamespace detail {\nextern \"C\" {\nstd::uint32_t Cg2dLegacyMathErrorCallbackGate5925B8 = 0x2694u;\n}\n} // namespace detail\n\nstd::uint32_t AbstractLegacyControlWord_5448A4(const std::uint32_t hardware)\n{\n    std::uint32_t result = 0;\n    if ((hardware & 0x01u) != 0) result |= 0x10u;\n    if ((hardware & 0x04u) != 0) result |= 0x08u;\n    if ((hardware & 0x08u) != 0) result |= 0x04u;\n    if ((hardware & 0x10u) != 0) result |= 0x02u;\n    if ((hardware & 0x20u) != 0) result |= 0x01u;\n    if ((hardware & 0x02u) != 0) result |= 0x80000u;\n    switch (hardware & 0xC00u) {\n    case 0x400u: result |= 0x100u; break;\n    case 0x800u: result |= 0x200u; break;\n    case 0xC00u: result |= 0x300u; break;\n    }\n    switch (hardware & 0x300u) {\n    case 0: result |= 0x20000u; break;\n    case 0x200u: result |= 0x10000u; break;\n    }\n    if ((hardware & 0x1000u) != 0) result |= 0x40000u;\n    return result;\n}\n\nstd::uint32_t HardwareLegacyControlWord_544936(const std::uint32_t abstractValue)\n{\n    std::uint32_t result = 0;\n    if ((abstractValue & 0x10u) != 0) result |= 0x01u;\n    if ((abstractValue & 0x08u) != 0) result |= 0x04u;\n    if ((abstractValue & 0x04u) != 0) result |= 0x08u;\n    if ((abstractValue & 0x02u) != 0) result |= 0x10u;\n    if ((abstractValue & 0x01u) != 0) result |= 0x20u;\n    if ((abstractValue & 0x80000u) != 0) result |= 0x02u;\n    switch (abstractValue & 0x300u) {\n    case 0x100u: result |= 0x400u; break;\n    case 0x200u: result |= 0x800u; break;\n    case 0x300u: result |= 0xC00u; break;\n    }\n    switch (abstractValue & 0x30000u) {\n    case 0: result |= 0x300u; break;\n    case 0x10000u: result |= 0x200u; break;\n    }\n    if ((abstractValue & 0x40000u) != 0) result |= 0x1000u;\n    return result;\n}\n\nstd::uint32_t ControlLegacyX87_544859(\n    const std::uint32_t value, const std::uint32_t mask)\n{\n    const std::uint32_t before = AbstractLegacyControlWord_5448A4(\n        detail::Cg2dReadLegacyX87Control());\n    const std::uint32_t merged = (before & ~mask) | (value & mask);\n    const std::uint32_t hardware = HardwareLegacyControlWord_544936(merged);\n    detail::Cg2dWriteLegacyX87Control(static_cast<std::uint16_t>(hardware));\n    return merged;\n}\n\nstd::uint32_t ControlLegacyFloatingPoint_54488E(\n    const std::uint32_t value, const std::uint32_t mask)\n{\n    return ControlLegacyX87_544859(value, mask & 0xFFF7FFFFu);\n}\n\nvoid SetLegacyDefaultPrecision_53FD5C()\n{\n    static_cast<void>(ControlLegacyFloatingPoint_54488E(0x10000u, 0x30000u));\n}\n\nstd::int32_t TestLegacyFloatingPointDivision_53FD6E()\n{\n    return detail::Cg2dTestLegacyFdiv();\n}\n\nstd::int32_t ProbeLegacyFloatingPointDivision_53FDAC()\n{\n    const HMODULE module = ::GetModuleHandleA(\"KERNEL32\");\n    if (module != nullptr) {\n        using FeatureQuery = BOOL (WINAPI*)(DWORD);\n        const auto query = reinterpret_cast<FeatureQuery>(\n            ::GetProcAddress(module, \"IsProcessorFeaturePresent\"));\n        if (query != nullptr) {\n            return static_cast<std::int32_t>(query(0));\n        }\n    }\n    return TestLegacyFloatingPointDivision_53FD6E();\n}\n\nvoid InitializeLegacyFloatingPoint_53B447()\n{\n    InstallLegacyFloatCallbacks_53B45F();\n    gLegacyFdivBug1085FC0 = ProbeLegacyFloatingPointDivision_53FDAC();\n    SetLegacyDefaultPrecision_53FD5C();\n    detail::Cg2dClearLegacyX87Exceptions();\n}\n\n// 原5461E4；只按F64存储位返回特殊类型，不进行浮点算术。\nstd::int32_t ClassifyLegacySpecialFloat_5461E4(const double value) noexcept\n{\n    enum : std::int32_t {\n        kOrdinary = 0,\n        kPositiveInfinity = 1,\n        kNegativeInfinity = 2,\n        kQuietNaN = 3,\n        kSignalingNaN = 4,\n    };\n    const std::uint64_t bits = std::bit_cast<std::uint64_t>(value);\n    const std::uint32_t low = static_cast<std::uint32_t>(bits);\n    const std::uint32_t high = static_cast<std::uint32_t>(bits >> 32);\n    if (high == 0x7FF00000u && low == 0) {\n        return kPositiveInfinity;\n    }\n    if (high == 0xFFF00000u && low == 0) {\n        return kNegativeInfinity;\n    }\n    const std::uint32_t top = (high >> 16) & 0x7FF8u;\n    if (top == 0x7FF8u) {\n        return kQuietNaN;\n    }\n    if (top == 0x7FF0u && ((high & 0x7FFFFu) != 0 || low != 0)) {\n        return kSignalingNaN;\n    }\n    return kOrdinary;\n}\n\n// 原546311；原x87落存、比较和状态读取留在私有ASM边界。\nstd::int32_t ClassifyLegacyFloat_546311(const double value) noexcept\n{\n    return detail::Cg2dClassifyLegacyFloat(&value);\n}\n\n// 原5436AC；原两次舍入、F64落存和x87比较顺序见整数奇偶判定SPEC。\nstd::int32_t ClassifyLegacyInteger_5436AC(const double value) noexcept\n{\n    return detail::Cg2dClassifyLegacyInteger(&value);\n}\n\n// 原54357C；保原S32状态与选择性F64输出，不将状态改为是否处理布尔值。\nstd::int32_t ProcessLegacyPowerSpecial_54357C(\n    const double base, const double exponent, double* const result) noexcept\n{\n    return detail::Cg2dProcessLegacyPowerSpecial(&base, &exponent, result);\n}\n\n// 原543405；按保存控制字的原PC位构造并加载临时x87控制字，恢复由调用父负责。\nvoid LoadLegacyPowerControlWord_543405(const std::uint16_t savedControl) noexcept\n{\n    detail::Cg2dLoadLegacyPowerControlWord(savedControl);\n}\n\n// 原32B数学错误记录只扩已证名称指针；三个F64字段和S32类型不扩宽。\nstatic_assert(offsetof(LegacyMathErrorRecord, type) == 0);\nstatic_assert(offsetof(LegacyMathErrorRecord, functionName) == 8);\nstatic_assert(offsetof(LegacyMathErrorRecord, argument1) == 16);\nstatic_assert(offsetof(LegacyMathErrorRecord, argument2) == 24);\nstatic_assert(offsetof(LegacyMathErrorRecord, result) == 32);\nstatic_assert(sizeof(LegacyMathErrorRecord) == 40);\n\n// 原5478B2；只写原共享错误槽的两个分支，返回原完整S32输入。\nstd::int32_t SetLegacyMathErrno_5478B2(const std::int32_t type) noexcept\n{\n    if (type == 1) {\n        gLegacyErrno_1085FE0 = 33;\n    } else if (type > 1 && type <= 3) {\n        gLegacyErrno_1085FE0 = 34;\n    }\n    return type;\n}\n\n// 原5478D8完整XOR EAX,EAX/RET；不访问传入的借用记录。\nstd::int32_t DefaultLegacyMathError_5478D8(LegacyMathErrorRecord*) noexcept\n{\n    return 0;\n}\n\n// 原5478DB；等待式FSTSW及完整S16有符号扩展留在ASM。\nstd::int32_t ReadLegacyRawX87Status_5478DB() noexcept\n{\n    return detail::Cg2dReadLegacyRawX87Status();\n}\n\n// 原5478E9；先FNSTSW，再FNCLEX，返回清除前的完整有符号S16。\nstd::int32_t ReadAndClearLegacyRawX87Status_5478E9() noexcept\n{\n    return detail::Cg2dReadAndClearLegacyRawX87Status();\n}\n\n// 原5478F8；原硬件位合并，返回合并前控制字的S16符号扩展。\nstd::int32_t ControlLegacyRawX87_5478F8(\n    const std::uint32_t value, const std::uint32_t mask) noexcept\n{\n    return detail::Cg2dControlLegacyRawX87(value, mask);\n}\n\n// 原54769B；原条件/控制字决定结果与状态生产，完整分支及依赖留在ASM。\nstd::int32_t HandleLegacyMathException_54769B(\n    const std::uint32_t conditions, double* const result,\n    const std::uint32_t control) noexcept\n{\n    return detail::Cg2dHandleLegacyMathException(conditions, result, control);\n}\n\n// 原54791B；只执行原已定义的x87状态生产操作，不借宿主状态接口。\nvoid SetLegacyRawX87Status_54791B(const std::uint32_t status) noexcept\n{\n    detail::Cg2dSetLegacyRawX87Status(status);\n}\n\n// 原88B数值参数记录与三24B值单元；未生产的载荷/标志不默认初始化。\nstatic_assert(offsetof(LegacyFloatExceptionValue, payload) == 0);\nstatic_assert(offsetof(LegacyFloatExceptionValue, format) == 16);\nstatic_assert(offsetof(LegacyFloatExceptionValue, reserved) == 20);\nstatic_assert(sizeof(LegacyFloatExceptionValue) == 24);\nstatic_assert(offsetof(LegacyFloatExceptionRecord, header) == 0);\nstatic_assert(offsetof(LegacyFloatExceptionRecord, causes) == 4);\nstatic_assert(offsetof(LegacyFloatExceptionRecord, enables) == 8);\nstatic_assert(offsetof(LegacyFloatExceptionRecord, status) == 12);\nstatic_assert(offsetof(LegacyFloatExceptionRecord, operand1) == 16);\nstatic_assert(offsetof(LegacyFloatExceptionRecord, operand2) == 40);\nstatic_assert(offsetof(LegacyFloatExceptionRecord, result) == 64);\nstatic_assert(sizeof(LegacyFloatExceptionRecord) == 88);\n\n// 原错误入口值快照；只把已证名称指针承为原生指针，不拓数值或填未生产字段。\nstatic_assert(offsetof(LegacyMathErrorInputs, savedControl) == 0);\nstatic_assert(offsetof(LegacyMathErrorInputs, operationId) == 4);\nstatic_assert(offsetof(LegacyMathErrorInputs, functionName) == 8);\nstatic_assert(offsetof(LegacyMathErrorInputs, argument1) == 16);\nstatic_assert(offsetof(LegacyMathErrorInputs, argument2) == 24);\nstatic_assert(sizeof(LegacyMathErrorInputs) == 32);\n\n// 原53D019普通pow值入口；原算法留ASM，不借宿主数学或填原未生产辅助结果。\ndouble PowerLegacyFloat_53D019(const double base, const double exponent) noexcept\n{\n    const double inputs[2] = {base, exponent};\n    double result;\n    detail::Cg2dComputeLegacyPower(inputs, &result);\n    return result;\n}\n\n// 原5473E8；原字段生产、x87落存与系统调用前后读取留在ASM。\nvoid RaiseLegacyFloatingPointException_5473E8(\n    LegacyFloatExceptionRecord* const record, std::uint32_t* const control,\n    const std::uint32_t conditions, const std::uint32_t operationId,\n    const double* const argument, double* const result) noexcept\n{\n    detail::Cg2dRaiseLegacyFloatingPointException(\n        record, control, conditions, operationId, argument, result);\n}\n\n// 原5460EB；原保存控制字只读W16，原类型/真实依赖与返回保留。\nstd::int32_t ProcessLegacyX87Exception_5460EB(\n    const std::uint32_t operationId, LegacyMathErrorRecord* const record,\n    const std::uint16_t* const savedControl) noexcept\n{\n    return detail::Cg2dProcessLegacyX87Exception(operationId, record, savedControl);\n}\n\nnamespace detail {\n\nextern \"C\" std::int32_t Cg2dClassifyLegacySpecialFloat(\n    const double* const value) noexcept\n{\n    return ClassifyLegacySpecialFloat_5461E4(*value);\n}\n\n// 原RaiseException以一个原生宽度参数传递本调用的记录指针槽。\nextern \"C\" void Cg2dRaiseLegacyFloatExceptionHost(\n    const std::uint32_t code, std::uintptr_t* const arguments) noexcept\n{\n    static_assert(sizeof(std::uintptr_t) == sizeof(ULONG_PTR));\n    ::RaiseException(code, 0, 1, reinterpret_cast<const ULONG_PTR*>(arguments));\n}\n\n// 只把ASM调用接回已有原叶，不增加记录访问或错误槽owner。\nextern \"C\" std::int32_t Cg2dDefaultLegacyMathError(\n    LegacyMathErrorRecord* const record) noexcept\n{\n    return DefaultLegacyMathError_5478D8(record);\n}\n\nextern \"C\" std::int32_t Cg2dSetLegacyMathErrno(const std::int32_t type) noexcept\n{\n    return SetLegacyMathErrno_5478B2(type);\n}\n\n} // namespace detail\n\n} // namespace cg::platform\n",
+      "after": "#include \"LegacyFloatEnvironment.hpp\"\n#include \"LegacyFloatFormat.hpp\"\n\n#include <bit>\n#include <cstddef>\n\n#ifndef WIN32_LEAN_AND_MEAN\n#define WIN32_LEAN_AND_MEAN\n#endif\n#ifndef NOMINMAX\n#define NOMINMAX\n#endif\n#include <Windows.h>\n#include \"cg/platform/LegacyTime.hpp\"\n\nnamespace cg::platform {\n\nstd::int32_t gLegacyFdivBug1085FC0 = 0;\n\n// 原1085FBC为无有效初始字节/无文件偏移的静态W32槽，不能把IDA的FF当原值。\nnamespace detail {\nextern \"C\" {\nstd::uint32_t Cg2dLegacyPowerFastExitGate1085FBC;\n}\n} // namespace detail\n\n// 原5925B8初始字节94260000；仅已证读取决定是否跳过原matherr，未见写入不等于常量。\nnamespace detail {\nextern \"C\" {\nstd::uint32_t Cg2dLegacyMathErrorCallbackGate5925B8 = 0x2694u;\n}\n} // namespace detail\n\nstd::uint32_t AbstractLegacyControlWord_5448A4(const std::uint32_t hardware)\n{\n    std::uint32_t result = 0;\n    if ((hardware & 0x01u) != 0) result |= 0x10u;\n    if ((hardware & 0x04u) != 0) result |= 0x08u;\n    if ((hardware & 0x08u) != 0) result |= 0x04u;\n    if ((hardware & 0x10u) != 0) result |= 0x02u;\n    if ((hardware & 0x20u) != 0) result |= 0x01u;\n    if ((hardware & 0x02u) != 0) result |= 0x80000u;\n    switch (hardware & 0xC00u) {\n    case 0x400u: result |= 0x100u; break;\n    case 0x800u: result |= 0x200u; break;\n    case 0xC00u: result |= 0x300u; break;\n    }\n    switch (hardware & 0x300u) {\n    case 0: result |= 0x20000u; break;\n    case 0x200u: result |= 0x10000u; break;\n    }\n    if ((hardware & 0x1000u) != 0) result |= 0x40000u;\n    return result;\n}\n\nstd::uint32_t HardwareLegacyControlWord_544936(const std::uint32_t abstractValue)\n{\n    std::uint32_t result = 0;\n    if ((abstractValue & 0x10u) != 0) result |= 0x01u;\n    if ((abstractValue & 0x08u) != 0) result |= 0x04u;\n    if ((abstractValue & 0x04u) != 0) result |= 0x08u;\n    if ((abstractValue & 0x02u) != 0) result |= 0x10u;\n    if ((abstractValue & 0x01u) != 0) result |= 0x20u;\n    if ((abstractValue & 0x80000u) != 0) result |= 0x02u;\n    switch (abstractValue & 0x300u) {\n    case 0x100u: result |= 0x400u; break;\n    case 0x200u: result |= 0x800u; break;\n    case 0x300u: result |= 0xC00u; break;\n    }\n    switch (abstractValue & 0x30000u) {\n    case 0: result |= 0x300u; break;\n    case 0x10000u: result |= 0x200u; break;\n    }\n    if ((abstractValue & 0x40000u) != 0) result |= 0x1000u;\n    return result;\n}\n\nstd::uint32_t ControlLegacyX87_544859(\n    const std::uint32_t value, const std::uint32_t mask)\n{\n    const std::uint32_t before = AbstractLegacyControlWord_5448A4(\n        detail::Cg2dReadLegacyX87Control());\n    const std::uint32_t merged = (before & ~mask) | (value & mask);\n    const std::uint32_t hardware = HardwareLegacyControlWord_544936(merged);\n    detail::Cg2dWriteLegacyX87Control(static_cast<std::uint16_t>(hardware));\n    return merged;\n}\n\nstd::uint32_t ControlLegacyFloatingPoint_54488E(\n    const std::uint32_t value, const std::uint32_t mask)\n{\n    return ControlLegacyX87_544859(value, mask & 0xFFF7FFFFu);\n}\n\nvoid SetLegacyDefaultPrecision_53FD5C()\n{\n    static_cast<void>(ControlLegacyFloatingPoint_54488E(0x10000u, 0x30000u));\n}\n\nstd::int32_t TestLegacyFloatingPointDivision_53FD6E()\n{\n    return detail::Cg2dTestLegacyFdiv();\n}\n\nstd::int32_t ProbeLegacyFloatingPointDivision_53FDAC()\n{\n    const HMODULE module = ::GetModuleHandleA(\"KERNEL32\");\n    if (module != nullptr) {\n        using FeatureQuery = BOOL (WINAPI*)(DWORD);\n        const auto query = reinterpret_cast<FeatureQuery>(\n            ::GetProcAddress(module, \"IsProcessorFeaturePresent\"));\n        if (query != nullptr) {\n            return static_cast<std::int32_t>(query(0));\n        }\n    }\n    return TestLegacyFloatingPointDivision_53FD6E();\n}\n\nvoid InitializeLegacyFloatingPoint_53B447()\n{\n    InstallLegacyFloatCallbacks_53B45F();\n    gLegacyFdivBug1085FC0 = ProbeLegacyFloatingPointDivision_53FDAC();\n    SetLegacyDefaultPrecision_53FD5C();\n    detail::Cg2dClearLegacyX87Exceptions();\n}\n\n// 原5461E4；只按F64存储位返回特殊类型，不进行浮点算术。\nstd::int32_t ClassifyLegacySpecialFloat_5461E4(const double value) noexcept\n{\n    enum : std::int32_t {\n        kOrdinary = 0,\n        kPositiveInfinity = 1,\n        kNegativeInfinity = 2,\n        kQuietNaN = 3,\n        kSignalingNaN = 4,\n    };\n    const std::uint64_t bits = std::bit_cast<std::uint64_t>(value);\n    const std::uint32_t low = static_cast<std::uint32_t>(bits);\n    const std::uint32_t high = static_cast<std::uint32_t>(bits >> 32);\n    if (high == 0x7FF00000u && low == 0) {\n        return kPositiveInfinity;\n    }\n    if (high == 0xFFF00000u && low == 0) {\n        return kNegativeInfinity;\n    }\n    const std::uint32_t top = (high >> 16) & 0x7FF8u;\n    if (top == 0x7FF8u) {\n        return kQuietNaN;\n    }\n    if (top == 0x7FF0u && ((high & 0x7FFFFu) != 0 || low != 0)) {\n        return kSignalingNaN;\n    }\n    return kOrdinary;\n}\n\n// 原546311；原x87落存、比较和状态读取留在私有ASM边界。\nstd::int32_t ClassifyLegacyFloat_546311(const double value) noexcept\n{\n    return detail::Cg2dClassifyLegacyFloat(&value);\n}\n\n// 原5436AC；原两次舍入、F64落存和x87比较顺序见整数奇偶判定SPEC。\nstd::int32_t ClassifyLegacyInteger_5436AC(const double value) noexcept\n{\n    return detail::Cg2dClassifyLegacyInteger(&value);\n}\n\n// 原54357C；保原S32状态与选择性F64输出，不将状态改为是否处理布尔值。\nstd::int32_t ProcessLegacyPowerSpecial_54357C(\n    const double base, const double exponent, double* const result) noexcept\n{\n    return detail::Cg2dProcessLegacyPowerSpecial(&base, &exponent, result);\n}\n\n// 原543405；按保存控制字的原PC位构造并加载临时x87控制字，恢复由调用父负责。\nvoid LoadLegacyPowerControlWord_543405(const std::uint16_t savedControl) noexcept\n{\n    detail::Cg2dLoadLegacyPowerControlWord(savedControl);\n}\n\n// 原32B数学错误记录只扩已证名称指针；三个F64字段和S32类型不扩宽。\nstatic_assert(offsetof(LegacyMathErrorRecord, type) == 0);\nstatic_assert(offsetof(LegacyMathErrorRecord, functionName) == 8);\nstatic_assert(offsetof(LegacyMathErrorRecord, argument1) == 16);\nstatic_assert(offsetof(LegacyMathErrorRecord, argument2) == 24);\nstatic_assert(offsetof(LegacyMathErrorRecord, result) == 32);\nstatic_assert(sizeof(LegacyMathErrorRecord) == 40);\n\n// 原5478B2；只写原共享错误槽的两个分支，返回原完整S32输入。\nstd::int32_t SetLegacyMathErrno_5478B2(const std::int32_t type) noexcept\n{\n    if (type == 1) {\n        gLegacyErrno_1085FE0 = 33;\n    } else if (type > 1 && type <= 3) {\n        gLegacyErrno_1085FE0 = 34;\n    }\n    return type;\n}\n\n// 原5478D8完整XOR EAX,EAX/RET；不访问传入的借用记录。\nstd::int32_t DefaultLegacyMathError_5478D8(LegacyMathErrorRecord*) noexcept\n{\n    return 0;\n}\n\n// 原5478DB；等待式FSTSW及完整S16有符号扩展留在ASM。\nstd::int32_t ReadLegacyRawX87Status_5478DB() noexcept\n{\n    return detail::Cg2dReadLegacyRawX87Status();\n}\n\n// 原5478E9；先FNSTSW，再FNCLEX，返回清除前的完整有符号S16。\nstd::int32_t ReadAndClearLegacyRawX87Status_5478E9() noexcept\n{\n    return detail::Cg2dReadAndClearLegacyRawX87Status();\n}\n\n// 原5478F8；原硬件位合并，返回合并前控制字的S16符号扩展。\nstd::int32_t ControlLegacyRawX87_5478F8(\n    const std::uint32_t value, const std::uint32_t mask) noexcept\n{\n    return detail::Cg2dControlLegacyRawX87(value, mask);\n}\n\n// 原54769B；原条件/控制字决定结果与状态生产，完整分支及依赖留在ASM。\nstd::int32_t HandleLegacyMathException_54769B(\n    const std::uint32_t conditions, double* const result,\n    const std::uint32_t control) noexcept\n{\n    return detail::Cg2dHandleLegacyMathException(conditions, result, control);\n}\n\n// 原54791B；只执行原已定义的x87状态生产操作，不借宿主状态接口。\nvoid SetLegacyRawX87Status_54791B(const std::uint32_t status) noexcept\n{\n    detail::Cg2dSetLegacyRawX87Status(status);\n}\n\n// 原88B数值参数记录与三24B值单元；未生产的载荷/标志不默认初始化。\nstatic_assert(offsetof(LegacyFloatExceptionValue, payload) == 0);\nstatic_assert(offsetof(LegacyFloatExceptionValue, format) == 16);\nstatic_assert(offsetof(LegacyFloatExceptionValue, reserved) == 20);\nstatic_assert(sizeof(LegacyFloatExceptionValue) == 24);\nstatic_assert(offsetof(LegacyFloatExceptionRecord, header) == 0);\nstatic_assert(offsetof(LegacyFloatExceptionRecord, causes) == 4);\nstatic_assert(offsetof(LegacyFloatExceptionRecord, enables) == 8);\nstatic_assert(offsetof(LegacyFloatExceptionRecord, status) == 12);\nstatic_assert(offsetof(LegacyFloatExceptionRecord, operand1) == 16);\nstatic_assert(offsetof(LegacyFloatExceptionRecord, operand2) == 40);\nstatic_assert(offsetof(LegacyFloatExceptionRecord, result) == 64);\nstatic_assert(sizeof(LegacyFloatExceptionRecord) == 88);\n\n// 原错误入口值快照；只把已证名称指针承为原生指针，不拓数值或填未生产字段。\nstatic_assert(offsetof(LegacyMathErrorInputs, savedControl) == 0);\nstatic_assert(offsetof(LegacyMathErrorInputs, operationId) == 4);\nstatic_assert(offsetof(LegacyMathErrorInputs, functionName) == 8);\nstatic_assert(offsetof(LegacyMathErrorInputs, argument1) == 16);\nstatic_assert(offsetof(LegacyMathErrorInputs, argument2) == 24);\nstatic_assert(sizeof(LegacyMathErrorInputs) == 32);\n\n// 原53D019普通pow值入口；原算法留ASM，不借宿主数学或填原未生产辅助结果。\ndouble PowerLegacyFloat_53D019(const double base, const double exponent) noexcept\n{\n    const double inputs[2] = {base, exponent};\n    double result;\n    detail::Cg2dComputeLegacyPower(inputs, &result);\n    return result;\n}\n\n// 原帧数值片段保持，只拓描述符指针；conditionSample为原ECX数值的显式承载。\nstatic_assert(offsetof(LegacyMathDispatchContext, savedControl) == 0);\nstatic_assert(offsetof(LegacyMathDispatchContext, workingControl) == 2);\nstatic_assert(offsetof(LegacyMathDispatchContext, status) == 4);\nstatic_assert(offsetof(LegacyMathDispatchContext, scratch80) == 6);\nstatic_assert(offsetof(LegacyMathDispatchContext, descriptor) == 16);\nstatic_assert(offsetof(LegacyMathDispatchContext, errorType) == 24);\nstatic_assert(offsetof(LegacyMathDispatchContext, conditionSample) == 28);\nstatic_assert(sizeof(LegacyMathDispatchContext) == 32);\nstatic_assert(sizeof(LegacyMathDispatchTarget) == 8);\nstatic_assert(offsetof(LegacyUnaryMathDescriptor, targets) == 16);\nstatic_assert(offsetof(LegacyBinaryMathDescriptor, targets) == 16);\nstatic_assert(sizeof(LegacyUnaryMathDescriptor) == 48);\nstatic_assert(sizeof(LegacyBinaryMathDescriptor) == 144);\n\n// 原5473E8；原字段生产、x87落存与系统调用前后读取留在ASM。\nvoid RaiseLegacyFloatingPointException_5473E8(\n    LegacyFloatExceptionRecord* const record, std::uint32_t* const control,\n    const std::uint32_t conditions, const std::uint32_t operationId,\n    const double* const argument, double* const result) noexcept\n{\n    detail::Cg2dRaiseLegacyFloatingPointException(\n        record, control, conditions, operationId, argument, result);\n}\n\n// 原5460EB；原保存控制字只读W16，原类型/真实依赖与返回保留。\nstd::int32_t ProcessLegacyX87Exception_5460EB(\n    const std::uint32_t operationId, LegacyMathErrorRecord* const record,\n    const std::uint16_t* const savedControl) noexcept\n{\n    return detail::Cg2dProcessLegacyX87Exception(operationId, record, savedControl);\n}\n\nnamespace detail {\n\nextern \"C\" std::int32_t Cg2dClassifyLegacySpecialFloat(\n    const double* const value) noexcept\n{\n    return ClassifyLegacySpecialFloat_5461E4(*value);\n}\n\n// 原RaiseException以一个原生宽度参数传递本调用的记录指针槽。\nextern \"C\" void Cg2dRaiseLegacyFloatExceptionHost(\n    const std::uint32_t code, std::uintptr_t* const arguments) noexcept\n{\n    static_assert(sizeof(std::uintptr_t) == sizeof(ULONG_PTR));\n    ::RaiseException(code, 0, 1, reinterpret_cast<const ULONG_PTR*>(arguments));\n}\n\n// 只把ASM调用接回已有原叶，不增加记录访问或错误槽owner。\nextern \"C\" std::int32_t Cg2dDefaultLegacyMathError(\n    LegacyMathErrorRecord* const record) noexcept\n{\n    return DefaultLegacyMathError_5478D8(record);\n}\n\nextern \"C\" std::int32_t Cg2dSetLegacyMathErrno(const std::int32_t type) noexcept\n{\n    return SetLegacyMathErrno_5478B2(type);\n}\n\n} // namespace detail\n\n} // namespace cg::platform\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyFloatEnvironment.hpp",
+      "before": "#pragma once\n\n#include <cstdint>\n\nnamespace cg::platform {\n\n// 原1085FC0；初始化组合发布系统/回退探测的完整W32返回值。\nextern std::int32_t gLegacyFdivBug1085FC0;\n\n// 原546311/5461E4；F64值与S32分类结果，实际x87合同见浮点分类叶SPEC。\nstd::int32_t ClassifyLegacyFloat_546311(double value) noexcept;\nstd::int32_t ClassifyLegacySpecialFloat_5461E4(double value) noexcept;\n\n// 原5436AC；F64输入，原分支返回S32的0/1/2，不写浮点控制字。\nstd::int32_t ClassifyLegacyInteger_5436AC(double value) noexcept;\n\n// 原54357C；F64值参数/借用结果指针，原S32状态与不写出分支见幂特殊值SPEC。\nstd::int32_t ProcessLegacyPowerSpecial_54357C(\n    double base, double exponent, double* result) noexcept;\n\n// 原543405；W16保存控制字值，仅消费PC两位并加载原临时控制字。\nvoid LoadLegacyPowerControlWord_543405(std::uint16_t savedControl) noexcept;\n\n// 原32B栈内数学错误记录；只扩名称指针，字段不默认初始化，调用方持有。\nstruct LegacyMathErrorRecord {\n    std::int32_t type;          // 原+0类型，S32。\n    const char* functionName;   // 原+4借用原字节名称，x64为+8。\n    double argument1;           // 原+8第一F64，x64为+16。\n    double argument2;           // 原+16第二F64，x64为+24；单参生产不预填。\n    double result;              // 原+24结果F64，x64为+32。\n};\n\n// 原5478B2/5478D8；共享旧errno与原不访问记录的零值叶。\nstd::int32_t SetLegacyMathErrno_5478B2(std::int32_t type) noexcept;\nstd::int32_t DefaultLegacyMathError_5478D8(LegacyMathErrorRecord* record) noexcept;\n\n// 原5478DB/5478E9/5478F8；硬件完整S16有符号返回，不是抽象控制字接口。\nstd::int32_t ReadLegacyRawX87Status_5478DB() noexcept;\nstd::int32_t ReadAndClearLegacyRawX87Status_5478E9() noexcept;\nstd::int32_t ControlLegacyRawX87_5478F8(\n    std::uint32_t value, std::uint32_t mask) noexcept;\n\n// 原54769B/54791B；原W32条件/CW和借用F64结果，x87合同见数学掩码处理SPEC。\nstd::int32_t HandleLegacyMathException_54769B(\n    std::uint32_t conditions, double* result, std::uint32_t control) noexcept;\nvoid SetLegacyRawX87Status_54791B(std::uint32_t status) noexcept;\n\n// 原88B浮点异常参数；三个值单元只保原W32载荷/标志，不默认填未生产字节。\nstruct alignas(8) LegacyFloatExceptionValue {\n    std::uint32_t payload[4];   // 原F64写入低8B；其余载荷沿原生产路径。\n    std::uint32_t format;       // 原值单元+16，valid/format位保持。\n    std::uint32_t reserved;     // 原值单元+20，当前两生产体不写。\n};\nstruct alignas(8) LegacyFloatExceptionRecord {\n    std::uint32_t header;       // 原+0，舍入/精度/操作号的位域载体。\n    std::uint32_t causes;       // 原+4，原条件到五低位映射。\n    std::uint32_t enables;      // 原+8，原控制字的反掩码映射。\n    std::uint32_t status;       // 原+12，等待式原x87状态样本映射。\n    LegacyFloatExceptionValue operand1;  // 原+16。\n    LegacyFloatExceptionValue operand2;  // 原+40，父仅选择性生产。\n    LegacyFloatExceptionValue result;    // 原+64，系统调用后原F64写回。\n};\n\n// 原5473E8/5460EB；全部指针只借用，原异常分派合同见数学异常分派SPEC。\nvoid RaiseLegacyFloatingPointException_5473E8(\n    LegacyFloatExceptionRecord* record, std::uint32_t* control,\n    std::uint32_t conditions, std::uint32_t operationId,\n    const double* argument, double* result) noexcept;\nstd::int32_t ProcessLegacyX87Exception_5460EB(\n    std::uint32_t operationId, LegacyMathErrorRecord* record,\n    const std::uint16_t* savedControl) noexcept;\n\n// 原543390/5433A7/5434D9的借用输入快照；由调用父生产，数值不扩宽/不默认初始化。\nstruct LegacyMathErrorInputs {\n    std::uint32_t savedControl; // 原4B载体：CW只读W16，范围返回EDX读完整W32；不补高W16。\n    std::uint32_t operationId;  // 原EDX完整W32；范围出口以1DH选择双参。\n    const char* functionName;   // 原ECX借用名称指针；只扩已证地址。\n    double argument1;          // 原两个W32原样复制到数学记录第一F64。\n    double argument2;          // 双参入口才复制；单参路径不预填记录第二F64。\n};\n\n// ASM私有合同（不声明CPP double返回）：RCX借用LegacyMathErrorInputs，ST(0)为结果。\n// Cg2dStartLegacyTwoArgumentErrorX87/Cg2dStartLegacyOneArgumentErrorX87另以EDX传S32类型。\n// Cg2dCheckLegacyRangeExitX87仅消费RCX与ST(0)；三入口均在ASM间返回ST(0)，范围出口另还原EDX的完整原CW载体。\n\n// 原53D019普通值入口；全部一般pow分支留在ASM，内部CI/core保连续ST0。\ndouble PowerLegacyFloat_53D019(double base, double exponent) noexcept;\n// ASM私有：Cg2dLegacyCIPowerX87以ST0=Y/ST1=X进出；Cg2dLegacyPowerCoreX87以\n// RCX借两F64/EAX为已加载Y高W32/ST0=Y调用，返回ST0及原W32 CW载体EDX。\n// Cg2dClassifyLegacyPowerExponentX87消费ST0指数/返回CL0或1或2；不声明CPP double ABI。\n\n// 原控制字抽象/硬件表示转换，只消费和生成原已定义位。\nstd::uint32_t AbstractLegacyControlWord_5448A4(std::uint32_t hardware);\nstd::uint32_t HardwareLegacyControlWord_544936(std::uint32_t abstractValue);\nstd::uint32_t ControlLegacyX87_544859(std::uint32_t value, std::uint32_t mask);\nstd::uint32_t ControlLegacyFloatingPoint_54488E(std::uint32_t value, std::uint32_t mask);\nvoid SetLegacyDefaultPrecision_53FD5C();\n\n// 原系统查询及x87回退；保留系统BOOL的完整W32返回值。\nstd::int32_t TestLegacyFloatingPointDivision_53FD6E();\nstd::int32_t ProbeLegacyFloatingPointDivision_53FDAC();\nvoid InitializeLegacyFloatingPoint_53B447();\n\nnamespace detail {\n\n// Win64私有叶；不借宿主CRT控制字接口或改变MXCSR。\nextern \"C\" std::uint16_t Cg2dReadLegacyX87Control() noexcept;\nextern \"C\" void Cg2dWriteLegacyX87Control(std::uint16_t control) noexcept;\nextern \"C\" void Cg2dClearLegacyX87Exceptions() noexcept;\nextern \"C\" std::int32_t Cg2dTestLegacyFdiv() noexcept;\nextern \"C\" std::int32_t Cg2dLegacyFloatNonnegative(const double* value) noexcept;\n// Win64分类参数桥；只在本调用内借用F64，不持有或修改调用方值。\nextern \"C\" std::int32_t Cg2dClassifyLegacyFloat(const double* value) noexcept;\nextern \"C\" std::int32_t Cg2dClassifyLegacySpecialFloat(const double* value) noexcept;\n// Win64整数判定参数桥；内部5462FF舍入叶仅在ASM间用ST(0)传值。\nextern \"C\" std::int32_t Cg2dClassifyLegacyInteger(const double* value) noexcept;\n// Win64幂特殊值桥；仅在本调用内借用F64参数与调用方结果槽。\nextern \"C\" std::int32_t Cg2dProcessLegacyPowerSpecial(\n    const double* base, const double* exponent, double* result) noexcept;\n\n// Win64控制字值桥；另外两通用帮助体仅在ASM间用x87/寄存器合同调用。\nextern \"C\" void Cg2dLoadLegacyPowerControlWord(std::uint16_t savedControl) noexcept;\n\n// Win64原硬件叶；保FSTSW等待/FNSTSW后FNCLEX与原控制字合并顺序。\nextern \"C\" std::int32_t Cg2dReadLegacyRawX87Status() noexcept;\nextern \"C\" std::int32_t Cg2dReadAndClearLegacyRawX87Status() noexcept;\nextern \"C\" std::int32_t Cg2dControlLegacyRawX87(\n    std::uint32_t value, std::uint32_t mask) noexcept;\n\n// Win64真实处理/状态C桥；两分解/指数帮助体只在ASM内部返回ST(0)。\nextern \"C\" std::int32_t Cg2dHandleLegacyMathException(\n    std::uint32_t conditions, double* result, std::uint32_t control) noexcept;\nextern \"C\" void Cg2dSetLegacyRawX87Status(std::uint32_t status) noexcept;\n\n// Win64真实父/系统调用桥；数值记录仍88B，外部参数槽仅拓宽已证指针。\nextern \"C\" void Cg2dRaiseLegacyFloatingPointException(\n    LegacyFloatExceptionRecord* record, std::uint32_t* control,\n    std::uint32_t conditions, std::uint32_t operationId,\n    const double* argument, double* result) noexcept;\nextern \"C\" std::int32_t Cg2dProcessLegacyX87Exception(\n    std::uint32_t operationId, LegacyMathErrorRecord* record,\n    const std::uint16_t* savedControl) noexcept;\nextern \"C\" void Cg2dRaiseLegacyFloatExceptionHost(\n    std::uint32_t code, std::uintptr_t* arguments) noexcept;\nextern \"C\" std::int32_t Cg2dDefaultLegacyMathError(LegacyMathErrorRecord* record) noexcept;\nextern \"C\" std::int32_t Cg2dSetLegacyMathErrno(std::int32_t type) noexcept;\nextern \"C\" std::uint32_t Cg2dLegacyMathErrorCallbackGate5925B8;\n\n// Win64普通值桥；只借用两个F64输入/结果，外部转换边界见通用幂本体SPEC。\nextern \"C\" void Cg2dComputeLegacyPower(const double* inputs, double* result) noexcept;\nextern \"C\" std::uint32_t Cg2dLegacyPowerFastExitGate1085FBC;\n\n} // namespace detail\n} // namespace cg::platform\n",
+      "after": "#pragma once\n\n#include <cstdint>\n\nnamespace cg::platform {\n\n// 原1085FC0；初始化组合发布系统/回退探测的完整W32返回值。\nextern std::int32_t gLegacyFdivBug1085FC0;\n\n// 原546311/5461E4；F64值与S32分类结果，实际x87合同见浮点分类叶SPEC。\nstd::int32_t ClassifyLegacyFloat_546311(double value) noexcept;\nstd::int32_t ClassifyLegacySpecialFloat_5461E4(double value) noexcept;\n\n// 原5436AC；F64输入，原分支返回S32的0/1/2，不写浮点控制字。\nstd::int32_t ClassifyLegacyInteger_5436AC(double value) noexcept;\n\n// 原54357C；F64值参数/借用结果指针，原S32状态与不写出分支见幂特殊值SPEC。\nstd::int32_t ProcessLegacyPowerSpecial_54357C(\n    double base, double exponent, double* result) noexcept;\n\n// 原543405；W16保存控制字值，仅消费PC两位并加载原临时控制字。\nvoid LoadLegacyPowerControlWord_543405(std::uint16_t savedControl) noexcept;\n\n// 原32B栈内数学错误记录；只扩名称指针，字段不默认初始化，调用方持有。\nstruct LegacyMathErrorRecord {\n    std::int32_t type;          // 原+0类型，S32。\n    const char* functionName;   // 原+4借用原字节名称，x64为+8。\n    double argument1;           // 原+8第一F64，x64为+16。\n    double argument2;           // 原+16第二F64，x64为+24；单参生产不预填。\n    double result;              // 原+24结果F64，x64为+32。\n};\n\n// 原5478B2/5478D8；共享旧errno与原不访问记录的零值叶。\nstd::int32_t SetLegacyMathErrno_5478B2(std::int32_t type) noexcept;\nstd::int32_t DefaultLegacyMathError_5478D8(LegacyMathErrorRecord* record) noexcept;\n\n// 原5478DB/5478E9/5478F8；硬件完整S16有符号返回，不是抽象控制字接口。\nstd::int32_t ReadLegacyRawX87Status_5478DB() noexcept;\nstd::int32_t ReadAndClearLegacyRawX87Status_5478E9() noexcept;\nstd::int32_t ControlLegacyRawX87_5478F8(\n    std::uint32_t value, std::uint32_t mask) noexcept;\n\n// 原54769B/54791B；原W32条件/CW和借用F64结果，x87合同见数学掩码处理SPEC。\nstd::int32_t HandleLegacyMathException_54769B(\n    std::uint32_t conditions, double* result, std::uint32_t control) noexcept;\nvoid SetLegacyRawX87Status_54791B(std::uint32_t status) noexcept;\n\n// 原88B浮点异常参数；三个值单元只保原W32载荷/标志，不默认填未生产字节。\nstruct alignas(8) LegacyFloatExceptionValue {\n    std::uint32_t payload[4];   // 原F64写入低8B；其余载荷沿原生产路径。\n    std::uint32_t format;       // 原值单元+16，valid/format位保持。\n    std::uint32_t reserved;     // 原值单元+20，当前两生产体不写。\n};\nstruct alignas(8) LegacyFloatExceptionRecord {\n    std::uint32_t header;       // 原+0，舍入/精度/操作号的位域载体。\n    std::uint32_t causes;       // 原+4，原条件到五低位映射。\n    std::uint32_t enables;      // 原+8，原控制字的反掩码映射。\n    std::uint32_t status;       // 原+12，等待式原x87状态样本映射。\n    LegacyFloatExceptionValue operand1;  // 原+16。\n    LegacyFloatExceptionValue operand2;  // 原+40，父仅选择性生产。\n    LegacyFloatExceptionValue result;    // 原+64，系统调用后原F64写回。\n};\n\n// 原5473E8/5460EB；全部指针只借用，原异常分派合同见数学异常分派SPEC。\nvoid RaiseLegacyFloatingPointException_5473E8(\n    LegacyFloatExceptionRecord* record, std::uint32_t* control,\n    std::uint32_t conditions, std::uint32_t operationId,\n    const double* argument, double* result) noexcept;\nstd::int32_t ProcessLegacyX87Exception_5460EB(\n    std::uint32_t operationId, LegacyMathErrorRecord* record,\n    const std::uint16_t* savedControl) noexcept;\n\n// 原543390/5433A7/5434D9的借用输入快照；由调用父生产，数值不扩宽/不默认初始化。\nstruct LegacyMathErrorInputs {\n    std::uint32_t savedControl; // 原4B载体：CW只读W16，范围返回EDX读完整W32；不补高W16。\n    std::uint32_t operationId;  // 原EDX完整W32；范围出口以1DH选择双参。\n    const char* functionName;   // 原ECX借用名称指针；只扩已证地址。\n    double argument1;          // 原两个W32原样复制到数学记录第一F64。\n    double argument2;          // 双参入口才复制；单参路径不预填记录第二F64。\n};\n\n// ASM私有合同（不声明CPP double返回）：RCX借用LegacyMathErrorInputs，ST(0)为结果。\n// Cg2dStartLegacyTwoArgumentErrorX87/Cg2dStartLegacyOneArgumentErrorX87另以EDX传S32类型。\n// Cg2dCheckLegacyRangeExitX87仅消费RCX与ST(0)；三入口均在ASM间返回ST(0)，范围出口另还原EDX的完整原CW载体。\n\n// 原53D019普通值入口；全部一般pow分支留在ASM，内部CI/core保连续ST0。\ndouble PowerLegacyFloat_53D019(double base, double exponent) noexcept;\n// ASM私有：Cg2dLegacyCIPowerX87以ST0=Y/ST1=X进出；Cg2dLegacyPowerCoreX87以\n// RCX借两F64/EAX为已加载Y高W32/ST0=Y调用，返回ST0及原W32 CW载体EDX。\n// Cg2dClassifyLegacyPowerExponentX87消费ST0指数/返回CL0或1或2；不声明CPP double ABI。\n\n// 原543185共享CRT分派的实际帧片段；原数值原宽，只有描述符地址拓为原生指针。\nstruct LegacyMathDispatchContext {\n    std::uint16_t savedControl;   // 原EBP-A4，父保存CW。\n    std::uint16_t workingControl; // 原EBP-A2，原分支生成临时CW。\n    std::uint16_t status;         // 原EBP-A0，等待式FXAM状态样本。\n    std::uint8_t scratch80[10];   // 原EBP-9E，实际T80落存/quiet位读取。\n    const std::uint8_t* descriptor; // 原EBP-94借用描述符，不持有。\n    std::uint8_t errorType;       // 原EBP-90，原0/1/7错误样本。\n    std::uint32_t conditionSample; // 原ECX数值样本，跨原分派/目标的显式承载，不默认初始化。\n};\n// 只在ASM间调用，RCX借用context、ST0（双参另ST1）传结果；void类型不作CPP FP返回。\nusing LegacyMathDispatchTarget = void (*)(LegacyMathDispatchContext*) noexcept;\nstruct LegacyUnaryMathDescriptor {\n    std::uint8_t prefix[16];      // 原16B头原样承载，本分派只读+14的控制选择BYTE。\n    LegacyMathDispatchTarget targets[4]; // 原四代码指针，只扩已证指针。\n};\nstruct LegacyBinaryMathDescriptor {\n    std::uint8_t prefix[16];\n    LegacyMathDispatchTarget targets[16]; // 原4×4代码指针，不另造固定目标表。\n};\n// ASM入口Cg2dDispatchLegacyUnaryMathX87/Cg2dDispatchLegacyBinaryMathX87：\n// RCX借context、RDX借对应描述符；真实x87目标均只在ASM间消费/返回ST0。\n\n// 原控制字抽象/硬件表示转换，只消费和生成原已定义位。\nstd::uint32_t AbstractLegacyControlWord_5448A4(std::uint32_t hardware);\nstd::uint32_t HardwareLegacyControlWord_544936(std::uint32_t abstractValue);\nstd::uint32_t ControlLegacyX87_544859(std::uint32_t value, std::uint32_t mask);\nstd::uint32_t ControlLegacyFloatingPoint_54488E(std::uint32_t value, std::uint32_t mask);\nvoid SetLegacyDefaultPrecision_53FD5C();\n\n// 原系统查询及x87回退；保留系统BOOL的完整W32返回值。\nstd::int32_t TestLegacyFloatingPointDivision_53FD6E();\nstd::int32_t ProbeLegacyFloatingPointDivision_53FDAC();\nvoid InitializeLegacyFloatingPoint_53B447();\n\nnamespace detail {\n\n// Win64私有叶；不借宿主CRT控制字接口或改变MXCSR。\nextern \"C\" std::uint16_t Cg2dReadLegacyX87Control() noexcept;\nextern \"C\" void Cg2dWriteLegacyX87Control(std::uint16_t control) noexcept;\nextern \"C\" void Cg2dClearLegacyX87Exceptions() noexcept;\nextern \"C\" std::int32_t Cg2dTestLegacyFdiv() noexcept;\nextern \"C\" std::int32_t Cg2dLegacyFloatNonnegative(const double* value) noexcept;\n// Win64分类参数桥；只在本调用内借用F64，不持有或修改调用方值。\nextern \"C\" std::int32_t Cg2dClassifyLegacyFloat(const double* value) noexcept;\nextern \"C\" std::int32_t Cg2dClassifyLegacySpecialFloat(const double* value) noexcept;\n// Win64整数判定参数桥；内部5462FF舍入叶仅在ASM间用ST(0)传值。\nextern \"C\" std::int32_t Cg2dClassifyLegacyInteger(const double* value) noexcept;\n// Win64幂特殊值桥；仅在本调用内借用F64参数与调用方结果槽。\nextern \"C\" std::int32_t Cg2dProcessLegacyPowerSpecial(\n    const double* base, const double* exponent, double* result) noexcept;\n\n// Win64控制字值桥；另外两通用帮助体仅在ASM间用x87/寄存器合同调用。\nextern \"C\" void Cg2dLoadLegacyPowerControlWord(std::uint16_t savedControl) noexcept;\n\n// Win64原硬件叶；保FSTSW等待/FNSTSW后FNCLEX与原控制字合并顺序。\nextern \"C\" std::int32_t Cg2dReadLegacyRawX87Status() noexcept;\nextern \"C\" std::int32_t Cg2dReadAndClearLegacyRawX87Status() noexcept;\nextern \"C\" std::int32_t Cg2dControlLegacyRawX87(\n    std::uint32_t value, std::uint32_t mask) noexcept;\n\n// Win64真实处理/状态C桥；两分解/指数帮助体只在ASM内部返回ST(0)。\nextern \"C\" std::int32_t Cg2dHandleLegacyMathException(\n    std::uint32_t conditions, double* result, std::uint32_t control) noexcept;\nextern \"C\" void Cg2dSetLegacyRawX87Status(std::uint32_t status) noexcept;\n\n// Win64真实父/系统调用桥；数值记录仍88B，外部参数槽仅拓宽已证指针。\nextern \"C\" void Cg2dRaiseLegacyFloatingPointException(\n    LegacyFloatExceptionRecord* record, std::uint32_t* control,\n    std::uint32_t conditions, std::uint32_t operationId,\n    const double* argument, double* result) noexcept;\nextern \"C\" std::int32_t Cg2dProcessLegacyX87Exception(\n    std::uint32_t operationId, LegacyMathErrorRecord* record,\n    const std::uint16_t* savedControl) noexcept;\nextern \"C\" void Cg2dRaiseLegacyFloatExceptionHost(\n    std::uint32_t code, std::uintptr_t* arguments) noexcept;\nextern \"C\" std::int32_t Cg2dDefaultLegacyMathError(LegacyMathErrorRecord* record) noexcept;\nextern \"C\" std::int32_t Cg2dSetLegacyMathErrno(std::int32_t type) noexcept;\nextern \"C\" std::uint32_t Cg2dLegacyMathErrorCallbackGate5925B8;\n\n// Win64普通值桥；只借用两个F64输入/结果，外部转换边界见通用幂本体SPEC。\nextern \"C\" void Cg2dComputeLegacyPower(const double* inputs, double* result) noexcept;\nextern \"C\" std::uint32_t Cg2dLegacyPowerFastExitGate1085FBC;\n\n} // namespace detail\n} // namespace cg::platform\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyFloatEnvironment.asm",
+      "before": "OPTION CASEMAP:NONE\n\n.const\nALIGN 8\nLegacyDivisor54F9E8 QWORD 04147FFFF80000000h\nLegacyDividend54F9E0 QWORD 04150017EC0000000h\nLegacyThreshold54D5C0 QWORD 03FF0000000000000h\nLegacyZero54D5D0 QWORD 0\nLegacyIntegerDivisor54FB58 QWORD 04000000000000000h\nLegacyPowerInfinity5923C0 QWORD 07FF0000000000000h\nLegacyPowerUndefined5923C8 QWORD 0FFF8000000000000h\nLegacyPowerNegativeZero5923E0 QWORD 08000000000000000h\n\nLegacyMaximum5923D0 QWORD 07FEFFFFFFFFFFFFFh\nLegacyStatusHuge5925BC BYTE 00h, 00h, 00h, 00h, 00h, 00h, 00h, 080h, 010h, 044h\nLegacyStatusTiny5925C8 BYTE 01h, 00h, 00h, 00h, 00h, 00h, 00h, 080h, 00h, 030h\n\nLegacyRangeMinimum54FB2C QWORD 0010000000000000h\nLegacyRangeScaleDown54FB34 QWORD 0C098000000000000h\nLegacyRangeScaleUp54FB3C QWORD 04098000000000000h\n\nLegacyGenericPowerHalf58F890 QWORD 03FE0000000000000h\nLegacyGenericPowerInfinity591FF0 BYTE 00h, 00h, 00h, 00h, 00h, 00h, 00h, 080h, 0FFh, 07Fh\nLegacyGenericPowerUndefined592060 BYTE 00h, 00h, 00h, 00h, 00h, 00h, 00h, 0C0h, 0FFh, 0FFh\nLegacyGenericPowerName58F898 BYTE \"pow\", 0\n\n.code\nEXTERN Cg2dClassifyLegacySpecialFloat:PROC\nPUBLIC Cg2dClassifyLegacyFloat\nPUBLIC Cg2dClassifyLegacyInteger\nPUBLIC Cg2dProcessLegacyPowerSpecial\nPUBLIC Cg2dLoadLegacyPowerControlWord\nPUBLIC Cg2dReadLegacyRawX87Status\nPUBLIC Cg2dReadAndClearLegacyRawX87Status\nPUBLIC Cg2dControlLegacyRawX87\nPUBLIC Cg2dHandleLegacyMathException\nPUBLIC Cg2dSetLegacyRawX87Status\nPUBLIC Cg2dRaiseLegacyFloatingPointException\nPUBLIC Cg2dProcessLegacyX87Exception\nPUBLIC Cg2dStartLegacyTwoArgumentErrorX87\nPUBLIC Cg2dStartLegacyOneArgumentErrorX87\nPUBLIC Cg2dCheckLegacyRangeExitX87\nPUBLIC Cg2dComputeLegacyPower\nPUBLIC Cg2dLegacyCIPowerX87\nPUBLIC Cg2dLegacyPowerCoreX87\nPUBLIC Cg2dClassifyLegacyPowerExponentX87\nEXTERN Cg2dLegacyPowerFastExitGate1085FBC:DWORD\nEXTERN Cg2dRaiseLegacyFloatExceptionHost:PROC\nEXTERN Cg2dDefaultLegacyMathError:PROC\nEXTERN Cg2dSetLegacyMathErrno:PROC\nEXTERN Cg2dLegacyMathErrorCallbackGate5925B8:DWORD\nPUBLIC Cg2dReadLegacyX87Control\nPUBLIC Cg2dWriteLegacyX87Control\nPUBLIC Cg2dClearLegacyX87Exceptions\nPUBLIC Cg2dTestLegacyFdiv\nPUBLIC Cg2dLegacyFloatNonnegative\n\n; 叶函数只借用Win64参数暂存区，不改变RSP或非易失通用寄存器。\nCg2dReadLegacyX87Control PROC\n    fstcw word ptr [rsp+8]\n    movzx eax, word ptr [rsp+8]\n    ret\nCg2dReadLegacyX87Control ENDP\n\nCg2dWriteLegacyX87Control PROC\n    mov word ptr [rsp+8], cx\n    fldcw word ptr [rsp+8]\n    ret\nCg2dWriteLegacyX87Control ENDP\n\nCg2dClearLegacyX87Exceptions PROC\n    fnclex\n    ret\nCg2dClearLegacyX87Exceptions ENDP\n\n; 原53FD6E的三处F64落栈边界和比较；探测前不调整控制字。\nCg2dTestLegacyFdiv PROC\n    fld qword ptr [LegacyDivisor54F9E8]\n    fstp qword ptr [rsp+8]\n    fld qword ptr [LegacyDividend54F9E0]\n    fstp qword ptr [rsp+16]\n    fld qword ptr [rsp+16]\n    fdiv qword ptr [rsp+8]\n    fmul qword ptr [rsp+8]\n    fsubr qword ptr [rsp+16]\n    fstp qword ptr [rsp+24]\n    fld qword ptr [rsp+24]\n    fcomp qword ptr [LegacyThreshold54D5C0]\n    fnstsw ax\n    test ah, 041h\n    jnz LegacyFdivNoBug\n    mov eax, 1\n    ret\nLegacyFdivNoBug:\n    xor eax, eax\n    ret\nCg2dTestLegacyFdiv ENDP\n\n; 原53FE7D；C0置位表示小于或无序，原JB分支均返回0。\nCg2dLegacyFloatNonnegative PROC\n    fld qword ptr [rcx]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    test ah, 1\n    jnz LegacyFloatNegativeOrUnordered\n    mov eax, 1\n    ret\nLegacyFloatNegativeOrUnordered:\n    xor eax, eax\n    ret\nCg2dLegacyFloatNonnegative ENDP\n\n; 原546311；原值槽与真实x87落存槽分离，高端W32仅消费低W16。\n; Win64保留32B调用暂存区与两个F64槽；不写控制字/MXCSR或清异常。\nCg2dClassifyLegacyFloat PROC FRAME\n    sub rsp, 56\n    .allocstack 56\n    .endprolog\n    mov r8, qword ptr [rcx]\n    mov qword ptr [rsp+32], r8\n    mov eax, dword ptr [rsp+38]\n    mov ecx, 07FF0h\n    mov edx, eax\n    and edx, ecx\n    cmp dx, cx\n    jne LegacyFloatClassOrdinary\n    fld qword ptr [rsp+32]\n    fstp qword ptr [rsp+40]\n    lea rcx, [rsp+40]\n    call Cg2dClassifyLegacySpecialFloat\n    dec eax\n    jz LegacyFloatClassPositiveInfinity\n    dec eax\n    jz LegacyFloatClassNegativeInfinity\n    dec eax\n    jz LegacyFloatClassQuietNaN\n    mov eax, 1\n    jmp LegacyFloatClassDone\nLegacyFloatClassQuietNaN:\n    mov eax, 2\n    jmp LegacyFloatClassDone\nLegacyFloatClassNegativeInfinity:\n    mov eax, 4\n    jmp LegacyFloatClassDone\nLegacyFloatClassPositiveInfinity:\n    mov eax, 0200h\n    jmp LegacyFloatClassDone\nLegacyFloatClassOrdinary:\n    and eax, 08000h\n    test dx, dx\n    mov ecx, eax\n    jnz LegacyFloatClassCompareZero\n    test dword ptr [rsp+36], 0FFFFFh\n    jnz LegacyFloatClassDenormal\n    cmp dword ptr [rsp+32], 0\n    je LegacyFloatClassCompareZero\nLegacyFloatClassDenormal:\n    mov eax, ecx\n    neg eax\n    sbb eax, eax\n    and al, 090h\n    add eax, 080h\n    jmp LegacyFloatClassDone\nLegacyFloatClassCompareZero:\n    fld qword ptr [rsp+32]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    mov eax, ecx\n    jne LegacyFloatClassNormal\n    neg eax\n    sbb eax, eax\n    and al, 0E0h\n    add eax, 040h\n    jmp LegacyFloatClassDone\nLegacyFloatClassNormal:\n    neg eax\n    sbb eax, eax\n    and al, 08h\n    add eax, 0100h\nLegacyFloatClassDone:\n    add rsp, 56\n    ret\nCg2dClassifyLegacyFloat ENDP\n\n; 原5462FF；私有ASM合同为RCX借用F64、ST(0)返回，不能由CPP按Win64 F64返回调用。\n; FRNDINT沿当前x87舍入模式；原F64落存/重载保留，借用调用方8B暂存槽。\nCg2dRoundLegacyFloatX87 PROC\n    fld qword ptr [rcx]\n    frndint\n    fstp qword ptr [rsp+8]\n    fld qword ptr [rsp+8]\n    ret\nCg2dRoundLegacyFloatX87 ENDP\n\n; 原5436AC；56B展开帧保留32B调用区及原值、传参、舍入落存三个F64槽。\n; 三个CALL与原FLD/FSTP、FDIV、FCOMP/FNSTSW/SAHF顺序保持，不设额外有限值门禁。\nCg2dClassifyLegacyInteger PROC FRAME\n    sub rsp, 56\n    .allocstack 56\n    .endprolog\n    mov r8, qword ptr [rcx]\n    mov qword ptr [rsp+32], r8\n    fld qword ptr [rsp+32]\n    fstp qword ptr [rsp+40]\n    lea rcx, [rsp+40]\n    call Cg2dClassifyLegacyFloat\n    test al, 090h\n    jnz LegacyIntegerClassNoninteger\n    fld qword ptr [rsp+32]\n    fstp qword ptr [rsp+40]\n    lea rcx, [rsp+40]\n    call Cg2dRoundLegacyFloatX87\n    fstp qword ptr [rsp+48]\n    fld qword ptr [rsp+48]\n    fcomp qword ptr [rsp+32]\n    fnstsw ax\n    sahf\n    jne LegacyIntegerClassNoninteger\n    fld qword ptr [rsp+32]\n    fdiv qword ptr [LegacyIntegerDivisor54FB58]\n    fstp qword ptr [rsp+32]\n    fld qword ptr [rsp+32]\n    fstp qword ptr [rsp+40]\n    lea rcx, [rsp+40]\n    call Cg2dRoundLegacyFloatX87\n    fcomp qword ptr [rsp+32]\n    fnstsw ax\n    sahf\n    jne LegacyIntegerClassOdd\n    mov eax, 2\n    jmp LegacyIntegerClassDone\nLegacyIntegerClassOdd:\n    mov eax, 1\n    jmp LegacyIntegerClassDone\nLegacyIntegerClassNoninteger:\n    xor eax, eax\nLegacyIntegerClassDone:\n    add rsp, 56\n    ret\nCg2dClassifyLegacyInteger ENDP\n\n; 原54357C；72B正常展开帧承载32B调用区、四F64槽与一个x64结果指针。\n; 原0返回同时包含已写出与未写出分支，不增默认结果或有限值保护。\nCg2dProcessLegacyPowerSpecial PROC FRAME\n    sub rsp, 72\n    .allocstack 72\n    .endprolog\n    mov r9, qword ptr [rcx]\n    mov qword ptr [rsp+32], r9\n    mov r9, qword ptr [rdx]\n    mov qword ptr [rsp+40], r9\n    mov qword ptr [rsp+64], r8\n    fld qword ptr [rsp+32]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fld qword ptr [rsp+32]\n    xor edx, edx\n    fnstsw ax\n    sahf\n    jnb LegacyPowerSpecialMagnitudeReady\n    fchs\nLegacyPowerSpecialMagnitudeReady:\n    fstp qword ptr [rsp+48]\n    mov eax, 07FF00000h\n    mov ecx, 0FFF00000h\n    cmp dword ptr [rsp+44], eax\n    jne LegacyPowerSpecialNegativeExponentInfinity\n    cmp dword ptr [rsp+40], edx\n    jne LegacyPowerSpecialPositiveBaseInfinity\n    fld qword ptr [rsp+48]\n    fcomp qword ptr [LegacyThreshold54D5C0]\n    fnstsw ax\n    sahf\n    ja LegacyPowerSpecialPositiveInfinity\n    fld qword ptr [rsp+48]\n    fcomp qword ptr [LegacyThreshold54D5C0]\n    fnstsw ax\n    sahf\n    jb LegacyPowerSpecialPositiveZero\nLegacyPowerSpecialUndefined:\n    fld qword ptr [LegacyPowerUndefined5923C8]\n    mov rax, qword ptr [rsp+64]\n    fstp qword ptr [rax]\n    mov eax, 1\n    jmp LegacyPowerSpecialDone\nLegacyPowerSpecialNegativeExponentInfinity:\n    cmp dword ptr [rsp+44], ecx\n    jne LegacyPowerSpecialPositiveBaseInfinity\n    cmp dword ptr [rsp+40], edx\n    jne LegacyPowerSpecialPositiveBaseInfinity\n    fld qword ptr [rsp+48]\n    fcomp qword ptr [LegacyThreshold54D5C0]\n    fnstsw ax\n    sahf\n    ja LegacyPowerSpecialPositiveZero\n    fld qword ptr [rsp+48]\n    fcomp qword ptr [LegacyThreshold54D5C0]\n    fnstsw ax\n    sahf\n    jnb LegacyPowerSpecialUndefined\n    jmp LegacyPowerSpecialPositiveInfinity\nLegacyPowerSpecialPositiveBaseInfinity:\n    cmp dword ptr [rsp+36], eax\n    jne LegacyPowerSpecialNegativeBaseInfinity\n    cmp dword ptr [rsp+32], edx\n    jne LegacyPowerSpecialNoOutput\n    fld qword ptr [rsp+40]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    jbe LegacyPowerSpecialPositiveBaseNonpositiveExponent\nLegacyPowerSpecialPositiveInfinity:\n    fld qword ptr [LegacyPowerInfinity5923C0]\n    jmp LegacyPowerSpecialWriteResult\nLegacyPowerSpecialPositiveBaseNonpositiveExponent:\n    fld qword ptr [rsp+40]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    jnb LegacyPowerSpecialOne\nLegacyPowerSpecialPositiveZero:\n    fldz\n    jmp LegacyPowerSpecialWriteResult\nLegacyPowerSpecialNegativeBaseInfinity:\n    cmp dword ptr [rsp+36], ecx\n    jne LegacyPowerSpecialNoOutput\n    cmp dword ptr [rsp+32], edx\n    jne LegacyPowerSpecialNoOutput\n    fld qword ptr [rsp+40]\n    fstp qword ptr [rsp+56]\n    lea rcx, [rsp+56]\n    call Cg2dClassifyLegacyInteger\n    fld qword ptr [rsp+40]\n    fcomp qword ptr [LegacyZero54D5D0]\n    mov ecx, eax\n    fnstsw ax\n    sahf\n    jbe LegacyPowerSpecialNegativeBaseNonpositiveExponent\n    fld qword ptr [LegacyPowerInfinity5923C0]\n    cmp ecx, 1\n    jne LegacyPowerSpecialSignedInfinityReady\n    fchs\nLegacyPowerSpecialSignedInfinityReady:\n    fstp qword ptr [rsp+40]\n    fld qword ptr [rsp+40]\n    jmp LegacyPowerSpecialWriteResult\nLegacyPowerSpecialNegativeBaseNonpositiveExponent:\n    fld qword ptr [rsp+40]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    jnb LegacyPowerSpecialOne\n    cmp ecx, 1\n    jne LegacyPowerSpecialNegativeBasePositiveZero\n    fld qword ptr [LegacyPowerNegativeZero5923E0]\n    jmp LegacyPowerSpecialSignedZeroReady\nLegacyPowerSpecialNegativeBasePositiveZero:\n    fldz\nLegacyPowerSpecialSignedZeroReady:\n    fstp qword ptr [rsp+40]\n    fld qword ptr [rsp+40]\n    jmp LegacyPowerSpecialWriteResult\nLegacyPowerSpecialOne:\n    fld1\nLegacyPowerSpecialWriteResult:\n    mov rax, qword ptr [rsp+64]\n    fstp qword ptr [rax]\nLegacyPowerSpecialNoOutput:\n    xor eax, eax\nLegacyPowerSpecialDone:\n    add rsp, 72\n    ret\nCg2dProcessLegacyPowerSpecial ENDP\n\n; 原5433F0；私有ASM间ST(0)输入/输出，保全部十条x87操作与当前控制字。\n; 不将连续扩展精度结果落成F64，不通过CPP double返回ABI调用。\nCg2dLegacyTwoToTOSX87 PROC\n    fld st(0)\n    frndint\n    fsubr st(1), st(0)\n    fxch st(1)\n    fchs\n    f2xm1\n    fld1\n    faddp st(1), st(0)\n    fscale\n    fstp st(1)\n    ret\nCg2dLegacyTwoToTOSX87 ENDP\n\n; 原543405；Win64 CX承载保存的W16控制字，只有原PC两位参与计算。\n; 只借用调用暂存槽加载原临时CW，原载体的额外W16不复制为业务值。\nCg2dLoadLegacyPowerControlWord PROC\n    movzx edx, cx\n    and edx, 0300h\n    or edx, 07Fh\n    mov word ptr [rsp+8], dx\n    fldcw word ptr [rsp+8]\n    ret\nCg2dLoadLegacyPowerControlWord ENDP\n\n; 原543435；私有ASM间RDX借用F64输入，ST(0)/EAX/FLAGS返回。\n; 普通分支保指数CMP标志；特殊分支原三个重叠W32写出10B F80后TEST EAX,0。\nCg2dLoadLegacyPowerOperandX87 PROC\n    mov eax, dword ptr [rdx+4]\n    and eax, 07FF00000h\n    cmp eax, 07FF00000h\n    je LegacyPowerOperandSpecial\n    fld qword ptr [rdx]\n    ret\nLegacyPowerOperandSpecial:\n    mov eax, dword ptr [rdx+4]\n    or eax, 07FFF0000h\n    mov dword ptr [rsp+14], eax\n    mov eax, dword ptr [rdx+4]\n    mov ecx, dword ptr [rdx]\n    shld eax, ecx, 0Bh\n    shl ecx, 0Bh\n    mov dword ptr [rsp+12], eax\n    mov dword ptr [rsp+8], ecx\n    fld tbyte ptr [rsp+8]\n    test eax, 0\n    mov eax, dword ptr [rdx+4]\n    ret\nCg2dLoadLegacyPowerOperandX87 ENDP\n\n; 原5478DB __statfp；等待式FSTSW后按原S16符号扩展返回S32。\nCg2dReadLegacyRawX87Status PROC\n    fstsw word ptr [rsp+8]\n    movsx eax, word ptr [rsp+8]\n    ret\nCg2dReadLegacyRawX87Status ENDP\n\n; 原5478E9 __clrfp；返回清除前状态，FNSTSW/FNCLEX顺序保持。\nCg2dReadAndClearLegacyRawX87Status PROC\n    fnstsw word ptr [rsp+8]\n    fnclex\n    movsx eax, word ptr [rsp+8]\n    ret\nCg2dReadAndClearLegacyRawX87Status ENDP\n\n; 原5478F8 __ctrlfp；保存W16旧CW，原W32合并后只加载低W16并返回旧CW。\n; 原额外高W16不填值/不当业务输入；两个槽借Win64调用暂存区。\nCg2dControlLegacyRawX87 PROC\n    fstcw word ptr [rsp+8]\n    mov eax, edx\n    mov r8d, eax\n    and eax, ecx\n    not r8d\n    and r8d, dword ptr [rsp+8]\n    or r8d, eax\n    mov dword ptr [rsp+16], r8d\n    fldcw word ptr [rsp+16]\n    movsx eax, word ptr [rsp+8]\n    ret\nCg2dControlLegacyRawX87 ENDP\n\n; 原5461BB；RCX借用F64/EDX为S32指数，ST(0)返回；原F64落存与低W16改写保留。\n; 高端W32额外W16不填值/业务消费，AND CX而非AND ECX后只写AX。\nCg2dSetLegacyFloatExponentX87 PROC\n    mov r8, qword ptr [rcx]\n    mov qword ptr [rsp+8], r8\n    mov eax, edx\n    mov ecx, dword ptr [rsp+14]\n    fld qword ptr [rsp+8]\n    add eax, 03FEh\n    and cx, 0800Fh\n    fstp qword ptr [rsp+16]\n    shl eax, 4\n    or eax, ecx\n    mov word ptr [rsp+22], ax\n    fld qword ptr [rsp+16]\n    ret\nCg2dSetLegacyFloatExponentX87 ENDP\n\n; 原54623E；RCX借用F64输入/RDX借用S32指数输出，ST(0)返回。\n; 72B正常展开帧保32B调用区、输入/结果/输出指针/指数与真实落存参数槽。\nCg2dDecomposeLegacyFloatX87 PROC FRAME\n    sub rsp, 72\n    .allocstack 72\n    .endprolog\n    mov r8, qword ptr [rcx]\n    mov qword ptr [rsp+32], r8\n    mov qword ptr [rsp+48], rdx\n    fld qword ptr [rsp+32]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    jne LegacyDecomposeNonzero\n    fldz\n    mov dword ptr [rsp+56], 0\n    fstp qword ptr [rsp+40]\n    jmp LegacyDecomposePublish\nLegacyDecomposeNonzero:\n    xor ecx, ecx\n    test word ptr [rsp+38], 07FF0h\n    jnz LegacyDecomposeNormal\n    test dword ptr [rsp+36], 0FFFFFh\n    jnz LegacyDecomposeDenormal\n    cmp dword ptr [rsp+32], ecx\n    je LegacyDecomposeNormal\nLegacyDecomposeDenormal:\n    fld qword ptr [rsp+32]\n    fcomp qword ptr [LegacyZero54D5D0]\n    mov dword ptr [rsp+56], 0FFFFFC03h\n    fnstsw ax\n    sahf\n    jnb LegacyDecomposeNonnegative\n    mov eax, 1\n    jmp LegacyDecomposeShiftCheck\nLegacyDecomposeNonnegative:\n    xor eax, eax\nLegacyDecomposeShiftCheck:\n    test byte ptr [rsp+38], 010h\n    jnz LegacyDecomposeShiftDone\n    shl dword ptr [rsp+36], 1\n    test byte ptr [rsp+35], 080h\n    jz LegacyDecomposeShiftLow\n    or dword ptr [rsp+36], 1\nLegacyDecomposeShiftLow:\n    shl dword ptr [rsp+32], 1\n    dec dword ptr [rsp+56]\n    jmp LegacyDecomposeShiftCheck\nLegacyDecomposeShiftDone:\n    and word ptr [rsp+38], 0FFEFh\n    cmp eax, ecx\n    je LegacyDecomposeSignReady\n    or byte ptr [rsp+39], 080h\nLegacyDecomposeSignReady:\n    fld qword ptr [rsp+32]\n    fstp qword ptr [rsp+64]\n    lea rcx, [rsp+64]\n    xor edx, edx\n    call Cg2dSetLegacyFloatExponentX87\n    fstp qword ptr [rsp+40]\n    jmp LegacyDecomposePublish\nLegacyDecomposeNormal:\n    fld qword ptr [rsp+32]\n    fstp qword ptr [rsp+64]\n    lea rcx, [rsp+64]\n    xor edx, edx\n    call Cg2dSetLegacyFloatExponentX87\n    mov eax, dword ptr [rsp+38]\n    fstp qword ptr [rsp+40]\n    shr eax, 4\n    and ax, 07FFh\n    movsx eax, ax\n    sub eax, 03FEh\n    mov dword ptr [rsp+56], eax\nLegacyDecomposePublish:\n    mov rcx, qword ptr [rsp+48]\n    fld qword ptr [rsp+40]\n    mov eax, dword ptr [rsp+56]\n    mov dword ptr [rcx], eax\n    add rsp, 72\n    ret\nCg2dDecomposeLegacyFloatX87 ENDP\n\n; 原54791B；保原低BYTE样本及1/8/10h/4/20h的x87状态生产顺序。\n; 仅原FISTP/FSTP/FDIVRP/FLDPI与等待操作，不增额外注入/清除或MXCSR动作。\nCg2dSetLegacyRawX87Status PROC\n    mov r9b, cl\n    test r9b, 1\n    jz LegacySetStatusOverflow\n    fld tbyte ptr [LegacyStatusHuge5925BC]\n    fistp dword ptr [rsp+8]\n    fwait\nLegacySetStatusOverflow:\n    test r9b, 8\n    jz LegacySetStatusUnderflow\n    fstsw ax\n    fld tbyte ptr [LegacyStatusHuge5925BC]\n    fstp qword ptr [rsp+16]\n    fwait\n    fstsw ax\nLegacySetStatusUnderflow:\n    test r9b, 010h\n    jz LegacySetStatusDivide\n    fld tbyte ptr [LegacyStatusTiny5925C8]\n    fstp qword ptr [rsp+16]\n    fwait\nLegacySetStatusDivide:\n    test r9b, 4\n    jz LegacySetStatusInexact\n    fldz\n    fld1\n    fdivrp st(1), st(0)\n    fstp st(0)\n    fwait\nLegacySetStatusInexact:\n    test r9b, 020h\n    jz LegacySetStatusDone\n    fldpi\n    fstp qword ptr [rsp+16]\n    fwait\nLegacySetStatusDone:\n    ret\nCg2dSetLegacyRawX87Status ENDP\n\n; 原54769B；88B正常展开帧承载32B调用区、原条件/剩余位/CW/借用指针与F64/S32槽。\n; 依原优先级处理8/4/1/2后再16，保原状态生产与真实分解/指数依赖。\nCg2dHandleLegacyMathException PROC FRAME\n    sub rsp, 88\n    .allocstack 88\n    .endprolog\n    mov dword ptr [rsp+32], ecx\n    mov eax, ecx\n    and eax, 01Fh\n    mov dword ptr [rsp+36], eax\n    mov qword ptr [rsp+40], rdx\n    mov dword ptr [rsp+48], r8d\n    test cl, 8\n    jz LegacyHandleCheckDivide\n    test byte ptr [rsp+48], 1\n    jz LegacyHandleCheckDivide\n    mov ecx, 1\n    call Cg2dSetLegacyRawX87Status\n    and dword ptr [rsp+36], 0FFFFFFF7h\n    jmp LegacyHandleInexact\nLegacyHandleCheckDivide:\n    test byte ptr [rsp+32], 4\n    jz LegacyHandleCheckOverflow\n    test byte ptr [rsp+48], 4\n    jz LegacyHandleCheckOverflow\n    mov ecx, 4\n    call Cg2dSetLegacyRawX87Status\n    and dword ptr [rsp+36], 0FFFFFFFBh\n    jmp LegacyHandleInexact\nLegacyHandleCheckOverflow:\n    test byte ptr [rsp+32], 1\n    jz LegacyHandleCheckUnderflow\n    test byte ptr [rsp+48], 8\n    jz LegacyHandleCheckUnderflow\n    mov ecx, 8\n    call Cg2dSetLegacyRawX87Status\n    mov eax, 0C00h\n    mov ecx, dword ptr [rsp+48]\n    and ecx, eax\n    jz LegacyHandleOverflowNearest\n    cmp ecx, 0400h\n    je LegacyHandleOverflowDown\n    cmp ecx, 0800h\n    je LegacyHandleOverflowUp\n    cmp ecx, eax\n    jne LegacyHandleOverflowDone\n    mov rcx, qword ptr [rsp+40]\n    fld qword ptr [rcx]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fld qword ptr [LegacyMaximum5923D0]\n    fnstsw ax\n    sahf\n    ja LegacyHandleOverflowTruncateReady\n    fchs\nLegacyHandleOverflowTruncateReady:\n    fstp qword ptr [rsp+56]\n    fld qword ptr [rsp+56]\n    jmp LegacyHandleOverflowPublish\nLegacyHandleOverflowUp:\n    mov rcx, qword ptr [rsp+40]\n    fld qword ptr [rcx]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    jbe LegacyHandleOverflowUpNegative\n    fld qword ptr [LegacyPowerInfinity5923C0]\n    jmp LegacyHandleOverflowUpReady\nLegacyHandleOverflowUpNegative:\n    fld qword ptr [LegacyMaximum5923D0]\n    fchs\nLegacyHandleOverflowUpReady:\n    fstp qword ptr [rsp+56]\n    fld qword ptr [rsp+56]\n    jmp LegacyHandleOverflowPublish\nLegacyHandleOverflowDown:\n    mov rcx, qword ptr [rsp+40]\n    fld qword ptr [rcx]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    jbe LegacyHandleOverflowDownNegative\n    fld qword ptr [LegacyMaximum5923D0]\n    jmp LegacyHandleOverflowDownReady\nLegacyHandleOverflowDownNegative:\n    fld qword ptr [LegacyPowerInfinity5923C0]\n    fchs\nLegacyHandleOverflowDownReady:\n    fstp qword ptr [rsp+56]\n    fld qword ptr [rsp+56]\n    jmp LegacyHandleOverflowPublish\nLegacyHandleOverflowNearest:\n    mov rcx, qword ptr [rsp+40]\n    fld qword ptr [rcx]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fld qword ptr [LegacyPowerInfinity5923C0]\n    fnstsw ax\n    sahf\n    ja LegacyHandleOverflowNearestReady\n    fchs\nLegacyHandleOverflowNearestReady:\n    fstp qword ptr [rsp+56]\n    fld qword ptr [rsp+56]\nLegacyHandleOverflowPublish:\n    fstp qword ptr [rcx]\nLegacyHandleOverflowDone:\n    and dword ptr [rsp+36], 0FFFFFFFEh\n    jmp LegacyHandleInexact\nLegacyHandleCheckUnderflow:\n    test byte ptr [rsp+32], 2\n    jz LegacyHandleInexact\n    test byte ptr [rsp+48], 010h\n    jz LegacyHandleInexact\n    mov dword ptr [rsp+52], 0\n    test byte ptr [rsp+32], 010h\n    jz LegacyHandleUnderflowSample\n    mov dword ptr [rsp+52], 1\nLegacyHandleUnderflowSample:\n    mov rax, qword ptr [rsp+40]\n    fld qword ptr [rax]\n    fstp qword ptr [rsp+56]\n    fld qword ptr [rsp+56]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    je LegacyHandleUnderflowZero\n    fld qword ptr [rsp+56]\n    fstp qword ptr [rsp+72]\n    lea rcx, [rsp+72]\n    lea rdx, [rsp+64]\n    call Cg2dDecomposeLegacyFloatX87\n    mov eax, dword ptr [rsp+64]\n    fstp qword ptr [rsp+56]\n    lea ecx, [eax-0600h]\n    cmp ecx, 0FFFFFBCEh\n    jge LegacyHandleUnderflowNormalize\n    fldz\n    mov dword ptr [rsp+52], 1\n    fstp qword ptr [rsp+56]\n    jmp LegacyHandleUnderflowPublish\nLegacyHandleUnderflowNormalize:\n    fld qword ptr [rsp+56]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    jnb LegacyHandleUnderflowNonnegative\n    mov edx, 1\n    jmp LegacyHandleUnderflowSignReady\nLegacyHandleUnderflowNonnegative:\n    xor edx, edx\nLegacyHandleUnderflowSignReady:\n    mov al, byte ptr [rsp+62]\n    and eax, 0Fh\n    or al, 010h\n    mov word ptr [rsp+62], ax\n    mov eax, 0FFFFFC03h\n    cmp ecx, eax\n    jge LegacyHandleUnderflowShiftDone\n    sub eax, ecx\nLegacyHandleUnderflowShift:\n    test byte ptr [rsp+56], 1\n    jz LegacyHandleUnderflowShiftLow\n    cmp dword ptr [rsp+52], 0\n    jne LegacyHandleUnderflowShiftLow\n    mov dword ptr [rsp+52], 1\nLegacyHandleUnderflowShiftLow:\n    shr dword ptr [rsp+56], 1\n    test byte ptr [rsp+60], 1\n    jz LegacyHandleUnderflowShiftHigh\n    or byte ptr [rsp+59], 080h\nLegacyHandleUnderflowShiftHigh:\n    shr dword ptr [rsp+60], 1\n    dec eax\n    jne LegacyHandleUnderflowShift\nLegacyHandleUnderflowShiftDone:\n    test edx, edx\n    jz LegacyHandleUnderflowPublish\n    fld qword ptr [rsp+56]\n    fchs\n    fstp qword ptr [rsp+56]\nLegacyHandleUnderflowPublish:\n    fld qword ptr [rsp+56]\n    mov rax, qword ptr [rsp+40]\n    fstp qword ptr [rax]\n    jmp LegacyHandleUnderflowStatus\nLegacyHandleUnderflowZero:\n    mov dword ptr [rsp+52], 1\nLegacyHandleUnderflowStatus:\n    cmp dword ptr [rsp+52], 0\n    je LegacyHandleUnderflowDone\n    mov ecx, 010h\n    call Cg2dSetLegacyRawX87Status\nLegacyHandleUnderflowDone:\n    and dword ptr [rsp+36], 0FFFFFFFDh\nLegacyHandleInexact:\n    test byte ptr [rsp+32], 010h\n    jz LegacyHandleDone\n    test byte ptr [rsp+48], 020h\n    jz LegacyHandleDone\n    mov ecx, 020h\n    call Cg2dSetLegacyRawX87Status\n    and dword ptr [rsp+36], 0FFFFFFEFh\nLegacyHandleDone:\n    xor eax, eax\n    cmp dword ptr [rsp+36], 0\n    sete al\n    add rsp, 88\n    ret\nCg2dHandleLegacyMathException ENDP\n\n; 原5473E8；88B原数值记录不扩宽，参数指针槽及六参调用见数学异常分派SPEC。\n; 三保存寄存器/80B正常帧承接原W32字段、借用指针与原读取/改写顺序。\nCg2dRaiseLegacyFloatingPointException PROC FRAME\n    push rbx\n    .pushreg rbx\n    push rsi\n    .pushreg rsi\n    push rdi\n    .pushreg rdi\n    sub rsp, 80\n    .allocstack 80\n    .endprolog\n    mov qword ptr [rsp+32], rcx\n    mov qword ptr [rsp+40], rdx\n    mov dword ptr [rsp+72], r8d\n    mov dword ptr [rsp+52], r9d\n    mov rax, qword ptr [rsp+144]\n    mov qword ptr [rsp+56], rax\n    mov rax, qword ptr [rsp+152]\n    mov qword ptr [rsp+64], rax\n    mov rcx, qword ptr [rsp+32]\n    xor eax, eax\n    mov [rcx+4], eax\n    mov rcx, qword ptr [rsp+32]\n    mov ebx, 1\n    mov [rcx+8], eax\n    mov rcx, qword ptr [rsp+32]\n    mov [rcx+0Ch], eax\n    mov cl, byte ptr [rsp+72]\n    test cl, 10h\n    jz LegacyRaise_54741A\n    mov rax, qword ptr [rsp+32]\n    mov dword ptr [rsp+72], 0C000008Fh\n    or [rax+4], ebx\nLegacyRaise_54741A:\n    test cl, 2\n    jz LegacyRaise_54742D\n    mov rax, qword ptr [rsp+32]\n    mov dword ptr [rsp+72], 0C0000093h\n    or dword ptr [rax+4], 2\nLegacyRaise_54742D:\n    test bl, cl\n    jz LegacyRaise_54743F\n    mov rax, qword ptr [rsp+32]\n    mov dword ptr [rsp+72], 0C0000091h\n    or dword ptr [rax+4], 4\nLegacyRaise_54743F:\n    test cl, 4\n    jz LegacyRaise_547452\n    mov rax, qword ptr [rsp+32]\n    mov dword ptr [rsp+72], 0C000008Eh\n    or dword ptr [rax+4], 8\nLegacyRaise_547452:\n    test cl, 8\n    jz LegacyRaise_547465\n    mov rax, qword ptr [rsp+32]\n    mov dword ptr [rsp+72], 0C0000090h\n    or dword ptr [rax+4], 10h\nLegacyRaise_547465:\n    mov rsi, qword ptr [rsp+40]\n    mov rax, qword ptr [rsp+32]\n    mov ecx, [rsi]\n    mov edx, [rax+8]\n    not ecx\n    and ecx, ebx\n    and edx, 0FFFFFFEFh\n    shl ecx, 4\n    or ecx, edx\n    mov edi, 2\n    mov dword ptr [rax+8], ecx\n    mov ecx, [rsi]\n    mov rax, qword ptr [rsp+32]\n    not ecx\n    mov edx, [rax+8]\n    and ecx, 4\n    shl ecx, 1\n    and edx, 0FFFFFFF7h\n    or ecx, edx\n    mov [rax+8], ecx\n    mov ecx, [rsi]\n    mov rax, qword ptr [rsp+32]\n    not ecx\n    mov edx, [rax+8]\n    shr ecx, 1\n    and ecx, 4\n    and edx, 0FFFFFFFBh\n    or ecx, edx\n    mov [rax+8], ecx\n    mov ecx, [rsi]\n    mov rax, qword ptr [rsp+32]\n    not ecx\n    mov edx, [rax+8]\n    shr ecx, 3\n    and ecx, edi\n    and edx, 0FFFFFFFDh\n    or ecx, edx\n    mov [rax+8], ecx\n    mov ecx, [rsi]\n    mov rax, qword ptr [rsp+32]\n    not ecx\n    mov edx, [rax+8]\n    shr ecx, 5\n    and ecx, ebx\n    and edx, 0FFFFFFFEh\n    or ecx, edx\n    mov [rax+8], ecx\n    call Cg2dReadLegacyRawX87Status\n    test bl, al\n    jz LegacyRaise_5474EE\n    mov rcx, qword ptr [rsp+32]\n    or dword ptr [rcx+0Ch], 10h\nLegacyRaise_5474EE:\n    test al, 4\n    jz LegacyRaise_5474F9\n    mov rcx, qword ptr [rsp+32]\n    or dword ptr [rcx+0Ch], 8\nLegacyRaise_5474F9:\n    test al, 8\n    jz LegacyRaise_547504\n    mov rcx, qword ptr [rsp+32]\n    or dword ptr [rcx+0Ch], 4\nLegacyRaise_547504:\n    test al, 10h\n    jz LegacyRaise_54750E\n    mov rcx, qword ptr [rsp+32]\n    or [rcx+0Ch], edi\nLegacyRaise_54750E:\n    test al, 20h\n    jz LegacyRaise_547518\n    mov rax, qword ptr [rsp+32]\n    or [rax+0Ch], ebx\nLegacyRaise_547518:\n    mov eax, [rsi]\n    mov ecx, 0C00h\n    and eax, ecx\n    jz LegacyRaise_547557\n    cmp eax, 400h\n    jz LegacyRaise_547549\n    cmp eax, 800h\n    jz LegacyRaise_54753D\n    cmp eax, ecx\n    jnz LegacyRaise_54755D\n    mov rax, qword ptr [rsp+32]\n    or dword ptr [rax], 3\n    jmp LegacyRaise_54755D\nLegacyRaise_54753D:\n    mov rax, qword ptr [rsp+32]\n    mov ecx, [rax]\n    and ecx, 0FFFFFFFEh\n    or ecx, edi\n    jmp LegacyRaise_547553\nLegacyRaise_547549:\n    mov rax, qword ptr [rsp+32]\n    mov ecx, [rax]\n    and ecx, 0FFFFFFFDh\n    or ecx, ebx\nLegacyRaise_547553:\n    mov [rax], ecx\n    jmp LegacyRaise_54755D\nLegacyRaise_547557:\n    mov rax, qword ptr [rsp+32]\n    and dword ptr [rax], 0FFFFFFFCh\nLegacyRaise_54755D:\n    mov eax, [rsi]\n    mov ecx, 300h\n    and eax, ecx\n    jz LegacyRaise_547588\n    cmp eax, 200h\n    jz LegacyRaise_54757B\n    cmp eax, ecx\n    jnz LegacyRaise_547595\n    mov rax, qword ptr [rsp+32]\n    and dword ptr [rax], 0FFFFFFE3h\n    jmp LegacyRaise_547595\nLegacyRaise_54757B:\n    mov rax, qword ptr [rsp+32]\n    mov ecx, [rax]\n    and ecx, 0FFFFFFE7h\n    or ecx, 4\n    jmp LegacyRaise_547593\nLegacyRaise_547588:\n    mov rax, qword ptr [rsp+32]\n    mov ecx, [rax]\n    and ecx, 0FFFFFFEBh\n    or ecx, 8\nLegacyRaise_547593:\n    mov [rax], ecx\nLegacyRaise_547595:\n    mov rax, qword ptr [rsp+32]\n    mov ecx, [rsp+52]\n    and ecx, 0FFFh\n    mov edx, [rax]\n    shl ecx, 5\n    and edx, 0FFFE001Fh\n    or ecx, edx\n    mov [rax], ecx\n    mov rax, qword ptr [rsp+32]\n    or [rax+20h], ebx\n    mov rax, qword ptr [rsp+32]\n    mov ecx, [rax+20h]\n    and ecx, 0FFFFFFE3h\n    or ecx, edi\n    mov [rax+20h], ecx\n    mov rax, qword ptr [rsp+56]\n    fld qword ptr [rax]\n    mov rax, qword ptr [rsp+32]\n    fstp qword ptr [rax+10h]\n    mov rax, qword ptr [rsp+32]\n    or [rax+50h], ebx\n    mov rax, qword ptr [rsp+32]\n    mov ecx, [rax+50h]\n    and ecx, 0FFFFFFE3h\n    or ecx, edi\n    mov rdi, qword ptr [rsp+64]\n    mov [rax+50h], ecx\n    mov rax, qword ptr [rsp+32]\n    fld qword ptr [rdi]\n    fstp qword ptr [rax+40h]\n    call Cg2dReadAndClearLegacyRawX87Status\n    lea rdx, [rsp+32]\n    mov ecx, dword ptr [rsp+72]\n    call Cg2dRaiseLegacyFloatExceptionHost\n    mov rax, qword ptr [rsp+32]\n    test byte ptr [rax+8], 10h\n    jz LegacyRaise_54760F\n    and dword ptr [rsi], 0FFFFFFFEh\nLegacyRaise_54760F:\n    test byte ptr [rax+8], 8\n    jz LegacyRaise_547618\n    and dword ptr [rsi], 0FFFFFFFBh\nLegacyRaise_547618:\n    test byte ptr [rax+8], 4\n    jz LegacyRaise_547621\n    and dword ptr [rsi], 0FFFFFFF7h\nLegacyRaise_547621:\n    test byte ptr [rax+8], 2\n    jz LegacyRaise_54762A\n    and dword ptr [rsi], 0FFFFFFEFh\nLegacyRaise_54762A:\n    test byte ptr [rax+8], bl\n    jz LegacyRaise_547632\n    and dword ptr [rsi], 0FFFFFFDFh\nLegacyRaise_547632:\n    mov ecx, [rax]\n    mov edx, 0FFFFF3FFh\n    and ecx, 3\n    sub ecx, 0\n    jz LegacyRaise_547666\n    dec ecx\n    jz LegacyRaise_54765A\n    dec ecx\n    jz LegacyRaise_547650\n    dec ecx\n    jnz LegacyRaise_547668\n    or byte ptr [rsi+1], 0Ch\n    jmp LegacyRaise_547668\nLegacyRaise_547650:\n    mov ecx, [rsi]\n    and ch, 0FBh\n    or ch, 8\n    jmp LegacyRaise_547662\nLegacyRaise_54765A:\n    mov ecx, [rsi]\n    and ch, 0F7h\n    or ch, 4\nLegacyRaise_547662:\n    mov [rsi], ecx\n    jmp LegacyRaise_547668\nLegacyRaise_547666:\n    and [rsi], edx\nLegacyRaise_547668:\n    mov ecx, [rax]\n    shr ecx, 2\n    and ecx, 7\n    sub ecx, 0\n    jz LegacyRaise_547688\n    dec ecx\n    jz LegacyRaise_54767F\n    dec ecx\n    jnz LegacyRaise_547691\n    and [rsi], edx\n    jmp LegacyRaise_547691\nLegacyRaise_54767F:\n    mov ecx, [rsi]\n    and ecx, edx\n    or ch, 2\n    jmp LegacyRaise_54768F\nLegacyRaise_547688:\n    mov ecx, [rsi]\n    and ecx, edx\n    or ch, 3\nLegacyRaise_54768F:\n    mov [rsi], ecx\nLegacyRaise_547691:\n    fld qword ptr [rax+40h]\n    fstp qword ptr [rdi]\n    add rsp, 80\n    pop rdi\n    pop rsi\n    pop rbx\n    ret\nCg2dRaiseLegacyFloatingPointException ENDP\n\n; 原5460EB；三保存寄存器/176B正常帧承接88B原参数记录与六参调用区。\n; 原保存CW仅读W16后零扩展到本调用W32，原记录只扩既有名称指针。\nCg2dProcessLegacyX87Exception PROC FRAME\n    push rbx\n    .pushreg rbx\n    push rsi\n    .pushreg rsi\n    push rdi\n    .pushreg rdi\n    sub rsp, 176\n    .allocstack 176\n    .endprolog\n    mov dword ptr [rsp+48], ecx\n    mov rsi, rdx\n    movzx ecx, word ptr [r8]\n    mov dword ptr [rsp+52], ecx\n    mov eax, [rsi]\n    dec eax\n    jz Legacy87_546130\n    dec eax\n    jz Legacy87_54612C\n    dec eax\n    jz Legacy87_546128\n    dec eax\n    jz Legacy87_546124\n    dec eax\n    jz Legacy87_546130\n    dec eax\n    dec eax\n    jz Legacy87_54611C\n    dec eax\n    jnz Legacy87_546186\n    mov ebx, 010h\n    jmp Legacy87_546132\nLegacy87_54611C:\n    mov dword ptr [rsi], 1\n    jmp Legacy87_546186\nLegacy87_546124:\n    mov ebx, 012h\n    jmp Legacy87_546132\nLegacy87_546128:\n    mov ebx, 011h\n    jmp Legacy87_546132\nLegacy87_54612C:\n    mov ebx, 4\n    jmp Legacy87_546132\nLegacy87_546130:\n    mov ebx, 8\nLegacy87_546132:\n    lea rdi, [rsi+32]\n    mov r8d, dword ptr [rsp+52]\n    mov rdx, rdi\n    mov ecx, ebx\n    call Cg2dHandleLegacyMathException\n    test eax, eax\n    jnz Legacy87_546186\n    mov eax, dword ptr [rsp+48]\n    cmp eax, 10h\n    jz Legacy87_54615D\n    cmp eax, 16h\n    jz Legacy87_54615D\n    cmp eax, 1Dh\n    jz Legacy87_54615D\n    and dword ptr [rsp+136], 0FFFFFFFEh\n    jmp Legacy87_54616F\nLegacy87_54615D:\n    mov ecx, dword ptr [rsp+136]\n    fld qword ptr [rsi+24]\n    and ecx, 0FFFFFFE3h\n    fstp qword ptr [rsp+120]\n    or ecx, 3\n    mov dword ptr [rsp+136], ecx\nLegacy87_54616F:\n    lea r10, [rsi+16]\n    mov qword ptr [rsp+40], rdi\n    mov qword ptr [rsp+32], r10\n    mov r9d, eax\n    lea rdx, [rsp+52]\n    mov r8d, ebx\n    lea rcx, [rsp+80]\n    call Cg2dRaiseLegacyFloatingPointException\nLegacy87_546186:\n    mov edx, 0FFFFh\n    mov ecx, dword ptr [rsp+52]\n    call Cg2dControlLegacyRawX87\n    cmp dword ptr [rsi], 8\n    jz Legacy87_5461AE\n    cmp dword ptr [Cg2dLegacyMathErrorCallbackGate5925B8], 0\n    jnz Legacy87_5461AE\n    mov rcx, rsi\n    call Cg2dDefaultLegacyMathError\n    test eax, eax\n    jnz Legacy87_5461B6\nLegacy87_5461AE:\n    mov ecx, dword ptr [rsi]\n    call Cg2dSetLegacyMathErrno\nLegacy87_5461B6:\n    add rsp, 176\n    pop rdi\n    pop rsi\n    pop rbx\n    ret\nCg2dProcessLegacyX87Exception ENDP\n\n; 原543390；RCX借用输入/EDX为S32类型/ST(0)为结果；双参低后高两个W32原样复制。\n; 与单参入口有同一88B展开帧，尾转真实共享段，不另复制共享体或补默认第二参数。\nCg2dStartLegacyTwoArgumentErrorX87 PROC FRAME\n    sub rsp, 88\n    .allocstack 88\n    .endprolog\n    mov qword ptr [rsp+72], rcx\n    mov dword ptr [rsp+32], edx\n    mov eax, dword ptr [rcx+24]\n    mov dword ptr [rsp+56], eax\n    mov eax, dword ptr [rcx+28]\n    mov dword ptr [rsp+60], eax\n    jmp LegacyMathErrorContinue\nCg2dStartLegacyTwoArgumentErrorX87 ENDP\n\n; 原5433A7及5433B0共享段；两入口同一88B正常帧/40B原数学记录/借用上下文槽。\n; 单参仅生产类型后落结果，不写第二F64；共享段真调原87except，重载结果后条件恢复CW。\nCg2dStartLegacyOneArgumentErrorX87 PROC FRAME\n    sub rsp, 88\n    .allocstack 88\n    .endprolog\n    mov qword ptr [rsp+72], rcx\n    mov dword ptr [rsp+32], edx\nLegacyMathErrorContinue::\n    fstp qword ptr [rsp+64]\n    mov rax, qword ptr [rcx+8]\n    mov qword ptr [rsp+40], rax\n    mov eax, dword ptr [rcx+16]\n    mov r9d, dword ptr [rcx+20]\n    mov dword ptr [rsp+48], eax\n    mov dword ptr [rsp+52], r9d\n    lea r8, [rcx]\n    lea rdx, [rsp+32]\n    mov ecx, dword ptr [rcx+4]\n    call Cg2dProcessLegacyX87Exception\n    fld qword ptr [rsp+64]\n    mov rcx, qword ptr [rsp+72]\n    cmp word ptr [rcx], 027Fh\n    jz LegacyMathErrorControlRestored\n    fldcw word ptr [rcx]\nLegacyMathErrorControlRestored:\n    add rsp, 88\n    ret\nCg2dStartLegacyOneArgumentErrorX87 ENDP\n\n; 原5434D9；RCX借用输入/ST(0)连续结果，56B正常帧保32B调用区/输入指针与原FST临时值。\n; 保原FST不弹栈、CW/状态读取、缩放比较/乘法及三个返回路径；没有新增异常保护。\nCg2dCheckLegacyRangeExitX87 PROC FRAME\n    sub rsp, 56\n    .allocstack 56\n    .endprolog\n    mov qword ptr [rsp+32], rcx\n    fst qword ptr [rsp+40]\n    mov eax, dword ptr [rsp+44]\n    and eax, 07FF00000h\n    jz LegacyRangeUnderflow\n    cmp eax, 07FF00000h\n    jz LegacyRangeOverflow\n    mov ax, word ptr [rcx]\n    cmp ax, 027Fh\n    jz LegacyRangeDone\n    and ax, 020h\n    jnz LegacyRangeRestoreControl\n    fstsw ax\n    and ax, 020h\n    jz LegacyRangeRestoreControl\n    mov eax, 8\nLegacyRangeHaveError:\n    cmp dword ptr [rcx+4], 01Dh\n    jz LegacyRangeTwoArguments\n    mov edx, eax\n    call Cg2dStartLegacyOneArgumentErrorX87\n    mov rcx, qword ptr [rsp+32]\n    mov edx, dword ptr [rcx]\n    add rsp, 56\n    ret\nLegacyRangeTwoArguments:\n    mov edx, eax\n    call Cg2dStartLegacyTwoArgumentErrorX87\n    mov rcx, qword ptr [rsp+32]\n    mov edx, dword ptr [rcx]\n    add rsp, 56\n    ret\nLegacyRangeRestoreControl:\n    fldcw word ptr [rcx]\nLegacyRangeDone:\n    mov rcx, qword ptr [rsp+32]\n    mov edx, dword ptr [rcx]\n    add rsp, 56\n    ret\nLegacyRangeUnderflow:\n    fld qword ptr [LegacyRangeScaleUp54FB3C]\n    fxch st(1)\n    fscale\n    fstp st(1)\n    fld st(0)\n    fabs\n    fcomp qword ptr [LegacyRangeMinimum54FB2C]\n    fstsw ax\n    sahf\n    mov eax, 4\n    jnb LegacyRangeHaveError\n    fmul qword ptr [LegacyZero54D5D0]\n    jmp LegacyRangeHaveError\nLegacyRangeOverflow:\n    fld qword ptr [LegacyRangeScaleDown54FB34]\n    fxch st(1)\n    fscale\n    fstp st(1)\n    fld st(0)\n    fabs\n    fcomp qword ptr [LegacyMaximum5923D0]\n    fstsw ax\n    sahf\n    mov eax, 3\n    jbe LegacyRangeHaveError\n    fmul qword ptr [LegacyPowerInfinity5923C0]\n    jmp LegacyRangeHaveError\nCg2dCheckLegacyRangeExitX87 ENDP\n\n; 原53D1F5；ST0指数被原比较/半乘法/弹栈消费，CL保原0/1/2，其他ECX位不改。\nCg2dClassifyLegacyPowerExponentX87 PROC\n    fld st(0)\n    frndint\n    fcomp st(1)\n    mov cl, 0\n    fstsw ax\n    sahf\n    jnz LegacyPowerExponentNotInteger\n    fmul qword ptr [LegacyGenericPowerHalf58F890]\n    inc cl\n    fld st(0)\n    frndint\n    fcompp\n    fstsw ax\n    sahf\n    jnz LegacyPowerExponentDone\n    inc cl\nLegacyPowerExponentDone:\n    ret\nLegacyPowerExponentNotInteger:\n    fstp st(0)\n    ret\nCg2dClassifyLegacyPowerExponentX87 ENDP\n\n; 原53D022完整130条及54348E共同出口；RCX借用两个F64，EAX为已加载Y高W32，ST0为Y。\n; 232B正常帧保32B调用区、32B原错误输入、原样本与两实参/结果及108B不解释FPU保存区。\nCg2dLegacyPowerCoreX87 PROC FRAME\n    sub rsp, 232\n    .allocstack 232\n    .endprolog\n    mov r10, qword ptr [rcx]\n    mov r11, qword ptr [rcx+8]\n    mov qword ptr [rsp+48], r10\n    mov qword ptr [rsp+56], r11\n    mov ecx, eax\n    mov dword ptr [rsp+64], ecx\n    mov dword ptr [rsp+32], eax\n    fstcw word ptr [rsp+32]\n    cmp word ptr [rsp+32], 027Fh\n    jz LegacyGenericPower_53D036\n    movzx ecx, word ptr [rsp+32]\n    call Cg2dLoadLegacyPowerControlWord\n    mov ecx, dword ptr [rsp+64]\nLegacyGenericPower_53D036:\n    and ecx, 7FF00000h\n    lea rdx, [rsp+48]\n    cmp ecx, 7FF00000h\n    jz LegacyGenericPower_53D0E9\n    call Cg2dLoadLegacyPowerOperandX87\n    jz LegacyGenericPower_53D0E5\n    test eax, 7FF00000h\n    jz LegacyGenericPower_53D158\nLegacyGenericPower_53D062:\n    mov cl, byte ptr [rsp+55]\n    and cl, 80h\n    jnz LegacyGenericPower_53D1D0\nLegacyGenericPower_53D06F:\n    fyl2x\n    call Cg2dLegacyTwoToTOSX87\n    cmp cl, 1\n    jnz LegacyGenericPower_53D07D\n    fchs\nLegacyGenericPower_53D07D:\n    cmp dword ptr [Cg2dLegacyPowerFastExitGate1085FBC], 0\n    jnz LegacyGenericPower_54348E\n    lea r10, LegacyGenericPowerName58F898\n    mov qword ptr [rsp+40], r10\n    mov dword ptr [rsp+36], 01Dh\n    lea rcx, [rsp+32]\n    call Cg2dCheckLegacyRangeExitX87\n    add rsp, 232\n    ret\nLegacyGenericPower_53D09A:\n    cmp dword ptr [Cg2dLegacyPowerFastExitGate1085FBC], 0\n    jnz LegacyGenericPower_54348E\n    lea r10, LegacyGenericPowerName58F898\n    mov qword ptr [rsp+40], r10\n    mov dword ptr [rsp+36], 01Dh\n    mov edx, eax\n    lea rcx, [rsp+32]\n    call Cg2dStartLegacyTwoArgumentErrorX87\n    mov edx, dword ptr [rsp+32]\n    add rsp, 232\n    ret\nLegacyGenericPower_53D0B9:\n    lea rdx, [rsp+48]\n    call Cg2dLoadLegacyPowerOperandX87\n    test byte ptr [rsp+62], 8\n    jnz LegacyGenericPower_53D0CC\n    inc ecx\n    jmp LegacyGenericPower_53D0FF\nLegacyGenericPower_53D0CC:\n    faddp st(1), st(0)\n    mov eax, 1\n    jmp LegacyGenericPower_53D09A\nLegacyGenericPower_53D0D5:\n    test byte ptr [rsp+54], 8\n    jnz LegacyGenericPower_53D0CC\nLegacyGenericPower_53D0DC:\n    faddp st(1), st(0)\n    mov eax, 7\n    jmp LegacyGenericPower_53D09A\nLegacyGenericPower_53D0E5:\n    xor ecx, ecx\n    jmp LegacyGenericPower_53D0FF\nLegacyGenericPower_53D0E9:\n    xor ecx, ecx\n    and eax, 0FFFFFh\n    or eax, [rsp+56]\n    jnz LegacyGenericPower_53D0B9\n    lea rdx, [rsp+48]\n    call Cg2dLoadLegacyPowerOperandX87\nLegacyGenericPower_53D0FF:\n    mov eax, [rsp+52]\n    mov edx, eax\n    and eax, 7FF00000h\n    and edx, 0FFFFFh\n    cmp eax, 7FF00000h\n    jnz LegacyGenericPower_53D11D\n    or edx, [rsp+48]\n    jnz LegacyGenericPower_53D0D5\nLegacyGenericPower_53D11D:\n    test ecx, ecx\n    jnz LegacyGenericPower_53D0DC\n    fstp qword ptr [rsp+80]\n    fstp qword ptr [rsp+88]\n    fsave [rsp+104]\n    lea rcx, [rsp+80]\n    lea rdx, [rsp+88]\n    lea r8, [rsp+96]\n    call Cg2dProcessLegacyPowerSpecial\n    frstor [rsp+104]\n    fld qword ptr [rsp+96]\n    test eax, eax\n    jz LegacyGenericPower_54348E\n    mov eax, 1\n    jmp LegacyGenericPower_53D09A\nLegacyGenericPower_53D158:\n    mov eax, [rsp+52]\n    and eax, 0FFFFFh\n    or eax, [rsp+48]\n    jnz LegacyGenericPower_53D062\n    fstp st(0)\n    mov eax, [rsp+60]\n    test eax, 7FF00000h\n    jz LegacyGenericPower_53D1B5\n    call Cg2dClassifyLegacyPowerExponentX87\n    mov ch, byte ptr [rsp+55]\n    shr ch, 7\n    test dword ptr [rsp+63], 80h\n    jz LegacyGenericPower_53D1A4\n    fld tbyte ptr [LegacyGenericPowerInfinity591FF0]\n    test ch, cl\n    jz LegacyGenericPower_53D19A\n    fchs\nLegacyGenericPower_53D19A:\n    mov eax, 2\n    jmp LegacyGenericPower_53D09A\nLegacyGenericPower_53D1A4:\n    fldz\n    test ch, cl\n    jz LegacyGenericPower_54348E\n    fchs\n    jmp LegacyGenericPower_54348E\nLegacyGenericPower_53D1B5:\n    fstp st(0)\n    and eax, 0FFFFFh\n    or eax, [rsp+56]\n    jnz LegacyGenericPower_53D1C9\n    fld1\n    jmp LegacyGenericPower_54348E\nLegacyGenericPower_53D1C9:\n    fldz\n    jmp LegacyGenericPower_54348E\nLegacyGenericPower_53D1D0:\n    fld st(1)\n    call Cg2dClassifyLegacyPowerExponentX87\n    fchs\n    test cl, cl\n    jnz LegacyGenericPower_53D06F\n    fstp st(0)\n    fstp st(0)\n    fld tbyte ptr [LegacyGenericPowerUndefined592060]\n    mov eax, 1\n    jmp LegacyGenericPower_53D09A\nLegacyGenericPower_54348E:\n    cmp word ptr [rsp+32], 027Fh\n    jz LegacyGenericPower_543499\n    fldcw word ptr [rsp+32]\nLegacyGenericPower_543499:\n    mov edx, dword ptr [rsp+32]\n    add rsp, 232\n    ret\nCg2dLegacyPowerCoreX87 ENDP\n\n; 原53D000；ST0=Y/ST1=X，保原FXCH/FSTP X/FST Y与高W32，再真调完整core。\nCg2dLegacyCIPowerX87 PROC FRAME\n    sub rsp, 56\n    .allocstack 56\n    .endprolog\n    fxch st(1)\n    fstp qword ptr [rsp+32]\n    fst qword ptr [rsp+40]\n    mov eax, dword ptr [rsp+44]\n    lea rcx, [rsp+32]\n    call Cg2dLegacyPowerCoreX87\n    add rsp, 56\n    ret\nCg2dLegacyCIPowerX87 ENDP\n\n; 原53D019普通入口的Y加载/至core顺流承接；RCX借两个F64/RDX借F64输出。\n; 只有外部Win64值桥在core返回后FSTP F64；CI/core/帮助体连续ST0不经CPP。\nCg2dComputeLegacyPower PROC FRAME\n    sub rsp, 56\n    .allocstack 56\n    .endprolog\n    mov qword ptr [rsp+32], rcx\n    mov qword ptr [rsp+40], rdx\n    lea rdx, [rcx+8]\n    call Cg2dLoadLegacyPowerOperandX87\n    mov rcx, qword ptr [rsp+32]\n    call Cg2dLegacyPowerCoreX87\n    mov rdx, qword ptr [rsp+40]\n    fstp qword ptr [rdx]\n    add rsp, 56\n    ret\nCg2dComputeLegacyPower ENDP\n\nEND\n",
+      "after": "OPTION CASEMAP:NONE\n\n.const\nALIGN 8\nLegacyDivisor54F9E8 QWORD 04147FFFF80000000h\nLegacyDividend54F9E0 QWORD 04150017EC0000000h\nLegacyThreshold54D5C0 QWORD 03FF0000000000000h\nLegacyZero54D5D0 QWORD 0\nLegacyIntegerDivisor54FB58 QWORD 04000000000000000h\nLegacyPowerInfinity5923C0 QWORD 07FF0000000000000h\nLegacyPowerUndefined5923C8 QWORD 0FFF8000000000000h\nLegacyPowerNegativeZero5923E0 QWORD 08000000000000000h\n\nLegacyMaximum5923D0 QWORD 07FEFFFFFFFFFFFFFh\nLegacyStatusHuge5925BC BYTE 00h, 00h, 00h, 00h, 00h, 00h, 00h, 080h, 010h, 044h\nLegacyStatusTiny5925C8 BYTE 01h, 00h, 00h, 00h, 00h, 00h, 00h, 080h, 00h, 030h\n\nLegacyRangeMinimum54FB2C QWORD 0010000000000000h\nLegacyRangeScaleDown54FB34 QWORD 0C098000000000000h\nLegacyRangeScaleUp54FB3C QWORD 04098000000000000h\n\nLegacyGenericPowerHalf58F890 QWORD 03FE0000000000000h\nLegacyGenericPowerInfinity591FF0 BYTE 00h, 00h, 00h, 00h, 00h, 00h, 00h, 080h, 0FFh, 07Fh\nLegacyGenericPowerUndefined592060 BYTE 00h, 00h, 00h, 00h, 00h, 00h, 00h, 0C0h, 0FFh, 0FFh\nLegacyGenericPowerName58F898 BYTE \"pow\", 0\n\nLegacyMathClass59207D BYTE 08h, 04h, 08h, 08h, 08h, 04h, 08h, 08h, 00h, 04h, 0Ch, 08h, 00h, 04h, 0Ch, 08h\n\n.code\nEXTERN Cg2dClassifyLegacySpecialFloat:PROC\nPUBLIC Cg2dClassifyLegacyFloat\nPUBLIC Cg2dClassifyLegacyInteger\nPUBLIC Cg2dProcessLegacyPowerSpecial\nPUBLIC Cg2dLoadLegacyPowerControlWord\nPUBLIC Cg2dReadLegacyRawX87Status\nPUBLIC Cg2dReadAndClearLegacyRawX87Status\nPUBLIC Cg2dControlLegacyRawX87\nPUBLIC Cg2dHandleLegacyMathException\nPUBLIC Cg2dSetLegacyRawX87Status\nPUBLIC Cg2dRaiseLegacyFloatingPointException\nPUBLIC Cg2dProcessLegacyX87Exception\nPUBLIC Cg2dStartLegacyTwoArgumentErrorX87\nPUBLIC Cg2dStartLegacyOneArgumentErrorX87\nPUBLIC Cg2dCheckLegacyRangeExitX87\nPUBLIC Cg2dComputeLegacyPower\nPUBLIC Cg2dLegacyCIPowerX87\nPUBLIC Cg2dLegacyPowerCoreX87\nPUBLIC Cg2dClassifyLegacyPowerExponentX87\nPUBLIC Cg2dUseLegacyPowerHelperX87\nPUBLIC Cg2dDispatchLegacyUnaryMathX87\nPUBLIC Cg2dDispatchLegacyBinaryMathX87\nPUBLIC Cg2dMarkLegacyMathDispatchErrorX87\nPUBLIC Cg2dLegacyMathMarkDropFirstX87\nPUBLIC Cg2dLegacyMathMarkDropSecondX87\nPUBLIC Cg2dLegacyMathReturnZeroX87\nPUBLIC Cg2dLegacyMathReturnOneX87\nPUBLIC Cg2dLegacyMathQuietUnaryNaNX87\nPUBLIC Cg2dLegacyMathQuietRightNaNX87\nPUBLIC Cg2dLegacyMathQuietEitherNaNX87\nPUBLIC Cg2dLegacyMathInvalidBinaryX87\nEXTERN Cg2dLegacyPowerFastExitGate1085FBC:DWORD\nEXTERN Cg2dRaiseLegacyFloatExceptionHost:PROC\nEXTERN Cg2dDefaultLegacyMathError:PROC\nEXTERN Cg2dSetLegacyMathErrno:PROC\nEXTERN Cg2dLegacyMathErrorCallbackGate5925B8:DWORD\nPUBLIC Cg2dReadLegacyX87Control\nPUBLIC Cg2dWriteLegacyX87Control\nPUBLIC Cg2dClearLegacyX87Exceptions\nPUBLIC Cg2dTestLegacyFdiv\nPUBLIC Cg2dLegacyFloatNonnegative\n\n; 叶函数只借用Win64参数暂存区，不改变RSP或非易失通用寄存器。\nCg2dReadLegacyX87Control PROC\n    fstcw word ptr [rsp+8]\n    movzx eax, word ptr [rsp+8]\n    ret\nCg2dReadLegacyX87Control ENDP\n\nCg2dWriteLegacyX87Control PROC\n    mov word ptr [rsp+8], cx\n    fldcw word ptr [rsp+8]\n    ret\nCg2dWriteLegacyX87Control ENDP\n\nCg2dClearLegacyX87Exceptions PROC\n    fnclex\n    ret\nCg2dClearLegacyX87Exceptions ENDP\n\n; 原53FD6E的三处F64落栈边界和比较；探测前不调整控制字。\nCg2dTestLegacyFdiv PROC\n    fld qword ptr [LegacyDivisor54F9E8]\n    fstp qword ptr [rsp+8]\n    fld qword ptr [LegacyDividend54F9E0]\n    fstp qword ptr [rsp+16]\n    fld qword ptr [rsp+16]\n    fdiv qword ptr [rsp+8]\n    fmul qword ptr [rsp+8]\n    fsubr qword ptr [rsp+16]\n    fstp qword ptr [rsp+24]\n    fld qword ptr [rsp+24]\n    fcomp qword ptr [LegacyThreshold54D5C0]\n    fnstsw ax\n    test ah, 041h\n    jnz LegacyFdivNoBug\n    mov eax, 1\n    ret\nLegacyFdivNoBug:\n    xor eax, eax\n    ret\nCg2dTestLegacyFdiv ENDP\n\n; 原53FE7D；C0置位表示小于或无序，原JB分支均返回0。\nCg2dLegacyFloatNonnegative PROC\n    fld qword ptr [rcx]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    test ah, 1\n    jnz LegacyFloatNegativeOrUnordered\n    mov eax, 1\n    ret\nLegacyFloatNegativeOrUnordered:\n    xor eax, eax\n    ret\nCg2dLegacyFloatNonnegative ENDP\n\n; 原546311；原值槽与真实x87落存槽分离，高端W32仅消费低W16。\n; Win64保留32B调用暂存区与两个F64槽；不写控制字/MXCSR或清异常。\nCg2dClassifyLegacyFloat PROC FRAME\n    sub rsp, 56\n    .allocstack 56\n    .endprolog\n    mov r8, qword ptr [rcx]\n    mov qword ptr [rsp+32], r8\n    mov eax, dword ptr [rsp+38]\n    mov ecx, 07FF0h\n    mov edx, eax\n    and edx, ecx\n    cmp dx, cx\n    jne LegacyFloatClassOrdinary\n    fld qword ptr [rsp+32]\n    fstp qword ptr [rsp+40]\n    lea rcx, [rsp+40]\n    call Cg2dClassifyLegacySpecialFloat\n    dec eax\n    jz LegacyFloatClassPositiveInfinity\n    dec eax\n    jz LegacyFloatClassNegativeInfinity\n    dec eax\n    jz LegacyFloatClassQuietNaN\n    mov eax, 1\n    jmp LegacyFloatClassDone\nLegacyFloatClassQuietNaN:\n    mov eax, 2\n    jmp LegacyFloatClassDone\nLegacyFloatClassNegativeInfinity:\n    mov eax, 4\n    jmp LegacyFloatClassDone\nLegacyFloatClassPositiveInfinity:\n    mov eax, 0200h\n    jmp LegacyFloatClassDone\nLegacyFloatClassOrdinary:\n    and eax, 08000h\n    test dx, dx\n    mov ecx, eax\n    jnz LegacyFloatClassCompareZero\n    test dword ptr [rsp+36], 0FFFFFh\n    jnz LegacyFloatClassDenormal\n    cmp dword ptr [rsp+32], 0\n    je LegacyFloatClassCompareZero\nLegacyFloatClassDenormal:\n    mov eax, ecx\n    neg eax\n    sbb eax, eax\n    and al, 090h\n    add eax, 080h\n    jmp LegacyFloatClassDone\nLegacyFloatClassCompareZero:\n    fld qword ptr [rsp+32]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    mov eax, ecx\n    jne LegacyFloatClassNormal\n    neg eax\n    sbb eax, eax\n    and al, 0E0h\n    add eax, 040h\n    jmp LegacyFloatClassDone\nLegacyFloatClassNormal:\n    neg eax\n    sbb eax, eax\n    and al, 08h\n    add eax, 0100h\nLegacyFloatClassDone:\n    add rsp, 56\n    ret\nCg2dClassifyLegacyFloat ENDP\n\n; 原5462FF；私有ASM合同为RCX借用F64、ST(0)返回，不能由CPP按Win64 F64返回调用。\n; FRNDINT沿当前x87舍入模式；原F64落存/重载保留，借用调用方8B暂存槽。\nCg2dRoundLegacyFloatX87 PROC\n    fld qword ptr [rcx]\n    frndint\n    fstp qword ptr [rsp+8]\n    fld qword ptr [rsp+8]\n    ret\nCg2dRoundLegacyFloatX87 ENDP\n\n; 原5436AC；56B展开帧保留32B调用区及原值、传参、舍入落存三个F64槽。\n; 三个CALL与原FLD/FSTP、FDIV、FCOMP/FNSTSW/SAHF顺序保持，不设额外有限值门禁。\nCg2dClassifyLegacyInteger PROC FRAME\n    sub rsp, 56\n    .allocstack 56\n    .endprolog\n    mov r8, qword ptr [rcx]\n    mov qword ptr [rsp+32], r8\n    fld qword ptr [rsp+32]\n    fstp qword ptr [rsp+40]\n    lea rcx, [rsp+40]\n    call Cg2dClassifyLegacyFloat\n    test al, 090h\n    jnz LegacyIntegerClassNoninteger\n    fld qword ptr [rsp+32]\n    fstp qword ptr [rsp+40]\n    lea rcx, [rsp+40]\n    call Cg2dRoundLegacyFloatX87\n    fstp qword ptr [rsp+48]\n    fld qword ptr [rsp+48]\n    fcomp qword ptr [rsp+32]\n    fnstsw ax\n    sahf\n    jne LegacyIntegerClassNoninteger\n    fld qword ptr [rsp+32]\n    fdiv qword ptr [LegacyIntegerDivisor54FB58]\n    fstp qword ptr [rsp+32]\n    fld qword ptr [rsp+32]\n    fstp qword ptr [rsp+40]\n    lea rcx, [rsp+40]\n    call Cg2dRoundLegacyFloatX87\n    fcomp qword ptr [rsp+32]\n    fnstsw ax\n    sahf\n    jne LegacyIntegerClassOdd\n    mov eax, 2\n    jmp LegacyIntegerClassDone\nLegacyIntegerClassOdd:\n    mov eax, 1\n    jmp LegacyIntegerClassDone\nLegacyIntegerClassNoninteger:\n    xor eax, eax\nLegacyIntegerClassDone:\n    add rsp, 56\n    ret\nCg2dClassifyLegacyInteger ENDP\n\n; 原54357C；72B正常展开帧承载32B调用区、四F64槽与一个x64结果指针。\n; 原0返回同时包含已写出与未写出分支，不增默认结果或有限值保护。\nCg2dProcessLegacyPowerSpecial PROC FRAME\n    sub rsp, 72\n    .allocstack 72\n    .endprolog\n    mov r9, qword ptr [rcx]\n    mov qword ptr [rsp+32], r9\n    mov r9, qword ptr [rdx]\n    mov qword ptr [rsp+40], r9\n    mov qword ptr [rsp+64], r8\n    fld qword ptr [rsp+32]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fld qword ptr [rsp+32]\n    xor edx, edx\n    fnstsw ax\n    sahf\n    jnb LegacyPowerSpecialMagnitudeReady\n    fchs\nLegacyPowerSpecialMagnitudeReady:\n    fstp qword ptr [rsp+48]\n    mov eax, 07FF00000h\n    mov ecx, 0FFF00000h\n    cmp dword ptr [rsp+44], eax\n    jne LegacyPowerSpecialNegativeExponentInfinity\n    cmp dword ptr [rsp+40], edx\n    jne LegacyPowerSpecialPositiveBaseInfinity\n    fld qword ptr [rsp+48]\n    fcomp qword ptr [LegacyThreshold54D5C0]\n    fnstsw ax\n    sahf\n    ja LegacyPowerSpecialPositiveInfinity\n    fld qword ptr [rsp+48]\n    fcomp qword ptr [LegacyThreshold54D5C0]\n    fnstsw ax\n    sahf\n    jb LegacyPowerSpecialPositiveZero\nLegacyPowerSpecialUndefined:\n    fld qword ptr [LegacyPowerUndefined5923C8]\n    mov rax, qword ptr [rsp+64]\n    fstp qword ptr [rax]\n    mov eax, 1\n    jmp LegacyPowerSpecialDone\nLegacyPowerSpecialNegativeExponentInfinity:\n    cmp dword ptr [rsp+44], ecx\n    jne LegacyPowerSpecialPositiveBaseInfinity\n    cmp dword ptr [rsp+40], edx\n    jne LegacyPowerSpecialPositiveBaseInfinity\n    fld qword ptr [rsp+48]\n    fcomp qword ptr [LegacyThreshold54D5C0]\n    fnstsw ax\n    sahf\n    ja LegacyPowerSpecialPositiveZero\n    fld qword ptr [rsp+48]\n    fcomp qword ptr [LegacyThreshold54D5C0]\n    fnstsw ax\n    sahf\n    jnb LegacyPowerSpecialUndefined\n    jmp LegacyPowerSpecialPositiveInfinity\nLegacyPowerSpecialPositiveBaseInfinity:\n    cmp dword ptr [rsp+36], eax\n    jne LegacyPowerSpecialNegativeBaseInfinity\n    cmp dword ptr [rsp+32], edx\n    jne LegacyPowerSpecialNoOutput\n    fld qword ptr [rsp+40]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    jbe LegacyPowerSpecialPositiveBaseNonpositiveExponent\nLegacyPowerSpecialPositiveInfinity:\n    fld qword ptr [LegacyPowerInfinity5923C0]\n    jmp LegacyPowerSpecialWriteResult\nLegacyPowerSpecialPositiveBaseNonpositiveExponent:\n    fld qword ptr [rsp+40]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    jnb LegacyPowerSpecialOne\nLegacyPowerSpecialPositiveZero:\n    fldz\n    jmp LegacyPowerSpecialWriteResult\nLegacyPowerSpecialNegativeBaseInfinity:\n    cmp dword ptr [rsp+36], ecx\n    jne LegacyPowerSpecialNoOutput\n    cmp dword ptr [rsp+32], edx\n    jne LegacyPowerSpecialNoOutput\n    fld qword ptr [rsp+40]\n    fstp qword ptr [rsp+56]\n    lea rcx, [rsp+56]\n    call Cg2dClassifyLegacyInteger\n    fld qword ptr [rsp+40]\n    fcomp qword ptr [LegacyZero54D5D0]\n    mov ecx, eax\n    fnstsw ax\n    sahf\n    jbe LegacyPowerSpecialNegativeBaseNonpositiveExponent\n    fld qword ptr [LegacyPowerInfinity5923C0]\n    cmp ecx, 1\n    jne LegacyPowerSpecialSignedInfinityReady\n    fchs\nLegacyPowerSpecialSignedInfinityReady:\n    fstp qword ptr [rsp+40]\n    fld qword ptr [rsp+40]\n    jmp LegacyPowerSpecialWriteResult\nLegacyPowerSpecialNegativeBaseNonpositiveExponent:\n    fld qword ptr [rsp+40]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    jnb LegacyPowerSpecialOne\n    cmp ecx, 1\n    jne LegacyPowerSpecialNegativeBasePositiveZero\n    fld qword ptr [LegacyPowerNegativeZero5923E0]\n    jmp LegacyPowerSpecialSignedZeroReady\nLegacyPowerSpecialNegativeBasePositiveZero:\n    fldz\nLegacyPowerSpecialSignedZeroReady:\n    fstp qword ptr [rsp+40]\n    fld qword ptr [rsp+40]\n    jmp LegacyPowerSpecialWriteResult\nLegacyPowerSpecialOne:\n    fld1\nLegacyPowerSpecialWriteResult:\n    mov rax, qword ptr [rsp+64]\n    fstp qword ptr [rax]\nLegacyPowerSpecialNoOutput:\n    xor eax, eax\nLegacyPowerSpecialDone:\n    add rsp, 72\n    ret\nCg2dProcessLegacyPowerSpecial ENDP\n\n; 原5433F0；私有ASM间ST(0)输入/输出，保全部十条x87操作与当前控制字。\n; 不将连续扩展精度结果落成F64，不通过CPP double返回ABI调用。\nCg2dLegacyTwoToTOSX87 PROC\n    fld st(0)\n    frndint\n    fsubr st(1), st(0)\n    fxch st(1)\n    fchs\n    f2xm1\n    fld1\n    faddp st(1), st(0)\n    fscale\n    fstp st(1)\n    ret\nCg2dLegacyTwoToTOSX87 ENDP\n\n; 原543405；Win64 CX承载保存的W16控制字，只有原PC两位参与计算。\n; 只借用调用暂存槽加载原临时CW，原载体的额外W16不复制为业务值。\nCg2dLoadLegacyPowerControlWord PROC\n    movzx edx, cx\n    and edx, 0300h\n    or edx, 07Fh\n    mov word ptr [rsp+8], dx\n    fldcw word ptr [rsp+8]\n    ret\nCg2dLoadLegacyPowerControlWord ENDP\n\n; 原543435；私有ASM间RDX借用F64输入，ST(0)/EAX/FLAGS返回。\n; 普通分支保指数CMP标志；特殊分支原三个重叠W32写出10B F80后TEST EAX,0。\nCg2dLoadLegacyPowerOperandX87 PROC\n    mov eax, dword ptr [rdx+4]\n    and eax, 07FF00000h\n    cmp eax, 07FF00000h\n    je LegacyPowerOperandSpecial\n    fld qword ptr [rdx]\n    ret\nLegacyPowerOperandSpecial:\n    mov eax, dword ptr [rdx+4]\n    or eax, 07FFF0000h\n    mov dword ptr [rsp+14], eax\n    mov eax, dword ptr [rdx+4]\n    mov ecx, dword ptr [rdx]\n    shld eax, ecx, 0Bh\n    shl ecx, 0Bh\n    mov dword ptr [rsp+12], eax\n    mov dword ptr [rsp+8], ecx\n    fld tbyte ptr [rsp+8]\n    test eax, 0\n    mov eax, dword ptr [rdx+4]\n    ret\nCg2dLoadLegacyPowerOperandX87 ENDP\n\n; 原5478DB __statfp；等待式FSTSW后按原S16符号扩展返回S32。\nCg2dReadLegacyRawX87Status PROC\n    fstsw word ptr [rsp+8]\n    movsx eax, word ptr [rsp+8]\n    ret\nCg2dReadLegacyRawX87Status ENDP\n\n; 原5478E9 __clrfp；返回清除前状态，FNSTSW/FNCLEX顺序保持。\nCg2dReadAndClearLegacyRawX87Status PROC\n    fnstsw word ptr [rsp+8]\n    fnclex\n    movsx eax, word ptr [rsp+8]\n    ret\nCg2dReadAndClearLegacyRawX87Status ENDP\n\n; 原5478F8 __ctrlfp；保存W16旧CW，原W32合并后只加载低W16并返回旧CW。\n; 原额外高W16不填值/不当业务输入；两个槽借Win64调用暂存区。\nCg2dControlLegacyRawX87 PROC\n    fstcw word ptr [rsp+8]\n    mov eax, edx\n    mov r8d, eax\n    and eax, ecx\n    not r8d\n    and r8d, dword ptr [rsp+8]\n    or r8d, eax\n    mov dword ptr [rsp+16], r8d\n    fldcw word ptr [rsp+16]\n    movsx eax, word ptr [rsp+8]\n    ret\nCg2dControlLegacyRawX87 ENDP\n\n; 原5461BB；RCX借用F64/EDX为S32指数，ST(0)返回；原F64落存与低W16改写保留。\n; 高端W32额外W16不填值/业务消费，AND CX而非AND ECX后只写AX。\nCg2dSetLegacyFloatExponentX87 PROC\n    mov r8, qword ptr [rcx]\n    mov qword ptr [rsp+8], r8\n    mov eax, edx\n    mov ecx, dword ptr [rsp+14]\n    fld qword ptr [rsp+8]\n    add eax, 03FEh\n    and cx, 0800Fh\n    fstp qword ptr [rsp+16]\n    shl eax, 4\n    or eax, ecx\n    mov word ptr [rsp+22], ax\n    fld qword ptr [rsp+16]\n    ret\nCg2dSetLegacyFloatExponentX87 ENDP\n\n; 原54623E；RCX借用F64输入/RDX借用S32指数输出，ST(0)返回。\n; 72B正常展开帧保32B调用区、输入/结果/输出指针/指数与真实落存参数槽。\nCg2dDecomposeLegacyFloatX87 PROC FRAME\n    sub rsp, 72\n    .allocstack 72\n    .endprolog\n    mov r8, qword ptr [rcx]\n    mov qword ptr [rsp+32], r8\n    mov qword ptr [rsp+48], rdx\n    fld qword ptr [rsp+32]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    jne LegacyDecomposeNonzero\n    fldz\n    mov dword ptr [rsp+56], 0\n    fstp qword ptr [rsp+40]\n    jmp LegacyDecomposePublish\nLegacyDecomposeNonzero:\n    xor ecx, ecx\n    test word ptr [rsp+38], 07FF0h\n    jnz LegacyDecomposeNormal\n    test dword ptr [rsp+36], 0FFFFFh\n    jnz LegacyDecomposeDenormal\n    cmp dword ptr [rsp+32], ecx\n    je LegacyDecomposeNormal\nLegacyDecomposeDenormal:\n    fld qword ptr [rsp+32]\n    fcomp qword ptr [LegacyZero54D5D0]\n    mov dword ptr [rsp+56], 0FFFFFC03h\n    fnstsw ax\n    sahf\n    jnb LegacyDecomposeNonnegative\n    mov eax, 1\n    jmp LegacyDecomposeShiftCheck\nLegacyDecomposeNonnegative:\n    xor eax, eax\nLegacyDecomposeShiftCheck:\n    test byte ptr [rsp+38], 010h\n    jnz LegacyDecomposeShiftDone\n    shl dword ptr [rsp+36], 1\n    test byte ptr [rsp+35], 080h\n    jz LegacyDecomposeShiftLow\n    or dword ptr [rsp+36], 1\nLegacyDecomposeShiftLow:\n    shl dword ptr [rsp+32], 1\n    dec dword ptr [rsp+56]\n    jmp LegacyDecomposeShiftCheck\nLegacyDecomposeShiftDone:\n    and word ptr [rsp+38], 0FFEFh\n    cmp eax, ecx\n    je LegacyDecomposeSignReady\n    or byte ptr [rsp+39], 080h\nLegacyDecomposeSignReady:\n    fld qword ptr [rsp+32]\n    fstp qword ptr [rsp+64]\n    lea rcx, [rsp+64]\n    xor edx, edx\n    call Cg2dSetLegacyFloatExponentX87\n    fstp qword ptr [rsp+40]\n    jmp LegacyDecomposePublish\nLegacyDecomposeNormal:\n    fld qword ptr [rsp+32]\n    fstp qword ptr [rsp+64]\n    lea rcx, [rsp+64]\n    xor edx, edx\n    call Cg2dSetLegacyFloatExponentX87\n    mov eax, dword ptr [rsp+38]\n    fstp qword ptr [rsp+40]\n    shr eax, 4\n    and ax, 07FFh\n    movsx eax, ax\n    sub eax, 03FEh\n    mov dword ptr [rsp+56], eax\nLegacyDecomposePublish:\n    mov rcx, qword ptr [rsp+48]\n    fld qword ptr [rsp+40]\n    mov eax, dword ptr [rsp+56]\n    mov dword ptr [rcx], eax\n    add rsp, 72\n    ret\nCg2dDecomposeLegacyFloatX87 ENDP\n\n; 原54791B；保原低BYTE样本及1/8/10h/4/20h的x87状态生产顺序。\n; 仅原FISTP/FSTP/FDIVRP/FLDPI与等待操作，不增额外注入/清除或MXCSR动作。\nCg2dSetLegacyRawX87Status PROC\n    mov r9b, cl\n    test r9b, 1\n    jz LegacySetStatusOverflow\n    fld tbyte ptr [LegacyStatusHuge5925BC]\n    fistp dword ptr [rsp+8]\n    fwait\nLegacySetStatusOverflow:\n    test r9b, 8\n    jz LegacySetStatusUnderflow\n    fstsw ax\n    fld tbyte ptr [LegacyStatusHuge5925BC]\n    fstp qword ptr [rsp+16]\n    fwait\n    fstsw ax\nLegacySetStatusUnderflow:\n    test r9b, 010h\n    jz LegacySetStatusDivide\n    fld tbyte ptr [LegacyStatusTiny5925C8]\n    fstp qword ptr [rsp+16]\n    fwait\nLegacySetStatusDivide:\n    test r9b, 4\n    jz LegacySetStatusInexact\n    fldz\n    fld1\n    fdivrp st(1), st(0)\n    fstp st(0)\n    fwait\nLegacySetStatusInexact:\n    test r9b, 020h\n    jz LegacySetStatusDone\n    fldpi\n    fstp qword ptr [rsp+16]\n    fwait\nLegacySetStatusDone:\n    ret\nCg2dSetLegacyRawX87Status ENDP\n\n; 原54769B；88B正常展开帧承载32B调用区、原条件/剩余位/CW/借用指针与F64/S32槽。\n; 依原优先级处理8/4/1/2后再16，保原状态生产与真实分解/指数依赖。\nCg2dHandleLegacyMathException PROC FRAME\n    sub rsp, 88\n    .allocstack 88\n    .endprolog\n    mov dword ptr [rsp+32], ecx\n    mov eax, ecx\n    and eax, 01Fh\n    mov dword ptr [rsp+36], eax\n    mov qword ptr [rsp+40], rdx\n    mov dword ptr [rsp+48], r8d\n    test cl, 8\n    jz LegacyHandleCheckDivide\n    test byte ptr [rsp+48], 1\n    jz LegacyHandleCheckDivide\n    mov ecx, 1\n    call Cg2dSetLegacyRawX87Status\n    and dword ptr [rsp+36], 0FFFFFFF7h\n    jmp LegacyHandleInexact\nLegacyHandleCheckDivide:\n    test byte ptr [rsp+32], 4\n    jz LegacyHandleCheckOverflow\n    test byte ptr [rsp+48], 4\n    jz LegacyHandleCheckOverflow\n    mov ecx, 4\n    call Cg2dSetLegacyRawX87Status\n    and dword ptr [rsp+36], 0FFFFFFFBh\n    jmp LegacyHandleInexact\nLegacyHandleCheckOverflow:\n    test byte ptr [rsp+32], 1\n    jz LegacyHandleCheckUnderflow\n    test byte ptr [rsp+48], 8\n    jz LegacyHandleCheckUnderflow\n    mov ecx, 8\n    call Cg2dSetLegacyRawX87Status\n    mov eax, 0C00h\n    mov ecx, dword ptr [rsp+48]\n    and ecx, eax\n    jz LegacyHandleOverflowNearest\n    cmp ecx, 0400h\n    je LegacyHandleOverflowDown\n    cmp ecx, 0800h\n    je LegacyHandleOverflowUp\n    cmp ecx, eax\n    jne LegacyHandleOverflowDone\n    mov rcx, qword ptr [rsp+40]\n    fld qword ptr [rcx]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fld qword ptr [LegacyMaximum5923D0]\n    fnstsw ax\n    sahf\n    ja LegacyHandleOverflowTruncateReady\n    fchs\nLegacyHandleOverflowTruncateReady:\n    fstp qword ptr [rsp+56]\n    fld qword ptr [rsp+56]\n    jmp LegacyHandleOverflowPublish\nLegacyHandleOverflowUp:\n    mov rcx, qword ptr [rsp+40]\n    fld qword ptr [rcx]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    jbe LegacyHandleOverflowUpNegative\n    fld qword ptr [LegacyPowerInfinity5923C0]\n    jmp LegacyHandleOverflowUpReady\nLegacyHandleOverflowUpNegative:\n    fld qword ptr [LegacyMaximum5923D0]\n    fchs\nLegacyHandleOverflowUpReady:\n    fstp qword ptr [rsp+56]\n    fld qword ptr [rsp+56]\n    jmp LegacyHandleOverflowPublish\nLegacyHandleOverflowDown:\n    mov rcx, qword ptr [rsp+40]\n    fld qword ptr [rcx]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    jbe LegacyHandleOverflowDownNegative\n    fld qword ptr [LegacyMaximum5923D0]\n    jmp LegacyHandleOverflowDownReady\nLegacyHandleOverflowDownNegative:\n    fld qword ptr [LegacyPowerInfinity5923C0]\n    fchs\nLegacyHandleOverflowDownReady:\n    fstp qword ptr [rsp+56]\n    fld qword ptr [rsp+56]\n    jmp LegacyHandleOverflowPublish\nLegacyHandleOverflowNearest:\n    mov rcx, qword ptr [rsp+40]\n    fld qword ptr [rcx]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fld qword ptr [LegacyPowerInfinity5923C0]\n    fnstsw ax\n    sahf\n    ja LegacyHandleOverflowNearestReady\n    fchs\nLegacyHandleOverflowNearestReady:\n    fstp qword ptr [rsp+56]\n    fld qword ptr [rsp+56]\nLegacyHandleOverflowPublish:\n    fstp qword ptr [rcx]\nLegacyHandleOverflowDone:\n    and dword ptr [rsp+36], 0FFFFFFFEh\n    jmp LegacyHandleInexact\nLegacyHandleCheckUnderflow:\n    test byte ptr [rsp+32], 2\n    jz LegacyHandleInexact\n    test byte ptr [rsp+48], 010h\n    jz LegacyHandleInexact\n    mov dword ptr [rsp+52], 0\n    test byte ptr [rsp+32], 010h\n    jz LegacyHandleUnderflowSample\n    mov dword ptr [rsp+52], 1\nLegacyHandleUnderflowSample:\n    mov rax, qword ptr [rsp+40]\n    fld qword ptr [rax]\n    fstp qword ptr [rsp+56]\n    fld qword ptr [rsp+56]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    je LegacyHandleUnderflowZero\n    fld qword ptr [rsp+56]\n    fstp qword ptr [rsp+72]\n    lea rcx, [rsp+72]\n    lea rdx, [rsp+64]\n    call Cg2dDecomposeLegacyFloatX87\n    mov eax, dword ptr [rsp+64]\n    fstp qword ptr [rsp+56]\n    lea ecx, [eax-0600h]\n    cmp ecx, 0FFFFFBCEh\n    jge LegacyHandleUnderflowNormalize\n    fldz\n    mov dword ptr [rsp+52], 1\n    fstp qword ptr [rsp+56]\n    jmp LegacyHandleUnderflowPublish\nLegacyHandleUnderflowNormalize:\n    fld qword ptr [rsp+56]\n    fcomp qword ptr [LegacyZero54D5D0]\n    fnstsw ax\n    sahf\n    jnb LegacyHandleUnderflowNonnegative\n    mov edx, 1\n    jmp LegacyHandleUnderflowSignReady\nLegacyHandleUnderflowNonnegative:\n    xor edx, edx\nLegacyHandleUnderflowSignReady:\n    mov al, byte ptr [rsp+62]\n    and eax, 0Fh\n    or al, 010h\n    mov word ptr [rsp+62], ax\n    mov eax, 0FFFFFC03h\n    cmp ecx, eax\n    jge LegacyHandleUnderflowShiftDone\n    sub eax, ecx\nLegacyHandleUnderflowShift:\n    test byte ptr [rsp+56], 1\n    jz LegacyHandleUnderflowShiftLow\n    cmp dword ptr [rsp+52], 0\n    jne LegacyHandleUnderflowShiftLow\n    mov dword ptr [rsp+52], 1\nLegacyHandleUnderflowShiftLow:\n    shr dword ptr [rsp+56], 1\n    test byte ptr [rsp+60], 1\n    jz LegacyHandleUnderflowShiftHigh\n    or byte ptr [rsp+59], 080h\nLegacyHandleUnderflowShiftHigh:\n    shr dword ptr [rsp+60], 1\n    dec eax\n    jne LegacyHandleUnderflowShift\nLegacyHandleUnderflowShiftDone:\n    test edx, edx\n    jz LegacyHandleUnderflowPublish\n    fld qword ptr [rsp+56]\n    fchs\n    fstp qword ptr [rsp+56]\nLegacyHandleUnderflowPublish:\n    fld qword ptr [rsp+56]\n    mov rax, qword ptr [rsp+40]\n    fstp qword ptr [rax]\n    jmp LegacyHandleUnderflowStatus\nLegacyHandleUnderflowZero:\n    mov dword ptr [rsp+52], 1\nLegacyHandleUnderflowStatus:\n    cmp dword ptr [rsp+52], 0\n    je LegacyHandleUnderflowDone\n    mov ecx, 010h\n    call Cg2dSetLegacyRawX87Status\nLegacyHandleUnderflowDone:\n    and dword ptr [rsp+36], 0FFFFFFFDh\nLegacyHandleInexact:\n    test byte ptr [rsp+32], 010h\n    jz LegacyHandleDone\n    test byte ptr [rsp+48], 020h\n    jz LegacyHandleDone\n    mov ecx, 020h\n    call Cg2dSetLegacyRawX87Status\n    and dword ptr [rsp+36], 0FFFFFFEFh\nLegacyHandleDone:\n    xor eax, eax\n    cmp dword ptr [rsp+36], 0\n    sete al\n    add rsp, 88\n    ret\nCg2dHandleLegacyMathException ENDP\n\n; 原5473E8；88B原数值记录不扩宽，参数指针槽及六参调用见数学异常分派SPEC。\n; 三保存寄存器/80B正常帧承接原W32字段、借用指针与原读取/改写顺序。\nCg2dRaiseLegacyFloatingPointException PROC FRAME\n    push rbx\n    .pushreg rbx\n    push rsi\n    .pushreg rsi\n    push rdi\n    .pushreg rdi\n    sub rsp, 80\n    .allocstack 80\n    .endprolog\n    mov qword ptr [rsp+32], rcx\n    mov qword ptr [rsp+40], rdx\n    mov dword ptr [rsp+72], r8d\n    mov dword ptr [rsp+52], r9d\n    mov rax, qword ptr [rsp+144]\n    mov qword ptr [rsp+56], rax\n    mov rax, qword ptr [rsp+152]\n    mov qword ptr [rsp+64], rax\n    mov rcx, qword ptr [rsp+32]\n    xor eax, eax\n    mov [rcx+4], eax\n    mov rcx, qword ptr [rsp+32]\n    mov ebx, 1\n    mov [rcx+8], eax\n    mov rcx, qword ptr [rsp+32]\n    mov [rcx+0Ch], eax\n    mov cl, byte ptr [rsp+72]\n    test cl, 10h\n    jz LegacyRaise_54741A\n    mov rax, qword ptr [rsp+32]\n    mov dword ptr [rsp+72], 0C000008Fh\n    or [rax+4], ebx\nLegacyRaise_54741A:\n    test cl, 2\n    jz LegacyRaise_54742D\n    mov rax, qword ptr [rsp+32]\n    mov dword ptr [rsp+72], 0C0000093h\n    or dword ptr [rax+4], 2\nLegacyRaise_54742D:\n    test bl, cl\n    jz LegacyRaise_54743F\n    mov rax, qword ptr [rsp+32]\n    mov dword ptr [rsp+72], 0C0000091h\n    or dword ptr [rax+4], 4\nLegacyRaise_54743F:\n    test cl, 4\n    jz LegacyRaise_547452\n    mov rax, qword ptr [rsp+32]\n    mov dword ptr [rsp+72], 0C000008Eh\n    or dword ptr [rax+4], 8\nLegacyRaise_547452:\n    test cl, 8\n    jz LegacyRaise_547465\n    mov rax, qword ptr [rsp+32]\n    mov dword ptr [rsp+72], 0C0000090h\n    or dword ptr [rax+4], 10h\nLegacyRaise_547465:\n    mov rsi, qword ptr [rsp+40]\n    mov rax, qword ptr [rsp+32]\n    mov ecx, [rsi]\n    mov edx, [rax+8]\n    not ecx\n    and ecx, ebx\n    and edx, 0FFFFFFEFh\n    shl ecx, 4\n    or ecx, edx\n    mov edi, 2\n    mov dword ptr [rax+8], ecx\n    mov ecx, [rsi]\n    mov rax, qword ptr [rsp+32]\n    not ecx\n    mov edx, [rax+8]\n    and ecx, 4\n    shl ecx, 1\n    and edx, 0FFFFFFF7h\n    or ecx, edx\n    mov [rax+8], ecx\n    mov ecx, [rsi]\n    mov rax, qword ptr [rsp+32]\n    not ecx\n    mov edx, [rax+8]\n    shr ecx, 1\n    and ecx, 4\n    and edx, 0FFFFFFFBh\n    or ecx, edx\n    mov [rax+8], ecx\n    mov ecx, [rsi]\n    mov rax, qword ptr [rsp+32]\n    not ecx\n    mov edx, [rax+8]\n    shr ecx, 3\n    and ecx, edi\n    and edx, 0FFFFFFFDh\n    or ecx, edx\n    mov [rax+8], ecx\n    mov ecx, [rsi]\n    mov rax, qword ptr [rsp+32]\n    not ecx\n    mov edx, [rax+8]\n    shr ecx, 5\n    and ecx, ebx\n    and edx, 0FFFFFFFEh\n    or ecx, edx\n    mov [rax+8], ecx\n    call Cg2dReadLegacyRawX87Status\n    test bl, al\n    jz LegacyRaise_5474EE\n    mov rcx, qword ptr [rsp+32]\n    or dword ptr [rcx+0Ch], 10h\nLegacyRaise_5474EE:\n    test al, 4\n    jz LegacyRaise_5474F9\n    mov rcx, qword ptr [rsp+32]\n    or dword ptr [rcx+0Ch], 8\nLegacyRaise_5474F9:\n    test al, 8\n    jz LegacyRaise_547504\n    mov rcx, qword ptr [rsp+32]\n    or dword ptr [rcx+0Ch], 4\nLegacyRaise_547504:\n    test al, 10h\n    jz LegacyRaise_54750E\n    mov rcx, qword ptr [rsp+32]\n    or [rcx+0Ch], edi\nLegacyRaise_54750E:\n    test al, 20h\n    jz LegacyRaise_547518\n    mov rax, qword ptr [rsp+32]\n    or [rax+0Ch], ebx\nLegacyRaise_547518:\n    mov eax, [rsi]\n    mov ecx, 0C00h\n    and eax, ecx\n    jz LegacyRaise_547557\n    cmp eax, 400h\n    jz LegacyRaise_547549\n    cmp eax, 800h\n    jz LegacyRaise_54753D\n    cmp eax, ecx\n    jnz LegacyRaise_54755D\n    mov rax, qword ptr [rsp+32]\n    or dword ptr [rax], 3\n    jmp LegacyRaise_54755D\nLegacyRaise_54753D:\n    mov rax, qword ptr [rsp+32]\n    mov ecx, [rax]\n    and ecx, 0FFFFFFFEh\n    or ecx, edi\n    jmp LegacyRaise_547553\nLegacyRaise_547549:\n    mov rax, qword ptr [rsp+32]\n    mov ecx, [rax]\n    and ecx, 0FFFFFFFDh\n    or ecx, ebx\nLegacyRaise_547553:\n    mov [rax], ecx\n    jmp LegacyRaise_54755D\nLegacyRaise_547557:\n    mov rax, qword ptr [rsp+32]\n    and dword ptr [rax], 0FFFFFFFCh\nLegacyRaise_54755D:\n    mov eax, [rsi]\n    mov ecx, 300h\n    and eax, ecx\n    jz LegacyRaise_547588\n    cmp eax, 200h\n    jz LegacyRaise_54757B\n    cmp eax, ecx\n    jnz LegacyRaise_547595\n    mov rax, qword ptr [rsp+32]\n    and dword ptr [rax], 0FFFFFFE3h\n    jmp LegacyRaise_547595\nLegacyRaise_54757B:\n    mov rax, qword ptr [rsp+32]\n    mov ecx, [rax]\n    and ecx, 0FFFFFFE7h\n    or ecx, 4\n    jmp LegacyRaise_547593\nLegacyRaise_547588:\n    mov rax, qword ptr [rsp+32]\n    mov ecx, [rax]\n    and ecx, 0FFFFFFEBh\n    or ecx, 8\nLegacyRaise_547593:\n    mov [rax], ecx\nLegacyRaise_547595:\n    mov rax, qword ptr [rsp+32]\n    mov ecx, [rsp+52]\n    and ecx, 0FFFh\n    mov edx, [rax]\n    shl ecx, 5\n    and edx, 0FFFE001Fh\n    or ecx, edx\n    mov [rax], ecx\n    mov rax, qword ptr [rsp+32]\n    or [rax+20h], ebx\n    mov rax, qword ptr [rsp+32]\n    mov ecx, [rax+20h]\n    and ecx, 0FFFFFFE3h\n    or ecx, edi\n    mov [rax+20h], ecx\n    mov rax, qword ptr [rsp+56]\n    fld qword ptr [rax]\n    mov rax, qword ptr [rsp+32]\n    fstp qword ptr [rax+10h]\n    mov rax, qword ptr [rsp+32]\n    or [rax+50h], ebx\n    mov rax, qword ptr [rsp+32]\n    mov ecx, [rax+50h]\n    and ecx, 0FFFFFFE3h\n    or ecx, edi\n    mov rdi, qword ptr [rsp+64]\n    mov [rax+50h], ecx\n    mov rax, qword ptr [rsp+32]\n    fld qword ptr [rdi]\n    fstp qword ptr [rax+40h]\n    call Cg2dReadAndClearLegacyRawX87Status\n    lea rdx, [rsp+32]\n    mov ecx, dword ptr [rsp+72]\n    call Cg2dRaiseLegacyFloatExceptionHost\n    mov rax, qword ptr [rsp+32]\n    test byte ptr [rax+8], 10h\n    jz LegacyRaise_54760F\n    and dword ptr [rsi], 0FFFFFFFEh\nLegacyRaise_54760F:\n    test byte ptr [rax+8], 8\n    jz LegacyRaise_547618\n    and dword ptr [rsi], 0FFFFFFFBh\nLegacyRaise_547618:\n    test byte ptr [rax+8], 4\n    jz LegacyRaise_547621\n    and dword ptr [rsi], 0FFFFFFF7h\nLegacyRaise_547621:\n    test byte ptr [rax+8], 2\n    jz LegacyRaise_54762A\n    and dword ptr [rsi], 0FFFFFFEFh\nLegacyRaise_54762A:\n    test byte ptr [rax+8], bl\n    jz LegacyRaise_547632\n    and dword ptr [rsi], 0FFFFFFDFh\nLegacyRaise_547632:\n    mov ecx, [rax]\n    mov edx, 0FFFFF3FFh\n    and ecx, 3\n    sub ecx, 0\n    jz LegacyRaise_547666\n    dec ecx\n    jz LegacyRaise_54765A\n    dec ecx\n    jz LegacyRaise_547650\n    dec ecx\n    jnz LegacyRaise_547668\n    or byte ptr [rsi+1], 0Ch\n    jmp LegacyRaise_547668\nLegacyRaise_547650:\n    mov ecx, [rsi]\n    and ch, 0FBh\n    or ch, 8\n    jmp LegacyRaise_547662\nLegacyRaise_54765A:\n    mov ecx, [rsi]\n    and ch, 0F7h\n    or ch, 4\nLegacyRaise_547662:\n    mov [rsi], ecx\n    jmp LegacyRaise_547668\nLegacyRaise_547666:\n    and [rsi], edx\nLegacyRaise_547668:\n    mov ecx, [rax]\n    shr ecx, 2\n    and ecx, 7\n    sub ecx, 0\n    jz LegacyRaise_547688\n    dec ecx\n    jz LegacyRaise_54767F\n    dec ecx\n    jnz LegacyRaise_547691\n    and [rsi], edx\n    jmp LegacyRaise_547691\nLegacyRaise_54767F:\n    mov ecx, [rsi]\n    and ecx, edx\n    or ch, 2\n    jmp LegacyRaise_54768F\nLegacyRaise_547688:\n    mov ecx, [rsi]\n    and ecx, edx\n    or ch, 3\nLegacyRaise_54768F:\n    mov [rsi], ecx\nLegacyRaise_547691:\n    fld qword ptr [rax+40h]\n    fstp qword ptr [rdi]\n    add rsp, 80\n    pop rdi\n    pop rsi\n    pop rbx\n    ret\nCg2dRaiseLegacyFloatingPointException ENDP\n\n; 原5460EB；三保存寄存器/176B正常帧承接88B原参数记录与六参调用区。\n; 原保存CW仅读W16后零扩展到本调用W32，原记录只扩既有名称指针。\nCg2dProcessLegacyX87Exception PROC FRAME\n    push rbx\n    .pushreg rbx\n    push rsi\n    .pushreg rsi\n    push rdi\n    .pushreg rdi\n    sub rsp, 176\n    .allocstack 176\n    .endprolog\n    mov dword ptr [rsp+48], ecx\n    mov rsi, rdx\n    movzx ecx, word ptr [r8]\n    mov dword ptr [rsp+52], ecx\n    mov eax, [rsi]\n    dec eax\n    jz Legacy87_546130\n    dec eax\n    jz Legacy87_54612C\n    dec eax\n    jz Legacy87_546128\n    dec eax\n    jz Legacy87_546124\n    dec eax\n    jz Legacy87_546130\n    dec eax\n    dec eax\n    jz Legacy87_54611C\n    dec eax\n    jnz Legacy87_546186\n    mov ebx, 010h\n    jmp Legacy87_546132\nLegacy87_54611C:\n    mov dword ptr [rsi], 1\n    jmp Legacy87_546186\nLegacy87_546124:\n    mov ebx, 012h\n    jmp Legacy87_546132\nLegacy87_546128:\n    mov ebx, 011h\n    jmp Legacy87_546132\nLegacy87_54612C:\n    mov ebx, 4\n    jmp Legacy87_546132\nLegacy87_546130:\n    mov ebx, 8\nLegacy87_546132:\n    lea rdi, [rsi+32]\n    mov r8d, dword ptr [rsp+52]\n    mov rdx, rdi\n    mov ecx, ebx\n    call Cg2dHandleLegacyMathException\n    test eax, eax\n    jnz Legacy87_546186\n    mov eax, dword ptr [rsp+48]\n    cmp eax, 10h\n    jz Legacy87_54615D\n    cmp eax, 16h\n    jz Legacy87_54615D\n    cmp eax, 1Dh\n    jz Legacy87_54615D\n    and dword ptr [rsp+136], 0FFFFFFFEh\n    jmp Legacy87_54616F\nLegacy87_54615D:\n    mov ecx, dword ptr [rsp+136]\n    fld qword ptr [rsi+24]\n    and ecx, 0FFFFFFE3h\n    fstp qword ptr [rsp+120]\n    or ecx, 3\n    mov dword ptr [rsp+136], ecx\nLegacy87_54616F:\n    lea r10, [rsi+16]\n    mov qword ptr [rsp+40], rdi\n    mov qword ptr [rsp+32], r10\n    mov r9d, eax\n    lea rdx, [rsp+52]\n    mov r8d, ebx\n    lea rcx, [rsp+80]\n    call Cg2dRaiseLegacyFloatingPointException\nLegacy87_546186:\n    mov edx, 0FFFFh\n    mov ecx, dword ptr [rsp+52]\n    call Cg2dControlLegacyRawX87\n    cmp dword ptr [rsi], 8\n    jz Legacy87_5461AE\n    cmp dword ptr [Cg2dLegacyMathErrorCallbackGate5925B8], 0\n    jnz Legacy87_5461AE\n    mov rcx, rsi\n    call Cg2dDefaultLegacyMathError\n    test eax, eax\n    jnz Legacy87_5461B6\nLegacy87_5461AE:\n    mov ecx, dword ptr [rsi]\n    call Cg2dSetLegacyMathErrno\nLegacy87_5461B6:\n    add rsp, 176\n    pop rdi\n    pop rsi\n    pop rbx\n    ret\nCg2dProcessLegacyX87Exception ENDP\n\n; 原543390；RCX借用输入/EDX为S32类型/ST(0)为结果；双参低后高两个W32原样复制。\n; 与单参入口有同一88B展开帧，尾转真实共享段，不另复制共享体或补默认第二参数。\nCg2dStartLegacyTwoArgumentErrorX87 PROC FRAME\n    sub rsp, 88\n    .allocstack 88\n    .endprolog\n    mov qword ptr [rsp+72], rcx\n    mov dword ptr [rsp+32], edx\n    mov eax, dword ptr [rcx+24]\n    mov dword ptr [rsp+56], eax\n    mov eax, dword ptr [rcx+28]\n    mov dword ptr [rsp+60], eax\n    jmp LegacyMathErrorContinue\nCg2dStartLegacyTwoArgumentErrorX87 ENDP\n\n; 原5433A7及5433B0共享段；两入口同一88B正常帧/40B原数学记录/借用上下文槽。\n; 单参仅生产类型后落结果，不写第二F64；共享段真调原87except，重载结果后条件恢复CW。\nCg2dStartLegacyOneArgumentErrorX87 PROC FRAME\n    sub rsp, 88\n    .allocstack 88\n    .endprolog\n    mov qword ptr [rsp+72], rcx\n    mov dword ptr [rsp+32], edx\nLegacyMathErrorContinue::\n    fstp qword ptr [rsp+64]\n    mov rax, qword ptr [rcx+8]\n    mov qword ptr [rsp+40], rax\n    mov eax, dword ptr [rcx+16]\n    mov r9d, dword ptr [rcx+20]\n    mov dword ptr [rsp+48], eax\n    mov dword ptr [rsp+52], r9d\n    lea r8, [rcx]\n    lea rdx, [rsp+32]\n    mov ecx, dword ptr [rcx+4]\n    call Cg2dProcessLegacyX87Exception\n    fld qword ptr [rsp+64]\n    mov rcx, qword ptr [rsp+72]\n    cmp word ptr [rcx], 027Fh\n    jz LegacyMathErrorControlRestored\n    fldcw word ptr [rcx]\nLegacyMathErrorControlRestored:\n    add rsp, 88\n    ret\nCg2dStartLegacyOneArgumentErrorX87 ENDP\n\n; 原5434D9；RCX借用输入/ST(0)连续结果，56B正常帧保32B调用区/输入指针与原FST临时值。\n; 保原FST不弹栈、CW/状态读取、缩放比较/乘法及三个返回路径；没有新增异常保护。\nCg2dCheckLegacyRangeExitX87 PROC FRAME\n    sub rsp, 56\n    .allocstack 56\n    .endprolog\n    mov qword ptr [rsp+32], rcx\n    fst qword ptr [rsp+40]\n    mov eax, dword ptr [rsp+44]\n    and eax, 07FF00000h\n    jz LegacyRangeUnderflow\n    cmp eax, 07FF00000h\n    jz LegacyRangeOverflow\n    mov ax, word ptr [rcx]\n    cmp ax, 027Fh\n    jz LegacyRangeDone\n    and ax, 020h\n    jnz LegacyRangeRestoreControl\n    fstsw ax\n    and ax, 020h\n    jz LegacyRangeRestoreControl\n    mov eax, 8\nLegacyRangeHaveError:\n    cmp dword ptr [rcx+4], 01Dh\n    jz LegacyRangeTwoArguments\n    mov edx, eax\n    call Cg2dStartLegacyOneArgumentErrorX87\n    mov rcx, qword ptr [rsp+32]\n    mov edx, dword ptr [rcx]\n    add rsp, 56\n    ret\nLegacyRangeTwoArguments:\n    mov edx, eax\n    call Cg2dStartLegacyTwoArgumentErrorX87\n    mov rcx, qword ptr [rsp+32]\n    mov edx, dword ptr [rcx]\n    add rsp, 56\n    ret\nLegacyRangeRestoreControl:\n    fldcw word ptr [rcx]\nLegacyRangeDone:\n    mov rcx, qword ptr [rsp+32]\n    mov edx, dword ptr [rcx]\n    add rsp, 56\n    ret\nLegacyRangeUnderflow:\n    fld qword ptr [LegacyRangeScaleUp54FB3C]\n    fxch st(1)\n    fscale\n    fstp st(1)\n    fld st(0)\n    fabs\n    fcomp qword ptr [LegacyRangeMinimum54FB2C]\n    fstsw ax\n    sahf\n    mov eax, 4\n    jnb LegacyRangeHaveError\n    fmul qword ptr [LegacyZero54D5D0]\n    jmp LegacyRangeHaveError\nLegacyRangeOverflow:\n    fld qword ptr [LegacyRangeScaleDown54FB34]\n    fxch st(1)\n    fscale\n    fstp st(1)\n    fld st(0)\n    fabs\n    fcomp qword ptr [LegacyMaximum5923D0]\n    fstsw ax\n    sahf\n    mov eax, 3\n    jbe LegacyRangeHaveError\n    fmul qword ptr [LegacyPowerInfinity5923C0]\n    jmp LegacyRangeHaveError\nCg2dCheckLegacyRangeExitX87 ENDP\n\n; 原53D1F5；ST0指数被原比较/半乘法/弹栈消费，CL保原0/1/2，其他ECX位不改。\nCg2dClassifyLegacyPowerExponentX87 PROC\n    fld st(0)\n    frndint\n    fcomp st(1)\n    mov cl, 0\n    fstsw ax\n    sahf\n    jnz LegacyPowerExponentNotInteger\n    fmul qword ptr [LegacyGenericPowerHalf58F890]\n    inc cl\n    fld st(0)\n    frndint\n    fcompp\n    fstsw ax\n    sahf\n    jnz LegacyPowerExponentDone\n    inc cl\nLegacyPowerExponentDone:\n    ret\nLegacyPowerExponentNotInteger:\n    fstp st(0)\n    ret\nCg2dClassifyLegacyPowerExponentX87 ENDP\n\n; 原53D022完整130条及54348E共同出口；RCX借用两个F64，EAX为已加载Y高W32，ST0为Y。\n; 232B正常帧保32B调用区、32B原错误输入、原样本与两实参/结果及108B不解释FPU保存区。\nCg2dLegacyPowerCoreX87 PROC FRAME\n    sub rsp, 232\n    .allocstack 232\n    .endprolog\n    mov r10, qword ptr [rcx]\n    mov r11, qword ptr [rcx+8]\n    mov qword ptr [rsp+48], r10\n    mov qword ptr [rsp+56], r11\n    mov ecx, eax\n    mov dword ptr [rsp+64], ecx\n    mov dword ptr [rsp+32], eax\n    fstcw word ptr [rsp+32]\n    cmp word ptr [rsp+32], 027Fh\n    jz LegacyGenericPower_53D036\n    movzx ecx, word ptr [rsp+32]\n    call Cg2dLoadLegacyPowerControlWord\n    mov ecx, dword ptr [rsp+64]\nLegacyGenericPower_53D036:\n    and ecx, 7FF00000h\n    lea rdx, [rsp+48]\n    cmp ecx, 7FF00000h\n    jz LegacyGenericPower_53D0E9\n    call Cg2dLoadLegacyPowerOperandX87\n    jz LegacyGenericPower_53D0E5\n    test eax, 7FF00000h\n    jz LegacyGenericPower_53D158\nLegacyGenericPower_53D062:\n    mov cl, byte ptr [rsp+55]\n    and cl, 80h\n    jnz LegacyGenericPower_53D1D0\nLegacyGenericPower_53D06F:\n    fyl2x\n    call Cg2dLegacyTwoToTOSX87\n    cmp cl, 1\n    jnz LegacyGenericPower_53D07D\n    fchs\nLegacyGenericPower_53D07D:\n    cmp dword ptr [Cg2dLegacyPowerFastExitGate1085FBC], 0\n    jnz LegacyGenericPower_54348E\n    lea r10, LegacyGenericPowerName58F898\n    mov qword ptr [rsp+40], r10\n    mov dword ptr [rsp+36], 01Dh\n    lea rcx, [rsp+32]\n    call Cg2dCheckLegacyRangeExitX87\n    add rsp, 232\n    ret\nLegacyGenericPower_53D09A:\n    cmp dword ptr [Cg2dLegacyPowerFastExitGate1085FBC], 0\n    jnz LegacyGenericPower_54348E\n    lea r10, LegacyGenericPowerName58F898\n    mov qword ptr [rsp+40], r10\n    mov dword ptr [rsp+36], 01Dh\n    mov edx, eax\n    lea rcx, [rsp+32]\n    call Cg2dStartLegacyTwoArgumentErrorX87\n    mov edx, dword ptr [rsp+32]\n    add rsp, 232\n    ret\nLegacyGenericPower_53D0B9:\n    lea rdx, [rsp+48]\n    call Cg2dLoadLegacyPowerOperandX87\n    test byte ptr [rsp+62], 8\n    jnz LegacyGenericPower_53D0CC\n    inc ecx\n    jmp LegacyGenericPower_53D0FF\nLegacyGenericPower_53D0CC:\n    faddp st(1), st(0)\n    mov eax, 1\n    jmp LegacyGenericPower_53D09A\nLegacyGenericPower_53D0D5:\n    test byte ptr [rsp+54], 8\n    jnz LegacyGenericPower_53D0CC\nLegacyGenericPower_53D0DC:\n    faddp st(1), st(0)\n    mov eax, 7\n    jmp LegacyGenericPower_53D09A\nLegacyGenericPower_53D0E5:\n    xor ecx, ecx\n    jmp LegacyGenericPower_53D0FF\nLegacyGenericPower_53D0E9:\n    xor ecx, ecx\n    and eax, 0FFFFFh\n    or eax, [rsp+56]\n    jnz LegacyGenericPower_53D0B9\n    lea rdx, [rsp+48]\n    call Cg2dLoadLegacyPowerOperandX87\nLegacyGenericPower_53D0FF:\n    mov eax, [rsp+52]\n    mov edx, eax\n    and eax, 7FF00000h\n    and edx, 0FFFFFh\n    cmp eax, 7FF00000h\n    jnz LegacyGenericPower_53D11D\n    or edx, [rsp+48]\n    jnz LegacyGenericPower_53D0D5\nLegacyGenericPower_53D11D:\n    test ecx, ecx\n    jnz LegacyGenericPower_53D0DC\n    fstp qword ptr [rsp+80]\n    fstp qword ptr [rsp+88]\n    fsave [rsp+104]\n    lea rcx, [rsp+80]\n    lea rdx, [rsp+88]\n    lea r8, [rsp+96]\n    call Cg2dProcessLegacyPowerSpecial\n    frstor [rsp+104]\n    fld qword ptr [rsp+96]\n    test eax, eax\n    jz LegacyGenericPower_54348E\n    mov eax, 1\n    jmp LegacyGenericPower_53D09A\nLegacyGenericPower_53D158:\n    mov eax, [rsp+52]\n    and eax, 0FFFFFh\n    or eax, [rsp+48]\n    jnz LegacyGenericPower_53D062\n    fstp st(0)\n    mov eax, [rsp+60]\n    test eax, 7FF00000h\n    jz LegacyGenericPower_53D1B5\n    call Cg2dClassifyLegacyPowerExponentX87\n    mov ch, byte ptr [rsp+55]\n    shr ch, 7\n    test dword ptr [rsp+63], 80h\n    jz LegacyGenericPower_53D1A4\n    fld tbyte ptr [LegacyGenericPowerInfinity591FF0]\n    test ch, cl\n    jz LegacyGenericPower_53D19A\n    fchs\nLegacyGenericPower_53D19A:\n    mov eax, 2\n    jmp LegacyGenericPower_53D09A\nLegacyGenericPower_53D1A4:\n    fldz\n    test ch, cl\n    jz LegacyGenericPower_54348E\n    fchs\n    jmp LegacyGenericPower_54348E\nLegacyGenericPower_53D1B5:\n    fstp st(0)\n    and eax, 0FFFFFh\n    or eax, [rsp+56]\n    jnz LegacyGenericPower_53D1C9\n    fld1\n    jmp LegacyGenericPower_54348E\nLegacyGenericPower_53D1C9:\n    fldz\n    jmp LegacyGenericPower_54348E\nLegacyGenericPower_53D1D0:\n    fld st(1)\n    call Cg2dClassifyLegacyPowerExponentX87\n    fchs\n    test cl, cl\n    jnz LegacyGenericPower_53D06F\n    fstp st(0)\n    fstp st(0)\n    fld tbyte ptr [LegacyGenericPowerUndefined592060]\n    mov eax, 1\n    jmp LegacyGenericPower_53D09A\nLegacyGenericPower_54348E:\n    cmp word ptr [rsp+32], 027Fh\n    jz LegacyGenericPower_543499\n    fldcw word ptr [rsp+32]\nLegacyGenericPower_543499:\n    mov edx, dword ptr [rsp+32]\n    add rsp, 232\n    ret\nCg2dLegacyPowerCoreX87 ENDP\n\n; 原53D000；ST0=Y/ST1=X，保原FXCH/FSTP X/FST Y与高W32，再真调完整core。\nCg2dLegacyCIPowerX87 PROC FRAME\n    sub rsp, 56\n    .allocstack 56\n    .endprolog\n    fxch st(1)\n    fstp qword ptr [rsp+32]\n    fst qword ptr [rsp+40]\n    mov eax, dword ptr [rsp+44]\n    lea rcx, [rsp+32]\n    call Cg2dLegacyPowerCoreX87\n    add rsp, 56\n    ret\nCg2dLegacyCIPowerX87 ENDP\n\n; 原53D019普通入口的Y加载/至core顺流承接；RCX借两个F64/RDX借F64输出。\n; 只有外部Win64值桥在core返回后FSTP F64；CI/core/帮助体连续ST0不经CPP。\nCg2dComputeLegacyPower PROC FRAME\n    sub rsp, 56\n    .allocstack 56\n    .endprolog\n    mov qword ptr [rsp+32], rcx\n    mov qword ptr [rsp+40], rdx\n    lea rdx, [rcx+8]\n    call Cg2dLoadLegacyPowerOperandX87\n    mov rcx, qword ptr [rsp+32]\n    call Cg2dLegacyPowerCoreX87\n    mov rdx, qword ptr [rsp+40]\n    fstp qword ptr [rdx]\n    add rsp, 56\n    ret\nCg2dComputeLegacyPower ENDP\n\n; 原543185幂帮助入口；正常216B帧分隔调用区、ctx指针/两F64实参/结果及108B保存区。\n; 216B帧与原无解释环境，保实际ECX数值出口到context，LEA释放不改原返回标志。\nCg2dUseLegacyPowerHelperX87 PROC FRAME\n    sub rsp, 216\n    .allocstack 216\n    .endprolog\n    mov qword ptr [rsp+32], rcx\n    fstp qword ptr [rsp+40]\n    fstp qword ptr [rsp+48]\n    fsave [rsp+64]\n    lea rcx, [rsp+48]\n    lea rdx, [rsp+40]\n    lea r8, [rsp+56]\n    call Cg2dProcessLegacyPowerSpecial\n    frstor [rsp+64]\n    fld qword ptr [rsp+56]\n    mov r9, qword ptr [rsp+32]\n    mov dword ptr [r9+28], ecx\n    test eax, eax\n    jz LegacyDispatchPowerNoError\n    mov rcx, r9\n    call Cg2dMarkLegacyMathDispatchErrorX87\nLegacyDispatchPowerNoError:\n    lea rsp, [rsp+216]\n    ret\nCg2dUseLegacyPowerHelperX87 ENDP\n\n; 原5431C0：RCX借context/RDX借4目标描述符，原ECX样本来自context+28。\nCg2dDispatchLegacyUnaryMathX87 PROC FRAME\n    push rbx\n    .pushreg rbx\n    sub rsp, 48\n    .allocstack 48\n    .endprolog\n    mov qword ptr [rsp+32], rcx\n    mov qword ptr [rsp+40], rdx\n    mov r9, rcx\n    mov ecx, dword ptr [r9+28]\n    cmp byte ptr [rdx+14], 5\n    jnz LegacyDispatchUnaryDefaultControl\n    mov bx, word ptr [r9]\n    or bh, 2\n    and bh, 0FEh\n    mov bl, 03Fh\n    jmp LegacyDispatchUnaryControlReady\nLegacyDispatchUnaryDefaultControl:\n    mov bx, 0133Fh\nLegacyDispatchUnaryControlReady:\n    mov word ptr [r9+2], bx\n    fldcw word ptr [r9+2]\n    lea rbx, LegacyMathClass59207D\n    fxam\n    mov qword ptr [r9+16], rdx\n    fstsw word ptr [r9+4]\n    mov byte ptr [r9+24], 0\n    fwait\n    mov cl, byte ptr [r9+5]\n    shl cl, 1\n    sar cl, 1\n    rol cl, 1\n    mov al, cl\n    and al, 0Fh\n    xlatb\n    movsx eax, al\n    and ecx, 0404h\n    mov dword ptr [r9+28], ecx\n    mov rbx, rdx\n    movsxd r10, eax\n    sar r10, 2\n    shl r10, 3\n    add rbx, r10\n    add rbx, 16\n    mov rcx, r9\n    call qword ptr [rbx]\n    mov r9, qword ptr [rsp+32]\n    mov ecx, dword ptr [r9+28]\n    lea rsp, [rsp+48]\n    pop rbx\n    ret\nCg2dDispatchLegacyUnaryMathX87 ENDP\n\n; 原543227：RCX借context/RDX借16目标描述符，原ECX样本来自context+28。\nCg2dDispatchLegacyBinaryMathX87 PROC FRAME\n    push rbx\n    .pushreg rbx\n    sub rsp, 48\n    .allocstack 48\n    .endprolog\n    mov qword ptr [rsp+32], rcx\n    mov qword ptr [rsp+40], rdx\n    mov r9, rcx\n    mov ecx, dword ptr [r9+28]\n    cmp byte ptr [rdx+14], 5\n    jnz LegacyDispatchBinaryDefaultControl\n    mov bx, word ptr [r9]\n    or bh, 2\n    and bh, 0FEh\n    mov bl, 03Fh\n    jmp LegacyDispatchBinaryControlReady\nLegacyDispatchBinaryDefaultControl:\n    mov bx, 0133Fh\nLegacyDispatchBinaryControlReady:\n    mov word ptr [r9+2], bx\n    fldcw word ptr [r9+2]\n    lea rbx, LegacyMathClass59207D\n    fxam\n    mov qword ptr [r9+16], rdx\n    fstsw word ptr [r9+4]\n    mov byte ptr [r9+24], 0\n    fxch st(1)\n    mov cl, byte ptr [r9+5]\n    fxam\n    fstsw word ptr [r9+4]\n    fxch st(1)\n    mov ch, byte ptr [r9+5]\n    shl ch, 1\n    sar ch, 1\n    rol ch, 1\n    mov al, ch\n    and al, 0Fh\n    xlatb\n    mov ah, al\n    shl cl, 1\n    sar cl, 1\n    rol cl, 1\n    mov al, cl\n    and al, 0Fh\n    xlatb\n    shl ah, 1\n    shl ah, 1\n    or al, ah\n    movsx eax, al\n    and ecx, 0404h\n    mov dword ptr [r9+28], ecx\n    mov rbx, rdx\n    movsxd r10, eax\n    sar r10, 2\n    shl r10, 3\n    add rbx, r10\n    add rbx, 16\n    mov rcx, r9\n    call qword ptr [rbx]\n    mov r9, qword ptr [rsp+32]\n    mov ecx, dword ptr [r9+28]\n    lea rsp, [rsp+48]\n    pop rbx\n    ret\nCg2dDispatchLegacyBinaryMathX87 ENDP\n\n; 原543379/543380；原错误BYTE置1、OR CL,CL返回标志，无新默认成功。\nCg2dMarkLegacyMathDispatchErrorX87 PROC\n    mov r9, rcx\n    mov byte ptr [r9+24], 1\n    mov ecx, dword ptr [r9+28]\n    or cl, cl\n    ret\nCg2dMarkLegacyMathDispatchErrorX87 ENDP\n\n; 原5432B3/5432BD；保存同一借用context，原Mark调用后原序丢一个ST值。\nCg2dLegacyMathMarkDropFirstX87 PROC FRAME\n    sub rsp, 40\n    .allocstack 40\n    .endprolog\n    call Cg2dMarkLegacyMathDispatchErrorX87\n    fxch st(1)\n    fstp st(0)\n    lea rsp, [rsp+40]\n    ret\nCg2dLegacyMathMarkDropFirstX87 ENDP\n\nCg2dLegacyMathMarkDropSecondX87 PROC FRAME\n    sub rsp, 40\n    .allocstack 40\n    .endprolog\n    call Cg2dMarkLegacyMathDispatchErrorX87\n    fstp st(0)\n    lea rsp, [rsp+40]\n    ret\nCg2dLegacyMathMarkDropSecondX87 ENDP\n\n; 原5432C4/5432CB，保两个真实FSTP后FLDZ或FLD1，不将输入保成原值。\nCg2dLegacyMathReturnZeroX87 PROC\n    fstp st(0)\n    fstp st(0)\n    fldz\n    ret\nCg2dLegacyMathReturnZeroX87 ENDP\n\nCg2dLegacyMathReturnOneX87 PROC\n    fstp st(0)\n    fstp st(0)\n    fld1\n    ret\nCg2dLegacyMathReturnOneX87 ENDP\n\n; 原5432D2，T80实际落存/重载与第七BYTE quiet位保；原FADD一保持。\nCg2dLegacyMathQuietUnaryNaNX87 PROC\n    mov r9, rcx\n    fstp tbyte ptr [r9+6]\n    fld tbyte ptr [r9+6]\n    test byte ptr [r9+13], 040h\n    jz LegacyDispatchUnarySignalNaN\n    mov byte ptr [r9+24], 7\n    mov ecx, dword ptr [r9+28]\n    ret\nLegacyDispatchUnarySignalNaN:\n    mov byte ptr [r9+24], 1\n    fadd qword ptr [LegacyThreshold54D5C0]\n    mov ecx, dword ptr [r9+28]\n    ret\nCg2dLegacyMathQuietUnaryNaNX87 ENDP\n\n; 原5432FD；交换后检查原T80，第七BYTE取样，再原FADDP归并。\nCg2dLegacyMathQuietRightNaNX87 PROC\n    mov r9, rcx\n    fxch st(1)\n    fstp tbyte ptr [r9+6]\n    fld tbyte ptr [r9+6]\n    test byte ptr [r9+13], 040h\n    jz LegacyDispatchRightSignalNaN\n    mov byte ptr [r9+24], 7\n    jmp LegacyDispatchRightNaNAdd\nLegacyDispatchRightSignalNaN:\n    mov byte ptr [r9+24], 1\nLegacyDispatchRightNaNAdd:\n    faddp st(1), st(0)\n    mov ecx, dword ptr [r9+28]\n    ret\nCg2dLegacyMathQuietRightNaNX87 ENDP\n\n; 原543327；依原序检查两个T80 quiet位并写1/7后FADDP，不替宿主NaN规则。\nCg2dLegacyMathQuietEitherNaNX87 PROC\n    mov r9, rcx\n    fstp tbyte ptr [r9+6]\n    fld tbyte ptr [r9+6]\n    test byte ptr [r9+13], 040h\n    jz LegacyDispatchEitherSignalNaN\n    fxch st(1)\n    fstp tbyte ptr [r9+6]\n    fld tbyte ptr [r9+6]\n    test byte ptr [r9+13], 040h\n    jz LegacyDispatchEitherSignalNaN\n    mov byte ptr [r9+24], 7\n    jmp LegacyDispatchEitherNaNAdd\nLegacyDispatchEitherSignalNaN:\n    mov byte ptr [r9+24], 1\nLegacyDispatchEitherNaNAdd:\n    faddp st(1), st(0)\n    mov ecx, dword ptr [r9+28]\n    ret\nCg2dLegacyMathQuietEitherNaNX87 ENDP\n\n; 原543366..543383；两弹栈/原T80未定义值，原signed BYTE>0只绕写1，末OR CL,CL。\nCg2dLegacyMathInvalidBinaryX87 PROC\n    mov r9, rcx\n    fstp st(0)\n    fstp st(0)\n    fld tbyte ptr [LegacyGenericPowerUndefined592060]\n    cmp byte ptr [r9+24], 0\n    jg LegacyDispatchInvalidTypeReady\n    mov byte ptr [r9+24], 1\nLegacyDispatchInvalidTypeReady:\n    mov ecx, dword ptr [r9+28]\n    or cl, cl\n    ret\nCg2dLegacyMathInvalidBinaryX87 ENDP\n\nEND\n"
+    }
+  ]
+}

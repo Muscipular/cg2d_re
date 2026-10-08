@@ -321,7 +321,8 @@
         "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-baseline",
         "doc/cg2d_math_record_range_spec.md#math-record-range-baseline",
         "doc/cg2d_power_generic_body_spec.md#power-generic-baseline",
-        "doc/cg2d_power_application_wiring_spec.md#power-app-baseline"
+        "doc/cg2d_power_application_wiring_spec.md#power-app-baseline",
+        "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-baseline"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -499,7 +500,8 @@
         "F:001433A7",
         "F:001434D9",
         "F:0013D019",
-        "F:0013D1F5"
+        "F:0013D1F5",
+        "F:00143185"
       ],
       "closure_task_ids": [
         "C01",
@@ -550,7 +552,8 @@
         "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-decision",
         "doc/cg2d_math_record_range_spec.md#math-record-range-decision",
         "doc/cg2d_power_generic_body_spec.md#power-generic-decision",
-        "doc/cg2d_power_application_wiring_spec.md#power-app-decision"
+        "doc/cg2d_power_application_wiring_spec.md#power-app-decision",
+        "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -591,7 +594,8 @@
         "BWI01开发原5473E8异常参数生产/系统分派与5460EB真实87except父，两完整352条899B/六页、七direct七callee/一IAT、59跳两RET/两CALL入向。三现文件七追加：五CPP/两ASM七本体、五C桥及一个原5925B8共享owner，初值真实2694H、旧errno单owner不复制。88B原W32记录/三个24B单元和选择性第二F64、原位映射/掩码及未生产字节保持；原系统RaiseException接同一原生指针槽、返回重读/选择性CW改写与x87结果回写，原FFFFF3FFH掩码不按宿主修正。原类型分派/七真实CRT依赖与系统调用、W16保存CW到局部W32、尾ctrlfp/matherr/errno和S32返回保。三保存寄存器/80B及176B正常展开帧与六参只拓指针，不加保护/捕获或故障样例。两新原新/F、CRT171限定I-S，定位155/CRT余27；上游记录/范围出口与pow/FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
         "BWJ01开发原543390双参/5433A7单参与共享5433B0、5434D9范围出口，三完整86条246B/三页、三direct三callee/零indirect、12跳四RET、四CALL一尾入向及共享尾/顺流。三现文件五追加：CPP六布局断言/HPP借用32B输入与三ASM本体，零CPP本体/新桥/mutable owner。双参低高W32复制后尾共享、单参不写第二F64，同一40B记录/88B共享展开帧真实接87except并保x87结果落存重载/条件FLDCW。范围56B正常帧保FST不弹ST0、原CW/等待状态与三返回，六原常量/FSCALE-比较-FMUL及8/4/3类型和1DH分参保持；原W32控制字载体不补高W16，范围三EDX完整返回。全局共享标签明确声明，仅拓名称/借用指针，不增保护或故障样例。三新原新/F、CRT174限定I-S，定位152/CRT余24；generic pow/完整分派及FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
         "BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。",
-        "BWL01将46F38D/46F43A两已证地图CI窗口经现spawn/除数接口接完整一般CI/core与全部真实依赖。两原窗42条148B/四CALL，保FLD1.25→FILD signedLevel-1→CI→连续ST0幅值/回退/除法/原I64截断低S32消费。两现文件五改动，一已有ASM本体替换/零新本体或F/owner；72B正常帧保32B调用区、S32/三CW/原生幅值指针和I64结果，跨CALL保存重读指针，不拿EDX原CW载体当地址。撤固定域FYL2X/TwoToTOS内联，真实CI EXTERN/call接入同startup库；现PC53/控制字尾恢复、Cpp两spawn的字段门槛/零divisor/RNG/记录后消费及通用提供者/CMake保持。六既有映射/F当前关系由内联改真实传递调用，前态与MFA/BPJ/BPM/BWF/BWK历史可追；MAP129/CRT176与F999/全部数量/定位150及CRT余22保持，两域四限定I-S。共享CRT分派/未知父与全应用生命周期、机器ABI/链接运行继续，原格式明文/音频暂停/RPLAN.24保。"
+        "BWL01将46F38D/46F43A两已证地图CI窗口经现spawn/除数接口接完整一般CI/core与全部真实依赖。两原窗42条148B/四CALL，保FLD1.25→FILD signedLevel-1→CI→连续ST0幅值/回退/除法/原I64截断低S32消费。两现文件五改动，一已有ASM本体替换/零新本体或F/owner；72B正常帧保32B调用区、S32/三CW/原生幅值指针和I64结果，跨CALL保存重读指针，不拿EDX原CW载体当地址。撤固定域FYL2X/TwoToTOS内联，真实CI EXTERN/call接入同startup库；现PC53/控制字尾恢复、Cpp两spawn的字段门槛/零divisor/RNG/记录后消费及通用提供者/CMake保持。六既有映射/F当前关系由内联改真实传递调用，前态与MFA/BPJ/BPM/BWF/BWK历史可追；MAP129/CRT176与F999/全部数量/定位150及CRT余22保持，两域四限定I-S。共享CRT分派/未知父与全应用生命周期、机器ABI/链接运行继续，原格式明文/音频暂停/RPLAN.24保。",
+        "BWM01完整开发543185共享数学身份全部146条501B/三页、多入口/三direct两callee与两表JMP、16跳九RET；原特殊值外尾三点与共享尾入向另列。三现文件五追加、十二ASM真实本体/13布局断言，零CPP本体/新mutable owner或固定目标表。原32B实际context数值W16/T80/错误BYTE和ECX样本保，4/16借用目标指针只拓地址；原分类16字节/CW-FXAM-等待状态-CL/CH-XLAT-索引与真实间接CALL/frame返回、目标末标志LEA恢复保。原幂F64实参-FSAVE108-真helper-FRSTOR-结果/状态与实际ECX数值保，未生产结果不填；真实丢栈/零一/T80 quiet/error0-1-7与FADD/FADDP/OR CL,CL保持。不因未见初始化地址引用排除，不猜描述符生产/父帧，函数原身份仅一份；CRT177/F1000限定I-S，定位149/CRT余21，共享生产/未知父及机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -636,7 +640,8 @@
         "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-source-state",
         "doc/cg2d_math_record_range_spec.md#math-record-range-source-state",
         "doc/cg2d_power_generic_body_spec.md#power-generic-source-state",
-        "doc/cg2d_power_application_wiring_spec.md#power-app-source-state"
+        "doc/cg2d_power_application_wiring_spec.md#power-app-source-state",
+        "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-source-state"
       ]
     },
     {
@@ -51390,6 +51395,68 @@
       "observation": "BWL01将46F38D/46F43A两已证地图CI窗口经现spawn/除数接口接完整一般CI/core与全部真实依赖。两原窗42条148B/四CALL，保FLD1.25→FILD signedLevel-1→CI→连续ST0幅值/回退/除法/原I64截断低S32消费。两现文件五改动，一已有ASM本体替换/零新本体或F/owner；72B正常帧保32B调用区、S32/三CW/原生幅值指针和I64结果，跨CALL保存重读指针，不拿EDX原CW载体当地址。撤固定域FYL2X/TwoToTOS内联，真实CI EXTERN/call接入同startup库；现PC53/控制字尾恢复、Cpp两spawn的字段门槛/零divisor/RNG/记录后消费及通用提供者/CMake保持。六既有映射/F当前关系由内联改真实传递调用，前态与MFA/BPJ/BPM/BWF/BWK历史可追；MAP129/CRT176与F999/全部数量/定位150及CRT余22保持，两域四限定I-S。共享CRT分派/未知父与全应用生命周期、机器ABI/链接运行继续，原格式明文/音频暂停/RPLAN.24保。 两源五处/已有除数本体替换、72B正常帧和原参数/连续ST0/幅值指针及后消费/CW/截断/Cpp和RNG保持；六当前关系纠正原前态保。",
       "expected": "BWL01将46F38D/46F43A两已证地图CI窗口经现spawn/除数接口接完整一般CI/core与全部真实依赖。两原窗42条148B/四CALL，保FLD1.25→FILD signedLevel-1→CI→连续ST0幅值/回退/除法/原I64截断低S32消费。两现文件五改动，一已有ASM本体替换/零新本体或F/owner；72B正常帧保32B调用区、S32/三CW/原生幅值指针和I64结果，跨CALL保存重读指针，不拿EDX原CW载体当地址。撤固定域FYL2X/TwoToTOS内联，真实CI EXTERN/call接入同startup库；现PC53/控制字尾恢复、Cpp两spawn的字段门槛/零divisor/RNG/记录后消费及通用提供者/CMake保持。六既有映射/F当前关系由内联改真实传递调用，前态与MFA/BPJ/BPM/BWF/BWK历史可追；MAP129/CRT176与F999/全部数量/定位150及CRT余22保持，两域四限定I-S。共享CRT分派/未知父与全应用生命周期、机器ABI/链接运行继续，原格式明文/音频暂停/RPLAN.24保。 两源五处/已有除数本体替换、72B正常帧和原参数/连续ST0/幅值指针及后消费/CW/截断/Cpp和RNG保持；六当前关系纠正原前态保。",
       "actual": "BWL01将46F38D/46F43A两已证地图CI窗口经现spawn/除数接口接完整一般CI/core与全部真实依赖。两原窗42条148B/四CALL，保FLD1.25→FILD signedLevel-1→CI→连续ST0幅值/回退/除法/原I64截断低S32消费。两现文件五改动，一已有ASM本体替换/零新本体或F/owner；72B正常帧保32B调用区、S32/三CW/原生幅值指针和I64结果，跨CALL保存重读指针，不拿EDX原CW载体当地址。撤固定域FYL2X/TwoToTOS内联，真实CI EXTERN/call接入同startup库；现PC53/控制字尾恢复、Cpp两spawn的字段门槛/零divisor/RNG/记录后消费及通用提供者/CMake保持。六既有映射/F当前关系由内联改真实传递调用，前态与MFA/BPJ/BPM/BWF/BWK历史可追；MAP129/CRT176与F999/全部数量/定位150及CRT余22保持，两域四限定I-S。共享CRT分派/未知父与全应用生命周期、机器ABI/链接运行继续，原格式明文/音频暂停/RPLAN.24保。 两源五处/已有除数本体替换、72B正常帧和原参数/连续ST0/幅值指针及后消费/CW/截断/Cpp和RNG保持；六当前关系纠正原前态保。"
+    },
+    {
+      "id": "E-MATH-SHARED-DISPATCH-FUNC-CRT-I-20261008",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWM01全146条501B/三页、三direct两callee/两表JMP、16跳九RET、原全部入口和16B分类表/常量及外尾引用。doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-math-shared-dispatch-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_math_shared_dispatch_evidence.json",
+        "doc/cg2d_math_shared_dispatch_spec.md",
+        "src/platform/LegacyFloatEnvironment.cpp",
+        "src/platform/LegacyFloatEnvironment.hpp",
+        "src/platform/LegacyFloatEnvironment.asm",
+        "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-baseline",
+        "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-decision",
+        "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-acceptance",
+        "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWM01完整开发543185共享数学身份全部146条501B/三页、多入口/三direct两callee与两表JMP、16跳九RET；原特殊值外尾三点与共享尾入向另列。三现文件五追加、十二ASM真实本体/13布局断言，零CPP本体/新mutable owner或固定目标表。原32B实际context数值W16/T80/错误BYTE和ECX样本保，4/16借用目标指针只拓地址；原分类16字节/CW-FXAM-等待状态-CL/CH-XLAT-索引与真实间接CALL/frame返回、目标末标志LEA恢复保。原幂F64实参-FSAVE108-真helper-FRSTOR-结果/状态与实际ECX数值保，未生产结果不填；真实丢栈/零一/T80 quiet/error0-1-7与FADD/FADDP/OR CL,CL保持。不因未见初始化地址引用排除，不猜描述符生产/父帧，函数原身份仅一份；CRT177/F1000限定I-S，定位149/CRT余21，共享生产/未知父及机器运行继续，原格式明文/音频暂停/RPLAN.24保。 只整个身份的全部入口/目标、真powhlp与Mark及两借用目标间接调用；未造原描述符生产或未知父。",
+          "decision_ref": "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWM01完整开发543185共享数学身份全部146条501B/三页、多入口/三direct两callee与两表JMP、16跳九RET；原特殊值外尾三点与共享尾入向另列。三现文件五追加、十二ASM真实本体/13布局断言，零CPP本体/新mutable owner或固定目标表。原32B实际context数值W16/T80/错误BYTE和ECX样本保，4/16借用目标指针只拓地址；原分类16字节/CW-FXAM-等待状态-CL/CH-XLAT-索引与真实间接CALL/frame返回、目标末标志LEA恢复保。原幂F64实参-FSAVE108-真helper-FRSTOR-结果/状态与实际ECX数值保，未生产结果不填；真实丢栈/零一/T80 quiet/error0-1-7与FADD/FADDP/OR CL,CL保持。不因未见初始化地址引用排除，不猜描述符生产/父帧，函数原身份仅一份；CRT177/F1000限定I-S，定位149/CRT余21，共享生产/未知父及机器运行继续，原格式明文/音频暂停/RPLAN.24保。 只整个身份的全部入口/目标、真powhlp与Mark及两借用目标间接调用；未造原描述符生产或未知父。",
+      "expected": "BWM01完整开发543185共享数学身份全部146条501B/三页、多入口/三direct两callee与两表JMP、16跳九RET；原特殊值外尾三点与共享尾入向另列。三现文件五追加、十二ASM真实本体/13布局断言，零CPP本体/新mutable owner或固定目标表。原32B实际context数值W16/T80/错误BYTE和ECX样本保，4/16借用目标指针只拓地址；原分类16字节/CW-FXAM-等待状态-CL/CH-XLAT-索引与真实间接CALL/frame返回、目标末标志LEA恢复保。原幂F64实参-FSAVE108-真helper-FRSTOR-结果/状态与实际ECX数值保，未生产结果不填；真实丢栈/零一/T80 quiet/error0-1-7与FADD/FADDP/OR CL,CL保持。不因未见初始化地址引用排除，不猜描述符生产/父帧，函数原身份仅一份；CRT177/F1000限定I-S，定位149/CRT余21，共享生产/未知父及机器运行继续，原格式明文/音频暂停/RPLAN.24保。 只整个身份的全部入口/目标、真powhlp与Mark及两借用目标间接调用；未造原描述符生产或未知父。",
+      "actual": "BWM01完整开发543185共享数学身份全部146条501B/三页、多入口/三direct两callee与两表JMP、16跳九RET；原特殊值外尾三点与共享尾入向另列。三现文件五追加、十二ASM真实本体/13布局断言，零CPP本体/新mutable owner或固定目标表。原32B实际context数值W16/T80/错误BYTE和ECX样本保，4/16借用目标指针只拓地址；原分类16字节/CW-FXAM-等待状态-CL/CH-XLAT-索引与真实间接CALL/frame返回、目标末标志LEA恢复保。原幂F64实参-FSAVE108-真helper-FRSTOR-结果/状态与实际ECX数值保，未生产结果不填；真实丢栈/零一/T80 quiet/error0-1-7与FADD/FADDP/OR CL,CL保持。不因未见初始化地址引用排除，不猜描述符生产/父帧，函数原身份仅一份；CRT177/F1000限定I-S，定位149/CRT余21，共享生产/未知父及机器运行继续，原格式明文/音频暂停/RPLAN.24保。 只整个身份的全部入口/目标、真powhlp与Mark及两借用目标间接调用；未造原描述符生产或未知父。"
+    },
+    {
+      "id": "E-MATH-SHARED-DISPATCH-FUNC-CRT-S-20261008",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWM01全146条501B/三页、三direct两callee/两表JMP、16跳九RET、原全部入口和16B分类表/常量及外尾引用。doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-math-shared-dispatch-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_math_shared_dispatch_evidence.json",
+        "doc/cg2d_math_shared_dispatch_spec.md",
+        "src/platform/LegacyFloatEnvironment.cpp",
+        "src/platform/LegacyFloatEnvironment.hpp",
+        "src/platform/LegacyFloatEnvironment.asm",
+        "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-baseline",
+        "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-decision",
+        "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-acceptance",
+        "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWM01完整开发543185共享数学身份全部146条501B/三页、多入口/三direct两callee与两表JMP、16跳九RET；原特殊值外尾三点与共享尾入向另列。三现文件五追加、十二ASM真实本体/13布局断言，零CPP本体/新mutable owner或固定目标表。原32B实际context数值W16/T80/错误BYTE和ECX样本保，4/16借用目标指针只拓地址；原分类16字节/CW-FXAM-等待状态-CL/CH-XLAT-索引与真实间接CALL/frame返回、目标末标志LEA恢复保。原幂F64实参-FSAVE108-真helper-FRSTOR-结果/状态与实际ECX数值保，未生产结果不填；真实丢栈/零一/T80 quiet/error0-1-7与FADD/FADDP/OR CL,CL保持。不因未见初始化地址引用排除，不猜描述符生产/父帧，函数原身份仅一份；CRT177/F1000限定I-S，定位149/CRT余21，共享生产/未知父及机器运行继续，原格式明文/音频暂停/RPLAN.24保。 146条501B/三页、多入口十二ASM/三源五追加、原表/CW/FXAM/T80/ECX/末标志与原保存恢复保持，非机器等价。",
+          "decision_ref": "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWM01完整开发543185共享数学身份全部146条501B/三页、多入口/三direct两callee与两表JMP、16跳九RET；原特殊值外尾三点与共享尾入向另列。三现文件五追加、十二ASM真实本体/13布局断言，零CPP本体/新mutable owner或固定目标表。原32B实际context数值W16/T80/错误BYTE和ECX样本保，4/16借用目标指针只拓地址；原分类16字节/CW-FXAM-等待状态-CL/CH-XLAT-索引与真实间接CALL/frame返回、目标末标志LEA恢复保。原幂F64实参-FSAVE108-真helper-FRSTOR-结果/状态与实际ECX数值保，未生产结果不填；真实丢栈/零一/T80 quiet/error0-1-7与FADD/FADDP/OR CL,CL保持。不因未见初始化地址引用排除，不猜描述符生产/父帧，函数原身份仅一份；CRT177/F1000限定I-S，定位149/CRT余21，共享生产/未知父及机器运行继续，原格式明文/音频暂停/RPLAN.24保。 146条501B/三页、多入口十二ASM/三源五追加、原表/CW/FXAM/T80/ECX/末标志与原保存恢复保持，非机器等价。",
+      "expected": "BWM01完整开发543185共享数学身份全部146条501B/三页、多入口/三direct两callee与两表JMP、16跳九RET；原特殊值外尾三点与共享尾入向另列。三现文件五追加、十二ASM真实本体/13布局断言，零CPP本体/新mutable owner或固定目标表。原32B实际context数值W16/T80/错误BYTE和ECX样本保，4/16借用目标指针只拓地址；原分类16字节/CW-FXAM-等待状态-CL/CH-XLAT-索引与真实间接CALL/frame返回、目标末标志LEA恢复保。原幂F64实参-FSAVE108-真helper-FRSTOR-结果/状态与实际ECX数值保，未生产结果不填；真实丢栈/零一/T80 quiet/error0-1-7与FADD/FADDP/OR CL,CL保持。不因未见初始化地址引用排除，不猜描述符生产/父帧，函数原身份仅一份；CRT177/F1000限定I-S，定位149/CRT余21，共享生产/未知父及机器运行继续，原格式明文/音频暂停/RPLAN.24保。 146条501B/三页、多入口十二ASM/三源五追加、原表/CW/FXAM/T80/ECX/末标志与原保存恢复保持，非机器等价。",
+      "actual": "BWM01完整开发543185共享数学身份全部146条501B/三页、多入口/三direct两callee与两表JMP、16跳九RET；原特殊值外尾三点与共享尾入向另列。三现文件五追加、十二ASM真实本体/13布局断言，零CPP本体/新mutable owner或固定目标表。原32B实际context数值W16/T80/错误BYTE和ECX样本保，4/16借用目标指针只拓地址；原分类16字节/CW-FXAM-等待状态-CL/CH-XLAT-索引与真实间接CALL/frame返回、目标末标志LEA恢复保。原幂F64实参-FSAVE108-真helper-FRSTOR-结果/状态与实际ECX数值保，未生产结果不填；真实丢栈/零一/T80 quiet/error0-1-7与FADD/FADDP/OR CL,CL保持。不因未见初始化地址引用排除，不猜描述符生产/父帧，函数原身份仅一份；CRT177/F1000限定I-S，定位149/CRT余21，共享生产/未知父及机器运行继续，原格式明文/音频暂停/RPLAN.24保。 146条501B/三页、多入口十二ASM/三源五追加、原表/CW/FXAM/T80/ECX/末标志与原保存恢复保持，非机器等价。"
     }
   ],
   "task_acceptance": [
@@ -51746,7 +51813,8 @@
         "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-source-state",
         "doc/cg2d_math_record_range_spec.md#math-record-range-source-state",
         "doc/cg2d_power_generic_body_spec.md#power-generic-source-state",
-        "doc/cg2d_power_application_wiring_spec.md#power-app-source-state"
+        "doc/cg2d_power_application_wiring_spec.md#power-app-source-state",
+        "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-source-state"
       ],
       "task_id": "C01",
       "state": "open"
@@ -52206,7 +52274,8 @@
         "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-source-state",
         "doc/cg2d_math_record_range_spec.md#math-record-range-source-state",
         "doc/cg2d_power_generic_body_spec.md#power-generic-source-state",
-        "doc/cg2d_power_application_wiring_spec.md#power-app-source-state"
+        "doc/cg2d_power_application_wiring_spec.md#power-app-source-state",
+        "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-source-state"
       ]
     },
     {
@@ -52247,7 +52316,8 @@
         "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-source-state",
         "doc/cg2d_math_record_range_spec.md#math-record-range-source-state",
         "doc/cg2d_power_generic_body_spec.md#power-generic-source-state",
-        "doc/cg2d_power_application_wiring_spec.md#power-app-source-state"
+        "doc/cg2d_power_application_wiring_spec.md#power-app-source-state",
+        "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-source-state"
       ]
     },
     {
@@ -52650,7 +52720,8 @@
         "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-source-state",
         "doc/cg2d_math_record_range_spec.md#math-record-range-source-state",
         "doc/cg2d_power_generic_body_spec.md#power-generic-source-state",
-        "doc/cg2d_power_application_wiring_spec.md#power-app-source-state"
+        "doc/cg2d_power_application_wiring_spec.md#power-app-source-state",
+        "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-source-state"
       ]
     },
     {
@@ -65235,6 +65306,18 @@
         "doc/cg2d_power_generic_body_spec.md#power-generic-source-state"
       ],
       "boundary": "原53D1F5真实ST0指数消费/CL0-1-2：原FLD/FRNDINT/FCOMP/等待状态/0.5乘法/二次舍入和FCOMPP及分支弹栈保持、其他ECX位不变；不能以5436AC F64分类替代，无CPP返回或新finite门槛。 BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:00143185",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-baseline",
+        "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-decision",
+        "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-acceptance",
+        "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-source-state"
+      ],
+      "boundary": "543185完整共享身份的幂帮助/单参和双参FXAM分派、全部特殊值目标及共享错误尾；十二真实ASM入口承146条/501B原完整体，原上下文数值和已证4/16代码指针表/16B分类表、原T80/errorBYTE/ECX/FLAGS及FSAVE-FRSTOR/未生产结果保，未知生产与父不假造。 BWM01完整开发543185共享数学身份全部146条501B/三页、多入口/三direct两callee与两表JMP、16跳九RET；原特殊值外尾三点与共享尾入向另列。三现文件五追加、十二ASM真实本体/13布局断言，零CPP本体/新mutable owner或固定目标表。原32B实际context数值W16/T80/错误BYTE和ECX样本保，4/16借用目标指针只拓地址；原分类16字节/CW-FXAM-等待状态-CL/CH-XLAT-索引与真实间接CALL/frame返回、目标末标志LEA恢复保。原幂F64实参-FSAVE108-真helper-FRSTOR-结果/状态与实际ECX数值保，未生产结果不填；真实丢栈/零一/T80 quiet/error0-1-7与FADD/FADDP/OR CL,CL保持。不因未见初始化地址引用排除，不猜描述符生产/父帧，函数原身份仅一份；CRT177/F1000限定I-S，定位149/CRT余21，共享生产/未知父及机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
     }
   ],
   "auxiliary_dispositions": [

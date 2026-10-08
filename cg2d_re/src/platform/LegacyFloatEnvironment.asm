@@ -24,6 +24,8 @@ LegacyGenericPowerInfinity591FF0 BYTE 00h, 00h, 00h, 00h, 00h, 00h, 00h, 080h, 0
 LegacyGenericPowerUndefined592060 BYTE 00h, 00h, 00h, 00h, 00h, 00h, 00h, 0C0h, 0FFh, 0FFh
 LegacyGenericPowerName58F898 BYTE "pow", 0
 
+LegacyMathClass59207D BYTE 08h, 04h, 08h, 08h, 08h, 04h, 08h, 08h, 00h, 04h, 0Ch, 08h, 00h, 04h, 0Ch, 08h
+
 .code
 EXTERN Cg2dClassifyLegacySpecialFloat:PROC
 PUBLIC Cg2dClassifyLegacyFloat
@@ -44,6 +46,18 @@ PUBLIC Cg2dComputeLegacyPower
 PUBLIC Cg2dLegacyCIPowerX87
 PUBLIC Cg2dLegacyPowerCoreX87
 PUBLIC Cg2dClassifyLegacyPowerExponentX87
+PUBLIC Cg2dUseLegacyPowerHelperX87
+PUBLIC Cg2dDispatchLegacyUnaryMathX87
+PUBLIC Cg2dDispatchLegacyBinaryMathX87
+PUBLIC Cg2dMarkLegacyMathDispatchErrorX87
+PUBLIC Cg2dLegacyMathMarkDropFirstX87
+PUBLIC Cg2dLegacyMathMarkDropSecondX87
+PUBLIC Cg2dLegacyMathReturnZeroX87
+PUBLIC Cg2dLegacyMathReturnOneX87
+PUBLIC Cg2dLegacyMathQuietUnaryNaNX87
+PUBLIC Cg2dLegacyMathQuietRightNaNX87
+PUBLIC Cg2dLegacyMathQuietEitherNaNX87
+PUBLIC Cg2dLegacyMathInvalidBinaryX87
 EXTERN Cg2dLegacyPowerFastExitGate1085FBC:DWORD
 EXTERN Cg2dRaiseLegacyFloatExceptionHost:PROC
 EXTERN Cg2dDefaultLegacyMathError:PROC
@@ -1561,5 +1575,272 @@ Cg2dComputeLegacyPower PROC FRAME
     add rsp, 56
     ret
 Cg2dComputeLegacyPower ENDP
+
+; 原543185幂帮助入口；正常216B帧分隔调用区、ctx指针/两F64实参/结果及108B保存区。
+; 216B帧与原无解释环境，保实际ECX数值出口到context，LEA释放不改原返回标志。
+Cg2dUseLegacyPowerHelperX87 PROC FRAME
+    sub rsp, 216
+    .allocstack 216
+    .endprolog
+    mov qword ptr [rsp+32], rcx
+    fstp qword ptr [rsp+40]
+    fstp qword ptr [rsp+48]
+    fsave [rsp+64]
+    lea rcx, [rsp+48]
+    lea rdx, [rsp+40]
+    lea r8, [rsp+56]
+    call Cg2dProcessLegacyPowerSpecial
+    frstor [rsp+64]
+    fld qword ptr [rsp+56]
+    mov r9, qword ptr [rsp+32]
+    mov dword ptr [r9+28], ecx
+    test eax, eax
+    jz LegacyDispatchPowerNoError
+    mov rcx, r9
+    call Cg2dMarkLegacyMathDispatchErrorX87
+LegacyDispatchPowerNoError:
+    lea rsp, [rsp+216]
+    ret
+Cg2dUseLegacyPowerHelperX87 ENDP
+
+; 原5431C0：RCX借context/RDX借4目标描述符，原ECX样本来自context+28。
+Cg2dDispatchLegacyUnaryMathX87 PROC FRAME
+    push rbx
+    .pushreg rbx
+    sub rsp, 48
+    .allocstack 48
+    .endprolog
+    mov qword ptr [rsp+32], rcx
+    mov qword ptr [rsp+40], rdx
+    mov r9, rcx
+    mov ecx, dword ptr [r9+28]
+    cmp byte ptr [rdx+14], 5
+    jnz LegacyDispatchUnaryDefaultControl
+    mov bx, word ptr [r9]
+    or bh, 2
+    and bh, 0FEh
+    mov bl, 03Fh
+    jmp LegacyDispatchUnaryControlReady
+LegacyDispatchUnaryDefaultControl:
+    mov bx, 0133Fh
+LegacyDispatchUnaryControlReady:
+    mov word ptr [r9+2], bx
+    fldcw word ptr [r9+2]
+    lea rbx, LegacyMathClass59207D
+    fxam
+    mov qword ptr [r9+16], rdx
+    fstsw word ptr [r9+4]
+    mov byte ptr [r9+24], 0
+    fwait
+    mov cl, byte ptr [r9+5]
+    shl cl, 1
+    sar cl, 1
+    rol cl, 1
+    mov al, cl
+    and al, 0Fh
+    xlatb
+    movsx eax, al
+    and ecx, 0404h
+    mov dword ptr [r9+28], ecx
+    mov rbx, rdx
+    movsxd r10, eax
+    sar r10, 2
+    shl r10, 3
+    add rbx, r10
+    add rbx, 16
+    mov rcx, r9
+    call qword ptr [rbx]
+    mov r9, qword ptr [rsp+32]
+    mov ecx, dword ptr [r9+28]
+    lea rsp, [rsp+48]
+    pop rbx
+    ret
+Cg2dDispatchLegacyUnaryMathX87 ENDP
+
+; 原543227：RCX借context/RDX借16目标描述符，原ECX样本来自context+28。
+Cg2dDispatchLegacyBinaryMathX87 PROC FRAME
+    push rbx
+    .pushreg rbx
+    sub rsp, 48
+    .allocstack 48
+    .endprolog
+    mov qword ptr [rsp+32], rcx
+    mov qword ptr [rsp+40], rdx
+    mov r9, rcx
+    mov ecx, dword ptr [r9+28]
+    cmp byte ptr [rdx+14], 5
+    jnz LegacyDispatchBinaryDefaultControl
+    mov bx, word ptr [r9]
+    or bh, 2
+    and bh, 0FEh
+    mov bl, 03Fh
+    jmp LegacyDispatchBinaryControlReady
+LegacyDispatchBinaryDefaultControl:
+    mov bx, 0133Fh
+LegacyDispatchBinaryControlReady:
+    mov word ptr [r9+2], bx
+    fldcw word ptr [r9+2]
+    lea rbx, LegacyMathClass59207D
+    fxam
+    mov qword ptr [r9+16], rdx
+    fstsw word ptr [r9+4]
+    mov byte ptr [r9+24], 0
+    fxch st(1)
+    mov cl, byte ptr [r9+5]
+    fxam
+    fstsw word ptr [r9+4]
+    fxch st(1)
+    mov ch, byte ptr [r9+5]
+    shl ch, 1
+    sar ch, 1
+    rol ch, 1
+    mov al, ch
+    and al, 0Fh
+    xlatb
+    mov ah, al
+    shl cl, 1
+    sar cl, 1
+    rol cl, 1
+    mov al, cl
+    and al, 0Fh
+    xlatb
+    shl ah, 1
+    shl ah, 1
+    or al, ah
+    movsx eax, al
+    and ecx, 0404h
+    mov dword ptr [r9+28], ecx
+    mov rbx, rdx
+    movsxd r10, eax
+    sar r10, 2
+    shl r10, 3
+    add rbx, r10
+    add rbx, 16
+    mov rcx, r9
+    call qword ptr [rbx]
+    mov r9, qword ptr [rsp+32]
+    mov ecx, dword ptr [r9+28]
+    lea rsp, [rsp+48]
+    pop rbx
+    ret
+Cg2dDispatchLegacyBinaryMathX87 ENDP
+
+; 原543379/543380；原错误BYTE置1、OR CL,CL返回标志，无新默认成功。
+Cg2dMarkLegacyMathDispatchErrorX87 PROC
+    mov r9, rcx
+    mov byte ptr [r9+24], 1
+    mov ecx, dword ptr [r9+28]
+    or cl, cl
+    ret
+Cg2dMarkLegacyMathDispatchErrorX87 ENDP
+
+; 原5432B3/5432BD；保存同一借用context，原Mark调用后原序丢一个ST值。
+Cg2dLegacyMathMarkDropFirstX87 PROC FRAME
+    sub rsp, 40
+    .allocstack 40
+    .endprolog
+    call Cg2dMarkLegacyMathDispatchErrorX87
+    fxch st(1)
+    fstp st(0)
+    lea rsp, [rsp+40]
+    ret
+Cg2dLegacyMathMarkDropFirstX87 ENDP
+
+Cg2dLegacyMathMarkDropSecondX87 PROC FRAME
+    sub rsp, 40
+    .allocstack 40
+    .endprolog
+    call Cg2dMarkLegacyMathDispatchErrorX87
+    fstp st(0)
+    lea rsp, [rsp+40]
+    ret
+Cg2dLegacyMathMarkDropSecondX87 ENDP
+
+; 原5432C4/5432CB，保两个真实FSTP后FLDZ或FLD1，不将输入保成原值。
+Cg2dLegacyMathReturnZeroX87 PROC
+    fstp st(0)
+    fstp st(0)
+    fldz
+    ret
+Cg2dLegacyMathReturnZeroX87 ENDP
+
+Cg2dLegacyMathReturnOneX87 PROC
+    fstp st(0)
+    fstp st(0)
+    fld1
+    ret
+Cg2dLegacyMathReturnOneX87 ENDP
+
+; 原5432D2，T80实际落存/重载与第七BYTE quiet位保；原FADD一保持。
+Cg2dLegacyMathQuietUnaryNaNX87 PROC
+    mov r9, rcx
+    fstp tbyte ptr [r9+6]
+    fld tbyte ptr [r9+6]
+    test byte ptr [r9+13], 040h
+    jz LegacyDispatchUnarySignalNaN
+    mov byte ptr [r9+24], 7
+    mov ecx, dword ptr [r9+28]
+    ret
+LegacyDispatchUnarySignalNaN:
+    mov byte ptr [r9+24], 1
+    fadd qword ptr [LegacyThreshold54D5C0]
+    mov ecx, dword ptr [r9+28]
+    ret
+Cg2dLegacyMathQuietUnaryNaNX87 ENDP
+
+; 原5432FD；交换后检查原T80，第七BYTE取样，再原FADDP归并。
+Cg2dLegacyMathQuietRightNaNX87 PROC
+    mov r9, rcx
+    fxch st(1)
+    fstp tbyte ptr [r9+6]
+    fld tbyte ptr [r9+6]
+    test byte ptr [r9+13], 040h
+    jz LegacyDispatchRightSignalNaN
+    mov byte ptr [r9+24], 7
+    jmp LegacyDispatchRightNaNAdd
+LegacyDispatchRightSignalNaN:
+    mov byte ptr [r9+24], 1
+LegacyDispatchRightNaNAdd:
+    faddp st(1), st(0)
+    mov ecx, dword ptr [r9+28]
+    ret
+Cg2dLegacyMathQuietRightNaNX87 ENDP
+
+; 原543327；依原序检查两个T80 quiet位并写1/7后FADDP，不替宿主NaN规则。
+Cg2dLegacyMathQuietEitherNaNX87 PROC
+    mov r9, rcx
+    fstp tbyte ptr [r9+6]
+    fld tbyte ptr [r9+6]
+    test byte ptr [r9+13], 040h
+    jz LegacyDispatchEitherSignalNaN
+    fxch st(1)
+    fstp tbyte ptr [r9+6]
+    fld tbyte ptr [r9+6]
+    test byte ptr [r9+13], 040h
+    jz LegacyDispatchEitherSignalNaN
+    mov byte ptr [r9+24], 7
+    jmp LegacyDispatchEitherNaNAdd
+LegacyDispatchEitherSignalNaN:
+    mov byte ptr [r9+24], 1
+LegacyDispatchEitherNaNAdd:
+    faddp st(1), st(0)
+    mov ecx, dword ptr [r9+28]
+    ret
+Cg2dLegacyMathQuietEitherNaNX87 ENDP
+
+; 原543366..543383；两弹栈/原T80未定义值，原signed BYTE>0只绕写1，末OR CL,CL。
+Cg2dLegacyMathInvalidBinaryX87 PROC
+    mov r9, rcx
+    fstp st(0)
+    fstp st(0)
+    fld tbyte ptr [LegacyGenericPowerUndefined592060]
+    cmp byte ptr [r9+24], 0
+    jg LegacyDispatchInvalidTypeReady
+    mov byte ptr [r9+24], 1
+LegacyDispatchInvalidTypeReady:
+    mov ecx, dword ptr [r9+28]
+    or cl, cl
+    ret
+Cg2dLegacyMathInvalidBinaryX87 ENDP
 
 END

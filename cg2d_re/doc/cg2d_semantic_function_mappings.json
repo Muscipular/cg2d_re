@@ -209329,6 +209329,134 @@
         "machine_unwind_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x543185",
+      "inventory_id": "F:00143185",
+      "original_role": "543185完整共享身份的幂帮助/单参和双参FXAM分派、全部特殊值目标及共享错误尾；十二真实ASM入口承146条/501B原完整体，原上下文数值和已证4/16代码指针表/16B分类表、原T80/errorBYTE/ECX/FLAGS及FSAVE-FRSTOR/未生产结果保，未知生产与父不假造。",
+      "original_end_exclusive": "0x543383",
+      "original_chunks": [
+        [
+          "0x543185",
+          "0x543383"
+        ]
+      ],
+      "instruction_count": 146,
+      "status": "BWM01完整开发543185共享数学身份全部146条501B/三页、多入口/三direct两callee与两表JMP、16跳九RET；原特殊值外尾三点与共享尾入向另列。三现文件五追加、十二ASM真实本体/13布局断言，零CPP本体/新mutable owner或固定目标表。原32B实际context数值W16/T80/错误BYTE和ECX样本保，4/16借用目标指针只拓地址；原分类16字节/CW-FXAM-等待状态-CL/CH-XLAT-索引与真实间接CALL/frame返回、目标末标志LEA恢复保。原幂F64实参-FSAVE108-真helper-FRSTOR-结果/状态与实际ECX数值保，未生产结果不填；真实丢栈/零一/T80 quiet/error0-1-7与FADD/FADDP/OR CL,CL保持。不因未见初始化地址引用排除，不猜描述符生产/父帧，函数原身份仅一份；CRT177/F1000限定I-S，定位149/CRT余21，共享生产/未知父及机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dUseLegacyPowerHelperX87",
+            "Cg2dDispatchLegacyUnaryMathX87",
+            "Cg2dDispatchLegacyBinaryMathX87",
+            "Cg2dMarkLegacyMathDispatchErrorX87",
+            "Cg2dLegacyMathMarkDropFirstX87",
+            "Cg2dLegacyMathMarkDropSecondX87",
+            "Cg2dLegacyMathReturnZeroX87",
+            "Cg2dLegacyMathReturnOneX87",
+            "Cg2dLegacyMathQuietUnaryNaNX87",
+            "Cg2dLegacyMathQuietRightNaNX87",
+            "Cg2dLegacyMathQuietEitherNaNX87",
+            "Cg2dLegacyMathInvalidBinaryX87",
+            "LegacyMathClass59207D",
+            "LegacyThreshold54D5C0",
+            "LegacyGenericPowerUndefined592060",
+            "Cg2dProcessLegacyPowerSpecial"
+          ],
+          "relationship": "543185完整共享身份的幂帮助/单参和双参FXAM分派、全部特殊值目标及共享错误尾；十二真实ASM入口承146条/501B原完整体，原上下文数值和已证4/16代码指针表/16B分类表、原T80/errorBYTE/ECX/FLAGS及FSAVE-FRSTOR/未生产结果保，未知生产与父不假造。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "LegacyMathDispatchContext",
+            "LegacyMathDispatchTarget",
+            "LegacyUnaryMathDescriptor",
+            "LegacyBinaryMathDescriptor"
+          ],
+          "relationship": "原数值帧片段/ECX样本/借用描述符与4/16原生代码指针，只ASM传ST0，不默认填字段/目标或包装CPP FP返回"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "LegacyMathDispatchContext",
+            "LegacyUnaryMathDescriptor",
+            "LegacyBinaryMathDescriptor"
+          ],
+          "relationship": "13布局断言，32B context/48B和144B描述符，仅拓已证指针；零新CPP本体/owner"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-baseline",
+        "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-decision",
+        "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-acceptance",
+        "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-source-state"
+      ],
+      "boundary": "543185完整共享身份的幂帮助/单参和双参FXAM分派、全部特殊值目标及共享错误尾；十二真实ASM入口承146条/501B原完整体，原上下文数值和已证4/16代码指针表/16B分类表、原T80/errorBYTE/ECX/FLAGS及FSAVE-FRSTOR/未生产结果保，未知生产与父不假造。 BWM01完整开发543185共享数学身份全部146条501B/三页、多入口/三direct两callee与两表JMP、16跳九RET；原特殊值外尾三点与共享尾入向另列。三现文件五追加、十二ASM真实本体/13布局断言，零CPP本体/新mutable owner或固定目标表。原32B实际context数值W16/T80/错误BYTE和ECX样本保，4/16借用目标指针只拓地址；原分类16字节/CW-FXAM-等待状态-CL/CH-XLAT-索引与真实间接CALL/frame返回、目标末标志LEA恢复保。原幂F64实参-FSAVE108-真helper-FRSTOR-结果/状态与实际ECX数值保，未生产结果不填；真实丢栈/零一/T80 quiet/error0-1-7与FADD/FADDP/OR CL,CL保持。不因未见初始化地址引用排除，不猜描述符生产/父帧，函数原身份仅一份；CRT177/F1000限定I-S，定位149/CRT余21，共享生产/未知父及机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWM01完整开发543185共享数学身份全部146条501B/三页、多入口/三direct两callee与两表JMP、16跳九RET；原特殊值外尾三点与共享尾入向另列。三现文件五追加、十二ASM真实本体/13布局断言，零CPP本体/新mutable owner或固定目标表。原32B实际context数值W16/T80/错误BYTE和ECX样本保，4/16借用目标指针只拓地址；原分类16字节/CW-FXAM-等待状态-CL/CH-XLAT-索引与真实间接CALL/frame返回、目标末标志LEA恢复保。原幂F64实参-FSAVE108-真helper-FRSTOR-结果/状态与实际ECX数值保，未生产结果不填；真实丢栈/零一/T80 quiet/error0-1-7与FADD/FADDP/OR CL,CL保持。不因未见初始化地址引用排除，不猜描述符生产/父帧，函数原身份仅一份；CRT177/F1000限定I-S，定位149/CRT余21，共享生产/未知父及机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_shared_dispatch": {
+        "spec_id": "BWM01",
+        "evidence_refs": [
+          "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-baseline",
+          "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-decision",
+          "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-acceptance",
+          "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 146,
+        "original_code_bytes": 501,
+        "original_page_count": 3,
+        "original_direct_call_count": 3,
+        "original_unique_direct_callee_count": 2,
+        "original_indirect_jump_count": 2,
+        "original_jump_count": 16,
+        "original_return_count": 9,
+        "original_all_internal_entries_external_tail_refs_and_real_class_table_captured": true,
+        "root_instruction_reuse_reference": "doc/cg2d_power_general_helpers_evidence.json",
+        "source_body_added": true,
+        "source_asm_file_count": 1,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 5,
+        "new_native_function_body_count": 12,
+        "new_asm_proc_count": 12,
+        "new_cpp_body_count": 0,
+        "new_original_mapped_function_count": 1,
+        "new_private_C_bridge_count": 0,
+        "new_mutable_shared_owner_count": 0,
+        "new_layout_assertion_count": 13,
+        "native_context_bytes": 32,
+        "native_unary_descriptor_bytes": 48,
+        "native_binary_descriptor_bytes": 144,
+        "original_numerics_T80_and_error_BYTE_not_widened": true,
+        "only_proven_descriptor_target_pointers_widened": true,
+        "original_classification_table_CW_FXAM_status_CL_CH_XLAT_conditions_and_4_16_indices_kept": true,
+        "original_numeric_EAX_offset_kept_pointer_scaling_separate": true,
+        "descriptor_targets_borrowed_no_invented_fixed_table_or_guard": true,
+        "original_table_tail_jumps_adapted_to_real_indirect_calls_and_frame_release": true,
+        "target_last_flags_preserved_by_LEA_release_and_POP": true,
+        "pow_two_arguments_FSAVE108_real_helper_FRSTOR_unwritten_result_and_numeric_ECX_kept": true,
+        "original_drop_zero_one_T80_quiet_error0_1_7_and_OR_CL_flags_kept": true,
+        "native_direct_call_count": 4,
+        "native_indirect_call_count": 2,
+        "native_direct_jump_count": 12,
+        "native_return_count": 13,
+        "empty_inbound_or_initialized_pointer_scan_not_unreachable_proof": true,
+        "old_application_CI_wiring_cpp_RNG_and_build_rules_kept": true,
+        "no_host_nan_rule_pow_protection_fault_sample_or_extra_byte_fill": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_original_descriptor_production_verified": false,
+        "full_unknown_callers_or_aliases_verified": false,
+        "full_shared_remaining_CRT_chain_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

@@ -89,6 +89,29 @@ double PowerLegacyFloat_53D019(double base, double exponent) noexcept;
 // RCX借两F64/EAX为已加载Y高W32/ST0=Y调用，返回ST0及原W32 CW载体EDX。
 // Cg2dClassifyLegacyPowerExponentX87消费ST0指数/返回CL0或1或2；不声明CPP double ABI。
 
+// 原543185共享CRT分派的实际帧片段；原数值原宽，只有描述符地址拓为原生指针。
+struct LegacyMathDispatchContext {
+    std::uint16_t savedControl;   // 原EBP-A4，父保存CW。
+    std::uint16_t workingControl; // 原EBP-A2，原分支生成临时CW。
+    std::uint16_t status;         // 原EBP-A0，等待式FXAM状态样本。
+    std::uint8_t scratch80[10];   // 原EBP-9E，实际T80落存/quiet位读取。
+    const std::uint8_t* descriptor; // 原EBP-94借用描述符，不持有。
+    std::uint8_t errorType;       // 原EBP-90，原0/1/7错误样本。
+    std::uint32_t conditionSample; // 原ECX数值样本，跨原分派/目标的显式承载，不默认初始化。
+};
+// 只在ASM间调用，RCX借用context、ST0（双参另ST1）传结果；void类型不作CPP FP返回。
+using LegacyMathDispatchTarget = void (*)(LegacyMathDispatchContext*) noexcept;
+struct LegacyUnaryMathDescriptor {
+    std::uint8_t prefix[16];      // 原16B头原样承载，本分派只读+14的控制选择BYTE。
+    LegacyMathDispatchTarget targets[4]; // 原四代码指针，只扩已证指针。
+};
+struct LegacyBinaryMathDescriptor {
+    std::uint8_t prefix[16];
+    LegacyMathDispatchTarget targets[16]; // 原4×4代码指针，不另造固定目标表。
+};
+// ASM入口Cg2dDispatchLegacyUnaryMathX87/Cg2dDispatchLegacyBinaryMathX87：
+// RCX借context、RDX借对应描述符；真实x87目标均只在ASM间消费/返回ST0。
+
 // 原控制字抽象/硬件表示转换，只消费和生成原已定义位。
 std::uint32_t AbstractLegacyControlWord_5448A4(std::uint32_t hardware);
 std::uint32_t HardwareLegacyControlWord_544936(std::uint32_t abstractValue);

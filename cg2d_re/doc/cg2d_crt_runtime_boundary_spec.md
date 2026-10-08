@@ -214,3 +214,11 @@ NCE01已接业务copy/单owner、消息/析构及所有旧构析正文保持，�
 46F38D/46F43A两原CI点由现spawn/除数接口接完整CI/core/真实依赖，撤固定域FYL2X/TwoToTOS内联；两现文件五改动、一已有本体替换/零新身份。72B正常帧保原参数顺序/连续ST0消费与幅值指针跨CALL重读，不以EDX CW载体当地址；PC53/CW/截断、Cpp/RNG及提供者/CMake保持。
 
 六旧映射/F当前绑定纠正，原历史/前态可追，MAP129/CRT176不增；两域四限定I/S、E1158→1162，定位150/CRT未定位22和全部数量保持。共享CRT分派/未知父和全应用/FPU生命周期及机器运行仍沿门禁。
+
+## BWM01共享数学身份全部多入口开发（2026-10-08）
+
+[完整基线](cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-baseline)、[决定](cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-decision)、[验收](cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-acceptance)与[原体/原表/完整前后态](cg2d_math_shared_dispatch_evidence.json)。
+
+543185整身份146条501B/三页已开发，包含幂帮助/单参与双参FXAM分派及全部特殊值/共享错误目标；三现文件五追加/十二ASM本体、13布局断言，只有一原身份。原16B分类表/4及16借用代码指针只拓地址，原数值样本/指数/索引/CW/T80/error0-1-7及末标志保。
+
+两原间接尾改真实调用后LEA释放，幂实参/FSAVE108/真helper/FRSTOR与实际ECX数值保持，未生产结果不填。不因无已证直入或初始化指针而排除；原描述符生产/未知父与共享余链仍待。CRT176→177/F1000两限定I-S，定位150→149/CRT未定位22→21；整体门禁保持。

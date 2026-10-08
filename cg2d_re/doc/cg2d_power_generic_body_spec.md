@@ -71,3 +71,11 @@ C01/R01/V02/R04及完整CRT枚举/gates仍open；pending18、商店mixed-pending
 BWK01完整一般幂提供者全文保持，MapEffectMath已真调Cg2dLegacyCIPowerX87，两个已证原点经现两spawn/除数接口进入完整core/依赖。旧固定域内联撤掉，参数顺序、ST0连续消费、幅值指针/CW和截断保持；原Cpp/RNG/记录后消费不改。
 
 此前“旧活动地图未切换”的状态已由本步两已证直接CI点接通推进；只对这两个原窗口有据，不外推未知alias/其它调用父、共享CRT分派或全应用生命周期/机器运行已闭。原整体门禁保持。
+
+## BWM01共享幂帮助/CRT数学多入口已开发（2026-10-08）
+
+[完整共享身份SPEC](cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-decision)与[全部原体/原表及源前后态](cg2d_math_shared_dispatch_evidence.json)。
+
+普通/CI/core及两地图应用点保持，新共享543185全146条身份已补幂帮助入口、FXAM表驱动单/双分派和特殊值/错误目标。幂入口保原弹栈实参顺序/FSAVE→真实既有powhlp→FRSTOR、原结果/S32状态与实际ECX数值，不补未生产结果；并非只实现19条前缀。
+
+原描述符表内容/生产和未知调用父未猜造；当前是完整分派提供者及内部真实合同，不代全部共享CRT链/全应用生命周期或机器运行，原整体门禁保持。

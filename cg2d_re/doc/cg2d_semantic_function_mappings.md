@@ -4131,3 +4131,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 1265/1266/1267/1424/1426/1427的MapEffectMath.asm/.hpp当前关系由旧内联/只固定域/本次不改，更新为除数接口经完整CI/core/实际独立帮助体的传递调用。旧MFA/BPJ/BPM/BWF/BWK证据和完整前态保，原F及所有成员数量不重计。
 
 两已证应用窗口已真接，原S32指数/F64底数/连续ST0/原幅值指针和截断/CW/后消费有据；不把六来源纠正当六新函数或削减定位队列。语义1837/F999、MAP129/CRT176及pending18保持，未知父/alias、全应用和机器运行未闭。
+
+## BWM01共享146条身份的完整映射（2026-10-08）
+
+[全部入口/原表/原体与源前后态](cg2d_math_shared_dispatch_evidence.json)、[十二本体与真实合同](cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-decision)。
+
+新增1837/F:00143185→LegacyFloatEnvironment.asm的十二真实入口/目标，主符号Cg2dUseLegacyPowerHelperX87；不只映19条前缀，不给内部分派/特殊目标另计原F。原借用上下文32B、单/双描述符48/144B只拓已证指针，原数值/T80/错误BYTE和ECX样本保持。
+
+原六实际调用（四direct/两借用间接）、原分类表与位规则/特殊值/末标志及保存恢复有据；无伪造目标初始化或未知caller。CRT177/F1000限定I-S不代完整表生产/父/alias/机器运行，pending18保持。

@@ -267,6 +267,21 @@ double PowerLegacyFloat_53D019(const double base, const double exponent) noexcep
     return result;
 }
 
+// 原帧数值片段保持，只拓描述符指针；conditionSample为原ECX数值的显式承载。
+static_assert(offsetof(LegacyMathDispatchContext, savedControl) == 0);
+static_assert(offsetof(LegacyMathDispatchContext, workingControl) == 2);
+static_assert(offsetof(LegacyMathDispatchContext, status) == 4);
+static_assert(offsetof(LegacyMathDispatchContext, scratch80) == 6);
+static_assert(offsetof(LegacyMathDispatchContext, descriptor) == 16);
+static_assert(offsetof(LegacyMathDispatchContext, errorType) == 24);
+static_assert(offsetof(LegacyMathDispatchContext, conditionSample) == 28);
+static_assert(sizeof(LegacyMathDispatchContext) == 32);
+static_assert(sizeof(LegacyMathDispatchTarget) == 8);
+static_assert(offsetof(LegacyUnaryMathDescriptor, targets) == 16);
+static_assert(offsetof(LegacyBinaryMathDescriptor, targets) == 16);
+static_assert(sizeof(LegacyUnaryMathDescriptor) == 48);
+static_assert(sizeof(LegacyBinaryMathDescriptor) == 144);
+
 // 原5473E8；原字段生产、x87落存与系统调用前后读取留在ASM。
 void RaiseLegacyFloatingPointException_5473E8(
     LegacyFloatExceptionRecord* const record, std::uint32_t* const control,

@@ -317,7 +317,8 @@
         "doc/cg2d_power_special_helper_spec.md#power-special-baseline",
         "doc/cg2d_power_general_helpers_spec.md#power-helpers-baseline",
         "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline",
-        "doc/cg2d_math_masked_handler_spec.md#math-masked-baseline"
+        "doc/cg2d_math_masked_handler_spec.md#math-masked-baseline",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-baseline"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -488,7 +489,9 @@
         "F:0014769B",
         "F:0014791B",
         "F:0014623E",
-        "F:001461BB"
+        "F:001461BB",
+        "F:001473E8",
+        "F:001460EB"
       ],
       "closure_task_ids": [
         "C01",
@@ -535,7 +538,8 @@
         "doc/cg2d_power_special_helper_spec.md#power-special-decision",
         "doc/cg2d_power_general_helpers_spec.md#power-helpers-decision",
         "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision",
-        "doc/cg2d_math_masked_handler_spec.md#math-masked-decision"
+        "doc/cg2d_math_masked_handler_spec.md#math-masked-decision",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -572,7 +576,8 @@
         "BWE01开发54357C幂特殊值辅助完整114条304B/两页、一direct一callee/零indirect/26跳一RET、两CALL入向；两父FSAVE/FRSTOR邻窗与原常量独列，不宣全父完成。三现文件六追加：一CPP值入口/一ASM本体及一私有桥，S32状态与选择性F64写出保，不将0转是否处理布尔或补默认输出。原比较状态/条件FCHS/重复比较与指数落存重载、唯一5436AC真实callee及原常量位保，72B正常展开帧/32B调用区/四F64槽/一x64结果指针，仅拓指针不宽数值。无新环境写/finite保护/owner，原环境/分类/地图幂/CMake保；一新原新/F、CRT160两限定I-S，源码定位166/CRT余38；全pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
         "BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。",
         "BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
-        "BWH01开发原掩码处理及三真实依赖54769B/54791B/54623E/5461BB，四完整313条855B/七页、八direct三callee/零indirect/57跳四RET/九CALL入向；87except父取证独列。三现文件六追加：两CPP/四ASM六本体、两C桥，两个ST0接口仅ASM间。原优先位/RC结果、F64落存、S32指数/双W32移位/丢失位/选择性写出及剩余位0/1返回、原低BYTE状态生产操作/等待与两次真实指数设置保。72B分解/88B处理正常展开帧、Win64借用槽和已证F64/T80常量保，额外W16不补零/业务化，无新owner/宿主数学或额外保护/故障样例。四新原新/F、CRT169限定I-S，定位157/CRT余29；完整87except/raise/范围与pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+        "BWH01开发原掩码处理及三真实依赖54769B/54791B/54623E/5461BB，四完整313条855B/七页、八direct三callee/零indirect/57跳四RET/九CALL入向；87except父取证独列。三现文件六追加：两CPP/四ASM六本体、两C桥，两个ST0接口仅ASM间。原优先位/RC结果、F64落存、S32指数/双W32移位/丢失位/选择性写出及剩余位0/1返回、原低BYTE状态生产操作/等待与两次真实指数设置保。72B分解/88B处理正常展开帧、Win64借用槽和已证F64/T80常量保，额外W16不补零/业务化，无新owner/宿主数学或额外保护/故障样例。四新原新/F、CRT169限定I-S，定位157/CRT余29；完整87except/raise/范围与pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+        "BWI01开发原5473E8异常参数生产/系统分派与5460EB真实87except父，两完整352条899B/六页、七direct七callee/一IAT、59跳两RET/两CALL入向。三现文件七追加：五CPP/两ASM七本体、五C桥及一个原5925B8共享owner，初值真实2694H、旧errno单owner不复制。88B原W32记录/三个24B单元和选择性第二F64、原位映射/掩码及未生产字节保持；原系统RaiseException接同一原生指针槽、返回重读/选择性CW改写与x87结果回写，原FFFFF3FFH掩码不按宿主修正。原类型分派/七真实CRT依赖与系统调用、W16保存CW到局部W32、尾ctrlfp/matherr/errno和S32返回保。三保存寄存器/80B及176B正常展开帧与六参只拓指针，不加保护/捕获或故障样例。两新原新/F、CRT171限定I-S，定位155/CRT余27；上游记录/范围出口与pow/FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -613,7 +618,8 @@
         "doc/cg2d_power_special_helper_spec.md#power-special-source-state",
         "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state",
         "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state",
-        "doc/cg2d_math_masked_handler_spec.md#math-masked-source-state"
+        "doc/cg2d_math_masked_handler_spec.md#math-masked-source-state",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-source-state"
       ]
     },
     {
@@ -51049,6 +51055,68 @@
       "observation": "BWH01开发原掩码处理及三真实依赖54769B/54791B/54623E/5461BB，四完整313条855B/七页、八direct三callee/零indirect/57跳四RET/九CALL入向；87except父取证独列。三现文件六追加：两CPP/四ASM六本体、两C桥，两个ST0接口仅ASM间。原优先位/RC结果、F64落存、S32指数/双W32移位/丢失位/选择性写出及剩余位0/1返回、原低BYTE状态生产操作/等待与两次真实指数设置保。72B分解/88B处理正常展开帧、Win64借用槽和已证F64/T80常量保，额外W16不补零/业务化，无新owner/宿主数学或额外保护/故障样例。四新原新/F、CRT169限定I-S，定位157/CRT余29；完整87except/raise/范围与pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。 四完整313条855B/七页、三现文件六追加、原算法/数据位宽/硬件边界及旧源保持。",
       "expected": "BWH01开发原掩码处理及三真实依赖54769B/54791B/54623E/5461BB，四完整313条855B/七页、八direct三callee/零indirect/57跳四RET/九CALL入向；87except父取证独列。三现文件六追加：两CPP/四ASM六本体、两C桥，两个ST0接口仅ASM间。原优先位/RC结果、F64落存、S32指数/双W32移位/丢失位/选择性写出及剩余位0/1返回、原低BYTE状态生产操作/等待与两次真实指数设置保。72B分解/88B处理正常展开帧、Win64借用槽和已证F64/T80常量保，额外W16不补零/业务化，无新owner/宿主数学或额外保护/故障样例。四新原新/F、CRT169限定I-S，定位157/CRT余29；完整87except/raise/范围与pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。 四完整313条855B/七页、三现文件六追加、原算法/数据位宽/硬件边界及旧源保持。",
       "actual": "BWH01开发原掩码处理及三真实依赖54769B/54791B/54623E/5461BB，四完整313条855B/七页、八direct三callee/零indirect/57跳四RET/九CALL入向；87except父取证独列。三现文件六追加：两CPP/四ASM六本体、两C桥，两个ST0接口仅ASM间。原优先位/RC结果、F64落存、S32指数/双W32移位/丢失位/选择性写出及剩余位0/1返回、原低BYTE状态生产操作/等待与两次真实指数设置保。72B分解/88B处理正常展开帧、Win64借用槽和已证F64/T80常量保，额外W16不补零/业务化，无新owner/宿主数学或额外保护/故障样例。四新原新/F、CRT169限定I-S，定位157/CRT余29；完整87except/raise/范围与pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。 四完整313条855B/七页、三现文件六追加、原算法/数据位宽/硬件边界及旧源保持。"
+    },
+    {
+      "id": "E-MATH-EXCEPTION-DISPATCH-FUNC-CRT-I-20261008",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWI01两完整352条899B/六页、七direct七callee/一IAT、59跳两RET/两CALL入向；原共享槽94260000与原系统调用，父复用原证。doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-math-exception-dispatch-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_math_exception_dispatch_evidence.json",
+        "doc/cg2d_math_exception_dispatch_spec.md",
+        "src/platform/LegacyFloatEnvironment.cpp",
+        "src/platform/LegacyFloatEnvironment.hpp",
+        "src/platform/LegacyFloatEnvironment.asm",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-baseline",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-decision",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-acceptance",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWI01开发原5473E8异常参数生产/系统分派与5460EB真实87except父，两完整352条899B/六页、七direct七callee/一IAT、59跳两RET/两CALL入向。三现文件七追加：五CPP/两ASM七本体、五C桥及一个原5925B8共享owner，初值真实2694H、旧errno单owner不复制。88B原W32记录/三个24B单元和选择性第二F64、原位映射/掩码及未生产字节保持；原系统RaiseException接同一原生指针槽、返回重读/选择性CW改写与x87结果回写，原FFFFF3FFH掩码不按宿主修正。原类型分派/七真实CRT依赖与系统调用、W16保存CW到局部W32、尾ctrlfp/matherr/errno和S32返回保。三保存寄存器/80B及176B正常展开帧与六参只拓指针，不加保护/捕获或故障样例。两新原新/F、CRT171限定I-S，定位155/CRT余27；上游记录/范围出口与pow/FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。 两完整父的八原调用位点全部真实接线及五私有C桥/原系统API；上游记录生产/范围出口与pow父尚未接。",
+          "decision_ref": "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWI01开发原5473E8异常参数生产/系统分派与5460EB真实87except父，两完整352条899B/六页、七direct七callee/一IAT、59跳两RET/两CALL入向。三现文件七追加：五CPP/两ASM七本体、五C桥及一个原5925B8共享owner，初值真实2694H、旧errno单owner不复制。88B原W32记录/三个24B单元和选择性第二F64、原位映射/掩码及未生产字节保持；原系统RaiseException接同一原生指针槽、返回重读/选择性CW改写与x87结果回写，原FFFFF3FFH掩码不按宿主修正。原类型分派/七真实CRT依赖与系统调用、W16保存CW到局部W32、尾ctrlfp/matherr/errno和S32返回保。三保存寄存器/80B及176B正常展开帧与六参只拓指针，不加保护/捕获或故障样例。两新原新/F、CRT171限定I-S，定位155/CRT余27；上游记录/范围出口与pow/FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。 两完整父的八原调用位点全部真实接线及五私有C桥/原系统API；上游记录生产/范围出口与pow父尚未接。",
+      "expected": "BWI01开发原5473E8异常参数生产/系统分派与5460EB真实87except父，两完整352条899B/六页、七direct七callee/一IAT、59跳两RET/两CALL入向。三现文件七追加：五CPP/两ASM七本体、五C桥及一个原5925B8共享owner，初值真实2694H、旧errno单owner不复制。88B原W32记录/三个24B单元和选择性第二F64、原位映射/掩码及未生产字节保持；原系统RaiseException接同一原生指针槽、返回重读/选择性CW改写与x87结果回写，原FFFFF3FFH掩码不按宿主修正。原类型分派/七真实CRT依赖与系统调用、W16保存CW到局部W32、尾ctrlfp/matherr/errno和S32返回保。三保存寄存器/80B及176B正常展开帧与六参只拓指针，不加保护/捕获或故障样例。两新原新/F、CRT171限定I-S，定位155/CRT余27；上游记录/范围出口与pow/FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。 两完整父的八原调用位点全部真实接线及五私有C桥/原系统API；上游记录生产/范围出口与pow父尚未接。",
+      "actual": "BWI01开发原5473E8异常参数生产/系统分派与5460EB真实87except父，两完整352条899B/六页、七direct七callee/一IAT、59跳两RET/两CALL入向。三现文件七追加：五CPP/两ASM七本体、五C桥及一个原5925B8共享owner，初值真实2694H、旧errno单owner不复制。88B原W32记录/三个24B单元和选择性第二F64、原位映射/掩码及未生产字节保持；原系统RaiseException接同一原生指针槽、返回重读/选择性CW改写与x87结果回写，原FFFFF3FFH掩码不按宿主修正。原类型分派/七真实CRT依赖与系统调用、W16保存CW到局部W32、尾ctrlfp/matherr/errno和S32返回保。三保存寄存器/80B及176B正常展开帧与六参只拓指针，不加保护/捕获或故障样例。两新原新/F、CRT171限定I-S，定位155/CRT余27；上游记录/范围出口与pow/FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。 两完整父的八原调用位点全部真实接线及五私有C桥/原系统API；上游记录生产/范围出口与pow父尚未接。"
+    },
+    {
+      "id": "E-MATH-EXCEPTION-DISPATCH-FUNC-CRT-S-20261008",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWI01两完整352条899B/六页、七direct七callee/一IAT、59跳两RET/两CALL入向；原共享槽94260000与原系统调用，父复用原证。doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-math-exception-dispatch-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_math_exception_dispatch_evidence.json",
+        "doc/cg2d_math_exception_dispatch_spec.md",
+        "src/platform/LegacyFloatEnvironment.cpp",
+        "src/platform/LegacyFloatEnvironment.hpp",
+        "src/platform/LegacyFloatEnvironment.asm",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-baseline",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-decision",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-acceptance",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWI01开发原5473E8异常参数生产/系统分派与5460EB真实87except父，两完整352条899B/六页、七direct七callee/一IAT、59跳两RET/两CALL入向。三现文件七追加：五CPP/两ASM七本体、五C桥及一个原5925B8共享owner，初值真实2694H、旧errno单owner不复制。88B原W32记录/三个24B单元和选择性第二F64、原位映射/掩码及未生产字节保持；原系统RaiseException接同一原生指针槽、返回重读/选择性CW改写与x87结果回写，原FFFFF3FFH掩码不按宿主修正。原类型分派/七真实CRT依赖与系统调用、W16保存CW到局部W32、尾ctrlfp/matherr/errno和S32返回保。三保存寄存器/80B及176B正常展开帧与六参只拓指针，不加保护/捕获或故障样例。两新原新/F、CRT171限定I-S，定位155/CRT余27；上游记录/范围出口与pow/FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。 两完整352条899B/六页、三现文件七追加、88B原数值记录/共享槽初值/硬件序和旧源码保持。",
+          "decision_ref": "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWI01开发原5473E8异常参数生产/系统分派与5460EB真实87except父，两完整352条899B/六页、七direct七callee/一IAT、59跳两RET/两CALL入向。三现文件七追加：五CPP/两ASM七本体、五C桥及一个原5925B8共享owner，初值真实2694H、旧errno单owner不复制。88B原W32记录/三个24B单元和选择性第二F64、原位映射/掩码及未生产字节保持；原系统RaiseException接同一原生指针槽、返回重读/选择性CW改写与x87结果回写，原FFFFF3FFH掩码不按宿主修正。原类型分派/七真实CRT依赖与系统调用、W16保存CW到局部W32、尾ctrlfp/matherr/errno和S32返回保。三保存寄存器/80B及176B正常展开帧与六参只拓指针，不加保护/捕获或故障样例。两新原新/F、CRT171限定I-S，定位155/CRT余27；上游记录/范围出口与pow/FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。 两完整352条899B/六页、三现文件七追加、88B原数值记录/共享槽初值/硬件序和旧源码保持。",
+      "expected": "BWI01开发原5473E8异常参数生产/系统分派与5460EB真实87except父，两完整352条899B/六页、七direct七callee/一IAT、59跳两RET/两CALL入向。三现文件七追加：五CPP/两ASM七本体、五C桥及一个原5925B8共享owner，初值真实2694H、旧errno单owner不复制。88B原W32记录/三个24B单元和选择性第二F64、原位映射/掩码及未生产字节保持；原系统RaiseException接同一原生指针槽、返回重读/选择性CW改写与x87结果回写，原FFFFF3FFH掩码不按宿主修正。原类型分派/七真实CRT依赖与系统调用、W16保存CW到局部W32、尾ctrlfp/matherr/errno和S32返回保。三保存寄存器/80B及176B正常展开帧与六参只拓指针，不加保护/捕获或故障样例。两新原新/F、CRT171限定I-S，定位155/CRT余27；上游记录/范围出口与pow/FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。 两完整352条899B/六页、三现文件七追加、88B原数值记录/共享槽初值/硬件序和旧源码保持。",
+      "actual": "BWI01开发原5473E8异常参数生产/系统分派与5460EB真实87except父，两完整352条899B/六页、七direct七callee/一IAT、59跳两RET/两CALL入向。三现文件七追加：五CPP/两ASM七本体、五C桥及一个原5925B8共享owner，初值真实2694H、旧errno单owner不复制。88B原W32记录/三个24B单元和选择性第二F64、原位映射/掩码及未生产字节保持；原系统RaiseException接同一原生指针槽、返回重读/选择性CW改写与x87结果回写，原FFFFF3FFH掩码不按宿主修正。原类型分派/七真实CRT依赖与系统调用、W16保存CW到局部W32、尾ctrlfp/matherr/errno和S32返回保。三保存寄存器/80B及176B正常展开帧与六参只拓指针，不加保护/捕获或故障样例。两新原新/F、CRT171限定I-S，定位155/CRT余27；上游记录/范围出口与pow/FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。 两完整352条899B/六页、三现文件七追加、88B原数值记录/共享槽初值/硬件序和旧源码保持。"
     }
   ],
   "task_acceptance": [
@@ -51401,7 +51469,8 @@
         "doc/cg2d_power_special_helper_spec.md#power-special-source-state",
         "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state",
         "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state",
-        "doc/cg2d_math_masked_handler_spec.md#math-masked-source-state"
+        "doc/cg2d_math_masked_handler_spec.md#math-masked-source-state",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-source-state"
       ],
       "task_id": "C01",
       "state": "open"
@@ -51857,7 +51926,8 @@
         "doc/cg2d_power_special_helper_spec.md#power-special-source-state",
         "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state",
         "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state",
-        "doc/cg2d_math_masked_handler_spec.md#math-masked-source-state"
+        "doc/cg2d_math_masked_handler_spec.md#math-masked-source-state",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-source-state"
       ]
     },
     {
@@ -51894,7 +51964,8 @@
         "doc/cg2d_power_special_helper_spec.md#power-special-source-state",
         "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state",
         "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state",
-        "doc/cg2d_math_masked_handler_spec.md#math-masked-source-state"
+        "doc/cg2d_math_masked_handler_spec.md#math-masked-source-state",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-source-state"
       ]
     },
     {
@@ -52293,7 +52364,8 @@
         "doc/cg2d_power_special_helper_spec.md#power-special-source-state",
         "doc/cg2d_power_general_helpers_spec.md#power-helpers-source-state",
         "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state",
-        "doc/cg2d_math_masked_handler_spec.md#math-masked-source-state"
+        "doc/cg2d_math_masked_handler_spec.md#math-masked-source-state",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-source-state"
       ]
     },
     {
@@ -64759,6 +64831,30 @@
         "doc/cg2d_math_masked_handler_spec.md#math-masked-source-state"
       ],
       "boundary": "5461BB原S32指数加3FE/移4、高端W32读取但只AND CX低W16/OR后写AX，真实FLD/FSTP F64落存及修改结果高W16再FLD/ST0返回保；额外高W16不补零/业务消费，无CPP F64返回或宿主frexp/ldexp替代。 BWH01开发原掩码处理及三真实依赖54769B/54791B/54623E/5461BB，四完整313条855B/七页、八direct三callee/零indirect/57跳四RET/九CALL入向；87except父取证独列。三现文件六追加：两CPP/四ASM六本体、两C桥，两个ST0接口仅ASM间。原优先位/RC结果、F64落存、S32指数/双W32移位/丢失位/选择性写出及剩余位0/1返回、原低BYTE状态生产操作/等待与两次真实指数设置保。72B分解/88B处理正常展开帧、Win64借用槽和已证F64/T80常量保，额外W16不补零/业务化，无新owner/宿主数学或额外保护/故障样例。四新原新/F、CRT169限定I-S，定位157/CRT余29；完整87except/raise/范围与pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:001473E8",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-baseline",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-decision",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-acceptance",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-source-state"
+      ],
+      "boundary": "5473E8完整88B异常记录生产：原条件顺序/异常码覆盖、W32 causes/enables/status与RC/PC/操作号位、valid/format/F64落存及两硬件叶保持；真实RaiseException以一个原生指针槽交付，返回重读槽/记录后沿原选择性CW与FFFFF3FF掩码/CH修改和x87结果回写，不补未生产字节或增捕获。 BWI01开发原5473E8异常参数生产/系统分派与5460EB真实87except父，两完整352条899B/六页、七direct七callee/一IAT、59跳两RET/两CALL入向。三现文件七追加：五CPP/两ASM七本体、五C桥及一个原5925B8共享owner，初值真实2694H、旧errno单owner不复制。88B原W32记录/三个24B单元和选择性第二F64、原位映射/掩码及未生产字节保持；原系统RaiseException接同一原生指针槽、返回重读/选择性CW改写与x87结果回写，原FFFFF3FFH掩码不按宿主修正。原类型分派/七真实CRT依赖与系统调用、W16保存CW到局部W32、尾ctrlfp/matherr/errno和S32返回保。三保存寄存器/80B及176B正常展开帧与六参只拓指针，不加保护/捕获或故障样例。两新原新/F、CRT171限定I-S，定位155/CRT余27；上游记录/范围出口与pow/FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:001460EB",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-baseline",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-decision",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-acceptance",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-source-state"
+      ],
+      "boundary": "5460EB完整原类型递减分派/7改1、真实handle后按操作号选择性第二F64与原标志生产并调真实raise；借用W16保存CW仅读后零扩到局部W32，尾真实ctrlfp、原2694H共享槽读取、matherr/同源errno和S32返回保，32B数学记录只拓原名称指针到40B。 BWI01开发原5473E8异常参数生产/系统分派与5460EB真实87except父，两完整352条899B/六页、七direct七callee/一IAT、59跳两RET/两CALL入向。三现文件七追加：五CPP/两ASM七本体、五C桥及一个原5925B8共享owner，初值真实2694H、旧errno单owner不复制。88B原W32记录/三个24B单元和选择性第二F64、原位映射/掩码及未生产字节保持；原系统RaiseException接同一原生指针槽、返回重读/选择性CW改写与x87结果回写，原FFFFF3FFH掩码不按宿主修正。原类型分派/七真实CRT依赖与系统调用、W16保存CW到局部W32、尾ctrlfp/matherr/errno和S32返回保。三保存寄存器/80B及176B正常展开帧与六参只拓指针，不加保护/捕获或故障样例。两新原新/F、CRT171限定I-S，定位155/CRT余27；上游记录/范围出口与pow/FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
     }
   ],
   "auxiliary_dispositions": [

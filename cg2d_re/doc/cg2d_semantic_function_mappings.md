@@ -4099,3 +4099,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 新增1826/F:0014769B→HandleLegacyMathException与ASM处理器，1827/F:0014791B→SetLegacyRawX87Status与ASM状态叶，1828/F:0014623E→Cg2dDecomposeLegacyFloatX87，1829/F:001461BB→Cg2dSetLegacyFloatExponentX87。四原身份对应六原生本体，不给C桥另计F。
 
 原八CALL/三callee及两ST0合同保持，72B分解/88B处理正常Win64帧承接原值与已证指针。普通/次正规/零ZF、AND AX/CX和F64落存/高WORD改写、原位阈值与移位/符号恢复有据；未消费额外W16不填值/业务化。父87except取证独列，四F/CRT169及限定I/S不代完整父/运行，pending18保持。
+
+## BWI01两完整异常生产/分派父的映射（2026-10-08）
+
+[两完整原根与三源前后态](cg2d_math_exception_dispatch_evidence.json)、[生产与接线合同](cg2d_math_exception_dispatch_spec.md#math-dispatch-decision)。
+
+新增1830/F:001473E8→RaiseLegacyFloatingPointException及ASM，1831/F:001460EB→ProcessLegacyX87Exception及ASM。五CPP/两ASM共七本体、五C桥只有两原身份；另补原共享槽5925B8唯一owner，初始原字节94260000。原88B数值记录不扩宽/不填未生产字节，已有数学记录40B仅名称指针扩宽。
+
+原七CRT依赖与一IAT系统调用全部真实承接，88B记录/选择性第二参数、W16到局部W32、原槽读取/掩码和x87F64生产写回有据。六参/正常展开帧仅局部源码静态，CRT171/F994及限定I/S不代完整上游/生命周期/机器运行，pending18保持。

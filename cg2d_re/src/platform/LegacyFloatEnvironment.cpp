@@ -17,6 +17,13 @@ namespace cg::platform {
 
 std::int32_t gLegacyFdivBug1085FC0 = 0;
 
+// 原5925B8初始字节94260000；仅已证读取决定是否跳过原matherr，未见写入不等于常量。
+namespace detail {
+extern "C" {
+std::uint32_t Cg2dLegacyMathErrorCallbackGate5925B8 = 0x2694u;
+}
+} // namespace detail
+
 std::uint32_t AbstractLegacyControlWord_5448A4(const std::uint32_t hardware)
 {
     std::uint32_t result = 0;
@@ -222,12 +229,64 @@ void SetLegacyRawX87Status_54791B(const std::uint32_t status) noexcept
     detail::Cg2dSetLegacyRawX87Status(status);
 }
 
+// 原88B数值参数记录与三24B值单元；未生产的载荷/标志不默认初始化。
+static_assert(offsetof(LegacyFloatExceptionValue, payload) == 0);
+static_assert(offsetof(LegacyFloatExceptionValue, format) == 16);
+static_assert(offsetof(LegacyFloatExceptionValue, reserved) == 20);
+static_assert(sizeof(LegacyFloatExceptionValue) == 24);
+static_assert(offsetof(LegacyFloatExceptionRecord, header) == 0);
+static_assert(offsetof(LegacyFloatExceptionRecord, causes) == 4);
+static_assert(offsetof(LegacyFloatExceptionRecord, enables) == 8);
+static_assert(offsetof(LegacyFloatExceptionRecord, status) == 12);
+static_assert(offsetof(LegacyFloatExceptionRecord, operand1) == 16);
+static_assert(offsetof(LegacyFloatExceptionRecord, operand2) == 40);
+static_assert(offsetof(LegacyFloatExceptionRecord, result) == 64);
+static_assert(sizeof(LegacyFloatExceptionRecord) == 88);
+
+// 原5473E8；原字段生产、x87落存与系统调用前后读取留在ASM。
+void RaiseLegacyFloatingPointException_5473E8(
+    LegacyFloatExceptionRecord* const record, std::uint32_t* const control,
+    const std::uint32_t conditions, const std::uint32_t operationId,
+    const double* const argument, double* const result) noexcept
+{
+    detail::Cg2dRaiseLegacyFloatingPointException(
+        record, control, conditions, operationId, argument, result);
+}
+
+// 原5460EB；原保存控制字只读W16，原类型/真实依赖与返回保留。
+std::int32_t ProcessLegacyX87Exception_5460EB(
+    const std::uint32_t operationId, LegacyMathErrorRecord* const record,
+    const std::uint16_t* const savedControl) noexcept
+{
+    return detail::Cg2dProcessLegacyX87Exception(operationId, record, savedControl);
+}
+
 namespace detail {
 
 extern "C" std::int32_t Cg2dClassifyLegacySpecialFloat(
     const double* const value) noexcept
 {
     return ClassifyLegacySpecialFloat_5461E4(*value);
+}
+
+// 原RaiseException以一个原生宽度参数传递本调用的记录指针槽。
+extern "C" void Cg2dRaiseLegacyFloatExceptionHost(
+    const std::uint32_t code, std::uintptr_t* const arguments) noexcept
+{
+    static_assert(sizeof(std::uintptr_t) == sizeof(ULONG_PTR));
+    ::RaiseException(code, 0, 1, reinterpret_cast<const ULONG_PTR*>(arguments));
+}
+
+// 只把ASM调用接回已有原叶，不增加记录访问或错误槽owner。
+extern "C" std::int32_t Cg2dDefaultLegacyMathError(
+    LegacyMathErrorRecord* const record) noexcept
+{
+    return DefaultLegacyMathError_5478D8(record);
+}
+
+extern "C" std::int32_t Cg2dSetLegacyMathErrno(const std::int32_t type) noexcept
+{
+    return SetLegacyMathErrno_5478B2(type);
 }
 
 } // namespace detail

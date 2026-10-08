@@ -182,3 +182,11 @@ NCE01已接业务copy/单owner、消息/析构及所有旧构析正文保持，�
 54769B处理器及54791B/54623E/5461BB三依赖已整组开发，四完整313条855B/七页、八direct三callee与九CALL入向。三现文件六追加、两CPP/四ASM六本体/两C桥，处理器五状态CALL/一分解CALL、分解两指数CALL都接真实本体。
 
 原优先/RC结果、F64边界、S32指数和双W32移位/丢失位/符号恢复/选择性写出、剩余位0/1返回及原状态生产/等待保持；两个ST0接口只在ASM间，无宿主数学/新保护或额外故障样例。四新映射/F、CRT165→169限定I/S，定位161→157/未定位CRT33→29；完整87except/raise/范围出口与pow父/FPU生命周期/机器运行继续原门禁。
+
+## BWI01原88B异常记录生产与完整分派父（2026-10-08）
+
+[完整基线](cg2d_math_exception_dispatch_spec.md#math-dispatch-baseline)、[决定](cg2d_math_exception_dispatch_spec.md#math-dispatch-decision)、[验收](cg2d_math_exception_dispatch_spec.md#math-dispatch-acceptance)与[原证/源码前后态](cg2d_math_exception_dispatch_evidence.json)。
+
+两完整5473E8/5460EB共352条899B/六页、七direct一IAT/八原调用位点已开发，现三文件七追加/七本体与五私有桥。原88B记录/24B单元/条件第二F64、位映射及未生产字节保；真实系统API与原硬件、ctrlfp/matherr/errno同源接线。
+
+原共享5925B8实值2694H，不假设零或折叠原分支；保存CW仅读W16到局部W32，系统返回重读/原FFFFF3FFH及CH掩码/x87写回与S32尾返保。两新原新/F、CRT169→171限定I/S，定位157→155/CRT未定位29→27；上游记录/范围出口与pow父/FPU生命周期/机器运行继续原门禁。

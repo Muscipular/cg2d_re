@@ -207960,6 +207960,257 @@
         "machine_abi_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x5473e8",
+      "inventory_id": "F:001473E8",
+      "original_role": "5473E8完整88B异常记录生产：原条件顺序/异常码覆盖、W32 causes/enables/status与RC/PC/操作号位、valid/format/F64落存及两硬件叶保持；真实RaiseException以一个原生指针槽交付，返回重读槽/记录后沿原选择性CW与FFFFF3FF掩码/CH修改和x87结果回写，不补未生产字节或增捕获。",
+      "original_end_exclusive": "0x54769b",
+      "original_chunks": [
+        [
+          "0x5473e8",
+          "0x54769b"
+        ]
+      ],
+      "instruction_count": 258,
+      "status": "BWI01开发原5473E8异常参数生产/系统分派与5460EB真实87except父，两完整352条899B/六页、七direct七callee/一IAT、59跳两RET/两CALL入向。三现文件七追加：五CPP/两ASM七本体、五C桥及一个原5925B8共享owner，初值真实2694H、旧errno单owner不复制。88B原W32记录/三个24B单元和选择性第二F64、原位映射/掩码及未生产字节保持；原系统RaiseException接同一原生指针槽、返回重读/选择性CW改写与x87结果回写，原FFFFF3FFH掩码不按宿主修正。原类型分派/七真实CRT依赖与系统调用、W16保存CW到局部W32、尾ctrlfp/matherr/errno和S32返回保。三保存寄存器/80B及176B正常展开帧与六参只拓指针，不加保护/捕获或故障样例。两新原新/F、CRT171限定I-S，定位155/CRT余27；上游记录/范围出口与pow/FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "RaiseLegacyFloatingPointException_5473E8"
+          ],
+          "relationship": "5473E8完整88B异常记录生产：原条件顺序/异常码覆盖、W32 causes/enables/status与RC/PC/操作号位、valid/format/F64落存及两硬件叶保持；真实RaiseException以一个原生指针槽交付，返回重读槽/记录后沿原选择性CW与FFFFF3FF掩码/CH修改和x87结果回写，不补未生产字节或增捕获。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "RaiseLegacyFloatingPointException_5473E8",
+            "Cg2dRaiseLegacyFloatingPointException",
+            "LegacyFloatExceptionRecord",
+            "LegacyFloatExceptionValue"
+          ],
+          "relationship": "88B原数值记录/24B单元不扩宽或默认填未生产字节；32B数学记录只扩名称指针到40B；W16保存CW/局部W32与借用指针合同"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dRaiseLegacyFloatingPointException",
+            "Cg2dReadLegacyRawX87Status",
+            "Cg2dReadAndClearLegacyRawX87Status",
+            "Cg2dRaiseLegacyFloatExceptionHost"
+          ],
+          "relationship": "两完整原ASM父、八原调用位点与x87生产/写回，三保存寄存器/80B与176B正常帧及六参，原系统参数槽只拓已证指针"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "Cg2dRaiseLegacyFloatExceptionHost",
+            "Cg2dDefaultLegacyMathError",
+            "Cg2dSetLegacyMathErrno",
+            "Cg2dLegacyMathErrorCallbackGate5925B8"
+          ],
+          "relationship": "三私有真实callee/API桥与原2694H共享槽唯一owner；既有errno单owner和原matherr保"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-baseline",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-decision",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-acceptance",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-source-state"
+      ],
+      "boundary": "5473E8完整88B异常记录生产：原条件顺序/异常码覆盖、W32 causes/enables/status与RC/PC/操作号位、valid/format/F64落存及两硬件叶保持；真实RaiseException以一个原生指针槽交付，返回重读槽/记录后沿原选择性CW与FFFFF3FF掩码/CH修改和x87结果回写，不补未生产字节或增捕获。 BWI01开发原5473E8异常参数生产/系统分派与5460EB真实87except父，两完整352条899B/六页、七direct七callee/一IAT、59跳两RET/两CALL入向。三现文件七追加：五CPP/两ASM七本体、五C桥及一个原5925B8共享owner，初值真实2694H、旧errno单owner不复制。88B原W32记录/三个24B单元和选择性第二F64、原位映射/掩码及未生产字节保持；原系统RaiseException接同一原生指针槽、返回重读/选择性CW改写与x87结果回写，原FFFFF3FFH掩码不按宿主修正。原类型分派/七真实CRT依赖与系统调用、W16保存CW到局部W32、尾ctrlfp/matherr/errno和S32返回保。三保存寄存器/80B及176B正常展开帧与六参只拓指针，不加保护/捕获或故障样例。两新原新/F、CRT171限定I-S，定位155/CRT余27；上游记录/范围出口与pow/FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWI01开发原5473E8异常参数生产/系统分派与5460EB真实87except父，两完整352条899B/六页、七direct七callee/一IAT、59跳两RET/两CALL入向。三现文件七追加：五CPP/两ASM七本体、五C桥及一个原5925B8共享owner，初值真实2694H、旧errno单owner不复制。88B原W32记录/三个24B单元和选择性第二F64、原位映射/掩码及未生产字节保持；原系统RaiseException接同一原生指针槽、返回重读/选择性CW改写与x87结果回写，原FFFFF3FFH掩码不按宿主修正。原类型分派/七真实CRT依赖与系统调用、W16保存CW到局部W32、尾ctrlfp/matherr/errno和S32返回保。三保存寄存器/80B及176B正常展开帧与六参只拓指针，不加保护/捕获或故障样例。两新原新/F、CRT171限定I-S，定位155/CRT余27；上游记录/范围出口与pow/FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_exception_dispatch": {
+        "spec_id": "BWI01",
+        "evidence_refs": [
+          "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-baseline",
+          "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-decision",
+          "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-acceptance",
+          "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 258,
+        "original_code_bytes": 691,
+        "original_page_count": 4,
+        "original_direct_call_count": 2,
+        "original_indirect_call_count": 1,
+        "original_jump_count": 39,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "original_total_instruction_count": 352,
+        "original_total_code_bytes": 899,
+        "original_total_page_count": 6,
+        "original_total_direct_call_count": 7,
+        "original_total_unique_direct_callee_count": 7,
+        "original_total_indirect_call_count": 1,
+        "original_total_jump_count": 59,
+        "original_total_return_count": 2,
+        "original_total_inbound_call_count": 2,
+        "parent_original_instruction_reuse_reference": "doc/cg2d_math_error_hardware_leaves_evidence.json",
+        "same_session_parent_metadata_and_refs_rechecked": true,
+        "source_body_added": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 7,
+        "new_original_mapped_function_count": 2,
+        "new_native_function_body_count": 7,
+        "new_cpp_body_count": 5,
+        "new_asm_proc_count": 2,
+        "new_private_C_bridge_count": 5,
+        "new_shared_owner_count": 1,
+        "original_88B_record_24B_units_numeric_offsets_and_selective_second_F64_kept": true,
+        "unproduced_header_payload_format_or_reserved_not_default_filled": true,
+        "original_conditions_code_order_status_mapping_RC_PC_operation_and_valid_format_bits_kept": true,
+        "original_system_code_flags0_argument_count1_same_pointer_slot_and_return_reads_kept": true,
+        "original_selective_control_edits_FFFFF3FF_mask_CH_and_x87_result_write_kept": true,
+        "original_type_rewrite_handle_raise_ctrl_matherr_errno_return_kept": true,
+        "saved_control_only_W16_input_to_local_W32_kept": true,
+        "raw_shared_callback_gate_94260000_initial_value_and_mutable_owner_kept": true,
+        "old_errno_owner_not_duplicated": true,
+        "all_seven_CRT_calls_and_one_original_system_call_connected": true,
+        "native_saved_registers_80B_176B_six_argument_frames_unwind_and_proven_pointer_widening": true,
+        "no_new_catch_protection_fault_injection_gate_or_host_math": true,
+        "old_environment_classification_helpers_hardware_masked_body_startup_map_and_build_rules_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_upstream_record_producers_verified": false,
+        "full_generic_pow_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x5460eb",
+      "inventory_id": "F:001460EB",
+      "original_role": "5460EB完整原类型递减分派/7改1、真实handle后按操作号选择性第二F64与原标志生产并调真实raise；借用W16保存CW仅读后零扩到局部W32，尾真实ctrlfp、原2694H共享槽读取、matherr/同源errno和S32返回保，32B数学记录只拓原名称指针到40B。",
+      "original_end_exclusive": "0x5461bb",
+      "original_chunks": [
+        [
+          "0x5460eb",
+          "0x5461bb"
+        ]
+      ],
+      "instruction_count": 94,
+      "status": "BWI01开发原5473E8异常参数生产/系统分派与5460EB真实87except父，两完整352条899B/六页、七direct七callee/一IAT、59跳两RET/两CALL入向。三现文件七追加：五CPP/两ASM七本体、五C桥及一个原5925B8共享owner，初值真实2694H、旧errno单owner不复制。88B原W32记录/三个24B单元和选择性第二F64、原位映射/掩码及未生产字节保持；原系统RaiseException接同一原生指针槽、返回重读/选择性CW改写与x87结果回写，原FFFFF3FFH掩码不按宿主修正。原类型分派/七真实CRT依赖与系统调用、W16保存CW到局部W32、尾ctrlfp/matherr/errno和S32返回保。三保存寄存器/80B及176B正常展开帧与六参只拓指针，不加保护/捕获或故障样例。两新原新/F、CRT171限定I-S，定位155/CRT余27；上游记录/范围出口与pow/FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "ProcessLegacyX87Exception_5460EB"
+          ],
+          "relationship": "5460EB完整原类型递减分派/7改1、真实handle后按操作号选择性第二F64与原标志生产并调真实raise；借用W16保存CW仅读后零扩到局部W32，尾真实ctrlfp、原2694H共享槽读取、matherr/同源errno和S32返回保，32B数学记录只拓原名称指针到40B。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "ProcessLegacyX87Exception_5460EB",
+            "Cg2dProcessLegacyX87Exception",
+            "LegacyFloatExceptionRecord",
+            "LegacyFloatExceptionValue"
+          ],
+          "relationship": "88B原数值记录/24B单元不扩宽或默认填未生产字节；32B数学记录只扩名称指针到40B；W16保存CW/局部W32与借用指针合同"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dProcessLegacyX87Exception",
+            "Cg2dHandleLegacyMathException",
+            "Cg2dRaiseLegacyFloatingPointException",
+            "Cg2dControlLegacyRawX87",
+            "Cg2dDefaultLegacyMathError",
+            "Cg2dSetLegacyMathErrno",
+            "Cg2dLegacyMathErrorCallbackGate5925B8"
+          ],
+          "relationship": "两完整原ASM父、八原调用位点与x87生产/写回，三保存寄存器/80B与176B正常帧及六参，原系统参数槽只拓已证指针"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "Cg2dRaiseLegacyFloatExceptionHost",
+            "Cg2dDefaultLegacyMathError",
+            "Cg2dSetLegacyMathErrno",
+            "Cg2dLegacyMathErrorCallbackGate5925B8"
+          ],
+          "relationship": "三私有真实callee/API桥与原2694H共享槽唯一owner；既有errno单owner和原matherr保"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-baseline",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-decision",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-acceptance",
+        "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-source-state"
+      ],
+      "boundary": "5460EB完整原类型递减分派/7改1、真实handle后按操作号选择性第二F64与原标志生产并调真实raise；借用W16保存CW仅读后零扩到局部W32，尾真实ctrlfp、原2694H共享槽读取、matherr/同源errno和S32返回保，32B数学记录只拓原名称指针到40B。 BWI01开发原5473E8异常参数生产/系统分派与5460EB真实87except父，两完整352条899B/六页、七direct七callee/一IAT、59跳两RET/两CALL入向。三现文件七追加：五CPP/两ASM七本体、五C桥及一个原5925B8共享owner，初值真实2694H、旧errno单owner不复制。88B原W32记录/三个24B单元和选择性第二F64、原位映射/掩码及未生产字节保持；原系统RaiseException接同一原生指针槽、返回重读/选择性CW改写与x87结果回写，原FFFFF3FFH掩码不按宿主修正。原类型分派/七真实CRT依赖与系统调用、W16保存CW到局部W32、尾ctrlfp/matherr/errno和S32返回保。三保存寄存器/80B及176B正常展开帧与六参只拓指针，不加保护/捕获或故障样例。两新原新/F、CRT171限定I-S，定位155/CRT余27；上游记录/范围出口与pow/FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWI01开发原5473E8异常参数生产/系统分派与5460EB真实87except父，两完整352条899B/六页、七direct七callee/一IAT、59跳两RET/两CALL入向。三现文件七追加：五CPP/两ASM七本体、五C桥及一个原5925B8共享owner，初值真实2694H、旧errno单owner不复制。88B原W32记录/三个24B单元和选择性第二F64、原位映射/掩码及未生产字节保持；原系统RaiseException接同一原生指针槽、返回重读/选择性CW改写与x87结果回写，原FFFFF3FFH掩码不按宿主修正。原类型分派/七真实CRT依赖与系统调用、W16保存CW到局部W32、尾ctrlfp/matherr/errno和S32返回保。三保存寄存器/80B及176B正常展开帧与六参只拓指针，不加保护/捕获或故障样例。两新原新/F、CRT171限定I-S，定位155/CRT余27；上游记录/范围出口与pow/FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_exception_dispatch": {
+        "spec_id": "BWI01",
+        "evidence_refs": [
+          "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-baseline",
+          "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-decision",
+          "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-acceptance",
+          "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 94,
+        "original_code_bytes": 208,
+        "original_page_count": 2,
+        "original_direct_call_count": 5,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 20,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "original_total_instruction_count": 352,
+        "original_total_code_bytes": 899,
+        "original_total_page_count": 6,
+        "original_total_direct_call_count": 7,
+        "original_total_unique_direct_callee_count": 7,
+        "original_total_indirect_call_count": 1,
+        "original_total_jump_count": 59,
+        "original_total_return_count": 2,
+        "original_total_inbound_call_count": 2,
+        "parent_original_instruction_reuse_reference": "doc/cg2d_math_error_hardware_leaves_evidence.json",
+        "same_session_parent_metadata_and_refs_rechecked": true,
+        "source_body_added": true,
+        "source_cpp_file_count": 1,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_patch_count": 7,
+        "new_original_mapped_function_count": 2,
+        "new_native_function_body_count": 7,
+        "new_cpp_body_count": 5,
+        "new_asm_proc_count": 2,
+        "new_private_C_bridge_count": 5,
+        "new_shared_owner_count": 1,
+        "original_88B_record_24B_units_numeric_offsets_and_selective_second_F64_kept": true,
+        "unproduced_header_payload_format_or_reserved_not_default_filled": true,
+        "original_conditions_code_order_status_mapping_RC_PC_operation_and_valid_format_bits_kept": true,
+        "original_system_code_flags0_argument_count1_same_pointer_slot_and_return_reads_kept": true,
+        "original_selective_control_edits_FFFFF3FF_mask_CH_and_x87_result_write_kept": true,
+        "original_type_rewrite_handle_raise_ctrl_matherr_errno_return_kept": true,
+        "saved_control_only_W16_input_to_local_W32_kept": true,
+        "raw_shared_callback_gate_94260000_initial_value_and_mutable_owner_kept": true,
+        "old_errno_owner_not_duplicated": true,
+        "all_seven_CRT_calls_and_one_original_system_call_connected": true,
+        "native_saved_registers_80B_176B_six_argument_frames_unwind_and_proven_pointer_widening": true,
+        "no_new_catch_protection_fault_injection_gate_or_host_math": true,
+        "old_environment_classification_helpers_hardware_masked_body_startup_map_and_build_rules_kept": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_upstream_record_producers_verified": false,
+        "full_generic_pow_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

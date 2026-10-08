@@ -45,6 +45,31 @@ std::int32_t HandleLegacyMathException_54769B(
     std::uint32_t conditions, double* result, std::uint32_t control) noexcept;
 void SetLegacyRawX87Status_54791B(std::uint32_t status) noexcept;
 
+// 原88B浮点异常参数；三个值单元只保原W32载荷/标志，不默认填未生产字节。
+struct alignas(8) LegacyFloatExceptionValue {
+    std::uint32_t payload[4];   // 原F64写入低8B；其余载荷沿原生产路径。
+    std::uint32_t format;       // 原值单元+16，valid/format位保持。
+    std::uint32_t reserved;     // 原值单元+20，当前两生产体不写。
+};
+struct alignas(8) LegacyFloatExceptionRecord {
+    std::uint32_t header;       // 原+0，舍入/精度/操作号的位域载体。
+    std::uint32_t causes;       // 原+4，原条件到五低位映射。
+    std::uint32_t enables;      // 原+8，原控制字的反掩码映射。
+    std::uint32_t status;       // 原+12，等待式原x87状态样本映射。
+    LegacyFloatExceptionValue operand1;  // 原+16。
+    LegacyFloatExceptionValue operand2;  // 原+40，父仅选择性生产。
+    LegacyFloatExceptionValue result;    // 原+64，系统调用后原F64写回。
+};
+
+// 原5473E8/5460EB；全部指针只借用，原异常分派合同见数学异常分派SPEC。
+void RaiseLegacyFloatingPointException_5473E8(
+    LegacyFloatExceptionRecord* record, std::uint32_t* control,
+    std::uint32_t conditions, std::uint32_t operationId,
+    const double* argument, double* result) noexcept;
+std::int32_t ProcessLegacyX87Exception_5460EB(
+    std::uint32_t operationId, LegacyMathErrorRecord* record,
+    const std::uint16_t* savedControl) noexcept;
+
 // 原控制字抽象/硬件表示转换，只消费和生成原已定义位。
 std::uint32_t AbstractLegacyControlWord_5448A4(std::uint32_t hardware);
 std::uint32_t HardwareLegacyControlWord_544936(std::uint32_t abstractValue);
@@ -87,6 +112,20 @@ extern "C" std::int32_t Cg2dControlLegacyRawX87(
 extern "C" std::int32_t Cg2dHandleLegacyMathException(
     std::uint32_t conditions, double* result, std::uint32_t control) noexcept;
 extern "C" void Cg2dSetLegacyRawX87Status(std::uint32_t status) noexcept;
+
+// Win64真实父/系统调用桥；数值记录仍88B，外部参数槽仅拓宽已证指针。
+extern "C" void Cg2dRaiseLegacyFloatingPointException(
+    LegacyFloatExceptionRecord* record, std::uint32_t* control,
+    std::uint32_t conditions, std::uint32_t operationId,
+    const double* argument, double* result) noexcept;
+extern "C" std::int32_t Cg2dProcessLegacyX87Exception(
+    std::uint32_t operationId, LegacyMathErrorRecord* record,
+    const std::uint16_t* savedControl) noexcept;
+extern "C" void Cg2dRaiseLegacyFloatExceptionHost(
+    std::uint32_t code, std::uintptr_t* arguments) noexcept;
+extern "C" std::int32_t Cg2dDefaultLegacyMathError(LegacyMathErrorRecord* record) noexcept;
+extern "C" std::int32_t Cg2dSetLegacyMathErrno(std::int32_t type) noexcept;
+extern "C" std::uint32_t Cg2dLegacyMathErrorCallbackGate5925B8;
 
 } // namespace detail
 } // namespace cg::platform

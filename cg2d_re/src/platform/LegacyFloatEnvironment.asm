@@ -26,6 +26,12 @@ PUBLIC Cg2dReadAndClearLegacyRawX87Status
 PUBLIC Cg2dControlLegacyRawX87
 PUBLIC Cg2dHandleLegacyMathException
 PUBLIC Cg2dSetLegacyRawX87Status
+PUBLIC Cg2dRaiseLegacyFloatingPointException
+PUBLIC Cg2dProcessLegacyX87Exception
+EXTERN Cg2dRaiseLegacyFloatExceptionHost:PROC
+EXTERN Cg2dDefaultLegacyMathError:PROC
+EXTERN Cg2dSetLegacyMathErrno:PROC
+EXTERN Cg2dLegacyMathErrorCallbackGate5925B8:DWORD
 PUBLIC Cg2dReadLegacyX87Control
 PUBLIC Cg2dWriteLegacyX87Control
 PUBLIC Cg2dClearLegacyX87Exceptions
@@ -782,5 +788,412 @@ LegacyHandleDone:
     add rsp, 88
     ret
 Cg2dHandleLegacyMathException ENDP
+
+; 原5473E8；88B原数值记录不扩宽，参数指针槽及六参调用见数学异常分派SPEC。
+; 三保存寄存器/80B正常帧承接原W32字段、借用指针与原读取/改写顺序。
+Cg2dRaiseLegacyFloatingPointException PROC FRAME
+    push rbx
+    .pushreg rbx
+    push rsi
+    .pushreg rsi
+    push rdi
+    .pushreg rdi
+    sub rsp, 80
+    .allocstack 80
+    .endprolog
+    mov qword ptr [rsp+32], rcx
+    mov qword ptr [rsp+40], rdx
+    mov dword ptr [rsp+72], r8d
+    mov dword ptr [rsp+52], r9d
+    mov rax, qword ptr [rsp+144]
+    mov qword ptr [rsp+56], rax
+    mov rax, qword ptr [rsp+152]
+    mov qword ptr [rsp+64], rax
+    mov rcx, qword ptr [rsp+32]
+    xor eax, eax
+    mov [rcx+4], eax
+    mov rcx, qword ptr [rsp+32]
+    mov ebx, 1
+    mov [rcx+8], eax
+    mov rcx, qword ptr [rsp+32]
+    mov [rcx+0Ch], eax
+    mov cl, byte ptr [rsp+72]
+    test cl, 10h
+    jz LegacyRaise_54741A
+    mov rax, qword ptr [rsp+32]
+    mov dword ptr [rsp+72], 0C000008Fh
+    or [rax+4], ebx
+LegacyRaise_54741A:
+    test cl, 2
+    jz LegacyRaise_54742D
+    mov rax, qword ptr [rsp+32]
+    mov dword ptr [rsp+72], 0C0000093h
+    or dword ptr [rax+4], 2
+LegacyRaise_54742D:
+    test bl, cl
+    jz LegacyRaise_54743F
+    mov rax, qword ptr [rsp+32]
+    mov dword ptr [rsp+72], 0C0000091h
+    or dword ptr [rax+4], 4
+LegacyRaise_54743F:
+    test cl, 4
+    jz LegacyRaise_547452
+    mov rax, qword ptr [rsp+32]
+    mov dword ptr [rsp+72], 0C000008Eh
+    or dword ptr [rax+4], 8
+LegacyRaise_547452:
+    test cl, 8
+    jz LegacyRaise_547465
+    mov rax, qword ptr [rsp+32]
+    mov dword ptr [rsp+72], 0C0000090h
+    or dword ptr [rax+4], 10h
+LegacyRaise_547465:
+    mov rsi, qword ptr [rsp+40]
+    mov rax, qword ptr [rsp+32]
+    mov ecx, [rsi]
+    mov edx, [rax+8]
+    not ecx
+    and ecx, ebx
+    and edx, 0FFFFFFEFh
+    shl ecx, 4
+    or ecx, edx
+    mov edi, 2
+    mov dword ptr [rax+8], ecx
+    mov ecx, [rsi]
+    mov rax, qword ptr [rsp+32]
+    not ecx
+    mov edx, [rax+8]
+    and ecx, 4
+    shl ecx, 1
+    and edx, 0FFFFFFF7h
+    or ecx, edx
+    mov [rax+8], ecx
+    mov ecx, [rsi]
+    mov rax, qword ptr [rsp+32]
+    not ecx
+    mov edx, [rax+8]
+    shr ecx, 1
+    and ecx, 4
+    and edx, 0FFFFFFFBh
+    or ecx, edx
+    mov [rax+8], ecx
+    mov ecx, [rsi]
+    mov rax, qword ptr [rsp+32]
+    not ecx
+    mov edx, [rax+8]
+    shr ecx, 3
+    and ecx, edi
+    and edx, 0FFFFFFFDh
+    or ecx, edx
+    mov [rax+8], ecx
+    mov ecx, [rsi]
+    mov rax, qword ptr [rsp+32]
+    not ecx
+    mov edx, [rax+8]
+    shr ecx, 5
+    and ecx, ebx
+    and edx, 0FFFFFFFEh
+    or ecx, edx
+    mov [rax+8], ecx
+    call Cg2dReadLegacyRawX87Status
+    test bl, al
+    jz LegacyRaise_5474EE
+    mov rcx, qword ptr [rsp+32]
+    or dword ptr [rcx+0Ch], 10h
+LegacyRaise_5474EE:
+    test al, 4
+    jz LegacyRaise_5474F9
+    mov rcx, qword ptr [rsp+32]
+    or dword ptr [rcx+0Ch], 8
+LegacyRaise_5474F9:
+    test al, 8
+    jz LegacyRaise_547504
+    mov rcx, qword ptr [rsp+32]
+    or dword ptr [rcx+0Ch], 4
+LegacyRaise_547504:
+    test al, 10h
+    jz LegacyRaise_54750E
+    mov rcx, qword ptr [rsp+32]
+    or [rcx+0Ch], edi
+LegacyRaise_54750E:
+    test al, 20h
+    jz LegacyRaise_547518
+    mov rax, qword ptr [rsp+32]
+    or [rax+0Ch], ebx
+LegacyRaise_547518:
+    mov eax, [rsi]
+    mov ecx, 0C00h
+    and eax, ecx
+    jz LegacyRaise_547557
+    cmp eax, 400h
+    jz LegacyRaise_547549
+    cmp eax, 800h
+    jz LegacyRaise_54753D
+    cmp eax, ecx
+    jnz LegacyRaise_54755D
+    mov rax, qword ptr [rsp+32]
+    or dword ptr [rax], 3
+    jmp LegacyRaise_54755D
+LegacyRaise_54753D:
+    mov rax, qword ptr [rsp+32]
+    mov ecx, [rax]
+    and ecx, 0FFFFFFFEh
+    or ecx, edi
+    jmp LegacyRaise_547553
+LegacyRaise_547549:
+    mov rax, qword ptr [rsp+32]
+    mov ecx, [rax]
+    and ecx, 0FFFFFFFDh
+    or ecx, ebx
+LegacyRaise_547553:
+    mov [rax], ecx
+    jmp LegacyRaise_54755D
+LegacyRaise_547557:
+    mov rax, qword ptr [rsp+32]
+    and dword ptr [rax], 0FFFFFFFCh
+LegacyRaise_54755D:
+    mov eax, [rsi]
+    mov ecx, 300h
+    and eax, ecx
+    jz LegacyRaise_547588
+    cmp eax, 200h
+    jz LegacyRaise_54757B
+    cmp eax, ecx
+    jnz LegacyRaise_547595
+    mov rax, qword ptr [rsp+32]
+    and dword ptr [rax], 0FFFFFFE3h
+    jmp LegacyRaise_547595
+LegacyRaise_54757B:
+    mov rax, qword ptr [rsp+32]
+    mov ecx, [rax]
+    and ecx, 0FFFFFFE7h
+    or ecx, 4
+    jmp LegacyRaise_547593
+LegacyRaise_547588:
+    mov rax, qword ptr [rsp+32]
+    mov ecx, [rax]
+    and ecx, 0FFFFFFEBh
+    or ecx, 8
+LegacyRaise_547593:
+    mov [rax], ecx
+LegacyRaise_547595:
+    mov rax, qword ptr [rsp+32]
+    mov ecx, [rsp+52]
+    and ecx, 0FFFh
+    mov edx, [rax]
+    shl ecx, 5
+    and edx, 0FFFE001Fh
+    or ecx, edx
+    mov [rax], ecx
+    mov rax, qword ptr [rsp+32]
+    or [rax+20h], ebx
+    mov rax, qword ptr [rsp+32]
+    mov ecx, [rax+20h]
+    and ecx, 0FFFFFFE3h
+    or ecx, edi
+    mov [rax+20h], ecx
+    mov rax, qword ptr [rsp+56]
+    fld qword ptr [rax]
+    mov rax, qword ptr [rsp+32]
+    fstp qword ptr [rax+10h]
+    mov rax, qword ptr [rsp+32]
+    or [rax+50h], ebx
+    mov rax, qword ptr [rsp+32]
+    mov ecx, [rax+50h]
+    and ecx, 0FFFFFFE3h
+    or ecx, edi
+    mov rdi, qword ptr [rsp+64]
+    mov [rax+50h], ecx
+    mov rax, qword ptr [rsp+32]
+    fld qword ptr [rdi]
+    fstp qword ptr [rax+40h]
+    call Cg2dReadAndClearLegacyRawX87Status
+    lea rdx, [rsp+32]
+    mov ecx, dword ptr [rsp+72]
+    call Cg2dRaiseLegacyFloatExceptionHost
+    mov rax, qword ptr [rsp+32]
+    test byte ptr [rax+8], 10h
+    jz LegacyRaise_54760F
+    and dword ptr [rsi], 0FFFFFFFEh
+LegacyRaise_54760F:
+    test byte ptr [rax+8], 8
+    jz LegacyRaise_547618
+    and dword ptr [rsi], 0FFFFFFFBh
+LegacyRaise_547618:
+    test byte ptr [rax+8], 4
+    jz LegacyRaise_547621
+    and dword ptr [rsi], 0FFFFFFF7h
+LegacyRaise_547621:
+    test byte ptr [rax+8], 2
+    jz LegacyRaise_54762A
+    and dword ptr [rsi], 0FFFFFFEFh
+LegacyRaise_54762A:
+    test byte ptr [rax+8], bl
+    jz LegacyRaise_547632
+    and dword ptr [rsi], 0FFFFFFDFh
+LegacyRaise_547632:
+    mov ecx, [rax]
+    mov edx, 0FFFFF3FFh
+    and ecx, 3
+    sub ecx, 0
+    jz LegacyRaise_547666
+    dec ecx
+    jz LegacyRaise_54765A
+    dec ecx
+    jz LegacyRaise_547650
+    dec ecx
+    jnz LegacyRaise_547668
+    or byte ptr [rsi+1], 0Ch
+    jmp LegacyRaise_547668
+LegacyRaise_547650:
+    mov ecx, [rsi]
+    and ch, 0FBh
+    or ch, 8
+    jmp LegacyRaise_547662
+LegacyRaise_54765A:
+    mov ecx, [rsi]
+    and ch, 0F7h
+    or ch, 4
+LegacyRaise_547662:
+    mov [rsi], ecx
+    jmp LegacyRaise_547668
+LegacyRaise_547666:
+    and [rsi], edx
+LegacyRaise_547668:
+    mov ecx, [rax]
+    shr ecx, 2
+    and ecx, 7
+    sub ecx, 0
+    jz LegacyRaise_547688
+    dec ecx
+    jz LegacyRaise_54767F
+    dec ecx
+    jnz LegacyRaise_547691
+    and [rsi], edx
+    jmp LegacyRaise_547691
+LegacyRaise_54767F:
+    mov ecx, [rsi]
+    and ecx, edx
+    or ch, 2
+    jmp LegacyRaise_54768F
+LegacyRaise_547688:
+    mov ecx, [rsi]
+    and ecx, edx
+    or ch, 3
+LegacyRaise_54768F:
+    mov [rsi], ecx
+LegacyRaise_547691:
+    fld qword ptr [rax+40h]
+    fstp qword ptr [rdi]
+    add rsp, 80
+    pop rdi
+    pop rsi
+    pop rbx
+    ret
+Cg2dRaiseLegacyFloatingPointException ENDP
+
+; 原5460EB；三保存寄存器/176B正常帧承接88B原参数记录与六参调用区。
+; 原保存CW仅读W16后零扩展到本调用W32，原记录只扩既有名称指针。
+Cg2dProcessLegacyX87Exception PROC FRAME
+    push rbx
+    .pushreg rbx
+    push rsi
+    .pushreg rsi
+    push rdi
+    .pushreg rdi
+    sub rsp, 176
+    .allocstack 176
+    .endprolog
+    mov dword ptr [rsp+48], ecx
+    mov rsi, rdx
+    movzx ecx, word ptr [r8]
+    mov dword ptr [rsp+52], ecx
+    mov eax, [rsi]
+    dec eax
+    jz Legacy87_546130
+    dec eax
+    jz Legacy87_54612C
+    dec eax
+    jz Legacy87_546128
+    dec eax
+    jz Legacy87_546124
+    dec eax
+    jz Legacy87_546130
+    dec eax
+    dec eax
+    jz Legacy87_54611C
+    dec eax
+    jnz Legacy87_546186
+    mov ebx, 010h
+    jmp Legacy87_546132
+Legacy87_54611C:
+    mov dword ptr [rsi], 1
+    jmp Legacy87_546186
+Legacy87_546124:
+    mov ebx, 012h
+    jmp Legacy87_546132
+Legacy87_546128:
+    mov ebx, 011h
+    jmp Legacy87_546132
+Legacy87_54612C:
+    mov ebx, 4
+    jmp Legacy87_546132
+Legacy87_546130:
+    mov ebx, 8
+Legacy87_546132:
+    lea rdi, [rsi+32]
+    mov r8d, dword ptr [rsp+52]
+    mov rdx, rdi
+    mov ecx, ebx
+    call Cg2dHandleLegacyMathException
+    test eax, eax
+    jnz Legacy87_546186
+    mov eax, dword ptr [rsp+48]
+    cmp eax, 10h
+    jz Legacy87_54615D
+    cmp eax, 16h
+    jz Legacy87_54615D
+    cmp eax, 1Dh
+    jz Legacy87_54615D
+    and dword ptr [rsp+136], 0FFFFFFFEh
+    jmp Legacy87_54616F
+Legacy87_54615D:
+    mov ecx, dword ptr [rsp+136]
+    fld qword ptr [rsi+24]
+    and ecx, 0FFFFFFE3h
+    fstp qword ptr [rsp+120]
+    or ecx, 3
+    mov dword ptr [rsp+136], ecx
+Legacy87_54616F:
+    lea r10, [rsi+16]
+    mov qword ptr [rsp+40], rdi
+    mov qword ptr [rsp+32], r10
+    mov r9d, eax
+    lea rdx, [rsp+52]
+    mov r8d, ebx
+    lea rcx, [rsp+80]
+    call Cg2dRaiseLegacyFloatingPointException
+Legacy87_546186:
+    mov edx, 0FFFFh
+    mov ecx, dword ptr [rsp+52]
+    call Cg2dControlLegacyRawX87
+    cmp dword ptr [rsi], 8
+    jz Legacy87_5461AE
+    cmp dword ptr [Cg2dLegacyMathErrorCallbackGate5925B8], 0
+    jnz Legacy87_5461AE
+    mov rcx, rsi
+    call Cg2dDefaultLegacyMathError
+    test eax, eax
+    jnz Legacy87_5461B6
+Legacy87_5461AE:
+    mov ecx, dword ptr [rsi]
+    call Cg2dSetLegacyMathErrno
+Legacy87_5461B6:
+    add rsp, 176
+    pop rdi
+    pop rsi
+    pop rbx
+    ret
+Cg2dProcessLegacyX87Exception ENDP
 
 END

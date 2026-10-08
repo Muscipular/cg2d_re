@@ -1690,3 +1690,11 @@ CC4238长度及默认回退、修补、应用、捕获中的共享读取/写入�
 原生玩家结构是稀疏承载；原473060 W32高W16随即被掩掉。本步按具名裁决保现有同源U16消费值，不读下一1A0冒充原196，不扩字段/补零或宣机器访问宽度等价。471DF0只六BYTE窗口取证，401EA0一跳及既有219复用，不验全父/读取核心。
 
 新1770..1781/十二adapted F，公共UI20→32，两限定I/S各28来源，I仅两既有helper实修；六正确请求不计新I。预期语义1782/有效1775、基线1892（51.41%）、F930/E1096；U04/U11/V03/R04仍open。全部父/16callee、输入/资源生产、正常owner-alias寿命、机器ABI/画面运行与R8待验；音频暂停、原格式明文及执行限制保持。
+
+## BVP01表情/聊天/MIS真实链基线（2026-10-08）
+
+[BVP01基线](../cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline)、[保持与登记决定](../cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision)、[验收](../cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-acceptance)及[原证](../cg2d_emote_chat_mis_chain_evidence.json)。
+
+十完整原根241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168真实CALL定位；两十八项S32动作表、原MIS命令/三字段、十八BYTE选中与512聊天首字节清理可对照。44B170第二chunk在4A7700，既有源拆分不新原身份。七相关整源/十三正文正确保持，零源码修改/零新I。
+
+新1782..1791十adapted F，公共UI32→41仅前九、NETWORK67→68仅MIS，两域各一个限定S/29来源；保原混合返回/void包装、图号及受限动作、Y/X/协议发送→本地动作→fresh tick，MIS每次容量先持样再格式化/以fresh buffer追加和完整返回，聊天模式/尺寸和清理副作用保。预期语义1792/有效1785、基线1902（51.68%）、F940/E1098；四任务仍open，所有父/callee、生产/正常owner-alias寿命、ABI/互通与画面运行待，音频暂停/原格式明文和执行限制保持。

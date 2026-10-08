@@ -202068,6 +202068,897 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x4fa8e0",
+      "inventory_id": "F:000FA8E0",
+      "original_role": "4FA8E0：初始action地址与scene10/两个W16状态短路；一次Eq读取的AL/高24位，负索引及先tick后起点+500 unsigned门禁。过门fresh action/payload附件、六signed图号区间与十受限动作改1；同selected协议表→Y/X/socket原MIS→fresh本地表→51A060→fresh tick发布并原混合结果返回；两十八项S32表及uintptr/void包装保，不加上限或新状态。",
+      "original_end_exclusive": "0x4faa95",
+      "original_chunks": [
+        [
+          "0x4fa8e0",
+          "0x4faa95"
+        ]
+      ],
+      "instruction_count": 117,
+      "status": "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "RequestEmoteWithResult_4FA8E0"
+          ],
+          "relationship": "4FA8E0：初始action地址与scene10/两个W16状态短路；一次Eq读取的AL/高24位，负索引及先tick后起点+500 unsigned门禁。过门fresh action/payload附件、六signed图号区间与十受限动作改1；同selected协议表→Y/X/socket原MIS→fresh本地表→51A060→fresh tick发布并原混合结果返回；两十八项S32表及uintptr/void包装保，不加上限或新状态。"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_4FA8E0",
+            "kEmoteLocalActions584B6C",
+            "kEmoteProtocolActions584BB4"
+          ],
+          "relationship": "既有void包装/两十八项原表保持，同一原入口仅一个身份"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "RequestEmoteWithResult_4FA8E0"
+          ],
+          "relationship": "已证原生action地址/W32混合返回声明保持，不新接口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-acceptance",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+      ],
+      "boundary": "4FA8E0：初始action地址与scene10/两个W16状态短路；一次Eq读取的AL/高24位，负索引及先tick后起点+500 unsigned门禁。过门fresh action/payload附件、六signed图号区间与十受限动作改1；同selected协议表→Y/X/socket原MIS→fresh本地表→51A060→fresh tick发布并原混合结果返回；两十八项S32表及uintptr/void包装保，不加上限或新状态。 BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "verification_level": "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "emote_chat_mis_chain": {
+        "spec_id": "BVP01",
+        "evidence_refs": [
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-acceptance",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 117,
+        "original_code_bytes": 437,
+        "original_page_count": 2,
+        "original_direct_call_count": 5,
+        "original_unique_direct_callee_count": 4,
+        "original_indirect_call_count": 2,
+        "original_jump_count": 41,
+        "original_return_count": 1,
+        "original_inbound_call_count": 71,
+        "original_total_instruction_count": 241,
+        "original_total_code_bytes": 879,
+        "original_total_page_count": 11,
+        "original_total_direct_call_count": 20,
+        "original_total_unique_direct_callee_count": 11,
+        "original_total_tick_indirect_call_count": 2,
+        "original_total_jump_count": 49,
+        "original_total_return_count": 11,
+        "original_total_inbound_call_count": 168,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "all_thirteen_bodies_kept": true,
+        "original_two_emote_tables_and_MIS_bytes_kept": true,
+        "source_tail_4A7700_same_F_not_recounted": true,
+        "original_18B_and_512_first_byte_clears_kept": true,
+        "original_mixed_return_and_void_wrapper_kept": true,
+        "original_capacity_format_append_fresh_buffer_order_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "new_99_dispatch_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x495f70",
+      "inventory_id": "F:00095F70",
+      "original_role": "495F70：四W32加一W16原序清十八BYTE，同索引BYTE=1，然后Y→X→4D3020并完整S32返回；原清零确实业务要求，现ClearEmoteSelection正确保持，不当额外保护。",
+      "original_end_exclusive": "0x495fb6",
+      "original_chunks": [
+        [
+          "0x495f70",
+          "0x495fb6"
+        ]
+      ],
+      "instruction_count": 17,
+      "status": "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_495F70"
+          ],
+          "relationship": "495F70：四W32加一W16原序清十八BYTE，同索引BYTE=1，然后Y→X→4D3020并完整S32返回；原清零确实业务要求，现ClearEmoteSelection正确保持，不当额外保护。"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ClearEmoteSelection"
+          ],
+          "relationship": "原18B以四W32/一W16清零，现正确helper全体保持，无新原身份"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-acceptance",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+      ],
+      "boundary": "495F70：四W32加一W16原序清十八BYTE，同索引BYTE=1，然后Y→X→4D3020并完整S32返回；原清零确实业务要求，现ClearEmoteSelection正确保持，不当额外保护。 BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "verification_level": "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "emote_chat_mis_chain": {
+        "spec_id": "BVP01",
+        "evidence_refs": [
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-acceptance",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 17,
+        "original_code_bytes": 70,
+        "original_page_count": 1,
+        "original_direct_call_count": 3,
+        "original_unique_direct_callee_count": 2,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_call_count": 34,
+        "original_total_instruction_count": 241,
+        "original_total_code_bytes": 879,
+        "original_total_page_count": 11,
+        "original_total_direct_call_count": 20,
+        "original_total_unique_direct_callee_count": 11,
+        "original_total_tick_indirect_call_count": 2,
+        "original_total_jump_count": 49,
+        "original_total_return_count": 11,
+        "original_total_inbound_call_count": 168,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "all_thirteen_bodies_kept": true,
+        "original_two_emote_tables_and_MIS_bytes_kept": true,
+        "source_tail_4A7700_same_F_not_recounted": true,
+        "original_18B_and_512_first_byte_clears_kept": true,
+        "original_mixed_return_and_void_wrapper_kept": true,
+        "original_capacity_format_append_fresh_buffer_order_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "new_99_dispatch_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x4a7710",
+      "inventory_id": "F:000A7710",
+      "original_role": "4A7710：同源gChatHeightRequestC9A93C完整S32发布1，现void承接原无约定返回使用；不加处理/门禁。",
+      "original_end_exclusive": "0x4a771b",
+      "original_chunks": [
+        [
+          "0x4a7710",
+          "0x4a771b"
+        ]
+      ],
+      "instruction_count": 2,
+      "status": "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4A7710"
+          ],
+          "relationship": "4A7710：同源gChatHeightRequestC9A93C完整S32发布1，现void承接原无约定返回使用；不加处理/门禁。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-acceptance",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+      ],
+      "boundary": "4A7710：同源gChatHeightRequestC9A93C完整S32发布1，现void承接原无约定返回使用；不加处理/门禁。 BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "verification_level": "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "emote_chat_mis_chain": {
+        "spec_id": "BVP01",
+        "evidence_refs": [
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-acceptance",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 11,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_unique_direct_callee_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_call_count": 3,
+        "original_total_instruction_count": 241,
+        "original_total_code_bytes": 879,
+        "original_total_page_count": 11,
+        "original_total_direct_call_count": 20,
+        "original_total_unique_direct_callee_count": 11,
+        "original_total_tick_indirect_call_count": 2,
+        "original_total_jump_count": 49,
+        "original_total_return_count": 11,
+        "original_total_inbound_call_count": 168,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "all_thirteen_bodies_kept": true,
+        "original_two_emote_tables_and_MIS_bytes_kept": true,
+        "source_tail_4A7700_same_F_not_recounted": true,
+        "original_18B_and_512_first_byte_clears_kept": true,
+        "original_mixed_return_and_void_wrapper_kept": true,
+        "original_capacity_format_append_fresh_buffer_order_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "new_99_dispatch_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x4a7720",
+      "inventory_id": "F:000A7720",
+      "original_role": "4A7720：同源gChatHeightRequestC9A93C完整S32发布FFFFFFFF即−1；现void/原业务字段保持。",
+      "original_end_exclusive": "0x4a772b",
+      "original_chunks": [
+        [
+          "0x4a7720",
+          "0x4a772b"
+        ]
+      ],
+      "instruction_count": 2,
+      "status": "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4A7720"
+          ],
+          "relationship": "4A7720：同源gChatHeightRequestC9A93C完整S32发布FFFFFFFF即−1；现void/原业务字段保持。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-acceptance",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+      ],
+      "boundary": "4A7720：同源gChatHeightRequestC9A93C完整S32发布FFFFFFFF即−1；现void/原业务字段保持。 BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "verification_level": "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "emote_chat_mis_chain": {
+        "spec_id": "BVP01",
+        "evidence_refs": [
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-acceptance",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 11,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_unique_direct_callee_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_call_count": 3,
+        "original_total_instruction_count": 241,
+        "original_total_code_bytes": 879,
+        "original_total_page_count": 11,
+        "original_total_direct_call_count": 20,
+        "original_total_unique_direct_callee_count": 11,
+        "original_total_tick_indirect_call_count": 2,
+        "original_total_jump_count": 49,
+        "original_total_return_count": 11,
+        "original_total_inbound_call_count": 168,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "all_thirteen_bodies_kept": true,
+        "original_two_emote_tables_and_MIS_bytes_kept": true,
+        "source_tail_4A7700_same_F_not_recounted": true,
+        "original_18B_and_512_first_byte_clears_kept": true,
+        "original_mixed_return_and_void_wrapper_kept": true,
+        "original_capacity_format_append_fresh_buffer_order_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "new_99_dispatch_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x4a7730",
+      "inventory_id": "F:000A7730",
+      "original_role": "4A7730：同源gChatWidthRequestC9A934完整S32发布1；与高度/左移不互换。",
+      "original_end_exclusive": "0x4a773b",
+      "original_chunks": [
+        [
+          "0x4a7730",
+          "0x4a773b"
+        ]
+      ],
+      "instruction_count": 2,
+      "status": "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4A7730"
+          ],
+          "relationship": "4A7730：同源gChatWidthRequestC9A934完整S32发布1；与高度/左移不互换。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-acceptance",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+      ],
+      "boundary": "4A7730：同源gChatWidthRequestC9A934完整S32发布1；与高度/左移不互换。 BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "verification_level": "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "emote_chat_mis_chain": {
+        "spec_id": "BVP01",
+        "evidence_refs": [
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-acceptance",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 11,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_unique_direct_callee_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_call_count": 3,
+        "original_total_instruction_count": 241,
+        "original_total_code_bytes": 879,
+        "original_total_page_count": 11,
+        "original_total_direct_call_count": 20,
+        "original_total_unique_direct_callee_count": 11,
+        "original_total_tick_indirect_call_count": 2,
+        "original_total_jump_count": 49,
+        "original_total_return_count": 11,
+        "original_total_inbound_call_count": 168,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "all_thirteen_bodies_kept": true,
+        "original_two_emote_tables_and_MIS_bytes_kept": true,
+        "source_tail_4A7700_same_F_not_recounted": true,
+        "original_18B_and_512_first_byte_clears_kept": true,
+        "original_mixed_return_and_void_wrapper_kept": true,
+        "original_capacity_format_append_fresh_buffer_order_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "new_99_dispatch_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x4a7740",
+      "inventory_id": "F:000A7740",
+      "original_role": "4A7740：同源gChatWidthRequestC9A934完整S32发布FFFFFFFF即−1，其他状态不清。",
+      "original_end_exclusive": "0x4a774b",
+      "original_chunks": [
+        [
+          "0x4a7740",
+          "0x4a774b"
+        ]
+      ],
+      "instruction_count": 2,
+      "status": "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4A7740"
+          ],
+          "relationship": "4A7740：同源gChatWidthRequestC9A934完整S32发布FFFFFFFF即−1，其他状态不清。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-acceptance",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+      ],
+      "boundary": "4A7740：同源gChatWidthRequestC9A934完整S32发布FFFFFFFF即−1，其他状态不清。 BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "verification_level": "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "emote_chat_mis_chain": {
+        "spec_id": "BVP01",
+        "evidence_refs": [
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-acceptance",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 11,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_unique_direct_callee_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_call_count": 3,
+        "original_total_instruction_count": 241,
+        "original_total_code_bytes": 879,
+        "original_total_page_count": 11,
+        "original_total_direct_call_count": 20,
+        "original_total_unique_direct_callee_count": 11,
+        "original_total_tick_indirect_call_count": 2,
+        "original_total_jump_count": 49,
+        "original_total_return_count": 11,
+        "original_total_inbound_call_count": 168,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "all_thirteen_bodies_kept": true,
+        "original_two_emote_tables_and_MIS_bytes_kept": true,
+        "source_tail_4A7700_same_F_not_recounted": true,
+        "original_18B_and_512_first_byte_clears_kept": true,
+        "original_mixed_return_and_void_wrapper_kept": true,
+        "original_capacity_format_append_fresh_buffer_order_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "new_99_dispatch_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x4a8330",
+      "inventory_id": "F:000A8330",
+      "original_role": "4A8330：模式0读当前35，否则57；当前空返回nullptr且不发布输入标志，存在标记8000→Open对方57/35→模式1/0→626C14=0→C9A96C=1，创建失败也保发布及真实返回。",
+      "original_end_exclusive": "0x4a8398",
+      "original_chunks": [
+        [
+          "0x4a8330",
+          "0x4a8398"
+        ]
+      ],
+      "instruction_count": 27,
+      "status": "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4A8330"
+          ],
+          "relationship": "4A8330：模式0读当前35，否则57；当前空返回nullptr且不发布输入标志，存在标记8000→Open对方57/35→模式1/0→626C14=0→C9A96C=1，创建失败也保发布及真实返回。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-acceptance",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+      ],
+      "boundary": "4A8330：模式0读当前35，否则57；当前空返回nullptr且不发布输入标志，存在标记8000→Open对方57/35→模式1/0→626C14=0→C9A96C=1，创建失败也保发布及真实返回。 BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "verification_level": "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "emote_chat_mis_chain": {
+        "spec_id": "BVP01",
+        "evidence_refs": [
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-acceptance",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 27,
+        "original_code_bytes": 104,
+        "original_page_count": 1,
+        "original_direct_call_count": 2,
+        "original_unique_direct_callee_count": 1,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 4,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "original_total_instruction_count": 241,
+        "original_total_code_bytes": 879,
+        "original_total_page_count": 11,
+        "original_total_direct_call_count": 20,
+        "original_total_unique_direct_callee_count": 11,
+        "original_total_tick_indirect_call_count": 2,
+        "original_total_jump_count": 49,
+        "original_total_return_count": 11,
+        "original_total_inbound_call_count": 168,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "all_thirteen_bodies_kept": true,
+        "original_two_emote_tables_and_MIS_bytes_kept": true,
+        "source_tail_4A7700_same_F_not_recounted": true,
+        "original_18B_and_512_first_byte_clears_kept": true,
+        "original_mixed_return_and_void_wrapper_kept": true,
+        "original_capacity_format_append_fresh_buffer_order_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "new_99_dispatch_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x44b170",
+      "inventory_id": "F:0004B170",
+      "original_role": "44B170：512个134h记录只首BYTE清0，再尾4A7700按计数/滚动清0并返回0；两原chunk唯一F，源Sub4A7700仅已有拆分，不新原身份或全记录补零。",
+      "original_end_exclusive": "0x44b189",
+      "original_chunks": [
+        [
+          "0x44b170",
+          "0x44b189"
+        ],
+        [
+          "0x4a7700",
+          "0x4a770d"
+        ]
+      ],
+      "instruction_count": 10,
+      "status": "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_44B170"
+          ],
+          "relationship": "44B170：512个134h记录只首BYTE清0，再尾4A7700按计数/滚动清0并返回0；两原chunk唯一F，源Sub4A7700仅已有拆分，不新原身份或全记录补零。"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4A7700"
+          ],
+          "relationship": "44B170第二原chunk的既有源拆分，共尾清计数/滚动并返0；不新F"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-acceptance",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+      ],
+      "boundary": "44B170：512个134h记录只首BYTE清0，再尾4A7700按计数/滚动清0并返回0；两原chunk唯一F，源Sub4A7700仅已有拆分，不新原身份或全记录补零。 BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "verification_level": "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "emote_chat_mis_chain": {
+        "spec_id": "BVP01",
+        "evidence_refs": [
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-acceptance",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 10,
+        "original_code_bytes": 38,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_unique_direct_callee_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 2,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "original_total_instruction_count": 241,
+        "original_total_code_bytes": 879,
+        "original_total_page_count": 11,
+        "original_total_direct_call_count": 20,
+        "original_total_unique_direct_callee_count": 11,
+        "original_total_tick_indirect_call_count": 2,
+        "original_total_jump_count": 49,
+        "original_total_return_count": 11,
+        "original_total_inbound_call_count": 168,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "all_thirteen_bodies_kept": true,
+        "original_two_emote_tables_and_MIS_bytes_kept": true,
+        "source_tail_4A7700_same_F_not_recounted": true,
+        "original_18B_and_512_first_byte_clears_kept": true,
+        "original_mixed_return_and_void_wrapper_kept": true,
+        "original_capacity_format_append_fresh_buffer_order_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "new_99_dispatch_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x51a060",
+      "inventory_id": "F:0011A060",
+      "original_role": "51A060：fresh玩家action，空不调用，非空角色动作1以第三参0交43EFC0，其余第三参1；本次仅根正常静态，真实动作callee/全部父及ABI仍待。",
+      "original_end_exclusive": "0x51a08c",
+      "original_chunks": [
+        [
+          "0x51a060",
+          "0x51a08c"
+        ]
+      ],
+      "instruction_count": 18,
+      "status": "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51A060"
+          ],
+          "relationship": "51A060：fresh玩家action，空不调用，非空角色动作1以第三参0交43EFC0，其余第三参1；本次仅根正常静态，真实动作callee/全部父及ABI仍待。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-acceptance",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+      ],
+      "boundary": "51A060：fresh玩家action，空不调用，非空角色动作1以第三参0交43EFC0，其余第三参1；本次仅根正常静态，真实动作callee/全部父及ABI仍待。 BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "verification_level": "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "emote_chat_mis_chain": {
+        "spec_id": "BVP01",
+        "evidence_refs": [
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-acceptance",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 18,
+        "original_code_bytes": 44,
+        "original_page_count": 1,
+        "original_direct_call_count": 2,
+        "original_unique_direct_callee_count": 1,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 2,
+        "original_return_count": 2,
+        "original_inbound_call_count": 26,
+        "original_total_instruction_count": 241,
+        "original_total_code_bytes": 879,
+        "original_total_page_count": 11,
+        "original_total_direct_call_count": 20,
+        "original_total_unique_direct_callee_count": 11,
+        "original_total_tick_indirect_call_count": 2,
+        "original_total_jump_count": 49,
+        "original_total_return_count": 11,
+        "original_total_inbound_call_count": 168,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "all_thirteen_bodies_kept": true,
+        "original_two_emote_tables_and_MIS_bytes_kept": true,
+        "source_tail_4A7700_same_F_not_recounted": true,
+        "original_18B_and_512_first_byte_clears_kept": true,
+        "original_mixed_return_and_void_wrapper_kept": true,
+        "original_capacity_format_append_fresh_buffer_order_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "new_99_dispatch_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x511dd0",
+      "inventory_id": "F:00111DD0",
+      "original_role": "511DD0：原MIS/含NUL命令字节4D495300和三个S32字段不改；每次容量持样在格式化前、追加时fresh共享buffer且消费该容量；最后fresh buffer原发送并透传S32结果。原格式明文/已有Send基线保持，不新checksum、分包、加解密或发送失败门槛。",
+      "original_end_exclusive": "0x511e5e",
+      "original_chunks": [
+        [
+          "0x511dd0",
+          "0x511e5e"
+        ]
+      ],
+      "instruction_count": 44,
+      "status": "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_511DD0"
+          ],
+          "relationship": "511DD0：原MIS/含NUL命令字节4D495300和三个S32字段不改；每次容量持样在格式化前、追加时fresh共享buffer且消费该容量；最后fresh buffer原发送并透传S32结果。原格式明文/已有Send基线保持，不新checksum、分包、加解密或发送失败门槛。"
+        },
+        {
+          "path": "include/cg/network/NetworkRuntime.hpp",
+          "symbols": [
+            "Sub_511DD0"
+          ],
+          "relationship": "既有native socket/三个S32声明保持；MIS原格式/明文和完整发送结果保"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-acceptance",
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+      ],
+      "boundary": "511DD0：原MIS/含NUL命令字节4D495300和三个S32字段不改；每次容量持样在格式化前、追加时fresh共享buffer且消费该容量；最后fresh buffer原发送并透传S32结果。原格式明文/已有Send基线保持，不新checksum、分包、加解密或发送失败门槛。 BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "verification_level": "BVP01十个正确既有入口的完整241条879B/11页、20直接11目标/两时钟间接、49跳11RET及168普通CALL定位，原两18项动作表/MIS字节/512聊天134h记录和44B170共享尾归属有据；七相关整源/十三正文全文保持、零代码改动/零新实现I。新增1782..1791十原新/F，公共UI41仅前九、NETWORK68仅MIS，两域各一个限定S/29来源；原混合uintptr/void、十八BYTE清/选与聊天发布、真正本地动作与原MIS三容量取样/原格式明文/结果保持。共尾4A7700不新身份，原Read/Send旧基线复用；全部168调用处及各父/callee/输入和资源生产、正常owner-alias寿命、机器ABI、互通/画面运行及R8待验，音频暂停/RPLAN.24和执行限制保。",
+      "emote_chat_mis_chain": {
+        "spec_id": "BVP01",
+        "evidence_refs": [
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-baseline",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-acceptance",
+          "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 44,
+        "original_code_bytes": 142,
+        "original_page_count": 1,
+        "original_direct_call_count": 8,
+        "original_unique_direct_callee_count": 4,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_call_count": 23,
+        "original_total_instruction_count": 241,
+        "original_total_code_bytes": 879,
+        "original_total_page_count": 11,
+        "original_total_direct_call_count": 20,
+        "original_total_unique_direct_callee_count": 11,
+        "original_total_tick_indirect_call_count": 2,
+        "original_total_jump_count": 49,
+        "original_total_return_count": 11,
+        "original_total_inbound_call_count": 168,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "all_thirteen_bodies_kept": true,
+        "original_two_emote_tables_and_MIS_bytes_kept": true,
+        "source_tail_4A7700_same_F_not_recounted": true,
+        "original_18B_and_512_first_byte_clears_kept": true,
+        "original_mixed_return_and_void_wrapper_kept": true,
+        "original_capacity_format_append_fresh_buffer_order_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "new_99_dispatch_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

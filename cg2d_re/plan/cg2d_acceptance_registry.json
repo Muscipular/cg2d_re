@@ -7736,7 +7736,8 @@
       "baseline_documents": [
         "doc/ui_windows/legacy_shop_choice.md",
         "doc/cg2d_shop_choice_body_spec.md",
-        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-baseline"
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-baseline",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-baseline"
       ],
       "original_inventory_ids": [
         "F:000D8D70",
@@ -7754,17 +7755,20 @@
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
       "decision_refs": [
         "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-decision",
-        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-decision"
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-decision",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-decision"
       ],
       "blockers": [
         "SCP01完整本体已落位；独立模式真实生产、低两位零的未写第二命令与旧外层路由仍未证，不评原栈等价",
         "成员枚举、完整父/间接路由/生命周期及运行门禁未闭合",
-        "BVV01修复旧62商店选择4D8DA0对opaque YobiAction::flags的直接访问及D67C68重复读取；原4D8EA1/A6/A8/AA四指令13B一次持样/判空/清W32 bit1，经现有SetYobiActionFlag2(previewAction,false)承接，无额外action判空或新接口。一个CPP一个片段，其它完整父体、预览生产叶、Yobi helper/头、模式/命令/格式/原字节及原格式明文保持。复用SCP01完整321条1080B根与原表/八字节合同，不重新取全根或外推真实外路由；已有1226/Fmixed及pending6/18保持，UI-L-062两个成员不重计，只两限定I/S。模式真实生产、低两位零的第二命令及旧路由/完整画面运行仍按原事实和验收处理，不填值或模拟原栈，未宣编译/链接/运行或故障等价通过；音频暂停/RPLAN.24及完整门禁保。"
+        "BVV01修复旧62商店选择4D8DA0对opaque YobiAction::flags的直接访问及D67C68重复读取；原4D8EA1/A6/A8/AA四指令13B一次持样/判空/清W32 bit1，经现有SetYobiActionFlag2(previewAction,false)承接，无额外action判空或新接口。一个CPP一个片段，其它完整父体、预览生产叶、Yobi helper/头、模式/命令/格式/原字节及原格式明文保持。复用SCP01完整321条1080B根与原表/八字节合同，不重新取全根或外推真实外路由；已有1226/Fmixed及pending6/18保持，UI-L-062两个成员不重计，只两限定I/S。模式真实生产、低两位零的第二命令及旧路由/完整画面运行仍按原事实和验收处理，不填值或模拟原栈，未宣编译/链接/运行或故障等价通过；音频暂停/RPLAN.24及完整门禁保。",
+        "BWT01修复旧商店4D8DA0命令格式参数的C++未生产整数直接求值：原3×S32命令与低位写1/2/末尾3、mode==3三行否则两行保持；同原row<=1命中后只借&commands[row]到真实Cg2dReadLegacyShopCommandW32，MOV EAX,DWORD PTR[RCX];RET实际读W32后给既有53B304 %d。三现源四改、一ASM私有读取叶/声明，零CPP新正文/owner/依赖/原身份；不补值、改写、保护、删行或造旧栈。当前39条152B原命令窗口及4D8F5B8B07对照，复用SCP01全321条1080B与原格式/转义/明文发送和BVV预览修复。仅已有1226/mixed/pending6、UI-L-062两成员及两限定I-S/E1178；所有数量/完整门禁保持，原实际模式/未写命令值/旧外层和机器运行继续，RPLAN.24/音频暂停保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
-        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state"
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-source-state"
       ]
     },
     {
@@ -51864,6 +51868,72 @@
       "observation": "BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。 只三F两完整R7共29条85B、四ASM两源四改、原位宽/CW-JZ-FSTSW与不弹ST0/直入共用后缀集中静态，不代机器或完整CRT。",
       "expected": "BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。 只三F两完整R7共29条85B、四ASM两源四改、原位宽/CW-JZ-FSTSW与不弹ST0/直入共用后缀集中静态，不代机器或完整CRT。",
       "actual": "BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。 只三F两完整R7共29条85B、四ASM两源四改、原位宽/CW-JZ-FSTSW与不弹ST0/直入共用后缀集中静态，不代机器或完整CRT。"
+    },
+    {
+      "id": "E-SHOP-COMMAND-NATIVE-READ-UI-L-062-I-20261008",
+      "feature_id": "UI-L-062",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWT01复用原完整321条1080B与当前39条152B命令窗口；原4D8F5B两字节8B07单W32读取至53B304 %d，原低位写与扫描不补值。doc/cg2d_shop_command_read_spec.md#shop-command-read-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-shop-command-native-read-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_shop_command_read_evidence.json",
+        "doc/cg2d_shop_command_read_spec.md",
+        "doc/cg2d_shop_choice_body_spec.md",
+        "doc/cg2d_shop_choice_body_evidence.json",
+        "src/LegacyUiRecord.cpp",
+        "src/platform/LegacyFloatEnvironment.asm",
+        "src/platform/LegacyFormat.hpp",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-baseline",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-decision",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-acceptance",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWT01修复旧商店4D8DA0命令格式参数的C++未生产整数直接求值：原3×S32命令与低位写1/2/末尾3、mode==3三行否则两行保持；同原row<=1命中后只借&commands[row]到真实Cg2dReadLegacyShopCommandW32，MOV EAX,DWORD PTR[RCX];RET实际读W32后给既有53B304 %d。三现源四改、一ASM私有读取叶/声明，零CPP新正文/owner/依赖/原身份；不补值、改写、保护、删行或造旧栈。当前39条152B原命令窗口及4D8F5B8B07对照，复用SCP01全321条1080B与原格式/转义/明文发送和BVV预览修复。仅已有1226/mixed/pending6、UI-L-062两成员及两限定I-S/E1178；所有数量/完整门禁保持，原实际模式/未写命令值/旧外层和机器运行继续，RPLAN.24/音频暂停保。 只原命中/row<=1后借址→实际ASM四字节读取→原%d和明文消费，未代原实际模式/第二命令值和旧外层。",
+          "decision_ref": "doc/cg2d_shop_command_read_spec.md#shop-command-read-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWT01修复旧商店4D8DA0命令格式参数的C++未生产整数直接求值：原3×S32命令与低位写1/2/末尾3、mode==3三行否则两行保持；同原row<=1命中后只借&commands[row]到真实Cg2dReadLegacyShopCommandW32，MOV EAX,DWORD PTR[RCX];RET实际读W32后给既有53B304 %d。三现源四改、一ASM私有读取叶/声明，零CPP新正文/owner/依赖/原身份；不补值、改写、保护、删行或造旧栈。当前39条152B原命令窗口及4D8F5B8B07对照，复用SCP01全321条1080B与原格式/转义/明文发送和BVV预览修复。仅已有1226/mixed/pending6、UI-L-062两成员及两限定I-S/E1178；所有数量/完整门禁保持，原实际模式/未写命令值/旧外层和机器运行继续，RPLAN.24/音频暂停保。 只原命中/row<=1后借址→实际ASM四字节读取→原%d和明文消费，未代原实际模式/第二命令值和旧外层。",
+      "expected": "BWT01修复旧商店4D8DA0命令格式参数的C++未生产整数直接求值：原3×S32命令与低位写1/2/末尾3、mode==3三行否则两行保持；同原row<=1命中后只借&commands[row]到真实Cg2dReadLegacyShopCommandW32，MOV EAX,DWORD PTR[RCX];RET实际读W32后给既有53B304 %d。三现源四改、一ASM私有读取叶/声明，零CPP新正文/owner/依赖/原身份；不补值、改写、保护、删行或造旧栈。当前39条152B原命令窗口及4D8F5B8B07对照，复用SCP01全321条1080B与原格式/转义/明文发送和BVV预览修复。仅已有1226/mixed/pending6、UI-L-062两成员及两限定I-S/E1178；所有数量/完整门禁保持，原实际模式/未写命令值/旧外层和机器运行继续，RPLAN.24/音频暂停保。 只原命中/row<=1后借址→实际ASM四字节读取→原%d和明文消费，未代原实际模式/第二命令值和旧外层。",
+      "actual": "BWT01修复旧商店4D8DA0命令格式参数的C++未生产整数直接求值：原3×S32命令与低位写1/2/末尾3、mode==3三行否则两行保持；同原row<=1命中后只借&commands[row]到真实Cg2dReadLegacyShopCommandW32，MOV EAX,DWORD PTR[RCX];RET实际读W32后给既有53B304 %d。三现源四改、一ASM私有读取叶/声明，零CPP新正文/owner/依赖/原身份；不补值、改写、保护、删行或造旧栈。当前39条152B原命令窗口及4D8F5B8B07对照，复用SCP01全321条1080B与原格式/转义/明文发送和BVV预览修复。仅已有1226/mixed/pending6、UI-L-062两成员及两限定I-S/E1178；所有数量/完整门禁保持，原实际模式/未写命令值/旧外层和机器运行继续，RPLAN.24/音频暂停保。 只原命中/row<=1后借址→实际ASM四字节读取→原%d和明文消费，未代原实际模式/第二命令值和旧外层。"
+    },
+    {
+      "id": "E-SHOP-COMMAND-NATIVE-READ-UI-L-062-S-20261008",
+      "feature_id": "UI-L-062",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWT01复用原完整321条1080B与当前39条152B命令窗口；原4D8F5B两字节8B07单W32读取至53B304 %d，原低位写与扫描不补值。doc/cg2d_shop_command_read_spec.md#shop-command-read-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-shop-command-native-read-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_shop_command_read_evidence.json",
+        "doc/cg2d_shop_command_read_spec.md",
+        "doc/cg2d_shop_choice_body_spec.md",
+        "doc/cg2d_shop_choice_body_evidence.json",
+        "src/LegacyUiRecord.cpp",
+        "src/platform/LegacyFloatEnvironment.asm",
+        "src/platform/LegacyFormat.hpp",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-baseline",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-decision",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-acceptance",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWT01修复旧商店4D8DA0命令格式参数的C++未生产整数直接求值：原3×S32命令与低位写1/2/末尾3、mode==3三行否则两行保持；同原row<=1命中后只借&commands[row]到真实Cg2dReadLegacyShopCommandW32，MOV EAX,DWORD PTR[RCX];RET实际读W32后给既有53B304 %d。三现源四改、一ASM私有读取叶/声明，零CPP新正文/owner/依赖/原身份；不补值、改写、保护、删行或造旧栈。当前39条152B原命令窗口及4D8F5B8B07对照，复用SCP01全321条1080B与原格式/转义/明文发送和BVV预览修复。仅已有1226/mixed/pending6、UI-L-062两成员及两限定I-S/E1178；所有数量/完整门禁保持，原实际模式/未写命令值/旧外层和机器运行继续，RPLAN.24/音频暂停保。 只三源四改及原39条152B窗口/W32单读、原三槽写与扫描/其它完整父保持，不代机器/完整页或原值等价。",
+          "decision_ref": "doc/cg2d_shop_command_read_spec.md#shop-command-read-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWT01修复旧商店4D8DA0命令格式参数的C++未生产整数直接求值：原3×S32命令与低位写1/2/末尾3、mode==3三行否则两行保持；同原row<=1命中后只借&commands[row]到真实Cg2dReadLegacyShopCommandW32，MOV EAX,DWORD PTR[RCX];RET实际读W32后给既有53B304 %d。三现源四改、一ASM私有读取叶/声明，零CPP新正文/owner/依赖/原身份；不补值、改写、保护、删行或造旧栈。当前39条152B原命令窗口及4D8F5B8B07对照，复用SCP01全321条1080B与原格式/转义/明文发送和BVV预览修复。仅已有1226/mixed/pending6、UI-L-062两成员及两限定I-S/E1178；所有数量/完整门禁保持，原实际模式/未写命令值/旧外层和机器运行继续，RPLAN.24/音频暂停保。 只三源四改及原39条152B窗口/W32单读、原三槽写与扫描/其它完整父保持，不代机器/完整页或原值等价。",
+      "expected": "BWT01修复旧商店4D8DA0命令格式参数的C++未生产整数直接求值：原3×S32命令与低位写1/2/末尾3、mode==3三行否则两行保持；同原row<=1命中后只借&commands[row]到真实Cg2dReadLegacyShopCommandW32，MOV EAX,DWORD PTR[RCX];RET实际读W32后给既有53B304 %d。三现源四改、一ASM私有读取叶/声明，零CPP新正文/owner/依赖/原身份；不补值、改写、保护、删行或造旧栈。当前39条152B原命令窗口及4D8F5B8B07对照，复用SCP01全321条1080B与原格式/转义/明文发送和BVV预览修复。仅已有1226/mixed/pending6、UI-L-062两成员及两限定I-S/E1178；所有数量/完整门禁保持，原实际模式/未写命令值/旧外层和机器运行继续，RPLAN.24/音频暂停保。 只三源四改及原39条152B窗口/W32单读、原三槽写与扫描/其它完整父保持，不代机器/完整页或原值等价。",
+      "actual": "BWT01修复旧商店4D8DA0命令格式参数的C++未生产整数直接求值：原3×S32命令与低位写1/2/末尾3、mode==3三行否则两行保持；同原row<=1命中后只借&commands[row]到真实Cg2dReadLegacyShopCommandW32，MOV EAX,DWORD PTR[RCX];RET实际读W32后给既有53B304 %d。三现源四改、一ASM私有读取叶/声明，零CPP新正文/owner/依赖/原身份；不补值、改写、保护、删行或造旧栈。当前39条152B原命令窗口及4D8F5B8B07对照，复用SCP01全321条1080B与原格式/转义/明文发送和BVV预览修复。仅已有1226/mixed/pending6、UI-L-062两成员及两限定I-S/E1178；所有数量/完整门禁保持，原实际模式/未写命令值/旧外层和机器运行继续，RPLAN.24/音频暂停保。 只三源四改及原39条152B窗口/W32单读、原三槽写与扫描/其它完整父保持，不代机器/完整页或原值等价。"
     }
   ],
   "task_acceptance": [
@@ -53152,7 +53222,8 @@
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state",
         "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state",
         "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state",
-        "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state"
+        "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-source-state"
       ]
     },
     {
@@ -53343,7 +53414,8 @@
         "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state",
-        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state"
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-source-state"
       ]
     },
     {
@@ -53497,7 +53569,8 @@
         "doc/cg2d_album_preview_lifecycle_baseline_spec.md#album-preview-lifecycle-source-state",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state",
-        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state"
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-source-state"
       ]
     },
     {
@@ -53887,6 +53960,22 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-source-state"
+      ]
+    },
+    {
+      "task_id": "P07",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-source-state"
+      ]
+    },
+    {
+      "task_id": "U05",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-source-state"
       ]
     }
   ],
@@ -55631,9 +55720,13 @@
         "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-baseline",
         "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-decision",
         "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-acceptance",
-        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state"
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-baseline",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-decision",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-acceptance",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-source-state"
       ],
-      "boundary": "BVV01修复旧62商店选择4D8DA0对opaque YobiAction::flags的直接访问及D67C68重复读取；原4D8EA1/A6/A8/AA四指令13B一次持样/判空/清W32 bit1，经现有SetYobiActionFlag2(previewAction,false)承接，无额外action判空或新接口。一个CPP一个片段，其它完整父体、预览生产叶、Yobi helper/头、模式/命令/格式/原字节及原格式明文保持。复用SCP01完整321条1080B根与原表/八字节合同，不重新取全根或外推真实外路由；已有1226/Fmixed及pending6/18保持，UI-L-062两个成员不重计，只两限定I/S。模式真实生产、低两位零的第二命令及旧路由/完整画面运行仍按原事实和验收处理，不填值或模拟原栈，未宣编译/链接/运行或故障等价通过；音频暂停/RPLAN.24及完整门禁保。"
+      "boundary": "BWT01修复旧商店4D8DA0命令格式参数的C++未生产整数直接求值：原3×S32命令与低位写1/2/末尾3、mode==3三行否则两行保持；同原row<=1命中后只借&commands[row]到真实Cg2dReadLegacyShopCommandW32，MOV EAX,DWORD PTR[RCX];RET实际读W32后给既有53B304 %d。三现源四改、一ASM私有读取叶/声明，零CPP新正文/owner/依赖/原身份；不补值、改写、保护、删行或造旧栈。当前39条152B原命令窗口及4D8F5B8B07对照，复用SCP01全321条1080B与原格式/转义/明文发送和BVV预览修复。仅已有1226/mixed/pending6、UI-L-062两成员及两限定I-S/E1178；所有数量/完整门禁保持，原实际模式/未写命令值/旧外层和机器运行继续，RPLAN.24/音频暂停保。"
     },
     {
       "inventory_id": "F:0013C9DD",

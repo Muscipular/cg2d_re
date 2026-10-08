@@ -36,6 +36,11 @@ extern LegacyFloatFormatCallback gLegacyFloatFormatAlias58FB64;
 // 原核心及三公共包装；原生va_list只承接参数位置，不使用宿主格式引擎。
 std::int32_t FormatLegacyOutput_53EB28(
     LegacyFile* stream, const char* format, std::va_list arguments);
+// 原4D8DA0@4D8F5B单W32读取；只借对应命令元素地址，ASM真实读出S32后给原%d。
+// 命令仍仅按原分支写入；CPP该处不直接求值未生产整数，不补值/模拟原栈或外推原值等价。
+extern "C" std::int32_t Cg2dReadLegacyShopCommandW32(
+    const std::int32_t* command) noexcept;
+
 std::int32_t FormatLegacyString_53B304(char* buffer, const char* format, ...);
 std::int32_t FormatLegacyBoundedString_53D21D(
     char* buffer, std::uint32_t capacity, const char* format, ...);

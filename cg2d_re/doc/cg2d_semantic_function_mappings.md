@@ -4185,3 +4185,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 新增1856/F:0013DEF3→Cg2dLegacyNullsub7（原实际RET）、1857/F:00143489→完整Cg2dReadLegacyExponentBits的LegacyExponentBitsSpecial分支、1858/F:001434C5→Cg2dCheckLegacyOverflowExitX87及真实共用LegacyRangeOverflowStart后缀。三F九条26B与指数父前缀/精度出口两R7二十条59B互补，零新原身份或范围排除。
 
 原指数位读取/特殊重读、精度独有JZ及等待FSTSW/类型8真单参父、溢出FST不弹ST0和直入后缀绕下溢保；CW高W16不补，EDX还原完整W32。已列CRT定位清零不代原外层调用/完整成员库存，pending18与完整门禁保持。
+
+## BWT01既有旧62命令读取接线修复（2026-10-08）
+
+[原321条全父/当前39条152B命令窗口/三源前后态](cg2d_shop_command_read_evidence.json)、[读取边界](cg2d_shop_command_read_spec.md#shop-command-read-decision)。
+
+完善已有1226/F:000D8DA0：原4D8F5B8B07读取W32，新增私有Cg2dReadLegacyShopCommandW32真实MOV EAX,DWORD PTR[RCX];RET承载；CPP格式参数仅取元素地址，再消费实际S32返回。三源四改/一ASM叶声明，原三S32槽、写规则/扫描与全部其余父/BVV预览保持。
+
+零新语义/F/原成员，mixed与pending6/18保，原模式/未写命令值及旧外层仍待；两限定I-S/E1178及五任务同步，原隐式open的P07/U05显式登记为open，登记53→55不增加已闭任务。完整页/机器运行未代验。

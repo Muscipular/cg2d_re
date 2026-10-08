@@ -3963,7 +3963,8 @@ std::uintptr_t Sub_4D8DA0(const std::int32_t opened)
     for (std::int32_t row = 0; row < count; ++row) {
         if ((character_select::detail::Sub_503990(&options[row]) & 1) != 0) {
             if (row <= 1) {
-                platform::FormatLegacyString_53B304(buffer, "%d", commands[row]);
+                platform::FormatLegacyString_53B304(buffer, "%d",
+                    platform::Cg2dReadLegacyShopCommandW32(&commands[row]));
                 static_cast<void>(input::Stringify_52D2D0(buffer, escaped, 15));
                 const std::int32_t target = world::detail::gDialogTargetD2DE6C;
                 const std::int32_t request = world::detail::gDialogRequestCC21E0;

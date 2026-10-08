@@ -188,6 +188,7 @@ PUBLIC Cg2dLegacyNullsub7
 PUBLIC Cg2dReadLegacyExponentBits
 PUBLIC Cg2dCheckLegacyPrecisionExitX87
 PUBLIC Cg2dCheckLegacyOverflowExitX87
+PUBLIC Cg2dReadLegacyShopCommandW32
 EXTERN Cg2dReadLegacyFdivBug:PROC
 EXTERN Cg2dLegacyPowerFastExitGate1085FBC:DWORD
 EXTERN Cg2dRaiseLegacyFloatExceptionHost:PROC
@@ -3908,5 +3909,11 @@ Cg2dCheckLegacyOverflowExitX87 PROC FRAME
     and eax, 07FF00000h
     jmp LegacyRangeOverflowStart
 Cg2dCheckLegacyOverflowExitX87 ENDP
+
+; 原4D8DA0@4D8F5B命令W32实际读取边界；只借当前原生元素地址，不造旧栈或默认值。
+Cg2dReadLegacyShopCommandW32 PROC
+    mov eax, dword ptr [rcx]
+    ret
+Cg2dReadLegacyShopCommandW32 ENDP
 
 END

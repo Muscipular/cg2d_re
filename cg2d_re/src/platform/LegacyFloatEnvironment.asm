@@ -164,6 +164,14 @@ PUBLIC Cg2dDispatchLegacyDivisionX87
 PUBLIC Cg2dDivideLegacyPairX87
 PUBLIC Cg2dReverseDivideLegacyPairX87
 PUBLIC Cg2dDivideLegacyStackX87
+PUBLIC Cg2dDivideLegacyMemoryF32X87
+PUBLIC Cg2dDivideLegacyMemoryF64X87
+PUBLIC Cg2dDivideLegacyMemoryS16X87
+PUBLIC Cg2dDivideLegacyMemoryS32X87
+PUBLIC Cg2dReverseDivideLegacyMemoryF32X87
+PUBLIC Cg2dReverseDivideLegacyMemoryF64X87
+PUBLIC Cg2dReverseDivideLegacyMemoryS16X87
+PUBLIC Cg2dReverseDivideLegacyMemoryS32X87
 EXTERN Cg2dReadLegacyFdivBug:PROC
 EXTERN Cg2dLegacyPowerFastExitGate1085FBC:DWORD
 EXTERN Cg2dRaiseLegacyFloatExceptionHost:PROC
@@ -3055,5 +3063,278 @@ Cg2dDivideLegacyStackX87 PROC FRAME
     add rsp, 88
     ret
 Cg2dDivideLegacyStackX87 ENDP
+
+; 原54593C：F32正向加载父，RCX只借对应位宽原值，ST0原输入/结果。
+Cg2dDivideLegacyMemoryF32X87 PROC FRAME
+    sub rsp, 72
+    .allocstack 72
+    .endprolog
+    mov dword ptr [rsp+44], eax
+    mov qword ptr [rsp+48], rcx
+    mov eax, dword ptr [rcx]
+    and eax, 7F800000h
+    cmp eax, 7F800000h
+    jz LegacyMemoryForwardF32Direct
+    fnstsw ax
+    and eax, 03800h
+    jz LegacyMemoryForwardF32TopZero
+    fld dword ptr [rcx]
+    call Cg2dDivideLegacyPairX87
+    mov eax, dword ptr [rsp+44]
+    mov rcx, qword ptr [rsp+48]
+    lea rsp, [rsp+72]
+    ret
+LegacyMemoryForwardF32TopZero:
+    fxch st(1)
+    fstp tbyte ptr [rsp+32]
+    fld dword ptr [rcx]
+    call Cg2dDivideLegacyPairX87
+    fld tbyte ptr [rsp+32]
+    fxch st(1)
+    mov eax, dword ptr [rsp+44]
+    mov rcx, qword ptr [rsp+48]
+    add rsp, 72
+    ret
+LegacyMemoryForwardF32Direct:
+    fdiv dword ptr [rcx]
+    mov eax, dword ptr [rsp+44]
+    mov rcx, qword ptr [rsp+48]
+    lea rsp, [rsp+72]
+    ret
+Cg2dDivideLegacyMemoryF32X87 ENDP
+
+; 原545988：F64正向加载父，RCX只借对应位宽原值，ST0原输入/结果。
+Cg2dDivideLegacyMemoryF64X87 PROC FRAME
+    sub rsp, 72
+    .allocstack 72
+    .endprolog
+    mov dword ptr [rsp+44], eax
+    mov qword ptr [rsp+48], rcx
+    mov eax, dword ptr [rcx+4]
+    and eax, 7FF00000h
+    cmp eax, 7FF00000h
+    jz LegacyMemoryForwardF64Direct
+    fnstsw ax
+    and eax, 03800h
+    jz LegacyMemoryForwardF64TopZero
+    fld qword ptr [rcx]
+    call Cg2dDivideLegacyPairX87
+    mov eax, dword ptr [rsp+44]
+    mov rcx, qword ptr [rsp+48]
+    lea rsp, [rsp+72]
+    ret
+LegacyMemoryForwardF64TopZero:
+    fxch st(1)
+    fstp tbyte ptr [rsp+32]
+    fld qword ptr [rcx]
+    call Cg2dDivideLegacyPairX87
+    fld tbyte ptr [rsp+32]
+    fxch st(1)
+    mov eax, dword ptr [rsp+44]
+    mov rcx, qword ptr [rsp+48]
+    add rsp, 72
+    ret
+LegacyMemoryForwardF64Direct:
+    fdiv qword ptr [rcx]
+    mov eax, dword ptr [rsp+44]
+    mov rcx, qword ptr [rsp+48]
+    lea rsp, [rsp+72]
+    ret
+Cg2dDivideLegacyMemoryF64X87 ENDP
+
+; 原5459D4：S16正向加载父，RCX只借对应位宽原值，ST0原输入/结果。
+Cg2dDivideLegacyMemoryS16X87 PROC FRAME
+    sub rsp, 72
+    .allocstack 72
+    .endprolog
+    mov dword ptr [rsp+44], eax
+    mov qword ptr [rsp+48], rcx
+    fnstsw ax
+    and eax, 03800h
+    jz LegacyMemoryForwardS16TopZero
+    fild word ptr [rcx]
+    call Cg2dDivideLegacyPairX87
+    mov eax, dword ptr [rsp+44]
+    mov rcx, qword ptr [rsp+48]
+    lea rsp, [rsp+72]
+    ret
+LegacyMemoryForwardS16TopZero:
+    fxch st(1)
+    fstp tbyte ptr [rsp+32]
+    fild word ptr [rcx]
+    call Cg2dDivideLegacyPairX87
+    fld tbyte ptr [rsp+32]
+    fxch st(1)
+    mov eax, dword ptr [rsp+44]
+    mov rcx, qword ptr [rsp+48]
+    add rsp, 72
+    ret
+Cg2dDivideLegacyMemoryS16X87 ENDP
+
+; 原545A08：S32正向加载父，RCX只借对应位宽原值，ST0原输入/结果。
+Cg2dDivideLegacyMemoryS32X87 PROC FRAME
+    sub rsp, 72
+    .allocstack 72
+    .endprolog
+    mov dword ptr [rsp+44], eax
+    mov qword ptr [rsp+48], rcx
+    fnstsw ax
+    and eax, 03800h
+    jz LegacyMemoryForwardS32TopZero
+    fild dword ptr [rcx]
+    call Cg2dDivideLegacyPairX87
+    mov eax, dword ptr [rsp+44]
+    mov rcx, qword ptr [rsp+48]
+    lea rsp, [rsp+72]
+    ret
+LegacyMemoryForwardS32TopZero:
+    fxch st(1)
+    fstp tbyte ptr [rsp+32]
+    fild dword ptr [rcx]
+    call Cg2dDivideLegacyPairX87
+    fld tbyte ptr [rsp+32]
+    fxch st(1)
+    mov eax, dword ptr [rsp+44]
+    mov rcx, qword ptr [rsp+48]
+    add rsp, 72
+    ret
+Cg2dDivideLegacyMemoryS32X87 ENDP
+
+; 原545A3C：F32逆向加载父，RCX只借对应位宽原值，ST0原输入/结果。
+Cg2dReverseDivideLegacyMemoryF32X87 PROC FRAME
+    sub rsp, 72
+    .allocstack 72
+    .endprolog
+    mov dword ptr [rsp+44], eax
+    mov qword ptr [rsp+48], rcx
+    mov eax, dword ptr [rcx]
+    and eax, 7F800000h
+    cmp eax, 7F800000h
+    jz LegacyMemoryReverseF32Direct
+    fnstsw ax
+    and eax, 03800h
+    jz LegacyMemoryReverseF32TopZero
+    fld dword ptr [rcx]
+    call Cg2dReverseDivideLegacyPairX87
+    mov eax, dword ptr [rsp+44]
+    mov rcx, qword ptr [rsp+48]
+    lea rsp, [rsp+72]
+    ret
+LegacyMemoryReverseF32TopZero:
+    fxch st(1)
+LegacyMemoryReverseF32Preserve:
+    fstp tbyte ptr [rsp+32]
+    fld dword ptr [rcx]
+    call Cg2dReverseDivideLegacyPairX87
+    fld tbyte ptr [rsp+32]
+    fxch st(1)
+    mov eax, dword ptr [rsp+44]
+    mov rcx, qword ptr [rsp+48]
+    add rsp, 72
+    ret
+LegacyMemoryReverseF32Direct:
+    fdivr dword ptr [rcx]
+    mov eax, dword ptr [rsp+44]
+    mov rcx, qword ptr [rsp+48]
+    lea rsp, [rsp+72]
+    ret
+Cg2dReverseDivideLegacyMemoryF32X87 ENDP
+
+; 原545A88：F64逆向加载父，RCX只借对应位宽原值，ST0原输入/结果。
+Cg2dReverseDivideLegacyMemoryF64X87 PROC FRAME
+    sub rsp, 72
+    .allocstack 72
+    .endprolog
+    mov dword ptr [rsp+44], eax
+    mov qword ptr [rsp+48], rcx
+    mov eax, dword ptr [rcx+4]
+    and eax, 7FF00000h
+    cmp eax, 7FF00000h
+    jz LegacyMemoryReverseF64Direct
+    fnstsw ax
+    and eax, 03800h
+    jz LegacyMemoryReverseF64TopZero
+    fld qword ptr [rcx]
+    call Cg2dReverseDivideLegacyPairX87
+    mov eax, dword ptr [rsp+44]
+    mov rcx, qword ptr [rsp+48]
+    lea rsp, [rsp+72]
+    ret
+LegacyMemoryReverseF64TopZero:
+    fxch st(1)
+    fstp tbyte ptr [rsp+32]
+    fld qword ptr [rcx]
+    call Cg2dReverseDivideLegacyPairX87
+    fld tbyte ptr [rsp+32]
+    fxch st(1)
+    mov eax, dword ptr [rsp+44]
+    mov rcx, qword ptr [rsp+48]
+    add rsp, 72
+    ret
+LegacyMemoryReverseF64Direct:
+    fdivr qword ptr [rcx]
+    mov eax, dword ptr [rsp+44]
+    mov rcx, qword ptr [rsp+48]
+    lea rsp, [rsp+72]
+    ret
+Cg2dReverseDivideLegacyMemoryF64X87 ENDP
+
+; 原545AD4：S16逆向加载父，RCX只借对应位宽原值，ST0原输入/结果。
+Cg2dReverseDivideLegacyMemoryS16X87 PROC FRAME
+    sub rsp, 72
+    .allocstack 72
+    .endprolog
+    mov dword ptr [rsp+44], eax
+    mov qword ptr [rsp+48], rcx
+    fnstsw ax
+    and eax, 03800h
+    jz LegacyMemoryReverseS16TopZero
+    fild word ptr [rcx]
+    call Cg2dReverseDivideLegacyPairX87
+    mov eax, dword ptr [rsp+44]
+    mov rcx, qword ptr [rsp+48]
+    lea rsp, [rsp+72]
+    ret
+LegacyMemoryReverseS16TopZero:
+    fxch st(1)
+    fstp tbyte ptr [rsp+32]
+    fild word ptr [rcx]
+    call Cg2dReverseDivideLegacyPairX87
+    fld tbyte ptr [rsp+32]
+    fxch st(1)
+    mov eax, dword ptr [rsp+44]
+    mov rcx, qword ptr [rsp+48]
+    add rsp, 72
+    ret
+Cg2dReverseDivideLegacyMemoryS16X87 ENDP
+
+; 原545B08：S32逆向加载父，RCX只借对应位宽原值，ST0原输入/结果。
+Cg2dReverseDivideLegacyMemoryS32X87 PROC FRAME
+    sub rsp, 72
+    .allocstack 72
+    .endprolog
+    mov dword ptr [rsp+44], eax
+    mov qword ptr [rsp+48], rcx
+    fnstsw ax
+    and eax, 03800h
+    jz LegacyMemoryReverseS32TopZero
+    fild dword ptr [rcx]
+    call Cg2dReverseDivideLegacyPairX87
+    mov eax, dword ptr [rsp+44]
+    mov rcx, qword ptr [rsp+48]
+    lea rsp, [rsp+72]
+    ret
+LegacyMemoryReverseS32TopZero:
+    fxch st(1)
+    fstp tbyte ptr [rsp+32]
+    fild dword ptr [rcx]
+    call Cg2dReverseDivideLegacyPairX87
+    fld tbyte ptr [rsp+32]
+    fxch st(1)
+    mov eax, dword ptr [rsp+44]
+    mov rcx, qword ptr [rsp+48]
+    add rsp, 72
+    ret
+Cg2dReverseDivideLegacyMemoryS32X87 ENDP
 
 END

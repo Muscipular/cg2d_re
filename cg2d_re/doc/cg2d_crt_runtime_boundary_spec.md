@@ -240,3 +240,11 @@ NCE01已接业务copy/单owner、消息/析构及所有旧构析正文保持，�
 [基线](cg2d_math_division_dispatch_spec.md#math-division-dispatch-baseline)、[决定](cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision)、[验收](cg2d_math_division_dispatch_spec.md#math-division-dispatch-acceptance)及[四原体/64表项/源前后态](cg2d_math_division_dispatch_evidence.json)。
 
 545477全412条及545916/545929/545B3C三完整包装已开发，合432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6；四ASM、两现源四追加，零CPP/C桥/owner。64项原表只拓代码地址，126个T80实际偏移、原全部FXCH/弹栈重载/FDIV操作数和真实核心调用保。CRT186→190/F1013限定I-S，源码定位140→136/CRT未定位12→8；未知分派/内存加载父与机器生命周期继续。
+
+## BWQ01八个内存除法加载父完整开发（2026-10-08）
+
+[基线](cg2d_math_memory_parents_spec.md#math-memory-parents-baseline)、[决定](cg2d_math_memory_parents_spec.md#math-memory-parents-decision)、[验收](cg2d_math_memory_parents_spec.md#math-memory-parents-acceptance)及[全部原父/一F两R7/源前后态](cg2d_math_memory_parents_evidence.json)。
+
+54593C..545B3C八个F32/F64/S16/S32正逆加载父已开发，全172条512B/16CALL两callee、12跳20RET。545A65九条27B是逆向F32父的内部TOP=0分支，与两个R7整体补齐，不造八个原F。两现源三追加/八ASM，原指数位直接运算、非等待TOP样本/额外T80交换保存恢复、输入位宽和原EAX保持，实际包装→核心接线。
+
+CRT190→191/F1014仅限定I-S，定位136→135/CRT余8→7；两R7 mapped，已审472/余2589。外层原调用/未知描述符生产及机器生命周期继续。

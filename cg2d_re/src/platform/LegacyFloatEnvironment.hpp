@@ -133,6 +133,16 @@ struct LegacyBinaryMathDescriptor {
 // 545B3C只按原W32 EAX保存恢复；RCX的原生寄存器暂存用于借址，不改变原44B数值片段。
 // 私有ST0返回不声明CPP double ABI；原INT 6分支保持，完整其它父和机器验收继续。
 
+// 原54593C..545B3C八个内存加载父：F32/F64/S16/S32各正/逆向，私有ASM用ST0进出。
+// Cg2dDivideLegacyMemoryF32X87/Cg2dDivideLegacyMemoryF64X87/Cg2dDivideLegacyMemoryS16X87/
+// Cg2dDivideLegacyMemoryS32X87，以及Cg2dReverseDivideLegacyMemoryF32X87/
+// Cg2dReverseDivideLegacyMemoryF64X87/Cg2dReverseDivideLegacyMemoryS16X87/
+// Cg2dReverseDivideLegacyMemoryS32X87：
+// RCX借一个原值参数的对应位宽只读内存，数值不扩宽；不是CPP double ABI。
+// 原FNSTSW AX/TOP 3800H与浮点指数位分支保持，TOP=0按原序保存/重载额外T80。
+// 原545A65是逆向F32父的中间分支，在该完整父中实现，原W32 EAX恢复。
+// 借址只是Win64值参数传送边界，不模拟原RET4/8或栈地址，所有输入字段/结果仍原宽。
+
 // 原控制字抽象/硬件表示转换，只消费和生成原已定义位。
 std::uint32_t AbstractLegacyControlWord_5448A4(std::uint32_t hardware);
 std::uint32_t HardwareLegacyControlWord_544936(std::uint32_t abstractValue);

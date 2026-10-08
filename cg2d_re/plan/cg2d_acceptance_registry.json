@@ -325,7 +325,8 @@
         "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-baseline",
         "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-baseline",
         "doc/cg2d_math_shared_targets_spec.md#math-targets-baseline",
-        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-baseline"
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-baseline",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-baseline"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -517,7 +518,8 @@
         "F:00145477",
         "F:00145916",
         "F:00145929",
-        "F:00145B3C"
+        "F:00145B3C",
+        "F:00145A65"
       ],
       "closure_task_ids": [
         "C01",
@@ -572,7 +574,8 @@
         "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-decision",
         "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-decision",
         "doc/cg2d_math_shared_targets_spec.md#math-targets-decision",
-        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision"
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-decision",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -617,7 +620,8 @@
         "BWM01完整开发543185共享数学身份全部146条501B/三页、多入口/三direct两callee与两表JMP、16跳九RET；原特殊值外尾三点与共享尾入向另列。三现文件五追加、十二ASM真实本体/13布局断言，零CPP本体/新mutable owner或固定目标表。原32B实际context数值W16/T80/错误BYTE和ECX样本保，4/16借用目标指针只拓地址；原分类16字节/CW-FXAM-等待状态-CL/CH-XLAT-索引与真实间接CALL/frame返回、目标末标志LEA恢复保。原幂F64实参-FSAVE108-真helper-FRSTOR-结果/状态与实际ECX数值保，未生产结果不填；真实丢栈/零一/T80 quiet/error0-1-7与FADD/FADDP/OR CL,CL保持。不因未见初始化地址引用排除，不猜描述符生产/父帧，函数原身份仅一份；CRT177/F1000限定I-S，定位149/CRT余21，共享生产/未知父及机器运行继续，原格式明文/音频暂停/RPLAN.24保。",
         "BWN01沿共享指数542FEF真实依赖补完整545360/545B51：91条300B/三页、一CALL一callee、14跳七RET；两现源四处追加/两真实ASM，零CPP/C桥/新owner。借原44B数值片段不扩宽，两个T80及其padding/+24保存CW高W16不补；原16B表/三F32、尾数/指数/进位/CW与全部FDIVP/非规格化重写循环保。包装保原FSTP序、EAX/ECX数值及EDX/真核心调用、88B正常帧；源码静态非机器等价。新增1838/1839、CRT179/F1002限定I-S，定位147/CRT余19，完整共享目标/未知描述符生产和其它原调用父及机器运行继续，原格式明文/音频暂停/RPLAN.24保持。",
         "BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。",
-        "BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
+        "BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+        "BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -666,7 +670,8 @@
         "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-source-state",
         "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-source-state",
         "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
-        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state"
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state"
       ]
     },
     {
@@ -51664,6 +51669,66 @@
       "observation": "BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 432条1242B四完整原体/64原表逐项及126实际T80操作数、两源四追加/四正常帧及原分支静态；不代机器或异常等价。",
       "expected": "BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 432条1242B四完整原体/64原表逐项及126实际T80操作数、两源四追加/四正常帧及原分支静态；不代机器或异常等价。",
       "actual": "BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 432条1242B四完整原体/64原表逐项及126实际T80操作数、两源四追加/四正常帧及原分支静态；不代机器或异常等价。"
+    },
+    {
+      "id": "E-MATH-MEMORY-PARENTS-FUNC-CRT-I-20261008",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWQ01连续172条512B八加载父/16CALL两callee、12跳20RET；一F九条27B及两R7完整互补，原四标量类型及TOP保存恢复。doc/cg2d_math_memory_parents_spec.md#math-memory-parents-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-math-memory-division-parents-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_math_memory_parents_evidence.json",
+        "doc/cg2d_math_memory_parents_spec.md",
+        "src/platform/LegacyFloatEnvironment.asm",
+        "src/platform/LegacyFloatEnvironment.hpp",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-baseline",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-decision",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-acceptance",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 只八个真实加载父→正逆包装→完整核心的16调用及借值/T80合同，不代未知外层原调用或描述符生产。",
+          "decision_ref": "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 只八个真实加载父→正逆包装→完整核心的16调用及借值/T80合同，不代未知外层原调用或描述符生产。",
+      "expected": "BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 只八个真实加载父→正逆包装→完整核心的16调用及借值/T80合同，不代未知外层原调用或描述符生产。",
+      "actual": "BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 只八个真实加载父→正逆包装→完整核心的16调用及借值/T80合同，不代未知外层原调用或描述符生产。"
+    },
+    {
+      "id": "E-MATH-MEMORY-PARENTS-FUNC-CRT-S-20261008",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BWQ01连续172条512B八加载父/16CALL两callee、12跳20RET；一F九条27B及两R7完整互补，原四标量类型及TOP保存恢复。doc/cg2d_math_memory_parents_spec.md#math-memory-parents-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-math-memory-division-parents-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_math_memory_parents_evidence.json",
+        "doc/cg2d_math_memory_parents_spec.md",
+        "src/platform/LegacyFloatEnvironment.asm",
+        "src/platform/LegacyFloatEnvironment.hpp",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-baseline",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-decision",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-acceptance",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 全172条512B、一F两R7互补/八实际ASM两源三追加、原指数/位宽-TOP-T80及原分支/正常帧集中静态，不代机器或异常等价。",
+          "decision_ref": "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 全172条512B、一F两R7互补/八实际ASM两源三追加、原指数/位宽-TOP-T80及原分支/正常帧集中静态，不代机器或异常等价。",
+      "expected": "BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 全172条512B、一F两R7互补/八实际ASM两源三追加、原指数/位宽-TOP-T80及原分支/正常帧集中静态，不代机器或异常等价。",
+      "actual": "BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。 全172条512B、一F两R7互补/八实际ASM两源三追加、原指数/位宽-TOP-T80及原分支/正常帧集中静态，不代机器或异常等价。"
     }
   ],
   "task_acceptance": [
@@ -52024,7 +52089,8 @@
         "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-source-state",
         "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-source-state",
         "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
-        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state"
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state"
       ],
       "task_id": "C01",
       "state": "open"
@@ -52488,7 +52554,8 @@
         "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-source-state",
         "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-source-state",
         "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
-        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state"
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state"
       ]
     },
     {
@@ -52533,7 +52600,8 @@
         "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-source-state",
         "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-source-state",
         "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
-        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state"
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state"
       ]
     },
     {
@@ -52940,7 +53008,8 @@
         "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-source-state",
         "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-source-state",
         "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
-        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state"
+        "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state"
       ]
     },
     {
@@ -65693,6 +65762,18 @@
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state"
       ],
       "boundary": "原545B3C完整八条21B；ST0/ST1真实T80按0/+12落存并调用完整545360，按原W32保存恢复EAX，原生RCX暂借还原。 BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:00145A65",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-baseline",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-decision",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-acceptance",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state"
+      ],
+      "boundary": "原545A65九条27B是逆向F32内存加载父的TOP=0保存/重载分支；与八父172条512B及两R7整组实现，保原额外T80、原标量F32加载、真实逆向包装调用及W32 EAX/原返回，不发明独立调用父。 BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
     }
   ],
   "auxiliary_dispositions": [
@@ -91868,6 +91949,2215 @@
         "Cg2dLegacySharedExpInfinityX87"
       ],
       "boundary": "BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "id": "X:0014593C-00145A65",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-baseline",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-decision",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-acceptance",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state",
+        "doc/cg2d_math_memory_parents_evidence.json"
+      ],
+      "reason": "区间全部逐地址/字节为四原标量类型的真实加载父/分支，已完整开发并接原正逆包装；不因无直接入口引用排除，不给未列原函数另造身份。",
+      "classification": "shared_memory_division_parents",
+      "original_size": 297,
+      "original_bytes": "508b442408250000807f3d0000807f7433dfe02500380000740dd9442408e8b7ffffff58c20400d9c983ec0cdb3c24d9442414e8a2ffffffdb2c24d9c983c40c58c20400d874240858c20400508b44240c250000f07f3d0000f07f7433dfe02500380000740ddd442408e86bffffff58c20800d9c983ec0cdb3c24dd442414e856ffffffdb2c24d9c983c40c58c20800dc74240858c2080050dfe02500380000740ddf442408e82fffffff58c20400d9c983ec0cdb3c24df442414e81affffffdb2c24d9c983c40c58c2040050dfe02500380000740ddb442408e8fbfeffff58c20400d9c983ec0cdb3c24db442414e8e6feffffdb2c24d9c983c40c58c20400508b442408250000807f3d0000807f7433dfe02500380000740dd9442408e8cafeffff58c20400d9c9",
+      "original_instructions": [
+        {
+          "ea": "0x54593c",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; Microsoft VisualC 2-14/net runtime",
+          "name": "unknown_libname_55",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x54593d",
+          "size": 4,
+          "bytes": "8b442408",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esp+8]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 4,
+              "displacement": 8,
+              "dtype": 2,
+              "text": "[esp+8]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545941",
+          "size": 5,
+          "bytes": "250000807f",
+          "mnemonic": "and",
+          "text": "and     eax, 7F800000h",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545946",
+          "size": 5,
+          "bytes": "3d0000807f",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 7F800000h",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x54594b",
+          "size": 2,
+          "bytes": "7433",
+          "mnemonic": "jz",
+          "text": "jz      short loc_545980",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x54594d",
+          "size": 2,
+          "bytes": "dfe0",
+          "mnemonic": "fnstsw",
+          "text": "fnstsw  ax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x54594f",
+          "size": 5,
+          "bytes": "2500380000",
+          "mnemonic": "and",
+          "text": "and     eax, 3800h",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545954",
+          "size": 2,
+          "bytes": "740d",
+          "mnemonic": "jz",
+          "text": "jz      short loc_545963",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545956",
+          "size": 4,
+          "bytes": "d9442408",
+          "mnemonic": "fld",
+          "text": "fld     dword ptr [esp+8]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 4,
+              "displacement": 8,
+              "dtype": 3,
+              "text": "dword ptr [esp+8]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x54595a",
+          "size": 5,
+          "bytes": "e8b7ffffff",
+          "mnemonic": "call",
+          "text": "call    unknown_libname_53; Microsoft VisualC 2-14/net runtime",
+          "name": "",
+          "stack_operands": [],
+          "call_target": "0x545916",
+          "refs": []
+        },
+        {
+          "ea": "0x54595f",
+          "size": 1,
+          "bytes": "58",
+          "mnemonic": "pop",
+          "text": "pop     eax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545960",
+          "size": 3,
+          "bytes": "c20400",
+          "mnemonic": "retn",
+          "text": "retn    4",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545963",
+          "size": 2,
+          "bytes": "d9c9",
+          "mnemonic": "fxch",
+          "text": "fxch    st(1)",
+          "name": "loc_545963",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": [
+            {
+              "from_": "0x545954",
+              "type": 19
+            }
+          ]
+        },
+        {
+          "ea": "0x545965",
+          "size": 3,
+          "bytes": "83ec0c",
+          "mnemonic": "sub",
+          "text": "sub     esp, 0Ch",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545968",
+          "size": 3,
+          "bytes": "db3c24",
+          "mnemonic": "fstp",
+          "text": "fstp    tbyte ptr [esp]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 3,
+              "displacement": 0,
+              "dtype": 5,
+              "text": "tbyte ptr [esp]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x54596b",
+          "size": 4,
+          "bytes": "d9442414",
+          "mnemonic": "fld",
+          "text": "fld     dword ptr [esp+14h]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 4,
+              "displacement": 20,
+              "dtype": 3,
+              "text": "dword ptr [esp+14h]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x54596f",
+          "size": 5,
+          "bytes": "e8a2ffffff",
+          "mnemonic": "call",
+          "text": "call    unknown_libname_53; Microsoft VisualC 2-14/net runtime",
+          "name": "",
+          "stack_operands": [],
+          "call_target": "0x545916",
+          "refs": []
+        },
+        {
+          "ea": "0x545974",
+          "size": 3,
+          "bytes": "db2c24",
+          "mnemonic": "fld",
+          "text": "fld     tbyte ptr [esp]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 3,
+              "displacement": 0,
+              "dtype": 5,
+              "text": "tbyte ptr [esp]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545977",
+          "size": 2,
+          "bytes": "d9c9",
+          "mnemonic": "fxch",
+          "text": "fxch    st(1)",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545979",
+          "size": 3,
+          "bytes": "83c40c",
+          "mnemonic": "add",
+          "text": "add     esp, 0Ch",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x54597c",
+          "size": 1,
+          "bytes": "58",
+          "mnemonic": "pop",
+          "text": "pop     eax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x54597d",
+          "size": 3,
+          "bytes": "c20400",
+          "mnemonic": "retn",
+          "text": "retn    4",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545980",
+          "size": 4,
+          "bytes": "d8742408",
+          "mnemonic": "fdiv",
+          "text": "fdiv    dword ptr [esp+8]",
+          "name": "loc_545980",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 4,
+              "displacement": 8,
+              "dtype": 3,
+              "text": "dword ptr [esp+8]"
+            }
+          ],
+          "call_target": null,
+          "refs": [
+            {
+              "from_": "0x54594b",
+              "type": 19
+            }
+          ]
+        },
+        {
+          "ea": "0x545984",
+          "size": 1,
+          "bytes": "58",
+          "mnemonic": "pop",
+          "text": "pop     eax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545985",
+          "size": 3,
+          "bytes": "c20400",
+          "mnemonic": "retn",
+          "text": "retn    4",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545988",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; Microsoft VisualC 2-14/net runtime",
+          "name": "unknown_libname_56",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545989",
+          "size": 4,
+          "bytes": "8b44240c",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esp+0Ch]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 4,
+              "displacement": 12,
+              "dtype": 2,
+              "text": "[esp+0Ch]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x54598d",
+          "size": 5,
+          "bytes": "250000f07f",
+          "mnemonic": "and",
+          "text": "and     eax, 7FF00000h",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545992",
+          "size": 5,
+          "bytes": "3d0000f07f",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 7FF00000h",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545997",
+          "size": 2,
+          "bytes": "7433",
+          "mnemonic": "jz",
+          "text": "jz      short loc_5459CC",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545999",
+          "size": 2,
+          "bytes": "dfe0",
+          "mnemonic": "fnstsw",
+          "text": "fnstsw  ax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x54599b",
+          "size": 5,
+          "bytes": "2500380000",
+          "mnemonic": "and",
+          "text": "and     eax, 3800h",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459a0",
+          "size": 2,
+          "bytes": "740d",
+          "mnemonic": "jz",
+          "text": "jz      short loc_5459AF",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459a2",
+          "size": 4,
+          "bytes": "dd442408",
+          "mnemonic": "fld",
+          "text": "fld     qword ptr [esp+8]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 4,
+              "displacement": 8,
+              "dtype": 4,
+              "text": "qword ptr [esp+8]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459a6",
+          "size": 5,
+          "bytes": "e86bffffff",
+          "mnemonic": "call",
+          "text": "call    unknown_libname_53; Microsoft VisualC 2-14/net runtime",
+          "name": "",
+          "stack_operands": [],
+          "call_target": "0x545916",
+          "refs": []
+        },
+        {
+          "ea": "0x5459ab",
+          "size": 1,
+          "bytes": "58",
+          "mnemonic": "pop",
+          "text": "pop     eax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459ac",
+          "size": 3,
+          "bytes": "c20800",
+          "mnemonic": "retn",
+          "text": "retn    8",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459af",
+          "size": 2,
+          "bytes": "d9c9",
+          "mnemonic": "fxch",
+          "text": "fxch    st(1)",
+          "name": "loc_5459AF",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": [
+            {
+              "from_": "0x5459a0",
+              "type": 19
+            }
+          ]
+        },
+        {
+          "ea": "0x5459b1",
+          "size": 3,
+          "bytes": "83ec0c",
+          "mnemonic": "sub",
+          "text": "sub     esp, 0Ch",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459b4",
+          "size": 3,
+          "bytes": "db3c24",
+          "mnemonic": "fstp",
+          "text": "fstp    tbyte ptr [esp]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 3,
+              "displacement": 0,
+              "dtype": 5,
+              "text": "tbyte ptr [esp]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459b7",
+          "size": 4,
+          "bytes": "dd442414",
+          "mnemonic": "fld",
+          "text": "fld     qword ptr [esp+14h]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 4,
+              "displacement": 20,
+              "dtype": 4,
+              "text": "qword ptr [esp+14h]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459bb",
+          "size": 5,
+          "bytes": "e856ffffff",
+          "mnemonic": "call",
+          "text": "call    unknown_libname_53; Microsoft VisualC 2-14/net runtime",
+          "name": "",
+          "stack_operands": [],
+          "call_target": "0x545916",
+          "refs": []
+        },
+        {
+          "ea": "0x5459c0",
+          "size": 3,
+          "bytes": "db2c24",
+          "mnemonic": "fld",
+          "text": "fld     tbyte ptr [esp]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 3,
+              "displacement": 0,
+              "dtype": 5,
+              "text": "tbyte ptr [esp]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459c3",
+          "size": 2,
+          "bytes": "d9c9",
+          "mnemonic": "fxch",
+          "text": "fxch    st(1)",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459c5",
+          "size": 3,
+          "bytes": "83c40c",
+          "mnemonic": "add",
+          "text": "add     esp, 0Ch",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459c8",
+          "size": 1,
+          "bytes": "58",
+          "mnemonic": "pop",
+          "text": "pop     eax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459c9",
+          "size": 3,
+          "bytes": "c20800",
+          "mnemonic": "retn",
+          "text": "retn    8",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459cc",
+          "size": 4,
+          "bytes": "dc742408",
+          "mnemonic": "fdiv",
+          "text": "fdiv    qword ptr [esp+8]",
+          "name": "loc_5459CC",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 4,
+              "displacement": 8,
+              "dtype": 4,
+              "text": "qword ptr [esp+8]"
+            }
+          ],
+          "call_target": null,
+          "refs": [
+            {
+              "from_": "0x545997",
+              "type": 19
+            }
+          ]
+        },
+        {
+          "ea": "0x5459d0",
+          "size": 1,
+          "bytes": "58",
+          "mnemonic": "pop",
+          "text": "pop     eax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459d1",
+          "size": 3,
+          "bytes": "c20800",
+          "mnemonic": "retn",
+          "text": "retn    8",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459d4",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; Microsoft VisualC 2-14/net runtime",
+          "name": "unknown_libname_57",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459d5",
+          "size": 2,
+          "bytes": "dfe0",
+          "mnemonic": "fnstsw",
+          "text": "fnstsw  ax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459d7",
+          "size": 5,
+          "bytes": "2500380000",
+          "mnemonic": "and",
+          "text": "and     eax, 3800h",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459dc",
+          "size": 2,
+          "bytes": "740d",
+          "mnemonic": "jz",
+          "text": "jz      short loc_5459EB",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459de",
+          "size": 4,
+          "bytes": "df442408",
+          "mnemonic": "fild",
+          "text": "fild    word ptr [esp+8]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 4,
+              "displacement": 8,
+              "dtype": 1,
+              "text": "word ptr [esp+8]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459e2",
+          "size": 5,
+          "bytes": "e82fffffff",
+          "mnemonic": "call",
+          "text": "call    unknown_libname_53; Microsoft VisualC 2-14/net runtime",
+          "name": "",
+          "stack_operands": [],
+          "call_target": "0x545916",
+          "refs": []
+        },
+        {
+          "ea": "0x5459e7",
+          "size": 1,
+          "bytes": "58",
+          "mnemonic": "pop",
+          "text": "pop     eax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459e8",
+          "size": 3,
+          "bytes": "c20400",
+          "mnemonic": "retn",
+          "text": "retn    4",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459eb",
+          "size": 2,
+          "bytes": "d9c9",
+          "mnemonic": "fxch",
+          "text": "fxch    st(1)",
+          "name": "loc_5459EB",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": [
+            {
+              "from_": "0x5459dc",
+              "type": 19
+            }
+          ]
+        },
+        {
+          "ea": "0x5459ed",
+          "size": 3,
+          "bytes": "83ec0c",
+          "mnemonic": "sub",
+          "text": "sub     esp, 0Ch",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459f0",
+          "size": 3,
+          "bytes": "db3c24",
+          "mnemonic": "fstp",
+          "text": "fstp    tbyte ptr [esp]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 3,
+              "displacement": 0,
+              "dtype": 5,
+              "text": "tbyte ptr [esp]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459f3",
+          "size": 4,
+          "bytes": "df442414",
+          "mnemonic": "fild",
+          "text": "fild    word ptr [esp+14h]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 4,
+              "displacement": 20,
+              "dtype": 1,
+              "text": "word ptr [esp+14h]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459f7",
+          "size": 5,
+          "bytes": "e81affffff",
+          "mnemonic": "call",
+          "text": "call    unknown_libname_53; Microsoft VisualC 2-14/net runtime",
+          "name": "",
+          "stack_operands": [],
+          "call_target": "0x545916",
+          "refs": []
+        },
+        {
+          "ea": "0x5459fc",
+          "size": 3,
+          "bytes": "db2c24",
+          "mnemonic": "fld",
+          "text": "fld     tbyte ptr [esp]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 3,
+              "displacement": 0,
+              "dtype": 5,
+              "text": "tbyte ptr [esp]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x5459ff",
+          "size": 2,
+          "bytes": "d9c9",
+          "mnemonic": "fxch",
+          "text": "fxch    st(1)",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a01",
+          "size": 3,
+          "bytes": "83c40c",
+          "mnemonic": "add",
+          "text": "add     esp, 0Ch",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a04",
+          "size": 1,
+          "bytes": "58",
+          "mnemonic": "pop",
+          "text": "pop     eax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a05",
+          "size": 3,
+          "bytes": "c20400",
+          "mnemonic": "retn",
+          "text": "retn    4",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a08",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; Microsoft VisualC 2-14/net runtime",
+          "name": "unknown_libname_58",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a09",
+          "size": 2,
+          "bytes": "dfe0",
+          "mnemonic": "fnstsw",
+          "text": "fnstsw  ax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a0b",
+          "size": 5,
+          "bytes": "2500380000",
+          "mnemonic": "and",
+          "text": "and     eax, 3800h",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a10",
+          "size": 2,
+          "bytes": "740d",
+          "mnemonic": "jz",
+          "text": "jz      short loc_545A1F",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a12",
+          "size": 4,
+          "bytes": "db442408",
+          "mnemonic": "fild",
+          "text": "fild    dword ptr [esp+8]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 4,
+              "displacement": 8,
+              "dtype": 2,
+              "text": "dword ptr [esp+8]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a16",
+          "size": 5,
+          "bytes": "e8fbfeffff",
+          "mnemonic": "call",
+          "text": "call    unknown_libname_53; Microsoft VisualC 2-14/net runtime",
+          "name": "",
+          "stack_operands": [],
+          "call_target": "0x545916",
+          "refs": []
+        },
+        {
+          "ea": "0x545a1b",
+          "size": 1,
+          "bytes": "58",
+          "mnemonic": "pop",
+          "text": "pop     eax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a1c",
+          "size": 3,
+          "bytes": "c20400",
+          "mnemonic": "retn",
+          "text": "retn    4",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a1f",
+          "size": 2,
+          "bytes": "d9c9",
+          "mnemonic": "fxch",
+          "text": "fxch    st(1)",
+          "name": "loc_545A1F",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": [
+            {
+              "from_": "0x545a10",
+              "type": 19
+            }
+          ]
+        },
+        {
+          "ea": "0x545a21",
+          "size": 3,
+          "bytes": "83ec0c",
+          "mnemonic": "sub",
+          "text": "sub     esp, 0Ch",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a24",
+          "size": 3,
+          "bytes": "db3c24",
+          "mnemonic": "fstp",
+          "text": "fstp    tbyte ptr [esp]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 3,
+              "displacement": 0,
+              "dtype": 5,
+              "text": "tbyte ptr [esp]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a27",
+          "size": 4,
+          "bytes": "db442414",
+          "mnemonic": "fild",
+          "text": "fild    dword ptr [esp+14h]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 4,
+              "displacement": 20,
+              "dtype": 2,
+              "text": "dword ptr [esp+14h]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a2b",
+          "size": 5,
+          "bytes": "e8e6feffff",
+          "mnemonic": "call",
+          "text": "call    unknown_libname_53; Microsoft VisualC 2-14/net runtime",
+          "name": "",
+          "stack_operands": [],
+          "call_target": "0x545916",
+          "refs": []
+        },
+        {
+          "ea": "0x545a30",
+          "size": 3,
+          "bytes": "db2c24",
+          "mnemonic": "fld",
+          "text": "fld     tbyte ptr [esp]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 3,
+              "displacement": 0,
+              "dtype": 5,
+              "text": "tbyte ptr [esp]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a33",
+          "size": 2,
+          "bytes": "d9c9",
+          "mnemonic": "fxch",
+          "text": "fxch    st(1)",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a35",
+          "size": 3,
+          "bytes": "83c40c",
+          "mnemonic": "add",
+          "text": "add     esp, 0Ch",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a38",
+          "size": 1,
+          "bytes": "58",
+          "mnemonic": "pop",
+          "text": "pop     eax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a39",
+          "size": 3,
+          "bytes": "c20400",
+          "mnemonic": "retn",
+          "text": "retn    4",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a3c",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; Microsoft VisualC 2-14/net runtime",
+          "name": "unknown_libname_59",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a3d",
+          "size": 4,
+          "bytes": "8b442408",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esp+8]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 4,
+              "displacement": 8,
+              "dtype": 2,
+              "text": "[esp+8]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a41",
+          "size": 5,
+          "bytes": "250000807f",
+          "mnemonic": "and",
+          "text": "and     eax, 7F800000h",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a46",
+          "size": 5,
+          "bytes": "3d0000807f",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 7F800000h",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a4b",
+          "size": 2,
+          "bytes": "7433",
+          "mnemonic": "jz",
+          "text": "jz      short loc_545A80",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a4d",
+          "size": 2,
+          "bytes": "dfe0",
+          "mnemonic": "fnstsw",
+          "text": "fnstsw  ax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a4f",
+          "size": 5,
+          "bytes": "2500380000",
+          "mnemonic": "and",
+          "text": "and     eax, 3800h",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a54",
+          "size": 2,
+          "bytes": "740d",
+          "mnemonic": "jz",
+          "text": "jz      short loc_545A63",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a56",
+          "size": 4,
+          "bytes": "d9442408",
+          "mnemonic": "fld",
+          "text": "fld     dword ptr [esp+8]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 4,
+              "displacement": 8,
+              "dtype": 3,
+              "text": "dword ptr [esp+8]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a5a",
+          "size": 5,
+          "bytes": "e8cafeffff",
+          "mnemonic": "call",
+          "text": "call    unknown_libname_54; Microsoft VisualC 2-14/net runtime",
+          "name": "",
+          "stack_operands": [],
+          "call_target": "0x545929",
+          "refs": []
+        },
+        {
+          "ea": "0x545a5f",
+          "size": 1,
+          "bytes": "58",
+          "mnemonic": "pop",
+          "text": "pop     eax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a60",
+          "size": 3,
+          "bytes": "c20400",
+          "mnemonic": "retn",
+          "text": "retn    4",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a63",
+          "size": 2,
+          "bytes": "d9c9",
+          "mnemonic": "fxch",
+          "text": "fxch    st(1)",
+          "name": "loc_545A63",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": [
+            {
+              "from_": "0x545a54",
+              "type": 19
+            }
+          ]
+        }
+      ],
+      "source_path": "src/platform/LegacyFloatEnvironment.asm",
+      "source_symbols": [
+        "Cg2dDivideLegacyMemoryF32X87",
+        "Cg2dDivideLegacyMemoryF64X87",
+        "Cg2dDivideLegacyMemoryS16X87",
+        "Cg2dDivideLegacyMemoryS32X87",
+        "Cg2dReverseDivideLegacyMemoryF32X87",
+        "Cg2dReverseDivideLegacyMemoryF64X87",
+        "Cg2dReverseDivideLegacyMemoryS16X87",
+        "Cg2dReverseDivideLegacyMemoryS32X87"
+      ],
+      "boundary": "BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "id": "X:00145A80-00145B3C",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-baseline",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-decision",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-acceptance",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state",
+        "doc/cg2d_math_memory_parents_evidence.json"
+      ],
+      "reason": "区间全部逐地址/字节为四原标量类型的真实加载父/分支，已完整开发并接原正逆包装；不因无直接入口引用排除，不给未列原函数另造身份。",
+      "classification": "shared_memory_division_parents",
+      "original_size": 188,
+      "original_bytes": "d87c240858c20400508b44240c250000f07f3d0000f07f7433dfe02500380000740ddd442408e87efeffff58c20800d9c983ec0cdb3c24dd442414e869feffffdb2c24d9c983c40c58c20800dc7c240858c2080050dfe02500380000740ddf442408e842feffff58c20400d9c983ec0cdb3c24df442414e82dfeffffdb2c24d9c983c40c58c2040050dfe02500380000740ddb442408e80efeffff58c20400d9c983ec0cdb3c24db442414e8f9fdffffdb2c24d9c983c40c58c20400",
+      "original_instructions": [
+        {
+          "ea": "0x545a80",
+          "size": 4,
+          "bytes": "d87c2408",
+          "mnemonic": "fdivr",
+          "text": "fdivr   dword ptr [esp+8]",
+          "name": "loc_545A80",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 4,
+              "displacement": 8,
+              "dtype": 3,
+              "text": "dword ptr [esp+8]"
+            }
+          ],
+          "call_target": null,
+          "refs": [
+            {
+              "from_": "0x545a4b",
+              "type": 19
+            }
+          ]
+        },
+        {
+          "ea": "0x545a84",
+          "size": 1,
+          "bytes": "58",
+          "mnemonic": "pop",
+          "text": "pop     eax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a85",
+          "size": 3,
+          "bytes": "c20400",
+          "mnemonic": "retn",
+          "text": "retn    4",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a88",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; Microsoft VisualC 2-14/net runtime",
+          "name": "unknown_libname_60",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a89",
+          "size": 4,
+          "bytes": "8b44240c",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esp+0Ch]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 4,
+              "displacement": 12,
+              "dtype": 2,
+              "text": "[esp+0Ch]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a8d",
+          "size": 5,
+          "bytes": "250000f07f",
+          "mnemonic": "and",
+          "text": "and     eax, 7FF00000h",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a92",
+          "size": 5,
+          "bytes": "3d0000f07f",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 7FF00000h",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a97",
+          "size": 2,
+          "bytes": "7433",
+          "mnemonic": "jz",
+          "text": "jz      short loc_545ACC",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a99",
+          "size": 2,
+          "bytes": "dfe0",
+          "mnemonic": "fnstsw",
+          "text": "fnstsw  ax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545a9b",
+          "size": 5,
+          "bytes": "2500380000",
+          "mnemonic": "and",
+          "text": "and     eax, 3800h",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545aa0",
+          "size": 2,
+          "bytes": "740d",
+          "mnemonic": "jz",
+          "text": "jz      short loc_545AAF",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545aa2",
+          "size": 4,
+          "bytes": "dd442408",
+          "mnemonic": "fld",
+          "text": "fld     qword ptr [esp+8]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 4,
+              "displacement": 8,
+              "dtype": 4,
+              "text": "qword ptr [esp+8]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545aa6",
+          "size": 5,
+          "bytes": "e87efeffff",
+          "mnemonic": "call",
+          "text": "call    unknown_libname_54; Microsoft VisualC 2-14/net runtime",
+          "name": "",
+          "stack_operands": [],
+          "call_target": "0x545929",
+          "refs": []
+        },
+        {
+          "ea": "0x545aab",
+          "size": 1,
+          "bytes": "58",
+          "mnemonic": "pop",
+          "text": "pop     eax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545aac",
+          "size": 3,
+          "bytes": "c20800",
+          "mnemonic": "retn",
+          "text": "retn    8",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545aaf",
+          "size": 2,
+          "bytes": "d9c9",
+          "mnemonic": "fxch",
+          "text": "fxch    st(1)",
+          "name": "loc_545AAF",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": [
+            {
+              "from_": "0x545aa0",
+              "type": 19
+            }
+          ]
+        },
+        {
+          "ea": "0x545ab1",
+          "size": 3,
+          "bytes": "83ec0c",
+          "mnemonic": "sub",
+          "text": "sub     esp, 0Ch",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545ab4",
+          "size": 3,
+          "bytes": "db3c24",
+          "mnemonic": "fstp",
+          "text": "fstp    tbyte ptr [esp]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 3,
+              "displacement": 0,
+              "dtype": 5,
+              "text": "tbyte ptr [esp]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545ab7",
+          "size": 4,
+          "bytes": "dd442414",
+          "mnemonic": "fld",
+          "text": "fld     qword ptr [esp+14h]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 4,
+              "displacement": 20,
+              "dtype": 4,
+              "text": "qword ptr [esp+14h]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545abb",
+          "size": 5,
+          "bytes": "e869feffff",
+          "mnemonic": "call",
+          "text": "call    unknown_libname_54; Microsoft VisualC 2-14/net runtime",
+          "name": "",
+          "stack_operands": [],
+          "call_target": "0x545929",
+          "refs": []
+        },
+        {
+          "ea": "0x545ac0",
+          "size": 3,
+          "bytes": "db2c24",
+          "mnemonic": "fld",
+          "text": "fld     tbyte ptr [esp]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 3,
+              "displacement": 0,
+              "dtype": 5,
+              "text": "tbyte ptr [esp]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545ac3",
+          "size": 2,
+          "bytes": "d9c9",
+          "mnemonic": "fxch",
+          "text": "fxch    st(1)",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545ac5",
+          "size": 3,
+          "bytes": "83c40c",
+          "mnemonic": "add",
+          "text": "add     esp, 0Ch",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545ac8",
+          "size": 1,
+          "bytes": "58",
+          "mnemonic": "pop",
+          "text": "pop     eax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545ac9",
+          "size": 3,
+          "bytes": "c20800",
+          "mnemonic": "retn",
+          "text": "retn    8",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545acc",
+          "size": 4,
+          "bytes": "dc7c2408",
+          "mnemonic": "fdivr",
+          "text": "fdivr   qword ptr [esp+8]",
+          "name": "loc_545ACC",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 4,
+              "displacement": 8,
+              "dtype": 4,
+              "text": "qword ptr [esp+8]"
+            }
+          ],
+          "call_target": null,
+          "refs": [
+            {
+              "from_": "0x545a97",
+              "type": 19
+            }
+          ]
+        },
+        {
+          "ea": "0x545ad0",
+          "size": 1,
+          "bytes": "58",
+          "mnemonic": "pop",
+          "text": "pop     eax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545ad1",
+          "size": 3,
+          "bytes": "c20800",
+          "mnemonic": "retn",
+          "text": "retn    8",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545ad4",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; Microsoft VisualC 2-14/net runtime",
+          "name": "unknown_libname_61",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545ad5",
+          "size": 2,
+          "bytes": "dfe0",
+          "mnemonic": "fnstsw",
+          "text": "fnstsw  ax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545ad7",
+          "size": 5,
+          "bytes": "2500380000",
+          "mnemonic": "and",
+          "text": "and     eax, 3800h",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545adc",
+          "size": 2,
+          "bytes": "740d",
+          "mnemonic": "jz",
+          "text": "jz      short loc_545AEB",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545ade",
+          "size": 4,
+          "bytes": "df442408",
+          "mnemonic": "fild",
+          "text": "fild    word ptr [esp+8]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 4,
+              "displacement": 8,
+              "dtype": 1,
+              "text": "word ptr [esp+8]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545ae2",
+          "size": 5,
+          "bytes": "e842feffff",
+          "mnemonic": "call",
+          "text": "call    unknown_libname_54; Microsoft VisualC 2-14/net runtime",
+          "name": "",
+          "stack_operands": [],
+          "call_target": "0x545929",
+          "refs": []
+        },
+        {
+          "ea": "0x545ae7",
+          "size": 1,
+          "bytes": "58",
+          "mnemonic": "pop",
+          "text": "pop     eax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545ae8",
+          "size": 3,
+          "bytes": "c20400",
+          "mnemonic": "retn",
+          "text": "retn    4",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545aeb",
+          "size": 2,
+          "bytes": "d9c9",
+          "mnemonic": "fxch",
+          "text": "fxch    st(1)",
+          "name": "loc_545AEB",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": [
+            {
+              "from_": "0x545adc",
+              "type": 19
+            }
+          ]
+        },
+        {
+          "ea": "0x545aed",
+          "size": 3,
+          "bytes": "83ec0c",
+          "mnemonic": "sub",
+          "text": "sub     esp, 0Ch",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545af0",
+          "size": 3,
+          "bytes": "db3c24",
+          "mnemonic": "fstp",
+          "text": "fstp    tbyte ptr [esp]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 3,
+              "displacement": 0,
+              "dtype": 5,
+              "text": "tbyte ptr [esp]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545af3",
+          "size": 4,
+          "bytes": "df442414",
+          "mnemonic": "fild",
+          "text": "fild    word ptr [esp+14h]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 4,
+              "displacement": 20,
+              "dtype": 1,
+              "text": "word ptr [esp+14h]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545af7",
+          "size": 5,
+          "bytes": "e82dfeffff",
+          "mnemonic": "call",
+          "text": "call    unknown_libname_54; Microsoft VisualC 2-14/net runtime",
+          "name": "",
+          "stack_operands": [],
+          "call_target": "0x545929",
+          "refs": []
+        },
+        {
+          "ea": "0x545afc",
+          "size": 3,
+          "bytes": "db2c24",
+          "mnemonic": "fld",
+          "text": "fld     tbyte ptr [esp]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 3,
+              "displacement": 0,
+              "dtype": 5,
+              "text": "tbyte ptr [esp]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545aff",
+          "size": 2,
+          "bytes": "d9c9",
+          "mnemonic": "fxch",
+          "text": "fxch    st(1)",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545b01",
+          "size": 3,
+          "bytes": "83c40c",
+          "mnemonic": "add",
+          "text": "add     esp, 0Ch",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545b04",
+          "size": 1,
+          "bytes": "58",
+          "mnemonic": "pop",
+          "text": "pop     eax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545b05",
+          "size": 3,
+          "bytes": "c20400",
+          "mnemonic": "retn",
+          "text": "retn    4",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545b08",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; Microsoft VisualC 2-14/net runtime",
+          "name": "unknown_libname_62",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545b09",
+          "size": 2,
+          "bytes": "dfe0",
+          "mnemonic": "fnstsw",
+          "text": "fnstsw  ax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545b0b",
+          "size": 5,
+          "bytes": "2500380000",
+          "mnemonic": "and",
+          "text": "and     eax, 3800h",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545b10",
+          "size": 2,
+          "bytes": "740d",
+          "mnemonic": "jz",
+          "text": "jz      short loc_545B1F",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545b12",
+          "size": 4,
+          "bytes": "db442408",
+          "mnemonic": "fild",
+          "text": "fild    dword ptr [esp+8]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 4,
+              "displacement": 8,
+              "dtype": 2,
+              "text": "dword ptr [esp+8]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545b16",
+          "size": 5,
+          "bytes": "e80efeffff",
+          "mnemonic": "call",
+          "text": "call    unknown_libname_54; Microsoft VisualC 2-14/net runtime",
+          "name": "",
+          "stack_operands": [],
+          "call_target": "0x545929",
+          "refs": []
+        },
+        {
+          "ea": "0x545b1b",
+          "size": 1,
+          "bytes": "58",
+          "mnemonic": "pop",
+          "text": "pop     eax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545b1c",
+          "size": 3,
+          "bytes": "c20400",
+          "mnemonic": "retn",
+          "text": "retn    4",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545b1f",
+          "size": 2,
+          "bytes": "d9c9",
+          "mnemonic": "fxch",
+          "text": "fxch    st(1)",
+          "name": "loc_545B1F",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": [
+            {
+              "from_": "0x545b10",
+              "type": 19
+            }
+          ]
+        },
+        {
+          "ea": "0x545b21",
+          "size": 3,
+          "bytes": "83ec0c",
+          "mnemonic": "sub",
+          "text": "sub     esp, 0Ch",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545b24",
+          "size": 3,
+          "bytes": "db3c24",
+          "mnemonic": "fstp",
+          "text": "fstp    tbyte ptr [esp]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 3,
+              "displacement": 0,
+              "dtype": 5,
+              "text": "tbyte ptr [esp]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545b27",
+          "size": 4,
+          "bytes": "db442414",
+          "mnemonic": "fild",
+          "text": "fild    dword ptr [esp+14h]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 4,
+              "displacement": 20,
+              "dtype": 2,
+              "text": "dword ptr [esp+14h]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545b2b",
+          "size": 5,
+          "bytes": "e8f9fdffff",
+          "mnemonic": "call",
+          "text": "call    unknown_libname_54; Microsoft VisualC 2-14/net runtime",
+          "name": "",
+          "stack_operands": [],
+          "call_target": "0x545929",
+          "refs": []
+        },
+        {
+          "ea": "0x545b30",
+          "size": 3,
+          "bytes": "db2c24",
+          "mnemonic": "fld",
+          "text": "fld     tbyte ptr [esp]",
+          "name": "",
+          "stack_operands": [
+            {
+              "index": 1,
+              "type": 3,
+              "displacement": 0,
+              "dtype": 5,
+              "text": "tbyte ptr [esp]"
+            }
+          ],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545b33",
+          "size": 2,
+          "bytes": "d9c9",
+          "mnemonic": "fxch",
+          "text": "fxch    st(1)",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545b35",
+          "size": 3,
+          "bytes": "83c40c",
+          "mnemonic": "add",
+          "text": "add     esp, 0Ch",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545b38",
+          "size": 1,
+          "bytes": "58",
+          "mnemonic": "pop",
+          "text": "pop     eax",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        },
+        {
+          "ea": "0x545b39",
+          "size": 3,
+          "bytes": "c20400",
+          "mnemonic": "retn",
+          "text": "retn    4",
+          "name": "",
+          "stack_operands": [],
+          "call_target": null,
+          "refs": []
+        }
+      ],
+      "source_path": "src/platform/LegacyFloatEnvironment.asm",
+      "source_symbols": [
+        "Cg2dDivideLegacyMemoryF32X87",
+        "Cg2dDivideLegacyMemoryF64X87",
+        "Cg2dDivideLegacyMemoryS16X87",
+        "Cg2dDivideLegacyMemoryS32X87",
+        "Cg2dReverseDivideLegacyMemoryF32X87",
+        "Cg2dReverseDivideLegacyMemoryF64X87",
+        "Cg2dReverseDivideLegacyMemoryS16X87",
+        "Cg2dReverseDivideLegacyMemoryS32X87"
+      ],
+      "boundary": "BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
     }
   ]
 }

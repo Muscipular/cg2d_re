@@ -4161,3 +4161,11 @@ BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条
 新增1847/F:00145477→Cg2dDispatchLegacyDivisionX87、1848/F:00145916→Cg2dDivideLegacyPairX87、1849/F:00145929→Cg2dReverseDivideLegacyPairX87、1850/F:00145B3C→Cg2dDivideLegacyStackX87，均在既有LegacyFloatEnvironment.asm；HPP仅私有ST0/原数值片段合同。
 
 四完整本体432条1242B，64项实际代码表/全部case与126个T80操作数及45核心调用均有据；不能将多种ST交换/弹栈操作合成宿主除法。原INT 6失败分支保持，原W32 EAX仅最后包装保存，RCX暂借为原生寄存器机制；未知父与运行仍待，pending18保持。
+
+## BWQ01一内部函数与两完整内存加载区间映射（2026-10-08）
+
+[完整172条/八父/一F两R7及源前后态](cg2d_math_memory_parents_evidence.json)、[合同](cg2d_math_memory_parents_spec.md#math-memory-parents-decision)。
+
+新增1851/F:00145A65→Cg2dReverseDivideLegacyMemoryF32X87的LegacyMemoryReverseF32Preserve内部路径；原九条27B与两R7的163条485B互补。所有八类型/方向父完整开发，按实际原函数/区间身份登记，不额外造七个原函数或排除无直入代码。
+
+八ASM沿两既有源三追加，原F32/F64/S16/S32读取、指数位/TOP分支、T80恢复与16真包装调用保；RCX只是Win64原值参数借址，不改变数值/模拟原栈清理。外层未知原调用/机器继续，pending18保持。

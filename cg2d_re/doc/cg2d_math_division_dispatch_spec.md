@@ -56,3 +56,7 @@
 完整机器/派生差集与文本汇总/-Check通过。新增1847..1850四F、F1009→1013/CRT186→190及两限定I/S；实际语义1851/有效1844、文档1961/3680（53.29%）、E1170。源码定位140→136、范围内未定位CRT12→8、总队列141→137。R7已审470/余2591与辅助处置486保持。
 
 继续开发未知分派调用父/内存加载父、其它CRT本体/全应用生命周期，不把未知问题仅留备注。C01/R01/V02/R04及完整CRT枚举/gates仍open；pending18、商店pending6/创建pending7、closed11、完整叶0/globalfalse及暂停25/排除103/元数据1保持。机器展开/ABI/链接运行等待执行恢复，未编译、测试、运行算法/客户端或计算hash；原格式明文/既定两加解密叶排除、音频暂停及RPLAN.24保持，整体SPEC目标继续。
+
+## BWQ01正逆包装的八个真实内存加载父已开发（2026-10-08）
+
+[加载父SPEC](cg2d_math_memory_parents_spec.md#math-memory-parents-decision)、[完整原父/两R7和源前后态](cg2d_math_memory_parents_evidence.json)。54593C..545B3C全部F32/F64/S16/S32正逆父已接Cg2dDivideLegacyPairX87/Cg2dReverseDivideLegacyPairX87，16次真实调用再达完整核心；原指数位分支、非等待TOP取样、额外T80保存恢复/交换、原位宽和W32 EAX保持。原545A65内部路径与两R7一并完整开发，不仅映一个片段。外层实际调用/描述符生产与机器生命周期继续；原64项分派及既有包装不变。

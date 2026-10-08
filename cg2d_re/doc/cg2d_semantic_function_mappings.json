@@ -210778,6 +210778,105 @@
         "machine_unwind_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x545a65",
+      "inventory_id": "F:00145A65",
+      "original_role": "原545A65九条27B是逆向F32内存加载父的TOP=0保存/重载分支；与八父172条512B及两R7整组实现，保原额外T80、原标量F32加载、真实逆向包装调用及W32 EAX/原返回，不发明独立调用父。",
+      "original_end_exclusive": "0x545a80",
+      "original_chunks": [
+        [
+          "0x545a65",
+          "0x545a80"
+        ]
+      ],
+      "instruction_count": 9,
+      "status": "BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dReverseDivideLegacyMemoryF32X87",
+            "LegacyMemoryReverseF32Preserve",
+            "Cg2dReverseDivideLegacyPairX87"
+          ],
+          "relationship": "原545A65九条27B是逆向F32内存加载父的TOP=0保存/重载分支；与八父172条512B及两R7整组实现，保原额外T80、原标量F32加载、真实逆向包装调用及W32 EAX/原返回，不发明独立调用父。"
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "Cg2dReverseDivideLegacyMemoryF32X87"
+          ],
+          "relationship": "原逆向F32加载父的内部545A65分支/ST0和实际借值边界；数值不扩宽/不模拟RET4或栈地址，原W32 EAX保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-baseline",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-decision",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-acceptance",
+        "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state"
+      ],
+      "boundary": "原545A65九条27B是逆向F32内存加载父的TOP=0保存/重载分支；与八父172条512B及两R7整组实现，保原额外T80、原标量F32加载、真实逆向包装调用及W32 EAX/原返回，不发明独立调用父。 BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "verification_level": "BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。",
+      "math_memory_parents": {
+        "spec_id": "BWQ01",
+        "evidence_refs": [
+          "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-baseline",
+          "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-decision",
+          "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-acceptance",
+          "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state"
+        ],
+        "full_original_function_captured": true,
+        "original_instruction_count": 9,
+        "original_code_bytes": 27,
+        "original_root_is_reverse_F32_parent_interior_branch": true,
+        "whole_group_instruction_count": 172,
+        "whole_group_code_bytes": 512,
+        "whole_group_direct_calls": 16,
+        "whole_group_unique_direct_callees": 2,
+        "whole_group_jumps": 12,
+        "whole_group_returns": 20,
+        "whole_group_memory_parent_count": 8,
+        "whole_group_mapped_range_count": 2,
+        "whole_group_range_bytes": 485,
+        "source_body_added": true,
+        "source_asm_file_count": 1,
+        "source_header_file_count": 1,
+        "source_cpp_file_count": 0,
+        "source_patch_count": 3,
+        "new_native_function_body_count": 8,
+        "new_asm_proc_count": 8,
+        "new_cpp_body_count": 0,
+        "new_original_mapped_function_count": 1,
+        "new_private_C_bridge_count": 0,
+        "new_mutable_shared_owner_count": 0,
+        "native_frame_bytes": 72,
+        "original_scalar_types": [
+          "F32",
+          "F64",
+          "S16",
+          "S32"
+        ],
+        "scalar_value_pointer_is_native_argument_transport_not_numeric_field_widening": true,
+        "original_exponent_direct_division_nonwaiting_TOP_and_extra_T80_order_kept": true,
+        "original_signed_integer_input_widths_and_EAX_W32_kept": true,
+        "all_16_real_pair_calls_to_full_core": true,
+        "native_direct_call_count": 16,
+        "native_direct_jump_count": 12,
+        "native_return_count": 20,
+        "no_new_guard_host_math_default_result_or_padding_fill": true,
+        "wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_outer_original_callers_verified": false,
+        "full_original_descriptor_production_verified": false,
+        "full_all_parents_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "machine_abi_verified": false,
+        "machine_unwind_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

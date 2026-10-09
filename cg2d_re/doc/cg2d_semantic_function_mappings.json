@@ -215153,6 +215153,251 @@
         "machine_return_verified": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x401000",
+      "inventory_id": "F:00001000",
+      "original_role": "条件持久化成功后依次重置文件ID为-1和游标为0，保W8返回",
+      "original_end_exclusive": "0x401029",
+      "instruction_count": 11,
+      "original_byte_count": 41,
+      "status": "CAC06七完整原体与已有源码/真实源调用已关联；两正常取样片段修正，完整父/FILE/输入与正常寿命、机器ABI/链接/运行未验",
+      "sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "cg::blacklist::PersistAndReset_401000"
+          ],
+          "relationship": "已有唯一gRecords/gPath/gCursor/gCurrentFileId；本组只恢复401270游标取样与4012F0两对U8比较，其余正文保持。原十八入向与现有源调用只核邻近入参/返回，非完整父或旧外层运行证明。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-decision",
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state",
+        "doc/cg2d_blacklist_core_sampling_evidence.json",
+        "doc/cg2d_blacklist_state.md"
+      ],
+      "boundary": "只核七已证原核心身份/正常源码和原入向邻窗；不新增函数或存储、保护/默认值/异常模拟。FILE两父继承既有证据，完整字段/输入焦点/所有父/机器及运行另验。",
+      "verification_level": "七完整249条613B、十八入向邻窗161条547B；一个CPP两个明确片段，必要静态全文差异核对和登记汇总。未构建、测试、运行、查产物或计算摘要。",
+      "blacklist_core_sampling": {
+        "step": "CAC06",
+        "source_snapshot": "cg2d-re-blacklist-core-sampling-20261009",
+        "decision_ref": "doc/cg2d_blacklist_state.md#blacklist-core-sampling-decision",
+        "known_code_references": 1,
+        "source_body_implemented": true,
+        "machine_verified": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x401170",
+      "inventory_id": "F:00001170",
+      "original_role": "按原17字节步长返回同一黑名单记录的可写借用地址，只拓宽已证指针",
+      "original_end_exclusive": "0x401181",
+      "instruction_count": 5,
+      "original_byte_count": 17,
+      "status": "CAC06七完整原体与已有源码/真实源调用已关联；两正常取样片段修正，完整父/FILE/输入与正常寿命、机器ABI/链接/运行未验",
+      "sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "cg::blacklist::BlacklistRecordAt_401170"
+          ],
+          "relationship": "已有唯一gRecords/gPath/gCursor/gCurrentFileId；本组只恢复401270游标取样与4012F0两对U8比较，其余正文保持。原十八入向与现有源调用只核邻近入参/返回，非完整父或旧外层运行证明。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-decision",
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state",
+        "doc/cg2d_blacklist_core_sampling_evidence.json",
+        "doc/cg2d_blacklist_state.md"
+      ],
+      "boundary": "只核七已证原核心身份/正常源码和原入向邻窗；不新增函数或存储、保护/默认值/异常模拟。FILE两父继承既有证据，完整字段/输入焦点/所有父/机器及运行另验。",
+      "verification_level": "七完整249条613B、十八入向邻窗161条547B；一个CPP两个明确片段，必要静态全文差异核对和登记汇总。未构建、测试、运行、查产物或计算摘要。",
+      "blacklist_core_sampling": {
+        "step": "CAC06",
+        "source_snapshot": "cg2d-re-blacklist-core-sampling-20261009",
+        "decision_ref": "doc/cg2d_blacklist_state.md#blacklist-core-sampling-decision",
+        "known_code_references": 1,
+        "source_body_implemented": true,
+        "machine_verified": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x401190",
+      "inventory_id": "F:00001190",
+      "original_role": "完整S32返回共享黑名单游标",
+      "original_end_exclusive": "0x401196",
+      "instruction_count": 2,
+      "original_byte_count": 6,
+      "status": "CAC06七完整原体与已有源码/真实源调用已关联；两正常取样片段修正，完整父/FILE/输入与正常寿命、机器ABI/链接/运行未验",
+      "sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "cg::blacklist::GetBlacklistCount_401190"
+          ],
+          "relationship": "已有唯一gRecords/gPath/gCursor/gCurrentFileId；本组只恢复401270游标取样与4012F0两对U8比较，其余正文保持。原十八入向与现有源调用只核邻近入参/返回，非完整父或旧外层运行证明。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-decision",
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state",
+        "doc/cg2d_blacklist_core_sampling_evidence.json",
+        "doc/cg2d_blacklist_state.md"
+      ],
+      "boundary": "只核七已证原核心身份/正常源码和原入向邻窗；不新增函数或存储、保护/默认值/异常模拟。FILE两父继承既有证据，完整字段/输入焦点/所有父/机器及运行另验。",
+      "verification_level": "七完整249条613B、十八入向邻窗161条547B；一个CPP两个明确片段，必要静态全文差异核对和登记汇总。未构建、测试、运行、查产物或计算摘要。",
+      "blacklist_core_sampling": {
+        "step": "CAC06",
+        "source_snapshot": "cg2d-re-blacklist-core-sampling-20261009",
+        "decision_ref": "doc/cg2d_blacklist_state.md#blacklist-core-sampling-decision",
+        "known_code_references": 3,
+        "source_body_implemented": true,
+        "machine_verified": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x401270",
+      "inventory_id": "F:00001270",
+      "original_role": "扫固定100槽，首空槽含NUL前向复制，分组复制后取游标/余数后发布，条件持久化",
+      "original_end_exclusive": "0x4012e6",
+      "instruction_count": 45,
+      "original_byte_count": 118,
+      "status": "CAC06七完整原体与已有源码/真实源调用已关联；两正常取样片段修正，完整父/FILE/输入与正常寿命、机器ABI/链接/运行未验",
+      "sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "cg::blacklist::AddBlacklistRecord_401270"
+          ],
+          "relationship": "已有唯一gRecords/gPath/gCursor/gCurrentFileId；本组只恢复401270游标取样与4012F0两对U8比较，其余正文保持。原十八入向与现有源调用只核邻近入参/返回，非完整父或旧外层运行证明。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-decision",
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state",
+        "doc/cg2d_blacklist_core_sampling_evidence.json",
+        "doc/cg2d_blacklist_state.md"
+      ],
+      "boundary": "只核七已证原核心身份/正常源码和原入向邻窗；不新增函数或存储、保护/默认值/异常模拟。FILE两父继承既有证据，完整字段/输入焦点/所有父/机器及运行另验。",
+      "verification_level": "七完整249条613B、十八入向邻窗161条547B；一个CPP两个明确片段，必要静态全文差异核对和登记汇总。未构建、测试、运行、查产物或计算摘要。",
+      "blacklist_core_sampling": {
+        "step": "CAC06",
+        "source_snapshot": "cg2d-re-blacklist-core-sampling-20261009",
+        "decision_ref": "doc/cg2d_blacklist_state.md#blacklist-core-sampling-decision",
+        "known_code_references": 3,
+        "source_body_implemented": true,
+        "machine_verified": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4012f0",
+      "inventory_id": "F:000012F0",
+      "original_role": "固定100槽两对U8比较/首匹配，以单次旧游标压移含NUL字符串，晚读文件ID条件持久化",
+      "original_end_exclusive": "0x4013cd",
+      "instruction_count": 94,
+      "original_byte_count": 221,
+      "status": "CAC06七完整原体与已有源码/真实源调用已关联；两正常取样片段修正，完整父/FILE/输入与正常寿命、机器ABI/链接/运行未验",
+      "sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "cg::blacklist::RemoveBlacklistRecord_4012F0"
+          ],
+          "relationship": "已有唯一gRecords/gPath/gCursor/gCurrentFileId；本组只恢复401270游标取样与4012F0两对U8比较，其余正文保持。原十八入向与现有源调用只核邻近入参/返回，非完整父或旧外层运行证明。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-decision",
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state",
+        "doc/cg2d_blacklist_core_sampling_evidence.json",
+        "doc/cg2d_blacklist_state.md"
+      ],
+      "boundary": "只核七已证原核心身份/正常源码和原入向邻窗；不新增函数或存储、保护/默认值/异常模拟。FILE两父继承既有证据，完整字段/输入焦点/所有父/机器及运行另验。",
+      "verification_level": "七完整249条613B、十八入向邻窗161条547B；一个CPP两个明确片段，必要静态全文差异核对和登记汇总。未构建、测试、运行、查产物或计算摘要。",
+      "blacklist_core_sampling": {
+        "step": "CAC06",
+        "source_snapshot": "cg2d-re-blacklist-core-sampling-20261009",
+        "decision_ref": "doc/cg2d_blacklist_state.md#blacklist-core-sampling-decision",
+        "known_code_references": 3,
+        "source_body_implemented": true,
+        "machine_verified": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4013d0",
+      "inventory_id": "F:000013D0",
+      "original_role": "固定100槽，每槽先排除593850当前输入，再以两对U8匹配名字，W8返回",
+      "original_end_exclusive": "0x401463",
+      "instruction_count": 69,
+      "original_byte_count": 147,
+      "status": "CAC06七完整原体与已有源码/真实源调用已关联；两正常取样片段修正，完整父/FILE/输入与正常寿命、机器ABI/链接/运行未验",
+      "sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "cg::blacklist::ContainsBlacklistRecord_4013D0"
+          ],
+          "relationship": "已有唯一gRecords/gPath/gCursor/gCurrentFileId；本组只恢复401270游标取样与4012F0两对U8比较，其余正文保持。原十八入向与现有源调用只核邻近入参/返回，非完整父或旧外层运行证明。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-decision",
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state",
+        "doc/cg2d_blacklist_core_sampling_evidence.json",
+        "doc/cg2d_blacklist_state.md"
+      ],
+      "boundary": "只核七已证原核心身份/正常源码和原入向邻窗；不新增函数或存储、保护/默认值/异常模拟。FILE两父继承既有证据，完整字段/输入焦点/所有父/机器及运行另验。",
+      "verification_level": "七完整249条613B、十八入向邻窗161条547B；一个CPP两个明确片段，必要静态全文差异核对和登记汇总。未构建、测试、运行、查产物或计算摘要。",
+      "blacklist_core_sampling": {
+        "step": "CAC06",
+        "source_snapshot": "cg2d-re-blacklist-core-sampling-20261009",
+        "decision_ref": "doc/cg2d_blacklist_state.md#blacklist-core-sampling-decision",
+        "known_code_references": 6,
+        "source_body_implemented": true,
+        "machine_verified": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x401470",
+      "inventory_id": "F:00001470",
+      "original_role": "首记录与游标均非零才清固定100槽并置游标0，晚读文件ID条件持久化，返回AL",
+      "original_end_exclusive": "0x4014af",
+      "instruction_count": 23,
+      "original_byte_count": 63,
+      "status": "CAC06七完整原体与已有源码/真实源调用已关联；两正常取样片段修正，完整父/FILE/输入与正常寿命、机器ABI/链接/运行未验",
+      "sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "cg::blacklist::ClearBlacklistRecords_401470"
+          ],
+          "relationship": "已有唯一gRecords/gPath/gCursor/gCurrentFileId；本组只恢复401270游标取样与4012F0两对U8比较，其余正文保持。原十八入向与现有源调用只核邻近入参/返回，非完整父或旧外层运行证明。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-decision",
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state",
+        "doc/cg2d_blacklist_core_sampling_evidence.json",
+        "doc/cg2d_blacklist_state.md"
+      ],
+      "boundary": "只核七已证原核心身份/正常源码和原入向邻窗；不新增函数或存储、保护/默认值/异常模拟。FILE两父继承既有证据，完整字段/输入焦点/所有父/机器及运行另验。",
+      "verification_level": "七完整249条613B、十八入向邻窗161条547B；一个CPP两个明确片段，必要静态全文差异核对和登记汇总。未构建、测试、运行、查产物或计算摘要。",
+      "blacklist_core_sampling": {
+        "step": "CAC06",
+        "source_snapshot": "cg2d-re-blacklist-core-sampling-20261009",
+        "decision_ref": "doc/cg2d_blacklist_state.md#blacklist-core-sampling-decision",
+        "known_code_references": 1,
+        "source_body_implemented": true,
+        "machine_verified": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

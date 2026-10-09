@@ -1801,11 +1801,19 @@
         "doc/cg2d_saved_state_loader.md",
         "doc/cg2d_saved_state_persist.md",
         "doc/cg2d_current_saved_record.md",
-        "doc/cg2d_saved_codec_arithmetic_spec.md"
+        "doc/cg2d_saved_codec_arithmetic_spec.md",
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-decision"
       ],
       "original_inventory_ids": [
         "F:0012D310",
-        "F:0012D460"
+        "F:0012D460",
+        "F:00001000",
+        "F:00001170",
+        "F:00001190",
+        "F:00001270",
+        "F:000012F0",
+        "F:000013D0",
+        "F:00001470"
       ],
       "closure_task_ids": [
         "U10",
@@ -1816,15 +1824,20 @@
       "acceptance_focus": "文件原字节、读取/保存/迁移、共享owner和失败残留",
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
-        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-decision"
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-decision",
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
-        "SCA01两已有codec叶/共享包装具名并按RPLAN.24校准编码三算术片段，格式/U8操作与其余源保持；仅两叶基线/分类不代全部存档/配置/相册父、文件成功失败/owner/alias及实际ABI/链接/运行，不给异常等价PASS"
+        "SCA01两已有codec叶/共享包装具名并按RPLAN.24校准编码三算术片段，格式/U8操作与其余源保持；仅两叶基线/分类不代全部存档/配置/相册父、文件成功失败/owner/alias及实际ABI/链接/运行，不给异常等价PASS",
+        "CAC06七黑名单核心已有源/四同源存储及十八原入向已登记，两正常取样片段已修；仅局部I/W/S。完整401030/4011A0的所有FILE失败、输入焦点/全父/旧99外层可达、正常owner-alias寿命/机器ABI/链接运行及本功能成员仍未闭，不以有来源记整项通过。"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure"
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure",
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state"
+      ]
     },
     {
       "id": "FUNC-INPUT",
@@ -55912,6 +55925,102 @@
       "differences": [],
       "result": "pass",
       "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-BLACKLIST-CORE-FUNC-SAVED-I-20261009",
+      "feature_id": "FUNC-SAVED",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前cg2d IDA七原完整249条613B及18代码入向邻窗161条547B，详情见doc/cg2d_blacklist_core_sampling_evidence.json；401030/4011A0继承既有黑名单FILE合同。",
+      "implementation_reference": "Git固定命名快照 cg2d-re-blacklist-core-sampling-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state",
+        "doc/cg2d_blacklist_core_sampling_evidence.json",
+        "src/Blacklist.cpp",
+        "include/cg/Blacklist.hpp",
+        "src/LoginState.cpp",
+        "src/Input.cpp",
+        "src/LegacyUiRecord.cpp",
+        "src/YobiRuntime.cpp",
+        "src/ui/WindowRuntime.cpp",
+        "src/world/SceneState.cpp"
+      ],
+      "observation": "仅401270分组复制后游标取样/余数后发布与4012F0两对U8比较的两个源码片段。",
+      "expected": "原固定100×17/路径512B、S32游标/文件ID及借用指针、W8/S32返回、正常字节比较与取样/写回阶段、实际源生产消费保持；不造新owner、保护或异常模拟。",
+      "actual": "两个既有根按SPEC修源，其它五根/FILE父/头与全部调用者保持；新增七原新和七处置，FUNC-SAVED已知成员2→9且枚举false。仅静态差异/身份汇总；不构建/测试/运行/产物或摘要，完整门禁仍未闭。",
+      "differences": [
+        {
+          "description": "保留本机x64借用指针及既有逐字节前向复制；按原证恢复分组复制中间的游标取样和两对U8比较源级合同，不承诺原REP生成指令/标志、机器ABI或异常故障等价。",
+          "decision_ref": "doc/cg2d_blacklist_state.md#blacklist-core-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-BLACKLIST-CORE-FUNC-SAVED-W-20261009",
+      "feature_id": "FUNC-SAVED",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前cg2d IDA七原完整249条613B及18代码入向邻窗161条547B，详情见doc/cg2d_blacklist_core_sampling_evidence.json；401030/4011A0继承既有黑名单FILE合同。",
+      "implementation_reference": "Git固定命名快照 cg2d-re-blacklist-core-sampling-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state",
+        "doc/cg2d_blacklist_core_sampling_evidence.json",
+        "src/Blacklist.cpp",
+        "include/cg/Blacklist.hpp",
+        "src/LoginState.cpp",
+        "src/Input.cpp",
+        "src/LegacyUiRecord.cpp",
+        "src/YobiRuntime.cpp",
+        "src/ui/WindowRuntime.cpp",
+        "src/world/SceneState.cpp"
+      ],
+      "observation": "仅七核心与四同源存储/既有FILE父、实际LoginState加载重置、Input/旧页/窗口/Yobi增删及聊天过滤源调用；十八原入向只邻窗，不代完整外层可达或寿命。",
+      "expected": "原固定100×17/路径512B、S32游标/文件ID及借用指针、W8/S32返回、正常字节比较与取样/写回阶段、实际源生产消费保持；不造新owner、保护或异常模拟。",
+      "actual": "两个既有根按SPEC修源，其它五根/FILE父/头与全部调用者保持；新增七原新和七处置，FUNC-SAVED已知成员2→9且枚举false。仅静态差异/身份汇总；不构建/测试/运行/产物或摘要，完整门禁仍未闭。",
+      "differences": [
+        {
+          "description": "保留本机x64借用指针及既有逐字节前向复制；按原证恢复分组复制中间的游标取样和两对U8比较源级合同，不承诺原REP生成指令/标志、机器ABI或异常故障等价。",
+          "decision_ref": "doc/cg2d_blacklist_state.md#blacklist-core-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-BLACKLIST-CORE-FUNC-SAVED-S-20261009",
+      "feature_id": "FUNC-SAVED",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前cg2d IDA七原完整249条613B及18代码入向邻窗161条547B，详情见doc/cg2d_blacklist_core_sampling_evidence.json；401030/4011A0继承既有黑名单FILE合同。",
+      "implementation_reference": "Git固定命名快照 cg2d-re-blacklist-core-sampling-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state",
+        "doc/cg2d_blacklist_core_sampling_evidence.json",
+        "src/Blacklist.cpp",
+        "include/cg/Blacklist.hpp",
+        "src/LoginState.cpp",
+        "src/Input.cpp",
+        "src/LegacyUiRecord.cpp",
+        "src/YobiRuntime.cpp",
+        "src/ui/WindowRuntime.cpp",
+        "src/world/SceneState.cpp"
+      ],
+      "observation": "仅七完整原根、十八入向邻窗和一个CPP两段明确差异；正常逻辑结果保持，不声明编译器机器采样/ABI。",
+      "expected": "原固定100×17/路径512B、S32游标/文件ID及借用指针、W8/S32返回、正常字节比较与取样/写回阶段、实际源生产消费保持；不造新owner、保护或异常模拟。",
+      "actual": "两个既有根按SPEC修源，其它五根/FILE父/头与全部调用者保持；新增七原新和七处置，FUNC-SAVED已知成员2→9且枚举false。仅静态差异/身份汇总；不构建/测试/运行/产物或摘要，完整门禁仍未闭。",
+      "differences": [
+        {
+          "description": "保留本机x64借用指针及既有逐字节前向复制；按原证恢复分组复制中间的游标取样和两对U8比较源级合同，不承诺原REP生成指令/标志、机器ABI或异常故障等价。",
+          "decision_ref": "doc/cg2d_blacklist_state.md#blacklist-core-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
     }
   ],
   "task_acceptance": [
@@ -56479,7 +56588,9 @@
         "doc/cg2d_projection_sampling_return_spec.md#projection-x87-source-state",
         "doc/cg2d_projection_x87_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#projection-x87-source-state",
-        "doc/cg2d_build_acceptance_spec.md#projection-x87-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#projection-x87-debug-build",
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state",
+        "doc/cg2d_blacklist_core_sampling_evidence.json"
       ]
     },
     {
@@ -56597,7 +56708,9 @@
         "doc/cg2d_login_receive_diagnostics_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#login-receive-diagnostics-debug-build",
         "doc/cg2d_network_compatibility_spec.md#local-service-observation-20261009",
-        "doc/cg2d_build_acceptance_spec.md#array-assert-stack-diagnostic-20261009"
+        "doc/cg2d_build_acceptance_spec.md#array-assert-stack-diagnostic-20261009",
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state",
+        "doc/cg2d_blacklist_core_sampling_evidence.json"
       ]
     },
     {
@@ -56853,7 +56966,9 @@
         "doc/cg2d_audio_loader_publication_evidence.json",
         "doc/cg2d_stdio_contract.md#audio-loader-publication-source-state",
         "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
-        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build",
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state",
+        "doc/cg2d_blacklist_core_sampling_evidence.json"
       ]
     },
     {
@@ -57382,7 +57497,9 @@
         "doc/cg2d_projection_x87_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#projection-x87-source-state",
         "doc/cg2d_build_acceptance_spec.md#projection-x87-debug-build",
-        "plan/cg2d_spec_review_20261009.md#current-spec-review"
+        "plan/cg2d_spec_review_20261009.md#current-spec-review",
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state",
+        "doc/cg2d_blacklist_core_sampling_evidence.json"
       ]
     },
     {
@@ -57591,7 +57708,9 @@
         "doc/ui_windows/window_53.md#shop-inventory-scan-source-state",
         "doc/cg2d_shop_inventory_scan_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#shop-inventory-scan-debug-build",
-        "doc/cg2d_build_acceptance_spec.md#array-assert-stack-diagnostic-20261009"
+        "doc/cg2d_build_acceptance_spec.md#array-assert-stack-diagnostic-20261009",
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state",
+        "doc/cg2d_blacklist_core_sampling_evidence.json"
       ]
     },
     {
@@ -71181,6 +71300,69 @@
         "doc/cg2d_build_acceptance_spec.md#shop-inventory-scan-debug-build"
       ],
       "boundary": "仅已证扫描/后续复用临时下标的源码承接局部；x64原生当前窗口/元素地址与原业务W32/S8/U8继续。完整原体/全部父-callee/正常owner-alias寿命/现代回调/画面声音/IP2及机器ABI未验，不把局部F处置当功能完成。"
+    },
+    {
+      "inventory_id": "F:00001000",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state",
+        "doc/cg2d_blacklist_core_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00001170",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state",
+        "doc/cg2d_blacklist_core_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00001190",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state",
+        "doc/cg2d_blacklist_core_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00001270",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state",
+        "doc/cg2d_blacklist_core_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:000012F0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state",
+        "doc/cg2d_blacklist_core_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:000013D0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state",
+        "doc/cg2d_blacklist_core_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00001470",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state",
+        "doc/cg2d_blacklist_core_sampling_evidence.json"
+      ]
     }
   ],
   "auxiliary_dispositions": [

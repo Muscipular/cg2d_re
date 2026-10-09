@@ -274,3 +274,7 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 ## CAC05 R04 当前复盘与禁令同步（2026-10-09）
 
 [本轮复盘及380份子SPEC索引](cg2d_spec_review_20261009.md#current-spec-review)区分历史摘要、现行合同和开放验收。用户确认此前连接故障已好，继续整体缺口；登记簿 no_build=true覆盖旧构建例外。R04追加依据仍open，原60任务/11关闭、全部软件门禁及处置保持。下一步核已存在黑名单真实生产消费链，补有证源差异和七核心原新关系，不按定位差集制造假缺口。
+
+## CAC06 R01/R04/U10/V03/V04 黑名单核心原新与取样（2026-10-09）
+
+[黑名单合同](../doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state)及[七完整/十八邻窗](../doc/cg2d_blacklist_core_sampling_evidence.json)恢复插入游标取样相对复制阶段和删除两对U8比较；其余本体/owner/所有调用者保持。七原新/七处置及SAVED成员2→9、三局部I/W/S，不闭完整成员/FILE与输入/全父/旧路由/正常寿命/机器ABI/运行，五任务仍open，不构建/测试/运行或摘要。

@@ -4233,3 +4233,7 @@ X:00143383-00143390的7B实际代码对应Cg2dApplyLegacyConditionalSignX87，�
 341/F:00145208现对应完整GetLegacyStringTypes_545208与原info1固定接口，补实际infoType/W32 strict及原S32长度、专用后端和正常A/W分支。原U32栈申请对齐和原填充数在同一SEH内分开，5452F7填充连接的过时源名纠正为实际完整体。零新语义/原身份，已有字段不扩宽。
 
 新增一完整F处置/CRT成员及一个15CC用途，F1027/CRT204/E1187两限定I-S，R7已审483余2578；语义1859/有效1852、文档1969/3680（53.51%）和定位/pending保持。两原caller全部其他正文保持，不把完整七参数源入口或本机SEH算作系统API/SDK-ABI/完整CRT验收。
+
+## CAC06 黑名单七核心已有实现与正常取样（2026-10-09）
+
+原新记录1906..1912绑定401000/401170/401190/401270/4012F0/4013D0/401470七真实F；[原249条613B/18入向邻窗161条547B](cg2d_blacklist_core_sampling_evidence.json)和[当前合同](cg2d_blacklist_state.md#blacklist-core-sampling-decision)。四同源存储及现有加载/重置/输入/UI/聊天生产消费保持；只修一CPP插入游标取样及删除两对U8比较，不新增本体或owner。七处置/三局部I-W-S不关闭FUNC-SAVED完整成员、文件/输入/正常寿命/机器与运行，原分母和R8保持。

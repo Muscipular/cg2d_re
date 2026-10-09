@@ -188,12 +188,19 @@ std::int8_t AddBlacklistRecord_401270(const char* const name)
         } while (name[byteCount - 1] != '\0');
 
         std::uint8_t* const destination = record.data();
-        for (std::size_t i = 0; i < byteCount; ++i) {
+        const std::size_t wordCopyByteCount = byteCount & ~std::size_t {3};
+        for (std::size_t i = 0; i < wordCopyByteCount; ++i) {
             destination[i] = static_cast<std::uint8_t>(name[i]);
         }
 
+        // 原4012BF在四字节分组复制后取游标，余数字节复制后才发布。
         const std::uint32_t cursorBits = std::bit_cast<std::uint32_t>(gCursor);
-        gCursor = std::bit_cast<std::int32_t>(cursorBits + std::uint32_t {1});
+        const std::int32_t nextCursor =
+            std::bit_cast<std::int32_t>(cursorBits + std::uint32_t {1});
+        for (std::size_t i = wordCopyByteCount; i < byteCount; ++i) {
+            destination[i] = static_cast<std::uint8_t>(name[i]);
+        }
+        gCursor = nextCursor;
         break;
     }
 
@@ -206,20 +213,11 @@ std::int8_t AddBlacklistRecord_401270(const char* const name)
 
 std::int8_t RemoveBlacklistRecord_4012F0(const char* const name)
 {
+    const auto* const inputBytes =
+        reinterpret_cast<const volatile std::uint8_t*>(name);
     std::size_t i = 0;
     for (; i < kRecordCount; ++i) {
-        bool equal = true;
-        for (std::size_t byteIndex = 0;; ++byteIndex) {
-            const std::uint8_t byte = gRecords[i].data()[byteIndex];
-            if (byte != static_cast<std::uint8_t>(name[byteIndex])) {
-                equal = false;
-                break;
-            }
-            if (byte == 0) {
-                break;
-            }
-        }
-        if (equal) {
+        if (EqualPairedBytes(gRecords[i].data(), inputBytes)) {
             break;
         }
     }

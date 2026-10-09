@@ -6,7 +6,7 @@
 
 ## 1. 当前口径
 
-- 原函数3680，语义1964条/1943个原ID＋21条区间身份；合同关联2053/3680（55.79%），已审F处置1097。关联率不是实现或验收完成率。
+- 原函数3680，语义1964条/1943个原ID＋21条区间身份；合同关联2053/3680（55.79%），已审F处置1113。关联率不是实现或验收完成率。
 - 导入16/218、区间1509/3061已审，区间剩1552；18个pending是历史跟踪入口，不等于18个未实现函数。
 - 184个登记叶功能整项验收0，B/I/W/S/R完整门禁均0通过，六类closure均open；局部证据1310条不得代替完整门禁。
 - 历史Debug链接及CAC04选人入场用户复验保留；当前不构建、不测试、不运行、不查产物、不计算摘要、单线程。音频开发已恢复，运行验收仍受限。
@@ -42,17 +42,17 @@
 
 | 编号 / 范围 | 任务状态与已有成果 | 下一步及关闭边界 | 主证据 |
 |---|---|---|---|
-| C01 / CRT 总策略 | 开放；受限宿主策略及大量CRT/数学/NLS本体已有局部实施和接线证据 ；ACP01-C完成三ASM/私有数值ABI的CPP/宿主承接，当前未编译/运行 | 全部owner/模式寿命/alias/R1/R7和SDK异常失败/完整CRT运行未闭 | [M3P01](../doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure)；[运行库](../doc/cg2d_crt_runtime_boundary_spec.md) ；[ACP01-C](../doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state) |
+| C01 / CRT 总策略 | 开放；受限宿主策略及大量CRT/数学/NLS本体已有局部实施和接线证据 ；ACP01-C完成三ASM/私有数值ABI的CPP/宿主承接，当前未编译/运行；全部通用堆模式已按HMU01统一标准分配族，旧池已退役；未编译/运行 | 全部owner/模式寿命/alias/R1/R7和SDK异常失败/完整CRT运行未闭 | [M3P01](../doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure)；[运行库](../doc/cg2d_crt_runtime_boundary_spec.md) ；[ACP01-C](../doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state)；[HMU01](../doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state) |
 | C02 / C++90 初始化表 | 开放；CAB07原表72有序源投影＋15 SDK提供＝87；另1空槽/2键盘排除 | 两音频初始化已接，完整入口/完整消费者/alias/SDK运行仍待；null1/键盘排除2另列 | [SSO01](../doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure)；[BRS01](../doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-source-state) |
 | C03 / 四Init与登记 | 开放；六兼容Init接口、SDK标准流/缓冲与私有登记已有实际提供者 | 原完整容量/较大索引/alias、Legacy活动消费者/facet/codecvt、SDK构析和退出运行仍待 | [SSO01](../doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure)；[SR01](../doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-source-closure) |
 | C04 / 构析与入口迁移 | 开放；唯一宿主入口、活动初始化、失败前缀/逆序清理及filter恢复已有 | 全Legacy消费者/owner/成员EH/硬件SEH、跨TU及完整normal/quick/callable和SDK运行 | [HFI01](../doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-source-closure)；[BRS01](../doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-source-state) |
 | C05 / codecvt | 开放；四已知streambuf/filebuf方法表及十个消费字段已有类型对应 | 非空codecvt/facet真实生产/完整表、全活动流/owner/alias、SDK ABI与运行仍待 | [STP01](../doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure)；[FBO01](../doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-source-closure) |
 | C06 / 异常查找捕获 | 开放；原异常查找/捕获私有职责由宿主承接；NLS原SEH消费有局部证据 | 旧5402AB/5407BC由本机职责承接；实际typed捕获/清理、成员与硬件SEH、SDK生成ABI/运行待验 | [BPK01](../doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state)；[HFI01](../doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-source-closure) |
 | C07 / 抛出与SDK | 开放；八处实际throw/一处重抛、六类型及单payload owner已接 | 实际C++20生成ABI、按值捕获/展开/非法重抛与SDK及完整生命周期仍待 | [BPK01](../doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state)；[NCE01收口](../doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure) |
-| C08 / 原堆模式3 | 开放；五SDK操作及七原调用角色已接，三个无本体私有核心声明已撤 | 模式稳定/同域、全部owner/未知alias/R1/R7与SDK实际失败/退出运行仍待 | [M3P01](../doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure) |
+| C08 / 原堆模式3 | 开放；五SDK操作及七原调用角色已接，三个无本体私有核心声明已撤；HMU01已成组统一全部通用模式并退休12旧池接口，原身份/证据保持 | 模式稳定/同域、全部owner/未知alias/R1/R7与SDK实际失败/退出运行仍待 | [M3P01](../doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure)；[HMU01](../doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state) |
 | C09 / 图形双树 | 开放；双树、逐节点面及调色板清理有局部接线和顺序修正 | 完整应用入口及逐surface/快速退出清理和SDK运行仍待 | [双树源码](../doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure)；[SSO01](../doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure) |
 | C10 / FILE 剩余原调用 | 开放；唯一stdio表初始化已接；FILE核心、业务/库调用及共享状态持续落实 | 其他原点/全FILE配置、跨TU首次使用/描述符/owner/alias、SDK实际成功失败与退出运行仍待 | [HSI01](../doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure) |
-| C11 / 应用分配域 | 开放；模式3宿主域及两独立SDK域已落实部分owner配对，保持域边界 | 全部producer/owner配对、稳定模式/未知alias与SDK运行仍待 | [M3P01](../doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure)；[内存](../doc/cg2d_crt_memory_contract.md) |
+| C11 / 应用分配域 | 开放；模式3宿主域及两独立SDK域已落实部分owner配对，保持域边界；HMU01已消除通用模式间分配域切换，裸字节及独立域保持 | 全部producer/owner配对、稳定模式/未知alias与SDK运行仍待 | [M3P01](../doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure)；[内存](../doc/cg2d_crt_memory_contract.md)；[HMU01](../doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state) |
 | C12 / 字符串与格式剩余 | 开放；CAB25已知1023格式原点归属齐：1007真实、13排除、3替换；音频扫描已接 ；ACP01-C完成三ASM/私有数值ABI的CPP/宿主承接，当前未编译/运行 | 已知调用库存归属不代完整语法/所有间接父；P07未写参数、全状态/SDK/CRT正常寿命及运行仍待。 | [格式/扫描合同](../doc/cg2d_stdio_contract.md) ；[ACP01-C](../doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state) |
 
 ## 4. U01–U11：世界、UI与战斗
@@ -104,7 +104,7 @@
 | 编号 / 范围 | 任务状态与已有成果 | 下一步及关闭边界 | 主证据 |
 |---|---|---|---|
 | V01 / 环境与输入 | 开放；基线/部分来源已有；原资源权限/匹配和完整环境仍未冻结 | 在运行准备获准后记录实际工具链、SDK、系统/编码、参数/配置/资源 | [总SPEC](cg2d_full_reconstruction_plan.md) |
-| V02 / 完整启动退出/链接 | 开放；历史Debug客户端及离线工具链接通过；CAC06–11后续源码未构建 ；ACP01-C完成三ASM/私有数值ABI的CPP/宿主承接，当前未编译/运行 | 当前源码编译/链接、跨TU首次使用/SDK ABI、所有owner/alias及normal/quick/callable完整退出仍待相应授权与验收。 | [历史构建证据](../doc/cg2d_build_acceptance_spec.md) ；[ACP01-C](../doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state) |
+| V02 / 完整启动退出/链接 | 开放；历史Debug客户端及离线工具链接通过；CAC06–11后续源码未构建 ；ACP01-C完成三ASM/私有数值ABI的CPP/宿主承接，当前未编译/运行；HMU01通用堆源码与静态同域接线已完成，SDK实际容量/失败及生命周期未验 | 当前源码编译/链接、跨TU首次使用/SDK ABI、所有owner/alias及normal/quick/callable完整退出仍待相应授权与验收。 | [历史构建证据](../doc/cg2d_build_acceptance_spec.md) ；[ACP01-C](../doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state)；[HMU01](../doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state) |
 | V03 / 登录与网络真实流程 | 开放；当前原命令/字段/LF明文链已接；CAC04用户确认本次选人入场正常 | 全部108业务、原字段/整数、失败/重连/断线/数据/owner及适用互通对照待验；不重复修已恢复连接。 | [用户复验](../doc/cg2d_build_acceptance_spec.md#character-entry-confirmed-20261009) |
 | V04 / 世界/UI/渲染/输入 | 开放；世界/UI/战斗/渲染/输入局部实现持续补齐；近期MAP/UI/资源仅静态核对 | 获准后按同输入、资源、初值核地图/UI/战斗、焦点/IME、模式和画面 | [总SPEC门禁](cg2d_full_reconstruction_plan.md#10-完成门禁) |
 | V05 / 音频真实流程 | 开放；SDL3/WAV和旧7/8开发已恢复，原控制/空间声效/混响等已有；完整声音未验。停止MIDI/DLS工具方向，后续只WAV客户端实际流程 ；ACP01-A音频6数学入口已迁CPP/double/std数学，当前未编译/运行 | 继续真实旧外层、WAV播放和全部状态/失败/生命周期；获运行授权后验WAV质量/适用原音源结果、效果创建/格式、声音、通知、音量、循环与退出 | [当前范围](../doc/cg2d_client_link_sdl_audio_spec.md#wav-only-development-scope-20261009)；[当前状态](../doc/cg2d_client_link_sdl_audio_spec.md#wav-only-scope-source-state-20261009) ；[ACP01-A](../doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-audio-source-state) |

@@ -1,0 +1,152 @@
+{
+  "spec_id": "HMU01",
+  "authorization": {
+    "user_preference": "LegacyHeap.hpp 使用malloc不行吗？",
+    "engineering_decision_reference": "AGENTS.md第8条及D02；具体边界见doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+    "not_claimed_as_direct_user_confirmation_of_all_details": true
+  },
+  "baseline_reference": "Git固定命名快照 cg2d-re-heap-history-20261009",
+  "implementation_reference": "Git固定命名快照 cg2d-re-heap-malloc-unification-20261009",
+  "current_source_facts": {
+    "public_malloc_free_are_already_standard_CRT": "src/platform/LegacyTime.cpp:149/154",
+    "old_generic_mode_1_2_use_private_HeapCreate_or_page_pool": true,
+    "heap_initialization_callers": [
+      "src/platform/LegacyMouse.cpp",
+      "src/platform/LegacyProcessEntry.cpp"
+    ],
+    "runtime_mode_or_cross_heap_failure_reproduced": false
+  },
+  "source_changes": {
+    "CPP_before_lines": 821,
+    "CPP_after_lines": 141,
+    "header_before_lines": 154,
+    "header_after_lines": 28,
+    "retained_real_provider_functions": [
+      "AllocateLegacyHeapBlock_53C3EA",
+      "AllocateLegacyHeapMemory_53C3AC",
+      "AllocateLegacyHeapWithHandler_53C3BE",
+      "CallLegacyHeapNewHandler_541A28",
+      "CallocateLegacyMemory_53BFF8",
+      "FreeLegacyHeapMemory_53C0A9",
+      "GetLegacyAllocationSize_53FCFB",
+      "InitializeLegacyHeap_541BB8",
+      "ReallocateLegacyMemory_53FA5B"
+    ],
+    "retired_pool_functions": [
+      "AllocateLegacySmallHeap2Block_542A54",
+      "AllocateLegacySmallHeap2Page_542C5C",
+      "CommitLegacySmallHeap3Group_54236B",
+      "CreateLegacySmallHeap2Region_54275C",
+      "CreateLegacySmallHeap3Region_5422BA",
+      "DecommitLegacySmallHeap2Pages_5428F6",
+      "DestroyLegacySmallHeap2Region_5428A0",
+      "FindLegacySmallHeap2Block_5429B8",
+      "FindLegacySmallHeap3Region_541C5D",
+      "FreeLegacySmallHeap2Block_542A0F",
+      "InitializeLegacySmallHeap3_541C15",
+      "ResizeLegacySmallHeap2Block_542D80"
+    ],
+    "retired_layout_types": [
+      "LegacySmallHeap2Page",
+      "LegacySmallHeap2PageInfo",
+      "LegacySmallHeap2Region",
+      "LegacySmallHeap3Control",
+      "LegacySmallHeap3FreeBlock",
+      "LegacySmallHeap3Group",
+      "LegacySmallHeap3Link",
+      "LegacySmallHeap3Region"
+    ],
+    "retired_pool_state_globals": [
+      "gLegacySmallHeap2Current591E78",
+      "gLegacySmallHeap2EmptyPages1086154",
+      "gLegacySmallHeap2Static58FE58",
+      "gLegacySmallHeap2Threshold591E7C",
+      "gLegacySmallHeap3Capacity1086988",
+      "gLegacySmallHeap3Count1086998",
+      "gLegacySmallHeap3Current1086990",
+      "gLegacySmallHeap3EmptyRegion1086994",
+      "gLegacySmallHeap3Regions108699C",
+      "gLegacySmallHeap3Threshold10869A0"
+    ],
+    "retired_role_to_current_provider": {
+      "InitializeLegacySmallHeap3_541C15": [
+        "InitializeLegacyHeap_541BB8"
+      ],
+      "FindLegacySmallHeap3Region_541C5D": [
+        "FreeLegacyHeapMemory_53C0A9",
+        "ReallocateLegacyMemory_53FA5B",
+        "GetLegacyAllocationSize_53FCFB"
+      ],
+      "CreateLegacySmallHeap3Region_5422BA": [
+        "AllocateLegacyHeapBlock_53C3EA"
+      ],
+      "CommitLegacySmallHeap3Group_54236B": [
+        "AllocateLegacyHeapBlock_53C3EA"
+      ],
+      "CreateLegacySmallHeap2Region_54275C": [
+        "InitializeLegacyHeap_541BB8",
+        "AllocateLegacyHeapBlock_53C3EA"
+      ],
+      "DestroyLegacySmallHeap2Region_5428A0": [
+        "FreeLegacyHeapMemory_53C0A9"
+      ],
+      "DecommitLegacySmallHeap2Pages_5428F6": [
+        "FreeLegacyHeapMemory_53C0A9",
+        "ReallocateLegacyMemory_53FA5B"
+      ],
+      "FindLegacySmallHeap2Block_5429B8": [
+        "FreeLegacyHeapMemory_53C0A9",
+        "ReallocateLegacyMemory_53FA5B",
+        "GetLegacyAllocationSize_53FCFB"
+      ],
+      "FreeLegacySmallHeap2Block_542A0F": [
+        "FreeLegacyHeapMemory_53C0A9"
+      ],
+      "AllocateLegacySmallHeap2Block_542A54": [
+        "AllocateLegacyHeapBlock_53C3EA",
+        "CallocateLegacyMemory_53BFF8"
+      ],
+      "AllocateLegacySmallHeap2Page_542C5C": [
+        "AllocateLegacyHeapBlock_53C3EA"
+      ],
+      "ResizeLegacySmallHeap2Block_542D80": [
+        "ReallocateLegacyMemory_53FA5B"
+      ]
+    },
+    "private_allocator_APIs_remaining": false,
+    "borrowed_CRT_heap_query": "_get_heap_handle",
+    "no_HeapDestroy_for_CRT_handle": true,
+    "provider_association_is_consumer_operation_not_old_region_return_implementation": true
+  },
+  "preserved_contracts": [
+    "九接口签名/W32数量、原上界与零长度分支",
+    "mode1/2的16对齐请求/失败handler数量，mode3未对齐输入",
+    "malloc enableHandler快照与calloc/realloc每轮new-mode及真实handler读取",
+    "realloc失败旧块有效/成功已有业务内容、NULL/非空零流程",
+    "现公开std malloc/free和两个初始化caller原文",
+    "裸字节域HeapAlloc/HeapFree及其他独立迁移域原文",
+    "原共享错误槽不伪同步、不新增默认值或容量表"
+  ],
+  "host_differences": [
+    "全部模式CRT分桶/内部容量/对齐/地址与错误策略",
+    "初始化真实查询借用CRT堆替代私有HeapCreate与区域生产",
+    "12原池函数/8类型/10槽由宿主管理职责承接，无原region接口/同名假体",
+    "旧池提交/反提交/失败时机/私有复制尾与serialized同步归宿主"
+  ],
+  "verification": {
+    "method": "static",
+    "compilation_verified": false,
+    "linking_verified": false,
+    "runtime_verified": false,
+    "algorithm_samples_executed": false,
+    "full_original_indirect_callers_verified": false,
+    "full_owner_alias_lifetime_closed": false,
+    "full_CRT_member_inventory_closed": false,
+    "fault_equivalence_claimed": false
+  },
+  "host_documents": [
+    "https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/get-heap-handle?view=msvc-170",
+    "https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/msize?view=msvc-170",
+    "https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/realloc"
+  ]
+}

@@ -1,5 +1,7 @@
 # cg2d 完整还原独立执行计划
 
+> 2026-10-09通用堆：[HMU01](../doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state)按用户malloc方向与既有工程委托成组统一标准分配族，退役无当前CPP消费者的CRT私有池；请求数量/失败处理器及独立分配域边界保持。只完成本组源码与静态接线，不降低§10完整owner、SDK和真实流程门禁。
+
 > 2026-10-09数学源迁移：[ACP01](../doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-decision)按用户许可将三份ASM改CPP/double/标准数学，取消该组三源的x87位级/私有ST0数值保证。字段、业务读取/发布及错误记录保持；仅源码迁移完成，编译/运行与本总SPEC其余适用门禁不降低。
 
 > 建立：2026-09-14；当前状态于2026-10-09按用户要求对齐并压缩摘要，覆盖至CAC11。**整体SPEC未完成，完成总PLAN的目标继续有效。** 本次只整理当前状态，不新增设计授权或降低§10验收标准。

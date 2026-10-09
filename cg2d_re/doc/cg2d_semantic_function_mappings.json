@@ -27381,7 +27381,7 @@
     {
       "original_entry": "0x53C3BE",
       "inventory_id": "F:0013C3BE",
-      "status": "真实原堆外层本体与模式2调用已实现；宿主窄合同保持，模式3/完整启动仍待；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭；EXH01仅异常拥有文本域成对宿主承接，对象原堆/完整异常ABI及运行未闭",
+      "status": "HMU01：通用堆全部模式统一真实CRT提供者，U32/请求数量策略/失败处理器与当前caller保持；旧池仅历史，完整owner/间接alias/SDK/寿命未验。",
       "original_end_exclusive": "0x53C3EA",
       "instruction_count": 16,
       "sources": [
@@ -27402,13 +27402,14 @@
           "symbols": [
             "AllocateLegacyHeapWithHandler_53C3BE"
           ],
-          "relationship": "真实原堆调用域本体，原108614C/1086150状态；不是既有宿主裸字节域的替换"
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         },
         {
           "path": "src/platform/LegacyHeap.hpp",
           "symbols": [
             "AllocateLegacyHeapWithHandler_53C3BE"
-          ]
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         },
         {
           "path": "src/platform/LegacyNarrowString.cpp",
@@ -27438,9 +27439,12 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_narrow_string_heap_migration_spec.md",
         "doc/cg2d_exception_text_heap_migration_spec.md",
-        "doc/cg2d_locale_object_heap_migration_spec.md"
+        "doc/cg2d_locale_object_heap_migration_spec.md",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
-      "boundary": "既有六处裸字节调用域：原上限FFFFFFE0、失败处理器返回非零才重试、空/零处理器返回空。本次仅承接上述六个caller的enableHandler=1域；原其他enableHandler取值和原私有堆完整实现不因该映射完成。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。 原堆完整分支另由AllocateLegacyHeapWithHandler_53C3BE实现，私有处理器/门禁和模式2已接，模式3核心未实现，禁止混用宿主块。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。",
+      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：既有六处裸字节调用域：原上限FFFFFFE0、失败处理器返回非零才重试、空/零处理器返回空。本次仅承接上述六个caller的enableHandler=1域；原其他enableHandler取值和原私有堆完整实现不因该映射完成。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。 原堆完整分支另由AllocateLegacyHeapWithHandler_53C3BE实现，私有处理器/门禁和模式2已接，模式3核心未实现，禁止混用宿主块。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。",
       "original_direct_reference_count": 2,
       "inbound_evidence": [
         {
@@ -27452,7 +27456,7 @@
           "parent_entry": "0x53C9CF"
         }
       ],
-      "verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行",
+      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
       "narrow_string_heap_migration_contract": {
         "decision_ref": "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision",
         "source": "src/platform/LegacyNarrowString.cpp",
@@ -27578,12 +27582,39 @@
           "C08",
           "C11"
         ]
+      },
+      "heap_malloc_unification": {
+        "spec_id": "HMU01",
+        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "previous_sources": [
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "AllocateLegacyHeapWithHandler_53C3BE"
+            ],
+            "relationship": "真实原堆调用域本体，原108614C/1086150状态；不是既有宿主裸字节域的替换"
+          },
+          {
+            "path": "src/platform/LegacyHeap.hpp",
+            "symbols": [
+              "AllocateLegacyHeapWithHandler_53C3BE"
+            ]
+          }
+        ],
+        "old_private_pool_interface_retired": false,
+        "all_generic_modes_share_standard_CRT": true,
+        "compilation_verified": false,
+        "runtime_verified": false,
+        "original_unknown_owner_alias_closed": false,
+        "previous_status": "真实原堆外层本体与模式2调用已实现；宿主窄合同保持，模式3/完整启动仍待；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭；EXH01仅异常拥有文本域成对宿主承接，对象原堆/完整异常ABI及运行未闭",
+        "previous_verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行"
       }
     },
     {
       "original_entry": "0x53C3EA",
       "inventory_id": "F:0013C3EA",
-      "status": "M3H01通用mode3分配/清零/扩容/容量/释放同域SDK承接，mode1/2保持；原私有核心不模拟，全部owner/模式寿命/alias/SDK运行未闭",
+      "status": "HMU01：通用堆全部模式统一真实CRT提供者，U32/请求数量策略/失败处理器与当前caller保持；旧池仅历史，完整owner/间接alias/SDK/寿命未验。",
       "original_end_exclusive": "0x53C45E",
       "instruction_count": 46,
       "sources": [
@@ -27604,13 +27635,14 @@
           "symbols": [
             "AllocateLegacyHeapBlock_53C3EA"
           ],
-          "relationship": "真实原堆调用域本体，原108614C/1086150状态；不是既有宿主裸字节域的替换"
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         },
         {
           "path": "src/platform/LegacyHeap.hpp",
           "symbols": [
             "AllocateLegacyHeapBlock_53C3EA"
-          ]
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         }
       ],
       "evidence_documents": [
@@ -27618,9 +27650,12 @@
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_mode3_heap_facade_spec.md",
-        "doc/cg2d_mode3_heap_facade_evidence.json"
+        "doc/cg2d_mode3_heap_facade_evidence.json",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
-      "boundary": "既有六处裸字节调用域：原系统堆路径0按1并向16字节对齐、flags=0；当前U32请求按同样容量规则交Win64堆。原heapmode2/3的小块池、管理块、碎片及地址复用不复刻，按局部SPEC明确适配；不宣称分配成功时点相同。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。 原堆完整分支另由AllocateLegacyHeapBlock_53C3EA实现，私有处理器/门禁和模式2已接，模式3核心未实现，禁止混用宿主块。；2026-10-05 M3H01五mode3分支同时std::malloc/std::calloc/std::realloc/std::free/UCRT_msize，失败不混入Win32 fallback，不读原区域/块前W32或调用三旧核心。原API数量W32、malloc外层上界/handler与calloc对齐bytes/失败new-mode保持；realloc NULL/非空零/上界/旧块失败有效与原输入请求保持，SDK失败handler统一输入byteCount，旧某fallback物理对齐数量及私有复制尾/错误策略按D02 adapted，不称其数值/时机等价。mode1/2/元数据/初始化/其他已迁域原文保持，mode selector3只兼容选择不是SDK旧池报告。SDK块要求模式寿命稳定/同域，外来Win32/模式2块不得进入3路径；无tag表/压缩指针/假内核，未知全部owner/alias/R1、SDK ABI和完整退出/运行未闭。",
+      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：既有六处裸字节调用域：原系统堆路径0按1并向16字节对齐、flags=0；当前U32请求按同样容量规则交Win64堆。原heapmode2/3的小块池、管理块、碎片及地址复用不复刻，按局部SPEC明确适配；不宣称分配成功时点相同。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。 原堆完整分支另由AllocateLegacyHeapBlock_53C3EA实现，私有处理器/门禁和模式2已接，模式3核心未实现，禁止混用宿主块。；2026-10-05 M3H01五mode3分支同时std::malloc/std::calloc/std::realloc/std::free/UCRT_msize，失败不混入Win32 fallback，不读原区域/块前W32或调用三旧核心。原API数量W32、malloc外层上界/handler与calloc对齐bytes/失败new-mode保持；realloc NULL/非空零/上界/旧块失败有效与原输入请求保持，SDK失败handler统一输入byteCount，旧某fallback物理对齐数量及私有复制尾/错误策略按D02 adapted，不称其数值/时机等价。mode1/2/元数据/初始化/其他已迁域原文保持，mode selector3只兼容选择不是SDK旧池报告。SDK块要求模式寿命稳定/同域，外来Win32/模式2块不得进入3路径；无tag表/压缩指针/假内核，未知全部owner/alias/R1、SDK ABI和完整退出/运行未闭。",
       "original_direct_reference_count": 1,
       "inbound_evidence": [
         {
@@ -27628,7 +27663,7 @@
           "parent_entry": "0x53C3BE"
         }
       ],
-      "verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行；M3H01五完整根449条/1167B、七旧核心call及mode六引用，五分支/头注释限定重放，mode1/2/其余源码及政策保持；未构建/测试/运行/摘要",
+      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
       "mode3_sdk_domain_contract": {
         "group": "M3H01",
         "spec": "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
@@ -27650,6 +27685,33 @@
         "failure_handler_quantum_original_equivalent": false,
         "unknown_owners_closed": false,
         "runtime_verified": false
+      },
+      "heap_malloc_unification": {
+        "spec_id": "HMU01",
+        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "previous_sources": [
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "AllocateLegacyHeapBlock_53C3EA"
+            ],
+            "relationship": "真实原堆调用域本体，原108614C/1086150状态；不是既有宿主裸字节域的替换"
+          },
+          {
+            "path": "src/platform/LegacyHeap.hpp",
+            "symbols": [
+              "AllocateLegacyHeapBlock_53C3EA"
+            ]
+          }
+        ],
+        "old_private_pool_interface_retired": false,
+        "all_generic_modes_share_standard_CRT": true,
+        "compilation_verified": false,
+        "runtime_verified": false,
+        "original_unknown_owner_alias_closed": false,
+        "previous_status": "M3H01通用mode3分配/清零/扩容/容量/释放同域SDK承接，mode1/2保持；原私有核心不模拟，全部owner/模式寿命/alias/SDK运行未闭",
+        "previous_verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行；M3H01五完整根449条/1167B、七旧核心call及mode六引用，五分支/头注释限定重放，mode1/2/其余源码及政策保持；未构建/测试/运行/摘要"
       }
     },
     {
@@ -28141,7 +28203,7 @@
     {
       "original_entry": "0x541A28",
       "inventory_id": "F:00141A28",
-      "status": "真实原堆外层本体与模式2调用已实现；宿主窄合同保持，模式3/完整启动仍待；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭；EXH01仅异常拥有文本域成对宿主承接，对象原堆/完整异常ABI及运行未闭",
+      "status": "HMU01：通用堆全部模式统一真实CRT提供者，U32/请求数量策略/失败处理器与当前caller保持；旧池仅历史，完整owner/间接alias/SDK/寿命未验。",
       "original_end_exclusive": "0x541A43",
       "instruction_count": 13,
       "sources": [
@@ -28162,13 +28224,14 @@
           "symbols": [
             "CallLegacyHeapNewHandler_541A28"
           ],
-          "relationship": "真实原堆调用域本体，原108614C/1086150状态；不是既有宿主裸字节域的替换"
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         },
         {
           "path": "src/platform/LegacyHeap.hpp",
           "symbols": [
             "CallLegacyHeapNewHandler_541A28"
-          ]
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         },
         {
           "path": "src/platform/LegacyNarrowString.cpp",
@@ -28198,9 +28261,12 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_narrow_string_heap_migration_spec.md",
         "doc/cg2d_exception_text_heap_migration_spec.md",
-        "doc/cg2d_locale_object_heap_migration_spec.md"
+        "doc/cg2d_locale_object_heap_migration_spec.md",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
-      "boundary": "既有六处裸字节调用域：原每次读取108614C，非空才传原请求长度调用，结果非零为继续，不捕获异常。当前借_query_new_handler读取实际宿主处理器，不另建影子槽，处理器异常向外传播；宿主锁/CRT内部状态不按旧布局复制。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。 原堆完整分支另由CallLegacyHeapNewHandler_541A28实现，私有处理器/门禁和模式2已接，模式3核心未实现，禁止混用宿主块。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。",
+      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：既有六处裸字节调用域：原每次读取108614C，非空才传原请求长度调用，结果非零为继续，不捕获异常。当前借_query_new_handler读取实际宿主处理器，不另建影子槽，处理器异常向外传播；宿主锁/CRT内部状态不按旧布局复制。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。 原堆完整分支另由CallLegacyHeapNewHandler_541A28实现，私有处理器/门禁和模式2已接，模式3核心未实现，禁止混用宿主块。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。",
       "original_direct_reference_count": 5,
       "inbound_evidence": [
         {
@@ -28224,7 +28290,7 @@
           "parent_entry": "0x53FA5B"
         }
       ],
-      "verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行",
+      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
       "narrow_string_heap_migration_contract": {
         "decision_ref": "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision",
         "source": "src/platform/LegacyNarrowString.cpp",
@@ -28371,6 +28437,33 @@
           "C08",
           "C11"
         ]
+      },
+      "heap_malloc_unification": {
+        "spec_id": "HMU01",
+        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "previous_sources": [
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "CallLegacyHeapNewHandler_541A28"
+            ],
+            "relationship": "真实原堆调用域本体，原108614C/1086150状态；不是既有宿主裸字节域的替换"
+          },
+          {
+            "path": "src/platform/LegacyHeap.hpp",
+            "symbols": [
+              "CallLegacyHeapNewHandler_541A28"
+            ]
+          }
+        ],
+        "old_private_pool_interface_retired": false,
+        "all_generic_modes_share_standard_CRT": true,
+        "compilation_verified": false,
+        "runtime_verified": false,
+        "original_unknown_owner_alias_closed": false,
+        "previous_status": "真实原堆外层本体与模式2调用已实现；宿主窄合同保持，模式3/完整启动仍待；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭；EXH01仅异常拥有文本域成对宿主承接，对象原堆/完整异常ABI及运行未闭",
+        "previous_verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行"
       }
     },
     {
@@ -38475,7 +38568,7 @@
     {
       "original_entry": "0x5419D0",
       "inventory_id": "F:001419D0",
-      "status": "原低U8填充完整本体与8原入口调用已接；完整父/异常/CRT运行未闭合",
+      "status": "HMU01：本堆旧池/清零对Fill的调用退役，Fill现有CPP本体及其它消费保持；完整原身份/其它验收状态沿迁移前记录。",
       "original_end_exclusive": "0x541A28",
       "instruction_count": 40,
       "sources": [
@@ -38511,10 +38604,10 @@
           "path": "src/platform/LegacyHeap.cpp",
           "symbols": [
             "CallocateLegacyMemory_53BFF8",
-            "CreateLegacySmallHeap2Region_54275C",
-            "AllocateLegacySmallHeap2Block_542A54"
+            "InitializeLegacyHeap_541BB8",
+            "AllocateLegacyHeapBlock_53C3EA"
           ],
-          "relationship": "原53C094共用点：mode3原请求/mode2对齐容量两个源分支，不混原堆/宿主释放；另接542844 64KB区域清零和542BA3零数量调用，模式2布局与发布保持"
+          "relationship": "HMU01：本堆内原Fill调用点随标准calloc/私有池退役承接；原Fill本体仍由LegacyMemory.cpp提供，此条不称Fill整体宿主替换。"
         },
         {
           "path": "src/platform/LegacyFloatFormat.cpp",
@@ -38542,9 +38635,12 @@
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
-      "boundary": "原Count0不写内存，非零按Val低W8填Count字节并返回原dest；关联545208固定256输入域的2*wideCount清零及53DEF4的32B扫描位集清零，不扩为原八caller全部完成，不改父SEH/API返回处理。；2026-10-04新增完整核心与四原入口实际接线。保留低U8、Count0不写/返原目标、Count>=4才前缀对齐/逐W32/尾写。仅用std::align求原4B对齐，无整数地址缓存。53C094的mode3原请求/mode2当前对齐容量分别保留，其他原堆owner/失败不改；53E46C固定32B、5400A6 S32 precision低U32、5452F7两倍当前wideCount同源清零。原其余四点542844/542BA3/543954/548DA8未接，完整父/启动/内存及运行未验，不扩大calloc应用批准域。；2026-10-04再接54275C@542844区域64KB清零、542A54@542BA3 Count0/Val当前commitBytes不写、5438D4@543954正S32扩展时先清4096B局部零缓冲。旧模式2几何/共享指针/首次16页初始化、VirtualAlloc失败、文件模式/分块write/errno/DOS及位置恢复正文保持，不能把零数量改成清提交容量。余548D69@548DA8 C++字符串追加父未实现/承接未闭合；原8入口归属计数7+1保持，完整CRT/堆/文件运行未验。；2026-10-04原548D69八叶链新增548DA8真实填充，原八入口引用全部接入真实核心；这不完成上游对象、54A67A/54A899异常叶、模式3或完整CRT/运行验收。",
+      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：原Count0不写内存，非零按Val低W8填Count字节并返回原dest；关联545208固定256输入域的2*wideCount清零及53DEF4的32B扫描位集清零，不扩为原八caller全部完成，不改父SEH/API返回处理。；2026-10-04新增完整核心与四原入口实际接线。保留低U8、Count0不写/返原目标、Count>=4才前缀对齐/逐W32/尾写。仅用std::align求原4B对齐，无整数地址缓存。53C094的mode3原请求/mode2当前对齐容量分别保留，其他原堆owner/失败不改；53E46C固定32B、5400A6 S32 precision低U32、5452F7两倍当前wideCount同源清零。原其余四点542844/542BA3/543954/548DA8未接，完整父/启动/内存及运行未验，不扩大calloc应用批准域。；2026-10-04再接54275C@542844区域64KB清零、542A54@542BA3 Count0/Val当前commitBytes不写、5438D4@543954正S32扩展时先清4096B局部零缓冲。旧模式2几何/共享指针/首次16页初始化、VirtualAlloc失败、文件模式/分块write/errno/DOS及位置恢复正文保持，不能把零数量改成清提交容量。余548D69@548DA8 C++字符串追加父未实现/承接未闭合；原8入口归属计数7+1保持，完整CRT/堆/文件运行未验。；2026-10-04原548D69八叶链新增548DA8真实填充，原八入口引用全部接入真实核心；这不完成上游对象、54A67A/54A899异常叶、模式3或完整CRT/运行验收。",
       "original_direct_reference_count": 8,
       "fill_call_connections": [
         {
@@ -38624,7 +38720,30 @@
           "relationship": "原npos-length严格大于门禁、count非0/Grow AL真后，S8符号扩展为Val低U8，填后重取buffer才发布新length/NUL"
         }
       ],
-      "verification_level": "原完整40条/八直接引用，四原点所需参数/共用分支及Count采样只读取证；新核心/唯一声明和五源表达式、所有原核心数值/指针/目标返回、六源码文件限定差异/JSON六项更新与文档/进度静态核对，未构建或执行；三新原点/参数生产与局部邻窗、两源文件限定三标识符/数量和四记录增量静态核对；核心/旧模式2与descriptor父不重验，未构建或执行；新548D69全36条/S8 Val扩展/原npos与Grow门禁、八叶内部实际链及该原点/限定源码和JSON静态核对，核心/七已接点不复检，未构建或执行"
+      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
+      "heap_malloc_unification": {
+        "spec_id": "HMU01",
+        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "previous_sources": [
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "CallocateLegacyMemory_53BFF8",
+              "CreateLegacySmallHeap2Region_54275C",
+              "AllocateLegacySmallHeap2Block_542A54"
+            ],
+            "relationship": "原53C094共用点：mode3原请求/mode2对齐容量两个源分支，不混原堆/宿主释放；另接542844 64KB区域清零和542BA3零数量调用，模式2布局与发布保持"
+          }
+        ],
+        "old_private_pool_interface_retired": false,
+        "all_generic_modes_share_standard_CRT": true,
+        "compilation_verified": false,
+        "runtime_verified": false,
+        "original_unknown_owner_alias_closed": false,
+        "previous_status": "原低U8填充完整本体与8原入口调用已接；完整父/异常/CRT运行未闭合",
+        "previous_verification_level": "原完整40条/八直接引用，四原点所需参数/共用分支及Count采样只读取证；新核心/唯一声明和五源表达式、所有原核心数值/指针/目标返回、六源码文件限定差异/JSON六项更新与文档/进度静态核对，未构建或执行；三新原点/参数生产与局部邻窗、两源文件限定三标识符/数量和四记录增量静态核对；核心/旧模式2与descriptor父不重验，未构建或执行；新548D69全36条/S8 Val扩展/原npos与Grow门禁、八叶内部实际链及该原点/限定源码和JSON静态核对，核心/七已接点不复检，未构建或执行"
+      }
     },
     {
       "original_entry": "0x54B160",
@@ -55063,7 +55182,7 @@
     {
       "original_entry": "0x53FA5B",
       "inventory_id": "F:0013FA5B",
-      "status": "M3H01通用mode3分配/清零/扩容/容量/释放同域SDK承接，mode1/2保持；原私有核心不模拟，全部owner/模式寿命/alias/SDK运行未闭",
+      "status": "HMU01：通用堆全部模式统一真实CRT提供者，U32/请求数量策略/失败处理器与当前caller保持；旧池仅历史，完整owner/间接alias/SDK/寿命未验。",
       "original_end_exclusive": "0x53FCFB",
       "instruction_count": 246,
       "original_direct_reference_count": 3,
@@ -55072,7 +55191,8 @@
           "path": "src/platform/LegacyHeap.cpp",
           "symbols": [
             "ReallocateLegacyMemory_53FA5B"
-          ]
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         },
         {
           "path": "include/cg/platform/LegacyMemory.hpp",
@@ -55098,9 +55218,12 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_game_time.md",
         "doc/cg2d_mode3_heap_facade_spec.md",
-        "doc/cg2d_mode3_heap_facade_evidence.json"
+        "doc/cg2d_mode3_heap_facade_evidence.json",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
-      "boundary": "输入空先调真实原堆malloc，非空长度0调真实原堆free；仅入口采样模式。mode3小块迁移复制首W32减1，成功后再查原区域再释放；普通堆回退改变当前对齐长度，失败处理器消费该值。mode2小块门槛严格<480，分配后读标记U8乘16取小复制再释放；其他走HeapReAlloc。四原复制点实际目标541620。退出表初分配/容量查询/扩容已统一原堆；模式3核心及宿主析构/完整启动仍待，两个环境扩容仍沿既有std::getenv整体承接。；2026-10-05 M3H01五mode3分支同时std::malloc/std::calloc/std::realloc/std::free/UCRT_msize，失败不混入Win32 fallback，不读原区域/块前W32或调用三旧核心。原API数量W32、malloc外层上界/handler与calloc对齐bytes/失败new-mode保持；realloc NULL/非空零/上界/旧块失败有效与原输入请求保持，SDK失败handler统一输入byteCount，旧某fallback物理对齐数量及私有复制尾/错误策略按D02 adapted，不称其数值/时机等价。mode1/2/元数据/初始化/其他已迁域原文保持，mode selector3只兼容选择不是SDK旧池报告。SDK块要求模式寿命稳定/同域，外来Win32/模式2块不得进入3路径；无tag表/压缩指针/假内核，未知全部owner/alias/R1、SDK ABI和完整退出/运行未闭。",
+      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：输入空先调真实原堆malloc，非空长度0调真实原堆free；仅入口采样模式。mode3小块迁移复制首W32减1，成功后再查原区域再释放；普通堆回退改变当前对齐长度，失败处理器消费该值。mode2小块门槛严格<480，分配后读标记U8乘16取小复制再释放；其他走HeapReAlloc。四原复制点实际目标541620。退出表初分配/容量查询/扩容已统一原堆；模式3核心及宿主析构/完整启动仍待，两个环境扩容仍沿既有std::getenv整体承接。；2026-10-05 M3H01五mode3分支同时std::malloc/std::calloc/std::realloc/std::free/UCRT_msize，失败不混入Win32 fallback，不读原区域/块前W32或调用三旧核心。原API数量W32、malloc外层上界/handler与calloc对齐bytes/失败new-mode保持；realloc NULL/非空零/上界/旧块失败有效与原输入请求保持，SDK失败handler统一输入byteCount，旧某fallback物理对齐数量及私有复制尾/错误策略按D02 adapted，不称其数值/时机等价。mode1/2/元数据/初始化/其他已迁域原文保持，mode selector3只兼容选择不是SDK旧池报告。SDK块要求模式寿命稳定/同域，外来Win32/模式2块不得进入3路径；无tag表/压缩指针/假内核，未知全部owner/alias/R1、SDK ABI和完整退出/运行未闭。",
       "inbound_evidence": [
         {
           "address": "0x53B3CE",
@@ -55115,7 +55238,7 @@
           "parent_entry": "0x547E8A"
         }
       ],
-      "verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行；M3H01五完整根449条/1167B、七旧核心call及mode六引用，五分支/头注释限定重放，mode1/2/其余源码及政策保持；未构建/测试/运行/摘要",
+      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
       "mode3_sdk_domain_contract": {
         "group": "M3H01",
         "spec": "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
@@ -55137,12 +55260,32 @@
         "failure_handler_quantum_original_equivalent": false,
         "unknown_owners_closed": false,
         "runtime_verified": false
+      },
+      "heap_malloc_unification": {
+        "spec_id": "HMU01",
+        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "previous_sources": [
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "ReallocateLegacyMemory_53FA5B"
+            ]
+          }
+        ],
+        "old_private_pool_interface_retired": false,
+        "all_generic_modes_share_standard_CRT": true,
+        "compilation_verified": false,
+        "runtime_verified": false,
+        "original_unknown_owner_alias_closed": false,
+        "previous_status": "M3H01通用mode3分配/清零/扩容/容量/释放同域SDK承接，mode1/2保持；原私有核心不模拟，全部owner/模式寿命/alias/SDK运行未闭",
+        "previous_verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行；M3H01五完整根449条/1167B、七旧核心call及mode六引用，五分支/头注释限定重放，mode1/2/其余源码及政策保持；未构建/测试/运行/摘要"
       }
     },
     {
       "original_entry": "0x53FCFB",
       "inventory_id": "F:0013FCFB",
-      "status": "M3H01通用mode3分配/清零/扩容/容量/释放同域SDK承接，mode1/2保持；原私有核心不模拟，全部owner/模式寿命/alias/SDK运行未闭",
+      "status": "HMU01：通用堆全部模式统一真实CRT提供者，U32/请求数量策略/失败处理器与当前caller保持；旧池仅历史，完整owner/间接alias/SDK/寿命未验。",
       "original_end_exclusive": "0x53FD5C",
       "instruction_count": 40,
       "original_direct_reference_count": 2,
@@ -55151,7 +55294,8 @@
           "path": "src/platform/LegacyHeap.cpp",
           "symbols": [
             "GetLegacyAllocationSize_53FCFB"
-          ]
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         },
         {
           "path": "include/cg/platform/LegacyMemory.hpp",
@@ -55169,9 +55313,12 @@
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_mode3_heap_facade_spec.md",
-        "doc/cg2d_mode3_heap_facade_evidence.json"
+        "doc/cg2d_mode3_heap_facade_evidence.json",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
-      "boundary": "真实采样模式一次：3调用541C5D，命中读取输入前4字节U32减9；2调用真实5429B8，命中读标记U8乘16；否则HeapSize(重读共享原堆,0,原地址)并取U32。不设空参数保护/errno。退出登记两点已接本体，原堆创建/归属、外层分配/释放与扩容仍未闭合，不能作用于宿主malloc块。；2026-10-05 M3H01五mode3分支同时std::malloc/std::calloc/std::realloc/std::free/UCRT_msize，失败不混入Win32 fallback，不读原区域/块前W32或调用三旧核心。原API数量W32、malloc外层上界/handler与calloc对齐bytes/失败new-mode保持；realloc NULL/非空零/上界/旧块失败有效与原输入请求保持，SDK失败handler统一输入byteCount，旧某fallback物理对齐数量及私有复制尾/错误策略按D02 adapted，不称其数值/时机等价。mode1/2/元数据/初始化/其他已迁域原文保持，mode selector3只兼容选择不是SDK旧池报告。SDK块要求模式寿命稳定/同域，外来Win32/模式2块不得进入3路径；无tag表/压缩指针/假内核，未知全部owner/alias/R1、SDK ABI和完整退出/运行未闭。",
+      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：真实采样模式一次：3调用541C5D，命中读取输入前4字节U32减9；2调用真实5429B8，命中读标记U8乘16；否则HeapSize(重读共享原堆,0,原地址)并取U32。不设空参数保护/errno。退出登记两点已接本体，原堆创建/归属、外层分配/释放与扩容仍未闭合，不能作用于宿主malloc块。；2026-10-05 M3H01五mode3分支同时std::malloc/std::calloc/std::realloc/std::free/UCRT_msize，失败不混入Win32 fallback，不读原区域/块前W32或调用三旧核心。原API数量W32、malloc外层上界/handler与calloc对齐bytes/失败new-mode保持；realloc NULL/非空零/上界/旧块失败有效与原输入请求保持，SDK失败handler统一输入byteCount，旧某fallback物理对齐数量及私有复制尾/错误策略按D02 adapted，不称其数值/时机等价。mode1/2/元数据/初始化/其他已迁域原文保持，mode selector3只兼容选择不是SDK旧池报告。SDK块要求模式寿命稳定/同域，外来Win32/模式2块不得进入3路径；无tag表/压缩指针/假内核，未知全部owner/alias/R1、SDK ABI和完整退出/运行未闭。",
       "inbound_evidence": [
         {
           "address": "0x53B3A0",
@@ -55182,7 +55329,7 @@
           "parent_entry": "0x53B399"
         }
       ],
-      "verification_level": "既有本体保持；模式2创建/容量查询真实接线静态核对，未构建、链接或执行；M3H01五完整根449条/1167B、七旧核心call及mode六引用，五分支/头注释限定重放，mode1/2/其余源码及政策保持；未构建/测试/运行/摘要",
+      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
       "mode3_sdk_domain_contract": {
         "group": "M3H01",
         "spec": "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
@@ -55204,6 +55351,26 @@
         "failure_handler_quantum_original_equivalent": false,
         "unknown_owners_closed": false,
         "runtime_verified": false
+      },
+      "heap_malloc_unification": {
+        "spec_id": "HMU01",
+        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "previous_sources": [
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "GetLegacyAllocationSize_53FCFB"
+            ]
+          }
+        ],
+        "old_private_pool_interface_retired": false,
+        "all_generic_modes_share_standard_CRT": true,
+        "compilation_verified": false,
+        "runtime_verified": false,
+        "original_unknown_owner_alias_closed": false,
+        "previous_status": "M3H01通用mode3分配/清零/扩容/容量/释放同域SDK承接，mode1/2保持；原私有核心不模拟，全部owner/模式寿命/alias/SDK运行未闭",
+        "previous_verification_level": "既有本体保持；模式2创建/容量查询真实接线静态核对，未构建、链接或执行；M3H01五完整根449条/1167B、七旧核心call及mode六引用，五分支/头注释限定重放，mode1/2/其余源码及政策保持；未构建/测试/运行/摘要"
       }
     },
     {
@@ -55378,7 +55545,7 @@
     {
       "original_entry": "0x541BB8",
       "inventory_id": "F:00141BB8",
-      "status": "真实原堆基础本体及内部状态已实现；两模式完整分配链、宿主归属和启动接线未闭合",
+      "status": "HMU01：通用堆全部模式统一真实CRT提供者，U32/请求数量策略/失败处理器与当前caller保持；旧池仅历史，完整owner/间接alias/SDK/寿命未验。",
       "original_end_exclusive": "0x541C15",
       "instruction_count": 30,
       "original_direct_reference_count": 1,
@@ -55387,13 +55554,15 @@
           "path": "src/platform/LegacyHeap.cpp",
           "symbols": [
             "InitializeLegacyHeap_541BB8"
-          ]
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         },
         {
           "path": "src/platform/LegacyHeap.hpp",
           "symbols": [
             "InitializeLegacyHeap_541BB8"
-          ]
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         },
         {
           "path": "src/platform/LegacyProcessEntry.cpp",
@@ -55415,9 +55584,12 @@
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_hosted_runtime_prefix_spec.md",
-        "doc/cg2d_hosted_runtime_prefix_evidence.json"
+        "doc/cg2d_hosted_runtime_prefix_evidence.json",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
-      "boundary": "按实参零选择HeapCreate flags=1，否则0；初始1000H、最大0，先发布句柄再判断。成功选择并发布模式：3调用541C15(3F8H)，2调用真实54275C；子初始化失败重读共享句柄销毁且不清槽。原start未接，不把宿主malloc/free对象交给原堆。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。；2026-10-05 HPI01：HPI01已在同TU应用序前接heap(0)/失败28、lowio及普通stdio退出适配；仅局部接线，不启用旧entry/cinit/90表，不新增销毁。跨TU首次使用/SDK继承ABI、稳定模式/全部owner及unknown alias、console/filter与normal/quick/callable全序和运行仍待，C02/C04/C08/C10/C11/V02保持open。",
+      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：按实参零选择HeapCreate flags=1，否则0；初始1000H、最大0，先发布句柄再判断。成功选择并发布模式：3调用541C15(3F8H)，2调用真实54275C；子初始化失败重读共享句柄销毁且不清槽。原start未接，不把宿主malloc/free对象交给原堆。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。；2026-10-05 HPI01：HPI01已在同TU应用序前接heap(0)/失败28、lowio及普通stdio退出适配；仅局部接线，不启用旧entry/cinit/90表，不新增销毁。跨TU首次使用/SDK继承ABI、稳定模式/全部owner及unknown alias、console/filter与normal/quick/callable全序和运行仍待，C02/C04/C08/C10/C11/V02保持open。",
       "native_reference": {
         "component": "UCRT 10.0.26100.0，仅作宿主堆生命周期参考",
         "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/heap/heap_handle.cpp",
@@ -55429,7 +55601,7 @@
           "parent_entry": "0x53DDB5"
         }
       ],
-      "verification_level": "既有本体保持；模式2创建/容量查询真实接线静态核对，未构建、链接或执行；HPI01仅新宿主前置与普通stdio适配、限定源码/新引用静态，未构建/测试/运行/摘要",
+      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
       "crt_parent_call_connections": [
         {
           "parent_entry": "0x53DDB5",
@@ -55448,12 +55620,38 @@
         "initializer": "LegacyMultibyteStaticInitializer",
         "normal_exit": "FinishHostedLegacyStdio",
         "scope": "已有provider消费及同TU应用序前置/普通stdio；旧入口仍未启用，完整跨TU/退出/ABI待验"
+      },
+      "heap_malloc_unification": {
+        "spec_id": "HMU01",
+        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "previous_sources": [
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "InitializeLegacyHeap_541BB8"
+            ]
+          },
+          {
+            "path": "src/platform/LegacyHeap.hpp",
+            "symbols": [
+              "InitializeLegacyHeap_541BB8"
+            ]
+          }
+        ],
+        "old_private_pool_interface_retired": false,
+        "all_generic_modes_share_standard_CRT": true,
+        "compilation_verified": false,
+        "runtime_verified": false,
+        "original_unknown_owner_alias_closed": false,
+        "previous_status": "真实原堆基础本体及内部状态已实现；两模式完整分配链、宿主归属和启动接线未闭合",
+        "previous_verification_level": "既有本体保持；模式2创建/容量查询真实接线静态核对，未构建、链接或执行；HPI01仅新宿主前置与普通stdio适配、限定源码/新引用静态，未构建/测试/运行/摘要"
       }
     },
     {
       "original_entry": "0x541C15",
       "inventory_id": "F:00141C15",
-      "status": "真实原堆基础本体及内部状态已实现；两模式完整分配链、宿主归属和启动接线未闭合",
+      "status": "HMU01：旧CRT私有池接口/布局/状态退役，现通用消费者由真实标准分配族承接；原身份与原证保留，完整owner/间接alias/SDK/寿命未验。",
       "original_end_exclusive": "0x541C5D",
       "instruction_count": 17,
       "original_direct_reference_count": 1,
@@ -55461,33 +55659,64 @@
         {
           "path": "src/platform/LegacyHeap.cpp",
           "symbols": [
-            "InitializeLegacySmallHeap3_541C15"
-          ]
+            "InitializeLegacyHeap_541BB8"
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         },
         {
           "path": "src/platform/LegacyHeap.hpp",
           "symbols": [
-            "InitializeLegacySmallHeap3_541C15"
-          ]
+            "InitializeLegacyHeap_541BB8"
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
-      "boundary": "真实按16个原生32B区域头HeapAlloc(flags0)，先发布表首；失败返0，成功清1086994空组区域指针及1086998数量，再发布当前区域、U32阈值、16项容量。1086994已证为地址，不能误作计数；记录内容不补零。区域/组生产及管理区已按原生地址布局落位；16B小块的拆分/合并布局和完整分配释放仍待。本体此次未改。",
+      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：真实按16个原生32B区域头HeapAlloc(flags0)，先发布表首；失败返0，成功清1086994空组区域指针及1086998数量，再发布当前区域、U32阈值、16项容量。1086994已证为地址，不能误作计数；记录内容不补零。区域/组生产及管理区已按原生地址布局落位；16B小块的拆分/合并布局和完整分配释放仍待。本体此次未改。",
       "inbound_evidence": [
         {
           "address": "0x541BEC",
           "parent_entry": "0x541BB8"
         }
       ],
-      "verification_level": "完整原指令与直接入向、字段发布/消费和新增源码静态核对；未构建、链接或执行"
+      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
+      "heap_malloc_unification": {
+        "spec_id": "HMU01",
+        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "previous_sources": [
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "InitializeLegacySmallHeap3_541C15"
+            ]
+          },
+          {
+            "path": "src/platform/LegacyHeap.hpp",
+            "symbols": [
+              "InitializeLegacySmallHeap3_541C15"
+            ]
+          }
+        ],
+        "old_private_pool_interface_retired": true,
+        "all_generic_modes_share_standard_CRT": true,
+        "compilation_verified": false,
+        "runtime_verified": false,
+        "original_unknown_owner_alias_closed": false,
+        "previous_status": "真实原堆基础本体及内部状态已实现；两模式完整分配链、宿主归属和启动接线未闭合",
+        "previous_verification_level": "完整原指令与直接入向、字段发布/消费和新增源码静态核对；未构建、链接或执行"
+      }
     },
     {
       "original_entry": "0x54275C",
       "inventory_id": "F:0014275C",
-      "status": "完整模式2小块池本体及内部接线已实现并集中静态核对；外层分配器/启动/运行未闭合",
+      "status": "HMU01：旧CRT私有池接口/布局/状态退役，现通用消费者由真实标准分配族承接；原身份与原证保留，完整owner/间接alias/SDK/寿命未验。",
       "original_end_exclusive": "0x5428A0",
       "instruction_count": 102,
       "original_direct_reference_count": 2,
@@ -55495,21 +55724,28 @@
         {
           "path": "src/platform/LegacyHeap.cpp",
           "symbols": [
-            "CreateLegacySmallHeap2Region_54275C"
-          ]
+            "InitializeLegacyHeap_541BB8",
+            "AllocateLegacyHeapBlock_53C3EA"
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         },
         {
           "path": "src/platform/LegacyHeap.hpp",
           "symbols": [
-            "CreateLegacySmallHeap2Region_54275C"
-          ]
+            "InitializeLegacyHeap_541BB8",
+            "AllocateLegacyHeapBlock_53C3EA"
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
-      "boundary": "真实选择可复用静态头或分配原生2038H描述区，保留400000H/提交10000H，按原顺序链接及发布1024元数据项，清64KB并初始化16页。六地址拓宽，数值/页容量保持；动态末尾8B不补零，静态头首项(240,241)、其余0按已加载数据保留。失败按原阶段释放虚拟区域和动态头。；2026-10-04仅原填充点改接真实FillLegacyMemory_5419D0，原数量/值/目标/失败/发布及生命周期保持，不重核父全文。",
+      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：真实选择可复用静态头或分配原生2038H描述区，保留400000H/提交10000H，按原顺序链接及发布1024元数据项，清64KB并初始化16页。六地址拓宽，数值/页容量保持；动态末尾8B不补零，静态头首项(240,241)、其余0按已加载数据保留。失败按原阶段释放虚拟区域和动态头。；2026-10-04仅原填充点改接真实FillLegacyMemory_5419D0，原数量/值/目标/失败/发布及生命周期保持，不重核父全文。",
       "inbound_evidence": [
         {
           "address": "0x541BF9",
@@ -55520,7 +55756,7 @@
           "parent_entry": "0x542A54"
         }
       ],
-      "verification_level": "八本体622条/16直接入向、初始数据、页/描述区x64布局及板块集中静态核对；未构建、链接或执行；新原填充call/必要参数生产及两文件限定标识符/数量接线静态核对，未构建或执行",
+      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
       "memory_fill_connections": [
         {
           "target_entry": "0x5419D0",
@@ -55529,28 +55765,59 @@
           "symbol": "CreateLegacySmallHeap2Region_54275C",
           "relationship": "5427AF EBX=10000、原64KB清零；同位置在1024页元数据发布后/16页头初始化前，真实内存base保持"
         }
-      ]
+      ],
+      "heap_malloc_unification": {
+        "spec_id": "HMU01",
+        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "previous_sources": [
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "CreateLegacySmallHeap2Region_54275C"
+            ]
+          },
+          {
+            "path": "src/platform/LegacyHeap.hpp",
+            "symbols": [
+              "CreateLegacySmallHeap2Region_54275C"
+            ]
+          }
+        ],
+        "old_private_pool_interface_retired": true,
+        "all_generic_modes_share_standard_CRT": true,
+        "compilation_verified": false,
+        "runtime_verified": false,
+        "original_unknown_owner_alias_closed": false,
+        "previous_status": "完整模式2小块池本体及内部接线已实现并集中静态核对；外层分配器/启动/运行未闭合",
+        "previous_verification_level": "八本体622条/16直接入向、初始数据、页/描述区x64布局及板块集中静态核对；未构建、链接或执行；新原填充call/必要参数生产及两文件限定标识符/数量接线静态核对，未构建或执行"
+      }
     },
     {
       "original_entry": "0x541C5D",
       "inventory_id": "F:00141C5D",
-      "status": "真实原堆基础本体及内部状态已实现；两模式完整分配链、宿主归属和启动接线未闭合",
+      "status": "HMU01：旧CRT私有池接口/布局/状态退役，现通用消费者由真实标准分配族承接；原身份与原证保留，完整owner/间接alias/SDK/寿命未验。",
       "original_end_exclusive": "0x541C88",
       "instruction_count": 14,
       "original_direct_reference_count": 4,
-      "verification_level": "完整原指令与直接入向、字段发布/消费和新增源码静态核对；未构建、链接或执行",
+      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
       "sources": [
         {
           "path": "src/platform/LegacyHeap.cpp",
           "symbols": [
-            "FindLegacySmallHeap3Region_541C5D"
-          ]
+            "FreeLegacyHeapMemory_53C0A9",
+            "ReallocateLegacyMemory_53FA5B",
+            "GetLegacyAllocationSize_53FCFB"
+          ],
+          "relationship": "HMU01原区域查找职责由CRT free/realloc/size操作内部承接；这里只列实际消费操作的提供者/声明，不提供原region返回或独立查找同名体，未知原入向未闭。"
         },
         {
-          "path": "src/platform/LegacyHeap.hpp",
+          "path": "include/cg/platform/LegacyMemory.hpp",
           "symbols": [
-            "FindLegacySmallHeap3Region_541C5D"
-          ]
+            "ReallocateLegacyMemory_53FA5B",
+            "GetLegacyAllocationSize_53FCFB"
+          ],
+          "relationship": "HMU01原区域查找职责由CRT free/realloc/size操作内部承接；这里只列实际消费操作的提供者/声明，不提供原region返回或独立查找同名体，未知原入向未闭。"
         }
       ],
       "inbound_evidence": [
@@ -55572,18 +55839,47 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_crt_memory_contract.md"
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
-      "boundary": "先采样U32记录数再采样表首，按32B原生区域头正序扫描；仅原+0C/+10指针拓宽，地址差用uintptr_t，范围仍100000H。已由真实53FCFB调用，原free/realloc尚未迁移；不截地址、不添加空值保护或容量影子。"
+      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：先采样U32记录数再采样表首，按32B原生区域头正序扫描；仅原+0C/+10指针拓宽，地址差用uintptr_t，范围仍100000H。已由真实53FCFB调用，原free/realloc尚未迁移；不截地址、不添加空值保护或容量影子。",
+      "heap_malloc_unification": {
+        "spec_id": "HMU01",
+        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "previous_sources": [
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "FindLegacySmallHeap3Region_541C5D"
+            ]
+          },
+          {
+            "path": "src/platform/LegacyHeap.hpp",
+            "symbols": [
+              "FindLegacySmallHeap3Region_541C5D"
+            ]
+          }
+        ],
+        "old_private_pool_interface_retired": true,
+        "all_generic_modes_share_standard_CRT": true,
+        "compilation_verified": false,
+        "runtime_verified": false,
+        "original_unknown_owner_alias_closed": false,
+        "previous_status": "真实原堆基础本体及内部状态已实现；两模式完整分配链、宿主归属和启动接线未闭合",
+        "previous_verification_level": "完整原指令与直接入向、字段发布/消费和新增源码静态核对；未构建、链接或执行"
+      }
     },
     {
       "original_entry": "0x541C88",
       "inventory_id": "F:00141C88",
-      "status": "M3P01：旧mode3私有核心由SDK角色承接，三无本体声明退休；host非原算法实现，完整owner/模式寿命/alias/R1/运行待验",
+      "status": "HMU01：通用堆全部模式统一真实CRT提供者，U32/请求数量策略/失败处理器与当前caller保持；旧池仅历史，完整owner/间接alias/SDK/寿命未验。",
       "original_end_exclusive": "0x541FB1",
       "instruction_count": 265,
       "original_direct_reference_count": 3,
-      "verification_level": "边界、代码指令计数、全部直接入向及call位置；不计逐条语义通过；M3P01归档三完整原体799条/2344B及3/3/1引用，只核接口退休和SDK角色映射，非原私有算法逐条等价或运行验收",
+      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
       "sources": [
         {
           "path": "src/platform/LegacyHeap.cpp",
@@ -55591,7 +55887,7 @@
             "FreeLegacyHeapMemory_53C0A9",
             "ReallocateLegacyMemory_53FA5B"
           ],
-          "relationship": "D02 host角色承接，经M3H01实际SDK分支；不是旧核心C++本体"
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         }
       ],
       "inbound_evidence": [
@@ -55611,9 +55907,12 @@
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_mode3_private_core_spec.md",
-        "doc/cg2d_mode3_private_core_evidence.json"
+        "doc/cg2d_mode3_private_core_evidence.json",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
-      "boundary": "模式3释放入口：由free一次、realloc迁移后两次调用；包含VirtualFree解除提交/释放、HeapFree与头记录复制调用。合并位图和完整释放失败语义未逐条验收。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。；2026-10-05 M3P01依据D02，原私有机制按host纳管，经M3H01真实SDK五操作族接替；七原call逐项映射，realloc迁移后的两释放由SDK内部承担，不重复free。三个旧无本体声明撤下，原函数/指令/身份不删除；未知alias/owner/模式稳定/实际SDK及运行不闭合。",
+      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：模式3释放入口：由free一次、realloc迁移后两次调用；包含VirtualFree解除提交/释放、HeapFree与头记录复制调用。合并位图和完整释放失败语义未逐条验收。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。；2026-10-05 M3P01依据D02，原私有机制按host纳管，经M3H01真实SDK五操作族接替；七原call逐项映射，realloc迁移后的两释放由SDK内部承担，不重复free。三个旧无本体声明撤下，原函数/指令/身份不删除；未知alias/owner/模式稳定/实际SDK及运行不闭合。",
       "mode3_private_core_host_contract": {
         "group": "M3P01",
         "spec": "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
@@ -55642,24 +55941,45 @@
         ],
         "unknown_aliases_closed": false,
         "runtime_verified": false
+      },
+      "heap_malloc_unification": {
+        "spec_id": "HMU01",
+        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "previous_sources": [
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "FreeLegacyHeapMemory_53C0A9",
+              "ReallocateLegacyMemory_53FA5B"
+            ],
+            "relationship": "D02 host角色承接，经M3H01实际SDK分支；不是旧核心C++本体"
+          }
+        ],
+        "old_private_pool_interface_retired": false,
+        "all_generic_modes_share_standard_CRT": true,
+        "compilation_verified": false,
+        "runtime_verified": false,
+        "original_unknown_owner_alias_closed": false,
+        "previous_status": "M3P01：旧mode3私有核心由SDK角色承接，三无本体声明退休；host非原算法实现，完整owner/模式寿命/alias/R1/运行待验",
+        "previous_verification_level": "边界、代码指令计数、全部直接入向及call位置；不计逐条语义通过；M3P01归档三完整原体799条/2344B及3/3/1引用，只核接口退休和SDK角色映射，非原私有算法逐条等价或运行验收"
       }
     },
     {
       "original_entry": "0x541FB1",
       "inventory_id": "F:00141FB1",
-      "status": "M3P01：旧mode3私有核心由SDK角色承接，三无本体声明退休；host非原算法实现，完整owner/模式寿命/alias/R1/运行待验",
+      "status": "HMU01：通用堆全部模式统一真实CRT提供者，U32/请求数量策略/失败处理器与当前caller保持；旧池仅历史，完整owner/间接alias/SDK/寿命未验。",
       "original_end_exclusive": "0x5422BA",
       "instruction_count": 275,
       "original_direct_reference_count": 3,
-      "verification_level": "完整275条及三个直接入向已读取；管理区/块几何与16B布局约束已核，完整分配算法未实施；M3P01归档三完整原体799条/2344B及3/3/1引用，只核接口退休和SDK角色映射，非原私有算法逐条等价或运行验收",
+      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
       "sources": [
         {
           "path": "src/platform/LegacyHeap.cpp",
           "symbols": [
-            "CreateLegacySmallHeap3Region_5422BA",
-            "CommitLegacySmallHeap3Group_54236B"
+            "AllocateLegacyHeapBlock_53C3EA"
           ],
-          "relationship": "仅该父两个真实依赖已实现，不是541FB1本体"
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         },
         {
           "path": "src/platform/LegacyHeap.cpp",
@@ -55668,7 +55988,7 @@
             "AllocateLegacyHeapBlock_53C3EA",
             "ReallocateLegacyMemory_53FA5B"
           ],
-          "relationship": "D02 host角色承接，经M3H01实际SDK分支；不是旧核心C++本体"
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         }
       ],
       "inbound_evidence": [
@@ -55688,9 +56008,12 @@
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_mode3_private_core_spec.md",
-        "doc/cg2d_mode3_private_core_evidence.json"
+        "doc/cg2d_mode3_private_core_evidence.json",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
-      "boundary": "calloc、malloc内部叶和realloc各一调用；两个区域/组生产依赖已实现。原541FD1..541FD7按(request+23)&~15，54226C..54226E写任何非零剩余，可正常产生16B空闲块；其首尾W32和两个64位链接不能同放16B。未擅增最小块、吞掉剩余、改容量查询或建立影子链，保留拆分/合并适配缺口。当前275条完整读取不等于已实现或运行验收。；2026-10-05 M3P01依据D02，原私有机制按host纳管，经M3H01真实SDK五操作族接替；七原call逐项映射，realloc迁移后的两释放由SDK内部承担，不重复free。三个旧无本体声明撤下，原函数/指令/身份不删除；未知alias/owner/模式稳定/实际SDK及运行不闭合。",
+      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：calloc、malloc内部叶和realloc各一调用；两个区域/组生产依赖已实现。原541FD1..541FD7按(request+23)&~15，54226C..54226E写任何非零剩余，可正常产生16B空闲块；其首尾W32和两个64位链接不能同放16B。未擅增最小块、吞掉剩余、改容量查询或建立影子链，保留拆分/合并适配缺口。当前275条完整读取不等于已实现或运行验收。；2026-10-05 M3P01依据D02，原私有机制按host纳管，经M3H01真实SDK五操作族接替；七原call逐项映射，realloc迁移后的两释放由SDK内部承担，不重复free。三个旧无本体声明撤下，原函数/指令/身份不删除；未知alias/owner/模式稳定/实际SDK及运行不闭合。",
       "mode3_private_core_host_contract": {
         "group": "M3P01",
         "spec": "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
@@ -55719,32 +56042,61 @@
         ],
         "unknown_aliases_closed": false,
         "runtime_verified": false
+      },
+      "heap_malloc_unification": {
+        "spec_id": "HMU01",
+        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "previous_sources": [
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "CreateLegacySmallHeap3Region_5422BA",
+              "CommitLegacySmallHeap3Group_54236B"
+            ],
+            "relationship": "仅该父两个真实依赖已实现，不是541FB1本体"
+          },
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "CallocateLegacyMemory_53BFF8",
+              "AllocateLegacyHeapBlock_53C3EA",
+              "ReallocateLegacyMemory_53FA5B"
+            ],
+            "relationship": "D02 host角色承接，经M3H01实际SDK分支；不是旧核心C++本体"
+          }
+        ],
+        "old_private_pool_interface_retired": false,
+        "all_generic_modes_share_standard_CRT": true,
+        "compilation_verified": false,
+        "runtime_verified": false,
+        "original_unknown_owner_alias_closed": false,
+        "previous_status": "M3P01：旧mode3私有核心由SDK角色承接，三无本体声明退休；host非原算法实现，完整owner/模式寿命/alias/R1/运行待验",
+        "previous_verification_level": "完整275条及三个直接入向已读取；管理区/块几何与16B布局约束已核，完整分配算法未实施；M3P01归档三完整原体799条/2344B及3/3/1引用，只核接口退休和SDK角色映射，非原私有算法逐条等价或运行验收"
       }
     },
     {
       "original_entry": "0x5422BA",
       "inventory_id": "F:001422BA",
-      "status": "模式3区域/组真实生产本体与原生控制布局已实现；小块拆分/合并布局及完整池未闭合",
+      "status": "HMU01：旧CRT私有池接口/布局/状态退役，现通用消费者由真实标准分配族承接；原身份与原证保留，完整owner/间接alias/SDK/寿命未验。",
       "original_end_exclusive": "0x54236B",
       "instruction_count": 53,
       "original_direct_reference_count": 1,
-      "verification_level": "完整53/85条及唯一直接父、原控制字段和4080B初始块页链、新增差异静态核对；未构建、链接或执行",
+      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
       "sources": [
         {
           "path": "src/platform/LegacyHeap.cpp",
           "symbols": [
-            "CreateLegacySmallHeap3Region_5422BA"
-          ]
+            "AllocateLegacyHeapBlock_53C3EA"
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         },
         {
           "path": "src/platform/LegacyHeap.hpp",
           "symbols": [
-            "CreateLegacySmallHeap3Region_5422BA",
-            "LegacySmallHeap3Control",
-            "LegacySmallHeap3Group",
-            "LegacySmallHeap3Link",
-            "LegacySmallHeap3FreeBlock"
-          ]
+            "AllocateLegacyHeapBlock_53C3EA"
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         }
       ],
       "inbound_evidence": [
@@ -55754,34 +56106,65 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_crt_memory_contract.md"
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
-      "boundary": "真实以16个原生区域头增量HeapReAlloc，成功先加共享容量再发布表首并重读数量；不额外修正旧当前/待回收指针。HEAP_ZERO_MEMORY分配原生8248H控制区，control/base均先发布后判空；保留1MB失败只释放control且不清槽。成功按原顺序掩码/数量/当前组发布。完整分配器尚待，不能交宿主块。"
+      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：真实以16个原生区域头增量HeapReAlloc，成功先加共享容量再发布表首并重读数量；不额外修正旧当前/待回收指针。HEAP_ZERO_MEMORY分配原生8248H控制区，control/base均先发布后判空；保留1MB失败只释放control且不清槽。成功按原顺序掩码/数量/当前组发布。完整分配器尚待，不能交宿主块。",
+      "heap_malloc_unification": {
+        "spec_id": "HMU01",
+        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "previous_sources": [
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "CreateLegacySmallHeap3Region_5422BA"
+            ]
+          },
+          {
+            "path": "src/platform/LegacyHeap.hpp",
+            "symbols": [
+              "CreateLegacySmallHeap3Region_5422BA",
+              "LegacySmallHeap3Control",
+              "LegacySmallHeap3Group",
+              "LegacySmallHeap3Link",
+              "LegacySmallHeap3FreeBlock"
+            ]
+          }
+        ],
+        "old_private_pool_interface_retired": true,
+        "all_generic_modes_share_standard_CRT": true,
+        "compilation_verified": false,
+        "runtime_verified": false,
+        "original_unknown_owner_alias_closed": false,
+        "previous_status": "模式3区域/组真实生产本体与原生控制布局已实现；小块拆分/合并布局及完整池未闭合",
+        "previous_verification_level": "完整53/85条及唯一直接父、原控制字段和4080B初始块页链、新增差异静态核对；未构建、链接或执行"
+      }
     },
     {
       "original_entry": "0x54236B",
       "inventory_id": "F:0014236B",
-      "status": "模式3区域/组真实生产本体与原生控制布局已实现；小块拆分/合并布局及完整池未闭合",
+      "status": "HMU01：旧CRT私有池接口/布局/状态退役，现通用消费者由真实标准分配族承接；原身份与原证保留，完整owner/间接alias/SDK/寿命未验。",
       "original_end_exclusive": "0x542466",
       "instruction_count": 85,
       "original_direct_reference_count": 1,
-      "verification_level": "完整53/85条及唯一直接父、原控制字段和4080B初始块页链、新增差异静态核对；未构建、链接或执行",
+      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
       "sources": [
         {
           "path": "src/platform/LegacyHeap.cpp",
           "symbols": [
-            "CommitLegacySmallHeap3Group_54236B"
-          ]
+            "AllocateLegacyHeapBlock_53C3EA"
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         },
         {
           "path": "src/platform/LegacyHeap.hpp",
           "symbols": [
-            "CommitLegacySmallHeap3Group_54236B",
-            "LegacySmallHeap3Control",
-            "LegacySmallHeap3Group",
-            "LegacySmallHeap3Link",
-            "LegacySmallHeap3FreeBlock"
-          ]
+            "AllocateLegacyHeapBlock_53C3EA"
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         }
       ],
       "inbound_evidence": [
@@ -55791,25 +56174,58 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_crt_memory_contract.md"
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
-      "boundary": "真实按未提交掩码最高位选组，无零掩码保护；提交前先初始化63链头previous→next，VirtualAlloc非空才成功，失败不回滚。8个4KB页保持首/尾W32标记和4080B块，链接字段地址拓宽；第63级链串八页并回哨兵，组位图0/1、U8大小级计数及区域/未提交位图写序保持。仅初始大块可承载原生双链；16B拆分/合并适配未闭合，不能宣称完整模式3可运行。"
+      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：真实按未提交掩码最高位选组，无零掩码保护；提交前先初始化63链头previous→next，VirtualAlloc非空才成功，失败不回滚。8个4KB页保持首/尾W32标记和4080B块，链接字段地址拓宽；第63级链串八页并回哨兵，组位图0/1、U8大小级计数及区域/未提交位图写序保持。仅初始大块可承载原生双链；16B拆分/合并适配未闭合，不能宣称完整模式3可运行。",
+      "heap_malloc_unification": {
+        "spec_id": "HMU01",
+        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "previous_sources": [
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "CommitLegacySmallHeap3Group_54236B"
+            ]
+          },
+          {
+            "path": "src/platform/LegacyHeap.hpp",
+            "symbols": [
+              "CommitLegacySmallHeap3Group_54236B",
+              "LegacySmallHeap3Control",
+              "LegacySmallHeap3Group",
+              "LegacySmallHeap3Link",
+              "LegacySmallHeap3FreeBlock"
+            ]
+          }
+        ],
+        "old_private_pool_interface_retired": true,
+        "all_generic_modes_share_standard_CRT": true,
+        "compilation_verified": false,
+        "runtime_verified": false,
+        "original_unknown_owner_alias_closed": false,
+        "previous_status": "模式3区域/组真实生产本体与原生控制布局已实现；小块拆分/合并布局及完整池未闭合",
+        "previous_verification_level": "完整53/85条及唯一直接父、原控制字段和4080B初始块页链、新增差异静态核对；未构建、链接或执行"
+      }
     },
     {
       "original_entry": "0x542466",
       "inventory_id": "F:00142466",
-      "status": "M3P01：旧mode3私有核心由SDK角色承接，三无本体声明退休；host非原算法实现，完整owner/模式寿命/alias/R1/运行待验",
+      "status": "HMU01：通用堆全部模式统一真实CRT提供者，U32/请求数量策略/失败处理器与当前caller保持；旧池仅历史，完整owner/间接alias/SDK/寿命未验。",
       "original_end_exclusive": "0x54275C",
       "instruction_count": 259,
       "original_direct_reference_count": 1,
-      "verification_level": "边界、代码指令计数、全部直接入向及call位置；不计逐条语义通过；M3P01归档三完整原体799条/2344B及3/3/1引用，只核接口退休和SDK角色映射，非原私有算法逐条等价或运行验收",
+      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
       "sources": [
         {
           "path": "src/platform/LegacyHeap.cpp",
           "symbols": [
             "ReallocateLegacyMemory_53FA5B"
           ],
-          "relationship": "D02 host角色承接，经M3H01实际SDK分支；不是旧核心C++本体"
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         }
       ],
       "inbound_evidence": [
@@ -55821,9 +56237,12 @@
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_mode3_private_core_spec.md",
-        "doc/cg2d_mode3_private_core_evidence.json"
+        "doc/cg2d_mode3_private_core_evidence.json",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
-      "boundary": "模式3原位调整大小私有依赖：唯一realloc@53FAC5调用，成功路径复用原块；本体无call，完整合并/拆分与失败条件仍待。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。；2026-10-05 M3P01依据D02，原私有机制按host纳管，经M3H01真实SDK五操作族接替；七原call逐项映射，realloc迁移后的两释放由SDK内部承担，不重复free。三个旧无本体声明撤下，原函数/指令/身份不删除；未知alias/owner/模式稳定/实际SDK及运行不闭合。",
+      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：模式3原位调整大小私有依赖：唯一realloc@53FAC5调用，成功路径复用原块；本体无call，完整合并/拆分与失败条件仍待。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。；2026-10-05 M3P01依据D02，原私有机制按host纳管，经M3H01真实SDK五操作族接替；七原call逐项映射，realloc迁移后的两释放由SDK内部承担，不重复free。三个旧无本体声明撤下，原函数/指令/身份不删除；未知alias/owner/模式稳定/实际SDK及运行不闭合。",
       "mode3_private_core_host_contract": {
         "group": "M3P01",
         "spec": "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
@@ -55840,28 +56259,51 @@
         ],
         "unknown_aliases_closed": false,
         "runtime_verified": false
+      },
+      "heap_malloc_unification": {
+        "spec_id": "HMU01",
+        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "previous_sources": [
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "ReallocateLegacyMemory_53FA5B"
+            ],
+            "relationship": "D02 host角色承接，经M3H01实际SDK分支；不是旧核心C++本体"
+          }
+        ],
+        "old_private_pool_interface_retired": false,
+        "all_generic_modes_share_standard_CRT": true,
+        "compilation_verified": false,
+        "runtime_verified": false,
+        "original_unknown_owner_alias_closed": false,
+        "previous_status": "M3P01：旧mode3私有核心由SDK角色承接，三无本体声明退休；host非原算法实现，完整owner/模式寿命/alias/R1/运行待验",
+        "previous_verification_level": "边界、代码指令计数、全部直接入向及call位置；不计逐条语义通过；M3P01归档三完整原体799条/2344B及3/3/1引用，只核接口退休和SDK角色映射，非原私有算法逐条等价或运行验收"
       }
     },
     {
       "original_entry": "0x5428A0",
       "inventory_id": "F:001428A0",
-      "status": "完整模式2小块池本体及内部接线已实现并集中静态核对；外层分配器/启动/运行未闭合",
+      "status": "HMU01：旧CRT私有池接口/布局/状态退役，现通用消费者由真实标准分配族承接；原身份与原证保留，完整owner/间接alias/SDK/寿命未验。",
       "original_end_exclusive": "0x5428F6",
       "instruction_count": 27,
       "original_direct_reference_count": 1,
-      "verification_level": "八本体622条/16直接入向、初始数据、页/描述区x64布局及板块集中静态核对；未构建、链接或执行",
+      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
       "sources": [
         {
           "path": "src/platform/LegacyHeap.cpp",
           "symbols": [
-            "DestroyLegacySmallHeap2Region_5428A0"
-          ]
+            "FreeLegacyHeapMemory_53C0A9"
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         },
         {
           "path": "src/platform/LegacyHeap.hpp",
           "symbols": [
-            "DestroyLegacySmallHeap2Region_5428A0"
-          ]
+            "FreeLegacyHeapMemory_53C0A9"
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         }
       ],
       "inbound_evidence": [
@@ -55871,30 +56313,62 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_crt_memory_contract.md"
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
-      "boundary": "先VirtualFree(MEM_RELEASE)，当前区域命中才改为previous；静态头只把base置原生地址-1，其他状态保持。动态头按previous.next、next.previous顺序断链再HeapFree。唯一父忽略原混合EAX返回，接口void只保留副作用。"
+      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：先VirtualFree(MEM_RELEASE)，当前区域命中才改为previous；静态头只把base置原生地址-1，其他状态保持。动态头按previous.next、next.previous顺序断链再HeapFree。唯一父忽略原混合EAX返回，接口void只保留副作用。",
+      "heap_malloc_unification": {
+        "spec_id": "HMU01",
+        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "previous_sources": [
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "DestroyLegacySmallHeap2Region_5428A0"
+            ]
+          },
+          {
+            "path": "src/platform/LegacyHeap.hpp",
+            "symbols": [
+              "DestroyLegacySmallHeap2Region_5428A0"
+            ]
+          }
+        ],
+        "old_private_pool_interface_retired": true,
+        "all_generic_modes_share_standard_CRT": true,
+        "compilation_verified": false,
+        "runtime_verified": false,
+        "original_unknown_owner_alias_closed": false,
+        "previous_status": "完整模式2小块池本体及内部接线已实现并集中静态核对；外层分配器/启动/运行未闭合",
+        "previous_verification_level": "八本体622条/16直接入向、初始数据、页/描述区x64布局及板块集中静态核对；未构建、链接或执行"
+      }
     },
     {
       "original_entry": "0x5428F6",
       "inventory_id": "F:001428F6",
-      "status": "完整模式2小块池本体及内部接线已实现并集中静态核对；外层分配器/启动/运行未闭合",
+      "status": "HMU01：旧CRT私有池接口/布局/状态退役，现通用消费者由真实标准分配族承接；原身份与原证保留，完整owner/间接alias/SDK/寿命未验。",
       "original_end_exclusive": "0x5429B8",
       "instruction_count": 66,
       "original_direct_reference_count": 1,
-      "verification_level": "八本体622条/16直接入向、初始数据、页/描述区x64布局及板块集中静态核对；未构建、链接或执行",
+      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
       "sources": [
         {
           "path": "src/platform/LegacyHeap.cpp",
           "symbols": [
-            "DecommitLegacySmallHeap2Pages_5428F6"
-          ]
+            "FreeLegacyHeapMemory_53C0A9",
+            "ReallocateLegacyMemory_53FA5B"
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         },
         {
           "path": "src/platform/LegacyHeap.hpp",
           "symbols": [
-            "DecommitLegacySmallHeap2Pages_5428F6"
-          ]
+            "FreeLegacyHeapMemory_53C0A9"
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         }
       ],
       "inbound_evidence": [
@@ -55904,30 +56378,64 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_crt_memory_contract.md"
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
-      "boundary": "从共享尾区域和第1023页逆序回收：页计数恰240且VirtualFree成功才记-1、减1086154、按地址更新firstUncommitted，成功次数递减请求恰0才提前结束。处理后先取previous，确有回收且1024项均-1才释放区域；循环末重读共享尾。未增加未分配头的前进或回收下限保护。"
+      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：从共享尾区域和第1023页逆序回收：页计数恰240且VirtualFree成功才记-1、减1086154、按地址更新firstUncommitted，成功次数递减请求恰0才提前结束。处理后先取previous，确有回收且1024项均-1才释放区域；循环末重读共享尾。未增加未分配头的前进或回收下限保护。",
+      "heap_malloc_unification": {
+        "spec_id": "HMU01",
+        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "previous_sources": [
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "DecommitLegacySmallHeap2Pages_5428F6"
+            ]
+          },
+          {
+            "path": "src/platform/LegacyHeap.hpp",
+            "symbols": [
+              "DecommitLegacySmallHeap2Pages_5428F6"
+            ]
+          }
+        ],
+        "old_private_pool_interface_retired": true,
+        "all_generic_modes_share_standard_CRT": true,
+        "compilation_verified": false,
+        "runtime_verified": false,
+        "original_unknown_owner_alias_closed": false,
+        "previous_status": "完整模式2小块池本体及内部接线已实现并集中静态核对；外层分配器/启动/运行未闭合",
+        "previous_verification_level": "八本体622条/16直接入向、初始数据、页/描述区x64布局及板块集中静态核对；未构建、链接或执行"
+      }
     },
     {
       "original_entry": "0x5429B8",
       "inventory_id": "F:001429B8",
-      "status": "完整模式2小块池本体及内部接线已实现并集中静态核对；外层分配器/启动/运行未闭合",
+      "status": "HMU01：旧CRT私有池接口/布局/状态退役，现通用消费者由真实标准分配族承接；原身份与原证保留，完整owner/间接alias/SDK/寿命未验。",
       "original_end_exclusive": "0x542A0F",
       "instruction_count": 34,
       "original_direct_reference_count": 3,
-      "verification_level": "八本体622条/16直接入向、初始数据、页/描述区x64布局及板块集中静态核对；未构建、链接或执行",
+      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
       "sources": [
         {
           "path": "src/platform/LegacyHeap.cpp",
           "symbols": [
-            "FindLegacySmallHeap2Block_5429B8"
-          ]
+            "FreeLegacyHeapMemory_53C0A9",
+            "ReallocateLegacyMemory_53FA5B",
+            "GetLegacyAllocationSize_53FCFB"
+          ],
+          "relationship": "HMU01原区域查找职责由CRT free/realloc/size操作内部承接；这里只列实际消费操作的提供者/声明，不提供原region返回或独立查找同名体，未知原入向未闭。"
         },
         {
-          "path": "src/platform/LegacyHeap.hpp",
+          "path": "include/cg/platform/LegacyMemory.hpp",
           "symbols": [
-            "FindLegacySmallHeap2Block_5429B8"
-          ]
+            "ReallocateLegacyMemory_53FA5B",
+            "GetLegacyAllocationSize_53FCFB"
+          ],
+          "relationship": "HMU01原区域查找职责由CRT free/realloc/size操作内部承接；这里只列实际消费操作的提供者/声明，不提供原region返回或独立查找同名体，未知原入向未闭。"
         }
       ],
       "inbound_evidence": [
@@ -55945,30 +56453,61 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_crt_memory_contract.md"
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
-      "boundary": "区域开区间、16B对齐、页内偏移>=100H均满足才依次写region/page两输出并返回标记；失败输出保持。完整原生地址参与查找/页对齐，240标记与256B载荷起点、4KB页几何保持。已接53FCFB，外层free/realloc调用尚未迁移。"
+      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：区域开区间、16B对齐、页内偏移>=100H均满足才依次写region/page两输出并返回标记；失败输出保持。完整原生地址参与查找/页对齐，240标记与256B载荷起点、4KB页几何保持。已接53FCFB，外层free/realloc调用尚未迁移。",
+      "heap_malloc_unification": {
+        "spec_id": "HMU01",
+        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "previous_sources": [
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "FindLegacySmallHeap2Block_5429B8"
+            ]
+          },
+          {
+            "path": "src/platform/LegacyHeap.hpp",
+            "symbols": [
+              "FindLegacySmallHeap2Block_5429B8"
+            ]
+          }
+        ],
+        "old_private_pool_interface_retired": true,
+        "all_generic_modes_share_standard_CRT": true,
+        "compilation_verified": false,
+        "runtime_verified": false,
+        "original_unknown_owner_alias_closed": false,
+        "previous_status": "完整模式2小块池本体及内部接线已实现并集中静态核对；外层分配器/启动/运行未闭合",
+        "previous_verification_level": "八本体622条/16直接入向、初始数据、页/描述区x64布局及板块集中静态核对；未构建、链接或执行"
+      }
     },
     {
       "original_entry": "0x542A0F",
       "inventory_id": "F:00142A0F",
-      "status": "完整模式2小块池本体及内部接线已实现并集中静态核对；外层分配器/启动/运行未闭合",
+      "status": "HMU01：旧CRT私有池接口/布局/状态退役，现通用消费者由真实标准分配族承接；原身份与原证保留，完整owner/间接alias/SDK/寿命未验。",
       "original_end_exclusive": "0x542A54",
       "instruction_count": 19,
       "original_direct_reference_count": 3,
-      "verification_level": "八本体622条/16直接入向、初始数据、页/描述区x64布局及板块集中静态核对；未构建、链接或执行",
+      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
       "sources": [
         {
           "path": "src/platform/LegacyHeap.cpp",
           "symbols": [
-            "FreeLegacySmallHeap2Block_542A0F"
-          ]
+            "FreeLegacyHeapMemory_53C0A9"
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         },
         {
           "path": "src/platform/LegacyHeap.hpp",
           "symbols": [
-            "FreeLegacySmallHeap2Block_542A0F"
-          ]
+            "FreeLegacyHeapMemory_53C0A9"
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         }
       ],
       "inbound_evidence": [
@@ -55986,30 +56525,62 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_crt_memory_contract.md"
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
-      "boundary": "按区域/页索引定位双W32项，加回标记U8、清标记，采样页计数恰240并重置失败门槛241；仅空页增加1086154，恰32调解除提交16页。未改页内连续空闲缓存，未添加重复释放保护。"
+      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：按区域/页索引定位双W32项，加回标记U8、清标记，采样页计数恰240并重置失败门槛241；仅空页增加1086154，恰32调解除提交16页。未改页内连续空闲缓存，未添加重复释放保护。",
+      "heap_malloc_unification": {
+        "spec_id": "HMU01",
+        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "previous_sources": [
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "FreeLegacySmallHeap2Block_542A0F"
+            ]
+          },
+          {
+            "path": "src/platform/LegacyHeap.hpp",
+            "symbols": [
+              "FreeLegacySmallHeap2Block_542A0F"
+            ]
+          }
+        ],
+        "old_private_pool_interface_retired": true,
+        "all_generic_modes_share_standard_CRT": true,
+        "compilation_verified": false,
+        "runtime_verified": false,
+        "original_unknown_owner_alias_closed": false,
+        "previous_status": "完整模式2小块池本体及内部接线已实现并集中静态核对；外层分配器/启动/运行未闭合",
+        "previous_verification_level": "八本体622条/16直接入向、初始数据、页/描述区x64布局及板块集中静态核对；未构建、链接或执行"
+      }
     },
     {
       "original_entry": "0x542A54",
       "inventory_id": "F:00142A54",
-      "status": "完整模式2小块池本体及内部接线已实现并集中静态核对；外层分配器/启动/运行未闭合",
+      "status": "HMU01：旧CRT私有池接口/布局/状态退役，现通用消费者由真实标准分配族承接；原身份与原证保留，完整owner/间接alias/SDK/寿命未验。",
       "original_end_exclusive": "0x542C5C",
       "instruction_count": 180,
       "original_direct_reference_count": 3,
-      "verification_level": "八本体622条/16直接入向、初始数据、页/描述区x64布局及板块集中静态核对；未构建、链接或执行；新原填充call/必要参数生产及两文件限定标识符/数量接线静态核对，未构建或执行",
+      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
       "sources": [
         {
           "path": "src/platform/LegacyHeap.cpp",
           "symbols": [
-            "AllocateLegacySmallHeap2Block_542A54"
-          ]
+            "AllocateLegacyHeapBlock_53C3EA",
+            "CallocateLegacyMemory_53BFF8"
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         },
         {
           "path": "src/platform/LegacyHeap.hpp",
           "symbols": [
-            "AllocateLegacySmallHeap2Block_542A54"
-          ]
+            "AllocateLegacyHeapBlock_53C3EA"
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         }
       ],
       "inbound_evidence": [
@@ -56027,9 +56598,12 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_crt_memory_contract.md"
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
-      "boundary": "从当前区域/页至尾再首回绕，按signed freeSlots>=请求及unsigned failedRequest>请求筛选；页扫描失败缓存请求，成功依次发布当前区域、扣空闲数、发布页游标。补池最多16页提交，返回必须等于页首；原memset第三参0保持。重提交首请求扣完整W32，新建区域首请求的元数据只扣U8；普通请求几何不扩。；2026-10-04仅原填充点改接真实FillLegacyMemory_5419D0，原数量/值/目标/失败/发布及生命周期保持，不重核父全文。",
+      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：从当前区域/页至尾再首回绕，按signed freeSlots>=请求及unsigned failedRequest>请求筛选；页扫描失败缓存请求，成功依次发布当前区域、扣空闲数、发布页游标。补池最多16页提交，返回必须等于页首；原memset第三参0保持。重提交首请求扣完整W32，新建区域首请求的元数据只扣U8；普通请求几何不扩。；2026-10-04仅原填充点改接真实FillLegacyMemory_5419D0，原数量/值/目标/失败/发布及生命周期保持，不重核父全文。",
       "memory_fill_connections": [
         {
           "target_entry": "0x5419D0",
@@ -56038,28 +56612,56 @@
           "symbol": "AllocateLegacySmallHeap2Block_542A54",
           "relationship": "原Size push0、Val push当前commitBytes，成功VirtualAlloc后仅0数量返回/不写；不改参数顺序或清提交容量"
         }
-      ]
+      ],
+      "heap_malloc_unification": {
+        "spec_id": "HMU01",
+        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "previous_sources": [
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "AllocateLegacySmallHeap2Block_542A54"
+            ]
+          },
+          {
+            "path": "src/platform/LegacyHeap.hpp",
+            "symbols": [
+              "AllocateLegacySmallHeap2Block_542A54"
+            ]
+          }
+        ],
+        "old_private_pool_interface_retired": true,
+        "all_generic_modes_share_standard_CRT": true,
+        "compilation_verified": false,
+        "runtime_verified": false,
+        "original_unknown_owner_alias_closed": false,
+        "previous_status": "完整模式2小块池本体及内部接线已实现并集中静态核对；外层分配器/启动/运行未闭合",
+        "previous_verification_level": "八本体622条/16直接入向、初始数据、页/描述区x64布局及板块集中静态核对；未构建、链接或执行；新原填充call/必要参数生产及两文件限定标识符/数量接线静态核对，未构建或执行"
+      }
     },
     {
       "original_entry": "0x542C5C",
       "inventory_id": "F:00142C5C",
-      "status": "完整模式2小块池本体及内部接线已实现并集中静态核对；外层分配器/启动/运行未闭合",
+      "status": "HMU01：旧CRT私有池接口/布局/状态退役，现通用消费者由真实标准分配族承接；原身份与原证保留，完整owner/间接alias/SDK/寿命未验。",
       "original_end_exclusive": "0x542D80",
       "instruction_count": 125,
       "original_direct_reference_count": 2,
-      "verification_level": "八本体622条/16直接入向、初始数据、页/描述区x64布局及板块集中静态核对；未构建、链接或执行",
+      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
       "sources": [
         {
           "path": "src/platform/LegacyHeap.cpp",
           "symbols": [
-            "AllocateLegacySmallHeap2Page_542C5C"
-          ]
+            "AllocateLegacyHeapBlock_53C3EA"
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         },
         {
           "path": "src/platform/LegacyHeap.hpp",
           "symbols": [
-            "AllocateLegacySmallHeap2Page_542C5C"
-          ]
+            "AllocateLegacyHeapBlock_53C3EA"
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         }
       ],
       "inbound_evidence": [
@@ -56073,30 +56675,61 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_crt_memory_contract.md"
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
-      "boundary": "保留连续空闲快路径、游标后扫描和首部回绕；字节标记非零跳已分配长度，零洞逐字节扫至哨兵。严格小于末哨兵的扫描门禁、原游标连续缓存、剩余总空闲减算与三出口更新顺序保持。页内cursor为原生指针，freeRun移+FC仍U32，marker→data原关系和240槽保持。"
+      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：保留连续空闲快路径、游标后扫描和首部回绕；字节标记非零跳已分配长度，零洞逐字节扫至哨兵。严格小于末哨兵的扫描门禁、原游标连续缓存、剩余总空闲减算与三出口更新顺序保持。页内cursor为原生指针，freeRun移+FC仍U32，marker→data原关系和240槽保持。",
+      "heap_malloc_unification": {
+        "spec_id": "HMU01",
+        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "previous_sources": [
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "AllocateLegacySmallHeap2Page_542C5C"
+            ]
+          },
+          {
+            "path": "src/platform/LegacyHeap.hpp",
+            "symbols": [
+              "AllocateLegacySmallHeap2Page_542C5C"
+            ]
+          }
+        ],
+        "old_private_pool_interface_retired": true,
+        "all_generic_modes_share_standard_CRT": true,
+        "compilation_verified": false,
+        "runtime_verified": false,
+        "original_unknown_owner_alias_closed": false,
+        "previous_status": "完整模式2小块池本体及内部接线已实现并集中静态核对；外层分配器/启动/运行未闭合",
+        "previous_verification_level": "八本体622条/16直接入向、初始数据、页/描述区x64布局及板块集中静态核对；未构建、链接或执行"
+      }
     },
     {
       "original_entry": "0x542D80",
       "inventory_id": "F:00142D80",
-      "status": "完整模式2小块池本体及内部接线已实现并集中静态核对；外层分配器/启动/运行未闭合",
+      "status": "HMU01：旧CRT私有池接口/布局/状态退役，现通用消费者由真实标准分配族承接；原身份与原证保留，完整owner/间接alias/SDK/寿命未验。",
       "original_end_exclusive": "0x542E29",
       "instruction_count": 69,
       "original_direct_reference_count": 1,
-      "verification_level": "八本体622条/16直接入向、初始数据、页/描述区x64布局及板块集中静态核对；未构建、链接或执行",
+      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
       "sources": [
         {
           "path": "src/platform/LegacyHeap.cpp",
           "symbols": [
-            "ResizeLegacySmallHeap2Block_542D80"
-          ]
+            "ReallocateLegacyMemory_53FA5B"
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         },
         {
           "path": "src/platform/LegacyHeap.hpp",
           "symbols": [
-            "ResizeLegacySmallHeap2Block_542D80"
-          ]
+            "InitializeLegacyHeap_541BB8"
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         }
       ],
       "inbound_evidence": [
@@ -56106,9 +56739,38 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_crt_memory_contract.md"
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
-      "boundary": "相等长度原返回0；缩小更新U8标记、归还页空闲数并重置失败门槛241。增长确认连续零洞及<=哨兵边界，先更新标记，原游标被覆盖才重算连续缓存；末哨兵处归零游标回首；按原差值调整总页空闲。不把相等长度改成成功，不补输入限制。"
+      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：相等长度原返回0；缩小更新U8标记、归还页空闲数并重置失败门槛241。增长确认连续零洞及<=哨兵边界，先更新标记，原游标被覆盖才重算连续缓存；末哨兵处归零游标回首；按原差值调整总页空闲。不把相等长度改成成功，不补输入限制。",
+      "heap_malloc_unification": {
+        "spec_id": "HMU01",
+        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "previous_sources": [
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "ResizeLegacySmallHeap2Block_542D80"
+            ]
+          },
+          {
+            "path": "src/platform/LegacyHeap.hpp",
+            "symbols": [
+              "ResizeLegacySmallHeap2Block_542D80"
+            ]
+          }
+        ],
+        "old_private_pool_interface_retired": true,
+        "all_generic_modes_share_standard_CRT": true,
+        "compilation_verified": false,
+        "runtime_verified": false,
+        "original_unknown_owner_alias_closed": false,
+        "previous_status": "完整模式2小块池本体及内部接线已实现并集中静态核对；外层分配器/启动/运行未闭合",
+        "previous_verification_level": "八本体622条/16直接入向、初始数据、页/描述区x64布局及板块集中静态核对；未构建、链接或执行"
+      }
     },
     {
       "original_entry": "0x53B4F2",
@@ -84162,11 +84824,11 @@
     {
       "original_entry": "0x53BFF8",
       "inventory_id": "F:0013BFF8",
-      "status": "M3H01通用mode3分配/清零/扩容/容量/释放同域SDK承接，mode1/2保持；原私有核心不模拟，全部owner/模式寿命/alias/SDK运行未闭",
+      "status": "HMU01：通用堆全部模式统一真实CRT提供者，U32/请求数量策略/失败处理器与当前caller保持；旧池仅历史，完整owner/间接alias/SDK/寿命未验。",
       "original_end_exclusive": "0x53C0A9",
       "instruction_count": 72,
       "original_direct_reference_count": 23,
-      "verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行；仅原填充call邻窗与限定标识符/数量低U32接线静态核对，未构建或执行；SCH01五完整根260条/659B、两真实calloc/23已证直属入向/十表引用及一源限定清零域/父失败消费静态；共享root仅本表分域对应，不构建/测试/运行/摘要；M3H01五完整根449条/1167B、七旧核心call及mode六引用，五分支/头注释限定重放，mode1/2/其余源码及政策保持；未构建/测试/运行/摘要",
+      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
       "function_chunks": [
         {
           "start": "0x53BFF8",
@@ -84272,7 +84934,8 @@
           "path": "src/platform/LegacyHeap.cpp",
           "symbols": [
             "CallocateLegacyMemory_53BFF8"
-          ]
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         },
         {
           "path": "include/cg/platform/LegacyMemory.hpp",
@@ -84294,9 +84957,12 @@
         "doc/cg2d_stdio_table_heap_spec.md",
         "doc/cg2d_stdio_table_heap_evidence.json",
         "doc/cg2d_mode3_heap_facade_spec.md",
-        "doc/cg2d_mode3_heap_facade_evidence.json"
+        "doc/cg2d_mode3_heap_facade_evidence.json",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
-      "boundary": "真实U32乘积、上限/0→1/16B对齐、每轮模式采样和失败门禁重读。mode3小块清原请求，mode2小块清对齐容量，普通HeapAlloc(flags8)；处理器接收当前长度。两stdio原调用保持并已接本体，21应用原入向未迁移；模式3/完整启动仍待，未用宿主calloc补原堆。；2026-10-04仅既有原填充点改接真实FillLegacyMemory_5419D0，当前容量/目标/数值/时点及原失败/owner保持；其余父正文不重验。；2026-10-05 SCH01只将53E9C7/53E9E0的stdio指针索引表allocate/clear切私有SDK std::calloc；既有pointer size8、低W32乘积/零变1/16对齐/上界、失败new-mode与541A28(bytes)重试/异常传播保持。父512/20/错误26/20实际静态FILE写入/三底层句柄消费及原所有表消费者/FILE项std释放保持。不读旧mode3/块头，不新增整表释放/query/resize、修重初始化泄漏或启动；全表实际已知无这些操作，十直接引用不排除未知alias/free。SDK私有容量/分桶/对齐尾零/低内存和错误策略adapted，原21应用calloc、通用旧堆/其余域不改，完整C01/C08/C10/C11/运行未闭。；2026-10-05 M3H01五mode3分支同时std::malloc/std::calloc/std::realloc/std::free/UCRT_msize，失败不混入Win32 fallback，不读原区域/块前W32或调用三旧核心。原API数量W32、malloc外层上界/handler与calloc对齐bytes/失败new-mode保持；realloc NULL/非空零/上界/旧块失败有效与原输入请求保持，SDK失败handler统一输入byteCount，旧某fallback物理对齐数量及私有复制尾/错误策略按D02 adapted，不称其数值/时机等价。mode1/2/元数据/初始化/其他已迁域原文保持，mode selector3只兼容选择不是SDK旧池报告。SDK块要求模式寿命稳定/同域，外来Win32/模式2块不得进入3路径；无tag表/压缩指针/假内核，未知全部owner/alias/R1、SDK ABI和完整退出/运行未闭。",
+      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：真实U32乘积、上限/0→1/16B对齐、每轮模式采样和失败门禁重读。mode3小块清原请求，mode2小块清对齐容量，普通HeapAlloc(flags8)；处理器接收当前长度。两stdio原调用保持并已接本体，21应用原入向未迁移；模式3/完整启动仍待，未用宿主calloc补原堆。；2026-10-04仅既有原填充点改接真实FillLegacyMemory_5419D0，当前容量/目标/数值/时点及原失败/owner保持；其余父正文不重验。；2026-10-05 SCH01只将53E9C7/53E9E0的stdio指针索引表allocate/clear切私有SDK std::calloc；既有pointer size8、低W32乘积/零变1/16对齐/上界、失败new-mode与541A28(bytes)重试/异常传播保持。父512/20/错误26/20实际静态FILE写入/三底层句柄消费及原所有表消费者/FILE项std释放保持。不读旧mode3/块头，不新增整表释放/query/resize、修重初始化泄漏或启动；全表实际已知无这些操作，十直接引用不排除未知alias/free。SDK私有容量/分桶/对齐尾零/低内存和错误策略adapted，原21应用calloc、通用旧堆/其余域不改，完整C01/C08/C10/C11/运行未闭。；2026-10-05 M3H01五mode3分支同时std::malloc/std::calloc/std::realloc/std::free/UCRT_msize，失败不混入Win32 fallback，不读原区域/块前W32或调用三旧核心。原API数量W32、malloc外层上界/handler与calloc对齐bytes/失败new-mode保持；realloc NULL/非空零/上界/旧块失败有效与原输入请求保持，SDK失败handler统一输入byteCount，旧某fallback物理对齐数量及私有复制尾/错误策略按D02 adapted，不称其数值/时机等价。mode1/2/元数据/初始化/其他已迁域原文保持，mode selector3只兼容选择不是SDK旧池报告。SDK块要求模式寿命稳定/同域，外来Win32/模式2块不得进入3路径；无tag表/压缩指针/假内核，未知全部owner/alias/R1、SDK ABI和完整退出/运行未闭。",
       "memory_fill_connections": [
         {
           "target_entry": "0x5419D0",
@@ -84348,6 +85014,26 @@
         "failure_handler_quantum_original_equivalent": false,
         "unknown_owners_closed": false,
         "runtime_verified": false
+      },
+      "heap_malloc_unification": {
+        "spec_id": "HMU01",
+        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "previous_sources": [
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "CallocateLegacyMemory_53BFF8"
+            ]
+          }
+        ],
+        "old_private_pool_interface_retired": false,
+        "all_generic_modes_share_standard_CRT": true,
+        "compilation_verified": false,
+        "runtime_verified": false,
+        "original_unknown_owner_alias_closed": false,
+        "previous_status": "M3H01通用mode3分配/清零/扩容/容量/释放同域SDK承接，mode1/2保持；原私有核心不模拟，全部owner/模式寿命/alias/SDK运行未闭",
+        "previous_verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行；仅原填充call邻窗与限定标识符/数量低U32接线静态核对，未构建或执行；SCH01五完整根260条/659B、两真实calloc/23已证直属入向/十表引用及一源限定清零域/父失败消费静态；共享root仅本表分域对应，不构建/测试/运行/摘要；M3H01五完整根449条/1167B、七旧核心call及mode六引用，五分支/头注释限定重放，mode1/2/其余源码及政策保持；未构建/测试/运行/摘要"
       }
     },
     {
@@ -87492,7 +88178,7 @@
     {
       "original_entry": "0x53C3AC",
       "inventory_id": "F:0013C3AC",
-      "status": "真实原堆本体及指定CRT调用域已实现；既有宿主窄合同保持，模式3/启动未闭合",
+      "status": "HMU01：通用堆全部模式统一真实CRT提供者，U32/请求数量策略/失败处理器与当前caller保持；旧池仅历史，完整owner/间接alias/SDK/寿命未验。",
       "original_end_exclusive": "0x53C3BE",
       "instruction_count": 6,
       "original_direct_reference_count": 55,
@@ -87502,13 +88188,14 @@
           "symbols": [
             "AllocateLegacyHeapMemory_53C3AC"
           ],
-          "relationship": "真实原堆调用域本体；不消费宿主分配块"
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         },
         {
           "path": "src/platform/LegacyHeap.hpp",
           "symbols": [
             "AllocateLegacyHeapMemory_53C3AC"
-          ]
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         },
         {
           "path": "src/platform/LegacyTime.cpp",
@@ -87750,10 +88437,13 @@
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_legacy_string_compare.md"
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
-      "verification_level": "完整原指令/所有直接入向和本步指定调用域静态核对；未构建、链接或执行",
-      "boundary": "真实原堆malloc先采样1086150完整S32门禁再调53C3BE；退出表53B41D及真实realloc空输入路径已接。其余宿主分配合同保持，不以55入向数量宣称全迁移；模式3分配核心仍待。 分色0x4FBA5D改经既有Malloc_53C3AC宿主窄接口，与原同源std::malloc/std::free生命周期保持；长度低W32/U32，不消费真实原堆块，不增加原堆入向全迁移计数。",
+      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
+      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：真实原堆malloc先采样1086150完整S32门禁再调53C3BE；退出表53B41D及真实realloc空输入路径已接。其余宿主分配合同保持，不以55入向数量宣称全迁移；模式3分配核心仍待。 分色0x4FBA5D改经既有Malloc_53C3AC宿主窄接口，与原同源std::malloc/std::free生命周期保持；长度低W32/U32，不消费真实原堆块，不增加原堆入向全迁移计数。",
       "host_contract_call_connections": [
         {
           "parent_entry": "0x4FBA30",
@@ -87765,12 +88455,39 @@
           "size_kind": "原EBP低W32+1/U32",
           "contract": "既有已批准std::malloc/std::free宿主窄合同，不进入真实原堆块域"
         }
-      ]
+      ],
+      "heap_malloc_unification": {
+        "spec_id": "HMU01",
+        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "previous_sources": [
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "AllocateLegacyHeapMemory_53C3AC"
+            ],
+            "relationship": "真实原堆调用域本体；不消费宿主分配块"
+          },
+          {
+            "path": "src/platform/LegacyHeap.hpp",
+            "symbols": [
+              "AllocateLegacyHeapMemory_53C3AC"
+            ]
+          }
+        ],
+        "old_private_pool_interface_retired": false,
+        "all_generic_modes_share_standard_CRT": true,
+        "compilation_verified": false,
+        "runtime_verified": false,
+        "original_unknown_owner_alias_closed": false,
+        "previous_status": "真实原堆本体及指定CRT调用域已实现；既有宿主窄合同保持，模式3/启动未闭合",
+        "previous_verification_level": "完整原指令/所有直接入向和本步指定调用域静态核对；未构建、链接或执行"
+      }
     },
     {
       "original_entry": "0x53C0A9",
       "inventory_id": "F:0013C0A9",
-      "status": "M3H01通用mode3分配/清零/扩容/容量/释放同域SDK承接，mode1/2保持；原私有核心不模拟，全部owner/模式寿命/alias/SDK运行未闭",
+      "status": "HMU01：通用堆全部模式统一真实CRT提供者，U32/请求数量策略/失败处理器与当前caller保持；旧池仅历史，完整owner/间接alias/SDK/寿命未验。",
       "original_end_exclusive": "0x53C112",
       "instruction_count": 45,
       "original_direct_reference_count": 90,
@@ -87780,13 +88497,14 @@
           "symbols": [
             "FreeLegacyHeapMemory_53C0A9"
           ],
-          "relationship": "真实原堆调用域本体；不消费宿主分配块"
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         },
         {
           "path": "src/platform/LegacyHeap.hpp",
           "symbols": [
             "FreeLegacyHeapMemory_53C0A9"
-          ]
+          ],
+          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
         },
         {
           "path": "src/platform/LegacyTime.cpp",
@@ -88209,10 +88927,13 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_mode3_heap_facade_spec.md",
-        "doc/cg2d_mode3_heap_facade_evidence.json"
+        "doc/cg2d_mode3_heap_facade_evidence.json",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
-      "verification_level": "完整原指令/所有直接入向和本步指定调用域静态核对；未构建、链接或执行；新增ios_base父数值call/尾调与新增消费静态，不执行；新增basic_ios原父数值call/尾调与消费静态，不执行；新owner父数值原调用/尾调与新增静态，不执行；M3H01五完整根449条/1167B、七旧核心call及mode六引用，五分支/头注释限定重放，mode1/2/其余源码及政策保持；未构建/测试/运行/摘要",
-      "boundary": "真实原堆free只对空值直接返回，非空采样模式，mode3查区域后调真实待实现541C88，mode2查块成功才消费区域/页输出并调542A0F；其他/未命中HeapFree(共享原堆,0,原输入)。只供真实realloc零长度路径等原堆块使用，不迁移90个原入向或将宿主块交原堆。 分色0x4FBAB5改经既有Free_53C0A9宿主窄接口，与原同源std::malloc/std::free生命周期保持；长度低W32/U32，不消费真实原堆块，不增加原堆入向全迁移计数。；2026-10-04新增locale构析原点0x54A610，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。；2026-10-04新增ios_base真实原父点0x54A230；登记/初始化/析构消费者按真实字段/采样/清理接线，旧本体与业务数组不改/复检，clear真实抛出、登记全局初值容量/owner和完整运行待。；2026-10-04新增basic_ios真实原点0x548D06/0x549D5B，低U8登记/真实Btowc及base/字段重取/失败停止、原析构/堆域保持；原依赖不修改/复检。完整clear抛出、登记全局/虚基owner及SDK/运行继续待。；2026-10-04新增输入/输出流owner本体的真实原点0x548CEA/0x548D25/0x549D3F/0x549D7A，虚基投影/低U8与W32门禁/条件展开及固定本类清理保持；标准流全局生产/clear/SDK与完整运行仍待，不据本步当整链/启动验收。；2026-10-04新增原type_info实际父点0x54AC74；恢复原本族方法表后读取cachedName，仅非空才释放；不清槽。只消费原生原堆描述符/缓存，不释放宿主type_info/其他allocator，不改旧堆体/既有连接或迁移全量入向；描述符/缓存生产、原堆模式3及SDK与完整运行仍待。；2026-10-05 M3H01五mode3分支同时std::malloc/std::calloc/std::realloc/std::free/UCRT_msize，失败不混入Win32 fallback，不读原区域/块前W32或调用三旧核心。原API数量W32、malloc外层上界/handler与calloc对齐bytes/失败new-mode保持；realloc NULL/非空零/上界/旧块失败有效与原输入请求保持，SDK失败handler统一输入byteCount，旧某fallback物理对齐数量及私有复制尾/错误策略按D02 adapted，不称其数值/时机等价。mode1/2/元数据/初始化/其他已迁域原文保持，mode selector3只兼容选择不是SDK旧池报告。SDK块要求模式寿命稳定/同域，外来Win32/模式2块不得进入3路径；无tag表/压缩指针/假内核，未知全部owner/alias/R1、SDK ABI和完整退出/运行未闭。",
+      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
+      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：真实原堆free只对空值直接返回，非空采样模式，mode3查区域后调真实待实现541C88，mode2查块成功才消费区域/页输出并调542A0F；其他/未命中HeapFree(共享原堆,0,原输入)。只供真实realloc零长度路径等原堆块使用，不迁移90个原入向或将宿主块交原堆。 分色0x4FBAB5改经既有Free_53C0A9宿主窄接口，与原同源std::malloc/std::free生命周期保持；长度低W32/U32，不消费真实原堆块，不增加原堆入向全迁移计数。；2026-10-04新增locale构析原点0x54A610，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。；2026-10-04新增ios_base真实原父点0x54A230；登记/初始化/析构消费者按真实字段/采样/清理接线，旧本体与业务数组不改/复检，clear真实抛出、登记全局初值容量/owner和完整运行待。；2026-10-04新增basic_ios真实原点0x548D06/0x549D5B，低U8登记/真实Btowc及base/字段重取/失败停止、原析构/堆域保持；原依赖不修改/复检。完整clear抛出、登记全局/虚基owner及SDK/运行继续待。；2026-10-04新增输入/输出流owner本体的真实原点0x548CEA/0x548D25/0x549D3F/0x549D7A，虚基投影/低U8与W32门禁/条件展开及固定本类清理保持；标准流全局生产/clear/SDK与完整运行仍待，不据本步当整链/启动验收。；2026-10-04新增原type_info实际父点0x54AC74；恢复原本族方法表后读取cachedName，仅非空才释放；不清槽。只消费原生原堆描述符/缓存，不释放宿主type_info/其他allocator，不改旧堆体/既有连接或迁移全量入向；描述符/缓存生产、原堆模式3及SDK与完整运行仍待。；2026-10-05 M3H01五mode3分支同时std::malloc/std::calloc/std::realloc/std::free/UCRT_msize，失败不混入Win32 fallback，不读原区域/块前W32或调用三旧核心。原API数量W32、malloc外层上界/handler与calloc对齐bytes/失败new-mode保持；realloc NULL/非空零/上界/旧块失败有效与原输入请求保持，SDK失败handler统一输入byteCount，旧某fallback物理对齐数量及私有复制尾/错误策略按D02 adapted，不称其数值/时机等价。mode1/2/元数据/初始化/其他已迁域原文保持，mode selector3只兼容选择不是SDK旧池报告。SDK块要求模式寿命稳定/同域，外来Win32/模式2块不得进入3路径；无tag表/压缩指针/假内核，未知全部owner/alias/R1、SDK ABI和完整退出/运行未闭。",
       "host_contract_call_connections": [
         {
           "parent_entry": "0x4FBA30",
@@ -88354,6 +89075,33 @@
         "failure_handler_quantum_original_equivalent": false,
         "unknown_owners_closed": false,
         "runtime_verified": false
+      },
+      "heap_malloc_unification": {
+        "spec_id": "HMU01",
+        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "previous_sources": [
+          {
+            "path": "src/platform/LegacyHeap.cpp",
+            "symbols": [
+              "FreeLegacyHeapMemory_53C0A9"
+            ],
+            "relationship": "真实原堆调用域本体；不消费宿主分配块"
+          },
+          {
+            "path": "src/platform/LegacyHeap.hpp",
+            "symbols": [
+              "FreeLegacyHeapMemory_53C0A9"
+            ]
+          }
+        ],
+        "old_private_pool_interface_retired": false,
+        "all_generic_modes_share_standard_CRT": true,
+        "compilation_verified": false,
+        "runtime_verified": false,
+        "original_unknown_owner_alias_closed": false,
+        "previous_status": "M3H01通用mode3分配/清零/扩容/容量/释放同域SDK承接，mode1/2保持；原私有核心不模拟，全部owner/模式寿命/alias/SDK运行未闭",
+        "previous_verification_level": "完整原指令/所有直接入向和本步指定调用域静态核对；未构建、链接或执行；新增ios_base父数值call/尾调与新增消费静态，不执行；新增basic_ios原父数值call/尾调与消费静态，不执行；新owner父数值原调用/尾调与新增静态，不执行；M3H01五完整根449条/1167B、七旧核心call及mode六引用，五分支/头注释限定重放，mode1/2/其余源码及政策保持；未构建/测试/运行/摘要"
       }
     },
     {

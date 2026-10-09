@@ -8,10 +8,10 @@ namespace cg::platform {
 void* __cdecl Malloc_53C3AC(std::uint32_t size);
 void __cdecl Free_53C0A9(void* memory);
 
-// 原53FCFB；mode3返回真实SDK块容量，mode1/2仍原容量；须与本域及稳定模式配对。
+// 原53FCFB；HMU01全部模式返回真实CRT malloc/calloc/realloc块容量，按U32消费。
 std::uint32_t GetLegacyAllocationSize_53FCFB(void* memory);
-// 原53BFF8/53FA5B：mode3分配/清零/扩容为同一SDK域，mode1/2仍原域，禁止跨域。
-// M3H01保W32与父失败消费；旧核心不模拟，完整所有权/模式寿命、SDK及启动运行仍待。
+// 原53BFF8/53FA5B：HMU01全部模式统一标准分配族，保W32/零长度与父失败消费。
+// 旧池机制由宿主承接，仍只接收同CRT域块，完整所有权/SDK及启动运行待验。
 void* CallocateLegacyMemory_53BFF8(std::uint32_t count, std::uint32_t size);
 void* ReallocateLegacyMemory_53FA5B(void* memory, std::uint32_t byteCount);
 

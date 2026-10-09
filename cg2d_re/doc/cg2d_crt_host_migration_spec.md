@@ -1,5 +1,7 @@
 # CRT 宿主承接总 SPEC
 
+> 2026-10-09最新通用堆合同：[HMU01](cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state)已按用户malloc方向与第8条工程委托将全部通用模式统一malloc/calloc/realloc/free/_msize，初始化借用真实CRT句柄；原模式只保请求数量策略。具名覆盖下文旧阶段“模式1/2、私有池及元数据保持”，12旧池接口/8布局类型/10状态槽已退役，原身份及旧实施证据保留为历史。裸字节及其它独立域保持；完整owner/间接alias/SDK/正常寿命与C01/C08/C11/V02仍未闭，当前未编译/运行。
+
 > 2026-10-09最新数值/源合同：[ACP01-C](cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state)已取消本组ASM/私有ST0机器ABI，使用CPP/double/标准数学与宿主浮点环境承接；旧x87/PC53/T80/FLAGS数值保证由用户最新许可覆盖。下文原指令、ASM实现与机器状态证据属固定历史；原业务字段/整数读取与错误记录/errno/系统回调保持，当前未编译/链接/运行，完整验收未闭。
 
 > 2026-10-02提案；2026-10-04依用户本轮“未决议内容你做决定”授权，由本线程采用下列受限宿主承接方案。**已决议，尚未迁移/验收**；不是原CRT逐指令等价。

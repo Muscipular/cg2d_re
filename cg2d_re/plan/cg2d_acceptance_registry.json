@@ -388,7 +388,10 @@
         "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state",
         "doc/cg2d_screenshot_chain_baseline_evidence.json",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -660,7 +663,8 @@
         "doc/cg2d_audio_update.md#bgm-config-scan-decision",
         "doc/cg2d_audio_update.md#audio-loader-publication-decision",
         "doc/cg2d_stdio_contract.md#known-format-call-inventory",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -56788,6 +56792,90 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-HEAP-MALLOC-UNIFICATION-FUNC-CRT-I-20261009",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "迁移前Git命名快照 cg2d-re-heap-history-20261009；已批准公开std Malloc/Free、旧Heap族/数量/handler/初始化及M3H01/M3P01原证。",
+      "implementation_reference": "Git固定命名快照 cg2d-re-heap-malloc-unification-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json",
+        "src/platform/LegacyHeap.cpp",
+        "src/platform/LegacyHeap.hpp",
+        "include/cg/platform/LegacyMemory.hpp"
+      ],
+      "observation": "静态核9提供者、旧池仅本模块消费、两初始化caller及公開std Malloc/Free；mode1/2/3统一SDK操作、数量/上界/NULL零/handler/扩容与容量/同域释放。",
+      "expected": "整族标准CRT，不余私有HeapAlloc/Virtual或旧块头；真实CRT借用查询有失败分支，原W32/数量/handler与caller序保持，裸字节域与其它既有独立域保持。",
+      "actual": "CPP 821→141行、头154→28行；9真实提供者/12旧池接口/8类型/10槽完成收敛，25现语义源关系对齐。全部完整gates、成员/任务/六closure不关闭；未编译/链接/测试/运行/算法/产物/摘要。",
+      "differences": [
+        {
+          "description": "HMU01覆盖旧仅mode3宿主范围，全部通用模式统一CRT；原池metadata/提交/反提交/私有容量/地址/低内存和HeapCreate同步策略归宿主，不称原体等价。",
+          "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-HEAP-MALLOC-UNIFICATION-FUNC-CRT-W-20261009",
+      "feature_id": "FUNC-CRT",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "迁移前Git命名快照 cg2d-re-heap-history-20261009；已批准公开std Malloc/Free、旧Heap族/数量/handler/初始化及M3H01/M3P01原证。",
+      "implementation_reference": "Git固定命名快照 cg2d-re-heap-malloc-unification-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json",
+        "src/platform/LegacyHeap.cpp",
+        "src/platform/LegacyHeap.hpp",
+        "include/cg/platform/LegacyMemory.hpp"
+      ],
+      "observation": "静态核9提供者、旧池仅本模块消费、两初始化caller及公開std Malloc/Free；mode1/2/3统一SDK操作、数量/上界/NULL零/handler/扩容与容量/同域释放。",
+      "expected": "整族标准CRT，不余私有HeapAlloc/Virtual或旧块头；真实CRT借用查询有失败分支，原W32/数量/handler与caller序保持，裸字节域与其它既有独立域保持。",
+      "actual": "CPP 821→141行、头154→28行；9真实提供者/12旧池接口/8类型/10槽完成收敛，25现语义源关系对齐。全部完整gates、成员/任务/六closure不关闭；未编译/链接/测试/运行/算法/产物/摘要。",
+      "differences": [
+        {
+          "description": "HMU01覆盖旧仅mode3宿主范围，全部通用模式统一CRT；原池metadata/提交/反提交/私有容量/地址/低内存和HeapCreate同步策略归宿主，不称原体等价。",
+          "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-HEAP-MALLOC-UNIFICATION-FUNC-CRT-S-20261009",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "迁移前Git命名快照 cg2d-re-heap-history-20261009；已批准公开std Malloc/Free、旧Heap族/数量/handler/初始化及M3H01/M3P01原证。",
+      "implementation_reference": "Git固定命名快照 cg2d-re-heap-malloc-unification-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json",
+        "src/platform/LegacyHeap.cpp",
+        "src/platform/LegacyHeap.hpp",
+        "include/cg/platform/LegacyMemory.hpp"
+      ],
+      "observation": "静态核9提供者、旧池仅本模块消费、两初始化caller及公開std Malloc/Free；mode1/2/3统一SDK操作、数量/上界/NULL零/handler/扩容与容量/同域释放。",
+      "expected": "整族标准CRT，不余私有HeapAlloc/Virtual或旧块头；真实CRT借用查询有失败分支，原W32/数量/handler与caller序保持，裸字节域与其它既有独立域保持。",
+      "actual": "CPP 821→141行、头154→28行；9真实提供者/12旧池接口/8类型/10槽完成收敛，25现语义源关系对齐。全部完整gates、成员/任务/六closure不关闭；未编译/链接/测试/运行/算法/产物/摘要。",
+      "differences": [
+        {
+          "description": "HMU01覆盖旧仅mode3宿主范围，全部通用模式统一CRT；原池metadata/提交/反提交/私有容量/地址/低内存和HeapCreate同步策略归宿主，不称原体等价。",
+          "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
     }
   ],
   "task_acceptance": [
@@ -57118,7 +57206,9 @@
         "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
         "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
         "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
-        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure"
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
       "task_id": "C08",
       "state": "open"
@@ -57135,7 +57225,9 @@
         "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
         "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
         "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
-        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state"
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
       "task_id": "C11",
       "state": "open"
@@ -57192,7 +57284,9 @@
         "doc/cg2d_math_residual_leaves_spec.md#math-residual-leaves-source-state",
         "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state",
         "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ],
       "task_id": "C01",
       "state": "open"
@@ -57848,7 +57942,9 @@
         "doc/cg2d_stdio_contract.md#audio-loader-publication-source-state",
         "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
         "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
       ]
     },
     {
@@ -59268,7 +59364,7 @@
       ]
     }
   ],
-  "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。 GQ01由同一汇总器生成development_gap_queue与看板§5；只列定位/语义身份登记差集，不把缺历史定位当源码未实现，不手改队列。 CRI01无独立函数ID的已证代码片段可按原X区间/实际边界绑定；校验身份与证据后另计，不混入缺身份队列，不增加函数分母。 ACP01-A按最新double/std数学许可迁音频6入口CPP；更新现提供者及两限定静态证据，三ASM历史附件仍由固定Git快照核存在；完整门禁/成员/任务状态与MIDI停止范围保持。 ACP01-M将地图13数学/投影入口迁CPP，8现提供者同步，新增两限定I/S，原CI消费点明示std::pow承接；CRT环境仍待，不关闭完整gates/成员/任务。 ACP01-C完成第三ASM源迁移，22接口/70私有机器ABI退役/5非PUBLIC宿主承接，当前数学现提供者与host/mixed处置同步；新增两限定I/S，三ASM/MASM已移除，原身份/成员/完整gates/任务/六closure不闭合。",
+  "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。 GQ01由同一汇总器生成development_gap_queue与看板§5；只列定位/语义身份登记差集，不把缺历史定位当源码未实现，不手改队列。 CRI01无独立函数ID的已证代码片段可按原X区间/实际边界绑定；校验身份与证据后另计，不混入缺身份队列，不增加函数分母。 ACP01-A按最新double/std数学许可迁音频6入口CPP；更新现提供者及两限定静态证据，三ASM历史附件仍由固定Git快照核存在；完整门禁/成员/任务状态与MIDI停止范围保持。 ACP01-M将地图13数学/投影入口迁CPP，8现提供者同步，新增两限定I/S，原CI消费点明示std::pow承接；CRT环境仍待，不关闭完整gates/成员/任务。 ACP01-C完成第三ASM源迁移，22接口/70私有机器ABI退役/5非PUBLIC宿主承接，当前数学现提供者与host/mixed处置同步；新增两限定I/S，三ASM/MASM已移除，原身份/成员/完整gates/任务/六closure不闭合。 HMU01按malloc方向和工程委托统一通用全部模式CRT；9实际提供者/12旧池退休/8类型/10槽，25语义当前提供者与host/adapted处置对齐，3限定静态证据；完整门禁/成员/任务/六closure保持。",
   "function_dispositions": [
     {
       "disposition": "adapted",
@@ -60601,64 +60697,96 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure"
-      ]
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
+      ],
+      "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
     },
     {
       "inventory_id": "F:0013C0A9",
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure"
-      ]
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
+      ],
+      "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
     },
     {
       "inventory_id": "F:0013BFF8",
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure"
-      ]
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
+      ],
+      "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
     },
     {
       "inventory_id": "F:0013FA5B",
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure"
-      ]
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
+      ],
+      "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
     },
     {
       "inventory_id": "F:0013FCFB",
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure"
-      ]
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
+      ],
+      "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
     },
     {
       "inventory_id": "F:00141FB1",
       "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure"
-      ]
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
+      ],
+      "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
     },
     {
       "inventory_id": "F:00141C88",
       "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure"
-      ]
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
+      ],
+      "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
     },
     {
       "inventory_id": "F:00142466",
       "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure"
-      ]
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
+      ],
+      "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
     },
     {
       "inventory_id": "F:00134A36",
@@ -72357,6 +72485,182 @@
         "doc/cg2d_startup_flow.md#window-resource-module-decision-20261009"
       ],
       "reason": "完整原WinMain164/605B及十一资源ID有证；唯一真实宿主入口保原启动/门禁和原加载/现消费，原嵌入式资源在x64现客户端由进程持有只读安装资源映像承接。当前instance/WindowProcedure不替换，合法资源匹配/内容、全SDK-ABI与实际生命周期/运行未据本步验收。"
+    },
+    {
+      "inventory_id": "F:0013C3BE",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
+      ],
+      "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
+    },
+    {
+      "inventory_id": "F:00141A28",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
+      ],
+      "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
+    },
+    {
+      "inventory_id": "F:00141BB8",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
+      ],
+      "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
+    },
+    {
+      "inventory_id": "F:00141C15",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
+      ],
+      "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
+    },
+    {
+      "inventory_id": "F:0014275C",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
+      ],
+      "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
+    },
+    {
+      "inventory_id": "F:00141C5D",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
+      ],
+      "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
+    },
+    {
+      "inventory_id": "F:001422BA",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
+      ],
+      "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
+    },
+    {
+      "inventory_id": "F:0014236B",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
+      ],
+      "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
+    },
+    {
+      "inventory_id": "F:001428A0",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
+      ],
+      "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
+    },
+    {
+      "inventory_id": "F:001428F6",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
+      ],
+      "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
+    },
+    {
+      "inventory_id": "F:001429B8",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
+      ],
+      "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
+    },
+    {
+      "inventory_id": "F:00142A0F",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
+      ],
+      "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
+    },
+    {
+      "inventory_id": "F:00142A54",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
+      ],
+      "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
+    },
+    {
+      "inventory_id": "F:00142C5C",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
+      ],
+      "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
+    },
+    {
+      "inventory_id": "F:00142D80",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
+      ],
+      "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
+    },
+    {
+      "inventory_id": "F:0013C3AC",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_heap_malloc_unification_evidence.json"
+      ],
+      "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
     }
   ],
   "auxiliary_dispositions": [

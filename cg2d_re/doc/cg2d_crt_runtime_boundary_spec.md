@@ -1,5 +1,7 @@
 # CRT 堆、异常与文件边界子 SPEC
 
+> 2026-10-09最新通用堆合同：[HMU01](cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state)已按用户malloc方向与第8条工程委托将全部通用模式统一malloc/calloc/realloc/free/_msize，初始化借用真实CRT句柄；原模式只保请求数量策略。具名覆盖下文旧阶段“模式1/2、私有池及元数据保持”，12旧池接口/8布局类型/10状态槽已退役，原身份及旧实施证据保留为历史。裸字节及其它独立域保持；完整owner/间接alias/SDK/正常寿命与C01/C08/C11/V02仍未闭，当前未编译/运行。
+
 > D02；2026-10-04采用，细化C05–C12。上位：[宿主承接SPEC](cg2d_crt_host_migration_spec.md)、[收尾决议](cg2d_closure_decisions_spec.md)。
 > 选择宿主职责承接来解决尚未闭合的CRT私有实现，不为“统一标准库”回退已有业务兼容逻辑；具体活动调用迁移必须逐组证明。
 

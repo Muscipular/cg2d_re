@@ -1,0 +1,4243 @@
+{
+  "schema_version": 1,
+  "spec_id": "CAC10",
+  "recorded_on": "2026-10-09",
+  "implementation_snapshot": "cg2d-re-profile-page-coordinate-sampling-20261009",
+  "scope": "原478330完整入口/八有效case及默认、原表复用/十四现绑定；只修三切页共用分支的两轴指针-坐标取样源序。局部静态，不代全父/callee、正常寿命、机器ABI/画面或运行。",
+  "baseline": {
+    "authority": "已打开cg2d.exe IDA原会话",
+    "mode": "只读指令/已加载原型字节；不改/重开/重载/保存数据库或原文件"
+  },
+  "counts": {
+    "instructions": 499,
+    "bytes": 1704,
+    "direct_calls": 17,
+    "coordinate_windows": 3,
+    "coordinate_window_instructions": 36,
+    "coordinate_window_bytes": 159,
+    "actual_bound_prototypes": 14,
+    "actual_bound_prototype_bytes": 448
+  },
+  "original": {
+    "entry": "0x478330",
+    "end_exclusive": "0x4789d8",
+    "chunks": [
+      {
+        "start": "0x478330",
+        "end_exclusive": "0x4789d8",
+        "bytes": "8b 44 24 04 56 33 f6 57 8d 48 ef 83 f9 0c 0f 87 8f 06 00 00 ff 24 8d d8 89 47 00 8a 54 24 10 f6 c2 01 74 42 8b 0d 94 46 cf 00 8d 04 c0 bf d8 58 58 00 8b 49 2c 8b 44 81 1c 83 c9 ff c7 00 b7 ba 03 00 33 c0 f2 ae f7 d1 2b f9 8b c1 8b f7 bf e8 8a d6 00 c1 e9 02 f3 a5 8b c8 83 e1 03 f3 a4 be 01 00 00 00 eb 15 8d 0c c0 a1 94 46 cf 00 8b 40 2c 8b 4c 88 1c c7 01 b5 ba 03 00 f6 c2 02 0f 84 1f 06 00 00 a1 08 ac c9 00 85 c0 0f 85 12 06 00 00 a1 94 46 cf 00 6a 07 8b 08 80 cd 80 89 08 e8 6c 90 ff ff 8b 15 94 46 cf 00 8b 0d 08 ac c9 00 68 f0 00 00 00 68 40 01 00 00 8b 42 0c 6a 38 89 41 0c 8b 15 94 46 cf 00 8b 0d 08 ac c9 00 8b 42 10 89 41 10 e8 47 40 0b 00 83 c4 10 be 01 00 00 00 8b c6 5f 5e c3 8a 54 24 10 f6 c2 01 74 42 8b 0d 94 46 cf 00 8d 04 c0 bf c0 58 58 00 8b 49 2c 8b 44 81 1c 83 c9 ff c7 00 85 b5 03 00 33 c0 f2 ae f7 d1 2b f9 8b c1 8b f7 bf e8 8a d6 00 c1 e9 02 f3 a5 8b c8 83 e1 03 f3 a4 be 01 00 00 00 eb 15 8d 0c c0 a1 94 46 cf 00 8b 40 2c 8b 4c 88 1c c7 01 83 b5 03 00 f6 c2 02 0f 84 54 05 00 00 a1 5c ac c9 00 85 c0 0f 85 47 05 00 00 a1 94 46 cf 00 6a 08 8b 08 80 cd 80 89 08 e8 a1 8f ff ff 8b 15 94 46 cf 00 8b 0d 5c ac c9 00 68 f0 00 00 00 68 40 01 00 00 8b 42 0c 6a 38 89 41 0c 8b 15 94 46 cf 00 8b 0d 5c ac c9 00 8b 42 10 89 41 10 e8 7c 3f 0b 00 83 c4 10 be 01 00 00 00 8b c6 5f 5e c3 8a 54 24 10 f6 c2 01 74 42 8b 0d 94 46 cf 00 8d 04 c0 bf a8 58 58 00 8b 49 2c 8b 44 81 1c 83 c9 ff c7 00 ba ba 03 00 33 c0 f2 ae f7 d1 2b f9 8b c1 8b f7 bf e8 8a d6 00 c1 e9 02 f3 a5 8b c8 83 e1 03 f3 a4 be 01 00 00 00 eb 15 8d 0c c0 a1 94 46 cf 00 8b 40 2c 8b 4c 88 1c c7 01 b8 ba 03 00 f6 c2 02 0f 84 89 04 00 00 a1 b0 ac c9 00 85 c0 0f 85 7c 04 00 00 a1 94 46 cf 00 6a 09 8b 08 80 cd 80 89 08 e8 d6 8e ff ff 8b 15 94 46 cf 00 8b 0d b0 ac c9 00 68 f0 00 00 00 68 40 01 00 00 8b 42 0c 6a 38 89 41 0c 8b 15 94 46 cf 00 8b 0d b0 ac c9 00 8b 42 10 89 41 10 e8 b1 3e 0b 00 83 c4 10 be 01 00 00 00 8b c6 5f 5e c3 8a 54 24 10 f6 c2 01 74 42 8b 0d 94 46 cf 00 8d 04 c0 bf 40 64 58 00 8b 49 2c 8b 44 81 1c 83 c9 ff c7 00 5b b5 03 00 33 c0 f2 ae f7 d1 2b f9 8b c1 8b f7 bf e8 8a d6 00 c1 e9 02 f3 a5 8b c8 83 e1 03 f3 a4 be 01 00 00 00 eb 15 8d 0c c0 a1 94 46 cf 00 8b 40 2c 8b 4c 88 1c c7 01 59 b5 03 00 f6 c2 02 74 4f a1 b0 ac c9 00 85 c0 74 16 ba 0c bd c9 00 85 d2 74 0d a1 0c bd c9 00 80 cc 80 a3 0c bd c9 00 6a 00 6a 00 6a 01 6a 3b c7 05 a0 5d 08 01 00 00 00 00 e8 59 d4 ff ff 68 f0 00 00 00 68 40 01 00 00 6a 38 e8 f8 3d 0b 00 83 c4 1c be 01 00 00 00 a1 18 bd c9 00 85 c0 0f 84 66 03 00 00 a1 a0 5d 08 01 85 c0 0f 85 59 03 00 00 a1 94 46 cf 00 5f 8b 48 2c 8b c6 5e 8b 91 58 03 00 00 c7 02 5a b5 03 00 c3 8a 54 24 10 f6 c2 01 74 44 8b 0d 94 46 cf 00 8d 04 c0 bf 40 64 58 00 8b 49 2c 8b 44 81 1c 83 c9 ff c7 00 5b b5 03 00 33 c0 f2 ae f7 d1 2b f9 8b c1 8b f7 bf e8 8a d6 00 c1 e9 02 f3 a5 8b c8 83 e1 03 f3 a4 bf 01 00 00 00 8b f7 eb 1a 8d 0c c0 a1 94 46 cf 00 bf 01 00 00 00 8b 40 2c 8b 4c 88 1c c7 01 59 b5 03 00 f6 c2 02 74 47 a1 b0 ac c9 00 85 c0 74 16 ba 0c bd c9 00 85 d2 74 0d a1 0c bd c9 00 80 cc 80 a3 0c bd c9 00 6a 00 6a 00 57 6a 3b 89 3d a0 5d 08 01 e8 70 d3 ff ff 68 f0 00 00 00 68 40 01 00 00 6a 38 e8 0f 3d 0b 00 83 c4 1c 8b f7 a1 18 bd c9 00 85 c0 0f 84 80 02 00 00 39 3d a0 5d 08 01 0f 85 74 02 00 00 a1 94 46 cf 00 5f 8b 48 2c 8b c6 5e 8b 91 7c 03 00 00 c7 02 5a b5 03 00 c3 8a 54 24 10 f6 c2 01 74 42 8b 0d 94 46 cf 00 8d 04 c0 bf 40 64 58 00 8b 49 2c 8b 44 81 1c 83 c9 ff c7 00 5b b5 03 00 33 c0 f2 ae f7 d1 2b f9 8b c1 8b f7 bf e8 8a d6 00 c1 e9 02 f3 a5 8b c8 83 e1 03 f3 a4 be 01 00 00 00 eb 15 8d 0c c0 a1 94 46 cf 00 8b 40 2c 8b 4c 88 1c c7 01 59 b5 03 00 f6 c2 02 74 4f a1 b0 ac c9 00 85 c0 74 16 ba 0c bd c9 00 85 d2 74 0d a1 0c bd c9 00 80 cc 80 a3 0c bd c9 00 6a 00 6a 00 6a 01 6a 3b c7 05 a0 5d 08 01 02 00 00 00 e8 8d d2 ff ff 68 f0 00 00 00 68 40 01 00 00 6a 38 e8 2c 3c 0b 00 83 c4 1c be 01 00 00 00 a1 18 bd c9 00 85 c0 0f 84 9a 01 00 00 83 3d a0 5d 08 01 02 0f 85 8d 01 00 00 a1 94 46 cf 00 5f 8b 48 2c 8b c6 5e 8b 91 a0 03 00 00 c7 02 5a b5 03 00 c3 8a 54 24 10 f6 c2 01 74 42 8b 0d 94 46 cf 00 8d 04 c0 bf 30 64 58 00 8b 49 2c 8b 44 81 1c 83 c9 ff c7 00 c4 ba 03 00 33 c0 f2 ae f7 d1 2b f9 8b c1 8b f7 bf e8 8a d6 00 c1 e9 02 f3 a5 8b c8 83 e1 03 f3 a4 be 01 00 00 00 eb 15 8d 0c c0 a1 94 46 cf 00 8b 40 2c 8b 4c 88 1c c7 01 c2 ba 03 00 f6 c2 02 0f 84 0b 01 00 00 e8 33 f2 02 00 6a 00 e8 ac b3 0b 00 83 c4 04 be 01 00 00 00 8b c6 5f 5e c3 0f bf 05 08 0c ff 00 8b d0 c1 e2 06 03 d0 8d 04 90 8a 54 24 10 8b 0c c5 3c 49 07 01 85 c9 74 6a f6 c2 01 74 2a bf 20 64 58 00 83 c9 ff 33 c0 f2 ae f7 d1 2b f9 8b c1 8b f7 bf e8 8a d6 00 c1 e9 02 f3 a5 8b c8 83 e1 03 f3 a4 be 01 00 00 00 f6 c2 02 0f 84 9a 00 00 00 8b 0d b8 b2 d9 00 6a 00 51 e8 69 8f 09 00 0f bf 05 08 0c ff 00 8b d0 83 c4 08 c1 e2 06 03 d0 5f 8d 04 90 c7 04 c5 3c 49 07 01 00 00 00 00 8b c6 5e c3 f6 c2 01 74 2a bf 10 64 58 00 83 c9 ff 33 c0 f2 ae f7 d1 2b f9 8b c1 8b f7 bf e8 8a d6 00 c1 e9 02 f3 a5 8b c8 83 e1 03 f3 a4 be 01 00 00 00 f6 c2 02 74 34 8b 0d b8 b2 d9 00 6a 01 51 e8 03 8f 09 00 6a 01 e8 cc b2 0b 00 0f bf 05 08 0c ff 00 8b d0 83 c4 0c c1 e2 06 03 d0 8d 04 90 c7 04 c5 3c 49 07 01 01 00 00 00 8b c6 5f 5e c3"
+      }
+    ],
+    "instructions": [
+      {
+        "address": "0x478330",
+        "size": 4,
+        "bytes": "8b 44 24 04",
+        "instruction": "mov     eax, [esp+arg_0]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478334",
+        "size": 1,
+        "bytes": "56",
+        "instruction": "push    esi",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x478335",
+        "size": 2,
+        "bytes": "33 f6",
+        "instruction": "xor     esi, esi",
+        "mnemonic": "xor"
+      },
+      {
+        "address": "0x478337",
+        "size": 1,
+        "bytes": "57",
+        "instruction": "push    edi",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x478338",
+        "size": 3,
+        "bytes": "8d 48 ef",
+        "instruction": "lea     ecx, [eax-11h]; switch 13 cases",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x47833b",
+        "size": 3,
+        "bytes": "83 f9 0c",
+        "instruction": "cmp     ecx, 0Ch",
+        "mnemonic": "cmp"
+      },
+      {
+        "address": "0x47833e",
+        "size": 6,
+        "bytes": "0f 87 8f 06 00 00",
+        "instruction": "ja      def_478344; jumptable 00478344 default case, cases 18,22,26-28",
+        "mnemonic": "ja"
+      },
+      {
+        "address": "0x478344",
+        "size": 7,
+        "bytes": "ff 24 8d d8 89 47 00",
+        "instruction": "jmp     ds:jpt_478344[ecx*4]; switch jump",
+        "mnemonic": "jmp"
+      },
+      {
+        "address": "0x47834b",
+        "size": 4,
+        "bytes": "8a 54 24 10",
+        "instruction": "mov     dl, [esp+8+arg_4]; jumptable 00478344 case 19",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47834f",
+        "size": 3,
+        "bytes": "f6 c2 01",
+        "instruction": "test    dl, 1",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x478352",
+        "size": 2,
+        "bytes": "74 42",
+        "instruction": "jz      short loc_478396",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x478354",
+        "size": 6,
+        "bytes": "8b 0d 94 46 cf 00",
+        "instruction": "mov     ecx, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47835a",
+        "size": 3,
+        "bytes": "8d 04 c0",
+        "instruction": "lea     eax, [eax+eax*8]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x47835d",
+        "size": 5,
+        "bytes": "bf d8 58 58 00",
+        "instruction": "mov     edi, offset asc_5858D8; \"切換成玩家狀態視窗。\"",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478362",
+        "size": 3,
+        "bytes": "8b 49 2c",
+        "instruction": "mov     ecx, [ecx+2Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478365",
+        "size": 4,
+        "bytes": "8b 44 81 1c",
+        "instruction": "mov     eax, [ecx+eax*4+1Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478369",
+        "size": 3,
+        "bytes": "83 c9 ff",
+        "instruction": "or      ecx, 0FFFFFFFFh",
+        "mnemonic": "or"
+      },
+      {
+        "address": "0x47836c",
+        "size": 6,
+        "bytes": "c7 00 b7 ba 03 00",
+        "instruction": "mov     dword ptr [eax], 3BAB7h",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478372",
+        "size": 2,
+        "bytes": "33 c0",
+        "instruction": "xor     eax, eax",
+        "mnemonic": "xor"
+      },
+      {
+        "address": "0x478374",
+        "size": 2,
+        "bytes": "f2 ae",
+        "instruction": "repne scasb",
+        "mnemonic": "scasb"
+      },
+      {
+        "address": "0x478376",
+        "size": 2,
+        "bytes": "f7 d1",
+        "instruction": "not     ecx",
+        "mnemonic": "not"
+      },
+      {
+        "address": "0x478378",
+        "size": 2,
+        "bytes": "2b f9",
+        "instruction": "sub     edi, ecx",
+        "mnemonic": "sub"
+      },
+      {
+        "address": "0x47837a",
+        "size": 2,
+        "bytes": "8b c1",
+        "instruction": "mov     eax, ecx",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47837c",
+        "size": 2,
+        "bytes": "8b f7",
+        "instruction": "mov     esi, edi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47837e",
+        "size": 5,
+        "bytes": "bf e8 8a d6 00",
+        "instruction": "mov     edi, offset byte_D68AE8",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478383",
+        "size": 3,
+        "bytes": "c1 e9 02",
+        "instruction": "shr     ecx, 2",
+        "mnemonic": "shr"
+      },
+      {
+        "address": "0x478386",
+        "size": 2,
+        "bytes": "f3 a5",
+        "instruction": "rep movsd",
+        "mnemonic": "movsd"
+      },
+      {
+        "address": "0x478388",
+        "size": 2,
+        "bytes": "8b c8",
+        "instruction": "mov     ecx, eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47838a",
+        "size": 3,
+        "bytes": "83 e1 03",
+        "instruction": "and     ecx, 3",
+        "mnemonic": "and"
+      },
+      {
+        "address": "0x47838d",
+        "size": 2,
+        "bytes": "f3 a4",
+        "instruction": "rep movsb",
+        "mnemonic": "movsb"
+      },
+      {
+        "address": "0x47838f",
+        "size": 5,
+        "bytes": "be 01 00 00 00",
+        "instruction": "mov     esi, 1",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478394",
+        "size": 2,
+        "bytes": "eb 15",
+        "instruction": "jmp     short loc_4783AB",
+        "mnemonic": "jmp"
+      },
+      {
+        "address": "0x478396",
+        "size": 3,
+        "bytes": "8d 0c c0",
+        "instruction": "lea     ecx, [eax+eax*8]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x478399",
+        "size": 5,
+        "bytes": "a1 94 46 cf 00",
+        "instruction": "mov     eax, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47839e",
+        "size": 3,
+        "bytes": "8b 40 2c",
+        "instruction": "mov     eax, [eax+2Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4783a1",
+        "size": 4,
+        "bytes": "8b 4c 88 1c",
+        "instruction": "mov     ecx, [eax+ecx*4+1Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4783a5",
+        "size": 6,
+        "bytes": "c7 01 b5 ba 03 00",
+        "instruction": "mov     dword ptr [ecx], 3BAB5h",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4783ab",
+        "size": 3,
+        "bytes": "f6 c2 02",
+        "instruction": "test    dl, 2",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x4783ae",
+        "size": 6,
+        "bytes": "0f 84 1f 06 00 00",
+        "instruction": "jz      def_478344; jumptable 00478344 default case, cases 18,22,26-28",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x4783b4",
+        "size": 5,
+        "bytes": "a1 08 ac c9 00",
+        "instruction": "mov     eax, gWindowState.window+24Ch",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4783b9",
+        "size": 2,
+        "bytes": "85 c0",
+        "instruction": "test    eax, eax",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x4783bb",
+        "size": 6,
+        "bytes": "0f 85 12 06 00 00",
+        "instruction": "jnz     def_478344; jumptable 00478344 default case, cases 18,22,26-28",
+        "mnemonic": "jnz"
+      },
+      {
+        "address": "0x4783c1",
+        "size": 5,
+        "bytes": "a1 94 46 cf 00",
+        "instruction": "mov     eax, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4783c6",
+        "size": 2,
+        "bytes": "6a 07",
+        "instruction": "push    7; a1",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4783c8",
+        "size": 2,
+        "bytes": "8b 08",
+        "instruction": "mov     ecx, [eax]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4783ca",
+        "size": 3,
+        "bytes": "80 cd 80",
+        "instruction": "or      ch, 80h",
+        "mnemonic": "or"
+      },
+      {
+        "address": "0x4783cd",
+        "size": 2,
+        "bytes": "89 08",
+        "instruction": "mov     [eax], ecx",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4783cf",
+        "size": 5,
+        "bytes": "e8 6c 90 ff ff",
+        "instruction": "call    Window__open",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x4783d4",
+        "size": 6,
+        "bytes": "8b 15 94 46 cf 00",
+        "instruction": "mov     edx, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4783da",
+        "size": 6,
+        "bytes": "8b 0d 08 ac c9 00",
+        "instruction": "mov     ecx, gWindowState.window+24Ch",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4783e0",
+        "size": 5,
+        "bytes": "68 f0 00 00 00",
+        "instruction": "push    0F0h",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4783e5",
+        "size": 5,
+        "bytes": "68 40 01 00 00",
+        "instruction": "push    140h",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4783ea",
+        "size": 3,
+        "bytes": "8b 42 0c",
+        "instruction": "mov     eax, [edx+0Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4783ed",
+        "size": 2,
+        "bytes": "6a 38",
+        "instruction": "push    38h ; '8'",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4783ef",
+        "size": 3,
+        "bytes": "89 41 0c",
+        "instruction": "mov     [ecx+0Ch], eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4783f2",
+        "size": 6,
+        "bytes": "8b 15 94 46 cf 00",
+        "instruction": "mov     edx, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4783f8",
+        "size": 6,
+        "bytes": "8b 0d 08 ac c9 00",
+        "instruction": "mov     ecx, gWindowState.window+24Ch",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4783fe",
+        "size": 3,
+        "bytes": "8b 42 10",
+        "instruction": "mov     eax, [edx+10h]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478401",
+        "size": 3,
+        "bytes": "89 41 10",
+        "instruction": "mov     [ecx+10h], eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478404",
+        "size": 5,
+        "bytes": "e8 47 40 0b 00",
+        "instruction": "call    World__PlaySe",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x478409",
+        "size": 3,
+        "bytes": "83 c4 10",
+        "instruction": "add     esp, 10h",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x47840c",
+        "size": 5,
+        "bytes": "be 01 00 00 00",
+        "instruction": "mov     esi, 1",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478411",
+        "size": 2,
+        "bytes": "8b c6",
+        "instruction": "mov     eax, esi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478413",
+        "size": 1,
+        "bytes": "5f",
+        "instruction": "pop     edi",
+        "mnemonic": "pop"
+      },
+      {
+        "address": "0x478414",
+        "size": 1,
+        "bytes": "5e",
+        "instruction": "pop     esi",
+        "mnemonic": "pop"
+      },
+      {
+        "address": "0x478415",
+        "size": 1,
+        "bytes": "c3",
+        "instruction": "retn",
+        "mnemonic": "retn"
+      },
+      {
+        "address": "0x478416",
+        "size": 4,
+        "bytes": "8a 54 24 10",
+        "instruction": "mov     dl, [esp+8+arg_4]; jumptable 00478344 case 20",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47841a",
+        "size": 3,
+        "bytes": "f6 c2 01",
+        "instruction": "test    dl, 1",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x47841d",
+        "size": 2,
+        "bytes": "74 42",
+        "instruction": "jz      short loc_478461",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x47841f",
+        "size": 6,
+        "bytes": "8b 0d 94 46 cf 00",
+        "instruction": "mov     ecx, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478425",
+        "size": 3,
+        "bytes": "8d 04 c0",
+        "instruction": "lea     eax, [eax+eax*8]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x478428",
+        "size": 5,
+        "bytes": "bf c0 58 58 00",
+        "instruction": "mov     edi, offset asc_5858C0; \"切換成玩家明細視窗。\"",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47842d",
+        "size": 3,
+        "bytes": "8b 49 2c",
+        "instruction": "mov     ecx, [ecx+2Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478430",
+        "size": 4,
+        "bytes": "8b 44 81 1c",
+        "instruction": "mov     eax, [ecx+eax*4+1Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478434",
+        "size": 3,
+        "bytes": "83 c9 ff",
+        "instruction": "or      ecx, 0FFFFFFFFh",
+        "mnemonic": "or"
+      },
+      {
+        "address": "0x478437",
+        "size": 6,
+        "bytes": "c7 00 85 b5 03 00",
+        "instruction": "mov     dword ptr [eax], 3B585h",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47843d",
+        "size": 2,
+        "bytes": "33 c0",
+        "instruction": "xor     eax, eax",
+        "mnemonic": "xor"
+      },
+      {
+        "address": "0x47843f",
+        "size": 2,
+        "bytes": "f2 ae",
+        "instruction": "repne scasb",
+        "mnemonic": "scasb"
+      },
+      {
+        "address": "0x478441",
+        "size": 2,
+        "bytes": "f7 d1",
+        "instruction": "not     ecx",
+        "mnemonic": "not"
+      },
+      {
+        "address": "0x478443",
+        "size": 2,
+        "bytes": "2b f9",
+        "instruction": "sub     edi, ecx",
+        "mnemonic": "sub"
+      },
+      {
+        "address": "0x478445",
+        "size": 2,
+        "bytes": "8b c1",
+        "instruction": "mov     eax, ecx",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478447",
+        "size": 2,
+        "bytes": "8b f7",
+        "instruction": "mov     esi, edi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478449",
+        "size": 5,
+        "bytes": "bf e8 8a d6 00",
+        "instruction": "mov     edi, offset byte_D68AE8",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47844e",
+        "size": 3,
+        "bytes": "c1 e9 02",
+        "instruction": "shr     ecx, 2",
+        "mnemonic": "shr"
+      },
+      {
+        "address": "0x478451",
+        "size": 2,
+        "bytes": "f3 a5",
+        "instruction": "rep movsd",
+        "mnemonic": "movsd"
+      },
+      {
+        "address": "0x478453",
+        "size": 2,
+        "bytes": "8b c8",
+        "instruction": "mov     ecx, eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478455",
+        "size": 3,
+        "bytes": "83 e1 03",
+        "instruction": "and     ecx, 3",
+        "mnemonic": "and"
+      },
+      {
+        "address": "0x478458",
+        "size": 2,
+        "bytes": "f3 a4",
+        "instruction": "rep movsb",
+        "mnemonic": "movsb"
+      },
+      {
+        "address": "0x47845a",
+        "size": 5,
+        "bytes": "be 01 00 00 00",
+        "instruction": "mov     esi, 1",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47845f",
+        "size": 2,
+        "bytes": "eb 15",
+        "instruction": "jmp     short loc_478476",
+        "mnemonic": "jmp"
+      },
+      {
+        "address": "0x478461",
+        "size": 3,
+        "bytes": "8d 0c c0",
+        "instruction": "lea     ecx, [eax+eax*8]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x478464",
+        "size": 5,
+        "bytes": "a1 94 46 cf 00",
+        "instruction": "mov     eax, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478469",
+        "size": 3,
+        "bytes": "8b 40 2c",
+        "instruction": "mov     eax, [eax+2Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47846c",
+        "size": 4,
+        "bytes": "8b 4c 88 1c",
+        "instruction": "mov     ecx, [eax+ecx*4+1Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478470",
+        "size": 6,
+        "bytes": "c7 01 83 b5 03 00",
+        "instruction": "mov     dword ptr [ecx], 3B583h",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478476",
+        "size": 3,
+        "bytes": "f6 c2 02",
+        "instruction": "test    dl, 2",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x478479",
+        "size": 6,
+        "bytes": "0f 84 54 05 00 00",
+        "instruction": "jz      def_478344; jumptable 00478344 default case, cases 18,22,26-28",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x47847f",
+        "size": 5,
+        "bytes": "a1 5c ac c9 00",
+        "instruction": "mov     eax, gWindowState.window+2A0h",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478484",
+        "size": 2,
+        "bytes": "85 c0",
+        "instruction": "test    eax, eax",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x478486",
+        "size": 6,
+        "bytes": "0f 85 47 05 00 00",
+        "instruction": "jnz     def_478344; jumptable 00478344 default case, cases 18,22,26-28",
+        "mnemonic": "jnz"
+      },
+      {
+        "address": "0x47848c",
+        "size": 5,
+        "bytes": "a1 94 46 cf 00",
+        "instruction": "mov     eax, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478491",
+        "size": 2,
+        "bytes": "6a 08",
+        "instruction": "push    8; a1",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x478493",
+        "size": 2,
+        "bytes": "8b 08",
+        "instruction": "mov     ecx, [eax]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478495",
+        "size": 3,
+        "bytes": "80 cd 80",
+        "instruction": "or      ch, 80h",
+        "mnemonic": "or"
+      },
+      {
+        "address": "0x478498",
+        "size": 2,
+        "bytes": "89 08",
+        "instruction": "mov     [eax], ecx",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47849a",
+        "size": 5,
+        "bytes": "e8 a1 8f ff ff",
+        "instruction": "call    Window__open",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x47849f",
+        "size": 6,
+        "bytes": "8b 15 94 46 cf 00",
+        "instruction": "mov     edx, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4784a5",
+        "size": 6,
+        "bytes": "8b 0d 5c ac c9 00",
+        "instruction": "mov     ecx, gWindowState.window+2A0h",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4784ab",
+        "size": 5,
+        "bytes": "68 f0 00 00 00",
+        "instruction": "push    0F0h",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4784b0",
+        "size": 5,
+        "bytes": "68 40 01 00 00",
+        "instruction": "push    140h",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4784b5",
+        "size": 3,
+        "bytes": "8b 42 0c",
+        "instruction": "mov     eax, [edx+0Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4784b8",
+        "size": 2,
+        "bytes": "6a 38",
+        "instruction": "push    38h ; '8'",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4784ba",
+        "size": 3,
+        "bytes": "89 41 0c",
+        "instruction": "mov     [ecx+0Ch], eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4784bd",
+        "size": 6,
+        "bytes": "8b 15 94 46 cf 00",
+        "instruction": "mov     edx, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4784c3",
+        "size": 6,
+        "bytes": "8b 0d 5c ac c9 00",
+        "instruction": "mov     ecx, gWindowState.window+2A0h",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4784c9",
+        "size": 3,
+        "bytes": "8b 42 10",
+        "instruction": "mov     eax, [edx+10h]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4784cc",
+        "size": 3,
+        "bytes": "89 41 10",
+        "instruction": "mov     [ecx+10h], eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4784cf",
+        "size": 5,
+        "bytes": "e8 7c 3f 0b 00",
+        "instruction": "call    World__PlaySe",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x4784d4",
+        "size": 3,
+        "bytes": "83 c4 10",
+        "instruction": "add     esp, 10h",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x4784d7",
+        "size": 5,
+        "bytes": "be 01 00 00 00",
+        "instruction": "mov     esi, 1",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4784dc",
+        "size": 2,
+        "bytes": "8b c6",
+        "instruction": "mov     eax, esi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4784de",
+        "size": 1,
+        "bytes": "5f",
+        "instruction": "pop     edi",
+        "mnemonic": "pop"
+      },
+      {
+        "address": "0x4784df",
+        "size": 1,
+        "bytes": "5e",
+        "instruction": "pop     esi",
+        "mnemonic": "pop"
+      },
+      {
+        "address": "0x4784e0",
+        "size": 1,
+        "bytes": "c3",
+        "instruction": "retn",
+        "mnemonic": "retn"
+      },
+      {
+        "address": "0x4784e1",
+        "size": 4,
+        "bytes": "8a 54 24 10",
+        "instruction": "mov     dl, [esp+8+arg_4]; jumptable 00478344 case 21",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4784e5",
+        "size": 3,
+        "bytes": "f6 c2 01",
+        "instruction": "test    dl, 1",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x4784e8",
+        "size": 2,
+        "bytes": "74 42",
+        "instruction": "jz      short loc_47852C",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x4784ea",
+        "size": 6,
+        "bytes": "8b 0d 94 46 cf 00",
+        "instruction": "mov     ecx, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4784f0",
+        "size": 3,
+        "bytes": "8d 04 c0",
+        "instruction": "lea     eax, [eax+eax*8]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x4784f3",
+        "size": 5,
+        "bytes": "bf a8 58 58 00",
+        "instruction": "mov     edi, offset asc_5858A8; \"切換成玩家稱號視窗。\"",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4784f8",
+        "size": 3,
+        "bytes": "8b 49 2c",
+        "instruction": "mov     ecx, [ecx+2Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4784fb",
+        "size": 4,
+        "bytes": "8b 44 81 1c",
+        "instruction": "mov     eax, [ecx+eax*4+1Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4784ff",
+        "size": 3,
+        "bytes": "83 c9 ff",
+        "instruction": "or      ecx, 0FFFFFFFFh",
+        "mnemonic": "or"
+      },
+      {
+        "address": "0x478502",
+        "size": 6,
+        "bytes": "c7 00 ba ba 03 00",
+        "instruction": "mov     dword ptr [eax], 3BABAh",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478508",
+        "size": 2,
+        "bytes": "33 c0",
+        "instruction": "xor     eax, eax",
+        "mnemonic": "xor"
+      },
+      {
+        "address": "0x47850a",
+        "size": 2,
+        "bytes": "f2 ae",
+        "instruction": "repne scasb",
+        "mnemonic": "scasb"
+      },
+      {
+        "address": "0x47850c",
+        "size": 2,
+        "bytes": "f7 d1",
+        "instruction": "not     ecx",
+        "mnemonic": "not"
+      },
+      {
+        "address": "0x47850e",
+        "size": 2,
+        "bytes": "2b f9",
+        "instruction": "sub     edi, ecx",
+        "mnemonic": "sub"
+      },
+      {
+        "address": "0x478510",
+        "size": 2,
+        "bytes": "8b c1",
+        "instruction": "mov     eax, ecx",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478512",
+        "size": 2,
+        "bytes": "8b f7",
+        "instruction": "mov     esi, edi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478514",
+        "size": 5,
+        "bytes": "bf e8 8a d6 00",
+        "instruction": "mov     edi, offset byte_D68AE8",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478519",
+        "size": 3,
+        "bytes": "c1 e9 02",
+        "instruction": "shr     ecx, 2",
+        "mnemonic": "shr"
+      },
+      {
+        "address": "0x47851c",
+        "size": 2,
+        "bytes": "f3 a5",
+        "instruction": "rep movsd",
+        "mnemonic": "movsd"
+      },
+      {
+        "address": "0x47851e",
+        "size": 2,
+        "bytes": "8b c8",
+        "instruction": "mov     ecx, eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478520",
+        "size": 3,
+        "bytes": "83 e1 03",
+        "instruction": "and     ecx, 3",
+        "mnemonic": "and"
+      },
+      {
+        "address": "0x478523",
+        "size": 2,
+        "bytes": "f3 a4",
+        "instruction": "rep movsb",
+        "mnemonic": "movsb"
+      },
+      {
+        "address": "0x478525",
+        "size": 5,
+        "bytes": "be 01 00 00 00",
+        "instruction": "mov     esi, 1",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47852a",
+        "size": 2,
+        "bytes": "eb 15",
+        "instruction": "jmp     short loc_478541",
+        "mnemonic": "jmp"
+      },
+      {
+        "address": "0x47852c",
+        "size": 3,
+        "bytes": "8d 0c c0",
+        "instruction": "lea     ecx, [eax+eax*8]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x47852f",
+        "size": 5,
+        "bytes": "a1 94 46 cf 00",
+        "instruction": "mov     eax, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478534",
+        "size": 3,
+        "bytes": "8b 40 2c",
+        "instruction": "mov     eax, [eax+2Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478537",
+        "size": 4,
+        "bytes": "8b 4c 88 1c",
+        "instruction": "mov     ecx, [eax+ecx*4+1Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47853b",
+        "size": 6,
+        "bytes": "c7 01 b8 ba 03 00",
+        "instruction": "mov     dword ptr [ecx], 3BAB8h",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478541",
+        "size": 3,
+        "bytes": "f6 c2 02",
+        "instruction": "test    dl, 2",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x478544",
+        "size": 6,
+        "bytes": "0f 84 89 04 00 00",
+        "instruction": "jz      def_478344; jumptable 00478344 default case, cases 18,22,26-28",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x47854a",
+        "size": 5,
+        "bytes": "a1 b0 ac c9 00",
+        "instruction": "mov     eax, gWindowState.window+2F4h",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47854f",
+        "size": 2,
+        "bytes": "85 c0",
+        "instruction": "test    eax, eax",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x478551",
+        "size": 6,
+        "bytes": "0f 85 7c 04 00 00",
+        "instruction": "jnz     def_478344; jumptable 00478344 default case, cases 18,22,26-28",
+        "mnemonic": "jnz"
+      },
+      {
+        "address": "0x478557",
+        "size": 5,
+        "bytes": "a1 94 46 cf 00",
+        "instruction": "mov     eax, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47855c",
+        "size": 2,
+        "bytes": "6a 09",
+        "instruction": "push    9; a1",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x47855e",
+        "size": 2,
+        "bytes": "8b 08",
+        "instruction": "mov     ecx, [eax]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478560",
+        "size": 3,
+        "bytes": "80 cd 80",
+        "instruction": "or      ch, 80h",
+        "mnemonic": "or"
+      },
+      {
+        "address": "0x478563",
+        "size": 2,
+        "bytes": "89 08",
+        "instruction": "mov     [eax], ecx",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478565",
+        "size": 5,
+        "bytes": "e8 d6 8e ff ff",
+        "instruction": "call    Window__open",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x47856a",
+        "size": 6,
+        "bytes": "8b 15 94 46 cf 00",
+        "instruction": "mov     edx, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478570",
+        "size": 6,
+        "bytes": "8b 0d b0 ac c9 00",
+        "instruction": "mov     ecx, gWindowState.window+2F4h",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478576",
+        "size": 5,
+        "bytes": "68 f0 00 00 00",
+        "instruction": "push    0F0h",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x47857b",
+        "size": 5,
+        "bytes": "68 40 01 00 00",
+        "instruction": "push    140h",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x478580",
+        "size": 3,
+        "bytes": "8b 42 0c",
+        "instruction": "mov     eax, [edx+0Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478583",
+        "size": 2,
+        "bytes": "6a 38",
+        "instruction": "push    38h ; '8'",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x478585",
+        "size": 3,
+        "bytes": "89 41 0c",
+        "instruction": "mov     [ecx+0Ch], eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478588",
+        "size": 6,
+        "bytes": "8b 15 94 46 cf 00",
+        "instruction": "mov     edx, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47858e",
+        "size": 6,
+        "bytes": "8b 0d b0 ac c9 00",
+        "instruction": "mov     ecx, gWindowState.window+2F4h",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478594",
+        "size": 3,
+        "bytes": "8b 42 10",
+        "instruction": "mov     eax, [edx+10h]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478597",
+        "size": 3,
+        "bytes": "89 41 10",
+        "instruction": "mov     [ecx+10h], eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47859a",
+        "size": 5,
+        "bytes": "e8 b1 3e 0b 00",
+        "instruction": "call    World__PlaySe",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x47859f",
+        "size": 3,
+        "bytes": "83 c4 10",
+        "instruction": "add     esp, 10h",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x4785a2",
+        "size": 5,
+        "bytes": "be 01 00 00 00",
+        "instruction": "mov     esi, 1",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4785a7",
+        "size": 2,
+        "bytes": "8b c6",
+        "instruction": "mov     eax, esi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4785a9",
+        "size": 1,
+        "bytes": "5f",
+        "instruction": "pop     edi",
+        "mnemonic": "pop"
+      },
+      {
+        "address": "0x4785aa",
+        "size": 1,
+        "bytes": "5e",
+        "instruction": "pop     esi",
+        "mnemonic": "pop"
+      },
+      {
+        "address": "0x4785ab",
+        "size": 1,
+        "bytes": "c3",
+        "instruction": "retn",
+        "mnemonic": "retn"
+      },
+      {
+        "address": "0x4785ac",
+        "size": 4,
+        "bytes": "8a 54 24 10",
+        "instruction": "mov     dl, [esp+8+arg_4]; jumptable 00478344 case 23",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4785b0",
+        "size": 3,
+        "bytes": "f6 c2 01",
+        "instruction": "test    dl, 1",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x4785b3",
+        "size": 2,
+        "bytes": "74 42",
+        "instruction": "jz      short loc_4785F7",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x4785b5",
+        "size": 6,
+        "bytes": "8b 0d 94 46 cf 00",
+        "instruction": "mov     ecx, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4785bb",
+        "size": 3,
+        "bytes": "8d 04 c0",
+        "instruction": "lea     eax, [eax+eax*8]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x4785be",
+        "size": 5,
+        "bytes": "bf 40 64 58 00",
+        "instruction": "mov     edi, offset asc_586440; \"開啟目錄視窗\"",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4785c3",
+        "size": 3,
+        "bytes": "8b 49 2c",
+        "instruction": "mov     ecx, [ecx+2Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4785c6",
+        "size": 4,
+        "bytes": "8b 44 81 1c",
+        "instruction": "mov     eax, [ecx+eax*4+1Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4785ca",
+        "size": 3,
+        "bytes": "83 c9 ff",
+        "instruction": "or      ecx, 0FFFFFFFFh",
+        "mnemonic": "or"
+      },
+      {
+        "address": "0x4785cd",
+        "size": 6,
+        "bytes": "c7 00 5b b5 03 00",
+        "instruction": "mov     dword ptr [eax], 3B55Bh",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4785d3",
+        "size": 2,
+        "bytes": "33 c0",
+        "instruction": "xor     eax, eax",
+        "mnemonic": "xor"
+      },
+      {
+        "address": "0x4785d5",
+        "size": 2,
+        "bytes": "f2 ae",
+        "instruction": "repne scasb",
+        "mnemonic": "scasb"
+      },
+      {
+        "address": "0x4785d7",
+        "size": 2,
+        "bytes": "f7 d1",
+        "instruction": "not     ecx",
+        "mnemonic": "not"
+      },
+      {
+        "address": "0x4785d9",
+        "size": 2,
+        "bytes": "2b f9",
+        "instruction": "sub     edi, ecx",
+        "mnemonic": "sub"
+      },
+      {
+        "address": "0x4785db",
+        "size": 2,
+        "bytes": "8b c1",
+        "instruction": "mov     eax, ecx",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4785dd",
+        "size": 2,
+        "bytes": "8b f7",
+        "instruction": "mov     esi, edi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4785df",
+        "size": 5,
+        "bytes": "bf e8 8a d6 00",
+        "instruction": "mov     edi, offset byte_D68AE8",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4785e4",
+        "size": 3,
+        "bytes": "c1 e9 02",
+        "instruction": "shr     ecx, 2",
+        "mnemonic": "shr"
+      },
+      {
+        "address": "0x4785e7",
+        "size": 2,
+        "bytes": "f3 a5",
+        "instruction": "rep movsd",
+        "mnemonic": "movsd"
+      },
+      {
+        "address": "0x4785e9",
+        "size": 2,
+        "bytes": "8b c8",
+        "instruction": "mov     ecx, eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4785eb",
+        "size": 3,
+        "bytes": "83 e1 03",
+        "instruction": "and     ecx, 3",
+        "mnemonic": "and"
+      },
+      {
+        "address": "0x4785ee",
+        "size": 2,
+        "bytes": "f3 a4",
+        "instruction": "rep movsb",
+        "mnemonic": "movsb"
+      },
+      {
+        "address": "0x4785f0",
+        "size": 5,
+        "bytes": "be 01 00 00 00",
+        "instruction": "mov     esi, 1",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4785f5",
+        "size": 2,
+        "bytes": "eb 15",
+        "instruction": "jmp     short loc_47860C",
+        "mnemonic": "jmp"
+      },
+      {
+        "address": "0x4785f7",
+        "size": 3,
+        "bytes": "8d 0c c0",
+        "instruction": "lea     ecx, [eax+eax*8]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x4785fa",
+        "size": 5,
+        "bytes": "a1 94 46 cf 00",
+        "instruction": "mov     eax, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4785ff",
+        "size": 3,
+        "bytes": "8b 40 2c",
+        "instruction": "mov     eax, [eax+2Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478602",
+        "size": 4,
+        "bytes": "8b 4c 88 1c",
+        "instruction": "mov     ecx, [eax+ecx*4+1Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478606",
+        "size": 6,
+        "bytes": "c7 01 59 b5 03 00",
+        "instruction": "mov     dword ptr [ecx], 3B559h",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47860c",
+        "size": 3,
+        "bytes": "f6 c2 02",
+        "instruction": "test    dl, 2",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x47860f",
+        "size": 2,
+        "bytes": "74 4f",
+        "instruction": "jz      short loc_478660",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x478611",
+        "size": 5,
+        "bytes": "a1 b0 ac c9 00",
+        "instruction": "mov     eax, gWindowState.window+2F4h",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478616",
+        "size": 2,
+        "bytes": "85 c0",
+        "instruction": "test    eax, eax",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x478618",
+        "size": 2,
+        "bytes": "74 16",
+        "instruction": "jz      short loc_478630",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x47861a",
+        "size": 5,
+        "bytes": "ba 0c bd c9 00",
+        "instruction": "mov     edx, 0C9BD0Ch",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47861f",
+        "size": 2,
+        "bytes": "85 d2",
+        "instruction": "test    edx, edx",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x478621",
+        "size": 2,
+        "bytes": "74 0d",
+        "instruction": "jz      short loc_478630",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x478623",
+        "size": 5,
+        "bytes": "a1 0c bd c9 00",
+        "instruction": "mov     eax, gWindowState.flag+135Ch",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478628",
+        "size": 3,
+        "bytes": "80 cc 80",
+        "instruction": "or      ah, 80h",
+        "mnemonic": "or"
+      },
+      {
+        "address": "0x47862b",
+        "size": 5,
+        "bytes": "a3 0c bd c9 00",
+        "instruction": "mov     gWindowState.flag+135Ch, eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478630",
+        "size": 2,
+        "bytes": "6a 00",
+        "instruction": "push    0",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x478632",
+        "size": 2,
+        "bytes": "6a 00",
+        "instruction": "push    0",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x478634",
+        "size": 2,
+        "bytes": "6a 01",
+        "instruction": "push    1",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x478636",
+        "size": 2,
+        "bytes": "6a 3b",
+        "instruction": "push    3Bh ; ';'",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x478638",
+        "size": 10,
+        "bytes": "c7 05 a0 5d 08 01 00 00 00 00",
+        "instruction": "mov     dword_1085DA0, 0",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478642",
+        "size": 5,
+        "bytes": "e8 59 d4 ff ff",
+        "instruction": "call    Yobi__newWindow2",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x478647",
+        "size": 5,
+        "bytes": "68 f0 00 00 00",
+        "instruction": "push    0F0h",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x47864c",
+        "size": 5,
+        "bytes": "68 40 01 00 00",
+        "instruction": "push    140h",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x478651",
+        "size": 2,
+        "bytes": "6a 38",
+        "instruction": "push    38h ; '8'",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x478653",
+        "size": 5,
+        "bytes": "e8 f8 3d 0b 00",
+        "instruction": "call    World__PlaySe",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x478658",
+        "size": 3,
+        "bytes": "83 c4 1c",
+        "instruction": "add     esp, 1Ch",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x47865b",
+        "size": 5,
+        "bytes": "be 01 00 00 00",
+        "instruction": "mov     esi, 1",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478660",
+        "size": 5,
+        "bytes": "a1 18 bd c9 00",
+        "instruction": "mov     eax, gWindowState.window+135Ch",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478665",
+        "size": 2,
+        "bytes": "85 c0",
+        "instruction": "test    eax, eax",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x478667",
+        "size": 6,
+        "bytes": "0f 84 66 03 00 00",
+        "instruction": "jz      def_478344; jumptable 00478344 default case, cases 18,22,26-28",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x47866d",
+        "size": 5,
+        "bytes": "a1 a0 5d 08 01",
+        "instruction": "mov     eax, dword_1085DA0",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478672",
+        "size": 2,
+        "bytes": "85 c0",
+        "instruction": "test    eax, eax",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x478674",
+        "size": 6,
+        "bytes": "0f 85 59 03 00 00",
+        "instruction": "jnz     def_478344; jumptable 00478344 default case, cases 18,22,26-28",
+        "mnemonic": "jnz"
+      },
+      {
+        "address": "0x47867a",
+        "size": 5,
+        "bytes": "a1 94 46 cf 00",
+        "instruction": "mov     eax, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47867f",
+        "size": 1,
+        "bytes": "5f",
+        "instruction": "pop     edi",
+        "mnemonic": "pop"
+      },
+      {
+        "address": "0x478680",
+        "size": 3,
+        "bytes": "8b 48 2c",
+        "instruction": "mov     ecx, [eax+2Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478683",
+        "size": 2,
+        "bytes": "8b c6",
+        "instruction": "mov     eax, esi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478685",
+        "size": 1,
+        "bytes": "5e",
+        "instruction": "pop     esi",
+        "mnemonic": "pop"
+      },
+      {
+        "address": "0x478686",
+        "size": 6,
+        "bytes": "8b 91 58 03 00 00",
+        "instruction": "mov     edx, [ecx+358h]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47868c",
+        "size": 6,
+        "bytes": "c7 02 5a b5 03 00",
+        "instruction": "mov     dword ptr [edx], 3B55Ah",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478692",
+        "size": 1,
+        "bytes": "c3",
+        "instruction": "retn",
+        "mnemonic": "retn"
+      },
+      {
+        "address": "0x478693",
+        "size": 4,
+        "bytes": "8a 54 24 10",
+        "instruction": "mov     dl, [esp+8+arg_4]; jumptable 00478344 case 24",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478697",
+        "size": 3,
+        "bytes": "f6 c2 01",
+        "instruction": "test    dl, 1",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x47869a",
+        "size": 2,
+        "bytes": "74 44",
+        "instruction": "jz      short loc_4786E0",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x47869c",
+        "size": 6,
+        "bytes": "8b 0d 94 46 cf 00",
+        "instruction": "mov     ecx, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4786a2",
+        "size": 3,
+        "bytes": "8d 04 c0",
+        "instruction": "lea     eax, [eax+eax*8]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x4786a5",
+        "size": 5,
+        "bytes": "bf 40 64 58 00",
+        "instruction": "mov     edi, offset asc_586440; \"開啟目錄視窗\"",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4786aa",
+        "size": 3,
+        "bytes": "8b 49 2c",
+        "instruction": "mov     ecx, [ecx+2Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4786ad",
+        "size": 4,
+        "bytes": "8b 44 81 1c",
+        "instruction": "mov     eax, [ecx+eax*4+1Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4786b1",
+        "size": 3,
+        "bytes": "83 c9 ff",
+        "instruction": "or      ecx, 0FFFFFFFFh",
+        "mnemonic": "or"
+      },
+      {
+        "address": "0x4786b4",
+        "size": 6,
+        "bytes": "c7 00 5b b5 03 00",
+        "instruction": "mov     dword ptr [eax], 3B55Bh",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4786ba",
+        "size": 2,
+        "bytes": "33 c0",
+        "instruction": "xor     eax, eax",
+        "mnemonic": "xor"
+      },
+      {
+        "address": "0x4786bc",
+        "size": 2,
+        "bytes": "f2 ae",
+        "instruction": "repne scasb",
+        "mnemonic": "scasb"
+      },
+      {
+        "address": "0x4786be",
+        "size": 2,
+        "bytes": "f7 d1",
+        "instruction": "not     ecx",
+        "mnemonic": "not"
+      },
+      {
+        "address": "0x4786c0",
+        "size": 2,
+        "bytes": "2b f9",
+        "instruction": "sub     edi, ecx",
+        "mnemonic": "sub"
+      },
+      {
+        "address": "0x4786c2",
+        "size": 2,
+        "bytes": "8b c1",
+        "instruction": "mov     eax, ecx",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4786c4",
+        "size": 2,
+        "bytes": "8b f7",
+        "instruction": "mov     esi, edi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4786c6",
+        "size": 5,
+        "bytes": "bf e8 8a d6 00",
+        "instruction": "mov     edi, offset byte_D68AE8",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4786cb",
+        "size": 3,
+        "bytes": "c1 e9 02",
+        "instruction": "shr     ecx, 2",
+        "mnemonic": "shr"
+      },
+      {
+        "address": "0x4786ce",
+        "size": 2,
+        "bytes": "f3 a5",
+        "instruction": "rep movsd",
+        "mnemonic": "movsd"
+      },
+      {
+        "address": "0x4786d0",
+        "size": 2,
+        "bytes": "8b c8",
+        "instruction": "mov     ecx, eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4786d2",
+        "size": 3,
+        "bytes": "83 e1 03",
+        "instruction": "and     ecx, 3",
+        "mnemonic": "and"
+      },
+      {
+        "address": "0x4786d5",
+        "size": 2,
+        "bytes": "f3 a4",
+        "instruction": "rep movsb",
+        "mnemonic": "movsb"
+      },
+      {
+        "address": "0x4786d7",
+        "size": 5,
+        "bytes": "bf 01 00 00 00",
+        "instruction": "mov     edi, 1",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4786dc",
+        "size": 2,
+        "bytes": "8b f7",
+        "instruction": "mov     esi, edi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4786de",
+        "size": 2,
+        "bytes": "eb 1a",
+        "instruction": "jmp     short loc_4786FA",
+        "mnemonic": "jmp"
+      },
+      {
+        "address": "0x4786e0",
+        "size": 3,
+        "bytes": "8d 0c c0",
+        "instruction": "lea     ecx, [eax+eax*8]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x4786e3",
+        "size": 5,
+        "bytes": "a1 94 46 cf 00",
+        "instruction": "mov     eax, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4786e8",
+        "size": 5,
+        "bytes": "bf 01 00 00 00",
+        "instruction": "mov     edi, 1",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4786ed",
+        "size": 3,
+        "bytes": "8b 40 2c",
+        "instruction": "mov     eax, [eax+2Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4786f0",
+        "size": 4,
+        "bytes": "8b 4c 88 1c",
+        "instruction": "mov     ecx, [eax+ecx*4+1Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4786f4",
+        "size": 6,
+        "bytes": "c7 01 59 b5 03 00",
+        "instruction": "mov     dword ptr [ecx], 3B559h",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4786fa",
+        "size": 3,
+        "bytes": "f6 c2 02",
+        "instruction": "test    dl, 2",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x4786fd",
+        "size": 2,
+        "bytes": "74 47",
+        "instruction": "jz      short loc_478746",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x4786ff",
+        "size": 5,
+        "bytes": "a1 b0 ac c9 00",
+        "instruction": "mov     eax, gWindowState.window+2F4h",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478704",
+        "size": 2,
+        "bytes": "85 c0",
+        "instruction": "test    eax, eax",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x478706",
+        "size": 2,
+        "bytes": "74 16",
+        "instruction": "jz      short loc_47871E",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x478708",
+        "size": 5,
+        "bytes": "ba 0c bd c9 00",
+        "instruction": "mov     edx, 0C9BD0Ch",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47870d",
+        "size": 2,
+        "bytes": "85 d2",
+        "instruction": "test    edx, edx",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x47870f",
+        "size": 2,
+        "bytes": "74 0d",
+        "instruction": "jz      short loc_47871E",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x478711",
+        "size": 5,
+        "bytes": "a1 0c bd c9 00",
+        "instruction": "mov     eax, gWindowState.flag+135Ch",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478716",
+        "size": 3,
+        "bytes": "80 cc 80",
+        "instruction": "or      ah, 80h",
+        "mnemonic": "or"
+      },
+      {
+        "address": "0x478719",
+        "size": 5,
+        "bytes": "a3 0c bd c9 00",
+        "instruction": "mov     gWindowState.flag+135Ch, eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47871e",
+        "size": 2,
+        "bytes": "6a 00",
+        "instruction": "push    0",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x478720",
+        "size": 2,
+        "bytes": "6a 00",
+        "instruction": "push    0",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x478722",
+        "size": 1,
+        "bytes": "57",
+        "instruction": "push    edi",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x478723",
+        "size": 2,
+        "bytes": "6a 3b",
+        "instruction": "push    3Bh ; ';'",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x478725",
+        "size": 6,
+        "bytes": "89 3d a0 5d 08 01",
+        "instruction": "mov     dword_1085DA0, edi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47872b",
+        "size": 5,
+        "bytes": "e8 70 d3 ff ff",
+        "instruction": "call    Yobi__newWindow2",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x478730",
+        "size": 5,
+        "bytes": "68 f0 00 00 00",
+        "instruction": "push    0F0h",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x478735",
+        "size": 5,
+        "bytes": "68 40 01 00 00",
+        "instruction": "push    140h",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x47873a",
+        "size": 2,
+        "bytes": "6a 38",
+        "instruction": "push    38h ; '8'",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x47873c",
+        "size": 5,
+        "bytes": "e8 0f 3d 0b 00",
+        "instruction": "call    World__PlaySe",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x478741",
+        "size": 3,
+        "bytes": "83 c4 1c",
+        "instruction": "add     esp, 1Ch",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x478744",
+        "size": 2,
+        "bytes": "8b f7",
+        "instruction": "mov     esi, edi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478746",
+        "size": 5,
+        "bytes": "a1 18 bd c9 00",
+        "instruction": "mov     eax, gWindowState.window+135Ch",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47874b",
+        "size": 2,
+        "bytes": "85 c0",
+        "instruction": "test    eax, eax",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x47874d",
+        "size": 6,
+        "bytes": "0f 84 80 02 00 00",
+        "instruction": "jz      def_478344; jumptable 00478344 default case, cases 18,22,26-28",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x478753",
+        "size": 6,
+        "bytes": "39 3d a0 5d 08 01",
+        "instruction": "cmp     dword_1085DA0, edi",
+        "mnemonic": "cmp"
+      },
+      {
+        "address": "0x478759",
+        "size": 6,
+        "bytes": "0f 85 74 02 00 00",
+        "instruction": "jnz     def_478344; jumptable 00478344 default case, cases 18,22,26-28",
+        "mnemonic": "jnz"
+      },
+      {
+        "address": "0x47875f",
+        "size": 5,
+        "bytes": "a1 94 46 cf 00",
+        "instruction": "mov     eax, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478764",
+        "size": 1,
+        "bytes": "5f",
+        "instruction": "pop     edi",
+        "mnemonic": "pop"
+      },
+      {
+        "address": "0x478765",
+        "size": 3,
+        "bytes": "8b 48 2c",
+        "instruction": "mov     ecx, [eax+2Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478768",
+        "size": 2,
+        "bytes": "8b c6",
+        "instruction": "mov     eax, esi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47876a",
+        "size": 1,
+        "bytes": "5e",
+        "instruction": "pop     esi",
+        "mnemonic": "pop"
+      },
+      {
+        "address": "0x47876b",
+        "size": 6,
+        "bytes": "8b 91 7c 03 00 00",
+        "instruction": "mov     edx, [ecx+37Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478771",
+        "size": 6,
+        "bytes": "c7 02 5a b5 03 00",
+        "instruction": "mov     dword ptr [edx], 3B55Ah",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478777",
+        "size": 1,
+        "bytes": "c3",
+        "instruction": "retn",
+        "mnemonic": "retn"
+      },
+      {
+        "address": "0x478778",
+        "size": 4,
+        "bytes": "8a 54 24 10",
+        "instruction": "mov     dl, [esp+8+arg_4]; jumptable 00478344 case 25",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47877c",
+        "size": 3,
+        "bytes": "f6 c2 01",
+        "instruction": "test    dl, 1",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x47877f",
+        "size": 2,
+        "bytes": "74 42",
+        "instruction": "jz      short loc_4787C3",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x478781",
+        "size": 6,
+        "bytes": "8b 0d 94 46 cf 00",
+        "instruction": "mov     ecx, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478787",
+        "size": 3,
+        "bytes": "8d 04 c0",
+        "instruction": "lea     eax, [eax+eax*8]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x47878a",
+        "size": 5,
+        "bytes": "bf 40 64 58 00",
+        "instruction": "mov     edi, offset asc_586440; \"開啟目錄視窗\"",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47878f",
+        "size": 3,
+        "bytes": "8b 49 2c",
+        "instruction": "mov     ecx, [ecx+2Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478792",
+        "size": 4,
+        "bytes": "8b 44 81 1c",
+        "instruction": "mov     eax, [ecx+eax*4+1Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478796",
+        "size": 3,
+        "bytes": "83 c9 ff",
+        "instruction": "or      ecx, 0FFFFFFFFh",
+        "mnemonic": "or"
+      },
+      {
+        "address": "0x478799",
+        "size": 6,
+        "bytes": "c7 00 5b b5 03 00",
+        "instruction": "mov     dword ptr [eax], 3B55Bh",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47879f",
+        "size": 2,
+        "bytes": "33 c0",
+        "instruction": "xor     eax, eax",
+        "mnemonic": "xor"
+      },
+      {
+        "address": "0x4787a1",
+        "size": 2,
+        "bytes": "f2 ae",
+        "instruction": "repne scasb",
+        "mnemonic": "scasb"
+      },
+      {
+        "address": "0x4787a3",
+        "size": 2,
+        "bytes": "f7 d1",
+        "instruction": "not     ecx",
+        "mnemonic": "not"
+      },
+      {
+        "address": "0x4787a5",
+        "size": 2,
+        "bytes": "2b f9",
+        "instruction": "sub     edi, ecx",
+        "mnemonic": "sub"
+      },
+      {
+        "address": "0x4787a7",
+        "size": 2,
+        "bytes": "8b c1",
+        "instruction": "mov     eax, ecx",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4787a9",
+        "size": 2,
+        "bytes": "8b f7",
+        "instruction": "mov     esi, edi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4787ab",
+        "size": 5,
+        "bytes": "bf e8 8a d6 00",
+        "instruction": "mov     edi, offset byte_D68AE8",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4787b0",
+        "size": 3,
+        "bytes": "c1 e9 02",
+        "instruction": "shr     ecx, 2",
+        "mnemonic": "shr"
+      },
+      {
+        "address": "0x4787b3",
+        "size": 2,
+        "bytes": "f3 a5",
+        "instruction": "rep movsd",
+        "mnemonic": "movsd"
+      },
+      {
+        "address": "0x4787b5",
+        "size": 2,
+        "bytes": "8b c8",
+        "instruction": "mov     ecx, eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4787b7",
+        "size": 3,
+        "bytes": "83 e1 03",
+        "instruction": "and     ecx, 3",
+        "mnemonic": "and"
+      },
+      {
+        "address": "0x4787ba",
+        "size": 2,
+        "bytes": "f3 a4",
+        "instruction": "rep movsb",
+        "mnemonic": "movsb"
+      },
+      {
+        "address": "0x4787bc",
+        "size": 5,
+        "bytes": "be 01 00 00 00",
+        "instruction": "mov     esi, 1",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4787c1",
+        "size": 2,
+        "bytes": "eb 15",
+        "instruction": "jmp     short loc_4787D8",
+        "mnemonic": "jmp"
+      },
+      {
+        "address": "0x4787c3",
+        "size": 3,
+        "bytes": "8d 0c c0",
+        "instruction": "lea     ecx, [eax+eax*8]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x4787c6",
+        "size": 5,
+        "bytes": "a1 94 46 cf 00",
+        "instruction": "mov     eax, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4787cb",
+        "size": 3,
+        "bytes": "8b 40 2c",
+        "instruction": "mov     eax, [eax+2Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4787ce",
+        "size": 4,
+        "bytes": "8b 4c 88 1c",
+        "instruction": "mov     ecx, [eax+ecx*4+1Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4787d2",
+        "size": 6,
+        "bytes": "c7 01 59 b5 03 00",
+        "instruction": "mov     dword ptr [ecx], 3B559h",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4787d8",
+        "size": 3,
+        "bytes": "f6 c2 02",
+        "instruction": "test    dl, 2",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x4787db",
+        "size": 2,
+        "bytes": "74 4f",
+        "instruction": "jz      short loc_47882C",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x4787dd",
+        "size": 5,
+        "bytes": "a1 b0 ac c9 00",
+        "instruction": "mov     eax, gWindowState.window+2F4h",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4787e2",
+        "size": 2,
+        "bytes": "85 c0",
+        "instruction": "test    eax, eax",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x4787e4",
+        "size": 2,
+        "bytes": "74 16",
+        "instruction": "jz      short loc_4787FC",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x4787e6",
+        "size": 5,
+        "bytes": "ba 0c bd c9 00",
+        "instruction": "mov     edx, (offset gWindowState.flag+135Ch)",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4787eb",
+        "size": 2,
+        "bytes": "85 d2",
+        "instruction": "test    edx, edx",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x4787ed",
+        "size": 2,
+        "bytes": "74 0d",
+        "instruction": "jz      short loc_4787FC",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x4787ef",
+        "size": 5,
+        "bytes": "a1 0c bd c9 00",
+        "instruction": "mov     eax, gWindowState.flag+135Ch",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4787f4",
+        "size": 3,
+        "bytes": "80 cc 80",
+        "instruction": "or      ah, 80h",
+        "mnemonic": "or"
+      },
+      {
+        "address": "0x4787f7",
+        "size": 5,
+        "bytes": "a3 0c bd c9 00",
+        "instruction": "mov     gWindowState.flag+135Ch, eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4787fc",
+        "size": 2,
+        "bytes": "6a 00",
+        "instruction": "push    0",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4787fe",
+        "size": 2,
+        "bytes": "6a 00",
+        "instruction": "push    0",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x478800",
+        "size": 2,
+        "bytes": "6a 01",
+        "instruction": "push    1",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x478802",
+        "size": 2,
+        "bytes": "6a 3b",
+        "instruction": "push    3Bh ; ';'",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x478804",
+        "size": 10,
+        "bytes": "c7 05 a0 5d 08 01 02 00 00 00",
+        "instruction": "mov     dword_1085DA0, 2",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47880e",
+        "size": 5,
+        "bytes": "e8 8d d2 ff ff",
+        "instruction": "call    Yobi__newWindow2",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x478813",
+        "size": 5,
+        "bytes": "68 f0 00 00 00",
+        "instruction": "push    0F0h",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x478818",
+        "size": 5,
+        "bytes": "68 40 01 00 00",
+        "instruction": "push    140h",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x47881d",
+        "size": 2,
+        "bytes": "6a 38",
+        "instruction": "push    38h ; '8'",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x47881f",
+        "size": 5,
+        "bytes": "e8 2c 3c 0b 00",
+        "instruction": "call    World__PlaySe",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x478824",
+        "size": 3,
+        "bytes": "83 c4 1c",
+        "instruction": "add     esp, 1Ch",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x478827",
+        "size": 5,
+        "bytes": "be 01 00 00 00",
+        "instruction": "mov     esi, 1",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47882c",
+        "size": 5,
+        "bytes": "a1 18 bd c9 00",
+        "instruction": "mov     eax, gWindowState.window+135Ch",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478831",
+        "size": 2,
+        "bytes": "85 c0",
+        "instruction": "test    eax, eax",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x478833",
+        "size": 6,
+        "bytes": "0f 84 9a 01 00 00",
+        "instruction": "jz      def_478344; jumptable 00478344 default case, cases 18,22,26-28",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x478839",
+        "size": 7,
+        "bytes": "83 3d a0 5d 08 01 02",
+        "instruction": "cmp     dword_1085DA0, 2",
+        "mnemonic": "cmp"
+      },
+      {
+        "address": "0x478840",
+        "size": 6,
+        "bytes": "0f 85 8d 01 00 00",
+        "instruction": "jnz     def_478344; jumptable 00478344 default case, cases 18,22,26-28",
+        "mnemonic": "jnz"
+      },
+      {
+        "address": "0x478846",
+        "size": 5,
+        "bytes": "a1 94 46 cf 00",
+        "instruction": "mov     eax, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47884b",
+        "size": 1,
+        "bytes": "5f",
+        "instruction": "pop     edi",
+        "mnemonic": "pop"
+      },
+      {
+        "address": "0x47884c",
+        "size": 3,
+        "bytes": "8b 48 2c",
+        "instruction": "mov     ecx, [eax+2Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47884f",
+        "size": 2,
+        "bytes": "8b c6",
+        "instruction": "mov     eax, esi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478851",
+        "size": 1,
+        "bytes": "5e",
+        "instruction": "pop     esi",
+        "mnemonic": "pop"
+      },
+      {
+        "address": "0x478852",
+        "size": 6,
+        "bytes": "8b 91 a0 03 00 00",
+        "instruction": "mov     edx, [ecx+3A0h]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478858",
+        "size": 6,
+        "bytes": "c7 02 5a b5 03 00",
+        "instruction": "mov     dword ptr [edx], 3B55Ah",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47885e",
+        "size": 1,
+        "bytes": "c3",
+        "instruction": "retn",
+        "mnemonic": "retn"
+      },
+      {
+        "address": "0x47885f",
+        "size": 4,
+        "bytes": "8a 54 24 10",
+        "instruction": "mov     dl, [esp+8+arg_4]; jumptable 00478344 case 29",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478863",
+        "size": 3,
+        "bytes": "f6 c2 01",
+        "instruction": "test    dl, 1",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x478866",
+        "size": 2,
+        "bytes": "74 42",
+        "instruction": "jz      short loc_4788AA",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x478868",
+        "size": 6,
+        "bytes": "8b 0d 94 46 cf 00",
+        "instruction": "mov     ecx, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47886e",
+        "size": 3,
+        "bytes": "8d 04 c0",
+        "instruction": "lea     eax, [eax+eax*8]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x478871",
+        "size": 5,
+        "bytes": "bf 30 64 58 00",
+        "instruction": "mov     edi, offset asc_586430; \"決定玩家簡介\"",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478876",
+        "size": 3,
+        "bytes": "8b 49 2c",
+        "instruction": "mov     ecx, [ecx+2Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478879",
+        "size": 4,
+        "bytes": "8b 44 81 1c",
+        "instruction": "mov     eax, [ecx+eax*4+1Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47887d",
+        "size": 3,
+        "bytes": "83 c9 ff",
+        "instruction": "or      ecx, 0FFFFFFFFh",
+        "mnemonic": "or"
+      },
+      {
+        "address": "0x478880",
+        "size": 6,
+        "bytes": "c7 00 c4 ba 03 00",
+        "instruction": "mov     dword ptr [eax], 3BAC4h",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478886",
+        "size": 2,
+        "bytes": "33 c0",
+        "instruction": "xor     eax, eax",
+        "mnemonic": "xor"
+      },
+      {
+        "address": "0x478888",
+        "size": 2,
+        "bytes": "f2 ae",
+        "instruction": "repne scasb",
+        "mnemonic": "scasb"
+      },
+      {
+        "address": "0x47888a",
+        "size": 2,
+        "bytes": "f7 d1",
+        "instruction": "not     ecx",
+        "mnemonic": "not"
+      },
+      {
+        "address": "0x47888c",
+        "size": 2,
+        "bytes": "2b f9",
+        "instruction": "sub     edi, ecx",
+        "mnemonic": "sub"
+      },
+      {
+        "address": "0x47888e",
+        "size": 2,
+        "bytes": "8b c1",
+        "instruction": "mov     eax, ecx",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478890",
+        "size": 2,
+        "bytes": "8b f7",
+        "instruction": "mov     esi, edi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478892",
+        "size": 5,
+        "bytes": "bf e8 8a d6 00",
+        "instruction": "mov     edi, offset byte_D68AE8",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478897",
+        "size": 3,
+        "bytes": "c1 e9 02",
+        "instruction": "shr     ecx, 2",
+        "mnemonic": "shr"
+      },
+      {
+        "address": "0x47889a",
+        "size": 2,
+        "bytes": "f3 a5",
+        "instruction": "rep movsd",
+        "mnemonic": "movsd"
+      },
+      {
+        "address": "0x47889c",
+        "size": 2,
+        "bytes": "8b c8",
+        "instruction": "mov     ecx, eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47889e",
+        "size": 3,
+        "bytes": "83 e1 03",
+        "instruction": "and     ecx, 3",
+        "mnemonic": "and"
+      },
+      {
+        "address": "0x4788a1",
+        "size": 2,
+        "bytes": "f3 a4",
+        "instruction": "rep movsb",
+        "mnemonic": "movsb"
+      },
+      {
+        "address": "0x4788a3",
+        "size": 5,
+        "bytes": "be 01 00 00 00",
+        "instruction": "mov     esi, 1",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4788a8",
+        "size": 2,
+        "bytes": "eb 15",
+        "instruction": "jmp     short loc_4788BF",
+        "mnemonic": "jmp"
+      },
+      {
+        "address": "0x4788aa",
+        "size": 3,
+        "bytes": "8d 0c c0",
+        "instruction": "lea     ecx, [eax+eax*8]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x4788ad",
+        "size": 5,
+        "bytes": "a1 94 46 cf 00",
+        "instruction": "mov     eax, gCurrentWindow",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4788b2",
+        "size": 3,
+        "bytes": "8b 40 2c",
+        "instruction": "mov     eax, [eax+2Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4788b5",
+        "size": 4,
+        "bytes": "8b 4c 88 1c",
+        "instruction": "mov     ecx, [eax+ecx*4+1Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4788b9",
+        "size": 6,
+        "bytes": "c7 01 c2 ba 03 00",
+        "instruction": "mov     dword ptr [ecx], 3BAC2h",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4788bf",
+        "size": 3,
+        "bytes": "f6 c2 02",
+        "instruction": "test    dl, 2",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x4788c2",
+        "size": 6,
+        "bytes": "0f 84 0b 01 00 00",
+        "instruction": "jz      def_478344; jumptable 00478344 default case, cases 18,22,26-28",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x4788c8",
+        "size": 5,
+        "bytes": "e8 33 f2 02 00",
+        "instruction": "call    sub_4A7B00",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x4788cd",
+        "size": 2,
+        "bytes": "6a 00",
+        "instruction": "push    0",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4788cf",
+        "size": 5,
+        "bytes": "e8 ac b3 0b 00",
+        "instruction": "call    sub_533C80",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x4788d4",
+        "size": 3,
+        "bytes": "83 c4 04",
+        "instruction": "add     esp, 4",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x4788d7",
+        "size": 5,
+        "bytes": "be 01 00 00 00",
+        "instruction": "mov     esi, 1",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4788dc",
+        "size": 2,
+        "bytes": "8b c6",
+        "instruction": "mov     eax, esi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4788de",
+        "size": 1,
+        "bytes": "5f",
+        "instruction": "pop     edi",
+        "mnemonic": "pop"
+      },
+      {
+        "address": "0x4788df",
+        "size": 1,
+        "bytes": "5e",
+        "instruction": "pop     esi",
+        "mnemonic": "pop"
+      },
+      {
+        "address": "0x4788e0",
+        "size": 1,
+        "bytes": "c3",
+        "instruction": "retn",
+        "mnemonic": "retn"
+      },
+      {
+        "address": "0x4788e1",
+        "size": 7,
+        "bytes": "0f bf 05 08 0c ff 00",
+        "instruction": "movsx   eax, gSelectedChara; jumptable 00478344 case 17",
+        "mnemonic": "movsx"
+      },
+      {
+        "address": "0x4788e8",
+        "size": 2,
+        "bytes": "8b d0",
+        "instruction": "mov     edx, eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4788ea",
+        "size": 3,
+        "bytes": "c1 e2 06",
+        "instruction": "shl     edx, 6",
+        "mnemonic": "shl"
+      },
+      {
+        "address": "0x4788ed",
+        "size": 2,
+        "bytes": "03 d0",
+        "instruction": "add     edx, eax",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x4788ef",
+        "size": 3,
+        "bytes": "8d 04 90",
+        "instruction": "lea     eax, [eax+edx*4]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x4788f2",
+        "size": 4,
+        "bytes": "8a 54 24 10",
+        "instruction": "mov     dl, [esp+8+arg_4]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4788f6",
+        "size": 7,
+        "bytes": "8b 0c c5 3c 49 07 01",
+        "instruction": "mov     ecx, dword_107493C[eax*8]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4788fd",
+        "size": 2,
+        "bytes": "85 c9",
+        "instruction": "test    ecx, ecx",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x4788ff",
+        "size": 2,
+        "bytes": "74 6a",
+        "instruction": "jz      short loc_47896B",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x478901",
+        "size": 3,
+        "bytes": "f6 c2 01",
+        "instruction": "test    dl, 1",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x478904",
+        "size": 2,
+        "bytes": "74 2a",
+        "instruction": "jz      short loc_478930",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x478906",
+        "size": 5,
+        "bytes": "bf 20 64 58 00",
+        "instruction": "mov     edi, offset asc_586420; \"不公開玩家簡介\"",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47890b",
+        "size": 3,
+        "bytes": "83 c9 ff",
+        "instruction": "or      ecx, 0FFFFFFFFh",
+        "mnemonic": "or"
+      },
+      {
+        "address": "0x47890e",
+        "size": 2,
+        "bytes": "33 c0",
+        "instruction": "xor     eax, eax",
+        "mnemonic": "xor"
+      },
+      {
+        "address": "0x478910",
+        "size": 2,
+        "bytes": "f2 ae",
+        "instruction": "repne scasb",
+        "mnemonic": "scasb"
+      },
+      {
+        "address": "0x478912",
+        "size": 2,
+        "bytes": "f7 d1",
+        "instruction": "not     ecx",
+        "mnemonic": "not"
+      },
+      {
+        "address": "0x478914",
+        "size": 2,
+        "bytes": "2b f9",
+        "instruction": "sub     edi, ecx",
+        "mnemonic": "sub"
+      },
+      {
+        "address": "0x478916",
+        "size": 2,
+        "bytes": "8b c1",
+        "instruction": "mov     eax, ecx",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478918",
+        "size": 2,
+        "bytes": "8b f7",
+        "instruction": "mov     esi, edi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47891a",
+        "size": 5,
+        "bytes": "bf e8 8a d6 00",
+        "instruction": "mov     edi, offset byte_D68AE8",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47891f",
+        "size": 3,
+        "bytes": "c1 e9 02",
+        "instruction": "shr     ecx, 2",
+        "mnemonic": "shr"
+      },
+      {
+        "address": "0x478922",
+        "size": 2,
+        "bytes": "f3 a5",
+        "instruction": "rep movsd",
+        "mnemonic": "movsd"
+      },
+      {
+        "address": "0x478924",
+        "size": 2,
+        "bytes": "8b c8",
+        "instruction": "mov     ecx, eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478926",
+        "size": 3,
+        "bytes": "83 e1 03",
+        "instruction": "and     ecx, 3",
+        "mnemonic": "and"
+      },
+      {
+        "address": "0x478929",
+        "size": 2,
+        "bytes": "f3 a4",
+        "instruction": "rep movsb",
+        "mnemonic": "movsb"
+      },
+      {
+        "address": "0x47892b",
+        "size": 5,
+        "bytes": "be 01 00 00 00",
+        "instruction": "mov     esi, 1",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478930",
+        "size": 3,
+        "bytes": "f6 c2 02",
+        "instruction": "test    dl, 2",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x478933",
+        "size": 6,
+        "bytes": "0f 84 9a 00 00 00",
+        "instruction": "jz      def_478344; jumptable 00478344 default case, cases 18,22,26-28",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x478939",
+        "size": 6,
+        "bytes": "8b 0d b8 b2 d9 00",
+        "instruction": "mov     ecx, s",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47893f",
+        "size": 2,
+        "bytes": "6a 00",
+        "instruction": "push    0",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x478941",
+        "size": 1,
+        "bytes": "51",
+        "instruction": "push    ecx",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x478942",
+        "size": 5,
+        "bytes": "e8 69 8f 09 00",
+        "instruction": "call    sub_5118B0",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x478947",
+        "size": 7,
+        "bytes": "0f bf 05 08 0c ff 00",
+        "instruction": "movsx   eax, gSelectedChara",
+        "mnemonic": "movsx"
+      },
+      {
+        "address": "0x47894e",
+        "size": 2,
+        "bytes": "8b d0",
+        "instruction": "mov     edx, eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478950",
+        "size": 3,
+        "bytes": "83 c4 08",
+        "instruction": "add     esp, 8",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x478953",
+        "size": 3,
+        "bytes": "c1 e2 06",
+        "instruction": "shl     edx, 6",
+        "mnemonic": "shl"
+      },
+      {
+        "address": "0x478956",
+        "size": 2,
+        "bytes": "03 d0",
+        "instruction": "add     edx, eax",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x478958",
+        "size": 1,
+        "bytes": "5f",
+        "instruction": "pop     edi",
+        "mnemonic": "pop"
+      },
+      {
+        "address": "0x478959",
+        "size": 3,
+        "bytes": "8d 04 90",
+        "instruction": "lea     eax, [eax+edx*4]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x47895c",
+        "size": 11,
+        "bytes": "c7 04 c5 3c 49 07 01 00 00 00 00",
+        "instruction": "mov     dword_107493C[eax*8], 0",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478967",
+        "size": 2,
+        "bytes": "8b c6",
+        "instruction": "mov     eax, esi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478969",
+        "size": 1,
+        "bytes": "5e",
+        "instruction": "pop     esi",
+        "mnemonic": "pop"
+      },
+      {
+        "address": "0x47896a",
+        "size": 1,
+        "bytes": "c3",
+        "instruction": "retn",
+        "mnemonic": "retn"
+      },
+      {
+        "address": "0x47896b",
+        "size": 3,
+        "bytes": "f6 c2 01",
+        "instruction": "test    dl, 1",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x47896e",
+        "size": 2,
+        "bytes": "74 2a",
+        "instruction": "jz      short loc_47899A",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x478970",
+        "size": 5,
+        "bytes": "bf 10 64 58 00",
+        "instruction": "mov     edi, offset asc_586410; \"公開玩家簡介\"",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478975",
+        "size": 3,
+        "bytes": "83 c9 ff",
+        "instruction": "or      ecx, 0FFFFFFFFh",
+        "mnemonic": "or"
+      },
+      {
+        "address": "0x478978",
+        "size": 2,
+        "bytes": "33 c0",
+        "instruction": "xor     eax, eax",
+        "mnemonic": "xor"
+      },
+      {
+        "address": "0x47897a",
+        "size": 2,
+        "bytes": "f2 ae",
+        "instruction": "repne scasb",
+        "mnemonic": "scasb"
+      },
+      {
+        "address": "0x47897c",
+        "size": 2,
+        "bytes": "f7 d1",
+        "instruction": "not     ecx",
+        "mnemonic": "not"
+      },
+      {
+        "address": "0x47897e",
+        "size": 2,
+        "bytes": "2b f9",
+        "instruction": "sub     edi, ecx",
+        "mnemonic": "sub"
+      },
+      {
+        "address": "0x478980",
+        "size": 2,
+        "bytes": "8b c1",
+        "instruction": "mov     eax, ecx",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478982",
+        "size": 2,
+        "bytes": "8b f7",
+        "instruction": "mov     esi, edi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478984",
+        "size": 5,
+        "bytes": "bf e8 8a d6 00",
+        "instruction": "mov     edi, offset byte_D68AE8",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478989",
+        "size": 3,
+        "bytes": "c1 e9 02",
+        "instruction": "shr     ecx, 2",
+        "mnemonic": "shr"
+      },
+      {
+        "address": "0x47898c",
+        "size": 2,
+        "bytes": "f3 a5",
+        "instruction": "rep movsd",
+        "mnemonic": "movsd"
+      },
+      {
+        "address": "0x47898e",
+        "size": 2,
+        "bytes": "8b c8",
+        "instruction": "mov     ecx, eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x478990",
+        "size": 3,
+        "bytes": "83 e1 03",
+        "instruction": "and     ecx, 3",
+        "mnemonic": "and"
+      },
+      {
+        "address": "0x478993",
+        "size": 2,
+        "bytes": "f3 a4",
+        "instruction": "rep movsb",
+        "mnemonic": "movsb"
+      },
+      {
+        "address": "0x478995",
+        "size": 5,
+        "bytes": "be 01 00 00 00",
+        "instruction": "mov     esi, 1",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x47899a",
+        "size": 3,
+        "bytes": "f6 c2 02",
+        "instruction": "test    dl, 2",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x47899d",
+        "size": 2,
+        "bytes": "74 34",
+        "instruction": "jz      short def_478344; jumptable 00478344 default case, cases 18,22,26-28",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x47899f",
+        "size": 6,
+        "bytes": "8b 0d b8 b2 d9 00",
+        "instruction": "mov     ecx, s",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4789a5",
+        "size": 2,
+        "bytes": "6a 01",
+        "instruction": "push    1",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4789a7",
+        "size": 1,
+        "bytes": "51",
+        "instruction": "push    ecx",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4789a8",
+        "size": 5,
+        "bytes": "e8 03 8f 09 00",
+        "instruction": "call    sub_5118B0",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x4789ad",
+        "size": 2,
+        "bytes": "6a 01",
+        "instruction": "push    1",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4789af",
+        "size": 5,
+        "bytes": "e8 cc b2 0b 00",
+        "instruction": "call    sub_533C80",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x4789b4",
+        "size": 7,
+        "bytes": "0f bf 05 08 0c ff 00",
+        "instruction": "movsx   eax, gSelectedChara",
+        "mnemonic": "movsx"
+      },
+      {
+        "address": "0x4789bb",
+        "size": 2,
+        "bytes": "8b d0",
+        "instruction": "mov     edx, eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4789bd",
+        "size": 3,
+        "bytes": "83 c4 0c",
+        "instruction": "add     esp, 0Ch",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x4789c0",
+        "size": 3,
+        "bytes": "c1 e2 06",
+        "instruction": "shl     edx, 6",
+        "mnemonic": "shl"
+      },
+      {
+        "address": "0x4789c3",
+        "size": 2,
+        "bytes": "03 d0",
+        "instruction": "add     edx, eax",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x4789c5",
+        "size": 3,
+        "bytes": "8d 04 90",
+        "instruction": "lea     eax, [eax+edx*4]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x4789c8",
+        "size": 11,
+        "bytes": "c7 04 c5 3c 49 07 01 01 00 00 00",
+        "instruction": "mov     dword_107493C[eax*8], 1",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4789d3",
+        "size": 2,
+        "bytes": "8b c6",
+        "instruction": "mov     eax, esi; jumptable 00478344 default case, cases 18,22,26-28",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4789d5",
+        "size": 1,
+        "bytes": "5f",
+        "instruction": "pop     edi",
+        "mnemonic": "pop"
+      },
+      {
+        "address": "0x4789d6",
+        "size": 1,
+        "bytes": "5e",
+        "instruction": "pop     esi",
+        "mnemonic": "pop"
+      },
+      {
+        "address": "0x4789d7",
+        "size": 1,
+        "bytes": "c3",
+        "instruction": "retn",
+        "mnemonic": "retn"
+      }
+    ],
+    "inbound": [
+      {
+        "address": "0x57a070",
+        "type": 1,
+        "is_code": false
+      }
+    ],
+    "inventory_id": "F:00078330",
+    "inbound_limitation": "当前入口没有直接代码xref，记录到57A070表头的一条数据xref；十四已加载原型+1C实际478330指针和现绑定证明间接用途，不能据此代全部间接调用或宣不可达。"
+  },
+  "after_open_coordinate_windows": [
+    {
+      "index": 19,
+      "target": 7,
+      "start": "0x4783d4",
+      "end_exclusive": "0x478409",
+      "bytes": "8b 15 94 46 cf 00 8b 0d 08 ac c9 00 68 f0 00 00 00 68 40 01 00 00 8b 42 0c 6a 38 89 41 0c 8b 15 94 46 cf 00 8b 0d 08 ac c9 00 8b 42 10 89 41 10 e8 47 40 0b 00",
+      "instructions": [
+        {
+          "address": "0x4783d4",
+          "size": 6,
+          "bytes": "8b 15 94 46 cf 00",
+          "instruction": "mov     edx, gCurrentWindow",
+          "mnemonic": "mov"
+        },
+        {
+          "address": "0x4783da",
+          "size": 6,
+          "bytes": "8b 0d 08 ac c9 00",
+          "instruction": "mov     ecx, gWindowState.window+24Ch",
+          "mnemonic": "mov"
+        },
+        {
+          "address": "0x4783e0",
+          "size": 5,
+          "bytes": "68 f0 00 00 00",
+          "instruction": "push    0F0h",
+          "mnemonic": "push"
+        },
+        {
+          "address": "0x4783e5",
+          "size": 5,
+          "bytes": "68 40 01 00 00",
+          "instruction": "push    140h",
+          "mnemonic": "push"
+        },
+        {
+          "address": "0x4783ea",
+          "size": 3,
+          "bytes": "8b 42 0c",
+          "instruction": "mov     eax, [edx+0Ch]",
+          "mnemonic": "mov"
+        },
+        {
+          "address": "0x4783ed",
+          "size": 2,
+          "bytes": "6a 38",
+          "instruction": "push    38h ; '8'",
+          "mnemonic": "push"
+        },
+        {
+          "address": "0x4783ef",
+          "size": 3,
+          "bytes": "89 41 0c",
+          "instruction": "mov     [ecx+0Ch], eax",
+          "mnemonic": "mov"
+        },
+        {
+          "address": "0x4783f2",
+          "size": 6,
+          "bytes": "8b 15 94 46 cf 00",
+          "instruction": "mov     edx, gCurrentWindow",
+          "mnemonic": "mov"
+        },
+        {
+          "address": "0x4783f8",
+          "size": 6,
+          "bytes": "8b 0d 08 ac c9 00",
+          "instruction": "mov     ecx, gWindowState.window+24Ch",
+          "mnemonic": "mov"
+        },
+        {
+          "address": "0x4783fe",
+          "size": 3,
+          "bytes": "8b 42 10",
+          "instruction": "mov     eax, [edx+10h]",
+          "mnemonic": "mov"
+        },
+        {
+          "address": "0x478401",
+          "size": 3,
+          "bytes": "89 41 10",
+          "instruction": "mov     [ecx+10h], eax",
+          "mnemonic": "mov"
+        },
+        {
+          "address": "0x478404",
+          "size": 5,
+          "bytes": "e8 47 40 0b 00",
+          "instruction": "call    World__PlaySe",
+          "mnemonic": "call"
+        }
+      ]
+    },
+    {
+      "index": 20,
+      "target": 8,
+      "start": "0x47849f",
+      "end_exclusive": "0x4784d4",
+      "bytes": "8b 15 94 46 cf 00 8b 0d 5c ac c9 00 68 f0 00 00 00 68 40 01 00 00 8b 42 0c 6a 38 89 41 0c 8b 15 94 46 cf 00 8b 0d 5c ac c9 00 8b 42 10 89 41 10 e8 7c 3f 0b 00",
+      "instructions": [
+        {
+          "address": "0x47849f",
+          "size": 6,
+          "bytes": "8b 15 94 46 cf 00",
+          "instruction": "mov     edx, gCurrentWindow",
+          "mnemonic": "mov"
+        },
+        {
+          "address": "0x4784a5",
+          "size": 6,
+          "bytes": "8b 0d 5c ac c9 00",
+          "instruction": "mov     ecx, gWindowState.window+2A0h",
+          "mnemonic": "mov"
+        },
+        {
+          "address": "0x4784ab",
+          "size": 5,
+          "bytes": "68 f0 00 00 00",
+          "instruction": "push    0F0h",
+          "mnemonic": "push"
+        },
+        {
+          "address": "0x4784b0",
+          "size": 5,
+          "bytes": "68 40 01 00 00",
+          "instruction": "push    140h",
+          "mnemonic": "push"
+        },
+        {
+          "address": "0x4784b5",
+          "size": 3,
+          "bytes": "8b 42 0c",
+          "instruction": "mov     eax, [edx+0Ch]",
+          "mnemonic": "mov"
+        },
+        {
+          "address": "0x4784b8",
+          "size": 2,
+          "bytes": "6a 38",
+          "instruction": "push    38h ; '8'",
+          "mnemonic": "push"
+        },
+        {
+          "address": "0x4784ba",
+          "size": 3,
+          "bytes": "89 41 0c",
+          "instruction": "mov     [ecx+0Ch], eax",
+          "mnemonic": "mov"
+        },
+        {
+          "address": "0x4784bd",
+          "size": 6,
+          "bytes": "8b 15 94 46 cf 00",
+          "instruction": "mov     edx, gCurrentWindow",
+          "mnemonic": "mov"
+        },
+        {
+          "address": "0x4784c3",
+          "size": 6,
+          "bytes": "8b 0d 5c ac c9 00",
+          "instruction": "mov     ecx, gWindowState.window+2A0h",
+          "mnemonic": "mov"
+        },
+        {
+          "address": "0x4784c9",
+          "size": 3,
+          "bytes": "8b 42 10",
+          "instruction": "mov     eax, [edx+10h]",
+          "mnemonic": "mov"
+        },
+        {
+          "address": "0x4784cc",
+          "size": 3,
+          "bytes": "89 41 10",
+          "instruction": "mov     [ecx+10h], eax",
+          "mnemonic": "mov"
+        },
+        {
+          "address": "0x4784cf",
+          "size": 5,
+          "bytes": "e8 7c 3f 0b 00",
+          "instruction": "call    World__PlaySe",
+          "mnemonic": "call"
+        }
+      ]
+    },
+    {
+      "index": 21,
+      "target": 9,
+      "start": "0x47856a",
+      "end_exclusive": "0x47859f",
+      "bytes": "8b 15 94 46 cf 00 8b 0d b0 ac c9 00 68 f0 00 00 00 68 40 01 00 00 8b 42 0c 6a 38 89 41 0c 8b 15 94 46 cf 00 8b 0d b0 ac c9 00 8b 42 10 89 41 10 e8 b1 3e 0b 00",
+      "instructions": [
+        {
+          "address": "0x47856a",
+          "size": 6,
+          "bytes": "8b 15 94 46 cf 00",
+          "instruction": "mov     edx, gCurrentWindow",
+          "mnemonic": "mov"
+        },
+        {
+          "address": "0x478570",
+          "size": 6,
+          "bytes": "8b 0d b0 ac c9 00",
+          "instruction": "mov     ecx, gWindowState.window+2F4h",
+          "mnemonic": "mov"
+        },
+        {
+          "address": "0x478576",
+          "size": 5,
+          "bytes": "68 f0 00 00 00",
+          "instruction": "push    0F0h",
+          "mnemonic": "push"
+        },
+        {
+          "address": "0x47857b",
+          "size": 5,
+          "bytes": "68 40 01 00 00",
+          "instruction": "push    140h",
+          "mnemonic": "push"
+        },
+        {
+          "address": "0x478580",
+          "size": 3,
+          "bytes": "8b 42 0c",
+          "instruction": "mov     eax, [edx+0Ch]",
+          "mnemonic": "mov"
+        },
+        {
+          "address": "0x478583",
+          "size": 2,
+          "bytes": "6a 38",
+          "instruction": "push    38h ; '8'",
+          "mnemonic": "push"
+        },
+        {
+          "address": "0x478585",
+          "size": 3,
+          "bytes": "89 41 0c",
+          "instruction": "mov     [ecx+0Ch], eax",
+          "mnemonic": "mov"
+        },
+        {
+          "address": "0x478588",
+          "size": 6,
+          "bytes": "8b 15 94 46 cf 00",
+          "instruction": "mov     edx, gCurrentWindow",
+          "mnemonic": "mov"
+        },
+        {
+          "address": "0x47858e",
+          "size": 6,
+          "bytes": "8b 0d b0 ac c9 00",
+          "instruction": "mov     ecx, gWindowState.window+2F4h",
+          "mnemonic": "mov"
+        },
+        {
+          "address": "0x478594",
+          "size": 3,
+          "bytes": "8b 42 10",
+          "instruction": "mov     eax, [edx+10h]",
+          "mnemonic": "mov"
+        },
+        {
+          "address": "0x478597",
+          "size": 3,
+          "bytes": "89 41 10",
+          "instruction": "mov     [ecx+10h], eax",
+          "mnemonic": "mov"
+        },
+        {
+          "address": "0x47859a",
+          "size": 5,
+          "bytes": "e8 b1 3e 0b 00",
+          "instruction": "call    World__PlaySe",
+          "mnemonic": "call"
+        }
+      ]
+    }
+  ],
+  "table_evidence_reused": {
+    "source": "doc/cg2d_unassigned_range_fifth_batch_evidence.json",
+    "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+    "range_id": "X:000789D8-00078A10",
+    "part": {
+      "kind": "jump_table",
+      "start": "0x4789d8",
+      "end_exclusive": "0x478a0c",
+      "size": 52,
+      "from": "0x478344",
+      "count": 13,
+      "width": 4,
+      "owner": "0x478330",
+      "bytes": "e1 88 47 00 d3 89 47 00 4b 83 47 00 16 84 47 00 e1 84 47 00 d3 89 47 00 ac 85 47 00 93 86 47 00 78 87 47 00 d3 89 47 00 d3 89 47 00 d3 89 47 00 5f 88 47 00",
+      "targets": [
+        {
+          "index": 0,
+          "entry_address": "0x4789d8",
+          "value": "0x4788e1",
+          "is_code": true,
+          "owner": "0x478330",
+          "instruction": "movsx   eax, gSelectedChara; jumptable 00478344 case 17"
+        },
+        {
+          "index": 1,
+          "entry_address": "0x4789dc",
+          "value": "0x4789d3",
+          "is_code": true,
+          "owner": "0x478330",
+          "instruction": "mov     eax, esi; jumptable 00478344 default case, cases 18,22,26-28"
+        },
+        {
+          "index": 2,
+          "entry_address": "0x4789e0",
+          "value": "0x47834b",
+          "is_code": true,
+          "owner": "0x478330",
+          "instruction": "mov     dl, [esp+8+arg_4]; jumptable 00478344 case 19"
+        },
+        {
+          "index": 3,
+          "entry_address": "0x4789e4",
+          "value": "0x478416",
+          "is_code": true,
+          "owner": "0x478330",
+          "instruction": "mov     dl, [esp+8+arg_4]; jumptable 00478344 case 20"
+        },
+        {
+          "index": 4,
+          "entry_address": "0x4789e8",
+          "value": "0x4784e1",
+          "is_code": true,
+          "owner": "0x478330",
+          "instruction": "mov     dl, [esp+8+arg_4]; jumptable 00478344 case 21"
+        },
+        {
+          "index": 5,
+          "entry_address": "0x4789ec",
+          "value": "0x4789d3",
+          "is_code": true,
+          "owner": "0x478330",
+          "instruction": "mov     eax, esi; jumptable 00478344 default case, cases 18,22,26-28"
+        },
+        {
+          "index": 6,
+          "entry_address": "0x4789f0",
+          "value": "0x4785ac",
+          "is_code": true,
+          "owner": "0x478330",
+          "instruction": "mov     dl, [esp+8+arg_4]; jumptable 00478344 case 23"
+        },
+        {
+          "index": 7,
+          "entry_address": "0x4789f4",
+          "value": "0x478693",
+          "is_code": true,
+          "owner": "0x478330",
+          "instruction": "mov     dl, [esp+8+arg_4]; jumptable 00478344 case 24"
+        },
+        {
+          "index": 8,
+          "entry_address": "0x4789f8",
+          "value": "0x478778",
+          "is_code": true,
+          "owner": "0x478330",
+          "instruction": "mov     dl, [esp+8+arg_4]; jumptable 00478344 case 25"
+        },
+        {
+          "index": 9,
+          "entry_address": "0x4789fc",
+          "value": "0x4789d3",
+          "is_code": true,
+          "owner": "0x478330",
+          "instruction": "mov     eax, esi; jumptable 00478344 default case, cases 18,22,26-28"
+        },
+        {
+          "index": 10,
+          "entry_address": "0x478a00",
+          "value": "0x4789d3",
+          "is_code": true,
+          "owner": "0x478330",
+          "instruction": "mov     eax, esi; jumptable 00478344 default case, cases 18,22,26-28"
+        },
+        {
+          "index": 11,
+          "entry_address": "0x478a04",
+          "value": "0x4789d3",
+          "is_code": true,
+          "owner": "0x478330",
+          "instruction": "mov     eax, esi; jumptable 00478344 default case, cases 18,22,26-28"
+        },
+        {
+          "index": 12,
+          "entry_address": "0x478a08",
+          "value": "0x47885f",
+          "is_code": true,
+          "owner": "0x478330",
+          "instruction": "mov     dl, [esp+8+arg_4]; jumptable 00478344 case 29"
+        }
+      ]
+    },
+    "boundary": "同一十三槽表，只精确复用CAC08既有原target/owner证，不新增R7或重新分类"
+  },
+  "actual_bound_prototypes": [
+    {
+      "array": "0x561558",
+      "index": 17,
+      "address": "0x561778",
+      "bytes": "01 00 00 00 0f 00 00 00 1d 00 00 00 40 00 00 00 48 00 00 00 01 00 00 00 f8 14 56 00 30 83 47 00",
+      "words": [
+        1,
+        15,
+        29,
+        64,
+        72,
+        1,
+        5641464,
+        4686640
+      ]
+    },
+    {
+      "array": "0x561558",
+      "index": 19,
+      "address": "0x5617b8",
+      "bytes": "01 00 00 00 97 00 00 00 e6 00 00 00 26 00 00 00 19 00 00 00 01 00 00 00 08 14 56 00 30 83 47 00",
+      "words": [
+        1,
+        151,
+        230,
+        38,
+        25,
+        1,
+        5641224,
+        4686640
+      ]
+    },
+    {
+      "array": "0x561558",
+      "index": 20,
+      "address": "0x5617d8",
+      "bytes": "01 00 00 00 cc 00 00 00 e7 00 00 00 26 00 00 00 19 00 00 00 01 00 00 00 20 14 56 00 30 83 47 00",
+      "words": [
+        1,
+        204,
+        231,
+        38,
+        25,
+        1,
+        5641248,
+        4686640
+      ]
+    },
+    {
+      "array": "0x561558",
+      "index": 21,
+      "address": "0x5617f8",
+      "bytes": "01 00 00 00 02 01 00 00 e6 00 00 00 26 00 00 00 19 00 00 00 01 00 00 00 38 14 56 00 30 83 47 00",
+      "words": [
+        1,
+        258,
+        230,
+        38,
+        25,
+        1,
+        5641272,
+        4686640
+      ]
+    },
+    {
+      "array": "0x561558",
+      "index": 23,
+      "address": "0x561838",
+      "bytes": "01 00 00 00 0a 01 00 00 69 00 00 00 14 00 00 00 14 00 00 00 01 00 00 00 b0 14 56 00 30 83 47 00",
+      "words": [
+        1,
+        266,
+        105,
+        20,
+        20,
+        1,
+        5641392,
+        4686640
+      ]
+    },
+    {
+      "array": "0x561558",
+      "index": 24,
+      "address": "0x561858",
+      "bytes": "01 00 00 00 0a 01 00 00 80 00 00 00 14 00 00 00 14 00 00 00 01 00 00 00 b0 14 56 00 30 83 47 00",
+      "words": [
+        1,
+        266,
+        128,
+        20,
+        20,
+        1,
+        5641392,
+        4686640
+      ]
+    },
+    {
+      "array": "0x561558",
+      "index": 25,
+      "address": "0x561878",
+      "bytes": "01 00 00 00 0a 01 00 00 97 00 00 00 14 00 00 00 14 00 00 00 01 00 00 00 b0 14 56 00 30 83 47 00",
+      "words": [
+        1,
+        266,
+        151,
+        20,
+        20,
+        1,
+        5641392,
+        4686640
+      ]
+    },
+    {
+      "array": "0x561558",
+      "index": 26,
+      "address": "0x561898",
+      "bytes": "01 00 00 00 49 00 00 00 66 00 00 00 14 00 00 00 14 00 00 00 01 00 00 00 e0 14 56 00 30 83 47 00",
+      "words": [
+        1,
+        73,
+        102,
+        20,
+        20,
+        1,
+        5641440,
+        4686640
+      ]
+    },
+    {
+      "array": "0x561558",
+      "index": 27,
+      "address": "0x5618b8",
+      "bytes": "01 00 00 00 49 00 00 00 7c 00 00 00 14 00 00 00 14 00 00 00 01 00 00 00 e0 14 56 00 30 83 47 00",
+      "words": [
+        1,
+        73,
+        124,
+        20,
+        20,
+        1,
+        5641440,
+        4686640
+      ]
+    },
+    {
+      "array": "0x561558",
+      "index": 28,
+      "address": "0x5618d8",
+      "bytes": "01 00 00 00 49 00 00 00 92 00 00 00 14 00 00 00 14 00 00 00 01 00 00 00 e0 14 56 00 30 83 47 00",
+      "words": [
+        1,
+        73,
+        146,
+        20,
+        20,
+        1,
+        5641440,
+        4686640
+      ]
+    },
+    {
+      "array": "0x561558",
+      "index": 29,
+      "address": "0x5618f8",
+      "bytes": "01 00 00 00 01 01 00 00 20 00 00 00 28 00 00 00 1e 00 00 00 01 00 00 00 c8 14 56 00 30 83 47 00",
+      "words": [
+        1,
+        257,
+        32,
+        40,
+        30,
+        1,
+        5641416,
+        4686640
+      ]
+    },
+    {
+      "array": "0x57a070",
+      "index": 14,
+      "address": "0x57a230",
+      "bytes": "01 00 00 00 49 00 00 00 66 00 00 00 14 00 00 00 14 00 00 00 01 00 00 00 10 a0 57 00 30 83 47 00",
+      "words": [
+        1,
+        73,
+        102,
+        20,
+        20,
+        1,
+        5742608,
+        4686640
+      ]
+    },
+    {
+      "array": "0x57a070",
+      "index": 15,
+      "address": "0x57a250",
+      "bytes": "01 00 00 00 49 00 00 00 7c 00 00 00 14 00 00 00 14 00 00 00 01 00 00 00 10 a0 57 00 30 83 47 00",
+      "words": [
+        1,
+        73,
+        124,
+        20,
+        20,
+        1,
+        5742608,
+        4686640
+      ]
+    },
+    {
+      "array": "0x57a070",
+      "index": 16,
+      "address": "0x57a270",
+      "bytes": "01 00 00 00 49 00 00 00 92 00 00 00 14 00 00 00 14 00 00 00 01 00 00 00 10 a0 57 00 30 83 47 00",
+      "words": [
+        1,
+        73,
+        146,
+        20,
+        20,
+        1,
+        5742608,
+        4686640
+      ]
+    }
+  ],
+  "source_change": {
+    "path": "src/ui/WindowRuntime.cpp",
+    "symbol": "cg::ui::detail::Sub_478330",
+    "old_definition": "std::int32_t Sub_478330(const std::int32_t index, const std::int32_t state)\n{\n    std::int32_t consumed = 0;\n    switch (index) {\n    case 17: {\n        const bool visible = world::detail::SelectedProfileValue04() != 0;\n        if ((state & 1) != 0) {\n            std::strcpy(gHoverTextD68AE8.data(), visible\n                ? \"\\xB2\\xBB\\xB9\\xAB\\xE9\\x5F\\xCD\\xE6\\xBC\\xD2\\xBA\\x86\\xBD\\xE9\"\n                : \"\\xB9\\xAB\\xE9\\x5F\\xCD\\xE6\\xBC\\xD2\\xBA\\x86\\xBD\\xE9\");\n            consumed = 1;\n        }\n        if ((state & 2) != 0) {\n            static_cast<void>(network::Sub_5118B0(platform::gConnectionSocket, visible ? 0 : 1));\n            if (!visible) {\n                static_cast<void>(world::detail::Sub_533C80(1));\n            }\n            world::detail::SelectedProfileValue04() = visible ? 0 : 1;\n        }\n        return consumed;\n    }\n    case 19:\n    case 20:\n    case 21: {\n        constexpr std::array<std::int32_t, 3> images {244405, 243075, 244408};\n        constexpr const char* hints[] {\n            \"\\xC7\\xD0\\x93\\x51\\xB3\\xC9\\xCD\\xE6\\xBC\\xD2\\xA0\\xEE\\x91\\x42\\xD2\\x95\\xB4\\xB0\\xA1\\xA3\",\n            \"\\xC7\\xD0\\x93\\x51\\xB3\\xC9\\xCD\\xE6\\xBC\\xD2\\xC3\\xF7\\xBC\\x9A\\xD2\\x95\\xB4\\xB0\\xA1\\xA3\",\n            \"\\xC7\\xD0\\x93\\x51\\xB3\\xC9\\xCD\\xE6\\xBC\\xD2\\xB7\\x51\\xCC\\x96\\xD2\\x95\\xB4\\xB0\\xA1\\xA3\",\n        };\n        const std::int32_t position = index - 19;\n        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);\n        if ((state & 1) != 0) {\n            graphic->imageNo = images[position] + 2;\n            std::strcpy(gHoverTextD68AE8.data(), hints[position]);\n            consumed = 1;\n        } else {\n            graphic->imageNo = images[position];\n        }\n        const std::int32_t target = index - 12;\n        if ((state & 2) != 0 && gWindowStates[target].window == nullptr) {\n            gCurrentWindow->state |= 0x8000u;\n            static_cast<void>(OpenWindow_471440(target));\n            gWindowStates[target].window->x = gCurrentWindow->x;\n            gWindowStates[target].window->y = gCurrentWindow->y;\n            static_cast<void>(audio::PlaySe_52C450(56, 320));\n            return 1;\n        }\n        return consumed;\n    }\n    case 23:\n    case 24:\n    case 25: {\n        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);\n        if ((state & 1) != 0) {\n            graphic->imageNo = 243035;\n            std::strcpy(gHoverTextD68AE8.data(), \"\\xE9\\x5F\\x86\\xA2\\xC4\\xBF\\xE4\\x9B\\xD2\\x95\\xB4\\xB0\");\n            consumed = 1;\n        } else {\n            graphic->imageNo = 243033;\n        }\n        const std::int32_t category = index - 23;\n        if ((state & 2) != 0) {\n            // 原检查窗口9，却写窗口59记录flags；第二检查仅是固定全局地址非零。\n            if (gWindowStates[9].window != nullptr) {\n                gWindowStates[59].flags |= 0x8000u;\n            }\n            gProfileCategory1085DA0 = category;\n            static_cast<void>(CreateWindowAnimation_475AA0(59, 1, 0, nullptr));\n            static_cast<void>(audio::PlaySe_52C450(56, 320));\n            consumed = 1;\n        }\n        if (gWindowStates[59].window != nullptr && gProfileCategory1085DA0 == category) {\n            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 243034;\n        }\n        return consumed;\n    }\n    case 29: {\n        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);\n        if ((state & 1) != 0) {\n            graphic->imageNo = 244420;\n            std::strcpy(gHoverTextD68AE8.data(), \"\\x9B\\x51\\xB6\\xA8\\xCD\\xE6\\xBC\\xD2\\xBA\\x86\\xBD\\xE9\");\n            consumed = 1;\n        } else {\n            graphic->imageNo = 244418;\n        }\n        if ((state & 2) != 0) {\n            static_cast<void>(Sub_4A7B00());\n            static_cast<void>(world::detail::Sub_533C80(0));\n            return 1;\n        }\n        return consumed;\n    }\n    default:\n        return 0;\n    }\n}",
+    "new_definition": "std::int32_t Sub_478330(const std::int32_t index, const std::int32_t state)\n{\n    std::int32_t consumed = 0;\n    switch (index) {\n    case 17: {\n        const bool visible = world::detail::SelectedProfileValue04() != 0;\n        if ((state & 1) != 0) {\n            std::strcpy(gHoverTextD68AE8.data(), visible\n                ? \"\\xB2\\xBB\\xB9\\xAB\\xE9\\x5F\\xCD\\xE6\\xBC\\xD2\\xBA\\x86\\xBD\\xE9\"\n                : \"\\xB9\\xAB\\xE9\\x5F\\xCD\\xE6\\xBC\\xD2\\xBA\\x86\\xBD\\xE9\");\n            consumed = 1;\n        }\n        if ((state & 2) != 0) {\n            static_cast<void>(network::Sub_5118B0(platform::gConnectionSocket, visible ? 0 : 1));\n            if (!visible) {\n                static_cast<void>(world::detail::Sub_533C80(1));\n            }\n            world::detail::SelectedProfileValue04() = visible ? 0 : 1;\n        }\n        return consumed;\n    }\n    case 19:\n    case 20:\n    case 21: {\n        constexpr std::array<std::int32_t, 3> images {244405, 243075, 244408};\n        constexpr const char* hints[] {\n            \"\\xC7\\xD0\\x93\\x51\\xB3\\xC9\\xCD\\xE6\\xBC\\xD2\\xA0\\xEE\\x91\\x42\\xD2\\x95\\xB4\\xB0\\xA1\\xA3\",\n            \"\\xC7\\xD0\\x93\\x51\\xB3\\xC9\\xCD\\xE6\\xBC\\xD2\\xC3\\xF7\\xBC\\x9A\\xD2\\x95\\xB4\\xB0\\xA1\\xA3\",\n            \"\\xC7\\xD0\\x93\\x51\\xB3\\xC9\\xCD\\xE6\\xBC\\xD2\\xB7\\x51\\xCC\\x96\\xD2\\x95\\xB4\\xB0\\xA1\\xA3\",\n        };\n        const std::int32_t position = index - 19;\n        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);\n        if ((state & 1) != 0) {\n            graphic->imageNo = images[position] + 2;\n            std::strcpy(gHoverTextD68AE8.data(), hints[position]);\n            consumed = 1;\n        } else {\n            graphic->imageNo = images[position];\n        }\n        const std::int32_t target = index - 12;\n        if ((state & 2) != 0 && gWindowStates[target].window == nullptr) {\n            gCurrentWindow->state |= 0x8000u;\n            static_cast<void>(OpenWindow_471440(target));\n            // 原三切页每轴先取当前/目标指针，再读坐标；见CAC10。\n            WindowInstance* const sourceForX = gCurrentWindow;\n            WindowInstance* const targetForX = gWindowStates[target].window;\n            const std::int32_t x = sourceForX->x;\n            targetForX->x = x;\n            WindowInstance* const sourceForY = gCurrentWindow;\n            WindowInstance* const targetForY = gWindowStates[target].window;\n            const std::int32_t y = sourceForY->y;\n            targetForY->y = y;\n            static_cast<void>(audio::PlaySe_52C450(56, 320));\n            return 1;\n        }\n        return consumed;\n    }\n    case 23:\n    case 24:\n    case 25: {\n        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);\n        if ((state & 1) != 0) {\n            graphic->imageNo = 243035;\n            std::strcpy(gHoverTextD68AE8.data(), \"\\xE9\\x5F\\x86\\xA2\\xC4\\xBF\\xE4\\x9B\\xD2\\x95\\xB4\\xB0\");\n            consumed = 1;\n        } else {\n            graphic->imageNo = 243033;\n        }\n        const std::int32_t category = index - 23;\n        if ((state & 2) != 0) {\n            // 原检查窗口9，却写窗口59记录flags；第二检查仅是固定全局地址非零。\n            if (gWindowStates[9].window != nullptr) {\n                gWindowStates[59].flags |= 0x8000u;\n            }\n            gProfileCategory1085DA0 = category;\n            static_cast<void>(CreateWindowAnimation_475AA0(59, 1, 0, nullptr));\n            static_cast<void>(audio::PlaySe_52C450(56, 320));\n            consumed = 1;\n        }\n        if (gWindowStates[59].window != nullptr && gProfileCategory1085DA0 == category) {\n            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 243034;\n        }\n        return consumed;\n    }\n    case 29: {\n        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);\n        if ((state & 1) != 0) {\n            graphic->imageNo = 244420;\n            std::strcpy(gHoverTextD68AE8.data(), \"\\x9B\\x51\\xB6\\xA8\\xCD\\xE6\\xBC\\xD2\\xBA\\x86\\xBD\\xE9\");\n            consumed = 1;\n        } else {\n            graphic->imageNo = 244418;\n        }\n        if ((state & 2) != 0) {\n            static_cast<void>(Sub_4A7B00());\n            static_cast<void>(world::detail::Sub_533C80(0));\n            return 1;\n        }\n        return consumed;\n    }\n    default:\n        return 0;\n    }\n}",
+    "old_fragment": "            gWindowStates[target].window->x = gCurrentWindow->x;\n            gWindowStates[target].window->y = gCurrentWindow->y;",
+    "new_fragment": "            // 原三切页每轴先取当前/目标指针，再读坐标；见CAC10。\n            WindowInstance* const sourceForX = gCurrentWindow;\n            WindowInstance* const targetForX = gWindowStates[target].window;\n            const std::int32_t x = sourceForX->x;\n            targetForX->x = x;\n            WindowInstance* const sourceForY = gCurrentWindow;\n            WindowInstance* const targetForY = gWindowStates[target].window;\n            const std::int32_t y = sourceForY->y;\n            targetForY->y = y;"
+  },
+  "source_binding_contract": {
+    "path": "src/ui/WindowPrototypes.cpp",
+    "arrays": [
+      {
+        "symbol": "gWindowElements561558",
+        "original_address": "0x561558",
+        "count": 34,
+        "window_id": 58,
+        "callback_indices": [
+          17,
+          19,
+          20,
+          21,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29
+        ]
+      },
+      {
+        "symbol": "gWindowElements57A070",
+        "original_address": "0x57a070",
+        "count": 21,
+        "window_id": 64,
+        "callback_indices": [
+          14,
+          15,
+          16
+        ]
+      }
+    ],
+    "type_reference": "src/ui/WindowRuntimeState.hpp",
+    "windows_and_elements_unchanged": true
+  },
+  "source_access_contract": {
+    "branches": [
+      19,
+      20,
+      21
+    ],
+    "targets": [
+      7,
+      8,
+      9
+    ],
+    "operations": [
+      "OpenWindow原调用保持",
+      "currentForX=gCurrentWindow",
+      "targetForX=gWindowStates[target].window",
+      "x=currentForX->x",
+      "targetForX->x=x",
+      "currentForY=gCurrentWindow（X发布后fresh）",
+      "targetForY=gWindowStates[target].window（fresh）",
+      "y=currentForY->y",
+      "targetForY->y=y",
+      "SE56原调用与返回1保持"
+    ],
+    "width": "两个非拥有WindowInstance*原生拓宽，两个坐标局部S32/字段W32保持",
+    "unchanged": "只两条原成员赋值展开；全部八有效case/默认、参数返回/图号/GBK提示/发送-同步/所选角色重取/窗口flags与实例state、动画/音频、唯一owner/头/原型及全部其它源码不变"
+  },
+  "unverified": [
+    "所有WindowOpen、动画、音频、网络/同步callee的完整机器/运行和正常owner-alias寿命未由本根覆盖。",
+    "原根全部间接外层/窗口58与64完整交互、原窗口7/8/9/59生产/画面、明文往返及全部完整功能门禁未验。",
+    "当前仅源码表达的指针/字段读取序；不保证编译器x86/x64机器采样/flags/ABI或异常回绕。",
+    "不构建、不测试、不运行、不检查产物或摘要，单线程；总SPEC§10及R8未闭。"
+  ]
+}

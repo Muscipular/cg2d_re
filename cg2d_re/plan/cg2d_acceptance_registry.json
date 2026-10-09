@@ -3060,7 +3060,8 @@
         "doc/cg2d_ui_window_runtime.md",
         "doc/ui_windows/shared_runtime.md",
         "doc/ui_windows/shared_legacy_panels.md",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/ui_windows/shared_profile.md#profile-page-coordinate-baseline-20261009"
       ],
       "original_inventory_ids": [
         "F:0006FC60",
@@ -3097,16 +3098,19 @@
       "acceptance_focus": "仅域导航；现代与旧ID分开，不计入叶功能分母",
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
-        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
+        "doc/ui_windows/shared_profile.md#profile-page-coordinate-decision-20261009"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
-        "CAC08本域新增成员仅当前真实源及本批原分派数据关联；完整35父未重新捕获/全体验收。11无F回调及15原型只局部静态纳管，完整成员/所有callee、数据生产、外层间接分派、正常owner寿命/SDK/机器ABI与运行继续未闭。"
+        "CAC08本域新增成员仅当前真实源及本批原分派数据关联；完整35父未重新捕获/全体验收。11无F回调及15原型只局部静态纳管，完整成员/所有callee、数据生产、外层间接分派、正常owner寿命/SDK/机器ABI与运行继续未闭。",
+        "CAC10只478330三切页坐标片段实修及完整499/1704B、十四448B原型/现两数组绑定；58有效case与64原默认索引分别保持。具名已知成员不是闭枚举或完整B/I/W/S/R；全部窗口/外层与callee、正常owner-alias寿命、机器ABI/画面/明文运行及R8继续。"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
-        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/ui_windows/shared_profile.md#profile-page-coordinate-source-state-20261009"
       ]
     },
     {
@@ -6219,9 +6223,12 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/window_58.md"
+        "doc/ui_windows/window_58.md",
+        "doc/ui_windows/shared_profile.md#profile-page-coordinate-baseline-20261009"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:00078330"
+      ],
       "closure_task_ids": [
         "U04",
         "V04"
@@ -6230,13 +6237,18 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/ui_windows/shared_profile.md#profile-page-coordinate-decision-20261009"
+      ],
       "blockers": [
-        "原成员、传递依赖和逐门禁证据待归档"
+        "原成员、传递依赖和逐门禁证据待归档",
+        "CAC10只478330三切页坐标片段实修及完整499/1704B、十四448B原型/现两数组绑定；58有效case与64原默认索引分别保持。具名已知成员不是闭枚举或完整B/I/W/S/R；全部窗口/外层与callee、正常owner-alias寿命、机器ABI/画面/明文运行及R8继续。"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/ui_windows/shared_profile.md#profile-page-coordinate-source-state-20261009"
+      ]
     },
     {
       "id": "UI-M-059",
@@ -6381,9 +6393,12 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/window_64.md"
+        "doc/ui_windows/window_64.md",
+        "doc/ui_windows/shared_profile.md#profile-page-coordinate-baseline-20261009"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:00078330"
+      ],
       "closure_task_ids": [
         "U04",
         "V04"
@@ -6392,13 +6407,18 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/ui_windows/shared_profile.md#profile-page-coordinate-decision-20261009"
+      ],
       "blockers": [
-        "原成员、传递依赖和逐门禁证据待归档"
+        "原成员、传递依赖和逐门禁证据待归档",
+        "CAC10只478330三切页坐标片段实修及完整499/1704B、十四448B原型/现两数组绑定；58有效case与64原默认索引分别保持。具名已知成员不是闭枚举或完整B/I/W/S/R；全部窗口/外层与callee、正常owner-alias寿命、机器ABI/画面/明文运行及R8继续。"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/ui_windows/shared_profile.md#profile-page-coordinate-source-state-20261009"
+      ]
     },
     {
       "id": "UI-M-065",
@@ -56208,6 +56228,96 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-PROFILE-PAGE-COORDINATE-FUNC-UI-I-20261009",
+      "feature_id": "FUNC-UI",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前已打开cg2d IDA原478330完整499条1704B、三个独立开窗后坐标窗36条159B与十四实际原型448B；十三表精确复用CAC08，见doc/cg2d_profile_page_coordinate_sampling_evidence.json。",
+      "implementation_reference": "Git固定命名快照 cg2d-re-profile-page-coordinate-sampling-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/ui_windows/shared_profile.md#profile-page-coordinate-source-state-20261009",
+        "doc/cg2d_profile_page_coordinate_sampling_evidence.json",
+        "doc/ui_windows/shared_profile.md#profile-page-coordinate-decision-20261009",
+        "src/ui/WindowRuntime.cpp",
+        "src/ui/WindowRuntimeState.hpp",
+        "src/ui/WindowPrototypes.cpp",
+        "src/ui/WindowPrototypeDependencies.hpp",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "observation": "仅三切页共用分支的两条坐标赋值展开；每轴先取得当前/目标两借用指针，再读源S32与写目标，X发布后fresh取Y两指针。",
+      "expected": "19/20/21 click且目标7/8/9不存在时原置关窗→OpenWindow→X当前/目标指针→源S32→目标写→fresh Y当前/目标指针→源S32→目标写→SE56/返回1；不沿开窗前值或X指针处理Y，保全部其它case/默认、owner与原字段/格式/平台方案。",
+      "actual": "整WindowRuntime.cpp只一既有root坐标片段9行替换2行，无新helper/owner/布局/声明；其余全CPP/头/十四绑定/原型不变。1937既有语义补完整根/源差集，一adapted处置和三个局部证据；58/64仅已证成员增加，枚举/完整门禁不提升。不构建/测试/运行/产物或摘要。",
+      "differences": [
+        {
+          "description": "x86原实例地址在x64以现原生非拥有WindowInstance*承载，保持S32坐标及每轴独立指针→字段源级读写序；指针拓宽/已获批GBK静态文字与SDL3/WAV方案保，不承诺原机器采样、全部alias/寿命/ABI、画面与运行或异常回绕等价。",
+          "decision_ref": "doc/ui_windows/shared_profile.md#profile-page-coordinate-decision-20261009"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-PROFILE-PAGE-COORDINATE-FUNC-UI-W-20261009",
+      "feature_id": "FUNC-UI",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前已打开cg2d IDA原478330完整499条1704B、三个独立开窗后坐标窗36条159B与十四实际原型448B；十三表精确复用CAC08，见doc/cg2d_profile_page_coordinate_sampling_evidence.json。",
+      "implementation_reference": "Git固定命名快照 cg2d-re-profile-page-coordinate-sampling-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/ui_windows/shared_profile.md#profile-page-coordinate-source-state-20261009",
+        "doc/cg2d_profile_page_coordinate_sampling_evidence.json",
+        "doc/ui_windows/shared_profile.md#profile-page-coordinate-decision-20261009",
+        "src/ui/WindowRuntime.cpp",
+        "src/ui/WindowRuntimeState.hpp",
+        "src/ui/WindowPrototypes.cpp",
+        "src/ui/WindowPrototypeDependencies.hpp",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "observation": "仅原十四元素448B与当前561558/57A070数组绑定、58有效19/20/21到既有OpenWindow/原唯一当前与目标槽；64三个默认索引保持0，不假造特殊回调。所有外层/依赖和正常寿命未由本步覆盖。",
+      "expected": "19/20/21 click且目标7/8/9不存在时原置关窗→OpenWindow→X当前/目标指针→源S32→目标写→fresh Y当前/目标指针→源S32→目标写→SE56/返回1；不沿开窗前值或X指针处理Y，保全部其它case/默认、owner与原字段/格式/平台方案。",
+      "actual": "整WindowRuntime.cpp只一既有root坐标片段9行替换2行，无新helper/owner/布局/声明；其余全CPP/头/十四绑定/原型不变。1937既有语义补完整根/源差集，一adapted处置和三个局部证据；58/64仅已证成员增加，枚举/完整门禁不提升。不构建/测试/运行/产物或摘要。",
+      "differences": [
+        {
+          "description": "x86原实例地址在x64以现原生非拥有WindowInstance*承载，保持S32坐标及每轴独立指针→字段源级读写序；指针拓宽/已获批GBK静态文字与SDL3/WAV方案保，不承诺原机器采样、全部alias/寿命/ABI、画面与运行或异常回绕等价。",
+          "decision_ref": "doc/ui_windows/shared_profile.md#profile-page-coordinate-decision-20261009"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-PROFILE-PAGE-COORDINATE-FUNC-UI-S-20261009",
+      "feature_id": "FUNC-UI",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前已打开cg2d IDA原478330完整499条1704B、三个独立开窗后坐标窗36条159B与十四实际原型448B；十三表精确复用CAC08，见doc/cg2d_profile_page_coordinate_sampling_evidence.json。",
+      "implementation_reference": "Git固定命名快照 cg2d-re-profile-page-coordinate-sampling-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/ui_windows/shared_profile.md#profile-page-coordinate-source-state-20261009",
+        "doc/cg2d_profile_page_coordinate_sampling_evidence.json",
+        "doc/ui_windows/shared_profile.md#profile-page-coordinate-decision-20261009",
+        "src/ui/WindowRuntime.cpp",
+        "src/ui/WindowRuntimeState.hpp",
+        "src/ui/WindowPrototypes.cpp",
+        "src/ui/WindowPrototypeDependencies.hpp",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "observation": "仅完整499条1704B/17call、三个开窗后窗36条159B和十四原型字段/现绑定及一CPP一个坐标片段源差集；十三表精确复用，不重复R7。",
+      "expected": "19/20/21 click且目标7/8/9不存在时原置关窗→OpenWindow→X当前/目标指针→源S32→目标写→fresh Y当前/目标指针→源S32→目标写→SE56/返回1；不沿开窗前值或X指针处理Y，保全部其它case/默认、owner与原字段/格式/平台方案。",
+      "actual": "整WindowRuntime.cpp只一既有root坐标片段9行替换2行，无新helper/owner/布局/声明；其余全CPP/头/十四绑定/原型不变。1937既有语义补完整根/源差集，一adapted处置和三个局部证据；58/64仅已证成员增加，枚举/完整门禁不提升。不构建/测试/运行/产物或摘要。",
+      "differences": [
+        {
+          "description": "x86原实例地址在x64以现原生非拥有WindowInstance*承载，保持S32坐标及每轴独立指针→字段源级读写序；指针拓宽/已获批GBK静态文字与SDL3/WAV方案保，不承诺原机器采样、全部alias/寿命/ABI、画面与运行或异常回绕等价。",
+          "decision_ref": "doc/ui_windows/shared_profile.md#profile-page-coordinate-decision-20261009"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
     }
   ],
   "task_acceptance": [
@@ -57159,7 +57269,9 @@
         "doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state",
         "doc/cg2d_blacklist_core_sampling_evidence.json",
         "doc/cg2d_scene_state.md#map-direction-byte-bridge-source-state-20261009",
-        "doc/cg2d_map_direction_byte_bridge_evidence.json"
+        "doc/cg2d_map_direction_byte_bridge_evidence.json",
+        "doc/ui_windows/shared_profile.md#profile-page-coordinate-source-state-20261009",
+        "doc/cg2d_profile_page_coordinate_sampling_evidence.json"
       ]
     },
     {
@@ -57706,7 +57818,9 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
         "doc/cg2d_unassigned_range_fifth_batch_evidence.json",
         "doc/cg2d_scene_state.md#map-direction-byte-bridge-source-state-20261009",
-        "doc/cg2d_map_direction_byte_bridge_evidence.json"
+        "doc/cg2d_map_direction_byte_bridge_evidence.json",
+        "doc/ui_windows/shared_profile.md#profile-page-coordinate-source-state-20261009",
+        "doc/cg2d_profile_page_coordinate_sampling_evidence.json"
       ]
     },
     {
@@ -57919,7 +58033,9 @@
         "doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state",
         "doc/cg2d_blacklist_core_sampling_evidence.json",
         "doc/cg2d_scene_state.md#map-direction-byte-bridge-source-state-20261009",
-        "doc/cg2d_map_direction_byte_bridge_evidence.json"
+        "doc/cg2d_map_direction_byte_bridge_evidence.json",
+        "doc/ui_windows/shared_profile.md#profile-page-coordinate-source-state-20261009",
+        "doc/cg2d_profile_page_coordinate_sampling_evidence.json"
       ]
     },
     {
@@ -58092,7 +58208,9 @@
         "doc/ui_windows/window_53.md#shop-inventory-scan-decision",
         "doc/ui_windows/window_53.md#shop-inventory-scan-source-state",
         "doc/cg2d_shop_inventory_scan_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#shop-inventory-scan-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#shop-inventory-scan-debug-build",
+        "doc/ui_windows/shared_profile.md#profile-page-coordinate-source-state-20261009",
+        "doc/cg2d_profile_page_coordinate_sampling_evidence.json"
       ]
     },
     {
@@ -71583,6 +71701,17 @@
         "doc/cg2d_scene_state.md#map-direction-byte-bridge-decision-20261009"
       ],
       "reason": "原两指针版/混合返回保留；同一叶在原字节记录视图的既有桥按完整原证恢复单读方向与触达轴原地读算写。五已证父不消费返回，byte桥void观察沿现有合同；处置不代五完整父、所有alias/owner寿命、机器ABI或运行验收。"
+    },
+    {
+      "inventory_id": "F:00078330",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/ui_windows/shared_profile.md#profile-page-coordinate-source-state-20261009",
+        "doc/cg2d_profile_page_coordinate_sampling_evidence.json",
+        "doc/ui_windows/shared_profile.md#profile-page-coordinate-decision-20261009"
+      ],
+      "reason": "既有完整八case/默认本体及十四真实原型绑定纳管；x64借用原生WindowInstance*，现两轴分别恢复current/target指针取样后源S32读取和目标发布，原返回及发送/同步/GBK和SDL音频合同保持。处置不代所有callee/间接外层或正常寿命、机器ABI/画面与运行验收。"
     }
   ],
   "auxiliary_dispositions": [

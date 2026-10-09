@@ -5216,8 +5216,15 @@ std::int32_t Sub_478330(const std::int32_t index, const std::int32_t state)
         if ((state & 2) != 0 && gWindowStates[target].window == nullptr) {
             gCurrentWindow->state |= 0x8000u;
             static_cast<void>(OpenWindow_471440(target));
-            gWindowStates[target].window->x = gCurrentWindow->x;
-            gWindowStates[target].window->y = gCurrentWindow->y;
+            // 原三切页每轴先取当前/目标指针，再读坐标；见CAC10。
+            WindowInstance* const sourceForX = gCurrentWindow;
+            WindowInstance* const targetForX = gWindowStates[target].window;
+            const std::int32_t x = sourceForX->x;
+            targetForX->x = x;
+            WindowInstance* const sourceForY = gCurrentWindow;
+            WindowInstance* const targetForY = gWindowStates[target].window;
+            const std::int32_t y = sourceForY->y;
+            targetForY->y = y;
             static_cast<void>(audio::PlaySe_52C450(56, 320));
             return 1;
         }

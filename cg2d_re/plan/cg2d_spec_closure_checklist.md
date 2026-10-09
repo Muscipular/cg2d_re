@@ -290,3 +290,7 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 ## CAC09 G01/U11/R01/R04/V04 地图八向字节桥实修（2026-10-09）
 
 [现桥状态](../doc/cg2d_scene_state.md#map-direction-byte-bridge-source-state-20261009)及[完整原叶/五邻窗](../doc/cg2d_map_direction_byte_bridge_evidence.json)支撑一CPP一私有桥实修：单方向读取、触达轴依原次序读算写，default不触坐标；原指针版/读写器/500项0x44与所有五caller余体保持。既有1927更新、一adapted和三局部MAP I/W/S，不重计CAC08八表/R7或新原新成员。五任务继续open，完整五父生产消费、全部alias/正常寿命、机器ABI/画面运行与R8未验，不构建/测试/运行/产物或摘要。
+
+## CAC10 U04/R01/R04/V04 资料切页取样实修（2026-10-09）
+
+[当前源状态](../doc/ui_windows/shared_profile.md#profile-page-coordinate-source-state-20261009)及[原499/1704B、十四448B原型](../doc/cg2d_profile_page_coordinate_sampling_evidence.json)支撑一CPP9/2片段恢复三切页每轴当前/目标指针先取、源坐标后读和目标发布，X后fresh Y。原发送同步、所选角色、图号/GBK提示、类别/state/flags、动画音频及全部其它源码保持。1937更新、一adapted/三局部FUNC-UI I/W/S和58/64已知成员不关闭完整枚举/软件门禁；64默认0不造新I。四任务继续open，所有callee/外层/正常寿命/机器ABI/画面明文运行及R8未验，本轮禁令保持。

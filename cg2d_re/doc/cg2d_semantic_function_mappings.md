@@ -4255,3 +4255,9 @@ X:00143383-00143390的7B实际代码对应Cg2dApplyLegacyConditionalSignX87，�
 既有1927/F:0006E3E0从CAC08表/源身份关联继续到[完整原叶与现字节桥](cg2d_scene_state.md#map-direction-byte-bridge-source-state-20261009)。原指针版Sub_46E3E0及混合返回保持；同一原叶在500项0x44原字节记录视图由既有ApplyMapEffectDirection承载，五当前生产者仍调该桥，W32读写器不变。只改桥正文，恢复单次S16方向及每触达轴读算写/默认零访问，不将原字节强转S32对象。
 
 [44条115B/五80条215B/末地址45条125B](cg2d_map_direction_byte_bridge_evidence.json)与八项表复用有据；一adapted处置、三局部MAP I/W/S，语义1964/有效1943及全部原分母不变。CAC08association_only为历史，不改旧证据事实；完整地图/五父、所有alias/正常寿命、机器ABI/画面运行与R8仍未闭。
+
+## CAC10 资料共享按钮的三切页坐标读取（2026-10-09）
+
+既有1937/F:00078330继续由CAC08原表/现源关联到[本完整根和当前差集](ui_windows/shared_profile.md#profile-page-coordinate-source-state-20261009)；[499条1704B/三个36条159B窗口及十四448B原型](cg2d_profile_page_coordinate_sampling_evidence.json)可追。只一CPP既有root的两条成员赋值展开为每轴两借用指针先取、源S32后读再目标发布，X后fresh Y；保持其它分支、返回/GBK文字和发送同步/开窗动画音频。
+
+一adapted处置/三局部FUNC-UI I/W/S，无新语义/F/R7；58/64各纳管一个真实绑定成员且枚举false。64的14/15/16本来默认0，不能据本步制造特殊空callback或新实现I。全部窗口/间接外层/完整callee、正常owner-alias寿命、机器ABI/画面/明文往返和运行R8继续；CAC08association_only历史保持。

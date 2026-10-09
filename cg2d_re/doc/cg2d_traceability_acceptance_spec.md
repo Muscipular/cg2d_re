@@ -2279,3 +2279,9 @@ I只完整七参数及两个已证info1源/目标域、原Fill/API源级消费�
 [具名裁决](cg2d_scene_state.md#map-direction-byte-bridge-decision-20261009)与[当前源状态](cg2d_scene_state.md#map-direction-byte-bridge-source-state-20261009)登记FUNC-MAP三局部I/W/S，限同一原46E3E0在0x44记录视图的一私有桥修复、五现有调用接线及完整44条115B原叶对照。原指针版接口/混合返回保留，五原邻窗80条215B证调用后重读坐标覆盖EAX；末+4地址窗45条125B与CAC08八表可追。
 
 F:0006E3E0新增adapted处置，既有1927语义增加记录视图承载，无新F或语义/R7重复处置；软件证据1301→1304。局部pass不提升FUNC-MAP任何完整B/I/W/S/R、成员枚举或五父全体、所有alias/正常owner寿命/机器ABI/链接画面运行。G01/U11/R01/R04/V04只追加依据仍open，六closure与R8保持；本轮禁令持续，文本汇总不代运行验收。
+
+## CAC10 资料切页两轴取样限定验收（2026-10-09）
+
+[先行裁决](ui_windows/shared_profile.md#profile-page-coordinate-decision-20261009)与[当前源状态](ui_windows/shared_profile.md#profile-page-coordinate-source-state-20261009)支持FUNC-UI三个局部I/W/S，只三切页现分支的两指针/坐标顺序实修、原完整499条1704B对照及十四448B绑定。完整代码xref没有记录，表头数据xref与实际原型用途分别保留，不能宣完整间接引用或不可达已闭；十三表复用不重计R7。
+
+F:00078330新增adapted，1937已有映射加本步原根/差集，无新F或语义；软件证据1304→1307。58/64已知成员各加该F且枚举false，64无新I成果，所有功能gates保持。U04/R01/R04/V04仅追加依据仍open；全callee/外层及正常owner-alias寿命、机器/业务画面运行、六closure及总SPEC§10/R8保持，文本汇总不代运行。

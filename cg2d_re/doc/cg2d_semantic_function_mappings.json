@@ -216477,25 +216477,29 @@
     {
       "original_entry": "0x478330",
       "inventory_id": "F:00078330",
-      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_478330",
-      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "original_role": "478330：资料公开、7/8/9切页、三类目录及确认的八有效case/默认S32 consumed；原十三表分派、58/64实际原型绑定。",
+      "status": "CAC10修复现三切页共用坐标片段的两指针/源字段取样顺序；原完整499条1704B及十四原型/现绑定限定静态，完整窗口/依赖/正常寿命/机器运行待验。",
       "sources": [
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
             "cg::ui::detail::Sub_478330"
           ],
-          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+          "relationship": "当前同一Sub_478330完整本体承载八有效case/默认；仅两条坐标成员赋值展开为每轴current→target指针→源S32→目标发布，X后独立重取Y两指针。原参数返回/发送同步/所选角色fresh取样、图号/GBK提示、窗口state/flags/类别与动画音频保持。CAC08仅表/源关联为历史，本步不是新本体。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
-        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json",
+        "doc/ui_windows/shared_profile.md#profile-page-coordinate-baseline-20261009",
+        "doc/ui_windows/shared_profile.md#profile-page-coordinate-decision-20261009",
+        "doc/ui_windows/shared_profile.md#profile-page-coordinate-source-state-20261009",
+        "doc/cg2d_profile_page_coordinate_sampling_evidence.json"
       ],
-      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
-      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "boundary": "原完整499条1704B/17directcall及三个开窗后窗36条159B；十三表复用CAC08，十四原32B原型448B/两当前数组绑定。当前入口无直接代码xref，只有57A070表头数据xref，不代全间接引用；64索引14/15/16为原默认0，不造空callback。仅本root源序/现绑定，所有完整callee/外层父、正常owner-alias寿命、机器ABI/画面/业务运行未闭。",
+      "verification_level": "原完整根/十四原型与一CPP9行替换2行限定静态；全部其它源码/声明/原型/唯一owner保持。不构建/测试/运行/检查产物或摘要。",
       "range_fifth_batch_data": {
         "step": "CAC08",
         "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
@@ -216506,6 +216510,41 @@
         "full_original_body_recaptured": false,
         "runtime_verified": false,
         "current_definition_line": 5176
+      },
+      "profile_page_coordinate_sampling": {
+        "step": "CAC10",
+        "source_snapshot": "cg2d-re-profile-page-coordinate-sampling-20261009",
+        "full_original_body_recaptured": true,
+        "original_instructions": 499,
+        "original_bytes": 1704,
+        "direct_calls": 17,
+        "coordinate_windows": 3,
+        "coordinate_window_instructions": 36,
+        "coordinate_window_bytes": 159,
+        "bound_prototypes": 14,
+        "bound_prototype_bytes": 448,
+        "source_windows": [
+          58,
+          64
+        ],
+        "changed_case_indices": [
+          19,
+          20,
+          21
+        ],
+        "target_windows": [
+          7,
+          8,
+          9
+        ],
+        "default_binding_indices_in_window64": [
+          14,
+          15,
+          16
+        ],
+        "complete_indirect_reference_census": false,
+        "runtime_verified": false,
+        "implementation_scope": "只三切页共用分支X/Y各指针-字段取样；其余八有效case和默认/实际元素/所有父-callee保持"
       }
     },
     {

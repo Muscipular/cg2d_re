@@ -479,7 +479,10 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010",
         "doc/cg2d_msvc_crt_residual_evidence.json",
-        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010"
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
       ],
       "original_inventory_ids": [
         "F:00001C10",
@@ -1005,7 +1008,8 @@
         "F:00143F8E",
         "F:0013C9DD",
         "F:0013BDEF",
-        "F:0013BE17"
+        "F:0013BE17",
+        "F:0013C112"
       ],
       "closure_task_ids": [
         "C01",
@@ -1093,7 +1097,10 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010",
         "doc/cg2d_msvc_crt_residual_evidence.json",
-        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010"
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
       ],
       "blockers": [
         "已知原成员登记并不构成全部CRT/混合边界/未知间接调用闭包；member_inventory_closed仍false，全部原事实及证据保历史。",
@@ -1106,7 +1113,8 @@
         "MC01-C3旧退出/信号/消息与钩子/console/filter层退休；三实际终止MSVC入口与四数组正文保真，删纯CRT回调/唯一登记，不改任何真实业务登记/资源清理或顺序。_Exit保255并不输出旧R600x诊断，库内差异获批；旧multibyte前置已由C5退休及全部业务/owner/SDK/启动退出运行仍待。；MC01-C5已覆盖上述私有多字节/argv环境开发条件；全体实际业务/SDK与运行门禁保持。",
         "MC01-C4旧堆模式/handler/借用句柄及重复初始化/失败28退休，三公开calloc/realloc/_msize直接MSVC；原业务U32参数、现malloc/free与owner保持。库数量/零/容量/失败差异获批，C5多字节私有层已退休，全体实际CRT提供者/业务边界继续审计；完整业务/owner/SDK和正常快速退出运行仍待。；MC01-C5已覆盖上述私有多字节/argv环境开发条件；全体实际业务/SDK与运行门禁保持。",
         "MC01-C5旧ctype/多字节/NLS转换/locale表与无现调用的私有argv/环境组退休，Input两ASCII非零分类直接MSVC；原WinMain命令尾与应用ParseCommandOptions/IP正文/字段保持。旧失败9/9/8及专用入口只历史，数组terminate/全部业务保持；库内差异获批。仍核全体实际CRT提供者/业务边界，全部owner/未知alias/SDK与正常快速退出运行待。",
-        "MC01-C6无消费549147多BYTE回退已退休；实际单BYTE服务/业务保持。十原qsort调用仍保旧算法，其中七组/八调用的非一致业务比较关系与直接MSVC有冲突，两具体方案已给用户选择；未批准/未实施排序替换。实际owner/SDK/运行及全CRT/整体门禁仍未验。"
+        "MC01-C6无消费549147多BYTE回退已退休；实际单BYTE服务/业务保持。十原qsort调用仍保旧算法，其中七组/八调用的非一致业务比较关系与直接MSVC有冲突，两具体方案已给用户选择；未批准/未实施排序替换。实际owner/SDK/运行及全CRT/整体门禁仍未验。",
+        "MC01-C7动画/渲染两一致比较域实际std::qsort已接，完整原生记录/参数/比较器及业务发布/保留项不变；库算法/比较交换次序和同键顺序按MSVC，只限定源码。八非一致调用继续待C6，全部业务正常结果/owner/SDK/像素与运行未验。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -3209,7 +3217,10 @@
         "doc/cg2d_animation_pointer_spec.md#animation-pointer-baseline",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_evidence.json"
+        "doc/cg2d_msvc_crt_file_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
       ],
       "original_inventory_ids": [
         "F:000574E0",
@@ -3219,7 +3230,8 @@
         "F:0005B760",
         "F:0005C150",
         "F:0005B440",
-        "F:0005B650"
+        "F:0005B650",
+        "F:0013C112"
       ],
       "closure_task_ids": [
         "G01",
@@ -3234,13 +3246,17 @@
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_animation_capacity_spec.md#animation-capacity-decision",
         "doc/cg2d_animation_pointer_spec.md#animation-pointer-decision",
-        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009"
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
         "ACB01撤早期P1额外零哨兵，恢复原固定20500项/容量重读清零，原包含上界/正常查询和四分配序保持；四身份局部纳管，完整加载/播放/场景/退出/alias/所有owner寿命/实际分配失败/机器/SDK/画面运行未验，异常不保护或模拟",
         "ATP01五具名指针/三分配/P4独立子项和两清理读取已落码，原布局/发布/正常控制/释放顺序保持；两清理与两生产四身份局部纳管，P4前缀/帧/缓冲生产和完整初始化加载播放退出/alias/所有owner寿命/实际分配失败/ABI/SDK/画面运行未验，异常不保护或模拟",
-        "MC01-B已成组迁移实际MSVC FILE/描述符及流格式/状态/关闭；已证owner失效处理已接。完整CRT对象/初始化退出余组、业务/owner/SDK运行仍未验。"
+        "MC01-B已成组迁移实际MSVC FILE/描述符及流格式/状态/关闭；已证owner失效处理已接。完整CRT对象/初始化退出余组、业务/owner/SDK运行仍未验。",
+        "MC01-C7动画/渲染两一致比较域实际std::qsort已接，完整原生记录/参数/比较器及业务发布/保留项不变；库算法/比较交换次序和同键顺序按MSVC，只限定源码。八非一致调用继续待C6，全部业务正常结果/owner/SDK/像素与运行未验。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -3300,7 +3316,10 @@
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-baseline",
         "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
         "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-baseline",
-        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-baseline"
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-baseline",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -3381,7 +3400,8 @@
         "F:0011D750",
         "F:00103C80",
         "F:00053E80",
-        "F:00053760"
+        "F:00053760",
+        "F:0013C112"
       ],
       "closure_task_ids": [
         "C09",
@@ -3436,7 +3456,10 @@
         "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision",
         "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-decision",
         "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-decision",
-        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -3479,7 +3502,8 @@
         "BVE01正/反向FX完整两根1252条5152B/19页、35direct/零indirect/208跳转/五返回、18引用同已纳管51FDE0；18局部252条707B准确复用BVD01完整父，窗口含重叠不当全链。原51D793/51E0D3触发完整W32持样早于RECT生产；一cpp两个prefix恢复先持样后RECT/按同持样判定，完整余体/四相关源/声明/18真实消费保持。两实际9项表72B/24B NN_NOP、两X96B用途；两adapted/LOOP-RENDER四限定I-S只取样实修/接口及用途，完整数值分支/浮点精度/像素/其余callee与owner-alias寿命/ABI链接运行仍未验，不把完整取证等同完整语义验收；RPLAN.24异常不专项处理/模拟或记等价。",
         "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
         "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验",
-        "BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。"
+        "BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。",
+        "MC01-C7动画/渲染两一致比较域实际std::qsort已接，完整原生记录/参数/比较器及业务发布/保留项不变；库算法/比较交换次序和同键顺序按MSVC，只限定源码。八非一致调用继续待C6，全部业务正常结果/owner/SDK/像素与运行未验。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -58009,6 +58033,66 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-10"
+    },
+    {
+      "id": "E-MSVC-CRT-SORT-CONSISTENT-FUNC-CRT-I-20261010",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "MC01直接MSVC/C7独立两一致域；原十caller/记录与比较合同、完整前态 cg2d-re-msvc-crt-sort-consistent-history-20261010",
+      "implementation_reference": "Git固定快照 cg2d-re-msvc-crt-sort-consistent-20261010",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
+        "src/AnimationRuntime.cpp",
+        "src/render/GraphicPendingQueue.cpp",
+        "src/LegacySort.hpp",
+        "include/cg/AnimationRuntime.hpp",
+        "include/cg/render/GraphicPendingQueue.hpp"
+      ],
+      "observation": "两实际qsort调用、完整对象宽度、原比较器同键0/无RNG写状态、父数量/位置/发布精确保持；七未迁组与LegacySort算法不改。",
+      "expected": "真实MSVC qsort且原U32数量/类型/比较器/owner保持，不以旧x86记录宽度交换；不改待决比较器/加稳定次键或故障保护。",
+      "actual": "动画与渲染仅替换两调用/两未用include，模板仅更新当前消费者注释；原_qsort新独立语义/混合adapted，八域仍未迁。限定源码，不计业务排序结果/SDK或运行通过。",
+      "differences": [
+        {
+          "description": "两一致域的pivot/比较交换次数/次序/校验与同键排列按MSVC；比较器/业务参数与字节保持",
+          "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-10"
+    },
+    {
+      "id": "E-MSVC-CRT-SORT-CONSISTENT-FUNC-CRT-S-20261010",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "MC01直接MSVC/C7独立两一致域；原十caller/记录与比较合同、完整前态 cg2d-re-msvc-crt-sort-consistent-history-20261010",
+      "implementation_reference": "Git固定快照 cg2d-re-msvc-crt-sort-consistent-20261010",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
+        "src/AnimationRuntime.cpp",
+        "src/render/GraphicPendingQueue.cpp",
+        "src/LegacySort.hpp",
+        "include/cg/AnimationRuntime.hpp",
+        "include/cg/render/GraphicPendingQueue.hpp"
+      ],
+      "observation": "两实际qsort调用、完整对象宽度、原比较器同键0/无RNG写状态、父数量/位置/发布精确保持；七未迁组与LegacySort算法不改。",
+      "expected": "真实MSVC qsort且原U32数量/类型/比较器/owner保持，不以旧x86记录宽度交换；不改待决比较器/加稳定次键或故障保护。",
+      "actual": "动画与渲染仅替换两调用/两未用include，模板仅更新当前消费者注释；原_qsort新独立语义/混合adapted，八域仍未迁。限定源码，不计业务排序结果/SDK或运行通过。",
+      "differences": [
+        {
+          "description": "两一致域的pivot/比较交换次数/次序/校验与同键排列按MSVC；比较器/业务参数与字节保持",
+          "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-10"
     }
   ],
   "task_acceptance": [
@@ -58342,7 +58426,10 @@
         "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
         "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-source-state",
         "doc/cg2d_scene_state.md#map-direction-byte-bridge-source-state-20261009",
-        "doc/cg2d_map_direction_byte_bridge_evidence.json"
+        "doc/cg2d_map_direction_byte_bridge_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
       ]
     },
     {
@@ -58553,7 +58640,10 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010",
         "doc/cg2d_msvc_crt_residual_evidence.json",
-        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010"
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
       ],
       "task_id": "C01",
       "state": "open"
@@ -59183,7 +59273,10 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010",
         "doc/cg2d_msvc_crt_residual_evidence.json",
-        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010"
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
       ]
     },
     {
@@ -59336,7 +59429,10 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010",
         "doc/cg2d_msvc_crt_residual_evidence.json",
-        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010"
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
       ]
     },
     {
@@ -59428,7 +59524,10 @@
         "doc/cg2d_msvc_crt_file_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
-        "doc/cg2d_msvc_crt_numeric_evidence.json"
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
       ]
     },
     {
@@ -59831,7 +59930,10 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010",
         "doc/cg2d_msvc_crt_residual_evidence.json",
-        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010"
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
       ]
     },
     {
@@ -60063,7 +60165,10 @@
         "doc/cg2d_msvc_crt_exit_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
-        "doc/cg2d_msvc_crt_multibyte_evidence.json"
+        "doc/cg2d_msvc_crt_multibyte_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
       ]
     },
     {
@@ -60177,7 +60282,10 @@
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
         "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
         "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-map-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-map-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
       ]
     },
     {
@@ -60641,7 +60749,10 @@
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state",
         "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
-        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state"
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
       ]
     },
     {
@@ -60809,7 +60920,10 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010",
         "doc/cg2d_msvc_crt_residual_evidence.json",
-        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010"
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
       ]
     },
     {
@@ -60867,7 +60981,7 @@
       ]
     }
   ],
-  "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。 GQ01由同一汇总器生成development_gap_queue与看板§5；只列定位/语义身份登记差集，不把缺历史定位当源码未实现，不手改队列。 CRI01无独立函数ID的已证代码片段可按原X区间/实际边界绑定；校验身份与证据后另计，不混入缺身份队列，不增加函数分母。 ACP01-A按最新double/std数学许可迁音频6入口CPP；更新现提供者及两限定静态证据，三ASM历史附件仍由固定Git快照核存在；完整门禁/成员/任务状态与MIDI停止范围保持。 ACP01-M将地图13数学/投影入口迁CPP，8现提供者同步，新增两限定I/S，原CI消费点明示std::pow承接；CRT环境仍待，不关闭完整gates/成员/任务。 ACP01-C完成第三ASM源迁移，22接口/70私有机器ABI退役/5非PUBLIC宿主承接，当前数学现提供者与host/mixed处置同步；新增两限定I/S，三ASM/MASM已移除，原身份/成员/完整gates/任务/六closure不闭合。 HMU01按malloc方向和工程委托统一通用全部模式CRT；9实际提供者/12旧池退休/8类型/10槽，25语义当前提供者与host/adapted处置对齐，3限定静态证据；完整门禁/成员/任务/六closure保持。 2026-10-09 CAC17：按用户要求更新七源/头18处过时注释；代码/声明/字段/调用保持，零新增原身份/语义/处置/软件证据，完整门禁/任务关闭/成员/六closure不变；见plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009。 2026-10-09 CAC18：第六批512原X完整用途和49表307槽/19索引/18对齐/三回调八原型，仅辅助mapped与九已有/26新父数据关联及三无F代码身份；已审区间2021余1040，源码/完整门禁/软件证据/任务状态和六closure保持。 2026-10-09 CAC19：第七批512原X/5733B完整用途；15表97槽/两索引/四对齐/22代码，五原型、十八旧键与一旧选择来源，七旧/六新父仅数据关联。已审区间2533余528，零客户端源码/软件证据增量；完整门禁/任务状态/成员枚举和六closure保持。 2026-10-09 CAC20：528候选全读、527原X用途mapped，已审3060/3061；X:00142E29-00142E34内八字节用途未证留待，不猜填充/排除。九表/输入元数据/PE原节尾/键盘包装/三ABI尾部有据；单一53B4F2受限host职责新增，零客户端源码/软件证据通过，完整门禁/任务状态/成员枚举/六closure保持。 CAC20静态汇总拒绝53B51F无独立现源码的语义代码身份后，撤掉该条；原用途/完整字节和未决实际转入仍保留，不放宽校验。 MC01-A按用户CRT直接使用MSVC新要求先记总范围与分组SPEC，33入口/29新提供者、TLS错误和八退休辅助同步；保原身份/前态、局部静态证据与全部完整门禁，FILE/lowio和C++余组继续。 MC01-B成组迁MSVC FILE/描述符/流格式与状态/ctime/fpos/关闭；39私有定义及旧入口/C表退休，shared calloc仅除stdio消费者；旧映射沿固定快照可读，当前全部门禁/任务状态保持，完整C++余组继续。 MC01-C1退休六组无现组外消费者的私有C++库/NCE头及旧展开适配，实际MSVC标准流/Init/locale和全部业务初始化退出保持；现语义/共享消费与历史附件快照对齐，新增两限定I/S，完整功能门禁/成员闭包/任务状态保持。 MC01-C2浮点文本/数值/环境组退休，实际业务math源及计时除法保持，两真实Shop/NLS intrinsic读移到现有模块；无消费slot/helper/gate/类型退休，新增两限定I/S及精确登记，完整门禁/任务保持。 MC01-C3 private错误/信号/退出/filter/console层退休；三MSVC致命或terminate适配、四数组/实际业务回调与登记保持，_Exit诊断差异具名；两限定I/S、现语义/历史附件对齐，完整门禁/任务不关闭。；2026-10-10 MC01-C4堆策略直接MSVC，三公开服务与真实业务保持；35语义对齐、仅2限定I/S，完整门禁/任务状态不变。；2026-10-10 MC01-C5旧多字节/ctype/argv环境直接MSVC，两Input实际分类与业务命令/数组保持，仅限定I/S；门禁/任务状态不变。；2026-10-10 MC01-C6残留审计退休无消费549147，仅限定S；排序冲突两方案待选择，未计实现/验收。",
+  "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。 GQ01由同一汇总器生成development_gap_queue与看板§5；只列定位/语义身份登记差集，不把缺历史定位当源码未实现，不手改队列。 CRI01无独立函数ID的已证代码片段可按原X区间/实际边界绑定；校验身份与证据后另计，不混入缺身份队列，不增加函数分母。 ACP01-A按最新double/std数学许可迁音频6入口CPP；更新现提供者及两限定静态证据，三ASM历史附件仍由固定Git快照核存在；完整门禁/成员/任务状态与MIDI停止范围保持。 ACP01-M将地图13数学/投影入口迁CPP，8现提供者同步，新增两限定I/S，原CI消费点明示std::pow承接；CRT环境仍待，不关闭完整gates/成员/任务。 ACP01-C完成第三ASM源迁移，22接口/70私有机器ABI退役/5非PUBLIC宿主承接，当前数学现提供者与host/mixed处置同步；新增两限定I/S，三ASM/MASM已移除，原身份/成员/完整gates/任务/六closure不闭合。 HMU01按malloc方向和工程委托统一通用全部模式CRT；9实际提供者/12旧池退休/8类型/10槽，25语义当前提供者与host/adapted处置对齐，3限定静态证据；完整门禁/成员/任务/六closure保持。 2026-10-09 CAC17：按用户要求更新七源/头18处过时注释；代码/声明/字段/调用保持，零新增原身份/语义/处置/软件证据，完整门禁/任务关闭/成员/六closure不变；见plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009。 2026-10-09 CAC18：第六批512原X完整用途和49表307槽/19索引/18对齐/三回调八原型，仅辅助mapped与九已有/26新父数据关联及三无F代码身份；已审区间2021余1040，源码/完整门禁/软件证据/任务状态和六closure保持。 2026-10-09 CAC19：第七批512原X/5733B完整用途；15表97槽/两索引/四对齐/22代码，五原型、十八旧键与一旧选择来源，七旧/六新父仅数据关联。已审区间2533余528，零客户端源码/软件证据增量；完整门禁/任务状态/成员枚举和六closure保持。 2026-10-09 CAC20：528候选全读、527原X用途mapped，已审3060/3061；X:00142E29-00142E34内八字节用途未证留待，不猜填充/排除。九表/输入元数据/PE原节尾/键盘包装/三ABI尾部有据；单一53B4F2受限host职责新增，零客户端源码/软件证据通过，完整门禁/任务状态/成员枚举/六closure保持。 CAC20静态汇总拒绝53B51F无独立现源码的语义代码身份后，撤掉该条；原用途/完整字节和未决实际转入仍保留，不放宽校验。 MC01-A按用户CRT直接使用MSVC新要求先记总范围与分组SPEC，33入口/29新提供者、TLS错误和八退休辅助同步；保原身份/前态、局部静态证据与全部完整门禁，FILE/lowio和C++余组继续。 MC01-B成组迁MSVC FILE/描述符/流格式与状态/ctime/fpos/关闭；39私有定义及旧入口/C表退休，shared calloc仅除stdio消费者；旧映射沿固定快照可读，当前全部门禁/任务状态保持，完整C++余组继续。 MC01-C1退休六组无现组外消费者的私有C++库/NCE头及旧展开适配，实际MSVC标准流/Init/locale和全部业务初始化退出保持；现语义/共享消费与历史附件快照对齐，新增两限定I/S，完整功能门禁/成员闭包/任务状态保持。 MC01-C2浮点文本/数值/环境组退休，实际业务math源及计时除法保持，两真实Shop/NLS intrinsic读移到现有模块；无消费slot/helper/gate/类型退休，新增两限定I/S及精确登记，完整门禁/任务保持。 MC01-C3 private错误/信号/退出/filter/console层退休；三MSVC致命或terminate适配、四数组/实际业务回调与登记保持，_Exit诊断差异具名；两限定I/S、现语义/历史附件对齐，完整门禁/任务不关闭。；2026-10-10 MC01-C4堆策略直接MSVC，三公开服务与真实业务保持；35语义对齐、仅2限定I/S，完整门禁/任务状态不变。；2026-10-10 MC01-C5旧多字节/ctype/argv环境直接MSVC，两Input实际分类与业务命令/数组保持，仅限定I/S；门禁/任务状态不变。；2026-10-10 MC01-C6残留审计退休无消费549147，仅限定S；排序冲突两方案待选择，未计实现/验收。；2026-10-10 MC01-C7两一致排序域std::qsort，新增原_qsort混合身份；仅限定I/S，八待决域及全部完整门禁保持。",
   "function_dispositions": [
     {
       "disposition": "adapted",
@@ -79263,6 +79377,17 @@
         "doc/cg2d_msvc_crt_multibyte_evidence.json"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。"
+    },
+    {
+      "inventory_id": "F:0013C112",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
+      ],
+      "boundary": "MC01-C7原_qsort独立身份及两一致调用已接MSVC；八未迁域仍旧算法/业务比较器待C6，仅混合adapted，不whole host/原体等价/完整SDK或业务结果。"
     }
   ],
   "auxiliary_dispositions": [

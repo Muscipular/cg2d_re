@@ -1,0 +1,230 @@
+{
+  "schema_version": 1,
+  "spec_id": "MC01-C7",
+  "recorded_on": "2026-10-10",
+  "before_snapshot": "cg2d-re-msvc-crt-sort-consistent-history-20261010",
+  "implementation_snapshot": "cg2d-re-msvc-crt-sort-consistent-20261010",
+  "authorization": "用户直接MSVC；两一致比较域独立于C6待决业务比较修正，先记C7 SPEC",
+  "changed_source_paths": [
+    "src/AnimationRuntime.cpp",
+    "src/render/GraphicPendingQueue.cpp",
+    "src/LegacySort.hpp"
+  ],
+  "existing_semantic_changed_indices": [
+    469,
+    737,
+    1197,
+    1198,
+    1262
+  ],
+  "new_semantic_index": 2029,
+  "new_semantic_inventory_id": "F:0013C112",
+  "new_function_disposition_inventory_ids": [
+    "F:0013C112"
+  ],
+  "feature_member_additions": {
+    "FUNC-CRT": [
+      "F:0013C112"
+    ],
+    "FUNC-ANIMATION": [
+      "F:0013C112"
+    ],
+    "FUNC-RENDER": [
+      "F:0013C112"
+    ]
+  },
+  "original_qsort_inventory_record": {
+    "chunks": [
+      [
+        5488914,
+        5489254
+      ]
+    ],
+    "entry_chunk_end": 5489254,
+    "flags": 21588,
+    "id": "F:0013C112",
+    "ida_library_flag": true,
+    "ida_thunk_flag": false,
+    "name": "_qsort",
+    "rva": 1294610,
+    "va": 5488914
+  },
+  "original_direct_caller_entries_from_existing_contract": [
+    "0x405C30",
+    "0x45BB20",
+    "0x46C420",
+    "0x4A2C60",
+    "0x4B5760",
+    "0x4EC1A0",
+    "0x518600",
+    "0x5198D0",
+    "0x520790",
+    "0x52FCC0"
+  ],
+  "record_widths": {
+    "AnimateRecord": {
+      "old_x86_bytes": 36,
+      "current_native_bytes": 56,
+      "width_expression": "sizeof(AnimateRecord)",
+      "trivially_copyable_evidence": "include/cg/AnimationRuntime.hpp"
+    },
+    "GraphicCache3": {
+      "current_native_bytes": 4,
+      "width_expression": "sizeof(GraphicCache3)",
+      "trivially_copyable_evidence": "include/cg/render/GraphicPendingQueue.hpp，唯一LegacyPendingStorage的既有断言/普通字段"
+    }
+  },
+  "preserved_scope": {
+    "comparator_bodies_unchanged": true,
+    "business_count_and_publish_positions_unchanged": true,
+    "records_pointers_unwritten_bytes_owner_kept": true,
+    "other_non_consistent_groups_source_unchanged": true,
+    "legacy_sort_algorithm_body_unchanged": true,
+    "new_rng_calls_or_state_writes": false
+  },
+  "source_changes": {
+    "src/AnimationRuntime.cpp": {
+      "path": "src/AnimationRuntime.cpp",
+      "before_snapshot": "cg2d-re-msvc-crt-sort-consistent-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-sort-consistent-20261010",
+      "diff": "--- 迁移前/src/AnimationRuntime.cpp\n+++ 迁移后/src/AnimationRuntime.cpp\n@@ -1,14 +1,13 @@\n #include \"cg/AnimationRuntime.hpp\"\n \n #include \"AnimationRuntimeState.hpp\"\n #include \"platform/LegacyFormat.hpp\"\n #include \"platform/LegacyStdio.hpp\"\n-#include \"LegacySort.hpp\"\n \n #include \"cg/GraphicAlloc.hpp\"\n #include \"cg/GraphicInfo.hpp\"\n #include \"cg/platform/LegacyWindow.hpp\"\n #include \"cg/platform/LegacyStringCompare.hpp\"\n \n #include <cstdlib>\n #include <cstring>\n@@ -176,18 +175,18 @@\n         gAnimateRecords9A4A58[index].count = pairs[index].count;\n         gAnimateRecords9A4A58[index].flag = pairs[index].flag;\n         gAnimateRecords9A4A58[index].coordinateOffset = 0xFFFFFFFFu;\n         gAnimateRecords9A4A58[index].coordinateCount = 0;\n         gAnimateRecords9A4A58[index].actionList = nullptr;\n         gAnimateRecords9A4A58[index].listNode = nullptr;\n     }\n     gAnimateCount9A4A60 = uniqueCount;\n-    cg::detail::SortLegacyRecords_53C112(\n-        gAnimateRecords9A4A58, static_cast<std::uint32_t>(uniqueCount), Compare_45B420);\n+    std::qsort(gAnimateRecords9A4A58, static_cast<std::uint32_t>(uniqueCount),\n+        sizeof(AnimateRecord), Compare_45B420);\n     return 0;\n }\n \n std::int32_t __cdecl Compare_45B420(\n     const void* const left, const void* const right)\n {\n     const auto* const a = static_cast<const AnimateRecord*>(left);\n     const auto* const b = static_cast<const AnimateRecord*>(right);\n"
+    },
+    "src/render/GraphicPendingQueue.cpp": {
+      "path": "src/render/GraphicPendingQueue.cpp",
+      "before_snapshot": "cg2d-re-msvc-crt-sort-consistent-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-sort-consistent-20261010",
+      "diff": "--- 迁移前/src/render/GraphicPendingQueue.cpp\n+++ 迁移后/src/render/GraphicPendingQueue.cpp\n@@ -5,17 +5,16 @@\n \n #include \"cg/GraphicRead.hpp\"\n #include \"cg/platform/CommandOptions.hpp\"\n #include \"cg/platform/MainLoop.hpp\"\n #include \"cg/render/SurfaceState.hpp\"\n #include \"cg/world/SceneState.hpp\"\n \n #include \"../LoginMessageDependencies.hpp\"\n-#include \"../LegacySort.hpp\"\n \n #include <bit>\n #include <cstdlib>\n #include <cstring>\n \n #define WIN32_LEAN_AND_MEAN\n #define NOMINMAX\n #include <Windows.h>\n@@ -397,19 +396,20 @@\n     if (hasSpecialGraphic) {\n         countBits = AppendReservedGraphic(countBits, 2, 8);\n     }\n     countBits = AppendReservedGraphic(countBits, 5, 6);\n     countBits = AppendReservedGraphic(countBits, 6, 7);\n     countBits = AppendReservedGraphic(countBits, 20, 9);\n \n     const std::int32_t sortCount = std::bit_cast<std::int16_t>(countBits);\n-    cg::detail::SortLegacyRecords_53C112(\n+    std::qsort(\n         gLegacyPendingStorage.cache3.data(),\n         static_cast<std::uint32_t>(sortCount),\n+        sizeof(GraphicCache3),\n         CompareGraphicCache3_5222A0);\n }\n \n } // namespace cg::render\n \n namespace cg::platform {\n \n char (&gTextFF4E30)[0x88] = render::gLegacyPendingStorage.prefix;\n"
+    },
+    "src/LegacySort.hpp": {
+      "path": "src/LegacySort.hpp",
+      "before_snapshot": "cg2d-re-msvc-crt-sort-consistent-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-sort-consistent-20261010",
+      "diff": "--- 迁移前/src/LegacySort.hpp\n+++ 迁移后/src/LegacySort.hpp\n@@ -20,18 +20,18 @@\n     for (std::size_t index = 0; index < sizeof(T); ++index) {\n         const unsigned char rightByte = rightBytes[index];\n         const unsigned char leftByte = leftBytes[index];\n         leftBytes[index] = rightByte;\n         rightBytes[index] = leftByte;\n     }\n }\n \n-// 原53C112/53C266：仅用于已证连续记录域；非严格比较器也保持原比较与分区次序。\n-// 合同见doc/cg2d_semantic_function_mappings.md“剩余三处宿主qsort替换”。\n+// 原53C112/53C266：当前仅供52FCC0公会索引，非一致比较合同沿MC01-C6待决。\n+// 动画/渲染已沿MC01-C7采用std::qsort；本组仍保原比较、分区及完整字节交换。\n template <typename T>\n void SortLegacyRecords_53C112(\n     T* const base, const std::uint32_t count,\n     std::int32_t (*compare)(const void*, const void*))\n {\n     if (count < 2) {\n         return;\n     }\n"
+    }
+  },
+  "local_sdk_references": [
+    {
+      "path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/include/cstdlib",
+      "encoding": "UTF-8（兼容BOM）",
+      "matches": [
+        {
+          "line": 57,
+          "text": "_EXPORT_STD using _CSTD qsort;"
+        }
+      ],
+      "scope": "实际声明/转引/全width字节交换静态，不代编译/链接/运行"
+    },
+    {
+      "path": "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/ucrt/stdlib.h",
+      "encoding": "UTF-8（兼容BOM）",
+      "matches": [
+        {
+          "line": 14,
+          "text": "#include <corecrt_search.h>"
+        }
+      ],
+      "scope": "实际声明/转引/全width字节交换静态，不代编译/链接/运行"
+    },
+    {
+      "path": "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/ucrt/corecrt_search.h",
+      "encoding": "UTF-8（兼容BOM）",
+      "matches": [
+        {
+          "line": 24,
+          "text": "typedef int (__cdecl* _CoreCrtNonSecureSearchSortCompareFunction)(void const*, void const*);"
+        },
+        {
+          "line": 60,
+          "text": "_ACRTIMP void __cdecl qsort("
+        }
+      ],
+      "scope": "实际声明/转引/全width字节交换静态，不代编译/链接/运行"
+    },
+    {
+      "path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdlib/qsort.cpp",
+      "encoding": "UTF-8（兼容BOM）",
+      "matches": [
+        {
+          "line": 58,
+          "text": "static void __fileDECL swap(_Inout_updates_(width) char* a, _Inout_updates_(width) char* b, size_t width)"
+        },
+        {
+          "line": 64,
+          "text": "while (width--)"
+        },
+        {
+          "line": 66,
+          "text": "char const tmp = *a;"
+        },
+        {
+          "line": 67,
+          "text": "*a++ = *b;"
+        },
+        {
+          "line": 68,
+          "text": "*b++ = tmp;"
+        },
+        {
+          "line": 205,
+          "text": "_VALIDATE_RETURN_VOID(base != nullptr || num == 0, EINVAL);"
+        },
+        {
+          "line": 206,
+          "text": "_VALIDATE_RETURN_VOID(width > 0, EINVAL);"
+        },
+        {
+          "line": 207,
+          "text": "_VALIDATE_RETURN_VOID(comp != nullptr, EINVAL);"
+        },
+        {
+          "line": 252,
+          "text": "if (__COMPARE(context, lo, mid) > 0)"
+        }
+      ],
+      "scope": "实际声明/转引/全width字节交换静态，不代编译/链接/运行"
+    }
+  ],
+  "aligned_document_paths": [
+    "doc/cg2d_animation_runtime.md",
+    "doc/cg2d_graphic_sort_alignment_spec.md",
+    "doc/cg2d_semantic_function_mappings.md",
+    "doc/cg2d_crt_runtime_boundary_spec.md",
+    "doc/cg2d_crt_host_migration_spec.md",
+    "plan/cg2d_full_reconstruction_plan.md",
+    "plan/cg2d_spec_closure_checklist.md"
+  ],
+  "pending_sort_decision": {
+    "spec": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010",
+    "status": "waiting_for_user_design_choice",
+    "other_comparators_modified": false,
+    "remaining_direct_call_domains": 8,
+    "remaining_algorithm_groups": 7,
+    "whole_qsort_host_migration_complete": false
+  },
+  "accepted_library_differences": [
+    "两一致域库pivot/短排序/比较交换次数与次序/校验及同键排列采用MSVC，不称旧算法或同键稳定性等价"
+  ],
+  "validation": {
+    "static_only": true,
+    "compilation_verified": false,
+    "runtime_verified": false,
+    "new_dependencies": false,
+    "full_feature_accepted": false
+  },
+  "current_measured_state": {
+    "semantic_records": 2030,
+    "semantic_original_ids": 1982,
+    "semantic_range_identities": 48,
+    "document_linked_functions": 2092,
+    "reviewed_function_dispositions": 1455,
+    "known_crt_members": 525,
+    "crt_member_inventory_closed": false,
+    "software_evidence_records": 1342,
+    "leaf_features": 184,
+    "globally_accepted": false,
+    "tasks": 60,
+    "closed_tasks": 11,
+    "unassigned_ranges_mapped": 3060,
+    "unassigned_ranges_remaining": 1
+  }
+}

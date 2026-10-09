@@ -50875,7 +50875,7 @@
             "SwapLegacyRecord_53C2B4",
             "SortLegacyRecords_53C112"
           ],
-          "relationship": "45BB20动画、520790渲染索引和52FCC0公会索引共用的原分区与完整对象表示交换"
+          "relationship": "MC01-C7当前只供52FCC0公会索引保原分区/完整字节交换；动画/渲染已MSVC；其余六特化/七调用仍保"
         }
       ],
       "evidence_documents": [
@@ -50883,9 +50883,26 @@
         "doc/cg2d_map_draw_cache.md",
         "doc/cg2d_scene_state.md",
         "doc/ui_windows/shared_battle.md",
-        "doc/ui_windows/window_49.md"
+        "doc/ui_windows/window_49.md",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
       ],
-      "boundary": "原先判两地址相同则不读长度或元素，不同地址且长度非零才逐字节交换；四引用为53C112三处及53C266一处。原六组十八个可能同址点已有门禁；新增三组使用内部模板按sizeof(T)完整字节、先读右后读左交换，原生指针和未消费字节一起移动。九算法覆盖原十个qsort调用点的算法位置，不将任意重叠区间、完整父链或运行验收计为通过。"
+      "boundary": "原先判两地址相同则不读长度或元素，不同地址且长度非零才逐字节交换；四引用为53C112三处及53C266一处。原六组十八个可能同址点已有门禁；新增三组使用内部模板按sizeof(T)完整字节、先读右后读左交换，原生指针和未消费字节一起移动。九算法覆盖原十个qsort调用点的算法位置，不将任意重叠区间、完整父链或运行验收计为通过。；MC01-C7两一致域改std::qsort，原交换身份/23条/原四引用保持；现七算法/八调用旧交换适配未迁，非whole host或全排序已实现。",
+      "previous_mapping_before_mc01c7": {
+        "git_snapshot": "cg2d-re-msvc-crt-sort-consistent-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 469,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010"
+      },
+      "msvc_consistent_sort_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
+        "two_consistent_domains_only": true,
+        "pending_other_business_comparators_modified": false,
+        "runtime_verified": false,
+        "full_feature_accepted": false
+      }
     },
     {
       "original_entry": "0x541A43",
@@ -72490,10 +72507,13 @@
       ],
       "evidence_documents": [
         "doc/cg2d_animation_runtime.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
       ],
       "verification_level": "七父完整876条/八入向、22文件格式调用与一处坐标槽传址、十二共享数据引用、EOF低U8/原字节/失败/短读/关闭/返回及限定源码差异静态核对；不重验分配/槽链/排序/播放，未执行",
-      "boundary": "既有完整AnimeInit的九Info/数据流与失败关闭统一LegacyFile，读取固定0CH/1 U32实参；先read后S32容量检查再flags低U8/10H，EOF存在标志和关闭次序保持。Info必需0/8缺失返2不清旧动画槽；容量达上限只关Info返3；count>10000原消息→关Info→原共享指针释放→动画槽关闭清空返5；数据必需打开失败同清理返2。两9×256B路径、未清12B局部、去重/覆盖/字段/排序/分配及未知共享归属未改，完整资源/运行未验。",
+      "boundary": "既有完整AnimeInit的九Info/数据流与失败关闭统一LegacyFile，读取固定0CH/1 U32实参；先read后S32容量检查再flags低U8/10H，EOF存在标志和关闭次序保持。Info必需0/8缺失返2不清旧动画槽；容量达上限只关Info返3；count>10000原消息→关Info→原共享指针释放→动画槽关闭清空返5；数据必需打开失败同清理返2。两9×256B路径、未清12B局部、去重/覆盖/字段/排序/分配及未知共享归属未改，完整资源/运行未验。；MC01-C7动画/渲染两个一致比较域排序后端交std::qsort，真实比较器/记录与原参数/位置保持，库比较交换次序/校验及同键顺序按MSVC；只两域，全部owner/正常结果/SDK运行未验。",
       "business_byte_evidence": [
         {
           "address": "0x554920",
@@ -72534,7 +72554,32 @@
           "parent_entry": "0x45BB20",
           "access_type": 1
         }
-      ]
+      ],
+      "previous_mapping_before_mc01c7": {
+        "git_snapshot": "cg2d-re-msvc-crt-sort-consistent-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 737,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010"
+      },
+      "msvc_consistent_sort_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
+        "two_consistent_domains_only": true,
+        "pending_other_business_comparators_modified": false,
+        "runtime_verified": false,
+        "full_feature_accepted": false
+      },
+      "current_sort_provider": {
+        "path": "src/AnimationRuntime.cpp",
+        "symbol": "AnimeInit_45BB20",
+        "service": "std::qsort",
+        "comparator": "Compare_45B420",
+        "width_expression": "sizeof(AnimateRecord)",
+        "count_expression": "static_cast<std::uint32_t>(uniqueCount)",
+        "business_count_and_publish_position_kept": true,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x45B760",
@@ -139445,7 +139490,7 @@
             "SortTextures_520790",
             "AppendReservedGraphic"
           ],
-          "relationship": "原容量/本地AX/每项两次共享取样/最终S16数量已修，真实旧排序模板保持"
+          "relationship": "MC01-C7父数量/保留项生产及比较器正文保持，两域之一只后端排序调用改std::qsort；无完整SDK/像素/运行保证"
         },
         {
           "path": "include/cg/render/GraphicPendingQueue.hpp",
@@ -139455,13 +139500,6 @@
             "GraphicCacheItem32"
           ],
           "relationship": "原非地址宽度与唯一队列承载保持；新增注释反映真实保留项生产"
-        },
-        {
-          "path": "src/LegacySort.hpp",
-          "symbols": [
-            "SortLegacyRecords_53C112"
-          ],
-          "relationship": "既有真实比较/分区/完整4B交换提供者保持；不重验通用算法"
         }
       ],
       "evidence_documents": [
@@ -139469,9 +139507,12 @@
         "doc/cg2d_graphic_sort_alignment_evidence.json",
         "doc/cg2d_character_select_scene.md",
         "doc/cg2d_sub_507140.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
       ],
-      "boundary": "入口一次取特殊W8/预留3或4；W16计数S16扩后S32容量比较，原EAX更新AX及共享count，首槽沿新AX；各项layer先写，后取共享count写cacheIndex，再image=-1/value4=0/空原生地址/batch，末再取共享count递增W16返回下一槽。三必选及可选项序保持，最后本地AX按S16扩S32后以W32数量消费真实原排序模板。仅4Bcache3排序、主record/未写字段/owner保持；额外负数保护撤销，异常域按RPLAN.24不记安全/故障等价。完整13父/上游/消费/间接alias及寿命、画面运行未验。",
+      "boundary": "入口一次取特殊W8/预留3或4；W16计数S16扩后S32容量比较，原EAX更新AX及共享count，首槽沿新AX；各项layer先写，后取共享count写cacheIndex，再image=-1/value4=0/空原生地址/batch，末再取共享count递增W16返回下一槽。三必选及可选项序保持，最后本地AX按S16扩S32后以W32数量消费真实原排序模板。仅4Bcache3排序、主record/未写字段/owner保持；额外负数保护撤销，异常域按RPLAN.24不记安全/故障等价。完整13父/上游/消费/间接alias及寿命、画面运行未验。；MC01-C7动画/渲染两个一致比较域排序后端交std::qsort，真实比较器/记录与原参数/位置保持，库比较交换次序/校验及同键顺序按MSVC；只两域，全部owner/正常结果/SDK运行未验。",
       "verification_level": "两完整84/19共103条与13个8条caller窗口；三限定CPP补丁和一条头注释外全文保持，旧语义/登记外部保持；未构建/测试/运行/摘要",
       "native_provider": {
         "source": "src/render/GraphicPendingQueue.cpp",
@@ -139490,6 +139531,31 @@
         "runtime_verified": false,
         "full_lifecycle_closed": false,
         "fault_equivalence_claimed": false
+      },
+      "previous_mapping_before_mc01c7": {
+        "git_snapshot": "cg2d-re-msvc-crt-sort-consistent-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 1197,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010"
+      },
+      "msvc_consistent_sort_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
+        "two_consistent_domains_only": true,
+        "pending_other_business_comparators_modified": false,
+        "runtime_verified": false,
+        "full_feature_accepted": false
+      },
+      "current_sort_provider": {
+        "path": "src/render/GraphicPendingQueue.cpp",
+        "symbol": "SortTextures_520790",
+        "service": "std::qsort",
+        "comparator": "CompareGraphicCache3_5222A0",
+        "width_expression": "sizeof(GraphicCache3)",
+        "count_expression": "static_cast<std::uint32_t>(sortCount)",
+        "reserved_items_and_s16_count_production_kept": true,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "runtime_verified": false
       }
     },
     {
@@ -139513,14 +139579,7 @@
           "symbols": [
             "CompareGraphicCache3_5222A0"
           ],
-          "relationship": "原左/右U8层号各一次取样、先大后小；同层先取左S16后取右S16，右减左；真实旧排序消费保持"
-        },
-        {
-          "path": "src/LegacySort.hpp",
-          "symbols": [
-            "SortLegacyRecords_53C112"
-          ],
-          "relationship": "既有真实比较/分区/完整4B交换提供者保持；不重验通用算法"
+          "relationship": "MC01-C7父数量/保留项生产及比较器正文保持，两域之一只后端排序调用改std::qsort；无完整SDK/像素/运行保证"
         }
       ],
       "evidence_documents": [
@@ -139528,9 +139587,12 @@
         "doc/cg2d_graphic_sort_alignment_evidence.json",
         "doc/cg2d_character_select_scene.md",
         "doc/cg2d_sub_507140.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
       ],
-      "boundary": "左/右U8层号各一次取样后先大返回1、再小返回-1；同层先左S16后右S16、右减左；原一个地址引用520814经53C112真实间接回调，不记根直接call比较器。既有算法/记录字节交换保持，完整call序/机器ABI、全画面和队列寿命未验。",
+      "boundary": "左/右U8层号各一次取样后先大返回1、再小返回-1；同层先左S16后右S16、右减左；原一个地址引用520814经53C112真实间接回调，不记根直接call比较器。既有算法/记录字节交换保持，完整call序/机器ABI、全画面和队列寿命未验。；MC01-C7动画/渲染两个一致比较域排序后端交std::qsort，真实比较器/记录与原参数/位置保持，库比较交换次序/校验及同键顺序按MSVC；只两域，全部owner/正常结果/SDK运行未验。",
       "verification_level": "两完整84/19共103条与13个8条caller窗口；三限定CPP补丁和一条头注释外全文保持，旧语义/登记外部保持；未构建/测试/运行/摘要",
       "native_provider": {
         "source": "src/render/GraphicPendingQueue.cpp",
@@ -139549,6 +139611,20 @@
         "runtime_verified": false,
         "full_lifecycle_closed": false,
         "fault_equivalence_claimed": false
+      },
+      "previous_mapping_before_mc01c7": {
+        "git_snapshot": "cg2d-re-msvc-crt-sort-consistent-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 1198,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010"
+      },
+      "msvc_consistent_sort_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
+        "two_consistent_domains_only": true,
+        "pending_other_business_comparators_modified": false,
+        "runtime_verified": false,
+        "full_feature_accepted": false
       }
     },
     {
@@ -144968,10 +145044,27 @@
         "doc/cg2d_animation_capacity_spec.md#animation-capacity-decision",
         "doc/cg2d_animation_capacity_spec.md#animation-capacity-acceptance",
         "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
-        "doc/cg2d_animation_capacity_evidence.json"
+        "doc/cg2d_animation_capacity_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
       ],
       "verification_level": "本次完整48/11/11共70条正常查询/返回与unsigned键、包含上界和回调类型静态，不代完整父/生命周期/机器ABI/运行",
-      "boundary": "两记录首U32升序比较，左小/等/大返回−1/0/1，45BEBD地址引用由真实SortLegacyRecords消费；不是直接call，不宣称全AnimeInit或全部排序ABI验收。 完整加载/播放/场景/退出、间接alias/所有owner与实际机器/ABI/SDK/画面未验；越界/数学溢出不专项处理/模拟或称安全/故障等价。"
+      "boundary": "两记录首U32升序比较，左小/等/大返回−1/0/1，45BEBD地址引用由真实SortLegacyRecords消费；不是直接call，不宣称全AnimeInit或全部排序ABI验收。 完整加载/播放/场景/退出、间接alias/所有owner与实际机器/ABI/SDK/画面未验；越界/数学溢出不专项处理/模拟或称安全/故障等价。；MC01-C7动画/渲染两个一致比较域排序后端交std::qsort，真实比较器/记录与原参数/位置保持，库比较交换次序/校验及同键顺序按MSVC；只两域，全部owner/正常结果/SDK运行未验。",
+      "previous_mapping_before_mc01c7": {
+        "git_snapshot": "cg2d-re-msvc-crt-sort-consistent-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 1262,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010"
+      },
+      "msvc_consistent_sort_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
+        "two_consistent_domains_only": true,
+        "pending_other_business_comparators_modified": false,
+        "runtime_verified": false,
+        "full_feature_accepted": false
+      }
     },
     {
       "original_entry": "0x45b440",
@@ -195873,6 +195966,106 @@
           "end_exclusive": "0x53cfdc"
         }
       ]
+    },
+    {
+      "original_entry": "0x53C112",
+      "inventory_id": "F:0013C112",
+      "original_end_exclusive": "0x53C266",
+      "function_chunks": [
+        [
+          "0x53C112",
+          "0x53C266"
+        ]
+      ],
+      "status": "MC01-C7原_qsort身份纳管；两一致调用MSVC、八未迁调用保旧适配，混合adapted，未编译/运行",
+      "sources": [
+        {
+          "path": "src/AnimationRuntime.cpp",
+          "symbols": [
+            "AnimeInit_45BB20",
+            "Compare_45B420"
+          ],
+          "relationship": "两已迁域之一，实际std::qsort调用；不是原私有qsort本体重建"
+        },
+        {
+          "path": "src/render/GraphicPendingQueue.cpp",
+          "symbols": [
+            "SortTextures_520790",
+            "CompareGraphicCache3_5222A0"
+          ],
+          "relationship": "两已迁域之一，实际std::qsort；4B原索引记录与比较器保持"
+        },
+        {
+          "path": "src/LegacySort.hpp",
+          "symbols": [
+            "SortLegacyRecords_53C112"
+          ],
+          "relationship": "未迁公会域当前仍保持原算法/非一致比较；不称本步已交MSVC"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
+        "doc/cg2d_ida_inventory.json",
+        "doc/cg2d_semantic_function_mappings.md#剩余三处宿主qsort替换-spec2026-10-02",
+        "doc/cg2d_msvc_crt_residual_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010"
+      ],
+      "boundary": "原完整_qsort身份/区间来自库存，十directcaller来自已有原证合同；不猜原指令数，不以库名/标记单独批准业务迁移。MC01-C7只对两个已证一致比较域采用实际MSVC完整对象字节排序，八未迁域/业务比较器待C6选择；当前仅混合adapted职责/两接线，不称whole host、原私有本体/机器ABI或完整业务运行等价。",
+      "original_direct_reference_count": 10,
+      "original_direct_caller_entries": [
+        "0x405C30",
+        "0x45BB20",
+        "0x46C420",
+        "0x4A2C60",
+        "0x4B5760",
+        "0x4EC1A0",
+        "0x518600",
+        "0x5198D0",
+        "0x520790",
+        "0x52FCC0"
+      ],
+      "original_inventory_metadata": {
+        "path": "doc/cg2d_ida_inventory.json",
+        "id": "F:0013C112",
+        "name": "_qsort",
+        "ida_library_flag": true,
+        "flags": 21588
+      },
+      "current_provider": {
+        "kind": "mixed_qsort_migration",
+        "service": "std::qsort",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
+        "migrated_direct_call_domains": 2,
+        "remaining_direct_call_domains": 8,
+        "whole_function_host_migration_complete": false,
+        "original_private_body_reimplemented_by_this_step": false,
+        "runtime_verified": false
+      },
+      "current_qsort_connections": [
+        {
+          "original_parent_entry": "0x45BB20",
+          "original_call_site": "0x45BECC",
+          "original_target_entry": "0x53C112",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "AnimeInit_45BB20",
+          "current_target": "std::qsort",
+          "comparator": "Compare_45B420",
+          "width_expression": "sizeof(AnimateRecord)"
+        },
+        {
+          "original_parent_entry": "0x520790",
+          "original_call_site": "0x5208DC",
+          "original_target_entry": "0x53C112",
+          "source": "src/render/GraphicPendingQueue.cpp",
+          "symbol": "SortTextures_520790",
+          "current_target": "std::qsort",
+          "comparator": "CompareGraphicCache3_5222A0",
+          "width_expression": "sizeof(GraphicCache3)"
+        }
+      ],
+      "verification_level": "仅已有原身份/十caller合同、两实际SDK调用/比较器/布局与其余业务源静态；未编译/运行，不计八未迁域通过"
     }
   ]
 }

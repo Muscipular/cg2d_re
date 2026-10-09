@@ -1,5 +1,7 @@
 # 图形队列保留槽与排序计数对照 SPEC
 
+> 2026-10-10当前一致排序域：[MC01-C7](cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010)已将动画45BB20与渲染520790两一致比较域接到std::qsort，保原数量/完整原生记录/比较器与发布位置；库内部算法/比较交换次序/同键排列采用MSVC，旧两域分区/交换要求只保固定历史。七组/八调用的非一致业务关系仍按C6待用户选择，未修改；全部业务/原未知alias/owner、SDK/正常查询和像素运行仍待，未编译/运行。
+
 > GQS01；2026-10-05依工程委托采用。对应G02/T01，沿[原排序合同](cg2d_character_select_scene.md#待提交索引排序-renderersorttextures)、[队列x64布局](cg2d_graphic_dx_cache_x64_spec.md)、[既有排序算法合同](cg2d_semantic_function_mappings.md#剩余三处宿主qsort替换-spec2026-10-02)及RPLAN.24。本步修真实源码，不把排序本体提升为完整命中/绘制验收。
 
 <a id="graphic-sort-baseline"></a>

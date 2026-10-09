@@ -1,5 +1,7 @@
 # CRT 宿主承接总 SPEC
 
+> 2026-10-10一致排序域：[MC01-C7](cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010)沿用户直接MSVC要求，独立迁动画45BB20和渲染520790两排序调用；两原比较器/记录类型、数量及业务位置保持。七组/八调用的非一致业务比较关系仍按C6等待选择，不把本步外推为批准修改比较器或全排序完成。
+
 > 2026-10-10残留审计：[MC01-C6](cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010)核明旧多字节回退549147已无当前调用，可直接退休；数组/终止和低宽读取仍是实际业务适配。十个原qsort调用域仍保旧排序算法，其中七组/八调用的业务比较器含同键返±1，直接MSVC与原排序合同存在冲突，按下文待决方案处理；当前不能称全CRT迁移完成。
 
 > 2026-10-10多字节与命令行库边界：[MC01-C5](cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010)按实际消费者退休旧ctype/多字节/NLS转换表和私有argv/环境组、重复初始化及其专用致命入口；真实Input两项分类直接MSVC，应用ParseCommandOptions/ParseIpOptions与实际WinMain命令尾保持。未更改协议/资源/存档编码或开启全局locale；完整业务/owner/SDK与运行门禁保持。
@@ -324,3 +326,30 @@ MSVC真实qsort按比较关系排序，同键次序不保证，现本机算法�
 F处置1454、CRT已知成员524且枚举false保持，软件证据1339→1340仅限定S；没有新增I或排序通过。语义2029（1981F＋48X）、合同2091/3680、所有原分母/完整门禁、184叶整项验收0、60任务关闭11及六closure保持。[准确前后态与审计](cg2d_msvc_crt_residual_evidence.json)核现SDK fgetc/ungetc声明/转引及真实qsort扫描/pivot差异，七非一致组/八调用与两个一致域均只静态归档、排序源码未改。排序两方案已请求用户选择，不能把预选项/未回复当批准；其余独立项继续。
 
 源码函数/声明精确删除、全src/include消费为零/旧符号退出、其余stdio与所有业务/排序源守恒、两身份/现来源/台账增量及政策/门禁、UTF-8/LF/差异和静态汇总/-Check核对；未构建/链接/测试/运行/算法/查产物/计算摘要，无新依赖。固定引用cg2d-re-msvc-crt-residual-20261010；全CRT排序/兼容边界尚未完成，全部业务/原未知alias/owner、SDK和正常结果/生命周期运行仍待，整体SPEC未完成。
+
+<a id="msvc-crt-sort-consistent-decision-20261010"></a>
+## MC01-C7：两个一致比较域独立迁MSVC（2026-10-10）
+
+依用户“CRT直接用msvc代替”及MC01库内实现差异许可，当前动画45BB20和渲染520790两比较域可独立采用std::qsort，不依赖C6非一致业务比较器的设计选择。AnimeInit保gAnimateCount发布后的位置、原U32数量表达式和Compare_45B420；SortTextures保容量条件、保留项追加/共享取样、最终S16计数转U32及CompareGraphicCache3_5222A0。只改调用与撤下未用LegacySort include，不加count/空指针/容量保护、稳定排序、额外次键或字节预清。
+
+两比较器正文保持：动画按U32 animeNo升序、相等返0；渲染先U8 layer升序，再S16 cacheIndex降序，差值提升S32且同键返0。现AnimateRecord已声明标准布局/可平凡复制，三个真实指针按x64承载；GraphicCache3固定4B，所在唯一LegacyPendingStorage已证标准布局/可平凡复制。本步std::qsort宽度明确采用sizeof(AnimateRecord)/sizeof(GraphicCache3)，完整对象字节及原生指针随记录交换，保未消费/未写字段与填充，不按原36B误裁动画记录，不调用C++构析/新增owner。
+
+库pivot、短排序、比较/交换次数与次序、参数校验/错误及等值排列采用已安装MSVC合同，不称旧53C112/53C266/53C2B4算法等价。两个比较器没有RNG或写业务状态；业务主键关系、参数/数量/字节与实际返回消费保持。动画现原去重生产及后续查询、渲染同键显示与完整owner/像素仍须正常结果验收，不据静态一致性宣称已验证或将同键稳定性写成保证。
+
+其余七组/八调用仍保现算法/比较器并等待C6选择，本步不预选答复、不修改这些关系、不将CRT排序当全体迁完。LegacySort模板仍供公会索引使用，不删除或改其正文；原_qsort独立身份只登记两域MSVC/八域未迁的明确混合适配，不判whole host/原体等价。原十caller、库身份/机器区间与所有实施前态沿cg2d-re-msvc-crt-sort-consistent-history-20261010保留，不补猜原指令数/机器ABI。不恢复构建/测试/运行/算法/产物或摘要权限，不降总SPEC§10。
+
+<a id="msvc-crt-sort-consistent-acceptance-20261010"></a>
+## MC01-C7 静态核对
+
+核两实际比较器的输入类型/同键0/数值方向及无RNG/状态写入，记录sizeof/布局与可平凡复制依据；核真实MSVC qsort声明/标准转引与库完整字节交换。两cpp精确仅改一处调用/删除一个include，其余全部本体与比较器、数据生产/发布/资源清理/绘制/owner保持，LegacySort及七未迁组全部源码逐字保持。核原_qsort身份/两当前调用与原分母、当前来源/台账和政策门禁、UTF-8/LF/差异及静态汇总/-Check；仅限定两排序接线，不执行算法样例，不计完整业务、同键结果/SDK或排序运行通过。
+
+<a id="msvc-crt-sort-consistent-source-state-20261010"></a>
+## MC01-C7 当前源码状态
+
+动画AnimeInit_45BB20与渲染SortTextures_520790各一处调用改std::qsort，删除两未用LegacySort include。实际U32数量表达式和原比较器不变，宽度分别sizeof(AnimateRecord)=56B与sizeof(GraphicCache3)=4B；动画所有真实指针/未写字段/填充及渲染未写BYTE随完整对象字节移动，没有构析/新owner/字节预清。原gAnimateCount发布、保留项生产/容量/共享取样/S16数量、两完整比较器及其它全部业务正文逐字保持。LegacySort仅更新当前只供公会的两条注释，算法正文不变。
+
+[准确前后态/类型/SDK证据](cg2d_msvc_crt_sort_consistent_evidence.json)核本机四头/源：cstdlib真实qsort转引、stdlib→corecrt_search声明及UCRT全width字节交换。两比较器同键0/字段方向与无RNG/状态写入保持；本步库比较交换/参数校验和同键顺序按MSVC，不称排序样例、owner/查询/像素或运行已验。C6七组/八调用的业务比较关系仍等用户选择，两已迁一致域不依赖该选择，不据预选项批准修改比较器。
+
+五既有语义更新，新增原_qsort独立身份/区间和原十caller合同，明确两域MSVC/八域未迁的混合adapted，非whole host/原私有体重建，不补原指令数。语义2029→2030（1982F＋48X）、合同2091→2092/3680（56.85%）、F处置1454→1455、CRT已知成员524→525且枚举false；软件证据1340→1342仅限定I/S。原库存/导入16/218/X3060/3061余1、184叶整项验收0、60任务关闭11与六closure保持；三个功能已知成员追加同一原_qsort，不造新功能分母。
+
+两调用与include/注释精确差异、记录类型/真实SDK声明与字节交换、比较器及其余所有源/八待决域守恒、六语义/原身份/所有台账门禁政策和UTF-8/LF/差异、静态汇总/-Check核对后精确提交，固定引用cg2d-re-msvc-crt-sort-consistent-20261010。未构建/链接/测试/运行/算法/查产物/计算摘要，无新依赖；排序剩余及全部业务/原未知alias/owner、SDK正常结果/初始化退出/像素运行仍待，MC01与整体SPEC未完成。

@@ -1,5 +1,7 @@
 # R1：原函数与现有公共实现的显式映射
 
+> 2026-10-10当前一致排序域：[MC01-C7](cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010)已将动画45BB20与渲染520790两一致比较域接到std::qsort，保原数量/完整原生记录/比较器与发布位置；库内部算法/比较交换次序/同键排列采用MSVC，旧两域分区/交换要求只保固定历史。七组/八调用的非一致业务关系仍按C6待用户选择，未修改；全部业务/原未知alias/owner、SDK/正常查询和像素运行仍待，未编译/运行。
+
 > 2026-10-10当前残留边界：[MC01-C6](cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010)已退休无当前消费的549147多BYTE回退/公共声明，实际单BYTE服务与业务保持；旧算法只保固定历史。原十qsort域仍有旧实现，七组/八调用的非一致业务比较器与直接MSVC冲突，见[待决两方案](cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010)，尚未批准或替换。当前库职责关联不代原体等价、完整owner/SDK与运行，未编译/运行。
 
 > 2026-10-10当前C++边界：[MC01-C1](cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010)已退休无现组外消费者的六组私有C++库及NativeCppException头。当前采用真实MSVC标准流/Init/locale及库内string/facet/codecvt/异常支撑，现流配置/缓冲借用/刷新、业务构析与退出登记保持。下文旧Legacy对象/方法表/私有登记/异常payload及其源码状态属固定历史，不再要求复刻；完整业务/owner/未知原alias与SDK实际运行仍待，未编译/运行。

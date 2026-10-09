@@ -3,7 +3,6 @@
 #include "AnimationRuntimeState.hpp"
 #include "platform/LegacyFormat.hpp"
 #include "platform/LegacyStdio.hpp"
-#include "LegacySort.hpp"
 
 #include "cg/GraphicAlloc.hpp"
 #include "cg/GraphicInfo.hpp"
@@ -181,8 +180,8 @@ std::int32_t AnimeInit_45BB20(
         gAnimateRecords9A4A58[index].listNode = nullptr;
     }
     gAnimateCount9A4A60 = uniqueCount;
-    cg::detail::SortLegacyRecords_53C112(
-        gAnimateRecords9A4A58, static_cast<std::uint32_t>(uniqueCount), Compare_45B420);
+    std::qsort(gAnimateRecords9A4A58, static_cast<std::uint32_t>(uniqueCount),
+        sizeof(AnimateRecord), Compare_45B420);
     return 0;
 }
 

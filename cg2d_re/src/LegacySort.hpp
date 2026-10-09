@@ -25,8 +25,8 @@ void SwapLegacyRecord_53C2B4(T* const left, T* const right)
     }
 }
 
-// 原53C112/53C266：仅用于已证连续记录域；非严格比较器也保持原比较与分区次序。
-// 合同见doc/cg2d_semantic_function_mappings.md“剩余三处宿主qsort替换”。
+// 原53C112/53C266：当前仅供52FCC0公会索引，非一致比较合同沿MC01-C6待决。
+// 动画/渲染已沿MC01-C7采用std::qsort；本组仍保原比较、分区及完整字节交换。
 template <typename T>
 void SortLegacyRecords_53C112(
     T* const base, const std::uint32_t count,

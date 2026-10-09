@@ -197102,6 +197102,54 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x406e10",
+      "inventory_id": "F:00006E10",
+      "original_role": "动作15模式3回旋对象与其余模式258/范围效果生产、原事件/音效及child返回发布",
+      "original_end_exclusive": "0x4070de",
+      "instruction_count": 218,
+      "function_chunks": [
+        {
+          "start": "0x406e10",
+          "end_exclusive": "0x4070de"
+        }
+      ],
+      "status": "B15P01完整父生产正常源/独立身份纳管，一CPP四组事件/child-X发布与普通音效取样；原FD0/转向/等级持样/创建循环及其它源保持，完整数据/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction15_406E10"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction15_406E10"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_boomerang_cast_producer_spec.md#battle-action15-baseline",
+        "doc/cg2d_battle_boomerang_cast_producer_spec.md#battle-action15-decision",
+        "doc/cg2d_battle_boomerang_cast_producer_spec.md#battle-action15-acceptance",
+        "doc/cg2d_battle_boomerang_cast_producer_spec.md#battle-action15-source-state",
+        "doc/cg2d_battle_boomerang_cast_producer_evidence.json"
+      ],
+      "boundary": "固定payload/FD0-action-Probe-rate、严格模式3与其余值；单次各mode事件门禁/创建后fresh事件，返回T*先持/X样本先于child pub、普通尾event先X。原坐标/PlayFrame==1-Advance-FD0清、258低9门控持样与高12逐轮fresh、三原Range点由两表达式覆盖/MoveEffect严格1、音效后事件0保持，额外Y未读不新增参数。字段/返回/失败与真实callee接线保，仅本根四组，全部生产/父-callee/owner/间接alias、SDK数值/声音画面运行未验，RPLAN.24/MC01与完整门禁保持。",
+      "verification_level": "完整218条718B/四页、18directCALL/十目标/32跳两RET和唯一case15 11B，原两mode/等级/循环和child-event-X发布窗口；一CPP四组/两注释及其它源守恒，限定I/S，不运行样例。",
+      "battle_action15_producer": {
+        "step": "B15P01",
+        "source_snapshot": "cg2d-re-battle-action15-20261010",
+        "original_instruction_count": 218,
+        "original_code_bytes": 718,
+        "original_page_count": 4,
+        "direct_call_count": 18,
+        "callee_count": 10,
+        "jump_count": 32,
+        "return_count": 2,
+        "source_patch_group_count": 4,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

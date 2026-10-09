@@ -24945,6 +24945,7 @@ std::int32_t ProbeBattleAttackEvent_4065E0(YobiAction* const action)
     return result;
 }
 
+// B15P01：两次独立事件门禁、child/X发布和普通音效取样见doc/cg2d_battle_boomerang_cast_producer_spec.md。
 void UpdateBattleAction15_406E10(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -24985,9 +24986,13 @@ void UpdateBattleAction15_406E10(YobiAction* const action)
             AdvanceBattleCastState_439340(action);
             payload->valueFD0 = 0;
         }
-        if (action->frameEvent >= 10000 && action->frameEvent < 20000) {
-            action->battleCastEffect10 = NewBattleBoomerang_4195F0(action);
-            static_cast<void>(audio::PlaySe_52C450(action->frameEvent - 10000, action->x));
+        const std::int32_t gateEvent = action->frameEvent;
+        if (gateEvent >= 10000 && gateEvent < 20000) {
+            YobiAction* const created = NewBattleBoomerang_4195F0(action);
+            const std::int32_t soundX = action->x;
+            action->battleCastEffect10 = created;
+            const std::int32_t soundEvent = action->frameEvent;
+            static_cast<void>(audio::PlaySe_52C450(soundEvent - 10000, soundX));
             action->frameEvent = 0;
         }
         return;
@@ -25000,7 +25005,8 @@ void UpdateBattleAction15_406E10(YobiAction* const action)
         AdvanceBattleCastState_439340(action);
         payload->valueFD0 = 0;
     }
-    if (action->frameEvent < 10000 || action->frameEvent >= 20000) {
+    const std::int32_t gateEvent = action->frameEvent;
+    if (gateEvent < 10000 || gateEvent >= 20000) {
         return;
     }
     if (payload->castSkill103C == 258) {
@@ -25016,7 +25022,9 @@ void UpdateBattleAction15_406E10(YobiAction* const action)
             static_cast<void>(NewBattleRangeHit_419390(action, &payload->effects1C[payload->effectRunningC9C], 22090));
         } while (AdvanceBattleEffect_439470(action) != 1);
     }
-    static_cast<void>(audio::PlaySe_52C450(action->frameEvent - 10000, action->x));
+    const std::int32_t soundEvent = action->frameEvent;
+    const std::int32_t soundX = action->x;
+    static_cast<void>(audio::PlaySe_52C450(soundEvent - 10000, soundX));
     action->frameEvent = 0;
 }
 

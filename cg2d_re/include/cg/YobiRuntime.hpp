@@ -456,7 +456,7 @@ YobiAction* NewBattleBoomerang_4195F0(YobiAction* parent); // B22C01：原取样
 YobiAction* NewBattleArcShot_419DA0(YobiAction* parent, const BattleEntryEffectRecord* effect,
     std::int32_t imageNo, std::int32_t count, std::int32_t mode);
 YobiAction* NewBattleCastCopy_4205F0(YobiAction* parent); // 独立战斗载荷，不是浅克隆。
-void UpdateBattleAction15_406E10(YobiAction* action);
+void UpdateBattleAction15_406E10(YobiAction* action); // B15P01：独立事件/音效持样，回旋返回发布和258低档/高档循环保原序。
 void UpdateBattleAction18_408170(YobiAction* action);
 void UpdateBattleAction19_4082F0(YobiAction* action);
 void UpdateBattleAction70_4070E0(YobiAction* action);

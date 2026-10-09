@@ -1,0 +1,1092 @@
+{
+  "schema_version": 1,
+  "spec_id": "BEMS01",
+  "date": "2026-10-10",
+  "scope": "既有退出扫描816号由局部子串连接补完整CHT/BST根/取样与计时消费，正文正确保持",
+  "decision_ref": "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-decision",
+  "before_snapshot": "cg2d-re-battle-exit-message-scan-history-20261010",
+  "after_snapshot": "cg2d-re-battle-exit-message-scan-20261010",
+  "original_root": {
+    "entry": 4438688,
+    "end": 4439051,
+    "name": "sub_43BAA0",
+    "chunks": [
+      [
+        4438688,
+        4439051
+      ]
+    ],
+    "instruction_count": 107,
+    "code_bytes": 363,
+    "xrefs": [
+      {
+        "from": 4444681,
+        "to": 4438688,
+        "type": 17,
+        "iscode": true,
+        "mnem": "call",
+        "text": "call    sub_43BAA0",
+        "parent": 4443056,
+        "operand_value": 4438688
+      },
+      {
+        "from": 4444976,
+        "to": 4438688,
+        "type": 17,
+        "iscode": true,
+        "mnem": "call",
+        "text": "call    sub_43BAA0",
+        "parent": 4443056,
+        "operand_value": 4438688
+      }
+    ],
+    "instructions": [
+      {
+        "ea": 4438688,
+        "size": 5,
+        "bytes": "a194ba5a00",
+        "mnem": "mov",
+        "text": "mov     eax, gBattleScene"
+      },
+      {
+        "ea": 4438693,
+        "size": 6,
+        "bytes": "81ec04010000",
+        "mnem": "sub",
+        "text": "sub     esp, 104h"
+      },
+      {
+        "ea": 4438699,
+        "size": 1,
+        "bytes": "53",
+        "mnem": "push",
+        "text": "push    ebx"
+      },
+      {
+        "ea": 4438700,
+        "size": 3,
+        "bytes": "8b580c",
+        "mnem": "mov",
+        "text": "mov     ebx, [eax+0Ch]"
+      },
+      {
+        "ea": 4438703,
+        "size": 1,
+        "bytes": "56",
+        "mnem": "push",
+        "text": "push    esi"
+      },
+      {
+        "ea": 4438704,
+        "size": 1,
+        "bytes": "57",
+        "mnem": "push",
+        "text": "push    edi"
+      },
+      {
+        "ea": 4438705,
+        "size": 4,
+        "bytes": "8d4c240c",
+        "mnem": "lea",
+        "text": "lea     ecx, [esp+110h+Str]"
+      },
+      {
+        "ea": 4438709,
+        "size": 1,
+        "bytes": "51",
+        "mnem": "push",
+        "text": "push    ecx; Destination"
+      },
+      {
+        "ea": 4438710,
+        "size": 5,
+        "bytes": "e8b5d5ffff",
+        "mnem": "call",
+        "text": "call    Battle__ParsePacket_M__GetHeader"
+      },
+      {
+        "ea": 4438715,
+        "size": 3,
+        "bytes": "83c404",
+        "mnem": "add",
+        "text": "add     esp, 4"
+      },
+      {
+        "ea": 4438718,
+        "size": 3,
+        "bytes": "83f801",
+        "mnem": "cmp",
+        "text": "cmp     eax, 1"
+      },
+      {
+        "ea": 4438721,
+        "size": 6,
+        "bytes": "0f843a010000",
+        "mnem": "jz",
+        "text": "jz      loc_43BC01"
+      },
+      {
+        "ea": 4438727,
+        "size": 2,
+        "bytes": "33ff",
+        "mnem": "xor",
+        "text": "xor     edi, edi"
+      },
+      {
+        "ea": 4438729,
+        "size": 5,
+        "bytes": "be943e5500",
+        "mnem": "mov",
+        "text": "mov     esi, offset BattlePacket_M_HEADER"
+      },
+      {
+        "ea": 4438734,
+        "size": 2,
+        "bytes": "8b16",
+        "mnem": "mov",
+        "text": "mov     edx, [esi]"
+      },
+      {
+        "ea": 4438736,
+        "size": 4,
+        "bytes": "8d44240c",
+        "mnem": "lea",
+        "text": "lea     eax, [esp+110h+Str]"
+      },
+      {
+        "ea": 4438740,
+        "size": 1,
+        "bytes": "52",
+        "mnem": "push",
+        "text": "push    edx; SubStr"
+      },
+      {
+        "ea": 4438741,
+        "size": 1,
+        "bytes": "50",
+        "mnem": "push",
+        "text": "push    eax; Str"
+      },
+      {
+        "ea": 4438742,
+        "size": 5,
+        "bytes": "e865031000",
+        "mnem": "call",
+        "text": "call    _strstr"
+      },
+      {
+        "ea": 4438747,
+        "size": 3,
+        "bytes": "83c408",
+        "mnem": "add",
+        "text": "add     esp, 8"
+      },
+      {
+        "ea": 4438750,
+        "size": 2,
+        "bytes": "85c0",
+        "mnem": "test",
+        "text": "test    eax, eax"
+      },
+      {
+        "ea": 4438752,
+        "size": 2,
+        "bytes": "750e",
+        "mnem": "jnz",
+        "text": "jnz     short loc_43BAF0"
+      },
+      {
+        "ea": 4438754,
+        "size": 3,
+        "bytes": "83c604",
+        "mnem": "add",
+        "text": "add     esi, 4"
+      },
+      {
+        "ea": 4438757,
+        "size": 1,
+        "bytes": "47",
+        "mnem": "inc",
+        "text": "inc     edi"
+      },
+      {
+        "ea": 4438758,
+        "size": 6,
+        "bytes": "81fef83e5500",
+        "mnem": "cmp",
+        "text": "cmp     esi, (offset BattlePacket_M_HEADER+64h)"
+      },
+      {
+        "ea": 4438764,
+        "size": 2,
+        "bytes": "7ce0",
+        "mnem": "jl",
+        "text": "jl      short loc_43BACE"
+      },
+      {
+        "ea": 4438766,
+        "size": 2,
+        "bytes": "ebc1",
+        "mnem": "jmp",
+        "text": "jmp     short loc_43BAB1"
+      },
+      {
+        "ea": 4438768,
+        "size": 3,
+        "bytes": "83ff0e",
+        "mnem": "cmp",
+        "text": "cmp     edi, 0Eh"
+      },
+      {
+        "ea": 4438771,
+        "size": 2,
+        "bytes": "7405",
+        "mnem": "jz",
+        "text": "jz      short loc_43BAFA"
+      },
+      {
+        "ea": 4438773,
+        "size": 3,
+        "bytes": "83ff14",
+        "mnem": "cmp",
+        "text": "cmp     edi, 14h"
+      },
+      {
+        "ea": 4438776,
+        "size": 2,
+        "bytes": "75b7",
+        "mnem": "jnz",
+        "text": "jnz     short loc_43BAB1"
+      },
+      {
+        "ea": 4438778,
+        "size": 6,
+        "bytes": "8b0d3c8a5a00",
+        "mnem": "mov",
+        "text": "mov     ecx, dword_5A8A3C"
+      },
+      {
+        "ea": 4438784,
+        "size": 3,
+        "bytes": "83ff0e",
+        "mnem": "cmp",
+        "text": "cmp     edi, 0Eh"
+      },
+      {
+        "ea": 4438787,
+        "size": 3,
+        "bytes": "894b64",
+        "mnem": "mov",
+        "text": "mov     [ebx+64h], ecx"
+      },
+      {
+        "ea": 4438790,
+        "size": 6,
+        "bytes": "0f8589000000",
+        "mnem": "jnz",
+        "text": "jnz     loc_43BB95"
+      },
+      {
+        "ea": 4438796,
+        "size": 6,
+        "bytes": "8b1594ba5a00",
+        "mnem": "mov",
+        "text": "mov     edx, gBattleScene"
+      },
+      {
+        "ea": 4438802,
+        "size": 1,
+        "bytes": "52",
+        "mnem": "push",
+        "text": "push    edx"
+      },
+      {
+        "ea": 4438803,
+        "size": 5,
+        "bytes": "e858d4ffff",
+        "mnem": "call",
+        "text": "call    Battle__ParsePacket_M__TakeInt"
+      },
+      {
+        "ea": 4438808,
+        "size": 1,
+        "bytes": "50",
+        "mnem": "push",
+        "text": "push    eax"
+      },
+      {
+        "ea": 4438809,
+        "size": 5,
+        "bytes": "e8c27cfeff",
+        "mnem": "call",
+        "text": "call    GetBattlePosition"
+      },
+      {
+        "ea": 4438814,
+        "size": 5,
+        "bytes": "a194ba5a00",
+        "mnem": "mov",
+        "text": "mov     eax, gBattleScene"
+      },
+      {
+        "ea": 4438819,
+        "size": 1,
+        "bytes": "50",
+        "mnem": "push",
+        "text": "push    eax"
+      },
+      {
+        "ea": 4438820,
+        "size": 5,
+        "bytes": "e847d4ffff",
+        "mnem": "call",
+        "text": "call    Battle__ParsePacket_M__TakeInt"
+      },
+      {
+        "ea": 4438825,
+        "size": 6,
+        "bytes": "8b0d94ba5a00",
+        "mnem": "mov",
+        "text": "mov     ecx, gBattleScene"
+      },
+      {
+        "ea": 4438831,
+        "size": 2,
+        "bytes": "8bf0",
+        "mnem": "mov",
+        "text": "mov     esi, eax"
+      },
+      {
+        "ea": 4438833,
+        "size": 1,
+        "bytes": "51",
+        "mnem": "push",
+        "text": "push    ecx"
+      },
+      {
+        "ea": 4438834,
+        "size": 5,
+        "bytes": "e839d4ffff",
+        "mnem": "call",
+        "text": "call    Battle__ParsePacket_M__TakeInt"
+      },
+      {
+        "ea": 4438839,
+        "size": 6,
+        "bytes": "8b1594ba5a00",
+        "mnem": "mov",
+        "text": "mov     edx, gBattleScene"
+      },
+      {
+        "ea": 4438845,
+        "size": 2,
+        "bytes": "8bf8",
+        "mnem": "mov",
+        "text": "mov     edi, eax"
+      },
+      {
+        "ea": 4438847,
+        "size": 1,
+        "bytes": "52",
+        "mnem": "push",
+        "text": "push    edx"
+      },
+      {
+        "ea": 4438848,
+        "size": 5,
+        "bytes": "e82bd4ffff",
+        "mnem": "call",
+        "text": "call    Battle__ParsePacket_M__TakeInt"
+      },
+      {
+        "ea": 4438853,
+        "size": 6,
+        "bytes": "8983a4000000",
+        "mnem": "mov",
+        "text": "mov     [ebx+0A4h], eax"
+      },
+      {
+        "ea": 4438859,
+        "size": 6,
+        "bytes": "8b0d94ba5a00",
+        "mnem": "mov",
+        "text": "mov     ecx, gBattleScene"
+      },
+      {
+        "ea": 4438865,
+        "size": 4,
+        "bytes": "8d442424",
+        "mnem": "lea",
+        "text": "lea     eax, [esp+124h+var_100]"
+      },
+      {
+        "ea": 4438869,
+        "size": 5,
+        "bytes": "6800010000",
+        "mnem": "push",
+        "text": "push    100h"
+      },
+      {
+        "ea": 4438874,
+        "size": 1,
+        "bytes": "50",
+        "mnem": "push",
+        "text": "push    eax"
+      },
+      {
+        "ea": 4438875,
+        "size": 1,
+        "bytes": "51",
+        "mnem": "push",
+        "text": "push    ecx"
+      },
+      {
+        "ea": 4438876,
+        "size": 5,
+        "bytes": "e87fd4ffff",
+        "mnem": "call",
+        "text": "call    Battle__ParsePacket_M__TakeStr2"
+      },
+      {
+        "ea": 4438881,
+        "size": 5,
+        "bytes": "a144465500",
+        "mnem": "mov",
+        "text": "mov     eax, dword_554644"
+      },
+      {
+        "ea": 4438886,
+        "size": 3,
+        "bytes": "83c420",
+        "mnem": "add",
+        "text": "add     esp, 20h"
+      },
+      {
+        "ea": 4438889,
+        "size": 2,
+        "bytes": "85c0",
+        "mnem": "test",
+        "text": "test    eax, eax"
+      },
+      {
+        "ea": 4438891,
+        "size": 2,
+        "bytes": "7414",
+        "mnem": "jz",
+        "text": "jz      short loc_43BB81"
+      },
+      {
+        "ea": 4438893,
+        "size": 5,
+        "bytes": "68f0000000",
+        "mnem": "push",
+        "text": "push    0F0h"
+      },
+      {
+        "ea": 4438898,
+        "size": 5,
+        "bytes": "6840010000",
+        "mnem": "push",
+        "text": "push    140h"
+      },
+      {
+        "ea": 4438903,
+        "size": 2,
+        "bytes": "6a4a",
+        "mnem": "push",
+        "text": "push    4Ah ; 'J'"
+      },
+      {
+        "ea": 4438905,
+        "size": 5,
+        "bytes": "e8d2080f00",
+        "mnem": "call",
+        "text": "call    World__PlaySe"
+      },
+      {
+        "ea": 4438910,
+        "size": 3,
+        "bytes": "83c40c",
+        "mnem": "add",
+        "text": "add     esp, 0Ch"
+      },
+      {
+        "ea": 4438913,
+        "size": 1,
+        "bytes": "57",
+        "mnem": "push",
+        "text": "push    edi; int"
+      },
+      {
+        "ea": 4438914,
+        "size": 4,
+        "bytes": "8d542414",
+        "mnem": "lea",
+        "text": "lea     edx, [esp+114h+var_100]"
+      },
+      {
+        "ea": 4438918,
+        "size": 1,
+        "bytes": "56",
+        "mnem": "push",
+        "text": "push    esi; Time"
+      },
+      {
+        "ea": 4438919,
+        "size": 1,
+        "bytes": "52",
+        "mnem": "push",
+        "text": "push    edx; int"
+      },
+      {
+        "ea": 4438920,
+        "size": 5,
+        "bytes": "e8c3f40000",
+        "mnem": "call",
+        "text": "call    World__AppendMsgToCharWindow"
+      },
+      {
+        "ea": 4438925,
+        "size": 3,
+        "bytes": "83c40c",
+        "mnem": "add",
+        "text": "add     esp, 0Ch"
+      },
+      {
+        "ea": 4438928,
+        "size": 5,
+        "bytes": "e91cffffff",
+        "mnem": "jmp",
+        "text": "jmp     loc_43BAB1"
+      },
+      {
+        "ea": 4438933,
+        "size": 3,
+        "bytes": "83ff14",
+        "mnem": "cmp",
+        "text": "cmp     edi, 14h"
+      },
+      {
+        "ea": 4438936,
+        "size": 6,
+        "bytes": "0f8513ffffff",
+        "mnem": "jnz",
+        "text": "jnz     loc_43BAB1"
+      },
+      {
+        "ea": 4438942,
+        "size": 5,
+        "bytes": "a194ba5a00",
+        "mnem": "mov",
+        "text": "mov     eax, gBattleScene"
+      },
+      {
+        "ea": 4438947,
+        "size": 1,
+        "bytes": "50",
+        "mnem": "push",
+        "text": "push    eax"
+      },
+      {
+        "ea": 4438948,
+        "size": 5,
+        "bytes": "e8c7d3ffff",
+        "mnem": "call",
+        "text": "call    Battle__ParsePacket_M__TakeInt"
+      },
+      {
+        "ea": 4438953,
+        "size": 1,
+        "bytes": "50",
+        "mnem": "push",
+        "text": "push    eax"
+      },
+      {
+        "ea": 4438954,
+        "size": 5,
+        "bytes": "e8317cfeff",
+        "mnem": "call",
+        "text": "call    GetBattlePosition"
+      },
+      {
+        "ea": 4438959,
+        "size": 6,
+        "bytes": "8b0d94ba5a00",
+        "mnem": "mov",
+        "text": "mov     ecx, gBattleScene"
+      },
+      {
+        "ea": 4438965,
+        "size": 2,
+        "bytes": "8bf0",
+        "mnem": "mov",
+        "text": "mov     esi, eax"
+      },
+      {
+        "ea": 4438967,
+        "size": 1,
+        "bytes": "51",
+        "mnem": "push",
+        "text": "push    ecx"
+      },
+      {
+        "ea": 4438968,
+        "size": 5,
+        "bytes": "e8b3d3ffff",
+        "mnem": "call",
+        "text": "call    Battle__ParsePacket_M__TakeInt"
+      },
+      {
+        "ea": 4438973,
+        "size": 6,
+        "bytes": "8b0da4bc5a00",
+        "mnem": "mov",
+        "text": "mov     ecx, gMyPostion"
+      },
+      {
+        "ea": 4438979,
+        "size": 3,
+        "bytes": "83c40c",
+        "mnem": "add",
+        "text": "add     esp, 0Ch"
+      },
+      {
+        "ea": 4438982,
+        "size": 2,
+        "bytes": "3bf1",
+        "mnem": "cmp",
+        "text": "cmp     esi, ecx"
+      },
+      {
+        "ea": 4438984,
+        "size": 6,
+        "bytes": "0f85e3feffff",
+        "mnem": "jnz",
+        "text": "jnz     loc_43BAB1"
+      },
+      {
+        "ea": 4438990,
+        "size": 2,
+        "bytes": "8bc8",
+        "mnem": "mov",
+        "text": "mov     ecx, eax"
+      },
+      {
+        "ea": 4438992,
+        "size": 2,
+        "bytes": "f7d9",
+        "mnem": "neg",
+        "text": "neg     ecx"
+      },
+      {
+        "ea": 4438994,
+        "size": 3,
+        "bytes": "c1e102",
+        "mnem": "shl",
+        "text": "shl     ecx, 2"
+      },
+      {
+        "ea": 4438997,
+        "size": 2,
+        "bytes": "2bc8",
+        "mnem": "sub",
+        "text": "sub     ecx, eax"
+      },
+      {
+        "ea": 4438999,
+        "size": 3,
+        "bytes": "8d0489",
+        "mnem": "lea",
+        "text": "lea     eax, [ecx+ecx*4]"
+      },
+      {
+        "ea": 4439002,
+        "size": 3,
+        "bytes": "8d1480",
+        "mnem": "lea",
+        "text": "lea     edx, [eax+eax*4]"
+      },
+      {
+        "ea": 4439005,
+        "size": 5,
+        "bytes": "a10ca7fd00",
+        "mnem": "mov",
+        "text": "mov     eax, gPlayerDataVal.feverTime"
+      },
+      {
+        "ea": 4439010,
+        "size": 3,
+        "bytes": "8d04d0",
+        "mnem": "lea",
+        "text": "lea     eax, [eax+edx*8]"
+      },
+      {
+        "ea": 4439013,
+        "size": 2,
+        "bytes": "85c0",
+        "mnem": "test",
+        "text": "test    eax, eax"
+      },
+      {
+        "ea": 4439015,
+        "size": 5,
+        "bytes": "a30ca7fd00",
+        "mnem": "mov",
+        "text": "mov     gPlayerDataVal.feverTime, eax"
+      },
+      {
+        "ea": 4439020,
+        "size": 6,
+        "bytes": "0f8dbffeffff",
+        "mnem": "jge",
+        "text": "jge     loc_43BAB1"
+      },
+      {
+        "ea": 4439026,
+        "size": 10,
+        "bytes": "c7050ca7fd0000000000",
+        "mnem": "mov",
+        "text": "mov     gPlayerDataVal.feverTime, 0"
+      },
+      {
+        "ea": 4439036,
+        "size": 5,
+        "bytes": "e9b0feffff",
+        "mnem": "jmp",
+        "text": "jmp     loc_43BAB1"
+      },
+      {
+        "ea": 4439041,
+        "size": 1,
+        "bytes": "5f",
+        "mnem": "pop",
+        "text": "pop     edi"
+      },
+      {
+        "ea": 4439042,
+        "size": 1,
+        "bytes": "5e",
+        "mnem": "pop",
+        "text": "pop     esi"
+      },
+      {
+        "ea": 4439043,
+        "size": 1,
+        "bytes": "5b",
+        "mnem": "pop",
+        "text": "pop     ebx"
+      },
+      {
+        "ea": 4439044,
+        "size": 6,
+        "bytes": "81c404010000",
+        "mnem": "add",
+        "text": "add     esp, 104h"
+      },
+      {
+        "ea": 4439050,
+        "size": 1,
+        "bytes": "c3",
+        "mnem": "retn",
+        "text": "retn"
+      }
+    ]
+  },
+  "caller_windows": [
+    {
+      "site": 4444681,
+      "parent": 4443056,
+      "instructions": [
+        {
+          "ea": 4444676,
+          "size": 5,
+          "bytes": "e8477afcff",
+          "text": "call    Yobi__UpdateAll"
+        },
+        {
+          "ea": 4444681,
+          "size": 5,
+          "bytes": "e892e8ffff",
+          "text": "call    sub_43BAA0"
+        },
+        {
+          "ea": 4444686,
+          "size": 5,
+          "bytes": "b916000000",
+          "text": "mov     ecx, 16h"
+        },
+        {
+          "ea": 4444691,
+          "size": 2,
+          "bytes": "33c0",
+          "text": "xor     eax, eax"
+        },
+        {
+          "ea": 4444693,
+          "size": 5,
+          "bytes": "bf80e95900",
+          "text": "mov     edi, offset gBattleEntry"
+        },
+        {
+          "ea": 4444698,
+          "size": 10,
+          "bytes": "c705d8bf5a0016000000",
+          "text": "mov     dword_5ABFD8, 16h"
+        }
+      ]
+    },
+    {
+      "site": 4444976,
+      "parent": 4443056,
+      "instructions": [
+        {
+          "ea": 4444971,
+          "size": 5,
+          "bytes": "e82079fcff",
+          "text": "call    Yobi__UpdateAll"
+        },
+        {
+          "ea": 4444976,
+          "size": 5,
+          "bytes": "e86be7ffff",
+          "text": "call    sub_43BAA0"
+        },
+        {
+          "ea": 4444981,
+          "size": 5,
+          "bytes": "e896ebffff",
+          "text": "call    sub_43BED0"
+        },
+        {
+          "ea": 4444986,
+          "size": 5,
+          "bytes": "b916000000",
+          "text": "mov     ecx, 16h"
+        },
+        {
+          "ea": 4444991,
+          "size": 2,
+          "bytes": "33c0",
+          "text": "xor     eax, eax"
+        },
+        {
+          "ea": 4444993,
+          "size": 5,
+          "bytes": "bf80e95900",
+          "text": "mov     edi, offset gBattleEntry"
+        },
+        {
+          "ea": 4444998,
+          "size": 10,
+          "bytes": "c705d8bf5a0016000000",
+          "text": "mov     dword_5ABFD8, 16h"
+        }
+      ]
+    }
+  ],
+  "previous_semantic_index": 816,
+  "source_body_changed": false,
+  "new_functions": 0,
+  "new_semantic_records": 0,
+  "new_implementation_evidence": 0,
+  "new_scoped_static_evidence": 1,
+  "existing_m_parser_scope": "GetBattleMHeader/TakeInt/TakeStr各既有M游标/容量/字节合同；只核本根连接，不改/不重验完整所有消费者",
+  "known_audio_extra_stack_value": {
+    "value": 240,
+    "consumed_by_original_body": false,
+    "provider_contract": "include/cg/LegacyAudio.hpp",
+    "native_parameters": [
+      "seNo",
+      "screenX"
+    ]
+  },
+  "full_lifecycle_closed": false,
+  "runtime_verified": false,
+  "verification": {
+    "status": "source_static_pass",
+    "original_root_contiguous_and_inventory_matched": true,
+    "full_current_body_and_signatures_preserved": true,
+    "comment_only_changes": 2,
+    "fixed_payload_and_fresh_scene_parameters_checked": true,
+    "cht_bst_table_consumption_and_shared_timer_checked": true,
+    "existing_audio_third_stack_value_unused_contract_preserved": true,
+    "previous_semantic_index_816_preserved": true,
+    "full_lifecycle_closed": false,
+    "runtime_verified": false,
+    "measurement_check": "pass",
+    "measurement_result": "生成及-Check均exit0；主度量仅F处置+1，其余库存/导入/区间/分类/政策/六closure/构建历史保持。"
+  },
+  "limits": [
+    "完整原根与两个局部场景调用，全部父/callee/数据/原间接alias未闭",
+    "固定入口payload与fresh对象分阶段，不能据此推scene借用/owner寿命已验",
+    "原BST负值置零保持，不专项数学溢出/回绕/故障样例或等价",
+    "无构建/测试/运行/算法/产物/摘要或新依赖"
+  ],
+  "source_before_body": "std::int32_t Sub_43BAA0()\n{\n    using namespace world::detail;\n    auto* const payload = static_cast<BattleScenePayload*>(gBattleSceneAction5ABA94->payload);\n    std::array<char, 4> header;\n    std::array<char, 256> message;\n    for (;;) {\n        if (GetBattleMHeader_439070(header.data()) == 1) {\n            return 1;\n        }\n        std::size_t kind = 0;\n        while (kind < kBattleMHeaders553E94.size()\n            && platform::StrStr_53BE40(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {\n            ++kind;\n        }\n        if (kind != 14 && kind != 20) {\n            continue;\n        }\n        payload->packetOffset64 = gBattleMScanOffset5A8A3C;\n        if (kind == 14) { // CHT\n            static_cast<void>(GetBattlePosition_4237E0(TakeBattleMInteger_438F70(gBattleSceneAction5ABA94)));\n            const std::int32_t color = TakeBattleMInteger_438F70(gBattleSceneAction5ABA94);\n            const std::int32_t font = TakeBattleMInteger_438F70(gBattleSceneAction5ABA94);\n            payload->messageValueA4 = TakeBattleMInteger_438F70(gBattleSceneAction5ABA94);\n            TakeBattleMString_438FE0(gBattleSceneAction5ABA94, message.data(), 256);\n            if (platform::gValue554644 != 0) {\n                static_cast<void>(audio::PlaySe_52C450(74, 320));\n            }\n            Sub_44B050(message.data(), color, font);\n        } else { // BST\n            const std::int32_t position = GetBattlePosition_4237E0(\n                TakeBattleMInteger_438F70(gBattleSceneAction5ABA94));\n            const std::int32_t seconds = TakeBattleMInteger_438F70(gBattleSceneAction5ABA94);\n            if (position == gBattleCurrentPosition5ABCA4) {\n                ConsumeBattlePlayerTimer(seconds);\n            }\n        }\n    }\n}",
+  "source_after_body": "std::int32_t Sub_43BAA0()\n{\n    using namespace world::detail;\n    auto* const payload = static_cast<BattleScenePayload*>(gBattleSceneAction5ABA94->payload);\n    std::array<char, 4> header;\n    std::array<char, 256> message;\n    for (;;) {\n        if (GetBattleMHeader_439070(header.data()) == 1) {\n            return 1;\n        }\n        std::size_t kind = 0;\n        while (kind < kBattleMHeaders553E94.size()\n            && platform::StrStr_53BE40(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {\n            ++kind;\n        }\n        if (kind != 14 && kind != 20) {\n            continue;\n        }\n        payload->packetOffset64 = gBattleMScanOffset5A8A3C;\n        if (kind == 14) { // CHT\n            static_cast<void>(GetBattlePosition_4237E0(TakeBattleMInteger_438F70(gBattleSceneAction5ABA94)));\n            const std::int32_t color = TakeBattleMInteger_438F70(gBattleSceneAction5ABA94);\n            const std::int32_t font = TakeBattleMInteger_438F70(gBattleSceneAction5ABA94);\n            payload->messageValueA4 = TakeBattleMInteger_438F70(gBattleSceneAction5ABA94);\n            TakeBattleMString_438FE0(gBattleSceneAction5ABA94, message.data(), 256);\n            if (platform::gValue554644 != 0) {\n                static_cast<void>(audio::PlaySe_52C450(74, 320));\n            }\n            Sub_44B050(message.data(), color, font);\n        } else { // BST\n            const std::int32_t position = GetBattlePosition_4237E0(\n                TakeBattleMInteger_438F70(gBattleSceneAction5ABA94));\n            const std::int32_t seconds = TakeBattleMInteger_438F70(gBattleSceneAction5ABA94);\n            if (position == gBattleCurrentPosition5ABCA4) {\n                ConsumeBattlePlayerTimer(seconds);\n            }\n        }\n    }\n}",
+  "source_comment_diffs": {
+    "src/YobiRuntime.cpp": [
+      "--- before/src/YobiRuntime.cpp",
+      "+++ after/src/YobiRuntime.cpp",
+      "@@ -22663,6 +22663,7 @@",
+      "     return position;",
+      " }",
+      " ",
+      "+// BEMS01：固定入口payload、各次取包fresh场景指针；仅CHT/BST消费，见doc/cg2d_battle_exit_message_scan_spec.md。",
+      " std::int32_t Sub_43BAA0()",
+      " {",
+      "     using namespace world::detail;"
+    ],
+    "include/cg/YobiRuntime.hpp": [
+      "--- before/include/cg/YobiRuntime.hpp",
+      "+++ after/include/cg/YobiRuntime.hpp",
+      "@@ -266,7 +266,7 @@",
+      " std::int32_t TakeBattleMInteger_438F70(YobiAction* action); // 对象载荷64游标读取大写十六进制。",
+      " void TakeBattleMString_438FE0(YobiAction* action, char* destination, std::int32_t capacity);",
+      " std::int32_t GetBattlePosition_4237E0(std::int32_t position); // 50/51转20/21，其余原值。",
+      "-std::int32_t Sub_43BAA0(); // 完整退出扫描，仅处理CHT/BST，返回1；固定载荷但重取场景对象。",
+      "+std::int32_t Sub_43BAA0(); // BEMS01：固定入口载荷、各次取包重取场景对象；CHT入行/BST当前玩家计时，头返回1才结束。",
+      " std::int32_t TakeBattleMPreviewInteger_439600(); // 局部扫描，仅结束时发布5AAA60。",
+      " void TakeBattleMPreviewString_439670(char* destination, std::int32_t capacity);",
+      " std::int32_t GetBattleMPreviewHeader_439700(char* destination); // 预扫描头，不推进5A8A3C。"
+    ]
+  },
+  "outgoing_calls": [
+    {
+      "ea": 4438710,
+      "target": 4427888,
+      "text": "call    Battle__ParsePacket_M__GetHeader"
+    },
+    {
+      "ea": 4438742,
+      "target": 5488192,
+      "text": "call    _strstr"
+    },
+    {
+      "ea": 4438803,
+      "target": 4427632,
+      "text": "call    Battle__ParsePacket_M__TakeInt"
+    },
+    {
+      "ea": 4438809,
+      "target": 4339680,
+      "text": "call    GetBattlePosition"
+    },
+    {
+      "ea": 4438820,
+      "target": 4427632,
+      "text": "call    Battle__ParsePacket_M__TakeInt"
+    },
+    {
+      "ea": 4438834,
+      "target": 4427632,
+      "text": "call    Battle__ParsePacket_M__TakeInt"
+    },
+    {
+      "ea": 4438848,
+      "target": 4427632,
+      "text": "call    Battle__ParsePacket_M__TakeInt"
+    },
+    {
+      "ea": 4438876,
+      "target": 4427744,
+      "text": "call    Battle__ParsePacket_M__TakeStr2"
+    },
+    {
+      "ea": 4438905,
+      "target": 5424208,
+      "text": "call    World__PlaySe"
+    },
+    {
+      "ea": 4438920,
+      "target": 4501584,
+      "text": "call    World__AppendMsgToCharWindow"
+    },
+    {
+      "ea": 4438948,
+      "target": 4427632,
+      "text": "call    Battle__ParsePacket_M__TakeInt"
+    },
+    {
+      "ea": 4438954,
+      "target": 4339680,
+      "text": "call    GetBattlePosition"
+    },
+    {
+      "ea": 4438968,
+      "target": 4427632,
+      "text": "call    Battle__ParsePacket_M__TakeInt"
+    }
+  ],
+  "current_header_table_source": "constexpr std::array<const char*, 25> kBattleMHeaders553E94 {\n    \"SKL\", \"ESC\", \"CLR\", \"SUP\", \"POS\", \"MON\", \"EQU\", \"ITM\", \"CMB\", \"PSN\",\n    \"ANR\", \"PUE\", \"ACT\", \"CFP\", \"CHT\", \"PNO\", \"PLV\", \"CBC\", \"PDN\", \"REB\",\n    \"BST\", \"GMN\", \"RID\", \"DSK\", \"END\",\n};",
+  "current_data_provider_sources": [
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "GetBattleMHeader_439070",
+      "body": "std::int32_t GetBattleMHeader_439070(char* const destination)\n{\n    using namespace world::detail;\n    std::int32_t offset = gBattleMScanOffset5A8A3C;\n    if (gBattleMText5AAA7C[offset] == '\\0' || gBattleMText5AAA7C[offset + 1] == '\\0') {\n        return 1;\n    }\n    for (;;) {\n        const auto value = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(gBattleMText5AAA7C[offset]));\n        if (value == 0) {\n            gBattleMScanOffset5A8A3C = offset;\n            return 1;\n        }\n        if (value >= 'A' && value <= 'Z') {\n            break;\n        }\n        ++offset;\n    }\n    gBattleMScanOffset5A8A3C = offset;\n    platform::StrNCpy_53BEC0(destination, gBattleMText5AAA7C.data() + offset, 3);\n    destination[3] = '\\0';\n    gBattleMScanOffset5A8A3C += 4;\n    return 0;\n}"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "TakeBattleMInteger_438F70",
+      "body": "std::int32_t TakeBattleMInteger_438F70(YobiAction* const action)\n{\n    auto* const payload = static_cast<BattleScenePayload*>(action->payload);\n    std::uint32_t result = 0;\n    bool hasDigit = false;\n    for (;;) {\n        const std::int32_t offset = payload->packetOffset64;\n        const auto value = std::bit_cast<std::int8_t>(\n            static_cast<std::uint8_t>(world::detail::gBattleMText5AAA7C[offset]));\n        if (value == 0) {\n            break;\n        }\n        if ((value >= '0' && value <= '9') || (value >= 'A' && value <= 'F')) {\n            if (hasDigit) {\n                result <<= 4;\n            } else {\n                hasDigit = true;\n            }\n            const std::int32_t next = offset + 1;\n            result += static_cast<std::uint32_t>(value - (value < 'A' ? '0' : '7'));\n            payload->packetOffset64 = next;\n        } else if (hasDigit || value == '|') {\n            ++payload->packetOffset64;\n            break;\n        } else {\n            payload->packetOffset64 = offset + 1;\n        }\n    }\n    return std::bit_cast<std::int32_t>(result);\n}"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "TakeBattleMString_438FE0",
+      "body": "void TakeBattleMString_438FE0(YobiAction* const action, char* const destination, const std::int32_t capacity)\n{\n    auto* const payload = static_cast<BattleScenePayload*>(action->payload);\n    std::int32_t written = 0;\n    for (;;) {\n        const std::int32_t offset = payload->packetOffset64;\n        const char byte = world::detail::gBattleMText5AAA7C[offset];\n        const auto value = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(byte));\n        if (byte == '\\0') {\n            break;\n        }\n        if (byte == '|') {\n            ++payload->packetOffset64;\n            break;\n        }\n        if (written >= capacity - 1) {\n            if (value < 0) {\n                payload->packetOffset64 = offset + 1;\n            }\n            ++payload->packetOffset64;\n            continue;\n        }\n        const bool hasTrail = value < 0;\n        destination[written] = byte;\n        if (hasTrail) {\n            ++written;\n            if (written >= capacity - 1) {\n                // 原439034..43903C用同一局部游标连续发布两次。\n                const std::int32_t next = payload->packetOffset64 + 1;\n                payload->packetOffset64 = next;\n                payload->packetOffset64 = next + 1;\n                continue;\n            }\n            const std::int32_t next = payload->packetOffset64 + 1;\n            payload->packetOffset64 = next;\n            destination[written] = world::detail::gBattleMText5AAA7C[next];\n        }\n        const std::int32_t currentOffset = payload->packetOffset64;\n        ++written;\n        payload->packetOffset64 = currentOffset + 1;\n    }\n    destination[written] = '\\0';\n    input::UnescapeLegacyTextAndNotify_52D2F0(destination);\n}"
+    },
+    {
+      "path": "src/world/SceneState.cpp",
+      "symbol": "ConsumeBattlePlayerTimer",
+      "body": "void ConsumeBattlePlayerTimer(const std::int32_t seconds)\n{\n    const std::int32_t remaining = gPlayerRuntime.timerRemaining0C - 1000 * seconds;\n    const bool negative = remaining < 0;\n    gPlayerRuntime.timerRemaining0C = remaining;\n    if (negative) {\n        gPlayerRuntime.timerRemaining0C = 0;\n    }\n}"
+    }
+  ],
+  "audio_parameter_contract_source": "// 原 World::PlaySe@52C450，第二参数是声像位置；额外压栈值未被本体读取。\nstd::int32_t __cdecl PlaySe_52C450(std::int32_t seNo, std::int32_t screenX);",
+  "previous_semantic_record": {
+    "original_entry": "0x43BAA0",
+    "inventory_id": "F:0003BAA0",
+    "status": "既有战斗M头表子串查找已接真实核心；其他依赖及完整运行未验",
+    "original_end_exclusive": "0x43BC0B",
+    "instruction_count": 107,
+    "original_direct_reference_count": 2,
+    "original_direct_call_reference_count": 2,
+    "sources": [
+      {
+        "path": "src/YobiRuntime.cpp",
+        "symbols": [
+          "Sub_43BAA0"
+        ]
+      }
+    ],
+    "search_call_connections": [
+      {
+        "parent_entry": "0x43BAA0",
+        "call_site": "0x43BAD6",
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "Sub_43BAA0",
+        "target_entry": "0x53BE40",
+        "target_symbol": "StrStr_53BE40",
+        "relationship": "4B header与原553E94当前3B头字符串逐项子串查找，按25项顺序首命中/失配分支及后续游标/动作保持"
+      }
+    ],
+    "inbound_reference_groups": [
+      {
+        "parent_entry": "0x43CBB0",
+        "is_code": true,
+        "reference_type": 17,
+        "reference_count": 2,
+        "reference_sites": [
+          "0x43D209",
+          "0x43D330"
+        ],
+        "relationship": "原直接代码call枚举，不重验该父全文或解除其待决"
+      }
+    ],
+    "evidence_documents": [
+      "doc/cg2d_legacy_string_compare.md",
+      "doc/ui_windows/shared_battle.md"
+    ],
+    "verification_level": "父107条统计，只读查找/循环相邻28条、真实参数/引用类型/25项原头与当前表；整份源码七标识符、核心/头保持及两合同追加/JSON限定增量静态核对，不重验其余父正文/调用方，未构建或执行",
+    "boundary": "本步仅M头表查找交真实53BE40；4B header/25项3B旧头顺序/首次命中或失配及现有游标/计数/参与者/动作/音效/RNG/owner/生命周期逐字保持。整份YobiRuntime仅七标识符替换、核心与声明不改，不初始化、转码、加保护或触碰424620待批var_50；其他依赖/数据生产/完整战斗/跨板块运行验收仍待，音频/加解密不恢复。"
+  }
+}

@@ -403,3 +403,10 @@ CRT薄适配已直接采用MSVC；当前数组构析的三组业务调用及其�
 只一个CPP清理一段：current=node持样后发布head=current、读next供后继，再free current；原global head仅发布槽，不在free参数fresh重读，末清head/原循环保持。现两个std::malloc(sizeof原生节点)与同域std::free真实MSVC，不改布局/API/资格/字段发布/保护或新增owner，全部其它源/头和Yobi/投影保持。BMF01状态7调用清链、状态9原不同顺序不补清理，不把Yobi全链标死当作此heap链释放。
 
 必要静态、汇总与-Check通过：三完整87条237B/三页、四call/三目标/11跳六RET、六头引用/三根、23实际入向/15父定位、生产三窗口和清理后返回覆盖有据；当前私有三S32/两T*、两malloc/同域free及场景7/9原差异保持。整CPP只清理free current一片段，Add/Find/资格、所有其它源与头/场景逐字不改。语义2039→2042（1994F＋48X）、合同2101→2104/3680（57.17%仅合同关联率）、F1464→1467、E1353→1355仅限定I/S各一，I只清理一F/S三F；BATTLE278→281且枚举false。原分母/导入16/218/X3060/3061余1、184叶完整验收0、60任务关闭11和六closure保持；十份自有文件显式UTF-8无BOM/LF，精确提交固定引用cg2d-re-battle-append-effect-cleanup-20261010。未构建/测试/运行/算法/查产物/计算摘要，无新依赖；用户六项改动保留，整体目标active。完整资格/所有15父-callee与数据、原未知间接alias、SDK容量失败/重进退出/全部资源owner和画面运行仍未验，整体SPEC未完成。
+
+<a id="battle-exit-message-progress-20261010"></a>
+## 35. 2026-10-10 BEMS01：完整退出M扫描与CHT/BST数据消费
+
+沿[完整原根/现源](../doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-source-state)，核43BAA0连续107条363B/两页、13call七目标/13跳一RET，两实际CALL43D209/43D330来自场景9/7。入口payload固定全循环，各次TakeInt/TakeStr重新取场景对象；25头只14/20处理，GetHeader==1才返回1，未匹配/其他继续扫描。CHT四整数/256B文本、条件74-320音效/聊天入行与A4发布，BST位置/seconds后取当前玩家位置、正常timer减1000*seconds及原负值置零有据。额外音效240不被既有52C450本体读取，两参数合同正确保持。
+
+必要静态、汇总与-Check通过：完整107条363B/两页、13call七目标/13跳一RET、两个真实调用及原25头/14和20处理、固定payload/fresh取包对象、六Int两Pos一String与CHT/共享timer正常源有据。整CPP/公开头仅两合同注释，全部正文/签名/原表和M读取/计时/聊天音效及场景/其它源逐字保持；816号旧完整前态与原身份/机器字段/查找连接保。语义2042（1994F＋48X）、合同2104/3680（57.17%仅合同关联率）不增，F1467→1468、E1355→1356仅一限定S/零新I，BATTLE281→282且枚举false。导入16/218、X3060/3061余1、184叶完整验收0、60任务关闭11及六closure保持；十一自有文件显式UTF-8无BOM/LF，精确提交固定引用cg2d-re-battle-exit-message-scan-20261010。未构建/测试/运行/算法/查产物/计算摘要，无新依赖；用户六项改动保留，整体目标active。全部M数据/所有父-callee/scene借用与最终owner、SDK声音画面/正常寿命和实际运行仍未验，整体SPEC未完成。

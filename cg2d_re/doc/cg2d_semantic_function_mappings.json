@@ -96225,7 +96225,7 @@
     {
       "original_entry": "0x43BAA0",
       "inventory_id": "F:0003BAA0",
-      "status": "既有战斗M头表子串查找已接真实核心；其他依赖及完整运行未验",
+      "status": "既有战斗M头表子串查找已接真实核心；其他依赖及完整运行未验；BEMS01完整退出CHT/BST扫描/正常计时源纳管，正文正确保持",
       "original_end_exclusive": "0x43BC0B",
       "instruction_count": 107,
       "original_direct_reference_count": 2,
@@ -96264,10 +96264,44 @@
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
-        "doc/ui_windows/shared_battle.md"
+        "doc/ui_windows/shared_battle.md",
+        "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-baseline",
+        "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-decision",
+        "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-acceptance",
+        "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-source-state",
+        "doc/cg2d_battle_exit_message_scan_evidence.json"
       ],
-      "verification_level": "父107条统计，只读查找/循环相邻28条、真实参数/引用类型/25项原头与当前表；整份源码七标识符、核心/头保持及两合同追加/JSON限定增量静态核对，不重验其余父正文/调用方，未构建或执行",
-      "boundary": "本步仅M头表查找交真实53BE40；4B header/25项3B旧头顺序/首次命中或失配及现有游标/计数/参与者/动作/音效/RNG/owner/生命周期逐字保持。整份YobiRuntime仅七标识符替换、核心与声明不改，不初始化、转码、加保护或触碰424620待批var_50；其他依赖/数据生产/完整战斗/跨板块运行验收仍待，音频/加解密不恢复。"
+      "verification_level": "父107条统计，只读查找/循环相邻28条、真实参数/引用类型/25项原头与当前表；整份源码七标识符、核心/头保持及两合同追加/JSON限定增量静态核对，不重验其余父正文/调用方，未构建或执行 BEMS01完整107条363B/13call七目标/13跳一RET与两真实入向及现源接口/共享计时，源仅两注释，零新I，不代全父/callee/owner/SDK运行。",
+      "boundary": "本步仅M头表查找交真实53BE40；4B header/25项3B旧头顺序/首次命中或失配及现有游标/计数/参与者/动作/音效/RNG/owner/生命周期逐字保持。整份YobiRuntime仅七标识符替换、核心与声明不改，不初始化、转码、加保护或触碰424620待批var_50；其他依赖/数据生产/完整战斗/跨板块运行验收仍待，音频/加解密不恢复。 BEMS01完整107条363B/两页纳管：固定入口payload、各次取整数/字符串fresh场景对象、25头只14/20消费；CHT四整数/256B文本和74-320音效/聊天，BST当前位置匹配才正常扣timer/原负值置零。现正文/签名及所有依赖保，仅两注释；旧816局部记录完整前态沿命名前态/证据保，全部数据/场景borrow-owner/SDK与声音画面运行仍未验。",
+      "function_chunks": [
+        {
+          "start": "0x43baa0",
+          "end_exclusive": "0x43bc0b"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::Sub_43BAA0",
+        "source_body_implemented": true,
+        "source_body_changed": false,
+        "runtime_verified": false
+      },
+      "battle_exit_message_scan": {
+        "spec_id": "BEMS01",
+        "full_original_root_captured": true,
+        "instruction_count": 107,
+        "code_bytes": 363,
+        "read_pages": 2,
+        "outgoing_calls": 13,
+        "actual_direct_inbound_call_count": 2,
+        "source_body_changed": false,
+        "new_implementation_evidence": 0,
+        "previous_record_index": 816,
+        "previous_record_snapshot": "cg2d-re-battle-exit-message-scan-history-20261010",
+        "fixed_entry_payload_with_fresh_scene_per_parameter": true,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x4B77E0",

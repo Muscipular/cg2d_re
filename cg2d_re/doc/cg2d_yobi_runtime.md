@@ -4627,3 +4627,8 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 ## 2026-10-10 BAEL01：私有追加效果链生产与清理
 
 [完整资源链合同](cg2d_battle_append_effect_lifecycle_spec.md#battle-append-effect-source-state)纳管43BE00/43BEA0/43BED0三完整87条237B，当前同CPP私有三S32/两T*节点、两个malloc/同域free，匹配只更新technique/查询返回值或-1。仅清理一段先持current、发布head、取next再free current、末清头，原生产/查询/资格及全部其它源保持。状态7真实清理、状态9原差异不补猜测；23入向/15父仅定位，完整资格/数据/间接alias/SDK失败/重进退出和所有owner运行仍待。限定I仅清理一F/S三F，零新函数，完整门禁保持。
+
+<a id="battle-exit-message-runtime-20261010"></a>
+## 2026-10-10 BEMS01：完整退出CHT/BST消费
+
+[完整扫描合同](cg2d_battle_exit_message_scan_spec.md#battle-exit-message-source-state)将旧816号局部M头连接扩为107条363B完整根，固定入口payload/各次fresh场景对象、只25头中的CHT/BST、CHT四整数/256B文本-原音效/聊天与BST当前玩家正常计时/原负值置零均现正确保持。原额外音效240不被本体读取，现两参数接口保；只两注释/一限定S，零新I或函数。两原调用来自场景9/7，追加效果清理的既有区别保持；所有M数据、父-callee/scene借用owner和SDK声音画面运行仍待，完整门禁保持。

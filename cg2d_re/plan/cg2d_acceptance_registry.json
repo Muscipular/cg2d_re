@@ -4313,7 +4313,9 @@
         "doc/cg2d_battle_projectile_exit_spec.md",
         "doc/cg2d_battle_projectile_exit_evidence.json",
         "doc/cg2d_battle_append_effect_lifecycle_spec.md",
-        "doc/cg2d_battle_append_effect_lifecycle_evidence.json"
+        "doc/cg2d_battle_append_effect_lifecycle_evidence.json",
+        "doc/cg2d_battle_exit_message_scan_spec.md",
+        "doc/cg2d_battle_exit_message_scan_evidence.json"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -4596,7 +4598,8 @@
         "F:000093B0",
         "F:0003BE00",
         "F:0003BEA0",
-        "F:0003BED0"
+        "F:0003BED0",
+        "F:0003BAA0"
       ],
       "closure_task_ids": [
         "P01",
@@ -4735,7 +4738,8 @@
         "doc/cg2d_battle_range_hit_spec.md#battle-range-hit-decision",
         "doc/cg2d_battle_projectile_creator_cache_sampling_spec.md#projectile-creator-cache-decision",
         "doc/cg2d_battle_projectile_exit_spec.md#battle-projectile-exit-decision",
-        "doc/cg2d_battle_append_effect_lifecycle_spec.md#battle-append-effect-decision"
+        "doc/cg2d_battle_append_effect_lifecycle_spec.md#battle-append-effect-decision",
+        "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-decision"
       ],
       "blockers": [
         "CAB30两个既有宠物技能绘制入口仅明确既有U8图层消费，原equivalent处置/原成员保持；正常成本/取样/图号/音效及所有其它正文不变，原完整门禁与寿命/ABI/运行不由本步外推。",
@@ -4860,7 +4864,8 @@
         "BPRH01完整RangeHit创建/phase16和投影生产/五实际CALL纳管，三取样片段实修、限定I/S；原空返/辅助flags持样/图形/数学/发布与同一借表保，全父-callee/资源/SDK/最终借用回收和运行仍待，枚举false。",
         "DPCS01两个既有投射创建器父Y/payload与投影取样四组修正，SpiracleShot两高度借同一表、BlastWave图号先于目标查询；原身份/成员/分母不增，限定I/S，不代完整资源/全部父-callee/SDK/最终DX及对象owner回收或运行。",
         "BPEX01阶段17完整30条89B/唯一case17正常退场合同纳管，源码不改仅两注释，限定S/零新I；调度标死/释放阶段说明为条件性，不代全部标死来源/门禁变更/重生重入/清场退出与资源、父投影最终owner/SDK画面运行，枚举false。",
-        "BAEL01追加效果链三完整根/六头引用及当前私有节点生产-值查找-清理纳管，仅清理free current持样一段实修，限定I仅一F/S三F；正常场景7/9差异保，全资格/15父与数据/原间接alias、SDK失败/重进退出/最终owner与运行仍未验，枚举false。"
+        "BAEL01追加效果链三完整根/六头引用及当前私有节点生产-值查找-清理纳管，仅清理free current持样一段实修，限定I仅一F/S三F；正常场景7/9差异保，全资格/15父与数据/原间接alias、SDK失败/重进退出/最终owner与运行仍未验，枚举false。",
+        "BEMS01既有退出扫描816号扩完整CHT/BST/固定payload-fresh场景和正常计时源，正文保仅两注释、限定S零I；无新语义/函数，完整M数据/父-callee/场景借用owner/SDK和声音画面运行仍待，成员false。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -58544,6 +58549,38 @@
       "differences": [],
       "result": "pass",
       "recorded_on": "2026-10-10"
+    },
+    {
+      "id": "E-BATTLE-EXIT-MESSAGE-SCAN-FUNC-BATTLE-S-20261010",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:0003BAA0"
+      ],
+      "baseline_reference": "BEMS01完整107条363B/两页、13call七目标/13跳一RET、25头14/20分支、六Int/两Pos/一String与原内联timer，两原场景调用。",
+      "implementation_reference": "Git固定快照 cg2d-re-battle-exit-message-scan-20261010",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-baseline",
+        "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-decision",
+        "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-acceptance",
+        "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-source-state",
+        "doc/cg2d_battle_exit_message_scan_evidence.json",
+        "src/YobiRuntime.cpp",
+        "include/cg/YobiRuntime.hpp",
+        "src/world/SceneState.cpp",
+        "src/Input.cpp",
+        "include/cg/LegacyAudio.hpp",
+        "src/LegacyAudio.cpp",
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state"
+      ],
+      "observation": "现完整CHT/BST消费/计时与原正常合同一致，固定payload及fresh对象阶段保持，只有两合同注释。",
+      "expected": "原header/packet64两游标及25项/14和20处理、CHT位置-颜色-字体-A4-256B文本与音效/聊天、BST当前玩家计时/原负值发布及真实返回保持。",
+      "actual": "816号旧局部完整前态保；完整本根源静态、一新处置/已知成员/限定S零新I，不代所有M输入/场景及borrow-owner/SDK声音画面运行。",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-10"
     }
   ],
   "task_acceptance": [
@@ -59752,7 +59789,9 @@
         "doc/cg2d_battle_projectile_exit_spec.md#battle-projectile-exit-source-state",
         "doc/cg2d_battle_projectile_exit_evidence.json",
         "doc/cg2d_battle_append_effect_lifecycle_spec.md#battle-append-effect-source-state",
-        "doc/cg2d_battle_append_effect_lifecycle_evidence.json"
+        "doc/cg2d_battle_append_effect_lifecycle_evidence.json",
+        "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-source-state",
+        "doc/cg2d_battle_exit_message_scan_evidence.json"
       ]
     },
     {
@@ -60434,7 +60473,9 @@
         "doc/cg2d_battle_projectile_exit_spec.md#battle-projectile-exit-source-state",
         "doc/cg2d_battle_projectile_exit_evidence.json",
         "doc/cg2d_battle_append_effect_lifecycle_spec.md#battle-append-effect-source-state",
-        "doc/cg2d_battle_append_effect_lifecycle_evidence.json"
+        "doc/cg2d_battle_append_effect_lifecycle_evidence.json",
+        "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-source-state",
+        "doc/cg2d_battle_exit_message_scan_evidence.json"
       ]
     },
     {
@@ -60694,7 +60735,9 @@
         "doc/cg2d_battle_projectile_exit_spec.md#battle-projectile-exit-source-state",
         "doc/cg2d_battle_projectile_exit_evidence.json",
         "doc/cg2d_battle_append_effect_lifecycle_spec.md#battle-append-effect-source-state",
-        "doc/cg2d_battle_append_effect_lifecycle_evidence.json"
+        "doc/cg2d_battle_append_effect_lifecycle_evidence.json",
+        "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-source-state",
+        "doc/cg2d_battle_exit_message_scan_evidence.json"
       ]
     },
     {
@@ -60815,7 +60858,9 @@
         "doc/cg2d_battle_projectile_exit_spec.md#battle-projectile-exit-source-state",
         "doc/cg2d_battle_projectile_exit_evidence.json",
         "doc/cg2d_battle_append_effect_lifecycle_spec.md#battle-append-effect-source-state",
-        "doc/cg2d_battle_append_effect_lifecycle_evidence.json"
+        "doc/cg2d_battle_append_effect_lifecycle_evidence.json",
+        "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-source-state",
+        "doc/cg2d_battle_exit_message_scan_evidence.json"
       ]
     },
     {
@@ -61464,7 +61509,9 @@
         "doc/cg2d_battle_projectile_exit_spec.md#battle-projectile-exit-source-state",
         "doc/cg2d_battle_projectile_exit_evidence.json",
         "doc/cg2d_battle_append_effect_lifecycle_spec.md#battle-append-effect-source-state",
-        "doc/cg2d_battle_append_effect_lifecycle_evidence.json"
+        "doc/cg2d_battle_append_effect_lifecycle_evidence.json",
+        "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-source-state",
+        "doc/cg2d_battle_exit_message_scan_evidence.json"
       ]
     },
     {
@@ -61561,7 +61608,7 @@
       ]
     }
   ],
-  "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。 GQ01由同一汇总器生成development_gap_queue与看板§5；只列定位/语义身份登记差集，不把缺历史定位当源码未实现，不手改队列。 CRI01无独立函数ID的已证代码片段可按原X区间/实际边界绑定；校验身份与证据后另计，不混入缺身份队列，不增加函数分母。 ACP01-A按最新double/std数学许可迁音频6入口CPP；更新现提供者及两限定静态证据，三ASM历史附件仍由固定Git快照核存在；完整门禁/成员/任务状态与MIDI停止范围保持。 ACP01-M将地图13数学/投影入口迁CPP，8现提供者同步，新增两限定I/S，原CI消费点明示std::pow承接；CRT环境仍待，不关闭完整gates/成员/任务。 ACP01-C完成第三ASM源迁移，22接口/70私有机器ABI退役/5非PUBLIC宿主承接，当前数学现提供者与host/mixed处置同步；新增两限定I/S，三ASM/MASM已移除，原身份/成员/完整gates/任务/六closure不闭合。 HMU01按malloc方向和工程委托统一通用全部模式CRT；9实际提供者/12旧池退休/8类型/10槽，25语义当前提供者与host/adapted处置对齐，3限定静态证据；完整门禁/成员/任务/六closure保持。 2026-10-09 CAC17：按用户要求更新七源/头18处过时注释；代码/声明/字段/调用保持，零新增原身份/语义/处置/软件证据，完整门禁/任务关闭/成员/六closure不变；见plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009。 2026-10-09 CAC18：第六批512原X完整用途和49表307槽/19索引/18对齐/三回调八原型，仅辅助mapped与九已有/26新父数据关联及三无F代码身份；已审区间2021余1040，源码/完整门禁/软件证据/任务状态和六closure保持。 2026-10-09 CAC19：第七批512原X/5733B完整用途；15表97槽/两索引/四对齐/22代码，五原型、十八旧键与一旧选择来源，七旧/六新父仅数据关联。已审区间2533余528，零客户端源码/软件证据增量；完整门禁/任务状态/成员枚举和六closure保持。 2026-10-09 CAC20：528候选全读、527原X用途mapped，已审3060/3061；X:00142E29-00142E34内八字节用途未证留待，不猜填充/排除。九表/输入元数据/PE原节尾/键盘包装/三ABI尾部有据；单一53B4F2受限host职责新增，零客户端源码/软件证据通过，完整门禁/任务状态/成员枚举/六closure保持。 CAC20静态汇总拒绝53B51F无独立现源码的语义代码身份后，撤掉该条；原用途/完整字节和未决实际转入仍保留，不放宽校验。 MC01-A按用户CRT直接使用MSVC新要求先记总范围与分组SPEC，33入口/29新提供者、TLS错误和八退休辅助同步；保原身份/前态、局部静态证据与全部完整门禁，FILE/lowio和C++余组继续。 MC01-B成组迁MSVC FILE/描述符/流格式与状态/ctime/fpos/关闭；39私有定义及旧入口/C表退休，shared calloc仅除stdio消费者；旧映射沿固定快照可读，当前全部门禁/任务状态保持，完整C++余组继续。 MC01-C1退休六组无现组外消费者的私有C++库/NCE头及旧展开适配，实际MSVC标准流/Init/locale和全部业务初始化退出保持；现语义/共享消费与历史附件快照对齐，新增两限定I/S，完整功能门禁/成员闭包/任务状态保持。 MC01-C2浮点文本/数值/环境组退休，实际业务math源及计时除法保持，两真实Shop/NLS intrinsic读移到现有模块；无消费slot/helper/gate/类型退休，新增两限定I/S及精确登记，完整门禁/任务保持。 MC01-C3 private错误/信号/退出/filter/console层退休；三MSVC致命或terminate适配、四数组/实际业务回调与登记保持，_Exit诊断差异具名；两限定I/S、现语义/历史附件对齐，完整门禁/任务不关闭。；2026-10-10 MC01-C4堆策略直接MSVC，三公开服务与真实业务保持；35语义对齐、仅2限定I/S，完整门禁/任务状态不变。；2026-10-10 MC01-C5旧多字节/ctype/argv环境直接MSVC，两Input实际分类与业务命令/数组保持，仅限定I/S；门禁/任务状态不变。；2026-10-10 MC01-C6残留审计退休无消费549147，仅限定S；排序冲突两方案待选择，未计实现/验收。；2026-10-10 MC01-C7两一致排序域std::qsort，新增原_qsort混合身份；仅限定I/S，八待决域及全部完整门禁保持。；2026-10-10旧7/旧8路由待项按已有有界证据对齐为原调用来源待证，不推定缺少分派，不新增I/S或功能通过；完整门禁/任务与CRT排序待决保持。；2026-10-10 BDI01补两既有正确战斗标量依赖独立身份/限定S，源码和新I零；原分母/完整门禁与全部任务状态保持。；2026-10-10 BPHIT01完整既有动作16/唯一真实case16独立身份纳管，正常本体保，仅三注释/一限定S；零新I，完整门禁/任务状态保持。；2026-10-10 BPC01两完整投射创建器/phase16生产与四原取样实修，限定I/S；两F/成员补齐，完整门禁/任务状态保持。 2026-10-10 BPR01：两既有投影根完整合同/原父各阶段重取和本轮标死后继续处理纳管；三个原CALL均不消费创建返回，void保持；正文/签名不改，三注释，新增两语义/F/已知BATTLE成员及一限定S，零新I；最终回收/全资源SDK与运行未验，全部门禁/分母/六closure保持。 2026-10-10 BPRH01：完整既有RangeHit创建/phase16/投影生产纳管，三个取样片段按原阶段持有含同一借用DX表；五原CALL/现四表达式有具体分支对应。新增一语义/F/已知BATTLE成员及限定I/S，零新函数；全数据/资源/父-callee/SDK/最终owner回收及运行待，完整门禁/分母/六closure保持。 2026-10-10 DPCS01：沿RangeHit新关注点补两个已有创建器父Y/payload、SpiracleShot同表/查询和BlastWave图号/查询四组取样；旧BPC01原根复用/旧记录前态固定，两现语义/F处置追加来源，零新函数/身份/成员/分母，仅限定I/S；全部门禁/六closure与完整资源/SDK/owner/运行待项保持。 2026-10-10 BPEX01：阶段17正常移动/矩形超界标死完整叶及唯一分发来源纳管，现正文/签名及所有依赖保持，两注释；调度/父标死/投影后继退出只登记条件性阶段，不称完整owner安全。新增一语义/F/BATTLE成员与一限定S/零新I，全部政策/分母/门禁和六closure及资源/SDK/生命周期运行待项保持。 2026-10-10 BAEL01：追加效果链三完整根/节点与六头引用纳管，正常生产-值查找-清理具体源闭合；仅free current取样一段实修，状态7/9和全部其它源保。三新语义/F/BATTLE成员，限定I仅清理一个F/S三F；全资格/15父/数据/原间接alias、SDK失败/重进退出与最终owner及运行未闭，完整门禁/分母/六closure保持。",
+  "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。 GQ01由同一汇总器生成development_gap_queue与看板§5；只列定位/语义身份登记差集，不把缺历史定位当源码未实现，不手改队列。 CRI01无独立函数ID的已证代码片段可按原X区间/实际边界绑定；校验身份与证据后另计，不混入缺身份队列，不增加函数分母。 ACP01-A按最新double/std数学许可迁音频6入口CPP；更新现提供者及两限定静态证据，三ASM历史附件仍由固定Git快照核存在；完整门禁/成员/任务状态与MIDI停止范围保持。 ACP01-M将地图13数学/投影入口迁CPP，8现提供者同步，新增两限定I/S，原CI消费点明示std::pow承接；CRT环境仍待，不关闭完整gates/成员/任务。 ACP01-C完成第三ASM源迁移，22接口/70私有机器ABI退役/5非PUBLIC宿主承接，当前数学现提供者与host/mixed处置同步；新增两限定I/S，三ASM/MASM已移除，原身份/成员/完整gates/任务/六closure不闭合。 HMU01按malloc方向和工程委托统一通用全部模式CRT；9实际提供者/12旧池退休/8类型/10槽，25语义当前提供者与host/adapted处置对齐，3限定静态证据；完整门禁/成员/任务/六closure保持。 2026-10-09 CAC17：按用户要求更新七源/头18处过时注释；代码/声明/字段/调用保持，零新增原身份/语义/处置/软件证据，完整门禁/任务关闭/成员/六closure不变；见plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009。 2026-10-09 CAC18：第六批512原X完整用途和49表307槽/19索引/18对齐/三回调八原型，仅辅助mapped与九已有/26新父数据关联及三无F代码身份；已审区间2021余1040，源码/完整门禁/软件证据/任务状态和六closure保持。 2026-10-09 CAC19：第七批512原X/5733B完整用途；15表97槽/两索引/四对齐/22代码，五原型、十八旧键与一旧选择来源，七旧/六新父仅数据关联。已审区间2533余528，零客户端源码/软件证据增量；完整门禁/任务状态/成员枚举和六closure保持。 2026-10-09 CAC20：528候选全读、527原X用途mapped，已审3060/3061；X:00142E29-00142E34内八字节用途未证留待，不猜填充/排除。九表/输入元数据/PE原节尾/键盘包装/三ABI尾部有据；单一53B4F2受限host职责新增，零客户端源码/软件证据通过，完整门禁/任务状态/成员枚举/六closure保持。 CAC20静态汇总拒绝53B51F无独立现源码的语义代码身份后，撤掉该条；原用途/完整字节和未决实际转入仍保留，不放宽校验。 MC01-A按用户CRT直接使用MSVC新要求先记总范围与分组SPEC，33入口/29新提供者、TLS错误和八退休辅助同步；保原身份/前态、局部静态证据与全部完整门禁，FILE/lowio和C++余组继续。 MC01-B成组迁MSVC FILE/描述符/流格式与状态/ctime/fpos/关闭；39私有定义及旧入口/C表退休，shared calloc仅除stdio消费者；旧映射沿固定快照可读，当前全部门禁/任务状态保持，完整C++余组继续。 MC01-C1退休六组无现组外消费者的私有C++库/NCE头及旧展开适配，实际MSVC标准流/Init/locale和全部业务初始化退出保持；现语义/共享消费与历史附件快照对齐，新增两限定I/S，完整功能门禁/成员闭包/任务状态保持。 MC01-C2浮点文本/数值/环境组退休，实际业务math源及计时除法保持，两真实Shop/NLS intrinsic读移到现有模块；无消费slot/helper/gate/类型退休，新增两限定I/S及精确登记，完整门禁/任务保持。 MC01-C3 private错误/信号/退出/filter/console层退休；三MSVC致命或terminate适配、四数组/实际业务回调与登记保持，_Exit诊断差异具名；两限定I/S、现语义/历史附件对齐，完整门禁/任务不关闭。；2026-10-10 MC01-C4堆策略直接MSVC，三公开服务与真实业务保持；35语义对齐、仅2限定I/S，完整门禁/任务状态不变。；2026-10-10 MC01-C5旧多字节/ctype/argv环境直接MSVC，两Input实际分类与业务命令/数组保持，仅限定I/S；门禁/任务状态不变。；2026-10-10 MC01-C6残留审计退休无消费549147，仅限定S；排序冲突两方案待选择，未计实现/验收。；2026-10-10 MC01-C7两一致排序域std::qsort，新增原_qsort混合身份；仅限定I/S，八待决域及全部完整门禁保持。；2026-10-10旧7/旧8路由待项按已有有界证据对齐为原调用来源待证，不推定缺少分派，不新增I/S或功能通过；完整门禁/任务与CRT排序待决保持。；2026-10-10 BDI01补两既有正确战斗标量依赖独立身份/限定S，源码和新I零；原分母/完整门禁与全部任务状态保持。；2026-10-10 BPHIT01完整既有动作16/唯一真实case16独立身份纳管，正常本体保，仅三注释/一限定S；零新I，完整门禁/任务状态保持。；2026-10-10 BPC01两完整投射创建器/phase16生产与四原取样实修，限定I/S；两F/成员补齐，完整门禁/任务状态保持。 2026-10-10 BPR01：两既有投影根完整合同/原父各阶段重取和本轮标死后继续处理纳管；三个原CALL均不消费创建返回，void保持；正文/签名不改，三注释，新增两语义/F/已知BATTLE成员及一限定S，零新I；最终回收/全资源SDK与运行未验，全部门禁/分母/六closure保持。 2026-10-10 BPRH01：完整既有RangeHit创建/phase16/投影生产纳管，三个取样片段按原阶段持有含同一借用DX表；五原CALL/现四表达式有具体分支对应。新增一语义/F/已知BATTLE成员及限定I/S，零新函数；全数据/资源/父-callee/SDK/最终owner回收及运行待，完整门禁/分母/六closure保持。 2026-10-10 DPCS01：沿RangeHit新关注点补两个已有创建器父Y/payload、SpiracleShot同表/查询和BlastWave图号/查询四组取样；旧BPC01原根复用/旧记录前态固定，两现语义/F处置追加来源，零新函数/身份/成员/分母，仅限定I/S；全部门禁/六closure与完整资源/SDK/owner/运行待项保持。 2026-10-10 BPEX01：阶段17正常移动/矩形超界标死完整叶及唯一分发来源纳管，现正文/签名及所有依赖保持，两注释；调度/父标死/投影后继退出只登记条件性阶段，不称完整owner安全。新增一语义/F/BATTLE成员与一限定S/零新I，全部政策/分母/门禁和六closure及资源/SDK/生命周期运行待项保持。 2026-10-10 BAEL01：追加效果链三完整根/节点与六头引用纳管，正常生产-值查找-清理具体源闭合；仅free current取样一段实修，状态7/9和全部其它源保。三新语义/F/BATTLE成员，限定I仅清理一个F/S三F；全资格/15父/数据/原间接alias、SDK失败/重进退出与最终owner及运行未闭，完整门禁/分母/六closure保持。 2026-10-10 BEMS01：既有816退出M扫描由头查找局部补完整CHT/BST/固定payload-fresh对象/正常计时根，源正确保持，仅两注释；原记录前态固定，零新语义/I，新增一F/BATTLE已知成员与限定S。全部数据/父-callee/场景owner/SDK声音画面和政策/门禁/分母/六closure保持。",
   "function_dispositions": [
     {
       "disposition": "adapted",
@@ -80138,6 +80185,19 @@
         "doc/cg2d_battle_append_effect_lifecycle_evidence.json"
       ],
       "boundary": "BAEL01三完整既有追加效果链根，节点三S32/两原生T*，私有同owner链、两个MSVC malloc/同域free，匹配只更新/查询返回值和-1，正常生产顺序保持。仅43BED0 free参数按原持有current，链头发布→取next→free current→最后清head保；状态7/9差异不扩改。全资格/23CALL-15父/数据/原间接alias、SDK失败/重进退出与资源owner/运行仍未验。 RPLAN.24/MC01及完整门禁保持。"
+    },
+    {
+      "inventory_id": "F:0003BAA0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-baseline",
+        "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-decision",
+        "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-acceptance",
+        "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-source-state",
+        "doc/cg2d_battle_exit_message_scan_evidence.json"
+      ],
+      "boundary": "BEMS01完整107条363B/两页纳管：固定入口payload、各次取整数/字符串fresh场景对象、25头只14/20消费；CHT四整数/256B文本和74-320音效/聊天，BST当前位置匹配才正常扣timer/原负值置零。现正文/签名及所有依赖保，仅两注释；旧816局部记录完整前态沿命名前态/证据保，全部数据/场景borrow-owner/SDK与声音画面运行仍未验。 RPLAN.24/MC01和完整门禁保持。"
     }
   ],
   "auxiliary_dispositions": [

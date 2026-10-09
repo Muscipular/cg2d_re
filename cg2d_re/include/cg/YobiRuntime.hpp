@@ -266,7 +266,7 @@ std::int32_t GetBattleMHeader_439070(char* destination); // 独立头游标，�
 std::int32_t TakeBattleMInteger_438F70(YobiAction* action); // 对象载荷64游标读取大写十六进制。
 void TakeBattleMString_438FE0(YobiAction* action, char* destination, std::int32_t capacity);
 std::int32_t GetBattlePosition_4237E0(std::int32_t position); // 50/51转20/21，其余原值。
-std::int32_t Sub_43BAA0(); // 完整退出扫描，仅处理CHT/BST，返回1；固定载荷但重取场景对象。
+std::int32_t Sub_43BAA0(); // BEMS01：固定入口载荷、各次取包重取场景对象；CHT入行/BST当前玩家计时，头返回1才结束。
 std::int32_t TakeBattleMPreviewInteger_439600(); // 局部扫描，仅结束时发布5AAA60。
 void TakeBattleMPreviewString_439670(char* destination, std::int32_t capacity);
 std::int32_t GetBattleMPreviewHeader_439700(char* destination); // 预扫描头，不推进5A8A3C。

@@ -22663,6 +22663,7 @@ std::int32_t GetBattlePosition_4237E0(const std::int32_t position)
     return position;
 }
 
+// BEMS01：固定入口payload、各次取包fresh场景指针；仅CHT/BST消费，见doc/cg2d_battle_exit_message_scan_spec.md。
 std::int32_t Sub_43BAA0()
 {
     using namespace world::detail;

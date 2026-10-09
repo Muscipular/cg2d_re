@@ -485,8 +485,8 @@ std::int32_t TakeBattleAuxEffects_43BC90(
 // 原406390：固定当前flags/position，五块独立执行；附加块消费四输出，逐调用重取对象。
 void ApplyBattleEffectFlags_406390(std::int32_t sourcePosition, YobiAction* action);
 void ApplyBattleCastEffects_416DB0(YobiAction* action); // 动作235：先应用效果，再推进动作队列。
-void UpdateBattleAction0_406650(YobiAction* action); // 待机保留特殊技能的上一动作门禁及FDC重读。
-void UpdateBattleAction1_406720(YobiAction* action); // 归站立后按FDC的60h决定是否播放。
+void UpdateBattleAction0_406650(YobiAction* action); // BIDLE01：完整FDC持样/CL消费与归零后fresh BYTE、特殊上一项门禁。
+void UpdateBattleAction1_406720(YobiAction* action); // BIDLE01：动作归零后独立FDC低BYTE60播放门禁，不套动作0条件。
 std::int32_t UpdateBattleAction2_406760(YobiAction* action); // 回00/04坐标，抵达写phase0/FDC，不推进队列。
 std::int32_t UpdateBattleAction3_406C30(YobiAction* action); // 转向后重取效果目标，距离<70推进。
 std::int32_t UpdateBattleAction4_406D70(YobiAction* action); // 跑步追目标，距离<8推进。

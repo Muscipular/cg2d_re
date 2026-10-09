@@ -197486,6 +197486,102 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x406650",
+      "inventory_id": "F:00006650",
+      "original_role": "动作0列表/上一动作门禁与完整FDC缓存-fresh读取/互斥播放",
+      "original_end_exclusive": "0x40671f",
+      "instruction_count": 64,
+      "function_chunks": [
+        {
+          "start": "0x406650",
+          "end_exclusive": "0x40671f"
+        }
+      ],
+      "status": "BIDLE01完整正常源/独立身份纳管，四段低BYTE消费已落实；完整W32 FDC持样/归零后fresh读、列表/上一项/播放保持，全数据/父-callee/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction0_406650"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction0_406650"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_idle_dispatch_spec.md#battle-idle-baseline",
+        "doc/cg2d_battle_idle_dispatch_spec.md#battle-idle-decision",
+        "doc/cg2d_battle_idle_dispatch_spec.md#battle-idle-acceptance",
+        "doc/cg2d_battle_idle_dispatch_spec.md#battle-idle-source-state",
+        "doc/cg2d_battle_idle_dispatch_evidence.json"
+      ],
+      "boundary": "动作0列表/上一动作门禁与完整FDC缓存-fresh读取/互斥播放；固定payload、166按held索引/Advance后fresh上一索引，72/113且上一项57/59才早返、完整W32 FDC后CL缓存消费和归零后的fresh BYTE、object BYTE40与三个互斥Play点保。仅四段/四注释，无新函数/API/保护/索引限制，BQD01已完整236只复用且原源/身份不变；全数据/父-callee/alias/owner/SDK正常失败和声音画面运行未验，完整门禁保。",
+      "verification_level": "两完整78条265B/两页、五directCALL/各callee-跳-RET、两case11B及236原已证不消费窗，W32持样/CL与fresh/object BYTE；四段/四注释及其余源守恒，限定I/S，不运行待机或动画。",
+      "battle_idle_dispatch": {
+        "step": "BIDLE01",
+        "source_snapshot": "cg2d-re-battle-idle-20261010",
+        "original_instruction_count": 64,
+        "original_code_bytes": 207,
+        "original_page_count": 1,
+        "direct_call_count": 4,
+        "callee_count": 2,
+        "jump_count": 12,
+        "return_count": 3,
+        "source_patch_group_count": 3,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x406720",
+      "inventory_id": "F:00006720",
+      "original_role": "动作1归站立后独立FDC低BYTE播放门禁",
+      "original_end_exclusive": "0x40675a",
+      "instruction_count": 14,
+      "function_chunks": [
+        {
+          "start": "0x406720",
+          "end_exclusive": "0x40675a"
+        }
+      ],
+      "status": "BIDLE01完整正常源/独立身份纳管，四段低BYTE消费已落实；完整W32 FDC持样/归零后fresh读、列表/上一项/播放保持，全数据/父-callee/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction1_406720"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction1_406720"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_idle_dispatch_spec.md#battle-idle-baseline",
+        "doc/cg2d_battle_idle_dispatch_spec.md#battle-idle-decision",
+        "doc/cg2d_battle_idle_dispatch_spec.md#battle-idle-acceptance",
+        "doc/cg2d_battle_idle_dispatch_spec.md#battle-idle-source-state",
+        "doc/cg2d_battle_idle_dispatch_evidence.json"
+      ],
+      "boundary": "动作1归站立后独立FDC低BYTE播放门禁；固定payload、166按held索引/Advance后fresh上一索引，72/113且上一项57/59才早返、完整W32 FDC后CL缓存消费和归零后的fresh BYTE、object BYTE40与三个互斥Play点保。仅四段/四注释，无新函数/API/保护/索引限制，BQD01已完整236只复用且原源/身份不变；全数据/父-callee/alias/owner/SDK正常失败和声音画面运行未验，完整门禁保。",
+      "verification_level": "两完整78条265B/两页、五directCALL/各callee-跳-RET、两case11B及236原已证不消费窗，W32持样/CL与fresh/object BYTE；四段/四注释及其余源守恒，限定I/S，不运行待机或动画。",
+      "battle_idle_dispatch": {
+        "step": "BIDLE01",
+        "source_snapshot": "cg2d-re-battle-idle-20261010",
+        "original_instruction_count": 14,
+        "original_code_bytes": 58,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "callee_count": 1,
+        "jump_count": 2,
+        "return_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

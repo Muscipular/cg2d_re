@@ -24040,6 +24040,7 @@ void UpdateBattleActor_404DB0(YobiAction* const action)
     }
 }
 
+// BIDLE01：完整FDC持样/CL消费、归零后fresh BYTE与上一动作门禁见doc/cg2d_battle_idle_dispatch_spec.md。
 void UpdateBattleAction0_406650(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -24049,7 +24050,8 @@ void UpdateBattleAction0_406650(YobiAction* const action)
     }
     action->framePlayingRate = 100;
     const std::uint32_t flags = payload->flagsFDC;
-    if ((flags & 2u) != 0) {
+    const std::uint8_t cachedFlags = static_cast<std::uint8_t>(flags);
+    if ((cachedFlags & 2u) != 0) {
         action->characterAction = 10;
         static_cast<void>(PlayFrame_517DA0(action, 1));
         return;
@@ -24066,14 +24068,17 @@ void UpdateBattleAction0_406650(YobiAction* const action)
     }
     if (action->characterAction != 0) {
         action->characterAction = 0;
-        if ((payload->flagsFDC & 0x60u) == 0) {
+        const std::uint8_t currentFlags = static_cast<std::uint8_t>(payload->flagsFDC);
+        if ((currentFlags & 0x60u) == 0) {
             static_cast<void>(PlayFrame_517DA0(action, 0));
         }
-    } else if ((action->flags & 0x40u) != 0 && (flags & 0x60u) == 0) {
+    } else if ((static_cast<std::uint8_t>(action->flags) & 0x40u) != 0
+        && (cachedFlags & 0x60u) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
     }
 }
 
+// BIDLE01：保存动作/固定payload后归站立，再读FDC低BYTE门禁，见待机SPEC。
 void UpdateBattleAction1_406720(YobiAction* const action)
 {
     const std::int32_t characterAction = action->characterAction;
@@ -24082,7 +24087,8 @@ void UpdateBattleAction1_406720(YobiAction* const action)
     if (characterAction != 0) {
         action->characterAction = 0;
     }
-    if ((payload->flagsFDC & 0x60u) == 0) {
+    const std::uint8_t flags = static_cast<std::uint8_t>(payload->flagsFDC);
+    if ((flags & 0x60u) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
     }
 }

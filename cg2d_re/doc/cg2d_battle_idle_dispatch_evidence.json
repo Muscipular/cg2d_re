@@ -1,0 +1,1054 @@
+{
+  "schema_version": 1,
+  "spec_id": "BIDLE01",
+  "date": "2026-10-10",
+  "scope": "动作0/1完整待机/播放门禁及四段低BYTE消费；原完整FDC持样和归零后fresh读保持。",
+  "decision_ref": "doc/cg2d_battle_idle_dispatch_spec.md#battle-idle-decision",
+  "before_snapshot": "cg2d-re-battle-idle-history-20261010",
+  "after_snapshot": "cg2d-re-battle-idle-20261010",
+  "original_roots": [
+    {
+      "entry": "0x406650",
+      "start": "0x406650",
+      "end": "0x40671f",
+      "chunks": [
+        [
+          "0x406650",
+          "0x40671f"
+        ]
+      ],
+      "instruction_count": 64,
+      "calls": [
+        {
+          "ea": "0x406677",
+          "target": "0x439340",
+          "operand": "sub_439340"
+        },
+        {
+          "ea": "0x4066a1",
+          "target": "0x517da0",
+          "operand": "Yobi__PlayFrame"
+        },
+        {
+          "ea": "0x4066fb",
+          "target": "0x517da0",
+          "operand": "Yobi__PlayFrame"
+        },
+        {
+          "ea": "0x406714",
+          "target": "0x517da0",
+          "operand": "Yobi__PlayFrame"
+        }
+      ],
+      "xrefs": [
+        {
+          "ea": "0x404de8",
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    sub_406650",
+          "parent": "0x404db0"
+        },
+        {
+          "ea": "0x406643",
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    sub_406650",
+          "parent": "0x406630"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x406650",
+          "size": 1,
+          "bytes": "56",
+          "mnem": "push",
+          "text": "push    esi"
+        },
+        {
+          "ea": "0x406651",
+          "size": 1,
+          "bytes": "57",
+          "mnem": "push",
+          "text": "push    edi"
+        },
+        {
+          "ea": "0x406652",
+          "size": 4,
+          "bytes": "8b7c240c",
+          "mnem": "mov",
+          "text": "mov     edi, [esp+8+x_]"
+        },
+        {
+          "ea": "0x406656",
+          "size": 3,
+          "bytes": "8b770c",
+          "mnem": "mov",
+          "text": "mov     esi, [edi+0Ch]"
+        },
+        {
+          "ea": "0x406659",
+          "size": 6,
+          "bytes": "8b86c40f0000",
+          "mnem": "mov",
+          "text": "mov     eax, [esi+0FC4h]"
+        },
+        {
+          "ea": "0x40665f",
+          "size": 6,
+          "bytes": "8b8ec80f0000",
+          "mnem": "mov",
+          "text": "mov     ecx, [esi+0FC8h]"
+        },
+        {
+          "ea": "0x406665",
+          "size": 2,
+          "bytes": "3bc1",
+          "mnem": "cmp",
+          "text": "cmp     eax, ecx"
+        },
+        {
+          "ea": "0x406667",
+          "size": 2,
+          "bytes": "7f16",
+          "mnem": "jg",
+          "text": "jg      short loc_40667F"
+        },
+        {
+          "ea": "0x406669",
+          "size": 11,
+          "bytes": "81bc86a40c0000a6000000",
+          "mnem": "cmp",
+          "text": "cmp     dword ptr [esi+eax*4+0CA4h], 0A6h"
+        },
+        {
+          "ea": "0x406674",
+          "size": 2,
+          "bytes": "7509",
+          "mnem": "jnz",
+          "text": "jnz     short loc_40667F"
+        },
+        {
+          "ea": "0x406676",
+          "size": 1,
+          "bytes": "57",
+          "mnem": "push",
+          "text": "push    edi"
+        },
+        {
+          "ea": "0x406677",
+          "size": 5,
+          "bytes": "e8c42c0300",
+          "mnem": "call",
+          "text": "call    sub_439340"
+        },
+        {
+          "ea": "0x40667c",
+          "size": 3,
+          "bytes": "83c404",
+          "mnem": "add",
+          "text": "add     esp, 4"
+        },
+        {
+          "ea": "0x40667f",
+          "size": 10,
+          "bytes": "c787a402000064000000",
+          "mnem": "mov",
+          "text": "mov     dword ptr [edi+2A4h], 64h ; 'd'"
+        },
+        {
+          "ea": "0x406689",
+          "size": 6,
+          "bytes": "8b8edc0f0000",
+          "mnem": "mov",
+          "text": "mov     ecx, [esi+0FDCh]"
+        },
+        {
+          "ea": "0x40668f",
+          "size": 3,
+          "bytes": "f6c102",
+          "mnem": "test",
+          "text": "test    cl, 2"
+        },
+        {
+          "ea": "0x406692",
+          "size": 2,
+          "bytes": "7418",
+          "mnem": "jz",
+          "text": "jz      short loc_4066AC"
+        },
+        {
+          "ea": "0x406694",
+          "size": 2,
+          "bytes": "6a01",
+          "mnem": "push",
+          "text": "push    1; revert"
+        },
+        {
+          "ea": "0x406696",
+          "size": 1,
+          "bytes": "57",
+          "mnem": "push",
+          "text": "push    edi; x_"
+        },
+        {
+          "ea": "0x406697",
+          "size": 10,
+          "bytes": "c787b00200000a000000",
+          "mnem": "mov",
+          "text": "mov     dword ptr [edi+2B0h], 0Ah"
+        },
+        {
+          "ea": "0x4066a1",
+          "size": 5,
+          "bytes": "e8fa161100",
+          "mnem": "call",
+          "text": "call    Yobi__PlayFrame"
+        },
+        {
+          "ea": "0x4066a6",
+          "size": 3,
+          "bytes": "83c408",
+          "mnem": "add",
+          "text": "add     esp, 8"
+        },
+        {
+          "ea": "0x4066a9",
+          "size": 1,
+          "bytes": "5f",
+          "mnem": "pop",
+          "text": "pop     edi"
+        },
+        {
+          "ea": "0x4066aa",
+          "size": 1,
+          "bytes": "5e",
+          "mnem": "pop",
+          "text": "pop     esi"
+        },
+        {
+          "ea": "0x4066ab",
+          "size": 1,
+          "bytes": "c3",
+          "mnem": "retn",
+          "text": "retn"
+        },
+        {
+          "ea": "0x4066ac",
+          "size": 6,
+          "bytes": "8b863c100000",
+          "mnem": "mov",
+          "text": "mov     eax, [esi+103Ch]"
+        },
+        {
+          "ea": "0x4066b2",
+          "size": 3,
+          "bytes": "83f848",
+          "mnem": "cmp",
+          "text": "cmp     eax, 48h ; 'H'"
+        },
+        {
+          "ea": "0x4066b5",
+          "size": 2,
+          "bytes": "7405",
+          "mnem": "jz",
+          "text": "jz      short loc_4066BC"
+        },
+        {
+          "ea": "0x4066b7",
+          "size": 3,
+          "bytes": "83f871",
+          "mnem": "cmp",
+          "text": "cmp     eax, 71h ; 'q'"
+        },
+        {
+          "ea": "0x4066ba",
+          "size": 2,
+          "bytes": "751e",
+          "mnem": "jnz",
+          "text": "jnz     short loc_4066DA"
+        },
+        {
+          "ea": "0x4066bc",
+          "size": 6,
+          "bytes": "8b86c40f0000",
+          "mnem": "mov",
+          "text": "mov     eax, [esi+0FC4h]"
+        },
+        {
+          "ea": "0x4066c2",
+          "size": 3,
+          "bytes": "8d50ff",
+          "mnem": "lea",
+          "text": "lea     edx, [eax-1]"
+        },
+        {
+          "ea": "0x4066c5",
+          "size": 2,
+          "bytes": "85d2",
+          "mnem": "test",
+          "text": "test    edx, edx"
+        },
+        {
+          "ea": "0x4066c7",
+          "size": 2,
+          "bytes": "7c11",
+          "mnem": "jl",
+          "text": "jl      short loc_4066DA"
+        },
+        {
+          "ea": "0x4066c9",
+          "size": 7,
+          "bytes": "8b8486a00c0000",
+          "mnem": "mov",
+          "text": "mov     eax, [esi+eax*4+0CA0h]"
+        },
+        {
+          "ea": "0x4066d0",
+          "size": 3,
+          "bytes": "83f839",
+          "mnem": "cmp",
+          "text": "cmp     eax, 39h ; '9'"
+        },
+        {
+          "ea": "0x4066d3",
+          "size": 2,
+          "bytes": "7447",
+          "mnem": "jz",
+          "text": "jz      short loc_40671C"
+        },
+        {
+          "ea": "0x4066d5",
+          "size": 3,
+          "bytes": "83f83b",
+          "mnem": "cmp",
+          "text": "cmp     eax, 3Bh ; ';'"
+        },
+        {
+          "ea": "0x4066d8",
+          "size": 2,
+          "bytes": "7442",
+          "mnem": "jz",
+          "text": "jz      short loc_40671C"
+        },
+        {
+          "ea": "0x4066da",
+          "size": 6,
+          "bytes": "8b87b0020000",
+          "mnem": "mov",
+          "text": "mov     eax, [edi+2B0h]"
+        },
+        {
+          "ea": "0x4066e0",
+          "size": 2,
+          "bytes": "85c0",
+          "mnem": "test",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x4066e2",
+          "size": 2,
+          "bytes": "7422",
+          "mnem": "jz",
+          "text": "jz      short loc_406706"
+        },
+        {
+          "ea": "0x4066e4",
+          "size": 10,
+          "bytes": "c787b002000000000000",
+          "mnem": "mov",
+          "text": "mov     dword ptr [edi+2B0h], 0"
+        },
+        {
+          "ea": "0x4066ee",
+          "size": 6,
+          "bytes": "8a86dc0f0000",
+          "mnem": "mov",
+          "text": "mov     al, [esi+0FDCh]"
+        },
+        {
+          "ea": "0x4066f4",
+          "size": 2,
+          "bytes": "a860",
+          "mnem": "test",
+          "text": "test    al, 60h"
+        },
+        {
+          "ea": "0x4066f6",
+          "size": 2,
+          "bytes": "7524",
+          "mnem": "jnz",
+          "text": "jnz     short loc_40671C"
+        },
+        {
+          "ea": "0x4066f8",
+          "size": 2,
+          "bytes": "6a00",
+          "mnem": "push",
+          "text": "push    0; revert"
+        },
+        {
+          "ea": "0x4066fa",
+          "size": 1,
+          "bytes": "57",
+          "mnem": "push",
+          "text": "push    edi; x_"
+        },
+        {
+          "ea": "0x4066fb",
+          "size": 5,
+          "bytes": "e8a0161100",
+          "mnem": "call",
+          "text": "call    Yobi__PlayFrame"
+        },
+        {
+          "ea": "0x406700",
+          "size": 3,
+          "bytes": "83c408",
+          "mnem": "add",
+          "text": "add     esp, 8"
+        },
+        {
+          "ea": "0x406703",
+          "size": 1,
+          "bytes": "5f",
+          "mnem": "pop",
+          "text": "pop     edi"
+        },
+        {
+          "ea": "0x406704",
+          "size": 1,
+          "bytes": "5e",
+          "mnem": "pop",
+          "text": "pop     esi"
+        },
+        {
+          "ea": "0x406705",
+          "size": 1,
+          "bytes": "c3",
+          "mnem": "retn",
+          "text": "retn"
+        },
+        {
+          "ea": "0x406706",
+          "size": 4,
+          "bytes": "f6472440",
+          "mnem": "test",
+          "text": "test    byte ptr [edi+24h], 40h"
+        },
+        {
+          "ea": "0x40670a",
+          "size": 2,
+          "bytes": "7410",
+          "mnem": "jz",
+          "text": "jz      short loc_40671C"
+        },
+        {
+          "ea": "0x40670c",
+          "size": 3,
+          "bytes": "f6c160",
+          "mnem": "test",
+          "text": "test    cl, 60h"
+        },
+        {
+          "ea": "0x40670f",
+          "size": 2,
+          "bytes": "750b",
+          "mnem": "jnz",
+          "text": "jnz     short loc_40671C"
+        },
+        {
+          "ea": "0x406711",
+          "size": 2,
+          "bytes": "6a00",
+          "mnem": "push",
+          "text": "push    0; revert"
+        },
+        {
+          "ea": "0x406713",
+          "size": 1,
+          "bytes": "57",
+          "mnem": "push",
+          "text": "push    edi; x_"
+        },
+        {
+          "ea": "0x406714",
+          "size": 5,
+          "bytes": "e887161100",
+          "mnem": "call",
+          "text": "call    Yobi__PlayFrame"
+        },
+        {
+          "ea": "0x406719",
+          "size": 3,
+          "bytes": "83c408",
+          "mnem": "add",
+          "text": "add     esp, 8"
+        },
+        {
+          "ea": "0x40671c",
+          "size": 1,
+          "bytes": "5f",
+          "mnem": "pop",
+          "text": "pop     edi"
+        },
+        {
+          "ea": "0x40671d",
+          "size": 1,
+          "bytes": "5e",
+          "mnem": "pop",
+          "text": "pop     esi"
+        },
+        {
+          "ea": "0x40671e",
+          "size": 1,
+          "bytes": "c3",
+          "mnem": "retn",
+          "text": "retn"
+        }
+      ],
+      "byte_count": 207,
+      "jump_count": 12,
+      "ret_count": 3,
+      "unique_callee_count": 2,
+      "page_count": 1,
+      "inventory_id": "F:00006650"
+    },
+    {
+      "entry": "0x406720",
+      "start": "0x406720",
+      "end": "0x40675a",
+      "chunks": [
+        [
+          "0x406720",
+          "0x40675a"
+        ]
+      ],
+      "instruction_count": 14,
+      "calls": [
+        {
+          "ea": "0x406751",
+          "target": "0x517da0",
+          "operand": "Yobi__PlayFrame"
+        }
+      ],
+      "xrefs": [
+        {
+          "ea": "0x404df3",
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    sub_406720",
+          "parent": "0x404db0"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x406720",
+          "size": 4,
+          "bytes": "8b442404",
+          "mnem": "mov",
+          "text": "mov     eax, [esp+x_]"
+        },
+        {
+          "ea": "0x406724",
+          "size": 6,
+          "bytes": "8b90b0020000",
+          "mnem": "mov",
+          "text": "mov     edx, [eax+2B0h]"
+        },
+        {
+          "ea": "0x40672a",
+          "size": 3,
+          "bytes": "8b480c",
+          "mnem": "mov",
+          "text": "mov     ecx, [eax+0Ch]"
+        },
+        {
+          "ea": "0x40672d",
+          "size": 2,
+          "bytes": "85d2",
+          "mnem": "test",
+          "text": "test    edx, edx"
+        },
+        {
+          "ea": "0x40672f",
+          "size": 10,
+          "bytes": "c780a402000064000000",
+          "mnem": "mov",
+          "text": "mov     dword ptr [eax+2A4h], 64h ; 'd'"
+        },
+        {
+          "ea": "0x406739",
+          "size": 2,
+          "bytes": "740a",
+          "mnem": "jz",
+          "text": "jz      short loc_406745"
+        },
+        {
+          "ea": "0x40673b",
+          "size": 10,
+          "bytes": "c780b002000000000000",
+          "mnem": "mov",
+          "text": "mov     dword ptr [eax+2B0h], 0"
+        },
+        {
+          "ea": "0x406745",
+          "size": 7,
+          "bytes": "f681dc0f000060",
+          "mnem": "test",
+          "text": "test    byte ptr [ecx+0FDCh], 60h"
+        },
+        {
+          "ea": "0x40674c",
+          "size": 2,
+          "bytes": "750b",
+          "mnem": "jnz",
+          "text": "jnz     short locret_406759"
+        },
+        {
+          "ea": "0x40674e",
+          "size": 2,
+          "bytes": "6a00",
+          "mnem": "push",
+          "text": "push    0; revert"
+        },
+        {
+          "ea": "0x406750",
+          "size": 1,
+          "bytes": "50",
+          "mnem": "push",
+          "text": "push    eax; x_"
+        },
+        {
+          "ea": "0x406751",
+          "size": 5,
+          "bytes": "e84a161100",
+          "mnem": "call",
+          "text": "call    Yobi__PlayFrame"
+        },
+        {
+          "ea": "0x406756",
+          "size": 3,
+          "bytes": "83c408",
+          "mnem": "add",
+          "text": "add     esp, 8"
+        },
+        {
+          "ea": "0x406759",
+          "size": 1,
+          "bytes": "c3",
+          "mnem": "retn",
+          "text": "retn"
+        }
+      ],
+      "byte_count": 58,
+      "jump_count": 2,
+      "ret_count": 1,
+      "unique_callee_count": 1,
+      "page_count": 1,
+      "inventory_id": "F:00006720"
+    }
+  ],
+  "caller_windows": [
+    {
+      "label": "case0",
+      "start": "0x404de7",
+      "instructions": [
+        {
+          "ea": "0x404de7",
+          "size": 1,
+          "bytes": "56",
+          "mnem": "push",
+          "text": "push    esi; jumptable 00404DD5 case 0"
+        },
+        {
+          "ea": "0x404de8",
+          "size": 5,
+          "bytes": "e863180000",
+          "mnem": "call",
+          "text": "call    sub_406650"
+        },
+        {
+          "ea": "0x404ded",
+          "size": 5,
+          "bytes": "e94d080000",
+          "mnem": "jmp",
+          "text": "jmp     loc_40563F"
+        }
+      ]
+    },
+    {
+      "label": "case1",
+      "start": "0x404df2",
+      "instructions": [
+        {
+          "ea": "0x404df2",
+          "size": 1,
+          "bytes": "56",
+          "mnem": "push",
+          "text": "push    esi; jumptable 00404DD5 case 1"
+        },
+        {
+          "ea": "0x404df3",
+          "size": 5,
+          "bytes": "e828190000",
+          "mnem": "call",
+          "text": "call    sub_406720"
+        },
+        {
+          "ea": "0x404df8",
+          "size": 5,
+          "bytes": "e942080000",
+          "mnem": "jmp",
+          "text": "jmp     loc_40563F"
+        }
+      ]
+    },
+    {
+      "label": "wrapper_post_call",
+      "start": "0x406643",
+      "instructions": [
+        {
+          "ea": "0x406643",
+          "size": 5,
+          "bytes": "e808000000",
+          "mnem": "call",
+          "text": "call    sub_406650"
+        },
+        {
+          "ea": "0x406648",
+          "size": 1,
+          "bytes": "59",
+          "mnem": "pop",
+          "text": "pop     ecx"
+        },
+        {
+          "ea": "0x406649",
+          "size": 1,
+          "bytes": "c3",
+          "mnem": "retn",
+          "text": "retn"
+        }
+      ]
+    },
+    {
+      "label": "case236",
+      "start": "0x404ddc",
+      "instructions": [
+        {
+          "ea": "0x404ddc",
+          "size": 1,
+          "bytes": "56",
+          "mnem": "push",
+          "text": "push    esi; jumptable 00404DD5 case 236"
+        },
+        {
+          "ea": "0x404ddd",
+          "size": 5,
+          "bytes": "e84e180000",
+          "mnem": "call",
+          "text": "call    sub_406630"
+        },
+        {
+          "ea": "0x404de2",
+          "size": 5,
+          "bytes": "e958080000",
+          "mnem": "jmp",
+          "text": "jmp     loc_40563F"
+        }
+      ]
+    }
+  ],
+  "reused_wrapper": {
+    "spec_id": "BQD01",
+    "inventory_id": "F:00006630",
+    "original_root": {
+      "entry": "0x406630",
+      "start": "0x406630",
+      "end": "0x40664a",
+      "chunks": [
+        [
+          "0x406630",
+          "0x40664a"
+        ]
+      ],
+      "instruction_count": 9,
+      "instructions": [
+        {
+          "ea": "0x406630",
+          "size": 4,
+          "bytes": "8b442404",
+          "mnem": "mov",
+          "text": "mov     eax, [esp+arg_0]"
+        },
+        {
+          "ea": "0x406634",
+          "size": 2,
+          "bytes": "33c9",
+          "mnem": "xor",
+          "text": "xor     ecx, ecx"
+        },
+        {
+          "ea": "0x406636",
+          "size": 1,
+          "bytes": "50",
+          "mnem": "push",
+          "text": "push    eax"
+        },
+        {
+          "ea": "0x406637",
+          "size": 3,
+          "bytes": "8b500c",
+          "mnem": "mov",
+          "text": "mov     edx, [eax+0Ch]"
+        },
+        {
+          "ea": "0x40663a",
+          "size": 3,
+          "bytes": "89482c",
+          "mnem": "mov",
+          "text": "mov     [eax+2Ch], ecx"
+        },
+        {
+          "ea": "0x40663d",
+          "size": 6,
+          "bytes": "898ad80f0000",
+          "mnem": "mov",
+          "text": "mov     [edx+0FD8h], ecx"
+        },
+        {
+          "ea": "0x406643",
+          "size": 5,
+          "bytes": "e808000000",
+          "mnem": "call",
+          "text": "call    sub_406650"
+        },
+        {
+          "ea": "0x406648",
+          "size": 1,
+          "bytes": "59",
+          "mnem": "pop",
+          "text": "pop     ecx"
+        },
+        {
+          "ea": "0x406649",
+          "size": 1,
+          "bytes": "c3",
+          "mnem": "retn",
+          "text": "retn"
+        }
+      ],
+      "calls": [
+        {
+          "ea": "0x406643",
+          "target": "0x406650",
+          "operand": "sub_406650"
+        }
+      ],
+      "xrefs": [
+        {
+          "ea": "0x404ddd",
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    sub_406630",
+          "parent": "0x404db0"
+        }
+      ],
+      "byte_count": 26,
+      "jump_count": 0,
+      "ret_count": 1,
+      "unique_callee_count": 1,
+      "page_count": 1
+    },
+    "source_unchanged": true,
+    "new_root_or_disposition": false,
+    "references": [
+      "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-baseline",
+      "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-decision",
+      "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-acceptance",
+      "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-source-state",
+      "doc/cg2d_battle_bounce_reflection_sampling_evidence.json"
+    ],
+    "dispatch_case": 236,
+    "not_cases_2_3_6": true
+  },
+  "full_lifecycle_closed": false,
+  "runtime_verified": false,
+  "verification": {
+    "status": "static_pass",
+    "measurement_check": "pass",
+    "scope": "两完整原根/库存/78条265B/五directCALL、两case和236已证返回不消费窗、原W32-CL/fresh/object BYTE、四片段/四注释精确差异及其它源/236身份守恒、两身份/处置/成员与限定I/S/五任务/完整门禁和UTF-8无BOM/LF；必要静态通过，不含编译或运行。 静态汇总与-Check通过，六主指标及两F/一个功能/五任务的增量准确，236及其它指标/导入/X/闭包/构建历史保持。"
+  },
+  "source_patch_groups": [
+    {
+      "symbol": "UpdateBattleAction0_406650",
+      "declaration": "void UpdateBattleAction0_406650(YobiAction* const action)",
+      "before_body": "void UpdateBattleAction0_406650(YobiAction* const action)\n{\n    auto* const payload = static_cast<BattleActorPayload*>(action->payload);\n    const std::int32_t index = payload->castPlayIndexFC4;\n    if (index <= payload->castListIndexFC8 && payload->castListCA4[index] == 166) {\n        AdvanceBattleCastState_439340(action);\n    }\n    action->framePlayingRate = 100;\n    const std::uint32_t flags = payload->flagsFDC;\n    if ((flags & 2u) != 0) {\n        action->characterAction = 10;\n        static_cast<void>(PlayFrame_517DA0(action, 1));\n        return;\n    }\n    const std::int32_t skill = payload->castSkill103C;\n    if (skill == 72 || skill == 113) {\n        const std::int32_t previous = payload->castPlayIndexFC4 - 1;\n        if (previous >= 0) {\n            const std::int32_t previousAction = payload->castListCA4[previous];\n            if (previousAction == 57 || previousAction == 59) {\n                return;\n            }\n        }\n    }\n    if (action->characterAction != 0) {\n        action->characterAction = 0;\n        if ((payload->flagsFDC & 0x60u) == 0) {\n            static_cast<void>(PlayFrame_517DA0(action, 0));\n        }\n    } else if ((action->flags & 0x40u) != 0 && (flags & 0x60u) == 0) {\n        static_cast<void>(PlayFrame_517DA0(action, 0));\n    }\n}\n",
+      "after_body": "void UpdateBattleAction0_406650(YobiAction* const action)\n{\n    auto* const payload = static_cast<BattleActorPayload*>(action->payload);\n    const std::int32_t index = payload->castPlayIndexFC4;\n    if (index <= payload->castListIndexFC8 && payload->castListCA4[index] == 166) {\n        AdvanceBattleCastState_439340(action);\n    }\n    action->framePlayingRate = 100;\n    const std::uint32_t flags = payload->flagsFDC;\n    const std::uint8_t cachedFlags = static_cast<std::uint8_t>(flags);\n    if ((cachedFlags & 2u) != 0) {\n        action->characterAction = 10;\n        static_cast<void>(PlayFrame_517DA0(action, 1));\n        return;\n    }\n    const std::int32_t skill = payload->castSkill103C;\n    if (skill == 72 || skill == 113) {\n        const std::int32_t previous = payload->castPlayIndexFC4 - 1;\n        if (previous >= 0) {\n            const std::int32_t previousAction = payload->castListCA4[previous];\n            if (previousAction == 57 || previousAction == 59) {\n                return;\n            }\n        }\n    }\n    if (action->characterAction != 0) {\n        action->characterAction = 0;\n        const std::uint8_t currentFlags = static_cast<std::uint8_t>(payload->flagsFDC);\n        if ((currentFlags & 0x60u) == 0) {\n            static_cast<void>(PlayFrame_517DA0(action, 0));\n        }\n    } else if ((static_cast<std::uint8_t>(action->flags) & 0x40u) != 0\n        && (cachedFlags & 0x60u) == 0) {\n        static_cast<void>(PlayFrame_517DA0(action, 0));\n    }\n}\n",
+      "patches": [
+        {
+          "purpose": "保原完整W32 FDC读取后派生CL低BYTE缓存",
+          "before": "    const std::uint32_t flags = payload->flagsFDC;\n    if ((flags & 2u) != 0) {\n",
+          "after": "    const std::uint32_t flags = payload->flagsFDC;\n    const std::uint8_t cachedFlags = static_cast<std::uint8_t>(flags);\n    if ((cachedFlags & 2u) != 0) {\n"
+        },
+        {
+          "purpose": "发布characterAction=0后fresh读取FDC低BYTE",
+          "before": "        if ((payload->flagsFDC & 0x60u) == 0) {\n",
+          "after": "        const std::uint8_t currentFlags = static_cast<std::uint8_t>(payload->flagsFDC);\n        if ((currentFlags & 0x60u) == 0) {\n"
+        },
+        {
+          "purpose": "原object低BYTE40后消费cached FDC低BYTE60",
+          "before": "    } else if ((action->flags & 0x40u) != 0 && (flags & 0x60u) == 0) {\n",
+          "after": "    } else if ((static_cast<std::uint8_t>(action->flags) & 0x40u) != 0\n        && (cachedFlags & 0x60u) == 0) {\n"
+        }
+      ],
+      "comment": "// BIDLE01：完整FDC持样/CL消费、归零后fresh BYTE与上一动作门禁见doc/cg2d_battle_idle_dispatch_spec.md。"
+    },
+    {
+      "symbol": "UpdateBattleAction1_406720",
+      "declaration": "void UpdateBattleAction1_406720(YobiAction* const action)",
+      "before_body": "void UpdateBattleAction1_406720(YobiAction* const action)\n{\n    const std::int32_t characterAction = action->characterAction;\n    const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);\n    action->framePlayingRate = 100;\n    if (characterAction != 0) {\n        action->characterAction = 0;\n    }\n    if ((payload->flagsFDC & 0x60u) == 0) {\n        static_cast<void>(PlayFrame_517DA0(action, 0));\n    }\n}\n",
+      "after_body": "void UpdateBattleAction1_406720(YobiAction* const action)\n{\n    const std::int32_t characterAction = action->characterAction;\n    const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);\n    action->framePlayingRate = 100;\n    if (characterAction != 0) {\n        action->characterAction = 0;\n    }\n    const std::uint8_t flags = static_cast<std::uint8_t>(payload->flagsFDC);\n    if ((flags & 0x60u) == 0) {\n        static_cast<void>(PlayFrame_517DA0(action, 0));\n    }\n}\n",
+      "patches": [
+        {
+          "purpose": "原动作归零后独立FDC低BYTE60测试",
+          "before": "    if ((payload->flagsFDC & 0x60u) == 0) {\n",
+          "after": "    const std::uint8_t flags = static_cast<std::uint8_t>(payload->flagsFDC);\n    if ((flags & 0x60u) == 0) {\n"
+        }
+      ],
+      "comment": "// BIDLE01：保存动作/固定payload后归站立，再读FDC低BYTE门禁，见待机SPEC。"
+    }
+  ],
+  "header_comment_pairs": [
+    {
+      "before": "void UpdateBattleAction0_406650(YobiAction* action); // 待机保留特殊技能的上一动作门禁及FDC重读。",
+      "after": "void UpdateBattleAction0_406650(YobiAction* action); // BIDLE01：完整FDC持样/CL消费与归零后fresh BYTE、特殊上一项门禁。"
+    },
+    {
+      "before": "void UpdateBattleAction1_406720(YobiAction* action); // 归站立后按FDC的60h决定是否播放。",
+      "after": "void UpdateBattleAction1_406720(YobiAction* action); // BIDLE01：动作归零后独立FDC低BYTE60播放门禁，不套动作0条件。"
+    }
+  ],
+  "source_contract": {
+    "payload_fixed_per_root": true,
+    "initial_fdc_field_read_width": "W32 held once in phase0",
+    "cached_fdc_test_width": "U8 low byte of same W32 for bit2/bit60",
+    "phase0_fresh_fdc_read_after_character_zero": true,
+    "phase0_object_flag_width": "U8 bit40, then held FDC low-byte bit60",
+    "phase1_fdc_width": "U8 bit60 after optional characterAction=0 publication",
+    "list_166_gate": "held FC4 <= fresh FC8 and castList[held FC4]==166 -> AdvanceCast, then continue",
+    "previous_action_gate": {
+      "skills": [
+        72,
+        113
+      ],
+      "fresh_previous_index": "fresh FC4-1 >=0",
+      "actions": [
+        57,
+        59
+      ],
+      "early_return_without_character_clear": true
+    },
+    "phase0_cached_fdc_not_reused_for_character_zero_branch": true,
+    "phase0_mutually_exclusive_play_calls": 3,
+    "phase1_does_not_use_phase0_business_gates": true,
+    "original_return_consumed": false,
+    "new_rng_calls": 0,
+    "new_play_calls": 0,
+    "new_limits": false,
+    "current_dispatch_cases": [
+      0,
+      1
+    ],
+    "reused_dispatch_case": 236
+  },
+  "reused_dependencies": [
+    "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-source-state"
+  ],
+  "semantic_record_indices": [
+    2056,
+    2057
+  ],
+  "source_patch_group_count": 4,
+  "new_function_count": 0,
+  "new_function_disposition_count": 2,
+  "new_known_member_count": 2,
+  "new_software_evidence_scope": {
+    "I": [
+      "F:00006650",
+      "F:00006720"
+    ],
+    "S": [
+      "F:00006650",
+      "F:00006720"
+    ]
+  },
+  "limits": [
+    "只两完整父当前源/分派，已完整236入口/BQD01只复用，原case236不是2/3/6，不重计或改旧源。",
+    "完整W32 FDC缓存读保，仅低BYTE消费与fresh读取表达恢复，不合并两FDC取样或新增索引/输入门禁。",
+    "原三个互斥Play点不增调用，列表/skill/上一项条件和真实弃返保持；全数据/callee/未知alias/SDK/最终owner与动画声音画面运行待。",
+    "只静态，不构建/测试/运行待机、列表、动画、客户端或算法，不查产物或计算摘要，完整门禁保持。"
+  ],
+  "source_diff": {
+    "src/YobiRuntime.cpp": [
+      "--- \n",
+      "+++ \n",
+      "@@ -24041,4 +24041,5 @@\n",
+      " }",
+      " ",
+      "+// BIDLE01：完整FDC持样/CL消费、归零后fresh BYTE与上一动作门禁见doc/cg2d_battle_idle_dispatch_spec.md。",
+      " void UpdateBattleAction0_406650(YobiAction* const action)",
+      " {",
+      "@@ -24050,5 +24051,6 @@\n",
+      "     action->framePlayingRate = 100;",
+      "     const std::uint32_t flags = payload->flagsFDC;",
+      "-    if ((flags & 2u) != 0) {",
+      "+    const std::uint8_t cachedFlags = static_cast<std::uint8_t>(flags);",
+      "+    if ((cachedFlags & 2u) != 0) {",
+      "         action->characterAction = 10;",
+      "         static_cast<void>(PlayFrame_517DA0(action, 1));",
+      "@@ -24067,12 +24069,15 @@\n",
+      "     if (action->characterAction != 0) {",
+      "         action->characterAction = 0;",
+      "-        if ((payload->flagsFDC & 0x60u) == 0) {",
+      "+        const std::uint8_t currentFlags = static_cast<std::uint8_t>(payload->flagsFDC);",
+      "+        if ((currentFlags & 0x60u) == 0) {",
+      "             static_cast<void>(PlayFrame_517DA0(action, 0));",
+      "         }",
+      "-    } else if ((action->flags & 0x40u) != 0 && (flags & 0x60u) == 0) {",
+      "+    } else if ((static_cast<std::uint8_t>(action->flags) & 0x40u) != 0",
+      "+        && (cachedFlags & 0x60u) == 0) {",
+      "         static_cast<void>(PlayFrame_517DA0(action, 0));",
+      "     }",
+      " }",
+      " ",
+      "+// BIDLE01：保存动作/固定payload后归站立，再读FDC低BYTE门禁，见待机SPEC。",
+      " void UpdateBattleAction1_406720(YobiAction* const action)",
+      " {",
+      "@@ -24083,5 +24088,6 @@\n",
+      "         action->characterAction = 0;",
+      "     }",
+      "-    if ((payload->flagsFDC & 0x60u) == 0) {",
+      "+    const std::uint8_t flags = static_cast<std::uint8_t>(payload->flagsFDC);",
+      "+    if ((flags & 0x60u) == 0) {",
+      "         static_cast<void>(PlayFrame_517DA0(action, 0));",
+      "     }"
+    ],
+    "include/cg/YobiRuntime.hpp": [
+      "--- \n",
+      "+++ \n",
+      "@@ -486,6 +486,6 @@\n",
+      " void ApplyBattleEffectFlags_406390(std::int32_t sourcePosition, YobiAction* action);",
+      " void ApplyBattleCastEffects_416DB0(YobiAction* action); // 动作235：先应用效果，再推进动作队列。",
+      "-void UpdateBattleAction0_406650(YobiAction* action); // 待机保留特殊技能的上一动作门禁及FDC重读。",
+      "-void UpdateBattleAction1_406720(YobiAction* action); // 归站立后按FDC的60h决定是否播放。",
+      "+void UpdateBattleAction0_406650(YobiAction* action); // BIDLE01：完整FDC持样/CL消费与归零后fresh BYTE、特殊上一项门禁。",
+      "+void UpdateBattleAction1_406720(YobiAction* action); // BIDLE01：动作归零后独立FDC低BYTE60播放门禁，不套动作0条件。",
+      " std::int32_t UpdateBattleAction2_406760(YobiAction* action); // 回00/04坐标，抵达写phase0/FDC，不推进队列。",
+      " std::int32_t UpdateBattleAction3_406C30(YobiAction* action); // 转向后重取效果目标，距离<70推进。"
+    ]
+  }
+}

@@ -4677,3 +4677,8 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 ## 2026-10-10 B12P01：阶段12计时与13载荷坐标移动
 
 [完整合同](cg2d_battle_coordinate_action_producer_spec.md#battle-coordinate-action-source-state)补406930/406A80两完整176条603B，仅两入口低BYTE取样/四注释。原Y先X两RNG/F32参数和110006周期特效、旧FF0递增pub后用旧值比较、12特殊不Move/普通held帧速率与fresh FCC>=120、13先播放再转向/移动、fresh坐标距离<5后X发布再读Y/推进保持；复用BOG01几何和BNW01创建-回调不重计。限定I两BYTE片段/S两完整根，零新函数/API/保护/RNG；全输入/父-callee/alias/owner、SDK正常失败/数值/RNG结果和声音画面运行仍待，完整门禁保。
+
+<a id="battle-idle-runtime-20261010"></a>
+## 2026-10-10 BIDLE01：动作0/1待机与播放门禁
+
+[完整合同](cg2d_battle_idle_dispatch_spec.md#battle-idle-source-state)补406650/406720两完整78条265B，四段恢复原CL/fresh/object低BYTE消费；完整W32 FDC持样、归零后fresh读、166条件推进后继续/72和113上一项57和59才早返、动作0已站立复用缓存与动作1独立门禁、原三个互斥播放保持。只另四注释，零新函数/API/保护/播放；BQD01已完整236归零入口/原源身份复用不重计，不将236误拆为2/3/6。限定I/S与两成员，全输入/父-callee/alias/owner、SDK正常失败/动画声音画面运行仍待，完整门禁保。

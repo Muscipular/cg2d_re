@@ -1,5 +1,7 @@
 # 原窄字符串字节分配域宿主迁移 SPEC
 
+> 2026-10-10当前C++边界：[MC01-C1](cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010)已退休无现组外消费者的六组私有C++库及NativeCppException头。当前采用真实MSVC标准流/Init/locale及库内string/facet/codecvt/异常支撑，现流配置/缓冲借用/刷新、业务构析与退出登记保持。下文旧Legacy对象/方法表/私有登记/异常payload及其源码状态属固定历史，不再要求复刻；完整业务/owner/未知原alias与SDK实际运行仍待，未编译/运行。
+
 > NSH01；2026-10-04依既有工程委托采用。[运行库边界](cg2d_crt_runtime_boundary_spec.md) §1批准按真实分配域成组承接；本组推进C08/C11，C06/C07异常提供者与完整CRT域仍开放。
 
 <a id="narrow-string-heap-baseline"></a>

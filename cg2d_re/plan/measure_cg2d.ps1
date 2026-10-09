@@ -21,7 +21,9 @@ function Require([bool]$condition, [string]$message) {
 }
 function Check-Path([string]$path, [string]$owner) {
     if ([string]::IsNullOrWhiteSpace($path)) { $errors.Add("$owner 缺证据路径"); return }
-    if ($pathCache.ContainsKey($path)) { return }
+    $currentSemanticSource = $owner -match '^doc/cg2d_semantic_function_mappings\.json#/(records|pending_records)/'
+    $pathCacheKey = if ($currentSemanticSource) { 'current:' + $path } else { 'attachment:' + $path }
+    if ($pathCache.ContainsKey($pathCacheKey)) { return }
     $target = [System.IO.Path]::GetFullPath((Join-Path $projectRoot ($path -split '#',2)[0]))
     if (-not $target.StartsWith($projectRoot + [System.IO.Path]::DirectorySeparatorChar, [System.StringComparison]::OrdinalIgnoreCase)) {
         $errors.Add("$owner 路径越出本线：$path"); return
@@ -35,8 +37,20 @@ function Check-Path([string]$path, [string]$owner) {
         & git -C $projectRoot cat-file -e ("cg2d-re-asm-history-20261009:cg2d_re/" + $relativePath) 2>$null
         $exists = $LASTEXITCODE -eq 0
     }
+    # MC01-C1：六私有C++库/NCE头退休；仅历史附件可读前态，当前语义source不得回退。
+    $historicalCpp = @('src/platform/LegacyNarrowString.cpp', 'src/platform/LegacyNarrowString.hpp',
+        'src/platform/LegacyStreamBuffer.cpp', 'src/platform/LegacyStreamBuffer.hpp',
+        'src/platform/LegacyFileBuffer.cpp', 'src/platform/LegacyFileBuffer.hpp',
+        'src/platform/LegacyIos.cpp', 'src/platform/LegacyIos.hpp',
+        'src/platform/LegacyLocale.cpp', 'src/platform/LegacyLocale.hpp',
+        'src/platform/LegacyException.cpp', 'src/platform/LegacyException.hpp',
+        'src/platform/NativeCppException.hpp')
+    if (-not $exists -and $relativePath -cin $historicalCpp -and -not $currentSemanticSource) {
+        & git -C $projectRoot cat-file -e ("cg2d-re-msvc-crt-cpp-history-20261010:cg2d_re/" + $relativePath) 2>$null
+        $exists = $LASTEXITCODE -eq 0
+    }
     Require $exists "$owner 引用不存在：$path"
-    $pathCache[$path] = $true
+    $pathCache[$pathCacheKey] = $true
 }
 function Unique($items) { @($items | Where-Object { $_ } | Sort-Object -Unique) }
 function Percent([int]$n,[int]$d) { if ($d -eq 0) { return $null }; [math]::Round(100.0*$n/$d,2) }

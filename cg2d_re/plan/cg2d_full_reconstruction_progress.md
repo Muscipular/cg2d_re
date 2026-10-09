@@ -224,3 +224,16 @@ LegacyHeap.hpp/CPP全部通用模式成组统一malloc/calloc/realloc/free/_msiz
 93语义记录当前来源/规范声明/私有宿主职责对齐，37原F私有职责登记host；旧映射沿固定快照/原索引可读。大业务文件先核完整前后态，证据只保精确差异与可读快照，未复制整份历史源码。语义2029/1981原ID＋48区间身份与合同2091保持；F处置1148→1215，两个限定I/S使软件证据1327→1329；导入16、区间3060/剩1、184叶整项验收0、任务关闭11及六closure开放保持。
 
 规范类型/所有字段消费/唯一定义/SDK声明/fpos与ctime宽度、失效owner及退休引用、原台账/门禁/业务参数/精确修改范围、UTF-8/LF、差异与静态汇总/-Check核对后精确提交，固定引用cg2d-re-msvc-crt-file-20261009。用户六项原改动保持；未构建/链接/测试/运行/算法/查产物/计算摘要。MC01全CRT及整体SPEC仍未完成，目标继续active。
+
+<a id="msvc-crt-cpp-progress-20261010"></a>
+## 19. 2026-10-10 MC01-C1：C++私有对象组交由MSVC
+
+先记[成组决议与当前状态](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010)，按用户CRT直接MSVC退休旧narrow string/streambuf/filebuf/ios/locale/exception六组CPP/头及NativeCppException头，共13文件/5209行；六CMake源项同步撤下。全src/include核函数/导出类型/数据/方法表和NCE命名空间无现组外消费，仅LegacyMouse旧include及供旧控制器的两参展开适配退休；未知原端间接调用不判不可达或扩大排除。
+
+当前八真实标准流、完整SDK对象和晚段ios_base::Init/经典locale继续由MSVC持有，tie/error unitbuf/log借用error缓冲及无sentry的pubsync刷新不变。LegacyMouse除该include/展开适配外逐字保持，所有业务静态初始化、构析/数组、guard和std::atexit登记次数及两个实际单RET空退出回调保持。旧私有布局/共享/容量/locale/codecvt/六异常payload/捕获表归库内部，不造同名空体、新业务throw或消息副本，不再追加旧核开发债务；现应用字节/字段/参数/返回/RNG无改。
+
+205具名定义覆盖201入口/200原F；54A577只原共享片段不造F。202库职责按真实边界195 host/7应用配置刷新adapted，30共享/旧进程记录仅退休旧库消费者，现裸字节/业务提供者保留；232现语义对齐。旧原事实/指令/入向/所有实施前态沿固定Git路径/原索引读取，汇总器仅为13明确历史附件核可读前态，当前semantic source禁用该回退并独立缓存。20相关文档/子SPEC、总计划/任务及CRT当前条件同步，历史正文不重复复制。
+
+语义2029（1981F＋48X）、合同2091/3680与56.82%保持；F处置1215→1366（新151），已知CRT成员305→421仍非完整枚举；软件证据1329→1331仅限定I/S。导入16/218、X3060/3061余1、184叶完整验收0、60任务关闭11及六closure开放保持。源码/应用精确差异、SDK15实际头/源、现提供者/退休引用、原身份/全部门禁/政策/台账精确增量、UTF-8/LF/差异与静态汇总/-Check核对后精确提交，固定引用cg2d-re-msvc-crt-cpp-20261010。
+
+未构建/链接/测试/运行/算法/查产物/计算摘要，无新依赖；用户六项改动保持。旧浮点格式/数值、多字节及剩余CRT初始化/错误/退出/堆策略继续MC01-C后续，实际业务owner/正常结果与SDK/运行仍待。MC01全CRT及整体SPEC未完成，目标继续active。

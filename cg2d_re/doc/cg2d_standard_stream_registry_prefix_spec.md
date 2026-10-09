@@ -1,5 +1,7 @@
 # 标准流登记数据已证前缀 SPEC
 
+> 2026-10-10当前C++边界：[MC01-C1](cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010)已退休无现组外消费者的六组私有C++库及NativeCppException头。当前采用真实MSVC标准流/Init/locale及库内string/facet/codecvt/异常支撑，现流配置/缓冲借用/刷新、业务构析与退出登记保持。下文旧Legacy对象/方法表/私有登记/异常payload及其源码状态属固定历史，不再要求复刻；完整业务/owner/未知原alias与SDK实际运行仍待，未编译/运行。
+
 > 2026-10-04；C03 局部实施裁决 SR01，依[工程委托与D02/D03](cg2d_closure_decisions_spec.md)、[启动生命周期](cg2d_crt_startup_lifecycle_spec.md)执行。仅补实际消费者已证的0～8存储前缀；完整原数组容量、较大合法索引与全程序别名仍未闭合，不把本组承载范围当验收范围的缩减。
 
 <a id="standard-registry-baseline"></a>

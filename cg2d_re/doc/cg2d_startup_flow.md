@@ -1,5 +1,7 @@
 # 原入口调用链还原
 
+> 2026-10-10当前C++边界：[MC01-C1](cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010)已退休无现组外消费者的六组私有C++库及NativeCppException头。当前采用真实MSVC标准流/Init/locale及库内string/facet/codecvt/异常支撑，现流配置/缓冲借用/刷新、业务构析与退出登记保持。下文旧Legacy对象/方法表/私有登记/异常payload及其源码状态属固定历史，不再要求复刻；完整业务/owner/未知原alias与SDK实际运行仍待，未编译/运行。
+
 > 2026-10-04最新决议：受限宿主启动/原表分类、应用单owner构析及图形双树私有容器承接已决议；真实迁移未实施。见[当前子SPEC](cg2d_crt_startup_lifecycle_spec.md)。下文“待批/未决”保留其历史时点，不覆盖本轮授权；原端证据和既有验证结论不改写。
 
 ## 当前范围

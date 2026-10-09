@@ -1,5 +1,7 @@
 # 标准流退出登记域迁移 SPEC（SSX01）
 
+> 2026-10-10当前C++边界：[MC01-C1](cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010)已退休无现组外消费者的六组私有C++库及NativeCppException头。当前采用真实MSVC标准流/Init/locale及库内string/facet/codecvt/异常支撑，现流配置/缓冲借用/刷新、业务构析与退出登记保持。下文旧Legacy对象/方法表/私有登记/异常payload及其源码状态属固定历史，不再要求复刻；完整业务/owner/未知原alias与SDK实际运行仍待，未编译/运行。
+
 2026-10-05，按工程委托及[D03启动职责](cg2d_crt_startup_lifecycle_spec.md)
 实施已证标准流登记组；[D02边界](cg2d_crt_runtime_boundary_spec.md)与
 [当前活动序](cg2d_active_initializer_order_spec.md)继续约束活动归属。

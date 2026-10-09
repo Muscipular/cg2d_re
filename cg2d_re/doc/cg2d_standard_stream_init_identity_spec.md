@@ -1,5 +1,7 @@
 # 标准流四个 Init 对象的地址承载 SPEC
 
+> 2026-10-10当前C++边界：[MC01-C1](cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010)已退休无现组外消费者的六组私有C++库及NativeCppException头。当前采用真实MSVC标准流/Init/locale及库内string/facet/codecvt/异常支撑，现流配置/缓冲借用/刷新、业务构析与退出登记保持。下文旧Legacy对象/方法表/私有登记/异常payload及其源码状态属固定历史，不再要求复刻；完整业务/owner/未知原alias与SDK实际运行仍待，未编译/运行。
+
 > **SSO01最新状态（2026-10-05）**：[标准流提供者](cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure)已完成15槽与完整SDK对象对应；70有序源投影＋15宿主预先提供＝85项对应，另null1/暂停音频2/键盘排除2。85不是85个同TU调用。下文各组数字为各固定快照；完整容量/消费者/alias和SDK运行仍待。
 
 > 2026-10-04；C03 本组实施。工程裁决 SI01，依据用户具名工程委托、[D02/D03](cg2d_closure_decisions_spec.md) 与 [启动生命周期](cg2d_crt_startup_lifecycle_spec.md)。先证明被消费的契约，再定义存储。原完整对象尺寸仍未知；不从相邻地址推断 sizeof。

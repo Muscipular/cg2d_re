@@ -1,7 +1,6 @@
 #include "cg/platform/LegacyMouse.hpp"
 
 #include "LegacyHeap.hpp"
-#include "LegacyIos.hpp"
 #include "LegacyLowIo.hpp"
 #include "LegacyRuntimeError.hpp"
 #include "LegacyRuntimeExit.hpp"
@@ -789,12 +788,6 @@ std::int32_t AddLegacyMouseWheelDelta_506DB0(const std::int32_t delta) noexcept
 {
     gLegacyMouseState.tailReset += static_cast<std::uint32_t>(delta);
     return delta;
-}
-
-// 原展开两参数只传地址；复用已有单RET原叶，不补对象清理或固定返回。
-void UnwindLegacyStandardStream_54843B(void* const /*currentObject*/, void* const /*fixedObject*/)
-{
-    EmptyLegacyExit_54843B();
 }
 
 } // namespace cg::platform

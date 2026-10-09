@@ -1,5 +1,7 @@
 # locale 实现对象存储与退出迁移 SPEC
 
+> 2026-10-10当前C++边界：[MC01-C1](cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010)已退休无现组外消费者的六组私有C++库及NativeCppException头。当前采用真实MSVC标准流/Init/locale及库内string/facet/codecvt/异常支撑，现流配置/缓冲借用/刷新、业务构析与退出登记保持。下文旧Legacy对象/方法表/私有登记/异常payload及其源码状态属固定历史，不再要求复刻；完整业务/owner/未知原alias与SDK实际运行仍待，未编译/运行。
+
 > **SCL01最新状态（2026-10-05）**：[经典宿主项](cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure)已接原55315C，当前69项＝66应用＋2宿主流配置＋1宿主经典locale；16标准流仍待。以下原组正文和数字保留各自固定快照，不能将历史17项待接作为当前状态。
 
 > LCH01；2026-10-05依工程委托采用。上位：[运行库边界](cg2d_crt_runtime_boundary_spec.md) §1/§4、[启动职责](cg2d_crt_startup_lifecycle_spec.md)。只成组迁移既有 LegacyLocaleImplementation 对象块和两处退出登记；原 locale、标准流与 codecvt 的可见合同继续保留。

@@ -1,0 +1,2707 @@
+{
+  "schema_version": 1,
+  "spec_id": "MC01-C1",
+  "recorded_on": "2026-10-10",
+  "before_snapshot": "cg2d-re-msvc-crt-cpp-history-20261010",
+  "implementation_snapshot": "cg2d-re-msvc-crt-cpp-20261010",
+  "authorization": "用户CRT直接采用MSVC及MC01-C1先记SPEC裁决；全程单线程静态",
+  "retired_paths": [
+    "src/platform/LegacyException.cpp",
+    "src/platform/LegacyException.hpp",
+    "src/platform/LegacyFileBuffer.cpp",
+    "src/platform/LegacyFileBuffer.hpp",
+    "src/platform/LegacyIos.cpp",
+    "src/platform/LegacyIos.hpp",
+    "src/platform/LegacyLocale.cpp",
+    "src/platform/LegacyLocale.hpp",
+    "src/platform/LegacyNarrowString.cpp",
+    "src/platform/LegacyNarrowString.hpp",
+    "src/platform/LegacyStreamBuffer.cpp",
+    "src/platform/LegacyStreamBuffer.hpp",
+    "src/platform/NativeCppException.hpp"
+  ],
+  "retired_source_line_count": 5209,
+  "retired_addressed_definitions": [
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "AdjustLegacyExceptionObject_5409E7",
+      "original_entry": "0x5409E7"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "AllocateLegacyExceptionTextBytes_53C9CF",
+      "original_entry": "0x53C9CF"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "ConstructLegacyExceptionText_54B079",
+      "original_entry": "0x54B079"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "ConstructLegacyLogicError_54A6D4",
+      "original_entry": "0x54A6D4"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "ConstructLegacyRuntimeError_549FFE",
+      "original_entry": "0x549FFE"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "CopyConstructLegacyException_54B0B6",
+      "original_entry": "0x54B0B6"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "CopyConstructLegacyLogicError_54A7AE",
+      "original_entry": "0x54A7AE"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "CopyConstructLegacyRuntimeError_54A0E5",
+      "original_entry": "0x54A0E5"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "CopyConstructLegacyStreamFailure_54A1B8",
+      "original_entry": "0x54A1B8"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "CopyConstructLegacyStringLengthError_54A881",
+      "original_entry": "0x54A881"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "CopyConstructLegacyStringRangeError_54A969",
+      "original_entry": "0x54A969"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "DeleteLegacyExceptionTypeDescriptor_54AC7B",
+      "original_entry": "0x54AC7B"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "DeleteLegacyException_54B05D",
+      "original_entry": "0x54B05D"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "DeleteLegacyLogicError_54A792",
+      "original_entry": "0x54A792"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "DeleteLegacyRuntimeError_54A0C9",
+      "original_entry": "0x54A0C9"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "DeleteLegacyStreamFailure_54A19C",
+      "original_entry": "0x54A19C"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "DeleteLegacyStringLengthError_54A865",
+      "original_entry": "0x54A865"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "DeleteLegacyStringRangeError_54A94D",
+      "original_entry": "0x54A94D"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "DestroyLegacyExceptionTypeDescriptor_54AC66",
+      "original_entry": "0x54AC66"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "DestroyLegacyException_54B100",
+      "original_entry": "0x54B100"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "DestroyLegacyLogicError_54A755",
+      "original_entry": "0x54A755"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "DestroyLegacyRuntimeError_54A08C",
+      "original_entry": "0x54A08C"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "DestroyLegacyStreamFailure_54A142",
+      "original_entry": "0x54A142"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "DestroyLegacyStringLengthError_54A80B",
+      "original_entry": "0x54A80B"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "DestroyLegacyStringRangeError_54A8F3",
+      "original_entry": "0x54A8F3"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "FreeLegacyExceptionTextBytes_53B4E7",
+      "original_entry": "0x53B4E7"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "GetLegacyExceptionText_54B116",
+      "original_entry": "0x54B116"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "GetLegacyLogicErrorText_54A062",
+      "original_entry": "0x54A062"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "GetLegacyTryRange_53B75B",
+      "original_entry": "0x53B75B"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "MatchLegacyExceptionType_5404FA",
+      "original_entry": "0x5404FA"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "RaiseLegacyLogicError_54A738",
+      "original_entry": "0x54A738"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "RaiseLegacyRuntimeError_54A06F",
+      "original_entry": "0x54A06F"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "RaiseLegacyStreamFailure_54A17F",
+      "original_entry": "0x54A17F"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "RaiseLegacyStringLengthError_54A848",
+      "original_entry": "0x54A848"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "RaiseLegacyStringRangeError_54A930",
+      "original_entry": "0x54A930"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "ReportLegacyExceptionInconsistency_540AB2",
+      "original_entry": "0x540AB2"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "ThrowLegacyStringLength_54A67A",
+      "original_entry": "0x54A67A"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "ThrowLegacyStringRange_54A899",
+      "original_entry": "0x54A899"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "ValidateLegacyExceptionRead_54509E",
+      "original_entry": "0x54509E"
+    },
+    {
+      "path": "src/platform/LegacyException.cpp",
+      "symbol": "ValidateLegacyExceptionWrite_5450BA",
+      "original_entry": "0x5450BA"
+    },
+    {
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "symbol": "CloseLegacyNarrowFileBuffer_548ED5",
+      "original_entry": "0x548ED5"
+    },
+    {
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "symbol": "CloseLegacyWideFileBuffer_549E61",
+      "original_entry": "0x549E61"
+    },
+    {
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "symbol": "ConstructLegacyNarrowFileBufferLate_5487D3",
+      "original_entry": "0x5487D3"
+    },
+    {
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "symbol": "ConstructLegacyNarrowFileBuffer_5485FE",
+      "original_entry": "0x5485FE"
+    },
+    {
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "symbol": "ConstructLegacyWideFileBufferLate_54992A",
+      "original_entry": "0x54992A"
+    },
+    {
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "symbol": "ConstructLegacyWideFileBuffer_54970A",
+      "original_entry": "0x54970A"
+    },
+    {
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "symbol": "DeleteLegacyNarrowFileBuffer_548D4D",
+      "original_entry": "0x548D4D"
+    },
+    {
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "symbol": "DeleteLegacyWideFileBuffer_549DA2",
+      "original_entry": "0x549DA2"
+    },
+    {
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "symbol": "DestroyLegacyNarrowFileBuffer_5487DE",
+      "original_entry": "0x5487DE"
+    },
+    {
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "symbol": "DestroyLegacyWideFileBuffer_549935",
+      "original_entry": "0x549935"
+    },
+    {
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "symbol": "InitializeLegacyNarrowFileBuffer_548EFC",
+      "original_entry": "0x548EFC"
+    },
+    {
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "symbol": "InitializeLegacyWideFileBuffer_549E88",
+      "original_entry": "0x549E88"
+    },
+    {
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "symbol": "PeekLegacyNarrowFileBuffer_548A26",
+      "original_entry": "0x548A26"
+    },
+    {
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "symbol": "PeekLegacyWideFileBuffer_549B99",
+      "original_entry": "0x549B99"
+    },
+    {
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "symbol": "PutBackLegacyNarrowFileBuffer_548979",
+      "original_entry": "0x548979"
+    },
+    {
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "symbol": "PutBackLegacyWideFileBuffer_549AE2",
+      "original_entry": "0x549AE2"
+    },
+    {
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "symbol": "ReadLegacyNarrowFileBuffer_548A53",
+      "original_entry": "0x548A53"
+    },
+    {
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "symbol": "ReadLegacyWideFileBuffer_549BC7",
+      "original_entry": "0x549BC7"
+    },
+    {
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "symbol": "SeekLegacyFileBufferOffset_548B68",
+      "original_entry": "0x548B68"
+    },
+    {
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "symbol": "SeekLegacyFileBufferPosition_548BEA",
+      "original_entry": "0x548BEA"
+    },
+    {
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "symbol": "SetLegacyNarrowFileBuffer_548CAC",
+      "original_entry": "0x548CAC"
+    },
+    {
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "symbol": "SetLegacyWideFileBuffer_549CE5",
+      "original_entry": "0x549CE5"
+    },
+    {
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "symbol": "SyncLegacyFileBuffer_549D13",
+      "original_entry": "0x549D13"
+    },
+    {
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "symbol": "WriteLegacyNarrowFileBuffer_548843",
+      "original_entry": "0x548843"
+    },
+    {
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "symbol": "WriteLegacyWideFileBuffer_54999A",
+      "original_entry": "0x54999A"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "CallLegacyIosCallbacks_54A23C",
+      "original_entry": "0x54A23C"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "ClearLegacyIos_549F62",
+      "original_entry": "0x549F62"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "ConstructLegacyNarrowEarlyStandardInitializer_453E10",
+      "original_entry": "0x453E10"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "ConstructLegacyNarrowErrorBufferLate_54825C",
+      "original_entry": "0x54825C"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "ConstructLegacyNarrowInputBufferLate_54817A",
+      "original_entry": "0x54817A"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "ConstructLegacyNarrowInput_548537",
+      "original_entry": "0x548537"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "ConstructLegacyNarrowOutputBufferLate_5481A7",
+      "original_entry": "0x5481A7"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "ConstructLegacyNarrowOutput_548463",
+      "original_entry": "0x548463"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "ConstructLegacyNarrowStandardInitializer_5491E0",
+      "original_entry": "0x5491E0"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "ConstructLegacyWideEarlyStandardInitializer_453E50",
+      "original_entry": "0x453E50"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "ConstructLegacyWideErrorBufferLate_54928E",
+      "original_entry": "0x54928E"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "ConstructLegacyWideInputBufferLate_549234",
+      "original_entry": "0x549234"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "ConstructLegacyWideInput_549643",
+      "original_entry": "0x549643"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "ConstructLegacyWideOutputBufferLate_549261",
+      "original_entry": "0x549261"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "ConstructLegacyWideOutput_549525",
+      "original_entry": "0x549525"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "ConstructLegacyWideStandardInitializer_54920A",
+      "original_entry": "0x54920A"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DeleteLegacyIosBase_54A220",
+      "original_entry": "0x54A220"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DeleteLegacyNarrowInputFromIos_548D12",
+      "original_entry": "0x548D12"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DeleteLegacyNarrowIos_548CF6",
+      "original_entry": "0x548CF6"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DeleteLegacyNarrowOutputFromIos_548CD7",
+      "original_entry": "0x548CD7"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DeleteLegacyWideInputFromIos_549D67",
+      "original_entry": "0x549D67"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DeleteLegacyWideIos_549D4B",
+      "original_entry": "0x549D4B"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DeleteLegacyWideOutputFromIos_549D2C",
+      "original_entry": "0x549D2C"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DestroyLegacyIosBase_54A1D0",
+      "original_entry": "0x54A1D0"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DestroyLegacyNarrowErrorBufferAtExit_548275",
+      "original_entry": "0x548275"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DestroyLegacyNarrowErrorStreamAtExit_5482A4",
+      "original_entry": "0x5482A4"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DestroyLegacyNarrowInputBufferAtExit_548193",
+      "original_entry": "0x548193"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DestroyLegacyNarrowInputStreamAtExit_5481EF",
+      "original_entry": "0x5481EF"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DestroyLegacyNarrowInput_5481F9",
+      "original_entry": "0x5481F9"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DestroyLegacyNarrowIos_54852C",
+      "original_entry": "0x54852C"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DestroyLegacyNarrowLogStreamAtExit_5482D3",
+      "original_entry": "0x5482D3"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DestroyLegacyNarrowOutputBufferAtExit_5481C0",
+      "original_entry": "0x5481C0"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DestroyLegacyNarrowOutputStreamAtExit_548233",
+      "original_entry": "0x548233"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DestroyLegacyNarrowOutput_54823D",
+      "original_entry": "0x54823D"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DestroyLegacyWideErrorBufferAtExit_5492A7",
+      "original_entry": "0x5492A7"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DestroyLegacyWideErrorStreamAtExit_54935E",
+      "original_entry": "0x54935E"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DestroyLegacyWideInputBufferAtExit_54924D",
+      "original_entry": "0x54924D"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DestroyLegacyWideInputStreamAtExit_5492D6",
+      "original_entry": "0x5492D6"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DestroyLegacyWideInput_5492E0",
+      "original_entry": "0x5492E0"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DestroyLegacyWideIos_549638",
+      "original_entry": "0x549638"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DestroyLegacyWideLogStreamAtExit_54938D",
+      "original_entry": "0x54938D"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DestroyLegacyWideOutputBufferAtExit_54927A",
+      "original_entry": "0x54927A"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DestroyLegacyWideOutputStreamAtExit_54931A",
+      "original_entry": "0x54931A"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "DestroyLegacyWideOutput_549324",
+      "original_entry": "0x549324"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "FlushLegacyOutput_5495EE",
+      "original_entry": "0x5495EE"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "InitializeLegacyIosBase_54A293",
+      "original_entry": "0x54A293"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "InitializeLegacyNarrowEarlyStandardStreams_453E00",
+      "original_entry": "0x453E00"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "InitializeLegacyNarrowErrorBuffer_548252",
+      "original_entry": "0x548252"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "InitializeLegacyNarrowErrorStream_54827F",
+      "original_entry": "0x54827F"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "InitializeLegacyNarrowInputBuffer_548170",
+      "original_entry": "0x548170"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "InitializeLegacyNarrowInputStream_5481CA",
+      "original_entry": "0x5481CA"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "InitializeLegacyNarrowIos_548E65",
+      "original_entry": "0x548E65"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "InitializeLegacyNarrowLogStream_5482AE",
+      "original_entry": "0x5482AE"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "InitializeLegacyNarrowOutputBuffer_54819D",
+      "original_entry": "0x54819D"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "InitializeLegacyNarrowOutputStream_54820E",
+      "original_entry": "0x54820E"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "InitializeLegacyNarrowStandardStreams_5482DD",
+      "original_entry": "0x5482DD"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "InitializeLegacyWideEarlyStandardStreams_453E40",
+      "original_entry": "0x453E40"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "InitializeLegacyWideErrorBuffer_549284",
+      "original_entry": "0x549284"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "InitializeLegacyWideErrorStream_549339",
+      "original_entry": "0x549339"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "InitializeLegacyWideInputBuffer_54922A",
+      "original_entry": "0x54922A"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "InitializeLegacyWideInputStream_5492B1",
+      "original_entry": "0x5492B1"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "InitializeLegacyWideIos_549DBE",
+      "original_entry": "0x549DBE"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "InitializeLegacyWideLogStream_549368",
+      "original_entry": "0x549368"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "InitializeLegacyWideOutputBuffer_549257",
+      "original_entry": "0x549257"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "InitializeLegacyWideOutputStream_5492F5",
+      "original_entry": "0x5492F5"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "InitializeLegacyWideStandardStreams_549397",
+      "original_entry": "0x549397"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "RegisterConstructLegacyNarrowInput_54859F",
+      "original_entry": "0x54859F"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "RegisterConstructLegacyNarrowOutput_5484CD",
+      "original_entry": "0x5484CD"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "RegisterConstructLegacyWideInput_5496AB",
+      "original_entry": "0x5496AB"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "RegisterConstructLegacyWideOutput_54958F",
+      "original_entry": "0x54958F"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "RegisterLegacyNarrowErrorStreamLate_548289",
+      "original_entry": "0x548289"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "RegisterLegacyNarrowInputStreamLate_5481D4",
+      "original_entry": "0x5481D4"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "RegisterLegacyNarrowLogStreamLate_5482B8",
+      "original_entry": "0x5482B8"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "RegisterLegacyNarrowOutputStreamLate_548218",
+      "original_entry": "0x548218"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "RegisterLegacyNarrowStandardInitializer_5491D6",
+      "original_entry": "0x5491D6"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "RegisterLegacyStandardStream_54A25E",
+      "original_entry": "0x54A25E"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "RegisterLegacyWideErrorStreamLate_549343",
+      "original_entry": "0x549343"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "RegisterLegacyWideInputStreamLate_5492BB",
+      "original_entry": "0x5492BB"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "RegisterLegacyWideLogStreamLate_549372",
+      "original_entry": "0x549372"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "RegisterLegacyWideOutputStreamLate_5492FF",
+      "original_entry": "0x5492FF"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "RegisterLegacyWideStandardInitializer_549200",
+      "original_entry": "0x549200"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "ReleaseLegacyNarrowEarlyStandardStreamsAtExit_453E30",
+      "original_entry": "0x453E30"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "ReleaseLegacyNarrowStandardStreams_5491F6",
+      "original_entry": "0x5491F6"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "ReleaseLegacyWideEarlyStandardStreamsAtExit_453E70",
+      "original_entry": "0x453E70"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "ReleaseLegacyWideStandardStreams_549220",
+      "original_entry": "0x549220"
+    },
+    {
+      "path": "src/platform/LegacyIos.cpp",
+      "symbol": "TidyLegacyIos_54A2CB",
+      "original_entry": "0x54A2CB"
+    },
+    {
+      "path": "src/platform/LegacyLocale.cpp",
+      "symbol": "AllocateLegacyLocaleObject_53C9CF",
+      "original_entry": "0x53C9CF"
+    },
+    {
+      "path": "src/platform/LegacyLocale.cpp",
+      "symbol": "ConstructLegacyClassicLocaleLate_54A3ED",
+      "original_entry": "0x54A3ED"
+    },
+    {
+      "path": "src/platform/LegacyLocale.cpp",
+      "symbol": "ConstructLegacyLocaleImplementation_54A505",
+      "original_entry": "0x54A505"
+    },
+    {
+      "path": "src/platform/LegacyLocale.cpp",
+      "symbol": "ConstructLegacyLocale_54865E",
+      "original_entry": "0x54865E"
+    },
+    {
+      "path": "src/platform/LegacyLocale.cpp",
+      "symbol": "DecrementLegacyLocaleFacet_548695",
+      "original_entry": "0x548695"
+    },
+    {
+      "path": "src/platform/LegacyLocale.cpp",
+      "symbol": "DeleteLegacyLocaleFacet_54A57E",
+      "original_entry": "0x54A57E"
+    },
+    {
+      "path": "src/platform/LegacyLocale.cpp",
+      "symbol": "DeleteLegacyLocaleImplementation_54A59B",
+      "original_entry": "0x54A59B"
+    },
+    {
+      "path": "src/platform/LegacyLocale.cpp",
+      "symbol": "DestroyLegacyClassicLocale_54A3FA",
+      "original_entry": "0x54A3FA"
+    },
+    {
+      "path": "src/platform/LegacyLocale.cpp",
+      "symbol": "DestroyLegacyLocaleImplementation_54A5B7",
+      "original_entry": "0x54A5B7"
+    },
+    {
+      "path": "src/platform/LegacyLocale.cpp",
+      "symbol": "DestroyLegacyLocale_54867D",
+      "original_entry": "0x54867D"
+    },
+    {
+      "path": "src/platform/LegacyLocale.cpp",
+      "symbol": "FreeLegacyLocaleObject_53B4E7",
+      "original_entry": "0x53B4E7"
+    },
+    {
+      "path": "src/platform/LegacyLocale.cpp",
+      "symbol": "InitializeLegacyClassicLocale_54A3E3",
+      "original_entry": "0x54A3E3"
+    },
+    {
+      "path": "src/platform/LegacyLocale.cpp",
+      "symbol": "InitializeLegacyGlobalLocale_54A404",
+      "original_entry": "0x54A404"
+    },
+    {
+      "path": "src/platform/LegacyLocale.cpp",
+      "symbol": "ReleaseLegacyGlobalLocale_54A4BD",
+      "original_entry": "0x54A4BD"
+    },
+    {
+      "path": "src/platform/LegacyLocale.cpp",
+      "symbol": "RestoreLegacyLocaleFacetMethods_54A577",
+      "original_entry": "0x54A577"
+    },
+    {
+      "path": "src/platform/LegacyNarrowString.cpp",
+      "symbol": "AllocateLegacyNarrowStringBytes_53C9CF",
+      "original_entry": "0x53C9CF"
+    },
+    {
+      "path": "src/platform/LegacyNarrowString.cpp",
+      "symbol": "AppendLegacyNarrowString_548D69",
+      "original_entry": "0x548D69"
+    },
+    {
+      "path": "src/platform/LegacyNarrowString.cpp",
+      "symbol": "AssignLegacyNarrowStringFromString_54A315",
+      "original_entry": "0x54A315"
+    },
+    {
+      "path": "src/platform/LegacyNarrowString.cpp",
+      "symbol": "AssignLegacyNarrowString_549055",
+      "original_entry": "0x549055"
+    },
+    {
+      "path": "src/platform/LegacyNarrowString.cpp",
+      "symbol": "CopyLegacyNarrowString_54908A",
+      "original_entry": "0x54908A"
+    },
+    {
+      "path": "src/platform/LegacyNarrowString.cpp",
+      "symbol": "EraseLegacyNarrowString_548DC2",
+      "original_entry": "0x548DC2"
+    },
+    {
+      "path": "src/platform/LegacyNarrowString.cpp",
+      "symbol": "FreeLegacyNarrowStringBytes_53B4E7",
+      "original_entry": "0x53B4E7"
+    },
+    {
+      "path": "src/platform/LegacyNarrowString.cpp",
+      "symbol": "FreezeLegacyNarrowString_548F74",
+      "original_entry": "0x548F74"
+    },
+    {
+      "path": "src/platform/LegacyNarrowString.cpp",
+      "symbol": "GrowLegacyNarrowString_548FA0",
+      "original_entry": "0x548FA0"
+    },
+    {
+      "path": "src/platform/LegacyNarrowString.cpp",
+      "symbol": "SplitLegacyNarrowString_549025",
+      "original_entry": "0x549025"
+    },
+    {
+      "path": "src/platform/LegacyNarrowString.cpp",
+      "symbol": "TidyLegacyNarrowString_548E29",
+      "original_entry": "0x548E29"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "BumpLegacyWideReadCursor_549E08",
+      "original_entry": "0x549E08"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "BumpLegacyWideWriteCursor_549E3D",
+      "original_entry": "0x549E3D"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "ConsumeLegacyNarrowStreamBuffer_5486C9",
+      "original_entry": "0x5486C9"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "ConsumeLegacyWideStreamBuffer_549787",
+      "original_entry": "0x549787"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "DecrementLegacyReadCursor_548EA5",
+      "original_entry": "0x548EA5"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "DecrementLegacyWideReadCursor_549E1C",
+      "original_entry": "0x549E1C"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "DefaultLegacyNarrowCharacter_5486BF",
+      "original_entry": "0x5486BF"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "DefaultLegacyNarrowRead_5486C5",
+      "original_entry": "0x5486C5"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "DefaultLegacySeekOffset_5498B7",
+      "original_entry": "0x5498B7"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "DefaultLegacySeekPosition_5498EE",
+      "original_entry": "0x5498EE"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "DefaultLegacySetBuffer_549925",
+      "original_entry": "0x549925"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "DefaultLegacyStreamNoOp_5487D0",
+      "original_entry": "0x5487D0"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "DefaultLegacyStreamZero_54977F",
+      "original_entry": "0x54977F"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "DefaultLegacyWideCharacter_549778",
+      "original_entry": "0x549778"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "DefaultLegacyWideRead_549782",
+      "original_entry": "0x549782"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "DeleteLegacyNarrowStreamBuffer_548D31",
+      "original_entry": "0x548D31"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "DeleteLegacyWideStreamBuffer_549D86",
+      "original_entry": "0x549D86"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "DestroyLegacyNarrowStreamBuffer_5486B1",
+      "original_entry": "0x5486B1"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "DestroyLegacyWideStreamBuffer_54976A",
+      "original_entry": "0x54976A"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "IncrementLegacyReadCursor_548EB5",
+      "original_entry": "0x548EB5"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "IncrementLegacyWideReadCursor_549E2D",
+      "original_entry": "0x549E2D"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "IncrementLegacyWideWriteCursor_549E51",
+      "original_entry": "0x549E51"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "IncrementLegacyWriteCursor_548EC5",
+      "original_entry": "0x548EC5"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "ReadLegacyNarrowStreamBuffer_5486E6",
+      "original_entry": "0x5486E6"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "ReadLegacyWideStreamBuffer_5497A8",
+      "original_entry": "0x5497A8"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "ResetLegacyStreamBuffer_549EDE",
+      "original_entry": "0x549EDE"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "WriteLegacyNarrowStreamBuffer_54875A",
+      "original_entry": "0x54875A"
+    },
+    {
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "symbol": "WriteLegacyWideStreamBuffer_54982F",
+      "original_entry": "0x54982F"
+    }
+  ],
+  "retired_extra_adapter": {
+    "path": "src/platform/LegacyMouse.cpp",
+    "symbol": "UnwindLegacyStandardStream_54843B",
+    "same_original_callback_kept": "EmptyLegacyExit_54843B",
+    "business_empty_exit_registration_kept": true
+  },
+  "pre_migration_consumers": {
+    "scope": "全部当前src/include C++文本；函数/导出类型/数据/方法表及NCE命名空间",
+    "source_file_count": 225,
+    "exported_identifier_count": 332,
+    "outside_export_references": [],
+    "outside_includes": [
+      {
+        "path": "src/platform/LegacyMouse.cpp",
+        "line": 4,
+        "text": "#include \"LegacyIos.hpp\""
+      }
+    ],
+    "extra_adapter_consumers": [
+      "src/platform/LegacyIos.cpp"
+    ]
+  },
+  "source_snapshots": {
+    "src/platform/LegacyException.cpp": {
+      "before_snapshot": "cg2d-re-msvc-crt-cpp-history-20261010",
+      "path": "src/platform/LegacyException.cpp",
+      "current_source_retired": true,
+      "boundary": "原全文在固定Git快照，本证据不复制旧库全文或造当前调用入口"
+    },
+    "src/platform/LegacyException.hpp": {
+      "before_snapshot": "cg2d-re-msvc-crt-cpp-history-20261010",
+      "path": "src/platform/LegacyException.hpp",
+      "current_source_retired": true,
+      "boundary": "原全文在固定Git快照，本证据不复制旧库全文或造当前调用入口"
+    },
+    "src/platform/LegacyFileBuffer.cpp": {
+      "before_snapshot": "cg2d-re-msvc-crt-cpp-history-20261010",
+      "path": "src/platform/LegacyFileBuffer.cpp",
+      "current_source_retired": true,
+      "boundary": "原全文在固定Git快照，本证据不复制旧库全文或造当前调用入口"
+    },
+    "src/platform/LegacyFileBuffer.hpp": {
+      "before_snapshot": "cg2d-re-msvc-crt-cpp-history-20261010",
+      "path": "src/platform/LegacyFileBuffer.hpp",
+      "current_source_retired": true,
+      "boundary": "原全文在固定Git快照，本证据不复制旧库全文或造当前调用入口"
+    },
+    "src/platform/LegacyIos.cpp": {
+      "before_snapshot": "cg2d-re-msvc-crt-cpp-history-20261010",
+      "path": "src/platform/LegacyIos.cpp",
+      "current_source_retired": true,
+      "boundary": "原全文在固定Git快照，本证据不复制旧库全文或造当前调用入口"
+    },
+    "src/platform/LegacyIos.hpp": {
+      "before_snapshot": "cg2d-re-msvc-crt-cpp-history-20261010",
+      "path": "src/platform/LegacyIos.hpp",
+      "current_source_retired": true,
+      "boundary": "原全文在固定Git快照，本证据不复制旧库全文或造当前调用入口"
+    },
+    "src/platform/LegacyLocale.cpp": {
+      "before_snapshot": "cg2d-re-msvc-crt-cpp-history-20261010",
+      "path": "src/platform/LegacyLocale.cpp",
+      "current_source_retired": true,
+      "boundary": "原全文在固定Git快照，本证据不复制旧库全文或造当前调用入口"
+    },
+    "src/platform/LegacyLocale.hpp": {
+      "before_snapshot": "cg2d-re-msvc-crt-cpp-history-20261010",
+      "path": "src/platform/LegacyLocale.hpp",
+      "current_source_retired": true,
+      "boundary": "原全文在固定Git快照，本证据不复制旧库全文或造当前调用入口"
+    },
+    "src/platform/LegacyNarrowString.cpp": {
+      "before_snapshot": "cg2d-re-msvc-crt-cpp-history-20261010",
+      "path": "src/platform/LegacyNarrowString.cpp",
+      "current_source_retired": true,
+      "boundary": "原全文在固定Git快照，本证据不复制旧库全文或造当前调用入口"
+    },
+    "src/platform/LegacyNarrowString.hpp": {
+      "before_snapshot": "cg2d-re-msvc-crt-cpp-history-20261010",
+      "path": "src/platform/LegacyNarrowString.hpp",
+      "current_source_retired": true,
+      "boundary": "原全文在固定Git快照，本证据不复制旧库全文或造当前调用入口"
+    },
+    "src/platform/LegacyStreamBuffer.cpp": {
+      "before_snapshot": "cg2d-re-msvc-crt-cpp-history-20261010",
+      "path": "src/platform/LegacyStreamBuffer.cpp",
+      "current_source_retired": true,
+      "boundary": "原全文在固定Git快照，本证据不复制旧库全文或造当前调用入口"
+    },
+    "src/platform/LegacyStreamBuffer.hpp": {
+      "before_snapshot": "cg2d-re-msvc-crt-cpp-history-20261010",
+      "path": "src/platform/LegacyStreamBuffer.hpp",
+      "current_source_retired": true,
+      "boundary": "原全文在固定Git快照，本证据不复制旧库全文或造当前调用入口"
+    },
+    "src/platform/NativeCppException.hpp": {
+      "before_snapshot": "cg2d-re-msvc-crt-cpp-history-20261010",
+      "path": "src/platform/NativeCppException.hpp",
+      "current_source_retired": true,
+      "boundary": "原全文在固定Git快照，本证据不复制旧库全文或造当前调用入口"
+    }
+  },
+  "source_changes": {
+    "src/platform/LegacyMouse.cpp": {
+      "before_snapshot": "cg2d-re-msvc-crt-cpp-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-cpp-20261010",
+      "path": "src/platform/LegacyMouse.cpp",
+      "diff": "--- 迁移前/src/platform/LegacyMouse.cpp\n+++ 迁移后/src/platform/LegacyMouse.cpp\n@@ -1,12 +1,11 @@\n #include \"cg/platform/LegacyMouse.hpp\"\n \n #include \"LegacyHeap.hpp\"\n-#include \"LegacyIos.hpp\"\n #include \"LegacyLowIo.hpp\"\n #include \"LegacyRuntimeError.hpp\"\n #include \"LegacyRuntimeExit.hpp\"\n #include \"LegacyStdio.hpp\"\n \n #include \"../LoginMessageDependencies.hpp\"\n #include \"../LegacyPanelRuntime.hpp\"\n #include \"MainLoopDependencies.hpp\"\n@@ -786,22 +785,16 @@\n }\n \n std::int32_t AddLegacyMouseWheelDelta_506DB0(const std::int32_t delta) noexcept\n {\n     gLegacyMouseState.tailReset += static_cast<std::uint32_t>(delta);\n     return delta;\n }\n \n-// 原展开两参数只传地址；复用已有单RET原叶，不补对象清理或固定返回。\n-void UnwindLegacyStandardStream_54843B(void* const /*currentObject*/, void* const /*fixedObject*/)\n-{\n-    EmptyLegacyExit_54843B();\n-}\n-\n } // namespace cg::platform\n \n namespace cg::login::detail {\n \n std::uint32_t& gValueD68D98 = platform::gLegacyMouseState.heldButtons;\n std::uint32_t& gValueD68D9C = platform::gLegacyMouseState.edgeButtons;\n std::uint32_t& gValueD68DA0 = platform::gLegacyMouseState.pulseButtons;\n \n"
+    },
+    "CMakeLists.txt": {
+      "before_snapshot": "cg2d-re-msvc-crt-cpp-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-cpp-20261010",
+      "path": "CMakeLists.txt",
+      "diff": "--- 迁移前/CMakeLists.txt\n+++ 迁移后/CMakeLists.txt\n@@ -68,22 +68,16 @@\n     src/platform/MainLoop.cpp\n     src/platform/MainLoopState.cpp\n     src/platform/MainLoopWindowEnumeration.cpp\n     src/platform/MainLoopSupport.cpp\n     src/platform/LegacyCryptInt.cpp\n     src/platform/LegacyModuleDigest.cpp\n     src/platform/LegacyMemory.cpp\n     src/platform/LegacyHeap.cpp\n-    src/platform/LegacyNarrowString.cpp\n-    src/platform/LegacyStreamBuffer.cpp\n-    src/platform/LegacyFileBuffer.cpp\n-    src/platform/LegacyIos.cpp\n-    src/platform/LegacyLocale.cpp\n-    src/platform/LegacyException.cpp\n     src/platform/LegacyRuntimeError.cpp\n     src/platform/LegacyRuntimeExit.cpp\n     src/platform/LegacySignal.cpp\n     src/platform/LegacyLowIo.cpp\n     src/platform/LegacyStdio.cpp\n     src/platform/LegacyFormat.cpp\n     src/platform/LegacyScan.cpp\n     src/platform/LegacyFloatFormat.cpp\n"
+    }
+  },
+  "semantic_changed_indices": [
+    99,
+    100,
+    101,
+    102,
+    103,
+    104,
+    253,
+    262,
+    263,
+    264,
+    265,
+    266,
+    267,
+    268,
+    269,
+    270,
+    271,
+    272,
+    273,
+    274,
+    275,
+    276,
+    277,
+    278,
+    279,
+    280,
+    281,
+    282,
+    283,
+    284,
+    285,
+    286,
+    287,
+    288,
+    289,
+    290,
+    291,
+    292,
+    293,
+    294,
+    295,
+    296,
+    297,
+    298,
+    299,
+    300,
+    301,
+    302,
+    303,
+    304,
+    305,
+    306,
+    307,
+    308,
+    309,
+    310,
+    311,
+    312,
+    313,
+    314,
+    315,
+    316,
+    317,
+    318,
+    319,
+    320,
+    322,
+    323,
+    325,
+    326,
+    328,
+    355,
+    376,
+    378,
+    386,
+    388,
+    389,
+    390,
+    392,
+    398,
+    399,
+    401,
+    402,
+    404,
+    443,
+    488,
+    497,
+    509,
+    511,
+    517,
+    519,
+    521,
+    522,
+    526,
+    527,
+    529,
+    530,
+    531,
+    532,
+    533,
+    534,
+    535,
+    536,
+    537,
+    538,
+    539,
+    540,
+    541,
+    549,
+    550,
+    551,
+    552,
+    553,
+    554,
+    555,
+    556,
+    557,
+    558,
+    559,
+    560,
+    561,
+    562,
+    563,
+    564,
+    565,
+    566,
+    567,
+    568,
+    569,
+    570,
+    571,
+    572,
+    573,
+    574,
+    575,
+    576,
+    577,
+    578,
+    579,
+    580,
+    581,
+    582,
+    583,
+    584,
+    585,
+    586,
+    587,
+    588,
+    589,
+    590,
+    591,
+    592,
+    593,
+    594,
+    595,
+    596,
+    597,
+    598,
+    599,
+    600,
+    601,
+    602,
+    603,
+    604,
+    605,
+    606,
+    607,
+    608,
+    609,
+    610,
+    611,
+    612,
+    613,
+    614,
+    615,
+    616,
+    617,
+    618,
+    619,
+    620,
+    621,
+    622,
+    623,
+    624,
+    625,
+    626,
+    627,
+    628,
+    629,
+    630,
+    631,
+    632,
+    633,
+    634,
+    635,
+    636,
+    637,
+    638,
+    639,
+    640,
+    641,
+    642,
+    643,
+    644,
+    660,
+    705,
+    1084,
+    1085,
+    1086,
+    1087,
+    1088,
+    1089,
+    1090,
+    1091,
+    1092,
+    1093,
+    1094,
+    1095,
+    1096,
+    1097,
+    1098,
+    1099,
+    1100,
+    1101,
+    1102,
+    1103,
+    1104,
+    1105,
+    1106,
+    1107,
+    1108,
+    1109
+  ],
+  "private_responsibility_entries": [
+    "0x453E00",
+    "0x453E10",
+    "0x453E30",
+    "0x453E40",
+    "0x453E50",
+    "0x453E70",
+    "0x53B4F2",
+    "0x53B75B",
+    "0x5402AB",
+    "0x5404FA",
+    "0x5407BC",
+    "0x5409E7",
+    "0x540AB2",
+    "0x54509E",
+    "0x5450BA",
+    "0x548170",
+    "0x54817A",
+    "0x548193",
+    "0x54819D",
+    "0x5481A7",
+    "0x5481C0",
+    "0x5481CA",
+    "0x5481D4",
+    "0x5481EF",
+    "0x5481F9",
+    "0x54820E",
+    "0x548218",
+    "0x548233",
+    "0x54823D",
+    "0x548252",
+    "0x54825C",
+    "0x548275",
+    "0x54827F",
+    "0x548289",
+    "0x5482A4",
+    "0x5482AE",
+    "0x5482B8",
+    "0x5482D3",
+    "0x5482DD",
+    "0x548463",
+    "0x5484CD",
+    "0x54852C",
+    "0x548537",
+    "0x54859F",
+    "0x5485FE",
+    "0x54865E",
+    "0x54867D",
+    "0x548695",
+    "0x5486B1",
+    "0x5486BF",
+    "0x5486C5",
+    "0x5486C9",
+    "0x5486E6",
+    "0x54875A",
+    "0x5487D0",
+    "0x5487D3",
+    "0x5487DE",
+    "0x548843",
+    "0x548979",
+    "0x548A26",
+    "0x548A53",
+    "0x548B68",
+    "0x548BEA",
+    "0x548CAC",
+    "0x548CD7",
+    "0x548CF6",
+    "0x548D12",
+    "0x548D31",
+    "0x548D4D",
+    "0x548D69",
+    "0x548DC2",
+    "0x548E29",
+    "0x548E65",
+    "0x548EA5",
+    "0x548EB5",
+    "0x548EC5",
+    "0x548ED5",
+    "0x548EFC",
+    "0x548F74",
+    "0x548FA0",
+    "0x549025",
+    "0x549055",
+    "0x54908A",
+    "0x5491D6",
+    "0x5491E0",
+    "0x5491F6",
+    "0x549200",
+    "0x54920A",
+    "0x549220",
+    "0x54922A",
+    "0x549234",
+    "0x54924D",
+    "0x549257",
+    "0x549261",
+    "0x54927A",
+    "0x549284",
+    "0x54928E",
+    "0x5492A7",
+    "0x5492B1",
+    "0x5492BB",
+    "0x5492D6",
+    "0x5492E0",
+    "0x5492F5",
+    "0x5492FF",
+    "0x54931A",
+    "0x549324",
+    "0x549339",
+    "0x549343",
+    "0x54935E",
+    "0x549368",
+    "0x549372",
+    "0x54938D",
+    "0x549397",
+    "0x549525",
+    "0x54958F",
+    "0x5495EE",
+    "0x549638",
+    "0x549643",
+    "0x5496AB",
+    "0x54970A",
+    "0x54976A",
+    "0x549778",
+    "0x54977F",
+    "0x549782",
+    "0x549787",
+    "0x5497A8",
+    "0x54982F",
+    "0x5498B7",
+    "0x5498EE",
+    "0x549925",
+    "0x54992A",
+    "0x549935",
+    "0x54999A",
+    "0x549AE2",
+    "0x549B99",
+    "0x549BC7",
+    "0x549CE5",
+    "0x549D13",
+    "0x549D2C",
+    "0x549D4B",
+    "0x549D67",
+    "0x549D86",
+    "0x549DA2",
+    "0x549DBE",
+    "0x549E08",
+    "0x549E1C",
+    "0x549E2D",
+    "0x549E3D",
+    "0x549E51",
+    "0x549E61",
+    "0x549E88",
+    "0x549EDE",
+    "0x549F62",
+    "0x549FFE",
+    "0x54A062",
+    "0x54A06F",
+    "0x54A08C",
+    "0x54A0C9",
+    "0x54A0E5",
+    "0x54A142",
+    "0x54A17F",
+    "0x54A19C",
+    "0x54A1B8",
+    "0x54A1D0",
+    "0x54A220",
+    "0x54A23C",
+    "0x54A25E",
+    "0x54A293",
+    "0x54A2CB",
+    "0x54A315",
+    "0x54A3E3",
+    "0x54A3ED",
+    "0x54A3FA",
+    "0x54A404",
+    "0x54A4BD",
+    "0x54A505",
+    "0x54A57E",
+    "0x54A59B",
+    "0x54A5B7",
+    "0x54A67A",
+    "0x54A6D4",
+    "0x54A738",
+    "0x54A755",
+    "0x54A792",
+    "0x54A7AE",
+    "0x54A80B",
+    "0x54A848",
+    "0x54A865",
+    "0x54A881",
+    "0x54A899",
+    "0x54A8F3",
+    "0x54A930",
+    "0x54A94D",
+    "0x54A969",
+    "0x54AC66",
+    "0x54AC7B",
+    "0x54B05D",
+    "0x54B079",
+    "0x54B0B6",
+    "0x54B100",
+    "0x54B116",
+    "0x54B123"
+  ],
+  "validation": {
+    "method": "static",
+    "build": false,
+    "tests": false,
+    "runtime": false,
+    "artifacts_inspected": false,
+    "hash": false,
+    "bounded_static_observations": [
+      "当前库导出无组外消费；include/CMake/现来源无退休残留",
+      "LegacyMouse仅精确删除两处，所有业务/标准流/guard/登记与Empty回调保持",
+      "SDK15实际头/源类型/声明/标准流提供者有行证；无生成机器体证明",
+      "232语义精确差异；原身份/参数/指令/入向保持，前态按标签/路径/索引可读",
+      "195 host/7适配及30共享仅移消费者，原分母/完整门禁/政策/任务/历史证据保持",
+      "UTF-8无BOM/LF、JSON与差异空白核对；静态汇总通过，-Check在提交前核"
+    ]
+  },
+  "remaining": "旧浮点格式/数值、其余CRT/多字节/初始化错误退出继续成组迁移；真实业务与全部适用SDK/运行/owner门禁未闭。",
+  "host_inventory_ids": [
+    "F:00148170",
+    "F:0014817A",
+    "F:00148193",
+    "F:0014819D",
+    "F:001481A7",
+    "F:001481C0",
+    "F:001481CA",
+    "F:001481D4",
+    "F:001481EF",
+    "F:0014820E",
+    "F:00148218",
+    "F:00148233",
+    "F:00148252",
+    "F:0014825C",
+    "F:00148275",
+    "F:0014827F",
+    "F:00148289",
+    "F:001482A4",
+    "F:001482AE",
+    "F:001482B8",
+    "F:001482D3",
+    "F:0014922A",
+    "F:00149234",
+    "F:0014924D",
+    "F:00149257",
+    "F:00149261",
+    "F:0014927A",
+    "F:00149284",
+    "F:0014928E",
+    "F:001492A7",
+    "F:001492B1",
+    "F:001492BB",
+    "F:001492D6",
+    "F:001492F5",
+    "F:001492FF",
+    "F:0014931A",
+    "F:00149339",
+    "F:00149343",
+    "F:0014935E",
+    "F:00149368",
+    "F:00149372",
+    "F:0014938D",
+    "F:001491D6",
+    "F:001491E0",
+    "F:001491F6",
+    "F:00149200",
+    "F:0014920A",
+    "F:00149220",
+    "F:0014A3E3",
+    "F:0014A3ED",
+    "F:0014A3FA",
+    "F:0014A404",
+    "F:0014A4BD",
+    "F:0014865E",
+    "F:0014867D",
+    "F:00148695",
+    "F:0014A505",
+    "F:0014A59B",
+    "F:0014A5B7",
+    "F:0013B4F2",
+    "F:0013B75B",
+    "F:001402AB",
+    "F:001404FA",
+    "F:001407BC",
+    "F:001409E7",
+    "F:00140AB2",
+    "F:0014B123",
+    "F:0014509E",
+    "F:001450BA",
+    "F:0014AC66",
+    "F:0014AC7B",
+    "F:0014B05D",
+    "F:0014B079",
+    "F:0014B0B6",
+    "F:0014B100",
+    "F:0014B116",
+    "F:00148D69",
+    "F:00148DC2",
+    "F:00148E29",
+    "F:00148F74",
+    "F:00148FA0",
+    "F:00149025",
+    "F:00149055",
+    "F:0014908A",
+    "F:0014A315",
+    "F:001486C9",
+    "F:001486E6",
+    "F:0014875A",
+    "F:00148EA5",
+    "F:00148EB5",
+    "F:00148EC5",
+    "F:00149787",
+    "F:001497A8",
+    "F:0014982F",
+    "F:00149E08",
+    "F:00149E1C",
+    "F:00149E2D",
+    "F:00149E3D",
+    "F:00149E51",
+    "F:00148CAC",
+    "F:00148CD7",
+    "F:00148CF6",
+    "F:00148D12",
+    "F:00148D31",
+    "F:00148D4D",
+    "F:00148ED5",
+    "F:00148EFC",
+    "F:00149CE5",
+    "F:00149D13",
+    "F:00149D2C",
+    "F:00149D4B",
+    "F:00149D67",
+    "F:00149D86",
+    "F:00149DA2",
+    "F:00149E61",
+    "F:00149E88",
+    "F:00149EDE",
+    "F:00148B68",
+    "F:00148BEA",
+    "F:001498B7",
+    "F:001498EE",
+    "F:00148843",
+    "F:00148979",
+    "F:00148A26",
+    "F:00148A53",
+    "F:0014999A",
+    "F:00149AE2",
+    "F:00149B99",
+    "F:00149BC7",
+    "F:001485FE",
+    "F:001487DE",
+    "F:0014859F",
+    "F:0014970A",
+    "F:00149935",
+    "F:001496AB",
+    "F:001486B1",
+    "F:0014976A",
+    "F:001487D0",
+    "F:0014977F",
+    "F:001486BF",
+    "F:001486C5",
+    "F:00149778",
+    "F:00149782",
+    "F:00149925",
+    "F:0014992A",
+    "F:001487D3",
+    "F:00148E65",
+    "F:00149DBE",
+    "F:00149F62",
+    "F:0014A1D0",
+    "F:0014A220",
+    "F:0014A23C",
+    "F:0014A25E",
+    "F:0014A293",
+    "F:0014A2CB",
+    "F:001482DD",
+    "F:00149397",
+    "F:00148463",
+    "F:001484CD",
+    "F:00148537",
+    "F:00149525",
+    "F:0014958F",
+    "F:00149643",
+    "F:001481F9",
+    "F:0014823D",
+    "F:001492E0",
+    "F:00149324",
+    "F:0014852C",
+    "F:00149638",
+    "F:0014A67A",
+    "F:0014A899",
+    "F:0014A6D4",
+    "F:0014A7AE",
+    "F:0014A755",
+    "F:0014A792",
+    "F:0014A062",
+    "F:0014A738",
+    "F:0014A80B",
+    "F:0014A865",
+    "F:0014A881",
+    "F:0014A848",
+    "F:0014A8F3",
+    "F:0014A94D",
+    "F:0014A969",
+    "F:0014A930",
+    "F:00149FFE",
+    "F:0014A0E5",
+    "F:0014A08C",
+    "F:0014A0C9",
+    "F:0014A06F",
+    "F:0014A1B8",
+    "F:0014A142",
+    "F:0014A19C",
+    "F:0014A17F",
+    "F:0014A57E"
+  ],
+  "adapted_inventory_ids": [
+    "F:00053E00",
+    "F:00053E10",
+    "F:00053E30",
+    "F:00053E40",
+    "F:00053E50",
+    "F:00053E70",
+    "F:001495EE"
+  ],
+  "shared_consumer_inventory_ids": [
+    "F:0014843B",
+    "F:0013C9CF",
+    "F:0013C3BE",
+    "F:0013B4E7",
+    "F:00141A28",
+    "F:0013B406",
+    "F:0013D710",
+    "F:00144DB0",
+    "F:00140A5C",
+    "F:001450F0",
+    "F:0013F9E0",
+    "F:001419D0",
+    "F:0013B1D0",
+    "F:0013BB02",
+    "F:0013BC41",
+    "F:0013C680",
+    "F:0013C8B3",
+    "F:0013CFDC",
+    "F:0014AAD5",
+    "F:0014ACB7",
+    "F:0014ACD9",
+    "F:0014ACF1",
+    "F:0014AD92",
+    "F:0014AE87",
+    "F:0014AF70",
+    "F:0014463F",
+    "F:00149147",
+    "F:00141620",
+    "F:0013C0A9",
+    "F:0013C8CD"
+  ],
+  "shared_retired_field_names": {
+    "253": [
+      "standard_stream_controller_parent_call_connections",
+      "unwind_address_adapter_contract"
+    ],
+    "322": [
+      "exception_original_heap_connections",
+      "locale_global_parent_call_connections",
+      "narrow_string_heap_migration_contract",
+      "exception_text_heap_migration_contract",
+      "locale_object_heap_migration_contract"
+    ],
+    "323": [
+      "narrow_string_heap_migration_contract",
+      "exception_text_heap_migration_contract",
+      "locale_object_heap_migration_contract"
+    ],
+    "325": [
+      "exception_original_heap_connections",
+      "logic_error_parent_call_connections",
+      "string_length_range_parent_call_connections",
+      "runtime_failure_parent_call_connections",
+      "ios_original_heap_connections",
+      "locale_core_parent_call_connections",
+      "locale_global_parent_call_connections",
+      "file_buffer_lifetime_parent_call_connections",
+      "stream_virtual_leaf_parent_call_connections",
+      "stream_base_delete_parent_call_connections",
+      "type_descriptor_parent_call_connections",
+      "narrow_string_heap_migration_contract",
+      "exception_text_heap_migration_contract",
+      "locale_object_heap_migration_contract"
+    ],
+    "326": [
+      "narrow_string_heap_migration_contract",
+      "narrow_string_host_handler_connection",
+      "exception_text_heap_migration_contract",
+      "exception_text_host_handler_connection",
+      "locale_object_heap_migration_contract"
+    ],
+    "328": [
+      "locale_global_parent_call_connections",
+      "locale_classic_initializer_parent_call_connections",
+      "standard_stream_exit_parent_call_connections",
+      "standard_stream_crt_parent_call_connections",
+      "standard_stream_object_crt_parent_call_connections",
+      "early_standard_stream_parent_call_connections",
+      "locale_object_heap_migration_contract"
+    ],
+    "376": [
+      "cxx_string_call_connections"
+    ],
+    "378": [
+      "copy_call_connections"
+    ],
+    "386": [
+      "inconsistency_parent_termination_connection",
+      "inconsistency_handler_binding"
+    ],
+    "388": [
+      "strcmp_call_connections"
+    ],
+    "389": [
+      "length_call_connections",
+      "locale_core_parent_call_connections",
+      "locale_global_parent_call_connections",
+      "ios_clear_parent_call_connections",
+      "exception_throw_parent_call_connections"
+    ],
+    "390": [
+      "fill_call_connections"
+    ],
+    "392": [
+      "file_buffer_parent_call_connections",
+      "file_buffer_close_call_connections"
+    ],
+    "398": [
+      "file_buffer_output_parent_call_connections"
+    ],
+    "399": [
+      "file_buffer_position_parent_call_connections"
+    ],
+    "401": [
+      "file_buffer_output_parent_call_connections"
+    ],
+    "402": [
+      "file_buffer_readback_parent_call_connections"
+    ],
+    "404": [
+      "file_buffer_output_parent_call_connections"
+    ],
+    "443": [
+      "basic_ios_parent_call_connections"
+    ],
+    "536": [
+      "file_buffer_position_parent_call_connections"
+    ],
+    "537": [
+      "file_buffer_position_parent_call_connections"
+    ],
+    "538": [
+      "file_buffer_position_parent_call_connections"
+    ],
+    "539": [
+      "file_buffer_output_parent_call_connections"
+    ],
+    "540": [
+      "file_buffer_readback_parent_call_connections"
+    ],
+    "541": [
+      "file_buffer_readback_parent_call_connections"
+    ],
+    "549": [
+      "file_buffer_readback_parent_call_connections"
+    ],
+    "581": [
+      "file_buffer_readback_parent_call_connections"
+    ],
+    "660": [
+      "cxx_string_call_connections",
+      "stream_virtual_transfer_parent_call_connections",
+      "file_buffer_readback_parent_call_connections"
+    ],
+    "705": [
+      "locale_core_parent_call_connections",
+      "ios_lifecycle_parent_call_connections",
+      "basic_ios_parent_call_connections",
+      "stream_owner_parent_call_connections",
+      "type_descriptor_parent_call_connections"
+    ],
+    "355": [
+      "early_standard_stream_cpp_initialization_bindings",
+      "standard_stream_init_identity_objects",
+      "standard_stream_registry_prefix_storage"
+    ]
+  },
+  "function_disposition_additions": [
+    "F:0014817A",
+    "F:00148193",
+    "F:001481A7",
+    "F:001481C0",
+    "F:001481D4",
+    "F:001481EF",
+    "F:00148218",
+    "F:00148233",
+    "F:0014825C",
+    "F:00148275",
+    "F:00148289",
+    "F:001482A4",
+    "F:001482B8",
+    "F:001482D3",
+    "F:00149234",
+    "F:0014924D",
+    "F:00149261",
+    "F:0014927A",
+    "F:0014928E",
+    "F:001492A7",
+    "F:001492BB",
+    "F:001492D6",
+    "F:001492FF",
+    "F:0014931A",
+    "F:00149343",
+    "F:0014935E",
+    "F:00149372",
+    "F:0014938D",
+    "F:00149220",
+    "F:0014A3ED",
+    "F:0014A3FA",
+    "F:0014A4BD",
+    "F:0014865E",
+    "F:0014867D",
+    "F:00148695",
+    "F:0014A505",
+    "F:0014A5B7",
+    "F:0013B75B",
+    "F:001404FA",
+    "F:001409E7",
+    "F:00140AB2",
+    "F:0014509E",
+    "F:001450BA",
+    "F:0014AC66",
+    "F:0014AC7B",
+    "F:0014B05D",
+    "F:0014B116",
+    "F:00148D69",
+    "F:00148DC2",
+    "F:00148E29",
+    "F:00148F74",
+    "F:00148FA0",
+    "F:00149025",
+    "F:00149055",
+    "F:0014908A",
+    "F:0014A315",
+    "F:001486C9",
+    "F:001486E6",
+    "F:0014875A",
+    "F:00148EA5",
+    "F:00148EB5",
+    "F:00148EC5",
+    "F:00149787",
+    "F:001497A8",
+    "F:0014982F",
+    "F:00149E08",
+    "F:00149E1C",
+    "F:00149E2D",
+    "F:00149E3D",
+    "F:00149E51",
+    "F:00148CAC",
+    "F:00148CD7",
+    "F:00148CF6",
+    "F:00148D12",
+    "F:00148D31",
+    "F:00148D4D",
+    "F:00148ED5",
+    "F:00148EFC",
+    "F:00149CE5",
+    "F:00149D13",
+    "F:00149D2C",
+    "F:00149D4B",
+    "F:00149D67",
+    "F:00149D86",
+    "F:00149DA2",
+    "F:00149E61",
+    "F:00149E88",
+    "F:00149EDE",
+    "F:00148979",
+    "F:00148A26",
+    "F:00148A53",
+    "F:00149AE2",
+    "F:00149B99",
+    "F:00149BC7",
+    "F:001485FE",
+    "F:001487DE",
+    "F:0014859F",
+    "F:0014970A",
+    "F:00149935",
+    "F:001496AB",
+    "F:001486B1",
+    "F:0014976A",
+    "F:001487D0",
+    "F:0014977F",
+    "F:001486BF",
+    "F:001486C5",
+    "F:00149778",
+    "F:00149782",
+    "F:00149925",
+    "F:0014992A",
+    "F:001487D3",
+    "F:00148E65",
+    "F:00149DBE",
+    "F:0014A220",
+    "F:0014A23C",
+    "F:0014A293",
+    "F:0014A2CB",
+    "F:00148463",
+    "F:001484CD",
+    "F:00148537",
+    "F:00149525",
+    "F:0014958F",
+    "F:00149643",
+    "F:001481F9",
+    "F:0014823D",
+    "F:001492E0",
+    "F:00149324",
+    "F:0014852C",
+    "F:00149638",
+    "F:0014A6D4",
+    "F:0014A7AE",
+    "F:0014A755",
+    "F:0014A792",
+    "F:0014A062",
+    "F:0014A80B",
+    "F:0014A865",
+    "F:0014A881",
+    "F:0014A8F3",
+    "F:0014A94D",
+    "F:0014A969",
+    "F:00149FFE",
+    "F:0014A0E5",
+    "F:0014A08C",
+    "F:0014A0C9",
+    "F:0014A1B8",
+    "F:0014A142",
+    "F:0014A19C",
+    "F:0014A57E",
+    "F:00053E30",
+    "F:00053E70",
+    "F:001495EE"
+  ],
+  "function_disposition_updates": [
+    "F:00148170",
+    "F:0014819D",
+    "F:001481CA",
+    "F:0014820E",
+    "F:00148252",
+    "F:0014827F",
+    "F:001482AE",
+    "F:0014922A",
+    "F:00149257",
+    "F:00149284",
+    "F:001492B1",
+    "F:001492F5",
+    "F:00149339",
+    "F:00149368",
+    "F:001491D6",
+    "F:001491E0",
+    "F:001491F6",
+    "F:00149200",
+    "F:0014920A",
+    "F:0014A3E3",
+    "F:0014A404",
+    "F:0014A59B",
+    "F:0013B4F2",
+    "F:001402AB",
+    "F:001407BC",
+    "F:0014B123",
+    "F:0014B079",
+    "F:0014B0B6",
+    "F:0014B100",
+    "F:00148B68",
+    "F:00148BEA",
+    "F:001498B7",
+    "F:001498EE",
+    "F:00148843",
+    "F:0014999A",
+    "F:00149F62",
+    "F:0014A1D0",
+    "F:0014A25E",
+    "F:001482DD",
+    "F:00149397",
+    "F:0014A67A",
+    "F:0014A899",
+    "F:0014A738",
+    "F:0014A848",
+    "F:0014A930",
+    "F:0014A06F",
+    "F:0014A17F",
+    "F:00053E00",
+    "F:00053E10",
+    "F:00053E40",
+    "F:00053E50"
+  ],
+  "crt_member_additions": [
+    "F:0014817A",
+    "F:00148193",
+    "F:001481A7",
+    "F:001481C0",
+    "F:001481D4",
+    "F:001481EF",
+    "F:00148218",
+    "F:00148233",
+    "F:0014825C",
+    "F:00148275",
+    "F:00148289",
+    "F:001482A4",
+    "F:001482B8",
+    "F:001482D3",
+    "F:00149234",
+    "F:0014924D",
+    "F:00149261",
+    "F:0014927A",
+    "F:0014928E",
+    "F:001492A7",
+    "F:001492BB",
+    "F:001492D6",
+    "F:001492FF",
+    "F:0014931A",
+    "F:00149343",
+    "F:0014935E",
+    "F:00149372",
+    "F:0014938D",
+    "F:00149220",
+    "F:0013B75B",
+    "F:001404FA",
+    "F:001409E7",
+    "F:00140AB2",
+    "F:0014509E",
+    "F:001450BA",
+    "F:0014AC66",
+    "F:0014AC7B",
+    "F:001486C9",
+    "F:001486E6",
+    "F:0014875A",
+    "F:00148EA5",
+    "F:00148EB5",
+    "F:00148EC5",
+    "F:00149787",
+    "F:001497A8",
+    "F:0014982F",
+    "F:00149E08",
+    "F:00149E1C",
+    "F:00149E2D",
+    "F:00149E3D",
+    "F:00149E51",
+    "F:00148CAC",
+    "F:00148CD7",
+    "F:00148CF6",
+    "F:00148D12",
+    "F:00148D31",
+    "F:00148D4D",
+    "F:00148ED5",
+    "F:00148EFC",
+    "F:00149CE5",
+    "F:00149D13",
+    "F:00149D2C",
+    "F:00149D4B",
+    "F:00149D67",
+    "F:00149D86",
+    "F:00149DA2",
+    "F:00149E61",
+    "F:00149E88",
+    "F:00149EDE",
+    "F:00148979",
+    "F:00148A26",
+    "F:00148A53",
+    "F:00149AE2",
+    "F:00149B99",
+    "F:00149BC7",
+    "F:001487DE",
+    "F:0014859F",
+    "F:00149935",
+    "F:001496AB",
+    "F:001487D0",
+    "F:0014977F",
+    "F:001486BF",
+    "F:001486C5",
+    "F:00149778",
+    "F:00149782",
+    "F:00149925",
+    "F:0014992A",
+    "F:001487D3",
+    "F:00148E65",
+    "F:00149DBE",
+    "F:0014A220",
+    "F:0014A23C",
+    "F:0014A293",
+    "F:0014A2CB",
+    "F:00148463",
+    "F:001484CD",
+    "F:00148537",
+    "F:00149525",
+    "F:0014958F",
+    "F:00149643",
+    "F:001481F9",
+    "F:0014823D",
+    "F:001492E0",
+    "F:00149324",
+    "F:0014852C",
+    "F:00149638",
+    "F:0014A6D4",
+    "F:0014A792",
+    "F:0014A865",
+    "F:0014A94D",
+    "F:00149FFE",
+    "F:0014A0C9",
+    "F:0014A19C",
+    "F:00053E30",
+    "F:00053E70",
+    "F:001495EE"
+  ],
+  "source_attachment_resolution": "只有13明确退休历史附件按固定迁移前Git快照核存在；当前sem sources不允许使用该回退。",
+  "local_sdk_references": {
+    "root": "已安装MSVC STL 14.50.35717",
+    "references": [
+      {
+        "path": "include/xstring",
+        "matching_source_lines": [
+          {
+            "line": 589,
+            "text": "class basic_string { // null-terminated transparent array of elements"
+          }
+        ]
+      },
+      {
+        "path": "include/streambuf",
+        "matching_source_lines": [
+          {
+            "line": 21,
+            "text": "class basic_streambuf { // control read/write buffers"
+          }
+        ]
+      },
+      {
+        "path": "include/fstream",
+        "matching_source_lines": [
+          {
+            "line": 10,
+            "text": "#include <__msvc_filebuf.hpp>"
+          }
+        ]
+      },
+      {
+        "path": "include/__msvc_filebuf.hpp",
+        "matching_source_lines": [
+          {
+            "line": 162,
+            "text": "class basic_filebuf : public basic_streambuf<_Elem, _Traits> { // stream buffer associated with a C stream"
+          }
+        ]
+      },
+      {
+        "path": "include/ios",
+        "matching_source_lines": [
+          {
+            "line": 21,
+            "text": "class basic_ios : public ios_base { // base class for basic_istream/basic_ostream"
+          }
+        ]
+      },
+      {
+        "path": "include/xiosbase",
+        "matching_source_lines": [
+          {
+            "line": 85,
+            "text": "_EXPORT_STD extern \"C++\" class _CRTIMP2_PURE_IMPORT ios_base : public _Iosb<int> { // base class for ios"
+          },
+          {
+            "line": 127,
+            "text": "class _CRTIMP2_PURE_IMPORT Init { // controller for standard-stream initialization"
+          }
+        ]
+      },
+      {
+        "path": "include/xlocale",
+        "matching_source_lines": [
+          {
+            "line": 26,
+            "text": "class _Locbase {}; // TRANSITION, ABI, affects sizeof(locale)"
+          },
+          {
+            "line": 64,
+            "text": "_EXPORT_STD extern \"C++\" class locale : public _Locbase<int>, public _Crt_new_delete {"
+          },
+          {
+            "line": 116,
+            "text": "// base class for all locale facets, performs reference counting"
+          },
+          {
+            "line": 162,
+            "text": "class _CRTIMP2_PURE_IMPORT _Locimp : public facet { // reference-counted actual implementation of a locale"
+          },
+          {
+            "line": 261,
+            "text": "// In locale0.cpp, locale::_Init() uses True Placement New at classic_locale's address,"
+          },
+          {
+            "line": 262,
+            "text": "// and classic_locale is constructed from the _Noinit enumerator of type _Uninitialized."
+          },
+          {
+            "line": 401,
+            "text": "static _MRTIMP2_PURE const locale& __CLRCALL_PURE_OR_CDECL classic(); // classic \"C\" locale"
+          },
+          {
+            "line": 3295,
+            "text": "class ctype_byname : public ctype<_Elem> { // ctype for named locale"
+          }
+        ]
+      },
+      {
+        "path": "include/stdexcept",
+        "matching_source_lines": [
+          {
+            "line": 20,
+            "text": "_EXPORT_STD class _NODISCARD logic_error : public exception { // base of all logic-error exceptions"
+          },
+          {
+            "line": 36,
+            "text": "_EXPORT_STD class _NODISCARD domain_error : public logic_error { // base of all domain-error exceptions"
+          },
+          {
+            "line": 52,
+            "text": "_EXPORT_STD class _NODISCARD invalid_argument : public logic_error { // base of all invalid-argument exceptions"
+          },
+          {
+            "line": 68,
+            "text": "_EXPORT_STD class _NODISCARD length_error : public logic_error { // base of all length-error exceptions"
+          },
+          {
+            "line": 84,
+            "text": "_EXPORT_STD class _NODISCARD out_of_range : public logic_error { // base of all out-of-range exceptions"
+          },
+          {
+            "line": 100,
+            "text": "_EXPORT_STD class _NODISCARD runtime_error : public exception { // base of all runtime-error exceptions"
+          },
+          {
+            "line": 116,
+            "text": "_EXPORT_STD class _NODISCARD overflow_error : public runtime_error { // base of all overflow-error exceptions"
+          },
+          {
+            "line": 132,
+            "text": "_EXPORT_STD class _NODISCARD underflow_error : public runtime_error { // base of all underflow-error exceptions"
+          },
+          {
+            "line": 148,
+            "text": "_EXPORT_STD class _NODISCARD range_error : public runtime_error { // base of all range-error exceptions"
+          }
+        ]
+      },
+      {
+        "path": "include/exception",
+        "matching_source_lines": [
+          {
+            "line": 72,
+            "text": "class _NODISCARD exception;"
+          },
+          {
+            "line": 86,
+            "text": "class _NODISCARD exception { // base of all library exceptions"
+          },
+          {
+            "line": 111,
+            "text": "[[noreturn]] void __CLR_OR_THIS_CALL _Raise() const { // raise the exception"
+          },
+          {
+            "line": 121,
+            "text": "virtual void __CLR_OR_THIS_CALL _Doraise() const {} // perform class-specific exception handling"
+          },
+          {
+            "line": 126,
+            "text": "class _NODISCARD bad_exception : public exception { // base of all bad exceptions"
+          },
+          {
+            "line": 140,
+            "text": "class _NODISCARD bad_alloc : public exception { // base of all bad allocation exceptions"
+          },
+          {
+            "line": 154,
+            "text": "void __CLR_OR_THIS_CALL _Doraise() const override { // perform class-specific exception handling"
+          },
+          {
+            "line": 225,
+            "text": "_EXPORT_STD class exception_ptr {"
+          },
+          {
+            "line": 334,
+            "text": "_EXPORT_STD class nested_exception { // wrap an exception_ptr"
+          },
+          {
+            "line": 370,
+            "text": "if constexpr (is_class_v<_Uty> && !is_base_of_v<nested_exception, _Uty> && !is_final_v<_Uty>) {"
+          },
+          {
+            "line": 399,
+            "text": "_EXPORT_STD class _NODISCARD bad_variant_access : public exception {"
+          },
+          {
+            "line": 410,
+            "text": "void _Doraise() const override { // perform class-specific exception handling"
+          }
+        ]
+      },
+      {
+        "path": "include/vcruntime_exception.h",
+        "matching_source_lines": [
+          {
+            "line": 33,
+            "text": "_VCRTIMP void __cdecl __std_exception_copy("
+          },
+          {
+            "line": 38,
+            "text": "_VCRTIMP void __cdecl __std_exception_destroy("
+          },
+          {
+            "line": 49,
+            "text": "_VCRT_EXPORT_STD class _NODISCARD exception"
+          },
+          {
+            "line": 62,
+            "text": "__std_exception_copy(&_InitData, &_Data);"
+          },
+          {
+            "line": 74,
+            "text": "__std_exception_copy(&_Other._Data, &_Data);"
+          },
+          {
+            "line": 84,
+            "text": "__std_exception_destroy(&_Data);"
+          },
+          {
+            "line": 85,
+            "text": "__std_exception_copy(&_Other._Data, &_Data);"
+          },
+          {
+            "line": 91,
+            "text": "__std_exception_destroy(&_Data);"
+          },
+          {
+            "line": 104,
+            "text": "_VCRT_EXPORT_STD class _NODISCARD bad_exception"
+          }
+        ]
+      },
+      {
+        "path": "include/iostream",
+        "matching_source_lines": [
+          {
+            "line": 21,
+            "text": "__PURE_APPDOMAIN_GLOBAL extern istream cin;"
+          },
+          {
+            "line": 22,
+            "text": "__PURE_APPDOMAIN_GLOBAL extern ostream cout;"
+          },
+          {
+            "line": 23,
+            "text": "__PURE_APPDOMAIN_GLOBAL extern ostream cerr;"
+          },
+          {
+            "line": 24,
+            "text": "__PURE_APPDOMAIN_GLOBAL extern ostream clog;"
+          },
+          {
+            "line": 30,
+            "text": "__PURE_APPDOMAIN_GLOBAL extern wistream wcin;"
+          },
+          {
+            "line": 31,
+            "text": "__PURE_APPDOMAIN_GLOBAL extern wostream wcout;"
+          },
+          {
+            "line": 32,
+            "text": "__PURE_APPDOMAIN_GLOBAL extern wostream wcerr;"
+          },
+          {
+            "line": 33,
+            "text": "__PURE_APPDOMAIN_GLOBAL extern wostream wclog;"
+          },
+          {
+            "line": 39,
+            "text": "_EXPORT_STD extern \"C++\" __PURE_APPDOMAIN_GLOBAL _CRTDATA2_IMPORT istream cin;"
+          },
+          {
+            "line": 40,
+            "text": "_EXPORT_STD extern \"C++\" __PURE_APPDOMAIN_GLOBAL _CRTDATA2_IMPORT ostream cout;"
+          },
+          {
+            "line": 41,
+            "text": "_EXPORT_STD extern \"C++\" __PURE_APPDOMAIN_GLOBAL _CRTDATA2_IMPORT ostream cerr;"
+          },
+          {
+            "line": 42,
+            "text": "_EXPORT_STD extern \"C++\" __PURE_APPDOMAIN_GLOBAL _CRTDATA2_IMPORT ostream clog;"
+          }
+        ]
+      },
+      {
+        "path": "crt/src/stl/cin.cpp",
+        "matching_source_lines": [
+          {
+            "line": 17,
+            "text": "__PURE_APPDOMAIN_GLOBAL static filebuf fin(stdin);"
+          },
+          {
+            "line": 20,
+            "text": "__PURE_APPDOMAIN_GLOBAL extern istream cin(&fin);"
+          },
+          {
+            "line": 22,
+            "text": "__PURE_APPDOMAIN_GLOBAL extern _CRTDATA2_IMPORT istream cin(&fin);"
+          }
+        ]
+      },
+      {
+        "path": "crt/src/stl/cout.cpp",
+        "matching_source_lines": [
+          {
+            "line": 17,
+            "text": "__PURE_APPDOMAIN_GLOBAL static filebuf fout(stdout);"
+          },
+          {
+            "line": 20,
+            "text": "__PURE_APPDOMAIN_GLOBAL extern ostream cout(&fout);"
+          },
+          {
+            "line": 22,
+            "text": "__PURE_APPDOMAIN_GLOBAL extern _CRTDATA2_IMPORT ostream cout(&fout);"
+          }
+        ]
+      },
+      {
+        "path": "crt/src/stl/locale0.cpp",
+        "matching_source_lines": [
+          {
+            "line": 140,
+            "text": "_MRTIMP2_PURE const locale& __CLRCALL_PURE_OR_CDECL locale::classic() { // get reference to \"C\" locale"
+          },
+          {
+            "line": 211,
+            "text": "void __CLRCALL_PURE_OR_CDECL locale::_Locimp::_Locimp_dtor(_Locimp* _This) { // destruct a _Locimp"
+          }
+        ]
+      },
+      {
+        "path": "crt/src/stl/wiostrea.cpp",
+        "matching_source_lines": [
+          {
+            "line": 11,
+            "text": "_CRTIMP2_PURE __thiscall _Winit::_Winit() { // initialize standard wide streams first time"
+          },
+          {
+            "line": 19,
+            "text": "_CRTIMP2_PURE __thiscall _Winit::~_Winit() noexcept { // flush standard wide streams last time"
+          }
+        ]
+      }
+    ],
+    "method": "只读已安装源码/头；实际类/提供者与职责，不执行库或查生成产物"
+  },
+  "retired_no_independent_function_fragment": {
+    "entry": "0x54A577",
+    "symbol": "RestoreLegacyLocaleFacetMethods_54A577",
+    "inventory_chunk_owners": [
+      {
+        "inventory_id": "F:0014A505",
+        "original_entry": "0x54A505",
+        "chunks": [
+          [
+            5547269,
+            5547390
+          ],
+          [
+            5555140,
+            5555158
+          ]
+        ]
+      }
+    ],
+    "boundary": "原共享片段/已有父源职责随locale库退休，不造独立F或当前同名体。"
+  },
+  "current_measured_state": {
+    "semantic_records": 2029,
+    "semantic_original_ids": 1981,
+    "semantic_range_identities": 48,
+    "document_linked_functions": 2091,
+    "reviewed_function_dispositions": 1366,
+    "known_crt_members": 421,
+    "crt_member_inventory_closed": false,
+    "software_evidence_records": 1331,
+    "leaf_features": 184,
+    "globally_accepted": false,
+    "tasks": 60,
+    "closed_tasks": 11,
+    "unassigned_ranges_mapped": 3060,
+    "unassigned_ranges_remaining": 1
+  }
+}

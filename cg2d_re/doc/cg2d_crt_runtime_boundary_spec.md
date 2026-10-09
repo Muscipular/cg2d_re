@@ -1,5 +1,7 @@
 # CRT 堆、异常与文件边界子 SPEC
 
+> 2026-10-10当前C++边界：[MC01-C1](cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010)已退休无现组外消费者的六组私有C++库及NativeCppException头。当前采用真实MSVC标准流/Init/locale及库内string/facet/codecvt/异常支撑，现流配置/缓冲借用/刷新、业务构析与退出登记保持。下文旧Legacy对象/方法表/私有登记/异常payload及其源码状态属固定历史，不再要求复刻；完整业务/owner/未知原alias与SDK实际运行仍待，未编译/运行。
+
 > 2026-10-09当前FILE边界：[MC01-B](cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009)已将全部现FILE/描述符/流格式与状态/位置/关闭改真实MSVC服务，旧表/缓冲/私有入口及C表退出当前链；下文旧内部布局/发布机制只属固定历史。业务字段/字节、真实结果/owner与全部适用门禁保持，未编译/运行；完整C++余组继续。
 
 > 2026-10-09用户最新CRT要求：当前按[MC01](cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009)直接采用MSVC。标量C服务、32位时间及字符串格式/扫描已转真实宿主提供者；下文旧算法/共享错误槽/逐指令保持条款在该具名范围只作历史。FILE/lowio及C++对象剩余组仍处迁移期，业务格式/编码/字段、owner和全部适用运行门禁保持。

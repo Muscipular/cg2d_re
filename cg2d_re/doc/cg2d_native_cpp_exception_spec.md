@@ -1,5 +1,7 @@
 # 五类本机 C++ 异常接线 SPEC
 
+> 2026-10-10当前C++边界：[MC01-C1](cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010)已退休无现组外消费者的六组私有C++库及NativeCppException头。当前采用真实MSVC标准流/Init/locale及库内string/facet/codecvt/异常支撑，现流配置/缓冲借用/刷新、业务构析与退出登记保持。下文旧Legacy对象/方法表/私有登记/异常payload及其源码状态属固定历史，不再要求复刻；完整业务/owner/未知原alias与SDK实际运行仍待，未编译/运行。
+
 > NCE01；2026-10-05按D02与工程委托实施。[运行库边界](cg2d_crt_runtime_boundary_spec.md) §2批准以真实本机抛出/捕获承接私有54B123职责；本组迁移所有当前九原点，不复造旧核心、ThrowInfo/RVA或FS链。C06、硬件SEH及完整SDK/运行仍开放。
 
 <a id="native-cpp-exception-baseline"></a>

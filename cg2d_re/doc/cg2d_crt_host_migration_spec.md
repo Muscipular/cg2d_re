@@ -1,5 +1,7 @@
 # CRT 宿主承接总 SPEC
 
+> 2026-10-10当前C++边界：[MC01-C1](cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010)已退休无现组外消费者的六组私有C++库及NativeCppException头。当前采用真实MSVC标准流/Init/locale及库内string/facet/codecvt/异常支撑，现流配置/缓冲借用/刷新、业务构析与退出登记保持。下文旧Legacy对象/方法表/私有登记/异常payload及其源码状态属固定历史，不再要求复刻；完整业务/owner/未知原alias与SDK实际运行仍待，未编译/运行。
+
 > 2026-10-09用户最新CRT要求：当前按[MC01](cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009)直接采用MSVC。标量C服务、32位时间及字符串格式/扫描已转真实宿主提供者；下文旧算法/共享错误槽/逐指令保持条款在该具名范围只作历史。FILE/lowio及C++对象剩余组仍处迁移期，业务格式/编码/字段、owner和全部适用运行门禁保持。
 
 > 2026-10-09最新通用堆合同：[HMU01](cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state)已按用户malloc方向与第8条工程委托将全部通用模式统一malloc/calloc/realloc/free/_msize，初始化借用真实CRT句柄；原模式只保请求数量策略。具名覆盖下文旧阶段“模式1/2、私有池及元数据保持”，12旧池接口/8布局类型/10状态槽已退役，原身份及旧实施证据保留为历史。裸字节及其它独立域保持；完整owner/间接alias/SDK/正常寿命与C01/C08/C11/V02仍未闭，当前未编译/运行。
@@ -134,3 +136,32 @@ FILE一经fclose即失效，包括刷新失败的返回路径。当前已证日�
 旧私有进程入口源与CMake源项/C表撤下；实际MSVC WinMain、全部业务C++模块初始化/回调和现filter保留，停止手工lowio/stdio重复初始化。日志页日期事件关闭后清空owner再重载，动画按标记关闭后清空FILE槽；过渡filebuf的fclose失败也释放已失效FILE引用，同时返回真实失败。窄filebuf不再借库内游标，其完整C++对象/facet/codecvt迁移继续沿MC01-C，不把现过渡类型当永久设计。
 
 原格式串/字段/协议/资源/存档/RNG未改，未知原caller/间接alias和完整owner/业务/SDK运行仍待。两限定I/S仅当前源码/接线静态，完整功能与总SPEC门禁保持；未构建/测试/运行/算法/查产物/计算摘要，无新依赖。固定引用cg2d-re-msvc-crt-file-20261009，MC01整体及总SPEC仍未完成。
+
+<a id="msvc-crt-cpp-decision-20261010"></a>
+## MC01-C1：C++库对象与私有异常整组收敛（2026-10-10）
+
+按用户CRT直接采用MSVC指令，退休LegacyNarrowString、LegacyStreamBuffer、LegacyFileBuffer、LegacyIos、LegacyLocale、LegacyException六组私有CPP/头及NativeCppException头。当前源码的库导出函数、类型、共享槽和方法表没有组外消费者；组外只剩LegacyMouse的旧头引用，以及供旧控制器展开使用的UnwindLegacyStandardStream适配。现活动标准流已使用MSVC完整对象，晚段真实ios_base::Init和locale::classic提供者已接，不再保两套私有对象/计数/登记/facet/codecvt/异常payload来模拟旧库。
+
+真实std::cin/cout/cerr/clog及四宽流、库拥有的缓冲/locale/异常机制由已安装MSVC STL与VCRuntime持有。原应用配置仍按现源码设置tie、error的unitbuf、log借用error缓冲，并按原无sentry的pubsync顺序刷新；晚段Init、经典locale查询、所有业务静态初始化和std::atexit登记保持。删除旧头引用和失去唯一消费者的展开适配，不删除真实单RET的54843B退出回调或改变其登记次数；不得把未调用的旧私有函数改为同名空体、固定成功或SDK对象强转。
+
+旧string共享U8/容量、streambuf/filebuf游标和虚表、ios私有节点/计数、locale引用/codecvt及六自定义异常payload/类型描述符/捕获表归宿主库内部。现组外无这些对象的读取、抛出或捕获，整组迁移不新增业务异常类、消息副本或新throw；实际MSVC消息、分配、校验、复制、展开与生命周期采用本机合同，接受原私有ABI和内部结果差异，不称逐指令等价。原机器身份、原调用/字段证据和全部实施前态沿固定Git快照保留，未知原端间接调用事实不据当前无消费者判为不可达或排除。
+
+共享裸字节分配/释放、实际数组构析、业务字段/参数/返回消费、RNG及协议/资源/存档字节保持。六库删除仅退休这些共享服务的旧库消费者，不扩大到其他提供者；旧浮点格式/数值、剩余多字节与初始化/错误/退出设施继续MC01-C后续小步，不能把旧CRT私有内核未复刻列为永久开发债务。
+
+历史源码附件按本步迁移前固定Git快照核存在；汇总器仅为明确列出的退休附件增加历史路径解析，当前语义来源必须改为实际MSVC职责边界或仍存在的业务提供者。原功能分母、身份、原证据、历史构建与运行记录保持，历史引用不等于当前可调用源；不降低缺源码/身份的校验标准。当前不构建/测试/运行/查产物/计算摘要，无新依赖，全CRT与总SPEC仍未完成。
+
+<a id="msvc-crt-cpp-acceptance-20261010"></a>
+## MC01-C1 静态核对范围
+
+逐项核退休函数、公开类型、数据与方法表的组外消费者及include/CMake残留，核当前MSVC完整标准流/Init/locale提供者与SDK声明。对LegacyMouse只删除旧include和展开适配；其余应用初始化、guard、即时登记、两个实际空退出回调、流配置/借用/刷新及业务代码逐字保持。全部现语义、共享消费者和功能/任务登记对齐；历史附件只查固定快照可读性，不允许当前映射仍指向退休对象。库内替代限定I/S不关闭完整业务/owner/SDK/机器ABI/运行门禁或六closure，§10标准保持。
+
+<a id="msvc-crt-cpp-source-state-20261010"></a>
+## MC01-C1 当前源码状态
+
+六组私有库的六CPP/六头和NativeCppException头共13文件/5209行已退休；CMake删除对应六源项，LegacyMouse仅删除旧include和无现消费者的两参数展开适配。全部业务源、两个实际单RET退出回调/guard/登记次数、八真实标准流及tie/unitbuf/log借用/pubsync顺序、真实晚段Init与经典locale保持。源扫描与[前态/精确差异证据](cg2d_msvc_crt_cpp_evidence.json)证明退休导出函数/类型/数据/方法表和native_cpp命名空间无现组外消费者；未知原端间接调用不判不可达。
+
+205个地址具名定义覆盖201入口/200原库存ID，54A577只原共享片段、不造新F；六库不再定义或保存旧库对象、虚表、locale/ref/codecvt、异常payload和捕获元数据。202库职责原ID按实际边界登记195 host/7应用流配置刷新adapted；共享裸字节两入口和30共享/旧进程记录仅退休旧库消费者，现业务/服务提供者保持。232现语义对齐，完整前态以固定Git标签/路径/原索引读取；116已知CRT成员补归属，完整枚举仍false。
+
+语义2029（1981F＋48X）、合同2091保持；已审F1215→1366，软件证据1329→1331。两限定I/S仅当前源/职责与接线；全部完整feature门禁、184叶整项验收0、任务关闭11/60及六closure保持。汇总器仅为13明确退休历史附件核固定Git快照，当前语义source不使用该回退；SDK真实类型/标准流提供者、应用精确差异及原台账/§10守恒通过静态核对。
+
+旧浮点格式/数值、多字节及剩余初始化/错误/退出/堆策略继续MC01-C后续；业务数组/SEH/owner、完整正常结果、SDK生成ABI与当前链接/运行仍待。未构建/测试/运行/算法/查产物/计算摘要，无新依赖。固定引用cg2d-re-msvc-crt-cpp-20261010，MC01全CRT与整体SPEC未完成。

@@ -24318,10 +24318,12 @@ void UpdateBattleAction11_4067F0(YobiAction* const action)
     static_cast<void>(PlayFrame_517DA0(action, action->characterAction == 10 ? 1 : 0));
 }
 
+// B12P01：原入口低BYTE、周期特效/计数与特殊直接推进见doc/cg2d_battle_coordinate_action_producer_spec.md。
 void UpdateBattleAction12_406930(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
-    if ((payload->flagsFDC & 2u) != 0) {
+    const std::uint8_t entryFlags = static_cast<std::uint8_t>(payload->flagsFDC);
+    if ((entryFlags & 2u) != 0) {
         action->characterAction = 10;
         static_cast<void>(PlayFrame_517DA0(action, 1));
         const float y = static_cast<float>(payload->y0C);
@@ -24359,11 +24361,13 @@ void UpdateBattleAction12_406930(YobiAction* const action)
     }
 }
 
+// B12P01：原入口低BYTE、播放后移动及到位X发布再读Y，见坐标动作SPEC。
 void UpdateBattleAction13_406A80(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     std::int32_t updateDirection;
-    if ((payload->flagsFDC & 2u) != 0) {
+    const std::uint8_t entryFlags = static_cast<std::uint8_t>(payload->flagsFDC);
+    if ((entryFlags & 2u) != 0) {
         action->characterAction = 10;
         static_cast<void>(PlayFrame_517DA0(action, 1));
         updateDirection = 0;

@@ -4672,3 +4672,8 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 ## 2026-10-10 BSP01：阶段18/19射击生产与攻击事件探测
 
 [完整合同](cg2d_battle_shot_producer_spec.md#battle-shot-source-state)补4065E0/408170/4082F0三完整196条728B，探测严格终帧优先/单次事件/共同清理及S32返回正确保持；18/19各两段恢复单次门禁与创建后音效event-X持样。原固定payload/fresh队列目标、18三258图/22050及95-3019重播、19的22090及仅95、播放/推进/清零保持，本根不新增RNG/Move或循环上限。只另六注释，零新函数/API/保护；限定I两射击父/S三根，全数据/父-callee/间接alias/owner、SDK正常失败和声音画面运行仍待，完整门禁保。
+
+<a id="battle-coordinate-action-runtime-20261010"></a>
+## 2026-10-10 B12P01：阶段12计时与13载荷坐标移动
+
+[完整合同](cg2d_battle_coordinate_action_producer_spec.md#battle-coordinate-action-source-state)补406930/406A80两完整176条603B，仅两入口低BYTE取样/四注释。原Y先X两RNG/F32参数和110006周期特效、旧FF0递增pub后用旧值比较、12特殊不Move/普通held帧速率与fresh FCC>=120、13先播放再转向/移动、fresh坐标距离<5后X发布再读Y/推进保持；复用BOG01几何和BNW01创建-回调不重计。限定I两BYTE片段/S两完整根，零新函数/API/保护/RNG；全输入/父-callee/alias/owner、SDK正常失败/数值/RNG结果和声音画面运行仍待，完整门禁保。

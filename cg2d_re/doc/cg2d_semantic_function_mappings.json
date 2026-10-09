@@ -197390,6 +197390,102 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x406930",
+      "inventory_id": "F:00006930",
+      "original_role": "阶段12周期坐标特效/计时转向与特殊直接推进",
+      "original_end_exclusive": "0x406a78",
+      "instruction_count": 94,
+      "function_chunks": [
+        {
+          "start": "0x406930",
+          "end_exclusive": "0x406a78"
+        }
+      ],
+      "status": "B12P01完整正常源/独立身份纳管，两入口低BYTE取样已修；RNG/旧计数/速率/播放/坐标发布正文保持，全数据/父-callee/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction12_406930"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction12_406930"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_coordinate_action_producer_spec.md#battle-coordinate-action-baseline",
+        "doc/cg2d_battle_coordinate_action_producer_spec.md#battle-coordinate-action-decision",
+        "doc/cg2d_battle_coordinate_action_producer_spec.md#battle-coordinate-action-acceptance",
+        "doc/cg2d_battle_coordinate_action_producer_spec.md#battle-coordinate-action-source-state",
+        "doc/cg2d_battle_coordinate_action_producer_evidence.json"
+      ],
+      "boundary": "阶段12周期坐标特效/计时转向与特殊直接推进；固定payload/低BYTE bit2、Y先X两RNG/F32参数/110006弃返、旧FF0计数及发布后用旧值比较、12特殊不Move/普通held frames速率及fresh FCC>=120、13播放转向移动后<5与X发布再读Y保持。仅两BYTE片段/四注释，复用已完整几何及特效创建回调不重计，全父-callee/alias/owner/SDK正常失败/数值/声音画面未验，RPLAN.24/MC01和完整门禁保。",
+      "verification_level": "两完整176条603B/四页、18directCALL/各callee-跳-RET、两case各11B及BYTE TEST；两BYTE片段/四注释与其它源守恒，限定I/S，不运行RNG/计时/移动。",
+      "battle_coordinate_action_producer": {
+        "step": "B12P01",
+        "source_snapshot": "cg2d-re-battle-actions12-13-20261010",
+        "original_instruction_count": 94,
+        "original_code_bytes": 328,
+        "original_page_count": 2,
+        "direct_call_count": 9,
+        "callee_count": 5,
+        "jump_count": 6,
+        "return_count": 2,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x406a80",
+      "inventory_id": "F:00006A80",
+      "original_role": "阶段13周期坐标特效/播放后移动至载荷坐标",
+      "original_end_exclusive": "0x406b93",
+      "instruction_count": 82,
+      "function_chunks": [
+        {
+          "start": "0x406a80",
+          "end_exclusive": "0x406b93"
+        }
+      ],
+      "status": "B12P01完整正常源/独立身份纳管，两入口低BYTE取样已修；RNG/旧计数/速率/播放/坐标发布正文保持，全数据/父-callee/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction13_406A80"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction13_406A80"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_coordinate_action_producer_spec.md#battle-coordinate-action-baseline",
+        "doc/cg2d_battle_coordinate_action_producer_spec.md#battle-coordinate-action-decision",
+        "doc/cg2d_battle_coordinate_action_producer_spec.md#battle-coordinate-action-acceptance",
+        "doc/cg2d_battle_coordinate_action_producer_spec.md#battle-coordinate-action-source-state",
+        "doc/cg2d_battle_coordinate_action_producer_evidence.json"
+      ],
+      "boundary": "阶段13周期坐标特效/播放后移动至载荷坐标；固定payload/低BYTE bit2、Y先X两RNG/F32参数/110006弃返、旧FF0计数及发布后用旧值比较、12特殊不Move/普通held frames速率及fresh FCC>=120、13播放转向移动后<5与X发布再读Y保持。仅两BYTE片段/四注释，复用已完整几何及特效创建回调不重计，全父-callee/alias/owner/SDK正常失败/数值/声音画面未验，RPLAN.24/MC01和完整门禁保。",
+      "verification_level": "两完整176条603B/四页、18directCALL/各callee-跳-RET、两case各11B及BYTE TEST；两BYTE片段/四注释与其它源守恒，限定I/S，不运行RNG/计时/移动。",
+      "battle_coordinate_action_producer": {
+        "step": "B12P01",
+        "source_snapshot": "cg2d-re-battle-actions12-13-20261010",
+        "original_instruction_count": 82,
+        "original_code_bytes": 275,
+        "original_page_count": 2,
+        "direct_call_count": 9,
+        "callee_count": 7,
+        "jump_count": 5,
+        "return_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

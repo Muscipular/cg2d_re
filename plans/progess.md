@@ -977,3 +977,7 @@
 ## cg2d_re：按用户要求编译项目（2026-10-09）
 
 windows-msvc-x64-debug默认构建返回0，三库及cg2d_re_client.exe目标通过；本次为最新源码的增量构建，无CPP重编或新增诊断，既有66项已见警告不据此核销。日志cg2d_re/build/windows-msvc-x64/build-project-20261009.log；无源码/依赖/协议变更，未运行测试/客户端/算法/工具、摘要或额外部署，不计真实互通/整体验收。详见cg2d_re/plan/cg2d_full_reconstruction_progress.md，保留用户原差异，完整目标继续。
+
+## cg2d_re：选人后数组断言定位（2026-10-09）
+
+用户手动日志已确认ClientLogin回复0并第二次加载，但选人后array:531断言，具体数组尚未定位；报错进程已退出且无新转储。仅ClientEntry增加Debug CRT报告回调/WinMain寿命登记，捕获地址/RVA到运行期cg2d_assert_stack.txt，返回0保原断言，不借业务数组/旧格式器、记录身份/正文、添加依赖或关闭检查；Release正文保持。修正SDK宏名称后Debug0错误/无新增警告，不生成构建日志；8026112B新版复制/旧8022528B备份。登记限定启动S及用户角色入场R失败，V03/V04/完整门禁仍open，等待原批处理手动复现栈后修实际来源；未由本线程运行客户端/试包/测试/算法/工具或摘要。详见cg2d_re/plan/cg2d_full_reconstruction_progress.md，快照cg2d-re-array-assert-stack-20261009，保用户差异，整体目标继续。

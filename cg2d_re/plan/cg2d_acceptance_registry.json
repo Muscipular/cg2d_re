@@ -109,7 +109,8 @@
         "doc/cg2d_standard_stream_controller_gates_spec.md",
         "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-baseline",
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
-        "doc/cg2d_display_settings.md#audio-settings-pages-source-state"
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_build_acceptance_spec.md#array-assert-stack-diagnostic-20261009"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -1418,7 +1419,8 @@
         "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-baseline",
         "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-baseline",
         "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-baseline",
-        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline"
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-baseline",
+        "doc/cg2d_build_acceptance_spec.md#array-assert-stack-diagnostic-20261009"
       ],
       "original_inventory_ids": [
         "F:000626A0",
@@ -55789,6 +55791,51 @@
       "differences": [],
       "result": "pass",
       "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-ARRAY-ASSERT-STACK-FUNC-STARTUP-S-20261009",
+      "feature_id": "FUNC-STARTUP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "用户本次array:531断言；本机SDK _RPTF0→_CrtDbgReport及回调返回0继续原报告合同",
+      "implementation_reference": "Git固定命名快照 cg2d-re-array-assert-stack-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_build_acceptance_spec.md#array-assert-stack-diagnostic-20261009",
+        "src/platform/ClientEntry.cpp"
+      ],
+      "observation": "只增加Debug诊断，原业务和Release预处理正文保持；真实记录触发/数组故障定位未验",
+      "expected": "只在真实CRT断言捕获地址，不吞断言/改返回、不接业务格式器/数组，不新增原身份或称修好；WinMain寿命安装/移除",
+      "actual": "一个CPP Debug回调/寿命类和入口登记，编译链接0错误/无新增警告，Kernel32/UCRT真实提供者存在，8026112B游戏新版/旧8022528B备份，等待用户复现栈",
+      "differences": [
+        {
+          "description": "Debug断言前新增诊断文件I/O/模块与栈查询；记录地址不含用户身份/正文，Release不含；未关闭断言或增加异常保护/模拟。",
+          "decision_ref": "doc/cg2d_build_acceptance_spec.md#array-assert-stack-diagnostic-20261009"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-CHARACTER-ENTRY-ASSERT-FUNC-CHARACTER-R-20261009",
+      "feature_id": "FUNC-CHARACTER",
+      "gate": "R",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "角色选择后应按原入口完成入场；不把ClientLogin成功当角色入场成功",
+      "implementation_reference": "用户2026-10-09报错截图中的当前游戏cg2d_re_client.exe；诊断版快照cg2d-re-array-assert-stack-20261009尚未复现",
+      "method": "runtime",
+      "artifacts": [
+        "doc/cg2d_build_acceptance_spec.md#array-assert-stack-diagnostic-20261009"
+      ],
+      "environment_reference": "doc/cg2d_build_acceptance_spec.md#array-assert-stack-diagnostic-20261009",
+      "input_reference": "doc/cg2d_build_acceptance_spec.md#array-assert-stack-diagnostic-20261009",
+      "output_reference": "doc/cg2d_build_acceptance_spec.md#array-assert-stack-diagnostic-20261009",
+      "observation": "用户手动运行的失败记录，本线程未启动客户端；具体故障函数/数组未定位，不将下游断言直接归因某一原角色函数",
+      "expected": "按原批处理登录并选择人物后完成入场，不触发CRT数组断言",
+      "actual": "用户截图array:531 array subscript out of range，黑画面；只读新ASCII日志ClientLogin REPLY RESULT=0/DISPATCH RESULT=0并进入第二次加载，角色入场未通过。当前无报错进程或新转储，等待诊断栈。",
+      "differences": [],
+      "result": "fail",
+      "recorded_on": "2026-10-09"
     }
   ],
   "task_acceptance": [
@@ -56473,7 +56520,8 @@
         "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-source-state",
         "doc/cg2d_login_receive_diagnostics_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#login-receive-diagnostics-debug-build",
-        "doc/cg2d_network_compatibility_spec.md#local-service-observation-20261009"
+        "doc/cg2d_network_compatibility_spec.md#local-service-observation-20261009",
+        "doc/cg2d_build_acceptance_spec.md#array-assert-stack-diagnostic-20261009"
       ]
     },
     {
@@ -57465,7 +57513,8 @@
         "doc/ui_windows/window_53.md#shop-inventory-scan-decision",
         "doc/ui_windows/window_53.md#shop-inventory-scan-source-state",
         "doc/cg2d_shop_inventory_scan_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#shop-inventory-scan-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#shop-inventory-scan-debug-build",
+        "doc/cg2d_build_acceptance_spec.md#array-assert-stack-diagnostic-20261009"
       ]
     },
     {
@@ -100871,14 +100920,14 @@
     }
   ],
   "build_validation": {
-    "step": "CAB31",
+    "step": "CAC01",
     "recorded_on": "2026-10-09",
     "configuration": "Debug",
-    "source_snapshot": "cg2d-re-shop-inventory-scan-20261009",
+    "source_snapshot": "cg2d-re-array-assert-stack-20261009",
     "configure_performed": false,
     "configure_exit_code": 0,
     "build_exit_code": 0,
-    "incremental_warning_count": 22,
+    "incremental_warning_count": 0,
     "audio_provider_diagnostic_count": 0,
     "static_libraries_exit_code": 0,
     "client_link_exit_code": 0,
@@ -100889,7 +100938,7 @@
     "whole_project_accepted": false,
     "converter_build_performed": false,
     "converter_last_build_step": "CAB15",
-    "note": "CAB31仅4BC660一个片段：首次几何扫描使用hitSlot，扫描后scanSlot从hovered承接命中；后续右键空槽扫描/实际覆写及提示消费仍用scanSlot。命中时同原值，无命中-1仅未消费局部算术值，不补0、保护或宣异常等价。20格首命中/每格窗口复读、事件低U8/模式/映射S8、满表20/按钮音效/图形/文字/取样/调用和返回及其他整CPP保持。四局部窗口211条692B，加完整空槽60条256B，重叠去重253条884B；完整原647条仅身份。必要CAA01 Debug0错误，该C4701消除、仍22窗口警告和此前其它44未闭，已见总66；只复制/长度部署8022528B，不称机器ABI/正常寿命/画面声音/旧路由/IP2或整体通过。 日志build/windows-msvc-x64/build-shop-inventory-scan-20261009.log；MAP4BC660/52C450/53B304提供者存在，客户端未增离线合成/转换代码。旧同长版本before-shop-inventory-scan-20261009已备份。未运行客户端/试包/测试/算法/工具、重生成WAV或摘要，离线最近通过仍CAB15。",
+    "note": "CAC01仅ClientEntry Debug断言诊断75行：CRT报告回调返回0/不写returnValue，WinMain寿命安装/移除，最多64地址/模块RVA记录到运行期cg2d_assert_stack.txt；原WinMain业务及Release保持，不借业务数组/旧格式器、记录身份/正文、引入依赖或关闭断言，hash参数nullptr。首次宏名称错误按SDK纠正后，仅本CPP重编、三库/客户端Debug0错误/无新增警告；不生成构建日志，原66项已见警告不核销。MAP真实Kernel32/UCRT提供者存在。8026112B新版游戏部署，旧8022528B before-array-assert-stack-20261009备份，只有复制/长度。用户手动ClientLogin日志成功但选择人物后array:531断言；本线程未运行客户端/试包/测试/算法/工具或摘要，诊断触发/具体数组与实际修复仍待；完整功能和整体未验。",
     "evidence_refs": [
       "doc/cg2d_build_acceptance_spec.md",
       "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
@@ -100973,7 +101022,8 @@
       "doc/ui_windows/window_53.md#shop-inventory-scan-decision",
       "doc/ui_windows/window_53.md#shop-inventory-scan-source-state",
       "doc/cg2d_shop_inventory_scan_evidence.json",
-      "doc/cg2d_build_acceptance_spec.md#shop-inventory-scan-debug-build"
+      "doc/cg2d_build_acceptance_spec.md#shop-inventory-scan-debug-build",
+      "doc/cg2d_build_acceptance_spec.md#array-assert-stack-diagnostic-20261009"
     ]
   }
 }

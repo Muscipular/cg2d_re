@@ -176,3 +176,14 @@
 沿CAA01既有客户端/按钮音频所需窗口承载，现Debug仅重编WindowRuntime.cpp并链接三库/真实客户端，返回0，无再配置，0错误。Sub_4BC660的scanSlot C4701消除；仍22窗口警告（C4456两/C4701十九/C4703一），此前其它44项不核销，已见总66。日志build/windows-msvc-x64/build-shop-inventory-scan-20261009.log，MAP4BC660/52C450/53B304提供者存在，未增离线合成/转换代码，不称全工程无警告。
 
 8022528B新版已复制游戏目录，旧同长版备份cg2d_re_client.exe.before-shop-inventory-scan-20261009，仅核复制/长度。[一个源码片段](ui_windows/window_53.md#shop-inventory-scan-source-state)和[局部原证](cg2d_shop_inventory_scan_evidence.json)不代全父-callee/旧99路由、正常寿命/资源/机器ABI/画面音效/IP2互通或整体通过。未运行客户端/试包/测试/算法/工具、重生成WAV或摘要，离线最近通过仍CAB15。
+
+<a id="array-assert-stack-diagnostic-20261009"></a>
+## CAC01 选择人物后数组断言诊断版（2026-10-09）
+
+用户截图显示游戏目录cg2d_re_client.exe在MSVC array:531触发array subscript out of range。新的游戏systemlog指定ASCII标签确认CONNECT OK→LOGIN QUEUE RESULT=0→SENT BYTES=63→RECEIVED BYTES=13 QUEUE=0→LOGIN REPLY RESULT=0→DISPATCH RESULT=0，随后第二次加载；这只证明本次ClientLogin往返成功，不代表角色入场或完整网络已通过。查询报错进程已不在运行，新客户端没有现成转储，具体数组/下标/调用点仍待栈，不凭截图猜修复或关闭STL断言。
+
+仅ClientEntry.cpp增加Debug私有CRT报告回调及WinMain寿命登记：实际_RPTF0走_CrtDbgReport，SDK在回调返回0时继续原报告；回调只处理_CRT_ASSERT，捕获最多64个地址、按模块记录RVA到cg2d_assert_stack.txt，哈希输出参数为nullptr，不记录身份/正文。诊断使用原生Win32文件/模块API与宿主snprintf，不借业务数组、旧格式器或日志owner；不加载符号/依赖、运行算法或更改断言返回值，保存恢复GetLastError。Release不编译/安装该回调，原WinMain业务正文保持。额外Debug诊断文件I/O为定位本次正常操作故障的具名差异，不当越界专项模拟/钳制/默认值或原功能修复。
+
+首次编译报报告宏名称错误，按当前SDK实际_CRT_RPTHOOK_INSTALL/REMOVE纠正后，现x64 Debug仅重编ClientEntry.cpp并链接三库/客户端，返回0、无新增警告；未生成构建日志文件。MAP记录真实_CrtSetReportHook2/UCRT与RtlCaptureStackBackTrace/Kernel32提供者。8026112B新版已复制游戏目录，旧8022528B备份cg2d_re_client.exe.before-array-assert-stack-20261009，只核复制/长度；未由本线程启动客户端、测试/算法/离线工具、重生成WAV或计算摘要。源码/链接完成不证明实际回调已触发。
+
+已请求用户使用原批处理再次选人，自动栈文件仍待本次复现。角色入场R记录失败且不归因未定位的具体函数，V03/V04及完整门禁保持open；原格式明文/LF、GBK/宋体/ASCII光标与SDL3/WAV不变，整体目标继续。固定快照cg2d-re-array-assert-stack-20261009；待真实RVA后修实际索引/容量/接线，不将诊断版称为修复。

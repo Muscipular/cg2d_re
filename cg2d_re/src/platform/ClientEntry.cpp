@@ -9,6 +9,77 @@
 
 #include <cstring>
 
+#ifdef _DEBUG
+#include <crtdbg.h>
+#include <cstdio>
+
+namespace {
+
+// Debug断言发生时只记录地址；不用业务容器/旧格式器，避免在越界报告中再次触发它们。
+int __cdecl RecordDebugAssertionStack(const int reportType, char*, int*)
+{
+    if (reportType != _CRT_ASSERT) {
+        return 0;
+    }
+    const DWORD previousError = GetLastError();
+    void* frames[64];
+    const USHORT frameCount = CaptureStackBackTrace(0, 64, frames, nullptr);
+    HANDLE file = CreateFileW(
+        L"cg2d_assert_stack.txt", FILE_APPEND_DATA, FILE_SHARE_READ | FILE_SHARE_WRITE,
+        nullptr, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+    if (file != INVALID_HANDLE_VALUE) {
+        char line[160];
+        const auto writeLine = [&file, &line](const int length) {
+            if (length > 0 && length < static_cast<int>(sizeof(line))) {
+                DWORD written;
+                static_cast<void>(WriteFile(file, line, static_cast<DWORD>(length), &written, nullptr));
+            }
+        };
+        writeLine(std::snprintf(
+            line, sizeof(line), "CRT ASSERT THREAD=%lu FRAMES=%u IMAGE=%p\r\n",
+            GetCurrentThreadId(), static_cast<unsigned int>(frameCount),
+            static_cast<void*>(GetModuleHandleW(nullptr))));
+        for (USHORT index = 0; index < frameCount; ++index) {
+            HMODULE module = nullptr;
+            static_cast<void>(GetModuleHandleExW(
+                GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+                reinterpret_cast<LPCWSTR>(frames[index]), &module));
+            const std::uintptr_t address = reinterpret_cast<std::uintptr_t>(frames[index]);
+            const std::uintptr_t base = reinterpret_cast<std::uintptr_t>(module);
+            writeLine(std::snprintf(
+                line, sizeof(line), "FRAME %u MODULE=%p RVA=0x%llX ADDRESS=%p\r\n",
+                static_cast<unsigned int>(index), static_cast<void*>(module),
+                static_cast<unsigned long long>(module != nullptr ? address - base : 0),
+                frames[index]));
+        }
+        static_cast<void>(CloseHandle(file));
+    }
+    SetLastError(previousError);
+    return 0; // 让CRT继续原断言弹窗/终止，不吞断言或改变returnValue。
+}
+
+// 回调仅覆盖WinMain寿命；Release不编译/注册，未安装成功也不改变客户端流程。
+class DebugAssertionReport final {
+public:
+    DebugAssertionReport()
+        : installed_(_CrtSetReportHook2(_CRT_RPTHOOK_INSTALL, RecordDebugAssertionStack) > 0)
+    {
+    }
+
+    ~DebugAssertionReport()
+    {
+        if (installed_) {
+            static_cast<void>(_CrtSetReportHook2(_CRT_RPTHOOK_REMOVE, RecordDebugAssertionStack));
+        }
+    }
+
+private:
+    bool installed_;
+};
+
+} // namespace
+#endif
+
 namespace cg::platform {
 
 WNDCLASSA gWindowClass {};
@@ -19,6 +90,10 @@ WNDCLASSA gWindowClass {};
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR commandLine, int showCommand)
 {
     using namespace cg::platform;
+
+#ifdef _DEBUG
+    const DebugAssertionReport assertionReport;
+#endif
 
     char fileName[64];
     char line[1028];

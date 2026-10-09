@@ -4575,3 +4575,15 @@ BUK01必要静态已通过：完整MapSceneDrawing仅一个既有父正文四片
 正常地图加载后第四平面生产已沿469030/MapSceneDrawing既有调用接线；本步只列原三个后窗及当前接线，不据此声明全部动作消费/owner-alias寿命、全父/callee/数值/机器ABI/像素运行闭合。两R7为表/对齐真实用途，非功能排除。
 
 BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/CUT三hit BYTE取样和obj→tile→walk短路恢复，原共享WORD平面/5202B全清/两轮资源查询-flag及S16覆盖/模式转发/正常返回和全部其它源码/声明/owner保持。两原根381条1163B/七页、三个外部后窗、63B跳表及3B LEA/19B NOP用途与证据/台账/文档模型一致。汇总及 -Check 通过，派生实值：语义1700/有效1693、合同1811（49.21%）、处置841/E988、R7已审407/余2654、LOOP112/MAP109。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持。未编译、测试或运行，完整正常生产消费/寿命/数值/x87/机器ABI/像素及R8继续。命名快照：cg2d-re-map-walkability-byte-sampling-20261008。
+
+
+<a id="title-none-alias-20261009"></a>
+## CAC03 未装备称号的原字节别名（2026-10-09）
+
+用户实际断言栈经重编前的CAC01诊断版EXE/PDB离线解析：主模块返回RVA 12E0FA为std::array<TitleRecord,64>::operator[]，24D822为BorrowPlayerDisplayText（SceneState.cpp:8886），1D7185为Sub_442F70（YobiRuntime.cpp:6140）；随后Sub_4417E0 → YobiUpdateAll → DrawNormalScene → World::Update。解析使用返回地址-1定位调用源码行，未运行或附加客户端。这是普通场景头顶称号读取故障；栈未记录数值，不能声称已直接取得本次具体下标。日志ASCII事件只证明ClientLogin成功，不代完整角色入场验收。
+
+本机服务现源char/char_data.c:126将EquipTitle初始化为-1，char/title.c:314移除称号时也写-1，char/char_send.c:1118按CHAR_CP_TITLE原样发送该整数。它是正常的未装备状态。原4435EE..44360E不钳制下标，实际地址为FF0510 + title * 1Ch；title=-1时是FF04F4，恰为第二条角色记录FF0474+80h，属于已有角色资料尾部。原两页面4754FF..47551C、478094..4780B1同样计算该地址。
+
+本次裁决只恢复这一已证正常-1字节别名：在既有WorldUpdateDependencies/SceneState增加BorrowTitleText(index)，-1借用login::gCharacterRecords[1]的+80h，不制造空串、复制或清尾部；其它下标保留原称号表读取。BorrowPlayerDisplayText模式3及474FB0/478010两页面共用此读取，页面先采样titleIndex、再取目标槽、再借用文本的顺序保持。原64项表、两条94h角色记录及标题解析/存档/格式化/绘制均不改，不扩大数组、关闭断言、加泛化越界保护或异常模拟。
+
+验收分开记录：真实旧栈定位已取得；正常-1原地址与已有owner的静态对应、三消费接线及必要Debug编译/链接随后核对；新版实际进入游戏仍需用户手动复验，未将旧失败R改为通过。按本次用户要求更新游戏EXE无需备份；原协议明文/LF、GBK/宋体/ASCII光标、SDL3/WAV保持。

@@ -5309,3 +5309,14 @@ CAA01必要Debug仅重编本CPP并链接三库/客户端，0错误、该C4701消
 首次构建宏名C2065，读取SDK确认实际_CRT_RPTHOOK_INSTALL/REMOVE后纠正；必要Debug仅重编本CPP/三库及客户端返回0、无新增警告，不生成构建日志文件，也不核销原66项。MAP真实UCRT报告与Kernel32捕栈提供者存在。8026112B新版已复制游戏目录，旧8022528B before-array-assert-stack-20261009备份，仅复制/长度。本线程未启动客户端/试包/测试/算法/工具或摘要，已请求用户用原批处理再次选人；运行期cg2d_assert_stack.txt当前未生成，实际捕获与根因修复仍待该反馈。
 
 限定启动S通过及用户角色入场R失败登记，无新增原身份/成员/处置或门禁关闭，V03/V04仍open。整源与HEAD+两处Debug插入、Release正文/登记簿精确预期、56任务及全feature.gates/成员/处置/执行策略保持、UTF8无BOM/LF与静态生成/Check通过；实值语义1906/有效1896/无F代码10、文档2006/3680（54.51%）、F1087/E1295、R7已审485余2576、184叶验收0/60任务关闭11及整体false保持。证据doc/cg2d_build_acceptance_spec.md#array-assert-stack-diagnostic-20261009，快照cg2d-re-array-assert-stack-20261009；精确提交排除用户原差异，目标继续，收到实际RVA后修对应索引/容量或接线。
+
+
+## CAC03 选择人物后称号数组越界修复（2026-10-09）
+
+用户提供CAC01实际断言栈，重编前本地EXE/PDB离线解析定位到TitleRecord64数组→BorrowPlayerDisplayText→442F70→4417E0→普通场景。栈未记录数值，不将猜测当实测下标；服务现源正常EquipTitle=-1的初始化/移除/发送及原三个读点已证。原FF0510-1Ch=FF04F4为第二角色记录+80h；新端拆分存储时直接索引独立数组丢失该正常别名。
+
+三源码13增3删：新增BorrowTitleText，-1借用已有角色尾部，其余索引保持原表；模式3和474FB0/478010两页面共用，数据/owner/格式/显示和页面采样顺序保持，无扩表、空串补值/清尾部、钳制或断言关闭。整源与HEAD+明确修改相等、UTF-8无BOM/LF及原地址对应静态通过。既有Yobi文档记录裁决，不新增子SPEC，原格式明文/LF、GBK/宋体/ASCII光标与SDL3/WAV保持。
+
+必要Debug客户端及三库编译链接返回0，头文件传播重编有63项既有Yobi/Window警告（9 C4456/49 C4701/5 C4703），新helper无诊断；未生成构建日志，MAP实际提供者存在。8026112B客户端直接覆盖游戏目录，无备份/摘要；本线程未运行客户端/试包/测试/算法/工具。用户单独构建不记录/提交、更新EXE无需备份的要求同步AGENTS。
+
+三已有语义仅补别名元数据/引用，一已有处置加引用，两有限MAP I/S；原用户R失败保留并补真实定位，未冒称新版运行成功。登记簿/语义清单精确增量及派生静态汇总核对后提交，全部成员/任务/门禁和用户既有差异保持；已请求手动复验，完整目标继续。依据doc/cg2d_yobi_runtime.md#title-none-alias-20261009及doc/cg2d_build_acceptance_spec.md#title-none-alias-debug-build-20261009，快照cg2d-re-title-none-alias-20261009。

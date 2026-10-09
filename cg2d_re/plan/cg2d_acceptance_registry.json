@@ -55822,20 +55822,75 @@
       "gate": "R",
       "epoch": "2026-10-04.1",
       "baseline_reference": "角色选择后应按原入口完成入场；不把ClientLogin成功当角色入场成功",
-      "implementation_reference": "用户2026-10-09报错截图中的当前游戏cg2d_re_client.exe；诊断版快照cg2d-re-array-assert-stack-20261009尚未复现",
+      "implementation_reference": "用户2026-10-09报错截图中的当前游戏cg2d_re_client.exe；诊断版快照cg2d-re-array-assert-stack-20261009尚未复现；用户随后提供CAC01诊断版真实调用栈，CAC03修复版运行仍待",
       "method": "runtime",
       "artifacts": [
-        "doc/cg2d_build_acceptance_spec.md#array-assert-stack-diagnostic-20261009"
+        "doc/cg2d_build_acceptance_spec.md#array-assert-stack-diagnostic-20261009",
+        "doc/cg2d_yobi_runtime.md#title-none-alias-20261009"
       ],
       "environment_reference": "doc/cg2d_build_acceptance_spec.md#array-assert-stack-diagnostic-20261009",
       "input_reference": "doc/cg2d_build_acceptance_spec.md#array-assert-stack-diagnostic-20261009",
       "output_reference": "doc/cg2d_build_acceptance_spec.md#array-assert-stack-diagnostic-20261009",
-      "observation": "用户手动运行的失败记录，本线程未启动客户端；具体故障函数/数组未定位，不将下游断言直接归因某一原角色函数",
+      "observation": "用户手动选人实际故障栈，本线程只离线解析重编前PDB；已定位普通场景称号读取，栈未记录具体下标数值。原失败保留，未宣新版运行通过。",
       "expected": "按原批处理登录并选择人物后完成入场，不触发CRT数组断言",
-      "actual": "用户截图array:531 array subscript out of range，黑画面；只读新ASCII日志ClientLogin REPLY RESULT=0/DISPATCH RESULT=0并进入第二次加载，角色入场未通过。当前无报错进程或新转储，等待诊断栈。",
+      "actual": "用户截图array:531 array subscript out of range，黑画面；只读新ASCII日志ClientLogin REPLY RESULT=0/DISPATCH RESULT=0并进入第二次加载，角色入场未通过。当前无报错进程或新转储，等待诊断栈。 用户新增栈确认TitleRecord64数组operator[]→BorrowPlayerDisplayText→442F70→4417E0→YobiUpdateAll→DrawNormalScene；正常未装备-1字节别名已修复，最新入场仍待复验。",
       "differences": [],
       "result": "fail",
       "recorded_on": "2026-10-09"
+    },
+    {
+      "feature_id": "FUNC-MAP",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "4435EE..44360E、4754FF..47551C、478094..4780B1的FF0510+S32索引*1Ch；正常-1地址FF04F4属于第二角色记录尾部。本机服务现源EquipTitle=-1及原整数发送合同。",
+      "implementation_reference": "Git固定命名快照 cg2d-re-title-none-alias-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_yobi_runtime.md#title-none-alias-20261009",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/ui/WindowRuntime.cpp",
+        "include/cg/LoginRequest.hpp"
+      ],
+      "observation": "只针对真实栈定位的称号表读取及原-1正常字节别名，不代全父/数值下标采集或新版运行验收。",
+      "expected": "正常-1借用原FF04F4同一字节owner；其它下标仍从原64项称号表读取，不造空串/复制/清尾部/扩表/钳制或关闭断言。",
+      "actual": "新增BorrowTitleText，-1借用gCharacterRecords[1]+80h；模式3与474FB0/478010两页面接入，三源码13增3删/其余逐字保持。必要Debug编译链接返回0，63项既有Yobi/Window警告，新helper无诊断；8026112B客户端直接覆盖游戏目录，无备份/构建日志文件。本线程未运行客户端、测试、算法或摘要；新版入场仍待。",
+      "differences": [
+        {
+          "description": "拆分存储后显式解析原正常-1角色尾部别名；保留原字节，不新增业务默认值或泛化越界处理。",
+          "decision_ref": "doc/cg2d_yobi_runtime.md#title-none-alias-20261009"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09",
+      "id": "E-TITLE-NONE-ALIAS-FUNC-MAP-I-20261009",
+      "gate": "I"
+    },
+    {
+      "feature_id": "FUNC-MAP",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "4435EE..44360E、4754FF..47551C、478094..4780B1的FF0510+S32索引*1Ch；正常-1地址FF04F4属于第二角色记录尾部。本机服务现源EquipTitle=-1及原整数发送合同。",
+      "implementation_reference": "Git固定命名快照 cg2d-re-title-none-alias-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_yobi_runtime.md#title-none-alias-20261009",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/ui/WindowRuntime.cpp",
+        "include/cg/LoginRequest.hpp"
+      ],
+      "observation": "只针对真实栈定位的称号表读取及原-1正常字节别名，不代全父/数值下标采集或新版运行验收。",
+      "expected": "正常-1借用原FF04F4同一字节owner；其它下标仍从原64项称号表读取，不造空串/复制/清尾部/扩表/钳制或关闭断言。",
+      "actual": "新增BorrowTitleText，-1借用gCharacterRecords[1]+80h；模式3与474FB0/478010两页面接入，三源码13增3删/其余逐字保持。必要Debug编译链接返回0，63项既有Yobi/Window警告，新helper无诊断；8026112B客户端直接覆盖游戏目录，无备份/构建日志文件。本线程未运行客户端、测试、算法或摘要；新版入场仍待。",
+      "differences": [
+        {
+          "description": "拆分存储后显式解析原正常-1角色尾部别名；保留原字节，不新增业务默认值或泛化越界处理。",
+          "decision_ref": "doc/cg2d_yobi_runtime.md#title-none-alias-20261009"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09",
+      "id": "E-TITLE-NONE-ALIAS-FUNC-MAP-S-20261009",
+      "gate": "S"
     }
   ],
   "task_acceptance": [
@@ -62313,7 +62368,8 @@
         "doc/cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-decision",
         "doc/cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-acceptance",
         "doc/cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-source-state",
-        "doc/cg2d_actor_chat_consumer_sampling_evidence.json"
+        "doc/cg2d_actor_chat_consumer_sampling_evidence.json",
+        "doc/cg2d_yobi_runtime.md#title-none-alias-20261009"
       ]
     },
     {
@@ -100920,14 +100976,14 @@
     }
   ],
   "build_validation": {
-    "step": "CAC01",
+    "step": "CAC03",
     "recorded_on": "2026-10-09",
     "configuration": "Debug",
-    "source_snapshot": "cg2d-re-array-assert-stack-20261009",
+    "source_snapshot": "cg2d-re-title-none-alias-20261009",
     "configure_performed": false,
     "configure_exit_code": 0,
     "build_exit_code": 0,
-    "incremental_warning_count": 0,
+    "incremental_warning_count": 63,
     "audio_provider_diagnostic_count": 0,
     "static_libraries_exit_code": 0,
     "client_link_exit_code": 0,
@@ -100938,7 +100994,7 @@
     "whole_project_accepted": false,
     "converter_build_performed": false,
     "converter_last_build_step": "CAB15",
-    "note": "CAC01仅ClientEntry Debug断言诊断75行：CRT报告回调返回0/不写returnValue，WinMain寿命安装/移除，最多64地址/模块RVA记录到运行期cg2d_assert_stack.txt；原WinMain业务及Release保持，不借业务数组/旧格式器、记录身份/正文、引入依赖或关闭断言，hash参数nullptr。首次宏名称错误按SDK纠正后，仅本CPP重编、三库/客户端Debug0错误/无新增警告；不生成构建日志，原66项已见警告不核销。MAP真实Kernel32/UCRT提供者存在。8026112B新版游戏部署，旧8022528B before-array-assert-stack-20261009备份，只有复制/长度。用户手动ClientLogin日志成功但选择人物后array:531断言；本线程未运行客户端/试包/测试/算法/工具或摘要，诊断触发/具体数组与实际修复仍待；完整功能和整体未验。",
+    "note": "CAC03真实断言栈定位TitleRecord64的头顶称号读取。按原4435EE..44360E和两称号页面及现服务正常-1合同，三源码13增3删恢复FF04F4=第二角色记录+80h字节别名，保原表容量/解析/内容与其它下标；无空串补值、扩表、钳制或断言关闭。必要Debug及三库/客户端返回0，63项既有Yobi/Window诊断（C4456九/C4701四十九/C4703五），新helper无诊断，不称全项目无警告；未生成构建日志。8026112B客户端已直接覆盖游戏目录，按用户最新要求无需备份。真实旧栈定位及静态/链接通过；新版角色入场、完整功能及整体SPEC待验，本线程未运行客户端/测试/算法/工具或摘要。",
     "evidence_refs": [
       "doc/cg2d_build_acceptance_spec.md",
       "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",

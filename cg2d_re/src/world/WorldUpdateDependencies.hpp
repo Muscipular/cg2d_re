@@ -1151,6 +1151,7 @@ char* BorrowPlayerStallName() noexcept; // 原FF02B8的text15BB8，可写借用�
 void CopyPlayerBarValues(
     platform::LegacyCryptInt* hp, platform::LegacyCryptInt* maxHp,
     platform::LegacyCryptInt* fp, platform::LegacyCryptInt* maxFp);
+const char* BorrowTitleText(std::int32_t index) noexcept; // 原FF0510+index*1Ch；-1借用FF04F4角色尾部。
 const char* BorrowPlayerDisplayText(std::int16_t mode) noexcept; // 模式1..6原文本，不复制。
 extern std::uint32_t gActorBarsEnabled5AC490; // 原虚拟零区，442F70与后续设置UI共享。
 std::int32_t ReadPlayerWalkSpeed() noexcept; // 原FDA870。

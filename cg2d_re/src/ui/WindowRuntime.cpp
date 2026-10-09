@@ -41182,7 +41182,7 @@ void Sub_474FB0()
 
     const std::int32_t titleIndex = world::detail::ReadPlayerTitleIndex();
     auto* const titleData = static_cast<WindowTextData*>(gCurrentWindow->elements[6].data);
-    const char* const title = world::detail::gTitlesFF0508[titleIndex].text.data();
+    const char* const title = world::detail::BorrowTitleText(titleIndex);
     const std::size_t titleLength = std::strlen(title) + 1;
     std::memcpy(titleData->text, title, titleLength);
 
@@ -43620,7 +43620,7 @@ void Sub_478010()
 
     const std::int32_t titleIndex = world::detail::ReadPlayerTitleIndex();
     auto* const titleData = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
-    const char* const title = world::detail::gTitlesFF0508[titleIndex].text.data();
+    const char* const title = world::detail::BorrowTitleText(titleIndex);
     const std::size_t titleLength = std::strlen(title) + 1;
     std::memcpy(titleData->text, title, titleLength);
 

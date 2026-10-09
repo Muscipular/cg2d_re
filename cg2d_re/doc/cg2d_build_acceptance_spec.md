@@ -187,3 +187,15 @@
 首次编译报报告宏名称错误，按当前SDK实际_CRT_RPTHOOK_INSTALL/REMOVE纠正后，现x64 Debug仅重编ClientEntry.cpp并链接三库/客户端，返回0、无新增警告；未生成构建日志文件。MAP记录真实_CrtSetReportHook2/UCRT与RtlCaptureStackBackTrace/Kernel32提供者。8026112B新版已复制游戏目录，旧8022528B备份cg2d_re_client.exe.before-array-assert-stack-20261009，只核复制/长度；未由本线程启动客户端、测试/算法/离线工具、重生成WAV或计算摘要。源码/链接完成不证明实际回调已触发。
 
 已请求用户使用原批处理再次选人，自动栈文件仍待本次复现。角色入场R记录失败且不归因未定位的具体函数，V03/V04及完整门禁保持open；原格式明文/LF、GBK/宋体/ASCII光标与SDL3/WAV不变，整体目标继续。固定快照cg2d-re-array-assert-stack-20261009；待真实RVA后修实际索引/容量/接线，不将诊断版称为修复。
+
+
+<a id="title-none-alias-debug-build-20261009"></a>
+## CAC03 选人后称号读取修复版（2026-10-09）
+
+用户提供真实cg2d_assert_stack.txt。重编前用本地DbgHelp离线读取CAC01的EXE/PDB，仅主模块RVA转换为首选基址；返回地址-1定位：12E0FA→TitleRecord64::operator[]/array:531，24D822→BorrowPlayerDisplayText/SceneState:8886，1D7185→442F70/YobiRuntime:6140，后续4417E0/YobiUpdateAll/DrawNormalScene/World::Update/MainLoop/WinMain。未运行或附加客户端。当前ClientLogin成功已证明，角色入场旧失败仍保留，栈未提供下标数值。
+
+修复[已证正常-1字节别名](cg2d_yobi_runtime.md#title-none-alias-20261009)：新增私有BorrowTitleText，模式3与474FB0/478010两页面共用，原FF04F4借用第二角色记录+80h；保内容/owner、页面取样序和其它索引，不扩表、补空串/清尾部、关闭断言或添泛化保护。三源码与HEAD+明确三组修改全文一致，13增3删及UTF-8无BOM/LF、原地址算式静态核对通过。
+
+现有windows-msvc-x64-debug客户端目标及三库返回0，无再配置；头文件传播重编产生63项既有Yobi/Window警告（C4456九、C4701四十九、C4703五），新helper无诊断，不称全工程零警告。未生成构建日志，MAP含真实BorrowTitleText。8026112B新版已直接复制游戏目录，按用户本次要求无需备份，只核复制/长度；未启动客户端/试包、测试/算法/离线工具或计算摘要。单独构建不记录日志/进度及不自动提交的偏好也写入AGENTS，当前记录属于源码修复开发步。
+
+已更新有限源级I/S及原R失败的定位信息，未关闭V03/V04或任何完整功能门禁。已请求用户手动复验新版入场；整体SPEC、完整互通/资源/正常寿命/画面与声音仍未验。命名快照cg2d-re-title-none-alias-20261009。

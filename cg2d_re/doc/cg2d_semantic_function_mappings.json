@@ -124206,7 +124206,8 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_7.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_yobi_runtime.md#title-none-alias-20261009"
       ],
       "boundary": "仅七现std::sprintf标识符接真实53B304，void签名及其余正文保持。256B未清复用buffer，等级/经验/HP/FP/下级经验/决斗/惩罚均S32；原maxHp→hp、maxFp→fp取样顺序不变，401EA0原取值目标与既有401EC0实现桥不重验。nextExp的-1比较与非哨兵分支再次读取保持，九字符减号fallback不计格式点。每格式后重新取得当前窗口元素1/9/11/12/10/13/2并沿原扫描复制，惩罚>0门槛及复制后元素2/16可见发布不变。肖像/属性条/名称/职业/公会两次索引/称号/种族/伤病/坐标逻辑、字段宽度/共享owner/生命周期保持；内联扫描复制不增加StrLen/StrCpy入口统计。",
       "original_incoming": [
@@ -124357,7 +124358,14 @@
           "relationship": "惩罚S32>0才格式，元素2复制后重取窗口发布元素2/16可见"
         }
       ],
-      "verification_level": "原651指令仅统计，读取186新格式/参数及消费者邻窗，余465/已过正文/核心不重验；七原点/callee/七现表达式/新586390含NUL字节/S32与256B未清局部/取样-复制次序/整份源限定静态核对；一普通call引用474540@474540仅登记、不推完整父路由或窗口7验收；未构建或执行"
+      "verification_level": "原651指令仅统计，读取186新格式/参数及消费者邻窗，余465/已过正文/核心不重验；七原点/callee/七现表达式/新586390含NUL字节/S32与256B未清局部/取样-复制次序/整份源限定静态核对；一普通call引用474540@474540仅登记、不推完整父路由或窗口7验收；未构建或执行",
+      "title_none_alias": {
+        "normal_title_index": -1,
+        "original_text_address": "0xFF04F4",
+        "storage_alias": "login::gCharacterRecords[1]+0x80",
+        "source_helper": "cg::world::detail::BorrowTitleText",
+        "evidence_document": "doc/cg2d_yobi_runtime.md#title-none-alias-20261009"
+      }
     },
     {
       "original_entry": "0x47A7A0",
@@ -129957,7 +129965,8 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_9.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_yobi_runtime.md#title-none-alias-20261009"
       ],
       "boundary": "仅一现callee接47805C，void()与完整称号刷新正文保持。名称复制后读FDA704同源等级S32，在未清256B buffer按%3d格式，随后重取当前window/元素7 data→测长→text含NUL复制；原称号索引/当前称号/草稿/固定编辑身份-原型context/两次比较/坐标与六行列表逐次window来源不动，不加保护/预清/缓存或改关联方，不据本步验收完整窗口9/编辑/父路由/画面或运行。",
       "original_incoming": [
@@ -129995,7 +130004,14 @@
           "relationship": "原FDA704普通S32等级→buffer未清256B→格式后重取当前window/data→测strlen+1→读text并含NUL复制至元素7，其余文本/输入与源身份保持"
         }
       ],
-      "verification_level": "原208统计/只读25等级格式-参数-data先取/含NUL消费邻窗，余183及已过正文/核心不重验；一原点/一现callee、553FCC已登记原字节/S32与未清256B/元素7和来源/消费次序、整份源仅一标识符限定静态核对。47752C@47752C一普通caller/data0只登记，未构建执行。"
+      "verification_level": "原208统计/只读25等级格式-参数-data先取/含NUL消费邻窗，余183及已过正文/核心不重验；一原点/一现callee、553FCC已登记原字节/S32与未清256B/元素7和来源/消费次序、整份源仅一标识符限定静态核对。47752C@47752C一普通caller/data0只登记，未构建执行。",
+      "title_none_alias": {
+        "normal_title_index": -1,
+        "original_text_address": "0xFF04F4",
+        "storage_alias": "login::gCharacterRecords[1]+0x80",
+        "source_helper": "cg::world::detail::BorrowTitleText",
+        "evidence_document": "doc/cg2d_yobi_runtime.md#title-none-alias-20261009"
+      }
     },
     {
       "original_entry": "0x478A10",
@@ -148918,7 +148934,8 @@
         "doc/cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-decision",
         "doc/cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-acceptance",
         "doc/cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-source-state",
-        "doc/cg2d_actor_chat_consumer_sampling_evidence.json"
+        "doc/cg2d_actor_chat_consumer_sampling_evidence.json",
+        "doc/cg2d_yobi_runtime.md#title-none-alias-20261009"
       ],
       "verification_level": "原1220条统计仅读268名称及邻控制流；十真实call/同格式字节复用、六玩家借用映射/非玩家字段与三共尾/现源码一个标识符静态核对，余952条及状态图标/玩家和资源生产/4417E0调用者不重验，未执行。；AAS01追加两局部窗143条495B和两root元数据/type17关系，原全1220其它1077条不重验；新增静态不代先前名称10点/一源码表达式或完整父/运行；BTJ01完整局部134条412B/三页有限静态，父只元数据/唯一caller，未复验其它1086条；原所有名称/附件字段保，不执行。",
       "boundary": "名称S16mode>0门禁；玩家模式1..6/name和ownTitle/动态原称号表/三文本，颜色1/4/5/2/0/0；非玩家100/非80000及image非0时六字段/颜色0/1/4/5/2/2，其他80200回退不限制正模式<=6，含200且非空title优先否则name；未清256B格式后Y/测宽/X/绘制。只stdcallee变化，旧对象/状态/字段别名/生命周期/原声效与所有其他正文保持，不加空串skip/转码/截断/保护；十原点共一个现表达式，原父/完整名称/画面/资源和CRT/运行/总PLAN未闭合。；AAS01入口保真实空action早退，frameX→payload→frameY→骑乘槽→index，两帧偏移用同骑乘快照；首附件绘制初空值判断复用initialChild写X，后三目标槽先取再读主Y/worldX/Y、动画及两偏移子槽逐次读取，图形槽在X相加前取。创建/刷新/失败/MarkDeath清槽和条/聊天/索引别名/名称/挂件/action30正文保持；不新增保护或回绕/故障模拟，不冒称其它1077条、完整callee/生产/owner寿命/SDK/CPU浮点/场景运行已验。 BTJ01既有1073/Sub_442F70仅原聊天窗口[4433C6,443562)134条412B/三页53+70+11，8direct六目标/一Tick/11jump无RET；父元数据1220条及唯一4417E0@441D9B保，非完整root复验、不代其余1086条。YobiRuntime.cpp一原业务体六唯一片段：过期旧text地址先取再清本地flags且复用同地址NULL/free；未过期原气泡/flags短路才取drawableText并复用同谓词指针测首行，fullS32 font当场读；底部metricFont现场样本复用给第二测宽，第二text新取+41；两绘制依原text→真实低W8 color/font→真实低W16 actionX取样，第二Y先算再X/第一X先取再Y，负width/2向零及最终真实S16保持；首Draw后九宫格X另现场读全W32，不误缩为W16。原unsigned deadline<=tick、零length仍覆盖stateIndex别名/非零含负数绘制、首测宽→图高→现场Y→font指标/两行maxwidth/第二Draw后重新font指标扣Y/四callee次序、九宫格原图/大小/颜色/参数、fallback原Y→X/后续名称及所有其它正文保。1073十原名称格式点/生产消费与AAS01全部字段和两LOOP/MAP成员/原adapted整处置保后追加；无新F/语义/处置/R7/排除，TEXT27→28及两局部I-S。字段owner/布局不变、不扩普通S32或造异常/保护/钳制/拒绝/补零/限长/helper；完整父/callee/全部正常文本分配绘制过期寿命、SDK-ABI/画面/明文互通/运行未验",
@@ -148972,6 +148989,13 @@
         "full_original_parent_or_machine_abi_verified": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "title_none_alias": {
+        "normal_title_index": -1,
+        "original_text_address": "0xFF04F4",
+        "storage_alias": "login::gCharacterRecords[1]+0x80",
+        "source_helper": "cg::world::detail::BorrowTitleText",
+        "evidence_document": "doc/cg2d_yobi_runtime.md#title-none-alias-20261009"
       }
     },
     {

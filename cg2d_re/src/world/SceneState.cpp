@@ -8878,12 +8878,21 @@ void CopyPlayerBarValues(
     platform::legacy_crypt_int::CopyPayload(maxFp, &gPlayerRuntime.maxFp);
 }
 
+const char* BorrowTitleText(const std::int32_t index) noexcept
+{
+    // 原FF0510-1Ch=FF04F4，未装备称号借用第二条角色记录+80h的原字节。
+    if (index == -1) {
+        return reinterpret_cast<const char*>(login::gCharacterRecords[1].data() + 0x80);
+    }
+    return gTitlesFF0508[index].text.data();
+}
+
 const char* BorrowPlayerDisplayText(const std::int16_t mode) noexcept
 {
     switch (mode) {
     case 1: return gPlayerRuntime.name.data();
     case 2: return gPlayerRuntime.ownTitle.data();
-    case 3: return gTitlesFF0508[gPlayerRuntime.titleIndex100].text.data();
+    case 3: return BorrowTitleText(gPlayerRuntime.titleIndex100);
     case 4: return gPlayerRuntime.text12A.data();
     case 5: return gPlayerRuntime.text14B.data();
     case 6: return gPlayerRuntime.text15BB8.data();

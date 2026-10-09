@@ -6,8 +6,8 @@
 
 ## 1. 当前口径
 
-- 原函数3680，语义1993条/1969个原ID＋24条区间身份；合同关联2079/3680（56.49%），已审F处置1113。关联率不是实现或验收完成率。
-- 导入16/218、区间2021/3061已审，区间剩1040；18个pending是历史跟踪入口，不等于18个未实现函数。
+- 原函数3680，语义2021条/1975个原ID＋46条区间身份；合同关联2085/3680（56.66%），已审F处置1113。关联率不是实现或验收完成率。
+- 导入16/218、区间2533/3061已审，区间剩528；18个pending是历史跟踪入口，不等于18个未实现函数。
 - 184个登记叶功能整项验收0，B/I/W/S/R完整门禁均0通过，六类closure均open；局部证据1325条不得代替完整门禁。
 - 历史Debug链接及CAC04选人入场用户复验保留；当前不构建、不测试、不运行、不查产物、不计算摘要、单线程。音频开发已恢复，运行验收仍受限。
 - 已知格式库存1007真实＋13排除＋3替换＝1023；旧“6音频暂停”“链接剩8项”“version缺定义”“G05只有使用关系”等摘要已被后续实施覆盖。
@@ -62,7 +62,7 @@
 | U01 / 宠物技能目录 | 开放；旧58–61页面/标量已有；目录生产采集器已准备但未执行 | CA0478数组定义/容量/生产、图号/页数运行时生产；先获本项原端动态许可，捕写者后追完整循环/owner | [旧58–61](../doc/ui_windows/legacy_pet_skill_catalog.md)；[生产取证SPEC](../doc/cg2d_pet_catalog_production_spec.md) |
 | U02 / 交易名单 | 开放；旧51消费/页号/标量已有；名单生产采集器已准备但未执行 | CB1D1C的17B名单容量/定义/生产及数量/页数写者 | [TTP01](../doc/cg2d_trade_target_production_spec.md#trade-target-production-source-state)；[旧51](../doc/ui_windows/legacy_trade_target_list.md) |
 | U03 / version payload | 已关闭（局部源码合同）；BRT01已落实const char[1]零前缀owner、两次只读外传和首BYTE零分支 | 本源码合同已收口；完整角色/互通/生命周期仍按V03等验收。1B为正常读取足迹对应新端容量，原未使用预留尾部不伪称已知 | [创建](../doc/cg2d_character_select_scene.md#version-zero-prefix-current)；[声明](../src/CharacterSelectSceneDependencies.hpp) |
-| U04 / 旧表与键表真实分派 | 开放；现代及大量旧页面/键入口已有；CAC10资料切页两轴取样已修 | 57C368外层间接路由、键表真实分派及输入焦点 | [BVL01](../doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state)；[BVM01](../doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state) ；[CAC10](../doc/ui_windows/shared_profile.md#profile-page-coordinate-source-state-20261009) |
+| U04 / 旧表与键表真实分派 | 开放；现代及大量旧页面/键入口已有；CAC10资料切页两轴取样已修，CAC19补22段代码与原型/旧表来源 | 57C368外层间接路由、键表真实分派及输入焦点；原表/现定义来源不代新端真实调用 | [BVL01](../doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state)；[BVM01](../doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state) ；[CAC10](../doc/ui_windows/shared_profile.md#profile-page-coordinate-source-state-20261009)；[CAC19](../doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state) |
 | U05 / 商店/修理/鉴定 | 开放；旧62完整父、63–71页面和单W32命令读取已有；模式/生产仍待 | 独立商品/图号/页数/初页与C9A94C实际生产；未写第二命令/旧路由及完整回复/寿命 | [旧62](../doc/ui_windows/legacy_shop_choice.md)；[SCP01](../doc/cg2d_shop_choice_body_spec.md#shop-choice-body-source-state) |
 | U06 / 仓库/交换/交出 | 开放；旧72–76、83–85页面/格式与确认局部适配已有 | D30404/CB1DDC容量、宠物展示、独立商品/页数、共用owner与实际生产闭环；P05局部已关闭不代全链。 | [仓库](../doc/ui_windows/legacy_storage_items.md)；[交换](../doc/ui_windows/legacy_barter_list.md) |
 | U07 / 旧55技能正文 | 开放；旧55五行正文同源生产和字段解析已有局部证据 | 其他独立状态/图号生产消费、旧表外路由/请求与跨页覆写后的借用寿命 | [LSP01](../doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state)；[技能选择](../doc/ui_windows/legacy_skill_choice.md) |
@@ -93,10 +93,10 @@
 
 | 编号 / 范围 | 任务状态与已有成果 | 下一步及关闭边界 | 主证据 |
 |---|---|---|---|
-| R01 / 函数分母 | 开放；原3680函数纳管；1964语义记录/1943个原ID，1097个F处置 | 21条无独立F记录按原区间身份绑定；其余逐ID处置、功能成员/完整本体、混合共享与未知继续核定，不造函数填数。 | [机器语义清单](../doc/cg2d_semantic_function_mappings.json) |
-| R02 / 数据/间接目标 | 开放；218导入已审16；CAC18补49表/19索引、三段回调及八原型，完整闭包未定 | 未知间接alias/完整owner/重进/动态边，202导入及数据/常量/生命周期 | [NAS01](../doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state)；[NWT01](../doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure)；[CAC18](../doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-source-state) |
-| R03 / 未归属区间 | 开放；3061区间已审2021，剩1040；CAC18第六批512完整用途已纳管 | 沿候选清单处理尚未归属区间，不重做已证分类 | [区间分类合同](../doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-source-state) |
-| R04 / 台账一致性 | 开放；CAC18精确同步分类/语义/已知成员/任务引用；完整门禁及历史证据保持 | 按实际功能小步同步同一记录及证据；继续处理后续差异，不把本次分类登记当全库语义复审或关闭R04。 | [追踪验收体系](../doc/cg2d_traceability_acceptance_spec.md)；[CAC18](../doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-source-state) |
+| R01 / 函数分母 | 开放；原3680函数纳管；2021语义记录/1975个原ID，1113个F处置 | 46条无独立F记录按原区间身份绑定；其余逐ID处置、功能成员/完整本体、混合共享与未知继续核定，不造函数填数。 | [机器语义清单](../doc/cg2d_semantic_function_mappings.json)；[CAC19](../doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state) |
+| R02 / 数据/间接目标 | 开放；218导入已审16；CAC19补15表/两索引、22代码及原型/旧表来源，完整闭包未定 | 未知间接alias/完整owner/重进/动态边，202导入及数据/常量/生命周期 | [NAS01](../doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state)；[NWT01](../doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure)；[CAC19](../doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state) |
+| R03 / 未归属区间 | 开放；3061区间已审2533，剩528；CAC19第七批512完整用途已纳管 | 沿候选清单处理尚未归属区间，不重做已证分类 | [区间分类合同](../doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state) |
+| R04 / 台账一致性 | 开放；CAC19精确同步分类/语义/已知成员/任务引用；完整门禁及历史证据保持 | 按实际功能小步同步同一记录及证据；继续处理后续差异，不把本次分类登记当全库语义复审或关闭R04。 | [追踪验收体系](../doc/cg2d_traceability_acceptance_spec.md)；[CAC19](../doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state) |
 | R05 / 例外收口 | 开放；屏幕键盘/newest/两加密叶/低色深及混合入口已有具名边界 | 核共享callee、混合32位分支、参数/状态保留及排除接线 | [总SPEC](cg2d_full_reconstruction_plan.md) |
 
 ## 8. V01–V06：完整验收

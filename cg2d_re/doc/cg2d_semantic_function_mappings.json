@@ -95820,7 +95820,12 @@
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
-        "doc/ui_windows/window_66.md"
+        "doc/ui_windows/window_66.md",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
       ],
       "verification_level": "十父完整1097条/180直接引用、39文件格式调用对应38表达式、23共享流引用、EOF低U8/原字节/失败/重复关闭/协议回调顺序及限定源码差异静态核对；不重验UI/日期/播放/协议分发，未执行",
       "boundary": "既有现代66日期按钮两个原关闭点整链改为真实LegacyFile，现有合分支的一处源码表达式动态各关闭一次，D67BB8不清，之后修改共享日期再调用4CC540重复关闭同槽。分页/提示/图形/日期字段、页/滑块/音效与其余正文逐字不变；原数据表入向parent保持空，不推广旧402020/4021A0待批补值。",
@@ -95837,7 +95842,18 @@
           "parent_entry": "0x4CBDB0",
           "access_type": 3
         }
-      ]
+      ],
+      "range_seventh_batch_data": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "ranges": [
+          "X:000CC324-000CC340"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 29353
+      }
     },
     {
       "original_entry": "0x4CC340",
@@ -102875,7 +102891,12 @@
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
         "doc/ui_windows/legacy_item_work_selection.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
       ],
       "verification_level": "父1058条统计，仅发送/复制/图号相邻62条和入口0引用；整份源码仅三标识符、核心/声明保持和文档追加/JSON限定增量静态核对，不重验其余996条；未构建或执行；2026-10-04只读147/1058新格式及正文消费邻窗，余911沿既有父合同，18新增原常量加载字节已核；限定两接口及共享提示桥接、旧复制字段保持/JSON精确更新/文档末追加/编码与差异静态核对通过。未构建/测试/客户端/hash，原容量/父/路由/运行未闭合。",
       "boundary": "计时发送后重取选择、发布D67C48=1，再当前+8物品名复制至同一64B CC40D8；不另写NUL，复制后再取选择/面板并发布图号。仅名称发布复制接线；共享64B目标、原256B局部/技能及+8物品字段、发送和重新取样/返回次序保持，不改变清尾、数值宽度或生命周期，不增加保护/转码/故障模拟。其他依赖、旧表外层路由、完整加工/跨板块运行验收仍待；本步两宿主格式及原共享固定提示均已接53B304，不恢复音频/加解密。 原4F3380共享点补回，17固定格式零参数与阶段2成本格式分别写既有CA0ACC NUL正文owner；不猜原容量，现有256B局部桥接并发布，未知阶段/技能保留旧正文。图后数量/本帧cost快照/抽行次序与其余正文保持，原全局容量及父/路由/运行验收不转为通过。",
@@ -103090,7 +103111,18 @@
           "relationship": "同一真实原点承17个已证固定格式，零可变参数，各原字节无百分号，仍实际调用53B304而非复制代替。沿既有批准CA0ACC NUL owner，现有256B局部桥接后发布单一正文；未知阶段/技能保留旧正文、case2不多执行固定格式。原容量未证，不标原全局256B；三次cap256/宽28抽行与绘制时点保持"
         }
       ],
-      "business_format_source_expression_count": 3
+      "business_format_source_expression_count": 3,
+      "range_seventh_batch_data": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "ranges": [
+          "X:000F39AD-000F39F0"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 12209
+      }
     },
     {
       "original_entry": "0x4B0A50",
@@ -122944,7 +122976,12 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_67.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
       ],
       "boundary": "仅result0且D67BE4非空的一个%s callee接真实53B304，借用同源摊名覆盖33B name；原默认9B前缀含NUL、SetPlayerActionFlags(1000)后尾24B清理、空摊名回退、玩家摊名复制/窗口67可见和pending清0保持。所有非0结果分支的原文案/共享message/mode/value、清动作位/窗口显示/状态/返回逐字不动，不新添长度或容量门槛、不算StrLen/StrCpy直接入口接线。",
       "original_incoming": [
@@ -122976,7 +123013,18 @@
           "relationship": "仅result0且D67BE4非空，用既有%s覆盖33B name；空串保留含NUL9B默认前缀与动作flag后24B清理，之后原玩家摊名复制保持"
         }
       ],
-      "verification_level": "原134条统计，读取42格式/默认定义/消费者邻窗，余92/已过正文与核心不重验；一原点/一现callee/原字节/借用源或零变参/缓冲与消费者次序及整份源限定静态核对；1普通call入向仅登记，完整父/绑定未验，未构建或执行"
+      "verification_level": "原134条统计，读取42格式/默认定义/消费者邻窗，余92/已过正文与核心不重验；一原点/一现callee/原字节/借用源或零变参/缓冲与消费者次序及整份源限定静态核对；1普通call入向仅登记，完整父/绑定未验，未构建或执行",
+      "range_seventh_batch_data": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "ranges": [
+          "X:000CE889-000CE8A0"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 4211
+      }
     },
     {
       "original_entry": "0x4CFCA0",
@@ -143218,7 +143266,12 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_craft_materials.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
       ],
       "boundary": "只换一格式接口，原8..27网格/used W16/212图后+C44 S32>0/未清256B/新布局/font1保持；拖放/材料标记/共用六槽、确认/返回页/提示/完整U32与全部其他正文不动。原父/旧真实路由/生产/运行未闭合。",
       "original_incoming": [],
@@ -143257,7 +143310,18 @@
           "relationship": "212图/原descriptor后同源C5CH物品+C44 count S32写未清256B；格式后新Y/X，X+29+52列/Y+67+53行/layer2/font1/color0/尾0，后悬停与选中内框/材料标记/返回均不动"
         }
       ],
-      "verification_level": "本步只读59/703新格式邻窗，余644沿既有父合同，四原常量沿已核字节。整份源仅1格式标识符，字段/符号性/参数/容量/快照与新配方/图后取数/组包原序/返回、JSON增量/文档末追加/编码和差异静态核对通过。禁构建/测试/客户端/hash；原父/路由/生产/运行未闭合。"
+      "verification_level": "本步只读59/703新格式邻窗，余644沿既有父合同，四原常量沿已核字节。整份源仅1格式标识符，字段/符号性/参数/容量/快照与新配方/图后取数/组包原序/返回、JSON增量/文档末追加/编码和差异静态核对通过。禁构建/测试/客户端/hash；原父/路由/生产/运行未闭合。",
+      "range_seventh_batch_data": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "ranges": [
+          "X:000F50AF-000F50D0"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 12703
+      }
     },
     {
       "original_entry": "0x4F51D0",
@@ -144454,7 +144518,12 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_pet_detail.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
       ],
       "boundary": "只换十一源码格式接口、登记二十七原点。导航前固定同一S16索引宠物及五属性/剩余点六S32资格快照，导航后仍读入口pet、发送不本地加值保持。HP/FP最大值先读/参数当前在前；五战斗/六抗性/五基础/四修正共二十原点逐项读取同pet、宽度/正号/布局保持；忠诚/槽、属性后新位置/数量、页码绘后新剩余点与其绘后再读门槛、未清256B/font1保持。原资格/协议/五按钮/提示/导航/返回0等其它正文不动，原父/旧路由/生产/运行未闭合。",
       "original_incoming": [],
@@ -145324,7 +145393,18 @@
           "original_field_offset": 108
         }
       ],
-      "verification_level": "本步只读523/916新格式邻窗，余393沿既有父合同；新58A29C只读加载字节252b346400，另四常量沿已核字节。整份源仅十一格式标识符，二十七原点及四循环映射、字段/符号性/参数/容量/固定同pet与资格快照时点/getter副作用次序/逐项读取/新布局/返回、JSON唯一增量/文档末追加/UTF-8无BOM/LF与差异静态核对通过。禁构建/测试/客户端/hash；原父/旧路由/生产/运行未验。"
+      "verification_level": "本步只读523/916新格式邻窗，余393沿既有父合同；新58A29C只读加载字节252b346400，另四常量沿已核字节。整份源仅十一格式标识符，二十七原点及四循环映射、字段/符号性/参数/容量/固定同pet与资格快照时点/getter副作用次序/逐项读取/新布局/返回、JSON唯一增量/文档末追加/UTF-8无BOM/LF与差异静态核对通过。禁构建/测试/客户端/hash；原父/旧路由/生产/运行未验。",
+      "range_seventh_batch_data": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "ranges": [
+          "X:000F9AF4-000F9B10"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 14542
+      }
     },
     {
       "original_entry": "0x4F9B10",
@@ -148215,7 +148295,12 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_gem_materials.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
       ],
       "boundary": "只换一数量格式接口，四行五列used W16/slot+8物品、图后count S32>0、未清256B/%3d、新Y-X格布局/font1保持；S8标记和/注册写序/拖放/AND点击与OR提示资格/阶段七项原复制/未知阶段保留缓冲/尾先绘后hover发布及完整U32返回等正文不动。 原父/旧真实路由/数据生产/运行未闭合。",
       "original_incoming": [],
@@ -148255,7 +148340,18 @@
           "condition_expression": "物品8..27/四行五列，used W16非零，图绘后count S32>0"
         }
       ],
-      "verification_level": "本步只读46/777新格式邻窗，余731沿既有父合同；四常量沿已核字节，不重复加载。源码仅本父格式标识符、字段/符号性/参数/容量/图后取数或协议拼接与严格S32门槛/名绘后成本来源及读序/新布局/返回、JSON唯一增量/文档末追加/UTF-8无BOM/LF与差异静态核对通过。禁构建/测试/客户端/hash；原父/旧路由/生产/运行未验。"
+      "verification_level": "本步只读46/777新格式邻窗，余731沿既有父合同；四常量沿已核字节，不重复加载。源码仅本父格式标识符、字段/符号性/参数/容量/图后取数或协议拼接与严格S32门槛/名绘后成本来源及读序/新布局/返回、JSON唯一增量/文档末追加/UTF-8无BOM/LF与差异静态核对通过。禁构建/测试/客户端/hash；原父/旧路由/生产/运行未验。",
+      "range_seventh_batch_data": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "ranges": [
+          "X:00105BA3-00105BC0"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 13169
+      }
     },
     {
       "original_entry": "0x505C20",
@@ -159033,7 +159129,12 @@
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-decision",
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-acceptance",
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
-        "doc/cg2d_legacy_ui_add_arithmetic_evidence.json"
+        "doc/cg2d_legacy_ui_add_arithmetic_evidence.json",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
       ],
       "instruction_count": 919,
       "function_chunks": [
@@ -159049,7 +159150,18 @@
         "source_body_implemented": true,
         "runtime_verified": false
       },
-      "verification_level": "原919条全段、196B面板、八新提示/三既有格式原字节、五格式原点及四请求写点与现owner静态对照；没有构建/测试/运行；LUA01仅共用加法正常算术/149源码表达式保持的限定静态"
+      "verification_level": "原919条全段、196B面板、八新提示/三既有格式原字节、五格式原点及四请求写点与现owner静态对照；没有构建/测试/运行；LUA01仅共用加法正常算术/149源码表达式保持的限定静态",
+      "range_seventh_batch_data": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "ranges": [
+          "X:00100358-00100370"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 15585
+      }
     },
     {
       "original_entry": "0x4D62A0",
@@ -221263,6 +221375,1394 @@
         "scope": "代码身份/原型静态接线纳管，不记完整F处置或软件I/W/S/R通过",
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x4cc9b0",
+      "inventory_id": "F:000CC9B0",
+      "original_role": "CAC19仅原分派数据/当前源定义关联：Sub_4CC9B0",
+      "status": "已有真实源码，CAC19补原表/现唯一定义关联；全部原父/依赖/软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_4CC9B0"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重验完整原父或新增完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存与实际取表父；全X数据用途及源定义关联独立，不据本批通过完整签名/字段/分支/callee、生产/间接alias/正常owner寿命、SDK/机器ABI或运行。",
+      "verification_level": "本批完整X、实际CMP-JA-清零-BYTE-JMP与原W32目标代码/owner及现唯一定义有限静态；全部客户端源码保持，不构建/测试/运行/摘要。",
+      "range_seventh_batch_data": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "ranges": [
+          "X:000CCE6B-000CCED0"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 29077
+      }
+    },
+    {
+      "original_entry": "0x4ce930",
+      "inventory_id": "F:000CE930",
+      "original_role": "CAC19仅原分派数据/当前源定义关联：Sub_4CE930",
+      "status": "已有真实源码，CAC19补原表/现唯一定义关联；全部原父/依赖/软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_4CE930"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重验完整原父或新增完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存与实际取表父；全X数据用途及源定义关联独立，不据本批通过完整签名/字段/分支/callee、生产/间接alias/正常owner寿命、SDK/机器ABI或运行。",
+      "verification_level": "本批完整X、实际CMP-JA-清零-BYTE-JMP与原W32目标代码/owner及现唯一定义有限静态；全部客户端源码保持，不构建/测试/运行/摘要。",
+      "range_seventh_batch_data": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "ranges": [
+          "X:000CEC6E-000CECB0"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 4276
+      }
+    },
+    {
+      "original_entry": "0x4cf940",
+      "inventory_id": "F:000CF940",
+      "original_role": "CAC19仅原分派数据/当前源定义关联：Sub_4CF940",
+      "status": "已有真实源码，CAC19补原表/现唯一定义关联；全部原父/依赖/软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_4CF940"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重验完整原父或新增完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存与实际取表父；全X数据用途及源定义关联独立，不据本批通过完整签名/字段/分支/callee、生产/间接alias/正常owner寿命、SDK/机器ABI或运行。",
+      "verification_level": "本批完整X、实际CMP-JA-清零-BYTE-JMP与原W32目标代码/owner及现唯一定义有限静态；全部客户端源码保持，不构建/测试/运行/摘要。",
+      "range_seventh_batch_data": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "ranges": [
+          "X:000CFC23-000CFC40"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 2461
+      }
+    },
+    {
+      "original_entry": "0x4ef710",
+      "inventory_id": "F:000EF710",
+      "original_role": "CAC19仅原分派数据/当前源定义关联：Sub_4EF710",
+      "status": "已有真实源码，CAC19补原表/现唯一定义关联；全部原父/依赖/软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_4EF710"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重验完整原父或新增完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存与实际取表父；全X数据用途及源定义关联独立，不据本批通过完整签名/字段/分支/callee、生产/间接alias/正常owner寿命、SDK/机器ABI或运行。",
+      "verification_level": "本批完整X、实际CMP-JA-清零-BYTE-JMP与原W32目标代码/owner及现唯一定义有限静态；全部客户端源码保持，不构建/测试/运行/摘要。",
+      "range_seventh_batch_data": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "ranges": [
+          "X:000EF73E-000EF750"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 34841
+      }
+    },
+    {
+      "original_entry": "0x503e80",
+      "inventory_id": "F:00103E80",
+      "original_role": "CAC19仅原分派数据/当前源定义关联：ProcessSceneWindows_503E80",
+      "status": "已有真实源码，CAC19补原表/现唯一定义关联；全部原父/依赖/软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::ProcessSceneWindows_503E80"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重验完整原父或新增完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存与实际取表父；全X数据用途及源定义关联独立，不据本批通过完整签名/字段/分支/callee、生产/间接alias/正常owner寿命、SDK/机器ABI或运行。",
+      "verification_level": "本批完整X、实际CMP-JA-清零-BYTE-JMP与原W32目标代码/owner及现唯一定义有限静态；全部客户端源码保持，不构建/测试/运行/摘要。",
+      "range_seventh_batch_data": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "ranges": [
+          "X:00103FC7-00104100"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 44858
+      }
+    },
+    {
+      "original_entry": "0x50dd80",
+      "inventory_id": "F:0010DD80",
+      "original_role": "CAC19仅原分派数据/当前源定义关联：Sub_50DD80",
+      "status": "已有真实源码，CAC19补原表/现唯一定义关联；全部原父/依赖/软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "cg::network::detail::Sub_50DD80"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重验完整原父或新增完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存与实际取表父；全X数据用途及源定义关联独立，不据本批通过完整签名/字段/分支/callee、生产/间接alias/正常owner寿命、SDK/机器ABI或运行。",
+      "verification_level": "本批完整X、实际CMP-JA-清零-BYTE-JMP与原W32目标代码/owner及现唯一定义有限静态；全部客户端源码保持，不构建/测试/运行/摘要。",
+      "range_seventh_batch_data": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "ranges": [
+          "X:0010E0E7-0010E110"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 823
+      }
+    },
+    {
+      "original_entry": "0x4cce90",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_4CCE90",
+      "original_end_exclusive": "0x4cceca",
+      "instruction_count": 21,
+      "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_4CCE90"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+        },
+        {
+          "path": "src/ui/WindowPrototypes.cpp",
+          "symbols": [
+            "Sub_4CCE90"
+          ],
+          "relationship": "五个原32B记录中对应项与当前六数值/source/callback相符；仅本原型静态绑定，不代完整窗口分派/数据/寿命。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原代码没有IDA函数owner但完整字节/实际RET或尾跳已证；按现有各自签名/返回/动作及RNG顺序有限对照，不将三UI原型、旧选择身份和十八旧键来源混称新端真实分派。完整依赖/生产、未知间接alias/正常owner寿命、SDK/机器ABI与运行仍未闭。",
+      "verification_level": "22段266条877B、五原型160B/十八键记录144B/一旧选择20B与现定义有限静态；完整成员/所有门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:000CCE6B-000CCED0",
+        "start": "0x4cce90",
+        "end_exclusive": "0x4cceca",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+          "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+        ]
+      },
+      "range_seventh_batch_code": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "code_bytes": 58,
+        "source_definition_line": 29174,
+        "actual_prototype_records": [
+          "0x57a490"
+        ],
+        "original_key_records": [],
+        "scope": "原X代码身份/原表来源纳管，不新增完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4ce0f0",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_4CE0F0",
+      "original_end_exclusive": "0x4ce1ec",
+      "instruction_count": 74,
+      "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_4CE0F0"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+        },
+        {
+          "path": "src/ui/WindowPrototypes.cpp",
+          "symbols": [
+            "Sub_4CE0F0"
+          ],
+          "relationship": "五个原32B记录中对应项与当前六数值/source/callback相符；仅本原型静态绑定，不代完整窗口分派/数据/寿命。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原代码没有IDA函数owner但完整字节/实际RET或尾跳已证；按现有各自签名/返回/动作及RNG顺序有限对照，不将三UI原型、旧选择身份和十八旧键来源混称新端真实分派。完整依赖/生产、未知间接alias/正常owner寿命、SDK/机器ABI与运行仍未闭。",
+      "verification_level": "22段266条877B、五原型160B/十八键记录144B/一旧选择20B与现定义有限静态；完整成员/所有门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:000CE0E7-000CE1F0",
+        "start": "0x4ce0f0",
+        "end_exclusive": "0x4ce1ec",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+          "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+        ]
+      },
+      "range_seventh_batch_code": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "code_bytes": 252,
+        "source_definition_line": 2188,
+        "actual_prototype_records": [
+          "0x57b648",
+          "0x57bc08"
+        ],
+        "original_key_records": [],
+        "scope": "原X代码身份/原表来源纳管，不新增完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4ce370",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_4CE370",
+      "original_end_exclusive": "0x4ce3ec",
+      "instruction_count": 38,
+      "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_4CE370"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+        },
+        {
+          "path": "src/ui/WindowPrototypes.cpp",
+          "symbols": [
+            "Sub_4CE370"
+          ],
+          "relationship": "五个原32B记录中对应项与当前六数值/source/callback相符；仅本原型静态绑定，不代完整窗口分派/数据/寿命。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原代码没有IDA函数owner但完整字节/实际RET或尾跳已证；按现有各自签名/返回/动作及RNG顺序有限对照，不将三UI原型、旧选择身份和十八旧键来源混称新端真实分派。完整依赖/生产、未知间接alias/正常owner寿命、SDK/机器ABI与运行仍未闭。",
+      "verification_level": "22段266条877B、五原型160B/十八键记录144B/一旧选择20B与现定义有限静态；完整成员/所有门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:000CE364-000CE3F0",
+        "start": "0x4ce370",
+        "end_exclusive": "0x4ce3ec",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+          "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+        ]
+      },
+      "range_seventh_batch_code": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "code_bytes": 124,
+        "source_definition_line": 2268,
+        "actual_prototype_records": [
+          "0x57b668",
+          "0x57bc28"
+        ],
+        "original_key_records": [],
+        "scope": "原X代码身份/原表来源纳管，不新增完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4fc730",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_4FC730",
+      "original_end_exclusive": "0x4fc7e5",
+      "instruction_count": 57,
+      "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_4FC730"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+        },
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "gSoundRecords57C368"
+          ],
+          "relationship": "原第52项+04与当前handlerToken同一代码身份；原20B/现32B指针承载分别记录，不当可调用路由。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原代码没有IDA函数owner但完整字节/实际RET或尾跳已证；按现有各自签名/返回/动作及RNG顺序有限对照，不将三UI原型、旧选择身份和十八旧键来源混称新端真实分派。完整依赖/生产、未知间接alias/正常owner寿命、SDK/机器ABI与运行仍未闭。",
+      "verification_level": "22段266条877B、五原型160B/十八键记录144B/一旧选择20B与现定义有限静态；完整成员/所有门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:000FC724-000FC7F0",
+        "start": "0x4fc730",
+        "end_exclusive": "0x4fc7e5",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+          "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+        ]
+      },
+      "range_seventh_batch_code": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "code_bytes": 181,
+        "source_definition_line": 16586,
+        "actual_prototype_records": [],
+        "original_key_records": [],
+        "scope": "原X代码身份/原表来源纳管，不新增完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x503bb0",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_503BB0",
+      "original_end_exclusive": "0x503bb9",
+      "instruction_count": 4,
+      "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503BB0"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原代码没有IDA函数owner但完整字节/实际RET或尾跳已证；按现有各自签名/返回/动作及RNG顺序有限对照，不将三UI原型、旧选择身份和十八旧键来源混称新端真实分派。完整依赖/生产、未知间接alias/正常owner寿命、SDK/机器ABI与运行仍未闭。",
+      "verification_level": "22段266条877B、五原型160B/十八键记录144B/一旧选择20B与现定义有限静态；完整成员/所有门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00103BA3-00103BC0",
+        "start": "0x503bb0",
+        "end_exclusive": "0x503bb9",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+          "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+        ]
+      },
+      "range_seventh_batch_code": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "code_bytes": 9,
+        "source_definition_line": 14728,
+        "actual_prototype_records": [],
+        "original_key_records": [
+          "0x559790"
+        ],
+        "scope": "原X代码身份/原表来源纳管，不新增完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      },
+      "original_binding_evidence_documents": [
+        "doc/ui_windows/legacy_emote_shortcuts.md"
+      ],
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+    },
+    {
+      "original_entry": "0x503d00",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_503D00",
+      "original_end_exclusive": "0x503d0f",
+      "instruction_count": 4,
+      "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503D00"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原代码没有IDA函数owner但完整字节/实际RET或尾跳已证；按现有各自签名/返回/动作及RNG顺序有限对照，不将三UI原型、旧选择身份和十八旧键来源混称新端真实分派。完整依赖/生产、未知间接alias/正常owner寿命、SDK/机器ABI与运行仍未闭。",
+      "verification_level": "22段266条877B、五原型160B/十八键记录144B/一旧选择20B与现定义有限静态；完整成员/所有门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00103CF7-00103E40",
+        "start": "0x503d00",
+        "end_exclusive": "0x503d0f",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+          "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+        ]
+      },
+      "range_seventh_batch_code": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "code_bytes": 15,
+        "source_definition_line": 14733,
+        "actual_prototype_records": [],
+        "original_key_records": [
+          "0x5597b0"
+        ],
+        "scope": "原X代码身份/原表来源纳管，不新增完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      },
+      "original_binding_evidence_documents": [
+        "doc/ui_windows/legacy_emote_shortcuts.md"
+      ],
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+    },
+    {
+      "original_entry": "0x503d10",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_503D10",
+      "original_end_exclusive": "0x503d1f",
+      "instruction_count": 4,
+      "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503D10"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原代码没有IDA函数owner但完整字节/实际RET或尾跳已证；按现有各自签名/返回/动作及RNG顺序有限对照，不将三UI原型、旧选择身份和十八旧键来源混称新端真实分派。完整依赖/生产、未知间接alias/正常owner寿命、SDK/机器ABI与运行仍未闭。",
+      "verification_level": "22段266条877B、五原型160B/十八键记录144B/一旧选择20B与现定义有限静态；完整成员/所有门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00103CF7-00103E40",
+        "start": "0x503d10",
+        "end_exclusive": "0x503d1f",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+          "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+        ]
+      },
+      "range_seventh_batch_code": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "code_bytes": 15,
+        "source_definition_line": 14739,
+        "actual_prototype_records": [],
+        "original_key_records": [
+          "0x5597b8"
+        ],
+        "scope": "原X代码身份/原表来源纳管，不新增完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      },
+      "original_binding_evidence_documents": [
+        "doc/ui_windows/legacy_emote_shortcuts.md"
+      ],
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+    },
+    {
+      "original_entry": "0x503d20",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_503D20",
+      "original_end_exclusive": "0x503d2f",
+      "instruction_count": 4,
+      "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503D20"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原代码没有IDA函数owner但完整字节/实际RET或尾跳已证；按现有各自签名/返回/动作及RNG顺序有限对照，不将三UI原型、旧选择身份和十八旧键来源混称新端真实分派。完整依赖/生产、未知间接alias/正常owner寿命、SDK/机器ABI与运行仍未闭。",
+      "verification_level": "22段266条877B、五原型160B/十八键记录144B/一旧选择20B与现定义有限静态；完整成员/所有门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00103CF7-00103E40",
+        "start": "0x503d20",
+        "end_exclusive": "0x503d2f",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+          "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+        ]
+      },
+      "range_seventh_batch_code": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "code_bytes": 15,
+        "source_definition_line": 14745,
+        "actual_prototype_records": [],
+        "original_key_records": [
+          "0x5597c0"
+        ],
+        "scope": "原X代码身份/原表来源纳管，不新增完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      },
+      "original_binding_evidence_documents": [
+        "doc/ui_windows/legacy_emote_shortcuts.md"
+      ],
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+    },
+    {
+      "original_entry": "0x503d30",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_503D30",
+      "original_end_exclusive": "0x503d3f",
+      "instruction_count": 4,
+      "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503D30"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原代码没有IDA函数owner但完整字节/实际RET或尾跳已证；按现有各自签名/返回/动作及RNG顺序有限对照，不将三UI原型、旧选择身份和十八旧键来源混称新端真实分派。完整依赖/生产、未知间接alias/正常owner寿命、SDK/机器ABI与运行仍未闭。",
+      "verification_level": "22段266条877B、五原型160B/十八键记录144B/一旧选择20B与现定义有限静态；完整成员/所有门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00103CF7-00103E40",
+        "start": "0x503d30",
+        "end_exclusive": "0x503d3f",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+          "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+        ]
+      },
+      "range_seventh_batch_code": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "code_bytes": 15,
+        "source_definition_line": 14751,
+        "actual_prototype_records": [],
+        "original_key_records": [
+          "0x5597c8"
+        ],
+        "scope": "原X代码身份/原表来源纳管，不新增完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      },
+      "original_binding_evidence_documents": [
+        "doc/ui_windows/legacy_emote_shortcuts.md"
+      ],
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+    },
+    {
+      "original_entry": "0x503d40",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_503D40",
+      "original_end_exclusive": "0x503d4f",
+      "instruction_count": 4,
+      "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503D40"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原代码没有IDA函数owner但完整字节/实际RET或尾跳已证；按现有各自签名/返回/动作及RNG顺序有限对照，不将三UI原型、旧选择身份和十八旧键来源混称新端真实分派。完整依赖/生产、未知间接alias/正常owner寿命、SDK/机器ABI与运行仍未闭。",
+      "verification_level": "22段266条877B、五原型160B/十八键记录144B/一旧选择20B与现定义有限静态；完整成员/所有门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00103CF7-00103E40",
+        "start": "0x503d40",
+        "end_exclusive": "0x503d4f",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+          "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+        ]
+      },
+      "range_seventh_batch_code": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "code_bytes": 15,
+        "source_definition_line": 14757,
+        "actual_prototype_records": [],
+        "original_key_records": [
+          "0x5597d0"
+        ],
+        "scope": "原X代码身份/原表来源纳管，不新增完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      },
+      "original_binding_evidence_documents": [
+        "doc/ui_windows/legacy_emote_shortcuts.md"
+      ],
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+    },
+    {
+      "original_entry": "0x503d50",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_503D50",
+      "original_end_exclusive": "0x503d5f",
+      "instruction_count": 4,
+      "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503D50"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原代码没有IDA函数owner但完整字节/实际RET或尾跳已证；按现有各自签名/返回/动作及RNG顺序有限对照，不将三UI原型、旧选择身份和十八旧键来源混称新端真实分派。完整依赖/生产、未知间接alias/正常owner寿命、SDK/机器ABI与运行仍未闭。",
+      "verification_level": "22段266条877B、五原型160B/十八键记录144B/一旧选择20B与现定义有限静态；完整成员/所有门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00103CF7-00103E40",
+        "start": "0x503d50",
+        "end_exclusive": "0x503d5f",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+          "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+        ]
+      },
+      "range_seventh_batch_code": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "code_bytes": 15,
+        "source_definition_line": 14763,
+        "actual_prototype_records": [],
+        "original_key_records": [
+          "0x5597d8"
+        ],
+        "scope": "原X代码身份/原表来源纳管，不新增完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      },
+      "original_binding_evidence_documents": [
+        "doc/ui_windows/legacy_emote_shortcuts.md"
+      ],
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+    },
+    {
+      "original_entry": "0x503d60",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_503D60",
+      "original_end_exclusive": "0x503d6f",
+      "instruction_count": 4,
+      "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503D60"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原代码没有IDA函数owner但完整字节/实际RET或尾跳已证；按现有各自签名/返回/动作及RNG顺序有限对照，不将三UI原型、旧选择身份和十八旧键来源混称新端真实分派。完整依赖/生产、未知间接alias/正常owner寿命、SDK/机器ABI与运行仍未闭。",
+      "verification_level": "22段266条877B、五原型160B/十八键记录144B/一旧选择20B与现定义有限静态；完整成员/所有门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00103CF7-00103E40",
+        "start": "0x503d60",
+        "end_exclusive": "0x503d6f",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+          "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+        ]
+      },
+      "range_seventh_batch_code": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "code_bytes": 15,
+        "source_definition_line": 14769,
+        "actual_prototype_records": [],
+        "original_key_records": [
+          "0x5597e8"
+        ],
+        "scope": "原X代码身份/原表来源纳管，不新增完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      },
+      "original_binding_evidence_documents": [
+        "doc/ui_windows/legacy_emote_shortcuts.md"
+      ],
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+    },
+    {
+      "original_entry": "0x503d70",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_503D70",
+      "original_end_exclusive": "0x503d7f",
+      "instruction_count": 4,
+      "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503D70"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原代码没有IDA函数owner但完整字节/实际RET或尾跳已证；按现有各自签名/返回/动作及RNG顺序有限对照，不将三UI原型、旧选择身份和十八旧键来源混称新端真实分派。完整依赖/生产、未知间接alias/正常owner寿命、SDK/机器ABI与运行仍未闭。",
+      "verification_level": "22段266条877B、五原型160B/十八键记录144B/一旧选择20B与现定义有限静态；完整成员/所有门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00103CF7-00103E40",
+        "start": "0x503d70",
+        "end_exclusive": "0x503d7f",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+          "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+        ]
+      },
+      "range_seventh_batch_code": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "code_bytes": 15,
+        "source_definition_line": 14775,
+        "actual_prototype_records": [],
+        "original_key_records": [
+          "0x5597f0"
+        ],
+        "scope": "原X代码身份/原表来源纳管，不新增完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      },
+      "original_binding_evidence_documents": [
+        "doc/ui_windows/legacy_emote_shortcuts.md"
+      ],
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+    },
+    {
+      "original_entry": "0x503d80",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_503D80",
+      "original_end_exclusive": "0x503d8f",
+      "instruction_count": 4,
+      "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503D80"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原代码没有IDA函数owner但完整字节/实际RET或尾跳已证；按现有各自签名/返回/动作及RNG顺序有限对照，不将三UI原型、旧选择身份和十八旧键来源混称新端真实分派。完整依赖/生产、未知间接alias/正常owner寿命、SDK/机器ABI与运行仍未闭。",
+      "verification_level": "22段266条877B、五原型160B/十八键记录144B/一旧选择20B与现定义有限静态；完整成员/所有门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00103CF7-00103E40",
+        "start": "0x503d80",
+        "end_exclusive": "0x503d8f",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+          "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+        ]
+      },
+      "range_seventh_batch_code": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "code_bytes": 15,
+        "source_definition_line": 14781,
+        "actual_prototype_records": [],
+        "original_key_records": [
+          "0x559800"
+        ],
+        "scope": "原X代码身份/原表来源纳管，不新增完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      },
+      "original_binding_evidence_documents": [
+        "doc/ui_windows/legacy_emote_shortcuts.md"
+      ],
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+    },
+    {
+      "original_entry": "0x503d90",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_503D90",
+      "original_end_exclusive": "0x503d9f",
+      "instruction_count": 4,
+      "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503D90"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原代码没有IDA函数owner但完整字节/实际RET或尾跳已证；按现有各自签名/返回/动作及RNG顺序有限对照，不将三UI原型、旧选择身份和十八旧键来源混称新端真实分派。完整依赖/生产、未知间接alias/正常owner寿命、SDK/机器ABI与运行仍未闭。",
+      "verification_level": "22段266条877B、五原型160B/十八键记录144B/一旧选择20B与现定义有限静态；完整成员/所有门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00103CF7-00103E40",
+        "start": "0x503d90",
+        "end_exclusive": "0x503d9f",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+          "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+        ]
+      },
+      "range_seventh_batch_code": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "code_bytes": 15,
+        "source_definition_line": 14787,
+        "actual_prototype_records": [],
+        "original_key_records": [
+          "0x5597f8"
+        ],
+        "scope": "原X代码身份/原表来源纳管，不新增完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      },
+      "original_binding_evidence_documents": [
+        "doc/ui_windows/legacy_emote_shortcuts.md"
+      ],
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+    },
+    {
+      "original_entry": "0x503da0",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_503DA0",
+      "original_end_exclusive": "0x503daf",
+      "instruction_count": 4,
+      "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503DA0"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原代码没有IDA函数owner但完整字节/实际RET或尾跳已证；按现有各自签名/返回/动作及RNG顺序有限对照，不将三UI原型、旧选择身份和十八旧键来源混称新端真实分派。完整依赖/生产、未知间接alias/正常owner寿命、SDK/机器ABI与运行仍未闭。",
+      "verification_level": "22段266条877B、五原型160B/十八键记录144B/一旧选择20B与现定义有限静态；完整成员/所有门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00103CF7-00103E40",
+        "start": "0x503da0",
+        "end_exclusive": "0x503daf",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+          "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+        ]
+      },
+      "range_seventh_batch_code": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "code_bytes": 15,
+        "source_definition_line": 14793,
+        "actual_prototype_records": [],
+        "original_key_records": [
+          "0x559808"
+        ],
+        "scope": "原X代码身份/原表来源纳管，不新增完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      },
+      "original_binding_evidence_documents": [
+        "doc/ui_windows/legacy_emote_shortcuts.md"
+      ],
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+    },
+    {
+      "original_entry": "0x503db0",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_503DB0",
+      "original_end_exclusive": "0x503dbf",
+      "instruction_count": 4,
+      "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503DB0"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原代码没有IDA函数owner但完整字节/实际RET或尾跳已证；按现有各自签名/返回/动作及RNG顺序有限对照，不将三UI原型、旧选择身份和十八旧键来源混称新端真实分派。完整依赖/生产、未知间接alias/正常owner寿命、SDK/机器ABI与运行仍未闭。",
+      "verification_level": "22段266条877B、五原型160B/十八键记录144B/一旧选择20B与现定义有限静态；完整成员/所有门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00103CF7-00103E40",
+        "start": "0x503db0",
+        "end_exclusive": "0x503dbf",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+          "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+        ]
+      },
+      "range_seventh_batch_code": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "code_bytes": 15,
+        "source_definition_line": 14799,
+        "actual_prototype_records": [],
+        "original_key_records": [
+          "0x5597e0"
+        ],
+        "scope": "原X代码身份/原表来源纳管，不新增完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      },
+      "original_binding_evidence_documents": [
+        "doc/ui_windows/legacy_emote_shortcuts.md"
+      ],
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+    },
+    {
+      "original_entry": "0x503dc0",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_503DC0",
+      "original_end_exclusive": "0x503df5",
+      "instruction_count": 20,
+      "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503DC0"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原代码没有IDA函数owner但完整字节/实际RET或尾跳已证；按现有各自签名/返回/动作及RNG顺序有限对照，不将三UI原型、旧选择身份和十八旧键来源混称新端真实分派。完整依赖/生产、未知间接alias/正常owner寿命、SDK/机器ABI与运行仍未闭。",
+      "verification_level": "22段266条877B、五原型160B/十八键记录144B/一旧选择20B与现定义有限静态；完整成员/所有门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00103CF7-00103E40",
+        "start": "0x503dc0",
+        "end_exclusive": "0x503df5",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+          "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+        ]
+      },
+      "range_seventh_batch_code": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "code_bytes": 53,
+        "source_definition_line": 14805,
+        "actual_prototype_records": [],
+        "original_key_records": [
+          "0x559810"
+        ],
+        "scope": "原X代码身份/原表来源纳管，不新增完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      },
+      "original_binding_evidence_documents": [
+        "doc/ui_windows/legacy_emote_shortcuts.md"
+      ],
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+    },
+    {
+      "original_entry": "0x503e00",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_503E00",
+      "original_end_exclusive": "0x503e05",
+      "instruction_count": 1,
+      "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503E00"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原代码没有IDA函数owner但完整字节/实际RET或尾跳已证；按现有各自签名/返回/动作及RNG顺序有限对照，不将三UI原型、旧选择身份和十八旧键来源混称新端真实分派。完整依赖/生产、未知间接alias/正常owner寿命、SDK/机器ABI与运行仍未闭。",
+      "verification_level": "22段266条877B、五原型160B/十八键记录144B/一旧选择20B与现定义有限静态；完整成员/所有门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00103CF7-00103E40",
+        "start": "0x503e00",
+        "end_exclusive": "0x503e05",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+          "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+        ]
+      },
+      "range_seventh_batch_code": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "code_bytes": 5,
+        "source_definition_line": 14817,
+        "actual_prototype_records": [],
+        "original_key_records": [
+          "0x559858"
+        ],
+        "scope": "原X代码身份/原表来源纳管，不新增完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      },
+      "original_binding_evidence_documents": [
+        "doc/ui_windows/legacy_emote_shortcuts.md"
+      ],
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+    },
+    {
+      "original_entry": "0x503e10",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_503E10",
+      "original_end_exclusive": "0x503e15",
+      "instruction_count": 1,
+      "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503E10"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原代码没有IDA函数owner但完整字节/实际RET或尾跳已证；按现有各自签名/返回/动作及RNG顺序有限对照，不将三UI原型、旧选择身份和十八旧键来源混称新端真实分派。完整依赖/生产、未知间接alias/正常owner寿命、SDK/机器ABI与运行仍未闭。",
+      "verification_level": "22段266条877B、五原型160B/十八键记录144B/一旧选择20B与现定义有限静态；完整成员/所有门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00103CF7-00103E40",
+        "start": "0x503e10",
+        "end_exclusive": "0x503e15",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+          "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+        ]
+      },
+      "range_seventh_batch_code": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "code_bytes": 5,
+        "source_definition_line": 14822,
+        "actual_prototype_records": [],
+        "original_key_records": [
+          "0x559860"
+        ],
+        "scope": "原X代码身份/原表来源纳管，不新增完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      },
+      "original_binding_evidence_documents": [
+        "doc/ui_windows/legacy_emote_shortcuts.md"
+      ],
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+    },
+    {
+      "original_entry": "0x503e20",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_503E20",
+      "original_end_exclusive": "0x503e25",
+      "instruction_count": 1,
+      "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503E20"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原代码没有IDA函数owner但完整字节/实际RET或尾跳已证；按现有各自签名/返回/动作及RNG顺序有限对照，不将三UI原型、旧选择身份和十八旧键来源混称新端真实分派。完整依赖/生产、未知间接alias/正常owner寿命、SDK/机器ABI与运行仍未闭。",
+      "verification_level": "22段266条877B、五原型160B/十八键记录144B/一旧选择20B与现定义有限静态；完整成员/所有门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00103CF7-00103E40",
+        "start": "0x503e20",
+        "end_exclusive": "0x503e25",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+          "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+        ]
+      },
+      "range_seventh_batch_code": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "code_bytes": 5,
+        "source_definition_line": 14827,
+        "actual_prototype_records": [],
+        "original_key_records": [
+          "0x559868"
+        ],
+        "scope": "原X代码身份/原表来源纳管，不新增完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      },
+      "original_binding_evidence_documents": [
+        "doc/ui_windows/legacy_emote_shortcuts.md"
+      ],
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+    },
+    {
+      "original_entry": "0x503e30",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_503E30",
+      "original_end_exclusive": "0x503e35",
+      "instruction_count": 1,
+      "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_503E30"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原字节/RET或尾跳及现正文有限对照，未修改正文。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      ],
+      "boundary": "原代码没有IDA函数owner但完整字节/实际RET或尾跳已证；按现有各自签名/返回/动作及RNG顺序有限对照，不将三UI原型、旧选择身份和十八旧键来源混称新端真实分派。完整依赖/生产、未知间接alias/正常owner寿命、SDK/机器ABI与运行仍未闭。",
+      "verification_level": "22段266条877B、五原型160B/十八键记录144B/一旧选择20B与现定义有限静态；完整成员/所有门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00103CF7-00103E40",
+        "start": "0x503e30",
+        "end_exclusive": "0x503e35",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+          "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+        ]
+      },
+      "range_seventh_batch_code": {
+        "step": "CAC19",
+        "source_snapshot": "cg2d-re-unassigned-range-seventh-batch-20261009",
+        "code_bytes": 5,
+        "source_definition_line": 14832,
+        "actual_prototype_records": [],
+        "original_key_records": [
+          "0x559870"
+        ],
+        "scope": "原X代码身份/原表来源纳管，不新增完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      },
+      "original_binding_evidence_documents": [
+        "doc/ui_windows/legacy_emote_shortcuts.md"
+      ],
+      "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
     }
   ]
 }

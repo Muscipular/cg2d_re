@@ -2322,3 +2322,9 @@ F:00078330新增adapted，1937已有映射加本步原根/差集，无新F或语
 [合同/当前状态](cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-source-state)和[完整原根/现源](cg2d_battle_scalar_dependencies_evidence.json)纳管两既有正确入口404D90/405B40，各13条31B。选择叶原三S32门禁/后读单项及三图表15项60B、配对两原区间加减5正确保持，客户端源码零改动；BNT01旧选择基线不重算新增实现。
 
 新增两独立语义/两adapted F，BATTLE两已知成员和UIRUNTIME一个共享成员；分别仅一个限定S，UI证据只覆盖配对位置。33原CALL仅定位，不代全部父或完整成员/生产/owner/SDK与运行；零新I，功能/门禁/任务和六closure状态不变，RPLAN.24和全部执行限制保持。
+
+## 2026-10-10 BPHIT01 动作16独立身份与完整正常源合同
+
+[原基线/当前状态](cg2d_battle_projectile_hit_spec.md#battle-projectile-hit-source-state)和[原指令/现源](cg2d_battle_projectile_hit_evidence.json)核完整1026条3721B/17页、71直接call/24目标/182跳两RET、唯一case16三条11B及两F32常量。既有投射命中/HP/状态与附属标死清槽、双播放及退场正常本体正确保持；仅三个注释更新关联，无新I。
+
+新增一原F语义/适配处置及BATTLE已知成员、一个限定S；U08/U09/R01/R04/V04只追加来源，成员枚举false、全部门禁/六closure和任务状态保。完整24callee所有consumer/数据生产/owner寿命、SDK/数值机器ABI和实际声音画面/运行未验，不按完整叶静态证明全战斗或总SPEC完成。

@@ -196184,6 +196184,65 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "inventory_id": "F:000072E0",
+      "original_entry": "0x4072E0",
+      "original_role": "动作16投射命中与退场",
+      "original_end_exclusive": "0x408169",
+      "instruction_count": 1026,
+      "function_chunks": [
+        {
+          "start": "0x4072e0",
+          "end_exclusive": "0x408169"
+        }
+      ],
+      "status": "BPHIT01完整既有动作16及唯一真实case16纳管，正常源正确保持，仅注释关联；完整事件/清理寿命与运行未验",
+      "evidence_documents": [
+        "doc/cg2d_battle_projectile_hit_spec.md#battle-projectile-hit-baseline",
+        "doc/cg2d_battle_projectile_hit_spec.md#battle-projectile-hit-decision",
+        "doc/cg2d_battle_projectile_hit_spec.md#battle-projectile-hit-acceptance",
+        "doc/cg2d_battle_projectile_hit_spec.md#battle-projectile-hit-source-state",
+        "doc/cg2d_battle_projectile_hit_evidence.json"
+      ],
+      "boundary": "BPHIT01原action/payload空及首索引0..199检查、bit20000000/距离70与普通20两命中、图/随机六原点到两源码表达式、状态分类/HP/CryptInt/附属清理/延迟双播放和phase17正常合同保。非拥有action/payload/effect1054只拓宽指针；本体和callee/分发/声明签名全保持，仅三注释；24callee全部consumer/owner/SDK/数值机器ABI及画面声音运行未验。",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction16_4072E0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction16_4072E0"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction16_4072E0",
+        "source_body_implemented": true,
+        "source_body_changed": false,
+        "runtime_verified": false
+      },
+      "verification_level": "完整1026条3721B/17分页，71call/24目标/182跳两RET、唯一case16三条11B和两F32常量；仅正常源/注释与台账静态，不代完整callee/owner/SDK或运行。",
+      "battle_projectile_hit": {
+        "spec_id": "BPHIT01",
+        "full_original_root_captured": true,
+        "instruction_count": 1026,
+        "code_bytes": 3721,
+        "read_pages": 17,
+        "outgoing_calls": 71,
+        "direct_targets": 24,
+        "jumps": 182,
+        "rets": 2,
+        "inbound_calls": 1,
+        "inbound_parent": "0x404DB0",
+        "caller_case": 16,
+        "source_body_changed": false,
+        "source_comment_changes": 3,
+        "full_callee_consumers_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

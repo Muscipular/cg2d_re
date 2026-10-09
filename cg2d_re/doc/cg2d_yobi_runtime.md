@@ -4594,3 +4594,7 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 ## 2026-10-10 战斗标量依赖身份补齐（BDI01）
 
 [专项合同](cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-source-state)与[完整原根/现源](cg2d_battle_scalar_dependencies_evidence.json)纳管既有404D90图号选择、405B40配对位置。两13条31B的正常S32门禁/返回与现正文正确保持，三图号表15项一致；只拓宽真实非拥有指针，零源码改动/新实现I。33原入向仅定位，不代完整父、表/载荷生产与借用寿命、SDK/画面运行或完整战斗/UI通过；RPLAN.24和全部门禁保持。
+
+## 2026-10-10 动作16完整投射命中与退场（BPHIT01）
+
+[完整合同](cg2d_battle_projectile_hit_spec.md#battle-projectile-hit-source-state)/[原根与现源](cg2d_battle_projectile_hit_evidence.json)纳管4072E0既有本体及404DB0唯一case16。原1026条3721B/17页、71call24目标182跳两RET，原入口检查/两命中、图号随机、HP/CryptInt、各回调与共享发布、effect1054标死后清槽/清位、延迟双播放与phase17正确保持。六物理RAND点经新端两表达式保各自路径一次消费，不按表达式数制造遗漏；仅补三注释关联，零正文/声明签名/新I。全部callee消费者/数据生产、创建失败/目标与附属借用和最终回收、SDK/数值机器ABI/声音画面及运行仍未闭，RPLAN.24/WAV-only和总SPEC门禁保持。

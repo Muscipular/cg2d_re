@@ -401,7 +401,7 @@ struct BattleActorPayload {
     std::int32_t castSkillLevel1044;
     std::int32_t value1048; // 42CFE5/42E90A写S32，141的技能98按图号偏移消费。
     std::int32_t value1050; // 424F64保存技能94的M整数；409680用于减益图号偏移。
-    YobiAction* effect1054; // 41F660发布；416DD0先标死再清槽，非拥有引用。
+    YobiAction* effect1054; // 41F660发布；416DD0/4072E0先标死再清槽，非拥有引用。
     YobiAction* attachedEffect1058; // 41FBE0创建并发布的非拥有附属特效引用。
     YobiAction* effect105C; // 41F860发布；4131B0/422370标死并清槽，非拥有引用。
     YobiAction* effect1060; // 非拥有克隆/骑乘/缩放特效；4067F0骑乘路径payload为BattleRideCarrierPayload。
@@ -25071,6 +25071,7 @@ void UpdateBattleAction249_4071C0(YobiAction* const action)
     action->frameEvent = 0;
 }
 
+// 原[4072E0,408169)：动作16投射命中与退场；完整流程见doc/cg2d_battle_projectile_hit_spec.md。
 void UpdateBattleAction16_4072E0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;

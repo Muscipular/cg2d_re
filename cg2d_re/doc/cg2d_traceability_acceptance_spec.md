@@ -2316,3 +2316,9 @@ F:00078330新增adapted，1937已有映射加本步原根/差集，无新F或语
 按[用户再次确认及当前范围](cg2d_client_link_sdl_audio_spec.md#wav-only-development-scope-20261009)，停止离线MIDI/DLS工具开发；CAC13–15及此前转换/工具证据保留为历史限定结果，不算当前客户端WAV已更新或完整音源等价，也不再以未实现CC/RPN/DLS机制列后续开发债务。现WAV质量、原调用/状态与适用声音结果对照、完整设备/失败/通知/正常寿命继续验收；不扩大原函数范围排除或降低总SPEC§10。
 
 未提交同键源码与两条登记增量已撤回；软件证据1316保持，零本步I/W/S/R通过，原库存/语义/处置/成员、全部完整gates、184叶整项验收0/60任务关闭11/六closure保持。P11/P16/V05同步范围来源继续open；不构建/测试/运行/转换/产物/摘要/重生成WAV或部署。
+
+## 2026-10-10 BDI01 战斗标量依赖身份与限定静态证据
+
+[合同/当前状态](cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-source-state)和[完整原根/现源](cg2d_battle_scalar_dependencies_evidence.json)纳管两既有正确入口404D90/405B40，各13条31B。选择叶原三S32门禁/后读单项及三图表15项60B、配对两原区间加减5正确保持，客户端源码零改动；BNT01旧选择基线不重算新增实现。
+
+新增两独立语义/两adapted F，BATTLE两已知成员和UIRUNTIME一个共享成员；分别仅一个限定S，UI证据只覆盖配对位置。33原CALL仅定位，不代全部父或完整成员/生产/owner/SDK与运行；零新I，功能/门禁/任务和六closure状态不变，RPLAN.24和全部执行限制保持。

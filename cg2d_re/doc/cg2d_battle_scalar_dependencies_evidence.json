@@ -1,0 +1,792 @@
+{
+  "schema_version": 1,
+  "spec_id": "BDI01",
+  "date": "2026-10-10",
+  "scope": "两既有战斗标量依赖独立身份与限定正常源码合同，不新增实现",
+  "decision_ref": "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-decision",
+  "before_snapshot": "cg2d-re-battle-scalar-dependencies-history-20261010",
+  "after_snapshot": "cg2d-re-battle-scalar-dependencies-20261010",
+  "original_roots": [
+    {
+      "entry": "0x404d90",
+      "name": "SelectIntValue",
+      "start": "0x404d90",
+      "end": "0x404daf",
+      "chunks": [
+        [
+          "0x404d90",
+          "0x404daf"
+        ]
+      ],
+      "instructions": [
+        {
+          "ea": "0x404d90",
+          "size": 4,
+          "bytes": "8b4c2408",
+          "text": "mov     ecx, [esp+max]"
+        },
+        {
+          "ea": "0x404d94",
+          "size": 2,
+          "bytes": "85c9",
+          "text": "test    ecx, ecx"
+        },
+        {
+          "ea": "0x404d96",
+          "size": 2,
+          "bytes": "7e14",
+          "text": "jle     short loc_404DAC"
+        },
+        {
+          "ea": "0x404d98",
+          "size": 4,
+          "bytes": "8b44240c",
+          "text": "mov     eax, [esp+index]"
+        },
+        {
+          "ea": "0x404d9c",
+          "size": 2,
+          "bytes": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x404d9e",
+          "size": 2,
+          "bytes": "7c0c",
+          "text": "jl      short loc_404DAC"
+        },
+        {
+          "ea": "0x404da0",
+          "size": 2,
+          "bytes": "3bc1",
+          "text": "cmp     eax, ecx"
+        },
+        {
+          "ea": "0x404da2",
+          "size": 2,
+          "bytes": "7d08",
+          "text": "jge     short loc_404DAC"
+        },
+        {
+          "ea": "0x404da4",
+          "size": 4,
+          "bytes": "8b4c2404",
+          "text": "mov     ecx, [esp+arg_0]"
+        },
+        {
+          "ea": "0x404da8",
+          "size": 3,
+          "bytes": "8b0481",
+          "text": "mov     eax, [ecx+eax*4]"
+        },
+        {
+          "ea": "0x404dab",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        },
+        {
+          "ea": "0x404dac",
+          "size": 2,
+          "bytes": "33c0",
+          "text": "xor     eax, eax"
+        },
+        {
+          "ea": "0x404dae",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        }
+      ],
+      "xrefs": [
+        {
+          "from": "0x409966",
+          "type": 17,
+          "code": true,
+          "parent": "0x409680",
+          "text": "call    SelectIntValue"
+        },
+        {
+          "from": "0x427067",
+          "type": 17,
+          "code": true,
+          "parent": "0x426fc0",
+          "text": "call    SelectIntValue"
+        },
+        {
+          "from": "0x427200",
+          "type": 17,
+          "code": true,
+          "parent": "0x426fc0",
+          "text": "call    SelectIntValue"
+        },
+        {
+          "from": "0x427229",
+          "type": 17,
+          "code": true,
+          "parent": "0x426fc0",
+          "text": "call    SelectIntValue"
+        }
+      ],
+      "instruction_count": 13,
+      "code_bytes": 31
+    },
+    {
+      "entry": "0x405b40",
+      "name": "GetPetPosition",
+      "start": "0x405b40",
+      "end": "0x405b5f",
+      "chunks": [
+        [
+          "0x405b40",
+          "0x405b5f"
+        ]
+      ],
+      "instructions": [
+        {
+          "ea": "0x405b40",
+          "size": 4,
+          "bytes": "8b442404",
+          "text": "mov     eax, [esp+arg_0]"
+        },
+        {
+          "ea": "0x405b44",
+          "size": 2,
+          "bytes": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x405b46",
+          "size": 2,
+          "bytes": "7c05",
+          "text": "jl      short loc_405B4D"
+        },
+        {
+          "ea": "0x405b48",
+          "size": 3,
+          "bytes": "83f805",
+          "text": "cmp     eax, 5"
+        },
+        {
+          "ea": "0x405b4b",
+          "size": 2,
+          "bytes": "7c0a",
+          "text": "jl      short loc_405B57"
+        },
+        {
+          "ea": "0x405b4d",
+          "size": 3,
+          "bytes": "83f80a",
+          "text": "cmp     eax, 0Ah"
+        },
+        {
+          "ea": "0x405b50",
+          "size": 2,
+          "bytes": "7c09",
+          "text": "jl      short loc_405B5B"
+        },
+        {
+          "ea": "0x405b52",
+          "size": 3,
+          "bytes": "83f80f",
+          "text": "cmp     eax, 0Fh"
+        },
+        {
+          "ea": "0x405b55",
+          "size": 2,
+          "bytes": "7d04",
+          "text": "jge     short loc_405B5B"
+        },
+        {
+          "ea": "0x405b57",
+          "size": 3,
+          "bytes": "83c005",
+          "text": "add     eax, 5"
+        },
+        {
+          "ea": "0x405b5a",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        },
+        {
+          "ea": "0x405b5b",
+          "size": 3,
+          "bytes": "83c0fb",
+          "text": "add     eax, 0FFFFFFFBh"
+        },
+        {
+          "ea": "0x405b5e",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        }
+      ],
+      "xrefs": [
+        {
+          "from": "0x40beaf",
+          "type": 17,
+          "code": true,
+          "parent": "0x40be90",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x40bef1",
+          "type": 17,
+          "code": true,
+          "parent": "0x40be90",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x413fef",
+          "type": 17,
+          "code": true,
+          "parent": "0x413fe0",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x42391b",
+          "type": 17,
+          "code": true,
+          "parent": "0x4238f0",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x42846f",
+          "type": 17,
+          "code": true,
+          "parent": "0x427470",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x4284f6",
+          "type": 17,
+          "code": true,
+          "parent": "0x427470",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x42897d",
+          "type": 17,
+          "code": true,
+          "parent": "0x427470",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x4289c4",
+          "type": 17,
+          "code": true,
+          "parent": "0x427470",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x42d2bd",
+          "type": 17,
+          "code": true,
+          "parent": "0x427470",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x42d731",
+          "type": 17,
+          "code": true,
+          "parent": "0x427470",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x439c4e",
+          "type": 17,
+          "code": true,
+          "parent": "0x439b30",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x439c91",
+          "type": 17,
+          "code": true,
+          "parent": "0x439b30",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x43a29f",
+          "type": 17,
+          "code": true,
+          "parent": "0x439b30",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x43c575",
+          "type": 17,
+          "code": true,
+          "parent": "0x43c560",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x43caa9",
+          "type": 17,
+          "code": true,
+          "parent": "0x43ca80",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x47a290",
+          "type": 17,
+          "code": true,
+          "parent": "0x47a1a0",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x47aeb9",
+          "type": 17,
+          "code": true,
+          "parent": "0x47a7a0",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x47aedb",
+          "type": 17,
+          "code": true,
+          "parent": "0x47a7a0",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x47c9a2",
+          "type": 17,
+          "code": true,
+          "parent": "0x47c950",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x47cba8",
+          "type": 17,
+          "code": true,
+          "parent": "0x47cb00",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x47cd49",
+          "type": 17,
+          "code": true,
+          "parent": "0x47cc80",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x4965ee",
+          "type": 17,
+          "code": true,
+          "parent": "0x4965d0",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x4968d3",
+          "type": 17,
+          "code": true,
+          "parent": "0x4966b0",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x49692c",
+          "type": 17,
+          "code": true,
+          "parent": "0x4966b0",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x49694e",
+          "type": 17,
+          "code": true,
+          "parent": "0x4966b0",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x497ef7",
+          "type": 17,
+          "code": true,
+          "parent": "0x497e30",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x497f4f",
+          "type": 17,
+          "code": true,
+          "parent": "0x497e30",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x498bd9",
+          "type": 17,
+          "code": true,
+          "parent": "0x498520",
+          "text": "call    GetPetPosition"
+        },
+        {
+          "from": "0x498c5d",
+          "type": 17,
+          "code": true,
+          "parent": "0x498520",
+          "text": "call    GetPetPosition"
+        }
+      ],
+      "instruction_count": 13,
+      "code_bytes": 31
+    }
+  ],
+  "data_and_caller_excerpts": {
+    "caller_windows": [
+      {
+        "instructions": [
+          {
+            "ea": "0x409956",
+            "size": 2,
+            "bytes": "7518",
+            "text": "jnz     short loc_409970"
+          },
+          {
+            "ea": "0x409958",
+            "size": 6,
+            "bytes": "8b9644100000",
+            "text": "mov     edx, [esi+1044h]"
+          },
+          {
+            "ea": "0x40995e",
+            "size": 1,
+            "bytes": "52",
+            "text": "push    edx"
+          },
+          {
+            "ea": "0x40995f",
+            "size": 2,
+            "bytes": "6a05",
+            "text": "push    5"
+          },
+          {
+            "ea": "0x409961",
+            "size": 5,
+            "bytes": "6850d45400",
+            "text": "push    offset dword_54D450"
+          },
+          {
+            "ea": "0x409966",
+            "size": 5,
+            "bytes": "e825b4ffff",
+            "text": "call    SelectIntValue"
+          },
+          {
+            "ea": "0x40996b",
+            "size": 3,
+            "bytes": "83c40c",
+            "text": "add     esp, 0Ch"
+          },
+          {
+            "ea": "0x40996e",
+            "size": 2,
+            "bytes": "eb2e",
+            "text": "jmp     short loc_40999E"
+          },
+          {
+            "ea": "0x409970",
+            "size": 2,
+            "bytes": "6a02",
+            "text": "push    2"
+          },
+          {
+            "ea": "0x409972",
+            "size": 1,
+            "bytes": "53",
+            "text": "push    ebx"
+          },
+          {
+            "ea": "0x409973",
+            "size": 5,
+            "bytes": "e878610600",
+            "text": "call    RAND"
+          }
+        ],
+        "requested_start": "0x409955",
+        "requested_end_exclusive": "0x409974",
+        "first_instruction": "0x409956",
+        "last_instruction_end_exclusive": "0x409978"
+      },
+      {
+        "instructions": [
+          {
+            "ea": "0x427053",
+            "size": 7,
+            "bytes": "8b0c9580e95900",
+            "text": "mov     ecx, gBattleEntry[edx*4]"
+          },
+          {
+            "ea": "0x42705a",
+            "size": 3,
+            "bytes": "8b510c",
+            "text": "mov     edx, [ecx+0Ch]"
+          },
+          {
+            "ea": "0x42705d",
+            "size": 4,
+            "bytes": "8b4c244c",
+            "text": "mov     ecx, [esp+34h+arg_14]"
+          },
+          {
+            "ea": "0x427061",
+            "size": 6,
+            "bytes": "898af40f0000",
+            "text": "mov     [edx+0FF4h], ecx"
+          },
+          {
+            "ea": "0x427067",
+            "size": 5,
+            "bytes": "e824ddfdff",
+            "text": "call    SelectIntValue"
+          },
+          {
+            "ea": "0x42706c",
+            "size": 3,
+            "bytes": "8b5500",
+            "text": "mov     edx, [ebp+0]"
+          },
+          {
+            "ea": "0x42706f",
+            "size": 2,
+            "bytes": "6a19",
+            "text": "push    19h; a3"
+          },
+          {
+            "ea": "0x427071",
+            "size": 7,
+            "bytes": "8b0c9580e95900",
+            "text": "mov     ecx, gBattleEntry[edx*4]"
+          },
+          {
+            "ea": "0x427078",
+            "size": 3,
+            "bytes": "8b510c",
+            "text": "mov     edx, [ecx+0Ch]"
+          }
+        ],
+        "requested_start": "0x427053",
+        "requested_end_exclusive": "0x427079",
+        "first_instruction": "0x427053",
+        "last_instruction_end_exclusive": "0x42707b"
+      },
+      {
+        "instructions": [
+          {
+            "ea": "0x4271e4",
+            "size": 1,
+            "bytes": "50",
+            "text": "push    eax; YobiAction *"
+          },
+          {
+            "ea": "0x4271e5",
+            "size": 5,
+            "bytes": "e8264a0100",
+            "text": "call    sub_43BC10"
+          },
+          {
+            "ea": "0x4271ea",
+            "size": 2,
+            "bytes": "8b07",
+            "text": "mov     eax, [edi]"
+          },
+          {
+            "ea": "0x4271ec",
+            "size": 3,
+            "bytes": "83c418",
+            "text": "add     esp, 18h"
+          },
+          {
+            "ea": "0x4271ef",
+            "size": 3,
+            "bytes": "83f80a",
+            "text": "cmp     eax, 0Ah"
+          },
+          {
+            "ea": "0x4271f2",
+            "size": 2,
+            "bytes": "7d29",
+            "text": "jge     short loc_42721D"
+          },
+          {
+            "ea": "0x4271f4",
+            "size": 4,
+            "bytes": "8b4c2438",
+            "text": "mov     ecx, [esp+28h+techIx]"
+          },
+          {
+            "ea": "0x4271f8",
+            "size": 1,
+            "bytes": "51",
+            "text": "push    ecx"
+          },
+          {
+            "ea": "0x4271f9",
+            "size": 2,
+            "bytes": "6a05",
+            "text": "push    5"
+          },
+          {
+            "ea": "0x4271fb",
+            "size": 5,
+            "bytes": "6824d75400",
+            "text": "push    offset dword_54D724"
+          },
+          {
+            "ea": "0x427200",
+            "size": 5,
+            "bytes": "e88bdbfdff",
+            "text": "call    SelectIntValue"
+          },
+          {
+            "ea": "0x427205",
+            "size": 3,
+            "bytes": "8b5500",
+            "text": "mov     edx, [ebp+0]"
+          },
+          {
+            "ea": "0x427208",
+            "size": 3,
+            "bytes": "83c40c",
+            "text": "add     esp, 0Ch"
+          },
+          {
+            "ea": "0x42720b",
+            "size": 7,
+            "bytes": "8b0c9580e95900",
+            "text": "mov     ecx, gBattleEntry[edx*4]"
+          },
+          {
+            "ea": "0x427212",
+            "size": 3,
+            "bytes": "8b510c",
+            "text": "mov     edx, [ecx+0Ch]"
+          },
+          {
+            "ea": "0x427215",
+            "size": 6,
+            "bytes": "89822c100000",
+            "text": "mov     [edx+102Ch], eax"
+          },
+          {
+            "ea": "0x42721b",
+            "size": 2,
+            "bytes": "eb27",
+            "text": "jmp     short loc_427244"
+          },
+          {
+            "ea": "0x42721d",
+            "size": 4,
+            "bytes": "8b442438",
+            "text": "mov     eax, [esp+28h+techIx]"
+          },
+          {
+            "ea": "0x427221",
+            "size": 1,
+            "bytes": "50",
+            "text": "push    eax"
+          },
+          {
+            "ea": "0x427222",
+            "size": 2,
+            "bytes": "6a05",
+            "text": "push    5"
+          },
+          {
+            "ea": "0x427224",
+            "size": 5,
+            "bytes": "6810d75400",
+            "text": "push    offset dword_54D710"
+          },
+          {
+            "ea": "0x427229",
+            "size": 5,
+            "bytes": "e862dbfdff",
+            "text": "call    SelectIntValue"
+          },
+          {
+            "ea": "0x42722e",
+            "size": 3,
+            "bytes": "8b4d00",
+            "text": "mov     ecx, [ebp+0]"
+          },
+          {
+            "ea": "0x427231",
+            "size": 3,
+            "bytes": "83c40c",
+            "text": "add     esp, 0Ch"
+          },
+          {
+            "ea": "0x427234",
+            "size": 7,
+            "bytes": "8b148d80e95900",
+            "text": "mov     edx, gBattleEntry[ecx*4]"
+          }
+        ],
+        "requested_start": "0x4271de",
+        "requested_end_exclusive": "0x427238",
+        "first_instruction": "0x4271e4",
+        "last_instruction_end_exclusive": "0x42723b"
+      }
+    ],
+    "tables": [
+      {
+        "ea": "0x54d450",
+        "bytes": "98b2010099b201009ab201009bb201009cb20100",
+        "s32_values": [
+          111256,
+          111257,
+          111258,
+          111259,
+          111260
+        ]
+      },
+      {
+        "ea": "0x54d710",
+        "bytes": "93b2010094b2010095b2010096b2010097b20100",
+        "s32_values": [
+          111251,
+          111252,
+          111253,
+          111254,
+          111255
+        ]
+      },
+      {
+        "ea": "0x54d724",
+        "bytes": "9db201009eb201009fb20100a0b20100a1b20100",
+        "s32_values": [
+          111261,
+          111262,
+          111263,
+          111264,
+          111265
+        ]
+      }
+    ]
+  },
+  "existing_selector_baseline": "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-baseline",
+  "current_sources": {
+    "selector": {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "cg::login::detail::SelectIntValue_404D90",
+      "body": "std::int32_t SelectIntValue_404D90(\n    const std::int32_t* const values, const std::int32_t count, const std::int32_t index)\n{\n    if (count <= 0 || index < 0 || index >= count) {\n        return 0;\n    }\n    return values[index];\n}"
+    },
+    "pair_position": {
+      "path": "src/world/SceneState.cpp",
+      "symbol": "cg::world::detail::GetBattlePetPosition_405B40",
+      "body": "std::int32_t GetBattlePetPosition_405B40(const std::int32_t position)\n{\n    if ((position >= 0 && position < 5) || (position >= 10 && position < 15)) {\n        return position + 5;\n    }\n    return position - 5;\n}"
+    },
+    "tables": {
+      "kBattleHitImages54D450": "constexpr std::array<std::int32_t, 5> kBattleHitImages54D450 {111256, 111257, 111258, 111259, 111260};",
+      "kBattleSkillImages54D710": "constexpr std::array<std::int32_t, 5> kBattleSkillImages54D710 {\n    0x1B293, 0x1B294, 0x1B295, 0x1B296, 0x1B297,\n};",
+      "kBattleSkillImages54D724": "constexpr std::array<std::int32_t, 5> kBattleSkillImages54D724 {\n    0x1B29D, 0x1B29E, 0x1B29F, 0x1B2A0, 0x1B2A1,\n};"
+    }
+  },
+  "limits": [
+    "33直接入向只定位，不代全部父验收。",
+    "邻窗保实际指令与请求范围，可能跨请求末界；不是完整父，参数初始形成沿BNT01既有全父证据。",
+    "当前两正确本体与全部客户端源码不改，不登记新增I或完整业务/SDK/运行通过。",
+    "只原生指针适配；S32正常计算保，RPLAN.24不专项异常/回绕/故障等价。"
+  ],
+  "verification": "完整原指令/表/源文本与台账差异；未构建/测试/运行/产物或摘要。"
+}

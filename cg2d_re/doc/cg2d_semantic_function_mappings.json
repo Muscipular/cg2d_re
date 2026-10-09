@@ -196088,6 +196088,102 @@
         }
       ],
       "verification_level": "仅已有原身份/十caller合同、两实际SDK调用/比较器/布局与其余业务源静态；未编译/运行，不计八未迁域通过"
+    },
+    {
+      "inventory_id": "F:00004D90",
+      "original_entry": "0x404D90",
+      "original_role": "SelectIntValue",
+      "original_end_exclusive": "0x404DAF",
+      "instruction_count": 13,
+      "function_chunks": [
+        {
+          "start": "0x404d90",
+          "end_exclusive": "0x404daf"
+        }
+      ],
+      "status": "BDI01既有正确完整标量依赖独立身份纳管，源码保持；全部父/owner/SDK及运行未验",
+      "boundary": "原count<=0/index<0/index>=count返回0，门禁后才读values[index]并返回S32；只拓宽非拥有const S32*。三表15项60B/四原CALL两父有据，现三个表达式含一个互斥选表调用；父结果/寿命与运行未验。",
+      "evidence_documents": [
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-baseline",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-decision",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-acceptance",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-source-state",
+        "doc/cg2d_battle_scalar_dependencies_evidence.json"
+      ],
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::SelectIntValue_404D90"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::SelectIntValue_404D90",
+        "source_body_implemented": true,
+        "source_body_changed": false,
+        "runtime_verified": false
+      },
+      "verification_level": "两完整26条62B/七跳四RET零callee、三表15项60B与33入向仅定位；限定静态，零源码/新I/完整验收。",
+      "battle_scalar_dependencies": {
+        "spec_id": "BDI01",
+        "instruction_count": 13,
+        "code_bytes": 31,
+        "inbound_call_count": 4,
+        "inbound_parent_count": 2,
+        "full_original_root_captured": true,
+        "source_body_changed": false,
+        "full_parent_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "inventory_id": "F:00005B40",
+      "original_entry": "0x405B40",
+      "original_role": "GetPetPosition",
+      "original_end_exclusive": "0x405B5F",
+      "instruction_count": 13,
+      "function_chunks": [
+        {
+          "start": "0x405b40",
+          "end_exclusive": "0x405b5f"
+        }
+      ],
+      "status": "BDI01既有正确完整标量依赖独立身份纳管，源码保持；全部父/owner/SDK及运行未验",
+      "boundary": "原S32位置在[0,5)或[10,15)加5，其余减5，保负值路径；不新增范围限制或保护。29CALL/16父只定位，现UI/战斗全部结果/寿命与运行未验。",
+      "evidence_documents": [
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-baseline",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-decision",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-acceptance",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-source-state",
+        "doc/cg2d_battle_scalar_dependencies_evidence.json"
+      ],
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "cg::world::detail::GetBattlePetPosition_405B40"
+        }
+      ],
+      "native_provider": {
+        "source": "src/world/SceneState.cpp",
+        "symbol": "cg::world::detail::GetBattlePetPosition_405B40",
+        "source_body_implemented": true,
+        "source_body_changed": false,
+        "runtime_verified": false
+      },
+      "verification_level": "两完整26条62B/七跳四RET零callee、三表15项60B与33入向仅定位；限定静态，零源码/新I/完整验收。",
+      "battle_scalar_dependencies": {
+        "spec_id": "BDI01",
+        "instruction_count": 13,
+        "code_bytes": 31,
+        "inbound_call_count": 29,
+        "inbound_parent_count": 16,
+        "full_original_root_captured": true,
+        "source_body_changed": false,
+        "full_parent_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

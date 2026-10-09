@@ -4590,3 +4590,7 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 
 
 2026-10-09用户在CAC03覆盖部署后反馈“已正常”，确认本次选人入场故障复验通过。只关闭本次已报告断言的待验状态；保留旧失败记录与栈，不将反馈扩大为两称号页面、全部称号/场景生命周期或整体SPEC验收。详见[用户复验记录](cg2d_build_acceptance_spec.md#character-entry-confirmed-20261009)。
+
+## 2026-10-10 战斗标量依赖身份补齐（BDI01）
+
+[专项合同](cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-source-state)与[完整原根/现源](cg2d_battle_scalar_dependencies_evidence.json)纳管既有404D90图号选择、405B40配对位置。两13条31B的正常S32门禁/返回与现正文正确保持，三图号表15项一致；只拓宽真实非拥有指针，零源码改动/新实现I。33原入向仅定位，不代完整父、表/载荷生产与借用寿命、SDK/画面运行或完整战斗/UI通过；RPLAN.24和全部门禁保持。

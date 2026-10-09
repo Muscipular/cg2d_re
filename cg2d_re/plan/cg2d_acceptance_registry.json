@@ -3690,7 +3690,9 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_evidence.json"
+        "doc/cg2d_msvc_crt_file_evidence.json",
+        "doc/cg2d_battle_scalar_dependencies_spec.md",
+        "doc/cg2d_battle_scalar_dependencies_evidence.json"
       ],
       "original_inventory_ids": [
         "F:0004B170",
@@ -3758,7 +3760,8 @@
         "F:001044C0",
         "F:00104A50",
         "F:00104AF0",
-        "F:0011A060"
+        "F:0011A060",
+        "F:00005B40"
       ],
       "closure_task_ids": [
         "U04",
@@ -3797,7 +3800,8 @@
         "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
         "doc/cg2d_window_draw_width_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build",
-        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009"
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-decision"
       ],
       "blockers": [
         "CAB30八已有窗口绘制身份补到本域64成员，17点20宽度警告已修；19原相关调用332条955B/消费字段、整CPP差集及Debug有据。窗口仍23/其它未重编44项已见警告，枚举/旧99路由/所有父-callee/正常寿命/ABI/画面与运行未验。",
@@ -3819,7 +3823,8 @@
         "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
         "BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
         "CAC19只补本批原数据/代码身份及原型/旧表来源；完整父/所有callee、字段生产/外层分派、未知alias/正常owner寿命、SDK/机器ABI与运行仍未闭。旧选择handlerToken及十八原键槽不证明当前新端真实调用，完整成员枚举保持开放。",
-        "MC01-B已成组迁移实际MSVC FILE/描述符及流格式/状态/关闭；已证owner失效处理已接。完整CRT对象/初始化退出余组、业务/owner/SDK运行仍未验。"
+        "MC01-B已成组迁移实际MSVC FILE/描述符及流格式/状态/关闭；已证owner失效处理已接。完整CRT对象/初始化退出余组、业务/owner/SDK运行仍未验。",
+        "BDI01既有正确标量依赖独立身份纳管，零源码/新I；仅限定完整叶原指令/三表及实际调用合同S，33入向全部父/数据owner/SDK/运行仍未验，枚举和完整门禁保持。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -4292,7 +4297,9 @@
         "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
         "doc/cg2d_window_draw_width_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-baseline"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-baseline",
+        "doc/cg2d_battle_scalar_dependencies_spec.md",
+        "doc/cg2d_battle_scalar_dependencies_evidence.json"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -4563,7 +4570,9 @@
         "F:0001F660",
         "F:00020300",
         "F:000209C0",
-        "F:0003BD00"
+        "F:0003BD00",
+        "F:00004D90",
+        "F:00005B40"
       ],
       "closure_task_ids": [
         "P01",
@@ -4694,7 +4703,8 @@
         "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
         "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
         "doc/cg2d_window_draw_width_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-decision"
       ],
       "blockers": [
         "CAB30两个既有宠物技能绘制入口仅明确既有U8图层消费，原equivalent处置/原成员保持；正常成本/取样/图号/音效及所有其它正文不变，原完整门禁与寿命/ABI/运行不由本步外推。",
@@ -4811,7 +4821,8 @@
         "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
         "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
         "BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
-        "CAC07本域新增成员仅已有真实源及原分派数据关联；本批512X用途有证不代13父完整算法/签名/所有callee、间接alias、生产及正常owner寿命/SDK/机器ABI/运行。本域成员枚举和B/I/W/S/R继续未闭，不新增软件通过。"
+        "CAC07本域新增成员仅已有真实源及原分派数据关联；本批512X用途有证不代13父完整算法/签名/所有callee、间接alias、生产及正常owner寿命/SDK/机器ABI/运行。本域成员枚举和B/I/W/S/R继续未闭，不新增软件通过。",
+        "BDI01既有正确标量依赖独立身份纳管，零源码/新I；仅限定完整叶原指令/三表及实际调用合同S，33入向全部父/数据owner/SDK/运行仍未验，枚举和完整门禁保持。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -58093,6 +58104,65 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-10"
+    },
+    {
+      "id": "E-BATTLE-SCALAR-DEPENDENCIES-FUNC-UIRUNTIME-S-20261010",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BDI01完整405B40十三条31B/四跳两RET零callee；29入向/16父仅定位。",
+      "implementation_reference": "Git固定快照 cg2d-re-battle-scalar-dependencies-20261010",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-baseline",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-decision",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-acceptance",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-source-state",
+        "doc/cg2d_battle_scalar_dependencies_evidence.json",
+        "src/YobiRuntime.cpp",
+        "src/world/SceneState.cpp",
+        "include/cg/YobiRuntime.hpp",
+        "src/world/WorldUpdateDependencies.hpp"
+      ],
+      "observation": "两既有正确本体与全部业务源保持；BATTLE两根/UI只配对位置，未验全父或运行。",
+      "expected": "原S32位置在[0,5)或[10,15)加5，其余减5；不新增范围限制或保护，原调用/owner保持。",
+      "actual": "配对位置完整13条31B与现正文吻合；本域仅纳管该共享原F/限定S，未验29入向全部父/数据寿命/SDK或运行。",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-10",
+      "coverage_inventory_ids": [
+        "F:00005B40"
+      ]
+    },
+    {
+      "id": "E-BATTLE-SCALAR-DEPENDENCIES-FUNC-BATTLE-S-20261010",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BDI01两完整13条31B；33入向仅定位，BNT01既有选择叶基线复用。",
+      "implementation_reference": "Git固定快照 cg2d-re-battle-scalar-dependencies-20261010",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-baseline",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-decision",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-acceptance",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-source-state",
+        "doc/cg2d_battle_scalar_dependencies_evidence.json",
+        "src/YobiRuntime.cpp",
+        "src/world/SceneState.cpp",
+        "include/cg/YobiRuntime.hpp",
+        "src/world/WorldUpdateDependencies.hpp"
+      ],
+      "observation": "两既有正确本体与全部业务源保持；BATTLE两根/UI只配对位置，未验全父或运行。",
+      "expected": "原有符号门禁/表项及位置区间加减5保持；只拓宽真实指针，零新增保护或owner。",
+      "actual": "两完整26条62B/七跳四RET零callee，三表15项60B吻合；两独立原F及局部成员纳管，零新实现I。",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-10",
+      "coverage_inventory_ids": [
+        "F:00004D90",
+        "F:00005B40"
+      ]
     }
   ],
   "task_acceptance": [
@@ -59276,7 +59346,12 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
-        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-baseline",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-decision",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-acceptance",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-source-state",
+        "doc/cg2d_battle_scalar_dependencies_evidence.json"
       ]
     },
     {
@@ -59933,7 +60008,12 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
-        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-baseline",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-decision",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-acceptance",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-source-state",
+        "doc/cg2d_battle_scalar_dependencies_evidence.json"
       ]
     },
     {
@@ -60168,7 +60248,12 @@
         "doc/cg2d_msvc_crt_multibyte_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
-        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-baseline",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-decision",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-acceptance",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-source-state",
+        "doc/cg2d_battle_scalar_dependencies_evidence.json"
       ]
     },
     {
@@ -60893,7 +60978,12 @@
         "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
         "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-source-state",
         "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state",
-        "plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009"
+        "plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-baseline",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-decision",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-acceptance",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-source-state",
+        "doc/cg2d_battle_scalar_dependencies_evidence.json"
       ]
     },
     {
@@ -60990,7 +61080,7 @@
       ]
     }
   ],
-  "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。 GQ01由同一汇总器生成development_gap_queue与看板§5；只列定位/语义身份登记差集，不把缺历史定位当源码未实现，不手改队列。 CRI01无独立函数ID的已证代码片段可按原X区间/实际边界绑定；校验身份与证据后另计，不混入缺身份队列，不增加函数分母。 ACP01-A按最新double/std数学许可迁音频6入口CPP；更新现提供者及两限定静态证据，三ASM历史附件仍由固定Git快照核存在；完整门禁/成员/任务状态与MIDI停止范围保持。 ACP01-M将地图13数学/投影入口迁CPP，8现提供者同步，新增两限定I/S，原CI消费点明示std::pow承接；CRT环境仍待，不关闭完整gates/成员/任务。 ACP01-C完成第三ASM源迁移，22接口/70私有机器ABI退役/5非PUBLIC宿主承接，当前数学现提供者与host/mixed处置同步；新增两限定I/S，三ASM/MASM已移除，原身份/成员/完整gates/任务/六closure不闭合。 HMU01按malloc方向和工程委托统一通用全部模式CRT；9实际提供者/12旧池退休/8类型/10槽，25语义当前提供者与host/adapted处置对齐，3限定静态证据；完整门禁/成员/任务/六closure保持。 2026-10-09 CAC17：按用户要求更新七源/头18处过时注释；代码/声明/字段/调用保持，零新增原身份/语义/处置/软件证据，完整门禁/任务关闭/成员/六closure不变；见plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009。 2026-10-09 CAC18：第六批512原X完整用途和49表307槽/19索引/18对齐/三回调八原型，仅辅助mapped与九已有/26新父数据关联及三无F代码身份；已审区间2021余1040，源码/完整门禁/软件证据/任务状态和六closure保持。 2026-10-09 CAC19：第七批512原X/5733B完整用途；15表97槽/两索引/四对齐/22代码，五原型、十八旧键与一旧选择来源，七旧/六新父仅数据关联。已审区间2533余528，零客户端源码/软件证据增量；完整门禁/任务状态/成员枚举和六closure保持。 2026-10-09 CAC20：528候选全读、527原X用途mapped，已审3060/3061；X:00142E29-00142E34内八字节用途未证留待，不猜填充/排除。九表/输入元数据/PE原节尾/键盘包装/三ABI尾部有据；单一53B4F2受限host职责新增，零客户端源码/软件证据通过，完整门禁/任务状态/成员枚举/六closure保持。 CAC20静态汇总拒绝53B51F无独立现源码的语义代码身份后，撤掉该条；原用途/完整字节和未决实际转入仍保留，不放宽校验。 MC01-A按用户CRT直接使用MSVC新要求先记总范围与分组SPEC，33入口/29新提供者、TLS错误和八退休辅助同步；保原身份/前态、局部静态证据与全部完整门禁，FILE/lowio和C++余组继续。 MC01-B成组迁MSVC FILE/描述符/流格式与状态/ctime/fpos/关闭；39私有定义及旧入口/C表退休，shared calloc仅除stdio消费者；旧映射沿固定快照可读，当前全部门禁/任务状态保持，完整C++余组继续。 MC01-C1退休六组无现组外消费者的私有C++库/NCE头及旧展开适配，实际MSVC标准流/Init/locale和全部业务初始化退出保持；现语义/共享消费与历史附件快照对齐，新增两限定I/S，完整功能门禁/成员闭包/任务状态保持。 MC01-C2浮点文本/数值/环境组退休，实际业务math源及计时除法保持，两真实Shop/NLS intrinsic读移到现有模块；无消费slot/helper/gate/类型退休，新增两限定I/S及精确登记，完整门禁/任务保持。 MC01-C3 private错误/信号/退出/filter/console层退休；三MSVC致命或terminate适配、四数组/实际业务回调与登记保持，_Exit诊断差异具名；两限定I/S、现语义/历史附件对齐，完整门禁/任务不关闭。；2026-10-10 MC01-C4堆策略直接MSVC，三公开服务与真实业务保持；35语义对齐、仅2限定I/S，完整门禁/任务状态不变。；2026-10-10 MC01-C5旧多字节/ctype/argv环境直接MSVC，两Input实际分类与业务命令/数组保持，仅限定I/S；门禁/任务状态不变。；2026-10-10 MC01-C6残留审计退休无消费549147，仅限定S；排序冲突两方案待选择，未计实现/验收。；2026-10-10 MC01-C7两一致排序域std::qsort，新增原_qsort混合身份；仅限定I/S，八待决域及全部完整门禁保持。；2026-10-10旧7/旧8路由待项按已有有界证据对齐为原调用来源待证，不推定缺少分派，不新增I/S或功能通过；完整门禁/任务与CRT排序待决保持。",
+  "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。 GQ01由同一汇总器生成development_gap_queue与看板§5；只列定位/语义身份登记差集，不把缺历史定位当源码未实现，不手改队列。 CRI01无独立函数ID的已证代码片段可按原X区间/实际边界绑定；校验身份与证据后另计，不混入缺身份队列，不增加函数分母。 ACP01-A按最新double/std数学许可迁音频6入口CPP；更新现提供者及两限定静态证据，三ASM历史附件仍由固定Git快照核存在；完整门禁/成员/任务状态与MIDI停止范围保持。 ACP01-M将地图13数学/投影入口迁CPP，8现提供者同步，新增两限定I/S，原CI消费点明示std::pow承接；CRT环境仍待，不关闭完整gates/成员/任务。 ACP01-C完成第三ASM源迁移，22接口/70私有机器ABI退役/5非PUBLIC宿主承接，当前数学现提供者与host/mixed处置同步；新增两限定I/S，三ASM/MASM已移除，原身份/成员/完整gates/任务/六closure不闭合。 HMU01按malloc方向和工程委托统一通用全部模式CRT；9实际提供者/12旧池退休/8类型/10槽，25语义当前提供者与host/adapted处置对齐，3限定静态证据；完整门禁/成员/任务/六closure保持。 2026-10-09 CAC17：按用户要求更新七源/头18处过时注释；代码/声明/字段/调用保持，零新增原身份/语义/处置/软件证据，完整门禁/任务关闭/成员/六closure不变；见plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009。 2026-10-09 CAC18：第六批512原X完整用途和49表307槽/19索引/18对齐/三回调八原型，仅辅助mapped与九已有/26新父数据关联及三无F代码身份；已审区间2021余1040，源码/完整门禁/软件证据/任务状态和六closure保持。 2026-10-09 CAC19：第七批512原X/5733B完整用途；15表97槽/两索引/四对齐/22代码，五原型、十八旧键与一旧选择来源，七旧/六新父仅数据关联。已审区间2533余528，零客户端源码/软件证据增量；完整门禁/任务状态/成员枚举和六closure保持。 2026-10-09 CAC20：528候选全读、527原X用途mapped，已审3060/3061；X:00142E29-00142E34内八字节用途未证留待，不猜填充/排除。九表/输入元数据/PE原节尾/键盘包装/三ABI尾部有据；单一53B4F2受限host职责新增，零客户端源码/软件证据通过，完整门禁/任务状态/成员枚举/六closure保持。 CAC20静态汇总拒绝53B51F无独立现源码的语义代码身份后，撤掉该条；原用途/完整字节和未决实际转入仍保留，不放宽校验。 MC01-A按用户CRT直接使用MSVC新要求先记总范围与分组SPEC，33入口/29新提供者、TLS错误和八退休辅助同步；保原身份/前态、局部静态证据与全部完整门禁，FILE/lowio和C++余组继续。 MC01-B成组迁MSVC FILE/描述符/流格式与状态/ctime/fpos/关闭；39私有定义及旧入口/C表退休，shared calloc仅除stdio消费者；旧映射沿固定快照可读，当前全部门禁/任务状态保持，完整C++余组继续。 MC01-C1退休六组无现组外消费者的私有C++库/NCE头及旧展开适配，实际MSVC标准流/Init/locale和全部业务初始化退出保持；现语义/共享消费与历史附件快照对齐，新增两限定I/S，完整功能门禁/成员闭包/任务状态保持。 MC01-C2浮点文本/数值/环境组退休，实际业务math源及计时除法保持，两真实Shop/NLS intrinsic读移到现有模块；无消费slot/helper/gate/类型退休，新增两限定I/S及精确登记，完整门禁/任务保持。 MC01-C3 private错误/信号/退出/filter/console层退休；三MSVC致命或terminate适配、四数组/实际业务回调与登记保持，_Exit诊断差异具名；两限定I/S、现语义/历史附件对齐，完整门禁/任务不关闭。；2026-10-10 MC01-C4堆策略直接MSVC，三公开服务与真实业务保持；35语义对齐、仅2限定I/S，完整门禁/任务状态不变。；2026-10-10 MC01-C5旧多字节/ctype/argv环境直接MSVC，两Input实际分类与业务命令/数组保持，仅限定I/S；门禁/任务状态不变。；2026-10-10 MC01-C6残留审计退休无消费549147，仅限定S；排序冲突两方案待选择，未计实现/验收。；2026-10-10 MC01-C7两一致排序域std::qsort，新增原_qsort混合身份；仅限定I/S，八待决域及全部完整门禁保持。；2026-10-10旧7/旧8路由待项按已有有界证据对齐为原调用来源待证，不推定缺少分派，不新增I/S或功能通过；完整门禁/任务与CRT排序待决保持。；2026-10-10 BDI01补两既有正确战斗标量依赖独立身份/限定S，源码和新I零；原分母/完整门禁与全部任务状态保持。",
   "function_dispositions": [
     {
       "disposition": "adapted",
@@ -79397,6 +79487,32 @@
         "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
       ],
       "boundary": "MC01-C7原_qsort独立身份及两一致调用已接MSVC；八未迁域仍旧算法/业务比较器待C6，仅混合adapted，不whole host/原体等价/完整SDK或业务结果。"
+    },
+    {
+      "inventory_id": "F:00004D90",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-baseline",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-decision",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-acceptance",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-source-state",
+        "doc/cg2d_battle_scalar_dependencies_evidence.json"
+      ],
+      "boundary": "原count<=0/index<0/index>=count返回0，门禁后才读values[index]并返回S32；只拓宽非拥有const S32*。三表15项60B/四原CALL两父有据，现三个表达式含一个互斥选表调用；父结果/寿命与运行未验。 BDI01仅正常源/原生ABI承载静态，RPLAN.24不专项异常或故障等价；完整门禁保。"
+    },
+    {
+      "inventory_id": "F:00005B40",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-baseline",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-decision",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-acceptance",
+        "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-source-state",
+        "doc/cg2d_battle_scalar_dependencies_evidence.json"
+      ],
+      "boundary": "原S32位置在[0,5)或[10,15)加5，其余减5，保负值路径；不新增范围限制或保护。29CALL/16父只定位，现UI/战斗全部结果/寿命与运行未验。 BDI01仅正常源/原生ABI承载静态，RPLAN.24不专项异常或故障等价；完整门禁保。"
     }
   ],
   "auxiliary_dispositions": [

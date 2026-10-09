@@ -8133,3 +8133,7 @@ BUO01必要静态已通过：完整Scene只两数据初始化改原768B/512常�
 完整原叶44条115B、五调用邻窗80条215B与立即重读覆盖EAX、末+4地址45条125B、原库存chunk、CAC08八表原证精确一致；原证全文回读与采集对象相等。源码单方向/八分支触达序及UTF-8无BOM/LF限定静态通过，不执行样例或测试。既有语义1927补双承载关系，一adapted处置与三局部MAP I/W/S；没有新F/语义或R7重复处置，不提升任何完整门禁。
 
 五父完整数据生产消费/全部alias与正常owner寿命、SDK/机器采样/ABI、链接/画面/运行和R8继续未验；不构建/测试/运行/检查产物或摘要。固定命名快照cg2d-re-map-direction-byte-bridge-20261009，原协议明文/GBK宋体ASCII光标/SDL3-WAV保持。
+
+## 2026-10-10 战斗标量依赖身份补齐（BDI01）
+
+[专项合同](cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-source-state)与[完整原根/现源](cg2d_battle_scalar_dependencies_evidence.json)纳管既有404D90图号选择、405B40配对位置。两13条31B的正常S32门禁/返回与现正文正确保持，三图号表15项一致；只拓宽真实非拥有指针，零源码改动/新实现I。33原入向仅定位，不代完整父、表/载荷生产与借用寿命、SDK/画面运行或完整战斗/UI通过；RPLAN.24和全部门禁保持。

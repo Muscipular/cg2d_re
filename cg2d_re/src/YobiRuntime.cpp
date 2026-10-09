@@ -25518,6 +25518,7 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
     }
 }
 
+// BPEX01：移动后的坐标超出原矩形才标死；公共尾及最终摘链/释放见doc/cg2d_battle_projectile_exit_spec.md。
 void UpdateBattleAction17_4093B0(YobiAction* const action)
 {
     MoveBattleByAngle_405EA0(action);

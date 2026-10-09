@@ -196542,6 +196542,57 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "inventory_id": "F:000093B0",
+      "original_entry": "0x4093b0",
+      "original_role": "4093B0；实际404DB0 case17投射退场叶",
+      "original_end_exclusive": "0x409409",
+      "instruction_count": 30,
+      "function_chunks": [
+        {
+          "start": "0x4093b0",
+          "end_exclusive": "0x409409"
+        }
+      ],
+      "status": "BPEX01完整既有阶段17正常退场纳管，正文正确保持；完整owner/资源SDK和运行未验",
+      "evidence_documents": [
+        "doc/cg2d_battle_projectile_exit_spec.md#battle-projectile-exit-baseline",
+        "doc/cg2d_battle_projectile_exit_spec.md#battle-projectile-exit-lifetime",
+        "doc/cg2d_battle_projectile_exit_spec.md#battle-projectile-exit-decision",
+        "doc/cg2d_battle_projectile_exit_spec.md#battle-projectile-exit-acceptance",
+        "doc/cg2d_battle_projectile_exit_spec.md#battle-projectile-exit-source-state",
+        "doc/cg2d_battle_projectile_exit_evidence.json"
+      ],
+      "boundary": "BPEX01完整阶段17先移动/原矩形正常超界标死，两X两Y短路及原三F32常量保持；本叶无播放/队列/释放，唯一case17不消费返回，现void及公共尾保。活节点callback标死不在同节点当场free只为条件性阶段说明；投影在父free前执行/标死及所有门禁/重入/清场和最终owner/资源SDK/运行未闭。",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction17_4093B0"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction17_4093B0",
+        "source_body_implemented": true,
+        "source_body_changed": false,
+        "runtime_verified": false
+      },
+      "verification_level": "完整30条89B/两call/四跳一RET，三F32常量/唯一三条11B case17与公共尾返回覆盖；调度/分配/释放原基线复用及现源阶段对应，仅限定S，不代所有owner生命周期。",
+      "battle_projectile_exit": {
+        "spec_id": "BPEX01",
+        "full_original_root_captured": true,
+        "instruction_count": 30,
+        "code_bytes": 89,
+        "read_pages": 1,
+        "outgoing_calls": 2,
+        "actual_direct_inbound_call_count": 1,
+        "source_body_changed": false,
+        "new_implementation_evidence": 0,
+        "conditional_lifetime_inference_only": true,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

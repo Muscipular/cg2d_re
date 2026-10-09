@@ -1,0 +1,571 @@
+{
+  "schema_version": 1,
+  "spec_id": "BPEX01",
+  "date": "2026-10-10",
+  "scope": "阶段17完整正常退场根及条件性调度/标死阶段，不代完整寿命",
+  "decision_ref": "doc/cg2d_battle_projectile_exit_spec.md#battle-projectile-exit-decision",
+  "before_snapshot": "cg2d-re-battle-projectile-exit-history-20261010",
+  "after_snapshot": "cg2d-re-battle-projectile-exit-20261010",
+  "original_root": {
+    "entry": 4232112,
+    "end": 4232201,
+    "name": "sub_4093B0",
+    "chunks": [
+      [
+        4232112,
+        4232201
+      ]
+    ],
+    "instruction_count": 30,
+    "code_bytes": 89,
+    "xrefs": [
+      {
+        "from": 4214479,
+        "to": 4232112,
+        "type": 17,
+        "iscode": true,
+        "mnem": "call",
+        "text": "call    sub_4093B0",
+        "parent": 4214192,
+        "operand_value": 4232112
+      }
+    ],
+    "instructions": [
+      {
+        "ea": 4232112,
+        "size": 1,
+        "bytes": "56",
+        "mnem": "push",
+        "text": "push    esi"
+      },
+      {
+        "ea": 4232113,
+        "size": 4,
+        "bytes": "8b742408",
+        "mnem": "mov",
+        "text": "mov     esi, [esp+4+a2]"
+      },
+      {
+        "ea": 4232117,
+        "size": 1,
+        "bytes": "56",
+        "mnem": "push",
+        "text": "push    esi; a2"
+      },
+      {
+        "ea": 4232118,
+        "size": 5,
+        "bytes": "e8e5caffff",
+        "mnem": "call",
+        "text": "call    YobiAction__UpdateXYByRad"
+      },
+      {
+        "ea": 4232123,
+        "size": 3,
+        "bytes": "d94640",
+        "mnem": "fld",
+        "text": "fld     dword ptr [esi+40h]"
+      },
+      {
+        "ea": 4232126,
+        "size": 6,
+        "bytes": "d81d78d45400",
+        "mnem": "fcomp",
+        "text": "fcomp   ds:flt_54D478"
+      },
+      {
+        "ea": 4232132,
+        "size": 3,
+        "bytes": "83c404",
+        "mnem": "add",
+        "text": "add     esp, 4"
+      },
+      {
+        "ea": 4232135,
+        "size": 2,
+        "bytes": "dfe0",
+        "mnem": "fnstsw",
+        "text": "fnstsw  ax"
+      },
+      {
+        "ea": 4232137,
+        "size": 3,
+        "bytes": "f6c401",
+        "mnem": "test",
+        "text": "test    ah, 1"
+      },
+      {
+        "ea": 4232140,
+        "size": 2,
+        "bytes": "7530",
+        "mnem": "jnz",
+        "text": "jnz     short loc_4093FE"
+      },
+      {
+        "ea": 4232142,
+        "size": 3,
+        "bytes": "d94640",
+        "mnem": "fld",
+        "text": "fld     dword ptr [esi+40h]"
+      },
+      {
+        "ea": 4232145,
+        "size": 6,
+        "bytes": "d81d74d45400",
+        "mnem": "fcomp",
+        "text": "fcomp   ds:flt_54D474"
+      },
+      {
+        "ea": 4232151,
+        "size": 2,
+        "bytes": "dfe0",
+        "mnem": "fnstsw",
+        "text": "fnstsw  ax"
+      },
+      {
+        "ea": 4232153,
+        "size": 3,
+        "bytes": "f6c441",
+        "mnem": "test",
+        "text": "test    ah, 41h"
+      },
+      {
+        "ea": 4232156,
+        "size": 2,
+        "bytes": "7420",
+        "mnem": "jz",
+        "text": "jz      short loc_4093FE"
+      },
+      {
+        "ea": 4232158,
+        "size": 3,
+        "bytes": "d94644",
+        "mnem": "fld",
+        "text": "fld     dword ptr [esi+44h]"
+      },
+      {
+        "ea": 4232161,
+        "size": 6,
+        "bytes": "d81d78d45400",
+        "mnem": "fcomp",
+        "text": "fcomp   ds:flt_54D478"
+      },
+      {
+        "ea": 4232167,
+        "size": 2,
+        "bytes": "dfe0",
+        "mnem": "fnstsw",
+        "text": "fnstsw  ax"
+      },
+      {
+        "ea": 4232169,
+        "size": 3,
+        "bytes": "f6c401",
+        "mnem": "test",
+        "text": "test    ah, 1"
+      },
+      {
+        "ea": 4232172,
+        "size": 2,
+        "bytes": "7510",
+        "mnem": "jnz",
+        "text": "jnz     short loc_4093FE"
+      },
+      {
+        "ea": 4232174,
+        "size": 3,
+        "bytes": "d94644",
+        "mnem": "fld",
+        "text": "fld     dword ptr [esi+44h]"
+      },
+      {
+        "ea": 4232177,
+        "size": 6,
+        "bytes": "d81d70d45400",
+        "mnem": "fcomp",
+        "text": "fcomp   ds:flt_54D470"
+      },
+      {
+        "ea": 4232183,
+        "size": 2,
+        "bytes": "dfe0",
+        "mnem": "fnstsw",
+        "text": "fnstsw  ax"
+      },
+      {
+        "ea": 4232185,
+        "size": 3,
+        "bytes": "f6c441",
+        "mnem": "test",
+        "text": "test    ah, 41h"
+      },
+      {
+        "ea": 4232188,
+        "size": 2,
+        "bytes": "7509",
+        "mnem": "jnz",
+        "text": "jnz     short loc_409407"
+      },
+      {
+        "ea": 4232190,
+        "size": 1,
+        "bytes": "56",
+        "mnem": "push",
+        "text": "push    esi"
+      },
+      {
+        "ea": 4232191,
+        "size": 5,
+        "bytes": "e8fcb8ffff",
+        "mnem": "call",
+        "text": "call    Yobi__MarkDeath"
+      },
+      {
+        "ea": 4232196,
+        "size": 3,
+        "bytes": "83c404",
+        "mnem": "add",
+        "text": "add     esp, 4"
+      },
+      {
+        "ea": 4232199,
+        "size": 1,
+        "bytes": "5e",
+        "mnem": "pop",
+        "text": "pop     esi"
+      },
+      {
+        "ea": 4232200,
+        "size": 1,
+        "bytes": "c3",
+        "mnem": "retn",
+        "text": "retn"
+      }
+    ]
+  },
+  "relations": {
+    "case17_window": [
+      {
+        "ea": 4214478,
+        "size": 1,
+        "bytes": "56",
+        "mnem": "push",
+        "operand_value": 6,
+        "text": "push    esi; jumptable 00404DD5 case 17"
+      },
+      {
+        "ea": 4214479,
+        "size": 5,
+        "bytes": "e8dc440000",
+        "mnem": "call",
+        "operand_value": 4232112,
+        "text": "call    sub_4093B0"
+      },
+      {
+        "ea": 4214484,
+        "size": 5,
+        "bytes": "e966070000",
+        "mnem": "jmp",
+        "operand_value": 4216383,
+        "text": "jmp     loc_40563F"
+      }
+    ],
+    "common_tail_entry": 4216383,
+    "common_tail_window": [
+      {
+        "ea": 4216383,
+        "size": 3,
+        "bytes": "83c404",
+        "text": "add     esp, 4"
+      },
+      {
+        "ea": 4216386,
+        "size": 7,
+        "bytes": "83bd0410000001",
+        "text": "cmp     dword ptr [ebp+1004h], 1; jumptable 00404DD5 default case"
+      },
+      {
+        "ea": 4216393,
+        "size": 2,
+        "bytes": "7530",
+        "text": "jnz     short loc_40567B"
+      },
+      {
+        "ea": 4216395,
+        "size": 6,
+        "bytes": "8b8d00100000",
+        "text": "mov     ecx, [ebp+1000h]"
+      },
+      {
+        "ea": 4216401,
+        "size": 1,
+        "bytes": "41",
+        "text": "inc     ecx"
+      },
+      {
+        "ea": 4216402,
+        "size": 2,
+        "bytes": "8bc1",
+        "text": "mov     eax, ecx"
+      },
+      {
+        "ea": 4216404,
+        "size": 6,
+        "bytes": "898d00100000",
+        "text": "mov     [ebp+1000h], ecx"
+      },
+      {
+        "ea": 4216410,
+        "size": 3,
+        "bytes": "83f802",
+        "text": "cmp     eax, 2"
+      },
+      {
+        "ea": 4216413,
+        "size": 2,
+        "bytes": "7c0a",
+        "text": "jl      short loc_405669"
+      },
+      {
+        "ea": 4216415,
+        "size": 10,
+        "bytes": "c7850010000000000000",
+        "text": "mov     dword ptr [ebp+1000h], 0"
+      }
+    ],
+    "float_constants": [
+      {
+        "ea": 5559416,
+        "bytes": "000048c3",
+        "value": -200
+      },
+      {
+        "ea": 5559412,
+        "bytes": "00005244",
+        "value": 840
+      },
+      {
+        "ea": 5559408,
+        "bytes": "00002a44",
+        "value": 680
+      }
+    ],
+    "common_tail_other_branch_window": [
+      {
+        "ea": 4216443,
+        "size": 7,
+        "bytes": "f7462400008000",
+        "text": "test    dword ptr [esi+24h], 800000h"
+      },
+      {
+        "ea": 4216450,
+        "size": 2,
+        "bytes": "7524",
+        "text": "jnz     short loc_4056A8"
+      },
+      {
+        "ea": 4216452,
+        "size": 3,
+        "bytes": "d94640",
+        "text": "fld     dword ptr [esi+40h]"
+      },
+      {
+        "ea": 4216455,
+        "size": 5,
+        "bytes": "e80c5e1300",
+        "text": "call    __ftol"
+      },
+      {
+        "ea": 4216460,
+        "size": 6,
+        "bytes": "8b15fcf95900",
+        "text": "mov     edx, gRenderXForBattle"
+      },
+      {
+        "ea": 4216466,
+        "size": 3,
+        "bytes": "d94644",
+        "text": "fld     dword ptr [esi+44h]"
+      },
+      {
+        "ea": 4216469,
+        "size": 2,
+        "bytes": "03c2",
+        "text": "add     eax, edx"
+      },
+      {
+        "ea": 4216471,
+        "size": 3,
+        "bytes": "894630",
+        "text": "mov     [esi+30h], eax"
+      },
+      {
+        "ea": 4216474,
+        "size": 5,
+        "bytes": "e8f95d1300",
+        "text": "call    __ftol"
+      },
+      {
+        "ea": 4216479,
+        "size": 6,
+        "bytes": "030500fa5900",
+        "text": "add     eax, gRenderYForBattle"
+      },
+      {
+        "ea": 4216485,
+        "size": 3,
+        "bytes": "894634",
+        "text": "mov     [esi+34h], eax"
+      },
+      {
+        "ea": 4216488,
+        "size": 6,
+        "bytes": "8b85c8130000",
+        "text": "mov     eax, [ebp+13C8h]"
+      },
+      {
+        "ea": 4216494,
+        "size": 2,
+        "bytes": "85c0",
+        "text": "test    eax, eax"
+      }
+    ]
+  },
+  "reused_yobi_baselines": [
+    "doc/cg2d_yobi_allocation_sampling_evidence.json#/original_functions/0",
+    "doc/cg2d_yobi_cleanup_sampling_evidence.json#/original_functions/2",
+    "doc/cg2d_yobi_cleanup_sampling_evidence.json#/original_functions/1"
+  ],
+  "existing_contracts": [
+    "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
+    "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-source-state",
+    "doc/cg2d_battle_projectile_hit_spec.md#battle-projectile-hit-source-state",
+    "doc/cg2d_battle_projection_spec.md#battle-projection-source-state"
+  ],
+  "source_body_changed": false,
+  "new_functions": 0,
+  "new_implementation_evidence": 0,
+  "new_scoped_static_evidence": 1,
+  "conditional_lifetime_inference": "活节点自身callback标死后，当前UpdateAll不即刻进入该节点死亡分支。仅当投影在父最终释放前callback已执行并标死时，后续死亡入口跳过callback并摘链/释放；不据此证明所有父子路径安全。",
+  "full_lifecycle_closed": false,
+  "runtime_verified": false,
+  "limits": [
+    "只当前原会话MCP只读Python；已有分配/删除/调度原根不重计取证",
+    "全部标死来源/门禁/链与引用变更、重生/重入/清场退出/资源SDK未闭",
+    "原三F32实读/正常边界与现短路源，不作数值/生成ABI运行验收",
+    "无构建/测试/运行/算法/产物/摘要或新依赖"
+  ],
+  "verification": {
+    "status": "source_static_pass",
+    "original_root_contiguous_and_inventory_matched": true,
+    "normal_ordered_bounds_constants_checked": true,
+    "unique_case17_return_not_consumed": true,
+    "full_source_body_and_signatures_preserved": true,
+    "comment_only_changes": 2,
+    "new_implementation_evidence": 0,
+    "new_scoped_static_evidence": 1,
+    "lifetime_statement_conditional_only": true,
+    "all_creator_cleanup_callbacks_verified": false,
+    "full_lifecycle_closed": false,
+    "runtime_verified": false,
+    "measurement_check": "pass",
+    "initial_static_check_correction": "首轮误用否定字符串断言，与既有FIFO <= 条件矛盾；删除该无依据断言，改为核实际原条件，源码/验收要求未变。",
+    "measurement_result": "静态生成与-Check均exit0；只六具名度量变化，原库存/导入/区间/分类/政策/六closure/构建历史保持。"
+  },
+  "source_before_body": "void UpdateBattleAction17_4093B0(YobiAction* const action)\n{\n    MoveBattleByAngle_405EA0(action);\n    if (!(action->offset40 >= -200.0F) || action->offset40 > 840.0F\n        || !(action->offset44 >= -200.0F) || action->offset44 > 680.0F) {\n        static_cast<void>(MarkDeath(action));\n    }\n}",
+  "source_after_body": "void UpdateBattleAction17_4093B0(YobiAction* const action)\n{\n    MoveBattleByAngle_405EA0(action);\n    if (!(action->offset40 >= -200.0F) || action->offset40 > 840.0F\n        || !(action->offset44 >= -200.0F) || action->offset44 > 680.0F) {\n        static_cast<void>(MarkDeath(action));\n    }\n}",
+  "source_comment_diffs": {
+    "src/YobiRuntime.cpp": [
+      "--- before/src/YobiRuntime.cpp",
+      "+++ after/src/YobiRuntime.cpp",
+      "@@ -25518,6 +25518,7 @@",
+      "     }",
+      " }",
+      " ",
+      "+// BPEX01：移动后的坐标超出原矩形才标死；公共尾及最终摘链/释放见doc/cg2d_battle_projectile_exit_spec.md。",
+      " void UpdateBattleAction17_4093B0(YobiAction* const action)",
+      " {",
+      "     MoveBattleByAngle_405EA0(action);"
+    ],
+    "include/cg/YobiRuntime.hpp": [
+      "--- before/include/cg/YobiRuntime.hpp",
+      "+++ after/include/cg/YobiRuntime.hpp",
+      "@@ -501,7 +501,7 @@",
+      " void UpdateBattleAction14_409680(YobiAction* action); // 完整帧事件命中，四类HP/FP路径与FD0/FD4尾。",
+      " std::int32_t ProbeBattleAttackEvent_4065E0(YobiAction* action); // 播至严格终帧或攻击事件，重置上次动作和事件。",
+      " void UpdateBattleAction16_4072E0(YobiAction* action); // 投射命中与退场；保原空/索引门禁、目标重取/特殊推进和双播放尾。",
+      "-void UpdateBattleAction17_4093B0(YobiAction* action); // 只移动/越界标死，不播放或推进队列。",
+      "+void UpdateBattleAction17_4093B0(YobiAction* action); // 本叶仅移动/超界标死；404DB0仍执行公共尾，404C50/404D10后续摘链/释放（BPEX01）。",
+      " void UpdateBattleAction20_408410(YobiAction* action); // 近距命中，免疫跳过扣血/死亡位，标死后仍移动。",
+      " std::int32_t UpdateBattleAction21_408750(YobiAction* action); // 重读00/04，单圈修正后转phase22。",
+      " std::int32_t UpdateBattleAction22_4087C0(YobiAction* action); // 回旋效果队列命中，独立HP分支及3/7帧延迟。"
+    ]
+  },
+  "current_lifecycle_source_bodies": [
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "NewYobiAction_404AE0",
+      "body": "YobiAction* NewYobiAction_404AE0(\n    const std::uint8_t priority,\n    const std::uint32_t payloadSize)\n{\n    auto* const action = static_cast<YobiAction*>(\n        std::calloc(std::size_t{1}, sizeof(YobiAction)));\n    if (action == nullptr) {\n        platform::ShowLegacyMessage(\n            kActionAllocationText,\n            kConfirmCaption,\n            0);\n        platform::ShowLegacyMessage(\n            kActionPayloadText,\n            kActionAllocationCaption,\n            0);\n        return nullptr;\n    }\n\n    if (payloadSize != 0) {\n        void* const payload = std::calloc(std::size_t{1}, payloadSize);\n        const bool missingPayload = payload == nullptr;\n        action->payload = payload;\n        if (missingPayload) {\n            std::free(action);\n            platform::ShowLegacyMessage(\n                kYobiAllocationText,\n                kYobiAllocationCaption,\n                0);\n            return nullptr;\n        }\n        std::memset(payload, 0, payloadSize);\n    }\n\n    action->callback = nullptr;\n    action->priority = priority;\n    action->graphicIndex = -1;\n    action->cacheIndex = -2;\n    action->framePlayingRate = 100;\n    action->scaleX = 1.0F;\n    action->scaleY = 1.0F;\n    // 原404BB2–404BE0逐项W16/W32发布；不能仅借calloc省略显式零写。\n    const std::uint16_t descriptorZero = 0;\n    const std::uint32_t descriptorColor = 0xFFFFFFFFu;\n    std::memcpy(action->drawMode.bytes.data(), &descriptorZero, sizeof(descriptorZero));\n    std::memcpy(action->drawMode.bytes.data() + 2, &descriptorZero, sizeof(descriptorZero));\n    std::memcpy(action->drawMode.bytes.data() + 4, &descriptorZero, sizeof(descriptorZero));\n    std::memcpy(action->drawMode.bytes.data() + 6, &descriptorZero, sizeof(descriptorZero));\n    std::memcpy(action->drawMode.bytes.data() + 8, &descriptorColor, sizeof(descriptorColor));\n    action->drawMode.bytes[12] = 0;\n    action->drawMode.bytes[13] = 0;\n    std::memcpy(action->drawMode.bytes.data() + 14, &descriptorZero, sizeof(descriptorZero));\n    action->batchType = 0;\n    action->color2 = -1;\n    action->rebirthValue1 = 0;\n    action->rebirthValue2 = 0;\n    action->walkSpeed = 100;\n\n    YobiAction* const start = gYobiActionStart;\n    YobiAction* const end = gYobiActionEnd;\n    YobiAction* insertionPoint = start->next;\n    YobiAction* const stop = end->next;\n    if (insertionPoint != stop) {\n        while (insertionPoint->priority <= priority) {\n            insertionPoint = insertionPoint->next;\n            if (insertionPoint == stop) {\n                return action;\n            }\n        }\n\n        YobiAction* const previous = insertionPoint->prev;\n        action->next = insertionPoint;\n        action->prev = previous;\n        YobiAction* const currentPrevious = insertionPoint->prev;\n        currentPrevious->next = action;\n        insertionPoint->prev = action;\n    }\n    return action;\n}"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "YobiUpdateAll_404C50",
+      "body": "std::int32_t YobiUpdateAll_404C50()\n{\n    YobiAction* current = gYobiActionStart->next;\n    while (current != gYobiActionEnd) {\n        if (current->deathFlag != 0) {\n            if (ShouldDeferForFourPhaseGate(current)) {\n                current = current->next;\n                continue;\n            }\n\n            YobiAction* const previous = current->prev;\n            YobiAction* const firstNext = current->next;\n            previous->next = firstNext;\n            YobiAction* const currentNext = current->next;\n            YobiAction* const currentPrevious = current->prev;\n            currentNext->prev = currentPrevious;\n            YobiAction* const next = current->next;\n            DeleteYobiAction_404D10(current);\n            current = next;\n            continue;\n        }\n\n        const YobiCallback callback = current->callback;\n        if (callback != nullptr && !ShouldDeferForFourPhaseGate(current)) {\n            callback(current);\n        }\n        current = current->next;\n    }\n\n    const std::int32_t result = gYobiUpdatePhaseCounter + 1;\n    const bool resetPhase = result >= 4;\n    gYobiUpdatePhaseCounter = result;\n    if (resetPhase) {\n        gYobiUpdatePhaseCounter = 0;\n    }\n    return result;\n}"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "DeleteYobiAction_404D10",
+      "body": "void DeleteYobiAction_404D10(YobiAction* const action)\n{\n    void* const payload = action->payload;\n    if (payload != nullptr) {\n        std::free(payload);\n    }\n    std::free(action);\n}"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "MarkDeath",
+      "body": "YobiAction* MarkDeath(YobiAction* const action)\n{\n    if (action != nullptr) {\n        action->deathFlag = 1;\n    }\n    return action;\n}"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "MoveBattleByAngle_405EA0",
+      "body": "void MoveBattleByAngle_405EA0(YobiAction* const action)\n{\n    const double xFactor = world::detail::Sub_46F950(action->angle50);\n    const double xStep = xFactor * action->value54;\n    const float yAngle = action->angle50;\n    action->offset40 = static_cast<float>(xStep + action->offset40);\n    const double yFactor = world::detail::Sub_46F930(yAngle);\n    action->offset44 = static_cast<float>(yFactor * action->value54 + action->offset44);\n}"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "UpdateBattleProjection_418D80",
+      "body": "void UpdateBattleProjection_418D80(YobiAction* const action)\n{\n    YobiAction* const parent = action->battleAttachmentParent10;\n    action->value54 = 10.0F;\n    const auto* const parentPayload = static_cast<const BattleActorPayload*>(parent->payload);\n    if (parentPayload->valueFD0 == 0) {\n        MoveBattleByAngle_405EA0(action);\n    }\n    if (action->battleAttachmentParent10->deathFlag == 1) {\n        static_cast<void>(MarkDeath(action));\n    }\n    action->displayPriority = action->battleAttachmentParent10->displayPriority;\n    static_cast<void>(PlayFrame_517DA0(action, 0));\n    const std::int32_t x = static_cast<std::int32_t>(action->offset40);\n    const float y = action->offset44;\n    action->x = x;\n    action->y = static_cast<std::int32_t>(y);\n}"
+    }
+  ],
+  "creator_source_connections": [
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "NewBattleSpiracleShot_418B70",
+      "priority": 2,
+      "published_flags_literal": "0x60002u",
+      "contains_four_phase_flag": true,
+      "source_body_changed": false
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "NewBattleBlastWave_419180",
+      "priority": 2,
+      "published_flags_literal": "0x60002u",
+      "contains_four_phase_flag": true,
+      "source_body_changed": false
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "NewBattleRangeHit_419390",
+      "priority": 2,
+      "published_flags_literal": "0x60000u",
+      "contains_four_phase_flag": true,
+      "source_body_changed": false
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "NewBattleProjection_418DF0",
+      "priority": 2,
+      "published_flags_literal": "0x40000u",
+      "contains_four_phase_flag": true,
+      "source_body_changed": false
+    }
+  ],
+  "phase16_transition_excerpt": "                payload->valueFD0 = 2;\n            }\n        }\n        action->frameEvent = 1;\n    }\n    const std::int32_t delay = payload->valueFD0;\n    if (delay > 0) {\n        payload->valueFD0 = delay - 1;\n        const std::int32_t image = action->imageNo;\n        if (image == 110016 || image == 111055) {\n            static_cast<void>(PlayFrame_517DA0(action, 0));\n        }\n    }\n    if (payload->valueFD0 == 0) {\n        static_cast<void>(PlayFrame_517DA0(action, 0));\n        MoveBattleByAngle_405EA0(action);\n        if (action->frameEvent == 1) {\n            const std::uint32_t flags = payload->effects1C[payload->effectRunningC9C].flags;\n            if ((flags & 0x108u) == 0) {\n                static_cast<void>(MarkDeath(action));\n            }\n            action->phase = 17;\n        }\n    }\n}"
+}

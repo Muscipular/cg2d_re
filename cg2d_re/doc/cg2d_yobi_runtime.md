@@ -4617,3 +4617,8 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 ## 2026-10-10 DPCS01：两个既有创建器取样补充
 
 [补充合同](cg2d_battle_projectile_creator_cache_sampling_spec.md#projectile-creator-cache-source-state)沿BPRH01新关注点补BPC01两现体四组：父Y先取再取payload/发布，SpiracleShot先取表后查询目标并从同一借表读两S16高度，BlastWave先取图号再查询目标。既有Math/F32、辅助flags及字段样本/失败/phase16/原生返回/其余源保持；旧原根复用不重计取证，零新函数/身份/成员或分母，只有限定I/S。全部父-callee/资源、DX和对象最终owner回收/SDK数值ABI/运行仍待。
+
+<a id="battle-projectile-exit-runtime-20261010"></a>
+## 2026-10-10 BPEX01：阶段17正常退场与延迟删除
+
+[完整退场合同](cg2d_battle_projectile_exit_spec.md#battle-projectile-exit-source-state)纳管4093B0原30条89B/唯一404DB0 case17。先移动，按移动后两X/两Y短路判断原含边界矩形，超界只MarkDeath；现正文和公共尾正确保持，仅两注释/一限定S，零新I。UpdateAll活节点callback标死后只重取next，后继投影若在父最终free前已执行并标死，后续死亡入口不再调用其callback，Delete先payload后action；该条件性阶段对应不证明所有标死/门禁/链引用变更、重生/重入/清场退出或完整父投影owner与资源SDK运行安全，完整门禁保持。

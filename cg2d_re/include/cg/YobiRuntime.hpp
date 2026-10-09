@@ -501,7 +501,7 @@ void UpdateBattleAction13_406A80(YobiAction* action); // 先播放再转向/移�
 void UpdateBattleAction14_409680(YobiAction* action); // 完整帧事件命中，四类HP/FP路径与FD0/FD4尾。
 std::int32_t ProbeBattleAttackEvent_4065E0(YobiAction* action); // 播至严格终帧或攻击事件，重置上次动作和事件。
 void UpdateBattleAction16_4072E0(YobiAction* action); // 投射命中与退场；保原空/索引门禁、目标重取/特殊推进和双播放尾。
-void UpdateBattleAction17_4093B0(YobiAction* action); // 只移动/越界标死，不播放或推进队列。
+void UpdateBattleAction17_4093B0(YobiAction* action); // 本叶仅移动/超界标死；404DB0仍执行公共尾，404C50/404D10后续摘链/释放（BPEX01）。
 void UpdateBattleAction20_408410(YobiAction* action); // 近距命中，免疫跳过扣血/死亡位，标死后仍移动。
 std::int32_t UpdateBattleAction21_408750(YobiAction* action); // 重读00/04，单圈修正后转phase22。
 std::int32_t UpdateBattleAction22_4087C0(YobiAction* action); // 回旋效果队列命中，独立HP分支及3/7帧延迟。

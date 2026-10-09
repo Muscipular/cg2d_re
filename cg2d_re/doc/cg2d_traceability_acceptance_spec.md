@@ -2310,3 +2310,9 @@ F:00078330新增adapted，1937已有映射加本步原根/差集，无新F或语
 [先行裁决](cg2d_client_link_sdl_audio_spec.md#offline-dls-key-group-decision-20261009)、[现源](cg2d_client_link_sdl_audio_spec.md#offline-dls-key-group-source-state-20261009)和[原规范/SDK字段依据及三处差集](cg2d_offline_dls_key_group_evidence.json)登记两个FUNC-AUDIO局部I/S：原LE U16键组字段持有、同实际选区下的打击乐同通道/音色/有效组旧声部停止、再创建本次全部区域声部。只是已批准离线机制的该分支，不将公开规范当cg2d原音源算法、实际bank或声音事实。
 
 软件证据1314→1316；原库存/语义/处置、功能成员和全部完整gates、184叶整项验收0/60任务关闭11/六closure保持。P11/P16/V05追加来源继续open；SELFNONEXCLUSIVE同键重触发及其他DLS连接/调制/循环、CC96/97、实际PCM/声音/失败/正常寿命仍待。未执行或检查构建产物、算法/样例/测试/转换/客户端/摘要/重生成WAV/部署，运行权限及总SPEC§10/R8不降低。
+
+## CAC16 WAV 后续范围纠偏（2026-10-09）
+
+按[用户再次确认及当前范围](cg2d_client_link_sdl_audio_spec.md#wav-only-development-scope-20261009)，停止离线MIDI/DLS工具开发；CAC13–15及此前转换/工具证据保留为历史限定结果，不算当前客户端WAV已更新或完整音源等价，也不再以未实现CC/RPN/DLS机制列后续开发债务。现WAV质量、原调用/状态与适用声音结果对照、完整设备/失败/通知/正常寿命继续验收；不扩大原函数范围排除或降低总SPEC§10。
+
+未提交同键源码与两条登记增量已撤回；软件证据1316保持，零本步I/W/S/R通过，原库存/语义/处置/成员、全部完整gates、184叶整项验收0/60任务关闭11/六closure保持。P11/P16/V05同步范围来源继续open；不构建/测试/运行/转换/产物/摘要/重生成WAV或部署。

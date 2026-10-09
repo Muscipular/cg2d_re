@@ -4,10 +4,19 @@
 
 namespace cg::platform {
 
+// ACP01：类型明确的标准数学承接；仅替换旧ASM私有数值内核，不增加业务路由。
+enum class LegacyUnaryMathOperation { Exp, Exp2, ExpMinusOne, NaturalLog, Log10, Tangent };
+enum class LegacyBinaryMathOperation { Power, Divide, ReverseDivide, Remainder, NearestRemainder, Arctangent };
+double ComputeLegacyUnaryMathNative(LegacyUnaryMathOperation operation, double value) noexcept;
+double ComputeLegacyBinaryMathNative(LegacyBinaryMathOperation operation, double first, double second) noexcept;
+// 原54623E/5461BB：F64与S32指数；分解用标准数学，设置保原F64指数位段。
+double DecomposeLegacyFloatNative(double value, std::int32_t* exponent) noexcept;
+double SetLegacyFloatExponentNative(double value, std::int32_t exponent) noexcept;
+
 // 原1085FC0；初始化组合发布系统/回退探测的完整W32返回值。
 extern std::int32_t gLegacyFdivBug1085FC0;
 
-// 原546311/5461E4；F64值与S32分类结果，实际x87合同见浮点分类叶SPEC。
+// 原546311/5461E4；F64值与S32分类结果，当前数值/状态近似边界见ACP01。
 std::int32_t ClassifyLegacyFloat_546311(double value) noexcept;
 std::int32_t ClassifyLegacySpecialFloat_5461E4(double value) noexcept;
 
@@ -34,7 +43,7 @@ struct LegacyMathErrorRecord {
 std::int32_t SetLegacyMathErrno_5478B2(std::int32_t type) noexcept;
 std::int32_t DefaultLegacyMathError_5478D8(LegacyMathErrorRecord* record) noexcept;
 
-// 原5478DB/5478E9/5478F8；硬件完整S16有符号返回，不是抽象控制字接口。
+// 原5478DB/5478E9/5478F8；宿主异常位映为旧形式的S16返回，不承诺x87状态全等。
 std::int32_t ReadLegacyRawX87Status_5478DB() noexcept;
 std::int32_t ReadAndClearLegacyRawX87Status_5478E9() noexcept;
 std::int32_t ControlLegacyRawX87_5478F8(
@@ -79,16 +88,8 @@ struct LegacyMathErrorInputs {
     double argument2;          // 双参入口才复制；单参路径不预填记录第二F64。
 };
 
-// ASM私有合同（不声明CPP double返回）：RCX借用LegacyMathErrorInputs，ST(0)为结果。
-// Cg2dStartLegacyTwoArgumentErrorX87/Cg2dStartLegacyOneArgumentErrorX87另以EDX传S32类型。
-// Cg2dCheckLegacyRangeExitX87仅消费RCX与ST(0)；三入口均在ASM间返回ST(0)，范围出口另还原EDX的完整原CW载体。
-
-// 原53D019普通值入口；全部一般pow分支留在ASM，内部CI/core保连续ST0。
+// 原53D019普通值入口；ACP01以std::pow承接，保留错误门控/记录与errno路径。
 double PowerLegacyFloat_53D019(double base, double exponent) noexcept;
-// ASM私有：Cg2dLegacyCIPowerX87以ST0=Y/ST1=X进出；Cg2dLegacyPowerCoreX87以
-// RCX借两F64/EAX为已加载Y高W32/ST0=Y调用，返回ST0及原W32 CW载体EDX。
-// Cg2dClassifyLegacyPowerExponentX87消费ST0指数/返回CL0或1或2；不声明CPP double ABI。
-
 // 原543185共享CRT分派的实际帧片段；原数值原宽，只有描述符地址拓为原生指针。
 struct LegacyMathDispatchContext {
     std::uint16_t savedControl;   // 原EBP-A4，父保存CW。
@@ -99,7 +100,7 @@ struct LegacyMathDispatchContext {
     std::uint8_t errorType;       // 原EBP-90，原0/1/7错误样本。
     std::uint32_t conditionSample; // 原ECX数值样本，跨原分派/目标的显式承载，不默认初始化。
 };
-// 只在ASM间调用，RCX借用context、ST0（双参另ST1）传结果；void类型不作CPP FP返回。
+// 历史机器目标地址的宽度载体；不是当前可调用CPP数学接口。
 using LegacyMathDispatchTarget = void (*)(LegacyMathDispatchContext*) noexcept;
 struct LegacyUnaryMathDescriptor {
     std::uint8_t prefix[16];      // 原16B头原样承载，本分派只读+14的控制选择BYTE。
@@ -109,61 +110,8 @@ struct LegacyBinaryMathDescriptor {
     std::uint8_t prefix[16];
     LegacyMathDispatchTarget targets[16]; // 原4×4代码指针，不另造固定目标表。
 };
-// ASM入口Cg2dDispatchLegacyUnaryMathX87/Cg2dDispatchLegacyBinaryMathX87：
-// RCX借context、RDX借对应描述符；真实x87目标均只在ASM间消费/返回ST0。
-
-// 原545360/545B51私有ASM合同，供共享指数链的原FDIV探测分支真实调用。
-// Cg2dDivideLegacyExtendedX87以RCX借原44B片段：T80在+0/+12，CW在+24/+28。
-// 不填T80尾两字节或CW高W16；核心写原分母T80并返回ST0。
-// Cg2dReverseDivideLegacyStackX87只在ASM间以ST0/ST1进出，保原EAX/ECX数值及EDX。
-// 不声明CPP double ABI；完整分支和生命周期见共享除法依赖SPEC。
-
-// 原542FB0..543185共享幂/指数/对数目标，RCX借同一LegacyMathDispatchContext。
-// Cg2dLegacySharedPowerX87/ExpX87/ZeroPowerX87及对数/特殊值目标只在ASM间传ST0/ST1。
-// 原542FEF真实调用Cg2dReverseDivideLegacyStackX87；其探测值来自唯一已有gLegacyFdivBug1085FC0。
-// Cg2dLegacyExpMinusOneX87的R11D仅承接原继续内层0/丢内层返回后结束外层1的控制流；
-// 不作为原数学状态/成功值，调用父以JRCXZ消费以保持末标志，不模拟原栈地址。
-// Cg2dClassifyLegacySharedIntegerX87保持ST0/返回EAX0-1-2；不是消费ST0的幂指数分类叶。
-// 三个R7共享区间和七原函数身份一起映射，完整原表生产/其它调用父仍沿真实依赖补齐。
-
-// 原545477完整64项除法分派：Cg2dDispatchLegacyDivisionX87只在ASM间调用，
-// EAX原操作低六位/ST栈按原体消费，表项仅拓已证代码地址，不加selector拒绝。
-// 原545916/545929的Cg2dDivideLegacyPairX87/Cg2dReverseDivideLegacyPairX87，
-// 以及原545B3C的Cg2dDivideLegacyStackX87均真实落存两T80并调用完整除法核心。
-// 545B3C只按原W32 EAX保存恢复；RCX的原生寄存器暂存用于借址，不改变原44B数值片段。
-// 私有ST0返回不声明CPP double ABI；原INT 6分支保持，完整其它父和机器验收继续。
-
-// 原54593C..545B3C八个内存加载父：F32/F64/S16/S32各正/逆向，私有ASM用ST0进出。
-// Cg2dDivideLegacyMemoryF32X87/Cg2dDivideLegacyMemoryF64X87/Cg2dDivideLegacyMemoryS16X87/
-// Cg2dDivideLegacyMemoryS32X87，以及Cg2dReverseDivideLegacyMemoryF32X87/
-// Cg2dReverseDivideLegacyMemoryF64X87/Cg2dReverseDivideLegacyMemoryS16X87/
-// Cg2dReverseDivideLegacyMemoryS32X87：
-// RCX借一个原值参数的对应位宽只读内存，数值不扩宽；不是CPP double ABI。
-// 原FNSTSW AX/TOP 3800H与浮点指数位分支保持，TOP=0按原序保存/重载额外T80。
-// 原545A65是逆向F32父的中间分支，在该完整父中实现，原W32 EAX恢复。
-// 借址只是Win64值参数传送边界，不模拟原RET4/8或栈地址，所有输入字段/结果仍原宽。
-
-// 原545B66/545E1E的Cg2dLegacyRemainderCoreX87/Cg2dLegacyNearestRemainderCoreX87：
-// RCX借原48B片段（T80起始0/12/24，保存CW36/工作CW40/状态44），EDX为原W32模式。
-// 保原DWORD非对齐读写/原循环及FNSTENV-FLDENV的28B不解释环境，只改原状态DWORD位。
-// 原545D6C/546024的Cg2dLegacyRemainderPairX87/Cg2dLegacyNearestRemainderPairX87，
-// 原5460D9/DF的Cg2dLegacyRemainderX87/Cg2dLegacyNearestRemainderX87只以ST0/ST1传值。
-// 原5460E5/E8的Cg2dLegacyArctangentX87/Cg2dLegacyTangentX87保原FPATAN/FPTAN栈形状。
-// 全部只在ASM间调用；不声明CPP double ABI，不模拟原栈地址或扩大原数值字段。
-
-// 原53DEF3的Cg2dLegacyNullsub7只按原体RET，无已知原调用不虚构接线。
-// 原543478..54348E的Cg2dReadLegacyExponentBits以RCX借原F64值，只读+4高W32；
-// 原543489映射其特殊指数内部重读标签，不加载ST0或包装宿主exp。
-// 原54349B/5434C5的Cg2dCheckLegacyPrecisionExitX87/Cg2dCheckLegacyOverflowExitX87，
-// RCX借既有LegacyMathErrorInputs、ST0传结果，返回EDX为保存CW完整W32。
-// 精度出口保原20位JZ与等待FSTSW、类型8真实单参调用；溢出入口FST后直达原共享后缀。
-// 两出口均正常56B帧；溢出与范围出口同槽位通过唯一全局标签共享，绕原下溢分支。
-// 只在ASM间调用，不声明CPP double ABI、不填高位或实参，也不外推未知原调用。
-
-// 原543383..54338A的Cg2dApplyLegacyConditionalSignX87：CL单BYTE/ST0进出，保OR整数标志。
-// 原54341C..543435的Cg2dClassifyLegacyQuietBitX87：EAX原W32位样本/ST0输入，
-// 返回原EAX类型7或FADD既有同位F64常量后类型1；ST0不弹，保TEST整数标志。
-// 两叶只在ASM间调用，没有context指针/CPP double ABI/栈帧，当前无已知原外部入向。
+// 上述旧分派帧/描述符只保留历史布局证据，无当前CPP表生产/调用。
+// ACP01已取消其私有ST0/FLAGS入口，数值统一由类型明确的宿主数学入口承接。
 
 // 原控制字抽象/硬件表示转换，只消费和生成原已定义位。
 std::uint32_t AbstractLegacyControlWord_5448A4(std::uint32_t hardware);
@@ -179,7 +127,7 @@ void InitializeLegacyFloatingPoint_53B447();
 
 namespace detail {
 
-// Win64私有叶；不借宿主CRT控制字接口或改变MXCSR。
+// ACP01：Win64 CPP值桥直接使用宿主浮点环境；旧X87名称只保留接口接线。
 extern "C" std::uint16_t Cg2dReadLegacyX87Control() noexcept;
 extern "C" void Cg2dWriteLegacyX87Control(std::uint16_t control) noexcept;
 extern "C" void Cg2dClearLegacyX87Exceptions() noexcept;
@@ -188,22 +136,22 @@ extern "C" std::int32_t Cg2dLegacyFloatNonnegative(const double* value) noexcept
 // Win64分类参数桥；只在本调用内借用F64，不持有或修改调用方值。
 extern "C" std::int32_t Cg2dClassifyLegacyFloat(const double* value) noexcept;
 extern "C" std::int32_t Cg2dClassifyLegacySpecialFloat(const double* value) noexcept;
-// Win64整数判定参数桥；内部5462FF舍入叶仅在ASM间用ST(0)传值。
+// Win64整数判定值桥；原状态返回由std::rint与有序比较承接。
 extern "C" std::int32_t Cg2dClassifyLegacyInteger(const double* value) noexcept;
 // Win64幂特殊值桥；仅在本调用内借用F64参数与调用方结果槽。
 extern "C" std::int32_t Cg2dProcessLegacyPowerSpecial(
     const double* base, const double* exponent, double* result) noexcept;
 
-// Win64控制字值桥；另外两通用帮助体仅在ASM间用x87/寄存器合同调用。
+// Win64控制字值桥；宿主不支持的PC/IC请求由ACP01具名覆盖。
 extern "C" void Cg2dLoadLegacyPowerControlWord(std::uint16_t savedControl) noexcept;
 
-// Win64原硬件叶；保FSTSW等待/FNSTSW后FNCLEX与原控制字合并顺序。
+// Win64宿主环境叶；低异常位、清除前取样与控制合并顺序保持。
 extern "C" std::int32_t Cg2dReadLegacyRawX87Status() noexcept;
 extern "C" std::int32_t Cg2dReadAndClearLegacyRawX87Status() noexcept;
 extern "C" std::int32_t Cg2dControlLegacyRawX87(
     std::uint32_t value, std::uint32_t mask) noexcept;
 
-// Win64真实处理/状态C桥；两分解/指数帮助体只在ASM内部返回ST(0)。
+// Win64处理/状态C桥；分解/指数由标准数学近似承接。
 extern "C" std::int32_t Cg2dHandleLegacyMathException(
     std::uint32_t conditions, double* result, std::uint32_t control) noexcept;
 extern "C" void Cg2dSetLegacyRawX87Status(std::uint32_t status) noexcept;
@@ -226,8 +174,12 @@ extern "C" std::uint32_t Cg2dLegacyMathErrorCallbackGate5925B8;
 extern "C" void Cg2dComputeLegacyPower(const double* inputs, double* result) noexcept;
 extern "C" std::uint32_t Cg2dLegacyPowerFastExitGate1085FBC;
 
-// 仅承接原542FE2对已有1085FC0的W32读取，供ASM真实探测分支使用。
+// 原542FE2对已有1085FC0的W32读取；历史探测链，不虚构新调用。
 extern "C" std::int32_t Cg2dReadLegacyFdivBug() noexcept;
+
+// 原纯RET及高W32指数读取叶；特殊指数必须重读高W32，不加载低W32。
+extern "C" void Cg2dLegacyNullsub7() noexcept;
+extern "C" std::uint32_t Cg2dReadLegacyExponentBits(const double* value) noexcept;
 
 } // namespace detail
 } // namespace cg::platform

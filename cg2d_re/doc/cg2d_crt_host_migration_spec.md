@@ -1,5 +1,7 @@
 # CRT 宿主承接总 SPEC
 
+> 2026-10-09最新数值/源合同：[ACP01-C](cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state)已取消本组ASM/私有ST0机器ABI，使用CPP/double/标准数学与宿主浮点环境承接；旧x87/PC53/T80/FLAGS数值保证由用户最新许可覆盖。下文原指令、ASM实现与机器状态证据属固定历史；原业务字段/整数读取与错误记录/errno/系统回调保持，当前未编译/链接/运行，完整验收未闭。
+
 > 2026-10-02提案；2026-10-04依用户本轮“未决议内容你做决定”授权，由本线程采用下列受限宿主承接方案。**已决议，尚未迁移/验收**；不是原CRT逐指令等价。
 > 压缩前全文见Git命名快照 `cg2d-re-spec-history-20261004-before-closure-compression` 的本路径；后续见[收尾C01–C12](../plan/cg2d_spec_closure_checklist.md)。
 

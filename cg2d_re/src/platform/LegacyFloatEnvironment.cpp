@@ -153,7 +153,7 @@ std::int32_t ClassifyLegacySpecialFloat_5461E4(const double value) noexcept
     return kOrdinary;
 }
 
-// 原546311；原x87落存、比较和状态读取留在私有ASM边界。
+// 原546311；ACP01以CPP分类/宿主状态承接，不承诺原x87位级行为。
 std::int32_t ClassifyLegacyFloat_546311(const double value) noexcept
 {
     return detail::Cg2dClassifyLegacyFloat(&value);
@@ -172,7 +172,7 @@ std::int32_t ProcessLegacyPowerSpecial_54357C(
     return detail::Cg2dProcessLegacyPowerSpecial(&base, &exponent, result);
 }
 
-// 原543405；按保存控制字的原PC位构造并加载临时x87控制字，恢复由调用父负责。
+// 原543405；按旧位载体构造临时控制，ACP01只向宿主应用支持的掩码/舍入。
 void LoadLegacyPowerControlWord_543405(const std::uint16_t savedControl) noexcept
 {
     detail::Cg2dLoadLegacyPowerControlWord(savedControl);
@@ -203,7 +203,7 @@ std::int32_t DefaultLegacyMathError_5478D8(LegacyMathErrorRecord*) noexcept
     return 0;
 }
 
-// 原5478DB；等待式FSTSW及完整S16有符号扩展留在ASM。
+// 原5478DB；宿主状态低异常位映为旧形式，不生产x87 TOP/条件位。
 std::int32_t ReadLegacyRawX87Status_5478DB() noexcept
 {
     return detail::Cg2dReadLegacyRawX87Status();
@@ -222,7 +222,7 @@ std::int32_t ControlLegacyRawX87_5478F8(
     return detail::Cg2dControlLegacyRawX87(value, mask);
 }
 
-// 原54769B；原条件/控制字决定结果与状态生产，完整分支及依赖留在ASM。
+// 原54769B；原条件/控制掩码与分支保持，数值/状态按ACP01由宿主承接。
 std::int32_t HandleLegacyMathException_54769B(
     const std::uint32_t conditions, double* const result,
     const std::uint32_t control) noexcept
@@ -230,7 +230,7 @@ std::int32_t HandleLegacyMathException_54769B(
     return detail::Cg2dHandleLegacyMathException(conditions, result, control);
 }
 
-// 原54791B；只执行原已定义的x87状态生产操作，不借宿主状态接口。
+// 原54791B；五类已定义异常按原序交宿主fenv，不另造影子状态。
 void SetLegacyRawX87Status_54791B(const std::uint32_t status) noexcept
 {
     detail::Cg2dSetLegacyRawX87Status(status);
@@ -258,7 +258,7 @@ static_assert(offsetof(LegacyMathErrorInputs, argument1) == 16);
 static_assert(offsetof(LegacyMathErrorInputs, argument2) == 24);
 static_assert(sizeof(LegacyMathErrorInputs) == 32);
 
-// 原53D019普通pow值入口；原算法留ASM，不借宿主数学或填原未生产辅助结果。
+// 原53D019普通pow值入口；ACP01使用标准数学，真实错误门控/记录路径仍接。
 double PowerLegacyFloat_53D019(const double base, const double exponent) noexcept
 {
     const double inputs[2] = {base, exponent};
@@ -282,7 +282,7 @@ static_assert(offsetof(LegacyBinaryMathDescriptor, targets) == 16);
 static_assert(sizeof(LegacyUnaryMathDescriptor) == 48);
 static_assert(sizeof(LegacyBinaryMathDescriptor) == 144);
 
-// 原5473E8；原字段生产、x87落存与系统调用前后读取留在ASM。
+// 原5473E8；CPP保留字段生产/系统调用前后重读，数值状态沿ACP01近似承接。
 void RaiseLegacyFloatingPointException_5473E8(
     LegacyFloatExceptionRecord* const record, std::uint32_t* const control,
     const std::uint32_t conditions, const std::uint32_t operationId,
@@ -316,7 +316,7 @@ extern "C" void Cg2dRaiseLegacyFloatExceptionHost(
     ::RaiseException(code, 0, 1, reinterpret_cast<const ULONG_PTR*>(arguments));
 }
 
-// 只把ASM调用接回已有原叶，不增加记录访问或错误槽owner。
+// 私有CPP值桥接回已有原叶，不增加记录访问或错误槽owner。
 extern "C" std::int32_t Cg2dDefaultLegacyMathError(
     LegacyMathErrorRecord* const record) noexcept
 {

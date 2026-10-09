@@ -1,6 +1,6 @@
 # cg2d 完整复刻独立进度
 
-> 2026-10-09按用户“汇报进度，压缩日志，对齐SPEC”整理，源码进展覆盖至CAC11；本次维护编号CAC12。
+> 2026-10-09按用户“汇报进度，压缩日志，对齐SPEC”整理，源码进展覆盖至ACP01-C；压缩维护编号CAC12，后续小步分节记录。
 > 本文件是本线唯一执行进度。入口：[总SPEC](cg2d_full_reconstruction_plan.md) · [60项收尾表](cg2d_spec_closure_checklist.md) · [自动看板](cg2d_measurement_dashboard.md) · [验收登记簿](cg2d_acceptance_registry.json) · [执行规则](../AGENTS.md)。
 > 压缩前5415行完整进度及本次调整的计划/任务/复盘全文，已固定于Git命名快照 `cg2d-re-spec-history-20261009-before-progress-compression`；按该引用与原路径可读。逐指令原证和细分SPEC保持原文件，不复制整份归档。
 
@@ -20,7 +20,7 @@ CAC06–11后续实现按静态证据推进，未构建/运行当前源码。最
 | 显式pending | 18 | 历史跟踪入口，部分局部源码已关闭；不是剩余开发总数 |
 | 已登记叶功能 | 184；整项验收0 | 全功能分母未闭合，B/I/W/S/R完整门禁均0通过 |
 | 收尾任务 | 60；关闭11、开放49 | 关闭为具名局部源码/差异合同，不是功能完成率 |
-| 局部软件证据 | 1310条 | 含限定静态、历史运行及失败/修复记录，不等于1310项验收 |
+| 局部软件证据 | 1322条 | 含限定静态、历史运行及失败/修复记录，不等于1322项验收 |
 | 整体闭包 | 六类均open | 函数分类、功能枚举、数据/间接目标、区间、范围例外、最终验收 |
 
 数值来自本次静态读取的登记簿及派生快照；后续以[自动看板](cg2d_measurement_dashboard.md)为准。历史定位2762及登记差集不能推总完成率：当前队列103项均为具名排除，另1纯NOP元数据独列；“需核队列0”不表示源码/数据/功能缺口归零。
@@ -36,7 +36,7 @@ CAC06–11后续实现按静态证据推进，未构建/运行当前源码。最
 | 世界/地图/渲染/动画 | CPU Back/Temp/节点面、48B队列、graphic/anime/调色板/命中/缓存和多组生产消费已有；CAC09方向桥按原每轴读取/发布；[DX](../doc/cg2d_graphic_dx_cache_x64_spec.md)、[场景](../doc/cg2d_scene_state.md) | 全模式/非空可选源、池/缓存装载回收重建、场景往返与像素/生命周期 |
 | UI/文本/输入 | 现代表及大量旧页面、控件/请求/持久化内部链已有；CAC10资料切页逐轴指针/坐标顺序已修；静态GBK文字、宋体、ASCII竖线光标已落实；[UI](../doc/cg2d_ui_window_runtime.md)、[文本](../doc/cg2d_text_encoding_spec.md) | 旧99表/键表实际外层、目录/名单/商品生产、焦点/IME/编码索引、完整owner寿命与画面 |
 | 战斗/Yobi | 攻击生产P01已关闭局部源码合同；动作/消息/技能/初始化/目标/战果、创建/克隆及回调清理已有；[战斗](../doc/ui_windows/shared_battle.md)、[Yobi](../doc/cg2d_yobi_runtime.md) | 全载荷字段/归属、全部creator/cleanup、跨对象共享寿命和完整事件执行 |
-| 音频 | 五必要SDL提供者、固定WAV/第二段空音频、旧7/8页面/初始化/回调、预填/音量/空间声效/PCM头/混响/离线寿命等已补，历史客户端和工具链接通过；[音频](../doc/cg2d_client_link_sdl_audio_spec.md)、[设置](../doc/cg2d_display_settings.md) | 完整成员、实际旧外层、全DLS/原默认波形、效果创建/设备失败、通知/控制/声音与正常寿命；不恢复运行时MIDI |
+| 音频 | 五必要SDL提供者、固定WAV/第二段空音频、旧7/8页面/初始化/回调、预填/音量/空间声效/PCM头/混响/离线寿命等已补，历史客户端和工具链接通过；[音频](../doc/cg2d_client_link_sdl_audio_spec.md)、[设置](../doc/cg2d_display_settings.md) | 完整成员、实际旧外层、实际WAV质量/适用原音源结果、效果创建/设备失败、通知/控制/声音与正常寿命；MIDI/DLS工具不再开发 |
 | 原图标/光标 | CAC11实际资源映像提供者及两加载点已接；保留原图标/十一光标ID、共享句柄及SetCursor消费；[当前装载](../doc/cg2d_startup_flow.md#window-resource-module-source-state-20261009) | 磁盘副本与IDA匹配、资源权限/像素/热点、加载成功失败和进程寿命未验；文件存在不代资源验收 |
 | 基线/全量分类 | 原库存和原新清单保留；CAC07/08共1024区间用途纳管，十一无owner回调按区间身份登记；[R7合同](../doc/cg2d_unassigned_range_classification_spec.md) | 余1552区间及全函数/数据/间接目标/范围例外闭包；登记不冒充功能开发或整体验收 |
 
@@ -138,3 +138,13 @@ LegacyMidiSynth.cpp三处实际开发：Region持有LE U16 keyGroup，原LoadDls
 [ACP01-M](../doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-map-source-state)已将地图13入口完整迁为CPP/std::pow/sin/cos/sqrt；double中间与原F32落存、常量位样本、幅值重读、零/无序、I64截断、逐轴结果及volatile投影参考时点/返回保持。CI消费点改std::pow后重读幅值，原业务/RNG/owner不改；投影声明归既有头，CMake换CPP并删除地图ASM。8现语义提供者/处置、四关联SPEC及U11/G04同步；旧ASM/验收仍只属固定历史，不外推原CRT全部本体。
 
 限定I/S证据1318→1320，原身份/成员/完整gates/整项验收/任务状态/六closure保持。13入口/常量/结构/计算与发布序/源项/历史引用、UTF-8/差异及台账汇总/Check完成后精确提交，固定引用cg2d-re-asm-map-cpp-20261009。三源已迁2份，剩LegacyFloatEnvironment.asm及MASM依赖继续处理；未编译/链接/测试/运行/算法/产物/摘要，整体目标继续active。
+
+## 11. 2026-10-09 ACP01-C：CRT环境与全部ASM迁移闭合
+
+先按[CRT承接决议](../doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision)核旧92 PUBLIC/97 PROC与全源CPP引用：22值/读取叶继续CPP提供，70私有ST0接口只在原ASM内互调，5非PUBLIC算法由类型明确的宿主数学/分解/指数处理承接，不造机器栈或空提供者。原描述符仅有历史类型/布局声明与static_assert，原未知间接入向并未因此关闭。
+
+新增LegacyFloatMath.cpp：标准pow/指数/对数/除法/余数/三角、F64分解/指数设置，真实宿主控制/状态/清除/生产及分类，普通pow错误门控/40B错误记录/88B异常字段/errno/回调和系统后重读保持；原下溢入口的600h缩放边界保留，PC回写按原实际掩码。Shop/Count/NLS/指数实际低宽读取用既有复制intrinsic，不补P07或未生产载荷，Nullsub只保原RET。三原ASM与MASM/专用对象规则全部删除，CMake仅RC及真实CPP源；地图volatile参考位槽显式取U32值后bit_cast，单次采样时点/结果保持；11效果叶通过局部RAII保原临时全掩码/最近舍入与结果写回后恢复，两投影保原当前控制。
+
+53现语义记录的63原ASM源项改真实CPP/宿主提供者，23纯私有数学处置转host、3通用pow入口mixed，地图整函数仍原处置；当前记录与历史原体区分。19相关数学/CRT/决议SPEC、总入口及C01/C12/V02同步。限定I/S证据1320→1322，原身份1964/3680、成员/完整gates/任务关闭11/六closure保持，完整数值/状态/ABI/原间接父与生命周期未验。
+
+[当前源状态](../doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state)为三源迁移完成：原111 PUBLIC共41值/读取入口由CPP提供、70私有机器ABI取消，不是111原函数等价验收。静态符号/常量/字段布局/控制与错误链/读取发布序、现源/历史引用/登记/UTF-8/差异、台账汇总及Check核通过后精确提交，固定引用cg2d-re-asm-crt-cpp-20261009。未编译/链接/测试/运行/算法/产物/摘要/新依赖/MIDI/WAV重生成；整体SPEC未完成，整体目标继续active。

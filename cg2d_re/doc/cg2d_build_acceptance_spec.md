@@ -169,3 +169,10 @@
 沿CAA01既有客户端/按钮音频所需窗口承载，现Debug仅重编WindowRuntime.cpp并链接三库/真实客户端，返回0，无再配置，0错误。20 C4244已消除，仍23其它窗口诊断（两C4456、二十C4701、一C4703），此前未重编其它文件44项不核销；已见总67，不称全工程无警告。日志build/windows-msvc-x64/build-window-draw-width-20261009.log，MAP十父及4771B0/520970/456780存在，仍无离线合成/转换代码。
 
 8022528B新版已复制游戏目录，旧同长版备份cg2d_re_client.exe.before-window-draw-width-20261009，仅核复制/长度。[正常消费宽度](cg2d_window_routing_sampling_spec.md#window-draw-width-source-state)与[有限原证/实现](cg2d_window_draw_width_evidence.json)不代全父-callee/旧99路由、正常寿命/资源/机器ABI/声音/画面或IP2实际互通。未运行客户端/试包/测试/算法/工具、重生成WAV或摘要；离线最近通过仍CAB15，整体未验。
+
+<a id="shop-inventory-scan-debug-build"></a>
+## CAB31 商店按钮命中承接当前编译（2026-10-09）
+
+沿CAA01既有客户端/按钮音频所需窗口承载，现Debug仅重编WindowRuntime.cpp并链接三库/真实客户端，返回0，无再配置，0错误。Sub_4BC660的scanSlot C4701消除；仍22窗口警告（C4456两/C4701十九/C4703一），此前其它44项不核销，已见总66。日志build/windows-msvc-x64/build-shop-inventory-scan-20261009.log，MAP4BC660/52C450/53B304提供者存在，未增离线合成/转换代码，不称全工程无警告。
+
+8022528B新版已复制游戏目录，旧同长版备份cg2d_re_client.exe.before-shop-inventory-scan-20261009，仅核复制/长度。[一个源码片段](ui_windows/window_53.md#shop-inventory-scan-source-state)和[局部原证](cg2d_shop_inventory_scan_evidence.json)不代全父-callee/旧99路由、正常寿命/资源/机器ABI/画面音效/IP2互通或整体通过。未运行客户端/试包/测试/算法/工具、重生成WAV或摘要，离线最近通过仍CAB15。

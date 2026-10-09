@@ -20665,20 +20665,20 @@ std::int32_t Sub_4BC660(const std::int32_t index, const std::int32_t state)
         events &= 0x9Fu;
         consumed = 1;
     }
-    // 原临时槽先存命中扫描下标，右键路径再覆写为选择表空槽下标。
-    std::int32_t scanSlot;
     if ((events & 0x21u) != 0) {
-        for (scanSlot = 0; scanSlot < 20; ++scanSlot) {
+        for (std::int32_t hitSlot = 0; hitSlot < 20; ++hitSlot) {
             const WindowInstance* const window = gCurrentWindow;
             const WindowElement& element = window->elements[index];
-            const std::int32_t left = element.x + 50 * (scanSlot % 5) + window->x + 2;
-            const std::int32_t top = element.y + 50 * (scanSlot / 5) + window->y + 2;
+            const std::int32_t left = element.x + 50 * (hitSlot % 5) + window->x + 2;
+            const std::int32_t top = element.y + 50 * (hitSlot / 5) + window->y + 2;
             if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
-                hovered = scanSlot;
+                hovered = hitSlot;
                 break;
             }
         }
     }
+    // 命中下标承接原临时槽；右键空槽扫描仍覆写，后续提示不能改读hovered。
+    std::int32_t scanSlot = hovered;
     const bool hover = (events & 1u) != 0;
     auto mode = std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894[20]);
     if (hover && hovered >= 0) {

@@ -121211,7 +121211,11 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_53.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/ui_windows/window_53.md#shop-inventory-scan-decision",
+        "doc/ui_windows/window_53.md#shop-inventory-scan-source-state",
+        "doc/cg2d_shop_inventory_scan_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#shop-inventory-scan-debug-build"
       ],
       "boundary": "256B未清char buffer；玩家items[hovered+8]名称/memo及W16 flags原取样，两互斥提示共一原call。mode0/2/3与mode1/4/5两数量原点分别承接各自相同文本表达式，count为S32且>0才格式，used/map/选择bitmask/可用遮罩及先图形后数量保持；scanSlot未清局部复用、页轮换、拖拽/右键/消息/帧/绘制/返回保持。",
       "original_incoming": [],
@@ -121304,7 +121308,15 @@
           "relationship": "mode1/4/5另一个循环，map/used/选择及可用遮罩保持；与前一数量表达式同文但原点独立"
         }
       ],
-      "verification_level": "原647条统计，仅78格式邻窗读取，余569和已过正文/核心不重验；原点/callee/共享分支与循环分组/原字节/宽度/借用源/缓冲/消费者次序及整份源4callee限定静态核对；入向仅一data xref，普通call0，不推断实际复合回调槽；未构建或执行"
+      "verification_level": "原647条统计，仅78格式邻窗读取，余569和已过正文/核心不重验；原点/callee/共享分支与循环分组/原字节/宽度/借用源/缓冲/消费者次序及整份源4callee限定静态核对；入向仅一data xref，普通call0，不推断实际复合回调槽；未构建或执行",
+      "latest_shop_inventory_scan": {
+        "step": "CAB31",
+        "decision_reference": "doc/ui_windows/window_53.md#shop-inventory-scan-decision",
+        "source_reference": "src/ui/WindowRuntime.cpp::Sub_4BC660",
+        "fragments": 1,
+        "verification_level": "四局部窗口加完整空槽段重叠去重253条884B，仅本步扫描/覆写/消费；完整647条仅身份，整CPP与HEAD+一个片段预期一致；Debug链接0错误/对应C4701消除，不代全父/路由/ABI/运行",
+        "behavior": "命中时scanSlot=hovered；右键空槽覆写及后来提示继续原复用下标；无命中不消费的-1不宣原异常等价。"
+      }
     },
     {
       "original_entry": "0x4BD100",

@@ -1,5 +1,7 @@
 # CRT 宿主承接总 SPEC
 
+> 2026-10-10堆策略：[MC01-C4](cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010)覆盖HMU01仍保留的模式选择、数量预处理、私有handler与借用句柄初始化要求。通用分配族直接采用MSVC合同，原业务U32参数、真实返回消费和owner保持；旧库策略与失败28前置只保历史，实际多字节前置另步处理。未编译/运行，全部适用业务与SDK门禁保持。
+
 > 2026-10-10当前错误/退出边界：[MC01-C3](cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010)已将CRT私有退出/信号/消息与钩子、console及重复filter层交MSVC，删除纯CRT收尾回调/唯一登记；真实业务std::atexit与数组构析保持。两致命入口真实_Exit(255)不输出旧R600x/MessageBox，数组二次异常真实terminate；旧库字段/表与原filter生命周期只作固定历史，不再要求复刻。heap/multibyte前置与所有适用业务/owner/SDK/正常快速退出运行门禁仍待，未编译/运行。
 
 > 2026-10-10当前数值库边界：[MC01-C2](cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010)已退休无现业务调用的旧浮点格式/96位转换/环境与pow错误私有组，数值格式/数学及库内状态交MSVC。实际地图/音频数学源与控制作用域保持，两Shop/NLS低宽读取移回既有模块，计时U64除法保留；旧gate/数学记录/CPU探测和其余内部CPP/ASM源码状态属固定历史，不再要求复刻。全部适用业务/owner/SDK正常结果与运行门禁保持，未编译/运行。
@@ -229,3 +231,28 @@ ExitLegacyRuntimeError与FastLegacyRuntimeErrorExit准确noreturn并真实std::_
 F1411→1429（新18）、CRT已知成员466→486（新20）且枚举false；软件证据1333→1335只限定I/S。语义2029（1981F＋48X）、合同2091/3680、所有原分母/完整功能门禁、184叶整项验收0、60任务关闭11及六closure保持。两旧信号附件仅历史路径核固定快照，当前source独立校验无退休提供者；源码/SDK声明与启动filter、致命255/参数、数组/业务精确守恒、所有原身份/台账/政策/门禁及UTF-8/LF/差异和静态汇总/-Check核对。
 
 未构建/链接/测试/运行/算法/查产物/计算摘要，无新依赖。固定引用cg2d-re-msvc-crt-exit-20261010；剩余实际多字节/heap策略继续MC01-C，完整业务owner、正常结果、SDK与正常快速退出/运行仍待。MC01全CRT与整体SPEC未完成。
+
+<a id="msvc-crt-heap-decision-20261010"></a>
+## MC01-C4：通用堆策略直接交MSVC（2026-10-10）
+
+依用户CRT直接MSVC要求，覆盖HMU01过渡保留的旧模式1/2/3、零请求转1、16字节数量对齐、FFFFFFE0上界、U32乘积后清零和私有handler/new-mode重试策略。保留的CallocateLegacyMemory直接std::calloc(count,size)，ReallocateLegacyMemory直接std::realloc(memory,byteCount)，GetLegacyAllocationSize直接_msize并沿现接口消费U32容量；既有Malloc/Free与裸字节malloc/free配对保持。原count/size/byteCount仍U32，只有传入SDK时依其size_t参数转换，不扩业务字段；乘积、请求校验、零长度、物理容量、对齐、errno与new-mode/new-handler归真实MSVC，不能称旧数量/失败时机等价，不另加保护、上界、手工重试或影子状态。
+
+当前全src/include核三公开接口没有实际调用方；旧私有allocator别名、模式、handler四槽和查询链只有组内使用，唯一组外入口是LegacyMouse堆初始化/失败28。MSVC实际入口管理库堆初始化，因此删除该调用/失败分支、借用句柄及InitializeLegacyHeap本体；不造恒成功初始化器或继续解析__MSVCRT_HEAP_SELECT、OS/模块链接器版本。FastLegacyRuntimeErrorExit的唯一调用随之消失，连同其定义/声明退休。CommandOptions真实分配失败9/9/8的_Exit(255)、实际数组terminate与构析/退出登记保持，不能因库初始化退役删除业务失败。
+
+三公开适配移到既有LegacyMemory.cpp，删除LegacyHeap CPP/头及CMake项；保已有公共接口，不新增文件或修改业务分配/释放域。AllocateLegacyHeapMemory/FreeLegacyHeapMemory与公共Malloc/Free共享原ID，只退休旧无消费别名，不造第二个F身份或删除仍在使用的公共提供者。原CRT身份、机器字段、原数据/调用和完整实施前态固定在cg2d-re-msvc-crt-heap-history-20261010；未证原alias/调用不按当前无消费者判不可达或范围排除。MSVC所有权、实际SDK容量/失败和完整业务/正常快速退出运行仍待，不降低总SPEC§10。
+
+<a id="msvc-crt-heap-acceptance-20261010"></a>
+## MC01-C4 静态核对
+
+核所有旧导出/数据/模式与handler消费者、三保留接口签名及对应SDK实际声明/标准转引和堆源码；核SDK自身calloc数量验证、realloc空/零/失败旧块处理与真实new-mode职责，不在应用复刻。LegacyMouse仅移堆前置/失败28及未用include，其余多字节、业务初始化/析构、真实std::atexit/标准流配置和相对序逐字保持；CommandOptions、实际数组、现Malloc/Free与所有业务来源保持。旧符号/头/CMake无残留，原身份/当前来源/台账门禁与UTF-8/LF/差异和静态汇总核对；历史附件仅核固定快照可读，当前来源不得回退。仅限定源码证据，不构建/测试/运行/查产物/计算摘要。
+
+<a id="msvc-crt-heap-source-state-20261010"></a>
+## MC01-C4 当前源码状态
+
+LegacyHeap CPP/头与CMake源项退休，三公开GetLegacyAllocationSize/CallocateLegacyMemory/ReallocateLegacyMemory移到既有LegacyMemory，直接_msize/std::calloc/std::realloc。九旧定义退休：六私有堆包装/初始化、模块版本读取/模式选择及唯一heap失败28所用Fast入口；四私有堆/handler槽、两环境文字和handler类型不再保存。当前全src/include无三公开接口实际调用；不把原入向当当前x64调用或把无现消费者判原不可达。Malloc/Free的实际LegacyTime提供者与同原ID私有别名区别记录，不新增F。
+
+LegacyMouse仅删heap初始化/28分支、两个未用include和更新前置注释，InitializeLegacyMultibyte及全部其余业务初始化/回调/登记/标准流源码逐字保持；CommandOptions9/9/8致命_Exit255、实际数组/terminate、已有malloc/free和业务源不变。MSVC实际声明/标准转引与库堆、calloc/realloc源码核明数量/零/校验/真实new-mode职责，不复刻应用handler循环/环境模式。旧HMU01请求预处理及私有失败参数不再要求等价；业务U32字段、输入和真实返回消费与owner保持。
+
+[准确前后态及SDK证据](cg2d_msvc_crt_heap_evidence.json)登记35现语义：22私有CRT职责host、3真实公共适配、10共享记录仅移旧消费者；原身份/机器字段/证据与所有实施前态沿固定标签/原索引读取。F1429→1431（新2），CRT已知成员486→500（补14既有原ID）仍非完整枚举；软件证据1335→1337仅限定I/S。语义2029（1981F＋48X）、合同2091/3680、所有分母/完整功能门禁、184叶整项验收0、60任务关闭11与六closure保持。
+
+两旧Heap附件仅核固定前态可读性，当前来源不得回退；公开真实服务/SDK声明与职责、9退休定义/数据/头及CMake、源码精确差异、35原身份/现提供者/台账和门禁/政策及UTF-8/LF/静态汇总/-Check核对。未构建/链接/测试/运行/算法/查产物/计算摘要，无新依赖；固定引用cg2d-re-msvc-crt-heap-20261010。实际多字节/locale继续MC01-C，全部业务owner/正常结果、SDK容量/失败/初始化退出与运行仍待；MC01全CRT及整体SPEC未完成。

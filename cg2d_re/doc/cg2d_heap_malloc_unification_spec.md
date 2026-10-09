@@ -1,5 +1,7 @@
 # 通用堆接口统一标准分配族 SPEC（HMU01）
 
+> 2026-10-10当前堆边界：[MC01-C4](cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010)已将通用数量/零长度/容量/校验与new-mode策略直接交MSVC，三公开calloc/realloc/_msize适配移既有LegacyMemory；旧模式/handler四槽、环境/OS/链接器选择、重复heap初始化及失败28/唯一Fast入口退休。下文旧HMU01预处理/handler/借用查询及更早私有池要求只保历史，不再追加开发债务；当前Malloc/Free与业务U32参数/owner、真实命令失败9/9/8及数组/全部业务构析保持。实际多字节继续迁移，完整业务/未知alias/SDK容量、初始化退出和运行仍待，未编译/运行。
+
 <a id="heap-malloc-baseline"></a>
 ## 1. 当前事实与实施依据
 

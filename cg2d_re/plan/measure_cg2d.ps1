@@ -64,6 +64,12 @@ function Check-Path([string]$path, [string]$owner) {
         & git -C $projectRoot cat-file -e ("cg2d-re-msvc-crt-exit-history-20261010:cg2d_re/" + $relativePath) 2>$null
         $exists = $LASTEXITCODE -eq 0
     }
+    # MC01-C4：私有Heap包装/模式/handler退休，历史附件核固定前态，当前source禁回退。
+    $historicalHeap = @('src/platform/LegacyHeap.cpp', 'src/platform/LegacyHeap.hpp')
+    if (-not $exists -and $relativePath -cin $historicalHeap -and -not $currentSemanticSource) {
+        & git -C $projectRoot cat-file -e ("cg2d-re-msvc-crt-heap-history-20261010:cg2d_re/" + $relativePath) 2>$null
+        $exists = $LASTEXITCODE -eq 0
+    }
     Require $exists "$owner 引用不存在：$path"
     $pathCache[$pathCacheKey] = $true
 }

@@ -1,5 +1,7 @@
 # 原C++裸字节缓冲分配与释放合同
 
+> 2026-10-10当前堆边界：[MC01-C4](cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010)已将通用数量/零长度/容量/校验与new-mode策略直接交MSVC，三公开calloc/realloc/_msize适配移既有LegacyMemory；旧模式/handler四槽、环境/OS/链接器选择、重复heap初始化及失败28/唯一Fast入口退休。下文旧HMU01预处理/handler/借用查询及更早私有池要求只保历史，不再追加开发债务；当前Malloc/Free与业务U32参数/owner、真实命令失败9/9/8及数组/全部业务构析保持。实际多字节继续迁移，完整业务/未知alias/SDK容量、初始化退出和运行仍待，未编译/运行。
+
 > 2026-10-10当前C++边界：[MC01-C1](cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010)已退休无现组外消费者的六组私有C++库及NativeCppException头。当前采用真实MSVC标准流/Init/locale及库内string/facet/codecvt/异常支撑，现流配置/缓冲借用/刷新、业务构析与退出登记保持。下文旧Legacy对象/方法表/私有登记/异常payload及其源码状态属固定历史，不再要求复刻；完整业务/owner/未知原alias与SDK实际运行仍待，未编译/运行。
 
 > 2026-10-09用户最新CRT要求：当前按[MC01](cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009)直接采用MSVC。标量C服务、32位时间及字符串格式/扫描已转真实宿主提供者；下文旧算法/共享错误槽/逐指令保持条款在该具名范围只作历史。FILE/lowio及C++对象剩余组仍处迁移期，业务格式/编码/字段、owner和全部适用运行门禁保持。

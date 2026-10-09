@@ -263,3 +263,16 @@ LegacyHeap.hpp/CPP全部通用模式成组统一malloc/calloc/realloc/free/_msiz
 62现语义对齐：21 host/3 adapted/37共享或业务仅移旧消费者及一原X；业务原登记target/callsite仍机器基线，现明确真实std::atexit服务，不造原地址调用。F1411→1429（新18）、CRT已知成员466→486（新20）仍枚举false；软件证据1333→1335只限定I/S。语义2029（1981F＋48X）、合同2091/3680及56.82%、导入16/218、X3060/3061余1、184叶整项验收0、60任务关闭11与六closure保持。11相关文档/子SPEC、总合同/计划/收尾任务与登记同步，历史正文不重复复制。
 
 三实际API/退出255与准确参数、SDK八头/转引/启动filter源、四数组/所有业务回调与源码精确守恒、25退休定义/数据/接口无现残留、62精确语义/原事实/全部台账政策门禁及UTF-8/LF/差异与静态汇总/-Check核对后精确提交，固定引用cg2d-re-msvc-crt-exit-20261010。未构建/链接/测试/运行/算法/查产物/计算摘要，无新依赖；用户六项改动保持。实际多字节/heap策略继续MC01-C，全部业务owner/正常结果/SDK与正常快速退出运行仍待；MC01全CRT和整体SPEC未完成，目标active。
+
+<a id="msvc-crt-heap-progress-20261010"></a>
+## 22. 2026-10-10 MC01-C4：通用堆策略直接MSVC
+
+先记[决议/当前状态](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010)，核全src/include旧模式/handler/四槽与所有导出消费者。三公开calloc/realloc/容量接口没有现源码实际调用，旧私有堆只有组内消费；唯一LegacyMouse堆初始化及失败28退休，随之删除Fast终止定义/声明。CommandOptions真实9/9/8致命_Exit255、实际数组/terminate、现Malloc/Free及全部业务源码保持，不造恒成功Init或模拟MSVC内部失败。
+
+LegacyHeap CPP/头及CMake项移除，九定义及四私有槽/handler类型/两环境文字退休；三公开适配移既有LegacyMemory，直接std::calloc/std::realloc/_msize。业务count/size/byteCount仍U32，SDK内部数量/零长度/容量/校验/errno/new-mode与handler采用本机合同，具名覆盖旧HMU01预对齐/低W32乘积/上界/重试要求。MSVC实际堆初始化/清理、calloc/realloc与声明/标准转引按本机六头/源核对；不复造旧OS/环境/链接器模式与借用句柄。
+
+LegacyMouse仅撤两未用include、heap初始化/28分支及更新前置注释，实际多字节和全部业务初始化/构析/标准流/即时登记/相对序逐字保持。9相关子SPEC与总合同/计划/任务、当前来源/登记同步；35现语义对齐（22 host/3真实公共适配/10共享仅退休旧消费者），原身份/机器事实/实施前态沿固定Git快照/原索引保留，两旧Heap附件只核前态可读性，当前来源禁回退。原公共Malloc/Free与旧无消费别名共ID，不造F或扩大删除。
+
+F处置1429→1431（新2）、已知CRT成员486→500（补14原ID）且枚举false，软件证据1335→1337仅限定I/S。语义2029（1981F＋48X）、合同2091/3680及56.82%、导入16/218、X3060/3061余1、184叶完整验收0、60任务关闭11和六closure保持。真实服务/SDK与旧引用退出、业务源码精确守恒、35原身份/当前来源与全台账/门禁/政策及UTF-8/LF/差异和静态汇总/-Check核对后精确提交，固定引用cg2d-re-msvc-crt-heap-20261010。
+
+未构建/链接/测试/运行/算法/查产物/计算摘要，无新依赖；用户六项改动保持。实际多字节/locale继续MC01-C，完整业务参数/字节/正常结果与owner、未知alias、SDK容量/失败/初始化退出和运行仍待；MC01全CRT和整体SPEC未完成，目标active。

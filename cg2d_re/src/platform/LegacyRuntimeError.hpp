@@ -4,9 +4,8 @@
 
 namespace cg::platform {
 
-// MC01-C3：CommandOptions失败9/9/8与heap失败28保持；真实_Exit(255)不跑普通atexit。
+// MC01-C3/C4：保CommandOptions失败9/9/8；真实_Exit(255)不跑普通atexit。
 [[noreturn]] void ExitLegacyRuntimeError_53DEAB(std::int32_t errorCode);
-[[noreturn]] void FastLegacyRuntimeErrorExit_53DED0(std::int32_t errorCode);
 // 真实数组二次C++异常消费；由MSVC terminate负责handler/abort与最终终止。
 [[noreturn]] void TerminateLegacyRuntime_540A5C();
 

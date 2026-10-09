@@ -1,0 +1,573 @@
+{
+  "schema_version": 1,
+  "spec_id": "MC01-C4",
+  "recorded_on": "2026-10-10",
+  "before_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+  "implementation_snapshot": "cg2d-re-msvc-crt-heap-20261010",
+  "authorization": "用户CRT直接MSVC与既有工程委托，先记C4 SPEC",
+  "retired_paths": [
+    "src/platform/LegacyHeap.cpp",
+    "src/platform/LegacyHeap.hpp"
+  ],
+  "changed_source_paths": [
+    "CMakeLists.txt",
+    "src/platform/LegacyMemory.cpp",
+    "include/cg/platform/LegacyMemory.hpp",
+    "src/platform/LegacyMouse.cpp",
+    "src/platform/LegacyRuntimeError.cpp",
+    "src/platform/LegacyRuntimeError.hpp"
+  ],
+  "retired_definitions": [
+    "InitializeLegacyHeap_541BB8",
+    "CallLegacyHeapNewHandler_541A28",
+    "AllocateLegacyHeapBlock_53C3EA",
+    "AllocateLegacyHeapWithHandler_53C3BE",
+    "AllocateLegacyHeapMemory_53C3AC",
+    "FreeLegacyHeapMemory_53C0A9",
+    "ReadLegacyModuleLinkerVersion_541A43",
+    "SelectLegacyHeapMode_541A70",
+    "FastLegacyRuntimeErrorExit_53DED0"
+  ],
+  "retired_data_symbols": [
+    "gLegacyHeap10869A4",
+    "gLegacyHeapMode10869A8",
+    "gLegacyHeapNewHandler108614C",
+    "gLegacyHeapNewMode1086150",
+    "kHeapSelectName54FAEC",
+    "kGlobalHeapSelection54FAD4"
+  ],
+  "retired_type_names": [
+    "LegacyHeapNewHandler"
+  ],
+  "pre_migration_consumers": {
+    "searched_roots": [
+      "src",
+      "include"
+    ],
+    "actual_outside_exports": {
+      "src/platform/LegacyMouse.cpp": [
+        "InitializeLegacyHeap_541BB8",
+        "FastLegacyRuntimeErrorExit_53DED0"
+      ]
+    },
+    "public_calloc_realloc_msize_actual_body_callers": 0,
+    "private_slot_setters_outside_group": 0,
+    "shared_original_ids": {
+      "AllocateLegacyHeapMemory_53C3AC": "F:0013C3AC，当前Malloc_53C3AC实际提供者保持",
+      "FreeLegacyHeapMemory_53C0A9": "F:0013C0A9，当前Free_53C0A9实际提供者保持"
+    }
+  },
+  "providers": [
+    {
+      "symbol": "ReallocateLegacyMemory_53FA5B",
+      "service": "std::realloc",
+      "path": "src/platform/LegacyMemory.cpp",
+      "business_input_width": "U32，不扩业务字段；SDK size_t转换",
+      "runtime_verified": false
+    },
+    {
+      "symbol": "GetLegacyAllocationSize_53FCFB",
+      "service": "::_msize",
+      "path": "src/platform/LegacyMemory.cpp",
+      "business_input_width": "U32，不扩业务字段；SDK size_t转换",
+      "runtime_verified": false
+    },
+    {
+      "symbol": "CallocateLegacyMemory_53BFF8",
+      "service": "std::calloc",
+      "path": "src/platform/LegacyMemory.cpp",
+      "business_input_width": "U32，不扩业务字段；SDK size_t转换",
+      "runtime_verified": false
+    }
+  ],
+  "source_snapshots": {
+    "src/platform/LegacyHeap.cpp": {
+      "path": "src/platform/LegacyHeap.cpp",
+      "before_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+      "current_source_retired": true
+    },
+    "src/platform/LegacyHeap.hpp": {
+      "path": "src/platform/LegacyHeap.hpp",
+      "before_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+      "current_source_retired": true
+    }
+  },
+  "source_changes": {
+    "CMakeLists.txt": {
+      "path": "CMakeLists.txt",
+      "before_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-heap-20261010",
+      "diff": "--- 迁移前/CMakeLists.txt\n+++ 迁移后/CMakeLists.txt\n@@ -67,17 +67,16 @@\n     src/platform/ClientShutdown.cpp\n     src/platform/MainLoop.cpp\n     src/platform/MainLoopState.cpp\n     src/platform/MainLoopWindowEnumeration.cpp\n     src/platform/MainLoopSupport.cpp\n     src/platform/LegacyCryptInt.cpp\n     src/platform/LegacyModuleDigest.cpp\n     src/platform/LegacyMemory.cpp\n-    src/platform/LegacyHeap.cpp\n     src/platform/LegacyRuntimeError.cpp\n     src/platform/LegacyRuntimeExit.cpp\n     src/platform/LegacyLowIo.cpp\n     src/platform/LegacyStdio.cpp\n     src/platform/LegacyFormat.cpp\n     src/platform/LegacyScan.cpp\n     src/platform/LegacyMultibyte.cpp\n     src/platform/LegacyNetworkAdapter.cpp\n"
+    },
+    "src/platform/LegacyMemory.cpp": {
+      "path": "src/platform/LegacyMemory.cpp",
+      "before_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-heap-20261010",
+      "diff": "--- 迁移前/src/platform/LegacyMemory.cpp\n+++ 迁移后/src/platform/LegacyMemory.cpp\n@@ -1,114 +1,34 @@\n #include \"cg/platform/LegacyMemory.hpp\"\n-#include \"cg/platform/LegacyTime.hpp\"\n \n #include <cstring>\n #include <cstdlib>\n \n #include <malloc.h>\n \n-#ifndef WIN32_LEAN_AND_MEAN\n-#define WIN32_LEAN_AND_MEAN\n-#endif\n-#ifndef NOMINMAX\n-#define NOMINMAX\n-#endif\n-#include <Windows.h>\n-\n namespace cg::platform {\n \n-namespace {\n-\n-constexpr char kHeapSelectName54FAEC[] = \"__MSVCRT_HEAP_SELECT\";\n-constexpr char kGlobalHeapSelection54FAD4[] = \"__GLOBAL_HEAP_SELECTED\";\n-static_assert(sizeof(kHeapSelectName54FAEC) == 21);\n-static_assert(sizeof(kGlobalHeapSelection54FAD4) == 23);\n-static_assert(sizeof(OSVERSIONINFOA) == 0x94);\n-\n-// 原541A43；输出先清W32，再按原顺序写链接器主/次版本两个U8。\n-void ReadLegacyModuleLinkerVersion_541A43(std::uint32_t* const version)\n+// MC01-C4：直接查询真实CRT块，容量沿现U32接口消费，不读旧块头。\n+std::uint32_t GetLegacyAllocationSize_53FCFB(void* const memory)\n {\n-    *version = 0;\n-    const auto* const module =\n-        reinterpret_cast<const unsigned char*>(::GetModuleHandleA(nullptr));\n-    const auto* const dosHeader = reinterpret_cast<const IMAGE_DOS_HEADER*>(module);\n-    if (dosHeader->e_magic != IMAGE_DOS_SIGNATURE) {\n-        return;\n-    }\n-    const std::int32_t headerOffset = dosHeader->e_lfanew;\n-    if (headerOffset == 0) {\n-        return;\n-    }\n-    const unsigned char* const ntHeader = module + headerOffset;\n-    auto* const bytes = reinterpret_cast<unsigned char*>(version);\n-    bytes[0] = ntHeader[0x1A];\n-    bytes[1] = ntHeader[0x1B];\n+    return static_cast<std::uint32_t>(::_msize(memory));\n }\n \n-} // namespace\n+// 原U32 count/size透传；数量校验、零长度与new-handler采用MSVC合同。\n+void* CallocateLegacyMemory_53BFF8(\n+    const std::uint32_t count, const std::uint32_t size)\n+{\n+    return std::calloc(count, size);\n+}\n \n-// 原541A70；只选模式，不发布堆句柄、创建私有池或改变当前分配器。\n-std::int32_t SelectLegacyHeapMode_541A70()\n+// 空/零及失败旧块策略由同域MSVC realloc处理，不预对齐或手工重试。\n+void* ReallocateLegacyMemory_53FA5B(void* const memory, const std::uint32_t byteCount)\n {\n-    OSVERSIONINFOA information;\n-    information.dwOSVersionInfoSize = sizeof(information);\n-    if (::GetVersionExA(&information) != 0\n-        && information.dwPlatformId == VER_PLATFORM_WIN32_NT\n-        && information.dwMajorVersion >= 5u) {\n-        return 1;\n-    }\n-\n-    char environment[0x1090];\n-    if (::GetEnvironmentVariableA(kHeapSelectName54FAEC, environment,\n-            sizeof(environment)) != 0) {\n-        for (char* cursor = environment; *cursor != '\\0'; ++cursor) {\n-            const char value = *cursor;\n-            if (value >= 'a' && value <= 'z') {\n-                *cursor = static_cast<char>(value - 0x20);\n-            }\n-        }\n-\n-        char* selection;\n-        if (StrNCmp_53BFC0(kGlobalHeapSelection54FAD4, environment, 22) == 0) {\n-            selection = environment;\n-        } else {\n-            char filename[0x104];\n-            // 原忽略API返回，不补未写局部内容或强制终止字节。\n-            static_cast<void>(::GetModuleFileNameA(nullptr, filename, sizeof(filename)));\n-            for (char* cursor = filename; *cursor != '\\0'; ++cursor) {\n-                const char value = *cursor;\n-                if (value >= 'a' && value <= 'z') {\n-                    *cursor = static_cast<char>(value - 0x20);\n-                }\n-            }\n-            selection = StrStr_53BE40(environment, filename);\n-        }\n-        if (selection != nullptr) {\n-            char* const comma = StrChr_53C2F0(selection, ',');\n-            if (comma != nullptr) {\n-                char* const value = comma + 1;\n-                for (char* cursor = value; *cursor != '\\0'; ++cursor) {\n-                    if (*cursor == ';') {\n-                        *cursor = '\\0';\n-                        break;\n-                    }\n-                }\n-                const std::int32_t mode = Strtol_53DA45(value, nullptr, 10);\n-                if (mode == 2 || mode == 3 || mode == 1) {\n-                    return mode;\n-                }\n-            }\n-        }\n-    }\n-\n-    std::uint32_t linkerVersion;\n-    ReadLegacyModuleLinkerVersion_541A43(&linkerVersion);\n-    // 原541BAB是80 /7字节比较，仅主版本低U8参与回退。\n-    return static_cast<std::uint8_t>(linkerVersion) < 6 ? 2 : 3;\n+    return std::realloc(memory, byteCount);\n }\n \n void* CopyLegacyMemory_541620(void* const destination,\n     const void* const source, const std::uint32_t byteCount)\n {\n     return std::memmove(destination, source, byteCount);\n }\n \n"
+    },
+    "include/cg/platform/LegacyMemory.hpp": {
+      "path": "include/cg/platform/LegacyMemory.hpp",
+      "before_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-heap-20261010",
+      "diff": "--- 迁移前/include/cg/platform/LegacyMemory.hpp\n+++ 迁移后/include/cg/platform/LegacyMemory.hpp\n@@ -3,35 +3,32 @@\n #include <cstdint>\n \n namespace cg::platform {\n \n // 原53C3AC/53C0A9；沿用户已批准的std::malloc/std::free合同，数量保持U32。\n void* __cdecl Malloc_53C3AC(std::uint32_t size);\n void __cdecl Free_53C0A9(void* memory);\n \n-// 原53FCFB；HMU01全部模式返回真实CRT malloc/calloc/realloc块容量，按U32消费。\n+// 原53FCFB；直接查询同CRT域块的_msize实际容量，沿现接口按U32消费。\n std::uint32_t GetLegacyAllocationSize_53FCFB(void* memory);\n-// 原53BFF8/53FA5B：HMU01全部模式统一标准分配族，保W32/零长度与父失败消费。\n-// 旧池机制由宿主承接，仍只接收同CRT域块，完整所有权/SDK及启动运行待验。\n+// 原53BFF8/53FA5B：MC01-C4直接std::calloc/realloc，输入数量保持U32。\n+// 零长度、乘积/请求校验、容量与失败策略按MSVC；只接收同CRT域块。\n void* CallocateLegacyMemory_53BFF8(std::uint32_t count, std::uint32_t size);\n void* ReallocateLegacyMemory_53FA5B(void* memory, std::uint32_t byteCount);\n \n // 原541620：直接std::memmove，支持重叠，数量保持U32。\n void* CopyLegacyMemory_541620(void* destination, const void* source, std::uint32_t byteCount);\n \n // 原5419D0：直接std::memset，数量保持U32，返回原目标。\n void* FillLegacyMemory_5419D0(void* destination, std::int32_t value, std::uint32_t byteCount);\n // 原54B160：直接std::memcmp，返回MSVC实际比较结果，不复刻旧W32复读。\n std::int32_t CompareLegacyMemory_54B160(\n     const void* left, const void* right, std::uint32_t byteCount);\n \n-// 原541A70；OS/环境/模块链接器版本选择1/2/3，不自动创建或切换堆。\n-std::int32_t SelectLegacyHeapMode_541A70();\n-\n // 裸字节缓冲调用域采用std::malloc，失败返回空，零请求采用MSVC合同。\n // 数量保持U32；结果只能交FreeLegacyByteBuffer，不用于类型对象或标准容器分配。\n void* AllocateLegacyByteBuffer(std::uint32_t byteCount);\n \n // 释放本分配器返回的块；空指针无操作。所有权及释放顺序由原caller保留。\n void FreeLegacyByteBuffer(void* memory) noexcept;\n \n } // namespace cg::platform\n"
+    },
+    "src/platform/LegacyMouse.cpp": {
+      "path": "src/platform/LegacyMouse.cpp",
+      "before_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-heap-20261010",
+      "diff": "--- 迁移前/src/platform/LegacyMouse.cpp\n+++ 迁移后/src/platform/LegacyMouse.cpp\n@@ -1,12 +1,9 @@\n #include \"cg/platform/LegacyMouse.hpp\"\n-\n-#include \"LegacyHeap.hpp\"\n-#include \"LegacyRuntimeError.hpp\"\n \n #include \"../LoginMessageDependencies.hpp\"\n #include \"../LegacyPanelRuntime.hpp\"\n #include \"MainLoopDependencies.hpp\"\n #include \"LegacyMultibyte.hpp\"\n #include \"cg/AnimationRuntime.hpp\"\n #include \"cg/GraphicInfo.hpp\"\n #include \"cg/GraphicRead.hpp\"\n@@ -27,23 +24,20 @@\n namespace cg::platform {\n \n LegacyMouseState gLegacyMouseState {};\n std::uint32_t gValueD68BF0 = 0;\n std::uint32_t gValueD68DC8 = 0;\n \n namespace {\n \n-// MC01-C3：CRT入口持有流/异常/退出；保当前仍消费的heap/多字节前置。\n+// MC01-C4：MSVC入口管理堆/异常/退出；当前仅保多字节前置。\n struct LegacyMultibyteStaticInitializer {\n     LegacyMultibyteStaticInitializer()\n     {\n-        if (InitializeLegacyHeap_541BB8(0) == 0) {\n-            FastLegacyRuntimeErrorExit_53DED0(28);\n-        }\n         InitializeLegacyMultibyte_546CAE();\n     }\n };\n \n const LegacyMultibyteStaticInitializer gLegacyMultibyteStaticInitializer;\n \n // 原CRT553004..553010：每项完成构造后即时登记退出，第一结果不短路后项。\n // 只有本组模块位置适配；接全应用原序时须同小步移除此调用，避免双构造/登记。\n"
+    },
+    "src/platform/LegacyRuntimeError.cpp": {
+      "path": "src/platform/LegacyRuntimeError.cpp",
+      "before_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-heap-20261010",
+      "diff": "--- 迁移前/src/platform/LegacyRuntimeError.cpp\n+++ 迁移后/src/platform/LegacyRuntimeError.cpp\n@@ -1,22 +1,17 @@\n #include \"LegacyRuntimeError.hpp\"\n \n #include <cstdlib>\n #include <exception>\n \n namespace cg::platform {\n \n-// MC01-C3：致命分配/启动失败保255；诊断编号和旧消息/钩子只保历史。\n+// MC01-C3：CommandOptions真实分配失败保255；旧诊断消息/钩子只保历史。\n [[noreturn]] void ExitLegacyRuntimeError_53DEAB(const std::int32_t /*errorCode*/)\n-{\n-    std::_Exit(255);\n-}\n-\n-[[noreturn]] void FastLegacyRuntimeErrorExit_53DED0(const std::int32_t /*errorCode*/)\n {\n     std::_Exit(255);\n }\n \n // 实际数组展开的二次C++异常交真实MSVC handler/abort/信号机制。\n [[noreturn]] void TerminateLegacyRuntime_540A5C()\n {\n     std::terminate();\n"
+    },
+    "src/platform/LegacyRuntimeError.hpp": {
+      "path": "src/platform/LegacyRuntimeError.hpp",
+      "before_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-heap-20261010",
+      "diff": "--- 迁移前/src/platform/LegacyRuntimeError.hpp\n+++ 迁移后/src/platform/LegacyRuntimeError.hpp\n@@ -1,13 +1,12 @@\n #pragma once\n \n #include <cstdint>\n \n namespace cg::platform {\n \n-// MC01-C3：CommandOptions失败9/9/8与heap失败28保持；真实_Exit(255)不跑普通atexit。\n+// MC01-C3/C4：保CommandOptions失败9/9/8；真实_Exit(255)不跑普通atexit。\n [[noreturn]] void ExitLegacyRuntimeError_53DEAB(std::int32_t errorCode);\n-[[noreturn]] void FastLegacyRuntimeErrorExit_53DED0(std::int32_t errorCode);\n // 真实数组二次C++异常消费；由MSVC terminate负责handler/abort与最终终止。\n [[noreturn]] void TerminateLegacyRuntime_540A5C();\n \n } // namespace cg::platform\n"
+    }
+  },
+  "semantic_changed_indices": [
+    322,
+    323,
+    324,
+    325,
+    326,
+    361,
+    362,
+    363,
+    381,
+    390,
+    425,
+    467,
+    468,
+    470,
+    471,
+    472,
+    473,
+    474,
+    475,
+    476,
+    477,
+    478,
+    479,
+    480,
+    481,
+    482,
+    483,
+    484,
+    485,
+    486,
+    487,
+    645,
+    646,
+    704,
+    705
+  ],
+  "host_inventory_ids": [
+    "F:0013C3BE",
+    "F:0013C3EA",
+    "F:00141A28",
+    "F:0013DED0",
+    "F:00141A43",
+    "F:00141A70",
+    "F:00141BB8",
+    "F:00141C15",
+    "F:0014275C",
+    "F:00141C5D",
+    "F:00141C88",
+    "F:00141FB1",
+    "F:001422BA",
+    "F:0014236B",
+    "F:00142466",
+    "F:001428A0",
+    "F:001428F6",
+    "F:001429B8",
+    "F:00142A0F",
+    "F:00142A54",
+    "F:00142C5C",
+    "F:00142D80"
+  ],
+  "adapted_inventory_ids": [
+    "F:0013FA5B",
+    "F:0013FCFB",
+    "F:0013BFF8"
+  ],
+  "shared_consumer_inventory_ids": [
+    "F:0013C9CF",
+    "F:0013B4E7",
+    "F:0013BFC0",
+    "F:0013BE40",
+    "F:0013C2F0",
+    "F:001419D0",
+    "F:0013E9A5",
+    "F:0013DA45",
+    "F:0013C3AC",
+    "F:0013C0A9"
+  ],
+  "retired_current_field_names": {
+    "322": [],
+    "323": [
+      "heap_malloc_unification",
+      "msvc_scalar_byte_domain",
+      "msvc_cpp_retired_consumers",
+      "msvc_cpp_group"
+    ],
+    "324": [
+      "mode3_sdk_domain_contract",
+      "heap_malloc_unification"
+    ],
+    "325": [],
+    "326": [
+      "heap_malloc_unification",
+      "msvc_cpp_retired_consumers",
+      "msvc_cpp_group"
+    ],
+    "361": [],
+    "362": [],
+    "363": [],
+    "381": [
+      "current_provider",
+      "msvc_exit_group"
+    ],
+    "390": [
+      "heap_malloc_unification"
+    ],
+    "425": [
+      "stdio_table_heap_contract",
+      "hosted_stdio_contract"
+    ],
+    "467": [
+      "native_reference",
+      "mode3_sdk_domain_contract",
+      "heap_malloc_unification"
+    ],
+    "468": [
+      "native_reference",
+      "mode3_sdk_domain_contract",
+      "heap_malloc_unification"
+    ],
+    "470": [],
+    "471": [
+      "search_call_connections",
+      "strncmp_call_connections"
+    ],
+    "472": [
+      "native_reference",
+      "crt_parent_call_connections",
+      "hosted_prefix_contract",
+      "heap_malloc_unification",
+      "msvc_exit_retired_consumers",
+      "msvc_exit_group"
+    ],
+    "473": [
+      "heap_malloc_unification"
+    ],
+    "474": [
+      "memory_fill_connections",
+      "heap_malloc_unification"
+    ],
+    "475": [
+      "heap_malloc_unification"
+    ],
+    "476": [
+      "mode3_private_core_host_contract",
+      "heap_malloc_unification"
+    ],
+    "477": [
+      "mode3_private_core_host_contract",
+      "heap_malloc_unification"
+    ],
+    "478": [
+      "heap_malloc_unification"
+    ],
+    "479": [
+      "heap_malloc_unification"
+    ],
+    "480": [
+      "mode3_private_core_host_contract",
+      "heap_malloc_unification"
+    ],
+    "481": [
+      "heap_malloc_unification"
+    ],
+    "482": [
+      "heap_malloc_unification"
+    ],
+    "483": [
+      "heap_malloc_unification"
+    ],
+    "484": [
+      "heap_malloc_unification"
+    ],
+    "485": [
+      "memory_fill_connections",
+      "heap_malloc_unification"
+    ],
+    "486": [
+      "heap_malloc_unification"
+    ],
+    "487": [
+      "heap_malloc_unification"
+    ],
+    "645": [
+      "memory_fill_connections",
+      "stdio_table_heap_contract",
+      "mode3_sdk_domain_contract",
+      "heap_malloc_unification"
+    ],
+    "646": [],
+    "704": [
+      "heap_malloc_unification"
+    ],
+    "705": [
+      "heap_malloc_unification",
+      "mode3_sdk_domain_contract"
+    ]
+  },
+  "function_disposition_additions": [
+    "F:00141A43",
+    "F:00141A70"
+  ],
+  "function_disposition_updates": [
+    "F:0013C3BE",
+    "F:0013C3EA",
+    "F:00141A28",
+    "F:0013DED0",
+    "F:00141BB8",
+    "F:00141C15",
+    "F:0014275C",
+    "F:00141C5D",
+    "F:00141C88",
+    "F:00141FB1",
+    "F:001422BA",
+    "F:0014236B",
+    "F:00142466",
+    "F:001428A0",
+    "F:001428F6",
+    "F:001429B8",
+    "F:00142A0F",
+    "F:00142A54",
+    "F:00142C5C",
+    "F:00142D80",
+    "F:0013FA5B",
+    "F:0013FCFB",
+    "F:0013BFF8"
+  ],
+  "crt_member_additions": [
+    "F:00141A43",
+    "F:00141A70",
+    "F:00141C15",
+    "F:0014275C",
+    "F:00141C5D",
+    "F:001422BA",
+    "F:0014236B",
+    "F:001428A0",
+    "F:001428F6",
+    "F:001429B8",
+    "F:00142A0F",
+    "F:00142A54",
+    "F:00142C5C",
+    "F:00142D80"
+  ],
+  "accepted_differences": [
+    "CRT内部count*size采用MSVC size_t及实际校验，不再U32低乘积/应用预对齐/旧上界/手工重试",
+    "堆初始化/失败与new-mode由MSVC入口及库处理，旧借用槽/环境/OS/链接版本选择与失败28退休",
+    "零长度/物理容量/对齐/errno/失败时机按MSVC，非旧库算法等价"
+  ],
+  "validation": {
+    "static_only": true,
+    "compilation_verified": false,
+    "runtime_verified": false,
+    "new_dependencies": false,
+    "original_business_parameters_and_owner_kept": true,
+    "current_original_private_heap_aliases_present": false,
+    "full_feature_accepted": false
+  },
+  "remaining": [
+    "实际多字节与locale组继续MC01-C",
+    "原未知alias/完整业务参数/字节/owner及SDK正常容量/失败/生命周期与运行仍待",
+    "MC01全CRT及总SPEC§10未完成"
+  ],
+  "local_sdk_references": [
+    {
+      "path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/include/cstdlib",
+      "encoding": "UTF-8（兼容BOM）",
+      "matches": [
+        {
+          "line": 47,
+          "text": "_EXPORT_STD using _CSTD calloc;"
+        },
+        {
+          "line": 50,
+          "text": "_EXPORT_STD using _CSTD free;"
+        },
+        {
+          "line": 53,
+          "text": "_EXPORT_STD using _CSTD malloc;"
+        },
+        {
+          "line": 59,
+          "text": "_EXPORT_STD using _CSTD realloc;"
+        }
+      ],
+      "scope": "本机真实声明/职责源码静态依据，不代当前编译/链接/运行"
+    },
+    {
+      "path": "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/ucrt/corecrt_malloc.h",
+      "encoding": "UTF-8（兼容BOM）",
+      "matches": [
+        {
+          "line": 66,
+          "text": "void* __cdecl calloc("
+        },
+        {
+          "line": 89,
+          "text": "void __cdecl free("
+        },
+        {
+          "line": 101,
+          "text": "void* __cdecl malloc("
+        },
+        {
+          "line": 113,
+          "text": "size_t __cdecl _msize("
+        },
+        {
+          "line": 126,
+          "text": "void* __cdecl realloc("
+        }
+      ],
+      "scope": "本机真实声明/职责源码静态依据，不代当前编译/链接/运行"
+    },
+    {
+      "path": "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/ucrt/malloc.h",
+      "encoding": "UTF-8（兼容BOM）",
+      "matches": [
+        {
+          "line": 13,
+          "text": "#include <corecrt_malloc.h>"
+        }
+      ],
+      "scope": "本机真实声明/职责源码静态依据，不代当前编译/链接/运行"
+    },
+    {
+      "path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/heap/heap_handle.cpp",
+      "encoding": "UTF-8（兼容BOM）",
+      "matches": [
+        {
+          "line": 21,
+          "text": "extern \"C\" bool __cdecl __acrt_initialize_heap()"
+        },
+        {
+          "line": 23,
+          "text": "__acrt_heap = GetProcessHeap();"
+        },
+        {
+          "line": 32,
+          "text": "extern \"C\" bool __cdecl __acrt_uninitialize_heap(bool const /* terminating */)"
+        },
+        {
+          "line": 39,
+          "text": "// heap, this function always returns the same thing as GetProcessHeap()."
+        },
+        {
+          "line": 40,
+          "text": "extern \"C\" intptr_t __cdecl _get_heap_handle()"
+        }
+      ],
+      "scope": "本机真实声明/职责源码静态依据，不代当前编译/链接/运行"
+    },
+    {
+      "path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/heap/calloc_base.cpp",
+      "encoding": "UTF-8（兼容BOM）",
+      "matches": [
+        {
+          "line": 25,
+          "text": "_VALIDATE_RETURN_NOEXC(count == 0 || (_HEAP_MAXREQ / count) >= size, ENOMEM, nullptr);"
+        },
+        {
+          "line": 29,
+          "text": "size_t const actual_block_size = requested_block_size == 0"
+        },
+        {
+          "line": 35,
+          "text": "void* const block = HeapAlloc(__acrt_heap, HEAP_ZERO_MEMORY, actual_block_size);"
+        },
+        {
+          "line": 45,
+          "text": "if (_query_new_mode() == 0 || !_callnewh(actual_block_size))"
+        }
+      ],
+      "scope": "本机真实声明/职责源码静态依据，不代当前编译/链接/运行"
+    },
+    {
+      "path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/heap/realloc_base.cpp",
+      "encoding": "UTF-8（兼容BOM）",
+      "matches": [
+        {
+          "line": 30,
+          "text": "if (block == nullptr)"
+        },
+        {
+          "line": 31,
+          "text": "return _malloc_base(size);"
+        },
+        {
+          "line": 34,
+          "text": "if (size == 0)"
+        },
+        {
+          "line": 36,
+          "text": "_free_base(block);"
+        },
+        {
+          "line": 41,
+          "text": "_VALIDATE_RETURN_NOEXC(_HEAP_MAXREQ >= size, ENOMEM, nullptr);"
+        },
+        {
+          "line": 45,
+          "text": "void* const new_block = HeapReAlloc(__acrt_heap, 0, block, size);"
+        },
+        {
+          "line": 51,
+          "text": "if (_query_new_mode() == 0 || !_callnewh(size))"
+        }
+      ],
+      "scope": "本机真实声明/职责源码静态依据，不代当前编译/链接/运行"
+    }
+  ],
+  "aligned_document_paths": [
+    "doc/cg2d_heap_malloc_unification_spec.md",
+    "doc/cg2d_crt_memory_contract.md",
+    "doc/cg2d_mode3_heap_facade_spec.md",
+    "doc/cg2d_mode3_private_core_spec.md",
+    "doc/cg2d_hosted_runtime_prefix_spec.md",
+    "doc/cg2d_crt_runtime_boundary_spec.md",
+    "doc/cg2d_crt_startup_lifecycle_spec.md",
+    "doc/cg2d_startup_flow.md",
+    "doc/cg2d_client_shutdown.md",
+    "doc/cg2d_crt_host_migration_spec.md",
+    "plan/cg2d_full_reconstruction_plan.md",
+    "plan/cg2d_spec_closure_checklist.md"
+  ],
+  "current_measured_state": {
+    "semantic_records": 2029,
+    "semantic_original_ids": 1981,
+    "semantic_range_identities": 48,
+    "document_linked_functions": 2091,
+    "reviewed_function_dispositions": 1431,
+    "known_crt_members": 500,
+    "crt_member_inventory_closed": false,
+    "software_evidence_records": 1337,
+    "leaf_features": 184,
+    "globally_accepted": false,
+    "tasks": 60,
+    "closed_tasks": 11,
+    "unassigned_ranges_mapped": 3060,
+    "unassigned_ranges_remaining": 1
+  }
+}

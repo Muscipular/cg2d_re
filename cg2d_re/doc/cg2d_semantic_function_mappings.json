@@ -23894,9 +23894,12 @@
         "doc/cg2d_msvc_crt_scalar_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "原仅传enableHandler=1和U32请求给53C3BE。当前六个已证裸字节缓冲调用使用AllocateLegacyByteBuffer，无法继续时返回空而非强制bad_alloc；未覆盖其他对象new或标准容器内部配置。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04新增独立原窄字符串原堆域真实6条桥接，直接调AllocateLegacyHeapWithHandler_53C3BE(U32,1)，未改六宿主裸适配/其余对象new，也不混入标准容器。模式3/完整原堆和运行仍待。；2026-10-04另接原exception对象两个53C9CF分配点，按原薄叶实际53C3BE(U32,1)/53C0A9原堆域配对；六宿主裸适配和原窄字符串范围不改，未把任意对象/宿主内存或SDK异常纳入。原模式3/x64链表和完整堆及运行仍未闭。；2026-10-04新增真实locale全局原点0x54A422；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。；MC01-C1所列旧C++库消费者及其接线仅属历史，剩余实际服务/业务代码不变；不据本组扩大完整共享函数处置或门禁。",
+      "boundary": "MC01-C4仅退休旧私有堆消费者；现已批准裸字节malloc/free及原六调用域保持，不扩为通用对象new/delete或改变业务owner。完整业务/未知alias/SDK运行仍待；完整前态沿固定索引读取。",
       "msvc_scalar_byte_domain": {
         "allocator": "std::malloc",
         "release": "std::free",
@@ -23934,12 +23937,30 @@
         "retired_source_group": "doc/cg2d_msvc_crt_cpp_evidence.json#/retired_paths",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 322,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "msvc_heap_retired_consumers": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "current_shared_provider_kept": true,
+        "whole_function_classified_as_private_host": false,
+        "original_private_roles_historical": true
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
       "original_entry": "0x53C3BE",
       "inventory_id": "F:0013C3BE",
-      "status": "HMU01：通用堆全部模式统一真实CRT提供者，U32/请求数量策略/失败处理器与当前caller保持；旧池仅历史，完整owner/间接alias/SDK/寿命未验。",
+      "status": "MC01-C4私有堆策略已交MSVC；三公开数量/容量薄适配保留，旧私有初始化/失败28退休；未编译/运行",
       "original_end_exclusive": "0x53C3EA",
       "instruction_count": 16,
       "sources": [
@@ -23947,27 +23968,8 @@
           "path": "src/platform/LegacyMemory.cpp",
           "symbols": [
             "AllocateLegacyByteBuffer"
-          ]
-        },
-        {
-          "path": "include/cg/platform/LegacyMemory.hpp",
-          "symbols": [
-            "AllocateLegacyByteBuffer"
-          ]
-        },
-        {
-          "path": "src/platform/LegacyHeap.cpp",
-          "symbols": [
-            "AllocateLegacyHeapWithHandler_53C3BE"
           ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
-        },
-        {
-          "path": "src/platform/LegacyHeap.hpp",
-          "symbols": [
-            "AllocateLegacyHeapWithHandler_53C3BE"
-          ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
+          "relationship": "MC01-C4宿主库职责关联，非该原私有函数本体/同名调用；当前相关真实MSVC服务保持"
         }
       ],
       "evidence_documents": [
@@ -23985,9 +23987,12 @@
         "doc/cg2d_msvc_crt_scalar_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：既有六处裸字节调用域：原上限FFFFFFE0、失败处理器返回非零才重试、空/零处理器返回空。本次仅承接上述六个caller的enableHandler=1域；原其他enableHandler取值和原私有堆完整实现不因该映射完成。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。 原堆完整分支另由AllocateLegacyHeapWithHandler_53C3BE实现，私有处理器/门禁和模式2已接，模式3核心未实现，禁止混用宿主块。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。；MC01-C1所列旧C++库消费者及其接线仅属历史，剩余实际服务/业务代码不变；不据本组扩大完整共享函数处置或门禁。",
+      "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
       "original_direct_reference_count": 2,
       "inbound_evidence": [
         {
@@ -23999,42 +24004,7 @@
           "parent_entry": "0x53C9CF"
         }
       ],
-      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
-      "heap_malloc_unification": {
-        "spec_id": "HMU01",
-        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "previous_sources": [
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "AllocateLegacyHeapWithHandler_53C3BE"
-            ],
-            "relationship": "真实原堆调用域本体，原108614C/1086150状态；不是既有宿主裸字节域的替换"
-          },
-          {
-            "path": "src/platform/LegacyHeap.hpp",
-            "symbols": [
-              "AllocateLegacyHeapWithHandler_53C3BE"
-            ]
-          }
-        ],
-        "old_private_pool_interface_retired": false,
-        "all_generic_modes_share_standard_CRT": true,
-        "compilation_verified": false,
-        "runtime_verified": false,
-        "original_unknown_owner_alias_closed": false,
-        "previous_status": "真实原堆外层本体与模式2调用已实现；宿主窄合同保持，模式3/完整启动仍待；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭；EXH01仅异常拥有文本域成对宿主承接，对象原堆/完整异常ABI及运行未闭",
-        "previous_verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行"
-      },
-      "msvc_scalar_byte_domain": {
-        "allocator": "std::malloc",
-        "release": "std::free",
-        "sources": [
-          "src/platform/LegacyMemory.cpp"
-        ],
-        "boundary": "仅裸字节域配对直接迁移；本原共享入口的其它当前提供者/调用不据此整项关闭。"
-      },
+      "verification_level": "限定当前源码/SDK声明、消费者/同域及旧层退休静态核对；原身份/事实保历史，不代完整业务/SDK运行",
       "previous_mapping_before_mc01a": {
         "snapshot": "cg2d-re-msvc-crt-history-20261009",
         "path": "doc/cg2d_semantic_function_mappings.json",
@@ -24042,26 +24012,37 @@
         "original_entry": "0x53C3BE",
         "boundary": "此前完整记录可按该固定引用和索引读取；不重复内嵌旧历史链。"
       },
-      "msvc_cpp_retired_consumers": {
-        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
-        "retired_source_paths": [
-          "src/platform/LegacyException.cpp",
-          "src/platform/LegacyLocale.cpp",
-          "src/platform/LegacyNarrowString.cpp"
-        ],
-        "remaining_provider_and_business_consumers_unchanged": true,
-        "whole_function_reclassified_as_private_host": false,
-        "old_consumers_are_historical": true
-      },
       "previous_mapping_before_mc01c1": {
         "git_snapshot": "cg2d-re-msvc-crt-cpp-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 323,
         "boundary": "完整原记录/旧提供者/所有原证据与历史链按固定Git快照读取，不内嵌复制。"
       },
-      "msvc_cpp_group": {
-        "spec": "MC01-C1",
-        "retired_source_group": "doc/cg2d_msvc_crt_cpp_evidence.json#/retired_paths",
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 323,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "heap_malloc_unification",
+        "msvc_scalar_byte_domain",
+        "msvc_cpp_retired_consumers",
+        "msvc_cpp_group"
+      ],
+      "current_provider": {
+        "kind": "msvc_private_runtime_duty",
+        "path": "src/platform/LegacyMemory.cpp",
+        "component": "已安装MSVC/UCRT真实堆/new-mode/失败与初始化支撑",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "old_private_body_implemented": false,
+        "old_private_slots_consumed": false,
+        "heap_initializer_or_fatal28_branch_present": false,
+        "runtime_verified": false
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
       }
@@ -24069,7 +24050,7 @@
     {
       "original_entry": "0x53C3EA",
       "inventory_id": "F:0013C3EA",
-      "status": "HMU01：通用堆全部模式统一真实CRT提供者，U32/请求数量策略/失败处理器与当前caller保持；旧池仅历史，完整owner/间接alias/SDK/寿命未验。",
+      "status": "MC01-C4私有堆策略已交MSVC；三公开数量/容量薄适配保留，旧私有初始化/失败28退休；未编译/运行",
       "original_end_exclusive": "0x53C45E",
       "instruction_count": 46,
       "sources": [
@@ -24077,27 +24058,8 @@
           "path": "src/platform/LegacyMemory.cpp",
           "symbols": [
             "AllocateLegacyByteBuffer"
-          ]
-        },
-        {
-          "path": "include/cg/platform/LegacyMemory.hpp",
-          "symbols": [
-            "AllocateLegacyByteBuffer"
-          ]
-        },
-        {
-          "path": "src/platform/LegacyHeap.cpp",
-          "symbols": [
-            "AllocateLegacyHeapBlock_53C3EA"
           ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
-        },
-        {
-          "path": "src/platform/LegacyHeap.hpp",
-          "symbols": [
-            "AllocateLegacyHeapBlock_53C3EA"
-          ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
+          "relationship": "MC01-C4宿主库职责关联，非该原私有函数本体/同名调用；当前相关真实MSVC服务保持"
         }
       ],
       "evidence_documents": [
@@ -24108,9 +24070,12 @@
         "doc/cg2d_mode3_heap_facade_evidence.json",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "doc/cg2d_heap_malloc_unification_evidence.json"
+        "doc/cg2d_heap_malloc_unification_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：既有六处裸字节调用域：原系统堆路径0按1并向16字节对齐、flags=0；当前U32请求按同样容量规则交Win64堆。原heapmode2/3的小块池、管理块、碎片及地址复用不复刻，按局部SPEC明确适配；不宣称分配成功时点相同。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。 原堆完整分支另由AllocateLegacyHeapBlock_53C3EA实现，私有处理器/门禁和模式2已接，模式3核心未实现，禁止混用宿主块。；2026-10-05 M3H01五mode3分支同时std::malloc/std::calloc/std::realloc/std::free/UCRT_msize，失败不混入Win32 fallback，不读原区域/块前W32或调用三旧核心。原API数量W32、malloc外层上界/handler与calloc对齐bytes/失败new-mode保持；realloc NULL/非空零/上界/旧块失败有效与原输入请求保持，SDK失败handler统一输入byteCount，旧某fallback物理对齐数量及私有复制尾/错误策略按D02 adapted，不称其数值/时机等价。mode1/2/元数据/初始化/其他已迁域原文保持，mode selector3只兼容选择不是SDK旧池报告。SDK块要求模式寿命稳定/同域，外来Win32/模式2块不得进入3路径；无tag表/压缩指针/假内核，未知全部owner/alias/R1、SDK ABI和完整退出/运行未闭。",
+      "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
       "original_direct_reference_count": 1,
       "inbound_evidence": [
         {
@@ -24118,55 +24083,32 @@
           "parent_entry": "0x53C3BE"
         }
       ],
-      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
-      "mode3_sdk_domain_contract": {
-        "group": "M3H01",
-        "spec": "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
-        "source": "src/platform/LegacyHeap.cpp",
-        "scope": "only mode3",
-        "sdk_domain_operations": [
-          "allocate",
-          "clear",
-          "resize",
-          "size",
-          "free"
-        ],
-        "mode1_and_mode2_changed": false,
-        "old_prefix_read": false,
-        "old_core_calls": false,
-        "old_core_bodies_added": false,
-        "live_mode_stability_required": true,
-        "foreign_domain_allowed": false,
-        "failure_handler_quantum_original_equivalent": false,
-        "unknown_owners_closed": false,
+      "verification_level": "限定当前源码/SDK声明、消费者/同域及旧层退休静态核对；原身份/事实保历史，不代完整业务/SDK运行",
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 324,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "mode3_sdk_domain_contract",
+        "heap_malloc_unification"
+      ],
+      "current_provider": {
+        "kind": "msvc_private_runtime_duty",
+        "path": "src/platform/LegacyMemory.cpp",
+        "component": "已安装MSVC/UCRT真实堆/new-mode/失败与初始化支撑",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "old_private_body_implemented": false,
+        "old_private_slots_consumed": false,
+        "heap_initializer_or_fatal28_branch_present": false,
         "runtime_verified": false
       },
-      "heap_malloc_unification": {
-        "spec_id": "HMU01",
-        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "previous_sources": [
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "AllocateLegacyHeapBlock_53C3EA"
-            ],
-            "relationship": "真实原堆调用域本体，原108614C/1086150状态；不是既有宿主裸字节域的替换"
-          },
-          {
-            "path": "src/platform/LegacyHeap.hpp",
-            "symbols": [
-              "AllocateLegacyHeapBlock_53C3EA"
-            ]
-          }
-        ],
-        "old_private_pool_interface_retired": false,
-        "all_generic_modes_share_standard_CRT": true,
-        "compilation_verified": false,
-        "runtime_verified": false,
-        "original_unknown_owner_alias_closed": false,
-        "previous_status": "M3H01通用mode3分配/清零/扩容/容量/释放同域SDK承接，mode1/2保持；原私有核心不模拟，全部owner/模式寿命/alias/SDK运行未闭",
-        "previous_verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行；M3H01五完整根449条/1167B、七旧核心call及mode六引用，五分支/头注释限定重放，mode1/2/其余源码及政策保持；未构建/测试/运行/摘要"
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
@@ -24198,9 +24140,12 @@
         "doc/cg2d_locale_object_heap_migration_spec.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "原调用free，本次由FreeLegacyByteBuffer配对释放新分配器产生的块及接受空指针。必须与std::free/operator delete及其他allocator分开，不能据此将任意原delete调用转成本函数；既有Free_53C0A9标准库裁决不变。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04原窄字符串内部真实4条delete桥接调原堆FreeLegacyHeapMemory_53C0A9，和内部53C9CF原堆分配配对；不释放宿主/六裸适配块，不扩其他对象delete。模式3/完整运行未验。；2026-10-04另接原exception对象两个53B4E7释放点，按原薄叶实际53C3BE(U32,1)/53C0A9原堆域配对；六宿主裸适配和原窄字符串范围不改，未把任意对象/宿主内存或SDK异常纳入。原模式3/x64链表和完整堆及运行仍未闭。；2026-10-04接原logic_error父实际调用0x54A7A2；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A875/0x54A95D；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54A0D9/0x54A1AC；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-04实际ios双链54A2E0/54A2FA两delete点按原薄叶转53C0A9，保存next在释放前、回调返回后才取值链、先缓存回调头再清值头及末清回调头；只原堆节点，节点上游生产/全owner/模式3和运行未闭，其他已批宿主与字符串/异常释放范围不改。；2026-10-04新增locale构析原点0x54A58F/0x54A5AB，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。；2026-10-04新增真实locale全局原点0x54C39F；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04新增窄宽filebuf/基类构析实际原点0x548819/0x549970；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。；2026-10-04新增filebuf scalar deleting真实原点0x548D5D/0x549DB2；先完整析构、后flags bit0同域释放和缓存原地址保持，已接构析不复检；四方法表/种子/完整owner与运行待。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。；2026-10-04新增原type_info实际父点0x54AC8B；完整析构后flags低位1才经原delete薄叶同域释放，保持原地址返回。只消费原生原堆描述符/缓存，不释放宿主type_info/其他allocator，不改旧堆体/既有连接或迁移全量入向；描述符/缓存生产、原堆模式3及SDK与完整运行仍待。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。；MC01-C1所列旧C++库消费者及其接线仅属历史，剩余实际服务/业务代码不变；不据本组扩大完整共享函数处置或门禁。",
+      "boundary": "MC01-C4仅退休旧私有堆消费者；现已批准裸字节malloc/free及原六调用域保持，不扩为通用对象new/delete或改变业务owner。完整业务/未知alias/SDK运行仍待；完整前态沿固定索引读取。",
       "msvc_cpp_retired_consumers": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "retired_source_paths": [
@@ -24226,12 +24171,30 @@
         "retired_source_group": "doc/cg2d_msvc_crt_cpp_evidence.json#/retired_paths",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 325,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "msvc_heap_retired_consumers": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "current_shared_provider_kept": true,
+        "whole_function_classified_as_private_host": false,
+        "original_private_roles_historical": true
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
       "original_entry": "0x541A28",
       "inventory_id": "F:00141A28",
-      "status": "HMU01：通用堆全部模式统一真实CRT提供者，U32/请求数量策略/失败处理器与当前caller保持；旧池仅历史，完整owner/间接alias/SDK/寿命未验。",
+      "status": "MC01-C4私有堆策略已交MSVC；三公开数量/容量薄适配保留，旧私有初始化/失败28退休；未编译/运行",
       "original_end_exclusive": "0x541A43",
       "instruction_count": 13,
       "sources": [
@@ -24239,27 +24202,8 @@
           "path": "src/platform/LegacyMemory.cpp",
           "symbols": [
             "AllocateLegacyByteBuffer"
-          ]
-        },
-        {
-          "path": "include/cg/platform/LegacyMemory.hpp",
-          "symbols": [
-            "AllocateLegacyByteBuffer"
-          ]
-        },
-        {
-          "path": "src/platform/LegacyHeap.cpp",
-          "symbols": [
-            "CallLegacyHeapNewHandler_541A28"
           ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
-        },
-        {
-          "path": "src/platform/LegacyHeap.hpp",
-          "symbols": [
-            "CallLegacyHeapNewHandler_541A28"
-          ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
+          "relationship": "MC01-C4宿主库职责关联，非该原私有函数本体/同名调用；当前相关真实MSVC服务保持"
         }
       ],
       "evidence_documents": [
@@ -24274,9 +24218,12 @@
         "doc/cg2d_heap_malloc_unification_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：既有六处裸字节调用域：原每次读取108614C，非空才传原请求长度调用，结果非零为继续，不捕获异常。当前借_query_new_handler读取实际宿主处理器，不另建影子槽，处理器异常向外传播；宿主锁/CRT内部状态不按旧布局复制。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。 原堆完整分支另由CallLegacyHeapNewHandler_541A28实现，私有处理器/门禁和模式2已接，模式3核心未实现，禁止混用宿主块。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。；MC01-C1所列旧C++库消费者及其接线仅属历史，剩余实际服务/业务代码不变；不据本组扩大完整共享函数处置或门禁。",
+      "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
       "original_direct_reference_count": 5,
       "inbound_evidence": [
         {
@@ -24300,54 +24247,37 @@
           "parent_entry": "0x53FA5B"
         }
       ],
-      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
-      "heap_malloc_unification": {
-        "spec_id": "HMU01",
-        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "previous_sources": [
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "CallLegacyHeapNewHandler_541A28"
-            ],
-            "relationship": "真实原堆调用域本体，原108614C/1086150状态；不是既有宿主裸字节域的替换"
-          },
-          {
-            "path": "src/platform/LegacyHeap.hpp",
-            "symbols": [
-              "CallLegacyHeapNewHandler_541A28"
-            ]
-          }
-        ],
-        "old_private_pool_interface_retired": false,
-        "all_generic_modes_share_standard_CRT": true,
-        "compilation_verified": false,
-        "runtime_verified": false,
-        "original_unknown_owner_alias_closed": false,
-        "previous_status": "真实原堆外层本体与模式2调用已实现；宿主窄合同保持，模式3/完整启动仍待；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭；EXH01仅异常拥有文本域成对宿主承接，对象原堆/完整异常ABI及运行未闭",
-        "previous_verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行"
-      },
-      "msvc_cpp_retired_consumers": {
-        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
-        "retired_source_paths": [
-          "src/platform/LegacyException.cpp",
-          "src/platform/LegacyLocale.cpp",
-          "src/platform/LegacyNarrowString.cpp"
-        ],
-        "remaining_provider_and_business_consumers_unchanged": true,
-        "whole_function_reclassified_as_private_host": false,
-        "old_consumers_are_historical": true
-      },
+      "verification_level": "限定当前源码/SDK声明、消费者/同域及旧层退休静态核对；原身份/事实保历史，不代完整业务/SDK运行",
       "previous_mapping_before_mc01c1": {
         "git_snapshot": "cg2d-re-msvc-crt-cpp-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 326,
         "boundary": "完整原记录/旧提供者/所有原证据与历史链按固定Git快照读取，不内嵌复制。"
       },
-      "msvc_cpp_group": {
-        "spec": "MC01-C1",
-        "retired_source_group": "doc/cg2d_msvc_crt_cpp_evidence.json#/retired_paths",
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 326,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "heap_malloc_unification",
+        "msvc_cpp_retired_consumers",
+        "msvc_cpp_group"
+      ],
+      "current_provider": {
+        "kind": "msvc_private_runtime_duty",
+        "path": "src/platform/LegacyMemory.cpp",
+        "component": "已安装MSVC/UCRT真实堆/new-mode/失败与初始化支撑",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "old_private_body_implemented": false,
+        "old_private_slots_consumed": false,
+        "heap_initializer_or_fatal28_branch_present": false,
+        "runtime_verified": false
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
       }
@@ -28941,13 +28871,6 @@
             "StrNCmp_53BFC0"
           ],
           "relationship": "MC01-A当前直接MSVC服务或必要定宽/借用适配，不再使用旧CRT算法"
-        },
-        {
-          "path": "src/platform/LegacyMemory.cpp",
-          "symbols": [
-            "SelectLegacyHeapMode_541A70"
-          ],
-          "relationship": "既有真实541A70库内541B03左常量/右环境/22字节接入"
         }
       ],
       "evidence_documents": [
@@ -28955,9 +28878,12 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_evidence.json"
+        "doc/cg2d_msvc_crt_scalar_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "按用户CRT直接使用MSVC决议由真实UCRT服务承接；原字节/逐指令本体与库内全局状态只作历史。现接口及业务字段宽度/实际参数和返回消费保持；CRT locale/错误/内部读取、TLS、格式/容量与失败机制采用本机合同。FILE/lowio及C++剩余整组迁移继续，完整业务及运行未验。",
+      "boundary": "按用户CRT直接使用MSVC决议由真实UCRT服务承接；原字节/逐指令本体与库内全局状态只作历史。现接口及业务字段宽度/实际参数和返回消费保持；CRT locale/错误/内部读取、TLS、格式/容量与失败机制采用本机合同。FILE/lowio及C++剩余整组迁移继续，完整业务及运行未验。；MC01-C4只退休旧堆模式/handler/初始化消费者或无现消费别名，当前真实公共/共享/业务提供者与原机器基线保持；旧数量/失败策略只历史。",
       "verification_level": "当前源码和已安装SDK声明限定静态核对；原指令事实保留，未编译/运行或计算摘要",
       "strncmp_call_connections": [
         {
@@ -29051,10 +28977,11 @@
         {
           "parent_entry": "0x541A70",
           "call_site": "0x541B03",
-          "source": "src/platform/LegacyMemory.cpp",
           "target_entry": "0x53BFC0",
           "target_symbol": "StrNCmp_53BFC0",
-          "relationship": "原零/非零消费与参数/后续分支保持"
+          "relationship": "原机器parent/callsite/target与参数保基线；该旧堆模式消费者已退休，无对应当前调用",
+          "original_source": "src/platform/LegacyMemory.cpp",
+          "current_consumer_retired_by": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
         }
       ],
       "body_instruction_evidence": [
@@ -29458,6 +29385,24 @@
         "record_index": 361,
         "original_entry": "0x53BFC0",
         "boundary": "此前完整记录可按该固定引用和索引读取；不重复内嵌旧历史链。"
+      },
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 361,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "msvc_heap_retired_consumers": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "current_shared_provider_kept": true,
+        "whole_function_classified_as_private_host": false,
+        "original_private_roles_historical": true
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
@@ -29565,13 +29510,6 @@
             "Sub_4631D0"
           ],
           "relationship": "两名称查找原点以FF0D18先空格后8140再404060，入口gate与其他创建正文不改"
-        },
-        {
-          "path": "src/platform/LegacyMemory.cpp",
-          "symbols": [
-            "SelectLegacyHeapMode_541A70"
-          ],
-          "relationship": "原541B59环境内模块路径动态needle真实调用，ASCII上转/API返回/借用selection与原后续保持"
         }
       ],
       "evidence_documents": [
@@ -29588,9 +29526,12 @@
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_evidence.json"
+        "doc/cg2d_msvc_crt_scalar_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "按用户CRT直接使用MSVC决议由真实UCRT服务承接；原字节/逐指令本体与库内全局状态只作历史。现接口及业务字段宽度/实际参数和返回消费保持；CRT locale/错误/内部读取、TLS、格式/容量与失败机制采用本机合同。FILE/lowio及C++剩余整组迁移继续，完整业务及运行未验。",
+      "boundary": "按用户CRT直接使用MSVC决议由真实UCRT服务承接；原字节/逐指令本体与库内全局状态只作历史。现接口及业务字段宽度/实际参数和返回消费保持；CRT locale/错误/内部读取、TLS、格式/容量与失败机制采用本机合同。FILE/lowio及C++剩余整组迁移继续，完整业务及运行未验。；MC01-C4只退休旧堆模式/handler/初始化消费者或无现消费别名，当前真实公共/共享/业务提供者与原机器基线保持；旧数量/失败策略只历史。",
       "original_direct_reference_count": 53,
       "original_direct_call_reference_count": 53,
       "search_call_connections": [
@@ -30208,13 +30149,14 @@
         {
           "parent_entry": "0x541A70",
           "call_site": "0x541B59",
-          "source": "src/platform/LegacyMemory.cpp",
-          "symbol": "SelectLegacyHeapMode_541A70",
           "target_entry": "0x53BE40",
           "target_symbol": "StrStr_53BE40",
           "source_expression": "environment",
           "needle_expression": "filename",
-          "relationship": "原ASCII上转后的1090H环境内查104H模块路径，返回借用selection；API失败局部/其他正文保持"
+          "relationship": "原机器parent/callsite/target与参数保基线；该旧堆模式消费者已退休，无对应当前调用",
+          "original_source": "src/platform/LegacyMemory.cpp",
+          "original_symbol": "SelectLegacyHeapMode_541A70",
+          "current_consumer_retired_by": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
         }
       ],
       "single_byte_tail_connection": {
@@ -30410,6 +30352,24 @@
         "record_index": 362,
         "original_entry": "0x53BE40",
         "boundary": "此前完整记录可按该固定引用和索引读取；不重复内嵌旧历史链。"
+      },
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 362,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "msvc_heap_retired_consumers": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "current_shared_provider_kept": true,
+        "whole_function_classified_as_private_host": false,
+        "original_private_roles_historical": true
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
@@ -30478,13 +30438,6 @@
           "relationship": "MC01-A当前直接MSVC服务或必要定宽/借用适配，不再使用旧CRT算法"
         },
         {
-          "path": "src/platform/LegacyMemory.cpp",
-          "symbols": [
-            "SelectLegacyHeapMode_541A70"
-          ],
-          "relationship": "原541B67在借用selection查逗号低W8真实入口点，+1推进和原解析保持"
-        },
-        {
           "path": "src/LoginCapability4Modal.cpp",
           "symbols": [
             "UpdateCapability4Modal_464450"
@@ -30518,9 +30471,12 @@
         "doc/cg2d_game_time.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_evidence.json"
+        "doc/cg2d_msvc_crt_scalar_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "按用户CRT直接使用MSVC决议由真实UCRT服务承接；原字节/逐指令本体与库内全局状态只作历史。现接口及业务字段宽度/实际参数和返回消费保持；CRT locale/错误/内部读取、TLS、格式/容量与失败机制采用本机合同。FILE/lowio及C++剩余整组迁移继续，完整业务及运行未验。",
+      "boundary": "按用户CRT直接使用MSVC决议由真实UCRT服务承接；原字节/逐指令本体与库内全局状态只作历史。现接口及业务字段宽度/实际参数和返回消费保持；CRT locale/错误/内部读取、TLS、格式/容量与失败机制采用本机合同。FILE/lowio及C++剩余整组迁移继续，完整业务及运行未验。；MC01-C4只退休旧堆模式/handler/初始化消费者或无现消费别名，当前真实公共/共享/业务提供者与原机器基线保持；旧数量/失败策略只历史。",
       "original_direct_reference_count": 25,
       "original_direct_call_reference_count": 25,
       "search_call_connections": [
@@ -30593,14 +30549,15 @@
         {
           "parent_entry": "0x541A70",
           "call_site": "0x541B67",
-          "source": "src/platform/LegacyMemory.cpp",
-          "symbol": "SelectLegacyHeapMode_541A70",
           "target_entry": "0x53C2F0",
           "target_symbol": "StrChr_53C2F0",
           "source_expression": "selection",
           "target_byte": 44,
           "target_push_site": "0x541B64",
-          "relationship": "同一借用selection查低W8逗号2CH，返回+1接首分号截断/真实Strtol与原2/3/1判断"
+          "relationship": "原机器parent/callsite/target与参数保基线；该旧堆模式消费者已退休，无对应当前调用",
+          "original_source": "src/platform/LegacyMemory.cpp",
+          "original_symbol": "SelectLegacyHeapMode_541A70",
+          "current_consumer_retired_by": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
         },
         {
           "parent_entry": "0x45CE10",
@@ -30882,6 +30839,24 @@
         "record_index": 363,
         "original_entry": "0x53C2F0",
         "boundary": "此前完整记录可按该固定引用和索引读取；不重复内嵌旧历史链。"
+      },
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 363,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "msvc_heap_retired_consumers": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "current_shared_provider_kept": true,
+        "whole_function_classified_as_private_host": false,
+        "original_private_roles_historical": true
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
@@ -32295,7 +32270,10 @@
         "doc/cg2d_msvc_crt_file_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
-        "doc/cg2d_msvc_crt_exit_evidence.json"
+        "doc/cg2d_msvc_crt_exit_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
       "original_direct_reference_count": 1,
       "function_chunks": [
@@ -32314,28 +32292,14 @@
         {
           "path": "src/platform/LegacyRuntimeError.cpp",
           "symbols": [
-            "FastLegacyRuntimeErrorExit_53DED0"
+            "ExitLegacyRuntimeError_53DEAB"
           ],
-          "relationship": "MC01-C3真实MSVC std::_Exit(255)薄适配；故障参数/255或terminate消费保持，旧诊断/钩子/信号表不使用。"
-        },
-        {
-          "path": "src/platform/LegacyRuntimeError.hpp",
-          "symbols": [
-            "FastLegacyRuntimeErrorExit_53DED0"
-          ],
-          "relationship": "准确noreturn声明；不是固定返回/空业务体。"
+          "relationship": "MC01-C4宿主库职责关联，非该原私有函数本体/同名调用；当前相关真实MSVC服务保持"
         }
       ],
-      "status": "MC01-C3旧private错误/信号/退出设施已交MSVC，三实际终止入口与业务数组/登记保持；SDK/运行未验",
-      "boundary": "用户CRT直接MSVC：旧onexit表/normal-quick-callable调度与标志、信号/消息/窗口API缓存/旧钩子/四OS槽及手工filter/console清理退休。SDK在应用静态初始化前安装自己的异常filter并拥有最终退出/stdio/信号；两致命分配入口真实_Exit(255)不显示旧R600x/MessageBox、不跑普通atexit，原9/9/8/28参数及失败分支保持；实际数组二次异常真实std::terminate。全部业务回调/相对序/参数/RNG不变，原字段/分支/表与完整映射保历史，不称消息、旧机器ABI或库内生命周期等价。",
-      "verification_level": "完整src/include导出/数据消费者、三真实MSVC入口、SDK已安装启动/filter/终止声明与限定精确差异；没有当前机器或启动退出运行证明。",
-      "current_provider": {
-        "kind": "msvc_crt_adapter",
-        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
-        "old_private_tables_hooks_or_filter_used": false,
-        "source_body_of_original_private_function_implemented": false,
-        "runtime_verified": false
-      },
+      "status": "MC01-C4私有堆策略已交MSVC；三公开数量/容量薄适配保留，旧私有初始化/失败28退休；未编译/运行",
+      "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
+      "verification_level": "限定当前源码/SDK声明、消费者/同域及旧层退休静态核对；原身份/事实保历史，不代完整业务/SDK运行",
       "historical_current_field_names": [
         "crt_parent_call_connections",
         "native_reference",
@@ -32347,9 +32311,29 @@
         "record_index": 381,
         "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
-      "msvc_exit_group": {
-        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
-        "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 381,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "current_provider",
+        "msvc_exit_group"
+      ],
+      "current_provider": {
+        "kind": "msvc_private_runtime_duty",
+        "path": "src/platform/LegacyRuntimeError.cpp",
+        "component": "已安装MSVC/UCRT真实堆/new-mode/失败与初始化支撑",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "old_private_body_implemented": false,
+        "old_private_slots_consumed": false,
+        "heap_initializer_or_fatal28_branch_present": false,
+        "runtime_verified": false
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
       }
@@ -33134,15 +33118,6 @@
             "ScanLegacyInput_53DEF4"
           ],
           "relationship": "53E46C的固定32B零填充由FillLegacyMemory_5419D0承接；不扩大其他域"
-        },
-        {
-          "path": "src/platform/LegacyHeap.cpp",
-          "symbols": [
-            "CallocateLegacyMemory_53BFF8",
-            "InitializeLegacyHeap_541BB8",
-            "AllocateLegacyHeapBlock_53C3EA"
-          ],
-          "relationship": "HMU01：本堆内原Fill调用点随标准calloc/私有池退役承接；原Fill本体仍由LegacyMemory.cpp提供，此条不称Fill整体宿主替换。"
         }
       ],
       "evidence_documents": [
@@ -33164,34 +33139,14 @@
         "doc/cg2d_msvc_crt_cpp_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
-        "doc/cg2d_msvc_crt_numeric_evidence.json"
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "按用户CRT直接使用MSVC决议由真实UCRT服务承接；原字节/逐指令本体与库内全局状态只作历史。现接口及业务字段宽度/实际参数和返回消费保持；CRT locale/错误/内部读取、TLS、格式/容量与失败机制采用本机合同。FILE/lowio及C++剩余整组迁移继续，完整业务及运行未验。；MC01-C1所列旧C++库消费者及其接线仅属历史，剩余实际服务/业务代码不变；不据本组扩大完整共享函数处置或门禁。；MC01-C2旧浮点库/格式slot/计数BYTE桥消费仅属历史；现共享服务/业务代码不变，两真实读取的来源按当前模块，原未生产值不补。",
+      "boundary": "按用户CRT直接使用MSVC决议由真实UCRT服务承接；原字节/逐指令本体与库内全局状态只作历史。现接口及业务字段宽度/实际参数和返回消费保持；CRT locale/错误/内部读取、TLS、格式/容量与失败机制采用本机合同。FILE/lowio及C++剩余整组迁移继续，完整业务及运行未验。；MC01-C1所列旧C++库消费者及其接线仅属历史，剩余实际服务/业务代码不变；不据本组扩大完整共享函数处置或门禁。；MC01-C2旧浮点库/格式slot/计数BYTE桥消费仅属历史；现共享服务/业务代码不变，两真实读取的来源按当前模块，原未生产值不补。；MC01-C4只退休旧堆模式/handler/初始化消费者或无现消费别名，当前真实公共/共享/业务提供者与原机器基线保持；旧数量/失败策略只历史。",
       "original_direct_reference_count": 8,
       "verification_level": "当前源码和已安装SDK声明限定静态核对；原指令事实保留，未编译/运行或计算摘要",
-      "heap_malloc_unification": {
-        "spec_id": "HMU01",
-        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "previous_sources": [
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "CallocateLegacyMemory_53BFF8",
-              "CreateLegacySmallHeap2Region_54275C",
-              "AllocateLegacySmallHeap2Block_542A54"
-            ],
-            "relationship": "原53C094共用点：mode3原请求/mode2对齐容量两个源分支，不混原堆/宿主释放；另接542844 64KB区域清零和542BA3零数量调用，模式2布局与发布保持"
-          }
-        ],
-        "old_private_pool_interface_retired": false,
-        "all_generic_modes_share_standard_CRT": true,
-        "compilation_verified": false,
-        "runtime_verified": false,
-        "original_unknown_owner_alias_closed": false,
-        "previous_status": "原低U8填充完整本体与8原入口调用已接；完整父/异常/CRT运行未闭合",
-        "previous_verification_level": "原完整40条/八直接引用，四原点所需参数/共用分支及Count采样只读取证；新核心/唯一声明和五源表达式、所有原核心数值/指针/目标返回、六源码文件限定差异/JSON六项更新与文档/进度静态核对，未构建或执行；三新原点/参数生产与局部邻窗、两源文件限定三标识符/数量和四记录增量静态核对；核心/旧模式2与descriptor父不重验，未构建或执行；新548D69全36条/S8 Val扩展/原npos与Grow门禁、八叶内部实际链及该原点/限定源码和JSON静态核对，核心/七已接点不复检，未构建或执行"
-      },
       "current_provider": {
         "decision": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "path": "src/platform/LegacyMemory.cpp",
@@ -33248,6 +33203,27 @@
       "msvc_numeric_group": {
         "retired_group_reference": "doc/cg2d_msvc_crt_numeric_evidence.json#/retired_paths",
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "full_feature_accepted": false
+      },
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 390,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "heap_malloc_unification"
+      ],
+      "msvc_heap_retired_consumers": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "current_shared_provider_kept": true,
+        "whole_function_classified_as_private_host": false,
+        "original_private_roles_historical": true
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
       }
     },
@@ -38934,13 +38910,6 @@
             "OpenLegacyStream_53B2F1"
           ],
           "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
-        },
-        {
-          "path": "src/platform/LegacyMouse.cpp",
-          "symbols": [
-            "LegacyMultibyteStaticInitializer"
-          ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
         }
       ],
       "evidence_documents": [
@@ -38953,9 +38922,12 @@
         "doc/cg2d_hosted_stdio_init_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_evidence.json"
+        "doc/cg2d_msvc_crt_file_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
+      "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。；MC01-C4只退休旧堆模式/handler/初始化消费者或无现消费别名，当前真实公共/共享/业务提供者与原机器基线保持；旧数量/失败策略只历史。",
       "function_chunks": [
         {
           "start": "0x53E9A5",
@@ -38988,36 +38960,6 @@
           "relationship": "原真实初始化目标，返回未消费；仅指针槽拓宽，不自动执行"
         }
       ],
-      "stdio_table_heap_contract": {
-        "group": "SCH01",
-        "spec": "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure",
-        "source": "src/platform/LegacyStdio.cpp",
-        "symbol": "CallocateLegacyStdioTable_53BFF8",
-        "table_global": "gLegacyStreamTable1086AC4",
-        "type": "LegacyFile**",
-        "sdk_provider": "std::calloc",
-        "domain": "stdio pointer table allocate/clear only",
-        "call_sites": [
-          "0x53E9C7",
-          "0x53E9E0"
-        ],
-        "u32_product_preserved": true,
-        "aligned_handler_preserved": true,
-        "general_allocator_changed": false,
-        "new_entire_table_free": false,
-        "new_activity": false,
-        "unknown_alias_closed": false,
-        "runtime_verified": false
-      },
-      "hosted_stdio_contract": {
-        "spec": "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
-        "source": "src/platform/LegacyMouse.cpp",
-        "initializer": "LegacyMultibyteStaticInitializer",
-        "call": "InitializeLegacyStdio_53E9A5()",
-        "previous": "InitializeLegacyDescriptors_53F52D()",
-        "next": "std::atexit(FinishHostedLegacyStdio) → InitializeLegacyMultibyte_546CAE() → 既有应用投影",
-        "scope": "仅同TUstdio生产接线；所有原provider/消费者保持，完整文件/跨TU/owner/ABI/退出运行待验"
-      },
       "current_provider": {
         "decision": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "path": "src/platform/LegacyStdio.cpp",
@@ -39030,6 +38972,28 @@
         "record_index": 425,
         "original_entry": "0x53E9A5",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 425,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "stdio_table_heap_contract",
+        "hosted_stdio_contract"
+      ],
+      "msvc_heap_retired_consumers": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "current_shared_provider_kept": true,
+        "whole_function_classified_as_private_host": false,
+        "original_private_roles_historical": true
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
@@ -50377,17 +50341,17 @@
     {
       "original_entry": "0x53FA5B",
       "inventory_id": "F:0013FA5B",
-      "status": "HMU01：通用堆全部模式统一真实CRT提供者，U32/请求数量策略/失败处理器与当前caller保持；旧池仅历史，完整owner/间接alias/SDK/寿命未验。",
+      "status": "MC01-C4私有堆策略已交MSVC；三公开数量/容量薄适配保留，旧私有初始化/失败28退休；未编译/运行",
       "original_end_exclusive": "0x53FCFB",
       "instruction_count": 246,
       "original_direct_reference_count": 3,
       "sources": [
         {
-          "path": "src/platform/LegacyHeap.cpp",
+          "path": "src/platform/LegacyMemory.cpp",
           "symbols": [
             "ReallocateLegacyMemory_53FA5B"
           ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
+          "relationship": "MC01-C4真实MSVC薄适配；原U32接口，库内请求/失败合同按MSVC"
         },
         {
           "path": "include/cg/platform/LegacyMemory.hpp",
@@ -50400,14 +50364,9 @@
           "symbols": [
             "GetEnv_54518B"
           ],
-          "relationship": "547E8A两个扩容调用属于已获批std::getenv补表整体承接"
+          "relationship": "原环境扩容关联沿已批准整体std::getenv；未新增当前realloc调用"
         }
       ],
-      "native_reference": {
-        "component": "UCRT 10.0.26100.0，仅作宿主扩容逻辑参考",
-        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/heap/realloc_base.cpp",
-        "symbol": "_realloc_base"
-      },
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_startup_flow.md",
@@ -50416,9 +50375,12 @@
         "doc/cg2d_mode3_heap_facade_evidence.json",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "doc/cg2d_heap_malloc_unification_evidence.json"
+        "doc/cg2d_heap_malloc_unification_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：输入空先调真实原堆malloc，非空长度0调真实原堆free；仅入口采样模式。mode3小块迁移复制首W32减1，成功后再查原区域再释放；普通堆回退改变当前对齐长度，失败处理器消费该值。mode2小块门槛严格<480，分配后读标记U8乘16取小复制再释放；其他走HeapReAlloc。四原复制点实际目标541620。退出表初分配/容量查询/扩容已统一原堆；模式3核心及宿主析构/完整启动仍待，两个环境扩容仍沿既有std::getenv整体承接。；2026-10-05 M3H01五mode3分支同时std::malloc/std::calloc/std::realloc/std::free/UCRT_msize，失败不混入Win32 fallback，不读原区域/块前W32或调用三旧核心。原API数量W32、malloc外层上界/handler与calloc对齐bytes/失败new-mode保持；realloc NULL/非空零/上界/旧块失败有效与原输入请求保持，SDK失败handler统一输入byteCount，旧某fallback物理对齐数量及私有复制尾/错误策略按D02 adapted，不称其数值/时机等价。mode1/2/元数据/初始化/其他已迁域原文保持，mode selector3只兼容选择不是SDK旧池报告。SDK块要求模式寿命稳定/同域，外来Win32/模式2块不得进入3路径；无tag表/压缩指针/假内核，未知全部owner/alias/R1、SDK ABI和完整退出/运行未闭。",
+      "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
       "inbound_evidence": [
         {
           "address": "0x53B3CE",
@@ -50433,64 +50395,48 @@
           "parent_entry": "0x547E8A"
         }
       ],
-      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
-      "mode3_sdk_domain_contract": {
-        "group": "M3H01",
-        "spec": "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
-        "source": "src/platform/LegacyHeap.cpp",
-        "scope": "only mode3",
-        "sdk_domain_operations": [
-          "allocate",
-          "clear",
-          "resize",
-          "size",
-          "free"
-        ],
-        "mode1_and_mode2_changed": false,
-        "old_prefix_read": false,
-        "old_core_calls": false,
-        "old_core_bodies_added": false,
-        "live_mode_stability_required": true,
-        "foreign_domain_allowed": false,
-        "failure_handler_quantum_original_equivalent": false,
-        "unknown_owners_closed": false,
+      "verification_level": "限定当前源码/SDK声明、消费者/同域及旧层退休静态核对；原身份/事实保历史，不代完整业务/SDK运行",
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 467,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "native_reference",
+        "mode3_sdk_domain_contract",
+        "heap_malloc_unification"
+      ],
+      "current_provider": {
+        "kind": "msvc_crt_adapter",
+        "path": "src/platform/LegacyMemory.cpp",
+        "symbol": "ReallocateLegacyMemory_53FA5B",
+        "service": "std::realloc",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "actual_outside_callers_in_current_src_include": 0,
         "runtime_verified": false
       },
-      "heap_malloc_unification": {
-        "spec_id": "HMU01",
-        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "previous_sources": [
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "ReallocateLegacyMemory_53FA5B"
-            ]
-          }
-        ],
-        "old_private_pool_interface_retired": false,
-        "all_generic_modes_share_standard_CRT": true,
-        "compilation_verified": false,
-        "runtime_verified": false,
-        "original_unknown_owner_alias_closed": false,
-        "previous_status": "M3H01通用mode3分配/清零/扩容/容量/释放同域SDK承接，mode1/2保持；原私有核心不模拟，全部owner/模式寿命/alias/SDK运行未闭",
-        "previous_verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行；M3H01五完整根449条/1167B、七旧核心call及mode六引用，五分支/头注释限定重放，mode1/2/其余源码及政策保持；未构建/测试/运行/摘要"
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
       "original_entry": "0x53FCFB",
       "inventory_id": "F:0013FCFB",
-      "status": "HMU01：通用堆全部模式统一真实CRT提供者，U32/请求数量策略/失败处理器与当前caller保持；旧池仅历史，完整owner/间接alias/SDK/寿命未验。",
+      "status": "MC01-C4私有堆策略已交MSVC；三公开数量/容量薄适配保留，旧私有初始化/失败28退休；未编译/运行",
       "original_end_exclusive": "0x53FD5C",
       "instruction_count": 40,
       "original_direct_reference_count": 2,
       "sources": [
         {
-          "path": "src/platform/LegacyHeap.cpp",
+          "path": "src/platform/LegacyMemory.cpp",
           "symbols": [
             "GetLegacyAllocationSize_53FCFB"
           ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
+          "relationship": "MC01-C4真实MSVC薄适配；原U32接口，库内请求/失败合同按MSVC"
         },
         {
           "path": "include/cg/platform/LegacyMemory.hpp",
@@ -50499,11 +50445,6 @@
           ]
         }
       ],
-      "native_reference": {
-        "component": "UCRT 10.0.26100.0，仅作显式表容量管理参考",
-        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/startup/onexit.cpp",
-        "symbol": "_register_onexit_function"
-      },
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_startup_flow.md",
@@ -50511,9 +50452,12 @@
         "doc/cg2d_mode3_heap_facade_evidence.json",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "doc/cg2d_heap_malloc_unification_evidence.json"
+        "doc/cg2d_heap_malloc_unification_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：真实采样模式一次：3调用541C5D，命中读取输入前4字节U32减9；2调用真实5429B8，命中读标记U8乘16；否则HeapSize(重读共享原堆,0,原地址)并取U32。不设空参数保护/errno。退出登记两点已接本体，原堆创建/归属、外层分配/释放与扩容仍未闭合，不能作用于宿主malloc块。；2026-10-05 M3H01五mode3分支同时std::malloc/std::calloc/std::realloc/std::free/UCRT_msize，失败不混入Win32 fallback，不读原区域/块前W32或调用三旧核心。原API数量W32、malloc外层上界/handler与calloc对齐bytes/失败new-mode保持；realloc NULL/非空零/上界/旧块失败有效与原输入请求保持，SDK失败handler统一输入byteCount，旧某fallback物理对齐数量及私有复制尾/错误策略按D02 adapted，不称其数值/时机等价。mode1/2/元数据/初始化/其他已迁域原文保持，mode selector3只兼容选择不是SDK旧池报告。SDK块要求模式寿命稳定/同域，外来Win32/模式2块不得进入3路径；无tag表/压缩指针/假内核，未知全部owner/alias/R1、SDK ABI和完整退出/运行未闭。",
+      "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
       "inbound_evidence": [
         {
           "address": "0x53B3A0",
@@ -50524,48 +50468,32 @@
           "parent_entry": "0x53B399"
         }
       ],
-      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
-      "mode3_sdk_domain_contract": {
-        "group": "M3H01",
-        "spec": "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
-        "source": "src/platform/LegacyHeap.cpp",
-        "scope": "only mode3",
-        "sdk_domain_operations": [
-          "allocate",
-          "clear",
-          "resize",
-          "size",
-          "free"
-        ],
-        "mode1_and_mode2_changed": false,
-        "old_prefix_read": false,
-        "old_core_calls": false,
-        "old_core_bodies_added": false,
-        "live_mode_stability_required": true,
-        "foreign_domain_allowed": false,
-        "failure_handler_quantum_original_equivalent": false,
-        "unknown_owners_closed": false,
+      "verification_level": "限定当前源码/SDK声明、消费者/同域及旧层退休静态核对；原身份/事实保历史，不代完整业务/SDK运行",
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 468,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "native_reference",
+        "mode3_sdk_domain_contract",
+        "heap_malloc_unification"
+      ],
+      "current_provider": {
+        "kind": "msvc_crt_adapter",
+        "path": "src/platform/LegacyMemory.cpp",
+        "symbol": "GetLegacyAllocationSize_53FCFB",
+        "service": "::_msize",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "actual_outside_callers_in_current_src_include": 0,
         "runtime_verified": false
       },
-      "heap_malloc_unification": {
-        "spec_id": "HMU01",
-        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "previous_sources": [
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "GetLegacyAllocationSize_53FCFB"
-            ]
-          }
-        ],
-        "old_private_pool_interface_retired": false,
-        "all_generic_modes_share_standard_CRT": true,
-        "compilation_verified": false,
-        "runtime_verified": false,
-        "original_unknown_owner_alias_closed": false,
-        "previous_status": "M3H01通用mode3分配/清零/扩容/容量/释放同域SDK承接，mode1/2保持；原私有核心不模拟，全部owner/模式寿命/alias/SDK运行未闭",
-        "previous_verification_level": "既有本体保持；模式2创建/容量查询真实接线静态核对，未构建、链接或执行；M3H01五完整根449条/1167B、七旧核心call及mode六引用，五分支/头注释限定重放，mode1/2/其余源码及政策保持；未构建/测试/运行/摘要"
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
@@ -50629,7 +50557,7 @@
     {
       "original_entry": "0x541A43",
       "inventory_id": "F:00141A43",
-      "status": "模块链接器版本读取本体已实现并接堆模式选择；未执行",
+      "status": "MC01-C4私有堆策略已交MSVC；三公开数量/容量薄适配保留，旧私有初始化/失败28退休；未编译/运行",
       "original_end_exclusive": "0x541A70",
       "instruction_count": 17,
       "original_direct_reference_count": 1,
@@ -50637,15 +50565,19 @@
         {
           "path": "src/platform/LegacyMemory.cpp",
           "symbols": [
-            "ReadLegacyModuleLinkerVersion_541A43"
-          ]
+            "AllocateLegacyByteBuffer"
+          ],
+          "relationship": "MC01-C4宿主库职责关联，非该原私有函数本体/同名调用；当前相关真实MSVC服务保持"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "先清输出W32，再GetModuleHandleA(nullptr)借本模块；只核MZ与非零S32 e_lfanew，依序复制NT+1A/+1B到输出低两字节。模块地址用原生非拥有指针；唯一541A70调用已落位。不新增NT签名/空句柄保护，不执行模块读取，不代替完整堆启动。",
+      "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
       "function_chunks": [
         {
           "start": "0x541A43",
@@ -50658,12 +50590,35 @@
           "parent_entry": "0x541A70"
         }
       ],
-      "verification_level": "完整原指令、直接调用和新增源码静态核对；未执行"
+      "verification_level": "限定当前源码/SDK声明、消费者/同域及旧层退休静态核对；原身份/事实保历史，不代完整业务/SDK运行",
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 470,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [],
+      "current_provider": {
+        "kind": "msvc_private_runtime_duty",
+        "path": "src/platform/LegacyMemory.cpp",
+        "component": "已安装MSVC/UCRT真实堆/new-mode/失败与初始化支撑",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "old_private_body_implemented": false,
+        "old_private_slots_consumed": false,
+        "heap_initializer_or_fatal28_branch_present": false,
+        "runtime_verified": false
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
+      }
     },
     {
       "original_entry": "0x541A70",
       "inventory_id": "F:00141A70",
-      "status": "堆模式选择/解析、两查找及有界比较原点已接真实本体；启动/模式3/完整运行未验",
+      "status": "MC01-C4私有堆策略已交MSVC；三公开数量/容量薄适配保留，旧私有初始化/失败28退休；未编译/运行",
       "original_end_exclusive": "0x541BB8",
       "instruction_count": 115,
       "original_direct_reference_count": 1,
@@ -50671,23 +50626,20 @@
         {
           "path": "src/platform/LegacyMemory.cpp",
           "symbols": [
-            "SelectLegacyHeapMode_541A70"
-          ]
-        },
-        {
-          "path": "include/cg/platform/LegacyMemory.hpp",
-          "symbols": [
-            "SelectLegacyHeapMode_541A70"
-          ]
+            "AllocateLegacyByteBuffer"
+          ],
+          "relationship": "MC01-C4宿主库职责关联，非该原私有函数本体/同名调用；当前相关真实MSVC服务保持"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_legacy_string_compare.md",
-        "doc/cg2d_legacy_string_compare.md"
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "GetVersionExA成功且NT主版本>=5返1；否则1090H环境缓冲ASCII上转，先比较22B全局前缀，否则104H模块路径上转后做子串查找。首逗号后首分号截断，调用Strtol_53DA45(value,nullptr,10)，只接2/3/1。回退541BAB是低U8无符号与6比较，返2/3。保留原API返回处理，不擅清零/终止未写局部；该失败语义仍未验。541BB8未接，不创建/发布新堆或改变既有分配器，CRT宿主提案未获批准。 本步541B59/541B67交真实53BE40/53C2F0，动态环境/filename借用定位及selection逗号后+1保持，整份LegacyMemory只两标识符。只补依赖，不接541BB8、改变分配器/初始化或放行未知mode3布局。；2026-10-04本入口原53BFC0调用提升为StrNCmp_53BFC0真实本体，原count/两文本/零非零门禁和后续重读不变，其他本体不复检。",
+      "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
       "function_chunks": [
         {
           "start": "0x541A70",
@@ -50700,71 +50652,48 @@
           "parent_entry": "0x541BB8"
         }
       ],
-      "verification_level": "完整原指令、直接调用和新增源码静态核对；未执行；本步115统计/24查找邻读取、真实动态源与needle/低W8逗号/借用返回+1和唯一541BD8入向、整份源码两标识符静态核对，余91条与其他内存正文不重验；本步仅新增有界比较接线参数及差异静态核对，未构建/测试/运行",
-      "search_call_connections": [
-        {
-          "parent_entry": "0x541A70",
-          "call_site": "0x541B59",
-          "source": "src/platform/LegacyMemory.cpp",
-          "symbol": "SelectLegacyHeapMode_541A70",
-          "target_entry": "0x53BE40",
-          "target_symbol": "StrStr_53BE40",
-          "source_expression": "environment",
-          "needle_expression": "filename",
-          "relationship": "原ASCII上转后的1090H环境内查104H模块路径，返回借用selection；API失败局部/其他正文保持"
-        },
-        {
-          "parent_entry": "0x541A70",
-          "call_site": "0x541B67",
-          "source": "src/platform/LegacyMemory.cpp",
-          "symbol": "SelectLegacyHeapMode_541A70",
-          "target_entry": "0x53C2F0",
-          "target_symbol": "StrChr_53C2F0",
-          "source_expression": "selection",
-          "target_byte": 44,
-          "target_push_site": "0x541B64",
-          "relationship": "同一借用selection查低W8逗号2CH，返回+1接首分号截断/真实Strtol与原2/3/1判断"
-        }
+      "verification_level": "限定当前源码/SDK声明、消费者/同域及旧层退休静态核对；原身份/事实保历史，不代完整业务/SDK运行",
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 471,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "search_call_connections",
+        "strncmp_call_connections"
       ],
-      "strncmp_call_connections": [
-        {
-          "parent_entry": "0x541A70",
-          "call_site": "0x541B03",
-          "source": "src/platform/LegacyMemory.cpp",
-          "target_entry": "0x53BFC0",
-          "target_symbol": "StrNCmp_53BFC0",
-          "relationship": "原零/非零消费与参数/后续分支保持"
-        }
-      ]
+      "current_provider": {
+        "kind": "msvc_private_runtime_duty",
+        "path": "src/platform/LegacyMemory.cpp",
+        "component": "已安装MSVC/UCRT真实堆/new-mode/失败与初始化支撑",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "old_private_body_implemented": false,
+        "old_private_slots_consumed": false,
+        "heap_initializer_or_fatal28_branch_present": false,
+        "runtime_verified": false
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
+      }
     },
     {
       "original_entry": "0x541BB8",
       "inventory_id": "F:00141BB8",
-      "status": "HMU01：通用堆全部模式统一真实CRT提供者，U32/请求数量策略/失败处理器与当前caller保持；旧池仅历史，完整owner/间接alias/SDK/寿命未验。",
+      "status": "MC01-C4私有堆策略已交MSVC；三公开数量/容量薄适配保留，旧私有初始化/失败28退休；未编译/运行",
       "original_end_exclusive": "0x541C15",
       "instruction_count": 30,
       "original_direct_reference_count": 1,
       "sources": [
         {
-          "path": "src/platform/LegacyHeap.cpp",
+          "path": "src/platform/LegacyMemory.cpp",
           "symbols": [
-            "InitializeLegacyHeap_541BB8"
+            "AllocateLegacyByteBuffer"
           ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
-        },
-        {
-          "path": "src/platform/LegacyHeap.hpp",
-          "symbols": [
-            "InitializeLegacyHeap_541BB8"
-          ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
-        },
-        {
-          "path": "src/platform/LegacyMouse.cpp",
-          "symbols": [
-            "LegacyMultibyteStaticInitializer"
-          ],
-          "relationship": "MC01-B实际保留来源；已退休私有核/旧字段消费者的完整前态沿固定快照读取"
+          "relationship": "MC01-C4宿主库职责关联，非该原私有函数本体/同名调用；当前相关真实MSVC服务保持"
         }
       ],
       "evidence_documents": [
@@ -50780,66 +50709,19 @@
         "doc/cg2d_msvc_crt_file_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
-        "doc/cg2d_msvc_crt_exit_evidence.json"
+        "doc/cg2d_msvc_crt_exit_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：按实参零选择HeapCreate flags=1，否则0；初始1000H、最大0，先发布句柄再判断。成功选择并发布模式：3调用541C15(3F8H)，2调用真实54275C；子初始化失败重读共享句柄销毁且不清槽。原start未接，不把宿主malloc/free对象交给原堆。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。；2026-10-05 HPI01：HPI01已在同TU应用序前接heap(0)/失败28、lowio及普通stdio退出适配；仅局部接线，不启用旧entry/cinit/90表，不新增销毁。跨TU首次使用/SDK继承ABI、稳定模式/全部owner及unknown alias、console/filter与normal/quick/callable全序和运行仍待，C02/C04/C08/C10/C11/V02保持open。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
-      "native_reference": {
-        "component": "UCRT 10.0.26100.0，仅作宿主堆生命周期参考",
-        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/heap/heap_handle.cpp",
-        "symbol": "__acrt_initialize_heap / __acrt_uninitialize_heap / _get_heap_handle"
-      },
+      "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
       "inbound_evidence": [
         {
           "address": "0x53DE0F",
           "parent_entry": "0x53DDB5"
         }
       ],
-      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
-      "crt_parent_call_connections": [
-        {
-          "parent_entry": "0x53DDB5",
-          "call_site": "0x53DE0F",
-          "target_entry": "0x541BB8",
-          "target_symbol": "InitializeLegacyHeap_541BB8",
-          "source": "src/platform/LegacyProcessEntry.cpp",
-          "symbol": "RunLegacyProcessEntry_53DDB5",
-          "arguments": "0 S32，GetVersion四字段写后/tryLevel-1",
-          "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
-        }
-      ],
-      "hosted_prefix_contract": {
-        "spec": "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
-        "source": "src/platform/LegacyMouse.cpp",
-        "initializer": "LegacyMultibyteStaticInitializer",
-        "normal_exit": "FinishHostedLegacyStdio",
-        "scope": "已有provider消费及同TU应用序前置/普通stdio；旧入口仍未启用，完整跨TU/退出/ABI待验"
-      },
-      "heap_malloc_unification": {
-        "spec_id": "HMU01",
-        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "previous_sources": [
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "InitializeLegacyHeap_541BB8"
-            ]
-          },
-          {
-            "path": "src/platform/LegacyHeap.hpp",
-            "symbols": [
-              "InitializeLegacyHeap_541BB8"
-            ]
-          }
-        ],
-        "old_private_pool_interface_retired": false,
-        "all_generic_modes_share_standard_CRT": true,
-        "compilation_verified": false,
-        "runtime_verified": false,
-        "original_unknown_owner_alias_closed": false,
-        "previous_status": "真实原堆基础本体及内部状态已实现；两模式完整分配链、宿主归属和启动接线未闭合",
-        "previous_verification_level": "既有本体保持；模式2创建/容量查询真实接线静态核对，未构建、链接或执行；HPI01仅新宿主前置与普通stdio适配、限定源码/新引用静态，未构建/测试/运行/摘要"
-      },
+      "verification_level": "限定当前源码/SDK声明、消费者/同域及旧层退休静态核对；原身份/事实保历史，不代完整业务/SDK运行",
       "previous_mapping_before_mc01b": {
         "snapshot": "cg2d-re-msvc-crt-file-history-20261009",
         "path": "doc/cg2d_semantic_function_mappings.json",
@@ -50847,21 +50729,39 @@
         "original_entry": "0x541BB8",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
       },
-      "msvc_exit_retired_consumers": {
-        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
-        "retired_private_role_historical": true,
-        "business_or_shared_provider_unchanged": true,
-        "whole_function_classified_as_private_host": false
-      },
       "previous_mapping_before_mc01c3": {
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 472,
         "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
-      "msvc_exit_group": {
-        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
-        "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 472,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "native_reference",
+        "crt_parent_call_connections",
+        "hosted_prefix_contract",
+        "heap_malloc_unification",
+        "msvc_exit_retired_consumers",
+        "msvc_exit_group"
+      ],
+      "current_provider": {
+        "kind": "msvc_private_runtime_duty",
+        "path": "src/platform/LegacyMemory.cpp",
+        "component": "已安装MSVC/UCRT真实堆/new-mode/失败与初始化支撑",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "old_private_body_implemented": false,
+        "old_private_slots_consumed": false,
+        "heap_initializer_or_fatal28_branch_present": false,
+        "runtime_verified": false
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
       }
@@ -50869,24 +50769,17 @@
     {
       "original_entry": "0x541C15",
       "inventory_id": "F:00141C15",
-      "status": "HMU01：旧CRT私有池接口/布局/状态退役，现通用消费者由真实标准分配族承接；原身份与原证保留，完整owner/间接alias/SDK/寿命未验。",
+      "status": "MC01-C4私有堆策略已交MSVC；三公开数量/容量薄适配保留，旧私有初始化/失败28退休；未编译/运行",
       "original_end_exclusive": "0x541C5D",
       "instruction_count": 17,
       "original_direct_reference_count": 1,
       "sources": [
         {
-          "path": "src/platform/LegacyHeap.cpp",
+          "path": "src/platform/LegacyMemory.cpp",
           "symbols": [
-            "InitializeLegacyHeap_541BB8"
+            "AllocateLegacyByteBuffer"
           ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
-        },
-        {
-          "path": "src/platform/LegacyHeap.hpp",
-          "symbols": [
-            "InitializeLegacyHeap_541BB8"
-          ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
+          "relationship": "MC01-C4宿主库职责关联，非该原私有函数本体/同名调用；当前相关真实MSVC服务保持"
         }
       ],
       "evidence_documents": [
@@ -50894,66 +50787,59 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "doc/cg2d_heap_malloc_unification_evidence.json"
+        "doc/cg2d_heap_malloc_unification_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：真实按16个原生32B区域头HeapAlloc(flags0)，先发布表首；失败返0，成功清1086994空组区域指针及1086998数量，再发布当前区域、U32阈值、16项容量。1086994已证为地址，不能误作计数；记录内容不补零。区域/组生产及管理区已按原生地址布局落位；16B小块的拆分/合并布局和完整分配释放仍待。本体此次未改。",
+      "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
       "inbound_evidence": [
         {
           "address": "0x541BEC",
           "parent_entry": "0x541BB8"
         }
       ],
-      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
-      "heap_malloc_unification": {
-        "spec_id": "HMU01",
-        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "previous_sources": [
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "InitializeLegacySmallHeap3_541C15"
-            ]
-          },
-          {
-            "path": "src/platform/LegacyHeap.hpp",
-            "symbols": [
-              "InitializeLegacySmallHeap3_541C15"
-            ]
-          }
-        ],
-        "old_private_pool_interface_retired": true,
-        "all_generic_modes_share_standard_CRT": true,
-        "compilation_verified": false,
-        "runtime_verified": false,
-        "original_unknown_owner_alias_closed": false,
-        "previous_status": "真实原堆基础本体及内部状态已实现；两模式完整分配链、宿主归属和启动接线未闭合",
-        "previous_verification_level": "完整原指令与直接入向、字段发布/消费和新增源码静态核对；未构建、链接或执行"
+      "verification_level": "限定当前源码/SDK声明、消费者/同域及旧层退休静态核对；原身份/事实保历史，不代完整业务/SDK运行",
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 473,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "heap_malloc_unification"
+      ],
+      "current_provider": {
+        "kind": "msvc_private_runtime_duty",
+        "path": "src/platform/LegacyMemory.cpp",
+        "component": "已安装MSVC/UCRT真实堆/new-mode/失败与初始化支撑",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "old_private_body_implemented": false,
+        "old_private_slots_consumed": false,
+        "heap_initializer_or_fatal28_branch_present": false,
+        "runtime_verified": false
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
       "original_entry": "0x54275C",
       "inventory_id": "F:0014275C",
-      "status": "HMU01：旧CRT私有池接口/布局/状态退役，现通用消费者由真实标准分配族承接；原身份与原证保留，完整owner/间接alias/SDK/寿命未验。",
+      "status": "MC01-C4私有堆策略已交MSVC；三公开数量/容量薄适配保留，旧私有初始化/失败28退休；未编译/运行",
       "original_end_exclusive": "0x5428A0",
       "instruction_count": 102,
       "original_direct_reference_count": 2,
       "sources": [
         {
-          "path": "src/platform/LegacyHeap.cpp",
+          "path": "src/platform/LegacyMemory.cpp",
           "symbols": [
-            "InitializeLegacyHeap_541BB8",
-            "AllocateLegacyHeapBlock_53C3EA"
+            "AllocateLegacyByteBuffer"
           ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
-        },
-        {
-          "path": "src/platform/LegacyHeap.hpp",
-          "symbols": [
-            "InitializeLegacyHeap_541BB8",
-            "AllocateLegacyHeapBlock_53C3EA"
-          ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
+          "relationship": "MC01-C4宿主库职责关联，非该原私有函数本体/同名调用；当前相关真实MSVC服务保持"
         }
       ],
       "evidence_documents": [
@@ -50961,9 +50847,12 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "doc/cg2d_heap_malloc_unification_evidence.json"
+        "doc/cg2d_heap_malloc_unification_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：真实选择可复用静态头或分配原生2038H描述区，保留400000H/提交10000H，按原顺序链接及发布1024元数据项，清64KB并初始化16页。六地址拓宽，数值/页容量保持；动态末尾8B不补零，静态头首项(240,241)、其余0按已加载数据保留。失败按原阶段释放虚拟区域和动态头。；2026-10-04仅原填充点改接真实FillLegacyMemory_5419D0，原数量/值/目标/失败/发布及生命周期保持，不重核父全文。",
+      "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
       "inbound_evidence": [
         {
           "address": "0x541BF9",
@@ -50974,68 +50863,49 @@
           "parent_entry": "0x542A54"
         }
       ],
-      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
-      "memory_fill_connections": [
-        {
-          "target_entry": "0x5419D0",
-          "call_site": "0x542844",
-          "source": "src/platform/LegacyHeap.cpp",
-          "symbol": "CreateLegacySmallHeap2Region_54275C",
-          "relationship": "5427AF EBX=10000、原64KB清零；同位置在1024页元数据发布后/16页头初始化前，真实内存base保持"
-        }
+      "verification_level": "限定当前源码/SDK声明、消费者/同域及旧层退休静态核对；原身份/事实保历史，不代完整业务/SDK运行",
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 474,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "memory_fill_connections",
+        "heap_malloc_unification"
       ],
-      "heap_malloc_unification": {
-        "spec_id": "HMU01",
-        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "previous_sources": [
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "CreateLegacySmallHeap2Region_54275C"
-            ]
-          },
-          {
-            "path": "src/platform/LegacyHeap.hpp",
-            "symbols": [
-              "CreateLegacySmallHeap2Region_54275C"
-            ]
-          }
-        ],
-        "old_private_pool_interface_retired": true,
-        "all_generic_modes_share_standard_CRT": true,
-        "compilation_verified": false,
-        "runtime_verified": false,
-        "original_unknown_owner_alias_closed": false,
-        "previous_status": "完整模式2小块池本体及内部接线已实现并集中静态核对；外层分配器/启动/运行未闭合",
-        "previous_verification_level": "八本体622条/16直接入向、初始数据、页/描述区x64布局及板块集中静态核对；未构建、链接或执行；新原填充call/必要参数生产及两文件限定标识符/数量接线静态核对，未构建或执行"
+      "current_provider": {
+        "kind": "msvc_private_runtime_duty",
+        "path": "src/platform/LegacyMemory.cpp",
+        "component": "已安装MSVC/UCRT真实堆/new-mode/失败与初始化支撑",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "old_private_body_implemented": false,
+        "old_private_slots_consumed": false,
+        "heap_initializer_or_fatal28_branch_present": false,
+        "runtime_verified": false
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
       "original_entry": "0x541C5D",
       "inventory_id": "F:00141C5D",
-      "status": "HMU01：旧CRT私有池接口/布局/状态退役，现通用消费者由真实标准分配族承接；原身份与原证保留，完整owner/间接alias/SDK/寿命未验。",
+      "status": "MC01-C4私有堆策略已交MSVC；三公开数量/容量薄适配保留，旧私有初始化/失败28退休；未编译/运行",
       "original_end_exclusive": "0x541C88",
       "instruction_count": 14,
       "original_direct_reference_count": 4,
-      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
+      "verification_level": "限定当前源码/SDK声明、消费者/同域及旧层退休静态核对；原身份/事实保历史，不代完整业务/SDK运行",
       "sources": [
         {
-          "path": "src/platform/LegacyHeap.cpp",
+          "path": "src/platform/LegacyMemory.cpp",
           "symbols": [
-            "FreeLegacyHeapMemory_53C0A9",
-            "ReallocateLegacyMemory_53FA5B",
-            "GetLegacyAllocationSize_53FCFB"
+            "FreeLegacyByteBuffer"
           ],
-          "relationship": "HMU01原区域查找职责由CRT free/realloc/size操作内部承接；这里只列实际消费操作的提供者/声明，不提供原region返回或独立查找同名体，未知原入向未闭。"
-        },
-        {
-          "path": "include/cg/platform/LegacyMemory.hpp",
-          "symbols": [
-            "ReallocateLegacyMemory_53FA5B",
-            "GetLegacyAllocationSize_53FCFB"
-          ],
-          "relationship": "HMU01原区域查找职责由CRT free/realloc/size操作内部承接；这里只列实际消费操作的提供者/声明，不提供原region返回或独立查找同名体，未知原入向未闭。"
+          "relationship": "MC01-C4宿主库职责关联，非该原私有函数本体/同名调用；当前相关真实MSVC服务保持"
         }
       ],
       "inbound_evidence": [
@@ -51060,52 +50930,53 @@
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "doc/cg2d_heap_malloc_unification_evidence.json"
+        "doc/cg2d_heap_malloc_unification_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：先采样U32记录数再采样表首，按32B原生区域头正序扫描；仅原+0C/+10指针拓宽，地址差用uintptr_t，范围仍100000H。已由真实53FCFB调用，原free/realloc尚未迁移；不截地址、不添加空值保护或容量影子。",
-      "heap_malloc_unification": {
-        "spec_id": "HMU01",
-        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "previous_sources": [
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "FindLegacySmallHeap3Region_541C5D"
-            ]
-          },
-          {
-            "path": "src/platform/LegacyHeap.hpp",
-            "symbols": [
-              "FindLegacySmallHeap3Region_541C5D"
-            ]
-          }
-        ],
-        "old_private_pool_interface_retired": true,
-        "all_generic_modes_share_standard_CRT": true,
-        "compilation_verified": false,
-        "runtime_verified": false,
-        "original_unknown_owner_alias_closed": false,
-        "previous_status": "真实原堆基础本体及内部状态已实现；两模式完整分配链、宿主归属和启动接线未闭合",
-        "previous_verification_level": "完整原指令与直接入向、字段发布/消费和新增源码静态核对；未构建、链接或执行"
+      "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 475,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "heap_malloc_unification"
+      ],
+      "current_provider": {
+        "kind": "msvc_private_runtime_duty",
+        "path": "src/platform/LegacyMemory.cpp",
+        "component": "已安装MSVC/UCRT真实堆/new-mode/失败与初始化支撑",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "old_private_body_implemented": false,
+        "old_private_slots_consumed": false,
+        "heap_initializer_or_fatal28_branch_present": false,
+        "runtime_verified": false
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
       "original_entry": "0x541C88",
       "inventory_id": "F:00141C88",
-      "status": "HMU01：通用堆全部模式统一真实CRT提供者，U32/请求数量策略/失败处理器与当前caller保持；旧池仅历史，完整owner/间接alias/SDK/寿命未验。",
+      "status": "MC01-C4私有堆策略已交MSVC；三公开数量/容量薄适配保留，旧私有初始化/失败28退休；未编译/运行",
       "original_end_exclusive": "0x541FB1",
       "instruction_count": 265,
       "original_direct_reference_count": 3,
-      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
+      "verification_level": "限定当前源码/SDK声明、消费者/同域及旧层退休静态核对；原身份/事实保历史，不代完整业务/SDK运行",
       "sources": [
         {
-          "path": "src/platform/LegacyHeap.cpp",
+          "path": "src/platform/LegacyMemory.cpp",
           "symbols": [
-            "FreeLegacyHeapMemory_53C0A9",
-            "ReallocateLegacyMemory_53FA5B"
+            "FreeLegacyByteBuffer"
           ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
+          "relationship": "MC01-C4宿主库职责关联，非该原私有函数本体/同名调用；当前相关真实MSVC服务保持"
         }
       ],
       "inbound_evidence": [
@@ -51128,85 +50999,54 @@
         "doc/cg2d_mode3_private_core_evidence.json",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "doc/cg2d_heap_malloc_unification_evidence.json"
+        "doc/cg2d_heap_malloc_unification_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：模式3释放入口：由free一次、realloc迁移后两次调用；包含VirtualFree解除提交/释放、HeapFree与头记录复制调用。合并位图和完整释放失败语义未逐条验收。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。；2026-10-05 M3P01依据D02，原私有机制按host纳管，经M3H01真实SDK五操作族接替；七原call逐项映射，realloc迁移后的两释放由SDK内部承担，不重复free。三个旧无本体声明撤下，原函数/指令/身份不删除；未知alias/owner/模式稳定/实际SDK及运行不闭合。",
-      "mode3_private_core_host_contract": {
-        "group": "M3P01",
-        "spec": "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
-        "disposition": "host",
-        "original_body_implemented": false,
-        "obsolete_declaration_retired": true,
-        "roles": [
-          {
-            "call_site": "0x53C0CC",
-            "parent_entry": "0x53C0A9",
-            "source_symbol": "FreeLegacyHeapMemory_53C0A9",
-            "sdk_provider": "std::free"
-          },
-          {
-            "call_site": "0x53FAFF",
-            "parent_entry": "0x53FA5B",
-            "source_symbol": "ReallocateLegacyMemory_53FA5B",
-            "sdk_provider": "std::realloc内部管理旧块；无重复free"
-          },
-          {
-            "call_site": "0x53FB46",
-            "parent_entry": "0x53FA5B",
-            "source_symbol": "ReallocateLegacyMemory_53FA5B",
-            "sdk_provider": "std::realloc内部管理旧块；无重复free"
-          }
-        ],
-        "unknown_aliases_closed": false,
+      "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 476,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "mode3_private_core_host_contract",
+        "heap_malloc_unification"
+      ],
+      "current_provider": {
+        "kind": "msvc_private_runtime_duty",
+        "path": "src/platform/LegacyMemory.cpp",
+        "component": "已安装MSVC/UCRT真实堆/new-mode/失败与初始化支撑",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "old_private_body_implemented": false,
+        "old_private_slots_consumed": false,
+        "heap_initializer_or_fatal28_branch_present": false,
         "runtime_verified": false
       },
-      "heap_malloc_unification": {
-        "spec_id": "HMU01",
-        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "previous_sources": [
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "FreeLegacyHeapMemory_53C0A9",
-              "ReallocateLegacyMemory_53FA5B"
-            ],
-            "relationship": "D02 host角色承接，经M3H01实际SDK分支；不是旧核心C++本体"
-          }
-        ],
-        "old_private_pool_interface_retired": false,
-        "all_generic_modes_share_standard_CRT": true,
-        "compilation_verified": false,
-        "runtime_verified": false,
-        "original_unknown_owner_alias_closed": false,
-        "previous_status": "M3P01：旧mode3私有核心由SDK角色承接，三无本体声明退休；host非原算法实现，完整owner/模式寿命/alias/R1/运行待验",
-        "previous_verification_level": "边界、代码指令计数、全部直接入向及call位置；不计逐条语义通过；M3P01归档三完整原体799条/2344B及3/3/1引用，只核接口退休和SDK角色映射，非原私有算法逐条等价或运行验收"
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
       "original_entry": "0x541FB1",
       "inventory_id": "F:00141FB1",
-      "status": "HMU01：通用堆全部模式统一真实CRT提供者，U32/请求数量策略/失败处理器与当前caller保持；旧池仅历史，完整owner/间接alias/SDK/寿命未验。",
+      "status": "MC01-C4私有堆策略已交MSVC；三公开数量/容量薄适配保留，旧私有初始化/失败28退休；未编译/运行",
       "original_end_exclusive": "0x5422BA",
       "instruction_count": 275,
       "original_direct_reference_count": 3,
-      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
+      "verification_level": "限定当前源码/SDK声明、消费者/同域及旧层退休静态核对；原身份/事实保历史，不代完整业务/SDK运行",
       "sources": [
         {
-          "path": "src/platform/LegacyHeap.cpp",
+          "path": "src/platform/LegacyMemory.cpp",
           "symbols": [
-            "AllocateLegacyHeapBlock_53C3EA"
+            "AllocateLegacyByteBuffer"
           ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
-        },
-        {
-          "path": "src/platform/LegacyHeap.cpp",
-          "symbols": [
-            "CallocateLegacyMemory_53BFF8",
-            "AllocateLegacyHeapBlock_53C3EA",
-            "ReallocateLegacyMemory_53FA5B"
-          ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
+          "relationship": "MC01-C4宿主库职责关联，非该原私有函数本体/同名调用；当前相关真实MSVC服务保持"
         }
       ],
       "inbound_evidence": [
@@ -51229,92 +51069,54 @@
         "doc/cg2d_mode3_private_core_evidence.json",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "doc/cg2d_heap_malloc_unification_evidence.json"
+        "doc/cg2d_heap_malloc_unification_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：calloc、malloc内部叶和realloc各一调用；两个区域/组生产依赖已实现。原541FD1..541FD7按(request+23)&~15，54226C..54226E写任何非零剩余，可正常产生16B空闲块；其首尾W32和两个64位链接不能同放16B。未擅增最小块、吞掉剩余、改容量查询或建立影子链，保留拆分/合并适配缺口。当前275条完整读取不等于已实现或运行验收。；2026-10-05 M3P01依据D02，原私有机制按host纳管，经M3H01真实SDK五操作族接替；七原call逐项映射，realloc迁移后的两释放由SDK内部承担，不重复free。三个旧无本体声明撤下，原函数/指令/身份不删除；未知alias/owner/模式稳定/实际SDK及运行不闭合。",
-      "mode3_private_core_host_contract": {
-        "group": "M3P01",
-        "spec": "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
-        "disposition": "host",
-        "original_body_implemented": false,
-        "obsolete_declaration_retired": true,
-        "roles": [
-          {
-            "call_site": "0x53C036",
-            "parent_entry": "0x53BFF8",
-            "source_symbol": "CallocateLegacyMemory_53BFF8",
-            "sdk_provider": "std::calloc"
-          },
-          {
-            "call_site": "0x53C402",
-            "parent_entry": "0x53C3EA",
-            "source_symbol": "AllocateLegacyHeapBlock_53C3EA",
-            "sdk_provider": "std::malloc"
-          },
-          {
-            "call_site": "0x53FAD2",
-            "parent_entry": "0x53FA5B",
-            "source_symbol": "ReallocateLegacyMemory_53FA5B",
-            "sdk_provider": "std::realloc"
-          }
-        ],
-        "unknown_aliases_closed": false,
+      "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 477,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "mode3_private_core_host_contract",
+        "heap_malloc_unification"
+      ],
+      "current_provider": {
+        "kind": "msvc_private_runtime_duty",
+        "path": "src/platform/LegacyMemory.cpp",
+        "component": "已安装MSVC/UCRT真实堆/new-mode/失败与初始化支撑",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "old_private_body_implemented": false,
+        "old_private_slots_consumed": false,
+        "heap_initializer_or_fatal28_branch_present": false,
         "runtime_verified": false
       },
-      "heap_malloc_unification": {
-        "spec_id": "HMU01",
-        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "previous_sources": [
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "CreateLegacySmallHeap3Region_5422BA",
-              "CommitLegacySmallHeap3Group_54236B"
-            ],
-            "relationship": "仅该父两个真实依赖已实现，不是541FB1本体"
-          },
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "CallocateLegacyMemory_53BFF8",
-              "AllocateLegacyHeapBlock_53C3EA",
-              "ReallocateLegacyMemory_53FA5B"
-            ],
-            "relationship": "D02 host角色承接，经M3H01实际SDK分支；不是旧核心C++本体"
-          }
-        ],
-        "old_private_pool_interface_retired": false,
-        "all_generic_modes_share_standard_CRT": true,
-        "compilation_verified": false,
-        "runtime_verified": false,
-        "original_unknown_owner_alias_closed": false,
-        "previous_status": "M3P01：旧mode3私有核心由SDK角色承接，三无本体声明退休；host非原算法实现，完整owner/模式寿命/alias/R1/运行待验",
-        "previous_verification_level": "完整275条及三个直接入向已读取；管理区/块几何与16B布局约束已核，完整分配算法未实施；M3P01归档三完整原体799条/2344B及3/3/1引用，只核接口退休和SDK角色映射，非原私有算法逐条等价或运行验收"
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
       "original_entry": "0x5422BA",
       "inventory_id": "F:001422BA",
-      "status": "HMU01：旧CRT私有池接口/布局/状态退役，现通用消费者由真实标准分配族承接；原身份与原证保留，完整owner/间接alias/SDK/寿命未验。",
+      "status": "MC01-C4私有堆策略已交MSVC；三公开数量/容量薄适配保留，旧私有初始化/失败28退休；未编译/运行",
       "original_end_exclusive": "0x54236B",
       "instruction_count": 53,
       "original_direct_reference_count": 1,
-      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
+      "verification_level": "限定当前源码/SDK声明、消费者/同域及旧层退休静态核对；原身份/事实保历史，不代完整业务/SDK运行",
       "sources": [
         {
-          "path": "src/platform/LegacyHeap.cpp",
+          "path": "src/platform/LegacyMemory.cpp",
           "symbols": [
-            "AllocateLegacyHeapBlock_53C3EA"
+            "AllocateLegacyByteBuffer"
           ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
-        },
-        {
-          "path": "src/platform/LegacyHeap.hpp",
-          "symbols": [
-            "AllocateLegacyHeapBlock_53C3EA"
-          ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
+          "relationship": "MC01-C4宿主库职责关联，非该原私有函数本体/同名调用；当前相关真实MSVC服务保持"
         }
       ],
       "inbound_evidence": [
@@ -51327,62 +51129,53 @@
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "doc/cg2d_heap_malloc_unification_evidence.json"
+        "doc/cg2d_heap_malloc_unification_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：真实以16个原生区域头增量HeapReAlloc，成功先加共享容量再发布表首并重读数量；不额外修正旧当前/待回收指针。HEAP_ZERO_MEMORY分配原生8248H控制区，control/base均先发布后判空；保留1MB失败只释放control且不清槽。成功按原顺序掩码/数量/当前组发布。完整分配器尚待，不能交宿主块。",
-      "heap_malloc_unification": {
-        "spec_id": "HMU01",
-        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "previous_sources": [
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "CreateLegacySmallHeap3Region_5422BA"
-            ]
-          },
-          {
-            "path": "src/platform/LegacyHeap.hpp",
-            "symbols": [
-              "CreateLegacySmallHeap3Region_5422BA",
-              "LegacySmallHeap3Control",
-              "LegacySmallHeap3Group",
-              "LegacySmallHeap3Link",
-              "LegacySmallHeap3FreeBlock"
-            ]
-          }
-        ],
-        "old_private_pool_interface_retired": true,
-        "all_generic_modes_share_standard_CRT": true,
-        "compilation_verified": false,
-        "runtime_verified": false,
-        "original_unknown_owner_alias_closed": false,
-        "previous_status": "模式3区域/组真实生产本体与原生控制布局已实现；小块拆分/合并布局及完整池未闭合",
-        "previous_verification_level": "完整53/85条及唯一直接父、原控制字段和4080B初始块页链、新增差异静态核对；未构建、链接或执行"
+      "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 478,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "heap_malloc_unification"
+      ],
+      "current_provider": {
+        "kind": "msvc_private_runtime_duty",
+        "path": "src/platform/LegacyMemory.cpp",
+        "component": "已安装MSVC/UCRT真实堆/new-mode/失败与初始化支撑",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "old_private_body_implemented": false,
+        "old_private_slots_consumed": false,
+        "heap_initializer_or_fatal28_branch_present": false,
+        "runtime_verified": false
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
       "original_entry": "0x54236B",
       "inventory_id": "F:0014236B",
-      "status": "HMU01：旧CRT私有池接口/布局/状态退役，现通用消费者由真实标准分配族承接；原身份与原证保留，完整owner/间接alias/SDK/寿命未验。",
+      "status": "MC01-C4私有堆策略已交MSVC；三公开数量/容量薄适配保留，旧私有初始化/失败28退休；未编译/运行",
       "original_end_exclusive": "0x542466",
       "instruction_count": 85,
       "original_direct_reference_count": 1,
-      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
+      "verification_level": "限定当前源码/SDK声明、消费者/同域及旧层退休静态核对；原身份/事实保历史，不代完整业务/SDK运行",
       "sources": [
         {
-          "path": "src/platform/LegacyHeap.cpp",
+          "path": "src/platform/LegacyMemory.cpp",
           "symbols": [
-            "AllocateLegacyHeapBlock_53C3EA"
+            "AllocateLegacyByteBuffer"
           ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
-        },
-        {
-          "path": "src/platform/LegacyHeap.hpp",
-          "symbols": [
-            "AllocateLegacyHeapBlock_53C3EA"
-          ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
+          "relationship": "MC01-C4宿主库职责关联，非该原私有函数本体/同名调用；当前相关真实MSVC服务保持"
         }
       ],
       "inbound_evidence": [
@@ -51395,55 +51188,53 @@
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "doc/cg2d_heap_malloc_unification_evidence.json"
+        "doc/cg2d_heap_malloc_unification_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：真实按未提交掩码最高位选组，无零掩码保护；提交前先初始化63链头previous→next，VirtualAlloc非空才成功，失败不回滚。8个4KB页保持首/尾W32标记和4080B块，链接字段地址拓宽；第63级链串八页并回哨兵，组位图0/1、U8大小级计数及区域/未提交位图写序保持。仅初始大块可承载原生双链；16B拆分/合并适配未闭合，不能宣称完整模式3可运行。",
-      "heap_malloc_unification": {
-        "spec_id": "HMU01",
-        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "previous_sources": [
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "CommitLegacySmallHeap3Group_54236B"
-            ]
-          },
-          {
-            "path": "src/platform/LegacyHeap.hpp",
-            "symbols": [
-              "CommitLegacySmallHeap3Group_54236B",
-              "LegacySmallHeap3Control",
-              "LegacySmallHeap3Group",
-              "LegacySmallHeap3Link",
-              "LegacySmallHeap3FreeBlock"
-            ]
-          }
-        ],
-        "old_private_pool_interface_retired": true,
-        "all_generic_modes_share_standard_CRT": true,
-        "compilation_verified": false,
-        "runtime_verified": false,
-        "original_unknown_owner_alias_closed": false,
-        "previous_status": "模式3区域/组真实生产本体与原生控制布局已实现；小块拆分/合并布局及完整池未闭合",
-        "previous_verification_level": "完整53/85条及唯一直接父、原控制字段和4080B初始块页链、新增差异静态核对；未构建、链接或执行"
+      "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 479,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "heap_malloc_unification"
+      ],
+      "current_provider": {
+        "kind": "msvc_private_runtime_duty",
+        "path": "src/platform/LegacyMemory.cpp",
+        "component": "已安装MSVC/UCRT真实堆/new-mode/失败与初始化支撑",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "old_private_body_implemented": false,
+        "old_private_slots_consumed": false,
+        "heap_initializer_or_fatal28_branch_present": false,
+        "runtime_verified": false
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
       "original_entry": "0x542466",
       "inventory_id": "F:00142466",
-      "status": "HMU01：通用堆全部模式统一真实CRT提供者，U32/请求数量策略/失败处理器与当前caller保持；旧池仅历史，完整owner/间接alias/SDK/寿命未验。",
+      "status": "MC01-C4私有堆策略已交MSVC；三公开数量/容量薄适配保留，旧私有初始化/失败28退休；未编译/运行",
       "original_end_exclusive": "0x54275C",
       "instruction_count": 259,
       "original_direct_reference_count": 1,
-      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
+      "verification_level": "限定当前源码/SDK声明、消费者/同域及旧层退休静态核对；原身份/事实保历史，不代完整业务/SDK运行",
       "sources": [
         {
-          "path": "src/platform/LegacyHeap.cpp",
+          "path": "src/platform/LegacyMemory.cpp",
           "symbols": [
-            "ReallocateLegacyMemory_53FA5B"
+            "AllocateLegacyByteBuffer"
           ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
+          "relationship": "MC01-C4宿主库职责关联，非该原私有函数本体/同名调用；当前相关真实MSVC服务保持"
         }
       ],
       "inbound_evidence": [
@@ -51458,70 +51249,54 @@
         "doc/cg2d_mode3_private_core_evidence.json",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "doc/cg2d_heap_malloc_unification_evidence.json"
+        "doc/cg2d_heap_malloc_unification_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：模式3原位调整大小私有依赖：唯一realloc@53FAC5调用，成功路径复用原块；本体无call，完整合并/拆分与失败条件仍待。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。；2026-10-05 M3P01依据D02，原私有机制按host纳管，经M3H01真实SDK五操作族接替；七原call逐项映射，realloc迁移后的两释放由SDK内部承担，不重复free。三个旧无本体声明撤下，原函数/指令/身份不删除；未知alias/owner/模式稳定/实际SDK及运行不闭合。",
-      "mode3_private_core_host_contract": {
-        "group": "M3P01",
-        "spec": "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
-        "disposition": "host",
-        "original_body_implemented": false,
-        "obsolete_declaration_retired": true,
-        "roles": [
-          {
-            "call_site": "0x53FAC5",
-            "parent_entry": "0x53FA5B",
-            "source_symbol": "ReallocateLegacyMemory_53FA5B",
-            "sdk_provider": "std::realloc整体扩容；不提供旧bool/region接口"
-          }
-        ],
-        "unknown_aliases_closed": false,
+      "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 480,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "mode3_private_core_host_contract",
+        "heap_malloc_unification"
+      ],
+      "current_provider": {
+        "kind": "msvc_private_runtime_duty",
+        "path": "src/platform/LegacyMemory.cpp",
+        "component": "已安装MSVC/UCRT真实堆/new-mode/失败与初始化支撑",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "old_private_body_implemented": false,
+        "old_private_slots_consumed": false,
+        "heap_initializer_or_fatal28_branch_present": false,
         "runtime_verified": false
       },
-      "heap_malloc_unification": {
-        "spec_id": "HMU01",
-        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "previous_sources": [
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "ReallocateLegacyMemory_53FA5B"
-            ],
-            "relationship": "D02 host角色承接，经M3H01实际SDK分支；不是旧核心C++本体"
-          }
-        ],
-        "old_private_pool_interface_retired": false,
-        "all_generic_modes_share_standard_CRT": true,
-        "compilation_verified": false,
-        "runtime_verified": false,
-        "original_unknown_owner_alias_closed": false,
-        "previous_status": "M3P01：旧mode3私有核心由SDK角色承接，三无本体声明退休；host非原算法实现，完整owner/模式寿命/alias/R1/运行待验",
-        "previous_verification_level": "边界、代码指令计数、全部直接入向及call位置；不计逐条语义通过；M3P01归档三完整原体799条/2344B及3/3/1引用，只核接口退休和SDK角色映射，非原私有算法逐条等价或运行验收"
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
       "original_entry": "0x5428A0",
       "inventory_id": "F:001428A0",
-      "status": "HMU01：旧CRT私有池接口/布局/状态退役，现通用消费者由真实标准分配族承接；原身份与原证保留，完整owner/间接alias/SDK/寿命未验。",
+      "status": "MC01-C4私有堆策略已交MSVC；三公开数量/容量薄适配保留，旧私有初始化/失败28退休；未编译/运行",
       "original_end_exclusive": "0x5428F6",
       "instruction_count": 27,
       "original_direct_reference_count": 1,
-      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
+      "verification_level": "限定当前源码/SDK声明、消费者/同域及旧层退休静态核对；原身份/事实保历史，不代完整业务/SDK运行",
       "sources": [
         {
-          "path": "src/platform/LegacyHeap.cpp",
+          "path": "src/platform/LegacyMemory.cpp",
           "symbols": [
-            "FreeLegacyHeapMemory_53C0A9"
+            "FreeLegacyByteBuffer"
           ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
-        },
-        {
-          "path": "src/platform/LegacyHeap.hpp",
-          "symbols": [
-            "FreeLegacyHeapMemory_53C0A9"
-          ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
+          "relationship": "MC01-C4宿主库职责关联，非该原私有函数本体/同名调用；当前相关真实MSVC服务保持"
         }
       ],
       "inbound_evidence": [
@@ -51534,59 +51309,53 @@
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "doc/cg2d_heap_malloc_unification_evidence.json"
+        "doc/cg2d_heap_malloc_unification_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：先VirtualFree(MEM_RELEASE)，当前区域命中才改为previous；静态头只把base置原生地址-1，其他状态保持。动态头按previous.next、next.previous顺序断链再HeapFree。唯一父忽略原混合EAX返回，接口void只保留副作用。",
-      "heap_malloc_unification": {
-        "spec_id": "HMU01",
-        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "previous_sources": [
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "DestroyLegacySmallHeap2Region_5428A0"
-            ]
-          },
-          {
-            "path": "src/platform/LegacyHeap.hpp",
-            "symbols": [
-              "DestroyLegacySmallHeap2Region_5428A0"
-            ]
-          }
-        ],
-        "old_private_pool_interface_retired": true,
-        "all_generic_modes_share_standard_CRT": true,
-        "compilation_verified": false,
-        "runtime_verified": false,
-        "original_unknown_owner_alias_closed": false,
-        "previous_status": "完整模式2小块池本体及内部接线已实现并集中静态核对；外层分配器/启动/运行未闭合",
-        "previous_verification_level": "八本体622条/16直接入向、初始数据、页/描述区x64布局及板块集中静态核对；未构建、链接或执行"
+      "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 481,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "heap_malloc_unification"
+      ],
+      "current_provider": {
+        "kind": "msvc_private_runtime_duty",
+        "path": "src/platform/LegacyMemory.cpp",
+        "component": "已安装MSVC/UCRT真实堆/new-mode/失败与初始化支撑",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "old_private_body_implemented": false,
+        "old_private_slots_consumed": false,
+        "heap_initializer_or_fatal28_branch_present": false,
+        "runtime_verified": false
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
       "original_entry": "0x5428F6",
       "inventory_id": "F:001428F6",
-      "status": "HMU01：旧CRT私有池接口/布局/状态退役，现通用消费者由真实标准分配族承接；原身份与原证保留，完整owner/间接alias/SDK/寿命未验。",
+      "status": "MC01-C4私有堆策略已交MSVC；三公开数量/容量薄适配保留，旧私有初始化/失败28退休；未编译/运行",
       "original_end_exclusive": "0x5429B8",
       "instruction_count": 66,
       "original_direct_reference_count": 1,
-      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
+      "verification_level": "限定当前源码/SDK声明、消费者/同域及旧层退休静态核对；原身份/事实保历史，不代完整业务/SDK运行",
       "sources": [
         {
-          "path": "src/platform/LegacyHeap.cpp",
+          "path": "src/platform/LegacyMemory.cpp",
           "symbols": [
-            "FreeLegacyHeapMemory_53C0A9",
-            "ReallocateLegacyMemory_53FA5B"
+            "FreeLegacyByteBuffer"
           ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
-        },
-        {
-          "path": "src/platform/LegacyHeap.hpp",
-          "symbols": [
-            "FreeLegacyHeapMemory_53C0A9"
-          ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
+          "relationship": "MC01-C4宿主库职责关联，非该原私有函数本体/同名调用；当前相关真实MSVC服务保持"
         }
       ],
       "inbound_evidence": [
@@ -51599,61 +51368,53 @@
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "doc/cg2d_heap_malloc_unification_evidence.json"
+        "doc/cg2d_heap_malloc_unification_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：从共享尾区域和第1023页逆序回收：页计数恰240且VirtualFree成功才记-1、减1086154、按地址更新firstUncommitted，成功次数递减请求恰0才提前结束。处理后先取previous，确有回收且1024项均-1才释放区域；循环末重读共享尾。未增加未分配头的前进或回收下限保护。",
-      "heap_malloc_unification": {
-        "spec_id": "HMU01",
-        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "previous_sources": [
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "DecommitLegacySmallHeap2Pages_5428F6"
-            ]
-          },
-          {
-            "path": "src/platform/LegacyHeap.hpp",
-            "symbols": [
-              "DecommitLegacySmallHeap2Pages_5428F6"
-            ]
-          }
-        ],
-        "old_private_pool_interface_retired": true,
-        "all_generic_modes_share_standard_CRT": true,
-        "compilation_verified": false,
-        "runtime_verified": false,
-        "original_unknown_owner_alias_closed": false,
-        "previous_status": "完整模式2小块池本体及内部接线已实现并集中静态核对；外层分配器/启动/运行未闭合",
-        "previous_verification_level": "八本体622条/16直接入向、初始数据、页/描述区x64布局及板块集中静态核对；未构建、链接或执行"
+      "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 482,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "heap_malloc_unification"
+      ],
+      "current_provider": {
+        "kind": "msvc_private_runtime_duty",
+        "path": "src/platform/LegacyMemory.cpp",
+        "component": "已安装MSVC/UCRT真实堆/new-mode/失败与初始化支撑",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "old_private_body_implemented": false,
+        "old_private_slots_consumed": false,
+        "heap_initializer_or_fatal28_branch_present": false,
+        "runtime_verified": false
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
       "original_entry": "0x5429B8",
       "inventory_id": "F:001429B8",
-      "status": "HMU01：旧CRT私有池接口/布局/状态退役，现通用消费者由真实标准分配族承接；原身份与原证保留，完整owner/间接alias/SDK/寿命未验。",
+      "status": "MC01-C4私有堆策略已交MSVC；三公开数量/容量薄适配保留，旧私有初始化/失败28退休；未编译/运行",
       "original_end_exclusive": "0x542A0F",
       "instruction_count": 34,
       "original_direct_reference_count": 3,
-      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
+      "verification_level": "限定当前源码/SDK声明、消费者/同域及旧层退休静态核对；原身份/事实保历史，不代完整业务/SDK运行",
       "sources": [
         {
-          "path": "src/platform/LegacyHeap.cpp",
+          "path": "src/platform/LegacyMemory.cpp",
           "symbols": [
-            "FreeLegacyHeapMemory_53C0A9",
-            "ReallocateLegacyMemory_53FA5B",
-            "GetLegacyAllocationSize_53FCFB"
+            "FreeLegacyByteBuffer"
           ],
-          "relationship": "HMU01原区域查找职责由CRT free/realloc/size操作内部承接；这里只列实际消费操作的提供者/声明，不提供原region返回或独立查找同名体，未知原入向未闭。"
-        },
-        {
-          "path": "include/cg/platform/LegacyMemory.hpp",
-          "symbols": [
-            "ReallocateLegacyMemory_53FA5B",
-            "GetLegacyAllocationSize_53FCFB"
-          ],
-          "relationship": "HMU01原区域查找职责由CRT free/realloc/size操作内部承接；这里只列实际消费操作的提供者/声明，不提供原region返回或独立查找同名体，未知原入向未闭。"
+          "relationship": "MC01-C4宿主库职责关联，非该原私有函数本体/同名调用；当前相关真实MSVC服务保持"
         }
       ],
       "inbound_evidence": [
@@ -51674,58 +51435,53 @@
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "doc/cg2d_heap_malloc_unification_evidence.json"
+        "doc/cg2d_heap_malloc_unification_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：区域开区间、16B对齐、页内偏移>=100H均满足才依次写region/page两输出并返回标记；失败输出保持。完整原生地址参与查找/页对齐，240标记与256B载荷起点、4KB页几何保持。已接53FCFB，外层free/realloc调用尚未迁移。",
-      "heap_malloc_unification": {
-        "spec_id": "HMU01",
-        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "previous_sources": [
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "FindLegacySmallHeap2Block_5429B8"
-            ]
-          },
-          {
-            "path": "src/platform/LegacyHeap.hpp",
-            "symbols": [
-              "FindLegacySmallHeap2Block_5429B8"
-            ]
-          }
-        ],
-        "old_private_pool_interface_retired": true,
-        "all_generic_modes_share_standard_CRT": true,
-        "compilation_verified": false,
-        "runtime_verified": false,
-        "original_unknown_owner_alias_closed": false,
-        "previous_status": "完整模式2小块池本体及内部接线已实现并集中静态核对；外层分配器/启动/运行未闭合",
-        "previous_verification_level": "八本体622条/16直接入向、初始数据、页/描述区x64布局及板块集中静态核对；未构建、链接或执行"
+      "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 483,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "heap_malloc_unification"
+      ],
+      "current_provider": {
+        "kind": "msvc_private_runtime_duty",
+        "path": "src/platform/LegacyMemory.cpp",
+        "component": "已安装MSVC/UCRT真实堆/new-mode/失败与初始化支撑",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "old_private_body_implemented": false,
+        "old_private_slots_consumed": false,
+        "heap_initializer_or_fatal28_branch_present": false,
+        "runtime_verified": false
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
       "original_entry": "0x542A0F",
       "inventory_id": "F:00142A0F",
-      "status": "HMU01：旧CRT私有池接口/布局/状态退役，现通用消费者由真实标准分配族承接；原身份与原证保留，完整owner/间接alias/SDK/寿命未验。",
+      "status": "MC01-C4私有堆策略已交MSVC；三公开数量/容量薄适配保留，旧私有初始化/失败28退休；未编译/运行",
       "original_end_exclusive": "0x542A54",
       "instruction_count": 19,
       "original_direct_reference_count": 3,
-      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
+      "verification_level": "限定当前源码/SDK声明、消费者/同域及旧层退休静态核对；原身份/事实保历史，不代完整业务/SDK运行",
       "sources": [
         {
-          "path": "src/platform/LegacyHeap.cpp",
+          "path": "src/platform/LegacyMemory.cpp",
           "symbols": [
-            "FreeLegacyHeapMemory_53C0A9"
+            "FreeLegacyByteBuffer"
           ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
-        },
-        {
-          "path": "src/platform/LegacyHeap.hpp",
-          "symbols": [
-            "FreeLegacyHeapMemory_53C0A9"
-          ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
+          "relationship": "MC01-C4宿主库职责关联，非该原私有函数本体/同名调用；当前相关真实MSVC服务保持"
         }
       ],
       "inbound_evidence": [
@@ -51746,59 +51502,53 @@
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "doc/cg2d_heap_malloc_unification_evidence.json"
+        "doc/cg2d_heap_malloc_unification_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：按区域/页索引定位双W32项，加回标记U8、清标记，采样页计数恰240并重置失败门槛241；仅空页增加1086154，恰32调解除提交16页。未改页内连续空闲缓存，未添加重复释放保护。",
-      "heap_malloc_unification": {
-        "spec_id": "HMU01",
-        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "previous_sources": [
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "FreeLegacySmallHeap2Block_542A0F"
-            ]
-          },
-          {
-            "path": "src/platform/LegacyHeap.hpp",
-            "symbols": [
-              "FreeLegacySmallHeap2Block_542A0F"
-            ]
-          }
-        ],
-        "old_private_pool_interface_retired": true,
-        "all_generic_modes_share_standard_CRT": true,
-        "compilation_verified": false,
-        "runtime_verified": false,
-        "original_unknown_owner_alias_closed": false,
-        "previous_status": "完整模式2小块池本体及内部接线已实现并集中静态核对；外层分配器/启动/运行未闭合",
-        "previous_verification_level": "八本体622条/16直接入向、初始数据、页/描述区x64布局及板块集中静态核对；未构建、链接或执行"
+      "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 484,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "heap_malloc_unification"
+      ],
+      "current_provider": {
+        "kind": "msvc_private_runtime_duty",
+        "path": "src/platform/LegacyMemory.cpp",
+        "component": "已安装MSVC/UCRT真实堆/new-mode/失败与初始化支撑",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "old_private_body_implemented": false,
+        "old_private_slots_consumed": false,
+        "heap_initializer_or_fatal28_branch_present": false,
+        "runtime_verified": false
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
       "original_entry": "0x542A54",
       "inventory_id": "F:00142A54",
-      "status": "HMU01：旧CRT私有池接口/布局/状态退役，现通用消费者由真实标准分配族承接；原身份与原证保留，完整owner/间接alias/SDK/寿命未验。",
+      "status": "MC01-C4私有堆策略已交MSVC；三公开数量/容量薄适配保留，旧私有初始化/失败28退休；未编译/运行",
       "original_end_exclusive": "0x542C5C",
       "instruction_count": 180,
       "original_direct_reference_count": 3,
-      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
+      "verification_level": "限定当前源码/SDK声明、消费者/同域及旧层退休静态核对；原身份/事实保历史，不代完整业务/SDK运行",
       "sources": [
         {
-          "path": "src/platform/LegacyHeap.cpp",
+          "path": "src/platform/LegacyMemory.cpp",
           "symbols": [
-            "AllocateLegacyHeapBlock_53C3EA",
-            "CallocateLegacyMemory_53BFF8"
+            "AllocateLegacyByteBuffer"
           ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
-        },
-        {
-          "path": "src/platform/LegacyHeap.hpp",
-          "symbols": [
-            "AllocateLegacyHeapBlock_53C3EA"
-          ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
+          "relationship": "MC01-C4宿主库职责关联，非该原私有函数本体/同名调用；当前相关真实MSVC服务保持"
         }
       ],
       "inbound_evidence": [
@@ -51819,67 +51569,54 @@
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "doc/cg2d_heap_malloc_unification_evidence.json"
+        "doc/cg2d_heap_malloc_unification_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：从当前区域/页至尾再首回绕，按signed freeSlots>=请求及unsigned failedRequest>请求筛选；页扫描失败缓存请求，成功依次发布当前区域、扣空闲数、发布页游标。补池最多16页提交，返回必须等于页首；原memset第三参0保持。重提交首请求扣完整W32，新建区域首请求的元数据只扣U8；普通请求几何不扩。；2026-10-04仅原填充点改接真实FillLegacyMemory_5419D0，原数量/值/目标/失败/发布及生命周期保持，不重核父全文。",
-      "memory_fill_connections": [
-        {
-          "target_entry": "0x5419D0",
-          "call_site": "0x542BA3",
-          "source": "src/platform/LegacyHeap.cpp",
-          "symbol": "AllocateLegacySmallHeap2Block_542A54",
-          "relationship": "原Size push0、Val push当前commitBytes，成功VirtualAlloc后仅0数量返回/不写；不改参数顺序或清提交容量"
-        }
+      "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 485,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "memory_fill_connections",
+        "heap_malloc_unification"
       ],
-      "heap_malloc_unification": {
-        "spec_id": "HMU01",
-        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "previous_sources": [
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "AllocateLegacySmallHeap2Block_542A54"
-            ]
-          },
-          {
-            "path": "src/platform/LegacyHeap.hpp",
-            "symbols": [
-              "AllocateLegacySmallHeap2Block_542A54"
-            ]
-          }
-        ],
-        "old_private_pool_interface_retired": true,
-        "all_generic_modes_share_standard_CRT": true,
-        "compilation_verified": false,
-        "runtime_verified": false,
-        "original_unknown_owner_alias_closed": false,
-        "previous_status": "完整模式2小块池本体及内部接线已实现并集中静态核对；外层分配器/启动/运行未闭合",
-        "previous_verification_level": "八本体622条/16直接入向、初始数据、页/描述区x64布局及板块集中静态核对；未构建、链接或执行；新原填充call/必要参数生产及两文件限定标识符/数量接线静态核对，未构建或执行"
+      "current_provider": {
+        "kind": "msvc_private_runtime_duty",
+        "path": "src/platform/LegacyMemory.cpp",
+        "component": "已安装MSVC/UCRT真实堆/new-mode/失败与初始化支撑",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "old_private_body_implemented": false,
+        "old_private_slots_consumed": false,
+        "heap_initializer_or_fatal28_branch_present": false,
+        "runtime_verified": false
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
       "original_entry": "0x542C5C",
       "inventory_id": "F:00142C5C",
-      "status": "HMU01：旧CRT私有池接口/布局/状态退役，现通用消费者由真实标准分配族承接；原身份与原证保留，完整owner/间接alias/SDK/寿命未验。",
+      "status": "MC01-C4私有堆策略已交MSVC；三公开数量/容量薄适配保留，旧私有初始化/失败28退休；未编译/运行",
       "original_end_exclusive": "0x542D80",
       "instruction_count": 125,
       "original_direct_reference_count": 2,
-      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
+      "verification_level": "限定当前源码/SDK声明、消费者/同域及旧层退休静态核对；原身份/事实保历史，不代完整业务/SDK运行",
       "sources": [
         {
-          "path": "src/platform/LegacyHeap.cpp",
+          "path": "src/platform/LegacyMemory.cpp",
           "symbols": [
-            "AllocateLegacyHeapBlock_53C3EA"
+            "AllocateLegacyByteBuffer"
           ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
-        },
-        {
-          "path": "src/platform/LegacyHeap.hpp",
-          "symbols": [
-            "AllocateLegacyHeapBlock_53C3EA"
-          ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
+          "relationship": "MC01-C4宿主库职责关联，非该原私有函数本体/同名调用；当前相关真实MSVC服务保持"
         }
       ],
       "inbound_evidence": [
@@ -51896,58 +51633,53 @@
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "doc/cg2d_heap_malloc_unification_evidence.json"
+        "doc/cg2d_heap_malloc_unification_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：保留连续空闲快路径、游标后扫描和首部回绕；字节标记非零跳已分配长度，零洞逐字节扫至哨兵。严格小于末哨兵的扫描门禁、原游标连续缓存、剩余总空闲减算与三出口更新顺序保持。页内cursor为原生指针，freeRun移+FC仍U32，marker→data原关系和240槽保持。",
-      "heap_malloc_unification": {
-        "spec_id": "HMU01",
-        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "previous_sources": [
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "AllocateLegacySmallHeap2Page_542C5C"
-            ]
-          },
-          {
-            "path": "src/platform/LegacyHeap.hpp",
-            "symbols": [
-              "AllocateLegacySmallHeap2Page_542C5C"
-            ]
-          }
-        ],
-        "old_private_pool_interface_retired": true,
-        "all_generic_modes_share_standard_CRT": true,
-        "compilation_verified": false,
-        "runtime_verified": false,
-        "original_unknown_owner_alias_closed": false,
-        "previous_status": "完整模式2小块池本体及内部接线已实现并集中静态核对；外层分配器/启动/运行未闭合",
-        "previous_verification_level": "八本体622条/16直接入向、初始数据、页/描述区x64布局及板块集中静态核对；未构建、链接或执行"
+      "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 486,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "heap_malloc_unification"
+      ],
+      "current_provider": {
+        "kind": "msvc_private_runtime_duty",
+        "path": "src/platform/LegacyMemory.cpp",
+        "component": "已安装MSVC/UCRT真实堆/new-mode/失败与初始化支撑",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "old_private_body_implemented": false,
+        "old_private_slots_consumed": false,
+        "heap_initializer_or_fatal28_branch_present": false,
+        "runtime_verified": false
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
       "original_entry": "0x542D80",
       "inventory_id": "F:00142D80",
-      "status": "HMU01：旧CRT私有池接口/布局/状态退役，现通用消费者由真实标准分配族承接；原身份与原证保留，完整owner/间接alias/SDK/寿命未验。",
+      "status": "MC01-C4私有堆策略已交MSVC；三公开数量/容量薄适配保留，旧私有初始化/失败28退休；未编译/运行",
       "original_end_exclusive": "0x542E29",
       "instruction_count": 69,
       "original_direct_reference_count": 1,
-      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
+      "verification_level": "限定当前源码/SDK声明、消费者/同域及旧层退休静态核对；原身份/事实保历史，不代完整业务/SDK运行",
       "sources": [
         {
-          "path": "src/platform/LegacyHeap.cpp",
+          "path": "src/platform/LegacyMemory.cpp",
           "symbols": [
-            "ReallocateLegacyMemory_53FA5B"
+            "AllocateLegacyByteBuffer"
           ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
-        },
-        {
-          "path": "src/platform/LegacyHeap.hpp",
-          "symbols": [
-            "InitializeLegacyHeap_541BB8"
-          ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
+          "relationship": "MC01-C4宿主库职责关联，非该原私有函数本体/同名调用；当前相关真实MSVC服务保持"
         }
       ],
       "inbound_evidence": [
@@ -51960,34 +51692,36 @@
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "doc/cg2d_heap_malloc_unification_evidence.json"
+        "doc/cg2d_heap_malloc_unification_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：相等长度原返回0；缩小更新U8标记、归还页空闲数并重置失败门槛241。增长确认连续零洞及<=哨兵边界，先更新标记，原游标被覆盖才重算连续缓存；末哨兵处归零游标回首；按原差值调整总页空闲。不把相等长度改成成功，不补输入限制。",
-      "heap_malloc_unification": {
-        "spec_id": "HMU01",
-        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "previous_sources": [
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "ResizeLegacySmallHeap2Block_542D80"
-            ]
-          },
-          {
-            "path": "src/platform/LegacyHeap.hpp",
-            "symbols": [
-              "ResizeLegacySmallHeap2Block_542D80"
-            ]
-          }
-        ],
-        "old_private_pool_interface_retired": true,
-        "all_generic_modes_share_standard_CRT": true,
-        "compilation_verified": false,
-        "runtime_verified": false,
-        "original_unknown_owner_alias_closed": false,
-        "previous_status": "完整模式2小块池本体及内部接线已实现并集中静态核对；外层分配器/启动/运行未闭合",
-        "previous_verification_level": "八本体622条/16直接入向、初始数据、页/描述区x64布局及板块集中静态核对；未构建、链接或执行"
+      "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 487,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "heap_malloc_unification"
+      ],
+      "current_provider": {
+        "kind": "msvc_private_runtime_duty",
+        "path": "src/platform/LegacyMemory.cpp",
+        "component": "已安装MSVC/UCRT真实堆/new-mode/失败与初始化支撑",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "old_private_body_implemented": false,
+        "old_private_slots_consumed": false,
+        "heap_initializer_or_fatal28_branch_present": false,
+        "runtime_verified": false
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
@@ -62810,11 +62544,11 @@
     {
       "original_entry": "0x53BFF8",
       "inventory_id": "F:0013BFF8",
-      "status": "HMU01：通用堆全部模式统一真实CRT提供者，U32/请求数量策略/失败处理器与当前caller保持；旧池仅历史，完整owner/间接alias/SDK/寿命未验。",
+      "status": "MC01-C4私有堆策略已交MSVC；三公开数量/容量薄适配保留，旧私有初始化/失败28退休；未编译/运行",
       "original_end_exclusive": "0x53C0A9",
       "instruction_count": 72,
       "original_direct_reference_count": 23,
-      "verification_level": "HMU01限定源码/提供者/当前调用/数量与条件及历史登记静态核对；当前未编译、链接或执行；迁移前验证范围见heap_malloc_unification。",
+      "verification_level": "限定当前源码/SDK声明、消费者/同域及旧层退休静态核对；原身份/事实保历史，不代完整业务/SDK运行",
       "function_chunks": [
         {
           "start": "0x53BFF8",
@@ -62917,11 +62651,11 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyHeap.cpp",
+          "path": "src/platform/LegacyMemory.cpp",
           "symbols": [
             "CallocateLegacyMemory_53BFF8"
           ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
+          "relationship": "MC01-C4真实MSVC薄适配；原U32接口，库内请求/失败合同按MSVC"
         },
         {
           "path": "include/cg/platform/LegacyMemory.hpp",
@@ -62941,87 +62675,45 @@
         "doc/cg2d_heap_malloc_unification_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_evidence.json"
+        "doc/cg2d_msvc_crt_file_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "HMU01最新：通用分配/清零/扩容/容量/释放同CRT域，旧私有池接口/布局退役；九实际提供者与caller/handler数量合同保持，SDK/原owner/间接alias/寿命未验。迁移前边界：真实U32乘积、上限/0→1/16B对齐、每轮模式采样和失败门禁重读。mode3小块清原请求，mode2小块清对齐容量，普通HeapAlloc(flags8)；处理器接收当前长度。两stdio原调用保持并已接本体，21应用原入向未迁移；模式3/完整启动仍待，未用宿主calloc补原堆。；2026-10-04仅既有原填充点改接真实FillLegacyMemory_5419D0，当前容量/目标/数值/时点及原失败/owner保持；其余父正文不重验。；2026-10-05 SCH01只将53E9C7/53E9E0的stdio指针索引表allocate/clear切私有SDK std::calloc；既有pointer size8、低W32乘积/零变1/16对齐/上界、失败new-mode与541A28(bytes)重试/异常传播保持。父512/20/错误26/20实际静态FILE写入/三底层句柄消费及原所有表消费者/FILE项std释放保持。不读旧mode3/块头，不新增整表释放/query/resize、修重初始化泄漏或启动；全表实际已知无这些操作，十直接引用不排除未知alias/free。SDK私有容量/分桶/对齐尾零/低内存和错误策略adapted，原21应用calloc、通用旧堆/其余域不改，完整C01/C08/C10/C11/运行未闭。；2026-10-05 M3H01五mode3分支同时std::malloc/std::calloc/std::realloc/std::free/UCRT_msize，失败不混入Win32 fallback，不读原区域/块前W32或调用三旧核心。原API数量W32、malloc外层上界/handler与calloc对齐bytes/失败new-mode保持；realloc NULL/非空零/上界/旧块失败有效与原输入请求保持，SDK失败handler统一输入byteCount，旧某fallback物理对齐数量及私有复制尾/错误策略按D02 adapted，不称其数值/时机等价。mode1/2/元数据/初始化/其他已迁域原文保持，mode selector3只兼容选择不是SDK旧池报告。SDK块要求模式寿命稳定/同域，外来Win32/模式2块不得进入3路径；无tag表/压缩指针/假内核，未知全部owner/alias/R1、SDK ABI和完整退出/运行未闭。",
-      "memory_fill_connections": [
-        {
-          "target_entry": "0x5419D0",
-          "call_site": "0x53C094",
-          "source": "src/platform/LegacyHeap.cpp",
-          "symbol": "CallocateLegacyMemory_53BFF8",
-          "relationship": "mode3先push原乘积；mode2@53C0A2先push当前对齐ESI、jmp53C091；同一原call，不算两原点"
-        }
-      ],
-      "stdio_table_heap_contract": {
-        "group": "SCH01",
-        "spec": "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure",
-        "source": "src/platform/LegacyStdio.cpp",
-        "symbol": "CallocateLegacyStdioTable_53BFF8",
-        "table_global": "gLegacyStreamTable1086AC4",
-        "type": "LegacyFile**",
-        "sdk_provider": "std::calloc",
-        "domain": "stdio pointer table allocate/clear only",
-        "call_sites": [
-          "0x53E9C7",
-          "0x53E9E0"
-        ],
-        "u32_product_preserved": true,
-        "aligned_handler_preserved": true,
-        "general_allocator_changed": false,
-        "new_entire_table_free": false,
-        "new_activity": false,
-        "unknown_alias_closed": false,
-        "runtime_verified": false
-      },
-      "mode3_sdk_domain_contract": {
-        "group": "M3H01",
-        "spec": "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
-        "source": "src/platform/LegacyHeap.cpp",
-        "scope": "only mode3",
-        "sdk_domain_operations": [
-          "allocate",
-          "clear",
-          "resize",
-          "size",
-          "free"
-        ],
-        "mode1_and_mode2_changed": false,
-        "old_prefix_read": false,
-        "old_core_calls": false,
-        "old_core_bodies_added": false,
-        "live_mode_stability_required": true,
-        "foreign_domain_allowed": false,
-        "failure_handler_quantum_original_equivalent": false,
-        "unknown_owners_closed": false,
-        "runtime_verified": false
-      },
-      "heap_malloc_unification": {
-        "spec_id": "HMU01",
-        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "previous_sources": [
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "CallocateLegacyMemory_53BFF8"
-            ]
-          }
-        ],
-        "old_private_pool_interface_retired": false,
-        "all_generic_modes_share_standard_CRT": true,
-        "compilation_verified": false,
-        "runtime_verified": false,
-        "original_unknown_owner_alias_closed": false,
-        "previous_status": "M3H01通用mode3分配/清零/扩容/容量/释放同域SDK承接，mode1/2保持；原私有核心不模拟，全部owner/模式寿命/alias/SDK运行未闭",
-        "previous_verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行；仅原填充call邻窗与限定标识符/数量低U32接线静态核对，未构建或执行；SCH01五完整根260条/659B、两真实calloc/23已证直属入向/十表引用及一源限定清零域/父失败消费静态；共享root仅本表分域对应，不构建/测试/运行/摘要；M3H01五完整根449条/1167B、七旧核心call及mode六引用，五分支/头注释限定重放，mode1/2/其余源码及政策保持；未构建/测试/运行/摘要"
-      },
+      "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
       "previous_mapping_before_mc01b": {
         "snapshot": "cg2d-re-msvc-crt-file-history-20261009",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 645,
         "original_entry": "0x53BFF8",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 645,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "memory_fill_connections",
+        "stdio_table_heap_contract",
+        "mode3_sdk_domain_contract",
+        "heap_malloc_unification"
+      ],
+      "current_provider": {
+        "kind": "msvc_crt_adapter",
+        "path": "src/platform/LegacyMemory.cpp",
+        "symbol": "CallocateLegacyMemory_53BFF8",
+        "service": "std::calloc",
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "actual_outside_callers_in_current_src_include": 0,
+        "runtime_verified": false
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
@@ -63051,13 +62743,6 @@
             "Strtol_53DA45"
           ],
           "relationship": "MC01-A当前直接MSVC服务或必要定宽/借用适配，不再使用旧CRT算法"
-        },
-        {
-          "path": "src/platform/LegacyMemory.cpp",
-          "symbols": [
-            "SelectLegacyHeapMode_541A70"
-          ],
-          "relationship": "对应唯一原父调用541B8B，传(value,nullptr,10)"
         }
       ],
       "evidence_documents": [
@@ -63065,9 +62750,12 @@
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_evidence.json"
+        "doc/cg2d_msvc_crt_scalar_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
-      "boundary": "按用户CRT直接使用MSVC决议由真实UCRT服务承接；原字节/逐指令本体与库内全局状态只作历史。现接口及业务字段宽度/实际参数和返回消费保持；CRT locale/错误/内部读取、TLS、格式/容量与失败机制采用本机合同。FILE/lowio及C++剩余整组迁移继续，完整业务及运行未验。",
+      "boundary": "按用户CRT直接使用MSVC决议由真实UCRT服务承接；原字节/逐指令本体与库内全局状态只作历史。现接口及业务字段宽度/实际参数和返回消费保持；CRT locale/错误/内部读取、TLS、格式/容量与失败机制采用本机合同。FILE/lowio及C++剩余整组迁移继续，完整业务及运行未验。；MC01-C4只退休旧堆模式/handler/初始化消费者或无现消费别名，当前真实公共/共享/业务提供者与原机器基线保持；旧数量/失败策略只历史。",
       "current_provider": {
         "decision": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "path": "src/platform/LegacyTime.cpp",
@@ -63080,6 +62768,24 @@
         "record_index": 646,
         "original_entry": "0x53DA45",
         "boundary": "此前完整记录可按该固定引用和索引读取；不重复内嵌旧历史链。"
+      },
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 646,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "msvc_heap_retired_consumers": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "current_shared_provider_kept": true,
+        "whole_function_classified_as_private_host": false,
+        "original_private_roles_historical": true
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
@@ -67084,20 +66790,6 @@
       "original_direct_reference_count": 55,
       "sources": [
         {
-          "path": "src/platform/LegacyHeap.cpp",
-          "symbols": [
-            "AllocateLegacyHeapMemory_53C3AC"
-          ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
-        },
-        {
-          "path": "src/platform/LegacyHeap.hpp",
-          "symbols": [
-            "AllocateLegacyHeapMemory_53C3AC"
-          ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
-        },
-        {
           "path": "src/platform/LegacyTime.cpp",
           "symbols": [
             "Malloc_53C3AC"
@@ -67343,10 +67035,13 @@
         "doc/cg2d_heap_malloc_unification_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_evidence.json"
+        "doc/cg2d_msvc_crt_scalar_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
       "verification_level": "当前源码和已安装SDK声明限定静态核对；原指令事实保留，未编译/运行或计算摘要",
-      "boundary": "按用户CRT直接使用MSVC决议由真实UCRT服务承接；原字节/逐指令本体与库内全局状态只作历史。现接口及业务字段宽度/实际参数和返回消费保持；CRT locale/错误/内部读取、TLS、格式/容量与失败机制采用本机合同。FILE/lowio及C++剩余整组迁移继续，完整业务及运行未验。",
+      "boundary": "按用户CRT直接使用MSVC决议由真实UCRT服务承接；原字节/逐指令本体与库内全局状态只作历史。现接口及业务字段宽度/实际参数和返回消费保持；CRT locale/错误/内部读取、TLS、格式/容量与失败机制采用本机合同。FILE/lowio及C++剩余整组迁移继续，完整业务及运行未验。；MC01-C4只退休旧堆模式/handler/初始化消费者或无现消费别名，当前真实公共/共享/业务提供者与原机器基线保持；旧数量/失败策略只历史。",
       "host_contract_call_connections": [
         {
           "parent_entry": "0x4FBA30",
@@ -67359,33 +67054,6 @@
           "contract": "既有已批准std::malloc/std::free宿主窄合同，不进入真实原堆块域"
         }
       ],
-      "heap_malloc_unification": {
-        "spec_id": "HMU01",
-        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "previous_sources": [
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "AllocateLegacyHeapMemory_53C3AC"
-            ],
-            "relationship": "真实原堆调用域本体；不消费宿主分配块"
-          },
-          {
-            "path": "src/platform/LegacyHeap.hpp",
-            "symbols": [
-              "AllocateLegacyHeapMemory_53C3AC"
-            ]
-          }
-        ],
-        "old_private_pool_interface_retired": false,
-        "all_generic_modes_share_standard_CRT": true,
-        "compilation_verified": false,
-        "runtime_verified": false,
-        "original_unknown_owner_alias_closed": false,
-        "previous_status": "真实原堆本体及指定CRT调用域已实现；既有宿主窄合同保持，模式3/启动未闭合",
-        "previous_verification_level": "完整原指令/所有直接入向和本步指定调用域静态核对；未构建、链接或执行"
-      },
       "current_provider": {
         "decision": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "path": "src/platform/LegacyTime.cpp",
@@ -67398,6 +67066,27 @@
         "record_index": 704,
         "original_entry": "0x53C3AC",
         "boundary": "此前完整记录可按该固定引用和索引读取；不重复内嵌旧历史链。"
+      },
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 704,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "heap_malloc_unification"
+      ],
+      "msvc_heap_retired_consumers": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "current_shared_provider_kept": true,
+        "whole_function_classified_as_private_host": false,
+        "original_private_roles_historical": true
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
       }
     },
     {
@@ -67408,20 +67097,6 @@
       "instruction_count": 45,
       "original_direct_reference_count": 90,
       "sources": [
-        {
-          "path": "src/platform/LegacyHeap.cpp",
-          "symbols": [
-            "FreeLegacyHeapMemory_53C0A9"
-          ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
-        },
-        {
-          "path": "src/platform/LegacyHeap.hpp",
-          "symbols": [
-            "FreeLegacyHeapMemory_53C0A9"
-          ],
-          "relationship": "HMU01现提供者：通用模式全部CRT标准分配族，原W32/数量/handler与caller保持；旧池职责由宿主承接，原region/布局/状态仅历史，无同名本体或原体等价声明。"
-        },
         {
           "path": "src/platform/LegacyTime.cpp",
           "symbols": [
@@ -67813,10 +67488,13 @@
         "doc/cg2d_msvc_crt_scalar_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json"
       ],
       "verification_level": "当前源码和已安装SDK声明限定静态核对；原指令事实保留，未编译/运行或计算摘要",
-      "boundary": "按用户CRT直接使用MSVC决议由真实UCRT服务承接；原字节/逐指令本体与库内全局状态只作历史。现接口及业务字段宽度/实际参数和返回消费保持；CRT locale/错误/内部读取、TLS、格式/容量与失败机制采用本机合同。FILE/lowio及C++剩余整组迁移继续，完整业务及运行未验。；MC01-C1所列旧C++库消费者及其接线仅属历史，剩余实际服务/业务代码不变；不据本组扩大完整共享函数处置或门禁。",
+      "boundary": "按用户CRT直接使用MSVC决议由真实UCRT服务承接；原字节/逐指令本体与库内全局状态只作历史。现接口及业务字段宽度/实际参数和返回消费保持；CRT locale/错误/内部读取、TLS、格式/容量与失败机制采用本机合同。FILE/lowio及C++剩余整组迁移继续，完整业务及运行未验。；MC01-C1所列旧C++库消费者及其接线仅属历史，剩余实际服务/业务代码不变；不据本组扩大完整共享函数处置或门禁。；MC01-C4只退休旧堆模式/handler/初始化消费者或无现消费别名，当前真实公共/共享/业务提供者与原机器基线保持；旧数量/失败策略只历史。",
       "host_contract_call_connections": [
         {
           "parent_entry": "0x4FBA30",
@@ -67828,55 +67506,6 @@
           "contract": "消费同源Malloc_53C3AC宿主块；绘制/测宽/X推进/源切换后释放，不混原堆"
         }
       ],
-      "mode3_sdk_domain_contract": {
-        "group": "M3H01",
-        "spec": "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
-        "source": "src/platform/LegacyHeap.cpp",
-        "scope": "only mode3",
-        "sdk_domain_operations": [
-          "allocate",
-          "clear",
-          "resize",
-          "size",
-          "free"
-        ],
-        "mode1_and_mode2_changed": false,
-        "old_prefix_read": false,
-        "old_core_calls": false,
-        "old_core_bodies_added": false,
-        "live_mode_stability_required": true,
-        "foreign_domain_allowed": false,
-        "failure_handler_quantum_original_equivalent": false,
-        "unknown_owners_closed": false,
-        "runtime_verified": false
-      },
-      "heap_malloc_unification": {
-        "spec_id": "HMU01",
-        "decision_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "source_state_ref": "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "previous_sources": [
-          {
-            "path": "src/platform/LegacyHeap.cpp",
-            "symbols": [
-              "FreeLegacyHeapMemory_53C0A9"
-            ],
-            "relationship": "真实原堆调用域本体；不消费宿主分配块"
-          },
-          {
-            "path": "src/platform/LegacyHeap.hpp",
-            "symbols": [
-              "FreeLegacyHeapMemory_53C0A9"
-            ]
-          }
-        ],
-        "old_private_pool_interface_retired": false,
-        "all_generic_modes_share_standard_CRT": true,
-        "compilation_verified": false,
-        "runtime_verified": false,
-        "original_unknown_owner_alias_closed": false,
-        "previous_status": "M3H01通用mode3分配/清零/扩容/容量/释放同域SDK承接，mode1/2保持；原私有核心不模拟，全部owner/模式寿命/alias/SDK运行未闭",
-        "previous_verification_level": "完整原指令/所有直接入向和本步指定调用域静态核对；未构建、链接或执行；新增ios_base父数值call/尾调与新增消费静态，不执行；新增basic_ios原父数值call/尾调与消费静态，不执行；新owner父数值原调用/尾调与新增静态，不执行；M3H01五完整根449条/1167B、七旧核心call及mode六引用，五分支/头注释限定重放，mode1/2/其余源码及政策保持；未构建/测试/运行/摘要"
-      },
       "current_provider": {
         "decision": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "path": "src/platform/LegacyTime.cpp",
@@ -67910,6 +67539,28 @@
       "msvc_cpp_group": {
         "spec": "MC01-C1",
         "retired_source_group": "doc/cg2d_msvc_crt_cpp_evidence.json#/retired_paths",
+        "business_fields_bytes_rng_kept": true,
+        "full_feature_accepted": false
+      },
+      "previous_mapping_before_mc01c4": {
+        "git_snapshot": "cg2d-re-msvc-crt-heap-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 705,
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010"
+      },
+      "historical_heap_current_field_names": [
+        "heap_malloc_unification",
+        "mode3_sdk_domain_contract"
+      ],
+      "msvc_heap_retired_consumers": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "current_shared_provider_kept": true,
+        "whole_function_classified_as_private_host": false,
+        "original_private_roles_historical": true
+      },
+      "msvc_heap_group": {
+        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
       }

@@ -1,8 +1,5 @@
 #include "cg/platform/LegacyMouse.hpp"
 
-#include "LegacyHeap.hpp"
-#include "LegacyRuntimeError.hpp"
-
 #include "../LoginMessageDependencies.hpp"
 #include "../LegacyPanelRuntime.hpp"
 #include "MainLoopDependencies.hpp"
@@ -32,13 +29,10 @@ std::uint32_t gValueD68DC8 = 0;
 
 namespace {
 
-// MC01-C3：CRT入口持有流/异常/退出；保当前仍消费的heap/多字节前置。
+// MC01-C4：MSVC入口管理堆/异常/退出；当前仅保多字节前置。
 struct LegacyMultibyteStaticInitializer {
     LegacyMultibyteStaticInitializer()
     {
-        if (InitializeLegacyHeap_541BB8(0) == 0) {
-            FastLegacyRuntimeErrorExit_53DED0(28);
-        }
         InitializeLegacyMultibyte_546CAE();
     }
 };

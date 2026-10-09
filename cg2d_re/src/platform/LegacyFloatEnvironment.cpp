@@ -190,9 +190,9 @@ static_assert(sizeof(LegacyMathErrorRecord) == 40);
 std::int32_t SetLegacyMathErrno_5478B2(const std::int32_t type) noexcept
 {
     if (type == 1) {
-        gLegacyErrno_1085FE0 = 33;
+        LegacyErrno_1085FE0() = 33;
     } else if (type > 1 && type <= 3) {
-        gLegacyErrno_1085FE0 = 34;
+        LegacyErrno_1085FE0() = 34;
     }
     return type;
 }

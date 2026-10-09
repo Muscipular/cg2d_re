@@ -1,5 +1,7 @@
 # 原C++裸字节缓冲分配与释放合同
 
+> 2026-10-09用户最新CRT要求：当前按[MC01](cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009)直接采用MSVC。标量C服务、32位时间及字符串格式/扫描已转真实宿主提供者；下文旧算法/共享错误槽/逐指令保持条款在该具名范围只作历史。FILE/lowio及C++对象剩余组仍处迁移期，业务格式/编码/字段、owner和全部适用运行门禁保持。
+
 > 2026-10-09最新通用堆合同：[HMU01](cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state)已按用户malloc方向与第8条工程委托将全部通用模式统一malloc/calloc/realloc/free/_msize，初始化借用真实CRT句柄；原模式只保请求数量策略。具名覆盖下文旧阶段“模式1/2、私有池及元数据保持”，12旧池接口/8布局类型/10状态槽已退役，原身份及旧实施证据保留为历史。裸字节及其它独立域保持；完整owner/间接alias/SDK/正常寿命与C01/C08/C11/V02仍未闭，当前未编译/运行。
 
 > 2026-10-04最新决议：受限宿主分配域承接已决议；模式3不再要求复造16B原私有双链，整域配对/可见状态迁移未实施。见[当前子SPEC](cg2d_crt_runtime_boundary_spec.md)。下文“待批/未决”保留其历史时点，不覆盖本轮授权；原端证据和既有验证结论不改写。

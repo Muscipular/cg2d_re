@@ -37,3 +37,5 @@
 **2026-10-09 ASM迁CPP数值许可**：用户允许三份数学ASM使用`double`与标准数学近似替换，按[ACP01](doc/cg2d_asm_to_cpp_migration_spec.md)执行。原F32字段继续`float`，中间数学用`double`；具名覆盖三文件旧x87精度/私有ST0数值要求，字段、业务分支、读取/发布序与寿命保持，整数读取不补值。不扩大运行权限或恢复MIDI方向。
 
 **2026-10-09通用堆标准分配族**：按用户malloc方向与第8条工程委托落实[HMU01](doc/cg2d_heap_malloc_unification_spec.md)。通用分配/清零/扩容/容量/释放全部模式统一CRT，保请求/数量策略及失败处理器，初始化借真实CRT句柄；覆盖旧阶段“模式1/2及私有池保留”，只退休无当前CPP消费者的CRT池，不扩业务兼容删除或裸字节域，不降低完整owner/SDK/寿命验收。
+
+**2026-10-09 CRT直接使用MSVC**：用户最新指令“CRT 直接用msvc代替”，按[MC01](doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009)统一采用已安装UCRT/VCRuntime/STL，覆盖旧阶段永久保留自实现CRT的约束。停止重建已确认CRT的私有算法/旧机器ABI；沿真实类型/数据/消费者/释放成组替换，不混用FILE或分配域。原身份/证据保历史，宿主库内差异具名记录；业务协议/资源字节、字段宽度、RNG、owner与全部适用验收保持。不自动恢复构建/测试/运行/产物或摘要权限。

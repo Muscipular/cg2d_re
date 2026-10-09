@@ -605,7 +605,7 @@ std::int32_t Mbtowc_544552(wchar_t* const destination, const char* const source,
         std::int32_t width = gLegacyCtypeMaxBytes58FE3C;
         if (width > 1) {
             if (std::bit_cast<std::int32_t>(sourceCount) < width) {
-                gLegacyErrno_1085FE0 = 42;
+                LegacyErrno_1085FE0() = 42;
                 return -1;
             }
             const int converted = ::MultiByteToWideChar(gConversionCodePage_1086170,
@@ -624,7 +624,7 @@ std::int32_t Mbtowc_544552(wchar_t* const destination, const char* const source,
             destination, destination != nullptr ? 1 : 0) != 0) {
         return 1;
     }
-    gLegacyErrno_1085FE0 = 42;
+    LegacyErrno_1085FE0() = 42;
     return -1;
 }
 
@@ -649,7 +649,7 @@ std::int32_t Wctomb_54472B(char* const destination, const std::uint16_t characte
             return converted;
         }
     }
-    gLegacyErrno_1085FE0 = 42;
+    LegacyErrno_1085FE0() = 42;
     return -1;
 }
 
@@ -693,7 +693,7 @@ std::int32_t Mbrtowc_54A9C3(wchar_t* const destination, const char* const source
             return gLegacyCtypeMaxBytes58FE3C;
         }
         *state = 0;
-        gLegacyErrno_1085FE0 = 42;
+        LegacyErrno_1085FE0() = 42;
         return -1;
     }
     if ((gCtypePointer58FC30[first] & 0x8000u) != 0) {
@@ -715,7 +715,7 @@ std::int32_t Mbrtowc_54A9C3(wchar_t* const destination, const char* const source
             source, 1, destination, destination != nullptr ? 1 : 0) != 0) {
         return 1;
     }
-    gLegacyErrno_1085FE0 = 42;
+    LegacyErrno_1085FE0() = 42;
     return -1;
 }
 
@@ -746,7 +746,7 @@ std::uint32_t Mbstowcs_53C9DD(wchar_t* const destination, const char* const sour
         if (converted != 0) {
             return static_cast<std::uint32_t>(converted - 1);
         }
-        gLegacyErrno_1085FE0 = 42;
+        LegacyErrno_1085FE0() = 42;
         return 0xFFFFFFFFu;
     }
     if (destinationCount == 0) {
@@ -774,7 +774,7 @@ std::uint32_t Mbstowcs_53C9DD(wchar_t* const destination, const char* const sour
         return static_cast<std::uint32_t>(converted - 1);
     }
     if (::GetLastError() != ERROR_INSUFFICIENT_BUFFER) {
-        gLegacyErrno_1085FE0 = 42;
+        LegacyErrno_1085FE0() = 42;
         return 0xFFFFFFFFu;
     }
 
@@ -804,7 +804,7 @@ std::uint32_t Mbstowcs_53C9DD(wchar_t* const destination, const char* const sour
     if (prefixConverted != 0) {
         return static_cast<std::uint32_t>(prefixConverted);
     }
-    gLegacyErrno_1085FE0 = 42;
+    LegacyErrno_1085FE0() = 42;
     return 0xFFFFFFFFu;
 }
 

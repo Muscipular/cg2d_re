@@ -33,21 +33,22 @@ extern LegacyFloatNonnegativeCallback gLegacyFloatNonnegative58FB60;
 extern LegacyFloatFormatCallback gLegacyFloatFormatAlias58FB64;
 [[noreturn]] void LegacyFloatingPointTrap_545031();
 
-// 原核心及三公共包装；原生va_list只承接参数位置，不使用宿主格式引擎。
+// 流输出核心暂用旧FILE；字符串包装已按MC01直接采用MSVC格式引擎。
 std::int32_t FormatLegacyOutput_53EB28(
     LegacyFile* stream, const char* format, std::va_list arguments);
-// 原4D8DA0@4D8F5B单W32读取；只借对应命令元素地址，ASM真实读出S32后给原%d。
+// 原4D8DA0@4D8F5B单W32读取；只借对应命令元素地址，经CPP intrinsic取样后给%d。
 // 命令仍仅按原分支写入；CPP该处不直接求值未生产整数，不补值/模拟原栈或外推原值等价。
 extern "C" std::int32_t Cg2dReadLegacyShopCommandW32(
     const std::int32_t* command) noexcept;
 
+// vsprintf/_vsnprintf：实际返回及容量耗尽行为采用MSVC合同，调用方保证参数匹配。
 std::int32_t FormatLegacyString_53B304(char* buffer, const char* format, ...);
 std::int32_t FormatLegacyBoundedString_53D21D(
     char* buffer, std::uint32_t capacity, const char* format, ...);
 std::int32_t FormatLegacyStream_53BC0F(LegacyFile* stream, const char* format, ...);
 
 
-// 原输入核心/字符串包装；目标地址按Win64 va_list传递，数值写入保持原宽度。
+// 流扫描核心暂用旧FILE；字符串包装直接vsscanf，目标类型由格式串与调用方保证。
 std::int32_t ScanLegacyInput_53DEF4(
     LegacyFile* stream, const char* format, std::va_list arguments);
 std::int32_t ScanLegacyString_53CADC(const char* buffer, const char* format, ...);

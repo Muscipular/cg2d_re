@@ -6,6 +6,7 @@
 #include "cg/platform/LegacyMemory.hpp"
 
 #include <bit>
+#include <cstdio>
 #include <cstring>
 
 namespace cg::platform {
@@ -461,15 +462,9 @@ eof:
 
 std::int32_t ScanLegacyString_53CADC(const char* const buffer, const char* const format, ...)
 {
-    LegacyFile stream;
-    stream.flags = 0x49;
-    stream.base = const_cast<char*>(buffer);
-    stream.current = const_cast<char*>(buffer);
-    stream.remaining = std::bit_cast<std::int32_t>(
-        static_cast<std::uint32_t>(StrLen_53F9E0(buffer)));
     std::va_list arguments;
     va_start(arguments, format);
-    const std::int32_t result = ScanLegacyInput_53DEF4(&stream, format, arguments);
+    const std::int32_t result = std::vsscanf(buffer, format, arguments);
     va_end(arguments);
     return result;
 }

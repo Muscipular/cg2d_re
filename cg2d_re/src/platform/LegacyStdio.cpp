@@ -628,7 +628,7 @@ std::int32_t TellLegacyStream_53CB78(LegacyFile* const stream)
             }
         }
     } else if ((flags & 0x80u) == 0) {
-        gLegacyErrno_1085FE0 = 22;
+        LegacyErrno_1085FE0() = 22;
         return -1;
     }
     if (position == 0) {
@@ -683,7 +683,7 @@ std::int32_t SeekLegacyStream_53BC41(LegacyFile* const stream,
 {
     std::uint32_t flags = stream->flags;
     if ((flags & 0x83u) == 0 || (origin != 0 && origin != 1 && origin != 2)) {
-        gLegacyErrno_1085FE0 = 22;
+        LegacyErrno_1085FE0() = 22;
         return -1;
     }
     stream->flags = flags & ~0x10u;
@@ -818,7 +818,7 @@ std::int64_t TellLegacyStream64_54B239(LegacyFile* const stream)
             }
         }
     } else if ((flags & 0x80u) == 0) {
-        gLegacyErrno_1085FE0 = 22;
+        LegacyErrno_1085FE0() = 22;
         return -1;
     }
     if (position == 0) {
@@ -873,7 +873,7 @@ std::int32_t SeekLegacyStream64_54B3C0(LegacyFile* const stream,
 {
     std::uint32_t flags = stream->flags;
     if ((flags & 0x83u) == 0 || (origin != 0 && origin != 1 && origin != 2)) {
-        gLegacyErrno_1085FE0 = 22;
+        LegacyErrno_1085FE0() = 22;
         return -1;
     }
     stream->flags = flags & ~0x10u;
@@ -1027,7 +1027,7 @@ std::uint16_t WriteLegacyStreamWide_54AD92(
             char bytes[4];
             const std::int32_t count = Wctomb_54472B(bytes, character);
             if (count == -1) {
-                gLegacyErrno_1085FE0 = 42;
+                LegacyErrno_1085FE0() = 42;
                 return 0xFFFF;
             }
             // 原非1成功结果只写前两字节，不按转换返回数量循环。
@@ -1088,7 +1088,7 @@ std::uint16_t ReadLegacyStreamWide_54AF70(LegacyFile* const stream)
             wchar_t converted = static_cast<wchar_t>(
                 static_cast<std::uint16_t>(reinterpret_cast<std::uintptr_t>(stream) >> 16));
             if (Mbtowc_544552(&converted, bytes, count) == -1) {
-                gLegacyErrno_1085FE0 = 42;
+                LegacyErrno_1085FE0() = 42;
                 return 0xFFFF;
             }
             return static_cast<std::uint16_t>(converted);
@@ -1127,7 +1127,7 @@ std::uint16_t UnreadLegacyStreamWide_54AE87(
             char bytes[4];
             const std::int32_t count = Wctomb_54472B(bytes, character);
             if (count == -1) {
-                gLegacyErrno_1085FE0 = 42;
+                LegacyErrno_1085FE0() = 42;
                 return 0xFFFF;
             }
             char* const current = stream->current;

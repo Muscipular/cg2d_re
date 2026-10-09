@@ -6,6 +6,7 @@
 #include "cg/platform/LegacyTime.hpp"
 
 #include <bit>
+#include <cstdio>
 #include <cstring>
 
 namespace cg::platform {
@@ -456,42 +457,20 @@ std::int32_t FormatLegacyOutput_53EB28(LegacyFile* const stream,
 
 std::int32_t FormatLegacyString_53B304(char* const buffer, const char* const format, ...)
 {
-    LegacyFile stream;
-    stream.base = buffer;
-    stream.current = buffer;
-    stream.flags = 0x42;
-    stream.remaining = 0x7FFFFFFF;
     std::va_list arguments;
     va_start(arguments, format);
-    const std::int32_t result = FormatLegacyOutput_53EB28(&stream, format, arguments);
+    const std::int32_t result = std::vsprintf(buffer, format, arguments);
     va_end(arguments);
-    --stream.remaining;
-    if (stream.remaining >= 0) {
-        *stream.current = '\0';
-    } else {
-        static_cast<void>(FlushAndWriteLegacyStreamByte_53F8C0(0, &stream));
-    }
     return result;
 }
 
 std::int32_t FormatLegacyBoundedString_53D21D(char* const buffer,
     const std::uint32_t capacity, const char* const format, ...)
 {
-    LegacyFile stream;
-    stream.base = buffer;
-    stream.current = buffer;
-    stream.flags = 0x42;
-    stream.remaining = std::bit_cast<std::int32_t>(capacity);
     std::va_list arguments;
     va_start(arguments, format);
-    const std::int32_t result = FormatLegacyOutput_53EB28(&stream, format, arguments);
+    const std::int32_t result = ::_vsnprintf(buffer, capacity, format, arguments);
     va_end(arguments);
-    --stream.remaining;
-    if (stream.remaining >= 0) {
-        *stream.current = '\0';
-    } else {
-        static_cast<void>(FlushAndWriteLegacyStreamByte_53F8C0(0, &stream));
-    }
     return result;
 }
 

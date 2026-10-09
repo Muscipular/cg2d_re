@@ -455,7 +455,7 @@ void TakeScreenshot_453760()
     POINT origin {0, 0};
     static_cast<void>(ClientToScreen(reinterpret_cast<HWND>(platform::gLegacyWindow), &origin));
     if (platform::CreateLegacyDirectory_53C654(kScreenshotDirectory556738) != 0
-        && platform::gLegacyErrno_1085FE0 != 17) {
+        && platform::LegacyErrno_1085FE0() != 17) {
         return;
     }
     std::int32_t time;

@@ -1,5 +1,7 @@
 # 游戏时间与原时间入口
 
+> 2026-10-09用户最新CRT要求：当前按[MC01](cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009)直接采用MSVC。标量C服务、32位时间及字符串格式/扫描已转真实宿主提供者；下文旧算法/共享错误槽/逐指令保持条款在该具名范围只作历史。FILE/lowio及C++对象剩余组仍处迁移期，业务格式/编码/字段、owner和全部适用运行门禁保持。
+
 ## 范围与基线
 
 主线程实现 `World::UpdateNRTime@0x458DE0` 和其直接调用的 `_time@0x53BA26`。

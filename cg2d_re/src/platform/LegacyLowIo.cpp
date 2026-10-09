@@ -20,15 +20,15 @@ std::int64_t SeekLegacyDescriptor64_54B658(const std::int32_t descriptor,
     const std::int64_t offset, const std::uint32_t origin)
 {
     if (static_cast<std::uint32_t>(descriptor) >= gLegacyDescriptorCapacity1086AC0) {
-        gLegacyDosError_1085FE4 = 0;
-        gLegacyErrno_1085FE0 = 9;
+        LegacyDosError_1085FE4() = 0;
+        LegacyErrno_1085FE0() = 9;
         return -1;
     }
     auto** const block = &gLegacyDescriptorBlocks10869C0[descriptor >> 5];
     const std::int32_t slot = descriptor & 31;
     if (((*block)[slot].flags & 1u) == 0) {
-        gLegacyDosError_1085FE4 = 0;
-        gLegacyErrno_1085FE0 = 9;
+        LegacyDosError_1085FE4() = 0;
+        LegacyErrno_1085FE0() = 9;
         return -1;
     }
     const auto bits = static_cast<std::uint64_t>(offset);
@@ -36,7 +36,7 @@ std::int64_t SeekLegacyDescriptor64_54B658(const std::int32_t descriptor,
     LONG high = std::bit_cast<std::int32_t>(static_cast<std::uint32_t>(bits >> 32));
     const HANDLE handle = GetLegacyDescriptorHandle_543897(descriptor);
     if (handle == INVALID_HANDLE_VALUE) {
-        gLegacyErrno_1085FE0 = 9;
+        LegacyErrno_1085FE0() = 9;
         return -1;
     }
     const DWORD positionLow = ::SetFilePointer(handle, low, &high, origin);
@@ -158,13 +158,13 @@ std::int32_t SeekLegacyDescriptor_53F493(const std::int32_t descriptor,
 {
     if (static_cast<std::uint32_t>(descriptor) >= gLegacyDescriptorCapacity1086AC0
         || (gLegacyDescriptorBlocks10869C0[descriptor >> 5][descriptor & 31].flags & 1u) == 0) {
-        gLegacyDosError_1085FE4 = 0;
-        gLegacyErrno_1085FE0 = 9;
+        LegacyDosError_1085FE4() = 0;
+        LegacyErrno_1085FE0() = 9;
         return -1;
     }
     const HANDLE handle = GetLegacyDescriptorHandle_543897(descriptor);
     if (handle == INVALID_HANDLE_VALUE) {
-        gLegacyErrno_1085FE0 = 9;
+        LegacyErrno_1085FE0() = 9;
         return -1;
     }
     const DWORD position = ::SetFilePointer(handle, offset, nullptr, origin);
@@ -181,16 +181,16 @@ std::int32_t WriteLegacyDescriptor_541279(const std::int32_t descriptor,
     const void* const buffer, const std::uint32_t count)
 {
     if (static_cast<std::uint32_t>(descriptor) >= gLegacyDescriptorCapacity1086AC0) {
-        gLegacyDosError_1085FE4 = 0;
-        gLegacyErrno_1085FE0 = 9;
+        LegacyDosError_1085FE4() = 0;
+        LegacyErrno_1085FE0() = 9;
         return -1;
     }
     const std::int32_t group = descriptor >> 5;
     const std::int32_t slot = descriptor & 31;
     const std::uint8_t flags = gLegacyDescriptorBlocks10869C0[group][slot].flags;
     if ((flags & 1u) == 0) {
-        gLegacyDosError_1085FE4 = 0;
-        gLegacyErrno_1085FE0 = 9;
+        LegacyDosError_1085FE4() = 0;
+        LegacyErrno_1085FE0() = 9;
         return -1;
     }
     if (count == 0) {
@@ -246,8 +246,8 @@ std::int32_t WriteLegacyDescriptor_541279(const std::int32_t descriptor,
     }
     if (error != 0) {
         if (error == 5) {
-            gLegacyErrno_1085FE0 = 9;
-            gLegacyDosError_1085FE4 = error;
+            LegacyErrno_1085FE0() = 9;
+            LegacyDosError_1085FE4() = error;
         } else {
             static_cast<void>(MapLegacyFileError_542F44(error));
         }
@@ -257,8 +257,8 @@ std::int32_t WriteLegacyDescriptor_541279(const std::int32_t descriptor,
         && source[0] == 0x1A) {
         return 0;
     }
-    gLegacyErrno_1085FE0 = 28;
-    gLegacyDosError_1085FE4 = 0;
+    LegacyErrno_1085FE0() = 28;
+    LegacyDosError_1085FE4() = 0;
     return -1;
 }
 
@@ -266,16 +266,16 @@ std::int32_t ReadLegacyDescriptor_541426(const std::int32_t descriptor,
     void* const buffer, std::uint32_t count)
 {
     if (static_cast<std::uint32_t>(descriptor) >= gLegacyDescriptorCapacity1086AC0) {
-        gLegacyDosError_1085FE4 = 0;
-        gLegacyErrno_1085FE0 = 9;
+        LegacyDosError_1085FE4() = 0;
+        LegacyErrno_1085FE0() = 9;
         return -1;
     }
     const std::int32_t group = descriptor >> 5;
     const std::int32_t slot = descriptor & 31;
     const std::uint8_t initialFlags = gLegacyDescriptorBlocks10869C0[group][slot].flags;
     if ((initialFlags & 1u) == 0) {
-        gLegacyDosError_1085FE4 = 0;
-        gLegacyErrno_1085FE0 = 9;
+        LegacyDosError_1085FE4() = 0;
+        LegacyErrno_1085FE0() = 9;
         return -1;
     }
     if (count == 0 || (initialFlags & 2u) != 0) {
@@ -299,8 +299,8 @@ std::int32_t ReadLegacyDescriptor_541426(const std::int32_t descriptor,
             destination, count, &read, nullptr) == 0) {
         const DWORD error = ::GetLastError();
         if (error == 5) {
-            gLegacyErrno_1085FE0 = 9;
-            gLegacyDosError_1085FE4 = 5;
+            LegacyErrno_1085FE0() = 9;
+            LegacyDosError_1085FE4() = 5;
         } else if (error == 109) {
             return 0;
         } else {
@@ -387,8 +387,8 @@ std::int32_t GetLegacyDescriptorLength_53D3BD(const std::int32_t descriptor)
 {
     if (static_cast<std::uint32_t>(descriptor) >= gLegacyDescriptorCapacity1086AC0
         || (gLegacyDescriptorBlocks10869C0[descriptor >> 5][descriptor & 31].flags & 1u) == 0) {
-        gLegacyDosError_1085FE4 = 0;
-        gLegacyErrno_1085FE0 = 9;
+        LegacyDosError_1085FE4() = 0;
+        LegacyErrno_1085FE0() = 9;
         return -1;
     }
     const std::int32_t current = SeekLegacyDescriptor_53F493(descriptor, 0, 1);
@@ -453,8 +453,8 @@ std::int32_t SetLegacyDescriptorHandle_5437A6(
         gLegacyDescriptorBlocks10869C0[descriptor >> 5][descriptor & 31].handle = handle;
         return 0;
     }
-    gLegacyDosError_1085FE4 = 0;
-    gLegacyErrno_1085FE0 = 9;
+    LegacyDosError_1085FE4() = 0;
+    LegacyErrno_1085FE0() = 9;
     return -1;
 }
 
@@ -463,7 +463,7 @@ std::int32_t SetLegacyDescriptorMode_5463A3(
 {
     if (static_cast<std::uint32_t>(descriptor) >= gLegacyDescriptorCapacity1086AC0
         || (gLegacyDescriptorBlocks10869C0[descriptor >> 5][descriptor & 31].flags & 1u) == 0) {
-        gLegacyErrno_1085FE0 = 9;
+        LegacyErrno_1085FE0() = 9;
         return -1;
     }
     auto& record = gLegacyDescriptorBlocks10869C0[descriptor >> 5][descriptor & 31];
@@ -473,7 +473,7 @@ std::int32_t SetLegacyDescriptorMode_5463A3(
     } else if (mode == 0x4000u) {
         record.flags = flags | 0x80u;
     } else {
-        gLegacyErrno_1085FE0 = 22;
+        LegacyErrno_1085FE0() = 22;
         return -1;
     }
     return (flags & 0x80u) != 0 ? 0x4000 : 0x8000;
@@ -485,7 +485,7 @@ std::int32_t ResizeLegacyDescriptor_5438D4(
     char zeros[4096];
     if (static_cast<std::uint32_t>(descriptor) >= gLegacyDescriptorCapacity1086AC0
         || (gLegacyDescriptorBlocks10869C0[descriptor >> 5][descriptor & 31].flags & 1u) == 0) {
-        gLegacyErrno_1085FE0 = 9;
+        LegacyErrno_1085FE0() = 9;
         return -1;
     }
     const std::int32_t originalPosition = SeekLegacyDescriptor_53F493(descriptor, 0, 1);
@@ -506,8 +506,8 @@ std::int32_t ResizeLegacyDescriptor_5438D4(
             const auto count = static_cast<std::uint32_t>(remaining < 4096 ? remaining : 4096);
             const std::int32_t written = WriteLegacyDescriptor_541279(descriptor, zeros, count);
             if (written == -1) {
-                if (gLegacyDosError_1085FE4 == 5) {
-                    gLegacyErrno_1085FE0 = 13;
+                if (LegacyDosError_1085FE4() == 5) {
+                    LegacyErrno_1085FE0() = 13;
                 }
                 result = -1;
                 break;
@@ -521,8 +521,8 @@ std::int32_t ResizeLegacyDescriptor_5438D4(
         const HANDLE handle = GetLegacyDescriptorHandle_543897(descriptor);
         if (::SetEndOfFile(handle) == 0) {
             result = -1;
-            gLegacyErrno_1085FE0 = 13;
-            gLegacyDosError_1085FE4 = ::GetLastError();
+            LegacyErrno_1085FE0() = 13;
+            LegacyDosError_1085FE4() = ::GetLastError();
         }
     }
     static_cast<void>(SeekLegacyDescriptor_53F493(descriptor, originalPosition, 0));
@@ -554,8 +554,8 @@ std::int32_t OpenSharedLegacyDescriptor_53D44C(const char* const filename,
     case 1: access = GENERIC_WRITE; break;
     case 2: access = GENERIC_READ | GENERIC_WRITE; break;
     default:
-        gLegacyErrno_1085FE0 = 22;
-        gLegacyDosError_1085FE4 = 0;
+        LegacyErrno_1085FE0() = 22;
+        LegacyDosError_1085FE4() = 0;
         return -1;
     }
     DWORD sharing;
@@ -565,8 +565,8 @@ std::int32_t OpenSharedLegacyDescriptor_53D44C(const char* const filename,
     case 0x30: sharing = FILE_SHARE_WRITE; break;
     case 0x40: sharing = FILE_SHARE_READ | FILE_SHARE_WRITE; break;
     default:
-        gLegacyErrno_1085FE0 = 22;
-        gLegacyDosError_1085FE4 = 0;
+        LegacyErrno_1085FE0() = 22;
+        LegacyDosError_1085FE4() = 0;
         return -1;
     }
     DWORD creation;
@@ -580,8 +580,8 @@ std::int32_t OpenSharedLegacyDescriptor_53D44C(const char* const filename,
     case 0x500:
     case 0x700: creation = CREATE_NEW; break;
     default:
-        gLegacyErrno_1085FE0 = 22;
-        gLegacyDosError_1085FE4 = 0;
+        LegacyErrno_1085FE0() = 22;
+        LegacyDosError_1085FE4() = 0;
         return -1;
     }
     DWORD attributes = FILE_ATTRIBUTE_NORMAL;
@@ -603,8 +603,8 @@ std::int32_t OpenSharedLegacyDescriptor_53D44C(const char* const filename,
     }
     const std::int32_t descriptor = AllocateLegacyDescriptor_543711();
     if (descriptor == -1) {
-        gLegacyDosError_1085FE4 = 0;
-        gLegacyErrno_1085FE0 = 24;
+        LegacyDosError_1085FE4() = 0;
+        LegacyErrno_1085FE0() = 24;
         return -1;
     }
     const HANDLE handle = ::CreateFileA(
@@ -632,7 +632,7 @@ std::int32_t OpenSharedLegacyDescriptor_53D44C(const char* const filename,
     if (deviceOrPipe == 0 && (descriptorFlags & 0x80u) != 0 && (openFlags & 2u) != 0) {
         const std::int32_t lastPosition = SeekLegacyDescriptor_53F493(descriptor, -1, 2);
         if (lastPosition == -1) {
-            if (gLegacyDosError_1085FE4 != 131) {
+            if (LegacyDosError_1085FE4() != 131) {
                 static_cast<void>(CloseLegacyDescriptor_53D30A(descriptor));
                 return -1;
             }
@@ -670,8 +670,8 @@ HANDLE GetLegacyDescriptorHandle_543897(const std::int32_t descriptor)
             return record.handle;
         }
     }
-    gLegacyDosError_1085FE4 = 0;
-    gLegacyErrno_1085FE0 = 9;
+    LegacyDosError_1085FE4() = 0;
+    LegacyErrno_1085FE0() = 9;
     return INVALID_HANDLE_VALUE;
 }
 
@@ -693,8 +693,8 @@ std::int32_t ReleaseLegacyDescriptorHandle_54381D(const std::int32_t descriptor)
             return 0;
         }
     }
-    gLegacyDosError_1085FE4 = 0;
-    gLegacyErrno_1085FE0 = 9;
+    LegacyDosError_1085FE4() = 0;
+    LegacyErrno_1085FE0() = 9;
     return -1;
 }
 
@@ -707,10 +707,10 @@ std::int32_t CommitLegacyDescriptor_541222(const std::int32_t descriptor)
         if (error == 0) {
             return 0;
         }
-        gLegacyDosError_1085FE4 = error;
+        LegacyDosError_1085FE4() = error;
     }
     // 原非法描述符路径保留此前DOS错误，不与get/free的清零路径合并。
-    gLegacyErrno_1085FE0 = 9;
+    LegacyErrno_1085FE0() = 9;
     return -1;
 }
 
@@ -718,8 +718,8 @@ std::int32_t CloseLegacyDescriptor_53D30A(const std::int32_t descriptor)
 {
     if (static_cast<std::uint32_t>(descriptor) >= gLegacyDescriptorCapacity1086AC0
         || (gLegacyDescriptorBlocks10869C0[descriptor >> 5][descriptor & 31].flags & 1u) == 0) {
-        gLegacyDosError_1085FE4 = 0;
-        gLegacyErrno_1085FE0 = 9;
+        LegacyDosError_1085FE4() = 0;
+        LegacyErrno_1085FE0() = 9;
         return -1;
     }
 

@@ -4667,3 +4667,8 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 ## 2026-10-10 BHE01：命中特效创建与计时回调
 
 [完整合同](cg2d_battle_hit_effect_lifecycle_spec.md#battle-hit-effect-source-state)补41F5B0/41F570两完整66条225B，创建/回调各一投影尾Y读先X pub两段修正；原正确previous/maximum/count持样、初始化/五参数/零额外载荷请求/播放/空返及标死后投影保持。六创建原调用/五父映到现五表达式，callback只地址槽生产，不因零直接CALL判未接；四注释、零新函数/API/保护。限定I/S与两已知成员，完整父/数据/间接alias/owner、SDK零尺寸/失败/数值和画面运行仍待，完整门禁保持。
+
+<a id="battle-shot-runtime-20261010"></a>
+## 2026-10-10 BSP01：阶段18/19射击生产与攻击事件探测
+
+[完整合同](cg2d_battle_shot_producer_spec.md#battle-shot-source-state)补4065E0/408170/4082F0三完整196条728B，探测严格终帧优先/单次事件/共同清理及S32返回正确保持；18/19各两段恢复单次门禁与创建后音效event-X持样。原固定payload/fresh队列目标、18三258图/22050及95-3019重播、19的22090及仅95、播放/推进/清零保持，本根不新增RNG/Move或循环上限。只另六注释，零新函数/API/保护；限定I两射击父/S三根，全数据/父-callee/间接alias/owner、SDK正常失败和声音画面运行仍待，完整门禁保。

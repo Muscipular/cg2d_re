@@ -24932,6 +24932,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
     }
 }
 
+// BSP01：严格终帧优先、单次事件与共同清理原循环保持，见射击生产SPEC。
 std::int32_t ProbeBattleAttackEvent_4065E0(YobiAction* const action)
 {
     std::int32_t result;
@@ -25034,6 +25035,7 @@ void UpdateBattleAction15_406E10(YobiAction* const action)
     action->frameEvent = 0;
 }
 
+// BSP01：阶段18单次事件/音效event-X，258与95/3019发布见doc/cg2d_battle_shot_producer_spec.md。
 void UpdateBattleAction18_408170(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -25050,7 +25052,8 @@ void UpdateBattleAction18_408170(YobiAction* const action)
         TurnBattleToward_406190(action, gBattleAllEntries59E980[position], 1, 0.0F);
         static_cast<void>(PlayFrame_517DA0(action, 0));
     }
-    if (action->frameEvent < 10000 || action->frameEvent >= 20000) {
+    const std::int32_t gateEvent = action->frameEvent;
+    if (gateEvent < 10000 || gateEvent >= 20000) {
         return;
     }
     if (payload->castSkill103C == 258) {
@@ -25060,7 +25063,9 @@ void UpdateBattleAction18_408170(YobiAction* const action)
             gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position], 0, 0, 30, image));
     }
     static_cast<void>(NewBattleRangeHit_419390(action, &payload->effects1C[payload->effectRunningC9C], 22050));
-    static_cast<void>(audio::PlaySe_52C450(action->frameEvent - 10000, action->x));
+    const std::int32_t soundEvent = action->frameEvent;
+    const std::int32_t soundX = action->x;
+    static_cast<void>(audio::PlaySe_52C450(soundEvent - 10000, soundX));
     static_cast<void>(AdvanceBattleEffect_439470(action));
     const std::int32_t currentSkill = payload->castSkill103C;
     if ((currentSkill == 95 || currentSkill == 3019)
@@ -25071,6 +25076,7 @@ void UpdateBattleAction18_408170(YobiAction* const action)
     action->frameEvent = 0;
 }
 
+// BSP01：阶段19探测/单次事件/音效event-X，仅95重播，见射击生产SPEC。
 void UpdateBattleAction19_4082F0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -25092,11 +25098,14 @@ void UpdateBattleAction19_4082F0(YobiAction* const action)
         TurnBattleToward_406190(action, gBattleAllEntries59E980[position], 1, 0.0F);
         static_cast<void>(PlayFrame_517DA0(action, 0));
     }
-    if (action->frameEvent < 10000 || action->frameEvent >= 20000) {
+    const std::int32_t gateEvent = action->frameEvent;
+    if (gateEvent < 10000 || gateEvent >= 20000) {
         return;
     }
     static_cast<void>(NewBattleRangeHit_419390(action, &payload->effects1C[payload->effectRunningC9C], 22090));
-    static_cast<void>(audio::PlaySe_52C450(action->frameEvent - 10000, action->x));
+    const std::int32_t soundEvent = action->frameEvent;
+    const std::int32_t soundX = action->x;
+    static_cast<void>(audio::PlaySe_52C450(soundEvent - 10000, soundX));
     static_cast<void>(AdvanceBattleEffect_439470(action));
     if (payload->castSkill103C == 95 && payload->effects1C[payload->effectRunningC9C].position != -1) {
         action->frameRemain = 0;

@@ -54,9 +54,6 @@ std::int32_t SetLegacyStreamBuffer_54ACF1(LegacyFile* const stream,
 std::int32_t UnreadLegacyStreamByte_54463F(
     const std::int32_t character, LegacyFile* const stream);
 
-bool UnreadLegacyStreamBytes_549147(const char& firstByte,
-    LegacyFile* const stream, const std::uint32_t byteCount);
-
 std::int64_t TellLegacyStream64_54B239(LegacyFile* const stream);
 
 std::int32_t SeekLegacyStream64_54B3C0(LegacyFile* const stream,

@@ -475,7 +475,11 @@
         "doc/cg2d_msvc_crt_heap_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
-        "doc/cg2d_msvc_crt_multibyte_evidence.json"
+        "doc/cg2d_msvc_crt_multibyte_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010",
+        "doc/cg2d_msvc_crt_residual_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010"
       ],
       "original_inventory_ids": [
         "F:00001C10",
@@ -1085,7 +1089,11 @@
         "doc/cg2d_msvc_crt_heap_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
-        "doc/cg2d_msvc_crt_multibyte_evidence.json"
+        "doc/cg2d_msvc_crt_multibyte_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010",
+        "doc/cg2d_msvc_crt_residual_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010"
       ],
       "blockers": [
         "已知原成员登记并不构成全部CRT/混合边界/未知间接调用闭包；member_inventory_closed仍false，全部原事实及证据保历史。",
@@ -1097,7 +1105,8 @@
         "MC01-C2退休旧浮点/环境私有组，实际地图/音频数学源与控制作用域不变；两Shop/NLS intrinsic读取移到实际模块，计时U64除法保持。旧库数值/错误/CPU探测私有核不追加开发债务；全部实际业务/字段/owner/SDK正常结果及运行门禁保持。",
         "MC01-C3旧退出/信号/消息与钩子/console/filter层退休；三实际终止MSVC入口与四数组正文保真，删纯CRT回调/唯一登记，不改任何真实业务登记/资源清理或顺序。_Exit保255并不输出旧R600x诊断，库内差异获批；旧multibyte前置已由C5退休及全部业务/owner/SDK/启动退出运行仍待。；MC01-C5已覆盖上述私有多字节/argv环境开发条件；全体实际业务/SDK与运行门禁保持。",
         "MC01-C4旧堆模式/handler/借用句柄及重复初始化/失败28退休，三公开calloc/realloc/_msize直接MSVC；原业务U32参数、现malloc/free与owner保持。库数量/零/容量/失败差异获批，C5多字节私有层已退休，全体实际CRT提供者/业务边界继续审计；完整业务/owner/SDK和正常快速退出运行仍待。；MC01-C5已覆盖上述私有多字节/argv环境开发条件；全体实际业务/SDK与运行门禁保持。",
-        "MC01-C5旧ctype/多字节/NLS转换/locale表与无现调用的私有argv/环境组退休，Input两ASCII非零分类直接MSVC；原WinMain命令尾与应用ParseCommandOptions/IP正文/字段保持。旧失败9/9/8及专用入口只历史，数组terminate/全部业务保持；库内差异获批。仍核全体实际CRT提供者/业务边界，全部owner/未知alias/SDK与正常快速退出运行待。"
+        "MC01-C5旧ctype/多字节/NLS转换/locale表与无现调用的私有argv/环境组退休，Input两ASCII非零分类直接MSVC；原WinMain命令尾与应用ParseCommandOptions/IP正文/字段保持。旧失败9/9/8及专用入口只历史，数组terminate/全部业务保持；库内差异获批。仍核全体实际CRT提供者/业务边界，全部owner/未知alias/SDK与正常快速退出运行待。",
+        "MC01-C6无消费549147多BYTE回退已退休；实际单BYTE服务/业务保持。十原qsort调用仍保旧算法，其中七组/八调用的非一致业务比较关系与直接MSVC有冲突，两具体方案已给用户选择；未批准/未实施排序替换。实际owner/SDK/运行及全CRT/整体门禁仍未验。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -57970,6 +57979,36 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-10"
+    },
+    {
+      "id": "E-MSVC-CRT-RESIDUAL-FUNC-CRT-S-20261010",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "MC01用户直接MSVC及C6退休合同；完整前态 cg2d-re-msvc-crt-residual-history-20261010",
+      "implementation_reference": "Git固定快照 cg2d-re-msvc-crt-residual-20261010",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010",
+        "doc/cg2d_msvc_crt_residual_evidence.json",
+        "src/platform/LegacyStdio.cpp",
+        "include/cg/platform/LegacyStdio.hpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/platform/LegacyRuntimeExit.cpp",
+        "src/platform/LegacyFormat.cpp"
+      ],
+      "observation": "核当前549147只有定义/声明，旧filebuf已退休；精确删原多BYTE回退，其余stdio/真实业务源码不变。排序仅记录已证比较关系冲突，未改代码/不计通过。",
+      "expected": "无私有多BYTE回退或同名空体；实际单BYTE MSVC服务/FILE/业务参数与owner保持，原证据与SDK/运行未验边界保留。",
+      "actual": "1定义/1声明退休，F549147处置adapted改host；两当前语义对齐，原机器身份/回读事实保历史。全部业务源/单BYTE服务与完整台账门禁不变，仅本步S。",
+      "differences": [
+        {
+          "description": "已无当前业务消费的私有filebuf多BYTE回退不继续自实现，不称现单BYTE服务与它等价",
+          "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-10"
     }
   ],
   "task_acceptance": [
@@ -58510,7 +58549,11 @@
         "doc/cg2d_msvc_crt_heap_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
-        "doc/cg2d_msvc_crt_multibyte_evidence.json"
+        "doc/cg2d_msvc_crt_multibyte_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010",
+        "doc/cg2d_msvc_crt_residual_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010"
       ],
       "task_id": "C01",
       "state": "open"
@@ -58591,7 +58634,11 @@
         "doc/cg2d_msvc_crt_cpp_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
-        "doc/cg2d_msvc_crt_multibyte_evidence.json"
+        "doc/cg2d_msvc_crt_multibyte_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010",
+        "doc/cg2d_msvc_crt_residual_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010"
       ]
     },
     {
@@ -58620,7 +58667,11 @@
         "doc/cg2d_msvc_crt_heap_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
-        "doc/cg2d_msvc_crt_multibyte_evidence.json"
+        "doc/cg2d_msvc_crt_multibyte_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010",
+        "doc/cg2d_msvc_crt_residual_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010"
       ]
     },
     {
@@ -59128,7 +59179,11 @@
         "doc/cg2d_msvc_crt_numeric_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
-        "doc/cg2d_msvc_crt_exit_evidence.json"
+        "doc/cg2d_msvc_crt_exit_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010",
+        "doc/cg2d_msvc_crt_residual_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010"
       ]
     },
     {
@@ -59277,7 +59332,11 @@
         "doc/cg2d_msvc_crt_heap_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
-        "doc/cg2d_msvc_crt_multibyte_evidence.json"
+        "doc/cg2d_msvc_crt_multibyte_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010",
+        "doc/cg2d_msvc_crt_residual_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010"
       ]
     },
     {
@@ -59768,7 +59827,11 @@
         "doc/cg2d_msvc_crt_numeric_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
-        "doc/cg2d_msvc_crt_exit_evidence.json"
+        "doc/cg2d_msvc_crt_exit_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010",
+        "doc/cg2d_msvc_crt_residual_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010"
       ]
     },
     {
@@ -60742,7 +60805,11 @@
         "doc/cg2d_msvc_crt_heap_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
-        "doc/cg2d_msvc_crt_multibyte_evidence.json"
+        "doc/cg2d_msvc_crt_multibyte_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010",
+        "doc/cg2d_msvc_crt_residual_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010"
       ]
     },
     {
@@ -60800,7 +60867,7 @@
       ]
     }
   ],
-  "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。 GQ01由同一汇总器生成development_gap_queue与看板§5；只列定位/语义身份登记差集，不把缺历史定位当源码未实现，不手改队列。 CRI01无独立函数ID的已证代码片段可按原X区间/实际边界绑定；校验身份与证据后另计，不混入缺身份队列，不增加函数分母。 ACP01-A按最新double/std数学许可迁音频6入口CPP；更新现提供者及两限定静态证据，三ASM历史附件仍由固定Git快照核存在；完整门禁/成员/任务状态与MIDI停止范围保持。 ACP01-M将地图13数学/投影入口迁CPP，8现提供者同步，新增两限定I/S，原CI消费点明示std::pow承接；CRT环境仍待，不关闭完整gates/成员/任务。 ACP01-C完成第三ASM源迁移，22接口/70私有机器ABI退役/5非PUBLIC宿主承接，当前数学现提供者与host/mixed处置同步；新增两限定I/S，三ASM/MASM已移除，原身份/成员/完整gates/任务/六closure不闭合。 HMU01按malloc方向和工程委托统一通用全部模式CRT；9实际提供者/12旧池退休/8类型/10槽，25语义当前提供者与host/adapted处置对齐，3限定静态证据；完整门禁/成员/任务/六closure保持。 2026-10-09 CAC17：按用户要求更新七源/头18处过时注释；代码/声明/字段/调用保持，零新增原身份/语义/处置/软件证据，完整门禁/任务关闭/成员/六closure不变；见plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009。 2026-10-09 CAC18：第六批512原X完整用途和49表307槽/19索引/18对齐/三回调八原型，仅辅助mapped与九已有/26新父数据关联及三无F代码身份；已审区间2021余1040，源码/完整门禁/软件证据/任务状态和六closure保持。 2026-10-09 CAC19：第七批512原X/5733B完整用途；15表97槽/两索引/四对齐/22代码，五原型、十八旧键与一旧选择来源，七旧/六新父仅数据关联。已审区间2533余528，零客户端源码/软件证据增量；完整门禁/任务状态/成员枚举和六closure保持。 2026-10-09 CAC20：528候选全读、527原X用途mapped，已审3060/3061；X:00142E29-00142E34内八字节用途未证留待，不猜填充/排除。九表/输入元数据/PE原节尾/键盘包装/三ABI尾部有据；单一53B4F2受限host职责新增，零客户端源码/软件证据通过，完整门禁/任务状态/成员枚举/六closure保持。 CAC20静态汇总拒绝53B51F无独立现源码的语义代码身份后，撤掉该条；原用途/完整字节和未决实际转入仍保留，不放宽校验。 MC01-A按用户CRT直接使用MSVC新要求先记总范围与分组SPEC，33入口/29新提供者、TLS错误和八退休辅助同步；保原身份/前态、局部静态证据与全部完整门禁，FILE/lowio和C++余组继续。 MC01-B成组迁MSVC FILE/描述符/流格式与状态/ctime/fpos/关闭；39私有定义及旧入口/C表退休，shared calloc仅除stdio消费者；旧映射沿固定快照可读，当前全部门禁/任务状态保持，完整C++余组继续。 MC01-C1退休六组无现组外消费者的私有C++库/NCE头及旧展开适配，实际MSVC标准流/Init/locale和全部业务初始化退出保持；现语义/共享消费与历史附件快照对齐，新增两限定I/S，完整功能门禁/成员闭包/任务状态保持。 MC01-C2浮点文本/数值/环境组退休，实际业务math源及计时除法保持，两真实Shop/NLS intrinsic读移到现有模块；无消费slot/helper/gate/类型退休，新增两限定I/S及精确登记，完整门禁/任务保持。 MC01-C3 private错误/信号/退出/filter/console层退休；三MSVC致命或terminate适配、四数组/实际业务回调与登记保持，_Exit诊断差异具名；两限定I/S、现语义/历史附件对齐，完整门禁/任务不关闭。；2026-10-10 MC01-C4堆策略直接MSVC，三公开服务与真实业务保持；35语义对齐、仅2限定I/S，完整门禁/任务状态不变。；2026-10-10 MC01-C5旧多字节/ctype/argv环境直接MSVC，两Input实际分类与业务命令/数组保持，仅限定I/S；门禁/任务状态不变。",
+  "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。 GQ01由同一汇总器生成development_gap_queue与看板§5；只列定位/语义身份登记差集，不把缺历史定位当源码未实现，不手改队列。 CRI01无独立函数ID的已证代码片段可按原X区间/实际边界绑定；校验身份与证据后另计，不混入缺身份队列，不增加函数分母。 ACP01-A按最新double/std数学许可迁音频6入口CPP；更新现提供者及两限定静态证据，三ASM历史附件仍由固定Git快照核存在；完整门禁/成员/任务状态与MIDI停止范围保持。 ACP01-M将地图13数学/投影入口迁CPP，8现提供者同步，新增两限定I/S，原CI消费点明示std::pow承接；CRT环境仍待，不关闭完整gates/成员/任务。 ACP01-C完成第三ASM源迁移，22接口/70私有机器ABI退役/5非PUBLIC宿主承接，当前数学现提供者与host/mixed处置同步；新增两限定I/S，三ASM/MASM已移除，原身份/成员/完整gates/任务/六closure不闭合。 HMU01按malloc方向和工程委托统一通用全部模式CRT；9实际提供者/12旧池退休/8类型/10槽，25语义当前提供者与host/adapted处置对齐，3限定静态证据；完整门禁/成员/任务/六closure保持。 2026-10-09 CAC17：按用户要求更新七源/头18处过时注释；代码/声明/字段/调用保持，零新增原身份/语义/处置/软件证据，完整门禁/任务关闭/成员/六closure不变；见plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009。 2026-10-09 CAC18：第六批512原X完整用途和49表307槽/19索引/18对齐/三回调八原型，仅辅助mapped与九已有/26新父数据关联及三无F代码身份；已审区间2021余1040，源码/完整门禁/软件证据/任务状态和六closure保持。 2026-10-09 CAC19：第七批512原X/5733B完整用途；15表97槽/两索引/四对齐/22代码，五原型、十八旧键与一旧选择来源，七旧/六新父仅数据关联。已审区间2533余528，零客户端源码/软件证据增量；完整门禁/任务状态/成员枚举和六closure保持。 2026-10-09 CAC20：528候选全读、527原X用途mapped，已审3060/3061；X:00142E29-00142E34内八字节用途未证留待，不猜填充/排除。九表/输入元数据/PE原节尾/键盘包装/三ABI尾部有据；单一53B4F2受限host职责新增，零客户端源码/软件证据通过，完整门禁/任务状态/成员枚举/六closure保持。 CAC20静态汇总拒绝53B51F无独立现源码的语义代码身份后，撤掉该条；原用途/完整字节和未决实际转入仍保留，不放宽校验。 MC01-A按用户CRT直接使用MSVC新要求先记总范围与分组SPEC，33入口/29新提供者、TLS错误和八退休辅助同步；保原身份/前态、局部静态证据与全部完整门禁，FILE/lowio和C++余组继续。 MC01-B成组迁MSVC FILE/描述符/流格式与状态/ctime/fpos/关闭；39私有定义及旧入口/C表退休，shared calloc仅除stdio消费者；旧映射沿固定快照可读，当前全部门禁/任务状态保持，完整C++余组继续。 MC01-C1退休六组无现组外消费者的私有C++库/NCE头及旧展开适配，实际MSVC标准流/Init/locale和全部业务初始化退出保持；现语义/共享消费与历史附件快照对齐，新增两限定I/S，完整功能门禁/成员闭包/任务状态保持。 MC01-C2浮点文本/数值/环境组退休，实际业务math源及计时除法保持，两真实Shop/NLS intrinsic读移到现有模块；无消费slot/helper/gate/类型退休，新增两限定I/S及精确登记，完整门禁/任务保持。 MC01-C3 private错误/信号/退出/filter/console层退休；三MSVC致命或terminate适配、四数组/实际业务回调与登记保持，_Exit诊断差异具名；两限定I/S、现语义/历史附件对齐，完整门禁/任务不关闭。；2026-10-10 MC01-C4堆策略直接MSVC，三公开服务与真实业务保持；35语义对齐、仅2限定I/S，完整门禁/任务状态不变。；2026-10-10 MC01-C5旧多字节/ctype/argv环境直接MSVC，两Input实际分类与业务命令/数组保持，仅限定I/S；门禁/任务状态不变。；2026-10-10 MC01-C6残留审计退休无消费549147，仅限定S；排序冲突两方案待选择，未计实现/验收。",
   "function_dispositions": [
     {
       "disposition": "adapted",
@@ -76238,14 +76305,22 @@
     },
     {
       "inventory_id": "F:00149147",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_evidence.json"
+        "doc/cg2d_msvc_crt_file_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010",
+        "doc/cg2d_msvc_crt_residual_evidence.json"
       ],
-      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+      "boundary": "MC01-C6退休无现消费者的549147旧多BYTE回退与公共声明，filebuf/FILE私有职责交MSVC；实际单BYTE服务/业务与原身份保持，不称替代服务本体或多BYTE算法等价，完整SDK/owner/运行待。",
+      "previous_disposition_before_mc01c6": {
+        "git_snapshot": "cg2d-re-msvc-crt-residual-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:00149147"
+      }
     },
     {
       "inventory_id": "F:0013F848",

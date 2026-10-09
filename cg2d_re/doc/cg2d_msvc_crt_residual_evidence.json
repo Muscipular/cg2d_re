@@ -1,0 +1,389 @@
+{
+  "schema_version": 1,
+  "spec_id": "MC01-C6",
+  "recorded_on": "2026-10-10",
+  "before_snapshot": "cg2d-re-msvc-crt-residual-history-20261010",
+  "implementation_snapshot": "cg2d-re-msvc-crt-residual-20261010",
+  "retired_definitions": [
+    "UnreadLegacyStreamBytes_549147"
+  ],
+  "changed_source_paths": [
+    "src/platform/LegacyStdio.cpp",
+    "include/cg/platform/LegacyStdio.hpp"
+  ],
+  "semantic_changed_indices": [
+    402,
+    581
+  ],
+  "host_inventory_ids": [
+    "F:00149147"
+  ],
+  "function_disposition_additions": [],
+  "function_disposition_updates": [
+    "F:00149147"
+  ],
+  "crt_member_additions": [],
+  "pre_migration_consumers": {
+    "searched_roots": [
+      "src",
+      "include"
+    ],
+    "outside_callers": 0,
+    "previous_only_private_filebuf_consumer_retired_by": "MC01-C1",
+    "current_definition_and_declaration_only": true
+  },
+  "retired_current_field_names": [
+    "stream_call_connections",
+    "current_provider",
+    "msvc_cpp_retired_consumers",
+    "msvc_cpp_group"
+  ],
+  "source_changes": {
+    "src/platform/LegacyStdio.cpp": {
+      "path": "src/platform/LegacyStdio.cpp",
+      "before_snapshot": "cg2d-re-msvc-crt-residual-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-residual-20261010",
+      "diff": "--- 迁移前/src/platform/LegacyStdio.cpp\n+++ 迁移后/src/platform/LegacyStdio.cpp\n@@ -93,44 +93,16 @@\n \n // 原54463F：MC01-B实际MSVC服务，定宽参数/结果沿调用方。\n std::int32_t UnreadLegacyStreamByte_54463F(\n     const std::int32_t character, LegacyFile* const stream)\n {\n     return std::ungetc(character, stream);\n }\n \n-// 原549147：MC01-B实际MSVC服务，定宽参数/结果沿调用方。\n-bool UnreadLegacyStreamBytes_549147(const char& firstByte,\n-    LegacyFile* const stream, const std::uint32_t byteCount)\n-{\n-    std::uint32_t remaining = byteCount;\n-    const char* cursor = &firstByte + remaining;\n-    while (remaining != 0) {\n-        const auto character = static_cast<std::uint8_t>(cursor[-1]);\n-        --cursor;\n-        if (UnreadLegacyStreamByte_54463F(character, stream) == -1) {\n-            break;\n-        }\n-        --remaining;\n-    }\n-    if (remaining == 0) {\n-        return true;\n-    }\n-    std::uint32_t rollbackCount = 1;\n-    if (remaining < rollbackCount) {\n-        rollbackCount -= remaining;\n-        do {\n-            static_cast<void>(ReadLegacyStreamByte_53C8B3(stream));\n-            --rollbackCount;\n-        } while (rollbackCount != 0);\n-    }\n-    return false;\n-}\n-\n // 原54B239：MC01-B实际MSVC服务，定宽参数/结果沿调用方。\n std::int64_t TellLegacyStream64_54B239(LegacyFile* const stream)\n {\n     return ::_ftelli64(stream);\n }\n \n // 原54B3C0：MC01-B实际MSVC服务，定宽参数/结果沿调用方。\n std::int32_t SeekLegacyStream64_54B3C0(LegacyFile* const stream,\n"
+    },
+    "include/cg/platform/LegacyStdio.hpp": {
+      "path": "include/cg/platform/LegacyStdio.hpp",
+      "before_snapshot": "cg2d-re-msvc-crt-residual-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-residual-20261010",
+      "diff": "--- 迁移前/include/cg/platform/LegacyStdio.hpp\n+++ 迁移后/include/cg/platform/LegacyStdio.hpp\n@@ -49,19 +49,16 @@\n void RewindLegacyStream_53B27D(LegacyFile* const stream);\n \n std::int32_t SetLegacyStreamBuffer_54ACF1(LegacyFile* const stream,\n     char* buffer, const std::uint32_t mode, std::uint32_t size);\n \n std::int32_t UnreadLegacyStreamByte_54463F(\n     const std::int32_t character, LegacyFile* const stream);\n \n-bool UnreadLegacyStreamBytes_549147(const char& firstByte,\n-    LegacyFile* const stream, const std::uint32_t byteCount);\n-\n std::int64_t TellLegacyStream64_54B239(LegacyFile* const stream);\n \n std::int32_t SeekLegacyStream64_54B3C0(LegacyFile* const stream,\n     std::int64_t offset, std::uint32_t origin);\n \n std::int32_t GetLegacyStreamPosition_54ACB7(\n     LegacyFile* const stream, LegacyFilePosition* const position);\n \n"
+    }
+  },
+  "local_sdk_references": [
+    {
+      "path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/include/cstdio",
+      "encoding": "UTF-8（兼容BOM）",
+      "matches": [
+        {
+          "line": 43,
+          "text": "_EXPORT_STD using _CSTD fgetc;"
+        },
+        {
+          "line": 74,
+          "text": "_EXPORT_STD using _CSTD ungetc;"
+        }
+      ],
+      "scope": "仅现SDK声明/库排序区别静态依据，不代实际运行/排序比较合同"
+    },
+    {
+      "path": "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/ucrt/stdio.h",
+      "encoding": "UTF-8（兼容BOM）",
+      "matches": [
+        {
+          "line": 182,
+          "text": "_ACRTIMP int __cdecl fgetc("
+        },
+        {
+          "line": 451,
+          "text": "_ACRTIMP int __cdecl ungetc("
+        }
+      ],
+      "scope": "仅现SDK声明/库排序区别静态依据，不代实际运行/排序比较合同"
+    },
+    {
+      "path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdlib/qsort.cpp",
+      "encoding": "UTF-8（兼容BOM）",
+      "matches": [
+        {
+          "line": 252,
+          "text": "if (__COMPARE(context, lo, mid) > 0)"
+        },
+        {
+          "line": 255,
+          "text": "if (__COMPARE(context, lo, hi) > 0)"
+        },
+        {
+          "line": 258,
+          "text": "if (__COMPARE(context, mid, hi) > 0)"
+        },
+        {
+          "line": 288,
+          "text": "while (loguy < mid && __COMPARE(context, loguy, mid) <= 0);"
+        },
+        {
+          "line": 296,
+          "text": "while (loguy <= hi && __COMPARE(context, loguy, mid) <= 0);"
+        },
+        {
+          "line": 306,
+          "text": "while (higuy > mid && __COMPARE(context, higuy, mid) > 0);"
+        },
+        {
+          "line": 351,
+          "text": "while (higuy > mid && __COMPARE(context, higuy, mid) == 0);"
+        },
+        {
+          "line": 359,
+          "text": "while (higuy > lo && __COMPARE(context, higuy, mid) == 0);"
+        }
+      ],
+      "scope": "仅现SDK声明/库排序区别静态依据，不代实际运行/排序比较合同"
+    }
+  ],
+  "sort_pending": {
+    "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010",
+    "status": "waiting_for_user_design_choice",
+    "source_replacements_implemented": false,
+    "sort_evidence_gate_awarded": false,
+    "non_consistent_groups": [
+      {
+        "path": "src/world/MapDrawCache.cpp",
+        "sort": "SortMapPrimary_46C420",
+        "comparators": [
+          "CompareMapPrimary_46C440"
+        ],
+        "direct_calls": 1,
+        "before_snapshot": "cg2d-re-msvc-crt-residual-history-20261010",
+        "current_source_changed": false,
+        "source_symbol_lines": [
+          {
+            "symbol": "SortMapPrimary_46C420",
+            "lines": [
+              184,
+              556
+            ]
+          },
+          {
+            "symbol": "CompareMapPrimary_46C440",
+            "lines": [
+              148,
+              201,
+              217,
+              220
+            ]
+          }
+        ]
+      },
+      {
+        "path": "src/world/SceneState.cpp",
+        "sort": "Sub_518600",
+        "comparators": [
+          "Sub_518660"
+        ],
+        "direct_calls": 1,
+        "before_snapshot": "cg2d-re-msvc-crt-residual-history-20261010",
+        "current_source_changed": false,
+        "source_symbol_lines": [
+          {
+            "symbol": "Sub_518600",
+            "lines": [
+              3486,
+              3599
+            ]
+          },
+          {
+            "symbol": "Sub_518660",
+            "lines": [
+              3587,
+              3626,
+              3642,
+              3645
+            ]
+          }
+        ]
+      },
+      {
+        "path": "src/world/SceneState.cpp",
+        "sort": "Sub_5198D0",
+        "comparators": [
+          "Sub_5198F0"
+        ],
+        "direct_calls": 1,
+        "before_snapshot": "cg2d-re-msvc-crt-residual-history-20261010",
+        "current_source_changed": false,
+        "source_symbol_lines": [
+          {
+            "symbol": "Sub_5198D0",
+            "lines": [
+              4351,
+              4396
+            ]
+          },
+          {
+            "symbol": "Sub_5198F0",
+            "lines": [
+              4412,
+              4428,
+              4431,
+              4474
+            ]
+          }
+        ]
+      },
+      {
+        "path": "src/world/MailState.cpp",
+        "sort": "Sub_4EC1A0",
+        "comparators": [
+          "CompareContactIndices_4EC030"
+        ],
+        "direct_calls": 1,
+        "before_snapshot": "cg2d-re-msvc-crt-residual-history-20261010",
+        "current_source_changed": false,
+        "source_symbol_lines": [
+          {
+            "symbol": "Sub_4EC1A0",
+            "lines": [
+              291,
+              430,
+              478
+            ]
+          },
+          {
+            "symbol": "CompareContactIndices_4EC030",
+            "lines": [
+              170,
+              308,
+              324,
+              327
+            ]
+          }
+        ]
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "sort": "SortMailIndicesLegacy",
+        "comparators": [
+          "Sub_4A2CC0",
+          "Sub_4B57B0"
+        ],
+        "direct_calls": 2,
+        "before_snapshot": "cg2d-re-msvc-crt-residual-history-20261010",
+        "current_source_changed": false,
+        "source_symbol_lines": [
+          {
+            "symbol": "SortMailIndicesLegacy",
+            "lines": [
+              26503,
+              27923,
+              28061
+            ]
+          },
+          {
+            "symbol": "Sub_4A2CC0",
+            "lines": [
+              28061,
+              28064
+            ]
+          },
+          {
+            "symbol": "Sub_4B57B0",
+            "lines": [
+              27924,
+              27927
+            ]
+          }
+        ]
+      },
+      {
+        "path": "src/YobiRuntime.cpp",
+        "sort": "SortBattleDrawPointers_53C112",
+        "comparators": [
+          "CompareBattleDrawActions_405BD0"
+        ],
+        "direct_calls": 1,
+        "before_snapshot": "cg2d-re-msvc-crt-residual-history-20261010",
+        "current_source_changed": false,
+        "source_symbol_lines": [
+          {
+            "symbol": "SortBattleDrawPointers_53C112",
+            "lines": [
+              22911,
+              22995
+            ]
+          },
+          {
+            "symbol": "CompareBattleDrawActions_405BD0",
+            "lines": [
+              22868,
+              22899,
+              22932,
+              22935
+            ]
+          }
+        ]
+      },
+      {
+        "path": "src/LegacyRecordOrder.cpp",
+        "sort": "BuildOrderedRecordIndices_52FCC0",
+        "comparators": [
+          "CompareOrderedRecords_52FB60"
+        ],
+        "direct_calls": 1,
+        "before_snapshot": "cg2d-re-msvc-crt-residual-history-20261010",
+        "current_source_changed": false,
+        "source_symbol_lines": [
+          {
+            "symbol": "BuildOrderedRecordIndices_52FCC0",
+            "lines": [
+              302
+            ]
+          },
+          {
+            "symbol": "CompareOrderedRecords_52FB60",
+            "lines": [
+              266,
+              310
+            ]
+          }
+        ]
+      }
+    ],
+    "non_consistent_direct_call_domains": 8,
+    "consistent_direct_call_domains": 2,
+    "consistent_domains": [
+      {
+        "path": "src/AnimationRuntime.cpp",
+        "compare": "Compare_45B420",
+        "sort": "AnimeInit_45BB20",
+        "before_snapshot": "cg2d-re-msvc-crt-residual-history-20261010"
+      },
+      {
+        "path": "src/render/GraphicPendingQueue.cpp",
+        "compare": "CompareGraphicCache3_5222A0",
+        "sort": "SortTextures_520790",
+        "before_snapshot": "cg2d-re-msvc-crt-residual-history-20261010"
+      }
+    ],
+    "original_qsort_inventory_id": "F:0013C112",
+    "original_shortsort_inventory_id": "F:0013C266",
+    "original_swap_inventory_id": "F:0013C2B4",
+    "original_evidence": "doc/cg2d_semantic_function_mappings.md#剩余三处宿主qsort替换-spec2026-10-02",
+    "primary_documentation": "https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/qsort?view=msvc-170",
+    "scope": "不按原库标志盲迁，不把比较关系/同键业务顺序冲突当已批准库内差异"
+  },
+  "aligned_document_paths": [
+    "doc/cg2d_stdio_contract.md",
+    "doc/cg2d_crt_runtime_boundary_spec.md",
+    "doc/cg2d_semantic_function_mappings.md",
+    "doc/cg2d_crt_host_migration_spec.md",
+    "plan/cg2d_full_reconstruction_plan.md",
+    "plan/cg2d_spec_closure_checklist.md"
+  ],
+  "validation": {
+    "static_only": true,
+    "compilation_verified": false,
+    "runtime_verified": false,
+    "new_dependencies": false,
+    "business_sources_and_stdio_other_bodies_kept": true,
+    "full_feature_accepted": false
+  },
+  "current_measured_state": {
+    "semantic_records": 2029,
+    "semantic_original_ids": 1981,
+    "semantic_range_identities": 48,
+    "document_linked_functions": 2091,
+    "reviewed_function_dispositions": 1454,
+    "known_crt_members": 524,
+    "crt_member_inventory_closed": false,
+    "software_evidence_records": 1340,
+    "leaf_features": 184,
+    "globally_accepted": false,
+    "tasks": 60,
+    "closed_tasks": 11,
+    "unassigned_ranges_mapped": 3060,
+    "unassigned_ranges_remaining": 1
+  }
+}

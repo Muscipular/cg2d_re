@@ -98,34 +98,6 @@ std::int32_t UnreadLegacyStreamByte_54463F(
     return std::ungetc(character, stream);
 }
 
-// 原549147：MC01-B实际MSVC服务，定宽参数/结果沿调用方。
-bool UnreadLegacyStreamBytes_549147(const char& firstByte,
-    LegacyFile* const stream, const std::uint32_t byteCount)
-{
-    std::uint32_t remaining = byteCount;
-    const char* cursor = &firstByte + remaining;
-    while (remaining != 0) {
-        const auto character = static_cast<std::uint8_t>(cursor[-1]);
-        --cursor;
-        if (UnreadLegacyStreamByte_54463F(character, stream) == -1) {
-            break;
-        }
-        --remaining;
-    }
-    if (remaining == 0) {
-        return true;
-    }
-    std::uint32_t rollbackCount = 1;
-    if (remaining < rollbackCount) {
-        rollbackCount -= remaining;
-        do {
-            static_cast<void>(ReadLegacyStreamByte_53C8B3(stream));
-            --rollbackCount;
-        } while (rollbackCount != 0);
-    }
-    return false;
-}
-
 // 原54B239：MC01-B实际MSVC服务，定宽参数/结果沿调用方。
 std::int64_t TellLegacyStream64_54B239(LegacyFile* const stream)
 {

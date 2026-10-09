@@ -1,5 +1,7 @@
 # CRT 宿主承接总 SPEC
 
+> 2026-10-10残留审计：[MC01-C6](cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010)核明旧多字节回退549147已无当前调用，可直接退休；数组/终止和低宽读取仍是实际业务适配。十个原qsort调用域仍保旧排序算法，其中七组/八调用的业务比较器含同键返±1，直接MSVC与原排序合同存在冲突，按下文待决方案处理；当前不能称全CRT迁移完成。
+
 > 2026-10-10多字节与命令行库边界：[MC01-C5](cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010)按实际消费者退休旧ctype/多字节/NLS转换表和私有argv/环境组、重复初始化及其专用致命入口；真实Input两项分类直接MSVC，应用ParseCommandOptions/ParseIpOptions与实际WinMain命令尾保持。未更改协议/资源/存档编码或开启全局locale；完整业务/owner/SDK与运行门禁保持。
 
 > 2026-10-10堆策略：[MC01-C4](cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010)覆盖HMU01仍保留的模式选择、数量预处理、私有handler与借用句柄初始化要求。通用分配族直接采用MSVC合同，原业务U32参数、真实返回消费和owner保持；旧库策略与失败28前置只保历史，实际多字节前置另步处理。未编译/运行，全部适用业务与SDK门禁保持。
@@ -287,3 +289,38 @@ ClassifyLegacySpace/Control保原S32接口，移至既有LegacyStringCompare，�
 F1431→1454（新23）、CRT已知成员500→524（新24既有原ID）且枚举false，软件证据1337→1339仅限定I/S。语义2029（1981F＋48X）、合同2091/3680、所有原分母/完整功能门禁、184叶整项验收0、60任务关闭11及六closure保持。三旧附件只核固定前态，当前source禁回退；旧私有符号/表/头/CMake无残留，两真实服务/SDK及业务精确守恒、56身份/来源与台账/门禁/政策、UTF-8/LF/差异和静态汇总/-Check核对。
 
 未构建/链接/测试/运行/算法/查产物/计算摘要，无新依赖；固定引用cg2d-re-msvc-crt-multibyte-20261010。接下来审计全体实际CRT提供者/业务边界及残留接线；未知原alias、原邮件重叠及完整业务字节/正常结果/owner/SDK生命周期和运行仍待，不能据退休私有层关闭MC01或整体SPEC§10。
+
+<a id="msvc-crt-residual-decision-20261010"></a>
+## MC01-C6：CRT残留审计与无消费流回退退休（2026-10-10）
+
+现LegacyTime/Memory/StringCompare/LowIo/Format/Scan及FILE薄适配已实际调用MSVC；保留的时间九S32/位置双W32、参数/返回宽度与errno/TLS逐字段适配不是旧库算法复刻。实际数组构析/展开/SEH筛选与terminate由业务调用，Shop W32读取和MainLoop U64除法也有真实消费，本步保持。LegacyStdio仍含549147的多字节unget/失败回读算法，但src/include无当前调用，唯一旧filebuf消费者已沿C1退休，因此删除函数/公共声明；现单BYTE ungetc/fgetc及其真正业务消费者不改，私有文件缓冲职责归MSVC，不造同名空体/回退模拟。
+
+原549147身份/全部机器参数和指令/旧流关系及完整前态固定于cg2d-re-msvc-crt-residual-history-20261010；无现调用不证明原端不可达，不作范围排除。对应真实MSVC FILE职责只关联现单BYTE服务，不能称一次ungetc等同多BYTE原函数或原回退算法等价。原FILE owner、业务读写字节/参数、容量/返回消费与正常结果仍待全体验收。
+
+<a id="msvc-crt-sort-pending-decision-20261010"></a>
+## 剩余排序的待决边界
+
+原_qsort 53C112十直接caller和_shortsort/_swap身份已有库存与旧实施证据：六业务特化覆盖七调用，LegacySort模板覆盖动画、渲染及公会索引三调用。动画45B420和渲染5222A0比较器同键返回0；其余地图、技能、称号、联系人、邮件两个域、战斗绘制及公会排序共有七组/八调用，比较同键仍返±1，部分空槽/标志分支也产生不对称关系。当前算法保原比较/分区/交换次序；不能在没决定业务比较关系的情况下将它们直接交MSVC并声称原顺序保持。
+
+MSVC真实qsort按比较关系排序，同键次序不保证，现本机算法的pivot/短排序/扫描与旧实现不同。主依据是现比较器完整源码、旧十caller/算法合同，以及[MSVC qsort文档](https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/qsort?view=msvc-170)和本机UCRT stdlib/qsort.cpp；只作静态分析，不执行排序样例。
+
+待用户选择的两个具体方案：
+
+1. 全部改用MSVC，并允许修正非一致业务比较器：已证主键/字段方向和正常类别优先保持，同键或同类无业务次键时返回0；空槽/类别两侧统一比较，不引入地址、随机数或新字段作为次键。接受这些具名排序关系/同键顺序与库比较/交换次序变化，逐比较器另列实际差异，完整业务画面/列表和owner结果仍须验收。
+2. 保留七组/八调用的现业务兼容排序，作为直接MSVC要求的具名例外；业务比较器/原序保持。两个一致比较域可独立迁MSVC，但同键顺序/实际画面仍待验。例外不扩展其它CRT，也不据此宣布全CRT原算法已全部退休。
+
+本步仅记录取舍和真实冲突，未实施排序替换或修正比较器，不把等待选择记为已批准；其余独立CRT/业务缺口继续推进。不恢复编译、测试、运行、产物或摘要权限，不降低总SPEC§10。
+
+<a id="msvc-crt-residual-acceptance-20261010"></a>
+## MC01-C6 静态范围
+
+核549147全src/include消费者为零、函数/声明精确删除及单BYTE服务/其余stdio与所有业务源保持；原身份/台账/门禁/政策和UTF-8/LF/静态汇总保持。对排序只核实际比较器、十caller/九算法位置与本机库差异，不执行算法，不计排序软件通过或完成。库内部剩余及业务owner/未知alias/实际SDK和运行仍待。
+
+<a id="msvc-crt-residual-source-state-20261010"></a>
+## MC01-C6 当前源码状态
+
+无现src/include调用的UnreadLegacyStreamBytes_549147旧多BYTE反向unget/失败回读函数和公共声明退休；C1旧filebuf组已退出，现单BYTE ungetc/fgetc与其它stdio完整正文保持。两当前语义对齐：549147库职责host，53C8B3只标旧失败回读消费者退休，真实fgetc及所有业务仍在；原身份/机器数据/入向和完整前态按固定标签/索引读取。现单BYTE提供者只是库职责关联，不称其实现原多BYTE合同。
+
+F处置1454、CRT已知成员524且枚举false保持，软件证据1339→1340仅限定S；没有新增I或排序通过。语义2029（1981F＋48X）、合同2091/3680、所有原分母/完整门禁、184叶整项验收0、60任务关闭11及六closure保持。[准确前后态与审计](cg2d_msvc_crt_residual_evidence.json)核现SDK fgetc/ungetc声明/转引及真实qsort扫描/pivot差异，七非一致组/八调用与两个一致域均只静态归档、排序源码未改。排序两方案已请求用户选择，不能把预选项/未回复当批准；其余独立项继续。
+
+源码函数/声明精确删除、全src/include消费为零/旧符号退出、其余stdio与所有业务/排序源守恒、两身份/现来源/台账增量及政策/门禁、UTF-8/LF/差异和静态汇总/-Check核对；未构建/链接/测试/运行/算法/查产物/计算摘要，无新依赖。固定引用cg2d-re-msvc-crt-residual-20261010；全CRT排序/兼容边界尚未完成，全部业务/原未知alias/owner、SDK和正常结果/生命周期运行仍待，整体SPEC未完成。

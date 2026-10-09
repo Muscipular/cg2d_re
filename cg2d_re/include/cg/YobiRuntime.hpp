@@ -297,7 +297,7 @@ void ParseBattleC_438550(); // 完整C角色/附件生产及22槽缺席清理；
 void FinishBattleEvent_43B6C0(YobiAction* action); // 推进同一事件消息或注销当前槽后MarkDeath。
 void AppendBattleQueuedTarget_43B7F0(YobiAction* action, std::int32_t value);
 std::int32_t AdvanceBattleQueuedTarget_43B830(YobiAction* action); // 先推进13A4，再判断新槽是否为-1。
-std::int32_t GetBattleValueBand_43BF00(std::int32_t value); // 原1..15按五阈值分档，范围外-1。
+std::int32_t GetBattleValueBand_43BF00(std::int32_t value); // B22H01：原1..15按五个S32阈值计档1..5，范围外-1。
 void UpdateBattleAttachment_421F90(YobiAction* action); // 父战斗槽身份变化时只标死附件。
 void SyncBattleRider_421FB0(YobiAction* action); // 非零phase仅同步绘制属性；零phase另映射动作并投影。
 void SyncBattleGear_4225D0(YobiAction* action); // 骑乘两轴均用父scaleX，Y轴重取骑乘引用。
@@ -504,7 +504,7 @@ void UpdateBattleAction16_4072E0(YobiAction* action); // 投射命中与退场�
 void UpdateBattleAction17_4093B0(YobiAction* action); // 本叶仅移动/超界标死；404DB0仍执行公共尾，404C50/404D10后续摘链/释放（BPEX01）。
 void UpdateBattleAction20_408410(YobiAction* action); // B20H01：近距命中保低BYTE/HP归零取样，免疫跳过扣血/激活位，标死后仍移动。
 std::int32_t UpdateBattleAction21_408750(YobiAction* action); // 重读00/04，单圈修正后转phase22。
-std::int32_t UpdateBattleAction22_4087C0(YobiAction* action); // 回旋效果队列命中，独立HP分支及3/7帧延迟。
+std::int32_t UpdateBattleAction22_4087C0(YobiAction* action); // B22H01：回旋命中保独立HP/低BYTE与取样、3/7帧延迟及真实返回。
 std::int32_t UpdateBattleAction23_4090F0(YobiAction* action); // 回到other并追加266动作，死亡后仍移动/播放。
 void UpdateBattleAction24_409380(YobiAction* action); // 新FF0严格超过20才推进。
 void UpdateBattleAction25_406BA0(YobiAction* action); // 等待目标待机，X/Y分别查目标后保存到10/14。

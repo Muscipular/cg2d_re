@@ -196862,6 +196862,104 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x4087c0",
+      "inventory_id": "F:000087C0",
+      "original_role": "完整回旋队列命中及独立伤害/恢复/图号/数显和延迟",
+      "original_end_exclusive": "0x4090e9",
+      "instruction_count": 645,
+      "function_chunks": [
+        {
+          "start": "0x4087c0",
+          "end_exclusive": "0x4090e9"
+        }
+      ],
+      "status": "B22H01完整正常源/独立身份纳管；入口frameEvent/payload、第二转向索引/step、HP归零交替pub/原四BYTE七组修正，普通伤害无免疫门禁和最大HP正确Copy、3/7当帧减计时/phase23/真实S32返回保持；完整数据/所有父-callee/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction22_4087C0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction22_4087C0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-hit-baseline",
+        "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-hit-decision",
+        "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-hit-acceptance",
+        "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-hit-source-state",
+        "doc/cg2d_battle_boomerang_hit_evidence.json"
+      ],
+      "boundary": "入口frameEvent/payload、第二转向索引/step、HP归零交替pub/原四BYTE七组修正，普通伤害无免疫门禁和最大HP正确Copy、3/7当帧减计时/phase23/真实S32返回保持。字段/原生T*和接收者/失败/RNG/返回消费保持；原父引用定位不代全部父-callee、间接alias/资源owner、SDK数值/声音画面与运行；RPLAN.24/MC01和完整门禁保持。",
+      "verification_level": "两完整662条2391B/十二页，主42直接CALL/28目标/99跳一RET与分档五跳一RET零CALL、case22 11B/分档16call三父定位、0.3F/五阈值/五图；一CPP七组/四注释与其它源守恒，限定I只主根/S两根。",
+      "battle_boomerang_hit": {
+        "step": "B22H01",
+        "source_snapshot": "cg2d-re-battle-boomerang-hit-20261010",
+        "original_instruction_count": 645,
+        "original_code_bytes": 2345,
+        "original_page_count": 11,
+        "direct_call_count": 42,
+        "callee_count": 28,
+        "jump_count": 99,
+        "return_count": 1,
+        "actual_inbound_call_count": 1,
+        "source_body_patch_group_count": 7,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x43bf00",
+      "inventory_id": "F:0003BF00",
+      "original_role": "五个S32阈值按序计数返回档或-1",
+      "original_end_exclusive": "0x43bf2e",
+      "instruction_count": 17,
+      "function_chunks": [
+        {
+          "start": "0x43bf00",
+          "end_exclusive": "0x43bf2e"
+        }
+      ],
+      "status": "B22H01完整正常源/独立身份纳管；入参1..15按1/4/7/10/13计档1..5，其余/结果<1返回-1；54D950只排他末址，2022级别+1映到五图，正文/数据保持；完整数据/所有父-callee/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::GetBattleValueBand_43BF00"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::GetBattleValueBand_43BF00"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-hit-baseline",
+        "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-hit-decision",
+        "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-hit-acceptance",
+        "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-hit-source-state",
+        "doc/cg2d_battle_boomerang_hit_evidence.json"
+      ],
+      "boundary": "入参1..15按1/4/7/10/13计档1..5，其余/结果<1返回-1；54D950只排他末址，2022级别+1映到五图，正文/数据保持。字段/原生T*和接收者/失败/RNG/返回消费保持；原父引用定位不代全部父-callee、间接alias/资源owner、SDK数值/声音画面与运行；RPLAN.24/MC01和完整门禁保持。",
+      "verification_level": "两完整662条2391B/十二页，主42直接CALL/28目标/99跳一RET与分档五跳一RET零CALL、case22 11B/分档16call三父定位、0.3F/五阈值/五图；一CPP七组/四注释与其它源守恒，限定I只主根/S两根。",
+      "battle_boomerang_hit": {
+        "step": "B22H01",
+        "source_snapshot": "cg2d-re-battle-boomerang-hit-20261010",
+        "original_instruction_count": 17,
+        "original_code_bytes": 46,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "callee_count": 0,
+        "jump_count": 5,
+        "return_count": 1,
+        "actual_inbound_call_count": 16,
+        "source_body_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

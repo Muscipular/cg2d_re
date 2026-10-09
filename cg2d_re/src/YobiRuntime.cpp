@@ -22637,6 +22637,7 @@ void AppendBattleQueuedTarget_43B7F0(YobiAction* const action, const std::int32_
     ++payload->queuedTargetCount13A8;
 }
 
+// B22H01：原五个S32阈值按序计数、1..15外返回-1；完整分档合同见回旋命中SPEC。
 std::int32_t GetBattleValueBand_43BF00(const std::int32_t value)
 {
     if (value < 1 || value > 15) {
@@ -25649,12 +25650,14 @@ std::int32_t UpdateBattleAction21_408750(YobiAction* const action)
     return PlayFrame_517DA0(action, 0);
 }
 
+// B22H01：回旋命中独立HP/数显与延迟、低BYTE及取样阶段见doc/cg2d_battle_boomerang_hit_spec.md。
 std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
     using namespace platform::legacy_crypt_int;
+    const std::int32_t initialFrameEvent = action->frameEvent;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
-    if (action->frameEvent == 0) {
+    if (initialFrameEvent == 0) {
         if (action->field1D0 == 0) {
             action->field1D0 = static_cast<std::int32_t>(GetBattleAngleDifference_406060(action,
                 gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position]));
@@ -25667,9 +25670,10 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
             TurnBattleToward_406190(action,
                 gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position], 0, step);
         }
+        const std::int32_t turnIndex = payload->effectRunningC9C;
         const float step = action->effectAcceleration48;
         TurnBattleToward_406190(action,
-            gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position], 0, step);
+            gBattleAllEntries59E980[payload->effects1C[turnIndex].position], 0, step);
         NormalizeBattleAngle_405E60(action);
         YobiAction* const other = action->battleOpponent10;
         if (other->phase != 15) {
@@ -25788,12 +25792,20 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
                             payload->effects1C[payload->effectRunningC9C].position]->readiness, 0)) {
                         platform::LegacyCryptInt temporary;
                         ConstructFromInt_401CC0(&temporary, 0);
-                        YobiAction* const copyTarget = gBattleAllEntries59E980[
-                            payload->effects1C[payload->effectRunningC9C].position];
-                        CopyPayload(&copyTarget->readiness, &temporary);
+                        const std::int32_t copyIndex = payload->effectRunningC9C;
+                        const std::uint32_t encoded = temporary.encoded;
+                        const std::int32_t copyPosition = payload->effects1C[copyIndex].position;
+                        YobiAction* const copyTarget = gBattleAllEntries59E980[copyPosition];
+                        copyTarget->readiness.encoded = encoded;
+                        const std::uint32_t mask = temporary.mask;
+                        copyTarget->readiness.mask = mask;
+                        const std::uint8_t readCount = temporary.readCount;
+                        copyTarget->readiness.readCount = readCount;
                         Destroy_401CF0(&temporary);
                     }
-                    if ((payload->effects1C[payload->effectRunningC9C].flags & 0x20u) != 0) {
+                    const std::uint8_t activationFlags = *reinterpret_cast<const std::uint8_t*>(
+                        &payload->effects1C[payload->effectRunningC9C].flags);
+                    if ((activationFlags & 0x20u) != 0) {
                         targetPayload->flagsFDC |= 2u;
                         gYobiUpdateGateMode = 1;
                         targetPayload->aliveFF8 = 1;
@@ -25823,7 +25835,9 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
                         const std::int32_t y = target->y - 80;
                         const std::int32_t displayed = payload->effects1C[numberIndex].position3;
                         static_cast<void>(NewBattleNumber_41F1A0(target->x, y, displayed, 5, 2, numberFlags));
-                        if ((payload->effects1C[payload->effectRunningC9C].flags & 2u) != 0) {
+                        const std::uint8_t restoreIconFlags = *reinterpret_cast<const std::uint8_t*>(
+                            &payload->effects1C[payload->effectRunningC9C].flags);
+                        if ((restoreIconFlags & 2u) != 0) {
                             static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                         }
                         static_cast<void>(NewBattleAttributeEffects_4209C0(
@@ -25848,7 +25862,9 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
                         const std::int32_t y = target->y - 80;
                         const std::int32_t displayed = payload->effects1C[numberIndex].position3;
                         static_cast<void>(NewBattleNumber_41F1A0(target->x, y, displayed, 6, 2, numberFlags));
-                        if ((payload->effects1C[payload->effectRunningC9C].flags & 2u) != 0) {
+                        const std::uint8_t damageIconFlags = *reinterpret_cast<const std::uint8_t*>(
+                            &payload->effects1C[payload->effectRunningC9C].flags);
+                        if ((damageIconFlags & 2u) != 0) {
                             static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                         }
                         static_cast<void>(NewBattleAttributeEffects_4209C0(
@@ -25861,7 +25877,9 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
                 }
             }
             const std::int32_t finishIndex = payload->effectRunningC9C;
-            if ((payload->effects1C[finishIndex].flags & 8u) == 0 && payload->effects1C[finishIndex].position3 != 0) {
+            const std::uint8_t finishFlags = *reinterpret_cast<const std::uint8_t*>(
+                &payload->effects1C[finishIndex].flags);
+            if ((finishFlags & 8u) == 0 && payload->effects1C[finishIndex].position3 != 0) {
                 payload->valueFD0 = 14 * static_cast<std::int32_t>(((targetPayload->flagsFDC >> 1) & 1u) + 1u) / 4;
             }
             if (AdvanceBattleEffect_439470(action) == 1) {

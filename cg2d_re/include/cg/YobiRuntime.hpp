@@ -317,7 +317,7 @@ void UpdateBattleOneShotEffect_419FA0(YobiAction* action); // PlayFrame(1)严格
 void UpdateBattleProjection_418D80(YobiAction* action); // 父FD0门禁仅影响移动，标死后仍播放/投影。
 void NewBattleProjection_418DF0(
     YobiAction* parent, float x, float y, float targetX, float targetY,
-    std::int32_t imageNo); // 目标先截S32再转向；指定图号播放后额外移动两次。
+    std::int32_t imageNo); // 目标先截S32再转向；原三caller不消费返回，指定图号播放后额外移动两次（BPR01）。
 void UpdateBattleArcProjection_418F10(YobiAction* action); // 固定父引用，标死后仍残影/屏幕投影，保留两次角度读取。
 YobiAction* NewBattleArcProjection_418FF0(
     YobiAction* parent, std::int32_t offsetX, std::int32_t offsetY,

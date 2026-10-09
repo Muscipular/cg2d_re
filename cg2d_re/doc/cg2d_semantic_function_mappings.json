@@ -196349,6 +196349,104 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "inventory_id": "F:00018D80",
+      "original_entry": "0x418d80",
+      "original_role": "YobiBattleEntry::ProjectionUpdate",
+      "original_end_exclusive": "0x418de3",
+      "instruction_count": 32,
+      "function_chunks": [
+        {
+          "start": "0x418d80",
+          "end_exclusive": "0x418de3"
+        }
+      ],
+      "status": "BPR01完整既有投影创建/更新合同纳管，正文正确保持；完整寿命/SDK和运行未验",
+      "evidence_documents": [
+        "doc/cg2d_battle_projection_spec.md#battle-projection-baseline",
+        "doc/cg2d_battle_projection_spec.md#battle-projection-decision",
+        "doc/cg2d_battle_projection_spec.md#battle-projection-acceptance",
+        "doc/cg2d_battle_projection_spec.md#battle-projection-source-state",
+        "doc/cg2d_battle_projection_evidence.json"
+      ],
+      "boundary": "BPR01原生非拥有父、FD0仅控制移动、移动和标死后分别重取父、标死后继续层/播放/坐标发布；目标S32截断、两图号阶段、字段宽度与原失败保持。原三个caller不消费创建EAX，保持void；未知间接alias/全父-callee、资源/SDK/最终owner回收与运行未验。",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleProjection_418D80"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleProjection_418D80",
+        "source_body_implemented": true,
+        "source_body_changed": false,
+        "runtime_verified": false
+      },
+      "verification_level": "两完整113条385B/三分页，14call/六目标/七跳三RET，回调地址生产及三CALL后返回消费；全部现正文/签名保持，仅三个注释，不代最终回收/运行。",
+      "battle_projection": {
+        "spec_id": "BPR01",
+        "full_original_root_captured": true,
+        "instruction_count": 32,
+        "code_bytes": 99,
+        "read_pages": 1,
+        "outgoing_calls": 5,
+        "actual_direct_inbound_call_count": 0,
+        "callback_address_reference_count": 1,
+        "source_body_changed": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "inventory_id": "F:00018DF0",
+      "original_entry": "0x418df0",
+      "original_role": "YobiBattleEntry::newProjection",
+      "original_end_exclusive": "0x418f0e",
+      "instruction_count": 81,
+      "function_chunks": [
+        {
+          "start": "0x418df0",
+          "end_exclusive": "0x418f0e"
+        }
+      ],
+      "status": "BPR01完整既有投影创建/更新合同纳管，正文正确保持；完整寿命/SDK和运行未验",
+      "evidence_documents": [
+        "doc/cg2d_battle_projection_spec.md#battle-projection-baseline",
+        "doc/cg2d_battle_projection_spec.md#battle-projection-decision",
+        "doc/cg2d_battle_projection_spec.md#battle-projection-acceptance",
+        "doc/cg2d_battle_projection_spec.md#battle-projection-source-state",
+        "doc/cg2d_battle_projection_evidence.json"
+      ],
+      "boundary": "BPR01原生非拥有父、FD0仅控制移动、移动和标死后分别重取父、标死后继续层/播放/坐标发布；目标S32截断、两图号阶段、字段宽度与原失败保持。原三个caller不消费创建EAX，保持void；未知间接alias/全父-callee、资源/SDK/最终owner回收与运行未验。",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::NewBattleProjection_418DF0"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::NewBattleProjection_418DF0",
+        "source_body_implemented": true,
+        "source_body_changed": false,
+        "runtime_verified": false
+      },
+      "verification_level": "两完整113条385B/三分页，14call/六目标/七跳三RET，回调地址生产及三CALL后返回消费；全部现正文/签名保持，仅三个注释，不代最终回收/运行。",
+      "battle_projection": {
+        "spec_id": "BPR01",
+        "full_original_root_captured": true,
+        "instruction_count": 81,
+        "code_bytes": 286,
+        "read_pages": 2,
+        "outgoing_calls": 9,
+        "actual_direct_inbound_call_count": 3,
+        "callback_address_reference_count": 0,
+        "source_body_changed": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

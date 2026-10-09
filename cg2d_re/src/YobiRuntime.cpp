@@ -9388,6 +9388,7 @@ YobiAction* NewBattleArcProjection_418FF0(
     return action;
 }
 
+// BPR01：移动/标死后各自重取非拥有父；标死后仍播放并发布坐标，见doc/cg2d_battle_projection_spec.md。
 void UpdateBattleProjection_418D80(YobiAction* const action)
 {
     YobiAction* const parent = action->battleAttachmentParent10;
@@ -9407,6 +9408,7 @@ void UpdateBattleProjection_418D80(YobiAction* const action)
     action->y = static_cast<std::int32_t>(y);
 }
 
+// BPR01：目标先截S32，播放前后分别取图号；三个原caller均不消费创建返回，保持void接口。
 void NewBattleProjection_418DF0(
     YobiAction* const parent, const float x, const float y,
     const float targetX, const float targetY, const std::int32_t imageNo)

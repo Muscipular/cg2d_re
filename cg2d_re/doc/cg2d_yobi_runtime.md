@@ -4602,3 +4602,8 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 ## 2026-10-10 动作16创建端载荷与投影取样（BPC01）
 
 [完整合同](cg2d_battle_projectile_creators_spec.md#projectile-creators-source-state)/[原根与四差集](cg2d_battle_projectile_creators_evidence.json)纳管418B70的SpiracleShot创建器、419180的BlastWave创建器。两161条/1051B完整根已有NewYobi创建/phase16/图形及载荷生产/双移动一播放/原返回，衔接真实case16与4072E0；一个CPP四片段恢复效果记录+0C→+08→+04→+00取样和两种投影共享字段的原读取阶段，不改布局/声明/API、数值公式、辅助flags持样及原失败/owner。两真实CALL，三个额外type17 metadata实际为父内JMP，保原记录另列不虚增调用。仅限定I/S，完整资源/数据/所有父-callee/借用与最终回收/SDK-数值ABI及声音画面运行仍未验，全部门禁保持。
+
+<a id="battle-projection-runtime-20261010"></a>
+## 2026-10-10 BPR01：投影非拥有父与本轮标死处理
+
+[投影合同](cg2d_battle_projection_spec.md#battle-projection-source-state)纳管418D80/418DF0两完整既有根。父FD0只门禁移动；移动后重取父标死值，MarkDeath后仍重新取父层、播放并发布坐标，现正文正确保持。三个原创建CALL不消费返回，公开void保；创建空返、目标S32截断、播放前后图号重取及两特殊图额外移动保持。仅三个注释/一限定S、零新I；未知间接alias、全creator/cleanup、父与投影最终回收顺序及SDK/运行仍待，不以本轮标死处理代完整U09寿命验收。

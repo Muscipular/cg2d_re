@@ -278,3 +278,7 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 ## CAC06 R01/R04/U10/V03/V04 黑名单核心原新与取样（2026-10-09）
 
 [黑名单合同](../doc/cg2d_blacklist_state.md#blacklist-core-sampling-source-state)及[七完整/十八邻窗](../doc/cg2d_blacklist_core_sampling_evidence.json)恢复插入游标取样相对复制阶段和删除两对U8比较；其余本体/owner/所有调用者保持。七原新/七处置及SAVED成员2→9、三局部I/W/S，不闭完整成员/FILE与输入/全父/旧路由/正常寿命/机器ABI/运行，五任务仍open，不构建/测试/运行或摘要。
+
+## CAC07 R02/R03/R04 第四批512区间完整用途（2026-10-09）
+
+[本批合同](../doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state)及[完整原证](../doc/cg2d_unassigned_range_fourth_batch_evidence.json)逐项纳管512原X/8226B，R7已审485→997/3061、余2064。487纯填充/25混合分项、68表591槽与31索引全部值及实际取用/guard、25对齐只读解码可追；原父/未知间接路径/生命周期与软件验收不外推。12已有语义加数据依据、13已有源新增关联/已知成员且无F处置或软件证据，R02/R03/R04仍open，原门禁/分母/排除与禁令保持。

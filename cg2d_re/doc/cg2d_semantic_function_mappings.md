@@ -4237,3 +4237,9 @@ X:00143383-00143390的7B实际代码对应Cg2dApplyLegacyConditionalSignX87，�
 ## CAC06 黑名单七核心已有实现与正常取样（2026-10-09）
 
 原新记录1906..1912绑定401000/401170/401190/401270/4012F0/4013D0/401470七真实F；[原249条613B/18入向邻窗161条547B](cg2d_blacklist_core_sampling_evidence.json)和[当前合同](cg2d_blacklist_state.md#blacklist-core-sampling-decision)。四同源存储及现有加载/重置/输入/UI/聊天生产消费保持；只修一CPP插入游标取样及删除两对U8比较，不新增本体或owner。七处置/三局部I-W-S不关闭FUNC-SAVED完整成员、文件/输入/正常寿命/机器与运行，原分母和R8保持。
+
+## CAC07 第四批区间分派数据的原新关系（2026-10-09）
+
+[512原X/8226B](cg2d_unassigned_range_fourth_batch_evidence.json)与[具名合同](cg2d_unassigned_range_classification_spec.md#range-fourth-batch-decision)补完整数据用途：487纯填充、25混合，68W32表/591槽、31U8索引/1820B、25只读对齐解码。12已有父记录只追加数据依据；1913..1925十三新记录仅已有源码/原表关联，不记完整F处置或I/W/S/R通过，源码、接口和owner不变。
+
+四战斗、四地图、四Yobi、一开场载入成员按实际源/原数据职责纳管且枚举false；相邻父的完整算法/生产/间接alias/正常寿命、机器ABI和运行继续验收。512辅助mapped不是512函数或业务排除，原函数分母/门禁/旧证据保持。

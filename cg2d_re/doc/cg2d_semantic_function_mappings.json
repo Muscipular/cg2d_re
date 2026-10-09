@@ -104040,7 +104040,9 @@
         "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-decision",
         "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-acceptance",
         "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-source-state",
-        "doc/cg2d_battle_m_skill267_sampling_evidence.json"
+        "doc/cg2d_battle_m_skill267_sampling_evidence.json",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json"
       ],
       "verification_level": "父17298条统计，只读查找/循环相邻28条、真实参数/引用类型/25项原头与当前表；整份源码七标识符、核心/头保持及两合同追加/JSON限定增量静态核对，不重验其余父正文/调用方，未构建或执行 本次仅读27格式邻指令、一个新ASCII含NUL格式、43390F原call与5A3A18/调试先后及真实源码两层调用链、一标识符静态核对，余17271条/原callback绑定及其他目标不重验，未执行。；BMG01四有界区间312条1201B七页与25槽100B/真实data绑定，四内联计时重合段去重、两CPP三根四片段/所有头与其它正文保持有限静态；17298仅包括两chunk的父统计，不称完整父原指令/SDK/SEH/ABI或运行已验；BMH01六数据块和共用完成尾329条1314B九页/63call，五CopyPayload点沿既有9条27B正确合同保持；Yobi五片段/缓存引用承载/头声明七处有限静态，所有其它源码/原读取消费者保持。不据此验17298全父/SDK/SEH/ABI或运行；BMI01九区间448条1743B十二页/60call含三共用尾与真实分支闭合，单根七逻辑八处/其它所有源和头保持有限静态；不以此验全部17298父/SDK/SEH/ABI/资源owner或画面运行；BMJ01九区间643条2575B十四页/89call与三共用推进/就绪/完成尾，单根四逻辑七处和唯一过期注释有限静态；原live mode/固定旧payload与当前槽/Queued任意非零substate及所有其它源码声明保持。不据此验全17298父/SDK/SEH/ABI/资源owner或画面；BMK01五区间647条2787B十二页61call含两个主目标和三个实际共用尾，单CPP两根九处指定差异及旧槽/重复附件/固定payload/四载体/列表与58取样有限静态；不以此验完整17298父/SDK/SEH/ABI/owner/画面；BML01五区间1198条4711B十八页170call及正确401EA0一条5B尾跳/入口W8零初始化、单CPP两根九组十一补丁定义十二处和正确载体核心保持有限静态；不以此验17298全父/SDK/SEH/ABI/资源owner/画面；BMM01五区间968条3545B十五页119call/四态表四W32-16B、两根二十四组二十七处及原正常失败/列表/调用后live取样保持有限静态；间接表不作代码目标，不以此验17298父/SDK/SEH/ABI/owner/画面；BMN01五区间490条1894B十页35call/五压缩表512B，三根四组七定义八处及原37技能state2/七类finish/五Take与归一化有限静态；不以此验42AE37后主体或17298父/SDK/SEH/ABI/owner/画面；BMO01技能4完整正常主体256条894B四页26call/入口低段表202B及八原零生产者有界静态，单根九组九处精确差异；不以此验其它主体/全路由/17298父或SDK/SEH/ABI/owner/画面；BMP01完整正常有界主体566条2220B八页56call/入口202B四case定位与48B偏移，单根十九处精确差异/一W8和原累计-反向消费有限静态；不代其它主体/全路由/17298父或SDK/SEH/ABI/owner/画面；BMQ01完整正常有界主体103条423B两页13call/202B入口五case定位与原48B偏移，单根五处精确差异及空比较pub/字段和自身效果/图号取样有限静态；不代其它主体/全路由/17298父或SDK/SEH/ABI/owner/画面；BMT01三完整正常有界主体749条2827B十一页78call/202B三case定位与原48B偏移，四根二十二处精确差异及两个原目标循环/唯一共用尾/不同图号序与82交错取样有限静态；不代其它主体/全路由/17298父或SDK/SEH/ABI/owner/画面；BMU01主体与真实尾241条1085B四页39call/202B入口定位，单根五处精确差异与十整数/四内存载体/固定created-payload及工厂前后live目标有限静态；不代98/其它主体/全路由/17298父或SDK/SEH/ABI/owner/画面；BMV01准备段86条362B两页11call/202B入口和48B原偏移上下文，单根五处精确差异/三整数-字段-六动作有限静态；不代各模式/完整98-其它技能/全路由-17298父或SDK-SEH-ABI-owner-画面；BMW01 mode6主体与空Finish-终结参数/正常消费两尾98条405B三页12call/26条114B原比较链入口及202B SKL表上下文，单根四处与目标-字段-五动作及末RID/状态有限静态；不代其它mode或完整98/全路由-17298父-SDK-SEH-ABI-owner-画面；BMX01两主体/三个尾341条1410B七页23call，两个原比较五条22B与202B SKL表仅入口上下文，两个既有尾22条82B不称新增；整CPP两根十八处和固定oldSlot-moving/八坐标-三附件及mode8 W8-reset同位置有限静态，不代其它mode或完整98-17298父-SDK-SEH-ABI-owner-画面；BMY01三主体及两尾681条2625B十二页72call，三个比较六条27B/202B SKL表/八W32正常零仅上下文，BMW尾19条73B不称新增；整CPP三根32处及中点-效果参数/原S32选择计数/字段与0-149条件重读、14双位置金额类型有限静态，不代其它mode或完整98-17298父-SDK-SEH-ABI-owner-画面；BMZ01两主体及三真实尾363条1280B九页35call，两选择四条18B/202B/八W32正常零仅上下文，BMX既有尾18条67B不称新增；两主体完整核后单根五处和effect/aux参数-S32选择/player及6/3真实调用有限静态，不代状态目标/17-默认或完整98-17298父-SDK-SEH-ABI-owner-画面；BNA01两主体三尾306条1163B八页31call/最后比较两条9B与默认EB0A消费、两根11处/固定flags与live-S32选择和状态字段有限静态；五既有具名子SPEC加本步按EA去重1833条7116B170call无缺口，只闭合原98区段指令来源，不代17298父-SEH/SDK/ABI/全部消费者-owner/画面或完整运行；BNB01单根14定义15处精确静态，400条1639B五页40call/直接出口与六槽24B、2019高表45B/图20B和3001实际比较链/状态helper52B上下文；既有尾12条53B非新增；BNC01单根五定义五处精确静态，93条355B两页15call/全部直接出口与case107原202B定位上下文，全部其它根头保持；BND01单根十处精确静态，239条981B四页26call/实际出口，case108原202B与48B偏移上下文、BMM既有尾13条53B非新增，所有其它根头保持；BNE01单根九处精确静态，251条977B五页31call/直接出口与case109实际202B定位上下文；BMM既有Move后缀五条20B非新增，所有其它根头保持；BNF01单根九处精确静态，226条872B四页29call/出口与case112实际202B定位上下文；BMJ尾八条33B非新增，全部其它根头保持；BNG01单根八处精确静态，166条701B三页20call/出口与case114实际202B-原48B偏移上下文；BMM尾13条55B非新增，其它根头保持；BNH01七处精确静态，146条585B三页20call/出口及case117实际202B上下文；BMJ Move后缀五条20B非新增，其它根头保持；六组过期selected_case仅元数据修正；BNI01六处精确静态，305条1051B四页31call/出口与case73实际202B、八W32初始化上下文；两Effect具体取样/双S32索引及比较位置保持，其它根头不改；BNJ01八处精确静态，409条1436B六页48call/出口及低202B/高45B定位与八W32初始化上下文；BMT尾十条39B非新增，其它根头保持；BNK01两根四补丁精确静态，三父九参/I-W-S桥与四范围80条304B四页九call/出口；BNI24条89B复用分列、原3100 route/EDI1上下文和P01现有core基线保持；BNL01单根23定义24处精确静态，985条3600B十四页95call/出口及2007原六S32表-业务初始化上下文；BNK尾六条21B非新增，四S32索引/两比较与mode3金额/W8边界纳管；BNM01三根23定义23处精确静态，536条2090B八页66call/出口与本组180B路由-既有48B偏移上下文；初空/循环空或255、原动作尾与固定58值保持；BNN01两根20定义20处精确静态，342条1303B五页44call/全部直接出口与既有180B路由-48B偏移上下文；402两种槽路径和405逐项取包-转换、原固定58尾保持；BNO01单根23定义23处精确静态，1286条4898B十七页147call/全部直接出口，404既有表-406三节点18B路由/入口业务零上下文；21组与预读三补丁分列，原Move-RID/固定58=1保持；BNP01两根24定义24处精确静态，四范围713条2702B十一页72call/全部出口与原五S32/20B图表-具体路由；BMP79/BMT7条共86条374B/11call非新增，主627条2328B/61call分列；BNQ01单根13定义14处精确静态，1065条4656B十四页76call/直接和十二表间接出口、117W32槽/93W8索引561B及169S32/676B图表和原48B偏移上下文；两成功skill写/一个S32行纳管；BNR01单根26定义27处精确静态，914条3505B十二页67call/全部直接和三个内部表间接出口、121B内部表及3037原36B入口/原48B偏移上下文；四S32业务索引/五处实际W8门禁纳管；BNS01 434EDF..43573F576条2144B八页45call及全部直接出口，无内部表/复用尾；267/3029原180B/36B入口表和十二S32/48B偏移仅上下文，25补丁/改前根与旧812完整前态保存；四S32/两W8和循环清flags发布时点纳管",
       "boundary": "原42761D失活块在DrainInactiveBattleMEvent，真实入口经PrepareBattleMExecution调用；辅助函数不独立绑定。本步仅M头表查找交真实53BE40；4B header/25项3B旧头顺序/首次命中或失配及现有游标/计数/参与者/动作/音效/RNG/owner/生命周期逐字保持。整份YobiRuntime仅七标识符替换、核心与声明不改，不初始化、转码、加保护或触碰424620待批var_50；其他依赖/数据生产/完整战斗/跨板块运行验收仍待，音频/加解密不恢复。 本次仅ProcessBattleMSkill32Family的43390F真实格式接口：技能2013、S32索引原采样/既有64B未清output/调试串输出在结果flags gate前。当前入口经ProcessBattleMSkillHeader的真实源码链保持，不造helper原地址；本次不证明原完整目的容量、不改M解析/目标/RNG/回调或424620待决值，不将单格式与旧查找接线算完整父/CRT运行通过。 BMG01追加入口253条942B和公共尾35条170B、两外部计时内联24条89B的有界合同：S32失活头、命中聊天条件和延迟零条件先发布、共享timer同remaining负条件先发布恢复；两256B原未清字符串/NUL边界、失配不第二次减、每轮live5C、15项恢复/13项回存且9C/A0不回存、完整25case正确正文保持。只有四处消费同共享timer，无独立原callee/F/X或新owner；不增adapted/完整成员、保护/异常模型或新零写，不覆盖旧查找/格式历史。 BMH01追加六数据case12/13/14/17/23/24与42AAFE共用完成尾有界合同，恢复FP/变身actor存在条件先caster发布、Chat加载后caster→lifetime→角色、DX base→角色图号W32→S16高度、400门禁先technique发布而1000比较仍发布后。新const S32&读取接口只借字段，在render边界内固定native表，不增原F/X或暴露底层对象/owner；原CHT A4两pub后live复读、四载体构造/逐字段copy/析构、两装备轮及骑乘和End Finish后scene7保持。既有CopyPayload9条及原弃返回合同不改，不引保护/异常模型或全父验收。 BMI01追加Escape/Clear/Support/PetNotice/PetLeave/PetDown和三共用尾有界合同，恢复两actor条件先caster pub、Escape先caster读再resultFlags pub及末玩家比较先角色借用、255条件先caster pub、Support FDC W8门禁、PetLeave X角色→点→载荷及Y角色/载荷→点的不同顺序。原seed同解析position/两Rand(0,19)、所有动作列表/字段/live角色复读/就绪参数/Finish和58增量及父回存保持；非拥有T*借用不跨Rand缓存，不增原F/X/保护/owner/注册或异常模型，完整其它消息和运行门禁仍待。 BMJ01追加装备6/状态值9/Debuff10/Power11/复活19/队列20及三共用尾有界合同，恢复三actor条件先caster pub、技能等级caster→actor→technique→payload/pub、两resultFlags W8门禁、Rebirth flags→target取样。原模式3/4 Append80后live mode重读、Debuff先旧payload借用再取state/type和当前角色判断、Power正常1/3、Queued任何非零substate就绪/peek busy-phase不耗包、所有列表/RID/58/父回存保持；原正常零mode标签仍raw，不新业务或排除/异常模型。仅更正具名接线注释，不增F/X/分类/成员/owner/保护或新零写，完整门禁仍待。 BMK01追加POS4/MON5及三个共用完成/增量尾有界合同；恢复POS哨兵比较先caster pub、玩家比较先moving借用、两方坐标与payload的各次原取样，MON actor条件先caster pub、target caster/actor后defender再payload、效果caster的分支寿命及defender先actor、失败W8与Reset后才重读位置、工厂固定槽与同位置。旧槽T**、非对称重复新附件重绑、工厂结果含null先pub后固定对象/payload、四CryptInt构造逐字段copy析构、正常W32/W16/零写/列表和58及父回存保持；不新F/X/分类/成员/保护/owner或异常模型，完整门禁仍待。 BML01追加RID22/GMN21及三个实际就绪/Move/增量尾有界合同；恢复RID同Take resultFlags局部、三效果同caster用于actor/记录、空payload效果Y点索引→effect→点值、三FDC W8门禁、骑手坐标caster→rider→source actor；GMN entrance2四坐标点索引先current actor/payload、linked条件先W8 field30F pub、caster条件先member借用。固定旧payload/载体两非拥有T*及16B非地址部分、RID三路径/四rider copy与十二构造析构、GMN mode0读palette一次/非零五载体/原entrance初始化与单Rand/MarkDeath和工厂先pub、正确401EA0尾跳401EC0/逐字段CopyPayload核心、正常零写/列表/5ABA7C/58和父回存保持；不新身份/分类/成员/owner/保护或异常模型，完整门禁待。 BMM01追加ITM7/COM8及三个实际共用尾；恢复ITM两target条件先pub、mode6 target先消息pub及正反效果参数、mode0 caster/target先消息pub/kind条件先技能零pub/actor先当前消息值再payload；COM序列lastValue先count W8/就绪FDC W8、caster条件先pub、同累计值pub/效果、caster-target-actor/参与者count先caster、两S32图索引/辅助参数原序、三player门禁和两不同165/27取样、末11/46目标位置跨分支寿命及调用后先target再flags。各模式/四state正常失败与返回、重复列表、图数组和未补空amount默认、原零写/核心/RID/58与父回存保持；24非技能头已分组有界纳管但全技能0/SEH及所有owner/消费者运行仍待，不增身份/分类/成员/保护或异常模型。 同解析位置用于pub和actor查找，ITM初始caster/两target及COM初始target/caster不在pub后额外重读全局。 BMN01追加SKL0入口/等待态/五整数及三Caster尾；入口58一次S32保存传private Waiting、四flagsFDC原W8对象字节、高段remainder<1先pub及低段>=50条件在skill pub后两tech/index pub前恢复。state2原37技能/最后参与者Advance、七类finish及68参数1、调用后live和Clear先Finish后逐次清字段、98固定16B效果序列、五Take及初始/live technique区别与原正常业务等级范围保持。五等待态表28W32跳槽112B/400W8索引400B按实际宽度/长度映射，42AE37正常主体分派边界明确；不增身份/分类/成员/保护或异常模型，全部各技能主体/owner/消费者运行仍待。 BMO01技能4九组九处恢复caster同解析位置pub/查actor、初始payload先skill/下一字段caster-actor-level-payload，target255条件先pub/同位置借actor、439400图号-flags-target-caster-actor和43BC10选图-second-first-flags-target-caster-actor原序、两非地址图索引S32、player条件前目标及256-52同位置/51仍live、165-27 kind先target/actor。正常初始两图/三数组八W32零写沿427496生产者、图值跨目标与26call/门禁优先级/调用后live和重复列表、初始空caster直接Finish回存、target空Finish后仍Move-RID-增58及255出口保持。入口202B低段表仅定位case4，不新分类/完整成员/保护或异常模型，其它技能和资源owner/消费者运行仍待。 BMP01四技能共用主体十九处恢复同解析caster/target与条件pub、初始payload-skill与四个actor-skill/level字段、83两轴各两索引先两坐标/90-198条件先actor/player同caster首动作、level比较后caster先原偏移表，累计旧total先target/flags pub后加法、正向caster-target-actor/source20条件先target、20000后46-47门禁原全局W8、末caster-actor-live total-payload及最后total-flags-caster-last-actor效果参数。三原入口零、83/非83准备、10000参与者列表与flags pub、149各门禁及40000-20000-10000优先与sameSide反向184-74、调用后live/重复列表/原零写/初始空caster与目标空不同结束、终结与累计回送/Move-RID-58=2保持。入口202B仅四case定位，553E58十二S32偏移48B原新对应保持；不新分类/完整成员/保护或异常模型，其它技能及owner/消费者运行仍待。 BMQ01五技能共用主体五处恢复actor空比较先caster pub、caster-actor-live skill或level-payload两字段、自身4393A0 actor和target同caster样本、level比较后caster先低段553E58取偏移。三Take/flags255门禁、空actor Finish直接回存、各次live角色/字段、效果-1终结/64与正常图号/Move-增58保持，本主体原无RID不新增消费；入口202B仅五case定位、原48B偏移与常量保持，不新分类/完整成员/保护或异常模型，其它技能及owner/消费者运行仍待。 BMT01三技能四根二十二处恢复12初始payload-skill/level字段/图号caster先偏移与自身效果同caster，保amount调用后live caster及正常尾无RID；82同解析caster/两字段、X两索引-baseX-同position actor-otherX-delta-payload-中点及Y两索引/live caster、player同位置首动作；97同解析caster/两字段与低段偏移-caster-加法。两个原目标循环均核，既有共用根恢复target255比较pub/同位置、主辅效果参数、两S32图索引/两个target字段、player同目标首动作/165-27 kind先目标。入口原八W32初值/图值跨目标、各常数/flags W32寄存器局部位、初始空与目标空不同出口、12无RID/82-97 Move-RID-增58及调用后live/列表保持；42CB2F-42CB37尾已在97物理范围不重算，入口202B仅三case定位/原48B偏移保持，不新分类/完整成员/保护或异常模型，其它技能和owner/消费者运行仍待。 BMU01技能93五处恢复caster同解析位置pub/actor、payload先skill/level字段caster-actor-level-payload、target255比较先pub/同位置MarkDeath和Album之后caster-target-actor效果参数。MarkDeath后live target进438290、工厂后再live target pub created，固定created/payload跨十处整数及29容量字符串/四临时内存载体Construct-Copy-Destroy、W32高位与W16槽3-2-1-0零写/各坐标逐次live、原正常失败和终结-Move-增58无RID保持；不将MarkDeath改立即释放或补工厂null保护。真实432E99尾纳管，202B表仅93入口，不新分类/完整成员/保护或异常模型，98现代多模式继续分段取证开发，其它技能及owner/消费者运行仍待。 BMV01仅PrepareBattleMSkill98五处恢复同解析caster发布/actor、初始payload先skill、level与mode字段caster-actor-live值-payload、level比较12后caster先低段偏移。保三Take首弃/第二pub mode/第三caster、空Finish false和六动作25/55/39/40/139/64后true、fpUsed与原110056偏移/111018常数、逐次live借用；不消费目标/RID或推进58，wrapper保持。42D0D0开始原比较链分派与各模式按具名子SPEC继续，不把现代switch当原跳表或定位探针当完整模式正文；仅旧812追加，不新分类/完整成员/保护异常模型。 BMW01仅ProcessBattleMSkill98Mode6四处恢复解析target255比较先pub/同位置actor空门禁、首次效果沿解析target后live caster-actor、两字段各live target-actor-skill或level-payload。保循环Take/调用后各次live目标及288/22404/168、80/83/68/81/56、255或目标空Finish break均效果终结-Move-RID-增58；共用尾helper正确核心保持，不将空失败break改return或补caster保护/owner模型。三个实际有界范围全部直接目标闭合；26条114B mode比较链仅上下文、其它分支不代正文，不以现代switch当原跳表/全98覆盖，仅旧812追加，不新分类/完整成员或异常模型。 BMX01 mode7十五处恢复解析target255比较先pub/同位置actor-pet、currentPosition先target比较并先固定moving/oldSlot、效果后target先caster及第一坐标固定位置、moving和other各四坐标的target-index-actor-payload-point原序、initialOther payload先target字段和当前rider/gear/两aux字段各一次live target用于指针链和值发布。非拥有moving/oldSlot跨效果/换位、交换前另live source/取replacement-pubtarget-pub两槽、caster判空却重绑target gear/两aux的非对称门禁与旧槽附件/phase34和210-80/11-F32 3.0-S32 rate100保持。mode8三处恢复解析target比较pub/空门禁-固定解析目标效果、flagsFDC对象W8测试2及Reset沿该次target，GetPet调用后live target比较/可选-2/223及205-80/53/51保持。两循环255或空Finish break均终结-Move-RID-增58，正确尾helper及其它根保持，不新caster保护/owner或异常模型。仅旧812有界追加，原比较链上下文不代其它模式/原跳表或完整成员。 BMY01 mode12十五/13十一/14六处：12/13初始selected255比较先pub和两字段actor先值、两轴各两S32 indices/中点原序、selected先player及同位置256/52，目标比较pub/同解析actor和两字段恢复；12效果firstImage-flags-target-selected-actor、两S32选择计数、辅助graphics后flags-target-selected-actor、0动作与34后player及165/27目标-位条件-actor-kind；13效果selected-target-flags-actor，0/149只有实际0调用后再取target，不相等149沿比较位置。14两位置比较先pub、金额Take后live位置/先kind条件再actor-payload金额和另payload再类型分支、两效果caster-target-actor恢复。保12/13初始无效直接回存、循环失败selected终结/74而14无actor空门禁/双哨兵caster终结，原图值数组一次正常零/跨目标、W32 EAX及AL/AH flags逻辑和动作/金额/常数，共用Move-RID-增58和正确两尾helper保持；仅旧812追加，不新完整成员/保护owner异常模型，原比较链不代其它mode。 BMZ01仅ProcessBattleMSkill98DamageTargets五处恢复解析target255比较先pub、effect image-flags-target-caster-actor、两个原S32图选择计数、aux selectedImage-second-first-flags-target-caster-actor、34后target先player与同位置256/52而51再live。两原主体分别核后支持既有6/3参数共用，不省略第二路径；保无actor空门禁/Finish、八W32图值正常零一次跨目标、111011-250-amount1030-numberType6或3-159、flags内存W32到EAX/AL-AH与40且非10000-34或amount非0的165、player后仅amount0才重读flags、11后重读和局部20控制47/46各次live目标。15经EAEF，16先E695压0/0经E7F8 live caster/actor终结，均EB02-Move-RID-增58，正确尾helper/其它根保持，不新owner/保护或异常模型。仅旧812有界追加，原比较链不代其它mode/原跳表/完整成员。 BNA01 mode17五处恢复target比较pub、Take返回flags条件/只有aux后再读flags、S32图选择和aux graphics-caster-fixed flags-target-actor、aux后Effect image-live flags-target-caster-actor；状态六处恢复target比较pub/同位置空门禁、Take flags后caster先pub/固定flags参数及基础两字段与0..5两重写字段actor先值。保17无空门禁/正常firstImage业务零与aux先Effect-111015-250/251/58/36，状态live mode分支0..5/9/10/11/18、EDI5来源/所有80000位与已有side条件-11的Reset/phase0/F32 8.0/金额5及正常动作、空Finish仍终结尾；默认正确核心仅Move-RID-增58、不追加终结，wrapper正确不改，仅增加有界纳管符号。五既有证据与本步原98区段42CF66..42EB32按EA去重1833条7116B170call闭合，无字节冲突/缺口，不重复计既有26条97B，不据此新完整身份/成员/分类或验父/所有SDK-owner运行，其它技能沿低段实际路由继续。；BNB01正常flags发布/调用后重读、图号/字段与99状态选择及2019余数取样恢复；三种状态payload跨144和原未初始化边界、初始失败/循环Finish/末Move增58无RID保持。完整父SEH-全部消费者/SDK-ABI-owner运行等不以400条主体代验；其余全部根头保持；BNC01同解析caster/target、payload先skill-actor先level、target比较先pub和Take固定flags-caster先pub恢复；原25/151/55/104、初空直接返回/循环空Finish后终结Move增58无RID保持。完整父SEH/全部消费者-owner/SDK-ABI-PC53-时钟RNG画面运行不以此代验，其余根头保持；BND01 target先flags pub/字段取样、固定比较位置与sourceKind、图号位置先表与EffectList live flags-caster-target-actor恢复；两原149/184分支和原159门禁/68-22331-59、固定amount/各次live与末55-Move增58无RID保持，完整父SEH-全部消费者-owner/SDK-ABI-PC53-时钟RNG画面运行另验；BNE01 target先flags pub/字段与比较后固定角色、最后EffectList live flags-caster-target-actor恢复；105后原一次W32/EAX-AL三级分支、原22329/22331与动作/取包/初空和循环失败、主体55后Move增58无RID保持，完整父SEH-全部消费者/owner/SDK-ABI-PC53-时钟RNG画面另验；BNF01角色字段/target比较先pub、两个位置先current且256/52沿同位置-51另live、EffectList live参数恢复；原flags先pub/0后一次W32/EAX-AH与原全部动作-取包/初空和循环失败、Move增58且无额外55/74-RID末Effect保持，完整父SEH-全部消费者/owner/SDK-ABI-PC53-时钟RNG画面另验；BNG01低图S32表-caster位置-加法、target先flags pub/固定参数与角色字段原序恢复；原157后live flags门禁/7-1与253生产、取包/初空和循环失败/终结Move增58无RID保持。完整父SEH-所有消费者/owner/SDK-ABI-PC53-时钟RNG画面另验；BNH01同解析角色/比较先pub、payload先skill/actor先level和caster-target先flags pub固定参数恢复；原0后W32 live flags/56或68后另live 22331、73/74和Move增58无RID/额外55/终结效果保持。完整父SEH-所有消费者/owner/SDK-ABI-PC53-时钟RNG画面另验；BNI01初level-角色及同解析target比较先pub、两Effect具体取样和双S32索引/34后比较位置恢复；原两字段先判空、flags pub后amount Take/live门禁、cached W32/原动作与Move-RID-增58保持。73零模式完整消费者/其它技能-全路由/完整父SEH-所有消费者/owner/SDK-ABI-PC53-时钟RNG画面另验；BNJ01同解析角色/比较先pub、payload先skill/actor先level、两Effect具体取样/双S32索引和34后比较位置恢复；原2002额外取包/29容量及后续live门禁、cached W32位分支-原动作与Move-RID-增58保持。其它技能-全路由/完整父SEH-所有consumer-owner/SDK-ABI-PC53-时钟RNG画面另验；BNK01 73零/3100 index-level-skill原序显式取样，普通入口mode后固定skill再index-level、包装不重读skill；四独立输出与live value角色Move-RID及固定1/增58保持。旧424620完整3089本体/公开头不改；其它技能-全路由/完整父SEH-所有consumer-owner/SDK-ABI-PC53-时钟RNG画面另验；BNL01固定caster/target、payload-字段/2007角色先表和258坐标取样、普通两Effect/两位置比较及mode3actor先pub-转向字段与三效果/金额原取样恢复，四索引S32/末真实W8保持；原自身/普通图分工、取包/初模式和cached-live flags/动作/终结Move-RID增58保持，不补未指定局部。完整父SEH/其它技能-全路由/所有consumer-owner/SDK-ABI-PC53-时钟RNG画面另验；BNM01同解析caster/target、payload先skill/actor先level、三低图位置先S32表、263同参Effect与400固定Take flags/条件重读Cast0-401两字段后live flags恢复；原全部取包/动作/失败与263固定58=1及400-401固定58=2无RID保持。完整父SEH/其它技能-全路由/所有consumer-owner/SDK-ABI-PC53-时钟RNG画面另验；BNN01 402第三Take后live caster/低图位置先表-EffectList取样与共同递增比较先pub，405同解析caster/target-两幅低图各自次序/初Effect和五目标Effect及两索引S32恢复；原字段/全部取包-转换-动作、初空与各循环退出/真实尾-402固定58=2及405固定58=1无RID保持，不补数组默认。完整父SEH/其它技能-全路由/全部consumer-owner/SDK-ABI-PC53-时钟RNG画面另验；BNO01同parsed caster/target、预读比较前取caster并沿缓存actor、两段八分支坐标取样与固定100C-初Effect位置先effectCount、rider指针字段/offset、四非地址索引S32、普通Effect/Aux和位置比较、最终恢复/尾Y-X与两实际W8门禁恢复；原子角色/carrier初始化-全部消费/八CryptInt临时四复制-动作和初空/循环出口-真实Move/RID固定58=1保持，不补selfFlags/carrier flags08。完整父SEH/其它技能-全路由/全部consumer-owner/SDK-ABI-PC53-时钟RNG画面另验；BNP01同parsed caster/target、payload先skill/actor先level、2028低高图各取样/累计总量先target-固定flags与响应bit20实际W8、反射两字段/caster总量和最终AEL，2005族Effect/Aux-两S32索引/target先比较恢复；原取包-字段/累计列表-count与固定响应优先/同侧149后双位置重读、所有动作和初空/循环真实Move-RID/2028固定58=2与2005增58保持。完整父SEH/其它技能-全路由/所有consumer-owner/SDK-ABI-PC53-时钟RNG画面另验；BNQ01同parsed caster/target、payload先skill/actor先level、三低初图各取样/target-level-skill附加效果与固定flags、target基础字段和两成功skill actor先值、分档行S32及八分档图按表先actor/载荷先表恢复；原各状态类型-成功门禁/比较/固定payload跨替换动作/正确debuff默认0和未指定statusType、所有取包-字段/动作与初空-循环End/Move/RID增58保持。完整父SEH/其它技能-全路由/全部consumer-owner/SDK-ABI-PC53-时钟RNG画面另验；BNR01同parsed角色、payload先skill/actor先level、初低图位置-表-加法、累计target先加法发布/两普通Effect-Aux参数/两AEL flags先actor、半额W8/actor先累计值、反弹字段-copy/末Effect-Aux各取样恢复；四S32索引和五W8门禁，原entry0/1比较-业务零与未指定lastAmount、全部取包/门禁-图号/反馈-动作及真实Move-RID固定2保持。完整父SEH/其它技能-全路由/全部consumer-owner/SDK-ABI-PC53-时钟RNG画面另验；BNS01 单根25定义27处恢复角色字段、effectCount/初图、累计发布-普通与循环/末Effect-Aux参数、图copy/反馈-state取样；四S32业务索引和两W8门禁，原全部图号-字段/金额门禁/动作与真实Move-RID固定58=1保持，其它根头不改。循环累计flags/primary/total先清位，source位置先flags pub；末Effect固定flags与Aux另live flags保持，入口两W32业务零与未指定lastAmount不补值。完整父SEH/其它技能-全路由/全部consumer-owner/SDK-ABI-PC53-时钟RNG画面另验",
@@ -115702,6 +115704,14 @@
         "source_symbol_preexisting": false,
         "new_source_symbol_added": true,
         "full_runtime_verified": false
+      },
+      "range_fourth_batch_data": {
+        "step": "CAC07",
+        "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+        "ranges": [
+          "X:00037AD3-00038230"
+        ],
+        "boundary": "只追加本批完整原X分派数据用途，不重验/修改原父全部正文、字段、调用、owner寿命、机器或运行；原source/status/旧证据保持。"
       }
     },
     {
@@ -158055,7 +158065,9 @@
       "evidence_documents": [
         "doc/cg2d_battle_attack_targets_spec.md",
         "doc/ui_windows/shared_battle.md",
-        "doc/cg2d_local_determinism_spec.md"
+        "doc/cg2d_local_determinism_spec.md",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json"
       ],
       "boundary": "scene原生T*、四S32参数及四独立S32*，不复制四字段结构作为位置输出。仅var_50对应secondaryGraphic入口0一次，原其他初始化/条件写/跨轮复用保持。复用gBattleAllEntries59E980、BattleActorPayload及16B效果/动作队列；五表经43BF00(levelIndex+1)，258用同源索引15/5与坐标[2]/[3]按S32平均。首255、首空/初target空和多轮空分别沿原返回或最终尾；2017/后继flags真实W32、最后效果next/0/0/0及四输出实际读写保持。原280call位置、新310源表达式分别登记，共享尾不按字面计数推等价；完整依赖/生命周期/运行及异常域未计通过。",
       "instruction_count": 3089,
@@ -158071,7 +158083,15 @@
         "source_body_implemented": true,
         "runtime_verified": false
       },
-      "verification_level": "原连续3089条、五20B表/六跳表、280原call及310源表达式各共享路径、字段/输出/初值/跨轮/收尾与既有三父接线静态核对；未构建/测试/运行"
+      "verification_level": "原连续3089条、五20B表/六跳表、280原call及310源表达式各共享路径、字段/输出/初值/跨轮/收尾与既有三父接线静态核对；未构建/测试/运行",
+      "range_fourth_batch_data": {
+        "step": "CAC07",
+        "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+        "ranges": [
+          "X:00026F9C-00026FC0"
+        ],
+        "boundary": "只追加本批完整原X分派数据用途，不重验/修改原父全部正文、字段、调用、owner寿命、机器或运行；原source/status/旧证据保持。"
+      }
     },
     {
       "original_entry": "0x401C20",
@@ -165863,7 +165883,9 @@
         "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-decision",
         "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-acceptance",
         "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state",
-        "doc/cg2d_mixed_upload_identity_evidence.json"
+        "doc/cg2d_mixed_upload_identity_evidence.json",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json"
       ],
       "boundary": "只绑定当前已有CPU32位写入段及已证520B10两caller，原入口/表项/分支和W8索引/W32颜色/源行倒退与目标pitch可追；新显式source/sourceWidth取代原第六参分流在这两个零参数caller上的共享源。原Lock/Unlock/返回机制沿已批SDL/CPU替换，AutoMap原叶内和父各Unlock一次，显式路径仅父Unlock；不称两路原生调用序相同或全间接ABI等价。1020EC4及非空第六参的生产/地址/alias仍未闭，不造空producer、不冻结当前零值或称不可达。只补身份/基线，源码/原色深授权/范围/软件证据保持；全部父/模式/生命周期/实际像素/SDL driver/运行与R1/R7/R8未验，RPLAN.24、原格式明文和音频暂停保持。",
       "verification_level": "三根392条/1228B、两张实际表与四直接调用点/两caller及现有源段限定静态；不构建/测试/运行/摘要",
@@ -165882,7 +165904,15 @@
         16,
         24
       ],
-      "retained_branch": "0x4500FB"
+      "retained_branch": "0x4500FB",
+      "range_fourth_batch_data": {
+        "step": "CAC07",
+        "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+        "ranges": [
+          "X:00050160-00050190"
+        ],
+        "boundary": "只追加本批完整原X分派数据用途，不重验/修改原父全部正文、字段、调用、owner寿命、机器或运行；原source/status/旧证据保持。"
+      }
     },
     {
       "original_entry": "0x450190",
@@ -165914,7 +165944,9 @@
         "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-decision",
         "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-acceptance",
         "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state",
-        "doc/cg2d_mixed_upload_identity_evidence.json"
+        "doc/cg2d_mixed_upload_identity_evidence.json",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json"
       ],
       "boundary": "只绑定当前已有CPU32位写入段及已证520B10两caller，原入口/表项/分支和W8索引/W32颜色/源行倒退与目标pitch可追；新显式source/sourceWidth取代原第六参分流在这两个零参数caller上的共享源。原Lock/Unlock/返回机制沿已批SDL/CPU替换，AutoMap原叶内和父各Unlock一次，显式路径仅父Unlock；不称两路原生调用序相同或全间接ABI等价。1020EC4及非空第六参的生产/地址/alias仍未闭，不造空producer、不冻结当前零值或称不可达。只补身份/基线，源码/原色深授权/范围/软件证据保持；全部父/模式/生命周期/实际像素/SDL driver/运行与R1/R7/R8未验，RPLAN.24、原格式明文和音频暂停保持。",
       "verification_level": "三根392条/1228B、两张实际表与四直接调用点/两caller及现有源段限定静态；不构建/测试/运行/摘要",
@@ -165933,7 +165965,15 @@
         16,
         24
       ],
-      "retained_branch": "0x450372"
+      "retained_branch": "0x450372",
+      "range_fourth_batch_data": {
+        "step": "CAC07",
+        "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+        "ranges": [
+          "X:000503CC-00050400"
+        ],
+        "boundary": "只追加本批完整原X分派数据用途，不重验/修改原父全部正文、字段、调用、owner寿命、机器或运行；原source/status/旧证据保持。"
+      }
     },
     {
       "original_entry": "0x450400",
@@ -170561,7 +170601,9 @@
         "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-decision",
         "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-acceptance",
         "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state",
-        "doc/cg2d_battle_attachment_sampling_evidence.json"
+        "doc/cg2d_battle_attachment_sampling_evidence.json",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json"
       ],
       "verification_level": "BAS01三完整421条1507B/4普通call同一父、四表44槽176B和三根十三片段全文精确重放、五低W8门禁/位置方向/flags/投影及辅助取样有限静态；全部生产/父实参与动作、数据资源/owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行未验",
       "boundary": "原先位置后parent/表/payload再身份比较；phase0原动作映射/播放与frame投影、phase非零原flags/属性/scales，五片段只读取/发布次序及三原W8门禁，不补空保护；仅本组局部静态，原非拥有T*、MarkDeath/播放顺序与所有其它字段/布局/头/父调用保持。不添加Read/Ctor/Destroy/RNG、owner/guard或异常保护/回绕故障模拟；完整数据资源/owner寿命及SDK/ABI/PC53/时钟RNG/画面运行未验。",
@@ -170586,6 +170628,14 @@
         ],
         "source_body_changed": true,
         "full_runtime_verified": false
+      },
+      "range_fourth_batch_data": {
+        "step": "CAC07",
+        "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+        "ranges": [
+          "X:000221C0-000221F0"
+        ],
+        "boundary": "只追加本批完整原X分派数据用途，不重验/修改原父全部正文、字段、调用、owner寿命、机器或运行；原source/status/旧证据保持。"
       }
     },
     {
@@ -170669,7 +170719,9 @@
         "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-decision",
         "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-acceptance",
         "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state",
-        "doc/cg2d_battle_attachment_sampling_evidence.json"
+        "doc/cg2d_battle_attachment_sampling_evidence.json",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json"
       ],
       "verification_level": "BAS01三完整421条1507B/4普通call同一父、四表44槽176B和三根十三片段全文精确重放、五低W8门禁/位置方向/flags/投影及辅助取样有限静态；全部生产/父实参与动作、数据资源/owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行未验",
       "boundary": "原action/parent/payload三空门禁保持，方向/位置先取再directionpub/表检查；type3/4/5一次parentAction和独立方向读取，八偏移、type2/6/default与graphicIndex/stopAtEnd保持；两轴截断后当前delta复读；仅本组局部静态，原非拥有T*、MarkDeath/播放顺序与所有其它字段/布局/头/父调用保持。不添加Read/Ctor/Destroy/RNG、owner/guard或异常保护/回绕故障模拟；完整数据资源/owner寿命及SDK/ABI/PC53/时钟RNG/画面运行未验。",
@@ -170699,6 +170751,14 @@
         ],
         "source_body_changed": true,
         "full_runtime_verified": false
+      },
+      "range_fourth_batch_data": {
+        "step": "CAC07",
+        "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+        "ranges": [
+          "X:000229A9-00022A30"
+        ],
+        "boundary": "只追加本批完整原X分派数据用途，不重验/修改原父全部正文、字段、调用、owner寿命、机器或运行；原source/status/旧证据保持。"
       }
     },
     {
@@ -171132,7 +171192,9 @@
         "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
         "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
         "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
-        "doc/cg2d_battle_attachment_producer_evidence.json"
+        "doc/cg2d_battle_attachment_producer_evidence.json",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json"
       ],
       "verification_level": "BAP01八完整442条1393B/24call与3地址绑定15父、独立6槽24B和七根九片段精确重放/正确工厂保持有限静态；所有绑定父与完整动作实参、数据资源/owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行未验",
       "boundary": "非正image/type>0逐first/second槽取一次且第二在first消费后；index1/type3..5内既有type0一次取上下界，原无firstAux判空的MarkDeath保持。type1/2/3..5发布后同gear判空/image写，type3先判后pub、X用返回对象/Y原复读三F32；type6只缺槽创建，不新保护/类型清零或模拟其他index；原非地址宽度与非拥有T*/原分配域、不同失败与MarkDeath顺序、其余源/头/汇编和BAS/BTS链保持。不新增Read/Ctor/Destroy/RNG或异常保护/回绕模拟；原格式明文与音频暂停保持。",
@@ -171162,6 +171224,14 @@
         ],
         "source_body_changed": true,
         "full_runtime_verified": false
+      },
+      "range_fourth_batch_data": {
+        "step": "CAC07",
+        "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+        "ranges": [
+          "X:00022E33-00022E50"
+        ],
+        "boundary": "只追加本批完整原X分派数据用途，不重验/修改原父全部正文、字段、调用、owner寿命、机器或运行；原source/status/旧证据保持。"
       }
     },
     {
@@ -172723,7 +172793,9 @@
         "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision",
         "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-acceptance",
         "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
-        "doc/cg2d_battle_m_dispatch_sampling_evidence.json"
+        "doc/cg2d_battle_m_dispatch_sampling_evidence.json",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json"
       ],
       "verification_level": "BMD01三完整1725条6015B/41普通call6父/435出向与23指令页、6逻辑表646B/407槽含382技能槽及19表外技能和父三片段精确原合同有限静态；不验6父全部全文/完整资源消费或owner/SDK/ABI/PC53/时钟RNG/画面运行",
       "boundary": "父三片段恢复五W32/末W16原零写、W8目标计数取样/递增→同源判定→同计数pub、skill2002先判再两S32清零。25头/五压缩表和表外分类、全部M字段/原输出发布及共享特效/20*36B名称表生产保持；私有分类helper不造新F/X。 不称已证运行故障/编译后指令形态或异常等价，不增保护/回绕/钳制/补零/协议业务，原格式明文及音频暂停。",
@@ -172747,6 +172819,14 @@
         "source_patch_count": 3,
         "full_original_body_reviewed": true,
         "full_runtime_verified": false
+      },
+      "range_fourth_batch_data": {
+        "step": "CAC07",
+        "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+        "ranges": [
+          "X:0003AFF7-0003B290"
+        ],
+        "boundary": "只追加本批完整原X分派数据用途，不重验/修改原父全部正文、字段、调用、owner寿命、机器或运行；原source/status/旧证据保持。"
       }
     },
     {
@@ -172939,7 +173019,9 @@
         "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-decision",
         "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-acceptance",
         "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
-        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_evidence.json"
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_evidence.json",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json"
       ],
       "verification_level": "BMF01完整741条2889B/51C71C普通call父51C430/134出向、三直接表22槽88B与十五逻辑十八处有限静态；两根共850条3188B十二指令页三引用页及十八逻辑二十二处。不验五父全文/全部资源owner或ABI/PC53/画面运行。",
       "boundary": "完整0..9状态/default公共尾和完成/初始化/清理/转场/明文退出接线纳管；状态7与9次序和43BED0差异、三载体构造析构和token/reserved、原两音频调用系暂停范围保持。根内memcpy W16读取lambda仅现代承载，不新增F/X身份或公共HP getter，不加保护/回绕/owner，不以静态通过提升完整门禁。",
@@ -172970,6 +173052,14 @@
         "direct_switch_table_count": 3,
         "direct_switch_slot_count": 22,
         "direct_switch_bytes": 88
+      },
+      "range_fourth_batch_data": {
+        "step": "CAC07",
+        "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+        "ranges": [
+          "X:0003D6F9-0003D760"
+        ],
+        "boundary": "只追加本批完整原X分派数据用途，不重验/修改原父全部正文、字段、调用、owner寿命、机器或运行；原source/status/旧证据保持。"
       }
     },
     {
@@ -173822,7 +173912,9 @@
         "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
         "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
         "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
-        "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json"
+        "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json"
       ],
       "boundary": "原0..4五态/默认保持，alpha高W8/step S32门禁与低W8更新；0阈值饱和后贯穿1两次可发布背景/phase4，2归零后贯穿3置flags2再4标死。地址沿获准native非拥有T*、其它原S32/F32/W32/W16/W8；原callback返回不消费，alpha逻辑高W8访问器保其它24位。只标死/原host转换保，不新owner/保护/异常回绕，不代所有父/资源寿命/ABI-SDK-PC53-RNG画面运行。",
       "instruction_count": 66,
@@ -173865,6 +173957,14 @@
         "logic_alpha_u8_preserves_other_color_bytes": true,
         "case0_fallthrough_case1": true,
         "case2_fallthrough_3_4": true
+      },
+      "range_fourth_batch_data": {
+        "step": "CAC07",
+        "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+        "ranges": [
+          "X:0002155B-00021570"
+        ],
+        "boundary": "只追加本批完整原X分派数据用途，不重验/修改原父全部正文、字段、调用、owner寿命、机器或运行；原source/status/旧证据保持。"
       }
     },
     {
@@ -174307,7 +174407,9 @@
         "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-decision",
         "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-acceptance",
         "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state",
-        "doc/cg2d_battle_effect_factory_sampling_evidence.json"
+        "doc/cg2d_battle_effect_factory_sampling_evidence.json",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json"
       ],
       "boundary": "六参含third S32 offsetY或native非拥有existingAction；原48类型压缩13组/35技能分派、四原switch与表、flags取样/两次效果四字段固定值、递归childAura及blend-link-tail真实两个载荷门禁/位置返回保持；17补丁18段含6scope、11取样定义12段实修。原48类型/13压缩组及35技能/全部数据-浮点/RNG/递归和两个tail载荷判空、34/43先写death原序/音频二参既有契约保持；仅地址native，其它字段保宽，不新owner/保护/异常回绕，不代全部callee/25父引用或ABI-PC53-RNG画面运行。",
       "instruction_count": 1583,
@@ -174357,6 +174459,14 @@
         "scope_only_patches": 6,
         "sampling_patch_definitions": 11,
         "sampling_replaced_spans": 12
+      },
+      "range_fourth_batch_data": {
+        "step": "CAC07",
+        "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+        "ranges": [
+          "X:0001E3C1-0001E4D0"
+        ],
+        "boundary": "只追加本批完整原X分派数据用途，不重验/修改原父全部正文、字段、调用、owner寿命、机器或运行；原source/status/旧证据保持。"
       }
     },
     {
@@ -174589,7 +174699,9 @@
         "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
         "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-acceptance",
         "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
-        "doc/cg2d_battle_initializers_sampling_evidence.json"
+        "doc/cg2d_battle_initializers_sampling_evidence.json",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json"
       ],
       "boundary": "固定source/action payload与初始target；callback/C9优先级→固定C9C按4/flags/3/position传值；Append后重读当前flags，800000才四输出Aux；rate100、liveC9C非零才delay RNG；复制原image后十五槽音效分派，复制技能/等级，Load固定target后取X/Y、W16清270。固定载荷/目标跨调用，live游标辅助消费/条件RNG与真实空门禁保持；地址native非拥有，业务数值原宽，不新owner/异常保护；不代全父-callee-owner/SDK-ABI-PC53画面运行。",
       "instruction_count": 138,
@@ -174631,6 +174743,14 @@
         "post_append_aux_flags_remain_live": true,
         "original_action_source_null_guards_preserved": true,
         "position4_sample_before_flags": true
+      },
+      "range_fourth_batch_data": {
+        "step": "CAC07",
+        "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+        "ranges": [
+          "X:00022FF7-00023040"
+        ],
+        "boundary": "只追加本批完整原X分派数据用途，不重验/修改原父全部正文、字段、调用、owner寿命、机器或运行；原source/status/旧证据保持。"
       }
     },
     {
@@ -215396,6 +215516,461 @@
         "known_code_references": 1,
         "source_body_implemented": true,
         "machine_verified": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x41f660",
+      "inventory_id": "F:0001F660",
+      "original_role": "CAC07仅原分派数据/当前源角色关联：减益特效创建的六图号类型分派数据",
+      "status": "已有真实源码，CAC07补原表/索引与源角色关联；未重新核全部原父/算法、未记完整函数处置或软件门禁通过",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "cg::login::detail::NewBattleDebuffEffect_41F660"
+          ],
+          "relationship": "按当前带函数体的唯一定义确认源身份，继承具名旧合同；本组只核原分派表数据与此源角色关联，不新增实现或宣称全函数等价。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json",
+        "doc/ui_windows/shared_battle.md"
+      ],
+      "boundary": "原函数身份来自既有库存/实际数据取用父；完整X用途与源码已存在分开。不以父元数据或表目标代所有签名/字段/分支/依赖/正常寿命或机器ABI/运行验收。",
+      "verification_level": "只该父原X完整字节、实际guard/BYTE/JMP取用邻窗、W32表全部指针/target owner、当前真实定义与旧合同关联；源码未改，不构建/测试/运行/摘要。",
+      "range_fourth_batch_data": {
+        "step": "CAC07",
+        "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+        "ranges": [
+          "X:0001F7DD-0001F800"
+        ],
+        "current_definition_line": 10448,
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x420300",
+      "inventory_id": "F:00020300",
+      "original_role": "CAC07仅原分派数据/当前源角色关联：战斗序列更新六态分派数据",
+      "status": "已有真实源码，CAC07补原表/索引与源角色关联；未重新核全部原父/算法、未记完整函数处置或软件门禁通过",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "cg::login::detail::UpdateBattleSequence_420300"
+          ],
+          "relationship": "按当前带函数体的唯一定义确认源身份，继承具名旧合同；本组只核原分派表数据与此源角色关联，不新增实现或宣称全函数等价。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json",
+        "doc/ui_windows/shared_battle.md"
+      ],
+      "boundary": "原函数身份来自既有库存/实际数据取用父；完整X用途与源码已存在分开。不以父元数据或表目标代所有签名/字段/分支/依赖/正常寿命或机器ABI/运行验收。",
+      "verification_level": "只该父原X完整字节、实际guard/BYTE/JMP取用邻窗、W32表全部指针/target owner、当前真实定义与旧合同关联；源码未改，不构建/测试/运行/摘要。",
+      "range_fourth_batch_data": {
+        "step": "CAC07",
+        "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+        "ranges": [
+          "X:00020569-00020590"
+        ],
+        "current_definition_line": 6846,
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4209c0",
+      "inventory_id": "F:000209C0",
+      "original_role": "CAC07仅原分派数据/当前源角色关联：战斗属性效果两组技能分派数据",
+      "status": "已有真实源码，CAC07补原表/索引与源角色关联；未重新核全部原父/算法、未记完整函数处置或软件门禁通过",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "cg::login::detail::NewBattleAttributeEffects_4209C0"
+          ],
+          "relationship": "按当前带函数体的唯一定义确认源身份，继承具名旧合同；本组只核原分派表数据与此源角色关联，不新增实现或宣称全函数等价。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json",
+        "doc/ui_windows/shared_battle.md"
+      ],
+      "boundary": "原函数身份来自既有库存/实际数据取用父；完整X用途与源码已存在分开。不以父元数据或表目标代所有签名/字段/分支/依赖/正常寿命或机器ABI/运行验收。",
+      "verification_level": "只该父原X完整字节、实际guard/BYTE/JMP取用邻窗、W32表全部指针/target owner、当前真实定义与旧合同关联；源码未改，不构建/测试/运行/摘要。",
+      "range_fourth_batch_data": {
+        "step": "CAC07",
+        "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+        "ranges": [
+          "X:00020CF6-00020D50"
+        ],
+        "current_definition_line": 10328,
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x43bd00",
+      "inventory_id": "F:0003BD00",
+      "original_role": "CAC07仅原分派数据/当前源角色关联：战斗附属技能准入两组索引/目标分派数据",
+      "status": "已有真实源码，CAC07补原表/索引与源角色关联；未重新核全部原父/算法、未记完整函数处置或软件门禁通过",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "cg::login::detail::IsBattleAppendEffectSkill_43BD00"
+          ],
+          "relationship": "按当前带函数体的唯一定义确认源身份，继承具名旧合同；本组只核原分派表数据与此源角色关联，不新增实现或宣称全函数等价。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json",
+        "doc/ui_windows/shared_battle.md"
+      ],
+      "boundary": "原函数身份来自既有库存/实际数据取用父；完整X用途与源码已存在分开。不以父元数据或表目标代所有签名/字段/分支/依赖/正常寿命或机器ABI/运行验收。",
+      "verification_level": "只该父原X完整字节、实际guard/BYTE/JMP取用邻窗、W32表全部指针/target owner、当前真实定义与旧合同关联；源码未改，不构建/测试/运行/摘要。",
+      "range_fourth_batch_data": {
+        "step": "CAC07",
+        "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+        "ranges": [
+          "X:0003BD91-0003BE00"
+        ],
+        "current_definition_line": 22663,
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4412d0",
+      "inventory_id": "F:000412D0",
+      "original_role": "CAC07仅原分派数据/当前源角色关联：地图角色挂件动作/反转参数的二十项分派数据",
+      "status": "已有真实源码，CAC07补原表/索引与源角色关联；未重新核全部原父/算法、未记完整函数处置或软件门禁通过",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_4412D0"
+          ],
+          "relationship": "按当前带函数体的唯一定义确认源身份，继承具名旧合同；本组只核原分派表数据与此源角色关联，不新增实现或宣称全函数等价。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json",
+        "doc/cg2d_yobi_runtime.md"
+      ],
+      "boundary": "原函数身份来自既有库存/实际数据取用父；完整X用途与源码已存在分开。不以父元数据或表目标代所有签名/字段/分支/依赖/正常寿命或机器ABI/运行验收。",
+      "verification_level": "只该父原X完整字节、实际guard/BYTE/JMP取用邻窗、W32表全部指针/target owner、当前真实定义与旧合同关联；源码未改，不构建/测试/运行/摘要。",
+      "range_fourth_batch_data": {
+        "step": "CAC07",
+        "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+        "ranges": [
+          "X:000413DC-00041430"
+        ],
+        "current_definition_line": 5826,
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x441430",
+      "inventory_id": "F:00041430",
+      "original_role": "CAC07仅原分派数据/当前源角色关联：地图角色挂件坐标与前后关系两组八项分派数据",
+      "status": "已有真实源码，CAC07补原表/索引与源角色关联；未重新核全部原父/算法、未记完整函数处置或软件门禁通过",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_441430"
+          ],
+          "relationship": "按当前带函数体的唯一定义确认源身份，继承具名旧合同；本组只核原分派表数据与此源角色关联，不新增实现或宣称全函数等价。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json",
+        "doc/cg2d_yobi_runtime.md"
+      ],
+      "boundary": "原函数身份来自既有库存/实际数据取用父；完整X用途与源码已存在分开。不以父元数据或表目标代所有签名/字段/分支/依赖/正常寿命或机器ABI/运行验收。",
+      "verification_level": "只该父原X完整字节、实际guard/BYTE/JMP取用邻窗、W32表全部指针/target owner、当前真实定义与旧合同关联；源码未改，不构建/测试/运行/摘要。",
+      "range_fourth_batch_data": {
+        "step": "CAC07",
+        "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+        "ranges": [
+          "X:00041521-00041570"
+        ],
+        "current_definition_line": 5871,
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x441570",
+      "inventory_id": "F:00041570",
+      "original_role": "CAC07仅原分派数据/当前源角色关联：地图角色挂件绘制六类分派数据",
+      "status": "已有真实源码，CAC07补原表/索引与源角色关联；未重新核全部原父/算法、未记完整函数处置或软件门禁通过",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "cg::login::detail::DrawGear_441570"
+          ],
+          "relationship": "按当前带函数体的唯一定义确认源身份，继承具名旧合同；本组只核原分派表数据与此源角色关联，不新增实现或宣称全函数等价。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json",
+        "doc/cg2d_yobi_runtime.md"
+      ],
+      "boundary": "原函数身份来自既有库存/实际数据取用父；完整X用途与源码已存在分开。不以父元数据或表目标代所有签名/字段/分支/依赖/正常寿命或机器ABI/运行验收。",
+      "verification_level": "只该父原X完整字节、实际guard/BYTE/JMP取用邻窗、W32表全部指针/target owner、当前真实定义与旧合同关联；源码未改，不构建/测试/运行/摘要。",
+      "range_fourth_batch_data": {
+        "step": "CAC07",
+        "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+        "ranges": [
+          "X:0004177D-000417A0"
+        ],
+        "current_definition_line": 5910,
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x446210",
+      "inventory_id": "F:00046210",
+      "original_role": "CAC07仅原分派数据/当前源角色关联：世界记录类别值五目标/七十一索引分派数据",
+      "status": "已有真实源码，CAC07补原表/索引与源角色关联；未重新核全部原父/算法、未记完整函数处置或软件门禁通过",
+      "sources": [
+        {
+          "path": "src/world/WorldObjectState.cpp",
+          "symbols": [
+            "cg::world::detail::Sub_446210"
+          ],
+          "relationship": "按当前带函数体的唯一定义确认源身份，继承具名旧合同；本组只核原分派表数据与此源角色关联，不新增实现或宣称全函数等价。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json",
+        "doc/cg2d_world_objects.md"
+      ],
+      "boundary": "原函数身份来自既有库存/实际数据取用父；完整X用途与源码已存在分开。不以父元数据或表目标代所有签名/字段/分支/依赖/正常寿命或机器ABI/运行验收。",
+      "verification_level": "只该父原X完整字节、实际guard/BYTE/JMP取用邻窗、W32表全部指针/target owner、当前真实定义与旧合同关联；源码未改，不构建/测试/运行/摘要。",
+      "range_fourth_batch_data": {
+        "step": "CAC07",
+        "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+        "ranges": [
+          "X:00046247-000462B0"
+        ],
+        "current_definition_line": 146,
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x447e60",
+      "inventory_id": "F:00047E60",
+      "original_role": "CAC07仅原分派数据/当前源角色关联：既有场景效果回调十模式分派数据",
+      "status": "已有真实源码，CAC07补原表/索引与源角色关联；未重新核全部原父/算法、未记完整函数处置或软件门禁通过",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_447E60"
+          ],
+          "relationship": "按当前带函数体的唯一定义确认源身份，继承具名旧合同；本组只核原分派表数据与此源角色关联，不新增实现或宣称全函数等价。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json",
+        "doc/cg2d_yobi_runtime.md"
+      ],
+      "boundary": "原函数身份来自既有库存/实际数据取用父；完整X用途与源码已存在分开。不以父元数据或表目标代所有签名/字段/分支/依赖/正常寿命或机器ABI/运行验收。",
+      "verification_level": "只该父原X完整字节、实际guard/BYTE/JMP取用邻窗、W32表全部指针/target owner、当前真实定义与旧合同关联；源码未改，不构建/测试/运行/摘要。",
+      "range_fourth_batch_data": {
+        "step": "CAC07",
+        "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+        "ranges": [
+          "X:00048013-00048040"
+        ],
+        "current_definition_line": 3802,
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x448d90",
+      "inventory_id": "F:00048D90",
+      "original_role": "CAC07仅原分派数据/当前源角色关联：既有场景效果创建入口的两组103项索引/五目标分派数据",
+      "status": "已有真实源码，CAC07补原表/索引与源角色关联；未重新核全部原父/算法、未记完整函数处置或软件门禁通过",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_448D90"
+          ],
+          "relationship": "按当前带函数体的唯一定义确认源身份，继承具名旧合同；本组只核原分派表数据与此源角色关联，不新增实现或宣称全函数等价。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json",
+        "doc/cg2d_yobi_runtime.md"
+      ],
+      "boundary": "原函数身份来自既有库存/实际数据取用父；完整X用途与源码已存在分开。不以父元数据或表目标代所有签名/字段/分支/依赖/正常寿命或机器ABI/运行验收。",
+      "verification_level": "只该父原X完整字节、实际guard/BYTE/JMP取用邻窗、W32表全部指针/target owner、当前真实定义与旧合同关联；源码未改，不构建/测试/运行/摘要。",
+      "range_fourth_batch_data": {
+        "step": "CAC07",
+        "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+        "ranges": [
+          "X:0004905A-00049160"
+        ],
+        "current_definition_line": 33706,
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x449160",
+      "inventory_id": "F:00049160",
+      "original_role": "CAC07仅原分派数据/当前源角色关联：既有效果计时生产者四模式分派数据",
+      "status": "已有真实源码，CAC07补原表/索引与源角色关联；未重新核全部原父/算法、未记完整函数处置或软件门禁通过",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_449160"
+          ],
+          "relationship": "按当前带函数体的唯一定义确认源身份，继承具名旧合同；本组只核原分派表数据与此源角色关联，不新增实现或宣称全函数等价。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json",
+        "doc/cg2d_yobi_runtime.md"
+      ],
+      "boundary": "原函数身份来自既有库存/实际数据取用父；完整X用途与源码已存在分开。不以父元数据或表目标代所有签名/字段/分支/依赖/正常寿命或机器ABI/运行验收。",
+      "verification_level": "只该父原X完整字节、实际guard/BYTE/JMP取用邻窗、W32表全部指针/target owner、当前真实定义与旧合同关联；源码未改，不构建/测试/运行/摘要。",
+      "range_fourth_batch_data": {
+        "step": "CAC07",
+        "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+        "ranges": [
+          "X:000493AA-000493C0"
+        ],
+        "current_definition_line": 34204,
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x449400",
+      "inventory_id": "F:00049400",
+      "original_role": "CAC07仅原分派数据/当前源角色关联：既有漂移效果回调四模式分派数据",
+      "status": "已有真实源码，CAC07补原表/索引与源角色关联；未重新核全部原父/算法、未记完整函数处置或软件门禁通过",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_449400"
+          ],
+          "relationship": "按当前带函数体的唯一定义确认源身份，继承具名旧合同；本组只核原分派表数据与此源角色关联，不新增实现或宣称全函数等价。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json",
+        "doc/cg2d_yobi_runtime.md"
+      ],
+      "boundary": "原函数身份来自既有库存/实际数据取用父；完整X用途与源码已存在分开。不以父元数据或表目标代所有签名/字段/分支/依赖/正常寿命或机器ABI/运行验收。",
+      "verification_level": "只该父原X完整字节、实际guard/BYTE/JMP取用邻窗、W32表全部指针/target owner、当前真实定义与旧合同关联；源码未改，不构建/测试/运行/摘要。",
+      "range_fourth_batch_data": {
+        "step": "CAC07",
+        "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+        "ranges": [
+          "X:00049552-00049570"
+        ],
+        "current_definition_line": 34149,
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x457b10",
+      "inventory_id": "F:00057B10",
+      "original_role": "CAC07仅原分派数据/当前源角色关联：开场载入入口的三十四槽分派数据",
+      "status": "已有真实源码，CAC07补原表/索引与源角色关联；未重新核全部原父/算法、未记完整函数处置或软件门禁通过",
+      "sources": [
+        {
+          "path": "src/platform/LoadingScreen.cpp",
+          "symbols": [
+            "cg::platform::initialization_detail::InitLoading_457B10"
+          ],
+          "relationship": "按当前带函数体的唯一定义确认源身份，继承具名旧合同；本组只核原分派表数据与此源角色关联，不新增实现或宣称全函数等价。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json",
+        "doc/cg2d_loading_screen.md"
+      ],
+      "boundary": "原函数身份来自既有库存/实际数据取用父；完整X用途与源码已存在分开。不以父元数据或表目标代所有签名/字段/分支/依赖/正常寿命或机器ABI/运行验收。",
+      "verification_level": "只该父原X完整字节、实际guard/BYTE/JMP取用邻窗、W32表全部指针/target owner、当前真实定义与旧合同关联；源码未改，不构建/测试/运行/摘要。",
+      "range_fourth_batch_data": {
+        "step": "CAC07",
+        "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+        "ranges": [
+          "X:000582FE-00058390"
+        ],
+        "current_definition_line": 32,
+        "association_only": true,
+        "full_original_body_recaptured": false,
         "runtime_verified": false
       }
     }

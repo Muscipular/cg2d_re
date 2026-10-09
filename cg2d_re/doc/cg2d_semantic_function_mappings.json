@@ -15226,14 +15226,16 @@
     {
       "original_entry": "0x465790",
       "inventory_id": "F:00065790",
-      "status": "已有启动本体、argument.ini真实FILE整链及两个真实子串门禁已接；完整依赖及运行未验",
+      "status": "真实WinMain及既有FILE/门禁已接；CAC11新增原图标/十一鼠标光标只读资源映像提供者与实际两加载点，源码/接线限定静态，当前改动未编译/链接/运行或验资源匹配。",
       "original_role": "原客户端入口",
       "sources": [
         {
           "path": "src/platform/ClientEntry.cpp",
           "symbols": [
-            "WinMain"
-          ]
+            "WinMain",
+            "ResolveWindowResourceInstance"
+          ],
+          "relationship": "唯一WIN32客户端真实入口；私有资源提供者优先已有原组图标的当前instance，否则按当前EXE目录映射同目录cg2d.exe，仅资源/数据模式。当前instance仍注册新端WindowProcedure/创建窗口，只有原LoadIconA/LoadCursorA两加载实参用resourceInstance；同一现窗类/十一句柄消费和原ID/重叠存储保持。"
         },
         {
           "path": "src/platform/LegacyProcessEntry.cpp",
@@ -15247,9 +15249,13 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_stdio_contract.md",
-        "plan/cg2d_full_reconstruction_progress.md"
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_startup_flow.md#window-resource-module-baseline-20261009",
+        "doc/cg2d_startup_flow.md#window-resource-module-decision-20261009",
+        "doc/cg2d_startup_flow.md#window-resource-module-source-state-20261009",
+        "doc/cg2d_window_resource_module_evidence.json"
       ],
-      "boundary": "保留CGstart文件命令行、互斥量、updated门禁、窗口类注册及初始化调用次序，忽略初始化各返回并最终返回0。当前在静态库中，PE图标/光标与最终链接仍未完成。 argument.ini四原调用统一LegacyFile/真实格式，465889按同流flags低U8/10H直接检查；do先清line前1025B、S32 count1024读取忽略返回、strlen作S32累计，4096门槛先于追加，EOF先追加空串才结束；打开失败仍发布空命令行。其他启动正文不变，不补读错误门槛或未知字节。 本步4657C8/4658CD接真实53BE40，原CGstart/updated字节、commandLine/gCommandLine借用源、文件替换与互斥量先于updated检查保持，整份入口仅两标识符/已有公开头增量。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。",
+      "boundary": "保留CGstart文件命令行、互斥量、updated门禁、窗口类注册及初始化调用次序，忽略初始化各返回并最终返回0。BRS01后由唯一WIN32客户端承载，历史客户端已链接；CAC11已接资源实例提供者，本次改动未构建/链接/运行，当前安装资源与IDB匹配/像素/热点/全部成功失败及原新启动仍待验。 argument.ini四原调用统一LegacyFile/真实格式，465889按同流flags低U8/10H直接检查；do先清line前1025B、S32 count1024读取忽略返回、strlen作S32累计，4096门槛先于追加，EOF先追加空串才结束；打开失败仍发布空命令行。其他启动正文不变，不补读错误门槛或未知字节。 本步4657C8/4658CD接真实53BE40，原CGstart/updated字节、commandLine/gCommandLine借用源、文件替换与互斥量先于updated检查保持，整份入口仅两标识符/已有公开头增量。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。 CAC11资源module为进程寿命，LoadIcon/LoadCursor共享句柄由SDK/进程承载，不在窗类/SetCursor仍借用时卸载；路径/映射失败使用当前instance，原加载失败与后续流程保持，不制造替代资源/新退出门槛。当前磁盘同名EXE不代选定IDA原基线，不关闭G05/全资源权限匹配或正常寿命/SDK-ABI/运行。",
       "original_end_exclusive": "0x4659ED",
       "instruction_count": 164,
       "original_direct_reference_count": 1,
@@ -15322,7 +15328,7 @@
           "relationship": "追加之后直接检查同一FILE flags低U8/10H，未置EOF仍回读，不新增读错误退出"
         }
       ],
-      "verification_level": "完整164条/唯一入向、四CRT点、flags低U8/检查时点、四原字符串字节及入口限定源码/JSON差异静态核对；仅核argument.ini整链，不重验窗口/命令解析/完整启动，未执行；本步原164统计/查找邻30读取、两真实点/含NUL字节、唯一入向及整份入口限定差异静态核对，不重验其余启动正文",
+      "verification_level": "完整164条/唯一入向、四CRT点、flags低U8/检查时点、四原字符串字节及入口限定源码/JSON差异静态核对；仅核argument.ini整链，不重验窗口/命令解析/完整启动，未执行；本步原164统计/查找邻30读取、两真实点/含NUL字节、唯一入向及整份入口限定差异静态核对，不重验其余启动正文；CAC11当前164条605B/11已初始化W16 ID与源RC/CMake、整CPP一个实际装载器及两加载实参、现窗类/两个SetCursor消费限定静态通过；仅源文本/SDK机制，不实际映射原EXE或运行。",
       "search_call_connections": [
         {
           "parent_entry": "0x465790",
@@ -15391,6 +15397,24 @@
         "evidence_refs": [
           "plan/cg2d_full_reconstruction_progress.md"
         ]
+      },
+      "window_resource_module": {
+        "step": "CAC11",
+        "source_snapshot": "cg2d-re-window-resource-module-20261009",
+        "source_implementation": "implemented",
+        "private_resource_provider": "ResolveWindowResourceInstance",
+        "file_source": "当前EXE目录/cg2d.exe，仅运行期资源映像；本次不读或重开原EXE文件",
+        "current_instance_not_replaced": true,
+        "icon_id": 103,
+        "cursor_count": 11,
+        "original_instructions": 164,
+        "original_bytes": 605,
+        "ownership": "现module/共享图像由进程寿命承载，无新增影子表或业务owner",
+        "new_original_function_ids": 0,
+        "artifact_or_file_content_verified": false,
+        "resource_identity_and_pixels_verified": false,
+        "runtime_verified": false,
+        "scope": "实际装载及真实WinMain两加载点；原图像内容/热点/权限匹配、11成功失败/SDK寿命、完整启动和运行门禁未闭"
       }
     },
     {

@@ -1,0 +1,1318 @@
+{
+  "schema_version": 1,
+  "spec_id": "CAC11",
+  "recorded_on": "2026-10-09",
+  "implementation_snapshot": "cg2d-re-window-resource-module-20261009",
+  "scope": "G05窗口原图标/十一鼠标光标的实际资源实例提供者与真实WinMain接线；当前资源像素/热点/权限与匹配及完整运行仍未验。",
+  "baseline": {
+    "authority": "已打开cg2d.exe IDA原会话；SDK资源映射主文档；当前源码/RC/CMake",
+    "mode": "IDA只读代码与已初始化W16 ID；原EXE只查询存在，未重开/读取其文件或执行/导出。当前磁盘资源不替代IDB原基线。"
+  },
+  "original": {
+    "entry": "0x465790",
+    "end_exclusive": "0x4659ed",
+    "chunks": [
+      {
+        "start": "0x465790",
+        "end_exclusive": "0x4659ed",
+        "bytes": "b8 44 14 00 00 e8 26 66 0d 00 8b 84 24 54 14 00 00 53 56 8b b4 24 50 14 00 00 a3 28 6f 9a 00 8b 84 24 58 14 00 00 57 68 3c d0 55 00 50 89 35 38 6f 9a 00 a3 c4 6e 9a 00 e8 73 66 0d 00 83 c4 08 85 c0 0f 84 d4 00 00 00 b9 00 04 00 00 33 c0 8d bc 24 50 04 00 00 55 f3 ab b9 10 00 00 00 8d 7c 24 10 f3 ab 68 28 d0 55 00 8d 4c 24 14 68 f8 35 55 00 51 33 db e8 fa 5a 0d 00 8d 54 24 1c 68 08 49 55 00 52 e8 d8 5a 0d 00 8b e8 83 c4 14 85 ed 74 7d b9 00 01 00 00 33 c0 8d 7c 24 50 55 f3 ab aa 8d 44 24 54 68 00 04 00 00 50 e8 e6 59 0d 00 8d 7c 24 5c 83 c9 ff 33 c0 83 c4 0c f2 ae f7 d1 49 03 d9 81 fb 00 10 00 00 7d 34 8d 7c 24 50 83 c9 ff f2 ae f7 d1 2b f9 8d 94 24 54 04 00 00 8b f7 8b fa 8b d1 83 c9 ff f2 ae 8b ca 4f c1 e9 02 f3 a5 8b ca 83 e1 03 f3 a4 f6 45 0c 10 74 93 55 e8 3b 59 0d 00 8b b4 24 5c 14 00 00 83 c4 04 8d 84 24 54 04 00 00 5d a3 c4 6e 9a 00 68 24 36 55 00 33 ff 6a 01 57 ff 15 f8 d0 54 00 8b 0d c4 6e 9a 00 68 20 d0 55 00 51 a3 3c 6f 9a 00 e8 6e 65 0d 00 83 c4 08 85 c0 75 27 8b 15 34 6f 9a 00 6a 10 68 b8 36 55 00 68 04 d0 55 00 52 ff 15 54 d2 54 00 5f 5e 33 c0 5b 81 c4 44 14 00 00 c2 10 00 39 bc 24 58 14 00 00 0f 85 a5 00 00 00 6a 67 56 c7 05 d0 6e 9a 00 08 10 00 00 c7 05 d4 6e 9a 00 c0 6d 46 00 89 3d d8 6e 9a 00 89 3d dc 6e 9a 00 89 35 e0 6e 9a 00 ff 15 d8 d2 54 00 8b 1d dc d2 54 00 a3 e4 6e 9a 00 bf f8 6e 9a 00 be 88 ce 55 00 8b 8c 24 54 14 00 00 33 c0 66 8b 06 50 51 ff d3 89 07 83 c6 0c 83 c7 04 81 fe 0c cf 55 00 7c e0 33 f6 6a 04 89 35 e8 6e 9a 00 89 35 c4 8d d6 00 89 35 44 6f 9a 00 ff 15 24 d0 54 00 68 d0 6e 9a 00 a3 ec 6e 9a 00 89 35 f0 6e 9a 00 c7 05 f4 6e 9a 00 84 93 55 00 ff 15 2c d2 54 00 66 85 c0 74 2d e8 69 00 00 00 e8 c4 00 00 00 e8 2f 00 00 00 e8 aa d4 0c 00 e8 35 d9 0c 00 e8 30 05 00 00 e8 7b 06 ff ff e8 16 10 00 00 e8 41 16 ff ff 5f 5e 33 c0 5b 81 c4 44 14 00 00 c2 10 00"
+      }
+    ],
+    "instructions": [
+      {
+        "address": "0x465790",
+        "size": 5,
+        "bytes": "b8 44 14 00 00",
+        "instruction": "mov     eax, 1444h",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x465795",
+        "size": 5,
+        "bytes": "e8 26 66 0d 00",
+        "instruction": "call    __alloca_probe",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x46579a",
+        "size": 7,
+        "bytes": "8b 84 24 54 14 00 00",
+        "instruction": "mov     eax, [esp+1444h+nShowCmd]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4657a1",
+        "size": 1,
+        "bytes": "53",
+        "instruction": "push    ebx",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4657a2",
+        "size": 1,
+        "bytes": "56",
+        "instruction": "push    esi",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4657a3",
+        "size": 7,
+        "bytes": "8b b4 24 50 14 00 00",
+        "instruction": "mov     esi, [esp+144Ch+hInstance]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4657aa",
+        "size": 5,
+        "bytes": "a3 28 6f 9a 00",
+        "instruction": "mov     nCmdShow, eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4657af",
+        "size": 7,
+        "bytes": "8b 84 24 58 14 00 00",
+        "instruction": "mov     eax, [esp+144Ch+lpCmdLine]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4657b6",
+        "size": 1,
+        "bytes": "57",
+        "instruction": "push    edi",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4657b7",
+        "size": 5,
+        "bytes": "68 3c d0 55 00",
+        "instruction": "push    offset aCgstart; \"CGstart\"",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4657bc",
+        "size": 1,
+        "bytes": "50",
+        "instruction": "push    eax; Str",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4657bd",
+        "size": 6,
+        "bytes": "89 35 38 6f 9a 00",
+        "instruction": "mov     hInstance, esi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4657c3",
+        "size": 5,
+        "bytes": "a3 c4 6e 9a 00",
+        "instruction": "mov     cmdText, eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4657c8",
+        "size": 5,
+        "bytes": "e8 73 66 0d 00",
+        "instruction": "call    _strstr",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x4657cd",
+        "size": 3,
+        "bytes": "83 c4 08",
+        "instruction": "add     esp, 8",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x4657d0",
+        "size": 2,
+        "bytes": "85 c0",
+        "instruction": "test    eax, eax",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x4657d2",
+        "size": 6,
+        "bytes": "0f 84 d4 00 00 00",
+        "instruction": "jz      loc_4658AC",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x4657d8",
+        "size": 5,
+        "bytes": "b9 00 04 00 00",
+        "instruction": "mov     ecx, 400h",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4657dd",
+        "size": 2,
+        "bytes": "33 c0",
+        "instruction": "xor     eax, eax",
+        "mnemonic": "xor"
+      },
+      {
+        "address": "0x4657df",
+        "size": 7,
+        "bytes": "8d bc 24 50 04 00 00",
+        "instruction": "lea     edi, [esp+1450h+var_1000]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x4657e6",
+        "size": 1,
+        "bytes": "55",
+        "instruction": "push    ebp",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4657e7",
+        "size": 2,
+        "bytes": "f3 ab",
+        "instruction": "rep stosd",
+        "mnemonic": "stosd"
+      },
+      {
+        "address": "0x4657e9",
+        "size": 5,
+        "bytes": "b9 10 00 00 00",
+        "instruction": "mov     ecx, 10h",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4657ee",
+        "size": 4,
+        "bytes": "8d 7c 24 10",
+        "instruction": "lea     edi, [esp+1454h+FileName]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x4657f2",
+        "size": 2,
+        "bytes": "f3 ab",
+        "instruction": "rep stosd",
+        "mnemonic": "stosd"
+      },
+      {
+        "address": "0x4657f4",
+        "size": 5,
+        "bytes": "68 28 d0 55 00",
+        "instruction": "push    offset aDataArgumentIn; \".\\\\data\\\\argument.ini\"",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4657f9",
+        "size": 4,
+        "bytes": "8d 4c 24 14",
+        "instruction": "lea     ecx, [esp+1458h+FileName]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x4657fd",
+        "size": 5,
+        "bytes": "68 f8 35 55 00",
+        "instruction": "push    offset aS_0; \"%s\"",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x465802",
+        "size": 1,
+        "bytes": "51",
+        "instruction": "push    ecx; Buffer",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x465803",
+        "size": 2,
+        "bytes": "33 db",
+        "instruction": "xor     ebx, ebx",
+        "mnemonic": "xor"
+      },
+      {
+        "address": "0x465805",
+        "size": 5,
+        "bytes": "e8 fa 5a 0d 00",
+        "instruction": "call    _sprintf",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x46580a",
+        "size": 4,
+        "bytes": "8d 54 24 1c",
+        "instruction": "lea     edx, [esp+1460h+FileName]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x46580e",
+        "size": 5,
+        "bytes": "68 08 49 55 00",
+        "instruction": "push    offset aR; \"r\"",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x465813",
+        "size": 1,
+        "bytes": "52",
+        "instruction": "push    edx; FileName",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x465814",
+        "size": 5,
+        "bytes": "e8 d8 5a 0d 00",
+        "instruction": "call    _fopen",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x465819",
+        "size": 2,
+        "bytes": "8b e8",
+        "instruction": "mov     ebp, eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46581b",
+        "size": 3,
+        "bytes": "83 c4 14",
+        "instruction": "add     esp, 14h",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x46581e",
+        "size": 2,
+        "bytes": "85 ed",
+        "instruction": "test    ebp, ebp",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x465820",
+        "size": 2,
+        "bytes": "74 7d",
+        "instruction": "jz      short loc_46589F",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x465822",
+        "size": 5,
+        "bytes": "b9 00 01 00 00",
+        "instruction": "mov     ecx, 100h",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x465827",
+        "size": 2,
+        "bytes": "33 c0",
+        "instruction": "xor     eax, eax",
+        "mnemonic": "xor"
+      },
+      {
+        "address": "0x465829",
+        "size": 4,
+        "bytes": "8d 7c 24 50",
+        "instruction": "lea     edi, [esp+1454h+Buffer]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x46582d",
+        "size": 1,
+        "bytes": "55",
+        "instruction": "push    ebp; Stream",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x46582e",
+        "size": 2,
+        "bytes": "f3 ab",
+        "instruction": "rep stosd",
+        "mnemonic": "stosd"
+      },
+      {
+        "address": "0x465830",
+        "size": 1,
+        "bytes": "aa",
+        "instruction": "stosb",
+        "mnemonic": "stosb"
+      },
+      {
+        "address": "0x465831",
+        "size": 4,
+        "bytes": "8d 44 24 54",
+        "instruction": "lea     eax, [esp+1458h+Buffer]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x465835",
+        "size": 5,
+        "bytes": "68 00 04 00 00",
+        "instruction": "push    400h; MaxCount",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x46583a",
+        "size": 1,
+        "bytes": "50",
+        "instruction": "push    eax; Buffer",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x46583b",
+        "size": 5,
+        "bytes": "e8 e6 59 0d 00",
+        "instruction": "call    _fgets",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x465840",
+        "size": 4,
+        "bytes": "8d 7c 24 5c",
+        "instruction": "lea     edi, [esp+1460h+Buffer]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x465844",
+        "size": 3,
+        "bytes": "83 c9 ff",
+        "instruction": "or      ecx, 0FFFFFFFFh",
+        "mnemonic": "or"
+      },
+      {
+        "address": "0x465847",
+        "size": 2,
+        "bytes": "33 c0",
+        "instruction": "xor     eax, eax",
+        "mnemonic": "xor"
+      },
+      {
+        "address": "0x465849",
+        "size": 3,
+        "bytes": "83 c4 0c",
+        "instruction": "add     esp, 0Ch",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x46584c",
+        "size": 2,
+        "bytes": "f2 ae",
+        "instruction": "repne scasb",
+        "mnemonic": "scasb"
+      },
+      {
+        "address": "0x46584e",
+        "size": 2,
+        "bytes": "f7 d1",
+        "instruction": "not     ecx",
+        "mnemonic": "not"
+      },
+      {
+        "address": "0x465850",
+        "size": 1,
+        "bytes": "49",
+        "instruction": "dec     ecx",
+        "mnemonic": "dec"
+      },
+      {
+        "address": "0x465851",
+        "size": 2,
+        "bytes": "03 d9",
+        "instruction": "add     ebx, ecx",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x465853",
+        "size": 6,
+        "bytes": "81 fb 00 10 00 00",
+        "instruction": "cmp     ebx, 1000h",
+        "mnemonic": "cmp"
+      },
+      {
+        "address": "0x465859",
+        "size": 2,
+        "bytes": "7d 34",
+        "instruction": "jge     short loc_46588F",
+        "mnemonic": "jge"
+      },
+      {
+        "address": "0x46585b",
+        "size": 4,
+        "bytes": "8d 7c 24 50",
+        "instruction": "lea     edi, [esp+1454h+Buffer]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x46585f",
+        "size": 3,
+        "bytes": "83 c9 ff",
+        "instruction": "or      ecx, 0FFFFFFFFh",
+        "mnemonic": "or"
+      },
+      {
+        "address": "0x465862",
+        "size": 2,
+        "bytes": "f2 ae",
+        "instruction": "repne scasb",
+        "mnemonic": "scasb"
+      },
+      {
+        "address": "0x465864",
+        "size": 2,
+        "bytes": "f7 d1",
+        "instruction": "not     ecx",
+        "mnemonic": "not"
+      },
+      {
+        "address": "0x465866",
+        "size": 2,
+        "bytes": "2b f9",
+        "instruction": "sub     edi, ecx",
+        "mnemonic": "sub"
+      },
+      {
+        "address": "0x465868",
+        "size": 7,
+        "bytes": "8d 94 24 54 04 00 00",
+        "instruction": "lea     edx, [esp+1454h+var_1000]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x46586f",
+        "size": 2,
+        "bytes": "8b f7",
+        "instruction": "mov     esi, edi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x465871",
+        "size": 2,
+        "bytes": "8b fa",
+        "instruction": "mov     edi, edx",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x465873",
+        "size": 2,
+        "bytes": "8b d1",
+        "instruction": "mov     edx, ecx",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x465875",
+        "size": 3,
+        "bytes": "83 c9 ff",
+        "instruction": "or      ecx, 0FFFFFFFFh",
+        "mnemonic": "or"
+      },
+      {
+        "address": "0x465878",
+        "size": 2,
+        "bytes": "f2 ae",
+        "instruction": "repne scasb",
+        "mnemonic": "scasb"
+      },
+      {
+        "address": "0x46587a",
+        "size": 2,
+        "bytes": "8b ca",
+        "instruction": "mov     ecx, edx",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46587c",
+        "size": 1,
+        "bytes": "4f",
+        "instruction": "dec     edi",
+        "mnemonic": "dec"
+      },
+      {
+        "address": "0x46587d",
+        "size": 3,
+        "bytes": "c1 e9 02",
+        "instruction": "shr     ecx, 2",
+        "mnemonic": "shr"
+      },
+      {
+        "address": "0x465880",
+        "size": 2,
+        "bytes": "f3 a5",
+        "instruction": "rep movsd",
+        "mnemonic": "movsd"
+      },
+      {
+        "address": "0x465882",
+        "size": 2,
+        "bytes": "8b ca",
+        "instruction": "mov     ecx, edx",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x465884",
+        "size": 3,
+        "bytes": "83 e1 03",
+        "instruction": "and     ecx, 3",
+        "mnemonic": "and"
+      },
+      {
+        "address": "0x465887",
+        "size": 2,
+        "bytes": "f3 a4",
+        "instruction": "rep movsb",
+        "mnemonic": "movsb"
+      },
+      {
+        "address": "0x465889",
+        "size": 4,
+        "bytes": "f6 45 0c 10",
+        "instruction": "test    byte ptr [ebp+0Ch], 10h",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x46588d",
+        "size": 2,
+        "bytes": "74 93",
+        "instruction": "jz      short loc_465822",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x46588f",
+        "size": 1,
+        "bytes": "55",
+        "instruction": "push    ebp; Stream",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x465890",
+        "size": 5,
+        "bytes": "e8 3b 59 0d 00",
+        "instruction": "call    _fclose",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x465895",
+        "size": 7,
+        "bytes": "8b b4 24 5c 14 00 00",
+        "instruction": "mov     esi, [esp+1458h+hInstance]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46589c",
+        "size": 3,
+        "bytes": "83 c4 04",
+        "instruction": "add     esp, 4",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x46589f",
+        "size": 7,
+        "bytes": "8d 84 24 54 04 00 00",
+        "instruction": "lea     eax, [esp+1454h+var_1000]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x4658a6",
+        "size": 1,
+        "bytes": "5d",
+        "instruction": "pop     ebp",
+        "mnemonic": "pop"
+      },
+      {
+        "address": "0x4658a7",
+        "size": 5,
+        "bytes": "a3 c4 6e 9a 00",
+        "instruction": "mov     cmdText, eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4658ac",
+        "size": 5,
+        "bytes": "68 24 36 55 00",
+        "instruction": "push    offset Name; \"XZYDRaEvyPQC\"",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4658b1",
+        "size": 2,
+        "bytes": "33 ff",
+        "instruction": "xor     edi, edi",
+        "mnemonic": "xor"
+      },
+      {
+        "address": "0x4658b3",
+        "size": 2,
+        "bytes": "6a 01",
+        "instruction": "push    1; bInitialOwner",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4658b5",
+        "size": 1,
+        "bytes": "57",
+        "instruction": "push    edi; lpMutexAttributes",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4658b6",
+        "size": 6,
+        "bytes": "ff 15 f8 d0 54 00",
+        "instruction": "call    ds:CreateMutexA",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x4658bc",
+        "size": 6,
+        "bytes": "8b 0d c4 6e 9a 00",
+        "instruction": "mov     ecx, cmdText",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4658c2",
+        "size": 5,
+        "bytes": "68 20 d0 55 00",
+        "instruction": "push    offset aUpdated; \"updated\"",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4658c7",
+        "size": 1,
+        "bytes": "51",
+        "instruction": "push    ecx; Str",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4658c8",
+        "size": 5,
+        "bytes": "a3 3c 6f 9a 00",
+        "instruction": "mov     hMutex, eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4658cd",
+        "size": 5,
+        "bytes": "e8 6e 65 0d 00",
+        "instruction": "call    _strstr",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x4658d2",
+        "size": 3,
+        "bytes": "83 c4 08",
+        "instruction": "add     esp, 8",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x4658d5",
+        "size": 2,
+        "bytes": "85 c0",
+        "instruction": "test    eax, eax",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x4658d7",
+        "size": 2,
+        "bytes": "75 27",
+        "instruction": "jnz     short loc_465900",
+        "mnemonic": "jnz"
+      },
+      {
+        "address": "0x4658d9",
+        "size": 6,
+        "bytes": "8b 15 34 6f 9a 00",
+        "instruction": "mov     edx, hWnd",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4658df",
+        "size": 2,
+        "bytes": "6a 10",
+        "instruction": "push    10h; uType",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4658e1",
+        "size": 5,
+        "bytes": "68 b8 36 55 00",
+        "instruction": "push    offset Caption; \"確認\"",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4658e6",
+        "size": 5,
+        "bytes": "68 04 d0 55 00",
+        "instruction": "push    offset asc_55D004; \"請由「線上遊戲領航員」啟動\"",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4658eb",
+        "size": 1,
+        "bytes": "52",
+        "instruction": "push    edx; hWnd",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x4658ec",
+        "size": 6,
+        "bytes": "ff 15 54 d2 54 00",
+        "instruction": "call    ds:MessageBoxA",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x4658f2",
+        "size": 1,
+        "bytes": "5f",
+        "instruction": "pop     edi",
+        "mnemonic": "pop"
+      },
+      {
+        "address": "0x4658f3",
+        "size": 1,
+        "bytes": "5e",
+        "instruction": "pop     esi",
+        "mnemonic": "pop"
+      },
+      {
+        "address": "0x4658f4",
+        "size": 2,
+        "bytes": "33 c0",
+        "instruction": "xor     eax, eax",
+        "mnemonic": "xor"
+      },
+      {
+        "address": "0x4658f6",
+        "size": 1,
+        "bytes": "5b",
+        "instruction": "pop     ebx",
+        "mnemonic": "pop"
+      },
+      {
+        "address": "0x4658f7",
+        "size": 6,
+        "bytes": "81 c4 44 14 00 00",
+        "instruction": "add     esp, 1444h",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x4658fd",
+        "size": 3,
+        "bytes": "c2 10 00",
+        "instruction": "retn    10h",
+        "mnemonic": "retn"
+      },
+      {
+        "address": "0x465900",
+        "size": 7,
+        "bytes": "39 bc 24 58 14 00 00",
+        "instruction": "cmp     [esp+1450h+hPrevInstance], edi",
+        "mnemonic": "cmp"
+      },
+      {
+        "address": "0x465907",
+        "size": 6,
+        "bytes": "0f 85 a5 00 00 00",
+        "instruction": "jnz     loc_4659B2",
+        "mnemonic": "jnz"
+      },
+      {
+        "address": "0x46590d",
+        "size": 2,
+        "bytes": "6a 67",
+        "instruction": "push    67h ; 'g'; lpIconName",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x46590f",
+        "size": 1,
+        "bytes": "56",
+        "instruction": "push    esi; hInstance",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x465910",
+        "size": 10,
+        "bytes": "c7 05 d0 6e 9a 00 08 10 00 00",
+        "instruction": "mov     WndClass.style, 1008h; ;0x1008 -> CS_DBLCLKS | CS_BYTEALIGNCLIENT",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46591a",
+        "size": 10,
+        "bytes": "c7 05 d4 6e 9a 00 c0 6d 46 00",
+        "instruction": "mov     WndClass.lpfnWndProc, offset WIN_PROC",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x465924",
+        "size": 6,
+        "bytes": "89 3d d8 6e 9a 00",
+        "instruction": "mov     WndClass.cbClsExtra, edi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46592a",
+        "size": 6,
+        "bytes": "89 3d dc 6e 9a 00",
+        "instruction": "mov     WndClass.cbWndExtra, edi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x465930",
+        "size": 6,
+        "bytes": "89 35 e0 6e 9a 00",
+        "instruction": "mov     WndClass.hInstance, esi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x465936",
+        "size": 6,
+        "bytes": "ff 15 d8 d2 54 00",
+        "instruction": "call    ds:LoadIconA",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x46593c",
+        "size": 6,
+        "bytes": "8b 1d dc d2 54 00",
+        "instruction": "mov     ebx, ds:LoadCursorA",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x465942",
+        "size": 5,
+        "bytes": "a3 e4 6e 9a 00",
+        "instruction": "mov     WndClass.hIcon, eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x465947",
+        "size": 5,
+        "bytes": "bf f8 6e 9a 00",
+        "instruction": "mov     edi, offset hCursor",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46594c",
+        "size": 5,
+        "bytes": "be 88 ce 55 00",
+        "instruction": "mov     esi, offset stru_55CE88",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x465951",
+        "size": 7,
+        "bytes": "8b 8c 24 54 14 00 00",
+        "instruction": "mov     ecx, [esp+1450h+hInstance]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x465958",
+        "size": 2,
+        "bytes": "33 c0",
+        "instruction": "xor     eax, eax",
+        "mnemonic": "xor"
+      },
+      {
+        "address": "0x46595a",
+        "size": 3,
+        "bytes": "66 8b 06",
+        "instruction": "mov     ax, [esi]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46595d",
+        "size": 1,
+        "bytes": "50",
+        "instruction": "push    eax; lpCursorName",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x46595e",
+        "size": 1,
+        "bytes": "51",
+        "instruction": "push    ecx; hInstance",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x46595f",
+        "size": 2,
+        "bytes": "ff d3",
+        "instruction": "call    ebx ; LoadCursorA",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x465961",
+        "size": 2,
+        "bytes": "89 07",
+        "instruction": "mov     [edi], eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x465963",
+        "size": 3,
+        "bytes": "83 c6 0c",
+        "instruction": "add     esi, 0Ch",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x465966",
+        "size": 3,
+        "bytes": "83 c7 04",
+        "instruction": "add     edi, 4",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x465969",
+        "size": 6,
+        "bytes": "81 fe 0c cf 55 00",
+        "instruction": "cmp     esi, (offset gBinPath.text+8)",
+        "mnemonic": "cmp"
+      },
+      {
+        "address": "0x46596f",
+        "size": 2,
+        "bytes": "7c e0",
+        "instruction": "jl      short loc_465951",
+        "mnemonic": "jl"
+      },
+      {
+        "address": "0x465971",
+        "size": 2,
+        "bytes": "33 f6",
+        "instruction": "xor     esi, esi",
+        "mnemonic": "xor"
+      },
+      {
+        "address": "0x465973",
+        "size": 2,
+        "bytes": "6a 04",
+        "instruction": "push    4; i",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x465975",
+        "size": 6,
+        "bytes": "89 35 e8 6e 9a 00",
+        "instruction": "mov     WndClass.hCursor, esi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46597b",
+        "size": 6,
+        "bytes": "89 35 c4 8d d6 00",
+        "instruction": "mov     dword_D68DC4, esi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x465981",
+        "size": 6,
+        "bytes": "89 35 44 6f 9a 00",
+        "instruction": "mov     dword_9A6F44, esi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x465987",
+        "size": 6,
+        "bytes": "ff 15 24 d0 54 00",
+        "instruction": "call    ds:GetStockObject; ;0x4 -> BLACK_BRUSH",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x46598d",
+        "size": 5,
+        "bytes": "68 d0 6e 9a 00",
+        "instruction": "push    offset WndClass; lpWndClass",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x465992",
+        "size": 5,
+        "bytes": "a3 ec 6e 9a 00",
+        "instruction": "mov     WndClass.hbrBackground, eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x465997",
+        "size": 6,
+        "bytes": "89 35 f0 6e 9a 00",
+        "instruction": "mov     WndClass.lpszMenuName, esi",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46599d",
+        "size": 10,
+        "bytes": "c7 05 f4 6e 9a 00 84 93 55 00",
+        "instruction": "mov     WndClass.lpszClassName, offset WindowName; \"魔力寶貝\" ...",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x4659a7",
+        "size": 6,
+        "bytes": "ff 15 2c d2 54 00",
+        "instruction": "call    ds:RegisterClassA",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x4659ad",
+        "size": 3,
+        "bytes": "66 85 c0",
+        "instruction": "test    ax, ax",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x4659b0",
+        "size": 2,
+        "bytes": "74 2d",
+        "instruction": "jz      short loc_4659DF",
+        "mnemonic": "jz"
+      },
+      {
+        "address": "0x4659b2",
+        "size": 5,
+        "bytes": "e8 69 00 00 00",
+        "instruction": "call    sub_465A20",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x4659b7",
+        "size": 5,
+        "bytes": "e8 c4 00 00 00",
+        "instruction": "call    ReadSetupIni",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x4659bc",
+        "size": 5,
+        "bytes": "e8 2f 00 00 00",
+        "instruction": "call    sub_4659F0",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x4659c1",
+        "size": 5,
+        "bytes": "e8 aa d4 0c 00",
+        "instruction": "call    sub_532E70",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x4659c6",
+        "size": 5,
+        "bytes": "e8 35 d9 0c 00",
+        "instruction": "call    sub_533300",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x4659cb",
+        "size": 5,
+        "bytes": "e8 30 05 00 00",
+        "instruction": "call    ParseCmdOpt",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x4659d0",
+        "size": 5,
+        "bytes": "e8 7b 06 ff ff",
+        "instruction": "call    sub_456050",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x4659d5",
+        "size": 5,
+        "bytes": "e8 16 10 00 00",
+        "instruction": "call    WndInit",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x4659da",
+        "size": 5,
+        "bytes": "e8 41 16 ff ff",
+        "instruction": "call    MainLoop",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x4659df",
+        "size": 1,
+        "bytes": "5f",
+        "instruction": "pop     edi",
+        "mnemonic": "pop"
+      },
+      {
+        "address": "0x4659e0",
+        "size": 1,
+        "bytes": "5e",
+        "instruction": "pop     esi",
+        "mnemonic": "pop"
+      },
+      {
+        "address": "0x4659e1",
+        "size": 2,
+        "bytes": "33 c0",
+        "instruction": "xor     eax, eax",
+        "mnemonic": "xor"
+      },
+      {
+        "address": "0x4659e3",
+        "size": 1,
+        "bytes": "5b",
+        "instruction": "pop     ebx",
+        "mnemonic": "pop"
+      },
+      {
+        "address": "0x4659e4",
+        "size": 6,
+        "bytes": "81 c4 44 14 00 00",
+        "instruction": "add     esp, 1444h",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x4659ea",
+        "size": 3,
+        "bytes": "c2 10 00",
+        "instruction": "retn    10h",
+        "mnemonic": "retn"
+      }
+    ],
+    "inventory_id": "F:00065790",
+    "cursor_ids": [
+      {
+        "slot": 0,
+        "address": "0x55ce88",
+        "bytes": "6b 00",
+        "resource_id": 107
+      },
+      {
+        "slot": 1,
+        "address": "0x55ce94",
+        "bytes": "6c 00",
+        "resource_id": 108
+      },
+      {
+        "slot": 2,
+        "address": "0x55cea0",
+        "bytes": "6d 00",
+        "resource_id": 109
+      },
+      {
+        "slot": 3,
+        "address": "0x55ceac",
+        "bytes": "75 00",
+        "resource_id": 117
+      },
+      {
+        "slot": 4,
+        "address": "0x55ceb8",
+        "bytes": "6f 00",
+        "resource_id": 111
+      },
+      {
+        "slot": 5,
+        "address": "0x55cec4",
+        "bytes": "70 00",
+        "resource_id": 112
+      },
+      {
+        "slot": 6,
+        "address": "0x55ced0",
+        "bytes": "71 00",
+        "resource_id": 113
+      },
+      {
+        "slot": 7,
+        "address": "0x55cedc",
+        "bytes": "72 00",
+        "resource_id": 114
+      },
+      {
+        "slot": 8,
+        "address": "0x55cee8",
+        "bytes": "73 00",
+        "resource_id": 115
+      },
+      {
+        "slot": 9,
+        "address": "0x55cef4",
+        "bytes": "74 00",
+        "resource_id": 116
+      },
+      {
+        "slot": 10,
+        "address": "0x55cf00",
+        "bytes": "6e 00",
+        "resource_id": 110
+      }
+    ],
+    "icon_id": 103,
+    "cursor_storage_start": "0x55ce88",
+    "cursor_stride": 12,
+    "cursor_stop_exclusive": "0x55cf0c",
+    "cursor_end_overlap": "第十一项0x55CF00低W16=0x6E，后八B与同一Bin路径前八B重叠，现承载不变"
+  },
+  "counts": {
+    "instructions": 164,
+    "bytes": 605,
+    "cursor_id_reads": 11,
+    "cursor_id_read_bytes": 22,
+    "source_cpp_files_changed": 1,
+    "new_private_resource_provider": 1,
+    "new_original_function_ids": 0
+  },
+  "source_change": {
+    "path": "src/platform/ClientEntry.cpp",
+    "new_private_symbol": "ResolveWindowResourceInstance",
+    "new_private_definition": "namespace {\n\n// 原0x67/十一CUR由同一资源实例提供；原EXE只映射为数据，不作为代码装载。\n// module及LoadIcon/LoadCursor共享句柄归进程寿命，窗口类/SetCursor借用期间不卸载，见CAC11。\nHINSTANCE ResolveWindowResourceInstance(HINSTANCE instance)\n{\n    // RT_GROUP_ICON=14；明确A系类型，避免受UNICODE宏影响。\n    if (FindResourceA(instance, MAKEINTRESOURCEA(0x67), MAKEINTRESOURCEA(14)) != nullptr) {\n        return instance;\n    }\n\n    static const HMODULE resourceModule = [instance]() -> HMODULE {\n        std::string modulePath(MAX_PATH, '\\0');\n        for (;;) {\n            const DWORD length = GetModuleFileNameA(\n                instance, modulePath.data(), static_cast<DWORD>(modulePath.size()));\n            if (length == 0) {\n                return nullptr;\n            }\n            if (length < modulePath.size()) {\n                modulePath.resize(length);\n                break;\n            }\n            modulePath.resize(modulePath.size() * 2);\n        }\n        const std::size_t separator = modulePath.find_last_of(\"\\\\/\");\n        if (separator == std::string::npos) {\n            return nullptr;\n        }\n        modulePath.resize(separator + 1);\n        modulePath += \"cg2d.exe\";\n        return LoadLibraryExA(modulePath.c_str(), nullptr,\n            LOAD_LIBRARY_AS_DATAFILE | LOAD_LIBRARY_AS_IMAGE_RESOURCE);\n    }();\n    return resourceModule != nullptr ? resourceModule : instance;\n}\n\n} // namespace",
+    "before": "#include \"StartupNative.hpp\"\n#include \"LegacyFormat.hpp\"\n#include \"LegacyStdio.hpp\"\n\n#include \"cg/ResourcePaths.hpp\"\n#include \"cg/platform/LegacyTime.hpp\"\n#include \"cg/platform/LegacyWindow.hpp\"\n#include \"cg/platform/Startup.hpp\"\n\n#include <cstring>\n\n#ifdef _DEBUG\n#include <crtdbg.h>\n#include <cstdio>\n\nnamespace {\n\n// Debug断言发生时只记录地址；不用业务容器/旧格式器，避免在越界报告中再次触发它们。\nint __cdecl RecordDebugAssertionStack(const int reportType, char*, int*)\n{\n    if (reportType != _CRT_ASSERT) {\n        return 0;\n    }\n    const DWORD previousError = GetLastError();\n    void* frames[64];\n    const USHORT frameCount = CaptureStackBackTrace(0, 64, frames, nullptr);\n    HANDLE file = CreateFileW(\n        L\"cg2d_assert_stack.txt\", FILE_APPEND_DATA, FILE_SHARE_READ | FILE_SHARE_WRITE,\n        nullptr, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);\n    if (file != INVALID_HANDLE_VALUE) {\n        char line[160];\n        const auto writeLine = [&file, &line](const int length) {\n            if (length > 0 && length < static_cast<int>(sizeof(line))) {\n                DWORD written;\n                static_cast<void>(WriteFile(file, line, static_cast<DWORD>(length), &written, nullptr));\n            }\n        };\n        writeLine(std::snprintf(\n            line, sizeof(line), \"CRT ASSERT THREAD=%lu FRAMES=%u IMAGE=%p\\r\\n\",\n            GetCurrentThreadId(), static_cast<unsigned int>(frameCount),\n            static_cast<void*>(GetModuleHandleW(nullptr))));\n        for (USHORT index = 0; index < frameCount; ++index) {\n            HMODULE module = nullptr;\n            static_cast<void>(GetModuleHandleExW(\n                GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,\n                reinterpret_cast<LPCWSTR>(frames[index]), &module));\n            const std::uintptr_t address = reinterpret_cast<std::uintptr_t>(frames[index]);\n            const std::uintptr_t base = reinterpret_cast<std::uintptr_t>(module);\n            writeLine(std::snprintf(\n                line, sizeof(line), \"FRAME %u MODULE=%p RVA=0x%llX ADDRESS=%p\\r\\n\",\n                static_cast<unsigned int>(index), static_cast<void*>(module),\n                static_cast<unsigned long long>(module != nullptr ? address - base : 0),\n                frames[index]));\n        }\n        static_cast<void>(CloseHandle(file));\n    }\n    SetLastError(previousError);\n    return 0; // 让CRT继续原断言弹窗/终止，不吞断言或改变returnValue。\n}\n\n// 回调仅覆盖WinMain寿命；Release不编译/注册，未安装成功也不改变客户端流程。\nclass DebugAssertionReport final {\npublic:\n    DebugAssertionReport()\n        : installed_(_CrtSetReportHook2(_CRT_RPTHOOK_INSTALL, RecordDebugAssertionStack) > 0)\n    {\n    }\n\n    ~DebugAssertionReport()\n    {\n        if (installed_) {\n            static_cast<void>(_CrtSetReportHook2(_CRT_RPTHOOK_REMOVE, RecordDebugAssertionStack));\n        }\n    }\n\nprivate:\n    bool installed_;\n};\n\n} // namespace\n#endif\n\nnamespace cg::platform {\n\nWNDCLASSA gWindowClass {};\n\n} // namespace cg::platform\n\n// 原 WinMain@0x465790；保持真实入口函数边界，只有 Win32 句柄与结构采用 x64 SDK ABI。\nint WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR commandLine, int showCommand)\n{\n    using namespace cg::platform;\n\n#ifdef _DEBUG\n    const DebugAssertionReport assertionReport;\n#endif\n\n    char fileName[64];\n    char line[1028];\n    char fileCommandLine[4096];\n\n    gShowCommand = showCommand;\n    gInstance = reinterpret_cast<std::uintptr_t>(instance);\n    gCommandLine = commandLine;\n\n    if (StrStr_53BE40(commandLine, \"CGstart\") != nullptr) {\n        std::memset(fileCommandLine, 0, sizeof(fileCommandLine));\n        std::memset(fileName, 0, sizeof(fileName));\n        std::int32_t total = 0;\n        FormatLegacyString_53B304(fileName, \"%s\", \".\\\\data\\\\argument.ini\");\n        LegacyFile* file = OpenLegacyStream_53B2F1(fileName, \"r\");\n        if (file != nullptr) {\n            do {\n                std::memset(line, 0, 1025);\n                ReadLegacyStreamLine_53B226(line, 1024, file);\n                total += static_cast<std::int32_t>(std::strlen(line));\n                if (total >= 4096) {\n                    break;\n                }\n                std::strcat(fileCommandLine, line);\n            } while ((static_cast<std::uint8_t>(file->flags) & 0x10u) == 0);\n            CloseLegacyStream_53B1D0(file);\n        }\n        gCommandLine = fileCommandLine;\n    }\n\n    // 原代码不检查 ERROR_ALREADY_EXISTS，也不在 WinMain 中释放该句柄。\n    gStartupMutex = reinterpret_cast<std::uintptr_t>(CreateMutexA(nullptr, TRUE, \"XZYDRaEvyPQC\"));\n    if (StrStr_53BE40(gCommandLine, \"updated\") == nullptr) {\n        ShowUtf8Message(\"請由「線上遊戲領航員」啟動\", \"確認\", 0x10);\n        return 0;\n    }\n\n    if (previousInstance == nullptr) {\n        gWindowClass.style = 0x1008;\n        gWindowClass.lpfnWndProc = WindowProcedure;\n        gWindowClass.cbClsExtra = 0;\n        gWindowClass.cbWndExtra = 0;\n        gWindowClass.hInstance = instance;\n        gWindowClass.hIcon = LoadIconA(instance, MAKEINTRESOURCEA(0x67));\n\n        // 原步长为 12，共读取 11 个 ID；通过完整对象的字节视图保留最后一条的重叠布局。\n        const auto* cursorBytes = reinterpret_cast<const unsigned char*>(&cg::resource::gCursorPathStorage);\n        for (int slot = 0; slot < 11; ++slot) {\n            std::uint16_t resourceId;\n            std::memcpy(&resourceId, cursorBytes + slot * 12, sizeof(resourceId));\n            gCursorHandles[slot] = reinterpret_cast<std::uintptr_t>(\n                LoadCursorA(instance, MAKEINTRESOURCEA(resourceId)));\n        }\n\n        gWindowClass.hCursor = nullptr;\n        gValueD68DC4 = 0;\n        gValue9A6F44 = 0;\n        gWindowClass.hbrBackground = static_cast<HBRUSH>(GetStockObject(BLACK_BRUSH));\n        gWindowClass.lpszMenuName = nullptr;\n        gWindowClass.lpszClassName = gWindowClassName;\n        if (RegisterClassA(&gWindowClass) == 0) {\n            return 0;\n        }\n    }\n\n    CaptureDesktopColor();\n    ReadSetupIni();\n    ParseClientVersion();\n    CreateSaveDirectories();\n    InitializeSavedState_533300();\n    ParseCommandOptions();\n    cg::resource::BuildResourcePaths();\n    InitializeWindow();\n    MainLoop();\n    return 0;\n}\n",
+    "after": "#include \"StartupNative.hpp\"\n#include \"LegacyFormat.hpp\"\n#include \"LegacyStdio.hpp\"\n\n#include \"cg/ResourcePaths.hpp\"\n#include \"cg/platform/LegacyTime.hpp\"\n#include \"cg/platform/LegacyWindow.hpp\"\n#include \"cg/platform/Startup.hpp\"\n\n#include <cstring>\n#include <string>\n\nnamespace {\n\n// 原0x67/十一CUR由同一资源实例提供；原EXE只映射为数据，不作为代码装载。\n// module及LoadIcon/LoadCursor共享句柄归进程寿命，窗口类/SetCursor借用期间不卸载，见CAC11。\nHINSTANCE ResolveWindowResourceInstance(HINSTANCE instance)\n{\n    // RT_GROUP_ICON=14；明确A系类型，避免受UNICODE宏影响。\n    if (FindResourceA(instance, MAKEINTRESOURCEA(0x67), MAKEINTRESOURCEA(14)) != nullptr) {\n        return instance;\n    }\n\n    static const HMODULE resourceModule = [instance]() -> HMODULE {\n        std::string modulePath(MAX_PATH, '\\0');\n        for (;;) {\n            const DWORD length = GetModuleFileNameA(\n                instance, modulePath.data(), static_cast<DWORD>(modulePath.size()));\n            if (length == 0) {\n                return nullptr;\n            }\n            if (length < modulePath.size()) {\n                modulePath.resize(length);\n                break;\n            }\n            modulePath.resize(modulePath.size() * 2);\n        }\n        const std::size_t separator = modulePath.find_last_of(\"\\\\/\");\n        if (separator == std::string::npos) {\n            return nullptr;\n        }\n        modulePath.resize(separator + 1);\n        modulePath += \"cg2d.exe\";\n        return LoadLibraryExA(modulePath.c_str(), nullptr,\n            LOAD_LIBRARY_AS_DATAFILE | LOAD_LIBRARY_AS_IMAGE_RESOURCE);\n    }();\n    return resourceModule != nullptr ? resourceModule : instance;\n}\n\n} // namespace\n\n#ifdef _DEBUG\n#include <crtdbg.h>\n#include <cstdio>\n\nnamespace {\n\n// Debug断言发生时只记录地址；不用业务容器/旧格式器，避免在越界报告中再次触发它们。\nint __cdecl RecordDebugAssertionStack(const int reportType, char*, int*)\n{\n    if (reportType != _CRT_ASSERT) {\n        return 0;\n    }\n    const DWORD previousError = GetLastError();\n    void* frames[64];\n    const USHORT frameCount = CaptureStackBackTrace(0, 64, frames, nullptr);\n    HANDLE file = CreateFileW(\n        L\"cg2d_assert_stack.txt\", FILE_APPEND_DATA, FILE_SHARE_READ | FILE_SHARE_WRITE,\n        nullptr, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);\n    if (file != INVALID_HANDLE_VALUE) {\n        char line[160];\n        const auto writeLine = [&file, &line](const int length) {\n            if (length > 0 && length < static_cast<int>(sizeof(line))) {\n                DWORD written;\n                static_cast<void>(WriteFile(file, line, static_cast<DWORD>(length), &written, nullptr));\n            }\n        };\n        writeLine(std::snprintf(\n            line, sizeof(line), \"CRT ASSERT THREAD=%lu FRAMES=%u IMAGE=%p\\r\\n\",\n            GetCurrentThreadId(), static_cast<unsigned int>(frameCount),\n            static_cast<void*>(GetModuleHandleW(nullptr))));\n        for (USHORT index = 0; index < frameCount; ++index) {\n            HMODULE module = nullptr;\n            static_cast<void>(GetModuleHandleExW(\n                GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,\n                reinterpret_cast<LPCWSTR>(frames[index]), &module));\n            const std::uintptr_t address = reinterpret_cast<std::uintptr_t>(frames[index]);\n            const std::uintptr_t base = reinterpret_cast<std::uintptr_t>(module);\n            writeLine(std::snprintf(\n                line, sizeof(line), \"FRAME %u MODULE=%p RVA=0x%llX ADDRESS=%p\\r\\n\",\n                static_cast<unsigned int>(index), static_cast<void*>(module),\n                static_cast<unsigned long long>(module != nullptr ? address - base : 0),\n                frames[index]));\n        }\n        static_cast<void>(CloseHandle(file));\n    }\n    SetLastError(previousError);\n    return 0; // 让CRT继续原断言弹窗/终止，不吞断言或改变returnValue。\n}\n\n// 回调仅覆盖WinMain寿命；Release不编译/注册，未安装成功也不改变客户端流程。\nclass DebugAssertionReport final {\npublic:\n    DebugAssertionReport()\n        : installed_(_CrtSetReportHook2(_CRT_RPTHOOK_INSTALL, RecordDebugAssertionStack) > 0)\n    {\n    }\n\n    ~DebugAssertionReport()\n    {\n        if (installed_) {\n            static_cast<void>(_CrtSetReportHook2(_CRT_RPTHOOK_REMOVE, RecordDebugAssertionStack));\n        }\n    }\n\nprivate:\n    bool installed_;\n};\n\n} // namespace\n#endif\n\nnamespace cg::platform {\n\nWNDCLASSA gWindowClass {};\n\n} // namespace cg::platform\n\n// 原 WinMain@0x465790；保持真实入口函数边界，只有 Win32 句柄与结构采用 x64 SDK ABI。\nint WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR commandLine, int showCommand)\n{\n    using namespace cg::platform;\n\n#ifdef _DEBUG\n    const DebugAssertionReport assertionReport;\n#endif\n\n    char fileName[64];\n    char line[1028];\n    char fileCommandLine[4096];\n\n    gShowCommand = showCommand;\n    gInstance = reinterpret_cast<std::uintptr_t>(instance);\n    gCommandLine = commandLine;\n\n    if (StrStr_53BE40(commandLine, \"CGstart\") != nullptr) {\n        std::memset(fileCommandLine, 0, sizeof(fileCommandLine));\n        std::memset(fileName, 0, sizeof(fileName));\n        std::int32_t total = 0;\n        FormatLegacyString_53B304(fileName, \"%s\", \".\\\\data\\\\argument.ini\");\n        LegacyFile* file = OpenLegacyStream_53B2F1(fileName, \"r\");\n        if (file != nullptr) {\n            do {\n                std::memset(line, 0, 1025);\n                ReadLegacyStreamLine_53B226(line, 1024, file);\n                total += static_cast<std::int32_t>(std::strlen(line));\n                if (total >= 4096) {\n                    break;\n                }\n                std::strcat(fileCommandLine, line);\n            } while ((static_cast<std::uint8_t>(file->flags) & 0x10u) == 0);\n            CloseLegacyStream_53B1D0(file);\n        }\n        gCommandLine = fileCommandLine;\n    }\n\n    // 原代码不检查 ERROR_ALREADY_EXISTS，也不在 WinMain 中释放该句柄。\n    gStartupMutex = reinterpret_cast<std::uintptr_t>(CreateMutexA(nullptr, TRUE, \"XZYDRaEvyPQC\"));\n    if (StrStr_53BE40(gCommandLine, \"updated\") == nullptr) {\n        ShowUtf8Message(\"請由「線上遊戲領航員」啟動\", \"確認\", 0x10);\n        return 0;\n    }\n\n    if (previousInstance == nullptr) {\n        gWindowClass.style = 0x1008;\n        gWindowClass.lpfnWndProc = WindowProcedure;\n        gWindowClass.cbClsExtra = 0;\n        gWindowClass.cbWndExtra = 0;\n        gWindowClass.hInstance = instance;\n        const HINSTANCE resourceInstance = ResolveWindowResourceInstance(instance);\n        gWindowClass.hIcon = LoadIconA(resourceInstance, MAKEINTRESOURCEA(0x67));\n\n        // 原步长为 12，共读取 11 个 ID；通过完整对象的字节视图保留最后一条的重叠布局。\n        const auto* cursorBytes = reinterpret_cast<const unsigned char*>(&cg::resource::gCursorPathStorage);\n        for (int slot = 0; slot < 11; ++slot) {\n            std::uint16_t resourceId;\n            std::memcpy(&resourceId, cursorBytes + slot * 12, sizeof(resourceId));\n            gCursorHandles[slot] = reinterpret_cast<std::uintptr_t>(\n                LoadCursorA(resourceInstance, MAKEINTRESOURCEA(resourceId)));\n        }\n\n        gWindowClass.hCursor = nullptr;\n        gValueD68DC4 = 0;\n        gValue9A6F44 = 0;\n        gWindowClass.hbrBackground = static_cast<HBRUSH>(GetStockObject(BLACK_BRUSH));\n        gWindowClass.lpszMenuName = nullptr;\n        gWindowClass.lpszClassName = gWindowClassName;\n        if (RegisterClassA(&gWindowClass) == 0) {\n            return 0;\n        }\n    }\n\n    CaptureDesktopColor();\n    ReadSetupIni();\n    ParseClientVersion();\n    CreateSaveDirectories();\n    InitializeSavedState_533300();\n    ParseCommandOptions();\n    cg::resource::BuildResourcePaths();\n    InitializeWindow();\n    MainLoop();\n    return 0;\n}\n",
+    "fragment_updates": [
+      [
+        "LoadIconA(instance, MAKEINTRESOURCEA(0x67))",
+        "LoadIconA(resourceInstance, MAKEINTRESOURCEA(0x67))"
+      ],
+      [
+        "LoadCursorA(instance, MAKEINTRESOURCEA(resourceId))",
+        "LoadCursorA(resourceInstance, MAKEINTRESOURCEA(resourceId))"
+      ]
+    ]
+  },
+  "provider_contract": {
+    "current_module_preference": "当前instance含原RT_GROUP_ICON14/ID103则原样使用。",
+    "file_source": "当前EXE所在目录的cg2d.exe；已知同安装目录存在，只查询元数据，不按同名声称与当前IDA资源等价。",
+    "file_mode": "LOAD_LIBRARY_AS_DATAFILE | LOAD_LIBRARY_AS_IMAGE_RESOURCE；不执行模块代码、解析导入或取得函数地址。",
+    "ownership": "一次惰性资源映像由本进程持有至退出，原共享图标/光标句柄由SDK/进程承载；存于现同一窗类/十一句柄，不在仍借用时卸载，不新增影子句柄表。",
+    "normal_failures": "路径取得或资源映射失败返回当前instance，原LoadIconA/LoadCursorA各自产生失败句柄，继续原注册/初始化流程；无替身/默认成功或新退出门槛。",
+    "boundaries": "gInstance/gWindowClass.hInstance/新端WindowProcedure仍当前模块；只有图标/光标资源加载实参使用resourceInstance。A系文件名、原W16资源ID与native句柄保持。"
+  },
+  "current_resource_build_contract": {
+    "path": "CMakeLists.txt",
+    "resource_source": "src/platform/FixedMusic.rc.in",
+    "resource_source_text": "#pragma code_page(65001)\n1001 RCDATA \"@CMAKE_CURRENT_SOURCE_DIR@/src/audio/fixed_0.wav\"\n1002 RCDATA \"@CMAKE_CURRENT_SOURCE_DIR@/src/audio/fixed_1.wav\"\n",
+    "current_executable_sources": [
+      "src/platform/ClientEntry.cpp",
+      "${CMAKE_CURRENT_BINARY_DIR}/FixedMusic.rc"
+    ],
+    "meaning": "源工程唯一客户端RC仅固定WAV，原图标/光标未嵌入；不检查构建产物或以源码代运行Resource查询。"
+  },
+  "actual_consumers": [
+    {
+      "path": "src/platform/WindowProcedure.cpp",
+      "expression": "SetCursor(reinterpret_cast<HCURSOR>(gCursorHandles[gValue9A6F44]));"
+    },
+    {
+      "path": "src/platform/LegacyCursor.cpp",
+      "expression": "SetCursor(reinterpret_cast<HCURSOR>(gCursorHandles[handleState]));"
+    }
+  ],
+  "sdk_references": [
+    {
+      "title": "LoadLibraryExA",
+      "url": "https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibraryexa",
+      "scope": "资源/数据映射不执行或准备执行、非解析导入；源已加载为代码的特殊情况不能由本步声称实际实验。"
+    },
+    {
+      "title": "LoadImageA",
+      "url": "https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-loadimagea",
+      "scope": "SDK共享图像寿命/模块来源机制，非原资源像素或热点证明。"
+    }
+  ],
+  "unverified": [
+    "未调用解析器、LoadLibraryExA、LoadIconA/LoadCursorA或启动客户端；不构建/测试/运行/检查产物或摘要。",
+    "安装目录原文件与IDB已知不能互代；实际原图标/十一光标资源存在、权限/格式/像素/热点与同输入基线仍待。",
+    "成功/失败与重复启动、SDK共享句柄及窗口/鼠标所有借用、实际进程退出寿命/ABI链接和全原新启动门禁未验。",
+    "本步仅源码装载/接线，不关闭G05、完整功能或总SPEC§10/R8；其他资料目录/名单/原路由事实不猜造。"
+  ]
+}

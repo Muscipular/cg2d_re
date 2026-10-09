@@ -294,3 +294,9 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 ## CAC10 U04/R01/R04/V04 资料切页取样实修（2026-10-09）
 
 [当前源状态](../doc/ui_windows/shared_profile.md#profile-page-coordinate-source-state-20261009)及[原499/1704B、十四448B原型](../doc/cg2d_profile_page_coordinate_sampling_evidence.json)支撑一CPP9/2片段恢复三切页每轴当前/目标指针先取、源坐标后读和目标发布，X后fresh Y。原发送同步、所选角色、图号/GBK提示、类别/state/flags、动画音频及全部其它源码保持。1937更新、一adapted/三局部FUNC-UI I/W/S和58/64已知成员不关闭完整枚举/软件门禁；64默认0不造新I。四任务继续open，所有callee/外层/正常寿命/机器ABI/画面明文运行及R8未验，本轮禁令保持。
+
+## CAC11 G05 原图标/十一鼠标光标装载开发（2026-10-09）
+
+[源码交付](../doc/cg2d_startup_flow.md#window-resource-module-source-state-20261009)及[原ID/164条605B与整源前后态](../doc/cg2d_window_resource_module_evidence.json)支撑实际资源提供者：当前原组优先，否则映射当前EXE目录cg2d.exe仅数据/资源，失败保当前module；原WinMain两图像加载接此module，当前instance/窗口过程和全部启动不动，同源窗类/十一句柄/SetCursor保持。原SDK共享资源与module进程寿命，不在仍借用时卸载，不造替代图/影子表/新参数或协议。
+
+原G05此前未显式进入机器任务登记，本步新增open及源码证据，原60分母/11关闭保持；一adapted/三局部I/W/S和三域已知成员不提升完整门禁。当前磁盘资源不代IDB基线，原资源取得/权限/匹配与像素热点、11成功失败/SDK共享借用及实际启动/退出/运行仍待；G05/C04/R01/R04/V01/V04仍open，不构建/测试/运行/产物或摘要。

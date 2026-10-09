@@ -2285,3 +2285,9 @@ F:0006E3E0新增adapted处置，既有1927语义增加记录视图承载，无�
 [先行裁决](ui_windows/shared_profile.md#profile-page-coordinate-decision-20261009)与[当前源状态](ui_windows/shared_profile.md#profile-page-coordinate-source-state-20261009)支持FUNC-UI三个局部I/W/S，只三切页现分支的两指针/坐标顺序实修、原完整499条1704B对照及十四448B绑定。完整代码xref没有记录，表头数据xref与实际原型用途分别保留，不能宣完整间接引用或不可达已闭；十三表复用不重计R7。
 
 F:00078330新增adapted，1937已有映射加本步原根/差集，无新F或语义；软件证据1304→1307。58/64已知成员各加该F且枚举false，64无新I成果，所有功能gates保持。U04/R01/R04/V04仅追加依据仍open；全callee/外层及正常owner-alias寿命、机器/业务画面运行、六closure及总SPEC§10/R8保持，文本汇总不代运行。
+
+## CAC11 G05 实际资源装载与接线（2026-10-09）
+
+[先行裁决](cg2d_startup_flow.md#window-resource-module-decision-20261009)和[当前源码](cg2d_startup_flow.md#window-resource-module-source-state-20261009)登记三个局部STARTUP I/W/S：新增同目录原客户端只读资源映像提供者、真实WinMain两加载点及原ID/现句柄与SetCursor消费。原启动164条605B/十一W16 ID有据，现RC只有WAV的源条件已核；本次未读/重开原EXE或实际映射，静态不能代资源权限/像素/热点及SDK运行。
+
+既有173语义更新、一adapted原WinMain处置；三域仅新增已知成员且枚举false，无新原身份或语义/全功能分母。G05原在收尾表中，现首次加入登记簿open，60任务分母不变；C04/R01/R04/V01/V04仍open。全部完整B/I/W/S/R及六closure保持，局部实施不是整体完成，资源实际匹配/加载成功失败与正常寿命/原新运行及总SPEC§10/R8继续。

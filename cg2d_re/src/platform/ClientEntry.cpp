@@ -8,6 +8,46 @@
 #include "cg/platform/Startup.hpp"
 
 #include <cstring>
+#include <string>
+
+namespace {
+
+// 原0x67/十一CUR由同一资源实例提供；原EXE只映射为数据，不作为代码装载。
+// module及LoadIcon/LoadCursor共享句柄归进程寿命，窗口类/SetCursor借用期间不卸载，见CAC11。
+HINSTANCE ResolveWindowResourceInstance(HINSTANCE instance)
+{
+    // RT_GROUP_ICON=14；明确A系类型，避免受UNICODE宏影响。
+    if (FindResourceA(instance, MAKEINTRESOURCEA(0x67), MAKEINTRESOURCEA(14)) != nullptr) {
+        return instance;
+    }
+
+    static const HMODULE resourceModule = [instance]() -> HMODULE {
+        std::string modulePath(MAX_PATH, '\0');
+        for (;;) {
+            const DWORD length = GetModuleFileNameA(
+                instance, modulePath.data(), static_cast<DWORD>(modulePath.size()));
+            if (length == 0) {
+                return nullptr;
+            }
+            if (length < modulePath.size()) {
+                modulePath.resize(length);
+                break;
+            }
+            modulePath.resize(modulePath.size() * 2);
+        }
+        const std::size_t separator = modulePath.find_last_of("\\/");
+        if (separator == std::string::npos) {
+            return nullptr;
+        }
+        modulePath.resize(separator + 1);
+        modulePath += "cg2d.exe";
+        return LoadLibraryExA(modulePath.c_str(), nullptr,
+            LOAD_LIBRARY_AS_DATAFILE | LOAD_LIBRARY_AS_IMAGE_RESOURCE);
+    }();
+    return resourceModule != nullptr ? resourceModule : instance;
+}
+
+} // namespace
 
 #ifdef _DEBUG
 #include <crtdbg.h>
@@ -137,7 +177,8 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
         gWindowClass.cbClsExtra = 0;
         gWindowClass.cbWndExtra = 0;
         gWindowClass.hInstance = instance;
-        gWindowClass.hIcon = LoadIconA(instance, MAKEINTRESOURCEA(0x67));
+        const HINSTANCE resourceInstance = ResolveWindowResourceInstance(instance);
+        gWindowClass.hIcon = LoadIconA(resourceInstance, MAKEINTRESOURCEA(0x67));
 
         // 原步长为 12，共读取 11 个 ID；通过完整对象的字节视图保留最后一条的重叠布局。
         const auto* cursorBytes = reinterpret_cast<const unsigned char*>(&cg::resource::gCursorPathStorage);
@@ -145,7 +186,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
             std::uint16_t resourceId;
             std::memcpy(&resourceId, cursorBytes + slot * 12, sizeof(resourceId));
             gCursorHandles[slot] = reinterpret_cast<std::uintptr_t>(
-                LoadCursorA(instance, MAKEINTRESOURCEA(resourceId)));
+                LoadCursorA(resourceInstance, MAKEINTRESOURCEA(resourceId)));
         }
 
         gWindowClass.hCursor = nullptr;

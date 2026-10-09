@@ -4261,3 +4261,9 @@ X:00143383-00143390的7B实际代码对应Cg2dApplyLegacyConditionalSignX87，�
 既有1937/F:00078330继续由CAC08原表/现源关联到[本完整根和当前差集](ui_windows/shared_profile.md#profile-page-coordinate-source-state-20261009)；[499条1704B/三个36条159B窗口及十四448B原型](cg2d_profile_page_coordinate_sampling_evidence.json)可追。只一CPP既有root的两条成员赋值展开为每轴两借用指针先取、源S32后读再目标发布，X后fresh Y；保持其它分支、返回/GBK文字和发送同步/开窗动画音频。
 
 一adapted处置/三局部FUNC-UI I/W/S，无新语义/F/R7；58/64各纳管一个真实绑定成员且枚举false。64的14/15/16本来默认0，不能据本步制造特殊空callback或新实现I。全部窗口/间接外层/完整callee、正常owner-alias寿命、机器ABI/画面/明文往返和运行R8继续；CAC08association_only历史保持。
+
+## CAC11 原窗口图标/光标真实资源实例（2026-10-09）
+
+既有173/F:00065790绑定唯一真实WinMain与新增私有ResolveWindowResourceInstance。[当前装载/接线](cg2d_startup_flow.md#window-resource-module-source-state-20261009)与[164/605B、11原W16及整源前后态](cg2d_window_resource_module_evidence.json)对应；仅资源实参借资源module，当前instance仍注册新端窗口过程和创建窗口。原SDK共享图标/光标及资源映像进程寿命，现窗类/十一句柄和SetCursor消费保持。
+
+只一CPP新增实际装载器与两实参替换，原ID/重叠存储、启动/协议/文字和SDL3-WAV保持；一adapted处置/三局部STARTUP I/W/S，不增语义或原函数分母。三域补该原WinMain已知成员且枚举false，当前安装文件不代选定IDA原资源基线，权限/格式/匹配/像素热点、SDK正常借用和完整启动运行/退出仍未闭，R8继续。

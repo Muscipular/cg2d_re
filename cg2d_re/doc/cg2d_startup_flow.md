@@ -1992,3 +1992,39 @@ native9槽是已证前缀，不是原完整容量证明；原入口>=8不增加�
 ## 宿主客户端目标接线（BRS01，2026-10-07）
 
 本线新增唯一 cg2d_re_client WIN32目标，已有ClientEntry.cpp从startup迁至该目标；显式接startup/render，core沿startup公共依赖。宿主标准Windows CRT进入已有WinMain，没有新增入口函数、/ENTRY、旧整表调用或占位依赖，现有活动初始化保持。见[局部SPEC](cg2d_hosted_client_executable_target_spec.md#hosted-client-target-source-state)。目标缺口在源码层已补；未配置、编译、链接或运行，完整生命周期与登录负分类、版本正文、资源依赖继续推进。上文早期“仅静态库／入口未启用”沿原时点保留，现目标状态以本节及唯一进度为准。
+
+<a id="window-resource-module-baseline-20261009"></a>
+## CAC11 G05：真实窗口资源装载（2026-10-09）
+
+当前唯一WIN32客户端从真实WinMain进入。原窗口类使用图标ID 0x67、十一鼠标光标ID；当前入口仍从新的instance查询这些原ID，而当前客户端RC源只嵌入1001/1002两个固定WAV，没有对应图标/光标资源。已有11个gCursorHandles、窗口类与SetCursor消费保留，只缺原资源来源的真实装载。原重叠CursorPathStorage/十一W16读取及0x6E尾项不改。
+
+当前安装目录有cg2d.exe文件，仅查询存在，不重开/读取/执行该EXE或资源、检查产物或摘要。磁盘同名文件与选定IDB不能互代原基线：本步只接当前安装资源的提供者，像素/热点/格式、完整资源集与匹配条件仍须实际验收，不据文件存在宣布G05完成。
+
+<a id="window-resource-module-decision-20261009"></a>
+## CAC11 工程委托裁决与来源
+
+在现ClientEntry.cpp平台边界新增私有资源实例解析器，先保留已含原组图标0x67的当前instance；当前instance不含该组时，按当前EXE所在目录定位同目录cg2d.exe，仅用LOAD_LIBRARY_AS_DATAFILE与LOAD_LIBRARY_AS_IMAGE_RESOURCE映射资源。该提供者不启动原EXE、不解析原代码/导入、不执行初始化或取函数地址；不复制/导出原资源、不生成替代图，也不新增第三方依赖、参数、网络协议或CWD探测。
+
+当前EXE目录通过GetModuleFileNameA取得，动态字符缓冲承接实际路径，保持A系路径边界。新资源module由本进程持有至退出，原LoadIconA/LoadCursorA的共享句柄由SDK/进程承载；不能在窗口类或SetCursor仍借用时卸载资源module。这里只一资源映像、同一现十一句柄/窗口类，不新增影子句柄表。资源映射失败返回当前instance，原两加载的失败值/后续RegisterClass和流程保持，不把资源失败改成启动成功或新增退出门槛。
+
+WinMain仍以当前instance注册新端WindowProcedure、保存gInstance及创建窗口，只将两类图像加载的resourceInstance交给解析器结果；原0x67/十一ID和调用序、重叠存储、gWindowClass.hCursor=nullptr、全部启动/协议/GBK字体ASCII输入光标/SDL3-WAV保持。SDK机制依据[LoadLibraryExA](https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibraryexa)的资源映射合同及[LoadImageA](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-loadimagea)的共享图像寿命；不声称旧EXE内容与IDB等价。
+
+<a id="window-resource-module-acceptance-20261009"></a>
+## CAC11 适用验收与剩余
+
+- 实际装载器与真实WinMain两加载点接线完成，当前窗类/光标消费者仍借同一现存句柄；原当前instance不被资源module覆盖。
+- 新解析器无代码装载/函数调用入口、无文件写入/导出/替代资源、无第三方或新启动参数；动态路径/映射失败及进程共享资源寿命有具名合同。
+- 一CPP新增解析器及两加载实参变化；原启动全部其余语句/资源ID/光标重叠布局与所有其它源码保持。
+- 静态源码/原11已初始化W16 ID与当前字节视图及源RC/CMake适用门禁；原资源取得/匹配、图标像素/光标热点与11成功失败、SDK共享句柄/窗口生命周期及真实运行继续待验，不关闭G05、完整STARTUP/RESOURCE/INPUT、总SPEC§10或R8。
+- 本次不构建、不测试、不运行、不检查编译产物、不读/重开原EXE文件或计算摘要，单线程；本步新增代码留待用户恢复执行。
+
+<a id="window-resource-module-source-state-20261009"></a>
+## CAC11 当前源码交付
+
+真实资源实例提供者ResolveWindowResourceInstance已落到唯一客户端ClientEntry.cpp，并接WinMain的原LoadIconA/LoadCursorA。已有原组图标的当前module仍直接用；否则动态读取当前EXE所在目录、只读映射同目录cg2d.exe资源，映射失败回当前module。仅两图像加载实参使用resourceInstance，gInstance/窗类hInstance/新端WindowProcedure和窗口创建仍当前module，不装载原代码/导入或取函数地址。
+
+资源映像惰性取得一次并由本进程持有至退出，原SDK共享图标/光标继续存现同一窗类和十一句柄，窗口/SetCursor借用期间不卸载。没有新CLI/协议、影子句柄表、替代图片、资源写出或第三方依赖；这是实际装载/接线代码，不只是取样检查。当前源RC仍仅两个WAV，CMake/RC、原十一W16 ID及CursorPathStorage重叠和全部其它源/启动保持。
+
+本步原164条605B和11×W16=22B、当前RC/CMake与两个SetCursor消费、整CPP一提供者与两实参精确增量、native instance隔离/动态路径/唯一次数据资源映像/正常失败及UTF-8无BOM/LF限定静态通过；原证五页全文回读相等。当前同名磁盘文件不能代IDB资源基线，本次未读/重开原EXE、实际映射或执行客户端。
+
+既有173语义补提供者、一adapted及三局部STARTUP I/W/S，STARTUP/RESOURCE/INPUT只各补原WinMain已知成员且枚举false；G05首次显式登记open，其他相关任务和全部完整门禁保持。原资源权限/匹配、图标像素/11光标热点及全部SDK成功失败/借用/进程退出、实际链接与原新启动运行仍待，不关闭G05或总SPEC§10/R8。固定快照cg2d-re-window-resource-module-20261009；按本轮禁令不构建、测试、运行/产物或摘要，单线程。

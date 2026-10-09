@@ -111,7 +111,8 @@
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
         "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
         "doc/cg2d_build_acceptance_spec.md#array-assert-stack-diagnostic-20261009",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-baseline"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-baseline",
+        "doc/cg2d_startup_flow.md#window-resource-module-baseline-20261009"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -234,7 +235,8 @@
         "F:00106870",
         "F:000FD9F0",
         "F:000FDE10",
-        "F:00057B10"
+        "F:00057B10",
+        "F:00065790"
       ],
       "closure_task_ids": [
         "C02",
@@ -257,7 +259,8 @@
         "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-decision",
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
         "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
-        "doc/cg2d_display_settings.md#audio-settings-pages-decision"
+        "doc/cg2d_display_settings.md#audio-settings-pages-decision",
+        "doc/cg2d_startup_flow.md#window-resource-module-decision-20261009"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -273,7 +276,8 @@
         "SCG01两控制器14原固定目标门禁恢复，仅源码分支对齐；原状态/计数/FILE/共享缓冲/tie/format和18登记保持，17活动项/全registry/facet、全应用normal/quick/callable退出、SDK及运行未闭",
         "BRS01仅源码目标接线：新增唯一WIN32客户端目标并把已有ClientEntry.cpp从startup迁至客户端，显式接startup/render，继承core/C++20/include和现系统/SDL3依赖；宿主标准CRT进入已有WinMain，函数体/应用活动初始化/旧CRT表全文未改，无/ENTRY、替代main或占位依赖。三库和Windows/MSVC/x64限制/预设保持。静态接线通过；未配置构建测试运行摘要，完整链接/初始化构析/退出及登录负分类/U03/资源依赖继续开发，C02/C04/V02仍open、完整feature门禁/global不改。",
         "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
-        "CAC07本域新增成员仅已有真实源及原分派数据关联；本批512X用途有证不代13父完整算法/签名/所有callee、间接alias、生产及正常owner寿命/SDK/机器ABI/运行。本域成员枚举和B/I/W/S/R继续未闭，不新增软件通过。"
+        "CAC07本域新增成员仅已有真实源及原分派数据关联；本批512X用途有证不代13父完整算法/签名/所有callee、间接alias、生产及正常owner寿命/SDK/机器ABI/运行。本域成员枚举和B/I/W/S/R继续未闭，不新增软件通过。",
+        "CAC11实际原图标/十一鼠标光标资源实例装载及真实WinMain两加载点已编码，现同源窗类/句柄和SetCursor借用不变；本域仅该原入口已知成员，非新功能分母或闭枚举。当前磁盘资源与IDB不能互代，权限/匹配/像素热点/全部加载成功失败及SDK/正常寿命/完整启动输入资源和运行继续待，局部静态不提升完整门禁。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -292,7 +296,8 @@
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
         "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
         "doc/cg2d_audio_settings_pages_evidence.json",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_startup_flow.md#window-resource-module-source-state-20261009"
       ]
     },
     {
@@ -1885,7 +1890,8 @@
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-baseline",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-baseline",
         "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
-        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline"
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_startup_flow.md#window-resource-module-baseline-20261009"
       ],
       "original_inventory_ids": [
         "F:00106340",
@@ -1938,7 +1944,8 @@
         "F:00106E00",
         "F:00106DE0",
         "F:00106DD0",
-        "F:00106870"
+        "F:00106870",
+        "F:00065790"
       ],
       "closure_task_ids": [
         "T01",
@@ -1974,7 +1981,8 @@
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-decision",
         "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
-        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
+        "doc/cg2d_startup_flow.md#window-resource-module-decision-20261009"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -2003,7 +2011,8 @@
         "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。",
         "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。",
         "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
-        "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。"
+        "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
+        "CAC11实际原图标/十一鼠标光标资源实例装载及真实WinMain两加载点已编码，现同源窗类/句柄和SetCursor借用不变；本域仅该原入口已知成员，非新功能分母或闭枚举。当前磁盘资源与IDB不能互代，权限/匹配/像素热点/全部加载成功失败及SDK/正常寿命/完整启动输入资源和运行继续待，局部静态不提升完整门禁。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2033,7 +2042,8 @@
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state",
         "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
-        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state"
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_startup_flow.md#window-resource-module-source-state-20261009"
       ]
     },
     {
@@ -2603,7 +2613,8 @@
         "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-baseline",
         "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-baseline",
         "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-baseline",
-        "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-baseline"
+        "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-baseline",
+        "doc/cg2d_startup_flow.md#window-resource-module-baseline-20261009"
       ],
       "original_inventory_ids": [
         "F:000597E0",
@@ -2648,7 +2659,8 @@
         "F:00051E90",
         "F:00122900",
         "F:0004CD80",
-        "F:0004D490"
+        "F:0004D490",
+        "F:00065790"
       ],
       "closure_task_ids": [
         "G01",
@@ -2678,7 +2690,8 @@
         "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-decision",
         "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-decision",
         "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-decision",
-        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
+        "doc/cg2d_startup_flow.md#window-resource-module-decision-20261009"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -2698,7 +2711,8 @@
         "BOQ01 DBF724完整170条553B/31B数据、原W32共享比较字和stride-payload-S32偏移阶段恢复；RESOURCE41枚举open，全部父/hidden队列/正常alias/解码块-键表owner/真实DBF及R1/R7/R8运行待",
         "BOR01已有1237/分类/RESOURCE成员续记，完整94条286B及7008B hidden初值1752项一致；数量-取得表/record-loaded阶段恢复，原SDK/释放根保持，全部父-队列两池owner/正常alias/实际SDK及R1/R7/R8运行待",
         "BPF01既有1204正常S32计数与无用bit头实修，104项/原回收和基址、唯一公共尾保持；21条86B/11条40B父窗局部纳盘，域成员不增。完整绘制父/所有上游与正常alias-owner/寿命、SDK-ABI/链接和全模式像素运行、R1/R7/R8仍待",
-        "BUY01两已有变换/清理根526条1769B/八页、22direct/八indirect/30跳转/11返回、四引用四父；两原已取绘制窗50条159B复用BUX01证据，两新场景窗22条93B和两23B NN_NOP用途。既有代码正确保、源码改动0，无新增I；两F adapted与LOOP/RENDER/RESOURCE各限定S，旧未接线描述纠正。原host私有树/T*键/SDK仅获批边界，完整所有父/callee/COM语义之外业务、owner/alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理、模拟或记等价。"
+        "BUY01两已有变换/清理根526条1769B/八页、22direct/八indirect/30跳转/11返回、四引用四父；两原已取绘制窗50条159B复用BUX01证据，两新场景窗22条93B和两23B NN_NOP用途。既有代码正确保、源码改动0，无新增I；两F adapted与LOOP/RENDER/RESOURCE各限定S，旧未接线描述纠正。原host私有树/T*键/SDK仅获批边界，完整所有父/callee/COM语义之外业务、owner/alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理、模拟或记等价。",
+        "CAC11实际原图标/十一鼠标光标资源实例装载及真实WinMain两加载点已编码，现同源窗类/句柄和SetCursor借用不变；本域仅该原入口已知成员，非新功能分母或闭枚举。当前磁盘资源与IDB不能互代，权限/匹配/像素热点/全部加载成功失败及SDK/正常寿命/完整启动输入资源和运行继续待，局部静态不提升完整门禁。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2721,7 +2735,8 @@
         "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
         "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
         "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
-        "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-source-state"
+        "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-source-state",
+        "doc/cg2d_startup_flow.md#window-resource-module-source-state-20261009"
       ]
     },
     {
@@ -56318,6 +56333,102 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-WINDOW-RESOURCE-MODULE-FUNC-STARTUP-I-20261009",
+      "feature_id": "FUNC-STARTUP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前已打开cg2d IDA原WinMain164条605B及十一已初始化W16光标ID、0x67组图标使用；现源RC/CMake/句柄消费及SDK主文档，见doc/cg2d_window_resource_module_evidence.json。",
+      "implementation_reference": "Git固定命名快照 cg2d-re-window-resource-module-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_startup_flow.md#window-resource-module-source-state-20261009",
+        "doc/cg2d_window_resource_module_evidence.json",
+        "doc/cg2d_startup_flow.md#window-resource-module-decision-20261009",
+        "src/platform/ClientEntry.cpp",
+        "src/platform/FixedMusic.rc.in",
+        "CMakeLists.txt",
+        "src/platform/WindowProcedure.cpp",
+        "src/platform/LegacyCursor.cpp",
+        "include/cg/ResourcePaths.hpp",
+        "src/ResourcePaths.cpp"
+      ],
+      "observation": "实际新增私有只读资源实例提供者：动态取得当前EXE路径、同目录cg2d.exe资源映像、当前嵌入原组图标优先和正常失败回当前instance；不是仅文档/取样或新增原身份。",
+      "expected": "当前instance注册新端窗类/创建窗口保持，原0x67和十一W16光标/重叠存储及加载失败继续流程保持；实际资源提供者只读映像、不执行/导入代码或导出资源，无替代图、影子表、第三方或新CLI/协议；module/共享图像在所有现借用期间保持进程寿命。",
+      "actual": "一ClientEntry.cpp增加真实解析器并改两图像加载实参，所有其它启动/窗类/光标消费者及原ID/原型/协议字体音频保持；既有173映射更新、一adapted和三个局部证据，三域仅补真实已知成员/枚举未闭。未构建/测试/运行/产物/摘要或重开原EXE文件。",
+      "differences": [
+        {
+          "description": "原WinMain嵌入式资源由当前SDK资源module承接：当前有原组则原module，否则映射同安装目录原EXE仅数据/资源；进程持有现共享资源，在借用期间不卸载。原安装磁盘文件与IDB不能互代，不承诺图像/热点/资源匹配、SDK实际ABI/寿命/成功失败或完整运行通过。",
+          "decision_ref": "doc/cg2d_startup_flow.md#window-resource-module-decision-20261009"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-WINDOW-RESOURCE-MODULE-FUNC-STARTUP-W-20261009",
+      "feature_id": "FUNC-STARTUP",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前已打开cg2d IDA原WinMain164条605B及十一已初始化W16光标ID、0x67组图标使用；现源RC/CMake/句柄消费及SDK主文档，见doc/cg2d_window_resource_module_evidence.json。",
+      "implementation_reference": "Git固定命名快照 cg2d-re-window-resource-module-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_startup_flow.md#window-resource-module-source-state-20261009",
+        "doc/cg2d_window_resource_module_evidence.json",
+        "doc/cg2d_startup_flow.md#window-resource-module-decision-20261009",
+        "src/platform/ClientEntry.cpp",
+        "src/platform/FixedMusic.rc.in",
+        "CMakeLists.txt",
+        "src/platform/WindowProcedure.cpp",
+        "src/platform/LegacyCursor.cpp",
+        "include/cg/ResourcePaths.hpp",
+        "src/ResourcePaths.cpp"
+      ],
+      "observation": "真实WinMain原0x67图标与十一鼠标光标加载改接resourceInstance，原gInstance/窗类instance/WindowProcedure注册/十一同源存储、两个实际SetCursor消费与全部其它启动保持。",
+      "expected": "当前instance注册新端窗类/创建窗口保持，原0x67和十一W16光标/重叠存储及加载失败继续流程保持；实际资源提供者只读映像、不执行/导入代码或导出资源，无替代图、影子表、第三方或新CLI/协议；module/共享图像在所有现借用期间保持进程寿命。",
+      "actual": "一ClientEntry.cpp增加真实解析器并改两图像加载实参，所有其它启动/窗类/光标消费者及原ID/原型/协议字体音频保持；既有173映射更新、一adapted和三个局部证据，三域仅补真实已知成员/枚举未闭。未构建/测试/运行/产物/摘要或重开原EXE文件。",
+      "differences": [
+        {
+          "description": "原WinMain嵌入式资源由当前SDK资源module承接：当前有原组则原module，否则映射同安装目录原EXE仅数据/资源；进程持有现共享资源，在借用期间不卸载。原安装磁盘文件与IDB不能互代，不承诺图像/热点/资源匹配、SDK实际ABI/寿命/成功失败或完整运行通过。",
+          "decision_ref": "doc/cg2d_startup_flow.md#window-resource-module-decision-20261009"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-WINDOW-RESOURCE-MODULE-FUNC-STARTUP-S-20261009",
+      "feature_id": "FUNC-STARTUP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前已打开cg2d IDA原WinMain164条605B及十一已初始化W16光标ID、0x67组图标使用；现源RC/CMake/句柄消费及SDK主文档，见doc/cg2d_window_resource_module_evidence.json。",
+      "implementation_reference": "Git固定命名快照 cg2d-re-window-resource-module-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_startup_flow.md#window-resource-module-source-state-20261009",
+        "doc/cg2d_window_resource_module_evidence.json",
+        "doc/cg2d_startup_flow.md#window-resource-module-decision-20261009",
+        "src/platform/ClientEntry.cpp",
+        "src/platform/FixedMusic.rc.in",
+        "CMakeLists.txt",
+        "src/platform/WindowProcedure.cpp",
+        "src/platform/LegacyCursor.cpp",
+        "include/cg/ResourcePaths.hpp",
+        "src/ResourcePaths.cpp"
+      ],
+      "observation": "完整原164/605B及十一已初始化W16 ID、现RC/CMake只有WAV的来源条件、整CPP一提供者/两实参及原ID/重叠/正常失败和进程共享资源合同的限定静态对照；不读当前原EXE或代像素/SDK运行。",
+      "expected": "当前instance注册新端窗类/创建窗口保持，原0x67和十一W16光标/重叠存储及加载失败继续流程保持；实际资源提供者只读映像、不执行/导入代码或导出资源，无替代图、影子表、第三方或新CLI/协议；module/共享图像在所有现借用期间保持进程寿命。",
+      "actual": "一ClientEntry.cpp增加真实解析器并改两图像加载实参，所有其它启动/窗类/光标消费者及原ID/原型/协议字体音频保持；既有173映射更新、一adapted和三个局部证据，三域仅补真实已知成员/枚举未闭。未构建/测试/运行/产物/摘要或重开原EXE文件。",
+      "differences": [
+        {
+          "description": "原WinMain嵌入式资源由当前SDK资源module承接：当前有原组则原module，否则映射同安装目录原EXE仅数据/资源；进程持有现共享资源，在借用期间不卸载。原安装磁盘文件与IDB不能互代，不承诺图像/热点/资源匹配、SDK实际ABI/寿命/成功失败或完整运行通过。",
+          "decision_ref": "doc/cg2d_startup_flow.md#window-resource-module-decision-20261009"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
     }
   ],
   "task_acceptance": [
@@ -56479,7 +56590,9 @@
         "doc/cg2d_audio_update.md#audio-table-x87-source-state",
         "doc/cg2d_audio_table_x87_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#audio-table-x87-debug-build",
-        "doc/cg2d_client_link_sdl_audio_spec.md#audio-table-x87-source-state"
+        "doc/cg2d_client_link_sdl_audio_spec.md#audio-table-x87-source-state",
+        "doc/cg2d_startup_flow.md#window-resource-module-source-state-20261009",
+        "doc/cg2d_window_resource_module_evidence.json"
       ]
     },
     {
@@ -57271,7 +57384,9 @@
         "doc/cg2d_scene_state.md#map-direction-byte-bridge-source-state-20261009",
         "doc/cg2d_map_direction_byte_bridge_evidence.json",
         "doc/ui_windows/shared_profile.md#profile-page-coordinate-source-state-20261009",
-        "doc/cg2d_profile_page_coordinate_sampling_evidence.json"
+        "doc/cg2d_profile_page_coordinate_sampling_evidence.json",
+        "doc/cg2d_startup_flow.md#window-resource-module-source-state-20261009",
+        "doc/cg2d_window_resource_module_evidence.json"
       ]
     },
     {
@@ -57820,7 +57935,9 @@
         "doc/cg2d_scene_state.md#map-direction-byte-bridge-source-state-20261009",
         "doc/cg2d_map_direction_byte_bridge_evidence.json",
         "doc/ui_windows/shared_profile.md#profile-page-coordinate-source-state-20261009",
-        "doc/cg2d_profile_page_coordinate_sampling_evidence.json"
+        "doc/cg2d_profile_page_coordinate_sampling_evidence.json",
+        "doc/cg2d_startup_flow.md#window-resource-module-source-state-20261009",
+        "doc/cg2d_window_resource_module_evidence.json"
       ]
     },
     {
@@ -58035,7 +58152,9 @@
         "doc/cg2d_scene_state.md#map-direction-byte-bridge-source-state-20261009",
         "doc/cg2d_map_direction_byte_bridge_evidence.json",
         "doc/ui_windows/shared_profile.md#profile-page-coordinate-source-state-20261009",
-        "doc/cg2d_profile_page_coordinate_sampling_evidence.json"
+        "doc/cg2d_profile_page_coordinate_sampling_evidence.json",
+        "doc/cg2d_startup_flow.md#window-resource-module-source-state-20261009",
+        "doc/cg2d_window_resource_module_evidence.json"
       ]
     },
     {
@@ -58744,7 +58863,19 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_network_compatibility_spec.md#local-service-observation-20261009"
+        "doc/cg2d_network_compatibility_spec.md#local-service-observation-20261009",
+        "doc/cg2d_startup_flow.md#window-resource-module-source-state-20261009",
+        "doc/cg2d_window_resource_module_evidence.json"
+      ]
+    },
+    {
+      "task_id": "G05",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_startup_flow.md#window-resource-module-source-state-20261009",
+        "doc/cg2d_window_resource_module_evidence.json",
+        "doc/cg2d_startup_flow.md#window-resource-module-decision-20261009"
       ]
     }
   ],
@@ -71712,6 +71843,17 @@
         "doc/ui_windows/shared_profile.md#profile-page-coordinate-decision-20261009"
       ],
       "reason": "既有完整八case/默认本体及十四真实原型绑定纳管；x64借用原生WindowInstance*，现两轴分别恢复current/target指针取样后源S32读取和目标发布，原返回及发送/同步/GBK和SDL音频合同保持。处置不代所有callee/间接外层或正常寿命、机器ABI/画面与运行验收。"
+    },
+    {
+      "inventory_id": "F:00065790",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_startup_flow.md#window-resource-module-source-state-20261009",
+        "doc/cg2d_window_resource_module_evidence.json",
+        "doc/cg2d_startup_flow.md#window-resource-module-decision-20261009"
+      ],
+      "reason": "完整原WinMain164/605B及十一资源ID有证；唯一真实宿主入口保原启动/门禁和原加载/现消费，原嵌入式资源在x64现客户端由进程持有只读安装资源映像承接。当前instance/WindowProcedure不替换，合法资源匹配/内容、全SDK-ABI与实际生命周期/运行未据本步验收。"
     }
   ],
   "auxiliary_dispositions": [

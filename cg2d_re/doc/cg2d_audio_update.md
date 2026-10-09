@@ -1,5 +1,7 @@
 # Sub52CCA0 主循环音频更新事实与待决映射
 
+> 2026-10-09最新数学源合同：[ACP01](cg2d_asm_to_cpp_migration_spec.md#asm-cpp-decision)允许三ASM使用double/std数学近似；音频6入口当前已迁CPP，原F32字段与读取/发布序保持。下文x87/PC53数值实现及原机器验收属历史，不能证明当前CPP已编译/运行；当前WAV范围和完整音频门禁保持。
+
 > 2026-10-09当前开发：依用户“继续完善音频部分”恢复剩余音频，先补[旧设置五个控制回调](cg2d_display_settings.md#audio-settings-callback-source-state)；既有暂停说明为历史，初始化/页面/真实路由及完整声音/寿命继续验收。运行时仅SDL3/WAV、第二段空音频，未恢复运行时MIDI或新增外部依赖。
 
 > CAB02（2026-10-08最新）：已按用户要求将完整固定MIDI离线转为内置WAV，客户端移除MIDI/DLS合成依赖；原16B片段按用户要求视为零时长空音频，类型1成功结束。当前状态见[固定WAV交付](cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state)，下述CAA01及早期报告作为历史保留。

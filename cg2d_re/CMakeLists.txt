@@ -100,7 +100,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/LegacyNetworkAdapter.cpp
     src/platform/SdlAudioBackend.cpp
     src/platform/LegacyWavesReverb.cpp
-    src/platform/LegacyAudioMath.asm
+    src/platform/LegacyAudioMath.cpp
     src/platform/LegacyMouse.cpp
     src/platform/LegacyMouseTracker.cpp
     src/platform/LegacyCursor.cpp

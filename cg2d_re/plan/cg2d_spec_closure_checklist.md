@@ -107,7 +107,7 @@
 | V02 / 完整启动退出/链接 | 开放；历史Debug客户端及离线工具链接通过；CAC06–11后续源码未构建 | 当前源码编译/链接、跨TU首次使用/SDK ABI、所有owner/alias及normal/quick/callable完整退出仍待相应授权与验收。 | [历史构建证据](../doc/cg2d_build_acceptance_spec.md) |
 | V03 / 登录与网络真实流程 | 开放；当前原命令/字段/LF明文链已接；CAC04用户确认本次选人入场正常 | 全部108业务、原字段/整数、失败/重连/断线/数据/owner及适用互通对照待验；不重复修已恢复连接。 | [用户复验](../doc/cg2d_build_acceptance_spec.md#character-entry-confirmed-20261009) |
 | V04 / 世界/UI/渲染/输入 | 开放；世界/UI/战斗/渲染/输入局部实现持续补齐；近期MAP/UI/资源仅静态核对 | 获准后按同输入、资源、初值核地图/UI/战斗、焦点/IME、模式和画面 | [总SPEC门禁](cg2d_full_reconstruction_plan.md#10-完成门禁) |
-| V05 / 音频真实流程 | 开放；SDL3/WAV和旧7/8开发已恢复，原控制/空间声效/混响等已有；完整声音未验。停止MIDI/DLS工具方向，后续只WAV客户端实际流程 | 继续真实旧外层、WAV播放和全部状态/失败/生命周期；获运行授权后验WAV质量/适用原音源结果、效果创建/格式、声音、通知、音量、循环与退出 | [当前范围](../doc/cg2d_client_link_sdl_audio_spec.md#wav-only-development-scope-20261009)；[当前状态](../doc/cg2d_client_link_sdl_audio_spec.md#wav-only-scope-source-state-20261009) |
+| V05 / 音频真实流程 | 开放；SDL3/WAV和旧7/8开发已恢复，原控制/空间声效/混响等已有；完整声音未验。停止MIDI/DLS工具方向，后续只WAV客户端实际流程 ；ACP01-A音频6数学入口已迁CPP/double/std数学，当前未编译/运行 | 继续真实旧外层、WAV播放和全部状态/失败/生命周期；获运行授权后验WAV质量/适用原音源结果、效果创建/格式、声音、通知、音量、循环与退出 | [当前范围](../doc/cg2d_client_link_sdl_audio_spec.md#wav-only-development-scope-20261009)；[当前状态](../doc/cg2d_client_link_sdl_audio_spec.md#wav-only-scope-source-state-20261009) ；[ACP01-A](../doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-audio-source-state) |
 | V06 / 最终验收报告 | 开放；尚无完整R8结果；六类closure均open，184叶整项验收0 | 汇总R01–R05和V01–V05，逐适用门禁列结果/未决/例外 | [MRC01](../doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state) |
 
 ## 9. 后续推进与维护

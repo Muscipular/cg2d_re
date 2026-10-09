@@ -213486,11 +213486,11 @@
           "relationship": "普通WAV/BGM及独立固定WAV的实际SDL播放、有限/无限重复、音量与资源寿命；无运行时MIDI合成"
         },
         {
-          "path": "src/platform/LegacyAudioMath.asm",
+          "path": "src/platform/LegacyAudioMath.cpp",
           "symbols": [
             "Cg2dInitializeFixedMusicVolumeX87"
           ],
-          "relationship": "原固定独立128*S32表数值段33条与正常127..0计数/写序；连续x87及局部CW/S64转换，不增加通用CRT入口"
+          "relationship": "ACP01-A：原参数/字段、整数宽度、向零转换、读取与发布序保持；double/std::log/std::sqrt近似替换，旧x87要求及机器状态仅历史，不称位级等价。"
         }
       ],
       "native_provider": {
@@ -213512,9 +213512,11 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-decision",
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-source-state",
         "doc/cg2d_fixed_volume_x87_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build",
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-decision",
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-audio-source-state"
       ],
-      "boundary": "用户最新要求固定MIDI离线转WAV，客户端后续不使用MIDI；类型0内置13.8秒WAV，类型1按用户要求为空音频并立即成功1，原W32重复/音量/停止释放与两字段明文派发保持。离线统一衰减峰值至0.98，波形/KS效果及真实声音/失败/寿命未验；不代完整功能、旧7/旧8或整体SPEC。",
+      "boundary": "用户最新要求固定MIDI离线转WAV，客户端后续不使用MIDI；类型0内置13.8秒WAV，类型1按用户要求为空音频并立即成功1，原W32重复/音量/停止释放与两字段明文派发保持。离线统一衰减峰值至0.98，波形/KS效果及真实声音/失败/寿命未验；不代完整功能、旧7/旧8或整体SPEC。 当前数值提供者按ACP01-A改为CPP/double/std数学；原宽度、业务条件、读取/发布序保持，旧x87数值合同由最新许可覆盖，当前未编译/运行。",
       "verification_level": "保留CAB02实际转换/内置资源历史证据；CAB17原225条679B父与33条数值投影/两个截断位置、两现源差异限定静态，Debug链接0错误/0增量警告和实际符号/部署；未执行客户端或算法、未重生成WAV",
       "fixed_wav_reverb_connection": {
         "step": "CAB11",
@@ -213530,6 +213532,23 @@
         "step": "CAB17",
         "source_snapshot": "cg2d-re-fixed-volume-x87-20261009",
         "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-decision",
+        "runtime_verified": false
+      },
+      "asm_cpp_migration": {
+        "spec_id": "ACP01-A",
+        "previous_source": {
+          "path": "src/platform/LegacyAudioMath.asm",
+          "symbols": [
+            "Cg2dInitializeFixedMusicVolumeX87"
+          ],
+          "relationship": "原固定独立128*S32表数值段33条与正常127..0计数/写序；连续x87及局部CW/S64转换，不增加通用CRT入口"
+        },
+        "current_source": "src/platform/LegacyAudioMath.cpp",
+        "decision_ref": "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-decision",
+        "source_state_ref": "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-audio-source-state",
+        "implementation_reference": "Git固定命名快照 cg2d-re-asm-audio-cpp-20261009",
+        "numeric_approximation_approved": true,
+        "compilation_verified": false,
         "runtime_verified": false
       }
     },
@@ -214860,12 +214879,12 @@
           "relationship": "保64通道/三128B清零/50请求及末52CD40，只替换F64/std::log数学段并借同源两128*S32表"
         },
         {
-          "path": "src/platform/LegacyAudioMath.asm",
+          "path": "src/platform/LegacyAudioMath.cpp",
           "symbols": [
             "Cg2dInitializeSoundTablesX87",
             "TruncateSoundIntermediate"
           ],
-          "relationship": "原116条数值段与十处CW/S64截断的局部原生指针接口，不新增通用CRT入口"
+          "relationship": "ACP01-A：原参数/字段、整数宽度、向零转换、读取与发布序保持；double/std::log/std::sqrt近似替换，旧x87要求及机器状态仅历史，不称位级等价。"
         },
         {
           "path": "CMakeLists.txt",
@@ -214875,10 +214894,30 @@
       "evidence_documents": [
         "doc/cg2d_audio_update.md#audio-table-x87-decision",
         "doc/cg2d_audio_update.md#audio-table-x87-source-state",
-        "doc/cg2d_audio_table_x87_evidence.json"
+        "doc/cg2d_audio_table_x87_evidence.json",
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-decision",
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-audio-source-state"
       ],
-      "boundary": "两表容量/写序与原常量/比较/向零S64低W32保持，当前CW不强设PC；完整147条502B父与15条39B截断有来源。CPP其它正文不改；仅该父与原已知初始化/数值接线，不代全上游CW/全消费者/机器ABI/声音/正常寿命或成员枚举，F13B498其余CPH01 host处置不变。",
-      "verification_level": "原完整两根/七常量及新源116条投影/十展开转换限定静态；本次Debug编译链接0错误/0增量警告、符号部署，未执行算法或客户端"
+      "boundary": "两表容量/写序与原常量/比较/向零S64低W32保持，当前CW不强设PC；完整147条502B父与15条39B截断有来源。CPP其它正文不改；仅该父与原已知初始化/数值接线，不代全上游CW/全消费者/机器ABI/声音/正常寿命或成员枚举，F13B498其余CPH01 host处置不变。 当前数值提供者按ACP01-A改为CPP/double/std数学；原宽度、业务条件、读取/发布序保持，旧x87数值合同由最新许可覆盖，当前未编译/运行。",
+      "verification_level": "原完整两根/七常量及新源116条投影/十展开转换限定静态；本次Debug编译链接0错误/0增量警告、符号部署，未执行算法或客户端",
+      "asm_cpp_migration": {
+        "spec_id": "ACP01-A",
+        "previous_source": {
+          "path": "src/platform/LegacyAudioMath.asm",
+          "symbols": [
+            "Cg2dInitializeSoundTablesX87",
+            "TruncateSoundIntermediate"
+          ],
+          "relationship": "原116条数值段与十处CW/S64截断的局部原生指针接口，不新增通用CRT入口"
+        },
+        "current_source": "src/platform/LegacyAudioMath.cpp",
+        "decision_ref": "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-decision",
+        "source_state_ref": "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-audio-source-state",
+        "implementation_reference": "Git固定命名快照 cg2d-re-asm-audio-cpp-20261009",
+        "numeric_approximation_approved": true,
+        "compilation_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x52C9E0",
@@ -214897,11 +214936,11 @@
           "relationship": "250..299空间音效请求的距离/音量/计数及双表索引更新，本步只替局部数学段，其余父正文保持"
         },
         {
-          "path": "src/platform/LegacyAudioMath.asm",
+          "path": "src/platform/LegacyAudioMath.cpp",
           "symbols": [
             "Cg2dComputeSpatialSoundX87"
           ],
-          "relationship": "本步数值段24条：W32偏移320/240后FILD/x87平方和/FSQRT，S64向零截断取低W32，原SHL/IMUL/SAR符号修正得到/106。250..299门槛、请求id-250/定义id-249、较近距离门禁、仅新且channel=-1写seNo、距离/音量/X/计数写序保持；不追加下界/异常保护，未验整父机器状态/全部数值/声音/失败/正常寿命。"
+          "relationship": "ACP01-A：原参数/字段、整数宽度、向零转换、读取与发布序保持；double/std::log/std::sqrt近似替换，旧x87要求及机器状态仅历史，不称位级等价。"
         }
       ],
       "evidence_documents": [
@@ -214909,9 +214948,11 @@
         "doc/cg2d_audio_update.md#spatial-sound-x87-source-state",
         "doc/cg2d_spatial_sound_x87_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#spatial-sound-x87-source-state",
-        "doc/cg2d_build_acceptance_spec.md#spatial-sound-x87-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#spatial-sound-x87-debug-build",
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-decision",
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-audio-source-state"
       ],
-      "boundary": "本步数值段24条：W32偏移320/240后FILD/x87平方和/FSQRT，S64向零截断取低W32，原SHL/IMUL/SAR符号修正得到/106。250..299门槛、请求id-250/定义id-249、较近距离门禁、仅新且channel=-1写seNo、距离/音量/X/计数写序保持；不追加下界/异常保护，未验整父机器状态/全部数值/声音/失败/正常寿命。",
+      "boundary": "本步数值段24条：W32偏移320/240后FILD/x87平方和/FSQRT，S64向零截断取低W32，原SHL/IMUL/SAR符号修正得到/106。250..299门槛、请求id-250/定义id-249、较近距离门禁、仅新且channel=-1写seNo、距离/音量/X/计数写序保持；不追加下界/异常保护，未验整父机器状态/全部数值/声音/失败/正常寿命。 当前数值提供者按ACP01-A改为CPP/double/std数学；原宽度、业务条件、读取/发布序保持，旧x87数值合同由最新许可覆盖，当前未编译/运行。",
       "verification_level": "完整父及当前直接入向只读取证；局部数值逐行静态投影和两源差异保持，当前Debug链接/MAP/部署通过。未运行客户端/算法、测试或摘要，不代整父ABI或音频完整验收。",
       "native_provider": {
         "source": "src/LegacyAudio.cpp",
@@ -214925,6 +214966,23 @@
         "source_snapshot": "cg2d-re-spatial-sound-x87-20261009",
         "decision_ref": "doc/cg2d_audio_update.md#spatial-sound-x87-decision",
         "helper": "Cg2dComputeSpatialSoundX87",
+        "runtime_verified": false
+      },
+      "asm_cpp_migration": {
+        "spec_id": "ACP01-A",
+        "previous_source": {
+          "path": "src/platform/LegacyAudioMath.asm",
+          "symbols": [
+            "Cg2dComputeSpatialSoundX87"
+          ],
+          "relationship": "本步数值段24条：W32偏移320/240后FILD/x87平方和/FSQRT，S64向零截断取低W32，原SHL/IMUL/SAR符号修正得到/106。250..299门槛、请求id-250/定义id-249、较近距离门禁、仅新且channel=-1写seNo、距离/音量/X/计数写序保持；不追加下界/异常保护，未验整父机器状态/全部数值/声音/失败/正常寿命。"
+        },
+        "current_source": "src/platform/LegacyAudioMath.cpp",
+        "decision_ref": "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-decision",
+        "source_state_ref": "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-audio-source-state",
+        "implementation_reference": "Git固定命名快照 cg2d-re-asm-audio-cpp-20261009",
+        "numeric_approximation_approved": true,
+        "compilation_verified": false,
         "runtime_verified": false
       }
     },
@@ -214945,11 +215003,11 @@
           "relationship": "同一50项空间记录扫描、距离商门禁及音效请求生产，本步只替局部数学段，其余父正文保持"
         },
         {
-          "path": "src/platform/LegacyAudioMath.asm",
+          "path": "src/platform/LegacyAudioMath.cpp",
           "symbols": [
             "Cg2dComputeSpatialScanQuotientX87"
           ],
-          "relationship": "本步数值段17条：先两W32 IMUL/ADD，再FILD有符号和/FSQRT和S64向零截断低W32及原/106商。原-1跳过、同源+8/+C读取、首个商不在[20,127)即返回、id+249调用52C9E0后+0=1及50项表保持；不改continue/浮点平方或追加异常保护，未验整父机器状态/数值/声音/失败/正常寿命。"
+          "relationship": "ACP01-A：原参数/字段、整数宽度、向零转换、读取与发布序保持；double/std::log/std::sqrt近似替换，旧x87要求及机器状态仅历史，不称位级等价。"
         }
       ],
       "evidence_documents": [
@@ -214957,9 +215015,11 @@
         "doc/cg2d_audio_update.md#spatial-sound-x87-source-state",
         "doc/cg2d_spatial_sound_x87_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#spatial-sound-x87-source-state",
-        "doc/cg2d_build_acceptance_spec.md#spatial-sound-x87-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#spatial-sound-x87-debug-build",
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-decision",
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-audio-source-state"
       ],
-      "boundary": "本步数值段17条：先两W32 IMUL/ADD，再FILD有符号和/FSQRT和S64向零截断低W32及原/106商。原-1跳过、同源+8/+C读取、首个商不在[20,127)即返回、id+249调用52C9E0后+0=1及50项表保持；不改continue/浮点平方或追加异常保护，未验整父机器状态/数值/声音/失败/正常寿命。",
+      "boundary": "本步数值段17条：先两W32 IMUL/ADD，再FILD有符号和/FSQRT和S64向零截断低W32及原/106商。原-1跳过、同源+8/+C读取、首个商不在[20,127)即返回、id+249调用52C9E0后+0=1及50项表保持；不改continue/浮点平方或追加异常保护，未验整父机器状态/数值/声音/失败/正常寿命。 当前数值提供者按ACP01-A改为CPP/double/std数学；原宽度、业务条件、读取/发布序保持，旧x87数值合同由最新许可覆盖，当前未编译/运行。",
       "verification_level": "完整父及当前直接入向只读取证；局部数值逐行静态投影和两源差异保持，当前Debug链接/MAP/部署通过。未运行客户端/算法、测试或摘要，不代整父ABI或音频完整验收。",
       "native_provider": {
         "source": "src/LegacyAudio.cpp",
@@ -214973,6 +215033,23 @@
         "source_snapshot": "cg2d-re-spatial-sound-x87-20261009",
         "decision_ref": "doc/cg2d_audio_update.md#spatial-sound-x87-decision",
         "helper": "Cg2dComputeSpatialScanQuotientX87",
+        "runtime_verified": false
+      },
+      "asm_cpp_migration": {
+        "spec_id": "ACP01-A",
+        "previous_source": {
+          "path": "src/platform/LegacyAudioMath.asm",
+          "symbols": [
+            "Cg2dComputeSpatialScanQuotientX87"
+          ],
+          "relationship": "本步数值段17条：先两W32 IMUL/ADD，再FILD有符号和/FSQRT和S64向零截断低W32及原/106商。原-1跳过、同源+8/+C读取、首个商不在[20,127)即返回、id+249调用52C9E0后+0=1及50项表保持；不改continue/浮点平方或追加异常保护，未验整父机器状态/数值/声音/失败/正常寿命。"
+        },
+        "current_source": "src/platform/LegacyAudioMath.cpp",
+        "decision_ref": "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-decision",
+        "source_state_ref": "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-audio-source-state",
+        "implementation_reference": "Git固定命名快照 cg2d-re-asm-audio-cpp-20261009",
+        "numeric_approximation_approved": true,
+        "compilation_verified": false,
         "runtime_verified": false
       }
     },
@@ -214993,12 +215070,12 @@
           "relationship": "仅替原缩放和投影后正文，继续实际46CE30调用，其他正文/同源表保持"
         },
         {
-          "path": "src/platform/LegacyAudioMath.asm",
+          "path": "src/platform/LegacyAudioMath.cpp",
           "symbols": [
             "Cg2dScaleSpatialSourceX87",
             "Cg2dPublishSpatialProjectionX87"
           ],
-          "relationship": "52CDE0输入先Y再X、FILD S32乘原F32 64并FSTP F32；原46CE30调用保持。投影后x87/FSQRT/S64低W32、两个余值清理、index*20同源表门禁及完整index早退/截断Y返回，更新读X→写索引→转X→读Y→写X→转Y→写Y/距离/零标记保持。只拓宽寻址，字段/index/返回W32，无新owner/保护/异常门禁或通用CRT入口；世界投影自身数值/全部消费者、CW上游/机器状态/ABI、实际声音/失败/正常寿命与完整音频/运行未验。"
+          "relationship": "ACP01-A：原参数/字段、整数宽度、向零转换、读取与发布序保持；double/std::log/std::sqrt近似替换，旧x87要求及机器状态仅历史，不称位级等价。"
         }
       ],
       "evidence_documents": [
@@ -215006,9 +215083,11 @@
         "doc/cg2d_audio_update.md#spatial-projection-x87-source-state",
         "doc/cg2d_spatial_projection_x87_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#spatial-projection-x87-source-state",
-        "doc/cg2d_build_acceptance_spec.md#spatial-projection-x87-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#spatial-projection-x87-debug-build",
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-decision",
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-audio-source-state"
       ],
-      "boundary": "52CDE0输入先Y再X、FILD S32乘原F32 64并FSTP F32；原46CE30调用保持。投影后x87/FSQRT/S64低W32、两个余值清理、index*20同源表门禁及完整index早退/截断Y返回，更新读X→写索引→转X→读Y→写X→转Y→写Y/距离/零标记保持。只拓宽寻址，字段/index/返回W32，无新owner/保护/异常门禁或通用CRT入口；世界投影自身数值/全部消费者、CW上游/机器状态/ABI、实际声音/失败/正常寿命与完整音频/运行未验。",
+      "boundary": "52CDE0输入先Y再X、FILD S32乘原F32 64并FSTP F32；原46CE30调用保持。投影后x87/FSQRT/S64低W32、两个余值清理、index*20同源表门禁及完整index早退/截断Y返回，更新读X→写索引→转X→读Y→写X→转Y→写Y/距离/零标记保持。只拓宽寻址，字段/index/返回W32，无新owner/保护/异常门禁或通用CRT入口；世界投影自身数值/全部消费者、CW上游/机器状态/ABI、实际声音/失败/正常寿命与完整音频/运行未验。 当前数值提供者按ACP01-A改为CPP/double/std数学；原宽度、业务条件、读取/发布序保持，旧x87数值合同由最新许可覆盖，当前未编译/运行。",
       "verification_level": "原完整52条183B/唯一直接入向与三F32位样本；六/33条局部源投影、其他CPP/既有ASM-CW宏保持；Debug0错误/0增量警告、MAP符号与部署。不执行客户端/算法、测试或摘要，不代全父机器ABI/原声音。",
       "native_provider": {
         "source": "src/LegacyAudio.cpp",
@@ -215025,6 +215104,24 @@
           "Cg2dScaleSpatialSourceX87",
           "Cg2dPublishSpatialProjectionX87"
         ],
+        "runtime_verified": false
+      },
+      "asm_cpp_migration": {
+        "spec_id": "ACP01-A",
+        "previous_source": {
+          "path": "src/platform/LegacyAudioMath.asm",
+          "symbols": [
+            "Cg2dScaleSpatialSourceX87",
+            "Cg2dPublishSpatialProjectionX87"
+          ],
+          "relationship": "52CDE0输入先Y再X、FILD S32乘原F32 64并FSTP F32；原46CE30调用保持。投影后x87/FSQRT/S64低W32、两个余值清理、index*20同源表门禁及完整index早退/截断Y返回，更新读X→写索引→转X→读Y→写X→转Y→写Y/距离/零标记保持。只拓宽寻址，字段/index/返回W32，无新owner/保护/异常门禁或通用CRT入口；世界投影自身数值/全部消费者、CW上游/机器状态/ABI、实际声音/失败/正常寿命与完整音频/运行未验。"
+        },
+        "current_source": "src/platform/LegacyAudioMath.cpp",
+        "decision_ref": "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-decision",
+        "source_state_ref": "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-audio-source-state",
+        "implementation_reference": "Git固定命名快照 cg2d-re-asm-audio-cpp-20261009",
+        "numeric_approximation_approved": true,
+        "compilation_verified": false,
         "runtime_verified": false
       }
     },

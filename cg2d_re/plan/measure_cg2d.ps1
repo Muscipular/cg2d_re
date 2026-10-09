@@ -26,7 +26,16 @@ function Check-Path([string]$path, [string]$owner) {
     if (-not $target.StartsWith($projectRoot + [System.IO.Path]::DirectorySeparatorChar, [System.StringComparison]::OrdinalIgnoreCase)) {
         $errors.Add("$owner 路径越出本线：$path"); return
     }
-    Require (Test-Path -LiteralPath $target -PathType Leaf) "$owner 引用不存在：$path"
+    $exists = Test-Path -LiteralPath $target -PathType Leaf
+    # ACP01：三份已迁CPP的旧ASM附件仅在固定迁移前快照核存在，历史证据不改写。
+    $relativePath = ($path -split '#',2)[0]
+    $historicalAsm = @('src/platform/LegacyAudioMath.asm',
+        'src/platform/MapEffectMath.asm', 'src/platform/LegacyFloatEnvironment.asm')
+    if (-not $exists -and $relativePath -cin $historicalAsm) {
+        & git -C $projectRoot cat-file -e ("cg2d-re-asm-history-20261009:cg2d_re/" + $relativePath) 2>$null
+        $exists = $LASTEXITCODE -eq 0
+    }
+    Require $exists "$owner 引用不存在：$path"
     $pathCache[$path] = $true
 }
 function Unique($items) { @($items | Where-Object { $_ } | Sort-Object -Unique) }

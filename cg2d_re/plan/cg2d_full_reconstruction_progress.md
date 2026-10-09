@@ -124,3 +124,11 @@ LegacyMidiSynth.cpp三处实际开发：Region持有LE U16 keyGroup，原LoadDls
 按[当前WAV范围](../doc/cg2d_client_link_sdl_audio_spec.md#wav-only-development-scope-20261009)明确停止MIDI/DLS工具及其CC/RPN/键组等开发，纠正将它们列为整体后续开发债务的方向。仅当前规则、总SPEC范围注记、音频合同、追踪说明、P11/P16/V05与登记同步；当前CMake独立EXCLUDE_FROM_ALL工具和客户端固定WAV资源边界有文本依据，客户端/工具/CMake/资产均无本步改动。现WAV质量/适用原音源结果与实际WAV调用/设置/效果/设备/失败/通知/循环/退出仍须验收，不增加原身份排除或降低完整门禁。
 
 软件证据1316保持，零本步I/W/S/R通过；原语义1964/处置/成员、全部完整gates、184叶整项验收0/60任务关闭11/六closure保持。源码/CMake/资产零本步差异、历史证据逐项保持、仅音频范围来源/两个当前阻碍文本及三任务引用的精确差异、总SPEC原门禁逐字保留、锚点/任务行/UTF-8/LF、git diff --check与静态汇总和-Check通过，随后精确提交范围纠偏。固定引用cg2d-re-wav-only-scope-20261009。本步未构建/测试/运行/算法/转换/产物/摘要/重生成WAV/部署，整体目标继续active。
+
+## 9. 2026-10-09 ACP01-A：音频ASM迁CPP
+
+用户明确允许double/标准数学近似，已先给[ACP01](../doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-decision)并记录三ASM共111 PUBLIC/116 PROC及保留/覆盖边界。原F32字段继续float，中间double；不统一降为float，不恢复MIDI工具。三原ASM已固定迁移前快照cg2d-re-asm-history-20261009。
+
+音频6入口完整CPP/std::log/std::sqrt，原20B记录移私有共享头，CMake改接CPP并删除音频ASM。正/反声像奇数写点、端点、两音量0槽差异、先W32或先浮点平方、/106、低W32向零、Y→X缩放、投影重读/字段发布/索引早退及截断Y返回保持。5现语义提供者、V05与两音频SPEC同步；历史证据不改写，汇总器只为三原ASM路径核固定Git对象存在。
+
+限定I/S证据1316→1318，语义1964/原成员/完整gates/184叶整项验收0/任务关闭11/六closure保持。静态接口/布局/源项/路径、UTF-8及差异检查与台账汇总完成后精确提交，固定引用cg2d-re-asm-audio-cpp-20261009。地图及CRT环境两ASM/MASM待继续迁移；未编译/链接/测试/运行/算法/产物/摘要，整体目标继续active。

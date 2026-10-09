@@ -4,6 +4,7 @@
 #include "network/NetworkDispatchDependencies.hpp"
 #include "platform/MainLoopDependencies.hpp"
 #include "platform/LegacyFormat.hpp"
+#include "platform/LegacyAudioMath.hpp"
 
 #include "cg/LoginRequest.hpp"
 #include "cg/ResourcePaths.hpp"
@@ -29,23 +30,6 @@
 #define NOMINMAX
 #include <Windows.h>
 #include <mmsystem.h>
-
-// 原52BA38..52BBC8局部数值段；只同步借128项S32表，不暴露x87或SDL对象。
-namespace cg::platform {
-extern "C" void Cg2dInitializeSoundTablesX87(std::int32_t* pan, std::int32_t* volume) noexcept;
-extern "C" void Cg2dInitializeFixedMusicVolumeX87(std::int32_t* volume) noexcept; // 原454E49数值段，含0槽。
-// 原52CA07/52CD77数值段；只同步借本地S32距离，不持有记录或资源。
-extern "C" std::int32_t Cg2dComputeSpatialSoundX87(
-    std::int32_t x, std::int32_t y, std::int32_t* distance) noexcept;
-extern "C" std::int32_t Cg2dComputeSpatialScanQuotientX87(
-    std::int32_t x, std::int32_t y) noexcept;
-// 原52CDE0局部数值/发布段；只同步借同源表和本地F32，不保存指针。
-extern "C" void Cg2dScaleSpatialSourceX87(
-    std::int32_t x, std::int32_t y, float* worldX, float* worldY) noexcept;
-extern "C" std::int32_t Cg2dPublishSpatialProjectionX87(
-    audio::SpatialAudioRecord* records, std::int32_t index,
-    const float* screenX, const float* screenY) noexcept;
-}
 
 namespace cg::login::detail {
 
@@ -93,22 +77,6 @@ static_assert(sizeof(gRecords) == 0x2600);
 } // namespace
 
 namespace cg::audio {
-
-// 原 0x103D1C0 的 50 项记录；52CD40 只写 +0x04/+0x00，后三个 S32 保留。
-struct SpatialAudioRecord final {
-    std::uint32_t value00;
-    std::int32_t value04;
-    std::int32_t value08;
-    std::int32_t value0C;
-    std::int32_t value10;
-};
-
-static_assert(offsetof(SpatialAudioRecord, value00) == 0x00);
-static_assert(offsetof(SpatialAudioRecord, value04) == 0x04);
-static_assert(offsetof(SpatialAudioRecord, value08) == 0x08);
-static_assert(offsetof(SpatialAudioRecord, value0C) == 0x0C);
-static_assert(offsetof(SpatialAudioRecord, value10) == 0x10);
-static_assert(sizeof(SpatialAudioRecord) == 0x14);
 
 // 原 [57C368,57CB24)：handler只保留原地址证据编号，运行期对象槽改用非拥有T*。
 struct SoundRecord57C368 final {

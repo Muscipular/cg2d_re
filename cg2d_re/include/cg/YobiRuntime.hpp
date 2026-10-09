@@ -487,16 +487,16 @@ void ApplyBattleEffectFlags_406390(std::int32_t sourcePosition, YobiAction* acti
 void ApplyBattleCastEffects_416DB0(YobiAction* action); // 动作235：先应用效果，再推进动作队列。
 void UpdateBattleAction0_406650(YobiAction* action); // BIDLE01：完整FDC持样/CL消费与归零后fresh BYTE、特殊上一项门禁。
 void UpdateBattleAction1_406720(YobiAction* action); // BIDLE01：动作归零后独立FDC低BYTE60播放门禁，不套动作0条件。
-std::int32_t UpdateBattleAction2_406760(YobiAction* action); // 回00/04坐标，抵达写phase0/FDC，不推进队列。
-std::int32_t UpdateBattleAction3_406C30(YobiAction* action); // 转向后重取效果目标，距离<70推进。
-std::int32_t UpdateBattleAction4_406D70(YobiAction* action); // 跑步追目标，距离<8推进。
+std::int32_t UpdateBattleAction2_406760(YobiAction* action); // BRCP01：回00/04，X发布/Y取样/phase0，末播放。
+std::int32_t UpdateBattleAction3_406C30(YobiAction* action); // BRCP01：转向后fresh目标；距离<70推进，另一支移动。
+std::int32_t UpdateBattleAction4_406D70(YobiAction* action); // BRCP01：转向后fresh目标；距离<8推进，另一支移动。
 std::int32_t UpdateBattleAction5_40CFA0(YobiAction* action); // 递增FF0但比较旧值，推进后清计数。
-std::int32_t UpdateBattleAction6_406CD0(YobiAction* action); // FE8/FEC转向、移动、重读、抵达推进。
+std::int32_t UpdateBattleAction6_406CD0(YobiAction* action); // BRCP01：FE8/FEC两组取样，抵达X先发布再取Y/推进。
 void UpdateBattleAction7_409410(YobiAction* action); // 起跑，目标-1才按00/04转向。
 void UpdateBattleAction8_4094A0(YobiAction* action); // 起跑，按FE8/FEC转向，严格终帧才推进。
 std::int32_t UpdateBattleAction9_409510(YobiAction* action); // 前两动作14走回位距离5，否则重取目标距离70。
 void UpdateBattleAction10_409610(YobiAction* action); // 收跑终帧按上一动作/当前全局位置恢复方向。
-void UpdateBattleAction11_4067F0(YobiAction* action); // 骑乘双T*死亡短路；回位尾重读characterAction。
+void UpdateBattleAction11_4067F0(YobiAction* action); // BRCP01：骑乘双T*低BYTE短路；回位尾fresh动作播放。
 void UpdateBattleAction12_406930(YobiAction* action); // B12P01：入口低BYTE；Y-X随机、旧FF0周期/held速率与fresh FCC门禁。
 void UpdateBattleAction13_406A80(YobiAction* action); // B12P01：入口低BYTE；先播放/转向/移动，<5后X发布再读Y，末不补播放。
 void UpdateBattleAction14_409680(YobiAction* action); // B14H01：四类命中/六归零复制持样、独立BYTE读取与14-28当帧延时/FD4尾。
@@ -705,7 +705,7 @@ void TurnBattleTowardPosition_4060D0(
     float step); // 无空指针门禁；角差转S32取绝对值后限步，严格1才更新方向。
 void TurnBattleToward_406190(
     YobiAction* action, YobiAction* target, std::int32_t updateDirection, float step);
-std::int32_t GetBattleDistanceToPosition_4062A0(YobiAction* action, float x, float y); // 先X后Y求差，平方和先存F32。
+std::int32_t GetBattleDistanceToPosition_4062A0(YobiAction* action, float x, float y); // BRCP01：先X后Y求差，平方和存F32/正常S32返回。
 std::int32_t GetBattleDistance_406300(YobiAction* first, YobiAction* second); // 平方和先舍入F32再开方。
 std::int32_t CountBattleActiveEntries_406360(); // 扫全部22槽，只计非空且载荷FF8严格等于1。
 std::int32_t SeedBattleRandom_4065A0(std::int32_t value); // 前20槽非空数乘活动M字节长度与输入，重播同源随机种子。

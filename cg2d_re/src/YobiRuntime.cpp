@@ -23269,6 +23269,7 @@ void TurnBattleToward_406190(
     }
 }
 
+// BRCP01：先X后Y求差，Y平方/X平方和先存F32；原零门禁与正常S32转换。
 std::int32_t GetBattleDistanceToPosition_4062A0(YobiAction* const action, const float x, const float y)
 {
     if (action == nullptr) {
@@ -24095,6 +24096,7 @@ void UpdateBattleAction1_406720(YobiAction* const action)
     }
 }
 
+// BRCP01：回00/04，先X发布后Y取样/phase0；FDC置1后才播放，不推进队列。
 std::int32_t UpdateBattleAction2_406760(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -24117,6 +24119,7 @@ std::int32_t UpdateBattleAction2_406760(YobiAction* const action)
     return PlayFrame_517DA0(action, 0);
 }
 
+// BRCP01：转向后重取C9C/position/目标；距离<70推进，否则移动，再播放。
 std::int32_t UpdateBattleAction3_406C30(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -24135,6 +24138,7 @@ std::int32_t UpdateBattleAction3_406C30(YobiAction* const action)
     return PlayFrame_517DA0(action, 0);
 }
 
+// BRCP01：转向后重取效果目标；距离<8推进，否则移动，再播放。
 std::int32_t UpdateBattleAction4_406D70(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -24170,6 +24174,7 @@ std::int32_t UpdateBattleAction5_40CFA0(YobiAction* const action)
     return PlayFrame_517DA0(action, 0);
 }
 
+// BRCP01：两组FE8/FEC先Y后X取样；抵达先X发布再取Y，随后推进/播放。
 std::int32_t UpdateBattleAction6_406CD0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -24272,6 +24277,7 @@ void UpdateBattleAction10_409610(YobiAction* const action)
     }
 }
 
+// BRCP01：骑乘两低BYTE死亡短路/持W32门禁；推进后phase及末播放动作重取。
 void UpdateBattleAction11_4067F0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -24281,13 +24287,13 @@ void UpdateBattleAction11_4067F0(YobiAction* const action)
         bool dead = false;
         if (first != nullptr) {
             const auto* const firstPayload = static_cast<const BattleActorPayload*>(first->payload);
-            dead = firstPayload != nullptr && (firstPayload->flagsFDC & 2u) != 0;
+            dead = firstPayload != nullptr && (static_cast<std::uint8_t>(firstPayload->flagsFDC) & 2u) != 0;
         }
         if (!dead) {
             YobiAction* const second = carrier->second04;
             if (second != nullptr) {
                 const auto* const secondPayload = static_cast<const BattleActorPayload*>(second->payload);
-                dead = secondPayload != nullptr && (secondPayload->flagsFDC & 2u) != 0;
+                dead = secondPayload != nullptr && (static_cast<std::uint8_t>(secondPayload->flagsFDC) & 2u) != 0;
             }
         }
         if (dead) {
@@ -24299,7 +24305,8 @@ void UpdateBattleAction11_4067F0(YobiAction* const action)
         }
     }
     const std::uint32_t flags = payload->flagsFDC;
-    if ((flags & 2u) != 0 && (flags & 0xCu) == 0) {
+    const std::uint8_t entryFlags = static_cast<std::uint8_t>(flags);
+    if ((entryFlags & 2u) != 0 && (entryFlags & 0xCu) == 0) {
         if (action->characterAction != 10) {
             action->phase = 46;
             return;

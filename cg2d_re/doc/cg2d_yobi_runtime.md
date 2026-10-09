@@ -4692,3 +4692,8 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 ## 2026-10-10 BRAE01：重生与属性附属效果
 
 [完整合同](cg2d_battle_rebirth_attribute_effects_spec.md#battle-attached-effects-source-state)补4208F0/4209C0完整288条1027B：固定两载荷、源类型先取/首段后目标S8重取、三个BYTE发布；属性FE0/三门禁后置空检查、四W16向量/特殊技能及八配对按序调用。U8掩码只表匹配并调用，失败仍置位并占纵位置。两正文正确保持，仅CPP/公头四注释；CAC07表/属性旧1915合同追加不重计成员，新重生独立身份/已知成员与一限定S零I。全部父/ABI/alias/owner、SDK正常失败与声音画面运行仍待，完整门禁保。
+
+<a id="battle-return-chase-runtime-20261010"></a>
+## 2026-10-10 BRCP01：回位/追近与共享距离
+
+[完整合同](cg2d_battle_return_chase_spec.md#battle-return-chase-source-state)补五动作2/3/4/6/11及4062A0距离叶六完整321条991B；动作11三BYTE消费恢复，骑乘两级空检查/首项死亡短路/推进后phase46再推进、持W32门禁和末fresh动作播放保。2直接phase0/FDC置1，3/4两次fresh目标与互斥推进-移动，6两组FE8/FEC及所有抵达X先发布再取Y，距离F32平方和/原零门禁/正常S32转换均正文正确保。仅另十二注释，无新函数/API/保护/移动/播放/RNG；六身份/成员与限定I三BYTE/S六根。全部父/callee/ABI/alias/owner、SDK正常失败/容量/数值和声音画面运行未验，完整门禁保。

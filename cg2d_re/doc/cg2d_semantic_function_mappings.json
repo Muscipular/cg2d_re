@@ -197722,6 +197722,342 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x406760",
+      "inventory_id": "F:00006760",
+      "original_role": "动作2回00/04位置直接归零及FDC置1",
+      "original_end_exclusive": "0x4067ec",
+      "instruction_count": 45,
+      "function_chunks": [
+        {
+          "start": "0x406760",
+          "end_exclusive": "0x4067ec"
+        }
+      ],
+      "status": "BRCP01完整正常源/独立身份纳管；动作11三BYTE消费已修，其余正确正文保持，仅合同注释，完整数据/父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction2_406760"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction2_406760"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_return_chase_spec.md#battle-return-chase-baseline",
+        "doc/cg2d_battle_return_chase_spec.md#battle-return-chase-decision",
+        "doc/cg2d_battle_return_chase_spec.md#battle-return-chase-acceptance",
+        "doc/cg2d_battle_return_chase_spec.md#battle-return-chase-source-state",
+        "doc/cg2d_battle_return_chase_evidence.json"
+      ],
+      "boundary": "BRCP01五动作/共享距离六完整正常根；仅动作11三BYTE消费及十二合同注释，其余完整正文/签名/源保持。固定载荷/两组坐标或fresh效果目标/抵达发布、骑乘空检查-短路/推进后phase46与末fresh播放、原零/距离阈值及S32返回保。全数据/父-callee/ABI/alias/owner、SDK正常失败/容量/数值和声音画面运行未验，RPLAN.24/MC01及门禁保持。",
+      "verification_level": "完整321条991B/七份64条分页、28E8目标/一CRT尾跳、26跳十RET，五11Bcase/共同尾局部窗与距离16CALL/11父、原4B零常量；动作11三低BYTE和整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction2_406760",
+        "parameters": "非拥有YobiAction*；距离叶另接两F32 x/y",
+        "return": "S32实际末PlayFrame返回"
+      },
+      "battle_return_chase": {
+        "step": "BRCP01",
+        "source_snapshot": "cg2d-re-battle-return-chase-20261010",
+        "original_instruction_count": 45,
+        "original_code_bytes": 140,
+        "original_page_count": 1,
+        "direct_call_count": 4,
+        "callee_count": 4,
+        "jump_count": 1,
+        "return_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x406c30",
+      "inventory_id": "F:00006C30",
+      "original_role": "动作3两次取效果目标/距离70追近",
+      "original_end_exclusive": "0x406cc3",
+      "instruction_count": 45,
+      "function_chunks": [
+        {
+          "start": "0x406c30",
+          "end_exclusive": "0x406cc3"
+        }
+      ],
+      "status": "BRCP01完整正常源/独立身份纳管；动作11三BYTE消费已修，其余正确正文保持，仅合同注释，完整数据/父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction3_406C30"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction3_406C30"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_return_chase_spec.md#battle-return-chase-baseline",
+        "doc/cg2d_battle_return_chase_spec.md#battle-return-chase-decision",
+        "doc/cg2d_battle_return_chase_spec.md#battle-return-chase-acceptance",
+        "doc/cg2d_battle_return_chase_spec.md#battle-return-chase-source-state",
+        "doc/cg2d_battle_return_chase_evidence.json"
+      ],
+      "boundary": "BRCP01五动作/共享距离六完整正常根；仅动作11三BYTE消费及十二合同注释，其余完整正文/签名/源保持。固定载荷/两组坐标或fresh效果目标/抵达发布、骑乘空检查-短路/推进后phase46与末fresh播放、原零/距离阈值及S32返回保。全数据/父-callee/ABI/alias/owner、SDK正常失败/容量/数值和声音画面运行未验，RPLAN.24/MC01及门禁保持。",
+      "verification_level": "完整321条991B/七份64条分页、28E8目标/一CRT尾跳、26跳十RET，五11Bcase/共同尾局部窗与距离16CALL/11父、原4B零常量；动作11三低BYTE和整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction3_406C30",
+        "parameters": "非拥有YobiAction*；距离叶另接两F32 x/y",
+        "return": "S32实际末PlayFrame返回"
+      },
+      "battle_return_chase": {
+        "step": "BRCP01",
+        "source_snapshot": "cg2d-re-battle-return-chase-20261010",
+        "original_instruction_count": 45,
+        "original_code_bytes": 147,
+        "original_page_count": 1,
+        "direct_call_count": 6,
+        "callee_count": 5,
+        "jump_count": 1,
+        "return_count": 2,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x406d70",
+      "inventory_id": "F:00006D70",
+      "original_role": "动作4两次取效果目标/距离8追近",
+      "original_end_exclusive": "0x406e03",
+      "instruction_count": 45,
+      "function_chunks": [
+        {
+          "start": "0x406d70",
+          "end_exclusive": "0x406e03"
+        }
+      ],
+      "status": "BRCP01完整正常源/独立身份纳管；动作11三BYTE消费已修，其余正确正文保持，仅合同注释，完整数据/父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction4_406D70"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction4_406D70"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_return_chase_spec.md#battle-return-chase-baseline",
+        "doc/cg2d_battle_return_chase_spec.md#battle-return-chase-decision",
+        "doc/cg2d_battle_return_chase_spec.md#battle-return-chase-acceptance",
+        "doc/cg2d_battle_return_chase_spec.md#battle-return-chase-source-state",
+        "doc/cg2d_battle_return_chase_evidence.json"
+      ],
+      "boundary": "BRCP01五动作/共享距离六完整正常根；仅动作11三BYTE消费及十二合同注释，其余完整正文/签名/源保持。固定载荷/两组坐标或fresh效果目标/抵达发布、骑乘空检查-短路/推进后phase46与末fresh播放、原零/距离阈值及S32返回保。全数据/父-callee/ABI/alias/owner、SDK正常失败/容量/数值和声音画面运行未验，RPLAN.24/MC01及门禁保持。",
+      "verification_level": "完整321条991B/七份64条分页、28E8目标/一CRT尾跳、26跳十RET，五11Bcase/共同尾局部窗与距离16CALL/11父、原4B零常量；动作11三低BYTE和整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction4_406D70",
+        "parameters": "非拥有YobiAction*；距离叶另接两F32 x/y",
+        "return": "S32实际末PlayFrame返回"
+      },
+      "battle_return_chase": {
+        "step": "BRCP01",
+        "source_snapshot": "cg2d-re-battle-return-chase-20261010",
+        "original_instruction_count": 45,
+        "original_code_bytes": 147,
+        "original_page_count": 1,
+        "direct_call_count": 6,
+        "callee_count": 5,
+        "jump_count": 1,
+        "return_count": 2,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x406cd0",
+      "inventory_id": "F:00006CD0",
+      "original_role": "动作6回FE8/FEC位置与抵达推进",
+      "original_end_exclusive": "0x406d65",
+      "instruction_count": 44,
+      "function_chunks": [
+        {
+          "start": "0x406cd0",
+          "end_exclusive": "0x406d65"
+        }
+      ],
+      "status": "BRCP01完整正常源/独立身份纳管；动作11三BYTE消费已修，其余正确正文保持，仅合同注释，完整数据/父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction6_406CD0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction6_406CD0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_return_chase_spec.md#battle-return-chase-baseline",
+        "doc/cg2d_battle_return_chase_spec.md#battle-return-chase-decision",
+        "doc/cg2d_battle_return_chase_spec.md#battle-return-chase-acceptance",
+        "doc/cg2d_battle_return_chase_spec.md#battle-return-chase-source-state",
+        "doc/cg2d_battle_return_chase_evidence.json"
+      ],
+      "boundary": "BRCP01五动作/共享距离六完整正常根；仅动作11三BYTE消费及十二合同注释，其余完整正文/签名/源保持。固定载荷/两组坐标或fresh效果目标/抵达发布、骑乘空检查-短路/推进后phase46与末fresh播放、原零/距离阈值及S32返回保。全数据/父-callee/ABI/alias/owner、SDK正常失败/容量/数值和声音画面运行未验，RPLAN.24/MC01及门禁保持。",
+      "verification_level": "完整321条991B/七份64条分页、28E8目标/一CRT尾跳、26跳十RET，五11Bcase/共同尾局部窗与距离16CALL/11父、原4B零常量；动作11三低BYTE和整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction6_406CD0",
+        "parameters": "非拥有YobiAction*；距离叶另接两F32 x/y",
+        "return": "S32实际末PlayFrame返回"
+      },
+      "battle_return_chase": {
+        "step": "BRCP01",
+        "source_snapshot": "cg2d-re-battle-return-chase-20261010",
+        "original_instruction_count": 44,
+        "original_code_bytes": 149,
+        "original_page_count": 1,
+        "direct_call_count": 5,
+        "callee_count": 5,
+        "jump_count": 1,
+        "return_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4067f0",
+      "inventory_id": "F:000067F0",
+      "original_role": "动作11骑乘双T*死亡短路/回位/低BYTE门禁",
+      "original_end_exclusive": "0x406930",
+      "instruction_count": 112,
+      "function_chunks": [
+        {
+          "start": "0x4067f0",
+          "end_exclusive": "0x406930"
+        }
+      ],
+      "status": "BRCP01完整正常源/独立身份纳管；动作11三BYTE消费已修，其余正确正文保持，仅合同注释，完整数据/父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction11_4067F0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction11_4067F0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_return_chase_spec.md#battle-return-chase-baseline",
+        "doc/cg2d_battle_return_chase_spec.md#battle-return-chase-decision",
+        "doc/cg2d_battle_return_chase_spec.md#battle-return-chase-acceptance",
+        "doc/cg2d_battle_return_chase_spec.md#battle-return-chase-source-state",
+        "doc/cg2d_battle_return_chase_evidence.json"
+      ],
+      "boundary": "BRCP01五动作/共享距离六完整正常根；仅动作11三BYTE消费及十二合同注释，其余完整正文/签名/源保持。固定载荷/两组坐标或fresh效果目标/抵达发布、骑乘空检查-短路/推进后phase46与末fresh播放、原零/距离阈值及S32返回保。全数据/父-callee/ABI/alias/owner、SDK正常失败/容量/数值和声音画面运行未验，RPLAN.24/MC01及门禁保持。",
+      "verification_level": "完整321条991B/七份64条分页、28E8目标/一CRT尾跳、26跳十RET，五11Bcase/共同尾局部窗与距离16CALL/11父、原4B零常量；动作11三低BYTE和整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction11_4067F0",
+        "parameters": "非拥有YobiAction*；距离叶另接两F32 x/y",
+        "return": "void，末PlayFrame弃返"
+      },
+      "battle_return_chase": {
+        "step": "BRCP01",
+        "source_snapshot": "cg2d-re-battle-return-chase-20261010",
+        "original_instruction_count": 112,
+        "original_code_bytes": 320,
+        "original_page_count": 2,
+        "direct_call_count": 7,
+        "callee_count": 5,
+        "jump_count": 18,
+        "return_count": 3,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 3,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4062a0",
+      "inventory_id": "F:000062A0",
+      "original_role": "共享坐标距离正常平方和F32/平方根/S32转换",
+      "original_end_exclusive": "0x4062f8",
+      "instruction_count": 30,
+      "function_chunks": [
+        {
+          "start": "0x4062a0",
+          "end_exclusive": "0x4062f8"
+        }
+      ],
+      "status": "BRCP01完整正常源/独立身份纳管；动作11三BYTE消费已修，其余正确正文保持，仅合同注释，完整数据/父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::GetBattleDistanceToPosition_4062A0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::GetBattleDistanceToPosition_4062A0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_return_chase_spec.md#battle-return-chase-baseline",
+        "doc/cg2d_battle_return_chase_spec.md#battle-return-chase-decision",
+        "doc/cg2d_battle_return_chase_spec.md#battle-return-chase-acceptance",
+        "doc/cg2d_battle_return_chase_spec.md#battle-return-chase-source-state",
+        "doc/cg2d_battle_return_chase_evidence.json"
+      ],
+      "boundary": "BRCP01五动作/共享距离六完整正常根；仅动作11三BYTE消费及十二合同注释，其余完整正文/签名/源保持。固定载荷/两组坐标或fresh效果目标/抵达发布、骑乘空检查-短路/推进后phase46与末fresh播放、原零/距离阈值及S32返回保。全数据/父-callee/ABI/alias/owner、SDK正常失败/容量/数值和声音画面运行未验，RPLAN.24/MC01及门禁保持。",
+      "verification_level": "完整321条991B/七份64条分页、28E8目标/一CRT尾跳、26跳十RET，五11Bcase/共同尾局部窗与距离16CALL/11父、原4B零常量；动作11三低BYTE和整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::GetBattleDistanceToPosition_4062A0",
+        "parameters": "非拥有YobiAction*；距离叶另接两F32 x/y",
+        "return": "S32正常距离"
+      },
+      "battle_return_chase": {
+        "step": "BRCP01",
+        "source_snapshot": "cg2d-re-battle-return-chase-20261010",
+        "original_instruction_count": 30,
+        "original_code_bytes": 88,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "callee_count": 0,
+        "jump_count": 4,
+        "return_count": 1,
+        "inbound_direct_call_count": 16,
+        "inbound_parent_count": 11,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

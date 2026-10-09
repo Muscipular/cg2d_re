@@ -507,7 +507,7 @@ $lines.Add("| 原函数纳管 | $($functions.Count)/$($inventory.functions.Count
 $lines.Add("| 合同文件关联 | $linked/$($functions.Count)（$($metrics.document_link_percent)%） | 文件关联率，不是功能/基线验收完成率 |")
 $lines.Add("| 尚无合同关联 | $($functions.Count-$linked) | 完整ID见快照metrics.functions_without_document_links；可能已有局部合同尚未机器登记 |")
 $lines.Add("| 历史源码定位 | $($metrics.historical_direct_location_ids) | 自动定位快照，非当前实现数 |")
-$lines.Add("| 语义登记 | $($semantic.records.Count)条/$($metrics.semantic_inventory_ids)个原ID | 无独立函数ID另列$($semanticWithoutId.Count)条，其中原区间绑定$semanticCodeRangeCount条 |")
+$lines.Add("| 语义登记 | $($semantic.records.Count)条/$($metrics.semantic_inventory_ids)个原ID | 无独立函数ID另列$($semanticWithoutId.Count)条，其中原区间绑定${semanticCodeRangeCount}条 |")
 $lines.Add("| 具名分类引用 | $($metrics.functions_with_classification_refs)个原ID | 含排除/混合/合并，不计为实现 |")
 $lines.Add("| 已具名全入口排除 / 混合入口 | $($declaredExcluded.Count) / $($declaredMixed.Count) | 不计为实现/验收；混合入口不得整体扣除 |")
 $lines.Add("| 已审核函数处置 | $($dispositionIds.Count)/$($functions.Count) | 初始仅导入关系，未逐ID重新认定 |")

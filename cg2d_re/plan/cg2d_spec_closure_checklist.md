@@ -6,9 +6,9 @@
 
 ## 1. 当前口径
 
-- 原函数3680，语义1964条/1943个原ID＋21条区间身份；合同关联2053/3680（55.79%），已审F处置1113。关联率不是实现或验收完成率。
-- 导入16/218、区间1509/3061已审，区间剩1552；18个pending是历史跟踪入口，不等于18个未实现函数。
-- 184个登记叶功能整项验收0，B/I/W/S/R完整门禁均0通过，六类closure均open；局部证据1310条不得代替完整门禁。
+- 原函数3680，语义1993条/1969个原ID＋24条区间身份；合同关联2079/3680（56.49%），已审F处置1113。关联率不是实现或验收完成率。
+- 导入16/218、区间2021/3061已审，区间剩1040；18个pending是历史跟踪入口，不等于18个未实现函数。
+- 184个登记叶功能整项验收0，B/I/W/S/R完整门禁均0通过，六类closure均open；局部证据1325条不得代替完整门禁。
 - 历史Debug链接及CAC04选人入场用户复验保留；当前不构建、不测试、不运行、不查产物、不计算摘要、单线程。音频开发已恢复，运行验收仍受限。
 - 已知格式库存1007真实＋13排除＋3替换＝1023；旧“6音频暂停”“链接剩8项”“version缺定义”“G05只有使用关系”等摘要已被后续实施覆盖。
 - 当前网络以服务端既有原命令/原字段/LF明文合同为准，旧W16帧只作历史对照；只排除两加解密叶。当前文字按已批静态GBK/宋体/ASCII竖线光标，其他数据来源边界保持。
@@ -94,9 +94,9 @@
 | 编号 / 范围 | 任务状态与已有成果 | 下一步及关闭边界 | 主证据 |
 |---|---|---|---|
 | R01 / 函数分母 | 开放；原3680函数纳管；1964语义记录/1943个原ID，1097个F处置 | 21条无独立F记录按原区间身份绑定；其余逐ID处置、功能成员/完整本体、混合共享与未知继续核定，不造函数填数。 | [机器语义清单](../doc/cg2d_semantic_function_mappings.json) |
-| R02 / 数据/间接目标 | 开放；218导入已审16；已知表、数据、回调持续登记，完整闭包未定 | 未知间接alias/完整owner/重进/动态边，202导入及数据/常量/生命周期 | [NAS01](../doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state)；[NWT01](../doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure) |
-| R03 / 未归属区间 | 开放；3061区间已审1509，剩1552；CAC07/08两批各512已纳管 | 沿候选清单处理尚未归属区间，不重做已证分类 | [区间分类合同](../doc/cg2d_unassigned_range_classification_spec.md) |
-| R04 / 台账一致性 | 开放；本次对齐当前摘要与60任务；验收登记簿/原证据和历史结论保持 | 按实际功能小步同步同一记录及证据；继续处理后续差异，不把本次摘要对齐当全库语义复审或关闭R04。 | [追踪验收体系](../doc/cg2d_traceability_acceptance_spec.md) |
+| R02 / 数据/间接目标 | 开放；218导入已审16；CAC18补49表/19索引、三段回调及八原型，完整闭包未定 | 未知间接alias/完整owner/重进/动态边，202导入及数据/常量/生命周期 | [NAS01](../doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state)；[NWT01](../doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure)；[CAC18](../doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-source-state) |
+| R03 / 未归属区间 | 开放；3061区间已审2021，剩1040；CAC18第六批512完整用途已纳管 | 沿候选清单处理尚未归属区间，不重做已证分类 | [区间分类合同](../doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-source-state) |
+| R04 / 台账一致性 | 开放；CAC18精确同步分类/语义/已知成员/任务引用；完整门禁及历史证据保持 | 按实际功能小步同步同一记录及证据；继续处理后续差异，不把本次分类登记当全库语义复审或关闭R04。 | [追踪验收体系](../doc/cg2d_traceability_acceptance_spec.md)；[CAC18](../doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-source-state) |
 | R05 / 例外收口 | 开放；屏幕键盘/newest/两加密叶/低色深及混合入口已有具名边界 | 核共享callee、混合32位分支、参数/状态保留及排除接线 | [总SPEC](cg2d_full_reconstruction_plan.md) |
 
 ## 8. V01–V06：完整验收

@@ -1,0 +1,706 @@
+{
+  "schema_version": 1,
+  "spec_id": "DPCS01",
+  "date": "2026-10-10",
+  "scope": "两个已有投射创建器四取样片段，原生非拥有DX表只SpiracleShot同调用持有",
+  "decision_ref": "doc/cg2d_battle_projectile_creator_cache_sampling_spec.md#projectile-creator-cache-decision",
+  "before_snapshot": "cg2d-re-projectile-creator-cache-sampling-history-20261010",
+  "after_snapshot": "cg2d-re-projectile-creator-cache-sampling-20261010",
+  "existing_original_evidence": "doc/cg2d_battle_projectile_creators_evidence.json",
+  "original_ids": [
+    "F:00018B70",
+    "F:00019180"
+  ],
+  "patch_templates": [
+    {
+      "symbol": "NewBattleSpiracleShot_418B70",
+      "next": "NewBattleBlastWave_419180",
+      "fragments": [
+        {
+          "name": "initial_parent_y",
+          "before": "    action->offset40 = parent->offset40;\n    auto* const payload = static_cast<BattleActorPayload*>(action->payload);\n    action->offset44 = parent->offset44;",
+          "after": "    action->offset40 = parent->offset40;\n    const float initialY = parent->offset44;\n    auto* const payload = static_cast<BattleActorPayload*>(action->payload);\n    action->offset44 = initialY;"
+        },
+        {
+          "name": "same_dx_cache_before_target_query",
+          "before": "    YobiAction* const target = gBattleAllEntries59E980[effect->position];\n    const std::int16_t targetHeight = render::ReadGraphicDxHeight(target->graphicIndex);",
+          "after": "    const std::int32_t targetPosition = effect->position;\n    const render::DxGraphicEntry* const graphics = render::BorrowGraphicDxCacheEntries();\n    YobiAction* const target = gBattleAllEntries59E980[targetPosition];\n    const std::int16_t targetHeight = render::ReadGraphicDxHeightFromEntries(graphics, target->graphicIndex);"
+        },
+        {
+          "name": "reuse_same_dx_cache_for_parent",
+          "before": "    const std::int16_t parentHeight = render::ReadGraphicDxHeight(parentGraphicIndex);",
+          "after": "    const std::int16_t parentHeight = render::ReadGraphicDxHeightFromEntries(graphics, parentGraphicIndex);"
+        }
+      ]
+    },
+    {
+      "symbol": "NewBattleBlastWave_419180",
+      "next": "NewBattleRangeHit_419390",
+      "fragments": [
+        {
+          "name": "initial_parent_y",
+          "before": "    action->offset40 = parent->offset40;\n    auto* const payload = static_cast<BattleActorPayload*>(action->payload);\n    action->offset44 = parent->offset44;",
+          "after": "    action->offset40 = parent->offset40;\n    const float initialY = parent->offset44;\n    auto* const payload = static_cast<BattleActorPayload*>(action->payload);\n    action->offset44 = initialY;"
+        },
+        {
+          "name": "projection_image_before_target_query",
+          "before": "    YobiAction* const target = gBattleAllEntries59E980[effect->position];\n    const std::int32_t projectionImage = action->imageNo;",
+          "after": "    const std::int32_t targetPosition = effect->position;\n    const std::int32_t projectionImage = action->imageNo;\n    YobiAction* const target = gBattleAllEntries59E980[targetPosition];"
+        }
+      ]
+    }
+  ],
+  "source_patch_groups": 4,
+  "source_replacement_fragments": 5,
+  "new_functions": 0,
+  "new_semantic_records": 0,
+  "new_original_members": 0,
+  "numeric_formulas_changed": false,
+  "runtime_verified": false,
+  "full_lifecycle_closed": false,
+  "verification": {
+    "status": "source_static_pass",
+    "whole_cpp_only_four_groups": true,
+    "replacement_fragments": 5,
+    "two_existing_bodies_changed": true,
+    "all_other_source_and_headers_unchanged": true,
+    "original_evidence_reused_not_recaptured": true,
+    "original_root_identity_and_sampling_windows_checked": true,
+    "same_dx_cache_only_spiracle_shot": true,
+    "auxiliary_flags_sample_preserved": true,
+    "runtime_verified": false,
+    "full_lifecycle_closed": false,
+    "measurement_check": "pass",
+    "measurement_result": "生成与-Check均exit0；全部主度量、库存/导入/区间/分类/执行限制/六closure/构建历史保持。"
+  },
+  "limits": [
+    "原完整机器基线复用，不重取/重算原取证数量；只新差异/四指令窗与源核对",
+    "SpiracleShot持同表，BlastWave未新增表/高度消费；不造保护/缓存owner或扩大寿命",
+    "全资源/SDK数值/对象和DX表最终回收/运行仍未验",
+    "无构建/测试/运行/算法/产物/摘要或新依赖"
+  ],
+  "source_before_bodies": [
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "NewBattleSpiracleShot_418B70",
+      "body": "YobiAction* NewBattleSpiracleShot_418B70(\n    YobiAction* const parent, const BattleEntryEffectRecord* const effect, const std::int32_t imageNo)\n{\n    using world::detail::gBattleAllEntries59E980;\n    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload));\n    if (action == nullptr) {\n        return nullptr;\n    }\n    action->flags |= 0x60002u;\n    action->callback = UpdateBattleActor_404DB0;\n    action->imageNo = 0;\n    action->characterAction = 0;\n    action->framePlayingRate = 100;\n    action->value54 = 10.0F;\n    action->displayPriority = 203;\n    action->offset40 = parent->offset40;\n    auto* const payload = static_cast<BattleActorPayload*>(action->payload);\n    action->offset44 = parent->offset44;\n    action->field270 = 0;\n    TurnBattleToward_406190(action, gBattleAllEntries59E980[effect->position], 0, 0.0F);\n    const std::int32_t effectValue4 = effect->position4;\n    const std::int32_t effectValue3 = effect->position3;\n    const std::uint32_t effectFlags = effect->flags;\n    const std::int32_t effectPosition = effect->position;\n    AppendBattleEffect_439400(action, {effectPosition, effectFlags, effectValue3, effectValue4});\n    const std::uint32_t flags = effect->flags;\n    if ((flags & 0x800000u) != 0) {\n        std::int32_t position, value3, value4, value5;\n        static_cast<void>(TakeBattleAuxEffects_43BC90(parent, &position, &value3, &value4, &value5));\n        AppendBattleAuxEffects_43BC10(action, position, flags, value3, value4, value5);\n    }\n    action->phase = 16;\n    static_cast<void>(render::LoadGraphic_522570(parent->graphicIndex));\n    static_cast<void>(render::LoadGraphic_522570(gBattleAllEntries59E980[effect->position]->graphicIndex));\n    payload->battlePosition18 = static_cast<BattleActorPayload*>(parent->payload)->battlePosition18;\n    YobiAction* const target = gBattleAllEntries59E980[effect->position];\n    const std::int16_t targetHeight = render::ReadGraphicDxHeight(target->graphicIndex);\n    const std::int32_t parentGraphicIndex = parent->graphicIndex;\n    const std::int32_t targetGraphicOffsetY = target->graphicOffsetY;\n    const float targetBaseY = target->offset44;\n    const float targetX = target->offset40;\n    const float targetY = static_cast<float>(static_cast<double>(targetHeight)\n        * 0.5F + targetGraphicOffsetY + targetBaseY);\n    const std::int16_t parentHeight = render::ReadGraphicDxHeight(parentGraphicIndex);\n    const float projectionX = action->offset40;\n    const std::int32_t parentGraphicOffsetY = parent->graphicOffsetY;\n    const float projectionBaseY = action->offset44;\n    const float projectionY = static_cast<float>(static_cast<double>(parentHeight)\n        * 0.5F + parentGraphicOffsetY + projectionBaseY);\n    NewBattleProjection_418DF0(action, projectionX, projectionY, targetX, targetY, imageNo);\n    if (action->imageNo == 110016 || action->imageNo == 111055) {\n        action->rebirthValue1 = 4;\n        action->rebirthValue2 = 4;\n    }\n    payload->castSkill103C = static_cast<BattleActorPayload*>(parent->payload)->castSkill103C;\n    payload->attackModeFF4 = static_cast<BattleActorPayload*>(parent->payload)->attackModeFF4;\n    payload->castSkillLevel1044 = static_cast<BattleActorPayload*>(parent->payload)->castSkillLevel1044;\n    MoveBattleByAngle_405EA0(action);\n    MoveBattleByAngle_405EA0(action);\n    static_cast<void>(PlayFrame_517DA0(action, 0));\n    const std::int32_t x = static_cast<std::int32_t>(action->offset40);\n    const float screenY = action->offset44;\n    action->x = x;\n    action->y = static_cast<std::int32_t>(screenY);\n    return action;\n}"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "NewBattleBlastWave_419180",
+      "body": "YobiAction* NewBattleBlastWave_419180(\n    YobiAction* const parent, const BattleEntryEffectRecord* const effect, const std::int32_t imageNo)\n{\n    using world::detail::gBattleAllEntries59E980;\n    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload));\n    if (action == nullptr) {\n        return nullptr;\n    }\n    const std::uint32_t initialFlags = action->flags | 0x60002u;\n    action->callback = UpdateBattleActor_404DB0;\n    action->flags = initialFlags;\n    action->characterAction = 0;\n    action->framePlayingRate = 100;\n    action->value54 = 10.0F;\n    action->displayPriority = 203;\n    action->offset40 = parent->offset40;\n    auto* const payload = static_cast<BattleActorPayload*>(action->payload);\n    action->offset44 = parent->offset44;\n    action->field270 = 0;\n    TurnBattleToward_406190(action, gBattleAllEntries59E980[effect->position], 0, 0.0F);\n    action->imageNo = static_cast<std::int32_t>((static_cast<double>(action->angle50) + 11.25)\n        * 0.044444444444444446);\n    if (action->imageNo < 0) {\n        action->imageNo += 16;\n    }\n    if (action->imageNo >= 16) {\n        action->imageNo -= 16;\n    }\n    action->imageNo += imageNo;\n    const std::int32_t effectValue4 = effect->position4;\n    const std::int32_t effectValue3 = effect->position3;\n    const std::uint32_t effectFlags = effect->flags;\n    const std::int32_t effectPosition = effect->position;\n    AppendBattleEffect_439400(action, {effectPosition, effectFlags, effectValue3, effectValue4});\n    const std::uint32_t flags = effect->flags;\n    if ((flags & 0x800000u) != 0) {\n        std::int32_t position, value3, value4, value5;\n        static_cast<void>(TakeBattleAuxEffects_43BC90(parent, &position, &value3, &value4, &value5));\n        AppendBattleAuxEffects_43BC10(action, position, flags, value3, value4, value5);\n    }\n    action->phase = 16;\n    static_cast<void>(render::LoadGraphic_522570(parent->graphicIndex));\n    static_cast<void>(render::LoadGraphic_522570(gBattleAllEntries59E980[effect->position]->graphicIndex));\n    payload->battlePosition18 = static_cast<BattleActorPayload*>(parent->payload)->battlePosition18;\n    YobiAction* const target = gBattleAllEntries59E980[effect->position];\n    const std::int32_t projectionImage = action->imageNo;\n    const float targetY = target->offset44;\n    const float targetX = target->offset40;\n    const float projectionY = action->offset44;\n    const float projectionX = action->offset40;\n    NewBattleProjection_418DF0(action, projectionX, projectionY, targetX, targetY, projectionImage);\n    if (action->imageNo == 110016 || action->imageNo == 111055) {\n        action->rebirthValue1 = 4;\n        action->rebirthValue2 = 4;\n    }\n    payload->castSkill103C = static_cast<BattleActorPayload*>(parent->payload)->castSkill103C;\n    payload->attackModeFF4 = static_cast<BattleActorPayload*>(parent->payload)->attackModeFF4;\n    payload->castSkillLevel1044 = static_cast<BattleActorPayload*>(parent->payload)->castSkillLevel1044;\n    MoveBattleByAngle_405EA0(action);\n    MoveBattleByAngle_405EA0(action);\n    static_cast<void>(PlayFrame_517DA0(action, 0));\n    const std::int32_t x = static_cast<std::int32_t>(action->offset40);\n    const float y = action->offset44;\n    action->x = x;\n    action->y = static_cast<std::int32_t>(y);\n    return action;\n}"
+    }
+  ],
+  "source_after_bodies": [
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "NewBattleSpiracleShot_418B70",
+      "body": "YobiAction* NewBattleSpiracleShot_418B70(\n    YobiAction* const parent, const BattleEntryEffectRecord* const effect, const std::int32_t imageNo)\n{\n    using world::detail::gBattleAllEntries59E980;\n    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload));\n    if (action == nullptr) {\n        return nullptr;\n    }\n    action->flags |= 0x60002u;\n    action->callback = UpdateBattleActor_404DB0;\n    action->imageNo = 0;\n    action->characterAction = 0;\n    action->framePlayingRate = 100;\n    action->value54 = 10.0F;\n    action->displayPriority = 203;\n    action->offset40 = parent->offset40;\n    const float initialY = parent->offset44;\n    auto* const payload = static_cast<BattleActorPayload*>(action->payload);\n    action->offset44 = initialY;\n    action->field270 = 0;\n    TurnBattleToward_406190(action, gBattleAllEntries59E980[effect->position], 0, 0.0F);\n    const std::int32_t effectValue4 = effect->position4;\n    const std::int32_t effectValue3 = effect->position3;\n    const std::uint32_t effectFlags = effect->flags;\n    const std::int32_t effectPosition = effect->position;\n    AppendBattleEffect_439400(action, {effectPosition, effectFlags, effectValue3, effectValue4});\n    const std::uint32_t flags = effect->flags;\n    if ((flags & 0x800000u) != 0) {\n        std::int32_t position, value3, value4, value5;\n        static_cast<void>(TakeBattleAuxEffects_43BC90(parent, &position, &value3, &value4, &value5));\n        AppendBattleAuxEffects_43BC10(action, position, flags, value3, value4, value5);\n    }\n    action->phase = 16;\n    static_cast<void>(render::LoadGraphic_522570(parent->graphicIndex));\n    static_cast<void>(render::LoadGraphic_522570(gBattleAllEntries59E980[effect->position]->graphicIndex));\n    payload->battlePosition18 = static_cast<BattleActorPayload*>(parent->payload)->battlePosition18;\n    const std::int32_t targetPosition = effect->position;\n    const render::DxGraphicEntry* const graphics = render::BorrowGraphicDxCacheEntries();\n    YobiAction* const target = gBattleAllEntries59E980[targetPosition];\n    const std::int16_t targetHeight = render::ReadGraphicDxHeightFromEntries(graphics, target->graphicIndex);\n    const std::int32_t parentGraphicIndex = parent->graphicIndex;\n    const std::int32_t targetGraphicOffsetY = target->graphicOffsetY;\n    const float targetBaseY = target->offset44;\n    const float targetX = target->offset40;\n    const float targetY = static_cast<float>(static_cast<double>(targetHeight)\n        * 0.5F + targetGraphicOffsetY + targetBaseY);\n    const std::int16_t parentHeight = render::ReadGraphicDxHeightFromEntries(graphics, parentGraphicIndex);\n    const float projectionX = action->offset40;\n    const std::int32_t parentGraphicOffsetY = parent->graphicOffsetY;\n    const float projectionBaseY = action->offset44;\n    const float projectionY = static_cast<float>(static_cast<double>(parentHeight)\n        * 0.5F + parentGraphicOffsetY + projectionBaseY);\n    NewBattleProjection_418DF0(action, projectionX, projectionY, targetX, targetY, imageNo);\n    if (action->imageNo == 110016 || action->imageNo == 111055) {\n        action->rebirthValue1 = 4;\n        action->rebirthValue2 = 4;\n    }\n    payload->castSkill103C = static_cast<BattleActorPayload*>(parent->payload)->castSkill103C;\n    payload->attackModeFF4 = static_cast<BattleActorPayload*>(parent->payload)->attackModeFF4;\n    payload->castSkillLevel1044 = static_cast<BattleActorPayload*>(parent->payload)->castSkillLevel1044;\n    MoveBattleByAngle_405EA0(action);\n    MoveBattleByAngle_405EA0(action);\n    static_cast<void>(PlayFrame_517DA0(action, 0));\n    const std::int32_t x = static_cast<std::int32_t>(action->offset40);\n    const float screenY = action->offset44;\n    action->x = x;\n    action->y = static_cast<std::int32_t>(screenY);\n    return action;\n}"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "NewBattleBlastWave_419180",
+      "body": "YobiAction* NewBattleBlastWave_419180(\n    YobiAction* const parent, const BattleEntryEffectRecord* const effect, const std::int32_t imageNo)\n{\n    using world::detail::gBattleAllEntries59E980;\n    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload));\n    if (action == nullptr) {\n        return nullptr;\n    }\n    const std::uint32_t initialFlags = action->flags | 0x60002u;\n    action->callback = UpdateBattleActor_404DB0;\n    action->flags = initialFlags;\n    action->characterAction = 0;\n    action->framePlayingRate = 100;\n    action->value54 = 10.0F;\n    action->displayPriority = 203;\n    action->offset40 = parent->offset40;\n    const float initialY = parent->offset44;\n    auto* const payload = static_cast<BattleActorPayload*>(action->payload);\n    action->offset44 = initialY;\n    action->field270 = 0;\n    TurnBattleToward_406190(action, gBattleAllEntries59E980[effect->position], 0, 0.0F);\n    action->imageNo = static_cast<std::int32_t>((static_cast<double>(action->angle50) + 11.25)\n        * 0.044444444444444446);\n    if (action->imageNo < 0) {\n        action->imageNo += 16;\n    }\n    if (action->imageNo >= 16) {\n        action->imageNo -= 16;\n    }\n    action->imageNo += imageNo;\n    const std::int32_t effectValue4 = effect->position4;\n    const std::int32_t effectValue3 = effect->position3;\n    const std::uint32_t effectFlags = effect->flags;\n    const std::int32_t effectPosition = effect->position;\n    AppendBattleEffect_439400(action, {effectPosition, effectFlags, effectValue3, effectValue4});\n    const std::uint32_t flags = effect->flags;\n    if ((flags & 0x800000u) != 0) {\n        std::int32_t position, value3, value4, value5;\n        static_cast<void>(TakeBattleAuxEffects_43BC90(parent, &position, &value3, &value4, &value5));\n        AppendBattleAuxEffects_43BC10(action, position, flags, value3, value4, value5);\n    }\n    action->phase = 16;\n    static_cast<void>(render::LoadGraphic_522570(parent->graphicIndex));\n    static_cast<void>(render::LoadGraphic_522570(gBattleAllEntries59E980[effect->position]->graphicIndex));\n    payload->battlePosition18 = static_cast<BattleActorPayload*>(parent->payload)->battlePosition18;\n    const std::int32_t targetPosition = effect->position;\n    const std::int32_t projectionImage = action->imageNo;\n    YobiAction* const target = gBattleAllEntries59E980[targetPosition];\n    const float targetY = target->offset44;\n    const float targetX = target->offset40;\n    const float projectionY = action->offset44;\n    const float projectionX = action->offset40;\n    NewBattleProjection_418DF0(action, projectionX, projectionY, targetX, targetY, projectionImage);\n    if (action->imageNo == 110016 || action->imageNo == 111055) {\n        action->rebirthValue1 = 4;\n        action->rebirthValue2 = 4;\n    }\n    payload->castSkill103C = static_cast<BattleActorPayload*>(parent->payload)->castSkill103C;\n    payload->attackModeFF4 = static_cast<BattleActorPayload*>(parent->payload)->attackModeFF4;\n    payload->castSkillLevel1044 = static_cast<BattleActorPayload*>(parent->payload)->castSkillLevel1044;\n    MoveBattleByAngle_405EA0(action);\n    MoveBattleByAngle_405EA0(action);\n    static_cast<void>(PlayFrame_517DA0(action, 0));\n    const std::int32_t x = static_cast<std::int32_t>(action->offset40);\n    const float y = action->offset44;\n    action->x = x;\n    action->y = static_cast<std::int32_t>(y);\n    return action;\n}"
+    }
+  ],
+  "source_diff": [
+    "--- before/src/YobiRuntime.cpp",
+    "+++ after/src/YobiRuntime.cpp",
+    "@@ -9471,8 +9471,9 @@",
+    "     action->value54 = 10.0F;",
+    "     action->displayPriority = 203;",
+    "     action->offset40 = parent->offset40;",
+    "+    const float initialY = parent->offset44;",
+    "     auto* const payload = static_cast<BattleActorPayload*>(action->payload);",
+    "-    action->offset44 = parent->offset44;",
+    "+    action->offset44 = initialY;",
+    "     action->field270 = 0;",
+    "     TurnBattleToward_406190(action, gBattleAllEntries59E980[effect->position], 0, 0.0F);",
+    "     const std::int32_t effectValue4 = effect->position4;",
+    "@@ -9490,15 +9491,17 @@",
+    "     static_cast<void>(render::LoadGraphic_522570(parent->graphicIndex));",
+    "     static_cast<void>(render::LoadGraphic_522570(gBattleAllEntries59E980[effect->position]->graphicIndex));",
+    "     payload->battlePosition18 = static_cast<BattleActorPayload*>(parent->payload)->battlePosition18;",
+    "-    YobiAction* const target = gBattleAllEntries59E980[effect->position];",
+    "-    const std::int16_t targetHeight = render::ReadGraphicDxHeight(target->graphicIndex);",
+    "+    const std::int32_t targetPosition = effect->position;",
+    "+    const render::DxGraphicEntry* const graphics = render::BorrowGraphicDxCacheEntries();",
+    "+    YobiAction* const target = gBattleAllEntries59E980[targetPosition];",
+    "+    const std::int16_t targetHeight = render::ReadGraphicDxHeightFromEntries(graphics, target->graphicIndex);",
+    "     const std::int32_t parentGraphicIndex = parent->graphicIndex;",
+    "     const std::int32_t targetGraphicOffsetY = target->graphicOffsetY;",
+    "     const float targetBaseY = target->offset44;",
+    "     const float targetX = target->offset40;",
+    "     const float targetY = static_cast<float>(static_cast<double>(targetHeight)",
+    "         * 0.5F + targetGraphicOffsetY + targetBaseY);",
+    "-    const std::int16_t parentHeight = render::ReadGraphicDxHeight(parentGraphicIndex);",
+    "+    const std::int16_t parentHeight = render::ReadGraphicDxHeightFromEntries(graphics, parentGraphicIndex);",
+    "     const float projectionX = action->offset40;",
+    "     const std::int32_t parentGraphicOffsetY = parent->graphicOffsetY;",
+    "     const float projectionBaseY = action->offset44;",
+    "@@ -9538,8 +9541,9 @@",
+    "     action->value54 = 10.0F;",
+    "     action->displayPriority = 203;",
+    "     action->offset40 = parent->offset40;",
+    "+    const float initialY = parent->offset44;",
+    "     auto* const payload = static_cast<BattleActorPayload*>(action->payload);",
+    "-    action->offset44 = parent->offset44;",
+    "+    action->offset44 = initialY;",
+    "     action->field270 = 0;",
+    "     TurnBattleToward_406190(action, gBattleAllEntries59E980[effect->position], 0, 0.0F);",
+    "     action->imageNo = static_cast<std::int32_t>((static_cast<double>(action->angle50) + 11.25)",
+    "@@ -9566,8 +9570,9 @@",
+    "     static_cast<void>(render::LoadGraphic_522570(parent->graphicIndex));",
+    "     static_cast<void>(render::LoadGraphic_522570(gBattleAllEntries59E980[effect->position]->graphicIndex));",
+    "     payload->battlePosition18 = static_cast<BattleActorPayload*>(parent->payload)->battlePosition18;",
+    "-    YobiAction* const target = gBattleAllEntries59E980[effect->position];",
+    "+    const std::int32_t targetPosition = effect->position;",
+    "     const std::int32_t projectionImage = action->imageNo;",
+    "+    YobiAction* const target = gBattleAllEntries59E980[targetPosition];",
+    "     const float targetY = target->offset44;",
+    "     const float targetX = target->offset40;",
+    "     const float projectionY = action->offset44;"
+  ],
+  "reused_original_roots": [
+    {
+      "inventory_id": "F:00018B70",
+      "baseline_reference": "doc/cg2d_battle_projectile_creators_evidence.json#/original_roots/0",
+      "entry": "0x418b70",
+      "end": "0x418d7e",
+      "instruction_count": 161,
+      "code_bytes": 526,
+      "reused_not_new_capture": true,
+      "sampling_windows": [
+        [
+          {
+            "ea": "0x418bcf",
+            "size": 3,
+            "bytes": "8b4f40",
+            "text": "mov     ecx, [edi+40h]"
+          },
+          {
+            "ea": "0x418bd2",
+            "size": 1,
+            "bytes": "50",
+            "text": "push    eax; float"
+          },
+          {
+            "ea": "0x418bd3",
+            "size": 3,
+            "bytes": "894e40",
+            "text": "mov     [esi+40h], ecx"
+          },
+          {
+            "ea": "0x418bd6",
+            "size": 3,
+            "bytes": "8b5744",
+            "text": "mov     edx, [edi+44h]"
+          },
+          {
+            "ea": "0x418bd9",
+            "size": 3,
+            "bytes": "8b6e0c",
+            "text": "mov     ebp, [esi+0Ch]"
+          },
+          {
+            "ea": "0x418bdc",
+            "size": 3,
+            "bytes": "895644",
+            "text": "mov     [esi+44h], edx"
+          },
+          {
+            "ea": "0x418bdf",
+            "size": 7,
+            "bytes": "66898670020000",
+            "text": "mov     [esi+270h], ax"
+          },
+          {
+            "ea": "0x418be6",
+            "size": 1,
+            "bytes": "50",
+            "text": "push    eax; int"
+          }
+        ],
+        [
+          {
+            "ea": "0x418c8b",
+            "size": 2,
+            "bytes": "8b03",
+            "text": "mov     eax, [ebx]"
+          },
+          {
+            "ea": "0x418c8d",
+            "size": 1,
+            "bytes": "51",
+            "text": "push    ecx; a6"
+          },
+          {
+            "ea": "0x418c8e",
+            "size": 6,
+            "bytes": "8b0da4cf0301",
+            "text": "mov     ecx, gGraphicInfoDxCache"
+          },
+          {
+            "ea": "0x418c94",
+            "size": 7,
+            "bytes": "8b048580e95900",
+            "text": "mov     eax, gBattleEntry[eax*4]"
+          },
+          {
+            "ea": "0x418c9b",
+            "size": 1,
+            "bytes": "51",
+            "text": "push    ecx"
+          },
+          {
+            "ea": "0x418c9c",
+            "size": 3,
+            "bytes": "8b5020",
+            "text": "mov     edx, [eax+20h]"
+          },
+          {
+            "ea": "0x418c9f",
+            "size": 3,
+            "bytes": "c1e204",
+            "text": "shl     edx, 4"
+          },
+          {
+            "ea": "0x418ca2",
+            "size": 5,
+            "bytes": "0fbf540a06",
+            "text": "movsx   edx, word ptr [edx+ecx+6]"
+          },
+          {
+            "ea": "0x418ca7",
+            "size": 4,
+            "bytes": "8954242c",
+            "text": "mov     [esp+28h+arg_0], edx"
+          },
+          {
+            "ea": "0x418cab",
+            "size": 3,
+            "bytes": "8b5720",
+            "text": "mov     edx, [edi+20h]"
+          },
+          {
+            "ea": "0x418cae",
+            "size": 4,
+            "bytes": "db44242c",
+            "text": "fild    [esp+28h+arg_0]"
+          },
+          {
+            "ea": "0x418cb2",
+            "size": 3,
+            "bytes": "c1e204",
+            "text": "shl     edx, 4"
+          },
+          {
+            "ea": "0x418cb5",
+            "size": 6,
+            "bytes": "d80d8cd45400",
+            "text": "fmul    ds:flt_54D48C"
+          },
+          {
+            "ea": "0x418cbb",
+            "size": 6,
+            "bytes": "da80cc020000",
+            "text": "fiadd   dword ptr [eax+2CCh]"
+          },
+          {
+            "ea": "0x418cc1",
+            "size": 3,
+            "bytes": "d84044",
+            "text": "fadd    dword ptr [eax+44h]"
+          },
+          {
+            "ea": "0x418cc4",
+            "size": 3,
+            "bytes": "8b4040",
+            "text": "mov     eax, [eax+40h]"
+          },
+          {
+            "ea": "0x418cc7",
+            "size": 3,
+            "bytes": "d91c24",
+            "text": "fstp    [esp+28h+a5]; a5"
+          },
+          {
+            "ea": "0x418cca",
+            "size": 1,
+            "bytes": "50",
+            "text": "push    eax; a4"
+          },
+          {
+            "ea": "0x418ccb",
+            "size": 1,
+            "bytes": "51",
+            "text": "push    ecx"
+          },
+          {
+            "ea": "0x418ccc",
+            "size": 5,
+            "bytes": "0fbf440a06",
+            "text": "movsx   eax, word ptr [edx+ecx+6]"
+          },
+          {
+            "ea": "0x418cd1",
+            "size": 4,
+            "bytes": "89442434",
+            "text": "mov     [esp+30h+arg_0], eax"
+          },
+          {
+            "ea": "0x418cd5",
+            "size": 3,
+            "bytes": "8b4e40",
+            "text": "mov     ecx, [esi+40h]"
+          },
+          {
+            "ea": "0x418cd8",
+            "size": 4,
+            "bytes": "db442434",
+            "text": "fild    [esp+30h+arg_0]"
+          },
+          {
+            "ea": "0x418cdc",
+            "size": 6,
+            "bytes": "d80d8cd45400",
+            "text": "fmul    ds:flt_54D48C"
+          },
+          {
+            "ea": "0x418ce2",
+            "size": 6,
+            "bytes": "da87cc020000",
+            "text": "fiadd   dword ptr [edi+2CCh]"
+          },
+          {
+            "ea": "0x418ce8",
+            "size": 3,
+            "bytes": "d84644",
+            "text": "fadd    dword ptr [esi+44h]"
+          },
+          {
+            "ea": "0x418ceb",
+            "size": 3,
+            "bytes": "d91c24",
+            "text": "fstp    [esp+30h+a3]; a3"
+          },
+          {
+            "ea": "0x418cee",
+            "size": 1,
+            "bytes": "51",
+            "text": "push    ecx; a2"
+          },
+          {
+            "ea": "0x418cef",
+            "size": 1,
+            "bytes": "56",
+            "text": "push    esi; a1"
+          },
+          {
+            "ea": "0x418cf0",
+            "size": 5,
+            "bytes": "e8fb000000",
+            "text": "call    YobiBattleEntry__newProjection"
+          }
+        ]
+      ]
+    },
+    {
+      "inventory_id": "F:00019180",
+      "baseline_reference": "doc/cg2d_battle_projectile_creators_evidence.json#/original_roots/1",
+      "entry": "0x419180",
+      "end": "0x41938d",
+      "instruction_count": 161,
+      "code_bytes": 525,
+      "reused_not_new_capture": true,
+      "sampling_windows": [
+        [
+          {
+            "ea": "0x4191d9",
+            "size": 3,
+            "bytes": "8b4f40",
+            "text": "mov     ecx, [edi+40h]"
+          },
+          {
+            "ea": "0x4191dc",
+            "size": 3,
+            "bytes": "894e40",
+            "text": "mov     [esi+40h], ecx"
+          },
+          {
+            "ea": "0x4191df",
+            "size": 3,
+            "bytes": "8b5744",
+            "text": "mov     edx, [edi+44h]"
+          },
+          {
+            "ea": "0x4191e2",
+            "size": 1,
+            "bytes": "50",
+            "text": "push    eax; float"
+          },
+          {
+            "ea": "0x4191e3",
+            "size": 3,
+            "bytes": "8b6e0c",
+            "text": "mov     ebp, [esi+0Ch]"
+          },
+          {
+            "ea": "0x4191e6",
+            "size": 3,
+            "bytes": "895644",
+            "text": "mov     [esi+44h], edx"
+          },
+          {
+            "ea": "0x4191e9",
+            "size": 7,
+            "bytes": "66898670020000",
+            "text": "mov     [esi+270h], ax"
+          },
+          {
+            "ea": "0x4191f0",
+            "size": 1,
+            "bytes": "50",
+            "text": "push    eax; int"
+          }
+        ],
+        [
+          {
+            "ea": "0x4192de",
+            "size": 2,
+            "bytes": "8b0b",
+            "text": "mov     ecx, [ebx]"
+          },
+          {
+            "ea": "0x4192e0",
+            "size": 6,
+            "bytes": "8b96a8020000",
+            "text": "mov     edx, [esi+2A8h]"
+          },
+          {
+            "ea": "0x4192e6",
+            "size": 7,
+            "bytes": "8b048d80e95900",
+            "text": "mov     eax, gBattleEntry[ecx*4]"
+          },
+          {
+            "ea": "0x4192ed",
+            "size": 1,
+            "bytes": "52",
+            "text": "push    edx; animateNo"
+          },
+          {
+            "ea": "0x4192ee",
+            "size": 3,
+            "bytes": "8b4844",
+            "text": "mov     ecx, [eax+44h]"
+          },
+          {
+            "ea": "0x4192f1",
+            "size": 3,
+            "bytes": "8b5040",
+            "text": "mov     edx, [eax+40h]"
+          },
+          {
+            "ea": "0x4192f4",
+            "size": 3,
+            "bytes": "8b4644",
+            "text": "mov     eax, [esi+44h]"
+          },
+          {
+            "ea": "0x4192f7",
+            "size": 1,
+            "bytes": "51",
+            "text": "push    ecx; a5"
+          },
+          {
+            "ea": "0x4192f8",
+            "size": 3,
+            "bytes": "8b4e40",
+            "text": "mov     ecx, [esi+40h]"
+          },
+          {
+            "ea": "0x4192fb",
+            "size": 1,
+            "bytes": "52",
+            "text": "push    edx; a4"
+          },
+          {
+            "ea": "0x4192fc",
+            "size": 1,
+            "bytes": "50",
+            "text": "push    eax; a3"
+          },
+          {
+            "ea": "0x4192fd",
+            "size": 1,
+            "bytes": "51",
+            "text": "push    ecx; a2"
+          },
+          {
+            "ea": "0x4192fe",
+            "size": 1,
+            "bytes": "56",
+            "text": "push    esi; parent"
+          },
+          {
+            "ea": "0x4192ff",
+            "size": 5,
+            "bytes": "e8ecfaffff",
+            "text": "call    YobiBattleEntry__newProjection"
+          }
+        ]
+      ]
+    }
+  ],
+  "dx_cache_original_pointer_slot": "0x103cfa4",
+  "provider_reuse_reference": "doc/cg2d_battle_range_hit_evidence.json#/current_cache_provider_evidence",
+  "semantic_records_before": [
+    {
+      "index": 2033,
+      "record": {
+        "inventory_id": "F:00018B70",
+        "original_entry": "0x418B70",
+        "original_role": "Battle::SpiracleShot::newEffect",
+        "original_end_exclusive": "0x418D7E",
+        "instruction_count": 161,
+        "function_chunks": [
+          {
+            "start": "0x418b70",
+            "end_exclusive": "0x418d7e"
+          }
+        ],
+        "status": "BPC01完整现投射创建器及phase16生产纳管；每体两取样段恢复，完整资源/owner/SDK和运行未验",
+        "evidence_documents": [
+          "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-baseline",
+          "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-decision",
+          "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-acceptance",
+          "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-source-state",
+          "doc/cg2d_battle_projectile_creators_evidence.json"
+        ],
+        "boundary": "BPC01创建空返、原生载荷/同释放域、phase16/既有分发与动作16、图号/F32/S16/非地址宽度、辅助flags持样及两移动/一播放/原返回保持；只两体四取样段，效果四字段取序与投影共享样本按原阶段持有。完整资源/数据/所有父-callee、借用和回收/SDK数值ABI/运行未验。",
+        "sources": [
+          {
+            "path": "src/YobiRuntime.cpp",
+            "symbol": "cg::login::detail::NewBattleSpiracleShot_418B70"
+          }
+        ],
+        "native_provider": {
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::NewBattleSpiracleShot_418B70",
+          "source_body_implemented": true,
+          "source_body_changed": true,
+          "runtime_verified": false
+        },
+        "verification_level": "两完整322条1051B/六页、27call/十目标/十跳四RET及两个真正CALL；三个metadata JMP只另列，四原取样段/三常量及现源精确差集，不代全部生命周期或运行。",
+        "projectile_creators": {
+          "spec_id": "BPC01",
+          "full_original_root_captured": true,
+          "instruction_count": 161,
+          "code_bytes": 526,
+          "read_pages": 3,
+          "outgoing_calls": 13,
+          "actual_direct_inbound_call_count": 1,
+          "raw_xref_count": 2,
+          "non_call_xrefs_preserved": 1,
+          "source_body_changed": true,
+          "source_patch_count": 2,
+          "phase16_production_source": true,
+          "full_callee_consumers_verified": false,
+          "full_lifecycle_closed": false,
+          "runtime_verified": false
+        }
+      }
+    },
+    {
+      "index": 2034,
+      "record": {
+        "inventory_id": "F:00019180",
+        "original_entry": "0x419180",
+        "original_role": "Battle::BlastWave::newEffect",
+        "original_end_exclusive": "0x41938D",
+        "instruction_count": 161,
+        "function_chunks": [
+          {
+            "start": "0x419180",
+            "end_exclusive": "0x41938d"
+          }
+        ],
+        "status": "BPC01完整现投射创建器及phase16生产纳管；每体两取样段恢复，完整资源/owner/SDK和运行未验",
+        "evidence_documents": [
+          "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-baseline",
+          "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-decision",
+          "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-acceptance",
+          "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-source-state",
+          "doc/cg2d_battle_projectile_creators_evidence.json"
+        ],
+        "boundary": "BPC01创建空返、原生载荷/同释放域、phase16/既有分发与动作16、图号/F32/S16/非地址宽度、辅助flags持样及两移动/一播放/原返回保持；只两体四取样段，效果四字段取序与投影共享样本按原阶段持有。完整资源/数据/所有父-callee、借用和回收/SDK数值ABI/运行未验。",
+        "sources": [
+          {
+            "path": "src/YobiRuntime.cpp",
+            "symbol": "cg::login::detail::NewBattleBlastWave_419180"
+          }
+        ],
+        "native_provider": {
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::NewBattleBlastWave_419180",
+          "source_body_implemented": true,
+          "source_body_changed": true,
+          "runtime_verified": false
+        },
+        "verification_level": "两完整322条1051B/六页、27call/十目标/十跳四RET及两个真正CALL；三个metadata JMP只另列，四原取样段/三常量及现源精确差集，不代全部生命周期或运行。",
+        "projectile_creators": {
+          "spec_id": "BPC01",
+          "full_original_root_captured": true,
+          "instruction_count": 161,
+          "code_bytes": 525,
+          "read_pages": 3,
+          "outgoing_calls": 14,
+          "actual_direct_inbound_call_count": 1,
+          "raw_xref_count": 3,
+          "non_call_xrefs_preserved": 2,
+          "source_body_changed": true,
+          "source_patch_count": 2,
+          "phase16_production_source": true,
+          "full_callee_consumers_verified": false,
+          "full_lifecycle_closed": false,
+          "runtime_verified": false
+        }
+      }
+    }
+  ],
+  "function_dispositions_before": [
+    {
+      "index": 1458,
+      "record": {
+        "inventory_id": "F:00018B70",
+        "disposition": "adapted",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-baseline",
+          "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-decision",
+          "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-acceptance",
+          "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-source-state",
+          "doc/cg2d_battle_projectile_creators_evidence.json"
+        ],
+        "boundary": "BPC01创建空返、原生载荷/同释放域、phase16/既有分发与动作16、图号/F32/S16/非地址宽度、辅助flags持样及两移动/一播放/原返回保持；只两体四取样段，效果四字段取序与投影共享样本按原阶段持有。完整资源/数据/所有父-callee、借用和回收/SDK数值ABI/运行未验。 RPLAN.24不专项异常或故障等价，完整门禁保。"
+      }
+    },
+    {
+      "index": 1459,
+      "record": {
+        "inventory_id": "F:00019180",
+        "disposition": "adapted",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-baseline",
+          "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-decision",
+          "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-acceptance",
+          "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-source-state",
+          "doc/cg2d_battle_projectile_creators_evidence.json"
+        ],
+        "boundary": "BPC01创建空返、原生载荷/同释放域、phase16/既有分发与动作16、图号/F32/S16/非地址宽度、辅助flags持样及两移动/一播放/原返回保持；只两体四取样段，效果四字段取序与投影共享样本按原阶段持有。完整资源/数据/所有父-callee、借用和回收/SDK数值ABI/运行未验。 RPLAN.24不专项异常或故障等价，完整门禁保。"
+      }
+    }
+  ]
+}

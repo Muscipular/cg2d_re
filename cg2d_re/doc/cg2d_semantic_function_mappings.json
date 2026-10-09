@@ -196256,15 +196256,20 @@
           "end_exclusive": "0x418d7e"
         }
       ],
-      "status": "BPC01完整现投射创建器及phase16生产纳管；每体两取样段恢复，完整资源/owner/SDK和运行未验",
+      "status": "BPC01完整现投射创建器及phase16生产纳管；每体两取样段恢复，完整资源/owner/SDK和运行未验；DPCS01父Y/payload与投影表/查询阶段补齐",
       "evidence_documents": [
         "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-baseline",
         "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-decision",
         "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-acceptance",
         "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-source-state",
-        "doc/cg2d_battle_projectile_creators_evidence.json"
+        "doc/cg2d_battle_projectile_creators_evidence.json",
+        "doc/cg2d_battle_projectile_creator_cache_sampling_spec.md#projectile-creator-cache-baseline",
+        "doc/cg2d_battle_projectile_creator_cache_sampling_spec.md#projectile-creator-cache-decision",
+        "doc/cg2d_battle_projectile_creator_cache_sampling_spec.md#projectile-creator-cache-acceptance",
+        "doc/cg2d_battle_projectile_creator_cache_sampling_spec.md#projectile-creator-cache-source-state",
+        "doc/cg2d_battle_projectile_creator_cache_sampling_evidence.json"
       ],
-      "boundary": "BPC01创建空返、原生载荷/同释放域、phase16/既有分发与动作16、图号/F32/S16/非地址宽度、辅助flags持样及两移动/一播放/原返回保持；只两体四取样段，效果四字段取序与投影共享样本按原阶段持有。完整资源/数据/所有父-callee、借用和回收/SDK数值ABI/运行未验。",
+      "boundary": "BPC01创建空返、原生载荷/同释放域、phase16/既有分发与动作16、图号/F32/S16/非地址宽度、辅助flags持样及两移动/一播放/原返回保持；只两体四取样段，效果四字段取序与投影共享样本按原阶段持有。完整资源/数据/所有父-callee、借用和回收/SDK数值ABI/运行未验。 DPCS01在BPC01阶段之外另补每体初始父Y/payload和投影取样；SpiracleShot先取表后查目标、两高度借同一表，BlastWave先采图号后查目标。一个CPP两现体四组/五精确替换，原阶段对象/机器字段保持，前态沿本步固定标签/原索引可读；全资源/父-callee/最终DX与对象owner回收及SDK数值ABI/运行仍未验。",
       "sources": [
         {
           "path": "src/YobiRuntime.cpp",
@@ -196278,7 +196283,7 @@
         "source_body_changed": true,
         "runtime_verified": false
       },
-      "verification_level": "两完整322条1051B/六页、27call/十目标/十跳四RET及两个真正CALL；三个metadata JMP只另列，四原取样段/三常量及现源精确差集，不代全部生命周期或运行。",
+      "verification_level": "两完整322条1051B/六页、27call/十目标/十跳四RET及两个真正CALL；三个metadata JMP只另列，四原取样段/三常量及现源精确差集，不代全部生命周期或运行。 DPCS01只复用BPC01原根并核四指令窗/现源四组差异及前态，零新原取证/身份或完整验收。",
       "projectile_creators": {
         "spec_id": "BPC01",
         "full_original_root_captured": true,
@@ -196295,6 +196300,22 @@
         "full_callee_consumers_verified": false,
         "full_lifecycle_closed": false,
         "runtime_verified": false
+      },
+      "projectile_creator_cache_sampling": {
+        "spec_id": "DPCS01",
+        "original_evidence_reused": true,
+        "original_body_recaptured": false,
+        "source_patch_group_count": 2,
+        "source_replacement_fragments": 3,
+        "source_body_changed": true,
+        "dx_cache_held_before_target_query": true,
+        "same_dx_cache_for_both_heights": true,
+        "projection_image_before_target_query": false,
+        "initial_parent_y_before_payload": true,
+        "previous_record_snapshot": "cg2d-re-projectile-creator-cache-sampling-history-20261010",
+        "previous_record_index": 2033,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
       }
     },
     {
@@ -196309,15 +196330,20 @@
           "end_exclusive": "0x41938d"
         }
       ],
-      "status": "BPC01完整现投射创建器及phase16生产纳管；每体两取样段恢复，完整资源/owner/SDK和运行未验",
+      "status": "BPC01完整现投射创建器及phase16生产纳管；每体两取样段恢复，完整资源/owner/SDK和运行未验；DPCS01父Y/payload与投影表/查询阶段补齐",
       "evidence_documents": [
         "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-baseline",
         "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-decision",
         "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-acceptance",
         "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-source-state",
-        "doc/cg2d_battle_projectile_creators_evidence.json"
+        "doc/cg2d_battle_projectile_creators_evidence.json",
+        "doc/cg2d_battle_projectile_creator_cache_sampling_spec.md#projectile-creator-cache-baseline",
+        "doc/cg2d_battle_projectile_creator_cache_sampling_spec.md#projectile-creator-cache-decision",
+        "doc/cg2d_battle_projectile_creator_cache_sampling_spec.md#projectile-creator-cache-acceptance",
+        "doc/cg2d_battle_projectile_creator_cache_sampling_spec.md#projectile-creator-cache-source-state",
+        "doc/cg2d_battle_projectile_creator_cache_sampling_evidence.json"
       ],
-      "boundary": "BPC01创建空返、原生载荷/同释放域、phase16/既有分发与动作16、图号/F32/S16/非地址宽度、辅助flags持样及两移动/一播放/原返回保持；只两体四取样段，效果四字段取序与投影共享样本按原阶段持有。完整资源/数据/所有父-callee、借用和回收/SDK数值ABI/运行未验。",
+      "boundary": "BPC01创建空返、原生载荷/同释放域、phase16/既有分发与动作16、图号/F32/S16/非地址宽度、辅助flags持样及两移动/一播放/原返回保持；只两体四取样段，效果四字段取序与投影共享样本按原阶段持有。完整资源/数据/所有父-callee、借用和回收/SDK数值ABI/运行未验。 DPCS01在BPC01阶段之外另补每体初始父Y/payload和投影取样；SpiracleShot先取表后查目标、两高度借同一表，BlastWave先采图号后查目标。一个CPP两现体四组/五精确替换，原阶段对象/机器字段保持，前态沿本步固定标签/原索引可读；全资源/父-callee/最终DX与对象owner回收及SDK数值ABI/运行仍未验。",
       "sources": [
         {
           "path": "src/YobiRuntime.cpp",
@@ -196331,7 +196357,7 @@
         "source_body_changed": true,
         "runtime_verified": false
       },
-      "verification_level": "两完整322条1051B/六页、27call/十目标/十跳四RET及两个真正CALL；三个metadata JMP只另列，四原取样段/三常量及现源精确差集，不代全部生命周期或运行。",
+      "verification_level": "两完整322条1051B/六页、27call/十目标/十跳四RET及两个真正CALL；三个metadata JMP只另列，四原取样段/三常量及现源精确差集，不代全部生命周期或运行。 DPCS01只复用BPC01原根并核四指令窗/现源四组差异及前态，零新原取证/身份或完整验收。",
       "projectile_creators": {
         "spec_id": "BPC01",
         "full_original_root_captured": true,
@@ -196346,6 +196372,22 @@
         "source_patch_count": 2,
         "phase16_production_source": true,
         "full_callee_consumers_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      },
+      "projectile_creator_cache_sampling": {
+        "spec_id": "DPCS01",
+        "original_evidence_reused": true,
+        "original_body_recaptured": false,
+        "source_patch_group_count": 2,
+        "source_replacement_fragments": 2,
+        "source_body_changed": true,
+        "dx_cache_held_before_target_query": false,
+        "same_dx_cache_for_both_heights": false,
+        "projection_image_before_target_query": true,
+        "initial_parent_y_before_payload": true,
+        "previous_record_snapshot": "cg2d-re-projectile-creator-cache-sampling-history-20261010",
+        "previous_record_index": 2034,
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }

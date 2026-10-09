@@ -376,3 +376,12 @@ CRT薄适配已直接采用MSVC；当前数组构析的三组业务调用及其�
 只一个CPP既有体三片段：父Y先取再取payload/发布，效果position4→position3→flags→position取齐再交原16B聚合，投影效果position→action图号→目标指针及同一DX表借用、两S16高度与各原坐标/偏移阶段持样。沿既有无加载/保护的Borrow/FromEntries服务，不新增owner或缓存寿命；原公式/单圈方向/图号、分配空返/发布、辅助flags跨回调持样、未预清输出、phase16/播放与四父payload重取、X/Y发布/原生返回和所有其它源/头保持。普通旧值不证明错误，只恢复明确取样合同。
 
 必要静态、汇总与-Check通过：原完整176条594B/三页、13call/十目标/四跳两RET、五实际CALL/三父和两个等级点的共享现循环、DX指针槽103CFA4及S16 getter/借表服务有据。整CPP精确仅本体三片段，所有其它函数/头、数学表达式/单圈/图号/分配空返/辅助flags/四父payload重取及发布保持。语义2037→2038（1990F＋48X）、合同2099→2100/3680（57.07%仅合同关联率）、F1462→1463、软件证据1348→1350仅限定I/S各一，BATTLE276→277且枚举false。原分母/导入16/218/X3060/3061余1、184叶完整验收0、60任务关闭11与六closure保持；十份自有文件显式UTF-8无BOM/LF，精确提交固定引用cg2d-re-battle-range-hit-20261010。未构建/测试/运行/算法/查产物/计算摘要，无新依赖；用户六项改动保留，整体目标active。全数据/资源/全部父-callee/创建失败及借用与最终回收、SDK数值ABI/声音画面运行仍待，整体SPEC未完成。
+
+<a id="projectile-creator-cache-progress-20261010"></a>
+## 32. 2026-10-10 DPCS01：两个已有投射创建器父Y与投影表/查询取样
+
+沿[当前补充合同](../doc/cg2d_battle_projectile_creator_cache_sampling_spec.md#projectile-creator-cache-source-state)，从BPRH01新关注点核BPC01已有原根/四指令窗，不重取/重计原322条1051B或虚增身份。两个原初始化均父Y→payload读取→Y发布；SpiracleShot effect position→DX表槽103CFA4→目标查询后，同一表读取目标/父低S16高度；BlastWave position→图号→目标查询，无高度/借表消费。
+
+一个CPP两现体四取样组/五精确替换：各持有initialY后再取payload；SpiracleShot用既有Borrow/FromEntries在原阶段持同一表，BlastWave图号取样移至目标查询前。BPC01原四修正/辅助flags跨回调持样/坐标样本保持，原数学/图号单圈/分配空返/flags与callback各自发布/phase16/图形加载/三父payload重取/两移动一播放/X-Y发布及原生返回保；BPRH01/BPR01/BPHIT01与所有其它正文/头逐字不改。借表不新增owner/加载/保护或扩大缓存寿命。
+
+必要静态、汇总与-Check通过：BPC01原根/库存复用及四指令窗、同表两高度/103CFA4、图号先于目标查询有据，零新机器取证计数。整CPP仅两体四组/五精确替换，辅助flags/原数学/发布/失败、前一RangeHit及所有其它函数/头保持；两旧语义/处置只追加来源，完整前态和原机器字段/阶段对象保留。语义2038（1990F＋48X）、合同2100/3680（57.07%仅合同关联率）、F1463及BATTLE277/枚举false保持，软件证据1350→1352只限定I/S各一，无新函数/身份/成员/分母。导入16/218、X3060/3061余1、184叶完整验收0、60任务关闭11及六closure不动；十一自有文件显式UTF-8无BOM/LF，精确提交固定引用cg2d-re-projectile-creator-cache-sampling-20261010。未构建/测试/运行/算法/查产物/计算摘要，无新依赖；用户六项改动保留，整体目标active。全数据/资源/全部父-callee、DX及对象最终owner回收和SDK数值ABI/声音画面运行仍待，整体SPEC未完成。

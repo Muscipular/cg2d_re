@@ -1,5 +1,7 @@
 # 动作16投射物创建与载荷生产 SPEC（BPC01）
 
+> 2026-10-10当前取样补充：[DPCS01](cg2d_battle_projectile_creator_cache_sampling_spec.md#projectile-creator-cache-source-state)在本阶段四处修正之外，另补两个创建器父Y/payload、SpiracleShot同一DX表/目标查询及BlastWave图号/目标查询四组；旧阶段原证据及限定结果保留，当前源须结合该补充合同，完整资源/owner/SDK与运行仍待。
+
 2026-10-10；衔接[BPHIT01动作16](cg2d_battle_projectile_hit_spec.md#battle-projectile-hit-source-state)的真实创建端，修复四处原字段取样顺序。保持普通数值、原类型/阶段和失败路径，不称已观察错误运行。
 
 <a id="projectile-creators-baseline"></a>

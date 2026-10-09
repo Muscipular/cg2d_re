@@ -9471,8 +9471,9 @@ YobiAction* NewBattleSpiracleShot_418B70(
     action->value54 = 10.0F;
     action->displayPriority = 203;
     action->offset40 = parent->offset40;
+    const float initialY = parent->offset44;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
-    action->offset44 = parent->offset44;
+    action->offset44 = initialY;
     action->field270 = 0;
     TurnBattleToward_406190(action, gBattleAllEntries59E980[effect->position], 0, 0.0F);
     const std::int32_t effectValue4 = effect->position4;
@@ -9490,15 +9491,17 @@ YobiAction* NewBattleSpiracleShot_418B70(
     static_cast<void>(render::LoadGraphic_522570(parent->graphicIndex));
     static_cast<void>(render::LoadGraphic_522570(gBattleAllEntries59E980[effect->position]->graphicIndex));
     payload->battlePosition18 = static_cast<BattleActorPayload*>(parent->payload)->battlePosition18;
-    YobiAction* const target = gBattleAllEntries59E980[effect->position];
-    const std::int16_t targetHeight = render::ReadGraphicDxHeight(target->graphicIndex);
+    const std::int32_t targetPosition = effect->position;
+    const render::DxGraphicEntry* const graphics = render::BorrowGraphicDxCacheEntries();
+    YobiAction* const target = gBattleAllEntries59E980[targetPosition];
+    const std::int16_t targetHeight = render::ReadGraphicDxHeightFromEntries(graphics, target->graphicIndex);
     const std::int32_t parentGraphicIndex = parent->graphicIndex;
     const std::int32_t targetGraphicOffsetY = target->graphicOffsetY;
     const float targetBaseY = target->offset44;
     const float targetX = target->offset40;
     const float targetY = static_cast<float>(static_cast<double>(targetHeight)
         * 0.5F + targetGraphicOffsetY + targetBaseY);
-    const std::int16_t parentHeight = render::ReadGraphicDxHeight(parentGraphicIndex);
+    const std::int16_t parentHeight = render::ReadGraphicDxHeightFromEntries(graphics, parentGraphicIndex);
     const float projectionX = action->offset40;
     const std::int32_t parentGraphicOffsetY = parent->graphicOffsetY;
     const float projectionBaseY = action->offset44;
@@ -9538,8 +9541,9 @@ YobiAction* NewBattleBlastWave_419180(
     action->value54 = 10.0F;
     action->displayPriority = 203;
     action->offset40 = parent->offset40;
+    const float initialY = parent->offset44;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
-    action->offset44 = parent->offset44;
+    action->offset44 = initialY;
     action->field270 = 0;
     TurnBattleToward_406190(action, gBattleAllEntries59E980[effect->position], 0, 0.0F);
     action->imageNo = static_cast<std::int32_t>((static_cast<double>(action->angle50) + 11.25)
@@ -9566,8 +9570,9 @@ YobiAction* NewBattleBlastWave_419180(
     static_cast<void>(render::LoadGraphic_522570(parent->graphicIndex));
     static_cast<void>(render::LoadGraphic_522570(gBattleAllEntries59E980[effect->position]->graphicIndex));
     payload->battlePosition18 = static_cast<BattleActorPayload*>(parent->payload)->battlePosition18;
-    YobiAction* const target = gBattleAllEntries59E980[effect->position];
+    const std::int32_t targetPosition = effect->position;
     const std::int32_t projectionImage = action->imageNo;
+    YobiAction* const target = gBattleAllEntries59E980[targetPosition];
     const float targetY = target->offset44;
     const float targetX = target->offset40;
     const float projectionY = action->offset44;

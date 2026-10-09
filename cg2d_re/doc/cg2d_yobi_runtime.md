@@ -4612,3 +4612,8 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 ## 2026-10-10 BPRH01：RangeHit第三投影来源
 
 [创建/生产合同](cg2d_battle_range_hit_spec.md#battle-range-hit-source-state)纳管419390完整176条594B，原五CALL/三父由现四表达式覆盖。只修正初始父Y与payload读取、效果四字段持样及投影样本/同一DX表借用三片段，phase16/原失败/数学/辅助flags和所有其它源保持；已有404DB0/4072E0命中与418DF0/418D80投影提供者不重做。仅限定I/S、零新函数，最终全creator/cleanup/资源/SDK与父投影回收和运行仍待，U08/U09完整门禁保持。
+
+<a id="projectile-creator-cache-runtime-20261010"></a>
+## 2026-10-10 DPCS01：两个既有创建器取样补充
+
+[补充合同](cg2d_battle_projectile_creator_cache_sampling_spec.md#projectile-creator-cache-source-state)沿BPRH01新关注点补BPC01两现体四组：父Y先取再取payload/发布，SpiracleShot先取表后查询目标并从同一借表读两S16高度，BlastWave先取图号再查询目标。既有Math/F32、辅助flags及字段样本/失败/phase16/原生返回/其余源保持；旧原根复用不重计取证，零新函数/身份/成员或分母，只有限定I/S。全部父-callee/资源、DX和对象最终owner回收/SDK数值ABI/运行仍待。

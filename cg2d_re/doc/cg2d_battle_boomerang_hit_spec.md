@@ -1,5 +1,7 @@
 # 战斗阶段22回旋命中与五档选图 SPEC（B22H01）
 
+> B22L01补充：[阶段21入位和23退场](#battle-boomerang-transitions-source-state)补两完整正确源；正文保持，仅四合同注释/一限定S，完整资源owner与SDK运行仍待。下文B22H01原阶段记录保持。
+
 2026-10-10；继续追加效果查找的真实消费端，覆盖回旋队列命中整根和2022技能所用分档依赖。保留阶段22独立伤害/恢复/显示及延迟合同，不外推阶段20或其它动作的分支。
 
 <a id="battle-boomerang-hit-baseline"></a>
@@ -75,3 +77,42 @@
 ### 实际限定结果
 
 必要静态、汇总与-Check通过：两完整662条2391B/十二页、主42直接CALL/28目标/99跳一RET与分档五跳一RET零CALL、case22 11B及分档16实际CALL/三父定位有据；四BYTE/归零复制、入口/第二转向取样与0.3F/五阈值/五图/2022索引匹配。整CPP仅主根七组/两注释，公头两注释，分档正文/数据、正确最大HP Copy与全部其它源和原独立普通无免疫扣血/恢复/图号/RNG/3-7当帧计时及真实S32返回保持；既有依赖/公共尾复用不重计新原根或全生命周期。语义2043→2045（1997F＋48X）、合同2105→2107/3680（57.26%仅合同关联率）、F1470→1472、E1359→1361仅限定I/S各一，I只主根/S两根，BATTLE283→285且枚举false。导入16/218、X3060/3061余1、184叶完整验收0、60任务关闭11与六closure保持；十一自有文件显式UTF-8无BOM/LF，精确提交固定引用cg2d-re-battle-boomerang-hit-20261010。未构建/测试/运行/算法/查产物/计算摘要，无新依赖；用户六项改动保留，整体目标active。全部生产数据/父-callee/间接alias、SDK数值/容量失败/重进退出与所有资源owner/声音画面运行仍未验，整体SPEC未完成。
+
+<a id="battle-boomerang-transitions-baseline"></a>
+## B22L01：入位与退场完整原根
+
+| 原身份 / 当前提供者 | 完整根 | 实际入向 |
+|---|---|---|
+| F:00008750 / UpdateBattleAction21_408750 | 408750–4087B1，37条97B/一页 | 404EA3，404DB0 case21 |
+| F:000090F0 / UpdateBattleAction23_4090F0 | 4090F0–409374，203条644B/四页 | 404EB9，404DB0 case23 |
+
+合240条741B/五页、30直接CALL；分别五/十二callee、一/二十跳、各一RET，零间接调用/分派表。两case均push对象→CALL→JMP40563F，各三条11B；公共尾沿BTS01/BPEX01已有证据，不新增其原根/全父验收。返回PlayFrame的S32，当前真实分派丢弃返回；不以两直接入向枚举推所有间接alias或机器ABI已闭。
+
+阶段21固定入口payload，以Y04 S32→F32、X00 S32→F32顺序取两坐标，TurnToPosition(source,X,Y,0,10F)；Normalize后从同一payload重新读Y→X，距离严格<20才phase22。之后所有路径Move(source)→PlayFrame(source,0)，返回后者原S32；等于20不入位，原输入/坐标与单圈修正合同保持，无新钳制/保护/早返。
+
+阶段23固定payload，读取field1D0 S32后缓存payload.caster1070的真实非拥有T*（原EBX）；初始sign为0才GetAngleDifference(source,fresh other)正常截S32并发布field1D0，按返回保存值分流，不改为重新读共享sign。sign<=0时d先转F32，-acceleration>d或!(acceleration*原+0.2F>=d)则angle-=acceleration，其余angle+=d；sign>0时首次比较保原未转F32的差值，rawDifference>acceleration或acceleration*原-0.2F>d则angle+=acceleration，其余angle+=d。+/-0.2的原F32字节CDCC4C3E/CDCC4CBE与现bit_cast匹配；原FST/比较阶段和正常业务分支沿当前表达保持，不恢复旧x87机器状态或声称SDK数值运行等价，不专项异常/回绕模拟。
+
+Normalize之后分别fresh other调用两次Distance：<100才acceleration+=原0.3F；<60时先取parent=other，再发布180F，parent.phase严格15才Advance(parent)。之后重读other为currentParent；phase非24才characterAction=12→PlayFrame(fresh other,0)→Advance(fresh other)。payload.skill266才固定fresh other.payload，先取parent当前effectIndex再FF0=0；同索引flags W32 bit200置位才MoveEffect(fresh other)→Advance(fresh other)，用固定parentPayload的fresh current.position追加{position,0,0,0}到source；再fresh position对应共享目标phase非0时可选AppendCast(held caster,source,25)，随后必定73→25→222，source.acceleration=10F→Advance(source)。不把原W32/AH bit200改为独立BYTE读取，不更新held caster或固定parentPayload。
+
+仍在<60路径内，之后另一次fresh other距离严格<20才进入退场：skill266固定fresh other.payload，先castPlayIndexFC4后FF0=0，castListCA4[index+1]严格221才Advance(fresh other)。随后MarkDeath(source)→音效216/source.x；其它技能走另一原MarkDeath点后同一音效尾，两原点互斥，现一公共调用每条实际路径恰一次，不补第二次标死。原额外音效Y未被现PlaySe本体消费，既有两参保持。距离未达20不标死；所有路径共同Move(source)→PlayFrame(source,0)，标死后仍走两调用、返回PlayFrame S32，不即刻free或清parent/caster借用。
+
+<a id="battle-boomerang-transitions-decision"></a>
+## B22L01 实施边界
+
+两现体与完整原正常合同吻合，正文/签名和全部数学/坐标/调用/字段、列表/零值发布与RNG保持，只CPP和公头各两注释。阶段21→22以及B22H01的计时尾→23有真实接线；本步不声称全部创建、借用/父子寿命或阶段24已闭，也不将已标死替代资源释放。非地址S32/W32/F32继续原宽，other/caster/payload与共享表仅原生非拥有T*承载。
+
+新增两独立语义/F adapted/两个BATTLE已知成员，枚举false；一限定S覆盖两根，零新I/函数/实现/API。U08/U09/R01/R04/V04只补来源/局部说明，所有原分母/六closure/完整门禁保持；原标准数学/MSVC数值差异、RPLAN.24、WAV-only/原格式明文和CRT排序未决边界保持。按已获工程委托记录已证合同，无新业务设计；不构建/测试/运行/算法/查产物/计算摘要或引依赖。
+
+<a id="battle-boomerang-transitions-acceptance"></a>
+## B22L01 必要静态核对
+
+核两连续根/库存、240条741B/五页、30直接CALL与各callee/跳/RET、两真实case各11B及实际字段/图序/转向数学正常表达；+/-0.2F原字节匹配源bit_cast，0.3/10/180既有原证据/立即数复用。核21两次Y→X和<20/phase22、23固定caster/parentPayload与fresh other/index、266的bit200/三零效果/可选25和73-25-222、下一cast221、两互斥标死/共同音效及标死后Move/PlayFrame/返回，现正文正确保持。不执行数学或转向/列表样例，不据“未查出差异”代完整源合同证据。核整CPP/公头仅四注释，B22H01与全部其它正文/签名/源和旧证据原字段保持；两新身份/处置/成员与限定S、五任务、所有政策/门禁/分母、UTF-8无BOM-LF及静态汇总/-Check。全部生产/父-callee/间接alias、SDK数值/失败/重进退出与资源owner/声音画面运行仍待。
+
+<a id="battle-boomerang-transitions-source-state"></a>
+## B22L01 当前状态
+
+两完整入位/退场合同纳管，现正文保持；前态cg2d-re-battle-boomerang-transitions-history-20261010，提交引用cg2d-re-battle-boomerang-transitions-20261010。必要静态与汇总检查通过，完整业务和整体SPEC未完成。
+
+### B22L01 实际限定结果
+
+必要静态、汇总与-Check通过：两完整240条741B/五页、30directCALL、各原callee/跳/RET和两case各11B有据；两次Y-X、固定caster/父载荷与fresh other/index、266列表/221及两个原互斥标死点由现公共一次调用按路径承接、标死后共同Move/PlayFrame返回匹配，原+/-0.2F字节与现表达保持。整CPP/公头仅四注释，两本体/签名和B22H01/全部其它源正确保持，旧主合同/证据完整字段保；零新I/函数/保护或业务判断。语义2045→2047（1999F＋48X）、合同2107→2109/3680（57.31%仅合同关联率）、F1472→1474、E1361→1362只一限定S覆盖两根，BATTLE285→287且枚举false。导入16/218、X3060/3061余1、184叶完整验收0、60任务关闭11与六closure保持；十一自有文件显式UTF-8无BOM/LF，精确提交固定引用cg2d-re-battle-boomerang-transitions-20261010。未构建/测试/运行/算法/查产物/计算摘要，无新依赖；用户六项改动保留，整体目标active。全部生产/创建/父-callee/间接alias、SDK数值/正常失败/重进退出与资源owner/声音画面运行仍未验，整体SPEC未完成。

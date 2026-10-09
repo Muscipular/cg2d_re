@@ -25634,6 +25634,7 @@ void UpdateBattleAction20_408410(YobiAction* const action)
     MoveBattleByAngle_405EA0(action);
 }
 
+// B22L01：两次Y-X取样、距离门禁和Move/PlayFrame返回见回旋命中SPEC。
 std::int32_t UpdateBattleAction21_408750(YobiAction* const action)
 {
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
@@ -25903,6 +25904,7 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
     return result;
 }
 
+// B22L01：固定caster/父载荷、266列表和互斥标死后的移动播放见回旋命中SPEC。
 std::int32_t UpdateBattleAction23_4090F0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;

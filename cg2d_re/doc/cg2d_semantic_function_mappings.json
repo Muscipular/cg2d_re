@@ -196960,6 +196960,100 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x408750",
+      "inventory_id": "F:00008750",
+      "original_role": "阶段21回旋入位、两次Y-X与距离20/phase22/移动播放",
+      "original_end_exclusive": "0x4087b1",
+      "instruction_count": 37,
+      "function_chunks": [
+        {
+          "start": "0x408750",
+          "end_exclusive": "0x4087b1"
+        }
+      ],
+      "status": "B22L01完整正确正常源/独立身份纳管，正文/签名保持，仅四注释/一限定S零新I；完整生产/父-callee/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction21_408750"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction21_408750"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-transitions-baseline",
+        "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-transitions-decision",
+        "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-transitions-acceptance",
+        "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-transitions-source-state",
+        "doc/cg2d_battle_boomerang_hit_evidence.json"
+      ],
+      "boundary": "阶段21回旋入位、两次Y-X与距离20/phase22/移动播放；固定payload与原非地址宽度/非拥有other-caster T*、独立取样/分支/正常数学、列表和原返回消费保持。两互斥标死点不新增第二次消费，不将标死代free；所有owner/间接alias、SDK数值与运行未验，RPLAN.24/MC01和完整门禁保持。",
+      "verification_level": "两完整240条741B/五页、30directCALL、两case各11B，两个原数学系数原字节和全部现源/类型阶段核对；仅四注释，其余源守恒，零新I/函数/业务判断。",
+      "battle_boomerang_transitions": {
+        "step": "B22L01",
+        "source_snapshot": "cg2d-re-battle-boomerang-transitions-20261010",
+        "original_instruction_count": 37,
+        "original_code_bytes": 97,
+        "original_page_count": 1,
+        "direct_call_count": 5,
+        "callee_count": 5,
+        "jump_count": 1,
+        "return_count": 1,
+        "body_changed": false,
+        "new_implementation": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4090f0",
+      "inventory_id": "F:000090F0",
+      "original_role": "阶段23回归other、266父列表重排/退场标死与移动播放",
+      "original_end_exclusive": "0x409374",
+      "instruction_count": 203,
+      "function_chunks": [
+        {
+          "start": "0x4090f0",
+          "end_exclusive": "0x409374"
+        }
+      ],
+      "status": "B22L01完整正确正常源/独立身份纳管，正文/签名保持，仅四注释/一限定S零新I；完整生产/父-callee/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction23_4090F0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction23_4090F0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-transitions-baseline",
+        "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-transitions-decision",
+        "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-transitions-acceptance",
+        "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-transitions-source-state",
+        "doc/cg2d_battle_boomerang_hit_evidence.json"
+      ],
+      "boundary": "阶段23回归other、266父列表重排/退场标死与移动播放；固定payload与原非地址宽度/非拥有other-caster T*、独立取样/分支/正常数学、列表和原返回消费保持。两互斥标死点不新增第二次消费，不将标死代free；所有owner/间接alias、SDK数值与运行未验，RPLAN.24/MC01和完整门禁保持。",
+      "verification_level": "两完整240条741B/五页、30directCALL、两case各11B，两个原数学系数原字节和全部现源/类型阶段核对；仅四注释，其余源守恒，零新I/函数/业务判断。",
+      "battle_boomerang_transitions": {
+        "step": "B22L01",
+        "source_snapshot": "cg2d-re-battle-boomerang-transitions-20261010",
+        "original_instruction_count": 203,
+        "original_code_bytes": 644,
+        "original_page_count": 4,
+        "direct_call_count": 25,
+        "callee_count": 12,
+        "jump_count": 20,
+        "return_count": 1,
+        "body_changed": false,
+        "new_implementation": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

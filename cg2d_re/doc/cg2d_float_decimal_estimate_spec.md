@@ -1,5 +1,7 @@
 # 浮点十进制指数估算正常算术 SPEC（BPN01）
 
+> 2026-10-10当前数值库边界：[MC01-C2](cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010)已退休无现业务调用的旧浮点格式/96位转换/环境与pow错误私有组，数值格式/数学及库内状态交MSVC。实际地图/音频数学源与控制作用域保持，两Shop/NLS低宽读取移回既有模块，计时U64除法保留；旧gate/数学记录/CPU探测和其余内部CPP/ASM源码状态属固定历史，不再要求复刻。全部适用业务/owner/SDK正常结果与运行门禁保持，未编译/运行。
+
 2026-10-07，依据工程委托及RPLAN.24；上位：[stdio合同](cg2d_stdio_contract.md)、[受限CRT边界](cg2d_crt_runtime_boundary_spec.md)。只处理已证正常估算表达式，不改变原业务功能或验收标准。
 
 <a id="float-decimal-estimate-baseline"></a>

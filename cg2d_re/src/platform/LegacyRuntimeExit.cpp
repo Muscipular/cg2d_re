@@ -6,7 +6,6 @@
 #include "StartupNative.hpp"
 #include "LegacyLowIo.hpp"
 #include "LegacyMultibyte.hpp"
-#include "LegacyFloatEnvironment.hpp"
 #include "LegacySignal.hpp"
 #include "cg/platform/CommandOptions.hpp"
 

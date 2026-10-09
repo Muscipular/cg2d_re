@@ -8,6 +8,9 @@
 #include <bit>
 #include <cstring>
 #include <malloc.h>
+#include <intrin.h>
+
+#pragma intrinsic(__movsb)
 
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
@@ -31,6 +34,14 @@ std::uint32_t gLegacyMultibyteSystemCodePage10862E8 = 0;
 std::uint32_t gLegacyMultibyteInitGuard1087AEC = 0;
 
 namespace {
+
+// ACP01/MC01-C2：逐BYTE intrinsic取样，不对未生产对象字节直接作CPP求值。
+std::uint8_t ReadLegacyMappedByte(const volatile char* const byte) noexcept
+{
+    unsigned char value;
+    __movsb(&value, reinterpret_cast<unsigned char*>(const_cast<char*>(byte)), 1);
+    return value;
+}
 
 // 原5923F0的五个48B记录；参数按原三个W32保存，不解释为指针。
 struct MultibyteCodePageDefinition {
@@ -844,5 +855,17 @@ std::int32_t IsLegacyMultibyteLead_546CCA(const std::uint32_t character)
 {
     return ClassifyMultibyteType_546CDB(character, 0, 4);
 }
+
+namespace detail {
+
+// 原543D89/8D/91/94：先首BYTE、再次BYTE，只借同一成功映射结果。
+extern "C" std::uint32_t Cg2dReadLegacyMappedPair(const char* const bytes) noexcept
+{
+    const std::uint32_t first = ReadLegacyMappedByte(bytes);
+    const std::uint32_t second = ReadLegacyMappedByte(bytes + 1);
+    return (first << 8) + second;
+}
+
+} // namespace detail
 
 } // namespace cg::platform

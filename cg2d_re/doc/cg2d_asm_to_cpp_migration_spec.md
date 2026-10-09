@@ -1,5 +1,7 @@
 # ASM 数学源迁移 CPP 合同（ACP01）
 
+> 2026-10-10当前数值库边界：[MC01-C2](cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010)已退休无现业务调用的旧浮点格式/96位转换/环境与pow错误私有组，数值格式/数学及库内状态交MSVC。实际地图/音频数学源与控制作用域保持，两Shop/NLS低宽读取移回既有模块，计时U64除法保留；旧gate/数学记录/CPU探测和其余内部CPP/ASM源码状态属固定历史，不再要求复刻。全部适用业务/owner/SDK正常结果与运行门禁保持，未编译/运行。
+
 <a id="asm-cpp-decision"></a>
 ## 1. 已确认范围与数值取舍
 

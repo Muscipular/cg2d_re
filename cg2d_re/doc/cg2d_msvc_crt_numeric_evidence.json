@@ -1,0 +1,1222 @@
+{
+  "schema_version": 1,
+  "spec_id": "MC01-C2",
+  "recorded_on": "2026-10-10",
+  "before_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+  "implementation_snapshot": "cg2d-re-msvc-crt-numeric-20261010",
+  "authorization": "用户CRT直接MSVC和标准数学近似；先记C2 SPEC再沿真实消费者裁决",
+  "retired_paths": [
+    "src/platform/LegacyFloatEnvironment.cpp",
+    "src/platform/LegacyFloatEnvironment.hpp",
+    "src/platform/LegacyFloatFormat.cpp",
+    "src/platform/LegacyFloatFormat.hpp",
+    "src/platform/LegacyFloatMath.cpp",
+    "src/platform/LegacyFloatNumeric.cpp",
+    "src/platform/LegacyFloatNumeric.hpp"
+  ],
+  "retired_source_line_count": 2460,
+  "retired_definitions": [
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "AbstractLegacyControlWord_5448A4"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "Cg2dClassifyLegacySpecialFloat"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "Cg2dDefaultLegacyMathError"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "Cg2dRaiseLegacyFloatExceptionHost"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "Cg2dReadLegacyFdivBug"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "Cg2dSetLegacyMathErrno"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "ClassifyLegacyFloat_546311"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "ClassifyLegacyInteger_5436AC"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "ClassifyLegacySpecialFloat_5461E4"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "ControlLegacyFloatingPoint_54488E"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "ControlLegacyRawX87_5478F8"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "ControlLegacyX87_544859"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "DefaultLegacyMathError_5478D8"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "HandleLegacyMathException_54769B"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "HardwareLegacyControlWord_544936"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "InitializeLegacyFloatingPoint_53B447"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "LoadLegacyPowerControlWord_543405"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "PowerLegacyFloat_53D019"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "ProbeLegacyFloatingPointDivision_53FDAC"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "ProcessLegacyPowerSpecial_54357C"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "ProcessLegacyX87Exception_5460EB"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "RaiseLegacyFloatingPointException_5473E8"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "ReadAndClearLegacyRawX87Status_5478E9"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "ReadLegacyRawX87Status_5478DB"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "SetLegacyDefaultPrecision_53FD5C"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "SetLegacyMathErrno_5478B2"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "SetLegacyRawX87Status_54791B"
+    },
+    {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "symbol": "TestLegacyFloatingPointDivision_53FD6E"
+    },
+    {
+      "path": "src/platform/LegacyFloatFormat.cpp",
+      "symbol": "AssignLegacyFloatText_53FE95"
+    },
+    {
+      "path": "src/platform/LegacyFloatFormat.cpp",
+      "symbol": "ConvertLegacyFloatText_54019A"
+    },
+    {
+      "path": "src/platform/LegacyFloatFormat.cpp",
+      "symbol": "CropLegacyFloatZeros_53FE2F"
+    },
+    {
+      "path": "src/platform/LegacyFloatFormat.cpp",
+      "symbol": "ForceLegacyDecimalPoint_53FDD5"
+    },
+    {
+      "path": "src/platform/LegacyFloatFormat.cpp",
+      "symbol": "FormatLegacyFloatFixedCached_540177"
+    },
+    {
+      "path": "src/platform/LegacyFloatFormat.cpp",
+      "symbol": "FormatLegacyFloatFixed_53FFD7"
+    },
+    {
+      "path": "src/platform/LegacyFloatFormat.cpp",
+      "symbol": "FormatLegacyFloatGeneral_5400B5"
+    },
+    {
+      "path": "src/platform/LegacyFloatFormat.cpp",
+      "symbol": "FormatLegacyFloatScientificCached_540150"
+    },
+    {
+      "path": "src/platform/LegacyFloatFormat.cpp",
+      "symbol": "FormatLegacyFloatScientific_53FED3"
+    },
+    {
+      "path": "src/platform/LegacyFloatFormat.cpp",
+      "symbol": "InstallLegacyFloatCallbacks_53B45F"
+    },
+    {
+      "path": "src/platform/LegacyFloatFormat.cpp",
+      "symbol": "IsLegacyFloatNonnegative_53FE7D"
+    },
+    {
+      "path": "src/platform/LegacyFloatFormat.cpp",
+      "symbol": "ParseLegacyDouble_544D51"
+    },
+    {
+      "path": "src/platform/LegacyFloatFormat.cpp",
+      "symbol": "ParseLegacyFloat96_546419"
+    },
+    {
+      "path": "src/platform/LegacyFloatFormat.cpp",
+      "symbol": "ParseLegacySingle_544D7E"
+    },
+    {
+      "path": "src/platform/LegacyFloatFormat.cpp",
+      "symbol": "ProduceLegacyFloatDigits_544F17"
+    },
+    {
+      "path": "src/platform/LegacyFloatFormat.cpp",
+      "symbol": "RoundLegacyFloatDigits_544EA0"
+    },
+    {
+      "path": "src/platform/LegacyFloatFormat.cpp",
+      "symbol": "ShiftLegacyFloatText_5401EB"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "Cg2dClassifyLegacyFloat"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "Cg2dClassifyLegacyInteger"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "Cg2dClearLegacyX87Exceptions"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "Cg2dComputeLegacyPower"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "Cg2dControlLegacyRawX87"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "Cg2dHandleLegacyMathException"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "Cg2dLegacyFloatNonnegative"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "Cg2dLegacyNullsub7"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "Cg2dLoadLegacyPowerControlWord"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "Cg2dProcessLegacyPowerSpecial"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "Cg2dProcessLegacyX87Exception"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "Cg2dRaiseLegacyFloatingPointException"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "Cg2dReadAndClearLegacyRawX87Status"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "Cg2dReadLegacyCountByte"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "Cg2dReadLegacyExponentBits"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "Cg2dReadLegacyRawX87Status"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "Cg2dReadLegacyX87Control"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "Cg2dSetLegacyRawX87Status"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "Cg2dTestLegacyFdiv"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "Cg2dWriteLegacyX87Control"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "ComputeLegacyBinaryMathNative"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "ComputeLegacyUnaryMathNative"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "DecomposeLegacyFloatNative"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "ReadHostStatusAsLegacy"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "ReadLegacyExceptionDouble"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "ReadLegacyMathByte"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "ReadLegacyMathW32"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "SetLegacyFloatExponentNative"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "StartLegacyMathError"
+    },
+    {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "symbol": "StoreLegacyExceptionDouble"
+    },
+    {
+      "path": "src/platform/LegacyFloatNumeric.cpp",
+      "symbol": "AddLegacyFloat96_546DB6"
+    },
+    {
+      "path": "src/platform/LegacyFloatNumeric.cpp",
+      "symbol": "AddLegacyFloatWord_546D95"
+    },
+    {
+      "path": "src/platform/LegacyFloatNumeric.cpp",
+      "symbol": "ClearLegacyFloatMantissa_544B05"
+    },
+    {
+      "path": "src/platform/LegacyFloatNumeric.cpp",
+      "symbol": "ConvertLegacyDecimalMantissa_546E6F"
+    },
+    {
+      "path": "src/platform/LegacyFloatNumeric.cpp",
+      "symbol": "ConvertLegacyDoubleTo80_544F7B"
+    },
+    {
+      "path": "src/platform/LegacyFloatNumeric.cpp",
+      "symbol": "ConvertLegacyFloat96ToBinary_544BB9"
+    },
+    {
+      "path": "src/platform/LegacyFloatNumeric.cpp",
+      "symbol": "ConvertLegacyFloat96ToDouble_544D25"
+    },
+    {
+      "path": "src/platform/LegacyFloatNumeric.cpp",
+      "symbol": "ConvertLegacyFloat96ToSingle_544D3B"
+    },
+    {
+      "path": "src/platform/LegacyFloatNumeric.cpp",
+      "symbol": "CopyLegacyFloatMantissa_544AEA"
+    },
+    {
+      "path": "src/platform/LegacyFloatNumeric.cpp",
+      "symbol": "GenerateLegacyFloatDecimal_546F36"
+    },
+    {
+      "path": "src/platform/LegacyFloatNumeric.cpp",
+      "symbol": "IncrementLegacyFloatMantissa_544A08"
+    },
+    {
+      "path": "src/platform/LegacyFloatNumeric.cpp",
+      "symbol": "IsLegacyFloatMantissaTailZero_5449BF"
+    },
+    {
+      "path": "src/platform/LegacyFloatNumeric.cpp",
+      "symbol": "IsLegacyFloatMantissaZero_544B11"
+    },
+    {
+      "path": "src/platform/LegacyFloatNumeric.cpp",
+      "symbol": "LoadFloat16"
+    },
+    {
+      "path": "src/platform/LegacyFloatNumeric.cpp",
+      "symbol": "LoadFloat32"
+    },
+    {
+      "path": "src/platform/LegacyFloatNumeric.cpp",
+      "symbol": "MultiplyLegacyFloat96_547971"
+    },
+    {
+      "path": "src/platform/LegacyFloatNumeric.cpp",
+      "symbol": "RoundLegacyFloatMantissa_544A5E"
+    },
+    {
+      "path": "src/platform/LegacyFloatNumeric.cpp",
+      "symbol": "ScaleLegacyFloat96_547B91"
+    },
+    {
+      "path": "src/platform/LegacyFloatNumeric.cpp",
+      "symbol": "ShiftLegacyFloat96Left_546E14"
+    },
+    {
+      "path": "src/platform/LegacyFloatNumeric.cpp",
+      "symbol": "ShiftLegacyFloat96Right_546E42"
+    },
+    {
+      "path": "src/platform/LegacyFloatNumeric.cpp",
+      "symbol": "ShiftLegacyFloatMantissaRight_544B2C"
+    },
+    {
+      "path": "src/platform/LegacyFloatNumeric.cpp",
+      "symbol": "StoreFloat16"
+    },
+    {
+      "path": "src/platform/LegacyFloatNumeric.cpp",
+      "symbol": "StoreFloat32"
+    },
+    {
+      "path": "src/platform/LegacyFormat.cpp",
+      "symbol": "MultiplyLegacyUnsigned64_542F10"
+    },
+    {
+      "path": "src/platform/LegacyFormat.cpp",
+      "symbol": "ShiftLegacyUnsigned64_544620"
+    },
+    {
+      "path": "src/platform/LegacyFormat.cpp",
+      "symbol": "RemainderLegacyUnsigned64_5447A0"
+    },
+    {
+      "path": "src/platform/LegacyFormat.cpp",
+      "symbol": "LegacyFloatingPointTrap_545031"
+    },
+    {
+      "path": "src/platform/LegacyFormat.cpp",
+      "symbol": "TrapFloatFormat"
+    },
+    {
+      "path": "src/platform/LegacyFormat.cpp",
+      "symbol": "TrapFloatText"
+    },
+    {
+      "path": "src/platform/LegacyFormat.cpp",
+      "symbol": "TrapFloatAssign"
+    },
+    {
+      "path": "src/platform/LegacyFormat.cpp",
+      "symbol": "TrapFloatNonnegative"
+    }
+  ],
+  "pre_migration_consumers": {
+    "source_file_count": 218,
+    "exported_identifier_count": 122,
+    "group_outside_exports": {
+      "src/LegacyUiRecord.cpp": [
+        "Cg2dReadLegacyShopCommandW32"
+      ],
+      "src/platform/LegacyFormat.hpp": [
+        "Cg2dReadLegacyShopCommandW32"
+      ],
+      "src/platform/LegacyMultibyte.cpp": [
+        "Cg2dReadLegacyMappedPair"
+      ],
+      "src/platform/LegacyMultibyte.hpp": [
+        "Cg2dReadLegacyMappedPair"
+      ],
+      "src/platform/LegacyStringCompareState.hpp": [
+        "Cg2dReadLegacyCountByte"
+      ]
+    },
+    "group_outside_includes": [
+      {
+        "path": "src/platform/LegacyRuntimeExit.cpp",
+        "line": 9,
+        "text": "#include \"LegacyFloatEnvironment.hpp\""
+      }
+    ],
+    "u64_helper_outside_exports": {
+      "src/platform/MainLoopSupport.cpp": [
+        "DivideLegacyUnsigned64_53CB10"
+      ]
+    },
+    "business_math_source_unchanged": [
+      "src/platform/MapEffectMath.cpp",
+      "src/platform/LegacyAudioMath.cpp"
+    ],
+    "count_byte_bridge_declaration_only": true
+  },
+  "moved_providers": [
+    {
+      "symbol": "Cg2dReadLegacyShopCommandW32",
+      "before_source": "src/platform/LegacyFloatMath.cpp",
+      "after_source": "src/platform/LegacyFormat.cpp",
+      "declaration": "src/platform/LegacyFormat.hpp",
+      "boundary": "const int32_t*真实声明；1次__movsd拷W32，无整数直接求值/补值或P07修复"
+    },
+    {
+      "symbol": "Cg2dReadLegacyMappedPair",
+      "before_source": "src/platform/LegacyFloatMath.cpp",
+      "after_source": "src/platform/LegacyMultibyte.cpp",
+      "declaration": "src/platform/LegacyMultibyte.hpp",
+      "boundary": "两个逐BYTE __movsb先首再次，W32首<<8+次；真实NLS caller保持"
+    }
+  ],
+  "retained_timer_divide_provider": {
+    "symbol": "DivideLegacyUnsigned64_53CB10",
+    "source": "src/platform/LegacyFormat.cpp",
+    "consumer": "src/platform/MainLoopSupport.cpp",
+    "body_unchanged": true
+  },
+  "source_snapshots": {
+    "src/platform/LegacyFloatEnvironment.cpp": {
+      "path": "src/platform/LegacyFloatEnvironment.cpp",
+      "before_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+      "current_source_retired": true
+    },
+    "src/platform/LegacyFloatEnvironment.hpp": {
+      "path": "src/platform/LegacyFloatEnvironment.hpp",
+      "before_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+      "current_source_retired": true
+    },
+    "src/platform/LegacyFloatFormat.cpp": {
+      "path": "src/platform/LegacyFloatFormat.cpp",
+      "before_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+      "current_source_retired": true
+    },
+    "src/platform/LegacyFloatFormat.hpp": {
+      "path": "src/platform/LegacyFloatFormat.hpp",
+      "before_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+      "current_source_retired": true
+    },
+    "src/platform/LegacyFloatMath.cpp": {
+      "path": "src/platform/LegacyFloatMath.cpp",
+      "before_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+      "current_source_retired": true
+    },
+    "src/platform/LegacyFloatNumeric.cpp": {
+      "path": "src/platform/LegacyFloatNumeric.cpp",
+      "before_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+      "current_source_retired": true
+    },
+    "src/platform/LegacyFloatNumeric.hpp": {
+      "path": "src/platform/LegacyFloatNumeric.hpp",
+      "before_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+      "current_source_retired": true
+    }
+  },
+  "source_changes": {
+    "CMakeLists.txt": {
+      "path": "CMakeLists.txt",
+      "before_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-numeric-20261010",
+      "diff": "--- 迁移前/CMakeLists.txt\n+++ 迁移后/CMakeLists.txt\n@@ -75,20 +75,16 @@\n     src/platform/LegacyHeap.cpp\n     src/platform/LegacyRuntimeError.cpp\n     src/platform/LegacyRuntimeExit.cpp\n     src/platform/LegacySignal.cpp\n     src/platform/LegacyLowIo.cpp\n     src/platform/LegacyStdio.cpp\n     src/platform/LegacyFormat.cpp\n     src/platform/LegacyScan.cpp\n-    src/platform/LegacyFloatFormat.cpp\n-    src/platform/LegacyFloatNumeric.cpp\n-    src/platform/LegacyFloatEnvironment.cpp\n-    src/platform/LegacyFloatMath.cpp\n     src/platform/LegacyMultibyte.cpp\n     src/platform/LegacyNetworkAdapter.cpp\n     src/platform/SdlAudioBackend.cpp\n     src/platform/LegacyWavesReverb.cpp\n     src/platform/LegacyAudioMath.cpp\n     src/platform/LegacyMouse.cpp\n     src/platform/LegacyMouseTracker.cpp\n     src/platform/LegacyCursor.cpp\n"
+    },
+    "src/platform/LegacyFormat.cpp": {
+      "path": "src/platform/LegacyFormat.cpp",
+      "before_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-numeric-20261010",
+      "diff": "--- 迁移前/src/platform/LegacyFormat.cpp\n+++ 迁移后/src/platform/LegacyFormat.cpp\n@@ -1,58 +1,26 @@\n #include \"LegacyFormat.hpp\"\n-#include \"LegacyMultibyte.hpp\"\n-#include \"LegacyRuntimeError.hpp\"\n-#include \"LegacyStringCompareState.hpp\"\n-#include \"cg/platform/LegacyMemory.hpp\"\n-#include \"cg/platform/LegacyTime.hpp\"\n \n #include <bit>\n #include <cstdio>\n-#include <cstring>\n+#include <intrin.h>\n+\n+#pragma intrinsic(__movsd)\n \n namespace cg::platform {\n \n-namespace {\n-\n-char* TrapFloatFormat(double*, char*, std::int32_t, std::int32_t, std::int32_t)\n+// 原4D8F5B仅取一个W32；不直接求值未生产命令，也不补默认值。\n+extern \"C\" std::int32_t Cg2dReadLegacyShopCommandW32(\n+    const std::int32_t* const command) noexcept\n {\n-    LegacyFloatingPointTrap_545031();\n-}\n-\n-void TrapFloatText(char*)\n-{\n-    LegacyFloatingPointTrap_545031();\n-}\n-\n-void TrapFloatAssign(std::int32_t, void*, const char*)\n-{\n-    LegacyFloatingPointTrap_545031();\n-}\n-\n-std::int32_t TrapFloatNonnegative(double*)\n-{\n-    LegacyFloatingPointTrap_545031();\n-}\n-\n-} // namespace\n-\n-const char* gLegacyFormatNullText58FB38 = \"(null)\";\n-const wchar_t* gLegacyFormatNullWide58FB3C = L\"(null)\";\n-LegacyFloatFormatCallback gLegacyFloatFormat58FB50 = TrapFloatFormat;\n-LegacyFloatTextCallback gLegacyFloatCropZeros58FB54 = TrapFloatText;\n-LegacyFloatAssignCallback gLegacyFloatAssign58FB58 = TrapFloatAssign;\n-LegacyFloatTextCallback gLegacyFloatForcePoint58FB5C = TrapFloatText;\n-LegacyFloatNonnegativeCallback gLegacyFloatNonnegative58FB60 = TrapFloatNonnegative;\n-LegacyFloatFormatCallback gLegacyFloatFormatAlias58FB64 = TrapFloatFormat;\n-\n-[[noreturn]] void LegacyFloatingPointTrap_545031()\n-{\n-    ExitLegacyRuntimeError_53DEAB(2);\n-    __assume(0);\n+    static_assert(sizeof(unsigned long) == sizeof(std::uint32_t));\n+    unsigned long value;\n+    __movsd(&value, reinterpret_cast<unsigned long*>(const_cast<std::int32_t*>(command)), 1);\n+    return std::bit_cast<std::int32_t>(static_cast<std::uint32_t>(value));\n }\n \n std::int32_t FormatLegacyOutput_53EB28(LegacyFile* const stream,\n     const char* format, std::va_list arguments)\n {\n     return std::vfprintf(stream, format, arguments);\n }\n \n@@ -79,52 +47,15 @@\n {\n     std::va_list arguments;\n     va_start(arguments, format);\n     const std::int32_t result = std::vfprintf(stream, format, arguments);\n     va_end(arguments);\n     return result;\n }\n \n-std::uint64_t MultiplyLegacyUnsigned64_542F10(\n-    const std::uint64_t first, const std::uint64_t second)\n-{\n-    const auto firstHigh = static_cast<std::uint32_t>(first >> 32);\n-    const auto secondHigh = static_cast<std::uint32_t>(second >> 32);\n-    const auto secondLow = static_cast<std::uint32_t>(second);\n-    const auto firstLow = static_cast<std::uint32_t>(first);\n-    if ((firstHigh | secondHigh) == 0) {\n-        return static_cast<std::uint64_t>(firstLow) * secondLow;\n-    }\n-    std::uint32_t cross = firstHigh * secondLow;\n-    cross += firstLow * secondHigh;\n-    const std::uint64_t lowProduct =\n-        static_cast<std::uint64_t>(firstLow) * secondLow;\n-    return lowProduct + (static_cast<std::uint64_t>(cross) << 32);\n-}\n-\n-std::uint64_t ShiftLegacyUnsigned64_544620(\n-    const std::uint64_t value, const std::uint8_t count)\n-{\n-    if (count >= 64) {\n-        return 0;\n-    }\n-    if (count >= 32) {\n-        const auto low = static_cast<std::uint32_t>(value);\n-        const std::uint32_t high = low << (count & 0x1Fu);\n-        return static_cast<std::uint64_t>(high) << 32;\n-    }\n-    return value << count;\n-}\n-\n-std::uint64_t RemainderLegacyUnsigned64_5447A0(\n-    const std::uint64_t dividend, const std::uint64_t divisor)\n-{\n-    return dividend % divisor;\n-}\n-\n std::uint64_t DivideLegacyUnsigned64_53CB10(\n     const std::uint64_t dividend, const std::uint64_t divisor)\n {\n     return dividend / divisor;\n }\n \n } // namespace cg::platform\n"
+    },
+    "src/platform/LegacyFormat.hpp": {
+      "path": "src/platform/LegacyFormat.hpp",
+      "before_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-numeric-20261010",
+      "diff": "--- 迁移前/src/platform/LegacyFormat.hpp\n+++ 迁移后/src/platform/LegacyFormat.hpp\n@@ -1,42 +1,16 @@\n #pragma once\n \n #include \"LegacyStdio.hpp\"\n \n #include <cstdarg>\n #include <cstdint>\n \n namespace cg::platform {\n-\n-// 原Z记录仅地址拓宽；长度是S16字节数，remaining02不由输出核心消费。\n-struct LegacyCountedFormatString final {\n-    std::int16_t length;\n-    std::uint16_t remaining02;\n-    const void* text;\n-};\n-static_assert(offsetof(LegacyCountedFormatString, text) == 8);\n-static_assert(sizeof(LegacyCountedFormatString) == 16);\n-\n-extern const char* gLegacyFormatNullText58FB38;\n-extern const wchar_t* gLegacyFormatNullWide58FB3C;\n-\n-// 原六个浮点槽；初值均为545031，53B45F按原序安装，启动父仍另行接线。\n-using LegacyFloatFormatCallback = char* (*)(\n-    double*, char*, std::int32_t, std::int32_t, std::int32_t);\n-using LegacyFloatTextCallback = void (*)(char*);\n-using LegacyFloatAssignCallback = void (*)(std::int32_t, void*, const char*);\n-using LegacyFloatNonnegativeCallback = std::int32_t (*)(double*);\n-extern LegacyFloatFormatCallback gLegacyFloatFormat58FB50;\n-extern LegacyFloatTextCallback gLegacyFloatCropZeros58FB54;\n-extern LegacyFloatAssignCallback gLegacyFloatAssign58FB58;\n-extern LegacyFloatTextCallback gLegacyFloatForcePoint58FB5C;\n-extern LegacyFloatNonnegativeCallback gLegacyFloatNonnegative58FB60;\n-extern LegacyFloatFormatCallback gLegacyFloatFormatAlias58FB64;\n-[[noreturn]] void LegacyFloatingPointTrap_545031();\n \n // MC01-B：流输出核心/包装直接vfprintf，全部文件均为实际MSVC FILE。\n std::int32_t FormatLegacyOutput_53EB28(\n     LegacyFile* stream, const char* format, std::va_list arguments);\n // 原4D8DA0@4D8F5B单W32读取；只借对应命令元素地址，经CPP intrinsic取样后给%d。\n // 命令仍仅按原分支写入；CPP该处不直接求值未生产整数，不补值/模拟原栈或外推原值等价。\n extern \"C\" std::int32_t Cg2dReadLegacyShopCommandW32(\n     const std::int32_t* command) noexcept;\n@@ -48,22 +22,13 @@\n std::int32_t FormatLegacyStream_53BC0F(LegacyFile* stream, const char* format, ...);\n \n \n // MC01-B：流/字符串扫描直接vfscanf/vsscanf，目标类型由格式串与调用方保证。\n std::int32_t ScanLegacyInput_53DEF4(\n     LegacyFile* stream, const char* format, std::va_list arguments);\n std::int32_t ScanLegacyString_53CADC(const char* buffer, const char* format, ...);\n \n-// 原542F10合成乘积低64位，保原高半零快路与交叉W32乘加；不是地址扩宽。\n-std::uint64_t MultiplyLegacyUnsigned64_542F10(\n-    std::uint64_t first, std::uint64_t second);\n-// 原544620只消费CL计数BYTE，保>=64原返回0/32..63低半搬高/0..31双字移位。\n-std::uint64_t ShiftLegacyUnsigned64_544620(\n-    std::uint64_t value, std::uint8_t count);\n-\n-// 原U64两helper，参数/返回各64位而非地址；原生无符号算符，不增除零保护或替代值。\n-std::uint64_t RemainderLegacyUnsigned64_5447A0(\n-    std::uint64_t dividend, std::uint64_t divisor);\n+// 原53CB10；MainLoop真实计时除法，U64参数/返回和现调用保持。\n std::uint64_t DivideLegacyUnsigned64_53CB10(\n     std::uint64_t dividend, std::uint64_t divisor);\n \n } // namespace cg::platform\n"
+    },
+    "src/platform/LegacyMultibyte.cpp": {
+      "path": "src/platform/LegacyMultibyte.cpp",
+      "before_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-numeric-20261010",
+      "diff": "--- 迁移前/src/platform/LegacyMultibyte.cpp\n+++ 迁移后/src/platform/LegacyMultibyte.cpp\n@@ -3,16 +3,19 @@\n #include \"LegacyStringCompareState.hpp\"\n #include \"cg/platform/LegacyTime.hpp\"\n #include \"cg/platform/LegacyMemory.hpp\"\n #include \"cg/platform/LegacyStringCompare.hpp\"\n \n #include <bit>\n #include <cstring>\n #include <malloc.h>\n+#include <intrin.h>\n+\n+#pragma intrinsic(__movsb)\n \n #ifndef WIN32_LEAN_AND_MEAN\n #define WIN32_LEAN_AND_MEAN\n #endif\n #ifndef NOMINMAX\n #define NOMINMAX\n #endif\n #include <Windows.h>\n@@ -26,16 +29,24 @@\n \n LegacyMultibyteStorage gLegacyMultibyte1086764 {};\n \n std::uint32_t gLegacyMultibyteTypeBackend10862E4 = 0;\n std::uint32_t gLegacyMultibyteSystemCodePage10862E8 = 0;\n std::uint32_t gLegacyMultibyteInitGuard1087AEC = 0;\n \n namespace {\n+\n+// ACP01/MC01-C2：逐BYTE intrinsic取样，不对未生产对象字节直接作CPP求值。\n+std::uint8_t ReadLegacyMappedByte(const volatile char* const byte) noexcept\n+{\n+    unsigned char value;\n+    __movsb(&value, reinterpret_cast<unsigned char*>(const_cast<char*>(byte)), 1);\n+    return value;\n+}\n \n // 原5923F0的五个48B记录；参数按原三个W32保存，不解释为指针。\n struct MultibyteCodePageDefinition {\n     std::uint32_t codePage;\n     std::uint32_t parameters[3];\n     std::uint8_t ranges[4][8];\n };\n static_assert(sizeof(MultibyteCodePageDefinition) == 48);\n@@ -840,9 +851,21 @@\n }\n \n // 原546CCA只有546CDB委托；保持固定mask及0/1返回。\n std::int32_t IsLegacyMultibyteLead_546CCA(const std::uint32_t character)\n {\n     return ClassifyMultibyteType_546CDB(character, 0, 4);\n }\n \n+namespace detail {\n+\n+// 原543D89/8D/91/94：先首BYTE、再次BYTE，只借同一成功映射结果。\n+extern \"C\" std::uint32_t Cg2dReadLegacyMappedPair(const char* const bytes) noexcept\n+{\n+    const std::uint32_t first = ReadLegacyMappedByte(bytes);\n+    const std::uint32_t second = ReadLegacyMappedByte(bytes + 1);\n+    return (first << 8) + second;\n+}\n+\n+} // namespace detail\n+\n } // namespace cg::platform\n"
+    },
+    "src/platform/LegacyStringCompareState.hpp": {
+      "path": "src/platform/LegacyStringCompareState.hpp",
+      "before_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-numeric-20261010",
+      "diff": "--- 迁移前/src/platform/LegacyStringCompareState.hpp\n+++ 迁移后/src/platform/LegacyStringCompareState.hpp\n@@ -25,21 +25,16 @@\n \n extern LegacyTextLocaleStorage gLegacyTextLocale1086160;\n // 复用原 LegacyTime 符号，仅把独立数值改为上面同址字段的引用。\n extern std::uint32_t& gConversionCodePage_1086170;\n extern std::array<std::uint16_t, 257> gCtypeTable58FC38;\n extern std::uint16_t* gCtypePointer58FC30;\n extern char gNlsProbeD68A7C;\n \n-// 原543D0C；按U32限制计数，循环与结束复读均真实读一个BYTE，不补哨兵或模拟旧栈。\n+// MC01-A：按原U32上限交MSVC strnlen，采用宿主计数/读取合同。\n std::uint32_t CountLegacyBytes_543D0C(const char* source, std::uint32_t limit);\n-\n-namespace detail {\n-// 原543D1C/543D29；只借当前读取地址，由真实ASM返回一个U8，不在CPP求值该对象字节。\n-extern \"C\" std::uint8_t Cg2dReadLegacyCountByte(const volatile char* byte) noexcept;\n-} // namespace detail\n \n // 原543AE8的小范围大小写调用域转完整体；保100H/200H、目标长3、CP0、strict1。\n std::int32_t MapLegacyCase_543AE8(std::uint32_t locale, std::uint32_t flags,\n     const char* source, std::int32_t sourceSize, char* destination);\n \n } // namespace cg::platform\n"
+    },
+    "src/platform/LegacyRuntimeExit.cpp": {
+      "path": "src/platform/LegacyRuntimeExit.cpp",
+      "before_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-numeric-20261010",
+      "diff": "--- 迁移前/src/platform/LegacyRuntimeExit.cpp\n+++ 迁移后/src/platform/LegacyRuntimeExit.cpp\n@@ -1,17 +1,16 @@\n #include \"LegacyRuntimeExit.hpp\"\n #include \"LegacyRuntimeError.hpp\"\n #include \"LegacyStdio.hpp\"\n #include \"LegacyHeap.hpp\"\n #include \"cg/platform/LegacyMemory.hpp\"\n #include \"StartupNative.hpp\"\n #include \"LegacyLowIo.hpp\"\n #include \"LegacyMultibyte.hpp\"\n-#include \"LegacyFloatEnvironment.hpp\"\n #include \"LegacySignal.hpp\"\n #include \"cg/platform/CommandOptions.hpp\"\n \n #include <cstddef>\n #include <bit>\n #include <cstdlib>\n #include <malloc.h>\n \n"
+    }
+  },
+  "semantic_changed_indices": [
+    340,
+    355,
+    356,
+    357,
+    358,
+    376,
+    378,
+    389,
+    390,
+    438,
+    453,
+    455,
+    457,
+    458,
+    459,
+    461,
+    462,
+    463,
+    664,
+    665,
+    666,
+    667,
+    668,
+    669,
+    670,
+    672,
+    673,
+    674,
+    675,
+    676,
+    677,
+    678,
+    679,
+    680,
+    681,
+    682,
+    683,
+    684,
+    685,
+    686,
+    687,
+    688,
+    689,
+    690,
+    691,
+    692,
+    693,
+    694,
+    695,
+    696,
+    697,
+    698,
+    699,
+    700,
+    702,
+    703,
+    1226,
+    1265,
+    1266,
+    1267,
+    1424,
+    1426,
+    1427,
+    1816,
+    1817,
+    1818,
+    1819,
+    1820,
+    1821,
+    1822,
+    1823,
+    1824,
+    1825,
+    1826,
+    1827,
+    1828,
+    1829,
+    1830,
+    1831,
+    1832,
+    1833,
+    1834,
+    1835,
+    1836,
+    1837,
+    1838,
+    1839,
+    1840,
+    1841,
+    1842,
+    1843,
+    1844,
+    1845,
+    1846,
+    1847,
+    1848,
+    1849,
+    1850,
+    1851,
+    1852,
+    1853,
+    1854,
+    1855,
+    1856,
+    1857,
+    1858,
+    2023
+  ],
+  "validation": {
+    "method": "static",
+    "build": false,
+    "tests": false,
+    "runtime": false,
+    "artifacts_inspected": false,
+    "hash": false,
+    "bounded_static_observations": [
+      "两真实读取准确签名/1 DWORD或两个BYTE intrinsic、原读取序及真实consumer保持",
+      "计时U64除法、四格式/两扫描与全部实际数学/控制/字段/RNG源逐字保持",
+      "七退休源/导出/类型/slot/helper无残留，当前107语义source存在且无退休符号",
+      "88 host/8应用数学适配/10共享只移旧消费者/1X身份保持；原事实及完整前态可读",
+      "SDK五实际头/转引声明、所有门禁/任务/政策/历史证据与原分母保持",
+      "UTF-8无BOM/LF、JSON/差异及静态汇总通过；提交前-Check核一致"
+    ]
+  },
+  "remaining": "实际多字节/初始化错误退出与堆策略余组继续MSVC；完整业务/SDK/owner与适用运行门禁保持。",
+  "host_inventory_ids": [
+    "F:0013B447",
+    "F:0013B45F",
+    "F:0013FD6E",
+    "F:0013FDAC",
+    "F:001447A0",
+    "F:00144620",
+    "F:00142F10",
+    "F:00145031",
+    "F:0014019A",
+    "F:0013FDD5",
+    "F:0013FE2F",
+    "F:0013FED3",
+    "F:0013FFD7",
+    "F:001400B5",
+    "F:001401EB",
+    "F:00144EA0",
+    "F:00140150",
+    "F:00140177",
+    "F:00146E14",
+    "F:00146E42",
+    "F:00146DB6",
+    "F:00147B91",
+    "F:00147971",
+    "F:00146D95",
+    "F:00144F7B",
+    "F:00146F36",
+    "F:00144F17",
+    "F:001449BF",
+    "F:00144A08",
+    "F:00144B11",
+    "F:00144B05",
+    "F:00144AEA",
+    "F:00144A5E",
+    "F:00144B2C",
+    "F:00144BB9",
+    "F:00144D25",
+    "F:00144D3B",
+    "F:00146419",
+    "F:00146E6F",
+    "F:00144D51",
+    "F:00144D7E",
+    "F:0013FE7D",
+    "F:0013FE95",
+    "F:001448A4",
+    "F:00144936",
+    "F:00146311",
+    "F:001461E4",
+    "F:001436AC",
+    "F:001462FF",
+    "F:0014357C",
+    "F:001478B2",
+    "F:001478D8",
+    "F:001478DB",
+    "F:001478E9",
+    "F:001478F8",
+    "F:0014769B",
+    "F:0014791B",
+    "F:0014623E",
+    "F:001461BB",
+    "F:001473E8",
+    "F:001460EB",
+    "F:00143390",
+    "F:001433A7",
+    "F:001434D9",
+    "F:0013D019",
+    "F:0013D1F5",
+    "F:00143185",
+    "F:00145360",
+    "F:00145B51",
+    "F:00143097",
+    "F:001430E2",
+    "F:0014310E",
+    "F:00143151",
+    "F:00143176",
+    "F:00143177",
+    "F:0014317E",
+    "F:00145477",
+    "F:00145916",
+    "F:00145929",
+    "F:00145B3C",
+    "F:00145A65",
+    "F:00145B66",
+    "F:00145D6C",
+    "F:00145E1E",
+    "F:00146024",
+    "F:0013DEF3",
+    "F:00143489",
+    "F:001434C5"
+  ],
+  "adapted_inventory_ids": [
+    "F:0013FD5C",
+    "F:0014488E",
+    "F:00144859",
+    "F:0013D000",
+    "F:0013D022",
+    "F:001433F0",
+    "F:00143405",
+    "F:00143435"
+  ],
+  "shared_consumer_inventory_ids": [
+    "F:00143D37",
+    "F:0013D710",
+    "F:00144DB0",
+    "F:0013F9E0",
+    "F:001419D0",
+    "F:00143D0C",
+    "F:000D8DA0",
+    "F:0006F1D0",
+    "F:0013C8CD",
+    "F:0013EB28"
+  ],
+  "fragment_semantic_indices": [
+    2023
+  ],
+  "shared_retired_field_names": {
+    "438": [
+      "asm_cpp_migration"
+    ],
+    "1265": [
+      "asm_cpp_migration"
+    ],
+    "355": [
+      "crt_float_initialization_reference"
+    ],
+    "453": [
+      "unsigned64_arithmetic_internal_call_connections"
+    ]
+  },
+  "retired_extra_symbols": [
+    "LegacyCountedFormatString",
+    "LegacyFloatAssignCallback",
+    "LegacyFloatFormatCallback",
+    "LegacyFloatNonnegativeCallback",
+    "LegacyFloatTextCallback",
+    "gLegacyFloatAssign58FB58",
+    "gLegacyFloatCropZeros58FB54",
+    "gLegacyFloatForcePoint58FB5C",
+    "gLegacyFloatFormat58FB50",
+    "gLegacyFloatFormatAlias58FB64",
+    "gLegacyFloatNonnegative58FB60",
+    "gLegacyFormatNullText58FB38",
+    "gLegacyFormatNullWide58FB3C"
+  ],
+  "function_disposition_additions": [
+    "F:0013B447",
+    "F:0013B45F",
+    "F:0013FD6E",
+    "F:0013FDAC",
+    "F:001447A0",
+    "F:00145031",
+    "F:0014019A",
+    "F:0013FDD5",
+    "F:0013FE2F",
+    "F:0013FED3",
+    "F:0013FFD7",
+    "F:001400B5",
+    "F:001401EB",
+    "F:00144EA0",
+    "F:00140150",
+    "F:00140177",
+    "F:00146E14",
+    "F:00146E42",
+    "F:00146DB6",
+    "F:00147B91",
+    "F:00147971",
+    "F:00146D95",
+    "F:00144F7B",
+    "F:00144F17",
+    "F:001449BF",
+    "F:00144A08",
+    "F:00144B11",
+    "F:00144B05",
+    "F:00144AEA",
+    "F:00144A5E",
+    "F:00144B2C",
+    "F:00144BB9",
+    "F:00144D25",
+    "F:00144D3B",
+    "F:00146419",
+    "F:00146E6F",
+    "F:00144D51",
+    "F:00144D7E",
+    "F:0013FE7D",
+    "F:0013FE95",
+    "F:001448A4",
+    "F:00144936",
+    "F:0013FD5C",
+    "F:0014488E",
+    "F:00144859"
+  ],
+  "function_disposition_updates": [
+    "F:00144620",
+    "F:00142F10",
+    "F:00146F36",
+    "F:00146311",
+    "F:001461E4",
+    "F:001436AC",
+    "F:001462FF",
+    "F:0014357C",
+    "F:001478B2",
+    "F:001478D8",
+    "F:001478DB",
+    "F:001478E9",
+    "F:001478F8",
+    "F:0014769B",
+    "F:0014791B",
+    "F:0014623E",
+    "F:001461BB",
+    "F:001473E8",
+    "F:001460EB",
+    "F:00143390",
+    "F:001433A7",
+    "F:001434D9",
+    "F:0013D019",
+    "F:0013D1F5",
+    "F:00143185",
+    "F:00145360",
+    "F:00145B51",
+    "F:00143097",
+    "F:001430E2",
+    "F:0014310E",
+    "F:00143151",
+    "F:00143176",
+    "F:00143177",
+    "F:0014317E",
+    "F:00145477",
+    "F:00145916",
+    "F:00145929",
+    "F:00145B3C",
+    "F:00145A65",
+    "F:00145B66",
+    "F:00145D6C",
+    "F:00145E1E",
+    "F:00146024",
+    "F:0013DEF3",
+    "F:00143489",
+    "F:001434C5",
+    "F:0013D000",
+    "F:0013D022",
+    "F:001433F0",
+    "F:00143405",
+    "F:00143435"
+  ],
+  "crt_member_additions": [
+    "F:0013B447",
+    "F:0013B45F",
+    "F:0013FD6E",
+    "F:0013FDAC",
+    "F:001447A0",
+    "F:00145031",
+    "F:0014019A",
+    "F:0013FDD5",
+    "F:0013FE2F",
+    "F:0013FED3",
+    "F:0013FFD7",
+    "F:001400B5",
+    "F:001401EB",
+    "F:00144EA0",
+    "F:00140150",
+    "F:00140177",
+    "F:00146E14",
+    "F:00146E42",
+    "F:00146DB6",
+    "F:00147B91",
+    "F:00147971",
+    "F:00146D95",
+    "F:00144F7B",
+    "F:00144F17",
+    "F:001449BF",
+    "F:00144A08",
+    "F:00144B11",
+    "F:00144B05",
+    "F:00144AEA",
+    "F:00144A5E",
+    "F:00144B2C",
+    "F:00144BB9",
+    "F:00144D25",
+    "F:00144D3B",
+    "F:00146419",
+    "F:00146E6F",
+    "F:00144D51",
+    "F:00144D7E",
+    "F:0013FE7D",
+    "F:0013FE95",
+    "F:001448A4",
+    "F:00144936",
+    "F:0013FD5C",
+    "F:0014488E",
+    "F:00144859"
+  ],
+  "source_attachment_resolution": "七明确退休旧源仅历史附件核固定Git快照；当前sem source不许回退。",
+  "aligned_document_paths": [
+    "doc/cg2d_float_decimal_estimate_spec.md",
+    "doc/cg2d_float_classification_leaf_spec.md",
+    "doc/cg2d_math_divide_shared_spec.md",
+    "doc/cg2d_math_shared_dispatch_spec.md",
+    "doc/cg2d_math_residual_leaves_spec.md",
+    "doc/cg2d_math_remainder_chain_spec.md",
+    "doc/cg2d_math_exception_dispatch_spec.md",
+    "doc/cg2d_math_record_range_spec.md",
+    "doc/cg2d_math_memory_parents_spec.md",
+    "doc/cg2d_math_masked_handler_spec.md",
+    "doc/cg2d_math_final_exits_spec.md",
+    "doc/cg2d_math_shared_targets_spec.md",
+    "doc/cg2d_math_division_dispatch_spec.md",
+    "doc/cg2d_math_error_hardware_leaves_spec.md",
+    "doc/cg2d_power_generic_body_spec.md",
+    "doc/cg2d_power_general_helpers_spec.md",
+    "doc/cg2d_power_application_wiring_spec.md",
+    "doc/cg2d_power_special_helper_spec.md",
+    "doc/cg2d_asm_to_cpp_migration_spec.md",
+    "doc/cg2d_crt_runtime_boundary_spec.md",
+    "doc/cg2d_crt_startup_lifecycle_spec.md",
+    "doc/cg2d_stdio_contract.md",
+    "doc/cg2d_startup_flow.md",
+    "doc/cg2d_legacy_multibyte.md",
+    "doc/cg2d_legacy_string_compare.md",
+    "doc/cg2d_crt_host_migration_spec.md",
+    "plan/cg2d_full_reconstruction_plan.md",
+    "plan/cg2d_spec_closure_checklist.md"
+  ],
+  "local_sdk_references": {
+    "method": "只读已安装声明及stdio真实inline委托；不执行库/代码/查产物",
+    "references": [
+      {
+        "root": "MSVC 14.50.35717",
+        "path": "include/intrin.h",
+        "matching_source_lines": [
+          {
+            "line": 25,
+            "text": "#include <intrin0.inl.h>"
+          },
+          {
+            "line": 213,
+            "text": "__MACHINEX86_X64(void __movsb(unsigned char *, unsigned char const *, size_t))"
+          },
+          {
+            "line": 214,
+            "text": "__MACHINEX86_X64(void __movsd(unsigned long *, unsigned long const *, size_t))"
+          }
+        ]
+      },
+      {
+        "root": "MSVC 14.50.35717",
+        "path": "include/cmath",
+        "matching_source_lines": [
+          {
+            "line": 922,
+            "text": "_EXPORT_STD using _CSTD cos;"
+          },
+          {
+            "line": 927,
+            "text": "_EXPORT_STD using _CSTD fmod;"
+          },
+          {
+            "line": 928,
+            "text": "_EXPORT_STD using _CSTD frexp;"
+          },
+          {
+            "line": 930,
+            "text": "_EXPORT_STD using _CSTD log;"
+          },
+          {
+            "line": 933,
+            "text": "_EXPORT_STD using _CSTD pow;"
+          },
+          {
+            "line": 934,
+            "text": "_EXPORT_STD using _CSTD sin;"
+          },
+          {
+            "line": 936,
+            "text": "_EXPORT_STD using _CSTD sqrt;"
+          },
+          {
+            "line": 1024,
+            "text": "_EXPORT_STD using _CSTD scalbn;"
+          }
+        ]
+      },
+      {
+        "root": "Windows SDK 10.0.26100.0 UCRT",
+        "path": "math.h",
+        "matching_source_lines": [
+          {
+            "line": 11,
+            "text": "#include <corecrt_math.h>"
+          }
+        ]
+      },
+      {
+        "root": "Windows SDK 10.0.26100.0 UCRT",
+        "path": "corecrt_math.h",
+        "matching_source_lines": [
+          {
+            "line": 509,
+            "text": "_Check_return_ double __cdecl cos(_In_ double _X);"
+          },
+          {
+            "line": 513,
+            "text": "_Check_return_ double __cdecl fmod(_In_ double _X, _In_ double _Y);"
+          },
+          {
+            "line": 514,
+            "text": "_Check_return_ double __cdecl log(_In_ double _X);"
+          },
+          {
+            "line": 516,
+            "text": "_Check_return_ double __cdecl pow(_In_ double _X, _In_ double _Y);"
+          },
+          {
+            "line": 517,
+            "text": "_Check_return_ double __cdecl sin(_In_ double _X);"
+          },
+          {
+            "line": 519,
+            "text": "_Check_return_ _CRT_JIT_INTRINSIC double __cdecl sqrt(_In_ double _X);"
+          },
+          {
+            "line": 543,
+            "text": "_Check_return_ _ACRTIMP double    __cdecl frexp(_In_ double _X, _Out_ int* _Y);"
+          },
+          {
+            "line": 569,
+            "text": "_Check_return_ _ACRTIMP double __cdecl scalbn(_In_ double _X, _In_ int _Y);"
+          },
+          {
+            "line": 683,
+            "text": "return (float)cos(_X);"
+          },
+          {
+            "line": 730,
+            "text": "return (float)fmod(_X, _Y);"
+          },
+          {
+            "line": 737,
+            "text": "return (float)frexp(_X, _Y);"
+          },
+          {
+            "line": 771,
+            "text": "return (float)log(_X);"
+          },
+          {
+            "line": 784,
+            "text": "return (float)pow(_X, _Y);"
+          },
+          {
+            "line": 789,
+            "text": "return (float)sin(_X);"
+          },
+          {
+            "line": 799,
+            "text": "return (float)sqrt(_X);"
+          },
+          {
+            "line": 866,
+            "text": "return cos((double)_X);"
+          },
+          {
+            "line": 898,
+            "text": "return fmod((double)_X, (double)_Y);"
+          },
+          {
+            "line": 903,
+            "text": "return frexp((double)_X, _Y);"
+          }
+        ]
+      },
+      {
+        "root": "Windows SDK 10.0.26100.0 UCRT",
+        "path": "stdio.h",
+        "matching_source_lines": [
+          {
+            "line": 650,
+            "text": "_CRT_STDIO_INLINE int __CRTDECL vfprintf("
+          },
+          {
+            "line": 1072,
+            "text": "_CRT_STDIO_INLINE int __CRTDECL vfscanf("
+          },
+          {
+            "line": 1402,
+            "text": "_CRT_STDIO_INLINE int __CRTDECL _vsnprintf("
+          },
+          {
+            "line": 1465,
+            "text": "_CRT_STDIO_INLINE int __CRTDECL vsprintf("
+          },
+          {
+            "line": 1951,
+            "text": "_Result = _vsnprintf(_Buffer, _BufferCount, _Format, _ArgList);"
+          },
+          {
+            "line": 2160,
+            "text": "_CRT_STDIO_INLINE int __CRTDECL vsscanf("
+          }
+        ]
+      }
+    ]
+  },
+  "current_measured_state": {
+    "semantic_records": 2029,
+    "semantic_original_ids": 1981,
+    "semantic_range_identities": 48,
+    "document_linked_functions": 2091,
+    "reviewed_function_dispositions": 1411,
+    "known_crt_members": 466,
+    "crt_member_inventory_closed": false,
+    "software_evidence_records": 1333,
+    "leaf_features": 184,
+    "globally_accepted": false,
+    "tasks": 60,
+    "closed_tasks": 11,
+    "unassigned_ranges_mapped": 3060,
+    "unassigned_ranges_remaining": 1
+  }
+}

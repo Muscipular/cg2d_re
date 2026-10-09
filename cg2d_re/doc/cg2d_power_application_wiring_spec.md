@@ -1,5 +1,7 @@
 # 完整幂接通两地图原调用点SPEC（BWL01）
 
+> 2026-10-10当前数值库边界：[MC01-C2](cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010)已退休无现业务调用的旧浮点格式/96位转换/环境与pow错误私有组，数值格式/数学及库内状态交MSVC。实际地图/音频数学源与控制作用域保持，两Shop/NLS低宽读取移回既有模块，计时U64除法保留；旧gate/数学记录/CPU探测和其余内部CPP/ASM源码状态属固定历史，不再要求复刻。全部适用业务/owner/SDK正常结果与运行门禁保持，未编译/运行。
+
 > 2026-10-09最新数值实现：[ACP01-M](cg2d_asm_to_cpp_migration_spec.md#asm-cpp-map-source-state)将地图13数学/投影入口迁CPP/double/std数学，覆盖本组旧x87/PC53/ST0数值保证；原字段、F32落存与读取/发布序保持。原ASM实现/机器验收留作历史，不代当前CPP编译/运行。
 
 <a id="power-app-baseline"></a>

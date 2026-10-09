@@ -118,7 +118,10 @@
         "doc/cg2d_msvc_crt_file_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -270,7 +273,10 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -286,7 +292,8 @@
         "CAC07本域新增成员仅已有真实源及原分派数据关联；本批512X用途有证不代13父完整算法/签名/所有callee、间接alias、生产及正常owner寿命/SDK/机器ABI/运行。本域成员枚举和B/I/W/S/R继续未闭，不新增软件通过。",
         "CAC11实际原图标/十一鼠标光标资源实例装载及真实WinMain两加载点已编码，现同源窗类/句柄和SetCursor借用不变；本域仅该原入口已知成员，非新功能分母或闭枚举。当前磁盘资源与IDB不能互代，权限/匹配/像素热点/全部加载成功失败及SDK/正常寿命/完整启动输入资源和运行继续待，局部静态不提升完整门禁。",
         "MC01-B已成组迁移实际MSVC FILE/描述符及流格式/状态/关闭；已证owner失效处理已接。完整CRT对象/初始化退出余组、业务/owner/SDK运行仍未验。",
-        "MC01-C1已退休无现组外消费者的六私有C++库及NCE payload，当前真实MSVC对象/Init/locale承接；旧尺寸/引用/registry/codecvt/异常私有核不再追加开发债务。完整业务初始化/清理、owner/未知原alias、SDK实际构析及运行仍未验，其余CRT继续成组迁移。"
+        "MC01-C1已退休无现组外消费者的六私有C++库及NCE payload，当前真实MSVC对象/Init/locale承接；旧尺寸/引用/registry/codecvt/异常私有核不再追加开发债务。完整业务初始化/清理、owner/未知原alias、SDK实际构析及运行仍未验，其余CRT继续成组迁移。",
+        "MC01-C2退休旧浮点/环境私有组，实际地图/音频数学源与控制作用域不变；两Shop/NLS intrinsic读取移到实际模块，计时U64除法保持。旧库数值/错误/CPU探测私有核不追加开发债务；全部实际业务/字段/owner/SDK正常结果及运行门禁保持。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -417,7 +424,10 @@
         "doc/cg2d_msvc_crt_file_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
       "original_inventory_ids": [
         "F:00001C10",
@@ -840,7 +850,52 @@
         "F:0014A19C",
         "F:00053E30",
         "F:00053E70",
-        "F:001495EE"
+        "F:001495EE",
+        "F:0013B447",
+        "F:0013B45F",
+        "F:0013FD6E",
+        "F:0013FDAC",
+        "F:001447A0",
+        "F:00145031",
+        "F:0014019A",
+        "F:0013FDD5",
+        "F:0013FE2F",
+        "F:0013FED3",
+        "F:0013FFD7",
+        "F:001400B5",
+        "F:001401EB",
+        "F:00144EA0",
+        "F:00140150",
+        "F:00140177",
+        "F:00146E14",
+        "F:00146E42",
+        "F:00146DB6",
+        "F:00147B91",
+        "F:00147971",
+        "F:00146D95",
+        "F:00144F7B",
+        "F:00144F17",
+        "F:001449BF",
+        "F:00144A08",
+        "F:00144B11",
+        "F:00144B05",
+        "F:00144AEA",
+        "F:00144A5E",
+        "F:00144B2C",
+        "F:00144BB9",
+        "F:00144D25",
+        "F:00144D3B",
+        "F:00146419",
+        "F:00146E6F",
+        "F:00144D51",
+        "F:00144D7E",
+        "F:0013FE7D",
+        "F:0013FE95",
+        "F:001448A4",
+        "F:00144936",
+        "F:0013FD5C",
+        "F:0014488E",
+        "F:00144859"
       ],
       "closure_task_ids": [
         "C01",
@@ -912,15 +967,19 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
       "blockers": [
         "已知原成员登记并不构成全部CRT/混合边界/未知间接调用闭包；member_inventory_closed仍false，全部原事实及证据保历史。",
         "MC01-A/B及C1已将标量、FILE/描述符/格式扫描和C++对象职责交MSVC；全部当前业务参数/格式/资源与协议结果、真实返回消费及owner/alias仍须完整验收，不称原体等价。旧库内部尺寸/布局/共享/locale/codecvt/异常payload与私有核不再追加开发债务。",
-        "现剩余浮点格式/数值、多字节与堆策略/错误/信号/初始化退出设施沿MC01-C后续成组收敛；实际业务数组、callback、字段和清理不得当作库私有实现删除。",
+        "MC01-C2浮点格式/数值/旧环境及无消费者U64帮助体已退休；实际多字节与堆策略/错误/信号/初始化退出设施沿MC01-C后续成组收敛；实际业务数组、callback、字段和清理不得当作库私有实现删除。",
         "完整应用相对初始化序、跨TU首次使用、业务成员/数组失败前缀与逆序清理、所有owner及normal/quick/callable退出和SDK生命周期未验；不恢复旧cinit/90表重复构造。",
         "ACP01授权double/标准数学并保业务F32/整数读取及发布序；实际浮点环境/系统回调、场景/RNG/像素正常结果、其余实际父与SDK运行仍待，旧ASM/x87私有ABI不再作为当前实现目标。",
-        "当前源码未构建/测试/运行；已安装SDK服务/声明与历史Debug链接不代当前库ABI或完整业务结果、启动退出运行。六closure与全部适用门禁保持开放。"
+        "当前源码未构建/测试/运行；已安装SDK服务/声明与历史Debug链接不代当前库ABI或完整业务结果、启动退出运行。六closure与全部适用门禁保持开放。",
+        "MC01-C2退休旧浮点/环境私有组，实际地图/音频数学源与控制作用域不变；两Shop/NLS intrinsic读取移到实际模块，计时U64除法保持。旧库数值/错误/CPU探测私有核不追加开发债务；全部实际业务/字段/owner/SDK正常结果及运行门禁保持。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2489,7 +2548,10 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
         "doc/cg2d_scene_state.md#map-direction-byte-bridge-baseline-20261009",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-map-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-map-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -2692,7 +2754,10 @@
         "doc/cg2d_power_application_wiring_spec.md#power-app-decision",
         "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
         "doc/cg2d_projection_sampling_return_spec.md#projection-x87-decision",
-        "doc/cg2d_scene_state.md#map-direction-byte-bridge-decision-20261009"
+        "doc/cg2d_scene_state.md#map-direction-byte-bridge-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -2750,7 +2815,8 @@
         "BWL01将46F38D/46F43A两已证地图CI窗口经现spawn/除数接口接完整一般CI/core与全部真实依赖。两原窗42条148B/四CALL，保FLD1.25→FILD signedLevel-1→CI→连续ST0幅值/回退/除法/原I64截断低S32消费。两现文件五改动，一已有ASM本体替换/零新本体或F/owner；72B正常帧保32B调用区、S32/三CW/原生幅值指针和I64结果，跨CALL保存重读指针，不拿EDX原CW载体当地址。撤固定域FYL2X/TwoToTOS内联，真实CI EXTERN/call接入同startup库；现PC53/控制字尾恢复、Cpp两spawn的字段门槛/零divisor/RNG/记录后消费及通用提供者/CMake保持。六既有映射/F当前关系由内联改真实传递调用，前态与MFA/BPJ/BPM/BWF/BWK历史可追；MAP129/CRT176与F999/全部数量/定位150及CRT余22保持，两域四限定I-S。共享CRT分派/未知父与全应用生命周期、机器ABI/链接运行继续，原格式明文/音频暂停/RPLAN.24保。",
         "CAC07本域新增成员仅已有真实源及原分派数据关联；本批512X用途有证不代13父完整算法/签名/所有callee、间接alias、生产及正常owner寿命/SDK/机器ABI/运行。本域成员枚举和B/I/W/S/R继续未闭，不新增软件通过。",
         "CAC08本域新增成员仅当前真实源及本批原分派数据关联；完整35父未重新捕获/全体验收。11无F回调及15原型只局部静态纳管，完整成员/所有callee、数据生产、外层间接分派、正常owner寿命/SDK/机器ABI与运行继续未闭。",
-        "CAC09仅原46E3E0在0x44记录字节视图一私有桥实修及原指针版保留；完整44/115B与五调用邻窗/末地址可追。三局部I/W/S及一adapted处置不提升完整成员枚举/门禁，不代五父完整生产消费、所有alias/正常owner寿命、机器ABI/画面与运行。"
+        "CAC09仅原46E3E0在0x44记录字节视图一私有桥实修及原指针版保留；完整44/115B与五调用邻窗/末地址可追。三局部I/W/S及一adapted处置不提升完整成员枚举/门禁，不代五父完整生产消费、所有alias/正常owner寿命、机器ABI/画面与运行。",
+        "MC01-C2退休旧浮点/环境私有组，实际地图/音频数学源与控制作用域不变；两Shop/NLS intrinsic读取移到实际模块，计时U64除法保持。旧库数值/错误/CPU探测私有核不追加开发债务；全部实际业务/字段/owner/SDK正常结果及运行门禁保持。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -4768,7 +4834,10 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#wav-only-scope-source-state-20261009",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-decision",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-audio-source-state",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-baseline"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-baseline",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
       "original_inventory_ids": [
         "F:00054C30",
@@ -4875,7 +4944,10 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-midi-control-decision-20261009",
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-pedal-reset-decision-20261009",
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-dls-key-group-decision-20261009",
-        "doc/cg2d_client_link_sdl_audio_spec.md#wav-only-development-scope-20261009"
+        "doc/cg2d_client_link_sdl_audio_spec.md#wav-only-development-scope-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
       "blockers": [
         "CAC16按用户再次确认停止后续MIDI/DLS工具开发；一次转换及CAC13–15只保留历史限定证据，现WAV和客户端未因此更新，不将CC/RPN/DLS模拟列后续开发债务。当前WAV质量/适用原音源结果、实际调用/设置/资源/设备/效果/声音/循环/通知/失败/正常寿命及成员枚举仍待，不提升完整门禁或扩大原身份排除。",
@@ -4889,7 +4961,8 @@
         "CAB08首段完整PCM预填→ready→smpl终点发布已修、四原职责有SDL来源；CAB15当前客户端编译链接通过，全部失败/诊断状态、调度/波形与正常寿命仍未验",
         "CAB07两设置初始化/完整页面与原生绑定已实现并随CAB15当前客户端链接；真实旧99表外层接线、全部音频效果/寿命与运行仍待，scope=included只表示开发范围",
         "AUDIO41原成员枚举仍未闭；旧7/旧8、完整WAV/通知/生命周期及音源效果/听感、真实声音/失败/退出仍未验收；类型1原16B资源按用户最新要求视为空音频，停止旧播放后立即成功，零时长不循环",
-        "CAC20仅本批数据/ABI尾部与私有单叶宿主职责；完整父/所有callee、生产与未知alias/正常owner寿命、SDK生成ABI及运行继续未闭；输入元数据不证明当前使用，八字节用途仍待，成员枚举保持false。"
+        "CAC20仅本批数据/ABI尾部与私有单叶宿主职责；完整父/所有callee、生产与未知alias/正常owner寿命、SDK生成ABI及运行继续未闭；输入元数据不证明当前使用，八字节用途仍待，成员枚举保持false。",
+        "MC01-C2退休旧浮点/环境私有组，实际地图/音频数学源与控制作用域不变；两Shop/NLS intrinsic读取移到实际模块，计时U64除法保持。旧库数值/错误/CPU探测私有核不追加开发债务；全部实际业务/字段/owner/SDK正常结果及运行门禁保持。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -57419,6 +57492,78 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-10"
+    },
+    {
+      "id": "E-MSVC-CRT-NUMERIC-FUNC-CRT-I-20261010",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "MC01用户CRT直接MSVC与C2决议；组前态固定快照 cg2d-re-msvc-crt-numeric-history-20261010",
+      "implementation_reference": "Git固定快照 cg2d-re-msvc-crt-numeric-20261010",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "src/platform/LegacyFormat.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyMultibyte.cpp",
+        "src/platform/LegacyMultibyte.hpp",
+        "src/platform/LegacyStringCompareState.hpp",
+        "src/platform/LegacyRuntimeExit.cpp",
+        "src/platform/MainLoopSupport.cpp",
+        "src/platform/MapEffectMath.cpp",
+        "src/platform/LegacyAudioMath.cpp",
+        "CMakeLists.txt",
+        "plan/measure_cg2d.ps1"
+      ],
+      "observation": "核四CPP/三头及全部导出/数据/引用、旧格式slot/trap/三个U64辅助，两真实读取消费者及MainLoop除法、标准数学源/现接口保持。",
+      "expected": "数值格式/转换/旧环境与错误私有核归MSVC，不保第二套gate/table/对象；两实际intrinsic读宽度/序/借用保持，声明定义同源，业务参数/格式/字段/RNG及所有适用门禁不变。",
+      "actual": "退休7文件/2460行与106定义；两实际读取移到现有模块，计时U64除法保留，三无消费U64助手/六float slots/trap/Counted类型退休；107现语义对齐，88 host/8适配/10共享仅移消费者及一原X片段身份保持。限定静态，不编译或运行。",
+      "differences": [
+        {
+          "description": "旧浮点文本/96位转换、CPU探测/CW表示、pow gate/数学错误记录及库内RaiseException链由真实MSVC库持有，具名覆盖旧ACP01-C阶段保留要求。",
+          "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-10"
+    },
+    {
+      "id": "E-MSVC-CRT-NUMERIC-FUNC-CRT-S-20261010",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "MC01用户CRT直接MSVC与C2决议；组前态固定快照 cg2d-re-msvc-crt-numeric-history-20261010",
+      "implementation_reference": "Git固定快照 cg2d-re-msvc-crt-numeric-20261010",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "src/platform/LegacyFormat.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyMultibyte.cpp",
+        "src/platform/LegacyMultibyte.hpp",
+        "src/platform/LegacyStringCompareState.hpp",
+        "src/platform/LegacyRuntimeExit.cpp",
+        "src/platform/MainLoopSupport.cpp",
+        "src/platform/MapEffectMath.cpp",
+        "src/platform/LegacyAudioMath.cpp",
+        "CMakeLists.txt",
+        "plan/measure_cg2d.ps1"
+      ],
+      "observation": "核四CPP/三头及全部导出/数据/引用、旧格式slot/trap/三个U64辅助，两真实读取消费者及MainLoop除法、标准数学源/现接口保持。",
+      "expected": "数值格式/转换/旧环境与错误私有核归MSVC，不保第二套gate/table/对象；两实际intrinsic读宽度/序/借用保持，声明定义同源，业务参数/格式/字段/RNG及所有适用门禁不变。",
+      "actual": "退休7文件/2460行与106定义；两实际读取移到现有模块，计时U64除法保留，三无消费U64助手/六float slots/trap/Counted类型退休；107现语义对齐，88 host/8适配/10共享仅移消费者及一原X片段身份保持。限定静态，不编译或运行。",
+      "differences": [
+        {
+          "description": "旧浮点文本/96位转换、CPU探测/CW表示、pow gate/数学错误记录及库内RaiseException链由真实MSVC库持有，具名覆盖旧ACP01-C阶段保留要求。",
+          "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-10"
     }
   ],
   "task_acceptance": [
@@ -57554,7 +57699,10 @@
         "doc/cg2d_current_audio_build_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ]
     },
     {
@@ -57600,7 +57748,10 @@
         "doc/cg2d_msvc_crt_file_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ]
     },
     {
@@ -57784,7 +57935,10 @@
         "doc/cg2d_msvc_crt_file_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
       "task_id": "C08",
       "state": "open"
@@ -57812,7 +57966,10 @@
         "doc/cg2d_msvc_crt_file_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
       "task_id": "C11",
       "state": "open"
@@ -57829,7 +57986,10 @@
         "doc/cg2d_unassigned_range_eighth_batch_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
       "task_id": "C06",
       "state": "open"
@@ -57890,7 +58050,10 @@
         "doc/cg2d_msvc_crt_file_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
       "task_id": "C01",
       "state": "open"
@@ -57985,7 +58148,10 @@
         "doc/cg2d_msvc_crt_scalar_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_evidence.json"
+        "doc/cg2d_msvc_crt_file_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ]
     },
     {
@@ -58201,7 +58367,10 @@
         "doc/cg2d_msvc_crt_file_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ]
     },
     {
@@ -58478,7 +58647,10 @@
         "doc/cg2d_msvc_crt_file_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ]
     },
     {
@@ -58516,7 +58688,10 @@
         "doc/cg2d_msvc_crt_file_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ]
     },
     {
@@ -58609,7 +58784,10 @@
         "doc/cg2d_msvc_crt_file_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ]
     },
     {
@@ -58698,7 +58876,10 @@
         "plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_evidence.json"
+        "doc/cg2d_msvc_crt_file_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ]
     },
     {
@@ -58729,7 +58910,10 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
         "doc/cg2d_unassigned_range_seventh_batch_evidence.json",
         "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-source-state",
-        "doc/cg2d_unassigned_range_eighth_batch_evidence.json"
+        "doc/cg2d_unassigned_range_eighth_batch_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ]
     },
     {
@@ -59085,7 +59269,10 @@
         "doc/cg2d_msvc_crt_file_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ]
     },
     {
@@ -59308,7 +59495,10 @@
         "doc/cg2d_msvc_crt_file_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ]
     },
     {
@@ -59748,7 +59938,10 @@
         "doc/cg2d_offline_dls_key_group_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#wav-only-development-scope-20261009",
         "doc/cg2d_client_link_sdl_audio_spec.md#wav-only-scope-source-state-20261009",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-audio-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-audio-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ]
     },
     {
@@ -60032,7 +60225,10 @@
         "doc/cg2d_msvc_crt_file_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ]
     },
     {
@@ -60040,7 +60236,10 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_shop_command_read_spec.md#shop-command-read-source-state"
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ]
     },
     {
@@ -60064,7 +60263,10 @@
         "doc/cg2d_msvc_crt_file_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ]
     },
     {
@@ -60078,7 +60280,7 @@
       ]
     }
   ],
-  "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。 GQ01由同一汇总器生成development_gap_queue与看板§5；只列定位/语义身份登记差集，不把缺历史定位当源码未实现，不手改队列。 CRI01无独立函数ID的已证代码片段可按原X区间/实际边界绑定；校验身份与证据后另计，不混入缺身份队列，不增加函数分母。 ACP01-A按最新double/std数学许可迁音频6入口CPP；更新现提供者及两限定静态证据，三ASM历史附件仍由固定Git快照核存在；完整门禁/成员/任务状态与MIDI停止范围保持。 ACP01-M将地图13数学/投影入口迁CPP，8现提供者同步，新增两限定I/S，原CI消费点明示std::pow承接；CRT环境仍待，不关闭完整gates/成员/任务。 ACP01-C完成第三ASM源迁移，22接口/70私有机器ABI退役/5非PUBLIC宿主承接，当前数学现提供者与host/mixed处置同步；新增两限定I/S，三ASM/MASM已移除，原身份/成员/完整gates/任务/六closure不闭合。 HMU01按malloc方向和工程委托统一通用全部模式CRT；9实际提供者/12旧池退休/8类型/10槽，25语义当前提供者与host/adapted处置对齐，3限定静态证据；完整门禁/成员/任务/六closure保持。 2026-10-09 CAC17：按用户要求更新七源/头18处过时注释；代码/声明/字段/调用保持，零新增原身份/语义/处置/软件证据，完整门禁/任务关闭/成员/六closure不变；见plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009。 2026-10-09 CAC18：第六批512原X完整用途和49表307槽/19索引/18对齐/三回调八原型，仅辅助mapped与九已有/26新父数据关联及三无F代码身份；已审区间2021余1040，源码/完整门禁/软件证据/任务状态和六closure保持。 2026-10-09 CAC19：第七批512原X/5733B完整用途；15表97槽/两索引/四对齐/22代码，五原型、十八旧键与一旧选择来源，七旧/六新父仅数据关联。已审区间2533余528，零客户端源码/软件证据增量；完整门禁/任务状态/成员枚举和六closure保持。 2026-10-09 CAC20：528候选全读、527原X用途mapped，已审3060/3061；X:00142E29-00142E34内八字节用途未证留待，不猜填充/排除。九表/输入元数据/PE原节尾/键盘包装/三ABI尾部有据；单一53B4F2受限host职责新增，零客户端源码/软件证据通过，完整门禁/任务状态/成员枚举/六closure保持。 CAC20静态汇总拒绝53B51F无独立现源码的语义代码身份后，撤掉该条；原用途/完整字节和未决实际转入仍保留，不放宽校验。 MC01-A按用户CRT直接使用MSVC新要求先记总范围与分组SPEC，33入口/29新提供者、TLS错误和八退休辅助同步；保原身份/前态、局部静态证据与全部完整门禁，FILE/lowio和C++余组继续。 MC01-B成组迁MSVC FILE/描述符/流格式与状态/ctime/fpos/关闭；39私有定义及旧入口/C表退休，shared calloc仅除stdio消费者；旧映射沿固定快照可读，当前全部门禁/任务状态保持，完整C++余组继续。 MC01-C1退休六组无现组外消费者的私有C++库/NCE头及旧展开适配，实际MSVC标准流/Init/locale和全部业务初始化退出保持；现语义/共享消费与历史附件快照对齐，新增两限定I/S，完整功能门禁/成员闭包/任务状态保持。",
+  "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。 GQ01由同一汇总器生成development_gap_queue与看板§5；只列定位/语义身份登记差集，不把缺历史定位当源码未实现，不手改队列。 CRI01无独立函数ID的已证代码片段可按原X区间/实际边界绑定；校验身份与证据后另计，不混入缺身份队列，不增加函数分母。 ACP01-A按最新double/std数学许可迁音频6入口CPP；更新现提供者及两限定静态证据，三ASM历史附件仍由固定Git快照核存在；完整门禁/成员/任务状态与MIDI停止范围保持。 ACP01-M将地图13数学/投影入口迁CPP，8现提供者同步，新增两限定I/S，原CI消费点明示std::pow承接；CRT环境仍待，不关闭完整gates/成员/任务。 ACP01-C完成第三ASM源迁移，22接口/70私有机器ABI退役/5非PUBLIC宿主承接，当前数学现提供者与host/mixed处置同步；新增两限定I/S，三ASM/MASM已移除，原身份/成员/完整gates/任务/六closure不闭合。 HMU01按malloc方向和工程委托统一通用全部模式CRT；9实际提供者/12旧池退休/8类型/10槽，25语义当前提供者与host/adapted处置对齐，3限定静态证据；完整门禁/成员/任务/六closure保持。 2026-10-09 CAC17：按用户要求更新七源/头18处过时注释；代码/声明/字段/调用保持，零新增原身份/语义/处置/软件证据，完整门禁/任务关闭/成员/六closure不变；见plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009。 2026-10-09 CAC18：第六批512原X完整用途和49表307槽/19索引/18对齐/三回调八原型，仅辅助mapped与九已有/26新父数据关联及三无F代码身份；已审区间2021余1040，源码/完整门禁/软件证据/任务状态和六closure保持。 2026-10-09 CAC19：第七批512原X/5733B完整用途；15表97槽/两索引/四对齐/22代码，五原型、十八旧键与一旧选择来源，七旧/六新父仅数据关联。已审区间2533余528，零客户端源码/软件证据增量；完整门禁/任务状态/成员枚举和六closure保持。 2026-10-09 CAC20：528候选全读、527原X用途mapped，已审3060/3061；X:00142E29-00142E34内八字节用途未证留待，不猜填充/排除。九表/输入元数据/PE原节尾/键盘包装/三ABI尾部有据；单一53B4F2受限host职责新增，零客户端源码/软件证据通过，完整门禁/任务状态/成员枚举/六closure保持。 CAC20静态汇总拒绝53B51F无独立现源码的语义代码身份后，撤掉该条；原用途/完整字节和未决实际转入仍保留，不放宽校验。 MC01-A按用户CRT直接使用MSVC新要求先记总范围与分组SPEC，33入口/29新提供者、TLS错误和八退休辅助同步；保原身份/前态、局部静态证据与全部完整门禁，FILE/lowio和C++余组继续。 MC01-B成组迁MSVC FILE/描述符/流格式与状态/ctime/fpos/关闭；39私有定义及旧入口/C表退休，shared calloc仅除stdio消费者；旧映射沿固定快照可读，当前全部门禁/任务状态保持，完整C++余组继续。 MC01-C1退休六组无现组外消费者的私有C++库/NCE头及旧展开适配，实际MSVC标准流/Init/locale和全部业务初始化退出保持；现语义/共享消费与历史附件快照对齐，新增两限定I/S，完整功能门禁/成员闭包/任务状态保持。 MC01-C2浮点文本/数值/环境组退休，实际业务math源及计时除法保持，两真实Shop/NLS intrinsic读移到现有模块；无消费slot/helper/gate/类型退休，新增两限定I/S及精确登记，完整门禁/任务保持。",
   "function_dispositions": [
     {
       "disposition": "adapted",
@@ -64306,7 +64508,7 @@
     },
     {
       "inventory_id": "F:0013D000",
-      "disposition": "mixed",
+      "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline",
@@ -64325,13 +64527,22 @@
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-decision",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-map-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：ACP01-M最新：地图13数值入口已迁CPP/std数学；地图CI消费改std::pow，不代表原CRT自身/其它父已迁或数值等价，原业务读取/发布序保持。迁移前记录：BWL01将46F38D/46F43A两已证地图CI窗口经现spawn/除数接口接完整一般CI/core与全部真实依赖。两原窗42条148B/四CALL，保FLD1.25→FILD signedLevel-1→CI→连续ST0幅值/回退/除法/原I64截断低S32消费。两现文件五改动，一已有ASM本体替换/零新本体或F/owner；72B正常帧保32B调用区、S32/三CW/原生幅值指针和I64结果，跨CALL保存重读指针，不拿EDX原CW载体当地址。撤固定域FYL2X/TwoToTOS内联，真实CI EXTERN/call接入同startup库；现PC53/控制字尾恢复、Cpp两spawn的字段门槛/零divisor/RNG/记录后消费及通用提供者/CMake保持。六既有映射/F当前关系由内联改真实传递调用，前态与MFA/BPJ/BPM/BWF/BWK历史可追；MAP129/CRT176与F999/全部数量/定位150及CRT余22保持，两域四限定I-S。共享CRT分派/未知父与全应用生命周期、机器ABI/链接运行继续，原格式明文/音频暂停/RPLAN.24保。 原历史：BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:0013D000",
+        "value": "mixed"
+      }
     },
     {
       "inventory_id": "F:0013D022",
-      "disposition": "mixed",
+      "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline",
@@ -64350,9 +64561,18 @@
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-decision",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-map-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：ACP01-M最新：地图13数值入口已迁CPP/std数学；地图CI消费改std::pow，不代表原CRT自身/其它父已迁或数值等价，原业务读取/发布序保持。迁移前记录：BWL01将46F38D/46F43A两已证地图CI窗口经现spawn/除数接口接完整一般CI/core与全部真实依赖。两原窗42条148B/四CALL，保FLD1.25→FILD signedLevel-1→CI→连续ST0幅值/回退/除法/原I64截断低S32消费。两现文件五改动，一已有ASM本体替换/零新本体或F/owner；72B正常帧保32B调用区、S32/三CW/原生幅值指针和I64结果，跨CALL保存重读指针，不拿EDX原CW载体当地址。撤固定域FYL2X/TwoToTOS内联，真实CI EXTERN/call接入同startup库；现PC53/控制字尾恢复、Cpp两spawn的字段门槛/零divisor/RNG/记录后消费及通用提供者/CMake保持。六既有映射/F当前关系由内联改真实传递调用，前态与MFA/BPJ/BPM/BWF/BWK历史可追；MAP129/CRT176与F999/全部数量/定位150及CRT余22保持，两域四限定I-S。共享CRT分派/未知父与全应用生命周期、机器ABI/链接运行继续，原格式明文/音频暂停/RPLAN.24保。 原历史：BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:0013D022",
+        "value": "mixed"
+      }
     },
     {
       "inventory_id": "F:0006E4E0",
@@ -66515,7 +66735,7 @@
     },
     {
       "inventory_id": "F:001433F0",
-      "disposition": "host",
+      "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-baseline",
@@ -66534,9 +66754,18 @@
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-decision",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-map-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：ACP01-M最新：地图13数值入口已迁CPP/std数学；地图CI消费改std::pow，不代表原CRT自身/其它父已迁或数值等价，原业务读取/发布序保持。迁移前记录：BWL01将46F38D/46F43A两已证地图CI窗口经现spawn/除数接口接完整一般CI/core与全部真实依赖。两原窗42条148B/四CALL，保FLD1.25→FILD signedLevel-1→CI→连续ST0幅值/回退/除法/原I64截断低S32消费。两现文件五改动，一已有ASM本体替换/零新本体或F/owner；72B正常帧保32B调用区、S32/三CW/原生幅值指针和I64结果，跨CALL保存重读指针，不拿EDX原CW载体当地址。撤固定域FYL2X/TwoToTOS内联，真实CI EXTERN/call接入同startup库；现PC53/控制字尾恢复、Cpp两spawn的字段门槛/零divisor/RNG/记录后消费及通用提供者/CMake保持。六既有映射/F当前关系由内联改真实传递调用，前态与MFA/BPJ/BPM/BWF/BWK历史可追；MAP129/CRT176与F999/全部数量/定位150及CRT余22保持，两域四限定I-S。共享CRT分派/未知父与全应用生命周期、机器ABI/链接运行继续，原格式明文/音频暂停/RPLAN.24保。 原历史：5433F0新增完整通用x87帮助体，ST0输入经原十条操作/RET输出连续扩展精度结果，沿当前控制字，不落F64/固定底数或用CPP double ABI。旧地图内联活动域保持，但不再把它当通用本体；完整pow父仍待接。 BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:001433F0",
+        "value": "host"
+      }
     },
     {
       "inventory_id": "F:001402AB",
@@ -66616,13 +66845,22 @@
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-decision",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-map-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：ACP01-M最新：地图13数值入口已迁CPP/std数学；地图CI消费改std::pow，不代表原CRT自身/其它父已迁或数值等价，原业务读取/发布序保持。迁移前记录：BWL01将46F38D/46F43A两已证地图CI窗口经现spawn/除数接口接完整一般CI/core与全部真实依赖。两原窗42条148B/四CALL，保FLD1.25→FILD signedLevel-1→CI→连续ST0幅值/回退/除法/原I64截断低S32消费。两现文件五改动，一已有ASM本体替换/零新本体或F/owner；72B正常帧保32B调用区、S32/三CW/原生幅值指针和I64结果，跨CALL保存重读指针，不拿EDX原CW载体当地址。撤固定域FYL2X/TwoToTOS内联，真实CI EXTERN/call接入同startup库；现PC53/控制字尾恢复、Cpp两spawn的字段门槛/零divisor/RNG/记录后消费及通用提供者/CMake保持。六既有映射/F当前关系由内联改真实传递调用，前态与MFA/BPJ/BPM/BWF/BWK历史可追；MAP129/CRT176与F999/全部数量/定位150及CRT余22保持，两域四限定I-S。共享CRT分派/未知父与全应用生命周期、机器ABI/链接运行继续，原格式明文/音频暂停/RPLAN.24保。 原历史：543405新增通用控制字加载本体，W16保存控制字按原PC0300与007F构造临时W16后FLDCW；旧载体未消费高W16不作为输入/补零，Win64CX值桥/EDX计算。原父027F绕过条件与恢复责任仍须真实父接，不强改地图固定027F。 BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:00143405",
+        "value": "adapted"
+      }
     },
     {
       "inventory_id": "F:00143435",
-      "disposition": "host",
+      "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
@@ -66641,22 +66879,40 @@
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-decision",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-map-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：ACP01-M最新：地图13数值入口已迁CPP/std数学；地图CI消费改std::pow，不代表原CRT自身/其它父已迁或数值等价，原业务读取/发布序保持。迁移前记录：BWL01将46F38D/46F43A两已证地图CI窗口经现spawn/除数接口接完整一般CI/core与全部真实依赖。两原窗42条148B/四CALL，保FLD1.25→FILD signedLevel-1→CI→连续ST0幅值/回退/除法/原I64截断低S32消费。两现文件五改动，一已有ASM本体替换/零新本体或F/owner；72B正常帧保32B调用区、S32/三CW/原生幅值指针和I64结果，跨CALL保存重读指针，不拿EDX原CW载体当地址。撤固定域FYL2X/TwoToTOS内联，真实CI EXTERN/call接入同startup库；现PC53/控制字尾恢复、Cpp两spawn的字段门槛/零divisor/RNG/记录后消费及通用提供者/CMake保持。六既有映射/F当前关系由内联改真实传递调用，前态与MFA/BPJ/BPM/BWF/BWK历史可追；MAP129/CRT176与F999/全部数量/定位150及CRT余22保持，两域四限定I-S。共享CRT分派/未知父与全应用生命周期、机器ABI/链接运行继续，原格式明文/音频暂停/RPLAN.24保。 原历史：543435新增完整普通/特殊输入加载：RDX借用F64，普通分支EAX为7FF00000指数掩码/保CMP标志后FLD F64，ECX保持；特殊分支按原OR7FFF0000/SHLD11/SHL11与重叠W32写出全部10B后FLD F80，TEST EAX,0再MOV原高W32，返回ST0/EAX/FLAGS并按原改ECX。仅ASM间接口，无F64返回落存/CLR异常、补零或新增finite保护。 BWF01开发三项通用幂依赖5433F0/543405/543435，复用既有完整38条111B/三页、零CALL/一跳四RET、六CALL入向原证，53D01D的CALL至543435与FLOW至53D022按目标分列。三现文件五追加：一CPP控制字入口/三ASM本体及一个C参数桥，新增四本体但复用1424/1426/1427与原F身份，不新计semantic/F或消减历史定位队列。原ST0连续结果、PC0300/007F临时CW/FLDCW和普通CMP/特殊F80重叠写、ST0/EAX/FLAGS返回保；未消费高W16不作为业务输入，两个ST0接口仅ASM内部。旧地图固定域/初始化/分类/整数及特殊辅助/CMake保持；仅原CW叶写控制字，不增MXCSR/清异常/环境保存恢复、owner/保护或宿主策略。完整pow/CRT分派与调用父生命周期继续；原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:00143435",
+        "value": "host"
+      }
     },
     {
       "inventory_id": "F:00146F36",
-      "disposition": "equivalent",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-baseline",
         "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-decision",
         "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-acceptance",
         "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-source-state",
-        "doc/cg2d_float_decimal_estimate_evidence.json"
+        "doc/cg2d_float_decimal_estimate_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "BPN01仅本次正常15条52B估算算术及原232既有源码来源，完整数字生成/父/环境/运行未新验；BPN01只546F36正常有限值的十进制指数估算：原547041..547075的15条52B以4D10/4D/134312F4计算S32估算并SAR16。当前表达式恢复正常S32乘加减/算术右移，去U32估算与bit_cast<S32>包装；原15位指数与最高尾数字节自然域使本段中间值均在S32内，不新增输入门槛。原真实96位多字进位/所有W32-W16-W8存储、零及四特殊串/原写序、幂缩放/局部0.1/21位上限/舍入裁剪和S8-NUL、原80位按值与fltout单记录复用均保；正常无介入旧值一致，不声称数值错误或故障等价。 仅原正常估算15条52B/一页及唯一544F43→546F36普通call的544F17取参/发布邻窗，当前一算术片段静态对应；原完整232条既有元数据/字符串/复制/段边界保，不重验全数字生成、96位链或完整父。全e/f/g文本/字段消费、初始化/跨TU/所有owner及alias寿命、浮点环境/SDK机器ABI/链接/完整格式业务和运行仍未闭；RPLAN.24不专项模拟/保护数学异常，不把真实多字进位删除或本步称异常等价。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:00146F36",
+        "value": "equivalent"
+      }
     },
     {
       "inventory_id": "F:00010E90",
@@ -72320,7 +72576,7 @@
     },
     {
       "inventory_id": "F:00146311",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_float_classification_leaf_spec.md#float-class-baseline",
@@ -72328,25 +72584,43 @@
         "doc/cg2d_float_classification_leaf_spec.md#float-class-acceptance",
         "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：546311完整浮点类掩码：原高端W32只消费低W16指数/符号，指数全1沿x87 FLD/FSTP真实F64落存后调用5461E4；普通零/正规分支保FLD/FCOMP零/FNSTSW/SAHF，非零次正规分支只读位，不新增FPU操作。原NEG/SBB/AND AL/ADD的S32掩码保，控制字/MXCSR不写，原值F64不扩宽；Win64私有参数承载与ABI不外推为原机器栈。 BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:00146311",
+        "value": "adapted"
+      }
     },
     {
       "inventory_id": "F:001461E4",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_float_classification_leaf_spec.md#float-class-baseline",
         "doc/cg2d_float_classification_leaf_spec.md#float-class-decision",
         "doc/cg2d_float_classification_leaf_spec.md#float-class-acceptance",
-        "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state"
+        "doc/cg2d_float_classification_leaf_spec.md#float-class-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "5461E4完整特殊位类型：按原高/低W32先分+Inf=1/-Inf=2，再高端低W16与7FF8分quiet=3；7FF0且剩余19高fraction位或低W32非零分signaling=4，其它0。F64 bit_cast只消费原位，无浮点算术/异常清理或额外输入限制；真实唯一callee接在546311 x87落存后。 BWC01实现原546311/5461E4两个分类叶，完整100条236B/两页、一direct/零indirect、21跳七RET与两CALL；父5436B9邻窗/原零常量另列。现有浮点环境三文件追加：两F64/S32原入口与两私有桥/四原生本体，原位分类/x87落存后真实callee/零比较状态读取及NEG-SBB-AND AL-ADD保，Win64正常56B展开栈只承接值，不镜像x86额外参数或故障。无新owner/控制字或MXCSR写/清异常/输入保护，原环境/初始化/CMake和地图专用幂保持；两新原新/F、CRT157两限定I-S，源码定位与CRT未知各减少2，余41/全父pow和机器运行仍待。原格式明文、音频暂停/RPLAN.24保持。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:001461E4",
+        "value": "adapted"
+      }
     },
     {
       "inventory_id": "F:001436AC",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-baseline",
@@ -72354,13 +72628,22 @@
         "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-acceptance",
         "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：5436AC整数奇偶判定：原F64落存后调用546311，TEST AL,90H非零返S32零；第一次5462FF返回后F64落存/重载比较原值，不等返零；原FDIV54FB58后覆参数F64并再落存给第二5462FF，直接FCOMP该商，原ZF分支等返2/不等返1。三个真实CALL及FLD/FSTP/FCOMP/FNSTSW/SAHF顺序保，原值/返回宽度不扩，没有新finite门禁/控制字写。 BWD01开发原5436AC整数奇偶判定与5462FF真实舍入叶，两完整59条119B/两页、三direct两callee/零indirect/四跳三RET、三CALL入向；54364F父邻窗与54FB58常量另列。三现文件六处追加：一CPP值入口/两ASM本体与一私有参数桥，原分类TEST AL90H、两次舍入、F64落存重载/商覆写和x87比较状态分支保，舍入沿当前控制字不写环境。Win64正常56B展开帧/32B调用区/三个F64槽与ASM私有ST(0)返回保，不伪CPP F64 ABI、故障等价或新finite保护。两新原新/F、CRT159限定I-S，源码定位167/CRT余39；完整pow父和机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:001436AC",
+        "value": "adapted"
+      }
     },
     {
       "inventory_id": "F:001462FF",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-baseline",
@@ -72368,13 +72651,22 @@
         "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-acceptance",
         "doc/cg2d_integer_parity_rounding_spec.md#integer-parity-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：5462FF真实舍入叶：FLD F64→FRNDINT→FSTP F64→FLD F64，返回ST(0)；沿当前x87控制字，不固定舍入方向/不修改环境。唯一两个原入向5436CC/5436F5均归5436AC；新ASM间RCX借用F64/ST(0)私有合同，原落存重载保。无CPP F64返回声明或宿主round/trunc/floor替代。 BWD01开发原5436AC整数奇偶判定与5462FF真实舍入叶，两完整59条119B/两页、三direct两callee/零indirect/四跳三RET、三CALL入向；54364F父邻窗与54FB58常量另列。三现文件六处追加：一CPP值入口/两ASM本体与一私有参数桥，原分类TEST AL90H、两次舍入、F64落存重载/商覆写和x87比较状态分支保，舍入沿当前控制字不写环境。Win64正常56B展开帧/32B调用区/三个F64槽与ASM私有ST(0)返回保，不伪CPP F64 ABI、故障等价或新finite保护。两新原新/F、CRT159限定I-S，源码定位167/CRT余39；完整pow父和机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:001462FF",
+        "value": "adapted"
+      }
     },
     {
       "inventory_id": "F:0014357C",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_power_special_helper_spec.md#power-special-baseline",
@@ -72382,37 +72674,64 @@
         "doc/cg2d_power_special_helper_spec.md#power-special-acceptance",
         "doc/cg2d_power_special_helper_spec.md#power-special-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：54357C幂特殊值完整辅助：原x87比较底数零后按CF条件FCHS、F64落存绝对值；原正/负无限指数与绝对值1重复比较分支，原无限底数沿指数零比较/负无限底数的唯一5436AC分类CALL、奇数FCHS与符号零、F64指数覆写重载保。仅正/负无限指数走原绝对值1对应分支写原FFF8000000000000并返S32一；其余写出/不写出均原S32零，不作布尔处理标记/默认补零，输出仅按原分支执行x87 FSTP。 BWE01开发54357C幂特殊值辅助完整114条304B/两页、一direct一callee/零indirect/26跳一RET、两CALL入向；两父FSAVE/FRSTOR邻窗与原常量独列，不宣全父完成。三现文件六追加：一CPP值入口/一ASM本体及一私有桥，S32状态与选择性F64写出保，不将0转是否处理布尔或补默认输出。原比较状态/条件FCHS/重复比较与指数落存重载、唯一5436AC真实callee及原常量位保，72B正常展开帧/32B调用区/四F64槽/一x64结果指针，仅拓指针不宽数值。无新环境写/finite保护/owner，原环境/分类/地图幂/CMake保；一新原新/F、CRT160两限定I-S，源码定位166/CRT余38；全pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:0014357C",
+        "value": "adapted"
+      }
     },
     {
       "inventory_id": "F:001478B2",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline",
         "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision",
         "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-acceptance",
-        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state"
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "5478B2完整signed类型分支，1只写旧1085FE0=33，2/3只写34，其它不写；返回原完整S32输入，不绑宿主errno或预清旧槽。 BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:001478B2",
+        "value": "adapted"
+      }
     },
     {
       "inventory_id": "F:001478D8",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline",
         "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-decision",
         "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-acceptance",
-        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state"
+        "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "5478D8原完整XOR EAX,EAX/RET，S32零返回且完全不访问借用记录；记录类型按真实两错误生产/87except的五字段合同声明，不构造/默认填充或持有。 BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:001478D8",
+        "value": "adapted"
+      }
     },
     {
       "inventory_id": "F:001478DB",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline",
@@ -72420,13 +72739,22 @@
         "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-acceptance",
         "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：5478DB等待式FSTSW→MOVSX S16→S32返回，保完整状态字含高位，不改为FNSTSW/低位掩码或宿主抽象状态。 BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:001478DB",
+        "value": "adapted"
+      }
     },
     {
       "inventory_id": "F:001478E9",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline",
@@ -72434,13 +72762,22 @@
         "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-acceptance",
         "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：5478E9先FNSTSW存W16旧状态，再FNCLEX，之后MOVSX S16→S32返回旧样本；仅原x87清除，不改为清后值/宿主MXCSR。 BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:001478E9",
+        "value": "adapted"
+      }
     },
     {
       "inventory_id": "F:001478F8",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-baseline",
@@ -72448,13 +72785,22 @@
         "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-acceptance",
         "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：5478F8原FSTCW保存W16旧值，原W32(value&mask)|(old&~mask)合并后只FLDCW低W16，返回旧W16的S16符号扩展；原额外高W16不填值或消费为业务，输入mask/value W32不窄、不用旧抽象控制字接口。 BWG01开发五数学错误硬件依赖5478B2/D8/DB/E9/F8，五完整42条105B/五页、零CALL/三跳六RET与五CALL入向；87except/两错误记录生产及范围出口取证独列。三现文件七追加：五CPP/三ASM共八新本体、三私有桥及一个已证记录类型；只扩名称指针，S32类型/三个F64原宽且不默认初始化。旧errno单owner复用，1→33/2或3→34/其它不写且返回输入；原零值叶不访问记录；等待FSTSW、FNSTSW后FNCLEX、W32掩码控制字合并/FLDCW及旧S16符号返回保，额外高W16不填值或业务消费。Win64暂存槽/GP参数只承接原值，原其它源码/CMake保持；五新原新/F、CRT165限定I-S，源码定位161/CRT余33；全父/87except/范围出口与机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:001478F8",
+        "value": "adapted"
+      }
     },
     {
       "inventory_id": "F:0014769B",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_math_masked_handler_spec.md#math-masked-baseline",
@@ -72462,13 +72808,22 @@
         "doc/cg2d_math_masked_handler_spec.md#math-masked-acceptance",
         "doc/cg2d_math_masked_handler_spec.md#math-masked-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：54769B完整原掩码处理：条件W32低五位按8/4/1/2优先级及最后16，原CW低位/RC选择保；真实54791B状态调用五处、54623E分解一处。原x87比较/F64落存、四RC结果分支、-600指数调整/有符号阈值与W32右移丢失位/符号恢复/选择性写出和剩余位0/1返回保，结果指针借用不持有，不加新钳制/输入限制。 BWH01开发原掩码处理及三真实依赖54769B/54791B/54623E/5461BB，四完整313条855B/七页、八direct三callee/零indirect/57跳四RET/九CALL入向；87except父取证独列。三现文件六追加：两CPP/四ASM六本体、两C桥，两个ST0接口仅ASM间。原优先位/RC结果、F64落存、S32指数/双W32移位/丢失位/选择性写出及剩余位0/1返回、原低BYTE状态生产操作/等待与两次真实指数设置保。72B分解/88B处理正常展开帧、Win64借用槽和已证F64/T80常量保，额外W16不补零/业务化，无新owner/宿主数学或额外保护/故障样例。四新原新/F、CRT169限定I-S，定位157/CRT余29；完整87except/raise/范围与pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:0014769B",
+        "value": "adapted"
+      }
     },
     {
       "inventory_id": "F:0014791B",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_math_masked_handler_spec.md#math-masked-baseline",
@@ -72476,9 +72831,18 @@
         "doc/cg2d_math_masked_handler_spec.md#math-masked-acceptance",
         "doc/cg2d_math_masked_handler_spec.md#math-masked-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：54791B原低BYTE样本保，按1/8/10H/4/20H次序执行原F80常量FLD/FISTP/FSTP/FSTSW、FDIVRP、FLDPI及等待，依当前x87控制字生产原状态。仅原算法操作，没有新增清除/MXCSR/环境改写或额外故障样例/注入门禁。 BWH01开发原掩码处理及三真实依赖54769B/54791B/54623E/5461BB，四完整313条855B/七页、八direct三callee/零indirect/57跳四RET/九CALL入向；87except父取证独列。三现文件六追加：两CPP/四ASM六本体、两C桥，两个ST0接口仅ASM间。原优先位/RC结果、F64落存、S32指数/双W32移位/丢失位/选择性写出及剩余位0/1返回、原低BYTE状态生产操作/等待与两次真实指数设置保。72B分解/88B处理正常展开帧、Win64借用槽和已证F64/T80常量保，额外W16不补零/业务化，无新owner/宿主数学或额外保护/故障样例。四新原新/F、CRT169限定I-S，定位157/CRT余29；完整87except/raise/范围与pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:0014791B",
+        "value": "adapted"
+      }
     },
     {
       "inventory_id": "F:0014623E",
@@ -72490,13 +72854,22 @@
         "doc/cg2d_math_masked_handler_spec.md#math-masked-acceptance",
         "doc/cg2d_math_masked_handler_spec.md#math-masked-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：54623E原F64输入复制到本调用槽，原FCOMP零/ZF与F64结果落存、次正规两W32移位和S32指数递减/符号复位、普通指数读取/AND AX/MOVSX/减3FE保；两次真实5461BB调用前F64落存、后F64结果存取保持，S32指数输出指针只借用，ST0返回仅ASM间。 BWH01开发原掩码处理及三真实依赖54769B/54791B/54623E/5461BB，四完整313条855B/七页、八direct三callee/零indirect/57跳四RET/九CALL入向；87except父取证独列。三现文件六追加：两CPP/四ASM六本体、两C桥，两个ST0接口仅ASM间。原优先位/RC结果、F64落存、S32指数/双W32移位/丢失位/选择性写出及剩余位0/1返回、原低BYTE状态生产操作/等待与两次真实指数设置保。72B分解/88B处理正常展开帧、Win64借用槽和已证F64/T80常量保，额外W16不补零/业务化，无新owner/宿主数学或额外保护/故障样例。四新原新/F、CRT169限定I-S，定位157/CRT余29；完整87except/raise/范围与pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:0014623E",
+        "value": "host"
+      }
     },
     {
       "inventory_id": "F:001461BB",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_math_masked_handler_spec.md#math-masked-baseline",
@@ -72504,13 +72877,22 @@
         "doc/cg2d_math_masked_handler_spec.md#math-masked-acceptance",
         "doc/cg2d_math_masked_handler_spec.md#math-masked-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：5461BB原S32指数加3FE/移4、高端W32读取但只AND CX低W16/OR后写AX，真实FLD/FSTP F64落存及修改结果高W16再FLD/ST0返回保；额外高W16不补零/业务消费，无CPP F64返回或宿主frexp/ldexp替代。 BWH01开发原掩码处理及三真实依赖54769B/54791B/54623E/5461BB，四完整313条855B/七页、八direct三callee/零indirect/57跳四RET/九CALL入向；87except父取证独列。三现文件六追加：两CPP/四ASM六本体、两C桥，两个ST0接口仅ASM间。原优先位/RC结果、F64落存、S32指数/双W32移位/丢失位/选择性写出及剩余位0/1返回、原低BYTE状态生产操作/等待与两次真实指数设置保。72B分解/88B处理正常展开帧、Win64借用槽和已证F64/T80常量保，额外W16不补零/业务化，无新owner/宿主数学或额外保护/故障样例。四新原新/F、CRT169限定I-S，定位157/CRT余29；完整87except/raise/范围与pow父/机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:001461BB",
+        "value": "adapted"
+      }
     },
     {
       "inventory_id": "F:001473E8",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-baseline",
@@ -72518,13 +72900,22 @@
         "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-acceptance",
         "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：5473E8完整88B异常记录生产：原条件顺序/异常码覆盖、W32 causes/enables/status与RC/PC/操作号位、valid/format/F64落存及两硬件叶保持；真实RaiseException以一个原生指针槽交付，返回重读槽/记录后沿原选择性CW与FFFFF3FF掩码/CH修改和x87结果回写，不补未生产字节或增捕获。 BWI01开发原5473E8异常参数生产/系统分派与5460EB真实87except父，两完整352条899B/六页、七direct七callee/一IAT、59跳两RET/两CALL入向。三现文件七追加：五CPP/两ASM七本体、五C桥及一个原5925B8共享owner，初值真实2694H、旧errno单owner不复制。88B原W32记录/三个24B单元和选择性第二F64、原位映射/掩码及未生产字节保持；原系统RaiseException接同一原生指针槽、返回重读/选择性CW改写与x87结果回写，原FFFFF3FFH掩码不按宿主修正。原类型分派/七真实CRT依赖与系统调用、W16保存CW到局部W32、尾ctrlfp/matherr/errno和S32返回保。三保存寄存器/80B及176B正常展开帧与六参只拓指针，不加保护/捕获或故障样例。两新原新/F、CRT171限定I-S，定位155/CRT余27；上游记录/范围出口与pow/FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:001473E8",
+        "value": "adapted"
+      }
     },
     {
       "inventory_id": "F:001460EB",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-baseline",
@@ -72532,13 +72923,22 @@
         "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-acceptance",
         "doc/cg2d_math_exception_dispatch_spec.md#math-dispatch-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：5460EB完整原类型递减分派/7改1、真实handle后按操作号选择性第二F64与原标志生产并调真实raise；借用W16保存CW仅读后零扩到局部W32，尾真实ctrlfp、原2694H共享槽读取、matherr/同源errno和S32返回保，32B数学记录只拓原名称指针到40B。 BWI01开发原5473E8异常参数生产/系统分派与5460EB真实87except父，两完整352条899B/六页、七direct七callee/一IAT、59跳两RET/两CALL入向。三现文件七追加：五CPP/两ASM七本体、五C桥及一个原5925B8共享owner，初值真实2694H、旧errno单owner不复制。88B原W32记录/三个24B单元和选择性第二F64、原位映射/掩码及未生产字节保持；原系统RaiseException接同一原生指针槽、返回重读/选择性CW改写与x87结果回写，原FFFFF3FFH掩码不按宿主修正。原类型分派/七真实CRT依赖与系统调用、W16保存CW到局部W32、尾ctrlfp/matherr/errno和S32返回保。三保存寄存器/80B及176B正常展开帧与六参只拓指针，不加保护/捕获或故障样例。两新原新/F、CRT171限定I-S，定位155/CRT余27；上游记录/范围出口与pow/FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:001460EB",
+        "value": "adapted"
+      }
     },
     {
       "inventory_id": "F:00143390",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_math_record_range_spec.md#math-record-range-baseline",
@@ -72546,13 +72946,22 @@
         "doc/cg2d_math_record_range_spec.md#math-record-range-acceptance",
         "doc/cg2d_math_record_range_spec.md#math-record-range-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：543390完整九条前缀：保存原S32类型、第二F64低W32/高W32序复制后尾真实5433B0共享段；新88B与单参一致展开帧、同一40B数学记录，RCX借用32B输入/EDX类型/ST0结果，不另造共享体或填参数。 BWJ01开发原543390双参/5433A7单参与共享5433B0、5434D9范围出口，三完整86条246B/三页、三direct三callee/零indirect、12跳四RET、四CALL一尾入向及共享尾/顺流。三现文件五追加：CPP六布局断言/HPP借用32B输入与三ASM本体，零CPP本体/新桥/mutable owner。双参低高W32复制后尾共享、单参不写第二F64，同一40B记录/88B共享展开帧真实接87except并保x87结果落存重载/条件FLDCW。范围56B正常帧保FST不弹ST0、原CW/等待状态与三返回，六原常量/FSCALE-比较-FMUL及8/4/3类型和1DH分参保持；原W32控制字载体不补高W16，范围三EDX完整返回。全局共享标签明确声明，仅拓名称/借用指针，不增保护或故障样例。三新原新/F、CRT174限定I-S，定位152/CRT余24；generic pow/完整分派及FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:00143390",
+        "value": "adapted"
+      }
     },
     {
       "inventory_id": "F:001433A7",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_math_record_range_spec.md#math-record-range-baseline",
@@ -72560,13 +72969,22 @@
         "doc/cg2d_math_record_range_spec.md#math-record-range-acceptance",
         "doc/cg2d_math_record_range_spec.md#math-record-range-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：5433A7完整原单参及共享段：仅存类型后FSTP结果、名称指针与第一F64两W32原样复制，真实87except调用、FLD结果与027FH条件FLDCW；不写第二F64/未生产padding。共享全局标签与双参同88B帧，ST0仅ASM返回。 BWJ01开发原543390双参/5433A7单参与共享5433B0、5434D9范围出口，三完整86条246B/三页、三direct三callee/零indirect、12跳四RET、四CALL一尾入向及共享尾/顺流。三现文件五追加：CPP六布局断言/HPP借用32B输入与三ASM本体，零CPP本体/新桥/mutable owner。双参低高W32复制后尾共享、单参不写第二F64，同一40B记录/88B共享展开帧真实接87except并保x87结果落存重载/条件FLDCW。范围56B正常帧保FST不弹ST0、原CW/等待状态与三返回，六原常量/FSCALE-比较-FMUL及8/4/3类型和1DH分参保持；原W32控制字载体不补高W16，范围三EDX完整返回。全局共享标签明确声明，仅拓名称/借用指针，不增保护或故障样例。三新原新/F、CRT174限定I-S，定位152/CRT余24；generic pow/完整分派及FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:001433A7",
+        "value": "adapted"
+      }
     },
     {
       "inventory_id": "F:001434D9",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_math_record_range_spec.md#math-record-range-baseline",
@@ -72574,13 +72992,22 @@
         "doc/cg2d_math_record_range_spec.md#math-record-range-acceptance",
         "doc/cg2d_math_record_range_spec.md#math-record-range-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：5434D9完整原范围出口：FST F64不弹ST0及高W32指数分类，原027FH/屏蔽位与等待FSTSW、原上下FSCALE/比较/FMUL及8/4/3类型与操作1DH分参保，两真实错误入口CALL/原条件CW恢复；三个返回还原完整原W32载体到EDX，不补高W16，ST0仅ASM返回。 BWJ01开发原543390双参/5433A7单参与共享5433B0、5434D9范围出口，三完整86条246B/三页、三direct三callee/零indirect、12跳四RET、四CALL一尾入向及共享尾/顺流。三现文件五追加：CPP六布局断言/HPP借用32B输入与三ASM本体，零CPP本体/新桥/mutable owner。双参低高W32复制后尾共享、单参不写第二F64，同一40B记录/88B共享展开帧真实接87except并保x87结果落存重载/条件FLDCW。范围56B正常帧保FST不弹ST0、原CW/等待状态与三返回，六原常量/FSCALE-比较-FMUL及8/4/3类型和1DH分参保持；原W32控制字载体不补高W16，范围三EDX完整返回。全局共享标签明确声明，仅拓名称/借用指针，不增保护或故障样例。三新原新/F、CRT174限定I-S，定位152/CRT余24；generic pow/完整分派及FPU生命周期/机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:001434D9",
+        "value": "adapted"
+      }
     },
     {
       "inventory_id": "F:0013D019",
-      "disposition": "mixed",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_power_generic_body_spec.md#power-generic-baseline",
@@ -72588,9 +73015,18 @@
         "doc/cg2d_power_generic_body_spec.md#power-generic-acceptance",
         "doc/cg2d_power_generic_body_spec.md#power-generic-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：原53D019普通pow两条加载Y/顺流core用本调用两F64借用参数与真实ASM加载/core承接；外部Win64值桥最终FSTP F64/CPP原生double返回，内部CI/core连续ST0，不宿主pow、限制输入或填特殊帮助体未生产结果。 BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:0013D019",
+        "value": "mixed"
+      }
     },
     {
       "inventory_id": "F:0013D1F5",
@@ -72602,9 +73038,18 @@
         "doc/cg2d_power_generic_body_spec.md#power-generic-acceptance",
         "doc/cg2d_power_generic_body_spec.md#power-generic-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：原53D1F5真实ST0指数消费/CL0-1-2：原FLD/FRNDINT/FCOMP/等待状态/0.5乘法/二次舍入和FCOMPP及分支弹栈保持、其他ECX位不变；不能以5436AC F64分类替代，无CPP返回或新finite门槛。 BWK01开发完整通用幂四原入口53D000/53D019/53D022两块及53D1F5，159条554B/五页、11direct七callee/零indirect、36跳五RET/五CALL一顺流。三现文件七追加，一CPP/四ASM五本体/一个C值桥与原1085FBC静态W32唯一owner；无有效初始字节的FF不作原值。CI原FXCH/FSTP X/FST Y、普通Y真实加载与core全分支、真实ST0消费/CL分类及加载返回EAX-ECX-FLAGS保，PC调用适配恢复ECX原样本；原W32控制字载体和所有出口/范围真CALL恢复保。特殊路径两F64落存-FSAVE108-真实helper-FRSTOR-FLD结果与原S32分派保持，不解释环境/填未生产结果。内部连续ST0、原DWORD末字节足迹/位与T80常量保，只有外部Win64值桥转F64；无宿主pow/保护或故障样例。扩展1266/1267旧身份、两新1835/1836，CRT176/F999限定I-S，定位150/CRT余22；旧地图活动域与应用全原点/共享分派、机器环境和运行继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:0013D1F5",
+        "value": "host"
+      }
     },
     {
       "inventory_id": "F:00143185",
@@ -72616,9 +73061,18 @@
         "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-acceptance",
         "doc/cg2d_math_shared_dispatch_spec.md#math-dispatch-shared-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：543185完整共享身份的幂帮助/单参和双参FXAM分派、全部特殊值目标及共享错误尾；十二真实ASM入口承146条/501B原完整体，原上下文数值和已证4/16代码指针表/16B分类表、原T80/errorBYTE/ECX/FLAGS及FSAVE-FRSTOR/未生产结果保，未知生产与父不假造。 BWM01完整开发543185共享数学身份全部146条501B/三页、多入口/三direct两callee与两表JMP、16跳九RET；原特殊值外尾三点与共享尾入向另列。三现文件五追加、十二ASM真实本体/13布局断言，零CPP本体/新mutable owner或固定目标表。原32B实际context数值W16/T80/错误BYTE和ECX样本保，4/16借用目标指针只拓地址；原分类16字节/CW-FXAM-等待状态-CL/CH-XLAT-索引与真实间接CALL/frame返回、目标末标志LEA恢复保。原幂F64实参-FSAVE108-真helper-FRSTOR-结果/状态与实际ECX数值保，未生产结果不填；真实丢栈/零一/T80 quiet/error0-1-7与FADD/FADDP/OR CL,CL保持。不因未见初始化地址引用排除，不猜描述符生产/父帧，函数原身份仅一份；CRT177/F1000限定I-S，定位149/CRT余21，共享生产/未知父及机器运行继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:00143185",
+        "value": "host"
+      }
     },
     {
       "inventory_id": "F:00145360",
@@ -72630,9 +73084,18 @@
         "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-acceptance",
         "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：原545360完整83条279B除法核心；RCX借原44B数值片段，两个T80/+24低CW及原W32读取、尾数/指数/16B表、原F32双缩放、CW恢复及非规格化T80重写循环全部保持，返回ST0。 BWN01沿共享指数542FEF真实依赖补完整545360/545B51：91条300B/三页、一CALL一callee、14跳七RET；两现源四处追加/两真实ASM，零CPP/C桥/新owner。借原44B数值片段不扩宽，两个T80及其padding/+24保存CW高W16不补；原16B表/三F32、尾数/指数/进位/CW与全部FDIVP/非规格化重写循环保。包装保原FSTP序、EAX/ECX数值及EDX/真核心调用、88B正常帧；源码静态非机器等价。新增1838/1839、CRT179/F1002限定I-S，定位147/CRT余19，完整共享目标/未知描述符生产和其它原调用父及机器运行继续，原格式明文/音频暂停/RPLAN.24保持。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:00145360",
+        "value": "host"
+      }
     },
     {
       "inventory_id": "F:00145B51",
@@ -72644,9 +73107,18 @@
         "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-acceptance",
         "doc/cg2d_math_divide_shared_spec.md#math-divide-shared-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：原545B51完整八条21B包装；ST0/ST1原序实际落T80，真实调用545360，原EAX与为x64借址暂用的ECX数值恢复/EDX保持；88B正常原生调用帧，供共享指数链原探测分支后续接线。 BWN01沿共享指数542FEF真实依赖补完整545360/545B51：91条300B/三页、一CALL一callee、14跳七RET；两现源四处追加/两真实ASM，零CPP/C桥/新owner。借原44B数值片段不扩宽，两个T80及其padding/+24保存CW高W16不补；原16B表/三F32、尾数/指数/进位/CW与全部FDIVP/非规格化重写循环保。包装保原FSTP序、EAX/ECX数值及EDX/真核心调用、88B正常帧；源码静态非机器等价。新增1838/1839、CRT179/F1002限定I-S，定位147/CRT余19，完整共享目标/未知描述符生产和其它原调用父及机器运行继续，原格式明文/音频暂停/RPLAN.24保持。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:00145B51",
+        "value": "host"
+      }
     },
     {
       "inventory_id": "F:00143097",
@@ -72658,9 +73130,18 @@
         "doc/cg2d_math_shared_targets_spec.md#math-targets-acceptance",
         "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：原543097一RET和零底幂完整生产分支一并实现；保真实不消费ST0的整数判定、两弹栈、零/无穷及奇数负零符号，原返回保持。 BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:00143097",
+        "value": "host"
+      }
     },
     {
       "inventory_id": "F:001430E2",
@@ -72672,9 +73153,18 @@
         "doc/cg2d_math_shared_targets_spec.md#math-targets-acceptance",
         "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：原5430E2一RET与完整指数帮助越界分支一并实现；帮助体返回地址丢弃的控制流由实际续行选择承接，保原无穷/符号及末标志，不单记空RET成功。 BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:001430E2",
+        "value": "host"
+      }
     },
     {
       "inventory_id": "F:0014310E",
@@ -72686,9 +73176,18 @@
         "doc/cg2d_math_shared_targets_spec.md#math-targets-acceptance",
         "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：原54310E全部34条/113B及越界分块已完整实现，保原T80阈值/CW下x87分数与状态、越界结束外层续行和全部幂/指数父/真实FDIV依赖；不造原状态或宿主数学。 BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:0014310E",
+        "value": "host"
+      }
     },
     {
       "inventory_id": "F:00143151",
@@ -72700,9 +73199,18 @@
         "doc/cg2d_math_shared_targets_spec.md#math-targets-acceptance",
         "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：原543151两次x87舍入/比较及FSTSW AX/SAHF判定；保持ST0并返回EAX0/1/2，与消费指数叶分开，真实供负底和零底幂调用。 BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:00143151",
+        "value": "host"
+      }
     },
     {
       "inventory_id": "F:00143176",
@@ -72714,9 +73222,18 @@
         "doc/cg2d_math_shared_targets_spec.md#math-targets-acceptance",
         "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：原543176共同一RET，所有0/1/2生产与实际幂调用同时接线，不把单返回当整个判定功能。 BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:00143176",
+        "value": "host"
+      }
     },
     {
       "inventory_id": "F:00143177",
@@ -72728,9 +73245,18 @@
         "doc/cg2d_math_shared_targets_spec.md#math-targets-acceptance",
         "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：原543177原EAX0与共同RET尾跳，真实只由完整x87判定的原非整数分支进入，保持原输入ST0和末标志。 BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:00143177",
+        "value": "host"
+      }
     },
     {
       "inventory_id": "F:0014317E",
@@ -72742,9 +73268,18 @@
         "doc/cg2d_math_shared_targets_spec.md#math-targets-acceptance",
         "doc/cg2d_math_shared_targets_spec.md#math-targets-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：原54317E原EAX2与共同RET尾跳，真实只由完整x87判定的原偶数分支进入，保持原输入ST0和末标志。 BWO01整段开发542FB0..543185共享幂/指数/对数目标159条469B、四CALL三callee/35跳11RET；七原F身份和三R7区间（307B含五BYTE已证CC对齐）完整覆盖。三现源六追加/26ASM及一个唯一既有FDIV owner只读C桥；原context数值/错误FE-2-3-4、x87连续运算/不消费整数判定与EAX0-1-2、T80常量/状态/符号及真实原除法/特殊值尾保持。原帮助体丢内层返回的控制流以实际续行/JRCXZ/LEA承接，不造原数学状态或模拟栈地址；40/56B正常帧。原描述符生产/其它父和全生命周期及机器展开/ABI/运行未代验；CRT186/F1009限定I-S，定位140/CRT余12，R7已审470余2591，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:0014317E",
+        "value": "host"
+      }
     },
     {
       "inventory_id": "F:00145477",
@@ -72756,9 +73291,18 @@
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-acceptance",
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：原545477完整412条1183B/64项分派；原EAX低六位及原表顺序，全部FDIV类操作数/FXCH与T80复制弹栈重载、42次真实核心调用及16INT 6原分支完整保持，仅拓已证表/片段地址。 BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:00145477",
+        "value": "host"
+      }
     },
     {
       "inventory_id": "F:00145916",
@@ -72770,9 +73314,18 @@
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-acceptance",
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：原545916完整六条19B；ST0/ST1真实T80按0/+12落存并调用完整545360，保原ST0结果及原生RCX暂借还原，不额外保原未保存EAX。 BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:00145916",
+        "value": "host"
+      }
     },
     {
       "inventory_id": "F:00145929",
@@ -72784,9 +73337,18 @@
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-acceptance",
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：原545929完整六条19B；ST0/ST1真实T80按+12/0落存并调用完整545360，保原ST0结果及原生RCX暂借还原，不额外保原未保存EAX。 BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:00145929",
+        "value": "host"
+      }
     },
     {
       "inventory_id": "F:00145B3C",
@@ -72798,9 +73360,18 @@
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-acceptance",
         "doc/cg2d_math_division_dispatch_spec.md#math-division-dispatch-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：原545B3C完整八条21B；ST0/ST1真实T80按0/+12落存并调用完整545360，按原W32保存恢复EAX，原生RCX暂借还原。 BWP01完整545477的64项除法分派及545916/545929/545B3C三包装，四原身份432条1242B/九页、45CALL一callee/一表JMP、51RET/16原INT 6。两现源四追加/四ASM，零CPP/C桥/owner；原64项256B代码地址只承64项8B真实全局目标，EAX低六位和所有原FDIV操作数/T80/FXCH复制弹栈重载/全部原失败分支保。四88B正常原生帧分隔影子区/原44B片段，完整暂存RCX用于真借址，545B3C原EAX仅W32保存；不填未生产字节/加guard或宿主除法。新增1847..1850四F、CRT190/F1013两限定I-S，源码定位136/CRT余8；未知分派及内存加载父/其它CRT与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:00145B3C",
+        "value": "host"
+      }
     },
     {
       "inventory_id": "F:00145A65",
@@ -72812,9 +73383,18 @@
         "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-acceptance",
         "doc/cg2d_math_memory_parents_spec.md#math-memory-parents-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：原545A65九条27B是逆向F32内存加载父的TOP=0保存/重载分支；与八父172条512B及两R7整组实现，保原额外T80、原标量F32加载、真实逆向包装调用及W32 EAX/原返回，不发明独立调用父。 BWQ01完整开发54593C..545B3C八个F32/F64/S16/S32正逆内存除法加载父，172条512B/16CALL两callee、12跳20RET；原545A65九条27B与两R7的163条485B互补。两现源三追加/八真实ASM，零CPP/C桥/owner；原指数位直接除法、非等待FNSTSW/TOP3800、原FLD/FILD位宽符号、TOP=0额外T80交换保存重载及16真包装→核心调用保。72B正常帧，原W32 EAX保持，RCX只借对应位宽原值参数，非数值扩大/栈地址或RET模拟，不新增保护/默认填充。新1851一F/CRT191/F1014限定I-S、两R7 mapped，定位135/CRT余7、R7已审472余2589；外层原调用/其它CRT及机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:00145A65",
+        "value": "host"
+      }
     },
     {
       "inventory_id": "F:00145B66",
@@ -72826,9 +73406,18 @@
         "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-acceptance",
         "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：原545B66全142条518B余数核心；借原48B片段/EDX原模式，保所有T80/非对齐W32、筛选/指数/部分约减与比较相减循环、缩放符号及FPREM条件，原28B FNSTENV-FLDENV状态DWORD恢复。 BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:00145B66",
+        "value": "host"
+      }
     },
     {
       "inventory_id": "F:00145D6C",
@@ -72840,9 +73429,18 @@
         "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-acceptance",
         "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：原545D6C全54条178B余数父；真实两T80生产/零与指数和临时CW-缩放分支、原模式EDX与实际核心调用，恢复原EDX，保原ST0/ST1栈形状。 BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:00145D6C",
+        "value": "host"
+      }
     },
     {
       "inventory_id": "F:00145E1E",
@@ -72854,9 +73452,18 @@
         "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-acceptance",
         "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：原545E1E全142条518B最近余数核心；全部原循环/环境恢复与真实EBX,2测试、中间FPREM及两处FPREM1保持，不用名称替换原指令或修改原分支。 BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:00145E1E",
+        "value": "host"
+      }
     },
     {
       "inventory_id": "F:00146024",
@@ -72868,13 +73475,22 @@
         "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-acceptance",
         "doc/cg2d_math_remainder_chain_spec.md#math-remainder-chain-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：原546024全54条181B最近余数父；真实两T80/原MOV EDX0及零/缩放/临时CW与核心调用、原EDX保持，零值尾实际FPREM不更改，保原输出栈形状。 BWR01完整开发545B66..5460EB余数双链及四共享入口，四F392条1395B加一个R7八条18B共400条1413B/九页，六CALL四callee/42跳12RET。两现源四追加/八真实ASM，零CPP/C桥/owner；原48B片段/T80与交叠非对齐W32、CW-状态生产宽度/筛选指数-缩放-循环-符号模式及原FPREM/FPREM1差异保。28B环境在正常帧预留，原FNSTENV-FLDENV及状态DWORD BCFF/4300保持，不解释地址/填未生产字节；核心RBX/48B、父104B、入口40B正常帧，原GP保存及真实父链和FPATAN/FPTAN栈结果保。新1852..1855四F/CRT195/F1018两限定I-S，R7 mapped已审473余2588，定位131/CRT余3；外层原调用/未知描述符与机器生命周期继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:00146024",
+        "value": "host"
+      }
     },
     {
       "inventory_id": "F:0013DEF3",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_math_final_exits_spec.md#math-final-exits-baseline",
@@ -72882,13 +73498,22 @@
         "doc/cg2d_math_final_exits_spec.md#math-final-exits-acceptance",
         "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：原53DEF3完整一条RET；没有原证入向，按原空叶实现，不造返回值/写入/调用或不可达裁决。 BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:0013DEF3",
+        "value": "adapted"
+      }
     },
     {
       "inventory_id": "F:00143489",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_math_final_exits_spec.md#math-final-exits-baseline",
@@ -72896,13 +73521,22 @@
         "doc/cg2d_math_final_exits_spec.md#math-final-exits-acceptance",
         "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：原543489两条5B是完整543478七条22B指数读取父的真实内部重读/RET，原高W32/7FF00000位规则及普通分支均实现，无x87加载或宿主exp。 BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:00143489",
+        "value": "adapted"
+      }
     },
     {
       "inventory_id": "F:001434C5",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_math_final_exits_spec.md#math-final-exits-baseline",
@@ -72910,33 +73544,60 @@
         "doc/cg2d_math_final_exits_spec.md#math-final-exits-acceptance",
         "doc/cg2d_math_final_exits_spec.md#math-final-exits-source-state",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置adapted与边界：原5434C5六条20B完整溢出前缀，FST不弹ST0并读高W32/AND，真实直达原5434ED已实现共享后缀，绕过下溢；同56B帧/借用输入/完整CW W32恢复，不造尾部或伪接线。 BWS01完整开发原53DEF3实际RET、543478..54348E指数读取父、54349B..5434C5精度出口和5434C5溢出前缀；三F九条26B加两R7二十条59B，共29条85B/一CALL五跳五RET。两现源四改/四完整ASM、既有范围后缀只增唯一全局标签，零CPP/C桥/owner。原高W32读取/掩码及特殊重读、精度独有20位JZ/等待FSTSW、类型8单参真调用和CW完整W32 EDX恢复保；溢出FST不弹ST0、同56B帧直达原5434ED共享后缀，绕下溢不造尾部。新1856..1858三F/CRT198/F1021两限定I-S；R7已审475余2586、定位128/已列CRT未定位0。完整CRT成员/外层原调用和未知描述符及全应用/机器门禁继续，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:001434C5",
+        "value": "adapted"
+      }
     },
     {
       "inventory_id": "F:00142F10",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-baseline",
         "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-decision",
         "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-acceptance",
-        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state"
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "原完整542F10十九条52B，两原两W32合成64位数值；保高半均零快路及原两交叉低W32乘加/低×低合成低64结果，原唯一53E6EC以乘数10真实调用。 BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:00142F10",
+        "value": "adapted"
+      }
     },
     {
       "inventory_id": "F:00144620",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-baseline",
         "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-decision",
         "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-acceptance",
-        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state"
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
       ],
-      "boundary": "原完整544620十五条31B，U64位模式与CL单BYTE；原>=64返回0、32..63低半搬高/清低/低五位及0..31双字结果，原53E68B/53E6DB计数4/3真实接线。 BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。"
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
+      "previous_disposition_before_mc01c2": {
+        "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:00144620",
+        "value": "adapted"
+      }
     },
     {
       "inventory_id": "F:00143AE8",
@@ -76746,6 +77407,501 @@
         "doc/cg2d_msvc_crt_cpp_evidence.json"
       ],
       "boundary": "MC01-C1旧私有C++库职责交MSVC完整对象/compiler/VCRuntime，七应用标准流配置/刷新入口保实际适配；原F身份与历史证据保持，不造旧对象/空同名体，不称原体或完整业务/SDK运行等价。"
+    },
+    {
+      "inventory_id": "F:0013B447",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:0013B45F",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:0013FD6E",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:0013FDAC",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:001447A0",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00145031",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:0014019A",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:0013FDD5",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:0013FE2F",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:0013FED3",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:0013FFD7",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:001400B5",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:001401EB",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00144EA0",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00140150",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00140177",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00146E14",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00146E42",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00146DB6",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00147B91",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00147971",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00146D95",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00144F7B",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00144F17",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:001449BF",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00144A08",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00144B11",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00144B05",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00144AEA",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00144A5E",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00144B2C",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00144BB9",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00144D25",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00144D3B",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00146419",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00146E6F",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00144D51",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00144D7E",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:0013FE7D",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:0013FE95",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:001448A4",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00144936",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:0013FD5C",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:0014488E",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
+    },
+    {
+      "inventory_id": "F:00144859",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json"
+      ],
+      "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
     }
   ],
   "auxiliary_dispositions": [

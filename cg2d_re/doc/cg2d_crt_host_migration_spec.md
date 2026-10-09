@@ -1,5 +1,7 @@
 # CRT 宿主承接总 SPEC
 
+> 2026-10-10当前数值库边界：[MC01-C2](cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010)已退休无现业务调用的旧浮点格式/96位转换/环境与pow错误私有组，数值格式/数学及库内状态交MSVC。实际地图/音频数学源与控制作用域保持，两Shop/NLS低宽读取移回既有模块，计时U64除法保留；旧gate/数学记录/CPU探测和其余内部CPP/ASM源码状态属固定历史，不再要求复刻。全部适用业务/owner/SDK正常结果与运行门禁保持，未编译/运行。
+
 > 2026-10-10当前C++边界：[MC01-C1](cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010)已退休无现组外消费者的六组私有C++库及NativeCppException头。当前采用真实MSVC标准流/Init/locale及库内string/facet/codecvt/异常支撑，现流配置/缓冲借用/刷新、业务构析与退出登记保持。下文旧Legacy对象/方法表/私有登记/异常payload及其源码状态属固定历史，不再要求复刻；完整业务/owner/未知原alias与SDK实际运行仍待，未编译/运行。
 
 > 2026-10-09用户最新CRT要求：当前按[MC01](cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009)直接采用MSVC。标量C服务、32位时间及字符串格式/扫描已转真实宿主提供者；下文旧算法/共享错误槽/逐指令保持条款在该具名范围只作历史。FILE/lowio及C++对象剩余组仍处迁移期，业务格式/编码/字段、owner和全部适用运行门禁保持。
@@ -165,3 +167,32 @@ FILE一经fclose即失效，包括刷新失败的返回路径。当前已证日�
 语义2029（1981F＋48X）、合同2091保持；已审F1215→1366，软件证据1329→1331。两限定I/S仅当前源/职责与接线；全部完整feature门禁、184叶整项验收0、任务关闭11/60及六closure保持。汇总器仅为13明确退休历史附件核固定Git快照，当前语义source不使用该回退；SDK真实类型/标准流提供者、应用精确差异及原台账/§10守恒通过静态核对。
 
 旧浮点格式/数值、多字节及剩余初始化/错误/退出/堆策略继续MC01-C后续；业务数组/SEH/owner、完整正常结果、SDK生成ABI与当前链接/运行仍待。未构建/测试/运行/算法/查产物/计算摘要，无新依赖。固定引用cg2d-re-msvc-crt-cpp-20261010，MC01全CRT与整体SPEC未完成。
+
+<a id="msvc-crt-numeric-decision-20261010"></a>
+## MC01-C2：浮点格式、数值与旧环境整组退休（2026-10-10）
+
+用户CRT直接采用MSVC及既有double/标准数学许可覆盖旧私有浮点文本/96位转换、CPU FDIV探测、控制字抽象、pow错误分派/记录及异常内部核。全当前src/include核到：LegacyFloatFormat/Numeric/Environment/Math组只有Shop命令W32读取和成功多字节映射的双BYTE读取仍有真实组外调用；计数BYTE桥只有旧声明，MC01-A实际计数已直接strnlen。其余函数、类型、槽/描述符与初始化都无当前组外消费者，LegacyRuntimeExit仅有未使用的旧头引用。退休四CPP/三头及该引用，不保私有表、未生产gate、88B/40B数学错误对象或同名空体来模拟MSVC内部。
+
+实际地图/音频CPP仍直接使用MSVC标准数学及各自控制作用域、intrinsic截断，所有常量位样本、业务F32、double中间值、整数读取/写回序与RNG保持；本步不改这些源。流/字符串格式及扫描已用vfprintf/vsprintf/_vsnprintf/vfscanf/vsscanf，数值格式/解析与错误/locale/浮点状态按真实MSVC合同，不全局开启旧选项或补格式参数。旧六浮点callback/trap/null文字槽和无消费者的CountedFormatString退休，原浮点trap及其共享尾片段只保历史身份，不制造当前调用。
+
+Shop读取移到现有LegacyFormat.cpp，声明与定义统一实际const int32_t*；仍由__movsd只复制一个DWORD并按原W32位样本返回，不直接求值未生产整数或补值，P07仍未解决。映射双BYTE读取移到现有LegacyMultibyte.cpp，保先首BYTE再次BYTE的两个__movsb和首值<<8再加次值；调用方、NLS系统返回和结果消费不改，不新增文件或业务流程。计数桥实现/声明一并退休，相关旧ASM注释更新为已存在的strnlen合同。
+
+LegacyFormat中的U64乘法、移位及余数三个helper无现消费者，随旧数值组退休；MainLoop计时仍实际调用的U64除法完整保留原参数/返回、正文与调用点，不借统一库删真实业务依赖。共享内存/errno/格式入口仅退休旧数值消费者；当前MSVC错误槽与其余业务服务不变。未证原端间接调用不据当前无消费者排除，原函数/区间身份和完整原证据/实施前态保可读Git快照。
+
+普通pow的旧gate、数学记录/RaiseException与手工控制状态现在没有业务调用；沿MC01交MSVC，不再要求维持这套库私有逻辑，具名覆盖ACP01-C中永久保旧错误链的阶段条款。当前真实业务控制/状态读取或系统回调若另有消费者仍沿相应业务合同，不把本组覆盖扩大为全部SEH或业务错误处理删除。单线程、不构建/测试/运行/查产物/摘要；多字节和初始化/错误/退出/堆策略余组继续，全部适用总SPEC门禁与运行验收保持。
+
+<a id="msvc-crt-numeric-acceptance-20261010"></a>
+## MC01-C2 静态核对
+
+逐项核全体旧组导出/数据/头引用与两真实读取消费者，实际业务数学源、五格式/扫描服务及计时U64除法逐字保持；新读取定义/原声明一致，DWORD和逐BYTE intrinsic的宽度、顺序及参数借用不变。核退休源/CMake/slot/type/trap/helper与全部现语义来源，历史附件仅按固定快照核可读性，不放宽当前source校验。原ID/区间身份、业务字段/参数/返回/原证据与全部任务/完整门禁守恒，限定I/S只证本步源码与接线，不能替代SDK/业务/运行或全CRT完成。
+
+<a id="msvc-crt-numeric-source-state-20261010"></a>
+## MC01-C2 当前源码状态
+
+四CPP/三头的旧浮点格式/数值/环境组共7文件/2460行已退休，CMake撤四源项、运行时退出源撤一个未使用头引用。106旧定义退休，含已由strnlen替代的计数BYTE桥、浮点trap/六slots与三个无消费者U64帮助体；MainLoop真实U64除法正文和调用点保持。Shop DWORD读取和成功NLS双BYTE读取移到LegacyFormat/LegacyMultibyte，前者const int32_t*声明定义一致并仍只__movsd取1 DWORD；后者保两个__movsb首后次及首<<8+次。原计数桥声明退休，过时ASM/循环复读注释改实际宿主strnlen合同。
+
+旧库其余导出/数据/类型/初始化没有现组外调用，不保第二套FDIV探测/默认PC/旧gate/96位数值/错误记录/描述符/RaiseException链；实际MSVC库的格式、数学和错误状态内部按MC01，原事实与实施前态可追。实际地图/音频CPP、各自control作用域、常量/F32/发布序、四格式/两扫描提供者与真实计时源逐字保持，未改协议/资源/存档/格式串/RNG、未补Shop未生产命令，P07仍未解决。完整前态和[精确差异/消费者证据](cg2d_msvc_crt_numeric_evidence.json)以固定Git引用读取，未知原调用不作不可达/排除判断。
+
+107现语义对齐：88私有F host、8已有应用数学/控制关联adapted、10共享记录仅移旧消费者，一545038原X尾片段保持身份并只关联真实宿主格式职责边界、不造F/当前尾体。45既有原ID补处置与CRT已知成员：F1366→1411、CRT421→466且枚举false；两限定I/S使软件证据1331→1333。语义2029（1981F＋48X）、合同2091/3680、所有原分母与完整门禁、任务关闭11/60及六closure保持。
+
+退休引用/现真实读取/准确签名、业务数学与服务逐字守恒、SDK实际intrinsic/数学/格式声明、原身份/所有台账和门禁/政策、UTF-8/LF/差异与静态汇总/-Check核对；未构建/测试/运行/算法/查产物/计算摘要，无新依赖。固定引用cg2d-re-msvc-crt-numeric-20261010；剩余多字节、堆策略及初始化/错误/信号/退出设施继续MC01-C，全部业务/owner/SDK及适用运行待。MC01全CRT与整体SPEC未完成。

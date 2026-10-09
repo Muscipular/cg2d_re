@@ -80,10 +80,6 @@ add_library(cg2d_re_startup STATIC
     src/platform/LegacyStdio.cpp
     src/platform/LegacyFormat.cpp
     src/platform/LegacyScan.cpp
-    src/platform/LegacyFloatFormat.cpp
-    src/platform/LegacyFloatNumeric.cpp
-    src/platform/LegacyFloatEnvironment.cpp
-    src/platform/LegacyFloatMath.cpp
     src/platform/LegacyMultibyte.cpp
     src/platform/LegacyNetworkAdapter.cpp
     src/platform/SdlAudioBackend.cpp

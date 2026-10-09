@@ -49,6 +49,15 @@ function Check-Path([string]$path, [string]$owner) {
         & git -C $projectRoot cat-file -e ("cg2d-re-msvc-crt-cpp-history-20261010:cg2d_re/" + $relativePath) 2>$null
         $exists = $LASTEXITCODE -eq 0
     }
+    # MC01-C2：浮点文本/数值/环境组仅保历史附件；真实业务读取已迁既有模块。
+    $historicalNumeric = @('src/platform/LegacyFloatFormat.cpp', 'src/platform/LegacyFloatFormat.hpp',
+        'src/platform/LegacyFloatNumeric.cpp', 'src/platform/LegacyFloatNumeric.hpp',
+        'src/platform/LegacyFloatEnvironment.cpp', 'src/platform/LegacyFloatEnvironment.hpp',
+        'src/platform/LegacyFloatMath.cpp')
+    if (-not $exists -and $relativePath -cin $historicalNumeric -and -not $currentSemanticSource) {
+        & git -C $projectRoot cat-file -e ("cg2d-re-msvc-crt-numeric-history-20261010:cg2d_re/" + $relativePath) 2>$null
+        $exists = $LASTEXITCODE -eq 0
+    }
     Require $exists "$owner 引用不存在：$path"
     $pathCache[$pathCacheKey] = $true
 }

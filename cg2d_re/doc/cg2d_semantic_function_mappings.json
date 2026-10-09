@@ -191247,7 +191247,7 @@
       "original_entry": "0x4209c0",
       "inventory_id": "F:000209C0",
       "original_role": "CAC07仅原分派数据/当前源角色关联：战斗属性效果两组技能分派数据",
-      "status": "已有真实源码，CAC07补原表/索引与源角色关联；未重新核全部原父/算法、未记完整函数处置或软件门禁通过",
+      "status": "已有真实源码，CAC07补原表/索引与源角色关联；未重新核全部原父/算法、未记完整函数处置或软件门禁通过；BRAE01补完整236条822B/四页属性根，正文正确保持，仅两合同注释/限定S；全部父/owner/SDK与运行未验。",
       "sources": [
         {
           "path": "src/YobiRuntime.cpp",
@@ -191262,10 +191262,15 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-decision",
         "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
         "doc/cg2d_unassigned_range_fourth_batch_evidence.json",
-        "doc/ui_windows/shared_battle.md"
+        "doc/ui_windows/shared_battle.md",
+        "doc/cg2d_battle_rebirth_attribute_effects_spec.md#battle-attached-effects-baseline",
+        "doc/cg2d_battle_rebirth_attribute_effects_spec.md#battle-attached-effects-decision",
+        "doc/cg2d_battle_rebirth_attribute_effects_spec.md#battle-attached-effects-acceptance",
+        "doc/cg2d_battle_rebirth_attribute_effects_spec.md#battle-attached-effects-source-state",
+        "doc/cg2d_battle_rebirth_attribute_effects_evidence.json"
       ],
-      "boundary": "原函数身份来自既有库存/实际数据取用父；完整X用途与源码已存在分开。不以父元数据或表目标代所有签名/字段/分支/依赖/正常寿命或机器ABI/运行验收。",
-      "verification_level": "只该父原X完整字节、实际guard/BYTE/JMP取用邻窗、W32表全部指针/target owner、当前真实定义与旧合同关联；源码未改，不构建/测试/运行/摘要。",
+      "boundary": "原函数身份来自既有库存/实际数据取用父；完整X用途与源码已存在分开。不以父元数据或表目标代所有签名/字段/分支/依赖/正常寿命或机器ABI/运行验收。 BRAE01两完整正常根正确保持，仅四注释；固定载荷、S8目标重取/三个BYTE发布、四W16向量先取齐与八配对/纵位置/U8掩码有据。全父/ABI/间接alias/owner、SDK正常失败/容量/资源与声音画面运行未验，全部门禁保持。",
+      "verification_level": "只该父原X完整字节、实际guard/BYTE/JMP取用邻窗、W32表全部指针/target owner、当前真实定义与旧合同关联；源码未改，不构建/测试/运行/摘要。 BRAE01完整288条1027B/五页、十directCALL、59实际CALL/去重22父，三表76B对CAC0790B与八阶段14局部后窗；现正文/签名保持，限定S零I，仅静态。",
       "range_fourth_batch_data": {
         "step": "CAC07",
         "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
@@ -191275,6 +191280,36 @@
         "current_definition_line": 10328,
         "association_only": true,
         "full_original_body_recaptured": false,
+        "runtime_verified": false
+      },
+      "function_chunks": [
+        {
+          "start": "0x4209c0",
+          "end_exclusive": "0x420cf6"
+        }
+      ],
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::NewBattleAttributeEffects_4209C0",
+        "parameters": "非拥有source/target YobiAction*，固定两BattleActorPayload*",
+        "return": "U8，仅原AL低八位匹配并调用掩码"
+      },
+      "battle_attached_effects": {
+        "step": "BRAE01",
+        "source_snapshot": "cg2d-re-battle-attached-effects-20261010",
+        "original_instruction_count": 236,
+        "original_code_bytes": 822,
+        "page_count": 4,
+        "direct_call_count": 8,
+        "callee_count": 1,
+        "jump_count": 50,
+        "return_count": 2,
+        "inbound_direct_call_count": 32,
+        "inbound_parent_count": 20,
+        "known_member_already_present": true,
+        "body_changed": false,
+        "new_implementation": false,
+        "full_lifecycle_closed": false,
         "runtime_verified": false
       }
     },
@@ -197627,6 +197662,63 @@
         "return_count": 2,
         "source_patch_group_count": 19,
         "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4208f0",
+      "inventory_id": "F:000208F0",
+      "original_role": "重生附属效果两段S8选图与目标创建/三BYTE发布",
+      "original_end_exclusive": "0x4209bd",
+      "instruction_count": 52,
+      "function_chunks": [
+        {
+          "start": "0x4208f0",
+          "end_exclusive": "0x4209bd"
+        }
+      ],
+      "status": "BRAE01完整正常源/独立身份纳管，现正文正确保持，仅两合同注释/限定S；全部父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::NewBattleRebirthEffects_4208F0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::NewBattleRebirthEffects_4208F0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_rebirth_attribute_effects_spec.md#battle-attached-effects-baseline",
+        "doc/cg2d_battle_rebirth_attribute_effects_spec.md#battle-attached-effects-decision",
+        "doc/cg2d_battle_rebirth_attribute_effects_spec.md#battle-attached-effects-acceptance",
+        "doc/cg2d_battle_rebirth_attribute_effects_spec.md#battle-attached-effects-source-state",
+        "doc/cg2d_battle_rebirth_attribute_effects_evidence.json"
+      ],
+      "boundary": "BRAE01两完整正常根正确保持，仅四注释；固定载荷、S8目标重取/三个BYTE发布、四W16向量先取齐与八配对/纵位置/U8掩码有据。全父/ABI/间接alias/owner、SDK正常失败/容量/资源与声音画面运行未验，全部门禁保持。",
+      "verification_level": "BRAE01完整288条1027B/五页、十directCALL、59实际CALL/去重22父，三表76B对CAC0790B与八阶段14局部后窗；现正文/签名保持，限定S零I，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::NewBattleRebirthEffects_4208F0",
+        "parameters": "非拥有source/target YobiAction*，固定两BattleActorPayload*",
+        "return": "void，已证局部弃返"
+      },
+      "battle_attached_effects": {
+        "step": "BRAE01",
+        "source_snapshot": "cg2d-re-battle-attached-effects-20261010",
+        "original_instruction_count": 52,
+        "original_code_bytes": 205,
+        "page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 1,
+        "jump_count": 4,
+        "return_count": 1,
+        "inbound_direct_call_count": 27,
+        "inbound_parent_count": 21,
+        "known_member_already_present": false,
+        "body_changed": false,
+        "new_implementation": false,
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }

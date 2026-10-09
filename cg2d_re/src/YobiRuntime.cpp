@@ -10374,6 +10374,7 @@ YobiAction* NewBattleFloatingIcon_41F4C0(
     return action;
 }
 
+// BRAE01：固定两载荷；首段创建后再取目标S8类型，依次发布三个BYTE。
 void NewBattleRebirthEffects_4208F0(YobiAction* const source, YobiAction* const target)
 {
     if (source == nullptr || target == nullptr) {
@@ -10399,6 +10400,7 @@ void NewBattleRebirthEffects_4208F0(YobiAction* const source, YobiAction* const 
     }
 }
 
+// BRAE01：门禁/四W16向量先取齐；八配对依次调用，失败仍置位并占纵位置。
 std::uint8_t NewBattleAttributeEffects_4209C0(YobiAction* const source, YobiAction* const target)
 {
     using namespace world::detail;

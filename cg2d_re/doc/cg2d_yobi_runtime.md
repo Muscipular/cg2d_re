@@ -4687,3 +4687,8 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 ## 2026-10-10 B14H01：完整阶段14帧命中与延时
 
 [完整合同](cg2d_battle_frame_hit_spec.md#battle-frame-hit-source-state)补409680原1371条4955B，先选图/两互斥RNG后fresh查目标，高帧与普通视觉、8000/4000/2000/普通四类HP-FP、免疫/零额/特殊技能及14-28当帧减1/FD4>=11和播放==1后重读尾有据。十九片段恢复四共享归零index/encoded先查目标、两自身三字段读齐再按原序pub、十二fresh BYTE和普通视觉音效event-X；最大HP封顶与两坐标顺序正确保，通用复制器/其它所有源不改。只另两注释，无新函数/API/保护/RNG；一限定I/S与已知成员，所有输入/父-callee/alias/owner、SDK正常失败/数值/RNG和声音画面运行仍待，完整门禁保。
+
+<a id="battle-attached-effects-runtime-20261010"></a>
+## 2026-10-10 BRAE01：重生与属性附属效果
+
+[完整合同](cg2d_battle_rebirth_attribute_effects_spec.md#battle-attached-effects-source-state)补4208F0/4209C0完整288条1027B：固定两载荷、源类型先取/首段后目标S8重取、三个BYTE发布；属性FE0/三门禁后置空检查、四W16向量/特殊技能及八配对按序调用。U8掩码只表匹配并调用，失败仍置位并占纵位置。两正文正确保持，仅CPP/公头四注释；CAC07表/属性旧1915合同追加不重计成员，新重生独立身份/已知成员与一限定S零I。全部父/ABI/alias/owner、SDK正常失败与声音画面运行仍待，完整门禁保。

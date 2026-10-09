@@ -379,9 +379,9 @@ std::int32_t NewBattleNumber_41F1A0(
     std::int32_t fontType, std::uint32_t flags); // 逐字符创建，失败保留已建对象，恒返回0。
 YobiAction* NewBattleFloatingIcon_41F4C0(
     YobiAction* parent, std::int32_t imageNo, std::int32_t offsetX, std::int32_t offsetY);
-void NewBattleRebirthEffects_4208F0(YobiAction* source, YobiAction* target); // 消费1080低S8，不读106C。
+void NewBattleRebirthEffects_4208F0(YobiAction* source, YobiAction* target); // BRAE01：1080低S8，首段后重取目标类型。
 std::uint8_t NewBattleAttributeEffects_4209C0(
-    YobiAction* source, YobiAction* target); // 四W16非零属性匹配，返回八位生成掩码。
+    YobiAction* source, YobiAction* target); // BRAE01：四W16非零匹配；U8掩码表示匹配并调用。
 void UpdateBattleHitEffect_41F570(YobiAction* action); // BHE01：原计数/上限持样，标死后Y取样先于X发布。
 // BHE01：原五参数/零载荷请求和字段发布，播放后Y取样先于X发布，返回原生T*。
 YobiAction* NewBattleHitEffect_41F5B0(

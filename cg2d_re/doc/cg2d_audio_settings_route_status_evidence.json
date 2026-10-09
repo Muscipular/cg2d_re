@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-10",
+  "scope": "旧7/旧8调用来源待项表述对齐，不新增客户端实现或软件验收",
+  "decision_ref": "doc/cg2d_display_settings.md#audio-settings-route-status-20261010",
+  "before_snapshot": "cg2d-re-audio-settings-route-alignment-history-20261010",
+  "existing_baseline_refs": [
+    "doc/ui_windows/shared_legacy_panels.md",
+    "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-baseline"
+  ],
+  "readonly_query": {
+    "database": "当前已打开cg2d.exe会话",
+    "start": "0x57C368",
+    "end_exclusive": "0x57CB24",
+    "target_bytes": 1980,
+    "method": "逐目标字节读取IDA已有XrefsTo与所属函数/反汇编文本",
+    "xrefs": [
+      {
+        "to": "0x57c368",
+        "from": "0x5044c6",
+        "type": 1,
+        "code": false,
+        "parent": "0x5044c0",
+        "insn": "mov     ecx, offset unk_57C368"
+      },
+      {
+        "to": "0x57c370",
+        "from": "0x5041ee",
+        "type": 3,
+        "code": false,
+        "parent": "0x504180",
+        "insn": "mov     al, byte_57C370[esi]"
+      },
+      {
+        "to": "0x57c370",
+        "from": "0x504210",
+        "type": 3,
+        "code": false,
+        "parent": "0x504180",
+        "insn": "mov     al, byte_57C370[esi]"
+      },
+      {
+        "to": "0x57c370",
+        "from": "0x504260",
+        "type": 3,
+        "code": false,
+        "parent": "0x504180",
+        "insn": "cmp     byte_57C370[ecx*4], 2"
+      },
+      {
+        "to": "0x57c370",
+        "from": "0x50426a",
+        "type": 3,
+        "code": false,
+        "parent": "0x504180",
+        "insn": "movsx   edx, byte_57C370[esi]"
+      },
+      {
+        "to": "0x57c370",
+        "from": "0x50429b",
+        "type": 3,
+        "code": false,
+        "parent": "0x504180",
+        "insn": "movsx   eax, byte_57C370[esi]"
+      },
+      {
+        "to": "0x57c370",
+        "from": "0x504319",
+        "type": 3,
+        "code": false,
+        "parent": "0x5042d0",
+        "insn": "mov     cl, byte_57C370[eax*4]"
+      },
+      {
+        "to": "0x57c370",
+        "from": "0x50442e",
+        "type": 3,
+        "code": false,
+        "parent": "0x504410",
+        "insn": "mov     al, byte_57C370[eax*4]"
+      },
+      {
+        "to": "0x57c374",
+        "from": "0x5031ef",
+        "type": 3,
+        "code": false,
+        "parent": "0x503160",
+        "insn": "mov     eax, dword_57C374[esi]"
+      },
+      {
+        "to": "0x57c374",
+        "from": "0x503202",
+        "type": 2,
+        "code": false,
+        "parent": "0x503160",
+        "insn": "mov     dword_57C374[esi], 0"
+      },
+      {
+        "to": "0x57c374",
+        "from": "0x50322f",
+        "type": 3,
+        "code": false,
+        "parent": "0x503160",
+        "insn": "mov     eax, dword_57C374[esi*4]"
+      },
+      {
+        "to": "0x57c374",
+        "from": "0x503273",
+        "type": 2,
+        "code": false,
+        "parent": "0x503160",
+        "insn": "mov     dword_57C374[esi*4], eax"
+      },
+      {
+        "to": "0x57c374",
+        "from": "0x50329b",
+        "type": 3,
+        "code": false,
+        "parent": "0x503160",
+        "insn": "mov     esi, dword_57C374[esi*4]"
+      },
+      {
+        "to": "0x57c374",
+        "from": "0x50447b",
+        "type": 3,
+        "code": false,
+        "parent": "0x504460",
+        "insn": "mov     ecx, dword_57C374[eax*4]"
+      },
+      {
+        "to": "0x57c378",
+        "from": "0x50320c",
+        "type": 3,
+        "code": false,
+        "parent": "0x503160",
+        "insn": "mov     al, byte_57C378[esi]"
+      },
+      {
+        "to": "0x57c378",
+        "from": "0x50321a",
+        "type": 2,
+        "code": false,
+        "parent": "0x503160",
+        "insn": "mov     byte_57C378[esi], 0"
+      },
+      {
+        "to": "0x57c378",
+        "from": "0x50422d",
+        "type": 2,
+        "code": false,
+        "parent": "0x504180",
+        "insn": "mov     byte_57C378[esi], 1"
+      },
+      {
+        "to": "0x57c378",
+        "from": "0x50428c",
+        "type": 2,
+        "code": false,
+        "parent": "0x504180",
+        "insn": "mov     byte_57C378[esi], 1"
+      },
+      {
+        "to": "0x57c378",
+        "from": "0x5042b2",
+        "type": 2,
+        "code": false,
+        "parent": "0x504180",
+        "insn": "mov     byte_57C378[esi], 1"
+      }
+    ]
+  },
+  "observed": {
+    "xref_count": 19,
+    "parent_count": 6,
+    "fields": {
+      "id": 1,
+      "category": 7,
+      "action": 6,
+      "dirty": 5
+    },
+    "handler_direct_xrefs": 0
+  },
+  "limits": [
+    "与既有有界结论一致，不计新增功能、基线全体验收或软件I/S通过。",
+    "已有xref查询不是全程序间接别名、未识别代码或动态生成地址的穷尽证明。",
+    "零直接handler引用不证明处理器不可达，不作范围排除。",
+    "不据证据编号或已有页面构造部分路由/99项轮询。"
+  ],
+  "source_change": "无客户端源码、头、构建项目或WAV资产变更；CRT现薄适配/业务数组与全部排序源码保持。",
+  "verification": "仅文档/台账差异、UTF-8/LF与静态文本汇总；未构建、测试、运行、查产物或计算摘要。"
+}

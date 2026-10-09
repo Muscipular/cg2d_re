@@ -199,22 +199,44 @@
     {
       "original_entry": "0x4FDBD0",
       "inventory_id": "F:000FDBD0",
-      "status": "CAB07初始化/完整页面及控件/CRT绑定源码已实现，实际旧外层接线和编译/运行未验",
-      "implementation_state": "CAB07两240B面板及5/8条56B记录、两初始化包装/本体/完整页面已落码，CAB06五回调与公共返回真实绑定，原两CRT槽顺序已接；旧99表外层和完整功能运行仍待",
-      "remaining_requirement": "57C368旧表保留该handler证据编号；不注册部分设置页或把音频暂缓记作范围排除。",
+      "status": "CAB07初始化/完整页面及控件/CRT绑定源码已实现；原调用来源待证，当前编译/运行及完整功能未验",
+      "implementation_state": "CAB07两240B面板及5/8条56B记录、两初始化包装/本体/完整页面已落码，CAB06五回调与公共返回真实绑定，原两CRT槽顺序已接；原调用来源尚未证明，完整功能运行仍待",
+      "remaining_requirement": "57C368保留handler证据编号；已发现访问没有读取+04，不能推定缺少99项分派。仅在具体取址/调用/消费有证后实施接线；不建部分路由、不转原编号为函数指针、不作范围排除；完整保存/声音/owner寿命及运行仍待。",
       "evidence_documents": [
-        "doc/cg2d_display_settings.md"
-      ]
+        "doc/cg2d_display_settings.md",
+        "doc/cg2d_display_settings.md#audio-settings-route-status-20261010",
+        "doc/cg2d_audio_settings_route_status_evidence.json",
+        "doc/ui_windows/shared_legacy_panels.md"
+      ],
+      "previous_route_wording_20261010": {
+        "git_snapshot": "cg2d-re-audio-settings-route-alignment-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 13,
+        "status": "CAB07初始化/完整页面及控件/CRT绑定源码已实现，实际旧外层接线和编译/运行未验",
+        "implementation_state": "CAB07两240B面板及5/8条56B记录、两初始化包装/本体/完整页面已落码，CAB06五回调与公共返回真实绑定，原两CRT槽顺序已接；旧99表外层和完整功能运行仍待",
+        "remaining_requirement": "57C368旧表保留该handler证据编号；不注册部分设置页或把音频暂缓记作范围排除。"
+      }
     },
     {
       "original_entry": "0x4FE0E0",
       "inventory_id": "F:000FE0E0",
-      "status": "CAB07初始化/完整页面及控件/CRT绑定源码已实现，实际旧外层接线和编译/运行未验",
-      "implementation_state": "CAB07两240B面板及5/8条56B记录、两初始化包装/本体/完整页面已落码，CAB06五回调与公共返回真实绑定，原两CRT槽顺序已接；旧99表外层和完整功能运行仍待",
-      "remaining_requirement": "57C368旧表保留该handler证据编号；不注册部分设置页或把音频暂缓记作范围排除。",
+      "status": "CAB07初始化/完整页面及控件/CRT绑定源码已实现；原调用来源待证，当前编译/运行及完整功能未验",
+      "implementation_state": "CAB07两240B面板及5/8条56B记录、两初始化包装/本体/完整页面已落码，CAB06五回调与公共返回真实绑定，原两CRT槽顺序已接；原调用来源尚未证明，完整功能运行仍待",
+      "remaining_requirement": "57C368保留handler证据编号；已发现访问没有读取+04，不能推定缺少99项分派。仅在具体取址/调用/消费有证后实施接线；不建部分路由、不转原编号为函数指针、不作范围排除；完整保存/声音/owner寿命及运行仍待。",
       "evidence_documents": [
-        "doc/cg2d_display_settings.md"
-      ]
+        "doc/cg2d_display_settings.md",
+        "doc/cg2d_display_settings.md#audio-settings-route-status-20261010",
+        "doc/cg2d_audio_settings_route_status_evidence.json",
+        "doc/ui_windows/shared_legacy_panels.md"
+      ],
+      "previous_route_wording_20261010": {
+        "git_snapshot": "cg2d-re-audio-settings-route-alignment-history-20261010",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 14,
+        "status": "CAB07初始化/完整页面及控件/CRT绑定源码已实现，实际旧外层接线和编译/运行未验",
+        "implementation_state": "CAB07两240B面板及5/8条56B记录、两初始化包装/本体/完整页面已落码，CAB06五回调与公共返回真实绑定，原两CRT槽顺序已接；旧99表外层和完整功能运行仍待",
+        "remaining_requirement": "57C368旧表保留该handler证据编号；不注册部分设置页或把音频暂缓记作范围排除。"
+      }
     },
     {
       "original_entry": "0x50E680",

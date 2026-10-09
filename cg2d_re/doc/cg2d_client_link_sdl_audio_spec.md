@@ -1,5 +1,7 @@
 # CAA01 客户端链接与 SDL 音频依赖
 
+> 2026-10-10[旧7/旧8调用来源待项对齐](cg2d_display_settings.md#audio-settings-route-status-20261010)：原调用来源尚未证明，不能将历史“旧99表外层缺失”直接解释为应新增分派。页面/控件/初始化已有；完整音频与运行仍待，本次仅文档和台账对齐。
+
 > 2026-10-09最新数学源合同：[ACP01](cg2d_asm_to_cpp_migration_spec.md#asm-cpp-decision)允许三ASM使用double/std数学近似；音频6入口当前已迁CPP，原F32字段与读取/发布序保持。下文x87/PC53数值实现及原机器验收属历史，不能证明当前CPP已编译/运行；当前WAV范围和完整音频门禁保持。
 
 > CAB06（2026-10-09）：用户随后要求“继续完善音频部分”，剩余音频开发已恢复；[旧设置五回调](cg2d_display_settings.md#audio-settings-callback-source-state)完成源码，本页“限五入口”只描述CAA01链接阶段。SDL3/WAV及空音频选择不变；其余本体/接线/运行门禁按实际推进，不以恢复范围计为完成。

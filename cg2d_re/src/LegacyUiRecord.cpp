@@ -5143,7 +5143,7 @@ std::uintptr_t Sub_4DF730(const std::int32_t opened)
         }
     }
     const auto drawAt = [](const char* const text, const std::int32_t offsetX,
-                           const std::int32_t offsetY, const std::int32_t font) {
+                           const std::int32_t offsetY, const std::int8_t font) {
         const std::int32_t top = gLegacyMessagePanel582AA8.y + offsetY;
         const std::int32_t left = gLegacyMessagePanel582AA8.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
@@ -8412,15 +8412,11 @@ std::uint32_t Sub_4E92A0(const std::int32_t opened)
     }
     std::int32_t hovered = -1;
     std::int32_t usedHovered = -1;
-    std::int32_t hoverColumn;
-    std::int32_t hoverRow;
     for (std::int32_t row = 0; row < 4; ++row) {
         for (std::int32_t column = 0; column < 5; ++column) {
             const std::int32_t top = gLegacyEngravingPanel582FD8.y + 36 + 53 * row;
             const std::int32_t left = gLegacyEngravingPanel582FD8.x + 8 + 52 * column;
             if (Sub_5049A0(left, top, left + 47, top + 47, -1) != 0) {
-                hoverRow = row;
-                hoverColumn = column;
                 hovered = 8 + row * 5 + column;
                 if (world::detail::gPlayerItemsFDA8A4[hovered].used != 0) {
                     usedHovered = hovered;
@@ -8429,6 +8425,8 @@ std::uint32_t Sub_4E92A0(const std::int32_t opened)
             }
         }
     }
+    const std::int32_t hoverRow = (hovered - 8) / 5;
+    const std::int32_t hoverColumn = (hovered - 8) % 5;
     if (hovered != gLegacyEngravingHover58309C) {
         gLegacyEngravingPageC8AA9C = 0;
     }
@@ -8550,15 +8548,11 @@ std::uint32_t Sub_4E97E0(const std::int32_t opened)
     }
     std::int32_t hovered = -1;
     std::int32_t usedHovered = -1;
-    std::int32_t hoverRow;
-    std::int32_t hoverColumn;
     for (std::int32_t row = 0; row < 4; ++row) {
         for (std::int32_t column = 0; column < 5; ++column) {
             const std::int32_t top = gLegacyBurialPanel5830A0.y + 36 + 53 * row;
             const std::int32_t left = gLegacyBurialPanel5830A0.x + 8 + 52 * column;
             if (Sub_5049A0(left, top, left + 47, top + 47, -1) != 0) {
-                hoverRow = row;
-                hoverColumn = column;
                 hovered = 8 + row * 5 + column;
                 if (world::detail::gPlayerItemsFDA8A4[hovered].used != 0) {
                     usedHovered = hovered;
@@ -8567,6 +8561,8 @@ std::uint32_t Sub_4E97E0(const std::int32_t opened)
             }
         }
     }
+    const std::int32_t hoverRow = (hovered - 8) / 5;
+    const std::int32_t hoverColumn = (hovered - 8) % 5;
     if (hovered != gLegacyBurialHover583164) {
         gLegacyBurialPageCC4B64 = 0;
     }
@@ -8682,15 +8678,11 @@ std::uint32_t Sub_4E9C80(const std::int32_t opened)
     }
     std::int32_t hovered = -1;
     std::int32_t giftHovered = -1;
-    std::int32_t hoverRow;
-    std::int32_t hoverColumn;
     for (std::int32_t row = 0; row < 4; ++row) {
         for (std::int32_t column = 0; column < 5; ++column) {
             const std::int32_t top = gLegacyMailGiftPanel583168.y + 36 + 53 * row;
             const std::int32_t left = gLegacyMailGiftPanel583168.x + 8 + 52 * column;
             if (Sub_5049A0(left, top, left + 47, top + 47, -1) != 0) {
-                hoverRow = row;
-                hoverColumn = column;
                 hovered = 8 + row * 5 + column;
                 const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered];
                 if (item->used != 0 && (static_cast<std::uint8_t>(item->flags) & 1u) != 0) {
@@ -8700,6 +8692,8 @@ std::uint32_t Sub_4E9C80(const std::int32_t opened)
             }
         }
     }
+    const std::int32_t hoverRow = (hovered - 8) / 5;
+    const std::int32_t hoverColumn = (hovered - 8) % 5;
     if (hovered != gLegacyMailGiftHover58322C) {
         gLegacyMailGiftPageCC2E58 = 0;
     }
@@ -9374,7 +9368,7 @@ std::uint32_t Sub_4EAAA0(const std::int32_t opened)
     const std::int32_t imageX = gLegacyMailReadPanel5833C0.x + 43;
     static_cast<void>(DrawGraphic(imageX, imageY, 212, image, 0, &descriptor));
     const auto drawAt = [](const char* const text, const std::int32_t offsetX,
-        const std::int32_t offsetY, const std::int32_t font, const std::int8_t color) {
+        const std::int32_t offsetY, const std::int8_t font, const std::int8_t color) {
         const std::int32_t top = gLegacyMailReadPanel5833C0.y + offsetY;
         const std::int32_t left = gLegacyMailReadPanel5833C0.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
@@ -9675,15 +9669,11 @@ std::uint32_t Sub_52D7B0(const std::int32_t opened)
     }
     std::int32_t hovered = -1;
     std::int32_t giftHovered = -1;
-    std::int32_t hoverRow;
-    std::int32_t hoverColumn;
     for (std::int32_t row = 0; row < 4; ++row) {
         for (std::int32_t column = 0; column < 5; ++column) {
             const std::int32_t top = gLegacyGuildGiftPanel58E950.y + 36 + 53 * row;
             const std::int32_t left = gLegacyGuildGiftPanel58E950.x + 8 + 52 * column;
             if (Sub_5049A0(left, top, left + 47, top + 47, -1) != 0) {
-                hoverRow = row;
-                hoverColumn = column;
                 hovered = 8 + row * 5 + column;
                 const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered];
                 if (item->used != 0 && (static_cast<std::uint8_t>(item->flags) & 1u) != 0) {
@@ -9693,6 +9683,8 @@ std::uint32_t Sub_52D7B0(const std::int32_t opened)
             }
         }
     }
+    const std::int32_t hoverRow = (hovered - 8) / 5;
+    const std::int32_t hoverColumn = (hovered - 8) % 5;
     if (hovered != gLegacyGuildGiftHover58EA14) {
         gLegacyGuildGiftPage1050DAC = 0;
     }
@@ -10056,7 +10048,7 @@ std::uint32_t Sub_52E650(const std::int32_t opened)
     const std::int32_t imageX = gLegacyGuildReadPanel58EBA8.x + 43;
     static_cast<void>(DrawGraphic(imageX, imageY, 212, image, 0, &descriptor));
     const auto drawAt = [](const char* const text, const std::int32_t offsetX,
-        const std::int32_t offsetY, const std::int32_t font, const std::int8_t color) {
+        const std::int32_t offsetY, const std::int8_t font, const std::int8_t color) {
         const std::int32_t top = gLegacyGuildReadPanel58EBA8.y + offsetY;
         const std::int32_t left = gLegacyGuildReadPanel58EBA8.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),

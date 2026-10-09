@@ -139108,7 +139108,11 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_message_board.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
       ],
       "boundary": "只替换两格式标识符；四B0H同源记录/共用384B、删除index S32/+128转义cap127/mode64与继续扫描、每记录时间W32非零同位入53B8C6/失败跳过/分钟至年五S32读取/月年增量/原斜线格式后布局与font1不变。原输入/按钮许可优先级/跨旧68图Y/正文两次抽行/关闭聊天非拥有T*与uintptr_t返回/完整正常尾保持。完整生产/旧路由/真实输入收发画面生命周期/运行未验。",
       "original_incoming": [],
@@ -139196,7 +139200,20 @@
           "relationship": "每记录独立读取时间W32，同位S32局部传53B8C6，非零且原返回非空才依minute/hour/day/month/year五S32读取；月+1/年+1900后按year/month/day/hour/minute写共用未清384B，日期与小时之间原斜线保留；格式后本页Y/X取样画font1，再沿原两次正文抽行cap128/宽70"
         }
       ],
-      "verification_level": "本步只读120/677新格式邻窗，余557沿既有父合同；5531A4/587CC8沿已核原字节。整份源仅两标识符、其他全文/签名保持，S32/W32门槛/容量/读取消费顺序、JSON增量/文档末追加/编码和差异静态核对通过。禁构建/测试/客户端/哈希；原父/生产/旧路由/输入收发画面生命周期/运行未闭合。"
+      "verification_level": "本步只读120/677新格式邻窗，余557沿既有父合同；5531A4/587CC8沿已核原字节。整份源仅两标识符、其他全文/签名保持，S32/W32门槛/容量/读取消费顺序、JSON增量/文档末追加/编码和差异静态核对通过。禁构建/测试/客户端/哈希；原父/生产/旧路由/输入收发画面生命周期/运行未闭合。",
+      "latest_panel_local_value": {
+        "step": "CAB28",
+        "kind": "font",
+        "source_snapshot": "cg2d-re-panel-local-value-20261009",
+        "decision_ref": "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "source": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4DF730",
+        "boundary": "CAB28只局部绘字lambda font S32改S8，三个父真实调用均font0/1，对应原456780 a4低BYTE消费；公共入口/颜色/坐标/文本字节、绘字参数与全部其它正文/音效/调用/返回保持。16原调用邻窗224条663B及入口36条仅本次范围，不代全父/callee/正常寿命/旧表路由/机器ABI/画面或运行。",
+        "whole_cpp_head_plus_expected_exact": true,
+        "client_link_verified": true,
+        "runtime_verified": false,
+        "full_parent_reverified_now": false
+      }
     },
     {
       "original_entry": "0x4D5250",
@@ -139621,7 +139638,11 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_item_engraving.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
       ],
       "boundary": "只改1格式接口，原未清128B、8..27槽C5CB/used W16/绘图后+C44 count S32>0、各格式后Y/X/低S16坐标/font1/color0保持。原刻印筛选/双hover/列内break外行继续、null描述、重取来源目标511D60/SE77后关闭79、后续提示和503440后发布hover保持。不补未知生产、旧路由或异常hover/原未写局部，不据RPLAN.24专项故障模拟完成。",
       "original_incoming": [],
@@ -139660,7 +139681,20 @@
           "relationship": "固定同源C5CB玩家记录，213层图传nullptr；原绘图完成后再读+C44 count S32，正数才fmt至原未清128B，格式后新取本页面板Y/X及低S16坐标画数量。不缓存绘图前数量/合并双hover/增保护或修改其它正文。"
         }
       ],
-      "verification_level": "本步新读47/415原邻窗、余368沿既有父合同，格式沿已核字节；整份源仅1标识符，参数/容量/绘图后读数/完整返回、JSON增量/文档末追加/编码及差异静态核对通过。不构建/测试/客户端/哈希，原父/生产/旧路由/服务端往返/画面与生命周期/运行未闭合。"
+      "verification_level": "本步新读47/415原邻窗、余368沿既有父合同，格式沿已核字节；整份源仅1标识符，参数/容量/绘图后读数/完整返回、JSON增量/文档末追加/编码及差异静态核对通过。不构建/测试/客户端/哈希，原父/生产/旧路由/服务端往返/画面与生命周期/运行未闭合。",
+      "latest_panel_local_value": {
+        "step": "CAB28",
+        "kind": "grid",
+        "source_snapshot": "cg2d-re-panel-local-value-20261009",
+        "decision_ref": "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "source": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E92A0",
+        "boundary": "CAB28只撤独立未初始化行列及命中赋值，扫描后由最终hovered还原row=(hovered-8)/5、column=(hovered-8)%5。保四行五列/每行首命中后外层继续、used/gift独立索引及后行unused保较早有效索引、原共享坐标消费与音效/调用/返回。坐标用最终hovered，原门禁下只能8..27；未命中仅未消费算术值，无补零/额外门禁/钳制/异常模拟。四扫描210条646B为本次范围，不代全父/callee/旧表路由/正常寿命/ABI/画面运行。",
+        "whole_cpp_head_plus_expected_exact": true,
+        "client_link_verified": true,
+        "runtime_verified": false,
+        "full_parent_reverified_now": false
+      }
     },
     {
       "original_entry": "0x4E97E0",
@@ -139679,7 +139713,11 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_item_burial.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
       ],
       "boundary": "只改2格式接口，原未清128B、8..27槽C5CB/used W16/绘图后+C44 count S32>0、各格式后Y/X/低S16坐标/font1/color0保持。原flags仅低W8/60H、排除三槽/双hover、原16B图描述、选中非负即发送后关闭80/581800=-1但不清选择或加音效、后续提示/尾返回再发布hover保持。第二原格式新selected S32/128B→独立16B/cap15/原mode0发送、发送后完整共同尾不动。不补未知生产、旧路由或异常hover/原未写局部，不据RPLAN.24专项故障模拟完成。",
       "original_incoming": [],
@@ -139747,7 +139785,20 @@
           "relationship": "新读CC4214固定selected S32写同未清128B→独立16B/cap15转义→target/request/Y/X/socket原mode0发送弃返回→关闭80/581800=-1；不清选择/加SE/提前return，继续排除框、原提示和完整尾"
         }
       ],
-      "verification_level": "本步新读94/356原邻窗、余262沿既有父合同，格式沿已核字节；整份源仅2标识符，参数/容量/绘图后读数/完整返回、JSON增量/文档末追加/编码及差异静态核对通过。不构建/测试/客户端/哈希，原父/生产/旧路由/服务端往返/画面与生命周期/运行未闭合。"
+      "verification_level": "本步新读94/356原邻窗、余262沿既有父合同，格式沿已核字节；整份源仅2标识符，参数/容量/绘图后读数/完整返回、JSON增量/文档末追加/编码及差异静态核对通过。不构建/测试/客户端/哈希，原父/生产/旧路由/服务端往返/画面与生命周期/运行未闭合。",
+      "latest_panel_local_value": {
+        "step": "CAB28",
+        "kind": "grid",
+        "source_snapshot": "cg2d-re-panel-local-value-20261009",
+        "decision_ref": "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "source": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E97E0",
+        "boundary": "CAB28只撤独立未初始化行列及命中赋值，扫描后由最终hovered还原row=(hovered-8)/5、column=(hovered-8)%5。保四行五列/每行首命中后外层继续、used/gift独立索引及后行unused保较早有效索引、原共享坐标消费与音效/调用/返回。坐标用最终hovered，原门禁下只能8..27；未命中仅未消费算术值，无补零/额外门禁/钳制/异常模拟。四扫描210条646B为本次范围，不代全父/callee/旧表路由/正常寿命/ABI/画面运行。",
+        "whole_cpp_head_plus_expected_exact": true,
+        "client_link_verified": true,
+        "runtime_verified": false,
+        "full_parent_reverified_now": false
+      }
     },
     {
       "original_entry": "0x4E9C80",
@@ -139766,7 +139817,11 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_mail_gift_items.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
       ],
       "boundary": "只改1格式接口，原未清128B、8..27槽C5CB/used W16/绘图后+C44 count S32>0、各格式后Y/X/低S16坐标/font1/color0保持。原used/低flags赠送bit1与鼠标10H、选择及保存最后hover行列/取消选择SE54、16B图描述、本页不发协议、状态2原关闭49而非面板50、提示保持/尾返回后发布hover不变。不补未知生产、旧路由或异常hover/原未写局部，不据RPLAN.24专项故障模拟完成。",
       "original_incoming": [],
@@ -139805,7 +139860,20 @@
           "relationship": "固定同源C5CB玩家记录，213层图传&descriptor；原绘图完成后再读+C44 count S32，正数才fmt至原未清128B，格式后新取本页面板Y/X及低S16坐标画数量。不缓存绘图前数量/合并双hover/增保护或修改其它正文。"
         }
       ],
-      "verification_level": "本步新读47/371原邻窗、余324沿既有父合同，格式沿已核字节；整份源仅1标识符，参数/容量/绘图后读数/完整返回、JSON增量/文档末追加/编码及差异静态核对通过。不构建/测试/客户端/哈希，原父/生产/旧路由/服务端往返/画面与生命周期/运行未闭合。"
+      "verification_level": "本步新读47/371原邻窗、余324沿既有父合同，格式沿已核字节；整份源仅1标识符，参数/容量/绘图后读数/完整返回、JSON增量/文档末追加/编码及差异静态核对通过。不构建/测试/客户端/哈希，原父/生产/旧路由/服务端往返/画面与生命周期/运行未闭合。",
+      "latest_panel_local_value": {
+        "step": "CAB28",
+        "kind": "grid",
+        "source_snapshot": "cg2d-re-panel-local-value-20261009",
+        "decision_ref": "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "source": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E9C80",
+        "boundary": "CAB28只撤独立未初始化行列及命中赋值，扫描后由最终hovered还原row=(hovered-8)/5、column=(hovered-8)%5。保四行五列/每行首命中后外层继续、used/gift独立索引及后行unused保较早有效索引、原共享坐标消费与音效/调用/返回。坐标用最终hovered，原门禁下只能8..27；未命中仅未消费算术值，无补零/额外门禁/钳制/异常模拟。四扫描210条646B为本次范围，不代全父/callee/旧表路由/正常寿命/ABI/画面运行。",
+        "whole_cpp_head_plus_expected_exact": true,
+        "client_link_verified": true,
+        "runtime_verified": false,
+        "full_parent_reverified_now": false
+      }
     },
     {
       "original_entry": "0x4EA1B0",
@@ -140075,7 +140143,11 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_mail_read.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
       ],
       "boundary": "只换两个格式接口。图后新CF4FC0/74H+08 S32、共用未清128B/十次正文抽行后新D046D4页+1/10、两次格式后新Y/X/font1保持；同源消息清未读、标题与十行颜色/逐行取数、发送选择/翻页/按钮提示与完整U32返回不动。原父、旧真实分派与收发/保存/运行仍未验。",
       "original_incoming": [],
@@ -140141,7 +140213,20 @@
           "relationship": "十次正文抽行/绘制后新读同源D046D4 S32页号，页+1/原10写同一128B，格式后新Y/X画layer2/font1/color0，随后四按钮；不使用标题/正文先前页号"
         }
       ],
-      "verification_level": "本步只读118/475新格式邻窗，余357沿既有父合同，原格式常量沿已核字节。整份源仅两个格式标识符，字段/参数/容量/读取绘制或发送保存顺序/返回、JSON增量/文档末追加/编码及差异静态核对通过。禁构建/测试/客户端/hash；原父与整体验收未闭合。"
+      "verification_level": "本步只读118/475新格式邻窗，余357沿既有父合同，原格式常量沿已核字节。整份源仅两个格式标识符，字段/参数/容量/读取绘制或发送保存顺序/返回、JSON增量/文档末追加/编码及差异静态核对通过。禁构建/测试/客户端/hash；原父与整体验收未闭合。",
+      "latest_panel_local_value": {
+        "step": "CAB28",
+        "kind": "font",
+        "source_snapshot": "cg2d-re-panel-local-value-20261009",
+        "decision_ref": "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "source": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4EAAA0",
+        "boundary": "CAB28只局部绘字lambda font S32改S8，三个父真实调用均font0/1，对应原456780 a4低BYTE消费；公共入口/颜色/坐标/文本字节、绘字参数与全部其它正文/音效/调用/返回保持。16原调用邻窗224条663B及入口36条仅本次范围，不代全父/callee/正常寿命/旧表路由/机器ABI/画面或运行。",
+        "whole_cpp_head_plus_expected_exact": true,
+        "client_link_verified": true,
+        "runtime_verified": false,
+        "full_parent_reverified_now": false
+      }
     },
     {
       "original_entry": "0x4EB1C0",
@@ -140252,7 +140337,11 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_guild_mail_gift_items.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
       ],
       "boundary": "只替换一格式接口，原物品8..27网格/used W16/213图后count+C44 S32>0/未清128B/格式后新Y/X保持；实际共享赠物选择/行列/详情页/双hover、负hover直访问按RPLAN.24、关闭49与完整U32返回不动。旧真实路由/协议/父运行未验。",
       "original_incoming": [],
@@ -140291,7 +140380,20 @@
           "relationship": "同源FDA8A4物品C5CH记录+C44 count，原213图与descriptor完成后才读取，未清128B；格式后新Y/X，X+29+52列/Y+67+53行/font1。双hover、逐行内break、实际选择/保存行列/说明页/负hover直访问/关闭49与完整U32返回保持"
         }
       ],
-      "verification_level": "本步只读59/371新格式邻窗，余312沿既有父合同；553FCC/587768沿已核字节。整份源仅格式标识符，字段/符号性/参数/容量/原绘制读序及返回、JSON增量/文档末追加/编码/差异静态核对通过。禁构建/测试/客户端/hash；原父/旧路由/运行未闭合。"
+      "verification_level": "本步只读59/371新格式邻窗，余312沿既有父合同；553FCC/587768沿已核字节。整份源仅格式标识符，字段/符号性/参数/容量/原绘制读序及返回、JSON增量/文档末追加/编码/差异静态核对通过。禁构建/测试/客户端/hash；原父/旧路由/运行未闭合。",
+      "latest_panel_local_value": {
+        "step": "CAB28",
+        "kind": "grid",
+        "source_snapshot": "cg2d-re-panel-local-value-20261009",
+        "decision_ref": "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "source": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_52D7B0",
+        "boundary": "CAB28只撤独立未初始化行列及命中赋值，扫描后由最终hovered还原row=(hovered-8)/5、column=(hovered-8)%5。保四行五列/每行首命中后外层继续、used/gift独立索引及后行unused保较早有效索引、原共享坐标消费与音效/调用/返回。坐标用最终hovered，原门禁下只能8..27；未命中仅未消费算术值，无补零/额外门禁/钳制/异常模拟。四扫描210条646B为本次范围，不代全父/callee/旧表路由/正常寿命/ABI/画面运行。",
+        "whole_cpp_head_plus_expected_exact": true,
+        "client_link_verified": true,
+        "runtime_verified": false,
+        "full_parent_reverified_now": false
+      }
     },
     {
       "original_entry": "0x52DCE0",
@@ -140464,7 +140566,11 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_guild_mail_read.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
       ],
       "boundary": "只换两格式接口。缓存同源7CH成员非拥有T*、图后同record+10 S32/共用未清128B、十次正文后新阅读页号+1/10、格式后新布局/font1保持；同源清未读、标题/颜色单次快照/首行沿colorPage后九行新页号、Ctrl翻页短路/导航/519550与完整U32返回均不动。原父/旧真实路由/收发保存/运行仍未验。",
       "original_incoming": [],
@@ -140530,7 +140636,20 @@
           "relationship": "十次正文抽行/绘制后52EB1D新读1050EF8 S32，页+1/原10写同一未清128B，格式后新Y/X、X+56/Y+403/font1/color0，再四按钮。保留正文首行沿colorPage、后九行新页号与颜色单次快照，不用旧页号代页码"
         }
       ],
-      "verification_level": "本步只读118/479新格式邻窗，余361沿既有父合同；553FCC/58645C/587768沿已核字节。整份源仅两个格式标识符，字段/参数/容量/缓存与原读序/返回、JSON增量/文档末追加/编码/差异静态核对通过。禁构建/测试/客户端/hash；原父/旧路由/运行与总PLAN未闭合。"
+      "verification_level": "本步只读118/479新格式邻窗，余361沿既有父合同；553FCC/58645C/587768沿已核字节。整份源仅两个格式标识符，字段/参数/容量/缓存与原读序/返回、JSON增量/文档末追加/编码/差异静态核对通过。禁构建/测试/客户端/hash；原父/旧路由/运行与总PLAN未闭合。",
+      "latest_panel_local_value": {
+        "step": "CAB28",
+        "kind": "font",
+        "source_snapshot": "cg2d-re-panel-local-value-20261009",
+        "decision_ref": "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "source": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_52E650",
+        "boundary": "CAB28只局部绘字lambda font S32改S8，三个父真实调用均font0/1，对应原456780 a4低BYTE消费；公共入口/颜色/坐标/文本字节、绘字参数与全部其它正文/音效/调用/返回保持。16原调用邻窗224条663B及入口36条仅本次范围，不代全父/callee/正常寿命/旧表路由/机器ABI/画面或运行。",
+        "whole_cpp_head_plus_expected_exact": true,
+        "client_link_verified": true,
+        "runtime_verified": false,
+        "full_parent_reverified_now": false
+      }
     },
     {
       "original_entry": "0x52ED50",

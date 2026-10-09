@@ -7697,9 +7697,15 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/legacy_mail_read.md"
+        "doc/ui_windows/legacy_mail_read.md",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:000EAAA0"
+      ],
       "closure_task_ids": [
         "U04",
         "V04"
@@ -7708,13 +7714,24 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ],
       "blockers": [
+        "CAB28仅本页局部font参数S8已修，当前Debug0错误/0增量警告；其它86项待，枚举/完整父-callee/旧表路由/正常寿命/机器ABI及画面/音效运行未验。局部成员和I/S证据不闭门禁。",
         "原成员、传递依赖和逐门禁证据待归档"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ]
     },
     {
       "id": "UI-L-048",
@@ -7778,9 +7795,15 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/legacy_mail_gift_items.md"
+        "doc/ui_windows/legacy_mail_gift_items.md",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:000E9C80"
+      ],
       "closure_task_ids": [
         "U04",
         "V04"
@@ -7789,13 +7812,24 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ],
       "blockers": [
+        "CAB28仅本页局部最终hovered还原行列已修，当前Debug0错误/0增量警告；其它86项待，枚举/完整父-callee/旧表路由/正常寿命/机器ABI及画面/音效运行未验。局部成员和I/S证据不闭门禁。",
         "原成员、传递依赖和逐门禁证据待归档"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ]
     },
     {
       "id": "UI-L-051",
@@ -8523,9 +8557,15 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/legacy_message_board.md"
+        "doc/ui_windows/legacy_message_board.md",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:000DF730"
+      ],
       "closure_task_ids": [
         "U04",
         "V04"
@@ -8534,13 +8574,24 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ],
       "blockers": [
+        "CAB28仅本页局部font参数S8已修，当前Debug0错误/0增量警告；其它86项待，枚举/完整父-callee/旧表路由/正常寿命/机器ABI及画面/音效运行未验。局部成员和I/S证据不闭门禁。",
         "原成员、传递依赖和逐门禁证据待归档"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ]
     },
     {
       "id": "UI-L-074",
@@ -8695,9 +8746,15 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/legacy_item_engraving.md"
+        "doc/ui_windows/legacy_item_engraving.md",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:000E92A0"
+      ],
       "closure_task_ids": [
         "U04",
         "V04"
@@ -8706,13 +8763,24 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ],
       "blockers": [
+        "CAB28仅本页局部最终hovered还原行列已修，当前Debug0错误/0增量警告；其它86项待，枚举/完整父-callee/旧表路由/正常寿命/机器ABI及画面/音效运行未验。局部成员和I/S证据不闭门禁。",
         "原成员、传递依赖和逐门禁证据待归档"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ]
     },
     {
       "id": "UI-L-080",
@@ -8722,9 +8790,15 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/legacy_item_burial.md"
+        "doc/ui_windows/legacy_item_burial.md",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:000E97E0"
+      ],
       "closure_task_ids": [
         "U04",
         "V04"
@@ -8733,13 +8807,24 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ],
       "blockers": [
+        "CAB28仅本页局部最终hovered还原行列已修，当前Debug0错误/0增量警告；其它86项待，枚举/完整父-callee/旧表路由/正常寿命/机器ABI及画面/音效运行未验。局部成员和I/S证据不闭门禁。",
         "原成员、传递依赖和逐门禁证据待归档"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ]
     },
     {
       "id": "UI-L-081",
@@ -8900,9 +8985,15 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/legacy_guild_mail_gift_items.md"
+        "doc/ui_windows/legacy_guild_mail_gift_items.md",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:0012D7B0"
+      ],
       "closure_task_ids": [
         "U04",
         "V04"
@@ -8911,13 +9002,24 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ],
       "blockers": [
+        "CAB28仅本页局部最终hovered还原行列已修，当前Debug0错误/0增量警告；其它86项待，枚举/完整父-callee/旧表路由/正常寿命/机器ABI及画面/音效运行未验。局部成员和I/S证据不闭门禁。",
         "原成员、传递依赖和逐门禁证据待归档"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ]
     },
     {
       "id": "UI-L-087",
@@ -8981,9 +9083,15 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/legacy_guild_mail_read.md"
+        "doc/ui_windows/legacy_guild_mail_read.md",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:0012E650"
+      ],
       "closure_task_ids": [
         "U04",
         "V04"
@@ -8992,13 +9100,24 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ],
       "blockers": [
+        "CAB28仅本页局部font参数S8已修，当前Debug0错误/0增量警告；其它86项待，枚举/完整父-callee/旧表路由/正常寿命/机器ABI及画面/音效运行未验。局部成员和I/S证据不闭门禁。",
         "原成员、传递依赖和逐门禁证据待归档"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ]
     },
     {
       "id": "UI-L-090",
@@ -55004,6 +55123,384 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-PANEL-LOCAL-VALUE-UI-L-073-I-20261009",
+      "feature_id": "UI-L-073",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "既有原父/原16个绘字调用邻窗及456780 a4 BYTE消费；只局部font参数",
+      "implementation_reference": "Git固定命名快照 cg2d-re-panel-local-value-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build",
+        "src/LegacyUiRecord.cpp#Sub_4DF730"
+      ],
+      "observation": "仅本页局部参数/坐标真实源码修改；不是整个页面或全成员实现通过",
+      "expected": "CAB28只局部绘字lambda font S32改S8，三个父真实调用均font0/1，对应原456780 a4低BYTE消费；公共入口/颜色/坐标/文本字节、绘字参数与全部其它正文/音效/调用/返回保持。16原调用邻窗224条663B及入口36条仅本次范围，不代全父/callee/正常寿命/旧表路由/机器ABI/画面或运行。",
+      "actual": "局部font S8，仅当前0/1字面量调用；整CPP七处预期以外保持，Debug0错误/0增量警告",
+      "differences": [
+        {
+          "description": "局部类型收敛到原BYTE消费；公共接口与实际参数保持",
+          "decision_ref": "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-PANEL-LOCAL-VALUE-UI-L-073-S-20261009",
+      "feature_id": "UI-L-073",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "既有原父/原16个绘字调用邻窗及456780 a4 BYTE消费；只局部font参数",
+      "implementation_reference": "Git固定命名快照 cg2d-re-panel-local-value-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build",
+        "src/LegacyUiRecord.cpp#Sub_4DF730"
+      ],
+      "observation": "仅本次原局部、源差集与当前编译静态核对；不是全父/旧表/正常寿命/机器ABI或运行通过",
+      "expected": "CAB28只局部绘字lambda font S32改S8，三个父真实调用均font0/1，对应原456780 a4低BYTE消费；公共入口/颜色/坐标/文本字节、绘字参数与全部其它正文/音效/调用/返回保持。16原调用邻窗224条663B及入口36条仅本次范围，不代全父/callee/正常寿命/旧表路由/机器ABI/画面或运行。",
+      "actual": "局部font S8，仅当前0/1字面量调用；整CPP七处预期以外保持，Debug0错误/0增量警告",
+      "differences": [
+        {
+          "description": "局部类型收敛到原BYTE消费；公共接口与实际参数保持",
+          "decision_ref": "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-PANEL-LOCAL-VALUE-UI-L-047-I-20261009",
+      "feature_id": "UI-L-047",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "既有原父/原16个绘字调用邻窗及456780 a4 BYTE消费；只局部font参数",
+      "implementation_reference": "Git固定命名快照 cg2d-re-panel-local-value-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build",
+        "src/LegacyUiRecord.cpp#Sub_4EAAA0"
+      ],
+      "observation": "仅本页局部参数/坐标真实源码修改；不是整个页面或全成员实现通过",
+      "expected": "CAB28只局部绘字lambda font S32改S8，三个父真实调用均font0/1，对应原456780 a4低BYTE消费；公共入口/颜色/坐标/文本字节、绘字参数与全部其它正文/音效/调用/返回保持。16原调用邻窗224条663B及入口36条仅本次范围，不代全父/callee/正常寿命/旧表路由/机器ABI/画面或运行。",
+      "actual": "局部font S8，仅当前0/1字面量调用；整CPP七处预期以外保持，Debug0错误/0增量警告",
+      "differences": [
+        {
+          "description": "局部类型收敛到原BYTE消费；公共接口与实际参数保持",
+          "decision_ref": "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-PANEL-LOCAL-VALUE-UI-L-047-S-20261009",
+      "feature_id": "UI-L-047",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "既有原父/原16个绘字调用邻窗及456780 a4 BYTE消费；只局部font参数",
+      "implementation_reference": "Git固定命名快照 cg2d-re-panel-local-value-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build",
+        "src/LegacyUiRecord.cpp#Sub_4EAAA0"
+      ],
+      "observation": "仅本次原局部、源差集与当前编译静态核对；不是全父/旧表/正常寿命/机器ABI或运行通过",
+      "expected": "CAB28只局部绘字lambda font S32改S8，三个父真实调用均font0/1，对应原456780 a4低BYTE消费；公共入口/颜色/坐标/文本字节、绘字参数与全部其它正文/音效/调用/返回保持。16原调用邻窗224条663B及入口36条仅本次范围，不代全父/callee/正常寿命/旧表路由/机器ABI/画面或运行。",
+      "actual": "局部font S8，仅当前0/1字面量调用；整CPP七处预期以外保持，Debug0错误/0增量警告",
+      "differences": [
+        {
+          "description": "局部类型收敛到原BYTE消费；公共接口与实际参数保持",
+          "decision_ref": "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-PANEL-LOCAL-VALUE-UI-L-089-I-20261009",
+      "feature_id": "UI-L-089",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "既有原父/原16个绘字调用邻窗及456780 a4 BYTE消费；只局部font参数",
+      "implementation_reference": "Git固定命名快照 cg2d-re-panel-local-value-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build",
+        "src/LegacyUiRecord.cpp#Sub_52E650"
+      ],
+      "observation": "仅本页局部参数/坐标真实源码修改；不是整个页面或全成员实现通过",
+      "expected": "CAB28只局部绘字lambda font S32改S8，三个父真实调用均font0/1，对应原456780 a4低BYTE消费；公共入口/颜色/坐标/文本字节、绘字参数与全部其它正文/音效/调用/返回保持。16原调用邻窗224条663B及入口36条仅本次范围，不代全父/callee/正常寿命/旧表路由/机器ABI/画面或运行。",
+      "actual": "局部font S8，仅当前0/1字面量调用；整CPP七处预期以外保持，Debug0错误/0增量警告",
+      "differences": [
+        {
+          "description": "局部类型收敛到原BYTE消费；公共接口与实际参数保持",
+          "decision_ref": "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-PANEL-LOCAL-VALUE-UI-L-089-S-20261009",
+      "feature_id": "UI-L-089",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "既有原父/原16个绘字调用邻窗及456780 a4 BYTE消费；只局部font参数",
+      "implementation_reference": "Git固定命名快照 cg2d-re-panel-local-value-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build",
+        "src/LegacyUiRecord.cpp#Sub_52E650"
+      ],
+      "observation": "仅本次原局部、源差集与当前编译静态核对；不是全父/旧表/正常寿命/机器ABI或运行通过",
+      "expected": "CAB28只局部绘字lambda font S32改S8，三个父真实调用均font0/1，对应原456780 a4低BYTE消费；公共入口/颜色/坐标/文本字节、绘字参数与全部其它正文/音效/调用/返回保持。16原调用邻窗224条663B及入口36条仅本次范围，不代全父/callee/正常寿命/旧表路由/机器ABI/画面或运行。",
+      "actual": "局部font S8，仅当前0/1字面量调用；整CPP七处预期以外保持，Debug0错误/0增量警告",
+      "differences": [
+        {
+          "description": "局部类型收敛到原BYTE消费；公共接口与实际参数保持",
+          "decision_ref": "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-PANEL-LOCAL-VALUE-UI-L-079-I-20261009",
+      "feature_id": "UI-L-079",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "既有四页原父/扫描210条646B，原命中行列与最终hovered对应；只局部坐标承载",
+      "implementation_reference": "Git固定命名快照 cg2d-re-panel-local-value-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build",
+        "src/LegacyUiRecord.cpp#Sub_4E92A0"
+      ],
+      "observation": "仅本页局部参数/坐标真实源码修改；不是整个页面或全成员实现通过",
+      "expected": "CAB28只撤独立未初始化行列及命中赋值，扫描后由最终hovered还原row=(hovered-8)/5、column=(hovered-8)%5。保四行五列/每行首命中后外层继续、used/gift独立索引及后行unused保较早有效索引、原共享坐标消费与音效/调用/返回。坐标用最终hovered，原门禁下只能8..27；未命中仅未消费算术值，无补零/额外门禁/钳制/异常模拟。四扫描210条646B为本次范围，不代全父/callee/旧表路由/正常寿命/ABI/画面运行。",
+      "actual": "扫描后从最终hovered还原行列，原门禁/较早有效索引/共享坐标和调用保持；整CPP七处预期以外不变，Debug0错误/0增量警告",
+      "differences": [
+        {
+          "description": "局部坐标改从已有最终命中索引还原，不改变原有状态消费或增加保护",
+          "decision_ref": "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-PANEL-LOCAL-VALUE-UI-L-079-S-20261009",
+      "feature_id": "UI-L-079",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "既有四页原父/扫描210条646B，原命中行列与最终hovered对应；只局部坐标承载",
+      "implementation_reference": "Git固定命名快照 cg2d-re-panel-local-value-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build",
+        "src/LegacyUiRecord.cpp#Sub_4E92A0"
+      ],
+      "observation": "仅本次原局部、源差集与当前编译静态核对；不是全父/旧表/正常寿命/机器ABI或运行通过",
+      "expected": "CAB28只撤独立未初始化行列及命中赋值，扫描后由最终hovered还原row=(hovered-8)/5、column=(hovered-8)%5。保四行五列/每行首命中后外层继续、used/gift独立索引及后行unused保较早有效索引、原共享坐标消费与音效/调用/返回。坐标用最终hovered，原门禁下只能8..27；未命中仅未消费算术值，无补零/额外门禁/钳制/异常模拟。四扫描210条646B为本次范围，不代全父/callee/旧表路由/正常寿命/ABI/画面运行。",
+      "actual": "扫描后从最终hovered还原行列，原门禁/较早有效索引/共享坐标和调用保持；整CPP七处预期以外不变，Debug0错误/0增量警告",
+      "differences": [
+        {
+          "description": "局部坐标改从已有最终命中索引还原，不改变原有状态消费或增加保护",
+          "decision_ref": "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-PANEL-LOCAL-VALUE-UI-L-080-I-20261009",
+      "feature_id": "UI-L-080",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "既有四页原父/扫描210条646B，原命中行列与最终hovered对应；只局部坐标承载",
+      "implementation_reference": "Git固定命名快照 cg2d-re-panel-local-value-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build",
+        "src/LegacyUiRecord.cpp#Sub_4E97E0"
+      ],
+      "observation": "仅本页局部参数/坐标真实源码修改；不是整个页面或全成员实现通过",
+      "expected": "CAB28只撤独立未初始化行列及命中赋值，扫描后由最终hovered还原row=(hovered-8)/5、column=(hovered-8)%5。保四行五列/每行首命中后外层继续、used/gift独立索引及后行unused保较早有效索引、原共享坐标消费与音效/调用/返回。坐标用最终hovered，原门禁下只能8..27；未命中仅未消费算术值，无补零/额外门禁/钳制/异常模拟。四扫描210条646B为本次范围，不代全父/callee/旧表路由/正常寿命/ABI/画面运行。",
+      "actual": "扫描后从最终hovered还原行列，原门禁/较早有效索引/共享坐标和调用保持；整CPP七处预期以外不变，Debug0错误/0增量警告",
+      "differences": [
+        {
+          "description": "局部坐标改从已有最终命中索引还原，不改变原有状态消费或增加保护",
+          "decision_ref": "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-PANEL-LOCAL-VALUE-UI-L-080-S-20261009",
+      "feature_id": "UI-L-080",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "既有四页原父/扫描210条646B，原命中行列与最终hovered对应；只局部坐标承载",
+      "implementation_reference": "Git固定命名快照 cg2d-re-panel-local-value-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build",
+        "src/LegacyUiRecord.cpp#Sub_4E97E0"
+      ],
+      "observation": "仅本次原局部、源差集与当前编译静态核对；不是全父/旧表/正常寿命/机器ABI或运行通过",
+      "expected": "CAB28只撤独立未初始化行列及命中赋值，扫描后由最终hovered还原row=(hovered-8)/5、column=(hovered-8)%5。保四行五列/每行首命中后外层继续、used/gift独立索引及后行unused保较早有效索引、原共享坐标消费与音效/调用/返回。坐标用最终hovered，原门禁下只能8..27；未命中仅未消费算术值，无补零/额外门禁/钳制/异常模拟。四扫描210条646B为本次范围，不代全父/callee/旧表路由/正常寿命/ABI/画面运行。",
+      "actual": "扫描后从最终hovered还原行列，原门禁/较早有效索引/共享坐标和调用保持；整CPP七处预期以外不变，Debug0错误/0增量警告",
+      "differences": [
+        {
+          "description": "局部坐标改从已有最终命中索引还原，不改变原有状态消费或增加保护",
+          "decision_ref": "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-PANEL-LOCAL-VALUE-UI-L-050-I-20261009",
+      "feature_id": "UI-L-050",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "既有四页原父/扫描210条646B，原命中行列与最终hovered对应；只局部坐标承载",
+      "implementation_reference": "Git固定命名快照 cg2d-re-panel-local-value-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build",
+        "src/LegacyUiRecord.cpp#Sub_4E9C80"
+      ],
+      "observation": "仅本页局部参数/坐标真实源码修改；不是整个页面或全成员实现通过",
+      "expected": "CAB28只撤独立未初始化行列及命中赋值，扫描后由最终hovered还原row=(hovered-8)/5、column=(hovered-8)%5。保四行五列/每行首命中后外层继续、used/gift独立索引及后行unused保较早有效索引、原共享坐标消费与音效/调用/返回。坐标用最终hovered，原门禁下只能8..27；未命中仅未消费算术值，无补零/额外门禁/钳制/异常模拟。四扫描210条646B为本次范围，不代全父/callee/旧表路由/正常寿命/ABI/画面运行。",
+      "actual": "扫描后从最终hovered还原行列，原门禁/较早有效索引/共享坐标和调用保持；整CPP七处预期以外不变，Debug0错误/0增量警告",
+      "differences": [
+        {
+          "description": "局部坐标改从已有最终命中索引还原，不改变原有状态消费或增加保护",
+          "decision_ref": "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-PANEL-LOCAL-VALUE-UI-L-050-S-20261009",
+      "feature_id": "UI-L-050",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "既有四页原父/扫描210条646B，原命中行列与最终hovered对应；只局部坐标承载",
+      "implementation_reference": "Git固定命名快照 cg2d-re-panel-local-value-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build",
+        "src/LegacyUiRecord.cpp#Sub_4E9C80"
+      ],
+      "observation": "仅本次原局部、源差集与当前编译静态核对；不是全父/旧表/正常寿命/机器ABI或运行通过",
+      "expected": "CAB28只撤独立未初始化行列及命中赋值，扫描后由最终hovered还原row=(hovered-8)/5、column=(hovered-8)%5。保四行五列/每行首命中后外层继续、used/gift独立索引及后行unused保较早有效索引、原共享坐标消费与音效/调用/返回。坐标用最终hovered，原门禁下只能8..27；未命中仅未消费算术值，无补零/额外门禁/钳制/异常模拟。四扫描210条646B为本次范围，不代全父/callee/旧表路由/正常寿命/ABI/画面运行。",
+      "actual": "扫描后从最终hovered还原行列，原门禁/较早有效索引/共享坐标和调用保持；整CPP七处预期以外不变，Debug0错误/0增量警告",
+      "differences": [
+        {
+          "description": "局部坐标改从已有最终命中索引还原，不改变原有状态消费或增加保护",
+          "decision_ref": "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-PANEL-LOCAL-VALUE-UI-L-086-I-20261009",
+      "feature_id": "UI-L-086",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "既有四页原父/扫描210条646B，原命中行列与最终hovered对应；只局部坐标承载",
+      "implementation_reference": "Git固定命名快照 cg2d-re-panel-local-value-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build",
+        "src/LegacyUiRecord.cpp#Sub_52D7B0"
+      ],
+      "observation": "仅本页局部参数/坐标真实源码修改；不是整个页面或全成员实现通过",
+      "expected": "CAB28只撤独立未初始化行列及命中赋值，扫描后由最终hovered还原row=(hovered-8)/5、column=(hovered-8)%5。保四行五列/每行首命中后外层继续、used/gift独立索引及后行unused保较早有效索引、原共享坐标消费与音效/调用/返回。坐标用最终hovered，原门禁下只能8..27；未命中仅未消费算术值，无补零/额外门禁/钳制/异常模拟。四扫描210条646B为本次范围，不代全父/callee/旧表路由/正常寿命/ABI/画面运行。",
+      "actual": "扫描后从最终hovered还原行列，原门禁/较早有效索引/共享坐标和调用保持；整CPP七处预期以外不变，Debug0错误/0增量警告",
+      "differences": [
+        {
+          "description": "局部坐标改从已有最终命中索引还原，不改变原有状态消费或增加保护",
+          "decision_ref": "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-PANEL-LOCAL-VALUE-UI-L-086-S-20261009",
+      "feature_id": "UI-L-086",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "既有四页原父/扫描210条646B，原命中行列与最终hovered对应；只局部坐标承载",
+      "implementation_reference": "Git固定命名快照 cg2d-re-panel-local-value-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build",
+        "src/LegacyUiRecord.cpp#Sub_52D7B0"
+      ],
+      "observation": "仅本次原局部、源差集与当前编译静态核对；不是全父/旧表/正常寿命/机器ABI或运行通过",
+      "expected": "CAB28只撤独立未初始化行列及命中赋值，扫描后由最终hovered还原row=(hovered-8)/5、column=(hovered-8)%5。保四行五列/每行首命中后外层继续、used/gift独立索引及后行unused保较早有效索引、原共享坐标消费与音效/调用/返回。坐标用最终hovered，原门禁下只能8..27；未命中仅未消费算术值，无补零/额外门禁/钳制/异常模拟。四扫描210条646B为本次范围，不代全父/callee/旧表路由/正常寿命/ABI/画面运行。",
+      "actual": "扫描后从最终hovered还原行列，原门禁/较早有效索引/共享坐标和调用保持；整CPP七处预期以外不变，Debug0错误/0增量警告",
+      "differences": [
+        {
+          "description": "局部坐标改从已有最终命中索引还原，不改变原有状态消费或增加保护",
+          "decision_ref": "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
     }
   ],
   "task_acceptance": [
@@ -56663,7 +57160,11 @@
         "doc/ui_windows/window_7.md#player-panel-button-range-source-state",
         "doc/cg2d_player_panel_range_identity_evidence.json",
         "doc/ui_windows/shared_67_68.md#stall-edit-coordinate-source-state",
-        "doc/cg2d_stall_edit_coordinate_evidence.json"
+        "doc/cg2d_stall_edit_coordinate_evidence.json",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
       ]
     },
     {
@@ -56824,7 +57325,11 @@
         "doc/ui_windows/window_7.md#player-panel-button-range-source-state",
         "doc/cg2d_player_panel_range_identity_evidence.json",
         "doc/ui_windows/shared_67_68.md#stall-edit-coordinate-source-state",
-        "doc/cg2d_stall_edit_coordinate_evidence.json"
+        "doc/cg2d_stall_edit_coordinate_evidence.json",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
       ]
     },
     {
@@ -70022,6 +70527,90 @@
         "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build"
       ],
       "boundary": "CAB27仅回调入口宽度：50EEB0/50E6C0原首参为未读fd/socket，只拓宽为uintptr_t，业务W32及正文/返回保持；50E770原517190调用传S32，原体MOV AL消费低W8，当前入口S32→显式U8→原W8状态/字节返回。无协议/解码/模板改动、拒绝/钳制/异常模拟；原高EAX24位、全机器返回/全部callee/正常资源与owner寿命、实际网络音频互通未验，已证512E40调用者忽略回调返回。"
+    },
+    {
+      "inventory_id": "F:000DF730",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ],
+      "boundary": "CAB28只局部绘字lambda font S32改S8，三个父真实调用均font0/1，对应原456780 a4低BYTE消费；公共入口/颜色/坐标/文本字节、绘字参数与全部其它正文/音效/调用/返回保持。16原调用邻窗224条663B及入口36条仅本次范围，不代全父/callee/正常寿命/旧表路由/机器ABI/画面或运行。"
+    },
+    {
+      "inventory_id": "F:000EAAA0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ],
+      "boundary": "CAB28只局部绘字lambda font S32改S8，三个父真实调用均font0/1，对应原456780 a4低BYTE消费；公共入口/颜色/坐标/文本字节、绘字参数与全部其它正文/音效/调用/返回保持。16原调用邻窗224条663B及入口36条仅本次范围，不代全父/callee/正常寿命/旧表路由/机器ABI/画面或运行。"
+    },
+    {
+      "inventory_id": "F:0012E650",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ],
+      "boundary": "CAB28只局部绘字lambda font S32改S8，三个父真实调用均font0/1，对应原456780 a4低BYTE消费；公共入口/颜色/坐标/文本字节、绘字参数与全部其它正文/音效/调用/返回保持。16原调用邻窗224条663B及入口36条仅本次范围，不代全父/callee/正常寿命/旧表路由/机器ABI/画面或运行。"
+    },
+    {
+      "inventory_id": "F:000E92A0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ],
+      "boundary": "CAB28只撤独立未初始化行列及命中赋值，扫描后由最终hovered还原row=(hovered-8)/5、column=(hovered-8)%5。保四行五列/每行首命中后外层继续、used/gift独立索引及后行unused保较早有效索引、原共享坐标消费与音效/调用/返回。坐标用最终hovered，原门禁下只能8..27；未命中仅未消费算术值，无补零/额外门禁/钳制/异常模拟。四扫描210条646B为本次范围，不代全父/callee/旧表路由/正常寿命/ABI/画面运行。"
+    },
+    {
+      "inventory_id": "F:000E97E0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ],
+      "boundary": "CAB28只撤独立未初始化行列及命中赋值，扫描后由最终hovered还原row=(hovered-8)/5、column=(hovered-8)%5。保四行五列/每行首命中后外层继续、used/gift独立索引及后行unused保较早有效索引、原共享坐标消费与音效/调用/返回。坐标用最终hovered，原门禁下只能8..27；未命中仅未消费算术值，无补零/额外门禁/钳制/异常模拟。四扫描210条646B为本次范围，不代全父/callee/旧表路由/正常寿命/ABI/画面运行。"
+    },
+    {
+      "inventory_id": "F:000E9C80",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ],
+      "boundary": "CAB28只撤独立未初始化行列及命中赋值，扫描后由最终hovered还原row=(hovered-8)/5、column=(hovered-8)%5。保四行五列/每行首命中后外层继续、used/gift独立索引及后行unused保较早有效索引、原共享坐标消费与音效/调用/返回。坐标用最终hovered，原门禁下只能8..27；未命中仅未消费算术值，无补零/额外门禁/钳制/异常模拟。四扫描210条646B为本次范围，不代全父/callee/旧表路由/正常寿命/ABI/画面运行。"
+    },
+    {
+      "inventory_id": "F:0012D7B0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ],
+      "boundary": "CAB28只撤独立未初始化行列及命中赋值，扫描后由最终hovered还原row=(hovered-8)/5、column=(hovered-8)%5。保四行五列/每行首命中后外层继续、used/gift独立索引及后行unused保较早有效索引、原共享坐标消费与音效/调用/返回。坐标用最终hovered，原门禁下只能8..27；未命中仅未消费算术值，无补零/额外门禁/钳制/异常模拟。四扫描210条646B为本次范围，不代全父/callee/旧表路由/正常寿命/ABI/画面运行。"
     }
   ],
   "auxiliary_dispositions": [
@@ -99839,14 +100428,14 @@
     }
   ],
   "build_validation": {
-    "step": "CAB27",
+    "step": "CAB28",
     "recorded_on": "2026-10-09",
     "configuration": "Debug",
-    "source_snapshot": "cg2d-re-dispatch-callback-width-20261009",
+    "source_snapshot": "cg2d-re-panel-local-value-20261009",
     "configure_performed": false,
     "configure_exit_code": 0,
     "build_exit_code": 0,
-    "incremental_warning_count": 97,
+    "incremental_warning_count": 0,
     "audio_provider_diagnostic_count": 0,
     "static_libraries_exit_code": 0,
     "client_link_exit_code": 0,
@@ -99857,7 +100446,7 @@
     "whole_project_accepted": false,
     "converter_build_performed": false,
     "converter_last_build_step": "CAB15",
-    "note": "CAB27只三个回调入口宽度：两个未读socket首参拓宽uintptr_t，Puk完整S32入参在原低W8消费点显式转换/写字节状态/返该字节。六整文件与HEAD+明确预期一致，原模板/命令/字段/解码/掩码/派发/明文LF、业务字段与其它正文保持。原高EAX24位及完整机器返回未代验。BWZ01现Debug三库/客户端0错误、三个回调宽度警告0；头文件传播其余重编源97警告仍待，不抑制或关闭。MAP三回调/52CDE0/网络循环/whV存在，8022528B游戏EXE已部署并备份旧同长版；仅复制/长度，不摘要/内容比对。未运行客户端/试包/测试/算法/工具、重生成WAV，IP2、全网络/音频/正常寿命/机器ABI与整体SPEC未验；离线最近通过仍CAB15。",
+    "note": "CAB28仅LegacyUiRecord七父局部：三个绘字lambda font改原S8消费，四页撤独立未初始化行列，扫描后从最终hovered还原；原内外循环/used或gift独立索引、原门禁/共享坐标与音效/字段/调用/返回及其它全文保持，无补零/额外保护/异常模拟或新工具。原四扫描210条646B、16绘字邻窗224条663B与入口36条仅局部，完整七父只已有身份/元数据。CAA01既有客户端/按钮音频承载Debug，仅重编该CPP，三库/客户端0错误/0增量警告，原11项消除，其它先前86项未核销；不称全项目无警告。MAP七父/两个音频提供者/绘字存在，8022528B游戏新版部署，旧同长版before-panel-local-value-20261009备份；只核复制/长度，不摘要/内容比较。未运行客户端/试包/测试/算法/工具或重生成WAV，离线最近通过仍CAB15；正常资源/owner寿命、全父/callee/旧表/机器ABI/声音与画面、IP2及整体验收仍待。",
     "evidence_refs": [
       "doc/cg2d_build_acceptance_spec.md",
       "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
@@ -99925,7 +100514,11 @@
       "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
       "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-source-state",
       "doc/cg2d_dispatch_callback_width_evidence.json",
-      "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build"
+      "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build",
+      "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+      "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+      "doc/cg2d_panel_local_value_evidence.json",
+      "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
     ]
   }
 }

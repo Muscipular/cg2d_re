@@ -148,3 +148,10 @@
 沿BWZ01既有客户端连接授权编译现有Debug目标，无再配置，三库/真实客户端返回0、0错误；NetworkRuntime及三个本步回调宽度C4244为0。头文件传播带来的其它重编源实际97警告：C4244共23、C4456共9、C4701共58、C4703共5、C4996共2，分别LegacyUiRecord11/LoginState2/YobiRuntime41/WindowRuntime43，均不因本步关闭或抑制。日志build/windows-msvc-x64/build-dispatch-callback-width-20261009.log，MAP含三个回调、52CDE0及连接循环/whV，仍无离线合成/转换代码。
 
 8022528B新版已复制游戏目录，旧同长版备份cg2d_re_client.exe.before-dispatch-callback-width-20261009，仅核复制/长度。[入口宽度](cg2d_network_compatibility_spec.md#dispatch-callback-width-source-state)与[原证/静态及构建](cg2d_dispatch_callback_width_evidence.json)只证明本步边界。未运行客户端/试包/测试/算法/工具、重生成WAV或摘要；IP2互通、全部资源/正常寿命/机器ABI及整体SPEC仍未验，离线最近通过仍CAB15。
+
+<a id="panel-local-value-debug-build"></a>
+## CAB28 面板局部值当前编译（2026-10-09）
+
+沿既有CAA01客户端/按钮音频承载链，现Debug仅重编LegacyUiRecord.cpp并链接三库/客户端，返回0，无再配置，0错误/0增量警告。该源原三C4244/八C4701已消除；CAB27其它86项（LoginState2/YobiRuntime41/WindowRuntime43）未重编核销，不称全项目无警告。日志build/windows-msvc-x64/build-panel-local-value-20261009.log，MAP七父、PlaySe52C450/5042D0及DrawText456780存在，仍无离线合成/转换代码。
+
+8022528B新版已复制游戏目录，旧同长版备份cg2d_re_client.exe.before-panel-local-value-20261009，只核复制/长度。[局部源码](ui_windows/shared_legacy_panels.md#panel-local-value-source-state)与[证据](cg2d_panel_local_value_evidence.json)不代整父/callee/旧表、正常资源寿命/机器ABI/画面或声音与IP2互通。未运行客户端/试包/测试/算法/工具、重生成WAV或摘要；离线最近通过仍CAB15，整体未验。

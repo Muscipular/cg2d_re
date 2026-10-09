@@ -257,16 +257,16 @@ std::int32_t Sub_508360()
             network::WriteProtocolModeDA3B22(0);
 
             char adapterScratch[16];
-            char accountCopy[44];
+            char passwordCopy[44];
             char adapterId[44];
             static_cast<void>(platform::Sub_534EF0(adapterScratch));
-            std::strcpy(accountCopy, gValueDA38DC);
+            std::strcpy(passwordCopy, gValueDA38DC);
             std::strcpy(adapterId, adapterScratch);
-            std::strcpy(gValueDA38DC, accountCopy);
+            std::strcpy(gValueDA38DC, passwordCopy);
             const std::int32_t queued = network::Sub_512800(
                 platform::gConnectionSocket,
                 gValueDA3A1C,
-                accountCopy,
+                passwordCopy,
                 gValueDA3A5C,
                 adapterId);
             // 原508748：登录发送返回后先重读阶段，再发布请求状态。

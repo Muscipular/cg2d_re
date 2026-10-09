@@ -155,3 +155,10 @@
 沿既有CAA01客户端/按钮音频承载链，现Debug仅重编LegacyUiRecord.cpp并链接三库/客户端，返回0，无再配置，0错误/0增量警告。该源原三C4244/八C4701已消除；CAB27其它86项（LoginState2/YobiRuntime41/WindowRuntime43）未重编核销，不称全项目无警告。日志build/windows-msvc-x64/build-panel-local-value-20261009.log，MAP七父、PlaySe52C450/5042D0及DrawText456780存在，仍无离线合成/转换代码。
 
 8022528B新版已复制游戏目录，旧同长版备份cg2d_re_client.exe.before-panel-local-value-20261009，只核复制/长度。[局部源码](ui_windows/shared_legacy_panels.md#panel-local-value-source-state)与[证据](cg2d_panel_local_value_evidence.json)不代整父/callee/旧表、正常资源寿命/机器ABI/画面或声音与IP2互通。未运行客户端/试包/测试/算法/工具、重生成WAV或摘要；离线最近通过仍CAB15，整体未验。
+
+<a id="login-receive-diagnostics-debug-build"></a>
+## CAB29 登录接收诊断当前编译（2026-10-09）
+
+沿BWZ01既有客户端连接授权，现Debug编译三文件及头文件传播的必要依赖，三库/客户端返回0，无再配置，0错误、87其它源警告：LoginState2/YobiRuntime41/WindowRuntime43/MainLoopSupport1（GetVersionExA弃用新重编暴露）；NetworkRuntime/新诊断及已修LegacyUiRecord为0，不关闭或抑制其余项。日志build/windows-msvc-x64/build-login-receive-diagnostics-20261009.log，MAP含512800/508360/507DF0/512E40/5081E0及whV，仍无离线合成/转换代码。
+
+8022528B新版已复制游戏目录、旧同长版备份cg2d_re_client.exe.before-login-receive-diagnostics-20261009，仅核复制/长度。[接收诊断](cg2d_network_compatibility_spec.md#login-receive-diagnostics-source-state)与[证据](cg2d_login_receive_diagnostics_evidence.json)只证明额外日志和名称纠正、原字段/决策/明文保持。未运行客户端/试包/测试/算法/工具、重生成WAV或摘要；运行服务端身份/IP2互通、完整父-callee/正常寿命/机器ABI、声音与画面及整体仍未验，离线最近通过仍CAB15。

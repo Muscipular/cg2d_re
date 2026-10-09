@@ -1,0 +1,205 @@
+{
+  "step": "CAB29",
+  "recorded_on": "2026-10-09",
+  "source_snapshot": "cg2d-re-login-receive-diagnostics-20261009",
+  "baseline": "plan/cg2d_full_reconstruction_plan.md",
+  "decision_ref": "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-decision",
+  "scope": "仅现有登录接收/完整行派发阶段日志和JFVf参数名称；字段序/值来源/类型和原决策保持，不新增原成员/协议或宣互通已修好",
+  "server_source": {
+    "root": "D:/Source/cgmsv/cgmsv_server",
+    "references": [
+      {
+        "path": "nrproto_serv.c",
+        "lines": "1672-1677",
+        "fact": "token1..4按原四文本；第二绑定passwd，第三绑定cdkey"
+      },
+      {
+        "path": "callfromcli.c",
+        "lines": "427-438",
+        "fact": "第二保存Connect.passwd→AuthQue.password；第三保存Connect.cdkey→AuthQue.cdkey"
+      },
+      {
+        "path": "nrproto_util.c",
+        "lines": "494-528,598-622",
+        "fact": "现有TW明文分支以原命令/空格字段/LF收发"
+      }
+    ],
+    "modified": false,
+    "restarted": false,
+    "running_binary_source_identity_proven": false
+  },
+  "field_names": {
+    "function": "Sub_512800",
+    "before": [
+      "executableDigest",
+      "account",
+      "password",
+      "adapterId"
+    ],
+    "after": [
+      "executableDigest",
+      "password",
+      "account",
+      "adapterId"
+    ],
+    "argument_value_sources": [
+      "gValueDA3A1C",
+      "gValueDA38DC副本",
+      "gValueDA3A5C",
+      "adapterScratch副本"
+    ],
+    "field_types_unchanged": true,
+    "field_positions_unchanged": true,
+    "body_only_alpha_renaming": true,
+    "login_copy_only_renamed_from_accountCopy_to_passwordCopy": true,
+    "scope": "本机服务端现有字段消费事实；不交换字段/迁移源缓冲，历史错误名称由新合同明确更正，不扩展所有输入模式/原所有父完整验收"
+  },
+  "diagnostic_events": [
+    {
+      "format": "LOGIN RECEIVED BYTES=%d QUEUE=%d",
+      "arguments": "正recv的S32字节数和原AppendReceiveQueue返回",
+      "position": "原receiveReset0与Append调用之后，仅当前登录阶段71..80",
+      "buffer_bytes": 64,
+      "max_bytes_including_nul": 51,
+      "return_used_for_decision": false
+    },
+    {
+      "format": "LOGIN DISPATCH RESULT=%d",
+      "arguments": "原完整LF行NetworkDispatch返回S32",
+      "position": "资格在派发前按登录阶段捕获；原派发及全部清缓冲/表调用之后",
+      "buffer_bytes": 64,
+      "max_bytes_including_nul": 34,
+      "return_used_for_decision": false
+    }
+  ],
+  "dispatch_return_boundary": "105个早返匹配返0；尾iKe/kiG/TgX即使命中仍返原-1，未知也-1，不能解释全部-1为未知/失败。新日志只记原RESULT，不更改派发或回调。",
+  "source_changes": [
+    {
+      "path": "src/network/NetworkRuntime.cpp",
+      "symbols": [
+        "Sub_512800",
+        "NetworkLoop_507DF0"
+      ],
+      "change": "四字段仅alpha重命名；持原接收入队和行派发返回供额外诊断，原决策/清理/其它正文保持"
+    },
+    {
+      "path": "src/LoginState.cpp",
+      "symbols": [
+        "Sub_508360"
+      ],
+      "change": "仅accountCopy四处→passwordCopy，容量/来源/值与实参位置不变"
+    },
+    {
+      "path": "include/cg/network/NetworkRuntime.hpp",
+      "symbols": [
+        "Sub_512800"
+      ],
+      "change": "仅注释/形参名称，ABI参数类型/位置不变"
+    }
+  ],
+  "static_checks": {
+    "three_full_files_head_plus_expected_exact": true,
+    "jf_vf_body_alpha_rename_only": true,
+    "original_argument_values_types_positions_and_wire_unchanged": true,
+    "receive_and_dispatch_returns_diagnostic_only": true,
+    "original_all_buffer_clear_order_unchanged": true,
+    "new_formats_buffers_static_max_lengths_checked": true,
+    "all_108_dispatch_expressions_and_callback_bodies_unchanged": true,
+    "private_or_payload_data_not_logged": true
+  },
+  "boundary": "额外日志FILE I/O/时延、阶段取样是具名差异，不宣原调用列表逐条相同；保原相对调用序和错误/失败/半行/多行/部分收发/状态/返回。没有新日志框架/owner/协议或协商、加解密、重试/超时/保护。两新诊断格式不加入原1023调用/241字面量或原成员数量。",
+  "build": {
+    "exit_code": 0,
+    "configure_performed": false,
+    "error_count": 0,
+    "warning_count": 87,
+    "new_diagnostic_warning_count": 0,
+    "legacy_ui_record_warning_count": 0,
+    "warning_groups": [
+      {
+        "source": "LoginState.cpp",
+        "code": "C4996",
+        "count": 2
+      },
+      {
+        "source": "YobiRuntime.cpp",
+        "code": "C4456",
+        "count": 7
+      },
+      {
+        "source": "platform/MainLoopSupport.cpp",
+        "code": "C4996",
+        "count": 1
+      },
+      {
+        "source": "ui/WindowRuntime.cpp",
+        "code": "C4244",
+        "count": 20
+      },
+      {
+        "source": "ui/WindowRuntime.cpp",
+        "code": "C4456",
+        "count": 2
+      },
+      {
+        "source": "ui/WindowRuntime.cpp",
+        "code": "C4701",
+        "count": 20
+      },
+      {
+        "source": "ui/WindowRuntime.cpp",
+        "code": "C4703",
+        "count": 1
+      },
+      {
+        "source": "YobiRuntime.cpp",
+        "code": "C4701",
+        "count": 30
+      },
+      {
+        "source": "YobiRuntime.cpp",
+        "code": "C4703",
+        "count": 4
+      }
+    ],
+    "symbols_present": [
+      "Sub_512800",
+      "Sub_508360",
+      "NetworkLoop_507DF0",
+      "NetworkDispatch_512E40",
+      "AppendReceiveQueue_5081E0",
+      "HandleResponse_508800"
+    ],
+    "client_length": 8022528,
+    "offline_synth_absent": true,
+    "log": "build/windows-msvc-x64/build-login-receive-diagnostics-20261009.log"
+  },
+  "deployment": {
+    "source_length": 8022528,
+    "deployed_length": 8022528,
+    "previous_length": 8022528,
+    "backup_length": 8022528,
+    "deployed": true,
+    "backup": "H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2d_re_client.exe.before-login-receive-diagnostics-20261009",
+    "comparison": "只核复制成功/长度，不摘要或内容比较"
+  },
+  "unclosed": [
+    "新版IP2实际运行/包进入及完整登录互通",
+    "当前运行服务端二进制与所读源码身份",
+    "当前其它87项诊断，含既有GetVersionExA新重编暴露",
+    "原全部父/callee/SDK失败/正常owner与资源寿命/机器ABI",
+    "音频/画面及184叶完整验收/全成员枚举"
+  ],
+  "prohibited_actions_performed": {
+    "client_run": false,
+    "network_test_packet": false,
+    "test_run": false,
+    "algorithm_or_converter_run": false,
+    "hash": false,
+    "new_dependency": false,
+    "autohotkey": false,
+    "subagent": false
+  },
+  "runtime_verified": false,
+  "global_accepted": false
+}

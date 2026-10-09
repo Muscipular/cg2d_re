@@ -2097,8 +2097,8 @@ std::int32_t Sub_512AB0(
 std::int32_t Sub_512800(
     const std::uintptr_t socket,
     const char* const executableDigest,
-    const char* const account,
     const char* const password,
+    const char* const account,
     const char* const adapterId)
 {
     static_cast<void>(BuildProtocolCommand_517510(
@@ -2113,22 +2113,22 @@ std::int32_t Sub_512800(
         reinterpret_cast<const char*>(digestToken),
         digestCapacity));
 
-    const std::int32_t accountCapacity = std::bit_cast<std::int32_t>(
-        gNetworkRuntimeState.bufferLength);
-    std::uint8_t* const accountToken = FormatProtocolTextToken_517160(account);
-    static_cast<void>(AppendProtocolText_5170D0(
-        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
-        reinterpret_cast<const char*>(accountToken),
-        accountCapacity));
-
     const std::int32_t passwordCapacity = std::bit_cast<std::int32_t>(
         gNetworkRuntimeState.bufferLength);
-    std::uint8_t* const passwordToken =
-        FormatProtocolTextToken_517160(password);
+    std::uint8_t* const passwordToken = FormatProtocolTextToken_517160(password);
     static_cast<void>(AppendProtocolText_5170D0(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
         reinterpret_cast<const char*>(passwordToken),
         passwordCapacity));
+
+    const std::int32_t accountCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const accountToken =
+        FormatProtocolTextToken_517160(account);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(accountToken),
+        accountCapacity));
 
     const std::int32_t adapterCapacity = std::bit_cast<std::int32_t>(
         gNetworkRuntimeState.bufferLength);
@@ -4603,8 +4603,14 @@ std::uint8_t NetworkLoop_507DF0()
             0);
         if (receivedLength > 0) {
             gNetworkRuntimeState.receiveResetD9F3C4 = 0;
-            static_cast<void>(AppendReceiveQueue_5081E0(
-                received, static_cast<std::uint32_t>(receivedLength)));
+            const std::int32_t queued = AppendReceiveQueue_5081E0(
+                received, static_cast<std::uint32_t>(receivedLength));
+            if (login::gConnectionStep >= 71 && login::gConnectionStep <= 80) {
+                char diagnostic[64];
+                static_cast<void>(platform::FormatLegacyString_53B304(
+                    diagnostic, "LOGIN RECEIVED BYTES=%d QUEUE=%d", receivedLength, queued));
+                static_cast<void>(login::detail::Sub_44B5C0(diagnostic));
+            }
         }
         else if (receivedLength == 0) {
             // 对端正常关闭也必须进入既有断线路径，不能继续等待登录回复。
@@ -4633,8 +4639,10 @@ std::uint8_t NetworkLoop_507DF0()
         if (ReceivePlaintextProtocolLine(dispatch, static_cast<std::int32_t>(kDispatchSize)) != 0) {
             break;
         }
-        static_cast<void>(detail::NetworkDispatch_512E40(
-            platform::gConnectionSocket, dispatch));
+        const bool diagnoseLogin = login::gConnectionStep >= 71
+            && login::gConnectionStep <= 80;
+        const std::int32_t dispatchResult = detail::NetworkDispatch_512E40(
+            platform::gConnectionSocket, dispatch);
         std::memset(dispatch, 0, kDispatchSize);
         std::memset(gNetworkRuntimeState.buffer58B5F0, 0, *length);
         std::memset(gNetworkRuntimeState.buffer58B5F4, 0, *length);
@@ -4646,6 +4654,12 @@ std::uint8_t NetworkLoop_507DF0()
         std::memset(gNetworkRuntimeState.tripleBuffer58B60C, 0, 3U * *length);
         std::memset(gNetworkRuntimeState.tripleBuffer58B610, 0, 3U * *length);
         std::fill_n(gNetworkRuntimeState.pointerTable58B614, *length, nullptr);
+        if (diagnoseLogin) {
+            char diagnostic[64];
+            static_cast<void>(platform::FormatLegacyString_53B304(
+                diagnostic, "LOGIN DISPATCH RESULT=%d", dispatchResult));
+            static_cast<void>(login::detail::Sub_44B5C0(diagnostic));
+        }
     }
 
     std::int32_t sendLength;

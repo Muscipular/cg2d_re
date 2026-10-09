@@ -5257,3 +5257,13 @@ UTF-8、先清后载/真实成功发布、最后PCM后释放再close、提前退
 MAP七父/两音频提供者/绘字入口存在，客户端仍无离线合成/转换代码。8022528B新版部署游戏目录，旧同长版before-panel-local-value-20261009备份，只核复制/长度；未运行客户端/试包/测试/算法/工具、重生成WAV或摘要，离线最近通过仍CAB15。七已有语义身份只追加本步元数据/引用，新增七adapted F，分别补到UI-L-047/050/073/079/080/086/089各一个局部原成员且枚举false；十四限定I/S不闭任何门禁，U04/V04仍open。
 
 两机器JSON与HEAD+明确预期全文一致、55任务行与四锚点/原局部计数、UTF8无BOM/LF及全feature.gates保持校验通过，静态生成/Check0。语义1906/有效1896/无F代码10、文档2006/3680（54.51%）、F1078/E1284；R7已审485/3061余2576、pending18/104差集、185功能/184叶验收0、60任务关闭11和整体false保持。其余警告、完整旧表+04/父-callee/owner-alias正常寿命/资源/机器ABI/画面和音效运行、IP2互通及整体SPEC待验。证据doc/cg2d_panel_local_value_evidence.json，快照cg2d-re-panel-local-value-20261009；精确提交排除用户原差异，整体目标继续。
+
+## CAB29 登录接收/派发诊断与原字段名称（2026-10-09）
+
+本轮回到IP2现收包→完整LF行→108派发→whV→状态消费链，源码没有支持更改wire的接收故障证据。服务端现只读nrproto_serv.c:1672..1677与callfromcli.c:427..438明确第二文本绑定passwd→AuthQue.password、第三绑定cdkey→AuthQue.cdkey；现客户端原DA3A1C/DA38DC副本/DA3A5C/adapter字节顺序已保持，只把Sub512800第二/第三形参及临时量误名account/password纠正为password/account，LoginState副本accountCopy改passwordCopy。类型/值来源/实参位置与每轮容量→转义→fresh输出追加/末发送不变；服务端不修改/重启，源码不代运行二进制身份，历史错误名字由既有网络SPEC新节更正。
+
+沿工程委托补两阶段事件：正recv保持先reset0/原Append，再仅71..80记S32接收字节和入队返回；完整LF行持原派发返回，全部原缓冲/表清理之后，按派发前捕获的阶段资格记RESULT。两个64B、静态最大51/34B含NUL，固定标签/S32，无账号/密码/MAC/头/包/回复正文，返回不参与决策，无新框架/owner/协议/协商/超时/重试/保护。原105早返匹配为0，尾iKe/kiG/TgX即使命中仍原-1，未知也-1，日志不把-1概括为未知或失败。额外FILE I/O/时延及阶段取样具名披露，不宣原调用列表逐条相同；原相对调用/状态/失败/队列/半行/多行/明文LF保持。
+
+三整文件与HEAD加明确变更全文一致：JFVf正文仅alpha重命名，LoginState仅四处局部更名，公共头仅注释/形参更名；NetworkLoop两日志以外全文/108派发表与回调正文、原全部清理序保持。BWZ01必要当前Debug三库/真实客户端返回0，无再配置，0错误/87其它警告（原86加既有MainLoopSupport GetVersionExA新重编暴露一项），新诊断/NetworkRuntime/已修LegacyUiRecord0；不抑制、改指定API或宣全项目无警告。MAP登录/接收/派发/whV有据，客户端无离线合成/转换代码；8022528B新版游戏目录部署、旧同长版before-login-receive-diagnostics-20261009备份，只核复制/长度。
+
+登记簿与HEAD+明确预期全文一致、55任务行/四锚点/UTF8无BOM/LF、全门禁/成员/处置保持检查通过，文本汇总/Check0；仅FUNC-NETWORK/LOGIN各一个限定S及V03引用，V03仍open，未增原身份/原格式1023调用或241字面量。语义1906/有效1896/无F代码10、文档2006/3680（54.51%）、F1078/E1286；R7已审485/3061余2576、pending18/104差集、185功能/184叶验收0、60任务关闭11/整体false保持。未运行客户端/试包/测试/算法/工具、重生成WAV或摘要，离线最近通过仍CAB15，不称IP2已修好；当前运行许可/反馈、服务端身份、全部父-callee/正常寿命/SDK失败/机器ABI/音效与画面及整体验收继续。证据doc/cg2d_login_receive_diagnostics_evidence.json，快照cg2d-re-login-receive-diagnostics-20261009，精确提交排除用户原差异，整体目标继续。

@@ -1292,7 +1292,11 @@
         "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-decision",
         "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-source-state",
         "doc/cg2d_local_login_diagnostics_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#local-login-diagnostics-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#local-login-diagnostics-debug-build",
+        "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-decision",
+        "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-source-state",
+        "doc/cg2d_login_receive_diagnostics_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#login-receive-diagnostics-debug-build"
       ],
       "original_inventory_ids": [
         "F:001202E0",
@@ -1346,7 +1350,11 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#fixed-volume-x87-source-state",
         "doc/cg2d_fixed_volume_x87_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#fixed-volume-x87-debug-build",
-        "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-decision"
+        "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-decision",
+        "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-decision",
+        "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-source-state",
+        "doc/cg2d_login_receive_diagnostics_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#login-receive-diagnostics-debug-build"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1575,7 +1583,11 @@
         "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
         "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-source-state",
         "doc/cg2d_dispatch_callback_width_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build",
+        "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-decision",
+        "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-source-state",
+        "doc/cg2d_login_receive_diagnostics_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#login-receive-diagnostics-debug-build"
       ],
       "original_inventory_ids": [
         "F:00003C50",
@@ -1697,7 +1709,11 @@
         "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
         "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-source-state",
         "doc/cg2d_dispatch_callback_width_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build",
+        "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-decision",
+        "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-source-state",
+        "doc/cg2d_login_receive_diagnostics_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#login-receive-diagnostics-debug-build"
       ],
       "blockers": [
         "CAB27三回调入口宽度已修：未读socket只拓宽uintptr_t，Puk S32入口只消费低W8。原51条135B/唯一直接入向、源差集与当前Debug有据，三宽度警告0/其它97警告；IP2/完整网络/正常寿命/机器ABI未验，成员72枚举false。",
@@ -55501,6 +55517,66 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-LOGIN-RECEIVE-DIAGNOSTICS-FUNC-NETWORK-S-20261009",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前CAB05明文/LF及CAB26登录阶段链；原recv/入队/派发/清理/状态和JFVf实际来源，CAB29仅额外日志/名称更正",
+      "implementation_reference": "Git固定命名快照 cg2d-re-login-receive-diagnostics-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-decision",
+        "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-source-state",
+        "doc/cg2d_login_receive_diagnostics_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#login-receive-diagnostics-debug-build",
+        "src/network/NetworkRuntime.cpp#NetworkLoop_507DF0",
+        "src/network/NetworkRuntime.cpp#Sub_512800",
+        "src/LoginState.cpp#Sub_508360",
+        "include/cg/network/NetworkRuntime.hpp#Sub_512800"
+      ],
+      "observation": "仅三整文件明确差集/原决策与字段保持、新诊断类型/容量/不含身份正文以及当前构建，非连接成功/全父/寿命/机器ABI或完整门禁",
+      "expected": "正recv先reset/原Append后记录字节和入队返回；完整LF派发持原返回，原全部清理后按派发前阶段资格记RESULT，不将-1当未知。JFVf只名称纠正，实际四字段值/类型/位置及原wire/决策保持",
+      "actual": "三整源与HEAD+明确预期一致；两64B日志最大51/34B含NUL，无身份/头/正文。Debug0错误/87其它警告、新诊断0、8022528B部署/旧版备份；未运行IP2",
+      "differences": [
+        {
+          "description": "额外诊断FILE I/O/时延和阶段取样，不宣原调用列表逐条相同；字段第二/第三仅名字纠正，不交换值",
+          "decision_ref": "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-LOGIN-RECEIVE-DIAGNOSTICS-FUNC-LOGIN-S-20261009",
+      "feature_id": "FUNC-LOGIN",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "当前CAB05明文/LF及CAB26登录阶段链；原recv/入队/派发/清理/状态和JFVf实际来源，CAB29仅额外日志/名称更正",
+      "implementation_reference": "Git固定命名快照 cg2d-re-login-receive-diagnostics-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-decision",
+        "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-source-state",
+        "doc/cg2d_login_receive_diagnostics_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#login-receive-diagnostics-debug-build",
+        "src/network/NetworkRuntime.cpp#NetworkLoop_507DF0",
+        "src/network/NetworkRuntime.cpp#Sub_512800",
+        "src/LoginState.cpp#Sub_508360",
+        "include/cg/network/NetworkRuntime.hpp#Sub_512800"
+      ],
+      "observation": "仅三整文件明确差集/原决策与字段保持、新诊断类型/容量/不含身份正文以及当前构建，非连接成功/全父/寿命/机器ABI或完整门禁",
+      "expected": "正recv先reset/原Append后记录字节和入队返回；完整LF派发持原返回，原全部清理后按派发前阶段资格记RESULT，不将-1当未知。JFVf只名称纠正，实际四字段值/类型/位置及原wire/决策保持",
+      "actual": "三整源与HEAD+明确预期一致；两64B日志最大51/34B含NUL，无身份/头/正文。Debug0错误/87其它警告、新诊断0、8022528B部署/旧版备份；未运行IP2",
+      "differences": [
+        {
+          "description": "额外诊断FILE I/O/时延和阶段取样，不宣原调用列表逐条相同；字段第二/第三仅名字纠正，不交换值",
+          "decision_ref": "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
     }
   ],
   "task_acceptance": [
@@ -56180,7 +56256,11 @@
         "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
         "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-source-state",
         "doc/cg2d_dispatch_callback_width_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build",
+        "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-decision",
+        "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-source-state",
+        "doc/cg2d_login_receive_diagnostics_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#login-receive-diagnostics-debug-build"
       ]
     },
     {
@@ -100428,14 +100508,14 @@
     }
   ],
   "build_validation": {
-    "step": "CAB28",
+    "step": "CAB29",
     "recorded_on": "2026-10-09",
     "configuration": "Debug",
-    "source_snapshot": "cg2d-re-panel-local-value-20261009",
+    "source_snapshot": "cg2d-re-login-receive-diagnostics-20261009",
     "configure_performed": false,
     "configure_exit_code": 0,
     "build_exit_code": 0,
-    "incremental_warning_count": 0,
+    "incremental_warning_count": 87,
     "audio_provider_diagnostic_count": 0,
     "static_libraries_exit_code": 0,
     "client_link_exit_code": 0,
@@ -100446,7 +100526,7 @@
     "whole_project_accepted": false,
     "converter_build_performed": false,
     "converter_last_build_step": "CAB15",
-    "note": "CAB28仅LegacyUiRecord七父局部：三个绘字lambda font改原S8消费，四页撤独立未初始化行列，扫描后从最终hovered还原；原内外循环/used或gift独立索引、原门禁/共享坐标与音效/字段/调用/返回及其它全文保持，无补零/额外保护/异常模拟或新工具。原四扫描210条646B、16绘字邻窗224条663B与入口36条仅局部，完整七父只已有身份/元数据。CAA01既有客户端/按钮音频承载Debug，仅重编该CPP，三库/客户端0错误/0增量警告，原11项消除，其它先前86项未核销；不称全项目无警告。MAP七父/两个音频提供者/绘字存在，8022528B游戏新版部署，旧同长版before-panel-local-value-20261009备份；只核复制/长度，不摘要/内容比较。未运行客户端/试包/测试/算法/工具或重生成WAV，离线最近通过仍CAB15；正常资源/owner寿命、全父/callee/旧表/机器ABI/声音与画面、IP2及整体验收仍待。",
+    "note": "CAB29只登录接收/派发两阶段事件和字段名称：正recv原reset/Append后记录S32字节/入队返回；完整LF派发持原返回、原全部清缓冲/表后按派发前71..80资格记RESULT。两个64B最大51/34B含NUL，无身份/头/包或正文，原-1含三个尾命令匹配，不参与决策/不当未知。额外FILE I/O/时延具名差异，原相对调用/状态/失败/队列/明文LF与108派发保持。JFVf第二/第三仅名称password/account、副本passwordCopy，三整文件与HEAD+明确预期一致，实际类型/值来源/位置/容量-转义-fresh输出追加/末发送完全保持；服务器源码只读，不证明运行二进制身份。BWZ01现Debug三库/客户端0错误、其它87警告（原86加MainLoopSupport GetVersionExA新重编暴露一项），新诊断/NetworkRuntime/已修LegacyUiRecord0，不抑制或关闭其余项。MAP实际登录/接收/派发/whV存在，8022528B游戏新版部署并备份旧同长版，只核复制/长度，不摘要/内容比较；未运行客户端/试包/测试/算法/工具、重生成WAV，离线最近通过仍CAB15。IP2/全父-callee/SDK失败/正常寿命/机器ABI及整体SPEC未验；两新格式不增原1023调用/241字面量或原成员数量。",
     "evidence_refs": [
       "doc/cg2d_build_acceptance_spec.md",
       "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
@@ -100518,7 +100598,11 @@
       "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
       "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
       "doc/cg2d_panel_local_value_evidence.json",
-      "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build",
+      "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-decision",
+      "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-source-state",
+      "doc/cg2d_login_receive_diagnostics_evidence.json",
+      "doc/cg2d_build_acceptance_spec.md#login-receive-diagnostics-debug-build"
     ]
   }
 }

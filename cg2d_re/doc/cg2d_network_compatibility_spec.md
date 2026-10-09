@@ -194,3 +194,25 @@ CAB26当前编译的三项C4244已按原函数与实际512E40调用窗定位，�
 六个现有源码/头文件已落实两未读socket首参uintptr_t，以及Puk回包完整S32入口→明确低U8消费→原W8状态/字节返回。六整文件与HEAD加明确替换全文一致；三原派发Kka/ftaN/PfM表达式、记录表/空间音频正文、CAB26登录诊断、所有其他网络逻辑保持。三个完整原函数51条135B及各唯一实际入向/调用邻窗，见[证据](cg2d_dispatch_callback_width_evidence.json)。原高EAX24位与全机器返回未代验，现已证派发忽略返回。
 
 当前BWZ01必要Debug三库/客户端0错误，NetworkRuntime及本步三处回调C4244为0；头文件传播触发更多旧源重编，其余实际97警告仍待：LegacyUiRecord11、LoginState2、YobiRuntime41、WindowRuntime43。没有抑制、替换旧Winsock API或因编译通过关闭这些缺口；不称全项目无警告。8022528B新版部署游戏目录、旧同长版备份before-dispatch-callback-width-20261009，仅复制/长度。未运行客户端/试包/测试/工具/算法或摘要，IP2问题不称已修好；原明文/LF及WAV/GBK/宋体/ASCII光标保持。完整网络/音频/寿命/ABI、成员枚举与整体门禁仍待；快照cg2d-re-dispatch-callback-width-20261009。
+
+<a id="login-receive-diagnostics-decision"></a>
+## CAB29 登录接收与派发诊断及字段名称（2026-10-09）
+
+本轮聚焦IP2收包→完整LF行→108派发→whV→原请求状态消费，当前源码没有支持改原协议/字段顺序的收包故障证据。现有CAB26诊断能记录入队/发送和whV/断线，却不能说明正接收是否入接收队列、完整行派发的原返回；沿修复连接问题和工程委托补两个最小阶段事件，不将诊断存在称为互通已修好。
+
+NetworkLoop正recv后保持先receiveReset=0、原AppendReceiveQueue，再在71..80登录阶段记录接收字节数和原入队返回；返回仍不参与决策。完整LF行取得后仅保存原NetworkDispatch返回，按原顺序清全部缓冲/表后再记录该返回，日志资格在派发前按同一阶段捕获，避免回调改变阶段后漏记。两个64B局部、现53B304/Sub44B5C0，不记录账号/密码/MAC、头/包/回复正文，不新增框架/owner、超时、重试、保护或协议。
+
+原派发105个早返匹配返回0，尾iKe/kiG/TgX即使命中仍沿原-1；未知也返回-1。因此新日志只叫RESULT，不把-1改为未知/失败门禁，不影响回调、状态或返回。额外FILE I/O/时延和局部观察为具名诊断差异；原相对调用顺序、LF/队列/半行/多行/字段及全部原分支保持，不能宣新增日志后与原调用列表逐条相同。
+
+当前本机服务端只读源码nrproto_serv.c:1672..1677按四文本原序，第二绑定passwd、第三绑定cdkey；callfromcli.c:427..438实际第二保存passwd交AuthQue.password，第三保存cdkey交AuthQue.cdkey。现客户端已按原DA3A1C、DA38DC副本、DA3A5C、适配器顺序发送，只是Sub512800形参/临时量把第二叫account、第三叫password，LoginState副本也误叫accountCopy。本步仅将这些名称纠正为password/account/passwordCopy，类型/值来源、每轮先capacity→转义→fresh输出追加/末发送及字节次序完全保持；不交换字段或更改源缓冲。服务端源码只读，不修改、重启或据此证明运行二进制身份；既有历史文字引用由本节明确更正。
+
+必要当前Debug沿BWZ01客户端连接授权。运行/试包/测试/算法/工具和摘要限制保持；新版IP2反馈/运行许可仍待，全部原父/callee/正常寿命/机器ABI、真实互通和整体门禁不因本步关闭。两新格式属于诊断，不加入原1023调用/241字面量库存或新原成员分母。
+
+<a id="login-receive-diagnostics-source-state"></a>
+## CAB29 当前接收诊断与名称纠正（2026-10-09）
+
+NetworkLoop正recv后持有原入队返回，按71..80阶段记录字节/返回；完整LF行只持有原派发返回，保原全部清缓冲/表顺序，随后按派发前捕获的阶段资格记录RESULT。两个64B最大51/34B含NUL，只有S32数值/固定标签，不记录身份/头/包/回复正文，不参与请求决策。-1兼含三个尾命令的原匹配路径，未作为未知/失败门禁。额外FILE I/O/时延具名披露，不宣原调用列表逐条等价。
+
+JFVf四文本按原DA3A1C、DA38DC副本、DA3A5C、adapter原序，类型/值来源和全部容量→转义→fresh输出追加/末发送保持；只把第二/第三参数/临时量名称改password/account，LoginState副本名改passwordCopy。整NetworkRuntime与HEAD加alpha重命名/两诊断精确替换一致，整LoginState只四处变量更名，头文件只注释/形参更名；108派发/回调正文、原状态和失败/队列/明文LF保持。服务端只有源码只读消费证据，未改/重启/证明运行二进制身份，见[证据](cg2d_login_receive_diagnostics_evidence.json)。
+
+当前BWZ01必要Debug三库/客户端0错误，新诊断/NetworkRuntime和上步LegacyUiRecord无警告；头文件传播其它重编源实际87警告，包含既有GetVersionExA新重编一项，其余86保持，不抑制/改指定API或宣全工程无警告。MAP实际登录/接收/派发/whV入口存在，8022528B新版部署游戏目录，旧同长版before-login-receive-diagnostics-20261009备份，仅复制/长度。未运行客户端/试包/测试/算法/工具、重生成WAV或摘要，不称IP2已修好；运行许可/反馈、完整网络/正常寿命/ABI和整体门禁继续。两新诊断格式不计原格式/原身份数量；快照cg2d-re-login-receive-diagnostics-20261009。

@@ -191,12 +191,12 @@ std::int32_t Sub_510940(
 std::int32_t Sub_5111E0(
     std::uintptr_t socket, std::int32_t first, std::int32_t second); // vcAz
 
-// 原 sub_512800@[0x512800,0x5128B1)：四文本依序追加并发送 JFVf。
+// 原 sub_512800@[0x512800,0x5128B1)：摘要、口令、账号、适配器四文本原序发送 JFVf。
 std::int32_t Sub_512800(
     std::uintptr_t socket,
     const char* executableDigest,
-    const char* account,
     const char* password,
+    const char* account,
     const char* adapterId);
 
 // 原 sub_511030@[0x511030,0x5110AE)：发送数量及其后的 W32 列表 kza。

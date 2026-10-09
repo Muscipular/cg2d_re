@@ -2328,3 +2328,9 @@ F:00078330新增adapted，1937已有映射加本步原根/差集，无新F或语
 [原基线/当前状态](cg2d_battle_projectile_hit_spec.md#battle-projectile-hit-source-state)和[原指令/现源](cg2d_battle_projectile_hit_evidence.json)核完整1026条3721B/17页、71直接call/24目标/182跳两RET、唯一case16三条11B及两F32常量。既有投射命中/HP/状态与附属标死清槽、双播放及退场正常本体正确保持；仅三个注释更新关联，无新I。
 
 新增一原F语义/适配处置及BATTLE已知成员、一个限定S；U08/U09/R01/R04/V04只追加来源，成员枚举false、全部门禁/六closure和任务状态保。完整24callee所有consumer/数据生产/owner寿命、SDK/数值机器ABI和实际声音画面/运行未验，不按完整叶静态证明全战斗或总SPEC完成。
+
+## 2026-10-10 BPC01 投射创建数据生产与四取样实修
+
+[专项合同/现源](cg2d_battle_projectile_creators_spec.md#projectile-creators-source-state)与[完整原证/差集](cg2d_battle_projectile_creators_evidence.json)核两完整322条1051B/六页、27直接call/十目标、十跳四RET及三常量。两个真正CALL与三个metadata JMP明确区分；保原metadata，不改数据库或计成额外调用。既有phase16生产衔接BPHIT01现分发/退场。
+
+一个CPP两个现体四片段恢复效果记录/投影字段原取样，原布局/宽度/API/数学/失败/辅助flags持样和所有其它源保。新增两原F语义/适配处置及BATTLE两已知成员，仅限定I/S各一，I只四片段、不称两函数新实现；枚举false、五任务/六closure/完整门禁保持，全部资源/生产/父-callee/owner-回收与SDK-数值ABI/运行未验。

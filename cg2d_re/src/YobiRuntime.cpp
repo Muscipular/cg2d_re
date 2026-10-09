@@ -9473,7 +9473,11 @@ YobiAction* NewBattleSpiracleShot_418B70(
     action->offset44 = parent->offset44;
     action->field270 = 0;
     TurnBattleToward_406190(action, gBattleAllEntries59E980[effect->position], 0, 0.0F);
-    AppendBattleEffect_439400(action, *effect);
+    const std::int32_t effectValue4 = effect->position4;
+    const std::int32_t effectValue3 = effect->position3;
+    const std::uint32_t effectFlags = effect->flags;
+    const std::int32_t effectPosition = effect->position;
+    AppendBattleEffect_439400(action, {effectPosition, effectFlags, effectValue3, effectValue4});
     const std::uint32_t flags = effect->flags;
     if ((flags & 0x800000u) != 0) {
         std::int32_t position, value3, value4, value5;
@@ -9485,12 +9489,20 @@ YobiAction* NewBattleSpiracleShot_418B70(
     static_cast<void>(render::LoadGraphic_522570(gBattleAllEntries59E980[effect->position]->graphicIndex));
     payload->battlePosition18 = static_cast<BattleActorPayload*>(parent->payload)->battlePosition18;
     YobiAction* const target = gBattleAllEntries59E980[effect->position];
-    const float targetY = static_cast<float>(static_cast<double>(render::ReadGraphicDxHeight(target->graphicIndex))
-        * 0.5F + target->graphicOffsetY + target->offset44);
+    const std::int16_t targetHeight = render::ReadGraphicDxHeight(target->graphicIndex);
+    const std::int32_t parentGraphicIndex = parent->graphicIndex;
+    const std::int32_t targetGraphicOffsetY = target->graphicOffsetY;
+    const float targetBaseY = target->offset44;
     const float targetX = target->offset40;
-    const float y = static_cast<float>(static_cast<double>(render::ReadGraphicDxHeight(parent->graphicIndex))
-        * 0.5F + parent->graphicOffsetY + action->offset44);
-    NewBattleProjection_418DF0(action, action->offset40, y, targetX, targetY, imageNo);
+    const float targetY = static_cast<float>(static_cast<double>(targetHeight)
+        * 0.5F + targetGraphicOffsetY + targetBaseY);
+    const std::int16_t parentHeight = render::ReadGraphicDxHeight(parentGraphicIndex);
+    const float projectionX = action->offset40;
+    const std::int32_t parentGraphicOffsetY = parent->graphicOffsetY;
+    const float projectionBaseY = action->offset44;
+    const float projectionY = static_cast<float>(static_cast<double>(parentHeight)
+        * 0.5F + parentGraphicOffsetY + projectionBaseY);
+    NewBattleProjection_418DF0(action, projectionX, projectionY, targetX, targetY, imageNo);
     if (action->imageNo == 110016 || action->imageNo == 111055) {
         action->rebirthValue1 = 4;
         action->rebirthValue2 = 4;
@@ -9537,7 +9549,11 @@ YobiAction* NewBattleBlastWave_419180(
         action->imageNo -= 16;
     }
     action->imageNo += imageNo;
-    AppendBattleEffect_439400(action, *effect);
+    const std::int32_t effectValue4 = effect->position4;
+    const std::int32_t effectValue3 = effect->position3;
+    const std::uint32_t effectFlags = effect->flags;
+    const std::int32_t effectPosition = effect->position;
+    AppendBattleEffect_439400(action, {effectPosition, effectFlags, effectValue3, effectValue4});
     const std::uint32_t flags = effect->flags;
     if ((flags & 0x800000u) != 0) {
         std::int32_t position, value3, value4, value5;
@@ -9549,8 +9565,12 @@ YobiAction* NewBattleBlastWave_419180(
     static_cast<void>(render::LoadGraphic_522570(gBattleAllEntries59E980[effect->position]->graphicIndex));
     payload->battlePosition18 = static_cast<BattleActorPayload*>(parent->payload)->battlePosition18;
     YobiAction* const target = gBattleAllEntries59E980[effect->position];
-    NewBattleProjection_418DF0(action, action->offset40, action->offset44,
-        target->offset40, target->offset44, action->imageNo);
+    const std::int32_t projectionImage = action->imageNo;
+    const float targetY = target->offset44;
+    const float targetX = target->offset40;
+    const float projectionY = action->offset44;
+    const float projectionX = action->offset40;
+    NewBattleProjection_418DF0(action, projectionX, projectionY, targetX, targetY, projectionImage);
     if (action->imageNo == 110016 || action->imageNo == 111055) {
         action->rebirthValue1 = 4;
         action->rebirthValue2 = 4;

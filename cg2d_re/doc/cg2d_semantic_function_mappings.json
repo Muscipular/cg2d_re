@@ -196243,6 +196243,112 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "inventory_id": "F:00018B70",
+      "original_entry": "0x418B70",
+      "original_role": "Battle::SpiracleShot::newEffect",
+      "original_end_exclusive": "0x418D7E",
+      "instruction_count": 161,
+      "function_chunks": [
+        {
+          "start": "0x418b70",
+          "end_exclusive": "0x418d7e"
+        }
+      ],
+      "status": "BPC01完整现投射创建器及phase16生产纳管；每体两取样段恢复，完整资源/owner/SDK和运行未验",
+      "evidence_documents": [
+        "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-baseline",
+        "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-decision",
+        "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-acceptance",
+        "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-source-state",
+        "doc/cg2d_battle_projectile_creators_evidence.json"
+      ],
+      "boundary": "BPC01创建空返、原生载荷/同释放域、phase16/既有分发与动作16、图号/F32/S16/非地址宽度、辅助flags持样及两移动/一播放/原返回保持；只两体四取样段，效果四字段取序与投影共享样本按原阶段持有。完整资源/数据/所有父-callee、借用和回收/SDK数值ABI/运行未验。",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::NewBattleSpiracleShot_418B70"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::NewBattleSpiracleShot_418B70",
+        "source_body_implemented": true,
+        "source_body_changed": true,
+        "runtime_verified": false
+      },
+      "verification_level": "两完整322条1051B/六页、27call/十目标/十跳四RET及两个真正CALL；三个metadata JMP只另列，四原取样段/三常量及现源精确差集，不代全部生命周期或运行。",
+      "projectile_creators": {
+        "spec_id": "BPC01",
+        "full_original_root_captured": true,
+        "instruction_count": 161,
+        "code_bytes": 526,
+        "read_pages": 3,
+        "outgoing_calls": 13,
+        "actual_direct_inbound_call_count": 1,
+        "raw_xref_count": 2,
+        "non_call_xrefs_preserved": 1,
+        "source_body_changed": true,
+        "source_patch_count": 2,
+        "phase16_production_source": true,
+        "full_callee_consumers_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "inventory_id": "F:00019180",
+      "original_entry": "0x419180",
+      "original_role": "Battle::BlastWave::newEffect",
+      "original_end_exclusive": "0x41938D",
+      "instruction_count": 161,
+      "function_chunks": [
+        {
+          "start": "0x419180",
+          "end_exclusive": "0x41938d"
+        }
+      ],
+      "status": "BPC01完整现投射创建器及phase16生产纳管；每体两取样段恢复，完整资源/owner/SDK和运行未验",
+      "evidence_documents": [
+        "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-baseline",
+        "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-decision",
+        "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-acceptance",
+        "doc/cg2d_battle_projectile_creators_spec.md#projectile-creators-source-state",
+        "doc/cg2d_battle_projectile_creators_evidence.json"
+      ],
+      "boundary": "BPC01创建空返、原生载荷/同释放域、phase16/既有分发与动作16、图号/F32/S16/非地址宽度、辅助flags持样及两移动/一播放/原返回保持；只两体四取样段，效果四字段取序与投影共享样本按原阶段持有。完整资源/数据/所有父-callee、借用和回收/SDK数值ABI/运行未验。",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::NewBattleBlastWave_419180"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::NewBattleBlastWave_419180",
+        "source_body_implemented": true,
+        "source_body_changed": true,
+        "runtime_verified": false
+      },
+      "verification_level": "两完整322条1051B/六页、27call/十目标/十跳四RET及两个真正CALL；三个metadata JMP只另列，四原取样段/三常量及现源精确差集，不代全部生命周期或运行。",
+      "projectile_creators": {
+        "spec_id": "BPC01",
+        "full_original_root_captured": true,
+        "instruction_count": 161,
+        "code_bytes": 525,
+        "read_pages": 3,
+        "outgoing_calls": 14,
+        "actual_direct_inbound_call_count": 1,
+        "raw_xref_count": 3,
+        "non_call_xrefs_preserved": 2,
+        "source_body_changed": true,
+        "source_patch_count": 2,
+        "phase16_production_source": true,
+        "full_callee_consumers_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

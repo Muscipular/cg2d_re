@@ -9757,6 +9757,7 @@ YobiAction* NewBattleCastCopy_4205F0(YobiAction* const parent)
     return action;
 }
 
+// B22C01：效果/坐标取样、几何发布与真实同步callback循环见doc/cg2d_battle_boomerang_creator_spec.md。
 YobiAction* NewBattleBoomerang_4195F0(YobiAction* const parent)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -9772,10 +9773,13 @@ YobiAction* NewBattleBoomerang_4195F0(YobiAction* const parent)
     action->framePlayingRate = 100;
     action->displayPriority = 205;
     action->battleAttachmentParent10 = parent;
+    const float parentX = parent->offset40;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
-    action->offset40 = parent->offset40;
-    action->offset44 = parent->offset44;
-    const std::int32_t initialX = static_cast<std::int32_t>(action->offset40);
+    action->offset40 = parentX;
+    const float parentY = parent->offset44;
+    const float initialFloatX = action->offset40;
+    action->offset44 = parentY;
+    const std::int32_t initialX = static_cast<std::int32_t>(initialFloatX);
     const float initialY = action->offset44;
     action->x = initialX;
     action->y = static_cast<std::int32_t>(initialY);
@@ -9791,7 +9795,12 @@ YobiAction* NewBattleBoomerang_4195F0(YobiAction* const parent)
                 gBattleAllEntries59E980[parentPayload->effects1C[parentPayload->effectRunningC9C].position],
                 0, 0, 30, image));
         }
-        AppendBattleEffect_439400(action, parentPayload->effects1C[parentPayload->effectRunningC9C]);
+        const std::int32_t effectIndex = parentPayload->effectRunningC9C;
+        const std::int32_t effectValue4 = parentPayload->effects1C[effectIndex].position4;
+        const std::uint32_t appendedFlags = parentPayload->effects1C[effectIndex].flags;
+        const std::int32_t effectValue3 = parentPayload->effects1C[effectIndex].position3;
+        const std::int32_t effectPosition = parentPayload->effects1C[effectIndex].position;
+        AppendBattleEffect_439400(action, {effectPosition, appendedFlags, effectValue3, effectValue4});
         const std::uint32_t effectFlags = parentPayload->effects1C[parentPayload->effectRunningC9C].flags;
         if ((effectFlags & 0x800000u) != 0) {
             std::int32_t position, value3, value4, value5;
@@ -9801,18 +9810,26 @@ YobiAction* NewBattleBoomerang_4195F0(YobiAction* const parent)
     } while (AdvanceBattleEffect_439470(parent) != 1);
     const auto* const initialEffect = &payload->effects1C[payload->effectRunningC9C];
     payload->x00 = gBattleAllEntries59E980[initialEffect->position]->x;
-    payload->y04 = gBattleAllEntries59E980[initialEffect->position]->y;
+    const std::int32_t initialTargetY = gBattleAllEntries59E980[initialEffect->position]->y;
+    const std::int32_t firstPosition = payload->effects1C[0].position;
+    payload->y04 = initialTargetY;
     payload->caster1070 = parentPayload->caster1070;
-    YobiAction* target = gBattleAllEntries59E980[payload->effects1C[0].position];
+    YobiAction* target = gBattleAllEntries59E980[firstPosition];
+    const float firstTargetY = target->offset44;
+    const float firstTargetX = target->offset40;
+    const float firstSourceY = action->offset44;
+    const float firstSourceX = action->offset40;
     const std::int8_t firstDirection = GetBattleRelativeDirection_405ED0(
-        action->offset40, action->offset44, target->offset40, target->offset44, 5.0F);
+        firstSourceX, firstSourceY, firstTargetX, firstTargetY, 5.0F);
     if (payload->effectCountCA0 >= 2) {
         const std::int32_t first = payload->effects1C[0].position;
         const std::int32_t second = payload->effects1C[1].position;
         if (firstDirection == 1) {
             if (gBattleAllEntries59E980[first]->offset40 > gBattleAllEntries59E980[second]->offset40) {
-                payload->y04 -= 100;
-                payload->x00 += 20;
+                const std::int32_t waypointY = payload->y04;
+                const std::int32_t waypointX = payload->x00;
+                payload->y04 = waypointY - 100;
+                payload->x00 = waypointX + 20;
             }
             if (!(gBattleAllEntries59E980[first]->offset40 >= gBattleAllEntries59E980[second]->offset40)) {
                 payload->x00 -= 100;
@@ -9828,16 +9845,22 @@ YobiAction* NewBattleBoomerang_4195F0(YobiAction* const parent)
             }
         } else if (firstDirection == -1) {
             if (!(gBattleAllEntries59E980[first]->offset40 >= gBattleAllEntries59E980[second]->offset40)) {
-                payload->y04 += 100;
-                payload->x00 += 20;
+                const std::int32_t waypointY = payload->y04;
+                const std::int32_t waypointX = payload->x00;
+                payload->y04 = waypointY + 100;
+                payload->x00 = waypointX + 20;
             }
             if (gBattleAllEntries59E980[first]->offset40 > gBattleAllEntries59E980[second]->offset40) {
                 payload->x00 += 100;
             }
         }
         target = gBattleAllEntries59E980[payload->effects1C[0].position];
+        const float relativeTargetY = target->offset44;
+        const float relativeTargetX = target->offset40;
+        const float relativeSourceY = action->offset44;
+        const float relativeSourceX = action->offset40;
         const std::int8_t direction = GetBattleRelativeDirection_405ED0(
-            action->offset40, action->offset44, target->offset40, target->offset44, 5.0F);
+            relativeSourceX, relativeSourceY, relativeTargetX, relativeTargetY, 5.0F);
         const bool firstOnRight = gBattleAllEntries59E980[payload->effects1C[0].position]->offset40
             >= gBattleAllEntries59E980[payload->effects1C[1].position]->offset40;
         if ((direction < 0 && firstOnRight) || (direction > 0 && !firstOnRight)) {
@@ -9857,12 +9880,16 @@ YobiAction* NewBattleBoomerang_4195F0(YobiAction* const parent)
                     ratio = 100;
                 }
                 if (direction < 0) {
-                    payload->y04 += ratio;
-                    payload->x00 += ratio / 2;
+                    const std::int32_t adjustedY = payload->y04 + ratio;
+                    const std::int32_t waypointX = payload->x00;
+                    payload->y04 = adjustedY;
+                    payload->x00 = waypointX + ratio / 2;
                 }
                 if (direction > 0) {
-                    payload->y04 -= ratio;
-                    payload->x00 += -(ratio / 2);
+                    const std::int32_t adjustedY = payload->y04 - ratio;
+                    const std::int32_t waypointX = payload->x00;
+                    payload->y04 = adjustedY;
+                    payload->x00 = waypointX + -(ratio / 2);
                 }
             }
         } else {
@@ -9886,13 +9913,17 @@ YobiAction* NewBattleBoomerang_4195F0(YobiAction* const parent)
                     payload->y04 += ratio / 2;
                 }
                 if (direction > 0) {
-                    payload->x00 += ratio;
-                    payload->y04 += -(ratio / 2);
+                    const std::int32_t adjustedX = payload->x00 + ratio;
+                    const std::int32_t waypointY = payload->y04;
+                    payload->x00 = adjustedX;
+                    payload->y04 = waypointY + -(ratio / 2);
                 }
             }
         }
     }
-    TurnBattleTowardPosition_4060D0(action, static_cast<float>(payload->x00), static_cast<float>(payload->y04), 0, 0.0F);
+    const float turnY = static_cast<float>(payload->y04);
+    const float turnX = static_cast<float>(payload->x00);
+    TurnBattleTowardPosition_4060D0(action, turnX, turnY, 0, 0.0F);
     static_cast<void>(render::LoadGraphic_522570(parent->graphicIndex));
     action->phase = 21;
     action->value54 = 10.0F;

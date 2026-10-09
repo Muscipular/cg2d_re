@@ -4652,3 +4652,8 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 ## 2026-10-10 B22L01：回旋阶段21入位与23退场
 
 [补充合同](cg2d_battle_boomerang_hit_spec.md#battle-boomerang-transitions-source-state)补408750/4090F0两完整240条741B，21两次Y-X及距离<20转22，23固定caster/父载荷、正常转向与266列表/221消费、两互斥标死点后共同音效/Move/PlayFrame返回有据。两正文正确保持，仅四注释/一限定S零I或新函数；当前phase22计时后转23接线保持，标死不代free，全创建/借用/资源owner与SDK数值/声音画面运行仍待，完整门禁保持。
+
+<a id="boomerang-creator-runtime-20261010"></a>
+## 2026-10-10 B22C01：回旋创建与同步推进
+
+[完整创建合同](cg2d_battle_boomerang_creator_spec.md#boomerang-creator-source-state)补4195F0原481条1514B，十一组恢复效果四值/坐标/首位置/两方向/几何读齐和最终YX；原分配空返/固定父新payload、辅助flags跨TakeAux、正常几何/比例上限100、DX低S16和一次halfWidth、fresh callback真总分发do循环/phase21-Distance条件及末skill-mode-level发布和T*返回保持。一个CPP十一组/两注释、无新函数/API/保护；真实caller保存返回至+10仅此窗，完整父/输入/所有callee与借用最终owner/SDK正常失败数值和运行仍待，完整门禁保持。

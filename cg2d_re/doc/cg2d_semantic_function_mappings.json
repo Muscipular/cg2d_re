@@ -197054,6 +197054,54 @@
         "new_implementation": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x4195f0",
+      "inventory_id": "F:000195F0",
+      "original_role": "回旋对象原生创建、效果/路点生产、真实同步总回调推进及保存T*返回",
+      "original_end_exclusive": "0x419bda",
+      "instruction_count": 481,
+      "function_chunks": [
+        {
+          "start": "0x4195f0",
+          "end_exclusive": "0x419bda"
+        }
+      ],
+      "status": "B22C01完整创建器正常源/独立身份纳管，一CPP十一组取样/发布实修；原几何/比例、DX宽度、真实同步总回调与返回保持，完整owner/父-callee/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::NewBattleBoomerang_4195F0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::NewBattleBoomerang_4195F0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_boomerang_creator_spec.md#boomerang-creator-baseline",
+        "doc/cg2d_battle_boomerang_creator_spec.md#boomerang-creator-decision",
+        "doc/cg2d_battle_boomerang_creator_spec.md#boomerang-creator-acceptance",
+        "doc/cg2d_battle_boomerang_creator_spec.md#boomerang-creator-source-state",
+        "doc/cg2d_battle_boomerang_creator_evidence.json"
+      ],
+      "boundary": "固定parentPayload/新payload，priority2/sizeof原生载荷分配空返；原四效果值/两方向/坐标与几何发布十一组，flags跨TakeAux held、原几何/正常比例/上限100、DX低S16/一次halfWidth保持。fresh callback槽真总分发do循环/phase21和Distance谓词，结束PlayFrame后三尾字段按序pub，原生T*/null返回由实际caller+10消费。只本根静态/十一组，全部输入/父-callee/间接alias/owner、SDK容量失败/数值/重进退出与声音画面运行仍待；RPLAN.24/MC01和完整门禁保持。",
+      "verification_level": "完整481条1514B/八页，14directCALL/一实际callback槽/54跳两RET，唯一原返回发布窗口；一CPP十一组/两注释、其余源守恒，限定I/S；不把间接operand偏移8当目标函数或全父验收。",
+      "battle_boomerang_creator": {
+        "step": "B22C01",
+        "source_snapshot": "cg2d-re-battle-boomerang-creator-20261010",
+        "original_instruction_count": 481,
+        "original_code_bytes": 1514,
+        "original_page_count": 8,
+        "direct_call_count": 14,
+        "indirect_callback_count": 1,
+        "jump_count": 54,
+        "return_count": 2,
+        "source_patch_group_count": 11,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

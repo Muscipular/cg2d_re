@@ -452,7 +452,7 @@ void UpdateBattleActor_404DB0(YobiAction* action); // 完整257槽与固定入�
 YobiAction* NewBattleSpiracleShot_418B70(YobiAction* parent, const BattleEntryEffectRecord* effect, std::int32_t imageNo);
 YobiAction* NewBattleBlastWave_419180(YobiAction* parent, const BattleEntryEffectRecord* effect, std::int32_t imageNo);
 YobiAction* NewBattleRangeHit_419390(YobiAction* parent, const BattleEntryEffectRecord* effect, std::int32_t imageNo);
-YobiAction* NewBattleBoomerang_4195F0(YobiAction* parent); // 返回前通过完整总回调同步推进。
+YobiAction* NewBattleBoomerang_4195F0(YobiAction* parent); // B22C01：原取样/几何发布，同步总回调推进后返回原生T*。
 YobiAction* NewBattleArcShot_419DA0(YobiAction* parent, const BattleEntryEffectRecord* effect,
     std::int32_t imageNo, std::int32_t count, std::int32_t mode);
 YobiAction* NewBattleCastCopy_4205F0(YobiAction* parent); // 独立战斗载荷，不是浅克隆。

@@ -4243,3 +4243,9 @@ X:00143383-00143390的7B实际代码对应Cg2dApplyLegacyConditionalSignX87，�
 [512原X/8226B](cg2d_unassigned_range_fourth_batch_evidence.json)与[具名合同](cg2d_unassigned_range_classification_spec.md#range-fourth-batch-decision)补完整数据用途：487纯填充、25混合，68W32表/591槽、31U8索引/1820B、25只读对齐解码。12已有父记录只追加数据依据；1913..1925十三新记录仅已有源码/原表关联，不记完整F处置或I/W/S/R通过，源码、接口和owner不变。
 
 四战斗、四地图、四Yobi、一开场载入成员按实际源/原数据职责纳管且枚举false；相邻父的完整算法/生产/间接alias/正常寿命、机器ABI和运行继续验收。512辅助mapped不是512函数或业务排除，原函数分母/门禁/旧证据保持。
+
+## CAC08 第五批区间及十一无F回调原新关系（2026-10-09）
+
+[512原X/6915B](cg2d_unassigned_range_fifth_batch_evidence.json)与[限定合同](cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state)完整分项：471纯填充/41混合，42W32表294槽、14U8索引843B、17只读对齐44B，以及十一实际回调269条868B。4723B0按实际20输入/三目标识别索引，不按伪ADD/NOP/自动flow当代码；15真实原型480B与现callback绑定匹配。
+
+35表父中八已有语义追加数据依据，1926..1952二十七新F记录只原表/当前唯一定义关联；1953..1963十一回调inventory_id=null，以原X内完整代码身份纳管，不造F。真实源、所有源码/接口/owner/获批文本与平台方案保持；一登录、一地图及25UI域已知成员枚举false，九现代窗口只补代码/原型来源。未重验35完整父/所有依赖或提升任何软件门禁，R8仍未完成。

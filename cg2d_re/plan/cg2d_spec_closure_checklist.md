@@ -282,3 +282,7 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 ## CAC07 R02/R03/R04 第四批512区间完整用途（2026-10-09）
 
 [本批合同](../doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state)及[完整原证](../doc/cg2d_unassigned_range_fourth_batch_evidence.json)逐项纳管512原X/8226B，R7已审485→997/3061、余2064。487纯填充/25混合分项、68表591槽与31索引全部值及实际取用/guard、25对齐只读解码可追；原父/未知间接路径/生命周期与软件验收不外推。12已有语义加数据依据、13已有源新增关联/已知成员且无F处置或软件证据，R02/R03/R04仍open，原门禁/分母/排除与禁令保持。
+
+## CAC08 R02/R03/R04 第五批完整用途与回调身份（2026-10-09）
+
+[本批合同](../doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state)及[6915B完整原证](../doc/cg2d_unassigned_range_fifth_batch_evidence.json)逐项纳管512原X，R7已审997→1509/3061、余1552。42表294槽/14索引、17解码、十一无F回调269条868B与十五原型480B有据；4723B0二十项索引错标与EDI上界单列。八已有语义追加数据、二十七已有源父仅数据关联、十一代码身份不造F；三域已知成员及九现代窗口来源同步，全部枚举/门禁、函数处置/软件证据/原分母保持，三任务和整体R8仍open。

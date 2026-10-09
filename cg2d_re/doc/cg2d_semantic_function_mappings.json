@@ -16190,7 +16190,9 @@
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-decision",
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-acceptance",
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state",
-        "doc/cg2d_window_input_gate_restore_evidence.json"
+        "doc/cg2d_window_input_gate_restore_evidence.json",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
       ],
       "boundary": "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。",
       "verification_level": "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。",
@@ -16238,6 +16240,17 @@
         "full_x87_verified": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:00067904-00067B90"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 134
       }
     },
     {
@@ -124661,7 +124674,9 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_11.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
       ],
       "boundary": "仅六现std::sprintf标识符承接六原53B304点，S32签名及全部正文保持。两个256B局部buffer/temporary保持既有未清或mode13原首字节/尾部清理；原U8 mode和U32 deadline取样、mode1 recipe itemId dword S32及两个六槽遍历（material>=0先、material<0后）分开不合并；slot+8全为S32。mode7/16按原itemType38/25/39/80分组到ordinary/special两个S32局部，原未赋初值路径不补默认；%d|%d参数ordinary在前special在后。mode10原505110验证后重新读slot以及selected=-1路径保持；mode13六槽%d|追加、原material==0时名称重读复制保持。所有格式到原buffer/temporary，内联扫描追加/名称复制不新计CRT入口；NullSub_509080、既有sendRequest在消费时分别选择S32 recipe请求或S8非recipe请求和原target、发送后mode/name/隐藏状态顺序保持，不改变网络/输入/计时器/动画等关联函数。完整制作/普通及战斗父路由和运行不据本步验收。",
       "original_incoming": [],
@@ -124792,7 +124807,18 @@
           "relationship": "mode7/16原itemType38/25/39/80分special，其余ordinary；两S32未赋初值局部由遍历生产，不补默认"
         }
       ],
-      "verification_level": "原1117仅统计，只读198新格式/参数/追加及发送前段邻窗，余919/已过正文/核心不重验；六原点/callee/六现表达式/新增586880含NUL字节/S32变参和两遍材料顺序/既有局部清理及未初始化路径/整份源限定静态核对，54E450一data/普通call0仅登记，不推绑定；未构建或执行"
+      "verification_level": "原1117仅统计，只读198新格式/参数/追加及发送前段邻窗，余919/已过正文/核心不重验；六原点/callee/六现表达式/新增586880含NUL字节/S32变参和两遍材料顺序/既有局部清理及未初始化路径/整份源限定静态核对，54E450一data/普通call0仅登记，不推绑定；未构建或执行",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:00081F61-00082000"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 32630
+      }
     },
     {
       "original_entry": "0x492F70",
@@ -126255,7 +126281,9 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_11.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
       ],
       "boundary": "仅四现std::sprintf标识符接四原53B304点；window参数T*/WindowAnimationData*返回，未升级才元素11经验S32格式，升级仍原内联复制；元素12先首字节NUL，再按endurance→dexterity→intelligence三非0门槛S32值格式到256B未清buffer并沿原内联追加，字面+%d不改。物品作业三个显示值为CF46B4/CB0A14/D30418，但门槛仍D2F328/CA0448/CB0F84制造回复，不能合并为一来源；技能220/原消息未知分支、选中物品指针/图号与可见保持。原动作/图号重复读取、47D170→C8A970门槛与47D220真实T*→gSelectionModeD2D650=5→返回last、全部正文/关联函数及音频暂停边界不动，不加清理/钳制/补值，完整制作/物品作业/窗口11/父路由及运行未据本步验收。",
       "original_incoming": [
@@ -126355,7 +126383,18 @@
           "relationship": "原制造回复非0门槛，显示值按原独立字段取S32，256B未清buffer→元素12已有首NUL的原文本，三项顺序追加"
         }
       ],
-      "verification_level": "原498仅统计，只读107新格式/参数/门槛-显示来源及追加邻窗，余391/已过正文/核心不重验；四原点/callee/四现表达式/四已证原字节/S32-owner-三增量门槛与显示来源/整份源限定静态核对；一普通call47FAC0@47FACA只登记；未构建或执行"
+      "verification_level": "原498仅统计，只读107新格式/参数/门槛-显示来源及追加邻窗，余391/已过正文/核心不重验；四原点/callee/四现表达式/四已证原字节/S32-owner-三增量门槛与显示来源/整份源限定静态核对；一普通call47FAC0@47FACA只登记；未构建或执行",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:0007FAAB-0007FAC0"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 33321
+      }
     },
     {
       "original_entry": "0x490780",
@@ -127761,7 +127800,9 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_15.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
       ],
       "boundary": "仅接48CAF5/48CB72/48CBF2三原53B304点，void()与整份正文保持。共用未清256B buffer；五行排序索引对只固定地址，各次索引以S16重读。等级+08保持S32，HP/FP各先重取编号读最大值再重取编号读当前值，原401EA0到既有401EC0实现桥保持；格式%3d/%6d/%6d不归一，依次复制textBase+1/+2/+3，格式后重取当前window/data、含NUL消费。名字/颜色/显隐/技能两次查询/状态摘要/属性条/选中图号及关联函数均不动，不增加清理/保护或缓存，不据本步验收完整窗口15/交互/父路由/画面或运行。",
       "original_incoming": [
@@ -127839,7 +127880,18 @@
           "relationship": "原每次重取S16索引，CryptInt先最大值后当前值；格式按当前/最大S32输出，随后重取window/data并含NUL复制至textBase+3"
         }
       ],
-      "verification_level": "原715仅统计，本步只读117格式/参数/消费邻窗及2个索引算址间隙指令，共119，余596及已过核心不重验；三真实原点与三现callee、两已证格式字节、S16索引/S32数值及来源/消费顺序、整份源仅三标识符的静态核对。48C1CF一普通caller、data0只登记；未编译或执行。"
+      "verification_level": "原715仅统计，本步只读117格式/参数/消费邻窗及2个索引算址间隙指令，共119，余596及已过核心不重验；三真实原点与三现callee、两已证格式字节、S16索引/S32数值及来源/消费顺序、整份源仅三标识符的静态核对。48C1CF一普通caller、data0只登记；未编译或执行。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:0008D44C-0008D460"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 41797
+      }
     },
     {
       "original_entry": "0x4AB710",
@@ -130634,7 +130686,9 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_11.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
       ],
       "boundary": "仅替换482420格式callee。S8模式3且单选有效、技能非220路径保持：先以先前selected槽level*10比较FP，再独立重取gSelectedItemD460C0等级，按S32 level*10及58678C的21空格/原魔力%3d写当前窗口元素11；FP不足仍格式化，不以enabled加门禁。格式后重新读技能与物品，资格快照/悬停/点击/等待/发送/焦点/原返回及关联方正文保持；不缓存单选等级、改乘积位宽、补保护或恢复暂停功能。",
       "original_incoming": [],
@@ -130667,7 +130721,18 @@
           "relationship": "FP比较后重取单选等级，S32乘10/原21空格魔力格式写元素11；格式后重取技能，原enabled独立"
         }
       ],
-      "verification_level": "原936指令统计，仅读34条格式来源/消费者/后续技能重取及18条先前FP比较邻窗，共52、余884和既有核心不重验；一原点/一现表达式，普通call/data均0只登记，不据此推无真实绑定。限定静态核，未构建执行。"
+      "verification_level": "原936指令统计，仅读34条格式来源/消费者/后续技能重取及18条先前FP比较邻窗，共52、余884和既有核心不重验；一原点/一现表达式，普通call/data均0只登记，不据此推无真实绑定。限定静态核，未构建执行。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:00082F1C-00082F70"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 31487
+      }
     },
     {
       "original_entry": "0x483150",
@@ -135798,7 +135863,9 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_26.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
       ],
       "boundary": "仅两现FP格式callee接一个496A65原点。沿既有五模式/低U8写1C、不清高位、开窗/重用/可见性/定位/void裁决完整正文。mode3名字/最大/当前各原位置→405B40→59E980独立读取，mode4原位置→当前action名字/最大/当前独立读取；先最大再当前两S32，以既有%4d/%4d参数当前/最大直接写FP读取后才取的窗口26元素11/text，沿已核载荷分配不造容量。mode3 49695D原E9跳496A42，共用当前FP读取/格式，不按两个现表达式重复计原点，不合并查询或采样、缓存窗口载荷、加空/保护。",
       "original_incoming": [
@@ -135877,7 +135944,18 @@
           "relationship": "两个模式各先最大FP后再次位置/当前FP，模式3 E9跳496A42共用当前FP读与496A65单一原格式点；参数当前/最大两S32直接写后取元素11，现两个表达式不计成两个原点"
         }
       ],
-      "verification_level": "IDA已定义247项统计，仅45条原FP来源/后取载荷/共用格式-定位邻窗；模式3分支66条原字节解码统计，仅新增19条控制/FP邻窗与5项跳表取共用点原证，其余前段及核心不重验。两S32/既有格式/后取借用text与独立位置-最大/当前来源、两现callee/一个原点/原void裁决限定静态核。call3/data0只登记，496A65为既有IDA直接引用，不增补证或确认池，未构建执行。"
+      "verification_level": "IDA已定义247项统计，仅45条原FP来源/后取载荷/共用格式-定位邻窗；模式3分支66条原字节解码统计，仅新增19条控制/FP邻窗与5项跳表取共用点原证，其余前段及核心不重验。两S32/既有格式/后取借用text与独立位置-最大/当前来源、两现callee/一个原点/原void裁决限定静态核。call3/data0只登记，496A65为既有IDA直接引用，不增补证或确认池，未构建执行。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:00096AC5-00096AE0"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 35426
+      }
     },
     {
       "original_entry": "0x4974C0",
@@ -175840,7 +175918,9 @@
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-acceptance",
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
-        "doc/cg2d_battle_motion_angle_dependency_evidence.json"
+        "doc/cg2d_battle_motion_angle_dependency_evidence.json",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
       ],
       "boundary": "地址native非拥有、原位型表与数值宽度保；仅正常局部静态，全部父/表生产消费-owner/ABI-PC53及运行未验。",
       "instruction_count": 114,
@@ -175878,6 +175958,17 @@
         "full_original_function_normal_body_reviewed": true,
         "full_runtime_verified": false,
         "preserved_contract": "原两分量均0返回0；首/次分量负标记1/2，abs首<abs次标记4，以较小绝对分量/较大分量*64；正常S32截断index，index+1仅原业务最大64，fraction独立落F32；左表项先于1-fraction、左乘后右表项/右乘，和落F32；八selector依次angle/180-angle/360-angle/angle+180/90-angle/angle+90/angle+270/270-angle，返回F64，不能换atan2。"
+      },
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:0006FACF-0006FAF0"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 8248
       }
     },
     {
@@ -206938,7 +207029,9 @@
         "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-baseline",
         "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-decision",
         "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-acceptance",
-        "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-state"
+        "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-state",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
       ],
       "boundary": "471270：release()后fresh id/state，回存x/y、两次原W32旗位/清state.window，先focusId后fresh window.id取消拖动。当前元素/数量按原fresh，1/5先global focused后element data及输入取消后fresh free；2同data样本/经唯一Yobi native边界承接原直接deathFlag=1、后fresh槽free；3固定text指针、后fresh field清null/载荷释放；4/6/7固定data样本，后fresh槽null；最后固定fresh元素数组样本释放→清数组→释放保存实例。六阶段实修，不借MarkDeath额外跳过空action，通用helper不变；无异常模拟/额外保护。 BVR01三完整184条565B/四页、14direct六目标/一release间接、28跳3RET，11CALL/四尾跳分列与原7类释放表有据。FreeWindow单既有根六阶段实修：焦点/载荷读取原序，同data/text/数组样本判断和释放，类型2经唯一新Yobi边界承接原直接deathFlag=1替代通用MarkDeath额外空判断；所有回调后fresh槽/字段、原W32 flags、正常释放次序和两正确全关闭/marker主体保持，通用MarkDeath正文/载荷与窗口接口头保。三原新/F、公共UI49两限定I-S各24来源，I仅单根六阶段；原MIS62/七占用W32/71标记/实际结果保持，两个CPP/一个Yobi公共头、一个必要native边界helper/API，无新原身份/owner/保护、异常模拟或故障等价。全部15入向/各父/release目标/callee、资源生产/正常owner-alias寿命、机器ABI/画面运行待；网络原格式明文/音频暂停/RPLAN.24与执行限制保。",
       "verification_level": "BVR01三完整184条565B/四页、14direct六目标/一release间接、28跳3RET，11CALL/四尾跳分列与原7类释放表有据。FreeWindow单既有根六阶段实修：焦点/载荷读取原序，同data/text/数组样本判断和释放，类型2经唯一新Yobi边界承接原直接deathFlag=1替代通用MarkDeath额外空判断；所有回调后fresh槽/字段、原W32 flags、正常释放次序和两正确全关闭/marker主体保持，通用MarkDeath正文/载荷与窗口接口头保。三原新/F、公共UI49两限定I-S各24来源，I仅单根六阶段；原MIS62/七占用W32/71标记/实际结果保持，两个CPP/一个Yobi公共头、一个必要native边界helper/API，无新原身份/owner/保护、异常模拟或故障等价。全部15入向/各父/release目标/callee、资源生产/正常owner-alias寿命、机器ABI/画面运行待；网络原格式明文/音频暂停/RPLAN.24与执行限制保。",
@@ -207006,6 +207099,17 @@
         "full_machine_abi_verified": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:0007141A-00071440"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 44745
       }
     },
     {
@@ -215971,6 +216075,1533 @@
         "current_definition_line": 32,
         "association_only": true,
         "full_original_body_recaptured": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x45c2d0",
+      "inventory_id": "F:0005C2D0",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：ProcessOuterScene_45C2D0",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/LoginOuterScene.cpp",
+          "symbols": [
+            "cg::login::ProcessOuterScene_45C2D0"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:0005C566-0005C5A0"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 34
+      }
+    },
+    {
+      "original_entry": "0x46e3e0",
+      "inventory_id": "F:0006E3E0",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_46E3E0",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "cg::world::detail::Sub_46E3E0"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:0006E453-0006E480"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 1551
+      }
+    },
+    {
+      "original_entry": "0x46fc60",
+      "inventory_id": "F:0006FC60",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_46FC60",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_46FC60"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:0007002D-00070050"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 40505
+      }
+    },
+    {
+      "original_entry": "0x471440",
+      "inventory_id": "F:00071440",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：OpenWindow_471440",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::OpenWindow_471440"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:000718C7-000718F0"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 44134
+      }
+    },
+    {
+      "original_entry": "0x471df0",
+      "inventory_id": "F:00071DF0",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_471DF0",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_471DF0"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:00072143-00072160"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 40731
+      }
+    },
+    {
+      "original_entry": "0x4722f0",
+      "inventory_id": "F:000722F0",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_4722F0",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_4722F0"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:000723A1-000723D0"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 15291
+      }
+    },
+    {
+      "original_entry": "0x4729b0",
+      "inventory_id": "F:000729B0",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：DrawCurrentWindow_4729B0",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::DrawCurrentWindow_4729B0"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:00072CFE-00072D20"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 44938
+      }
+    },
+    {
+      "original_entry": "0x473840",
+      "inventory_id": "F:00073840",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_473840",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_473840"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:00073E1C-00073E40"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 39910
+      }
+    },
+    {
+      "original_entry": "0x475e00",
+      "inventory_id": "F:00075E00",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_475E00",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_475E00"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:0007637D-000763B0"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 41295
+      }
+    },
+    {
+      "original_entry": "0x476570",
+      "inventory_id": "F:00076570",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_476570",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_476570"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:0007666D-00076680"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 43905
+      }
+    },
+    {
+      "original_entry": "0x477710",
+      "inventory_id": "F:00077710",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_477710",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_477710"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:00077FAF-00078010"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 43193
+      }
+    },
+    {
+      "original_entry": "0x478330",
+      "inventory_id": "F:00078330",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_478330",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_478330"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:000789D8-00078A10"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 5176
+      }
+    },
+    {
+      "original_entry": "0x4792d0",
+      "inventory_id": "F:000792D0",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_4792D0",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_4792D0"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:000795FC-00079610"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 43559
+      }
+    },
+    {
+      "original_entry": "0x47bc00",
+      "inventory_id": "F:0007BC00",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_47BC00",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_47BC00"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:0007C225-0007C240"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 38136
+      }
+    },
+    {
+      "original_entry": "0x47d2e0",
+      "inventory_id": "F:0007D2E0",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_47D2E0",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_47D2E0"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:0007D45B-0007D490"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 33680
+      }
+    },
+    {
+      "original_entry": "0x47de00",
+      "inventory_id": "F:0007DE00",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_47DE00",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_47DE00"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:0007DF18-0007DF30"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 31434
+      }
+    },
+    {
+      "original_entry": "0x47ec00",
+      "inventory_id": "F:0007EC00",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_47EC00",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_47EC00"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:0007EEE8-0007EF00"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 32512
+      }
+    },
+    {
+      "original_entry": "0x47ef00",
+      "inventory_id": "F:0007EF00",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_47EF00",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_47EF00"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:0007F3BC-0007F3D0"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 30565
+      }
+    },
+    {
+      "original_entry": "0x486040",
+      "inventory_id": "F:00086040",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_486040",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_486040"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:00086CDA-00086CF0"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 33869
+      }
+    },
+    {
+      "original_entry": "0x4881d0",
+      "inventory_id": "F:000881D0",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_4881D0",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_4881D0"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:000883AB-000883F0"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 31342
+      }
+    },
+    {
+      "original_entry": "0x48c1e0",
+      "inventory_id": "F:0008C1E0",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_48C1E0",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_48C1E0"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:0008C8E8-0008C920"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 41513
+      }
+    },
+    {
+      "original_entry": "0x48dd80",
+      "inventory_id": "F:0008DD80",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_48DD80",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_48DD80"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:0008E3DA-0008E430"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 42703
+      }
+    },
+    {
+      "original_entry": "0x48e430",
+      "inventory_id": "F:0008E430",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_48E430",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_48E430"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:0008EC74-0008ECA0"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 42847
+      }
+    },
+    {
+      "original_entry": "0x48eca0",
+      "inventory_id": "F:0008ECA0",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_48ECA0",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_48ECA0"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:0008F361-0008F380"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 42557
+      }
+    },
+    {
+      "original_entry": "0x492520",
+      "inventory_id": "F:00092520",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_492520",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_492520"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:000927E8-00092840"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 15972
+      }
+    },
+    {
+      "original_entry": "0x492880",
+      "inventory_id": "F:00092880",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_492880",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_492880"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:00092C1D-00092C80"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 16243
+      }
+    },
+    {
+      "original_entry": "0x495fe0",
+      "inventory_id": "F:00095FE0",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_495FE0",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "cg::ui::detail::Sub_495FE0"
+          ],
+          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "range_fifth_batch_data": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "ranges": [
+          "X:00096526-00096570"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 40440
+      }
+    },
+    {
+      "original_entry": "0x46fc10",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_46FC10",
+      "original_end_exclusive": "0x46fc52",
+      "instruction_count": 18,
+      "status": "已有真实UI回调；CAC08补完整原X代码身份及原型静态绑定，不造F或新增实现/完整软件门禁通过",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_46FC10"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原代码/实际RET及既有源码有限对照，未修改正文。"
+        },
+        {
+          "path": "src/ui/WindowPrototypes.cpp",
+          "symbols": [
+            "Sub_46FC10"
+          ],
+          "relationship": "十五32B原型逐项实读与当前真实callback绑定相符；不以IDA item head/显示行猜callback字段。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-annotation",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原代码片段位于既有X且没有函数owner；保原双S32栈槽及完整S32返回/本批实际RET、内部早退与调用。完整外层分派、所有字段生产/依赖语义、间接alias和owner正常寿命、SDK/机器ABI、窗口运行和全部文本验收未据本批通过；GBK/宋体等获批边界保持。",
+      "verification_level": "本批十一全代码269条868B、十五实际原型480B及当前唯一定义/现有合同有限静态原新定位；全部完整功能/门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:0006FC0D-0006FC60",
+        "start": "0x46fc10",
+        "end_exclusive": "0x46fc52",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+          "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+        ]
+      },
+      "range_fifth_batch_code": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "code_bytes": 66,
+        "source_definition_line": 40319,
+        "actual_prototype_records": [
+          "0x55eee0"
+        ],
+        "scope": "代码身份/原型静态接线纳管，不记完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x471cd0",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_471CD0",
+      "original_end_exclusive": "0x471d0d",
+      "instruction_count": 18,
+      "status": "已有真实UI回调；CAC08补完整原X代码身份及原型静态绑定，不造F或新增实现/完整软件门禁通过",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_471CD0"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原代码/实际RET及既有源码有限对照，未修改正文。"
+        },
+        {
+          "path": "src/ui/WindowPrototypes.cpp",
+          "symbols": [
+            "Sub_471CD0"
+          ],
+          "relationship": "十五32B原型逐项实读与当前真实callback绑定相符；不以IDA item head/显示行猜callback字段。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-annotation",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原代码片段位于既有X且没有函数owner；保原双S32栈槽及完整S32返回/本批实际RET、内部早退与调用。完整外层分派、所有字段生产/依赖语义、间接alias和owner正常寿命、SDK/机器ABI、窗口运行和全部文本验收未据本批通过；GBK/宋体等获批边界保持。",
+      "verification_level": "本批十一全代码269条868B、十五实际原型480B及当前唯一定义/现有合同有限静态原新定位；全部完整功能/门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00071CC7-00071DF0",
+        "start": "0x471cd0",
+        "end_exclusive": "0x471d0d",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+          "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+        ]
+      },
+      "range_fifth_batch_code": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "code_bytes": 61,
+        "source_definition_line": 40684,
+        "actual_prototype_records": [
+          "0x55f2a0"
+        ],
+        "scope": "代码身份/原型静态接线纳管，不记完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x471d10",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_471D10",
+      "original_end_exclusive": "0x471d52",
+      "instruction_count": 18,
+      "status": "已有真实UI回调；CAC08补完整原X代码身份及原型静态绑定，不造F或新增实现/完整软件门禁通过",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_471D10"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原代码/实际RET及既有源码有限对照，未修改正文。"
+        },
+        {
+          "path": "src/ui/WindowPrototypes.cpp",
+          "symbols": [
+            "Sub_471D10"
+          ],
+          "relationship": "十五32B原型逐项实读与当前真实callback绑定相符；不以IDA item head/显示行猜callback字段。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-annotation",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原代码片段位于既有X且没有函数owner；保原双S32栈槽及完整S32返回/本批实际RET、内部早退与调用。完整外层分派、所有字段生产/依赖语义、间接alias和owner正常寿命、SDK/机器ABI、窗口运行和全部文本验收未据本批通过；GBK/宋体等获批边界保持。",
+      "verification_level": "本批十一全代码269条868B、十五实际原型480B及当前唯一定义/现有合同有限静态原新定位；全部完整功能/门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00071CC7-00071DF0",
+        "start": "0x471d10",
+        "end_exclusive": "0x471d52",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+          "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+        ]
+      },
+      "range_fifth_batch_code": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "code_bytes": 66,
+        "source_definition_line": 40696,
+        "actual_prototype_records": [
+          "0x55f460"
+        ],
+        "scope": "代码身份/原型静态接线纳管，不记完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x471d60",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_471D60",
+      "original_end_exclusive": "0x471dce",
+      "instruction_count": 30,
+      "status": "已有真实UI回调；CAC08补完整原X代码身份及原型静态绑定，不造F或新增实现/完整软件门禁通过",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_471D60"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原代码/实际RET及既有源码有限对照，未修改正文。"
+        },
+        {
+          "path": "src/ui/WindowPrototypes.cpp",
+          "symbols": [
+            "Sub_471D60"
+          ],
+          "relationship": "十五32B原型逐项实读与当前真实callback绑定相符；不以IDA item head/显示行猜callback字段。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-annotation",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原代码片段位于既有X且没有函数owner；保原双S32栈槽及完整S32返回/本批实际RET、内部早退与调用。完整外层分派、所有字段生产/依赖语义、间接alias和owner正常寿命、SDK/机器ABI、窗口运行和全部文本验收未据本批通过；GBK/宋体等获批边界保持。",
+      "verification_level": "本批十一全代码269条868B、十五实际原型480B及当前唯一定义/现有合同有限静态原新定位；全部完整功能/门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00071CC7-00071DF0",
+        "start": "0x471d60",
+        "end_exclusive": "0x471dce",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+          "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+        ]
+      },
+      "range_fifth_batch_code": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "code_bytes": 110,
+        "source_definition_line": 40708,
+        "actual_prototype_records": [
+          "0x55f4a0"
+        ],
+        "scope": "代码身份/原型静态接线纳管，不记完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x471dd0",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_471DD0",
+      "original_end_exclusive": "0x471de1",
+      "instruction_count": 6,
+      "status": "已有真实UI回调；CAC08补完整原X代码身份及原型静态绑定，不造F或新增实现/完整软件门禁通过",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_471DD0"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原代码/实际RET及既有源码有限对照，未修改正文。"
+        },
+        {
+          "path": "src/ui/WindowPrototypes.cpp",
+          "symbols": [
+            "Sub_471DD0"
+          ],
+          "relationship": "十五32B原型逐项实读与当前真实callback绑定相符；不以IDA item head/显示行猜callback字段。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-annotation",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原代码片段位于既有X且没有函数owner；保原双S32栈槽及完整S32返回/本批实际RET、内部早退与调用。完整外层分派、所有字段生产/依赖语义、间接alias和owner正常寿命、SDK/机器ABI、窗口运行和全部文本验收未据本批通过；GBK/宋体等获批边界保持。",
+      "verification_level": "本批十一全代码269条868B、十五实际原型480B及当前唯一定义/现有合同有限静态原新定位；全部完整功能/门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00071CC7-00071DF0",
+        "start": "0x471dd0",
+        "end_exclusive": "0x471de1",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+          "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+        ]
+      },
+      "range_fifth_batch_code": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "code_bytes": 17,
+        "source_definition_line": 40726,
+        "actual_prototype_records": [
+          "0x55f380"
+        ],
+        "scope": "代码身份/原型静态接线纳管，不记完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4782a0",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_4782A0",
+      "original_end_exclusive": "0x4782d3",
+      "instruction_count": 16,
+      "status": "已有真实UI回调；CAC08补完整原X代码身份及原型静态绑定，不造F或新增实现/完整软件门禁通过",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4782A0"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原代码/实际RET及既有源码有限对照，未修改正文。"
+        },
+        {
+          "path": "src/ui/WindowPrototypes.cpp",
+          "symbols": [
+            "Sub_4782A0"
+          ],
+          "relationship": "十五32B原型逐项实读与当前真实callback绑定相符；不以IDA item head/显示行猜callback字段。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-annotation",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原代码片段位于既有X且没有函数owner；保原双S32栈槽及完整S32返回/本批实际RET、内部早退与调用。完整外层分派、所有字段生产/依赖语义、间接alias和owner正常寿命、SDK/机器ABI、窗口运行和全部文本验收未据本批通过；GBK/宋体等获批边界保持。",
+      "verification_level": "本批十一全代码269条868B、十五实际原型480B及当前唯一定义/现有合同有限静态原新定位；全部完整功能/门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00078293-00078320",
+        "start": "0x4782a0",
+        "end_exclusive": "0x4782d3",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+          "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+        ]
+      },
+      "range_fifth_batch_code": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "code_bytes": 51,
+        "source_definition_line": 43378,
+        "actual_prototype_records": [
+          "0x560ff0"
+        ],
+        "scope": "代码身份/原型静态接线纳管，不记完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4782e0",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_4782E0",
+      "original_end_exclusive": "0x478319",
+      "instruction_count": 21,
+      "status": "已有真实UI回调；CAC08补完整原X代码身份及原型静态绑定，不造F或新增实现/完整软件门禁通过",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4782E0"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原代码/实际RET及既有源码有限对照，未修改正文。"
+        },
+        {
+          "path": "src/ui/WindowPrototypes.cpp",
+          "symbols": [
+            "Sub_4782E0"
+          ],
+          "relationship": "十五32B原型逐项实读与当前真实callback绑定相符；不以IDA item head/显示行猜callback字段。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-annotation",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原代码片段位于既有X且没有函数owner；保原双S32栈槽及完整S32返回/本批实际RET、内部早退与调用。完整外层分派、所有字段生产/依赖语义、间接alias和owner正常寿命、SDK/机器ABI、窗口运行和全部文本验收未据本批通过；GBK/宋体等获批边界保持。",
+      "verification_level": "本批十一全代码269条868B、十五实际原型480B及当前唯一定义/现有合同有限静态原新定位；全部完整功能/门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00078293-00078320",
+        "start": "0x4782e0",
+        "end_exclusive": "0x478319",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+          "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+        ]
+      },
+      "range_fifth_batch_code": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "code_bytes": 57,
+        "source_definition_line": 43389,
+        "actual_prototype_records": [
+          "0x560f90"
+        ],
+        "scope": "代码身份/原型静态接线纳管，不记完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x485030",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_485030",
+      "original_end_exclusive": "0x485107",
+      "instruction_count": 63,
+      "status": "已有真实UI回调；CAC08补完整原X代码身份及原型静态绑定，不造F或新增实现/完整软件门禁通过",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_485030"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原代码/实际RET及既有源码有限对照，未修改正文。"
+        },
+        {
+          "path": "src/ui/WindowPrototypes.cpp",
+          "symbols": [
+            "Sub_485030"
+          ],
+          "relationship": "十五32B原型逐项实读与当前真实callback绑定相符；不以IDA item head/显示行猜callback字段。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-annotation",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原代码片段位于既有X且没有函数owner；保原双S32栈槽及完整S32返回/本批实际RET、内部早退与调用。完整外层分派、所有字段生产/依赖语义、间接alias和owner正常寿命、SDK/机器ABI、窗口运行和全部文本验收未据本批通过；GBK/宋体等获批边界保持。",
+      "verification_level": "本批十一全代码269条868B、十五实际原型480B及当前唯一定义/现有合同有限静态原新定位；全部完整功能/门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:0008502D-00085110",
+        "start": "0x485030",
+        "end_exclusive": "0x485107",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+          "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+        ]
+      },
+      "range_fifth_batch_code": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "code_bytes": 215,
+        "source_definition_line": 32251,
+        "actual_prototype_records": [
+          "0x5621a0"
+        ],
+        "scope": "代码身份/原型静态接线纳管，不记完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x492800",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_492800",
+      "original_end_exclusive": "0x49283d",
+      "instruction_count": 21,
+      "status": "已有真实UI回调；CAC08补完整原X代码身份及原型静态绑定，不造F或新增实现/完整软件门禁通过",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_492800"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原代码/实际RET及既有源码有限对照，未修改正文。"
+        },
+        {
+          "path": "src/ui/WindowPrototypes.cpp",
+          "symbols": [
+            "Sub_492800"
+          ],
+          "relationship": "十五32B原型逐项实读与当前真实callback绑定相符；不以IDA item head/显示行猜callback字段。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-annotation",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原代码片段位于既有X且没有函数owner；保原双S32栈槽及完整S32返回/本批实际RET、内部早退与调用。完整外层分派、所有字段生产/依赖语义、间接alias和owner正常寿命、SDK/机器ABI、窗口运行和全部文本验收未据本批通过；GBK/宋体等获批边界保持。",
+      "verification_level": "本批十一全代码269条868B、十五实际原型480B及当前唯一定义/现有合同有限静态原新定位；全部完整功能/门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:000927E8-00092840",
+        "start": "0x492800",
+        "end_exclusive": "0x49283d",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+          "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+        ]
+      },
+      "range_fifth_batch_code": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "code_bytes": 61,
+        "source_definition_line": 16042,
+        "actual_prototype_records": [
+          "0x567068"
+        ],
+        "scope": "代码身份/原型静态接线纳管，不记完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4950d0",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_4950D0",
+      "original_end_exclusive": "0x495123",
+      "instruction_count": 32,
+      "status": "已有真实UI回调；CAC08补完整原X代码身份及原型静态绑定，不造F或新增实现/完整软件门禁通过",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4950D0"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原代码/实际RET及既有源码有限对照，未修改正文。"
+        },
+        {
+          "path": "src/ui/WindowPrototypes.cpp",
+          "symbols": [
+            "Sub_4950D0"
+          ],
+          "relationship": "十五32B原型逐项实读与当前真实callback绑定相符；不以IDA item head/显示行猜callback字段。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-annotation",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原代码片段位于既有X且没有函数owner；保原双S32栈槽及完整S32返回/本批实际RET、内部早退与调用。完整外层分派、所有字段生产/依赖语义、间接alias和owner正常寿命、SDK/机器ABI、窗口运行和全部文本验收未据本批通过；GBK/宋体等获批边界保持。",
+      "verification_level": "本批十一全代码269条868B、十五实际原型480B及当前唯一定义/现有合同有限静态原新定位；全部完整功能/门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:000950CE-00095130",
+        "start": "0x4950d0",
+        "end_exclusive": "0x495123",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+          "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+        ]
+      },
+      "range_fifth_batch_code": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "code_bytes": 83,
+        "source_definition_line": 17075,
+        "actual_prototype_records": [
+          "0x568c88",
+          "0x568ca8",
+          "0x568cc8",
+          "0x568ce8",
+          "0x568d08"
+        ],
+        "scope": "代码身份/原型静态接线纳管，不记完整F处置或软件I/W/S/R通过",
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x495750",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_495750",
+      "original_end_exclusive": "0x4957a1",
+      "instruction_count": 26,
+      "status": "已有真实UI回调；CAC08补完整原X代码身份及原型静态绑定，不造F或新增实现/完整软件门禁通过",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_495750"
+          ],
+          "relationship": "当前带函数体唯一定义；本批完整原代码/实际RET及既有源码有限对照，未修改正文。"
+        },
+        {
+          "path": "src/ui/WindowPrototypes.cpp",
+          "symbols": [
+            "Sub_495750"
+          ],
+          "relationship": "十五32B原型逐项实读与当前真实callback绑定相符；不以IDA item head/显示行猜callback字段。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-annotation",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      ],
+      "boundary": "原代码片段位于既有X且没有函数owner；保原双S32栈槽及完整S32返回/本批实际RET、内部早退与调用。完整外层分派、所有字段生产/依赖语义、间接alias和owner正常寿命、SDK/机器ABI、窗口运行和全部文本验收未据本批通过；GBK/宋体等获批边界保持。",
+      "verification_level": "本批十一全代码269条868B、十五实际原型480B及当前唯一定义/现有合同有限静态原新定位；全部完整功能/门禁保持。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00095750-000957B0",
+        "start": "0x495750",
+        "end_exclusive": "0x4957a1",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+          "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+        ]
+      },
+      "range_fifth_batch_code": {
+        "step": "CAC08",
+        "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+        "code_bytes": 81,
+        "source_definition_line": 17505,
+        "actual_prototype_records": [
+          "0x569078"
+        ],
+        "scope": "代码身份/原型静态接线纳管，不记完整F处置或软件I/W/S/R通过",
         "runtime_verified": false
       }
     }

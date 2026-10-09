@@ -6,8 +6,8 @@
 
 ## 1. 当前口径
 
-- 原函数3680，语义2021条/1975个原ID＋46条区间身份；合同关联2085/3680（56.66%），已审F处置1113。关联率不是实现或验收完成率。
-- 导入16/218、区间2533/3061已审，区间剩528；18个pending是历史跟踪入口，不等于18个未实现函数。
+- 原函数3680，语义2024条/1976个原ID＋48条区间身份；合同关联2086/3680（56.68%），已审F处置1114。关联率不是实现或验收完成率。
+- 导入16/218、区间3060/3061已审，区间剩1；18个pending是历史跟踪入口，不等于18个未实现函数。
 - 184个登记叶功能整项验收0，B/I/W/S/R完整门禁均0通过，六类closure均open；局部证据1325条不得代替完整门禁。
 - 历史Debug链接及CAC04选人入场用户复验保留；当前不构建、不测试、不运行、不查产物、不计算摘要、单线程。音频开发已恢复，运行验收仍受限。
 - 已知格式库存1007真实＋13排除＋3替换＝1023；旧“6音频暂停”“链接剩8项”“version缺定义”“G05只有使用关系”等摘要已被后续实施覆盖。
@@ -47,7 +47,7 @@
 | C03 / 四Init与登记 | 开放；六兼容Init接口、SDK标准流/缓冲与私有登记已有实际提供者 | 原完整容量/较大索引/alias、Legacy活动消费者/facet/codecvt、SDK构析和退出运行仍待 | [SSO01](../doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure)；[SR01](../doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-source-closure) |
 | C04 / 构析与入口迁移 | 开放；唯一宿主入口、活动初始化、失败前缀/逆序清理及filter恢复已有 | 全Legacy消费者/owner/成员EH/硬件SEH、跨TU及完整normal/quick/callable和SDK运行 | [HFI01](../doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-source-closure)；[BRS01](../doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-source-state)；[当前注释核对](cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009) |
 | C05 / codecvt | 开放；四已知streambuf/filebuf方法表及十个消费字段已有类型对应 | 非空codecvt/facet真实生产/完整表、全活动流/owner/alias、SDK ABI与运行仍待 | [STP01](../doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure)；[FBO01](../doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-source-closure) |
-| C06 / 异常查找捕获 | 开放；原异常查找/捕获私有职责由宿主承接；NLS原SEH消费有局部证据 | 旧5402AB/5407BC由本机职责承接；实际typed捕获/清理、成员与硬件SEH、SDK生成ABI/运行待验 | [BPK01](../doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state)；[HFI01](../doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-source-closure) |
+| C06 / 异常查找捕获 | 开放；原异常查找/捕获私有职责由宿主承接；NLS原SEH消费有局部证据 | 旧5402AB/5407BC及单叶53B4F2由本机职责承接；实际typed捕获/清理、成员与硬件SEH、SDK生成ABI/运行待验 | [BPK01](../doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state)；[HFI01](../doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-source-closure)；[CAC20](../doc/cg2d_native_cpp_exception_spec.md#cpp-continuation-host-source-state-20261009) |
 | C07 / 抛出与SDK | 开放；八处实际throw/一处重抛、六类型及单payload owner已接 | 实际C++20生成ABI、按值捕获/展开/非法重抛与SDK及完整生命周期仍待 | [BPK01](../doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state)；[NCE01收口](../doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure) |
 | C08 / 原堆模式3 | 开放；五SDK操作及七原调用角色已接，三个无本体私有核心声明已撤；HMU01已成组统一全部通用模式并退休12旧池接口，原身份/证据保持 | 模式稳定/同域、全部owner/未知alias/R1/R7与SDK实际失败/退出运行仍待 | [M3P01](../doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure)；[HMU01](../doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state) |
 | C09 / 图形双树 | 开放；双树、逐节点面及调色板清理有局部接线和顺序修正 | 完整应用入口及逐surface/快速退出清理和SDK运行仍待 | [双树源码](../doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure)；[SSO01](../doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure) |
@@ -93,10 +93,10 @@
 
 | 编号 / 范围 | 任务状态与已有成果 | 下一步及关闭边界 | 主证据 |
 |---|---|---|---|
-| R01 / 函数分母 | 开放；原3680函数纳管；2021语义记录/1975个原ID，1113个F处置 | 46条无独立F记录按原区间身份绑定；其余逐ID处置、功能成员/完整本体、混合共享与未知继续核定，不造函数填数。 | [机器语义清单](../doc/cg2d_semantic_function_mappings.json)；[CAC19](../doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state) |
-| R02 / 数据/间接目标 | 开放；218导入已审16；CAC19补15表/两索引、22代码及原型/旧表来源，完整闭包未定 | 未知间接alias/完整owner/重进/动态边，202导入及数据/常量/生命周期 | [NAS01](../doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state)；[NWT01](../doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure)；[CAC19](../doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state) |
-| R03 / 未归属区间 | 开放；3061区间已审2533，剩528；CAC19第七批512完整用途已纳管 | 沿候选清单处理尚未归属区间，不重做已证分类 | [区间分类合同](../doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state) |
-| R04 / 台账一致性 | 开放；CAC19精确同步分类/语义/已知成员/任务引用；完整门禁及历史证据保持 | 按实际功能小步同步同一记录及证据；继续处理后续差异，不把本次分类登记当全库语义复审或关闭R04。 | [追踪验收体系](../doc/cg2d_traceability_acceptance_spec.md)；[CAC19](../doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state) |
+| R01 / 函数分母 | 开放；原3680函数纳管；2024语义记录/1976个原ID，1114个F处置 | 48条无独立F记录按原区间身份绑定；其余逐ID处置、功能成员/完整本体、混合共享与未知继续核定，不造函数填数。 | [机器语义清单](../doc/cg2d_semantic_function_mappings.json)；[CAC20](../doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-source-state) |
+| R02 / 数据/间接目标 | 开放；218导入已审16；CAC20补九表/一个索引、七输入记录与格式头、PE段尾和ABI尾部来源，完整闭包未定 | 未知间接alias/完整owner/重进/动态边，202导入及数据/常量/生命周期 | [NAS01](../doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state)；[NWT01](../doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure)；[CAC20](../doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-source-state) |
+| R03 / 未归属区间 | 开放；3061区间已审3060，剩1；CAC20纳管527完整用途 | X:00142E29-00142E34的8B用途仍未决；数据/间接路由闭包继续，不重做已证分类 | [区间分类合同](../doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-source-state) |
+| R04 / 台账一致性 | 开放；CAC20精确同步分类/语义/单叶宿主/已知成员/任务引用；完整门禁及历史证据保持 | 按实际功能小步同步同一记录及证据；继续处理后续差异，不把本次分类登记当全库语义复审或关闭R04。 | [追踪验收体系](../doc/cg2d_traceability_acceptance_spec.md)；[CAC20](../doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-source-state) |
 | R05 / 例外收口 | 开放；屏幕键盘/newest/两加密叶/低色深及混合入口已有具名边界 | 核共享callee、混合32位分支、参数/状态保留及排除接线 | [总SPEC](cg2d_full_reconstruction_plan.md) |
 
 ## 8. V01–V06：完整验收

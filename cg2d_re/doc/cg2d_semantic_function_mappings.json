@@ -37451,7 +37451,13 @@
       },
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-data",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-host-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-source-state",
+        "doc/cg2d_unassigned_range_eighth_batch_evidence.json"
       ],
       "boundary": "模式1先banner，报告参数错误后再取58F8A0传255；原生函数槽初始指向真实53C90B，经第二终止表退出。argv/退出表初始化失败已接，退出叶和完整启动未闭合，不改直接ExitProcess或宿主fastfail。",
       "original_direct_reference_count": 8,
@@ -37495,7 +37501,12 @@
           "parent_entry": "0x548069"
         }
       ],
-      "verification_level": "完整原指令、全部直接入向、共享槽及表值；新增源码静态核对，未执行"
+      "verification_level": "完整原指令、全部直接入向、共享槽及表值；新增源码静态核对，未执行",
+      "range_eighth_batch_tail": {
+        "step": "CAC20",
+        "tail": "0x53decd",
+        "scope": "原F元数据之外有已证call后清理/RET；当前已知终止槽真实不返回，未知alias/typed結果不借本批验收。"
+      }
     },
     {
       "original_entry": "0x53DED0",
@@ -53783,7 +53794,13 @@
       },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-data",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-host-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-source-state",
+        "doc/cg2d_unassigned_range_eighth_batch_evidence.json"
       ],
       "boundary": "原623条及89B分类/转移、八目标逐项接为完整状态机；宽度/精度、h/l/I64、整数512上限、s/S/c/C/Z/n及原分段输出/错误传播保持。原生va_list按语义区分地址/数值，p固定完整指针十六进制位数，Z仅指针拓宽，n仍W16/W32。浮点精度163/512、分配回退、三个真实初始trap槽调用及字段尾释放已表达；e/f/g排版分发及底层数字生产已实现，六槽安装本体已实现，真实启动父仍待，不能将浮点计为完成。三包装已接，14处无界和全部9处有界标题业务调用已迁移；其他无界/流输出、真实启动与完整运行仍待。 本步仅真实长度/复制接线，原共用表达式/目标和数值转换、缓存/字段发布与后续全部正文保持；三源码合六标识符/三个已有头，不重验已过浮点算法或越过真实启动/运行未决。 原Z空源53EEAA直跳53EF59与普通浮点push共一原长度点，现两个表达式均承接且只计一个原点。；本次仅将原53F122余数/53F134商接两个显式U64真实数值helper，先余数低W32+30H后求商/完整U64 value发布保持；旧格式状态机/业务数组不回核，完整父/真实启动与运行未闭。",
       "function_chunks": [
@@ -53851,7 +53868,18 @@
           "arguments": "原同一U64 value与同一次radix，保存完整U64商",
           "relationship": "余数取字符后才商/发布value；旧整数解析/精度、缓存/字符串输出不改或复检"
         }
-      ]
+      ],
+      "range_eighth_batch_data": {
+        "step": "CAC20",
+        "source_snapshot": "cg2d-re-unassigned-range-eighth-batch-20261009",
+        "ranges": [
+          "X:0013F2A6-0013F2C6"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 64
+      }
     },
     {
       "original_entry": "0x53BC0F",
@@ -56775,11 +56803,11 @@
     {
       "original_entry": "0x53B4F2",
       "inventory_id": "F:0013B4F2",
-      "status": "原异常ABI叶全本体已取证；新端承接及等价验收未完成",
+      "status": "CAC20已具名将旧私有FS/帧恢复/续行职责交当前compiler/VCRuntime；无同名包装，生成ABI/全部捕获/寿命与运行仍未验",
       "original_end_exclusive": "0x53B51F",
       "instruction_count": 17,
       "original_direct_reference_count": 1,
-      "verification_level": "完整指令；入向是否完整见inbound_evidence_complete",
+      "verification_level": "完整旧叶17条/45B、唯一已查caller真实邻窗、安装SDK职责参照与现语言源入口限定静态；不是当前生成机器体/旧上下文ABI或运行验收。",
       "inbound_evidence_complete": true,
       "inbound_evidence": [
         {
@@ -56787,12 +56815,79 @@
           "parent_entry": "0x54060B"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "native_cpp::LogicError",
+            "native_cpp::LengthError",
+            "native_cpp::RangeError",
+            "native_cpp::RuntimeError",
+            "native_cpp::StreamFailure"
+          ],
+          "relationship": "当前原生throw/重抛/copy/清理源语法边界，机器恢复与续行归compiler/VCRuntime；这些是实际语言入口，不是旧私有叶同名正文或旧上下文消费者。"
+        },
+        {
+          "path": "src/platform/NativeCppException.hpp",
+          "symbols": [
+            "cg::platform::native_cpp::Exception"
+          ],
+          "relationship": "现六类/copy与payload类型合同保持；旧catch元数据兼容/接线标志不改true，完整typed捕获/SDK ABI另验。"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-data",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-host-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-source-state",
+        "doc/cg2d_unassigned_range_eighth_batch_evidence.json",
+        "doc/cg2d_native_cpp_exception_spec.md#cpp-continuation-host-source-state-20261009"
       ],
-      "boundary": "从FS:0解除一层注册，按传入节点恢复ESP/EBP后跳到传入续行地址，不是普通返回函数。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+      "boundary": "CAC20仅53B4F2私有解除FS注册/机器帧恢复/续行职责host；原45B/17条与54067C/父54060B邻窗可追，原参数/名字/库存保留。当前native_cpp实际源语法由compiler/VCRuntime处理，不接旧FS、ESP/EIP或catch元数据，不补同名空体；其它私有叶、全部typed捕获/成员/硬件SEH、owner/SDK生成ABI和运行不据本批通过。",
+      "previous_mapping_before_cac20_host": {
+        "original_entry": "0x53B4F2",
+        "inventory_id": "F:0013B4F2",
+        "status": "原异常ABI叶全本体已取证；新端承接及等价验收未完成",
+        "original_end_exclusive": "0x53B51F",
+        "instruction_count": 17,
+        "original_direct_reference_count": 1,
+        "verification_level": "完整指令；入向是否完整见inbound_evidence_complete",
+        "inbound_evidence_complete": true,
+        "inbound_evidence": [
+          {
+            "address": "0x54067C",
+            "parent_entry": "0x54060B"
+          }
+        ],
+        "sources": [],
+        "evidence_documents": [
+          "doc/cg2d_startup_flow.md",
+          "doc/cg2d_semantic_function_mappings.md"
+        ],
+        "boundary": "从FS:0解除一层注册，按传入节点恢复ESP/EBP后跳到传入续行地址，不是普通返回函数。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+      },
+      "current_provider": {
+        "kind": "compiler_vcruntime",
+        "decision_ref": "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-host-decision",
+        "target": "当前C++20/MSVC/x64",
+        "old_x86_context_consumed": false,
+        "old_metadata_compatibility_flags_changed": false,
+        "runtime_verified": false
+      },
+      "range_eighth_batch_unbound_tail": {
+        "entry": "0x53b51f",
+        "end_exclusive": "0x53b526",
+        "range_id": "X:0013B51F-0013B526",
+        "scope": "只证原七字节寄存器恢复/leave/RET8；没有独立现源码对应，也未证此为该叶实际跳入目标。原用途保留于辅助区间，本记录不新增语义代码身份/源实现或放宽汇总器要求。",
+        "original_current_code_binding_verified": false,
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_eighth_batch_evidence.json",
+          "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-code"
+        ]
+      }
     },
     {
       "original_entry": "0x53B526",
@@ -86051,9 +86146,15 @@
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-data",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-host-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-source-state",
+        "doc/cg2d_unassigned_range_eighth_batch_evidence.json"
       ],
-      "boundary": "原两指令调用真实53DEAB(error2)后不返回；类型精确适配函数承担同一trap作为浮点转换/文本处理/输入赋值/非负判断槽初值的调用。六槽均按加载值初始化，完整安装本体已实现，真实启动父仍待，e/f/g排版分发和底层数字生产已有本体，输入核心直接trap调用尚未接，不以固定成功或宿主浮点格式替代。",
+      "boundary": "原F元数据含PUSH2/CALL53DEAB，随后原X中确有POP ECX/RET；当前noreturn依据已知58F8A0默认真实53C90B(callable0)退出，不以元数据短边界说原无RET，其它潜在alias/typed结果及全SDK ABI未据本批通过。 ，完整安装本体已实现，真实启动父仍待，e/f/g排版分发和底层数字生产已有本体，输入核心直接trap调用尚未接，不以固定成功或宿主浮点格式替代。",
       "function_chunks": [
         {
           "start": "0x545031",
@@ -86102,7 +86203,13 @@
           "address": "0x58FB64",
           "reference_kind": "data"
         }
-      ]
+      ],
+      "range_eighth_batch_tail": {
+        "step": "CAC20",
+        "tail": "0x545038",
+        "scope": "原F元数据之外有已证call后清理/RET；当前已知终止槽真实不返回，未知alias/typed結果不借本批验收。"
+      },
+      "previous_boundary_before_cac20_tail": "原两指令调用真实53DEAB(error2)后不返回；类型精确适配函数承担同一trap作为浮点转换/文本处理/输入赋值/非负判断槽初值的调用。六槽均按加载值初始化，完整安装本体已实现，真实启动父仍待，e/f/g排版分发和底层数字生产已有本体，输入核心直接trap调用尚未接，不以固定成功或宿主浮点格式替代。"
     },
     {
       "original_entry": "0x54019A",
@@ -87753,7 +87860,13 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-data",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-host-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-source-state",
+        "doc/cg2d_unassigned_range_eighth_batch_evidence.json"
       ],
       "boundary": "原12态解析保留四种首空白、ASCII起始门禁与共享ctype/NLS数字分类区别、唯一小数点、D/E/d/e及可选无标记指数。25B数值字节暂存，整数/小数超位的调整差异、指数5201截累积后继续扫描、缓冲+23 S8>=5时U8自增再保留24位、去尾0保持。结束指针先发布，失败按原始/指数起点回退；默认尺度/小数位仅在无相应标记时作用。超范围返2/1、无有效数字返4、其他返0，最终+6/+2/+10/+0写序与符号保持；两个文本父已接，扫描核心已接，真实启动/运行仍待。",
       "function_chunks": [
@@ -87796,6 +87909,17 @@
         "increment_address": "0x5467AE",
         "increment_bytes": "fe45bb",
         "buffer_byte_offset": 23
+      },
+      "range_eighth_batch_data": {
+        "step": "CAC20",
+        "source_snapshot": "cg2d-re-unassigned-range-eighth-batch-20261009",
+        "ranges": [
+          "X:001468BA-001468EA"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 274
       }
     },
     {
@@ -163589,7 +163713,13 @@
         "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision",
         "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-acceptance",
         "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state",
-        "doc/cg2d_texture_viewport_sampling_evidence.json"
+        "doc/cg2d_texture_viewport_sampling_evidence.json",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-data",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-host-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-source-state",
+        "doc/cg2d_unassigned_range_eighth_batch_evidence.json"
       ],
       "boundary": "BUX01仅DrawIntegerNodes撤x/y实参S16窄化，恢复完整S32传给44D520；原低S16交集/位移与分支DWORD门禁在新callee保，三caller134条415B局部有据；原六基址/head实修与其限定证据保，完整所有父/callee/COM/alias寿命/像素/ABI/运行未验。 入口上传count清0与获批Back IsLost→CPU存活失败门禁保持，正常非正计数仍按Has/Begin/End走完整公共尾。S16 count/cacheIndex/W8 batch与0..12分发、各资源/几何门禁、描述符/S32原点、x87 C3分派/三比例/各轴取样、矩形/镜像/三回调和busy/next写序保持。普通bounds保存DX base，负X/Y分支分别按原时点重取，final clip/head沿保存base；固定宽基址沿head。空head palette沿旧base，有链处理结束后才重取base再dirtyCount0，helpers只接原head不另定位。各批次/Frame/版本老化/特殊旗与队列重读保持，所有公开/native/owner不改。原COM操作偏移未解析，不当绝对callee。14原call经13源码关系承接，仅局部窗口/实际连接，完整父/callee/间接alias及资源对象清理、SDK/机器ABI/像素画面未验，RPLAN.24异常不记安全/故障等价。",
       "verification_level": "BUX01仅DrawIntegerNodes撤x/y实参S16窄化，恢复完整S32传给44D520；原低S16交集/位移与分支DWORD门禁在新callee保，三caller134条415B局部有据；原六基址/head实修与其限定证据保，完整所有父/callee/COM/alias寿命/像素/ABI/运行未验。 完整769条/2658B、13跳表、14callers112条窗口和原data/call类型；六限定CPP补丁外全文/公开分发与其它源、所有旧语义/登记外部保持，未构建/测试/运行/摘要",
@@ -163629,6 +163759,17 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "range_eighth_batch_data": {
+        "step": "CAC20",
+        "source_snapshot": "cg2d-re-unassigned-range-eighth-batch-20261009",
+        "ranges": [
+          "X:00121832-00121870"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 345
       }
     },
     {
@@ -222763,6 +222904,136 @@
         "doc/ui_windows/legacy_emote_shortcuts.md"
       ],
       "original_binding_boundary": "十八原8B键记录仅原表来源；既有正文保持，没有新端键表对象或已证真实分派，不能记W闭环。"
+    },
+    {
+      "original_entry": "0x52c910",
+      "inventory_id": "F:0012C910",
+      "original_role": "CAC20仅BGM请求分派数据/当前定义关联：UpdateBgmRequest_52C910",
+      "status": "已有真实音频正文；本批只原四阶段表/当前定义关联，不重验全部父或新增软件通过",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "UpdateBgmRequest_52C910"
+          ],
+          "relationship": "当前带函数体唯一定义；原本批表/守界数据仅身份关联，不代完整父/生产/SDL失败/通知/寿命和运行。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-data",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-host-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-source-state",
+        "doc/cg2d_unassigned_range_eighth_batch_evidence.json"
+      ],
+      "boundary": "原F保持既有库存；原四槽完整用途与现源定义分开，完整W32返回/状态生产/所有依赖及ABI/运行未据本批验收。",
+      "verification_level": "完整原X/守界/取表/目标code及当前定义限定静态，不改现源或MIDI停止边界。",
+      "range_eighth_batch_data": {
+        "step": "CAC20",
+        "source_snapshot": "cg2d-re-unassigned-range-eighth-batch-20261009",
+        "ranges": [
+          "X:0012C9A1-0012C9C0"
+        ],
+        "association_only": true,
+        "full_original_body_recaptured": false,
+        "runtime_verified": false,
+        "current_definition_line": 684
+      }
+    },
+    {
+      "original_entry": "0x53decd",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "CAC20原ABI尾部 0x53decd",
+      "original_end_exclusive": "0x53ded0",
+      "instruction_count": 3,
+      "status": "原真实机器尾部已定位；不造独立函数/同名CPP或软件通过，按具名角色和未决入向分别纳管",
+      "sources": [
+        {
+          "path": "src/platform/LegacyRuntimeError.cpp",
+          "symbols": [
+            "ExitLegacyRuntimeError_53DEAB"
+          ],
+          "relationship": "现父的语言调用/返回或已知默认终止角色关联；不是独立普通尾部函数，原x86参数清理由本机ABI提供，完整alias/typed結果/ABI与运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-data",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-host-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-source-state",
+        "doc/cg2d_unassigned_range_eighth_batch_evidence.json"
+      ],
+      "boundary": "只原完整机器尾部/实际RET边界。53B51F并非已证JumpToContinuation实际跳入目标；其恢复角色沿单叶host但全部入向未闭。另两段为call后的参数清理/RET，现默认真实退出不返回，不借原RET字节为typed callback伪造结果；未知alias/全ABI/正常寿命与运行继续。",
+      "verification_level": "本批三尾部10条12B及原邻父/现限定角色静态，不作完整实现/接线或运行通过。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:0013DECD-0013DED0",
+        "start": "0x53decd",
+        "end_exclusive": "0x53ded0",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-source-state",
+          "doc/cg2d_unassigned_range_eighth_batch_evidence.json"
+        ]
+      },
+      "range_eighth_batch_tail": {
+        "step": "CAC20",
+        "source_snapshot": "cg2d-re-unassigned-range-eighth-batch-20261009",
+        "related_original_parent": "0x53deab",
+        "code_bytes": 3,
+        "standalone_callable_function_proved": false,
+        "original_inbound_complete": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x545038",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "CAC20原ABI尾部 0x545038",
+      "original_end_exclusive": "0x54503a",
+      "instruction_count": 2,
+      "status": "原真实机器尾部已定位；不造独立函数/同名CPP或软件通过，按具名角色和未决入向分别纳管",
+      "sources": [
+        {
+          "path": "src/platform/LegacyFormat.cpp",
+          "symbols": [
+            "LegacyFloatingPointTrap_545031"
+          ],
+          "relationship": "现父的语言调用/返回或已知默认终止角色关联；不是独立普通尾部函数，原x86参数清理由本机ABI提供，完整alias/typed結果/ABI与运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-data",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-code",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-host-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-source-state",
+        "doc/cg2d_unassigned_range_eighth_batch_evidence.json"
+      ],
+      "boundary": "只原完整机器尾部/实际RET边界。53B51F并非已证JumpToContinuation实际跳入目标；其恢复角色沿单叶host但全部入向未闭。另两段为call后的参数清理/RET，现默认真实退出不返回，不借原RET字节为typed callback伪造结果；未知alias/全ABI/正常寿命与运行继续。",
+      "verification_level": "本批三尾部10条12B及原邻父/现限定角色静态，不作完整实现/接线或运行通过。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00145038-0014503A",
+        "start": "0x545038",
+        "end_exclusive": "0x54503a",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-source-state",
+          "doc/cg2d_unassigned_range_eighth_batch_evidence.json"
+        ]
+      },
+      "range_eighth_batch_tail": {
+        "step": "CAC20",
+        "source_snapshot": "cg2d-re-unassigned-range-eighth-batch-20261009",
+        "related_original_parent": "0x545031",
+        "code_bytes": 2,
+        "standalone_callable_function_proved": false,
+        "original_inbound_complete": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

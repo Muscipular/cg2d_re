@@ -359,3 +359,47 @@ X:000C43BE-000C43C0的唯一xref是4C43BE NOP至4C43BF的type21线性flow，引�
 ## CAC19 当前交付
 
 完整区间分类与原新关联登记；区间已审2021→2533，余1040→528。语义1993→2021（有效F1969→1975，无F24→46），合同关联2079→2085/3680（56.66%）；全部F处置1113、软件证据1325、184叶整项验收0、60任务关闭11及六closure open保持。同步对应任务、登记与唯一进度，经限定静态/UTF-8/LF、差异和汇总/-Check后精确提交，固定引用cg2d-re-unassigned-range-seventh-batch-20261009。原真实功能及总SPEC§10未全部满足，整体仍未完成。
+
+<a id="range-eighth-batch-baseline"></a>
+## CAC20 第八批528候选与527项用途（2026-10-09）
+
+本批读取剩余528原X，从X:0011134E-00111350到X:0014C48A-0014D000，全部7498B。沿[完整原证](cg2d_unassigned_range_eighth_batch_evidence.json)核逐字节owner/xref、真实左右块、跳表/索引、对齐、三已排除键盘删除包装、三原ABI尾部和嵌入数据；原会话仅只读，不改原库存或数据库。
+
+431段纯90H、78段纯CCH，以及相邻混合项中的同字节填充均按实际终止/左右chunk和入向区分。七条同寄存器MOV/零位移LEA共27B（含ESP），不当业务代码或伪造hotpatch。九个W32跳表71槽/284B及一个20B BYTE索引保实际CMP/JA、寄存器清零、BYTE取用、×4 JMP、全部目标代码与原owner；四键盘父沿原97入口范围排除，不恢复到当前客户端。
+
+<a id="range-eighth-batch-data"></a>
+## CAC20 嵌入数据与段尾
+
+5349C0..534A30七个16B原对象记录共112B：前三GUID实值与本机Windows SDK dinput.h的X/Y/Z轴一致，offset为0/4/8；其余四项GUID空、offset为12/13/14/15，低类型位对应按钮。54F834的24B原格式头为size24/objectSize16/flags2/dataSize16/count7/array5349C0，完整原值/高位保留。SDK仅提供字段/GUID解释，不证明原消费者或当前使用；不强转原W32为新x64对象、不恢复DInput机制或新增表。
+
+通过当前IDB已有$ PE header节点（create=False，getblob(1,S)）只读取得原四个40B节头；Windows SDK winnt.h的IMAGE_SECTION_HEADER字段与40B尺寸作格式依据。.text RVA1000、VirtualSize14B48A、SizeOfRawData14C000，原虚拟内容终点为54C48A，原raw映射终点/当前段尾为54D000；本批最后2934B恰为其间全部零字节。原文件映射偏移与边界一致，定为PE原raw节尾对齐，不按零owner单独下结论，不重读磁盘原文件或计算摘要。
+
+X:00142E29-00142E34前3B为CC，后8B实值可显示VC20XC00，右邻原函数名称为__except_handler3。原前块542D80在542E28已RET，现六条自动指令/内部flow标注不是取用证据。名称/邻接和外部检索线索不足以证明本程序该8B的实际用途；本整X保classification_ready=false，不登记辅助mapped、不判普通字符串功能、填充、不可达或业务排除。已证527项/7487B与剩余这1项/11B分开。
+
+<a id="range-eighth-batch-code"></a>
+## CAC20 原代码边界与当前承接
+
+537F20..537F3E、538EE0..538EFE、53A350..53A36E各30B/11条，按真实析构→flags bit0→delete→this返回，三原虚表槽54F890/54F8C4/54F8F8相符；沿[既有键盘排除](cg2d_external_keyboard_wrapper.md)，只代码本体排除、两侧填充分开，不增F分母或扩大共享delete/CRT排除。
+
+三原ABI尾部：53B51F..53B526五条7B保存寄存器恢复/leave/RET8；53DECD..53DED0三条3B在原终止槽call之后清两个参数/RET；545038..54503A两条2B在__amsg_exit call之后清参数/RET。全部43条102B含上述三包装。尾部无独立IDA函数，不造普通可调用入口或同名包装；内部flow不能证明外部入向齐备。ExitLegacyRuntimeError的普通void回调返回路径与两参数清理角色可对照；已知58F8A0原加载值53C90B、现真实QuickExit固定callable0不返回，不能从被截成两指令的__fptrap元数据说原RET字节不存在，也不据此伪造typed返回值或放大未知alias结论。
+
+<a id="range-eighth-batch-host-decision"></a>
+## CAC20 私有续行叶的宿主裁决
+
+原53B4F2完整45B/17条：解除一层FS注册，按传入EH节点恢复ESP/EBP，然后JMP传入续行地址。当前已查唯一普通caller54067C/父54060B，实际CallCatchBlock后测试返回续行地址，非空时传该地址/当前注册节点。原邻窗与本机MSVC14.50的frame.cpp中CallCatchBlock→非空continuationAddress→_JumpToContinuation职责对应；本机源仅解释编译器职责，不证明本轮生成或运行结果。
+
+按AGENTS第8条既有工程委托，先记录本合同后将该单一旧私有叶登记host：当前C++20/MSVC/x64的原生throw/catch/清理/续行由compiler/VCRuntime承接，不另建旧FS帧、旧ESP/EIP恢复器、同名空体或原地址调用；不把原x86上下文或旧catch元数据交本机引擎。现六类/payload copy/真实throw与重抛保持，旧sdk_metadata_compatible/handler_parent_connected不改true。该叶承接不外推其它私有叶、全部typed捕获、成员/硬件SEH、SDK生成ABI、owner寿命或运行，C04/C06/C07/V02继续开放。
+
+仅更新该原F的当前职责、保存旧映射、追加一项host处置及已知CRT成员/原X尾部来源；零客户端正文或软件门禁通过。53B51F只保原机器尾部用途与该职责未决关联；没有独立新端源码对应，不新增其语义代码身份，不宣它是53B4F2实际跳入目标或独立当前函数。
+
+<a id="range-eighth-batch-acceptance"></a>
+## CAC20 限定静态验收
+
+528候选/7498B及全部parts按原库存和完整字节连续核；只527用途完整项追加mapped，原2533项保持。九表/71槽、一个20B索引、七对齐/27B、三键盘包装/虚表、三尾部与完整53B4F2/实际caller、七输入记录/格式头和PE原节头/零段尾可追；八字节未决不补值或改数据库标注。
+
+三个已有非排除表父只补依据，52C910已有正文只补表/现唯一定义关联；四键盘表父按原分类引用，没有现提供者。两有真实父源码的ABI片段补X身份；53B51F只有原用途/未决关系，撤掉无独立现源码的语义记录，不放宽校验。原F分母、完整业务/数据/间接路由、成员枚举、软件证据及全部门禁保持。静态汇总/-Check只核结构和派生文本；不构建/测试/运行/查产物/计算摘要，单线程。
+
+<a id="range-eighth-batch-source-state"></a>
+## CAC20 当前交付
+
+本批527项用途纳管，区间已审2533→3060/3061，剩1项X:00142E29-00142E34。53B4F2宿主职责独立纳管，不当旧机器ABI等价；其它源/原身份/已批范围及完整门禁保持。完整R7仍包含未决字符块、数据/间接目标及未触发路径，不能按区间台账接近全量宣布收口；总SPEC§10、整体功能和R8仍未完成。固定引用cg2d-re-unassigned-range-eighth-batch-20261009，限定静态核对和台账汇总完成后精确提交。

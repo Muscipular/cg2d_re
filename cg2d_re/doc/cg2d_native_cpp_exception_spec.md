@@ -105,3 +105,10 @@ LegacyMouse按真实C5尾安装，普通宿主收尾按stdio→console→恢复f
 交付两旧私有内核的具名宿主职责映射、完整原基线及当前待办纠正；没有新增捕获业务或手工异常引擎。固定命名快照：`cg2d-re-cpp-catch-private-host-20261007`。
 
 实际typed捕获/按值切片/引用及清理、全部成员/硬件SEH、全应用owner寿命、SDK生成ABI/链接/展开与正常/快速退出运行仍按原门禁推进。仅定向静态与measure/-Check，未编译、测试、运行或计算摘要；网络原格式明文、音频暂停及其他范围保持。
+
+<a id="cpp-continuation-host-source-state-20261009"></a>
+## CAC20：私有53B4F2续行/帧恢复的宿主职责（2026-10-09）
+
+按[新具名合同](cg2d_unassigned_range_classification_spec.md#range-eighth-batch-host-decision)与既有工程委托，只将完整原45B/17条53B4F2登记host。原54067C/父54060B在CallCatchBlock返回非空时传续行地址/当前EH节点，旧叶解除FS注册、恢复ESP/EBP并间接跳转；本机MSVC frame.cpp有对应捕获后续行职责。当前六类/真实throw与重抛、copy/清理源语法已由compiler/VCRuntime处理机器帧，不补旧上下文或同名包装。
+
+旧原映射保留历史，当前职责/已知CRT成员与一host处置补记；原53B51F七字节只保用途及未决关系，无独立现源码对应，不新增语义代码身份或宣真实跳入/独立当前函数。三个旧catch元数据接线标志及全部payload/业务源码保持，不外推其余私有叶、typed捕获、成员或硬件SEH、正常owner寿命/生成ABI与运行；C04/C06/C07/V02及完整门禁仍开放。全部客户端源/头无本步改动，无软件I/W/S/R新增通过，原证见[完整第八批](cg2d_unassigned_range_eighth_batch_evidence.json)，固定引用cg2d-re-unassigned-range-eighth-batch-20261009。

@@ -196813,6 +196813,55 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x408410",
+      "inventory_id": "F:00008410",
+      "original_role": "阶段20近距命中、追加技能图号选择/普通HP与显示、标死后共同移动",
+      "original_end_exclusive": "0x408745",
+      "instruction_count": 238,
+      "function_chunks": [
+        {
+          "start": "0x408410",
+          "end_exclusive": "0x408745"
+        }
+      ],
+      "status": "B20H01完整正常源/独立身份纳管，三低BYTE读取及HP归零取样/交替发布四组实修；图号/RNG、特殊/免疫支路与标死后移动保持；完整业务/owner与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction20_408410"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction20_408410"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_near_hit_spec.md#battle-near-hit-baseline",
+        "doc/cg2d_battle_near_hit_spec.md#battle-near-hit-decision",
+        "doc/cg2d_battle_near_hit_spec.md#battle-near-hit-acceptance",
+        "doc/cg2d_battle_near_hit_spec.md#battle-near-hit-source-state",
+        "doc/cg2d_battle_near_hit_evidence.json"
+      ],
+      "boundary": "固定入口payload；距离<70才缓存target/targetPayload并选图，Find(8,position)<12低图/否则高图，RNG仅原路径一次。按原独立索引/共享目标/寄存器W32与三BYTE分流保持特殊8/100、amount/免疫、HP归零交替pub/激活、数显/属性和source标死后phase17/共同Move。唯一case20及公共尾覆写保void，不闭全部父-callee/间接alias/资源owner/SDK与运行；RPLAN.24/MC01与完整门禁保持。",
+      "verification_level": "完整238条821B/四页、21直接CALL/18目标/19跳一RET、唯一11B case20；一CPP四组/两注释与全部其它源守恒、依赖原合同复用，限定I/S；未编译/测试/运行/算法/查产物/摘要。",
+      "battle_near_hit": {
+        "step": "B20H01",
+        "source_snapshot": "cg2d-re-battle-near-hit-20261010",
+        "original_instruction_count": 238,
+        "original_code_bytes": 821,
+        "original_page_count": 4,
+        "direct_call_count": 21,
+        "callee_count": 18,
+        "jump_count": 19,
+        "return_count": 1,
+        "actual_inbound_call_count": 1,
+        "source_body_patch_group_count": 4,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

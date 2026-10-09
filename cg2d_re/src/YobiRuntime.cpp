@@ -25531,13 +25531,16 @@ void UpdateBattleAction17_4093B0(YobiAction* const action)
     }
 }
 
+// B20H01：低BYTE标志及HP归零的取样/交替发布见doc/cg2d_battle_near_hit_spec.md。
 void UpdateBattleAction20_408410(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
     using namespace platform::legacy_crypt_int;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     const std::int32_t initialIndex = payload->effectRunningC9C;
-    if ((payload->effects1C[initialIndex].flags & 8u) == 0) {
+    const std::uint8_t entryFlags = *reinterpret_cast<const std::uint8_t*>(
+        &payload->effects1C[initialIndex].flags);
+    if ((entryFlags & 8u) == 0) {
         TurnBattleToward_406190(action, gBattleAllEntries59E980[payload->effects1C[initialIndex].position], 1, 0.0F);
     }
     if (GetBattleDistance_406300(action,
@@ -25585,12 +25588,20 @@ void UpdateBattleAction20_408410(YobiAction* const action)
                             payload->effects1C[payload->effectRunningC9C].position]->readiness, 0)) {
                         platform::LegacyCryptInt temporary;
                         ConstructFromInt_401CC0(&temporary, 0);
-                        YobiAction* const copyTarget = gBattleAllEntries59E980[
-                            payload->effects1C[payload->effectRunningC9C].position];
-                        CopyPayload(&copyTarget->readiness, &temporary);
+                        const std::int32_t copyIndex = payload->effectRunningC9C;
+                        const std::uint32_t encoded = temporary.encoded;
+                        const std::int32_t copyPosition = payload->effects1C[copyIndex].position;
+                        YobiAction* const copyTarget = gBattleAllEntries59E980[copyPosition];
+                        copyTarget->readiness.encoded = encoded;
+                        const std::uint32_t mask = temporary.mask;
+                        copyTarget->readiness.mask = mask;
+                        const std::uint8_t readCount = temporary.readCount;
+                        copyTarget->readiness.readCount = readCount;
                         Destroy_401CF0(&temporary);
                     }
-                    if ((payload->effects1C[payload->effectRunningC9C].flags & 0x20u) != 0) {
+                    const std::uint8_t activationFlags = *reinterpret_cast<const std::uint8_t*>(
+                        &payload->effects1C[payload->effectRunningC9C].flags);
+                    if ((activationFlags & 0x20u) != 0) {
                         targetPayload->flagsFDC |= 2u;
                         gYobiUpdateGateMode = 1;
                         targetPayload->aliveFF8 = 1;
@@ -25607,7 +25618,9 @@ void UpdateBattleAction20_408410(YobiAction* const action)
                 const std::int32_t y = target->y - 80;
                 const std::int32_t displayed = payload->effects1C[numberIndex].position3;
                 static_cast<void>(NewBattleNumber_41F1A0(target->x, y, displayed, 6, 2, numberFlags));
-                if ((payload->effects1C[payload->effectRunningC9C].flags & 2u) != 0) {
+                const std::uint8_t iconFlags = *reinterpret_cast<const std::uint8_t*>(
+                    &payload->effects1C[payload->effectRunningC9C].flags);
+                if ((iconFlags & 2u) != 0) {
                     static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                 }
                 static_cast<void>(NewBattleAttributeEffects_4209C0(

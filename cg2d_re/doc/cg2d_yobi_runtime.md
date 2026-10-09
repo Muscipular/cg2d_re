@@ -4637,3 +4637,8 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 ## 2026-10-10 BAES01：追加效果技能资格
 
 [完整资格合同](cg2d_battle_append_effect_lifecycle_spec.md#battle-append-skill-source-state)补43BD00整根43条145B、54项技能与唯一43BE08的AL门禁；两索引表与直接分支对应当前五case/八区间，正文正确保持，只两注释/一限定S，零新I/函数/成员。旧1916/CAC07完整前态保，拒绝时生产早返、合格后才读链/分配，Add/Find/Clear和场景原顺序保持。全生产数据、间接alias、owner/SDK正常结果与运行仍待，完整门禁保持。
+
+<a id="battle-near-hit-runtime-20261010"></a>
+## 2026-10-10 B20H01：阶段20近距命中
+
+[完整合同](cg2d_battle_near_hit_spec.md#battle-near-hit-source-state)补408410完整238条821B及唯一case20；三低BYTE flags和HP归零currentIndex/encoded/目标与三字段交替发布四组修正，图号选择/Find阈12/原RNG、特殊8/100、免疫和普通数显/标死后phase17及共同移动保持。一个CPP四组/两注释，无新函数/API/保护，不改其它阶段或既有提供者；限定I/S及一已知成员，枚举false。全数据/父-callee/间接alias/资源owner与SDK声音画面运行仍待，完整门禁保持。

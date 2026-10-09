@@ -1,5 +1,7 @@
 # 数组析构剩余计数 SPEC（ACI01）
 
+> 2026-10-10当前错误/退出边界：[MC01-C3](cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010)已将CRT私有退出/信号/消息与钩子、console及重复filter层交MSVC，删除纯CRT收尾回调/唯一登记；真实业务std::atexit与数组构析保持。两致命入口真实_Exit(255)不输出旧R600x/MessageBox，数组二次异常真实terminate；旧库字段/表与原filter生命周期只作固定历史，不再要求复刻。heap/multibyte前置与所有适用业务/owner/SDK/正常快速退出运行门禁仍待，未编译/运行。
+
 2026-10-05，按RPLAN.24和既有工程委托对齐本步已发现的算术残留。
 上位：[CRT生命周期](cg2d_crt_startup_lifecycle_spec.md)及[具名决议](cg2d_closure_decisions_spec.md)。
 固定快照：`cg2d-re-array-counter-source-20261005`。

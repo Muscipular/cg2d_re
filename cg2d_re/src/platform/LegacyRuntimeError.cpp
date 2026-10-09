@@ -1,207 +1,25 @@
 #include "LegacyRuntimeError.hpp"
-#include "LegacyRuntimeExit.hpp"
-#include "LegacySignal.hpp"
 
-#include "cg/platform/LegacyTime.hpp"
-
-#include <cstddef>
-
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN
-#endif
-#ifndef NOMINMAX
-#define NOMINMAX
-#endif
-#include <Windows.h>
+#include <cstdlib>
+#include <exception>
 
 namespace cg::platform {
 
-std::int32_t gLegacyRuntimeErrorMode1086038 = 0;
-std::int32_t gLegacyRuntimeApplicationType58F8A4 = 2;
-LegacyRuntimeBannerHook gLegacyRuntimeBannerHook10862A8 = nullptr;
-LegacyRuntimeProcessExit gLegacyRuntimeProcessExit58F8A0 = QuickExitLegacyRuntime_53C90B;
-void (*gLegacyRuntimeTerminateHook1086064)() = nullptr;
-
-namespace {
-
-// 原592128的W32错误码/消息指针对；只有地址拓宽，末项仍参与最终码值比较。
-struct RuntimeErrorMessage final {
-    std::int32_t code;
-    const char* text;
-};
-RuntimeErrorMessage gRuntimeErrorMessages592128[] = {
-    {2, "R6002\r\n- floating point not loaded\r\n"},
-    {8, "R6008\r\n- not enough space for arguments\r\n"},
-    {9, "R6009\r\n- not enough space for environment\r\n"},
-    {10, "\r\nabnormal program termination\r\n"},
-    {16, "R6016\r\n- not enough space for thread data\r\n"},
-    {17, "R6017\r\n- unexpected multithread lock error\r\n"},
-    {18, "R6018\r\n- unexpected heap error\r\n"},
-    {19, "R6019\r\n- unable to open console device\r\n"},
-    {24, "R6024\r\n- not enough space for _onexit/atexit table\r\n"},
-    {25, "R6025\r\n- pure virtual function call\r\n"},
-    {26, "R6026\r\n- not enough space for stdio initialization\r\n"},
-    {27, "R6027\r\n- not enough space for lowio initialization\r\n"},
-    {28, "R6028\r\n- unable to initialize heap\r\n"},
-    {120, "DOMAIN error\r\n"},
-    {121, "SING error\r\n"},
-    {122, "TLOSS error\r\n"},
-    {252, "\r\n"},
-    {255, "runtime error "},
-    {0, nullptr},
-};
-static_assert(sizeof(gRuntimeErrorMessages592128) / sizeof(RuntimeErrorMessage) == 19);
-
-// 原10862EC/F0/F4的唯一API缓存；模块引用由原加载流程保留，不另外卸载。
-decltype(&::MessageBoxA) gRuntimeMessageBox10862EC = nullptr;
-decltype(&::GetActiveWindow) gRuntimeGetActiveWindow10862F0 = nullptr;
-decltype(&::GetLastActivePopup) gRuntimeGetLastActivePopup10862F4 = nullptr;
-
-// 原5443FF的局部连续420字节；不预清API未写部分。
-struct RuntimeErrorText final {
-    char filename[260];
-    char message[160];
-};
-static_assert(offsetof(RuntimeErrorText, message) == 260);
-static_assert(sizeof(RuntimeErrorText) == 420);
-
-} // namespace
-
-std::int32_t ShowLegacyRuntimeMessage_546D0C(
-    const char* const text, const char* const caption, const std::uint32_t flags)
+// MC01-C3：致命分配/启动失败保255；诊断编号和旧消息/钩子只保历史。
+[[noreturn]] void ExitLegacyRuntimeError_53DEAB(const std::int32_t /*errorCode*/)
 {
-    if (gRuntimeMessageBox10862EC == nullptr) {
-        const HMODULE module = ::LoadLibraryA("user32.dll");
-        if (module == nullptr) {
-            return 0;
-        }
-        const auto getProcedure = &::GetProcAddress;
-        const auto messageBox = reinterpret_cast<decltype(gRuntimeMessageBox10862EC)>(
-            getProcedure(module, "MessageBoxA"));
-        gRuntimeMessageBox10862EC = messageBox;
-        if (messageBox == nullptr) {
-            return 0;
-        }
-        gRuntimeGetActiveWindow10862F0 =
-            reinterpret_cast<decltype(gRuntimeGetActiveWindow10862F0)>(
-                getProcedure(module, "GetActiveWindow"));
-        gRuntimeGetLastActivePopup10862F4 =
-            reinterpret_cast<decltype(gRuntimeGetLastActivePopup10862F4)>(
-                getProcedure(module, "GetLastActivePopup"));
-    }
-
-    HWND owner = nullptr;
-    const auto getActiveWindow = gRuntimeGetActiveWindow10862F0;
-    if (getActiveWindow != nullptr) {
-        owner = getActiveWindow();
-        if (owner != nullptr) {
-            const auto getLastActivePopup = gRuntimeGetLastActivePopup10862F4;
-            if (getLastActivePopup != nullptr) {
-                owner = getLastActivePopup(owner);
-            }
-        }
-    }
-    return gRuntimeMessageBox10862EC(owner, text, caption, flags);
+    std::_Exit(255);
 }
 
-void ReportLegacyRuntimeError_5443FF(const std::int32_t errorCode)
+[[noreturn]] void FastLegacyRuntimeErrorExit_53DED0(const std::int32_t /*errorCode*/)
 {
-    std::uint32_t index = 0;
-    while (index < 18 && gRuntimeErrorMessages592128[index].code != errorCode) {
-        ++index;
-    }
-    if (gRuntimeErrorMessages592128[index].code != errorCode) {
-        return;
-    }
-
-    const std::int32_t errorMode = gLegacyRuntimeErrorMode1086038;
-    if (errorMode == 1
-        || (errorMode == 0 && gLegacyRuntimeApplicationType58F8A4 == 1)) {
-        // 原API写入参数的W32槽；初值保持传入错误码位值，不预置零。
-        DWORD bytesWritten = static_cast<DWORD>(errorCode);
-        const DWORD length = static_cast<DWORD>(
-            StrLen_53F9E0(gRuntimeErrorMessages592128[index].text));
-        const char* const text = gRuntimeErrorMessages592128[index].text;
-        const HANDLE standardError = ::GetStdHandle(STD_ERROR_HANDLE);
-        static_cast<void>(::WriteFile(
-            standardError, text, length, &bytesWritten, nullptr));
-        return;
-    }
-    if (errorCode == 252) {
-        return;
-    }
-
-    RuntimeErrorText buffers;
-    if (::GetModuleFileNameA(nullptr, buffers.filename, 260) == 0) {
-        StrCpy_544DB0(buffers.filename, "<program name unknown>");
-    }
-    char* program = buffers.filename;
-    if (StrLen_53F9E0(buffers.filename) + 1 > 60) {
-        program = buffers.filename + StrLen_53F9E0(buffers.filename) - 59;
-        StrNCpy_53BEC0(program, "...", std::uint32_t{3});
-    }
-    StrCpy_544DB0(buffers.message, "Runtime Error!\n\nProgram: ");
-    StrCat_544DC0(buffers.message, program);
-    StrCat_544DC0(buffers.message, "\n\n");
-    StrCat_544DC0(buffers.message, gRuntimeErrorMessages592128[index].text);
-    static_cast<void>(ShowLegacyRuntimeMessage_546D0C(
-        buffers.message, "Microsoft Visual C++ Runtime Library", 0x12010));
+    std::_Exit(255);
 }
 
-void ReportLegacyRuntimeBanner_5443C6()
-{
-    const std::int32_t errorMode = gLegacyRuntimeErrorMode1086038;
-    if (errorMode != 1
-        && (errorMode != 0 || gLegacyRuntimeApplicationType58F8A4 != 1)) {
-        return;
-    }
-    ReportLegacyRuntimeError_5443FF(252);
-    const auto hook = gLegacyRuntimeBannerHook10862A8;
-    if (hook != nullptr) {
-        hook();
-    }
-    ReportLegacyRuntimeError_5443FF(255);
-}
-
-[[noreturn]] void AbortLegacyRuntime_545174()
-{
-    ReportLegacyRuntimeError_5443FF(10);
-    static_cast<void>(RaiseLegacySignal_5471C9(22));
-    QuickExitLegacyRuntime_53C90B(3);
-}
-
+// 实际数组展开的二次C++异常交真实MSVC handler/abort/信号机制。
 [[noreturn]] void TerminateLegacyRuntime_540A5C()
 {
-    // 原54FA60外层finally与54FA6C内层catch-all；不使用宿主terminate状态。
-    __try {
-        const auto hook = gLegacyRuntimeTerminateHook1086064;
-        if (hook != nullptr) {
-            __try {
-                hook();
-            } __except (EXCEPTION_EXECUTE_HANDLER) {
-            }
-        }
-    } __finally {
-        AbortLegacyRuntime_545174();
-    }
-}
-
-void ExitLegacyRuntimeError_53DEAB(const std::int32_t errorCode)
-{
-    if (gLegacyRuntimeErrorMode1086038 == 1) {
-        ReportLegacyRuntimeBanner_5443C6();
-    }
-    ReportLegacyRuntimeError_5443FF(errorCode);
-    gLegacyRuntimeProcessExit58F8A0(255);
-}
-
-[[noreturn]] void FastLegacyRuntimeErrorExit_53DED0(const std::int32_t errorCode)
-{
-    if (gLegacyRuntimeErrorMode1086038 == 1) {
-        ReportLegacyRuntimeBanner_5443C6();
-    }
-    ReportLegacyRuntimeError_5443FF(errorCode);
-    ::ExitProcess(255);
+    std::terminate();
 }
 
 } // namespace cg::platform

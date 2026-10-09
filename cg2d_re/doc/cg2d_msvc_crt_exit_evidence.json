@@ -1,0 +1,706 @@
+{
+  "schema_version": 1,
+  "spec_id": "MC01-C3",
+  "recorded_on": "2026-10-10",
+  "before_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
+  "implementation_snapshot": "cg2d-re-msvc-crt-exit-20261010",
+  "authorization": "用户CRT直接MSVC；先记C3 SPEC并核实际库/业务边界",
+  "retired_paths": [
+    "src/platform/LegacySignal.cpp",
+    "src/platform/LegacySignal.hpp"
+  ],
+  "changed_source_paths": [
+    "CMakeLists.txt",
+    "src/platform/LegacyRuntimeExit.cpp",
+    "src/platform/LegacyRuntimeExit.hpp",
+    "src/platform/LegacyRuntimeError.cpp",
+    "src/platform/LegacyRuntimeError.hpp",
+    "src/platform/LegacyMouse.cpp"
+  ],
+  "retired_definitions": [
+    {
+      "path": "src/platform/LegacyRuntimeExit.cpp",
+      "symbol": "AllocateLegacyExitTableStorage"
+    },
+    {
+      "path": "src/platform/LegacyRuntimeExit.cpp",
+      "symbol": "CloseLegacyConsole_54B20C"
+    },
+    {
+      "path": "src/platform/LegacyRuntimeExit.cpp",
+      "symbol": "DispatchLegacyExit_53C91C"
+    },
+    {
+      "path": "src/platform/LegacyRuntimeExit.cpp",
+      "symbol": "ExitLegacyRuntime_53C8FA"
+    },
+    {
+      "path": "src/platform/LegacyRuntimeExit.cpp",
+      "symbol": "FilterLegacyUnhandledException_54503A"
+    },
+    {
+      "path": "src/platform/LegacyRuntimeExit.cpp",
+      "symbol": "FinishLegacyStdio_53EA4A"
+    },
+    {
+      "path": "src/platform/LegacyRuntimeExit.cpp",
+      "symbol": "GetLegacyExitTableStorageCapacity"
+    },
+    {
+      "path": "src/platform/LegacyRuntimeExit.cpp",
+      "symbol": "InitializeLegacyExitTable_53B418"
+    },
+    {
+      "path": "src/platform/LegacyRuntimeExit.cpp",
+      "symbol": "InstallLegacyExceptionFilter_545080"
+    },
+    {
+      "path": "src/platform/LegacyRuntimeExit.cpp",
+      "symbol": "QuickExitLegacyRuntime_53C90B"
+    },
+    {
+      "path": "src/platform/LegacyRuntimeExit.cpp",
+      "symbol": "RegisterLegacyAtExit_53B406"
+    },
+    {
+      "path": "src/platform/LegacyRuntimeExit.cpp",
+      "symbol": "RegisterLegacyExitCallback_53B399"
+    },
+    {
+      "path": "src/platform/LegacyRuntimeExit.cpp",
+      "symbol": "ResizeLegacyExitTableStorage"
+    },
+    {
+      "path": "src/platform/LegacyRuntimeExit.cpp",
+      "symbol": "RestoreLegacyExceptionFilter_545091"
+    },
+    {
+      "path": "src/platform/LegacyRuntimeExit.cpp",
+      "symbol": "RunLegacyInitializers_53C9B5"
+    },
+    {
+      "path": "src/platform/LegacyRuntimeExit.cpp",
+      "symbol": "ValidateLegacyExecutablePointer_5450D6"
+    },
+    {
+      "path": "src/platform/LegacySignal.cpp",
+      "symbol": "FilterLegacyRuntimeException_543DB2"
+    },
+    {
+      "path": "src/platform/LegacySignal.cpp",
+      "symbol": "LookupLegacyException_543EF3"
+    },
+    {
+      "path": "src/platform/LegacySignal.cpp",
+      "symbol": "LookupLegacySignal_5472F6"
+    },
+    {
+      "path": "src/platform/LegacySignal.cpp",
+      "symbol": "RaiseLegacySignal_5471C9"
+    },
+    {
+      "path": "src/platform/LegacyRuntimeError.cpp",
+      "symbol": "AbortLegacyRuntime_545174"
+    },
+    {
+      "path": "src/platform/LegacyRuntimeError.cpp",
+      "symbol": "ReportLegacyRuntimeBanner_5443C6"
+    },
+    {
+      "path": "src/platform/LegacyRuntimeError.cpp",
+      "symbol": "ReportLegacyRuntimeError_5443FF"
+    },
+    {
+      "path": "src/platform/LegacyRuntimeError.cpp",
+      "symbol": "ShowLegacyRuntimeMessage_546D0C"
+    },
+    {
+      "path": "src/platform/LegacyMouse.cpp",
+      "symbol": "FinishHostedLegacyRuntime"
+    }
+  ],
+  "retired_data_symbols": [
+    "gLegacyConsoleHandle592FA0",
+    "gLegacyConsoleHandle592FA4",
+    "gLegacyFloatingSignalCount59211C",
+    "gLegacyFloatingSignalFirst592118",
+    "gLegacyFloatingSignalSubtype592124",
+    "gLegacyPreviousExceptionFilter10862E0",
+    "gLegacyRuntimeApplicationType58F8A4",
+    "gLegacyRuntimeBannerHook10862A8",
+    "gLegacyRuntimeErrorMode1086038",
+    "gLegacyRuntimeExitCallable1086020",
+    "gLegacyRuntimeExitComplete1086028",
+    "gLegacyRuntimeExitFirst1087AF4",
+    "gLegacyRuntimeExitLast1087AF0",
+    "gLegacyRuntimeExitStarted1086024",
+    "gLegacyRuntimeOsBuild1085FEC",
+    "gLegacyRuntimeOsCombined1085FF0",
+    "gLegacyRuntimeOsMajor1085FF4",
+    "gLegacyRuntimeOsMinor1085FF8",
+    "gLegacyRuntimeProcessExit58F8A0",
+    "gLegacyRuntimeTerminateHook1086064",
+    "gLegacySignalAbort1086300",
+    "gLegacySignalBreak10862FC",
+    "gLegacySignalExceptionInfo108619C",
+    "gLegacySignalInterrupt10862F8",
+    "gLegacySignalTable5920A0",
+    "gLegacySignalTableCount592120",
+    "gLegacySignalTerminate1086304",
+    "gLegacyTerminationTable553184",
+    "gRuntimeErrorMessages592128",
+    "gRuntimeGetActiveWindow10862F0",
+    "gRuntimeGetLastActivePopup10862F4",
+    "gRuntimeMessageBox10862EC"
+  ],
+  "pre_migration_consumers": {
+    "group_paths": [
+      "src/platform/LegacyRuntimeError.cpp",
+      "src/platform/LegacyRuntimeError.hpp",
+      "src/platform/LegacyRuntimeExit.cpp",
+      "src/platform/LegacyRuntimeExit.hpp",
+      "src/platform/LegacySignal.cpp",
+      "src/platform/LegacySignal.hpp"
+    ],
+    "actual_outside_exports": {
+      "src/platform/CommandOptions.cpp": [
+        "ExitLegacyRuntimeError_53DEAB"
+      ],
+      "src/platform/LegacyMouse.cpp": [
+        "CloseLegacyConsole_54B20C",
+        "FastLegacyRuntimeErrorExit_53DED0",
+        "FinishLegacyStdio_53EA4A",
+        "InstallLegacyExceptionFilter_545080",
+        "RestoreLegacyExceptionFilter_545091",
+        "gLegacyRuntimeExitCallable1086020"
+      ],
+      "src/ui/WindowRuntime.cpp": [
+        "ConstructLegacyArray_53C45E",
+        "DestroyLegacyArray_53C4E0"
+      ],
+      "src/world/SceneState.cpp": [
+        "ConstructLegacyArray_53C45E",
+        "DestroyLegacyArray_53C4E0"
+      ],
+      "src/world/WorldObjectState.cpp": [
+        "ConstructLegacyArray_53C45E",
+        "DestroyLegacyArray_53C4E0"
+      ]
+    },
+    "anonymous_console_slots": [
+      {
+        "symbol": "gLegacyConsoleHandle592FA4",
+        "occurrences": [
+          {
+            "line": 96,
+            "text": "HANDLE gLegacyConsoleHandle592FA4 = reinterpret_cast<HANDLE>(std::intptr_t{-2});"
+          },
+          {
+            "line": 309,
+            "text": "HANDLE handle = gLegacyConsoleHandle592FA4;"
+          }
+        ]
+      },
+      {
+        "symbol": "gLegacyConsoleHandle592FA0",
+        "occurrences": [
+          {
+            "line": 97,
+            "text": "HANDLE gLegacyConsoleHandle592FA0 = reinterpret_cast<HANDLE>(std::intptr_t{-2});"
+          },
+          {
+            "line": 314,
+            "text": "handle = gLegacyConsoleHandle592FA0;"
+          }
+        ]
+      }
+    ],
+    "finish_hosted_callback_private_only": true,
+    "real_array_callback_groups": [
+      "src/world/WorldObjectState.cpp",
+      "src/world/SceneState.cpp",
+      "src/ui/WindowRuntime.cpp"
+    ]
+  },
+  "providers": [
+    {
+      "symbol": "ExitLegacyRuntimeError_53DEAB",
+      "source": "src/platform/LegacyRuntimeError.cpp",
+      "operation": "std::_Exit(255)",
+      "actual_consumers": [
+        "CommandOptions failure9/9/8"
+      ],
+      "old_diagnostic_number_consumed": false,
+      "noreturn": true
+    },
+    {
+      "symbol": "FastLegacyRuntimeErrorExit_53DED0",
+      "source": "src/platform/LegacyRuntimeError.cpp",
+      "operation": "std::_Exit(255)",
+      "actual_consumers": [
+        "LegacyMouse heap init failure28"
+      ],
+      "old_diagnostic_number_consumed": false,
+      "noreturn": true
+    },
+    {
+      "symbol": "TerminateLegacyRuntime_540A5C",
+      "source": "src/platform/LegacyRuntimeError.cpp",
+      "operation": "std::terminate()",
+      "actual_consumers": [
+        "FilterLegacyArrayUnwindException_5405F5"
+      ],
+      "old_hooks_or_signal_table_consumed": false,
+      "noreturn": true
+    }
+  ],
+  "preserved_array_body_text": "namespace {\n\n// 原5405F5：仅按异常代码筛选，命中原C++代码即进入原终止，不加参数数目/版本检查。\nstd::int32_t FilterLegacyArrayUnwindException_5405F5(_EXCEPTION_POINTERS* const information)\n{\n    if (information->ExceptionRecord->ExceptionCode == 0xE06D7363u) {\n        TerminateLegacyRuntime_540A5C();\n    }\n    return 0;\n}\n\n} // namespace\n\nvoid UnwindLegacyArray_53C560(\n    void* const onePast, const std::uint32_t elementBytes, const std::int32_t elementCount,\n    const LegacyArrayElementCallback destructor)\n{\n    auto* current = static_cast<std::byte*>(onePast);\n    std::int32_t remaining = elementCount;\n    __try {\n        for (;;) {\n            --remaining;\n            if (remaining < 0) {\n                break;\n            }\n            current -= elementBytes;\n            destructor(current);\n        }\n    } __except (FilterLegacyArrayUnwindException_5405F5(GetExceptionInformation())) {\n        // 原53C5A6仅恢复本帧栈并进入尾声；筛选正常只返回0或终止，无追加业务动作。\n    }\n}\n\nvoid ConstructLegacyArray_53C45E(\n    void* const storage, const std::uint32_t elementBytes, const std::int32_t elementCount,\n    const LegacyArrayElementCallback constructor, const LegacyArrayElementCallback destructor)\n{\n    auto* current = static_cast<std::byte*>(storage);\n    std::int32_t completed = 0;\n    std::uint32_t complete = 0;\n    __try {\n        while (completed < elementCount) {\n            constructor(current);\n            current += elementBytes;\n            ++completed;\n        }\n        complete = 1;\n    } __finally {\n        // 原53C4C8共享finally：只在未完成时展开已完成前缀，当前失败元素不计入。\n        if (complete == 0) {\n            UnwindLegacyArray_53C560(current, elementBytes, completed, destructor);\n        }\n    }\n}\n\nvoid DestroyLegacyArray_53C4E0(\n    void* const storage, const std::uint32_t elementBytes, const std::int32_t elementCount,\n    const LegacyArrayElementCallback destructor)\n{\n    // 原imul只保留W32乘积，随后才作用于地址；数量/步长不按指针扩宽。\n    const std::uint32_t endOffset = elementBytes * elementCount;\n    auto* current = static_cast<std::byte*>(storage) + endOffset;\n    std::int32_t remaining = elementCount;\n    std::uint32_t complete = 0;\n    __try {\n        for (;;) {\n            --remaining;\n            if (remaining < 0) {\n                break;\n            }\n            current -= elementBytes;\n            destructor(current);\n        }\n        complete = 1;\n    } __finally {\n        // 原53C548共享finally：失败对象地址和已递减剩余数交展开，不重试失败析构。\n        if (complete == 0) {\n            UnwindLegacyArray_53C560(\n                current, elementBytes, remaining, destructor);\n        }\n    }\n}\n\n",
+  "source_snapshots": {
+    "src/platform/LegacySignal.cpp": {
+      "path": "src/platform/LegacySignal.cpp",
+      "before_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
+      "current_source_retired": true
+    },
+    "src/platform/LegacySignal.hpp": {
+      "path": "src/platform/LegacySignal.hpp",
+      "before_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
+      "current_source_retired": true
+    }
+  },
+  "source_changes": {
+    "CMakeLists.txt": {
+      "path": "CMakeLists.txt",
+      "before_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-exit-20261010",
+      "diff": "--- 迁移前/CMakeLists.txt\n+++ 迁移后/CMakeLists.txt\n@@ -70,17 +70,16 @@\n     src/platform/MainLoopWindowEnumeration.cpp\n     src/platform/MainLoopSupport.cpp\n     src/platform/LegacyCryptInt.cpp\n     src/platform/LegacyModuleDigest.cpp\n     src/platform/LegacyMemory.cpp\n     src/platform/LegacyHeap.cpp\n     src/platform/LegacyRuntimeError.cpp\n     src/platform/LegacyRuntimeExit.cpp\n-    src/platform/LegacySignal.cpp\n     src/platform/LegacyLowIo.cpp\n     src/platform/LegacyStdio.cpp\n     src/platform/LegacyFormat.cpp\n     src/platform/LegacyScan.cpp\n     src/platform/LegacyMultibyte.cpp\n     src/platform/LegacyNetworkAdapter.cpp\n     src/platform/SdlAudioBackend.cpp\n     src/platform/LegacyWavesReverb.cpp\n"
+    },
+    "src/platform/LegacyRuntimeExit.cpp": {
+      "path": "src/platform/LegacyRuntimeExit.cpp",
+      "before_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-exit-20261010",
+      "diff": "--- 迁移前/src/platform/LegacyRuntimeExit.cpp\n+++ 迁移后/src/platform/LegacyRuntimeExit.cpp\n@@ -1,162 +1,15 @@\n #include \"LegacyRuntimeExit.hpp\"\n #include \"LegacyRuntimeError.hpp\"\n-#include \"LegacyStdio.hpp\"\n-#include \"LegacyHeap.hpp\"\n-#include \"cg/platform/LegacyMemory.hpp\"\n #include \"StartupNative.hpp\"\n-#include \"LegacyLowIo.hpp\"\n-#include \"LegacyMultibyte.hpp\"\n-#include \"LegacySignal.hpp\"\n-#include \"cg/platform/CommandOptions.hpp\"\n \n #include <cstddef>\n-#include <bit>\n-#include <cstdlib>\n-#include <malloc.h>\n-\n-// 复用ClientEntry.cpp已存在的全局WinMain签名；只声明，不改其本体或启用新启动。\n \n namespace cg::platform {\n-\n-// 原PE .data虚拟尾部载入填零；只给真实四W32槽初始存储，不启用启动入口。\n-std::uint32_t gLegacyRuntimeOsMinor1085FF8 = 0u;\n-std::uint32_t gLegacyRuntimeOsMajor1085FF4 = 0u;\n-std::uint32_t gLegacyRuntimeOsCombined1085FF0 = 0u;\n-std::uint32_t gLegacyRuntimeOsBuild1085FEC = 0u;\n-\n-std::uint8_t gLegacyRuntimeExitCallable1086020 = 0;\n-std::int32_t gLegacyRuntimeExitStarted1086024 = 0;\n-std::int32_t gLegacyRuntimeExitComplete1086028 = 0;\n-LegacyRuntimeExitCallback* gLegacyRuntimeExitFirst1087AF4 = nullptr;\n-LegacyRuntimeExitCallback* gLegacyRuntimeExitLast1087AF0 = nullptr;\n-\n-namespace {\n-\n-// ETH01仅承接兼容退出表块；原请求、new-mode/handler与发布顺序仍由本组保留。\n-LegacyRuntimeExitCallback* AllocateLegacyExitTableStorage(const std::uint32_t byteCount)\n-{\n-    const std::int32_t enableHandler = gLegacyHeapNewMode1086150;\n-    if (byteCount > 0xFFFFFFE0u) {\n-        return nullptr;\n-    }\n-    const std::uint32_t requested = byteCount == 0 ? 1u : byteCount;\n-    for (;;) {\n-        auto* const result = static_cast<LegacyRuntimeExitCallback*>(std::malloc(requested));\n-        if (result != nullptr || enableHandler == 0) {\n-            return result;\n-        }\n-        if (CallLegacyHeapNewHandler_541A28(byteCount) == 0) {\n-            return nullptr;\n-        }\n-    }\n-}\n-\n-LegacyRuntimeExitCallback* ResizeLegacyExitTableStorage(\n-    LegacyRuntimeExitCallback* const memory, const std::uint32_t byteCount)\n-{\n-    if (memory == nullptr) {\n-        return AllocateLegacyExitTableStorage(byteCount);\n-    }\n-    if (byteCount == 0) {\n-        std::free(memory);\n-        return nullptr;\n-    }\n-    for (;;) {\n-        LegacyRuntimeExitCallback* result = nullptr;\n-        if (byteCount <= 0xFFFFFFE0u) {\n-            result = static_cast<LegacyRuntimeExitCallback*>(std::realloc(memory, byteCount));\n-        }\n-        if (result != nullptr || gLegacyHeapNewMode1086150 == 0) {\n-            return result;\n-        }\n-        if (CallLegacyHeapNewHandler_541A28(byteCount) == 0) {\n-            return nullptr;\n-        }\n-    }\n-}\n-\n-// 必须查询同一宿主块的实际容量；不以申请数/已用槽替代，不读旧块头。\n-std::uint32_t GetLegacyExitTableStorageCapacity(LegacyRuntimeExitCallback* const memory)\n-{\n-    return static_cast<std::uint32_t>(::_msize(memory));\n-}\n-\n-// 原[553184,5531A0)七槽；第一组[0,3)，第二组[4,6)，保留全部零哨兵。\n-LegacyRuntimeExitCallback gLegacyTerminationTable553184[] = {\n-    nullptr,\n-    FinishLegacyStdio_53EA4A,\n-    CloseLegacyConsole_54B20C,\n-    nullptr,\n-    nullptr,\n-    RestoreLegacyExceptionFilter_545091,\n-    nullptr\n-};\n-\n-// 原两个已加载HANDLE哨兵均为-2；只在Win32实现边界采用原生句柄。\n-HANDLE gLegacyConsoleHandle592FA4 = reinterpret_cast<HANDLE>(std::intptr_t{-2});\n-HANDLE gLegacyConsoleHandle592FA0 = reinterpret_cast<HANDLE>(std::intptr_t{-2});\n-LPTOP_LEVEL_EXCEPTION_FILTER gLegacyPreviousExceptionFilter10862E0 = nullptr;\n-\n-} // namespace\n-\n-LegacyRuntimeExitCallback RegisterLegacyExitCallback_53B399(\n-    LegacyRuntimeExitCallback const callback)\n-{\n-    constexpr auto kSlotBytes =\n-        static_cast<std::uint32_t>(sizeof(LegacyRuntimeExitCallback));\n-    const std::uint32_t capacity =\n-        GetLegacyExitTableStorageCapacity(gLegacyRuntimeExitFirst1087AF4);\n-    auto* const first = gLegacyRuntimeExitFirst1087AF4;\n-    auto* last = gLegacyRuntimeExitLast1087AF0;\n-    const auto required = reinterpret_cast<std::uintptr_t>(last)\n-        - reinterpret_cast<std::uintptr_t>(first) + kSlotBytes;\n-    if (capacity < required) {\n-        const std::uint32_t oldCapacity = GetLegacyExitTableStorageCapacity(first);\n-        const std::uint32_t newCapacity = oldCapacity + 4u * kSlotBytes;\n-        auto* const resized = static_cast<LegacyRuntimeExitCallback*>(\n-            ResizeLegacyExitTableStorage(gLegacyRuntimeExitFirst1087AF4, newCapacity));\n-        if (resized == nullptr) {\n-            return nullptr;\n-        }\n-        // 原53B3DB在扩容返回后重读共享首末；旧块地址只参与整数差值。\n-        const auto byteOffset = static_cast<std::intptr_t>(\n-            reinterpret_cast<std::uintptr_t>(gLegacyRuntimeExitLast1087AF0)\n-            - reinterpret_cast<std::uintptr_t>(gLegacyRuntimeExitFirst1087AF4));\n-        gLegacyRuntimeExitFirst1087AF4 = resized;\n-        last = resized + byteOffset / static_cast<std::intptr_t>(kSlotBytes);\n-        gLegacyRuntimeExitLast1087AF0 = last;\n-    }\n-    *last = callback;\n-    ++gLegacyRuntimeExitLast1087AF0;\n-    return callback;\n-}\n-\n-std::int32_t RegisterLegacyAtExit_53B406(LegacyRuntimeExitCallback const callback)\n-{\n-    return RegisterLegacyExitCallback_53B399(callback) != nullptr ? 0 : -1;\n-}\n-\n-LegacyRuntimeExitCallback* InitializeLegacyExitTable_53B418()\n-{\n-    constexpr std::uint32_t kInitialSlotCount = 32;\n-    auto* slots = static_cast<LegacyRuntimeExitCallback*>(\n-        AllocateLegacyExitTableStorage(kInitialSlotCount\n-            * static_cast<std::uint32_t>(sizeof(LegacyRuntimeExitCallback))));\n-    gLegacyRuntimeExitFirst1087AF4 = slots;\n-    if (slots == nullptr) {\n-        ExitLegacyRuntimeError_53DEAB(24);\n-        slots = gLegacyRuntimeExitFirst1087AF4;\n-    }\n-    *slots = nullptr;\n-    slots = gLegacyRuntimeExitFirst1087AF4;\n-    gLegacyRuntimeExitLast1087AF0 = slots;\n-    return slots;\n-}\n \n namespace {\n \n // 原5405F5：仅按异常代码筛选，命中原C++代码即进入原终止，不加参数数目/版本检查。\n std::int32_t FilterLegacyArrayUnwindException_5405F5(_EXCEPTION_POINTERS* const information)\n {\n     if (information->ExceptionRecord->ExceptionCode == 0xE06D7363u) {\n         TerminateLegacyRuntime_540A5C();\n@@ -231,128 +84,9 @@\n         // 原53C548共享finally：失败对象地址和已递减剩余数交展开，不重试失败析构。\n         if (complete == 0) {\n             UnwindLegacyArray_53C560(\n                 current, elementBytes, remaining, destructor);\n         }\n     }\n }\n \n-void RunLegacyInitializers_53C9B5(\n-    LegacyRuntimeExitCallback* first, LegacyRuntimeExitCallback* const last)\n-{\n-    while (reinterpret_cast<std::uintptr_t>(first)\n-        < reinterpret_cast<std::uintptr_t>(last)) {\n-        const auto callback = *first;\n-        if (callback != nullptr) {\n-            callback();\n-        }\n-        ++first;\n-    }\n-}\n-\n-void DispatchLegacyExit_53C91C(const std::int32_t code,\n-    const std::int32_t quick, const std::int32_t callable)\n-{\n-    if (gLegacyRuntimeExitComplete1086028 == 1) {\n-        const HANDLE process = ::GetCurrentProcess();\n-        static_cast<void>(::TerminateProcess(process, static_cast<UINT>(code)));\n-    }\n-    gLegacyRuntimeExitStarted1086024 = 1;\n-    gLegacyRuntimeExitCallable1086020 = static_cast<std::uint8_t>(callable);\n-    if (quick == 0) {\n-        auto* first = gLegacyRuntimeExitFirst1087AF4;\n-        if (first != nullptr) {\n-            auto* cursor = gLegacyRuntimeExitLast1087AF0;\n-            while (reinterpret_cast<std::uintptr_t>(cursor)\n-                > reinterpret_cast<std::uintptr_t>(first)) {\n-                const auto callback = *--cursor;\n-                if (callback != nullptr) {\n-                    callback();\n-                }\n-                // 原53C973重读首槽地址，末指针不重新采样，已调用槽不清空。\n-                first = gLegacyRuntimeExitFirst1087AF4;\n-            }\n-        }\n-        RunLegacyInitializers_53C9B5(\n-            gLegacyTerminationTable553184, gLegacyTerminationTable553184 + 3);\n-    }\n-    RunLegacyInitializers_53C9B5(\n-        gLegacyTerminationTable553184 + 4, gLegacyTerminationTable553184 + 6);\n-    if (callable == 0) {\n-        gLegacyRuntimeExitComplete1086028 = 1;\n-        ::ExitProcess(static_cast<UINT>(code));\n-    }\n-}\n-\n-void ExitLegacyRuntime_53C8FA(const std::int32_t code)\n-{\n-    DispatchLegacyExit_53C91C(code, 0, 0);\n-}\n-\n-[[noreturn]] void QuickExitLegacyRuntime_53C90B(const std::int32_t code)\n-{\n-    DispatchLegacyExit_53C91C(code, 1, 0);\n-    // callable固定0，调度末尾必经ExitProcess；这里只向MSVC表达已证非返回路径。\n-    __assume(0);\n-}\n-\n-void FinishLegacyStdio_53EA4A()\n-{\n-    static_cast<void>(FlushAllLegacyStreams_53BB99());\n-    if (gLegacyRuntimeExitCallable1086020 != 0) {\n-        static_cast<void>(CloseAllLegacyStreams_5446AD());\n-    }\n-}\n-\n-void CloseLegacyConsole_54B20C()\n-{\n-    const auto closeHandle = &::CloseHandle;\n-    HANDLE handle = gLegacyConsoleHandle592FA4;\n-    if (handle != INVALID_HANDLE_VALUE\n-        && handle != reinterpret_cast<HANDLE>(std::intptr_t{-2})) {\n-        static_cast<void>(closeHandle(handle));\n-    }\n-    handle = gLegacyConsoleHandle592FA0;\n-    if (handle != INVALID_HANDLE_VALUE\n-        && handle != reinterpret_cast<HANDLE>(std::intptr_t{-2})) {\n-        static_cast<void>(closeHandle(handle));\n-    }\n-}\n-\n-// 原5450D6；保留API检查及0/1结果，不按指针非空直接判有效。\n-std::int32_t ValidateLegacyExecutablePointer_5450D6(FARPROC const function)\n-{\n-    return ::IsBadCodePtr(function) == 0 ? 1 : 0;\n-}\n-\n-LONG WINAPI FilterLegacyUnhandledException_54503A(EXCEPTION_POINTERS* const information)\n-{\n-    const auto* const record = information->ExceptionRecord;\n-    // HFI01：本机MSVC x64多一个镜像基址参数；保原魔数及终止/转调职责。\n-    if (record->ExceptionCode == 0xE06D7363u\n-        && record->NumberParameters == 4\n-        && static_cast<std::uint32_t>(record->ExceptionInformation[0]) == 0x19930520u) {\n-        TerminateLegacyRuntime_540A5C();\n-    }\n-    const auto previous = gLegacyPreviousExceptionFilter10862E0;\n-    if (previous != nullptr\n-        && ValidateLegacyExecutablePointer_5450D6(\n-            reinterpret_cast<FARPROC>(previous)) != 0) {\n-        // 原545072在验证API之后重新读取共享槽。\n-        return gLegacyPreviousExceptionFilter10862E0(information);\n-    }\n-    return 0;\n-}\n-\n-void InstallLegacyExceptionFilter_545080()\n-{\n-    gLegacyPreviousExceptionFilter10862E0 =\n-        ::SetUnhandledExceptionFilter(FilterLegacyUnhandledException_54503A);\n-}\n-\n-void RestoreLegacyExceptionFilter_545091()\n-{\n-    static_cast<void>(::SetUnhandledExceptionFilter(\n-        gLegacyPreviousExceptionFilter10862E0));\n-}\n-\n } // namespace cg::platform\n"
+    },
+    "src/platform/LegacyRuntimeExit.hpp": {
+      "path": "src/platform/LegacyRuntimeExit.hpp",
+      "before_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-exit-20261010",
+      "diff": "--- 迁移前/src/platform/LegacyRuntimeExit.hpp\n+++ 迁移后/src/platform/LegacyRuntimeExit.hpp\n@@ -1,59 +1,21 @@\n #pragma once\n \n #include <cstdint>\n \n namespace cg::platform {\n-\n-// 原退出/初始化表的函数地址槽；回调返回值不被调用方消费。\n-using LegacyRuntimeExitCallback = void (*)();\n-extern std::uint8_t gLegacyRuntimeExitCallable1086020;\n-extern std::int32_t gLegacyRuntimeExitStarted1086024;\n-extern std::int32_t gLegacyRuntimeExitComplete1086028;\n-extern LegacyRuntimeExitCallback* gLegacyRuntimeExitFirst1087AF4;\n-extern LegacyRuntimeExitCallback* gLegacyRuntimeExitLast1087AF0;\n-\n-// 原53B399/53B406；按实际块容量追加，空回调也入表，外层据返回指针给0/-1。\n-// 当前表块使用CRT分配族；登记/退出本体的进一步MSVC收敛沿MC01-C，完整owner/运行待验。\n-LegacyRuntimeExitCallback RegisterLegacyExitCallback_53B399(LegacyRuntimeExitCallback callback);\n-std::int32_t RegisterLegacyAtExit_53B406(LegacyRuntimeExitCallback callback);\n-\n-// 原53B418；分配32槽，仅清首槽；失败走原运行库错误24。\n-LegacyRuntimeExitCallback* InitializeLegacyExitTable_53B418();\n \n // 原53C45E/53C4E0/53C560的元素this回调；新端显式传非拥有地址，返回不消费。\n using LegacyArrayElementCallback = void (*)(void*);\n // storage为首元素，elementBytes保持U32，elementCount保持S32；无空回调/数量补保护。\n void ConstructLegacyArray_53C45E(\n     void* storage, std::uint32_t elementBytes, std::int32_t elementCount,\n     LegacyArrayElementCallback constructor, LegacyArrayElementCallback destructor);\n void DestroyLegacyArray_53C4E0(\n     void* storage, std::uint32_t elementBytes, std::int32_t elementCount,\n     LegacyArrayElementCallback destructor);\n-// onePast为已完成/剩余前缀的尾地址，先递减数量/地址再析构；C++二次异常走原终止。\n+// onePast为已完成/剩余前缀的尾地址，先递减数量/地址再析构；C++二次异常交MSVC terminate。\n void UnwindLegacyArray_53C560(\n     void* onePast, std::uint32_t elementBytes, std::int32_t elementCount,\n     LegacyArrayElementCallback destructor);\n \n-// 原53C9B5；按[first,last)正序调非空回调，不读返回值。\n-void RunLegacyInitializers_53C9B5(\n-    LegacyRuntimeExitCallback* first, LegacyRuntimeExitCallback* last);\n-\n-// 原53C91C；quick非零跳普通退出表，callable完整S32决定是否返回。\n-void DispatchLegacyExit_53C91C(\n-    std::int32_t code, std::int32_t quick, std::int32_t callable);\n-void ExitLegacyRuntime_53C8FA(std::int32_t code);\n-[[noreturn]] void QuickExitLegacyRuntime_53C90B(std::int32_t code);\n-\n-// 当前stdio刷新/关闭直接MSVC；控制台和filter仍由本组接口管理。\n-void FinishLegacyStdio_53EA4A();\n-void CloseLegacyConsole_54B20C();\n-void InstallLegacyExceptionFilter_545080();\n-void RestoreLegacyExceptionFilter_545091();\n-\n-// 原x86启动的四W32历史存储；现入口由MSVC持有，不再执行旧GetVersion发布。\n-extern std::uint32_t gLegacyRuntimeOsMinor1085FF8;\n-extern std::uint32_t gLegacyRuntimeOsMajor1085FF4;\n-extern std::uint32_t gLegacyRuntimeOsCombined1085FF0;\n-extern std::uint32_t gLegacyRuntimeOsBuild1085FEC;\n-\n } // namespace cg::platform\n"
+    },
+    "src/platform/LegacyRuntimeError.cpp": {
+      "path": "src/platform/LegacyRuntimeError.cpp",
+      "before_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-exit-20261010",
+      "diff": "--- 迁移前/src/platform/LegacyRuntimeError.cpp\n+++ 迁移后/src/platform/LegacyRuntimeError.cpp\n@@ -1,207 +1,25 @@\n #include \"LegacyRuntimeError.hpp\"\n-#include \"LegacyRuntimeExit.hpp\"\n-#include \"LegacySignal.hpp\"\n \n-#include \"cg/platform/LegacyTime.hpp\"\n-\n-#include <cstddef>\n-\n-#ifndef WIN32_LEAN_AND_MEAN\n-#define WIN32_LEAN_AND_MEAN\n-#endif\n-#ifndef NOMINMAX\n-#define NOMINMAX\n-#endif\n-#include <Windows.h>\n+#include <cstdlib>\n+#include <exception>\n \n namespace cg::platform {\n \n-std::int32_t gLegacyRuntimeErrorMode1086038 = 0;\n-std::int32_t gLegacyRuntimeApplicationType58F8A4 = 2;\n-LegacyRuntimeBannerHook gLegacyRuntimeBannerHook10862A8 = nullptr;\n-LegacyRuntimeProcessExit gLegacyRuntimeProcessExit58F8A0 = QuickExitLegacyRuntime_53C90B;\n-void (*gLegacyRuntimeTerminateHook1086064)() = nullptr;\n-\n-namespace {\n-\n-// 原592128的W32错误码/消息指针对；只有地址拓宽，末项仍参与最终码值比较。\n-struct RuntimeErrorMessage final {\n-    std::int32_t code;\n-    const char* text;\n-};\n-RuntimeErrorMessage gRuntimeErrorMessages592128[] = {\n-    {2, \"R6002\\r\\n- floating point not loaded\\r\\n\"},\n-    {8, \"R6008\\r\\n- not enough space for arguments\\r\\n\"},\n-    {9, \"R6009\\r\\n- not enough space for environment\\r\\n\"},\n-    {10, \"\\r\\nabnormal program termination\\r\\n\"},\n-    {16, \"R6016\\r\\n- not enough space for thread data\\r\\n\"},\n-    {17, \"R6017\\r\\n- unexpected multithread lock error\\r\\n\"},\n-    {18, \"R6018\\r\\n- unexpected heap error\\r\\n\"},\n-    {19, \"R6019\\r\\n- unable to open console device\\r\\n\"},\n-    {24, \"R6024\\r\\n- not enough space for _onexit/atexit table\\r\\n\"},\n-    {25, \"R6025\\r\\n- pure virtual function call\\r\\n\"},\n-    {26, \"R6026\\r\\n- not enough space for stdio initialization\\r\\n\"},\n-    {27, \"R6027\\r\\n- not enough space for lowio initialization\\r\\n\"},\n-    {28, \"R6028\\r\\n- unable to initialize heap\\r\\n\"},\n-    {120, \"DOMAIN error\\r\\n\"},\n-    {121, \"SING error\\r\\n\"},\n-    {122, \"TLOSS error\\r\\n\"},\n-    {252, \"\\r\\n\"},\n-    {255, \"runtime error \"},\n-    {0, nullptr},\n-};\n-static_assert(sizeof(gRuntimeErrorMessages592128) / sizeof(RuntimeErrorMessage) == 19);\n-\n-// 原10862EC/F0/F4的唯一API缓存；模块引用由原加载流程保留，不另外卸载。\n-decltype(&::MessageBoxA) gRuntimeMessageBox10862EC = nullptr;\n-decltype(&::GetActiveWindow) gRuntimeGetActiveWindow10862F0 = nullptr;\n-decltype(&::GetLastActivePopup) gRuntimeGetLastActivePopup10862F4 = nullptr;\n-\n-// 原5443FF的局部连续420字节；不预清API未写部分。\n-struct RuntimeErrorText final {\n-    char filename[260];\n-    char message[160];\n-};\n-static_assert(offsetof(RuntimeErrorText, message) == 260);\n-static_assert(sizeof(RuntimeErrorText) == 420);\n-\n-} // namespace\n-\n-std::int32_t ShowLegacyRuntimeMessage_546D0C(\n-    const char* const text, const char* const caption, const std::uint32_t flags)\n+// MC01-C3：致命分配/启动失败保255；诊断编号和旧消息/钩子只保历史。\n+[[noreturn]] void ExitLegacyRuntimeError_53DEAB(const std::int32_t /*errorCode*/)\n {\n-    if (gRuntimeMessageBox10862EC == nullptr) {\n-        const HMODULE module = ::LoadLibraryA(\"user32.dll\");\n-        if (module == nullptr) {\n-            return 0;\n-        }\n-        const auto getProcedure = &::GetProcAddress;\n-        const auto messageBox = reinterpret_cast<decltype(gRuntimeMessageBox10862EC)>(\n-            getProcedure(module, \"MessageBoxA\"));\n-        gRuntimeMessageBox10862EC = messageBox;\n-        if (messageBox == nullptr) {\n-            return 0;\n-        }\n-        gRuntimeGetActiveWindow10862F0 =\n-            reinterpret_cast<decltype(gRuntimeGetActiveWindow10862F0)>(\n-                getProcedure(module, \"GetActiveWindow\"));\n-        gRuntimeGetLastActivePopup10862F4 =\n-            reinterpret_cast<decltype(gRuntimeGetLastActivePopup10862F4)>(\n-                getProcedure(module, \"GetLastActivePopup\"));\n-    }\n-\n-    HWND owner = nullptr;\n-    const auto getActiveWindow = gRuntimeGetActiveWindow10862F0;\n-    if (getActiveWindow != nullptr) {\n-        owner = getActiveWindow();\n-        if (owner != nullptr) {\n-            const auto getLastActivePopup = gRuntimeGetLastActivePopup10862F4;\n-            if (getLastActivePopup != nullptr) {\n-                owner = getLastActivePopup(owner);\n-            }\n-        }\n-    }\n-    return gRuntimeMessageBox10862EC(owner, text, caption, flags);\n+    std::_Exit(255);\n }\n \n-void ReportLegacyRuntimeError_5443FF(const std::int32_t errorCode)\n+[[noreturn]] void FastLegacyRuntimeErrorExit_53DED0(const std::int32_t /*errorCode*/)\n {\n-    std::uint32_t index = 0;\n-    while (index < 18 && gRuntimeErrorMessages592128[index].code != errorCode) {\n-        ++index;\n-    }\n-    if (gRuntimeErrorMessages592128[index].code != errorCode) {\n-        return;\n-    }\n-\n-    const std::int32_t errorMode = gLegacyRuntimeErrorMode1086038;\n-    if (errorMode == 1\n-        || (errorMode == 0 && gLegacyRuntimeApplicationType58F8A4 == 1)) {\n-        // 原API写入参数的W32槽；初值保持传入错误码位值，不预置零。\n-        DWORD bytesWritten = static_cast<DWORD>(errorCode);\n-        const DWORD length = static_cast<DWORD>(\n-            StrLen_53F9E0(gRuntimeErrorMessages592128[index].text));\n-        const char* const text = gRuntimeErrorMessages592128[index].text;\n-        const HANDLE standardError = ::GetStdHandle(STD_ERROR_HANDLE);\n-        static_cast<void>(::WriteFile(\n-            standardError, text, length, &bytesWritten, nullptr));\n-        return;\n-    }\n-    if (errorCode == 252) {\n-        return;\n-    }\n-\n-    RuntimeErrorText buffers;\n-    if (::GetModuleFileNameA(nullptr, buffers.filename, 260) == 0) {\n-        StrCpy_544DB0(buffers.filename, \"<program name unknown>\");\n-    }\n-    char* program = buffers.filename;\n-    if (StrLen_53F9E0(buffers.filename) + 1 > 60) {\n-        program = buffers.filename + StrLen_53F9E0(buffers.filename) - 59;\n-        StrNCpy_53BEC0(program, \"...\", std::uint32_t{3});\n-    }\n-    StrCpy_544DB0(buffers.message, \"Runtime Error!\\n\\nProgram: \");\n-    StrCat_544DC0(buffers.message, program);\n-    StrCat_544DC0(buffers.message, \"\\n\\n\");\n-    StrCat_544DC0(buffers.message, gRuntimeErrorMessages592128[index].text);\n-    static_cast<void>(ShowLegacyRuntimeMessage_546D0C(\n-        buffers.message, \"Microsoft Visual C++ Runtime Library\", 0x12010));\n+    std::_Exit(255);\n }\n \n-void ReportLegacyRuntimeBanner_5443C6()\n-{\n-    const std::int32_t errorMode = gLegacyRuntimeErrorMode1086038;\n-    if (errorMode != 1\n-        && (errorMode != 0 || gLegacyRuntimeApplicationType58F8A4 != 1)) {\n-        return;\n-    }\n-    ReportLegacyRuntimeError_5443FF(252);\n-    const auto hook = gLegacyRuntimeBannerHook10862A8;\n-    if (hook != nullptr) {\n-        hook();\n-    }\n-    ReportLegacyRuntimeError_5443FF(255);\n-}\n-\n-[[noreturn]] void AbortLegacyRuntime_545174()\n-{\n-    ReportLegacyRuntimeError_5443FF(10);\n-    static_cast<void>(RaiseLegacySignal_5471C9(22));\n-    QuickExitLegacyRuntime_53C90B(3);\n-}\n-\n+// 实际数组展开的二次C++异常交真实MSVC handler/abort/信号机制。\n [[noreturn]] void TerminateLegacyRuntime_540A5C()\n {\n-    // 原54FA60外层finally与54FA6C内层catch-all；不使用宿主terminate状态。\n-    __try {\n-        const auto hook = gLegacyRuntimeTerminateHook1086064;\n-        if (hook != nullptr) {\n-            __try {\n-                hook();\n-            } __except (EXCEPTION_EXECUTE_HANDLER) {\n-            }\n-        }\n-    } __finally {\n-        AbortLegacyRuntime_545174();\n-    }\n-}\n-\n-void ExitLegacyRuntimeError_53DEAB(const std::int32_t errorCode)\n-{\n-    if (gLegacyRuntimeErrorMode1086038 == 1) {\n-        ReportLegacyRuntimeBanner_5443C6();\n-    }\n-    ReportLegacyRuntimeError_5443FF(errorCode);\n-    gLegacyRuntimeProcessExit58F8A0(255);\n-}\n-\n-[[noreturn]] void FastLegacyRuntimeErrorExit_53DED0(const std::int32_t errorCode)\n-{\n-    if (gLegacyRuntimeErrorMode1086038 == 1) {\n-        ReportLegacyRuntimeBanner_5443C6();\n-    }\n-    ReportLegacyRuntimeError_5443FF(errorCode);\n-    ::ExitProcess(255);\n+    std::terminate();\n }\n \n } // namespace cg::platform\n"
+    },
+    "src/platform/LegacyRuntimeError.hpp": {
+      "path": "src/platform/LegacyRuntimeError.hpp",
+      "before_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-exit-20261010",
+      "diff": "--- 迁移前/src/platform/LegacyRuntimeError.hpp\n+++ 迁移后/src/platform/LegacyRuntimeError.hpp\n@@ -1,34 +1,13 @@\n #pragma once\n \n #include <cstdint>\n \n namespace cg::platform {\n \n-// 原运行库共享状态；类型/模式保持S32，钩子按真实函数指针拓宽。\n-using LegacyRuntimeBannerHook = void (*)();\n-extern std::int32_t gLegacyRuntimeErrorMode1086038;\n-extern std::int32_t gLegacyRuntimeApplicationType58F8A4;\n-extern LegacyRuntimeBannerHook gLegacyRuntimeBannerHook10862A8;\n-\n-// 原58F8A0的间接退出槽；初始指向原快速退出，不替换成直接ExitProcess。\n-using LegacyRuntimeProcessExit = void (*)(std::int32_t);\n-extern LegacyRuntimeProcessExit gLegacyRuntimeProcessExit58F8A0;\n-void ExitLegacyRuntimeError_53DEAB(std::int32_t errorCode);\n-\n-// 原546D0C；懒加载三个窗口API，失败返回0，不改变调用方文字或标志。\n-std::int32_t ShowLegacyRuntimeMessage_546D0C(\n-    const char* text, const char* caption, std::uint32_t flags);\n-\n-// 原5443FF/5443C6；共享错误模式/消息表，banner两次报告之间允许调用原钩子。\n-void ReportLegacyRuntimeError_5443FF(std::int32_t errorCode);\n-void ReportLegacyRuntimeBanner_5443C6();\n-\n-// 原1086064共享无参终止钩子；异常处理后进入原abort，不使用宿主terminate槽。\n-extern void (*gLegacyRuntimeTerminateHook1086064)();\n+// MC01-C3：CommandOptions失败9/9/8与heap失败28保持；真实_Exit(255)不跑普通atexit。\n+[[noreturn]] void ExitLegacyRuntimeError_53DEAB(std::int32_t errorCode);\n+[[noreturn]] void FastLegacyRuntimeErrorExit_53DED0(std::int32_t errorCode);\n+// 真实数组二次C++异常消费；由MSVC terminate负责handler/abort与最终终止。\n [[noreturn]] void TerminateLegacyRuntime_540A5C();\n-[[noreturn]] void AbortLegacyRuntime_545174();\n-\n-// 原53DED0；报告后直接ExitProcess(255)，不是经退出表的53DEAB。\n-[[noreturn]] void FastLegacyRuntimeErrorExit_53DED0(std::int32_t errorCode);\n \n } // namespace cg::platform\n"
+    },
+    "src/platform/LegacyMouse.cpp": {
+      "path": "src/platform/LegacyMouse.cpp",
+      "before_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-exit-20261010",
+      "diff": "--- 迁移前/src/platform/LegacyMouse.cpp\n+++ 迁移后/src/platform/LegacyMouse.cpp\n@@ -1,15 +1,12 @@\n #include \"cg/platform/LegacyMouse.hpp\"\n \n #include \"LegacyHeap.hpp\"\n-#include \"LegacyLowIo.hpp\"\n #include \"LegacyRuntimeError.hpp\"\n-#include \"LegacyRuntimeExit.hpp\"\n-#include \"LegacyStdio.hpp\"\n \n #include \"../LoginMessageDependencies.hpp\"\n #include \"../LegacyPanelRuntime.hpp\"\n #include \"MainLoopDependencies.hpp\"\n #include \"LegacyMultibyte.hpp\"\n #include \"cg/AnimationRuntime.hpp\"\n #include \"cg/GraphicInfo.hpp\"\n #include \"cg/GraphicRead.hpp\"\n@@ -30,35 +27,24 @@\n namespace cg::platform {\n \n LegacyMouseState gLegacyMouseState {};\n std::uint32_t gValueD68BF0 = 0;\n std::uint32_t gValueD68DC8 = 0;\n \n namespace {\n \n-// HFI01：普通宿主退出按原固定槽序刷新FILE、关控制台、恢复过滤器。\n-void FinishHostedLegacyRuntime()\n-{\n-    gLegacyRuntimeExitCallable1086020 = 0;\n-    FinishLegacyStdio_53EA4A();\n-    CloseLegacyConsole_54B20C();\n-    RestoreLegacyExceptionFilter_545091();\n-}\n-\n-// MC01-B：lowio/stdio由MSVC入口持有；保应用所需堆/多字节/filter与退出回调。\n+// MC01-C3：CRT入口持有流/异常/退出；保当前仍消费的heap/多字节前置。\n struct LegacyMultibyteStaticInitializer {\n     LegacyMultibyteStaticInitializer()\n     {\n         if (InitializeLegacyHeap_541BB8(0) == 0) {\n             FastLegacyRuntimeErrorExit_53DED0(28);\n         }\n-        static_cast<void>(std::atexit(FinishHostedLegacyRuntime));\n         InitializeLegacyMultibyte_546CAE();\n-        InstallLegacyExceptionFilter_545080();\n     }\n };\n \n const LegacyMultibyteStaticInitializer gLegacyMultibyteStaticInitializer;\n \n // 原CRT553004..553010：每项完成构造后即时登记退出，第一结果不短路后项。\n // 只有本组模块位置适配；接全应用原序时须同小步移除此调用，避免双构造/登记。\n struct StartupProtectionValuesStartup final {\n"
+    }
+  },
+  "semantic_changed_indices": [
+    8,
+    11,
+    14,
+    17,
+    20,
+    23,
+    26,
+    29,
+    32,
+    35,
+    38,
+    41,
+    44,
+    87,
+    88,
+    89,
+    90,
+    91,
+    105,
+    108,
+    110,
+    113,
+    115,
+    237,
+    245,
+    327,
+    328,
+    329,
+    330,
+    331,
+    332,
+    333,
+    355,
+    377,
+    378,
+    379,
+    380,
+    381,
+    382,
+    383,
+    384,
+    385,
+    386,
+    389,
+    426,
+    427,
+    464,
+    465,
+    466,
+    472,
+    513,
+    523,
+    524,
+    525,
+    528,
+    655,
+    656,
+    657,
+    658,
+    659,
+    1083,
+    2022
+  ],
+  "validation": {
+    "method": "static",
+    "build": false,
+    "tests": false,
+    "runtime": false,
+    "artifacts_inspected": false,
+    "hash": false,
+    "bounded_static_observations": [
+      "三真实MSVC终止入口准确noreturn/255与原9/9/8/28失败参数保持，诊断编号不入旧R600x/MessageBox/hook",
+      "四数组/筛选正文、三组业务caller、所有实际业务std::atexit/资源回调与顺序逐字保持",
+      "只删纯CRT FinishHosted回调/唯一登记、手工filter与未用includes；实际heap/multibyte前置保持",
+      "SDK八实际头/标准转引及pre_cpp/default filter源有行证，不查生成机器ABI",
+      "25定义/private数据退休；当前62语义source与symbols存在且无退休残留，原身份/机器事实/完整前态可读",
+      "21 host/3适配/37共享-1X与精确台账增量、所有政策/任务/完整门禁/历史证据保持",
+      "UTF-8无BOM/LF、JSON/差异和静态汇总通过，提交前-Check核一致"
+    ]
+  },
+  "accepted_differences": [
+    "两致命入口仍255、快速不执行普通atexit；_Exit本身不显示旧R600x文字/MessageBox/旧hook",
+    "未处理异常由实际MSVC入口/compiler筛选，旧手工安装/restore与private前任槽不执行",
+    "stdio/console/私有normal-quick-callable退出表清理按MSVC，删纯CRT callback/唯一登记",
+    "数组原SEH筛选/清理正文不改，下游真实terminate的handler/abort/信号交MSVC"
+  ],
+  "remaining": "真实多字节和heap策略继续；业务/owner/SDK与完整正常和快速退出运行仍待。",
+  "host_inventory_ids": [
+    "F:0013B399",
+    "F:0013B406",
+    "F:0013B418",
+    "F:0013C8FA",
+    "F:0013C90B",
+    "F:0013C91C",
+    "F:0013C9B5",
+    "F:001443C6",
+    "F:001443FF",
+    "F:00146D0C",
+    "F:00145174",
+    "F:0013EA4A",
+    "F:0014503A",
+    "F:00145080",
+    "F:00145091",
+    "F:001450D6",
+    "F:0014B20C",
+    "F:00143EF3",
+    "F:001471C9",
+    "F:001472F6",
+    "F:00143DB2"
+  ],
+  "adapted_inventory_ids": [
+    "F:0013DEAB",
+    "F:0013DED0",
+    "F:00140A5C"
+  ],
+  "shared_consumer_inventory_ids": [
+    "F:00067B90",
+    "F:00067BF0",
+    "F:00067C30",
+    "F:00067C70",
+    "F:00067CB0",
+    "F:00067CF0",
+    "F:00067D50",
+    "F:00067DB0",
+    "F:00067DF0",
+    "F:00067E30",
+    "F:00067E70",
+    "F:00067EB0",
+    "F:00067EF0",
+    "F:00001C10",
+    "F:00004120",
+    "F:00004160",
+    "F:000041A0",
+    "F:0003D760",
+    "F:00106340",
+    "F:001183D0",
+    "F:00118520",
+    "F:000883F0",
+    "F:000998F0",
+    "F:000CD240",
+    "F:00056FD0",
+    "F:0013C8CD",
+    "F:0013BEC0",
+    "F:00144DB0",
+    "F:00144DC0",
+    "F:0013F9E0",
+    "F:0013F52D",
+    "F:0013C45E",
+    "F:0013C4E0",
+    "F:0013C560",
+    "F:00141BB8",
+    "F:001405F5",
+    "F:0013DDB5"
+  ],
+  "fragment_semantic_indices": [
+    2022
+  ],
+  "shared_retired_field_names": {
+    "355": [
+      "crt_parent_internal_call_connections",
+      "crt_c_initializer_bindings"
+    ],
+    "377": [
+      "copy_call_connections"
+    ],
+    "379": [
+      "append_call_connections"
+    ],
+    "1083": [
+      "crt_parent_internal_call_connections",
+      "crt_os_version_publication",
+      "loader_zero_storage_bindings"
+    ]
+  },
+  "function_disposition_additions": [
+    "F:0013B406",
+    "F:0013C8FA",
+    "F:0013C90B",
+    "F:0013C91C",
+    "F:0013C9B5",
+    "F:001443C6",
+    "F:001443FF",
+    "F:00146D0C",
+    "F:00145174",
+    "F:0013EA4A",
+    "F:001450D6",
+    "F:00143EF3",
+    "F:001471C9",
+    "F:001472F6",
+    "F:00143DB2",
+    "F:0013DEAB",
+    "F:0013DED0",
+    "F:00140A5C"
+  ],
+  "function_disposition_updates": [
+    "F:0013B399",
+    "F:0013B418",
+    "F:0014503A",
+    "F:00145080",
+    "F:00145091",
+    "F:0014B20C"
+  ],
+  "crt_member_additions": [
+    "F:0013C8FA",
+    "F:0013C90B",
+    "F:0013C91C",
+    "F:0013C9B5",
+    "F:001443C6",
+    "F:001443FF",
+    "F:00146D0C",
+    "F:00145174",
+    "F:0014503A",
+    "F:00145080",
+    "F:00145091",
+    "F:001450D6",
+    "F:0014B20C",
+    "F:00143EF3",
+    "F:001471C9",
+    "F:001472F6",
+    "F:00143DB2",
+    "F:0013DEAB",
+    "F:0013DED0",
+    "F:00140A5C"
+  ],
+  "retired_extra_type_names": [
+    "LegacyRuntimeExitCallback",
+    "LegacyRuntimeBannerHook",
+    "LegacyRuntimeProcessExit",
+    "LegacySignalHandler",
+    "LegacyFloatingSignalHandler",
+    "LegacySignalRecord"
+  ],
+  "local_sdk_references": {
+    "method": "只读真实MSVC/UCRT public声明、标准转引和EXE静态初始化/默认异常筛选实现；未执行/查生成ABI或产物",
+    "references": [
+      {
+        "root": "MSVC 14.50.35717",
+        "path": "include/cstdlib",
+        "matching_source_lines": [
+          {
+            "line": 40,
+            "text": "_EXPORT_STD using _CSTD abort;"
+          },
+          {
+            "line": 42,
+            "text": "_EXPORT_STD using _CSTD atexit;"
+          },
+          {
+            "line": 80,
+            "text": "_EXPORT_STD using _CSTD _Exit;"
+          }
+        ]
+      },
+      {
+        "root": "MSVC 14.50.35717",
+        "path": "include/exception",
+        "matching_source_lines": [
+          {
+            "line": 31,
+            "text": "#if _HAS_EXCEPTIONS"
+          },
+          {
+            "line": 38,
+            "text": "_EXPORT_STD using ::terminate;"
+          }
+        ]
+      },
+      {
+        "root": "MSVC 14.50.35717",
+        "path": "include/vcruntime_exception.h",
+        "matching_source_lines": [
+          {
+            "line": 10,
+            "text": "#include <eh.h>"
+          }
+        ]
+      },
+      {
+        "root": "MSVC 14.50.35717",
+        "path": "include/eh.h",
+        "matching_source_lines": [
+          {
+            "line": 14,
+            "text": "#include <corecrt_terminate.h>"
+          }
+        ]
+      },
+      {
+        "root": "Windows SDK 10.0.26100.0 UCRT",
+        "path": "corecrt_terminate.h",
+        "matching_source_lines": [
+          {
+            "line": 33,
+            "text": "_ACRTIMP __declspec(noreturn) void __cdecl terminate() throw();"
+          }
+        ]
+      },
+      {
+        "root": "Windows SDK 10.0.26100.0 UCRT",
+        "path": "stdlib.h",
+        "matching_source_lines": [
+          {
+            "line": 58,
+            "text": "_ACRTIMP __declspec(noreturn) void __cdecl _Exit(_In_ int _Code);"
+          },
+          {
+            "line": 60,
+            "text": "_ACRTIMP __declspec(noreturn) void __cdecl abort(void);"
+          },
+          {
+            "line": 132,
+            "text": "inline  int __clrcall atexit(void (__clrcall* _Function)(void))"
+          },
+          {
+            "line": 144,
+            "text": "int       __cdecl atexit(void (__cdecl*)(void));"
+          }
+        ]
+      },
+      {
+        "root": "MSVC 14.50.35717",
+        "path": "crt/src/vcruntime/exe_common.inl",
+        "matching_source_lines": [
+          {
+            "line": 215,
+            "text": "static void __cdecl pre_cpp_initialization()"
+          },
+          {
+            "line": 220,
+            "text": "__scrt_set_unhandled_exception_filter();"
+          },
+          {
+            "line": 231,
+            "text": "_CRTALLOC(\".CRT$XCAA\") static _PVFV pre_cpp_initializer  = pre_cpp_initialization;"
+          }
+        ]
+      },
+      {
+        "root": "MSVC 14.50.35717",
+        "path": "crt/src/vcruntime/utility_desktop.cpp",
+        "matching_source_lines": [
+          {
+            "line": 86,
+            "text": "extern \"C\" LONG WINAPI __scrt_unhandled_exception_filter(LPEXCEPTION_POINTERS const pointers)"
+          },
+          {
+            "line": 89,
+            "text": "if (PER_IS_MSVC_PURE_OR_NATIVE_EH(exception_record))"
+          },
+          {
+            "line": 93,
+            "text": "terminate();"
+          },
+          {
+            "line": 99,
+            "text": "extern \"C\" void __cdecl __scrt_set_unhandled_exception_filter()"
+          },
+          {
+            "line": 101,
+            "text": "SetUnhandledExceptionFilter(__scrt_unhandled_exception_filter);"
+          }
+        ]
+      }
+    ]
+  },
+  "aligned_document_paths": [
+    "doc/cg2d_crt_runtime_boundary_spec.md",
+    "doc/cg2d_crt_startup_lifecycle_spec.md",
+    "doc/cg2d_hosted_exception_filter_spec.md",
+    "doc/cg2d_hosted_runtime_prefix_spec.md",
+    "doc/cg2d_hosted_stdio_init_spec.md",
+    "doc/cg2d_exit_table_heap_migration_spec.md",
+    "doc/cg2d_array_counter_spec.md",
+    "doc/cg2d_native_cpp_exception_spec.md",
+    "doc/cg2d_stdio_contract.md",
+    "doc/cg2d_startup_flow.md",
+    "doc/cg2d_client_shutdown.md",
+    "doc/cg2d_crt_host_migration_spec.md",
+    "plan/cg2d_full_reconstruction_plan.md",
+    "plan/cg2d_spec_closure_checklist.md"
+  ],
+  "current_measured_state": {
+    "semantic_records": 2029,
+    "semantic_original_ids": 1981,
+    "semantic_range_identities": 48,
+    "document_linked_functions": 2091,
+    "reviewed_function_dispositions": 1429,
+    "known_crt_members": 486,
+    "crt_member_inventory_closed": false,
+    "software_evidence_records": 1335,
+    "leaf_features": 184,
+    "globally_accepted": false,
+    "tasks": 60,
+    "closed_tasks": 11,
+    "unassigned_ranges_mapped": 3060,
+    "unassigned_ranges_remaining": 1
+  }
+}

@@ -1,10 +1,7 @@
 #include "cg/platform/LegacyMouse.hpp"
 
 #include "LegacyHeap.hpp"
-#include "LegacyLowIo.hpp"
 #include "LegacyRuntimeError.hpp"
-#include "LegacyRuntimeExit.hpp"
-#include "LegacyStdio.hpp"
 
 #include "../LoginMessageDependencies.hpp"
 #include "../LegacyPanelRuntime.hpp"
@@ -35,25 +32,14 @@ std::uint32_t gValueD68DC8 = 0;
 
 namespace {
 
-// HFI01：普通宿主退出按原固定槽序刷新FILE、关控制台、恢复过滤器。
-void FinishHostedLegacyRuntime()
-{
-    gLegacyRuntimeExitCallable1086020 = 0;
-    FinishLegacyStdio_53EA4A();
-    CloseLegacyConsole_54B20C();
-    RestoreLegacyExceptionFilter_545091();
-}
-
-// MC01-B：lowio/stdio由MSVC入口持有；保应用所需堆/多字节/filter与退出回调。
+// MC01-C3：CRT入口持有流/异常/退出；保当前仍消费的heap/多字节前置。
 struct LegacyMultibyteStaticInitializer {
     LegacyMultibyteStaticInitializer()
     {
         if (InitializeLegacyHeap_541BB8(0) == 0) {
             FastLegacyRuntimeErrorExit_53DED0(28);
         }
-        static_cast<void>(std::atexit(FinishHostedLegacyRuntime));
         InitializeLegacyMultibyte_546CAE();
-        InstallLegacyExceptionFilter_545080();
     }
 };
 

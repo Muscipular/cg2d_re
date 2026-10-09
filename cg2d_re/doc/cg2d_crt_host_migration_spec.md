@@ -1,5 +1,7 @@
 # CRT 宿主承接总 SPEC
 
+> 2026-10-10当前错误/退出边界：[MC01-C3](cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010)已将CRT私有退出/信号/消息与钩子、console及重复filter层交MSVC，删除纯CRT收尾回调/唯一登记；真实业务std::atexit与数组构析保持。两致命入口真实_Exit(255)不输出旧R600x/MessageBox，数组二次异常真实terminate；旧库字段/表与原filter生命周期只作固定历史，不再要求复刻。heap/multibyte前置与所有适用业务/owner/SDK/正常快速退出运行门禁仍待，未编译/运行。
+
 > 2026-10-10当前数值库边界：[MC01-C2](cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010)已退休无现业务调用的旧浮点格式/96位转换/环境与pow错误私有组，数值格式/数学及库内状态交MSVC。实际地图/音频数学源与控制作用域保持，两Shop/NLS低宽读取移回既有模块，计时U64除法保留；旧gate/数学记录/CPU探测和其余内部CPP/ASM源码状态属固定历史，不再要求复刻。全部适用业务/owner/SDK正常结果与运行门禁保持，未编译/运行。
 
 > 2026-10-10当前C++边界：[MC01-C1](cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010)已退休无现组外消费者的六组私有C++库及NativeCppException头。当前采用真实MSVC标准流/Init/locale及库内string/facet/codecvt/异常支撑，现流配置/缓冲借用/刷新、业务构析与退出登记保持。下文旧Legacy对象/方法表/私有登记/异常payload及其源码状态属固定历史，不再要求复刻；完整业务/owner/未知原alias与SDK实际运行仍待，未编译/运行。
@@ -196,3 +198,34 @@ LegacyFormat中的U64乘法、移位及余数三个helper无现消费者，随�
 107现语义对齐：88私有F host、8已有应用数学/控制关联adapted、10共享记录仅移旧消费者，一545038原X尾片段保持身份并只关联真实宿主格式职责边界、不造F/当前尾体。45既有原ID补处置与CRT已知成员：F1366→1411、CRT421→466且枚举false；两限定I/S使软件证据1331→1333。语义2029（1981F＋48X）、合同2091/3680、所有原分母与完整门禁、任务关闭11/60及六closure保持。
 
 退休引用/现真实读取/准确签名、业务数学与服务逐字守恒、SDK实际intrinsic/数学/格式声明、原身份/所有台账和门禁/政策、UTF-8/LF/差异与静态汇总/-Check核对；未构建/测试/运行/算法/查产物/计算摘要，无新依赖。固定引用cg2d-re-msvc-crt-numeric-20261010；剩余多字节、堆策略及初始化/错误/信号/退出设施继续MC01-C，全部业务/owner/SDK及适用运行待。MC01全CRT与整体SPEC未完成。
+
+<a id="msvc-crt-exit-decision-20261010"></a>
+## MC01-C3：错误、信号与私有退出设施交MSVC（2026-10-10）
+
+按用户CRT直接采用MSVC要求，退休无现应用调用的旧onexit登记/扩容/容量表、normal/quick/callable调度/终止表和标志、四旧OS历史槽、信号表及raise/filter私有实现、错误消息表/窗口API缓存/banner/process-exit/terminate钩子。现应用构析登记已实际使用std::atexit，业务初始化/退出回调、登记次数与原相对序保持，不建第二套回调表或同名空体。
+
+MSVC本机exe_common.inl的pre_cpp_initialization实际先调用__scrt_set_unhandled_exception_filter，utility_desktop.cpp由库筛选MSVC异常并调terminate。当前LegacyMouse再次手工安装/恢复的旧filter与仅由它持有的前任槽/指针验证退休，直接由MSVC入口/编译器持有异常支撑；不调用SDK私有函数或补本机异常记录。两旧console槽位于匿名namespace、仅初始化为-2并由CloseLegacyConsole读取，没有当前生产/拥有者；与该私有关闭器一并退休，实际stdio/descriptor与控制台资源归MSVC。
+
+FinishHostedLegacyRuntime仅清旧callable标志、刷新stdio、关上述私有console及恢复旧filter，属于纯CRT层；删除它及唯一std::atexit登记、手工filter安装，不留下空收尾函数。stdio最终刷新/关闭与库内部normal/quick/callable清理由MSVC提供。具名覆盖HFI01/HPI01/HSI01在本步filter/退出范围的重复私有初始化/清理要求；不删除真正的业务资源回调、标准流应用配置/刷新、世界/图形/动画/窗口/音频清理或改变SDK实际正常/快速退出合同。
+
+CommandOptions三个分配失败点仍传原9/9/8，堆初始化失败仍传原28；两实际错误适配入口直接std::_Exit(255)，准确标noreturn，保现致命失败与退出码255、不跑普通atexit、不伪造成功或补已失败数据。旧诊断编号只保callsite参数/历史原事实，不再解析19槽R600x消息、调用MessageBox或旧钩子；std::_Exit本身不输出这些旧文字，此库内诊断差异明确接受，不能称消息/终止机制等价。未调用的旧abort入口退休；仍由实际数组二次C++异常消费的TerminateLegacyRuntime直接std::terminate，SDK负责其handler/abort/信号/最终终止，不模拟旧信号子类型或吞错误。
+
+真实三数组构造/析构/展开及代码筛选叶保留原S32数量、U32字节步长/乘积、实际callback地址、正序构造/逆序析构、完成/剩余前缀和SEH传播；只替换其下游terminate库服务，不改本体或三组业务caller。残留LegacyRuntimeExit文件只承载这些实际数组边界，LegacyRuntimeError只剩三真实MSVC适配。所有退休F/区间身份、原数据/原分支和实施前态保持固定Git证据；未知原调用/alias不据当前无消费者排除，完整业务/owner/SDK/运行与总SPEC§10不关闭。
+
+<a id="msvc-crt-exit-acceptance-20261010"></a>
+## MC01-C3 静态核对
+
+核全体CRT函数/导出类型/槽的当前消费者与所有实际std::atexit登记；核SDK实际终止声明、静态初始化前filter安装及宿主筛选源码。数组四正文、三组业务caller/真实资源回调、标准流配置/刷新、命令行参数及失败点逐字保持；LegacyMouse仅删除纯CRT回调/登记/手工filter及不再使用的include。核旧private符号/布局/表和当前语义来源，历史信号附件只核固定快照可读性，现来源不得回退。限定I/S只证本步代码/接线，不替代SDK生成ABI、硬件SEH、正常结果、所有owner及实际启动退出运行；继续多字节和堆策略余组，不恢复构建/测试/运行/产物或摘要权限。
+
+<a id="msvc-crt-exit-source-state-20261010"></a>
+## MC01-C3 当前源码状态
+
+旧信号CPP/头与CMake源项退休；错误/退出提供者从31定义及纯CRT FinishHosted回调收敛为三实际MSVC终止入口和四数组/筛选正文，25定义退休。无当前生产的两个匿名console哨兵、旧OS四槽、onexit/termination表和标志、19槽R600x消息、API缓存/各钩子与信号数据不再保存；MSVC入口实际在pre_cpp阶段安装默认filter，应用不再覆盖/恢复旧私人filter。LegacyMouse只删纯CRT callback/唯一atexit及安装filter和三未用include，当前heap(0)/失败28、multibyte前置和其余完整业务/SDK流初始化登记逐字保持。
+
+ExitLegacyRuntimeError与FastLegacyRuntimeErrorExit准确noreturn并真实std::_Exit(255)，CommandOptions9/9/8及heap28调用/失败分支不变；旧编号不再进入R600x/MessageBox/banner/hook，_Exit本身不输出旧诊断，此差异获批。TerminateLegacyRuntime真实std::terminate只供实际数组二次C++异常，不用旧terminate槽/abort/raise代码，SDK管理真实handler/信号。三组数组/四正文、callback/S32数量/U32步长和乘积、正逆序/完成剩余前缀/SEH传播与全部实际业务回调保持，不能将其作为无消费CRT删除。
+
+[准确前后态/消费者与SDK证据](cg2d_msvc_crt_exit_evidence.json)保存私有层分类、MSVC public声明/标准转引及exe_common/utility_desktop实际安装/筛选，不调用SDK私有名或接旧x86入口。62现语义同步，21私有F host/3真实终止适配/37共享或业务仅移旧消费者，53DECD原X尾部保原身份/基线并关联真实_Exit职责、不造F/当前尾体。业务原登记机器target/callsite保留，当前明确std::atexit服务，旧完整映射沿标签/原索引可读，不把原地址当x64调用。
+
+F1411→1429（新18）、CRT已知成员466→486（新20）且枚举false；软件证据1333→1335只限定I/S。语义2029（1981F＋48X）、合同2091/3680、所有原分母/完整功能门禁、184叶整项验收0、60任务关闭11及六closure保持。两旧信号附件仅历史路径核固定快照，当前source独立校验无退休提供者；源码/SDK声明与启动filter、致命255/参数、数组/业务精确守恒、所有原身份/台账/政策/门禁及UTF-8/LF/差异和静态汇总/-Check核对。
+
+未构建/链接/测试/运行/算法/查产物/计算摘要，无新依赖。固定引用cg2d-re-msvc-crt-exit-20261010；剩余实际多字节/heap策略继续MC01-C，完整业务owner、正常结果、SDK与正常快速退出/运行仍待。MC01全CRT与整体SPEC未完成。

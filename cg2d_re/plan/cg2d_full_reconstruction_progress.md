@@ -250,3 +250,16 @@ LegacyHeap.hpp/CPP全部通用模式成组统一malloc/calloc/realloc/free/_msiz
 语义2029（1981F＋48X）、合同2091/3680和56.82%保持；新增45 F处置使1366→1411，CRT已知成员421→466仍非完整枚举，软件证据1331→1333仅限定I/S。导入16/218、X3060/3061余1、184叶整项验收0、60任务关闭11与六closure保持。两intrinsic准确签名/读宽/序和实际consumer、业务数学/格式/计时逐字守恒、退休引用、SDK五头/转引、107精确语义/原身份/全台账门禁/政策及UTF-8/LF/差异与静态汇总/-Check核对后精确提交，固定引用cg2d-re-msvc-crt-numeric-20261010。
 
 未构建/链接/测试/运行/算法/查产物/计算摘要，无新依赖，用户六项改动保持。实际多字节、堆策略及初始化/错误/信号/退出余组继续MC01-C，完整业务owner/正常结果/SDK与适用运行门禁仍待；MC01全CRT和整体SPEC未完成，目标active。
+
+<a id="msvc-crt-exit-progress-20261010"></a>
+## 21. 2026-10-10 MC01-C3：错误、信号与私有退出设施
+
+先记[成组决议/当前状态](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010)，核全src/include真实导出/槽消费者及SDK exe_common/utility_desktop。SDK在应用静态初始化前真实安装自己的异常filter并调terminate；当前私有onexit/容量表/调度与标志、信号表/raise/filter、19槽消息/窗口API缓存/各hook、四历史OS槽和两个匿名console哨兵只库内使用或无生产，按用户CRT直接MSVC退休。LegacySignal CPP/头和CMake源项删除，共25定义退休；不造空同名体或另一套SDK状态。
+
+纯CRT FinishHostedLegacyRuntime仅做stdio/console/filter收尾，删函数/唯一atexit/手工filter安装及三未用include；其余LegacyMouse业务/标准流初始化、guard/实际空回调/全部业务登记与相对序逐字保持，heap(0)/失败28及multibyte前置继续。三实际终止适配真实std::_Exit(255)两项与std::terminate一项，noreturn准确；CommandOptions三个失败9/9/8和heap28不变，不补失败数据。_Exit本身不输出旧R600x/MessageBox/banner/hooks、不跑普通atexit，诊断与库内处理差异具名；SDK负责真实handler/abort/信号与最终终止。
+
+三组业务数组与四构析/展开/筛选正文完整逐字保留：S32数量/U32字节步长与乘积、实际callback、正序构造/逆序析构、完成剩余前缀与SEH传播不变，仅下游terminate服务交库。所有应用实际std::atexit回调/资源清理与业务参数、RNG、协议/资源/存档源保持。两旧signal附件只在固定前态核可读性，当前source不回退；原21私有F/3实际终止适配及原53DECD X身份、完整旧字段/原调用/所有实施前态保历史，未知原alias/caller不据无现消费者排除。
+
+62现语义对齐：21 host/3 adapted/37共享或业务仅移旧消费者及一原X；业务原登记target/callsite仍机器基线，现明确真实std::atexit服务，不造原地址调用。F1411→1429（新18）、CRT已知成员466→486（新20）仍枚举false；软件证据1333→1335只限定I/S。语义2029（1981F＋48X）、合同2091/3680及56.82%、导入16/218、X3060/3061余1、184叶整项验收0、60任务关闭11与六closure保持。11相关文档/子SPEC、总合同/计划/收尾任务与登记同步，历史正文不重复复制。
+
+三实际API/退出255与准确参数、SDK八头/转引/启动filter源、四数组/所有业务回调与源码精确守恒、25退休定义/数据/接口无现残留、62精确语义/原事实/全部台账政策门禁及UTF-8/LF/差异与静态汇总/-Check核对后精确提交，固定引用cg2d-re-msvc-crt-exit-20261010。未构建/链接/测试/运行/算法/查产物/计算摘要，无新依赖；用户六项改动保持。实际多字节/heap策略继续MC01-C，全部业务owner/正常结果/SDK与正常快速退出运行仍待；MC01全CRT和整体SPEC未完成，目标active。

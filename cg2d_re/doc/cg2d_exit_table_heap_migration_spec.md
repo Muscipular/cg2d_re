@@ -1,5 +1,7 @@
 # 兼容退出表内存域宿主迁移 SPEC（ETH01）
 
+> 2026-10-10当前错误/退出边界：[MC01-C3](cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010)已将CRT私有退出/信号/消息与钩子、console及重复filter层交MSVC，删除纯CRT收尾回调/唯一登记；真实业务std::atexit与数组构析保持。两致命入口真实_Exit(255)不输出旧R600x/MessageBox，数组二次异常真实terminate；旧库字段/表与原filter生命周期只作固定历史，不再要求复刻。heap/multibyte前置与所有适用业务/owner/SDK/正常快速退出运行门禁仍待，未编译/运行。
+
 2026-10-05，按用户工程委托及[D02分配域裁决](cg2d_crt_runtime_boundary_spec.md)
 实施 C03/C08 的真实依赖；上位[启动生命周期](cg2d_crt_startup_lifecycle_spec.md)。
 本组迁移兼容退出表的块分配/扩容/容量查询，保留兼容回调登记与退出消费；

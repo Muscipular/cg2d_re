@@ -58,6 +58,12 @@ function Check-Path([string]$path, [string]$owner) {
         & git -C $projectRoot cat-file -e ("cg2d-re-msvc-crt-numeric-history-20261010:cg2d_re/" + $relativePath) 2>$null
         $exists = $LASTEXITCODE -eq 0
     }
+    # MC01-C3：旧信号表/raise/filter退休，历史附件独立于当前source校验。
+    $historicalSignal = @('src/platform/LegacySignal.cpp', 'src/platform/LegacySignal.hpp')
+    if (-not $exists -and $relativePath -cin $historicalSignal -and -not $currentSemanticSource) {
+        & git -C $projectRoot cat-file -e ("cg2d-re-msvc-crt-exit-history-20261010:cg2d_re/" + $relativePath) 2>$null
+        $exists = $LASTEXITCODE -eq 0
+    }
     Require $exists "$owner 引用不存在：$path"
     $pathCache[$pathCacheKey] = $true
 }

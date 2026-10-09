@@ -191282,7 +191282,7 @@
       "original_entry": "0x43bd00",
       "inventory_id": "F:0003BD00",
       "original_role": "CAC07仅原分派数据/当前源角色关联：战斗附属技能准入两组索引/目标分派数据",
-      "status": "已有真实源码，CAC07补原表/索引与源角色关联；未重新核全部原父/算法、未记完整函数处置或软件门禁通过",
+      "status": "已有真实源码，CAC07补原表/索引与源角色关联；未重新核全部原父/算法、未记完整函数处置或软件门禁通过；BAES01补完整43条145B/一页资格根及54项集合/唯一AL消费，现正文正确保持，仅两注释/限定S，完整业务与运行未验。",
       "sources": [
         {
           "path": "src/YobiRuntime.cpp",
@@ -191297,10 +191297,15 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-decision",
         "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
         "doc/cg2d_unassigned_range_fourth_batch_evidence.json",
-        "doc/ui_windows/shared_battle.md"
+        "doc/ui_windows/shared_battle.md",
+        "doc/cg2d_battle_append_effect_lifecycle_spec.md#battle-append-skill-baseline",
+        "doc/cg2d_battle_append_effect_lifecycle_spec.md#battle-append-skill-decision",
+        "doc/cg2d_battle_append_effect_lifecycle_spec.md#battle-append-skill-acceptance",
+        "doc/cg2d_battle_append_effect_lifecycle_spec.md#battle-append-skill-source-state",
+        "doc/cg2d_battle_append_effect_lifecycle_evidence.json"
       ],
-      "boundary": "原函数身份来自既有库存/实际数据取用父；完整X用途与源码已存在分开。不以父元数据或表目标代所有签名/字段/分支/依赖/正常寿命或机器ABI/运行验收。",
-      "verification_level": "只该父原X完整字节、实际guard/BYTE/JMP取用邻窗、W32表全部指针/target owner、当前真实定义与旧合同关联；源码未改，不构建/测试/运行/摘要。",
+      "boundary": "原函数身份来自既有库存/实际数据取用父；完整X用途与源码已存在分开。不以父元数据或表目标代所有签名/字段/分支/依赖/正常寿命或机器ABI/运行验收。 BAES01仅资格整根/直接生产门禁，AL返回不扩为全EAX；不证明所有生产参数、间接alias、SDK/owner或运行。",
+      "verification_level": "只该父原X完整字节、实际guard/BYTE/JMP取用邻窗、W32表全部指针/target owner、当前真实定义与旧合同关联；源码未改，不构建/测试/运行/摘要。 BAES01完整根/四表当前103B与CAC07对照及现五case八区间、BAEL01已有Add消费；静态，不运行。",
       "range_fourth_batch_data": {
         "step": "CAC07",
         "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
@@ -191310,6 +191315,34 @@
         "current_definition_line": 22663,
         "association_only": true,
         "full_original_body_recaptured": false,
+        "runtime_verified": false
+      },
+      "function_chunks": [
+        {
+          "start": "0x43bd00",
+          "end_exclusive": "0x43bd91"
+        }
+      ],
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::IsBattleAppendEffectSkill_43BD00",
+        "parameter": "S32 skill",
+        "return": "U8 0/1，对应唯一消费者AL"
+      },
+      "battle_append_skill": {
+        "step": "BAES01",
+        "source_snapshot": "cg2d-re-battle-append-skill-20261010",
+        "original_instruction_count": 43,
+        "original_code_bytes": 145,
+        "page_count": 1,
+        "accepted_skill_count": 54,
+        "direct_calls": 0,
+        "jump_count": 17,
+        "return_count": 2,
+        "inbound_direct_call_count": 1,
+        "known_member_already_present": true,
+        "body_changed": false,
+        "new_implementation": false,
         "runtime_verified": false
       }
     },

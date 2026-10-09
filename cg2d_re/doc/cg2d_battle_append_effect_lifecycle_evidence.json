@@ -1455,5 +1455,573 @@
     "     }",
     "     gBattleAppendEffects5ABA8C = nullptr;",
     " }"
-  ]
+  ],
+  "skill_qualification_supplement": {
+    "step": "BAES01",
+    "date": "2026-10-10",
+    "scope": "资格完整原根、54项正常准入集合与唯一生产AL门禁；正文保持/仅两注释",
+    "decision_ref": "doc/cg2d_battle_append_effect_lifecycle_spec.md#battle-append-skill-decision",
+    "before_snapshot": "cg2d-re-battle-append-skill-history-20261010",
+    "after_snapshot": "cg2d-re-battle-append-skill-20261010",
+    "original_root": {
+      "start": "0x43bd00",
+      "end": "0x43bd91",
+      "chunks": [
+        [
+          "0x43bd00",
+          "0x43bd91"
+        ]
+      ],
+      "instruction_count": 43,
+      "rows": [
+        {
+          "address": "0x43bd00",
+          "size": 4,
+          "bytes": "8b442404",
+          "mnemonic": "mov",
+          "disasm": "mov     eax, [esp+skillId]"
+        },
+        {
+          "address": "0x43bd04",
+          "size": 5,
+          "bytes": "3ddf070000",
+          "mnemonic": "cmp",
+          "disasm": "cmp     eax, 7DFh"
+        },
+        {
+          "address": "0x43bd09",
+          "size": 2,
+          "bytes": "7f40",
+          "mnemonic": "jg",
+          "disasm": "jg      short loc_43BD4B"
+        },
+        {
+          "address": "0x43bd0b",
+          "size": 5,
+          "bytes": "3dde070000",
+          "mnemonic": "cmp",
+          "disasm": "cmp     eax, 7DEh"
+        },
+        {
+          "address": "0x43bd10",
+          "size": 2,
+          "bytes": "7d7c",
+          "mnemonic": "jge",
+          "disasm": "jge     short loc_43BD8E; jumptable 0043BD2C cases 8,11,55-60"
+        },
+        {
+          "address": "0x43bd12",
+          "size": 3,
+          "bytes": "83f842",
+          "mnemonic": "cmp",
+          "disasm": "cmp     eax, 42h ; 'B'"
+        },
+        {
+          "address": "0x43bd15",
+          "size": 2,
+          "bytes": "7f1c",
+          "mnemonic": "jg",
+          "disasm": "jg      short loc_43BD33"
+        },
+        {
+          "address": "0x43bd17",
+          "size": 3,
+          "bytes": "83f840",
+          "mnemonic": "cmp",
+          "disasm": "cmp     eax, 40h ; '@'"
+        },
+        {
+          "address": "0x43bd1a",
+          "size": 2,
+          "bytes": "7d72",
+          "mnemonic": "jge",
+          "disasm": "jge     short loc_43BD8E; jumptable 0043BD2C cases 8,11,55-60"
+        },
+        {
+          "address": "0x43bd1c",
+          "size": 3,
+          "bytes": "83c0f8",
+          "mnemonic": "add",
+          "disasm": "add     eax, 0FFFFFFF8h; switch 53 cases"
+        },
+        {
+          "address": "0x43bd1f",
+          "size": 3,
+          "bytes": "83f834",
+          "mnemonic": "cmp",
+          "disasm": "cmp     eax, 34h"
+        },
+        {
+          "address": "0x43bd22",
+          "size": 2,
+          "bytes": "7724",
+          "mnemonic": "ja",
+          "disasm": "ja      short def_43BD2C; jumptable 0043BD2C default case, cases 9,10,12-54"
+        },
+        {
+          "address": "0x43bd24",
+          "size": 2,
+          "bytes": "33c9",
+          "mnemonic": "xor",
+          "disasm": "xor     ecx, ecx"
+        },
+        {
+          "address": "0x43bd26",
+          "size": 6,
+          "bytes": "8a889cbd4300",
+          "mnemonic": "mov",
+          "disasm": "mov     cl, ds:byte_43BD9C[eax]"
+        },
+        {
+          "address": "0x43bd2c",
+          "size": 7,
+          "bytes": "ff248d94bd4300",
+          "mnemonic": "jmp",
+          "disasm": "jmp     ds:jpt_43BD2C[ecx*4]; switch jump"
+        },
+        {
+          "address": "0x43bd33",
+          "size": 5,
+          "bytes": "3dd6070000",
+          "mnemonic": "cmp",
+          "disasm": "cmp     eax, 7D6h"
+        },
+        {
+          "address": "0x43bd38",
+          "size": 2,
+          "bytes": "7454",
+          "mnemonic": "jz",
+          "disasm": "jz      short loc_43BD8E; jumptable 0043BD2C cases 8,11,55-60"
+        },
+        {
+          "address": "0x43bd3a",
+          "size": 5,
+          "bytes": "3dd9070000",
+          "mnemonic": "cmp",
+          "disasm": "cmp     eax, 7D9h"
+        },
+        {
+          "address": "0x43bd3f",
+          "size": 2,
+          "bytes": "7e07",
+          "mnemonic": "jle",
+          "disasm": "jle     short def_43BD2C; jumptable 0043BD2C default case, cases 9,10,12-54"
+        },
+        {
+          "address": "0x43bd41",
+          "size": 5,
+          "bytes": "3ddc070000",
+          "mnemonic": "cmp",
+          "disasm": "cmp     eax, 7DCh"
+        },
+        {
+          "address": "0x43bd46",
+          "size": 2,
+          "bytes": "7e46",
+          "mnemonic": "jle",
+          "disasm": "jle     short loc_43BD8E; jumptable 0043BD2C cases 8,11,55-60"
+        },
+        {
+          "address": "0x43bd48",
+          "size": 2,
+          "bytes": "32c0",
+          "mnemonic": "xor",
+          "disasm": "xor     al, al; jumptable 0043BD2C default case, cases 9,10,12-54"
+        },
+        {
+          "address": "0x43bd4a",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "disasm": "retn"
+        },
+        {
+          "address": "0x43bd4b",
+          "size": 5,
+          "bytes": "3d13080000",
+          "mnemonic": "cmp",
+          "disasm": "cmp     eax, 813h"
+        },
+        {
+          "address": "0x43bd50",
+          "size": 2,
+          "bytes": "7f20",
+          "mnemonic": "jg",
+          "disasm": "jg      short loc_43BD72"
+        },
+        {
+          "address": "0x43bd52",
+          "size": 5,
+          "bytes": "3d0a080000",
+          "mnemonic": "cmp",
+          "disasm": "cmp     eax, 80Ah"
+        },
+        {
+          "address": "0x43bd57",
+          "size": 2,
+          "bytes": "7d35",
+          "mnemonic": "jge",
+          "disasm": "jge     short loc_43BD8E; jumptable 0043BD2C cases 8,11,55-60"
+        },
+        {
+          "address": "0x43bd59",
+          "size": 5,
+          "bytes": "051df8ffff",
+          "mnemonic": "add",
+          "disasm": "add     eax, 0FFFFF81Dh; switch 34 cases"
+        },
+        {
+          "address": "0x43bd5e",
+          "size": 3,
+          "bytes": "83f821",
+          "mnemonic": "cmp",
+          "disasm": "cmp     eax, 21h"
+        },
+        {
+          "address": "0x43bd61",
+          "size": 2,
+          "bytes": "77e5",
+          "mnemonic": "ja",
+          "disasm": "ja      short def_43BD2C; jumptable 0043BD2C default case, cases 9,10,12-54"
+        },
+        {
+          "address": "0x43bd63",
+          "size": 2,
+          "bytes": "33d2",
+          "mnemonic": "xor",
+          "disasm": "xor     edx, edx"
+        },
+        {
+          "address": "0x43bd65",
+          "size": 6,
+          "bytes": "8a90dcbd4300",
+          "mnemonic": "mov",
+          "disasm": "mov     dl, ds:byte_43BDDC[eax]"
+        },
+        {
+          "address": "0x43bd6b",
+          "size": 7,
+          "bytes": "ff2495d4bd4300",
+          "mnemonic": "jmp",
+          "disasm": "jmp     ds:jpt_43BD6B[edx*4]; switch jump"
+        },
+        {
+          "address": "0x43bd72",
+          "size": 5,
+          "bytes": "3dc80b0000",
+          "mnemonic": "cmp",
+          "disasm": "cmp     eax, 0BC8h"
+        },
+        {
+          "address": "0x43bd77",
+          "size": 2,
+          "bytes": "7fcf",
+          "mnemonic": "jg",
+          "disasm": "jg      short def_43BD2C; jumptable 0043BD2C default case, cases 9,10,12-54"
+        },
+        {
+          "address": "0x43bd79",
+          "size": 5,
+          "bytes": "3dba0b0000",
+          "mnemonic": "cmp",
+          "disasm": "cmp     eax, 0BBAh"
+        },
+        {
+          "address": "0x43bd7e",
+          "size": 2,
+          "bytes": "7d0e",
+          "mnemonic": "jge",
+          "disasm": "jge     short loc_43BD8E; jumptable 0043BD2C cases 8,11,55-60"
+        },
+        {
+          "address": "0x43bd80",
+          "size": 5,
+          "bytes": "3d29080000",
+          "mnemonic": "cmp",
+          "disasm": "cmp     eax, 829h"
+        },
+        {
+          "address": "0x43bd85",
+          "size": 2,
+          "bytes": "7cc1",
+          "mnemonic": "jl",
+          "disasm": "jl      short def_43BD2C; jumptable 0043BD2C default case, cases 9,10,12-54"
+        },
+        {
+          "address": "0x43bd87",
+          "size": 5,
+          "bytes": "3d2f080000",
+          "mnemonic": "cmp",
+          "disasm": "cmp     eax, 82Fh"
+        },
+        {
+          "address": "0x43bd8c",
+          "size": 2,
+          "bytes": "7fba",
+          "mnemonic": "jg",
+          "disasm": "jg      short def_43BD2C; jumptable 0043BD2C default case, cases 9,10,12-54"
+        },
+        {
+          "address": "0x43bd8e",
+          "size": 2,
+          "bytes": "b001",
+          "mnemonic": "mov",
+          "disasm": "mov     al, 1; jumptable 0043BD2C cases 8,11,55-60"
+        },
+        {
+          "address": "0x43bd90",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "disasm": "retn"
+        }
+      ],
+      "xrefs": [
+        {
+          "from": "0x43be08",
+          "type": 17,
+          "iscode": true,
+          "mnemonic": "call",
+          "disasm": "call    BattleScene__HasAppendEffect",
+          "operand0": "0x43bd00",
+          "parent": "0x43be00"
+        }
+      ]
+    },
+    "current_readonly_tables": [
+      {
+        "start": "0x43bd94",
+        "size": 8,
+        "bytes": "8ebd430048bd4300"
+      },
+      {
+        "start": "0x43bd9c",
+        "size": 53,
+        "bytes": "0001010001010101010101010101010101010101010101010101010101010101010101010101010101010101010101000000000000"
+      },
+      {
+        "start": "0x43bdd4",
+        "size": 8,
+        "bytes": "8ebd430048bd4300"
+      },
+      {
+        "start": "0x43bddc",
+        "size": 34,
+        "bytes": "00010101010101010001010101010101010101010101010101010101010101000000"
+      }
+    ],
+    "reused_table_baseline": {
+      "path": "doc/cg2d_unassigned_range_fourth_batch_evidence.json",
+      "record_index": 165,
+      "inventory_id": "X:0003BD91-0003BE00",
+      "original_size": 111,
+      "new_X_identity_or_disposition": false
+    },
+    "reused_producer_baseline": {
+      "path": "doc/cg2d_battle_append_effect_lifecycle_evidence.json",
+      "root_index": 0,
+      "inventory_id": "F:0003BE00",
+      "instruction_window": [
+        {
+          "ea": 4439552,
+          "size": 1,
+          "bytes": "53",
+          "mnem": "push",
+          "text": "push    ebx"
+        },
+        {
+          "ea": 4439553,
+          "size": 1,
+          "bytes": "56",
+          "mnem": "push",
+          "text": "push    esi"
+        },
+        {
+          "ea": 4439554,
+          "size": 1,
+          "bytes": "57",
+          "mnem": "push",
+          "text": "push    edi"
+        },
+        {
+          "ea": 4439555,
+          "size": 4,
+          "bytes": "8b7c2410",
+          "mnem": "mov",
+          "text": "mov     edi, [esp+0Ch+a1]"
+        },
+        {
+          "ea": 4439559,
+          "size": 1,
+          "bytes": "57",
+          "mnem": "push",
+          "text": "push    edi"
+        },
+        {
+          "ea": 4439560,
+          "size": 5,
+          "bytes": "e8f3feffff",
+          "mnem": "call",
+          "text": "call    BattleScene__HasAppendEffect"
+        },
+        {
+          "ea": 4439565,
+          "size": 3,
+          "bytes": "83c404",
+          "mnem": "add",
+          "text": "add     esp, 4"
+        },
+        {
+          "ea": 4439568,
+          "size": 2,
+          "bytes": "84c0",
+          "mnem": "test",
+          "text": "test    al, al"
+        },
+        {
+          "ea": 4439570,
+          "size": 2,
+          "bytes": "7473",
+          "mnem": "jz",
+          "text": "jz      short loc_43BE87"
+        }
+      ],
+      "entire_root_previously_verified": true,
+      "new_original_root_capture": false
+    },
+    "accepted_cases": [
+      8,
+      11,
+      2006,
+      2019,
+      2027
+    ],
+    "accepted_ranges": [
+      [
+        55,
+        60
+      ],
+      [
+        64,
+        66
+      ],
+      [
+        2010,
+        2012
+      ],
+      [
+        2014,
+        2015
+      ],
+      [
+        2050,
+        2052
+      ],
+      [
+        2058,
+        2067
+      ],
+      [
+        2089,
+        2095
+      ],
+      [
+        3002,
+        3016
+      ]
+    ],
+    "accepted_skill_count": 54,
+    "source_before_body": "std::uint8_t IsBattleAppendEffectSkill_43BD00(const std::int32_t skill)\n{\n    switch (skill) {\n    case 8:\n    case 11:\n    case 2006:\n    case 2019:\n    case 2027:\n        return 1;\n    default:\n        break;\n    }\n    return (skill >= 55 && skill <= 60)\n        || (skill >= 64 && skill <= 66)\n        || (skill >= 2010 && skill <= 2012)\n        || (skill >= 2014 && skill <= 2015)\n        || (skill >= 2050 && skill <= 2052)\n        || (skill >= 2058 && skill <= 2067)\n        || (skill >= 2089 && skill <= 2095)\n        || (skill >= 3002 && skill <= 3016) ? 1 : 0;\n}\n",
+    "source_after_body": "std::uint8_t IsBattleAppendEffectSkill_43BD00(const std::int32_t skill)\n{\n    switch (skill) {\n    case 8:\n    case 11:\n    case 2006:\n    case 2019:\n    case 2027:\n        return 1;\n    default:\n        break;\n    }\n    return (skill >= 55 && skill <= 60)\n        || (skill >= 64 && skill <= 66)\n        || (skill >= 2010 && skill <= 2012)\n        || (skill >= 2014 && skill <= 2015)\n        || (skill >= 2050 && skill <= 2052)\n        || (skill >= 2058 && skill <= 2067)\n        || (skill >= 2089 && skill <= 2095)\n        || (skill >= 3002 && skill <= 3016) ? 1 : 0;\n}\n",
+    "source_header_before": "std::uint8_t IsBattleAppendEffectSkill_43BD00(std::int32_t skill); // 原技能准入集合，不查询链。",
+    "source_header_after": "std::uint8_t IsBattleAppendEffectSkill_43BD00(std::int32_t skill); // 原54项技能准入集合，返回0/1；不查询链，见追加效果链SPEC。",
+    "cpp_comment_added": "// 原43BD00按S32技能号返回AL 0/1；54项集合及生产门禁见追加效果链SPEC。",
+    "source_diff": {
+      "src/YobiRuntime.cpp": [
+        "--- \n",
+        "+++ \n",
+        "@@ -22705,4 +22705,5 @@\n",
+        " }",
+        " ",
+        "+// 原43BD00按S32技能号返回AL 0/1；54项集合及生产门禁见追加效果链SPEC。",
+        " std::uint8_t IsBattleAppendEffectSkill_43BD00(const std::int32_t skill)",
+        " {"
+      ],
+      "include/cg/YobiRuntime.hpp": [
+        "--- \n",
+        "+++ \n",
+        "@@ -680,5 +680,5 @@\n",
+        "     std::int32_t* firstImages, std::int32_t* secondImages, std::int32_t* values);",
+        " ",
+        "-std::uint8_t IsBattleAppendEffectSkill_43BD00(std::int32_t skill); // 原技能准入集合，不查询链。",
+        "+std::uint8_t IsBattleAppendEffectSkill_43BD00(std::int32_t skill); // 原54项技能准入集合，返回0/1；不查询链，见追加效果链SPEC。",
+        " void AddBattleAppendEffect_43BE00(",
+        "     std::int32_t skill, std::int32_t technique, std::int32_t position); // 匹配首节点替换，否则尾插。"
+      ]
+    },
+    "previous_semantic_record": {
+      "record_index": 1916,
+      "value": {
+        "original_entry": "0x43bd00",
+        "inventory_id": "F:0003BD00",
+        "original_role": "CAC07仅原分派数据/当前源角色关联：战斗附属技能准入两组索引/目标分派数据",
+        "status": "已有真实源码，CAC07补原表/索引与源角色关联；未重新核全部原父/算法、未记完整函数处置或软件门禁通过",
+        "sources": [
+          {
+            "path": "src/YobiRuntime.cpp",
+            "symbols": [
+              "cg::login::detail::IsBattleAppendEffectSkill_43BD00"
+            ],
+            "relationship": "按当前带函数体的唯一定义确认源身份，继承具名旧合同；本组只核原分派表数据与此源角色关联，不新增实现或宣称全函数等价。"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-baseline",
+          "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-decision",
+          "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+          "doc/cg2d_unassigned_range_fourth_batch_evidence.json",
+          "doc/ui_windows/shared_battle.md"
+        ],
+        "boundary": "原函数身份来自既有库存/实际数据取用父；完整X用途与源码已存在分开。不以父元数据或表目标代所有签名/字段/分支/依赖/正常寿命或机器ABI/运行验收。",
+        "verification_level": "只该父原X完整字节、实际guard/BYTE/JMP取用邻窗、W32表全部指针/target owner、当前真实定义与旧合同关联；源码未改，不构建/测试/运行/摘要。",
+        "range_fourth_batch_data": {
+          "step": "CAC07",
+          "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
+          "ranges": [
+            "X:0003BD91-0003BE00"
+          ],
+          "current_definition_line": 22663,
+          "association_only": true,
+          "full_original_body_recaptured": false,
+          "runtime_verified": false
+        }
+      }
+    },
+    "new_function_count": 0,
+    "new_implementation_count": 0,
+    "new_known_member_count": 0,
+    "new_function_disposition_count": 1,
+    "new_static_evidence_count": 1,
+    "full_lifecycle_closed": false,
+    "runtime_verified": false,
+    "verification": {
+      "status": "source_static_pass",
+      "measurement_check": "pass",
+      "other_source_and_headers_unchanged": true,
+      "complete_root_contiguous_and_inventory_matched": true,
+      "four_current_tables_match_CAC07": true,
+      "accepted_cases_and_ranges_match_source": true,
+      "only_two_comments_changed": true,
+      "previous_semantic_and_CAC07_preserved": true,
+      "registry_and_five_tasks_increment_matched": true,
+      "UTF8_no_BOM_LF": true,
+      "measurement_result": "生成与-Check均exit0；主指标只有F处置1468→1469，合同/语义/成员/原分母/政策/完整门禁/六closure和构建历史保持。"
+    },
+    "limits": [
+      "仅原已知唯一直接CALL，不证明未知间接alias或全部父数据。",
+      "不保证原EAX高位，不重建私有表跳转/机器ABI或专项回绕异常。",
+      "完整生产数据/全部资源owner、SDK正常结果/重进退出与运行仍待。",
+      "未编译/测试/运行/算法/查产物/计算摘要，无新依赖。"
+    ]
+  }
 }

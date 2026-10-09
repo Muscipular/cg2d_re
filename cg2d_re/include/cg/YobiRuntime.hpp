@@ -679,7 +679,7 @@ void TakeBattleMAuxGraphics_43BF30(
     YobiAction* action, std::int32_t mode, std::int32_t* firstImage, std::int32_t* secondImage,
     std::int32_t* firstImages, std::int32_t* secondImages, std::int32_t* values);
 
-std::uint8_t IsBattleAppendEffectSkill_43BD00(std::int32_t skill); // 原技能准入集合，不查询链。
+std::uint8_t IsBattleAppendEffectSkill_43BD00(std::int32_t skill); // 原54项技能准入集合，返回0/1；不查询链，见追加效果链SPEC。
 void AddBattleAppendEffect_43BE00(
     std::int32_t skill, std::int32_t technique, std::int32_t position); // 匹配首节点替换，否则尾插。
 std::int32_t FindBattleAppendEffectTechnique_43BEA0(

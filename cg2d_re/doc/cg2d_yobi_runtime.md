@@ -4632,3 +4632,8 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 ## 2026-10-10 BEMS01：完整退出CHT/BST消费
 
 [完整扫描合同](cg2d_battle_exit_message_scan_spec.md#battle-exit-message-source-state)将旧816号局部M头连接扩为107条363B完整根，固定入口payload/各次fresh场景对象、只25头中的CHT/BST、CHT四整数/256B文本-原音效/聊天与BST当前玩家正常计时/原负值置零均现正确保持。原额外音效240不被本体读取，现两参数接口保；只两注释/一限定S，零新I或函数。两原调用来自场景9/7，追加效果清理的既有区别保持；所有M数据、父-callee/scene借用owner和SDK声音画面运行仍待，完整门禁保持。
+
+<a id="battle-append-skill-runtime-20261010"></a>
+## 2026-10-10 BAES01：追加效果技能资格
+
+[完整资格合同](cg2d_battle_append_effect_lifecycle_spec.md#battle-append-skill-source-state)补43BD00整根43条145B、54项技能与唯一43BE08的AL门禁；两索引表与直接分支对应当前五case/八区间，正文正确保持，只两注释/一限定S，零新I/函数/成员。旧1916/CAC07完整前态保，拒绝时生产早返、合格后才读链/分配，Add/Find/Clear和场景原顺序保持。全生产数据、间接alias、owner/SDK正常结果与运行仍待，完整门禁保持。

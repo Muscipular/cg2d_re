@@ -22704,6 +22704,7 @@ std::int32_t Sub_43BAA0()
     }
 }
 
+// 原43BD00按S32技能号返回AL 0/1；54项集合及生产门禁见追加效果链SPEC。
 std::uint8_t IsBattleAppendEffectSkill_43BD00(const std::int32_t skill)
 {
     switch (skill) {

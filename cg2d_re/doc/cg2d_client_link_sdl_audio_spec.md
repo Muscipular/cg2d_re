@@ -254,3 +254,43 @@ CAB19空间音频生产者使用的46CE30已由[真实连续x87体](cg2d_project
 [524230当前加载段](cg2d_audio_update.md#audio-loader-publication-source-state)已修复提前合并volume/pitch检查，原sampleIndex/两路径→volume检查/发布→pitch检查→loop采样/两字段发布保持；三个真实53B304路径取代宿主snprintf，BGM三个值先取再写。270静态项、64通道/两128表owner及SDL/MMIO/fileIO/频率与其余正文不改。运行尾窗351条1191B和三调用/源序有[证据](cg2d_audio_loader_publication_evidence.json)，父元数据不代完整前段或所有失败/机器ABI验收。
 
 当前Debug0错误/0增量警告、父/原格式包装/核心已链接，8022528B游戏EXE更新/旧8023040B备份；一个原语义/F和AUDIO41已知成员纳管但枚举false。声音/正常资源寿命/完整SDK失败、旧7/8外层与IP2/整体门禁保持，未运行/测试/工具、重生成WAV或摘要，离线最近通过仍CAB15，旧窗口诊断未关闭。
+
+
+<a id="offline-midi-control-decision-20261009"></a>
+## CAC13 离线音乐通道控制合同与裁决（2026-10-09）
+
+沿CAA01/CAB02/CAB12的既有离线MIDI/DLS→PCM→WAV方案及用户恢复音频开发授权，本线程按AGENTS第8条工程委托落实已列“控制器尚未全部影响PCM”中的一组实际缺口。运行客户端仍只播放WAV；本步改变离线提供者，不恢复运行时MIDI，不引入依赖，不重生成音源。
+
+当前LegacyMidiSynth::Impl::Apply把CC120与CC123都强制设release，前者不能立即静音，后者绕过已有CC64延音；Render每帧从当前RPN选择和共享CC6/38求fine tuning，切换/注销RPN会丢失已设置微调，其他参数的Data Entry会污染微调；bend幅度固定两半音，RPN0/2尚未影响PCM。
+
+原端音色/loader职责沿[既有CAB12合同](#offline-bank-lifetime-source-state)承接。下列控制语义依据[MIDI协会控制表](https://midi.org/midi-1-0-control-change-messages)及[消息概要](https://midi.org/summary-of-midi-1-0-messages)，CC123与延音优先关系见[MIDI 1.0 Detailed Specification的原标准文本](https://people.carleton.edu/~jellinge/cs312_w2020/pdf/_complete_midiSpec1_0.pdf)“THE RELATIONSHIP BETWEEN THE HOLD PEDAL AND ALL NOTES OFF”（检索可见，PDF正文访问受限）。这些是已批准离线替换的机制合同，不冒称cg2d原私有MIDI/COM函数体或默认驱动波形等价。
+
+| 消息/状态 | 本步实施合同 |
+|---|---|
+| CC120 All Sound Off | 同通道活动voice清空，随后的PCM帧不再消费该声部；保其他通道、bank/region/sample和事件位置 |
+| CC123 All Notes Off | 只将同通道活动voice的keyUp置true，交现有CC64判定进入release；不重复覆盖已经进入release的包络/计时 |
+| CC101/100 RPN选择 | 保存原7位字节并切为RPN模式；选择只改变Data Entry目标，不撤销已设置音高值；127/127自然无匹配目标 |
+| CC99/98 NRPN选择 | 保存原控制字节并切为NRPN模式，后续CC6/38不更新本组RPN值；未知NRPN作用继续未实现，不猜厂商参数 |
+| RPN0/CC6与CC38 | 各通道独立保存半音与音分范围；初值2半音/0音分沿既有两半音范围，弯音=(bend−8192)/8192×(半音＋音分/100) |
+| RPN1/CC6与CC38 | 独立保存14位微调值，初值8192；更新MSB或LSB时保留该参数另一半，贡献=(value−8192)/8192半音；注销/换参数仍保持 |
+| RPN2/CC6 | 独立保存粗调，初值64；贡献=value−64半音，CC38不改变它 |
+| 序列Start/循环重置 | Channel值初始化回上述既有无偏移/两半音初态，三个参数无跨序列残留；bank/样本owner和事件时序保持 |
+
+源码仅修改离线LegacyMidiSynth.cpp的Channel成员、Apply控制分支和Render音高表达式；不改变LoadDls/LoadMidi/voice分配、波形插值、包络算法、整体增益、轨道终点或当前内置WAV。通道状态归原Impl/channels持有，不新增全局表、公开接口或资源owner；正常7位Data Entry保留，不新增钳制/默认事件/异常模拟。
+
+本步不扩为全MIDI/DLS通过：CC121完整重置、CC96/97相对调参、其他RPN/NRPN、DLS动态调制/合唱、全部声音/失败/生命周期及听感对照继续开放。P11/P16/V05与FUNC-AUDIO完整门禁保持；不修改函数分母/原成员或宣布原新机器ABI等价。
+
+<a id="offline-midi-control-acceptance-20261009"></a>
+## CAC13 验收边界
+
+局部I：消息→同一通道参数/voice→现有Render实际消费完整源码路径；CC120/123行为分开，RPN0/1/2独立保持与NRPN/Null隔离，重置落在既有channels初始化。局部S：仅上述三处源码差异、普通消息/解析/资源/客户端/WAV正文保持、文档/登记精确增量和UTF-8/LF核对。只做静态检查，不构建、执行转换器/算法样例/测试、试听、部署或计算摘要；实际PCM/WAV及旧驱动对照待对应授权。
+
+
+<a id="offline-midi-control-source-state-20261009"></a>
+## CAC13 源码实施与局部静态结果
+
+已在LegacyMidiSynth.cpp三处落实上述控制合同：Channel新增独立RPN参数与选择状态，Apply分开CC120即时清声部/CC123普通松键并接RPN Data Entry，Render直接消费已保存粗微调/弯音范围。Null/换选择不撤销参数，NRPN消息不串写；ResetSequence原channels={}恢复值初始化，现CC64及release计时、DLS解析、事件/轨道、声部调度/包络/插值和其它PCM正文保持。
+
+三处以外整CPP、公开头、转换器及客户端保持；限定源码/状态读写/同通道/7位拼接/正常类型和重置静态核对通过，证据见[cg2d_offline_midi_control_evidence.json](cg2d_offline_midi_control_evidence.json)。两条局部FUNC-AUDIO I/S只说明离线替换代码路径，不提升完整功能门禁或新增原身份/成员/处置；P11/P16/V05开放、所有运行限制保持。原证据不重新裁定，本步也没有观察到或宣称已修某次实际声音故障。
+
+固定源码引用：cg2d-re-offline-midi-control-20261009。尚未构建、执行转换、测试/算法样例、重生成WAV、试听或部署；现有游戏音源保持旧版本。待运行授权后验证本组实际PCM/声音/事件重置和音源质量，其余控制/DLS/生命周期继续推进。

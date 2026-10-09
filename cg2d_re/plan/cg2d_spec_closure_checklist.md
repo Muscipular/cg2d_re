@@ -29,12 +29,12 @@
 | P08 / 4626A0 | 已关闭（局部源码合同）；WorldUpdate显式gate=1，本体与调用顺序已对齐 | 本体及顺序保持；完整创建/数据/请求验收沿U03/V03继续 | [静态证据](../doc/cg2d_creation_and_module_adaptation_evidence.md#p08-创建入口显式gate) |
 | P09 / 403C50 | 已关闭（局部源码合同）；旧帧源码工作项历史关闭；当前接服务端既有LF明文取行 | CAC04仅证明一次选人入场恢复；半行/连续行、重连/断线、完整互通与生命周期仍按V03验收。 | [当前源码状态](../doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state) |
 | P10 / 403E50 | 已关闭（局部源码合同）；旧帧源码工作项历史关闭；当前接原命令/原字段明文入队 | 原字段、队列owner和部分发送保留；完整互通及V03仍待运行证据 | [当前源码状态](../doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state) |
-| P11 / 454C30 | 开放；固定WAV、独立音乐流和音量表已有提供者，历史链接通过 | 验实际资源/设备失败/声音与音源效果对照 | [固定WAV交付](../doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state)；[证据](../doc/cg2d_fixed_music_wav_evidence.json) |
+| P11 / 454C30 | 开放；固定WAV、独立音乐流和音量表已有提供者，历史链接通过；CAC13离线即时静音/松键与RPN0/1/2控制已补，WAV未重生成 | 验实际资源/设备失败/声音与音源效果对照 | [固定WAV交付](../doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state)；[证据](../doc/cg2d_fixed_music_wav_evidence.json) ；[CAC13](../doc/cg2d_client_link_sdl_audio_spec.md#offline-midi-control-source-state-20261009) |
 | P12 / 454EE0 | 开放；停止/销毁流、释放PCM及共享设备清理已接，历史链接通过 | 验回调停止、共享设备及真实退出寿命 | [固定WAV交付](../doc/cg2d_client_link_sdl_audio_spec.md#fixed-music-wav-source-state) |
 | P13 / 458AE0 | 开放；实际SDL设备能力与独立输入入口已有提供者，历史链接通过 | 验实际能力及设备/输入失败分支 | [CAA01](../doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state) |
 | P14 / 4FDBD0 | 开放；旧音乐页面、两初始化/五控件及回调绑定已有，开发已恢复 | 实际旧99表外层、完整保存/声音及owner寿命待；历史链接不代当前版本或完整流程验收。 | [当前源码](../doc/cg2d_display_settings.md#audio-settings-pages-source-state) |
 | P15 / 4FE0E0 | 开放；旧音效页面、初始化/八控件及音量/声道回调已有，开发已恢复 | 实际旧99表外层、完整保存/声音/声道与owner寿命待；原15/0界限及S32读取保留。 | [当前源码](../doc/cg2d_display_settings.md#audio-settings-pages-source-state) |
-| P16 / 50E680 | 开放；murD真实提供者、固定WAV/混响与必要离线依赖已接，历史链接通过 | 验效果创建/格式、WAV质量/全DLS/原默认波形、声音/设备/失败/寿命、有限无限重复/停止与murD互通 | [CAB12](../doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-source-state)；[CAB11](../doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-source-state) |
+| P16 / 50E680 | 开放；murD真实提供者、固定WAV/混响与必要离线依赖已接，历史链接通过；CAC13离线即时静音/松键与RPN0/1/2控制已补，WAV未重生成 | 验效果创建/格式、WAV质量/全DLS/原默认波形、声音/设备/失败/寿命、有限无限重复/停止与murD互通 | [CAB12](../doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-source-state)；[CAB11](../doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-source-state) ；[CAC13](../doc/cg2d_client_link_sdl_audio_spec.md#offline-midi-control-source-state-20261009) |
 | P17 / 52C3D0 | 开放；真实BGM音量应用及后续运行表/控制已接，历史链接通过 | 验声音变化及实际失败/owner | [CAA01](../doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state) |
 | P18 / 5202E0 | 已关闭（局部源码合同）；Filename[256]入口一次预清的局部适配已落位 | 原API/后续失败与成功消费保持；完整登录/API及运行沿V03继续 | [静态证据](../doc/cg2d_creation_and_module_adaptation_evidence.md#p18-模块路径预清) |
 
@@ -107,7 +107,7 @@
 | V02 / 完整启动退出/链接 | 开放；历史Debug客户端及离线工具链接通过；CAC06–11后续源码未构建 | 当前源码编译/链接、跨TU首次使用/SDK ABI、所有owner/alias及normal/quick/callable完整退出仍待相应授权与验收。 | [历史构建证据](../doc/cg2d_build_acceptance_spec.md) |
 | V03 / 登录与网络真实流程 | 开放；当前原命令/字段/LF明文链已接；CAC04用户确认本次选人入场正常 | 全部108业务、原字段/整数、失败/重连/断线/数据/owner及适用互通对照待验；不重复修已恢复连接。 | [用户复验](../doc/cg2d_build_acceptance_spec.md#character-entry-confirmed-20261009) |
 | V04 / 世界/UI/渲染/输入 | 开放；世界/UI/战斗/渲染/输入局部实现持续补齐；近期MAP/UI/资源仅静态核对 | 获准后按同输入、资源、初值核地图/UI/战斗、焦点/IME、模式和画面 | [总SPEC门禁](cg2d_full_reconstruction_plan.md#10-完成门禁) |
-| V05 / 音频真实流程 | 开放；SDL3/WAV和旧7/8开发已恢复，原控制/空间声效/混响等已有；声音未完整验收 | 继续真实旧外层、全DLS/原默认波形及全部状态/失败/生命周期；获运行授权后验效果创建/格式、声音、通知、音量、循环与退出 | [CAB12](../doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-source-state)；[CAB11](../doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-source-state) |
+| V05 / 音频真实流程 | 开放；SDL3/WAV和旧7/8开发已恢复，原控制/空间声效/混响等已有；声音未完整验收；CAC13离线即时静音/松键与RPN0/1/2控制已补，WAV未重生成 | 继续真实旧外层、全DLS/原默认波形及全部状态/失败/生命周期；获运行授权后验效果创建/格式、声音、通知、音量、循环与退出 | [CAB12](../doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-source-state)；[CAB11](../doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-source-state) ；[CAC13](../doc/cg2d_client_link_sdl_audio_spec.md#offline-midi-control-source-state-20261009) |
 | V06 / 最终验收报告 | 开放；尚无完整R8结果；六类closure均open，184叶整项验收0 | 汇总R01–R05和V01–V05，逐适用门禁列结果/未决/例外 | [MRC01](../doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state) |
 
 ## 9. 后续推进与维护

@@ -131,6 +131,11 @@ struct LegacyMidiSynth::Impl {
         std::array<std::uint8_t, 128> control {};
         std::uint8_t program {};
         std::uint16_t bend {8192};
+        // RPN0/1/2各自持有参数；切换选择不丢值，序列重置由channels={}恢复。
+        std::uint8_t bendSemitones {2}, bendCents {};
+        std::uint16_t fineTuning {8192};
+        std::uint8_t coarseTuning {64};
+        bool nrpnSelected {}; // CC99/98后Data Entry不再写RPN，CC101/100重新选择RPN。
     };
     struct Voice {
         const Region* region {};
@@ -313,8 +318,39 @@ struct LegacyMidiSynth::Impl {
         auto& channel = channels[number]; const auto kind = event.status & 0xF0;
         if (kind == 0xB0) {
             channel.control[event.first] = event.second;
-            if (event.first == 120 || event.first == 123) {
-                for (auto& voice : voices) { if (voice.region != nullptr && voice.channel == number) { voice.keyUp = true; voice.released = true; voice.releasedLevel = voice.envelope; } }
+            if (event.first == 120) {
+                // All Sound Off立即静音；不进入包络release或受延音踏板阻挡。
+                for (auto& voice : voices) {
+                    if (voice.region != nullptr && voice.channel == number) { voice = {}; }
+                }
+            } else if (event.first == 123) {
+                // All Notes Off沿普通松键/CC64路径释放，保留已经开始的release。
+                for (auto& voice : voices) {
+                    if (voice.region != nullptr && voice.channel == number) { voice.keyUp = true; }
+                }
+            } else if (event.first == 100 || event.first == 101) {
+                channel.nrpnSelected = false;
+            } else if (event.first == 98 || event.first == 99) {
+                channel.nrpnSelected = true;
+            } else if ((event.first == 6 || event.first == 38)
+                && !channel.nrpnSelected && channel.control[101] == 0) {
+                // Data Entry只改所选参数的对应7位组；127/127与未知RPN不命中。
+                switch (channel.control[100]) {
+                case 0:
+                    if (event.first == 6) { channel.bendSemitones = event.second; }
+                    else { channel.bendCents = event.second; }
+                    break;
+                case 1:
+                    channel.fineTuning = event.first == 6
+                        ? static_cast<std::uint16_t>((channel.fineTuning & 0x7Fu)
+                            | (std::uint16_t(event.second) << 7))
+                        : static_cast<std::uint16_t>((channel.fineTuning & 0x3F80u) | event.second);
+                    break;
+                case 2:
+                    if (event.first == 6) { channel.coarseTuning = event.second; }
+                    break;
+                default: break;
+                }
             }
             return;
         }
@@ -380,9 +416,11 @@ struct LegacyMidiSynth::Impl {
                     const double value = source[index * 2 + side] * (1.0 - fraction) + source[next * 2 + side] * fraction;
                     stereo[i * 2 + side] += static_cast<float>(value * gain * (side == 0 ? (pan > 0 ? 1 - pan : 1) : (pan < 0 ? 1 + pan : 1)));
                 }
-                double tuning = 0;
-                if (channel.control[101] == 0 && channel.control[100] == 1) { tuning = (channel.control[6] * 128 + channel.control[38] - 8192) / 8192.0; }
-                const double pitch = voice.key - parameters.unity + (parameters.fine / 100.0) + tuning + (static_cast<double>(channel.bend) - 8192.0) / 4096.0;
+                const double tuning = (static_cast<double>(channel.fineTuning) - 8192.0) / 8192.0
+                    + static_cast<double>(channel.coarseTuning) - 64.0;
+                const double bendRange = channel.bendSemitones + channel.bendCents / 100.0;
+                const double pitch = voice.key - parameters.unity + (parameters.fine / 100.0) + tuning
+                    + (static_cast<double>(channel.bend) - 8192.0) / 8192.0 * bendRange;
                 voice.cursor += voice.wave->frequency / static_cast<double>(kSampleRate) * std::exp2(pitch / 12.0);
             }
             ++frame;

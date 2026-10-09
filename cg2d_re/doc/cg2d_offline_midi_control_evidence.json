@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "step": "CAC13",
+  "recorded_on": "2026-10-09",
+  "source_snapshot": "cg2d-re-offline-midi-control-20261009",
+  "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#offline-midi-control-decision-20261009",
+  "verification_level": "离线替换机制及三处源差异限定静态；未构建/测试/运行/产物/转换/重生成WAV/试听/摘要",
+  "original_function_count": 0,
+  "new_original_identity_count": 0,
+  "basis": [
+    {
+      "reference": "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-source-state",
+      "scope": "既有离线音色/loader职责与唯一owner，不重取原根或新增原函数身份"
+    },
+    {
+      "url": "https://midi.org/midi-1-0-control-change-messages",
+      "scope": "CC6/38、RPN0/1/2、NRPN与Null选择，2026-10-09读取控制表"
+    },
+    {
+      "url": "https://midi.org/summary-of-midi-1-0-messages",
+      "scope": "CC120即时静音、CC123松键及14位弯音中心，2026-10-09读取"
+    },
+    {
+      "url": "https://people.carleton.edu/~jellinge/cs312_w2020/pdf/_complete_midiSpec1_0.pdf",
+      "scope": "原MIDI 1.0标准的hold/All Notes Off章节检索原文支持延音优先；PDF正文访问受限"
+    }
+  ],
+  "source_before_reference": "Git已提交版本 cg2d-re-offline-midi-control-20261009 的父提交，仅本步source_delta逆向可恢复三处前态",
+  "source_delta": "diff --git a/cg2d_re/src/tools/LegacyMidiSynth.cpp b/cg2d_re/src/tools/LegacyMidiSynth.cpp\n--- a/cg2d_re/src/tools/LegacyMidiSynth.cpp\n+++ b/cg2d_re/src/tools/LegacyMidiSynth.cpp\n@@ -131,6 +131,11 @@ struct LegacyMidiSynth::Impl {\n         std::array<std::uint8_t, 128> control {};\n         std::uint8_t program {};\n         std::uint16_t bend {8192};\n+        // RPN0/1/2各自持有参数；切换选择不丢值，序列重置由channels={}恢复。\n+        std::uint8_t bendSemitones {2}, bendCents {};\n+        std::uint16_t fineTuning {8192};\n+        std::uint8_t coarseTuning {64};\n+        bool nrpnSelected {}; // CC99/98后Data Entry不再写RPN，CC101/100重新选择RPN。\n     };\n     struct Voice {\n         const Region* region {};\n@@ -313,8 +318,39 @@ struct LegacyMidiSynth::Impl {\n         auto& channel = channels[number]; const auto kind = event.status & 0xF0;\n         if (kind == 0xB0) {\n             channel.control[event.first] = event.second;\n-            if (event.first == 120 || event.first == 123) {\n-                for (auto& voice : voices) { if (voice.region != nullptr && voice.channel == number) { voice.keyUp = true; voice.released = true; voice.releasedLevel = voice.envelope; } }\n+            if (event.first == 120) {\n+                // All Sound Off立即静音；不进入包络release或受延音踏板阻挡。\n+                for (auto& voice : voices) {\n+                    if (voice.region != nullptr && voice.channel == number) { voice = {}; }\n+                }\n+            } else if (event.first == 123) {\n+                // All Notes Off沿普通松键/CC64路径释放，保留已经开始的release。\n+                for (auto& voice : voices) {\n+                    if (voice.region != nullptr && voice.channel == number) { voice.keyUp = true; }\n+                }\n+            } else if (event.first == 100 || event.first == 101) {\n+                channel.nrpnSelected = false;\n+            } else if (event.first == 98 || event.first == 99) {\n+                channel.nrpnSelected = true;\n+            } else if ((event.first == 6 || event.first == 38)\n+                && !channel.nrpnSelected && channel.control[101] == 0) {\n+                // Data Entry只改所选参数的对应7位组；127/127与未知RPN不命中。\n+                switch (channel.control[100]) {\n+                case 0:\n+                    if (event.first == 6) { channel.bendSemitones = event.second; }\n+                    else { channel.bendCents = event.second; }\n+                    break;\n+                case 1:\n+                    channel.fineTuning = event.first == 6\n+                        ? static_cast<std::uint16_t>((channel.fineTuning & 0x7Fu)\n+                            | (std::uint16_t(event.second) << 7))\n+                        : static_cast<std::uint16_t>((channel.fineTuning & 0x3F80u) | event.second);\n+                    break;\n+                case 2:\n+                    if (event.first == 6) { channel.coarseTuning = event.second; }\n+                    break;\n+                default: break;\n+                }\n             }\n             return;\n         }\n@@ -380,9 +416,11 @@ struct LegacyMidiSynth::Impl {\n                     const double value = source[index * 2 + side] * (1.0 - fraction) + source[next * 2 + side] * fraction;\n                     stereo[i * 2 + side] += static_cast<float>(value * gain * (side == 0 ? (pan > 0 ? 1 - pan : 1) : (pan < 0 ? 1 + pan : 1)));\n                 }\n-                double tuning = 0;\n-                if (channel.control[101] == 0 && channel.control[100] == 1) { tuning = (channel.control[6] * 128 + channel.control[38] - 8192) / 8192.0; }\n-                const double pitch = voice.key - parameters.unity + (parameters.fine / 100.0) + tuning + (static_cast<double>(channel.bend) - 8192.0) / 4096.0;\n+                const double tuning = (static_cast<double>(channel.fineTuning) - 8192.0) / 8192.0\n+                    + static_cast<double>(channel.coarseTuning) - 64.0;\n+                const double bendRange = channel.bendSemitones + channel.bendCents / 100.0;\n+                const double pitch = voice.key - parameters.unity + (parameters.fine / 100.0) + tuning\n+                    + (static_cast<double>(channel.bend) - 8192.0) / 8192.0 * bendRange;\n                 voice.cursor += voice.wave->frequency / static_cast<double>(kSampleRate) * std::exp2(pitch / 12.0);\n             }\n             ++frame;\n",
+  "static_checks": {
+    "outside_three_source_ranges_unchanged": true,
+    "all_sound_off_clears_matching_active_voices": true,
+    "all_notes_off_only_marks_key_up": true,
+    "sustain_release_consumer_unchanged": true,
+    "parameter_selection_does_not_reset_values": true,
+    "fine_tuning_entry_preserves_other_seven_bits": true,
+    "coarse_tuning_ignores_data_entry_lsb": true,
+    "nrpn_and_null_do_not_update_rpn": true,
+    "sequence_reset_uses_channel_value_initializers": true,
+    "parser_and_dls_owner_and_remaining_render_unchanged": true,
+    "registry_exact_increment_and_old_gates_preserved": true,
+    "measure_and_check_passed": true,
+    "utf8_without_bom_lf_and_diff_check_passed": true
+  },
+  "runtime_verified": false,
+  "wav_regenerated": false,
+  "remaining": [
+    "CC121完整重置",
+    "CC96/97相对调参",
+    "其他RPN/NRPN与DLS动态调制/合唱",
+    "实际PCM/WAV/默认驱动波形与全部声音/失败/寿命",
+    "运行授权与完整验收"
+  ]
+}

@@ -89,3 +89,14 @@ CAC06–11后续实现按静态证据推进，未构建/运行当前源码。最
 维护验证通过：原库存与登记计数、60任务号/11关闭集合、引用文件/保留锚点、UTF-8无BOM/LF及git diff --check；既有静态汇总器和-Check均通过。派生快照仅60条任务的current/next/completion文本变化，其余结构和值保持；总SPEC§10.1–10.3与原复盘正文逐字保持，不新增或执行项目测试。全部软件证据/门禁及历史构建状态保持；用户既有基线、根进度、配置与删除文件不夹带。
 
 历史全文入口：本次 `cg2d-re-spec-history-20261009-before-progress-compression`；此前 `cg2d-re-spec-history-20261004-crt-body-frontier`、`cg2d-re-spec-history-20261004-format-frontier`、`cg2d-re-spec-history-20261004-before-closure-compression`、`cg2d-re-spec-history-20261003`。通过Git按命名引用与原路径读取，不计算文件摘要或创建整份归档副本。
+
+
+## CAC13 持续整体目标与离线音源控制开发（2026-10-09）
+
+按用户“设定目标：继续完成整体SPEC”建立active持续目标，保留单线程、不构建/测试/运行/产物/摘要及总SPEC§10门禁。先定位渲染资源/模式已知缺口，原已打开IDA只读核可选1020EC4引用与45A900现源；该查询没有给出可选源生产/alias的新事实，未猜值或造提供者，未将定位列作实现成果。转入已恢复的音频范围，先在现音频SPEC记录离线控制合同与委托裁决，再实施。
+
+仅离线LegacyMidiSynth.cpp三处：CC120即时清同通道voice，CC123只松键交已有CC64/release；RPN0弯音范围、RPN1微调、RPN2粗调各自保存并真实用于Render，Data Entry按7位组更新，换选择/Null不丢值，NRPN不串写；原序列重置恢复无偏移/两半音初态。无新原身份/全局owner/公开接口，LoadDls/LoadMidi、其它声部/包络/PCM和现客户端/音源资产保持。合同/依据与差集见[音频现源](../doc/cg2d_client_link_sdl_audio_spec.md#offline-midi-control-source-state-20261009)、[静态材料](../doc/cg2d_offline_midi_control_evidence.json)。
+
+集中源码静态核对三处外全文、同通道/延音、RPN独立值/拼接/选择隔离与原重置通过；两限定FUNC-AUDIO I/S登记，软件证据1310→1312，语义1964/原ID1943＋21区间身份、F处置1097/区间1509/导入16保持。P11/P16/V05同步来源仍open，184叶整项验收0/60任务关闭11和六closure保持；首次静态汇总因三任务行编号前多一空格拒绝识别，未写错误派生；修正行格式后生成与-Check均通过，计数/11关闭集合和全部门禁保持，git diff --check/UTF-8无BOM/LF及登记精确增量核对通过，随后精确提交。本步未构建/转换/测试/算法样例/客户端/检查产物/摘要、重生成WAV/试听或部署，不能把离线源码改动称当前游戏声音已更新。CC121/96/97、其余控制/DLS调制、完整PCM/声音/正常寿命与原新验收仍待，整体目标继续active。
+
+固定引用cg2d-re-offline-midi-control-20261009；用户原基线、根进度、配置和删除改动保留不夹带。

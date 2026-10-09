@@ -2291,3 +2291,10 @@ F:00078330新增adapted，1937已有映射加本步原根/差集，无新F或语
 [先行裁决](cg2d_startup_flow.md#window-resource-module-decision-20261009)和[当前源码](cg2d_startup_flow.md#window-resource-module-source-state-20261009)登记三个局部STARTUP I/W/S：新增同目录原客户端只读资源映像提供者、真实WinMain两加载点及原ID/现句柄与SetCursor消费。原启动164条605B/十一W16 ID有据，现RC只有WAV的源条件已核；本次未读/重开原EXE或实际映射，静态不能代资源权限/像素/热点及SDK运行。
 
 既有173语义更新、一adapted原WinMain处置；三域仅新增已知成员且枚举false，无新原身份或语义/全功能分母。G05原在收尾表中，现首次加入登记簿open，60任务分母不变；C04/R01/R04/V01/V04仍open。全部完整B/I/W/S/R及六closure保持，局部实施不是整体完成，资源实际匹配/加载成功失败与正常寿命/原新运行及总SPEC§10/R8继续。
+
+
+## CAC13 离线音源通道控制限定验收（2026-10-09）
+
+[先行裁决](cg2d_client_link_sdl_audio_spec.md#offline-midi-control-decision-20261009)、[现源状态](cg2d_client_link_sdl_audio_spec.md#offline-midi-control-source-state-20261009)及[三处差集/标准依据](cg2d_offline_midi_control_evidence.json)登记两条局部FUNC-AUDIO I/S：CC120立即静音、CC123经原延音/release消费，RPN0/1/2独立保存和Render实际消费、Null/NRPN隔离与序列重置。只离线提供者代码，无新原函数/语义/R7处置或成员；不称原私有MIDI/COM算法或波形等价。
+
+软件证据1310→1312，完整gates/184叶验收0/60任务关闭11及六closure保持；P11/P16/V05只加本步来源继续open。未构建/转换/运行/测试/摘要或重生成WAV；当前客户端资产保持，听感/PCM、其余控制和DLS动态调制及正常寿命未验，不用局部静态关闭总SPEC§10/R8。

@@ -11,10 +11,10 @@
   "execution_policy": {
     "runtime_allowed": false,
     "audio_paused": false,
-    "no_build": false,
+    "no_build": true,
     "no_tests": true,
     "no_hash": true,
-    "build_scope": "CAA01恢复必要SDL音频链接；CAB04/CAB05及CAB15沿用户编译、连接修复和继续完善音频授权复用现有Windows/MSVC/x64 Debug配置完成相关必要编译链接。测试/客户端运行/摘要限制保持，无关后续构建未自动恢复",
+    "build_scope": "2026-10-09本次用户重设整体目标：不构建、不测试、不运行、不计算摘要、单线程；此前CAA01/CAB/CAC的单次构建、部署和用户手动复验只保留历史结果，不延续为本轮或后续执行授权。静态文本汇总按既有追踪SPEC允许。",
     "audio_resumed_for_client_link": [
       "F:00054C30",
       "F:00054EE0",
@@ -57381,7 +57381,8 @@
         "doc/cg2d_projection_sampling_return_spec.md#projection-x87-source-state",
         "doc/cg2d_projection_x87_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#projection-x87-source-state",
-        "doc/cg2d_build_acceptance_spec.md#projection-x87-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#projection-x87-debug-build",
+        "plan/cg2d_spec_review_20261009.md#current-spec-review"
       ]
     },
     {

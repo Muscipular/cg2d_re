@@ -1,7 +1,7 @@
 # cg2d 完整还原独立执行计划
 
 > 建立：2026-09-14；按用户要求于2026-10-04压缩更新。**整体SPEC未完成，完成总PLAN的目标继续有效。**
-> 2026-10-09用户再次设置目标：完成本总SPEC，优先开发缺口并逐项验收。当前先解决本机连接卡住；收发以[服务端既有明文合同](../doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract)为准，旧W16外壳/命令变换不再接入明文链。[CAB15当前构建](../doc/cg2d_build_acceptance_spec.md#current-audio-debug-build)已覆盖后续音频及必要依赖，客户端/离线工具链接通过且游戏EXE已更新；实际登录与整体验收未通过前不关闭目标。
+> 2026-10-09用户再次设置目标：完成本总SPEC，优先开发缺口并逐项验收。本次用户已确认此前本机连接故障已好，继续整体缺口；收发以[服务端既有明文合同](../doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract)为准，旧W16外壳/命令变换不再接入明文链。[CAB15当前构建](../doc/cg2d_build_acceptance_spec.md#current-audio-debug-build)已覆盖后续音频及必要依赖，客户端/离线工具链接通过且游戏EXE已更新；实际登录与整体验收未通过前不关闭目标。
 > CAB06依用户“继续完善音频部分”恢复其余音频开发，先补[旧设置五回调](../doc/cg2d_display_settings.md#audio-settings-callback-source-state)；既有暂停叙述为历史，源码/接线和运行仍分项验收。采用SDL3/WAV、第二段空音频，不恢复运行时MIDI。
 > CAB07已补[旧音乐/音效页面及两初始化](../doc/cg2d_display_settings.md#audio-settings-pages-source-state)，原两CRT槽按顺序接入；新增UI-L-007/008独立追踪，源投影72＋15 SDK＝87。完整分母仍未闭合，实际旧外层、当前源码编译与运行仍未验收。
 > CAB12当前已知AUDIO32均有具名来源，[固定PCM混响](../doc/cg2d_client_link_sdl_audio_spec.md#fixed-wav-reverb-source-state)与[离线音色寿命](../doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-source-state)源码已补；这只关闭已列音频身份缺定位，成员枚举、全DLS/原默认波形、全部设备/失败/声音/正常寿命及当前链接运行仍开放。机器实值以度量看板为准，不以历史链接或有来源宣称整体验收。

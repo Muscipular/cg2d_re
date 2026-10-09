@@ -216,3 +216,20 @@ NetworkLoop正recv后持有原入队返回，按71..80阶段记录字节/返回�
 JFVf四文本按原DA3A1C、DA38DC副本、DA3A5C、adapter原序，类型/值来源和全部容量→转义→fresh输出追加/末发送保持；只把第二/第三参数/临时量名称改password/account，LoginState副本名改passwordCopy。整NetworkRuntime与HEAD加alpha重命名/两诊断精确替换一致，整LoginState只四处变量更名，头文件只注释/形参更名；108派发/回调正文、原状态和失败/队列/明文LF保持。服务端只有源码只读消费证据，未改/重启/证明运行二进制身份，见[证据](cg2d_login_receive_diagnostics_evidence.json)。
 
 当前BWZ01必要Debug三库/客户端0错误，新诊断/NetworkRuntime和上步LegacyUiRecord无警告；头文件传播其它重编源实际87警告，包含既有GetVersionExA新重编一项，其余86保持，不抑制/改指定API或宣全工程无警告。MAP实际登录/接收/派发/whV入口存在，8022528B新版部署游戏目录，旧同长版before-login-receive-diagnostics-20261009备份，仅复制/长度。未运行客户端/试包/测试/算法/工具、重生成WAV或摘要，不称IP2已修好；运行许可/反馈、完整网络/正常寿命/ABI和整体门禁继续。两新诊断格式不计原格式/原身份数量；快照cg2d-re-login-receive-diagnostics-20261009。
+
+<a id="local-service-observation-20261009"></a>
+## CAB32 IP2实际服务来源与运行待项（2026-10-09）
+
+本步在2026-10-09 09:16（Asia/Shanghai）前只读取得本机监听/进程及游戏日志，未建立测试连接、发送封包或启动客户端。9030监听owner不是H盘发行目录的程序，而是下列源码目录构建程序；这是实际进程路径证据，不能外推其二进制与当前源码逐项一致。
+
+| 观察项 | 实际值与范围 |
+|---|---|
+| 监听 | 0.0.0.0:9030，Listen，PID 14904；不代认证/数据库/业务健康验收 |
+| 服务程序 | D:/Source/cgmsv/cgmsv_server/cmake-build-release-mingw/cgmsv.exe，参数-d 1；进程创建2026-10-09 00:15:57.128556+08:00 |
+| 当前客户端 | 查询cg2d_re_client.exe没有返回运行中进程；没有可继续读取的新客户端会话 |
+| 游戏systemlog.txt | 227B，最后写入2026-10-09 00:16:16.4210159+08:00；指定ASCII诊断仅CONNECT OK，没有CAB26/CAB29的LOGIN诊断。其他字节未猜编码/输出，未记录身份或封包正文 |
+| 当前服务源码 | include/version.h定义VERSION_TW/CGMSV_CONFIG，nrproto_util.h的TW分支不启用nrproto__ENCRYPT；nrproto_util.c按该分支直接拆分/发送原明文。build.ninja仅对应当前源码编译规则，不能证明已运行二进制的宏/内容 |
+
+现有JFVf四字段、whV整数/文本回复及原LF合同保持；当前未取得支持更改协议、字段、认证或超时的新增故障证据，服务端文件不修改/重启。本次将此前未知的实际监听owner与程序路径收口，运行二进制内部身份、当前客户端登录阶段和完整往返仍未证明。
+
+V01首次补明确open记录，V03/全部功能门禁保持open；只登记限定来源证据，不新增原身份、I/W/S/R通过、编译、部署或功能完成数。CAB15已提出的新客户端运行许可仍未得到答复，按AGENTS第12条不擅自启动/试包；服务监听不能替代登录验收，也不能据旧日志宣新版仍卡在哪一阶段。整体SPEC目标继续，后续以获准的新客户端诊断/实际往返推进，不重复无变化日志或为等待制造源码修复。

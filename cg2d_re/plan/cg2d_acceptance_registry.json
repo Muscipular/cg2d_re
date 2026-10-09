@@ -1296,7 +1296,8 @@
         "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-decision",
         "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-source-state",
         "doc/cg2d_login_receive_diagnostics_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#login-receive-diagnostics-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#login-receive-diagnostics-debug-build",
+        "doc/cg2d_network_compatibility_spec.md#local-service-observation-20261009"
       ],
       "original_inventory_ids": [
         "F:001202E0",
@@ -1587,7 +1588,8 @@
         "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-decision",
         "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-source-state",
         "doc/cg2d_login_receive_diagnostics_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#login-receive-diagnostics-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#login-receive-diagnostics-debug-build",
+        "doc/cg2d_network_compatibility_spec.md#local-service-observation-20261009"
       ],
       "original_inventory_ids": [
         "F:00003C50",
@@ -55751,6 +55753,42 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-LOCAL-SERVICE-OBSERVATION-FUNC-NETWORK-B-20261009",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "B",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "CAB32本机9030实际owner/程序路径及当前无新客户端会话；当前服务源码TW明文分支，非运行二进制内容等价证明",
+      "implementation_reference": "Git固定命名快照 cg2d-re-local-service-observation-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_network_compatibility_spec.md#local-service-observation-20261009"
+      ],
+      "observation": "只读源码及监听/进程/文件元数据快照；未启动客户端或试包，仅来源的局部B证据，不代完整B或业务运行R",
+      "expected": "记录实际9030监听程序与当前客户端诊断来源，原协议/源码/状态不变；事实不足时不新增猜测修复、源码身份或功能通过",
+      "actual": "0.0.0.0:9030/PID14904，运行D:/Source/cgmsv/cgmsv_server/cmake-build-release-mingw/cgmsv.exe -d 1；客户端进程查询空，游戏227B旧日志00:16仅CONNECT OK，没有新版登录诊断；当前服务源码TW分支不启用加密，但不能据源码/编译规则证明运行二进制内容。V01/V03与完整门禁open，无编译/部署/运行。",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-LOCAL-SERVICE-OBSERVATION-FUNC-LOGIN-B-20261009",
+      "feature_id": "FUNC-LOGIN",
+      "gate": "B",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "CAB32本机9030实际owner/程序路径及当前无新客户端会话；当前服务源码TW明文分支，非运行二进制内容等价证明",
+      "implementation_reference": "Git固定命名快照 cg2d-re-local-service-observation-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_network_compatibility_spec.md#local-service-observation-20261009"
+      ],
+      "observation": "只读源码及监听/进程/文件元数据快照；未启动客户端或试包，仅来源的局部B证据，不代完整B或业务运行R",
+      "expected": "记录实际9030监听程序与当前客户端诊断来源，原协议/源码/状态不变；事实不足时不新增猜测修复、源码身份或功能通过",
+      "actual": "0.0.0.0:9030/PID14904，运行D:/Source/cgmsv/cgmsv_server/cmake-build-release-mingw/cgmsv.exe -d 1；客户端进程查询空，游戏227B旧日志00:16仅CONNECT OK，没有新版登录诊断；当前服务源码TW分支不启用加密，但不能据源码/编译规则证明运行二进制内容。V01/V03与完整门禁open，无编译/部署/运行。",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
     }
   ],
   "task_acceptance": [
@@ -56434,7 +56472,8 @@
         "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-decision",
         "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-source-state",
         "doc/cg2d_login_receive_diagnostics_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#login-receive-diagnostics-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#login-receive-diagnostics-debug-build",
+        "doc/cg2d_network_compatibility_spec.md#local-service-observation-20261009"
       ]
     },
     {
@@ -58126,6 +58165,14 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_shop_command_read_spec.md#shop-command-read-source-state"
+      ]
+    },
+    {
+      "task_id": "V01",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_compatibility_spec.md#local-service-observation-20261009"
       ]
     }
   ],

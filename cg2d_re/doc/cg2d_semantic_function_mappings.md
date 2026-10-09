@@ -4249,3 +4249,9 @@ X:00143383-00143390的7B实际代码对应Cg2dApplyLegacyConditionalSignX87，�
 [512原X/6915B](cg2d_unassigned_range_fifth_batch_evidence.json)与[限定合同](cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state)完整分项：471纯填充/41混合，42W32表294槽、14U8索引843B、17只读对齐44B，以及十一实际回调269条868B。4723B0按实际20输入/三目标识别索引，不按伪ADD/NOP/自动flow当代码；15真实原型480B与现callback绑定匹配。
 
 35表父中八已有语义追加数据依据，1926..1952二十七新F记录只原表/当前唯一定义关联；1953..1963十一回调inventory_id=null，以原X内完整代码身份纳管，不造F。真实源、所有源码/接口/owner/获批文本与平台方案保持；一登录、一地图及25UI域已知成员枚举false，九现代窗口只补代码/原型来源。未重验35完整父/所有依赖或提升任何软件门禁，R8仍未完成。
+
+## CAC09 八向叶的指针与原字节记录承载（2026-10-09）
+
+既有1927/F:0006E3E0从CAC08表/源身份关联继续到[完整原叶与现字节桥](cg2d_scene_state.md#map-direction-byte-bridge-source-state-20261009)。原指针版Sub_46E3E0及混合返回保持；同一原叶在500项0x44原字节记录视图由既有ApplyMapEffectDirection承载，五当前生产者仍调该桥，W32读写器不变。只改桥正文，恢复单次S16方向及每触达轴读算写/默认零访问，不将原字节强转S32对象。
+
+[44条115B/五80条215B/末地址45条125B](cg2d_map_direction_byte_bridge_evidence.json)与八项表复用有据；一adapted处置、三局部MAP I/W/S，语义1964/有效1943及全部原分母不变。CAC08association_only为历史，不改旧证据事实；完整地图/五父、所有alias/正常寿命、机器ABI/画面运行与R8仍未闭。

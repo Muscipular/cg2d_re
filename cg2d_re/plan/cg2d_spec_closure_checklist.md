@@ -286,3 +286,7 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 ## CAC08 R02/R03/R04 第五批完整用途与回调身份（2026-10-09）
 
 [本批合同](../doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state)及[6915B完整原证](../doc/cg2d_unassigned_range_fifth_batch_evidence.json)逐项纳管512原X，R7已审997→1509/3061、余1552。42表294槽/14索引、17解码、十一无F回调269条868B与十五原型480B有据；4723B0二十项索引错标与EDI上界单列。八已有语义追加数据、二十七已有源父仅数据关联、十一代码身份不造F；三域已知成员及九现代窗口来源同步，全部枚举/门禁、函数处置/软件证据/原分母保持，三任务和整体R8仍open。
+
+## CAC09 G01/U11/R01/R04/V04 地图八向字节桥实修（2026-10-09）
+
+[现桥状态](../doc/cg2d_scene_state.md#map-direction-byte-bridge-source-state-20261009)及[完整原叶/五邻窗](../doc/cg2d_map_direction_byte_bridge_evidence.json)支撑一CPP一私有桥实修：单方向读取、触达轴依原次序读算写，default不触坐标；原指针版/读写器/500项0x44与所有五caller余体保持。既有1927更新、一adapted和三局部MAP I/W/S，不重计CAC08八表/R7或新原新成员。五任务继续open，完整五父生产消费、全部alias/正常寿命、机器ABI/画面运行与R8未验，不构建/测试/运行/产物或摘要。

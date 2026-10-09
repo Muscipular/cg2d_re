@@ -216115,25 +216115,30 @@
     {
       "original_entry": "0x46e3e0",
       "inventory_id": "F:0006E3E0",
-      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_46E3E0",
-      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "original_role": "46E3E0：单读S16方向的八向S32坐标原地变换；保留指针版，现记录原字节视图由ApplyMapEffectDirection承载。",
+      "status": "CAC09已修现有字节桥的方向取样及触达轴读写顺序；完整原叶/五调用邻窗限定静态通过，完整地图、机器与运行待验。",
       "sources": [
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
-            "cg::world::detail::Sub_46E3E0"
+            "cg::world::detail::Sub_46E3E0",
+            "cg::world::detail::ApplyMapEffectDirection"
           ],
-          "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+          "relationship": "原两S32指针版Sub_46E3E0及混合uintptr_t返回保留；同一原叶在MapEffectRecord原字节视图由既有私有ApplyMapEffectDirection承载，五当前生产者继续调该桥。CAC08仅表/当前源身份关联为历史；CAC09按完整原叶修复单次方向读取及每轴原地读算写顺序，不将字节强转为S32对象。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
-        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json",
+        "doc/cg2d_scene_state.md#map-direction-byte-bridge-baseline-20261009",
+        "doc/cg2d_scene_state.md#map-direction-byte-bridge-decision-20261009",
+        "doc/cg2d_scene_state.md#map-direction-byte-bridge-source-state-20261009",
+        "doc/cg2d_map_direction_byte_bridge_evidence.json"
       ],
-      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
-      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "boundary": "CAC09核完整44条115B及五调用邻窗80条215B、末+4地址窗45条125B；只本叶在0x44记录视图的正常字段读写/返回用途适配。两指针叶原返回保持，五父随后重读坐标覆盖EAX；五父完整算法/全部生产消费、所有alias与正常owner寿命、机器ABI/指令采样、画面与运行不由邻窗通过。",
+      "verification_level": "原完整叶/邻窗与源限定静态；一CPP仅一私有桥正文变，指针叶/读写器/同一500项记录池及五caller余体保持；不构建/测试/运行/检查产物或摘要。",
       "range_fifth_batch_data": {
         "step": "CAC08",
         "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
@@ -216144,6 +216149,23 @@
         "full_original_body_recaptured": false,
         "runtime_verified": false,
         "current_definition_line": 1551
+      },
+      "map_direction_byte_bridge": {
+        "step": "CAC09",
+        "source_snapshot": "cg2d-re-map-direction-byte-bridge-20261009",
+        "full_original_body_recaptured": true,
+        "original_instructions": 44,
+        "original_bytes": 115,
+        "caller_window_count": 5,
+        "caller_window_instructions": 80,
+        "caller_window_bytes": 215,
+        "record_view": "0x44原字节，X/Y分别+0/+4，沿既有W32读写器合法访问；prev/next原生指针独立",
+        "pointer_leaf_and_mixed_return_preserved": true,
+        "direction_reads": 1,
+        "byte_bridge_changed": true,
+        "all_caller_bodies_preserved": true,
+        "verification_scope": "源码表达的单次方向/八分支触达字段读算写及既有五调用接线；非全部原机器采样或完整地图门禁",
+        "runtime_verified": false
       }
     },
     {

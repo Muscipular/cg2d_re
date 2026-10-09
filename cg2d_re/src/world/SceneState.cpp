@@ -1590,26 +1590,44 @@ namespace {
 
 void ApplyMapEffectDirection(MapEffectRecord& record)
 {
-    std::int32_t x = std::bit_cast<std::int32_t>(ReadMapEffectWord(record, 0));
-    std::int32_t y = std::bit_cast<std::int32_t>(ReadMapEffectWord(record, 4));
+    // 原46E3E0单读方向；原字节视图按触达轴读/算/写，见CAC09。
     const std::int16_t direction =
         std::bit_cast<std::int16_t>(gMapCharaSceneSlots.value55DE98);
-    static_cast<void>(Sub_46E3E0(&x, &y));
+    const auto moveCoordinate = [&record](
+        const std::size_t offset, const std::int32_t delta) {
+        const std::int32_t value =
+            std::bit_cast<std::int32_t>(ReadMapEffectWord(record, offset));
+        const std::int32_t moved = value + delta;
+        WriteMapEffectWord(record, offset, std::bit_cast<std::uint32_t>(moved));
+    };
     switch (direction) {
     case 0:
-    case 2:
-    case 4:
-    case 6:
-        WriteMapEffectWord(record, 0, static_cast<std::uint32_t>(x));
-        WriteMapEffectWord(record, 4, static_cast<std::uint32_t>(y));
+        moveCoordinate(0, 1);
+        moveCoordinate(4, 1);
         break;
     case 1:
-    case 5:
-        WriteMapEffectWord(record, 4, static_cast<std::uint32_t>(y));
+        moveCoordinate(4, 2);
+        break;
+    case 2:
+        moveCoordinate(0, -1);
+        moveCoordinate(4, 1);
         break;
     case 3:
+        moveCoordinate(0, -2);
+        break;
+    case 4:
+        moveCoordinate(0, -1);
+        moveCoordinate(4, -1);
+        break;
+    case 5:
+        moveCoordinate(4, -2);
+        break;
+    case 6:
+        moveCoordinate(0, 1);
+        moveCoordinate(4, -1);
+        break;
     case 7:
-        WriteMapEffectWord(record, 0, static_cast<std::uint32_t>(x));
+        moveCoordinate(0, 2);
         break;
     default:
         break;

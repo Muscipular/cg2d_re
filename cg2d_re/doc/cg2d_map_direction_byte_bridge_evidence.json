@@ -1,0 +1,1305 @@
+{
+  "schema_version": 1,
+  "spec_id": "CAC09",
+  "recorded_on": "2026-10-09",
+  "implementation_snapshot": "cg2d-re-map-direction-byte-bridge-20261009",
+  "scope": "地图效果记录原字节视图的方向单读/触达轴读算写修复；不重验五完整父或机器/运行",
+  "baseline": {
+    "authority": "当前已打开cg2d.exe数据库",
+    "mode": "MCP只读；不重开/修改/保存；原/新客户端均未运行"
+  },
+  "counts": {
+    "root_instructions": 44,
+    "root_bytes": 115,
+    "original_callers": 5,
+    "caller_window_instructions": 80,
+    "caller_window_bytes": 215,
+    "last_alias_instructions": 45,
+    "last_alias_bytes": 125
+  },
+  "original": {
+    "entry": "0x46e3e0",
+    "end_exclusive": "0x46e453",
+    "inventory_id": "F:0006E3E0",
+    "bytes": "0f bf 05 98 de 55 00 83 f8 07 77 66 ff 24 85 54 e4 46 00 8b 44 24 04 8b 08 41 89 08 8b 44 24 08 ff 00 c3 8b 44 24 08 83 00 02 c3 8b 44 24 04 8b 08 49 89 08 8b 44 24 08 ff 00 c3 8b 44 24 04 83 00 fe c3 8b 44 24 04 8b 08 49 89 08 8b 44 24 08 ff 08 c3 8b 44 24 08 83 00 fe c3 8b 44 24 04 8b 08 41 89 08 8b 44 24 08 ff 08 c3 8b 44 24 04 83 00 02 c3",
+    "instructions": [
+      {
+        "address": "0x46e3e0",
+        "size": 7,
+        "bytes": "0f bf 05 98 de 55 00",
+        "instruction": "movsx   eax, word_55DE98",
+        "mnemonic": "movsx"
+      },
+      {
+        "address": "0x46e3e7",
+        "size": 3,
+        "bytes": "83 f8 07",
+        "instruction": "cmp     eax, 7; switch 8 cases",
+        "mnemonic": "cmp"
+      },
+      {
+        "address": "0x46e3ea",
+        "size": 2,
+        "bytes": "77 66",
+        "instruction": "ja      short def_46E3EC; jumptable 0046E3EC default case",
+        "mnemonic": "ja"
+      },
+      {
+        "address": "0x46e3ec",
+        "size": 7,
+        "bytes": "ff 24 85 54 e4 46 00",
+        "instruction": "jmp     ds:jpt_46E3EC[eax*4]; switch jump",
+        "mnemonic": "jmp"
+      },
+      {
+        "address": "0x46e3f3",
+        "size": 4,
+        "bytes": "8b 44 24 04",
+        "instruction": "mov     eax, [esp+arg_0]; jumptable 0046E3EC case 0",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46e3f7",
+        "size": 2,
+        "bytes": "8b 08",
+        "instruction": "mov     ecx, [eax]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46e3f9",
+        "size": 1,
+        "bytes": "41",
+        "instruction": "inc     ecx",
+        "mnemonic": "inc"
+      },
+      {
+        "address": "0x46e3fa",
+        "size": 2,
+        "bytes": "89 08",
+        "instruction": "mov     [eax], ecx",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46e3fc",
+        "size": 4,
+        "bytes": "8b 44 24 08",
+        "instruction": "mov     eax, [esp+arg_4]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46e400",
+        "size": 2,
+        "bytes": "ff 00",
+        "instruction": "inc     dword ptr [eax]",
+        "mnemonic": "inc"
+      },
+      {
+        "address": "0x46e402",
+        "size": 1,
+        "bytes": "c3",
+        "instruction": "retn",
+        "mnemonic": "retn"
+      },
+      {
+        "address": "0x46e403",
+        "size": 4,
+        "bytes": "8b 44 24 08",
+        "instruction": "mov     eax, [esp+arg_4]; jumptable 0046E3EC case 1",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46e407",
+        "size": 3,
+        "bytes": "83 00 02",
+        "instruction": "add     dword ptr [eax], 2",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x46e40a",
+        "size": 1,
+        "bytes": "c3",
+        "instruction": "retn",
+        "mnemonic": "retn"
+      },
+      {
+        "address": "0x46e40b",
+        "size": 4,
+        "bytes": "8b 44 24 04",
+        "instruction": "mov     eax, [esp+arg_0]; jumptable 0046E3EC case 2",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46e40f",
+        "size": 2,
+        "bytes": "8b 08",
+        "instruction": "mov     ecx, [eax]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46e411",
+        "size": 1,
+        "bytes": "49",
+        "instruction": "dec     ecx",
+        "mnemonic": "dec"
+      },
+      {
+        "address": "0x46e412",
+        "size": 2,
+        "bytes": "89 08",
+        "instruction": "mov     [eax], ecx",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46e414",
+        "size": 4,
+        "bytes": "8b 44 24 08",
+        "instruction": "mov     eax, [esp+arg_4]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46e418",
+        "size": 2,
+        "bytes": "ff 00",
+        "instruction": "inc     dword ptr [eax]",
+        "mnemonic": "inc"
+      },
+      {
+        "address": "0x46e41a",
+        "size": 1,
+        "bytes": "c3",
+        "instruction": "retn",
+        "mnemonic": "retn"
+      },
+      {
+        "address": "0x46e41b",
+        "size": 4,
+        "bytes": "8b 44 24 04",
+        "instruction": "mov     eax, [esp+arg_0]; jumptable 0046E3EC case 3",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46e41f",
+        "size": 3,
+        "bytes": "83 00 fe",
+        "instruction": "add     dword ptr [eax], 0FFFFFFFEh",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x46e422",
+        "size": 1,
+        "bytes": "c3",
+        "instruction": "retn",
+        "mnemonic": "retn"
+      },
+      {
+        "address": "0x46e423",
+        "size": 4,
+        "bytes": "8b 44 24 04",
+        "instruction": "mov     eax, [esp+arg_0]; jumptable 0046E3EC case 4",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46e427",
+        "size": 2,
+        "bytes": "8b 08",
+        "instruction": "mov     ecx, [eax]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46e429",
+        "size": 1,
+        "bytes": "49",
+        "instruction": "dec     ecx",
+        "mnemonic": "dec"
+      },
+      {
+        "address": "0x46e42a",
+        "size": 2,
+        "bytes": "89 08",
+        "instruction": "mov     [eax], ecx",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46e42c",
+        "size": 4,
+        "bytes": "8b 44 24 08",
+        "instruction": "mov     eax, [esp+arg_4]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46e430",
+        "size": 2,
+        "bytes": "ff 08",
+        "instruction": "dec     dword ptr [eax]",
+        "mnemonic": "dec"
+      },
+      {
+        "address": "0x46e432",
+        "size": 1,
+        "bytes": "c3",
+        "instruction": "retn",
+        "mnemonic": "retn"
+      },
+      {
+        "address": "0x46e433",
+        "size": 4,
+        "bytes": "8b 44 24 08",
+        "instruction": "mov     eax, [esp+arg_4]; jumptable 0046E3EC case 5",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46e437",
+        "size": 3,
+        "bytes": "83 00 fe",
+        "instruction": "add     dword ptr [eax], 0FFFFFFFEh",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x46e43a",
+        "size": 1,
+        "bytes": "c3",
+        "instruction": "retn",
+        "mnemonic": "retn"
+      },
+      {
+        "address": "0x46e43b",
+        "size": 4,
+        "bytes": "8b 44 24 04",
+        "instruction": "mov     eax, [esp+arg_0]; jumptable 0046E3EC case 6",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46e43f",
+        "size": 2,
+        "bytes": "8b 08",
+        "instruction": "mov     ecx, [eax]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46e441",
+        "size": 1,
+        "bytes": "41",
+        "instruction": "inc     ecx",
+        "mnemonic": "inc"
+      },
+      {
+        "address": "0x46e442",
+        "size": 2,
+        "bytes": "89 08",
+        "instruction": "mov     [eax], ecx",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46e444",
+        "size": 4,
+        "bytes": "8b 44 24 08",
+        "instruction": "mov     eax, [esp+arg_4]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46e448",
+        "size": 2,
+        "bytes": "ff 08",
+        "instruction": "dec     dword ptr [eax]",
+        "mnemonic": "dec"
+      },
+      {
+        "address": "0x46e44a",
+        "size": 1,
+        "bytes": "c3",
+        "instruction": "retn",
+        "mnemonic": "retn"
+      },
+      {
+        "address": "0x46e44b",
+        "size": 4,
+        "bytes": "8b 44 24 04",
+        "instruction": "mov     eax, [esp+arg_0]; jumptable 0046E3EC case 7",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46e44f",
+        "size": 3,
+        "bytes": "83 00 02",
+        "instruction": "add     dword ptr [eax], 2",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x46e452",
+        "size": 1,
+        "bytes": "c3",
+        "instruction": "retn; jumptable 0046E3EC default case",
+        "mnemonic": "retn"
+      }
+    ],
+    "last_caller_record_y_alias": [
+      {
+        "address": "0x46ef53",
+        "size": 3,
+        "bytes": "8d 7e 04",
+        "instruction": "lea     edi, [esi+4]"
+      }
+    ]
+  },
+  "inbound_windows": [
+    {
+      "from": "0x46e676",
+      "is_code": true,
+      "type": 17,
+      "owner": "0x46e4e0",
+      "start": "0x46e661",
+      "end": "0x46e68d",
+      "bytes": "8b 3e 8b 4e 0c 8b 56 04 03 f8 03 d1 89 3e 8d 7e 04 57 56 89 17 e8 65 fd ff ff 8b 06 83 c4 08 3d 80 02 00 00 7d 08 81 3f e0 01 00 00",
+      "instructions": [
+        {
+          "address": "0x46e661",
+          "size": 2,
+          "instruction": "mov     edi, [esi]"
+        },
+        {
+          "address": "0x46e663",
+          "size": 3,
+          "instruction": "mov     ecx, [esi+0Ch]"
+        },
+        {
+          "address": "0x46e666",
+          "size": 3,
+          "instruction": "mov     edx, [esi+4]"
+        },
+        {
+          "address": "0x46e669",
+          "size": 2,
+          "instruction": "add     edi, eax"
+        },
+        {
+          "address": "0x46e66b",
+          "size": 2,
+          "instruction": "add     edx, ecx"
+        },
+        {
+          "address": "0x46e66d",
+          "size": 2,
+          "instruction": "mov     [esi], edi"
+        },
+        {
+          "address": "0x46e66f",
+          "size": 3,
+          "instruction": "lea     edi, [esi+4]"
+        },
+        {
+          "address": "0x46e672",
+          "size": 1,
+          "instruction": "push    edi"
+        },
+        {
+          "address": "0x46e673",
+          "size": 1,
+          "instruction": "push    esi"
+        },
+        {
+          "address": "0x46e674",
+          "size": 2,
+          "instruction": "mov     [edi], edx"
+        },
+        {
+          "address": "0x46e676",
+          "size": 5,
+          "instruction": "call    sub_46E3E0"
+        },
+        {
+          "address": "0x46e67b",
+          "size": 2,
+          "instruction": "mov     eax, [esi]"
+        },
+        {
+          "address": "0x46e67d",
+          "size": 3,
+          "instruction": "add     esp, 8"
+        },
+        {
+          "address": "0x46e680",
+          "size": 5,
+          "instruction": "cmp     eax, 280h"
+        },
+        {
+          "address": "0x46e685",
+          "size": 2,
+          "instruction": "jge     short loc_46E68F"
+        },
+        {
+          "address": "0x46e687",
+          "size": 6,
+          "instruction": "cmp     dword ptr [edi], 1E0h"
+        }
+      ]
+    },
+    {
+      "from": "0x46e8f3",
+      "is_code": true,
+      "type": 17,
+      "owner": "0x46e6c0",
+      "start": "0x46e8de",
+      "end": "0x46e90a",
+      "bytes": "8b 0e 03 c8 8b 46 04 8d 7e 04 89 0e 8b 4e 0c 57 03 c1 56 89 07 e8 e8 fa ff ff 8b 06 83 c4 08 3d e4 02 00 00 7d 08 81 3f e0 01 00 00",
+      "instructions": [
+        {
+          "address": "0x46e8de",
+          "size": 2,
+          "instruction": "mov     ecx, [esi]"
+        },
+        {
+          "address": "0x46e8e0",
+          "size": 2,
+          "instruction": "add     ecx, eax"
+        },
+        {
+          "address": "0x46e8e2",
+          "size": 3,
+          "instruction": "mov     eax, [esi+4]"
+        },
+        {
+          "address": "0x46e8e5",
+          "size": 3,
+          "instruction": "lea     edi, [esi+4]"
+        },
+        {
+          "address": "0x46e8e8",
+          "size": 2,
+          "instruction": "mov     [esi], ecx"
+        },
+        {
+          "address": "0x46e8ea",
+          "size": 3,
+          "instruction": "mov     ecx, [esi+0Ch]"
+        },
+        {
+          "address": "0x46e8ed",
+          "size": 1,
+          "instruction": "push    edi"
+        },
+        {
+          "address": "0x46e8ee",
+          "size": 2,
+          "instruction": "add     eax, ecx"
+        },
+        {
+          "address": "0x46e8f0",
+          "size": 1,
+          "instruction": "push    esi"
+        },
+        {
+          "address": "0x46e8f1",
+          "size": 2,
+          "instruction": "mov     [edi], eax"
+        },
+        {
+          "address": "0x46e8f3",
+          "size": 5,
+          "instruction": "call    sub_46E3E0"
+        },
+        {
+          "address": "0x46e8f8",
+          "size": 2,
+          "instruction": "mov     eax, [esi]"
+        },
+        {
+          "address": "0x46e8fa",
+          "size": 3,
+          "instruction": "add     esp, 8"
+        },
+        {
+          "address": "0x46e8fd",
+          "size": 5,
+          "instruction": "cmp     eax, 2E4h"
+        },
+        {
+          "address": "0x46e902",
+          "size": 2,
+          "instruction": "jge     short loc_46E90C"
+        },
+        {
+          "address": "0x46e904",
+          "size": 6,
+          "instruction": "cmp     dword ptr [edi], 1E0h"
+        }
+      ]
+    },
+    {
+      "from": "0x46eb51",
+      "is_code": true,
+      "type": 17,
+      "owner": "0x46e940",
+      "start": "0x46eb3c",
+      "end": "0x46eb68",
+      "bytes": "8b 3e 8b 46 0c 8b 4e 04 03 fa 03 c8 89 3e 8d 7e 04 57 56 89 0f e8 8a f8 ff ff 8b 06 83 c4 08 3d e4 02 00 00 7d 08 81 3f e0 01 00 00",
+      "instructions": [
+        {
+          "address": "0x46eb3c",
+          "size": 2,
+          "instruction": "mov     edi, [esi]"
+        },
+        {
+          "address": "0x46eb3e",
+          "size": 3,
+          "instruction": "mov     eax, [esi+0Ch]"
+        },
+        {
+          "address": "0x46eb41",
+          "size": 3,
+          "instruction": "mov     ecx, [esi+4]"
+        },
+        {
+          "address": "0x46eb44",
+          "size": 2,
+          "instruction": "add     edi, edx"
+        },
+        {
+          "address": "0x46eb46",
+          "size": 2,
+          "instruction": "add     ecx, eax"
+        },
+        {
+          "address": "0x46eb48",
+          "size": 2,
+          "instruction": "mov     [esi], edi"
+        },
+        {
+          "address": "0x46eb4a",
+          "size": 3,
+          "instruction": "lea     edi, [esi+4]"
+        },
+        {
+          "address": "0x46eb4d",
+          "size": 1,
+          "instruction": "push    edi"
+        },
+        {
+          "address": "0x46eb4e",
+          "size": 1,
+          "instruction": "push    esi"
+        },
+        {
+          "address": "0x46eb4f",
+          "size": 2,
+          "instruction": "mov     [edi], ecx"
+        },
+        {
+          "address": "0x46eb51",
+          "size": 5,
+          "instruction": "call    sub_46E3E0"
+        },
+        {
+          "address": "0x46eb56",
+          "size": 2,
+          "instruction": "mov     eax, [esi]"
+        },
+        {
+          "address": "0x46eb58",
+          "size": 3,
+          "instruction": "add     esp, 8"
+        },
+        {
+          "address": "0x46eb5b",
+          "size": 5,
+          "instruction": "cmp     eax, 2E4h"
+        },
+        {
+          "address": "0x46eb60",
+          "size": 2,
+          "instruction": "jge     short loc_46EB6A"
+        },
+        {
+          "address": "0x46eb62",
+          "size": 6,
+          "instruction": "cmp     dword ptr [edi], 1E0h"
+        }
+      ]
+    },
+    {
+      "from": "0x46ecf3",
+      "is_code": true,
+      "type": 17,
+      "owner": "0x46ebb0",
+      "start": "0x46ecde",
+      "end": "0x46ed0a",
+      "bytes": "8b 3e 8b 46 0c 8b 4e 04 03 fa 03 c8 89 3e 8d 7e 04 57 56 89 0f e8 e8 f6 ff ff 8b 06 83 c4 08 3d 80 02 00 00 7d 08 81 3f e0 01 00 00",
+      "instructions": [
+        {
+          "address": "0x46ecde",
+          "size": 2,
+          "instruction": "mov     edi, [esi]"
+        },
+        {
+          "address": "0x46ece0",
+          "size": 3,
+          "instruction": "mov     eax, [esi+0Ch]"
+        },
+        {
+          "address": "0x46ece3",
+          "size": 3,
+          "instruction": "mov     ecx, [esi+4]"
+        },
+        {
+          "address": "0x46ece6",
+          "size": 2,
+          "instruction": "add     edi, edx"
+        },
+        {
+          "address": "0x46ece8",
+          "size": 2,
+          "instruction": "add     ecx, eax"
+        },
+        {
+          "address": "0x46ecea",
+          "size": 2,
+          "instruction": "mov     [esi], edi"
+        },
+        {
+          "address": "0x46ecec",
+          "size": 3,
+          "instruction": "lea     edi, [esi+4]"
+        },
+        {
+          "address": "0x46ecef",
+          "size": 1,
+          "instruction": "push    edi"
+        },
+        {
+          "address": "0x46ecf0",
+          "size": 1,
+          "instruction": "push    esi"
+        },
+        {
+          "address": "0x46ecf1",
+          "size": 2,
+          "instruction": "mov     [edi], ecx"
+        },
+        {
+          "address": "0x46ecf3",
+          "size": 5,
+          "instruction": "call    sub_46E3E0"
+        },
+        {
+          "address": "0x46ecf8",
+          "size": 2,
+          "instruction": "mov     eax, [esi]"
+        },
+        {
+          "address": "0x46ecfa",
+          "size": 3,
+          "instruction": "add     esp, 8"
+        },
+        {
+          "address": "0x46ecfd",
+          "size": 5,
+          "instruction": "cmp     eax, 280h"
+        },
+        {
+          "address": "0x46ed02",
+          "size": 2,
+          "instruction": "jge     short loc_46ED0C"
+        },
+        {
+          "address": "0x46ed04",
+          "size": 6,
+          "instruction": "cmp     dword ptr [edi], 1E0h"
+        }
+      ]
+    },
+    {
+      "from": "0x46efbc",
+      "is_code": true,
+      "type": 17,
+      "owner": "0x46ed50",
+      "start": "0x46efa9",
+      "end": "0x46efd0",
+      "bytes": "48 83 c8 f8 40 40 89 5e 30 89 46 2c eb 03 ff 4e 30 57 56 e8 1f f4 ff ff 8b 07 83 c4 08 3d e0 01 00 00 7c 17 8b 7e 38",
+      "instructions": [
+        {
+          "address": "0x46efa9",
+          "size": 1,
+          "instruction": "dec     eax"
+        },
+        {
+          "address": "0x46efaa",
+          "size": 3,
+          "instruction": "or      eax, 0FFFFFFF8h"
+        },
+        {
+          "address": "0x46efad",
+          "size": 1,
+          "instruction": "inc     eax"
+        },
+        {
+          "address": "0x46efae",
+          "size": 1,
+          "instruction": "inc     eax"
+        },
+        {
+          "address": "0x46efaf",
+          "size": 3,
+          "instruction": "mov     [esi+30h], ebx"
+        },
+        {
+          "address": "0x46efb2",
+          "size": 3,
+          "instruction": "mov     [esi+2Ch], eax"
+        },
+        {
+          "address": "0x46efb5",
+          "size": 2,
+          "instruction": "jmp     short loc_46EFBA"
+        },
+        {
+          "address": "0x46efb7",
+          "size": 3,
+          "instruction": "dec     dword ptr [esi+30h]"
+        },
+        {
+          "address": "0x46efba",
+          "size": 1,
+          "instruction": "push    edi"
+        },
+        {
+          "address": "0x46efbb",
+          "size": 1,
+          "instruction": "push    esi"
+        },
+        {
+          "address": "0x46efbc",
+          "size": 5,
+          "instruction": "call    sub_46E3E0"
+        },
+        {
+          "address": "0x46efc1",
+          "size": 2,
+          "instruction": "mov     eax, [edi]"
+        },
+        {
+          "address": "0x46efc3",
+          "size": 3,
+          "instruction": "add     esp, 8"
+        },
+        {
+          "address": "0x46efc6",
+          "size": 5,
+          "instruction": "cmp     eax, 1E0h"
+        },
+        {
+          "address": "0x46efcb",
+          "size": 2,
+          "instruction": "jl      short loc_46EFE4"
+        },
+        {
+          "address": "0x46efcd",
+          "size": 3,
+          "instruction": "mov     edi, [esi+38h]"
+        }
+      ]
+    }
+  ],
+  "last_alias_window": {
+    "start": "0x46ef53",
+    "end_exclusive": "0x46efd0",
+    "bytes": "8d 7e 04 e8 6e c5 0c 00 99 b9 03 00 00 00 f7 f9 8b 46 0c 8d 4c 02 ff 8b 17 8b 46 30 03 d1 85 c0 89 17 7f 40 e8 4d c5 0c 00 99 b9 03 00 00 00 f7 f9 66 89 56 3e e8 3c c5 0c 00 25 07 00 00 80 79 05 48 83 c8 f8 40 40 89 46 28 e8 27 c5 0c 00 25 07 00 00 80 79 05 48 83 c8 f8 40 40 89 5e 30 89 46 2c eb 03 ff 4e 30 57 56 e8 1f f4 ff ff 8b 07 83 c4 08 3d e0 01 00 00 7c 17 8b 7e 38",
+    "instructions": [
+      {
+        "address": "0x46ef53",
+        "size": 3,
+        "bytes": "8d 7e 04",
+        "instruction": "lea     edi, [esi+4]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x46ef56",
+        "size": 5,
+        "bytes": "e8 6e c5 0c 00",
+        "instruction": "call    rand",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x46ef5b",
+        "size": 1,
+        "bytes": "99",
+        "instruction": "cdq",
+        "mnemonic": "cdq"
+      },
+      {
+        "address": "0x46ef5c",
+        "size": 5,
+        "bytes": "b9 03 00 00 00",
+        "instruction": "mov     ecx, 3",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46ef61",
+        "size": 2,
+        "bytes": "f7 f9",
+        "instruction": "idiv    ecx",
+        "mnemonic": "idiv"
+      },
+      {
+        "address": "0x46ef63",
+        "size": 3,
+        "bytes": "8b 46 0c",
+        "instruction": "mov     eax, [esi+0Ch]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46ef66",
+        "size": 4,
+        "bytes": "8d 4c 02 ff",
+        "instruction": "lea     ecx, [edx+eax-1]",
+        "mnemonic": "lea"
+      },
+      {
+        "address": "0x46ef6a",
+        "size": 2,
+        "bytes": "8b 17",
+        "instruction": "mov     edx, [edi]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46ef6c",
+        "size": 3,
+        "bytes": "8b 46 30",
+        "instruction": "mov     eax, [esi+30h]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46ef6f",
+        "size": 2,
+        "bytes": "03 d1",
+        "instruction": "add     edx, ecx",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x46ef71",
+        "size": 2,
+        "bytes": "85 c0",
+        "instruction": "test    eax, eax",
+        "mnemonic": "test"
+      },
+      {
+        "address": "0x46ef73",
+        "size": 2,
+        "bytes": "89 17",
+        "instruction": "mov     [edi], edx",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46ef75",
+        "size": 2,
+        "bytes": "7f 40",
+        "instruction": "jg      short loc_46EFB7",
+        "mnemonic": "jg"
+      },
+      {
+        "address": "0x46ef77",
+        "size": 5,
+        "bytes": "e8 4d c5 0c 00",
+        "instruction": "call    rand",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x46ef7c",
+        "size": 1,
+        "bytes": "99",
+        "instruction": "cdq",
+        "mnemonic": "cdq"
+      },
+      {
+        "address": "0x46ef7d",
+        "size": 5,
+        "bytes": "b9 03 00 00 00",
+        "instruction": "mov     ecx, 3",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46ef82",
+        "size": 2,
+        "bytes": "f7 f9",
+        "instruction": "idiv    ecx",
+        "mnemonic": "idiv"
+      },
+      {
+        "address": "0x46ef84",
+        "size": 4,
+        "bytes": "66 89 56 3e",
+        "instruction": "mov     [esi+3Eh], dx",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46ef88",
+        "size": 5,
+        "bytes": "e8 3c c5 0c 00",
+        "instruction": "call    rand",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x46ef8d",
+        "size": 5,
+        "bytes": "25 07 00 00 80",
+        "instruction": "and     eax, 80000007h",
+        "mnemonic": "and"
+      },
+      {
+        "address": "0x46ef92",
+        "size": 2,
+        "bytes": "79 05",
+        "instruction": "jns     short loc_46EF99",
+        "mnemonic": "jns"
+      },
+      {
+        "address": "0x46ef94",
+        "size": 1,
+        "bytes": "48",
+        "instruction": "dec     eax",
+        "mnemonic": "dec"
+      },
+      {
+        "address": "0x46ef95",
+        "size": 3,
+        "bytes": "83 c8 f8",
+        "instruction": "or      eax, 0FFFFFFF8h",
+        "mnemonic": "or"
+      },
+      {
+        "address": "0x46ef98",
+        "size": 1,
+        "bytes": "40",
+        "instruction": "inc     eax",
+        "mnemonic": "inc"
+      },
+      {
+        "address": "0x46ef99",
+        "size": 1,
+        "bytes": "40",
+        "instruction": "inc     eax",
+        "mnemonic": "inc"
+      },
+      {
+        "address": "0x46ef9a",
+        "size": 3,
+        "bytes": "89 46 28",
+        "instruction": "mov     [esi+28h], eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46ef9d",
+        "size": 5,
+        "bytes": "e8 27 c5 0c 00",
+        "instruction": "call    rand",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x46efa2",
+        "size": 5,
+        "bytes": "25 07 00 00 80",
+        "instruction": "and     eax, 80000007h",
+        "mnemonic": "and"
+      },
+      {
+        "address": "0x46efa7",
+        "size": 2,
+        "bytes": "79 05",
+        "instruction": "jns     short loc_46EFAE",
+        "mnemonic": "jns"
+      },
+      {
+        "address": "0x46efa9",
+        "size": 1,
+        "bytes": "48",
+        "instruction": "dec     eax",
+        "mnemonic": "dec"
+      },
+      {
+        "address": "0x46efaa",
+        "size": 3,
+        "bytes": "83 c8 f8",
+        "instruction": "or      eax, 0FFFFFFF8h",
+        "mnemonic": "or"
+      },
+      {
+        "address": "0x46efad",
+        "size": 1,
+        "bytes": "40",
+        "instruction": "inc     eax",
+        "mnemonic": "inc"
+      },
+      {
+        "address": "0x46efae",
+        "size": 1,
+        "bytes": "40",
+        "instruction": "inc     eax",
+        "mnemonic": "inc"
+      },
+      {
+        "address": "0x46efaf",
+        "size": 3,
+        "bytes": "89 5e 30",
+        "instruction": "mov     [esi+30h], ebx",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46efb2",
+        "size": 3,
+        "bytes": "89 46 2c",
+        "instruction": "mov     [esi+2Ch], eax",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46efb5",
+        "size": 2,
+        "bytes": "eb 03",
+        "instruction": "jmp     short loc_46EFBA",
+        "mnemonic": "jmp"
+      },
+      {
+        "address": "0x46efb7",
+        "size": 3,
+        "bytes": "ff 4e 30",
+        "instruction": "dec     dword ptr [esi+30h]",
+        "mnemonic": "dec"
+      },
+      {
+        "address": "0x46efba",
+        "size": 1,
+        "bytes": "57",
+        "instruction": "push    edi",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x46efbb",
+        "size": 1,
+        "bytes": "56",
+        "instruction": "push    esi",
+        "mnemonic": "push"
+      },
+      {
+        "address": "0x46efbc",
+        "size": 5,
+        "bytes": "e8 1f f4 ff ff",
+        "instruction": "call    sub_46E3E0",
+        "mnemonic": "call"
+      },
+      {
+        "address": "0x46efc1",
+        "size": 2,
+        "bytes": "8b 07",
+        "instruction": "mov     eax, [edi]",
+        "mnemonic": "mov"
+      },
+      {
+        "address": "0x46efc3",
+        "size": 3,
+        "bytes": "83 c4 08",
+        "instruction": "add     esp, 8",
+        "mnemonic": "add"
+      },
+      {
+        "address": "0x46efc6",
+        "size": 5,
+        "bytes": "3d e0 01 00 00",
+        "instruction": "cmp     eax, 1E0h",
+        "mnemonic": "cmp"
+      },
+      {
+        "address": "0x46efcb",
+        "size": 2,
+        "bytes": "7c 17",
+        "instruction": "jl      short loc_46EFE4",
+        "mnemonic": "jl"
+      },
+      {
+        "address": "0x46efcd",
+        "size": 3,
+        "bytes": "8b 7e 38",
+        "instruction": "mov     edi, [esi+38h]",
+        "mnemonic": "mov"
+      }
+    ]
+  },
+  "table_evidence_reused": {
+    "source": "doc/cg2d_unassigned_range_fifth_batch_evidence.json",
+    "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+    "range_id": "X:0006E453-0006E480",
+    "part": {
+      "kind": "jump_table",
+      "start": "0x46e454",
+      "end_exclusive": "0x46e474",
+      "size": 32,
+      "from": "0x46e3ec",
+      "count": 8,
+      "width": 4,
+      "owner": "0x46e3e0",
+      "bytes": "f3 e3 46 00 03 e4 46 00 0b e4 46 00 1b e4 46 00 23 e4 46 00 33 e4 46 00 3b e4 46 00 4b e4 46 00",
+      "targets": [
+        {
+          "index": 0,
+          "entry_address": "0x46e454",
+          "value": "0x46e3f3",
+          "is_code": true,
+          "owner": "0x46e3e0",
+          "instruction": "mov     eax, [esp+arg_0]; jumptable 0046E3EC case 0"
+        },
+        {
+          "index": 1,
+          "entry_address": "0x46e458",
+          "value": "0x46e403",
+          "is_code": true,
+          "owner": "0x46e3e0",
+          "instruction": "mov     eax, [esp+arg_4]; jumptable 0046E3EC case 1"
+        },
+        {
+          "index": 2,
+          "entry_address": "0x46e45c",
+          "value": "0x46e40b",
+          "is_code": true,
+          "owner": "0x46e3e0",
+          "instruction": "mov     eax, [esp+arg_0]; jumptable 0046E3EC case 2"
+        },
+        {
+          "index": 3,
+          "entry_address": "0x46e460",
+          "value": "0x46e41b",
+          "is_code": true,
+          "owner": "0x46e3e0",
+          "instruction": "mov     eax, [esp+arg_0]; jumptable 0046E3EC case 3"
+        },
+        {
+          "index": 4,
+          "entry_address": "0x46e464",
+          "value": "0x46e423",
+          "is_code": true,
+          "owner": "0x46e3e0",
+          "instruction": "mov     eax, [esp+arg_0]; jumptable 0046E3EC case 4"
+        },
+        {
+          "index": 5,
+          "entry_address": "0x46e468",
+          "value": "0x46e433",
+          "is_code": true,
+          "owner": "0x46e3e0",
+          "instruction": "mov     eax, [esp+arg_4]; jumptable 0046E3EC case 5"
+        },
+        {
+          "index": 6,
+          "entry_address": "0x46e46c",
+          "value": "0x46e43b",
+          "is_code": true,
+          "owner": "0x46e3e0",
+          "instruction": "mov     eax, [esp+arg_0]; jumptable 0046E3EC case 6"
+        },
+        {
+          "index": 7,
+          "entry_address": "0x46e470",
+          "value": "0x46e44b",
+          "is_code": true,
+          "owner": "0x46e3e0",
+          "instruction": "mov     eax, [esp+arg_0]; jumptable 0046E3EC case 7"
+        }
+      ]
+    },
+    "boundary": "精确复用本批已证八W32表；不重新计原区间或称新增R7"
+  },
+  "source_change": {
+    "path": "src/world/SceneState.cpp",
+    "symbol": "cg::world::detail::ApplyMapEffectDirection",
+    "old_definition": "void ApplyMapEffectDirection(MapEffectRecord& record)\n{\n    std::int32_t x = std::bit_cast<std::int32_t>(ReadMapEffectWord(record, 0));\n    std::int32_t y = std::bit_cast<std::int32_t>(ReadMapEffectWord(record, 4));\n    const std::int16_t direction =\n        std::bit_cast<std::int16_t>(gMapCharaSceneSlots.value55DE98);\n    static_cast<void>(Sub_46E3E0(&x, &y));\n    switch (direction) {\n    case 0:\n    case 2:\n    case 4:\n    case 6:\n        WriteMapEffectWord(record, 0, static_cast<std::uint32_t>(x));\n        WriteMapEffectWord(record, 4, static_cast<std::uint32_t>(y));\n        break;\n    case 1:\n    case 5:\n        WriteMapEffectWord(record, 4, static_cast<std::uint32_t>(y));\n        break;\n    case 3:\n    case 7:\n        WriteMapEffectWord(record, 0, static_cast<std::uint32_t>(x));\n        break;\n    default:\n        break;\n    }\n}",
+    "new_definition": "void ApplyMapEffectDirection(MapEffectRecord& record)\n{\n    // 原46E3E0单读方向；原字节视图按触达轴读/算/写，见CAC09。\n    const std::int16_t direction =\n        std::bit_cast<std::int16_t>(gMapCharaSceneSlots.value55DE98);\n    const auto moveCoordinate = [&record](\n        const std::size_t offset, const std::int32_t delta) {\n        const std::int32_t value =\n            std::bit_cast<std::int32_t>(ReadMapEffectWord(record, offset));\n        const std::int32_t moved = value + delta;\n        WriteMapEffectWord(record, offset, std::bit_cast<std::uint32_t>(moved));\n    };\n    switch (direction) {\n    case 0:\n        moveCoordinate(0, 1);\n        moveCoordinate(4, 1);\n        break;\n    case 1:\n        moveCoordinate(4, 2);\n        break;\n    case 2:\n        moveCoordinate(0, -1);\n        moveCoordinate(4, 1);\n        break;\n    case 3:\n        moveCoordinate(0, -2);\n        break;\n    case 4:\n        moveCoordinate(0, -1);\n        moveCoordinate(4, -1);\n        break;\n    case 5:\n        moveCoordinate(4, -2);\n        break;\n    case 6:\n        moveCoordinate(0, 1);\n        moveCoordinate(4, -1);\n        break;\n    case 7:\n        moveCoordinate(0, 2);\n        break;\n    default:\n        break;\n    }\n}",
+    "unchanged": {
+      "pointer_leaf": "Sub_46E3E0",
+      "reader": "ReadMapEffectWord",
+      "writer": "WriteMapEffectWord",
+      "record_legacy_bytes": 68,
+      "record_count": 500,
+      "owners": "同一gMapEffectRecords/原活动与空闲双链，prev/next原生指针不改",
+      "caller_entries": [
+        "0x46e4e0",
+        "0x46e6c0",
+        "0x46e940",
+        "0x46ebb0",
+        "0x46ed50"
+      ]
+    }
+  },
+  "source_access_contract": {
+    "selector": "55DE98单次W16读，按S16解释；0..7之外不读写坐标",
+    "axis_operations": "每个moveCoordinate先单W32读→正常S32加减→单W32发布；原两轴分支依X完整后Y完整，不预读另一轴",
+    "branch_operations": {
+      "0": [
+        [
+          0,
+          1
+        ],
+        [
+          4,
+          1
+        ]
+      ],
+      "1": [
+        [
+          4,
+          2
+        ]
+      ],
+      "2": [
+        [
+          0,
+          -1
+        ],
+        [
+          4,
+          1
+        ]
+      ],
+      "3": [
+        [
+          0,
+          -2
+        ]
+      ],
+      "4": [
+        [
+          0,
+          -1
+        ],
+        [
+          4,
+          -1
+        ]
+      ],
+      "5": [
+        [
+          4,
+          -2
+        ]
+      ],
+      "6": [
+        [
+          0,
+          1
+        ],
+        [
+          4,
+          -1
+        ]
+      ],
+      "7": [
+        [
+          0,
+          2
+        ]
+      ],
+      "default": []
+    },
+    "representation": "已有0x44原字节视图，用既有memcpy读/写W32；不强转活跃S32对象，不新建影子字段或owner。两S32指针版及混合uintptr返回保持，本视图替换旧局部桥并对应原同一叶"
+  },
+  "unverified": [
+    "五完整父、所有字段生产/未知别名及owner正常寿命未据本步关闭",
+    "SDK/机器ABI、实际字段访问机器序和像素/运行验收未执行",
+    "不专项模拟越界或S32溢出；不加保护/钳制/拒绝、回绕模型",
+    "协议明文/GBK静态文字/宋体/ASCII光标及SDL3/WAV保持；不构建/测试/运行/检查产物或摘要"
+  ]
+}

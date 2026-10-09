@@ -1,5 +1,7 @@
 # cg2d 基础场景状态与 World::Update
 
+> 2026-10-09最新数值实现：[ACP01-M](cg2d_asm_to_cpp_migration_spec.md#asm-cpp-map-source-state)将地图13数学/投影入口迁CPP/double/std数学，覆盖本组旧x87/PC53/ST0数值保证；原字段、F32落存与读取/发布序保持。原ASM实现/机器验收留作历史，不代当前CPP编译/运行。
+
 > 战斗动作211的效果半字生产与两W32原初值已单独补证，当前增量见[对应章节](#battle-effect-production-211)。下文历史“生产尚未接”只表示原记录时点，完整战斗绘制清理仍未完成。
 
 日期：2026-09-20。任务：R6.1.1a、R6.1.1b。证据源仅为当前 `ida-32980` 的 `cg2d.exe` IDB 与当前实现源码。

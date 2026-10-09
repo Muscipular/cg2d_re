@@ -105,7 +105,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/LegacyMouseTracker.cpp
     src/platform/LegacyCursor.cpp
     src/platform/LegacyTime.cpp
-    src/platform/MapEffectMath.asm
+    src/platform/MapEffectMath.cpp
     # 用户排除屏幕键盘；LegacyExternalKeyboard*.cpp仅保留为历史源码。
     src/LegacyHitTest.cpp
     src/LegacyUiRecord.cpp

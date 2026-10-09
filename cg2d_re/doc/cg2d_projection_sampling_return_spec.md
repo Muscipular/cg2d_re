@@ -1,5 +1,7 @@
 # 双向投影取样与指针返回 SPEC（BUF01）
 
+> 2026-10-09最新数值实现：[ACP01-M](cg2d_asm_to_cpp_migration_spec.md#asm-cpp-map-source-state)将地图13数学/投影入口迁CPP/double/std数学，覆盖本组旧x87/PC53/ST0数值保证；原字段、F32落存与读取/发布序保持。原ASM实现/机器验收留作历史，不代当前CPP编译/运行。
+
 日期：2026-10-08。承接BUE01目标格生产入口，按AGENTS.md第8条先记裁决后实施。[完整原指令、原数据、局部调用窗口与源码前态](cg2d_projection_sampling_return_evidence.json)。
 
 <a id="projection-sampling-return-baseline"></a>

@@ -69,7 +69,7 @@
 | U08 / 战斗执行闭环 | 开放；攻击生产、动作分派、初始化/目标/战果与部分回调清理已有 | 既有P01攻击生产不重做；完整载荷字段/归属、附属清理、全部事件生产—执行—回调—释放及寿命仍待。 | [BQW01](../doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-source-state)；[BQX01](../doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state) |
 | U09 / Yobi 生命周期 | 开放；基础构析/克隆、正常地图临时对象及称号-1别名等已落实 | 全部creator/cleanup、载荷浅复制后的共享寿命 | [BRY01](../doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state)；[BSA01](../doc/cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-source-state) ；[称号别名](../doc/cg2d_yobi_runtime.md#title-none-alias-20261009) |
 | U10 / 跨页持久化与请求 | 开放；108路分发及大量请求/持久化链已有；CAC06黑名单两处正常取样已修 | 各业务生产/回复/权限/回滚，整分派/整数/108回复与owner/alias | [BVJ01](../doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-source-state)；[BVK01](../doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state) |
-| U11 / 场景/主循环传递依赖 | 开放；MainLoop/场景更新与大量真实依赖已有；CAC09地图方向桥已修 | 逐状态核所有传递依赖、退出/断线/重进与资源清理 | [BVL01](../doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state)；[BVM01](../doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state) ；[CAC09](../doc/cg2d_scene_state.md#map-direction-byte-bridge-source-state-20261009) |
+| U11 / 场景/主循环传递依赖 | 开放；MainLoop/场景更新与大量真实依赖已有；CAC09地图方向桥已修 ；ACP01-M地图13数值入口已迁CPP，未编译/运行 | 逐状态核所有传递依赖、退出/断线/重进与资源清理 | [BVL01](../doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state)；[BVM01](../doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state) ；[CAC09](../doc/cg2d_scene_state.md#map-direction-byte-bridge-source-state-20261009) ；[ACP01-M](../doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-map-source-state) |
 
 ## 5. G01–G05：渲染与资源
 
@@ -78,7 +78,7 @@
 | G01 / 图形资源完整生命周期 | 开放；CPU面/池/双缓存及场景清理已有，角色入队和地图桥有局部实修 | 可选1020EC4源生产与非空第六参地址/alias；全部父、文件/加载/上传/池与节点面分配释放/重建/场景/退出的借用和失效闭环 | [DX SPEC](../doc/cg2d_graphic_dx_cache_x64_spec.md)；[BUY01](../doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-source-state) |
 | G02 / 队列与命中 | 开放；48B队列、命中/文字消费及条带发布顺序有局部实现/核对 | 全场景/14完整父、命中/文本token/对象与节点借用、上游/间接alias/清理后访问 | [BVF01](../doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state)；[BVG01](../doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state) |
 | G03 / 模式2/3/4 | 开放；MakeSurface尺寸/格式及设备生产/探测已有 | 模式切换/回退、裁剪、采样/混合、提交及重建真实流程 | [纹理](../doc/cg2d_texture_rendering.md)；[呈现](../doc/cg2d_sdl_presenter.md) |
-| G04 / 渲染替换差异 | 开放；SDL/CPU替换、调色板/上传/缩放/波纹等有局部原新对照 | 其他上层RAND/宽度/坐标/色键/提交序、全部模式/浮点ABI、资源寿命和像素画面 | [GPC01](../doc/cg2d_palette_cache_alignment_spec.md#palette-cache-source-closure)；[总SPEC §10](cg2d_full_reconstruction_plan.md#10-完成门禁) |
+| G04 / 渲染替换差异 | 开放；SDL/CPU替换、调色板/上传/缩放/波纹等有局部原新对照 ；ACP01-M地图13数值入口已迁CPP，未编译/运行 | 其他上层RAND/宽度/坐标/色键/提交序、全部模式/浮点ABI、资源寿命和像素画面 | [GPC01](../doc/cg2d_palette_cache_alignment_spec.md#palette-cache-source-closure)；[总SPEC §10](cg2d_full_reconstruction_plan.md#10-完成门禁) ；[ACP01-M](../doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-map-source-state) |
 | G05 / 原图标/光标 | 开放；CAC11已实现同目录原客户端只读资源映像提供者及图标/十一光标真实加载点 | 原磁盘文件与选定IDA基线匹配、资源权限/像素/热点、实际加载成功失败、共享句柄及进程寿命待验；不造替代图。 | [装载源码与边界](../doc/cg2d_startup_flow.md#window-resource-module-source-state-20261009) |
 
 ## 6. T01–T03：文本与输入

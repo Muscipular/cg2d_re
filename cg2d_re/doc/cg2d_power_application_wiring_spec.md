@@ -1,5 +1,7 @@
 # 完整幂接通两地图原调用点SPEC（BWL01）
 
+> 2026-10-09最新数值实现：[ACP01-M](cg2d_asm_to_cpp_migration_spec.md#asm-cpp-map-source-state)将地图13数学/投影入口迁CPP/double/std数学，覆盖本组旧x87/PC53/ST0数值保证；原字段、F32落存与读取/发布序保持。原ASM实现/机器验收留作历史，不代当前CPP编译/运行。
+
 <a id="power-app-baseline"></a>
 ## 实际接线缺口
 

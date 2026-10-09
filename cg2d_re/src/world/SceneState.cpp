@@ -49,16 +49,6 @@
 #include <utility>
 #include <vector>
 
-// 原46CE30/46CE80连续x87段；同步借参考W32位槽与输出，不保存指针。
-namespace cg::platform {
-extern "C" float* Cg2dProjectWorldToScreenX87(
-    float x, float y, float* outX, float* outY,
-    const volatile std::uint32_t* referenceX, const volatile std::uint32_t* referenceY) noexcept;
-extern "C" float* Cg2dProjectScreenToWorldX87(
-    float x, float y, float* outX, float* outY,
-    const volatile std::uint32_t* referenceX, const volatile std::uint32_t* referenceY) noexcept;
-}
-
 namespace cg::world {
 namespace {
 

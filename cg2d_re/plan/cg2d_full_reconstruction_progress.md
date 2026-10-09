@@ -132,3 +132,9 @@ LegacyMidiSynth.cpp三处实际开发：Region持有LE U16 keyGroup，原LoadDls
 音频6入口完整CPP/std::log/std::sqrt，原20B记录移私有共享头，CMake改接CPP并删除音频ASM。正/反声像奇数写点、端点、两音量0槽差异、先W32或先浮点平方、/106、低W32向零、Y→X缩放、投影重读/字段发布/索引早退及截断Y返回保持。5现语义提供者、V05与两音频SPEC同步；历史证据不改写，汇总器只为三原ASM路径核固定Git对象存在。
 
 限定I/S证据1316→1318，语义1964/原成员/完整gates/184叶整项验收0/任务关闭11/六closure保持。静态接口/布局/源项/路径、UTF-8及差异检查与台账汇总完成后精确提交，固定引用cg2d-re-asm-audio-cpp-20261009。地图及CRT环境两ASM/MASM待继续迁移；未编译/链接/测试/运行/算法/产物/摘要，整体目标继续active。
+
+## 10. 2026-10-09 ACP01-M：地图ASM迁CPP
+
+[ACP01-M](../doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-map-source-state)已将地图13入口完整迁为CPP/std::pow/sin/cos/sqrt；double中间与原F32落存、常量位样本、幅值重读、零/无序、I64截断、逐轴结果及volatile投影参考时点/返回保持。CI消费点改std::pow后重读幅值，原业务/RNG/owner不改；投影声明归既有头，CMake换CPP并删除地图ASM。8现语义提供者/处置、四关联SPEC及U11/G04同步；旧ASM/验收仍只属固定历史，不外推原CRT全部本体。
+
+限定I/S证据1318→1320，原身份/成员/完整gates/整项验收/任务状态/六closure保持。13入口/常量/结构/计算与发布序/源项/历史引用、UTF-8/差异及台账汇总/Check完成后精确提交，固定引用cg2d-re-asm-map-cpp-20261009。三源已迁2份，剩LegacyFloatEnvironment.asm及MASM依赖继续处理；未编译/链接/测试/运行/算法/产物/摘要，整体目标继续active。

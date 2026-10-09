@@ -17,7 +17,7 @@ static_assert(offsetof(MapEffectMotion, horizontalSign) == 8);
 static_assert(offsetof(MapEffectMotion, verticalSign) == 12);
 static_assert(sizeof(MapEffectMotion) == 16);
 
-// 私有MASM接口保留x87指令/存储边界并恢复控制字；见场景SPEC§20.19。
+// ACP01：CPP/double/std数学近似替换；保留场景SPEC§20.19的字段与发布序。
 extern "C" void Cg2dMapEffectDirection(
     std::int32_t angle,
     const float* speed,
@@ -31,8 +31,7 @@ extern "C" void Cg2dMapEffectMotion(
     std::int32_t cameraY,
     MapEffectMotion* result) noexcept;
 
-// 原46F38D/46F43A：S32指数/借用幅值经完整CI幂，ST0连续消费后返回原截断低S32。
-// 正常72B调用帧保存幅值指针，不以通用幂返回EDX当原指针；见幂应用接线SPEC。
+// 原46F38D/46F43A：S32指数经std::pow后重读借用幅值，返回向零I64低S32。
 extern "C" std::int32_t Cg2dMapEffectDivisor(
     std::int32_t exponent,
     const double* magnitude) noexcept;
@@ -108,7 +107,7 @@ struct MapMoveDifference {
 };
 
 struct MapMoveDirection {
-    double unroundedX; // 原X方向未落F32的寄存器值，仍按PC53承接。
+    double unroundedX; // X方向在F32落存之前的double值；ACP01不承诺原PC53数值。
     float x;
     float y;
 };
@@ -124,7 +123,7 @@ static_assert(sizeof(MapMoveDirection) == 16);
 extern "C" void Cg2dMapMoveDirection(
     const MapMoveDifference* difference, MapMoveDirection* result) noexcept;
 
-// 原43EED2–43EF01：FCOS/FSIN与progress的原序乘法，输出两个截断I64偏移。
+// 原43EED2–43EF01：std::cos/sin与progress按原序乘法，输出两个截断I64偏移。
 extern "C" void Cg2dMapActorSpiralOffset(
     std::int32_t progress, std::int32_t angle, std::int64_t* result) noexcept;
 
@@ -138,3 +137,15 @@ extern "C" void Cg2dMapTimedOffset(
     std::uint32_t* xBits, std::uint32_t* yBits) noexcept;
 
 } // namespace cg::platform::detail
+
+namespace cg::platform {
+
+// 原46CE30/46CE80；历史X87符号由CPP提供，保留volatile参考采样和返回outX。
+extern "C" float* Cg2dProjectWorldToScreenX87(
+    float x, float y, float* outX, float* outY,
+    const volatile std::uint32_t* referenceX, const volatile std::uint32_t* referenceY) noexcept;
+extern "C" float* Cg2dProjectScreenToWorldX87(
+    float x, float y, float* outX, float* outY,
+    const volatile std::uint32_t* referenceX, const volatile std::uint32_t* referenceY) noexcept;
+
+} // namespace cg::platform

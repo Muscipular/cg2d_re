@@ -46,7 +46,12 @@
 <a id="asm-cpp-source-state"></a>
 ## 5. 当前实施状态
 
-数值取舍已按用户授权确定。音频源6入口已迁移为`LegacyAudioMath.cpp`，CMake改接CPP并删除音频ASM；音频记录定义从既有CPP移至私有头，布局与原调用保持。`log/sqrt`与中间`double`承接，I64向零转换用宿主SSE2接口，F32字段与表格/投影顺序保持。地图及CRT环境两源仍待迁移，MASM依赖暂保留；未编译/链接/运行。
+数值取舍已按用户授权确定。音频源6入口已迁移为`LegacyAudioMath.cpp`，CMake改接CPP并删除音频ASM；音频记录定义从既有CPP移至私有头，布局与原调用保持。`log/sqrt`与中间`double`承接，I64向零转换用宿主SSE2接口，F32字段与表格/投影顺序保持。
+
+地图源13入口已迁移为`MapEffectMath.cpp`并删除地图ASM，CMake改接CPP。仅剩CRT环境ASM及MASM依赖待迁移；当前两阶段未编译/链接/运行。
 
 <a id="asm-cpp-audio-source-state"></a>
 音频阶段ACP01-A对应6入口、5条现有原函数语义登记与V05。旧x87证据仍只绑定原命名快照；当前CPP仅登记接口/源码顺序的限定I/S静态证据，完整声音、状态、错误/设备与生命周期验收保持开放。
+
+<a id="asm-cpp-map-source-state"></a>
+地图阶段ACP01-M对应13入口、8条现有语义登记及U11/G04。原常量位样本、F32落存/后续消费、零/无序分支、I64截断、逐轴输入重读与发布、投影volatile参考时点和返回保持；CI幂依赖改为std::pow后再读取幅值。旧ST0/PC53保证被许可覆盖，其余原业务门槛、RNG调用与owner不改。只登记限定I/S，不代替轨迹/坐标/画面或ABI与生命周期运行验收。

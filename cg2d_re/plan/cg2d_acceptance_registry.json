@@ -55891,6 +55891,27 @@
       "recorded_on": "2026-10-09",
       "id": "E-TITLE-NONE-ALIAS-FUNC-MAP-S-20261009",
       "gate": "S"
+    },
+    {
+      "id": "E-CHARACTER-ENTRY-CONFIRMED-FUNC-CHARACTER-R-20261009",
+      "feature_id": "FUNC-CHARACTER",
+      "gate": "R",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "CAC01实际选人后数组断言；CAC03恢复原正常未装备称号-1的FF04F4角色尾部别名。",
+      "implementation_reference": "已部署源码8d93c8d5/快照cg2d-re-title-none-alias-20261009；本次确认归档cg2d-re-character-entry-confirmed-20261009。",
+      "method": "runtime",
+      "artifacts": [
+        "doc/cg2d_build_acceptance_spec.md#character-entry-confirmed-20261009"
+      ],
+      "environment_reference": "doc/cg2d_build_acceptance_spec.md#character-entry-confirmed-20261009",
+      "input_reference": "doc/cg2d_build_acceptance_spec.md#character-entry-confirmed-20261009",
+      "output_reference": "doc/cg2d_build_acceptance_spec.md#character-entry-confirmed-20261009",
+      "observation": "用户按本线程上一轮选人复验请求手动运行后回复“已正常”；本线程未启动客户端或自动采样。只确认本次选人入场及原断言故障复验，不代表完整R门禁。",
+      "expected": "修复版重新选择人物后正常入场，不再出现本次已报告的称号数组断言。",
+      "actual": "用户反馈“已正常”，本次故障复验通过；原失败记录/调用栈保留，下标数值与完整运行轨迹未采集，两个称号页面及其它场景仍未验。",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
     }
   ],
   "task_acceptance": [

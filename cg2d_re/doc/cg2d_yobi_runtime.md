@@ -4587,3 +4587,6 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 本次裁决只恢复这一已证正常-1字节别名：在既有WorldUpdateDependencies/SceneState增加BorrowTitleText(index)，-1借用login::gCharacterRecords[1]的+80h，不制造空串、复制或清尾部；其它下标保留原称号表读取。BorrowPlayerDisplayText模式3及474FB0/478010两页面共用此读取，页面先采样titleIndex、再取目标槽、再借用文本的顺序保持。原64项表、两条94h角色记录及标题解析/存档/格式化/绘制均不改，不扩大数组、关闭断言、加泛化越界保护或异常模拟。
 
 验收分开记录：真实旧栈定位已取得；正常-1原地址与已有owner的静态对应、三消费接线及必要Debug编译/链接随后核对；新版实际进入游戏仍需用户手动复验，未将旧失败R改为通过。按本次用户要求更新游戏EXE无需备份；原协议明文/LF、GBK/宋体/ASCII光标、SDL3/WAV保持。
+
+
+2026-10-09用户在CAC03覆盖部署后反馈“已正常”，确认本次选人入场故障复验通过。只关闭本次已报告断言的待验状态；保留旧失败记录与栈，不将反馈扩大为两称号页面、全部称号/场景生命周期或整体SPEC验收。详见[用户复验记录](cg2d_build_acceptance_spec.md#character-entry-confirmed-20261009)。

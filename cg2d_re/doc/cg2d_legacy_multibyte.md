@@ -1,5 +1,7 @@
 # 原多字节分类与目录驱动器转换
 
+> 2026-10-10当前多字节/参数准备边界：[MC01-C5](cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010)已退休无现业务调用的旧ctype/多字节/NLS/转换表与私有argv/环境、双BYTE桥、重复前置及专用致命入口；Input两项ASCII非零分类直接MSVC。应用命令四正文/发布槽、真实WinMain尾、数组terminate与所有业务/字段/字节/owner保持；未更改字体/GBK、协议/资源/存档编码或开全局locale。下文旧库表/状态/handler/9/9/8分支和其实施前态只作固定历史，不要求复刻，也不判原未知alias/邮件重叠已闭。全体实际CRT提供者与业务边界继续审计，全部适用SDK/正常结果/运行门禁保持，未编译/运行。
+
 > 2026-10-10当前数值库边界：[MC01-C2](cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010)已退休无现业务调用的旧浮点格式/96位转换/环境与pow错误私有组，数值格式/数学及库内状态交MSVC。实际地图/音频数学源与控制作用域保持，两Shop/NLS低宽读取移回既有模块，计时U64除法保留；旧gate/数学记录/CPU探测和其余内部CPP/ASM源码状态属固定历史，不再要求复刻。全部适用业务/owner/SDK正常结果与运行门禁保持，未编译/运行。
 
 ## 本轮实施 SPEC（2026-10-02）

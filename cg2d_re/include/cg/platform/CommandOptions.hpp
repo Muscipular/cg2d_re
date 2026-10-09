@@ -47,33 +47,4 @@ extern int ParseIpOptions_507C80(const char* commandLine);
 
 // ParseCommandOptions 的唯一函数声明复用 Startup.hpp，返回类型为 int。
 
-// 原1087AE4；借用GetCommandLineA结果，必须先完成原启动的生产片段。
-extern char* gLegacyRawCommandLine1087AE4;
-
-// 原53DDB5内53DE29..53DE34，仅获取并发布，不代表完整CRT启动入口。
-void CaptureLegacyCommandLine_53DE29();
-
-// 原543F36；初始化多字节表后切片，返回原命令行内的借用指针。
-char* SliceLegacyWinMainCommandLine_543F36();
-
-// 原544047；原始命令行必须先生产，分配失败沿原间接退出链。
-std::int32_t InitializeLegacyArguments_544047();
-extern char* gLegacyProgramName1086018;
-extern char** gLegacyArguments1086000;
-extern std::int32_t gLegacyArgumentCount1085FFC;
-
-// 原1086030是Malloc拥有的旧字节块；53DE34先发布，543F8E释放后清槽。
-extern char* gLegacyRawEnvironment1086030;
-// 原1086008是543F8E生产的拥有型char*表，包含末尾空槽；各地址按x64拓宽。
-extern char** gLegacyEnvironment1086008;
-extern std::uint32_t gLegacyEnvironmentInitialized1087AE8; // 原543F8E末尾写1。
-// 旧进程入口保持环境块→argv→环境表→cinit顺序；实际客户端由宿主CRT进入WinMain。
-void CaptureLegacyEnvironment_53DE34();
-void InitializeLegacyEnvironment_543F8E();
-
-// 原5440E0；槽/字节区可空以计数，槽数包含末尾nullptr，返回槽数指针。
-// 两个计数保持S32；多字节分类由调用方既有初始化提供，不在此重新初始化。
-std::int32_t* ParseLegacyCommandLine_5440E0(const char* commandLine, char** arguments,
-    char* text, std::int32_t* argumentSlotCount, std::int32_t* byteCount);
-
 } // namespace cg::platform

@@ -3,7 +3,6 @@
 #include "../LoginMessageDependencies.hpp"
 #include "../LegacyPanelRuntime.hpp"
 #include "MainLoopDependencies.hpp"
-#include "LegacyMultibyte.hpp"
 #include "cg/AnimationRuntime.hpp"
 #include "cg/GraphicInfo.hpp"
 #include "cg/GraphicRead.hpp"
@@ -28,16 +27,6 @@ std::uint32_t gValueD68BF0 = 0;
 std::uint32_t gValueD68DC8 = 0;
 
 namespace {
-
-// MC01-C4：MSVC入口管理堆/异常/退出；当前仅保多字节前置。
-struct LegacyMultibyteStaticInitializer {
-    LegacyMultibyteStaticInitializer()
-    {
-        InitializeLegacyMultibyte_546CAE();
-    }
-};
-
-const LegacyMultibyteStaticInitializer gLegacyMultibyteStaticInitializer;
 
 // 原CRT553004..553010：每项完成构造后即时登记退出，第一结果不短路后项。
 // 只有本组模块位置适配；接全应用原序时须同小步移除此调用，避免双构造/登记。

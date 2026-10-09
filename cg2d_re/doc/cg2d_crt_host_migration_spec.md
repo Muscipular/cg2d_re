@@ -1,5 +1,7 @@
 # CRT 宿主承接总 SPEC
 
+> 2026-10-10多字节与命令行库边界：[MC01-C5](cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010)按实际消费者退休旧ctype/多字节/NLS转换表和私有argv/环境组、重复初始化及其专用致命入口；真实Input两项分类直接MSVC，应用ParseCommandOptions/ParseIpOptions与实际WinMain命令尾保持。未更改协议/资源/存档编码或开启全局locale；完整业务/owner/SDK与运行门禁保持。
+
 > 2026-10-10堆策略：[MC01-C4](cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010)覆盖HMU01仍保留的模式选择、数量预处理、私有handler与借用句柄初始化要求。通用分配族直接采用MSVC合同，原业务U32参数、真实返回消费和owner保持；旧库策略与失败28前置只保历史，实际多字节前置另步处理。未编译/运行，全部适用业务与SDK门禁保持。
 
 > 2026-10-10当前错误/退出边界：[MC01-C3](cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010)已将CRT私有退出/信号/消息与钩子、console及重复filter层交MSVC，删除纯CRT收尾回调/唯一登记；真实业务std::atexit与数组构析保持。两致命入口真实_Exit(255)不输出旧R600x/MessageBox，数组二次异常真实terminate；旧库字段/表与原filter生命周期只作固定历史，不再要求复刻。heap/multibyte前置与所有适用业务/owner/SDK/正常快速退出运行门禁仍待，未编译/运行。
@@ -256,3 +258,32 @@ LegacyMouse仅删heap初始化/28分支、两个未用include和更新前置注�
 [准确前后态及SDK证据](cg2d_msvc_crt_heap_evidence.json)登记35现语义：22私有CRT职责host、3真实公共适配、10共享记录仅移旧消费者；原身份/机器字段/证据与所有实施前态沿固定标签/原索引读取。F1429→1431（新2），CRT已知成员486→500（补14既有原ID）仍非完整枚举；软件证据1335→1337仅限定I/S。语义2029（1981F＋48X）、合同2091/3680、所有分母/完整功能门禁、184叶整项验收0、60任务关闭11与六closure保持。
 
 两旧Heap附件仅核固定前态可读性，当前来源不得回退；公开真实服务/SDK声明与职责、9退休定义/数据/头及CMake、源码精确差异、35原身份/现提供者/台账和门禁/政策及UTF-8/LF/静态汇总/-Check核对。未构建/链接/测试/运行/算法/查产物/计算摘要，无新依赖；固定引用cg2d-re-msvc-crt-heap-20261010。实际多字节/locale继续MC01-C，全部业务owner/正常结果、SDK容量/失败/初始化退出与运行仍待；MC01全CRT及整体SPEC未完成。
+
+<a id="msvc-crt-multibyte-decision-20261010"></a>
+## MC01-C5：多字节、ctype及私有argv/环境交MSVC（2026-10-10）
+
+全src/include核实际消费者：Input只消费ClassifyLegacySpace/Control的非零结果，其输入位于高位字节分支之后，实际为0..127；当前旧多字节表的直接组外读取、初始化与lead查询只在私有argv/环境辅助体中，而该辅助组没有当前客户端调用。实际WinMain由MSVC进入并直接消费传入的命令行尾；应用ParseCommandOptions/ParseIpOptions和其发布字段、字节容量、格式/分支及所有调用保持，不能与CRT参数准备组混删。
+
+ClassifyLegacySpace/Control保原S32接口，移至既有LegacyStringCompare，分别直接std::isspace/std::iscntrl；Input仅换到现公开头，不加字符钳制或保护，不改变拒绝条件/字节扫描序。无现组外调用的ClassifyLegacyByte、大小写/多字节分类、五转换与NLS分类/映射、计数/双BYTE桥和代码页生产/固定表退休；旧C locale/转换代码页/ctype表/指针及多字节对象/后端/guard归MSVC真实线程/locale和库支撑，不造同名槽或现代mbstate强转旧W32，不恢复旧NLS探测、未写字节及私有机器合同。
+
+删除旧Capture命令行/环境两片段、GetLegacyEnvironmentBlock、InitializeLegacyEnvironment、SliceLegacyWinMainCommandLine、InitializeLegacyArguments和ParseLegacyCommandLine及其所有原私有发布槽。MSVC实际exe入口负责argv配置、环境初始化与WinMain命令尾，UCRT负责多字节/线程locale生命周期；不调用库私有名或借当前无消费者宣称原调用不可达。此前C3/C4保留的CommandOptions失败9/9/8是这些CRT辅助体内的分配失败，随整个私有组退休，其唯一ExitLegacyRuntimeError定义/声明也退休；不能再表述为当前业务失败。实际数组仍用TerminateLegacyRuntime直接std::terminate，数组正文/失败前缀及业务资源构析保持。
+
+删除LegacyMultibyte CPP/头与LegacyStringCompareState头、CMake源项和LegacyMouse唯一多字节前置对象/调用；不建空初始化器或全局_setmbcp/setlocale来伪装旧表。库内部转换、分类、校验/失败、locale/TLS、argv引号/数量/环境与生命周期按真实MSVC，接受这些具名差异，不称旧机制等价；旧共享原数据/别名及机器证据固定于cg2d-re-msvc-crt-multibyte-history-20261010。未知原alias、邮件重叠等证据保留且不判已闭，未删除任何当前业务字节存储；业务协议/资源/存档和字体/GBK合同不变，不由CRT迁移猜代码页或改成Unicode。CRT源码收敛后仍须全体实际提供者/业务边界审计，完整验收与总SPEC§10保持。
+
+<a id="msvc-crt-multibyte-acceptance-20261010"></a>
+## MC01-C5 静态核对
+
+核所有旧多字节/ctype/argv/环境导出、槽与组外消费者；核Input实际两项分类的字节域和非零消费，SDK两标准分类的实际声明/转引及真实exe/UCRT初始化职责。Input只改include，CommandOptions四实际业务正文/全部业务槽与公开头逐字保持，LegacyMouse仅删私有前置/未用头，其余初始化/业务回调/登记/标准流顺序不变；ClientEntry实际WinMain与数组/terminate正文保持。核旧私有定义/状态/头/CMake无当前残留，原身份/当前来源和完整台账政策门禁保持；历史附件只核固定前态，不作为当前提供者。仅静态证据，不构建/测试/运行/算法/查产物/计算摘要或引新依赖。
+
+<a id="msvc-crt-multibyte-source-state-20261010"></a>
+## MC01-C5 当前源码状态
+
+旧LegacyMultibyte CPP/头及LegacyStringCompareState头和CMake项退休，37定义、22私有数据符号与4布局类型退出当前链。两真实Input分类移既有LegacyStringCompare，保持S32参数并直接std::isspace/std::iscntrl；Input只换公开include，高位字节处理/ASCII域与非零拒绝消费逐字保持，比较两个实际MSVC入口也保持原文。没有新分类缓存、locale/setmbcp调用、编码转换或字符保护。
+
+旧私有argv/环境七函数及发布槽没有当前客户端调用；整个辅助组与旧9/9/8分配失败、唯一ExitLegacyRuntimeError一起退休，LegacyMouse唯一多字节前置对象/调用删除。原业务ReadBgmFrequencySelectionByte/BgmRuntimeOrderWords/ParseCommandOptions/ParseIpOptions四正文与所有发布槽、ClientEntry实际WinMain命令尾、数组三构析/展开/筛选与terminate及全部业务/标准流/即时登记保持。原旧数组/转换state、locale/TLS/ctype/代码页表及NLS后端归真实MSVC职责，不把旧C3/C4保留的私有错误支路继续称业务失败。
+
+[准确前后态/消费者与SDK证据](cg2d_msvc_crt_multibyte_evidence.json)核本机八头/源，实际标准分类、mb函数转引、exe argv/环境及WinMain尾、UCRT线程/多字节初始化。56现语义对齐：27库职责host、2真实分类adapted、27共享/旧角色记录仅退消费者，其中53DECD一原X保持身份、只关联宿主退出职责不造F/尾体；原机器数据和全部完整前态沿固定标签/索引可读。
+
+F1431→1454（新23）、CRT已知成员500→524（新24既有原ID）且枚举false，软件证据1337→1339仅限定I/S。语义2029（1981F＋48X）、合同2091/3680、所有原分母/完整功能门禁、184叶整项验收0、60任务关闭11及六closure保持。三旧附件只核固定前态，当前source禁回退；旧私有符号/表/头/CMake无残留，两真实服务/SDK及业务精确守恒、56身份/来源与台账/门禁/政策、UTF-8/LF/差异和静态汇总/-Check核对。
+
+未构建/链接/测试/运行/算法/查产物/计算摘要，无新依赖；固定引用cg2d-re-msvc-crt-multibyte-20261010。接下来审计全体实际CRT提供者/业务边界及残留接线；未知原alias、原邮件重叠及完整业务字节/正常结果/owner/SDK生命周期和运行仍待，不能据退休私有层关闭MC01或整体SPEC§10。

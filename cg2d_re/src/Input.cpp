@@ -9,7 +9,7 @@
 #include "InputKeyDispatchDependencies.hpp"
 #include "platform/LegacyFormat.hpp"
 #include "platform/LegacyStdio.hpp"
-#include "platform/LegacyMultibyte.hpp"
+#include "cg/platform/LegacyStringCompare.hpp"
 #include "platform/WindowProcedureState.hpp"
 #include "world/WorldUpdateDependencies.hpp"
 

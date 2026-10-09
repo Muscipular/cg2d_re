@@ -1,5 +1,7 @@
 # 旧多字节整串转换 SPEC（MWS01）
 
+> 2026-10-10当前多字节/参数准备边界：[MC01-C5](cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010)已退休无现业务调用的旧ctype/多字节/NLS/转换表与私有argv/环境、双BYTE桥、重复前置及专用致命入口；Input两项ASCII非零分类直接MSVC。应用命令四正文/发布槽、真实WinMain尾、数组terminate与所有业务/字段/字节/owner保持；未更改字体/GBK、协议/资源/存档编码或开全局locale。下文旧库表/状态/handler/9/9/8分支和其实施前态只作固定历史，不要求复刻，也不判原未知alias/邮件重叠已闭。全体实际CRT提供者与业务边界继续审计，全部适用SDK/正常结果/运行门禁保持，未编译/运行。
+
 2026-10-05，按既有工程委托补通用CRT转换依赖；唯一音频业务消费者继续暂停。
 上位：[文本编码](cg2d_text_encoding_spec.md)及[字符串合同](cg2d_legacy_string_compare.md)。
 固定快照：`cg2d-re-multibyte-string-source-20261005`；[原证据](cg2d_multibyte_string_evidence.json)。

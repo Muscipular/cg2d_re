@@ -70,6 +70,13 @@ function Check-Path([string]$path, [string]$owner) {
         & git -C $projectRoot cat-file -e ("cg2d-re-msvc-crt-heap-history-20261010:cg2d_re/" + $relativePath) 2>$null
         $exists = $LASTEXITCODE -eq 0
     }
+    # MC01-C5：旧多字节/NLS/ctype存储退休，仅历史附件可核前态，当前source禁回退。
+    $historicalMultibyte = @('src/platform/LegacyMultibyte.cpp', 'src/platform/LegacyMultibyte.hpp',
+        'src/platform/LegacyStringCompareState.hpp')
+    if (-not $exists -and $relativePath -cin $historicalMultibyte -and -not $currentSemanticSource) {
+        & git -C $projectRoot cat-file -e ("cg2d-re-msvc-crt-multibyte-history-20261010:cg2d_re/" + $relativePath) 2>$null
+        $exists = $LASTEXITCODE -eq 0
+    }
     Require $exists "$owner 引用不存在：$path"
     $pathCache[$pathCacheKey] = $true
 }

@@ -1,5 +1,7 @@
 # cg2d_re 文本编码与跨函数契约 SPEC
 
+> 2026-10-10当前多字节/参数准备边界：[MC01-C5](cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010)已退休无现业务调用的旧ctype/多字节/NLS/转换表与私有argv/环境、双BYTE桥、重复前置及专用致命入口；Input两项ASCII非零分类直接MSVC。应用命令四正文/发布槽、真实WinMain尾、数组terminate与所有业务/字段/字节/owner保持；未更改字体/GBK、协议/资源/存档编码或开全局locale。下文旧库表/状态/handler/9/9/8分支和其实施前态只作固定历史，不要求复刻，也不判原未知alias/邮件重叠已闭。全体实际CRT提供者与业务边界继续审计，全部适用SDK/正常结果/运行门禁保持，未编译/运行。
+
 > RPLAN.16；原则于2026-09-22获批，2026-10-04压缩更新。压缩前全文见Git命名快照 `cg2d-re-spec-history-20261004-before-closure-compression` 的本路径。
 > 连接提示原字节、指定绘制接线已有；整体编码/输入/字形与运行仍未验。状态见[唯一进度](../plan/cg2d_full_reconstruction_progress.md)，后续见[收尾T01–T03/V04](../plan/cg2d_spec_closure_checklist.md)。
 

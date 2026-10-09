@@ -1,0 +1,692 @@
+{
+  "schema_version": 1,
+  "spec_id": "MC01-C5",
+  "recorded_on": "2026-10-10",
+  "before_snapshot": "cg2d-re-msvc-crt-multibyte-history-20261010",
+  "implementation_snapshot": "cg2d-re-msvc-crt-multibyte-20261010",
+  "authorization": "用户CRT直接MSVC与工程委托；先记C5决议并按全源码真实消费者分类",
+  "retired_paths": [
+    "src/platform/LegacyMultibyte.cpp",
+    "src/platform/LegacyMultibyte.hpp",
+    "src/platform/LegacyStringCompareState.hpp"
+  ],
+  "changed_source_paths": [
+    "CMakeLists.txt",
+    "src/Input.cpp",
+    "src/platform/LegacyStringCompare.cpp",
+    "include/cg/platform/LegacyStringCompare.hpp",
+    "src/platform/CommandOptions.cpp",
+    "include/cg/platform/CommandOptions.hpp",
+    "src/platform/LegacyMouse.cpp",
+    "src/platform/LegacyRuntimeError.cpp",
+    "src/platform/LegacyRuntimeError.hpp"
+  ],
+  "retired_definitions": [
+    "Btowc_54AAD5",
+    "CaptureLegacyCommandLine_53DE29",
+    "CaptureLegacyEnvironment_53DE34",
+    "Cg2dReadLegacyMappedPair",
+    "ClassifyLegacyByte",
+    "ClassifyLegacyCharacter_541955",
+    "ClassifyMultibyteType_546CDB",
+    "CountLegacyBytes_543D0C",
+    "ExitLegacyRuntimeError_53DEAB",
+    "GetLegacyCharacterTypes_545208",
+    "GetLegacyEnvironmentBlock_544294",
+    "GetLegacyStringTypes_545208",
+    "InitializeLegacyArguments_544047",
+    "InitializeLegacyEnvironment_543F8E",
+    "InitializeLegacyMultibyte_546CAE",
+    "IsLegacyMultibyteLead_546CCA",
+    "LowerLegacyCharacter_53DC64",
+    "MapLegacyCaseTable_543AE8",
+    "MapLegacyCase_543AE8",
+    "MapLegacyString_543AE8",
+    "Mbrtowc_54A9C3",
+    "Mbstowcs_53C9DD",
+    "Mbtowc_544552",
+    "MultibyteCodePageToLocale_546ACD",
+    "NormalizeLegacyHexCharacter_53E919",
+    "ParseLegacyCommandLine_5440E0",
+    "ReadLegacyMappedByte",
+    "RefreshLegacySingleByteCase_546B29",
+    "ResetLegacySingleByte_546B00",
+    "ResolveLegacyMultibyteCodePage_546A83",
+    "SetLegacyMultibyteCodePage_5468EA",
+    "SliceLegacyWinMainCommandLine_543F36",
+    "UpperLegacyCharacter_543A1A",
+    "UpperLegacyDirectoryByte_543D37",
+    "UpperLegacyMultibyteCharacter_543D37",
+    "Wctomb_54472B",
+    "LegacyMultibyteStaticInitializer"
+  ],
+  "retired_data_symbols": [
+    "gLegacyCtypeMaxBytes58FE3C",
+    "gLegacyMultibyte1086764",
+    "gLegacyMultibyteTypeBackend10862E4",
+    "gLegacyMultibyteSystemCodePage10862E8",
+    "gLegacyMultibyteInitGuard1087AEC",
+    "kMultibyteCodePages5923F0",
+    "kMultibyteRangeMasks5923E8",
+    "gLegacyTextLocale1086160",
+    "gConversionCodePage_1086170",
+    "gNlsProbeD68A7C",
+    "gCtypeTable58FC38",
+    "gCtypePointer58FC30",
+    "gLegacyRawCommandLine1087AE4",
+    "gLegacyRawEnvironment1086030",
+    "gLegacyEnvironment1086008",
+    "gLegacyEnvironmentInitialized1087AE8",
+    "gLegacyEnvironmentBackend10862A4",
+    "gLegacyProgramName1086018",
+    "gLegacyArguments1086000",
+    "gLegacyArgumentCount1085FFC",
+    "gLegacyArgumentFilename10861A0",
+    "gLegacyMultibyteStaticInitializer"
+  ],
+  "retired_type_names": [
+    "LegacyMultibyteStorage",
+    "MultibyteCodePageDefinition",
+    "LegacyConversionLocale54A9C3",
+    "LegacyTextLocaleStorage"
+  ],
+  "pre_migration_consumers": {
+    "searched_roots": [
+      "src",
+      "include"
+    ],
+    "real_outside_consumers": {
+      "src/Input.cpp": [
+        "ClassifyLegacySpace_53BDEF",
+        "ClassifyLegacyControl_53BE17"
+      ],
+      "src/platform/LegacyMouse.cpp": [
+        "InitializeLegacyMultibyte_546CAE"
+      ]
+    },
+    "legacy_multibyte_other_consumers_private_command_group_only": true,
+    "private_argv_environment_functions_outside_callers": 0,
+    "current_text_locale_ctype_private_data_outside_consumers": 0,
+    "actual_input_classification_domain": "0..127，高位字节分支先continue；S32接口/非零消费保持",
+    "private_allocation_failure_arguments_retired": [
+      9,
+      9,
+      8
+    ],
+    "business_command_functions_kept": [
+      "ReadBgmFrequencySelectionByte",
+      "BgmRuntimeOrderWords",
+      "ParseCommandOptions",
+      "ParseIpOptions_507C80"
+    ]
+  },
+  "providers": [
+    {
+      "symbol": "ClassifyLegacySpace_53BDEF",
+      "service": "std::isspace",
+      "path": "src/platform/LegacyStringCompare.cpp",
+      "actual_consumer": "src/Input.cpp",
+      "runtime_verified": false
+    },
+    {
+      "symbol": "ClassifyLegacyControl_53BE17",
+      "service": "std::iscntrl",
+      "path": "src/platform/LegacyStringCompare.cpp",
+      "actual_consumer": "src/Input.cpp",
+      "runtime_verified": false
+    }
+  ],
+  "source_snapshots": {
+    "src/platform/LegacyMultibyte.cpp": {
+      "path": "src/platform/LegacyMultibyte.cpp",
+      "before_snapshot": "cg2d-re-msvc-crt-multibyte-history-20261010",
+      "current_source_retired": true
+    },
+    "src/platform/LegacyMultibyte.hpp": {
+      "path": "src/platform/LegacyMultibyte.hpp",
+      "before_snapshot": "cg2d-re-msvc-crt-multibyte-history-20261010",
+      "current_source_retired": true
+    },
+    "src/platform/LegacyStringCompareState.hpp": {
+      "path": "src/platform/LegacyStringCompareState.hpp",
+      "before_snapshot": "cg2d-re-msvc-crt-multibyte-history-20261010",
+      "current_source_retired": true
+    }
+  },
+  "source_changes": {
+    "CMakeLists.txt": {
+      "path": "CMakeLists.txt",
+      "before_snapshot": "cg2d-re-msvc-crt-multibyte-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-multibyte-20261010",
+      "diff": "--- 迁移前/CMakeLists.txt\n+++ 迁移后/CMakeLists.txt\n@@ -73,17 +73,16 @@\n     src/platform/LegacyModuleDigest.cpp\n     src/platform/LegacyMemory.cpp\n     src/platform/LegacyRuntimeError.cpp\n     src/platform/LegacyRuntimeExit.cpp\n     src/platform/LegacyLowIo.cpp\n     src/platform/LegacyStdio.cpp\n     src/platform/LegacyFormat.cpp\n     src/platform/LegacyScan.cpp\n-    src/platform/LegacyMultibyte.cpp\n     src/platform/LegacyNetworkAdapter.cpp\n     src/platform/SdlAudioBackend.cpp\n     src/platform/LegacyWavesReverb.cpp\n     src/platform/LegacyAudioMath.cpp\n     src/platform/LegacyMouse.cpp\n     src/platform/LegacyMouseTracker.cpp\n     src/platform/LegacyCursor.cpp\n     src/platform/LegacyTime.cpp\n"
+    },
+    "src/Input.cpp": {
+      "path": "src/Input.cpp",
+      "before_snapshot": "cg2d-re-msvc-crt-multibyte-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-multibyte-20261010",
+      "diff": "--- 迁移前/src/Input.cpp\n+++ 迁移后/src/Input.cpp\n@@ -4,17 +4,17 @@\n #include \"cg/platform/KeyState.hpp\"\n #include \"cg/platform/LegacyTime.hpp\"\n #include \"cg/platform/Startup.hpp\"\n #include \"cg/ui/WindowRuntime.hpp\"\n \n #include \"InputKeyDispatchDependencies.hpp\"\n #include \"platform/LegacyFormat.hpp\"\n #include \"platform/LegacyStdio.hpp\"\n-#include \"platform/LegacyMultibyte.hpp\"\n+#include \"cg/platform/LegacyStringCompare.hpp\"\n #include \"platform/WindowProcedureState.hpp\"\n #include \"world/WorldUpdateDependencies.hpp\"\n \n #include <array>\n #include <bit>\n #include <cstddef>\n #include <cstdint>\n #include <cstring>\n"
+    },
+    "src/platform/LegacyStringCompare.cpp": {
+      "path": "src/platform/LegacyStringCompare.cpp",
+      "before_snapshot": "cg2d-re-msvc-crt-multibyte-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-multibyte-20261010",
+      "diff": "--- 迁移前/src/platform/LegacyStringCompare.cpp\n+++ 迁移后/src/platform/LegacyStringCompare.cpp\n@@ -1,66 +1,24 @@\n #include \"cg/platform/LegacyStringCompare.hpp\"\n \n-#include \"LegacyStringCompareState.hpp\"\n-#include \"LegacyMultibyte.hpp\"\n-\n+#include <cctype>\n #include <cstring>\n-\n-#define WIN32_LEAN_AND_MEAN\n-#define NOMINMAX\n-#include <Windows.h>\n \n namespace cg::platform {\n \n-LegacyTextLocaleStorage gLegacyTextLocale1086160 {};\n-std::uint32_t& gConversionCodePage_1086170 =\n-    gLegacyTextLocale1086160.conversionCodePage;\n-char gNlsProbeD68A7C = 0;\n-\n-// 原 58FC38 的 EOF 槽及 ASCII 分类；其余 128 项原字节均为零。\n-std::array<std::uint16_t, 257> gCtypeTable58FC38 {\n-    0x0000, 0x0020, 0x0020, 0x0020, 0x0020, 0x0020, 0x0020, 0x0020,\n-    0x0020, 0x0020, 0x0028, 0x0028, 0x0028, 0x0028, 0x0028, 0x0020,\n-    0x0020, 0x0020, 0x0020, 0x0020, 0x0020, 0x0020, 0x0020, 0x0020,\n-    0x0020, 0x0020, 0x0020, 0x0020, 0x0020, 0x0020, 0x0020, 0x0020,\n-    0x0020, 0x0048, 0x0010, 0x0010, 0x0010, 0x0010, 0x0010, 0x0010,\n-    0x0010, 0x0010, 0x0010, 0x0010, 0x0010, 0x0010, 0x0010, 0x0010,\n-    0x0010, 0x0084, 0x0084, 0x0084, 0x0084, 0x0084, 0x0084, 0x0084,\n-    0x0084, 0x0084, 0x0084, 0x0010, 0x0010, 0x0010, 0x0010, 0x0010,\n-    0x0010, 0x0010, 0x0081, 0x0081, 0x0081, 0x0081, 0x0081, 0x0081,\n-    0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001,\n-    0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001,\n-    0x0001, 0x0001, 0x0001, 0x0001, 0x0010, 0x0010, 0x0010, 0x0010,\n-    0x0010, 0x0010, 0x0082, 0x0082, 0x0082, 0x0082, 0x0082, 0x0082,\n-    0x0002, 0x0002, 0x0002, 0x0002, 0x0002, 0x0002, 0x0002, 0x0002,\n-    0x0002, 0x0002, 0x0002, 0x0002, 0x0002, 0x0002, 0x0002, 0x0002,\n-    0x0002, 0x0002, 0x0002, 0x0002, 0x0010, 0x0010, 0x0010, 0x0010,\n-    0x0020\n-};\n-std::uint16_t* gCtypePointer58FC30 = gCtypeTable58FC38.data() + 1;\n-static_assert(sizeof(gCtypePointer58FC30) == 8);\n-\n-// MC01：有界长度由MSVC strnlen提供，不复刻原末端额外读取。\n-std::uint32_t CountLegacyBytes_543D0C(const char* const source, const std::uint32_t limit)\n+// MC01-C5：只转交MSVC分类，Input的ASCII输入及非零消费保持。\n+std::int32_t ClassifyLegacySpace_53BDEF(const std::int32_t character)\n {\n-    return static_cast<std::uint32_t>(::strnlen(source, limit));\n+    return std::isspace(character);\n }\n \n-// 53DC64/543A1A调用域：LOWERCASE/UPPERCASE、目的长3、代码页参数0、strict=1。\n-std::int32_t MapLegacyCase_543AE8(const std::uint32_t locale, const std::uint32_t flags,\n-    const char* source, const int sourceSize, char* destination)\n+std::int32_t ClassifyLegacyControl_53BE17(const std::int32_t character)\n {\n-    return MapLegacyString_543AE8(\n-        locale, flags, source, sourceSize, destination, 3, 0, 1);\n-}\n-\n-std::uint16_t ClassifyLegacyByte(const std::uint8_t value, const std::uint16_t mask)\n-{\n-    return gCtypePointer58FC30[value] & mask;\n+    return std::iscntrl(character);\n }\n \n std::int32_t CompareInsensitive_53CF50(const char* left, const char* right)\n {\n     return ::_stricmp(left, right);\n }\n \n std::int32_t CompareInsensitiveN_54AB30(\n"
+    },
+    "include/cg/platform/LegacyStringCompare.hpp": {
+      "path": "include/cg/platform/LegacyStringCompare.hpp",
+      "before_snapshot": "cg2d-re-msvc-crt-multibyte-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-multibyte-20261010",
+      "diff": "--- 迁移前/include/cg/platform/LegacyStringCompare.hpp\n+++ 迁移后/include/cg/platform/LegacyStringCompare.hpp\n@@ -1,16 +1,17 @@\n #pragma once\n \n #include <cstdint>\n \n namespace cg::platform {\n \n-// 原541955的U8输入域；读取共享58FC30分类表，mask取原ctype位，不使用宿主locale。\n-std::uint16_t ClassifyLegacyByte(std::uint8_t value, std::uint16_t mask);\n+// 原53BDEF/53BE17：直接MSVC分类；Input只消费实际ASCII字节的非零结果。\n+std::int32_t ClassifyLegacySpace_53BDEF(std::int32_t character);\n+std::int32_t ClassifyLegacyControl_53BE17(std::int32_t character);\n \n // 原54AB30：直接MSVC _strnicmp，数量保持U32，locale由MSVC持有。\n std::int32_t CompareInsensitiveN_54AB30(\n     const char* left, const char* right, std::uint32_t count);\n \n // 原53CF50：直接MSVC _stricmp，返回实际比较结果。\n std::int32_t CompareInsensitive_53CF50(const char* left, const char* right);\n \n"
+    },
+    "src/platform/CommandOptions.cpp": {
+      "path": "src/platform/CommandOptions.cpp",
+      "before_snapshot": "cg2d-re-msvc-crt-multibyte-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-multibyte-20261010",
+      "diff": "--- 迁移前/src/platform/CommandOptions.cpp\n+++ 迁移后/src/platform/CommandOptions.cpp\n@@ -1,41 +1,24 @@\n #include \"cg/platform/CommandOptions.hpp\"\n-#include \"cg/platform/LegacyMemory.hpp\"\n #include \"cg/platform/LegacyTime.hpp\"\n \n #include \"cg/LoginScene.hpp\"\n #include \"cg/ResourceNames.hpp\"\n #include \"cg/ResourcePaths.hpp\"\n #include \"cg/platform/LegacyWindow.hpp\"\n #include \"StartupNative.hpp\"\n-#include \"LegacyMultibyte.hpp\"\n #include \"LegacyFormat.hpp\"\n-#include \"LegacyRuntimeError.hpp\"\n \n #include <bit>\n #include <cstddef>\n #include <cstdio>\n #include <cstring>\n \n namespace cg::platform {\n-\n-char* gLegacyRawCommandLine1087AE4;\n-// 原1086030/1086008/1087AE8；原启动先发布原块，再由543F8E生产表和完成标志。\n-char* gLegacyRawEnvironment1086030;\n-char** gLegacyEnvironment1086008;\n-std::uint32_t gLegacyEnvironmentInitialized1087AE8;\n-// 原10862A4仅被544294读写；0尚未探测、1宽API、2窄API。\n-static std::uint32_t gLegacyEnvironmentBackend10862A4;\n-\n-// 原argv发布槽和260字节程序路径；由544047写入，不借用宿主argv。\n-char* gLegacyProgramName1086018 = nullptr;\n-char** gLegacyArguments1086000 = nullptr;\n-std::int32_t gLegacyArgumentCount1085FFC = 0;\n-static char gLegacyArgumentFilename10861A0[260] {};\n \n char gNewestText[128] = \"/update/newestV2.txt\";\n char gMapPath[128] = \"map\";\n std::int32_t gDeviceBitsPerPixel = 8;\n std::uint16_t gScanlineSyncMode = 1;\n std::int32_t gNoDelay = 1;\n std::uint32_t gRendererFlags = 0;\n std::int32_t gEnableSound = 1;\n@@ -311,344 +294,9 @@\n         record.opaque[0x80 + portLength] = 0;\n         record.available = 1;\n         ++login::gValueD9F2D4[static_cast<std::size_t>(index / 20)];\n         cursor = port;\n     }\n     return 0;\n }\n \n-// 原53DE29..53DE34；只实现真实启动中的API获取与发布片段。\n-void CaptureLegacyCommandLine_53DE29()\n-{\n-    gLegacyRawCommandLine1087AE4 = ::GetCommandLineA();\n-}\n-\n-// 原544294；返回Malloc_53C3AC拥有的旧字节块，系统环境块只在本函数内借用。\n-static char* GetLegacyEnvironmentBlock_544294()\n-{\n-    wchar_t* wide = nullptr;\n-    char* narrow = nullptr;\n-    if (gLegacyEnvironmentBackend10862A4 == 0) {\n-        wide = ::GetEnvironmentStringsW();\n-        if (wide != nullptr) {\n-            gLegacyEnvironmentBackend10862A4 = 1;\n-        } else {\n-            narrow = ::GetEnvironmentStringsA();\n-            if (narrow == nullptr) {\n-                return nullptr;\n-            }\n-            gLegacyEnvironmentBackend10862A4 = 2;\n-        }\n-    }\n-\n-    if (gLegacyEnvironmentBackend10862A4 == 1) {\n-        if (wide == nullptr) {\n-            wide = ::GetEnvironmentStringsW();\n-            if (wide == nullptr) {\n-                return nullptr;\n-            }\n-        }\n-        const wchar_t* cursor = wide;\n-        if (*cursor != L'\\0') {\n-            do {\n-                do {\n-                    ++cursor;\n-                } while (*cursor != L'\\0');\n-                ++cursor;\n-            } while (*cursor != L'\\0');\n-        }\n-        const std::uint32_t characterCount =\n-            static_cast<std::uint32_t>(cursor - wide) + 1u;\n-        const auto wideCount = std::bit_cast<std::int32_t>(characterCount);\n-        const std::int32_t byteCount = ::WideCharToMultiByte(\n-            CP_ACP, 0, wide, wideCount, nullptr, 0, nullptr, nullptr);\n-        char* result = nullptr;\n-        if (byteCount != 0) {\n-            result = static_cast<char*>(\n-                Malloc_53C3AC(static_cast<std::uint32_t>(byteCount)));\n-            if (result != nullptr && ::WideCharToMultiByte(\n-                    CP_ACP, 0, wide, wideCount, result, byteCount, nullptr, nullptr) == 0) {\n-                Free_53C0A9(result);\n-                result = nullptr;\n-            }\n-        }\n-        static_cast<void>(::FreeEnvironmentStringsW(wide));\n-        return result;\n-    }\n-\n-    if (gLegacyEnvironmentBackend10862A4 != 2) {\n-        return nullptr;\n-    }\n-    if (narrow == nullptr) {\n-        narrow = ::GetEnvironmentStringsA();\n-        if (narrow == nullptr) {\n-            return nullptr;\n-        }\n-    }\n-    const char* cursor = narrow;\n-    if (*cursor != '\\0') {\n-        do {\n-            do {\n-                ++cursor;\n-            } while (*cursor != '\\0');\n-            ++cursor;\n-        } while (*cursor != '\\0');\n-    }\n-    const std::uint32_t byteCount =\n-        static_cast<std::uint32_t>(cursor - narrow) + 1u;\n-    auto* const result = static_cast<char*>(Malloc_53C3AC(byteCount));\n-    if (result != nullptr) {\n-        static_cast<void>(CopyLegacyMemory_541620(result, narrow, byteCount));\n-    }\n-    static_cast<void>(::FreeEnvironmentStringsA(narrow));\n-    return result;\n-}\n-\n-// 原53DE34..53DE3E；只发布原块，不提前执行argv、环境表或cinit。\n-void CaptureLegacyEnvironment_53DE34()\n-{\n-    gLegacyRawEnvironment1086030 = GetLegacyEnvironmentBlock_544294();\n-}\n-\n-// 原543F8E；表槽地址拓宽，计数/字符串字节数保持W32，不借宿主environ表。\n-void InitializeLegacyEnvironment_543F8E()\n-{\n-    if (gLegacyMultibyteInitGuard1087AEC == 0) {\n-        InitializeLegacyMultibyte_546CAE();\n-    }\n-    char* cursor = gLegacyRawEnvironment1086030;\n-    std::uint32_t count = 0;\n-    while (*cursor != '\\0') {\n-        if (*cursor != '=') {\n-            ++count;\n-        }\n-        const std::uint32_t length = StrLen_53F9E0(cursor);\n-        cursor += length + 1u;\n-    }\n-\n-    const std::uint32_t tableBytes =\n-        (count + 1u) * static_cast<std::uint32_t>(sizeof(char*));\n-    auto** slot = static_cast<char**>(Malloc_53C3AC(tableBytes));\n-    gLegacyEnvironment1086008 = slot;\n-    if (slot == nullptr) {\n-        ExitLegacyRuntimeError_53DEAB(9);\n-    }\n-    cursor = gLegacyRawEnvironment1086030;\n-    while (*cursor != '\\0') {\n-        const std::uint32_t bytes = StrLen_53F9E0(cursor) + 1u;\n-        if (*cursor != '=') {\n-            *slot = static_cast<char*>(Malloc_53C3AC(bytes));\n-            if (*slot == nullptr) {\n-                ExitLegacyRuntimeError_53DEAB(9);\n-            }\n-            static_cast<void>(StrCpy_544DB0(*slot, cursor));\n-            ++slot;\n-        }\n-        cursor += bytes;\n-    }\n-    Free_53C0A9(gLegacyRawEnvironment1086030);\n-    gLegacyRawEnvironment1086030 = nullptr;\n-    *slot = nullptr;\n-    gLegacyEnvironmentInitialized1087AE8 = 1;\n-}\n-\n-// 原543F36；返回借用的WinMain命令行尾部，不复制或改变底层文本。\n-char* SliceLegacyWinMainCommandLine_543F36()\n-{\n-    if (gLegacyMultibyteInitGuard1087AEC == 0) {\n-        InitializeLegacyMultibyte_546CAE();\n-    }\n-    char* cursor = gLegacyRawCommandLine1087AE4;\n-    if (*cursor == '\"') {\n-        for (;;) {\n-            const auto value = static_cast<std::uint8_t>(*++cursor);\n-            if (value == '\"' || value == 0) {\n-                break;\n-            }\n-            if (IsLegacyMultibyteLead_546CCA(value) != 0) {\n-                ++cursor;\n-            }\n-        }\n-        if (*cursor == '\"') {\n-            ++cursor;\n-        }\n-    } else {\n-        while (static_cast<std::uint8_t>(*cursor) > 0x20u) {\n-            ++cursor;\n-        }\n-    }\n-    while (*cursor != '\\0' && static_cast<std::uint8_t>(*cursor) <= 0x20u) {\n-        ++cursor;\n-    }\n-    return cursor;\n-}\n-\n-std::int32_t InitializeLegacyArguments_544047()\n-{\n-    if (gLegacyMultibyteInitGuard1087AEC == 0) {\n-        InitializeLegacyMultibyte_546CAE();\n-    }\n-    static_cast<void>(::GetModuleFileNameA(\n-        nullptr, gLegacyArgumentFilename10861A0, 0x104));\n-    char* const commandLine = gLegacyRawCommandLine1087AE4;\n-    gLegacyProgramName1086018 = gLegacyArgumentFilename10861A0;\n-    const char* source = gLegacyArgumentFilename10861A0;\n-    if (*commandLine != '\\0') {\n-        source = commandLine;\n-    }\n-\n-    std::int32_t slots;\n-    std::int32_t bytes;\n-    ParseLegacyCommandLine_5440E0(source, nullptr, nullptr, &slots, &bytes);\n-    const std::uint32_t allocationBytes = static_cast<std::uint32_t>(bytes)\n-        + static_cast<std::uint32_t>(slots)\n-            * static_cast<std::uint32_t>(sizeof(char*));\n-    auto** const arguments = static_cast<char**>(Malloc_53C3AC(allocationBytes));\n-    if (arguments == nullptr) {\n-        ExitLegacyRuntimeError_53DEAB(8);\n-    }\n-    ParseLegacyCommandLine_5440E0(source, arguments,\n-        reinterpret_cast<char*>(arguments + slots), &slots, &bytes);\n-    const std::int32_t count = slots - 1;\n-    gLegacyArguments1086000 = arguments;\n-    gLegacyArgumentCount1085FFC = count;\n-    return count;\n-}\n-\n-// 原5440E0；argv0与后续参数分开，保留计数遍/写入遍各自的源推进。\n-std::int32_t* ParseLegacyCommandLine_5440E0(const char* const commandLine,\n-    char** arguments, char* text, std::int32_t* const argumentSlotCount,\n-    std::int32_t* const byteCount)\n-{\n-    constexpr std::uint8_t kLeadByte = 4;\n-    *byteCount = 0;\n-    *argumentSlotCount = 1;\n-    const char* cursor = commandLine;\n-    if (arguments != nullptr) {\n-        *arguments++ = text;\n-    }\n-\n-    if (*cursor == '\"') {\n-        for (;;) {\n-            const auto value = static_cast<std::uint8_t>(cursor[1]);\n-            ++cursor;\n-            if (value == '\"' || value == 0) {\n-                break;\n-            }\n-            if ((gLegacyMultibyte1086764.classification[value + 1] & kLeadByte) != 0) {\n-                ++*byteCount;\n-                if (text != nullptr) {\n-                    *text++ = *cursor++;\n-                }\n-            }\n-            ++*byteCount;\n-            if (text != nullptr) {\n-                *text++ = *cursor;\n-            }\n-        }\n-        ++*byteCount;\n-        if (text != nullptr) {\n-            *text++ = '\\0';\n-        }\n-        if (*cursor == '\"') {\n-            ++cursor;\n-        }\n-    } else {\n-        std::uint8_t value;\n-        do {\n-            ++*byteCount;\n-            if (text != nullptr) {\n-                *text++ = *cursor;\n-            }\n-            value = static_cast<std::uint8_t>(*cursor++);\n-            if ((gLegacyMultibyte1086764.classification[value + 1] & kLeadByte) != 0) {\n-                ++*byteCount;\n-                if (text != nullptr) {\n-                    *text++ = *cursor;\n-                }\n-                ++cursor;\n-            }\n-        } while (value != ' ' && value != '\\t' && value != 0);\n-        if (value == 0) {\n-            --cursor;\n-        } else if (text != nullptr) {\n-            text[-1] = '\\0';\n-        }\n-    }\n-\n-    std::int32_t inQuotes = 0;\n-    for (;;) {\n-        if (*cursor == '\\0') {\n-            break;\n-        }\n-        while (*cursor == ' ' || *cursor == '\\t') {\n-            ++cursor;\n-        }\n-        if (*cursor == '\\0') {\n-            break;\n-        }\n-        if (arguments != nullptr) {\n-            *arguments++ = text;\n-        }\n-        ++*argumentSlotCount;\n-\n-        for (;;) {\n-            std::int32_t copyCharacter = 1;\n-            std::uint32_t backslashCount = 0;\n-            while (*cursor == '\\\\') {\n-                ++cursor;\n-                ++backslashCount;\n-            }\n-            if (*cursor == '\"') {\n-                if ((backslashCount & 1u) == 0) {\n-                    if (inQuotes != 0 && cursor[1] == '\"') {\n-                        ++cursor;\n-                    } else {\n-                        copyCharacter = 0;\n-                    }\n-                    // 原544202..54420A：连续引号分支也切换状态。\n-                    inQuotes = inQuotes == 0 ? 1 : 0;\n-                }\n-                backslashCount >>= 1;\n-            }\n-            while (backslashCount != 0) {\n-                if (text != nullptr) {\n-                    *text++ = '\\\\';\n-                }\n-                ++*byteCount;\n-                --backslashCount;\n-            }\n-\n-            const auto value = static_cast<std::uint8_t>(*cursor);\n-            if (value == 0 || (inQuotes == 0 && (value == ' ' || value == '\\t'))) {\n-                break;\n-            }\n-            if (copyCharacter != 0) {\n-                if (text != nullptr) {\n-                    if ((gLegacyMultibyte1086764.classification[value + 1] & kLeadByte) != 0) {\n-                        *text++ = std::bit_cast<char>(value);\n-                        ++cursor;\n-                        ++*byteCount;\n-                    }\n-                    *text++ = *cursor;\n-                } else if ((gLegacyMultibyte1086764.classification[value + 1] & kLeadByte) != 0) {\n-                    ++cursor;\n-                    ++*byteCount;\n-                }\n-                ++*byteCount;\n-            }\n-            ++cursor;\n-        }\n-        if (text != nullptr) {\n-            *text++ = '\\0';\n-        }\n-        ++*byteCount;\n-    }\n-\n-    if (arguments != nullptr) {\n-        *arguments = nullptr;\n-    }\n-    ++*argumentSlotCount;\n-    return argumentSlotCount;\n-}\n-\n } // namespace cg::platform\n"
+    },
+    "include/cg/platform/CommandOptions.hpp": {
+      "path": "include/cg/platform/CommandOptions.hpp",
+      "before_snapshot": "cg2d-re-msvc-crt-multibyte-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-multibyte-20261010",
+      "diff": "--- 迁移前/include/cg/platform/CommandOptions.hpp\n+++ 迁移后/include/cg/platform/CommandOptions.hpp\n@@ -42,38 +42,9 @@\n extern std::uint8_t& gRendererMode;       // 原 0x62A640，与 MainLoop.hpp 的引用声明一致。\n \n // 原 sub_507C80：一个只读命令文本参数，原 x86 为 cdecl；调用方清理 4 字节。\n // 会清理并解析 IP: 表及修改相关计数；返回 0 或越界退出时的 sscanf 返回值。\n extern int ParseIpOptions_507C80(const char* commandLine);\n \n // ParseCommandOptions 的唯一函数声明复用 Startup.hpp，返回类型为 int。\n \n-// 原1087AE4；借用GetCommandLineA结果，必须先完成原启动的生产片段。\n-extern char* gLegacyRawCommandLine1087AE4;\n-\n-// 原53DDB5内53DE29..53DE34，仅获取并发布，不代表完整CRT启动入口。\n-void CaptureLegacyCommandLine_53DE29();\n-\n-// 原543F36；初始化多字节表后切片，返回原命令行内的借用指针。\n-char* SliceLegacyWinMainCommandLine_543F36();\n-\n-// 原544047；原始命令行必须先生产，分配失败沿原间接退出链。\n-std::int32_t InitializeLegacyArguments_544047();\n-extern char* gLegacyProgramName1086018;\n-extern char** gLegacyArguments1086000;\n-extern std::int32_t gLegacyArgumentCount1085FFC;\n-\n-// 原1086030是Malloc拥有的旧字节块；53DE34先发布，543F8E释放后清槽。\n-extern char* gLegacyRawEnvironment1086030;\n-// 原1086008是543F8E生产的拥有型char*表，包含末尾空槽；各地址按x64拓宽。\n-extern char** gLegacyEnvironment1086008;\n-extern std::uint32_t gLegacyEnvironmentInitialized1087AE8; // 原543F8E末尾写1。\n-// 旧进程入口保持环境块→argv→环境表→cinit顺序；实际客户端由宿主CRT进入WinMain。\n-void CaptureLegacyEnvironment_53DE34();\n-void InitializeLegacyEnvironment_543F8E();\n-\n-// 原5440E0；槽/字节区可空以计数，槽数包含末尾nullptr，返回槽数指针。\n-// 两个计数保持S32；多字节分类由调用方既有初始化提供，不在此重新初始化。\n-std::int32_t* ParseLegacyCommandLine_5440E0(const char* commandLine, char** arguments,\n-    char* text, std::int32_t* argumentSlotCount, std::int32_t* byteCount);\n-\n } // namespace cg::platform\n"
+    },
+    "src/platform/LegacyMouse.cpp": {
+      "path": "src/platform/LegacyMouse.cpp",
+      "before_snapshot": "cg2d-re-msvc-crt-multibyte-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-multibyte-20261010",
+      "diff": "--- 迁移前/src/platform/LegacyMouse.cpp\n+++ 迁移后/src/platform/LegacyMouse.cpp\n@@ -1,14 +1,13 @@\n #include \"cg/platform/LegacyMouse.hpp\"\n \n #include \"../LoginMessageDependencies.hpp\"\n #include \"../LegacyPanelRuntime.hpp\"\n #include \"MainLoopDependencies.hpp\"\n-#include \"LegacyMultibyte.hpp\"\n #include \"cg/AnimationRuntime.hpp\"\n #include \"cg/GraphicInfo.hpp\"\n #include \"cg/GraphicRead.hpp\"\n #include \"cg/render/GraphicDxCache.hpp\"\n #include \"cg/platform/LegacyMouseTracker.hpp\"\n #include \"cg/platform/MainLoop.hpp\"\n #include \"cg/platform/Startup.hpp\"\n #include \"cg/world/SceneState.hpp\"\n@@ -23,26 +22,16 @@\n \n namespace cg::platform {\n \n LegacyMouseState gLegacyMouseState {};\n std::uint32_t gValueD68BF0 = 0;\n std::uint32_t gValueD68DC8 = 0;\n \n namespace {\n-\n-// MC01-C4：MSVC入口管理堆/异常/退出；当前仅保多字节前置。\n-struct LegacyMultibyteStaticInitializer {\n-    LegacyMultibyteStaticInitializer()\n-    {\n-        InitializeLegacyMultibyte_546CAE();\n-    }\n-};\n-\n-const LegacyMultibyteStaticInitializer gLegacyMultibyteStaticInitializer;\n \n // 原CRT553004..553010：每项完成构造后即时登记退出，第一结果不短路后项。\n // 只有本组模块位置适配；接全应用原序时须同小步移除此调用，避免双构造/登记。\n struct StartupProtectionValuesStartup final {\n     StartupProtectionValuesStartup()\n     {\n         static_cast<void>(legacy_crypt_int::InitializeLegacyStartupValues_401C10());\n         static_cast<void>(InitializeLegacyProtectionChecksum1_404120());\n"
+    },
+    "src/platform/LegacyRuntimeError.cpp": {
+      "path": "src/platform/LegacyRuntimeError.cpp",
+      "before_snapshot": "cg2d-re-msvc-crt-multibyte-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-multibyte-20261010",
+      "diff": "--- 迁移前/src/platform/LegacyRuntimeError.cpp\n+++ 迁移后/src/platform/LegacyRuntimeError.cpp\n@@ -1,20 +1,13 @@\n #include \"LegacyRuntimeError.hpp\"\n \n-#include <cstdlib>\n #include <exception>\n \n namespace cg::platform {\n-\n-// MC01-C3：CommandOptions真实分配失败保255；旧诊断消息/钩子只保历史。\n-[[noreturn]] void ExitLegacyRuntimeError_53DEAB(const std::int32_t /*errorCode*/)\n-{\n-    std::_Exit(255);\n-}\n \n // 实际数组展开的二次C++异常交真实MSVC handler/abort/信号机制。\n [[noreturn]] void TerminateLegacyRuntime_540A5C()\n {\n     std::terminate();\n }\n \n } // namespace cg::platform\n"
+    },
+    "src/platform/LegacyRuntimeError.hpp": {
+      "path": "src/platform/LegacyRuntimeError.hpp",
+      "before_snapshot": "cg2d-re-msvc-crt-multibyte-history-20261010",
+      "after_snapshot": "cg2d-re-msvc-crt-multibyte-20261010",
+      "diff": "--- 迁移前/src/platform/LegacyRuntimeError.hpp\n+++ 迁移后/src/platform/LegacyRuntimeError.hpp\n@@ -1,12 +1,8 @@\n #pragma once\n-\n-#include <cstdint>\n \n namespace cg::platform {\n \n-// MC01-C3/C4：保CommandOptions失败9/9/8；真实_Exit(255)不跑普通atexit。\n-[[noreturn]] void ExitLegacyRuntimeError_53DEAB(std::int32_t errorCode);\n // 真实数组二次C++异常消费；由MSVC terminate负责handler/abort与最终终止。\n [[noreturn]] void TerminateLegacyRuntime_540A5C();\n \n } // namespace cg::platform\n"
+    }
+  },
+  "semantic_changed_indices": [
+    327,
+    329,
+    330,
+    331,
+    332,
+    333,
+    334,
+    335,
+    336,
+    338,
+    339,
+    340,
+    341,
+    342,
+    343,
+    344,
+    345,
+    346,
+    355,
+    378,
+    380,
+    381,
+    382,
+    383,
+    384,
+    385,
+    389,
+    426,
+    427,
+    438,
+    440,
+    441,
+    442,
+    443,
+    523,
+    524,
+    525,
+    528,
+    648,
+    649,
+    650,
+    651,
+    652,
+    653,
+    654,
+    655,
+    656,
+    657,
+    658,
+    659,
+    671,
+    1081,
+    1082,
+    1083,
+    1227,
+    2022
+  ],
+  "host_inventory_ids": [
+    "F:00141955",
+    "F:00146ACD",
+    "F:00146B00",
+    "F:00143D37",
+    "F:00145208",
+    "F:00143AE8",
+    "F:00146A83",
+    "F:001468EA",
+    "F:00146B29",
+    "F:00146CAE",
+    "F:00143D0C",
+    "F:00144552",
+    "F:0014472B",
+    "F:0014A9C3",
+    "F:0014AAD5",
+    "F:00143A1A",
+    "F:00146CCA",
+    "F:00146CDB",
+    "F:0013E919",
+    "F:001440E0",
+    "F:00144047",
+    "F:00143F36",
+    "F:0013DC64",
+    "F:00144294",
+    "F:00143F8E",
+    "F:0013C9DD",
+    "F:0013DEAB"
+  ],
+  "adapted_inventory_ids": [
+    "F:0013BDEF",
+    "F:0013BE17"
+  ],
+  "shared_consumer_semantic_indices": [
+    327,
+    329,
+    330,
+    331,
+    332,
+    333,
+    355,
+    378,
+    381,
+    382,
+    383,
+    384,
+    385,
+    389,
+    426,
+    427,
+    523,
+    524,
+    525,
+    528,
+    655,
+    656,
+    657,
+    658,
+    659,
+    1083,
+    2022
+  ],
+  "non_function_fragment_indices": [
+    2022
+  ],
+  "retired_current_field_names": {
+    "334": [],
+    "335": [],
+    "336": [],
+    "338": [],
+    "339": [],
+    "340": [
+      "nls_map_general",
+      "asm_cpp_migration",
+      "msvc_numeric_retired_consumers",
+      "msvc_numeric_group"
+    ],
+    "341": [
+      "memory_fill_connections",
+      "nls_type_general"
+    ],
+    "342": [
+      "nls_map_general"
+    ],
+    "343": [],
+    "344": [],
+    "345": [],
+    "346": [
+      "crt_c_initializer_incoming_bindings",
+      "current_application_initialization_order_contract"
+    ],
+    "380": [
+      "current_provider",
+      "msvc_exit_group"
+    ],
+    "438": [
+      "nls_map_general",
+      "current_provider",
+      "msvc_numeric_retired_consumers",
+      "msvc_numeric_group"
+    ],
+    "440": [
+      "native_references"
+    ],
+    "441": [
+      "native_references"
+    ],
+    "442": [
+      "native_references"
+    ],
+    "443": [
+      "native_references",
+      "msvc_cpp_retired_consumers",
+      "msvc_cpp_group"
+    ],
+    "648": [],
+    "649": [],
+    "650": [],
+    "651": [],
+    "652": [],
+    "653": [
+      "crt_parent_call_connections"
+    ],
+    "654": [
+      "crt_parent_call_connections"
+    ],
+    "671": [],
+    "1081": [
+      "crt_parent_call_connections"
+    ],
+    "1082": [
+      "string_call_connections",
+      "allocation_call_connections",
+      "crt_parent_call_connections"
+    ],
+    "1227": []
+  },
+  "function_disposition_additions": [
+    "F:00141955",
+    "F:00146ACD",
+    "F:00146B00",
+    "F:00146A83",
+    "F:001468EA",
+    "F:00146B29",
+    "F:00146CAE",
+    "F:00144552",
+    "F:0014472B",
+    "F:0014A9C3",
+    "F:0014AAD5",
+    "F:00143A1A",
+    "F:00146CCA",
+    "F:00146CDB",
+    "F:0013E919",
+    "F:001440E0",
+    "F:00144047",
+    "F:00143F36",
+    "F:0013DC64",
+    "F:00144294",
+    "F:00143F8E",
+    "F:0013BDEF",
+    "F:0013BE17"
+  ],
+  "function_disposition_updates": [
+    "F:00143D37",
+    "F:00145208",
+    "F:00143AE8",
+    "F:00143D0C",
+    "F:0013C9DD",
+    "F:0013DEAB"
+  ],
+  "crt_member_additions": [
+    "F:00141955",
+    "F:00146ACD",
+    "F:00146B00",
+    "F:00146A83",
+    "F:001468EA",
+    "F:00146B29",
+    "F:00146CAE",
+    "F:00144552",
+    "F:0014472B",
+    "F:0014A9C3",
+    "F:0014AAD5",
+    "F:00143A1A",
+    "F:00146CCA",
+    "F:00146CDB",
+    "F:0013E919",
+    "F:001440E0",
+    "F:00144047",
+    "F:00143F36",
+    "F:0013DC64",
+    "F:00144294",
+    "F:00143F8E",
+    "F:0013C9DD",
+    "F:0013BDEF",
+    "F:0013BE17"
+  ],
+  "local_sdk_references": [
+    {
+      "path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/include/cctype",
+      "encoding": "UTF-8（兼容BOM）",
+      "matches": [
+        {
+          "line": 23,
+          "text": "_EXPORT_STD using _CSTD iscntrl;"
+        },
+        {
+          "line": 29,
+          "text": "_EXPORT_STD using _CSTD isspace;"
+        }
+      ],
+      "scope": "本机真实声明/标准转引与职责静态；不调用库私有函数，不代当前编译/运行"
+    },
+    {
+      "path": "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/ucrt/ctype.h",
+      "encoding": "UTF-8（兼容BOM）",
+      "matches": [
+        {
+          "line": 46,
+          "text": "_Check_return_ _CRT_JIT_INTRINSIC _ACRTIMP int __cdecl isspace(_In_ int _C);"
+        },
+        {
+          "line": 59,
+          "text": "_Check_return_ _ACRTIMP int __cdecl iscntrl(_In_ int _C);"
+        }
+      ],
+      "scope": "本机真实声明/标准转引与职责静态；不调用库私有函数，不代当前编译/运行"
+    },
+    {
+      "path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/include/cstdlib",
+      "encoding": "UTF-8（兼容BOM）",
+      "matches": [
+        {
+          "line": 55,
+          "text": "_EXPORT_STD using _CSTD mbstowcs;"
+        },
+        {
+          "line": 56,
+          "text": "_EXPORT_STD using _CSTD mbtowc;"
+        },
+        {
+          "line": 65,
+          "text": "_EXPORT_STD using _CSTD wctomb;"
+        }
+      ],
+      "scope": "本机真实声明/标准转引与职责静态；不调用库私有函数，不代当前编译/运行"
+    },
+    {
+      "path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/include/cwchar",
+      "encoding": "UTF-8（兼容BOM）",
+      "matches": [
+        {
+          "line": 36,
+          "text": "_EXPORT_STD using _CSTD btowc;"
+        },
+        {
+          "line": 47,
+          "text": "_EXPORT_STD using _CSTD mbrtowc;"
+        }
+      ],
+      "scope": "本机真实声明/标准转引与职责静态；不调用库私有函数，不代当前编译/运行"
+    },
+    {
+      "path": "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/ucrt/mbctype.h",
+      "encoding": "UTF-8（兼容BOM）",
+      "matches": [
+        {
+          "line": 71,
+          "text": "_ACRTIMP int __cdecl _setmbcp(_In_ int _CodePage);"
+        },
+        {
+          "line": 109,
+          "text": "_Check_return_ _DCRTIMP int __cdecl _ismbblead (_In_ unsigned int _Ch);"
+        }
+      ],
+      "scope": "本机真实声明/标准转引与职责静态；不调用库私有函数，不代当前编译/运行"
+    },
+    {
+      "path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/exe_common.inl",
+      "encoding": "UTF-8（兼容BOM）",
+      "matches": [
+        {
+          "line": 105,
+          "text": "_get_narrow_winmain_command_line(),"
+        },
+        {
+          "line": 167,
+          "text": "if (argv_policy::configure_argv() != 0)"
+        },
+        {
+          "line": 191,
+          "text": "if (_should_initialize_environment())"
+        },
+        {
+          "line": 192,
+          "text": "environment_policy::initialize_environment();"
+        }
+      ],
+      "scope": "本机真实声明/标准转引与职责静态；不调用库私有函数，不代当前编译/运行"
+    },
+    {
+      "path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/internal/initialization.cpp",
+      "encoding": "UTF-8（兼容BOM）",
+      "matches": [
+        {
+          "line": 116,
+          "text": "__dcrt_uninitialize_environments_nolock();"
+        },
+        {
+          "line": 258,
+          "text": "{ __acrt_initialize_ptd,                   __acrt_uninitialize_ptd                  },"
+        },
+        {
+          "line": 264,
+          "text": "{ __acrt_initialize_multibyte,             nullptr                                  },"
+        },
+        {
+          "line": 273,
+          "text": "{ initialize_environment,                  uninitialize_environment                 },"
+        }
+      ],
+      "scope": "本机真实声明/标准转引与职责静态；不调用库私有函数，不代当前编译/运行"
+    },
+    {
+      "path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/mbstring/mbctype.cpp",
+      "encoding": "UTF-8（兼容BOM）",
+      "matches": [
+        {
+          "line": 45,
+          "text": "CP_ACP,                  /* mbcodepage: _MB_CP_ANSI */"
+        },
+        {
+          "line": 244,
+          "text": "extern \"C\" int __cdecl _setmbcp_nolock(int, __crt_multibyte_data*);"
+        },
+        {
+          "line": 382,
+          "text": "*           _MB_CP_ANSI = use system ANSI code page"
+        },
+        {
+          "line": 423,
+          "text": "// CRT_REFACTOR TODO _setmbcp_nolock is a terrible name."
+        },
+        {
+          "line": 424,
+          "text": "int const setmbcp_status = _setmbcp_nolock(system_codepage, mb_data.get());"
+        },
+        {
+          "line": 488,
+          "text": "extern \"C\" int __cdecl _setmbcp_nolock(int, __crt_multibyte_data* ptmbci)"
+        },
+        {
+          "line": 541,
+          "text": "*          _MB_CP_ANSI   -3 - use the ACP"
+        },
+        {
+          "line": 566,
+          "text": "else if (codepage == _MB_CP_ANSI)"
+        },
+        {
+          "line": 691,
+          "text": "extern \"C\" int __cdecl _setmbcp_nolock(int codepage, __crt_multibyte_data* ptmbci)"
+        },
+        {
+          "line": 893,
+          "text": "extern \"C\" bool __cdecl __acrt_initialize_multibyte()"
+        },
+        {
+          "line": 919,
+          "text": "setmbcp_internal(_MB_CP_ANSI, true, ptd_head + i, &__acrt_current_multibyte_data.dangerous_get_state_array()[i]);"
+        }
+      ],
+      "scope": "本机真实声明/标准转引与职责静态；不调用库私有函数，不代当前编译/运行"
+    }
+  ],
+  "aligned_document_paths": [
+    "doc/cg2d_legacy_multibyte.md",
+    "doc/cg2d_legacy_string_compare.md",
+    "doc/cg2d_nls_map_general_spec.md",
+    "doc/cg2d_nls_type_general_spec.md",
+    "doc/cg2d_multibyte_string_spec.md",
+    "doc/cg2d_command_options.md",
+    "doc/cg2d_crt_runtime_boundary_spec.md",
+    "doc/cg2d_crt_startup_lifecycle_spec.md",
+    "doc/cg2d_hosted_runtime_prefix_spec.md",
+    "doc/cg2d_startup_flow.md",
+    "doc/cg2d_client_shutdown.md",
+    "doc/cg2d_text_encoding_spec.md",
+    "doc/cg2d_asm_to_cpp_migration_spec.md",
+    "doc/cg2d_crt_host_migration_spec.md",
+    "plan/cg2d_full_reconstruction_plan.md",
+    "plan/cg2d_spec_closure_checklist.md"
+  ],
+  "validation": {
+    "static_only": true,
+    "compilation_verified": false,
+    "runtime_verified": false,
+    "new_dependencies": false,
+    "business_command_input_bytes_fields_rng_owner_kept": true,
+    "old_private_nls_and_argv_setup_present": false,
+    "full_feature_accepted": false
+  },
+  "remaining": [
+    "全体实际CRT提供者/业务边界和接线审计",
+    "原未知alias/完整业务字节/owner及SDK正常结果/生命周期与运行仍待",
+    "MC01与总SPEC§10未验收"
+  ],
+  "current_measured_state": {
+    "semantic_records": 2029,
+    "semantic_original_ids": 1981,
+    "semantic_range_identities": 48,
+    "document_linked_functions": 2091,
+    "reviewed_function_dispositions": 1454,
+    "known_crt_members": 524,
+    "crt_member_inventory_closed": false,
+    "software_evidence_records": 1339,
+    "leaf_features": 184,
+    "globally_accepted": false,
+    "tasks": 60,
+    "closed_tasks": 11,
+    "unassigned_ranges_mapped": 3060,
+    "unassigned_ranges_remaining": 1
+  }
+}

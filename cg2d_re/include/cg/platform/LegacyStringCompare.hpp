@@ -4,8 +4,9 @@
 
 namespace cg::platform {
 
-// 原541955的U8输入域；读取共享58FC30分类表，mask取原ctype位，不使用宿主locale。
-std::uint16_t ClassifyLegacyByte(std::uint8_t value, std::uint16_t mask);
+// 原53BDEF/53BE17：直接MSVC分类；Input只消费实际ASCII字节的非零结果。
+std::int32_t ClassifyLegacySpace_53BDEF(std::int32_t character);
+std::int32_t ClassifyLegacyControl_53BE17(std::int32_t character);
 
 // 原54AB30：直接MSVC _strnicmp，数量保持U32，locale由MSVC持有。
 std::int32_t CompareInsensitiveN_54AB30(

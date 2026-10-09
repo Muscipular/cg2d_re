@@ -197150,6 +197150,102 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x41f5b0",
+      "inventory_id": "F:0001F5B0",
+      "original_role": "命中特效五参数创建、字段发布/播放后投影及原生T*返回",
+      "original_end_exclusive": "0x41f65b",
+      "instruction_count": 46,
+      "function_chunks": [
+        {
+          "start": "0x41f5b0",
+          "end_exclusive": "0x41f65b"
+        }
+      ],
+      "status": "BHE01完整正常源/独立身份纳管，创建/回调各一投影尾恢复Y取样先于X发布，计数/上限持样与初始化/失败/返回保持；完整数据/父-callee/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::NewBattleHitEffect_41F5B0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::NewBattleHitEffect_41F5B0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_hit_effect_lifecycle_spec.md#battle-hit-effect-baseline",
+        "doc/cg2d_battle_hit_effect_lifecycle_spec.md#battle-hit-effect-decision",
+        "doc/cg2d_battle_hit_effect_lifecycle_spec.md#battle-hit-effect-acceptance",
+        "doc/cg2d_battle_hit_effect_lifecycle_spec.md#battle-hit-effect-source-state",
+        "doc/cg2d_battle_hit_effect_lifecycle_evidence.json"
+      ],
+      "boundary": "命中特效五参数创建、字段发布/播放后投影及原生T*返回；原五参数/priority2/零额外载荷、字段/数学/PlayFrame后投影和保存T*空返、正确计数递增pub后比较held count/maximum、标死后fresh投影保。callback只真实数据生产，六创建调用/五父后窗局部消费，现五表达式不增消费；仅两投影片段/四注释，所有输入/父-callee/alias/SDK零尺寸失败/数值与资源owner/画面运行未验，RPLAN.24/MC01和完整门禁保持。",
+      "verification_level": "两完整66条225B/两页、七directCALL/原各callee/跳/RET、callback数据生产/六实际调用后窗；一CPP两段/四注释与计数/其它源守恒，限定I/S，不运行计时/投影。",
+      "battle_hit_effect_lifecycle": {
+        "step": "BHE01",
+        "source_snapshot": "cg2d-re-battle-hit-effect-20261010",
+        "original_instruction_count": 46,
+        "original_code_bytes": 171,
+        "original_page_count": 1,
+        "direct_call_count": 4,
+        "callee_count": 3,
+        "jump_count": 1,
+        "return_count": 2,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x41f570",
+      "inventory_id": "F:0001F570",
+      "original_role": "命中特效旧计数/上限持样与标死后的独立投影尾",
+      "original_end_exclusive": "0x41f5a6",
+      "instruction_count": 20,
+      "function_chunks": [
+        {
+          "start": "0x41f570",
+          "end_exclusive": "0x41f5a6"
+        }
+      ],
+      "status": "BHE01完整正常源/独立身份纳管，创建/回调各一投影尾恢复Y取样先于X发布，计数/上限持样与初始化/失败/返回保持；完整数据/父-callee/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleHitEffect_41F570"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleHitEffect_41F570"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_hit_effect_lifecycle_spec.md#battle-hit-effect-baseline",
+        "doc/cg2d_battle_hit_effect_lifecycle_spec.md#battle-hit-effect-decision",
+        "doc/cg2d_battle_hit_effect_lifecycle_spec.md#battle-hit-effect-acceptance",
+        "doc/cg2d_battle_hit_effect_lifecycle_spec.md#battle-hit-effect-source-state",
+        "doc/cg2d_battle_hit_effect_lifecycle_evidence.json"
+      ],
+      "boundary": "命中特效旧计数/上限持样与标死后的独立投影尾；原五参数/priority2/零额外载荷、字段/数学/PlayFrame后投影和保存T*空返、正确计数递增pub后比较held count/maximum、标死后fresh投影保。callback只真实数据生产，六创建调用/五父后窗局部消费，现五表达式不增消费；仅两投影片段/四注释，所有输入/父-callee/alias/SDK零尺寸失败/数值与资源owner/画面运行未验，RPLAN.24/MC01和完整门禁保持。",
+      "verification_level": "两完整66条225B/两页、七directCALL/原各callee/跳/RET、callback数据生产/六实际调用后窗；一CPP两段/四注释与计数/其它源守恒，限定I/S，不运行计时/投影。",
+      "battle_hit_effect_lifecycle": {
+        "step": "BHE01",
+        "source_snapshot": "cg2d-re-battle-hit-effect-20261010",
+        "original_instruction_count": 20,
+        "original_code_bytes": 54,
+        "original_page_count": 1,
+        "direct_call_count": 3,
+        "callee_count": 2,
+        "jump_count": 1,
+        "return_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

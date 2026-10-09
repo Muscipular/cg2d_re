@@ -10477,6 +10477,7 @@ std::uint8_t NewBattleAttributeEffects_4209C0(YobiAction* const source, YobiActi
     return result;
 }
 
+// BHE01：计数与上限持样保持，标死后仍取Y再发布X，见命中特效SPEC。
 void UpdateBattleHitEffect_41F570(YobiAction* const action)
 {
     const std::int32_t previous = action->deltaX;
@@ -10486,10 +10487,13 @@ void UpdateBattleHitEffect_41F570(YobiAction* const action)
     if (count >= maximum) {
         static_cast<void>(MarkDeath(action));
     }
-    action->x = static_cast<std::int32_t>(action->offset40);
-    action->y = static_cast<std::int32_t>(action->offset44);
+    const std::int32_t screenX = static_cast<std::int32_t>(action->offset40);
+    const float screenY = action->offset44;
+    action->x = screenX;
+    action->y = static_cast<std::int32_t>(screenY);
 }
 
+// BHE01：创建字段/播放后YX投影取样见doc/cg2d_battle_hit_effect_lifecycle_spec.md。
 YobiAction* NewBattleHitEffect_41F5B0(
     YobiAction* const parent, const std::int32_t offsetX, const std::int32_t offsetY,
     const std::int32_t lifetime, const std::int32_t imageNo)
@@ -10513,8 +10517,10 @@ YobiAction* NewBattleHitEffect_41F5B0(
     action->deltaY = lifetime;
     action->direction = 0;
     static_cast<void>(PlayFrame_517DA0(action, 1));
-    action->x = static_cast<std::int32_t>(action->offset40);
-    action->y = static_cast<std::int32_t>(action->offset44);
+    const std::int32_t screenX = static_cast<std::int32_t>(action->offset40);
+    const float screenY = action->offset44;
+    action->x = screenX;
+    action->y = static_cast<std::int32_t>(screenY);
     action->field270 = 0;
     return action;
 }

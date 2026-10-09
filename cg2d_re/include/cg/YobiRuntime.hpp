@@ -382,7 +382,8 @@ YobiAction* NewBattleFloatingIcon_41F4C0(
 void NewBattleRebirthEffects_4208F0(YobiAction* source, YobiAction* target); // 消费1080低S8，不读106C。
 std::uint8_t NewBattleAttributeEffects_4209C0(
     YobiAction* source, YobiAction* target); // 四W16非零属性匹配，返回八位生成掩码。
-void UpdateBattleHitEffect_41F570(YobiAction* action); // 计数达到上限后仍执行投影尾。
+void UpdateBattleHitEffect_41F570(YobiAction* action); // BHE01：原计数/上限持样，标死后Y取样先于X发布。
+// BHE01：原五参数/零载荷请求和字段发布，播放后Y取样先于X发布，返回原生T*。
 YobiAction* NewBattleHitEffect_41F5B0(
     YobiAction* parent, std::int32_t offsetX, std::int32_t offsetY,
     std::int32_t lifetime, std::int32_t imageNo);

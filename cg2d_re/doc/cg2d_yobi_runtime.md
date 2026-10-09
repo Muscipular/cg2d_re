@@ -4662,3 +4662,8 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 ## 2026-10-10 B15P01：回旋与范围效果完整生产父
 
 [完整动作15合同](cg2d_battle_boomerang_cast_producer_spec.md#battle-action15-source-state)补406E10完整218条718B/唯一case15，四组恢复独立事件门禁、创建返回和音效X先child发布/fresh音效事件、普通尾事件-X。原FD0/两mode转向/坐标、PlayFrame==1后Advance/清FD0、258低9持样/高12逐轮fresh、三原Range点对应现两表达式和MoveEffect==1循环、失败仍音效/清事件保持；原额外Y不读取，保现两参。一个CPP四组/两注释、零新函数/API/保护；全数据/父-callee/间接alias/owner与SDK正常失败/声音画面运行仍待，完整门禁保持。
+
+<a id="battle-hit-effect-runtime-20261010"></a>
+## 2026-10-10 BHE01：命中特效创建与计时回调
+
+[完整合同](cg2d_battle_hit_effect_lifecycle_spec.md#battle-hit-effect-source-state)补41F5B0/41F570两完整66条225B，创建/回调各一投影尾Y读先X pub两段修正；原正确previous/maximum/count持样、初始化/五参数/零额外载荷请求/播放/空返及标死后投影保持。六创建原调用/五父映到现五表达式，callback只地址槽生产，不因零直接CALL判未接；四注释、零新函数/API/保护。限定I/S与两已知成员，完整父/数据/间接alias/owner、SDK零尺寸/失败/数值和画面运行仍待，完整门禁保持。

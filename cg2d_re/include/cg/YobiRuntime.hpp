@@ -499,7 +499,7 @@ void UpdateBattleAction10_409610(YobiAction* action); // 收跑终帧按上一�
 void UpdateBattleAction11_4067F0(YobiAction* action); // 骑乘双T*死亡短路；回位尾重读characterAction。
 void UpdateBattleAction12_406930(YobiAction* action); // B12P01：入口低BYTE；Y-X随机、旧FF0周期/held速率与fresh FCC门禁。
 void UpdateBattleAction13_406A80(YobiAction* action); // B12P01：入口低BYTE；先播放/转向/移动，<5后X发布再读Y，末不补播放。
-void UpdateBattleAction14_409680(YobiAction* action); // 完整帧事件命中，四类HP/FP路径与FD0/FD4尾。
+void UpdateBattleAction14_409680(YobiAction* action); // B14H01：四类命中/六归零复制持样、独立BYTE读取与14-28当帧延时/FD4尾。
 std::int32_t ProbeBattleAttackEvent_4065E0(YobiAction* action); // BSP01：终帧优先/一次事件/原无上限循环，末依次清上次动作与事件。
 void UpdateBattleAction16_4072E0(YobiAction* action); // 投射命中与退场；保原空/索引门禁、目标重取/特殊推进和双播放尾。
 void UpdateBattleAction17_4093B0(YobiAction* action); // 本叶仅移动/超界标死；404DB0仍执行公共尾，404C50/404D10后续摘链/释放（BPEX01）。

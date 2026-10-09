@@ -4682,3 +4682,8 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 ## 2026-10-10 BIDLE01：动作0/1待机与播放门禁
 
 [完整合同](cg2d_battle_idle_dispatch_spec.md#battle-idle-source-state)补406650/406720两完整78条265B，四段恢复原CL/fresh/object低BYTE消费；完整W32 FDC持样、归零后fresh读、166条件推进后继续/72和113上一项57和59才早返、动作0已站立复用缓存与动作1独立门禁、原三个互斥播放保持。只另四注释，零新函数/API/保护/播放；BQD01已完整236归零入口/原源身份复用不重计，不将236误拆为2/3/6。限定I/S与两成员，全输入/父-callee/alias/owner、SDK正常失败/动画声音画面运行仍待，完整门禁保。
+
+<a id="battle-frame-hit-runtime-20261010"></a>
+## 2026-10-10 B14H01：完整阶段14帧命中与延时
+
+[完整合同](cg2d_battle_frame_hit_spec.md#battle-frame-hit-source-state)补409680原1371条4955B，先选图/两互斥RNG后fresh查目标，高帧与普通视觉、8000/4000/2000/普通四类HP-FP、免疫/零额/特殊技能及14-28当帧减1/FD4>=11和播放==1后重读尾有据。十九片段恢复四共享归零index/encoded先查目标、两自身三字段读齐再按原序pub、十二fresh BYTE和普通视觉音效event-X；最大HP封顶与两坐标顺序正确保，通用复制器/其它所有源不改。只另两注释，无新函数/API/保护/RNG；一限定I/S与已知成员，所有输入/父-callee/alias/owner、SDK正常失败/数值/RNG和声音画面运行仍待，完整门禁保。

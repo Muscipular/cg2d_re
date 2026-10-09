@@ -145,6 +145,7 @@ struct LegacyMidiSynth::Impl {
         double cursor {}, envelope {}, releasedLevel {};
         std::uint64_t age {}, releaseAge {};
         bool released {}, keyUp {};
+        bool sostenutoHeld {}; // CC66上升沿锁存仍按住的音符；见CAC14离线踏板合同。
     };
     std::vector<Wave> waves;
     std::vector<Region> regions;
@@ -317,14 +318,33 @@ struct LegacyMidiSynth::Impl {
         const auto number = static_cast<std::uint8_t>(event.status & 15);
         auto& channel = channels[number]; const auto kind = event.status & 0xF0;
         if (kind == 0xB0) {
+            const auto previousControl = channel.control[event.first];
             channel.control[event.first] = event.second;
-            if (event.first == 120) {
+            if (event.first == 66) {
+                for (auto& voice : voices) {
+                    if (voice.region == nullptr || voice.channel != number) { continue; }
+                    if (event.second < 64) { voice.sostenutoHeld = false; }
+                    else if (previousControl < 64 && !voice.keyUp && !voice.released) { voice.sostenutoHeld = true; }
+                }
+            } else if (event.first == 120) {
                 // All Sound Off立即静音；不进入包络release或受延音踏板阻挡。
                 for (auto& voice : voices) {
                     if (voice.region != nullptr && voice.channel == number) { voice = {}; }
                 }
+            } else if (event.first == 121) {
+                // 只复位CAC14当前支持控制；音色/音量/声像和已设RPN参数保持。
+                channel.bend = 8192;
+                channel.control[1] = 0; channel.control[11] = 127;
+                channel.control[64] = 0; channel.control[65] = 0;
+                channel.control[66] = 0; channel.control[67] = 0;
+                channel.control[98] = 127; channel.control[99] = 127;
+                channel.control[100] = 127; channel.control[101] = 127;
+                channel.nrpnSelected = false;
+                for (auto& voice : voices) {
+                    if (voice.region != nullptr && voice.channel == number) { voice.sostenutoHeld = false; }
+                }
             } else if (event.first == 123) {
-                // All Notes Off沿普通松键/CC64路径释放，保留已经开始的release。
+                // All Notes Off沿普通松键/两踏板路径释放，保留已经开始的release。
                 for (auto& voice : voices) {
                     if (voice.region != nullptr && voice.channel == number) { voice.keyUp = true; }
                 }
@@ -388,7 +408,7 @@ struct LegacyMidiSynth::Impl {
             for (auto& voice : voices) {
                 if (voice.region == nullptr) { continue; }
                 const auto& channel = channels[voice.channel]; const auto& art = voice.region->articulation;
-                if (voice.keyUp && channel.control[64] < 64 && !voice.released) { voice.released = true; voice.releasedLevel = voice.envelope; voice.releaseAge = 0; }
+                if (voice.keyUp && channel.control[64] < 64 && !voice.sostenutoHeld && !voice.released) { voice.released = true; voice.releasedLevel = voice.envelope; voice.releaseAge = 0; }
                 const double age = static_cast<double>(voice.age++) / kSampleRate;
                 if (voice.released) {
                     if (art.release <= 0 || static_cast<double>(voice.releaseAge) / kSampleRate >= art.release) { voice.region = nullptr; continue; }

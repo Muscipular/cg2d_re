@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "step": "CAC14",
+  "recorded_on": "2026-10-09",
+  "source_snapshot": "cg2d-re-offline-pedal-reset-20261009",
+  "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#offline-pedal-reset-decision-20261009",
+  "verification_level": "离线CC66选择延音与当前支持CC121复位的三处源差异限定静态",
+  "original_function_count": 0,
+  "new_original_identity_count": 0,
+  "basis": [
+    {
+      "reference": "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-source-state",
+      "scope": "沿已批准离线MIDI/DLS到WAV及既有owner承接，原身份/枚举不改"
+    },
+    {
+      "url": "https://cdn.roland.com/assets/media/pdf/SCB-55_OM.pdf",
+      "scope": "原厂第10/12/23页选择延音、CC121参数保留及CC123两踏板关系，2026-10-09读取；非cg2d原驱动证明"
+    },
+    {
+      "url": "https://hub.yamaha.com/keyboards/k-how-to/how-to-use-keyboard-pedals/",
+      "scope": "原厂当前按键选择延音机制，采用为本离线捕获设计"
+    },
+    {
+      "url": "https://microsoft.github.io/MIDI/kb/in-box-general-midi-synth/",
+      "scope": "当前GM控制复位保留音量/声像/bank/program/效果发送量；不采用其MIDI2或其他支持范围"
+    }
+  ],
+  "source_before_reference": "Git固定命名快照 cg2d-re-offline-midi-control-20261009，同路径完整已提交源码",
+  "source_delta": "--- cg2d_re/src/tools/LegacyMidiSynth.cpp（CAC13已提交）\n+++ cg2d_re/src/tools/LegacyMidiSynth.cpp（CAC14）\n@@ -145,6 +145,7 @@\n         double cursor {}, envelope {}, releasedLevel {};\n         std::uint64_t age {}, releaseAge {};\n         bool released {}, keyUp {};\n+        bool sostenutoHeld {}; // CC66上升沿锁存仍按住的音符；见CAC14离线踏板合同。\n     };\n     std::vector<Wave> waves;\n     std::vector<Region> regions;\n@@ -317,14 +318,33 @@\n         const auto number = static_cast<std::uint8_t>(event.status & 15);\n         auto& channel = channels[number]; const auto kind = event.status & 0xF0;\n         if (kind == 0xB0) {\n+            const auto previousControl = channel.control[event.first];\n             channel.control[event.first] = event.second;\n-            if (event.first == 120) {\n+            if (event.first == 66) {\n+                for (auto& voice : voices) {\n+                    if (voice.region == nullptr || voice.channel != number) { continue; }\n+                    if (event.second < 64) { voice.sostenutoHeld = false; }\n+                    else if (previousControl < 64 && !voice.keyUp && !voice.released) { voice.sostenutoHeld = true; }\n+                }\n+            } else if (event.first == 120) {\n                 // All Sound Off立即静音；不进入包络release或受延音踏板阻挡。\n                 for (auto& voice : voices) {\n                     if (voice.region != nullptr && voice.channel == number) { voice = {}; }\n                 }\n+            } else if (event.first == 121) {\n+                // 只复位CAC14当前支持控制；音色/音量/声像和已设RPN参数保持。\n+                channel.bend = 8192;\n+                channel.control[1] = 0; channel.control[11] = 127;\n+                channel.control[64] = 0; channel.control[65] = 0;\n+                channel.control[66] = 0; channel.control[67] = 0;\n+                channel.control[98] = 127; channel.control[99] = 127;\n+                channel.control[100] = 127; channel.control[101] = 127;\n+                channel.nrpnSelected = false;\n+                for (auto& voice : voices) {\n+                    if (voice.region != nullptr && voice.channel == number) { voice.sostenutoHeld = false; }\n+                }\n             } else if (event.first == 123) {\n-                // All Notes Off沿普通松键/CC64路径释放，保留已经开始的release。\n+                // All Notes Off沿普通松键/两踏板路径释放，保留已经开始的release。\n                 for (auto& voice : voices) {\n                     if (voice.region != nullptr && voice.channel == number) { voice.keyUp = true; }\n                 }\n@@ -388,7 +408,7 @@\n             for (auto& voice : voices) {\n                 if (voice.region == nullptr) { continue; }\n                 const auto& channel = channels[voice.channel]; const auto& art = voice.region->articulation;\n-                if (voice.keyUp && channel.control[64] < 64 && !voice.released) { voice.released = true; voice.releasedLevel = voice.envelope; voice.releaseAge = 0; }\n+                if (voice.keyUp && channel.control[64] < 64 && !voice.sostenutoHeld && !voice.released) { voice.released = true; voice.releasedLevel = voice.envelope; voice.releaseAge = 0; }\n                 const double age = static_cast<double>(voice.age++) / kSampleRate;\n                 if (voice.released) {\n                     if (art.release <= 0 || static_cast<double>(voice.releaseAge) / kSampleRate >= art.release) { voice.region = nullptr; continue; }\n",
+  "static_checks": [
+    "Voice锁存归原Impl；原新建/抢占*slot={}、序列voices={}和Stop voices={}均清除；无额外owner/分配/接口。",
+    "Apply在写CC66前读取原值，仅旧值<64且新值>=64捕获；只同通道、活动、未松键/未release音符，后续与重复On不捕获。",
+    "CC66 Off及CC121仅清同通道锁存；不写keyUp/released/releaseAge，不重启已开始的释放。",
+    "Render仍只在keyUp且CC64 Off且无选择延音锁存且未release时初始化释放；CC120/123及普通Note Off正文保持。",
+    "CC121恢复bend/当前表情与踏板/调制控制及选择器，未赋值program、bank、CC7/10/91/93或RPN0/1/2；其他通道/资源/事件位置保持。",
+    "相对于CAC13，三处局部外整CPP文本保持；DLS/MIDI解析、调度、包络/插值、增益/音高、公开接口与转换器没有改动。",
+    "源码只按文本静态核对；未编译、测试、执行算法/样例/客户端/转换器、重生成WAV、检查产物、部署或计算/比对摘要。"
+  ],
+  "runtime_verified": false,
+  "wav_regenerated": false,
+  "remaining": [
+    "完整RP-015/RP-018及CC96/97细节/边界未取得，未猜测相对调参",
+    "其余RPN/NRPN/压力/控制器与DLS动态调制/效果仍待",
+    "实际PCM/踏板/同刻事件/声音/资源/失败/正常寿命及原驱动对照待对应执行授权",
+    "P11/P16/V05、FUNC-AUDIO完整门禁与总SPEC§10保持开放"
+  ]
+}

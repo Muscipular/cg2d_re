@@ -294,3 +294,36 @@ CAB19空间音频生产者使用的46CE30已由[真实连续x87体](cg2d_project
 三处以外整CPP、公开头、转换器及客户端保持；限定源码/状态读写/同通道/7位拼接/正常类型和重置静态核对通过，证据见[cg2d_offline_midi_control_evidence.json](cg2d_offline_midi_control_evidence.json)。两条局部FUNC-AUDIO I/S只说明离线替换代码路径，不提升完整功能门禁或新增原身份/成员/处置；P11/P16/V05开放、所有运行限制保持。原证据不重新裁定，本步也没有观察到或宣称已修某次实际声音故障。
 
 固定源码引用：cg2d-re-offline-midi-control-20261009。尚未构建、执行转换、测试/算法样例、重生成WAV、试听或部署；现有游戏音源保持旧版本。待运行授权后验证本组实际PCM/声音/事件重置和音源质量，其余控制/DLS/生命周期继续推进。
+
+<a id="offline-pedal-reset-decision-20261009"></a>
+## CAC14 离线选择延音与控制复位合同及裁决（2026-10-09）
+
+沿CAA01/CAB02/CAB12和CAC13的离线适配边界，本线程按AGENTS第8条工程委托裁决本步。现Apply仅保存CC66/121字节，Render仅判断CC64，选择延音与控制复位没有实际效果。仅补现有MIDI事件→channels/voices→Render链；本步不恢复客户端MIDI，也不重生成WAV。
+
+依据[Roland SCB-55原厂MIDI实现说明第10、12、23页](https://cdn.roland.com/assets/media/pdf/SCB-55_OM.pdf)，CC66开关阈值为64、保持踏板按下时的音符，CC123尊重两种踏板；CC121使弯音归中、表情127、相关踏板关闭、选择器注销，既有RPN/NRPN参数不变。选择延音的按键捕获边界采用[雅马哈原厂踏板说明](https://hub.yamaha.com/keyboards/k-how-to/how-to-use-keyboard-pedals/)的“当前按住的键”机制。保留音量/声像/bank/program/效果发送量的复位范围亦见[微软当前GM合成器控制说明](https://microsoft.github.io/MIDI/kb/in-box-general-midi-synth/)。这些资料只支持本离线替换设计，不证明原cg2d默认驱动实现；不采用资料中的设备容量、GS接收开关、SysEx或MIDI2行为。
+
+| 事件/状态 | 本步合同 |
+|---|---|
+| CC66从0..63到64..127 | 在保存新值前读取旧值，仅此上升沿给同通道仍按键且未进入release的活动voice置sostenutoHeld；已松键的CC64保持音符和release尾音不纳入捕获 |
+| CC66保持64..127 | 不重新捕获；随后Note On与被抢占重建的voice锁存位为false |
+| CC66收到0..63 | 清同通道voice锁存；仍按键的音符不被强制松键，已松键音符继续尊重CC64，已进入release不重置计时 |
+| Render松键 | keyUp且CC64关闭且没有sostenutoHeld才进入既有release，释放级别/计时只初始化一次；CC123沿本路径，CC120仍直接清空 |
+| CC121当前已支持状态 | 同通道bend回8192、CC11回127、CC1及CC64/65/66/67回0、CC98..101回127并切回无有效RPN选择；清该通道全部sostenutoHeld，不清voice或keyUp |
+| CC121保留状态 | bank、program、CC7/10/91/93及CC6/38字节、RPN0范围/RPN1微调/RPN2粗调不改；其他通道/序列位置/bank与样本owner保持 |
+| 序列/声部生命周期 | 沿原值初始化和voice={}清锁存；不新增全局表、资源owner、公开接口或额外分配 |
+
+选择延音锁存在原Voice内，比每帧只读CC66多一个布尔字段，可区分踏板前后音符；不以通道全保持替代选择延音。CC121逐项复位，不能用channel={}，否则会误撤销已设RPN、音色与音量。上述当前支持状态是具名离线设计，不声称完整RP-015/所有控制器支持或原驱动波形等价。CC96/97原推荐规范细节尚未取得，继续待证，不猜步长/边界；未实现的压力/其他踏板效果、RPN/NRPN及DLS动态调制仍待。
+
+<a id="offline-pedal-reset-acceptance-20261009"></a>
+## CAC14 验收边界
+
+局部I限本组事件生产/原状态持有/Render消费与既有新建、抢占、Start/循环/Stop清理的源码接线；局部S限Voice一字段、Apply旧值/两个控制分支、Render释放条件的定向差异及三处外正文保持。集中静态核同通道、上升沿、后续音符隔离、两踏板联合释放、复位保留范围和登记精确增量；不执行算法、样例或测试，不构建/运行/检查产物/摘要/转换器/重生成音源/部署。全PCM/听感与真实事件时序待授权，P11/P16/V05及完整FUNC-AUDIO/总SPEC§10保持开放。
+
+<a id="offline-pedal-reset-source-state-20261009"></a>
+## CAC14 源码实施与局部静态结果
+
+已按上述合同在原Voice加一锁存位、Apply接CC66上升沿/关闭与CC121逐项复位、Render接两踏板联合释放。只捕获仍按键且未release的同通道音符，重复On不纳入后续音符；CC66关闭/CC121不松开仍按住的键，不重启release。CC121没有整Channel重置，既有RPN值与bank/program/音量/声像/发送量保留；原新建、抢占、序列与Stop的voice值初始化自动清锁存。
+
+三处外整CPP、公开接口、转换器及客户端保持；限定静态状态读写/同通道/边沿/联合释放/保留范围及差异核对通过，见[cg2d_offline_pedal_reset_evidence.json](cg2d_offline_pedal_reset_evidence.json)。两条局部FUNC-AUDIO I/S只登记本离线实现与接线；原身份、成员、全功能门禁和P11/P16/V05状态保持，无运行/PCM结论。
+
+固定源码引用：cg2d-re-offline-pedal-reset-20261009。本步未构建、测试、运行、执行转换器、检查产物、计算摘要、重生成WAV或部署；当前游戏音源仍为旧版本。CC96/97、其余控制与DLS动态调制继续待，真实PCM/同刻事件/声音/失败及正常寿命待执行授权，整体SPEC未完成。

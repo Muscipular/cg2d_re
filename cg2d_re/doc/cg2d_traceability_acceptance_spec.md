@@ -2298,3 +2298,9 @@ F:00078330新增adapted，1937已有映射加本步原根/差集，无新F或语
 [先行裁决](cg2d_client_link_sdl_audio_spec.md#offline-midi-control-decision-20261009)、[现源状态](cg2d_client_link_sdl_audio_spec.md#offline-midi-control-source-state-20261009)及[三处差集/标准依据](cg2d_offline_midi_control_evidence.json)登记两条局部FUNC-AUDIO I/S：CC120立即静音、CC123经原延音/release消费，RPN0/1/2独立保存和Render实际消费、Null/NRPN隔离与序列重置。只离线提供者代码，无新原函数/语义/R7处置或成员；不称原私有MIDI/COM算法或波形等价。
 
 软件证据1310→1312，完整gates/184叶验收0/60任务关闭11及六closure保持；P11/P16/V05只加本步来源继续open。未构建/转换/运行/测试/摘要或重生成WAV；当前客户端资产保持，听感/PCM、其余控制和DLS动态调制及正常寿命未验，不用局部静态关闭总SPEC§10/R8。
+
+## CAC14 离线选择延音与控制复位限定验收（2026-10-09）
+
+[先行裁决](cg2d_client_link_sdl_audio_spec.md#offline-pedal-reset-decision-20261009)、[现源状态](cg2d_client_link_sdl_audio_spec.md#offline-pedal-reset-source-state-20261009)及[原厂依据/定向差异](cg2d_offline_pedal_reset_evidence.json)登记两个FUNC-AUDIO局部I/S：CC66上升沿锁存当前按键、后续音符隔离、两踏板联合释放，CC121逐项复位当前支持控制/选择并保留既有RPN、音色与音量。既有voice创建/抢占/序列/Stop清零接线保持；不称原默认驱动实现、波形或完整MIDI控制等价。
+
+软件证据1312→1314，原函数/语义/F与R7处置、功能成员、完整gates/184叶整项验收0/60任务关闭11及六closure保持。P11/P16/V05追加来源继续open；本步未构建/测试/运行/转换/检查产物/摘要、重生成WAV或部署。CC96/97规范细节、其余控制/DLS动态调制与实际PCM/听感/失败/正常寿命仍待，总SPEC§10/R8保持。

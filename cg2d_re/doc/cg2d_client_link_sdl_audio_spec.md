@@ -327,3 +327,35 @@ CAB19空间音频生产者使用的46CE30已由[真实连续x87体](cg2d_project
 三处外整CPP、公开接口、转换器及客户端保持；限定静态状态读写/同通道/边沿/联合释放/保留范围及差异核对通过，见[cg2d_offline_pedal_reset_evidence.json](cg2d_offline_pedal_reset_evidence.json)。两条局部FUNC-AUDIO I/S只登记本离线实现与接线；原身份、成员、全功能门禁和P11/P16/V05状态保持，无运行/PCM结论。
 
 固定源码引用：cg2d-re-offline-pedal-reset-20261009。本步未构建、测试、运行、执行转换器、检查产物、计算摘要、重生成WAV或部署；当前游戏音源仍为旧版本。CC96/97、其余控制与DLS动态调制继续待，真实PCM/同刻事件/声音/失败及正常寿命待执行授权，整体SPEC未完成。
+
+<a id="offline-dls-key-group-decision-20261009"></a>
+## CAC15 离线 DLS 打击乐键组合同与裁决（2026-10-09）
+
+沿CAA01/CAB02/CAB12既有离线MIDI/DLS→WAV及工程委托，本步补区域参数生产→新音符选区→旧声部清除→原Render的完整键组分支。当前LoadDls核rgnh长度至少12B，却只读取前8B音高/力度范围，+10的usKeyGroup没有持有或消费；Apply为所有命中区域直接分配voice，同组打击乐旧音符继续发声。
+
+[DLS Level 1 v1.1原规范第41页的公开检索文本](https://citeseerx.ist.psu.edu/document?doi=544167bbd9658afa41ee684d91ec9827f598d071&repid=rep1&type=pdf)明确rgnh字段次序、键组0为无组、1..15为有效组，其余保留；同一打击乐音色同组旧音符应尽快停止。该原PDF正文访问返回403，本步仅采用检索可见的完整字段说明；不绕过权限，不外推未取得章节。[发布入口](https://midi.org/dls-level-1)及本机Windows SDK dls1.h的RGNHEADER/USKeyGroup和打击乐bank标志作字段交叉依据。它们支持已批准离线替换设计，不是cg2d原默认音源内部算法/实际bank键组分布或声音证据。
+
+| 生产/消费 | 本步合同 |
+|---|---|
+| rgnh→Region | 从+10按LE U16保存原usKeyGroup，不猜音符名单或组值，不限制输入；缺组语义只沿文件中的0，保留值不改写 |
+| Note On选区 | bank/program/音高/力度沿原匹配条件；同一条件供旧声部预处理与既有新声部创建使用，零力度仍先走原松键分支 |
+| 组作用范围 | 仅原选区bank的打击乐标志存在时处理；旧voice须同通道、同bank/program、同1..15键组，且本次至少一个实际命中区域持有该组 |
+| 旧声部停止 | 在本次所有新voice创建前遍历旧voice并清空匹配声部，随后的PCM不再消费它；绕过CC64/66及release，不触碰其他通道/音色/组和bank/sample owner |
+| 区域分层 | 停旧与创建分两阶段；本次所有命中区域都沿原分配/抢占/值初始化创建，不互相截断，不加临时声部表或额外分配 |
+| 0与保留组值 | 0不触发键组；16..65535仅保存、不赋予键组互斥语义，不钳制/映射/拒绝或模拟异常 |
+
+“尽快停止”在本离线替换中裁决为直接清活动voice，复用现CC120即时清声部机制；不用普通keyUp/release，避免持续踏板留下被键组停止的旧声部。仅清非拥有引用，样本/区域仍归原Impl。SELFNONEXCLUSIVE同键重触发、其他DLS连接/调制/循环及完整原驱动音源仍未落实，不因本组实现称全DLS完成；同键与组语义不混用。本步不改客户端WAV方案或重生成声音资源。
+
+<a id="offline-dls-key-group-acceptance-20261009"></a>
+## CAC15 验收边界
+
+局部I仅本字段生产、原选区与同通道/音色/组旧声部消费、两阶段创建及现Render/清理链；局部S仅Region字段、LoadDls字段写点、Apply命中条件复用和旧声部预处理。静态核字段宽度/偏移、有效与保留组边界、实际命中条件、其他声部保持、新音符分层不互斥及其余CPP/接口/资源正文。不得执行算法/样例/转换/测试、构建/运行/检查产物/摘要/重生成WAV/部署；实际PCM/音色文件分布/声音与失败/正常寿命待授权，P11/P16/V05和完整功能/总SPEC§10保持开放。
+
+<a id="offline-dls-key-group-source-state-20261009"></a>
+## CAC15 源码实施与局部静态结果
+
+已在原Region持有U16 keyGroup，LoadDls从原12B rgnh的+10读取；Apply以原bank/program/音高/力度同义条件共用匹配，先清打击乐同通道/音色且命中1..15键组的旧voice，再沿原创建循环产生本次全部区域声部。无新临时表/分配/公开接口，原64声部池、样本与区域owner及Render消费保持；0/保留组、非打击乐、其他通道/音色/未命中旧声部保持，不猜具体音符或实际bank组值。
+
+相对CAC14仅上述三处变化，原CPP其余正文、头/转换器与当前客户端/WAV保持；字段/边界、两阶段顺序、同域选区、两踏板绕过和原清理链限定静态核对通过，见[cg2d_offline_dls_key_group_evidence.json](cg2d_offline_dls_key_group_evidence.json)。两个局部FUNC-AUDIO I/S只记录本键组生产消费，原身份/成员和完整门禁不变，P11/P16/V05开放；本步不称完整rgnh、DLS、音源或原驱动通过。
+
+固定源码引用：cg2d-re-offline-dls-key-group-20261009。未构建/测试/运行/转换/检查产物/摘要、重生成WAV或部署；实际PCM/声音/失败与正常寿命待授权。同键SELFNONEXCLUSIVE、其他连接/调制/循环、CC96/97及整体音频/总SPEC继续未完成。

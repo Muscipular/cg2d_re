@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "step": "CAC15",
+  "recorded_on": "2026-10-09",
+  "source_snapshot": "cg2d-re-offline-dls-key-group-20261009",
+  "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#offline-dls-key-group-decision-20261009",
+  "verification_level": "离线DLS打击乐键组生产/消费三处源差异限定静态；未执行音符或PCM",
+  "original_function_count": 0,
+  "new_original_identity_count": 0,
+  "basis": [
+    {
+      "reference": "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-source-state",
+      "scope": "既有离线bank/区域/声部同一Impl持有及原音色职责承接，不新增原身份/owner"
+    },
+    {
+      "url": "https://citeseerx.ist.psu.edu/document?doi=544167bbd9658afa41ee684d91ec9827f598d071&repid=rep1&type=pdf",
+      "scope": "原DLS Level 1 v1.1规范第41页rgnh字段、0/1..15/保留键组及同组旧音符尽快停止；2026-10-09检索可见完整字段说明，正文访问403，不绕过权限"
+    },
+    {
+      "url": "https://midi.org/dls-level-1",
+      "scope": "DLS1 v1.1b原协会发布入口；不称取得完整正文"
+    },
+    {
+      "reference": "本机Windows SDK 10.0.26100.0 shared/dls1.h:184/193–205",
+      "scope": "显式UTF-8读取，F_INSTRUMENT_DRUMS=0x80000000、RGNHEADER四个U16范围+fusOptions+usKeyGroup及0/1..15说明；不引入头/依赖或检查产物"
+    }
+  ],
+  "source_before_reference": "Git固定命名快照 cg2d-re-offline-pedal-reset-20261009，同路径已提交完整源码",
+  "source_delta": "--- cg2d_re/src/tools/LegacyMidiSynth.cpp（CAC14已提交）\n+++ cg2d_re/src/tools/LegacyMidiSynth.cpp（CAC15）\n@@ -122,6 +122,7 @@\n     struct Region {\n         std::uint32_t bank, program, wave;\n         std::uint16_t keyLow, keyHigh, velocityLow, velocityHigh;\n+        std::uint16_t keyGroup {}; // DLS1 rgnh键组：0无组、1..15打击乐互斥；见CAC15。\n         SampleParameters parameters;\n         bool ownParameters {};\n         Articulation articulation;\n@@ -238,6 +239,7 @@\n                 region.wave = static_cast<std::uint32_t>(wave - waves.begin());\n                 region.keyLow = static_cast<std::uint16_t>(ReadLe(range->data, 0, 2)); region.keyHigh = static_cast<std::uint16_t>(ReadLe(range->data, 2, 2));\n                 region.velocityLow = static_cast<std::uint16_t>(ReadLe(range->data, 4, 2)); region.velocityHigh = static_cast<std::uint16_t>(ReadLe(range->data, 6, 2));\n+                region.keyGroup = static_cast<std::uint16_t>(ReadLe(range->data, 10, 2));\n                 region.articulation = articulation;\n                 if (!ReadArticulation(regionData, parts, region.articulation)) { return false; }\n                 if (const Chunk* wsmp = Find(regionData, parts, \"wsmp\"); wsmp != nullptr) {\n@@ -384,8 +386,24 @@\n         }\n         if (kind != 0x90) { return; }\n         const std::uint32_t bank = (number == 9 ? 0x80000000u : 0u) | (std::uint32_t(channel.control[0]) << 8) | channel.control[32];\n+        const auto matches = [&](const Region& region) {\n+            return region.bank == bank && region.program == channel.program\n+                && event.first >= region.keyLow && event.first <= region.keyHigh\n+                && event.second >= region.velocityLow && event.second <= region.velocityHigh;\n+        };\n+        if ((bank & 0x80000000u) != 0) {\n+            // 先停止命中键组的全部旧声部，再创建本次全部区域；分层声部不互相截断。\n+            for (auto& voice : voices) {\n+                if (voice.region == nullptr || voice.channel != number || voice.region->bank != bank\n+                    || voice.region->program != channel.program || voice.region->keyGroup == 0\n+                    || voice.region->keyGroup > 15) { continue; }\n+                if (std::any_of(regions.begin(), regions.end(), [&](const Region& region) {\n+                    return matches(region) && region.keyGroup == voice.region->keyGroup;\n+                })) { voice = {}; }\n+            }\n+        }\n         for (const auto& region : regions) {\n-            if (region.bank != bank || region.program != channel.program || event.first < region.keyLow || event.first > region.keyHigh || event.second < region.velocityLow || event.second > region.velocityHigh) { continue; }\n+            if (!matches(region)) { continue; }\n             auto slot = std::find_if(voices.begin(), voices.end(), [](const Voice& value) { return value.region == nullptr; });\n             if (slot == voices.end()) { slot = std::max_element(voices.begin(), voices.end(), [](const Voice& first, const Voice& second) { return first.age < second.age; }); }\n             *slot = {}; slot->region = &region; slot->wave = &waves[region.wave];\n",
+  "static_checks": [
+    "Region只新增U16 keyGroup；LoadDls原rgnh>=12B门禁保持，从+10按LE2B读取，不改0/保留值，不猜默认组或音符名单。",
+    "原bank/program/key/velocity过滤条件同义移入局部matches，供预处理和创建共用；零力度Note On仍先走原松键分支。",
+    "仅打击乐bank、同通道同音色旧voice且组1..15，存在实际命中新区域同组时清声部；0与保留组/无命中/其他通道音色保持。",
+    "旧声部清除完成后才进入原全部区域创建；本次分层voice不互相截断，不添加临时表/分配或改变原64voice抢占机制。",
+    "清旧voice只归零非拥有引用，绕过两踏板及release并在Render前完成；bank/sample/region仍由同一Impl持有。",
+    "相对CAC14只Region字段、LoadDls写点、Apply选区与预处理三处变化；三处外整CPP和公开接口/转换器保持。",
+    "只静态文本/字段/状态/顺序核对，未构建、测试、执行客户端/转换器/算法/样例、检查产物、重生成WAV、部署或计算/比对摘要。"
+  ],
+  "runtime_verified": false,
+  "wav_regenerated": false,
+  "remaining": [
+    "SELFNONEXCLUSIVE同键重触发仍未实现，不能称完整rgnh播放语义",
+    "其余DLS连接/动态调制/循环和完整音源、CC96/97等控制仍待",
+    "实际bank键组分布/音符/PCM/声音及资源/失败/正常寿命待执行授权",
+    "P11/P16/V05、完整FUNC-AUDIO及总SPEC§10保持开放"
+  ]
+}

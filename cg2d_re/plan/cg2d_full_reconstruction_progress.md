@@ -108,3 +108,11 @@ CAC06–11后续实现按静态证据推进，未构建/运行当前源码。最
 LegacyMidiSynth.cpp三处实修：原Voice持有选择延音锁存，CC66仅上升沿捕获同通道仍按键音符，后续/已松键音符和release尾音不捕获；CC66关闭与CC121清锁存，Render同时尊重CC64/锁存且只一次启动原release。CC121使当前支持弯音/表情/踏板/选择器复位，保留音色、音量、声像、已设RPN值及资源/事件位置。新建/抢占/序列/Stop沿原清零，无新公开接口/owner/原身份或成员；解析、包络/插值、音高/增益与客户端/WAV保持。见[现源](../doc/cg2d_client_link_sdl_audio_spec.md#offline-pedal-reset-source-state-20261009)、[静态材料](../doc/cg2d_offline_pedal_reset_evidence.json)。
 
 三处外源码及状态保留/同通道/上升沿/联合释放/原清理路径静态核对通过；两局部FUNC-AUDIO I/S登记，软件证据1312→1314。语义1964、F处置1097/区间1509/导入16保持，P11/P16/V05同步仍open，184叶整项验收0/60任务关闭11及六closure保持。首轮精确增量核对发现补丁将新证据插在两条相同尾部上下文的CAC13记录之间，原记录均未改变；调整新记录到末尾后，原1312条逐项保持、仅音频三字段/三任务引用及两条新证据变化核对通过。三处差集/接口/锚点/UTF-8无BOM及LF、git diff --check与静态汇总和-Check通过，随后精确提交；固定引用cg2d-re-offline-pedal-reset-20261009。本步不构建/测试/运行/转换/检查产物/摘要/重生成WAV/部署，实际声音/PCM和其余控制/DLS/寿命继续待，整体目标active；用户既有改动保留不夹带。
+
+## CAC15 离线 DLS 打击乐键组生产与消费（2026-10-09）
+
+上一轮CAC14已提交真实源码/合同/台账，按持续目标继续DLS未消费字段。核本机SDK的原12B RGNHEADER/+10 U16键组及打击乐bank标志，再核原DLS第41页检索可见完整字段文本；PDF正文访问403，未绕过权限或将其称已取得完整规范。增益符号/继承顺序等依据不足项不猜，独立推进字段与语义已充分的键组链，先写[合同/委托裁决](../doc/cg2d_client_link_sdl_audio_spec.md#offline-dls-key-group-decision-20261009)。
+
+LegacyMidiSynth.cpp三处实际开发：Region持有LE U16 keyGroup，原LoadDls写入，Note On共用既有音色/音高/力度过滤先停止命中打击乐同通道/音色/有效组旧声部，再创建本次全部区域声部；两阶段避免本次分层互相截断。0/保留组不赋互斥意义，不猜具体音符或bank组值；无额外表/分配/接口/owner，原64池/抢占/解析其他段/包络/插值/音高/控制/Render与客户端/WAV保持。见[现源](../doc/cg2d_client_link_sdl_audio_spec.md#offline-dls-key-group-source-state-20261009)、[原规范与定向差集](../doc/cg2d_offline_dls_key_group_evidence.json)。
+
+字段偏移/宽度、同域实际命中、两阶段/旧声部停止与三处外CPP/接口静态核对通过；两局部FUNC-AUDIO I/S登记，软件证据1314→1316，原身份/语义/处置/成员与全部门禁保持。原1314条证据逐项保持，仅音频三字段、三任务引用与末尾两条证据增量；锚点/任务行/UTF-8无BOM及LF、git diff --check、静态汇总与-Check通过，随后精确提交。P11/P16/V05仍open，184叶整项验收0/60任务关闭11/六closure保持。固定引用cg2d-re-offline-dls-key-group-20261009，用户既有改动不夹带。本步不构建/测试/运行/转换/产物/摘要/重生成WAV/部署；同键重触发、其余DLS连接/调制/循环、CC96/97和实际PCM/声音/失败/正常寿命继续待，整体目标active。

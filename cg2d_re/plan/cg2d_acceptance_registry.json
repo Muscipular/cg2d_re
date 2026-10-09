@@ -4480,7 +4480,9 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-midi-control-source-state-20261009",
         "doc/cg2d_offline_midi_control_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-pedal-reset-source-state-20261009",
-        "doc/cg2d_offline_pedal_reset_evidence.json"
+        "doc/cg2d_offline_pedal_reset_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#offline-dls-key-group-source-state-20261009",
+        "doc/cg2d_offline_dls_key_group_evidence.json"
       ],
       "original_inventory_ids": [
         "F:00054C30",
@@ -4584,10 +4586,11 @@
         "doc/cg2d_dispatch_callback_width_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build",
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-midi-control-decision-20261009",
-        "doc/cg2d_client_link_sdl_audio_spec.md#offline-pedal-reset-decision-20261009"
+        "doc/cg2d_client_link_sdl_audio_spec.md#offline-pedal-reset-decision-20261009",
+        "doc/cg2d_client_link_sdl_audio_spec.md#offline-dls-key-group-decision-20261009"
       ],
       "blockers": [
-        "CAC14已接离线CC66按键锁存/两踏板释放及当前支持CC121控制复位，保留已设RPN/音色/音量；CAC13控制已保留。仅源码静态，未构建/转换/重生成WAV/声音运行。CC96/97规范细节、其余控制/DLS动态调制、全成员与声音/失败/正常寿命仍待，不代当前客户端或原私有MIDI波形等价。",
+        "CAC15已接DLS原U16键组→打击乐同通道/音色/组旧声部停止→两阶段新音符创建，保分层；CAC13/14控制保持。仅离线源码静态，未构建/转换/重生成WAV/声音运行。SELFNONEXCLUSIVE同键重触发、其余DLS连接/调制/循环、CC96/97规范细节及全成员/声音/失败/正常寿命仍待，不代当前客户端或原默认波形等价。",
         "CAB27补50E6C0真实空间音效回包身份到AUDIO42；只未读socket首参拓宽，三个S32/52CDE0转发返回及LegacyAudio全保。原9条24B/唯一派发有据，不代全部父/callee/正常寿命/声音/机器ABI运行，枚举false。",
         "CAB17固定454C30独立音量表恢复原连续x87、S64低W32及正常127..0槽路径，33条数值投影/当前Debug链接部署通过；0槽/全表实际输出、CW上游/机器状态/声音与正常寿命仍待。AUDIO33成员枚举未闭，旧99设置页外层及全部运行门禁保持",
         "CAB16补52B9E0真实初始化成员至AUDIO33，并恢复原声像/音量表x87数值段；116条投影/十截断与当前Debug链接部署通过。完整成员枚举、当前CW上游/全部消费者/机器状态与声音/设备/失败/通知/正常寿命仍未验，旧99设置页外层继续",
@@ -56548,6 +56551,62 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-OFFLINE-DLS-KEY-GROUP-FUNC-AUDIO-I-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "已批准离线音源适配及DLS原规范rgnh字段检索原文/本机SDK；先行裁决与三处定向差异见 doc/cg2d_offline_dls_key_group_evidence.json",
+      "implementation_reference": "Git固定命名快照 cg2d-re-offline-dls-key-group-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#offline-dls-key-group-decision-20261009",
+        "doc/cg2d_client_link_sdl_audio_spec.md#offline-dls-key-group-source-state-20261009",
+        "doc/cg2d_offline_dls_key_group_evidence.json",
+        "src/tools/LegacyMidiSynth.cpp",
+        "src/tools/LegacyMidiSynth.hpp",
+        "src/tools/MidiToWav.cpp"
+      ],
+      "observation": "LoadDls原区域键组生产→Note On实际选区→同通道/音色/组旧voice停止→原新音符创建/Render及owner清理完整源码路径；不执行音符/PCM。",
+      "expected": "LE U16原字段保持；0/保留组不解释，同有效组打击乐旧声部在全部新建前停止，其他通道/音色/组和未命中保持；本次区域分层不互斥，复用原owner/分配/抢占/释放机制。",
+      "actual": "一CPP三处修改，+10字段持有与同一匹配条件两阶段消费已接；三处外正文/公开接口/转换器保持，无资源表/额外分配/原身份或成员变化。未构建/测试/运行/转换/产物/摘要/重生成WAV/部署。",
+      "differences": [
+        {
+          "description": "已批准离线替换中将尽快停止裁决为直接清匹配voice；DLS规范/SDK不是原默认驱动算法、bank分布或声音证据，仅本键组适配，不称完整rgnh或DLS通过。",
+          "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#offline-dls-key-group-decision-20261009"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-OFFLINE-DLS-KEY-GROUP-FUNC-AUDIO-S-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "已批准离线音源适配及DLS原规范rgnh字段检索原文/本机SDK；先行裁决与三处定向差异见 doc/cg2d_offline_dls_key_group_evidence.json",
+      "implementation_reference": "Git固定命名快照 cg2d-re-offline-dls-key-group-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#offline-dls-key-group-decision-20261009",
+        "doc/cg2d_client_link_sdl_audio_spec.md#offline-dls-key-group-source-state-20261009",
+        "doc/cg2d_offline_dls_key_group_evidence.json",
+        "src/tools/LegacyMidiSynth.cpp",
+        "src/tools/LegacyMidiSynth.hpp",
+        "src/tools/MidiToWav.cpp"
+      ],
+      "observation": "LoadDls原区域键组生产→Note On实际选区→同通道/音色/组旧voice停止→原新音符创建/Render及owner清理完整源码路径；不执行音符/PCM。",
+      "expected": "LE U16原字段保持；0/保留组不解释，同有效组打击乐旧声部在全部新建前停止，其他通道/音色/组和未命中保持；本次区域分层不互斥，复用原owner/分配/抢占/释放机制。",
+      "actual": "一CPP三处修改，+10字段持有与同一匹配条件两阶段消费已接；三处外正文/公开接口/转换器保持，无资源表/额外分配/原身份或成员变化。未构建/测试/运行/转换/产物/摘要/重生成WAV/部署。",
+      "differences": [
+        {
+          "description": "已批准离线替换中将尽快停止裁决为直接清匹配voice；DLS规范/SDK不是原默认驱动算法、bank分布或声音证据，仅本键组适配，不称完整rgnh或DLS通过。",
+          "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#offline-dls-key-group-decision-20261009"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
     }
   ],
   "task_acceptance": [
@@ -58522,7 +58581,9 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-midi-control-source-state-20261009",
         "doc/cg2d_offline_midi_control_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-pedal-reset-source-state-20261009",
-        "doc/cg2d_offline_pedal_reset_evidence.json"
+        "doc/cg2d_offline_pedal_reset_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#offline-dls-key-group-source-state-20261009",
+        "doc/cg2d_offline_dls_key_group_evidence.json"
       ]
     },
     {
@@ -58605,7 +58666,9 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-midi-control-source-state-20261009",
         "doc/cg2d_offline_midi_control_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-pedal-reset-source-state-20261009",
-        "doc/cg2d_offline_pedal_reset_evidence.json"
+        "doc/cg2d_offline_pedal_reset_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#offline-dls-key-group-source-state-20261009",
+        "doc/cg2d_offline_dls_key_group_evidence.json"
       ]
     },
     {
@@ -58697,7 +58760,9 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-midi-control-source-state-20261009",
         "doc/cg2d_offline_midi_control_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-pedal-reset-source-state-20261009",
-        "doc/cg2d_offline_pedal_reset_evidence.json"
+        "doc/cg2d_offline_pedal_reset_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#offline-dls-key-group-source-state-20261009",
+        "doc/cg2d_offline_dls_key_group_evidence.json"
       ]
     },
     {

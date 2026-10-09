@@ -122,6 +122,7 @@ struct LegacyMidiSynth::Impl {
     struct Region {
         std::uint32_t bank, program, wave;
         std::uint16_t keyLow, keyHigh, velocityLow, velocityHigh;
+        std::uint16_t keyGroup {}; // DLS1 rgnh键组：0无组、1..15打击乐互斥；见CAC15。
         SampleParameters parameters;
         bool ownParameters {};
         Articulation articulation;
@@ -238,6 +239,7 @@ struct LegacyMidiSynth::Impl {
                 region.wave = static_cast<std::uint32_t>(wave - waves.begin());
                 region.keyLow = static_cast<std::uint16_t>(ReadLe(range->data, 0, 2)); region.keyHigh = static_cast<std::uint16_t>(ReadLe(range->data, 2, 2));
                 region.velocityLow = static_cast<std::uint16_t>(ReadLe(range->data, 4, 2)); region.velocityHigh = static_cast<std::uint16_t>(ReadLe(range->data, 6, 2));
+                region.keyGroup = static_cast<std::uint16_t>(ReadLe(range->data, 10, 2));
                 region.articulation = articulation;
                 if (!ReadArticulation(regionData, parts, region.articulation)) { return false; }
                 if (const Chunk* wsmp = Find(regionData, parts, "wsmp"); wsmp != nullptr) {
@@ -384,8 +386,24 @@ struct LegacyMidiSynth::Impl {
         }
         if (kind != 0x90) { return; }
         const std::uint32_t bank = (number == 9 ? 0x80000000u : 0u) | (std::uint32_t(channel.control[0]) << 8) | channel.control[32];
+        const auto matches = [&](const Region& region) {
+            return region.bank == bank && region.program == channel.program
+                && event.first >= region.keyLow && event.first <= region.keyHigh
+                && event.second >= region.velocityLow && event.second <= region.velocityHigh;
+        };
+        if ((bank & 0x80000000u) != 0) {
+            // 先停止命中键组的全部旧声部，再创建本次全部区域；分层声部不互相截断。
+            for (auto& voice : voices) {
+                if (voice.region == nullptr || voice.channel != number || voice.region->bank != bank
+                    || voice.region->program != channel.program || voice.region->keyGroup == 0
+                    || voice.region->keyGroup > 15) { continue; }
+                if (std::any_of(regions.begin(), regions.end(), [&](const Region& region) {
+                    return matches(region) && region.keyGroup == voice.region->keyGroup;
+                })) { voice = {}; }
+            }
+        }
         for (const auto& region : regions) {
-            if (region.bank != bank || region.program != channel.program || event.first < region.keyLow || event.first > region.keyHigh || event.second < region.velocityLow || event.second > region.velocityHigh) { continue; }
+            if (!matches(region)) { continue; }
             auto slot = std::find_if(voices.begin(), voices.end(), [](const Voice& value) { return value.region == nullptr; });
             if (slot == voices.end()) { slot = std::max_element(voices.begin(), voices.end(), [](const Voice& first, const Voice& second) { return first.age < second.age; }); }
             *slot = {}; slot->region = &region; slot->wave = &waves[region.wave];

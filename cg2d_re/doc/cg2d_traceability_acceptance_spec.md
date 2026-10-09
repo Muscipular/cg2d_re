@@ -2304,3 +2304,9 @@ F:00078330新增adapted，1937已有映射加本步原根/差集，无新F或语
 [先行裁决](cg2d_client_link_sdl_audio_spec.md#offline-pedal-reset-decision-20261009)、[现源状态](cg2d_client_link_sdl_audio_spec.md#offline-pedal-reset-source-state-20261009)及[原厂依据/定向差异](cg2d_offline_pedal_reset_evidence.json)登记两个FUNC-AUDIO局部I/S：CC66上升沿锁存当前按键、后续音符隔离、两踏板联合释放，CC121逐项复位当前支持控制/选择并保留既有RPN、音色与音量。既有voice创建/抢占/序列/Stop清零接线保持；不称原默认驱动实现、波形或完整MIDI控制等价。
 
 软件证据1312→1314，原函数/语义/F与R7处置、功能成员、完整gates/184叶整项验收0/60任务关闭11及六closure保持。P11/P16/V05追加来源继续open；本步未构建/测试/运行/转换/检查产物/摘要、重生成WAV或部署。CC96/97规范细节、其余控制/DLS动态调制与实际PCM/听感/失败/正常寿命仍待，总SPEC§10/R8保持。
+
+## CAC15 离线 DLS 打击乐键组限定验收（2026-10-09）
+
+[先行裁决](cg2d_client_link_sdl_audio_spec.md#offline-dls-key-group-decision-20261009)、[现源](cg2d_client_link_sdl_audio_spec.md#offline-dls-key-group-source-state-20261009)和[原规范/SDK字段依据及三处差集](cg2d_offline_dls_key_group_evidence.json)登记两个FUNC-AUDIO局部I/S：原LE U16键组字段持有、同实际选区下的打击乐同通道/音色/有效组旧声部停止、再创建本次全部区域声部。只是已批准离线机制的该分支，不将公开规范当cg2d原音源算法、实际bank或声音事实。
+
+软件证据1314→1316；原库存/语义/处置、功能成员和全部完整gates、184叶整项验收0/60任务关闭11/六closure保持。P11/P16/V05追加来源继续open；SELFNONEXCLUSIVE同键重触发及其他DLS连接/调制/循环、CC96/97、实际PCM/声音/失败/正常寿命仍待。未执行或检查构建产物、算法/样例/测试/转换/客户端/摘要/重生成WAV/部署，运行权限及总SPEC§10/R8不降低。

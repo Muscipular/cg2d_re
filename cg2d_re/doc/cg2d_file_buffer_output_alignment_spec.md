@@ -1,5 +1,7 @@
 # 文件缓冲输出地址差与数量 SPEC（FBO01）
 
+> 2026-10-09当前FILE边界：[MC01-B](cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009)已将全部现FILE/描述符/流格式与状态/位置/关闭改真实MSVC服务，旧表/缓冲/私有入口及C表退出当前链；下文旧内部布局/发布机制只属固定历史。业务字段/字节、真实结果/owner与全部适用门禁保持，未编译/运行；完整C++余组继续。
+
 2026-10-05，按工程委托继续C05真实消费者链。
 [stdio合同](cg2d_stdio_contract.md)、[运行库边界](cg2d_crt_runtime_boundary_spec.md)
 及[追踪验收体系](cg2d_traceability_acceptance_spec.md)约束本步；

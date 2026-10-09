@@ -1220,7 +1220,7 @@ void Sub_518780()
         const std::uint32_t count =
             platform::ReadLegacyStream_53BCCD(encoded, 1, 4, stream);
         // 原5187EA/5187F0读取flags低U8并测试20H错误位。
-        if ((*reinterpret_cast<const std::uint8_t*>(&stream->flags) & 0x20u) != 0) {
+        if (std::ferror(stream) != 0) {
             static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
             platform::FreeLegacyByteBuffer(encoded);
             platform::FreeLegacyByteBuffer(decoded);

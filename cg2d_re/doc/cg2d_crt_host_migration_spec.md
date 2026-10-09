@@ -101,3 +101,36 @@ CRT152→154枚举仍open，E728单一局部S只证明身份/来源。一般_pow
 errno/_doserrno每次返回MSVC当前线程真实槽，所有现读写成组替换，截图目录已存在判断同源；不缓存TLS指针。日历九S32逐字段复制，线程局部借用不强转std::tm；time32参数用本机准确类型局部承载，结果保持S32。裸字节malloc/free配对转移，不再使用HeapAlloc/HeapFree。原调用方格式串、输入字段、RNG和协议字节无本步改动。
 
 FILE/lowio仍用过渡期旧类型与表，旧流格式核心/扫描核心和C++库对象尚未全部迁移；因此MC01整体未完成。SDK头核到真实入口声明及stdio inline委托，未构建/链接/测试/运行/查产物/计算摘要；只登记两限定I/S，完整CRT、owner、协议及正常寿命门禁未关闭。固定引用cg2d-re-msvc-crt-scalar-20261009。
+
+<a id="msvc-crt-file-decision-20261009"></a>
+## MC01-B：FILE、描述符与流格式整组迁移
+
+依据用户CRT直接采用MSVC指令及MC01分组，当前全部LegacyFile指针改为实际std::FILE指针的类型别名；规范声明落在公开platform头，旧私有头只转引。业务/资源对象只借用该指针，不读或强转MSVC FILE内部布局；旧32B/现48B FILE、20/512索引表、8B/16B描述符记录、手工CRLF/Ctrl-Z/缓冲表与锁归MSVC，不建新的影子表。
+
+打开/共享打开、读行/字节/元素、输出、刷新、位置/回推/宽字符和关闭直接采用fopen/_fsopen、fgets/fgetc/fread/fwrite、fputs/fputc/fflush、ftell/fseek/_ftelli64/_fseeki64/fgetpos/fsetpos、ungetc及宽字符服务；流格式/扫描核心改vfprintf/vfscanf，不经旧状态机/浮点格式六槽。只保留有当前消费者或真实MSVC操作的接口，旧Acquire/缓冲分配/临时缓冲/格式字节私有核退休，不定义空初始化器或固定成功体。全体刷新/关闭直接调用_flushall/_fcloseall，采用真实返回与本机收尾范围。
+
+旧FPosition两个W32字段按实际MSVC fpos_t的8B数值逐半转换；目标只在fgetpos成功时发布，不强转旧对象或伪造失败位置。公开描述符消费用_open/_filelength/_close，原数值flags/permissions和业务返回消费不变；私有句柄/继承块/descriptor表初始化及读写算法不再复刻。auto.dat创建时间用同一个打开FILE的_fileno交_fstat32，成功才发布ctime，S32保存字段不扩宽。
+
+原EOF/错误位的业务读改为feof/ferror，保持原条件、查询时点与分支顺序；实际读取/格式串、资源/协议/存档字节、偏移与元素宽度、失败消费及RNG不改。窄旧filebuf不再绑定FILE内部游标，保自身真实游标槽，读写经公开FILE服务；其完整C++类型/codecvt迁移仍按MC01-C继续。旧标准FILE数组引用改为直接stdin/stdout/stderr，库拥有其生命周期，不复制FILE或增fake槽。
+
+MSVC入口已完成lowio/stdio初始化：撤下实际模块初始化中的重复调用，同时退休无当前调用的旧私有进程入口/CRT初始化器及C表，不把旧x86私有入口接到新客户端；业务C++初始化/真实WinMain、窗口/主循环/资源回调和现异常过滤器保持。原入口、原表及所有身份留在迁移前Git证据，不能按名称或无xref扩大业务排除。
+
+FILE一经fclose即失效，包括刷新失败的返回路径。当前已证日志页日期切换先关闭流、再调用会再次关闭该全局槽的重载函数；迁移时清空已关闭owner槽，防止把已释放MSVC对象再次交fclose。动画按关闭标记收尾的槽和过渡filebuf也在关闭后释放其FILE引用；关闭返回仍据真实MSVC结果消费。这里只处理已证拥有者配对，不额外跳过未知失败或造新生命周期，旧静态FILE地址关闭后仍可读的库内机制由宿主取代；具名覆盖旧保留关闭槽的内部兼容要求。
+
+宿主CRT的errno/locale、容量/位置、共享与校验/错误/关闭机制按MC01接受；不全局开%n或旧格式选项，不改变调用方格式串或补未写参数。格式结果、文件状态和普通/快速退出、全部owner及正常业务运行依总SPEC适用门禁待验；当前不构建/测试/运行/查产物/计算摘要，单线程。
+
+<a id="msvc-crt-file-acceptance-20261009"></a>
+## MC01-B 静态核对
+
+逐项核唯一当前FILE别名、所有前置声明/字段读和标准流引用；全体提供者与业务读/写/EOF/错误/位置/关闭均属同MSVC域，旧文件/描述符表及初始化无调用或假体。核SDK实际API声明、fpos_t/time32宽度及创建时间成功发布，所有退休源码符号和台账引用；保留用户改动。日志切换的两次关闭用真实已证调用链说明，清空owner与返回消费核到具体源点。完整功能/业务、SDK实际链接/运行及六closure不因静态迁移关闭。
+
+<a id="msvc-crt-file-source-state-20261009"></a>
+## MC01-B 当前源码状态
+
+全部现文件指针已统一为规范公共platform头的std::FILE别名，四原struct前置声明与旧私有头已对齐。33实际服务中字符串扫描此前已交MSVC，本次32项文件/流格式/描述符/ctime服务转真实宿主；所有原FILE EOF/错误字段消费已改feof/ferror，六标准流构造引用直接stdin/stdout/stderr。fpos_t按SDK实值__int64保8B数值适配，业务两个W32及创建时间S32不扩宽，fgetpos/_fstat32成功才发布；[_fileno/FILE/描述符前后态及关闭链](cg2d_msvc_crt_file_evidence.json)可追。
+
+39私有定义退休，含库内缓冲/表/格式字节/低层句柄读写和旧进程入口；其中共享calloc只退休stdio索引表消费者，现通用业务分配保留，53DE8C仅原入口片段、不造新F。37原私有F职责登记host，不造同名函数或原地址调用；其实际服务来源只表示库职责承接，不宣机器ABI一致。93现语义来源/规范声明/旧caller与当前提供者对齐，完整前态沿迁移前固定Git快照及原索引读取，不复制历史链。
+
+旧私有进程入口源与CMake源项/C表撤下；实际MSVC WinMain、全部业务C++模块初始化/回调和现filter保留，停止手工lowio/stdio重复初始化。日志页日期事件关闭后清空owner再重载，动画按标记关闭后清空FILE槽；过渡filebuf的fclose失败也释放已失效FILE引用，同时返回真实失败。窄filebuf不再借库内游标，其完整C++对象/facet/codecvt迁移继续沿MC01-C，不把现过渡类型当永久设计。
+
+原格式串/字段/协议/资源/存档/RNG未改，未知原caller/间接alias和完整owner/业务/SDK运行仍待。两限定I/S仅当前源码/接线静态，完整功能与总SPEC门禁保持；未构建/测试/运行/算法/查产物/计算摘要，无新依赖。固定引用cg2d-re-msvc-crt-file-20261009，MC01整体及总SPEC仍未完成。

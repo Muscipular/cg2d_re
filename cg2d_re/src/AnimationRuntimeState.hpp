@@ -1,13 +1,11 @@
 #pragma once
 
+#include "cg/platform/LegacyStdio.hpp"
+
 #include <array>
 #include <cstddef>
 #include <cstdint>
 #include <type_traits>
-
-namespace cg::platform {
-struct LegacyFile;
-} // namespace cg::platform
 
 namespace cg::resource::animation::detail {
 

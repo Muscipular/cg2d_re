@@ -127,7 +127,7 @@ std::int32_t AnimeInit_45BB20(
                 platform::CloseLegacyStream_53B1D0(file);
                 return 3;
             }
-            if ((static_cast<std::uint8_t>(file->flags) & 0x10u) != 0) {
+            if (std::feof(file) != 0) {
                 filePresent[slot] = 1;
                 platform::CloseLegacyStream_53B1D0(file);
                 break;

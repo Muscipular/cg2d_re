@@ -1,5 +1,7 @@
 # CRT 启动与生命周期迁移子 SPEC
 
+> 2026-10-09当前FILE边界：[MC01-B](cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009)已将全部现FILE/描述符/流格式与状态/位置/关闭改真实MSVC服务，旧表/缓冲/私有入口及C表退出当前链；下文旧内部布局/发布机制只属固定历史。业务字段/字节、真实结果/owner与全部适用门禁保持，未编译/运行；完整C++余组继续。
+
 > CAB07（2026-10-09）：[旧音频两构造](cg2d_display_settings.md#audio-settings-pages-source-state)已按原槽序接入，当前72源投影＋15 SDK＝87对应，另null1/键盘排除2，90槽身份不变。旧70/85及音频暂停叙述为历史；本次未编译或运行，不关闭完整启动/退出、SDK及所有owner门禁。
 
 > **SSO01最新状态（2026-10-05）**：[标准流提供者](cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure)已完成15槽与完整SDK对象对应；70有序源投影＋15宿主预先提供＝85项对应，另null1/暂停音频2/键盘排除2。85不是85个同TU调用。下文各组数字为各固定快照；完整容量/消费者/alias和SDK运行仍待。

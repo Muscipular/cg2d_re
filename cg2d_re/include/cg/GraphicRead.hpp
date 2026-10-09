@@ -1,11 +1,9 @@
 #pragma once
 
+#include "cg/platform/LegacyStdio.hpp"
+
 #include <cstddef>
 #include <cstdint>
-
-namespace cg::platform {
-struct LegacyFile;
-} // namespace cg::platform
 
 namespace cg::render {
 struct PaletteEntry;

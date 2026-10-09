@@ -1,17 +1,16 @@
 #pragma once
 
+#include "cg/platform/LegacyStdio.hpp"
+
 #include <cstdint>
 
 namespace cg::platform {
 
-struct LegacyFile;
 
 // MC01：查询当前MSVC线程的errno；目录创建与截图的EEXIST判断共用真实状态。
 std::int32_t& LegacyErrno_1085FE0() noexcept;
 // 当前MSVC线程的_doserrno，宽度仍为W32；不缓存线程局部地址。
 unsigned long& LegacyDosError_1085FE4() noexcept;
-// 原542F44；复用已有错误表及共享槽，返回原表尾关联值，不另建错误映射。
-std::uintptr_t MapLegacyFileError_542F44(std::uint32_t code);
 
 // 原53DA45：直接std::strtol，返回S32；end借用输入，错误沿MSVC errno。
 std::int32_t Strtol_53DA45(const char* text, char** endPointer, std::int32_t radix);
@@ -74,8 +73,7 @@ struct LegacyTm53B8C6 {
 // 原53BA26：直接MSVC _time32，业务结果保持S32；output可空。
 std::int32_t ReadLegacyTime32_53BA26(std::int32_t* output);
 
-// 原53CCD0在auto.dat六个点的创建时间投影；file借用仍打开的原FILE槽。
-// descriptor交同一完整文件状态本体，成功才发布ctime，失败不写output。
+// auto.dat时间：同一MSVC FILE经_fileno/_fstat32，成功才发布S32创建时间。
 std::int32_t ReadLegacyFileCreationTime32(LegacyFile* file, std::int32_t* output);
 
 } // namespace cg::platform

@@ -158,7 +158,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
                     break;
                 }
                 std::strcat(fileCommandLine, line);
-            } while ((static_cast<std::uint8_t>(file->flags) & 0x10u) == 0);
+            } while (std::feof(file) == 0);
             CloseLegacyStream_53B1D0(file);
         }
         gCommandLine = fileCommandLine;

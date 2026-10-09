@@ -25,15 +25,7 @@ void InitializeLegacyNarrowFileBuffer_548EFC(
         storage->scratchString = nullptr;
     }
     ResetLegacyStreamBuffer_549EDE(&storage->base.buffer);
-    if (file != nullptr && storage->modeOneFlag == 0) {
-        // 原六间接槽共用FILE实际三字段，两侧均须保留别名。
-        storage->base.buffer.readCurrentSlot = &file->current;
-        storage->base.buffer.readBaseSlot = &file->base;
-        storage->base.buffer.writeBaseSlot = &file->base;
-        storage->base.buffer.writeCurrentSlot = &file->current;
-        storage->base.buffer.readRemainingSlot = &file->remaining;
-        storage->base.buffer.writeRemainingSlot = &file->remaining;
-    }
+    // MC01-B：游标槽属于filebuf自身，MSVC FILE缓冲仅经公开I/O操作。
     storage->file = file;
     storage->state40Bits = gLegacyNarrowFileState1087B00;
     const std::uint32_t secondState = gLegacyNarrowFileState1087B00;
@@ -66,22 +58,26 @@ LegacyNarrowFileBuffer* CloseLegacyNarrowFileBuffer_548ED5(
     LegacyNarrowFileBuffer* const storage)
 {
     LegacyFile* const file = storage->file;
-    if (file == nullptr || CloseLegacyStream_53B1D0(file) != 0) {
+    if (file == nullptr) {
         return nullptr;
     }
+    const std::int32_t result = CloseLegacyStream_53B1D0(file);
+    // fclose返回错误时FILE也已失效，先释放owner引用再消费实际结果。
     InitializeLegacyNarrowFileBuffer_548EFC(storage, nullptr, 2);
-    return storage;
+    return result == 0 ? storage : nullptr;
 }
 
 LegacyWideFileBuffer* CloseLegacyWideFileBuffer_549E61(
     LegacyWideFileBuffer* const storage)
 {
     LegacyFile* const file = storage->file;
-    if (file == nullptr || CloseLegacyStream_53B1D0(file) != 0) {
+    if (file == nullptr) {
         return nullptr;
     }
+    const std::int32_t result = CloseLegacyStream_53B1D0(file);
+    // fclose返回错误时FILE也已失效，先释放owner引用再消费实际结果。
     InitializeLegacyWideFileBuffer_549E88(storage, nullptr, 2);
-    return storage;
+    return result == 0 ? storage : nullptr;
 }
 
 LegacyNarrowFileBuffer* ConstructLegacyNarrowFileBuffer_5485FE(

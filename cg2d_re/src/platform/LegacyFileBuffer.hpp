@@ -54,7 +54,7 @@ static_assert(offsetof(LegacyWideCodecvtOutputMethods, output) == 40);
 static_assert(sizeof(LegacyWideCodecvtOutputMethods) == 48);
 
 // 原basic_filebuf已证+00..+53视图；+38转换器/+44窄字符串均真实地址拓宽。
-// 仅显式函数构析，不自动构造owner或接宿主streambuf/FILE。
+// 过渡期C++视图；FILE已为MSVC对象，只经公开服务消费，完整类型迁移沿MC01-C。
 template <typename Character>
 struct LegacyFileBufferStorage final {
     LegacyStreamBufferObject<Character> base;     // 原+00..+37；实际首成员基类子对象。
@@ -64,7 +64,7 @@ struct LegacyFileBufferStorage final {
     LegacyNarrowString* scratchString;            // 原+44；窄宽均窄字符串，mode0才清空。
     std::uint8_t modeOneFlag;                     // 原+48；mode==1的0/1 U8。
     LegacyLocaleImplementation* privateLocale;    // 原+4C；mode0显式重构。
-    LegacyFile* file;                              // 原+50；实际原FILE。
+    LegacyFile* file;                              // 原+50来源；当前非拥有MSVC FILE。
 };
 using LegacyNarrowFileBuffer = LegacyFileBufferStorage<char>;
 using LegacyWideFileBuffer = LegacyFileBufferStorage<std::uint16_t>;

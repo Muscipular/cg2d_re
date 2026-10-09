@@ -585,13 +585,13 @@ LegacyStandardStreamInitializer* InitializeLegacyNarrowStandardStreams_5482DD(Le
     try {
         if (currentObject != nullptr) {
             ConstructLegacyNarrowFileBuffer_5485FE(
-                &gLegacyNarrowStandardInputBuffer1086470, &gLegacyStaticFiles58F8B8[0]);
+                &gLegacyNarrowStandardInputBuffer1086470, stdin);
         }
         currentObject = &gLegacyNarrowStandardOutputBuffer1086348;
         state = 1;
         if (currentObject != nullptr) {
             ConstructLegacyNarrowFileBuffer_5485FE(
-                &gLegacyNarrowStandardOutputBuffer1086348, &gLegacyStaticFiles58F8B8[1]);
+                &gLegacyNarrowStandardOutputBuffer1086348, stdout);
         }
         currentObject = &gLegacyNarrowStandardInput1086430;
         state = 2;
@@ -610,7 +610,7 @@ LegacyStandardStreamInitializer* InitializeLegacyNarrowStandardStreams_5482DD(Le
         state = 4;
         if (currentObject != nullptr) {
             ConstructLegacyNarrowFileBuffer_5485FE(
-                &gLegacyNarrowStandardErrorBuffer10863D8, &gLegacyStaticFiles58F8B8[2]);
+                &gLegacyNarrowStandardErrorBuffer10863D8, stderr);
         }
         currentObject = &gLegacyNarrowStandardError10864C8;
         state = 5;
@@ -672,19 +672,19 @@ LegacyStandardStreamInitializer* InitializeLegacyWideStandardStreams_549397(Lega
     try {
         if (currentObject != nullptr) {
             ConstructLegacyWideFileBuffer_54970A(
-                &gLegacyWideStandardInputBuffer1086610, &gLegacyStaticFiles58F8B8[0]);
+                &gLegacyWideStandardInputBuffer1086610, stdin);
         }
         currentObject = &gLegacyWideStandardOutputBuffer10865B8;
         state = 1;
         if (currentObject != nullptr) {
             ConstructLegacyWideFileBuffer_54970A(
-                &gLegacyWideStandardOutputBuffer10865B8, &gLegacyStaticFiles58F8B8[1]);
+                &gLegacyWideStandardOutputBuffer10865B8, stdout);
         }
         currentObject = &gLegacyWideStandardErrorBuffer10866A0;
         state = 2;
         if (currentObject != nullptr) {
             ConstructLegacyWideFileBuffer_54970A(
-                &gLegacyWideStandardErrorBuffer10866A0, &gLegacyStaticFiles58F8B8[2]);
+                &gLegacyWideStandardErrorBuffer10866A0, stderr);
         }
         currentObject = &gLegacyWideStandardInput1086578;
         state = 3;

@@ -1843,7 +1843,7 @@ std::int32_t ReloadLegacyLog_402020()
     }
     ui::detail::gLogDisplayGate593F84 = 1;
     gLegacyLogLineCount593F80 = 0;
-    while ((current->flags & 0x10u) == 0) {
+    while (std::feof(current) == 0) {
         static_cast<void>(platform::ReadLegacyStreamLine_53B226(buffer, 1000, current));
         const auto length = static_cast<std::int32_t>(std::strlen(buffer));
         if (length > 65) {
@@ -1936,11 +1936,10 @@ std::uintptr_t Sub_4021A0(const std::int32_t opened)
                 char* const readResult = platform::ReadLegacyStreamLine_53B226(buffer, 1000, current);
                 current = gLegacyLogFile593F78;
                 if (readResult == nullptr) {
-                    const std::uint32_t flags = current->flags;
-                    if ((flags & 0x10u) != 0) {
+                    if (std::feof(current) != 0) {
                         break;
                     }
-                    if ((flags & 0x20u) != 0) {
+                    if (std::ferror(current) != 0) {
                         gLegacyLogError593F7C = 1;
                         break;
                     }

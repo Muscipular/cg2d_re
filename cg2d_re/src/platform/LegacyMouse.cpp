@@ -45,15 +45,13 @@ void FinishHostedLegacyRuntime()
     RestoreLegacyExceptionFilter_545091();
 }
 
-// HFI01/HSI01：heap、lowio、stdio、multibyte、filter先于应用序，不执行整套旧CRT。
+// MC01-B：lowio/stdio由MSVC入口持有；保应用所需堆/多字节/filter与退出回调。
 struct LegacyMultibyteStaticInitializer {
     LegacyMultibyteStaticInitializer()
     {
         if (InitializeLegacyHeap_541BB8(0) == 0) {
             FastLegacyRuntimeErrorExit_53DED0(28);
         }
-        static_cast<void>(InitializeLegacyDescriptors_53F52D());
-        InitializeLegacyStdio_53E9A5();
         static_cast<void>(std::atexit(FinishHostedLegacyRuntime));
         InitializeLegacyMultibyte_546CAE();
         InstallLegacyExceptionFilter_545080();

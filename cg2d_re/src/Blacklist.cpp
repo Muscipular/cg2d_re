@@ -86,7 +86,7 @@ std::int8_t LoadBlacklistFile(const std::int32_t fileId)
     platform::LegacyFile* const file = platform::OpenLegacyStream_53B2F1(gPath.data(), "rb+");
     if (file != nullptr) {
         platform::RewindLegacyStream_53B27D(file);
-        if ((*reinterpret_cast<const std::uint8_t*>(&file->flags) & 0x10u) == 0) {
+        if (std::feof(file) == 0) {
             for (;;) {
                 platform::ReadLegacyStreamLine_53B226(
                     reinterpret_cast<char*>(
@@ -124,7 +124,7 @@ std::int8_t LoadBlacklistFile(const std::int32_t fileId)
                     }
                 }
 
-                if ((*reinterpret_cast<const std::uint8_t*>(&file->flags) & 0x10u) != 0) {
+                if (std::feof(file) != 0) {
                     break;
                 }
             }

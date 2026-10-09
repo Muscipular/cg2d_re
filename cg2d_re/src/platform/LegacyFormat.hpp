@@ -33,7 +33,7 @@ extern LegacyFloatNonnegativeCallback gLegacyFloatNonnegative58FB60;
 extern LegacyFloatFormatCallback gLegacyFloatFormatAlias58FB64;
 [[noreturn]] void LegacyFloatingPointTrap_545031();
 
-// 流输出核心暂用旧FILE；字符串包装已按MC01直接采用MSVC格式引擎。
+// MC01-B：流输出核心/包装直接vfprintf，全部文件均为实际MSVC FILE。
 std::int32_t FormatLegacyOutput_53EB28(
     LegacyFile* stream, const char* format, std::va_list arguments);
 // 原4D8DA0@4D8F5B单W32读取；只借对应命令元素地址，经CPP intrinsic取样后给%d。
@@ -48,7 +48,7 @@ std::int32_t FormatLegacyBoundedString_53D21D(
 std::int32_t FormatLegacyStream_53BC0F(LegacyFile* stream, const char* format, ...);
 
 
-// 流扫描核心暂用旧FILE；字符串包装直接vsscanf，目标类型由格式串与调用方保证。
+// MC01-B：流/字符串扫描直接vfscanf/vsscanf，目标类型由格式串与调用方保证。
 std::int32_t ScanLegacyInput_53DEF4(
     LegacyFile* stream, const char* format, std::va_list arguments);
 std::int32_t ScanLegacyString_53CADC(const char* buffer, const char* format, ...);

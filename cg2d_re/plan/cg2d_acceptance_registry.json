@@ -112,7 +112,10 @@
         "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
         "doc/cg2d_build_acceptance_spec.md#array-assert-stack-diagnostic-20261009",
         "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-baseline",
-        "doc/cg2d_startup_flow.md#window-resource-module-baseline-20261009"
+        "doc/cg2d_startup_flow.md#window-resource-module-baseline-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -260,7 +263,8 @@
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
         "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
         "doc/cg2d_display_settings.md#audio-settings-pages-decision",
-        "doc/cg2d_startup_flow.md#window-resource-module-decision-20261009"
+        "doc/cg2d_startup_flow.md#window-resource-module-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -277,7 +281,8 @@
         "BRS01仅源码目标接线：新增唯一WIN32客户端目标并把已有ClientEntry.cpp从startup迁至客户端，显式接startup/render，继承core/C++20/include和现系统/SDL3依赖；宿主标准CRT进入已有WinMain，函数体/应用活动初始化/旧CRT表全文未改，无/ENTRY、替代main或占位依赖。三库和Windows/MSVC/x64限制/预设保持。静态接线通过；未配置构建测试运行摘要，完整链接/初始化构析/退出及登录负分类/U03/资源依赖继续开发，C02/C04/V02仍open、完整feature门禁/global不改。",
         "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
         "CAC07本域新增成员仅已有真实源及原分派数据关联；本批512X用途有证不代13父完整算法/签名/所有callee、间接alias、生产及正常owner寿命/SDK/机器ABI/运行。本域成员枚举和B/I/W/S/R继续未闭，不新增软件通过。",
-        "CAC11实际原图标/十一鼠标光标资源实例装载及真实WinMain两加载点已编码，现同源窗类/句柄和SetCursor借用不变；本域仅该原入口已知成员，非新功能分母或闭枚举。当前磁盘资源与IDB不能互代，权限/匹配/像素热点/全部加载成功失败及SDK/正常寿命/完整启动输入资源和运行继续待，局部静态不提升完整门禁。"
+        "CAC11实际原图标/十一鼠标光标资源实例装载及真实WinMain两加载点已编码，现同源窗类/句柄和SetCursor借用不变；本域仅该原入口已知成员，非新功能分母或闭枚举。当前磁盘资源与IDB不能互代，权限/匹配/像素热点/全部加载成功失败及SDK/正常寿命/完整启动输入资源和运行继续待，局部静态不提升完整门禁。",
+        "MC01-B已成组迁移实际MSVC FILE/描述符及流格式/状态/关闭；已证owner失效处理已接。完整CRT对象/初始化退出余组、业务/owner/SDK运行仍未验。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -395,7 +400,10 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-baseline",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_evidence.json"
+        "doc/cg2d_msvc_crt_scalar_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
       ],
       "original_inventory_ids": [
         "F:00001C10",
@@ -637,7 +645,72 @@
         "F:0013D26E",
         "F:001450F0",
         "F:0013C2F0",
-        "F:00140D7B"
+        "F:00140D7B",
+        "F:0013C680",
+        "F:0013E981",
+        "F:0013BB02",
+        "F:00144705",
+        "F:0014AE87",
+        "F:0013D30A",
+        "F:0013BC0F",
+        "F:0013F38F",
+        "F:00143711",
+        "F:0014AD92",
+        "F:0013F493",
+        "F:00144815",
+        "F:00143897",
+        "F:0013BB99",
+        "F:0014381D",
+        "F:0013BBA2",
+        "F:00141222",
+        "F:001463A3",
+        "F:0013B226",
+        "F:00141426",
+        "F:0013EB28",
+        "F:001437A6",
+        "F:0013F32C",
+        "F:001446AD",
+        "F:0013C8B3",
+        "F:0013D435",
+        "F:0014ACB7",
+        "F:0014B239",
+        "F:0013F3BA",
+        "F:0013D3BD",
+        "F:0013BB3D",
+        "F:0014463F",
+        "F:0014B3C0",
+        "F:0013BC41",
+        "F:0013F8C0",
+        "F:00142F44",
+        "F:0013F2C6",
+        "F:00149147",
+        "F:0013F848",
+        "F:0013D44C",
+        "F:0013BCCD",
+        "F:0013C8CD",
+        "F:0013B1D0",
+        "F:0013B2D1",
+        "F:0014B450",
+        "F:0013E950",
+        "F:0013CCD0",
+        "F:001438D4",
+        "F:0013B356",
+        "F:0013F6D8",
+        "F:0014ACD9",
+        "F:0014B658",
+        "F:0013CFDC",
+        "F:0013EA5E",
+        "F:0013E96A",
+        "F:0013EAEB",
+        "F:0014AF70",
+        "F:0013B2F1",
+        "F:0014ACF1",
+        "F:0013DEF4",
+        "F:0014B574",
+        "F:0013CB78",
+        "F:00141279",
+        "F:0013F2FB",
+        "F:0013B27D"
       ],
       "closure_task_ids": [
         "C01",
@@ -705,7 +778,8 @@
         "doc/cg2d_stdio_contract.md#known-format-call-inventory",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-decision",
-        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009"
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -759,7 +833,8 @@
         "BWX01补原543AE8完整193条548B八参数NLS、543D37四十三条123B完整W32大写及543D0C二十条43B真实计数读，三完整256条714B/五页。五现源九改、两完整CPP、三原薄转调、计数两个读位置及两个真实ASM读取叶/C桥；共享1086198/1086170与NLS producer/原五映射点及目录U8域保持。原仅正源长度缩源、A/W探测/严格第一次1或9和实际1、SORTKEY目标/容量0与查询数量返回、普通flags220/目标0查询、两U32栈请求及原filter1/置空SEH保持，不造FS/旧帧/故障样例。完整W32大写按原无符号分域、highBYTE lead、显式locale-CP/源2-目标2-strict1、失败完整输入及非零后两U8/W32组合；Count循环/末端复读实际单U8，CPP只借地址消费真返回，不补值/哨兵或根据数量少读。完善既有340/342/438及三F adapted、CRT200→203/F1026/E1185两限定I-S，语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和队列保持。原GetEnv两私有点仍宿主承接；完整间接父/SEH链、CRT库存/正常寿命、实际NLS/SDK/ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。",
         "BWY01补原545208完整123条329B/两页七参数NLS分类，原两个参数消费窗口39条98B/一scope与相邻15CC有证。两现源两改、一个完整GetLegacyStringTypes_545208及声明、原info1薄转调，零ASM/C桥/owner/依赖或新应用调用。原W32 infoType/CP-locale-strict与S32源长度直接交API，不缩源；分类专用10862E4、A-locale0/W-CP0回退、首次strict flags1或9/实际1和实际转换数量/完整W32返回保。原SEH内计算count*2低W32字节数，_alloca用+3低两位清零对齐请求，Fill5419D0只原字节数；原filter1/置空指针/失败0与全部caller/掩码和表生产保，不造FS/旧栈或故障样例。完善既有341和填充连接当前源符号、一个F adapted/F1027及CRT204、E1187两限定I-S；一个15CC仅对齐用途/R7已审483余2578。语义1859/有效1852、文档1969/3680（53.51%）和队列/pending保持；完整间接父/SEH链-CRT库存及寿命、系统NLS/SDK-ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。",
         "CAC20仅本批数据/ABI尾部与私有单叶宿主职责；完整父/所有callee、生产与未知alias/正常owner寿命、SDK生成ABI及运行继续未闭；输入元数据不证明当前使用，八字节用途仍待，成员枚举保持false。",
-        "MC01-A已接标量C服务；全部CRT直接采用MSVC方向已定，FILE/lowio/流格式及C++对象/初始化退出迁移继续。当前未编译/链接/运行，全部适用业务和owner门禁保持。"
+        "MC01-A已接标量C服务；全部CRT直接采用MSVC方向已定，FILE/lowio/流格式及C++对象/初始化退出迁移继续。当前未编译/链接/运行，全部适用业务和owner门禁保持。",
+        "MC01-B已成组迁移实际MSVC FILE/描述符及流格式/状态/关闭；已证owner失效处理已接。完整CRT对象/初始化退出余组、业务/owner/SDK运行仍未验。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2812,7 +2887,10 @@
       "baseline_documents": [
         "doc/cg2d_animation_runtime.md",
         "doc/cg2d_animation_capacity_spec.md#animation-capacity-baseline",
-        "doc/cg2d_animation_pointer_spec.md#animation-pointer-baseline"
+        "doc/cg2d_animation_pointer_spec.md#animation-pointer-baseline",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
       ],
       "original_inventory_ids": [
         "F:000574E0",
@@ -2836,12 +2914,14 @@
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_animation_capacity_spec.md#animation-capacity-decision",
-        "doc/cg2d_animation_pointer_spec.md#animation-pointer-decision"
+        "doc/cg2d_animation_pointer_spec.md#animation-pointer-decision",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
         "ACB01撤早期P1额外零哨兵，恢复原固定20500项/容量重读清零，原包含上界/正常查询和四分配序保持；四身份局部纳管，完整加载/播放/场景/退出/alias/所有owner寿命/实际分配失败/机器/SDK/画面运行未验，异常不保护或模拟",
-        "ATP01五具名指针/三分配/P4独立子项和两清理读取已落码，原布局/发布/正常控制/释放顺序保持；两清理与两生产四身份局部纳管，P4前缀/帧/缓冲生产和完整初始化加载播放退出/alias/所有owner寿命/实际分配失败/ABI/SDK/画面运行未验，异常不保护或模拟"
+        "ATP01五具名指针/三分配/P4独立子项和两清理读取已落码，原布局/发布/正常控制/释放顺序保持；两清理与两生产四身份局部纳管，P4前缀/帧/缓冲生产和完整初始化加载播放退出/alias/所有owner寿命/实际分配失败/ABI/SDK/画面运行未验，异常不保护或模拟",
+        "MC01-B已成组迁移实际MSVC FILE/描述符及流格式/状态/关闭；已证owner失效处理已接。完整CRT对象/初始化退出余组、业务/owner/SDK运行仍未验。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -3264,7 +3344,10 @@
         "doc/ui_windows/window_53.md#shop-inventory-scan-source-state",
         "doc/cg2d_shop_inventory_scan_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#shop-inventory-scan-debug-build",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-baseline",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
       ],
       "original_inventory_ids": [
         "F:0004B170",
@@ -3370,7 +3453,8 @@
         "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
         "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
         "doc/cg2d_window_draw_width_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009"
       ],
       "blockers": [
         "CAB30八已有窗口绘制身份补到本域64成员，17点20宽度警告已修；19原相关调用332条955B/消费字段、整CPP差集及Debug有据。窗口仍23/其它未重编44项已见警告，枚举/旧99路由/所有父-callee/正常寿命/ABI/画面与运行未验。",
@@ -3391,7 +3475,8 @@
         "BVS01修复4FA8E0表情请求跨opaque YobiAction直接取imageNo的真实源码缺口；原4FA9C1一次W32读取由既有GetYobiActionField2A8原样承接，仍仅在附件44为空且计时门禁已过后同action读取。一个CPP一个调用表达式，零新函数/helper/API/owner/保护；正文其余、现有getter/公共头和两动作表保持。复用BVP01完整117条437B/两页基线，本步只重取一实际指令；既有1782/F:000FA8E0和公共UI49不重计，两个限定I/S，原格式明文/音频暂停/RPLAN.24保。只验本源码边界，未宣编译链接、机器ABI或运行通过，四任务仍open。",
         "BWA01旧面板选择发布/清除/查询/切换/查找五完整210条681B/六页，11直接六目标/零间接、38跳13RET与267普通CALL纳管；一个CPP仅504180三个片段恢复查询后fresh类别/首选择同样本及两分支S8类别重取。最初类别门禁与共享选择/dirty写序、三U32选择槽和99行唯一owner保；四正确本体和所有其余源/头/实际音频调用保持，无新helper/API/owner，音频继续暂停。五新原新1807..1811/五F、公共UI49→54仅两限定I-S，不当全部父/callee/旧表+04或正常寿命/运行证明；原格式明文及RPLAN.24保持。",
         "BWB01选择恢复/结果阶段/DP回复/完整结果标志四正确入口81条294B/四页，八直接六目标/零间接、11跳六RET与六CALL纳管；原两父邻窗另列，当前hB/Gn、W16阶段与两S32 DP槽/原生窗口31绑定可追。回复门禁持样与阶段先发布、两次Base62/顺序写返；阶段S16一次取样及1/2/3/其它正值差异清理；四战果/十五技能完整扫描与恢复先504180再清CAFEA0的返回保持。源码/头及旧1569/914/1580/1216/1807记录保持，零新I/helper/API/owner；四新原新/F，公共UI56/网络69/战斗265三限定S。完整其它生产/父-callee/所有消费者/正常寿命与网络画面运行、机器ABI/旧外路由仍待；原格式明文、音频暂停/RPLAN.24保持。",
-        "CAC19只补本批原数据/代码身份及原型/旧表来源；完整父/所有callee、字段生产/外层分派、未知alias/正常owner寿命、SDK/机器ABI与运行仍未闭。旧选择handlerToken及十八原键槽不证明当前新端真实调用，完整成员枚举保持开放。"
+        "CAC19只补本批原数据/代码身份及原型/旧表来源；完整父/所有callee、字段生产/外层分派、未知alias/正常owner寿命、SDK/机器ABI与运行仍未闭。旧选择handlerToken及十八原键槽不证明当前新端真实调用，完整成员枚举保持开放。",
+        "MC01-B已成组迁移实际MSVC FILE/描述符及流格式/状态/关闭；已证owner失效处理已接。完整CRT对象/初始化退出余组、业务/owner/SDK运行仍未验。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -57078,6 +57163,112 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-MSVC-CRT-FILE-FUNC-CRT-I-20261009",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "MC01用户MSVC指令及本组前态固定快照 cg2d-re-msvc-crt-file-history-20261009；现已证FILE/描述符/流消费者",
+      "implementation_reference": "Git固定快照 cg2d-re-msvc-crt-file-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json",
+        "CMakeLists.txt",
+        "include/cg/GraphicRead.hpp",
+        "include/cg/platform/LegacyTime.hpp",
+        "src/AnimationCleanup.cpp",
+        "src/AnimationRuntime.cpp",
+        "src/AnimationRuntimeState.hpp",
+        "src/Blacklist.cpp",
+        "src/LegacyUiRecord.cpp",
+        "src/LoginSavedState.cpp",
+        "src/platform/ClientEntry.cpp",
+        "src/platform/LegacyFileBuffer.cpp",
+        "src/platform/LegacyFileBuffer.hpp",
+        "src/platform/LegacyFormat.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyIos.cpp",
+        "src/platform/LegacyLowIo.cpp",
+        "src/platform/LegacyLowIo.hpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/platform/LegacyRuntimeExit.cpp",
+        "src/platform/LegacyRuntimeExit.hpp",
+        "src/platform/LegacyScan.cpp",
+        "src/platform/LegacyStdio.cpp",
+        "src/platform/LegacyStdio.hpp",
+        "src/platform/LegacyTime.cpp",
+        "src/ui/WindowRuntime.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/SceneState.cpp",
+        "include/cg/platform/LegacyStdio.hpp"
+      ],
+      "observation": "核33实际服务/32新迁移、规范std::FILE别名、全部字段消费/前置声明/标准流/EOF和错误、库表/旧入口退休、ctime/fpos定宽与关闭owner。",
+      "expected": "全部MSVC FILE/描述符同域，真实标准服务/返回，无旧缓冲表或私有初始化假体；已证关闭后的引用不再交宿主fclose，业务参数/字节/格式/RNG保持。",
+      "actual": "33实际提供者、39私有定义退休（共享calloc只移stdio消费者），旧进程入口源和C表退出当前链；日历/time32及所有资源/业务字段保持，唯一规范公共头/私有转引。限定静态通过，完整CRT/owner/业务/SDK与运行门禁仍开放。",
+      "differences": [
+        {
+          "description": "库内缓冲/表/共享/状态/位置/错误/终止及FILE寿命采用MSVC；已证日志/动画/过渡filebuf释放关闭后引用，不称旧静态FILE内部机制等价。",
+          "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-MSVC-CRT-FILE-FUNC-CRT-S-20261009",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "MC01用户MSVC指令及本组前态固定快照 cg2d-re-msvc-crt-file-history-20261009；现已证FILE/描述符/流消费者",
+      "implementation_reference": "Git固定快照 cg2d-re-msvc-crt-file-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json",
+        "CMakeLists.txt",
+        "include/cg/GraphicRead.hpp",
+        "include/cg/platform/LegacyTime.hpp",
+        "src/AnimationCleanup.cpp",
+        "src/AnimationRuntime.cpp",
+        "src/AnimationRuntimeState.hpp",
+        "src/Blacklist.cpp",
+        "src/LegacyUiRecord.cpp",
+        "src/LoginSavedState.cpp",
+        "src/platform/ClientEntry.cpp",
+        "src/platform/LegacyFileBuffer.cpp",
+        "src/platform/LegacyFileBuffer.hpp",
+        "src/platform/LegacyFormat.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyIos.cpp",
+        "src/platform/LegacyLowIo.cpp",
+        "src/platform/LegacyLowIo.hpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/platform/LegacyRuntimeExit.cpp",
+        "src/platform/LegacyRuntimeExit.hpp",
+        "src/platform/LegacyScan.cpp",
+        "src/platform/LegacyStdio.cpp",
+        "src/platform/LegacyStdio.hpp",
+        "src/platform/LegacyTime.cpp",
+        "src/ui/WindowRuntime.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/SceneState.cpp",
+        "include/cg/platform/LegacyStdio.hpp"
+      ],
+      "observation": "核33实际服务/32新迁移、规范std::FILE别名、全部字段消费/前置声明/标准流/EOF和错误、库表/旧入口退休、ctime/fpos定宽与关闭owner。",
+      "expected": "全部MSVC FILE/描述符同域，真实标准服务/返回，无旧缓冲表或私有初始化假体；已证关闭后的引用不再交宿主fclose，业务参数/字节/格式/RNG保持。",
+      "actual": "33实际提供者、39私有定义退休（共享calloc只移stdio消费者），旧进程入口源和C表退出当前链；日历/time32及所有资源/业务字段保持，唯一规范公共头/私有转引。限定静态通过，完整CRT/owner/业务/SDK与运行门禁仍开放。",
+      "differences": [
+        {
+          "description": "库内缓冲/表/共享/状态/位置/错误/终止及FILE寿命采用MSVC；已证日志/动画/过渡filebuf释放关闭后引用，不称旧静态FILE内部机制等价。",
+          "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
     }
   ],
   "task_acceptance": [
@@ -57247,7 +57438,10 @@
         "doc/cg2d_unassigned_range_eighth_batch_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_evidence.json"
+        "doc/cg2d_msvc_crt_scalar_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
       ]
     },
     {
@@ -57400,7 +57594,10 @@
         "plan/cg2d_full_reconstruction_plan.md",
         "doc/cg2d_external_keyboard_scope.json",
         "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state",
-        "doc/cg2d_screenshot_chain_baseline_evidence.json"
+        "doc/cg2d_screenshot_chain_baseline_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
       ]
     },
     {
@@ -57419,7 +57616,10 @@
         "doc/cg2d_heap_malloc_unification_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_evidence.json"
+        "doc/cg2d_msvc_crt_scalar_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
       ],
       "task_id": "C08",
       "state": "open"
@@ -57441,7 +57641,10 @@
         "doc/cg2d_heap_malloc_unification_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_evidence.json"
+        "doc/cg2d_msvc_crt_scalar_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
       ],
       "task_id": "C11",
       "state": "open"
@@ -57507,7 +57710,10 @@
         "doc/cg2d_heap_malloc_unification_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_evidence.json"
+        "doc/cg2d_msvc_crt_scalar_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
       ],
       "task_id": "C01",
       "state": "open"
@@ -57579,7 +57785,10 @@
       "evidence_refs": [
         "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-source-closure",
         "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure",
-        "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state"
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
       ]
     },
     {
@@ -57593,7 +57802,10 @@
         "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_evidence.json"
+        "doc/cg2d_msvc_crt_scalar_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
       ]
     },
     {
@@ -57803,7 +58015,10 @@
         "doc/cg2d_blacklist_core_sampling_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_evidence.json"
+        "doc/cg2d_msvc_crt_scalar_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
       ]
     },
     {
@@ -58074,7 +58289,10 @@
         "doc/cg2d_unassigned_range_eighth_batch_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_evidence.json"
+        "doc/cg2d_msvc_crt_scalar_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
       ]
     },
     {
@@ -58106,7 +58324,10 @@
         "doc/cg2d_unassigned_range_eighth_batch_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_evidence.json"
+        "doc/cg2d_msvc_crt_scalar_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
       ]
     },
     {
@@ -58193,7 +58414,10 @@
         "doc/cg2d_unassigned_range_eighth_batch_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_evidence.json"
+        "doc/cg2d_msvc_crt_scalar_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
       ]
     },
     {
@@ -58279,7 +58503,10 @@
         "doc/cg2d_scene_state.md#map-direction-byte-bridge-source-state-20261009",
         "doc/cg2d_map_direction_byte_bridge_evidence.json",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-map-source-state",
-        "plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009"
+        "plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
       ]
     },
     {
@@ -58660,7 +58887,10 @@
         "doc/cg2d_unassigned_range_eighth_batch_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_evidence.json"
+        "doc/cg2d_msvc_crt_scalar_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
       ]
     },
     {
@@ -58877,7 +59107,10 @@
         "doc/ui_windows/shared_profile.md#profile-page-coordinate-source-state-20261009",
         "doc/cg2d_profile_page_coordinate_sampling_evidence.json",
         "doc/cg2d_startup_flow.md#window-resource-module-source-state-20261009",
-        "doc/cg2d_window_resource_module_evidence.json"
+        "doc/cg2d_window_resource_module_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
       ]
     },
     {
@@ -59595,7 +59828,10 @@
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_evidence.json"
+        "doc/cg2d_msvc_crt_scalar_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
       ]
     },
     {
@@ -59621,7 +59857,10 @@
       "evidence_refs": [
         "doc/cg2d_network_compatibility_spec.md#local-service-observation-20261009",
         "doc/cg2d_startup_flow.md#window-resource-module-source-state-20261009",
-        "doc/cg2d_window_resource_module_evidence.json"
+        "doc/cg2d_window_resource_module_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
       ]
     },
     {
@@ -59635,7 +59874,7 @@
       ]
     }
   ],
-  "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。 GQ01由同一汇总器生成development_gap_queue与看板§5；只列定位/语义身份登记差集，不把缺历史定位当源码未实现，不手改队列。 CRI01无独立函数ID的已证代码片段可按原X区间/实际边界绑定；校验身份与证据后另计，不混入缺身份队列，不增加函数分母。 ACP01-A按最新double/std数学许可迁音频6入口CPP；更新现提供者及两限定静态证据，三ASM历史附件仍由固定Git快照核存在；完整门禁/成员/任务状态与MIDI停止范围保持。 ACP01-M将地图13数学/投影入口迁CPP，8现提供者同步，新增两限定I/S，原CI消费点明示std::pow承接；CRT环境仍待，不关闭完整gates/成员/任务。 ACP01-C完成第三ASM源迁移，22接口/70私有机器ABI退役/5非PUBLIC宿主承接，当前数学现提供者与host/mixed处置同步；新增两限定I/S，三ASM/MASM已移除，原身份/成员/完整gates/任务/六closure不闭合。 HMU01按malloc方向和工程委托统一通用全部模式CRT；9实际提供者/12旧池退休/8类型/10槽，25语义当前提供者与host/adapted处置对齐，3限定静态证据；完整门禁/成员/任务/六closure保持。 2026-10-09 CAC17：按用户要求更新七源/头18处过时注释；代码/声明/字段/调用保持，零新增原身份/语义/处置/软件证据，完整门禁/任务关闭/成员/六closure不变；见plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009。 2026-10-09 CAC18：第六批512原X完整用途和49表307槽/19索引/18对齐/三回调八原型，仅辅助mapped与九已有/26新父数据关联及三无F代码身份；已审区间2021余1040，源码/完整门禁/软件证据/任务状态和六closure保持。 2026-10-09 CAC19：第七批512原X/5733B完整用途；15表97槽/两索引/四对齐/22代码，五原型、十八旧键与一旧选择来源，七旧/六新父仅数据关联。已审区间2533余528，零客户端源码/软件证据增量；完整门禁/任务状态/成员枚举和六closure保持。 2026-10-09 CAC20：528候选全读、527原X用途mapped，已审3060/3061；X:00142E29-00142E34内八字节用途未证留待，不猜填充/排除。九表/输入元数据/PE原节尾/键盘包装/三ABI尾部有据；单一53B4F2受限host职责新增，零客户端源码/软件证据通过，完整门禁/任务状态/成员枚举/六closure保持。 CAC20静态汇总拒绝53B51F无独立现源码的语义代码身份后，撤掉该条；原用途/完整字节和未决实际转入仍保留，不放宽校验。 MC01-A按用户CRT直接使用MSVC新要求先记总范围与分组SPEC，33入口/29新提供者、TLS错误和八退休辅助同步；保原身份/前态、局部静态证据与全部完整门禁，FILE/lowio和C++余组继续。",
+  "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。 GQ01由同一汇总器生成development_gap_queue与看板§5；只列定位/语义身份登记差集，不把缺历史定位当源码未实现，不手改队列。 CRI01无独立函数ID的已证代码片段可按原X区间/实际边界绑定；校验身份与证据后另计，不混入缺身份队列，不增加函数分母。 ACP01-A按最新double/std数学许可迁音频6入口CPP；更新现提供者及两限定静态证据，三ASM历史附件仍由固定Git快照核存在；完整门禁/成员/任务状态与MIDI停止范围保持。 ACP01-M将地图13数学/投影入口迁CPP，8现提供者同步，新增两限定I/S，原CI消费点明示std::pow承接；CRT环境仍待，不关闭完整gates/成员/任务。 ACP01-C完成第三ASM源迁移，22接口/70私有机器ABI退役/5非PUBLIC宿主承接，当前数学现提供者与host/mixed处置同步；新增两限定I/S，三ASM/MASM已移除，原身份/成员/完整gates/任务/六closure不闭合。 HMU01按malloc方向和工程委托统一通用全部模式CRT；9实际提供者/12旧池退休/8类型/10槽，25语义当前提供者与host/adapted处置对齐，3限定静态证据；完整门禁/成员/任务/六closure保持。 2026-10-09 CAC17：按用户要求更新七源/头18处过时注释；代码/声明/字段/调用保持，零新增原身份/语义/处置/软件证据，完整门禁/任务关闭/成员/六closure不变；见plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009。 2026-10-09 CAC18：第六批512原X完整用途和49表307槽/19索引/18对齐/三回调八原型，仅辅助mapped与九已有/26新父数据关联及三无F代码身份；已审区间2021余1040，源码/完整门禁/软件证据/任务状态和六closure保持。 2026-10-09 CAC19：第七批512原X/5733B完整用途；15表97槽/两索引/四对齐/22代码，五原型、十八旧键与一旧选择来源，七旧/六新父仅数据关联。已审区间2533余528，零客户端源码/软件证据增量；完整门禁/任务状态/成员枚举和六closure保持。 2026-10-09 CAC20：528候选全读、527原X用途mapped，已审3060/3061；X:00142E29-00142E34内八字节用途未证留待，不猜填充/排除。九表/输入元数据/PE原节尾/键盘包装/三ABI尾部有据；单一53B4F2受限host职责新增，零客户端源码/软件证据通过，完整门禁/任务状态/成员枚举/六closure保持。 CAC20静态汇总拒绝53B51F无独立现源码的语义代码身份后，撤掉该条；原用途/完整字节和未决实际转入仍保留，不放宽校验。 MC01-A按用户CRT直接使用MSVC新要求先记总范围与分组SPEC，33入口/29新提供者、TLS错误和八退休辅助同步；保原身份/前态、局部静态证据与全部完整门禁，FILE/lowio和C++余组继续。 MC01-B成组迁MSVC FILE/描述符/流格式与状态/ctime/fpos/关闭；39私有定义及旧入口/C表退休，shared calloc仅除stdio消费者；旧映射沿固定快照可读，当前全部门禁/任务状态保持，完整C++余组继续。",
   "function_dispositions": [
     {
       "disposition": "adapted",
@@ -60957,11 +61196,20 @@
     },
     {
       "inventory_id": "F:0013E9A5",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure"
-      ]
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "previous_disposition_before_mc01b": {
+        "snapshot": "cg2d-re-msvc-crt-file-history-20261009",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:0013E9A5"
+      },
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
     },
     {
       "inventory_id": "F:0013C3EA",
@@ -73279,9 +73527,17 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_evidence.json"
+        "doc/cg2d_msvc_crt_scalar_evidence.json",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。",
+      "previous_disposition_before_mc01b": {
+        "snapshot": "cg2d-re-msvc-crt-file-history-20261009",
+        "path": "plan/cg2d_acceptance_registry.json",
+        "inventory_id": "F:0013CADC"
+      }
     },
     {
       "inventory_id": "F:0014ABDD",
@@ -73381,6 +73637,743 @@
         "doc/cg2d_msvc_crt_scalar_evidence.json"
       ],
       "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+    },
+    {
+      "inventory_id": "F:0013C680",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013E981",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013BB02",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:00144705",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0014AE87",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013D30A",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013BC0F",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013F38F",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:00143711",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0014AD92",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013F493",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:00144815",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:00143897",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013BB99",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0014381D",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013BBA2",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:00141222",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:001463A3",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013B226",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:00141426",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013EB28",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:001437A6",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013F32C",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:001446AD",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013F52D",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013C8B3",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013D435",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013DDB5",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0014ACB7",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0014B239",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013F3BA",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013D3BD",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013BB3D",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0014463F",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0014B3C0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013BC41",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013F8C0",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:00142F44",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013F2C6",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:00149147",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013F848",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013D44C",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013BCCD",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013C8CD",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013B1D0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013B2D1",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0014B450",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013E950",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013CCD0",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:001438D4",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013B356",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013F6D8",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0014ACD9",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0014B658",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013CFDC",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013EA5E",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013E96A",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013EAEB",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0014AF70",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013B2F1",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0014ACF1",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013DEF4",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0014B574",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013CB78",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:00141279",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013F2FB",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+    },
+    {
+      "inventory_id": "F:0013B27D",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_evidence.json"
+      ],
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
     }
   ],
   "auxiliary_dispositions": [

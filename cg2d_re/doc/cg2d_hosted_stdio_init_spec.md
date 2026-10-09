@@ -1,5 +1,7 @@
 # 宿主兼容 FILE 表初始化 SPEC（HSI01）
 
+> 2026-10-09当前FILE边界：[MC01-B](cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009)已将全部现FILE/描述符/流格式与状态/位置/关闭改真实MSVC服务，旧表/缓冲/私有入口及C表退出当前链；下文旧内部布局/发布机制只属固定历史。业务字段/字节、真实结果/owner与全部适用门禁保持，未编译/运行；完整C++余组继续。
+
 2026-10-05，聚焦已发现的FILE表生产缺口，沿既有工程委托实施。
 上位：[宿主前置](cg2d_hosted_runtime_prefix_spec.md)、[表块分配域](cg2d_stdio_table_heap_spec.md)。
 固定快照：`cg2d-re-hosted-stdio-init-source-20261005`。

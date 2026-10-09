@@ -81,7 +81,6 @@ add_library(cg2d_re_startup STATIC
     src/platform/LegacyException.cpp
     src/platform/LegacyRuntimeError.cpp
     src/platform/LegacyRuntimeExit.cpp
-    src/platform/LegacyProcessEntry.cpp
     src/platform/LegacySignal.cpp
     src/platform/LegacyLowIo.cpp
     src/platform/LegacyStdio.cpp

@@ -356,30 +356,4 @@ void RestoreLegacyExceptionFilter_545091()
         gLegacyPreviousExceptionFilter10862E0));
 }
 
-namespace {
-
-// 原C表553170目标返回真实槽表指针，__initterm不消费返回；只做类型明确的地址适配。
-void InitializeLegacyExitTableForCrt()
-{
-    static_cast<void>(InitializeLegacyExitTable_53B418());
-}
-
-// 原53DE8C..53DE9F筛选片段：先缓存info所指Code并发布本帧槽，再调用真实筛选。
-// 不是新增原函数身份；只为原生__except表达单次info采样和原Code保存时点。
-
-} // namespace
-
-// 原58F864已加载53B447；真实原生函数地址，不存原地址整数或指向宿主初始化器。
-LegacyRuntimeExitCallback gLegacyFloatingInitializer58F864 = InitializeLegacyFloatingPoint_53B447;
-// 原[55316C,553180)五槽，返回不消费；不改为_initterm_e的非零失败短路。
-LegacyRuntimeExitCallback gLegacyCInitializationTable55316C[5] = {
-    nullptr,
-    InitializeLegacyExitTableForCrt,
-    InitializeLegacyStdio_53E9A5,
-    InitializeLegacyMultibyte_546CAE,
-    InstallLegacyExceptionFilter_545080
-};
-
-
-
 } // namespace cg::platform

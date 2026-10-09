@@ -1,7 +1,6 @@
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/LegacyMemory.hpp"
 #include "StartupNative.hpp"
-#include "LegacyLowIo.hpp"
 #include "LegacyStdio.hpp"
 
 #include <bit>
@@ -11,6 +10,7 @@
 #include <cstring>
 #include <ctime>
 #include <direct.h>
+#include <sys/stat.h>
 
 namespace cg::platform {
 
@@ -193,157 +193,13 @@ LegacyTm53B8C6* __cdecl LocalTime_53B8C6(std::int32_t* timeValue)
     return &result;
 }
 
-// 过渡期旧描述符错误映射；FILE/lowio成组迁移前保真实表消费者。
-namespace {
-
-struct LegacyFileErrorEntry {
-    std::uint32_t nativeCode;
-    std::int32_t error;
-};
-
-// 原 [591E80,591FE8)；重复键按首次匹配，不排序或合并。
-constexpr LegacyFileErrorEntry kLegacyFileErrors591E80[] {
-    {1, 22}, {2, 2}, {3, 2}, {4, 24}, {5, 13},
-    {6, 9}, {7, 12}, {8, 12}, {9, 12}, {10, 7},
-    {11, 8}, {12, 22}, {13, 22}, {15, 2}, {16, 13},
-    {17, 18}, {18, 2}, {33, 13}, {53, 2}, {65, 13},
-    {67, 2}, {80, 17}, {82, 13}, {83, 13}, {87, 22},
-    {89, 11}, {108, 13}, {109, 32}, {112, 28}, {114, 9},
-    {6, 22}, {128, 10}, {129, 10}, {130, 9}, {131, 22},
-    {132, 13}, {145, 41}, {158, 13}, {161, 2}, {164, 11},
-    {167, 13}, {183, 17}, {206, 2}, {215, 11}, {1816, 12}
-};
-static_assert(sizeof(kLegacyFileErrors591E80) == 0x168);
-
-} // namespace
-
-std::uintptr_t MapLegacyFileError_542F44(const std::uint32_t code)
-{
-    LegacyDosError_1085FE4() = code;
-    for (const LegacyFileErrorEntry& entry : kLegacyFileErrors591E80) {
-        if (entry.nativeCode == code) {
-            LegacyErrno_1085FE0() = entry.error;
-            return static_cast<std::uintptr_t>(entry.error);
-        }
-    }
-    if (code >= 19 && code <= 36) {
-        LegacyErrno_1085FE0() = 13;
-    } else if (code >= 188) {
-        LegacyErrno_1085FE0() = 8;
-        if (code > 202) {
-            LegacyErrno_1085FE0() = 22;
-        }
-    } else {
-        LegacyErrno_1085FE0() = 22;
-    }
-    return reinterpret_cast<std::uintptr_t>(kLegacyFileErrors591E80 + 45);
-}
-
-std::int32_t ReadLegacyDescriptorStatus32_53CCD0(
-    const std::int32_t descriptor, LegacyFileStatus32* const status)
-{
-    const auto descriptorIndex = static_cast<std::uint32_t>(descriptor);
-    if (descriptorIndex >= gLegacyDescriptorCapacity1086AC0) {
-        LegacyErrno_1085FE0() = 9;
-        return -1;
-    }
-    const std::uint32_t slot = descriptorIndex & 31u;
-    // 原var_8保存表块槽地址；各API前重新从同一块槽取得HANDLE。
-    LegacyDescriptorRecord*& block = gLegacyDescriptorBlocks10869C0[descriptorIndex >> 5];
-    if ((block[slot].flags & 1u) == 0) {
-        LegacyErrno_1085FE0() = 9;
-        return -1;
-    }
-
-    const DWORD fileType = ::GetFileType(block[slot].handle) & ~0x8000u;
-    if (fileType == FILE_TYPE_CHAR || fileType == FILE_TYPE_PIPE) {
-        status->mode = fileType == FILE_TYPE_CHAR ? 0x2000u : 0x1000u;
-        status->deviceBits = descriptorIndex;
-        status->relatedDeviceBits = descriptorIndex;
-        status->linkCount = 1;
-        status->inode = 0;
-        status->group = 0;
-        status->user = 0;
-        status->creationTime = 0;
-        status->modifiedTime = 0;
-        status->accessTime = 0;
-        if (fileType == FILE_TYPE_CHAR) {
-            status->sizeLowBits = 0;
-        } else {
-            DWORD available;
-            const BOOL peeked = ::PeekNamedPipe(
-                block[slot].handle, nullptr, 0, nullptr, &available, nullptr);
-            status->sizeLowBits = peeked != FALSE ? available : 0;
-        }
-        return 0;
-    }
-    if (fileType == FILE_TYPE_UNKNOWN) {
-        LegacyErrno_1085FE0() = 9;
-        return -1;
-    }
-
-    BY_HANDLE_FILE_INFORMATION information;
-    if (fileType == FILE_TYPE_DISK) {
-        status->mode = 0;
-        status->group = 0;
-        status->user = 0;
-        status->inode = 0;
-        status->linkCount = 1;
-    }
-    if (fileType != FILE_TYPE_DISK
-        || ::GetFileInformationByHandle(block[slot].handle, &information) == FALSE) {
-        static_cast<void>(MapLegacyFileError_542F44(::GetLastError()));
-        return -1;
-    }
-    status->mode |= (information.dwFileAttributes & 1u) != 0 ? 0x124u : 0x1B6u;
-
-    const auto convert = [](const FILETIME& fileTime, std::int32_t& result) {
-        FILETIME localTime;
-        SYSTEMTIME fields;
-        if (::FileTimeToLocalFileTime(&fileTime, &localTime) == FALSE
-            || ::FileTimeToSystemTime(&localTime, &fields) == FALSE) {
-            return false;
-        }
-        result = ConvertLocalTime_541160(
-            fields.wYear, fields.wMonth, fields.wDay, fields.wHour,
-            fields.wMinute, fields.wSecond, -1);
-        return true;
-    };
-    std::int32_t converted;
-    if (!convert(information.ftLastWriteTime, converted)) {
-        return -1;
-    }
-    status->modifiedTime = converted;
-    if (information.ftLastAccessTime.dwLowDateTime != 0
-        || information.ftLastAccessTime.dwHighDateTime != 0) {
-        if (!convert(information.ftLastAccessTime, converted)) {
-            return -1;
-        }
-    }
-    status->accessTime = converted;
-    if (information.ftCreationTime.dwLowDateTime == 0
-        && information.ftCreationTime.dwHighDateTime == 0) {
-        converted = status->modifiedTime;
-    } else if (!convert(information.ftCreationTime, converted)) {
-        return -1;
-    }
-    status->mode |= 0x8000u;
-    status->creationTime = converted;
-    const std::uint32_t sizeLow = information.nFileSizeLow;
-    status->deviceBits = 0;
-    status->sizeLowBits = sizeLow;
-    status->relatedDeviceBits = 0;
-    return 0;
-}
-
 std::int32_t ReadLegacyFileCreationTime32(
     LegacyFile* const file, std::int32_t* const output)
 {
-    LegacyFileStatus32 status;
-    const std::int32_t result =
-        ReadLegacyDescriptorStatus32_53CCD0(file->descriptor, &status);
-    if (result >= 0) {
-        *output = status.creationTime;
+    struct _stat32 status;
+    const std::int32_t result = ::_fstat32(::_fileno(file), &status);
+    if (result == 0) {
+        *output = static_cast<std::int32_t>(status.st_ctime);
     }
     return result;
 }

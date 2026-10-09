@@ -251,7 +251,7 @@ SavedPhysicalRecord gCurrentSavedRecord {};
     const std::uint32_t bytesRead =
         cg::platform::ReadLegacyStream_53BCCD(encoded, 1, 0xA20, file);
     // 原532F3F/532F45只读取flags低U8并测试20H错误位。
-    if ((*reinterpret_cast<const std::uint8_t*>(&file->flags) & 0x20u) != 0) {
+    if (std::ferror(file) != 0) {
         cg::platform::CloseLegacyStream_53B1D0(file);
         return 0;
     }

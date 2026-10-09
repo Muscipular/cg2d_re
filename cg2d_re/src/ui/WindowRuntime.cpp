@@ -1045,7 +1045,7 @@ struct LoginWindowRuntimeSlots {
     std::int32_t timeCB1DF0;
     std::int32_t valueD67BB0;
     std::int32_t logViewerMaximumD67BB4; // 原计数上限，含EOF空读取，不减可见行数。
-    platform::LegacyFile* logViewerFileD67BB8; // 只在打开后发布；关闭保留原非空槽身份。
+    platform::LegacyFile* logViewerFileD67BB8; // 借用当前打开的MSVC FILE，关闭后不得重复消费。
     std::int32_t logViewerErrorD67BBC;
     std::int32_t dayD67BC0;
 };
@@ -15183,10 +15183,10 @@ std::int32_t Sub_4C9060()
             platform::GetLegacyDescriptorLength_53D3BD(descriptor);
         static_cast<void>(platform::CloseLegacyDescriptor_53D30A(descriptor));
         // 原4C90B8/4C90D4均读取flags低U8，只有20H是错误。
-        if ((*reinterpret_cast<const std::uint8_t*>(&stream->flags) & 0x20u) == 0) {
+        if (std::ferror(stream) == 0) {
             static_cast<void>(platform::ReadLegacyStream_53BCCD(
                 &gWindowSavedDataD40B30, 1, 0x521C, stream));
-            if ((*reinterpret_cast<const std::uint8_t*>(&stream->flags) & 0x20u) == 0) {
+            if (std::ferror(stream) == 0) {
                 if (gWindowSavedDataD40B30.version != 0x13
                     || Sub_4C93A0() == 1 || Sub_4C9170() == 0) {
                     static_cast<void>(Sub_4C9240());
@@ -29268,7 +29268,7 @@ void Sub_4CC540()
     }
     gLogDisplayGate593F84 = 1;
     gLoginWindowRuntime.logViewerMaximumD67BB4 = 0;
-    while ((static_cast<std::uint8_t>(current->flags) & 0x10u) == 0) {
+    while (std::feof(current) == 0) {
         char buffer[1000] {};
         static_cast<void>(platform::ReadLegacyStreamLine_53B226(buffer, 1000, current));
         const auto length = static_cast<std::int32_t>(std::strlen(buffer));
@@ -29399,6 +29399,8 @@ std::int32_t Sub_4CBDB0(const std::int32_t index, const std::int32_t state)
             platform::LegacyFile* const stream = gLoginWindowRuntime.logViewerFileD67BB8;
             if (stream != nullptr) {
                 static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
+                // MC01-B：随后重载会处理该槽，已关闭FILE不得再交fclose。
+                gLoginWindowRuntime.logViewerFileD67BB8 = nullptr;
             }
             if (index == 6) {
                 platform::LegacyTm53B8C6* const calendar = gLoginWindowRuntime.calendarTimeD67BAC;

@@ -1,5 +1,7 @@
 # 宿主兼容堆与低层IO前置 SPEC（HPI01）
 
+> 2026-10-09当前FILE边界：[MC01-B](cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009)已将全部现FILE/描述符/流格式与状态/位置/关闭改真实MSVC服务，旧表/缓冲/私有入口及C表退出当前链；下文旧内部布局/发布机制只属固定历史。业务字段/字节、真实结果/owner与全部适用门禁保持，未编译/运行；完整C++余组继续。
+
 2026-10-05，按用户“聚焦缺口”推进；未决工程事项沿既有委托裁决。
 上位：[启动生命周期](cg2d_crt_startup_lifecycle_spec.md)、[模式3承接](cg2d_mode3_heap_facade_spec.md)。
 固定快照：`cg2d-re-hosted-prefix-io-source-20261005`。

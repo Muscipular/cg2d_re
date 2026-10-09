@@ -1,5 +1,7 @@
 #pragma once
 
+#include "cg/platform/LegacyStdio.hpp"
+
 #include "MailState.hpp"
 
 #include "cg/LegacyAudio.hpp"
@@ -29,7 +31,6 @@ std::uint32_t Sub_508C40(); // 原 [0x508C40,0x508C81)，真实请求启动依�
 
 namespace cg::platform {
 
-struct LegacyFile; // 同源原FILE，日志共享槽的非拥有指针。
 // 原 0x53B8C6 返回九个 S32 槽；调用方按已确认偏移读取时间字段。
 struct LegacyTm53B8C6;
 LegacyTm53B8C6* __cdecl LocalTime_53B8C6(std::int32_t* timeValue);

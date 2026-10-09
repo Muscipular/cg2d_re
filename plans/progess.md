@@ -973,3 +973,7 @@
 ## cg2d_re：IP2实际服务来源（2026-10-09）
 
 只读确认9030由源码目录cgmsv.exe -d 1/PID14904监听，当前新客户端进程为空、游戏227B日志仍00:16旧CONNECT OK，未有新版登录诊断。实际owner/程序路径已可追踪，当前TW源码是明文分支，但运行二进制内部身份和登录往返未证明，不改协议或猜认证/超时故障。同步限定B来源/V01首次open/V03仍open，未增源码/原身份/功能通过，不构建/部署/运行/试包/测试/算法/工具/摘要；详见cg2d_re/plan/cg2d_full_reconstruction_progress.md，快照cg2d-re-local-service-observation-20261009，用户原差异排除，整体目标继续。
+
+## cg2d_re：按用户要求编译项目（2026-10-09）
+
+windows-msvc-x64-debug默认构建返回0，三库及cg2d_re_client.exe目标通过；本次为最新源码的增量构建，无CPP重编或新增诊断，既有66项已见警告不据此核销。日志cg2d_re/build/windows-msvc-x64/build-project-20261009.log；无源码/依赖/协议变更，未运行测试/客户端/算法/工具、摘要或额外部署，不计真实互通/整体验收。详见cg2d_re/plan/cg2d_full_reconstruction_progress.md，保留用户原差异，完整目标继续。

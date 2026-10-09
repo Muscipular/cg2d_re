@@ -5295,3 +5295,7 @@ CAA01必要Debug仅重编本CPP并链接三库/客户端，0错误、该C4701消
 运行服务当前路径已证明；当前version.h的VERSION_TW/CGMSV_CONFIG与nrproto_util.h TW不启用加密、原明文拆分/发送及JFVf/whV字段源码一致，但未证运行二进制与当前源码内容相同。未修改/重启服务、建立试连接/发送封包或运行客户端；既有运行许可仍待答。不改wire/认证/超时，不为等待制造源码修复。旧99路由/目录生产仍待事实，抽样原401000/170/190/270也在Blacklist已有对应本体，不能按缺文档直接判为缺代码。
 
 只在既有网络SPEC追加实际来源，网络/登录各一个限定B证据、V01首次明确open（task_acceptance55→56）、V03保持open；所有成员/门禁/处置/执行策略/构建记录与源码保持，登记簿与HEAD+明确预期全文一致、UTF8无BOM/LF及静态生成/Check通过。实值语义1906/有效1896/无F代码10、文档2006/3680（54.51%）、F1087/E1293、R7已审485余2576、pending18/104差集、184叶验收0/60任务关闭11及整体false保持。无本轮构建/部署/运行/试包/测试/算法/工具/摘要；最近客户端仍CAB31。证据doc/cg2d_network_compatibility_spec.md#local-service-observation-20261009，快照cg2d-re-local-service-observation-20261009，精确提交保用户原差异，完整目标继续；当前登录下一步需获准运行的新诊断或用户实际反馈，不轮询未变日志。
+
+## CAB33 用户要求编译当前项目（2026-10-09）
+
+执行cg2d_re现有windows-msvc-x64-debug默认构建，MSBuild返回0，core/render/startup三库及cg2d_re_client.exe目标通过；源码已是最新状态，本次没有重新编译CPP，也没有新增编译诊断，不据此核销CAB31仍未闭的66项已见警告。日志build/windows-msvc-x64/build-project-20261009.log，客户端路径build/windows-msvc-x64/Debug/cg2d_re_client.exe。没有重新配置、修改源码/依赖/协议或运行测试/客户端/算法/工具、摘要；未额外部署，不计IP2互通或整体SPEC验收通过。仅同步本次构建执行记录，原功能门禁和用户差异保持，完整目标继续。

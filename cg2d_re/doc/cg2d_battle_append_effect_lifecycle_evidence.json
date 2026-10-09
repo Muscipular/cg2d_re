@@ -1,0 +1,1459 @@
+{
+  "schema_version": 1,
+  "spec_id": "BAEL01",
+  "date": "2026-10-10",
+  "scope": "三个已有追加效果链根正常生产/值查找/清理，free参数当前节点持样一片段",
+  "decision_ref": "doc/cg2d_battle_append_effect_lifecycle_spec.md#battle-append-effect-decision",
+  "before_snapshot": "cg2d-re-battle-append-effect-cleanup-history-20261010",
+  "after_snapshot": "cg2d-re-battle-append-effect-cleanup-20261010",
+  "original_roots": [
+    {
+      "entry": 4439552,
+      "end": 4439702,
+      "name": "BattleScene::AddAppendEffect",
+      "chunks": [
+        [
+          4439552,
+          4439702
+        ]
+      ],
+      "instruction_count": 56,
+      "code_bytes": 150,
+      "xrefs": [
+        {
+          "from": 4401822,
+          "to": 4439552,
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    BattleScene__AddAppendEffect",
+          "parent": 4355184,
+          "operand_value": 4439552
+        },
+        {
+          "from": 4403478,
+          "to": 4439552,
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    BattleScene__AddAppendEffect",
+          "parent": 4355184,
+          "operand_value": 4439552
+        },
+        {
+          "from": 4422097,
+          "to": 4439552,
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    BattleScene__AddAppendEffect",
+          "parent": 4355184,
+          "operand_value": 4439552
+        }
+      ],
+      "instructions": [
+        {
+          "ea": 4439552,
+          "size": 1,
+          "bytes": "53",
+          "mnem": "push",
+          "text": "push    ebx"
+        },
+        {
+          "ea": 4439553,
+          "size": 1,
+          "bytes": "56",
+          "mnem": "push",
+          "text": "push    esi"
+        },
+        {
+          "ea": 4439554,
+          "size": 1,
+          "bytes": "57",
+          "mnem": "push",
+          "text": "push    edi"
+        },
+        {
+          "ea": 4439555,
+          "size": 4,
+          "bytes": "8b7c2410",
+          "mnem": "mov",
+          "text": "mov     edi, [esp+0Ch+a1]"
+        },
+        {
+          "ea": 4439559,
+          "size": 1,
+          "bytes": "57",
+          "mnem": "push",
+          "text": "push    edi"
+        },
+        {
+          "ea": 4439560,
+          "size": 5,
+          "bytes": "e8f3feffff",
+          "mnem": "call",
+          "text": "call    BattleScene__HasAppendEffect"
+        },
+        {
+          "ea": 4439565,
+          "size": 3,
+          "bytes": "83c404",
+          "mnem": "add",
+          "text": "add     esp, 4"
+        },
+        {
+          "ea": 4439568,
+          "size": 2,
+          "bytes": "84c0",
+          "mnem": "test",
+          "text": "test    al, al"
+        },
+        {
+          "ea": 4439570,
+          "size": 2,
+          "bytes": "7473",
+          "mnem": "jz",
+          "text": "jz      short loc_43BE87"
+        },
+        {
+          "ea": 4439572,
+          "size": 5,
+          "bytes": "a18cba5a00",
+          "mnem": "mov",
+          "text": "mov     eax, dword_5ABA8C"
+        },
+        {
+          "ea": 4439577,
+          "size": 2,
+          "bytes": "85c0",
+          "mnem": "test",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": 4439579,
+          "size": 2,
+          "bytes": "7531",
+          "mnem": "jnz",
+          "text": "jnz     short loc_43BE4E"
+        },
+        {
+          "ea": 4439581,
+          "size": 2,
+          "bytes": "6a14",
+          "mnem": "push",
+          "text": "push    14h; Size"
+        },
+        {
+          "ea": 4439583,
+          "size": 5,
+          "bytes": "e888051000",
+          "mnem": "call",
+          "text": "call    _malloc"
+        },
+        {
+          "ea": 4439588,
+          "size": 4,
+          "bytes": "8b4c241c",
+          "mnem": "mov",
+          "text": "mov     ecx, [esp+10h+a3]"
+        },
+        {
+          "ea": 4439592,
+          "size": 4,
+          "bytes": "8b542418",
+          "mnem": "mov",
+          "text": "mov     edx, [esp+10h+a2]"
+        },
+        {
+          "ea": 4439596,
+          "size": 3,
+          "bytes": "83c404",
+          "mnem": "add",
+          "text": "add     esp, 4"
+        },
+        {
+          "ea": 4439599,
+          "size": 2,
+          "bytes": "8938",
+          "mnem": "mov",
+          "text": "mov     [eax], edi"
+        },
+        {
+          "ea": 4439601,
+          "size": 7,
+          "bytes": "c7401000000000",
+          "mnem": "mov",
+          "text": "mov     dword ptr [eax+10h], 0"
+        },
+        {
+          "ea": 4439608,
+          "size": 7,
+          "bytes": "c7400c00000000",
+          "mnem": "mov",
+          "text": "mov     dword ptr [eax+0Ch], 0"
+        },
+        {
+          "ea": 4439615,
+          "size": 1,
+          "bytes": "5f",
+          "mnem": "pop",
+          "text": "pop     edi"
+        },
+        {
+          "ea": 4439616,
+          "size": 3,
+          "bytes": "894808",
+          "mnem": "mov",
+          "text": "mov     [eax+8], ecx"
+        },
+        {
+          "ea": 4439619,
+          "size": 3,
+          "bytes": "895004",
+          "mnem": "mov",
+          "text": "mov     [eax+4], edx"
+        },
+        {
+          "ea": 4439622,
+          "size": 1,
+          "bytes": "5e",
+          "mnem": "pop",
+          "text": "pop     esi"
+        },
+        {
+          "ea": 4439623,
+          "size": 5,
+          "bytes": "a38cba5a00",
+          "mnem": "mov",
+          "text": "mov     dword_5ABA8C, eax"
+        },
+        {
+          "ea": 4439628,
+          "size": 1,
+          "bytes": "5b",
+          "mnem": "pop",
+          "text": "pop     ebx"
+        },
+        {
+          "ea": 4439629,
+          "size": 1,
+          "bytes": "c3",
+          "mnem": "retn",
+          "text": "retn"
+        },
+        {
+          "ea": 4439630,
+          "size": 4,
+          "bytes": "8b5c2418",
+          "mnem": "mov",
+          "text": "mov     ebx, [esp+0Ch+a3]"
+        },
+        {
+          "ea": 4439634,
+          "size": 3,
+          "bytes": "3b5808",
+          "mnem": "cmp",
+          "text": "cmp     ebx, [eax+8]"
+        },
+        {
+          "ea": 4439637,
+          "size": 2,
+          "bytes": "7504",
+          "mnem": "jnz",
+          "text": "jnz     short loc_43BE5B"
+        },
+        {
+          "ea": 4439639,
+          "size": 2,
+          "bytes": "3b38",
+          "mnem": "cmp",
+          "text": "cmp     edi, [eax]"
+        },
+        {
+          "ea": 4439641,
+          "size": 2,
+          "bytes": "7430",
+          "mnem": "jz",
+          "text": "jz      short loc_43BE8B"
+        },
+        {
+          "ea": 4439643,
+          "size": 2,
+          "bytes": "8bf0",
+          "mnem": "mov",
+          "text": "mov     esi, eax"
+        },
+        {
+          "ea": 4439645,
+          "size": 3,
+          "bytes": "8b4010",
+          "mnem": "mov",
+          "text": "mov     eax, [eax+10h]"
+        },
+        {
+          "ea": 4439648,
+          "size": 2,
+          "bytes": "85c0",
+          "mnem": "test",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": 4439650,
+          "size": 2,
+          "bytes": "75ee",
+          "mnem": "jnz",
+          "text": "jnz     short loc_43BE52"
+        },
+        {
+          "ea": 4439652,
+          "size": 2,
+          "bytes": "6a14",
+          "mnem": "push",
+          "text": "push    14h; Size"
+        },
+        {
+          "ea": 4439654,
+          "size": 5,
+          "bytes": "e841051000",
+          "mnem": "call",
+          "text": "call    _malloc"
+        },
+        {
+          "ea": 4439659,
+          "size": 4,
+          "bytes": "8b542418",
+          "mnem": "mov",
+          "text": "mov     edx, [esp+10h+a2]"
+        },
+        {
+          "ea": 4439663,
+          "size": 7,
+          "bytes": "c7401000000000",
+          "mnem": "mov",
+          "text": "mov     dword ptr [eax+10h], 0"
+        },
+        {
+          "ea": 4439670,
+          "size": 2,
+          "bytes": "8938",
+          "mnem": "mov",
+          "text": "mov     [eax], edi"
+        },
+        {
+          "ea": 4439672,
+          "size": 3,
+          "bytes": "895808",
+          "mnem": "mov",
+          "text": "mov     [eax+8], ebx"
+        },
+        {
+          "ea": 4439675,
+          "size": 3,
+          "bytes": "895004",
+          "mnem": "mov",
+          "text": "mov     [eax+4], edx"
+        },
+        {
+          "ea": 4439678,
+          "size": 3,
+          "bytes": "89700c",
+          "mnem": "mov",
+          "text": "mov     [eax+0Ch], esi"
+        },
+        {
+          "ea": 4439681,
+          "size": 3,
+          "bytes": "83c404",
+          "mnem": "add",
+          "text": "add     esp, 4"
+        },
+        {
+          "ea": 4439684,
+          "size": 3,
+          "bytes": "894610",
+          "mnem": "mov",
+          "text": "mov     [esi+10h], eax"
+        },
+        {
+          "ea": 4439687,
+          "size": 1,
+          "bytes": "5f",
+          "mnem": "pop",
+          "text": "pop     edi"
+        },
+        {
+          "ea": 4439688,
+          "size": 1,
+          "bytes": "5e",
+          "mnem": "pop",
+          "text": "pop     esi"
+        },
+        {
+          "ea": 4439689,
+          "size": 1,
+          "bytes": "5b",
+          "mnem": "pop",
+          "text": "pop     ebx"
+        },
+        {
+          "ea": 4439690,
+          "size": 1,
+          "bytes": "c3",
+          "mnem": "retn",
+          "text": "retn"
+        },
+        {
+          "ea": 4439691,
+          "size": 4,
+          "bytes": "8b4c2414",
+          "mnem": "mov",
+          "text": "mov     ecx, [esp+0Ch+a2]"
+        },
+        {
+          "ea": 4439695,
+          "size": 1,
+          "bytes": "5f",
+          "mnem": "pop",
+          "text": "pop     edi"
+        },
+        {
+          "ea": 4439696,
+          "size": 1,
+          "bytes": "5e",
+          "mnem": "pop",
+          "text": "pop     esi"
+        },
+        {
+          "ea": 4439697,
+          "size": 3,
+          "bytes": "894804",
+          "mnem": "mov",
+          "text": "mov     [eax+4], ecx"
+        },
+        {
+          "ea": 4439700,
+          "size": 1,
+          "bytes": "5b",
+          "mnem": "pop",
+          "text": "pop     ebx"
+        },
+        {
+          "ea": 4439701,
+          "size": 1,
+          "bytes": "c3",
+          "mnem": "retn",
+          "text": "retn"
+        }
+      ]
+    },
+    {
+      "entry": 4439712,
+      "end": 4439753,
+      "name": "sub_43BEA0",
+      "chunks": [
+        [
+          4439712,
+          4439753
+        ]
+      ],
+      "instruction_count": 16,
+      "code_bytes": 41,
+      "xrefs": [
+        {
+          "from": 4224320,
+          "to": 4439712,
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    sub_43BEA0",
+          "parent": 4223712,
+          "operand_value": 4439712
+        },
+        {
+          "from": 4228267,
+          "to": 4439712,
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    sub_43BEA0",
+          "parent": 4228112,
+          "operand_value": 4439712
+        },
+        {
+          "from": 4229433,
+          "to": 4439712,
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    sub_43BEA0",
+          "parent": 4229056,
+          "operand_value": 4439712
+        },
+        {
+          "from": 4232951,
+          "to": 4439712,
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    sub_43BEA0",
+          "parent": 4232832,
+          "operand_value": 4439712
+        },
+        {
+          "from": 4248794,
+          "to": 4439712,
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    sub_43BEA0",
+          "parent": 4248512,
+          "operand_value": 4439712
+        },
+        {
+          "from": 4249402,
+          "to": 4439712,
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    sub_43BEA0",
+          "parent": 4249280,
+          "operand_value": 4439712
+        },
+        {
+          "from": 4251640,
+          "to": 4439712,
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    sub_43BEA0",
+          "parent": 4251520,
+          "operand_value": 4439712
+        },
+        {
+          "from": 4271171,
+          "to": 4439712,
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    sub_43BEA0",
+          "parent": 4270336,
+          "operand_value": 4439712
+        },
+        {
+          "from": 4275112,
+          "to": 4439712,
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    sub_43BEA0",
+          "parent": 4275008,
+          "operand_value": 4439712
+        },
+        {
+          "from": 4289832,
+          "to": 4439712,
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    sub_43BEA0",
+          "parent": 4289552,
+          "operand_value": 4439712
+        },
+        {
+          "from": 4292168,
+          "to": 4439712,
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    sub_43BEA0",
+          "parent": 4291968,
+          "operand_value": 4439712
+        },
+        {
+          "from": 4294508,
+          "to": 4439712,
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    sub_43BEA0",
+          "parent": 4294320,
+          "operand_value": 4439712
+        },
+        {
+          "from": 4312770,
+          "to": 4439712,
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    sub_43BEA0",
+          "parent": 4312320,
+          "operand_value": 4439712
+        },
+        {
+          "from": 4312954,
+          "to": 4439712,
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    sub_43BEA0",
+          "parent": 4312320,
+          "operand_value": 4439712
+        },
+        {
+          "from": 4313061,
+          "to": 4439712,
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    sub_43BEA0",
+          "parent": 4312320,
+          "operand_value": 4439712
+        },
+        {
+          "from": 4313168,
+          "to": 4439712,
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    sub_43BEA0",
+          "parent": 4312320,
+          "operand_value": 4439712
+        },
+        {
+          "from": 4313275,
+          "to": 4439712,
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    sub_43BEA0",
+          "parent": 4312320,
+          "operand_value": 4439712
+        },
+        {
+          "from": 4313382,
+          "to": 4439712,
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    sub_43BEA0",
+          "parent": 4312320,
+          "operand_value": 4439712
+        },
+        {
+          "from": 4313475,
+          "to": 4439712,
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    sub_43BEA0",
+          "parent": 4312320,
+          "operand_value": 4439712
+        }
+      ],
+      "instructions": [
+        {
+          "ea": 4439712,
+          "size": 5,
+          "bytes": "a18cba5a00",
+          "mnem": "mov",
+          "text": "mov     eax, dword_5ABA8C"
+        },
+        {
+          "ea": 4439717,
+          "size": 2,
+          "bytes": "85c0",
+          "mnem": "test",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": 4439719,
+          "size": 2,
+          "bytes": "7418",
+          "mnem": "jz",
+          "text": "jz      short loc_43BEC1"
+        },
+        {
+          "ea": 4439721,
+          "size": 4,
+          "bytes": "8b4c2408",
+          "mnem": "mov",
+          "text": "mov     ecx, [esp+arg_4]"
+        },
+        {
+          "ea": 4439725,
+          "size": 4,
+          "bytes": "8b542404",
+          "mnem": "mov",
+          "text": "mov     edx, [esp+arg_0]"
+        },
+        {
+          "ea": 4439729,
+          "size": 3,
+          "bytes": "394808",
+          "mnem": "cmp",
+          "text": "cmp     [eax+8], ecx"
+        },
+        {
+          "ea": 4439732,
+          "size": 2,
+          "bytes": "7504",
+          "mnem": "jnz",
+          "text": "jnz     short loc_43BEBA"
+        },
+        {
+          "ea": 4439734,
+          "size": 2,
+          "bytes": "3910",
+          "mnem": "cmp",
+          "text": "cmp     [eax], edx"
+        },
+        {
+          "ea": 4439736,
+          "size": 2,
+          "bytes": "740b",
+          "mnem": "jz",
+          "text": "jz      short loc_43BEC5"
+        },
+        {
+          "ea": 4439738,
+          "size": 3,
+          "bytes": "8b4010",
+          "mnem": "mov",
+          "text": "mov     eax, [eax+10h]"
+        },
+        {
+          "ea": 4439741,
+          "size": 2,
+          "bytes": "85c0",
+          "mnem": "test",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": 4439743,
+          "size": 2,
+          "bytes": "75f0",
+          "mnem": "jnz",
+          "text": "jnz     short loc_43BEB1"
+        },
+        {
+          "ea": 4439745,
+          "size": 3,
+          "bytes": "83c8ff",
+          "mnem": "or",
+          "text": "or      eax, 0FFFFFFFFh"
+        },
+        {
+          "ea": 4439748,
+          "size": 1,
+          "bytes": "c3",
+          "mnem": "retn",
+          "text": "retn"
+        },
+        {
+          "ea": 4439749,
+          "size": 3,
+          "bytes": "8b4004",
+          "mnem": "mov",
+          "text": "mov     eax, [eax+4]"
+        },
+        {
+          "ea": 4439752,
+          "size": 1,
+          "bytes": "c3",
+          "mnem": "retn",
+          "text": "retn"
+        }
+      ]
+    },
+    {
+      "entry": 4439760,
+      "end": 4439806,
+      "name": "sub_43BED0",
+      "chunks": [
+        [
+          4439760,
+          4439806
+        ]
+      ],
+      "instruction_count": 15,
+      "code_bytes": 46,
+      "xrefs": [
+        {
+          "from": 4444981,
+          "to": 4439760,
+          "type": 17,
+          "iscode": true,
+          "mnem": "call",
+          "text": "call    sub_43BED0",
+          "parent": 4443056,
+          "operand_value": 4439760
+        }
+      ],
+      "instructions": [
+        {
+          "ea": 4439760,
+          "size": 1,
+          "bytes": "56",
+          "mnem": "push",
+          "text": "push    esi"
+        },
+        {
+          "ea": 4439761,
+          "size": 6,
+          "bytes": "8b358cba5a00",
+          "mnem": "mov",
+          "text": "mov     esi, dword_5ABA8C"
+        },
+        {
+          "ea": 4439767,
+          "size": 2,
+          "bytes": "85f6",
+          "mnem": "test",
+          "text": "test    esi, esi"
+        },
+        {
+          "ea": 4439769,
+          "size": 2,
+          "bytes": "7417",
+          "mnem": "jz",
+          "text": "jz      short loc_43BEF2"
+        },
+        {
+          "ea": 4439771,
+          "size": 2,
+          "bytes": "8bc6",
+          "mnem": "mov",
+          "text": "mov     eax, esi"
+        },
+        {
+          "ea": 4439773,
+          "size": 5,
+          "bytes": "a38cba5a00",
+          "mnem": "mov",
+          "text": "mov     dword_5ABA8C, eax"
+        },
+        {
+          "ea": 4439778,
+          "size": 3,
+          "bytes": "8b7610",
+          "mnem": "mov",
+          "text": "mov     esi, [esi+10h]"
+        },
+        {
+          "ea": 4439781,
+          "size": 1,
+          "bytes": "50",
+          "mnem": "push",
+          "text": "push    eax; lpMem"
+        },
+        {
+          "ea": 4439782,
+          "size": 5,
+          "bytes": "e8be011000",
+          "mnem": "call",
+          "text": "call    free"
+        },
+        {
+          "ea": 4439787,
+          "size": 3,
+          "bytes": "83c404",
+          "mnem": "add",
+          "text": "add     esp, 4"
+        },
+        {
+          "ea": 4439790,
+          "size": 2,
+          "bytes": "85f6",
+          "mnem": "test",
+          "text": "test    esi, esi"
+        },
+        {
+          "ea": 4439792,
+          "size": 2,
+          "bytes": "75e9",
+          "mnem": "jnz",
+          "text": "jnz     short loc_43BEDB"
+        },
+        {
+          "ea": 4439794,
+          "size": 10,
+          "bytes": "c7058cba5a0000000000",
+          "mnem": "mov",
+          "text": "mov     dword_5ABA8C, 0"
+        },
+        {
+          "ea": 4439804,
+          "size": 1,
+          "bytes": "5e",
+          "mnem": "pop",
+          "text": "pop     esi"
+        },
+        {
+          "ea": 4439805,
+          "size": 1,
+          "bytes": "c3",
+          "mnem": "retn",
+          "text": "retn"
+        }
+      ]
+    }
+  ],
+  "relations": {
+    "caller_window": [
+      {
+        "ea": 4444971,
+        "size": 5,
+        "bytes": "e82079fcff",
+        "text": "call    Yobi__UpdateAll"
+      },
+      {
+        "ea": 4444976,
+        "size": 5,
+        "bytes": "e86be7ffff",
+        "text": "call    sub_43BAA0"
+      },
+      {
+        "ea": 4444981,
+        "size": 5,
+        "bytes": "e896ebffff",
+        "text": "call    sub_43BED0"
+      },
+      {
+        "ea": 4444986,
+        "size": 5,
+        "bytes": "b916000000",
+        "text": "mov     ecx, 16h"
+      },
+      {
+        "ea": 4444991,
+        "size": 2,
+        "bytes": "33c0",
+        "text": "xor     eax, eax"
+      },
+      {
+        "ea": 4444993,
+        "size": 5,
+        "bytes": "bf80e95900",
+        "text": "mov     edi, offset gBattleEntry"
+      },
+      {
+        "ea": 4444998,
+        "size": 10,
+        "bytes": "c705d8bf5a0016000000",
+        "text": "mov     dword_5ABFD8, 16h"
+      },
+      {
+        "ea": 4445008,
+        "size": 2,
+        "bytes": "f3ab",
+        "text": "rep stosd"
+      },
+      {
+        "ea": 4445010,
+        "size": 5,
+        "bytes": "e839e60e00",
+        "text": "call    sub_52B990"
+      },
+      {
+        "ea": 4445015,
+        "size": 5,
+        "bytes": "e8f4030e00",
+        "text": "call    sub_51D750"
+      },
+      {
+        "ea": 4445020,
+        "size": 7,
+        "bytes": "66391d68a7c800",
+        "text": "cmp     word ptr dword_C8A768, bx"
+      },
+      {
+        "ea": 4445027,
+        "size": 10,
+        "bytes": "c705c0ec730002000000",
+        "text": "mov     dword_73ECC0, 2"
+      }
+    ],
+    "head_xrefs": [
+      {
+        "from": 4439572,
+        "to": 5945996,
+        "type": 3,
+        "iscode": false,
+        "parent": 4439552,
+        "text": "mov     eax, dword_5ABA8C"
+      },
+      {
+        "from": 4439623,
+        "to": 5945996,
+        "type": 2,
+        "iscode": false,
+        "parent": 4439552,
+        "text": "mov     dword_5ABA8C, eax"
+      },
+      {
+        "from": 4439712,
+        "to": 5945996,
+        "type": 3,
+        "iscode": false,
+        "parent": 4439712,
+        "text": "mov     eax, dword_5ABA8C"
+      },
+      {
+        "from": 4439761,
+        "to": 5945996,
+        "type": 3,
+        "iscode": false,
+        "parent": 4439760,
+        "text": "mov     esi, dword_5ABA8C"
+      },
+      {
+        "from": 4439773,
+        "to": 5945996,
+        "type": 2,
+        "iscode": false,
+        "parent": 4439760,
+        "text": "mov     dword_5ABA8C, eax"
+      },
+      {
+        "from": 4439794,
+        "to": 5945996,
+        "type": 2,
+        "iscode": false,
+        "parent": 4439760,
+        "text": "mov     dword_5ABA8C, 0"
+      }
+    ]
+  },
+  "producer_call_windows": [
+    {
+      "site": 4401822,
+      "parent": 4355184,
+      "instructions": [
+        {
+          "ea": 4401822,
+          "size": 5,
+          "bytes": "e85d930000",
+          "text": "call    BattleScene__AddAppendEffect"
+        },
+        {
+          "ea": 4401827,
+          "size": 5,
+          "bytes": "a1204a5a00",
+          "text": "mov     eax, gBattleScene__CastEffectResultFlg"
+        },
+        {
+          "ea": 4401832,
+          "size": 3,
+          "bytes": "83c40c",
+          "text": "add     esp, 0Ch"
+        },
+        {
+          "ea": 4401835,
+          "size": 6,
+          "bytes": "8b1540aa5a00",
+          "text": "mov     edx, gBattleScene__CastEffectTargetTmp.pos"
+        },
+        {
+          "ea": 4401841,
+          "size": 2,
+          "bytes": "6a00",
+          "text": "push    0; a4"
+        },
+        {
+          "ea": 4401843,
+          "size": 1,
+          "bytes": "50",
+          "text": "push    eax; a3"
+        },
+        {
+          "ea": 4401844,
+          "size": 5,
+          "bytes": "a164aa5a00",
+          "text": "mov     eax, gBattleEntryCasterEffect.pos"
+        },
+        {
+          "ea": 4401849,
+          "size": 1,
+          "bytes": "52",
+          "text": "push    edx; a2"
+        },
+        {
+          "ea": 4401850,
+          "size": 7,
+          "bytes": "8b0c8580e95900",
+          "text": "mov     ecx, gBattleEntry[eax*4]"
+        },
+        {
+          "ea": 4401857,
+          "size": 1,
+          "bytes": "51",
+          "text": "push    ecx; a1"
+        },
+        {
+          "ea": 4401858,
+          "size": 5,
+          "bytes": "e8d9680000",
+          "text": "call    BattleEntry__AppendEffectList"
+        }
+      ]
+    },
+    {
+      "site": 4403478,
+      "parent": 4355184,
+      "instructions": [
+        {
+          "ea": 4403478,
+          "size": 5,
+          "bytes": "e8e58c0000",
+          "text": "call    BattleScene__AddAppendEffect"
+        },
+        {
+          "ea": 4403483,
+          "size": 5,
+          "bytes": "a1204a5a00",
+          "text": "mov     eax, gBattleScene__CastEffectResultFlg"
+        },
+        {
+          "ea": 4403488,
+          "size": 3,
+          "bytes": "83c40c",
+          "text": "add     esp, 0Ch"
+        },
+        {
+          "ea": 4403491,
+          "size": 6,
+          "bytes": "8b0d64aa5a00",
+          "text": "mov     ecx, gBattleEntryCasterEffect.pos"
+        },
+        {
+          "ea": 4403497,
+          "size": 2,
+          "bytes": "6a00",
+          "text": "push    0; a4"
+        },
+        {
+          "ea": 4403499,
+          "size": 1,
+          "bytes": "50",
+          "text": "push    eax; a3"
+        },
+        {
+          "ea": 4403500,
+          "size": 5,
+          "bytes": "a140aa5a00",
+          "text": "mov     eax, gBattleScene__CastEffectTargetTmp.pos"
+        },
+        {
+          "ea": 4403505,
+          "size": 7,
+          "bytes": "8b148d80e95900",
+          "text": "mov     edx, gBattleEntry[ecx*4]"
+        },
+        {
+          "ea": 4403512,
+          "size": 1,
+          "bytes": "50",
+          "text": "push    eax; a2"
+        },
+        {
+          "ea": 4403513,
+          "size": 1,
+          "bytes": "52",
+          "text": "push    edx; a1"
+        },
+        {
+          "ea": 4403514,
+          "size": 5,
+          "bytes": "e861620000",
+          "text": "call    BattleEntry__AppendEffectList"
+        }
+      ]
+    },
+    {
+      "site": 4422097,
+      "parent": 4355184,
+      "instructions": [
+        {
+          "ea": 4422097,
+          "size": 5,
+          "bytes": "e82a440000",
+          "text": "call    BattleScene__AddAppendEffect"
+        },
+        {
+          "ea": 4422102,
+          "size": 3,
+          "bytes": "83c40c",
+          "text": "add     esp, 0Ch"
+        },
+        {
+          "ea": 4422105,
+          "size": 2,
+          "bytes": "6a00",
+          "text": "push    0; jumptable 0042A972 cases 4,50-53,61-63,83,88,93"
+        },
+        {
+          "ea": 4422107,
+          "size": 1,
+          "bytes": "55",
+          "text": "push    ebp"
+        },
+        {
+          "ea": 4422108,
+          "size": 5,
+          "bytes": "e8bf1a0000",
+          "text": "call    sub_4394A0"
+        },
+        {
+          "ea": 4422113,
+          "size": 3,
+          "bytes": "83c408",
+          "text": "add     esp, 8"
+        },
+        {
+          "ea": 4422116,
+          "size": 3,
+          "bytes": "83f801",
+          "text": "cmp     eax, 1"
+        },
+        {
+          "ea": 4422119,
+          "size": 2,
+          "bytes": "7540",
+          "text": "jnz     short def_427817; jumptable 00427817 default case"
+        },
+        {
+          "ea": 4422121,
+          "size": 5,
+          "bytes": "a164aa5a00",
+          "text": "mov     eax, gBattleEntryCasterEffect.pos"
+        },
+        {
+          "ea": 4422126,
+          "size": 7,
+          "bytes": "8b0c8580e95900",
+          "text": "mov     ecx, gBattleEntry[eax*4]"
+        },
+        {
+          "ea": 4422133,
+          "size": 1,
+          "bytes": "51",
+          "text": "push    ecx"
+        },
+        {
+          "ea": 4422134,
+          "size": 5,
+          "bytes": "e865e8fcff",
+          "text": "call    sub_406260"
+        }
+      ]
+    }
+  ],
+  "third_producer_following_callee_entry": [
+    {
+      "ea": 4428960,
+      "size": 1,
+      "bytes": "53",
+      "text": "push    ebx"
+    },
+    {
+      "ea": 4428961,
+      "size": 1,
+      "bytes": "55",
+      "text": "push    ebp"
+    },
+    {
+      "ea": 4428962,
+      "size": 4,
+      "bytes": "8b6c240c",
+      "text": "mov     ebp, [esp+8+arg_0]"
+    },
+    {
+      "ea": 4428966,
+      "size": 1,
+      "bytes": "56",
+      "text": "push    esi"
+    },
+    {
+      "ea": 4428967,
+      "size": 1,
+      "bytes": "57",
+      "text": "push    edi"
+    },
+    {
+      "ea": 4428968,
+      "size": 4,
+      "bytes": "8b7c2418",
+      "text": "mov     edi, [esp+10h+enable]"
+    },
+    {
+      "ea": 4428972,
+      "size": 3,
+      "bytes": "8b5d0c",
+      "text": "mov     ebx, [ebp+0Ch]"
+    },
+    {
+      "ea": 4428975,
+      "size": 2,
+      "bytes": "33f6",
+      "text": "xor     esi, esi"
+    },
+    {
+      "ea": 4428977,
+      "size": 7,
+      "bytes": "8b14b580e95900",
+      "text": "mov     edx, gBattleEntry[esi*4]"
+    },
+    {
+      "ea": 4428984,
+      "size": 2,
+      "bytes": "85d2",
+      "text": "test    edx, edx"
+    },
+    {
+      "ea": 4428986,
+      "size": 2,
+      "bytes": "7477",
+      "text": "jz      short loc_439533"
+    },
+    {
+      "ea": 4428988,
+      "size": 5,
+      "bytes": "b801000000",
+      "text": "mov     eax, 1"
+    },
+    {
+      "ea": 4428993,
+      "size": 2,
+      "bytes": "8bce",
+      "text": "mov     ecx, esi"
+    },
+    {
+      "ea": 4428995,
+      "size": 2,
+      "bytes": "d3e0",
+      "text": "shl     eax, cl"
+    },
+    {
+      "ea": 4428997,
+      "size": 6,
+      "bytes": "8583a8000000",
+      "text": "test    [ebx+0A8h], eax"
+    }
+  ],
+  "source_patch": {
+    "path": "src/YobiRuntime.cpp",
+    "symbol": "ClearBattleAppendEffects_43BED0",
+    "before": "    while (node != nullptr) {\n        gBattleAppendEffects5ABA8C = node;\n        node = node->next;\n        std::free(gBattleAppendEffects5ABA8C);\n    }",
+    "after": "    while (node != nullptr) {\n        BattleAppendEffectNode* const current = node;\n        gBattleAppendEffects5ABA8C = current;\n        node = current->next;\n        std::free(current);\n    }"
+  },
+  "implementation_evidence_scope": [
+    "F:0003BED0"
+  ],
+  "static_evidence_scope": [
+    "F:0003BE00",
+    "F:0003BEA0",
+    "F:0003BED0"
+  ],
+  "known_node_owner": "当前同CPP私有static链，两个std::malloc/一个std::free，值查询不传出节点；原间接alias/所有重进退出/SDK仍未闭",
+  "new_functions": 0,
+  "full_lifecycle_closed": false,
+  "runtime_verified": false,
+  "verification": {
+    "status": "source_static_pass",
+    "three_roots_contiguous_and_inventory_matched": true,
+    "one_cpp_one_cleanup_fragment_only": true,
+    "add_find_and_all_other_source_and_headers_unchanged": true,
+    "private_same_family_malloc_free": true,
+    "state7_and_state9_preserved": true,
+    "original_head_direct_references_six_from_three_roots": true,
+    "all_inbound_parents_verified": false,
+    "unknown_indirect_aliases_closed": false,
+    "full_lifecycle_closed": false,
+    "runtime_verified": false,
+    "measurement_check": "pass",
+    "measurement_result": "生成及-Check均exit0；仅六具名度量变化，原库存/导入/区间/分类/政策/六closure/构建历史保持。"
+  },
+  "limits": [
+    "三个完整根/六直接头引用及当前消费者，不代原所有间接alias/15父与资格callee闭包",
+    "库分配释放交MSVC，业务S32字段/指针/读取发布序保，不加保护/析构/新owner",
+    "场景状态7/9已有原差异保持，不补推测清理或自动改成每条退出均free",
+    "无构建/测试/运行/算法/产物/摘要或新依赖"
+  ],
+  "source_before_bodies": [
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "AddBattleAppendEffect_43BE00",
+      "body": "void AddBattleAppendEffect_43BE00(\n    const std::int32_t skill, const std::int32_t technique, const std::int32_t position)\n{\n    if (IsBattleAppendEffectSkill_43BD00(skill) == 0) {\n        return;\n    }\n    BattleAppendEffectNode* node = gBattleAppendEffects5ABA8C;\n    if (node == nullptr) {\n        auto* const created = static_cast<BattleAppendEffectNode*>(std::malloc(sizeof(BattleAppendEffectNode)));\n        created->skill = skill;\n        created->next = nullptr;\n        created->previous = nullptr;\n        created->position = position;\n        created->technique = technique;\n        gBattleAppendEffects5ABA8C = created;\n        return;\n    }\n    for (;;) {\n        if (node->position == position && node->skill == skill) {\n            node->technique = technique;\n            return;\n        }\n        BattleAppendEffectNode* const previous = node;\n        node = node->next;\n        if (node == nullptr) {\n            auto* const created = static_cast<BattleAppendEffectNode*>(std::malloc(sizeof(BattleAppendEffectNode)));\n            created->next = nullptr;\n            created->skill = skill;\n            created->position = position;\n            created->technique = technique;\n            created->previous = previous;\n            previous->next = created;\n            return;\n        }\n    }\n}"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "FindBattleAppendEffectTechnique_43BEA0",
+      "body": "std::int32_t FindBattleAppendEffectTechnique_43BEA0(\n    const std::int32_t skill, const std::int32_t position)\n{\n    const BattleAppendEffectNode* node = gBattleAppendEffects5ABA8C;\n    while (node != nullptr) {\n        if (node->position == position && node->skill == skill) {\n            return node->technique;\n        }\n        node = node->next;\n    }\n    return -1;\n}"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "ClearBattleAppendEffects_43BED0",
+      "body": "void ClearBattleAppendEffects_43BED0()\n{\n    BattleAppendEffectNode* node = gBattleAppendEffects5ABA8C;\n    while (node != nullptr) {\n        gBattleAppendEffects5ABA8C = node;\n        node = node->next;\n        std::free(gBattleAppendEffects5ABA8C);\n    }\n    gBattleAppendEffects5ABA8C = nullptr;\n}"
+    }
+  ],
+  "source_after_bodies": [
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "AddBattleAppendEffect_43BE00",
+      "body": "void AddBattleAppendEffect_43BE00(\n    const std::int32_t skill, const std::int32_t technique, const std::int32_t position)\n{\n    if (IsBattleAppendEffectSkill_43BD00(skill) == 0) {\n        return;\n    }\n    BattleAppendEffectNode* node = gBattleAppendEffects5ABA8C;\n    if (node == nullptr) {\n        auto* const created = static_cast<BattleAppendEffectNode*>(std::malloc(sizeof(BattleAppendEffectNode)));\n        created->skill = skill;\n        created->next = nullptr;\n        created->previous = nullptr;\n        created->position = position;\n        created->technique = technique;\n        gBattleAppendEffects5ABA8C = created;\n        return;\n    }\n    for (;;) {\n        if (node->position == position && node->skill == skill) {\n            node->technique = technique;\n            return;\n        }\n        BattleAppendEffectNode* const previous = node;\n        node = node->next;\n        if (node == nullptr) {\n            auto* const created = static_cast<BattleAppendEffectNode*>(std::malloc(sizeof(BattleAppendEffectNode)));\n            created->next = nullptr;\n            created->skill = skill;\n            created->position = position;\n            created->technique = technique;\n            created->previous = previous;\n            previous->next = created;\n            return;\n        }\n    }\n}"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "FindBattleAppendEffectTechnique_43BEA0",
+      "body": "std::int32_t FindBattleAppendEffectTechnique_43BEA0(\n    const std::int32_t skill, const std::int32_t position)\n{\n    const BattleAppendEffectNode* node = gBattleAppendEffects5ABA8C;\n    while (node != nullptr) {\n        if (node->position == position && node->skill == skill) {\n            return node->technique;\n        }\n        node = node->next;\n    }\n    return -1;\n}"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "ClearBattleAppendEffects_43BED0",
+      "body": "void ClearBattleAppendEffects_43BED0()\n{\n    BattleAppendEffectNode* node = gBattleAppendEffects5ABA8C;\n    while (node != nullptr) {\n        BattleAppendEffectNode* const current = node;\n        gBattleAppendEffects5ABA8C = current;\n        node = current->next;\n        std::free(current);\n    }\n    gBattleAppendEffects5ABA8C = nullptr;\n}"
+    }
+  ],
+  "node_type_and_head_source": "struct BattleAppendEffectNode {\n    std::int32_t skill;\n    std::int32_t technique;\n    std::int32_t position;\n    BattleAppendEffectNode* previous;\n    BattleAppendEffectNode* next;\n};\nstatic BattleAppendEffectNode* gBattleAppendEffects5ABA8C = nullptr;",
+  "scene_state7_cleanup_excerpt": "    case 7: {\n        gBattleActiveEventMask5AAA74 = 0;\n        gValue5ABB20 = 1;\n        static_cast<void>(YobiUpdateAll_404C50());\n        static_cast<void>(Sub_43BAA0());\n        ClearBattleAppendEffects_43BED0();\n        gBattleSceneIndex5ABFD8 = 22;\n        gBattleAllEntries59E980.fill(nullptr);\n        static_cast<void>(audio::Sub_52B990());\n        static_cast<void>(Sub_51D750());\n        const std::uint16_t firstEffect = readBattleEffectWord(gBattleSceneEffectC8A768, 0);\n        const bool firstEffectPresent = firstEffect != 0;\n        platform::gValue73ECC0 = 2;",
+  "scene_state9_cleanup_excerpt": "    case 9: {\n        gValue5ABB20 = 1;\n        gBattleActiveEventMask5AAA74 = 0;\n        static_cast<void>(YobiUpdateAll_404C50());\n        static_cast<void>(Sub_43BAA0());\n        gBattleSceneIndex5ABFD8 = 22;\n        gBattleAllEntries59E980.fill(nullptr);\n        static_cast<void>(audio::Sub_52B990());\n        static_cast<void>(Sub_51D750());\n        const std::uint16_t firstEffect = readBattleEffectWord(gBattleSceneEffectC8A768, 0);\n        const bool firstEffectPresent = firstEffect != 0;\n        platform::gValue73ECC0 = 2;\n        if (firstEffectPresent\n            || readBattleEffectWord(gBattleSceneEffectC8A768, 2) != 0\n            || readBattleEffectWord(gBattleSceneEffectC8A76C, 0) != 0\n            || readBattleEffectWord(gBattleSceneEffectC8A76C, 2) != 0) {",
+  "outgoing_calls": [
+    {
+      "ea": 4439560,
+      "target": 4439296,
+      "text": "call    BattleScene__HasAppendEffect"
+    },
+    {
+      "ea": 4439583,
+      "target": 5489580,
+      "text": "call    _malloc"
+    },
+    {
+      "ea": 4439654,
+      "target": 5489580,
+      "text": "call    _malloc"
+    },
+    {
+      "ea": 4439782,
+      "target": 5488809,
+      "text": "call    free"
+    }
+  ],
+  "source_diff": [
+    "--- before/src/YobiRuntime.cpp",
+    "+++ after/src/YobiRuntime.cpp",
+    "@@ -22779,9 +22779,10 @@",
+    " {",
+    "     BattleAppendEffectNode* node = gBattleAppendEffects5ABA8C;",
+    "     while (node != nullptr) {",
+    "-        gBattleAppendEffects5ABA8C = node;",
+    "-        node = node->next;",
+    "-        std::free(gBattleAppendEffects5ABA8C);",
+    "+        BattleAppendEffectNode* const current = node;",
+    "+        gBattleAppendEffects5ABA8C = current;",
+    "+        node = current->next;",
+    "+        std::free(current);",
+    "     }",
+    "     gBattleAppendEffects5ABA8C = nullptr;",
+    " }"
+  ]
+}

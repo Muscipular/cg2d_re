@@ -4622,3 +4622,8 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 ## 2026-10-10 BPEX01：阶段17正常退场与延迟删除
 
 [完整退场合同](cg2d_battle_projectile_exit_spec.md#battle-projectile-exit-source-state)纳管4093B0原30条89B/唯一404DB0 case17。先移动，按移动后两X/两Y短路判断原含边界矩形，超界只MarkDeath；现正文和公共尾正确保持，仅两注释/一限定S，零新I。UpdateAll活节点callback标死后只重取next，后继投影若在父最终free前已执行并标死，后续死亡入口不再调用其callback，Delete先payload后action；该条件性阶段对应不证明所有标死/门禁/链引用变更、重生/重入/清场退出或完整父投影owner与资源SDK运行安全，完整门禁保持。
+
+<a id="battle-append-effect-runtime-20261010"></a>
+## 2026-10-10 BAEL01：私有追加效果链生产与清理
+
+[完整资源链合同](cg2d_battle_append_effect_lifecycle_spec.md#battle-append-effect-source-state)纳管43BE00/43BEA0/43BED0三完整87条237B，当前同CPP私有三S32/两T*节点、两个malloc/同域free，匹配只更新technique/查询返回值或-1。仅清理一段先持current、发布head、取next再free current、末清头，原生产/查询/资格及全部其它源保持。状态7真实清理、状态9原差异不补猜测；23入向/15父仅定位，完整资格/数据/间接alias/SDK失败/重进退出和所有owner运行仍待。限定I仅清理一F/S三F，零新函数，完整门禁保持。

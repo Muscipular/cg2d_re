@@ -394,3 +394,12 @@ CRT薄适配已直接采用MSVC；当前数组构析的三组业务调用及其�
 分配FIFO/调度/删除沿YAS01/YLC01已有原基线，source真实阶段：活节点callback标死后只重取next不当场free；后继投影仅在父free前实际callback执行并标死后，后续死亡入口才跳过callback/按门禁延迟或摘链，Delete先payload后action。三投射与投影创建priority2/含40000是已证来源，但不据此推全部父子寿命安全；所有标死来源/门禁链引用变更、重生/重入/清场退出/资源和最终owner仍待。原调度已有取证不重计新根或全链验收。
 
 必要静态、汇总与-Check通过：完整30条89B/一页、两call/四跳一RET、三F32原值/字节和唯一case17三条11B及公共尾返回覆盖有据；全部现正文/签名/分发及所有其它源保持，仅两个合同注释。调度/分配/删除基线复用，四创建来源和phase16→17有具体源；寿命阶段仍严格条件性，完整父子/资源owner未验。首轮检查脚本误用与FIFO <= 条件矛盾的否定断言，已删除无依据断言并按原条件重新核对，原因保在证据，未改业务或验收。语义2038→2039（1991F＋48X）、合同2100→2101/3680（57.09%仅合同关联率）、F1463→1464、E1352→1353仅一限定S/零新I，BATTLE277→278且枚举false。导入16/218、X3060/3061余1、184叶完整验收0、60任务关闭11及六closure保；十一自有文件显式UTF-8无BOM/LF，精确提交固定引用cg2d-re-battle-projectile-exit-20261010。未构建/测试/运行/算法/查产物/计算摘要，无新依赖；用户六项改动保留，整体目标active。全部标死/门禁/链与引用变更、重生重入/清场退出/全父-callee与资源、SDK数值ABI/最终借用回收及画面运行仍未验，整体SPEC未完成。
+
+<a id="battle-append-effect-progress-20261010"></a>
+## 34. 2026-10-10 BAEL01：追加效果链生产/值查找/清理持样
+
+沿[完整原基线/现源](../doc/cg2d_battle_append_effect_lifecycle_spec.md#battle-append-effect-source-state)，核43BE00/43BEA0/43BED0三连续根87条237B/三页，四call/三目标/11跳六RET，六直接head引用只三根、23实际CALL/15父定位及生产三后窗/唯一清理后返回覆盖。私有原20B节点三S32/prev-next两T*只指针拓宽，Add先资格AL/空链分配-字段-发布、非空同键只改technique/尾追加，Find返回值或-1，两现正文正确保持。
+
+只一个CPP清理一段：current=node持样后发布head=current、读next供后继，再free current；原global head仅发布槽，不在free参数fresh重读，末清head/原循环保持。现两个std::malloc(sizeof原生节点)与同域std::free真实MSVC，不改布局/API/资格/字段发布/保护或新增owner，全部其它源/头和Yobi/投影保持。BMF01状态7调用清链、状态9原不同顺序不补清理，不把Yobi全链标死当作此heap链释放。
+
+必要静态、汇总与-Check通过：三完整87条237B/三页、四call/三目标/11跳六RET、六头引用/三根、23实际入向/15父定位、生产三窗口和清理后返回覆盖有据；当前私有三S32/两T*、两malloc/同域free及场景7/9原差异保持。整CPP只清理free current一片段，Add/Find/资格、所有其它源与头/场景逐字不改。语义2039→2042（1994F＋48X）、合同2101→2104/3680（57.17%仅合同关联率）、F1464→1467、E1353→1355仅限定I/S各一，I只清理一F/S三F；BATTLE278→281且枚举false。原分母/导入16/218/X3060/3061余1、184叶完整验收0、60任务关闭11和六closure保持；十份自有文件显式UTF-8无BOM/LF，精确提交固定引用cg2d-re-battle-append-effect-cleanup-20261010。未构建/测试/运行/算法/查产物/计算摘要，无新依赖；用户六项改动保留，整体目标active。完整资格/所有15父-callee与数据、原未知间接alias、SDK容量失败/重进退出/全部资源owner和画面运行仍未验，整体SPEC未完成。

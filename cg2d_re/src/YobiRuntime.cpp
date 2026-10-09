@@ -22779,9 +22779,10 @@ void ClearBattleAppendEffects_43BED0()
 {
     BattleAppendEffectNode* node = gBattleAppendEffects5ABA8C;
     while (node != nullptr) {
-        gBattleAppendEffects5ABA8C = node;
-        node = node->next;
-        std::free(gBattleAppendEffects5ABA8C);
+        BattleAppendEffectNode* const current = node;
+        gBattleAppendEffects5ABA8C = current;
+        node = current->next;
+        std::free(current);
     }
     gBattleAppendEffects5ABA8C = nullptr;
 }

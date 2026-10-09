@@ -80,8 +80,8 @@ std::int32_t Sub_4631D0(); // 创建页完整交互/确认/绘制，返回0继�
 std::int32_t Sub_4642C0(); // 保存14个W32及完整15CH输入上下文，返回最后有符号字节快照。
 std::uint8_t Sub_464380(); // 从备份低字节恢复创建字段，整块恢复输入，返回末次AL。
 
-// 原 [0x50E770,0x50E77A)：忽略网络首参，写 Puk 版本 W8 并返回该字节。
-std::uint8_t Sub_50E770(std::uintptr_t unusedSocket, std::uint8_t pukVersion);
+// 原 [0x50E770,0x50E77A)：忽略 socket，取第二个 S32 的低字节写 Puk 版本 W8 并返回。
+std::uint8_t Sub_50E770(std::uintptr_t unusedSocket, std::int32_t pukVersion);
 
 using cg::world::detail::Sub_519290;
 using cg::world::detail::Sub_5194C0;

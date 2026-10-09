@@ -381,7 +381,7 @@ std::int32_t ParseOrderedRecord_50EF70(
 }
 
 std::uintptr_t UpdateOrderedRecords_50EEB0(
-    std::uint32_t, std::uint32_t, const char* const text)
+    std::uintptr_t, std::uint32_t, const char* const text)
 {
     const std::uint32_t gate = world::gValue9A6E0C;
     if (gate != 0) {

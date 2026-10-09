@@ -197,10 +197,11 @@ std::uint8_t ReadCreationSnapshotByte(const std::int32_t& value)
 
 } // namespace
 
-std::uint8_t Sub_50E770(std::uintptr_t, const std::uint8_t pukVersion)
+std::uint8_t Sub_50E770(std::uintptr_t, const std::int32_t pukVersion)
 {
-    state::gPukVersion = pukVersion;
-    return pukVersion;
+    const std::uint8_t version = static_cast<std::uint8_t>(pukVersion);
+    state::gPukVersion = version;
+    return version;
 }
 
 std::int32_t Sub_45E7B0()

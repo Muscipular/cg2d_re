@@ -178,3 +178,19 @@ emRV严格三S32(+4C/+50/+18)、Godf严格一S32注册号，各容量先于token
 LoginState已在原step重读/status1后记录JFVf入队返回；NetworkRuntime记录whV结果或原状态忽略、recv0原断线字段发布后标签，以及阶段71..80正发送/原队列消费后的字节数。只三64B数值缓冲和两固定标签，未记录账号/密码/MAC/封包或回复正文；发送字节数是该阶段全部队列，不推定全是JFVf。移除新增诊断并恢复原忽略返回表达式后，两整CPP与HEAD全文相同，批处理确为新版/IP2且未改参数；详见[证据](cg2d_local_login_diagnostics_evidence.json)。额外FILE I/O/时延为已决诊断差异，不宣原调用列表逐条相同。
 
 当前Debug三库/客户端0错误、5既有警告（2原Winsock弃用/3原回调宽度），MAP实际入口/回调/日志存在，新诊断无警告，旧窗口/宽度问题未因本步关闭。8022528B新版更新游戏目录、旧同长版备份before-local-login-diagnostics-20261009，只核复制/长度，不比摘要/内容。未运行客户端/试包/算法、测试或工具，互通问题未称修好；原明文/LF及WAV/GBK/宋体/ASCII光标保持，运行许可和新版IP2反馈、完整网络/生命周期/机器ABI与整体门禁继续。三诊断格式不计原1023调用/241字面量；快照cg2d-re-local-login-diagnostics-20261009。
+
+<a id="dispatch-callback-width-decision"></a>
+## CAB27 派发回调的原参数宽度（2026-10-09）
+
+CAB26当前编译的三项C4244已按原函数与实际512E40调用窗定位，沿工程委托在现有合同内修复：50EEB0和50E6C0首参均来自原fd/socket且全体不读，x64仅将这两处声明/定义拓宽为uintptr_t；前者第二个未读业务参数保W32，后者后三个S32及52CDE0返回透传保持。不得在共享TryDispatchReply截断socket或扩宽非地址字段。
+
+50E770的原调用者517190解析后push完整EAX，原体只MOV AL、写gPukVer再返回；第二入口参数据此承接S32，在消费点显式转uint8_t，再写原W8状态并返回该字节。保原低字节消费，不扩宽状态、不改解析、加拒绝/钳制/异常模拟或通用转换工具。原高EAX24位及全机器返回不代验，已证调用者在回调后xor EAX,EAX，当前派发也忽略该返回。
+
+完整原三根51条135B及三个实际调用邻窗有据；Kka/ftaN/PfM命令、全部字段/解码/掩码、派发次序和明文LF保持。只六个现有源码/头文件的声明、定义与一个低字节消费点，不改记录表正文、空间音效或登录诊断；无新依赖、协议或业务。必要Debug沿BWZ01既有连接授权；运行/试包/测试/摘要限制保持，本步不将宽度修复称为IP2互通已修好，也不外推各callee、正常寿命、机器ABI或全功能验收。
+
+<a id="dispatch-callback-width-source-state"></a>
+## CAB27 回调宽度实际实现（2026-10-09）
+
+六个现有源码/头文件已落实两未读socket首参uintptr_t，以及Puk回包完整S32入口→明确低U8消费→原W8状态/字节返回。六整文件与HEAD加明确替换全文一致；三原派发Kka/ftaN/PfM表达式、记录表/空间音频正文、CAB26登录诊断、所有其他网络逻辑保持。三个完整原函数51条135B及各唯一实际入向/调用邻窗，见[证据](cg2d_dispatch_callback_width_evidence.json)。原高EAX24位与全机器返回未代验，现已证派发忽略返回。
+
+当前BWZ01必要Debug三库/客户端0错误，NetworkRuntime及本步三处回调C4244为0；头文件传播触发更多旧源重编，其余实际97警告仍待：LegacyUiRecord11、LoginState2、YobiRuntime41、WindowRuntime43。没有抑制、替换旧Winsock API或因编译通过关闭这些缺口；不称全项目无警告。8022528B新版部署游戏目录、旧同长版备份before-dispatch-callback-width-20261009，仅复制/长度。未运行客户端/试包/测试/工具/算法或摘要，IP2问题不称已修好；原明文/LF及WAV/GBK/宋体/ASCII光标保持。完整网络/音频/寿命/ABI、成员枚举与整体门禁仍待；快照cg2d-re-dispatch-callback-width-20261009。

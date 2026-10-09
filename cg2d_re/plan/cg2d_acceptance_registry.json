@@ -1571,7 +1571,11 @@
         "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-decision",
         "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-source-state",
         "doc/cg2d_local_login_diagnostics_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#local-login-diagnostics-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#local-login-diagnostics-debug-build",
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-source-state",
+        "doc/cg2d_dispatch_callback_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build"
       ],
       "original_inventory_ids": [
         "F:00003C50",
@@ -1642,7 +1646,10 @@
         "F:00112AB0",
         "F:00117480",
         "F:00111DD0",
-        "F:0010D700"
+        "F:0010D700",
+        "F:0010EEB0",
+        "F:0010E6C0",
+        "F:0010E770"
       ],
       "closure_task_ids": [
         "P09",
@@ -1686,9 +1693,14 @@
         "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
         "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract",
         "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-source-state",
-        "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-decision"
+        "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-decision",
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-source-state",
+        "doc/cg2d_dispatch_callback_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build"
       ],
       "blockers": [
+        "CAB27三回调入口宽度已修：未读socket只拓宽uintptr_t，Puk S32入口只消费低W8。原51条135B/唯一直接入向、源差集与当前Debug有据，三宽度警告0/其它97警告；IP2/完整网络/正常寿命/机器ABI未验，成员72枚举false。",
         "本次只核两帧父成员；全部命令/回复/状态生产、数据与间接目标及生命周期枚举未闭合",
         "murD音频依赖已恢复SDL3/WAV，CAB12已知AUDIO32有来源；CAB15当前客户端/必要音频依赖已编译链接并部署，未运行。完整登录/原格式明文互通、声音/设备/正常寿命和V03仍未验，R受执行限制",
         "NWI01仅十五Winsock导入/跳板及26范围内API调用归属、八共享读取值时点；所有父/状态/字节与完整owner/alias/R1/R7、实际外部ABI/链接/互通及运行未闭，不以接口定位关闭FUNC-NETWORK",
@@ -1750,7 +1762,11 @@
         "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-source-state",
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state",
         "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state",
-        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-source-state"
+        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-source-state",
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-source-state",
+        "doc/cg2d_dispatch_callback_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build"
       ]
     },
     {
@@ -4298,7 +4314,11 @@
         "doc/cg2d_audio_loader_publication_evidence.json",
         "doc/cg2d_stdio_contract.md#audio-loader-publication-source-state",
         "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
-        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build",
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-source-state",
+        "doc/cg2d_dispatch_callback_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build"
       ],
       "original_inventory_ids": [
         "F:00054C30",
@@ -4341,7 +4361,8 @@
         "F:0012C450",
         "F:0012C680",
         "F:0012CB50",
-        "F:00124230"
+        "F:00124230",
+        "F:0010E6C0"
       ],
       "closure_task_ids": [
         "P11",
@@ -4395,9 +4416,14 @@
         "doc/cg2d_audio_update.md#bgm-config-scan-decision",
         "doc/cg2d_audio_update.md#se-property-sampling-decision",
         "doc/cg2d_audio_update.md#se-request-properties-decision",
-        "doc/cg2d_audio_update.md#audio-loader-publication-decision"
+        "doc/cg2d_audio_update.md#audio-loader-publication-decision",
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-source-state",
+        "doc/cg2d_dispatch_callback_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build"
       ],
       "blockers": [
+        "CAB27补50E6C0真实空间音效回包身份到AUDIO42；只未读socket首参拓宽，三个S32/52CDE0转发返回及LegacyAudio全保。原9条24B/唯一派发有据，不代全部父/callee/正常寿命/声音/机器ABI运行，枚举false。",
         "CAB17固定454C30独立音量表恢复原连续x87、S64低W32及正常127..0槽路径，33条数值投影/当前Debug链接部署通过；0槽/全表实际输出、CW上游/机器状态/声音与正常寿命仍待。AUDIO33成员枚举未闭，旧99设置页外层及全部运行门禁保持",
         "CAB16补52B9E0真实初始化成员至AUDIO33，并恢复原声像/音量表x87数值段；116条投影/十截断与当前Debug链接部署通过。完整成员枚举、当前CW上游/全部消费者/机器状态与声音/设备/失败/通知/正常寿命仍未验，旧99设置页外层继续",
         "CAB12三原音色/loader身份已具名适配到实际离线载入/样本区域与清理，两寿命写点已修；CAB15当前客户端/转换器编译链接通过，工具未运行/WAV未重生成。AUDIO32已知身份有来源不代成员枚举/全DLS/设备/失败/声音/正常寿命，旧99外层及完整门禁继续",
@@ -4455,7 +4481,11 @@
         "doc/cg2d_se_request_properties_evidence.json",
         "doc/cg2d_audio_update.md#audio-loader-publication-decision",
         "doc/cg2d_audio_update.md#audio-loader-publication-source-state",
-        "doc/cg2d_audio_loader_publication_evidence.json"
+        "doc/cg2d_audio_loader_publication_evidence.json",
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-source-state",
+        "doc/cg2d_dispatch_callback_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build"
       ]
     },
     {
@@ -54887,6 +54917,93 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-DISPATCH-CALLBACK-WIDTH-FUNC-NETWORK-I-20261009",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "完整50EEB0/50E6C0/50E770原51条135B及512E40三个唯一直接调用邻窗；仅入口字段与实际消费",
+      "implementation_reference": "Git固定命名快照 cg2d-re-dispatch-callback-width-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-source-state",
+        "doc/cg2d_dispatch_callback_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build",
+        "src/LegacyRecordOrder.cpp#cg::login::detail::UpdateOrderedRecords_50EEB0",
+        "src/network/NetworkRuntime.cpp#cg::network::Sub_50E6C0",
+        "src/CharacterSelectScene.cpp#cg::character_select::detail::Sub_50E770"
+      ],
+      "observation": "仅网络三个回调入口真实源码修复，非完整网络/音频实现或验收",
+      "expected": "仅拓宽已证未读socket首参，Puk入口承接S32后在原低W8消费点明确转换；原模板/协议/业务字段/正文与相对次序保持",
+      "actual": "六现文件按唯一预期更改，三个回调宽度警告0，Debug0错误/其它97警告，MAP及8022528B部署；IP2未运行",
+      "differences": [
+        {
+          "description": "x64承接已证socket；Puk入口明确原W32→低W8，不证明原高EAX24位与完整机器返回",
+          "decision_ref": "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-DISPATCH-CALLBACK-WIDTH-FUNC-NETWORK-S-20261009",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "完整50EEB0/50E6C0/50E770原51条135B及512E40三个唯一直接调用邻窗；仅入口字段与实际消费",
+      "implementation_reference": "Git固定命名快照 cg2d-re-dispatch-callback-width-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-source-state",
+        "doc/cg2d_dispatch_callback_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build",
+        "src/LegacyRecordOrder.cpp#cg::login::detail::UpdateOrderedRecords_50EEB0",
+        "src/network/NetworkRuntime.cpp#cg::network::Sub_50E6C0",
+        "src/CharacterSelectScene.cpp#cg::character_select::detail::Sub_50E770"
+      ],
+      "observation": "仅原入口/字段消费、源差集和编译诊断静态核对，非机器ABI或运行验收",
+      "expected": "仅拓宽已证未读socket首参，Puk入口承接S32后在原低W8消费点明确转换；原模板/协议/业务字段/正文与相对次序保持",
+      "actual": "六现文件按唯一预期更改，三个回调宽度警告0，Debug0错误/其它97警告，MAP及8022528B部署；IP2未运行",
+      "differences": [
+        {
+          "description": "x64承接已证socket；Puk入口明确原W32→低W8，不证明原高EAX24位与完整机器返回",
+          "decision_ref": "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-DISPATCH-CALLBACK-WIDTH-FUNC-AUDIO-S-20261009",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "完整50EEB0/50E6C0/50E770原51条135B及512E40三个唯一直接调用邻窗；仅入口字段与实际消费",
+      "implementation_reference": "Git固定命名快照 cg2d-re-dispatch-callback-width-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-source-state",
+        "doc/cg2d_dispatch_callback_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build",
+        "src/LegacyRecordOrder.cpp#cg::login::detail::UpdateOrderedRecords_50EEB0",
+        "src/network/NetworkRuntime.cpp#cg::network::Sub_50E6C0",
+        "src/CharacterSelectScene.cpp#cg::character_select::detail::Sub_50E770"
+      ],
+      "observation": "仅原入口/字段消费、源差集和编译诊断静态核对，非机器ABI或运行验收",
+      "expected": "仅拓宽已证未读socket首参，Puk入口承接S32后在原低W8消费点明确转换；原模板/协议/业务字段/正文与相对次序保持",
+      "actual": "六现文件按唯一预期更改，三个回调宽度警告0，Debug0错误/其它97警告，MAP及8022528B部署；IP2未运行",
+      "differences": [
+        {
+          "description": "x64承接已证socket；Puk入口明确原W32→低W8，不证明原高EAX24位与完整机器返回",
+          "decision_ref": "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
     }
   ],
   "task_acceptance": [
@@ -55562,7 +55679,11 @@
         "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-decision",
         "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-source-state",
         "doc/cg2d_local_login_diagnostics_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#local-login-diagnostics-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#local-login-diagnostics-debug-build",
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-source-state",
+        "doc/cg2d_dispatch_callback_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build"
       ]
     },
     {
@@ -56936,7 +57057,11 @@
         "doc/cg2d_audio_loader_publication_evidence.json",
         "doc/cg2d_stdio_contract.md#audio-loader-publication-source-state",
         "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
-        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build",
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-source-state",
+        "doc/cg2d_dispatch_callback_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build"
       ]
     },
     {
@@ -69861,6 +69986,42 @@
         "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build"
       ],
       "boundary": "仅524230运行尾部三路径真实53B304格式与字段/检查发布：id上界→sampleIndex/两路径→S8 volume样本/失败或发布→S8 pitch样本/失败→S8 loop样本/pitch/loop发布，BGM路径后S32/W8/S32三样本先持有再40/44/48写。忽略格式返回，六const char*匹配现va_arg，保原格式/容量/字节来源；不加snprintf门槛/截短、异常处理/模拟或保护。SDL/MMIO/fileIO、270项静态表、64通道/128配置和运行表owner/频率/其余正文保持；尾窗351条1191B为本步原基线，完整5289条29687B只元数据，不宣父前段/全部失败残留/正常寿命/机器ABI/声音或全格式核心/运行等价。"
+    },
+    {
+      "inventory_id": "F:0010EEB0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-source-state",
+        "doc/cg2d_dispatch_callback_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build"
+      ],
+      "boundary": "CAB27仅回调入口宽度：50EEB0/50E6C0原首参为未读fd/socket，只拓宽为uintptr_t，业务W32及正文/返回保持；50E770原517190调用传S32，原体MOV AL消费低W8，当前入口S32→显式U8→原W8状态/字节返回。无协议/解码/模板改动、拒绝/钳制/异常模拟；原高EAX24位、全机器返回/全部callee/正常资源与owner寿命、实际网络音频互通未验，已证512E40调用者忽略回调返回。"
+    },
+    {
+      "inventory_id": "F:0010E6C0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-source-state",
+        "doc/cg2d_dispatch_callback_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build"
+      ],
+      "boundary": "CAB27仅回调入口宽度：50EEB0/50E6C0原首参为未读fd/socket，只拓宽为uintptr_t，业务W32及正文/返回保持；50E770原517190调用传S32，原体MOV AL消费低W8，当前入口S32→显式U8→原W8状态/字节返回。无协议/解码/模板改动、拒绝/钳制/异常模拟；原高EAX24位、全机器返回/全部callee/正常资源与owner寿命、实际网络音频互通未验，已证512E40调用者忽略回调返回。"
+    },
+    {
+      "inventory_id": "F:0010E770",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-source-state",
+        "doc/cg2d_dispatch_callback_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build"
+      ],
+      "boundary": "CAB27仅回调入口宽度：50EEB0/50E6C0原首参为未读fd/socket，只拓宽为uintptr_t，业务W32及正文/返回保持；50E770原517190调用传S32，原体MOV AL消费低W8，当前入口S32→显式U8→原W8状态/字节返回。无协议/解码/模板改动、拒绝/钳制/异常模拟；原高EAX24位、全机器返回/全部callee/正常资源与owner寿命、实际网络音频互通未验，已证512E40调用者忽略回调返回。"
     }
   ],
   "auxiliary_dispositions": [
@@ -99678,14 +99839,14 @@
     }
   ],
   "build_validation": {
-    "step": "CAB26",
+    "step": "CAB27",
     "recorded_on": "2026-10-09",
     "configuration": "Debug",
-    "source_snapshot": "cg2d-re-local-login-diagnostics-20261009",
+    "source_snapshot": "cg2d-re-dispatch-callback-width-20261009",
     "configure_performed": false,
     "configure_exit_code": 0,
     "build_exit_code": 0,
-    "incremental_warning_count": 5,
+    "incremental_warning_count": 97,
     "audio_provider_diagnostic_count": 0,
     "static_libraries_exit_code": 0,
     "client_link_exit_code": 0,
@@ -99696,7 +99857,7 @@
     "whole_project_accepted": false,
     "converter_build_performed": false,
     "converter_last_build_step": "CAB15",
-    "note": "CAB26只连接诊断：原状态发布后记入队返回、登录阶段71..80正发送和队列消费后字节数、whV结果或原忽略及recv0原断线后标签；不记录账号/密码/MAC/URL/正文。额外FILE I/O为具名差异，移除新增部分后两整CPP与HEAD一致，原wire明文/LF/108派发/队列/状态/返回和原相对调用序保持。现BWZ01 Debug三库/客户端0，无再配置，0错误/5既有警告（2Winsock弃用/3回调宽度），新诊断无警告，原窗口和宽度后续未关闭。MAP实际三入口/日志存在，8022528B游戏EXE更新并备份旧同长版；仅核复制/长度，不Hash/比内容。编译诊断不能称IP2已修好，无新版实跑/试包/算法/测试；运行许可/反馈及完整网络/登录/SDK失败/正常寿命/机器ABI/整体SPEC仍待，未重生成WAV/运行工具，离线最近通过仍CAB15。三新增数值格式不加入1023原调用/241字面量或原成员数量。",
+    "note": "CAB27只三个回调入口宽度：两个未读socket首参拓宽uintptr_t，Puk完整S32入参在原低W8消费点显式转换/写字节状态/返该字节。六整文件与HEAD+明确预期一致，原模板/命令/字段/解码/掩码/派发/明文LF、业务字段与其它正文保持。原高EAX24位及完整机器返回未代验。BWZ01现Debug三库/客户端0错误、三个回调宽度警告0；头文件传播其余重编源97警告仍待，不抑制或关闭。MAP三回调/52CDE0/网络循环/whV存在，8022528B游戏EXE已部署并备份旧同长版；仅复制/长度，不摘要/内容比对。未运行客户端/试包/测试/算法/工具、重生成WAV，IP2、全网络/音频/正常寿命/机器ABI与整体SPEC未验；离线最近通过仍CAB15。",
     "evidence_refs": [
       "doc/cg2d_build_acceptance_spec.md",
       "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
@@ -99760,7 +99921,11 @@
       "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-decision",
       "doc/cg2d_network_compatibility_spec.md#local-login-diagnostics-source-state",
       "doc/cg2d_local_login_diagnostics_evidence.json",
-      "doc/cg2d_build_acceptance_spec.md#local-login-diagnostics-debug-build"
+      "doc/cg2d_build_acceptance_spec.md#local-login-diagnostics-debug-build",
+      "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
+      "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-source-state",
+      "doc/cg2d_dispatch_callback_width_evidence.json",
+      "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build"
     ]
   }
 }

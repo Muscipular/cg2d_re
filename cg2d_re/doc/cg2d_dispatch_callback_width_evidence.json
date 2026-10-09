@@ -1,0 +1,576 @@
+{
+  "step": "CAB27",
+  "recorded_on": "2026-10-09",
+  "source_snapshot": "cg2d-re-dispatch-callback-width-20261009",
+  "baseline": "plan/cg2d_full_reconstruction_plan.md",
+  "decision_ref": "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
+  "scope": "仅三个派发回调入口的socket/原W32到低W8消费边界；不改共享模板、原命令/字段/解码/掩码/次序/明文LF，非IP2成功或整体验收",
+  "original_roots": [
+    {
+      "start": "0x50eeb0",
+      "end": "0x50ef15",
+      "bytes": "a10c6e9a005685c075598b7424106a026a7c56e8d8e0010083c40c33d2b9201b05013901742583c17c4281f9007c05017cf033c9b8201b05018338ff741183c07c413d007c05017cf05ec35652eb025651e86a00000083c408e842000000a3101505015ec3",
+      "instructions": [
+        {
+          "ea": "0x50eeb0",
+          "asm": "mov     eax, dword_9A6E0C"
+        },
+        {
+          "ea": "0x50eeb5",
+          "asm": "push    esi"
+        },
+        {
+          "ea": "0x50eeb6",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": "0x50eeb8",
+          "asm": "jnz     short loc_50EF13"
+        },
+        {
+          "ea": "0x50eeba",
+          "asm": "mov     esi, [esp+4+arg_8]"
+        },
+        {
+          "ea": "0x50eebe",
+          "asm": "push    2"
+        },
+        {
+          "ea": "0x50eec0",
+          "asm": "push    7Ch ; '|'"
+        },
+        {
+          "ea": "0x50eec2",
+          "asm": "push    esi"
+        },
+        {
+          "ea": "0x50eec3",
+          "asm": "call    sub_52CFA0"
+        },
+        {
+          "ea": "0x50eec8",
+          "asm": "add     esp, 0Ch"
+        },
+        {
+          "ea": "0x50eecb",
+          "asm": "xor     edx, edx"
+        },
+        {
+          "ea": "0x50eecd",
+          "asm": "mov     ecx, offset dword_1051B20"
+        },
+        {
+          "ea": "0x50eed2",
+          "asm": "cmp     [ecx], eax"
+        },
+        {
+          "ea": "0x50eed4",
+          "asm": "jz      short loc_50EEFB"
+        },
+        {
+          "ea": "0x50eed6",
+          "asm": "add     ecx, 7Ch ; '|'"
+        },
+        {
+          "ea": "0x50eed9",
+          "asm": "inc     edx"
+        },
+        {
+          "ea": "0x50eeda",
+          "asm": "cmp     ecx, offset dword_1057C00"
+        },
+        {
+          "ea": "0x50eee0",
+          "asm": "jl      short loc_50EED2"
+        },
+        {
+          "ea": "0x50eee2",
+          "asm": "xor     ecx, ecx"
+        },
+        {
+          "ea": "0x50eee4",
+          "asm": "mov     eax, offset dword_1051B20"
+        },
+        {
+          "ea": "0x50eee9",
+          "asm": "cmp     dword ptr [eax], 0FFFFFFFFh"
+        },
+        {
+          "ea": "0x50eeec",
+          "asm": "jz      short loc_50EEFF"
+        },
+        {
+          "ea": "0x50eeee",
+          "asm": "add     eax, 7Ch ; '|'"
+        },
+        {
+          "ea": "0x50eef1",
+          "asm": "inc     ecx"
+        },
+        {
+          "ea": "0x50eef2",
+          "asm": "cmp     eax, offset dword_1057C00"
+        },
+        {
+          "ea": "0x50eef7",
+          "asm": "jl      short loc_50EEE9"
+        },
+        {
+          "ea": "0x50eef9",
+          "asm": "pop     esi"
+        },
+        {
+          "ea": "0x50eefa",
+          "asm": "retn"
+        },
+        {
+          "ea": "0x50eefb",
+          "asm": "push    esi"
+        },
+        {
+          "ea": "0x50eefc",
+          "asm": "push    edx"
+        },
+        {
+          "ea": "0x50eefd",
+          "asm": "jmp     short loc_50EF01"
+        },
+        {
+          "ea": "0x50eeff",
+          "asm": "push    esi"
+        },
+        {
+          "ea": "0x50ef00",
+          "asm": "push    ecx"
+        },
+        {
+          "ea": "0x50ef01",
+          "asm": "call    sub_50EF70"
+        },
+        {
+          "ea": "0x50ef06",
+          "asm": "add     esp, 8"
+        },
+        {
+          "ea": "0x50ef09",
+          "asm": "call    sub_50EF50"
+        },
+        {
+          "ea": "0x50ef0e",
+          "asm": "mov     dword_1051510, eax"
+        },
+        {
+          "ea": "0x50ef13",
+          "asm": "pop     esi"
+        },
+        {
+          "ea": "0x50ef14",
+          "asm": "retn"
+        }
+      ],
+      "incoming": [
+        {
+          "ea": "0x514022",
+          "asm": "call    sub_50EEB0",
+          "parent": "0x512e40"
+        }
+      ]
+    },
+    {
+      "start": "0x50e6c0",
+      "end": "0x50e6d8",
+      "bytes": "8b4424108b4c240c8b542408505152e80ce7010083c40cc3",
+      "instructions": [
+        {
+          "ea": "0x50e6c0",
+          "asm": "mov     eax, [esp+arg_C]"
+        },
+        {
+          "ea": "0x50e6c4",
+          "asm": "mov     ecx, [esp+arg_8]"
+        },
+        {
+          "ea": "0x50e6c8",
+          "asm": "mov     edx, [esp+arg_4]"
+        },
+        {
+          "ea": "0x50e6cc",
+          "asm": "push    eax"
+        },
+        {
+          "ea": "0x50e6cd",
+          "asm": "push    ecx"
+        },
+        {
+          "ea": "0x50e6ce",
+          "asm": "push    edx"
+        },
+        {
+          "ea": "0x50e6cf",
+          "asm": "call    sub_52CDE0"
+        },
+        {
+          "ea": "0x50e6d4",
+          "asm": "add     esp, 0Ch"
+        },
+        {
+          "ea": "0x50e6d7",
+          "asm": "retn"
+        }
+      ],
+      "incoming": [
+        {
+          "ea": "0x515eac",
+          "asm": "call    sub_50E6C0",
+          "parent": "0x512e40"
+        }
+      ]
+    },
+    {
+      "start": "0x50e770",
+      "end": "0x50e77a",
+      "bytes": "8a442408a21c6e9a00c3",
+      "instructions": [
+        {
+          "ea": "0x50e770",
+          "asm": "mov     al, [esp+arg_4]"
+        },
+        {
+          "ea": "0x50e774",
+          "asm": "mov     gPukVer, al"
+        },
+        {
+          "ea": "0x50e779",
+          "asm": "retn"
+        }
+      ],
+      "incoming": [
+        {
+          "ea": "0x516694",
+          "asm": "call    sub_50E770",
+          "parent": "0x512e40"
+        }
+      ]
+    }
+  ],
+  "dispatch_call_windows": [
+    {
+      "call_site": "0x514022",
+      "start": "0x51400f",
+      "end": "0x51402e",
+      "bytes": "8b420850e8783600008b8c245c040000505651e889aeffff83c42033c05f5e",
+      "instructions": [
+        {
+          "ea": "0x51400f",
+          "asm": "mov     eax, [edx+8]"
+        },
+        {
+          "ea": "0x514012",
+          "asm": "push    eax"
+        },
+        {
+          "ea": "0x514013",
+          "asm": "call    sub_517690"
+        },
+        {
+          "ea": "0x514018",
+          "asm": "mov     ecx, [esp+458h+fd]"
+        },
+        {
+          "ea": "0x51401f",
+          "asm": "push    eax"
+        },
+        {
+          "ea": "0x514020",
+          "asm": "push    esi"
+        },
+        {
+          "ea": "0x514021",
+          "asm": "push    ecx"
+        },
+        {
+          "ea": "0x514022",
+          "asm": "call    sub_50EEB0"
+        },
+        {
+          "ea": "0x514027",
+          "asm": "add     esp, 20h"
+        },
+        {
+          "ea": "0x51402a",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "ea": "0x51402c",
+          "asm": "pop     edi"
+        },
+        {
+          "ea": "0x51402d",
+          "asm": "pop     esi"
+        }
+      ]
+    },
+    {
+      "call_site": "0x515eac",
+      "start": "0x515e9b",
+      "end": "0x515eb8",
+      "bytes": "52e8ef120000508b842458040000575650e80f88ffff83c41c33c05f5e",
+      "instructions": [
+        {
+          "ea": "0x515e9b",
+          "asm": "push    edx"
+        },
+        {
+          "ea": "0x515e9c",
+          "asm": "call    sub_517190"
+        },
+        {
+          "ea": "0x515ea1",
+          "asm": "push    eax"
+        },
+        {
+          "ea": "0x515ea2",
+          "asm": "mov     eax, [esp+454h+fd]"
+        },
+        {
+          "ea": "0x515ea9",
+          "asm": "push    edi"
+        },
+        {
+          "ea": "0x515eaa",
+          "asm": "push    esi"
+        },
+        {
+          "ea": "0x515eab",
+          "asm": "push    eax"
+        },
+        {
+          "ea": "0x515eac",
+          "asm": "call    sub_50E6C0"
+        },
+        {
+          "ea": "0x515eb1",
+          "asm": "add     esp, 1Ch"
+        },
+        {
+          "ea": "0x515eb4",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "ea": "0x515eb6",
+          "asm": "pop     edi"
+        },
+        {
+          "ea": "0x515eb7",
+          "asm": "pop     esi"
+        }
+      ]
+    },
+    {
+      "call_site": "0x516694",
+      "start": "0x51667d",
+      "end": "0x5166a0",
+      "bytes": "a114b658008b480451e8050b00008b94244c0400005052e8d780ffff83c40c33c05f5e",
+      "instructions": [
+        {
+          "ea": "0x51667d",
+          "asm": "mov     eax, protocolArgs"
+        },
+        {
+          "ea": "0x516682",
+          "asm": "mov     ecx, [eax+4]"
+        },
+        {
+          "ea": "0x516685",
+          "asm": "push    ecx"
+        },
+        {
+          "ea": "0x516686",
+          "asm": "call    sub_517190"
+        },
+        {
+          "ea": "0x51668b",
+          "asm": "mov     edx, [esp+448h+fd]"
+        },
+        {
+          "ea": "0x516692",
+          "asm": "push    eax"
+        },
+        {
+          "ea": "0x516693",
+          "asm": "push    edx"
+        },
+        {
+          "ea": "0x516694",
+          "asm": "call    sub_50E770"
+        },
+        {
+          "ea": "0x516699",
+          "asm": "add     esp, 0Ch"
+        },
+        {
+          "ea": "0x51669c",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "ea": "0x51669e",
+          "asm": "pop     edi"
+        },
+        {
+          "ea": "0x51669f",
+          "asm": "pop     esi"
+        }
+      ]
+    }
+  ],
+  "original_instruction_count": 51,
+  "original_byte_count": 135,
+  "source_changes": [
+    {
+      "path": "include/cg/LegacyRecordOrder.hpp",
+      "symbol": "cg::login::detail::UpdateOrderedRecords_50EEB0",
+      "change": "首未读socket由U32拓宽uintptr_t，第二个未读业务U32及const char*保持；注释明确"
+    },
+    {
+      "path": "src/LegacyRecordOrder.cpp",
+      "symbol": "cg::login::detail::UpdateOrderedRecords_50EEB0",
+      "change": "仅首参定义U32改uintptr_t；全正文保持"
+    },
+    {
+      "path": "src/network/NetworkRuntimeDependencies.hpp",
+      "symbol": "cg::network::Sub_50E6C0",
+      "change": "首未读socket由S32拓宽uintptr_t；三个业务S32保持"
+    },
+    {
+      "path": "src/network/NetworkRuntime.cpp",
+      "symbol": "cg::network::Sub_50E6C0",
+      "change": "仅首参定义S32改uintptr_t；52CDE0转发/返回及全派发、CAB26诊断保持"
+    },
+    {
+      "path": "src/CharacterSelectSceneDependencies.hpp",
+      "symbol": "cg::character_select::detail::Sub_50E770",
+      "change": "第二入参从U8改S32承接原517190完整W32实参；socket/返回U8保持"
+    },
+    {
+      "path": "src/CharacterSelectScene.cpp",
+      "symbol": "cg::character_select::detail::Sub_50E770",
+      "change": "入口S32，只显式取低U8→原gPukVersion W8→返回该字节"
+    }
+  ],
+  "static_checks": {
+    "six_full_files_head_plus_expected_exact": true,
+    "unique_replacement_contexts": true,
+    "original_three_dispatch_statements_unchanged": true,
+    "legacy_audio_and_login_state_unchanged": true,
+    "shared_dispatch_template_and_all_other_network_logic_unchanged": true,
+    "original_root_bytes_and_instruction_counts_checked": true,
+    "known_direct_call_sites_only": true,
+    "all_other_current_source_changes_absent": true
+  },
+  "boundary": "原两SOCKET首参完整原函数不读，x64仅拓宽地址；业务标量不扩。Puk原caller传W32而callee只消费低W8，当前入口承接S32并在状态消费点显式转U8，无保护/钳制/拒绝或异常模拟。原高EAX24位/全机器返回未证明，已证512E40调用者回调后xor EAX0且现模板忽略该返回。原51条135B不代所有callee/完整父、正常owner/资源寿命或实际网络/音频互通。",
+  "build": {
+    "exit_code": 0,
+    "configure_performed": false,
+    "error_count": 0,
+    "warning_count": 97,
+    "network_runtime_warnings": 0,
+    "callback_width_warnings": 0,
+    "client_length": 8022528,
+    "warning_groups": [
+      {
+        "source": "LegacyUiRecord.cpp",
+        "code": "C4244",
+        "count": 3
+      },
+      {
+        "source": "LegacyUiRecord.cpp",
+        "code": "C4701",
+        "count": 8
+      },
+      {
+        "source": "LoginState.cpp",
+        "code": "C4996",
+        "count": 2
+      },
+      {
+        "source": "YobiRuntime.cpp",
+        "code": "C4456",
+        "count": 7
+      },
+      {
+        "source": "YobiRuntime.cpp",
+        "code": "C4701",
+        "count": 30
+      },
+      {
+        "source": "YobiRuntime.cpp",
+        "code": "C4703",
+        "count": 4
+      },
+      {
+        "source": "ui/WindowRuntime.cpp",
+        "code": "C4244",
+        "count": 20
+      },
+      {
+        "source": "ui/WindowRuntime.cpp",
+        "code": "C4456",
+        "count": 2
+      },
+      {
+        "source": "ui/WindowRuntime.cpp",
+        "code": "C4701",
+        "count": 20
+      },
+      {
+        "source": "ui/WindowRuntime.cpp",
+        "code": "C4703",
+        "count": 1
+      }
+    ],
+    "symbols_present": [
+      "UpdateOrderedRecords_50EEB0",
+      "Sub_50E6C0",
+      "Sub_50E770",
+      "Sub_52CDE0",
+      "NetworkLoop_507DF0",
+      "HandleResponse_508800"
+    ],
+    "offline_synth_absent": true,
+    "log": "build/windows-msvc-x64/build-dispatch-callback-width-20261009.log"
+  },
+  "deployment": {
+    "source_length": 8022528,
+    "deployed_length": 8022528,
+    "previous_length": 8022528,
+    "backup_length": 8022528,
+    "deployed": true,
+    "backup": "H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2d_re_client.exe.before-dispatch-callback-width-20261009",
+    "comparison": "只核复制成功和长度，不摘要或内容比较"
+  },
+  "warnings": {
+    "three_network_callback_c4244_resolved": true,
+    "remaining_count": 97,
+    "remaining_action": "后续按真实原取样/字段消费/控制流聚焦处理；不靠抑制、泛化强制转换或零初始化改变原语义",
+    "full_project_warning_free": false
+  },
+  "unclosed": [
+    "新版IP2实际运行/登录互通与服务端二进制身份",
+    "完整网络/音频资源及正常寿命、所有父/callee/别名/机器ABI",
+    "原高EAX24位及全机器返回",
+    "其它97项本次重编警告及未重编文件",
+    "原成员枚举与184叶功能完整验收"
+  ],
+  "prohibited_actions_performed": {
+    "client_run": false,
+    "network_test_packet": false,
+    "test_run": false,
+    "algorithm_or_tool_run": false,
+    "hash": false,
+    "new_dependency": false,
+    "autohotkey": false,
+    "subagent": false
+  },
+  "runtime_verified": false,
+  "global_accepted": false
+}

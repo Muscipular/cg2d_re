@@ -949,3 +949,7 @@
 ## cg2d_re：本机登录阶段诊断（2026-10-09）
 
 批处理确为新版客户端/IP2，新增入队返回、登录阶段实际发送字节、whV结果/原忽略及远端关闭标签，不记录身份或正文；额外FILE I/O具名差异，移除后两CPP与HEAD一致，wire明文/LF/原字段、队列/状态/返回保持。当前Debug0错误/5既有警告（2Winsock弃用/3回调宽度），8022528B新版部署/旧同长版备份；SPEC/登记簿/看板与全文预期/生成/-Check通过，V03及完整网络/生命周期/机器ABI和整体仍open。未运行客户端/试包/算法/测试/工具/摘要，不称IP2已修好，新版运行授权/反馈仍待。详见cg2d_re/plan/cg2d_full_reconstruction_progress.md，快照cg2d-re-local-login-diagnostics-20261009，用户原差异排除，整体目标继续。
+
+## cg2d_re：派发回调入口宽度（2026-10-09）
+
+按原三根51条135B/真实派发邻窗修两未读socket首参uintptr_t，Puk完整S32入参只在原低W8消费点显式转换，业务/协议/模板/正文与CAB26诊断保持；六整源与明确预期、JSON及静态汇总/Check通过。当前Debug0错误、三回调宽度警告0，其它重编源97警告继续；8022528B新版部署/旧同长版备份。新增三原语义/F，NETWORK72/AUDIO42且枚举false，V03/V05和完整互通/正常寿命/机器ABI及整体未验；未运行/试包/测试/工具/算法/摘要，IP2不称已修好。详见cg2d_re/plan/cg2d_full_reconstruction_progress.md，快照cg2d-re-dispatch-callback-width-20261009，用户原差异排除，整体目标继续。

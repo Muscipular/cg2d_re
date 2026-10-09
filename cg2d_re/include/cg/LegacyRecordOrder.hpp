@@ -59,9 +59,9 @@ OrderedRecord1051B14* ResetOrderedRecord_50EF20(
     OrderedRecord1051B14* record) noexcept;
 // 原 50EF70：按 | 字段解析、反转义并写入指定记录，返回 0/1。
 std::int32_t ParseOrderedRecord_50EF70(std::int32_t index, const char* text);
-// 原 50EEB0：前两项 W32 不读取；EAX 可为门禁值、计数或满表末地址。
+// 原 50EEB0：首参为未读 socket，次参为未读 W32；EAX 可为门禁值、计数或满表末地址。
 std::uintptr_t UpdateOrderedRecords_50EEB0(
-    std::uint32_t ignored0, std::uint32_t ignored1, const char* text);
+    std::uintptr_t ignoredSocket, std::uint32_t ignored1, const char* text);
 // 原 50EC50：重置并按序解析最多 200 组，重算计数后清理所选角色的失配公会邮件。
 // 返回门禁W32、零或表末key游标；第一参数不读取，yuD派发已接，完整业务/运行未验。
 std::uintptr_t UpdateOrderedRecordBatch_50EC50(

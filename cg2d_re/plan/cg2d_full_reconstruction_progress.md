@@ -5237,3 +5237,13 @@ UTF-8、先清后载/真实成功发布、最后PCM后释放再close、提前退
 当前BWZ01必要Debug三库/真实客户端返回0，无再配置，0错误/5既有警告（2原Winsock弃用、3原派发回调宽度），新诊断无警告；原窗口/宽度后续不关闭。MAP三实际入口/日志存在，客户端仍无离线合成/转换代码；8022528B新版复制游戏目录、旧同长版备份before-local-login-diagnostics-20261009，仅核复制/长度。未运行客户端/试包/算法/测试/工具、重生成WAV或摘要，离线最近通过仍CAB15；不能据诊断存在宣IP2已修好，运行授权/反馈、SDK失败/正常寿命/机器ABI和整体门禁保持待验。
 
 登记簿先将differences写字符串，静态汇总拒绝4项且未写派生；改为description/decision_ref对象后，与HEAD+明确预期全文一致，55任务无坏行，生成/-Check0。FUNC-NETWORK/LOGIN各一个限定S、V03和构建记录同步，V03仍open，原语义/有效ID/文档关联/处置/成员/原格式库存及184叶验收0/60任务关闭11与整体false均不增。证据doc/cg2d_local_login_diagnostics_evidence.json，快照cg2d-re-local-login-diagnostics-20261009，精确提交排除用户原差异，整体目标继续。
+
+## CAB27 派发回调入口宽度修复（2026-10-09）
+
+按CAB26实际三项C4244聚焦原50EEB0/50E6C0/50E770与512E40调用邻窗；完整三根51条135B、三唯一直接入向/邻窗36条95B确认：前两首参原fd/socket不读，后者517190传完整W32而MOV AL只消费低字节。先记录既有网络SPEC，再将两socket首参仅拓宽uintptr_t，Puk入口承接S32，在原状态消费点显式U8转换→W8写/返回；业务W32/记录表正文/52CDE0转发/原派发及CAB26诊断保持。无共享转换工具、协议/解码/掩码改动或拒绝/钳制/异常模拟；原高EAX24位/完整机器返回不代验，已证caller与现模板忽略返回。
+
+六整源/头与HEAD加明确替换全文一致，完整机器JSON与HEAD+本步预期相同，原指令/字节/唯一入向、四锚点/55任务及UTF8无BOM/LF检查通过。BWZ01必要现Debug三库/客户端返回0，无再配置，0错误，三个回调C4244和NetworkRuntime警告为0；头文件传播重编的其它源97警告仍待：LegacyUiRecord11/LoginState2/YobiRuntime41/WindowRuntime43。分别C4244=23/C4456=9/C4701=58/C4703=5/C4996=2，不抑制、改旧API或宣全工程无警告；后续按原字段消费和控制流处理。MAP三个回调/52CDE0/连接循环及whV存在，客户端仍无离线合成/转换代码。
+
+8022528B新版已复制游戏目录、旧同长版备份before-dispatch-callback-width-20261009，只核复制/长度；未运行客户端/试包/测试/算法/工具、重生成WAV或摘要，离线最近通过仍CAB15，IP2互通不称已修好。新增三个原语义/F，NETWORK69→72/AUDIO41→42且枚举false，网络限定I/S、音频限定S，V03/V05仍open；记录/接线/编译不代全部父/callee/正常寿命/资源/声音/机器ABI或完整功能验收。
+
+文本汇总/Check通过；实际语义1906/有效1896/无F代码10、文档2006/3680（54.51%）、F处置1071；R7已审485/3061余2576、pending18/104差集、185功能/184叶验收0、60任务关闭11/整体false保持。证据doc/cg2d_dispatch_callback_width_evidence.json，快照cg2d-re-dispatch-callback-width-20261009；精确提交排除用户原差异，整体目标继续。

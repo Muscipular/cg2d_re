@@ -726,7 +726,7 @@ std::int32_t Sub_508310()
 
 // 原 [0x50E6C0,0x50E6D8)：只转发后三个 W32 参数，透传空间音频生产者返回。
 std::int32_t __cdecl Sub_50E6C0(
-    const std::int32_t,
+    const std::uintptr_t,
     const std::int32_t index,
     const std::int32_t sourceX,
     const std::int32_t sourceY)

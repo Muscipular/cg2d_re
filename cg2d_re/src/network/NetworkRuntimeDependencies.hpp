@@ -8,9 +8,9 @@ namespace cg::network::detail {
 std::int32_t Sub_5082D0();
 std::int32_t Sub_508310();
 
-// 原 [0x50E6C0,0x50E6D8)：忽略首参数，转发后三项到空间音频生产者。
+// 原 [0x50E6C0,0x50E6D8)：忽略 socket 首参，转发后三个 S32 到空间音频生产者。
 std::int32_t __cdecl Sub_50E6C0(
-    std::int32_t unused, std::int32_t index,
+    std::uintptr_t unusedSocket, std::int32_t index,
     std::int32_t sourceX, std::int32_t sourceY);
 
 // 原 [0x50CF60,0x50CF6A)：忽略网络首参，写共享点数并返回完整值。

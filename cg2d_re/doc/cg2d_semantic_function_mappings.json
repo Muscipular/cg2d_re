@@ -214722,6 +214722,132 @@
         "full_parent_baseline_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x50eeb0",
+      "inventory_id": "F:0010EEB0",
+      "original_role": "有序记录回包：原门禁、更新/空槽查找及重新计数；首fd/socket与次W32不读",
+      "original_end_exclusive": "0x50ef15",
+      "instruction_count": 39,
+      "original_byte_count": 101,
+      "status": "CAB27原入口字段宽度有据并已修复，当前Debug链接部署；完整父/callee/寿命/机器ABI与实际互通未验",
+      "sources": [
+        {
+          "path": "src/LegacyRecordOrder.cpp",
+          "symbols": [
+            "cg::login::detail::UpdateOrderedRecords_50EEB0"
+          ],
+          "relationship": "CAB27仅回调入口宽度：50EEB0/50E6C0原首参为未读fd/socket，只拓宽为uintptr_t，业务W32及正文/返回保持；50E770原517190调用传S32，原体MOV AL消费低W8，当前入口S32→显式U8→原W8状态/字节返回。无协议/解码/模板改动、拒绝/钳制/异常模拟；原高EAX24位、全机器返回/全部callee/正常资源与owner寿命、实际网络音频互通未验，已证512E40调用者忽略回调返回。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-source-state",
+        "doc/cg2d_dispatch_callback_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build"
+      ],
+      "boundary": "CAB27仅回调入口宽度：50EEB0/50E6C0原首参为未读fd/socket，只拓宽为uintptr_t，业务W32及正文/返回保持；50E770原517190调用传S32，原体MOV AL消费低W8，当前入口S32→显式U8→原W8状态/字节返回。无协议/解码/模板改动、拒绝/钳制/异常模拟；原高EAX24位、全机器返回/全部callee/正常资源与owner寿命、实际网络音频互通未验，已证512E40调用者忽略回调返回。",
+      "verification_level": "三原完整函数51条135B及三唯一直接调用邻窗；六整文件与HEAD+明确替换一致，协议/模板/其他正文不变。当前Debug0错误、三个回调宽度警告0/其它97警告；MAP及部署有据，不运行/试包/测试/摘要。原高EAX24位/全机器返回、全父/callee/正常寿命/互通未验。",
+      "native_provider": {
+        "source": "src/LegacyRecordOrder.cpp",
+        "symbol": "cg::login::detail::UpdateOrderedRecords_50EEB0",
+        "source_body_implemented": true,
+        "client_link_verified": true,
+        "runtime_verified": false
+      },
+      "dispatch_callback_width": {
+        "step": "CAB27",
+        "source_snapshot": "cg2d-re-dispatch-callback-width-20261009",
+        "decision_ref": "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
+        "known_direct_call_site": "0x514022",
+        "callback_return_ignored_by_known_dispatcher": true,
+        "machine_return_verified": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x50e6c0",
+      "inventory_id": "F:0010E6C0",
+      "original_role": "空间音效回包：忽略fd/socket，向52CDE0转发后三个S32并透传返回",
+      "original_end_exclusive": "0x50e6d8",
+      "instruction_count": 9,
+      "original_byte_count": 24,
+      "status": "CAB27原入口字段宽度有据并已修复，当前Debug链接部署；完整父/callee/寿命/机器ABI与实际互通未验",
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "cg::network::Sub_50E6C0"
+          ],
+          "relationship": "CAB27仅回调入口宽度：50EEB0/50E6C0原首参为未读fd/socket，只拓宽为uintptr_t，业务W32及正文/返回保持；50E770原517190调用传S32，原体MOV AL消费低W8，当前入口S32→显式U8→原W8状态/字节返回。无协议/解码/模板改动、拒绝/钳制/异常模拟；原高EAX24位、全机器返回/全部callee/正常资源与owner寿命、实际网络音频互通未验，已证512E40调用者忽略回调返回。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-source-state",
+        "doc/cg2d_dispatch_callback_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build"
+      ],
+      "boundary": "CAB27仅回调入口宽度：50EEB0/50E6C0原首参为未读fd/socket，只拓宽为uintptr_t，业务W32及正文/返回保持；50E770原517190调用传S32，原体MOV AL消费低W8，当前入口S32→显式U8→原W8状态/字节返回。无协议/解码/模板改动、拒绝/钳制/异常模拟；原高EAX24位、全机器返回/全部callee/正常资源与owner寿命、实际网络音频互通未验，已证512E40调用者忽略回调返回。",
+      "verification_level": "三原完整函数51条135B及三唯一直接调用邻窗；六整文件与HEAD+明确替换一致，协议/模板/其他正文不变。当前Debug0错误、三个回调宽度警告0/其它97警告；MAP及部署有据，不运行/试包/测试/摘要。原高EAX24位/全机器返回、全父/callee/正常寿命/互通未验。",
+      "native_provider": {
+        "source": "src/network/NetworkRuntime.cpp",
+        "symbol": "cg::network::Sub_50E6C0",
+        "source_body_implemented": true,
+        "client_link_verified": true,
+        "runtime_verified": false
+      },
+      "dispatch_callback_width": {
+        "step": "CAB27",
+        "source_snapshot": "cg2d-re-dispatch-callback-width-20261009",
+        "decision_ref": "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
+        "known_direct_call_site": "0x515eac",
+        "callback_return_ignored_by_known_dispatcher": true,
+        "machine_return_verified": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x50e770",
+      "inventory_id": "F:0010E770",
+      "original_role": "Puk版本回包：忽略fd/socket，消费第二S32实参的低W8到共享版本字节",
+      "original_end_exclusive": "0x50e77a",
+      "instruction_count": 3,
+      "original_byte_count": 10,
+      "status": "CAB27原入口字段宽度有据并已修复，当前Debug链接部署；完整父/callee/寿命/机器ABI与实际互通未验",
+      "sources": [
+        {
+          "path": "src/CharacterSelectScene.cpp",
+          "symbols": [
+            "cg::character_select::detail::Sub_50E770"
+          ],
+          "relationship": "CAB27仅回调入口宽度：50EEB0/50E6C0原首参为未读fd/socket，只拓宽为uintptr_t，业务W32及正文/返回保持；50E770原517190调用传S32，原体MOV AL消费低W8，当前入口S32→显式U8→原W8状态/字节返回。无协议/解码/模板改动、拒绝/钳制/异常模拟；原高EAX24位、全机器返回/全部callee/正常资源与owner寿命、实际网络音频互通未验，已证512E40调用者忽略回调返回。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
+        "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-source-state",
+        "doc/cg2d_dispatch_callback_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build"
+      ],
+      "boundary": "CAB27仅回调入口宽度：50EEB0/50E6C0原首参为未读fd/socket，只拓宽为uintptr_t，业务W32及正文/返回保持；50E770原517190调用传S32，原体MOV AL消费低W8，当前入口S32→显式U8→原W8状态/字节返回。无协议/解码/模板改动、拒绝/钳制/异常模拟；原高EAX24位、全机器返回/全部callee/正常资源与owner寿命、实际网络音频互通未验，已证512E40调用者忽略回调返回。",
+      "verification_level": "三原完整函数51条135B及三唯一直接调用邻窗；六整文件与HEAD+明确替换一致，协议/模板/其他正文不变。当前Debug0错误、三个回调宽度警告0/其它97警告；MAP及部署有据，不运行/试包/测试/摘要。原高EAX24位/全机器返回、全父/callee/正常寿命/互通未验。",
+      "native_provider": {
+        "source": "src/CharacterSelectScene.cpp",
+        "symbol": "cg::character_select::detail::Sub_50E770",
+        "source_body_implemented": true,
+        "client_link_verified": true,
+        "runtime_verified": false
+      },
+      "dispatch_callback_width": {
+        "step": "CAB27",
+        "source_snapshot": "cg2d-re-dispatch-callback-width-20261009",
+        "decision_ref": "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-decision",
+        "known_direct_call_site": "0x516694",
+        "callback_return_ignored_by_known_dispatcher": true,
+        "machine_return_verified": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

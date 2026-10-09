@@ -4607,3 +4607,8 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 ## 2026-10-10 BPR01：投影非拥有父与本轮标死处理
 
 [投影合同](cg2d_battle_projection_spec.md#battle-projection-source-state)纳管418D80/418DF0两完整既有根。父FD0只门禁移动；移动后重取父标死值，MarkDeath后仍重新取父层、播放并发布坐标，现正文正确保持。三个原创建CALL不消费返回，公开void保；创建空返、目标S32截断、播放前后图号重取及两特殊图额外移动保持。仅三个注释/一限定S、零新I；未知间接alias、全creator/cleanup、父与投影最终回收顺序及SDK/运行仍待，不以本轮标死处理代完整U09寿命验收。
+
+<a id="battle-range-hit-runtime-20261010"></a>
+## 2026-10-10 BPRH01：RangeHit第三投影来源
+
+[创建/生产合同](cg2d_battle_range_hit_spec.md#battle-range-hit-source-state)纳管419390完整176条594B，原五CALL/三父由现四表达式覆盖。只修正初始父Y与payload读取、效果四字段持样及投影样本/同一DX表借用三片段，phase16/原失败/数学/辅助flags和所有其它源保持；已有404DB0/4072E0命中与418DF0/418D80投影提供者不重做。仅限定I/S、零新函数，最终全creator/cleanup/资源/SDK与父投影回收和运行仍待，U08/U09完整门禁保持。

@@ -196447,6 +196447,59 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "inventory_id": "F:00019390",
+      "original_entry": "0x419390",
+      "original_role": "Battle::RangeHit::newEffect",
+      "original_end_exclusive": "0x4195e2",
+      "instruction_count": 176,
+      "function_chunks": [
+        {
+          "start": "0x419390",
+          "end_exclusive": "0x4195e2"
+        }
+      ],
+      "status": "BPRH01完整既有RangeHit创建/投影生产纳管，三个原取样片段修正；完整资源/owner/SDK及运行未验",
+      "evidence_documents": [
+        "doc/cg2d_battle_range_hit_spec.md#battle-range-hit-baseline",
+        "doc/cg2d_battle_range_hit_spec.md#battle-range-hit-decision",
+        "doc/cg2d_battle_range_hit_spec.md#battle-range-hit-acceptance",
+        "doc/cg2d_battle_range_hit_spec.md#battle-range-hit-source-state",
+        "doc/cg2d_battle_range_hit_evidence.json"
+      ],
+      "boundary": "BPRH01既有完整RangeHit创建/phase16及投影生产，仅初始Y/payload、效果四字段、投影样本与同一非拥有DX表三片段按原阶段持有。原分配空返/数学/图号单圈/发布/辅助flags跨回调持样/四父payload重取及所有其它源保；五原CALL由四表达式承接。全父-callee/资源/SDK数值ABI/借用与最终回收及运行未验。",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::NewBattleRangeHit_419390"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::NewBattleRangeHit_419390",
+        "source_body_implemented": true,
+        "source_body_changed": true,
+        "runtime_verified": false
+      },
+      "verification_level": "完整176条594B/三分页、13call/十目标/四跳两RET、五CALL/三父及共享等级分支；整CPP仅三个片段，其余源/头/数学和失败保持，不代完整生命周期或运行。",
+      "battle_range_hit": {
+        "spec_id": "BPRH01",
+        "full_original_root_captured": true,
+        "instruction_count": 176,
+        "code_bytes": 594,
+        "read_pages": 3,
+        "outgoing_calls": 13,
+        "actual_direct_inbound_call_count": 5,
+        "inbound_parent_count": 3,
+        "source_body_changed": true,
+        "source_patch_count": 3,
+        "phase16_production_source": true,
+        "same_borrowed_dx_cache_held": true,
+        "full_callee_consumers_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

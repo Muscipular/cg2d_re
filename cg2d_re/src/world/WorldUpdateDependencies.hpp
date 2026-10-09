@@ -744,7 +744,7 @@ void Sub_5198A0(
 // 原 [0x5198F0,0x51991D)：5198D0 的 qsort 回调，仅比较两条记录的首 S32。
 std::int32_t Sub_5198F0(const void* left, const void* right);
 
-// World::Update@0x51C430 的直接目标声明；未实现项只保留 IDA 地址和调用契约。
+// World::Update@0x51C430 的直接目标声明；保留原地址及调用契约，提供者按所属模块实现。
 std::int32_t Sub_45F190();                 // 原 0x45F190。
 std::int32_t Sub_464840();                 // 原 0x464840。
 void RenderChara_521F20();                 // 原 World::RenderChara@0x521F20。

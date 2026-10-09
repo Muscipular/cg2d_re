@@ -7,7 +7,7 @@
 
 namespace cg::platform {
 
-// 原 0x465A30；会改变系统桌面颜色，恢复依赖尚未完成，见 doc/cg2d_window_lifecycle.md。
+// 原465A30：改变系统桌面背景色；原颜色由启动链保存，ShutdownClient_457A40末尾恢复。
 int SetWindowedDesktopColor()
 {
     const INT element = COLOR_BACKGROUND;

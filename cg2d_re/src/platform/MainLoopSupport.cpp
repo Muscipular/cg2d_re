@@ -575,7 +575,7 @@ void RequestRender_457010() noexcept
     gForceRender = 1;
 }
 
-// 原 0x458AE0 的完整平台探测仍未实现；不以固定版本码接通音频初始化。
+// 原458AE0的SDL音频设备探测与DINPUT入口检查，提供者在LegacyAudio.cpp，返回实际探测码。
 std::int32_t Sub_458AE0();
 
 // 原 [0x458DC0,0x458DD5)：先发布完整 EAX32，再作无符号 <=0x500 比较。

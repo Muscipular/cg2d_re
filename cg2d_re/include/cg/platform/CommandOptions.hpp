@@ -67,7 +67,7 @@ extern char* gLegacyRawEnvironment1086030;
 // 原1086008是543F8E生产的拥有型char*表，包含末尾空槽；各地址按x64拓宽。
 extern char** gLegacyEnvironment1086008;
 extern std::uint32_t gLegacyEnvironmentInitialized1087AE8; // 原543F8E末尾写1。
-// 两片段保持原启动次序：环境块生产、argv生产、环境表生产、cinit；完整入口仍待。
+// 旧进程入口保持环境块→argv→环境表→cinit顺序；实际客户端由宿主CRT进入WinMain。
 void CaptureLegacyEnvironment_53DE34();
 void InitializeLegacyEnvironment_543F8E();
 

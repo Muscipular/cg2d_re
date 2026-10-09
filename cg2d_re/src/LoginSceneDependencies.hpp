@@ -8,7 +8,7 @@
 
 namespace cg::login::detail {
 
-// 登录场景控制器尚未实现的真实直接目标；不提供空体或固定返回。
+// 登录场景控制器的真实直接目标与共享接口；提供者分属音频、UI及持久化模块。
 std::int32_t LoadAndPlayBGM(std::uint32_t bgmId);
 std::int32_t Sub_45F100(const void* uiRecord);
 using cg::audio::Sub_52B990;

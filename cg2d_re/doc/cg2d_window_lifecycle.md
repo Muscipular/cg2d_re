@@ -1,5 +1,7 @@
 # 窗口生命周期还原
 
+> 2026-10-09当前源码：桌面背景原色已由StartupCommon.cpp保存，ShutdownClient_457A40末尾调用SetSysColors恢复；旧单项“恢复依赖未接通”属当时状态。仅有源码接线，完整失败/退出及实际恢复未运行验收，见[当前注释核对](../plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009)。
+
 任务：R2.1.3.C。实现仅位于 `src/platform/WindowLifecycle.cpp`，使用既有
 `cg/platform/Startup.hpp`、`cg/platform/LegacyWindow.hpp` 声明，不定义全局。
 未修改共享头、全局定义、CMake 或进度；未运行、编译、测试、提交或下载。

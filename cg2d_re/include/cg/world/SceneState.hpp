@@ -130,7 +130,7 @@ std::int32_t NextRotationValue_455C70();
 // 原 518C20：清唯一相册区后复制 CCA 含 NUL 四字节，返回 4；不执行文件读写。
 std::uint32_t InitializeAlbum_518C20();
 
-// 原 World::Update@0x51C430；完整场景状态消费与分发，场景目标仍为真实未实现依赖。
+// 原 World::Update@0x51C430；场景状态消费与分发，实现在WorldUpdate.cpp，依赖按所属模块接入。
 void Update();
 
 } // namespace cg::world

@@ -57039,7 +57039,8 @@
         "doc/cg2d_build_acceptance_spec.md#audio-table-x87-debug-build",
         "doc/cg2d_client_link_sdl_audio_spec.md#audio-table-x87-source-state",
         "doc/cg2d_startup_flow.md#window-resource-module-source-state-20261009",
-        "doc/cg2d_window_resource_module_evidence.json"
+        "doc/cg2d_window_resource_module_evidence.json",
+        "plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009"
       ]
     },
     {
@@ -57944,7 +57945,8 @@
         "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build",
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
-        "doc/cg2d_heap_malloc_unification_evidence.json"
+        "doc/cg2d_heap_malloc_unification_evidence.json",
+        "plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009"
       ]
     },
     {
@@ -58029,7 +58031,8 @@
         "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state",
         "doc/cg2d_scene_state.md#map-direction-byte-bridge-source-state-20261009",
         "doc/cg2d_map_direction_byte_bridge_evidence.json",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-map-source-state"
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-map-source-state",
+        "plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009"
       ]
     },
     {
@@ -59313,7 +59316,8 @@
         "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state",
         "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
         "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-source-state",
-        "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state"
+        "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state",
+        "plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009"
       ]
     },
     {
@@ -59364,7 +59368,7 @@
       ]
     }
   ],
-  "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。 GQ01由同一汇总器生成development_gap_queue与看板§5；只列定位/语义身份登记差集，不把缺历史定位当源码未实现，不手改队列。 CRI01无独立函数ID的已证代码片段可按原X区间/实际边界绑定；校验身份与证据后另计，不混入缺身份队列，不增加函数分母。 ACP01-A按最新double/std数学许可迁音频6入口CPP；更新现提供者及两限定静态证据，三ASM历史附件仍由固定Git快照核存在；完整门禁/成员/任务状态与MIDI停止范围保持。 ACP01-M将地图13数学/投影入口迁CPP，8现提供者同步，新增两限定I/S，原CI消费点明示std::pow承接；CRT环境仍待，不关闭完整gates/成员/任务。 ACP01-C完成第三ASM源迁移，22接口/70私有机器ABI退役/5非PUBLIC宿主承接，当前数学现提供者与host/mixed处置同步；新增两限定I/S，三ASM/MASM已移除，原身份/成员/完整gates/任务/六closure不闭合。 HMU01按malloc方向和工程委托统一通用全部模式CRT；9实际提供者/12旧池退休/8类型/10槽，25语义当前提供者与host/adapted处置对齐，3限定静态证据；完整门禁/成员/任务/六closure保持。",
+  "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。 GQ01由同一汇总器生成development_gap_queue与看板§5；只列定位/语义身份登记差集，不把缺历史定位当源码未实现，不手改队列。 CRI01无独立函数ID的已证代码片段可按原X区间/实际边界绑定；校验身份与证据后另计，不混入缺身份队列，不增加函数分母。 ACP01-A按最新double/std数学许可迁音频6入口CPP；更新现提供者及两限定静态证据，三ASM历史附件仍由固定Git快照核存在；完整门禁/成员/任务状态与MIDI停止范围保持。 ACP01-M将地图13数学/投影入口迁CPP，8现提供者同步，新增两限定I/S，原CI消费点明示std::pow承接；CRT环境仍待，不关闭完整gates/成员/任务。 ACP01-C完成第三ASM源迁移，22接口/70私有机器ABI退役/5非PUBLIC宿主承接，当前数学现提供者与host/mixed处置同步；新增两限定I/S，三ASM/MASM已移除，原身份/成员/完整gates/任务/六closure不闭合。 HMU01按malloc方向和工程委托统一通用全部模式CRT；9实际提供者/12旧池退休/8类型/10槽，25语义当前提供者与host/adapted处置对齐，3限定静态证据；完整门禁/成员/任务/六closure保持。 2026-10-09 CAC17：按用户要求更新七源/头18处过时注释；代码/声明/字段/调用保持，零新增原身份/语义/处置/软件证据，完整门禁/任务关闭/成员/六closure不变；见plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009。",
   "function_dispositions": [
     {
       "disposition": "adapted",

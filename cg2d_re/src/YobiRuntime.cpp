@@ -386,15 +386,15 @@ struct BattleActorPayload {
     std::int32_t fpUsed1008;
     std::int32_t targetPosition100C; // 4242B0三方序列写入原目标。
     std::int32_t reactionImage1010;
-    std::int32_t image1014; // 429A05写51B740转换后的图号，40C480消费；完整生产父链仍待落位。
+    std::int32_t image1014; // 427470装备消息写51B740转换后的图号，40C480消费。
     std::int32_t value1018;
     std::int32_t value101C; // 40CCB0音效编号；427470技能98模式6已写入，424620已接，其他生产沿对应父合同。
     std::int32_t value1020; // 40CCE0音效编号；与1018/101C独立，不是地址。
     std::int32_t value1024;
-    std::int32_t image1028; // 41CD00的type34图号及音效/坐标重读源，生产仍待上游。
+    std::int32_t image1028; // 427470技能链生产图号；41CD00的type34用作图号及音效/坐标重读源。
     std::int32_t image102C; // 426FC0按技术索引和目标阵营选表。
     std::int32_t value1030; // 41CD00的type18按2000/3500选图，非指针。
-    std::int32_t value1034; // 4107C0/410B00显示及数值类型，427470生产父链尚未落位。
+    std::int32_t value1034; // 427470状态/技能链写入，4107C0/410B00消费的显示及数值类型。
     std::int32_t value1038;
     std::int32_t castSkill103C;
     std::int32_t castLevel1040; // 与1044的技术索引独立。
@@ -422,10 +422,10 @@ struct BattleActorPayload {
     YobiAction* rider13C8; // 4222B0保存4221F0创建的非拥有引用，移除时MarkDeath再清槽。
     std::int32_t debuffState13CC; // 41F660分配前写2，失败不回滚。
     std::int32_t debuffType13D0; // 41F660六图号对应类型1至6。
-    std::int32_t value13D8; // 41FE00按完整W32与3比较；其余布局及生产仍待父链。
-    std::int32_t value13DC; // 141/143状态图号选择；技能114已补生产，完整427470父链仍待。
-    std::int32_t value13E0; // 143的13DC==7按S32索引查54D4C0；完整生产仍待。
-    std::int32_t image13E4; // 41CD00的type43从重取的源载荷读取，生产仍待上游。
+    std::int32_t value13D8; // 427470状态/技能链生产；41FE00按完整W32与3比较。
+    std::int32_t value13DC; // 427470状态/技能链生产141/143状态图号选择值。
+    std::int32_t value13E0; // 427470技能链生产索引；143的13DC==7按S32查54D4C0。
+    std::int32_t image13E4; // 427470技能链生产图号；41CD00的type43从重取的源载荷读取。
 };
 static_assert(sizeof(BattleEntryEffectRecord) == 16);
 static_assert(std::is_trivially_copyable_v<BattleActorPayload>);
@@ -14249,7 +14249,7 @@ namespace {
     payload->messageValueA4 = gBattleMMessageValue59FA14;
 }
 
-// 427500..427732失活位路径；总427470尚未闭合，本段不单独绑定回调。
+// 427500..427732失活位路径；由427470入口的PrepareBattleMExecution调用，不单独绑定回调。
 [[maybe_unused]] void DrainInactiveBattleMEvent(YobiAction* const scene, BattleScenePayload* const payload)
 {
     using namespace world::detail;
@@ -14492,7 +14492,7 @@ namespace {
 
 namespace {
 
-// 六类活动数据消息；父入口负责恢复/回存，本段不充当未完成的427470总回调。
+// 六类活动数据消息；由427470总入口分派，父入口负责恢复及回存，不单独绑定回调。
 [[maybe_unused]] void ProcessBattleMDataHeader(
     YobiAction* const scene, BattleScenePayload* const payload, const BattleMDataHeader kind)
 {
@@ -15344,7 +15344,7 @@ namespace {
 
 namespace {
 
-// 原427470的CMB=8；原局部图号跨本次循环保留，四个子状态仍待总入口接入。
+// 原427470的CMB=8；总入口phase8调用，原局部图号跨本次循环保留，处理四个子状态。
 [[maybe_unused]] void ProcessBattleMComboHeader(
     YobiAction* const scene, BattleScenePayload* const payload)
 {
@@ -16084,7 +16084,7 @@ namespace {
 
 namespace {
 
-// 原427470/SKL的非零子状态；技能生产仍待，不能作为完整消息回调注册。
+// 原427470/SKL的非零子状态；由ProcessBattleMSkillHeader调用，不单独注册消息回调。
 [[maybe_unused]] void ProcessBattleMSkillWaitingState(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t subState)
 {
@@ -17862,7 +17862,7 @@ void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleScenePayl
     CompleteBattleMSkill98Targets(scene, payload);
 }
 
-// SKL技能98完整状态0内部分派；尚未注册为不完整427470的总入口。
+// SKL技能98的状态0内部分派；由ProcessBattleMSkillHeader调用，427470总入口统一回存。
 [[maybe_unused]] void ProcessBattleMSkill98(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {

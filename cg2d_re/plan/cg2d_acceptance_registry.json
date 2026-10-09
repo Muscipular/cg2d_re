@@ -3067,7 +3067,11 @@
         "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-baseline",
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-baseline",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-baseline",
-        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-baseline"
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-baseline",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
       ],
       "original_inventory_ids": [
         "F:00077160",
@@ -3125,7 +3129,15 @@
         "F:00104460",
         "F:001044C0",
         "F:00104AF0",
-        "F:00104A50"
+        "F:00104A50",
+        "F:000D0EB0",
+        "F:000D04A0",
+        "F:00099C30",
+        "F:00083150",
+        "F:0007B6C0",
+        "F:0007B9B0",
+        "F:0007C240",
+        "F:0009B670"
       ],
       "closure_task_ids": [
         "U04",
@@ -3159,9 +3171,14 @@
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-decision",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
         "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision",
-        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
       ],
       "blockers": [
+        "CAB30八已有窗口绘制身份补到本域64成员，17点20宽度警告已修；19原相关调用332条955B/消费字段、整CPP差集及Debug有据。窗口仍23/其它未重编44项已见警告，枚举/旧99路由/所有父-callee/正常寿命/ABI/画面与运行未验。",
         "基线成员及门禁证据尚待逐项归档",
         "本组UI/输入5provider已接统一模块路径/四即时宿主登记与固定选择器退出；全应用序、完整成员EH/数组SEH/快速退出/SDK和运行仍未闭，整表接通须同小步移除四模块调用",
         "LSP01五旧共享正文生产/指针发布与旧55同源消费已证，503AB0取样已修；其余100完整父/全部owner/间接alias/旧99表外路由、生成ABI/画面/运行未闭，不以局部生产源码关闭公共窗口或U07",
@@ -3199,7 +3216,11 @@
         "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-state",
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-source-state",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-source-state",
-        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state"
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
       ]
     },
     {
@@ -3634,7 +3655,11 @@
         "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
         "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
         "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
-        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-baseline"
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-baseline",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -4028,9 +4053,14 @@
         "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
         "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision",
         "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision",
-        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
       ],
       "blockers": [
+        "CAB30两个既有宠物技能绘制入口仅明确既有U8图层消费，原equivalent处置/原成员保持；正常成本/取样/图号/音效及所有其它正文不变，原完整门禁与寿命/ABI/运行不由本步外推。",
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
         "音频传递依赖仍暂停；完整战斗原新对照与V04/V05未验，运行受执行限制",
         "BCS01两旧Clone/Copy增量及三既有残影/基础角色入口纳管，九字组与三取样差异已修；同五F跨YOBI不双计，全部战斗状态/目标和数据资源生产、浅别名owner重进退出/借用失效、SDK/ABI/PC53/时钟RNG/画面运行未验",
@@ -4258,7 +4288,11 @@
         "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
         "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
         "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
-        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state"
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-source-state",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
       ]
     },
     {
@@ -55577,6 +55611,87 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-WINDOW-DRAW-WIDTH-FUNC-UIRUNTIME-I-20261009",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原4771B0 S8颜色、456780 W16坐标、521B10/520970 W8图层；19相关CALL邻窗332条955B，只本次字段消费",
+      "implementation_reference": "Git固定命名快照 cg2d-re-window-draw-width-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build",
+        "src/ui/WindowRuntime.cpp"
+      ],
+      "observation": "仅17正常源码消费点/局部类型的实际修改，非整个窗口/战斗实现",
+      "expected": "CAB30仅十已有父17源码点的20窄消费：两priceColor局部S8且原0/1/4/5常量/比较保持；三文字点六坐标显式S16；十二图形点graphicLayer显式U8。图层生产/父参数仍S32，公共接口/队列/布局/owner、原值来源/取样/数值/图号/描述符/格式器/音效/调用和返回保持，无新保护/补零/钳制/异常模拟/工具。19相关原调用邻窗332条955B及四消费者局部有据，非19变化点或完整原父/上位寄存器/机器ABI、正常寿命/画面/运行；旧99路由未闭。",
+      "actual": "一CPP仅明确两S8局部/六S16坐标/十二U8图层，整源与精确预期一致；Debug0错误/20 C4244消除，仍23窗口加44未重编已见警告，8022528B部署/旧版备份；未运行",
+      "differences": [
+        {
+          "description": "局部类型/显式cast仅明确当前原字段消费，公共接口/图层生产W32保持；不证明原上位寄存器/完整ABI",
+          "decision_ref": "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-WINDOW-DRAW-WIDTH-FUNC-UIRUNTIME-S-20261009",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原4771B0 S8颜色、456780 W16坐标、521B10/520970 W8图层；19相关CALL邻窗332条955B，只本次字段消费",
+      "implementation_reference": "Git固定命名快照 cg2d-re-window-draw-width-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build",
+        "src/ui/WindowRuntime.cpp"
+      ],
+      "observation": "仅正常字段宽度、有限原窗、完整源差集与编译诊断，非全原父/上位寄存器/ABI/正常寿命或运行门禁",
+      "expected": "CAB30仅十已有父17源码点的20窄消费：两priceColor局部S8且原0/1/4/5常量/比较保持；三文字点六坐标显式S16；十二图形点graphicLayer显式U8。图层生产/父参数仍S32，公共接口/队列/布局/owner、原值来源/取样/数值/图号/描述符/格式器/音效/调用和返回保持，无新保护/补零/钳制/异常模拟/工具。19相关原调用邻窗332条955B及四消费者局部有据，非19变化点或完整原父/上位寄存器/机器ABI、正常寿命/画面/运行；旧99路由未闭。",
+      "actual": "一CPP仅明确两S8局部/六S16坐标/十二U8图层，整源与精确预期一致；Debug0错误/20 C4244消除，仍23窗口加44未重编已见警告，8022528B部署/旧版备份；未运行",
+      "differences": [
+        {
+          "description": "局部类型/显式cast仅明确当前原字段消费，公共接口/图层生产W32保持；不证明原上位寄存器/完整ABI",
+          "decision_ref": "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
+    },
+    {
+      "id": "E-WINDOW-DRAW-WIDTH-FUNC-BATTLE-S-20261009",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原4771B0 S8颜色、456780 W16坐标、521B10/520970 W8图层；19相关CALL邻窗332条955B，只本次字段消费",
+      "implementation_reference": "Git固定命名快照 cg2d-re-window-draw-width-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build",
+        "src/ui/WindowRuntime.cpp"
+      ],
+      "observation": "仅正常字段宽度、有限原窗、完整源差集与编译诊断，非全原父/上位寄存器/ABI/正常寿命或运行门禁",
+      "expected": "CAB30仅十已有父17源码点的20窄消费：两priceColor局部S8且原0/1/4/5常量/比较保持；三文字点六坐标显式S16；十二图形点graphicLayer显式U8。图层生产/父参数仍S32，公共接口/队列/布局/owner、原值来源/取样/数值/图号/描述符/格式器/音效/调用和返回保持，无新保护/补零/钳制/异常模拟/工具。19相关原调用邻窗332条955B及四消费者局部有据，非19变化点或完整原父/上位寄存器/机器ABI、正常寿命/画面/运行；旧99路由未闭。",
+      "actual": "一CPP仅明确两S8局部/六S16坐标/十二U8图层，整源与精确预期一致；Debug0错误/20 C4244消除，仍23窗口加44未重编已见警告，8022528B部署/旧版备份；未运行",
+      "differences": [
+        {
+          "description": "局部类型/显式cast仅明确当前原字段消费，公共接口/图层生产W32保持；不证明原上位寄存器/完整ABI",
+          "decision_ref": "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
     }
   ],
   "task_acceptance": [
@@ -57244,7 +57359,11 @@
         "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
         "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
         "doc/cg2d_panel_local_value_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
       ]
     },
     {
@@ -57409,7 +57528,11 @@
         "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
         "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
         "doc/cg2d_panel_local_value_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
       ]
     },
     {
@@ -65594,9 +65717,18 @@
         "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-decision",
         "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-acceptance",
         "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
-        "doc/cg2d_battle_pet_skill_selection_sampling_evidence.json"
+        "doc/cg2d_battle_pet_skill_selection_sampling_evidence.json",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
       ],
-      "boundary": "两活宠分别held record和pair，完整descriptor零初始化/color W32/byte13=4；nameNUL直接return。ClearTextTail→空DrawText→fresh位置/映射/action/FP cost→原401F80单右Read→flags禁用色7覆缺FP色6→nameDrawText→fresh record.fp到同20B %3d/既有原格式接口→数字绘制→三图表按S8visual/descriptor图，原坐标/层/颜色/返回保持。 六完整654条2060B/十一页，39物理CALL（36直接/13callee及三间接），40普通jump/九RET；五体13片段恢复skip loop初尾W32界先row++/入口hover缓存、两选择回调四原点击低W8/各尾一次W8 visual cache、八坐标W16按elementY-X/windowY-X且2B memcpy、三个父接既有cost-first FP桥。普通值/每次FP单Read与计数RNG同旧源，不称并发/数值/异常故障。原三consumer参数/普通fresh callback与骑宠held callback差别、null也关闭/声51/返回1、mask禁用声55/FP不足无声、原W32状态/正常S32/名称和费用%3d/20B及数字-图序/34B旧tooltip/三图表保持。正确GreaterEqual401D70四条15B单左Read和既有Yobi桥纳管，无新函数/接口/依赖。跳过元素8原32B/实际561C94与列表两原10槽callback发布有据；mode5/6可见入口/原其它mode不写position保，不新增fallback/故障模拟。28入向25代码/三数据/20有父只登记，原数据xref不等callback字段/被指令加载不等实际写位；两既有983/984格式台账保业务字段/历史全文，只当前source状态关系/五新引用和完整子基线更新。四新正常F与六equivalent、BATTLE236枚举open；语义1558/有效1551、关联1669/3680（45.35%）/分类684/E790。R7 264/3061余2797、无F/有效区间各7/差队列172和43待归属及完整门禁保。全部技能/pet/FP生产、全部consumer/窗口/owner寿命、SDK/机器ABI/画面运行/R8未验，明文原格式与音频暂停、不构建测试运行摘要/RPLAN.24保。"
+      "boundary": "两活宠分别held record和pair，完整descriptor零初始化/color W32/byte13=4；nameNUL直接return。ClearTextTail→空DrawText→fresh位置/映射/action/FP cost→原401F80单右Read→flags禁用色7覆缺FP色6→nameDrawText→fresh record.fp到同20B %3d/既有原格式接口→数字绘制→三图表按S8visual/descriptor图，原坐标/层/颜色/返回保持。 六完整654条2060B/十一页，39物理CALL（36直接/13callee及三间接），40普通jump/九RET；五体13片段恢复skip loop初尾W32界先row++/入口hover缓存、两选择回调四原点击低W8/各尾一次W8 visual cache、八坐标W16按elementY-X/windowY-X且2B memcpy、三个父接既有cost-first FP桥。普通值/每次FP单Read与计数RNG同旧源，不称并发/数值/异常故障。原三consumer参数/普通fresh callback与骑宠held callback差别、null也关闭/声51/返回1、mask禁用声55/FP不足无声、原W32状态/正常S32/名称和费用%3d/20B及数字-图序/34B旧tooltip/三图表保持。正确GreaterEqual401D70四条15B单左Read和既有Yobi桥纳管，无新函数/接口/依赖。跳过元素8原32B/实际561C94与列表两原10槽callback发布有据；mode5/6可见入口/原其它mode不写position保，不新增fallback/故障模拟。28入向25代码/三数据/20有父只登记，原数据xref不等callback字段/被指令加载不等实际写位；两既有983/984格式台账保业务字段/历史全文，只当前source状态关系/五新引用和完整子基线更新。四新正常F与六equivalent、BATTLE236枚举open；语义1558/有效1551、关联1669/3680（45.35%）/分类684/E790。R7 264/3061余2797、无F/有效区间各7/差队列172和43待归属及完整门禁保。全部技能/pet/FP生产、全部consumer/窗口/owner寿命、SDK/机器ABI/画面运行/R8未验，明文原格式与音频暂停、不构建测试运行摘要/RPLAN.24保。",
+      "latest_window_draw_width": {
+        "step": "CAB30",
+        "boundary": "CAB30仅十已有父17源码点的20窄消费：两priceColor局部S8且原0/1/4/5常量/比较保持；三文字点六坐标显式S16；十二图形点graphicLayer显式U8。图层生产/父参数仍S32，公共接口/队列/布局/owner、原值来源/取样/数值/图号/描述符/格式器/音效/调用和返回保持，无新保护/补零/钳制/异常模拟/工具。19相关原调用邻窗332条955B及四消费者局部有据，非19变化点或完整原父/上位寄存器/机器ABI、正常寿命/画面/运行；旧99路由未闭。",
+        "existing_disposition_preserved": true
+      }
     },
     {
       "inventory_id": "F:0007CE70",
@@ -65607,9 +65739,18 @@
         "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-decision",
         "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-acceptance",
         "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
-        "doc/cg2d_battle_pet_skill_selection_sampling_evidence.json"
+        "doc/cg2d_battle_pet_skill_selection_sampling_evidence.json",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
       ],
-      "boundary": "入口held骑宠/pair/record，descriptor初始化顺序和nameNUL保持；同空字/颜色/名称→fresh费用%3d/20B→数字→图序，位置不映射；原401F80桥以同cost/action单读，表3B5B7/8/9及S8visual不新钳制。 六完整654条2060B/十一页，39物理CALL（36直接/13callee及三间接），40普通jump/九RET；五体13片段恢复skip loop初尾W32界先row++/入口hover缓存、两选择回调四原点击低W8/各尾一次W8 visual cache、八坐标W16按elementY-X/windowY-X且2B memcpy、三个父接既有cost-first FP桥。普通值/每次FP单Read与计数RNG同旧源，不称并发/数值/异常故障。原三consumer参数/普通fresh callback与骑宠held callback差别、null也关闭/声51/返回1、mask禁用声55/FP不足无声、原W32状态/正常S32/名称和费用%3d/20B及数字-图序/34B旧tooltip/三图表保持。正确GreaterEqual401D70四条15B单左Read和既有Yobi桥纳管，无新函数/接口/依赖。跳过元素8原32B/实际561C94与列表两原10槽callback发布有据；mode5/6可见入口/原其它mode不写position保，不新增fallback/故障模拟。28入向25代码/三数据/20有父只登记，原数据xref不等callback字段/被指令加载不等实际写位；两既有983/984格式台账保业务字段/历史全文，只当前source状态关系/五新引用和完整子基线更新。四新正常F与六equivalent、BATTLE236枚举open；语义1558/有效1551、关联1669/3680（45.35%）/分类684/E790。R7 264/3061余2797、无F/有效区间各7/差队列172和43待归属及完整门禁保。全部技能/pet/FP生产、全部consumer/窗口/owner寿命、SDK/机器ABI/画面运行/R8未验，明文原格式与音频暂停、不构建测试运行摘要/RPLAN.24保。"
+      "boundary": "入口held骑宠/pair/record，descriptor初始化顺序和nameNUL保持；同空字/颜色/名称→fresh费用%3d/20B→数字→图序，位置不映射；原401F80桥以同cost/action单读，表3B5B7/8/9及S8visual不新钳制。 六完整654条2060B/十一页，39物理CALL（36直接/13callee及三间接），40普通jump/九RET；五体13片段恢复skip loop初尾W32界先row++/入口hover缓存、两选择回调四原点击低W8/各尾一次W8 visual cache、八坐标W16按elementY-X/windowY-X且2B memcpy、三个父接既有cost-first FP桥。普通值/每次FP单Read与计数RNG同旧源，不称并发/数值/异常故障。原三consumer参数/普通fresh callback与骑宠held callback差别、null也关闭/声51/返回1、mask禁用声55/FP不足无声、原W32状态/正常S32/名称和费用%3d/20B及数字-图序/34B旧tooltip/三图表保持。正确GreaterEqual401D70四条15B单左Read和既有Yobi桥纳管，无新函数/接口/依赖。跳过元素8原32B/实际561C94与列表两原10槽callback发布有据；mode5/6可见入口/原其它mode不写position保，不新增fallback/故障模拟。28入向25代码/三数据/20有父只登记，原数据xref不等callback字段/被指令加载不等实际写位；两既有983/984格式台账保业务字段/历史全文，只当前source状态关系/五新引用和完整子基线更新。四新正常F与六equivalent、BATTLE236枚举open；语义1558/有效1551、关联1669/3680（45.35%）/分类684/E790。R7 264/3061余2797、无F/有效区间各7/差队列172和43待归属及完整门禁保。全部技能/pet/FP生产、全部consumer/窗口/owner寿命、SDK/机器ABI/画面运行/R8未验，明文原格式与音频暂停、不构建测试运行摘要/RPLAN.24保。",
+      "latest_window_draw_width": {
+        "step": "CAB30",
+        "boundary": "CAB30仅十已有父17源码点的20窄消费：两priceColor局部S8且原0/1/4/5常量/比较保持；三文字点六坐标显式S16；十二图形点graphicLayer显式U8。图层生产/父参数仍S32，公共接口/队列/布局/owner、原值来源/取样/数值/图号/描述符/格式器/音效/调用和返回保持，无新保护/补零/钳制/异常模拟/工具。19相关原调用邻窗332条955B及四消费者局部有据，非19变化点或完整原父/上位寄存器/机器ABI、正常寿命/画面/运行；旧99路由未闭。",
+        "existing_disposition_preserved": true
+      }
     },
     {
       "inventory_id": "F:00001D70",
@@ -70691,6 +70832,102 @@
         "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
       ],
       "boundary": "CAB28只撤独立未初始化行列及命中赋值，扫描后由最终hovered还原row=(hovered-8)/5、column=(hovered-8)%5。保四行五列/每行首命中后外层继续、used/gift独立索引及后行unused保较早有效索引、原共享坐标消费与音效/调用/返回。坐标用最终hovered，原门禁下只能8..27；未命中仅未消费算术值，无补零/额外门禁/钳制/异常模拟。四扫描210条646B为本次范围，不代全父/callee/旧表路由/正常寿命/ABI/画面运行。"
+    },
+    {
+      "inventory_id": "F:000D0EB0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
+      ],
+      "boundary": "CAB30仅十已有父17源码点的20窄消费：两priceColor局部S8且原0/1/4/5常量/比较保持；三文字点六坐标显式S16；十二图形点graphicLayer显式U8。图层生产/父参数仍S32，公共接口/队列/布局/owner、原值来源/取样/数值/图号/描述符/格式器/音效/调用和返回保持，无新保护/补零/钳制/异常模拟/工具。19相关原调用邻窗332条955B及四消费者局部有据，非19变化点或完整原父/上位寄存器/机器ABI、正常寿命/画面/运行；旧99路由未闭。"
+    },
+    {
+      "inventory_id": "F:000D04A0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
+      ],
+      "boundary": "CAB30仅十已有父17源码点的20窄消费：两priceColor局部S8且原0/1/4/5常量/比较保持；三文字点六坐标显式S16；十二图形点graphicLayer显式U8。图层生产/父参数仍S32，公共接口/队列/布局/owner、原值来源/取样/数值/图号/描述符/格式器/音效/调用和返回保持，无新保护/补零/钳制/异常模拟/工具。19相关原调用邻窗332条955B及四消费者局部有据，非19变化点或完整原父/上位寄存器/机器ABI、正常寿命/画面/运行；旧99路由未闭。"
+    },
+    {
+      "inventory_id": "F:00099C30",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
+      ],
+      "boundary": "CAB30仅十已有父17源码点的20窄消费：两priceColor局部S8且原0/1/4/5常量/比较保持；三文字点六坐标显式S16；十二图形点graphicLayer显式U8。图层生产/父参数仍S32，公共接口/队列/布局/owner、原值来源/取样/数值/图号/描述符/格式器/音效/调用和返回保持，无新保护/补零/钳制/异常模拟/工具。19相关原调用邻窗332条955B及四消费者局部有据，非19变化点或完整原父/上位寄存器/机器ABI、正常寿命/画面/运行；旧99路由未闭。"
+    },
+    {
+      "inventory_id": "F:00083150",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
+      ],
+      "boundary": "CAB30仅十已有父17源码点的20窄消费：两priceColor局部S8且原0/1/4/5常量/比较保持；三文字点六坐标显式S16；十二图形点graphicLayer显式U8。图层生产/父参数仍S32，公共接口/队列/布局/owner、原值来源/取样/数值/图号/描述符/格式器/音效/调用和返回保持，无新保护/补零/钳制/异常模拟/工具。19相关原调用邻窗332条955B及四消费者局部有据，非19变化点或完整原父/上位寄存器/机器ABI、正常寿命/画面/运行；旧99路由未闭。"
+    },
+    {
+      "inventory_id": "F:0007B6C0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
+      ],
+      "boundary": "CAB30仅十已有父17源码点的20窄消费：两priceColor局部S8且原0/1/4/5常量/比较保持；三文字点六坐标显式S16；十二图形点graphicLayer显式U8。图层生产/父参数仍S32，公共接口/队列/布局/owner、原值来源/取样/数值/图号/描述符/格式器/音效/调用和返回保持，无新保护/补零/钳制/异常模拟/工具。19相关原调用邻窗332条955B及四消费者局部有据，非19变化点或完整原父/上位寄存器/机器ABI、正常寿命/画面/运行；旧99路由未闭。"
+    },
+    {
+      "inventory_id": "F:0007B9B0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
+      ],
+      "boundary": "CAB30仅十已有父17源码点的20窄消费：两priceColor局部S8且原0/1/4/5常量/比较保持；三文字点六坐标显式S16；十二图形点graphicLayer显式U8。图层生产/父参数仍S32，公共接口/队列/布局/owner、原值来源/取样/数值/图号/描述符/格式器/音效/调用和返回保持，无新保护/补零/钳制/异常模拟/工具。19相关原调用邻窗332条955B及四消费者局部有据，非19变化点或完整原父/上位寄存器/机器ABI、正常寿命/画面/运行；旧99路由未闭。"
+    },
+    {
+      "inventory_id": "F:0007C240",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
+      ],
+      "boundary": "CAB30仅十已有父17源码点的20窄消费：两priceColor局部S8且原0/1/4/5常量/比较保持；三文字点六坐标显式S16；十二图形点graphicLayer显式U8。图层生产/父参数仍S32，公共接口/队列/布局/owner、原值来源/取样/数值/图号/描述符/格式器/音效/调用和返回保持，无新保护/补零/钳制/异常模拟/工具。19相关原调用邻窗332条955B及四消费者局部有据，非19变化点或完整原父/上位寄存器/机器ABI、正常寿命/画面/运行；旧99路由未闭。"
+    },
+    {
+      "inventory_id": "F:0009B670",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
+      ],
+      "boundary": "CAB30仅十已有父17源码点的20窄消费：两priceColor局部S8且原0/1/4/5常量/比较保持；三文字点六坐标显式S16；十二图形点graphicLayer显式U8。图层生产/父参数仍S32，公共接口/队列/布局/owner、原值来源/取样/数值/图号/描述符/格式器/音效/调用和返回保持，无新保护/补零/钳制/异常模拟/工具。19相关原调用邻窗332条955B及四消费者局部有据，非19变化点或完整原父/上位寄存器/机器ABI、正常寿命/画面/运行；旧99路由未闭。"
     }
   ],
   "auxiliary_dispositions": [
@@ -100508,14 +100745,14 @@
     }
   ],
   "build_validation": {
-    "step": "CAB29",
+    "step": "CAB30",
     "recorded_on": "2026-10-09",
     "configuration": "Debug",
-    "source_snapshot": "cg2d-re-login-receive-diagnostics-20261009",
+    "source_snapshot": "cg2d-re-window-draw-width-20261009",
     "configure_performed": false,
     "configure_exit_code": 0,
     "build_exit_code": 0,
-    "incremental_warning_count": 87,
+    "incremental_warning_count": 23,
     "audio_provider_diagnostic_count": 0,
     "static_libraries_exit_code": 0,
     "client_link_exit_code": 0,
@@ -100526,7 +100763,7 @@
     "whole_project_accepted": false,
     "converter_build_performed": false,
     "converter_last_build_step": "CAB15",
-    "note": "CAB29只登录接收/派发两阶段事件和字段名称：正recv原reset/Append后记录S32字节/入队返回；完整LF派发持原返回、原全部清缓冲/表后按派发前71..80资格记RESULT。两个64B最大51/34B含NUL，无身份/头/包或正文，原-1含三个尾命令匹配，不参与决策/不当未知。额外FILE I/O/时延具名差异，原相对调用/状态/失败/队列/明文LF与108派发保持。JFVf第二/第三仅名称password/account、副本passwordCopy，三整文件与HEAD+明确预期一致，实际类型/值来源/位置/容量-转义-fresh输出追加/末发送完全保持；服务器源码只读，不证明运行二进制身份。BWZ01现Debug三库/客户端0错误、其它87警告（原86加MainLoopSupport GetVersionExA新重编暴露一项），新诊断/NetworkRuntime/已修LegacyUiRecord0，不抑制或关闭其余项。MAP实际登录/接收/派发/whV存在，8022528B游戏新版部署并备份旧同长版，只核复制/长度，不摘要/内容比较；未运行客户端/试包/测试/算法/工具、重生成WAV，离线最近通过仍CAB15。IP2/全父-callee/SDK失败/正常寿命/机器ABI及整体SPEC未验；两新格式不增原1023调用/241字面量或原成员数量。",
+    "note": "CAB30仅WindowRuntime十父17源码点：两priceColor改S8且原0/1/4/5常量不变，三文字点六坐标显式S16、十二图形点graphicLayer显式U8；生产/父参数仍S32，公共接口/队列布局/值来源/取样/正常数值/图号/描述符/格式器/音效/调用与返回及其他全文保持，无默认值/保护/钳制/异常模拟。原19相关CALL邻窗332条955B及四消费者局部字段读取/七原字节样本有据，实际图形入口521B10，520940角度候选弃用，非19修改点/完整父或机器ABI验收。CAA01现Debug只重编本CPP、三库/客户端0错误，20 C4244消除；仍23其它窗口警告、此前其它未重编已见44项保持，已见总67，不称全工程无警告或所有剩余已分类。MAP十父/4771B0/520970/456780存在，8022528B游戏新版部署并备份旧同长版，只有复制/长度；无摘要/内容比对、客户端/试包/测试/算法/工具或重生成WAV，离线最近通过仍CAB15。旧99路由、全父-callee/上位寄存器/机器ABI/正常寿命/资源/画面/音效及IP2真实互通与整体SPEC未验。",
     "evidence_refs": [
       "doc/cg2d_build_acceptance_spec.md",
       "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
@@ -100602,7 +100839,11 @@
       "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-decision",
       "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-source-state",
       "doc/cg2d_login_receive_diagnostics_evidence.json",
-      "doc/cg2d_build_acceptance_spec.md#login-receive-diagnostics-debug-build"
+      "doc/cg2d_build_acceptance_spec.md#login-receive-diagnostics-debug-build",
+      "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+      "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+      "doc/cg2d_window_draw_width_evidence.json",
+      "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
     ]
   }
 }

@@ -162,3 +162,10 @@
 沿BWZ01既有客户端连接授权，现Debug编译三文件及头文件传播的必要依赖，三库/客户端返回0，无再配置，0错误、87其它源警告：LoginState2/YobiRuntime41/WindowRuntime43/MainLoopSupport1（GetVersionExA弃用新重编暴露）；NetworkRuntime/新诊断及已修LegacyUiRecord为0，不关闭或抑制其余项。日志build/windows-msvc-x64/build-login-receive-diagnostics-20261009.log，MAP含512800/508360/507DF0/512E40/5081E0及whV，仍无离线合成/转换代码。
 
 8022528B新版已复制游戏目录、旧同长版备份cg2d_re_client.exe.before-login-receive-diagnostics-20261009，仅核复制/长度。[接收诊断](cg2d_network_compatibility_spec.md#login-receive-diagnostics-source-state)与[证据](cg2d_login_receive_diagnostics_evidence.json)只证明额外日志和名称纠正、原字段/决策/明文保持。未运行客户端/试包/测试/算法/工具、重生成WAV或摘要；运行服务端身份/IP2互通、完整父-callee/正常寿命/机器ABI、声音与画面及整体仍未验，离线最近通过仍CAB15。
+
+<a id="window-draw-width-debug-build"></a>
+## CAB30 窗口正常绘制宽度当前编译（2026-10-09）
+
+沿CAA01既有客户端/按钮音频所需窗口承载，现Debug仅重编WindowRuntime.cpp并链接三库/真实客户端，返回0，无再配置，0错误。20 C4244已消除，仍23其它窗口诊断（两C4456、二十C4701、一C4703），此前未重编其它文件44项不核销；已见总67，不称全工程无警告。日志build/windows-msvc-x64/build-window-draw-width-20261009.log，MAP十父及4771B0/520970/456780存在，仍无离线合成/转换代码。
+
+8022528B新版已复制游戏目录，旧同长版备份cg2d_re_client.exe.before-window-draw-width-20261009，仅核复制/长度。[正常消费宽度](cg2d_window_routing_sampling_spec.md#window-draw-width-source-state)与[有限原证/实现](cg2d_window_draw_width_evidence.json)不代全父-callee/旧99路由、正常寿命/资源/机器ABI/声音/画面或IP2实际互通。未运行客户端/试包/测试/算法/工具、重生成WAV或摘要；离线最近通过仍CAB15，整体未验。

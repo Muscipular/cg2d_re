@@ -118169,7 +118169,11 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/shared_67_68.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
       ],
       "boundary": "原mode/own/页行/used选择固定PetRuntimeRecord借用，十三信息和两价格分支沿32B未清buffer接真实格式；%s借用原名称/种族，%4d两次CryptInt，%3d各S32偏移和%d两个价格owner保持。格式后价格仍重新取页和金额，各次绘制/数值宽度/分支/颜色/选中/详情/返回正文逐字不变，不新增边界策略或改既有回调槽。仅格式依赖差异，不据此验收完整父、67/68生产/表路由/CRT或运行。",
       "original_incoming": [],
@@ -118432,7 +118436,18 @@
           "source_width": "S32"
         }
       ],
-      "verification_level": "原父658条统计，仅十五格式调用/参数与后邻窗255条读取，余403和已过本体不重验；四原含NUL格式/十五一一对应表达式、S32/借用源/32B缓冲、格式后重取及整份源限定十五callee静态核对；原直接入向0，不把数据/回调算普通call；未构建或执行"
+      "verification_level": "原父658条统计，仅十五格式调用/参数与后邻窗255条读取，余403和已过本体不重验；四原含NUL格式/十五一一对应表达式、S32/借用源/32B缓冲、格式后重取及整份源限定十五callee静态核对；原直接入向0，不把数据/回调算普通call；未构建或执行",
+      "latest_window_draw_width": {
+        "step": "CAB30",
+        "source_snapshot": "cg2d-re-window-draw-width-20261009",
+        "source": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4D0EB0",
+        "boundary": "CAB30仅十已有父17源码点的20窄消费：两priceColor局部S8且原0/1/4/5常量/比较保持；三文字点六坐标显式S16；十二图形点graphicLayer显式U8。图层生产/父参数仍S32，公共接口/队列/布局/owner、原值来源/取样/数值/图号/描述符/格式器/音效/调用和返回保持，无新保护/补零/钳制/异常模拟/工具。19相关原调用邻窗332条955B及四消费者局部有据，非19变化点或完整原父/上位寄存器/机器ABI、正常寿命/画面/运行；旧99路由未闭。",
+        "only_explicit_normal_consumption": true,
+        "whole_cpp_head_plus_expected_exact": true,
+        "client_link_verified": true,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x4D0A80",
@@ -118949,7 +118964,11 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/shared_67_68.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
       ],
       "boundary": "原20B未清buffer/countBuffer；价格从自身D671DC步8或浏览D13E74步4先选S32快照，原单一%d格式与颜色继续用该快照。item+0C44 S32 count>0才%3d及绘制。固定物品T*、slot+8/浏览owner、名称抽行/测宽/绘制、所有分支/回调/返回保持，仅两个callee差异，不完成完整生产/路由或运行。",
       "original_incoming": [],
@@ -118997,7 +119016,18 @@
           "relationship": "S32数量>0才格式；循环单一原点不按槽数放大"
         }
       ],
-      "verification_level": "原403条统计，仅48格式邻窗读取，余355和已过正文/核心不重验；原字节/格式目标/S32源/门槛和快照、整份源限定callee静态核对，无直接入向；未构建或执行"
+      "verification_level": "原403条统计，仅48格式邻窗读取，余355和已过正文/核心不重验；原字节/格式目标/S32源/门槛和快照、整份源限定callee静态核对，无直接入向；未构建或执行",
+      "latest_window_draw_width": {
+        "step": "CAB30",
+        "source_snapshot": "cg2d-re-window-draw-width-20261009",
+        "source": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4D04A0",
+        "boundary": "CAB30仅十已有父17源码点的20窄消费：两priceColor局部S8且原0/1/4/5常量/比较保持；三文字点六坐标显式S16；十二图形点graphicLayer显式U8。图层生产/父参数仍S32，公共接口/队列/布局/owner、原值来源/取样/数值/图号/描述符/格式器/音效/调用和返回保持，无新保护/补零/钳制/异常模拟/工具。19相关原调用邻窗332条955B及四消费者局部有据，非19变化点或完整原父/上位寄存器/机器ABI、正常寿命/画面/运行；旧99路由未闭。",
+        "only_explicit_normal_consumption": true,
+        "whole_cpp_head_plus_expected_exact": true,
+        "client_link_verified": true,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x4D1D50",
@@ -125072,7 +125102,11 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_27.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
       ],
       "boundary": "仅五现格式callee接五原53B304点，S32(index,state)签名/原consumed返回及全部正文保持。12B未清countText在S8 gValue57E42C>0与普通两个路径复用，count dword S32>0才%3d，分别沿456780两套原坐标消费；256B未清buffer承接两个Q与一个I。Q255原0FFH常量保持，不是补值；两Q在窗口state|8000和selection[5]=0之后格式/发送、随后写actionState1。I仅原43C560返回0分支重读当前位置、写selectedItem后按hovered+8/currentPosition两个U32位模式输出、5109B0→Flush→actionState1；目标选择分支仍不格式。原事件低U8/S16 target符号扩展/物品与占用数组别名、bomb/装备/描述/medicine条件、鼠标复位、描述图形/悬浮/颜色、音频既有调用和暂停边界不动；不改关联函数，不新增保护或清理，完整物品/窗口14/27/战斗和运行未据本步验收。",
       "original_incoming": [],
@@ -125190,7 +125224,18 @@
           "relationship": "普通路径原count dword>0，12B同源countText→456780(x-3,y+7,3,1,1)"
         }
       ],
-      "verification_level": "原1175仅统计，只读195新格式/参数/绘制与发送状态邻窗，余980/已过正文/核心不重验；五原点/callee/五现表达式/新554048含NUL字节/S32与U32/原255/12B及256B未清局部/状态和消费者次序/整份源限定静态核对；4C6EC0@4C701A与56C430两data/普通call0仅登记，不推实际绑定；未构建或执行"
+      "verification_level": "原1175仅统计，只读195新格式/参数/绘制与发送状态邻窗，余980/已过正文/核心不重验；五原点/callee/五现表达式/新554048含NUL字节/S32与U32/原255/12B及256B未清局部/状态和消费者次序/整份源限定静态核对；4C6EC0@4C701A与56C430两data/普通call0仅登记，不推实际绑定；未构建或执行",
+      "latest_window_draw_width": {
+        "step": "CAB30",
+        "source_snapshot": "cg2d-re-window-draw-width-20261009",
+        "source": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_499C30",
+        "boundary": "CAB30仅十已有父17源码点的20窄消费：两priceColor局部S8且原0/1/4/5常量/比较保持；三文字点六坐标显式S16；十二图形点graphicLayer显式U8。图层生产/父参数仍S32，公共接口/队列/布局/owner、原值来源/取样/数值/图号/描述符/格式器/音效/调用和返回保持，无新保护/补零/钳制/异常模拟/工具。19相关原调用邻窗332条955B及四消费者局部有据，非19变化点或完整原父/上位寄存器/机器ABI、正常寿命/画面/运行；旧99路由未闭。",
+        "only_explicit_normal_consumption": true,
+        "whole_cpp_head_plus_expected_exact": true,
+        "client_link_verified": true,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x4876B0",
@@ -130603,7 +130648,11 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_11.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
       ],
       "boundary": "仅替换483DE3格式callee。保留20槽position+8/used门禁、每槽重取当前窗口/元素与坐标，先绘同一已借物品图形，再读该item.count S32，正值才以553FCC的%3d写循环共用未清12B countText，借T*按(x-3,y+7)、层3/字形1/颜色1绘文字。两标记/选择与拖动/图形和描述/原采样/返回consumed及完整正文保持，不新清零、截断、缓存或增加门槛。",
       "original_incoming": [],
@@ -130635,7 +130684,18 @@
           "relationship": "图形消费后从同一item读count，正值S32写未清12B，再借T*绘文字"
         }
       ],
-      "verification_level": "原908指令统计，仅读34条绘图后count读取/正值门禁/格式与文字消费邻窗，余874和既有核心不重验；一原点/一现表达式，普通call/data均0只登记，不据此推无真实绑定。限定静态核，未构建执行。"
+      "verification_level": "原908指令统计，仅读34条绘图后count读取/正值门禁/格式与文字消费邻窗，余874和既有核心不重验；一原点/一现表达式，普通call/data均0只登记，不据此推无真实绑定。限定静态核，未构建执行。",
+      "latest_window_draw_width": {
+        "step": "CAB30",
+        "source_snapshot": "cg2d-re-window-draw-width-20261009",
+        "source": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_483150",
+        "boundary": "CAB30仅十已有父17源码点的20窄消费：两priceColor局部S8且原0/1/4/5常量/比较保持；三文字点六坐标显式S16；十二图形点graphicLayer显式U8。图层生产/父参数仍S32，公共接口/队列/布局/owner、原值来源/取样/数值/图号/描述符/格式器/音效/调用和返回保持，无新保护/补零/钳制/异常模拟/工具。19相关原调用邻窗332条955B及四消费者局部有据，非19变化点或完整原父/上位寄存器/机器ABI、正常寿命/画面/运行；旧99路由未闭。",
+        "only_explicit_normal_consumption": true,
+        "whole_cpp_head_plus_expected_exact": true,
+        "client_link_verified": true,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x4949C0",
@@ -134889,7 +134949,11 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_10.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
       ],
       "boundary": "仅两个格式callee各接一原点。沿原S16 x/y、S8视觉、S32其余索引/开关/层和W32 color及void裁决；used门槛、固定配对S16 index借同一技能、清层/593850/名称正文不动。先读+1C完整S32等级/%2d写未清20B，数字(x+155,y+3)及低U8 graphicLayer消费后，才读同一技能requiredSlots19[0] S8符号扩展S32/%2d同区写，数字(x+193,y+3)消费；不套4740F0的S16槽数。随后同一技能canRebirth/视觉/图形层完整S32/描述符W32及背景图正文保持，不预清、保护、钳制、缓存后项或改变关联方。",
       "original_incoming": [
@@ -134973,7 +135037,18 @@
           "relationship": "前项数字消费后才读同一技能S8需求槽数/符号扩展S32→同一未清20B/%2d→低U8图形层数字消费；不套S16槽字段"
         }
       ],
-      "verification_level": "原112指令统计，仅63条格式/普通S32或S8来源/逐项数字消费/相邻kind分支新邻窗仅读，余49与已过核心不重验；两个原点/callee、既有字节/20B及形参层宽度/数值时点和消费者/原void裁决限定静态核。普通call3/data0只登记，不推完整父路由，未构建执行。"
+      "verification_level": "原112指令统计，仅63条格式/普通S32或S8来源/逐项数字消费/相邻kind分支新邻窗仅读，余49与已过核心不重验；两个原点/callee、既有字节/20B及形参层宽度/数值时点和消费者/原void裁决限定静态核。普通call3/data0只登记，不推完整父路由，未构建执行。",
+      "latest_window_draw_width": {
+        "step": "CAB30",
+        "source_snapshot": "cg2d-re-window-draw-width-20261009",
+        "source": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_47B6C0",
+        "boundary": "CAB30仅十已有父17源码点的20窄消费：两priceColor局部S8且原0/1/4/5常量/比较保持；三文字点六坐标显式S16；十二图形点graphicLayer显式U8。图层生产/父参数仍S32，公共接口/队列/布局/owner、原值来源/取样/数值/图号/描述符/格式器/音效/调用和返回保持，无新保护/补零/钳制/异常模拟/工具。19相关原调用邻窗332条955B及四消费者局部有据，非19变化点或完整原父/上位寄存器/机器ABI、正常寿命/画面/运行；旧99路由未闭。",
+        "only_explicit_normal_consumption": true,
+        "whole_cpp_head_plus_expected_exact": true,
+        "client_link_verified": true,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x47B9B0",
@@ -134992,7 +135067,11 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_10.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
       ],
       "boundary": "仅两个格式callee各接一原点。原技术>=100只减100一次/战斗FP比较和名称门槛颜色、两层与全部形参/void裁决保持。名称绘完后重取D2EA60当前技能索引/技术value90普通S32，以%2d写未清20B、数字(x+155,y+3)/低U8 graphicLayer消费后，再重取技能kind；非1/2按value7C FP与fpReduce普通S32乘积/100写同区%3d，数字(x+186,y+3)消费；1/2仍原???文本分支。最后再重取currentKind及图号/完整图形层/描述符W32正文保持，不合并FP采样、改层宽度、预清、保护或专项模拟溢出。",
       "original_incoming": [
@@ -135070,7 +135149,18 @@
           "relationship": "前项数字绘完重取技能kind，非1/2才普通S32 FP*fpReduce/100→同一未清20B/%3d→数字消费；1/2仍???文本路径，末图形再取currentKind"
         }
       ],
-      "verification_level": "原180指令统计，仅78条格式/普通S32或S8来源/逐项数字消费/相邻kind分支新邻窗仅读，余102与已过核心不重验；两个原点/callee、既有字节/20B及形参层宽度/数值时点和消费者/原void裁决限定静态核。普通call2/data0只登记，不推完整父路由，未构建执行。"
+      "verification_level": "原180指令统计，仅78条格式/普通S32或S8来源/逐项数字消费/相邻kind分支新邻窗仅读，余102与已过核心不重验；两个原点/callee、既有字节/20B及形参层宽度/数值时点和消费者/原void裁决限定静态核。普通call2/data0只登记，不推完整父路由，未构建执行。",
+      "latest_window_draw_width": {
+        "step": "CAB30",
+        "source_snapshot": "cg2d-re-window-draw-width-20261009",
+        "source": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_47B9B0",
+        "boundary": "CAB30仅十已有父17源码点的20窄消费：两priceColor局部S8且原0/1/4/5常量/比较保持；三文字点六坐标显式S16；十二图形点graphicLayer显式U8。图层生产/父参数仍S32，公共接口/队列/布局/owner、原值来源/取样/数值/图号/描述符/格式器/音效/调用和返回保持，无新保护/补零/钳制/异常模拟/工具。19相关原调用邻窗332条955B及四消费者局部有据，非19变化点或完整原父/上位寄存器/机器ABI、正常寿命/画面/运行；旧99路由未闭。",
+        "only_explicit_normal_consumption": true,
+        "whole_cpp_head_plus_expected_exact": true,
+        "client_link_verified": true,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x47C240",
@@ -135089,7 +135179,11 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_10.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
       ],
       "boundary": "仅一格式callee接一原点；配方itemId<0早返及可用颜色/层清理/占位/名称全部正文保持。名称绘完后重取D2EA60当前技能，按配方value04与fpReduce普通S32相乘/100，以既有553FCC %3d写未清20B，数字(x+186,y+3)/低U8 graphicLayer消费；之后再重取canRebirth图号与完整图形层/描述符W32，原全部形参和void裁决保持。不预取费用、缓存技能索引、改关联方、保护或专项模拟溢出。",
       "original_incoming": [
@@ -135134,7 +135228,18 @@
           "relationship": "名称绘完重取技能/配方FP及减免S32折算，未清20B/%3d→数字消费→再取kind图形；原void保持"
         }
       ],
-      "verification_level": "原110指令统计，仅42条名称后费用/普通S32折算或技术FP/格式/数字消费/相邻图形新邻窗仅读，余68与已过核心不重验；一原点/callee、既有%3d/20B合同/固定借用或重取索引时点、原形参层宽度和void裁决限定静态核。普通call1/data0只登记，不推完整父路由，未构建执行。"
+      "verification_level": "原110指令统计，仅42条名称后费用/普通S32折算或技术FP/格式/数字消费/相邻图形新邻窗仅读，余68与已过核心不重验；一原点/callee、既有%3d/20B合同/固定借用或重取索引时点、原形参层宽度和void裁决限定静态核。普通call1/data0只登记，不推完整父路由，未构建执行。",
+      "latest_window_draw_width": {
+        "step": "CAB30",
+        "source_snapshot": "cg2d-re-window-draw-width-20261009",
+        "source": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_47C240",
+        "boundary": "CAB30仅十已有父17源码点的20窄消费：两priceColor局部S8且原0/1/4/5常量/比较保持；三文字点六坐标显式S16；十二图形点graphicLayer显式U8。图层生产/父参数仍S32，公共接口/队列/布局/owner、原值来源/取样/数值/图号/描述符/格式器/音效/调用和返回保持，无新保护/补零/钳制/异常模拟/工具。19相关原调用邻窗332条955B及四消费者局部有据，非19变化点或完整原父/上位寄存器/机器ABI、正常寿命/画面/运行；旧99路由未闭。",
+        "only_explicit_normal_consumption": true,
+        "whole_cpp_head_plus_expected_exact": true,
+        "client_link_verified": true,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x47CB00",
@@ -135158,7 +135263,11 @@
         "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-decision",
         "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-acceptance",
         "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
-        "doc/cg2d_battle_pet_skill_selection_sampling_evidence.json"
+        "doc/cg2d_battle_pet_skill_selection_sampling_evidence.json",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
       ],
       "boundary": "仅一格式callee接一原点；两次独立43C4B0分别取得宠物与配对宠物索引、配对S16技术索引及固定技术T*沿既有合同保持。原名称空门槛/战斗宠物位置405B40/FP比较/5ABB78位与颜色/层清理/占位/名称全部正文不动。名称绘完后重新读取同一record->fp普通S32，以既有%3d写未清20B、数字(x+186,y+3)/低U8 graphicLayer消费，末原54F454图号/完整图形层和W32描述符不动；不复用前段cost、不增加查询、清零、保护或改变void裁决。",
       "original_incoming": [
@@ -135232,6 +135341,17 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "latest_window_draw_width": {
+        "step": "CAB30",
+        "source_snapshot": "cg2d-re-window-draw-width-20261009",
+        "source": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_47CB00",
+        "boundary": "CAB30仅十已有父17源码点的20窄消费：两priceColor局部S8且原0/1/4/5常量/比较保持；三文字点六坐标显式S16；十二图形点graphicLayer显式U8。图层生产/父参数仍S32，公共接口/队列/布局/owner、原值来源/取样/数值/图号/描述符/格式器/音效/调用和返回保持，无新保护/补零/钳制/异常模拟/工具。19相关原调用邻窗332条955B及四消费者局部有据，非19变化点或完整原父/上位寄存器/机器ABI、正常寿命/画面/运行；旧99路由未闭。",
+        "only_explicit_normal_consumption": true,
+        "whole_cpp_head_plus_expected_exact": true,
+        "client_link_verified": true,
+        "runtime_verified": false
       }
     },
     {
@@ -135256,7 +135376,11 @@
         "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-decision",
         "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-acceptance",
         "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
-        "doc/cg2d_battle_pet_skill_selection_sampling_evidence.json"
+        "doc/cg2d_battle_pet_skill_selection_sampling_evidence.json",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
       ],
       "boundary": "仅一格式callee接一原点；原入口5ABC38骑乘宠物S32/配对S16技术索引及固定技术T*保持，不改为43C4B0查询。名称空门槛/当前5ABCA4战斗位置及FP比较/5ABB78位与颜色/层清理/占位/名称全文不動。名称绘完后重新读同一record->fp普通S32/%3d写未清20B，数字(x+186,y+3)/低U8 graphicLayer消费，末原54F454图号/完整图形层和W32描述符及void裁决不动；不复用前段cost、清零、保护或改变关联方。",
       "original_incoming": [
@@ -135330,6 +135454,17 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "latest_window_draw_width": {
+        "step": "CAB30",
+        "source_snapshot": "cg2d-re-window-draw-width-20261009",
+        "source": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_47CE70",
+        "boundary": "CAB30仅十已有父17源码点的20窄消费：两priceColor局部S8且原0/1/4/5常量/比较保持；三文字点六坐标显式S16；十二图形点graphicLayer显式U8。图层生产/父参数仍S32，公共接口/队列/布局/owner、原值来源/取样/数值/图号/描述符/格式器/音效/调用和返回保持，无新保护/补零/钳制/异常模拟/工具。19相关原调用邻窗332条955B及四消费者局部有据，非19变化点或完整原父/上位寄存器/机器ABI、正常寿命/画面/运行；旧99路由未闭。",
+        "only_explicit_normal_consumption": true,
+        "whole_cpp_head_plus_expected_exact": true,
+        "client_link_verified": true,
+        "runtime_verified": false
       }
     },
     {
@@ -135349,7 +135484,11 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_28.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
+        "doc/cg2d_window_draw_width_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
       ],
       "boundary": "仅三格式callee各接一原点。原两S16坐标/S32宠物与图形层/U8文本层及描述符非拥有T*/void裁决保持。used严格1且flags W16为1/2才显示；原昵称优先/等级普通S32 %3d→低S16 x+140/y+5、种族S16范围门槛后，CF4B78的10H快照先maxHp后hp两S32/%6d/%6d→x+35/y+19消费，再maxFp后fp同区/%6d/%6d→x+35/y+32消费；指定textLayer/字体8/色0、未清256B保持。四属性条/最后flags重取/无正文也画状态与背景、真实图形层及全部正文不动，不以World CryptInt替换快照、清层前移、预清或钳制。",
       "original_incoming": [
@@ -135467,7 +135606,18 @@
           "relationship": "HP文字消费后先读快照maxFp再fp，按fp/maxFp两个S32/%6d/%6d写同一未清256B，字形8/色0/指定层/低S16消费；不改为CryptInt"
         }
       ],
-      "verification_level": "原292指令统计，仅103条等级/快照数值来源及消费或命令门槛/格式/发送-关闭-动作-音效/相邻返回新邻窗仅读，余189与已过核心/前段不重验；3原点/callee、S32数值与U32十六进制命令/既有两种格式及新M格式原字节、256B/源与消费者/形参和原返回限定静态核。普通call1/data0只登记，不推完整父路由，未构建执行。"
+      "verification_level": "原292指令统计，仅103条等级/快照数值来源及消费或命令门槛/格式/发送-关闭-动作-音效/相邻返回新邻窗仅读，余189与已过核心/前段不重验；3原点/callee、S32数值与U32十六进制命令/既有两种格式及新M格式原字节、256B/源与消费者/形参和原返回限定静态核。普通call1/data0只登记，不推完整父路由，未构建执行。",
+      "latest_window_draw_width": {
+        "step": "CAB30",
+        "source_snapshot": "cg2d-re-window-draw-width-20261009",
+        "source": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_49B670",
+        "boundary": "CAB30仅十已有父17源码点的20窄消费：两priceColor局部S8且原0/1/4/5常量/比较保持；三文字点六坐标显式S16；十二图形点graphicLayer显式U8。图层生产/父参数仍S32，公共接口/队列/布局/owner、原值来源/取样/数值/图号/描述符/格式器/音效/调用和返回保持，无新保护/补零/钳制/异常模拟/工具。19相关原调用邻窗332条955B及四消费者局部有据，非19变化点或完整原父/上位寄存器/机器ABI、正常寿命/画面/运行；旧99路由未闭。",
+        "only_explicit_normal_consumption": true,
+        "whole_cpp_head_plus_expected_exact": true,
+        "client_link_verified": true,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x49BA10",

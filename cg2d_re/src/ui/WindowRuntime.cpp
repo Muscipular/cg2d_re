@@ -2940,7 +2940,7 @@ std::int32_t Sub_4D0EB0(const std::int32_t index, const std::int32_t state)
         platform::FormatLegacyString_53B304(buffer, "%d", gStallBrowseD046D8.petValuesD2D464[gStallPetPageD67BD0 + row]);
         price = gStallBrowseD046D8.petValuesD2D464[gStallPetPageD67BD0 + row];
     }
-    std::int32_t priceColor = 0;
+    std::int8_t priceColor = 0;
     if (price >= 10000) {
         if (price < 100000) {
             priceColor = 5;
@@ -3227,7 +3227,7 @@ std::int32_t Sub_4D04A0(const std::int32_t index, const std::int32_t state)
         price = gStallBrowseD046D8.itemValuesD13E74[gStallItemPageD67BC8 + row];
     }
     platform::FormatLegacyString_53B304(buffer, "%d", price);
-    std::int32_t priceColor = 0;
+    std::int8_t priceColor = 0;
     if (price >= 10000) {
         if (price < 100000) {
             priceColor = 5;
@@ -10529,7 +10529,8 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
             if (item.count > 0) {
                 platform::FormatLegacyString_53B304(countText.data(), "%3d", item.count);
                 static_cast<void>(render::DrawText_456780(
-                    left + 21, top + 31, 3, 1, 1, countText.data(), 0, 0));
+                    static_cast<std::int16_t>(left + 21), static_cast<std::int16_t>(top + 31),
+                    3, 1, 1, countText.data(), 0, 0));
             }
         }
         return consumed;
@@ -10818,7 +10819,8 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
         if (item.count > 0) {
             platform::FormatLegacyString_53B304(countText.data(), "%3d", item.count);
             static_cast<void>(render::DrawText_456780(
-                x - 3, y + 7, 3, 1, 1, countText.data(), 0, 0));
+                static_cast<std::int16_t>(x - 3), static_cast<std::int16_t>(y + 7),
+                3, 1, 1, countText.data(), 0, 0));
         }
     }
     return consumed;
@@ -32220,7 +32222,9 @@ std::int32_t Sub_483150(const std::int32_t index, const std::int32_t state)
         const std::int32_t count = item->count;
         if (count > 0) {
             platform::FormatLegacyString_53B304(countText, "%3d", count);
-            static_cast<void>(render::DrawText_456780(x - 3, y + 7, 3, 1, 1, countText, 0, 0));
+            static_cast<void>(render::DrawText_456780(
+                static_cast<std::int16_t>(x - 3), static_cast<std::int16_t>(y + 7),
+                3, 1, 1, countText, 0, 0));
         }
     }
     return consumed;
@@ -34912,7 +34916,8 @@ void Sub_47B6C0(
     Sub_4771B0(x + 193, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     const std::int32_t kind = skill->canRebirth;
     const std::int32_t imageNo = kSkillListImages54F37C[kind * 3 + visualState];
-    static_cast<void>(login::detail::DrawGraphic(x + 105, y + 8, graphicLayer, imageNo, 0, &descriptor));
+    static_cast<void>(login::detail::DrawGraphic(
+        x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), imageNo, 0, &descriptor));
 }
 
 void Sub_479700(
@@ -35102,7 +35107,8 @@ void Sub_47B9B0(
     }
     const std::int32_t currentKind = world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].canRebirth;
     const std::int32_t imageNo = kSkillTechniqueImages54F3C4[currentKind * 3 + visualState];
-    static_cast<void>(login::detail::DrawGraphic(x + 105, y + 8, graphicLayer, imageNo, 0, &descriptor));
+    static_cast<void>(login::detail::DrawGraphic(
+        x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), imageNo, 0, &descriptor));
 }
 
 void Sub_47C240(
@@ -35131,7 +35137,8 @@ void Sub_47C240(
     Sub_4771B0(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     const std::int32_t kind = world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].canRebirth;
     const std::int32_t imageNo = kSkillRecipeImages54F40C[kind * 3 + visualState];
-    static_cast<void>(login::detail::DrawGraphic(x + 105, y + 8, graphicLayer, imageNo, 0, &descriptor));
+    static_cast<void>(login::detail::DrawGraphic(
+        x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), imageNo, 0, &descriptor));
 }
 
 void Sub_479C80(WindowInstance* const window, const std::int32_t pairIndex)
@@ -37075,18 +37082,18 @@ void Sub_49B670(
             const std::int32_t barY = y + 6 + row * 10;
             if (segments > 1) {
                 static_cast<void>(render::DrawGraphic3_520970(
-                    x + 175, barY, graphicLayer, images[0], 0, 1, 0, descriptor));
+                    x + 175, barY, static_cast<std::uint8_t>(graphicLayer), images[0], 0, 1, 0, descriptor));
                 std::int32_t barX = x + 181;
                 for (std::int32_t middle = 0; middle < segments - 2; ++middle) {
                     static_cast<void>(render::DrawGraphic3_520970(
-                        barX, barY, graphicLayer, images[1], 0, 1, 0, descriptor));
+                        barX, barY, static_cast<std::uint8_t>(graphicLayer), images[1], 0, 1, 0, descriptor));
                     barX += 6;
                 }
                 static_cast<void>(render::DrawGraphic3_520970(
-                    barX, barY, graphicLayer, images[2], 0, 1, 0, descriptor));
+                    barX, barY, static_cast<std::uint8_t>(graphicLayer), images[2], 0, 1, 0, descriptor));
             } else if (segments == 1) {
                 static_cast<void>(render::DrawGraphic3_520970(
-                    x + 175, barY, graphicLayer, images[3], 0, 1, 0, descriptor));
+                    x + 175, barY, static_cast<std::uint8_t>(graphicLayer), images[3], 0, 1, 0, descriptor));
             }
         }
         const std::uint16_t flags = pet.flags6AA;
@@ -37098,11 +37105,11 @@ void Sub_49B670(
         }
     }
     static_cast<void>(render::DrawGraphic3_520970(
-        x + 241, y + 6, graphicLayer, battleImage, 0, 1, 0, descriptor));
+        x + 241, y + 6, static_cast<std::uint8_t>(graphicLayer), battleImage, 0, 1, 0, descriptor));
     static_cast<void>(render::DrawGraphic3_520970(
-        x + 267, y + 25, graphicLayer, readyImage, 0, 1, 0, descriptor));
+        x + 267, y + 25, static_cast<std::uint8_t>(graphicLayer), readyImage, 0, 1, 0, descriptor));
     static_cast<void>(render::DrawGraphic3_520970(
-        x, y, graphicLayer, 0x3B5C4, 0, 1, 0, descriptor));
+        x, y, static_cast<std::uint8_t>(graphicLayer), 0x3B5C4, 0, 1, 0, descriptor));
 }
 
 std::int32_t Sub_49BB00(const std::int32_t index, const std::int32_t state)
@@ -37241,7 +37248,7 @@ void Sub_47CB00(
     platform::FormatLegacyString_53B304(buffer, "%3d", record->fp);
     Sub_4771B0(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     static_cast<void>(login::detail::DrawGraphic(
-        x + 105, y + 8, graphicLayer, kPetSkillImages54F454[visualState], 0, &descriptor));
+        x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), kPetSkillImages54F454[visualState], 0, &descriptor));
 }
 
 void Sub_47CE70(
@@ -37277,7 +37284,7 @@ void Sub_47CE70(
     platform::FormatLegacyString_53B304(buffer, "%3d", record->fp);
     Sub_4771B0(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     static_cast<void>(login::detail::DrawGraphic(
-        x + 105, y + 8, graphicLayer, kPetSkillImages54F454[visualState], 0, &descriptor));
+        x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), kPetSkillImages54F454[visualState], 0, &descriptor));
 }
 
 std::int32_t Sub_47CC80(const std::int32_t index, const std::int32_t state)

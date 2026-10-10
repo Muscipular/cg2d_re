@@ -203849,6 +203849,230 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x40fb80",
+      "inventory_id": "F:0000FB80",
+      "original_role": "固定载荷/角色动作5/播放后1024；W32 flags的CH10选type3或0、Y=-32，工厂后fresh目标隐藏，最后phase162。",
+      "original_end_exclusive": "0x40fc05",
+      "instruction_count": 38,
+      "function_chunks": [
+        {
+          "start": "0x40fb80",
+          "end_exclusive": "0x40fc05"
+        }
+      ],
+      "status": "BFW01四完整正常源纳管，139十组原序已落实；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction115_40FB80",
+          "relationship": "固定载荷/角色动作5/播放后1024；W32 flags的CH10选type3或0、Y=-32，工厂后fresh目标隐藏，最后phase162。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction115_40FB80"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_factory_wait_spec.md#battle-factory-wait-baseline",
+        "doc/cg2d_battle_factory_wait_spec.md#battle-factory-wait-decision",
+        "doc/cg2d_battle_factory_wait_spec.md#battle-factory-wait-acceptance",
+        "doc/cg2d_battle_factory_wait_spec.md#battle-factory-wait-source-state",
+        "doc/cg2d_battle_factory_wait_evidence.json"
+      ],
+      "boundary": "BFW01四完整正常根及六实际父表项/四case纳管；只139十组读取/发布：两独立特效指针、98条件属性单读、405等级/图号/装备三读序及四临时HP/FP复制；四CPP/四公头注释。三正确主体/已有1497工厂共体、所有数值/完整W32/门禁/随机消费/共享器/其它源保持。无新API/字段/业务默认值/保护/循环上限；四新原身份，工厂共体不重计。完整生产/父-callee/机器ABI/alias/owner/SDK正常失败/容量与声音画面未验，原完整门禁政策保持。",
+      "verification_level": "四完整565条2019B/十一页，48E8/十五直接callee/98跳四RET、四实际入向/一父、六4B原表项/四11B case；当前必要静态，零构建测试/运行/产物/摘要。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction115_40FB80",
+        "parameters": "非拥有YobiAction* action",
+        "return": "void；原caller不消费尾EAX"
+      },
+      "battle_factory_wait": {
+        "step": "BFW01",
+        "source_snapshot": "Git提交说明：[#] 对齐战斗工厂等待与施法身份更新",
+        "original_instruction_count": 38,
+        "original_code_bytes": 133,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "jump_count": 3,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40ff90",
+      "inventory_id": "F:0000FF90",
+      "original_role": "完整FDC读后AL60决定播放，后取1024及phase127–129映射type7/8/9末参0，所有路径AdvanceCast。",
+      "original_end_exclusive": "0x40fffd",
+      "instruction_count": 43,
+      "function_chunks": [
+        {
+          "start": "0x40ff90",
+          "end_exclusive": "0x40fffd"
+        }
+      ],
+      "status": "BFW01四完整正常源纳管，139十组原序已落实；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleActions127To129_40FF90",
+          "relationship": "完整FDC读后AL60决定播放，后取1024及phase127–129映射type7/8/9末参0，所有路径AdvanceCast。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleActions127To129_40FF90"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_factory_wait_spec.md#battle-factory-wait-baseline",
+        "doc/cg2d_battle_factory_wait_spec.md#battle-factory-wait-decision",
+        "doc/cg2d_battle_factory_wait_spec.md#battle-factory-wait-acceptance",
+        "doc/cg2d_battle_factory_wait_spec.md#battle-factory-wait-source-state",
+        "doc/cg2d_battle_factory_wait_evidence.json"
+      ],
+      "boundary": "BFW01四完整正常根及六实际父表项/四case纳管；只139十组读取/发布：两独立特效指针、98条件属性单读、405等级/图号/装备三读序及四临时HP/FP复制；四CPP/四公头注释。三正确主体/已有1497工厂共体、所有数值/完整W32/门禁/随机消费/共享器/其它源保持。无新API/字段/业务默认值/保护/循环上限；四新原身份，工厂共体不重计。完整生产/父-callee/机器ABI/alias/owner/SDK正常失败/容量与声音画面未验，原完整门禁政策保持。",
+      "verification_level": "四完整565条2019B/十一页，48E8/十五直接callee/98跳四RET、四实际入向/一父、六4B原表项/四11B case；当前必要静态，零构建测试/运行/产物/摘要。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleActions127To129_40FF90",
+        "parameters": "非拥有YobiAction* action",
+        "return": "void；原caller不消费尾EAX"
+      },
+      "battle_factory_wait": {
+        "step": "BFW01",
+        "source_snapshot": "Git提交说明：[#] 对齐战斗工厂等待与施法身份更新",
+        "original_instruction_count": 43,
+        "original_code_bytes": 109,
+        "original_page_count": 1,
+        "direct_call_count": 3,
+        "jump_count": 7,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40ff40",
+      "inventory_id": "F:0000FF40",
+      "original_role": "完整FDC读后AL60决定播放，后取1024创建type20末参1，所有路径phase162。",
+      "original_end_exclusive": "0x40ff85",
+      "instruction_count": 26,
+      "function_chunks": [
+        {
+          "start": "0x40ff40",
+          "end_exclusive": "0x40ff85"
+        }
+      ],
+      "status": "BFW01四完整正常源纳管，139十组原序已落实；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction138_40FF40",
+          "relationship": "完整FDC读后AL60决定播放，后取1024创建type20末参1，所有路径phase162。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction138_40FF40"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_factory_wait_spec.md#battle-factory-wait-baseline",
+        "doc/cg2d_battle_factory_wait_spec.md#battle-factory-wait-decision",
+        "doc/cg2d_battle_factory_wait_spec.md#battle-factory-wait-acceptance",
+        "doc/cg2d_battle_factory_wait_spec.md#battle-factory-wait-source-state",
+        "doc/cg2d_battle_factory_wait_evidence.json"
+      ],
+      "boundary": "BFW01四完整正常根及六实际父表项/四case纳管；只139十组读取/发布：两独立特效指针、98条件属性单读、405等级/图号/装备三读序及四临时HP/FP复制；四CPP/四公头注释。三正确主体/已有1497工厂共体、所有数值/完整W32/门禁/随机消费/共享器/其它源保持。无新API/字段/业务默认值/保护/循环上限；四新原身份，工厂共体不重计。完整生产/父-callee/机器ABI/alias/owner/SDK正常失败/容量与声音画面未验，原完整门禁政策保持。",
+      "verification_level": "四完整565条2019B/十一页，48E8/十五直接callee/98跳四RET、四实际入向/一父、六4B原表项/四11B case；当前必要静态，零构建测试/运行/产物/摘要。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction138_40FF40",
+        "parameters": "非拥有YobiAction* action",
+        "return": "void；原caller不消费尾EAX"
+      },
+      "battle_factory_wait": {
+        "step": "BFW01",
+        "source_snapshot": "Git提交说明：[#] 对齐战斗工厂等待与施法身份更新",
+        "original_instruction_count": 26,
+        "original_code_bytes": 69,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "jump_count": 2,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x410000",
+      "inventory_id": "F:00010000",
+      "original_role": "施法type34返回发布，两阶段非拥有特效T*持样及98一次1048；405等级/图号/装备不同读序与四临时HP/FP逐项复制，真实事件/效果推进及独立平铺尾。",
+      "original_end_exclusive": "0x4106ac",
+      "instruction_count": 458,
+      "function_chunks": [
+        {
+          "start": "0x410000",
+          "end_exclusive": "0x4106ac"
+        }
+      ],
+      "status": "BFW01四完整正常源纳管，139十组原序已落实；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction139_410000",
+          "relationship": "施法type34返回发布，两阶段非拥有特效T*持样及98一次1048；405等级/图号/装备不同读序与四临时HP/FP逐项复制，真实事件/效果推进及独立平铺尾。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction139_410000"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_factory_wait_spec.md#battle-factory-wait-baseline",
+        "doc/cg2d_battle_factory_wait_spec.md#battle-factory-wait-decision",
+        "doc/cg2d_battle_factory_wait_spec.md#battle-factory-wait-acceptance",
+        "doc/cg2d_battle_factory_wait_spec.md#battle-factory-wait-source-state",
+        "doc/cg2d_battle_factory_wait_evidence.json"
+      ],
+      "boundary": "BFW01四完整正常根及六实际父表项/四case纳管；只139十组读取/发布：两独立特效指针、98条件属性单读、405等级/图号/装备三读序及四临时HP/FP复制；四CPP/四公头注释。三正确主体/已有1497工厂共体、所有数值/完整W32/门禁/随机消费/共享器/其它源保持。无新API/字段/业务默认值/保护/循环上限；四新原身份，工厂共体不重计。完整生产/父-callee/机器ABI/alias/owner/SDK正常失败/容量与声音画面未验，原完整门禁政策保持。",
+      "verification_level": "四完整565条2019B/十一页，48E8/十五直接callee/98跳四RET、四实际入向/一父、六4B原表项/四11B case；当前必要静态，零构建测试/运行/产物/摘要。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction139_410000",
+        "parameters": "非拥有YobiAction* action",
+        "return": "void；原caller不消费尾EAX"
+      },
+      "battle_factory_wait": {
+        "step": "BFW01",
+        "source_snapshot": "Git提交说明：[#] 对齐战斗工厂等待与施法身份更新",
+        "original_instruction_count": 458,
+        "original_code_bytes": 1708,
+        "original_page_count": 8,
+        "direct_call_count": 41,
+        "jump_count": 86,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 10,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

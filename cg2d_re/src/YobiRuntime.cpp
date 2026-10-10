@@ -28635,6 +28635,7 @@ void UpdateBattleAction114_40F0A0(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BFW01：固定载荷/完整flags的CH门禁，工厂后重取目标隐藏；全路径phase162。
 void UpdateBattleAction115_40FB80(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -28699,6 +28700,7 @@ void UpdateBattleFactoryAction_40FC10(YobiAction* const action)
     action->phase = 162;
 }
 
+// BFW01：完整FDC持样/条件播放，后取phase选7/8/9末参0，全路径推进。
 void UpdateBattleActions127To129_40FF90(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -28715,6 +28717,7 @@ void UpdateBattleActions127To129_40FF90(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BFW01：完整FDC持样/条件播放，后取1024创建type20，全路径phase162。
 void UpdateBattleAction138_40FF40(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -28727,6 +28730,7 @@ void UpdateBattleAction138_40FF40(YobiAction* const action)
     action->phase = 162;
 }
 
+// BFW01：事件/完成两次独立特效指针持样，98单次属性；405不同取样/四临时复制原序。
 void UpdateBattleAction139_410000(YobiAction* const action)
 {
     using namespace platform::legacy_crypt_int;
@@ -28738,11 +28742,17 @@ void UpdateBattleAction139_410000(YobiAction* const action)
     }
     const std::int32_t event = action->frameEvent;
     if (event >= 10000 && event < 20000) {
-        if (action->battleCastEffect10 != nullptr && payload->castSkill103C != 402) {
-            static_cast<void>(MarkDeath(action->battleCastEffect10));
+        YobiAction* const eventEffect = action->battleCastEffect10;
+        if (eventEffect != nullptr && payload->castSkill103C != 402) {
+            static_cast<void>(MarkDeath(eventEffect));
             action->battleCastEffect10 = nullptr;
             const std::int32_t skill = payload->castSkill103C;
-            if (skill == 98 && (payload->value1048 == 12 || payload->value1048 == 13)) {
+            bool moveSpecialTarget = false;
+            if (skill == 98) {
+                const std::int32_t attribute = payload->value1048;
+                moveSpecialTarget = attribute == 12 || attribute == 13;
+            }
+            if (moveSpecialTarget) {
                 MoveBattleCastState_439380(gBattleAllEntries59E980[payload->targetPosition100C]);
             } else if (skill == 97) {
                 gYobiScreenOffsetMaximumAmplitude = 6;
@@ -28772,12 +28782,19 @@ void UpdateBattleAction139_410000(YobiAction* const action)
                     static_cast<void>(NewBattleBackgroundFade_421570(
                         payload->effects1C[payload->effectRunningC9C].position4, 1, 1));
                     static_cast<void>(AdvanceBattleEffect_439470(action));
-                    while (payload->effects1C[payload->effectRunningC9C].position != -1) {
+                    for (;;) {
                         const auto& levelEffect = payload->effects1C[payload->effectRunningC9C];
-                        gBattleAllEntries59E980[levelEffect.position]->field1D0 = levelEffect.position3;
+                        const std::int32_t levelPosition = levelEffect.position;
+                        if (levelPosition == -1) {
+                            break;
+                        }
+                        YobiAction* const levelTarget = gBattleAllEntries59E980[levelPosition];
+                        levelTarget->field1D0 = levelEffect.position3;
                         static_cast<void>(AdvanceBattleEffect_439470(action));
                         const auto& imageEffect = payload->effects1C[payload->effectRunningC9C];
-                        gBattleAllEntries59E980[imageEffect.position]->imageNo = imageEffect.position3;
+                        const std::int32_t imagePosition = imageEffect.position;
+                        const std::int32_t imageNo = imageEffect.position3;
+                        gBattleAllEntries59E980[imagePosition]->imageNo = imageNo;
                         const auto& riderEffect = payload->effects1C[payload->effectRunningC9C];
                         YobiAction* const riderTarget = gBattleAllEntries59E980[riderEffect.position];
                         if (static_cast<BattleActorPayload*>(riderTarget->payload)->rider13C8 != nullptr) {
@@ -28789,34 +28806,52 @@ void UpdateBattleAction139_410000(YobiAction* const action)
                         }
                         static_cast<void>(AdvanceBattleEffect_439470(action));
                         const auto& gearEffect = payload->effects1C[payload->effectRunningC9C];
-                        SetBattleGear_422BC0(gBattleAllEntries59E980[gearEffect.position], gearEffect.position3);
+                        const std::int32_t gearType = gearEffect.position3;
+                        const std::int32_t gearPosition = gearEffect.position;
+                        SetBattleGear_422BC0(gBattleAllEntries59E980[gearPosition], gearType);
                         static_cast<void>(AdvanceBattleEffect_439470(action));
                         // 构造会消费共享随机数，每次之后按当前效果重新查对象，再复制并析构。
                         platform::LegacyCryptInt temporary;
                         ConstructFromInt_401CC0(&temporary,
                             payload->effects1C[payload->effectRunningC9C].position3);
-                        YobiAction* target = gBattleAllEntries59E980[
-                            payload->effects1C[payload->effectRunningC9C].position];
-                        CopyPayload(&target->readiness, &temporary);
+                        const std::int32_t hpPosition =
+                            payload->effects1C[payload->effectRunningC9C].position;
+                        const std::uint32_t hpEncoded = temporary.encoded;
+                        YobiAction* target = gBattleAllEntries59E980[hpPosition];
+                        target->readiness.encoded = hpEncoded;
+                        target->readiness.mask = temporary.mask;
+                        target->readiness.readCount = temporary.readCount;
                         Destroy_401CF0(&temporary);
                         ConstructFromInt_401CC0(&temporary,
                             payload->effects1C[payload->effectRunningC9C].position4);
-                        target = gBattleAllEntries59E980[
-                            payload->effects1C[payload->effectRunningC9C].position];
-                        CopyPayload(&target->maxHp, &temporary);
+                        const std::int32_t maxHpPosition =
+                            payload->effects1C[payload->effectRunningC9C].position;
+                        const std::uint32_t maxHpEncoded = temporary.encoded;
+                        target = gBattleAllEntries59E980[maxHpPosition];
+                        target->maxHp.encoded = maxHpEncoded;
+                        target->maxHp.mask = temporary.mask;
+                        target->maxHp.readCount = temporary.readCount;
                         Destroy_401CF0(&temporary);
                         static_cast<void>(AdvanceBattleEffect_439470(action));
                         ConstructFromInt_401CC0(&temporary,
                             payload->effects1C[payload->effectRunningC9C].position3);
-                        target = gBattleAllEntries59E980[
-                            payload->effects1C[payload->effectRunningC9C].position];
-                        CopyPayload(&target->barValue1B0, &temporary);
+                        const std::int32_t fpPosition =
+                            payload->effects1C[payload->effectRunningC9C].position;
+                        const std::uint32_t fpEncoded = temporary.encoded;
+                        target = gBattleAllEntries59E980[fpPosition];
+                        target->barValue1B0.encoded = fpEncoded;
+                        target->barValue1B0.mask = temporary.mask;
+                        target->barValue1B0.readCount = temporary.readCount;
                         Destroy_401CF0(&temporary);
                         ConstructFromInt_401CC0(&temporary,
                             payload->effects1C[payload->effectRunningC9C].position4);
-                        target = gBattleAllEntries59E980[
-                            payload->effects1C[payload->effectRunningC9C].position];
-                        CopyPayload(&target->barMaximum1C0, &temporary);
+                        const std::int32_t maxFpPosition =
+                            payload->effects1C[payload->effectRunningC9C].position;
+                        const std::uint32_t maxFpEncoded = temporary.encoded;
+                        target = gBattleAllEntries59E980[maxFpPosition];
+                        target->barMaximum1C0.encoded = maxFpEncoded;
+                        target->barMaximum1C0.mask = temporary.mask;
+                        target->barMaximum1C0.readCount = temporary.readCount;
                         Destroy_401CF0(&temporary);
                         static_cast<void>(AdvanceBattleEffect_439470(action));
                     }
@@ -28862,8 +28897,9 @@ void UpdateBattleAction139_410000(YobiAction* const action)
         action->frameEvent = 0;
     }
     if (PlayFrame_517DA0(action, 1) == 1) {
-        if (action->battleCastEffect10 != nullptr) {
-            static_cast<void>(MarkDeath(action->battleCastEffect10));
+        YobiAction* const completedEffect = action->battleCastEffect10;
+        if (completedEffect != nullptr) {
+            static_cast<void>(MarkDeath(completedEffect));
             action->battleCastEffect10 = nullptr;
             do {
                 if (payload->castSkill103C == 402) {

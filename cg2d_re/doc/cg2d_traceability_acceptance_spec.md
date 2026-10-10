@@ -2352,3 +2352,9 @@ FUNC-BATTLE/FUNC-UIRUNTIME仅追加来源，U09/R04仅追加引用并保持open�
 [五完整正常源/裁决](cg2d_battle_knockdown_exit_spec.md#battle-knockdown-exit-decision)与[原根/数据/整源差集](cg2d_battle_knockdown_exit_evidence.json)登记两FUNC-BATTLE局部I/S：七BYTE、两HP零/三四值传送/一次事件/三Y-X/两运动参数/113两入口或父取样，共二十组。S五完整864条3025B/67E8/实际case和20B表项及28B常量/复用696B表与依赖关联，不代全callee/机器ABI或生命周期。
 
 仅109–112四新语义/F处置/成员，113更新既有1431来源与两组，equivalent及历史battle_motion_scale/完整证据保持；二十callee旧记录保持。语义2163→2167、F1591→1595、E1403→1405、BATTLE403→407仍枚举false；五任务仅加来源继续open，全部完整gates/184叶验收0/60任务关闭11和六closure保持。所有真实输入/父/容量/正常失败/alias/owner/SDK与声音画面待，未构建/测试/运行/摘要，不降低总SPEC§10。
+
+## 2026-10-10 BFW01 工厂等待与施法身份更新限定验收
+
+[四完整正常源/裁决](cg2d_battle_factory_wait_spec.md#battle-factory-wait-decision)和[原根/整源差集](cg2d_battle_factory_wait_evidence.json)登记两FUNC-BATTLE限定I/S。I只139十组：两独立T*门禁取样、98条件属性单读、405三读序和四HP/FP临时复制；S四完整565条2019B/48E8、六实际表项/四case及十五依赖关联。三正确主体和已有1497/40FC10完整共体保持，共体不重复纳管；十既有callee语义记录保持。
+
+四新语义/F处置/成员：语义2167→2171、F1595→1599、E1405→1407、BATTLE407→411且枚举false。五任务仅追加依据继续open，全部完整gates/184叶验收0/60任务关闭11与六closure保持。所有真实生产/其它父和完整callee/容量/机器ABI/alias/owner/SDK/声音画面待，必要静态与文本汇总不代运行，总SPEC§10及执行限制不降低。

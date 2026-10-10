@@ -593,11 +593,11 @@ void UpdateBattleAction110_40E560(YobiAction* action); // BKE01：旧FF0/1038蓄
 std::int32_t UpdateBattleAction111_40E970(YobiAction* action); // BKE01：两次fresh BYTE FDC/40次散射，原角度与四边界后仍Move/Play S32。
 void UpdateBattleAction113_40EFE0(YobiAction* action); // BKE01：worldY先载荷；两轴各自先借用父再数值，旧294/FF0及末fresh父标死保持。
 void UpdateBattleAction114_40F0A0(YobiAction* action); // BCVI01：缓存静态零初值/负HP复制原读序，完整动作合同沿BPR01。
-void UpdateBattleAction115_40FB80(YobiAction* action); // 工厂Y=-32，调用后重取目标隐藏，最后phase162。
+void UpdateBattleAction115_40FB80(YobiAction* action); // BFW01：固定载荷/完整flags的CH门禁，工厂后重取目标隐藏；全路径phase162。
 void UpdateBattleFactoryAction_40FC10(YobiAction* action); // 31动作共享30种映射；118不创建但仍phase162。
-void UpdateBattleActions127To129_40FF90(YobiAction* action); // 工厂type7/8/9末参0，完成后直接推进。
-void UpdateBattleAction138_40FF40(YobiAction* action); // 工厂type20，播放后检查1024，最后phase162。
-void UpdateBattleAction139_410000(YobiAction* action); // 施法事件/405身份更新，效果消费及独立平铺尾。
+void UpdateBattleActions127To129_40FF90(YobiAction* action); // BFW01：完整FDC持样/条件播放，后取phase选7/8/9末参0，全路径推进。
+void UpdateBattleAction138_40FF40(YobiAction* action); // BFW01：完整FDC持样/条件播放，后取1024创建type20，全路径phase162。
+void UpdateBattleAction139_410000(YobiAction* action); // BFW01：事件/完成两次独立特效指针持样，98单次属性；405不同取样/四临时复制原序。
 void UpdateBattleAction140_410730(YobiAction* action); // 技能工厂或61至63先推进目标，最后推进自身。
 void UpdateBattleAction141_410E90(YobiAction* action); // 13D8/13DC与技能选择减益图，重读FDC决定播放。
 void UpdateBattleAction142_410F70(YobiAction* action); // 标死1054后重读/清FDC六状态位，无条件播放并推进。

@@ -1,0 +1,88 @@
+# Yobi payload 结构分析 SPEC
+
+2026-10-10，BPST01。响应用户“这个payload应该是struct你试着分析一下”，范围为当前战斗链的 `YobiAction::payload`。本步只读原库类型/指令、核现有CPP并记录结构证据，不修改源码或IDA类型，不新增功能验收通过。
+
+<a id="payload-structure-conclusion"></a>
+## 1. 结论与类型来源
+
+战斗载荷可以且已经按结构体表达，当前源码为 `BattleActorPayload`。通用 `YobiAction::payload` 保存不同对象族的独立载荷地址；其类型擦除边界与战斗字段结构是两个层次。
+
+当前IDA命名类型实际声明：
+
+- `YobiAction` 大小330h，原+0Ch成员 `pYobi` 为 `YobiData*`。
+- `YobiData` 是union，六个成员偏移均为0；包含战斗角色、战斗场景、重生、地图角色、窗口及文本视图。
+- 战斗成员类型 `YobiBattleEntryData` 是struct，声明大小13E8h（5096B）。
+- 效果记录 `BattleEntryEffect` 是struct，大小10h，四成员各32位，偏移0/4/8/Ch。
+
+这些是**当前数据库已有声明，原始声明来源未知**，不是获得原C++源码，也不单凭命名类型证明全部字段语义。指令能够独立证明战斗载荷范围、若干字段宽度及队列访问方式。
+
+## 2. 指令与分配证据
+
+| 对象/行为 | 实际证据 | 结论与边界 |
+|---|---|---|
+| 通用载荷 | 404B2F取第二参数，404B37/38/3A按请求大小另行分配，404B46写action+0Ch，404B73–83按同大小清零 | action与payload为两块分配；请求长度由创建者提供 |
+| 战斗角色 | 43829E push 13E8h，4382A4调用404AE0，438302读action+0Ch，43836E写payload+18h | 分配5096B；+18h保存原S32位置参数 |
+| 战斗浅克隆 | 41EAB6请求13E8h；41EABD保存源payload；41EAE1保存新payload；41EAFA恢复新payload；41EAF3置ECX=4FAh，41EAFF rep movsd | 复制4FAh×4=13E8h；新载荷存储独立，内部指针值浅复制 |
+| 独立施法复制体 | 4205F1请求13E8h，420672/678、420681/687、420690/693分别读写103Ch、FF4h、18h | 同一战斗载荷族，仅复制技能/攻击模式/位置三字段；不能与整块浅克隆混同 |
+| 窗口载荷 | 5044E1 push 24h，5044E5调用404AE0 | 只请求36B；不能由YobiData union最大尺寸推所有实例都占5096B |
+| 跟随特效载荷 | 419CF1 push Ch，419CF5调用404AE0 | 只请求12B；对应当前独立BattleFollowOffsetPayload，字段/寿命沿既有合同 |
+| 实际释放 | 404D15读action+0Ch，404D1D先释放非空载荷，404D26再释放action | 释放载荷块没有遍历内部对象指针；内含对象的创建/标死沿各族合同 |
+
+通用分配窗口复用[已有完整原证](cg2d_yobi_allocation_sampling_evidence.json)，4205F0复用[BCPY01完整原证](cg2d_battle_combo_copy_evidence.json)。其余本步只读指令及命名类型保存于[结构证据](cg2d_payload_structure_evidence.json)。不重开、修改或保存原库。
+
+<a id="payload-structure-fields"></a>
+## 3. 战斗结构分区
+
+下表偏移均属**原x86载荷**；当前CPP字段名末尾的十六进制只是来源定位，不是新端offsetof。除列出的直接指令外，其余业务角色沿既有子合同及当前源码，未在本步重复宣布完整验证。
+
+| 原偏移/范围 | 当前表达 | 证据与未知项 |
+|---|---|---|
+| 00h–17h | 六个S32坐标/数值槽 | 438290分别从图形位置表写入00/04/08/0Ch；10/14沿既有移动合同，不能合并成一组对象坐标 |
+| 18h | battlePosition18，S32 | 43836E发布位置参数，不是对象指针 |
+| 1Ch–C9Bh | effects1C，200个BattleEntryEffectRecord | 每项16B；439415/439418写position，439426/43942C写flags，439439/43943C写position3，43944A/43944D写position4；200项重置沿BRAB01原证 |
+| C9Ch / CA0h | effectRunning / effectCount，S32 | 43947F/488读写执行索引；43940F/469读写追加索引；439491读取下一项position与-1比较 |
+| CA4h–FC3h | castListCA4，200个S32动作编号 | 4392C6按index×4写入；4392D3写下一-1；439352比较执行索引200，439360读编号并发布action.phase |
+| FC4h / FC8h | castPlayIndex / castListIndex，S32 | 执行与追加游标独立；不把索引解释为数量或地址 |
+| FCCh–FFBh | 独立S32计数/状态、W32 flags、移动目标、攻击模式及alive | FDC/FE0不能因局部BYTE/WORD门禁缩为小字段；FF4由420681/687完整W32复制 |
+| 1000h–1053h | 残影/闪烁、图号、音效、技能、等级及独立数值槽 | 当前有具名字段及value槽；104Ch尚未独立映射，不能因相邻图号命名推它也是图号 |
+| 1054h–107Fh | 八个独立YobiAction*及三个辅助YobiAction* | 数据库声明为原32位指针，当前沿既有合同原生拓宽；其中1070h由4392B3直接保存发起者参数；不为内部引用新增统一释放 |
+| 1080h | rebirthEffectType1080，S8 | 数据库声明byte，仅能证声明宽度；当前S8消费沿已有重生子合同；1081h–1083h用途未定 |
+| 1084h–13A3h | queuedTargets1084，当前200个S32 | 43B805按index×4写，43B812写下一-1；数据库旧视图将后792B声明char[]，实际写法支持整数队列。200来自当前模型/区域跨度，完整生产输入与写边界仍待 |
+| 13A4h–13E7h | 队列计数、原图号、装备/骑乘引用、减益状态及尾部数值/图号 | 43B7FF/824证13A8h队列计数；13D4h尚未映射。数据库将13D8h–13DFh归为BattlePairUnk1，当前分列两个S32，名称不能替代两字段合同 |
+
+效果值记录当前已有如下语义，保持16B，不含对象地址：
+
+```cpp
+struct BattleEntryEffectRecord {
+    std::int32_t position;
+    std::uint32_t flags;
+    std::int32_t position3;
+    std::int32_t position4;
+};
+```
+
+flags使用U32表达位模式；数据库的int声明不证明原源语言签名。传值仍须保各创建者的四字段读取顺序；这是结构化后仍需遵守的行为合同。
+
+## 4. 未映射区域及冲突
+
+| 原区域 | 数据库现声明 | 当前CPP | 当前能得出的结论 |
+|---|---|---|---|
+| FFCh–FFFh | field_FFC，int | 无独立成员 | 有声明覆盖；具体访问、用途与是否存在别名未核 |
+| 104Ch–104Fh | field_104C，int | 无独立成员 | 不能直接补成图号/计数或原生指针 |
+| 1081h–1083h | 三个char槽 | rebirthType与队列间可能有原生对齐字节 | 对齐字节不能冒充三个语义成员；也未证明原区仅padding |
+| 13D4h–13D7h | field_13D4，int | 无独立成员 | 需沿真正写入/消费核定，未扫描全库不能称未使用 |
+
+原浅克隆确实复制上述原字节区域；当前memcpy复制的是现有原生结构，省略区域不能被称为已完整还原。**这是一项结构覆盖缺口，不是本步发现并修好的运行故障。** 不为凑满13E8h猜字段、猜padding或声称所有潜在消费者已齐。
+
+YobiData union也不是源码布局权威：其中YobiMapCharaData现声明80B，而[既有原观察链合同](cg2d_yobi_runtime.md)的分配范围是30h；新端MapCharaPayload的静态断言声明尺寸为50h，本步未编译实测。必须分开原分配、数据库声明和原生x64布局，不能直接照搬整份类型库。
+
+<a id="payload-structure-source-state"></a>
+## 5. 当前源码与后续边界
+
+- 已有实现：YobiAction的void*通用槽、各对象族独立struct、BattleActorPayload与16B效果结构、sizeof原生载荷分配/浅复制，以及MSVC同域分配释放。本步源码保持。
+- 结构建议：继续用各族具名struct表达真实字段；通用槽只在已确定对象族的创建/回调边界转换类型。不能把所有payload改为BattleActorPayload*，也不能要求所有载荷分配sizeof(YobiData)。
+- x64边界：仅已证T*拓宽；S32/W32及16B纯数值效果记录保持。原13E8h是x86分配/复制长度，不是当前原生struct大小承诺，不使用pack将指针硬塞回32位。
+- 待证：上述四块区域的实际写入、消费和别名；全部载荷类型/创建者/cleanup的枚举；克隆后所有共享对象的正常寿命；完整容量/输入与运行结果。本步没有修改承载设计，不新增RTTI、tag、variant、句柄或依赖。
+- 后续若需要全面加强通用槽的静态类型，先在此真实类型/生产证据上形成具体SPEC，再沿现有工程委托决策，不能靠回调名称猜类型或一次性改变全部对象布局。
+
+本步仅类型分析与文档取证，U09/R04继续open；无新增原身份、处置、功能成员或I/W/S/R通过。必要静态核字段偏移换算、连续覆盖、指令宽度/步长、CPP结构与未映射区及引用；文本汇总只核登记一致性。不构建、测试、运行客户端/算法、检查产物或计算摘要，整体SPEC未完成。

@@ -2334,3 +2334,9 @@ F:00078330新增adapted，1937已有映射加本步原根/差集，无新F或语
 [专项合同/现源](cg2d_battle_projectile_creators_spec.md#projectile-creators-source-state)与[完整原证/差集](cg2d_battle_projectile_creators_evidence.json)核两完整322条1051B/六页、27直接call/十目标、十跳四RET及三常量。两个真正CALL与三个metadata JMP明确区分；保原metadata，不改数据库或计成额外调用。既有phase16生产衔接BPHIT01现分发/退场。
 
 一个CPP两个现体四片段恢复效果记录/投影字段原取样，原布局/宽度/API/数学/失败/辅助flags持样和所有其它源保。新增两原F语义/适配处置及BATTLE两已知成员，仅限定I/S各一，I只四片段、不称两函数新实现；枚举false、五任务/六closure/完整门禁保持，全部资源/生产/父-callee/owner-回收与SDK-数值ABI/运行未验。
+
+## 2026-10-10 BPST01 payload结构取证边界
+
+[结构分析](cg2d_payload_structure_spec.md#payload-structure-source-state)与[原类型/指令](cg2d_payload_structure_evidence.json)只证明当前Yobi通用指针槽和战斗结构的局部类型关系、分配/复制范围、数组步长及未映射区域。数据库现声明不代原源语言或完整布局；原13E8h不代新x64 sizeof，四块未映射区域不称已修复或未使用。
+
+FUNC-BATTLE/FUNC-UIRUNTIME仅追加来源，U09/R04仅追加引用并保持open。零源码/身份/处置/成员变化，零新软件I/W/S/R通过，原1401证据、2158语义、1586处置和完整门禁保持。必要静态与文本汇总不代完整生产/alias/owner或运行，执行限制及整体SPEC§10不降低。

@@ -2370,3 +2370,9 @@ FUNC-BATTLE/FUNC-UIRUNTIME仅追加来源，U09/R04仅追加引用并保持open�
 [五完整正常源/裁决](cg2d_battle_attached_effect_spec.md#battle-attached-effect-decision)及[原根/差集](cg2d_battle_attached_effect_evidence.json)登记两FUNC-BATTLE限定I/S。I仅41F800共享callback一Y转换后屏幕偏移组；S五完整257条884B/19E8、两原表项/case、39实际CALL入向/两callback MOV与复用35B六表指针/4B常量。四正确主体、所有其它源/已登记动作/五旧callee及原X分类保持，不新R7/数据X或Ftoll函数。
 
 四新语义/F/成员，已有1913从CAC07数据角色关联补完整正常创建/失败/发布及新F处置，旧数据子记录保历史且成员不重计；语义2177→2181、F1605→1610、E1409→1411、BATTLE417→421枚举false。五任务仅追加依据仍open，所有完整gates/184叶验收0/60任务关闭11与六closure保持。所有生产/父-callee/输入/容量/ABI/alias/owner/SDK/声音画面及运行待，总SPEC§10及执行限制不降低。
+
+## 2026-10-10 YFPS01 对象帧播放限定验收
+
+[两完整合同](cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-acceptance)及[原指令/329 CALL/差集](cg2d_yobi_frame_playback_sampling_evidence.json)补两已有主体独立身份，四定义十六源组与公头参数名/两注释。两完整766条2590B/十六E8/六旧callee、九十跳/二十RET，329实际直接入向/214父；静图局部图号和动画fresh图号、BYTE消费/持样门禁、加载后模式及cache/两轴顺序、阶段帧引用及坐标叠加恢复，不称运行故障或新实现所有父。
+
+ANIMATION/YOBI各两个新成员，BATTLE只Play依赖成员；两新语义/F和四限定I/S两根，六旧callee/全部其它语义/结构与原正常失败保持。语义2181→2183、F1610→1612、E1411→1415、动画9→11/Yobi60→62/BATTLE421→422枚举均false；六任务open、完整gates/184叶/60任务11关闭和六closure保，全部生产/输入/329完整父/容量/ABI/alias/owner/SDK/声音画面/运行待。

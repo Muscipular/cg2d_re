@@ -3220,7 +3220,8 @@
         "doc/cg2d_msvc_crt_file_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
-        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md"
       ],
       "original_inventory_ids": [
         "F:000574E0",
@@ -3231,7 +3232,9 @@
         "F:0005C150",
         "F:0005B440",
         "F:0005B650",
-        "F:0013C112"
+        "F:0013C112",
+        "F:00117880",
+        "F:00117DA0"
       ],
       "closure_task_ids": [
         "G01",
@@ -3262,7 +3265,9 @@
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
         "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
-        "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state"
+        "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-baseline",
+        "doc/cg2d_yobi_frame_playback_sampling_evidence.json"
       ]
     },
     {
@@ -3920,7 +3925,8 @@
         "doc/cg2d_battle_m_skill19_family_sampling_spec.md#battle-m-skill19-family-sampling-baseline",
         "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-baseline",
         "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-baseline",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-baseline"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-baseline",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md"
       ],
       "original_inventory_ids": [
         "F:000D6640",
@@ -3982,7 +3988,9 @@
         "F:00047E60",
         "F:00048D90",
         "F:00049160",
-        "F:00049400"
+        "F:00049400",
+        "F:00117880",
+        "F:00117DA0"
       ],
       "closure_task_ids": [
         "U09",
@@ -4168,7 +4176,9 @@
         "doc/cg2d_battle_m_skill19_family_sampling_spec.md#battle-m-skill19-family-sampling-source-state",
         "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-source-state",
         "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-baseline",
+        "doc/cg2d_yobi_frame_playback_sampling_evidence.json"
       ]
     },
     {
@@ -4347,7 +4357,8 @@
         "doc/cg2d_battle_knockdown_exit_spec.md",
         "doc/cg2d_battle_factory_wait_spec.md",
         "doc/cg2d_battle_field_effect_lifecycle_spec.md",
-        "doc/cg2d_battle_attached_effect_spec.md"
+        "doc/cg2d_battle_attached_effect_spec.md",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -4770,7 +4781,8 @@
         "F:00011320",
         "F:0000FEF0",
         "F:0001F860",
-        "F:0001F800"
+        "F:0001F800",
+        "F:00117DA0"
       ],
       "closure_task_ids": [
         "P01",
@@ -5216,7 +5228,9 @@
         "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-baseline",
         "doc/cg2d_battle_field_effect_lifecycle_evidence.json",
         "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-baseline",
-        "doc/cg2d_battle_attached_effect_evidence.json"
+        "doc/cg2d_battle_attached_effect_evidence.json",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-baseline",
+        "doc/cg2d_yobi_frame_playback_sampling_evidence.json"
       ]
     },
     {
@@ -60650,6 +60664,134 @@
       "differences": [],
       "result": "pass",
       "recorded_on": "2026-10-10"
+    },
+    {
+      "id": "E-YOBI-FRAME-PLAYBACK-FUNC-ANIMATION-I-20261010",
+      "feature_id": "FUNC-ANIMATION",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:00117880",
+        "F:00117DA0"
+      ],
+      "baseline_reference": "两完整766条2590B/十三页，十六E8/六callee、九十跳/二十RET、329实际入向E8/214父；十六源组与整CPP/公头精确重放，仅必要静态。",
+      "implementation_reference": "Git提交说明：[#] 对齐对象帧播放与共享帧取样",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-baseline",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-decision",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-acceptance",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-source-state",
+        "doc/cg2d_yobi_frame_playback_sampling_evidence.json",
+        "src/YobiRuntime.cpp",
+        "include/cg/YobiRuntime.hpp",
+        "src/AnimationRuntimeState.hpp",
+        "src/render/GraphicDxCache.cpp",
+        "doc/cg2d_animation_runtime.md",
+        "doc/cg2d_yobi_runtime.md"
+      ],
+      "observation": "原已实现两完整根，十六源组恢复阶段帧引用/BYTE反转消费/加载门禁与两轴cache取样/坐标叠加及入口独立读序。",
+      "expected": "原S32 -1/0/1、严格hidden/停播1、两静图分流/速率来源、U32 frameIndex及原remain最小1、无新保护；加载与声音真实提供者及宽度保持。",
+      "actual": "限定I两入口各四/共享八组、公头参数名/两注释、三共享直接调用，整源精确差集。",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-10"
+    },
+    {
+      "id": "E-YOBI-FRAME-PLAYBACK-FUNC-ANIMATION-S-20261010",
+      "feature_id": "FUNC-ANIMATION",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:00117880",
+        "F:00117DA0"
+      ],
+      "baseline_reference": "两完整766条2590B/十三页，十六E8/六callee、九十跳/二十RET、329实际入向E8/214父；十六源组与整CPP/公头精确重放，仅必要静态。",
+      "implementation_reference": "Git提交说明：[#] 对齐对象帧播放与共享帧取样",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-baseline",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-decision",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-acceptance",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-source-state",
+        "doc/cg2d_yobi_frame_playback_sampling_evidence.json",
+        "src/YobiRuntime.cpp",
+        "include/cg/YobiRuntime.hpp",
+        "src/AnimationRuntimeState.hpp",
+        "src/render/GraphicDxCache.cpp",
+        "doc/cg2d_animation_runtime.md",
+        "doc/cg2d_yobi_runtime.md"
+      ],
+      "observation": "原已实现两完整根，十六源组恢复阶段帧引用/BYTE反转消费/加载门禁与两轴cache取样/坐标叠加及入口独立读序。",
+      "expected": "原S32 -1/0/1、严格hidden/停播1、两静图分流/速率来源、U32 frameIndex及原remain最小1、无新保护；加载与声音真实提供者及宽度保持。",
+      "actual": "限定S两完整根/全部原指令、329直接CALL/214父和六callee身份/必要局部源；不代329完整父或全数据/owner/SDK/运行。",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-10"
+    },
+    {
+      "id": "E-YOBI-FRAME-PLAYBACK-FUNC-YOBI-I-20261010",
+      "feature_id": "FUNC-YOBI",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:00117880",
+        "F:00117DA0"
+      ],
+      "baseline_reference": "两完整766条2590B/十三页，十六E8/六callee、九十跳/二十RET、329实际入向E8/214父；十六源组与整CPP/公头精确重放，仅必要静态。",
+      "implementation_reference": "Git提交说明：[#] 对齐对象帧播放与共享帧取样",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-baseline",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-decision",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-acceptance",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-source-state",
+        "doc/cg2d_yobi_frame_playback_sampling_evidence.json",
+        "src/YobiRuntime.cpp",
+        "include/cg/YobiRuntime.hpp",
+        "src/AnimationRuntimeState.hpp",
+        "src/render/GraphicDxCache.cpp",
+        "doc/cg2d_animation_runtime.md",
+        "doc/cg2d_yobi_runtime.md"
+      ],
+      "observation": "原已实现两完整根，十六源组恢复阶段帧引用/BYTE反转消费/加载门禁与两轴cache取样/坐标叠加及入口独立读序。",
+      "expected": "原S32 -1/0/1、严格hidden/停播1、两静图分流/速率来源、U32 frameIndex及原remain最小1、无新保护；加载与声音真实提供者及宽度保持。",
+      "actual": "限定I两入口各四/共享八组、公头参数名/两注释、三共享直接调用，整源精确差集。",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-10"
+    },
+    {
+      "id": "E-YOBI-FRAME-PLAYBACK-FUNC-YOBI-S-20261010",
+      "feature_id": "FUNC-YOBI",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:00117880",
+        "F:00117DA0"
+      ],
+      "baseline_reference": "两完整766条2590B/十三页，十六E8/六callee、九十跳/二十RET、329实际入向E8/214父；十六源组与整CPP/公头精确重放，仅必要静态。",
+      "implementation_reference": "Git提交说明：[#] 对齐对象帧播放与共享帧取样",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-baseline",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-decision",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-acceptance",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-source-state",
+        "doc/cg2d_yobi_frame_playback_sampling_evidence.json",
+        "src/YobiRuntime.cpp",
+        "include/cg/YobiRuntime.hpp",
+        "src/AnimationRuntimeState.hpp",
+        "src/render/GraphicDxCache.cpp",
+        "doc/cg2d_animation_runtime.md",
+        "doc/cg2d_yobi_runtime.md"
+      ],
+      "observation": "原已实现两完整根，十六源组恢复阶段帧引用/BYTE反转消费/加载门禁与两轴cache取样/坐标叠加及入口独立读序。",
+      "expected": "原S32 -1/0/1、严格hidden/停播1、两静图分流/速率来源、U32 frameIndex及原remain最小1、无新保护；加载与声音真实提供者及宽度保持。",
+      "actual": "限定S两完整根/全部原指令、329直接CALL/214父和六callee身份/必要局部源；不代329完整父或全数据/owner/SDK/运行。",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-10"
     }
   ],
   "task_acceptance": [
@@ -60986,7 +61128,9 @@
         "doc/cg2d_map_direction_byte_bridge_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
-        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-source-state",
+        "doc/cg2d_yobi_frame_playback_sampling_evidence.json"
       ]
     },
     {
@@ -61918,7 +62062,9 @@
         "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-source-state",
         "doc/cg2d_battle_field_effect_lifecycle_evidence.json",
         "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-source-state",
-        "doc/cg2d_battle_attached_effect_evidence.json"
+        "doc/cg2d_battle_attached_effect_evidence.json",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-source-state",
+        "doc/cg2d_yobi_frame_playback_sampling_evidence.json"
       ]
     },
     {
@@ -62666,7 +62812,9 @@
         "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-source-state",
         "doc/cg2d_battle_field_effect_lifecycle_evidence.json",
         "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-source-state",
-        "doc/cg2d_battle_attached_effect_evidence.json"
+        "doc/cg2d_battle_attached_effect_evidence.json",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-source-state",
+        "doc/cg2d_yobi_frame_playback_sampling_evidence.json"
       ]
     },
     {
@@ -62988,7 +63136,9 @@
         "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-source-state",
         "doc/cg2d_battle_field_effect_lifecycle_evidence.json",
         "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-source-state",
-        "doc/cg2d_battle_attached_effect_evidence.json"
+        "doc/cg2d_battle_attached_effect_evidence.json",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-source-state",
+        "doc/cg2d_yobi_frame_playback_sampling_evidence.json"
       ]
     },
     {
@@ -63173,7 +63323,9 @@
         "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-source-state",
         "doc/cg2d_battle_field_effect_lifecycle_evidence.json",
         "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-source-state",
-        "doc/cg2d_battle_attached_effect_evidence.json"
+        "doc/cg2d_battle_attached_effect_evidence.json",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-source-state",
+        "doc/cg2d_yobi_frame_playback_sampling_evidence.json"
       ]
     },
     {
@@ -63884,7 +64036,9 @@
         "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-source-state",
         "doc/cg2d_battle_field_effect_lifecycle_evidence.json",
         "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-source-state",
-        "doc/cg2d_battle_attached_effect_evidence.json"
+        "doc/cg2d_battle_attached_effect_evidence.json",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-source-state",
+        "doc/cg2d_yobi_frame_playback_sampling_evidence.json"
       ]
     },
     {
@@ -63981,7 +64135,7 @@
       ]
     }
   ],
-  "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。 GQ01由同一汇总器生成development_gap_queue与看板§5；只列定位/语义身份登记差集，不把缺历史定位当源码未实现，不手改队列。 CRI01无独立函数ID的已证代码片段可按原X区间/实际边界绑定；校验身份与证据后另计，不混入缺身份队列，不增加函数分母。 ACP01-A按最新double/std数学许可迁音频6入口CPP；更新现提供者及两限定静态证据，三ASM历史附件仍由固定Git快照核存在；完整门禁/成员/任务状态与MIDI停止范围保持。 ACP01-M将地图13数学/投影入口迁CPP，8现提供者同步，新增两限定I/S，原CI消费点明示std::pow承接；CRT环境仍待，不关闭完整gates/成员/任务。 ACP01-C完成第三ASM源迁移，22接口/70私有机器ABI退役/5非PUBLIC宿主承接，当前数学现提供者与host/mixed处置同步；新增两限定I/S，三ASM/MASM已移除，原身份/成员/完整gates/任务/六closure不闭合。 HMU01按malloc方向和工程委托统一通用全部模式CRT；9实际提供者/12旧池退休/8类型/10槽，25语义当前提供者与host/adapted处置对齐，3限定静态证据；完整门禁/成员/任务/六closure保持。 2026-10-09 CAC17：按用户要求更新七源/头18处过时注释；代码/声明/字段/调用保持，零新增原身份/语义/处置/软件证据，完整门禁/任务关闭/成员/六closure不变；见plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009。 2026-10-09 CAC18：第六批512原X完整用途和49表307槽/19索引/18对齐/三回调八原型，仅辅助mapped与九已有/26新父数据关联及三无F代码身份；已审区间2021余1040，源码/完整门禁/软件证据/任务状态和六closure保持。 2026-10-09 CAC19：第七批512原X/5733B完整用途；15表97槽/两索引/四对齐/22代码，五原型、十八旧键与一旧选择来源，七旧/六新父仅数据关联。已审区间2533余528，零客户端源码/软件证据增量；完整门禁/任务状态/成员枚举和六closure保持。 2026-10-09 CAC20：528候选全读、527原X用途mapped，已审3060/3061；X:00142E29-00142E34内八字节用途未证留待，不猜填充/排除。九表/输入元数据/PE原节尾/键盘包装/三ABI尾部有据；单一53B4F2受限host职责新增，零客户端源码/软件证据通过，完整门禁/任务状态/成员枚举/六closure保持。 CAC20静态汇总拒绝53B51F无独立现源码的语义代码身份后，撤掉该条；原用途/完整字节和未决实际转入仍保留，不放宽校验。 MC01-A按用户CRT直接使用MSVC新要求先记总范围与分组SPEC，33入口/29新提供者、TLS错误和八退休辅助同步；保原身份/前态、局部静态证据与全部完整门禁，FILE/lowio和C++余组继续。 MC01-B成组迁MSVC FILE/描述符/流格式与状态/ctime/fpos/关闭；39私有定义及旧入口/C表退休，shared calloc仅除stdio消费者；旧映射沿固定快照可读，当前全部门禁/任务状态保持，完整C++余组继续。 MC01-C1退休六组无现组外消费者的私有C++库/NCE头及旧展开适配，实际MSVC标准流/Init/locale和全部业务初始化退出保持；现语义/共享消费与历史附件快照对齐，新增两限定I/S，完整功能门禁/成员闭包/任务状态保持。 MC01-C2浮点文本/数值/环境组退休，实际业务math源及计时除法保持，两真实Shop/NLS intrinsic读移到现有模块；无消费slot/helper/gate/类型退休，新增两限定I/S及精确登记，完整门禁/任务保持。 MC01-C3 private错误/信号/退出/filter/console层退休；三MSVC致命或terminate适配、四数组/实际业务回调与登记保持，_Exit诊断差异具名；两限定I/S、现语义/历史附件对齐，完整门禁/任务不关闭。；2026-10-10 MC01-C4堆策略直接MSVC，三公开服务与真实业务保持；35语义对齐、仅2限定I/S，完整门禁/任务状态不变。；2026-10-10 MC01-C5旧多字节/ctype/argv环境直接MSVC，两Input实际分类与业务命令/数组保持，仅限定I/S；门禁/任务状态不变。；2026-10-10 MC01-C6残留审计退休无消费549147，仅限定S；排序冲突两方案待选择，未计实现/验收。；2026-10-10 MC01-C7两一致排序域std::qsort，新增原_qsort混合身份；仅限定I/S，八待决域及全部完整门禁保持。；2026-10-10旧7/旧8路由待项按已有有界证据对齐为原调用来源待证，不推定缺少分派，不新增I/S或功能通过；完整门禁/任务与CRT排序待决保持。；2026-10-10 BDI01补两既有正确战斗标量依赖独立身份/限定S，源码和新I零；原分母/完整门禁与全部任务状态保持。；2026-10-10 BPHIT01完整既有动作16/唯一真实case16独立身份纳管，正常本体保，仅三注释/一限定S；零新I，完整门禁/任务状态保持。；2026-10-10 BPC01两完整投射创建器/phase16生产与四原取样实修，限定I/S；两F/成员补齐，完整门禁/任务状态保持。 2026-10-10 BPR01：两既有投影根完整合同/原父各阶段重取和本轮标死后继续处理纳管；三个原CALL均不消费创建返回，void保持；正文/签名不改，三注释，新增两语义/F/已知BATTLE成员及一限定S，零新I；最终回收/全资源SDK与运行未验，全部门禁/分母/六closure保持。 2026-10-10 BPRH01：完整既有RangeHit创建/phase16/投影生产纳管，三个取样片段按原阶段持有含同一借用DX表；五原CALL/现四表达式有具体分支对应。新增一语义/F/已知BATTLE成员及限定I/S，零新函数；全数据/资源/父-callee/SDK/最终owner回收及运行待，完整门禁/分母/六closure保持。 2026-10-10 DPCS01：沿RangeHit新关注点补两个已有创建器父Y/payload、SpiracleShot同表/查询和BlastWave图号/查询四组取样；旧BPC01原根复用/旧记录前态固定，两现语义/F处置追加来源，零新函数/身份/成员/分母，仅限定I/S；全部门禁/六closure与完整资源/SDK/owner/运行待项保持。 2026-10-10 BPEX01：阶段17正常移动/矩形超界标死完整叶及唯一分发来源纳管，现正文/签名及所有依赖保持，两注释；调度/父标死/投影后继退出只登记条件性阶段，不称完整owner安全。新增一语义/F/BATTLE成员与一限定S/零新I，全部政策/分母/门禁和六closure及资源/SDK/生命周期运行待项保持。 2026-10-10 BAEL01：追加效果链三完整根/节点与六头引用纳管，正常生产-值查找-清理具体源闭合；仅free current取样一段实修，状态7/9和全部其它源保。三新语义/F/BATTLE成员，限定I仅清理一个F/S三F；全资格/15父/数据/原间接alias、SDK失败/重进退出与最终owner及运行未闭，完整门禁/分母/六closure保持。 2026-10-10 BEMS01：既有816退出M扫描由头查找局部补完整CHT/BST/固定payload-fresh对象/正常计时根，源正确保持，仅两注释；原记录前态固定，零新语义/I，新增一F/BATTLE已知成员与限定S。全部数据/父-callee/场景owner/SDK声音画面和政策/门禁/分母/六closure保持。 2026-10-10 BAES01完整43BD00资格根/54项准入及唯一AL生产门禁纳管，正文保持/两注释，一F与限定S、零新I/函数/成员；原1916/CAC07完整前态及全部门禁保持。 2026-10-10 B20H01完整阶段20正常源/身份及一已知成员纳管，一CPP三低BYTE/一HP归零取样四组修正，限定I/S；图号/RNG/特殊免疫/标死后Move、原分母/全部门禁保持。 2026-10-10 B22H01阶段22回旋命中/五档选图两完整源纳管，主根七组/四注释，I只主根/S两根；独立伤害/恢复/最大HP/3-7当帧延迟与原表/返回/RNG保持，两身份/处置/已知成员，全部门禁保。 2026-10-10 B22L01补完整阶段21/23正确入位退场源，两身份/处置/已知成员，四注释/一限定S零I；固定caster/父载荷/266列表和互斥标死后移动播放/原返回保，完整门禁保持。 2026-10-10 B22C01完整回旋创建与同步推进原根纳管，一CPP十一组读取/发布/两注释，一新身份/处置/已知成员及限定I/S；几何/比例/DX S16/原循环和T*返回保持，完整门禁保。 2026-10-10 B15P01完整动作15回旋/258/范围生产父纳管，一CPP四组事件/child-X pub/普通event-X与两注释，一身份/处置/已知成员及限定I/S；原等级持样/循环/失败/音效保持，完整门禁保。 2026-10-10 BHE01完整命中特效创建/计时回调两根纳管，一CPP两投影尾/四注释，计数持样/字段/失败和返回保持，两身份/处置/已知成员及限定I/S；全部门禁保持。 2026-10-10 BSP01阶段18/19射击生产与完整攻击事件探测三根纳管，一CPP四段单次事件/音效event-X与六注释，三身份/处置/已知成员及限定I/S；探测正确循环/严格终帧优先和原技能/等级/推进/返回保持，完整门禁保。 2026-10-10 B12P01阶段12计时/13载荷坐标移动完整两根纳管，一CPP两低BYTE入口/四注释，两身份/处置/已知成员及限定I/S；原RNG/计数/速率/播放/坐标序保持，既有几何/特效创建回调复用，全部门禁保。 2026-10-10 BIDLE01动作0/1完整待机源纳管，一CPP四低BYTE消费/四注释，原完整W32 FDC持样/归零后fresh读和列表/上一项/互斥Play保；两身份/处置/已知成员及限定I/S，236已完整BQD01复用不重计，完整门禁保。 2026-10-10 B14H01完整阶段14视觉/四类HP-FP与延时根纳管，一CPP六复制/十二BYTE/一音效十九片段及两注释，一身份/处置/已知成员和限定I/S；原字段/选图/两互斥RNG/免疫/14-28当帧延时/FD4尾及正确最大HP封顶/坐标保持，完整门禁保。 BRAE01补两完整效果合同，属性1915保CAC07前态；新一语义/两F处置/一成员/一限定S零I，五任务open，原分母/门禁/政策保持。 BRCP01补五动作/共享距离六完整根，仅动作11三BYTE和十二注释，六语义/F/成员、限定I/S；旧记录/所有政策/门禁及五任务open保持。 BPAW01补七完整播放/计时/目标等待根，仅四BYTE及十四注释；七语义/F/成员、限定I四片段/S七根，五任务open/全部旧身份与门禁政策保持。 BHRC01补六动作/22槽计数七完整根，十WORD/BYTE及十四注释；七语义/F/成员与限定I十表达/S七根，全部旧身份/政策/门禁及五任务open保持。 BSEX01补五动作/散射创建回调七完整根，七表达与十四注释；七语义/F/成员、限定I七表达/S七根，全部旧身份/政策/门禁及五任务open保持。 BWT01补等待/交替/转向八完整根及440B两表，仅37/38两BYTE与十六注释；八语义/F/成员，限定I两表达/S八根，全部旧身份/政策/门禁及五任务open保持。 BDE01补九死亡退场动作与中心创建/回调十一完整根，仅46四消费和二十二注释；十一语义/F/成员、限定I四表达/S十一根，所有旧记录/政策/门禁及五任务open保持。 BSA01补放大/动画十动作与实际扣FP叶十一完整根，正文全保持仅二十二注释；十一语义/F/成员、一限定S零I，所有旧记录/政策/门禁及五open任务保持。 BTE01补帧事件/逐目标启动和投射生产九完整根，仅两BYTE/一次事件及十八注释；九语义/F/成员、限定I三片段/S九根，旧工厂/回调/原政策门禁及五open任务保持。 BCLC01补控制/附属清理/独立音效与放大九完整正确根，仅十八注释；九语义/F/成员、一限定S零I，73/74和全部旧记录/原政策门禁/五open任务保持。 BRAF01动作84–92九完整正常源/局部分派与696B表纳管，四BYTE门禁和86临时复制一取样共五片段落实；九语义/F/成员与限定I三F/S九F，五任务开放，旧记录/原政策门禁及六closure保持。 BSTL01动作93–98/百格技能生产/角度叶八完整正常源纳管，95临时HP零复制和分支前第二角度持样两片段落实；八语义/F/成员与限定I两F/S八F，五任务开放，原门禁政策/六closure保持。 BCPY01动作99–103/独立复制体六完整正常源纳管，18 BYTE/三读取组及原PE游标零初值共22组落实；六语义/F/成员与限定I三F/S六F，五任务开放、原门禁政策/六closure保持。 BCVI01已有114位置缓存当前4100B映像覆盖区零初值及一临时HP复制读序修复；九真实加载-1保持，1025仅保当前容量不证原owner。仅1428/对应F当前来源和两限定I/S，零新身份/成员；五任务open、原分母/政策/gates/六closure保持。 BPST01仅核Yobi通用载荷槽/数据库union与战斗struct、原13E8h分配浅克隆、16B效果和S32动作队列及四块未映射区；不改源码，不新增身份/处置/成员或软件通过证据。BATTLE/UIRUNTIME补结构来源，U09/R04继续open，所有门禁/政策保持。 BIE01动作104–108五完整正常根/独立合同纳管，104/105四读取组及108十三BYTE/一临时复制共十八组；五语义/F/成员、限定I三F/S五F，十五已有语义保持，五任务open和全部原政策门禁/六closure保持。 BKE01动作109–113五完整正常源/二十读取组纳管；四新语义/F/成员，已有1431/equivalent及旧结构保历史仅加当前来源；两限定I/S覆盖五根，二十callee语义保持，五任务open与全部原政策门禁/六closure保持。 BFW01工厂115/127–129/138与施法139四完整正常根纳管；只139十组，三正确主体与1497共体保持，四语义/F/成员、限定I只139/S四根，十旧callee身份保持；五任务open及原完整门禁/六closure保持。 BFL01四动作及场地创建/完整回调六正常根纳管，仅创建两索引与回调Y转换后三组/十二注释；六新语义/F/成员、限定I两F/S六根，141/143旧合同与五callee/表/C解析器保持；B0前缀不代全父，五任务open及原完整门禁/六closure保持。 BAS01附属特效147/148、反转创建/共享callback和1913减益创建五完整正常源纳管；只共享callback一组/十注释。四新语义/成员、1913补完整当前来源/元数据并保CAC07子记录、五新F/限定I一F/S五根，五旧callee/已登记动作与原X分类保持；五任务open及完整政策/gates/六closure保。",
+  "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。 GQ01由同一汇总器生成development_gap_queue与看板§5；只列定位/语义身份登记差集，不把缺历史定位当源码未实现，不手改队列。 CRI01无独立函数ID的已证代码片段可按原X区间/实际边界绑定；校验身份与证据后另计，不混入缺身份队列，不增加函数分母。 ACP01-A按最新double/std数学许可迁音频6入口CPP；更新现提供者及两限定静态证据，三ASM历史附件仍由固定Git快照核存在；完整门禁/成员/任务状态与MIDI停止范围保持。 ACP01-M将地图13数学/投影入口迁CPP，8现提供者同步，新增两限定I/S，原CI消费点明示std::pow承接；CRT环境仍待，不关闭完整gates/成员/任务。 ACP01-C完成第三ASM源迁移，22接口/70私有机器ABI退役/5非PUBLIC宿主承接，当前数学现提供者与host/mixed处置同步；新增两限定I/S，三ASM/MASM已移除，原身份/成员/完整gates/任务/六closure不闭合。 HMU01按malloc方向和工程委托统一通用全部模式CRT；9实际提供者/12旧池退休/8类型/10槽，25语义当前提供者与host/adapted处置对齐，3限定静态证据；完整门禁/成员/任务/六closure保持。 2026-10-09 CAC17：按用户要求更新七源/头18处过时注释；代码/声明/字段/调用保持，零新增原身份/语义/处置/软件证据，完整门禁/任务关闭/成员/六closure不变；见plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009。 2026-10-09 CAC18：第六批512原X完整用途和49表307槽/19索引/18对齐/三回调八原型，仅辅助mapped与九已有/26新父数据关联及三无F代码身份；已审区间2021余1040，源码/完整门禁/软件证据/任务状态和六closure保持。 2026-10-09 CAC19：第七批512原X/5733B完整用途；15表97槽/两索引/四对齐/22代码，五原型、十八旧键与一旧选择来源，七旧/六新父仅数据关联。已审区间2533余528，零客户端源码/软件证据增量；完整门禁/任务状态/成员枚举和六closure保持。 2026-10-09 CAC20：528候选全读、527原X用途mapped，已审3060/3061；X:00142E29-00142E34内八字节用途未证留待，不猜填充/排除。九表/输入元数据/PE原节尾/键盘包装/三ABI尾部有据；单一53B4F2受限host职责新增，零客户端源码/软件证据通过，完整门禁/任务状态/成员枚举/六closure保持。 CAC20静态汇总拒绝53B51F无独立现源码的语义代码身份后，撤掉该条；原用途/完整字节和未决实际转入仍保留，不放宽校验。 MC01-A按用户CRT直接使用MSVC新要求先记总范围与分组SPEC，33入口/29新提供者、TLS错误和八退休辅助同步；保原身份/前态、局部静态证据与全部完整门禁，FILE/lowio和C++余组继续。 MC01-B成组迁MSVC FILE/描述符/流格式与状态/ctime/fpos/关闭；39私有定义及旧入口/C表退休，shared calloc仅除stdio消费者；旧映射沿固定快照可读，当前全部门禁/任务状态保持，完整C++余组继续。 MC01-C1退休六组无现组外消费者的私有C++库/NCE头及旧展开适配，实际MSVC标准流/Init/locale和全部业务初始化退出保持；现语义/共享消费与历史附件快照对齐，新增两限定I/S，完整功能门禁/成员闭包/任务状态保持。 MC01-C2浮点文本/数值/环境组退休，实际业务math源及计时除法保持，两真实Shop/NLS intrinsic读移到现有模块；无消费slot/helper/gate/类型退休，新增两限定I/S及精确登记，完整门禁/任务保持。 MC01-C3 private错误/信号/退出/filter/console层退休；三MSVC致命或terminate适配、四数组/实际业务回调与登记保持，_Exit诊断差异具名；两限定I/S、现语义/历史附件对齐，完整门禁/任务不关闭。；2026-10-10 MC01-C4堆策略直接MSVC，三公开服务与真实业务保持；35语义对齐、仅2限定I/S，完整门禁/任务状态不变。；2026-10-10 MC01-C5旧多字节/ctype/argv环境直接MSVC，两Input实际分类与业务命令/数组保持，仅限定I/S；门禁/任务状态不变。；2026-10-10 MC01-C6残留审计退休无消费549147，仅限定S；排序冲突两方案待选择，未计实现/验收。；2026-10-10 MC01-C7两一致排序域std::qsort，新增原_qsort混合身份；仅限定I/S，八待决域及全部完整门禁保持。；2026-10-10旧7/旧8路由待项按已有有界证据对齐为原调用来源待证，不推定缺少分派，不新增I/S或功能通过；完整门禁/任务与CRT排序待决保持。；2026-10-10 BDI01补两既有正确战斗标量依赖独立身份/限定S，源码和新I零；原分母/完整门禁与全部任务状态保持。；2026-10-10 BPHIT01完整既有动作16/唯一真实case16独立身份纳管，正常本体保，仅三注释/一限定S；零新I，完整门禁/任务状态保持。；2026-10-10 BPC01两完整投射创建器/phase16生产与四原取样实修，限定I/S；两F/成员补齐，完整门禁/任务状态保持。 2026-10-10 BPR01：两既有投影根完整合同/原父各阶段重取和本轮标死后继续处理纳管；三个原CALL均不消费创建返回，void保持；正文/签名不改，三注释，新增两语义/F/已知BATTLE成员及一限定S，零新I；最终回收/全资源SDK与运行未验，全部门禁/分母/六closure保持。 2026-10-10 BPRH01：完整既有RangeHit创建/phase16/投影生产纳管，三个取样片段按原阶段持有含同一借用DX表；五原CALL/现四表达式有具体分支对应。新增一语义/F/已知BATTLE成员及限定I/S，零新函数；全数据/资源/父-callee/SDK/最终owner回收及运行待，完整门禁/分母/六closure保持。 2026-10-10 DPCS01：沿RangeHit新关注点补两个已有创建器父Y/payload、SpiracleShot同表/查询和BlastWave图号/查询四组取样；旧BPC01原根复用/旧记录前态固定，两现语义/F处置追加来源，零新函数/身份/成员/分母，仅限定I/S；全部门禁/六closure与完整资源/SDK/owner/运行待项保持。 2026-10-10 BPEX01：阶段17正常移动/矩形超界标死完整叶及唯一分发来源纳管，现正文/签名及所有依赖保持，两注释；调度/父标死/投影后继退出只登记条件性阶段，不称完整owner安全。新增一语义/F/BATTLE成员与一限定S/零新I，全部政策/分母/门禁和六closure及资源/SDK/生命周期运行待项保持。 2026-10-10 BAEL01：追加效果链三完整根/节点与六头引用纳管，正常生产-值查找-清理具体源闭合；仅free current取样一段实修，状态7/9和全部其它源保。三新语义/F/BATTLE成员，限定I仅清理一个F/S三F；全资格/15父/数据/原间接alias、SDK失败/重进退出与最终owner及运行未闭，完整门禁/分母/六closure保持。 2026-10-10 BEMS01：既有816退出M扫描由头查找局部补完整CHT/BST/固定payload-fresh对象/正常计时根，源正确保持，仅两注释；原记录前态固定，零新语义/I，新增一F/BATTLE已知成员与限定S。全部数据/父-callee/场景owner/SDK声音画面和政策/门禁/分母/六closure保持。 2026-10-10 BAES01完整43BD00资格根/54项准入及唯一AL生产门禁纳管，正文保持/两注释，一F与限定S、零新I/函数/成员；原1916/CAC07完整前态及全部门禁保持。 2026-10-10 B20H01完整阶段20正常源/身份及一已知成员纳管，一CPP三低BYTE/一HP归零取样四组修正，限定I/S；图号/RNG/特殊免疫/标死后Move、原分母/全部门禁保持。 2026-10-10 B22H01阶段22回旋命中/五档选图两完整源纳管，主根七组/四注释，I只主根/S两根；独立伤害/恢复/最大HP/3-7当帧延迟与原表/返回/RNG保持，两身份/处置/已知成员，全部门禁保。 2026-10-10 B22L01补完整阶段21/23正确入位退场源，两身份/处置/已知成员，四注释/一限定S零I；固定caster/父载荷/266列表和互斥标死后移动播放/原返回保，完整门禁保持。 2026-10-10 B22C01完整回旋创建与同步推进原根纳管，一CPP十一组读取/发布/两注释，一新身份/处置/已知成员及限定I/S；几何/比例/DX S16/原循环和T*返回保持，完整门禁保。 2026-10-10 B15P01完整动作15回旋/258/范围生产父纳管，一CPP四组事件/child-X pub/普通event-X与两注释，一身份/处置/已知成员及限定I/S；原等级持样/循环/失败/音效保持，完整门禁保。 2026-10-10 BHE01完整命中特效创建/计时回调两根纳管，一CPP两投影尾/四注释，计数持样/字段/失败和返回保持，两身份/处置/已知成员及限定I/S；全部门禁保持。 2026-10-10 BSP01阶段18/19射击生产与完整攻击事件探测三根纳管，一CPP四段单次事件/音效event-X与六注释，三身份/处置/已知成员及限定I/S；探测正确循环/严格终帧优先和原技能/等级/推进/返回保持，完整门禁保。 2026-10-10 B12P01阶段12计时/13载荷坐标移动完整两根纳管，一CPP两低BYTE入口/四注释，两身份/处置/已知成员及限定I/S；原RNG/计数/速率/播放/坐标序保持，既有几何/特效创建回调复用，全部门禁保。 2026-10-10 BIDLE01动作0/1完整待机源纳管，一CPP四低BYTE消费/四注释，原完整W32 FDC持样/归零后fresh读和列表/上一项/互斥Play保；两身份/处置/已知成员及限定I/S，236已完整BQD01复用不重计，完整门禁保。 2026-10-10 B14H01完整阶段14视觉/四类HP-FP与延时根纳管，一CPP六复制/十二BYTE/一音效十九片段及两注释，一身份/处置/已知成员和限定I/S；原字段/选图/两互斥RNG/免疫/14-28当帧延时/FD4尾及正确最大HP封顶/坐标保持，完整门禁保。 BRAE01补两完整效果合同，属性1915保CAC07前态；新一语义/两F处置/一成员/一限定S零I，五任务open，原分母/门禁/政策保持。 BRCP01补五动作/共享距离六完整根，仅动作11三BYTE和十二注释，六语义/F/成员、限定I/S；旧记录/所有政策/门禁及五任务open保持。 BPAW01补七完整播放/计时/目标等待根，仅四BYTE及十四注释；七语义/F/成员、限定I四片段/S七根，五任务open/全部旧身份与门禁政策保持。 BHRC01补六动作/22槽计数七完整根，十WORD/BYTE及十四注释；七语义/F/成员与限定I十表达/S七根，全部旧身份/政策/门禁及五任务open保持。 BSEX01补五动作/散射创建回调七完整根，七表达与十四注释；七语义/F/成员、限定I七表达/S七根，全部旧身份/政策/门禁及五任务open保持。 BWT01补等待/交替/转向八完整根及440B两表，仅37/38两BYTE与十六注释；八语义/F/成员，限定I两表达/S八根，全部旧身份/政策/门禁及五任务open保持。 BDE01补九死亡退场动作与中心创建/回调十一完整根，仅46四消费和二十二注释；十一语义/F/成员、限定I四表达/S十一根，所有旧记录/政策/门禁及五任务open保持。 BSA01补放大/动画十动作与实际扣FP叶十一完整根，正文全保持仅二十二注释；十一语义/F/成员、一限定S零I，所有旧记录/政策/门禁及五open任务保持。 BTE01补帧事件/逐目标启动和投射生产九完整根，仅两BYTE/一次事件及十八注释；九语义/F/成员、限定I三片段/S九根，旧工厂/回调/原政策门禁及五open任务保持。 BCLC01补控制/附属清理/独立音效与放大九完整正确根，仅十八注释；九语义/F/成员、一限定S零I，73/74和全部旧记录/原政策门禁/五open任务保持。 BRAF01动作84–92九完整正常源/局部分派与696B表纳管，四BYTE门禁和86临时复制一取样共五片段落实；九语义/F/成员与限定I三F/S九F，五任务开放，旧记录/原政策门禁及六closure保持。 BSTL01动作93–98/百格技能生产/角度叶八完整正常源纳管，95临时HP零复制和分支前第二角度持样两片段落实；八语义/F/成员与限定I两F/S八F，五任务开放，原门禁政策/六closure保持。 BCPY01动作99–103/独立复制体六完整正常源纳管，18 BYTE/三读取组及原PE游标零初值共22组落实；六语义/F/成员与限定I三F/S六F，五任务开放、原门禁政策/六closure保持。 BCVI01已有114位置缓存当前4100B映像覆盖区零初值及一临时HP复制读序修复；九真实加载-1保持，1025仅保当前容量不证原owner。仅1428/对应F当前来源和两限定I/S，零新身份/成员；五任务open、原分母/政策/gates/六closure保持。 BPST01仅核Yobi通用载荷槽/数据库union与战斗struct、原13E8h分配浅克隆、16B效果和S32动作队列及四块未映射区；不改源码，不新增身份/处置/成员或软件通过证据。BATTLE/UIRUNTIME补结构来源，U09/R04继续open，所有门禁/政策保持。 BIE01动作104–108五完整正常根/独立合同纳管，104/105四读取组及108十三BYTE/一临时复制共十八组；五语义/F/成员、限定I三F/S五F，十五已有语义保持，五任务open和全部原政策门禁/六closure保持。 BKE01动作109–113五完整正常源/二十读取组纳管；四新语义/F/成员，已有1431/equivalent及旧结构保历史仅加当前来源；两限定I/S覆盖五根，二十callee语义保持，五任务open与全部原政策门禁/六closure保持。 BFW01工厂115/127–129/138与施法139四完整正常根纳管；只139十组，三正确主体与1497共体保持，四语义/F/成员、限定I只139/S四根，十旧callee身份保持；五任务open及原完整门禁/六closure保持。 BFL01四动作及场地创建/完整回调六正常根纳管，仅创建两索引与回调Y转换后三组/十二注释；六新语义/F/成员、限定I两F/S六根，141/143旧合同与五callee/表/C解析器保持；B0前缀不代全父，五任务open及原完整门禁/六closure保持。 BAS01附属特效147/148、反转创建/共享callback和1913减益创建五完整正常源纳管；只共享callback一组/十注释。四新语义/成员、1913补完整当前来源/元数据并保CAC07子记录、五新F/限定I一F/S五根，五旧callee/已登记动作与原X分类保持；五任务open及完整政策/gates/六closure保。 YFPS01已有FrameMove/PlayFrame两完整正常根补独立身份；共享八/两入口各四共十六读序组及公头具名，原结构/返回/失败和六旧callee保持。两新语义/F，ANIMATION/YOBI各二成员、BATTLE仅Play一依赖成员，四限定I/S两根；六任务open及完整政策/gates/closure保，不计329完整父/owner/SDK/运行。",
   "function_dispositions": [
     {
       "disposition": "adapted",
@@ -84424,6 +84578,32 @@
         "doc/cg2d_battle_attached_effect_evidence.json"
       ],
       "boundary": "BAS01两动作/反转创建/共享回调及已有1913减益创建五完整正常根纳管；只共享41F800 Y转换后偏移一组/十注释，四正确主体及其它源/字段/随机/失败保持。1913从CAC07仅数据关联补完整正常创建/失败/发布及新F处置，旧数据子记录/入口保历史；四新原语义/F/成员，已有1913成员不重计。39实际CALL入向/两callback MOV、两原表项/case与复用35B六项表/4B常量有据；不新R7/数据X或Ftoll函数。无新API/字段/业务默认值/保护/回滚/循环上限，全部真实输入/父-callee/容量/机器ABI/alias/owner/SDK正常失败及声音画面未验，原完整门禁政策保持。"
+    },
+    {
+      "inventory_id": "F:00117880",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-baseline",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-decision",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-acceptance",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-source-state",
+        "doc/cg2d_yobi_frame_playback_sampling_evidence.json"
+      ],
+      "boundary": "YFPS01两已实现完整正常帧播放根补独立身份；四定义共十六取样组（共享八/两入口各四）及公头参数名/两注释。只BYTE消费原U16 revert，三caller原模式门禁/静图局部与动画fresh图号、加载后fresh模式及两轴图号→cache→维度序，固定阶段帧引用/坐标图号/先Y读后X发布与两前缀读序恢复。原字段/结构/返回/失败/静图分流/动作匹配/原计数业务限制、六旧callee/其它源保持，不新增原helper身份/公开API/影子owner/默认值/保护或异常模拟。329全部父及输入/生产/传递callee/容量/机器ABI/alias/owner/SDK/声音画面与完整运行待，总SPEC§10及原完整门禁不降低。"
+    },
+    {
+      "inventory_id": "F:00117DA0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-baseline",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-decision",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-acceptance",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-source-state",
+        "doc/cg2d_yobi_frame_playback_sampling_evidence.json"
+      ],
+      "boundary": "YFPS01两已实现完整正常帧播放根补独立身份；四定义共十六取样组（共享八/两入口各四）及公头参数名/两注释。只BYTE消费原U16 revert，三caller原模式门禁/静图局部与动画fresh图号、加载后fresh模式及两轴图号→cache→维度序，固定阶段帧引用/坐标图号/先Y读后X发布与两前缀读序恢复。原字段/结构/返回/失败/静图分流/动作匹配/原计数业务限制、六旧callee/其它源保持，不新增原helper身份/公开API/影子owner/默认值/保护或异常模拟。329全部父及输入/生产/传递callee/容量/机器ABI/alias/owner/SDK/声音画面与完整运行待，总SPEC§10及原完整门禁不降低。"
     }
   ],
   "auxiliary_dispositions": [

@@ -4756,3 +4756,10 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 ## 2026-10-10 BCVI01：位置缓存静态初值与HP临时复制
 
 [限定合同](cg2d_battle_cache_initial_spec.md#battle-cache-initial-source-state)依据当前库原 .data节头/完整4100B未加载状态，撤销旧“1025项全-1”初值/摘要说法，当前std::array<int32_t,1025>改聚合静态零初始化。1025仅保当前容量，不证明原数组owner/边界；九个文件真实加载-1与运行负值赋值保持。复用BPR01原40F482–40F4C2窗口，114负HP临时index/encoded先查目标/逐项encoded-mask-BYTEcount读写恢复，正确maxHp Copy及全部其它正文/共享复制器保持。零新身份/F/成员、限定I/S只已有114两片段，五任务open/原门禁政策保持；运行初态/所有间接写者/数据域/alias/owner/SDK与声音画面未验。
+
+<a id="yobi-frame-playback-current-20261010"></a>
+## 2026-10-10 YFPS01：FrameMove/PlayFrame当前共享消费
+
+沿[当前合同](cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-source-state)与[完整原根/源差集](cg2d_yobi_frame_playback_sampling_evidence.json)补已有两播放本体的独立身份及十六阶段取样组。三个共享翻转调用全部纳入：静图用GetXY后局部图号，动画先保存revert BYTE门禁，只有通过才fresh对象图号；LoadGraphic后fresh BYTE模式一次控制两轴，各轴图号/cache/维度按原阶段读取。
+
+当前帧两阶段引用、GetXY后X/Y读取、coordinate正数count路径持图号及先frameY读取后frameX发布保持，revert存储仍U16而消费只BYTE；对象与动作/帧/坐标结构不改。两入口独立静图范围/速率/严格停播与返回、原负remain及业务最小1保，不加默认值/空帧/越界/回滚保护。两原F纳管，私有helper无原身份；Yobi已知成员60→62、动画9→11，均枚举false，BATTLE只增加Play依赖。完整creator/clone共享owner、数据生产及329全部父/传递callee/ABI/SDK/运行仍待，六任务open与总验收政策不降。

@@ -701,3 +701,12 @@ read(1,1)版本仍只覆盖原路径参数低字节，未读保持现有地址�
 [当前指针合同](cg2d_animation_pointer_spec.md#animation-pointer-source-state)将主记录MainSlot/ActionEntry/CoordinateEntry、主动作FrameEntry及P4 CacheActionEntry五引用具名。三实际malloc结果对应类型承接；P4清理只使用新独立24B原字节前缀+void*帧引用，不把未知P4动作/帧生产套作主动作格式。
 
 主表56B/P4表48B、两类子项32B、帧12B/坐标8B及原控制/取样/发布/free后重取清槽保持。两清理补F:0005B440/F:0005B650身份，两个既有生产只补当前类型依据；565条1786B和七call六父保存仅载荷/清理局部，不重验全部生产语义/完整父/所有owner寿命。P4前缀/帧/buffer及9A4A54载荷生产仍未知，未知帧/缓冲继续void*，不猜固定空或补默认值；完整加载/播放/退出/SDK/画面未验。
+
+<a id="yobi-frame-playback-current-20261010"></a>
+## 2026-10-10 YFPS01：已实现帧播放的共享取样与独立登记
+
+§10保留2026-09-27实现/接线及当时限制的历史。[当前完整合同](cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-source-state)与[两原根/差集](cg2d_yobi_frame_playback_sampling_evidence.json)补517880/517DA0独立身份：766条2590B/十三页、十六E8/六旧callee、九十跳/二十RET、329实际入向CALL/214父。两根既有主体，本步不称首次实现或329完整父已验。
+
+四定义只十六源组：共享八组恢复帧取样阶段、原U16 revert仅BYTE消费、门禁持样/加载后fresh模式、原两轴cache/尺寸序及坐标固定图号/先保存Y再发布X；两入口各四组恢复重置方向/循环数及独立静图输出取样和局部图号加载。所有宽度/结构、原正常限制、S32三值返回/严格停播1/隐藏1、音效门禁/已有双参接口和六旧callee保持。使用已有Borrow/FromEntries窄尺寸接口，不新公开底层对象或helper原身份。
+
+两新语义/F；ANIMATION与YOBI各加两已知成员/四限定I/S，BATTLE仅Play依赖成员、无新完整gate。六任务仍open，全部member枚举/完整B/I/W/S/R/184叶和六closure保持；所有数据生产、全部父-callee/输入/容量/ABI/alias/owner/SDK及WAV声音/像素画面待。不构建/测试/运行/产物/摘要，不降低总SPEC§10。

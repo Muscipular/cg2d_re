@@ -848,14 +848,14 @@ YobiAction* Sub_4FAAA0(std::int32_t image, std::int32_t x, std::int32_t y);
 std::int32_t Sub_4FACE0(YobiAction* action); // 完整回调，注册时显式弃返回。
 void Sub_4EF5F0(YobiAction* action, std::int32_t result); // 非零/零结果动作，低图号可保留旧动作。
 
-// 原 Yobi::FrameMove@[0x517880,0x517D9D)：参数速率、严格 ==1 停播及低 W8 静图翻转开关。
+// 原 Yobi::FrameMove@[0x517880,0x517D9D)：参数速率、严格 ==1 停播及低 W8 静图翻转开关；取样沿YFPS01 SPEC。
 std::int32_t Sub_517880(
     YobiAction* action,
-    std::int32_t value1,
-    std::int32_t value2,
-    std::uint32_t value3);
+    std::int32_t rate,
+    std::int32_t stopAtEnd,
+    std::uint32_t flipStatic);
 
-// 原 Yobi::PlayFrame@[517DA0,5182A1)：使用对象播放速率；静图仅小于 100000。
+// 原 Yobi::PlayFrame@[517DA0,5182A1)：使用对象播放速率；静图仅小于 100000；两入口共享帧消费沿YFPS01 SPEC。
 std::int32_t PlayFrame_517DA0(YobiAction* action, std::int32_t stopAtEnd);
 
 } // namespace detail

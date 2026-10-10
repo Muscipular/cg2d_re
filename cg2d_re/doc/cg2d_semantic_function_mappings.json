@@ -204677,6 +204677,120 @@
         "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-source-state",
         "doc/cg2d_battle_attached_effect_evidence.json"
       ]
+    },
+    {
+      "original_entry": "0x517880",
+      "inventory_id": "F:00117880",
+      "original_role": "参数W32速率、低BYTE静图开关，静图含>=200000；严格停播/动画匹配/帧及坐标和原三值返回",
+      "original_end_exclusive": "0x517d9d",
+      "instruction_count": 386,
+      "function_chunks": [
+        {
+          "start": "0x517880",
+          "end_exclusive": "0x517d9d"
+        }
+      ],
+      "status": "YFPS01已有主体补独立身份/共享阶段取样，正常本体与必要差集静态；完整运行及owner未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::Sub_517880",
+          "relationship": "参数W32速率、低BYTE静图开关，静图含>=200000；严格停播/动画匹配/帧及坐标和原三值返回；ApplyYobiAnimeFrame/ApplyYobiGraphicFlip为既有私有组织，不新增原F身份"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::Sub_517880"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-baseline",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-decision",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-acceptance",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-source-state",
+        "doc/cg2d_yobi_frame_playback_sampling_evidence.json"
+      ],
+      "boundary": "YFPS01两已实现完整正常帧播放根补独立身份；四定义共十六取样组（共享八/两入口各四）及公头参数名/两注释。只BYTE消费原U16 revert，三caller原模式门禁/静图局部与动画fresh图号、加载后fresh模式及两轴图号→cache→维度序，固定阶段帧引用/坐标图号/先Y读后X发布与两前缀读序恢复。原字段/结构/返回/失败/静图分流/动作匹配/原计数业务限制、六旧callee/其它源保持，不新增原helper身份/公开API/影子owner/默认值/保护或异常模拟。329全部父及输入/生产/传递callee/容量/机器ABI/alias/owner/SDK/声音画面与完整运行待，总SPEC§10及原完整门禁不降低。",
+      "verification_level": "两完整766条2590B/十三页，十六E8/六callee、九十跳/二十RET、329实际入向E8/214父；十六源组与整CPP/公头精确重放，仅必要静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::Sub_517880",
+        "parameters": "非拥有YobiAction*、S32 rate/stopAtEnd、U32 flipStatic（只低BYTE消费）",
+        "return": "S32 -1/0/1，非bool"
+      },
+      "yobi_frame_playback_sampling": {
+        "step": "YFPS01",
+        "source_snapshot": "Git提交说明：[#] 对齐对象帧播放与共享帧取样",
+        "original_instruction_count": 386,
+        "original_code_bytes": 1309,
+        "original_page_count": 7,
+        "direct_call_count": 8,
+        "jump_count": 46,
+        "return_count": 10,
+        "inbound_call_count": 64,
+        "entry_patch_group_count": 4,
+        "shared_patch_group_count": 8,
+        "new_functions": 0,
+        "normal_previous_values_wrong": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x517da0",
+      "inventory_id": "F:00117DA0",
+      "original_role": "选中动作后对象W32速率、静图只[1000,100000)，严格停播/动画匹配/帧及坐标和原三值返回",
+      "original_end_exclusive": "0x5182a1",
+      "instruction_count": 380,
+      "function_chunks": [
+        {
+          "start": "0x517da0",
+          "end_exclusive": "0x5182a1"
+        }
+      ],
+      "status": "YFPS01已有主体补独立身份/共享阶段取样，正常本体与必要差集静态；完整运行及owner未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::PlayFrame_517DA0",
+          "relationship": "选中动作后对象W32速率、静图只[1000,100000)，严格停播/动画匹配/帧及坐标和原三值返回；ApplyYobiAnimeFrame/ApplyYobiGraphicFlip为既有私有组织，不新增原F身份"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::PlayFrame_517DA0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-baseline",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-decision",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-acceptance",
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-source-state",
+        "doc/cg2d_yobi_frame_playback_sampling_evidence.json"
+      ],
+      "boundary": "YFPS01两已实现完整正常帧播放根补独立身份；四定义共十六取样组（共享八/两入口各四）及公头参数名/两注释。只BYTE消费原U16 revert，三caller原模式门禁/静图局部与动画fresh图号、加载后fresh模式及两轴图号→cache→维度序，固定阶段帧引用/坐标图号/先Y读后X发布与两前缀读序恢复。原字段/结构/返回/失败/静图分流/动作匹配/原计数业务限制、六旧callee/其它源保持，不新增原helper身份/公开API/影子owner/默认值/保护或异常模拟。329全部父及输入/生产/传递callee/容量/机器ABI/alias/owner/SDK/声音画面与完整运行待，总SPEC§10及原完整门禁不降低。",
+      "verification_level": "两完整766条2590B/十三页，十六E8/六callee、九十跳/二十RET、329实际入向E8/214父；十六源组与整CPP/公头精确重放，仅必要静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::PlayFrame_517DA0",
+        "parameters": "非拥有YobiAction*、S32 stopAtEnd",
+        "return": "S32 -1/0/1，非bool"
+      },
+      "yobi_frame_playback_sampling": {
+        "step": "YFPS01",
+        "source_snapshot": "Git提交说明：[#] 对齐对象帧播放与共享帧取样",
+        "original_instruction_count": 380,
+        "original_code_bytes": 1281,
+        "original_page_count": 6,
+        "direct_call_count": 8,
+        "jump_count": 44,
+        "return_count": 10,
+        "inbound_call_count": 265,
+        "entry_patch_group_count": 4,
+        "shared_patch_group_count": 8,
+        "new_functions": 0,
+        "normal_previous_values_wrong": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

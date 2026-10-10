@@ -1423,20 +1423,25 @@ bool ShouldDeferForFourPhaseGate(const YobiAction* const action)
 }
 
 // 原两播放入口的同源翻转段；只有真实图形加载非零后才按需读取各个 DX 尺寸。
-void ApplyYobiGraphicFlip(YobiAction* const action)
+void ApplyYobiGraphicFlip(YobiAction* const action, const std::int32_t loadGraphicIndex)
 {
-    if ((action->drawMode.bytes[0x0D] & 3u) == 0
-        || render::LoadGraphic_522570(action->graphicIndex) == 0) {
+    if (render::LoadGraphic_522570(loadGraphicIndex) == 0) {
         return;
     }
     const std::uint8_t mode = action->drawMode.bytes[0x0D];
     if ((mode & 1u) != 0) {
-        action->graphicOffsetX =
-            -(action->graphicOffsetX + render::ReadGraphicDxWidth(action->graphicIndex));
+        const std::int32_t graphicIndex = action->graphicIndex;
+        const auto* const entries = render::BorrowGraphicDxCacheEntries();
+        const std::int32_t offsetX = action->graphicOffsetX;
+        const std::int16_t width = render::ReadGraphicDxWidthFromEntries(entries, graphicIndex);
+        action->graphicOffsetX = -(offsetX + width);
     }
     if ((mode & 2u) != 0) {
-        action->graphicOffsetY =
-            -(action->graphicOffsetY + render::ReadGraphicDxHeight(action->graphicIndex));
+        const std::int32_t graphicIndex = action->graphicIndex;
+        const auto* const entries = render::BorrowGraphicDxCacheEntries();
+        const std::int16_t height = render::ReadGraphicDxHeightFromEntries(entries, graphicIndex);
+        const std::int32_t offsetY = action->graphicOffsetY;
+        action->graphicOffsetY = -(offsetY + height);
     }
 }
 
@@ -1455,29 +1460,42 @@ void ApplyYobiAnimeFrame(
             static_cast<void>(audio::PlaySe_52C450(flag, action->x));
         }
     }
+    const auto* const graphicFrame = &frames[action->frameIndex];
     action->drawMode.bytes[0x0D] &= 0xFCu;
-    action->graphicIndex = static_cast<std::int32_t>(frames[action->frameIndex].graphicIndex);
+    action->graphicIndex = static_cast<std::int32_t>(graphicFrame->graphicIndex);
     std::int16_t offsetX;
     std::int16_t offsetY;
-    resource::GetGraphicXY(frames[action->frameIndex].graphicIndex, &offsetX, &offsetY);
-    action->graphicOffsetX = offsetX + frames[action->frameIndex].x;
-    action->graphicOffsetY = offsetY + frames[action->frameIndex].y;
+    resource::GetGraphicXY(graphicFrame->graphicIndex, &offsetX, &offsetY);
+    const auto* const offsetFrame = &frames[action->frameIndex];
+    const std::int32_t graphicOffsetX = offsetX;
+    const std::int32_t frameOffsetX = offsetFrame->x;
+    action->graphicOffsetX = frameOffsetX + graphicOffsetX;
+    const std::int32_t frameOffsetY = offsetFrame->y;
+    const std::int32_t graphicOffsetY = offsetY;
+    action->graphicOffsetY = frameOffsetY + graphicOffsetY;
     std::memcpy(action->drawMode.bytes.data() + 0x0E,
         &selected->paletteIndex, sizeof(selected->paletteIndex));
-    action->drawMode.bytes[0x0D] = static_cast<std::uint8_t>(selected->revert);
-    std::memcpy(action->drawMode.bytes.data() + 8,
-        &selected->value14, sizeof(selected->value14));
-    ApplyYobiGraphicFlip(action);
+    std::uint8_t revert;
+    std::memcpy(&revert, &selected->revert, sizeof(revert));
+    action->drawMode.bytes[0x0D] = revert;
+    const std::uint32_t color = selected->value14;
+    const bool flipGraphic = (revert & 3u) != 0;
+    std::memcpy(action->drawMode.bytes.data() + 8, &color, sizeof(color));
+    if (flipGraphic) {
+        ApplyYobiGraphicFlip(action, action->graphicIndex);
+    }
 
     const auto* const coordinates = static_cast<resource::animation::detail::CoordinateEntry*>(
         resource::animation::gAnimateRecords9A4A58[animeIndex].coordinates);
     std::int32_t coordinateIndex = 0;
     if (coordinates != nullptr) {
         const auto count = resource::animation::gAnimateRecords9A4A58[animeIndex].coordinateCount;
-        for (; coordinateIndex < count; ++coordinateIndex) {
-            if (coordinates[coordinateIndex].graphicIndex
-                == static_cast<std::uint32_t>(action->graphicIndex)) {
-                break;
+        if (count > 0) {
+            const std::uint32_t graphicIndex = static_cast<std::uint32_t>(action->graphicIndex);
+            for (; coordinateIndex < count; ++coordinateIndex) {
+                if (coordinates[coordinateIndex].graphicIndex == graphicIndex) {
+                    break;
+                }
             }
         }
     }
@@ -1486,8 +1504,13 @@ void ApplyYobiAnimeFrame(
     action->frameY = frames[frameIndex].y;
     if (coordinates != nullptr
         && coordinateIndex < resource::animation::gAnimateRecords9A4A58[animeIndex].coordinateCount) {
-        action->frameX += coordinates[coordinateIndex].x;
-        action->frameY += coordinates[coordinateIndex].y;
+        const std::int32_t coordinateX = coordinates[coordinateIndex].x;
+        const std::int32_t frameX = action->frameX;
+        const std::int32_t x = frameX + coordinateX;
+        const std::int32_t frameY = action->frameY;
+        action->frameX = x;
+        const std::int32_t coordinateY = coordinates[coordinateIndex].y;
+        action->frameY = frameY + coordinateY;
     }
     const std::uint8_t mode = action->drawMode.bytes[0x0D];
     if ((mode & 1u) != 0) {
@@ -34861,8 +34884,9 @@ std::int32_t Sub_517880(
         || (imageNo = action->imageNo) != action->lastImageNo) {
         imageNo = action->imageNo;
         action->lastCharacterAction = characterAction;
+        const std::int32_t direction = action->direction;
         action->lastImageNo = imageNo;
-        action->lastDirection = action->direction;
+        action->lastDirection = direction;
         action->frameRemain = 0;
         action->frameIndex = 0;
         action->completedLoops = 0;
@@ -34881,21 +34905,28 @@ std::int32_t Sub_517880(
         std::int16_t offsetX;
         std::int16_t offsetY;
         resource::GetGraphicXY(static_cast<std::uint32_t>(graphicIndex), &offsetX, &offsetY);
-        action->graphicOffsetY = offsetY;
-        action->graphicIndex = graphicIndex;
-        action->graphicOffsetX = offsetX;
+        const std::int32_t staticOffsetY = offsetY;
+        const std::int32_t staticOffsetX = offsetX;
+        const std::int32_t staticGraphicIndex = graphicIndex;
+        action->graphicOffsetY = staticOffsetY;
+        const std::uint8_t flipStaticByte = static_cast<std::uint8_t>(flipStatic);
+        action->graphicIndex = staticGraphicIndex;
+        action->graphicOffsetX = staticOffsetX;
         action->frameRemain = 0x7FFFFFFF;
         const std::int16_t paletteIndex = 0;
         std::memcpy(action->drawMode.bytes.data() + 0x0E, &paletteIndex, sizeof(paletteIndex));
         action->drawMode.bytes[0x0D] = 0;
         const std::uint32_t color = 0xFFFFFFFFu;
         std::memcpy(action->drawMode.bytes.data() + 8, &color, sizeof(color));
-        if (static_cast<std::uint8_t>(flipStatic) != 0) {
+        if (flipStaticByte != 0) {
+            const std::int32_t direction = action->direction;
             action->drawMode.bytes[0x0D] = 0;
-            if (action->direction >= 2 && action->direction < 5) {
+            if (direction >= 2 && direction < 5) {
                 action->drawMode.bytes[0x0D] = 1;
             }
-            ApplyYobiGraphicFlip(action);
+            if ((action->drawMode.bytes[0x0D] & 3u) != 0) {
+                ApplyYobiGraphicFlip(action, staticGraphicIndex);
+            }
         }
         action->frameX = 0;
         action->frameY = 0;
@@ -34943,8 +34974,9 @@ std::int32_t Sub_517880(
             action->completedLoops = 1;
             return 1;
         }
+        const std::uint32_t completedLoops = action->completedLoops;
         action->frameIndex = 0;
-        ++action->completedLoops;
+        action->completedLoops = completedLoops + 1u;
     }
     ApplyYobiAnimeFrame(action, animeIndex, selected, frames);
     return 0;
@@ -34963,8 +34995,9 @@ std::int32_t PlayFrame_517DA0(YobiAction* const action, const std::int32_t stopA
         || (imageNo = action->imageNo) != action->lastImageNo) {
         imageNo = action->imageNo;
         action->lastCharacterAction = characterAction;
+        const std::int32_t direction = action->direction;
         action->lastImageNo = imageNo;
-        action->lastDirection = action->direction;
+        action->lastDirection = direction;
         action->frameRemain = 0;
         action->frameIndex = 0;
         action->completedLoops = 0;
@@ -34983,10 +35016,13 @@ std::int32_t PlayFrame_517DA0(YobiAction* const action, const std::int32_t stopA
         std::int16_t offsetX;
         std::int16_t offsetY;
         resource::GetGraphicXY(static_cast<std::uint32_t>(graphicIndex), &offsetX, &offsetY);
-        action->graphicOffsetX = offsetX;
+        const std::int32_t staticOffsetX = offsetX;
+        const std::int32_t staticOffsetY = offsetY;
+        const std::int32_t staticGraphicIndex = graphicIndex;
+        action->graphicOffsetX = staticOffsetX;
         const std::int32_t direction = action->direction;
-        action->graphicIndex = graphicIndex;
-        action->graphicOffsetY = offsetY;
+        action->graphicIndex = staticGraphicIndex;
+        action->graphicOffsetY = staticOffsetY;
         action->frameRemain = 0x7FFFFFFF;
         const std::int16_t paletteIndex = 0;
         std::memcpy(action->drawMode.bytes.data() + 0x0E, &paletteIndex, sizeof(paletteIndex));
@@ -34996,7 +35032,9 @@ std::int32_t PlayFrame_517DA0(YobiAction* const action, const std::int32_t stopA
         if (direction >= 2 && direction < 5) {
             action->drawMode.bytes[0x0D] = 1;
         }
-        ApplyYobiGraphicFlip(action);
+        if ((action->drawMode.bytes[0x0D] & 3u) != 0) {
+            ApplyYobiGraphicFlip(action, staticGraphicIndex);
+        }
         action->frameX = 0;
         action->frameY = 0;
         return 0;
@@ -35044,8 +35082,9 @@ std::int32_t PlayFrame_517DA0(YobiAction* const action, const std::int32_t stopA
             action->completedLoops = 1;
             return 1;
         }
+        const std::uint32_t completedLoops = action->completedLoops;
         action->frameIndex = 0;
-        ++action->completedLoops;
+        action->completedLoops = completedLoops + 1u;
     }
     ApplyYobiAnimeFrame(action, animeIndex, selected, frames);
     return 0;

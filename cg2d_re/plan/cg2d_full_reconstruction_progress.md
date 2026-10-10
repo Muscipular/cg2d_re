@@ -1476,3 +1476,12 @@ Select原S32上界39、signed S16 threshold与capability比较，拒绝返回ind
 失败路径P1 held、随后P2/P3逐块fresh读取并用同快照free；成功四块逐段count先取/随后对应pointer/清零，不把所有count/pointer预取成tuple。释放P1/P2/P3各一次取样、判空/free同值，前块free后才取下块。原不清共享槽/P4和图号映射表不在本根释放，保持并分列完整owner未闭，不擅自修成全释放或新回滚。
 
 四类型/九路径/两stdio provider/两个当前父及三旧语义保持。184叶验收0、60任务关闭11开放49、六closure与全部完整门禁保。同一cg2d_re分支、不打tag，七外部改动/原删除暂存保。未构建/测试/运行/产物/摘要/引依赖；整体active/未完成。
+
+<a id="gap-spec-git-progress-20261011"></a>
+## 138. 2026-10-11 GDS01：GAP01记录收敛为SPEC与Git
+
+用户经旁聊明确要求此类小步采用SPEC＋Git，不重复机器指令、源码/依赖全文、旧台账与文档副本。主线程实际GAP01已在同分支提交且五类静态验证均pass；旁聊pending描述为旧状态，未据文档精简增加验收。
+
+删除仅GAP01独立evidence.json，原依据/位置、合同、实际静态结果及剩余统一[原SPEC](../doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance)，前后源码及旧证据由Git历史保。语义/处置/功能成员/全部证据结论和门禁不变，其他历史证据不批量删除。引用改写全量回放、静态汇总/-Check终态退出0及派生范围核对通过。
+
+源码未改；七外部改动/原删除暂存和当前动画清理准备文件保。未构建/测试/运行/产物/摘要/依赖，整体active/未完成。同一cg2d_re分支，不打tag。

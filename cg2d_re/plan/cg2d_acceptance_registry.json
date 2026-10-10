@@ -3657,7 +3657,7 @@
         "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-source-state",
         "doc/cg2d_startup_flow.md#window-resource-module-source-state-20261009",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-baseline",
-        "doc/cg2d_graphic_allocation_release_evidence.json"
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance"
       ]
     },
     {
@@ -4131,7 +4131,7 @@
         "doc/cg2d_palette_capability_selection_spec.md#palette-capability-baseline",
         "doc/cg2d_palette_capability_selection_evidence.json",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-baseline",
-        "doc/cg2d_graphic_allocation_release_evidence.json"
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance"
       ]
     },
     {
@@ -67830,7 +67830,6 @@
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-decision",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state",
-        "doc/cg2d_graphic_allocation_release_evidence.json",
         "src/GraphicAlloc.cpp",
         "include/cg/GraphicAlloc.hpp"
       ],
@@ -67858,7 +67857,6 @@
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-decision",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state",
-        "doc/cg2d_graphic_allocation_release_evidence.json",
         "src/GraphicAlloc.cpp",
         "include/cg/GraphicAlloc.hpp"
       ],
@@ -68340,7 +68338,7 @@
         "doc/cg2d_palette_capability_selection_spec.md#palette-capability-source-state",
         "doc/cg2d_palette_capability_selection_evidence.json",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state",
-        "doc/cg2d_graphic_allocation_release_evidence.json"
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance"
       ]
     },
     {
@@ -69147,7 +69145,7 @@
         "doc/cg2d_palette_capability_selection_spec.md#palette-capability-source-state",
         "doc/cg2d_palette_capability_selection_evidence.json",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state",
-        "doc/cg2d_graphic_allocation_release_evidence.json"
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance"
       ]
     },
     {
@@ -69466,13 +69464,11 @@
         "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-source-state",
         "doc/cg2d_battle_exit_message_scan_evidence.json",
         "doc/cg2d_battle_append_effect_lifecycle_spec.md#battle-append-skill-source-state",
-        "doc/cg2d_battle_append_effect_lifecycle_evidence.json",
         "doc/cg2d_battle_near_hit_spec.md#battle-near-hit-source-state",
         "doc/cg2d_battle_near_hit_evidence.json",
         "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-hit-source-state",
         "doc/cg2d_battle_boomerang_hit_evidence.json",
         "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-transitions-source-state",
-        "doc/cg2d_battle_boomerang_hit_evidence.json",
         "doc/cg2d_battle_boomerang_creator_spec.md#boomerang-creator-source-state",
         "doc/cg2d_battle_boomerang_creator_evidence.json",
         "doc/cg2d_battle_boomerang_cast_producer_spec.md#battle-action15-source-state",
@@ -69662,7 +69658,7 @@
         "doc/cg2d_palette_capability_selection_spec.md#palette-capability-source-state",
         "doc/cg2d_palette_capability_selection_evidence.json",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state",
-        "doc/cg2d_graphic_allocation_release_evidence.json"
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance"
       ]
     },
     {
@@ -70472,13 +70468,11 @@
         "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-source-state",
         "doc/cg2d_battle_exit_message_scan_evidence.json",
         "doc/cg2d_battle_append_effect_lifecycle_spec.md#battle-append-skill-source-state",
-        "doc/cg2d_battle_append_effect_lifecycle_evidence.json",
         "doc/cg2d_battle_near_hit_spec.md#battle-near-hit-source-state",
         "doc/cg2d_battle_near_hit_evidence.json",
         "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-hit-source-state",
         "doc/cg2d_battle_boomerang_hit_evidence.json",
         "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-transitions-source-state",
-        "doc/cg2d_battle_boomerang_hit_evidence.json",
         "doc/cg2d_battle_boomerang_creator_spec.md#boomerang-creator-source-state",
         "doc/cg2d_battle_boomerang_creator_evidence.json",
         "doc/cg2d_battle_boomerang_cast_producer_spec.md#battle-action15-source-state",
@@ -70672,7 +70666,7 @@
         "doc/cg2d_palette_capability_selection_spec.md#palette-capability-source-state",
         "doc/cg2d_palette_capability_selection_evidence.json",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state",
-        "doc/cg2d_graphic_allocation_release_evidence.json"
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance"
       ]
     },
     {
@@ -70936,13 +70930,11 @@
         "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-source-state",
         "doc/cg2d_battle_exit_message_scan_evidence.json",
         "doc/cg2d_battle_append_effect_lifecycle_spec.md#battle-append-skill-source-state",
-        "doc/cg2d_battle_append_effect_lifecycle_evidence.json",
         "doc/cg2d_battle_near_hit_spec.md#battle-near-hit-source-state",
         "doc/cg2d_battle_near_hit_evidence.json",
         "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-hit-source-state",
         "doc/cg2d_battle_boomerang_hit_evidence.json",
         "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-transitions-source-state",
-        "doc/cg2d_battle_boomerang_hit_evidence.json",
         "doc/cg2d_battle_boomerang_creator_spec.md#boomerang-creator-source-state",
         "doc/cg2d_battle_boomerang_creator_evidence.json",
         "doc/cg2d_battle_boomerang_cast_producer_spec.md#battle-action15-source-state",
@@ -71134,7 +71126,7 @@
         "doc/cg2d_palette_capability_selection_spec.md#palette-capability-source-state",
         "doc/cg2d_palette_capability_selection_evidence.json",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state",
-        "doc/cg2d_graphic_allocation_release_evidence.json"
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance"
       ]
     },
     {
@@ -71259,13 +71251,11 @@
         "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-source-state",
         "doc/cg2d_battle_exit_message_scan_evidence.json",
         "doc/cg2d_battle_append_effect_lifecycle_spec.md#battle-append-skill-source-state",
-        "doc/cg2d_battle_append_effect_lifecycle_evidence.json",
         "doc/cg2d_battle_near_hit_spec.md#battle-near-hit-source-state",
         "doc/cg2d_battle_near_hit_evidence.json",
         "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-hit-source-state",
         "doc/cg2d_battle_boomerang_hit_evidence.json",
         "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-transitions-source-state",
-        "doc/cg2d_battle_boomerang_hit_evidence.json",
         "doc/cg2d_battle_boomerang_creator_spec.md#boomerang-creator-source-state",
         "doc/cg2d_battle_boomerang_creator_evidence.json",
         "doc/cg2d_battle_boomerang_cast_producer_spec.md#battle-action15-source-state",
@@ -71419,7 +71409,7 @@
         "doc/cg2d_palette_capability_selection_spec.md#palette-capability-source-state",
         "doc/cg2d_palette_capability_selection_evidence.json",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state",
-        "doc/cg2d_graphic_allocation_release_evidence.json"
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance"
       ]
     },
     {
@@ -71983,7 +71973,7 @@
         "doc/cg2d_palette_capability_selection_spec.md#palette-capability-source-state",
         "doc/cg2d_palette_capability_selection_evidence.json",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state",
-        "doc/cg2d_graphic_allocation_release_evidence.json"
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance"
       ]
     },
     {
@@ -72144,13 +72134,11 @@
         "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-source-state",
         "doc/cg2d_battle_exit_message_scan_evidence.json",
         "doc/cg2d_battle_append_effect_lifecycle_spec.md#battle-append-skill-source-state",
-        "doc/cg2d_battle_append_effect_lifecycle_evidence.json",
         "doc/cg2d_battle_near_hit_spec.md#battle-near-hit-source-state",
         "doc/cg2d_battle_near_hit_evidence.json",
         "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-hit-source-state",
         "doc/cg2d_battle_boomerang_hit_evidence.json",
         "doc/cg2d_battle_boomerang_hit_spec.md#battle-boomerang-transitions-source-state",
-        "doc/cg2d_battle_boomerang_hit_evidence.json",
         "doc/cg2d_battle_boomerang_creator_spec.md#boomerang-creator-source-state",
         "doc/cg2d_battle_boomerang_creator_evidence.json",
         "doc/cg2d_battle_boomerang_cast_producer_spec.md#battle-action15-source-state",
@@ -72284,7 +72272,7 @@
         "doc/cg2d_item_drag_entry_callback_spec.md#item-drag-source-state",
         "doc/cg2d_item_drag_entry_callback_evidence.json",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state",
-        "doc/cg2d_graphic_allocation_release_evidence.json"
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance"
       ]
     },
     {
@@ -76628,8 +76616,7 @@
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-baseline",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-decision",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance",
-        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state",
-        "doc/cg2d_graphic_allocation_release_evidence.json"
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state"
       ],
       "boundary": "GAP01完整GraphicAlloc4574E0(116条391B，原指令复用ACB01已核存档、不重取全根)与释放457670(19条53B)：两根135条444B/三页、12E8四目标/十一跳三RET。原唯一分配CALL457782父4576B0后TEST EAX，释放CALL457A72父457A40后直接456530；两个邻窗及当前父全源保持不代完整应用初终验。九Info指针逐项rb打开，非空同FILE快照关闭，失败继续，探测后五S32/W32容量常量发布，现正常路径与原同，不改变首次固定20500 P1分配或额外清零撤除ACB01。四真实std::malloc MSVC域：P1返回保存→读当次graphic count→发布P1→按刚读capacity分配P2；P2返回保存→重读当次graphic count→发布P2→按此count分配P3→发布P3；P4数量读当次animate count分配，返回仍持值，先取已发布P1并判空，再发布P4，随后原短路判断P1/P2/P3/持有P4。不把P4发布后从槽再读结果。当前恢复这两容量先于共享pub及P1取样/判断先于P4pub。原任一空失败：仅P1非空时free held P1，随后fresh P2读/判空/free同指针，再fresh P3读/判空/free同指针，返回S32 0；不释放P4、不清任一槽、不释放映射表、不回滚。成功四清零依序P1/P2/P3/P4，P1用之前held P1/先读当次animate count，后各块先读当次对应count再fresh pointer再memset，完整native sizeof原已证布局，非地址S32容量保持。现显式各count/pointer取样以消除C++函数实参求值序未表达，不引异常/溢出模型。success返回S32 1，原父正常处理不变。释放根每块各一次读取P1/P2/P3、判非空再同快照free，前块free后才取后一槽；原P4/图号map索引不释放/三槽不清，现按原保，void仅副作用不伪造残留EAX。malloc申请/数量策略/宿主sizeof按HMU/ACB/DX批准不称原x86字节和失败时机相同；与其余map STL被动owner构析/GraphicInit主表非拥有首见指针和全部场景借用寿命独立。两源五组五定位片段四注释，四已有值/指针类型、九路径/两个stdio提供者、两当前父以及旧ACB01/GRP01/DX原证保持，source code不新建helper/接口/句柄或shadow owner。旧735仅追加、释放新F一、旧处置350只追加/新adapted一；RESOURCE已有alloc成员仅加free，RENDER加两，两限定S零I八open；全部资源内容/owner重入退出/主表mapIndex及P4真实释放责任/SDK/机器ABI/生成读取和画面运行仍未闭。网络原字段LF明文/WAV-only/MSVC保持，不增保护/默认/新钳制/零写/回滚/异常模型，整体未完成。"
     },
@@ -95394,8 +95381,7 @@
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-baseline",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-decision",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance",
-        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state",
-        "doc/cg2d_graphic_allocation_release_evidence.json"
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state"
       ],
       "boundary": "GAP01完整GraphicAlloc4574E0(116条391B，原指令复用ACB01已核存档、不重取全根)与释放457670(19条53B)：两根135条444B/三页、12E8四目标/十一跳三RET。原唯一分配CALL457782父4576B0后TEST EAX，释放CALL457A72父457A40后直接456530；两个邻窗及当前父全源保持不代完整应用初终验。九Info指针逐项rb打开，非空同FILE快照关闭，失败继续，探测后五S32/W32容量常量发布，现正常路径与原同，不改变首次固定20500 P1分配或额外清零撤除ACB01。四真实std::malloc MSVC域：P1返回保存→读当次graphic count→发布P1→按刚读capacity分配P2；P2返回保存→重读当次graphic count→发布P2→按此count分配P3→发布P3；P4数量读当次animate count分配，返回仍持值，先取已发布P1并判空，再发布P4，随后原短路判断P1/P2/P3/持有P4。不把P4发布后从槽再读结果。当前恢复这两容量先于共享pub及P1取样/判断先于P4pub。原任一空失败：仅P1非空时free held P1，随后fresh P2读/判空/free同指针，再fresh P3读/判空/free同指针，返回S32 0；不释放P4、不清任一槽、不释放映射表、不回滚。成功四清零依序P1/P2/P3/P4，P1用之前held P1/先读当次animate count，后各块先读当次对应count再fresh pointer再memset，完整native sizeof原已证布局，非地址S32容量保持。现显式各count/pointer取样以消除C++函数实参求值序未表达，不引异常/溢出模型。success返回S32 1，原父正常处理不变。释放根每块各一次读取P1/P2/P3、判非空再同快照free，前块free后才取后一槽；原P4/图号map索引不释放/三槽不清，现按原保，void仅副作用不伪造残留EAX。malloc申请/数量策略/宿主sizeof按HMU/ACB/DX批准不称原x86字节和失败时机相同；与其余map STL被动owner构析/GraphicInit主表非拥有首见指针和全部场景借用寿命独立。两源五组五定位片段四注释，四已有值/指针类型、九路径/两个stdio提供者、两当前父以及旧ACB01/GRP01/DX原证保持，source code不新建helper/接口/句柄或shadow owner。旧735仅追加、释放新F一、旧处置350只追加/新adapted一；RESOURCE已有alloc成员仅加free，RENDER加两，两限定S零I八open；全部资源内容/owner重入退出/主表mapIndex及P4真实释放责任/SDK/机器ABI/生成读取和画面运行仍未闭。网络原字段LF明文/WAV-only/MSVC保持，不增保护/默认/新钳制/零写/回滚/异常模型，整体未完成。"
     }

@@ -2790,3 +2790,7 @@ IDA数组/结构起点xref不代字段指针；原型实际11callback与旧范�
 [GAP01](cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state)补齐4574E0分配及457670释放，两完整原根135条444B/三页、12E8四目标/十一跳三RET，分配原证复用ACB01。五组五定位/四注释恢复容量先取/分配返回持值、P1判空先于P4pub、失败和终止同指针free/清零count先取；原九路径失败继续、四块大小/正常清零、失败与终止仅释放前三块且不清槽保持。旧735追加/新free一F、旧处置350追加/新adapted一，RESOURCE45/RENDER122，两限定S零I八open；完整owner/所有主表借用/SDK与运行待。
 
 语义2341=2293F关联+48有界代码，关联2403/3680=65.30%仅关联率；处置1806/证据1612，其它保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
+
+## 2026-10-11 GDS01：GAP01开发记录简化
+
+按用户最新要求，GAP01独立重复证据移除，原端依据/合同/实际静态结果和未完成验收集中[原SPEC](cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance)，前后源码及旧机器存档沿Git历史。仅改现追踪引用，不批量删除其他历史文件；原局部通过与全部运行/owner门禁保持。引用改写全量回放、静态汇总/-Check终态退出0及派生范围核对通过。

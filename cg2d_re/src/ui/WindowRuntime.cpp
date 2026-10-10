@@ -13947,6 +13947,7 @@ std::int32_t Sub_4A9D10(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// SEP01：原4AA3D0完整478条；flags只读低BYTE，坐标按原S32取样序，窗口41转移/翻页/数量显示保持。
 std::int32_t Sub_4AA3D0(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -13963,10 +13964,11 @@ std::int32_t Sub_4AA3D0(const std::int32_t index, const std::int32_t state)
         const std::int32_t dropY = Sub_475D80();
         const std::int32_t source = Sub_475D90();
         const WindowInstance* const window = gCurrentWindow;
-        const std::int32_t elementX = window->elements[index].x;
+        const WindowElement& element = window->elements[index];
+        const std::int32_t elementX = element.x;
         const std::int32_t windowX = window->x;
         const std::int32_t windowY = window->y;
-        const std::int32_t elementY = window->elements[index].y;
+        const std::int32_t elementY = element.y;
         for (std::int32_t position = 0; position < 20; ++position) {
             const std::int32_t left = windowX + 50 * (position % 5) + elementX + 13;
             const std::int32_t top = windowY + 52 * (position / 5) + elementY + 26;
@@ -13974,7 +13976,8 @@ std::int32_t Sub_4AA3D0(const std::int32_t index, const std::int32_t state)
                 continue;
             }
             if (source != position + 100
-                && (source >= 100 || (world::detail::gPlayerItemsFDA8A4[source].flags & 0x60u) == 0)) {
+                && (source >= 100 || (*reinterpret_cast<const unsigned char*>(
+                    &world::detail::gPlayerItemsFDA8A4[source].flags) & 0x60u) == 0)) {
                 Sub_4886E0(41, index, source, position + 100);
             }
             break;
@@ -13986,8 +13989,12 @@ std::int32_t Sub_4AA3D0(const std::int32_t index, const std::int32_t state)
         for (std::int32_t position = 0; position < 20; ++position) {
             const WindowInstance* const window = gCurrentWindow;
             const WindowElement& element = window->elements[index];
-            const std::int32_t left = element.x + 50 * (position % 5) + window->x + 13;
-            const std::int32_t top = element.y + 52 * (position / 5) + window->y + 26;
+            const std::int32_t elementX = element.x;
+            const std::int32_t windowX = window->x;
+            const std::int32_t left = elementX + 50 * (position % 5) + windowX + 13;
+            const std::int32_t elementY = element.y;
+            const std::int32_t windowY = window->y;
+            const std::int32_t top = elementY + 52 * (position / 5) + windowY + 26;
             if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
                 hovered = position;
                 break;
@@ -13996,7 +14003,8 @@ std::int32_t Sub_4AA3D0(const std::int32_t index, const std::int32_t state)
     }
     if (Sub_475D60() != 0 && (events & 0x20u) != 0) {
         const std::int32_t source = Sub_475D90();
-        if (source < 100 && (world::detail::gPlayerItemsFDA8A4[source].flags & 0x60u) != 0) {
+        if (source < 100 && (*reinterpret_cast<const unsigned char*>(
+                    &world::detail::gPlayerItemsFDA8A4[source].flags) & 0x60u) != 0) {
             hovered = -1;
         }
     }
@@ -14065,8 +14073,12 @@ std::int32_t Sub_4AA3D0(const std::int32_t index, const std::int32_t state)
         if (source >= 100) {
             const WindowInstance* const window = gCurrentWindow;
             const WindowElement& element = window->elements[index];
-            const std::int32_t left = element.x + 50 * ((source - 100) % 5) + window->x + 13;
-            const std::int32_t top = element.y + 52 * ((source - 100) / 5) + window->y + 26;
+            const std::int32_t elementX = element.x;
+            const std::int32_t windowX = window->x;
+            const std::int32_t left = elementX + 50 * ((source - 100) % 5) + windowX + 13;
+            const std::int32_t elementY = element.y;
+            const std::int32_t windowY = window->y;
+            const std::int32_t top = elementY + 52 * ((source - 100) / 5) + windowY + 26;
             login::detail::DrawGraphicHover(
                 static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
                 static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
@@ -14076,8 +14088,12 @@ std::int32_t Sub_4AA3D0(const std::int32_t index, const std::int32_t state)
     if (hovered >= 0) {
         const WindowInstance* const window = gCurrentWindow;
         const WindowElement& element = window->elements[index];
-        const std::int32_t left = element.x + 50 * (hovered % 5) + window->x + 13;
-        const std::int32_t top = element.y + 52 * (hovered / 5) + window->y + 26;
+        const std::int32_t elementX = element.x;
+        const std::int32_t windowX = window->x;
+        const std::int32_t left = elementX + 50 * (hovered % 5) + windowX + 13;
+        const std::int32_t elementY = element.y;
+        const std::int32_t windowY = window->y;
+        const std::int32_t top = elementY + 52 * (hovered / 5) + windowY + 26;
         login::detail::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
@@ -14102,8 +14118,12 @@ std::int32_t Sub_4AA3D0(const std::int32_t index, const std::int32_t state)
         }
         const WindowInstance* const window = gCurrentWindow;
         const WindowElement& element = window->elements[index];
-        const std::int32_t x = element.x + 50 * (position % 5) + window->x + 37;
-        const std::int32_t y = element.y + 52 * (position / 5) + window->y + 51;
+        const std::int32_t elementX = element.x;
+        const std::int32_t windowX = window->x;
+        const std::int32_t x = elementX + 50 * (position % 5) + windowX + 37;
+        const std::int32_t elementY = element.y;
+        const std::int32_t windowY = window->y;
+        const std::int32_t y = elementY + 52 * (position / 5) + windowY + 51;
         std::int32_t imageNo;
         std::memcpy(&imageNo, record + 4, sizeof(imageNo));
         static_cast<void>(login::detail::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
@@ -14839,6 +14859,7 @@ std::int32_t Sub_4AC290(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// SEP01：原4AC890完整426条；flags只读低BYTE，坐标按原S32取样序，窗口38类型门槛/翻页/数量显示保持。
 std::int32_t Sub_4AC890(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -14857,10 +14878,11 @@ std::int32_t Sub_4AC890(const std::int32_t index, const std::int32_t state)
         const std::int32_t dropY = Sub_475D80();
         const std::int32_t source = Sub_475D90();
         const WindowInstance* const window = gCurrentWindow;
-        const std::int32_t elementX = window->elements[index].x;
+        const WindowElement& element = window->elements[index];
+        const std::int32_t elementX = element.x;
         const std::int32_t windowX = window->x;
         const std::int32_t windowY = window->y;
-        const std::int32_t elementY = window->elements[index].y;
+        const std::int32_t elementY = element.y;
         for (std::int32_t position = 0; position < 20; ++position) {
             const std::int32_t left = windowX + 50 * (position % 5) + elementX + 12;
             const std::int32_t top = windowY + 52 * (position / 5) + elementY + 39;
@@ -14868,7 +14890,8 @@ std::int32_t Sub_4AC890(const std::int32_t index, const std::int32_t state)
                 continue;
             }
             if (source != position + 100
-                && (source >= 100 || (world::detail::gPlayerItemsFDA8A4[source].flags & 0x60u) == 0)) {
+                && (source >= 100 || (*reinterpret_cast<const unsigned char*>(
+                    &world::detail::gPlayerItemsFDA8A4[source].flags) & 0x60u) == 0)) {
                 // 原4AC9E6始终按玩家表取类型；不为外部索引补造另一来源。
                 const std::int32_t itemType = world::detail::gPlayerItemsFDA8A4[source].itemType;
                 if (itemType != 38 && itemType != 52) {
@@ -14884,8 +14907,12 @@ std::int32_t Sub_4AC890(const std::int32_t index, const std::int32_t state)
         for (std::int32_t position = 0; position < 20; ++position) {
             const WindowInstance* const window = gCurrentWindow;
             const WindowElement& element = window->elements[index];
-            const std::int32_t left = element.x + 50 * (position % 5) + window->x + 12;
-            const std::int32_t top = element.y + 52 * (position / 5) + window->y + 39;
+            const std::int32_t elementX = element.x;
+            const std::int32_t windowX = window->x;
+            const std::int32_t left = elementX + 50 * (position % 5) + windowX + 12;
+            const std::int32_t elementY = element.y;
+            const std::int32_t windowY = window->y;
+            const std::int32_t top = elementY + 52 * (position / 5) + windowY + 39;
             if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
                 hovered = position;
                 break;
@@ -14894,7 +14921,8 @@ std::int32_t Sub_4AC890(const std::int32_t index, const std::int32_t state)
     }
     if (Sub_475D60() != 0 && (events & 0x20u) != 0) {
         const std::int32_t source = Sub_475D90();
-        if (source < 100 && (world::detail::gPlayerItemsFDA8A4[source].flags & 0x60u) != 0) {
+        if (source < 100 && (*reinterpret_cast<const unsigned char*>(
+                    &world::detail::gPlayerItemsFDA8A4[source].flags) & 0x60u) != 0) {
             hovered = -1;
         }
     }
@@ -14934,8 +14962,12 @@ std::int32_t Sub_4AC890(const std::int32_t index, const std::int32_t state)
         if (source >= 100) {
             const WindowInstance* const window = gCurrentWindow;
             const WindowElement& element = window->elements[index];
-            const std::int32_t left = element.x + 50 * ((source - 100) % 5) + window->x + 12;
-            const std::int32_t top = element.y + 52 * ((source - 100) / 5) + window->y + 39;
+            const std::int32_t elementX = element.x;
+            const std::int32_t windowX = window->x;
+            const std::int32_t left = elementX + 50 * ((source - 100) % 5) + windowX + 12;
+            const std::int32_t elementY = element.y;
+            const std::int32_t windowY = window->y;
+            const std::int32_t top = elementY + 52 * ((source - 100) / 5) + windowY + 39;
             login::detail::DrawGraphicHover(
                 static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
                 static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
@@ -14945,8 +14977,12 @@ std::int32_t Sub_4AC890(const std::int32_t index, const std::int32_t state)
     if (hovered >= 0) {
         const WindowInstance* const window = gCurrentWindow;
         const WindowElement& element = window->elements[index];
-        const std::int32_t left = element.x + 50 * (hovered % 5) + window->x + 12;
-        const std::int32_t top = element.y + 52 * (hovered / 5) + window->y + 39;
+        const std::int32_t elementX = element.x;
+        const std::int32_t windowX = window->x;
+        const std::int32_t left = elementX + 50 * (hovered % 5) + windowX + 12;
+        const std::int32_t elementY = element.y;
+        const std::int32_t windowY = window->y;
+        const std::int32_t top = elementY + 52 * (hovered / 5) + windowY + 39;
         login::detail::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
@@ -14971,8 +15007,12 @@ std::int32_t Sub_4AC890(const std::int32_t index, const std::int32_t state)
         }
         const WindowInstance* const window = gCurrentWindow;
         const WindowElement& element = window->elements[index];
-        const std::int32_t x = element.x + 50 * (position % 5) + window->x + 36;
-        const std::int32_t y = element.y + 52 * (position / 5) + window->y + 64;
+        const std::int32_t elementX = element.x;
+        const std::int32_t windowX = window->x;
+        const std::int32_t x = elementX + 50 * (position % 5) + windowX + 36;
+        const std::int32_t elementY = element.y;
+        const std::int32_t windowY = window->y;
+        const std::int32_t y = elementY + 52 * (position / 5) + windowY + 64;
         std::int32_t imageNo;
         std::memcpy(&imageNo, record + 4, sizeof(imageNo));
         static_cast<void>(login::detail::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));

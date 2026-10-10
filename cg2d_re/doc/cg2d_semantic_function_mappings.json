@@ -115999,7 +115999,7 @@
     {
       "original_entry": "0x4AA3D0",
       "inventory_id": "F:000AA3D0",
-      "status": "既有存放物品面板数量真实格式依赖已接；完整窗口38/41及数据生产/CRT/画面/运行未据本步验收",
+      "status": "既有存放物品面板数量真实格式依赖已接；完整窗口38/41及数据生产/CRT/画面/运行未据本步验收；SEP01完整外部物品面板纳管，原低BYTE/持址与S32坐标取样恢复，页数/图后count及模式差别保，全部owner/ABI/运行待",
       "original_end_exclusive": "0x4AA9BC",
       "instruction_count": 478,
       "sources": [
@@ -116009,13 +116009,32 @@
             "Sub_4AA3D0"
           ],
           "relationship": "一现callee接一原点，仅格式标识符改变，事件及图形后读数/文字消费正文保持"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4AA3D0"
+          ],
+          "relationship": "SEP01完整外部物品面板，低BYTE和原S32坐标/持址对齐，数量格式历史及其它正文保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4AA3D0"
+          ],
+          "relationship": "SEP01既有两S32参数/consumed返回声明保持，仅合同注释"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/window_41.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_storage_external_item_panels_spec.md#storage-item-panel-baseline",
+        "doc/cg2d_storage_external_item_panels_spec.md#storage-item-panel-decision",
+        "doc/cg2d_storage_external_item_panels_spec.md#storage-item-panel-acceptance",
+        "doc/cg2d_storage_external_item_panels_spec.md#storage-item-panel-source-state",
+        "doc/cg2d_storage_external_item_panels_evidence.json"
       ],
-      "boundary": "仅一个格式callee接一个原点；原两S32(index,state)/consumed返回及全部事件正文保持。20槽中used W16为零跳过，借CC4D58/position*C44H记录的+8普通S32 count，每槽一次普通图后才memcpy读count，不搬入自有occupancy/禁止图。数量>0才按既有553FCC %3d写未清12B，层3/字体1/颜色1和中心-3/+7取低S16消费；窗口41原中心偏移37/51不互套。拖放/点击/分页/hover/占用/清层与共享状态、返回全文不动，不预清、保护、钳制、缓存图形前数量或替换关联方。",
+      "boundary": "仅一个格式callee接一个原点；原两S32(index,state)/consumed返回及全部事件正文保持。20槽中used W16为零跳过，借CC4D58/position*C44H记录的+8普通S32 count，每槽一次普通图后才memcpy读count，不搬入自有occupancy/禁止图。数量>0才按既有553FCC %3d写未清12B，层3/字体1/颜色1和中心-3/+7取低S16消费；窗口41原中心偏移37/51不互套。拖放/点击/分页/hover/占用/清层与共享状态、返回全文不动，不预清、保护、钳制、缓存图形前数量或替换关联方。；SEP01仅两个完整外部物品面板4AA3D0/4AC890，共904条2885B/十五页、50E8十六唯一目标/94跳两RET；旧971/973全部格式/数量历史保，仅完整合同追加，各一个adapted，不重计F。两S32 index/state，原BL事件位：41只drag type2、38以两次fresh查询允许2或5，source<8清60H；41不因此设consumed，38原设1。40H拖放先三getter(dropX/dropY/source)后一次gCurrentWindow与元素地址，持有S32 elementX/windowX/windowY/elementY及20格扫描，50横步/52纵步、48半开矩形，首匹配退出，原source!=target且source<100才读玩家flags低BYTE 60H门槛；38即使外部source也仍从原玩家表读S32 itemType，38/52不移，不添新来源或上界。21H悬停每格fresh窗口/元素，按elementX→windowX→left→elementY→windowY→top的S32原取样，原-1参数命中，先匹配结束；后drag type非0且20H才fresh source/其<100低BYTEflags使hover=-1。四个实际F6索引BYTE测试恢复，现玩家flags原W16字段不改，只通过unsigned char视图取低字节，保短路与次数。41保原获批静态GBK提示、hover变化清page/value20→发布hover；41有10H边键取回库存逻辑：focus两次短路仅41或0，MouseReset后扫描玩家槽8..27 W16 used，满或外部未用声55，成功原4886E0传41/index/hover+100/target+8；该分支consume1且不落双击页分支。38无此取回分支/提示。两panel events1且hover>=0，2H双击读取W16 used成功才48BF10(hover+100,mode0/1)→声51，consume1；随后fresh mouse edge BYTE bit2，fresh W16 used→S32 page先读/C3C pages后读→page+1发布，>=pages原归0，consume1。前调用/声效后不缓存mouse/used/page/页数，不加默认或钳制。两拖动来源框type41为2、38为2或5/source>=100；来源框与当前hover框各fresh window/held element，S32四坐标读取序明确，低W16边界经现真实Hover提供者，层223/来源框图254与current frame保持；hover框draw后再fresh W16 used、成功发布window41/38 actionFlags1C=hover+100。命中/来源框/当前框/每槽普通图四阶段各原S32读取序落实，drop元素地址只持一次，合计两根十二组十四处，不在所有循环或API之间缓存current window。两末层3清尾→空593850文字，描述色FFFFFFFF/byte13=4，20记录W16 used门槛，普通图中心41(+37,+51)、38(+36,+64)，图号record+4 S32，调用图后才fresh count+8 S32；正值用原未清12B/现MSVC%3d，同层3/字体1/颜色1/中心-3,+7低S16文字，原格式有据、不补零/保护。实际consumed S32 0/1保，不以两个父根闭所有callback/owner/ABI或画面运行。原无直接CALL入本根，41一code-offset MOV callback发布4A968C与两prototype itemhead refs，actual W32匹配为571160的35槽/571740的3槽，32B原prototype八W32及current native callback/Data接线保；不把item首地址当callback字面值或推全表/动态owner，旧把code-offset列data的历史保并追加当前有据分界。四注释及上述限定源码调整，五类型/十六真实callee/原发布父、两表/四global定义声明与五旧语义保；三个限定S零I八open，INPUT/UI/RENDER各两成员，完整数据生产消费/描述绘制及请求互通、shared owner-alias寿命/SDK/生成读取和机器ABI及运行待；不引新函数/helper/字段/API/类型/owner、索引/容量/空保护/补零/默认/异常或失败回滚，MSVC/WAV-only/原命令字段LF明文及全部完整门禁保，整体未完成。",
       "original_incoming": [],
       "original_data_references": [
         {
@@ -116074,7 +116093,80 @@
           "relationship": "20槽各used门槛、原图形消费后再读S32 count，正值写同一未清12B并按层3/字体1/颜色1和中心-3/+7低S16消费；原事件/consumed返回保持"
         }
       ],
-      "verification_level": "原478指令统计，仅44格式/数量门槛/相邻图形与文字消费邻窗和31入口/记录基址-used/循环取窗新邻窗仅读，共75，余403及已过核心不重验；一原点/callee、普通S32/既有%3d字节、沿既有已核12B合同与低S16消费/全文正文返回限定静态核。普通call0/data2只登记，不推完整父路由，未构建执行。"
+      "verification_level": "原478指令统计，仅44格式/数量门槛/相邻图形与文字消费邻窗和31入口/记录基址-used/循环取窗新邻窗仅读，共75，余403及已过核心不重验；一原点/callee、普通S32/既有%3d字节、沿既有已核12B合同与低S16消费/全文正文返回限定静态核。普通call0/data2只登记，不推完整父路由，未构建执行。；pass，两个完整原根904条2885B/十五页、50E8十六唯一目标/94跳两RET，四F6 indexed BYTE/五阶段S32取样原点与35-3槽/一个code-offset有据；两整源精确回放只十二组十四处/四注释，原所有短路、38类型/41快捷取回、页数/used及图后count/格式尾与S32返回保持；五类型/十六callee/一个发布父/两表/四global定义声明保持。旧971-973数量历史追加，所有动态callback/owner/完整绘制和协议互通、生成读取/ABI及运行待",
+      "storage_external_item_panels": {
+        "step": "SEP01",
+        "source_snapshot": "[#] 对齐存放物品面板标志与坐标消费",
+        "original_entry": "0x4aa3d0",
+        "original_end_exclusive": "0x4aa9bc",
+        "instruction_count": 478,
+        "code_bytes": 1516,
+        "page_count": 8,
+        "direct_calls": 27,
+        "direct_call_targets": [
+          4676960,
+          4677008,
+          4676976,
+          4676992,
+          4678912,
+          4753120,
+          5261728,
+          4676928,
+          4678624,
+          5424208,
+          4767504,
+          5382528,
+          4549968,
+          4548480,
+          5380880,
+          5485316
+        ],
+        "jumps": 52,
+        "returns": 1,
+        "original_incoming_references": [
+          {
+            "ea": 4888204,
+            "type": 1,
+            "code": true
+          },
+          {
+            "ea": 5706080,
+            "type": 1,
+            "code": false
+          }
+        ],
+        "original_offset_references": [
+          {
+            "target": 4891600,
+            "ea": 4888204,
+            "type": 1,
+            "code": true,
+            "parent": 4887968,
+            "item_head": 4888204,
+            "bytes": "c7820c050000d0a34a00",
+            "asm": "mov     dword ptr [edx+50Ch], offset sub_4AA3D0"
+          },
+          {
+            "target": 4891600,
+            "ea": 5706080,
+            "type": 1,
+            "code": false,
+            "parent": null,
+            "item_head": 5706080,
+            "note": "IDA引用挂在数据item首地址，非实际函数指针地址；实际匹配见独立aligned_pointer_matches。"
+          }
+        ],
+        "native_signature": "std::int32_t Sub_4AA3D0(const std::int32_t index, const std::int32_t state)",
+        "source_patch_group_count": 6,
+        "source_changed_point_count": 7,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "真实S32 consumed 0/1及两个模式差别保持；仅本根及35-3槽/code-offset发布，全部动态callback/owner/生成读取和机器ABI待",
+        "previous_format_history_kept": true
+      }
     },
     {
       "original_entry": "0x4AC290",
@@ -116153,7 +116245,7 @@
     {
       "original_entry": "0x4AC890",
       "inventory_id": "F:000AC890",
-      "status": "既有存放物品面板数量真实格式依赖已接；完整窗口38/41及数据生产/CRT/画面/运行未据本步验收",
+      "status": "既有存放物品面板数量真实格式依赖已接；完整窗口38/41及数据生产/CRT/画面/运行未据本步验收；SEP01完整外部物品面板纳管，原低BYTE/持址与S32坐标取样恢复，页数/图后count及模式差别保，全部owner/ABI/运行待",
       "original_end_exclusive": "0x4ACDE9",
       "instruction_count": 426,
       "sources": [
@@ -116163,13 +116255,32 @@
             "Sub_4AC890"
           ],
           "relationship": "一现callee接一原点，仅格式标识符改变，事件及图形后读数/文字消费正文保持"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4AC890"
+          ],
+          "relationship": "SEP01完整外部物品面板，低BYTE和原S32坐标/持址对齐，数量格式历史及其它正文保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4AC890"
+          ],
+          "relationship": "SEP01既有两S32参数/consumed返回声明保持，仅合同注释"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/window_38.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_storage_external_item_panels_spec.md#storage-item-panel-baseline",
+        "doc/cg2d_storage_external_item_panels_spec.md#storage-item-panel-decision",
+        "doc/cg2d_storage_external_item_panels_spec.md#storage-item-panel-acceptance",
+        "doc/cg2d_storage_external_item_panels_spec.md#storage-item-panel-source-state",
+        "doc/cg2d_storage_external_item_panels_evidence.json"
       ],
-      "boundary": "仅一个格式callee接一个原点；原两S32(index,state)/consumed返回及全部事件正文保持。20槽中used W16为零跳过，借CC4D58/position*C44H记录的+8普通S32 count，每槽一次普通图后才memcpy读count，不搬入自有occupancy/重复普通图。数量>0才按既有553FCC %3d写未清12B，层3/字体1/颜色1和中心-3/+7取低S16消费；窗口38原中心偏移36/64不互套。拖放/点击/分页/hover/占用/清层与共享状态、返回全文不动，不预清、保护、钳制、缓存图形前数量或替换关联方。",
+      "boundary": "仅一个格式callee接一个原点；原两S32(index,state)/consumed返回及全部事件正文保持。20槽中used W16为零跳过，借CC4D58/position*C44H记录的+8普通S32 count，每槽一次普通图后才memcpy读count，不搬入自有occupancy/重复普通图。数量>0才按既有553FCC %3d写未清12B，层3/字体1/颜色1和中心-3/+7取低S16消费；窗口38原中心偏移36/64不互套。拖放/点击/分页/hover/占用/清层与共享状态、返回全文不动，不预清、保护、钳制、缓存图形前数量或替换关联方。；SEP01仅两个完整外部物品面板4AA3D0/4AC890，共904条2885B/十五页、50E8十六唯一目标/94跳两RET；旧971/973全部格式/数量历史保，仅完整合同追加，各一个adapted，不重计F。两S32 index/state，原BL事件位：41只drag type2、38以两次fresh查询允许2或5，source<8清60H；41不因此设consumed，38原设1。40H拖放先三getter(dropX/dropY/source)后一次gCurrentWindow与元素地址，持有S32 elementX/windowX/windowY/elementY及20格扫描，50横步/52纵步、48半开矩形，首匹配退出，原source!=target且source<100才读玩家flags低BYTE 60H门槛；38即使外部source也仍从原玩家表读S32 itemType，38/52不移，不添新来源或上界。21H悬停每格fresh窗口/元素，按elementX→windowX→left→elementY→windowY→top的S32原取样，原-1参数命中，先匹配结束；后drag type非0且20H才fresh source/其<100低BYTEflags使hover=-1。四个实际F6索引BYTE测试恢复，现玩家flags原W16字段不改，只通过unsigned char视图取低字节，保短路与次数。41保原获批静态GBK提示、hover变化清page/value20→发布hover；41有10H边键取回库存逻辑：focus两次短路仅41或0，MouseReset后扫描玩家槽8..27 W16 used，满或外部未用声55，成功原4886E0传41/index/hover+100/target+8；该分支consume1且不落双击页分支。38无此取回分支/提示。两panel events1且hover>=0，2H双击读取W16 used成功才48BF10(hover+100,mode0/1)→声51，consume1；随后fresh mouse edge BYTE bit2，fresh W16 used→S32 page先读/C3C pages后读→page+1发布，>=pages原归0，consume1。前调用/声效后不缓存mouse/used/page/页数，不加默认或钳制。两拖动来源框type41为2、38为2或5/source>=100；来源框与当前hover框各fresh window/held element，S32四坐标读取序明确，低W16边界经现真实Hover提供者，层223/来源框图254与current frame保持；hover框draw后再fresh W16 used、成功发布window41/38 actionFlags1C=hover+100。命中/来源框/当前框/每槽普通图四阶段各原S32读取序落实，drop元素地址只持一次，合计两根十二组十四处，不在所有循环或API之间缓存current window。两末层3清尾→空593850文字，描述色FFFFFFFF/byte13=4，20记录W16 used门槛，普通图中心41(+37,+51)、38(+36,+64)，图号record+4 S32，调用图后才fresh count+8 S32；正值用原未清12B/现MSVC%3d，同层3/字体1/颜色1/中心-3,+7低S16文字，原格式有据、不补零/保护。实际consumed S32 0/1保，不以两个父根闭所有callback/owner/ABI或画面运行。原无直接CALL入本根，41一code-offset MOV callback发布4A968C与两prototype itemhead refs，actual W32匹配为571160的35槽/571740的3槽，32B原prototype八W32及current native callback/Data接线保；不把item首地址当callback字面值或推全表/动态owner，旧把code-offset列data的历史保并追加当前有据分界。四注释及上述限定源码调整，五类型/十六真实callee/原发布父、两表/四global定义声明与五旧语义保；三个限定S零I八open，INPUT/UI/RENDER各两成员，完整数据生产消费/描述绘制及请求互通、shared owner-alias寿命/SDK/生成读取和机器ABI及运行待；不引新函数/helper/字段/API/类型/owner、索引/容量/空保护/补零/默认/异常或失败回滚，MSVC/WAV-only/原命令字段LF明文及全部完整门禁保，整体未完成。",
       "original_incoming": [],
       "original_data_references": [
         {
@@ -116222,7 +116333,63 @@
           "relationship": "20槽各used门槛、原图形消费后再读S32 count，正值写同一未清12B并按层3/字体1/颜色1和中心-3/+7低S16消费；原事件/consumed返回保持"
         }
       ],
-      "verification_level": "原426指令统计，仅44格式/数量门槛/相邻图形与文字消费邻窗和31入口/记录基址-used/循环取窗新邻窗仅读，共75，余351及已过核心不重验；一原点/callee、普通S32/既有%3d字节、沿既有已核12B合同与低S16消费/全文正文返回限定静态核。普通call0/data1只登记，不推完整父路由，未构建执行。"
+      "verification_level": "原426指令统计，仅44格式/数量门槛/相邻图形与文字消费邻窗和31入口/记录基址-used/循环取窗新邻窗仅读，共75，余351及已过核心不重验；一原点/callee、普通S32/既有%3d字节、沿既有已核12B合同与低S16消费/全文正文返回限定静态核。普通call0/data1只登记，不推完整父路由，未构建执行。；pass，两个完整原根904条2885B/十五页、50E8十六唯一目标/94跳两RET，四F6 indexed BYTE/五阶段S32取样原点与35-3槽/一个code-offset有据；两整源精确回放只十二组十四处/四注释，原所有短路、38类型/41快捷取回、页数/used及图后count/格式尾与S32返回保持；五类型/十六callee/一个发布父/两表/四global定义声明保持。旧971-973数量历史追加，所有动态callback/owner/完整绘制和协议互通、生成读取/ABI及运行待",
+      "storage_external_item_panels": {
+        "step": "SEP01",
+        "source_snapshot": "[#] 对齐存放物品面板标志与坐标消费",
+        "original_entry": "0x4ac890",
+        "original_end_exclusive": "0x4acde9",
+        "instruction_count": 426,
+        "code_bytes": 1369,
+        "page_count": 7,
+        "direct_calls": 23,
+        "direct_call_targets": [
+          4676960,
+          4677008,
+          4676976,
+          4676992,
+          4753120,
+          4678912,
+          5261728,
+          4767504,
+          5424208,
+          5382528,
+          4549968,
+          4548480,
+          5380880,
+          5485316
+        ],
+        "jumps": 42,
+        "returns": 1,
+        "original_incoming_references": [
+          {
+            "ea": 5707584,
+            "type": 1,
+            "code": false
+          }
+        ],
+        "original_offset_references": [
+          {
+            "target": 4901008,
+            "ea": 5707584,
+            "type": 1,
+            "code": false,
+            "parent": null,
+            "item_head": 5707584,
+            "note": "IDA引用挂在数据item首地址，非实际函数指针地址；实际匹配见独立aligned_pointer_matches。"
+          }
+        ],
+        "native_signature": "std::int32_t Sub_4AC890(const std::int32_t index, const std::int32_t state)",
+        "source_patch_group_count": 6,
+        "source_changed_point_count": 7,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "真实S32 consumed 0/1及两个模式差别保持；仅本根及35-3槽/code-offset发布，全部动态callback/owner/生成读取和机器ABI待",
+        "previous_format_history_kept": true
+      }
     },
     {
       "original_entry": "0x4B5C30",

@@ -715,3 +715,7 @@ kind2为玩家背包，kind3为外部表。首轮used为0调用4763E0，但继�
 ## 2026-10-11 IDR01：共享描述字节区
 
 [IDR01](../cg2d_item_description_rows_spec.md#item-description-source-state)补齐4E02B0完整物品描述生产根83条202B/两页，一E8/九跳两RET。正确正文保，仅两合同注释；32行、仅行首清零、last前一行回扫及S32页数发布明确。两CALL同SGM01父和两个消费者页数邻窗有据；一个新F/处置，UI一成员/一限定S零I八open，完整消费者/owner/ABI及运行待。
+
+## 2026-10-11 SEP01：同字节区的页数与数量消费
+
+[SEP01](../cg2d_storage_external_item_panels_spec.md#storage-item-panel-source-state)旧971/973补齐两个外部物品面板完整904条2885B/十五页，50E8十六唯一目标/94跳两RET。恢复四处flags低BYTE及两根十二组十四处持址/坐标取样，原短路、窗口38类型门槛、41快捷取回、页数与图后数量消费保持。两原prototype 35/3槽及一个code-offset发布有据；历史追加/两处置、三限定S零I八open，完整owner/全部描绘与请求互通/ABI及运行待。

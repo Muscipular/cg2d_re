@@ -270,3 +270,7 @@ BuildProtocolCommand只替换原宿主_itoa调用，继续16进制、原校验�
 ## 2026-10-11 MDR01：丢钱数量框门槛与金额同步
 
 [MDR01](cg2d_money_drop_request_spec.md#money-drop-source-state)补齐丢钱回调/按钮和woz发送三完整原根153条494B/四页，14E8九目标/15跳三RET。仅动作标志改既有BYTE读取一处；按钮/发送正确正文保持，三次fresh窗口匹配、金额同步和三字段容量/token/输出原序保。六合同注释/三新F三adapted、四限定S零I八open；完整回调/共享数据owner、ABI与互通运行待。
+
+## 2026-10-11 SEP01：存放外部物品面板取样
+
+[SEP01](cg2d_storage_external_item_panels_spec.md#storage-item-panel-source-state)旧971/973补齐两个外部物品面板完整904条2885B/十五页，50E8十六唯一目标/94跳两RET。恢复四处flags低BYTE及两根十二组十四处持址/坐标取样，原短路、窗口38类型门槛、41快捷取回、页数与图后数量消费保持。两原prototype 35/3槽及一个code-offset发布有据；历史追加/两处置、三限定S零I八open，完整owner/全部描绘与请求互通/ABI及运行待。

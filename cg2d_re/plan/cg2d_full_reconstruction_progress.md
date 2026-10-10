@@ -1372,3 +1372,16 @@ PudO唯一改动为持有GetCate返回给调色板，不重读刚pub全局；保
 语义2330=2282F关联+48有界代码，关联2392/3680=65.00%仅关联率；处置1789/证据1593，UIRUNTIME199，其它保持。184叶验收0、60任务关闭11开放49、六closure及全部完整门禁保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
 
 同一cg2d_re分支、不打tag，七外部改动/原删除暂存保持。未构建/测试/运行/产物/摘要/引依赖；整体active/未完成。
+
+<a id="storage-item-panel-progress-20261011"></a>
+## 130. 2026-10-11 SEP01：外部物品面板完整消费
+
+[SEP01](../doc/cg2d_storage_external_item_panels_spec.md#storage-item-panel-source-state)旧971/973补齐两个外部物品面板完整904条2885B/十五页，50E8十六唯一目标/94跳两RET。恢复四处flags低BYTE及两根十二组十四处持址/坐标取样，原短路、窗口38类型门槛、41快捷取回、页数与图后数量消费保持。两原prototype 35/3槽及一个code-offset发布有据；历史追加/两处置、三限定S零I八open，完整owner/全部描绘与请求互通/ABI及运行待。
+
+先记SPEC依子AGENTS第8条裁决，现flags字段W16与四原索引F6 BYTE读不符，恢复只读低BYTE。两根drop阶段持元素地址，命中/来源框/hover框/每槽普通图四阶段显式elementX→windowX→elementY→windowY S32读取顺序；两根共十二组十四处，四注释，其它正常分支、原失败门槛及返回保持。窗口41有10H边键快捷取回与提示，38另有原itemType38/52排除且外部source仍查玩家表，均按原证保。C3C页数同IDR01生产区，图号/图后count同SGM01；完整根有据不代owner/所有绘制及服务端互通闭包。
+
+旧971/973所有数量格式历史保，完整合同追加/各一个adapted；原code-offset4A968C是MOV callback发布，另两Xref挂item首，真实callback各原32B prototype35/3槽/current native槽保持，不误记itemhead为callback字面值。
+
+语义2330=2282F关联+48有界代码及关联2392/3680=65.00%保持；处置1791/证据1596，INPUT156/UIRUNTIME201/RENDER112，其它保持。184叶验收0、60任务关闭11开放49、六closure及全部完整门禁保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
+
+同一cg2d_re分支、不打tag，七外部改动/原删除暂存保持。未构建/测试/运行/产物/摘要/引依赖；整体active/未完成。

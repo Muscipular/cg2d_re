@@ -2742,3 +2742,9 @@ IDA数组/结构起点xref不代字段指针；原型实际11callback与旧范�
 [IDR01](cg2d_item_description_rows_spec.md#item-description-source-state)补齐4E02B0完整物品描述生产根83条202B/两页，一E8/九跳两RET。正确正文保，仅两合同注释；32行、仅行首清零、last前一行回扫及S32页数发布明确。两CALL同SGM01父和两个消费者页数邻窗有据；一个新F/处置，UI一成员/一限定S零I八open，完整消费者/owner/ABI及运行待。
 
 语义2330=2282F关联+48有界代码，关联2392/3680=65.00%仅关联率；处置1789/证据1593，UIRUNTIME199，其它保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
+
+## 2026-10-11 SEP01：两个完整面板合同
+
+[SEP01](cg2d_storage_external_item_panels_spec.md#storage-item-panel-source-state)旧971/973补齐两个外部物品面板完整904条2885B/十五页，50E8十六唯一目标/94跳两RET。恢复四处flags低BYTE及两根十二组十四处持址/坐标取样，原短路、窗口38类型门槛、41快捷取回、页数与图后数量消费保持。两原prototype 35/3槽及一个code-offset发布有据；历史追加/两处置、三限定S零I八open，完整owner/全部描绘与请求互通/ABI及运行待。
+
+语义2330=2282F关联+48有界代码及关联2392/3680=65.00%保持；处置1791/证据1596，INPUT156/UIRUNTIME201/RENDER112，其它保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。

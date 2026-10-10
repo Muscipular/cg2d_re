@@ -1560,7 +1560,7 @@ std::int32_t Sub_48B750(std::int32_t page); // CC3210独立详情提示，缓存
 std::int32_t Sub_4AC200(std::int32_t index, std::int32_t state); // 窗口38右上关闭。
 std::int32_t Sub_4A9350(std::int32_t index, std::int32_t state); // 窗口38/41共用关闭按钮。
 std::int32_t Sub_4AC290(std::int32_t index, std::int32_t state); // 窗口38自有物品面板。
-std::int32_t Sub_4AC890(std::int32_t index, std::int32_t state); // 窗口38外部物品面板。
+std::int32_t Sub_4AC890(std::int32_t index, std::int32_t state); // SEP01：完整窗口38外部物品消费，低BYTE/坐标原序与S32 consumed保持。
 std::int32_t Sub_4A92D0(std::int32_t unused, std::int32_t state); // 存取数值输入焦点。
 std::int32_t Sub_4A93E0(std::int32_t index, std::int32_t state); // 存放第一页请求。
 std::int32_t Sub_4A94A0(std::int32_t index, std::int32_t state); // 存放第二页请求。
@@ -1572,7 +1572,7 @@ std::int32_t Sub_4A96D0(std::int32_t index, std::int32_t state); // 宠物页签
 std::int32_t Sub_4A9820(std::int32_t index, std::int32_t state); // 存款页签。
 std::int32_t Sub_4A9990(std::int32_t index, std::int32_t state); // 取款页签。
 std::int32_t Sub_4A9D10(std::int32_t index, std::int32_t state); // 自有存放物品面板。
-std::int32_t Sub_4AA3D0(std::int32_t index, std::int32_t state); // 外部存放物品面板。
+std::int32_t Sub_4AA3D0(std::int32_t index, std::int32_t state); // SEP01：完整窗口41外部物品消费，低BYTE/坐标原序与S32 consumed保持。
 std::int32_t Sub_4AA9C0(std::int32_t index, std::int32_t state); // 宠物上一行。
 std::int32_t Sub_4AAA70(std::int32_t index, std::int32_t state); // 宠物下一行。
 std::int32_t Sub_4AAB20(std::int32_t index, std::int32_t state); // 两侧宠物滚轮。

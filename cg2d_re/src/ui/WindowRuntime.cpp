@@ -30277,6 +30277,7 @@ void Sub_4A7750(const std::int32_t x, const std::int32_t y)
     }
 }
 
+// WND01：数字与四符号原字节正反绘制，见doc/cg2d_window_number_draw_spec.md。
 void Sub_4771B0(
     const std::int32_t x, const std::int32_t y, const char* const text,
     const std::int8_t style, const std::int8_t color,
@@ -30342,13 +30343,17 @@ void Sub_4771B0(
     }
 }
 
+// WND01：运行步进乘长度后取扣宽，见doc/cg2d_window_number_draw_spec.md。
 std::int32_t Sub_477460(const char* const text, const std::int8_t style)
 {
     const auto length = static_cast<std::int32_t>(std::strlen(text));
     if (length <= 0) {
         return 0;
     }
-    return gNumberAdvancesD67AC4[style] * length - kNumberSpacingDeductions54F2A8[style];
+    const std::int32_t advance = gNumberAdvancesD67AC4[style];
+    const std::int32_t width = advance * length;
+    const std::int32_t deduction = kNumberSpacingDeductions54F2A8[style];
+    return width - deduction;
 }
 
 std::int32_t Sub_46FBC0(const std::int32_t)
@@ -44785,6 +44790,7 @@ void InitializeLegacyNumberSpacing_477160()
     InitializeNumberSpacing_477170();
 }
 
+// WND01：477160尾跳的四S32步进生产，见doc/cg2d_window_number_draw_spec.md。
 void InitializeNumberSpacing_477170()
 {
     using namespace detail;

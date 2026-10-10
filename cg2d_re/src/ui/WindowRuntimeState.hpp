@@ -1900,9 +1900,11 @@ void Sub_4A7720(); // 请求高度-1。
 void Sub_4A7730(); // 请求宽度+1。
 void Sub_4A7740(); // 请求宽度-1。
 std::int32_t Sub_4A82E0(); // 窗口57高度循环调整并清两个请求。
+// WND01：数字与四符号原字节正反绘制，见doc/cg2d_window_number_draw_spec.md。
 void Sub_4771B0(
     std::int32_t x, std::int32_t y, const char* text,
     std::int8_t style, std::int8_t color, std::uint8_t flags, std::uint8_t layer);
+// WND01：运行步进乘长度后取扣宽，见doc/cg2d_window_number_draw_spec.md。
 std::int32_t Sub_477460(const char* text, std::int8_t style); // 原字节长度乘运行步进减扣宽。
 
 static_assert(sizeof(WindowInputReference) == 16);

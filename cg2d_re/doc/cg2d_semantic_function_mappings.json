@@ -213359,6 +213359,465 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x4771b0",
+      "inventory_id": "F:000771B0",
+      "original_role": "原数字及四符号图片按字节正反向绘制",
+      "original_end_exclusive": "0x477451",
+      "instruction_count": 226,
+      "function_chunks": [
+        {
+          "start": "0x4771b0",
+          "end_exclusive": "0x477451"
+        }
+      ],
+      "status": "WND01完整原根纳管，测宽读取序明确；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4771B0"
+          ],
+          "relationship": "WND01完整原根/既有正确正文与字节表/初始化接线；仅测宽一处排序和关联注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4771B0"
+          ],
+          "relationship": "WND01真实声明与参数返回保持，初始化旧注释明确尾跳入口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_number_draw_spec.md#number-draw-baseline",
+        "doc/cg2d_window_number_draw_spec.md#number-draw-decision",
+        "doc/cg2d_window_number_draw_spec.md#number-draw-acceptance",
+        "doc/cg2d_window_number_draw_spec.md#number-draw-source-state",
+        "doc/cg2d_window_number_draw_evidence.json"
+      ],
+      "boundary": "WND01三完整数字绘制/测宽/步进生产原根255条774B/六页、两实际E8/一目标/28跳四RET和38外CALL/21父。旧86单E9尾跳/553098原构造槽及现MSVC静态接线复用，原BOS7 layerU8与WDP父1932身份保持；120W32/480B四图号坐标扣宽表和四S32运行步进存储有据且不改。绘制S8 style/color、flags bit0正反扫描、ASCII数字/四符号/未知BYTE仍步进、descriptor和每次真实图形入队/返回保持。测宽一组一处先运行步进乘字节长度再读取扣宽，非正长度0保；初始化0/1/2扣宽取样→发布步进0→取第四→发布1/2/3保持，旧入口及其他正文不改。六新增关联注释和初始化旧注释更新共七处，无新API/函数/类型/布局/owner/分配释放或保护/默认值/补零/钳制/容量限制/回滚/异常模型；三新语义F、UIRUNTIME/RENDER各三成员、两限定S零I/九任务open。21父、数字载荷/字符串/图号/步进/队列全生产消费和alias-owner寿命、构造及退出时序、CRT/SDK/机器ABI/优化后读取/真实数字符号像素/全生命周期待，所有枚举/完整gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，三完整原根255条774B/六页、两实际E8/一目标/28跳四RET与38外CALL/21父；旧477160单E9/553098原槽及当前MSVC构造接线、120W32/480B常量表有据。三整源一处S32步进乘长度后扣宽/七注释精确重放，绘制/初始化/旧入口及所有其它source和表存储保持；S8 style/color、BOS已证layerU8/字节正反迭代/未知BYTE仍步进和原返回保，全父/owner/构造与机器ABI/优化后读取/运行待",
+      "original_incoming": [
+        {
+          "ea": 4664506,
+          "parent": 4663728,
+          "type": 17,
+          "bytes": "e8f1440000",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 4700058,
+          "parent": 4699840,
+          "type": 17,
+          "bytes": "e811baffff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 4700113,
+          "parent": 4699840,
+          "type": 17,
+          "bytes": "e8dab9ffff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 4700938,
+          "parent": 4700592,
+          "type": 17,
+          "bytes": "e8a1b6ffff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 4701044,
+          "parent": 4700592,
+          "type": 17,
+          "bytes": "e837b6ffff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 4703065,
+          "parent": 4702784,
+          "type": 17,
+          "bytes": "e852aeffff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 4705348,
+          "parent": 4705024,
+          "type": 17,
+          "bytes": "e867a5ffff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 4706215,
+          "parent": 4705904,
+          "type": 17,
+          "bytes": "e804a2ffff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 4889429,
+          "parent": 4889344,
+          "type": 17,
+          "bytes": "e856d6fcff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 4889520,
+          "parent": 4889344,
+          "type": 17,
+          "bytes": "e8fbd5fcff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 4889590,
+          "parent": 4889344,
+          "type": 17,
+          "bytes": "e8b5d5fcff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 4889678,
+          "parent": 4889344,
+          "type": 17,
+          "bytes": "e85dd5fcff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 4889769,
+          "parent": 4889344,
+          "type": 17,
+          "bytes": "e802d5fcff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 4889857,
+          "parent": 4889344,
+          "type": 17,
+          "bytes": "e8aad4fcff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 4921372,
+          "parent": 4919904,
+          "type": 17,
+          "bytes": "e88f59fcff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 4921427,
+          "parent": 4919904,
+          "type": 17,
+          "bytes": "e85859fcff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 4921482,
+          "parent": 4919904,
+          "type": 17,
+          "bytes": "e82159fcff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 4921537,
+          "parent": 4919904,
+          "type": 17,
+          "bytes": "e8ea58fcff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 4969585,
+          "parent": 4968704,
+          "type": 17,
+          "bytes": "e83a9dfbff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 4969659,
+          "parent": 4968704,
+          "type": 17,
+          "bytes": "e8f09cfbff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 4993830,
+          "parent": 4992928,
+          "type": 17,
+          "bytes": "e8853efbff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 4993904,
+          "parent": 4992928,
+          "type": 17,
+          "bytes": "e83b3efbff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 5002310,
+          "parent": 5001408,
+          "type": 17,
+          "bytes": "e8651dfbff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 5002384,
+          "parent": 5001408,
+          "type": 17,
+          "bytes": "e81b1dfbff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 5048490,
+          "parent": 5047456,
+          "type": 17,
+          "bytes": "e80169faff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 5051803,
+          "parent": 5050032,
+          "type": 17,
+          "bytes": "e8105cfaff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 5052051,
+          "parent": 5050032,
+          "type": 17,
+          "bytes": "e8185bfaff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 5056379,
+          "parent": 5055072,
+          "type": 17,
+          "bytes": "e8304afaff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 5057458,
+          "parent": 5056576,
+          "type": 17,
+          "bytes": "e8f945faff",
+          "asm": "call    sub_4771B0"
+        },
+        {
+          "ea": 5058523,
+          "parent": 5056576,
+          "type": 17,
+          "bytes": "e8d041faff",
+          "asm": "call    sub_4771B0"
+        }
+      ],
+      "window_number_draw": {
+        "step": "WND01",
+        "source_snapshot": "[#] 补齐数字绘制初始化并明确测宽顺序",
+        "original_end_exclusive": "0x477451",
+        "original_instruction_count": 226,
+        "original_code_bytes": 673,
+        "original_page_count": 4,
+        "direct_call_count": 2,
+        "jump_count": 27,
+        "return_count": 2,
+        "native_signature": "void Sub_4771B0(\n    const std::int32_t x, const std::int32_t y, const char* const text,\n    const std::int8_t style, const std::int8_t color,\n    const std::uint8_t flags, const std::uint8_t layer)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4771B0",
+        "normal_source_kept": true,
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "original_other_references": [],
+        "existing_draw_lambda_kept": true,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x477460",
+      "inventory_id": "F:00077460",
+      "original_role": "原数字字节长度乘运行步进并减扣宽",
+      "original_end_exclusive": "0x47748c",
+      "instruction_count": 16,
+      "function_chunks": [
+        {
+          "start": "0x477460",
+          "end_exclusive": "0x47748c"
+        }
+      ],
+      "status": "WND01完整原根纳管，测宽读取序明确；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_477460"
+          ],
+          "relationship": "WND01完整原根/既有正确正文与字节表/初始化接线；仅测宽一处排序和关联注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_477460"
+          ],
+          "relationship": "WND01真实声明与参数返回保持，初始化旧注释明确尾跳入口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_number_draw_spec.md#number-draw-baseline",
+        "doc/cg2d_window_number_draw_spec.md#number-draw-decision",
+        "doc/cg2d_window_number_draw_spec.md#number-draw-acceptance",
+        "doc/cg2d_window_number_draw_spec.md#number-draw-source-state",
+        "doc/cg2d_window_number_draw_evidence.json"
+      ],
+      "boundary": "WND01三完整数字绘制/测宽/步进生产原根255条774B/六页、两实际E8/一目标/28跳四RET和38外CALL/21父。旧86单E9尾跳/553098原构造槽及现MSVC静态接线复用，原BOS7 layerU8与WDP父1932身份保持；120W32/480B四图号坐标扣宽表和四S32运行步进存储有据且不改。绘制S8 style/color、flags bit0正反扫描、ASCII数字/四符号/未知BYTE仍步进、descriptor和每次真实图形入队/返回保持。测宽一组一处先运行步进乘字节长度再读取扣宽，非正长度0保；初始化0/1/2扣宽取样→发布步进0→取第四→发布1/2/3保持，旧入口及其他正文不改。六新增关联注释和初始化旧注释更新共七处，无新API/函数/类型/布局/owner/分配释放或保护/默认值/补零/钳制/容量限制/回滚/异常模型；三新语义F、UIRUNTIME/RENDER各三成员、两限定S零I/九任务open。21父、数字载荷/字符串/图号/步进/队列全生产消费和alias-owner寿命、构造及退出时序、CRT/SDK/机器ABI/优化后读取/真实数字符号像素/全生命周期待，所有枚举/完整gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，三完整原根255条774B/六页、两实际E8/一目标/28跳四RET与38外CALL/21父；旧477160单E9/553098原槽及当前MSVC构造接线、120W32/480B常量表有据。三整源一处S32步进乘长度后扣宽/七注释精确重放，绘制/初始化/旧入口及所有其它source和表存储保持；S8 style/color、BOS已证layerU8/字节正反迭代/未知BYTE仍步进和原返回保，全父/owner/构造与机器ABI/优化后读取/运行待",
+      "original_incoming": [
+        {
+          "ea": 4799443,
+          "parent": 4799344,
+          "type": 17,
+          "bytes": "e88838feff",
+          "asm": "call    sub_477460"
+        },
+        {
+          "ea": 4799504,
+          "parent": 4799344,
+          "type": 17,
+          "bytes": "e84b38feff",
+          "asm": "call    sub_477460"
+        },
+        {
+          "ea": 4801229,
+          "parent": 4800896,
+          "type": 17,
+          "bytes": "e88e31feff",
+          "asm": "call    sub_477460"
+        },
+        {
+          "ea": 4801299,
+          "parent": 4800896,
+          "type": 17,
+          "bytes": "e84831feff",
+          "asm": "call    sub_477460"
+        },
+        {
+          "ea": 4803174,
+          "parent": 4803008,
+          "type": 17,
+          "bytes": "e8f529feff",
+          "asm": "call    sub_477460"
+        },
+        {
+          "ea": 4803464,
+          "parent": 4803296,
+          "type": 17,
+          "bytes": "e8d328feff",
+          "asm": "call    sub_477460"
+        },
+        {
+          "ea": 4803766,
+          "parent": 4803600,
+          "type": 17,
+          "bytes": "e8a527feff",
+          "asm": "call    sub_477460"
+        },
+        {
+          "ea": 4804056,
+          "parent": 4803888,
+          "type": 17,
+          "bytes": "e88326feff",
+          "asm": "call    sub_477460"
+        }
+      ],
+      "window_number_draw": {
+        "step": "WND01",
+        "source_snapshot": "[#] 补齐数字绘制初始化并明确测宽顺序",
+        "original_end_exclusive": "0x47748c",
+        "original_instruction_count": 16,
+        "original_code_bytes": 44,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 1,
+        "return_count": 1,
+        "native_signature": "std::int32_t Sub_477460(const char* const text, const std::int8_t style)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_477460",
+        "normal_source_kept": false,
+        "source_patch_group_count": 1,
+        "source_changed_point_count": 1,
+        "original_other_references": [],
+        "existing_draw_lambda_kept": true,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x477170",
+      "inventory_id": "F:00077170",
+      "original_role": "原四S32数字图片运行步进业务初始化",
+      "original_end_exclusive": "0x4771a9",
+      "instruction_count": 13,
+      "function_chunks": [
+        {
+          "start": "0x477170",
+          "end_exclusive": "0x4771a9"
+        }
+      ],
+      "status": "WND01完整原根纳管，测宽读取序明确；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "InitializeNumberSpacing_477170"
+          ],
+          "relationship": "WND01完整原根/既有正确正文与字节表/初始化接线；仅测宽一处排序和关联注释"
+        },
+        {
+          "path": "include/cg/ui/WindowRuntime.hpp",
+          "symbols": [
+            "InitializeNumberSpacing_477170"
+          ],
+          "relationship": "WND01真实声明与参数返回保持，初始化旧注释明确尾跳入口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_number_draw_spec.md#number-draw-baseline",
+        "doc/cg2d_window_number_draw_spec.md#number-draw-decision",
+        "doc/cg2d_window_number_draw_spec.md#number-draw-acceptance",
+        "doc/cg2d_window_number_draw_spec.md#number-draw-source-state",
+        "doc/cg2d_window_number_draw_evidence.json"
+      ],
+      "boundary": "WND01三完整数字绘制/测宽/步进生产原根255条774B/六页、两实际E8/一目标/28跳四RET和38外CALL/21父。旧86单E9尾跳/553098原构造槽及现MSVC静态接线复用，原BOS7 layerU8与WDP父1932身份保持；120W32/480B四图号坐标扣宽表和四S32运行步进存储有据且不改。绘制S8 style/color、flags bit0正反扫描、ASCII数字/四符号/未知BYTE仍步进、descriptor和每次真实图形入队/返回保持。测宽一组一处先运行步进乘字节长度再读取扣宽，非正长度0保；初始化0/1/2扣宽取样→发布步进0→取第四→发布1/2/3保持，旧入口及其他正文不改。六新增关联注释和初始化旧注释更新共七处，无新API/函数/类型/布局/owner/分配释放或保护/默认值/补零/钳制/容量限制/回滚/异常模型；三新语义F、UIRUNTIME/RENDER各三成员、两限定S零I/九任务open。21父、数字载荷/字符串/图号/步进/队列全生产消费和alias-owner寿命、构造及退出时序、CRT/SDK/机器ABI/优化后读取/真实数字符号像素/全生命周期待，所有枚举/完整gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，三完整原根255条774B/六页、两实际E8/一目标/28跳四RET与38外CALL/21父；旧477160单E9/553098原槽及当前MSVC构造接线、120W32/480B常量表有据。三整源一处S32步进乘长度后扣宽/七注释精确重放，绘制/初始化/旧入口及所有其它source和表存储保持；S8 style/color、BOS已证layerU8/字节正反迭代/未知BYTE仍步进和原返回保，全父/owner/构造与机器ABI/优化后读取/运行待",
+      "original_incoming": [],
+      "window_number_draw": {
+        "step": "WND01",
+        "source_snapshot": "[#] 补齐数字绘制初始化并明确测宽顺序",
+        "original_end_exclusive": "0x4771a9",
+        "original_instruction_count": 13,
+        "original_code_bytes": 57,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 0,
+        "return_count": 1,
+        "native_signature": "void InitializeNumberSpacing_477170()",
+        "native_provider": "src/ui/WindowRuntime.cpp::InitializeNumberSpacing_477170",
+        "normal_source_kept": true,
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "original_other_references": [
+          {
+            "ea": 4682080,
+            "parent": 4682080,
+            "type": 19,
+            "bytes": "e90b000000",
+            "asm": "jmp     sub_477170"
+          }
+        ],
+        "existing_draw_lambda_kept": true,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

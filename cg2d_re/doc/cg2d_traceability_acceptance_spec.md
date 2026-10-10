@@ -2538,3 +2538,9 @@ IDA数组/结构起点xref不代字段指针；原型实际11callback与旧范�
 [WDP01](cg2d_window_element_draw_pipeline_spec.md#window-draw-source-state)补齐4729B0完整277条846B及七槽分发表/51CALL与34父来源。六组十三处恢复入口坐标、入口图号缓存、四低W16裁剪、两图形坐标路径、数字载荷四字段和四动画颜色BYTE；所有原visible/图号/焦点/context/text/数字null门槛、六业务分发/每元素新窗口count/尾层3清队列与范围提示保持。共用Yobi helper改读选中BYTE，S32存储/其他调用源/GetField20正确body不改，不外推其他父；四整源/四注释精确静态通过。旧1932全部CAC08来源/表/范围子记录保后追加，一F处置/四限定S零I，INPUT/UIRUNTIME/RENDER/YOBI各一成员；51外父/元素载荷/资源动画字体输入日志提示全生产消费及owner寿命、机器ABI/真实像素文字动画与运行仍待，整体未完成。
 
 语义2253=2205F+48X及文档关联2315/3680=62.91%保持，函数处置1693/证据1493，INPUT75/UIRUNTIME108/RENDER81/YOBI101且枚举未闭。九任务open、184叶验收0、六closure及完整门禁保持，登记、静态汇总/Check终态退出0、派生范围核对通过。
+
+## 2026-10-10 WND01：三数字图片根
+
+[WND01](cg2d_window_number_draw_spec.md#number-draw-source-state)补齐4771B0/477460/477170三完整原根255条774B、两E8与38CALL/21父来源，120W32/480B四表与源常量吻合。旧86初始化尾跳、553098原槽及现MSVC构造接线复用，不新建同一身份或恢复私有CRT机制。测宽明确先运行步进乘字节长度再读扣宽；原S8样式/颜色、flags正反字节绘制/四符号/未知BYTE仍步进、descriptor、四S32初始化序和所有其他源保持，七关联注释。三新语义F、UIRUNTIME/RENDER各三成员、两限定S零I；全父/数字载荷字符串图号步进队列生产消费及owner寿命、构造退出时序/机器ABI/真实数字符号像素与运行仍待，整体未完成。
+
+语义2256=2208F+48X、函数处置1696/证据1495，UIRUNTIME111/RENDER84且枚举未闭，文档关联2318/3680=62.99%仅关联率。九任务open、184叶验收0、六closure和完整门禁保持，登记、静态汇总/Check终态退出0、派生范围核对通过。

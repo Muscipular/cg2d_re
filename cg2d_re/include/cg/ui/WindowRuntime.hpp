@@ -36,7 +36,8 @@ void CancelWindowDrag_476410(); // 回调后重读阶段，最后进入2或6，�
 void ApplyObservationInputGate_440ADB(); // 同源5F9754及D67B08前八个U8的观察进入写序。
 // 原CRT 553098入口仅尾跳既有初始化，无退出登记。
 void InitializeLegacyNumberSpacing_477160();
-void InitializeNumberSpacing_477170(); // 原CRT 553098，四种数字图片步进的唯一初始化。
+// WND01：477160尾跳的四S32步进生产，见doc/cg2d_window_number_draw_spec.md。
+void InitializeNumberSpacing_477170(); // 477160尾跳的四种数字图片步进业务初始化。
 // 原CRT 55309C/5530A0：每项构造后独立登记退出；登记失败仍继续，不释放静态预览。
 // 原CRT 55309C/5530A0两独立选择器入口，各自构造后宿主即时登记固定内嵌预览退出，传出真实S32。
 std::int32_t InitializeLegacyFirstItemSelector_4883F0(); // 原CF3B10及其内嵌预览。

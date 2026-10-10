@@ -419,3 +419,7 @@ BVP01七整源/十三正文保持是原命名快照历史；本次只纠正4FA8E
 ## 2026-10-11 NPI01：共享数值面板完整合同
 
 [NPI01](cg2d_numeric_panel_input_spec.md#numeric-input-source-state)补齐数值面板474550完整540条1675B/九页，逐键四次CryptInt短路、数字/Backspace优先级、四鼠标操作与AL0/1/3返回有据。两逻辑组五处坐标及绘制取样对齐；42图号和既有业务正文/原上限钳回保持。本根没有Enter/Esc处理，不添加退出键行为。一新F一adapted、三限定S零I八open，完整输入生产消费/owner、ABI及运行待。
+
+## 2026-10-11 TQN01：共享交易数量父链
+
+[TQN01](cg2d_trade_quantity_panel_spec.md#trade-quantity-source-state)旧949格式历史追加共享交易面板4B1260完整524条1693B/九页，31E8十一目标/一个间接业务callback、41跳一RET。五逻辑组六处低宽坐标/滚动标志、滚动值先元素与前一滚动框坐标取样对齐；原数值确认结果、callback哨兵适配、四格式及S32 0/2返回保持。一处置、INPUT/UI/RENDER各一成员，三限定S零I八open；完整共享生产消费/业务callback、owner/ABI及交易运行待。

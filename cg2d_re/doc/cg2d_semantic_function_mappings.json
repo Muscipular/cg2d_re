@@ -113847,7 +113847,7 @@
     {
       "original_entry": "0x4B1260",
       "inventory_id": "F:000B1260",
-      "status": "既有宠物卡/交易统计真实格式依赖已接；完整数据生产/父路由/CRT/画面/运行未据本步验收",
+      "status": "既有宠物卡/交易统计真实格式依赖已接；完整数据生产/父路由/CRT/画面/运行未据本步验收；TQN01完整524条共享交易面板纳管，五组六处/原数值callback和格式保持，全业务callback/owner/ABI/运行待",
       "original_end_exclusive": "0x4B18FD",
       "instruction_count": 524,
       "sources": [
@@ -113857,13 +113857,32 @@
             "Sub_4B1260"
           ],
           "relationship": "仅三个/四个格式callee接对应真实原点，完整签名/返回/owner和正文保持"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4B1260"
+          ],
+          "relationship": "TQN01完整共享交易面板原根，五组读取对齐/原数值结果和callback保持，格式历史保追加"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4B1260"
+          ],
+          "relationship": "TQN01真实S32/原14参callback声明保持，仅合同注释"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/window_43.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_trade_quantity_panel_spec.md#trade-quantity-baseline",
+        "doc/cg2d_trade_quantity_panel_spec.md#trade-quantity-decision",
+        "doc/cg2d_trade_quantity_panel_spec.md#trade-quantity-acceptance",
+        "doc/cg2d_trade_quantity_panel_spec.md#trade-quantity-source-state",
+        "doc/cg2d_trade_quantity_panel_evidence.json"
       ],
-      "boundary": "仅四格式callee接四原点；完整多参签名、非拥有window/数组/tab/scroll/descriptor/真实callback T*与S32 result保持。原回调写者之后、原页签及滚动图形消费后，共用未清52B buffer；tab==2才displayAmount S32/%9d，随后itemCount S32/%3d、petCount S32/%3d、amount S32/%10d逐项写再4771B0消费。保持各(x+179,y+88)/(x+71,y+258)/(x+156,y+258)/(x+241,y+258)及(3,0,1,223)，最后按S8 tab取背景并返回state&2。displayAmount仍由真实callback生产，不为callback空或-1哨兵补零，不提前快照tab/counts/窗口，不改变原数值输入、鼠标Y→X或音频调用/暂停范围。",
+      "boundary": "仅四格式callee接四原点；完整多参签名、非拥有window/数组/tab/scroll/descriptor/真实callback T*与S32 result保持。原回调写者之后、原页签及滚动图形消费后，共用未清52B buffer；tab==2才displayAmount S32/%9d，随后itemCount S32/%3d、petCount S32/%3d、amount S32/%10d逐项写再4771B0消费。保持各(x+179,y+88)/(x+71,y+258)/(x+156,y+258)/(x+241,y+258)及(3,0,1,223)，最后按S8 tab取背景并返回state&2。displayAmount仍由真实callback生产，不为callback空或-1哨兵补零，不提前快照tab/counts/窗口，不改变原数值输入、鼠标Y→X或音频调用/暂停范围。；TQN01仅共享交易面板4B1260完整524条1693B/九页、31E8十一目标、一个14参数间接callback、41跳一RET。入口window.elements持址→elemX低W16→elemY低W16→windowX低W16/x低W16相加→windowY低W16/y相加，结果按S16传递；现四个2B memcpy保证别名合法/原低宽读取，不改储存字段。state21H门槛先wheel S32→scrollPosition S32→保存元素地址/4743B0→写*scrollValue，随后fresh window.elements定位scroll、data flags只低BYTE bit1/真实474270/原写值。五个S16矩形依次hit，后命中覆盖先命中，不提前break；state bit2按S8旧tab/selected选SE51或55，声后发布tab BYTE再4B09E0。state400/tab1才按selected3/4及滚动S32边界0/2调整/原SE；声后先fresh *scrollValue后fresh window.elements持scrollTarget→4742C0，两分支不跨声效缓存、不合并读取。numericElement>=0/tab2才先descriptor colorW32→currentInput身份flags3/1→已完整NPI数值面板，numericResult只低BYTE。callback非空时既有-1哨兵nullptr适配沿旧已批不用该参数边界保持，正索引借同W32值槽；不扩到所有负索引保护。回调先借值槽→scrollSnapshot→mouseY后mouseX两个真实CryptInt→14参数，原itemCount/petCount/amount/displayAmount地址和非拥有descriptor保持；displayAmount原由callback写，不补零或为无回调分支捏值。回调后每次fresh tab绘制三页签，七DrawGraphic3包括背景，scroll/previous visible两槽分别fresh window.elements置0，tab1绘制previous时windowY→previousY→previousX→windowX/X，两个上下按钮按selected/state bit8映射，最后两个visible分别fresh置1。原四格式%9d/%3d/%3d/%10d、52B未清buf及四Text、背景按S8 tab索引不保护，S32返回state&2即0/2，三入CALL三父的各四后邻只有局部透传来源，两个RET后的align/下一函数不纳本父。五逻辑组六处/两注释，旧949格式历史保持追加，不新建F重复/改变签名与已有callback哨兵策略；一adapted、INPUT/UI/RENDER各一新成员、三限定S零I八open。所有共享数据生产/所有业务callback完整消费、窗口输入与descriptor alias-owner寿命、SDK/生成机器取样/ABI及完整交易画面声效和运行待。仅正常整数数学及原钳制/门槛保持，不新增低/高索引保护、补零/下限/回滚/默认值/异常溢出模型；WAV-only/MSVC/明文协议及全部完整门禁保，整体未完成。",
       "original_incoming": [
         {
           "site": "0x4B24EE",
@@ -113989,7 +114008,65 @@
           "relationship": "回调写者之后/逐项格式→4771B0消费，首项仅tab2，其余三统计原序"
         }
       ],
-      "verification_level": "原524指令统计，仅90条格式/来源/消费者新邻窗仅读，余434与已过核心不重验；4原点/现callee、S32与四既有原格式/容量-owner-取值-消费-返回限定静态核。3个普通caller及data0只登记，未构建执行。"
+      "verification_level": "原524指令统计，仅90条格式/来源/消费者新邻窗仅读，余434与已过核心不重验；4原点/现callee、S32与四既有原格式/容量-owner-取值-消费-返回限定静态核。3个普通caller及data0只登记，未构建执行。；pass，完整524条1693B/九页、31E8十一目标/一个14参间接callback、41跳一RET，三CALL三父及40B/20S16矩形表有据；五组六处低W16/BYTE及滚动值先fresh元素/previous坐标对齐，两整源精确回放/两注释，数量callback/哨兵及四格式尾正文、三类型八提供者/三调用源/七旧语义保持；全部业务callback/共享生产消费与owner、生成读取/ABI及运行待",
+      "trade_quantity_panel": {
+        "step": "TQN01",
+        "source_snapshot": "[#] 补齐交易面板数量消费与滚动取样合同",
+        "original_entry": "0x4b1260",
+        "original_end_exclusive": "0x4b18fd",
+        "instruction_count": 524,
+        "code_bytes": 1693,
+        "page_count": 9,
+        "direct_calls": 31,
+        "direct_call_targets": [
+          4202144,
+          4670064,
+          4670144,
+          4670384,
+          4670800,
+          4682160,
+          4917728,
+          4921600,
+          5376368,
+          5424208,
+          5485316
+        ],
+        "jumps": 41,
+        "returns": 1,
+        "indirect_calls": [
+          4920818
+        ],
+        "original_incoming_references": [
+          {
+            "from": 4924654,
+            "type": 17,
+            "iscode": true,
+            "parent": 4924544
+          },
+          {
+            "from": 4928687,
+            "type": 17,
+            "iscode": true,
+            "parent": 4928560
+          },
+          {
+            "from": 4929023,
+            "type": 17,
+            "iscode": true,
+            "parent": 4928896
+          }
+        ],
+        "native_signature": "std::int32_t Sub_4B1260(\n    WindowInstance* const window, const std::int32_t index, const std::int32_t state,\n    const std::int32_t* const backgroundImages, std::uint8_t* const tab,\n    const std::int32_t scrollElement, std::int32_t* const scrollValue,\n    const std::int32_t numericElement, const std::int32_t maximum,\n    std::int32_t itemCount, std::int32_t petCount, std::int32_t amount,\n    render::GraphicDescriptor16* const descriptor, const WindowTradePanelCallback callback)",
+        "source_patch_group_count": 5,
+        "source_changed_point_count": 6,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原state&2的S32 0/2返回，三父局部透传来源；全部动态callback/所有上游和机器ABI待",
+        "previous_format_history_kept": true
+      }
     },
     {
       "original_entry": "0x48BB90",

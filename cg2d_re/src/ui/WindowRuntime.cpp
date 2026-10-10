@@ -6217,6 +6217,7 @@ std::int32_t Sub_4B0F20(
         x, y, graphicLayer, 243141, 0, 1, 0, descriptor);
 }
 
+// TQN01：原4B1260完整524条；低W16坐标/scroll BYTE、滚动值先元素及前一滚动框坐标原序，原callback/格式历史保。
 std::int32_t Sub_4B1260(
     WindowInstance* const window, const std::int32_t index, const std::int32_t state,
     const std::int32_t* const backgroundImages, std::uint8_t* const tab,
@@ -6226,16 +6227,28 @@ std::int32_t Sub_4B1260(
     render::GraphicDescriptor16* const descriptor, const WindowTradePanelCallback callback)
 {
     WindowElement* const elements = window->elements;
-    const std::int16_t x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-        static_cast<std::uint16_t>(elements[index].x) + static_cast<std::uint16_t>(window->x)));
-    const std::int16_t y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-        static_cast<std::uint16_t>(elements[index].y) + static_cast<std::uint16_t>(window->y)));
+    std::uint16_t elementX;
+    std::uint16_t elementY;
+    std::uint16_t windowX;
+    std::uint16_t windowY;
+    std::memcpy(&elementX, &elements[index].x, sizeof(elementX));
+    std::memcpy(&elementY, &elements[index].y, sizeof(elementY));
+    std::memcpy(&windowX, &window->x, sizeof(windowX));
+    const std::int16_t x = std::bit_cast<std::int16_t>(
+        static_cast<std::uint16_t>(elementX + windowX));
+    std::memcpy(&windowY, &window->y, sizeof(windowY));
+    const std::int16_t y = std::bit_cast<std::int16_t>(
+        static_cast<std::uint16_t>(elementY + windowY));
     if ((state & 0x21) != 0) {
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
-        *scrollValue = Sub_4743B0(&elements[scrollElement], *scrollValue, 2, wheel);
+        const std::int32_t scrollPosition = *scrollValue;
+        WindowElement* const wheelElement = &elements[scrollElement];
+        *scrollValue = Sub_4743B0(wheelElement, scrollPosition, 2, wheel);
     }
     WindowElement* const scroll = &window->elements[scrollElement];
-    if ((static_cast<const WindowMouseData*>(scroll->data)->flags & 1u) != 0) {
+    const auto scrollFlags = reinterpret_cast<const unsigned char*>(
+        &static_cast<const WindowMouseData*>(scroll->data)->flags)[0];
+    if ((scrollFlags & 1u) != 0) {
         *scrollValue = Sub_474270(scroll, 2);
     }
     static constexpr std::array<std::array<std::int16_t, 4>, 5> rectangles54F508 {{
@@ -6266,7 +6279,9 @@ std::int32_t Sub_4B1260(
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
-            static_cast<void>(Sub_4742C0(&window->elements[scrollElement], 2, *scrollValue));
+            const std::int32_t scrollPosition = *scrollValue;
+            WindowElement* const scrollTarget = &window->elements[scrollElement];
+            static_cast<void>(Sub_4742C0(scrollTarget, 2, scrollPosition));
         } else if (selected == 4) {
             if (*scrollValue < 2) {
                 ++*scrollValue;
@@ -6274,7 +6289,9 @@ std::int32_t Sub_4B1260(
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
-            static_cast<void>(Sub_4742C0(&window->elements[scrollElement], 2, *scrollValue));
+            const std::int32_t scrollPosition = *scrollValue;
+            WindowElement* const scrollTarget = &window->elements[scrollElement];
+            static_cast<void>(Sub_4742C0(scrollTarget, 2, scrollPosition));
         }
     }
     std::uint8_t numericResult = 0;
@@ -6313,8 +6330,12 @@ std::int32_t Sub_4B1260(
     window->elements[scrollElement - 1].visible = 0;
     if (*tab == 1) {
         WindowElement* const previous = &window->elements[scrollElement - 1];
-        const std::int32_t drawY = window->y + previous->y;
-        const std::int32_t drawX = window->x + previous->x;
+        const std::int32_t currentWindowY = window->y;
+        const std::int32_t previousY = previous->y;
+        const std::int32_t drawY = currentWindowY + previousY;
+        const std::int32_t previousX = previous->x;
+        const std::int32_t currentWindowX = window->x;
+        const std::int32_t drawX = currentWindowX + previousX;
         static_cast<void>(render::DrawGraphic3_520970(
             drawX, drawY, 223, 243096, 0, 1, 0, descriptor));
         imageNo = selected == 3 ? ((state & 8) != 0 ? 243091 : 243092) : 243090;

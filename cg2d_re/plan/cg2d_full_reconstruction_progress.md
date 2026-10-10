@@ -1306,3 +1306,14 @@ PudO唯一改动为持有GetCate返回给调色板，不重读刚pub全局；保
 [数值面板SPEC](../doc/cg2d_numeric_panel_input_spec.md#numeric-input-baseline)此前把一父入口误写4ABC20，原CALL点4ABBDA/4ABC46及保存的parent地址一直正确；按当前原会话确认入口为4ABB20。只更正SPEC/证据合同、语义边界和处置边界，证据追加具名勘误；原指令与源代码、全部计数/成员/S-I证据/任务状态及完整门禁保持，不伪称已验该完整父。
 
 必要文本差异/登记及派生核对通过，静态汇总/-Check终态退出0；仅说明勘误，整体未完成。同一cg2d_re分支、不打tag；七外部改动及原删除暂存保持。未构建/测试/运行/产物/摘要/引依赖；整体active/未完成。
+
+<a id="trade-quantity-progress-20261011"></a>
+## 124. 2026-10-11 TQN01：共享交易面板数量消费
+
+[TQN01](../doc/cg2d_trade_quantity_panel_spec.md#trade-quantity-source-state)旧949格式历史追加共享交易面板4B1260完整524条1693B/九页，31E8十一目标/一个间接业务callback、41跳一RET。五逻辑组六处低宽坐标/滚动标志、滚动值先元素与前一滚动框坐标取样对齐；原数值确认结果、callback哨兵适配、四格式及S32 0/2返回保持。一处置、INPUT/UI/RENDER各一成员，三限定S零I八open；完整共享生产消费/业务callback、owner/ABI及交易运行待。
+
+先记SPEC依子AGENTS第8条裁决，原四低W16字段用显式2B memcpy持样，不改变现储存字段/位宽或添加别名不合法的uint16指针。scroll flags恢复原BYTE，声后重取scrollValue先于fresh元素，原callback前值槽/鼠标Y-X和后续各tab/visible/格式读取保持。既有numericElement=-1不用值槽的已批nullptr哨兵适配保持，不新增保护或补displayAmount。三入CALL只局部透传来源/RET后邻分界，不重复计原父或格式历史。
+
+语义2323=2275F关联+48有界代码及关联2385/3680=64.81%保持；处置1780/证据1580，INPUT151/UIRUNTIME192/RENDER109，其它保持。184叶验收0、60任务关闭11开放49、六closure及全部完整门禁保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
+
+同一cg2d_re分支、不打tag；七外部改动及原删除暂存保持。未构建/测试/运行/检查产物/摘要/引依赖；整体active/未完成。

@@ -1518,7 +1518,7 @@ std::int32_t Sub_4B1260(
     std::int32_t scrollElement, std::int32_t* scrollValue,
     std::int32_t numericElement, std::int32_t maximum,
     std::int32_t itemCount, std::int32_t petCount, std::int32_t amount,
-    render::GraphicDescriptor16* descriptor, WindowTradePanelCallback callback);
+    render::GraphicDescriptor16* descriptor, WindowTradePanelCallback callback); // TQN01：低W16坐标/scroll BYTE及声效后fresh滚动目标，callback与真实S32 0/2返回保。
 std::int32_t Sub_4B3580(std::int32_t index, std::int32_t state); // 对方交易面板入口。
 void Sub_4B3610(
     std::int16_t x, std::int16_t y, std::int32_t mouseX, std::int32_t mouseY,

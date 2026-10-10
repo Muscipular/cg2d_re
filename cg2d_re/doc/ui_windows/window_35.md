@@ -262,3 +262,9 @@ world中的同名4B0F10无参包装不算UI重复定义。三源码/头文件剥
 ## 2026-10-10 CWC01：聊天输入与按钮/滑块控制
 
 [CWC01完整原根](../cg2d_chat_window_control_pipeline_spec.md#chat-control-source-state)/[原码与真实绑定](../cg2d_chat_window_control_pipeline_evidence.json)覆盖4A6DD0输入创建、4A6FC0按钮和4A8140滑块，共492条1769B/九页、29E8/14目标/56跳14RET；四CALL入向内部3/外1。原窗口35/20项元素与11实际callback保持，旧12槽表/CAC18范围不重复处置，11/12/19默认行为不新增。两组四处恢复三个hover窗口/元素及scroll→count取样；两个正确body、原创建/焦点/可见/返1、按钮环/提示/SE/颜色发布/scroll边界、滑块浮点与低S32位置及GBK/明文/MSVC/WAV-only保。旧1969保历史追加/两新语义三F、INPUT/UIRUNTIME各三成员/NETWORK仅配置生产按钮、三限定S零I/九任务open；全窗口父/创建绘制释放及输入字体日志请求/音效与CTS配置生产消费owner、SDK/FPU/机器ABI/实际输入文字声音画面运行待。
+
+## 2026-10-10 CFD01：真实聊天回调绑定
+
+[CFD01](../cg2d_chat_focus_wheel_draw_spec.md#chat-focus-source-state)补齐4A6EA0/4A81D0/4A82C0三完整原根112条420B及窗口35/57五处真实绑定。创建原AL与现BYTE返回、348B复制、窗口35槽焦点/当前窗context分离、首窗口滚轮与调用后新count、共用绘制门禁和原返回有据。三个正确body、旧1788切换和原型保持；零逻辑组/六注释，三新语义F、INPUT两/UIRUNTIME三成员、两限定S零I。全门禁写方、窗口父/创建释放绘制、4A7590/4743B0、输入/鼠标/日志/元素全生产消费和owner寿命、机器ABI/实际交互画面与运行仍待，整体未完成。
+
+35的元素0绑定4A6EA0、元素2绑定4A81D0，原型绘制+28绑定4A82C0；焦点从35槽取得，context写当前窗，不合并owner。

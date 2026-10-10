@@ -212547,6 +212547,183 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x4a6ea0",
+      "inventory_id": "F:000A6EA0",
+      "original_role": "原窗口35/57共用聊天点击焦点、BYTE创建重复与真实输入context",
+      "original_end_exclusive": "0x4a6fc0",
+      "instruction_count": 72,
+      "function_chunks": [
+        {
+          "start": "0x4a6ea0",
+          "end_exclusive": "0x4a6fc0"
+        }
+      ],
+      "status": "CFD01完整原根纳管，三个正确body保持；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4A6EA0"
+          ],
+          "relationship": "CFD01完整原根与真实原型绑定，正确正文保持，仅关联注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4A6EA0"
+          ],
+          "relationship": "CFD01真实内部声明和原参数返回保持，仅合同关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_chat_focus_wheel_draw_spec.md#chat-focus-baseline",
+        "doc/cg2d_chat_focus_wheel_draw_spec.md#chat-focus-decision",
+        "doc/cg2d_chat_focus_wheel_draw_spec.md#chat-focus-acceptance",
+        "doc/cg2d_chat_focus_wheel_draw_spec.md#chat-focus-source-state",
+        "doc/cg2d_chat_focus_wheel_draw_evidence.json"
+      ],
+      "boundary": "CFD01三完整原根112条420B/四页、六实际E8/五目标/十跳五RET，普通CALL入向0；原窗口35/57两焦点、一滚轮、两绘制真实绑定与当前原型一致。三个正确body保持，仅六关联注释、零逻辑组：创建BYTE结果/失败重复及348B输入复制、35槽焦点与当前窗context分离、现场SetContext/尾context判断/consumed、首窗口state门槛/count0滑块Y/滚轮及调用后新count发布scroll、共用C9A96C绘制与返1保持。复用旧1788切换身份及body，不重复取证/登记。三新语义/F、INPUT两/UIRUNTIME三成员、两限定S零I/九任务open；未纳全门禁写方、窗口创建释放绘制父、4A7590与4743B0、输入/元素/鼠标/日志全生产消费和alias-owner寿命、CRT/SDK/机器ABI/优化后读取/真实交互画面/全生命周期，整体未完成。没有新API/类型/字段/布局/owner/分配释放或保护/默认值/补零/钳制/容量限制/回滚/异常模型；现GBK/明文/MSVC/WAV-only及全部枚举/完整gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，三完整原根112条420B/四页、六实际E8/五目标/十跳五RET，普通入向0；原35/57表项与两焦点/一滚轮/两绘制绑定吻合。创建AL与现BYTE返回、原0x57 DWORD复制与348B文本声明、分离焦点与context来源、滚轮后新count及绘制返1有据。三整源精确重放六注释，三个body/切换body/原型及所有其它source保持；全owner/机器ABI/优化后读取/运行待",
+      "original_incoming": [],
+      "chat_focus_wheel_draw": {
+        "step": "CFD01",
+        "source_snapshot": "[#] 补齐聊天焦点滚轮与绘制门禁完整合同",
+        "original_end_exclusive": "0x4a6fc0",
+        "original_instruction_count": 72,
+        "original_code_bytes": 288,
+        "original_page_count": 2,
+        "direct_call_count": 4,
+        "jump_count": 5,
+        "return_count": 2,
+        "native_signature": "std::int32_t Sub_4A6EA0(const std::int32_t, const std::int32_t state)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4A6EA0",
+        "normal_source_kept": true,
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4a81d0",
+      "inventory_id": "F:000A81D0",
+      "original_role": "原首窗口聊天滚轮与调用后新count发布scroll",
+      "original_end_exclusive": "0x4a8240",
+      "instruction_count": 34,
+      "function_chunks": [
+        {
+          "start": "0x4a81d0",
+          "end_exclusive": "0x4a8240"
+        }
+      ],
+      "status": "CFD01完整原根纳管，三个正确body保持；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4A81D0"
+          ],
+          "relationship": "CFD01完整原根与真实原型绑定，正确正文保持，仅关联注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4A81D0"
+          ],
+          "relationship": "CFD01真实内部声明和原参数返回保持，仅合同关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_chat_focus_wheel_draw_spec.md#chat-focus-baseline",
+        "doc/cg2d_chat_focus_wheel_draw_spec.md#chat-focus-decision",
+        "doc/cg2d_chat_focus_wheel_draw_spec.md#chat-focus-acceptance",
+        "doc/cg2d_chat_focus_wheel_draw_spec.md#chat-focus-source-state",
+        "doc/cg2d_chat_focus_wheel_draw_evidence.json"
+      ],
+      "boundary": "CFD01三完整原根112条420B/四页、六实际E8/五目标/十跳五RET，普通CALL入向0；原窗口35/57两焦点、一滚轮、两绘制真实绑定与当前原型一致。三个正确body保持，仅六关联注释、零逻辑组：创建BYTE结果/失败重复及348B输入复制、35槽焦点与当前窗context分离、现场SetContext/尾context判断/consumed、首窗口state门槛/count0滑块Y/滚轮及调用后新count发布scroll、共用C9A96C绘制与返1保持。复用旧1788切换身份及body，不重复取证/登记。三新语义/F、INPUT两/UIRUNTIME三成员、两限定S零I/九任务open；未纳全门禁写方、窗口创建释放绘制父、4A7590与4743B0、输入/元素/鼠标/日志全生产消费和alias-owner寿命、CRT/SDK/机器ABI/优化后读取/真实交互画面/全生命周期，整体未完成。没有新API/类型/字段/布局/owner/分配释放或保护/默认值/补零/钳制/容量限制/回滚/异常模型；现GBK/明文/MSVC/WAV-only及全部枚举/完整gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，三完整原根112条420B/四页、六实际E8/五目标/十跳五RET，普通入向0；原35/57表项与两焦点/一滚轮/两绘制绑定吻合。创建AL与现BYTE返回、原0x57 DWORD复制与348B文本声明、分离焦点与context来源、滚轮后新count及绘制返1有据。三整源精确重放六注释，三个body/切换body/原型及所有其它source保持；全owner/机器ABI/优化后读取/运行待",
+      "original_incoming": [],
+      "chat_focus_wheel_draw": {
+        "step": "CFD01",
+        "source_snapshot": "[#] 补齐聊天焦点滚轮与绘制门禁完整合同",
+        "original_end_exclusive": "0x4a8240",
+        "original_instruction_count": 34,
+        "original_code_bytes": 112,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "jump_count": 4,
+        "return_count": 2,
+        "native_signature": "std::int32_t Sub_4A81D0(const std::int32_t, const std::int32_t state)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4A81D0",
+        "normal_source_kept": true,
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4a82c0",
+      "inventory_id": "F:000A82C0",
+      "original_role": "原窗口35/57共用聊天绘制门禁与原返1",
+      "original_end_exclusive": "0x4a82d4",
+      "instruction_count": 6,
+      "function_chunks": [
+        {
+          "start": "0x4a82c0",
+          "end_exclusive": "0x4a82d4"
+        }
+      ],
+      "status": "CFD01完整原根纳管，三个正确body保持；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4A82C0"
+          ],
+          "relationship": "CFD01完整原根与真实原型绑定，正确正文保持，仅关联注释"
+        },
+        {
+          "path": "src/ui/WindowPrototypeDependencies.hpp",
+          "symbols": [
+            "Sub_4A82C0"
+          ],
+          "relationship": "CFD01真实内部声明和原参数返回保持，仅合同关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_chat_focus_wheel_draw_spec.md#chat-focus-baseline",
+        "doc/cg2d_chat_focus_wheel_draw_spec.md#chat-focus-decision",
+        "doc/cg2d_chat_focus_wheel_draw_spec.md#chat-focus-acceptance",
+        "doc/cg2d_chat_focus_wheel_draw_spec.md#chat-focus-source-state",
+        "doc/cg2d_chat_focus_wheel_draw_evidence.json"
+      ],
+      "boundary": "CFD01三完整原根112条420B/四页、六实际E8/五目标/十跳五RET，普通CALL入向0；原窗口35/57两焦点、一滚轮、两绘制真实绑定与当前原型一致。三个正确body保持，仅六关联注释、零逻辑组：创建BYTE结果/失败重复及348B输入复制、35槽焦点与当前窗context分离、现场SetContext/尾context判断/consumed、首窗口state门槛/count0滑块Y/滚轮及调用后新count发布scroll、共用C9A96C绘制与返1保持。复用旧1788切换身份及body，不重复取证/登记。三新语义/F、INPUT两/UIRUNTIME三成员、两限定S零I/九任务open；未纳全门禁写方、窗口创建释放绘制父、4A7590与4743B0、输入/元素/鼠标/日志全生产消费和alias-owner寿命、CRT/SDK/机器ABI/优化后读取/真实交互画面/全生命周期，整体未完成。没有新API/类型/字段/布局/owner/分配释放或保护/默认值/补零/钳制/容量限制/回滚/异常模型；现GBK/明文/MSVC/WAV-only及全部枚举/完整gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，三完整原根112条420B/四页、六实际E8/五目标/十跳五RET，普通入向0；原35/57表项与两焦点/一滚轮/两绘制绑定吻合。创建AL与现BYTE返回、原0x57 DWORD复制与348B文本声明、分离焦点与context来源、滚轮后新count及绘制返1有据。三整源精确重放六注释，三个body/切换body/原型及所有其它source保持；全owner/机器ABI/优化后读取/运行待",
+      "original_incoming": [],
+      "chat_focus_wheel_draw": {
+        "step": "CFD01",
+        "source_snapshot": "[#] 补齐聊天焦点滚轮与绘制门禁完整合同",
+        "original_end_exclusive": "0x4a82d4",
+        "original_instruction_count": 6,
+        "original_code_bytes": 20,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "jump_count": 1,
+        "return_count": 1,
+        "native_signature": "std::int32_t Sub_4A82C0(const std::int32_t)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4A82C0",
+        "normal_source_kept": true,
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

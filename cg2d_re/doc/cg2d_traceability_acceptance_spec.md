@@ -2514,3 +2514,9 @@ ANIMATION/YOBI各两个新成员，BATTLE只Play依赖成员；两新语义/F和
 [CWC01完整原根](cg2d_chat_window_control_pipeline_spec.md#chat-control-source-state)/[原码与真实绑定](cg2d_chat_window_control_pipeline_evidence.json)覆盖4A6DD0输入创建、4A6FC0按钮和4A8140滑块，共492条1769B/九页、29E8/14目标/56跳14RET；四CALL入向内部3/外1。原窗口35/20项元素与11实际callback保持，旧12槽表/CAC18范围不重复处置，11/12/19默认行为不新增。两组四处恢复三个hover窗口/元素及scroll→count取样；两个正确body、原创建/焦点/可见/返1、按钮环/提示/SE/颜色发布/scroll边界、滑块浮点与低S32位置及GBK/明文/MSVC/WAV-only保。旧1969保历史追加/两新语义三F、INPUT/UIRUNTIME各三成员/NETWORK仅配置生产按钮、三限定S零I/九任务open；全窗口父/创建绘制释放及输入字体日志请求/音效与CTS配置生产消费owner、SDK/FPU/机器ABI/实际输入文字声音画面运行待。
 
 IDA数组/结构起点xref不代字段指针；原型实际11callback与旧范围分别核，八旧身份不重复处置。关联率不称完成率，184叶验收0/60任务关闭11/六closure与总SPEC§10保持。
+
+## 2026-10-10 CFD01：焦点、滚轮与绘制完整根
+
+[CFD01](cg2d_chat_focus_wheel_draw_spec.md#chat-focus-source-state)补齐4A6EA0/4A81D0/4A82C0三完整原根112条420B及窗口35/57五处真实绑定。创建原AL与现BYTE返回、348B复制、窗口35槽焦点/当前窗context分离、首窗口滚轮与调用后新count、共用绘制门禁和原返回有据。三个正确body、旧1788切换和原型保持；零逻辑组/六注释，三新语义F、INPUT两/UIRUNTIME三成员、两限定S零I。全门禁写方、窗口父/创建释放绘制、4A7590/4743B0、输入/鼠标/日志/元素全生产消费和owner寿命、机器ABI/实际交互画面与运行仍待，整体未完成。
+
+当前登记语义2250=2202F+48X、F处置1689/证据1484；INPUT71/UIRUNTIME104且枚举未闭。文档关联2312/3680=62.83%，只表示关联。九任务open、184叶验收0、六closure及全部完整门禁保持；登记、静态汇总/Check终态退出0，派生范围核对通过。

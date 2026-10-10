@@ -145,6 +145,7 @@ void Sub_4A5650();
 std::int32_t Sub_4A56F0(std::int32_t value);
 std::int32_t Sub_4A6DD0(std::int32_t value); // CWC01：见聊天窗口控制完整合同。
 std::int32_t Sub_4A8240(std::int32_t value);
+// CFD01：窗口35/57共用C9A96C绘制门禁与原返1，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
 std::int32_t Sub_4A82C0(std::int32_t value);
 void Sub_4A83D0();
 std::int32_t Sub_4A9020(std::int32_t value);

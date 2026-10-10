@@ -1653,8 +1653,10 @@ std::uint8_t Sub_476570(
     WindowInputPrototype* prototype, std::int32_t x, std::int32_t y,
     std::uint32_t mode);
 std::int32_t Sub_4A7B00();
+// CFD01：聊天点击创建与35槽焦点/当前窗context分离，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
 std::int32_t Sub_4A6EA0(std::int32_t unused, std::int32_t state); // 共用聊天点击，焦点取35槽、上下文写当前窗。
 std::int32_t Sub_4A80F0(std::int32_t index, std::int32_t state); // 拖动后按新日志数量反求回看偏移。
+// CFD01：首窗口滚轮按原门槛和调用后新count发布scroll，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
 std::int32_t Sub_4A81D0(std::int32_t unused, std::int32_t state); // 首窗口滚轮，零日志只调整滑块Y。
 WindowInstance* FindWindowById_477490(std::int32_t id); // 顺序扫描71显示槽；原循环不跳过空槽。
 void Sub_4A7C40(); // 窗口35宽高循环与完整几何，见window_35.md。 // CWP01：见聊天几何生产完整合同。

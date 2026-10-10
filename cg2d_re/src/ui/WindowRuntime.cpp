@@ -29961,6 +29961,7 @@ std::int32_t Sub_4A6FC0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// CFD01：聊天点击创建与35槽焦点/当前窗context分离，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
 std::int32_t Sub_4A6EA0(const std::int32_t, const std::int32_t state)
 {
     if (input::gValueC9A96C == 0) {
@@ -30028,6 +30029,7 @@ std::int32_t Sub_4A8240(const std::int32_t value)
     return 1;
 }
 
+// CFD01：窗口35/57共用C9A96C绘制门禁与原返1，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
 std::int32_t Sub_4A82C0(const std::int32_t)
 {
     if (input::gValueC9A96C != 0) {
@@ -30048,6 +30050,7 @@ std::int32_t Sub_4A80F0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// CFD01：首窗口滚轮按原门槛和调用后新count发布scroll，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
 std::int32_t Sub_4A81D0(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;

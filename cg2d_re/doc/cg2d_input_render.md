@@ -246,3 +246,7 @@ BuildProtocolCommand只替换原宿主_itoa调用，继续16进制、原校验�
 ## 2026-10-11 IMT01：物品移动及拆分
 
 [IMT01](cg2d_item_move_request_spec.md#item-move-source-state)补齐丢物请求/直接拆分/模式间移动/数量消费四完整原根310条957B/七页，30E8十五目标/28跳八RET，十七CALL/四后邻及一个callback data持址有据。四正文正确保持，仅八合同注释；原四容量先于格式/输出重读、同mode两次fresh组读取、Ctrl和反转开关、直接source先target/拆分target先source、窗口41/38优先及转义后状态/Y-X发送序保持。原S32返回透传与数量lambda只具名副作用边界，不推完整callback ABI/互通。旧934格式历史追加、三新F四处置/三限定S零I八open；完整输入/数量/数据/缓冲区生产、callback/callee/所有外父和alias-owner寿命、SDK/生成读取/实际操作及运行待，整体未完成。
+
+## 2026-10-11 QVC01：数量输入与确认
+
+[QVC01](cg2d_quantity_window_callbacks_spec.md#quantity-callback-source-state)补齐数量初始化、输入激活、确认面板和增减按钮五完整原根230条714B/六页；三读取合同对齐，三正确正文保持，五定义/五声明十注释。原callback非空调用后重取窗口，关闭/声效后再次重取窗口并格式化；保两次原上限钳回及增减门槛。旧937格式历史追加、四新F五adapted，INPUT/UI各五成员/RENDER四成员，三限定S零I八open；完整取消/关闭/释放owner及全callback/ABI/运行待。

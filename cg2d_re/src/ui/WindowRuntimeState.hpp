@@ -1451,11 +1451,11 @@ WindowInstance* Sub_48A830(
     std::int32_t sourceWindow, std::int32_t sourceElement, std::int32_t imageNo,
     std::int32_t maximum, std::int32_t value14, std::int32_t initialValue,
     WindowValueCallback callback); // QIP01：窗口42按原两次持址发布；callback原生非拥有，返回先取样。
-std::int32_t Sub_48A8C0(std::int32_t value);
-std::int32_t Sub_48A900(std::int32_t unusedIndex, std::int32_t state);
-std::int32_t Sub_48A950(std::int32_t index, std::int32_t state);
-std::int32_t Sub_48AA60(std::int32_t index, std::int32_t state);
-std::int32_t Sub_48AB10(std::int32_t index, std::int32_t state);
+std::int32_t Sub_48A8C0(std::int32_t value); // QVC01：-1初始化后总返回1。
+std::int32_t Sub_48A900(std::int32_t unusedIndex, std::int32_t state); // QVC01：输入bit2切换/焦点发布，返回0。
+std::int32_t Sub_48A950(std::int32_t index, std::int32_t state); // QVC01：确认回调后复读取窗/关闭/格式，返回0或1。
+std::int32_t Sub_48AA60(std::int32_t index, std::int32_t state); // QVC01：增加数量先上限后数值，原图号/声效。
+std::int32_t Sub_48AB10(std::int32_t index, std::int32_t state); // QVC01：减少数量S32正值门槛，原图号/声效。
 std::int32_t Sub_474170(std::int32_t unusedIndex, std::int32_t state);
 std::int32_t Sub_474BE0(std::int32_t index, std::int32_t state); // 窗口7资料切页及前后排请求。
 std::int32_t Sub_475E00(std::int32_t index, std::int32_t state); // 窗口8入口六值快照、加点及切页。

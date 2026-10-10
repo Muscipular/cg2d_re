@@ -5454,6 +5454,7 @@ WindowInstance* Sub_48A830(
     return result;
 }
 
+// QVC01：原48A8C0完整15条；仅-1重置上限/参数/callback与当前元素2，然后激活输入，总返回1。
 std::int32_t Sub_48A8C0(const std::int32_t value)
 {
     if (value == -1) {
@@ -5467,6 +5468,7 @@ std::int32_t Sub_48A8C0(const std::int32_t value)
     return 1;
 }
 
+// QVC01：原48A900完整19条；bit2才创建/切换CB0878，窗口持址后发布焦点并重取元素data，返回0。
 std::int32_t Sub_48A900(const std::int32_t, const std::int32_t state)
 {
     if ((state & 2) != 0) {
@@ -5479,13 +5481,17 @@ std::int32_t Sub_48A900(const std::int32_t, const std::int32_t state)
     return 0;
 }
 
+// QVC01：原48A950完整83条；低BYTE/参数先窗口取样，两次S32钳回、callback与SE后复读取窗/格式保，返回0/1。
 std::int32_t Sub_48A950(const std::int32_t index, const std::int32_t state)
 {
     const input::InputContext* const currentInput = input::gCurrentInputData;
-    const std::uint8_t flags = static_cast<std::uint8_t>(gWindowStates[42].actionFlags1C)
+    const std::uint8_t flags = reinterpret_cast<const unsigned char*>(
+        &gWindowStates[42].actionFlags1C)[0]
         | (currentInput == &input::gInputContextCB0878 ? 2u : 0u);
+    const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[42].value14);
+    WindowInstance* const numericWindow = gCurrentWindow;
     const std::uint8_t numeric = Sub_474550(
-        gCurrentWindow, index, state, std::bit_cast<std::int32_t>(gWindowStates[42].value14),
+        numericWindow, index, state, value14,
         223, gNumberWindowHints57DC9C.data(), flags, 0xFFFFFFFFu);
     WindowInstance* window = gCurrentWindow;
     std::int32_t maximum = std::bit_cast<std::int32_t>(gWindowStates[42].value10);
@@ -5518,6 +5524,7 @@ std::int32_t Sub_48A950(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
+// QVC01：原48AA60完整57条；悬停持有graphic，增加先读上限再元素2，原声/三图号优先序保，返回0。
 std::int32_t Sub_48AA60(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -5527,8 +5534,9 @@ std::int32_t Sub_48AA60(const std::int32_t index, const std::int32_t state)
             "\xD4\xF6\xBC\xD3\xEF\x40\xCA\xBE\x94\xB5\xC1\xBF\xA1\xA3");
     }
     if ((state & 2) != 0) {
+        const std::int32_t maximum = std::bit_cast<std::int32_t>(gWindowStates[42].value10);
         const std::int32_t value = std::bit_cast<std::int32_t>(window->elements[2].state);
-        if (value < std::bit_cast<std::int32_t>(gWindowStates[42].value10)) {
+        if (value < maximum) {
             window->elements[2].state = static_cast<std::uint32_t>(value + 1);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         } else {
@@ -5545,6 +5553,7 @@ std::int32_t Sub_48AA60(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// QVC01：原48AB10完整56条；悬停持有graphic，元素2的S32正值门槛减少，原声/三图号优先序保，返回0。
 std::int32_t Sub_48AB10(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;

@@ -699,3 +699,7 @@ kind2为玩家背包，kind3为外部表。首轮used为0调用4763E0，但继�
 ## 2026-10-11 QIP01：拆分数量框展开
 
 [QIP01](../cg2d_quantity_window_creation_spec.md#quantity-source-state)补齐数量框创建、展开与窗口42状态发布三个完整原根282条873B/五页；低BYTE flags与两次窗口指针取样两组三处对齐，动画正确正文保持。callback持址、两CryptInt、S16完成判定/W16末增和原失败直发布有据。三新F三adapted、YOBI/UI各三成员，两限定S零I八open；确认/取消/关闭及完整callback/owner/ABI、画面声音与运行待，整体未完成。
+
+## 2026-10-11 QVC01：拆分数量消费
+
+[QVC01](../cg2d_quantity_window_callbacks_spec.md#quantity-callback-source-state)补齐数量初始化、输入激活、确认面板和增减按钮五完整原根230条714B/六页；三读取合同对齐，三正确正文保持，五定义/五声明十注释。原callback非空调用后重取窗口，关闭/声效后再次重取窗口并格式化；保两次原上限钳回及增减门槛。旧937格式历史追加、四新F五adapted，INPUT/UI各五成员/RENDER四成员，三限定S零I八open；完整取消/关闭/释放owner及全callback/ABI/运行待。

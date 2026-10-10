@@ -112149,7 +112149,7 @@
     {
       "original_entry": "0x48A950",
       "inventory_id": "F:0008A950",
-      "status": "既有数量/宠物技能显示回调真实格式依赖已接；完整父路由/画面/运行未据本步验收",
+      "status": "既有数量/宠物技能显示回调真实格式依赖已接；完整父路由/画面/运行未据本步验收；QVC01完整83条数量面板根纳管，两读取合同/原钳回callback与格式保持；全callback/callee/ABI/运行待",
       "original_end_exclusive": "0x48AA54",
       "instruction_count": 83,
       "sources": [
@@ -112159,13 +112159,32 @@
             "Sub_48A950"
           ],
           "relationship": "仅格式callee接对应原点，完整签名/返回/owner和正文保持"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_48A950"
+          ],
+          "relationship": "QVC01完整83条数量面板，两读取合同对齐/原格式历史保，完整callback/ABI与owner待"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_48A950"
+          ],
+          "relationship": "QVC01真实S32声明/返回保持，仅合同注释"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/window_42.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_quantity_window_callbacks_spec.md#quantity-callback-baseline",
+        "doc/cg2d_quantity_window_callbacks_spec.md#quantity-callback-decision",
+        "doc/cg2d_quantity_window_callbacks_spec.md#quantity-callback-acceptance",
+        "doc/cg2d_quantity_window_callbacks_spec.md#quantity-callback-source-state",
+        "doc/cg2d_quantity_window_callbacks_evidence.json"
       ],
-      "boundary": "仅替换48AA45格式callee；末尾从当前非拥有window元素index读W32位模式作S32，以原5863A0的%9d写既有CC4D1C 12B显示并返回原result。保留完整state/低U8 flags/474550结果、两次S32上限比较与原钳回、bit2回调后重取gCurrentWindow、关闭位和既有SE后再次重取窗口；不改现音频调用/暂停范围，不添下限、预清或缓存。",
+      "boundary": "仅替换48AA45格式callee；末尾从当前非拥有window元素index读W32位模式作S32，以原5863A0的%9d写既有CC4D1C 12B显示并返回原result。保留完整state/低U8 flags/474550结果、两次S32上限比较与原钳回、bit2回调后重取gCurrentWindow、关闭位和既有SE后再次重取窗口；不改现音频调用/暂停范围，不添下限、预清或缓存。；QVC01仅窗口42初始化48A8C0/输入激活48A900/数量面板48A950/增加48AA60/减少48AB10五完整原根230条714B/六页；原八个E8六目标、一个间接callback、十九跳五RET（按证据统计校验）。窗口初始化仅value=-1：先currentWindow持址→上限999999999/参数0/callback空→elem2状态0→输入激活(0,2)，所有路径返回1。输入激活bit2调用既有476570(57DA70,0,-100,0)→SetContext(CB0878)→窗口快照→第一次elem0 data发布焦点→第二次同窗口elem0 data发布context，返回0。数量面板currentInput先于actionFlags低BYTE；value14先于currentWindow，调用474550只消费低BYTE，先S32上限钳回后bit1第二比较不补下限；bit2快照非拥有callback，非空调用当前elem[index] S32后重取窗口，随后关闭bit15/声57再重取窗口，无条件用原%9d/MSVC写12B文本返回0/1。增加按钮先窗口/graphic持址→原悬停提示→elem2指针来源，上限S32先当前数量S32，严格小于才+1/声51，否则声55；减少原数量S32>0才-1/声51否则声55；两者原默认→hover→pressed图号顺序，始终返回0。三逻辑组（低BYTE/参数-窗口次序/上限-数量次序）三处源码对齐，初始化/输入激活/减少正确正文保持；不新增保护、下限、补零、回滚、默认值/类型/helper/owner。元素0/2/3/4四callback槽与主原型update只data引用；唯一入CALL从初始化调用输入激活，第三后邻RET外align不纳父代码。关闭按钮/释放仅既有绑定和未变提供者，不据本步记完整原父/取消按键/释放owner闭合；原void业务callback适配仅保副作用，完整机器ABI/动态调度/所有上游与资源寿命、真实画面/声效及运行待。WAV-only/MSVC/明文协议与全部完整门禁保持，整体未完成。",
       "original_incoming": [],
       "original_data_references": [
         {
@@ -112201,7 +112220,43 @@
           "relationship": "回调和原SE后重取window，S32数值写既有显示，返回原result"
         }
       ],
-      "verification_level": "83原指令统计，仅读26条格式来源/回调-SE后重取/返回邻窗，其余57与已过核心不重验；一原点/一表达式，无普通call、5630F0数据引用只登记，未构建执行。"
+      "verification_level": "83原指令统计，仅读26条格式来源/回调-SE后重取/返回邻窗，其余57与已过核心不重验；一原点/一表达式，无普通call、5630F0数据引用只登记，未构建执行。；pass，五连续完整根230条714B/六页，8E8六目标/19跳五RET及一个间接callback；原八元素32B/callback槽与主update、一个入CALL/有限后邻有据；低BYTE/参数先窗口和增加上限先数量三合同对齐，两整源精确回放/十注释，三正确正文、三类型五提供者及原型表保持；完整关闭/释放owner与全callback/机器ABI/运行待",
+      "quantity_window_callbacks": {
+        "step": "QVC01",
+        "source_snapshot": "[#] 补齐数量确认与增减输入合同",
+        "original_entry": "0x48a950",
+        "original_end_exclusive": "0x48aa54",
+        "instruction_count": 83,
+        "code_bytes": 260,
+        "page_count": 2,
+        "direct_calls": 3,
+        "direct_call_targets": [
+          4670800,
+          5424208,
+          5485316
+        ],
+        "jumps": 5,
+        "returns": 1,
+        "original_incoming": [],
+        "native_signature": "std::int32_t Sub_48A950(const std::int32_t index, const std::int32_t state)",
+        "source_patch_group_count": 2,
+        "source_changed_point_count": 2,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原0/1返回和间接callback副作用保持，全部业务callback数值/ABI待",
+        "original_incoming_references": [
+          {
+            "from": 5648624,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          }
+        ],
+        "previous_format_history_kept": true
+      }
     },
     {
       "original_entry": "0x4920F0",
@@ -233723,6 +233778,365 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "result_boundary": "原窗口返回快照保持，两个父discard；全部consumer/ABI待"
+      }
+    },
+    {
+      "original_entry": "0x48a8c0",
+      "inventory_id": "F:0008A8C0",
+      "original_role": "数量窗口初始化/原-1参数与返回1",
+      "original_end_exclusive": "0x48a8fa",
+      "instruction_count": 15,
+      "function_chunks": [
+        {
+          "start": "0x48a8c0",
+          "end_exclusive": "0x48a8fa"
+        }
+      ],
+      "status": "QVC01完整初始化/输入激活/增减根纳管，读取合同与原业务正文保持；限定S/全部callback与owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_48A8C0"
+          ],
+          "relationship": "QVC01完整原根/字段读取和原callback发布核对，低BYTE及取样序对齐，正确正文保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_48A8C0"
+          ],
+          "relationship": "QVC01真实S32/void参数返回声明保持，仅合同注释；原结果分界具名，不记全机器ABI等价"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_quantity_window_callbacks_spec.md#quantity-callback-baseline",
+        "doc/cg2d_quantity_window_callbacks_spec.md#quantity-callback-decision",
+        "doc/cg2d_quantity_window_callbacks_spec.md#quantity-callback-acceptance",
+        "doc/cg2d_quantity_window_callbacks_spec.md#quantity-callback-source-state",
+        "doc/cg2d_quantity_window_callbacks_evidence.json"
+      ],
+      "boundary": "QVC01仅窗口42初始化48A8C0/输入激活48A900/数量面板48A950/增加48AA60/减少48AB10五完整原根230条714B/六页；原八个E8六目标、一个间接callback、十九跳五RET（按证据统计校验）。窗口初始化仅value=-1：先currentWindow持址→上限999999999/参数0/callback空→elem2状态0→输入激活(0,2)，所有路径返回1。输入激活bit2调用既有476570(57DA70,0,-100,0)→SetContext(CB0878)→窗口快照→第一次elem0 data发布焦点→第二次同窗口elem0 data发布context，返回0。数量面板currentInput先于actionFlags低BYTE；value14先于currentWindow，调用474550只消费低BYTE，先S32上限钳回后bit1第二比较不补下限；bit2快照非拥有callback，非空调用当前elem[index] S32后重取窗口，随后关闭bit15/声57再重取窗口，无条件用原%9d/MSVC写12B文本返回0/1。增加按钮先窗口/graphic持址→原悬停提示→elem2指针来源，上限S32先当前数量S32，严格小于才+1/声51，否则声55；减少原数量S32>0才-1/声51否则声55；两者原默认→hover→pressed图号顺序，始终返回0。三逻辑组（低BYTE/参数-窗口次序/上限-数量次序）三处源码对齐，初始化/输入激活/减少正确正文保持；不新增保护、下限、补零、回滚、默认值/类型/helper/owner。元素0/2/3/4四callback槽与主原型update只data引用；唯一入CALL从初始化调用输入激活，第三后邻RET外align不纳父代码。关闭按钮/释放仅既有绑定和未变提供者，不据本步记完整原父/取消按键/释放owner闭合；原void业务callback适配仅保副作用，完整机器ABI/动态调度/所有上游与资源寿命、真实画面/声效及运行待。WAV-only/MSVC/明文协议与全部完整门禁保持，整体未完成。",
+      "verification_level": "pass，五连续完整根230条714B/六页，8E8六目标/19跳五RET及一个间接callback；原八元素32B/callback槽与主update、一个入CALL/有限后邻有据；低BYTE/参数先窗口和增加上限先数量三合同对齐，两整源精确回放/十注释，三正确正文、三类型五提供者及原型表保持；完整关闭/释放owner与全callback/机器ABI/运行待",
+      "original_incoming": [],
+      "quantity_window_callbacks": {
+        "step": "QVC01",
+        "source_snapshot": "[#] 补齐数量确认与增减输入合同",
+        "original_entry": "0x48a8c0",
+        "original_end_exclusive": "0x48a8fa",
+        "instruction_count": 15,
+        "code_bytes": 58,
+        "page_count": 1,
+        "direct_calls": 1,
+        "direct_call_targets": [
+          4761856
+        ],
+        "jumps": 1,
+        "returns": 1,
+        "original_incoming": [],
+        "native_signature": "std::int32_t Sub_48A8C0(const std::int32_t value)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "所有分支返回S32 1，主update动态分发完整ABI待",
+        "original_incoming_references": [
+          {
+            "from": 5563664,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          }
+        ]
+      }
+    },
+    {
+      "original_entry": "0x48a900",
+      "inventory_id": "F:0008A900",
+      "original_role": "数量输入激活/唯一context与焦点data发布",
+      "original_end_exclusive": "0x48a944",
+      "instruction_count": 19,
+      "function_chunks": [
+        {
+          "start": "0x48a900",
+          "end_exclusive": "0x48a944"
+        }
+      ],
+      "status": "QVC01完整初始化/输入激活/增减根纳管，读取合同与原业务正文保持；限定S/全部callback与owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_48A900"
+          ],
+          "relationship": "QVC01完整原根/字段读取和原callback发布核对，低BYTE及取样序对齐，正确正文保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_48A900"
+          ],
+          "relationship": "QVC01真实S32/void参数返回声明保持，仅合同注释；原结果分界具名，不记全机器ABI等价"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_quantity_window_callbacks_spec.md#quantity-callback-baseline",
+        "doc/cg2d_quantity_window_callbacks_spec.md#quantity-callback-decision",
+        "doc/cg2d_quantity_window_callbacks_spec.md#quantity-callback-acceptance",
+        "doc/cg2d_quantity_window_callbacks_spec.md#quantity-callback-source-state",
+        "doc/cg2d_quantity_window_callbacks_evidence.json"
+      ],
+      "boundary": "QVC01仅窗口42初始化48A8C0/输入激活48A900/数量面板48A950/增加48AA60/减少48AB10五完整原根230条714B/六页；原八个E8六目标、一个间接callback、十九跳五RET（按证据统计校验）。窗口初始化仅value=-1：先currentWindow持址→上限999999999/参数0/callback空→elem2状态0→输入激活(0,2)，所有路径返回1。输入激活bit2调用既有476570(57DA70,0,-100,0)→SetContext(CB0878)→窗口快照→第一次elem0 data发布焦点→第二次同窗口elem0 data发布context，返回0。数量面板currentInput先于actionFlags低BYTE；value14先于currentWindow，调用474550只消费低BYTE，先S32上限钳回后bit1第二比较不补下限；bit2快照非拥有callback，非空调用当前elem[index] S32后重取窗口，随后关闭bit15/声57再重取窗口，无条件用原%9d/MSVC写12B文本返回0/1。增加按钮先窗口/graphic持址→原悬停提示→elem2指针来源，上限S32先当前数量S32，严格小于才+1/声51，否则声55；减少原数量S32>0才-1/声51否则声55；两者原默认→hover→pressed图号顺序，始终返回0。三逻辑组（低BYTE/参数-窗口次序/上限-数量次序）三处源码对齐，初始化/输入激活/减少正确正文保持；不新增保护、下限、补零、回滚、默认值/类型/helper/owner。元素0/2/3/4四callback槽与主原型update只data引用；唯一入CALL从初始化调用输入激活，第三后邻RET外align不纳父代码。关闭按钮/释放仅既有绑定和未变提供者，不据本步记完整原父/取消按键/释放owner闭合；原void业务callback适配仅保副作用，完整机器ABI/动态调度/所有上游与资源寿命、真实画面/声效及运行待。WAV-only/MSVC/明文协议与全部完整门禁保持，整体未完成。",
+      "verification_level": "pass，五连续完整根230条714B/六页，8E8六目标/19跳五RET及一个间接callback；原八元素32B/callback槽与主update、一个入CALL/有限后邻有据；低BYTE/参数先窗口和增加上限先数量三合同对齐，两整源精确回放/十注释，三正确正文、三类型五提供者及原型表保持；完整关闭/释放owner与全callback/机器ABI/运行待",
+      "original_incoming": [
+        {
+          "ea": 4761836,
+          "parent": 4761792,
+          "bytes": "e80f000000",
+          "asm": "call    sub_48A900",
+          "call_target": 4761856,
+          "following": [
+            {
+              "ea": 4761841,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            },
+            {
+              "ea": 4761844,
+              "bytes": "b801000000",
+              "asm": "mov     eax, 1"
+            },
+            {
+              "ea": 4761849,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4761850,
+              "bytes": "909090909090",
+              "asm": "align 10h"
+            }
+          ]
+        }
+      ],
+      "quantity_window_callbacks": {
+        "step": "QVC01",
+        "source_snapshot": "[#] 补齐数量确认与增减输入合同",
+        "original_entry": "0x48a900",
+        "original_end_exclusive": "0x48a944",
+        "instruction_count": 19,
+        "code_bytes": 68,
+        "page_count": 1,
+        "direct_calls": 2,
+        "direct_call_targets": [
+          4502320,
+          4679024
+        ],
+        "jumps": 1,
+        "returns": 1,
+        "original_incoming": [
+          {
+            "ea": 4761836,
+            "parent": 4761792,
+            "bytes": "e80f000000",
+            "asm": "call    sub_48A900",
+            "call_target": 4761856,
+            "following": [
+              {
+                "ea": 4761841,
+                "bytes": "83c408",
+                "asm": "add     esp, 8"
+              },
+              {
+                "ea": 4761844,
+                "bytes": "b801000000",
+                "asm": "mov     eax, 1"
+              },
+              {
+                "ea": 4761849,
+                "bytes": "c3",
+                "asm": "retn"
+              },
+              {
+                "ea": 4761850,
+                "bytes": "909090909090",
+                "asm": "align 10h"
+              }
+            ]
+          }
+        ],
+        "native_signature": "std::int32_t Sub_48A900(const std::int32_t, const std::int32_t state)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "所有分支返回S32 0，唯一入CALL覆为1/动态回调待",
+        "original_incoming_references": [
+          {
+            "from": 4761836,
+            "type": 17,
+            "iscode": true,
+            "parent": 4761792
+          },
+          {
+            "from": 5648624,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          }
+        ]
+      }
+    },
+    {
+      "original_entry": "0x48aa60",
+      "inventory_id": "F:0008AA60",
+      "original_role": "增加数量/上限先数量与图形状态",
+      "original_end_exclusive": "0x48ab07",
+      "instruction_count": 57,
+      "function_chunks": [
+        {
+          "start": "0x48aa60",
+          "end_exclusive": "0x48ab07"
+        }
+      ],
+      "status": "QVC01完整初始化/输入激活/增减根纳管，读取合同与原业务正文保持；限定S/全部callback与owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_48AA60"
+          ],
+          "relationship": "QVC01完整原根/字段读取和原callback发布核对，低BYTE及取样序对齐，正确正文保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_48AA60"
+          ],
+          "relationship": "QVC01真实S32/void参数返回声明保持，仅合同注释；原结果分界具名，不记全机器ABI等价"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_quantity_window_callbacks_spec.md#quantity-callback-baseline",
+        "doc/cg2d_quantity_window_callbacks_spec.md#quantity-callback-decision",
+        "doc/cg2d_quantity_window_callbacks_spec.md#quantity-callback-acceptance",
+        "doc/cg2d_quantity_window_callbacks_spec.md#quantity-callback-source-state",
+        "doc/cg2d_quantity_window_callbacks_evidence.json"
+      ],
+      "boundary": "QVC01仅窗口42初始化48A8C0/输入激活48A900/数量面板48A950/增加48AA60/减少48AB10五完整原根230条714B/六页；原八个E8六目标、一个间接callback、十九跳五RET（按证据统计校验）。窗口初始化仅value=-1：先currentWindow持址→上限999999999/参数0/callback空→elem2状态0→输入激活(0,2)，所有路径返回1。输入激活bit2调用既有476570(57DA70,0,-100,0)→SetContext(CB0878)→窗口快照→第一次elem0 data发布焦点→第二次同窗口elem0 data发布context，返回0。数量面板currentInput先于actionFlags低BYTE；value14先于currentWindow，调用474550只消费低BYTE，先S32上限钳回后bit1第二比较不补下限；bit2快照非拥有callback，非空调用当前elem[index] S32后重取窗口，随后关闭bit15/声57再重取窗口，无条件用原%9d/MSVC写12B文本返回0/1。增加按钮先窗口/graphic持址→原悬停提示→elem2指针来源，上限S32先当前数量S32，严格小于才+1/声51，否则声55；减少原数量S32>0才-1/声51否则声55；两者原默认→hover→pressed图号顺序，始终返回0。三逻辑组（低BYTE/参数-窗口次序/上限-数量次序）三处源码对齐，初始化/输入激活/减少正确正文保持；不新增保护、下限、补零、回滚、默认值/类型/helper/owner。元素0/2/3/4四callback槽与主原型update只data引用；唯一入CALL从初始化调用输入激活，第三后邻RET外align不纳父代码。关闭按钮/释放仅既有绑定和未变提供者，不据本步记完整原父/取消按键/释放owner闭合；原void业务callback适配仅保副作用，完整机器ABI/动态调度/所有上游与资源寿命、真实画面/声效及运行待。WAV-only/MSVC/明文协议与全部完整门禁保持，整体未完成。",
+      "verification_level": "pass，五连续完整根230条714B/六页，8E8六目标/19跳五RET及一个间接callback；原八元素32B/callback槽与主update、一个入CALL/有限后邻有据；低BYTE/参数先窗口和增加上限先数量三合同对齐，两整源精确回放/十注释，三正确正文、三类型五提供者及原型表保持；完整关闭/释放owner与全callback/机器ABI/运行待",
+      "original_incoming": [],
+      "quantity_window_callbacks": {
+        "step": "QVC01",
+        "source_snapshot": "[#] 补齐数量确认与增减输入合同",
+        "original_entry": "0x48aa60",
+        "original_end_exclusive": "0x48ab07",
+        "instruction_count": 57,
+        "code_bytes": 167,
+        "page_count": 1,
+        "direct_calls": 1,
+        "direct_call_targets": [
+          5424208
+        ],
+        "jumps": 6,
+        "returns": 1,
+        "original_incoming": [],
+        "native_signature": "std::int32_t Sub_48AA60(const std::int32_t index, const std::int32_t state)",
+        "source_patch_group_count": 1,
+        "source_changed_point_count": 1,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原S32 0返回，元素data分发/ABI待",
+        "original_incoming_references": [
+          {
+            "from": 5648624,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          }
+        ]
+      }
+    },
+    {
+      "original_entry": "0x48ab10",
+      "inventory_id": "F:0008AB10",
+      "original_role": "减少数量/原正值门槛及图形状态",
+      "original_end_exclusive": "0x48abb1",
+      "instruction_count": 56,
+      "function_chunks": [
+        {
+          "start": "0x48ab10",
+          "end_exclusive": "0x48abb1"
+        }
+      ],
+      "status": "QVC01完整初始化/输入激活/增减根纳管，读取合同与原业务正文保持；限定S/全部callback与owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_48AB10"
+          ],
+          "relationship": "QVC01完整原根/字段读取和原callback发布核对，低BYTE及取样序对齐，正确正文保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_48AB10"
+          ],
+          "relationship": "QVC01真实S32/void参数返回声明保持，仅合同注释；原结果分界具名，不记全机器ABI等价"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_quantity_window_callbacks_spec.md#quantity-callback-baseline",
+        "doc/cg2d_quantity_window_callbacks_spec.md#quantity-callback-decision",
+        "doc/cg2d_quantity_window_callbacks_spec.md#quantity-callback-acceptance",
+        "doc/cg2d_quantity_window_callbacks_spec.md#quantity-callback-source-state",
+        "doc/cg2d_quantity_window_callbacks_evidence.json"
+      ],
+      "boundary": "QVC01仅窗口42初始化48A8C0/输入激活48A900/数量面板48A950/增加48AA60/减少48AB10五完整原根230条714B/六页；原八个E8六目标、一个间接callback、十九跳五RET（按证据统计校验）。窗口初始化仅value=-1：先currentWindow持址→上限999999999/参数0/callback空→elem2状态0→输入激活(0,2)，所有路径返回1。输入激活bit2调用既有476570(57DA70,0,-100,0)→SetContext(CB0878)→窗口快照→第一次elem0 data发布焦点→第二次同窗口elem0 data发布context，返回0。数量面板currentInput先于actionFlags低BYTE；value14先于currentWindow，调用474550只消费低BYTE，先S32上限钳回后bit1第二比较不补下限；bit2快照非拥有callback，非空调用当前elem[index] S32后重取窗口，随后关闭bit15/声57再重取窗口，无条件用原%9d/MSVC写12B文本返回0/1。增加按钮先窗口/graphic持址→原悬停提示→elem2指针来源，上限S32先当前数量S32，严格小于才+1/声51，否则声55；减少原数量S32>0才-1/声51否则声55；两者原默认→hover→pressed图号顺序，始终返回0。三逻辑组（低BYTE/参数-窗口次序/上限-数量次序）三处源码对齐，初始化/输入激活/减少正确正文保持；不新增保护、下限、补零、回滚、默认值/类型/helper/owner。元素0/2/3/4四callback槽与主原型update只data引用；唯一入CALL从初始化调用输入激活，第三后邻RET外align不纳父代码。关闭按钮/释放仅既有绑定和未变提供者，不据本步记完整原父/取消按键/释放owner闭合；原void业务callback适配仅保副作用，完整机器ABI/动态调度/所有上游与资源寿命、真实画面/声效及运行待。WAV-only/MSVC/明文协议与全部完整门禁保持，整体未完成。",
+      "verification_level": "pass，五连续完整根230条714B/六页，8E8六目标/19跳五RET及一个间接callback；原八元素32B/callback槽与主update、一个入CALL/有限后邻有据；低BYTE/参数先窗口和增加上限先数量三合同对齐，两整源精确回放/十注释，三正确正文、三类型五提供者及原型表保持；完整关闭/释放owner与全callback/机器ABI/运行待",
+      "original_incoming": [],
+      "quantity_window_callbacks": {
+        "step": "QVC01",
+        "source_snapshot": "[#] 补齐数量确认与增减输入合同",
+        "original_entry": "0x48ab10",
+        "original_end_exclusive": "0x48abb1",
+        "instruction_count": 56,
+        "code_bytes": 161,
+        "page_count": 1,
+        "direct_calls": 1,
+        "direct_call_targets": [
+          5424208
+        ],
+        "jumps": 6,
+        "returns": 1,
+        "original_incoming": [],
+        "native_signature": "std::int32_t Sub_48AB10(const std::int32_t index, const std::int32_t state)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原S32 0返回，元素data分发/ABI待",
+        "original_incoming_references": [
+          {
+            "from": 5648624,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          }
+        ]
       }
     }
   ]

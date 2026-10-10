@@ -28236,6 +28236,7 @@ void UpdateBattleAction108_40DF80(YobiAction* const action)
     }
 }
 
+// BKE01：旧FF0/1038蓄力及两侧HP零逐项复制；五BYTE与真实事件循环/旧FD0收尾。
 void UpdateBattleAction110_40E560(YobiAction* const action)
 {
     using namespace platform::legacy_crypt_int;
@@ -28266,10 +28267,10 @@ void UpdateBattleAction110_40E560(YobiAction* const action)
                         payload->effects1C[payload->effectRunningC9C].flags);
                     ApplyBattleEffectFlags_406390(payload->battlePosition18, action);
                     const std::uint32_t flags = payload->effects1C[payload->effectRunningC9C].flags;
-                    if ((flags & 8u) != 0) {
+                    if ((static_cast<std::uint8_t>(flags) & 8u) != 0) {
                         target->phase = 31;
                     } else if ((flags & 0x80000u) != 0) {
-                        if ((flags & 0xE000u) == 0) {
+                        if ((static_cast<std::uint8_t>(flags >> 8) & 0xE0u) == 0) {
                             const std::int32_t imageNo = platform::RandomRange_46FAF0(0, 2) + 110001;
                             YobiAction* const effect = NewBattleRandomEffect_419FC0(target, imageNo, 0);
                             NewBattleRebirthEffects_4208F0(action, target);
@@ -28278,17 +28279,21 @@ void UpdateBattleAction110_40E560(YobiAction* const action)
                             static_cast<void>(audio::PlaySe_52C450(132, action->x));
                             platform::LegacyCryptInt temporary;
                             ConstructFromInt_401CC0(&temporary, 0);
+                            const std::int32_t copyIndex = payload->effectRunningC9C;
+                            const std::uint32_t encoded = temporary.encoded;
                             YobiAction* const copyTarget = gBattleAllEntries59E980[
-                                payload->effects1C[payload->effectRunningC9C].position];
-                            CopyPayload(&copyTarget->readiness, &temporary);
+                                payload->effects1C[copyIndex].position];
+                            copyTarget->readiness.encoded = encoded;
+                            copyTarget->readiness.mask = temporary.mask;
+                            copyTarget->readiness.readCount = temporary.readCount;
                             Destroy_401CF0(&temporary);
-                            if ((payload->effects1C[payload->effectRunningC9C].flags & 0x20u) != 0) {
+                            if ((static_cast<std::uint8_t>(payload->effects1C[payload->effectRunningC9C].flags) & 0x20u) != 0) {
                                 targetPayload->flagsFDC |= 2u;
                                 gYobiUpdateGateMode = 1;
                                 targetPayload->aliveFF8 = 1;
                             }
                         }
-                        if ((payload->effects1C[payload->effectRunningC9C].flags & 0x2000u) != 0) {
+                        if ((static_cast<std::uint8_t>(payload->effects1C[payload->effectRunningC9C].flags >> 8) & 0x20u) != 0) {
                             const std::int32_t imageNo = platform::RandomRange_46FAF0(0, 2) + 110001;
                             YobiAction* const effect = NewBattleRandomEffect_419FC0(action, imageNo, 0);
                             NewBattleRebirthEffects_4208F0(action, target);
@@ -28297,10 +28302,14 @@ void UpdateBattleAction110_40E560(YobiAction* const action)
                             static_cast<void>(audio::PlaySe_52C450(132, action->x));
                             platform::LegacyCryptInt temporary;
                             ConstructFromInt_401CC0(&temporary, 0);
-                            YobiAction* const copyTarget = gBattleAllEntries59E980[payload->battlePosition18];
-                            CopyPayload(&copyTarget->readiness, &temporary);
+                            const std::int32_t sourcePosition = payload->battlePosition18;
+                            const std::uint32_t encoded = temporary.encoded;
+                            YobiAction* const copyTarget = gBattleAllEntries59E980[sourcePosition];
+                            copyTarget->readiness.encoded = encoded;
+                            copyTarget->readiness.mask = temporary.mask;
+                            copyTarget->readiness.readCount = temporary.readCount;
                             Destroy_401CF0(&temporary);
-                            if ((payload->effects1C[payload->effectRunningC9C].flags & 0x20u) != 0) {
+                            if ((static_cast<std::uint8_t>(payload->effects1C[payload->effectRunningC9C].flags) & 0x20u) != 0) {
                                 payload->flagsFDC |= 2u;
                                 gYobiUpdateGateMode = 1;
                                 payload->aliveFF8 = 1;
@@ -28358,6 +28367,7 @@ void UpdateBattleAction110_40E560(YobiAction* const action)
     }
 }
 
+// BKE01：两次fresh BYTE FDC/40次散射，原角度与四边界后仍Move/Play S32。
 std::int32_t UpdateBattleAction111_40E970(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -28369,14 +28379,14 @@ std::int32_t UpdateBattleAction111_40E970(YobiAction* const action)
     const std::int32_t duration = 14 * static_cast<std::int32_t>(((flags >> 1) & 1u) + 1u);
     if (count < duration) {
         action->value54 = -2.0F;
-        if ((payload->flagsFDC & 2u) != 0) {
+        if ((static_cast<std::uint8_t>(payload->flagsFDC) & 2u) != 0) {
             gYobiUpdateGateMode = 1;
             payload->aliveFF8 = 1;
         }
     } else {
         if (count == duration) {
             static_cast<void>(audio::PlaySe_52C450(207, action->x));
-            if ((payload->flagsFDC & 2u) != 0) {
+            if ((static_cast<std::uint8_t>(payload->flagsFDC) & 2u) != 0) {
                 if (CountBattleActiveEntries_406360() <= 1) {
                     gYobiUpdateGateMode = 0;
                 }
@@ -28408,14 +28418,21 @@ std::int32_t UpdateBattleAction111_40E970(YobiAction* const action)
     return PlayFrame_517DA0(action, 0);
 }
 
+// BKE01：worldY先载荷；两轴各自先借用父再数值，旧294/FF0及末fresh父标死保持。
 void UpdateBattleAction113_40EFE0(YobiAction* const action)
 {
+    const float baseY = action->worldY;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
-    action->offset44 = action->worldY;
+    action->offset44 = baseY;
     MoveBattleByAngle_405EA0(action);
-    action->battleOpponent10->offset40 = action->offset40;
-    action->battleOpponent10->offset44 = static_cast<float>(
-        static_cast<double>(action->offset44) - static_cast<double>(action->graphicOffsetY));
+    YobiAction* const horizontalOpponent = action->battleOpponent10;
+    const float x = action->offset40;
+    horizontalOpponent->offset40 = x;
+    YobiAction* const verticalOpponent = action->battleOpponent10;
+    const std::int32_t graphicOffsetY = action->graphicOffsetY;
+    const float y = action->offset44;
+    verticalOpponent->offset44 = static_cast<float>(
+        static_cast<double>(y) - static_cast<double>(graphicOffsetY));
     action->worldY = action->offset44;
     std::int32_t duration;
     std::memcpy(&duration, action->bytes290.data() + 4, sizeof(duration));
@@ -30252,6 +30269,7 @@ void UpdateBattleAction103_40DBE0(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BKE01：独立复制体25/110/107及四值4-flags-3-position读取，设备后完整flags与双推进保持。
 void UpdateBattleAction109_40E4B0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -30266,11 +30284,18 @@ void UpdateBattleAction109_40E4B0(YobiAction* const action)
     AppendBattleCast_4392A0(caster, copy, 25);
     AppendBattleCast_4392A0(caster, copy, 110);
     AppendBattleCast_4392A0(caster, copy, 107);
-    AppendBattleEffect_439400(copy, payload->effects1C[payload->effectRunningC9C]);
+    const std::int32_t effectIndex = payload->effectRunningC9C;
+    const BattleEntryEffectRecord& effect = payload->effects1C[effectIndex];
+    const std::int32_t position4 = effect.position4;
+    const std::uint32_t flags = effect.flags;
+    const std::int32_t position3 = effect.position3;
+    const std::int32_t position = effect.position;
+    AppendBattleEffect_439400(copy, BattleEntryEffectRecord{position, flags, position3, position4});
     AdvanceBattleCastState_439340(copy);
     AdvanceBattleCastState_439340(action);
 }
 
+// BKE01：双复制体/第三列表选图、一次事件/三Y-X及运动读序、两Append不同四值顺序。
 void UpdateBattleAction112_40EB00(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -30289,7 +30314,8 @@ void UpdateBattleAction112_40EB00(YobiAction* const action)
         TurnBattleToward_406190(action,
             gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position], 1, 0.0F);
     }
-    if (action->frameEvent >= 20000 || action->frameEvent < 10000) {
+    const std::int32_t event = action->frameEvent;
+    if (event >= 20000 || event < 10000) {
         return;
     }
     YobiAction* const first = NewBattleCastCopy_4205F0(action);
@@ -30324,8 +30350,9 @@ void UpdateBattleAction112_40EB00(YobiAction* const action)
             copyPayload->moveTargetXFE8 = 449;
             copyPayload->moveTargetYFEC = 336;
         }
-        TurnBattleTowardPosition_4060D0(action, static_cast<float>(copyPayload->moveTargetXFE8),
-            static_cast<float>(copyPayload->moveTargetYFEC), 1, 0.0F);
+        const float targetY = static_cast<float>(copyPayload->moveTargetYFEC);
+        const float targetX = static_cast<float>(copyPayload->moveTargetXFE8);
+        TurnBattleTowardPosition_4060D0(action, targetX, targetY, 1, 0.0F);
     } else {
         copyPayload->moveTargetXFE8 = static_cast<std::int32_t>(
             gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position]->offset40);
@@ -30337,22 +30364,28 @@ void UpdateBattleAction112_40EB00(YobiAction* const action)
     const float copyY = copy->offset44;
     copy->x = copyX;
     copy->y = static_cast<std::int32_t>(copyY);
-    TurnBattleTowardPosition_4060D0(copy, static_cast<float>(copyPayload->moveTargetXFE8),
-        static_cast<float>(copyPayload->moveTargetYFEC), 1, 0.0F);
-    TurnBattleTowardPosition_4060D0(first, static_cast<float>(copyPayload->moveTargetXFE8),
-        static_cast<float>(copyPayload->moveTargetYFEC), 1, 0.0F);
+    const float copyTargetY = static_cast<float>(copyPayload->moveTargetYFEC);
+    const float copyTargetX = static_cast<float>(copyPayload->moveTargetXFE8);
+    TurnBattleTowardPosition_4060D0(copy, copyTargetX, copyTargetY, 1, 0.0F);
+    const float firstTargetY = static_cast<float>(copyPayload->moveTargetYFEC);
+    const float firstTargetX = static_cast<float>(copyPayload->moveTargetXFE8);
+    TurnBattleTowardPosition_4060D0(first, firstTargetX, firstTargetY, 1, 0.0F);
+    const std::int32_t screenX = copy->x;
     const std::int32_t duration = 60;
     std::memcpy(copy->bytes290.data() + 4, &duration, sizeof(duration));
-    const float xStep = static_cast<float>(static_cast<double>(std::abs(copyPayload->moveTargetXFE8 - copy->x))
+    const std::int32_t horizontalDistance = std::abs(copyPayload->moveTargetXFE8 - screenX);
+    const float cosineAngle = copy->angle50;
+    const float xStep = static_cast<float>(static_cast<double>(horizontalDistance)
         * std::bit_cast<float>(std::uint32_t{0x3C888889}));
-    const double cosine = world::detail::Sub_46F950(copy->angle50);
+    const double cosine = world::detail::Sub_46F950(cosineAngle);
     const std::int32_t screenY = copy->y;
     copy->value54 = static_cast<float>(std::abs(cosine) * xStep);
+    const std::int32_t verticalDistance = std::abs(copyPayload->moveTargetYFEC - screenY);
+    const float sineAngle = copy->angle50;
     std::int32_t currentDuration;
     std::memcpy(&currentDuration, copy->bytes290.data() + 4, sizeof(currentDuration));
-    const float yStep = static_cast<float>(static_cast<double>(std::abs(copyPayload->moveTargetYFEC - screenY))
-        / currentDuration);
-    const double sine = world::detail::Sub_46F930(copy->angle50);
+    const float yStep = static_cast<float>(static_cast<double>(verticalDistance) / currentDuration);
+    const double sine = world::detail::Sub_46F930(sineAngle);
     std::memcpy(&currentDuration, copy->bytes290.data() + 4, sizeof(currentDuration));
     const float savedY = copy->offset44;
     copy->field58 = 100;
@@ -30369,10 +30402,22 @@ void UpdateBattleAction112_40EB00(YobiAction* const action)
     AppendBattleCast_4392A0(caster, copy, 114);
     AppendBattleCast_4392A0(caster, copy, 107);
     if (payload->castSkillLevel1044 < 90) {
-        AppendBattleEffect_439400(copy, payload->effects1C[payload->effectRunningC9C]);
+        const std::int32_t effectIndex = payload->effectRunningC9C;
+        const BattleEntryEffectRecord& effect = payload->effects1C[effectIndex];
+        const std::uint32_t flags = effect.flags;
+        const std::int32_t position4 = effect.position4;
+        const std::int32_t position3 = effect.position3;
+        const std::int32_t position = effect.position;
+        AppendBattleEffect_439400(copy, BattleEntryEffectRecord{position, flags, position3, position4});
     } else {
         do {
-            AppendBattleEffect_439400(copy, payload->effects1C[payload->effectRunningC9C]);
+            const std::int32_t effectIndex = payload->effectRunningC9C;
+            const BattleEntryEffectRecord& effect = payload->effects1C[effectIndex];
+            const std::int32_t position4 = effect.position4;
+            const std::uint32_t flags = effect.flags;
+            const std::int32_t position3 = effect.position3;
+            const std::int32_t position = effect.position;
+            AppendBattleEffect_439400(copy, BattleEntryEffectRecord{position, flags, position3, position4});
         } while (AdvanceBattleEffect_439470(action) != 1);
     }
     copyPayload->effectRunningC9C = 0;

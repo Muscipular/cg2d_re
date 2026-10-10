@@ -2346,3 +2346,9 @@ FUNC-BATTLE/FUNC-UIRUNTIME仅追加来源，U09/R04仅追加引用并保持open�
 [完整五根/裁决](cg2d_battle_inspect_exit_spec.md#battle-inspect-exit-decision)和[原指令/整源差集](cg2d_battle_inspect_exit_evidence.json)登记两条FUNC-BATTLE局部I/S。I仅104/105/108四读取组、十三BYTE和一临时HP零复制共十八组；S五完整正常根/实际分派和依赖关系、wsprintfA真实导入来源/61B原格式/70F32及具名有限MSVC/GBK边界。106/107正文保持；原操作数3为寄存器id，原字符串转换视图非原字节，不新登记假callee/导入或数据X。
 
 新增五语义/F处置/已知成员，BATTLE枚举仍false；十五既有语义及所有旧记录保持。E1401→1403、语义2158→2163、F1586→1591、BATTLE398→403，五任务仅追加依据继续open；原完整gates/184叶验收0/60任务关闭11与六closure保持。全部生产/其它父和完整callee/机器ABI/alias/owner/SDK/声音画面待，必要静态及文本汇总不代运行，总SPEC§10及执行限制不降低。
+
+## 2026-10-10 BKE01 复制体、击倒及离场五根限定验收
+
+[五完整正常源/裁决](cg2d_battle_knockdown_exit_spec.md#battle-knockdown-exit-decision)与[原根/数据/整源差集](cg2d_battle_knockdown_exit_evidence.json)登记两FUNC-BATTLE局部I/S：七BYTE、两HP零/三四值传送/一次事件/三Y-X/两运动参数/113两入口或父取样，共二十组。S五完整864条3025B/67E8/实际case和20B表项及28B常量/复用696B表与依赖关联，不代全callee/机器ABI或生命周期。
+
+仅109–112四新语义/F处置/成员，113更新既有1431来源与两组，equivalent及历史battle_motion_scale/完整证据保持；二十callee旧记录保持。语义2163→2167、F1591→1595、E1403→1405、BATTLE403→407仍枚举false；五任务仅加来源继续open，全部完整gates/184叶验收0/60任务关闭11和六closure保持。所有真实输入/父/容量/正常失败/alias/owner/SDK与声音画面待，未构建/测试/运行/摘要，不降低总SPEC§10。

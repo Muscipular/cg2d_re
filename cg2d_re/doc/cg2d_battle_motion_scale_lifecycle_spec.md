@@ -47,3 +47,8 @@
 ## 当前交付
 
 两效果回收阶段一次指针取样已恢复，四完整正常动作源/真实调用/原身份纳管；固定快照 `cg2d-re-battle-motion-scale-lifecycle-20261007`。未编译、调试、测试、运行或计算摘要，完整战斗、全生命周期与R8继续原验收标准。
+
+<a id="battle-motion-scale-113-current-20261010"></a>
+## 2026-10-10 当前113读取状态
+
+[BKE01](cg2d_battle_knockdown_exit_spec.md#battle-knockdown-exit-source-state)另恢复113入口worldY先payload、Move后两轴分别先fresh+10父指针再读取/发布该轴数值，共两组；原294/FF0数学/比较及末Advance后fresh父MarkDeath保持。此前“113整个本体保持”和source_body_changed=false属于BPS01固定前态，旧完整evidence.json不改写；1431原身份/正常equivalent类别和battle_motion_scale历史结构保持，只追加当前来源/状态，不称新第五身份或正常无介入值运行故障。全部SDK/机器ABI/alias/owner及声音画面仍待，当前WAV-only和执行限制保持。

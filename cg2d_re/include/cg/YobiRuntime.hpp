@@ -462,8 +462,8 @@ void UpdateBattleAction18_408170(YobiAction* action); // BSP01：258三图/22050
 void UpdateBattleAction19_4082F0(YobiAction* action); // BSP01：探测后33速率/22090范围，单次门禁和音效event-X；仅95重播。
 void UpdateBattleAction70_4070E0(YobiAction* action); // BTE01：播放后一次事件/逐轮投射/末声清事件。
 void UpdateBattleAction103_40DBE0(YobiAction* action); // BCPY01：独立复制体/七动作/效果四值按原序取样。
-void UpdateBattleAction109_40E4B0(YobiAction* action);
-void UpdateBattleAction112_40EB00(YobiAction* action);
+void UpdateBattleAction109_40E4B0(YobiAction* action); // BKE01：独立复制体25/110/107及四值4-flags-3-position读取，设备后完整flags与双推进保持。
+void UpdateBattleAction112_40EB00(YobiAction* action); // BKE01：双复制体/第三列表选图、一次事件/三Y-X及运动读序、两Append不同四值顺序。
 void UpdateBattleAction224_414050(YobiAction* action);
 void UpdateBattleAction226_4154C0(YobiAction* action);
 void UpdateBattleAction227_415940(YobiAction* action);
@@ -589,9 +589,9 @@ std::int32_t UpdateBattleAction105_40DE40(YobiAction* action); // BIE01：游标
 void UpdateBattleAction106_40DF50(YobiAction* action); // BIE01：完整动作106仅角色动作13→Advance，无播放/速率/帧清零。
 YobiAction* UpdateBattleAction107_40DF70(YobiAction* action); // BIE01：完整动作107调用MarkDeath并返回真实T*；物理释放沿scheduler。
 void UpdateBattleAction108_40DF80(YobiAction* action); // BIE01：入口事件持样/逐效果do，13 BYTE与临时HP复制读序；免疫只按完整flags。
-void UpdateBattleAction110_40E560(YobiAction* action); // 旧FF0蓄力/接近、两侧清HP、事件等待及独立FD0收尾。
-std::int32_t UpdateBattleAction111_40E970(YobiAction* action); // 阈值散射/反向离场，越界推进后仍移动和播放。
-void UpdateBattleAction113_40EFE0(YobiAction* action); // 抛物线/关联对象定位；原混合EAX未被caller消费。
+void UpdateBattleAction110_40E560(YobiAction* action); // BKE01：旧FF0/1038蓄力及两侧HP零逐项复制；五BYTE与真实事件循环/旧FD0收尾。
+std::int32_t UpdateBattleAction111_40E970(YobiAction* action); // BKE01：两次fresh BYTE FDC/40次散射，原角度与四边界后仍Move/Play S32。
+void UpdateBattleAction113_40EFE0(YobiAction* action); // BKE01：worldY先载荷；两轴各自先借用父再数值，旧294/FF0及末fresh父标死保持。
 void UpdateBattleAction114_40F0A0(YobiAction* action); // BCVI01：缓存静态零初值/负HP复制原读序，完整动作合同沿BPR01。
 void UpdateBattleAction115_40FB80(YobiAction* action); // 工厂Y=-32，调用后重取目标隐藏，最后phase162。
 void UpdateBattleFactoryAction_40FC10(YobiAction* action); // 31动作共享30种映射；118不创建但仍phase162。

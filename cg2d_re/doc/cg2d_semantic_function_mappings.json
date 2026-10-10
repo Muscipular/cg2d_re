@@ -158309,14 +158309,14 @@
       "original_role": "UpdateBattleAction113_40EFE0",
       "original_end_exclusive": "0x0040F093",
       "instruction_count": 53,
-      "status": "BPS01完整正常运动/缩放动作源纳管，155/156回收阶段单次借用指针实修；全生命周期/运行未验",
+      "status": "BPS01历史合同/分类保持；BKE01当前113两读取组与完整正常源纳管，完整生产/owner/SDK及运行未验",
       "sources": [
         {
           "path": "src/YobiRuntime.cpp",
           "symbols": [
             "UpdateBattleAction113_40EFE0"
           ],
-          "relationship": "动作113：先worldY发布offset44→405EA0移动→同一+10借用opponent X/扣graphicOffsetY的Y→worldY回存；原duration为+294的S32，除2/差平方/乘worldX减S32 field58加offset44后F32落位。fresh valueFF0的前值与duration比较、先增1，达到时用FE8/FEC的S32定位→439340(action)→fresh+10 MarkDeath→valueFF0清0。保原正常S32算术/浮点存储，未增加异常回绕/保护。"
+          "relationship": "动作113：先worldY发布offset44→405EA0移动→同一+10借用opponent X/扣graphicOffsetY的Y→worldY回存；原duration为+294的S32，除2/差平方/乘worldX减S32 field58加offset44后F32落位。fresh valueFF0的前值与duration比较、先增1，达到时用FE8/FEC的S32定位→439340(action)→fresh+10 MarkDeath→valueFF0清0。保原正常S32算术/浮点存储，未增加异常回绕/保护。；BKE01当前：入口worldY先载荷，Move后每轴独立fresh父再数值读算写；旧294样本/FF0及尾定位-Advance-fresh父MarkDeath保持。"
         }
       ],
       "evidence_documents": [
@@ -158324,10 +158324,15 @@
         "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-decision",
         "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-acceptance",
         "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state",
-        "doc/cg2d_battle_motion_scale_lifecycle_evidence.json"
+        "doc/cg2d_battle_motion_scale_lifecycle_evidence.json",
+        "doc/cg2d_battle_knockdown_exit_spec.md#battle-knockdown-exit-baseline",
+        "doc/cg2d_battle_knockdown_exit_spec.md#battle-knockdown-exit-decision",
+        "doc/cg2d_battle_knockdown_exit_spec.md#battle-knockdown-exit-acceptance",
+        "doc/cg2d_battle_knockdown_exit_spec.md#battle-knockdown-exit-source-state",
+        "doc/cg2d_battle_knockdown_exit_evidence.json"
       ],
-      "boundary": "动作113：先worldY发布offset44→405EA0移动→同一+10借用opponent X/扣graphicOffsetY的Y→worldY回存；原duration为+294的S32，除2/差平方/乘worldX减S32 field58加offset44后F32落位。fresh valueFF0的前值与duration比较、先增1，达到时用FE8/FEC的S32定位→439340(action)→fresh+10 MarkDeath→valueFF0清0。保原正常S32算术/浮点存储，未增加异常回绕/保护。 四动作完整339条1170B/六页、29实际call/34普通内部jump/四ret、四唯一普通入向同一404DB0父的15条邻窗和三个原F32常数，只当前完整正常源分支/字段/数值与调用阶段静态纳管。两源借用指针阶段修复，正常无介入值一致、不称并发/画面或生成机器bug；其余两动作正确源保持。全父/全部子依赖/其它状态生产及间接alias-owner寿命、SDK/生成机器ABI与实际x87精度、RNG/时钟/画面/运行未新验。__ftol沿已有CRT宿主正常S32转换批准边界，不扩大特殊值/故障模型；音频暂停与RPLAN.24保持。",
-      "verification_level": "四动作完整339条1170B/六页、29实际call/34普通内部jump/四ret、四唯一普通入向同一404DB0父的15条邻窗和三个原F32常数，只当前完整正常源分支/字段/数值与调用阶段静态纳管。两源借用指针阶段修复，正常无介入值一致、不称并发/画面或生成机器bug；其余两动作正确源保持。全父/全部子依赖/其它状态生产及间接alias-owner寿命、SDK/生成机器ABI与实际x87精度、RNG/时钟/画面/运行未新验。__ftol沿已有CRT宿主正常S32转换批准边界，不扩大特殊值/故障模型；音频暂停与RPLAN.24保持。",
+      "boundary": "动作113：先worldY发布offset44→405EA0移动→同一+10借用opponent X/扣graphicOffsetY的Y→worldY回存；原duration为+294的S32，除2/差平方/乘worldX减S32 field58加offset44后F32落位。fresh valueFF0的前值与duration比较、先增1，达到时用FE8/FEC的S32定位→439340(action)→fresh+10 MarkDeath→valueFF0清0。保原正常S32算术/浮点存储，未增加异常回绕/保护。 四动作完整339条1170B/六页、29实际call/34普通内部jump/四ret、四唯一普通入向同一404DB0父的15条邻窗和三个原F32常数，只当前完整正常源分支/字段/数值与调用阶段静态纳管。两源借用指针阶段修复，正常无介入值一致、不称并发/画面或生成机器bug；其余两动作正确源保持。全父/全部子依赖/其它状态生产及间接alias-owner寿命、SDK/生成机器ABI与实际x87精度、RNG/时钟/画面/运行未新验。__ftol沿已有CRT宿主正常S32转换批准边界，不扩大特殊值/故障模型；当前WAV-only范围与RPLAN.24保持。 BKE01动作109–113五完整正常源纳管；七BYTE、两HP零/三四值传送/一次事件/三Y-X/两运动参数/113两入口或父读取共二十组，十注释。三效果四值不同顺序与原事件、固定/动态HP、旧计数和无cap真循环、三次转向/数学与末fresh父标死保持。无新函数/API/保护/默认值；四新身份，已有1431/BPS01结构及equivalent保历史。完整全部生产/父-callee/机器ABI/alias/owner/SDK正常失败/容量/声音画面待，原门禁政策保持。",
+      "verification_level": "四动作完整339条1170B/六页、29实际call/34普通内部jump/四ret、四唯一普通入向同一404DB0父的15条邻窗和三个原F32常数，只当前完整正常源分支/字段/数值与调用阶段静态纳管。两源借用指针阶段修复，正常无介入值一致、不称并发/画面或生成机器bug；其余两动作正确源保持。全父/全部子依赖/其它状态生产及间接alias-owner寿命、SDK/生成机器ABI与实际x87精度、RNG/时钟/画面/运行未新验。__ftol沿已有CRT宿主正常S32转换批准边界，不扩大特殊值/故障模型；当前WAV-only范围与RPLAN.24保持。 BKE01当前两读取组按本轮五完整根静态核对，旧原证/结构保持。",
       "battle_motion_scale": {
         "spec_id": "BPS01",
         "evidence_refs": [
@@ -158351,6 +158356,22 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "battle_knockdown_exit": {
+        "step": "BKE01",
+        "source_snapshot": "cg2d-re-battle-knockdown-exit-20261010",
+        "original_instruction_count": 53,
+        "original_code_bytes": 179,
+        "original_page_count": 1,
+        "direct_call_count": 3,
+        "jump_count": 1,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 2,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
       }
     },
     {
@@ -203600,6 +203621,230 @@
         "inbound_reference_count": 1,
         "inbound_parent_count": 1,
         "source_patch_group_count": 14,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40e4b0",
+      "inventory_id": "F:0000E4B0",
+      "original_role": "独立NewCopy及设备后fresh完整flags；按25/110/107追加再四值4-flags-3-position；推进copy→source。",
+      "original_end_exclusive": "0x40e55f",
+      "instruction_count": 62,
+      "function_chunks": [
+        {
+          "start": "0x40e4b0",
+          "end_exclusive": "0x40e55f"
+        }
+      ],
+      "status": "BKE01五完整正常源/当前二十读取组纳管；四新身份、旧1431保持，完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction109_40E4B0",
+          "relationship": "独立NewCopy及设备后fresh完整flags；按25/110/107追加再四值4-flags-3-position；推进copy→source。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction109_40E4B0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_knockdown_exit_spec.md#battle-knockdown-exit-baseline",
+        "doc/cg2d_battle_knockdown_exit_spec.md#battle-knockdown-exit-decision",
+        "doc/cg2d_battle_knockdown_exit_spec.md#battle-knockdown-exit-acceptance",
+        "doc/cg2d_battle_knockdown_exit_spec.md#battle-knockdown-exit-source-state",
+        "doc/cg2d_battle_knockdown_exit_evidence.json"
+      ],
+      "boundary": "BKE01动作109–113五完整正常源纳管；七BYTE、两HP零/三四值传送/一次事件/三Y-X/两运动参数/113两入口或父读取共二十组，十注释。三效果四值不同顺序与原事件、固定/动态HP、旧计数和无cap真循环、三次转向/数学与末fresh父标死保持。无新函数/API/保护/默认值；四新身份，已有1431/BPS01结构及equivalent保历史。完整全部生产/父-callee/机器ABI/alias/owner/SDK正常失败/容量/声音画面待，原门禁政策保持。",
+      "verification_level": "五完整864条3025B/十五页、67E8/24直接callee/73跳六RET、五入向/一父/五11Bcase与20B实际表项、28B七F32及复用696B表；当前必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction109_40E4B0",
+        "parameters": "非拥有YobiAction* action",
+        "return": "void；原caller不消费尾EAX"
+      },
+      "battle_knockdown_exit": {
+        "step": "BKE01",
+        "source_snapshot": "cg2d-re-battle-knockdown-exit-20261010",
+        "original_instruction_count": 62,
+        "original_code_bytes": 175,
+        "original_page_count": 1,
+        "direct_call_count": 8,
+        "jump_count": 2,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40e560",
+      "inventory_id": "F:0000E560",
+      "original_role": "旧FF0/1038蓄力、两侧HP零按不同索引/源位置与encoded先查目标/逐项pub，五BYTE；完整80000/条件RNG与无cap事件循环/旧FD0保持。",
+      "original_end_exclusive": "0x40e970",
+      "instruction_count": 276,
+      "function_chunks": [
+        {
+          "start": "0x40e560",
+          "end_exclusive": "0x40e970"
+        }
+      ],
+      "status": "BKE01五完整正常源/当前二十读取组纳管；四新身份、旧1431保持，完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction110_40E560",
+          "relationship": "旧FF0/1038蓄力、两侧HP零按不同索引/源位置与encoded先查目标/逐项pub，五BYTE；完整80000/条件RNG与无cap事件循环/旧FD0保持。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction110_40E560"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_knockdown_exit_spec.md#battle-knockdown-exit-baseline",
+        "doc/cg2d_battle_knockdown_exit_spec.md#battle-knockdown-exit-decision",
+        "doc/cg2d_battle_knockdown_exit_spec.md#battle-knockdown-exit-acceptance",
+        "doc/cg2d_battle_knockdown_exit_spec.md#battle-knockdown-exit-source-state",
+        "doc/cg2d_battle_knockdown_exit_evidence.json"
+      ],
+      "boundary": "BKE01动作109–113五完整正常源纳管；七BYTE、两HP零/三四值传送/一次事件/三Y-X/两运动参数/113两入口或父读取共二十组，十注释。三效果四值不同顺序与原事件、固定/动态HP、旧计数和无cap真循环、三次转向/数学与末fresh父标死保持。无新函数/API/保护/默认值；四新身份，已有1431/BPS01结构及equivalent保历史。完整全部生产/父-callee/机器ABI/alias/owner/SDK正常失败/容量/声音画面待，原门禁政策保持。",
+      "verification_level": "五完整864条3025B/十五页、67E8/24直接callee/73跳六RET、五入向/一父/五11Bcase与20B实际表项、28B七F32及复用696B表；当前必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction110_40E560",
+        "parameters": "非拥有YobiAction* action",
+        "return": "void；原caller不消费尾EAX"
+      },
+      "battle_knockdown_exit": {
+        "step": "BKE01",
+        "source_snapshot": "cg2d-re-battle-knockdown-exit-20261010",
+        "original_instruction_count": 276,
+        "original_code_bytes": 1040,
+        "original_page_count": 5,
+        "direct_call_count": 24,
+        "jump_count": 24,
+        "return_count": 2,
+        "inbound_reference_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 7,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40e970",
+      "inventory_id": "F:0000E970",
+      "original_role": "入口FDC持样构造14/28阈值，两次fresh BYTE/声后22槽活动计数/状态发布/40次散射，原角度/四边界及末Move/Play S32。",
+      "original_end_exclusive": "0x40eafb",
+      "instruction_count": 108,
+      "function_chunks": [
+        {
+          "start": "0x40e970",
+          "end_exclusive": "0x40eafb"
+        }
+      ],
+      "status": "BKE01五完整正常源/当前二十读取组纳管；四新身份、旧1431保持，完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction111_40E970",
+          "relationship": "入口FDC持样构造14/28阈值，两次fresh BYTE/声后22槽活动计数/状态发布/40次散射，原角度/四边界及末Move/Play S32。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction111_40E970"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_knockdown_exit_spec.md#battle-knockdown-exit-baseline",
+        "doc/cg2d_battle_knockdown_exit_spec.md#battle-knockdown-exit-decision",
+        "doc/cg2d_battle_knockdown_exit_spec.md#battle-knockdown-exit-acceptance",
+        "doc/cg2d_battle_knockdown_exit_spec.md#battle-knockdown-exit-source-state",
+        "doc/cg2d_battle_knockdown_exit_evidence.json"
+      ],
+      "boundary": "BKE01动作109–113五完整正常源纳管；七BYTE、两HP零/三四值传送/一次事件/三Y-X/两运动参数/113两入口或父读取共二十组，十注释。三效果四值不同顺序与原事件、固定/动态HP、旧计数和无cap真循环、三次转向/数学与末fresh父标死保持。无新函数/API/保护/默认值；四新身份，已有1431/BPS01结构及equivalent保历史。完整全部生产/父-callee/机器ABI/alias/owner/SDK正常失败/容量/声音画面待，原门禁政策保持。",
+      "verification_level": "五完整864条3025B/十五页、67E8/24直接callee/73跳六RET、五入向/一父/五11Bcase与20B实际表项、28B七F32及复用696B表；当前必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction111_40E970",
+        "parameters": "非拥有YobiAction* action",
+        "return": "S32，末PlayFrame返回"
+      },
+      "battle_knockdown_exit": {
+        "step": "BKE01",
+        "source_snapshot": "cg2d-re-battle-knockdown-exit-20261010",
+        "original_instruction_count": 108,
+        "original_code_bytes": 395,
+        "original_page_count": 2,
+        "direct_call_count": 6,
+        "jump_count": 13,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 2,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40eb00",
+      "inventory_id": "F:0000EB00",
+      "original_role": "双独立copy/同名记录/三列表第三列图号，一事件持样、三Y-X/两运动读序；单Append flags先4，循环4先flags，原条件追加和末下一记录门禁。",
+      "original_end_exclusive": "0x40efd4",
+      "instruction_count": 365,
+      "function_chunks": [
+        {
+          "start": "0x40eb00",
+          "end_exclusive": "0x40efd4"
+        }
+      ],
+      "status": "BKE01五完整正常源/当前二十读取组纳管；四新身份、旧1431保持，完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction112_40EB00",
+          "relationship": "双独立copy/同名记录/三列表第三列图号，一事件持样、三Y-X/两运动读序；单Append flags先4，循环4先flags，原条件追加和末下一记录门禁。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction112_40EB00"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_knockdown_exit_spec.md#battle-knockdown-exit-baseline",
+        "doc/cg2d_battle_knockdown_exit_spec.md#battle-knockdown-exit-decision",
+        "doc/cg2d_battle_knockdown_exit_spec.md#battle-knockdown-exit-acceptance",
+        "doc/cg2d_battle_knockdown_exit_spec.md#battle-knockdown-exit-source-state",
+        "doc/cg2d_battle_knockdown_exit_evidence.json"
+      ],
+      "boundary": "BKE01动作109–113五完整正常源纳管；七BYTE、两HP零/三四值传送/一次事件/三Y-X/两运动参数/113两入口或父读取共二十组，十注释。三效果四值不同顺序与原事件、固定/动态HP、旧计数和无cap真循环、三次转向/数学与末fresh父标死保持。无新函数/API/保护/默认值；四新身份，已有1431/BPS01结构及equivalent保历史。完整全部生产/父-callee/机器ABI/alias/owner/SDK正常失败/容量/声音画面待，原门禁政策保持。",
+      "verification_level": "五完整864条3025B/十五页、67E8/24直接callee/73跳六RET、五入向/一父/五11Bcase与20B实际表项、28B七F32及复用696B表；当前必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction112_40EB00",
+        "parameters": "非拥有YobiAction* action",
+        "return": "void；原caller不消费尾EAX"
+      },
+      "battle_knockdown_exit": {
+        "step": "BKE01",
+        "source_snapshot": "cg2d-re-battle-knockdown-exit-20261010",
+        "original_instruction_count": 365,
+        "original_code_bytes": 1236,
+        "original_page_count": 6,
+        "direct_call_count": 26,
+        "jump_count": 33,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 8,
         "new_functions": 0,
         "full_lifecycle_closed": false,
         "runtime_verified": false

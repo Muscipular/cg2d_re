@@ -14475,6 +14475,7 @@ std::int32_t Sub_4AB710(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// SDM01：原4ABB20完整233条；存/取原上限、AL钳回、转义后字段/Y-X与发送后fresh金额发布保，真实返回0。
 std::int32_t Sub_4ABB20(const std::int32_t index, const std::int32_t state)
 {
     // 原未识别kind/side或非30/31元素走未初始化局部路径，不补默认值。

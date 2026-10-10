@@ -1576,7 +1576,7 @@ std::int32_t Sub_4AA3D0(std::int32_t index, std::int32_t state); // 外部存放
 std::int32_t Sub_4AA9C0(std::int32_t index, std::int32_t state); // 宠物上一行。
 std::int32_t Sub_4AAA70(std::int32_t index, std::int32_t state); // 宠物下一行。
 std::int32_t Sub_4AAB20(std::int32_t index, std::int32_t state); // 两侧宠物滚轮。
-std::int32_t Sub_4ABB20(std::int32_t index, std::int32_t state); // 存取金额输入及请求。
+std::int32_t Sub_4ABB20(std::int32_t index, std::int32_t state); // SDM01：存取原上限/AL确认、发送后fresh金额再清槽/双文本，返回0。
 std::int32_t Sub_4AAEC0(std::int32_t index, std::int32_t state); // 自有宠物存放行。
 std::int32_t Sub_4AB710(std::int32_t index, std::int32_t state); // 外部宠物提领行。
 std::int32_t Sub_4B4070(

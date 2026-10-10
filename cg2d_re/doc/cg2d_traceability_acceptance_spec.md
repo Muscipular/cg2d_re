@@ -2712,3 +2712,9 @@ IDA数组/结构起点xref不代字段指针；原型实际11callback与旧范�
 [TQN01](cg2d_trade_quantity_panel_spec.md#trade-quantity-source-state)旧949格式历史追加共享交易面板4B1260完整524条1693B/九页，31E8十一目标/一个间接业务callback、41跳一RET。五逻辑组六处低宽坐标/滚动标志、滚动值先元素与前一滚动框坐标取样对齐；原数值确认结果、callback哨兵适配、四格式及S32 0/2返回保持。一处置、INPUT/UI/RENDER各一成员，三限定S零I八open；完整共享生产消费/业务callback、owner/ABI及交易运行待。
 
 语义2323=2275F关联+48有界代码及关联2385/3680=64.81%保持；处置1780/证据1580，INPUT151/UIRUNTIME192/RENDER109，其它保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
+
+## 2026-10-11 SDM01：存取金额依赖合同
+
+[SDM01](cg2d_storage_amount_exchange_spec.md#storage-amount-source-state)补齐存取金额4ABB20及xD发送512620两个完整原根310条1075B/六页；两正确正文保持，仅四合同注释。原存/取上限、AL确认和钳回、转义后字段/Y-X发送及发送后fresh金额记录/清槽/双文本有据，xD五整数+文本各保六次容量和输出取样。旧894格式历史追加、一新F两adapted、三限定S零I八open；69CALL/58父仅局部来源，完整金额/协议生产消费与owner、ABI及互通运行待。
+
+语义2324=2276F关联+48有界代码，处置1782/证据1583；INPUT152/UIRUNTIME193/NETWORK99，RENDER109保持。文档关联预期2386/3680=64.84%仅关联率。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。

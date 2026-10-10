@@ -262,3 +262,7 @@ BuildProtocolCommand只替换原宿主_itoa调用，继续16进制、原校验�
 ## 2026-10-11 TQN01：交易面板滚动与数值结果
 
 [TQN01](cg2d_trade_quantity_panel_spec.md#trade-quantity-source-state)旧949格式历史追加共享交易面板4B1260完整524条1693B/九页，31E8十一目标/一个间接业务callback、41跳一RET。五逻辑组六处低宽坐标/滚动标志、滚动值先元素与前一滚动框坐标取样对齐；原数值确认结果、callback哨兵适配、四格式及S32 0/2返回保持。一处置、INPUT/UI/RENDER各一成员，三限定S零I八open；完整共享生产消费/业务callback、owner/ABI及交易运行待。
+
+## 2026-10-11 SDM01：存取金额确认与文本
+
+[SDM01](cg2d_storage_amount_exchange_spec.md#storage-amount-source-state)补齐存取金额4ABB20及xD发送512620两个完整原根310条1075B/六页；两正确正文保持，仅四合同注释。原存/取上限、AL确认和钳回、转义后字段/Y-X发送及发送后fresh金额记录/清槽/双文本有据，xD五整数+文本各保六次容量和输出取样。旧894格式历史追加、一新F两adapted、三限定S零I八open；69CALL/58父仅局部来源，完整金额/协议生产消费与owner、ABI及互通运行待。

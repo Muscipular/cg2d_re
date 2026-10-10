@@ -3931,6 +3931,7 @@ std::int32_t Sub_5125B0(
 }
 
 // 原 [0x512620,0x512717)：六轮分别采容量、格式化后重读共享输出缓冲。
+// SDM01：原512620完整77条；xD五S32及文本各先容量再token/fresh输出，当前原字段/LF明文及S32返回保。
 std::int32_t Sub_512620(
     const std::uintptr_t socket,
     const std::int32_t first,

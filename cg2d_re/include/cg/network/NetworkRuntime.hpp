@@ -435,7 +435,7 @@ std::int32_t Sub_512620(
     std::int32_t third,
     std::int32_t fourth,
     std::int32_t fifth,
-    const char* text);
+    const char* text); // SDM01：xD五整数+文本，六容量/输出独立取样，真实S32结果透传。
 
 // 原 [0x510F50,0x510F98)：构造fS、追加一个整数，技能回复使用共享连接调用。
 std::int32_t Sub_510F50(std::uintptr_t socket, std::int32_t value);

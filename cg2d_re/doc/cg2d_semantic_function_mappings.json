@@ -105000,7 +105000,7 @@
     {
       "original_entry": "0x4ABB20",
       "inventory_id": "F:000ABB20",
-      "status": "既有仓库存取款请求/金额显示真实格式依赖已接；完整输入/生产/父路由和运行未据本步验收",
+      "status": "既有仓库存取款请求/金额显示真实格式依赖已接；完整输入/生产/父路由和运行未据本步验收；SDM01完整233条存取金额父根纳管，正确正文/原上限和读取发布及格式历史保持；全互通/owner/ABI/运行待",
       "original_end_exclusive": "0x4ABE5C",
       "instruction_count": 233,
       "sources": [
@@ -105010,13 +105010,32 @@
             "Sub_4ABB20"
           ],
           "relationship": "仅五现格式callee承接六原点接真实53B304，其余正文不变"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4ABB20"
+          ],
+          "relationship": "SDM01完整233条存取金额原根，正确正文/格式历史保持，仅合同注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4ABB20"
+          ],
+          "relationship": "SDM01既有S32声明及真实返回0保持，只合同注释"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/window_41.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_storage_amount_exchange_spec.md#storage-amount-baseline",
+        "doc/cg2d_storage_amount_exchange_spec.md#storage-amount-decision",
+        "doc/cg2d_storage_amount_exchange_spec.md#storage-amount-acceptance",
+        "doc/cg2d_storage_amount_exchange_spec.md#storage-amount-source-state",
+        "doc/cg2d_storage_amount_exchange_evidence.json"
       ],
-      "boundary": "原kind/side/index最大值计算/键盘条件/474550 result门槛与未初始化maximum/result路径保持，不补默认或更改原限制。result位2且index30/31才S32 element.state位模式解释value，G|%d/D|%d两原点共一现表达式；384B未清buffer，escaped同源+128/转义容量255，窗口41 S32 userState/value14→原Y/X→512620按钮0后重取window/confirmed state与side写lastAmount，再清原element.state并重取window。四%9d原点与四现表达式各自承接CB1DF8两个11B区域：存入当前基址/last+11，取出当前+11/last基址，side只在第一格式后重读。共享owner/字段宽度/状态发布/原返回0及全部正文不动，既有未决与非法路径不据本步验收。",
+      "boundary": "原kind/side/index最大值计算/键盘条件/474550 result门槛与未初始化maximum/result路径保持，不补默认或更改原限制。result位2且index30/31才S32 element.state位模式解释value，G|%d/D|%d两原点共一现表达式；384B未清buffer，escaped同源+128/转义容量255，窗口41 S32 userState/value14→原Y/X→512620按钮0后重取window/confirmed state与side写lastAmount，再清原element.state并重取window。四%9d原点与四现表达式各自承接CB1DF8两个11B区域：存入当前基址/last+11，取出当前+11/last基址，side只在第一格式后重读。共享owner/字段宽度/状态发布/原返回0及全部正文不动，既有未决与非法路径不据本步验收。；SDM01仅存取金额4ABB20完整233条828B/四页与真实xD发送512620完整77条247B/两页；合310条1075B/六页，直接调用/跳转/返回按完整原证统计。两现有正文正确全部保持，仅两个定义/两个声明四注释。4ABB20存index30：kind0/side0-1按实际World poolGoldLimit/2减同组FBF4金额，kind1用1000000减组额，再按S32钳回当前玩家gold；取index31：goldLimit-gold再钳回同组金额。存款index30未识别kind/side或非30/31原未初始化局部路径不补默认/拒绝，不做异常模拟。键盘identity==CA0018才flags2，调用474550只AL结果；bit1仍原S32钳回元素最大，bit2按当前元素金额G|%d/D|%d写384B未清buffer→+128/255转义，转义后fresh window41 userStateW32/value14W32→玩家Y后X真实CryptInt→fresh当前socket发512620；发送后fresh currentWindow取对应state→fresh side→同源D67B68记录（不判发送成功），再同window的fresh elements清对应值0→fresh currentWindow→双%9d，index30先当前0后last+11，index31先当前+11后last0，22B显示区/两lastS32及同组原地址关系保，真实S32返回0。41原38元素表只有slots30/31的+28 callback绑本根，一个data引用块含两匹配槽，无CALL不伪造普通入向。512620保原命令xD/五S32字段first..fifth/一text六项，依次每项当前bufferLengthW32位模式S32→真实integer/textToken→fresh buffer T* Append，六capacity/六输出样本分开，不缓存跨调用长度或地址，末fresh buffer+传入socket→真实发送S32透传。原token编码/旧W16外壳只历史对照，当前沿已批准本机服务端原命令字段/LF明文，不恢复加密或自创协议。69入CALL/58父只每点真实E8及四有限后邻来源，含本父4ABCF4/4ABD8C，不代全58父消费/ABI；RET后的align或其它父不纳本根。旧894所有格式历史保持追加，一新F/两adapted，INPUT/UI各一成员、NETWORK两，三限定S零I八open。全部两组金额生产/实际请求回复消费、共享输入窗口和协议buf/alias-owner寿命、正常结果与SDK/生成机器读取/ABI/完整网络互通和存取画面声效运行待。所有MSVC/WAV-only/明文决议及完整门禁保持，无新API/helper/类型/字段/owner、索引/空/容量保护/下限、补零/默认/回滚或异常溢出模型，整体未完成。",
       "original_incoming": [],
       "original_data_references": [
         {
@@ -105144,7 +105163,44 @@
           "relationship": "index31格式后重读side，原lastAmount S32 %9d到CB1DF8基址"
         }
       ],
-      "verification_level": "原233统计，只读103新格式/参数/转义和字段重取/消费者邻窗，余130/已过前段和核心不重验；六原点/五现callee分组/三新原格式字节/S32/384B同源偏移128/四金额取样和发送后状态次序/整份源限定静态核对，一data/普通call0不推实际绑定；未构建或执行"
+      "verification_level": "原233统计，只读103新格式/参数/转义和字段重取/消费者邻窗，余130/已过前段和核心不重验；六原点/五现callee分组/三新原格式字节/S32/384B同源偏移128/四金额取样和发送后状态次序/整份源限定静态核对，一data/普通call0不推实际绑定；未构建或执行；pass，两连续完整根310条1075B/六页、30E8十目标/24跳三RET；69CALL/58父有限后邻、xD原字节/两callback槽有据；两正确正文/原上限与AL钳回、转义后字段-Y-X及发送后fresh金额/side记录和清槽、六capacity/token/fresh输出取样保；四整源只四注释、三类型九提供者/两声明与38元素表/两已有根保持；所有外父/生产消费/alias-owner与SDK、生成读取/ABI/完整互通运行待",
+      "storage_amount_exchange": {
+        "step": "SDM01",
+        "source_snapshot": "[#] 补齐存取金额与文本请求合同",
+        "original_entry": "0x4abb20",
+        "original_end_exclusive": "0x4abe5c",
+        "instruction_count": 233,
+        "code_bytes": 828,
+        "page_count": 4,
+        "direct_calls": 16,
+        "direct_call_targets": [
+          4202144,
+          4670800,
+          5318176,
+          5427920,
+          5485316
+        ],
+        "jumps": 24,
+        "returns": 2,
+        "original_incoming_references": [
+          {
+            "from": 5706080,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          }
+        ],
+        "native_signature": "std::int32_t Sub_4ABB20(const std::int32_t index, const std::int32_t state)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原完整S32返回0，两个data槽只绑定/全动态消费与ABI待",
+        "previous_format_history_kept": true
+      }
     },
     {
       "original_entry": "0x474FB0",
@@ -235180,6 +235236,2492 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "result_boundary": "原AL0/1/3结果具名，不外推高EAX；四CALL只局部来源，两外父全部消费/机器ABI待"
+      }
+    },
+    {
+      "original_entry": "0x512620",
+      "inventory_id": "F:00112620",
+      "original_role": "xD五整数与文本请求/六容量-token-输出及S32返回",
+      "original_end_exclusive": "0x512717",
+      "instruction_count": 77,
+      "function_chunks": [
+        {
+          "start": "0x512620",
+          "end_exclusive": "0x512717"
+        }
+      ],
+      "status": "SDM01完整77条xD请求根纳管，正确正文/当前原命令字段LF明文承接保；限定S，全生产消费/owner/ABI/互通运行待",
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_512620"
+          ],
+          "relationship": "SDM01完整xD提供者，正确六字段阶段及S32正文保持，仅合同注释"
+        },
+        {
+          "path": "include/cg/network/NetworkRuntime.hpp",
+          "symbols": [
+            "Sub_512620"
+          ],
+          "relationship": "SDM01既有原生socket/参数及S32声明保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_storage_amount_exchange_spec.md#storage-amount-baseline",
+        "doc/cg2d_storage_amount_exchange_spec.md#storage-amount-decision",
+        "doc/cg2d_storage_amount_exchange_spec.md#storage-amount-acceptance",
+        "doc/cg2d_storage_amount_exchange_spec.md#storage-amount-source-state",
+        "doc/cg2d_storage_amount_exchange_evidence.json"
+      ],
+      "boundary": "SDM01仅存取金额4ABB20完整233条828B/四页与真实xD发送512620完整77条247B/两页；合310条1075B/六页，直接调用/跳转/返回按完整原证统计。两现有正文正确全部保持，仅两个定义/两个声明四注释。4ABB20存index30：kind0/side0-1按实际World poolGoldLimit/2减同组FBF4金额，kind1用1000000减组额，再按S32钳回当前玩家gold；取index31：goldLimit-gold再钳回同组金额。存款index30未识别kind/side或非30/31原未初始化局部路径不补默认/拒绝，不做异常模拟。键盘identity==CA0018才flags2，调用474550只AL结果；bit1仍原S32钳回元素最大，bit2按当前元素金额G|%d/D|%d写384B未清buffer→+128/255转义，转义后fresh window41 userStateW32/value14W32→玩家Y后X真实CryptInt→fresh当前socket发512620；发送后fresh currentWindow取对应state→fresh side→同源D67B68记录（不判发送成功），再同window的fresh elements清对应值0→fresh currentWindow→双%9d，index30先当前0后last+11，index31先当前+11后last0，22B显示区/两lastS32及同组原地址关系保，真实S32返回0。41原38元素表只有slots30/31的+28 callback绑本根，一个data引用块含两匹配槽，无CALL不伪造普通入向。512620保原命令xD/五S32字段first..fifth/一text六项，依次每项当前bufferLengthW32位模式S32→真实integer/textToken→fresh buffer T* Append，六capacity/六输出样本分开，不缓存跨调用长度或地址，末fresh buffer+传入socket→真实发送S32透传。原token编码/旧W16外壳只历史对照，当前沿已批准本机服务端原命令字段/LF明文，不恢复加密或自创协议。69入CALL/58父只每点真实E8及四有限后邻来源，含本父4ABCF4/4ABD8C，不代全58父消费/ABI；RET后的align或其它父不纳本根。旧894所有格式历史保持追加，一新F/两adapted，INPUT/UI各一成员、NETWORK两，三限定S零I八open。全部两组金额生产/实际请求回复消费、共享输入窗口和协议buf/alias-owner寿命、正常结果与SDK/生成机器读取/ABI/完整网络互通和存取画面声效运行待。所有MSVC/WAV-only/明文决议及完整门禁保持，无新API/helper/类型/字段/owner、索引/空/容量保护/下限、补零/默认/回滚或异常溢出模型，整体未完成。",
+      "verification_level": "pass，两连续完整根310条1075B/六页、30E8十目标/24跳三RET；69CALL/58父有限后邻、xD原字节/两callback槽有据；两正确正文/原上限与AL钳回、转义后字段-Y-X及发送后fresh金额/side记录和清槽、六capacity/token/fresh输出取样保；四整源只四注释、三类型九提供者/两声明与38元素表/两已有根保持；所有外父/生产消费/alias-owner与SDK、生成读取/ABI/完整互通运行待",
+      "original_incoming": [
+        {
+          "ea": 4753092,
+          "parent": 4752800,
+          "bytes": "e8579f0800",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4753097,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 4753100,
+              "bytes": "81c480010000",
+              "asm": "add     esp, 180h"
+            },
+            {
+              "ea": 4753106,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4753107,
+              "bytes": "90909090909090909090909090",
+              "asm": "align 10h"
+            }
+          ]
+        },
+        {
+          "ea": 4760128,
+          "parent": 4759296,
+          "bytes": "e8db830800",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4760133,
+              "bytes": "a19446cf00",
+              "asm": "mov     eax, gCurrentWindow"
+            },
+            {
+              "ea": 4760138,
+              "bytes": "c605d440cc0000",
+              "asm": "mov     byte_CC40D4, 0"
+            },
+            {
+              "ea": 4760145,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 4760148,
+              "bytes": "8b482c",
+              "asm": "mov     ecx, [eax+2Ch]"
+            }
+          ]
+        },
+        {
+          "ea": 4766787,
+          "parent": 4766608,
+          "bytes": "e8d8690800",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4766792,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 4766795,
+              "bytes": "81c480010000",
+              "asm": "add     esp, 180h"
+            },
+            {
+              "ea": 4766801,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4766802,
+              "bytes": "9090909090909090909090909090",
+              "asm": "align 10h"
+            }
+          ]
+        },
+        {
+          "ea": 4840503,
+          "parent": 4839984,
+          "bytes": "e8e4490700",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4840508,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4840513,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4840518,
+              "bytes": "6a4f",
+              "asm": "push    4Fh ; 'O'"
+            },
+            {
+              "ea": 4840520,
+              "bytes": "c70500185800ffffffff",
+              "asm": "mov     dword_581800, 0FFFFFFFFh"
+            }
+          ]
+        },
+        {
+          "ea": 4840662,
+          "parent": 4839984,
+          "bytes": "e845490700",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4840667,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4840672,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4840677,
+              "bytes": "6a4f",
+              "asm": "push    4Fh ; 'O'"
+            },
+            {
+              "ea": 4840679,
+              "bytes": "c70500185800ffffffff",
+              "asm": "mov     dword_581800, 0FFFFFFFFh"
+            }
+          ]
+        },
+        {
+          "ea": 4840824,
+          "parent": 4839984,
+          "bytes": "e8a3480700",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4840829,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4840834,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4840839,
+              "bytes": "6a4f",
+              "asm": "push    4Fh ; 'O'"
+            },
+            {
+              "ea": 4840841,
+              "bytes": "c70500185800ffffffff",
+              "asm": "mov     dword_581800, 0FFFFFFFFh"
+            }
+          ]
+        },
+        {
+          "ea": 4849964,
+          "parent": 4849856,
+          "bytes": "e8ef240700",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4849969,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 4849972,
+              "bytes": "83c420",
+              "asm": "add     esp, 20h"
+            },
+            {
+              "ea": 4849975,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4849976,
+              "bytes": "9090909090909090",
+              "asm": "align 10h"
+            }
+          ]
+        },
+        {
+          "ea": 4850412,
+          "parent": 4850304,
+          "bytes": "e82f230700",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4850417,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 4850420,
+              "bytes": "83c420",
+              "asm": "add     esp, 20h"
+            },
+            {
+              "ea": 4850423,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4850424,
+              "bytes": "9090909090909090",
+              "asm": "align 10h"
+            }
+          ]
+        },
+        {
+          "ea": 4850828,
+          "parent": 4850720,
+          "bytes": "e88f210700",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4850833,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 4850836,
+              "bytes": "83c420",
+              "asm": "add     esp, 20h"
+            },
+            {
+              "ea": 4850839,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4850840,
+              "bytes": "9090909090909090",
+              "asm": "align 10h"
+            }
+          ]
+        },
+        {
+          "ea": 4851238,
+          "parent": 4851136,
+          "bytes": "e8f51f0700",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4851243,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 4851246,
+              "bytes": "83c420",
+              "asm": "add     esp, 20h"
+            },
+            {
+              "ea": 4851249,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4851250,
+              "bytes": "9090909090909090909090909090",
+              "asm": "align 10h"
+            }
+          ]
+        },
+        {
+          "ea": 4851578,
+          "parent": 4851456,
+          "bytes": "e8a11e0700",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4851583,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 4851586,
+              "bytes": "5f",
+              "asm": "pop     edi"
+            },
+            {
+              "ea": 4851587,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            },
+            {
+              "ea": 4851588,
+              "bytes": "83c420",
+              "asm": "add     esp, 20h"
+            }
+          ]
+        },
+        {
+          "ea": 4883530,
+          "parent": 4883408,
+          "bytes": "e8d1a10600",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4883535,
+              "bytes": "a184b7c900",
+              "asm": "mov     eax, gWindowState.window+0DC8h"
+            },
+            {
+              "ea": 4883540,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 4883543,
+              "bytes": "85c0",
+              "asm": "test    eax, eax"
+            },
+            {
+              "ea": 4883545,
+              "bytes": "7410",
+              "asm": "jz      short loc_4A846B"
+            }
+          ]
+        },
+        {
+          "ea": 4897120,
+          "parent": 4896528,
+          "bytes": "e8bb6c0600",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4897125,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 4897128,
+              "bytes": "eb2d",
+              "asm": "jmp     short loc_4AB997"
+            },
+            {
+              "ea": 4897130,
+              "bytes": "85c9",
+              "asm": "test    ecx, ecx"
+            },
+            {
+              "ea": 4897132,
+              "bytes": "7431",
+              "asm": "jz      short loc_4AB99F"
+            }
+          ]
+        },
+        {
+          "ea": 4898036,
+          "parent": 4897568,
+          "bytes": "e827690600",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4898041,
+              "bytes": "8b0d9446cf00",
+              "asm": "mov     ecx, gCurrentWindow"
+            },
+            {
+              "ea": 4898047,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 4898050,
+              "bytes": "8b412c",
+              "asm": "mov     eax, [ecx+2Ch]"
+            },
+            {
+              "ea": 4898053,
+              "bytes": "8b903c040000",
+              "asm": "mov     edx, [eax+43Ch]"
+            }
+          ]
+        },
+        {
+          "ea": 4898188,
+          "parent": 4897568,
+          "bytes": "e88f680600",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4898193,
+              "bytes": "8b0d9446cf00",
+              "asm": "mov     ecx, gCurrentWindow"
+            },
+            {
+              "ea": 4898199,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 4898202,
+              "bytes": "8b512c",
+              "asm": "mov     edx, [ecx+2Ch]"
+            },
+            {
+              "ea": 4898205,
+              "bytes": "8b8260040000",
+              "asm": "mov     eax, [edx+460h]"
+            }
+          ]
+        },
+        {
+          "ea": 4904933,
+          "parent": 4904832,
+          "bytes": "e8364e0600",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4904938,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 4904941,
+              "bytes": "c70500185800ffffffff",
+              "asm": "mov     dword_581800, 0FFFFFFFFh"
+            },
+            {
+              "ea": 4904951,
+              "bytes": "b801000000",
+              "asm": "mov     eax, 1"
+            },
+            {
+              "ea": 4904956,
+              "bytes": "c3",
+              "asm": "retn"
+            }
+          ]
+        },
+        {
+          "ea": 4907252,
+          "parent": 4906816,
+          "bytes": "e827450600",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4907257,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4907262,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4907267,
+              "bytes": "6a33",
+              "asm": "push    33h ; '3'"
+            },
+            {
+              "ea": 4907269,
+              "bytes": "e846e30700",
+              "asm": "call    World__PlaySe"
+            }
+          ]
+        },
+        {
+          "ea": 4907534,
+          "parent": 4907376,
+          "bytes": "e80d440600",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4907539,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4907544,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4907549,
+              "bytes": "6a33",
+              "asm": "push    33h ; '3'"
+            },
+            {
+              "ea": 4907551,
+              "bytes": "e82ce20700",
+              "asm": "call    World__PlaySe"
+            }
+          ]
+        },
+        {
+          "ea": 4939376,
+          "parent": 4938800,
+          "bytes": "e8abc70500",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4939381,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 4939384,
+              "bytes": "e8a30d0000",
+              "asm": "call    sub_4B6C20"
+            },
+            {
+              "ea": 4939389,
+              "bytes": "be01000000",
+              "asm": "mov     esi, 1"
+            },
+            {
+              "ea": 4939394,
+              "bytes": "5f",
+              "asm": "pop     edi"
+            }
+          ]
+        },
+        {
+          "ea": 4939638,
+          "parent": 4938800,
+          "bytes": "e8a5c60500",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4939643,
+              "bytes": "8b0d18065800",
+              "asm": "mov     ecx, off_580618"
+            },
+            {
+              "ea": 4939649,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 4939652,
+              "bytes": "c60100",
+              "asm": "mov     byte ptr [ecx], 0"
+            },
+            {
+              "ea": 4939655,
+              "bytes": "e8940c0000",
+              "asm": "call    sub_4B6C20"
+            }
+          ]
+        },
+        {
+          "ea": 4939993,
+          "parent": 4938800,
+          "bytes": "e842c50500",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4939998,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 4940001,
+              "bytes": "e83a0b0000",
+              "asm": "call    sub_4B6C20"
+            },
+            {
+              "ea": 4940006,
+              "bytes": "be01000000",
+              "asm": "mov     esi, 1"
+            },
+            {
+              "ea": 4940011,
+              "bytes": "f6c308",
+              "asm": "test    bl, 8"
+            }
+          ]
+        },
+        {
+          "ea": 4940209,
+          "parent": 4938800,
+          "bytes": "e86ac40500",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4940214,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 4940217,
+              "bytes": "e8620a0000",
+              "asm": "call    sub_4B6C20"
+            },
+            {
+              "ea": 4940222,
+              "bytes": "be01000000",
+              "asm": "mov     esi, 1"
+            },
+            {
+              "ea": 4940227,
+              "bytes": "f6c308",
+              "asm": "test    bl, 8"
+            }
+          ]
+        },
+        {
+          "ea": 4955901,
+          "parent": 4954896,
+          "bytes": "e81e870500",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4955906,
+              "bytes": "a19446cf00",
+              "asm": "mov     eax, gCurrentWindow"
+            },
+            {
+              "ea": 4955911,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 4955914,
+              "bytes": "8b08",
+              "asm": "mov     ecx, [eax]"
+            },
+            {
+              "ea": 4955916,
+              "bytes": "80cd80",
+              "asm": "or      ch, 80h"
+            }
+          ]
+        },
+        {
+          "ea": 4958691,
+          "parent": 4958544,
+          "bytes": "e8387c0500",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4958696,
+              "bytes": "a19446cf00",
+              "asm": "mov     eax, gCurrentWindow"
+            },
+            {
+              "ea": 4958701,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4958706,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4958711,
+              "bytes": "6a39",
+              "asm": "push    39h ; '9'"
+            }
+          ]
+        },
+        {
+          "ea": 4979809,
+          "parent": 4979648,
+          "bytes": "e8ba290500",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4979814,
+              "bytes": "a19446cf00",
+              "asm": "mov     eax, gCurrentWindow"
+            },
+            {
+              "ea": 4979819,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4979824,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4979829,
+              "bytes": "6a4f",
+              "asm": "push    4Fh ; 'O'"
+            }
+          ]
+        },
+        {
+          "ea": 4980116,
+          "parent": 4979888,
+          "bytes": "e887280500",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4980121,
+              "bytes": "a19446cf00",
+              "asm": "mov     eax, gCurrentWindow"
+            },
+            {
+              "ea": 4980126,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 4980129,
+              "bytes": "8b08",
+              "asm": "mov     ecx, [eax]"
+            },
+            {
+              "ea": 4980131,
+              "bytes": "80cd80",
+              "asm": "or      ch, 80h"
+            }
+          ]
+        },
+        {
+          "ea": 4980227,
+          "parent": 4979888,
+          "bytes": "e818280500",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4980232,
+              "bytes": "a19446cf00",
+              "asm": "mov     eax, gCurrentWindow"
+            },
+            {
+              "ea": 4980237,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 4980240,
+              "bytes": "8b08",
+              "asm": "mov     ecx, [eax]"
+            },
+            {
+              "ea": 4980242,
+              "bytes": "80cd80",
+              "asm": "or      ch, 80h"
+            }
+          ]
+        },
+        {
+          "ea": 4980307,
+          "parent": 4979888,
+          "bytes": "e8c8270500",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4980312,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 4980315,
+              "bytes": "c70500185800feffffff",
+              "asm": "mov     dword_581800, 0FFFFFFFEh"
+            },
+            {
+              "ea": 4980325,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h; jumptable 004BFD48 default case, cases 5-11"
+            },
+            {
+              "ea": 4980330,
+              "bytes": "be01000000",
+              "asm": "mov     esi, 1"
+            }
+          ]
+        },
+        {
+          "ea": 4983276,
+          "parent": 4983056,
+          "bytes": "e82f1c0500",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4983281,
+              "bytes": "a19446cf00",
+              "asm": "mov     eax, gCurrentWindow"
+            },
+            {
+              "ea": 4983286,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4983291,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4983296,
+              "bytes": "6a33",
+              "asm": "push    33h ; '3'"
+            }
+          ]
+        },
+        {
+          "ea": 4983695,
+          "parent": 4983376,
+          "bytes": "e88c1a0500",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4983700,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4983705,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4983710,
+              "bytes": "6a33",
+              "asm": "push    33h ; '3'"
+            },
+            {
+              "ea": 4983712,
+              "bytes": "c70500185800feffffff",
+              "asm": "mov     dword_581800, 0FFFFFFFEh"
+            }
+          ]
+        },
+        {
+          "ea": 4984432,
+          "parent": 4983984,
+          "bytes": "e8ab170500",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4984437,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4984442,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4984447,
+              "bytes": "6a39",
+              "asm": "push    39h ; '9'"
+            },
+            {
+              "ea": 4984449,
+              "bytes": "c70500185800feffffff",
+              "asm": "mov     dword_581800, 0FFFFFFFEh"
+            }
+          ]
+        },
+        {
+          "ea": 4984910,
+          "parent": 4984608,
+          "bytes": "e8cd150500",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4984915,
+              "bytes": "a19446cf00",
+              "asm": "mov     eax, gCurrentWindow"
+            },
+            {
+              "ea": 4984920,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4984925,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4984930,
+              "bytes": "6a4f",
+              "asm": "push    4Fh ; 'O'"
+            }
+          ]
+        },
+        {
+          "ea": 4989327,
+          "parent": 4989024,
+          "bytes": "e88c040500",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4989332,
+              "bytes": "a19446cf00",
+              "asm": "mov     eax, gCurrentWindow"
+            },
+            {
+              "ea": 4989337,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 4989340,
+              "bytes": "8b08",
+              "asm": "mov     ecx, [eax]"
+            },
+            {
+              "ea": 4989342,
+              "bytes": "5f",
+              "asm": "pop     edi"
+            }
+          ]
+        },
+        {
+          "ea": 4990177,
+          "parent": 4990048,
+          "bytes": "e83a010500",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4990182,
+              "bytes": "a19446cf00",
+              "asm": "mov     eax, gCurrentWindow"
+            },
+            {
+              "ea": 4990187,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4990192,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4990197,
+              "bytes": "6a39",
+              "asm": "push    39h ; '9'"
+            }
+          ]
+        },
+        {
+          "ea": 4998047,
+          "parent": 4997744,
+          "bytes": "e87ce20400",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 4998052,
+              "bytes": "a19446cf00",
+              "asm": "mov     eax, gCurrentWindow"
+            },
+            {
+              "ea": 4998057,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 4998060,
+              "bytes": "8b08",
+              "asm": "mov     ecx, [eax]"
+            },
+            {
+              "ea": 4998062,
+              "bytes": "5f",
+              "asm": "pop     edi"
+            }
+          ]
+        },
+        {
+          "ea": 5004485,
+          "parent": 5004336,
+          "bytes": "e856c90400",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5004490,
+              "bytes": "a19446cf00",
+              "asm": "mov     eax, gCurrentWindow"
+            },
+            {
+              "ea": 5004495,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 5004498,
+              "bytes": "8b08",
+              "asm": "mov     ecx, [eax]"
+            },
+            {
+              "ea": 5004500,
+              "bytes": "80cd80",
+              "asm": "or      ch, 80h"
+            }
+          ]
+        },
+        {
+          "ea": 5005338,
+          "parent": 5005184,
+          "bytes": "e801c60400",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5005343,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 5005348,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 5005353,
+              "bytes": "6a4f",
+              "asm": "push    4Fh ; 'O'"
+            },
+            {
+              "ea": 5005355,
+              "bytes": "c70500185800ffffffff",
+              "asm": "mov     dword_581800, 0FFFFFFFFh"
+            }
+          ]
+        },
+        {
+          "ea": 5022388,
+          "parent": 5022112,
+          "bytes": "e867830400",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5022393,
+              "bytes": "bf50385900",
+              "asm": "mov     edi, offset byte_593850"
+            },
+            {
+              "ea": 5022398,
+              "bytes": "83c9ff",
+              "asm": "or      ecx, 0FFFFFFFFh"
+            },
+            {
+              "ea": 5022401,
+              "bytes": "33c0",
+              "asm": "xor     eax, eax"
+            },
+            {
+              "ea": 5022403,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            }
+          ]
+        },
+        {
+          "ea": 5024166,
+          "parent": 5023472,
+          "bytes": "e8757c0400",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5024171,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 5024174,
+              "bytes": "b801000000",
+              "asm": "mov     eax, 1"
+            },
+            {
+              "ea": 5024179,
+              "bytes": "5f",
+              "asm": "pop     edi"
+            },
+            {
+              "ea": 5024180,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            }
+          ]
+        },
+        {
+          "ea": 5024514,
+          "parent": 5024192,
+          "bytes": "e8197b0400",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5024519,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 5024522,
+              "bytes": "c744241001000000",
+              "asm": "mov     [esp+614h+var_604], 1"
+            },
+            {
+              "ea": 5024530,
+              "bytes": "a114bec900",
+              "asm": "mov     eax, gWindowState.window+1458h"
+            },
+            {
+              "ea": 5024535,
+              "bytes": "85c0",
+              "asm": "test    eax, eax"
+            }
+          ]
+        },
+        {
+          "ea": 5027905,
+          "parent": 5027488,
+          "bytes": "e8da6d0400",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5027910,
+              "bytes": "a108f50501",
+              "asm": "mov     eax, dword_105F508"
+            },
+            {
+              "ea": 5027915,
+              "bytes": "50",
+              "asm": "push    eax"
+            },
+            {
+              "ea": 5027916,
+              "bytes": "e81f8b0600",
+              "asm": "call    sub_534370"
+            },
+            {
+              "ea": 5027921,
+              "bytes": "83c420",
+              "asm": "add     esp, 20h"
+            }
+          ]
+        },
+        {
+          "ea": 5059387,
+          "parent": 5059088,
+          "bytes": "e8e0f20300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5059392,
+              "bytes": "8b0dd8d9d200",
+              "asm": "mov     ecx, dword_D2D9D8"
+            },
+            {
+              "ea": 5059398,
+              "bytes": "51",
+              "asm": "push    ecx"
+            },
+            {
+              "ea": 5059399,
+              "bytes": "e8840f0300",
+              "asm": "call    sub_5042D0"
+            },
+            {
+              "ea": 5059404,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            }
+          ]
+        },
+        {
+          "ea": 5059989,
+          "parent": 5059600,
+          "bytes": "e886f00300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5059994,
+              "bytes": "a16041cc00",
+              "asm": "mov     eax, dword_CC4160"
+            },
+            {
+              "ea": 5059999,
+              "bytes": "50",
+              "asm": "push    eax"
+            },
+            {
+              "ea": 5060000,
+              "bytes": "e82b0d0300",
+              "asm": "call    sub_5042D0"
+            },
+            {
+              "ea": 5060005,
+              "bytes": "83c420",
+              "asm": "add     esp, 20h"
+            }
+          ]
+        },
+        {
+          "ea": 5062782,
+          "parent": 5060336,
+          "bytes": "e89de50300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5062787,
+              "bytes": "8b0dc0185800",
+              "asm": "mov     ecx, dword_5818C0"
+            },
+            {
+              "ea": 5062793,
+              "bytes": "51",
+              "asm": "push    ecx"
+            },
+            {
+              "ea": 5062794,
+              "bytes": "e841020300",
+              "asm": "call    sub_5042D0"
+            },
+            {
+              "ea": 5062799,
+              "bytes": "83c420",
+              "asm": "add     esp, 20h"
+            }
+          ]
+        },
+        {
+          "ea": 5065847,
+          "parent": 5065296,
+          "bytes": "e8a4d90300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5065852,
+              "bytes": "a188195800",
+              "asm": "mov     eax, dword_581988"
+            },
+            {
+              "ea": 5065857,
+              "bytes": "50",
+              "asm": "push    eax"
+            },
+            {
+              "ea": 5065858,
+              "bytes": "e849f60200",
+              "asm": "call    sub_5042D0"
+            },
+            {
+              "ea": 5065863,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            }
+          ]
+        },
+        {
+          "ea": 5066869,
+          "parent": 5066496,
+          "bytes": "e8a6d50300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5066874,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 5066879,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 5066884,
+              "bytes": "6a4f",
+              "asm": "push    4Fh ; 'O'"
+            },
+            {
+              "ea": 5066886,
+              "bytes": "e8c5730500",
+              "asm": "call    World__PlaySe"
+            }
+          ]
+        },
+        {
+          "ea": 5067715,
+          "parent": 5067344,
+          "bytes": "e858d20300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5067720,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 5067725,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 5067730,
+              "bytes": "6a4f",
+              "asm": "push    4Fh ; 'O'"
+            },
+            {
+              "ea": 5067732,
+              "bytes": "e877700500",
+              "asm": "call    World__PlaySe"
+            }
+          ]
+        },
+        {
+          "ea": 5071949,
+          "parent": 5071520,
+          "bytes": "e8cec10300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5071954,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 5071957,
+              "bytes": "eb2c",
+              "asm": "jmp     short loc_4D6483"
+            },
+            {
+              "ea": 5071959,
+              "bytes": "8d4c2408",
+              "asm": "lea     ecx, [esp+240h+var_238]"
+            },
+            {
+              "ea": 5071963,
+              "bytes": "51",
+              "asm": "push    ecx"
+            }
+          ]
+        },
+        {
+          "ea": 5073077,
+          "parent": 5072656,
+          "bytes": "e866bd0300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5073082,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 5073085,
+              "bytes": "8b0d701d5800",
+              "asm": "mov     ecx, dword_581D70"
+            },
+            {
+              "ea": 5073091,
+              "bytes": "51",
+              "asm": "push    ecx"
+            },
+            {
+              "ea": 5073092,
+              "bytes": "e807da0200",
+              "asm": "call    sub_5042D0"
+            }
+          ]
+        },
+        {
+          "ea": 5073865,
+          "parent": 5073504,
+          "bytes": "e852ba0300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5073870,
+              "bytes": "8b0d381e5800",
+              "asm": "mov     ecx, dword_581E38"
+            },
+            {
+              "ea": 5073876,
+              "bytes": "51",
+              "asm": "push    ecx"
+            },
+            {
+              "ea": 5073877,
+              "bytes": "e8f6d60200",
+              "asm": "call    sub_5042D0"
+            },
+            {
+              "ea": 5073882,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            }
+          ]
+        },
+        {
+          "ea": 5075061,
+          "parent": 5074592,
+          "bytes": "e8a6b50300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5075066,
+              "bytes": "8b15001f5800",
+              "asm": "mov     edx, dword_581F00"
+            },
+            {
+              "ea": 5075072,
+              "bytes": "52",
+              "asm": "push    edx"
+            },
+            {
+              "ea": 5075073,
+              "bytes": "e84ad20200",
+              "asm": "call    sub_5042D0"
+            },
+            {
+              "ea": 5075078,
+              "bytes": "83c420",
+              "asm": "add     esp, 20h"
+            }
+          ]
+        },
+        {
+          "ea": 5076795,
+          "parent": 5076080,
+          "bytes": "e8e0ae0300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5076800,
+              "bytes": "a1c81f5800",
+              "asm": "mov     eax, dword_581FC8"
+            },
+            {
+              "ea": 5076805,
+              "bytes": "50",
+              "asm": "push    eax"
+            },
+            {
+              "ea": 5076806,
+              "bytes": "e885cb0200",
+              "asm": "call    sub_5042D0"
+            },
+            {
+              "ea": 5076811,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            }
+          ]
+        },
+        {
+          "ea": 5078470,
+          "parent": 5078048,
+          "bytes": "e855a80300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5078475,
+              "bytes": "8b0d90205800",
+              "asm": "mov     ecx, dword_582090"
+            },
+            {
+              "ea": 5078481,
+              "bytes": "51",
+              "asm": "push    ecx"
+            },
+            {
+              "ea": 5078482,
+              "bytes": "e8f9c40200",
+              "asm": "call    sub_5042D0"
+            },
+            {
+              "ea": 5078487,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            }
+          ]
+        },
+        {
+          "ea": 5079412,
+          "parent": 5078048,
+          "bytes": "e8a7a40300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5079417,
+              "bytes": "8b1590205800",
+              "asm": "mov     edx, dword_582090"
+            },
+            {
+              "ea": 5079423,
+              "bytes": "893d4ca9c800",
+              "asm": "mov     dword_C8A94C, edi"
+            },
+            {
+              "ea": 5079429,
+              "bytes": "52",
+              "asm": "push    edx"
+            },
+            {
+              "ea": 5079430,
+              "bytes": "e947fcffff",
+              "asm": "jmp     loc_4D7DD2"
+            }
+          ]
+        },
+        {
+          "ea": 5080023,
+          "parent": 5079600,
+          "bytes": "e844a20300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5080028,
+              "bytes": "8b1558215800",
+              "asm": "mov     edx, dword_582158"
+            },
+            {
+              "ea": 5080034,
+              "bytes": "52",
+              "asm": "push    edx"
+            },
+            {
+              "ea": 5080035,
+              "bytes": "e8e8be0200",
+              "asm": "call    sub_5042D0"
+            },
+            {
+              "ea": 5080040,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            }
+          ]
+        },
+        {
+          "ea": 5081611,
+          "parent": 5081280,
+          "bytes": "e8109c0300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5081616,
+              "bytes": "a120225800",
+              "asm": "mov     eax, dword_582220"
+            },
+            {
+              "ea": 5081621,
+              "bytes": "50",
+              "asm": "push    eax"
+            },
+            {
+              "ea": 5081622,
+              "bytes": "e8b5b80200",
+              "asm": "call    sub_5042D0"
+            },
+            {
+              "ea": 5081627,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            }
+          ]
+        },
+        {
+          "ea": 5083058,
+          "parent": 5082528,
+          "bytes": "e869960300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5083063,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 5083066,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 5083071,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 5083076,
+              "bytes": "6a4f",
+              "asm": "push    4Fh ; 'O'"
+            }
+          ]
+        },
+        {
+          "ea": 5086103,
+          "parent": 5083680,
+          "bytes": "e8848a0300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5086108,
+              "bytes": "8b0db0235800",
+              "asm": "mov     ecx, dword_5823B0"
+            },
+            {
+              "ea": 5086114,
+              "bytes": "51",
+              "asm": "push    ecx"
+            },
+            {
+              "ea": 5086115,
+              "bytes": "e828a70200",
+              "asm": "call    sub_5042D0"
+            },
+            {
+              "ea": 5086120,
+              "bytes": "83c420",
+              "asm": "add     esp, 20h"
+            }
+          ]
+        },
+        {
+          "ea": 5089191,
+          "parent": 5088640,
+          "bytes": "e8747e0300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5089196,
+              "bytes": "a178245800",
+              "asm": "mov     eax, dword_582478"
+            },
+            {
+              "ea": 5089201,
+              "bytes": "50",
+              "asm": "push    eax"
+            },
+            {
+              "ea": 5089202,
+              "bytes": "e8199b0200",
+              "asm": "call    sub_5042D0"
+            },
+            {
+              "ea": 5089207,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            }
+          ]
+        },
+        {
+          "ea": 5092254,
+          "parent": 5089856,
+          "bytes": "e87d720300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5092259,
+              "bytes": "8b0d40255800",
+              "asm": "mov     ecx, dword_582540"
+            },
+            {
+              "ea": 5092265,
+              "bytes": "51",
+              "asm": "push    ecx"
+            },
+            {
+              "ea": 5092266,
+              "bytes": "e8218f0200",
+              "asm": "call    sub_5042D0"
+            },
+            {
+              "ea": 5092271,
+              "bytes": "83c420",
+              "asm": "add     esp, 20h"
+            }
+          ]
+        },
+        {
+          "ea": 5095243,
+          "parent": 5094704,
+          "bytes": "e8d0660300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5095248,
+              "bytes": "a108265800",
+              "asm": "mov     eax, dword_582608"
+            },
+            {
+              "ea": 5095253,
+              "bytes": "50",
+              "asm": "push    eax"
+            },
+            {
+              "ea": 5095254,
+              "bytes": "e875830200",
+              "asm": "call    sub_5042D0"
+            },
+            {
+              "ea": 5095259,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            }
+          ]
+        },
+        {
+          "ea": 5096476,
+          "parent": 5096080,
+          "bytes": "e8ff610300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5096481,
+              "bytes": "8b0dd0265800",
+              "asm": "mov     ecx, dword_5826D0"
+            },
+            {
+              "ea": 5096487,
+              "bytes": "51",
+              "asm": "push    ecx"
+            },
+            {
+              "ea": 5096488,
+              "bytes": "e8a37e0200",
+              "asm": "call    sub_5042D0"
+            },
+            {
+              "ea": 5096493,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            }
+          ]
+        },
+        {
+          "ea": 5102879,
+          "parent": 5102368,
+          "bytes": "e8fc480300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5102884,
+              "bytes": "a160285800",
+              "asm": "mov     eax, dword_582860"
+            },
+            {
+              "ea": 5102889,
+              "bytes": "50",
+              "asm": "push    eax"
+            },
+            {
+              "ea": 5102890,
+              "bytes": "e8a1650200",
+              "asm": "call    sub_5042D0"
+            },
+            {
+              "ea": 5102895,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            }
+          ]
+        },
+        {
+          "ea": 5108991,
+          "parent": 5108480,
+          "bytes": "e81c310300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5108996,
+              "bytes": "a1f0295800",
+              "asm": "mov     eax, dword_5829F0"
+            },
+            {
+              "ea": 5109001,
+              "bytes": "50",
+              "asm": "push    eax"
+            },
+            {
+              "ea": 5109002,
+              "bytes": "e8c14d0200",
+              "asm": "call    sub_5042D0"
+            },
+            {
+              "ea": 5109007,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            }
+          ]
+        },
+        {
+          "ea": 5110535,
+          "parent": 5109552,
+          "bytes": "e8142b0300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5110540,
+              "bytes": "8b0db82a5800",
+              "asm": "mov     ecx, dword_582AB8"
+            },
+            {
+              "ea": 5110546,
+              "bytes": "51",
+              "asm": "push    ecx"
+            },
+            {
+              "ea": 5110547,
+              "bytes": "e8b8470200",
+              "asm": "call    sub_5042D0"
+            },
+            {
+              "ea": 5110552,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            }
+          ]
+        },
+        {
+          "ea": 5110790,
+          "parent": 5109552,
+          "bytes": "e8152a0300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5110795,
+              "bytes": "a1b82a5800",
+              "asm": "mov     eax, dword_582AB8"
+            },
+            {
+              "ea": 5110800,
+              "bytes": "50",
+              "asm": "push    eax"
+            },
+            {
+              "ea": 5110801,
+              "bytes": "e9fdfeffff",
+              "asm": "jmp     loc_4DFB13"
+            },
+            {
+              "ea": 5110806,
+              "bytes": "33f6",
+              "asm": "xor     esi, esi"
+            }
+          ]
+        },
+        {
+          "ea": 5110960,
+          "parent": 5109552,
+          "bytes": "e86b290300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5110965,
+              "bytes": "8b15b82a5800",
+              "asm": "mov     edx, dword_582AB8"
+            },
+            {
+              "ea": 5110971,
+              "bytes": "52",
+              "asm": "push    edx"
+            },
+            {
+              "ea": 5110972,
+              "bytes": "e80f460200",
+              "asm": "call    sub_5042D0"
+            },
+            {
+              "ea": 5110977,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            }
+          ]
+        },
+        {
+          "ea": 5113606,
+          "parent": 5112704,
+          "bytes": "e8151f0300",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5113611,
+              "bytes": "a1802b5800",
+              "asm": "mov     eax, dword_582B80"
+            },
+            {
+              "ea": 5113616,
+              "bytes": "50",
+              "asm": "push    eax"
+            },
+            {
+              "ea": 5113617,
+              "bytes": "e8ba3b0200",
+              "asm": "call    sub_5042D0"
+            },
+            {
+              "ea": 5113622,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            }
+          ]
+        },
+        {
+          "ea": 5151508,
+          "parent": 5150688,
+          "bytes": "e8078b0200",
+          "asm": "call    sub_512620",
+          "call_target": 5318176,
+          "following": [
+            {
+              "ea": 5151513,
+              "bytes": "6a50",
+              "asm": "push    50h ; 'P'"
+            },
+            {
+              "ea": 5151515,
+              "bytes": "e8b0a70100",
+              "asm": "call    sub_5042D0"
+            },
+            {
+              "ea": 5151520,
+              "bytes": "83c420",
+              "asm": "add     esp, 20h"
+            },
+            {
+              "ea": 5151523,
+              "bytes": "c70500185800ffffffff",
+              "asm": "mov     dword_581800, 0FFFFFFFFh"
+            }
+          ]
+        }
+      ],
+      "storage_amount_exchange": {
+        "step": "SDM01",
+        "source_snapshot": "[#] 补齐存取金额与文本请求合同",
+        "original_entry": "0x512620",
+        "original_end_exclusive": "0x512717",
+        "instruction_count": 77,
+        "code_bytes": 247,
+        "page_count": 2,
+        "direct_calls": 14,
+        "direct_call_targets": [
+          5337296,
+          5337376,
+          5337440,
+          5338240,
+          5338384
+        ],
+        "jumps": 0,
+        "returns": 1,
+        "original_incoming_references": [
+          {
+            "from": 4753092,
+            "type": 17,
+            "iscode": true,
+            "parent": 4752800
+          },
+          {
+            "from": 4760128,
+            "type": 17,
+            "iscode": true,
+            "parent": 4759296
+          },
+          {
+            "from": 4766787,
+            "type": 17,
+            "iscode": true,
+            "parent": 4766608
+          },
+          {
+            "from": 4840503,
+            "type": 17,
+            "iscode": true,
+            "parent": 4839984
+          },
+          {
+            "from": 4840662,
+            "type": 17,
+            "iscode": true,
+            "parent": 4839984
+          },
+          {
+            "from": 4840824,
+            "type": 17,
+            "iscode": true,
+            "parent": 4839984
+          },
+          {
+            "from": 4849964,
+            "type": 17,
+            "iscode": true,
+            "parent": 4849856
+          },
+          {
+            "from": 4850412,
+            "type": 17,
+            "iscode": true,
+            "parent": 4850304
+          },
+          {
+            "from": 4850828,
+            "type": 17,
+            "iscode": true,
+            "parent": 4850720
+          },
+          {
+            "from": 4851238,
+            "type": 17,
+            "iscode": true,
+            "parent": 4851136
+          },
+          {
+            "from": 4851578,
+            "type": 17,
+            "iscode": true,
+            "parent": 4851456
+          },
+          {
+            "from": 4883530,
+            "type": 17,
+            "iscode": true,
+            "parent": 4883408
+          },
+          {
+            "from": 4897120,
+            "type": 17,
+            "iscode": true,
+            "parent": 4896528
+          },
+          {
+            "from": 4898036,
+            "type": 17,
+            "iscode": true,
+            "parent": 4897568
+          },
+          {
+            "from": 4898188,
+            "type": 17,
+            "iscode": true,
+            "parent": 4897568
+          },
+          {
+            "from": 4904933,
+            "type": 17,
+            "iscode": true,
+            "parent": 4904832
+          },
+          {
+            "from": 4907252,
+            "type": 17,
+            "iscode": true,
+            "parent": 4906816
+          },
+          {
+            "from": 4907534,
+            "type": 17,
+            "iscode": true,
+            "parent": 4907376
+          },
+          {
+            "from": 4939376,
+            "type": 17,
+            "iscode": true,
+            "parent": 4938800
+          },
+          {
+            "from": 4939638,
+            "type": 17,
+            "iscode": true,
+            "parent": 4938800
+          },
+          {
+            "from": 4939993,
+            "type": 17,
+            "iscode": true,
+            "parent": 4938800
+          },
+          {
+            "from": 4940209,
+            "type": 17,
+            "iscode": true,
+            "parent": 4938800
+          },
+          {
+            "from": 4955901,
+            "type": 17,
+            "iscode": true,
+            "parent": 4954896
+          },
+          {
+            "from": 4958691,
+            "type": 17,
+            "iscode": true,
+            "parent": 4958544
+          },
+          {
+            "from": 4979809,
+            "type": 17,
+            "iscode": true,
+            "parent": 4979648
+          },
+          {
+            "from": 4980116,
+            "type": 17,
+            "iscode": true,
+            "parent": 4979888
+          },
+          {
+            "from": 4980227,
+            "type": 17,
+            "iscode": true,
+            "parent": 4979888
+          },
+          {
+            "from": 4980307,
+            "type": 17,
+            "iscode": true,
+            "parent": 4979888
+          },
+          {
+            "from": 4983276,
+            "type": 17,
+            "iscode": true,
+            "parent": 4983056
+          },
+          {
+            "from": 4983695,
+            "type": 17,
+            "iscode": true,
+            "parent": 4983376
+          },
+          {
+            "from": 4984432,
+            "type": 17,
+            "iscode": true,
+            "parent": 4983984
+          },
+          {
+            "from": 4984910,
+            "type": 17,
+            "iscode": true,
+            "parent": 4984608
+          },
+          {
+            "from": 4989327,
+            "type": 17,
+            "iscode": true,
+            "parent": 4989024
+          },
+          {
+            "from": 4990177,
+            "type": 17,
+            "iscode": true,
+            "parent": 4990048
+          },
+          {
+            "from": 4998047,
+            "type": 17,
+            "iscode": true,
+            "parent": 4997744
+          },
+          {
+            "from": 5004485,
+            "type": 17,
+            "iscode": true,
+            "parent": 5004336
+          },
+          {
+            "from": 5005338,
+            "type": 17,
+            "iscode": true,
+            "parent": 5005184
+          },
+          {
+            "from": 5022388,
+            "type": 17,
+            "iscode": true,
+            "parent": 5022112
+          },
+          {
+            "from": 5024166,
+            "type": 17,
+            "iscode": true,
+            "parent": 5023472
+          },
+          {
+            "from": 5024514,
+            "type": 17,
+            "iscode": true,
+            "parent": 5024192
+          },
+          {
+            "from": 5027905,
+            "type": 17,
+            "iscode": true,
+            "parent": 5027488
+          },
+          {
+            "from": 5059387,
+            "type": 17,
+            "iscode": true,
+            "parent": 5059088
+          },
+          {
+            "from": 5059989,
+            "type": 17,
+            "iscode": true,
+            "parent": 5059600
+          },
+          {
+            "from": 5062782,
+            "type": 17,
+            "iscode": true,
+            "parent": 5060336
+          },
+          {
+            "from": 5065847,
+            "type": 17,
+            "iscode": true,
+            "parent": 5065296
+          },
+          {
+            "from": 5066869,
+            "type": 17,
+            "iscode": true,
+            "parent": 5066496
+          },
+          {
+            "from": 5067715,
+            "type": 17,
+            "iscode": true,
+            "parent": 5067344
+          },
+          {
+            "from": 5071949,
+            "type": 17,
+            "iscode": true,
+            "parent": 5071520
+          },
+          {
+            "from": 5073077,
+            "type": 17,
+            "iscode": true,
+            "parent": 5072656
+          },
+          {
+            "from": 5073865,
+            "type": 17,
+            "iscode": true,
+            "parent": 5073504
+          },
+          {
+            "from": 5075061,
+            "type": 17,
+            "iscode": true,
+            "parent": 5074592
+          },
+          {
+            "from": 5076795,
+            "type": 17,
+            "iscode": true,
+            "parent": 5076080
+          },
+          {
+            "from": 5078470,
+            "type": 17,
+            "iscode": true,
+            "parent": 5078048
+          },
+          {
+            "from": 5079412,
+            "type": 17,
+            "iscode": true,
+            "parent": 5078048
+          },
+          {
+            "from": 5080023,
+            "type": 17,
+            "iscode": true,
+            "parent": 5079600
+          },
+          {
+            "from": 5081611,
+            "type": 17,
+            "iscode": true,
+            "parent": 5081280
+          },
+          {
+            "from": 5083058,
+            "type": 17,
+            "iscode": true,
+            "parent": 5082528
+          },
+          {
+            "from": 5086103,
+            "type": 17,
+            "iscode": true,
+            "parent": 5083680
+          },
+          {
+            "from": 5089191,
+            "type": 17,
+            "iscode": true,
+            "parent": 5088640
+          },
+          {
+            "from": 5092254,
+            "type": 17,
+            "iscode": true,
+            "parent": 5089856
+          },
+          {
+            "from": 5095243,
+            "type": 17,
+            "iscode": true,
+            "parent": 5094704
+          },
+          {
+            "from": 5096476,
+            "type": 17,
+            "iscode": true,
+            "parent": 5096080
+          },
+          {
+            "from": 5102879,
+            "type": 17,
+            "iscode": true,
+            "parent": 5102368
+          },
+          {
+            "from": 5108991,
+            "type": 17,
+            "iscode": true,
+            "parent": 5108480
+          },
+          {
+            "from": 5110535,
+            "type": 17,
+            "iscode": true,
+            "parent": 5109552
+          },
+          {
+            "from": 5110790,
+            "type": 17,
+            "iscode": true,
+            "parent": 5109552
+          },
+          {
+            "from": 5110960,
+            "type": 17,
+            "iscode": true,
+            "parent": 5109552
+          },
+          {
+            "from": 5113606,
+            "type": 17,
+            "iscode": true,
+            "parent": 5112704
+          },
+          {
+            "from": 5151508,
+            "type": 17,
+            "iscode": true,
+            "parent": 5150688
+          }
+        ],
+        "native_signature": "std::int32_t Sub_512620(\n    const std::uintptr_t socket,\n    const std::int32_t first,\n    const std::int32_t second,\n    const std::int32_t third,\n    const std::int32_t fourth,\n    const std::int32_t fifth,\n    const char* const text)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "真实S32发送结果透传，69入CALL只来源，所有父/互通/机器ABI待"
       }
     }
   ]

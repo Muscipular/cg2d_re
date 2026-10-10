@@ -500,3 +500,7 @@ MIC与GP/黑名单/2048B非NUL快照/S32长度/对象气泡和其他正文保持
 ## 2026-10-11 IMT01：QpfE/物品移动的真实提供者
 
 [IMT01](cg2d_item_move_request_spec.md#item-move-source-state)补齐丢物请求/直接拆分/模式间移动/数量消费四完整原根310条957B/七页，30E8十五目标/28跳八RET，十七CALL/四后邻及一个callback data持址有据。四正文正确保持，仅八合同注释；原四容量先于格式/输出重读、同mode两次fresh组读取、Ctrl和反转开关、直接source先target/拆分target先source、窗口41/38优先及转义后状态/Y-X发送序保持。原S32返回透传与数量lambda只具名副作用边界，不推完整callback ABI/互通。旧934格式历史追加、三新F四处置/三限定S零I八open；完整输入/数量/数据/缓冲区生产、callback/callee/所有外父和alias-owner寿命、SDK/生成读取/实际操作及运行待，整体未完成。
+
+## 2026-10-11 SDM01：xD五整数与文本请求
+
+[SDM01](cg2d_storage_amount_exchange_spec.md#storage-amount-source-state)补齐存取金额4ABB20及xD发送512620两个完整原根310条1075B/六页；两正确正文保持，仅四合同注释。原存/取上限、AL确认和钳回、转义后字段/Y-X发送及发送后fresh金额记录/清槽/双文本有据，xD五整数+文本各保六次容量和输出取样。旧894格式历史追加、一新F两adapted、三限定S零I八open；69CALL/58父仅局部来源，完整金额/协议生产消费与owner、ABI及互通运行待。

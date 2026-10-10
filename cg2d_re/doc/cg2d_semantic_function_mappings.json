@@ -191211,8 +191211,8 @@
     {
       "original_entry": "0x41f660",
       "inventory_id": "F:0001F660",
-      "original_role": "CAC07仅原分派数据/当前源角色关联：减益特效创建的六图号类型分派数据",
-      "status": "已有真实源码，CAC07补原表/索引与源角色关联；未重新核全部原父/算法、未记完整函数处置或软件门禁通过",
+      "original_role": "1054已有返空，六图号先完整FDC位及fresh父13D0/13CC，分配失败不回滚；成功flags60000、父XY+1、播放后fresh1054发布/借父绑定及投影返回。",
+      "status": "BAS01五完整正常源/一共享回调读序纳管；完整输入/owner/SDK及运行未验",
       "sources": [
         {
           "path": "src/YobiRuntime.cpp",
@@ -191220,6 +191220,15 @@
             "cg::login::detail::NewBattleDebuffEffect_41F660"
           ],
           "relationship": "按当前带函数体的唯一定义确认源身份，继承具名旧合同；本组只核原分派表数据与此源角色关联，不新增实现或宣称全函数等价。"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::NewBattleDebuffEffect_41F660",
+          "relationship": "1054已有返空，六图号先完整FDC位及fresh父13D0/13CC，分配失败不回滚；成功flags60000、父XY+1、播放后fresh1054发布/借父绑定及投影返回。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::NewBattleDebuffEffect_41F660"
         }
       ],
       "evidence_documents": [
@@ -191227,10 +191236,15 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-decision",
         "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
         "doc/cg2d_unassigned_range_fourth_batch_evidence.json",
-        "doc/ui_windows/shared_battle.md"
+        "doc/ui_windows/shared_battle.md",
+        "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-baseline",
+        "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-decision",
+        "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-acceptance",
+        "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-source-state",
+        "doc/cg2d_battle_attached_effect_evidence.json"
       ],
-      "boundary": "原函数身份来自既有库存/实际数据取用父；完整X用途与源码已存在分开。不以父元数据或表目标代所有签名/字段/分支/依赖/正常寿命或机器ABI/运行验收。",
-      "verification_level": "只该父原X完整字节、实际guard/BYTE/JMP取用邻窗、W32表全部指针/target owner、当前真实定义与旧合同关联；源码未改，不构建/测试/运行/摘要。",
+      "boundary": "BAS01两动作/反转创建/共享回调及已有1913减益创建五完整正常根纳管；只共享41F800 Y转换后偏移一组/十注释，四正确主体及其它源/字段/随机/失败保持。1913从CAC07仅数据关联补完整正常创建/失败/发布及新F处置，旧数据子记录/入口保历史；四新原语义/F/成员，已有1913成员不重计。39实际CALL入向/两callback MOV、两原表项/case与复用35B六项表/4B常量有据；不新R7/数据X或Ftoll函数。无新API/字段/业务默认值/保护/回滚/循环上限，全部真实输入/父-callee/容量/机器ABI/alias/owner/SDK正常失败及声音画面未验，原完整门禁政策保持。",
+      "verification_level": "五完整257条884B/七页、19E8/八直接callee、十八跳含一间接switch/十RET、39入向CALL/两callback MOV、两实际表项/两11Bcase；复用CAC07全35B与六表项/guard，1.0F32加载4B；当前必要静态，不含运行。",
       "range_fourth_batch_data": {
         "step": "CAC07",
         "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
@@ -191240,6 +191254,36 @@
         "current_definition_line": 10448,
         "association_only": true,
         "full_original_body_recaptured": false,
+        "runtime_verified": false
+      },
+      "original_end_exclusive": "0x41f7dd",
+      "instruction_count": 100,
+      "function_chunks": [
+        {
+          "start": "0x41f660",
+          "end_exclusive": "0x41f7dd"
+        }
+      ],
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::NewBattleDebuffEffect_41F660",
+        "parameters": "非拥有YobiAction* parent、S32 imageNo",
+        "return": "原生非拥有YobiAction*；已有引用/失败返回空，新建返回对象"
+      },
+      "battle_attached_effect": {
+        "step": "BAS01",
+        "source_snapshot": "Git提交说明：[#] 对齐战斗附属特效开关与共享跟随",
+        "original_instruction_count": 100,
+        "original_code_bytes": 381,
+        "original_page_count": 2,
+        "direct_call_count": 4,
+        "jump_count": 9,
+        "return_count": 3,
+        "inbound_reference_count": 34,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_previous_values_wrong": false,
+        "full_lifecycle_closed": false,
         "runtime_verified": false
       }
     },
@@ -204409,6 +204453,230 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x411320",
+      "inventory_id": "F:00011320",
+      "original_role": "完整FDC持样/AH800开关：创建弃返失败仍fresh置位，标死后fresh旗位/先清105C再发布，共同Advance。",
+      "original_end_exclusive": "0x411391",
+      "instruction_count": 34,
+      "function_chunks": [
+        {
+          "start": "0x411320",
+          "end_exclusive": "0x411391"
+        }
+      ],
+      "status": "BAS01五完整正常源/一共享回调读序纳管；完整输入/owner/SDK及运行未验",
+      "boundary": "BAS01两动作/反转创建/共享回调及已有1913减益创建五完整正常根纳管；只共享41F800 Y转换后偏移一组/十注释，四正确主体及其它源/字段/随机/失败保持。1913从CAC07仅数据关联补完整正常创建/失败/发布及新F处置，旧数据子记录/入口保历史；四新原语义/F/成员，已有1913成员不重计。39实际CALL入向/两callback MOV、两原表项/case与复用35B六项表/4B常量有据；不新R7/数据X或Ftoll函数。无新API/字段/业务默认值/保护/回滚/循环上限，全部真实输入/父-callee/容量/机器ABI/alias/owner/SDK正常失败及声音画面未验，原完整门禁政策保持。",
+      "verification_level": "五完整257条884B/七页、19E8/八直接callee、十八跳含一间接switch/十RET、39入向CALL/两callback MOV、两实际表项/两11Bcase；复用CAC07全35B与六表项/guard，1.0F32加载4B；当前必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction147_411320",
+        "parameters": "非拥有YobiAction* action",
+        "return": "void；原caller不消费尾EAX"
+      },
+      "battle_attached_effect": {
+        "step": "BAS01",
+        "source_snapshot": "Git提交说明：[#] 对齐战斗附属特效开关与共享跟随",
+        "original_instruction_count": 34,
+        "original_code_bytes": 113,
+        "original_page_count": 1,
+        "direct_call_count": 4,
+        "jump_count": 1,
+        "return_count": 2,
+        "inbound_reference_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_previous_values_wrong": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      },
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction147_411320",
+          "relationship": "完整FDC持样/AH800开关：创建弃返失败仍fresh置位，标死后fresh旗位/先清105C再发布，共同Advance。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction147_411320"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-baseline",
+        "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-decision",
+        "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-acceptance",
+        "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-source-state",
+        "doc/cg2d_battle_attached_effect_evidence.json"
+      ]
+    },
+    {
+      "original_entry": "0x40fef0",
+      "inventory_id": "F:0000FEF0",
+      "original_role": "完整FDC读后AL60条件播放，后取1024创建type33末参1，全部路径phase162。",
+      "original_end_exclusive": "0x40ff35",
+      "instruction_count": 26,
+      "function_chunks": [
+        {
+          "start": "0x40fef0",
+          "end_exclusive": "0x40ff35"
+        }
+      ],
+      "status": "BAS01五完整正常源/一共享回调读序纳管；完整输入/owner/SDK及运行未验",
+      "boundary": "BAS01两动作/反转创建/共享回调及已有1913减益创建五完整正常根纳管；只共享41F800 Y转换后偏移一组/十注释，四正确主体及其它源/字段/随机/失败保持。1913从CAC07仅数据关联补完整正常创建/失败/发布及新F处置，旧数据子记录/入口保历史；四新原语义/F/成员，已有1913成员不重计。39实际CALL入向/两callback MOV、两原表项/case与复用35B六项表/4B常量有据；不新R7/数据X或Ftoll函数。无新API/字段/业务默认值/保护/回滚/循环上限，全部真实输入/父-callee/容量/机器ABI/alias/owner/SDK正常失败及声音画面未验，原完整门禁政策保持。",
+      "verification_level": "五完整257条884B/七页、19E8/八直接callee、十八跳含一间接switch/十RET、39入向CALL/两callback MOV、两实际表项/两11Bcase；复用CAC07全35B与六表项/guard，1.0F32加载4B；当前必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction148_40FEF0",
+        "parameters": "非拥有YobiAction* action",
+        "return": "void；原caller不消费尾EAX"
+      },
+      "battle_attached_effect": {
+        "step": "BAS01",
+        "source_snapshot": "Git提交说明：[#] 对齐战斗附属特效开关与共享跟随",
+        "original_instruction_count": 26,
+        "original_code_bytes": 69,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "jump_count": 2,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_previous_values_wrong": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      },
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction148_40FEF0",
+          "relationship": "完整FDC读后AL60条件播放，后取1024创建type33末参1，全部路径phase162。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction148_40FEF0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-baseline",
+        "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-decision",
+        "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-acceptance",
+        "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-source-state",
+        "doc/cg2d_battle_attached_effect_evidence.json"
+      ]
+    },
+    {
+      "original_entry": "0x41f860",
+      "inventory_id": "F:0001F860",
+      "original_role": "105C已有返空/priority2零payload失败返空；设备后flags两次发布，父XY+1与播放后fresh父载荷105C/借父绑定和投影返回。",
+      "original_end_exclusive": "0x41f942",
+      "instruction_count": 67,
+      "function_chunks": [
+        {
+          "start": "0x41f860",
+          "end_exclusive": "0x41f942"
+        }
+      ],
+      "status": "BAS01五完整正常源/一共享回调读序纳管；完整输入/owner/SDK及运行未验",
+      "boundary": "BAS01两动作/反转创建/共享回调及已有1913减益创建五完整正常根纳管；只共享41F800 Y转换后偏移一组/十注释，四正确主体及其它源/字段/随机/失败保持。1913从CAC07仅数据关联补完整正常创建/失败/发布及新F处置，旧数据子记录/入口保历史；四新原语义/F/成员，已有1913成员不重计。39实际CALL入向/两callback MOV、两原表项/case与复用35B六项表/4B常量有据；不新R7/数据X或Ftoll函数。无新API/字段/业务默认值/保护/回滚/循环上限，全部真实输入/父-callee/容量/机器ABI/alias/owner/SDK正常失败及声音画面未验，原完整门禁政策保持。",
+      "verification_level": "五完整257条884B/七页、19E8/八直接callee、十八跳含一间接switch/十RET、39入向CALL/两callback MOV、两实际表项/两11Bcase；复用CAC07全35B与六表项/guard，1.0F32加载4B；当前必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::NewBattleReverseEffect_41F860",
+        "parameters": "非拥有YobiAction* parent、S32 imageNo",
+        "return": "原生非拥有YobiAction*；已有引用/失败返回空，新建返回对象"
+      },
+      "battle_attached_effect": {
+        "step": "BAS01",
+        "source_snapshot": "Git提交说明：[#] 对齐战斗附属特效开关与共享跟随",
+        "original_instruction_count": 67,
+        "original_code_bytes": 226,
+        "original_page_count": 2,
+        "direct_call_count": 5,
+        "jump_count": 4,
+        "return_count": 3,
+        "inbound_reference_count": 3,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_previous_values_wrong": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      },
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::NewBattleReverseEffect_41F860",
+          "relationship": "105C已有返空/priority2零payload失败返空；设备后flags两次发布，父XY+1与播放后fresh父载荷105C/借父绑定和投影返回。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::NewBattleReverseEffect_41F860"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-baseline",
+        "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-decision",
+        "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-acceptance",
+        "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-source-state",
+        "doc/cg2d_battle_attached_effect_evidence.json"
+      ]
+    },
+    {
+      "original_entry": "0x41f800",
+      "inventory_id": "F:0001F800",
+      "original_role": "1054/105C两个创建者共用完整callback，当前借父death严格1标死否则播放后fresh借父跟随；两路投影，Y转换后偏移，不清父槽。",
+      "original_end_exclusive": "0x41f85f",
+      "instruction_count": 30,
+      "function_chunks": [
+        {
+          "start": "0x41f800",
+          "end_exclusive": "0x41f85f"
+        }
+      ],
+      "status": "BAS01五完整正常源/一共享回调读序纳管；完整输入/owner/SDK及运行未验",
+      "boundary": "BAS01两动作/反转创建/共享回调及已有1913减益创建五完整正常根纳管；只共享41F800 Y转换后偏移一组/十注释，四正确主体及其它源/字段/随机/失败保持。1913从CAC07仅数据关联补完整正常创建/失败/发布及新F处置，旧数据子记录/入口保历史；四新原语义/F/成员，已有1913成员不重计。39实际CALL入向/两callback MOV、两原表项/case与复用35B六项表/4B常量有据；不新R7/数据X或Ftoll函数。无新API/字段/业务默认值/保护/回滚/循环上限，全部真实输入/父-callee/容量/机器ABI/alias/owner/SDK正常失败及声音画面未验，原完整门禁政策保持。",
+      "verification_level": "五完整257条884B/七页、19E8/八直接callee、十八跳含一间接switch/十RET、39入向CALL/两callback MOV、两实际表项/两11Bcase；复用CAC07全35B与六表项/guard，1.0F32加载4B；当前必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleDebuffEffect_41F800",
+        "parameters": "非拥有YobiAction* action",
+        "return": "void完整callback，调用边界不消费尾EAX"
+      },
+      "battle_attached_effect": {
+        "step": "BAS01",
+        "source_snapshot": "Git提交说明：[#] 对齐战斗附属特效开关与共享跟随",
+        "original_instruction_count": 30,
+        "original_code_bytes": 95,
+        "original_page_count": 1,
+        "direct_call_count": 4,
+        "jump_count": 2,
+        "return_count": 1,
+        "inbound_reference_count": 2,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "normal_previous_values_wrong": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      },
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleDebuffEffect_41F800",
+          "relationship": "1054/105C两个创建者共用完整callback，当前借父death严格1标死否则播放后fresh借父跟随；两路投影，Y转换后偏移，不清父槽。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleDebuffEffect_41F800"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-baseline",
+        "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-decision",
+        "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-acceptance",
+        "doc/cg2d_battle_attached_effect_spec.md#battle-attached-effect-source-state",
+        "doc/cg2d_battle_attached_effect_evidence.json"
+      ]
     }
   ]
 }

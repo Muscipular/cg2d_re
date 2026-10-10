@@ -2364,3 +2364,9 @@ FUNC-BATTLE/FUNC-UIRUNTIME仅追加来源，U09/R04仅追加引用并保持open�
 [六完整正常源/裁决](cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-decision)及[指令/数据/差集](cg2d_battle_field_effect_lifecycle_evidence.json)登记两FUNC-BATTLE限定I/S。I只41FFE0两索引齐取与41FF90一Y转换后偏移，共三组；S六完整233条777B/26E8、四原表项/case、十创建CALL/一callback MOV、440B两模型/4B常量与173B明确清理前缀。141/143旧身份与五旧callee、表/C解析器保持，创建器新身份作145 callee不重复计。
 
 六新语义/F处置/成员：2171→2177、F1599→1605、E1407→1409、BATTLE411→417枚举false；五任务仅追加依据继续open，所有完整gates/184叶验收0/60任务关闭11及六closure保持。两表只读/旧正常值相同，不称运行故障；前缀不代整个C解析输入、完整父-callee/容量/ABI/alias/owner/SDK/声音画面或运行，总SPEC§10和执行限制不降低。
+
+## 2026-10-10 BAS01 附属特效开关与共享回调限定验收
+
+[五完整正常源/裁决](cg2d_battle_attached_effect_spec.md#battle-attached-effect-decision)及[原根/差集](cg2d_battle_attached_effect_evidence.json)登记两FUNC-BATTLE限定I/S。I仅41F800共享callback一Y转换后屏幕偏移组；S五完整257条884B/19E8、两原表项/case、39实际CALL入向/两callback MOV与复用35B六表指针/4B常量。四正确主体、所有其它源/已登记动作/五旧callee及原X分类保持，不新R7/数据X或Ftoll函数。
+
+四新语义/F/成员，已有1913从CAC07数据角色关联补完整正常创建/失败/发布及新F处置，旧数据子记录保历史且成员不重计；语义2177→2181、F1605→1610、E1409→1411、BATTLE417→421枚举false。五任务仅追加依据仍open，所有完整gates/184叶验收0/60任务关闭11与六closure保持。所有生产/父-callee/输入/容量/ABI/alias/owner/SDK/声音画面及运行待，总SPEC§10及执行限制不降低。

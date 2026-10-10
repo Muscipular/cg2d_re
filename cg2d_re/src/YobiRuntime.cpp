@@ -10527,6 +10527,7 @@ YobiAction* NewBattleHitEffect_41F5B0(
     return action;
 }
 
+// BAS01：六图号先改FDC/13D0/13CC，分配失败不回滚；播放后fresh父载荷写1054再绑定父。
 YobiAction* NewBattleDebuffEffect_41F660(YobiAction* const parent, const std::int32_t imageNo)
 {
     auto* const payload = static_cast<BattleActorPayload*>(parent->payload);
@@ -10578,6 +10579,7 @@ YobiAction* NewBattleDebuffEffect_41F660(YobiAction* const parent, const std::in
     return action;
 }
 
+// BAS01：1054/105C共用借父回调，Play后重借父跟随；标死仍投影，Y转换后取屏幕偏移。
 void UpdateBattleDebuffEffect_41F800(YobiAction* const action)
 {
     if (action->battleAttachmentParent10->deathFlag == 1) {
@@ -10592,9 +10594,12 @@ void UpdateBattleDebuffEffect_41F800(YobiAction* const action)
     const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
     const float y = action->offset44;
     action->x = x + offsetX;
-    action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
+    const std::int32_t projectedY = static_cast<std::int32_t>(y);
+    const std::int32_t offsetY = static_cast<std::int32_t>(gYobiScreenOffsetY);
+    action->y = projectedY + offsetY;
 }
 
+// BAS01：105C已有返空，设备后持flags两次发布；播放后fresh父载荷写105C再绑定父。
 YobiAction* NewBattleReverseEffect_41F860(YobiAction* const parent, const std::int32_t imageNo)
 {
     if (static_cast<BattleActorPayload*>(parent->payload)->effect105C != nullptr) {
@@ -29102,6 +29107,7 @@ void UpdateBattleAction145_411290(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BAS01：完整FDC的AH800开关；创建失败仍置位，标死后fresh取旗位、先清105C再发布。
 void UpdateBattleAction147_411320(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -29117,6 +29123,7 @@ void UpdateBattleAction147_411320(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BAS01：完整FDC持样/AL60播放门禁，后取1024创建type33，全路径phase162。
 void UpdateBattleAction148_40FEF0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);

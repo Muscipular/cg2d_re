@@ -8572,3 +8572,12 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 只创建器两索引先齐取坐标和callback Y转换后偏移三组/十二注释；四正确动作、所有其它源、440B两只读模型/4B常量、C解析器和共享器保持。两表正常旧值一致，不称运行故障；场地B0已有对象仅换图返空、新建播放后fresh全局场景发布T*，完整callback两路都投影且不自清B0。438550明确173B前缀包括真实fieldFlags生产/五创建/缺省先标死再fresh清槽，已有源保持，前缀不代整个C输入/全部对象寿命。
 
 当前WAV-only/SDL、宿主CRT/数学、RPLAN.24及原正常失败/字段/调用/RNG保持；六新语义/F/已知成员、限定I只两根三组/S六正常根，五任务open及所有完整门禁保。不编译/测试/运行/产物/摘要，完整输入/容量/全部父-callee/机器ABI/alias/owner/SDK及声音画面待。
+
+<a id="battle-attached-effect-current-20261010"></a>
+## 2026-10-10 BAS01：附属特效开关与共享跟随当前源
+
+沿[五完整合同](../cg2d_battle_attached_effect_spec.md#battle-attached-effect-source-state)和[原指令/差集](../cg2d_battle_attached_effect_evidence.json)纳管147/148、41F860/41F800和已有1913/41F660。五完整257条884B/七页、19E8/八callee、十八跳含一真实switch/十RET、39入向CALL/两callback字段MOV，两原表项/两11Bcase、复用CAC07全35B/六指针与1.0F32的4B原常量有据。
+
+共享41F800只Y转换后屏幕Y偏移一组/十注释；两创建者都纳入源核，四正确主体/所有其它源保持。147完整FDC的寄存器AH800判断，创建失败仍fresh置位；148type33与phase162，162已属1437/BPT01不重计。两创建者原1054/105C已有及分配失败返空、减益状态先于分配失败不回滚、原flags发布/父Y+1/播放后fresh父载荷槽发布→借父绑定及投影保持；完整callback父death严格1标死但仍投影，非标死路径Play后重新借父跟随，不自清父槽。设备实际提供者RendererResources.cpp及当前宿主转换边界沿批准视频/CRT数学合同，未新验完整SDK或机器ABI。
+
+1913从CAC07仅数据关联补完整100条381B正常根/新F适配处置，旧range_fourth_batch_data/全35B证据保历史，已有BATTLE成员不重计；四新语义/成员、五新F与两限定I一F/S五根，五旧callee及1432–1438等已登记动作保持。当前WAV-only/SDL、RPLAN.24/原失败及无保护边界、五任务open/全部完整门禁保持。全部数据生产/父-callee/容量/alias/owner/SDK/ABI及声音画面待，不构建/测试/运行/产物/摘要。

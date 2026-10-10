@@ -387,9 +387,9 @@ void UpdateBattleHitEffect_41F570(YobiAction* action); // BHE01：原计数/上�
 YobiAction* NewBattleHitEffect_41F5B0(
     YobiAction* parent, std::int32_t offsetX, std::int32_t offsetY,
     std::int32_t lifetime, std::int32_t imageNo);
-YobiAction* NewBattleDebuffEffect_41F660(YobiAction* parent, std::int32_t imageNo); // 分配前更新FDC/13CC/13D0，失败不回滚。
-void UpdateBattleDebuffEffect_41F800(YobiAction* action); // 1054/105C共用父对象跟随回调。
-YobiAction* NewBattleReverseEffect_41F860(YobiAction* parent, std::int32_t imageNo); // 105C已有引用返回空。
+YobiAction* NewBattleDebuffEffect_41F660(YobiAction* parent, std::int32_t imageNo); // BAS01：六图号先改FDC/13D0/13CC，分配失败不回滚；播放后fresh父载荷写1054再绑定父。
+void UpdateBattleDebuffEffect_41F800(YobiAction* action); // BAS01：1054/105C共用借父回调，Play后重借父跟随；标死仍投影，Y转换后取屏幕偏移。
+YobiAction* NewBattleReverseEffect_41F860(YobiAction* parent, std::int32_t imageNo); // BAS01：105C已有返空，设备后持flags两次发布；播放后fresh父载荷写105C再绑定父。
 void UpdateBattleCenteredEffect_41F950(YobiAction* action); // BDE01：父严格标死后仍共同投影尾。
 void UpdateBattleOffsetFollowEffect_419CB0(YobiAction* action); // 父标死仍按屏幕坐标/S32偏移跟随并播放。
 void UpdateBattleTransitionEffect_419BE0(YobiAction* action); // phase0播放严格完成才置phase1/隐藏，不自动标死。
@@ -604,8 +604,8 @@ void UpdateBattleAction142_410F70(YobiAction* action); // BFL01：无空门禁�
 void UpdateBattleAction143_410FC0(YobiAction* action); // 两型状态图号/13E0索引，调用后条件播放并推进。
 void UpdateBattleAction144_411240(YobiAction* action); // BFL01：无空门禁标死1068，fresh完整FDC取样后先清槽再发布掩码值，播放/推进。
 void UpdateBattleAction145_411290(YobiAction* action); // BFL01：一次技能选择四图，创建返回弃置；其它技能亦共同推进，无播放。
-void UpdateBattleAction147_411320(YobiAction* action); // 反转特效开关，创建失败仍按原合同置FDC800。
-void UpdateBattleAction148_40FEF0(YobiAction* action); // 工厂type33，播放后检查1024，最后phase162。
+void UpdateBattleAction147_411320(YobiAction* action); // BAS01：完整FDC的AH800开关；创建失败仍置位，标死后fresh取旗位、先清105C再发布。
+void UpdateBattleAction148_40FEF0(YobiAction* action); // BAS01：完整FDC持样/AL60播放门禁，后取1024创建type33，全路径phase162。
 void UpdateBattleAction154_40F790(YobiAction* action); // type24发布1060，等待特效phase严格1。
 void UpdateBattleAction155_40F800(YobiAction* action); // 两次独立重播种/缩放目标与方向差异音效，收尾令1060.phase=2。
 void UpdateBattleAction156_40FB30(YobiAction* action); // 1060.phase严格3才标死、清槽并推进。

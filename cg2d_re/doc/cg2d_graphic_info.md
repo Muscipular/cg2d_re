@@ -225,3 +225,7 @@ read(length U32,1)仅返回1才发布解码目标、沿既有解码并返0/1；
 ## 2026-10-11 PCR01：五图号探测等级
 
 [PCR01](cg2d_palette_capability_selection_spec.md#palette-capability-source-state)补齐45C970探测及450B70选择，两完整原根78条232B/两页、2E8一个目标/九跳五RET。移除probe原无的出参初值，Select恢复steps判定先于发布，两组两处/五注释；五固定图号两轮同index重查、原-1/4-index、S16门槛/39上界及拒绝index-接受steps返回保持。一新F/旧171追加、两adapted、MAP193/RENDER120，两限定S零I八open；主表生产/全部父及资源owner/SDK/运行未闭。
+
+## 2026-10-11 GAP01：主表分配与释放取样
+
+[GAP01](cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state)补齐4574E0分配及457670释放，两完整原根135条444B/三页、12E8四目标/十一跳三RET，分配原证复用ACB01。五组五定位/四注释恢复容量先取/分配返回持值、P1判空先于P4pub、失败和终止同指针free/清零count先取；原九路径失败继续、四块大小/正常清零、失败与终止仅释放前三块且不清槽保持。旧735追加/新free一F、旧处置350追加/新adapted一，RESOURCE45/RENDER122，两限定S零I八open；完整owner/所有主表借用/SDK与运行待。

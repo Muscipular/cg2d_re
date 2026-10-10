@@ -67,3 +67,7 @@ GetGraphicMapNoIndex以S32 index直接读gGraphicMapNoIndex[index]，写S32*outS
 实施固定命名快照：`cg2d-re-graphic-record-production-lookup-20261006`。原生产者634条完整正文补容器/分配/记录发布局部证据，13处恢复取样；两getter正确源码纳管。旧stdio证据不改成容器/内容验收，保旧事实后以本SPEC当前范围为准。
 
 U08/U09/G01/G02/R01/R04/V04仅增加本步开发事实和引用。继续沿主表分配、GraphicRead实际资源内容与数字/渲染消费、真实owner推进；SDK未决和完整运行缺口仍须由真实证据与后续实现解决，不用本步静态结论掩盖。
+
+## 2026-10-11 GAP01：主表分配依赖补齐
+
+[GAP01](cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state)补齐4574E0分配及457670释放，两完整原根135条444B/三页、12E8四目标/十一跳三RET，分配原证复用ACB01。五组五定位/四注释恢复容量先取/分配返回持值、P1判空先于P4pub、失败和终止同指针free/清零count先取；原九路径失败继续、四块大小/正常清零、失败与终止仅释放前三块且不清槽保持。旧735追加/新free一F、旧处置350追加/新adapted一，RESOURCE45/RENDER122，两限定S零I八open；完整owner/所有主表借用/SDK与运行待。

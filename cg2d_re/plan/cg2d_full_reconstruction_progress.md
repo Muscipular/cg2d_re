@@ -1463,3 +1463,16 @@ PudO唯一改动为持有GetCate返回给调色板，不重读刚pub全局；保
 Select原S32上界39、signed S16 threshold与capability比较，拒绝返回index；接受原先active发布、steps局部判非正再steps发布/可选1，仍返回原steps。45物理记录阈值和路径全文保持；不把物理45扩大到选择许可、不添负索引处理。Lookup完整旧根和PCP01过渡/32查色表复用，未重复全根。
 
 四整源只有两处五注释，原主表/资源/所有owner与全部父生命周期、机器ABI/生成读取/SDK及像素运行未闭。184叶验收0、60任务关闭11开放49、六closure及所有完整门禁保持。同一cg2d_re分支、不打tag，七外部改动/原删除暂存保持。未构建/测试/运行/产物/摘要/引依赖；整体active/未完成。
+
+<a id="graphic-allocation-progress-20261011"></a>
+## 137. 2026-10-11 GAP01：图形与动画四块分配/释放合同
+
+[GAP01](../doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state)补齐4574E0分配及457670释放，两完整原根135条444B/三页、12E8四目标/十一跳三RET，分配原证复用ACB01。五组五定位/四注释恢复容量先取/分配返回持值、P1判空先于P4pub、失败和终止同指针free/清零count先取；原九路径失败继续、四块大小/正常清零、失败与终止仅释放前三块且不清槽保持。旧735追加/新free一F、旧处置350追加/新adapted一，RESOURCE45/RENDER122，两限定S零I八open；完整owner/所有主表借用/SDK与运行待。
+
+语义2341=2293F关联+48有界代码，关联2403/3680=65.30%仅关联率；处置1806/证据1612，其它保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
+
+先记SPEC依子AGENTS第8条裁决。分配原116条复用ACB01已完整存档， 仅新释放19条取证及两个原caller短窗；不重复取已核全根。原P1/P2返回之后读graphic容量再pub，P4返回后先取/判P1再pub，现显式承接；不改变ACB01固定20500或sizeof native布局与MSVC分配族。
+
+失败路径P1 held、随后P2/P3逐块fresh读取并用同快照free；成功四块逐段count先取/随后对应pointer/清零，不把所有count/pointer预取成tuple。释放P1/P2/P3各一次取样、判空/free同值，前块free后才取下块。原不清共享槽/P4和图号映射表不在本根释放，保持并分列完整owner未闭，不擅自修成全释放或新回滚。
+
+四类型/九路径/两stdio provider/两个当前父及三旧语义保持。184叶验收0、60任务关闭11开放49、六closure与全部完整门禁保。同一cg2d_re分支、不打tag，七外部改动/原删除暂存保。未构建/测试/运行/产物/摘要/引依赖；整体active/未完成。

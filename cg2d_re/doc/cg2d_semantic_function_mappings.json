@@ -72703,7 +72703,7 @@
     {
       "original_entry": "0x4574E0",
       "inventory_id": "F:000574E0",
-      "status": "既有图形父的真实FILE/格式化完整链已接；完整CRT/资源内容/运行验收仍待",
+      "status": "既有图形父的真实FILE/格式化完整链已接；完整CRT/资源内容/运行验收仍待；GAP01完整分配原116条复用ACB01，四定向片段恢复返回容量/发布/清理取样，完整owner运行待",
       "original_end_exclusive": "0x457667",
       "instruction_count": 116,
       "original_direct_reference_count": 1,
@@ -72714,6 +72714,20 @@
             "GraphicAlloc_4574E0"
           ],
           "relationship": "ACB01既有分配父恢复固定20500项并撤额外零记录；原四块阶段保持"
+        },
+        {
+          "path": "src/GraphicAlloc.cpp",
+          "symbols": [
+            "GraphicAlloc_4574E0"
+          ],
+          "relationship": "GAP01原116条复用ACB01，返回/容量先取再pub，P1判空先于P4pub，失败持指针/四块清零读序对齐；其它原九探测/大小/返回保持"
+        },
+        {
+          "path": "include/cg/GraphicAlloc.hpp",
+          "symbols": [
+            "GraphicAlloc_4574E0"
+          ],
+          "relationship": "GAP01既有S32声明不改，原四块/失败合同注释；完整owner/ABI运行待"
         }
       ],
       "inbound_evidence": [
@@ -72753,10 +72767,85 @@
         "doc/cg2d_animation_capacity_spec.md#animation-capacity-decision",
         "doc/cg2d_animation_capacity_spec.md#animation-capacity-acceptance",
         "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
-        "doc/cg2d_animation_capacity_evidence.json"
+        "doc/cg2d_animation_capacity_evidence.json",
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-baseline",
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-decision",
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance",
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state",
+        "doc/cg2d_graphic_allocation_release_evidence.json"
       ],
-      "verification_level": "四父完整846条/七直接入向取证，15文件格式调用、十四共享数据引用、EOF低U8/失败/关闭/返回与原字节及限定源码差异静态核对；不重验容器/分配/解码，未执行；ACB01原116条391B分配阶段/固定P1预算与源两片段限定静态，三正常查询身份另列",
-      "boundary": "既有资源分配父先按九Info路径rb逐项探测，成功立即关闭、失败继续；探测后容量发布、四次分配及原清理/清零正文不变。局部流统一LegacyFile，不以探测失败新增返回或扩大当前堆迁移；完整CRT/资源内容/运行未验。 ACB01固定20500项P1分配/撤额外一过尾清零，原容量重读与四块发布/失败/释放/清零序保持；只拓宽已证指针，现代分配字节/失败时机不称原x86逐次相同。 三查询/同一主表关系有据，原116条391B仅分配阶段正常合同/三源片段静态，完整加载/播放/场景/退出/间接alias与所有owner寿命、实际机器/SDK/运行未验；RPLAN.24异常不保护或模拟/称等价。"
+      "verification_level": "四父完整846条/七直接入向取证，15文件格式调用、十四共享数据引用、EOF低U8/失败/关闭/返回与原字节及限定源码差异静态核对；不重验容器/分配/解码，未执行；ACB01原116条391B分配阶段/固定P1预算与源两片段限定静态，三正常查询身份另列；pass，分配原116条391B精确复用ACB01完整存档/释放新19条53B，合135条444B/三页、12E8四目标/十一跳三RET；容量先读再pub/P1先判后P4pub、失败同指针free/逐段清零及终止三块free有据；两整源精确回放五组五定位四注释、四类型/两stdio provider/两个当前父保持；完整owner/所有主表借用/生成读取/ABI/SDK/运行待",
+      "boundary": "既有资源分配父先按九Info路径rb逐项探测，成功立即关闭、失败继续；探测后容量发布、四次分配及原清理/清零正文不变。局部流统一LegacyFile，不以探测失败新增返回或扩大当前堆迁移；完整CRT/资源内容/运行未验。 ACB01固定20500项P1分配/撤额外一过尾清零，原容量重读与四块发布/失败/释放/清零序保持；只拓宽已证指针，现代分配字节/失败时机不称原x86逐次相同。 三查询/同一主表关系有据，原116条391B仅分配阶段正常合同/三源片段静态，完整加载/播放/场景/退出/间接alias与所有owner寿命、实际机器/SDK/运行未验；RPLAN.24异常不保护或模拟/称等价。；GAP01完整GraphicAlloc4574E0(116条391B，原指令复用ACB01已核存档、不重取全根)与释放457670(19条53B)：两根135条444B/三页、12E8四目标/十一跳三RET。原唯一分配CALL457782父4576B0后TEST EAX，释放CALL457A72父457A40后直接456530；两个邻窗及当前父全源保持不代完整应用初终验。九Info指针逐项rb打开，非空同FILE快照关闭，失败继续，探测后五S32/W32容量常量发布，现正常路径与原同，不改变首次固定20500 P1分配或额外清零撤除ACB01。四真实std::malloc MSVC域：P1返回保存→读当次graphic count→发布P1→按刚读capacity分配P2；P2返回保存→重读当次graphic count→发布P2→按此count分配P3→发布P3；P4数量读当次animate count分配，返回仍持值，先取已发布P1并判空，再发布P4，随后原短路判断P1/P2/P3/持有P4。不把P4发布后从槽再读结果。当前恢复这两容量先于共享pub及P1取样/判断先于P4pub。原任一空失败：仅P1非空时free held P1，随后fresh P2读/判空/free同指针，再fresh P3读/判空/free同指针，返回S32 0；不释放P4、不清任一槽、不释放映射表、不回滚。成功四清零依序P1/P2/P3/P4，P1用之前held P1/先读当次animate count，后各块先读当次对应count再fresh pointer再memset，完整native sizeof原已证布局，非地址S32容量保持。现显式各count/pointer取样以消除C++函数实参求值序未表达，不引异常/溢出模型。success返回S32 1，原父正常处理不变。释放根每块各一次读取P1/P2/P3、判非空再同快照free，前块free后才取后一槽；原P4/图号map索引不释放/三槽不清，现按原保，void仅副作用不伪造残留EAX。malloc申请/数量策略/宿主sizeof按HMU/ACB/DX批准不称原x86字节和失败时机相同；与其余map STL被动owner构析/GraphicInit主表非拥有首见指针和全部场景借用寿命独立。两源五组五定位片段四注释，四已有值/指针类型、九路径/两个stdio提供者、两当前父以及旧ACB01/GRP01/DX原证保持，source code不新建helper/接口/句柄或shadow owner。旧735仅追加、释放新F一、旧处置350只追加/新adapted一；RESOURCE已有alloc成员仅加free，RENDER加两，两限定S零I八open；全部资源内容/owner重入退出/主表mapIndex及P4真实释放责任/SDK/机器ABI/生成读取和画面运行仍未闭。网络原字段LF明文/WAV-only/MSVC保持，不增保护/默认/新钳制/零写/回滚/异常模型，整体未完成。",
+      "graphic_allocation_release": {
+        "step": "GAP01",
+        "source_snapshot": "[#] 对齐图形动画分配与释放取样合同",
+        "original_entry": "0x4574e0",
+        "original_end_exclusive": "0x457667",
+        "instruction_count": 116,
+        "code_bytes": 391,
+        "page_count": 2,
+        "direct_calls": 9,
+        "direct_call_targets": [
+          5485297,
+          5485008,
+          5489580,
+          5488809
+        ],
+        "jumps": 8,
+        "returns": 2,
+        "original_incoming_references": [
+          {
+            "ea": 4552578,
+            "type": 17,
+            "code": true,
+            "parent": 4552368,
+            "bytes": "e859fdffff",
+            "asm": "call    GraphicAlloc",
+            "window": [
+              {
+                "ea": 4552578,
+                "bytes": "e859fdffff",
+                "asm": "call    GraphicAlloc"
+              },
+              {
+                "ea": 4552583,
+                "bytes": "85c0",
+                "asm": "test    eax, eax"
+              },
+              {
+                "ea": 4552585,
+                "bytes": "751f",
+                "asm": "jnz     short loc_4577AA"
+              },
+              {
+                "ea": 4552587,
+                "bytes": "a1346f9a00",
+                "asm": "mov     eax, hWnd"
+              },
+              {
+                "ea": 4552592,
+                "bytes": "6a10",
+                "asm": "push    10h; uType"
+              },
+              {
+                "ea": 4552594,
+                "bytes": "68b8365500",
+                "asm": "push    offset Caption; \"確認\""
+              }
+            ]
+          }
+        ],
+        "native_signature": "std::int32_t GraphicAlloc_4574E0()",
+        "source_patch_group_count": 4,
+        "source_changed_point_count": 4,
+        "normal_remaining_source_kept": true,
+        "reused_original_full_evidence": "doc/cg2d_animation_capacity_evidence.json#original_functions[0]",
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "分配真实S32 0/1；释放现void保副作用不造残留EAX，完整owner/资源内容/生成读取和ABI运行待"
+      }
     },
     {
       "original_entry": "0x459960",
@@ -240988,6 +241077,154 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "result_boundary": "Probe原S32 -1/4-index；Select拒绝返回index、接受返回原steps；全父/主表owner/生成读取/ABI运行待"
+      }
+    },
+    {
+      "original_entry": "0x457670",
+      "inventory_id": "F:00057670",
+      "original_role": "图形动画前三块逐段持指针释放",
+      "original_end_exclusive": "0x4576a5",
+      "instruction_count": 19,
+      "function_chunks": [
+        {
+          "start": "0x457670",
+          "end_exclusive": "0x4576a5"
+        }
+      ],
+      "status": "GAP01完整三块释放原根纳管，同快照free；限定S，全owner/资源/ABI运行待",
+      "sources": [
+        {
+          "path": "src/GraphicAlloc.cpp",
+          "symbols": [
+            "Sub_457670"
+          ],
+          "relationship": "GAP01完整三块释放原根，逐段一次取样/同快照free，不清槽/P4不释放保持"
+        },
+        {
+          "path": "include/cg/GraphicAlloc.hpp",
+          "symbols": [
+            "Sub_457670"
+          ],
+          "relationship": "GAP01既有void真实声明保持，仅原释放合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-baseline",
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-decision",
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance",
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state",
+        "doc/cg2d_graphic_allocation_release_evidence.json"
+      ],
+      "boundary": "GAP01完整GraphicAlloc4574E0(116条391B，原指令复用ACB01已核存档、不重取全根)与释放457670(19条53B)：两根135条444B/三页、12E8四目标/十一跳三RET。原唯一分配CALL457782父4576B0后TEST EAX，释放CALL457A72父457A40后直接456530；两个邻窗及当前父全源保持不代完整应用初终验。九Info指针逐项rb打开，非空同FILE快照关闭，失败继续，探测后五S32/W32容量常量发布，现正常路径与原同，不改变首次固定20500 P1分配或额外清零撤除ACB01。四真实std::malloc MSVC域：P1返回保存→读当次graphic count→发布P1→按刚读capacity分配P2；P2返回保存→重读当次graphic count→发布P2→按此count分配P3→发布P3；P4数量读当次animate count分配，返回仍持值，先取已发布P1并判空，再发布P4，随后原短路判断P1/P2/P3/持有P4。不把P4发布后从槽再读结果。当前恢复这两容量先于共享pub及P1取样/判断先于P4pub。原任一空失败：仅P1非空时free held P1，随后fresh P2读/判空/free同指针，再fresh P3读/判空/free同指针，返回S32 0；不释放P4、不清任一槽、不释放映射表、不回滚。成功四清零依序P1/P2/P3/P4，P1用之前held P1/先读当次animate count，后各块先读当次对应count再fresh pointer再memset，完整native sizeof原已证布局，非地址S32容量保持。现显式各count/pointer取样以消除C++函数实参求值序未表达，不引异常/溢出模型。success返回S32 1，原父正常处理不变。释放根每块各一次读取P1/P2/P3、判非空再同快照free，前块free后才取后一槽；原P4/图号map索引不释放/三槽不清，现按原保，void仅副作用不伪造残留EAX。malloc申请/数量策略/宿主sizeof按HMU/ACB/DX批准不称原x86字节和失败时机相同；与其余map STL被动owner构析/GraphicInit主表非拥有首见指针和全部场景借用寿命独立。两源五组五定位片段四注释，四已有值/指针类型、九路径/两个stdio提供者、两当前父以及旧ACB01/GRP01/DX原证保持，source code不新建helper/接口/句柄或shadow owner。旧735仅追加、释放新F一、旧处置350只追加/新adapted一；RESOURCE已有alloc成员仅加free，RENDER加两，两限定S零I八open；全部资源内容/owner重入退出/主表mapIndex及P4真实释放责任/SDK/机器ABI/生成读取和画面运行仍未闭。网络原字段LF明文/WAV-only/MSVC保持，不增保护/默认/新钳制/零写/回滚/异常模型，整体未完成。",
+      "verification_level": "pass，分配原116条391B精确复用ACB01完整存档/释放新19条53B，合135条444B/三页、12E8四目标/十一跳三RET；容量先读再pub/P1先判后P4pub、失败同指针free/逐段清零及终止三块free有据；两整源精确回放五组五定位四注释、四类型/两stdio provider/两个当前父保持；完整owner/所有主表借用/生成读取/ABI/SDK/运行待",
+      "original_incoming": [
+        {
+          "ea": 4553330,
+          "type": 17,
+          "code": true,
+          "parent": 4553280,
+          "bytes": "e8f9fbffff",
+          "asm": "call    sub_457670",
+          "window": [
+            {
+              "ea": 4553330,
+              "bytes": "e8f9fbffff",
+              "asm": "call    sub_457670"
+            },
+            {
+              "ea": 4553335,
+              "bytes": "e8b4eaffff",
+              "asm": "call    sub_456530"
+            },
+            {
+              "ea": 4553340,
+              "bytes": "e8bf150000",
+              "asm": "call    sub_459040"
+            },
+            {
+              "ea": 4553345,
+              "bytes": "e8dad2faff",
+              "asm": "call    sub_404D60"
+            },
+            {
+              "ea": 4553350,
+              "bytes": "e815070b00",
+              "asm": "call    sub_5081A0"
+            },
+            {
+              "ea": 4553355,
+              "bytes": "e840ec0a00",
+              "asm": "call    sub_5066D0"
+            }
+          ]
+        }
+      ],
+      "graphic_allocation_release": {
+        "step": "GAP01",
+        "source_snapshot": "[#] 对齐图形动画分配与释放取样合同",
+        "original_entry": "0x457670",
+        "original_end_exclusive": "0x4576a5",
+        "instruction_count": 19,
+        "code_bytes": 53,
+        "page_count": 1,
+        "direct_calls": 3,
+        "direct_call_targets": [
+          5488809
+        ],
+        "jumps": 3,
+        "returns": 1,
+        "original_incoming_references": [
+          {
+            "ea": 4553330,
+            "type": 17,
+            "code": true,
+            "parent": 4553280,
+            "bytes": "e8f9fbffff",
+            "asm": "call    sub_457670",
+            "window": [
+              {
+                "ea": 4553330,
+                "bytes": "e8f9fbffff",
+                "asm": "call    sub_457670"
+              },
+              {
+                "ea": 4553335,
+                "bytes": "e8b4eaffff",
+                "asm": "call    sub_456530"
+              },
+              {
+                "ea": 4553340,
+                "bytes": "e8bf150000",
+                "asm": "call    sub_459040"
+              },
+              {
+                "ea": 4553345,
+                "bytes": "e8dad2faff",
+                "asm": "call    sub_404D60"
+              },
+              {
+                "ea": 4553350,
+                "bytes": "e815070b00",
+                "asm": "call    sub_5081A0"
+              },
+              {
+                "ea": 4553355,
+                "bytes": "e840ec0a00",
+                "asm": "call    sub_5066D0"
+              }
+            ]
+          }
+        ],
+        "native_signature": "void Sub_457670()",
+        "source_patch_group_count": 1,
+        "source_changed_point_count": 1,
+        "normal_remaining_source_kept": true,
+        "reused_original_full_evidence": null,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "分配真实S32 0/1；释放现void保副作用不造残留EAX，完整owner/资源内容/生成读取和ABI运行待"
       }
     }
   ]

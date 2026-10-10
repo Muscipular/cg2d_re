@@ -10,8 +10,8 @@ extern std::uint32_t gValueD2D5FC;
 extern std::uint32_t gValueCC3E68;
 
 // 原 4574E0：探测路径、发布四块、联合失败或按序清零。
-std::int32_t GraphicAlloc_4574E0();
+std::int32_t GraphicAlloc_4574E0(); // GAP01：原容量/返回取样及四块pub/失败清理/清零原序，完整owner待。
 // 原 457670：依序释放 P1/P2/P3，既不清槽也不释放 P4。
-void Sub_457670();
+void Sub_457670(); // GAP01：原三块逐次取样/同指针free，P4不释放/共享槽不清，完整owner待。
 
 } // namespace cg::resource

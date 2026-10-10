@@ -183,6 +183,7 @@ std::int32_t ClassifyChatSplit_44B570(const char* const text, const std::int32_t
 }
 
 // 原 [0x44B440,0x44B49D)：仅 0x81..0x9F 与 0xE0..0xFC 为双字节首字节。
+// HBN01：原S16偏移/S32计数与固定BYTE范围，低BYTE 0/1/2类别，不改编码判据。
 std::uint8_t ClassifyLegacyBoundary_44B440(
     const char* const text,
     const std::int16_t byteOffset)
@@ -1459,6 +1460,7 @@ void Sub_44B050(
 
 namespace cg::input {
 
+// HBN01：原历史选择/独立游标与现场context清写、字节滚动尾，正确正文保持。
 void BrowseChatHistory_44A1B0()
 {
     using world::detail::gChatHistory621FF8;

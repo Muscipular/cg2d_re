@@ -23,7 +23,7 @@ std::int32_t Sub_4AFF00(); // 借用窗口48置关闭标记，空返回0，否�
 std::uint8_t ReadValueD67BE0() noexcept; // 共享UI门禁W8，world只读。
 std::uint8_t ReadValue5F9754() noexcept; // 技能回复与观察进入共用的UI标志。
 std::int32_t ReadDragItemIndex_584DA4() noexcept; // 原S32拖动编号，初值-1。
-std::int32_t ReadChatInputByteWidth_4A80E0(); // 原C9A930两倍，供历史翻页计算原字节滚动量。
+std::int32_t ReadChatInputByteWidth_4A80E0(); // 原C9A930两倍，供历史翻页计算原字节滚动量。 // HBN01：见历史浏览/字节滚动完整合同。
 
 void FreeWindow_471270(WindowInstance* window); // release回调、记录回存、七类元素释放。
 void CloseWindow_472160(WindowInstance* window); // 记录置bit1后释放，不清gWindows槽。

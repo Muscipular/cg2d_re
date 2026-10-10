@@ -2496,3 +2496,9 @@ ANIMATION/YOBI各两个新成员，BATTLE只Play依赖成员；两新语义/F和
 [CTS01完整原根](cg2d_chat_send_pipeline_spec.md#chat-send-source-state)/[原码与实际接线](cg2d_chat_send_pipeline_evidence.json)覆盖50C940聊天发送与511900六字段封包，共183条653B/四页、23实际E8/11目标/14跳四RET，另两FF15取tick。恢复两个原短路点options194 BYTE读取，复用既有reader，W16字段/写方不变；原gate/disabled/跟随、1000/180000计时与提示/SE/返回保持。转义→P|%s→mode/range→Y/X→socket→原uSr命令与六字段，每字段capacity→token→新共享buffer→append弃返、末发送S32顺序保；两未清1024区和当前明文/GBK/MSVC/WAV-only不变。旧BTG01提交父发送弃返后原清输入保持，一组两点/四注释，正确封包正文及所有其它源保。旧1075保历史追加/一新语义两F、INPUT/NETWORK各两成员/MAP一个成员，三限定S零I/九任务open；全部数据owner/SDK/机器ABI/真实禁言与互通、文字声音画面运行待。
 
 两个实际入向不代完整父或数据寿命；BTG01与十二旧提供者身份保持。关联率不称完成率，184叶验收0/60任务关闭11/六closure及总SPEC§10保持。
+
+## 2026-10-10 HBN01 聊天历史的限定证据
+
+[HBN01完整原根](cg2d_chat_history_navigation_spec.md#chat-history-source-state)/[原码与接线](cg2d_chat_history_navigation_evidence.json)覆盖44A1B0历史浏览、44B440字节类别和4A80E0宽度，共225条707B/五页、七E8/四目标/34跳八RET；26入向内部4/外22仅来源。原64项289B/尾W32与独立游标S32、Up/Down门槛差异及游标发布/环/恢复、入口context清length→新context清text/caret→当前游标装入→新游标复制未清256B→字节长度/宽度→S16类别→原负滚动归零→新context写field158保持。类别仍按原固定BYTE范围返低BYTE0/1/2，不按GBK重写；宽度同一W32两倍、旧707/708文件与BTG-CTS提交保持。三个正确body不改，仅六注释/零逻辑组，三新语义/F、INPUT/UIRUNTIME各三成员/MAP一个成员、三限定S零I/九任务open；struct/断言文本不代编译布局验收，全输入/文件/宽度owner、SDK/机器ABI/真实上下翻页和字符消息画面运行待。
+
+旧文件根与六旧提供者身份不重复处置；关联率不称完成率，184叶验收0/60任务关闭11/六closure及总SPEC§10保持。

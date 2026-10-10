@@ -44181,6 +44181,7 @@ std::int32_t UpdateWindows_473F80()
     return 1;
 }
 
+// HBN01：同一C9A930 W32正常两倍返S32，正确正文保持，不新增数值模型。
 std::int32_t ReadChatInputByteWidth_4A80E0()
 {
     return detail::gChatWidthUnitsC9A930 * 2;

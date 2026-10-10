@@ -2398,3 +2398,9 @@ ANIMATION/YOBI各两个新成员，BATTLE只Play依赖成员；两新语义/F和
 [五完整正常根](cg2d_world_object_lookup_allocation_spec.md#world-object-lookup-acceptance)与[原证/源差集](cg2d_world_object_lookup_allocation_evidence.json)补两MAP/YOBI限定S，无新I。144条421B/五页、一E8/28跳含一switch/十五RET，31实际入向/十九父、原105B全类别表/selector与1000项正常地址界有据；五正确body只十关联注释，其余源/表/字段和MOP01正常父保持。
 
 四新语义、1920从CAC07数据关联补完整正常元数据/来源及新F处置，旧子记录/入口与已知MAP成员保；语义2187→2191、F1617→1622/E1425→1427、MAP138→142/Yobi67→72枚举均false。六任务open、所有完整gates/184叶验收0/60任务11关闭/六closure与原范围政策保，不代全部31父/生产/容量/ABI/alias/owner/SDK/声音画面或运行。
+
+## 2026-10-10 WLR01 世界对象生命周期限定验收
+
+[四完整正常根](cg2d_world_object_lifecycle_spec.md#world-object-lifecycle-acceptance)/[原指令与共享器差集](cg2d_world_object_lifecycle_evidence.json)登记两MAP/YOBI限定S四根，零I/新函数/业务。328条1066B/八页、26E8六callee/37跳六RET，19实际入向/十七父及19短窗有据；四body/共享八槽-text清理和第三玩家消费者旧1300完全保持，只五CPP/五头关联注释。保两个整表选择性/名称/无释放差异、删除全空旧上界、恢复原Read/Create/字节及失败，六旧语义与所有其它源/结构保。
+
+四新语义/F/MAP-Yobi成员；语义2191→2195、F1622→1626/E1427→1429、MAP142→146/Yobi72→76枚举均false，七任务open及全184叶验收0/60任务11关闭、六closure/完整gates与原政策保；所有生产/十九整父/容量/正常失败/传递callee/alias/owner/SDK/机器ABI/声音画面或运行待。

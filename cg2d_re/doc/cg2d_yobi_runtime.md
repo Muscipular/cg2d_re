@@ -4786,3 +4786,10 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 [五正常合同](cg2d_world_object_lookup_allocation_spec.md#world-object-lookup-source-state)补编号查槽、领取、flags/category提供者及FindObjectYobi完整根；144条421B/一E8、31真实入向/十九父及原105B类别数据有据。当前MOP01四callee和SceneState生产后查询保持；全YobiRuntime/SceneState与对象/载荷布局不改，只WorldObjectState和真实声明十注释，五正确body/所有原状态与返回保持。
 
 领取只推进计数/游标，不清记录或写used/action/坐标，成功发布由原父完成，创建失败不加回滚；查找used W16非零而非严格2、两段原start/end持样，借用返回不接管owner；原完整W32映射由父分别消费，category提供者不缩W16。四新原身份与1920完整当前补充、五F/两限定S五根、MAP四/Yobi五成员枚举false，六任务open/完整政策保持；全部生产/31完整父/alias/owner/SDK/ABI与运行待。
+
+<a id="world-object-lifecycle-current-20261010"></a>
+## 2026-10-10 WLR01：共享附件清理与恢复创建消费者
+
+[当前四根合同](cg2d_world_object_lifecycle_spec.md#world-object-lifecycle-source-state)补世界删除/占用槽整表清理各八child标死后逐槽清指针、text1C free后清槽、fresh主标死/世界action清槽，与无释放整表重置/空action恢复四完整328条1066B。共享ClearMapActorAttachments与519D50旧1300是同一既有提供者，正确body/第三消费者保持、不新原helper身份；公头旧仅玩家范围的说明已补两世界消费者及34/38不清边界。
+
+两个GetVal按219唯一jmp401EC0交现Read，方向及1C→0C→image读取/创建顺序和原Read计数/RNG保；成功使用原生payload/record.action借用，恢复名称title原字节/无新长度门槛，末fresh flags保持。只十关联注释，四正常body/共享器/所有其它源及类型字段不改；四原身份/两限定S零I、七任务open及完整政策保，主/payload实际销毁、全创建清理/19全部父/alias/owner/SDK/ABI与画面声音/运行仍待。

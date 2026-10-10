@@ -763,3 +763,12 @@ flags W16非0且objectIndex完整W32位型相等，才清该槽action并停止�
 查找固定start/end两轮，used WORD非零才编号W32比较、命中发布查找游标；领取先计数/高水位/前扫和条件回绕，返回旧游标，不写被领槽、used/category/action/文本或分配/RNG，失败不改状态也不加回滚。类型提供者返回完整W32，category由各父写入时才W16截取；FindObjectYobi查槽一次并借原生T*、负返空，保游标副作用，不移owner。
 
 四新语义、1920从数据角色关联补55B完整正常范围/来源及新F处置，旧CAC07子记录/入口/原MAP成员保持；五新F、MAP四/Yobi五成员和两限定S五根，零I/新函数/接口/逻辑。MOP01正常生产与无tag历史附件规则保，六任务open/全部完整gates/枚举/closure及政策保。全部原输入/生产/31完整父/传递callee/容量/alias/owner/SDK/机器ABI/画面声音和运行待，总SPEC§10不降。
+
+<a id="world-object-lifecycle-current-20261010"></a>
+## 2026-10-10 WLR01：删除、整表清理与空action恢复
+
+[四完整合同](cg2d_world_object_lifecycle_spec.md#world-object-lifecycle-source-state)与[原指令/绑定/差集](cg2d_world_object_lifecycle_evidence.json)纳管四正确正常根：328条1066B/八页、26E8六callee/37跳六RET，无switch，19实际入向/十七父与19短窗有据；只五CPP/五头关联注释、零I/新函数/逻辑，主体/类型/存储/全其它源保持。
+
+删除先玩家专用分流，世界action八附件/text清理后fresh主标死清槽，计数/游标及逆扫上界原序、全空保旧上界；无释放重置全1000槽清原七字段含name首BYTE、无标死/free；占用槽清理只used非零、同一八槽/free/fresh主后清原字段、不清name或未占用槽。空action恢复先direction→1C Read→0C Read→image创建，返回先pub空/失败不回滚，成功index/level/原名称title字节与fresh flags保持。401EA0按旧219唯一jmp同一Read，不加读取/RNG；共享八槽不含34/38、逐槽取样标死清槽，现std::free沿MSVC域，不当主对象立即free/完整owner闭环。
+
+四新语义/F及MAP/Yobi各四成员、两限定S四根，六旧callee/第三玩家1300及MOP01/WOL01保；七任务open、全部完整gates/成员枚举与六closure保。所有数据/19完整父/传递callee/容量/alias/owner/SDK/机器ABI/正常失败与声音画面运行待，总SPEC§10不降。

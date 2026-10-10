@@ -232,6 +232,7 @@ std::int32_t Sub_445A60(
     return 1;
 }
 
+// WLR01：完整编号删除，先共享附件清理/fresh主标死，按原计数/游标收尾；全空保旧上界。
 void Sub_4462E0(const std::int32_t objectIndex)
 {
     if (ReadPlayerObjectIndex_FDA880() == static_cast<std::uint32_t>(objectIndex)) {
@@ -269,6 +270,7 @@ void Sub_4462E0(const std::int32_t objectIndex)
     // 原44645A在全空时直接返回，保留旧上界。
 }
 
+// WLR01：无释放整表重置，只原七字段/名称首BYTE及四计数游标，不合并为有释放清理。
 void Sub_446470()
 {
     gWorldObjectUsedCount = 0;
@@ -286,6 +288,7 @@ void Sub_446470()
     gWorldObjectFindCursor = 0;
 }
 
+// WLR01：只清已占用槽，附件/文本先清再fresh主标死；保名称和未占用槽字段。
 void __cdecl Sub_4464D0()
 {
     gWorldObjectUsedCount = 0;

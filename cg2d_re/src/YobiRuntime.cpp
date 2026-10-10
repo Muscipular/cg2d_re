@@ -5527,6 +5527,7 @@ void Sub_4428F0(YobiAction* const action)
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
 }
 
+// WLR01：玩家519D50、单项删除4462E0与整表4464D0共用八槽/text清理；正确正文保持。
 void ClearMapActorAttachments(YobiAction* const action)
 {
     auto* const payload = static_cast<MapActorPayload*>(action->payload);
@@ -36837,6 +36838,7 @@ std::int32_t Sub_5183B0(const std::int32_t imageNo)
     return imageNo >= 100000 && imageNo < 200000 ? 1 : 0;
 }
 
+// WLR01：仅已占用/空action恢复，方向→第二/第一坐标→图号，创建后按原借用/字节复制/flags发布。
 void Sub_4467D0(const std::int32_t objectIndex)
 {
     if (objectIndex < 0) {

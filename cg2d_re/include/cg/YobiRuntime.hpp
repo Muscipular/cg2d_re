@@ -111,7 +111,7 @@ YobiAction* Sub_448040(
     std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY,
     std::int32_t direction, std::int16_t mode, std::int16_t value02,
     std::int32_t objectIndex);
-// 原 519D61–519E14：主 action 已非空，条件清八个附件及文本；不释放主 action/payload。
+// WLR01：519D50/4462E0/4464D0共用八槽/text清理；逐槽标死清引用，不处理+34/+38或释放主action/payload。
 void ClearMapActorAttachments(YobiAction* action);
 // 519CD0 创建成功后分别操作原 +24/+284；调用方在两次写入间重读玩家。
 void SetYobiPlayerFlag(YobiAction* action) noexcept;

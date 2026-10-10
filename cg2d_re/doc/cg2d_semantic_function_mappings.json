@@ -205337,6 +205337,248 @@
         "doc/cg2d_world_object_lookup_allocation_spec.md#world-object-lookup-source-state",
         "doc/cg2d_world_object_lookup_allocation_evidence.json"
       ]
+    },
+    {
+      "original_entry": "0x4462e0",
+      "inventory_id": "F:000462E0",
+      "original_role": "玩家专用分流/世界删除，八附件/text→fresh主标死清槽，原used/游标和逆扫描上界，全空保旧上界",
+      "original_end_exclusive": "0x446465",
+      "instruction_count": 131,
+      "function_chunks": [
+        {
+          "start": "0x4462e0",
+          "end_exclusive": "0x446465"
+        }
+      ],
+      "status": "WLR01四正确正常根/共享器及原调用/字段序限定S，只十注释；完整生产/owner/运行待",
+      "sources": [
+        {
+          "path": "src/world/WorldObjectState.cpp",
+          "symbol": "cg::world::detail::Sub_4462E0",
+          "relationship": "玩家专用分流/世界删除，八附件/text→fresh主标死清槽，原used/游标和逆扫描上界，全空保旧上界；正确body保持，非新实现"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbol": "cg::world::detail::Sub_4462E0",
+          "relationship": "既有真实void声明/参数与约定保持，只关联注释"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::ClearMapActorAttachments",
+          "relationship": "既有八槽/text共享清理，逐槽取样/标死清槽及std::free保持；非新原F身份/立即free主对象"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_world_object_lifecycle_spec.md#world-object-lifecycle-baseline",
+        "doc/cg2d_world_object_lifecycle_spec.md#world-object-lifecycle-decision",
+        "doc/cg2d_world_object_lifecycle_spec.md#world-object-lifecycle-acceptance",
+        "doc/cg2d_world_object_lifecycle_spec.md#world-object-lifecycle-source-state",
+        "doc/cg2d_world_object_lifecycle_evidence.json"
+      ],
+      "boundary": "WLR01四已实现完整正常删除/全表重置/占用槽清理/空action恢复根纳管，四body及共享八附件helper完全正确保持；仅五CPP/五头关联注释，零I/新函数/接口/结构/状态/保护/回滚/默认值或异常模型。固定payload八槽逐取-标死-清槽及text std::free、fresh主引用、两整表入口选择性/名称/不释放差异、原计数/上界/游标与全空旧上界、恢复方向/两Read和创建/失败/字节及flags发布保持；六旧callee/第三玩家共享器消费者沿旧合同，401EA0唯一jmp同一Read，Free由当前std::free提供，不造原私有ABI。19真实入向/短窗非十九整父或完整生命周期，全部输入/生产/传递callee/正常失败/容量/alias/owner/SDK/机器ABI/声音画面与运行待，总SPEC§10及原完整政策不降。",
+      "verification_level": "四完整328条1066B/八页、26E8六直接callee/37跳六RET、19实际入向/十七父及19短窗；两原八child/free/主fresh绑定、共享器、两整表字段与恢复Read/Create/字节源及整两CPP/两头十注释重放，仅必要静态。",
+      "native_provider": {
+        "path": "src/world/WorldObjectState.cpp",
+        "symbol": "cg::world::detail::Sub_4462E0",
+        "parameters": "S32 objectIndex",
+        "return": "现void观察边界保持；不外推原尾EAX或x86表外地址/机器ABI",
+        "calling_convention": "既有约定保持"
+      },
+      "world_object_lifecycle": {
+        "step": "WLR01",
+        "source_snapshot": "Git提交说明：[#] 对齐世界对象删除清理与空引用恢复合同",
+        "original_instruction_count": 131,
+        "original_code_bytes": 389,
+        "original_page_count": 3,
+        "direct_call_count": 12,
+        "jump_count": 18,
+        "return_count": 3,
+        "inbound_call_count": 2,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_source_kept": true,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x446470",
+      "inventory_id": "F:00046470",
+      "original_role": "三个计数先0、1000项仅原七字段/名称首BYTE清理、查找游标尾0，不释放/标死/清整个记录",
+      "original_end_exclusive": "0x4464c5",
+      "instruction_count": 18,
+      "function_chunks": [
+        {
+          "start": "0x446470",
+          "end_exclusive": "0x4464c5"
+        }
+      ],
+      "status": "WLR01四正确正常根/共享器及原调用/字段序限定S，只十注释；完整生产/owner/运行待",
+      "sources": [
+        {
+          "path": "src/world/WorldObjectState.cpp",
+          "symbol": "cg::world::detail::Sub_446470",
+          "relationship": "三个计数先0、1000项仅原七字段/名称首BYTE清理、查找游标尾0，不释放/标死/清整个记录；正确body保持，非新实现"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbol": "cg::world::detail::Sub_446470",
+          "relationship": "既有真实void声明/参数与约定保持，只关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_world_object_lifecycle_spec.md#world-object-lifecycle-baseline",
+        "doc/cg2d_world_object_lifecycle_spec.md#world-object-lifecycle-decision",
+        "doc/cg2d_world_object_lifecycle_spec.md#world-object-lifecycle-acceptance",
+        "doc/cg2d_world_object_lifecycle_spec.md#world-object-lifecycle-source-state",
+        "doc/cg2d_world_object_lifecycle_evidence.json"
+      ],
+      "boundary": "WLR01四已实现完整正常删除/全表重置/占用槽清理/空action恢复根纳管，四body及共享八附件helper完全正确保持；仅五CPP/五头关联注释，零I/新函数/接口/结构/状态/保护/回滚/默认值或异常模型。固定payload八槽逐取-标死-清槽及text std::free、fresh主引用、两整表入口选择性/名称/不释放差异、原计数/上界/游标与全空旧上界、恢复方向/两Read和创建/失败/字节及flags发布保持；六旧callee/第三玩家共享器消费者沿旧合同，401EA0唯一jmp同一Read，Free由当前std::free提供，不造原私有ABI。19真实入向/短窗非十九整父或完整生命周期，全部输入/生产/传递callee/正常失败/容量/alias/owner/SDK/机器ABI/声音画面与运行待，总SPEC§10及原完整政策不降。",
+      "verification_level": "四完整328条1066B/八页、26E8六直接callee/37跳六RET、19实际入向/十七父及19短窗；两原八child/free/主fresh绑定、共享器、两整表字段与恢复Read/Create/字节源及整两CPP/两头十注释重放，仅必要静态。",
+      "native_provider": {
+        "path": "src/world/WorldObjectState.cpp",
+        "symbol": "cg::world::detail::Sub_446470",
+        "parameters": "无参数",
+        "return": "现void观察边界保持；不外推原尾EAX或x86表外地址/机器ABI",
+        "calling_convention": "既有约定保持"
+      },
+      "world_object_lifecycle": {
+        "step": "WLR01",
+        "source_snapshot": "Git提交说明：[#] 对齐世界对象删除清理与空引用恢复合同",
+        "original_instruction_count": 18,
+        "original_code_bytes": 85,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 1,
+        "return_count": 1,
+        "inbound_call_count": 4,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_source_kept": true,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4464d0",
+      "inventory_id": "F:000464D0",
+      "original_role": "三个计数先0，只已占用槽八附件/text/fresh主标死清槽及原字段，不清名称或未占用槽，尾查找游标0",
+      "original_end_exclusive": "0x446604",
+      "instruction_count": 97,
+      "function_chunks": [
+        {
+          "start": "0x4464d0",
+          "end_exclusive": "0x446604"
+        }
+      ],
+      "status": "WLR01四正确正常根/共享器及原调用/字段序限定S，只十注释；完整生产/owner/运行待",
+      "sources": [
+        {
+          "path": "src/world/WorldObjectState.cpp",
+          "symbol": "cg::world::detail::Sub_4464D0",
+          "relationship": "三个计数先0，只已占用槽八附件/text/fresh主标死清槽及原字段，不清名称或未占用槽，尾查找游标0；正确body保持，非新实现"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbol": "cg::world::detail::Sub_4464D0",
+          "relationship": "既有真实void声明/参数与约定保持，只关联注释"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::ClearMapActorAttachments",
+          "relationship": "既有八槽/text共享清理，逐槽取样/标死清槽及std::free保持；非新原F身份/立即free主对象"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_world_object_lifecycle_spec.md#world-object-lifecycle-baseline",
+        "doc/cg2d_world_object_lifecycle_spec.md#world-object-lifecycle-decision",
+        "doc/cg2d_world_object_lifecycle_spec.md#world-object-lifecycle-acceptance",
+        "doc/cg2d_world_object_lifecycle_spec.md#world-object-lifecycle-source-state",
+        "doc/cg2d_world_object_lifecycle_evidence.json"
+      ],
+      "boundary": "WLR01四已实现完整正常删除/全表重置/占用槽清理/空action恢复根纳管，四body及共享八附件helper完全正确保持；仅五CPP/五头关联注释，零I/新函数/接口/结构/状态/保护/回滚/默认值或异常模型。固定payload八槽逐取-标死-清槽及text std::free、fresh主引用、两整表入口选择性/名称/不释放差异、原计数/上界/游标与全空旧上界、恢复方向/两Read和创建/失败/字节及flags发布保持；六旧callee/第三玩家共享器消费者沿旧合同，401EA0唯一jmp同一Read，Free由当前std::free提供，不造原私有ABI。19真实入向/短窗非十九整父或完整生命周期，全部输入/生产/传递callee/正常失败/容量/alias/owner/SDK/机器ABI/声音画面与运行待，总SPEC§10及原完整政策不降。",
+      "verification_level": "四完整328条1066B/八页、26E8六直接callee/37跳六RET、19实际入向/十七父及19短窗；两原八child/free/主fresh绑定、共享器、两整表字段与恢复Read/Create/字节源及整两CPP/两头十注释重放，仅必要静态。",
+      "native_provider": {
+        "path": "src/world/WorldObjectState.cpp",
+        "symbol": "cg::world::detail::Sub_4464D0",
+        "parameters": "无参数",
+        "return": "现void观察边界保持；不外推原尾EAX或x86表外地址/机器ABI",
+        "calling_convention": "现既有__cdecl"
+      },
+      "world_object_lifecycle": {
+        "step": "WLR01",
+        "source_snapshot": "Git提交说明：[#] 对齐世界对象删除清理与空引用恢复合同",
+        "original_instruction_count": 97,
+        "original_code_bytes": 308,
+        "original_page_count": 2,
+        "direct_call_count": 10,
+        "jump_count": 13,
+        "return_count": 1,
+        "inbound_call_count": 3,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_source_kept": true,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4467d0",
+      "inventory_id": "F:000467D0",
+      "original_role": "负编号/查槽失败/used0/已有action结束；方向→1C→0C→image创建，失败仅空槽pub，成功原index/level/字节名称/flags",
+      "original_end_exclusive": "0x4468ec",
+      "instruction_count": 82,
+      "function_chunks": [
+        {
+          "start": "0x4467d0",
+          "end_exclusive": "0x4468ec"
+        }
+      ],
+      "status": "WLR01四正确正常根/共享器及原调用/字段序限定S，只十注释；完整生产/owner/运行待",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::world::detail::Sub_4467D0",
+          "relationship": "负编号/查槽失败/used0/已有action结束；方向→1C→0C→image创建，失败仅空槽pub，成功原index/level/字节名称/flags；正确body保持，非新实现"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbol": "cg::world::detail::Sub_4467D0",
+          "relationship": "既有真实void声明/参数与约定保持，只关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_world_object_lifecycle_spec.md#world-object-lifecycle-baseline",
+        "doc/cg2d_world_object_lifecycle_spec.md#world-object-lifecycle-decision",
+        "doc/cg2d_world_object_lifecycle_spec.md#world-object-lifecycle-acceptance",
+        "doc/cg2d_world_object_lifecycle_spec.md#world-object-lifecycle-source-state",
+        "doc/cg2d_world_object_lifecycle_evidence.json"
+      ],
+      "boundary": "WLR01四已实现完整正常删除/全表重置/占用槽清理/空action恢复根纳管，四body及共享八附件helper完全正确保持；仅五CPP/五头关联注释，零I/新函数/接口/结构/状态/保护/回滚/默认值或异常模型。固定payload八槽逐取-标死-清槽及text std::free、fresh主引用、两整表入口选择性/名称/不释放差异、原计数/上界/游标与全空旧上界、恢复方向/两Read和创建/失败/字节及flags发布保持；六旧callee/第三玩家共享器消费者沿旧合同，401EA0唯一jmp同一Read，Free由当前std::free提供，不造原私有ABI。19真实入向/短窗非十九整父或完整生命周期，全部输入/生产/传递callee/正常失败/容量/alias/owner/SDK/机器ABI/声音画面与运行待，总SPEC§10及原完整政策不降。",
+      "verification_level": "四完整328条1066B/八页、26E8六直接callee/37跳六RET、19实际入向/十七父及19短窗；两原八child/free/主fresh绑定、共享器、两整表字段与恢复Read/Create/字节源及整两CPP/两头十注释重放，仅必要静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::world::detail::Sub_4467D0",
+        "parameters": "S32 objectIndex",
+        "return": "现void观察边界保持；不外推原尾EAX或x86表外地址/机器ABI",
+        "calling_convention": "既有约定保持"
+      },
+      "world_object_lifecycle": {
+        "step": "WLR01",
+        "source_snapshot": "Git提交说明：[#] 对齐世界对象删除清理与空引用恢复合同",
+        "original_instruction_count": 82,
+        "original_code_bytes": 284,
+        "original_page_count": 2,
+        "direct_call_count": 4,
+        "jump_count": 5,
+        "return_count": 1,
+        "inbound_call_count": 10,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_source_kept": true,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

@@ -207008,6 +207008,66 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x50c7a0",
+      "inventory_id": "F:0010C7A0",
+      "original_role": "MTg两整数倒计时生产：原gate/负秒业务、首缩放与mode发布、remaining/单tick及清626C14，完整U32 gate/tick返回",
+      "original_end_exclusive": "0x50c7e4",
+      "instruction_count": 18,
+      "function_chunks": [
+        {
+          "start": "0x50c7a0",
+          "end_exclusive": "0x50c7e4"
+        }
+      ],
+      "status": "PTP01完整正常根独立纳管，首缩放/mode发布序恢复；仅限定S，全收发/owner/SDK/ABI/数值/运行待",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "cg::world::detail::Sub_50C7A0",
+          "relationship": "既有MTg真实入口，仅恢复首×5在mode前/其余正常缩放，原业务分支/字段/返回保"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbol": "cg::world::detail::Sub_50C7A0",
+          "relationship": "当前真实声明/原参数与返回保持，仅关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_timer_reply_producer_spec.md#player-timer-reply-baseline",
+        "doc/cg2d_player_timer_reply_producer_spec.md#player-timer-reply-decision",
+        "doc/cg2d_player_timer_reply_producer_spec.md#player-timer-reply-acceptance",
+        "doc/cg2d_player_timer_reply_producer_spec.md#player-timer-reply-source-state",
+        "doc/cg2d_player_timer_reply_producer_evidence.json"
+      ],
+      "boundary": "PTP01完整18条68B一页/两跳一RET/零E8与一IATtick，唯一512E40父短窗；原gate单读非0返完整U32位型、S32负秒按原业务置0、firstScale×5在mode发布前，其后×5×5×8/remaining→单SDKtick→tick槽→清626C14→同tick完整返回保，socket原未读/既有原生宽度保。只恢复一计算发布组，两文件精确差集无新函数/API/布局/owner，模式S32与remainingS32/tickU32不扩宽/不改bool。55原gate直接引用53读/两writer仅出处关联，BTD1606/BTB185保持不重验全体；GTP同源扣减2215及三个无原F native helper保持，不造原身份或当全部战斗/状态栏/转生按钮消费已验。仅正常源码序S，不宣优化后机器读取/指令、ABI/数值/并发；完整唯一父/MTg收发正常失败/53消费者/全部同源数据生产消费/alias-owner、SDK/画面/生命周期待，枚举/完整gates/六closure及总SPEC§10守恒。RPLAN.24不增保护、上限、默认值、补零、钳制、回滚/异常模型，原负时长置零不删；WAV-only/原格式明文/MSVC直接CRT及現文本字节/普通整数边界保。",
+      "verification_level": "完整原连续18条68B/唯一SDKtick与唯一入向窗、gate55引用和两已纳管writer、现MTg两I/socket绑定与SDK桥，整两文件精确重放一组/两注释；所有其它source/helper保持，仅必要静态。",
+      "native_provider": {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "cg::world::detail::Sub_50C7A0",
+        "parameters": "std::uint32_t Sub_50C7A0(\n    const std::uintptr_t /*socket*/, const std::int32_t seconds,\n    const std::int32_t mode)",
+        "return": "完整U32 gate非0原位型或唯一SDKtick；原DWORD，不改bool/固定0或1，唯一父随后XOR EAX",
+        "runtime_verified": false
+      },
+      "player_timer_reply_producer": {
+        "step": "PTP01",
+        "source_snapshot": "Git提交说明“[#] 补齐倒计时回复生产并恢复缩放发布顺序”",
+        "original_instruction_count": 18,
+        "original_code_bytes": 68,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "indirect_tick_count": 1,
+        "jump_count": 2,
+        "return_count": 1,
+        "inbound_call_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "normal_source_kept": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

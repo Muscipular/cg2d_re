@@ -3804,3 +3804,10 @@ Copy原delimiter S8扩展与源U8比较只在源0..127分支，现U8表达在该
 [50C870及实际依赖](cg2d_game_time_production_lifecycle_spec.md#game-time-production-source-state)完整纳管；当前TryDispatchReply的PudO四I/socket实接保持，不改命令/Base62字段/明文或队列，512E40随后XOR EAX有据，PudO原S32 adjustment仍返回。先对象号/offset/两个独立time/六字段writer与旧adjustment→GetCate并持有→类别发布/调色板0→path→新adjustment，唯一该父改动为调色板参数使用持有category，不重读刚写的全局槽。
 
 四新语义/197完整追加、五F与四限定S零I，NETWORK只PudO新增成员，所有现协议/调色板/CRT源保持，不称已互通或机器返回/时钟环境/owner运行通过；完整网络/校时/输入和SDK-ABI待，原格式明文/WAV-only与总SPEC§10不降。
+
+<a id="player-timer-reply-current-20261010"></a>
+## 2026-10-10 PTP01：MTg两整数回复入口
+
+[完整50C7A0](cg2d_player_timer_reply_producer_spec.md#player-timer-reply-source-state)现补独立身份，TryDispatchReply<Sub_50C7A0,I,I>的MTg/seconds/mode及既有socket原实接保持；原唯一512E40父随后XOR EAX，入口仍完整返回gate非0位型或单SDK tick，非bool/固定成功。只恢复首duration×5在mode pub前与其后缩放表达，原负时长业务、四字段发布与清626C14/参数/原协议/明文不改。
+
+NETWORK仅新增该入口一个成员/限定S（另三功能各一S），四旧身份/source/所有其它台账保持，八任务及完整gates/枚举开放；不宣实际MTg互通、全部门槛/owner/机器ABI或运行通过。

@@ -1695,3 +1695,10 @@ RefreshTz仍沿同一宿主根；不新增mbschr原体或环境影子状态，�
 [当前五完整合同](cg2d_game_time_production_lifecycle_spec.md#game-time-production-source-state)/[连续原码/源差集](cg2d_game_time_production_lifecycle_evidence.json)补50C870、458F00、458F40、519EB0及旧197 writer完整原基线。业务时间仍六W32/24B与独立time32；原offset/base/sample/旧adjustment读取序、U32分解、year/month/day/hours/minutes/sTick发布和末phase/192商保，writer body正确未改，新增完整处置不覆盖旧历史。库内time职责沿现MC01 UCRT，旧本页私有CRT/时区条款只在已批范围保历史，不重建旧私有环境。
 
 PudO先对象号→offset→第一次time采样发布→writer内第二time→category发布/持有调色板→path→最后新adjustment返回；writer使用旧adjustment，不因校时重构提前发布新值/合并两采样。time变化持有mode/category选择3600过渡后总进timer；原负剩余归零为业务，恢复字段先齐取与持有结果判负。原SDK残值有51CDE9透传，现void提供者与完整机器ABI不能混称等价；本步局部S，不代实际校时/调色板、全部生产消费/owner/SDK/数值/画面或运行，完整门禁/八任务仍open。
+
+<a id="player-timer-reply-current-20261010"></a>
+## 2026-10-10 PTP01：玩家倒计时生产与游戏时段区分
+
+[MTg/50C7A0](cg2d_player_timer_reply_producer_spec.md#player-timer-reply-source-state)生产玩家同源S32剩余毫秒/完整模式/U32 tick，不混入六W32 GameTime或PudO校时字段。原首duration×5在mode发布前，其后×5×5×8→remaining→唯一GetTickCount→tick槽→626C14清零→tick原样返回，本步一组恢复；原gate非0返回位型和负秒业务归零保持，不造新单位/范围保护或U64回绕模拟。
+
+gate两已纳管writer/53读者只引用出处，GTP推进及native战斗扣减/reader保持，后者无独立原F不能捏造身份；四功能各一成员/四S零I、八任务open，仅静态正常源序，不代完整数据生产消费/owner/MTg互通、SDK/ABI/数值/状态栏或运行。

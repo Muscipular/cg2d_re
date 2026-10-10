@@ -4849,3 +4849,10 @@ primary和BOG插值/原可写表/ftol host职责不改；上界比较→fresh减
 [倒计时/校时五根](cg2d_game_time_production_lifecycle_spec.md#game-time-production-source-state)恢复timer旧U32 tick→S32 remaining先齐取，原W32差后持有updated发布/判负，保负值归零/mode清零/末tick与场景9有效玩家、场景10路径。原两个SDK物理点只择一执行，现单统一调用不增加采样；outer末尾总推进，不以时段是否变化阻断。PudO持有category/保两独立time与最后adjustment，旧writer197及setter完整正确body保。
 
 现两个推进接口/DrawNormalScene为void不证明原寄存器弃返，51CDE9有残值透传，其完整上层机器ABI待R04；两直接battle父窗覆盖EAX而不改旧1349。四新身份/旧197追加/五处置、MAP/Yobi各五成员/BATTLE仅timer/NETWORK仅PudO四S零I、八任务open；原MHT、调色板/CRT/共享源/四外父旧合同保，所有owner/数值/SDK/画面运行未验。
+
+<a id="player-timer-reply-current-20261010"></a>
+## 2026-10-10 PTP01：同源倒计时回复的缩放时点
+
+[MTg生产](cg2d_player_timer_reply_producer_spec.md#player-timer-reply-source-state)将首×5恢复到完整mode发布前，其后×5×5×8发布S32毫秒；原负秒归零/全部S32 mode、单SDKtick/输入零与完整U32 gate或tick返回保。GTP按帧扣减和ConsumeBattlePlayerTimer及两个native reader正确现源保持，无新owner/字段或原F；尚不把四战斗调用/状态栏/转生按钮及原gate53读者算完整验收。
+
+一个新身份/F，MAP/Yobi/BATTLE/NETWORK各一成员、四限定S零I/八任务open；原两个gate writer1606/185、唯一网络父1216与SDK/全部其它源保，完整收发/数值/机器ABI/alias-owner/画面运行待，总SPEC§10保持。

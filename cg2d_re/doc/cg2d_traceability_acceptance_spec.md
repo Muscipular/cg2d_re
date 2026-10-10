@@ -2452,3 +2452,9 @@ ANIMATION/YOBI各两个新成员，BATTLE只Play依赖成员；两新语义/F和
 [五完整合同](cg2d_game_time_production_lifecycle_spec.md#game-time-production-acceptance)/[原码与当前差集](cg2d_game_time_production_lifecycle_evidence.json)：149条505B/六页、八E8/两IAT tick/一外尾跳/十一跳四RET，十二局部入向/四外父；三取样组恢复，writer/outer/setter正确body保持，51CDE9残值透传明确不当全部弃返/ABI通过。四新语义/197完整追加、五新F处置，语义2213→2217/F1644→1649/E1446→1450；MAP164→169/Yobi94→99各五成员、BATTLE422→423仅timer、NETWORK74→75仅PudO，四限定S零I。
 
 全部其它2212旧语义/1644旧F/1446旧证据及七旧依赖身份/源保持，八任务open/184叶验收0/60任务关闭11/枚举false/完整gates与六closure保。原时间/字段/业务归零有据，不宣完整校时/全父/alias-owner/调色板/SDK/机器ABI/数值/画面运行，总SPEC§10不降。
+
+## 2026-10-10 PTP01 倒计时回复生产限定验收
+
+[完整MTg合同](cg2d_player_timer_reply_producer_spec.md#player-timer-reply-acceptance)/[原指令与源差集](cg2d_player_timer_reply_producer_evidence.json)：18条68B/一页、两跳一RET/单IATtick/唯一父；55门槛直接引用仅出处关联，53完整读者/两旧writer的全生命周期不扩验。首×5在mode前一组与整两文件/两注释差集成立，原gate/负秒/字段/返回、三个无F native helper及全部其它源保。
+
+一新语义/F，语义2217→2218/F1649→1650/E1450→1454；MAP169→170/Yobi99→100/BATTLE423→424/NETWORK75→76各一成员、四限定S零I；四旧身份和所有旧台账/政策保，八任务open/184叶验收0/60任务关闭11/原枚举false/完整gates及六closure守恒，不降总SPEC§10。

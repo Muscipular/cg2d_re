@@ -1,0 +1,861 @@
+{
+  "step": "PTP01",
+  "recorded_on": "2026-10-10",
+  "before_snapshot": "Git提交说明“[#] 补齐游戏校时与倒计时并恢复持有取样”",
+  "after_snapshot": "Git提交说明“[#] 补齐倒计时回复生产并恢复缩放发布顺序”",
+  "original_root": {
+    "entry": "0x50c7a0",
+    "end": "0x50c7e4",
+    "name": "sub_50C7A0",
+    "type": "DWORD __cdecl(int, int, int)",
+    "chunks": [
+      [
+        "0x50c7a0",
+        "0x50c7e4"
+      ]
+    ],
+    "instruction_count": 18,
+    "byte_count": 68,
+    "page_count": 1,
+    "instructions": [
+      {
+        "ea": "0x50c7a0",
+        "size": 5,
+        "bytes": "a10c6e9a00",
+        "asm": "mov     eax, dword_9A6E0C",
+        "call_target": null
+      },
+      {
+        "ea": "0x50c7a5",
+        "size": 2,
+        "bytes": "85c0",
+        "asm": "test    eax, eax",
+        "call_target": null
+      },
+      {
+        "ea": "0x50c7a7",
+        "size": 2,
+        "bytes": "753a",
+        "asm": "jnz     short locret_50C7E3",
+        "call_target": null
+      },
+      {
+        "ea": "0x50c7a9",
+        "size": 4,
+        "bytes": "8b442408",
+        "asm": "mov     eax, [esp+arg_4]",
+        "call_target": null
+      },
+      {
+        "ea": "0x50c7ad",
+        "size": 2,
+        "bytes": "85c0",
+        "asm": "test    eax, eax",
+        "call_target": null
+      },
+      {
+        "ea": "0x50c7af",
+        "size": 2,
+        "bytes": "7d02",
+        "asm": "jge     short loc_50C7B3",
+        "call_target": null
+      },
+      {
+        "ea": "0x50c7b1",
+        "size": 2,
+        "bytes": "33c0",
+        "asm": "xor     eax, eax",
+        "call_target": null
+      },
+      {
+        "ea": "0x50c7b3",
+        "size": 3,
+        "bytes": "8d0480",
+        "asm": "lea     eax, [eax+eax*4]",
+        "call_target": null
+      },
+      {
+        "ea": "0x50c7b6",
+        "size": 4,
+        "bytes": "8b4c240c",
+        "asm": "mov     ecx, [esp+arg_8]",
+        "call_target": null
+      },
+      {
+        "ea": "0x50c7ba",
+        "size": 6,
+        "bytes": "890d10a7fd00",
+        "asm": "mov     gPlayerDataVal.field_10, ecx",
+        "call_target": null
+      },
+      {
+        "ea": "0x50c7c0",
+        "size": 3,
+        "bytes": "8d0480",
+        "asm": "lea     eax, [eax+eax*4]",
+        "call_target": null
+      },
+      {
+        "ea": "0x50c7c3",
+        "size": 3,
+        "bytes": "8d0480",
+        "asm": "lea     eax, [eax+eax*4]",
+        "call_target": null
+      },
+      {
+        "ea": "0x50c7c6",
+        "size": 3,
+        "bytes": "c1e003",
+        "asm": "shl     eax, 3",
+        "call_target": null
+      },
+      {
+        "ea": "0x50c7c9",
+        "size": 5,
+        "bytes": "a30ca7fd00",
+        "asm": "mov     gPlayerDataVal.feverTime, eax",
+        "call_target": null
+      },
+      {
+        "ea": "0x50c7ce",
+        "size": 6,
+        "bytes": "ff15f8d15400",
+        "asm": "call    ds:GetTickCount",
+        "call_target": null
+      },
+      {
+        "ea": "0x50c7d4",
+        "size": 5,
+        "bytes": "a314a7fd00",
+        "asm": "mov     gPlayerDataVal.field_14, eax",
+        "call_target": null
+      },
+      {
+        "ea": "0x50c7d9",
+        "size": 10,
+        "bytes": "c705146c620000000000",
+        "asm": "mov     dword_626C14, 0",
+        "call_target": null
+      },
+      {
+        "ea": "0x50c7e3",
+        "size": 1,
+        "bytes": "c3",
+        "asm": "retn",
+        "call_target": null
+      }
+    ],
+    "jump_count": 2,
+    "ret_count": 1,
+    "xrefs": [
+      {
+        "ea": "0x513710",
+        "parent": "0x512e40",
+        "type": 17,
+        "bytes": "e88b90ffff",
+        "asm": "call    sub_50C7A0"
+      }
+    ]
+  },
+  "original_parent_window": {
+    "call": 5322512,
+    "parent": 5320256,
+    "instructions": [
+      {
+        "ea": 5322497,
+        "size": 5,
+        "bytes": "e88a3a0000",
+        "asm": "call    sub_517190"
+      },
+      {
+        "ea": 5322502,
+        "size": 7,
+        "bytes": "8b8c2450040000",
+        "asm": "mov     ecx, [esp+44Ch+fd]"
+      },
+      {
+        "ea": 5322509,
+        "size": 1,
+        "bytes": "50",
+        "asm": "push    eax"
+      },
+      {
+        "ea": 5322510,
+        "size": 1,
+        "bytes": "56",
+        "asm": "push    esi"
+      },
+      {
+        "ea": 5322511,
+        "size": 1,
+        "bytes": "51",
+        "asm": "push    ecx"
+      },
+      {
+        "ea": 5322512,
+        "size": 5,
+        "bytes": "e88b90ffff",
+        "asm": "call    sub_50C7A0"
+      },
+      {
+        "ea": 5322517,
+        "size": 3,
+        "bytes": "83c414",
+        "asm": "add     esp, 14h"
+      },
+      {
+        "ea": 5322520,
+        "size": 2,
+        "bytes": "33c0",
+        "asm": "xor     eax, eax"
+      },
+      {
+        "ea": 5322522,
+        "size": 1,
+        "bytes": "5f",
+        "asm": "pop     edi"
+      },
+      {
+        "ea": 5322523,
+        "size": 1,
+        "bytes": "5e",
+        "asm": "pop     esi"
+      },
+      {
+        "ea": 5322524,
+        "size": 1,
+        "bytes": "5d",
+        "asm": "pop     ebp"
+      },
+      {
+        "ea": 5322525,
+        "size": 1,
+        "bytes": "5b",
+        "asm": "pop     ebx"
+      },
+      {
+        "ea": 5322526,
+        "size": 6,
+        "bytes": "81c434040000",
+        "asm": "add     esp, 434h"
+      },
+      {
+        "ea": 5322532,
+        "size": 1,
+        "bytes": "c3",
+        "asm": "retn"
+      },
+      {
+        "ea": 5322533,
+        "size": 5,
+        "bytes": "be7cb55800",
+        "asm": "mov     esi, offset aMhbt; \"Mhbt\""
+      }
+    ],
+    "full_parent_verified": false
+  },
+  "gate_original_data_refs": [
+    {
+      "ea": 4582329,
+      "parent": 4582320,
+      "type": 2,
+      "bytes": "c7050c6e9a0001000000",
+      "asm": "mov     dword_9A6E0C, 1"
+    },
+    {
+      "ea": 5279888,
+      "parent": 5279888,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5280010,
+      "parent": 5280000,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5281360,
+      "parent": 5281360,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5282720,
+      "parent": 5282720,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5283376,
+      "parent": 5283376,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5283504,
+      "parent": 5283504,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5284128,
+      "parent": 5284128,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5284608,
+      "parent": 5284608,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5284832,
+      "parent": 5284832,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5285552,
+      "parent": 5285552,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5286944,
+      "parent": 5286944,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5288144,
+      "parent": 5288144,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5288842,
+      "parent": 5288832,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5291226,
+      "parent": 5291216,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5291808,
+      "parent": 5291808,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5291936,
+      "parent": 5291936,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5291984,
+      "parent": 5291984,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5292640,
+      "parent": 5292640,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5293440,
+      "parent": 5293440,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5293984,
+      "parent": 5293984,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5294064,
+      "parent": 5294064,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5294336,
+      "parent": 5294336,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5294826,
+      "parent": 5294816,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5296016,
+      "parent": 5296016,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5296128,
+      "parent": 5296128,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5296416,
+      "parent": 5296416,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5297418,
+      "parent": 5297408,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5297920,
+      "parent": 5297920,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5297984,
+      "parent": 5297984,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5298368,
+      "parent": 5298368,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5298656,
+      "parent": 5298656,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5299594,
+      "parent": 5299584,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5300496,
+      "parent": 5300496,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5300752,
+      "parent": 5300752,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5301008,
+      "parent": 5301008,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5301184,
+      "parent": 5301184,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5301232,
+      "parent": 5301232,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5301312,
+      "parent": 5301312,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5301360,
+      "parent": 5301360,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5301408,
+      "parent": 5301408,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5301456,
+      "parent": 5301456,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5301504,
+      "parent": 5301504,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5301552,
+      "parent": 5301552,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5301616,
+      "parent": 5301616,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5302320,
+      "parent": 5302320,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5302352,
+      "parent": 5302352,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5303104,
+      "parent": 5303104,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5303376,
+      "parent": 5303376,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5303984,
+      "parent": 5303984,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5304624,
+      "parent": 5304624,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5306768,
+      "parent": 5306768,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5308752,
+      "parent": 5308752,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5309536,
+      "parent": 5309536,
+      "type": 3,
+      "bytes": "a10c6e9a00",
+      "asm": "mov     eax, dword_9A6E0C"
+    },
+    {
+      "ea": 5359003,
+      "parent": 5358640,
+      "type": 2,
+      "bytes": "891d0c6e9a00",
+      "asm": "mov     dword_9A6E0C, ebx"
+    }
+  ],
+  "source_before": {
+    "path": "src/world/SceneState.cpp",
+    "symbol": "Sub_50C7A0",
+    "signature": "std::uint32_t Sub_50C7A0(\n    const std::uintptr_t /*socket*/, const std::int32_t seconds,\n    const std::int32_t mode)",
+    "source": "std::uint32_t Sub_50C7A0(\n    const std::uintptr_t /*socket*/, const std::int32_t seconds,\n    const std::int32_t mode)\n{\n    const std::uint32_t gate = gValue9A6E0C;\n    if (gate != 0) {\n        return gate;\n    }\n    const std::int32_t duration = seconds < 0 ? 0 : seconds;\n    gPlayerRuntime.timerMode10 = mode;\n    gPlayerRuntime.timerRemaining0C = duration * 1000;\n    const std::uint32_t tick = platform::ReadTickCount32();\n    gPlayerRuntime.timerTick14 = tick;\n    input::gValue626C14 = 0;\n    return tick;\n}\n",
+    "line": 2893
+  },
+  "source_extra": {
+    "gate_writers": [
+      {
+        "path": "src/world/WorldUpdate.cpp",
+        "statement": "gValue9A6E0C = 0;",
+        "line": 101,
+        "context": "        detail::Sub_46E2A0();\n        detail::Sub_46BD40();\n        gValue5ABFC4 = 0;\n        gValue9A6E0C = 0;\n        detail::Sub_504A30();\n        detail::Sub_43C8F0();\n        detail::Sub_504100();"
+      },
+      {
+        "path": "src/world/SceneState.cpp",
+        "statement": "gValue9A6E0C = 1;",
+        "line": 11985,
+        "context": "{\n    std::int32_t sceneState = gCurrentSceneState;\n    if (sceneState == 0) {\n        gValue9A6E0C = 1;\n        const std::int32_t transition = Sub_45EEE0();\n        if (transition == 0) {\n            return transition;"
+      }
+    ],
+    "dispatch": {
+      "path": "src/network/NetworkRuntime.cpp",
+      "line": "    if (TryDispatchReply<world::detail::Sub_50C7A0, I, I>(head, \"MTg\", socket)) return 0;",
+      "full_dispatch_newly_verified": false
+    }
+  },
+  "native_helpers_before": [
+    {
+      "path": "src/world/SceneState.cpp",
+      "symbol": "ReadPlayerTimerRemaining0C",
+      "signature": "std::int32_t ReadPlayerTimerRemaining0C() noexcept",
+      "source": "std::int32_t ReadPlayerTimerRemaining0C() noexcept\n{\n    return gPlayerRuntime.timerRemaining0C;\n}\n",
+      "line": 8708,
+      "new_original_identity": false
+    },
+    {
+      "path": "src/world/SceneState.cpp",
+      "symbol": "ReadPlayerTimerMode10",
+      "signature": "std::int32_t ReadPlayerTimerMode10() noexcept",
+      "source": "std::int32_t ReadPlayerTimerMode10() noexcept\n{\n    return gPlayerRuntime.timerMode10;\n}\n",
+      "line": 8713,
+      "new_original_identity": false
+    },
+    {
+      "path": "src/world/SceneState.cpp",
+      "symbol": "ConsumeBattlePlayerTimer",
+      "signature": "void ConsumeBattlePlayerTimer(const std::int32_t seconds)",
+      "source": "void ConsumeBattlePlayerTimer(const std::int32_t seconds)\n{\n    const std::int32_t remaining = gPlayerRuntime.timerRemaining0C - 1000 * seconds;\n    const bool negative = remaining < 0;\n    gPlayerRuntime.timerRemaining0C = remaining;\n    if (negative) {\n        gPlayerRuntime.timerRemaining0C = 0;\n    }\n}\n",
+      "line": 8718,
+      "new_original_identity": false
+    }
+  ],
+  "tick_provider": {
+    "path": "src/platform/MainLoopSupport.cpp",
+    "symbol": "ReadTickCount32",
+    "signature": "std::uint32_t ReadTickCount32() noexcept",
+    "source": "std::uint32_t ReadTickCount32() noexcept\n{\n    return static_cast<std::uint32_t>(GetTickCount());\n}\n",
+    "line": 568
+  },
+  "original_totals": {
+    "instruction_count": 18,
+    "byte_count": 68,
+    "page_count": 1,
+    "direct_calls": 0,
+    "indirect_ticks": 1,
+    "jump_count": 2,
+    "ret_count": 1,
+    "inbound_calls": 1,
+    "external_parents": 1,
+    "gate_data_refs": 55,
+    "gate_reads": 53,
+    "gate_writes": 2,
+    "full_external_parents_verified": false
+  },
+  "source_patch_group_count": 1,
+  "verification": {
+    "necessary_static": "pass，完整18条68B/一页/两跳一RET/单SDKtick/唯一父弃返窗，55gate直接引用（53读/两旧writer）及现来源，整两文件精确重放首×5在mode前一组/两注释；原三个native无F helper/所有其它body、writer/协议/SDK源保持",
+    "registry": "pass，一新语义/F、四功能各一成员/四限定S零I、八开放任务；全部2217旧语义/1649旧处置/1450旧证据及原政策/门禁保持",
+    "measurement": "pass，measure_cg2d.ps1文本汇总退出0，3680函数/218导入/3061区间/184叶功能/60任务，非构建/测试/运行",
+    "check": "pass，measure_cg2d.ps1 -Check退出0",
+    "derived_scope": "pass，派生仅六metrics/一F/四功能/八任务；2280/3680=61.96%仅关联率，2218=2170F+48X/F1650/E1454，MAP170/Yobi100/BATTLE424/NETWORK76；完整门禁/其它字段守恒",
+    "generated_machine_reads_verified": false,
+    "runtime_verified": false,
+    "full_lifecycle_closed": false
+  },
+  "expected_counts_after": {
+    "semantic_records": 2218,
+    "semantic_F": 2170,
+    "semantic_X": 48,
+    "function_dispositions": 1650,
+    "evidence": 1454,
+    "document_links": 2280,
+    "document_link_percent": 61.96,
+    "MAP": 170,
+    "Yobi": 100,
+    "BATTLE": 424,
+    "NETWORK": 76
+  },
+  "source_after": {
+    "path": "src/world/SceneState.cpp",
+    "symbol": "Sub_50C7A0",
+    "signature": "std::uint32_t Sub_50C7A0(\n    const std::uintptr_t /*socket*/, const std::int32_t seconds,\n    const std::int32_t mode)",
+    "source": "std::uint32_t Sub_50C7A0(\n    const std::uintptr_t /*socket*/, const std::int32_t seconds,\n    const std::int32_t mode)\n{\n    const std::uint32_t gate = gValue9A6E0C;\n    if (gate != 0) {\n        return gate;\n    }\n    const std::int32_t duration = seconds < 0 ? 0 : seconds;\n    const std::int32_t firstScale = duration * 5;\n    gPlayerRuntime.timerMode10 = mode;\n    gPlayerRuntime.timerRemaining0C = firstScale * 5 * 5 * 8;\n    const std::uint32_t tick = platform::ReadTickCount32();\n    gPlayerRuntime.timerTick14 = tick;\n    input::gValue626C14 = 0;\n    return tick;\n}\n",
+    "line": 2894
+  },
+  "tick_binding": {
+    "path": "src/platform/MainLoopSupport.cpp",
+    "symbol": "ReadTickCount32",
+    "sdk": "GetTickCount",
+    "import_address": "0x54d1f8",
+    "original_call": "0x50c7ce",
+    "new_import_disposition": false
+  },
+  "source_patches": {
+    "cpp_comment": {
+      "old": "std::uint32_t Sub_50C7A0(\n    const std::uintptr_t /*socket*/, const std::int32_t seconds,\n    const std::int32_t mode)\n{",
+      "replacement": "// PTP01：原 [0x50C7A0,0x50C7E4)；首 ×5 后发布 mode，剩余缩放/单 tick 与完整 gate/tick 返回保。\nstd::uint32_t Sub_50C7A0(\n    const std::uintptr_t /*socket*/, const std::int32_t seconds,\n    const std::int32_t mode)\n{"
+    },
+    "body_patch": {
+      "symbol": "Sub_50C7A0",
+      "old": "    const std::int32_t duration = seconds < 0 ? 0 : seconds;\n    gPlayerRuntime.timerMode10 = mode;\n    gPlayerRuntime.timerRemaining0C = duration * 1000;",
+      "replacement": "    const std::int32_t duration = seconds < 0 ? 0 : seconds;\n    const std::int32_t firstScale = duration * 5;\n    gPlayerRuntime.timerMode10 = mode;\n    gPlayerRuntime.timerRemaining0C = firstScale * 5 * 5 * 8;"
+    },
+    "header_comment": {
+      "old": "    std::uintptr_t socket, std::int32_t seconds, std::int32_t mode); // 玩家时钟回复并清626C14。",
+      "replacement": "    std::uintptr_t socket, std::int32_t seconds, std::int32_t mode); // PTP01：原首缩放/mode/剩余缩放/单 tick 序，返完整 gate/tick。"
+    }
+  },
+  "record_scope": {
+    "index": 2217,
+    "inventory_id": "F:0010C7A0",
+    "symbol": "Sub_50C7A0",
+    "path": "src/world/SceneState.cpp",
+    "source_patch_group_count": 1
+  },
+  "reused_unchanged_semantic_identities": [
+    {
+      "index": 1216,
+      "inventory_id": "F:00112E40",
+      "original_entry": "0x00512E40"
+    },
+    {
+      "index": 1606,
+      "inventory_id": "F:0005EBB0",
+      "original_entry": "0x45EBB0"
+    },
+    {
+      "index": 185,
+      "inventory_id": "F:0011C430",
+      "original_entry": "0x51C430"
+    },
+    {
+      "index": 2215,
+      "inventory_id": "F:00058F40",
+      "original_entry": "0x458f40"
+    }
+  ],
+  "external_parent_binding": {
+    "original_entry": "0x512e40",
+    "index": 1216,
+    "inventory_id": "F:00112E40",
+    "path": "src/network/NetworkRuntime.cpp",
+    "symbol": "NetworkDispatch_512E40",
+    "full_parent_newly_verified": false
+  },
+  "gate_writer_bindings": [
+    {
+      "original_entry": "0x45ebb0",
+      "original_write": "0x45ebb9",
+      "index": 1606,
+      "inventory_id": "F:0005EBB0",
+      "path": "src/world/SceneState.cpp",
+      "symbol": "Sub_45EBB0",
+      "full_parent_newly_verified": false
+    },
+    {
+      "original_entry": "0x51c430",
+      "original_write": "0x51c59b",
+      "index": 185,
+      "inventory_id": "F:0011C430",
+      "path": "src/world/WorldUpdate.cpp",
+      "symbol": "Update",
+      "full_parent_newly_verified": false
+    }
+  ],
+  "feature_member_additions": {
+    "FUNC-MAP": [
+      "F:0010C7A0"
+    ],
+    "FUNC-YOBI": [
+      "F:0010C7A0"
+    ],
+    "FUNC-BATTLE": [
+      "F:0010C7A0"
+    ],
+    "FUNC-NETWORK": [
+      "F:0010C7A0"
+    ]
+  },
+  "feature_counts_before": {
+    "FUNC-NETWORK": 75,
+    "FUNC-MAP": 169,
+    "FUNC-YOBI": 99,
+    "FUNC-BATTLE": 423
+  },
+  "tasks_updated": [
+    "G01",
+    "R01",
+    "R04",
+    "U08",
+    "U09",
+    "U10",
+    "V03",
+    "V04"
+  ]
+}

@@ -872,7 +872,7 @@ std::uint16_t Sub_50BFC0(
 std::int32_t Sub_50C940(
     const input::InputContext* context, std::int32_t color); // 聊天时间/选项门禁后转义发送。
 std::uint32_t Sub_50C7A0(
-    std::uintptr_t socket, std::int32_t seconds, std::int32_t mode); // 玩家时钟回复并清626C14。
+    std::uintptr_t socket, std::int32_t seconds, std::int32_t mode); // PTP01：原首缩放/mode/剩余缩放/单 tick 序，返完整 gate/tick。
 std::int32_t Sub_50CE10(std::uintptr_t socket, const char* text); // 系统提示及可选内嵌音效。
 void Sub_50E1A0(
     std::uintptr_t socket, std::int32_t mask, std::int32_t value,

@@ -2890,6 +2890,7 @@ std::int32_t Sub_50CF70(
     return index;
 }
 
+// PTP01：原 [0x50C7A0,0x50C7E4)；首 ×5 后发布 mode，剩余缩放/单 tick 与完整 gate/tick 返回保。
 std::uint32_t Sub_50C7A0(
     const std::uintptr_t /*socket*/, const std::int32_t seconds,
     const std::int32_t mode)
@@ -2899,8 +2900,9 @@ std::uint32_t Sub_50C7A0(
         return gate;
     }
     const std::int32_t duration = seconds < 0 ? 0 : seconds;
+    const std::int32_t firstScale = duration * 5;
     gPlayerRuntime.timerMode10 = mode;
-    gPlayerRuntime.timerRemaining0C = duration * 1000;
+    gPlayerRuntime.timerRemaining0C = firstScale * 5 * 5 * 8;
     const std::uint32_t tick = platform::ReadTickCount32();
     gPlayerRuntime.timerTick14 = tick;
     input::gValue626C14 = 0;

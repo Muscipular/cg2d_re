@@ -828,3 +828,10 @@ time仅读hours0Ch一次，现六W32/24B/非拥有指针与signed门槛正确bod
 [五完整原根](cg2d_game_time_production_lifecycle_spec.md#game-time-production-source-state)/[原码与源差集](cg2d_game_time_production_lifecycle_evidence.json)纳管458F00/50C870/458F40/519EB0与旧writer197，合149条505B/六页、八E8/两IATtick/一外尾跳/十一跳四RET，十二局部入向/四外父。timer只恢复旧tick/remaining先齐取及持有updated判断，保原scene9玩家门槛/scene10、一个执行tick/业务负值归零→mode0→末tick。PudO只恢复持有category交调色板，保对象号/offset/两独立time及旧adjustment使用、六字段/类别发布/调色板之后路径→新adjustment和原返回。
 
 writer/outer/setter正确body保，六W32/24B/分钟先于sTick与末商、完整setter值/PudO adjustment返回保。51CDE9原残值透传，现void API保但不得称全部六父弃返/完整机器ABI等价。四新语义/197追加、五F处置，MAP/Yobi各五成员、BATTLE只timer、NETWORK只PudO四S零I；八任务/枚举/完整gates/六closure开放，所有未变源/七旧身份保，校时/全父/共享owner/SDK/数值/ABI/画面运行待。
+
+<a id="player-timer-reply-current-20261010"></a>
+## 2026-10-10 PTP01：MTg倒计时输入生产
+
+[完整50C7A0](cg2d_player_timer_reply_producer_spec.md#player-timer-reply-source-state)/[原码/门槛/源差集](cg2d_player_timer_reply_producer_evidence.json)纳管18条68B/一页、两跳一RET/零E8、单IATtick与唯一512E40弃返窗；原gate单读非0返原位型、负S32秒业务置零、mode→remaining→tick→清626C14/同tick返回保持。仅恢复首duration×5在mode发布前、其后×5×5×8普通缩放一组，不改最终毫秒单位/宽度或增上限、默认值/溢出模型。
+
+gate55引用的53读/两个旧writer只绑定出处，BTD1606/BTB185与GTP2215同源推进、两个reader/战斗扣减无原F helper保持；不造原身份或称完整消费链通过。一个新语义/F、四功能各一个成员/四限定S零I/八任务open，所有其它source/原完整gates与枚举保，完整MTg/唯一父/53读者/数据生产消费-owner/SDK/数值/ABI/画面运行待。

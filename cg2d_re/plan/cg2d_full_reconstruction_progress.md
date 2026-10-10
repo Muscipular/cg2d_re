@@ -811,3 +811,12 @@ PudO唯一改动为持有GetCate返回给调色板，不重读刚pub全局；保
 51CDE9后pop/ret真实残值透传，不能称outer六调用全弃返；现DrawNormalScene及时间推进void API保，原scene/null/SDK残值的完整上层机器ABI待R04，不造0/成功/tick返回。旧game_time宽读输出截断，后续只追加当前合同不重复旧CRT历史或覆盖；两个推测头路径不存在，实际字段S32 remaining/mode、U32 tick直接从SceneState定义定位，不猜布局。原MCP页/窗、当前SDK/明文PudO分派与原字段/RNG保持。
 
 统一cg2d_re分支、不打tag，七外部项/删除暂存保留排除。未构建/测试/运行客户端或算法/产物/摘要或引依赖；只核源序/局部返回观察，不保证优化后独立读取/并发、原SDK/ABI或全功能等价。四完整父/全部输入与正常失败/共享玩家-time生产消费/alias-owner、调色板/PudO完整校时/SDK/数值/机器ABI/画面及全生命周期待，整体active/未完成。
+
+<a id="player-timer-reply-progress-20261010"></a>
+## 80. 2026-10-10 PTP01：倒计时回复输入生产
+
+[完整MTg/50C7A0](../doc/cg2d_player_timer_reply_producer_spec.md#player-timer-reply-source-state)纳管18条68B/一页、两条件跳一RET/零E8、单IAT GetTickCount/唯一512E40父局部弃返窗。原gate9A6E0C只读一次/非0返完整U32位型、负S32秒按原业务置0，原mode/remaining→tick→清626C14与同tick返回保。先记SPEC按第8条裁决，仅将首duration×5恢复到mode发布前，其后×5×5×8普通S32表达保原正常操作序/最终毫秒单位，原字段宽度/参数/SDK次数/分支/所有其它源不改，无新函数/API/布局/owner或保护/默认值/上限/钳制、溢出模拟；负秒置0为原业务不删除。
+
+门槛55实际数据引用53读/两写有据，两writer沿BTD1606场景0写1/BTB185同源清零旧完整基线，所有53读者只引用出处不称全函数验收。原MTg两I/socket实接、唯一父1216与GTP2215推进、三个无独立F reader/战斗扣减helpers源保持，不捏造原身份或称全部计时消费完成。一个新语义/F、四功能各一个成员/四限定S零I、四旧身份/全部旧记录与政策/完整gates/成员枚举/六closure保，八任务open。核心静态、登记、文本汇总/Check及派生范围核对通过；语义2218=2170F+48X，文档关联2280/3680=61.96%仅关联率，F处置1650/证据1454，MAP170/Yobi100/BATTLE424/NETWORK76仍未验收。派生仅六metrics/一F/四功能/八任务变化，184叶验收0、60任务关闭11、六closure开放/全部完整gates及其它字段守恒。
+
+初次搜当前timer字段在include无匹配，实际声明/helper均在SceneState.cpp；两gate writer源已分别定位WorldUpdate.cpp/SceneState.cpp，不按名字/读取次数猜类型/门槛写者。统一cg2d_re分支、不打tag，七外部项/删除暂存保留排除；未构建/测试/运行客户端或算法/产物/摘要或引依赖。只核源码表达序，不保证优化后机器指令/读取或并发语义；完整唯一父/MTg收发正常失败/53门槛消费者/同源数据生产消费/玩家-输入alias-owner、SDK/数值/机器ABI/战斗/状态栏/转生按钮/画面与全生命周期待，整体active/未完成。

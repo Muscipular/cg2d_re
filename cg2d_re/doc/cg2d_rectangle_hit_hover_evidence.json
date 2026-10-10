@@ -1,0 +1,3220 @@
+{
+  "schema_version": 1,
+  "step": "RHL01",
+  "recorded_on": "2026-10-10",
+  "before_snapshot": "[#] 补齐窗口拖动焦点并恢复取样宽度",
+  "after_snapshot": "[#] 补齐矩形命中与描边比较接线",
+  "record_scope": [
+    {
+      "index": 2267,
+      "inventory_id": "F:001049A0"
+    },
+    {
+      "index": 2268,
+      "inventory_id": "F:00001FC0"
+    }
+  ],
+  "original_roots": [
+    {
+      "ea": 5261728,
+      "end": 5261861,
+      "instruction_count": 55,
+      "chunks": [
+        [
+          5261728,
+          5261861
+        ]
+      ],
+      "byte_count": 133,
+      "page_count": 1,
+      "pages": [
+        {
+          "offset": 0,
+          "count": 55,
+          "total": 55
+        }
+      ],
+      "instructions": [
+        {
+          "ea": 5261728,
+          "size": 1,
+          "bytes": "53",
+          "asm": "push    ebx",
+          "call_target": null
+        },
+        {
+          "ea": 5261729,
+          "size": 1,
+          "bytes": "55",
+          "asm": "push    ebp",
+          "call_target": null
+        },
+        {
+          "ea": 5261730,
+          "size": 4,
+          "bytes": "8b6c2414",
+          "asm": "mov     ebp, [esp+8+a3]",
+          "call_target": null
+        },
+        {
+          "ea": 5261734,
+          "size": 1,
+          "bytes": "56",
+          "asm": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": 5261735,
+          "size": 1,
+          "bytes": "57",
+          "asm": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": 5261736,
+          "size": 1,
+          "bytes": "55",
+          "asm": "push    ebp",
+          "call_target": null
+        },
+        {
+          "ea": 5261737,
+          "size": 5,
+          "bytes": "b9f88cd600",
+          "asm": "mov     ecx, offset mouseX",
+          "call_target": null
+        },
+        {
+          "ea": 5261742,
+          "size": 5,
+          "bytes": "e8fdd3efff",
+          "asm": "call    CryptInt__lt",
+          "call_target": 4201904
+        },
+        {
+          "ea": 5261747,
+          "size": 2,
+          "bytes": "84c0",
+          "asm": "test    al, al",
+          "call_target": null
+        },
+        {
+          "ea": 5261749,
+          "size": 2,
+          "bytes": "7467",
+          "asm": "jz      short loc_504A1E",
+          "call_target": null
+        },
+        {
+          "ea": 5261751,
+          "size": 4,
+          "bytes": "8b5c2414",
+          "asm": "mov     ebx, [esp+10h+a1]",
+          "call_target": null
+        },
+        {
+          "ea": 5261755,
+          "size": 5,
+          "bytes": "68f88cd600",
+          "asm": "push    offset mouseX",
+          "call_target": null
+        },
+        {
+          "ea": 5261760,
+          "size": 1,
+          "bytes": "53",
+          "asm": "push    ebx",
+          "call_target": null
+        },
+        {
+          "ea": 5261761,
+          "size": 5,
+          "bytes": "e8fad5efff",
+          "asm": "call    CrypyInt__lte",
+          "call_target": 4202432
+        },
+        {
+          "ea": 5261766,
+          "size": 3,
+          "bytes": "83c408",
+          "asm": "add     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": 5261769,
+          "size": 2,
+          "bytes": "84c0",
+          "asm": "test    al, al",
+          "call_target": null
+        },
+        {
+          "ea": 5261771,
+          "size": 2,
+          "bytes": "7451",
+          "asm": "jz      short loc_504A1E",
+          "call_target": null
+        },
+        {
+          "ea": 5261773,
+          "size": 4,
+          "bytes": "8b7c2420",
+          "asm": "mov     edi, [esp+10h+a4]",
+          "call_target": null
+        },
+        {
+          "ea": 5261777,
+          "size": 5,
+          "bytes": "b9088dd600",
+          "asm": "mov     ecx, offset mouseY",
+          "call_target": null
+        },
+        {
+          "ea": 5261782,
+          "size": 1,
+          "bytes": "57",
+          "asm": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": 5261783,
+          "size": 5,
+          "bytes": "e8d4d3efff",
+          "asm": "call    CryptInt__lt",
+          "call_target": 4201904
+        },
+        {
+          "ea": 5261788,
+          "size": 2,
+          "bytes": "84c0",
+          "asm": "test    al, al",
+          "call_target": null
+        },
+        {
+          "ea": 5261790,
+          "size": 2,
+          "bytes": "743e",
+          "asm": "jz      short loc_504A1E",
+          "call_target": null
+        },
+        {
+          "ea": 5261792,
+          "size": 4,
+          "bytes": "8b742418",
+          "asm": "mov     esi, [esp+10h+a2]",
+          "call_target": null
+        },
+        {
+          "ea": 5261796,
+          "size": 5,
+          "bytes": "68088dd600",
+          "asm": "push    offset mouseY",
+          "call_target": null
+        },
+        {
+          "ea": 5261801,
+          "size": 1,
+          "bytes": "56",
+          "asm": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": 5261802,
+          "size": 5,
+          "bytes": "e8d1d5efff",
+          "asm": "call    CrypyInt__lte",
+          "call_target": 4202432
+        },
+        {
+          "ea": 5261807,
+          "size": 3,
+          "bytes": "83c408",
+          "asm": "add     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": 5261810,
+          "size": 2,
+          "bytes": "84c0",
+          "asm": "test    al, al",
+          "call_target": null
+        },
+        {
+          "ea": 5261812,
+          "size": 2,
+          "bytes": "7428",
+          "asm": "jz      short loc_504A1E",
+          "call_target": null
+        },
+        {
+          "ea": 5261814,
+          "size": 4,
+          "bytes": "8b442424",
+          "asm": "mov     eax, dword ptr [esp+10h+a5]",
+          "call_target": null
+        },
+        {
+          "ea": 5261818,
+          "size": 2,
+          "bytes": "85c0",
+          "asm": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": 5261820,
+          "size": 2,
+          "bytes": "7c16",
+          "asm": "jl      short loc_504A14",
+          "call_target": null
+        },
+        {
+          "ea": 5261822,
+          "size": 6,
+          "bytes": "8b0d6897d600",
+          "asm": "mov     ecx, gHoverImageSeq",
+          "call_target": null
+        },
+        {
+          "ea": 5261828,
+          "size": 2,
+          "bytes": "6a00",
+          "asm": "push    0; a7",
+          "call_target": null
+        },
+        {
+          "ea": 5261830,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx; a6",
+          "call_target": null
+        },
+        {
+          "ea": 5261831,
+          "size": 1,
+          "bytes": "50",
+          "asm": "push    eax; a5",
+          "call_target": null
+        },
+        {
+          "ea": 5261832,
+          "size": 1,
+          "bytes": "57",
+          "asm": "push    edi; a4",
+          "call_target": null
+        },
+        {
+          "ea": 5261833,
+          "size": 1,
+          "bytes": "55",
+          "asm": "push    ebp; a3",
+          "call_target": null
+        },
+        {
+          "ea": 5261834,
+          "size": 1,
+          "bytes": "56",
+          "asm": "push    esi; a2",
+          "call_target": null
+        },
+        {
+          "ea": 5261835,
+          "size": 1,
+          "bytes": "53",
+          "asm": "push    ebx; a1",
+          "call_target": null
+        },
+        {
+          "ea": 5261836,
+          "size": 5,
+          "bytes": "e86fd70100",
+          "asm": "call    Renderer__DrawGraphic_Hover",
+          "call_target": 5382528
+        },
+        {
+          "ea": 5261841,
+          "size": 3,
+          "bytes": "83c41c",
+          "asm": "add     esp, 1Ch",
+          "call_target": null
+        },
+        {
+          "ea": 5261844,
+          "size": 1,
+          "bytes": "5f",
+          "asm": "pop     edi",
+          "call_target": null
+        },
+        {
+          "ea": 5261845,
+          "size": 1,
+          "bytes": "5e",
+          "asm": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": 5261846,
+          "size": 1,
+          "bytes": "5d",
+          "asm": "pop     ebp",
+          "call_target": null
+        },
+        {
+          "ea": 5261847,
+          "size": 5,
+          "bytes": "b801000000",
+          "asm": "mov     eax, 1",
+          "call_target": null
+        },
+        {
+          "ea": 5261852,
+          "size": 1,
+          "bytes": "5b",
+          "asm": "pop     ebx",
+          "call_target": null
+        },
+        {
+          "ea": 5261853,
+          "size": 1,
+          "bytes": "c3",
+          "asm": "retn",
+          "call_target": null
+        },
+        {
+          "ea": 5261854,
+          "size": 1,
+          "bytes": "5f",
+          "asm": "pop     edi",
+          "call_target": null
+        },
+        {
+          "ea": 5261855,
+          "size": 1,
+          "bytes": "5e",
+          "asm": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": 5261856,
+          "size": 1,
+          "bytes": "5d",
+          "asm": "pop     ebp",
+          "call_target": null
+        },
+        {
+          "ea": 5261857,
+          "size": 2,
+          "bytes": "33c0",
+          "asm": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": 5261859,
+          "size": 1,
+          "bytes": "5b",
+          "asm": "pop     ebx",
+          "call_target": null
+        },
+        {
+          "ea": 5261860,
+          "size": 1,
+          "bytes": "c3",
+          "asm": "retn",
+          "call_target": null
+        }
+      ],
+      "incoming_references": [
+        {
+          "from": 4445794,
+          "type": 17,
+          "iscode": true,
+          "parent": 4443056,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4545944,
+          "type": 17,
+          "iscode": true,
+          "parent": 4545680,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4574357,
+          "type": 17,
+          "iscode": true,
+          "parent": 4573728,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4574409,
+          "type": 17,
+          "iscode": true,
+          "parent": 4573728,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4574454,
+          "type": 17,
+          "iscode": true,
+          "parent": 4573728,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4574506,
+          "type": 17,
+          "iscode": true,
+          "parent": 4573728,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4576708,
+          "type": 17,
+          "iscode": true,
+          "parent": 4574736,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4577441,
+          "type": 17,
+          "iscode": true,
+          "parent": 4577248,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4579190,
+          "type": 17,
+          "iscode": true,
+          "parent": 4579040,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4579232,
+          "type": 17,
+          "iscode": true,
+          "parent": 4579040,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4583487,
+          "type": 17,
+          "iscode": true,
+          "parent": 4583376,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4583715,
+          "type": 17,
+          "iscode": true,
+          "parent": 4583680,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4586912,
+          "type": 17,
+          "iscode": true,
+          "parent": 4586096,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4586967,
+          "type": 17,
+          "iscode": true,
+          "parent": 4586096,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4598238,
+          "type": 17,
+          "iscode": true,
+          "parent": 4598064,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4601161,
+          "type": 17,
+          "iscode": true,
+          "parent": 4600272,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4601219,
+          "type": 17,
+          "iscode": true,
+          "parent": 4600272,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4601493,
+          "type": 17,
+          "iscode": true,
+          "parent": 4600272,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4601540,
+          "type": 17,
+          "iscode": true,
+          "parent": 4600272,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4604586,
+          "type": 17,
+          "iscode": true,
+          "parent": 4604560,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4605425,
+          "type": 17,
+          "iscode": true,
+          "parent": 4605008,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4605506,
+          "type": 17,
+          "iscode": true,
+          "parent": 4605008,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4608658,
+          "type": 17,
+          "iscode": true,
+          "parent": 4607536,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4608701,
+          "type": 17,
+          "iscode": true,
+          "parent": 4607536,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4731652,
+          "type": 17,
+          "iscode": true,
+          "parent": 4731216,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4739652,
+          "type": 17,
+          "iscode": true,
+          "parent": 4739584,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4739987,
+          "type": 17,
+          "iscode": true,
+          "parent": 4739920,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4755877,
+          "type": 17,
+          "iscode": true,
+          "parent": 4755376,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4757850,
+          "type": 17,
+          "iscode": true,
+          "parent": 4757344,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4759618,
+          "type": 17,
+          "iscode": true,
+          "parent": 4759296,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4759862,
+          "type": 17,
+          "iscode": true,
+          "parent": 4759296,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4824630,
+          "type": 17,
+          "iscode": true,
+          "parent": 4824112,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4825469,
+          "type": 17,
+          "iscode": true,
+          "parent": 4824112,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4828518,
+          "type": 17,
+          "iscode": true,
+          "parent": 4828224,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4829230,
+          "type": 17,
+          "iscode": true,
+          "parent": 4828224,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4837333,
+          "type": 17,
+          "iscode": true,
+          "parent": 4837232,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4837725,
+          "type": 17,
+          "iscode": true,
+          "parent": 4837232,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4837831,
+          "type": 17,
+          "iscode": true,
+          "parent": 4837232,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4849655,
+          "type": 17,
+          "iscode": true,
+          "parent": 4849568,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4890317,
+          "type": 17,
+          "iscode": true,
+          "parent": 4889872,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4892063,
+          "type": 17,
+          "iscode": true,
+          "parent": 4891600,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4899967,
+          "type": 17,
+          "iscode": true,
+          "parent": 4899472,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4901518,
+          "type": 17,
+          "iscode": true,
+          "parent": 4901008,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4905699,
+          "type": 17,
+          "iscode": true,
+          "parent": 4905632,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4922081,
+          "type": 17,
+          "iscode": true,
+          "parent": 4921664,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4923782,
+          "type": 17,
+          "iscode": true,
+          "parent": 4923488,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4925828,
+          "type": 17,
+          "iscode": true,
+          "parent": 4925232,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4927843,
+          "type": 17,
+          "iscode": true,
+          "parent": 4927344,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4929163,
+          "type": 17,
+          "iscode": true,
+          "parent": 4929040,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4929979,
+          "type": 17,
+          "iscode": true,
+          "parent": 4929040,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4966202,
+          "type": 17,
+          "iscode": true,
+          "parent": 4965984,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4968777,
+          "type": 17,
+          "iscode": true,
+          "parent": 4968704,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4968816,
+          "type": 17,
+          "iscode": true,
+          "parent": 4968704,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4984687,
+          "type": 17,
+          "iscode": true,
+          "parent": 4984608,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4984726,
+          "type": 17,
+          "iscode": true,
+          "parent": 4984608,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4991990,
+          "type": 17,
+          "iscode": true,
+          "parent": 4991776,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4993001,
+          "type": 17,
+          "iscode": true,
+          "parent": 4992928,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 4993040,
+          "type": 17,
+          "iscode": true,
+          "parent": 4992928,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5000510,
+          "type": 17,
+          "iscode": true,
+          "parent": 5000368,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5001481,
+          "type": 17,
+          "iscode": true,
+          "parent": 5001408,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5001520,
+          "type": 17,
+          "iscode": true,
+          "parent": 5001408,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5047037,
+          "type": 17,
+          "iscode": true,
+          "parent": 5046832,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5054081,
+          "type": 17,
+          "iscode": true,
+          "parent": 5053776,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5055505,
+          "type": 17,
+          "iscode": true,
+          "parent": 5055072,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5055652,
+          "type": 17,
+          "iscode": true,
+          "parent": 5055072,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5055855,
+          "type": 17,
+          "iscode": true,
+          "parent": 5055072,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5055993,
+          "type": 17,
+          "iscode": true,
+          "parent": 5055072,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5056158,
+          "type": 17,
+          "iscode": true,
+          "parent": 5055072,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5056750,
+          "type": 17,
+          "iscode": true,
+          "parent": 5056576,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5056900,
+          "type": 17,
+          "iscode": true,
+          "parent": 5056576,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5057081,
+          "type": 17,
+          "iscode": true,
+          "parent": 5056576,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5057177,
+          "type": 17,
+          "iscode": true,
+          "parent": 5056576,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5057601,
+          "type": 17,
+          "iscode": true,
+          "parent": 5056576,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5059784,
+          "type": 17,
+          "iscode": true,
+          "parent": 5059600,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5062662,
+          "type": 17,
+          "iscode": true,
+          "parent": 5060336,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5069057,
+          "type": 17,
+          "iscode": true,
+          "parent": 5068224,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5074902,
+          "type": 17,
+          "iscode": true,
+          "parent": 5074592,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5076526,
+          "type": 17,
+          "iscode": true,
+          "parent": 5076080,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5078376,
+          "type": 17,
+          "iscode": true,
+          "parent": 5078048,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5079924,
+          "type": 17,
+          "iscode": true,
+          "parent": 5079600,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5085987,
+          "type": 17,
+          "iscode": true,
+          "parent": 5083680,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5092138,
+          "type": 17,
+          "iscode": true,
+          "parent": 5089856,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5096313,
+          "type": 17,
+          "iscode": true,
+          "parent": 5096080,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5099705,
+          "type": 17,
+          "iscode": true,
+          "parent": 5097440,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5105817,
+          "type": 17,
+          "iscode": true,
+          "parent": 5103552,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5113281,
+          "type": 17,
+          "iscode": true,
+          "parent": 5112704,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5114919,
+          "type": 17,
+          "iscode": true,
+          "parent": 5114816,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5118280,
+          "type": 17,
+          "iscode": true,
+          "parent": 5118192,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5129570,
+          "type": 17,
+          "iscode": true,
+          "parent": 5129312,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5131223,
+          "type": 17,
+          "iscode": true,
+          "parent": 5130832,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5132267,
+          "type": 17,
+          "iscode": true,
+          "parent": 5131936,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5136734,
+          "type": 17,
+          "iscode": true,
+          "parent": 5135936,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5136821,
+          "type": 17,
+          "iscode": true,
+          "parent": 5135936,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5139751,
+          "type": 17,
+          "iscode": true,
+          "parent": 5139648,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5140744,
+          "type": 17,
+          "iscode": true,
+          "parent": 5140656,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5145368,
+          "type": 17,
+          "iscode": true,
+          "parent": 5145328,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5149467,
+          "type": 17,
+          "iscode": true,
+          "parent": 5149344,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5150854,
+          "type": 17,
+          "iscode": true,
+          "parent": 5150688,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5152032,
+          "type": 17,
+          "iscode": true,
+          "parent": 5151872,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5154657,
+          "type": 17,
+          "iscode": true,
+          "parent": 5154448,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5157737,
+          "type": 17,
+          "iscode": true,
+          "parent": 5157312,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5160387,
+          "type": 17,
+          "iscode": true,
+          "parent": 5160224,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5176520,
+          "type": 17,
+          "iscode": true,
+          "parent": 5176176,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5178931,
+          "type": 17,
+          "iscode": true,
+          "parent": 5178464,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5188884,
+          "type": 17,
+          "iscode": true,
+          "parent": 5188144,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5195949,
+          "type": 17,
+          "iscode": true,
+          "parent": 5195664,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5200900,
+          "type": 17,
+          "iscode": true,
+          "parent": 5200480,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5205444,
+          "type": 17,
+          "iscode": true,
+          "parent": 5205152,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5206956,
+          "type": 17,
+          "iscode": true,
+          "parent": 5206352,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5211795,
+          "type": 17,
+          "iscode": true,
+          "parent": 5211472,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5217368,
+          "type": 17,
+          "iscode": true,
+          "parent": 5217040,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5222625,
+          "type": 17,
+          "iscode": true,
+          "parent": 5222128,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5232644,
+          "type": 17,
+          "iscode": true,
+          "parent": 5232288,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5241206,
+          "type": 17,
+          "iscode": true,
+          "parent": 5240400,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5243866,
+          "type": 17,
+          "iscode": true,
+          "parent": 5243760,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5251618,
+          "type": 17,
+          "iscode": true,
+          "parent": 5251024,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5255963,
+          "type": 17,
+          "iscode": true,
+          "parent": 5255520,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5256142,
+          "type": 17,
+          "iscode": true,
+          "parent": 5255520,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5256622,
+          "type": 17,
+          "iscode": true,
+          "parent": 5256592,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5256741,
+          "type": 17,
+          "iscode": true,
+          "parent": 5256672,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5256856,
+          "type": 17,
+          "iscode": true,
+          "parent": 5256672,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5256980,
+          "type": 17,
+          "iscode": true,
+          "parent": 5256944,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5257206,
+          "type": 17,
+          "iscode": true,
+          "parent": 5257088,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5257304,
+          "type": 17,
+          "iscode": true,
+          "parent": 5257088,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5257537,
+          "type": 17,
+          "iscode": true,
+          "parent": 5257392,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5257646,
+          "type": 17,
+          "iscode": true,
+          "parent": 5257616,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5257799,
+          "type": 17,
+          "iscode": true,
+          "parent": 5257760,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5264035,
+          "type": 17,
+          "iscode": true,
+          "parent": 5263728,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5429328,
+          "type": 17,
+          "iscode": true,
+          "parent": 5429168,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5432081,
+          "type": 17,
+          "iscode": true,
+          "parent": 5431872,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5435131,
+          "type": 17,
+          "iscode": true,
+          "parent": 5434704,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5437875,
+          "type": 17,
+          "iscode": true,
+          "parent": 5437712,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5445896,
+          "type": 17,
+          "iscode": true,
+          "parent": 5442464,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5447779,
+          "type": 17,
+          "iscode": true,
+          "parent": 5442464,
+          "asm": "call    sub_5049A0"
+        },
+        {
+          "from": 5449992,
+          "type": 17,
+          "iscode": true,
+          "parent": 5448784,
+          "asm": "call    sub_5049A0"
+        }
+      ],
+      "inbound_calls": [
+        {
+          "ea": 4445794,
+          "bytes": "e839730c00",
+          "asm": "call    sub_5049A0",
+          "parent": 4443056,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4545944,
+          "bytes": "e803ec0a00",
+          "asm": "call    sub_5049A0",
+          "parent": 4545680,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4574357,
+          "bytes": "e8067d0a00",
+          "asm": "call    sub_5049A0",
+          "parent": 4573728,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4574409,
+          "bytes": "e8d27c0a00",
+          "asm": "call    sub_5049A0",
+          "parent": 4573728,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4574454,
+          "bytes": "e8a57c0a00",
+          "asm": "call    sub_5049A0",
+          "parent": 4573728,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4574506,
+          "bytes": "e8717c0a00",
+          "asm": "call    sub_5049A0",
+          "parent": 4573728,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4576708,
+          "bytes": "e8d7730a00",
+          "asm": "call    sub_5049A0",
+          "parent": 4574736,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4577441,
+          "bytes": "e8fa700a00",
+          "asm": "call    sub_5049A0",
+          "parent": 4577248,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4579190,
+          "bytes": "e8256a0a00",
+          "asm": "call    sub_5049A0",
+          "parent": 4579040,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4579232,
+          "bytes": "e8fb690a00",
+          "asm": "call    sub_5049A0",
+          "parent": 4579040,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4583487,
+          "bytes": "e85c590a00",
+          "asm": "call    sub_5049A0",
+          "parent": 4583376,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4583715,
+          "bytes": "e878580a00",
+          "asm": "call    sub_5049A0",
+          "parent": 4583680,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4586912,
+          "bytes": "e8fb4b0a00",
+          "asm": "call    sub_5049A0",
+          "parent": 4586096,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4586967,
+          "bytes": "e8c44b0a00",
+          "asm": "call    sub_5049A0",
+          "parent": 4586096,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4598238,
+          "bytes": "e8bd1f0a00",
+          "asm": "call    sub_5049A0",
+          "parent": 4598064,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4601161,
+          "bytes": "e852140a00",
+          "asm": "call    sub_5049A0",
+          "parent": 4600272,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4601219,
+          "bytes": "e818140a00",
+          "asm": "call    sub_5049A0",
+          "parent": 4600272,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4601493,
+          "bytes": "e806130a00",
+          "asm": "call    sub_5049A0",
+          "parent": 4600272,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4601540,
+          "bytes": "e8d7120a00",
+          "asm": "call    sub_5049A0",
+          "parent": 4600272,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4604586,
+          "bytes": "e8f1060a00",
+          "asm": "call    sub_5049A0",
+          "parent": 4604560,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4605425,
+          "bytes": "e8aa030a00",
+          "asm": "call    sub_5049A0",
+          "parent": 4605008,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4605506,
+          "bytes": "e859030a00",
+          "asm": "call    sub_5049A0",
+          "parent": 4605008,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4608658,
+          "bytes": "e809f70900",
+          "asm": "call    sub_5049A0",
+          "parent": 4607536,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4608701,
+          "bytes": "e8def60900",
+          "asm": "call    sub_5049A0",
+          "parent": 4607536,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4731652,
+          "bytes": "e897160800",
+          "asm": "call    sub_5049A0",
+          "parent": 4731216,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4739652,
+          "bytes": "e857f70700",
+          "asm": "call    sub_5049A0",
+          "parent": 4739584,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4739987,
+          "bytes": "e808f60700",
+          "asm": "call    sub_5049A0",
+          "parent": 4739920,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4755877,
+          "bytes": "e8f6b70700",
+          "asm": "call    sub_5049A0",
+          "parent": 4755376,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4757850,
+          "bytes": "e841b00700",
+          "asm": "call    sub_5049A0",
+          "parent": 4757344,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4759618,
+          "bytes": "e859a90700",
+          "asm": "call    sub_5049A0",
+          "parent": 4759296,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4759862,
+          "bytes": "e865a80700",
+          "asm": "call    sub_5049A0",
+          "parent": 4759296,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4824630,
+          "bytes": "e865ab0600",
+          "asm": "call    sub_5049A0",
+          "parent": 4824112,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4825469,
+          "bytes": "e81ea80600",
+          "asm": "call    sub_5049A0",
+          "parent": 4824112,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4828518,
+          "bytes": "e8359c0600",
+          "asm": "call    sub_5049A0",
+          "parent": 4828224,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4829230,
+          "bytes": "e86d990600",
+          "asm": "call    sub_5049A0",
+          "parent": 4828224,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4837333,
+          "bytes": "e8c6790600",
+          "asm": "call    sub_5049A0",
+          "parent": 4837232,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4837725,
+          "bytes": "e83e780600",
+          "asm": "call    sub_5049A0",
+          "parent": 4837232,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4837831,
+          "bytes": "e8d4770600",
+          "asm": "call    sub_5049A0",
+          "parent": 4837232,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4849655,
+          "bytes": "e8a4490600",
+          "asm": "call    sub_5049A0",
+          "parent": 4849568,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4890317,
+          "bytes": "e8ceaa0500",
+          "asm": "call    sub_5049A0",
+          "parent": 4889872,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4892063,
+          "bytes": "e8fca30500",
+          "asm": "call    sub_5049A0",
+          "parent": 4891600,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4899967,
+          "bytes": "e81c850500",
+          "asm": "call    sub_5049A0",
+          "parent": 4899472,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4901518,
+          "bytes": "e80d7f0500",
+          "asm": "call    sub_5049A0",
+          "parent": 4901008,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4905699,
+          "bytes": "e8b86e0500",
+          "asm": "call    sub_5049A0",
+          "parent": 4905632,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4922081,
+          "bytes": "e8ba2e0500",
+          "asm": "call    sub_5049A0",
+          "parent": 4921664,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4923782,
+          "bytes": "e815280500",
+          "asm": "call    sub_5049A0",
+          "parent": 4923488,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4925828,
+          "bytes": "e817200500",
+          "asm": "call    sub_5049A0",
+          "parent": 4925232,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4927843,
+          "bytes": "e838180500",
+          "asm": "call    sub_5049A0",
+          "parent": 4927344,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4929163,
+          "bytes": "e810130500",
+          "asm": "call    sub_5049A0",
+          "parent": 4929040,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4929979,
+          "bytes": "e8e00f0500",
+          "asm": "call    sub_5049A0",
+          "parent": 4929040,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4966202,
+          "bytes": "e861820400",
+          "asm": "call    sub_5049A0",
+          "parent": 4965984,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4968777,
+          "bytes": "e852780400",
+          "asm": "call    sub_5049A0",
+          "parent": 4968704,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4968816,
+          "bytes": "e82b780400",
+          "asm": "call    sub_5049A0",
+          "parent": 4968704,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4984687,
+          "bytes": "e82c3a0400",
+          "asm": "call    sub_5049A0",
+          "parent": 4984608,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4984726,
+          "bytes": "e8053a0400",
+          "asm": "call    sub_5049A0",
+          "parent": 4984608,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4991990,
+          "bytes": "e8a51d0400",
+          "asm": "call    sub_5049A0",
+          "parent": 4991776,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4993001,
+          "bytes": "e8b2190400",
+          "asm": "call    sub_5049A0",
+          "parent": 4992928,
+          "call_target": 5261728
+        },
+        {
+          "ea": 4993040,
+          "bytes": "e88b190400",
+          "asm": "call    sub_5049A0",
+          "parent": 4992928,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5000510,
+          "bytes": "e85dfc0300",
+          "asm": "call    sub_5049A0",
+          "parent": 5000368,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5001481,
+          "bytes": "e892f80300",
+          "asm": "call    sub_5049A0",
+          "parent": 5001408,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5001520,
+          "bytes": "e86bf80300",
+          "asm": "call    sub_5049A0",
+          "parent": 5001408,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5047037,
+          "bytes": "e89e460300",
+          "asm": "call    sub_5049A0",
+          "parent": 5046832,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5054081,
+          "bytes": "e81a2b0300",
+          "asm": "call    sub_5049A0",
+          "parent": 5053776,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5055505,
+          "bytes": "e88a250300",
+          "asm": "call    sub_5049A0",
+          "parent": 5055072,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5055652,
+          "bytes": "e8f7240300",
+          "asm": "call    sub_5049A0",
+          "parent": 5055072,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5055855,
+          "bytes": "e82c240300",
+          "asm": "call    sub_5049A0",
+          "parent": 5055072,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5055993,
+          "bytes": "e8a2230300",
+          "asm": "call    sub_5049A0",
+          "parent": 5055072,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5056158,
+          "bytes": "e8fd220300",
+          "asm": "call    sub_5049A0",
+          "parent": 5055072,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5056750,
+          "bytes": "e8ad200300",
+          "asm": "call    sub_5049A0",
+          "parent": 5056576,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5056900,
+          "bytes": "e817200300",
+          "asm": "call    sub_5049A0",
+          "parent": 5056576,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5057081,
+          "bytes": "e8621f0300",
+          "asm": "call    sub_5049A0",
+          "parent": 5056576,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5057177,
+          "bytes": "e8021f0300",
+          "asm": "call    sub_5049A0",
+          "parent": 5056576,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5057601,
+          "bytes": "e85a1d0300",
+          "asm": "call    sub_5049A0",
+          "parent": 5056576,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5059784,
+          "bytes": "e8d3140300",
+          "asm": "call    sub_5049A0",
+          "parent": 5059600,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5062662,
+          "bytes": "e895090300",
+          "asm": "call    sub_5049A0",
+          "parent": 5060336,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5069057,
+          "bytes": "e89af00200",
+          "asm": "call    sub_5049A0",
+          "parent": 5068224,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5074902,
+          "bytes": "e8c5d90200",
+          "asm": "call    sub_5049A0",
+          "parent": 5074592,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5076526,
+          "bytes": "e86dd30200",
+          "asm": "call    sub_5049A0",
+          "parent": 5076080,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5078376,
+          "bytes": "e833cc0200",
+          "asm": "call    sub_5049A0",
+          "parent": 5078048,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5079924,
+          "bytes": "e827c60200",
+          "asm": "call    sub_5049A0",
+          "parent": 5079600,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5085987,
+          "bytes": "e878ae0200",
+          "asm": "call    sub_5049A0",
+          "parent": 5083680,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5092138,
+          "bytes": "e871960200",
+          "asm": "call    sub_5049A0",
+          "parent": 5089856,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5096313,
+          "bytes": "e822860200",
+          "asm": "call    sub_5049A0",
+          "parent": 5096080,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5099705,
+          "bytes": "e8e2780200",
+          "asm": "call    sub_5049A0",
+          "parent": 5097440,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5105817,
+          "bytes": "e802610200",
+          "asm": "call    sub_5049A0",
+          "parent": 5103552,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5113281,
+          "bytes": "e8da430200",
+          "asm": "call    sub_5049A0",
+          "parent": 5112704,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5114919,
+          "bytes": "e8743d0200",
+          "asm": "call    sub_5049A0",
+          "parent": 5114816,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5118280,
+          "bytes": "e853300200",
+          "asm": "call    sub_5049A0",
+          "parent": 5118192,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5129570,
+          "bytes": "e839040200",
+          "asm": "call    sub_5049A0",
+          "parent": 5129312,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5131223,
+          "bytes": "e8c4fd0100",
+          "asm": "call    sub_5049A0",
+          "parent": 5130832,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5132267,
+          "bytes": "e8b0f90100",
+          "asm": "call    sub_5049A0",
+          "parent": 5131936,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5136734,
+          "bytes": "e83de80100",
+          "asm": "call    sub_5049A0",
+          "parent": 5135936,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5136821,
+          "bytes": "e8e6e70100",
+          "asm": "call    sub_5049A0",
+          "parent": 5135936,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5139751,
+          "bytes": "e874dc0100",
+          "asm": "call    sub_5049A0",
+          "parent": 5139648,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5140744,
+          "bytes": "e893d80100",
+          "asm": "call    sub_5049A0",
+          "parent": 5140656,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5145368,
+          "bytes": "e883c60100",
+          "asm": "call    sub_5049A0",
+          "parent": 5145328,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5149467,
+          "bytes": "e880b60100",
+          "asm": "call    sub_5049A0",
+          "parent": 5149344,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5150854,
+          "bytes": "e815b10100",
+          "asm": "call    sub_5049A0",
+          "parent": 5150688,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5152032,
+          "bytes": "e87bac0100",
+          "asm": "call    sub_5049A0",
+          "parent": 5151872,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5154657,
+          "bytes": "e83aa20100",
+          "asm": "call    sub_5049A0",
+          "parent": 5154448,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5157737,
+          "bytes": "e832960100",
+          "asm": "call    sub_5049A0",
+          "parent": 5157312,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5160387,
+          "bytes": "e8d88b0100",
+          "asm": "call    sub_5049A0",
+          "parent": 5160224,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5176520,
+          "bytes": "e8d34c0100",
+          "asm": "call    sub_5049A0",
+          "parent": 5176176,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5178931,
+          "bytes": "e868430100",
+          "asm": "call    sub_5049A0",
+          "parent": 5178464,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5188884,
+          "bytes": "e8871c0100",
+          "asm": "call    sub_5049A0",
+          "parent": 5188144,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5195949,
+          "bytes": "e8ee000100",
+          "asm": "call    sub_5049A0",
+          "parent": 5195664,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5200900,
+          "bytes": "e897ed0000",
+          "asm": "call    sub_5049A0",
+          "parent": 5200480,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5205444,
+          "bytes": "e8d7db0000",
+          "asm": "call    sub_5049A0",
+          "parent": 5205152,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5206956,
+          "bytes": "e8efd50000",
+          "asm": "call    sub_5049A0",
+          "parent": 5206352,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5211795,
+          "bytes": "e808c30000",
+          "asm": "call    sub_5049A0",
+          "parent": 5211472,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5217368,
+          "bytes": "e843ad0000",
+          "asm": "call    sub_5049A0",
+          "parent": 5217040,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5222625,
+          "bytes": "e8ba980000",
+          "asm": "call    sub_5049A0",
+          "parent": 5222128,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5232644,
+          "bytes": "e897710000",
+          "asm": "call    sub_5049A0",
+          "parent": 5232288,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5241206,
+          "bytes": "e825500000",
+          "asm": "call    sub_5049A0",
+          "parent": 5240400,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5243866,
+          "bytes": "e8c1450000",
+          "asm": "call    sub_5049A0",
+          "parent": 5243760,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5251618,
+          "bytes": "e879270000",
+          "asm": "call    sub_5049A0",
+          "parent": 5251024,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5255963,
+          "bytes": "e880160000",
+          "asm": "call    sub_5049A0",
+          "parent": 5255520,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5256142,
+          "bytes": "e8cd150000",
+          "asm": "call    sub_5049A0",
+          "parent": 5255520,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5256622,
+          "bytes": "e8ed130000",
+          "asm": "call    sub_5049A0",
+          "parent": 5256592,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5256741,
+          "bytes": "e876130000",
+          "asm": "call    sub_5049A0",
+          "parent": 5256672,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5256856,
+          "bytes": "e803130000",
+          "asm": "call    sub_5049A0",
+          "parent": 5256672,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5256980,
+          "bytes": "e887120000",
+          "asm": "call    sub_5049A0",
+          "parent": 5256944,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5257206,
+          "bytes": "e8a5110000",
+          "asm": "call    sub_5049A0",
+          "parent": 5257088,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5257304,
+          "bytes": "e843110000",
+          "asm": "call    sub_5049A0",
+          "parent": 5257088,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5257537,
+          "bytes": "e85a100000",
+          "asm": "call    sub_5049A0",
+          "parent": 5257392,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5257646,
+          "bytes": "e8ed0f0000",
+          "asm": "call    sub_5049A0",
+          "parent": 5257616,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5257799,
+          "bytes": "e8540f0000",
+          "asm": "call    sub_5049A0",
+          "parent": 5257760,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5264035,
+          "bytes": "e8f8f6ffff",
+          "asm": "call    sub_5049A0",
+          "parent": 5263728,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5429328,
+          "bytes": "e84b71fdff",
+          "asm": "call    sub_5049A0",
+          "parent": 5429168,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5432081,
+          "bytes": "e88a66fdff",
+          "asm": "call    sub_5049A0",
+          "parent": 5431872,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5435131,
+          "bytes": "e8a05afdff",
+          "asm": "call    sub_5049A0",
+          "parent": 5434704,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5437875,
+          "bytes": "e8e84ffdff",
+          "asm": "call    sub_5049A0",
+          "parent": 5437712,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5445896,
+          "bytes": "e89330fdff",
+          "asm": "call    sub_5049A0",
+          "parent": 5442464,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5447779,
+          "bytes": "e83829fdff",
+          "asm": "call    sub_5049A0",
+          "parent": 5442464,
+          "call_target": 5261728
+        },
+        {
+          "ea": 5449992,
+          "bytes": "e89320fdff",
+          "asm": "call    sub_5049A0",
+          "parent": 5448784,
+          "call_target": 5261728
+        }
+      ]
+    },
+    {
+      "ea": 4202432,
+      "end": 4202449,
+      "instruction_count": 5,
+      "chunks": [
+        [
+          4202432,
+          4202449
+        ]
+      ],
+      "byte_count": 17,
+      "page_count": 1,
+      "pages": [
+        {
+          "offset": 0,
+          "count": 5,
+          "total": 5
+        }
+      ],
+      "instructions": [
+        {
+          "ea": 4202432,
+          "size": 4,
+          "bytes": "8b4c2408",
+          "asm": "mov     ecx, [esp+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": 4202436,
+          "size": 5,
+          "bytes": "e8d7feffff",
+          "asm": "call    CryptInt__GetVal",
+          "call_target": 4202144
+        },
+        {
+          "ea": 4202441,
+          "size": 4,
+          "bytes": "39442404",
+          "asm": "cmp     [esp+arg_0], eax",
+          "call_target": null
+        },
+        {
+          "ea": 4202445,
+          "size": 3,
+          "bytes": "0f9ec0",
+          "asm": "setle   al",
+          "call_target": null
+        },
+        {
+          "ea": 4202448,
+          "size": 1,
+          "bytes": "c3",
+          "asm": "retn",
+          "call_target": null
+        }
+      ],
+      "incoming_references": [
+        {
+          "from": 4670971,
+          "type": 17,
+          "iscode": true,
+          "parent": 4670800,
+          "asm": "call    CrypyInt__lte"
+        },
+        {
+          "from": 4671025,
+          "type": 17,
+          "iscode": true,
+          "parent": 4670800,
+          "asm": "call    CrypyInt__lte"
+        },
+        {
+          "from": 4671224,
+          "type": 17,
+          "iscode": true,
+          "parent": 4670800,
+          "asm": "call    CrypyInt__lte"
+        },
+        {
+          "from": 4671271,
+          "type": 17,
+          "iscode": true,
+          "parent": 4670800,
+          "asm": "call    CrypyInt__lte"
+        },
+        {
+          "from": 4671429,
+          "type": 17,
+          "iscode": true,
+          "parent": 4670800,
+          "asm": "call    CrypyInt__lte"
+        },
+        {
+          "from": 4671480,
+          "type": 17,
+          "iscode": true,
+          "parent": 4670800,
+          "asm": "call    CrypyInt__lte"
+        },
+        {
+          "from": 4671864,
+          "type": 17,
+          "iscode": true,
+          "parent": 4670800,
+          "asm": "call    CrypyInt__lte"
+        },
+        {
+          "from": 4671911,
+          "type": 17,
+          "iscode": true,
+          "parent": 4670800,
+          "asm": "call    CrypyInt__lte"
+        },
+        {
+          "from": 5261761,
+          "type": 17,
+          "iscode": true,
+          "parent": 5261728,
+          "asm": "call    CrypyInt__lte"
+        },
+        {
+          "from": 5261802,
+          "type": 17,
+          "iscode": true,
+          "parent": 5261728,
+          "asm": "call    CrypyInt__lte"
+        },
+        {
+          "from": 5272057,
+          "type": 17,
+          "iscode": true,
+          "parent": 5271872,
+          "asm": "call    CrypyInt__lte"
+        },
+        {
+          "from": 5272120,
+          "type": 17,
+          "iscode": true,
+          "parent": 5271872,
+          "asm": "call    CrypyInt__lte"
+        },
+        {
+          "from": 5272296,
+          "type": 17,
+          "iscode": true,
+          "parent": 5271872,
+          "asm": "call    CrypyInt__lte"
+        },
+        {
+          "from": 5272362,
+          "type": 17,
+          "iscode": true,
+          "parent": 5271872,
+          "asm": "call    CrypyInt__lte"
+        },
+        {
+          "from": 5272639,
+          "type": 17,
+          "iscode": true,
+          "parent": 5271872,
+          "asm": "call    CrypyInt__lte"
+        },
+        {
+          "from": 5272921,
+          "type": 17,
+          "iscode": true,
+          "parent": 5271872,
+          "asm": "call    CrypyInt__lte"
+        }
+      ],
+      "inbound_calls": [
+        {
+          "ea": 4670971,
+          "bytes": "e8c0d9f8ff",
+          "asm": "call    CrypyInt__lte",
+          "parent": 4670800,
+          "call_target": 4202432,
+          "following": [
+            {
+              "ea": 4670976,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            },
+            {
+              "ea": 4670979,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 4670981,
+              "size": 6,
+              "bytes": "0f8489000000",
+              "asm": "jz      loc_474694"
+            },
+            {
+              "ea": 4670987,
+              "size": 4,
+              "bytes": "8b4c2428",
+              "asm": "mov     ecx, [esp+3Ch+var_14]"
+            }
+          ]
+        },
+        {
+          "ea": 4671025,
+          "bytes": "e88ad9f8ff",
+          "asm": "call    CrypyInt__lte",
+          "parent": 4670800,
+          "call_target": 4202432,
+          "following": [
+            {
+              "ea": 4671030,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            },
+            {
+              "ea": 4671033,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 4671035,
+              "size": 2,
+              "bytes": "7457",
+              "asm": "jz      short loc_474694"
+            },
+            {
+              "ea": 4671037,
+              "size": 1,
+              "bytes": "57",
+              "asm": "push    edi"
+            }
+          ]
+        },
+        {
+          "ea": 4671224,
+          "bytes": "e8c3d8f8ff",
+          "asm": "call    CrypyInt__lte",
+          "parent": 4670800,
+          "call_target": 4202432,
+          "following": [
+            {
+              "ea": 4671229,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            },
+            {
+              "ea": 4671232,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 4671234,
+              "size": 6,
+              "bytes": "0f8485000000",
+              "asm": "jz      loc_47478D"
+            },
+            {
+              "ea": 4671240,
+              "size": 3,
+              "bytes": "83c715",
+              "asm": "add     edi, 15h"
+            }
+          ]
+        },
+        {
+          "ea": 4671271,
+          "bytes": "e894d8f8ff",
+          "asm": "call    CrypyInt__lte",
+          "parent": 4670800,
+          "call_target": 4202432,
+          "following": [
+            {
+              "ea": 4671276,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            },
+            {
+              "ea": 4671279,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 4671281,
+              "size": 2,
+              "bytes": "745a",
+              "asm": "jz      short loc_47478D"
+            },
+            {
+              "ea": 4671283,
+              "size": 3,
+              "bytes": "83c74d",
+              "asm": "add     edi, 4Dh ; 'M'"
+            }
+          ]
+        },
+        {
+          "ea": 4671429,
+          "bytes": "e8f6d7f8ff",
+          "asm": "call    CrypyInt__lte",
+          "parent": 4670800,
+          "call_target": 4202432,
+          "following": [
+            {
+              "ea": 4671434,
+              "size": 3,
+              "bytes": "83c420",
+              "asm": "add     esp, 20h"
+            },
+            {
+              "ea": 4671437,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 4671439,
+              "size": 6,
+              "bytes": "0f8413010000",
+              "asm": "jz      loc_4748E8"
+            },
+            {
+              "ea": 4671445,
+              "size": 3,
+              "bytes": "83c745",
+              "asm": "add     edi, 45h ; 'E'"
+            }
+          ]
+        },
+        {
+          "ea": 4671480,
+          "bytes": "e8c3d7f8ff",
+          "asm": "call    CrypyInt__lte",
+          "parent": 4670800,
+          "call_target": 4202432,
+          "following": [
+            {
+              "ea": 4671485,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            },
+            {
+              "ea": 4671488,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 4671490,
+              "size": 6,
+              "bytes": "0f84e0000000",
+              "asm": "jz      loc_4748E8"
+            },
+            {
+              "ea": 4671496,
+              "size": 3,
+              "bytes": "83c74d",
+              "asm": "add     edi, 4Dh ; 'M'"
+            }
+          ]
+        },
+        {
+          "ea": 4671864,
+          "bytes": "e843d6f8ff",
+          "asm": "call    CrypyInt__lte",
+          "parent": 4670800,
+          "call_target": 4202432,
+          "following": [
+            {
+              "ea": 4671869,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            },
+            {
+              "ea": 4671872,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 4671874,
+              "size": 6,
+              "bytes": "0f84d0000000",
+              "asm": "jz      loc_474A58"
+            },
+            {
+              "ea": 4671880,
+              "size": 3,
+              "bytes": "83c764",
+              "asm": "add     edi, 64h ; 'd'"
+            }
+          ]
+        },
+        {
+          "ea": 4671911,
+          "bytes": "e814d6f8ff",
+          "asm": "call    CrypyInt__lte",
+          "parent": 4670800,
+          "call_target": 4202432,
+          "following": [
+            {
+              "ea": 4671916,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            },
+            {
+              "ea": 4671919,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 4671921,
+              "size": 6,
+              "bytes": "0f84a1000000",
+              "asm": "jz      loc_474A58"
+            },
+            {
+              "ea": 4671927,
+              "size": 4,
+              "bytes": "8b542424",
+              "asm": "mov     edx, [esp+3Ch+var_18]"
+            }
+          ]
+        },
+        {
+          "ea": 5261761,
+          "bytes": "e8fad5efff",
+          "asm": "call    CrypyInt__lte",
+          "parent": 5261728,
+          "call_target": 4202432,
+          "following": [
+            {
+              "ea": 5261766,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            },
+            {
+              "ea": 5261769,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 5261771,
+              "size": 2,
+              "bytes": "7451",
+              "asm": "jz      short loc_504A1E"
+            },
+            {
+              "ea": 5261773,
+              "size": 4,
+              "bytes": "8b7c2420",
+              "asm": "mov     edi, [esp+10h+a4]"
+            }
+          ]
+        },
+        {
+          "ea": 5261802,
+          "bytes": "e8d1d5efff",
+          "asm": "call    CrypyInt__lte",
+          "parent": 5261728,
+          "call_target": 4202432,
+          "following": [
+            {
+              "ea": 5261807,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            },
+            {
+              "ea": 5261810,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 5261812,
+              "size": 2,
+              "bytes": "7428",
+              "asm": "jz      short loc_504A1E"
+            },
+            {
+              "ea": 5261814,
+              "size": 4,
+              "bytes": "8b442424",
+              "asm": "mov     eax, dword ptr [esp+10h+a5]"
+            }
+          ]
+        },
+        {
+          "ea": 5272057,
+          "bytes": "e8c2adefff",
+          "asm": "call    CrypyInt__lte",
+          "parent": 5271872,
+          "call_target": 4202432,
+          "following": [
+            {
+              "ea": 5272062,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            },
+            {
+              "ea": 5272065,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 5272067,
+              "size": 2,
+              "bytes": "7443",
+              "asm": "jz      short loc_507248"
+            },
+            {
+              "ea": 5272069,
+              "size": 2,
+              "bytes": "33c0",
+              "asm": "xor     eax, eax"
+            }
+          ]
+        },
+        {
+          "ea": 5272120,
+          "bytes": "e883adefff",
+          "asm": "call    CrypyInt__lte",
+          "parent": 5271872,
+          "call_target": 4202432,
+          "following": [
+            {
+              "ea": 5272125,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            },
+            {
+              "ea": 5272128,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 5272130,
+              "size": 6,
+              "bytes": "0f85f7000000",
+              "asm": "jnz     loc_50733F"
+            },
+            {
+              "ea": 5272136,
+              "size": 5,
+              "bytes": "a1b8ec7300",
+              "asm": "mov     eax, peddingGraphicCount2"
+            }
+          ]
+        },
+        {
+          "ea": 5272296,
+          "bytes": "e8d3acefff",
+          "asm": "call    CrypyInt__lte",
+          "parent": 5271872,
+          "call_target": 4202432,
+          "following": [
+            {
+              "ea": 5272301,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            },
+            {
+              "ea": 5272304,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 5272306,
+              "size": 6,
+              "bytes": "0f8479020000",
+              "asm": "jz      loc_507571"
+            },
+            {
+              "ea": 5272312,
+              "size": 3,
+              "bytes": "8b4e08",
+              "asm": "mov     ecx, [esi+8]"
+            }
+          ]
+        },
+        {
+          "ea": 5272362,
+          "bytes": "e891acefff",
+          "asm": "call    CrypyInt__lte",
+          "parent": 5271872,
+          "call_target": 4202432,
+          "following": [
+            {
+              "ea": 5272367,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            },
+            {
+              "ea": 5272370,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 5272372,
+              "size": 6,
+              "bytes": "0f8550020000",
+              "asm": "jnz     loc_50758A"
+            },
+            {
+              "ea": 5272378,
+              "size": 5,
+              "bytes": "e932020000",
+              "asm": "jmp     loc_507571"
+            }
+          ]
+        },
+        {
+          "ea": 5272639,
+          "bytes": "e87cabefff",
+          "asm": "call    CrypyInt__lte",
+          "parent": 5271872,
+          "call_target": 4202432,
+          "following": [
+            {
+              "ea": 5272644,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            },
+            {
+              "ea": 5272647,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 5272649,
+              "size": 6,
+              "bytes": "0f8422010000",
+              "asm": "jz      loc_507571"
+            },
+            {
+              "ea": 5272655,
+              "size": 3,
+              "bytes": "8b560c",
+              "asm": "mov     edx, [esi+0Ch]"
+            }
+          ]
+        },
+        {
+          "ea": 5272921,
+          "bytes": "e862aaefff",
+          "asm": "call    CrypyInt__lte",
+          "parent": 5271872,
+          "call_target": 4202432,
+          "following": [
+            {
+              "ea": 5272926,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            },
+            {
+              "ea": 5272929,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 5272931,
+              "size": 2,
+              "bytes": "740c",
+              "asm": "jz      short loc_507571"
+            },
+            {
+              "ea": 5272933,
+              "size": 3,
+              "bytes": "8b4e0c",
+              "asm": "mov     ecx, [esi+0Ch]"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "original_totals": [
+    {
+      "direct_calls": 5,
+      "jumps": 5,
+      "returns": 2
+    },
+    {
+      "direct_calls": 1,
+      "jumps": 0,
+      "returns": 1
+    }
+  ],
+  "reused_records": [
+    {
+      "index": 1584,
+      "inventory_id": "F:00001DB0",
+      "evidence_documents": [
+        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-baseline",
+        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-decision",
+        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-acceptance",
+        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state",
+        "doc/cg2d_capability4_input_normal_arithmetic_evidence.json"
+      ]
+    },
+    {
+      "index": 249,
+      "inventory_id": "F:00122180",
+      "evidence_documents": [
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-baseline",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-decision",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-acceptance",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
+        "doc/cg2d_hover_batch_unconditional_publication_evidence.json"
+      ]
+    },
+    {
+      "index": 823,
+      "inventory_id": "F:00107140",
+      "evidence_documents": [
+        "doc/cg2d_sub_507140.md",
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-acceptance",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
+        "doc/cg2d_hover_input_publication_evidence.json"
+      ]
+    }
+  ],
+  "source_before": [
+    {
+      "path": "src/LegacyHitTest.cpp",
+      "symbol": "Sub_5049A0",
+      "signature": "std::int32_t Sub_5049A0(\n    const std::int32_t left,\n    const std::int32_t top,\n    const std::int32_t right,\n    const std::int32_t bottom,\n    const std::int32_t layer)",
+      "body": "std::int32_t Sub_5049A0(\n    const std::int32_t left,\n    const std::int32_t top,\n    const std::int32_t right,\n    const std::int32_t bottom,\n    const std::int32_t layer)\n{\n    if (ReadLegacyMouseX() >= right) {\n        return 0;\n    }\n    if (left > ReadLegacyMouseX()) {\n        return 0;\n    }\n    if (ReadLegacyMouseY() >= bottom) {\n        return 0;\n    }\n    if (top > ReadLegacyMouseY()) {\n        return 0;\n    }\n\n    if (layer >= 0) {\n        DrawGraphicHover(\n            static_cast<std::uint16_t>(left),\n            static_cast<std::uint16_t>(top),\n            static_cast<std::uint16_t>(right),\n            static_cast<std::uint16_t>(bottom),\n            static_cast<std::uint8_t>(layer),\n            gValueD69768,\n            0);\n    }\n    return 1;\n}\n"
+    },
+    {
+      "path": "src/platform/LegacyCryptInt.cpp",
+      "symbol": "IntLessEqualCrypt_401FC0",
+      "signature": "bool IntLessEqualCrypt_401FC0(std::int32_t lhs, LegacyCryptInt* rhs)",
+      "body": "bool IntLessEqualCrypt_401FC0(std::int32_t lhs, LegacyCryptInt* rhs)\n{\n    return lhs <= Read_401EC0(rhs);\n}\n"
+    }
+  ],
+  "source_after": [
+    {
+      "path": "src/LegacyHitTest.cpp",
+      "symbol": "Sub_5049A0",
+      "signature": "std::int32_t Sub_5049A0(\n    const std::int32_t left,\n    const std::int32_t top,\n    const std::int32_t right,\n    const std::int32_t bottom,\n    const std::int32_t layer)",
+      "body": "std::int32_t Sub_5049A0(\n    const std::int32_t left,\n    const std::int32_t top,\n    const std::int32_t right,\n    const std::int32_t bottom,\n    const std::int32_t layer)\n{\n    if (!platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseX, right)) {\n        return 0;\n    }\n    if (!platform::legacy_crypt_int::IntLessEqualCrypt_401FC0(left, &platform::gLegacyMouseState.mouseX)) {\n        return 0;\n    }\n    if (!platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseY, bottom)) {\n        return 0;\n    }\n    if (!platform::legacy_crypt_int::IntLessEqualCrypt_401FC0(top, &platform::gLegacyMouseState.mouseY)) {\n        return 0;\n    }\n\n    if (layer >= 0) {\n        DrawGraphicHover(\n            static_cast<std::uint16_t>(left),\n            static_cast<std::uint16_t>(top),\n            static_cast<std::uint16_t>(right),\n            static_cast<std::uint16_t>(bottom),\n            static_cast<std::uint8_t>(layer),\n            gValueD69768,\n            0);\n    }\n    return 1;\n}\n"
+    },
+    {
+      "path": "src/platform/LegacyCryptInt.cpp",
+      "symbol": "IntLessEqualCrypt_401FC0",
+      "signature": "bool IntLessEqualCrypt_401FC0(std::int32_t lhs, LegacyCryptInt* rhs)",
+      "body": "bool IntLessEqualCrypt_401FC0(std::int32_t lhs, LegacyCryptInt* rhs)\n{\n    return lhs <= Read_401EC0(rhs);\n}\n"
+    }
+  ],
+  "declarations_before": [
+    {
+      "path": "src/LoginMessageDependencies.hpp",
+      "symbol": "Sub_5049A0",
+      "declaration": "std::int32_t Sub_5049A0(\n    std::int32_t left,\n    std::int32_t top,\n    std::int32_t right,\n    std::int32_t bottom,\n    std::int32_t layer);"
+    },
+    {
+      "path": "include/cg/platform/LegacyCryptInt.hpp",
+      "symbol": "IntLessEqualCrypt_401FC0",
+      "declaration": "bool IntLessEqualCrypt_401FC0(std::int32_t lhs, LegacyCryptInt* rhs);"
+    }
+  ],
+  "declarations_after": [
+    {
+      "path": "src/LoginMessageDependencies.hpp",
+      "symbol": "Sub_5049A0",
+      "declaration": "// RHL01：四次CryptInt比较按X上界/X下界/Y上界/Y下界短路，命中可描边并返回S32 1。\nstd::int32_t Sub_5049A0(\n    std::int32_t left,\n    std::int32_t top,\n    std::int32_t right,\n    std::int32_t bottom,\n    std::int32_t layer);"
+    },
+    {
+      "path": "include/cg/platform/LegacyCryptInt.hpp",
+      "symbol": "IntLessEqualCrypt_401FC0",
+      "declaration": "// RHL01：原401FC0单读右对象，再按有符号S32比较lhs<=rhs；已证调用仅消费AL。\nbool IntLessEqualCrypt_401FC0(std::int32_t lhs, LegacyCryptInt* rhs);"
+    }
+  ],
+  "definition_comments": [
+    "// RHL01：四次CryptInt比较按X上界/X下界/Y上界/Y下界短路，命中可描边并返回S32 1。",
+    "// RHL01：原401FC0单读右对象，再按有符号S32比较lhs<=rhs；已证调用仅消费AL。"
+  ],
+  "source_patch_group_count": 1,
+  "source_changed_point_count": 4,
+  "source_comment_count": 4,
+  "source_include_additions": [
+    {
+      "path": "src/LegacyHitTest.cpp",
+      "before": "#include \"LoginMessageDependencies.hpp\"\n",
+      "after": "#include \"LoginMessageDependencies.hpp\"\n\n#include \"cg/platform/LegacyCryptInt.hpp\"\n#include \"cg/platform/LegacyMouse.hpp\"\n"
+    }
+  ],
+  "feature_member_additions": {
+    "FUNC-INPUT": [
+      "F:001049A0",
+      "F:00001FC0"
+    ],
+    "FUNC-RENDER": [
+      "F:001049A0"
+    ],
+    "FUNC-UIRUNTIME": [
+      "F:001049A0"
+    ]
+  },
+  "tasks_updated": [
+    "G01",
+    "G02",
+    "R01",
+    "R04",
+    "U08",
+    "U09",
+    "U10",
+    "U11",
+    "V03",
+    "V04"
+  ],
+  "expected_counts_before": {
+    "semantic_records": 2267,
+    "function_dispositions": 1709,
+    "evidence": 1510
+  },
+  "expected_counts_after": {
+    "semantic_records": 2269,
+    "semantic_F": 2221,
+    "bounded_code_records": 48,
+    "function_dispositions": 1711,
+    "evidence": 1513,
+    "document_linked_functions": 2331,
+    "document_link_rate": "63.34%",
+    "feature_members": {
+      "FUNC-INPUT": 88,
+      "FUNC-RENDER": 86,
+      "FUNC-UIRUNTIME": 125
+    }
+  },
+  "execution_policy": {
+    "build": false,
+    "test": false,
+    "client_run": false,
+    "algorithm_samples": false,
+    "artifact_inspection": false,
+    "digests": false,
+    "dependencies": false,
+    "single_thread": true,
+    "same_branch": true,
+    "tags": false
+  },
+  "verification": {
+    "necessary_static": "pass，两完整原根60条150B/两页、六实际E8四目标/五跳三RET及135矩形CALL/102父、16比较CALL/三父有据；四根短路与16叶消费仅AL，原半开边界/负layer成功/可描边后S32返回保持。四整源精确差异仅两已有头、一组四调用及四注释，比较叶正确body/其余全文保持；读取和RNG沿原单读，未执行算法。完整生产消费/全部父和alias-owner、ABI/像素及运行待",
+    "registry": "pass，两新语义F/两adapted处置、INPUT两成员/RENDER及UIRUNTIME各一成员、三限定S零I/十任务open；全部旧2267语义、1709处置/1510证据及其它字段、政策、完整gates/枚举/六closure保持，五文档及清单严格追加核对通过",
+    "measurement": "pass，measure_cg2d.ps1终态退出0；语义2269/关联2331、处置1711/证据1513、INPUT88/RENDER86/UIRUNTIME125，48有界代码/184叶验收0/60任务关闭11开放49，六closure及完整门禁保持",
+    "check": "pass，measure_cg2d.ps1 -Check终态退出0；仅静态台账一致性，未构建/测试/运行",
+    "derived_scope": "pass，派生仅六metrics/两F/三功能/十任务；2331/3680=63.34%仅关联率，2269=2221F关联+48有界代码/处置1711/证据1513，INPUT88/RENDER86/UIRUNTIME125；其它字段及全部完整门禁保持",
+    "runtime_verified": false,
+    "full_lifecycle_closed": false,
+    "generated_machine_reads_verified": false,
+    "build_or_test_performed": false,
+    "algorithm_samples_executed": false,
+    "digests_computed_or_compared": false
+  },
+  "registration_contract": {
+    "boundary": "RHL01仅完整5049A0矩形命中及401FC0有符号比较叶：60条150B/两页、六实际E8四目标/五跳三RET；135矩形CALL和16比较CALL原字节/父有据，比较16点均仅TEST AL。四次短路接回既有Less与IntLessEqual，原单读/RNG及半开边界保持；负layer仍成功，非负沿既有绘框截坐标W16/层W8、完整hover/step0，绘框返回丢弃、S32结果0/1不改。原401FC0的SETLE仅AL，新bool限已证消费者，原EAX高24位/其它ABI不记等价；实际401EA0由现Read_401EC0承接。比较叶正确body保。四整源只两已有头、单组四调用和四注释；无新API/helper/字段/布局/owner/保护/补零/默认值/容量限制/钳制/回滚/异常模型。旧Less/绘框/悬停父身份及body复用不改。两新F/两adapted、INPUT+2/RENDER+1/UIRUNTIME+1、三限定S零I/十任务open；全父/间接路由/全部坐标hover生产消费/队列及alias-owner寿命、SDK/机器ABI/优化后读取/描边像素/运行待，48有界记录及全部枚举gates/六closure/总SPEC§10保持。",
+    "documentation_additions": {
+      "doc/cg2d_input_render.md": "## 2026-10-10 RHL01：矩形命中到描边\n\n[RHL01](cg2d_rectangle_hit_hover_spec.md#rectangle-hit-hover-source-state)补齐5049A0/401FC0两完整原根60条150B、六实际E8/四目标、五跳三RET。矩形根135实际CALL/102父纳盘；比较叶16CALL/三父均仅消费AL，不提升全父验收。单组四处接回现有比较器，四次原短路/读取及RNG、半开边界、负layer仍命中和可描边后S32 1保持；比较叶正确body不改，四整源仅两已有头/四调用/四注释。旧Less/绘框和悬停父复用不改；原SETLE只覆盖AL，高24位不记等价。两新F/两处置，INPUT两成员、RENDER/UIRUNTIME各一成员，三限定S零I、十任务open。完整父/所有图像和坐标生产消费、队列及alias-owner寿命、机器ABI/像素与运行仍待，整体未完成。",
+      "doc/cg2d_ui_window_runtime.md": "## 2026-10-10 RHL01：矩形命中共享消费\n\n[RHL01](cg2d_rectangle_hit_hover_spec.md#rectangle-hit-hover-source-state)补齐5049A0/401FC0两完整原根60条150B、六实际E8/四目标、五跳三RET。矩形根135实际CALL/102父纳盘；比较叶16CALL/三父均仅消费AL，不提升全父验收。单组四处接回现有比较器，四次原短路/读取及RNG、半开边界、负layer仍命中和可描边后S32 1保持；比较叶正确body不改，四整源仅两已有头/四调用/四注释。旧Less/绘框和悬停父复用不改；原SETLE只覆盖AL，高24位不记等价。两新F/两处置，INPUT两成员、RENDER/UIRUNTIME各一成员，三限定S零I、十任务open。完整父/所有图像和坐标生产消费、队列及alias-owner寿命、机器ABI/像素与运行仍待，整体未完成。",
+      "doc/cg2d_sub_507140.md": "## 2026-10-10 RHL01：矩形及比较依赖\n\n[RHL01](cg2d_rectangle_hit_hover_spec.md#rectangle-hit-hover-source-state)补齐5049A0/401FC0两完整原根60条150B、六实际E8/四目标、五跳三RET。矩形根135实际CALL/102父纳盘；比较叶16CALL/三父均仅消费AL，不提升全父验收。单组四处接回现有比较器，四次原短路/读取及RNG、半开边界、负layer仍命中和可描边后S32 1保持；比较叶正确body不改，四整源仅两已有头/四调用/四注释。旧Less/绘框和悬停父复用不改；原SETLE只覆盖AL，高24位不记等价。两新F/两处置，INPUT两成员、RENDER/UIRUNTIME各一成员，三限定S零I、十任务open。完整父/所有图像和坐标生产消费、队列及alias-owner寿命、机器ABI/像素与运行仍待，整体未完成。",
+      "doc/cg2d_traceability_acceptance_spec.md": "## 2026-10-10 RHL01：矩形命中与比较叶\n\n[RHL01](cg2d_rectangle_hit_hover_spec.md#rectangle-hit-hover-source-state)补齐5049A0/401FC0两完整原根60条150B、六实际E8/四目标、五跳三RET。矩形根135实际CALL/102父纳盘；比较叶16CALL/三父均仅消费AL，不提升全父验收。单组四处接回现有比较器，四次原短路/读取及RNG、半开边界、负layer仍命中和可描边后S32 1保持；比较叶正确body不改，四整源仅两已有头/四调用/四注释。旧Less/绘框和悬停父复用不改；原SETLE只覆盖AL，高24位不记等价。两新F/两处置，INPUT两成员、RENDER/UIRUNTIME各一成员，三限定S零I、十任务open。完整父/所有图像和坐标生产消费、队列及alias-owner寿命、机器ABI/像素与运行仍待，整体未完成。\n\n语义2269=2221F关联+48有界代码记录，函数处置1711/证据1513，INPUT88/RENDER86/UIRUNTIME125，枚举未闭；文档关联2331/3680=63.34%仅关联率。184叶验收0、60任务关闭11开放49、六closure和完整门禁保持。登记、静态汇总/-Check终态均退出0及派生范围核对通过：仅六metrics/两F/三功能/十任务变化，其余字段与完整门禁保持。",
+      "plan/cg2d_full_reconstruction_progress.md": "<a id=\"rectangle-hit-hover-progress-20261010\"></a>\n## 103. 2026-10-10 RHL01：矩形命中、比较叶与可选描边\n\n[RHL01](../doc/cg2d_rectangle_hit_hover_spec.md#rectangle-hit-hover-source-state)补齐5049A0/401FC0两完整原根60条150B、六实际E8/四目标、五跳三RET。矩形根135实际CALL/102父纳盘；比较叶16CALL/三父均仅消费AL，不提升全父验收。单组四处接回现有比较器，四次原短路/读取及RNG、半开边界、负layer仍命中和可描边后S32 1保持；比较叶正确body不改，四整源仅两已有头/四调用/四注释。旧Less/绘框和悬停父复用不改；原SETLE只覆盖AL，高24位不记等价。两新F/两处置，INPUT两成员、RENDER/UIRUNTIME各一成员，三限定S零I、十任务open。完整父/所有图像和坐标生产消费、队列及alias-owner寿命、机器ABI/像素与运行仍待，整体未完成。\n\n先记SPEC依第8条裁决。现generic getter已有相同单读/RNG与正常结果，本步补真实比较器接线，不称坐标值错误。原135矩形CALL及16比较CALL只核点字节/父与比较结果消费，未完整核外父。语义2269=2221F关联+48有界代码记录，函数处置1711/证据1513，INPUT88/RENDER86/UIRUNTIME125，枚举未闭；文档关联2331/3680=63.34%仅关联率。184叶验收0、60任务关闭11开放49、六closure和完整门禁保持。登记、静态汇总/-Check终态均退出0及派生范围核对通过：仅六metrics/两F/三功能/十任务变化，其余字段与完整门禁保持。\n\n同一cg2d_re分支、不打tag，七外部改动和原删除暂存保持。未构建、测试、运行客户端或算法、检查产物、计算摘要或引依赖；整体active/未完成，完整验收标准保持。"
+    },
+    "maintenance_clause": "；RHL01矩形命中/比较叶完整纳管，一组四调用/四注释和两已有头，原短路/描边/返回保持；两新F/三限定S零I/十任务open，完整门禁保持。",
+    "checklist_clause": "；RHL01矩形/比较叶纳管，四处实际比较接线/三限定S/零I",
+    "checklist_link": "；[RHL01](../doc/cg2d_rectangle_hit_hover_spec.md#rectangle-hit-hover-source-state)"
+  }
+}

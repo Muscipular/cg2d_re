@@ -2586,3 +2586,9 @@ IDA数组/结构起点xref不代字段指针；原型实际11callback与旧范�
 [WDF01](cg2d_window_drag_focus_spec.md#window-drag-focus-source-state)补齐472D20完整152条466B、九E8/三目标/十八跳两RET和唯一更新父CALL。四组明确原一次W32 state/phase门槛、四低BYTE消费、矩形字段/focus/count和两全窗height-width-y-x取样；W32储宽和正确坐标调用后值/held目标地址/new窗口写回保持。Read_401EC0对应原401EA0，旧219/矩形命中/更新父复用不改。两整源四组/两注释与两个类型静态差异通过，原bit800/2000和结果1/2、无新增十项上限保持；一新F/一处置，INPUT/UIRUNTIME各一成员，两限定S零I/九任务open。完整输入生产消费/所有Crypto和父/owner、机器ABI与生成BYTE访问、实际拖动焦点及运行仍待，整体未完成。
 
 语义2267=2219F关联+48有界代码记录，函数处置1709/证据1510，INPUT86/UIRUNTIME124且枚举未闭；文档关联2329/3680=63.29%仅关联率。九任务open、184叶验收0、六closure及完整门禁保持，登记、静态汇总/-Check终态退出0及派生范围核对通过。
+
+## 2026-10-10 RHL01：矩形命中与比较叶
+
+[RHL01](cg2d_rectangle_hit_hover_spec.md#rectangle-hit-hover-source-state)补齐5049A0/401FC0两完整原根60条150B、六实际E8/四目标、五跳三RET。矩形根135实际CALL/102父纳盘；比较叶16CALL/三父均仅消费AL，不提升全父验收。单组四处接回现有比较器，四次原短路/读取及RNG、半开边界、负layer仍命中和可描边后S32 1保持；比较叶正确body不改，四整源仅两已有头/四调用/四注释。旧Less/绘框和悬停父复用不改；原SETLE只覆盖AL，高24位不记等价。两新F/两处置，INPUT两成员、RENDER/UIRUNTIME各一成员，三限定S零I、十任务open。完整父/所有图像和坐标生产消费、队列及alias-owner寿命、机器ABI/像素与运行仍待，整体未完成。
+
+语义2269=2221F关联+48有界代码记录，函数处置1711/证据1513，INPUT88/RENDER86/UIRUNTIME125，枚举未闭；文档关联2331/3680=63.34%仅关联率。184叶验收0、60任务关闭11开放49、六closure和完整门禁保持。登记、静态汇总/-Check终态均退出0及派生范围核对通过：仅六metrics/两F/三功能/十任务变化，其余字段与完整门禁保持。

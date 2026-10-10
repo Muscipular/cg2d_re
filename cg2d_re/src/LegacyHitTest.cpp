@@ -1,9 +1,13 @@
 #include "LoginMessageDependencies.hpp"
 
+#include "cg/platform/LegacyCryptInt.hpp"
+#include "cg/platform/LegacyMouse.hpp"
+
 #include <cstdint>
 
 namespace cg::login::detail {
 
+// RHL01：四次CryptInt比较按X上界/X下界/Y上界/Y下界短路，命中可描边并返回S32 1。
 std::int32_t Sub_5049A0(
     const std::int32_t left,
     const std::int32_t top,
@@ -11,16 +15,16 @@ std::int32_t Sub_5049A0(
     const std::int32_t bottom,
     const std::int32_t layer)
 {
-    if (ReadLegacyMouseX() >= right) {
+    if (!platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseX, right)) {
         return 0;
     }
-    if (left > ReadLegacyMouseX()) {
+    if (!platform::legacy_crypt_int::IntLessEqualCrypt_401FC0(left, &platform::gLegacyMouseState.mouseX)) {
         return 0;
     }
-    if (ReadLegacyMouseY() >= bottom) {
+    if (!platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseY, bottom)) {
         return 0;
     }
-    if (top > ReadLegacyMouseY()) {
+    if (!platform::legacy_crypt_int::IntLessEqualCrypt_401FC0(top, &platform::gLegacyMouseState.mouseY)) {
         return 0;
     }
 

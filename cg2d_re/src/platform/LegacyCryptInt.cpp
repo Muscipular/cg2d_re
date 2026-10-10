@@ -214,6 +214,7 @@ std::uint32_t IntLessCryptRaw_401FA0(
         | static_cast<std::uint32_t>(lhs < right);
 }
 
+// RHL01：原401FC0单读右对象，再按有符号S32比较lhs<=rhs；已证调用仅消费AL。
 bool IntLessEqualCrypt_401FC0(std::int32_t lhs, LegacyCryptInt* rhs)
 {
     return lhs <= Read_401EC0(rhs);

@@ -5745,6 +5745,7 @@ std::int32_t* Sub_43FD90(
     return y;
 }
 
+// YGOS01：完整5182B0正常查询；S16输出先取、当前S32偏移后取，低BYTE轴无效仍先查询。
 std::int32_t Sub_5182B0(YobiAction* const action, const std::uint8_t axis)
 {
     std::int16_t x;
@@ -5752,14 +5753,19 @@ std::int32_t Sub_5182B0(YobiAction* const action, const std::uint8_t axis)
     resource::GetGraphicXY(
         static_cast<std::uint32_t>(action->graphicIndex), &x, &y);
     if (axis == 0) {
-        return action->graphicOffsetX - x;
+        const std::int32_t offsetX = x;
+        const std::int32_t graphicOffsetX = action->graphicOffsetX;
+        return graphicOffsetX - offsetX;
     }
     if (axis == 1) {
-        return action->graphicOffsetY - y;
+        const std::int32_t offsetY = y;
+        const std::int32_t graphicOffsetY = action->graphicOffsetY;
+        return graphicOffsetY - offsetY;
     }
     return 0;
 }
 
+// YGOS01：先确定原F32系数再查询；保正常S64向零转换/窄化及当前偏移，沿1252宿主边界。
 std::int32_t Sub_518300(
     YobiAction* const action, const std::uint8_t axis, const std::int32_t kind)
 {
@@ -5926,6 +5932,7 @@ void Sub_441430(
     }
 }
 
+// YGOS01：两借用槽/六kind完整消费，1919由CAC07数据关联补正常父合同，正确绘制正文保持。
 void DrawGear_441570(
     YobiAction* const action, const std::int32_t primaryIndex,
     const std::int32_t offsetX, const std::int32_t offsetY,
@@ -36824,6 +36831,7 @@ void Sub_442BD0(login::YobiAction* const action)
     record.marker44 = 1;
 }
 
+// YGOS01：完整S32动画图号区间判定；仅445350方向门禁调用，不新增公头接口。
 std::int32_t Sub_5183B0(const std::int32_t imageNo)
 {
     return imageNo >= 100000 && imageNo < 200000 ? 1 : 0;

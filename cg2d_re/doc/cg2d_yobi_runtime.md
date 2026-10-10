@@ -4763,3 +4763,12 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 沿[当前合同](cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-source-state)与[完整原根/源差集](cg2d_yobi_frame_playback_sampling_evidence.json)补已有两播放本体的独立身份及十六阶段取样组。三个共享翻转调用全部纳入：静图用GetXY后局部图号，动画先保存revert BYTE门禁，只有通过才fresh对象图号；LoadGraphic后fresh BYTE模式一次控制两轴，各轴图号/cache/维度按原阶段读取。
 
 当前帧两阶段引用、GetXY后X/Y读取、coordinate正数count路径持图号及先frameY读取后frameX发布保持，revert存储仍U16而消费只BYTE；对象与动作/帧/坐标结构不改。两入口独立静图范围/速率/严格停播与返回、原负remain及业务最小1保，不加默认值/空帧/越界/回滚保护。两原F纳管，私有helper无原身份；Yobi已知成员60→62、动画9→11，均枚举false，BATTLE只增加Play依赖。完整creator/clone共享owner、数据生产及329全部父/传递callee/ABI/SDK/运行仍待，六任务open与总验收政策不降。
+
+<a id="yobi-graphic-offset-current-20261010"></a>
+## 2026-10-10 YGOS01：图形偏移查询与完整挂件绘制
+
+[四完整合同](cg2d_yobi_graphic_offset_sampling_spec.md#yobi-graphic-offset-source-state)及[原根/差集](cg2d_yobi_graphic_offset_sampling_evidence.json)补5182B0/518300/5183B0和1919/441570；四完整292条795B/七页、十七E8/五callee、二十五跳含一switch/九RET、94实际入向/22父及两父局部窗、CAC07复用35B全六表有据。只5182B0两轴显式S16输出先读/当前S32偏移后取、四CPP关联/两公头注释；其余三正确body及所有其它源/已对齐帧播放保持。
+
+缩放查询原kind系数先确定再GetXY，纠正旧注释而不移动正确switch；正常S64→S32转换沿1252，不造新Ftoll或旧x87 ABI。六kind挂件两槽固定父payload、借child/descriptor、Y→X与各自offset/before/batch保持，原12物理查询经现四调用表达式承接，不制造八遗漏。动画图号判定属world::detail，无新公头；只445350局部方向门禁接线有据，不代全父。
+
+三新原身份、1919从数据关联补完整正常根及新F处置，原range_fourth_batch_data/入口和原MAP成员保持；MAP三/Yobi四新成员、四限定I只两组/S四根及七任务open，全部完整gates/枚举/closure保。全部生产/94完整父/传递callee/容量/ABI/alias/owner/SDK/声音画面及运行未验，WAV-only/SDL/CRT与RPLAN.24及总SPEC§10不降。

@@ -221,9 +221,9 @@ std::int32_t Sub_440FE0();
 std::int32_t* Sub_43FD90(
     std::int32_t imageNo, std::int32_t slot, std::int32_t direction,
     std::int32_t* x, std::int32_t* y);
-// 原 5182B0：先查询图形偏移，再按低 W8 选择 +2C8/+2CC 差值。
+// 原5182B0：先查询，再按低BYTE轴先取S16输出/后取当前S32偏移；完整合同沿YGOS01。
 std::int32_t Sub_5182B0(YobiAction* action, std::uint8_t axis);
-// 原518300：先查询图形偏移，再按挂件kind系数截断；不改变graphicOffset。
+// 原518300：先确定kind的F32系数再查询，按低BYTE轴向零转换/窄化；完整合同沿YGOS01。
 std::int32_t Sub_518300(YobiAction* action, std::uint8_t axis, std::int32_t kind);
 std::int32_t Sub_4417A0(std::int32_t imageNo); // 原40项角色高度表及-88回退。
 // 原444000：无回调挂件创建，四次CryptInt赋值和世界/屏幕投影。

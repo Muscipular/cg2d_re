@@ -2376,3 +2376,9 @@ FUNC-BATTLE/FUNC-UIRUNTIME仅追加来源，U09/R04仅追加引用并保持open�
 [两完整合同](cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-acceptance)及[原指令/329 CALL/差集](cg2d_yobi_frame_playback_sampling_evidence.json)补两已有主体独立身份，四定义十六源组与公头参数名/两注释。两完整766条2590B/十六E8/六旧callee、九十跳/二十RET，329实际直接入向/214父；静图局部图号和动画fresh图号、BYTE消费/持样门禁、加载后模式及cache/两轴顺序、阶段帧引用及坐标叠加恢复，不称运行故障或新实现所有父。
 
 ANIMATION/YOBI各两个新成员，BATTLE只Play依赖成员；两新语义/F和四限定I/S两根，六旧callee/全部其它语义/结构与原正常失败保持。语义2181→2183、F1610→1612、E1411→1415、动画9→11/Yobi60→62/BATTLE421→422枚举均false；六任务open、完整gates/184叶/60任务11关闭和六closure保，全部生产/输入/329完整父/容量/ABI/alias/owner/SDK/声音画面/运行待。
+
+## 2026-10-10 YGOS01 图形偏移与挂件消费限定验收
+
+[四正常根/裁决](cg2d_yobi_graphic_offset_sampling_spec.md#yobi-graphic-offset-decision)及[完整原指令/差集](cg2d_yobi_graphic_offset_sampling_evidence.json)覆盖292条795B/十七E8、25跳含一switch/九RET、94直接入向/22父、两父局部窗与CAC07全35B六表复用。只5182B0两轴两组/六注释，三正确body/六case/两槽/原低BYTE轴/正常S64窄化和三旧callee、帧播放及其他源保持。
+
+三个新原身份、1919由数据关联补完整当前来源/元数据及新F处置，旧CAC07子记录/入口/已知MAP成员保；语义2183→2186、F1612→1616/E1415→1419、MAP134→137/Yobi66均枚举false。MAP/YOBI四限定I只两组/S四正常根、七任务open及完整政策/gates/184叶验收0/60任务11关闭与六closure保持，不代所有数据生产/94全部父/容量/ABI/alias/owner/SDK/声音画面或运行。

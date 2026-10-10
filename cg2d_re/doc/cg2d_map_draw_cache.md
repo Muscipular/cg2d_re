@@ -120,3 +120,10 @@ stable_sort 或不同 CRT 的 qsort 而仍保留原比较/交换序列。
 只改一合并正文六片段，bulk前向逐记录、各原先pub或后pub时点及所有fresh计数/held记录/比较与相同位置组/3072门禁保持。正确C1C0提交、C2F0排序尾转与C420专用原算法及四生产/两比较全文保持。新helper只本文件复用，不造原F/owner/保护或统一append。原四尾28B NN_NOP、两个CF60局部后窗归档；全父/callee/通用CRT/数值/x87/寿命/链接/像素与运行仍待。
 
 BUM01必要静态已通过：完整MapDrawCache仅一个私有CopyMapDrawRecord插入及合并正文六片段变化，前44B十一W32每对读写后before/after native非拥有地址，bulk前向逐记录；原各pub时点/正常分支、另三正确根/布局/owner/四生产/两比较/父及队列声明全保持。四原根324条980B/七页、六rep/两局部后窗/四尾28B用途与证据及机器/文档模型一致。汇总及 -Check 通过，派生实值：语义1704/有效1697、合同1815（49.32%）、处置845/E992、R7已审411/余2650、LOOP116/MAP113。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持。未编译、测试或运行；完整正常生产消费/寿命/数值/x87/全父/callee/机器ABI/像素及R8继续。命名快照：cg2d-re-map-draw-merge-word-sampling-20261008。
+
+<a id="yobi-gear-draw-current-20261010"></a>
+## 2026-10-10 YGOS01：挂件生产父与坐标查询当前合同
+
+[四完整合同](cg2d_yobi_graphic_offset_sampling_spec.md#yobi-graphic-offset-acceptance)补DrawGear441570此前1919/CAC07数据角色关联的完整196条525B正常父及三个查询/判定身份；原六项jump数据35B与MFI01/1256 DrawGearNormal提供者全文保持，不重计R7或原MAP成员。两槽先kind后child、原空跳过/六case默认/Y→X查询、普通类1/2/6不加参数偏移且before0/1/1，缩放类3/4/5参数偏移及batch10/11/12、同一descriptor借用和低W16坐标保持，正常字段/owner不扩。
+
+只有5182B0两轴显式输出先读/当前绘制偏移后取；518300先确定系数、再查询并按轴消费，5183B0的S32动画域/445350方向门禁与正确绘制父保持。94原入向CALL/两父局部窗只当前关系及正常根有据，不代全部父、完整map缓存/图形owner/SDK/数值ABI或画面运行。三个新MAP成员/四Yobi成员与四限定I/S，G01/G02/U09/U11/R01/R04/V04仍open，完整门禁不降。

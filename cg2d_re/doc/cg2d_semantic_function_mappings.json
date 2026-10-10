@@ -191533,8 +191533,8 @@
     {
       "original_entry": "0x441570",
       "inventory_id": "F:00041570",
-      "original_role": "CAC07仅原分派数据/当前源角色关联：地图角色挂件绘制六类分派数据",
-      "status": "已有真实源码，CAC07补原表/索引与源角色关联；未重新核全部原父/算法、未记完整函数处置或软件门禁通过",
+      "original_role": "固定父payload两槽、kind/child读取，六kind原Y→X查询/父坐标及描述符借用，静图三类与缩放三类独立偏移/before/batch，公共真实挂件入队",
+      "status": "YGOS01四完整正常源与两轴取样/六注释限定静态；完整生产/owner/运行待",
       "sources": [
         {
           "path": "src/YobiRuntime.cpp",
@@ -191542,6 +191542,15 @@
             "cg::login::detail::DrawGear_441570"
           ],
           "relationship": "按当前带函数体的唯一定义确认源身份，继承具名旧合同；本组只核原分派表数据与此源角色关联，不新增实现或宣称全函数等价。"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::DrawGear_441570",
+          "relationship": "固定父payload两槽、kind/child读取，六kind原Y→X查询/父坐标及描述符借用，静图三类与缩放三类独立偏移/before/batch，公共真实挂件入队"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::DrawGear_441570"
         }
       ],
       "evidence_documents": [
@@ -191549,10 +191558,15 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-decision",
         "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
         "doc/cg2d_unassigned_range_fourth_batch_evidence.json",
-        "doc/cg2d_yobi_runtime.md"
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_yobi_graphic_offset_sampling_spec.md#yobi-graphic-offset-baseline",
+        "doc/cg2d_yobi_graphic_offset_sampling_spec.md#yobi-graphic-offset-decision",
+        "doc/cg2d_yobi_graphic_offset_sampling_spec.md#yobi-graphic-offset-acceptance",
+        "doc/cg2d_yobi_graphic_offset_sampling_spec.md#yobi-graphic-offset-source-state",
+        "doc/cg2d_yobi_graphic_offset_sampling_evidence.json"
       ],
-      "boundary": "原函数身份来自既有库存/实际数据取用父；完整X用途与源码已存在分开。不以父元数据或表目标代所有签名/字段/分支/依赖/正常寿命或机器ABI/运行验收。",
-      "verification_level": "只该父原X完整字节、实际guard/BYTE/JMP取用邻窗、W32表全部指针/target owner、当前真实定义与旧合同关联；源码未改，不构建/测试/运行/摘要。",
+      "boundary": "YGOS01四已实现完整正常根纳管；只5182B0两轴显式S16先读取/当前S32偏移后取，两公头纠正/四CPP注释。其余三正常body/所有其它源/结构/字段/返回/原低BYTE轴门禁和失败保持；1919由CAC07数据关联补完整正常源/处置，旧子记录/入口及原35B六表守恒，三个新原身份，两个callee兼本步根不重计。三旧callee及1252当前S64向零/窄化提供者角色保持，不新公开API/helper/owner/默认值/保护、回退/回滚或异常模拟。94全部入向父、完整数据生产/容量/传递callee/alias/owner/SDK/机器ABI/声音画面与运行未验，总SPEC§10及原完整政策保持。",
+      "verification_level": "四完整292条795B/七页、17E8/五callee、25跳含一真实switch/九RET；94实际入向E8/22父，复用CAC07全35B/六项表与两父局部窗，整CPP两组/四注释/公头两注释仅必要静态。",
       "range_fourth_batch_data": {
         "step": "CAC07",
         "source_snapshot": "cg2d-re-unassigned-range-fourth-batch-20261009",
@@ -191562,6 +191576,36 @@
         "current_definition_line": 5910,
         "association_only": true,
         "full_original_body_recaptured": false,
+        "runtime_verified": false
+      },
+      "original_end_exclusive": "0x44177d",
+      "instruction_count": 196,
+      "function_chunks": [
+        {
+          "start": "0x441570",
+          "end_exclusive": "0x44177d"
+        }
+      ],
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::DrawGear_441570",
+        "parameters": "非拥有YobiAction*、S32 primaryIndex/offsetX/offsetY、U8 before（原低BYTE）",
+        "return": "void；唯一父调用不消费尾EAX"
+      },
+      "yobi_graphic_offset_sampling": {
+        "step": "YGOS01",
+        "source_snapshot": "Git提交说明：[#] 对齐图形偏移查询与挂件绘制合同",
+        "original_instruction_count": 196,
+        "original_code_bytes": 525,
+        "original_page_count": 4,
+        "direct_call_count": 13,
+        "jump_count": 14,
+        "return_count": 1,
+        "inbound_call_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_previous_values_wrong": false,
+        "full_lifecycle_closed": false,
         "runtime_verified": false
       }
     },
@@ -204791,6 +204835,170 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x5182b0",
+      "inventory_id": "F:001182B0",
+      "original_role": "GetXY后低BYTE轴，先S16输出/后当前S32偏移差值，无效轴仍先查询返回0",
+      "original_end_exclusive": "0x5182fd",
+      "instruction_count": 32,
+      "function_chunks": [
+        {
+          "start": "0x5182b0",
+          "end_exclusive": "0x5182fd"
+        }
+      ],
+      "status": "YGOS01四完整正常源与两轴取样/六注释限定静态；完整生产/owner/运行待",
+      "boundary": "YGOS01四已实现完整正常根纳管；只5182B0两轴显式S16先读取/当前S32偏移后取，两公头纠正/四CPP注释。其余三正常body/所有其它源/结构/字段/返回/原低BYTE轴门禁和失败保持；1919由CAC07数据关联补完整正常源/处置，旧子记录/入口及原35B六表守恒，三个新原身份，两个callee兼本步根不重计。三旧callee及1252当前S64向零/窄化提供者角色保持，不新公开API/helper/owner/默认值/保护、回退/回滚或异常模拟。94全部入向父、完整数据生产/容量/传递callee/alias/owner/SDK/机器ABI/声音画面与运行未验，总SPEC§10及原完整政策保持。",
+      "verification_level": "四完整292条795B/七页、17E8/五callee、25跳含一真实switch/九RET；94实际入向E8/22父，复用CAC07全35B/六项表与两父局部窗，整CPP两组/四注释/公头两注释仅必要静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::Sub_5182B0",
+        "parameters": "非拥有YobiAction*、U8 axis（原低BYTE）",
+        "return": "S32差值/0"
+      },
+      "yobi_graphic_offset_sampling": {
+        "step": "YGOS01",
+        "source_snapshot": "Git提交说明：[#] 对齐图形偏移查询与挂件绘制合同",
+        "original_instruction_count": 32,
+        "original_code_bytes": 77,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "jump_count": 2,
+        "return_count": 3,
+        "inbound_call_count": 86,
+        "source_patch_group_count": 2,
+        "new_functions": 0,
+        "normal_previous_values_wrong": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      },
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::Sub_5182B0",
+          "relationship": "GetXY后低BYTE轴，先S16输出/后当前S32偏移差值，无效轴仍先查询返回0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::Sub_5182B0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_yobi_graphic_offset_sampling_spec.md#yobi-graphic-offset-baseline",
+        "doc/cg2d_yobi_graphic_offset_sampling_spec.md#yobi-graphic-offset-decision",
+        "doc/cg2d_yobi_graphic_offset_sampling_spec.md#yobi-graphic-offset-acceptance",
+        "doc/cg2d_yobi_graphic_offset_sampling_spec.md#yobi-graphic-offset-source-state",
+        "doc/cg2d_yobi_graphic_offset_sampling_evidence.json"
+      ]
+    },
+    {
+      "original_entry": "0x518300",
+      "inventory_id": "F:00118300",
+      "original_role": "先F32系数3/4/5及原缺省0，再GetXY，低BYTE轴正常S64向零/窄化后fresh偏移差值",
+      "original_end_exclusive": "0x5183a6",
+      "instruction_count": 55,
+      "function_chunks": [
+        {
+          "start": "0x518300",
+          "end_exclusive": "0x5183a6"
+        }
+      ],
+      "status": "YGOS01四完整正常源与两轴取样/六注释限定静态；完整生产/owner/运行待",
+      "boundary": "YGOS01四已实现完整正常根纳管；只5182B0两轴显式S16先读取/当前S32偏移后取，两公头纠正/四CPP注释。其余三正常body/所有其它源/结构/字段/返回/原低BYTE轴门禁和失败保持；1919由CAC07数据关联补完整正常源/处置，旧子记录/入口及原35B六表守恒，三个新原身份，两个callee兼本步根不重计。三旧callee及1252当前S64向零/窄化提供者角色保持，不新公开API/helper/owner/默认值/保护、回退/回滚或异常模拟。94全部入向父、完整数据生产/容量/传递callee/alias/owner/SDK/机器ABI/声音画面与运行未验，总SPEC§10及原完整政策保持。",
+      "verification_level": "四完整292条795B/七页、17E8/五callee、25跳含一真实switch/九RET；94实际入向E8/22父，复用CAC07全35B/六项表与两父局部窗，整CPP两组/四注释/公头两注释仅必要静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::Sub_518300",
+        "parameters": "非拥有YobiAction*、U8 axis/S32 kind",
+        "return": "S32差值/0"
+      },
+      "yobi_graphic_offset_sampling": {
+        "step": "YGOS01",
+        "source_snapshot": "Git提交说明：[#] 对齐图形偏移查询与挂件绘制合同",
+        "original_instruction_count": 55,
+        "original_code_bytes": 166,
+        "original_page_count": 1,
+        "direct_call_count": 3,
+        "jump_count": 7,
+        "return_count": 3,
+        "inbound_call_count": 6,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_previous_values_wrong": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      },
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::Sub_518300",
+          "relationship": "先F32系数3/4/5及原缺省0，再GetXY，低BYTE轴正常S64向零/窄化后fresh偏移差值"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::Sub_518300"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_yobi_graphic_offset_sampling_spec.md#yobi-graphic-offset-baseline",
+        "doc/cg2d_yobi_graphic_offset_sampling_spec.md#yobi-graphic-offset-decision",
+        "doc/cg2d_yobi_graphic_offset_sampling_spec.md#yobi-graphic-offset-acceptance",
+        "doc/cg2d_yobi_graphic_offset_sampling_spec.md#yobi-graphic-offset-source-state",
+        "doc/cg2d_yobi_graphic_offset_sampling_evidence.json"
+      ]
+    },
+    {
+      "original_entry": "0x5183b0",
+      "inventory_id": "F:001183B0",
+      "original_role": "S32图号[100000,200000)返回完整1否则0；445350方向门禁的真实判定",
+      "original_end_exclusive": "0x5183cb",
+      "instruction_count": 9,
+      "function_chunks": [
+        {
+          "start": "0x5183b0",
+          "end_exclusive": "0x5183cb"
+        }
+      ],
+      "status": "YGOS01四完整正常源与两轴取样/六注释限定静态；完整生产/owner/运行待",
+      "boundary": "YGOS01四已实现完整正常根纳管；只5182B0两轴显式S16先读取/当前S32偏移后取，两公头纠正/四CPP注释。其余三正常body/所有其它源/结构/字段/返回/原低BYTE轴门禁和失败保持；1919由CAC07数据关联补完整正常源/处置，旧子记录/入口及原35B六表守恒，三个新原身份，两个callee兼本步根不重计。三旧callee及1252当前S64向零/窄化提供者角色保持，不新公开API/helper/owner/默认值/保护、回退/回滚或异常模拟。94全部入向父、完整数据生产/容量/传递callee/alias/owner/SDK/机器ABI/声音画面与运行未验，总SPEC§10及原完整政策保持。",
+      "verification_level": "四完整292条795B/七页、17E8/五callee、25跳含一真实switch/九RET；94实际入向E8/22父，复用CAC07全35B/六项表与两父局部窗，整CPP两组/四注释/公头两注释仅必要静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::world::detail::Sub_5183B0",
+        "parameters": "S32 imageNo",
+        "return": "S32严格1/0"
+      },
+      "yobi_graphic_offset_sampling": {
+        "step": "YGOS01",
+        "source_snapshot": "Git提交说明：[#] 对齐图形偏移查询与挂件绘制合同",
+        "original_instruction_count": 9,
+        "original_code_bytes": 27,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 2,
+        "return_count": 2,
+        "inbound_call_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_previous_values_wrong": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      },
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::world::detail::Sub_5183B0",
+          "relationship": "S32图号[100000,200000)返回完整1否则0；445350方向门禁的真实判定"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_yobi_graphic_offset_sampling_spec.md#yobi-graphic-offset-baseline",
+        "doc/cg2d_yobi_graphic_offset_sampling_spec.md#yobi-graphic-offset-decision",
+        "doc/cg2d_yobi_graphic_offset_sampling_spec.md#yobi-graphic-offset-acceptance",
+        "doc/cg2d_yobi_graphic_offset_sampling_spec.md#yobi-graphic-offset-source-state",
+        "doc/cg2d_yobi_graphic_offset_sampling_evidence.json"
+      ]
     }
   ]
 }

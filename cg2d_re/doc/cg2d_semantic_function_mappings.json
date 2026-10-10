@@ -109093,7 +109093,7 @@
     {
       "original_entry": "0x489F00",
       "inventory_id": "F:00089F00",
-      "status": "既有正文的真实格式依赖已接；完整业务/父路由/运行未据本步验收",
+      "status": "既有正文的真实格式依赖已接；完整业务/父路由/运行未据本步验收；ISP01完整598条选物事件/发送/独立退出和显示合同补齐，四BYTE源对齐；限定S/全链及运行待",
       "original_end_exclusive": "0x48A6BE",
       "instruction_count": 598,
       "sources": [
@@ -109103,13 +109103,25 @@
             "Sub_489F00"
           ],
           "relationship": "仅现格式callee接对应原点，保留原共享分支及完整正文"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_489F00"
+          ],
+          "relationship": "ISP01完整回调真实声明/参数返回保持，仅合同注释"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/window_14.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_item_selection_event_pipeline_spec.md#item-selection-baseline",
+        "doc/cg2d_item_selection_event_pipeline_spec.md#item-selection-decision",
+        "doc/cg2d_item_selection_event_pipeline_spec.md#item-selection-acceptance",
+        "doc/cg2d_item_selection_event_pipeline_spec.md#item-selection-source-state",
+        "doc/cg2d_item_selection_event_pipeline_evidence.json"
       ],
-      "boundary": "仅两现callee接48A1F6/48A4F5/48A670三原点，S32(index,state)/consumed及全部正文保持。mode2槽S32+8按%d写未清256B，再独立16B/cap15转义→target/request→Y→X→socket→512620→leaveSelection；右键退出独立执行，不因前次清理省略。两mode原count S32>0格式点共一现表达式，按%3d写同buffer→x-3/y+7低S16/原显示属性绘制。原20槽/占用/used/flags门槛、固定/重取时序、恢复回调/占用递减/绘制/文本层处理和关联方保持，不加预清/保护/缓存，不据本步验收完整选物/发包/库存/窗口14/父路由/画面或运行。",
+      "boundary": "仅两现callee接48A1F6/48A4F5/48A670三原点，S32(index,state)/consumed及全部正文保持。mode2槽S32+8按%d写未清256B，再独立16B/cap15转义→target/request→Y→X→socket→512620→leaveSelection；右键退出独立执行，不因前次清理省略。两mode原count S32>0格式点共一现表达式，按%3d写同buffer→x-3/y+7低S16/原显示属性绘制。原20槽/占用/used/flags门槛、固定/重取时序、恢复回调/占用递减/绘制/文本层处理和关联方保持，不加预清/保护/缓存，不据本步验收完整选物/发包/库存/窗口14/父路由/画面或运行。；ISP01六完整选物原根828条2692B/十六页、43实际E8/22目标/64跳12RET；26实际直接CALL及八代码发布仅点/父有据，不代所有外父/动态回调。4888C0沿MSVC atoi取得S32，先占用BYTE样本→selected发布→占用递增→窗口14元素4/17 fresh回调发布→mode2，再调用475DA0(1,0,null)丢返回并始终调用4763B0(14,0)，透传S32；不加启动失败回滚。旧920/489F00完整598条：20槽+8、原mode1类型47/flags W16/count规则、mode2两低BYTE flags60及两按钮BYTE；命中后原请求2000，发送mode1与mode2原格式/转义/Y→X/socket顺序、清理后独立右键退出均保，选中-1后仍原绘制不新跳过/补零/保护。恢复回调、占用BYTE递减/选中与dialog29清理、原坐标/数量文字/两descriptor及S32 consumed保持。48A6C0原state低BYTE bit1、列表/动态count，同item借用跨X/Y/底图/占用/绘框再读image，count在递增slot前重取，无8/20容量上限，S32恒0保。4C72C0 S8 mode0借玩家前8槽；正mode经51C410原AL校验，selectedPet分别重读产items和count，失败不改两个输出，不缓存宠物号或造容量。4C7240/7280 local<0返-1，不加其它拒绝；子调用后当前window，element坐标→window坐标取样和S32四项累加/返回保。五组八源码处/十二注释，两整源/四类型和共享选中/mode/selector、28占用BYTE在七W32唯一owner及字段储宽保；无新API/helper/字段/布局/owner/保护/默认值/补零/容量限制/钳制/回滚/异常模型。五新F/旧920全历史后追加、六adapted/三限定S零I/十任务open，旧会话/atoi/命中/绘框证据复用不改。完整所有callee（含51C410/4C63C0/4C6400）与父/间接路由/物品宠物占用协议生产消费/alias-owner和退出寿命、SDK/机器ABI/生成BYTE读取/实际选物像素与运行待；48有界代码、全部完整枚举gates/六closure/总SPEC§10保持。",
       "original_incoming": [],
       "original_data_references": [
         {
@@ -109201,7 +109213,88 @@
           "relationship": "原mode1数量分支count S32>0→同一未清buffer→x-3/y+7低S16文本绘制；两原点共一现count表达式"
         }
       ],
-      "verification_level": "原598统计/只读129格式/转义-发送/两count消费邻窗及47个S8模式分流指令，共176，余422/已过正文与核心不重验；48A3EB跳48A543为mode1后段、mode2先下行；三原点/两现表达式、两既有原字节/S32、未清256B与独立16B/消费次序和整份源两标识符限定静态核对。四data/普通caller0只登记，未构建执行。"
+      "verification_level": "原598统计/只读129格式/转义-发送/两count消费邻窗及47个S8模式分流指令，共176，余422/已过正文与核心不重验；48A3EB跳48A543为mode1后段、mode2先下行；三原点/两现表达式、两既有原字节/S32、未清256B与独立16B/消费次序和整份源两标识符限定静态核对。四data/普通caller0只登记，未构建执行。；pass，六完整原根828条2692B/十六页、43实际E8/22目标/64跳12RET，26直接CALL及八代码发布有据；五组八源码点/十二注释精确重放，两整源其它全文/正确入口和列表、四结构/原字段与占用唯一owner保持。主四BYTE源、伴随state BYTE/count先取再推进、两坐标element先window有据；原mode1 W16样本、发送/格式及独立两退出/清理后绘制、动态count无新上限/原输出返回保。完整所有callee/父与动态回调、生产消费/alias-owner、机器ABI/实际BYTE访问/像素与运行待",
+      "item_selection": {
+        "step": "ISP01",
+        "source_snapshot": "[#] 补齐选物回调与列表坐标取样",
+        "original_end_exclusive": "0x48a6be",
+        "original_instruction_count": 598,
+        "original_code_bytes": 1982,
+        "original_page_count": 10,
+        "direct_call_count": 30,
+        "jump_count": 52,
+        "return_count": 2,
+        "native_signature": "std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_489F00",
+        "source_patch_group_count": 1,
+        "source_changed_point_count": 4,
+        "normal_remaining_source_kept": true,
+        "result_boundary": "S32 consumed原0/1",
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "original_incoming_references": [
+          {
+            "from": 4753644,
+            "type": 1,
+            "iscode": false,
+            "parent": 4753600,
+            "asm": null
+          },
+          {
+            "from": 4756153,
+            "type": 1,
+            "iscode": false,
+            "parent": 4755376,
+            "asm": null
+          },
+          {
+            "from": 4758300,
+            "type": 1,
+            "iscode": false,
+            "parent": 4757344,
+            "asm": null
+          },
+          {
+            "from": 5009813,
+            "type": 1,
+            "iscode": false,
+            "parent": 5009088,
+            "asm": null
+          }
+        ],
+        "callback_publications": [
+          {
+            "ea": 4753644,
+            "bytes": "c782b0000000009f4800",
+            "asm": "mov     dword ptr [edx+0B0h], offset sub_489F00",
+            "parent": 4753600,
+            "call_target": null
+          },
+          {
+            "ea": 4756153,
+            "bytes": "c782b0000000009f4800",
+            "asm": "mov     dword ptr [edx+0B0h], offset sub_489F00",
+            "parent": 4755376,
+            "call_target": null
+          },
+          {
+            "ea": 4758300,
+            "bytes": "c781b0000000009f4800",
+            "asm": "mov     dword ptr [ecx+0B0h], offset sub_489F00",
+            "parent": 4757344,
+            "call_target": null
+          },
+          {
+            "ea": 5009813,
+            "bytes": "c74154009f4800",
+            "asm": "mov     dword ptr [ecx+54h], offset sub_489F00",
+            "parent": 5009088,
+            "call_target": null
+          }
+        ],
+        "previous_business_format_and_binding_history_kept": true
+      }
     },
     {
       "original_entry": "0x4C75A0",
@@ -222333,6 +222426,521 @@
         "source_changed_point_count": 0,
         "normal_source_body_kept": true,
         "result_boundary": "现void；原EAX残留/全父消费待",
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4888c0",
+      "inventory_id": "F:000888C0",
+      "original_role": "对话29选物启动/焦点绑定结果传递",
+      "original_end_exclusive": "0x488921",
+      "instruction_count": 23,
+      "function_chunks": [
+        {
+          "start": "0x4888c0",
+          "end_exclusive": "0x488921"
+        }
+      ],
+      "status": "ISP01完整原选物根纳管，原列表/取样/输出结果保持；限定S/全父、所有callee与owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4888C0"
+          ],
+          "relationship": "ISP01完整原根纳管，原生产消费/字段宽度与取样有据，未改正文保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4888C0"
+          ],
+          "relationship": "ISP01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_item_selection_event_pipeline_spec.md#item-selection-baseline",
+        "doc/cg2d_item_selection_event_pipeline_spec.md#item-selection-decision",
+        "doc/cg2d_item_selection_event_pipeline_spec.md#item-selection-acceptance",
+        "doc/cg2d_item_selection_event_pipeline_spec.md#item-selection-source-state",
+        "doc/cg2d_item_selection_event_pipeline_evidence.json"
+      ],
+      "boundary": "ISP01六完整选物原根828条2692B/十六页、43实际E8/22目标/64跳12RET；26实际直接CALL及八代码发布仅点/父有据，不代所有外父/动态回调。4888C0沿MSVC atoi取得S32，先占用BYTE样本→selected发布→占用递增→窗口14元素4/17 fresh回调发布→mode2，再调用475DA0(1,0,null)丢返回并始终调用4763B0(14,0)，透传S32；不加启动失败回滚。旧920/489F00完整598条：20槽+8、原mode1类型47/flags W16/count规则、mode2两低BYTE flags60及两按钮BYTE；命中后原请求2000，发送mode1与mode2原格式/转义/Y→X/socket顺序、清理后独立右键退出均保，选中-1后仍原绘制不新跳过/补零/保护。恢复回调、占用BYTE递减/选中与dialog29清理、原坐标/数量文字/两descriptor及S32 consumed保持。48A6C0原state低BYTE bit1、列表/动态count，同item借用跨X/Y/底图/占用/绘框再读image，count在递增slot前重取，无8/20容量上限，S32恒0保。4C72C0 S8 mode0借玩家前8槽；正mode经51C410原AL校验，selectedPet分别重读产items和count，失败不改两个输出，不缓存宠物号或造容量。4C7240/7280 local<0返-1，不加其它拒绝；子调用后当前window，element坐标→window坐标取样和S32四项累加/返回保。五组八源码处/十二注释，两整源/四类型和共享选中/mode/selector、28占用BYTE在七W32唯一owner及字段储宽保；无新API/helper/字段/布局/owner/保护/默认值/补零/容量限制/钳制/回滚/异常模型。五新F/旧920全历史后追加、六adapted/三限定S零I/十任务open，旧会话/atoi/命中/绘框证据复用不改。完整所有callee（含51C410/4C63C0/4C6400）与父/间接路由/物品宠物占用协议生产消费/alias-owner和退出寿命、SDK/机器ABI/生成BYTE读取/实际选物像素与运行待；48有界代码、全部完整枚举gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，六完整原根828条2692B/十六页、43实际E8/22目标/64跳12RET，26直接CALL及八代码发布有据；五组八源码点/十二注释精确重放，两整源其它全文/正确入口和列表、四结构/原字段与占用唯一owner保持。主四BYTE源、伴随state BYTE/count先取再推进、两坐标element先window有据；原mode1 W16样本、发送/格式及独立两退出/清理后绘制、动态count无新上限/原输出返回保。完整所有callee/父与动态回调、生产消费/alias-owner、机器ABI/实际BYTE访问/像素与运行待",
+      "original_incoming": [
+        {
+          "ea": 4839119,
+          "bytes": "e8ecb1feff",
+          "asm": "call    sub_4888C0",
+          "parent": 4838112,
+          "call_target": 4753600
+        }
+      ],
+      "item_selection": {
+        "step": "ISP01",
+        "source_snapshot": "[#] 补齐选物回调与列表坐标取样",
+        "original_end_exclusive": "0x488921",
+        "original_instruction_count": 23,
+        "original_code_bytes": 97,
+        "original_page_count": 1,
+        "direct_call_count": 3,
+        "jump_count": 0,
+        "return_count": 1,
+        "native_signature": "std::int32_t Sub_4888C0(const char* const text)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4888C0",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "result_boundary": "S32透传焦点绑定结果",
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x48a6c0",
+      "inventory_id": "F:0008A6C0",
+      "original_role": "借用列表的选物附属显示回调",
+      "original_end_exclusive": "0x48a82f",
+      "instruction_count": 121,
+      "function_chunks": [
+        {
+          "start": "0x48a6c0",
+          "end_exclusive": "0x48a82f"
+        }
+      ],
+      "status": "ISP01完整原选物根纳管，原列表/取样/输出结果保持；限定S/全父、所有callee与owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_48A6C0"
+          ],
+          "relationship": "ISP01原BYTE/count或element-window取样对齐，原其它正文/输出返回保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_48A6C0"
+          ],
+          "relationship": "ISP01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_item_selection_event_pipeline_spec.md#item-selection-baseline",
+        "doc/cg2d_item_selection_event_pipeline_spec.md#item-selection-decision",
+        "doc/cg2d_item_selection_event_pipeline_spec.md#item-selection-acceptance",
+        "doc/cg2d_item_selection_event_pipeline_spec.md#item-selection-source-state",
+        "doc/cg2d_item_selection_event_pipeline_evidence.json"
+      ],
+      "boundary": "ISP01六完整选物原根828条2692B/十六页、43实际E8/22目标/64跳12RET；26实际直接CALL及八代码发布仅点/父有据，不代所有外父/动态回调。4888C0沿MSVC atoi取得S32，先占用BYTE样本→selected发布→占用递增→窗口14元素4/17 fresh回调发布→mode2，再调用475DA0(1,0,null)丢返回并始终调用4763B0(14,0)，透传S32；不加启动失败回滚。旧920/489F00完整598条：20槽+8、原mode1类型47/flags W16/count规则、mode2两低BYTE flags60及两按钮BYTE；命中后原请求2000，发送mode1与mode2原格式/转义/Y→X/socket顺序、清理后独立右键退出均保，选中-1后仍原绘制不新跳过/补零/保护。恢复回调、占用BYTE递减/选中与dialog29清理、原坐标/数量文字/两descriptor及S32 consumed保持。48A6C0原state低BYTE bit1、列表/动态count，同item借用跨X/Y/底图/占用/绘框再读image，count在递增slot前重取，无8/20容量上限，S32恒0保。4C72C0 S8 mode0借玩家前8槽；正mode经51C410原AL校验，selectedPet分别重读产items和count，失败不改两个输出，不缓存宠物号或造容量。4C7240/7280 local<0返-1，不加其它拒绝；子调用后当前window，element坐标→window坐标取样和S32四项累加/返回保。五组八源码处/十二注释，两整源/四类型和共享选中/mode/selector、28占用BYTE在七W32唯一owner及字段储宽保；无新API/helper/字段/布局/owner/保护/默认值/补零/容量限制/钳制/回滚/异常模型。五新F/旧920全历史后追加、六adapted/三限定S零I/十任务open，旧会话/atoi/命中/绘框证据复用不改。完整所有callee（含51C410/4C63C0/4C6400）与父/间接路由/物品宠物占用协议生产消费/alias-owner和退出寿命、SDK/机器ABI/生成BYTE读取/实际选物像素与运行待；48有界代码、全部完整枚举gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，六完整原根828条2692B/十六页、43实际E8/22目标/64跳12RET，26直接CALL及八代码发布有据；五组八源码点/十二注释精确重放，两整源其它全文/正确入口和列表、四结构/原字段与占用唯一owner保持。主四BYTE源、伴随state BYTE/count先取再推进、两坐标element先window有据；原mode1 W16样本、发送/格式及独立两退出/清理后绘制、动态count无新上限/原输出返回保。完整所有callee/父与动态回调、生产消费/alias-owner、机器ABI/实际BYTE访问/像素与运行待",
+      "original_incoming": [
+        {
+          "ea": 4753662,
+          "bytes": "c78184020000c0a64800",
+          "asm": "mov     dword ptr [ecx+284h], offset sub_48A6C0",
+          "parent": 4753600,
+          "call_target": null
+        },
+        {
+          "ea": 4756171,
+          "bytes": "c78184020000c0a64800",
+          "asm": "mov     dword ptr [ecx+284h], offset sub_48A6C0",
+          "parent": 4755376,
+          "call_target": null
+        },
+        {
+          "ea": 4758319,
+          "bytes": "c78084020000c0a64800",
+          "asm": "mov     dword ptr [eax+284h], offset sub_48A6C0",
+          "parent": 4757344,
+          "call_target": null
+        },
+        {
+          "ea": 5009827,
+          "bytes": "c7415cc0a64800",
+          "asm": "mov     dword ptr [ecx+5Ch], offset sub_48A6C0",
+          "parent": 5009088,
+          "call_target": null
+        }
+      ],
+      "item_selection": {
+        "step": "ISP01",
+        "source_snapshot": "[#] 补齐选物回调与列表坐标取样",
+        "original_end_exclusive": "0x48a82f",
+        "original_instruction_count": 121,
+        "original_code_bytes": 367,
+        "original_page_count": 2,
+        "direct_call_count": 7,
+        "jump_count": 7,
+        "return_count": 2,
+        "native_signature": "std::int32_t Sub_48A6C0(const std::int32_t index, const std::int32_t state)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_48A6C0",
+        "source_patch_group_count": 2,
+        "source_changed_point_count": 2,
+        "normal_remaining_source_kept": true,
+        "result_boundary": "S32原0",
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4c72c0",
+      "inventory_id": "F:000C72C0",
+      "original_role": "按玩家/宠物模式借物品列表及动态数量",
+      "original_end_exclusive": "0x4c733e",
+      "instruction_count": 44,
+      "function_chunks": [
+        {
+          "start": "0x4c72c0",
+          "end_exclusive": "0x4c733e"
+        }
+      ],
+      "status": "ISP01完整原选物根纳管，原列表/取样/输出结果保持；限定S/全父、所有callee与owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C72C0"
+          ],
+          "relationship": "ISP01完整原根纳管，原生产消费/字段宽度与取样有据，未改正文保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4C72C0"
+          ],
+          "relationship": "ISP01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_item_selection_event_pipeline_spec.md#item-selection-baseline",
+        "doc/cg2d_item_selection_event_pipeline_spec.md#item-selection-decision",
+        "doc/cg2d_item_selection_event_pipeline_spec.md#item-selection-acceptance",
+        "doc/cg2d_item_selection_event_pipeline_spec.md#item-selection-source-state",
+        "doc/cg2d_item_selection_event_pipeline_evidence.json"
+      ],
+      "boundary": "ISP01六完整选物原根828条2692B/十六页、43实际E8/22目标/64跳12RET；26实际直接CALL及八代码发布仅点/父有据，不代所有外父/动态回调。4888C0沿MSVC atoi取得S32，先占用BYTE样本→selected发布→占用递增→窗口14元素4/17 fresh回调发布→mode2，再调用475DA0(1,0,null)丢返回并始终调用4763B0(14,0)，透传S32；不加启动失败回滚。旧920/489F00完整598条：20槽+8、原mode1类型47/flags W16/count规则、mode2两低BYTE flags60及两按钮BYTE；命中后原请求2000，发送mode1与mode2原格式/转义/Y→X/socket顺序、清理后独立右键退出均保，选中-1后仍原绘制不新跳过/补零/保护。恢复回调、占用BYTE递减/选中与dialog29清理、原坐标/数量文字/两descriptor及S32 consumed保持。48A6C0原state低BYTE bit1、列表/动态count，同item借用跨X/Y/底图/占用/绘框再读image，count在递增slot前重取，无8/20容量上限，S32恒0保。4C72C0 S8 mode0借玩家前8槽；正mode经51C410原AL校验，selectedPet分别重读产items和count，失败不改两个输出，不缓存宠物号或造容量。4C7240/7280 local<0返-1，不加其它拒绝；子调用后当前window，element坐标→window坐标取样和S32四项累加/返回保。五组八源码处/十二注释，两整源/四类型和共享选中/mode/selector、28占用BYTE在七W32唯一owner及字段储宽保；无新API/helper/字段/布局/owner/保护/默认值/补零/容量限制/钳制/回滚/异常模型。五新F/旧920全历史后追加、六adapted/三限定S零I/十任务open，旧会话/atoi/命中/绘框证据复用不改。完整所有callee（含51C410/4C63C0/4C6400）与父/间接路由/物品宠物占用协议生产消费/alias-owner和退出寿命、SDK/机器ABI/生成BYTE读取/实际选物像素与运行待；48有界代码、全部完整枚举gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，六完整原根828条2692B/十六页、43实际E8/22目标/64跳12RET，26直接CALL及八代码发布有据；五组八源码点/十二注释精确重放，两整源其它全文/正确入口和列表、四结构/原字段与占用唯一owner保持。主四BYTE源、伴随state BYTE/count先取再推进、两坐标element先window有据；原mode1 W16样本、发送/格式及独立两退出/清理后绘制、动态count无新上限/原输出返回保。完整所有callee/父与动态回调、生产消费/alias-owner、机器ABI/实际BYTE访问/像素与运行待",
+      "original_incoming": [
+        {
+          "ea": 4757449,
+          "bytes": "e8f2da0300",
+          "asm": "call    sub_4C72C0",
+          "parent": 4757344,
+          "call_target": 5010112
+        },
+        {
+          "ea": 4761375,
+          "bytes": "e89ccb0300",
+          "asm": "call    sub_4C72C0",
+          "parent": 4761280,
+          "call_target": 5010112
+        },
+        {
+          "ea": 4828329,
+          "bytes": "e812c60200",
+          "asm": "call    sub_4C72C0",
+          "parent": 4828224,
+          "call_target": 5010112
+        }
+      ],
+      "item_selection": {
+        "step": "ISP01",
+        "source_snapshot": "[#] 补齐选物回调与列表坐标取样",
+        "original_end_exclusive": "0x4c733e",
+        "original_instruction_count": 44,
+        "original_code_bytes": 126,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "jump_count": 3,
+        "return_count": 3,
+        "native_signature": "bool Sub_4C72C0(\n    const WindowItemSelectorState* const state, world::detail::PlayerItemRecord** const items,\n    std::int32_t* const count)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4C72C0",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "result_boundary": "bool限原AL结果；失败不改输出",
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4c7240",
+      "inventory_id": "F:000C7240",
+      "original_role": "元素/窗口X坐标加局部与offset",
+      "original_end_exclusive": "0x4c727c",
+      "instruction_count": 21,
+      "function_chunks": [
+        {
+          "start": "0x4c7240",
+          "end_exclusive": "0x4c727c"
+        }
+      ],
+      "status": "ISP01完整原选物根纳管，原列表/取样/输出结果保持；限定S/全父、所有callee与owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C7240"
+          ],
+          "relationship": "ISP01原BYTE/count或element-window取样对齐，原其它正文/输出返回保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4C7240"
+          ],
+          "relationship": "ISP01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_item_selection_event_pipeline_spec.md#item-selection-baseline",
+        "doc/cg2d_item_selection_event_pipeline_spec.md#item-selection-decision",
+        "doc/cg2d_item_selection_event_pipeline_spec.md#item-selection-acceptance",
+        "doc/cg2d_item_selection_event_pipeline_spec.md#item-selection-source-state",
+        "doc/cg2d_item_selection_event_pipeline_evidence.json"
+      ],
+      "boundary": "ISP01六完整选物原根828条2692B/十六页、43实际E8/22目标/64跳12RET；26实际直接CALL及八代码发布仅点/父有据，不代所有外父/动态回调。4888C0沿MSVC atoi取得S32，先占用BYTE样本→selected发布→占用递增→窗口14元素4/17 fresh回调发布→mode2，再调用475DA0(1,0,null)丢返回并始终调用4763B0(14,0)，透传S32；不加启动失败回滚。旧920/489F00完整598条：20槽+8、原mode1类型47/flags W16/count规则、mode2两低BYTE flags60及两按钮BYTE；命中后原请求2000，发送mode1与mode2原格式/转义/Y→X/socket顺序、清理后独立右键退出均保，选中-1后仍原绘制不新跳过/补零/保护。恢复回调、占用BYTE递减/选中与dialog29清理、原坐标/数量文字/两descriptor及S32 consumed保持。48A6C0原state低BYTE bit1、列表/动态count，同item借用跨X/Y/底图/占用/绘框再读image，count在递增slot前重取，无8/20容量上限，S32恒0保。4C72C0 S8 mode0借玩家前8槽；正mode经51C410原AL校验，selectedPet分别重读产items和count，失败不改两个输出，不缓存宠物号或造容量。4C7240/7280 local<0返-1，不加其它拒绝；子调用后当前window，element坐标→window坐标取样和S32四项累加/返回保。五组八源码处/十二注释，两整源/四类型和共享选中/mode/selector、28占用BYTE在七W32唯一owner及字段储宽保；无新API/helper/字段/布局/owner/保护/默认值/补零/容量限制/钳制/回滚/异常模型。五新F/旧920全历史后追加、六adapted/三限定S零I/十任务open，旧会话/atoi/命中/绘框证据复用不改。完整所有callee（含51C410/4C63C0/4C6400）与父/间接路由/物品宠物占用协议生产消费/alias-owner和退出寿命、SDK/机器ABI/生成BYTE读取/实际选物像素与运行待；48有界代码、全部完整枚举gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，六完整原根828条2692B/十六页、43实际E8/22目标/64跳12RET，26直接CALL及八代码发布有据；五组八源码点/十二注释精确重放，两整源其它全文/正确入口和列表、四结构/原字段与占用唯一owner保持。主四BYTE源、伴随state BYTE/count先取再推进、两坐标element先window有据；原mode1 W16样本、发送/格式及独立两退出/清理后绘制、动态count无新上限/原输出返回保。完整所有callee/父与动态回调、生产消费/alias-owner、机器ABI/实际BYTE访问/像素与运行待",
+      "original_incoming": [
+        {
+          "ea": 4757594,
+          "bytes": "e8e1d90300",
+          "asm": "call    sub_4C7240",
+          "parent": 4757344,
+          "call_target": 5009984
+        },
+        {
+          "ea": 4757817,
+          "bytes": "e802d90300",
+          "asm": "call    sub_4C7240",
+          "parent": 4757344,
+          "call_target": 5009984
+        },
+        {
+          "ea": 4758728,
+          "bytes": "e873d50300",
+          "asm": "call    sub_4C7240",
+          "parent": 4757344,
+          "call_target": 5009984
+        },
+        {
+          "ea": 4758806,
+          "bytes": "e825d50300",
+          "asm": "call    sub_4C7240",
+          "parent": 4757344,
+          "call_target": 5009984
+        },
+        {
+          "ea": 4759052,
+          "bytes": "e82fd40300",
+          "asm": "call    sub_4C7240",
+          "parent": 4757344,
+          "call_target": 5009984
+        },
+        {
+          "ea": 4761460,
+          "bytes": "e8c7ca0300",
+          "asm": "call    sub_4C7240",
+          "parent": 4761280,
+          "call_target": 5009984
+        },
+        {
+          "ea": 4828445,
+          "bytes": "e81ec50200",
+          "asm": "call    sub_4C7240",
+          "parent": 4828224,
+          "call_target": 5009984
+        },
+        {
+          "ea": 4829197,
+          "bytes": "e82ec20200",
+          "asm": "call    sub_4C7240",
+          "parent": 4828224,
+          "call_target": 5009984
+        },
+        {
+          "ea": 4830040,
+          "bytes": "e8e3be0200",
+          "asm": "call    sub_4C7240",
+          "parent": 4828224,
+          "call_target": 5009984
+        },
+        {
+          "ea": 4830130,
+          "bytes": "e889be0200",
+          "asm": "call    sub_4C7240",
+          "parent": 4828224,
+          "call_target": 5009984
+        },
+        {
+          "ea": 4830384,
+          "bytes": "e88bbd0200",
+          "asm": "call    sub_4C7240",
+          "parent": 4828224,
+          "call_target": 5009984
+        }
+      ],
+      "item_selection": {
+        "step": "ISP01",
+        "source_snapshot": "[#] 补齐选物回调与列表坐标取样",
+        "original_end_exclusive": "0x4c727c",
+        "original_instruction_count": 21,
+        "original_code_bytes": 60,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "jump_count": 1,
+        "return_count": 2,
+        "native_signature": "std::int32_t Sub_4C7240(\n    const WindowItemSelectorState* const state, const std::int32_t element,\n    const std::int32_t slot, const std::int32_t offset)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4C7240",
+        "source_patch_group_count": 1,
+        "source_changed_point_count": 1,
+        "normal_remaining_source_kept": true,
+        "result_boundary": "S32 local负值-1或原四项坐标和",
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4c7280",
+      "inventory_id": "F:000C7280",
+      "original_role": "元素/窗口Y坐标加局部与offset",
+      "original_end_exclusive": "0x4c72bc",
+      "instruction_count": 21,
+      "function_chunks": [
+        {
+          "start": "0x4c7280",
+          "end_exclusive": "0x4c72bc"
+        }
+      ],
+      "status": "ISP01完整原选物根纳管，原列表/取样/输出结果保持；限定S/全父、所有callee与owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C7280"
+          ],
+          "relationship": "ISP01原BYTE/count或element-window取样对齐，原其它正文/输出返回保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4C7280"
+          ],
+          "relationship": "ISP01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_item_selection_event_pipeline_spec.md#item-selection-baseline",
+        "doc/cg2d_item_selection_event_pipeline_spec.md#item-selection-decision",
+        "doc/cg2d_item_selection_event_pipeline_spec.md#item-selection-acceptance",
+        "doc/cg2d_item_selection_event_pipeline_spec.md#item-selection-source-state",
+        "doc/cg2d_item_selection_event_pipeline_evidence.json"
+      ],
+      "boundary": "ISP01六完整选物原根828条2692B/十六页、43实际E8/22目标/64跳12RET；26实际直接CALL及八代码发布仅点/父有据，不代所有外父/动态回调。4888C0沿MSVC atoi取得S32，先占用BYTE样本→selected发布→占用递增→窗口14元素4/17 fresh回调发布→mode2，再调用475DA0(1,0,null)丢返回并始终调用4763B0(14,0)，透传S32；不加启动失败回滚。旧920/489F00完整598条：20槽+8、原mode1类型47/flags W16/count规则、mode2两低BYTE flags60及两按钮BYTE；命中后原请求2000，发送mode1与mode2原格式/转义/Y→X/socket顺序、清理后独立右键退出均保，选中-1后仍原绘制不新跳过/补零/保护。恢复回调、占用BYTE递减/选中与dialog29清理、原坐标/数量文字/两descriptor及S32 consumed保持。48A6C0原state低BYTE bit1、列表/动态count，同item借用跨X/Y/底图/占用/绘框再读image，count在递增slot前重取，无8/20容量上限，S32恒0保。4C72C0 S8 mode0借玩家前8槽；正mode经51C410原AL校验，selectedPet分别重读产items和count，失败不改两个输出，不缓存宠物号或造容量。4C7240/7280 local<0返-1，不加其它拒绝；子调用后当前window，element坐标→window坐标取样和S32四项累加/返回保。五组八源码处/十二注释，两整源/四类型和共享选中/mode/selector、28占用BYTE在七W32唯一owner及字段储宽保；无新API/helper/字段/布局/owner/保护/默认值/补零/容量限制/钳制/回滚/异常模型。五新F/旧920全历史后追加、六adapted/三限定S零I/十任务open，旧会话/atoi/命中/绘框证据复用不改。完整所有callee（含51C410/4C63C0/4C6400）与父/间接路由/物品宠物占用协议生产消费/alias-owner和退出寿命、SDK/机器ABI/生成BYTE读取/实际选物像素与运行待；48有界代码、全部完整枚举gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，六完整原根828条2692B/十六页、43实际E8/22目标/64跳12RET，26直接CALL及八代码发布有据；五组八源码点/十二注释精确重放，两整源其它全文/正确入口和列表、四结构/原字段与占用唯一owner保持。主四BYTE源、伴随state BYTE/count先取再推进、两坐标element先window有据；原mode1 W16样本、发送/格式及独立两退出/清理后绘制、动态count无新上限/原输出返回保。完整所有callee/父与动态回调、生产消费/alias-owner、机器ABI/实际BYTE访问/像素与运行待",
+      "original_incoming": [
+        {
+          "ea": 4757610,
+          "bytes": "e811da0300",
+          "asm": "call    sub_4C7280",
+          "parent": 4757344,
+          "call_target": 5010048
+        },
+        {
+          "ea": 4757833,
+          "bytes": "e832d90300",
+          "asm": "call    sub_4C7280",
+          "parent": 4757344,
+          "call_target": 5010048
+        },
+        {
+          "ea": 4758748,
+          "bytes": "e89fd50300",
+          "asm": "call    sub_4C7280",
+          "parent": 4757344,
+          "call_target": 5010048
+        },
+        {
+          "ea": 4758822,
+          "bytes": "e855d50300",
+          "asm": "call    sub_4C7280",
+          "parent": 4757344,
+          "call_target": 5010048
+        },
+        {
+          "ea": 4759068,
+          "bytes": "e85fd40300",
+          "asm": "call    sub_4C7280",
+          "parent": 4757344,
+          "call_target": 5010048
+        },
+        {
+          "ea": 4761476,
+          "bytes": "e8f7ca0300",
+          "asm": "call    sub_4C7280",
+          "parent": 4761280,
+          "call_target": 5010048
+        },
+        {
+          "ea": 4828461,
+          "bytes": "e84ec50200",
+          "asm": "call    sub_4C7280",
+          "parent": 4828224,
+          "call_target": 5010048
+        },
+        {
+          "ea": 4829213,
+          "bytes": "e85ec20200",
+          "asm": "call    sub_4C7280",
+          "parent": 4828224,
+          "call_target": 5010048
+        },
+        {
+          "ea": 4830056,
+          "bytes": "e813bf0200",
+          "asm": "call    sub_4C7280",
+          "parent": 4828224,
+          "call_target": 5010048
+        },
+        {
+          "ea": 4830146,
+          "bytes": "e8b9be0200",
+          "asm": "call    sub_4C7280",
+          "parent": 4828224,
+          "call_target": 5010048
+        },
+        {
+          "ea": 4830400,
+          "bytes": "e8bbbd0200",
+          "asm": "call    sub_4C7280",
+          "parent": 4828224,
+          "call_target": 5010048
+        }
+      ],
+      "item_selection": {
+        "step": "ISP01",
+        "source_snapshot": "[#] 补齐选物回调与列表坐标取样",
+        "original_end_exclusive": "0x4c72bc",
+        "original_instruction_count": 21,
+        "original_code_bytes": 60,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "jump_count": 1,
+        "return_count": 2,
+        "native_signature": "std::int32_t Sub_4C7280(\n    const WindowItemSelectorState* const state, const std::int32_t element,\n    const std::int32_t slot, const std::int32_t offset)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4C7280",
+        "source_patch_group_count": 1,
+        "source_changed_point_count": 1,
+        "normal_remaining_source_kept": true,
+        "result_boundary": "S32 local负值-1或原四项坐标和",
         "generated_machine_reads_verified": false,
         "full_lifecycle_closed": false,
         "runtime_verified": false

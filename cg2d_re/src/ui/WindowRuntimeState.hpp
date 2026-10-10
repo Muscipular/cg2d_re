@@ -462,17 +462,23 @@ bool Sub_4C78A0(WindowItemSelectorState* state, std::int32_t events); // 预览�
 bool Sub_4C7910(WindowItemSelectorState* state, std::int32_t events); // 装备开关，索引无效时保留部分改写。
 bool Sub_4C7A10(WindowItemSelectorState* state, std::int32_t events); // 低U16两方向事件独立处理。
 void Sub_4C7A90(WindowItemSelectorState* state); // 条件首次切页，尾始终逐帧推进。
+// ISP01：原local负值返-1，成功后取当前窗口，再按元素X/窗口X取样累加。
 std::int32_t Sub_4C7240(
     const WindowItemSelectorState* state, std::int32_t element, std::int32_t slot,
     std::int32_t offset); // X；负局部坐标不读取窗口。
+// ISP01：原local负值返-1，成功后取当前窗口，再按元素Y/窗口Y取样累加。
 std::int32_t Sub_4C7280(
     const WindowItemSelectorState* state, std::int32_t element, std::int32_t slot,
     std::int32_t offset); // Y；与X分开采样模式和当前窗口。
+// ISP01：S8模式0借玩家前8槽，正模式经原宠物校验后两次重读索引借列表/数量；失败不改输出。
 bool Sub_4C72C0(
     const WindowItemSelectorState* state, world::detail::PlayerItemRecord** items,
     std::int32_t* count); // 借用同源物品表；失败不写输出。
+// ISP01：借同一列表/原动态count，state低BYTE消费；循环尾先重取count再推进槽。
 std::int32_t Sub_48A6C0(std::int32_t index, std::int32_t state); // 装备屏蔽页完整绘制。
+// ISP01：原两mode选物/发送/独立取消及绘制保持，按钮和mode2 flags只读原BYTE。
 std::int32_t Sub_489F00(std::int32_t index, std::int32_t state); // 两模式物品选择/退出与完整绘制。
+// ISP01：对话29选物先占用/发布两个回调与mode2，启动返回丢弃，再透传焦点绑定S32结果。
 std::int32_t Sub_4888C0(const char* text); // 对话29选择入口，发布特殊回调后绑定焦点。
 std::int32_t Sub_488930(std::int32_t unusedIndex, std::int32_t state);
 std::int32_t Sub_488950(std::int32_t unusedIndex, std::int32_t state);

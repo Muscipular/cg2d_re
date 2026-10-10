@@ -8509,6 +8509,7 @@ void Sub_4C7A90(WindowItemSelectorState* const state)
     Sub_4C6790(state);
 }
 
+// ISP01：原local负值返-1，成功后取当前窗口，再按元素X/窗口X取样累加。
 std::int32_t Sub_4C7240(
     const WindowItemSelectorState* const state, const std::int32_t element,
     const std::int32_t slot, const std::int32_t offset)
@@ -8518,9 +8519,12 @@ std::int32_t Sub_4C7240(
         return -1;
     }
     const WindowInstance* const window = gCurrentWindow;
-    return window->elements[element].x + window->x + local + offset;
+    const std::int32_t elementX = window->elements[element].x;
+    const std::int32_t windowX = window->x;
+    return elementX + windowX + local + offset;
 }
 
+// ISP01：原local负值返-1，成功后取当前窗口，再按元素Y/窗口Y取样累加。
 std::int32_t Sub_4C7280(
     const WindowItemSelectorState* const state, const std::int32_t element,
     const std::int32_t slot, const std::int32_t offset)
@@ -8530,9 +8534,12 @@ std::int32_t Sub_4C7280(
         return -1;
     }
     const WindowInstance* const window = gCurrentWindow;
-    return window->elements[element].y + window->y + local + offset;
+    const std::int32_t elementY = window->elements[element].y;
+    const std::int32_t windowY = window->y;
+    return elementY + windowY + local + offset;
 }
 
+// ISP01：S8模式0借玩家前8槽，正模式经原宠物校验后两次重读索引借列表/数量；失败不改输出。
 bool Sub_4C72C0(
     const WindowItemSelectorState* const state, world::detail::PlayerItemRecord** const items,
     std::int32_t* const count)
@@ -8551,6 +8558,7 @@ bool Sub_4C72C0(
     return false;
 }
 
+// ISP01：借同一列表/原动态count，state低BYTE消费；循环尾先重取count再推进槽。
 std::int32_t Sub_48A6C0(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -8566,11 +8574,13 @@ std::int32_t Sub_48A6C0(const std::int32_t index, const std::int32_t state)
     if (!Sub_4C72C0(&gItemSelectorCF3B10, &items, &count)) {
         return 0;
     }
-    if ((state & 2) != 0) {
+    if ((*reinterpret_cast<const unsigned char*>(&state) & 2u) != 0) {
         gCurrentWindow->state |= 0x2000u;
     }
     const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gValueD67B08.data());
-    for (std::int32_t slot = 0; slot < count; ++slot) {
+    std::int32_t currentCount = count;
+    std::int32_t slot = 0;
+    while (slot < currentCount) {
         const world::detail::PlayerItemRecord* const item = items + slot;
         if (item->used != 0) {
             const std::int32_t x = Sub_4C7240(&gItemSelectorCF3B10, index, slot, 0);
@@ -8586,10 +8596,13 @@ std::int32_t Sub_48A6C0(const std::int32_t index, const std::int32_t state)
                 static_cast<void>(login::detail::DrawGraphic(x, y, 223, item->imageNo, 0, &descriptor));
             }
         }
+        currentCount = count;
+        ++slot;
     }
     return 0;
 }
 
+// ISP01：对话29选物先占用/发布两个回调与mode2，启动返回丢弃，再透传焦点绑定S32结果。
 std::int32_t Sub_4888C0(const char* const text)
 {
     const std::int32_t selected = platform::Atoi_53C649(text);
@@ -11631,6 +11644,7 @@ std::int32_t Sub_489EE0(const std::int32_t, const std::int32_t state)
     return Sub_4C75A0(&gItemSelectorCF3B10, state) ? 1 : 0;
 }
 
+// ISP01：原两mode选物/发送/独立取消及绘制保持，按钮和mode2 flags只读原BYTE。
 std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -11647,7 +11661,7 @@ std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
     if ((events & 0x20u) != 0 && Sub_475D60() == 1 && Sub_475D40() == 14) {
         events |= 1u;
-        if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
+        if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
             events |= 2u;
         }
     }
@@ -11667,7 +11681,7 @@ std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)
                 if (item.used == 0 || occupancy[position + 8] != 0) {
                     continue;
                 }
-                if (mode == 1 ? isMode1Blocked(item) : (item.flags & 0x60u) != 0) {
+                if (mode == 1 ? isMode1Blocked(item) : (*reinterpret_cast<const unsigned char*>(&item.flags) & 0x60u) != 0) {
                     continue;
                 }
                 const WindowInstance* const window = gCurrentWindow;
@@ -11725,7 +11739,7 @@ std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)
         }
         consumed = 1;
     }
-    if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons) & 2u) != 0) {
+    if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 2u) != 0) {
         leaveSelection();
     }
     const std::int32_t imageNo = world::detail::gPlayerItemsFDA8A4[gSelectedItemCB0A44].imageNo;
@@ -11759,7 +11773,7 @@ std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)
         const WindowElement& element = window->elements[index];
         const std::int32_t x = element.x + 50 * (position % 5) + window->x + 39;
         const std::int32_t y = element.y + 50 * (position / 5) + window->y + 73;
-        if (mode == 1 ? isMode1Blocked(item) : (item.flags & 0x60u) != 0) {
+        if (mode == 1 ? isMode1Blocked(item) : (*reinterpret_cast<const unsigned char*>(&item.flags) & 0x60u) != 0) {
             static_cast<void>(login::detail::DrawGraphic(x, y, 223, 23040, 0, nullptr));
         }
         if (occupancy[position + 8] != 0) {

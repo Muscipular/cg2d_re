@@ -805,8 +805,8 @@ std::int32_t __cdecl Sub_5093F0(
     std::int32_t a10, std::int32_t a11, std::int32_t a12,
     std::int32_t a13); // 原 [0x5093F0,0x509548)，地图保存及场景状态发布。
 std::int32_t __cdecl Sub_509550(
-    std::uintptr_t socket, char* payload); // 原 [0x509550,0x509642)，地图回复文本与数值发布。
-void __cdecl Sub_51D6F0(); // 原 [0x51D6F0,0x51D743)，消费回复索引并选择调色板。
+    std::uintptr_t socket, char* payload); // PTR01：原完整回复，地图名整词/状态/尾字节及解析持值顺序保持。
+void __cdecl Sub_51D6F0(); // PTR01：原完整消费，原-1/非负分支、调色板副作用后发布保持。
 void __cdecl Sub_458F40(); // GTP01：同源倒计时旧字段先齐取/持有判负，场景9要求玩家 T*。
 void __cdecl Sub_458F00(); // GTP01：类别变化后可选过渡，末尾总推进同源倒计时；原残值 ABI 待。
 std::int32_t __cdecl Sub_519EB0(std::int32_t value); // GTP01：真实玩家 W32 对象号写回/原 S32 透传。

@@ -239798,6 +239798,549 @@
         "runtime_verified": false,
         "result_boundary": "现void保副作用，原残留EAX不伪造确定值；完整调度/ABI待"
       }
+    },
+    {
+      "original_entry": "0x509550",
+      "inventory_id": "F:00109550",
+      "original_role": "地图回复文本和索引生产/原name复制时点及atoi持值",
+      "original_end_exclusive": "0x509642",
+      "instruction_count": 82,
+      "function_chunks": [
+        {
+          "start": "0x509550",
+          "end_exclusive": "0x509642"
+        }
+      ],
+      "status": "PTR01两完整地图回复/调色板原根纳管，两组两处；限定S，资源/owner/ABI及运行待",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_509550"
+          ],
+          "relationship": "PTR01完整地图回复/调色板消费原根；name整词状态尾与atoi持值对齐，消费者正确正文保持"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_509550"
+          ],
+          "relationship": "PTR01既有真实声明保持，仅合同注释；原生非拥有callback/返回边界具名"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_reply_palette_spec.md#map-reply-palette-baseline",
+        "doc/cg2d_map_reply_palette_spec.md#map-reply-palette-decision",
+        "doc/cg2d_map_reply_palette_spec.md#map-reply-palette-acceptance",
+        "doc/cg2d_map_reply_palette_spec.md#map-reply-palette-source-state",
+        "doc/cg2d_map_reply_palette_evidence.json"
+      ],
+      "boundary": "PTR01完整509550地图回复生产与51D6F0调色板消费：两根102条325B/三页、7E8五目标/七跳三RET，生产一个CALL父512E40及消费十三CALL同完整已核51C7D0。原父短窗只证返回弃用，不作完整网络父；当前TeD一T实参原socket/native协议边界及LF明文保持。原回复参数首socket未读，第二char*原位Unescape→field1(容量255/本地256)→Unescape2，提取返回未检查、不预清局部。name按strlen>24选择原???，整词复制后发布FF0D4C S32=-2，再复制余0..3尾字节含NUL；现恢复两阶段发布，不换字节/容量、不增保护。field2(容量31/本地32)空首BYTE→-1；否则MSVC已批atoi当次S32结果先发布，再用持值判负，负时原覆盖-1，无其它新钳制；原C82210==1才C82218=1、返回固定S32 1保持。消费一次持有回复S32：-1先fresh时段category调用SelectPalette(category,0)，后mode73ED44=1，再回复=-2；非负用持值SelectPalette(value,0)，后mode=0再回复=-2；其它负值不写/不调。两分支弃callee结果，故provider拒绝也仍按原发布，不加成功保护或回滚。消费者body全部正确保。GTP01已完整458F00在时段变化先持mode再发布category，仅mode1调用SelectPalette(category,3600)，末总458F40，复用旧合同不重取根。SelectPalette当前实际档位/steps副作用与能力门槛全文保，只记录当前依赖，不据本步验所有调色板表/资源/转换/像素或完整provider原根。两新F两adapted、NETWORK加生产1/MAP加两/RENDER加消费1，三限定S零I八open；仅两组两处四注释，两整源其余/六providers/已核父/TeD当前route/原三S32及26B地图名与???保持。未扩首参数为新业务、未改提取解码/MSVC atoi/网络字段及LF/WAV-only，不加初始化、空/索引/容量保护、默认/溢出异常模型或owner。完整链所有SDK/机器ABI/生成读取/资源owner及画面运行和总SPEC均未闭。",
+      "verification_level": "pass，两完整原根102条325B/三页、7E8五目标/七跳三RET及十四CALL来源；原name两分支整词→S32状态→尾字节、atoi持EAX判负及消费调用后发布；两整源精确回放两组两处四注释、正确消费者/六provider/一父/TeD route/标量定义及七旧语义保持；生成读取/全资源owner/ABI/运行待",
+      "original_incoming": [
+        {
+          "root": 5281104,
+          "ea": 5332776,
+          "type": 17,
+          "code": true,
+          "parent": 5320256,
+          "bytes": "e82336ffff",
+          "asm": "call    sub_509550",
+          "window": [
+            {
+              "ea": 5332761,
+              "bytes": "51",
+              "asm": "push    ecx"
+            },
+            {
+              "ea": 5332762,
+              "bytes": "e871170000",
+              "asm": "call    sub_517690"
+            },
+            {
+              "ea": 5332767,
+              "bytes": "8b942458040000",
+              "asm": "mov     edx, [esp+454h+fd]"
+            },
+            {
+              "ea": 5332774,
+              "bytes": "50",
+              "asm": "push    eax"
+            },
+            {
+              "ea": 5332775,
+              "bytes": "52",
+              "asm": "push    edx"
+            },
+            {
+              "ea": 5332776,
+              "bytes": "e82336ffff",
+              "asm": "call    sub_509550"
+            },
+            {
+              "ea": 5332781,
+              "bytes": "83c418",
+              "asm": "add     esp, 18h"
+            },
+            {
+              "ea": 5332784,
+              "bytes": "33c0",
+              "asm": "xor     eax, eax"
+            },
+            {
+              "ea": 5332786,
+              "bytes": "5f",
+              "asm": "pop     edi"
+            },
+            {
+              "ea": 5332787,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            },
+            {
+              "ea": 5332788,
+              "bytes": "5d",
+              "asm": "pop     ebp"
+            },
+            {
+              "ea": 5332789,
+              "bytes": "5b",
+              "asm": "pop     ebx"
+            },
+            {
+              "ea": 5332790,
+              "bytes": "81c434040000",
+              "asm": "add     esp, 434h"
+            },
+            {
+              "ea": 5332796,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 5332797,
+              "bytes": "be0cb45800",
+              "asm": "mov     esi, offset aGmnm; \"GmNM\""
+            }
+          ]
+        }
+      ],
+      "map_reply_palette": {
+        "step": "PTR01",
+        "source_snapshot": "[#] 对齐地图回复文本发布与调色板合同",
+        "original_entry": "0x509550",
+        "original_end_exclusive": "0x509642",
+        "instruction_count": 82,
+        "code_bytes": 242,
+        "page_count": 2,
+        "direct_calls": 5,
+        "direct_call_targets": [
+          5427536,
+          5426896,
+          5427952,
+          5490249
+        ],
+        "jumps": 5,
+        "returns": 1,
+        "original_incoming_references": [
+          {
+            "root": 5281104,
+            "ea": 5332776,
+            "type": 17,
+            "code": true,
+            "parent": 5320256,
+            "bytes": "e82336ffff",
+            "asm": "call    sub_509550",
+            "window": [
+              {
+                "ea": 5332761,
+                "bytes": "51",
+                "asm": "push    ecx"
+              },
+              {
+                "ea": 5332762,
+                "bytes": "e871170000",
+                "asm": "call    sub_517690"
+              },
+              {
+                "ea": 5332767,
+                "bytes": "8b942458040000",
+                "asm": "mov     edx, [esp+454h+fd]"
+              },
+              {
+                "ea": 5332774,
+                "bytes": "50",
+                "asm": "push    eax"
+              },
+              {
+                "ea": 5332775,
+                "bytes": "52",
+                "asm": "push    edx"
+              },
+              {
+                "ea": 5332776,
+                "bytes": "e82336ffff",
+                "asm": "call    sub_509550"
+              },
+              {
+                "ea": 5332781,
+                "bytes": "83c418",
+                "asm": "add     esp, 18h"
+              },
+              {
+                "ea": 5332784,
+                "bytes": "33c0",
+                "asm": "xor     eax, eax"
+              },
+              {
+                "ea": 5332786,
+                "bytes": "5f",
+                "asm": "pop     edi"
+              },
+              {
+                "ea": 5332787,
+                "bytes": "5e",
+                "asm": "pop     esi"
+              },
+              {
+                "ea": 5332788,
+                "bytes": "5d",
+                "asm": "pop     ebp"
+              },
+              {
+                "ea": 5332789,
+                "bytes": "5b",
+                "asm": "pop     ebx"
+              },
+              {
+                "ea": 5332790,
+                "bytes": "81c434040000",
+                "asm": "add     esp, 434h"
+              },
+              {
+                "ea": 5332796,
+                "bytes": "c3",
+                "asm": "retn"
+              },
+              {
+                "ea": 5332797,
+                "bytes": "be0cb45800",
+                "asm": "mov     esi, offset aGmnm; \"GmNM\""
+              }
+            ]
+          }
+        ],
+        "native_signature": "std::int32_t __cdecl Sub_509550(\n    const std::uintptr_t, char* const payload)",
+        "source_patch_group_count": 2,
+        "source_changed_point_count": 2,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原固定S32 1，唯一原父清EAX弃返回；当前TeD route保持/完整ABI待"
+      }
+    },
+    {
+      "original_entry": "0x51d6f0",
+      "inventory_id": "F:0011D6F0",
+      "original_role": "地图回复调色板消费/-1时段模式和非负固定模式",
+      "original_end_exclusive": "0x51d743",
+      "instruction_count": 20,
+      "function_chunks": [
+        {
+          "start": "0x51d6f0",
+          "end_exclusive": "0x51d743"
+        }
+      ],
+      "status": "PTR01两完整地图回复/调色板原根纳管，两组两处；限定S，资源/owner/ABI及运行待",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51D6F0"
+          ],
+          "relationship": "PTR01完整地图回复/调色板消费原根；name整词状态尾与atoi持值对齐，消费者正确正文保持"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_51D6F0"
+          ],
+          "relationship": "PTR01既有真实声明保持，仅合同注释；原生非拥有callback/返回边界具名"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_reply_palette_spec.md#map-reply-palette-baseline",
+        "doc/cg2d_map_reply_palette_spec.md#map-reply-palette-decision",
+        "doc/cg2d_map_reply_palette_spec.md#map-reply-palette-acceptance",
+        "doc/cg2d_map_reply_palette_spec.md#map-reply-palette-source-state",
+        "doc/cg2d_map_reply_palette_evidence.json"
+      ],
+      "boundary": "PTR01完整509550地图回复生产与51D6F0调色板消费：两根102条325B/三页、7E8五目标/七跳三RET，生产一个CALL父512E40及消费十三CALL同完整已核51C7D0。原父短窗只证返回弃用，不作完整网络父；当前TeD一T实参原socket/native协议边界及LF明文保持。原回复参数首socket未读，第二char*原位Unescape→field1(容量255/本地256)→Unescape2，提取返回未检查、不预清局部。name按strlen>24选择原???，整词复制后发布FF0D4C S32=-2，再复制余0..3尾字节含NUL；现恢复两阶段发布，不换字节/容量、不增保护。field2(容量31/本地32)空首BYTE→-1；否则MSVC已批atoi当次S32结果先发布，再用持值判负，负时原覆盖-1，无其它新钳制；原C82210==1才C82218=1、返回固定S32 1保持。消费一次持有回复S32：-1先fresh时段category调用SelectPalette(category,0)，后mode73ED44=1，再回复=-2；非负用持值SelectPalette(value,0)，后mode=0再回复=-2；其它负值不写/不调。两分支弃callee结果，故provider拒绝也仍按原发布，不加成功保护或回滚。消费者body全部正确保。GTP01已完整458F00在时段变化先持mode再发布category，仅mode1调用SelectPalette(category,3600)，末总458F40，复用旧合同不重取根。SelectPalette当前实际档位/steps副作用与能力门槛全文保，只记录当前依赖，不据本步验所有调色板表/资源/转换/像素或完整provider原根。两新F两adapted、NETWORK加生产1/MAP加两/RENDER加消费1，三限定S零I八open；仅两组两处四注释，两整源其余/六providers/已核父/TeD当前route/原三S32及26B地图名与???保持。未扩首参数为新业务、未改提取解码/MSVC atoi/网络字段及LF/WAV-only，不加初始化、空/索引/容量保护、默认/溢出异常模型或owner。完整链所有SDK/机器ABI/生成读取/资源owner及画面运行和总SPEC均未闭。",
+      "verification_level": "pass，两完整原根102条325B/三页、7E8五目标/七跳三RET及十四CALL来源；原name两分支整词→S32状态→尾字节、atoi持EAX判负及消费调用后发布；两整源精确回放两组两处四注释、正确消费者/六provider/一父/TeD route/标量定义及七旧语义保持；生成读取/全资源owner/ABI/运行待",
+      "original_incoming": [
+        {
+          "root": 5363440,
+          "ea": 5359750,
+          "type": 17,
+          "code": true,
+          "parent": 5359568,
+          "bytes": "e8650e0000",
+          "asm": "call    sub_51D6F0; jumptable 0051C7FB case 104"
+        },
+        {
+          "root": 5363440,
+          "ea": 5360080,
+          "type": 17,
+          "code": true,
+          "parent": 5359568,
+          "bytes": "e81b0d0000",
+          "asm": "call    sub_51D6F0"
+        },
+        {
+          "root": 5363440,
+          "ea": 5360371,
+          "type": 17,
+          "code": true,
+          "parent": 5359568,
+          "bytes": "e8f80b0000",
+          "asm": "call    sub_51D6F0; jumptable 0051C7FB case 205"
+        },
+        {
+          "root": 5363440,
+          "ea": 5360399,
+          "type": 17,
+          "code": true,
+          "parent": 5359568,
+          "bytes": "e8dc0b0000",
+          "asm": "call    sub_51D6F0"
+        },
+        {
+          "root": 5363440,
+          "ea": 5360688,
+          "type": 17,
+          "code": true,
+          "parent": 5359568,
+          "bytes": "e8bb0a0000",
+          "asm": "call    sub_51D6F0"
+        },
+        {
+          "root": 5363440,
+          "ea": 5361022,
+          "type": 17,
+          "code": true,
+          "parent": 5359568,
+          "bytes": "e86d090000",
+          "asm": "call    sub_51D6F0"
+        },
+        {
+          "root": 5363440,
+          "ea": 5361079,
+          "type": 17,
+          "code": true,
+          "parent": 5359568,
+          "bytes": "e834090000",
+          "asm": "call    sub_51D6F0"
+        },
+        {
+          "root": 5363440,
+          "ea": 5361223,
+          "type": 17,
+          "code": true,
+          "parent": 5359568,
+          "bytes": "e8a4080000",
+          "asm": "call    sub_51D6F0"
+        },
+        {
+          "root": 5363440,
+          "ea": 5361481,
+          "type": 17,
+          "code": true,
+          "parent": 5359568,
+          "bytes": "e8a2070000",
+          "asm": "call    sub_51D6F0; jumptable 0051C7FB case 11"
+        },
+        {
+          "root": 5363440,
+          "ea": 5361897,
+          "type": 17,
+          "code": true,
+          "parent": 5359568,
+          "bytes": "e802060000",
+          "asm": "call    sub_51D6F0"
+        },
+        {
+          "root": 5363440,
+          "ea": 5362085,
+          "type": 17,
+          "code": true,
+          "parent": 5359568,
+          "bytes": "e846050000",
+          "asm": "call    sub_51D6F0"
+        },
+        {
+          "root": 5363440,
+          "ea": 5362196,
+          "type": 17,
+          "code": true,
+          "parent": 5359568,
+          "bytes": "e8d7040000",
+          "asm": "call    sub_51D6F0"
+        },
+        {
+          "root": 5363440,
+          "ea": 5362241,
+          "type": 17,
+          "code": true,
+          "parent": 5359568,
+          "bytes": "e8aa040000",
+          "asm": "call    sub_51D6F0"
+        }
+      ],
+      "map_reply_palette": {
+        "step": "PTR01",
+        "source_snapshot": "[#] 对齐地图回复文本发布与调色板合同",
+        "original_entry": "0x51d6f0",
+        "original_end_exclusive": "0x51d743",
+        "instruction_count": 20,
+        "code_bytes": 83,
+        "page_count": 1,
+        "direct_calls": 2,
+        "direct_call_targets": [
+          4524912
+        ],
+        "jumps": 2,
+        "returns": 2,
+        "original_incoming_references": [
+          {
+            "root": 5363440,
+            "ea": 5359750,
+            "type": 17,
+            "code": true,
+            "parent": 5359568,
+            "bytes": "e8650e0000",
+            "asm": "call    sub_51D6F0; jumptable 0051C7FB case 104"
+          },
+          {
+            "root": 5363440,
+            "ea": 5360080,
+            "type": 17,
+            "code": true,
+            "parent": 5359568,
+            "bytes": "e81b0d0000",
+            "asm": "call    sub_51D6F0"
+          },
+          {
+            "root": 5363440,
+            "ea": 5360371,
+            "type": 17,
+            "code": true,
+            "parent": 5359568,
+            "bytes": "e8f80b0000",
+            "asm": "call    sub_51D6F0; jumptable 0051C7FB case 205"
+          },
+          {
+            "root": 5363440,
+            "ea": 5360399,
+            "type": 17,
+            "code": true,
+            "parent": 5359568,
+            "bytes": "e8dc0b0000",
+            "asm": "call    sub_51D6F0"
+          },
+          {
+            "root": 5363440,
+            "ea": 5360688,
+            "type": 17,
+            "code": true,
+            "parent": 5359568,
+            "bytes": "e8bb0a0000",
+            "asm": "call    sub_51D6F0"
+          },
+          {
+            "root": 5363440,
+            "ea": 5361022,
+            "type": 17,
+            "code": true,
+            "parent": 5359568,
+            "bytes": "e86d090000",
+            "asm": "call    sub_51D6F0"
+          },
+          {
+            "root": 5363440,
+            "ea": 5361079,
+            "type": 17,
+            "code": true,
+            "parent": 5359568,
+            "bytes": "e834090000",
+            "asm": "call    sub_51D6F0"
+          },
+          {
+            "root": 5363440,
+            "ea": 5361223,
+            "type": 17,
+            "code": true,
+            "parent": 5359568,
+            "bytes": "e8a4080000",
+            "asm": "call    sub_51D6F0"
+          },
+          {
+            "root": 5363440,
+            "ea": 5361481,
+            "type": 17,
+            "code": true,
+            "parent": 5359568,
+            "bytes": "e8a2070000",
+            "asm": "call    sub_51D6F0; jumptable 0051C7FB case 11"
+          },
+          {
+            "root": 5363440,
+            "ea": 5361897,
+            "type": 17,
+            "code": true,
+            "parent": 5359568,
+            "bytes": "e802060000",
+            "asm": "call    sub_51D6F0"
+          },
+          {
+            "root": 5363440,
+            "ea": 5362085,
+            "type": 17,
+            "code": true,
+            "parent": 5359568,
+            "bytes": "e846050000",
+            "asm": "call    sub_51D6F0"
+          },
+          {
+            "root": 5363440,
+            "ea": 5362196,
+            "type": 17,
+            "code": true,
+            "parent": 5359568,
+            "bytes": "e8d7040000",
+            "asm": "call    sub_51D6F0"
+          },
+          {
+            "root": 5363440,
+            "ea": 5362241,
+            "type": 17,
+            "code": true,
+            "parent": 5359568,
+            "bytes": "e8aa040000",
+            "asm": "call    sub_51D6F0"
+          }
+        ],
+        "native_signature": "void __cdecl Sub_51D6F0()",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "现void保副作用，原残留EAX不伪造确定值；十三父CALL弃返回/完整ABI待"
+      }
     }
   ]
 }

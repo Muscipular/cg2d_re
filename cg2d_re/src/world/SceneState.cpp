@@ -6510,6 +6510,7 @@ std::int32_t __cdecl Sub_5093F0(
 }
 
 // 原 [0x509550,0x509642)：原位反转义、两段提取与地图回复状态发布。
+// PTR01：原509550完整82条；地图名整词先发/回复状态/尾字节，atoi持值判负，原提取与返回保持。
 std::int32_t __cdecl Sub_509550(
     const std::uintptr_t, char* const payload)
 {
@@ -6522,16 +6523,20 @@ std::int32_t __cdecl Sub_509550(
 
     const char* const selected =
         std::strlen(text.data()) > 24 ? kUnknownText554590 : text.data();
-    std::memcpy(gText9DAD30.data(), selected, std::strlen(selected) + 1);
+    const std::size_t selectedBytes = std::strlen(selected) + 1;
+    const std::size_t wordBytes = selectedBytes & ~std::size_t{3};
+    std::memcpy(gText9DAD30.data(), selected, wordBytes);
     gValueFF0D4C = -2;
+    std::memcpy(gText9DAD30.data() + wordBytes, selected + wordBytes, selectedBytes & 3u);
 
     static_cast<void>(network::ExtractDelimitedField_52CED0(
         payload, '|', 2, 31, number.data()));
     if (number[0] == '\0') {
         gValueFF0D4C = -1;
     } else {
-        gValueFF0D4C = platform::Atoi_53C649(number.data());
-        if (gValueFF0D4C < 0) {
+        const std::int32_t value = platform::Atoi_53C649(number.data());
+        gValueFF0D4C = value;
+        if (value < 0) {
             gValueFF0D4C = -1;
         }
     }
@@ -7074,6 +7079,7 @@ std::uint32_t Sub_51D750()
 }
 
 // 原 [0x51D6F0,0x51D743)：只消费 -1 与非负回复，其他负值保持原状态。
+// PTR01：原51D6F0完整20条；持有回复值，调色板调用后按原序发布模式/已消费状态，正确正文保持。
 void __cdecl Sub_51D6F0()
 {
     const std::int32_t value = gValueFF0D4C;

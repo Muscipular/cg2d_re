@@ -241,3 +241,7 @@ GraphicRead的九个共享图形文件槽及其生产/定位/读取/释放仍是
 1237完整旧PGM01记录/分类保留续记，既有source2/历史定义1不变，语义1404/有效ID1399及1517关联41.22%、分类522/RESOURCE41保持；两局部static I/S E649→651。没有新增原函数或成员，七open仅进展/引用，60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及全门禁保持。
 
 仅正常局部static，native index16B仅首T*拓宽、loaded仍U8、记录0xB04无指针/count S32保，字节量在已批native API边界。保两GPTR/GlobalLock后才判初始数量，不新做空指针/失配/溢出保护、旧池回收/回滚。全部父/真实SDK/queue-DBF两表owner-正常别名/画面运行继续推进；未构建/测试/运行/hash，网络原格式明文、音频暂停。
+
+## 2026-10-11 PTR01：地图回复调色板消费
+
+[PTR01](cg2d_map_reply_palette_spec.md#map-reply-palette-source-state)补齐509550回复生产与51D6F0调色板消费，两完整原根102条325B/三页、7E8五目标/七跳三RET。恢复地图名整词→状态→尾字节发布及atoi持值判负，两组两处四注释；原提取失败读序/负值覆盖和消费者正确body保持。两新F两adapted，NETWORK106/MAP191/RENDER118，三限定S零I八open；资源/全provider/owner/SDK与运行未闭。

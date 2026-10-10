@@ -2772,3 +2772,9 @@ IDA数组/结构起点xref不代字段指针；原型实际11callback与旧范�
 [SOA01](cg2d_storage_opening_actions_spec.md#storage-opening-source-state)补齐窗口41/38两个creator及两个完成callback，四完整原根416条1208B/八页、24E8九目标/12跳八RET。恢复两处saved flags BYTE、四CryptInt先取后发布及两个mode1中心X持值，八组八处/六注释；两正确callback、失败同步开窗但仍返空、原S16完成/W16末递增保持。四新F/处置、两限定S零I八open，完整manager/owner/ABI与画面运行待。
 
 语义2337=2289F关联+48有界代码，关联2399/3680=65.19%仅关联率；处置1801/证据1605，UIRUNTIME211/YOBI115，其它保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
+
+## 2026-10-11 PTR01：地图回复调色板完整原根
+
+[PTR01](cg2d_map_reply_palette_spec.md#map-reply-palette-source-state)补齐509550回复生产与51D6F0调色板消费，两完整原根102条325B/三页、7E8五目标/七跳三RET。恢复地图名整词→状态→尾字节发布及atoi持值判负，两组两处四注释；原提取失败读序/负值覆盖和消费者正确body保持。两新F两adapted，NETWORK106/MAP191/RENDER118，三限定S零I八open；资源/全provider/owner/SDK与运行未闭。
+
+语义2339=2291F关联+48有界代码，关联2401/3680=65.24%仅关联率；处置1803/证据1608，其它保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。

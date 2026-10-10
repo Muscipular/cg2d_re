@@ -520,3 +520,7 @@ MIC与GP/黑名单/2048B非NUL快照/S32长度/对象气泡和其他正文保持
 ## 2026-10-11 SRD01：BZ正常回复进入完整父
 
 [SRD01](cg2d_storage_reply_dispatch_spec.md#storage-reply-source-state)旧1964历史追加49D2E0完整回复父515条1238B/九页，52E8三十六目标/38跳含三间接分派/30RET及五原表有据。正文正确保，仅两合同注释；三阶段分派、六原存放CALL与四现合并CALL、fresh窗口/creator/global重入及Y-X RNG顺序完整静态核对。BZ当前两bridge/路由保持，一个处置、两限定S零I八open，全部callee/动态owner/机器ABI及互通画面运行待。
+
+## 2026-10-11 PTR01：TeD地图回复生产合同
+
+[PTR01](cg2d_map_reply_palette_spec.md#map-reply-palette-source-state)补齐509550回复生产与51D6F0调色板消费，两完整原根102条325B/三页、7E8五目标/七跳三RET。恢复地图名整词→状态→尾字节发布及atoi持值判负，两组两处四注释；原提取失败读序/负值覆盖和消费者正确body保持。两新F两adapted，NETWORK106/MAP191/RENDER118，三限定S零I八open；资源/全provider/owner/SDK与运行未闭。

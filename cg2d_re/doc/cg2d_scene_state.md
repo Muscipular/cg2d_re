@@ -8142,3 +8142,7 @@ BUO01必要静态已通过：完整Scene只两数据初始化改原768B/512常�
 ## 2026-10-10 CTS01：聊天门禁与六字段发送
 
 [CTS01完整原根](cg2d_chat_send_pipeline_spec.md#chat-send-source-state)/[原码与实际接线](cg2d_chat_send_pipeline_evidence.json)覆盖50C940聊天发送与511900六字段封包，共183条653B/四页、23实际E8/11目标/14跳四RET，另两FF15取tick。恢复两个原短路点options194 BYTE读取，复用既有reader，W16字段/写方不变；原gate/disabled/跟随、1000/180000计时与提示/SE/返回保持。转义→P|%s→mode/range→Y/X→socket→原uSr命令与六字段，每字段capacity→token→新共享buffer→append弃返、末发送S32顺序保；两未清1024区和当前明文/GBK/MSVC/WAV-only不变。旧BTG01提交父发送弃返后原清输入保持，一组两点/四注释，正确封包正文及所有其它源保。旧1075保历史追加/一新语义两F、INPUT/NETWORK各两成员/MAP一个成员，三限定S零I/九任务open；全部数据owner/SDK/机器ABI/真实禁言与互通、文字声音画面运行待。
+
+## 2026-10-11 PTR01：回复调色板与时段选择
+
+[PTR01](cg2d_map_reply_palette_spec.md#map-reply-palette-source-state)补齐509550回复生产与51D6F0调色板消费，两完整原根102条325B/三页、7E8五目标/七跳三RET。恢复地图名整词→状态→尾字节发布及atoi持值判负，两组两处四注释；原提取失败读序/负值覆盖和消费者正确body保持。两新F两adapted，NETWORK106/MAP191/RENDER118，三限定S零I八open；资源/全provider/owner/SDK与运行未闭。

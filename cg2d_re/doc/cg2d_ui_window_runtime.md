@@ -359,3 +359,7 @@ BVP01七整源/十三正文保持是原命名快照历史；本次只纠正4FA8E
 ## 2026-10-10 SLC01：选择器范围/索引/计数显示
 
 [SLC01](cg2d_selector_local_coordinate_hover_spec.md#selector-local-source-state)补齐局部X/Y、宠物范围/索引借用及连续悬停显示五完整原根243条771B/八页、九E8五目标/26跳12RET与26直接CALL。四S32坐标表112B与现源逐项一致；八宠物判定消费者七TEST AL/一AND FF，只证明低W8，不记原EAX高24位等价。悬停父四组五处对齐：两轴window坐标先element、两flags BYTE及未饱和alpha计数BYTE；原5*W32>=256饱和255/三descriptor、第一选择器宠物号/原非负门槛与计数/索引尾序保持，四叶正确body不改。四整源仅四组五处/十注释，四类型/表项/字段储宽保持。4C6790一父两CALL首点尾RET转发原残留EAX，当前void保持，完整上行/机器ABI未据本步等价。五新F/五处置，INPUT/UIRUNTIME各五成员、RENDER一成员，三限定S零I/十任务open；全父/callee/生产消费与alias-owner寿命、实际悬停/像素与运行待，整体未完成。
+
+## 2026-10-10 SFD01：选择器页状态与元素绑定
+
+[SFD01](cg2d_selector_frame_binding_spec.md#selector-frame-source-state)补齐逐帧分发、两模式元素/回调绑定及首次初始化三完整原根362条1298B/七页，20实际E8/十目标、20跳十RET，五入CALL与三表48B有据。两次按钮绘制明确各自四字段取序、先Y后X及descriptor0共借，三组三处/六注释；绑定与初始化正文正确保持。原四页/step递减/-182业务钳制、非零模式槽19不写及callback0先slot18保持。已知悬停残留EAX经分发/初始化返回，两窗口回调立即MOV EAX,1/RET，局部上行不消费已有依据；全机器ABI/所有callee及alias-owner寿命、实际像素与运行仍待。旧1988/CAC18历史与旧2285/SLC01历史保持追加，两新F/三处置、三限定S零I/十任务open，整体未完成。

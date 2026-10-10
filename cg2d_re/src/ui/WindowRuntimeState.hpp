@@ -443,7 +443,7 @@ extern WindowItemSelectorState gItemSelectorD2F338;
 WindowItemSelectorState* Sub_4C61B0(WindowItemSelectorState* state); // 完整构造，不整区清零。
 // SLC01：单读并返回同一选择器selectedPet70的完整S32，不做校验或改owner。
 std::int32_t Sub_4C71B0(const WindowItemSelectorState* state); // 原+70同源S32。
-void Sub_4C6EC0(WindowItemSelectorState* state, std::uint8_t mode); // 完整两种装配，原返回被两caller弃用。
+void Sub_4C6EC0(WindowItemSelectorState* state, std::uint8_t mode); // SFD01：低BYTE模式装配非拥有元素/四回调；逐次借当前窗口，非零模式槽19不写，发布次序保持。
 // SLC01：负slot先返-1；S8 mode0取8项玩家X表，正mode取6项宠物X表，其它返-1。
 std::int32_t Sub_4C63C0(const WindowItemSelectorState* state, std::int32_t slot);
 // SLC01：负slot先返-1；S8 mode0取8项玩家Y表，正mode取6项宠物Y表，其它返-1。
@@ -452,7 +452,7 @@ void Sub_4C6440(WindowItemSelectorState* state); // 玩家页条件显示槽6/19
 void Sub_4C6470(WindowItemSelectorState* state); // 宠物页名称/负重和装备空位显示。
 void Sub_4C6500(WindowItemSelectorState* state); // 切页前原序隐藏，不隐藏主元素。
 void Sub_4C6550(WindowItemSelectorState* state, std::int32_t page); // 五态完整转换，原混合返回无人消费。
-void Sub_4C6790(WindowItemSelectorState* state); // 逐帧展开/切页/装备悬停与预览绘制。
+void Sub_4C6790(WindowItemSelectorState* state); // SFD01：原四页分发/业务钳制保持；两按钮按原顺序取样，共借descriptor[0]；已知上行由窗口回调返回1。
 std::int32_t Sub_4C6990(WindowItemSelectorState* state); // 模式S8映射并发布同源宠物索引。
 void Sub_4C69B0(WindowItemSelectorState* state); // 借用宠物名字/负重刷新两文本元素。
 void Sub_4C6AC0(WindowItemSelectorState* state, std::int32_t x); // 原序移动主元素/四按钮/六装备槽。
@@ -465,7 +465,7 @@ bool Sub_4C7380(WindowItemSelectorState* state, std::int32_t tab, std::int32_t e
 bool Sub_4C78A0(WindowItemSelectorState* state, std::int32_t events); // 预览显示开关及按钮图。
 bool Sub_4C7910(WindowItemSelectorState* state, std::int32_t events); // 装备开关，索引无效时保留部分改写。
 bool Sub_4C7A10(WindowItemSelectorState* state, std::int32_t events); // 低U16两方向事件独立处理。
-void Sub_4C7A90(WindowItemSelectorState* state); // 条件首次切页，尾始终逐帧推进。
+void Sub_4C7A90(WindowItemSelectorState* state); // SFD01：首次借mode地址、previous=-1、切页后置initialized；尾逐帧分发，上行两窗口回调固定返回1。
 // ISP01：原local负值返-1，成功后取当前窗口，再按元素X/窗口X取样累加。
 std::int32_t Sub_4C7240(
     const WindowItemSelectorState* state, std::int32_t element, std::int32_t slot,

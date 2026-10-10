@@ -7900,6 +7900,7 @@ std::int32_t Sub_4C71B0(const WindowItemSelectorState* const state)
     return state->selectedPet70;
 }
 
+// SFD01：低BYTE模式装配非拥有元素/四回调；逐次借当前窗口，非零模式槽19不写，发布次序保持。
 void Sub_4C6EC0(WindowItemSelectorState* const state, const std::uint8_t mode)
 {
     state->value64 = mode;
@@ -8111,6 +8112,7 @@ void Sub_4C6550(WindowItemSelectorState* const state, const std::int32_t page)
     }
 }
 
+// SFD01：原四页分发/业务钳制保持；两按钮按原顺序取样，共借descriptor[0]；已知上行由窗口回调返回1。
 void Sub_4C6790(WindowItemSelectorState* const state)
 {
     static constexpr std::int32_t images54F564[] {98133, 98133, 98135, 98134};
@@ -8163,18 +8165,29 @@ void Sub_4C6790(WindowItemSelectorState* const state)
         Sub_4C69B0(state);
         const std::int32_t firstIndex = state->imageIndex3F0;
         const WindowElement* const firstElement = state->elements00[1];
+        const render::GraphicDescriptor16* const descriptor = &state->descriptors3B8[0];
         const std::int32_t firstImage = images54F564[firstIndex];
         const WindowInstance* const firstWindow = gCurrentWindow;
+        const std::int32_t firstWindowY = firstWindow->y;
+        const std::int32_t firstWindowX = firstWindow->x;
+        const std::int32_t firstElementY = firstElement->y;
+        const std::int32_t firstElementX = firstElement->x;
+        const std::int32_t firstY = firstElementY + firstWindowY + 180;
+        const std::int32_t firstX = firstElementX + firstWindowX + 85;
         static_cast<void>(login::detail::DrawGraphic(
-            firstElement->x + firstWindow->x + 85, firstElement->y + firstWindow->y + 180,
-            223, firstImage, 0, &state->descriptors3B8[0]));
+            firstX, firstY, 223, firstImage, 0, descriptor));
         const std::int32_t secondIndex = state->imageIndex3F4;
         const WindowElement* const secondElement = state->elements00[1];
         const std::int32_t secondImage = images54F574[secondIndex];
         const WindowInstance* const secondWindow = gCurrentWindow;
+        const std::int32_t secondElementY = secondElement->y;
+        const std::int32_t secondWindowY = secondWindow->y;
+        const std::int32_t secondElementX = secondElement->x;
+        const std::int32_t secondWindowX = secondWindow->x;
+        const std::int32_t secondY = secondElementY + secondWindowY + 180;
+        const std::int32_t secondX = secondElementX + secondWindowX + 118;
         static_cast<void>(login::detail::DrawGraphic(
-            secondElement->x + secondWindow->x + 118, secondElement->y + secondWindow->y + 180,
-            223, secondImage, 0, &state->descriptors3B8[0]));
+            secondX, secondY, 223, secondImage, 0, descriptor));
         static_cast<void>(Sub_4C6D90(state));
         break;
     }
@@ -8506,6 +8519,7 @@ bool Sub_4C7A10(WindowItemSelectorState* const state, const std::int32_t events)
     return consumed;
 }
 
+// SFD01：首次借mode地址、previous=-1、切页后置initialized；尾逐帧分发，上行两窗口回调固定返回1。
 void Sub_4C7A90(WindowItemSelectorState* const state)
 {
     if (state->initialized3E8 == 0) {

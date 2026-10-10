@@ -196226,7 +196226,7 @@
       "original_entry": "0x4c6790",
       "inventory_id": "F:000C6790",
       "original_role": "CAC18仅原分派数据/当前源定义关联：Sub_4C6790",
-      "status": "已有真实源码，CAC18补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "status": "已有真实源码，CAC18补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收；SFD01完整逐帧原根及两按钮取样纳管，已知上行结果被两窗口返回1覆盖；全部callee/ABI/运行仍待",
       "sources": [
         {
           "path": "src/ui/WindowRuntime.cpp",
@@ -196234,6 +196234,20 @@
             "cg::ui::detail::Sub_4C6790"
           ],
           "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重验全部原父或登记完整F处置。"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C6790"
+          ],
+          "relationship": "SFD01完整分发根，三组绘图取样/共借descriptor对齐，原其它正文保"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4C6790"
+          ],
+          "relationship": "SFD01真实void声明保持，局部返回消费及取样合同注释"
         }
       ],
       "evidence_documents": [
@@ -196241,10 +196255,15 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-annotation",
         "doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-decision",
         "doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-source-state",
-        "doc/cg2d_unassigned_range_sixth_batch_evidence.json"
+        "doc/cg2d_unassigned_range_sixth_batch_evidence.json",
+        "doc/cg2d_selector_frame_binding_spec.md#selector-frame-baseline",
+        "doc/cg2d_selector_frame_binding_spec.md#selector-frame-decision",
+        "doc/cg2d_selector_frame_binding_spec.md#selector-frame-acceptance",
+        "doc/cg2d_selector_frame_binding_spec.md#selector-frame-source-state",
+        "doc/cg2d_selector_frame_binding_evidence.json"
       ],
-      "boundary": "原F来自既有库存及实际取表父；完整X数据用途与源码定义关联分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
-      "verification_level": "仅本批完整X/实际CMP-JA-清零-BYTE-JMP邻窗、全部W32目标code/owner及当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "boundary": "原F来自既有库存及实际取表父；完整X数据用途与源码定义关联分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。；SFD01三完整原根362条1298B/七页，20实际E8/十目标、20跳十RET；五入CALL/后邻与四case跳表16B、两图表32B有据，未验全外父。逐帧保入口page1..2/S8正模式预处理与新page四分派、原step递减与-182业务钳制、宠物范围仅低AL/usedW16和切页/悬停/预览/两按钮/文字顺序。descriptor0原首次取地址后两Draw共借；首按钮windowY/windowX/elementY/elementX，次按钮elementY/windowY/elementX/windowX，均先算Y后X，第二组只在首Draw后取样。三组三处/六注释，两整源其它全文、绑定与初始化正确body、三类型/表值及字段宽度保持。绑定原模式低BYTE写value64；非零装配槽19不写，先callback0后slot18，逐槽fresh窗口借用；零模式二十槽/四回调保持，无owner迁移。首次init0时先mode地址/previous=-1、切页后initialized1，尾分发保。既有6B10首CALL残留EAX经6790/7A90返回，两窗口488990/499990均立即MOV EAX,1/RET覆盖；只闭此已知上行不消费结论，三void正常调用副作用保持，不称全机器ABI等价。旧1988关联升级完整根追加但CAC18历史保，旧2285/处置追加局部返回证据，新增两F/三adapted处置、三限定S零I/十任务open；全部旧政策/48有界代码/完整枚举gates/六closure/总SPEC§10保。全部callee/回调与生产消费/alias-owner寿命、SDK/生成取样/机器ABI/实际选择器像素及运行仍待，无新API/helper/结构/字段/owner/保护/默认值/补零/容量上限/新钳制/回滚或异常模型；WAV-only/明文网络/宿主MSVC保持。",
+      "verification_level": "仅本批完整X/实际CMP-JA-清零-BYTE-JMP邻窗、全部W32目标code/owner及当前带函数体定义；源码不改，不构建/测试/运行/摘要。；pass，三完整原根362条1298B/七页、20实际E8十目标/20跳十RET、五入CALL与三表48B核对；原两套绘图取序/descriptor共借有据，三组三处/六注释、两整源精确差异与三类型及两窗口正文保持；已知EAX上行由两MOV1/RET覆盖，全机器ABI/owner/生成读取与运行待",
       "range_sixth_batch_data": {
         "step": "CAC18",
         "source_snapshot": "cg2d-re-unassigned-range-sixth-batch-20261009",
@@ -196255,6 +196274,75 @@
         "full_original_body_recaptured": false,
         "runtime_verified": false,
         "current_definition_line": 8107
+      },
+      "selector_frame_binding": {
+        "step": "SFD01",
+        "source_snapshot": "[#] 补齐选择器逐帧分发与元素绑定",
+        "original_entry": "0x4c6790",
+        "original_end_exclusive": "0x4c6976",
+        "instruction_count": 168,
+        "code_bytes": 486,
+        "page_count": 3,
+        "direct_calls": 18,
+        "direct_call_targets": [
+          5007760,
+          5358608,
+          5010240,
+          5008064,
+          5006672,
+          5008144,
+          5007792,
+          5380880,
+          5008784
+        ],
+        "jumps": 16,
+        "returns": 7,
+        "original_incoming": [
+          {
+            "ea": 5012168,
+            "bytes": "e8c3ecffff",
+            "asm": "call    sub_4C6790",
+            "parent": 5012112,
+            "call_target": 5007248,
+            "following": [
+              {
+                "ea": 5012173,
+                "size": 1,
+                "bytes": "5e",
+                "asm": "pop     esi"
+              },
+              {
+                "ea": 5012174,
+                "size": 1,
+                "bytes": "c3",
+                "asm": "retn"
+              },
+              {
+                "ea": 5012175,
+                "size": 1,
+                "bytes": "90",
+                "asm": "align 10h"
+              },
+              {
+                "ea": 5012176,
+                "size": 10,
+                "bytes": "c705ac4acf0000000000",
+                "asm": "mov     dword_CF4AAC, 0"
+              }
+            ]
+          }
+        ],
+        "native_signature": "void Sub_4C6790(WindowItemSelectorState* const state)",
+        "source_patch_group_count": 3,
+        "source_changed_point_count": 3,
+        "normal_remaining_source_kept": true,
+        "known_return_consumers_overwrite_with_one": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "已知上行经分发/初始化返回后两窗口MOV EAX,1/RET，保副作用；全机器ABI待",
+        "previous_CAC18_history_kept": true
       }
     },
     {
@@ -223537,7 +223625,7 @@
           "end_exclusive": "0x4c6d8a"
         }
       ],
-      "status": "SLC01完整选择器原根纳管，原局部坐标/范围/索引及悬停取样保持；限定S/全生产消费、上行返回/机器ABI及运行待",
+      "status": "SLC01完整选择器原根纳管，原局部坐标/范围/索引及悬停取样保持；限定S/全生产消费、上行返回/机器ABI及运行待；SFD01补已知上行两窗口MOV EAX,1/RET，局部不消费有据，全机器ABI仍待",
       "sources": [
         {
           "path": "src/ui/WindowRuntime.cpp",
@@ -223559,10 +223647,15 @@
         "doc/cg2d_selector_local_coordinate_hover_spec.md#selector-local-decision",
         "doc/cg2d_selector_local_coordinate_hover_spec.md#selector-local-acceptance",
         "doc/cg2d_selector_local_coordinate_hover_spec.md#selector-local-source-state",
-        "doc/cg2d_selector_local_coordinate_hover_evidence.json"
+        "doc/cg2d_selector_local_coordinate_hover_evidence.json",
+        "doc/cg2d_selector_frame_binding_spec.md#selector-frame-baseline",
+        "doc/cg2d_selector_frame_binding_spec.md#selector-frame-decision",
+        "doc/cg2d_selector_frame_binding_spec.md#selector-frame-acceptance",
+        "doc/cg2d_selector_frame_binding_spec.md#selector-frame-source-state",
+        "doc/cg2d_selector_frame_binding_evidence.json"
       ],
-      "boundary": "SLC01五完整原根243条771B/八页、九E8五目标/26跳12RET，26实际CALL只核点/四后邻，不代全外父。两local先slot负早返-1不读mode，S8 mode0且slot<8读玩家X/Y，正mode且slot<6读宠物表，其它-1；四S32表112B逐项与源相同，坐标范围不扩大为动态count上限。51C410只S32 0<=index<5，八已证消费者七TEST AL/一AND FF均低W8，新bool限此，不记高24位等价。4C71B0只读同state selectedPet70完整S32；悬停父非零value3ED/非负hover才两local，保entryelement和fresh window，window coord先element，再local+(window+element)-24；初绘框后才读S8mode，mode0玩家，正mode先本state selectedPet非负门槛，再取第一选择器CF3B10宠物号，原未检查<5，不增加校验/容量/保护。used W16和占用BYTE保；两flags只读原BYTE bit80，原22739/图号/243139及三descriptor顺序保。未占用alpha先5*W32 count比较>=256，原饱和255保，否则只读count低BYTE*5取低BYTE写descriptor[2][11]；不冻结两阶段或改W32存储/上三BYTE。末新hover样本，相同prev时先借count/clear hover=-1再count+1，否则count0/prev=hover/hover=-1；初门槛失败只count0，其它mode/pet负早返不新清理。四组五源码处/十注释，四整源其它内容/四叶正确body、四结构/四表/字段储宽保，无新API/helper/布局/字段/owner/保护/默认值/补零/新容量上限/钳制/回滚/异常模型。现悬停void边界保持；其父4C6790首CALL后pop/pop/RET转发原EAX残留，完整上行和机器ABI不记等价。五新F/五adapted、三限定S零I/十任务open，旧ISP及绘框/入队正确记录复用不改。全父/callee、选择器/宠物/占用/窗口/计数和descriptor全生产消费/alias-owner寿命、SDK/生成BYTE访问/机器ABI/实际悬停和像素/运行待，48有界代码和完整枚举gates/六closure/总SPEC§10保持。",
-      "verification_level": "pass，五完整原根243条771B/八页、九实际E8五目标/26跳12RET及26CALL/四后邻有据；七TEST AL/一AND FF低W8、悬停父首点尾RET向上保EAX事实明确，未记原高位/上行ABI等价。四表112B逐项符合源、四叶正确body保；父两window先element、两flags BYTE及alpha BYTE/原饱和255和计数索引尾序符合原码。四整源精确差异仅四组五处/十注释，四类型/表项/字段储宽保；全父/callee和生产消费/alias-owner、机器ABI/实际BYTE/悬停像素及运行待",
+      "boundary": "SLC01五完整原根243条771B/八页、九E8五目标/26跳12RET，26实际CALL只核点/四后邻，不代全外父。两local先slot负早返-1不读mode，S8 mode0且slot<8读玩家X/Y，正mode且slot<6读宠物表，其它-1；四S32表112B逐项与源相同，坐标范围不扩大为动态count上限。51C410只S32 0<=index<5，八已证消费者七TEST AL/一AND FF均低W8，新bool限此，不记高24位等价。4C71B0只读同state selectedPet70完整S32；悬停父非零value3ED/非负hover才两local，保entryelement和fresh window，window coord先element，再local+(window+element)-24；初绘框后才读S8mode，mode0玩家，正mode先本state selectedPet非负门槛，再取第一选择器CF3B10宠物号，原未检查<5，不增加校验/容量/保护。used W16和占用BYTE保；两flags只读原BYTE bit80，原22739/图号/243139及三descriptor顺序保。未占用alpha先5*W32 count比较>=256，原饱和255保，否则只读count低BYTE*5取低BYTE写descriptor[2][11]；不冻结两阶段或改W32存储/上三BYTE。末新hover样本，相同prev时先借count/clear hover=-1再count+1，否则count0/prev=hover/hover=-1；初门槛失败只count0，其它mode/pet负早返不新清理。四组五源码处/十注释，四整源其它内容/四叶正确body、四结构/四表/字段储宽保，无新API/helper/布局/字段/owner/保护/默认值/补零/新容量上限/钳制/回滚/异常模型。现悬停void边界保持；其父4C6790首CALL后pop/pop/RET转发原EAX残留，完整上行和机器ABI不记等价。五新F/五adapted、三限定S零I/十任务open，旧ISP及绘框/入队正确记录复用不改。全父/callee、选择器/宠物/占用/窗口/计数和descriptor全生产消费/alias-owner寿命、SDK/生成BYTE访问/机器ABI/实际悬停和像素/运行待，48有界代码和完整枚举gates/六closure/总SPEC§10保持。；SFD01已核6B10首CALL经6790/7A90返回，两窗口488990/499990立即MOV EAX,1/RET覆盖；仅此已知上行不消费，原全ABI/owner/运行未闭。",
+      "verification_level": "pass，五完整原根243条771B/八页、九实际E8五目标/26跳12RET及26CALL/四后邻有据；七TEST AL/一AND FF低W8、悬停父首点尾RET向上保EAX事实明确，未记原高位/上行ABI等价。四表112B逐项符合源、四叶正确body保；父两window先element、两flags BYTE及alpha BYTE/原饱和255和计数索引尾序符合原码。四整源精确差异仅四组五处/十注释，四类型/表项/字段储宽保；全父/callee和生产消费/alias-owner、机器ABI/实际BYTE/悬停像素及运行待；SFD01已知上行覆盖返回值字节与原生两return1有据",
       "original_incoming": [
         {
           "ea": 5007473,
@@ -223649,6 +223742,23 @@
         "result_boundary": "现void保；原父尾转发残留EAX/上行ABI待",
         "generated_machine_reads_verified": false,
         "full_lifecycle_closed": false,
+        "runtime_verified": false
+      },
+      "selector_frame_return_consumption": {
+        "step": "SFD01",
+        "source_snapshot": "[#] 补齐选择器逐帧分发与元素绑定",
+        "window_callbacks": [
+          "0x488990",
+          "0x499990"
+        ],
+        "original_after_call_bytes": [
+          "b801000000",
+          "c3"
+        ],
+        "known_upward_result_consumed": false,
+        "native_callback_result": 1,
+        "previous_SLC01_history_kept": true,
+        "full_machine_abi_verified": false,
         "runtime_verified": false
       }
     },
@@ -224107,6 +224217,405 @@
         "generated_machine_reads_verified": false,
         "full_lifecycle_closed": false,
         "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4c6ec0",
+      "inventory_id": "F:000C6EC0",
+      "original_role": "两模式非拥有元素与回调绑定",
+      "original_end_exclusive": "0x4c71ad",
+      "instruction_count": 173,
+      "function_chunks": [
+        {
+          "start": "0x4c6ec0",
+          "end_exclusive": "0x4c71ad"
+        }
+      ],
+      "status": "SFD01完整根纳管，正确绑定/初始化body保持；限定S/全部callee与owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C6EC0"
+          ],
+          "relationship": "SFD01完整原根/字段/发布顺序核对，正确body保持，仅合同注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4C6EC0"
+          ],
+          "relationship": "SFD01真实void声明保持，仅合同注释；已知调用方覆盖返回值"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_selector_frame_binding_spec.md#selector-frame-baseline",
+        "doc/cg2d_selector_frame_binding_spec.md#selector-frame-decision",
+        "doc/cg2d_selector_frame_binding_spec.md#selector-frame-acceptance",
+        "doc/cg2d_selector_frame_binding_spec.md#selector-frame-source-state",
+        "doc/cg2d_selector_frame_binding_evidence.json"
+      ],
+      "boundary": "SFD01三完整原根362条1298B/七页，20实际E8/十目标、20跳十RET；五入CALL/后邻与四case跳表16B、两图表32B有据，未验全外父。逐帧保入口page1..2/S8正模式预处理与新page四分派、原step递减与-182业务钳制、宠物范围仅低AL/usedW16和切页/悬停/预览/两按钮/文字顺序。descriptor0原首次取地址后两Draw共借；首按钮windowY/windowX/elementY/elementX，次按钮elementY/windowY/elementX/windowX，均先算Y后X，第二组只在首Draw后取样。三组三处/六注释，两整源其它全文、绑定与初始化正确body、三类型/表值及字段宽度保持。绑定原模式低BYTE写value64；非零装配槽19不写，先callback0后slot18，逐槽fresh窗口借用；零模式二十槽/四回调保持，无owner迁移。首次init0时先mode地址/previous=-1、切页后initialized1，尾分发保。既有6B10首CALL残留EAX经6790/7A90返回，两窗口488990/499990均立即MOV EAX,1/RET覆盖；只闭此已知上行不消费结论，三void正常调用副作用保持，不称全机器ABI等价。旧1988关联升级完整根追加但CAC18历史保，旧2285/处置追加局部返回证据，新增两F/三adapted处置、三限定S零I/十任务open；全部旧政策/48有界代码/完整枚举gates/六closure/总SPEC§10保。全部callee/回调与生产消费/alias-owner寿命、SDK/生成取样/机器ABI/实际选择器像素及运行仍待，无新API/helper/结构/字段/owner/保护/默认值/补零/容量上限/新钳制/回滚或异常模型；WAV-only/明文网络/宿主MSVC保持。",
+      "verification_level": "pass，三完整原根362条1298B/七页、20实际E8十目标/20跳十RET、五入CALL与三表48B核对；原两套绘图取序/descriptor共借有据，三组三处/六注释、两整源精确差异与三类型及两窗口正文保持；已知EAX上行由两MOV1/RET覆盖，全机器ABI/owner/生成读取与运行待",
+      "original_incoming": [
+        {
+          "ea": 4753829,
+          "bytes": "e816e50300",
+          "asm": "call    sub_4C6EC0",
+          "parent": 4753808,
+          "call_target": 5009088,
+          "following": [
+            {
+              "ea": 4753834,
+              "size": 5,
+              "bytes": "a19446cf00",
+              "asm": "mov     eax, gCurrentWindow"
+            },
+            {
+              "ea": 4753839,
+              "size": 6,
+              "bytes": "891df83ecf00",
+              "asm": "mov     stru_CF3B10.field_3E8, ebx"
+            },
+            {
+              "ea": 4753845,
+              "size": 6,
+              "bytes": "891d5caec900",
+              "asm": "mov     gWindowState.field_14+498h, ebx"
+            },
+            {
+              "ea": 4753851,
+              "size": 6,
+              "bytes": "881dd440cc00",
+              "asm": "mov     byte_CC40D4, bl"
+            }
+          ]
+        },
+        {
+          "ea": 4823454,
+          "bytes": "e81dd50200",
+          "asm": "call    sub_4C6EC0",
+          "parent": 4823440,
+          "call_target": 5009088,
+          "following": [
+            {
+              "ea": 4823459,
+              "size": 2,
+              "bytes": "33c0",
+              "asm": "xor     eax, eax"
+            },
+            {
+              "ea": 4823461,
+              "size": 5,
+              "bytes": "a320f7d200",
+              "asm": "mov     dword_D2F720, eax"
+            },
+            {
+              "ea": 4823466,
+              "size": 5,
+              "bytes": "a3e001cb00",
+              "asm": "mov     dword_CB01E0, eax"
+            },
+            {
+              "ea": 4823471,
+              "size": 5,
+              "bytes": "b938f3d200",
+              "asm": "mov     ecx, offset unk_D2F338"
+            }
+          ]
+        }
+      ],
+      "selector_frame_binding": {
+        "step": "SFD01",
+        "source_snapshot": "[#] 补齐选择器逐帧分发与元素绑定",
+        "original_entry": "0x4c6ec0",
+        "original_end_exclusive": "0x4c71ad",
+        "instruction_count": 173,
+        "code_bytes": 749,
+        "page_count": 3,
+        "direct_calls": 0,
+        "direct_call_targets": [],
+        "jumps": 1,
+        "returns": 2,
+        "original_incoming": [
+          {
+            "ea": 4753829,
+            "bytes": "e816e50300",
+            "asm": "call    sub_4C6EC0",
+            "parent": 4753808,
+            "call_target": 5009088,
+            "following": [
+              {
+                "ea": 4753834,
+                "size": 5,
+                "bytes": "a19446cf00",
+                "asm": "mov     eax, gCurrentWindow"
+              },
+              {
+                "ea": 4753839,
+                "size": 6,
+                "bytes": "891df83ecf00",
+                "asm": "mov     stru_CF3B10.field_3E8, ebx"
+              },
+              {
+                "ea": 4753845,
+                "size": 6,
+                "bytes": "891d5caec900",
+                "asm": "mov     gWindowState.field_14+498h, ebx"
+              },
+              {
+                "ea": 4753851,
+                "size": 6,
+                "bytes": "881dd440cc00",
+                "asm": "mov     byte_CC40D4, bl"
+              }
+            ]
+          },
+          {
+            "ea": 4823454,
+            "bytes": "e81dd50200",
+            "asm": "call    sub_4C6EC0",
+            "parent": 4823440,
+            "call_target": 5009088,
+            "following": [
+              {
+                "ea": 4823459,
+                "size": 2,
+                "bytes": "33c0",
+                "asm": "xor     eax, eax"
+              },
+              {
+                "ea": 4823461,
+                "size": 5,
+                "bytes": "a320f7d200",
+                "asm": "mov     dword_D2F720, eax"
+              },
+              {
+                "ea": 4823466,
+                "size": 5,
+                "bytes": "a3e001cb00",
+                "asm": "mov     dword_CB01E0, eax"
+              },
+              {
+                "ea": 4823471,
+                "size": 5,
+                "bytes": "b938f3d200",
+                "asm": "mov     ecx, offset unk_D2F338"
+              }
+            ]
+          }
+        ],
+        "native_signature": "void Sub_4C6EC0(WindowItemSelectorState* const state, const std::uint8_t mode)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "known_return_consumers_overwrite_with_one": false,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "两绑定caller紧接独立MOV全局/XOR EAX覆盖原结果，保副作用；全机器ABI待"
+      }
+    },
+    {
+      "original_entry": "0x4c7a90",
+      "inventory_id": "F:000C7A90",
+      "original_role": "选择器首次切页初始化与逐帧入口",
+      "original_end_exclusive": "0x4c7acf",
+      "instruction_count": 21,
+      "function_chunks": [
+        {
+          "start": "0x4c7a90",
+          "end_exclusive": "0x4c7acf"
+        }
+      ],
+      "status": "SFD01完整根纳管，正确绑定/初始化body保持；限定S/全部callee与owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C7A90"
+          ],
+          "relationship": "SFD01完整原根/字段/发布顺序核对，正确body保持，仅合同注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4C7A90"
+          ],
+          "relationship": "SFD01真实void声明保持，仅合同注释；已知调用方覆盖返回值"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_selector_frame_binding_spec.md#selector-frame-baseline",
+        "doc/cg2d_selector_frame_binding_spec.md#selector-frame-decision",
+        "doc/cg2d_selector_frame_binding_spec.md#selector-frame-acceptance",
+        "doc/cg2d_selector_frame_binding_spec.md#selector-frame-source-state",
+        "doc/cg2d_selector_frame_binding_evidence.json"
+      ],
+      "boundary": "SFD01三完整原根362条1298B/七页，20实际E8/十目标、20跳十RET；五入CALL/后邻与四case跳表16B、两图表32B有据，未验全外父。逐帧保入口page1..2/S8正模式预处理与新page四分派、原step递减与-182业务钳制、宠物范围仅低AL/usedW16和切页/悬停/预览/两按钮/文字顺序。descriptor0原首次取地址后两Draw共借；首按钮windowY/windowX/elementY/elementX，次按钮elementY/windowY/elementX/windowX，均先算Y后X，第二组只在首Draw后取样。三组三处/六注释，两整源其它全文、绑定与初始化正确body、三类型/表值及字段宽度保持。绑定原模式低BYTE写value64；非零装配槽19不写，先callback0后slot18，逐槽fresh窗口借用；零模式二十槽/四回调保持，无owner迁移。首次init0时先mode地址/previous=-1、切页后initialized1，尾分发保。既有6B10首CALL残留EAX经6790/7A90返回，两窗口488990/499990均立即MOV EAX,1/RET覆盖；只闭此已知上行不消费结论，三void正常调用副作用保持，不称全机器ABI等价。旧1988关联升级完整根追加但CAC18历史保，旧2285/处置追加局部返回证据，新增两F/三adapted处置、三限定S零I/十任务open；全部旧政策/48有界代码/完整枚举gates/六closure/总SPEC§10保。全部callee/回调与生产消费/alias-owner寿命、SDK/生成取样/机器ABI/实际选择器像素及运行仍待，无新API/helper/结构/字段/owner/保护/默认值/补零/容量上限/新钳制/回滚或异常模型；WAV-only/明文网络/宿主MSVC保持。",
+      "verification_level": "pass，三完整原根362条1298B/七页、20实际E8十目标/20跳十RET、五入CALL与三表48B核对；原两套绘图取序/descriptor共借有据，三组三处/六注释、两整源精确差异与三类型及两窗口正文保持；已知EAX上行由两MOV1/RET覆盖，全机器ABI/owner/生成读取与运行待",
+      "original_incoming": [
+        {
+          "ea": 4754173,
+          "bytes": "e88eef0300",
+          "asm": "call    sub_4C7A90",
+          "parent": 4753808,
+          "call_target": 5012112,
+          "following": [
+            {
+              "ea": 4754178,
+              "size": 5,
+              "bytes": "b801000000",
+              "asm": "mov     eax, 1"
+            },
+            {
+              "ea": 4754183,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4754184,
+              "size": 8,
+              "bytes": "9090909090909090",
+              "asm": "align 10h"
+            },
+            {
+              "ea": 4754192,
+              "size": 5,
+              "bytes": "a0d440cc00",
+              "asm": "mov     al, byte_CC40D4"
+            }
+          ]
+        },
+        {
+          "ea": 4823486,
+          "bytes": "e8cde00200",
+          "asm": "call    sub_4C7A90",
+          "parent": 4823440,
+          "call_target": 5012112,
+          "following": [
+            {
+              "ea": 4823491,
+              "size": 5,
+              "bytes": "b801000000",
+              "asm": "mov     eax, 1"
+            },
+            {
+              "ea": 4823496,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4823497,
+              "size": 7,
+              "bytes": "90909090909090",
+              "asm": "align 10h"
+            },
+            {
+              "ea": 4823504,
+              "size": 5,
+              "bytes": "a1b049cf00",
+              "asm": "mov     eax, dword_CF49B0"
+            }
+          ]
+        }
+      ],
+      "selector_frame_binding": {
+        "step": "SFD01",
+        "source_snapshot": "[#] 补齐选择器逐帧分发与元素绑定",
+        "original_entry": "0x4c7a90",
+        "original_end_exclusive": "0x4c7acf",
+        "instruction_count": 21,
+        "code_bytes": 63,
+        "page_count": 1,
+        "direct_calls": 2,
+        "direct_call_targets": [
+          5006672,
+          5007248
+        ],
+        "jumps": 3,
+        "returns": 1,
+        "original_incoming": [
+          {
+            "ea": 4754173,
+            "bytes": "e88eef0300",
+            "asm": "call    sub_4C7A90",
+            "parent": 4753808,
+            "call_target": 5012112,
+            "following": [
+              {
+                "ea": 4754178,
+                "size": 5,
+                "bytes": "b801000000",
+                "asm": "mov     eax, 1"
+              },
+              {
+                "ea": 4754183,
+                "size": 1,
+                "bytes": "c3",
+                "asm": "retn"
+              },
+              {
+                "ea": 4754184,
+                "size": 8,
+                "bytes": "9090909090909090",
+                "asm": "align 10h"
+              },
+              {
+                "ea": 4754192,
+                "size": 5,
+                "bytes": "a0d440cc00",
+                "asm": "mov     al, byte_CC40D4"
+              }
+            ]
+          },
+          {
+            "ea": 4823486,
+            "bytes": "e8cde00200",
+            "asm": "call    sub_4C7A90",
+            "parent": 4823440,
+            "call_target": 5012112,
+            "following": [
+              {
+                "ea": 4823491,
+                "size": 5,
+                "bytes": "b801000000",
+                "asm": "mov     eax, 1"
+              },
+              {
+                "ea": 4823496,
+                "size": 1,
+                "bytes": "c3",
+                "asm": "retn"
+              },
+              {
+                "ea": 4823497,
+                "size": 7,
+                "bytes": "90909090909090",
+                "asm": "align 10h"
+              },
+              {
+                "ea": 4823504,
+                "size": 5,
+                "bytes": "a1b049cf00",
+                "asm": "mov     eax, dword_CF49B0"
+              }
+            ]
+          }
+        ],
+        "native_signature": "void Sub_4C7A90(WindowItemSelectorState* const state)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "known_return_consumers_overwrite_with_one": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "已知上行经分发/初始化返回后两窗口MOV EAX,1/RET，保副作用；全机器ABI待"
       }
     }
   ]

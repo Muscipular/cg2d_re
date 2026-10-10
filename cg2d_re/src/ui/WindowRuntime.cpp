@@ -8705,6 +8705,7 @@ std::int32_t Sub_488EA0(const std::int32_t, const std::int32_t state)
     return Sub_4C7380(&gItemSelectorCF3B10, 0, state) ? 1 : 0;
 }
 
+// SAP01：原81条；五对used/索引/flags与S8模式保持，成功低AL归一、无效图/声效按原，运行待。
 std::int32_t Sub_488EC0(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t ordinal = index - 19;
@@ -10421,6 +10422,7 @@ std::int32_t Sub_499B40(const std::int32_t, const std::int32_t state)
     return 0;
 }
 
+// SAP01：原71条；五对与S8模式保持，成功忽略按钮结果恒0，无效图/声效按原，运行待。
 std::int32_t Sub_499B60(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t ordinal = index - 17;
@@ -11596,6 +11598,7 @@ std::int32_t Sub_489760(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// SAP01：原391条三根有据；本根完整239条，图形与三种文字坐标按原读取序；格式/GBK与低AL边界保持，运行待。
 bool Sub_4C75A0(WindowItemSelectorState* const selector, const std::int32_t state)
 {
     if ((static_cast<std::uint8_t>(state) & 2u) != 0 || state == 0
@@ -11644,33 +11647,67 @@ bool Sub_4C75A0(WindowItemSelectorState* const selector, const std::int32_t stat
         {23, "\xDE\x92\xB1\xDC", 0, 8},
     };
     const WindowElement* const element = selector->elements00[1];
+    const render::GraphicDescriptor16* const descriptor = &selector->descriptors3B8[0];
     const std::int32_t elementY = element->y;
     const std::int32_t elementX = element->x;
     const WindowInstance* const window = gCurrentWindow;
+    const std::int32_t windowY = window->y;
+    const std::int32_t windowX = window->x;
     static_cast<void>(login::detail::DrawGraphic(
-        elementX + window->x + 121, elementY + window->y + 118,
-        223, 98244, 0, &selector->descriptors3B8[0]));
+        elementX + windowX + 121, elementY + windowY + 118,
+        223, 98244, 0, descriptor));
+    // 4C7643/4C7696/4C7777三种坐标取样序，仅用于本属性页绘制。
+    enum class TextCoordinateOrder {
+        Title,
+        WindowBeforeElements,
+        WindowAfterElements,
+    };
     const auto drawText = [selector](
         const std::int32_t offsetX, const std::int32_t offsetY,
-        const std::int32_t textColor, const char* const text) {
+        const std::int32_t textColor, const char* const text,
+        const TextCoordinateOrder order) {
         const WindowElement* const textElement = selector->elements00[1];
-        const WindowInstance* const textWindow = gCurrentWindow;
-        const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            textElement->x + textWindow->x + offsetX));
-        const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            textElement->y + textWindow->y + offsetY));
+        std::int32_t x;
+        std::int32_t y;
+        if (order == TextCoordinateOrder::Title) {
+            const WindowInstance* const textWindow = gCurrentWindow;
+            const std::int32_t elementY = textElement->y;
+            const std::int32_t windowY = textWindow->y;
+            y = elementY + windowY + offsetY;
+            const std::int32_t elementX = textElement->x;
+            const std::int32_t windowX = textWindow->x;
+            x = elementX + windowX + offsetX;
+        } else if (order == TextCoordinateOrder::WindowBeforeElements) {
+            const WindowInstance* const textWindow = gCurrentWindow;
+            const std::int32_t elementY = textElement->y;
+            const std::int32_t elementX = textElement->x;
+            const std::int32_t windowY = textWindow->y;
+            const std::int32_t windowX = textWindow->x;
+            y = elementY + windowY + offsetY;
+            x = elementX + windowX + offsetX;
+        } else {
+            const std::int32_t elementY = textElement->y;
+            const std::int32_t elementX = textElement->x;
+            const WindowInstance* const textWindow = gCurrentWindow;
+            const std::int32_t windowY = textWindow->y;
+            const std::int32_t windowX = textWindow->x;
+            y = elementY + windowY + offsetY;
+            x = elementX + windowX + offsetX;
+        }
         static_cast<void>(render::DrawText_456780(
-            x, y, 5, 12,
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)), 5, 12,
             std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(textColor)), text, 0, 0));
     };
     const std::int32_t length =
         static_cast<std::int32_t>(std::strlen(world::detail::gReplyRecordF7C950.text04.data()));
     if (length > 0) {
         drawText(100 - (12 * length) / 2 / 2, 9, 0,
-            world::detail::gReplyRecordF7C950.text04.data());
+            world::detail::gReplyRecordF7C950.text04.data(), TextCoordinateOrder::Title);
     }
     if (world::detail::gReplyRecordF7C950.value48 == 1) {
-        drawText(64, 28, 0, "\x28\xD3\xD0\xCC\xD8\xCA\xE2\xB7\x51\xCC\x96\x29");
+        drawText(64, 28, 0, "\x28\xD3\xD0\xCC\xD8\xCA\xE2\xB7\x51\xCC\x96\x29",
+            TextCoordinateOrder::WindowBeforeElements);
     }
     std::int32_t lines = 0;
     std::int32_t x = 28;
@@ -11692,7 +11729,7 @@ bool Sub_4C75A0(WindowItemSelectorState* const selector, const std::int32_t stat
             ? (value < 0 ? "%s-%4d%%" : "%s+%4d%%")
             : (value < 0 ? "%s-%4d" : "%s+%4d");
         platform::FormatLegacyString_53B304(buffer.data(), format, attribute.label, value < 0 ? -value : value);
-        drawText(x, y, attribute.color, buffer.data());
+        drawText(x, y, attribute.color, buffer.data(), TextCoordinateOrder::WindowAfterElements);
         y += 16;
         ++lines;
     }
@@ -11700,8 +11737,9 @@ bool Sub_4C75A0(WindowItemSelectorState* const selector, const std::int32_t stat
         platform::FormatLegacyString_53B304(buffer.data(),
             "\xC4\xDC\x9C\x70\xC9\xD9\xCA\xB9\xD3\xC3\x22%s\x22\xB5\xC4\xC4\xA7",
             world::detail::gReplyRecordF7C950.text25.data());
-        drawText(28, 188, 0, buffer.data());
-        drawText(28, 204, 0, "\xC1\xA6\xCF\xFB\xBA\xC4");
+        drawText(28, 188, 0, buffer.data(), TextCoordinateOrder::WindowBeforeElements);
+        drawText(28, 204, 0, "\xC1\xA6\xCF\xFB\xBA\xC4",
+            TextCoordinateOrder::WindowBeforeElements);
     }
     return false;
 }

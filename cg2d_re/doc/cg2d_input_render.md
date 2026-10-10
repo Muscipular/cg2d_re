@@ -222,3 +222,7 @@ BuildProtocolCommand只替换原宿主_itoa调用，继续16进制、原校验�
 ## 2026-10-10 SEV01：选择器按钮事件
 
 [SEV01](cg2d_selector_button_event_spec.md#selector-event-source-state)补齐页签、预览开关、装备开关及双方向旋转四完整原根352条1028B/八页，九E8五目标/46跳九RET，十入CALL/64B图表有据。四组四处对齐中心取样/descriptor先图号、目标先回调和循环尾selected先推进/count后取；两正确body/五类型/十caller和既有声效接口保持，八注释。原失效宠物索引false早返保开关/回调部分写、双旋转条件独立及两声/方向原余数保持。六CALL仅消费AL、四CALL不消费，未记高位或全机器ABI等价。四新F四处置/四限定S零I/十open；全生产消费、所有外父/callee/alias-owner寿命、实际按钮/声音像素及运行仍待，整体未完成。
+
+## 2026-10-10 SAP01：属性显示与宠物页签
+
+[SAP01](cg2d_selector_attribute_pet_tab_spec.md#selector-attribute-source-state)补齐附加属性显示与两宠物页签三完整原根391条1176B/八页、十三E8五目标/39跳六RET。24项384B属性表、两22B包装父及六原型callback数据槽有据。两组四处明确descriptor持址和三种文字坐标读取序，原24项/14行/第8换列/512B未清及GBK/MSVC格式保持；两页签正确正文保持，库存成功低AL归一、战斗成功恒0分界明确。六外层注释及一局部枚举说明，不改公开接口、类型、caller及原型绑定。旧921格式历史追加、两新F/三处置/三限定S零I十open；完整生产消费/回调分发、callee/alias-owner寿命、生成取样/实际画面交互与运行待，整体未完成。

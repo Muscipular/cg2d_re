@@ -109683,7 +109683,7 @@
     {
       "original_entry": "0x4C75A0",
       "inventory_id": "F:000C75A0",
-      "status": "既有正文的真实格式依赖已接；完整业务/父路由/运行未据本步验收",
+      "status": "既有正文的真实格式依赖已接；完整业务/父路由/运行未据本步验收；SAP01完整239条属性根纳管，两组四处读取序明确，低AL/全callee/ABI/运行待",
       "original_end_exclusive": "0x4C7891",
       "instruction_count": 239,
       "sources": [
@@ -109693,13 +109693,32 @@
             "Sub_4C75A0"
           ],
           "relationship": "仅现格式callee接对应原点，保留原共享分支及完整正文"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C75A0"
+          ],
+          "relationship": "SAP01完整239条属性根，图形/三种文本坐标读取序明确；既有MSVC格式历史保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4C75A0"
+          ],
+          "relationship": "SAP01真实bool声明保持，只低AL/两个完整包装父消费有据，完整ABI待"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/window_14.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_selector_attribute_pet_tab_spec.md#selector-attribute-baseline",
+        "doc/cg2d_selector_attribute_pet_tab_spec.md#selector-attribute-decision",
+        "doc/cg2d_selector_attribute_pet_tab_spec.md#selector-attribute-acceptance",
+        "doc/cg2d_selector_attribute_pet_tab_spec.md#selector-attribute-source-state",
+        "doc/cg2d_selector_attribute_pet_tab_evidence.json"
       ],
-      "boundary": "仅两现callee接4C775F/4C77DE两原点，selector非拥有T*/state S32与bool返回、完整正文保持。借同源F7C950与原24属性表；四显式正/负及百分比格式共一原call，标签T*/非零S32数值与原幅值表达式、512B未清、最多14非零行/第8换列/原属性顺序及颜色保持。每次绘制重新借元素和当前window，坐标原低S16，不缓存整页；hasText24门槛借text25 T*格式后28/188绘同buffer，再独立28/204普通提示不算格式点。退出回调快照/清value3FC/回填顺序、value60门槛/返回及音频暂停保持，不改关联方或补异常模拟/保护/清理，不据本步验收完整物品说明/数据生产/选择器/父路由/画面或运行。",
+      "boundary": "仅两现callee接4C775F/4C77DE两原点，selector非拥有T*/state S32与bool返回、完整正文保持。借同源F7C950与原24属性表；四显式正/负及百分比格式共一原call，标签T*/非零S32数值与原幅值表达式、512B未清、最多14非零行/第8换列/原属性顺序及颜色保持。每次绘制重新借元素和当前window，坐标原低S16，不缓存整页；hasText24门槛借text25 T*格式后28/188绘同buffer，再独立28/204普通提示不算格式点。退出回调快照/清value3FC/回填顺序、value60门槛/返回及音频暂停保持，不改关联方或补异常模拟/保护/清理，不据本步验收完整物品说明/数据生产/选择器/父路由/画面或运行。；SAP01三完整原根391条1176B/八页，十三E8五目标/39跳六RET，24项384B属性表、两22B完整包装父/低AL归一和两原型数组六callback槽有据。75A0原低BYTE state bit2或S32零、BYTE3FC或reply.used S32零时声51/320→先元素/回调快照→清3FC→回填/AL1；否则仅page2绘制，reply.value48 S32与hasText24 BYTE、借32B text04/text25、24S32值与原512B未清buffer保持。图descriptor0地址先元素Y/X，fresh当前window后windowY/X；既有局部drawText以三种具名内部取序保标题元素Y/windowY后元素X/windowX、特殊/两尾文本当前window先元素Y/X再windowY/X、属性元素Y/X先当前window再windowY/X。每次重借元素/window，不缓存整页；低S16坐标/S8颜色、非零最多14行/第8换列、原表索引顺序/颜色/percent BYTE、四±百分比格式与两现MSVC格式原点和已批GBK保持。488EC0/499B60现正文正确保：index-19/-17，五8B对used W16/索引S16/pet flags W16（1或2/2或1原序），匹配递减到负，无匹配且S8旧mode等ordinal+1才U8减1；负ordinal若已found不减mode，bit2声55/320后fresh窗口索引graphic图244306，不补容量/tab/index保护。成功时前父低AL归一为S32 0/1，后父忽略结果原EBP0返回S32 0；两属性包装父仅AL归一，不据高24位/全机器ABI等价。六原型callback槽仅数据指针对应19..21/17..19，不作为新增CALL或整原型/分发验收。两组四处读取序/六外层合同注释及一局部enum说明、两正确body/两整源其余及类型/现包装/原型绑定保持；旧921格式历史保追加、两新F三adapted/三限定S零I/十任务open。全回复生产/表标签与字体/宠物对生产/动态callback全分发、所有callee/外父/alias-owner寿命、SDK/生成取样/真实布局交互声效与运行待；无新公开API/通用helper/字段/owner/保护/默认/补零/钳制/回滚/异常模型。WAV-only/明文网络/MSVC、48有界代码/完整枚举gates/六closure/总SPEC§10保持。",
       "original_incoming": [
         {
           "site": "0x489EEA",
@@ -109798,7 +109817,123 @@
           "relationship": "hasText24 W8非0借回复text25 T*写同一512B，后重取元素/窗口在28/188绘此buffer，再重取并绘28/204原普通字节提示；后一提示无格式call"
         }
       ],
-      "verification_level": "原239统计/只读92格式/参数/消费邻窗及21尾两次绘制指令，共113，余126/已过正文与核心不重验；两原点/两现callee、四属性变体共call/五新增格式原字节、T*/S32与原512B/消费者和整份源两标识符限定静态核对。489EE0@489EEA/49B610@49B61A两普通caller/data0只登记，未构建执行。"
+      "verification_level": "原239统计/只读92格式/参数/消费邻窗及21尾两次绘制指令，共113，余126/已过正文与核心不重验；两原点/两现callee、四属性变体共call/五新增格式原字节、T*/S32与原512B/消费者和整份源两标识符限定静态核对。489EE0@489EEA/49B610@49B61A两普通caller/data0只登记，未构建执行。；pass，三连续完整根391条1176B/八页、十三E8五目标/39跳六RET，24项384B表/两22B包装低AL归一及六原型data绑定有据；两组四处读取序、两整源精确回放/两正确页签正文/类型/三caller/两原型保持；旧921历史和GBK/MSVC格式不覆盖，全ABI/生产消费/owner/真实交互与运行待",
+      "selector_attribute_pet_tab": {
+        "step": "SAP01",
+        "source_snapshot": "[#] 补齐属性页与宠物页签合同",
+        "original_entry": "0x4c75a0",
+        "original_end_exclusive": "0x4c7891",
+        "instruction_count": 239,
+        "code_bytes": 753,
+        "page_count": 4,
+        "direct_calls": 9,
+        "direct_call_targets": [
+          5380880,
+          4548480,
+          5485316,
+          5424208
+        ],
+        "jumps": 19,
+        "returns": 2,
+        "original_incoming": [
+          {
+            "ea": 4759274,
+            "size": 5,
+            "bytes": "e8b1d60300",
+            "asm": "call    sub_4C75A0",
+            "parent": 4759264,
+            "call_target": 5010848,
+            "following": [
+              {
+                "ea": 4759279,
+                "size": 2,
+                "bytes": "f6d8",
+                "asm": "neg     al"
+              },
+              {
+                "ea": 4759281,
+                "size": 2,
+                "bytes": "1bc0",
+                "asm": "sbb     eax, eax"
+              },
+              {
+                "ea": 4759283,
+                "size": 2,
+                "bytes": "f7d8",
+                "asm": "neg     eax"
+              },
+              {
+                "ea": 4759285,
+                "size": 1,
+                "bytes": "c3",
+                "asm": "retn"
+              }
+            ]
+          },
+          {
+            "ea": 4830746,
+            "size": 5,
+            "bytes": "e881bf0200",
+            "asm": "call    sub_4C75A0",
+            "parent": 4830736,
+            "call_target": 5010848,
+            "following": [
+              {
+                "ea": 4830751,
+                "size": 2,
+                "bytes": "f6d8",
+                "asm": "neg     al"
+              },
+              {
+                "ea": 4830753,
+                "size": 2,
+                "bytes": "1bc0",
+                "asm": "sbb     eax, eax"
+              },
+              {
+                "ea": 4830755,
+                "size": 2,
+                "bytes": "f7d8",
+                "asm": "neg     eax"
+              },
+              {
+                "ea": 4830757,
+                "size": 1,
+                "bytes": "c3",
+                "asm": "retn"
+              }
+            ]
+          }
+        ],
+        "native_signature": "bool Sub_4C75A0(WindowItemSelectorState* const selector, const std::int32_t state)",
+        "source_patch_group_count": 2,
+        "source_changed_point_count": 4,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "本根bool仅原AL，两个完整22B包装父低AL归一，高24位/全ABI未记等价",
+        "original_incoming_references": [
+          {
+            "from": 4759274,
+            "type": 17,
+            "iscode": true,
+            "parent": 4759264,
+            "bytes": "e8b1d60300",
+            "asm": "call    sub_4C75A0"
+          },
+          {
+            "from": 4830746,
+            "type": 17,
+            "iscode": true,
+            "parent": 4830736,
+            "bytes": "e881bf0200",
+            "asm": "call    sub_4C75A0"
+          }
+        ],
+        "previous_format_history_kept": true
+      }
     },
     {
       "original_entry": "0x4982C0",
@@ -229413,6 +229548,158 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "result_boundary": "bool仅原AL，两父独立XOR EAX0覆盖，不消费；高24位/全ABI待"
+      }
+    },
+    {
+      "original_entry": "0x488ec0",
+      "inventory_id": "F:00088EC0",
+      "original_role": "库存宠物页签选择及无效按钮图",
+      "original_end_exclusive": "0x488fa2",
+      "instruction_count": 81,
+      "function_chunks": [
+        {
+          "start": "0x488ec0",
+          "end_exclusive": "0x488fa2"
+        }
+      ],
+      "status": "SAP01完整宠物页签原根纳管，正确正文保持；限定S/全部callee与owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_488EC0"
+          ],
+          "relationship": "SAP01完整原根/字段/发布顺序核对，正确body保持，仅合同注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_488EC0"
+          ],
+          "relationship": "SAP01真实S32参数/返回声明保持，仅合同注释；两页签成功返回分界具名，不记全机器ABI等价"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_selector_attribute_pet_tab_spec.md#selector-attribute-baseline",
+        "doc/cg2d_selector_attribute_pet_tab_spec.md#selector-attribute-decision",
+        "doc/cg2d_selector_attribute_pet_tab_spec.md#selector-attribute-acceptance",
+        "doc/cg2d_selector_attribute_pet_tab_spec.md#selector-attribute-source-state",
+        "doc/cg2d_selector_attribute_pet_tab_evidence.json"
+      ],
+      "boundary": "SAP01三完整原根391条1176B/八页，十三E8五目标/39跳六RET，24项384B属性表、两22B完整包装父/低AL归一和两原型数组六callback槽有据。75A0原低BYTE state bit2或S32零、BYTE3FC或reply.used S32零时声51/320→先元素/回调快照→清3FC→回填/AL1；否则仅page2绘制，reply.value48 S32与hasText24 BYTE、借32B text04/text25、24S32值与原512B未清buffer保持。图descriptor0地址先元素Y/X，fresh当前window后windowY/X；既有局部drawText以三种具名内部取序保标题元素Y/windowY后元素X/windowX、特殊/两尾文本当前window先元素Y/X再windowY/X、属性元素Y/X先当前window再windowY/X。每次重借元素/window，不缓存整页；低S16坐标/S8颜色、非零最多14行/第8换列、原表索引顺序/颜色/percent BYTE、四±百分比格式与两现MSVC格式原点和已批GBK保持。488EC0/499B60现正文正确保：index-19/-17，五8B对used W16/索引S16/pet flags W16（1或2/2或1原序），匹配递减到负，无匹配且S8旧mode等ordinal+1才U8减1；负ordinal若已found不减mode，bit2声55/320后fresh窗口索引graphic图244306，不补容量/tab/index保护。成功时前父低AL归一为S32 0/1，后父忽略结果原EBP0返回S32 0；两属性包装父仅AL归一，不据高24位/全机器ABI等价。六原型callback槽仅数据指针对应19..21/17..19，不作为新增CALL或整原型/分发验收。两组四处读取序/六外层合同注释及一局部enum说明、两正确body/两整源其余及类型/现包装/原型绑定保持；旧921格式历史保追加、两新F三adapted/三限定S零I/十任务open。全回复生产/表标签与字体/宠物对生产/动态callback全分发、所有callee/外父/alias-owner寿命、SDK/生成取样/真实布局交互声效与运行待；无新公开API/通用helper/字段/owner/保护/默认/补零/钳制/回滚/异常模型。WAV-only/明文网络/MSVC、48有界代码/完整枚举gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，三连续完整根391条1176B/八页、十三E8五目标/39跳六RET，24项384B表/两22B包装低AL归一及六原型data绑定有据；两组四处读取序、两整源精确回放/两正确页签正文/类型/三caller/两原型保持；旧921历史和GBK/MSVC格式不覆盖，全ABI/生产消费/owner/真实交互与运行待",
+      "original_incoming": [],
+      "selector_attribute_pet_tab": {
+        "step": "SAP01",
+        "source_snapshot": "[#] 补齐属性页与宠物页签合同",
+        "original_entry": "0x488ec0",
+        "original_end_exclusive": "0x488fa2",
+        "instruction_count": 81,
+        "code_bytes": 226,
+        "page_count": 2,
+        "direct_calls": 2,
+        "direct_call_targets": [
+          5424208,
+          5010304
+        ],
+        "jumps": 10,
+        "returns": 2,
+        "original_incoming": [],
+        "native_signature": "std::int32_t Sub_488EC0(const std::int32_t index, const std::int32_t state)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "成功仅按钮低AL归一为S32 0/1；无效按bit2声效返回S32 0/1",
+        "original_incoming_references": [
+          {
+            "from": 5647576,
+            "type": 1,
+            "iscode": false,
+            "parent": null,
+            "bytes": "0100000002010000080000000b0000000b00000001000000982b5600508c480001000000dd0000001c000000310000001100000001000000c82b5600308d480007000000c60000001f000000000000000000000001000000b02c5600608e480007000000630000001f000000000000000000000001000000b82c5600808e4800010000000800000000000000160100000301000001000000b02b5600b08f480002000000afffffffa3000000000000000000000001000000802c5600100f4b0003000000afffffff1c000000000000000000000000000000702c5600100f4b0003000000afffffff30000000000000000000000000000000782c5600100f4b00000000008effffffbc000000210000001100000000000000000000003089480000000000afffffffbc00000021000000110000000000000000000000508948000000000087ffffff490000004e000000710000000000000000000000708948000100000056ffffff49000000300000003000000000000000582c5600100f4b0001000000d7ffffff49000000300000003000000000000000582c5600100f4b000100000056ffffff7b000000300000003000000000000000582c5600100f4b0001000000d7ffffff7b000000300000003000000000000000582c5600100f4b000100000056ffffff17000000300000003000000000000000582c5600100f4b0001000000d7ffffff17000000300000003000000000000000582c5600100f4b0001000000f0ffffff1100000025010000de00000000000000402c560060974800010000000200000011000000130000002e00000001000000e02b5600a08e480001000000020000003e000000130000002e00000001000000f82b5600c08e480001000000020000006b000000130000002e00000001000000102c5600c08e4800010000000200000098000000130000002e00000001000000282c5600c08e4800000000003bffffff1100000025010000de000000010000000000000070414700000000001a01000007000000120000004e000000010000000000000070414700",
+            "asm": "UI_Button <1, 258, 8, 11, 11, 1, offset stru_562B98, \\"
+          }
+        ]
+      }
+    },
+    {
+      "original_entry": "0x499b60",
+      "inventory_id": "F:00099B60",
+      "original_role": "战斗宠物页签选择及固定成功零返回",
+      "original_end_exclusive": "0x499c25",
+      "instruction_count": 71,
+      "function_chunks": [
+        {
+          "start": "0x499b60",
+          "end_exclusive": "0x499c25"
+        }
+      ],
+      "status": "SAP01完整宠物页签原根纳管，正确正文保持；限定S/全部callee与owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_499B60"
+          ],
+          "relationship": "SAP01完整原根/字段/发布顺序核对，正确body保持，仅合同注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_499B60"
+          ],
+          "relationship": "SAP01真实S32参数/返回声明保持，仅合同注释；两页签成功返回分界具名，不记全机器ABI等价"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_selector_attribute_pet_tab_spec.md#selector-attribute-baseline",
+        "doc/cg2d_selector_attribute_pet_tab_spec.md#selector-attribute-decision",
+        "doc/cg2d_selector_attribute_pet_tab_spec.md#selector-attribute-acceptance",
+        "doc/cg2d_selector_attribute_pet_tab_spec.md#selector-attribute-source-state",
+        "doc/cg2d_selector_attribute_pet_tab_evidence.json"
+      ],
+      "boundary": "SAP01三完整原根391条1176B/八页，十三E8五目标/39跳六RET，24项384B属性表、两22B完整包装父/低AL归一和两原型数组六callback槽有据。75A0原低BYTE state bit2或S32零、BYTE3FC或reply.used S32零时声51/320→先元素/回调快照→清3FC→回填/AL1；否则仅page2绘制，reply.value48 S32与hasText24 BYTE、借32B text04/text25、24S32值与原512B未清buffer保持。图descriptor0地址先元素Y/X，fresh当前window后windowY/X；既有局部drawText以三种具名内部取序保标题元素Y/windowY后元素X/windowX、特殊/两尾文本当前window先元素Y/X再windowY/X、属性元素Y/X先当前window再windowY/X。每次重借元素/window，不缓存整页；低S16坐标/S8颜色、非零最多14行/第8换列、原表索引顺序/颜色/percent BYTE、四±百分比格式与两现MSVC格式原点和已批GBK保持。488EC0/499B60现正文正确保：index-19/-17，五8B对used W16/索引S16/pet flags W16（1或2/2或1原序），匹配递减到负，无匹配且S8旧mode等ordinal+1才U8减1；负ordinal若已found不减mode，bit2声55/320后fresh窗口索引graphic图244306，不补容量/tab/index保护。成功时前父低AL归一为S32 0/1，后父忽略结果原EBP0返回S32 0；两属性包装父仅AL归一，不据高24位/全机器ABI等价。六原型callback槽仅数据指针对应19..21/17..19，不作为新增CALL或整原型/分发验收。两组四处读取序/六外层合同注释及一局部enum说明、两正确body/两整源其余及类型/现包装/原型绑定保持；旧921格式历史保追加、两新F三adapted/三限定S零I/十任务open。全回复生产/表标签与字体/宠物对生产/动态callback全分发、所有callee/外父/alias-owner寿命、SDK/生成取样/真实布局交互声效与运行待；无新公开API/通用helper/字段/owner/保护/默认/补零/钳制/回滚/异常模型。WAV-only/明文网络/MSVC、48有界代码/完整枚举gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，三连续完整根391条1176B/八页、十三E8五目标/39跳六RET，24项384B表/两22B包装低AL归一及六原型data绑定有据；两组四处读取序、两整源精确回放/两正确页签正文/类型/三caller/两原型保持；旧921历史和GBK/MSVC格式不覆盖，全ABI/生产消费/owner/真实交互与运行待",
+      "original_incoming": [],
+      "selector_attribute_pet_tab": {
+        "step": "SAP01",
+        "source_snapshot": "[#] 补齐属性页与宠物页签合同",
+        "original_entry": "0x499b60",
+        "original_end_exclusive": "0x499c25",
+        "instruction_count": 71,
+        "code_bytes": 197,
+        "page_count": 2,
+        "direct_calls": 2,
+        "direct_call_targets": [
+          5424208,
+          5010304
+        ],
+        "jumps": 10,
+        "returns": 2,
+        "original_incoming": [],
+        "native_signature": "std::int32_t Sub_499B60(const std::int32_t index, const std::int32_t state)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "成功忽略按钮结果，原EBP0返回S32零；无效按bit2声效返回S32 0/1",
+        "original_incoming_references": [
+          {
+            "from": 5686320,
+            "type": 1,
+            "iscode": false,
+            "parent": null,
+            "bytes": "0100000002010000080000000b0000000b0000000100000048c35600b01f4c0007000000c60000001f00000000000000000000000100000020c45600009b490007000000630000001f00000000000000000000000100000028c45600209b490001000000080000000000000014010000fd0000000100000060c35600309c490002000000afffffffa300000000000000000000000100000018c45600100f4b0003000000afffffff1c000000000000000000000000000000702c5600100f4b0003000000afffffff30000000000000000000000000000000782c5600100f4b00000000008effffffbc000000210000001100000000000000000000003099490000000000afffffffbc00000021000000110000000000000000000000509949000000000087ffffff490000004e000000710000000000000000000000709949000100000056ffffff49000000300000003000000000000000f0c35600100f4b0001000000d7ffffff49000000300000003000000000000000f0c35600100f4b000100000056ffffff7b000000300000003000000000000000f0c35600100f4b0001000000d7ffffff7b000000300000003000000000000000f0c35600100f4b000100000056ffffff17000000300000003000000000000000f0c35600100f4b0001000000d7ffffff17000000300000003000000000000000f0c35600100f4b00010000000200000011000000130000002e0000000100000078c35600409b490001000000020000003e000000130000002e00000001000000a8c35600609b490001000000020000006b000000130000002e00000001000000c0c35600609b4900010000000200000098000000130000002e00000001000000d8c35600609b4900010000003bffffff11000000d4000000d20000000100000090c3560040ac4900000000004001000007000000120000004e000000010000000000000070414700",
+            "asm": "UI_Button <1, 258, 8, 11, 11, 1, offset stru_56C348, \\"
+          }
+        ]
       }
     }
   ]

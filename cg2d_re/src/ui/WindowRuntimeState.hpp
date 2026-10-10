@@ -488,7 +488,7 @@ std::int32_t Sub_488930(std::int32_t unusedIndex, std::int32_t state);
 std::int32_t Sub_488950(std::int32_t unusedIndex, std::int32_t state);
 std::int32_t Sub_488970(std::int32_t unusedIndex, std::int32_t state);
 std::int32_t Sub_488EA0(std::int32_t unusedIndex, std::int32_t state);
-std::int32_t Sub_488EC0(std::int32_t index, std::int32_t state); // 五索引对中选择对应宠物页签。
+std::int32_t Sub_488EC0(std::int32_t index, std::int32_t state); // SAP01：库存宠物页签，原低AL归一为S32，五对/无效图处理保持。
 std::int32_t Sub_488C50(std::int32_t index, std::int32_t state); // 库存关闭按钮。
 void Sub_488CF0(std::int32_t amount); // 数量窗回调，经玩家动作/场景门禁发送丢钱。
 std::int32_t Sub_488D30(std::int32_t index, std::int32_t state); // 丢钱数量窗开关及金额同步。
@@ -497,7 +497,7 @@ std::int32_t Sub_488E80(std::int32_t unusedIndex, std::int32_t unusedState);
 std::int32_t Sub_488FB0(std::int32_t index, std::int32_t state); // 普通背包完整交互/绘制。
 std::int32_t Sub_489760(std::int32_t index, std::int32_t state); // 玩家/宠物装备完整交互。
 std::int32_t Sub_489EE0(std::int32_t unusedIndex, std::int32_t state);
-bool Sub_4C75A0(WindowItemSelectorState* selector, std::int32_t state); // 附加属性页及回调恢复。
+bool Sub_4C75A0(WindowItemSelectorState* selector, std::int32_t state); // SAP01：附加属性页/回调恢复，bool仅原AL，两父低AL归一；完整业务生产/运行待。
 
 // 4C6EC0发布的战斗背包/装备交互。
 std::int32_t Sub_499930(std::int32_t unusedIndex, std::int32_t state);
@@ -506,7 +506,7 @@ std::int32_t Sub_499970(std::int32_t unusedIndex, std::int32_t state);
 std::int32_t Sub_499B00(std::int32_t unusedIndex, std::int32_t unusedState);
 std::int32_t Sub_499B20(std::int32_t unusedIndex, std::int32_t unusedState);
 std::int32_t Sub_499B40(std::int32_t unusedIndex, std::int32_t state); // 战斗页签忽略内部返回。
-std::int32_t Sub_499B60(std::int32_t index, std::int32_t state); // 战斗宠物页签及无效按钮图。
+std::int32_t Sub_499B60(std::int32_t index, std::int32_t state); // SAP01：战斗宠物页签，成功忽略4C7380结果返回S32零，无效图处理保持。
 std::int32_t Sub_499C30(std::int32_t index, std::int32_t state);
 std::int32_t Sub_49AC40(std::int32_t index, std::int32_t state); // 战斗装备页及宠物禁用页。
 std::int32_t Sub_49B610(std::int32_t unusedIndex, std::int32_t state); // D2F338附加属性页包装。

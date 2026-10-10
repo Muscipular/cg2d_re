@@ -166,3 +166,7 @@ BuildProtocolCommand只替换原宿主_itoa调用，继续16进制、原校验�
 ## 2026-10-10 WPL01：窗口输入载荷的外层owner与借用context
 
 [WPL01](cg2d_window_payload_creation_spec.md#window-payload-source-state)补齐471440完整384条1159B、13E8/五目标/40跳五RET及一次update间接、52CALL/21父来源和七槽旧表。七类载荷是既有真实结构：外层由UI管理，type3另own256B文本、type7借字符串、type5借context、type2 action由Yobi管理；旧1797/BVR释放正文保。现有唯一helper改借初始action及现有action/图号槽，恢复首flags目标、延迟图号指针和图号指针→action槽→值的交错，一组三处/四注释；声明/定义/唯一调用同步，其余创建/释放/其它source和类型保持。旧1929全CAC08历史保后追加、一F处置/四域各一成员/四限定S零I；全父/七载荷及嵌套对象生产消费与owner寿命、SDK/机器ABI/实际创建更新释放和运行仍待，整体未完成。
+
+## 2026-10-10 WSB01：鼠标滚动载荷消费
+
+[WSB01](cg2d_window_scroll_callback_spec.md#window-scroll-source-state)补齐4741A0/4B0F10两完整原根76条211B、一E8/六跳两RET，七实际CALL和十九代码地址发布有据；四滚动原父未归属不猜。整数组xref按实际偏移核58项57536B、16滚动原型（15type4/1type1）和1125零回调槽，未把整表引用当CALL。滚动根上下界和差值三个原阶段读取顺序已明确，初始data持样/低BYTE与W32标志/每阶段现场数组和原边界调整保持；零回调确为33C0/C3只返0，正确body保。两整源三段/四注释及三个结构静态差异通过；两新F/两adapted处置，INPUT/UIRUNTIME各两成员、两限定S零I、九任务open。全父/间接绑定/跨类型载荷生产消费与alias-owner寿命、实际滚动画面、机器ABI和运行仍待，整体未完成。

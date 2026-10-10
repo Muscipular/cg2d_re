@@ -1616,7 +1616,7 @@ std::int32_t Sub_4FB920(std::int32_t index); // 仅清与本次回复槽号相�
 void Sub_4E5DA0(std::int32_t side, std::int32_t first, std::int32_t second); // 交易整条换位。
 void Sub_4E1840(std::int32_t side, std::int32_t first, std::int32_t second); // 展示整条换位。
 void Sub_48BA60(std::int32_t first, std::int32_t second); // UI迁移后再交换同源悬停字节。
-std::int32_t Sub_4B0F10(std::int32_t index, std::int32_t events); // 原真实NULL_FUNC，返回0。
+std::int32_t Sub_4B0F10(std::int32_t index, std::int32_t events); // WSB01：原完整零返回事件回调。
 std::int32_t Sub_4A4210(std::int32_t unused) noexcept; // 原mov eax,1/ret，存档/窗口共用。
 void Sub_4B0000(std::int32_t first, std::int32_t second); // 窗口43的20个槽号及28B标记。
 void Sub_47DCD0(std::int32_t first, std::int32_t second); // 窗口11选择/材料及两组标记。
@@ -1677,7 +1677,7 @@ std::int32_t Sub_49BDB0(std::int32_t unused); // 完整元素绘制后叠加九�
 std::int32_t Sub_472F00(
     std::int32_t left, std::int32_t top, std::int32_t width, std::int32_t height);
 void Sub_473560(std::int32_t index); // 固定元素派发鼠标事件，回调后重读共享阶段。
-std::int32_t Sub_4741A0(std::int32_t index, std::int32_t state); // 前一元素的垂直滚动。
+std::int32_t Sub_4741A0(std::int32_t index, std::int32_t state); // WSB01：低BYTE/W32标志与前项垂直滚动，保原边界取样序。
 std::int32_t Sub_4763E0(); // 通用鼠标重置，不清来源索引/坐标。
 std::int32_t Sub_4763B0(std::int32_t windowId, std::int32_t elementIndex); // 已有kind才写焦点两槽。
 std::int32_t Sub_475D50(); // 同源焦点元素。

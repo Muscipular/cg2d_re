@@ -1738,3 +1738,7 @@ BVP01七整源/十三正文保持是原命名快照历史；本次只纠正4FA8E
 ## 2026-10-10 WCR01：整理、状态取样与关闭接线
 
 [WCR01](../cg2d_window_compact_close_spec.md#window-compact-close-source-state)补齐4730A0/472160两完整原根102条312B、两实际E8同一释放目标/16跳两RET和两个真实父入向。整理根两个状态分支共用原W32样本，直接关闭发布和flags置bit1使用同一保存记录地址；71槽压紧、关闭后左移清末、等层前插/每轮新layer、重排末fresh清位、S32计数及既有释放/父正文保持。两组/三处/四注释，三整源及两个结构静态差异通过；两新语义F、两adapted处置、UIRUNTIME两成员和一限定S零I，九任务仍open。完整状态/窗口表生产消费与回调alias-owner寿命、机器ABI/优化后读取、实际关闭重排和运行仍待，整体未完成。
+
+## 2026-10-10 WSB01：滚动字节载荷与原型回调槽
+
+[WSB01](../cg2d_window_scroll_callback_spec.md#window-scroll-source-state)补齐4741A0/4B0F10两完整原根76条211B、一E8/六跳两RET，七实际CALL和十九代码地址发布有据；四滚动原父未归属不猜。整数组xref按实际偏移核58项57536B、16滚动原型（15type4/1type1）和1125零回调槽，未把整表引用当CALL。滚动根上下界和差值三个原阶段读取顺序已明确，初始data持样/低BYTE与W32标志/每阶段现场数组和原边界调整保持；零回调确为33C0/C3只返0，正确body保。两整源三段/四注释及三个结构静态差异通过；两新F/两adapted处置，INPUT/UIRUNTIME各两成员、两限定S零I、九任务open。全父/间接绑定/跨类型载荷生产消费与alias-owner寿命、实际滚动画面、机器ABI和运行仍待，整体未完成。

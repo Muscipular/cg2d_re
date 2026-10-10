@@ -215114,6 +215114,196 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x4741a0",
+      "inventory_id": "F:000741A0",
+      "original_role": "原前一元素垂直滚动事件回调",
+      "original_end_exclusive": "0x474270",
+      "instruction_count": 74,
+      "function_chunks": [
+        {
+          "start": "0x4741a0",
+          "end_exclusive": "0x474270"
+        }
+      ],
+      "status": "WSB01完整原根纳管，滚动三个取样阶段已明确，正确零回调保持；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4741A0"
+          ],
+          "relationship": "WSB01上下界/差值三个读取阶段明确，原载荷字节借用与其它正文保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4741A0"
+          ],
+          "relationship": "WSB01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_scroll_callback_spec.md#window-scroll-baseline",
+        "doc/cg2d_window_scroll_callback_spec.md#window-scroll-decision",
+        "doc/cg2d_window_scroll_callback_spec.md#window-scroll-acceptance",
+        "doc/cg2d_window_scroll_callback_spec.md#window-scroll-source-state",
+        "doc/cg2d_window_scroll_callback_evidence.json"
+      ],
+      "boundary": "WSB01两个完整原根76条211B/三页、一实际E8到401E60/六跳两RET，七实际CALL及十九代码地址发布有据；四滚动入向原父未归属，保留未知不猜。数据xref为整数组头，按实际item字节与偏移核58项57536B，13项16个32B原型回调槽含滚动地址（15type4/1type1），58项1125槽含零回调地址，只是已知引用项，不代完整间接闭包。滚动原一次data字节地址持样、低BYTE bit1/W32零及3发布、statebit3→结果1、mouseY差后前项height/2更新保持；下界先前项y→当前y并同样本写，上界height→y→前项height→前项y，差值当前y→前项y，各阶段重新取现场数组并写最初data+8，末statebit3零才清原W32 bit1。现有std::byte/memcpy与type1/type4+0/+8关系保持，不强转异型或另造owner。滚动根三个阶段/三段源码及四关联注释，两整源其它全文和三个结构保持；零回调33C0/C3本来只返0，正确body不改，仅限当前窗口签名，不宣所有原调用端/ABI。旧创建/鼠标父/CryptInt身份保持，无新API/helper/类型/字段/保护/默认值/补零/钳制/容量限制/回滚/异常模型，原上下界业务调整保。两新语义F/两adapted处置、INPUT/UIRUNTIME各两成员/两限定S零I/九任务open；全父/间接绑定/表和跨类型载荷生产消费/alias-owner寿命、机器ABI/优化后读取/真实滚动点击画面与全生命周期待，完整枚举/gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，两完整原根76条211B/三页、一实际E8/六跳两RET、七CALL及十九代码地址发布有据；58整数组57536B内滚动13项/16原型与零回调1125槽有实际偏移，四滚动原父未归属不猜。三个阶段/三段与四注释精确重放，两整源其余全文及三个结构、低BYTE/W32 flags/原载荷地址/零回调body保持；全生产消费/间接绑定owner、机器ABI/优化后读取与运行待",
+      "original_incoming": [
+        {
+          "ea": 4686571,
+          "type": 17,
+          "iscode": true,
+          "bytes": "e8b0beffff",
+          "actual_call_target": 4669856,
+          "data_word": null,
+          "parent": null,
+          "asm": "call    sub_4741A0"
+        },
+        {
+          "ea": 4794379,
+          "type": 17,
+          "iscode": true,
+          "bytes": "e89019feff",
+          "actual_call_target": 4669856,
+          "data_word": null,
+          "parent": null,
+          "asm": "call    sub_4741A0"
+        },
+        {
+          "ea": 4882684,
+          "type": 17,
+          "iscode": true,
+          "bytes": "e89fc0fcff",
+          "actual_call_target": 4669856,
+          "data_word": null,
+          "parent": 4882672,
+          "asm": "call    sub_4741A0"
+        },
+        {
+          "ea": 4911259,
+          "type": 17,
+          "iscode": true,
+          "bytes": "e80051fcff",
+          "actual_call_target": 4669856,
+          "data_word": null,
+          "parent": 4911248,
+          "asm": "call    sub_4741A0"
+        },
+        {
+          "ea": 5020555,
+          "type": 17,
+          "iscode": true,
+          "bytes": "e810a6faff",
+          "actual_call_target": 4669856,
+          "data_word": null,
+          "parent": null,
+          "asm": "call    sub_4741A0"
+        },
+        {
+          "ea": 5033627,
+          "type": 17,
+          "iscode": true,
+          "bytes": "e80073faff",
+          "actual_call_target": 4669856,
+          "data_word": null,
+          "parent": null,
+          "asm": "call    sub_4741A0"
+        }
+      ],
+      "window_scroll_callback": {
+        "step": "WSB01",
+        "source_snapshot": "[#] 补齐滚动回调并明确边界读取顺序",
+        "original_end_exclusive": "0x474270",
+        "original_instruction_count": 74,
+        "original_code_bytes": 208,
+        "original_page_count": 2,
+        "direct_call_count": 1,
+        "jump_count": 6,
+        "return_count": 1,
+        "native_signature": "std::int32_t Sub_4741A0(const std::int32_t index, const std::int32_t state)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4741A0",
+        "normal_remaining_source_kept": true,
+        "source_patch_group_count": 3,
+        "source_changed_point_count": 3,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4b0f10",
+      "inventory_id": "F:000B0F10",
+      "original_role": "原零返回窗口事件回调",
+      "original_end_exclusive": "0x4b0f13",
+      "instruction_count": 2,
+      "function_chunks": [
+        {
+          "start": "0x4b0f10",
+          "end_exclusive": "0x4b0f13"
+        }
+      ],
+      "status": "WSB01完整原根纳管，滚动三个取样阶段已明确，正确零回调保持；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4B0F10"
+          ],
+          "relationship": "WSB01原33C0/C3零返回有据，当前窗口事件签名下正确body保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4B0F10"
+          ],
+          "relationship": "WSB01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_scroll_callback_spec.md#window-scroll-baseline",
+        "doc/cg2d_window_scroll_callback_spec.md#window-scroll-decision",
+        "doc/cg2d_window_scroll_callback_spec.md#window-scroll-acceptance",
+        "doc/cg2d_window_scroll_callback_spec.md#window-scroll-source-state",
+        "doc/cg2d_window_scroll_callback_evidence.json"
+      ],
+      "boundary": "WSB01两个完整原根76条211B/三页、一实际E8到401E60/六跳两RET，七实际CALL及十九代码地址发布有据；四滚动入向原父未归属，保留未知不猜。数据xref为整数组头，按实际item字节与偏移核58项57536B，13项16个32B原型回调槽含滚动地址（15type4/1type1），58项1125槽含零回调地址，只是已知引用项，不代完整间接闭包。滚动原一次data字节地址持样、低BYTE bit1/W32零及3发布、statebit3→结果1、mouseY差后前项height/2更新保持；下界先前项y→当前y并同样本写，上界height→y→前项height→前项y，差值当前y→前项y，各阶段重新取现场数组并写最初data+8，末statebit3零才清原W32 bit1。现有std::byte/memcpy与type1/type4+0/+8关系保持，不强转异型或另造owner。滚动根三个阶段/三段源码及四关联注释，两整源其它全文和三个结构保持；零回调33C0/C3本来只返0，正确body不改，仅限当前窗口签名，不宣所有原调用端/ABI。旧创建/鼠标父/CryptInt身份保持，无新API/helper/类型/字段/保护/默认值/补零/钳制/容量限制/回滚/异常模型，原上下界业务调整保。两新语义F/两adapted处置、INPUT/UIRUNTIME各两成员/两限定S零I/九任务open；全父/间接绑定/表和跨类型载荷生产消费/alias-owner寿命、机器ABI/优化后读取/真实滚动点击画面与全生命周期待，完整枚举/gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，两完整原根76条211B/三页、一实际E8/六跳两RET、七CALL及十九代码地址发布有据；58整数组57536B内滚动13项/16原型与零回调1125槽有实际偏移，四滚动原父未归属不猜。三个阶段/三段与四注释精确重放，两整源其余全文及三个结构、低BYTE/W32 flags/原载荷地址/零回调body保持；全生产消费/间接绑定owner、机器ABI/优化后读取与运行待",
+      "original_incoming": [
+        {
+          "ea": 4631197,
+          "type": 17,
+          "iscode": true,
+          "bytes": "e86e640400",
+          "actual_call_target": 4919056,
+          "data_word": null,
+          "parent": 4631040,
+          "asm": "call    NULL_FUNC"
+        }
+      ],
+      "window_scroll_callback": {
+        "step": "WSB01",
+        "source_snapshot": "[#] 补齐滚动回调并明确边界读取顺序",
+        "original_end_exclusive": "0x4b0f13",
+        "original_instruction_count": 2,
+        "original_code_bytes": 3,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 0,
+        "return_count": 1,
+        "native_signature": "std::int32_t Sub_4B0F10(const std::int32_t, const std::int32_t)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4B0F10",
+        "normal_remaining_source_kept": true,
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

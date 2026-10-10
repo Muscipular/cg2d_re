@@ -1822,6 +1822,7 @@ std::array<WindowDragPrototype*, kWindowCount> gWindowDragPrototypes57C24C {
     &gDragPrototypes[33], // 70
 };
 
+// WSB01：原33C0/C3只返0，保留当前窗口事件签名，不补业务。
 std::int32_t Sub_4B0F10(const std::int32_t, const std::int32_t)
 {
     return 0;
@@ -43984,6 +43985,7 @@ void Sub_473560(const std::int32_t index)
     }
 }
 
+// WSB01：原载荷字节借用及上下界/差值三个现场取样阶段见滚动回调SPEC。
 std::int32_t Sub_4741A0(const std::int32_t index, const std::int32_t state)
 {
     // 窗口49的type1与普通type4共享+0/+8语义，按对象字节访问而不强转异型结构。
@@ -44008,17 +44010,24 @@ std::int32_t Sub_4741A0(const std::int32_t index, const std::int32_t state)
         previous->y = y - (previous->height >> 1);
     }
     WindowElement* element = &gCurrentWindow->elements[index];
-    if (element[-1].y < element->y) {
-        element[-1].y = element->y;
+    const std::int32_t previousTopY = element[-1].y;
+    const std::int32_t topY = element->y;
+    if (previousTopY < topY) {
+        element[-1].y = topY;
     }
     element = &gCurrentWindow->elements[index];
-    const std::int32_t bottom = element->y + element->height;
+    const std::int32_t height = element->height;
+    const std::int32_t bottomY = element->y;
+    const std::int32_t bottom = height + bottomY;
     const std::int32_t previousHeight = element[-1].height;
-    if (element[-1].y + previousHeight > bottom) {
+    const std::int32_t previousBottomY = element[-1].y;
+    if (previousBottomY + previousHeight > bottom) {
         element[-1].y = bottom - previousHeight;
     }
     element = &gCurrentWindow->elements[index];
-    const std::int32_t delta = element[-1].y - element->y;
+    const std::int32_t currentY = element->y;
+    const std::int32_t previousY = element[-1].y;
+    const std::int32_t delta = previousY - currentY;
     std::memcpy(data + offsetof(WindowMouseData, deltaY), &delta, sizeof(delta));
     if ((state & 8) == 0) {
         std::uint32_t flags;

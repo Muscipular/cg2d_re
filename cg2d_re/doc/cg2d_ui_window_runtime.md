@@ -451,3 +451,7 @@ BVP01七整源/十三正文保持是原命名快照历史；本次只纠正4FA8E
 ## 2026-10-11 SPD01：实际物品预览链
 
 [SPD01](cg2d_storage_preview_dispatch_spec.md#storage-preview-source-state)补齐窗口41/38物品描述预览分发及48B350标题/八行描述消费，含窗口38三条公共尾，共201条667B/六页、21E8十个唯一目标/16跳七RET。恢复两个滚动flags的BYTE读取，两组两处/四注释；W32标题字段和四次鼠标CryptInt、原预览及真实返回保持。两个旧历史追加/两个新F/四处置，三限定S零I八open，全部owner/文字及画面/ABI与运行待。
+
+## 2026-10-11 TDR01：完整描述绘制入口
+
+[TDR01](cg2d_tooltip_description_render_spec.md#tooltip-description-source-state)补齐层5描述提示绘制48B810完整108条283B/两页，六E8四目标/五跳一RET，九CALL八父局部来源有据。现正文正确全保，仅两合同注释；标题/正文不同截断阶段、跨行色彩、可选footer及背景最后入队/真实返回明确。当前文字含NUL复制与分色前缀释放的正常接线有据，一新F/处置、两限定S零I八open，完整owner/像素画面/ABI及运行待。

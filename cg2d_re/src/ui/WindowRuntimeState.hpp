@@ -1546,7 +1546,7 @@ std::int32_t Sub_4FBA30(
 std::int32_t Sub_48B810(
     std::int32_t x, std::int32_t y, const char* title, std::int8_t titleColor,
     const char* lines, std::int32_t stride, std::int32_t lineCount,
-    const char* footer, std::int8_t footerColor); // 原完整层5提示框。
+    const char* footer, std::int8_t footerColor); // TDR01：完整层5提示，S16正文坐标/色彩续接、可选标题footer与真实背景返回保持。
 std::int32_t Sub_48B930(
     std::int32_t x, std::int32_t y, const char* title, std::int8_t titleColor,
     const char* lines, std::int32_t unusedStride, std::int32_t lineCount,

@@ -239006,6 +239006,365 @@
         "result_boundary": "原物品提示S32透传/两个窗口所有绘图后S32 1，公共三条尾合并在当前父；完整文字队列/动态owner/生成读取和机器ABI待",
         "shared_tail_combined_in_native_parent": false
       }
+    },
+    {
+      "original_entry": "0x48b810",
+      "inventory_id": "F:0008B810",
+      "original_role": "层5提示标题/逐行分色/footer与最后背景入队",
+      "original_end_exclusive": "0x48b92b",
+      "instruction_count": 108,
+      "function_chunks": [
+        {
+          "start": "0x48b810",
+          "end_exclusive": "0x48b92b"
+        }
+      ],
+      "status": "TDR01完整描述提示绘制纳管，正确正文只两注释；限定S，全八父/文字队列-owner/像素/ABI/运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_48B810"
+          ],
+          "relationship": "TDR01完整层5描述提示根，文字/分色/背景顺序及真实返回正确正文保持，仅合同注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_48B810"
+          ],
+          "relationship": "TDR01既有S32真实返回及九参数声明保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_tooltip_description_render_spec.md#tooltip-description-baseline",
+        "doc/cg2d_tooltip_description_render_spec.md#tooltip-description-decision",
+        "doc/cg2d_tooltip_description_render_spec.md#tooltip-description-acceptance",
+        "doc/cg2d_tooltip_description_render_spec.md#tooltip-description-source-state",
+        "doc/cg2d_tooltip_description_render_evidence.json"
+      ],
+      "boundary": "TDR01仅48B810完整108条283B/两页，六E8四目标/五跳一RET，九入CALL来自八父及四有限后邻有据，不将对齐字节/下一原根纳入完整父。九参数x/y原S32、title/footer原非拥有文本指针、color原低S8、lines同源非拥有行指针/stride与lineCount S32；只新F/处置，不重计旧分色808或队列/图形根。当前完整正文正确保，仅定义/声明两合同注释，不为数目改功能或增加接口/helper。原16B descriptor全部零后+8 W32颜色FFFFFFFF/+13 BYTE4保；先456D50模式5清文字尾，456780入空593850字符串(0,0,mode5,font1,color0/value7-marker0)，不是清所有owner或绘制背景。title非空才DrawText((x+10)低S16,(y+10)低S16,5,12,titleColor低S8,title,0,0)，不新增空串/长度门槛。title处理后gTooltipColorD67D30 S32清0，每条description读取首BYTE非零才4FBA30；正文先signextend y低W16，再signextend x低W16，x+10、y+lineY+22按原正常S32传分色leaf，不把标题/正文的截断阶段互套。每轮不论空行或callee结果都lines+=stride与lineY+=13，循环原lineCount>0逐项，<=0跳正文但仍footer/背景，不新增上界或改成固定八行；当前SPD01调用96/8只具体caller，不外推所有九父。4FBA30为既有已完整核原94条分色leaf，只复用现源/历史：$前缀同源宿主临时块、失败返回0/调用者弃返，原绘制→测宽→X推进→源置delimiter+2→释放→S8数字颜色/global更新→再次查找，跨行共享color延续和正常尾段低S8色彩保持，不重建CRT或私自缓存码页转换。当前456780实际先写字段再扫描strlen+1，逐W32/余W8复制含NUL到gTextPendingRecords[].text[255]，前缀在返回后测宽再释放，因此本步同当前源的正常临时文本生命周期接线有据；不据本步重验既有队列原根/所有上游、空尾/续尾/全token或SDK寿命，不引全额容量/保护或延迟借用源指针。footer非空才DrawText((x+10)低S16,(y+127)低S16,5,12,footerColor低S8,footer,0,0)，不使用body颜色或因lineCount变化移动footer。末背景在所有文字之后DrawGraphic3(x/y低S16,layerE6,graphic3BA5D,value4=0,isGraphicNo=1,batchType=0,&descriptor)，返回真实S32原callee结果，不伪造成功或返最后文字值。既有real DrawGraphic3/图形队列与W16承载保，原native DX差异按获批边界，不借descriptor/返回接线关pixel或全生命周期。两整源仅两注释、八提供者(四原callee含分色、两text-copy helper、当前SPD01父与空字串getter)、两类型/两global及四旧语义保持；九CALL只局部来源，全八父/文字全队列owner-alias及背景图/SDK/生成读取/机器ABI/所有画面与互通运行待。一新F一adapted、UI-RENDER各一成员、两限定S零I八open；不引新字段/type/owner/API/helper、lineCount/index/空/容量保护/补零/默认/钳制/回滚或异常模型，MSVC/WAV-only/原命令字段LF明文及所有完整门禁保，整体未完成。",
+      "verification_level": "pass，完整108条283B/两页、六E8四目标/五跳一RET及九CALL八父/四有限后邻有据；两整源精确回放只两注释，正确正文保。层5清尾/标题/正文先Y再X低S16/逐行色彩及footer后背景真实返回明确；八provider/两类型/两global及四旧语义保，当前含NUL文字入队复制在prefix测宽/释放前有据，仅正常局部关系；全八父/文本队列owner/背景与SDK/生成读取/ABI和画面互通运行待",
+      "original_incoming": [
+        {
+          "ea": 4764352,
+          "parent": 4764064,
+          "bytes": "e84b050000",
+          "following": [
+            {
+              "ea": 4764357,
+              "bytes": "83c424",
+              "asm": "add     esp, 24h"
+            },
+            {
+              "ea": 4764360,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            },
+            {
+              "ea": 4764361,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4764362,
+              "bytes": "8bc6",
+              "asm": "mov     eax, esi"
+            }
+          ]
+        },
+        {
+          "ea": 4764472,
+          "parent": 4764064,
+          "bytes": "e8d3040000",
+          "following": [
+            {
+              "ea": 4764477,
+              "bytes": "83c424",
+              "asm": "add     esp, 24h"
+            },
+            {
+              "ea": 4764480,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            },
+            {
+              "ea": 4764481,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4764482,
+              "bytes": "9090909090909090909090909090",
+              "asm": "align 10h"
+            }
+          ]
+        },
+        {
+          "ea": 4764727,
+          "parent": 4764496,
+          "bytes": "e8d4030000",
+          "following": [
+            {
+              "ea": 4764732,
+              "bytes": "83c424",
+              "asm": "add     esp, 24h"
+            },
+            {
+              "ea": 4764735,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            },
+            {
+              "ea": 4764736,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4764737,
+              "bytes": "909090909090909090909090909090",
+              "asm": "align 10h"
+            }
+          ]
+        },
+        {
+          "ea": 4765001,
+          "parent": 4764752,
+          "bytes": "e8c2020000",
+          "following": [
+            {
+              "ea": 4765006,
+              "bytes": "83c424",
+              "asm": "add     esp, 24h"
+            },
+            {
+              "ea": 4765009,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            },
+            {
+              "ea": 4765010,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4765011,
+              "bytes": "90909090909090909090909090",
+              "asm": "align 10h"
+            }
+          ]
+        },
+        {
+          "ea": 4765489,
+          "parent": 4765024,
+          "bytes": "e8da000000",
+          "following": [
+            {
+              "ea": 4765494,
+              "bytes": "83c424",
+              "asm": "add     esp, 24h"
+            },
+            {
+              "ea": 4765497,
+              "bytes": "5f",
+              "asm": "pop     edi"
+            },
+            {
+              "ea": 4765498,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            },
+            {
+              "ea": 4765499,
+              "bytes": "5b",
+              "asm": "pop     ebx"
+            }
+          ]
+        },
+        {
+          "ea": 4765697,
+          "parent": 4765520,
+          "bytes": "e80a000000",
+          "following": [
+            {
+              "ea": 4765702,
+              "bytes": "83c424",
+              "asm": "add     esp, 24h"
+            },
+            {
+              "ea": 4765705,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4765706,
+              "bytes": "909090909090",
+              "asm": "align 10h"
+            },
+            {
+              "ea": 4765712,
+              "bytes": "83ec10",
+              "asm": "sub     esp, 10h"
+            }
+          ]
+        },
+        {
+          "ea": 4994332,
+          "parent": 4993968,
+          "bytes": "e8ef82fcff",
+          "following": [
+            {
+              "ea": 4994337,
+              "bytes": "83c424",
+              "asm": "add     esp, 24h"
+            },
+            {
+              "ea": 4994340,
+              "bytes": "5f",
+              "asm": "pop     edi"
+            },
+            {
+              "ea": 4994341,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            },
+            {
+              "ea": 4994342,
+              "bytes": "5b",
+              "asm": "pop     ebx"
+            }
+          ]
+        },
+        {
+          "ea": 5002812,
+          "parent": 5002448,
+          "bytes": "e8cf61fcff",
+          "following": [
+            {
+              "ea": 5002817,
+              "bytes": "83c424",
+              "asm": "add     esp, 24h"
+            },
+            {
+              "ea": 5002820,
+              "bytes": "5f",
+              "asm": "pop     edi"
+            },
+            {
+              "ea": 5002821,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            },
+            {
+              "ea": 5002822,
+              "bytes": "5b",
+              "asm": "pop     ebx"
+            }
+          ]
+        },
+        {
+          "ea": 5037543,
+          "parent": 5036816,
+          "bytes": "e824dafbff",
+          "following": [
+            {
+              "ea": 5037548,
+              "bytes": "83c424",
+              "asm": "add     esp, 24h"
+            },
+            {
+              "ea": 5037551,
+              "bytes": "e8bc4bfaff",
+              "asm": "call    Window__DrawCurrentWindow"
+            },
+            {
+              "ea": 5037556,
+              "bytes": "5f",
+              "asm": "pop     edi"
+            },
+            {
+              "ea": 5037557,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            }
+          ]
+        }
+      ],
+      "tooltip_description_render": {
+        "step": "TDR01",
+        "source_snapshot": "[#] 补齐描述提示绘制与文字入队合同",
+        "original_entry": "0x48b810",
+        "original_end_exclusive": "0x48b92b",
+        "instruction_count": 108,
+        "code_bytes": 283,
+        "page_count": 2,
+        "direct_calls": 6,
+        "direct_call_targets": [
+          4549968,
+          4548480,
+          5225008,
+          5376368
+        ],
+        "jumps": 5,
+        "returns": 1,
+        "original_incoming_references": [
+          {
+            "ea": 4764352,
+            "type": 17,
+            "code": true
+          },
+          {
+            "ea": 4764472,
+            "type": 17,
+            "code": true
+          },
+          {
+            "ea": 4764727,
+            "type": 17,
+            "code": true
+          },
+          {
+            "ea": 4765001,
+            "type": 17,
+            "code": true
+          },
+          {
+            "ea": 4765489,
+            "type": 17,
+            "code": true
+          },
+          {
+            "ea": 4765697,
+            "type": 17,
+            "code": true
+          },
+          {
+            "ea": 4994332,
+            "type": 17,
+            "code": true
+          },
+          {
+            "ea": 5002812,
+            "type": 17,
+            "code": true
+          },
+          {
+            "ea": 5037543,
+            "type": 17,
+            "code": true
+          }
+        ],
+        "native_signature": "std::int32_t Sub_48B810(\n    const std::int32_t x, const std::int32_t y,\n    const char* const title, const std::int8_t titleColor,\n    const char* lines, const std::int32_t stride, const std::int32_t lineCount,\n    const char* const footer, const std::int8_t footerColor)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "source_comment_count": 2,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原最后DrawGraphic3背景入队S32返回透传；九CALL八父只来源，所有动态owner/ABI待"
+      }
     }
   ]
 }

@@ -7800,6 +7800,7 @@ std::int32_t Sub_4FBA30(
         text, value7, marker);
 }
 
+// TDR01：原48B810完整108条；层5清尾/题目/逐行颜色/可选footer后背景入队，原坐标截断及真实返回保持。
 std::int32_t Sub_48B810(
     const std::int32_t x, const std::int32_t y,
     const char* const title, const std::int8_t titleColor,

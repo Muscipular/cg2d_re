@@ -1493,6 +1493,7 @@ std::int32_t AppendMouseButtonEvents(std::int32_t events)
 }
 
 // 原5FB7F4是最后一条输入上下文的尾槽，不是日志511的font。
+// CLD01：索引0借第24项输入field158，保原前项字体别名；见doc/cg2d_chat_log_line_drawing_spec.md。
 std::int32_t& PreviousChatFont(const std::int32_t index)
 {
     if (index == 0) {
@@ -30141,12 +30142,18 @@ void Sub_4A7640(input::InputContext* const context)
     ScrollInputAndDraw(context, 1024);
 }
 
+// CLD01：原字节分行/逆序绘制与现场尺寸取样；见doc/cg2d_chat_log_line_drawing_spec.md。
 void Sub_4A7750(const std::int32_t x, const std::int32_t y)
 {
     std::int32_t totalHeight = 0;
-    const std::int32_t width = gChatWindowModeD66E04 == 1
-        ? render::gFontMetrics[9].doubleWidth * 44
-        : (gChatWidthUnitsC9A930 + 7) * render::gFontMetrics[9].doubleWidth;
+    std::int32_t width;
+    if (gChatWindowModeD66E04 == 1) {
+        width = render::gFontMetrics[9].doubleWidth * 44;
+    } else {
+        const std::int32_t widthUnits = gChatWidthUnitsC9A930 + 7;
+        const std::int32_t fontWidth = render::gFontMetrics[9].doubleWidth;
+        width = widthUnits * fontWidth;
+    }
     std::int32_t logIndex = world::detail::gWriteIndex626C08;
     logIndex -= gChatScrollOffsetC9A940;
     --logIndex;
@@ -30224,8 +30231,9 @@ void Sub_4A7750(const std::int32_t x, const std::int32_t y)
             for (std::int32_t line = 0; line < lineCount; ++line) {
                 const std::int32_t font = record.fontType;
                 totalHeight += render::gFontMetrics[font].doubleHeight;
-                const std::int32_t heightLimit =
-                    render::gFontMetrics[9].doubleHeight * gChatHeightUnitsC9A938;
+                const std::int32_t fontHeight = render::gFontMetrics[9].doubleHeight;
+                const std::int32_t heightUnits = gChatHeightUnitsC9A938;
+                const std::int32_t heightLimit = fontHeight * heightUnits;
                 if (totalHeight > heightLimit) {
                     return;
                 }

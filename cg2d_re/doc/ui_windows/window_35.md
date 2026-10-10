@@ -272,3 +272,7 @@ world中的同名4B0F10无参包装不算UI重复定义。三源码/头文件剥
 ## 2026-10-10 CIG01：聊天输入宽度消费者
 
 [CIG01](../cg2d_input_scroll_draw_spec.md#input-scroll-source-state)补齐4A7590/4A7640两个完整原根92条327B及三真实入向；明确聊天宽度先字体9 S32宽度、再聊天单位的一处读取序。全局当前context测IME与实参context滚动分离，固定1024入口/既有ScrollInputAndDraw body和所有其他源保持；原caret/offset/width发布、每轮新偏移及低BYTE bit7步长、绘制同一实参有据。两新语义F、INPUT/UIRUNTIME各两成员、两限定S零I，旧依赖与点击父证据复用；完整绘制父、字体/IME/输入/偏移全生产消费和alias-owner寿命、机器ABI/优化后读取/实际交互文字画面与运行仍待，整体未完成。
+
+## 2026-10-10 CLD01：聊天日志宽高消费者
+
+[CLD01](../cg2d_chat_log_line_drawing_spec.md#chat-log-draw-source-state)补齐4A7750完整265条935B原根及一真实入向；普通宽度和每行高度上限两处按原顺序独立取样。512项134H日志、三测宽/原BYTE分行/121H行与逆序绘制、字体回写条件及index0借24项InputContext末field158别名保持，不回绕日志511或新造字段。两处取样/三注释、helper与其它源不改；一新语义F、INPUT/UIRUNTIME/MAP各一成员、三限定S零I。旧四依赖/绘制父身份不改，完整父/全生产消费与alias-owner寿命、机器ABI/实际分行文字颜色画面和运行仍待，整体未完成。

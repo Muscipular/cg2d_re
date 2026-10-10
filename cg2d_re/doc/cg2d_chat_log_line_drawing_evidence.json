@@ -1,0 +1,2101 @@
+{
+  "step": "CLD01",
+  "recorded_on": "2026-10-10",
+  "before_snapshot": "[#] 补齐输入滚动合同并明确宽度取样顺序",
+  "after_snapshot": "[#] 补齐聊天日志绘制并明确尺寸取样顺序",
+  "original_roots": [
+    {
+      "ea": 4880208,
+      "end": 4881143,
+      "chunks": [
+        [
+          4880208,
+          4881143
+        ]
+      ],
+      "instruction_count": 265,
+      "inbound_calls": [
+        {
+          "ea": 4664405,
+          "parent": 4663728,
+          "type": 17,
+          "bytes": "e8f64a0300",
+          "asm": "call    sub_4A7750"
+        }
+      ],
+      "other_references": [],
+      "byte_count": 935,
+      "page_count": 5,
+      "instructions": [
+        {
+          "ea": 4880208,
+          "size": 6,
+          "bytes": "81ec980c0000",
+          "asm": "sub     esp, 0C98h",
+          "call_target": null
+        },
+        {
+          "ea": 4880214,
+          "size": 5,
+          "bytes": "a1046ed600",
+          "asm": "mov     eax, dword_D66E04",
+          "call_target": null
+        },
+        {
+          "ea": 4880219,
+          "size": 1,
+          "bytes": "53",
+          "asm": "push    ebx",
+          "call_target": null
+        },
+        {
+          "ea": 4880220,
+          "size": 1,
+          "bytes": "55",
+          "asm": "push    ebp",
+          "call_target": null
+        },
+        {
+          "ea": 4880221,
+          "size": 2,
+          "bytes": "33c9",
+          "asm": "xor     ecx, ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4880223,
+          "size": 1,
+          "bytes": "56",
+          "asm": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": 4880224,
+          "size": 3,
+          "bytes": "83f801",
+          "asm": "cmp     eax, 1",
+          "call_target": null
+        },
+        {
+          "ea": 4880227,
+          "size": 1,
+          "bytes": "57",
+          "asm": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": 4880228,
+          "size": 4,
+          "bytes": "894c2430",
+          "asm": "mov     [esp+0CA8h+var_C78], ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4880232,
+          "size": 2,
+          "bytes": "7514",
+          "asm": "jnz     short loc_4A777E",
+          "call_target": null
+        },
+        {
+          "ea": 4880234,
+          "size": 5,
+          "bytes": "a14c905500",
+          "asm": "mov     eax, gFontList.doubleWidth+0D8h",
+          "call_target": null
+        },
+        {
+          "ea": 4880239,
+          "size": 3,
+          "bytes": "8d1480",
+          "asm": "lea     edx, [eax+eax*4]",
+          "call_target": null
+        },
+        {
+          "ea": 4880242,
+          "size": 3,
+          "bytes": "8d1c50",
+          "asm": "lea     ebx, [eax+edx*2]",
+          "call_target": null
+        },
+        {
+          "ea": 4880245,
+          "size": 3,
+          "bytes": "c1e302",
+          "asm": "shl     ebx, 2",
+          "call_target": null
+        },
+        {
+          "ea": 4880248,
+          "size": 4,
+          "bytes": "895c241c",
+          "asm": "mov     [esp+0CA8h+var_C8C], ebx",
+          "call_target": null
+        },
+        {
+          "ea": 4880252,
+          "size": 2,
+          "bytes": "eb15",
+          "asm": "jmp     short loc_4A7793",
+          "call_target": null
+        },
+        {
+          "ea": 4880254,
+          "size": 5,
+          "bytes": "a130a9c900",
+          "asm": "mov     eax, dword_C9A930",
+          "call_target": null
+        },
+        {
+          "ea": 4880259,
+          "size": 3,
+          "bytes": "83c007",
+          "asm": "add     eax, 7",
+          "call_target": null
+        },
+        {
+          "ea": 4880262,
+          "size": 7,
+          "bytes": "0faf054c905500",
+          "asm": "imul    eax, gFontList.doubleWidth+0D8h",
+          "call_target": null
+        },
+        {
+          "ea": 4880269,
+          "size": 4,
+          "bytes": "8944241c",
+          "asm": "mov     [esp+0CA8h+var_C8C], eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880273,
+          "size": 2,
+          "bytes": "8bd8",
+          "asm": "mov     ebx, eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880275,
+          "size": 6,
+          "bytes": "8b2d086c6200",
+          "asm": "mov     ebp, gChatLogWriteIndex",
+          "call_target": null
+        },
+        {
+          "ea": 4880281,
+          "size": 6,
+          "bytes": "8b1540a9c900",
+          "asm": "mov     edx, dword_C9A940",
+          "call_target": null
+        },
+        {
+          "ea": 4880287,
+          "size": 2,
+          "bytes": "2bea",
+          "asm": "sub     ebp, edx",
+          "call_target": null
+        },
+        {
+          "ea": 4880289,
+          "size": 4,
+          "bytes": "894c242c",
+          "asm": "mov     [esp+0CA8h+var_C7C], ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4880293,
+          "size": 1,
+          "bytes": "4d",
+          "asm": "dec     ebp",
+          "call_target": null
+        },
+        {
+          "ea": 4880294,
+          "size": 2,
+          "bytes": "7905",
+          "asm": "jns     short loc_4A77AD",
+          "call_target": null
+        },
+        {
+          "ea": 4880296,
+          "size": 5,
+          "bytes": "bdff010000",
+          "asm": "mov     ebp, 1FFh",
+          "call_target": null
+        },
+        {
+          "ea": 4880301,
+          "size": 5,
+          "bytes": "b828b95f00",
+          "asm": "mov     eax, offset gChatLogs.fontType",
+          "call_target": null
+        },
+        {
+          "ea": 4880306,
+          "size": 3,
+          "bytes": "83380e",
+          "asm": "cmp     dword ptr [eax], 0Eh",
+          "call_target": null
+        },
+        {
+          "ea": 4880309,
+          "size": 2,
+          "bytes": "7f15",
+          "asm": "jg      short loc_4A77CC",
+          "call_target": null
+        },
+        {
+          "ea": 4880311,
+          "size": 4,
+          "bytes": "8d54ed00",
+          "asm": "lea     edx, [ebp+ebp*8+0]",
+          "call_target": null
+        },
+        {
+          "ea": 4880315,
+          "size": 4,
+          "bytes": "8d545500",
+          "asm": "lea     edx, [ebp+edx*2+0]",
+          "call_target": null
+        },
+        {
+          "ea": 4880319,
+          "size": 4,
+          "bytes": "8d549500",
+          "asm": "lea     edx, [ebp+edx*4+0]",
+          "call_target": null
+        },
+        {
+          "ea": 4880323,
+          "size": 7,
+          "bytes": "390c95f4b75f00",
+          "asm": "cmp     dword_5FB7F4[edx*4], ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4880330,
+          "size": 2,
+          "bytes": "7d02",
+          "asm": "jge     short loc_4A77CE",
+          "call_target": null
+        },
+        {
+          "ea": 4880332,
+          "size": 2,
+          "bytes": "8908",
+          "asm": "mov     [eax], ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4880334,
+          "size": 5,
+          "bytes": "0534010000",
+          "asm": "add     eax, 134h",
+          "call_target": null
+        },
+        {
+          "ea": 4880339,
+          "size": 5,
+          "bytes": "3d28216200",
+          "asm": "cmp     eax, (offset byte_621FF8+130h)",
+          "call_target": null
+        },
+        {
+          "ea": 4880344,
+          "size": 2,
+          "bytes": "7cd8",
+          "asm": "jl      short loc_4A77B2",
+          "call_target": null
+        },
+        {
+          "ea": 4880346,
+          "size": 4,
+          "bytes": "8d44ed00",
+          "asm": "lea     eax, [ebp+ebp*8+0]",
+          "call_target": null
+        },
+        {
+          "ea": 4880350,
+          "size": 4,
+          "bytes": "8d4c4500",
+          "asm": "lea     ecx, [ebp+eax*2+0]",
+          "call_target": null
+        },
+        {
+          "ea": 4880354,
+          "size": 4,
+          "bytes": "8d548d00",
+          "asm": "lea     edx, [ebp+ecx*4+0]",
+          "call_target": null
+        },
+        {
+          "ea": 4880358,
+          "size": 7,
+          "bytes": "8b049528b95f00",
+          "asm": "mov     eax, gChatLogs.fontType[edx*4]",
+          "call_target": null
+        },
+        {
+          "ea": 4880365,
+          "size": 3,
+          "bytes": "8d0c40",
+          "asm": "lea     ecx, [eax+eax*2]",
+          "call_target": null
+        },
+        {
+          "ea": 4880368,
+          "size": 7,
+          "bytes": "8b8424b00c0000",
+          "asm": "mov     eax, [esp+0CA8h+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": 4880375,
+          "size": 7,
+          "bytes": "2b04cd788f5500",
+          "asm": "sub     eax, gFontList.doubleHeight[ecx*8]",
+          "call_target": null
+        },
+        {
+          "ea": 4880382,
+          "size": 4,
+          "bytes": "89442420",
+          "asm": "mov     [esp+0CA8h+var_C88], eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880386,
+          "size": 2,
+          "bytes": "eb04",
+          "asm": "jmp     short loc_4A7808",
+          "call_target": null
+        },
+        {
+          "ea": 4880388,
+          "size": 4,
+          "bytes": "8b5c241c",
+          "asm": "mov     ebx, [esp+0CA8h+var_C8C]",
+          "call_target": null
+        },
+        {
+          "ea": 4880392,
+          "size": 4,
+          "bytes": "8d54ed00",
+          "asm": "lea     edx, [ebp+ebp*8+0]",
+          "call_target": null
+        },
+        {
+          "ea": 4880396,
+          "size": 4,
+          "bytes": "8d445500",
+          "asm": "lea     eax, [ebp+edx*2+0]",
+          "call_target": null
+        },
+        {
+          "ea": 4880400,
+          "size": 4,
+          "bytes": "8d548500",
+          "asm": "lea     edx, [ebp+eax*4+0]",
+          "call_target": null
+        },
+        {
+          "ea": 4880404,
+          "size": 3,
+          "bytes": "c1e202",
+          "asm": "shl     edx, 2",
+          "call_target": null
+        },
+        {
+          "ea": 4880407,
+          "size": 6,
+          "bytes": "8a82f8b75f00",
+          "asm": "mov     al, byte ptr gChatLogs.text[edx]",
+          "call_target": null
+        },
+        {
+          "ea": 4880413,
+          "size": 6,
+          "bytes": "8dbaf8b75f00",
+          "asm": "lea     edi, gChatLogs.text[edx]",
+          "call_target": null
+        },
+        {
+          "ea": 4880419,
+          "size": 2,
+          "bytes": "84c0",
+          "asm": "test    al, al",
+          "call_target": null
+        },
+        {
+          "ea": 4880421,
+          "size": 6,
+          "bytes": "0f84c1020000",
+          "asm": "jz      loc_4A7AEC",
+          "call_target": null
+        },
+        {
+          "ea": 4880427,
+          "size": 3,
+          "bytes": "83c9ff",
+          "asm": "or      ecx, 0FFFFFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": 4880430,
+          "size": 2,
+          "bytes": "33c0",
+          "asm": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880432,
+          "size": 2,
+          "bytes": "f2ae",
+          "asm": "repne scasb",
+          "call_target": null
+        },
+        {
+          "ea": 4880434,
+          "size": 2,
+          "bytes": "f7d1",
+          "asm": "not     ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4880436,
+          "size": 4,
+          "bytes": "8d742438",
+          "asm": "lea     esi, [esp+0CA8h+var_C70]",
+          "call_target": null
+        },
+        {
+          "ea": 4880440,
+          "size": 2,
+          "bytes": "2bf9",
+          "asm": "sub     edi, ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4880442,
+          "size": 2,
+          "bytes": "8bc1",
+          "asm": "mov     eax, ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4880444,
+          "size": 4,
+          "bytes": "89742410",
+          "asm": "mov     [esp+0CA8h+var_C98], esi",
+          "call_target": null
+        },
+        {
+          "ea": 4880448,
+          "size": 2,
+          "bytes": "8bf7",
+          "asm": "mov     esi, edi",
+          "call_target": null
+        },
+        {
+          "ea": 4880450,
+          "size": 4,
+          "bytes": "8b7c2410",
+          "asm": "mov     edi, [esp+0CA8h+var_C98]",
+          "call_target": null
+        },
+        {
+          "ea": 4880454,
+          "size": 3,
+          "bytes": "c1e902",
+          "asm": "shr     ecx, 2",
+          "call_target": null
+        },
+        {
+          "ea": 4880457,
+          "size": 2,
+          "bytes": "f3a5",
+          "asm": "rep movsd",
+          "call_target": null
+        },
+        {
+          "ea": 4880459,
+          "size": 2,
+          "bytes": "8bc8",
+          "asm": "mov     ecx, eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880461,
+          "size": 2,
+          "bytes": "33c0",
+          "asm": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880463,
+          "size": 3,
+          "bytes": "83e103",
+          "asm": "and     ecx, 3",
+          "call_target": null
+        },
+        {
+          "ea": 4880466,
+          "size": 2,
+          "bytes": "f3a4",
+          "asm": "rep movsb",
+          "call_target": null
+        },
+        {
+          "ea": 4880468,
+          "size": 4,
+          "bytes": "8d7c2438",
+          "asm": "lea     edi, [esp+0CA8h+var_C70]",
+          "call_target": null
+        },
+        {
+          "ea": 4880472,
+          "size": 3,
+          "bytes": "83c9ff",
+          "asm": "or      ecx, 0FFFFFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": 4880475,
+          "size": 2,
+          "bytes": "f2ae",
+          "asm": "repne scasb",
+          "call_target": null
+        },
+        {
+          "ea": 4880477,
+          "size": 2,
+          "bytes": "f7d1",
+          "asm": "not     ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4880479,
+          "size": 1,
+          "bytes": "49",
+          "asm": "dec     ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4880480,
+          "size": 6,
+          "bytes": "8db228b95f00",
+          "asm": "lea     esi, gChatLogs.fontType[edx]",
+          "call_target": null
+        },
+        {
+          "ea": 4880486,
+          "size": 2,
+          "bytes": "8bf9",
+          "asm": "mov     edi, ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4880488,
+          "size": 4,
+          "bytes": "8d542438",
+          "asm": "lea     edx, [esp+0CA8h+var_C70]",
+          "call_target": null
+        },
+        {
+          "ea": 4880492,
+          "size": 2,
+          "bytes": "8b0e",
+          "asm": "mov     ecx, [esi]",
+          "call_target": null
+        },
+        {
+          "ea": 4880494,
+          "size": 4,
+          "bytes": "897c2410",
+          "asm": "mov     [esp+0CA8h+var_C98], edi",
+          "call_target": null
+        },
+        {
+          "ea": 4880498,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4880499,
+          "size": 1,
+          "bytes": "52",
+          "asm": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": 4880500,
+          "size": 4,
+          "bytes": "8974243c",
+          "asm": "mov     [esp+0CB0h+var_C74], esi",
+          "call_target": null
+        },
+        {
+          "ea": 4880504,
+          "size": 5,
+          "bytes": "e8233afaff",
+          "asm": "call    TextMeasure",
+          "call_target": 4502176
+        },
+        {
+          "ea": 4880509,
+          "size": 1,
+          "bytes": "99",
+          "asm": "cdq",
+          "call_target": null
+        },
+        {
+          "ea": 4880510,
+          "size": 2,
+          "bytes": "f7fb",
+          "asm": "idiv    ebx",
+          "call_target": null
+        },
+        {
+          "ea": 4880512,
+          "size": 4,
+          "bytes": "8d4c2440",
+          "asm": "lea     ecx, [esp+0CB0h+var_C70]",
+          "call_target": null
+        },
+        {
+          "ea": 4880516,
+          "size": 2,
+          "bytes": "8bd8",
+          "asm": "mov     ebx, eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880518,
+          "size": 2,
+          "bytes": "8b06",
+          "asm": "mov     eax, [esi]",
+          "call_target": null
+        },
+        {
+          "ea": 4880520,
+          "size": 1,
+          "bytes": "50",
+          "asm": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880521,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4880522,
+          "size": 4,
+          "bytes": "895c2434",
+          "asm": "mov     [esp+0CB8h+var_C84], ebx",
+          "call_target": null
+        },
+        {
+          "ea": 4880526,
+          "size": 5,
+          "bytes": "e80d3afaff",
+          "asm": "call    TextMeasure",
+          "call_target": 4502176
+        },
+        {
+          "ea": 4880531,
+          "size": 1,
+          "bytes": "99",
+          "asm": "cdq",
+          "call_target": null
+        },
+        {
+          "ea": 4880532,
+          "size": 4,
+          "bytes": "f77c242c",
+          "asm": "idiv    [esp+0CB8h+var_C8C]",
+          "call_target": null
+        },
+        {
+          "ea": 4880536,
+          "size": 3,
+          "bytes": "83c410",
+          "asm": "add     esp, 10h",
+          "call_target": null
+        },
+        {
+          "ea": 4880539,
+          "size": 2,
+          "bytes": "85d2",
+          "asm": "test    edx, edx",
+          "call_target": null
+        },
+        {
+          "ea": 4880541,
+          "size": 2,
+          "bytes": "7405",
+          "asm": "jz      short loc_4A78A4",
+          "call_target": null
+        },
+        {
+          "ea": 4880543,
+          "size": 1,
+          "bytes": "43",
+          "asm": "inc     ebx",
+          "call_target": null
+        },
+        {
+          "ea": 4880544,
+          "size": 4,
+          "bytes": "895c2424",
+          "asm": "mov     [esp+0CA8h+var_C84], ebx",
+          "call_target": null
+        },
+        {
+          "ea": 4880548,
+          "size": 2,
+          "bytes": "33c0",
+          "asm": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880550,
+          "size": 2,
+          "bytes": "3bd8",
+          "asm": "cmp     ebx, eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880552,
+          "size": 4,
+          "bytes": "89442418",
+          "asm": "mov     [esp+0CA8h+var_C90], eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880556,
+          "size": 4,
+          "bytes": "89442414",
+          "asm": "mov     [esp+0CA8h+var_C94], eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880560,
+          "size": 6,
+          "bytes": "0f8e08010000",
+          "asm": "jle     loc_4A79BE",
+          "call_target": null
+        },
+        {
+          "ea": 4880566,
+          "size": 2,
+          "bytes": "85ff",
+          "asm": "test    edi, edi",
+          "call_target": null
+        },
+        {
+          "ea": 4880568,
+          "size": 8,
+          "bytes": "c744242800000000",
+          "asm": "mov     [esp+0CA8h+var_C80], 0",
+          "call_target": null
+        },
+        {
+          "ea": 4880576,
+          "size": 6,
+          "bytes": "0f8edf000000",
+          "asm": "jle     loc_4A79A5",
+          "call_target": null
+        },
+        {
+          "ea": 4880582,
+          "size": 3,
+          "bytes": "8d34c0",
+          "asm": "lea     esi, [eax+eax*8]",
+          "call_target": null
+        },
+        {
+          "ea": 4880585,
+          "size": 3,
+          "bytes": "c1e605",
+          "asm": "shl     esi, 5",
+          "call_target": null
+        },
+        {
+          "ea": 4880588,
+          "size": 2,
+          "bytes": "03f0",
+          "asm": "add     esi, eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880590,
+          "size": 4,
+          "bytes": "8b542428",
+          "asm": "mov     edx, [esp+0CA8h+var_C80]",
+          "call_target": null
+        },
+        {
+          "ea": 4880594,
+          "size": 4,
+          "bytes": "8b4c2418",
+          "asm": "mov     ecx, [esp+0CA8h+var_C90]",
+          "call_target": null
+        },
+        {
+          "ea": 4880598,
+          "size": 6,
+          "bytes": "81fd00020000",
+          "asm": "cmp     ebp, 200h",
+          "call_target": null
+        },
+        {
+          "ea": 4880604,
+          "size": 3,
+          "bytes": "8d0416",
+          "asm": "lea     eax, [esi+edx]",
+          "call_target": null
+        },
+        {
+          "ea": 4880607,
+          "size": 4,
+          "bytes": "8a540c38",
+          "asm": "mov     dl, [esp+ecx+0CA8h+var_C70]",
+          "call_target": null
+        },
+        {
+          "ea": 4880611,
+          "size": 7,
+          "bytes": "8d9c045c010000",
+          "asm": "lea     ebx, [esp+eax+0CA8h+var_B4C]",
+          "call_target": null
+        },
+        {
+          "ea": 4880618,
+          "size": 2,
+          "bytes": "8813",
+          "asm": "mov     [ebx], dl",
+          "call_target": null
+        },
+        {
+          "ea": 4880620,
+          "size": 8,
+          "bytes": "c684045d01000000",
+          "asm": "mov     [esp+eax+0CA8h+var_B4B], 0",
+          "call_target": null
+        },
+        {
+          "ea": 4880628,
+          "size": 8,
+          "bytes": "c684045e01000000",
+          "asm": "mov     [esp+eax+0CA8h+var_B4A], 0",
+          "call_target": null
+        },
+        {
+          "ea": 4880636,
+          "size": 2,
+          "bytes": "7e2e",
+          "asm": "jle     short loc_4A792C",
+          "call_target": null
+        },
+        {
+          "ea": 4880638,
+          "size": 6,
+          "bytes": "8b2d086c6200",
+          "asm": "mov     ebp, gChatLogWriteIndex",
+          "call_target": null
+        },
+        {
+          "ea": 4880644,
+          "size": 7,
+          "bytes": "8dbc345c010000",
+          "asm": "lea     edi, [esp+esi+0CA8h+var_B4C]",
+          "call_target": null
+        },
+        {
+          "ea": 4880651,
+          "size": 4,
+          "bytes": "8d44ed00",
+          "asm": "lea     eax, [ebp+ebp*8+0]",
+          "call_target": null
+        },
+        {
+          "ea": 4880655,
+          "size": 4,
+          "bytes": "8d4c4500",
+          "asm": "lea     ecx, [ebp+eax*2+0]",
+          "call_target": null
+        },
+        {
+          "ea": 4880659,
+          "size": 4,
+          "bytes": "8d448d00",
+          "asm": "lea     eax, [ebp+ecx*4+0]",
+          "call_target": null
+        },
+        {
+          "ea": 4880663,
+          "size": 7,
+          "bytes": "8b148528b95f00",
+          "asm": "mov     edx, gChatLogs.fontType[eax*4]",
+          "call_target": null
+        },
+        {
+          "ea": 4880670,
+          "size": 7,
+          "bytes": "8d048528b95f00",
+          "asm": "lea     eax, ds:5FB928h[eax*4]",
+          "call_target": null
+        },
+        {
+          "ea": 4880677,
+          "size": 4,
+          "bytes": "89442434",
+          "asm": "mov     [esp+0CA8h+var_C74], eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880681,
+          "size": 1,
+          "bytes": "52",
+          "asm": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": 4880682,
+          "size": 2,
+          "bytes": "eb0e",
+          "asm": "jmp     short loc_4A793A",
+          "call_target": null
+        },
+        {
+          "ea": 4880684,
+          "size": 4,
+          "bytes": "8b442434",
+          "asm": "mov     eax, [esp+0CA8h+var_C74]",
+          "call_target": null
+        },
+        {
+          "ea": 4880688,
+          "size": 7,
+          "bytes": "8dbc345c010000",
+          "asm": "lea     edi, [esp+esi+0CA8h+var_B4C]",
+          "call_target": null
+        },
+        {
+          "ea": 4880695,
+          "size": 2,
+          "bytes": "8b08",
+          "asm": "mov     ecx, [eax]",
+          "call_target": null
+        },
+        {
+          "ea": 4880697,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4880698,
+          "size": 1,
+          "bytes": "57",
+          "asm": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": 4880699,
+          "size": 5,
+          "bytes": "e86039faff",
+          "asm": "call    TextMeasure",
+          "call_target": 4502176
+        },
+        {
+          "ea": 4880704,
+          "size": 4,
+          "bytes": "8b4c2424",
+          "asm": "mov     ecx, [esp+0CB0h+var_C8C]",
+          "call_target": null
+        },
+        {
+          "ea": 4880708,
+          "size": 3,
+          "bytes": "83c408",
+          "asm": "add     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": 4880711,
+          "size": 2,
+          "bytes": "3bc8",
+          "asm": "cmp     ecx, eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880713,
+          "size": 2,
+          "bytes": "7d2e",
+          "asm": "jge     short loc_4A7979",
+          "call_target": null
+        },
+        {
+          "ea": 4880715,
+          "size": 1,
+          "bytes": "57",
+          "asm": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": 4880716,
+          "size": 5,
+          "bytes": "e83f38faff",
+          "asm": "call    sub_44B190",
+          "call_target": 4501904
+        },
+        {
+          "ea": 4880721,
+          "size": 3,
+          "bytes": "83c404",
+          "asm": "add     esp, 4",
+          "call_target": null
+        },
+        {
+          "ea": 4880724,
+          "size": 3,
+          "bytes": "83f803",
+          "asm": "cmp     eax, 3",
+          "call_target": null
+        },
+        {
+          "ea": 4880727,
+          "size": 2,
+          "bytes": "750c",
+          "asm": "jnz     short loc_4A7965",
+          "call_target": null
+        },
+        {
+          "ea": 4880729,
+          "size": 4,
+          "bytes": "8b442418",
+          "asm": "mov     eax, [esp+0CA8h+var_C90]",
+          "call_target": null
+        },
+        {
+          "ea": 4880733,
+          "size": 3,
+          "bytes": "c60300",
+          "asm": "mov     byte ptr [ebx], 0",
+          "call_target": null
+        },
+        {
+          "ea": 4880736,
+          "size": 1,
+          "bytes": "48",
+          "asm": "dec     eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880737,
+          "size": 4,
+          "bytes": "89442418",
+          "asm": "mov     [esp+0CA8h+var_C90], eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880741,
+          "size": 4,
+          "bytes": "8b4c2414",
+          "asm": "mov     ecx, [esp+0CA8h+var_C94]",
+          "call_target": null
+        },
+        {
+          "ea": 4880745,
+          "size": 6,
+          "bytes": "81c621010000",
+          "asm": "add     esi, 121h",
+          "call_target": null
+        },
+        {
+          "ea": 4880751,
+          "size": 1,
+          "bytes": "41",
+          "asm": "inc     ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4880752,
+          "size": 3,
+          "bytes": "83c8ff",
+          "asm": "or      eax, 0FFFFFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": 4880755,
+          "size": 4,
+          "bytes": "894c2414",
+          "asm": "mov     [esp+0CA8h+var_C94], ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4880759,
+          "size": 2,
+          "bytes": "eb04",
+          "asm": "jmp     short loc_4A797D",
+          "call_target": null
+        },
+        {
+          "ea": 4880761,
+          "size": 4,
+          "bytes": "8b442428",
+          "asm": "mov     eax, [esp+0CA8h+var_C80]",
+          "call_target": null
+        },
+        {
+          "ea": 4880765,
+          "size": 4,
+          "bytes": "8b542418",
+          "asm": "mov     edx, [esp+0CA8h+var_C90]",
+          "call_target": null
+        },
+        {
+          "ea": 4880769,
+          "size": 4,
+          "bytes": "8b4c2410",
+          "asm": "mov     ecx, [esp+0CA8h+var_C98]",
+          "call_target": null
+        },
+        {
+          "ea": 4880773,
+          "size": 1,
+          "bytes": "42",
+          "asm": "inc     edx",
+          "call_target": null
+        },
+        {
+          "ea": 4880774,
+          "size": 2,
+          "bytes": "3bd1",
+          "asm": "cmp     edx, ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4880776,
+          "size": 4,
+          "bytes": "89542418",
+          "asm": "mov     [esp+0CA8h+var_C90], edx",
+          "call_target": null
+        },
+        {
+          "ea": 4880780,
+          "size": 2,
+          "bytes": "7f2c",
+          "asm": "jg      short loc_4A79BA",
+          "call_target": null
+        },
+        {
+          "ea": 4880782,
+          "size": 1,
+          "bytes": "40",
+          "asm": "inc     eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880783,
+          "size": 2,
+          "bytes": "3bc1",
+          "asm": "cmp     eax, ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4880785,
+          "size": 4,
+          "bytes": "89442428",
+          "asm": "mov     [esp+0CA8h+var_C80], eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880789,
+          "size": 6,
+          "bytes": "0f8c33ffffff",
+          "asm": "jl      loc_4A78CE",
+          "call_target": null
+        },
+        {
+          "ea": 4880795,
+          "size": 4,
+          "bytes": "8b442414",
+          "asm": "mov     eax, [esp+0CA8h+var_C94]",
+          "call_target": null
+        },
+        {
+          "ea": 4880799,
+          "size": 4,
+          "bytes": "8b5c2424",
+          "asm": "mov     ebx, [esp+0CA8h+var_C84]",
+          "call_target": null
+        },
+        {
+          "ea": 4880803,
+          "size": 2,
+          "bytes": "8bf9",
+          "asm": "mov     edi, ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4880805,
+          "size": 4,
+          "bytes": "397c2418",
+          "asm": "cmp     [esp+0CA8h+var_C90], edi",
+          "call_target": null
+        },
+        {
+          "ea": 4880809,
+          "size": 2,
+          "bytes": "7f13",
+          "asm": "jg      short loc_4A79BE",
+          "call_target": null
+        },
+        {
+          "ea": 4880811,
+          "size": 1,
+          "bytes": "40",
+          "asm": "inc     eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880812,
+          "size": 2,
+          "bytes": "3bc3",
+          "asm": "cmp     eax, ebx",
+          "call_target": null
+        },
+        {
+          "ea": 4880814,
+          "size": 4,
+          "bytes": "89442414",
+          "asm": "mov     [esp+0CA8h+var_C94], eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880818,
+          "size": 6,
+          "bytes": "0f8cfefeffff",
+          "asm": "jl      loc_4A78B6",
+          "call_target": null
+        },
+        {
+          "ea": 4880824,
+          "size": 2,
+          "bytes": "eb04",
+          "asm": "jmp     short loc_4A79BE",
+          "call_target": null
+        },
+        {
+          "ea": 4880826,
+          "size": 4,
+          "bytes": "8b5c2424",
+          "asm": "mov     ebx, [esp+0CA8h+var_C84]",
+          "call_target": null
+        },
+        {
+          "ea": 4880830,
+          "size": 2,
+          "bytes": "85db",
+          "asm": "test    ebx, ebx",
+          "call_target": null
+        },
+        {
+          "ea": 4880832,
+          "size": 8,
+          "bytes": "c744241400000000",
+          "asm": "mov     [esp+0CA8h+var_C94], 0",
+          "call_target": null
+        },
+        {
+          "ea": 4880840,
+          "size": 6,
+          "bytes": "0f8efa000000",
+          "asm": "jle     loc_4A7AC8",
+          "call_target": null
+        },
+        {
+          "ea": 4880846,
+          "size": 4,
+          "bytes": "8d54ed00",
+          "asm": "lea     edx, [ebp+ebp*8+0]",
+          "call_target": null
+        },
+        {
+          "ea": 4880850,
+          "size": 3,
+          "bytes": "8d0cdb",
+          "asm": "lea     ecx, [ebx+ebx*8]",
+          "call_target": null
+        },
+        {
+          "ea": 4880853,
+          "size": 4,
+          "bytes": "8d445500",
+          "asm": "lea     eax, [ebp+edx*2+0]",
+          "call_target": null
+        },
+        {
+          "ea": 4880857,
+          "size": 4,
+          "bytes": "8d748500",
+          "asm": "lea     esi, [ebp+eax*4+0]",
+          "call_target": null
+        },
+        {
+          "ea": 4880861,
+          "size": 3,
+          "bytes": "c1e602",
+          "asm": "shl     esi, 2",
+          "call_target": null
+        },
+        {
+          "ea": 4880864,
+          "size": 3,
+          "bytes": "c1e105",
+          "asm": "shl     ecx, 5",
+          "call_target": null
+        },
+        {
+          "ea": 4880867,
+          "size": 7,
+          "bytes": "8d940c5c010000",
+          "asm": "lea     edx, [esp+ecx+0CA8h+var_B4C]",
+          "call_target": null
+        },
+        {
+          "ea": 4880874,
+          "size": 7,
+          "bytes": "8d941adffeffff",
+          "asm": "lea     edx, [edx+ebx-121h]",
+          "call_target": null
+        },
+        {
+          "ea": 4880881,
+          "size": 4,
+          "bytes": "89542410",
+          "asm": "mov     [esp+0CA8h+var_C98], edx",
+          "call_target": null
+        },
+        {
+          "ea": 4880885,
+          "size": 6,
+          "bytes": "8b8628b95f00",
+          "asm": "mov     eax, gChatLogs.fontType[esi]",
+          "call_target": null
+        },
+        {
+          "ea": 4880891,
+          "size": 4,
+          "bytes": "8b4c2430",
+          "asm": "mov     ecx, [esp+0CA8h+var_C78]",
+          "call_target": null
+        },
+        {
+          "ea": 4880895,
+          "size": 3,
+          "bytes": "8d3c40",
+          "asm": "lea     edi, [eax+eax*2]",
+          "call_target": null
+        },
+        {
+          "ea": 4880898,
+          "size": 7,
+          "bytes": "030cfd788f5500",
+          "asm": "add     ecx, gFontList.doubleHeight[edi*8]",
+          "call_target": null
+        },
+        {
+          "ea": 4880905,
+          "size": 6,
+          "bytes": "8b3d50905500",
+          "asm": "mov     edi, gFontList.doubleHeight+0D8h",
+          "call_target": null
+        },
+        {
+          "ea": 4880911,
+          "size": 7,
+          "bytes": "0faf3d38a9c900",
+          "asm": "imul    edi, dword_C9A938",
+          "call_target": null
+        },
+        {
+          "ea": 4880918,
+          "size": 2,
+          "bytes": "3bcf",
+          "asm": "cmp     ecx, edi",
+          "call_target": null
+        },
+        {
+          "ea": 4880920,
+          "size": 4,
+          "bytes": "894c2430",
+          "asm": "mov     [esp+0CA8h+var_C78], ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4880924,
+          "size": 6,
+          "bytes": "0f8fca000000",
+          "asm": "jg      loc_4A7AEC",
+          "call_target": null
+        },
+        {
+          "ea": 4880930,
+          "size": 3,
+          "bytes": "803a00",
+          "asm": "cmp     byte ptr [edx], 0",
+          "call_target": null
+        },
+        {
+          "ea": 4880933,
+          "size": 2,
+          "bytes": "7428",
+          "asm": "jz      short loc_4A7A4F",
+          "call_target": null
+        },
+        {
+          "ea": 4880935,
+          "size": 6,
+          "bytes": "8b8e1cb95f00",
+          "asm": "mov     ecx, gChatLogs.color[esi]",
+          "call_target": null
+        },
+        {
+          "ea": 4880941,
+          "size": 4,
+          "bytes": "8b7c2420",
+          "asm": "mov     edi, [esp+0CA8h+var_C88]",
+          "call_target": null
+        },
+        {
+          "ea": 4880945,
+          "size": 2,
+          "bytes": "6a00",
+          "asm": "push    0",
+          "call_target": null
+        },
+        {
+          "ea": 4880947,
+          "size": 1,
+          "bytes": "52",
+          "asm": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": 4880948,
+          "size": 7,
+          "bytes": "8b9424b40c0000",
+          "asm": "mov     edx, [esp+0CB0h+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": 4880955,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4880956,
+          "size": 1,
+          "bytes": "50",
+          "asm": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880957,
+          "size": 2,
+          "bytes": "6a03",
+          "asm": "push    3",
+          "call_target": null
+        },
+        {
+          "ea": 4880959,
+          "size": 1,
+          "bytes": "57",
+          "asm": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": 4880960,
+          "size": 1,
+          "bytes": "52",
+          "asm": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": 4880961,
+          "size": 5,
+          "bytes": "e82aecfaff",
+          "asm": "call    Renderer__DrawText2",
+          "call_target": 4548208
+        },
+        {
+          "ea": 4880966,
+          "size": 4,
+          "bytes": "8b54242c",
+          "asm": "mov     edx, [esp+0CC4h+var_C98]",
+          "call_target": null
+        },
+        {
+          "ea": 4880970,
+          "size": 3,
+          "bytes": "83c41c",
+          "asm": "add     esp, 1Ch",
+          "call_target": null
+        },
+        {
+          "ea": 4880973,
+          "size": 2,
+          "bytes": "eb04",
+          "asm": "jmp     short loc_4A7A53",
+          "call_target": null
+        },
+        {
+          "ea": 4880975,
+          "size": 4,
+          "bytes": "8b7c2420",
+          "asm": "mov     edi, [esp+0CA8h+var_C88]",
+          "call_target": null
+        },
+        {
+          "ea": 4880979,
+          "size": 4,
+          "bytes": "8b442414",
+          "asm": "mov     eax, [esp+0CA8h+var_C94]",
+          "call_target": null
+        },
+        {
+          "ea": 4880983,
+          "size": 3,
+          "bytes": "8d4801",
+          "asm": "lea     ecx, [eax+1]",
+          "call_target": null
+        },
+        {
+          "ea": 4880986,
+          "size": 2,
+          "bytes": "3bd9",
+          "asm": "cmp     ebx, ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4880988,
+          "size": 2,
+          "bytes": "7521",
+          "asm": "jnz     short loc_4A7A7F",
+          "call_target": null
+        },
+        {
+          "ea": 4880990,
+          "size": 6,
+          "bytes": "8b86f4b75f00",
+          "asm": "mov     eax, dword_5FB7F4[esi]",
+          "call_target": null
+        },
+        {
+          "ea": 4880996,
+          "size": 3,
+          "bytes": "83f80e",
+          "asm": "cmp     eax, 0Eh",
+          "call_target": null
+        },
+        {
+          "ea": 4880999,
+          "size": 2,
+          "bytes": "7f04",
+          "asm": "jg      short loc_4A7A6D",
+          "call_target": null
+        },
+        {
+          "ea": 4881001,
+          "size": 2,
+          "bytes": "85c0",
+          "asm": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": 4881003,
+          "size": 2,
+          "bytes": "7d0a",
+          "asm": "jge     short loc_4A7A77",
+          "call_target": null
+        },
+        {
+          "ea": 4881005,
+          "size": 10,
+          "bytes": "c786f4b75f0000000000",
+          "asm": "mov     dword_5FB7F4[esi], 0",
+          "call_target": null
+        },
+        {
+          "ea": 4881015,
+          "size": 6,
+          "bytes": "8b86f4b75f00",
+          "asm": "mov     eax, dword_5FB7F4[esi]",
+          "call_target": null
+        },
+        {
+          "ea": 4881021,
+          "size": 2,
+          "bytes": "eb23",
+          "asm": "jmp     short loc_4A7AA2",
+          "call_target": null
+        },
+        {
+          "ea": 4881023,
+          "size": 7,
+          "bytes": "83be28b95f000e",
+          "asm": "cmp     gChatLogs.fontType[esi], 0Eh",
+          "call_target": null
+        },
+        {
+          "ea": 4881030,
+          "size": 2,
+          "bytes": "7f0a",
+          "asm": "jg      short loc_4A7A92",
+          "call_target": null
+        },
+        {
+          "ea": 4881032,
+          "size": 6,
+          "bytes": "8b86f4b75f00",
+          "asm": "mov     eax, dword_5FB7F4[esi]",
+          "call_target": null
+        },
+        {
+          "ea": 4881038,
+          "size": 2,
+          "bytes": "85c0",
+          "asm": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": 4881040,
+          "size": 2,
+          "bytes": "7d0a",
+          "asm": "jge     short loc_4A7A9C",
+          "call_target": null
+        },
+        {
+          "ea": 4881042,
+          "size": 10,
+          "bytes": "c78628b95f0000000000",
+          "asm": "mov     gChatLogs.fontType[esi], 0",
+          "call_target": null
+        },
+        {
+          "ea": 4881052,
+          "size": 6,
+          "bytes": "8b8628b95f00",
+          "asm": "mov     eax, gChatLogs.fontType[esi]",
+          "call_target": null
+        },
+        {
+          "ea": 4881058,
+          "size": 3,
+          "bytes": "8d0440",
+          "asm": "lea     eax, [eax+eax*2]",
+          "call_target": null
+        },
+        {
+          "ea": 4881061,
+          "size": 6,
+          "bytes": "81ea21010000",
+          "asm": "sub     edx, 121h",
+          "call_target": null
+        },
+        {
+          "ea": 4881067,
+          "size": 4,
+          "bytes": "89542410",
+          "asm": "mov     [esp+0CA8h+var_C98], edx",
+          "call_target": null
+        },
+        {
+          "ea": 4881071,
+          "size": 7,
+          "bytes": "2b3cc5788f5500",
+          "asm": "sub     edi, gFontList.doubleHeight[eax*8]",
+          "call_target": null
+        },
+        {
+          "ea": 4881078,
+          "size": 2,
+          "bytes": "8bc1",
+          "asm": "mov     eax, ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4881080,
+          "size": 2,
+          "bytes": "3bc3",
+          "asm": "cmp     eax, ebx",
+          "call_target": null
+        },
+        {
+          "ea": 4881082,
+          "size": 4,
+          "bytes": "89442414",
+          "asm": "mov     [esp+0CA8h+var_C94], eax",
+          "call_target": null
+        },
+        {
+          "ea": 4881086,
+          "size": 4,
+          "bytes": "897c2420",
+          "asm": "mov     [esp+0CA8h+var_C88], edi",
+          "call_target": null
+        },
+        {
+          "ea": 4881090,
+          "size": 6,
+          "bytes": "0f8c2dffffff",
+          "asm": "jl      loc_4A79F5",
+          "call_target": null
+        },
+        {
+          "ea": 4881096,
+          "size": 4,
+          "bytes": "8b4c242c",
+          "asm": "mov     ecx, [esp+0CA8h+var_C7C]",
+          "call_target": null
+        },
+        {
+          "ea": 4881100,
+          "size": 1,
+          "bytes": "4d",
+          "asm": "dec     ebp",
+          "call_target": null
+        },
+        {
+          "ea": 4881101,
+          "size": 1,
+          "bytes": "41",
+          "asm": "inc     ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4881102,
+          "size": 2,
+          "bytes": "85ed",
+          "asm": "test    ebp, ebp",
+          "call_target": null
+        },
+        {
+          "ea": 4881104,
+          "size": 4,
+          "bytes": "894c242c",
+          "asm": "mov     [esp+0CA8h+var_C7C], ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4881108,
+          "size": 2,
+          "bytes": "7d05",
+          "asm": "jge     short loc_4A7ADB",
+          "call_target": null
+        },
+        {
+          "ea": 4881110,
+          "size": 5,
+          "bytes": "bdff010000",
+          "asm": "mov     ebp, 1FFh",
+          "call_target": null
+        },
+        {
+          "ea": 4881115,
+          "size": 4,
+          "bytes": "8b4c242c",
+          "asm": "mov     ecx, [esp+0CA8h+var_C7C]",
+          "call_target": null
+        },
+        {
+          "ea": 4881119,
+          "size": 5,
+          "bytes": "a144a9c900",
+          "asm": "mov     eax, gChatLogCount",
+          "call_target": null
+        },
+        {
+          "ea": 4881124,
+          "size": 2,
+          "bytes": "3bc8",
+          "asm": "cmp     ecx, eax",
+          "call_target": null
+        },
+        {
+          "ea": 4881126,
+          "size": 6,
+          "bytes": "0f8c18fdffff",
+          "asm": "jl      loc_4A7804",
+          "call_target": null
+        },
+        {
+          "ea": 4881132,
+          "size": 1,
+          "bytes": "5f",
+          "asm": "pop     edi",
+          "call_target": null
+        },
+        {
+          "ea": 4881133,
+          "size": 1,
+          "bytes": "5e",
+          "asm": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": 4881134,
+          "size": 1,
+          "bytes": "5d",
+          "asm": "pop     ebp",
+          "call_target": null
+        },
+        {
+          "ea": 4881135,
+          "size": 1,
+          "bytes": "5b",
+          "asm": "pop     ebx",
+          "call_target": null
+        },
+        {
+          "ea": 4881136,
+          "size": 6,
+          "bytes": "81c4980c0000",
+          "asm": "add     esp, 0C98h",
+          "call_target": null
+        },
+        {
+          "ea": 4881142,
+          "size": 1,
+          "bytes": "c3",
+          "asm": "retn",
+          "call_target": null
+        }
+      ]
+    }
+  ],
+  "original_totals": [
+    {
+      "entry": "0x4a7750",
+      "end": "0x4a7af7",
+      "instructions": 265,
+      "bytes": 935,
+      "pages": 5,
+      "direct_calls": 5,
+      "jumps": 34,
+      "returns": 1
+    }
+  ],
+  "source_before": [
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4A7750",
+      "signature": "void Sub_4A7750(const std::int32_t x, const std::int32_t y)",
+      "line": 30144,
+      "source": "void Sub_4A7750(const std::int32_t x, const std::int32_t y)\n{\n    std::int32_t totalHeight = 0;\n    const std::int32_t width = gChatWindowModeD66E04 == 1\n        ? render::gFontMetrics[9].doubleWidth * 44\n        : (gChatWidthUnitsC9A930 + 7) * render::gFontMetrics[9].doubleWidth;\n    std::int32_t logIndex = world::detail::gWriteIndex626C08;\n    logIndex -= gChatScrollOffsetC9A940;\n    --logIndex;\n    if (logIndex < 0) {\n        logIndex = 511;\n    }\n    for (auto& record : world::detail::gRecords5FB7F8) {\n        if (record.fontType > 14 || PreviousChatFont(logIndex) < 0) {\n            record.fontType = 0;\n        }\n    }\n    std::int32_t drawY = y - render::gFontMetrics[\n        world::detail::gRecords5FB7F8[logIndex].fontType].doubleHeight;\n    std::int32_t processedRecords = 0;\n    char scratch[0xC70];\n    char* const rows = scratch + 0x124;\n    static_assert(0x124 + 10 * 0x121 + 2 == sizeof(scratch));\n    for (;;) {\n        auto& source = world::detail::gRecords5FB7F8[logIndex];\n        if (source.text[0] == '\\0') {\n            return;\n        }\n        std::strcpy(scratch, source.text);\n        const auto textLength = static_cast<std::int32_t>(std::strlen(scratch));\n        std::int32_t* fontSlot = &source.fontType;\n        std::int32_t lineCount = login::detail::TextMeasure(scratch, *fontSlot) / width;\n        if (login::detail::TextMeasure(scratch, *fontSlot) % width != 0) {\n            ++lineCount;\n        }\n\n        std::int32_t sourceOffset = 0;\n        for (std::int32_t lineIndex = 0; lineIndex < lineCount; ++lineIndex) {\n            std::int32_t column = 0;\n            if (textLength > 0) {\n                std::int32_t rowOffset = lineIndex * 0x121;\n                for (;;) {\n                    char* const outputByte = rows + rowOffset + column;\n                    *outputByte = scratch[sourceOffset];\n                    outputByte[1] = '\\0';\n                    outputByte[2] = '\\0';\n                    if (logIndex > 512) {\n                        logIndex = world::detail::gWriteIndex626C08;\n                        fontSlot = &world::detail::gRecords5FB7F8[logIndex].fontType;\n                    }\n                    char* const currentRow = rows + rowOffset;\n                    const std::int32_t rowWidth =\n                        login::detail::TextMeasure(currentRow, *fontSlot);\n                    if (width < rowWidth) {\n                        if (input::ClassifyLastAnsiUnit_44B190(currentRow) == 3) {\n                            *outputByte = '\\0';\n                            --sourceOffset;\n                        }\n                        rowOffset += 0x121;\n                        ++lineIndex;\n                        column = -1;\n                    }\n                    ++sourceOffset;\n                    if (sourceOffset > textLength) {\n                        break;\n                    }\n                    ++column;\n                    if (column >= textLength) {\n                        break;\n                    }\n                }\n            }\n            if (sourceOffset > textLength) {\n                break;\n            }\n        }\n\n        if (lineCount > 0) {\n            auto& record = world::detail::gRecords5FB7F8[logIndex];\n            const char* row = rows + (lineCount - 1) * 0x121;\n            for (std::int32_t line = 0; line < lineCount; ++line) {\n                const std::int32_t font = record.fontType;\n                totalHeight += render::gFontMetrics[font].doubleHeight;\n                const std::int32_t heightLimit =\n                    render::gFontMetrics[9].doubleHeight * gChatHeightUnitsC9A938;\n                if (totalHeight > heightLimit) {\n                    return;\n                }\n                if (*row != '\\0') {\n                    const std::int32_t color = record.color;\n                    static_cast<void>(render::DrawText2_456670(\n                        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),\n                        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)),\n                        3,\n                        std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(font)),\n                        std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(color)),\n                        row, 0));\n                }\n\n                std::int32_t spacingFont;\n                if (line + 1 == lineCount) {\n                    const std::int32_t previous = PreviousChatFont(logIndex);\n                    if (previous > 14 || previous < 0) {\n                        PreviousChatFont(logIndex) = 0;\n                    }\n                    spacingFont = PreviousChatFont(logIndex);\n                } else {\n                    if (record.fontType > 14 || PreviousChatFont(logIndex) < 0) {\n                        record.fontType = 0;\n                    }\n                    spacingFont = record.fontType;\n                }\n                row -= 0x121;\n                drawY -= render::gFontMetrics[spacingFont].doubleHeight;\n            }\n        }\n\n        --logIndex;\n        ++processedRecords;\n        if (logIndex < 0) {\n            logIndex = 511;\n        }\n        if (processedRecords >= world::detail::gCountC9A944) {\n            return;\n        }\n    }\n}\n"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "PreviousChatFont",
+      "signature": "std::int32_t& PreviousChatFont(const std::int32_t index)",
+      "line": 1496,
+      "source": "std::int32_t& PreviousChatFont(const std::int32_t index)\n{\n    if (index == 0) {\n        return input::gInputContexts5F9758[23].field158;\n    }\n    return world::detail::gRecords5FB7F8[index - 1].fontType;\n}\n"
+    }
+  ],
+  "declarations_before": [
+    {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "symbol": "Sub_4A7750",
+      "line": 1671,
+      "source": "void Sub_4A7750(std::int32_t x, std::int32_t y); // 原字节分行、底部逆序绘制及前项字体回写。"
+    }
+  ],
+  "source_patches": [
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "line": 30144,
+      "before": "void Sub_4A7750(const std::int32_t x, const std::int32_t y)",
+      "after": "// CLD01：原字节分行/逆序绘制与现场尺寸取样；见doc/cg2d_chat_log_line_drawing_spec.md。\nvoid Sub_4A7750(const std::int32_t x, const std::int32_t y)"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "line": 1496,
+      "before": "std::int32_t& PreviousChatFont(const std::int32_t index)",
+      "after": "// CLD01：索引0借第24项输入field158，保原前项字体别名；见doc/cg2d_chat_log_line_drawing_spec.md。\nstd::int32_t& PreviousChatFont(const std::int32_t index)"
+    },
+    {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "line": 1671,
+      "before": "void Sub_4A7750(std::int32_t x, std::int32_t y); // 原字节分行、底部逆序绘制及前项字体回写。",
+      "after": "// CLD01：日志分行/字体回写与尺寸合同；见doc/cg2d_chat_log_line_drawing_spec.md。\nvoid Sub_4A7750(std::int32_t x, std::int32_t y); // 原字节分行、底部逆序绘制及前项字体回写。"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "line": 30147,
+      "before": "    const std::int32_t width = gChatWindowModeD66E04 == 1\n        ? render::gFontMetrics[9].doubleWidth * 44\n        : (gChatWidthUnitsC9A930 + 7) * render::gFontMetrics[9].doubleWidth;",
+      "after": "    std::int32_t width;\n    if (gChatWindowModeD66E04 == 1) {\n        width = render::gFontMetrics[9].doubleWidth * 44;\n    } else {\n        const std::int32_t widthUnits = gChatWidthUnitsC9A930 + 7;\n        const std::int32_t fontWidth = render::gFontMetrics[9].doubleWidth;\n        width = widthUnits * fontWidth;\n    }"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "line": 30230,
+      "before": "                const std::int32_t heightLimit =\n                    render::gFontMetrics[9].doubleHeight * gChatHeightUnitsC9A938;",
+      "after": "                const std::int32_t fontHeight = render::gFontMetrics[9].doubleHeight;\n                const std::int32_t heightUnits = gChatHeightUnitsC9A938;\n                const std::int32_t heightLimit = fontHeight * heightUnits;"
+    }
+  ],
+  "logic_changes": [
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "line": 30147,
+      "before": "    const std::int32_t width = gChatWindowModeD66E04 == 1\n        ? render::gFontMetrics[9].doubleWidth * 44\n        : (gChatWidthUnitsC9A930 + 7) * render::gFontMetrics[9].doubleWidth;",
+      "after": "    std::int32_t width;\n    if (gChatWindowModeD66E04 == 1) {\n        width = render::gFontMetrics[9].doubleWidth * 44;\n    } else {\n        const std::int32_t widthUnits = gChatWidthUnitsC9A930 + 7;\n        const std::int32_t fontWidth = render::gFontMetrics[9].doubleWidth;\n        width = widthUnits * fontWidth;\n    }"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "line": 30230,
+      "before": "                const std::int32_t heightLimit =\n                    render::gFontMetrics[9].doubleHeight * gChatHeightUnitsC9A938;",
+      "after": "                const std::int32_t fontHeight = render::gFontMetrics[9].doubleHeight;\n                const std::int32_t heightUnits = gChatHeightUnitsC9A938;\n                const std::int32_t heightLimit = fontHeight * heightUnits;"
+    }
+  ],
+  "state_layout_source": {
+    "path": "src/world/WorldUpdateDependencies.hpp",
+    "source": "// 原 [0x5FB7F8, 0x621FF8)：512 项、每项 0x134 字节，保留未明字段。\nstruct Record5FB7F8 {\n    char text[0x124];\n    std::int32_t color;\n    std::int32_t state;\n    std::int32_t field12C;\n    std::int32_t fontType;\n};\n\nstatic_assert(offsetof(Record5FB7F8, text) == 0x000);\nstatic_assert(offsetof(Record5FB7F8, color) == 0x124);\nstatic_assert(offsetof(Record5FB7F8, state) == 0x128);\nstatic_assert(offsetof(Record5FB7F8, field12C) == 0x12C);\nstatic_assert(offsetof(Record5FB7F8, fontType) == 0x130);\nstatic_assert(sizeof(Record5FB7F8) == 0x134);\n\nextern Record5FB7F8 gRecords5FB7F8[512];\nextern volatile std::int32_t gWriteIndex626C08;\nextern char gLogPath62699C[260];\nextern platform::LegacyFile* volatile gLogStream626C1C;"
+  },
+  "reused_unchanged_semantic_identities": [
+    {
+      "index": 189,
+      "inventory_id": "F:0004B2A0",
+      "original_entry": "0x44B2A0"
+    },
+    {
+      "index": 371,
+      "inventory_id": "F:0004B190",
+      "original_entry": "0x44B190"
+    },
+    {
+      "index": 1191,
+      "inventory_id": "F:00056670",
+      "original_entry": "0x456670"
+    },
+    {
+      "index": 1932,
+      "inventory_id": "F:000729B0",
+      "original_entry": "0x4729b0"
+    }
+  ],
+  "source_patch_group_count": 2,
+  "source_changed_point_count": 2,
+  "source_comment_count": 3,
+  "actual_call_targets": [
+    "0x44b2a0",
+    "0x44b2a0",
+    "0x44b2a0",
+    "0x44b190",
+    "0x456670"
+  ],
+  "inbound_scope": {
+    "total": 1,
+    "internal": 0,
+    "external": 1,
+    "full_external_parents_newly_verified": false
+  },
+  "record_scope": [
+    {
+      "index": 2252,
+      "inventory_id": "F:000A7750",
+      "symbol": "Sub_4A7750",
+      "original_entry": "0x4a7750",
+      "new_semantic_identity": true,
+      "normal_body_kept": false
+    }
+  ],
+  "feature_member_additions": {
+    "FUNC-INPUT": [
+      "F:000A7750"
+    ],
+    "FUNC-UIRUNTIME": [
+      "F:000A7750"
+    ],
+    "FUNC-MAP": [
+      "F:000A7750"
+    ]
+  },
+  "tasks_updated": [
+    "G01",
+    "R01",
+    "R04",
+    "U08",
+    "U09",
+    "U10",
+    "U11",
+    "V03",
+    "V04"
+  ],
+  "expected_counts_after": {
+    "semantic_records": 2253,
+    "semantic_function_records": 2205,
+    "semantic_auxiliary_records": 48,
+    "function_document_links": 2315,
+    "function_document_link_percent": 62.91,
+    "function_dispositions": 1692,
+    "evidence_records": 1489,
+    "feature_members": {
+      "FUNC-INPUT": 74,
+      "FUNC-UIRUNTIME": 107,
+      "FUNC-MAP": 189
+    },
+    "feature_member_inventory_closed": false,
+    "accepted_leaf_features": 0,
+    "closed_tasks": 11,
+    "open_tasks": 49,
+    "closures_open": 6,
+    "global_accepted": false
+  },
+  "verification": {
+    "necessary_static": "pass，完整原根265条935B/五页、五实际E8/三目标/34跳一RET与一外入向；原普通宽度先单位+7再字体宽、每行上限先字体高再高度单位有据，两处依次S32取样。134H日志/前项5FB7F4与24项InputContext末field158地址关系及C70H工作区文本模型有据，不代编译布局。两整源精确重放两处/三注释，helper和其它body/布局source保持；三测宽/原BYTE分行/字体回写/日志环/返回保持，完整父/全owner/机器ABI/优化后读取/运行待",
+    "registry": "pass，旧2252语义/1691F/1486证据及四旧依赖/绘制父身份保持；一新语义F、三限定S零I，INPUT/UIRUNTIME/MAP各一成员和九任务open，只追加对应文档与唯一进度；其它台账/政策/枚举/闭合及全部完整门禁保持",
+    "measurement": "pass，measure_cg2d.ps1终态退出0：3680函数/218导入/3061区间/184叶功能/60任务，仅静态文本汇总",
+    "check": "pass，measure_cg2d.ps1 -Check终态退出0，生成快照/看板与登记输入一致，仅静态文本检查",
+    "derived_scope": "pass，派生仅六metrics/一F/三功能/九任务；2315/3680=62.91%仅关联率，2253=2205F+48X/F1692/E1489，INPUT74/UIRUNTIME107/MAP189；其它字段及全部完整门禁保持",
+    "runtime_verified": false,
+    "full_lifecycle_closed": false,
+    "generated_machine_reads_verified": false,
+    "build_or_test_performed": false,
+    "algorithm_samples_executed": false,
+    "digests_computed_or_compared": false
+  },
+  "source_after": [
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4A7750",
+      "signature": "void Sub_4A7750(const std::int32_t x, const std::int32_t y)",
+      "line": 30146,
+      "source": "void Sub_4A7750(const std::int32_t x, const std::int32_t y)\n{\n    std::int32_t totalHeight = 0;\n    std::int32_t width;\n    if (gChatWindowModeD66E04 == 1) {\n        width = render::gFontMetrics[9].doubleWidth * 44;\n    } else {\n        const std::int32_t widthUnits = gChatWidthUnitsC9A930 + 7;\n        const std::int32_t fontWidth = render::gFontMetrics[9].doubleWidth;\n        width = widthUnits * fontWidth;\n    }\n    std::int32_t logIndex = world::detail::gWriteIndex626C08;\n    logIndex -= gChatScrollOffsetC9A940;\n    --logIndex;\n    if (logIndex < 0) {\n        logIndex = 511;\n    }\n    for (auto& record : world::detail::gRecords5FB7F8) {\n        if (record.fontType > 14 || PreviousChatFont(logIndex) < 0) {\n            record.fontType = 0;\n        }\n    }\n    std::int32_t drawY = y - render::gFontMetrics[\n        world::detail::gRecords5FB7F8[logIndex].fontType].doubleHeight;\n    std::int32_t processedRecords = 0;\n    char scratch[0xC70];\n    char* const rows = scratch + 0x124;\n    static_assert(0x124 + 10 * 0x121 + 2 == sizeof(scratch));\n    for (;;) {\n        auto& source = world::detail::gRecords5FB7F8[logIndex];\n        if (source.text[0] == '\\0') {\n            return;\n        }\n        std::strcpy(scratch, source.text);\n        const auto textLength = static_cast<std::int32_t>(std::strlen(scratch));\n        std::int32_t* fontSlot = &source.fontType;\n        std::int32_t lineCount = login::detail::TextMeasure(scratch, *fontSlot) / width;\n        if (login::detail::TextMeasure(scratch, *fontSlot) % width != 0) {\n            ++lineCount;\n        }\n\n        std::int32_t sourceOffset = 0;\n        for (std::int32_t lineIndex = 0; lineIndex < lineCount; ++lineIndex) {\n            std::int32_t column = 0;\n            if (textLength > 0) {\n                std::int32_t rowOffset = lineIndex * 0x121;\n                for (;;) {\n                    char* const outputByte = rows + rowOffset + column;\n                    *outputByte = scratch[sourceOffset];\n                    outputByte[1] = '\\0';\n                    outputByte[2] = '\\0';\n                    if (logIndex > 512) {\n                        logIndex = world::detail::gWriteIndex626C08;\n                        fontSlot = &world::detail::gRecords5FB7F8[logIndex].fontType;\n                    }\n                    char* const currentRow = rows + rowOffset;\n                    const std::int32_t rowWidth =\n                        login::detail::TextMeasure(currentRow, *fontSlot);\n                    if (width < rowWidth) {\n                        if (input::ClassifyLastAnsiUnit_44B190(currentRow) == 3) {\n                            *outputByte = '\\0';\n                            --sourceOffset;\n                        }\n                        rowOffset += 0x121;\n                        ++lineIndex;\n                        column = -1;\n                    }\n                    ++sourceOffset;\n                    if (sourceOffset > textLength) {\n                        break;\n                    }\n                    ++column;\n                    if (column >= textLength) {\n                        break;\n                    }\n                }\n            }\n            if (sourceOffset > textLength) {\n                break;\n            }\n        }\n\n        if (lineCount > 0) {\n            auto& record = world::detail::gRecords5FB7F8[logIndex];\n            const char* row = rows + (lineCount - 1) * 0x121;\n            for (std::int32_t line = 0; line < lineCount; ++line) {\n                const std::int32_t font = record.fontType;\n                totalHeight += render::gFontMetrics[font].doubleHeight;\n                const std::int32_t fontHeight = render::gFontMetrics[9].doubleHeight;\n                const std::int32_t heightUnits = gChatHeightUnitsC9A938;\n                const std::int32_t heightLimit = fontHeight * heightUnits;\n                if (totalHeight > heightLimit) {\n                    return;\n                }\n                if (*row != '\\0') {\n                    const std::int32_t color = record.color;\n                    static_cast<void>(render::DrawText2_456670(\n                        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),\n                        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)),\n                        3,\n                        std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(font)),\n                        std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(color)),\n                        row, 0));\n                }\n\n                std::int32_t spacingFont;\n                if (line + 1 == lineCount) {\n                    const std::int32_t previous = PreviousChatFont(logIndex);\n                    if (previous > 14 || previous < 0) {\n                        PreviousChatFont(logIndex) = 0;\n                    }\n                    spacingFont = PreviousChatFont(logIndex);\n                } else {\n                    if (record.fontType > 14 || PreviousChatFont(logIndex) < 0) {\n                        record.fontType = 0;\n                    }\n                    spacingFont = record.fontType;\n                }\n                row -= 0x121;\n                drawY -= render::gFontMetrics[spacingFont].doubleHeight;\n            }\n        }\n\n        --logIndex;\n        ++processedRecords;\n        if (logIndex < 0) {\n            logIndex = 511;\n        }\n        if (processedRecords >= world::detail::gCountC9A944) {\n            return;\n        }\n    }\n}\n"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "PreviousChatFont",
+      "signature": "std::int32_t& PreviousChatFont(const std::int32_t index)",
+      "line": 1497,
+      "source": "std::int32_t& PreviousChatFont(const std::int32_t index)\n{\n    if (index == 0) {\n        return input::gInputContexts5F9758[23].field158;\n    }\n    return world::detail::gRecords5FB7F8[index - 1].fontType;\n}\n"
+    }
+  ],
+  "declarations_after": [
+    {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "symbol": "Sub_4A7750",
+      "line": 1672,
+      "source": "void Sub_4A7750(std::int32_t x, std::int32_t y); // 原字节分行、底部逆序绘制及前项字体回写。"
+    }
+  ]
+}

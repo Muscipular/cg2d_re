@@ -212871,6 +212871,76 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x4a7750",
+      "inventory_id": "F:000A7750",
+      "original_role": "原聊天日志分行、逆序绘制与前项字体别名回写",
+      "original_end_exclusive": "0x4a7af7",
+      "instruction_count": 265,
+      "function_chunks": [
+        {
+          "start": "0x4a7750",
+          "end_exclusive": "0x4a7af7"
+        }
+      ],
+      "status": "CLD01完整日志绘制原根纳管，两尺寸读取序明确；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4A7750",
+            "PreviousChatFont"
+          ],
+          "relationship": "CLD01完整日志绘制及既有前项字体别名helper；两处尺寸取样，其余正文保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4A7750"
+          ],
+          "relationship": "CLD01真实内部声明和参数返回保持，仅合同关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_chat_log_line_drawing_spec.md#chat-log-draw-baseline",
+        "doc/cg2d_chat_log_line_drawing_spec.md#chat-log-draw-decision",
+        "doc/cg2d_chat_log_line_drawing_spec.md#chat-log-draw-acceptance",
+        "doc/cg2d_chat_log_line_drawing_spec.md#chat-log-draw-source-state",
+        "doc/cg2d_chat_log_line_drawing_evidence.json"
+      ],
+      "boundary": "CLD01完整原根265条935B/五页、五实际E8/三目标/34跳一RET及一外入向。两组两处依次S32读取：普通宽度先聊天单位+7再字体9宽度，每行高度上限先字体9高度再聊天高度单位；模式1宽度44倍不改。512项134H日志、前项5FB7F4+index*134H在index0借24项InputContext末field158的真实别名、初始512字体回写与最后/非末行条件差异保持，不回绕日志511或造影子字段。三次测宽/两次lineCount运算、C70H工作区/121H行、逐BYTE与随后两NUL/原logIndex>512、类别恰3撤BYTE退源及行列偏移、逆序绘制/低坐标字体颜色/新日志count与环/返回保持。两处取样和三注释，既有PreviousChatFont正确body及其它源保持，无新API/类型/布局/owner/分配释放或保护/默认值/补零/钳制/容量限制/回滚/异常模型；原业务零写入保。旧四callee/绘制父身份不变，父1932仍仅关联。一新语义F、INPUT共享末字段写方/UIRUNTIME绘制/MAP日志消费者各一成员、三限定S零I/九任务open；全父及日志/字体/宽高/输入末字段生产消费和alias-owner寿命、CRT/SDK/机器ABI/优化后读取/真实分行字体颜色画面/全生命周期待，完整枚举/gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，完整原根265条935B/五页、五实际E8/三目标/34跳一RET与一外入向；原普通宽度先单位+7再字体宽、每行上限先字体高再高度单位有据，两处依次S32取样。134H日志/前项5FB7F4与24项InputContext末field158地址关系及C70H工作区文本模型有据，不代编译布局。两整源精确重放两处/三注释，helper和其它body/布局source保持；三测宽/原BYTE分行/字体回写/日志环/返回保持，完整父/全owner/机器ABI/优化后读取/运行待",
+      "original_incoming": [
+        {
+          "ea": 4664405,
+          "parent": 4663728,
+          "type": 17,
+          "bytes": "e8f64a0300",
+          "asm": "call    sub_4A7750"
+        }
+      ],
+      "chat_log_line_drawing": {
+        "step": "CLD01",
+        "source_snapshot": "[#] 补齐聊天日志绘制并明确尺寸取样顺序",
+        "original_end_exclusive": "0x4a7af7",
+        "original_instruction_count": 265,
+        "original_code_bytes": 935,
+        "original_page_count": 5,
+        "direct_call_count": 5,
+        "jump_count": 34,
+        "return_count": 1,
+        "native_signature": "void Sub_4A7750(const std::int32_t x, const std::int32_t y)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4A7750",
+        "native_shared_helper": "src/ui/WindowRuntime.cpp::PreviousChatFont",
+        "normal_source_kept": false,
+        "shared_helper_body_kept": true,
+        "source_patch_group_count": 2,
+        "source_changed_point_count": 2,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

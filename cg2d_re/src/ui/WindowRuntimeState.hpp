@@ -1668,6 +1668,7 @@ void Sub_4740F0(char* destination); // 前10项技能索引的S16槽数，格式
 void Sub_4A7590(input::InputContext* context); // 按聊天宽度滚动目标输入并绘制。
 // CIG01：固定1024宽度及滚动绘制正文保持；见doc/cg2d_input_scroll_draw_spec.md。
 void Sub_4A7640(input::InputContext* context); // 按固定1024像素滚动目标输入并绘制。
+// CLD01：日志分行/字体回写与尺寸合同；见doc/cg2d_chat_log_line_drawing_spec.md。
 void Sub_4A7750(std::int32_t x, std::int32_t y); // 原字节分行、底部逆序绘制及前项字体回写。
 std::int32_t Sub_46FBC0(std::int32_t unused); // 原默认draw回调，完整绘制后返回1。
 std::int32_t Sub_49E750(std::int32_t value); // 窗口39文本居中/到时关闭请求。

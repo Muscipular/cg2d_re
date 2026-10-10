@@ -852,3 +852,7 @@ gate55引用的53读/两个旧writer只绑定出处，BTD1606/BTB185与GTP2215�
 ## 2026-10-10 GMR01：公会邮件回复、计数与持久化
 
 [四完整原根](cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-source-state)/[原码与接线](cg2d_guild_mail_reply_persistence_evidence.json)纳管50F130/50F190实际回复、50EF50活动计数和519550完整两角色保存，共136条443B/五页、17E8/14目标/六跳四RET。删除原gate位型/五域重置→W16恰1统计/W32计数发布→邮件删除返回保；收信原字段/工作区文本借用/反转义→旧排序index持有→kind0生产→外部记录名格式→存档→SE63/320/240→消息(4,3)保；无per回复文本释放。519550原128B路径/当前MSVC FILE域，写完整139480共享区弃返后透传关闭S32、打开失败0，不能凭IDA FILE*类型改返回。四正确body全部保持，仅八关联注释/零逻辑组；旧720/763保历史子记录追加、两新语义/四F、MAP/UIRUNTIME各四成员/NETWORK两回复、三限定S零I/九任务open。全dispatcher/保存外父、工作区与路径记录/文件音频消息全owner、SDK/数值/机器ABI/文本声音画面和实际文件失败运行待，其它原政策/门禁/枚举/六closure保，整体未完成。
+
+## 2026-10-10 CLD01：512项日志消费者与输入末字段别名
+
+[CLD01](cg2d_chat_log_line_drawing_spec.md#chat-log-draw-source-state)补齐4A7750完整265条935B原根及一真实入向；普通宽度和每行高度上限两处按原顺序独立取样。512项134H日志、三测宽/原BYTE分行/121H行与逆序绘制、字体回写条件及index0借24项InputContext末field158别名保持，不回绕日志511或新造字段。两处取样/三注释、helper与其它源不改；一新语义F、INPUT/UIRUNTIME/MAP各一成员、三限定S零I。旧四依赖/绘制父身份不改，完整父/全生产消费与alias-owner寿命、机器ABI/实际分行文字颜色画面和运行仍待，整体未完成。

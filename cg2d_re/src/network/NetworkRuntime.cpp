@@ -2341,6 +2341,7 @@ std::int32_t Sub_510AC0(
         socket, reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// NFI01：fIM三Base62整数按现明文普通空格发送；保原time/seed/rand与共享缓冲时序。
 std::int32_t Sub_510B80(
     const std::uintptr_t socket, const std::int32_t x,
     const std::int32_t y, const std::int32_t direction)
@@ -2386,7 +2387,7 @@ std::int32_t Sub_510B80(
     for (index = 0; index < std::strlen(buffer); ++index) {
         if (buffer[index] == ' ') {
             if (ordinal == selected) {
-                buffer[index] = '\x17';
+                // 服务端不以0x17终止整数token，保普通空格；原选择/RNG消费及fresh借用保持。
                 buffer = reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0);
                 break;
             }

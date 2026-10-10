@@ -793,3 +793,10 @@ flags W16非0且objectIndex完整W32位型相等，才清该槽action并停止�
 [五完整查询根](cg2d_world_object_grid_query_spec.md#world-object-grid-query-source-state)/[原指令与差集](cg2d_world_object_grid_query_evidence.json)合280条765B/五页、十E8唯一401D00/42跳十RET，十入向/八父短窗与返回补窗有据。先used W16/action、X比较、fresh action/Y比较，再W16类别与各掩码；不能以record坐标、预取动作或提前筛选类别/标志替代，实际Read/RNG保持。所有未命中路径尾fresh S32上界，不固定count/cap或动查找游标。
 
 445030必需flags120，mask0失败，返编号或-1；4450D0只类别返0/1；445160只类别返编号或-1；4451F0包含mask0分别跳字段；4452A0排除mask0仍读字段且42失败不取120，两者返完整0/1。五body/十现接线全保，只五CPP/五头注释；比较叶四条15B/一次Read/本组十AL消费成立，原48入向其余38/高EAX ABI及独立身份不外推，旧219/八父八身份保持。五新语义/F/两限定S零I，MAP/Yobi各五成员，六任务/完整gates/枚举及六closure开放，全交互输入/生产/八完整父/正常失败/容量/alias/owner/SDK/ABI/画面声音运行待。
+
+<a id="neighbor-fim-current-20261010"></a>
+## 2026-10-10 NFI01：邻格请求完整生产与发送
+
+[两完整根](cg2d_neighbor_fim_request_plaintext_spec.md#neighbor-fim-source-state)/[原指令/提供者/server判据](cg2d_neighbor_fim_request_plaintext_evidence.json)纳管51B3E0/510B80，合227条676B/五页、25E8十三callee/两SDK tick/20跳三RET，唯一外父469C90弃返窗有据。父正确body保持：cached原位型、两轴各两次减法/fresh target、类别7查询、两F32差/方向、unsigned500门禁、先Y后X发/两tick与发送失败仍更新时间；不合并abs/读取或回滚。
+
+子按CAB05现fIM/Base62字段/普通空格/LF只删原17写入，原time/seed/rand、扫描/fresh buffer和发送结果保持；server分词对17不终止、整数遇17返回0为静态判据，不试包/改server或恢复外壳。补两独立身份（WGQ01当时缺51B3E0的历史结论保），MAP/Yobi仅父、NETWORK仅子三S零I，十二旧身份/所有其它源保持；七任务/完整gates/枚举/六closure开放，完整交互与网络/owner/ABI/画面声音运行待。

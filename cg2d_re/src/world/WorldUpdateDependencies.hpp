@@ -1130,7 +1130,7 @@ extern std::uint16_t gValueF7CA04;
 extern std::uint16_t gValueFF03D8;
 extern std::uint16_t gValueFF0D36; // 原跟随gate；协议和场景共享，不默认启用。
 extern std::uint32_t gValueFF0D38; // 原51B3E0邻格请求的独立时间槽。
-std::uint32_t Sub_51B3E0(); // 完整邻格fIM请求；返回原EAX位型。
+std::uint32_t Sub_51B3E0(); // NFI01：完整邻格fIM父，原EAX位型/两tick保持；现普通空格明文。
 std::uint8_t Sub_469C90(); // 完整移动输入、目标交互与普通/跟随分流。
 std::uint8_t Sub_46F680(); // 完整鼠标目标格投影/绘制与四种事件生产。
 void Sub_46A990(); // 从同一宠物五槽生成9FB938顺序表，gate为0不清表。

@@ -2422,3 +2422,9 @@ ANIMATION/YOBI各两个新成员，BATTLE只Play依赖成员；两新语义/F和
 [五完整正常根](cg2d_world_object_grid_query_spec.md#world-object-grid-query-acceptance)/[原指令与差集](cg2d_world_object_grid_query_evidence.json)登记MAP/YOBI两限定S零I：280条765B/五页、十E8/42跳十RET，十入向/八父短窗与返回补窗；比较叶另四条15B/一Read，仅本组十AL观察，48全库入向另38及独立身份不外推。五body/共享比较读取源/十现接线及八旧身份保持，整CPP/一头只十注释，原W16各掩码/编号或完整0-1/动态界与Read次数有据。
 
 五新语义/F，语义2200→2205、F1631→1636/E1434→1436、MAP151→156/Yobi81→86枚举仍false；六任务open、184叶验收0/60任务11关闭、全部完整gates及六closure/政策保。完整交互/八完整父/全部比较调用/正常失败/容量/alias/owner/SDK/ABI/画面声音/运行仍待，不降总SPEC§10。
+
+## 2026-10-10 NFI01 邻格及fIM明文限定验收
+
+[两完整根](cg2d_neighbor_fim_request_plaintext_spec.md#neighbor-fim-acceptance)/[原指令/source/server判据](cg2d_neighbor_fim_request_plaintext_evidence.json)：227条676B/五页、25E8十三callee/两间接tick/20跳三RET；父正确body保持，子按已批CAB05只删17写，原字段/RNG/扫描/返回/tick保，整两CPP/两头精确差集通过。server只读取证，不以解析判据称运行/互通或原17代码等价；十二旧身份保持，46CDF0仅真实提供者不扩验。
+
+两新语义/F，语义2205→2207、F1636→1638/E1436→1439，MAP156→157/Yobi86→87只父、NETWORK73→74只sender，成员枚举仍false；三限定S零I，七任务open、184叶验收0/60任务11关闭、完整gates及六closure/原政策保。完整callee/唯一外父/正常失败/容量/alias/owner/SDK/ABI/画面声音及fIM/全网络运行待，不降总SPEC§10。

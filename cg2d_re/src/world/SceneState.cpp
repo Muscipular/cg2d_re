@@ -9453,6 +9453,7 @@ void Sub_4FA8E0(const std::int32_t index)
     static_cast<void>(RequestEmoteWithResult_4FA8E0(index));
 }
 
+// NFI01：邻格fIM生产，保两轴双读/F32桥/两tick和先Y后X；现发送普通空格，父主体保持。
 std::uint32_t Sub_51B3E0()
 {
     std::int32_t result = gValue581800;

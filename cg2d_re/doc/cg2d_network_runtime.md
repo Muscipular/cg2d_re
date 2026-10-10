@@ -3790,3 +3790,10 @@ Copy原delimiter S8扩展与源U8比较只在源0..127分支，现U8表达在该
 纠正517480现时接口为uintptr_t socket及上游已存在两处组包调用；84 CALL/83父原数量保。emRV三整数及Godf一注册号各独立容量/格式后fresh输出追加，末S32返回直透；日志/一次observer先于strlen与容量，原L<3N时LF→NUL→+1保持。当前508140实际把D04明文403E50交516B60，空参NULL_FUNC原合法缺省保，752旧描述以具名元数据留历史。
 
 151/752已有原新更新、1764/1765补缺失组包映射，四F处置/三域仅S各21来源、无新I；预期语义1766/有效1759、文档1876（50.98%）、F913/E1088、LOGIN15/CHARACTER29/NETWORK67，R7已审467余2594保持。原格式明文/合法NULL_FUNC缺省、排除和执行限制保持；全83发送父/其它callee、正常owner-alias寿命、完整登录/删除往返、机器ABI链接/运行与R8未验，完整门禁不解除。
+
+<a id="neighbor-fim-current-20261010"></a>
+## 2026-10-10 NFI01：fIM整数的普通空格发送
+
+[局部现格式裁决](cg2d_neighbor_fim_request_plaintext_spec.md#neighbor-fim-decision)/[server与当前source](cg2d_neighbor_fim_request_plaintext_evidence.json)发现510B80原17替换遗留在CAB05当前明文链：server split接受17起点但不终止17，a62toi遇非Base62字符返回0，fIM读取x/y/dir原三字段会受损。当前QueuePlaintext只复制字节，无规范化；因此仅删除选中分支17写，普通空格保留，原fIM/Base62/三个字段/容量/扫描/time-seed-rand/fresh buffer/break、日志观察器/LF/NUL/回调结果及队列不改。服务端只读取证、不修parser，不引新协议、外壳或加解密。
+
+原510B80完整132条340B与51B3E0完整95条336B已纳管，两末端Send物理点只择一、两轴正负分支第二Subtract各择一，不按源码表达式数漏计执行RNG。两新语义/F、NETWORK仅sender限定S（MAP/Yobi只父），零I/新函数，十二旧身份和所有其它源保；七任务/全部完整gates及六closure开放，fIM实际互通/全部数值/owner/SDK/ABI/运行待。

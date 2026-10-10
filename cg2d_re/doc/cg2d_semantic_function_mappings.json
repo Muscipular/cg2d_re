@@ -206202,6 +206202,124 @@
         "full_interaction_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x51b3e0",
+      "inventory_id": "F:0011B3E0",
+      "original_role": "邻格fIM实际数据生产，cached值/两轴双减法、类别7查询/两F32差、方向/unsigned500门禁，先Y后X发送与两tick，原EAX位型返回",
+      "original_end_exclusive": "0x51b530",
+      "instruction_count": 95,
+      "function_chunks": [
+        {
+          "start": "0x51b3e0",
+          "end_exclusive": "0x51b530"
+        }
+      ],
+      "status": "NFI01两完整根限定S，父源保持/子按已批明文合同修17分隔；实际互通/完整owner/运行待",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "cg::world::detail::Sub_51B3E0",
+          "relationship": "邻格fIM实际数据生产，cached值/两轴双减法、类别7查询/两F32差、方向/unsigned500门禁，先Y后X发送与两tick，原EAX位型返回；非新函数/API/布局"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbol": "cg::world::detail::Sub_51B3E0",
+          "relationship": "既有真实声明/参数/返回与类型保持，仅关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_neighbor_fim_request_plaintext_spec.md#neighbor-fim-baseline",
+        "doc/cg2d_neighbor_fim_request_plaintext_spec.md#neighbor-fim-decision",
+        "doc/cg2d_neighbor_fim_request_plaintext_spec.md#neighbor-fim-acceptance",
+        "doc/cg2d_neighbor_fim_request_plaintext_spec.md#neighbor-fim-source-state",
+        "doc/cg2d_neighbor_fim_request_plaintext_evidence.json"
+      ],
+      "boundary": "NFI01两完整原根及唯一外父接线纳管，51B3E0正确完整body/原cached门禁、两轴各两执行Subtract、fresh目标与F32桥、低W32方向、unsigned500/两SDK tick、先Y后X及不按发送结果回滚全保。510B80仅按已批CAB05本机明文格式删除原17写入，保三个Base62字段/原扫描/time32-seed-rand/共享buffer重取/break与发送结果；server split接受17起点却不终止、a62toi遇17返回0为当前UTF-8源码判据，不试包或执行算法，不改服务端/恢复W16/命令混淆/加解密/新增协议。此为具名现格式差异，不宣原17机器码等价；现SDL/MSVC/math/普通算术边界、全部RNG消费者/类型/owner和旧语义保。十三callee只实际提供者绑定、46CDF0缺独立身份不扩验，唯一外父短窗非完整父；所有输入/生产/全callee/正常失败/容量/alias/owner/SDK/机器ABI/画面声音及fIM/完整网络运行待，总SPEC§10不降，RPLAN.24不加保护、默认值、补零、钳制、回滚或异常模型。",
+      "verification_level": "两完整227条676B/五页、25E8十三callee/两个间接GetTickCount/20跳三RET，两个实际入向/唯一外父弃返短窗，原fIM四字节/17唯一写点与现server判据；父body全保/子仅删写及整两CPP/两头精确重放，原字段/RNG/返回/其他源保持，仅必要静态。",
+      "native_provider": {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "cg::world::detail::Sub_51B3E0",
+        "parameters": "std::uint32_t Sub_51B3E0()",
+        "return": "完整原EAX位型，唯一caller弃值，非bool/固定成功",
+        "calling_convention": "既有约定保持"
+      },
+      "neighbor_fim_plaintext": {
+        "step": "NFI01",
+        "source_snapshot": "Git提交说明：[#] 对齐邻格请求并修复明文整数分隔",
+        "original_instruction_count": 95,
+        "original_code_bytes": 336,
+        "original_page_count": 2,
+        "direct_call_count": 13,
+        "jump_count": 9,
+        "return_count": 1,
+        "inbound_call_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_source_kept": true,
+        "approved_wire_difference": false,
+        "full_fim_network_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x510b80",
+      "inventory_id": "F:00110B80",
+      "original_role": "fIM三Base62整数/扫描/time-seed-rand/发送返回；仅当前明文链保普通空格，撤原510CB7的17字节改写",
+      "original_end_exclusive": "0x510cd4",
+      "instruction_count": 132,
+      "function_chunks": [
+        {
+          "start": "0x510b80",
+          "end_exclusive": "0x510cd4"
+        }
+      ],
+      "status": "NFI01两完整根限定S，父源保持/子按已批明文合同修17分隔；实际互通/完整owner/运行待",
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbol": "cg::network::Sub_510B80",
+          "relationship": "fIM三Base62整数/扫描/time-seed-rand/发送返回；仅当前明文链保普通空格，撤原510CB7的17字节改写；非新函数/API/布局"
+        },
+        {
+          "path": "include/cg/network/NetworkRuntime.hpp",
+          "symbol": "cg::network::Sub_510B80",
+          "relationship": "既有真实声明/参数/返回与类型保持，仅关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_neighbor_fim_request_plaintext_spec.md#neighbor-fim-baseline",
+        "doc/cg2d_neighbor_fim_request_plaintext_spec.md#neighbor-fim-decision",
+        "doc/cg2d_neighbor_fim_request_plaintext_spec.md#neighbor-fim-acceptance",
+        "doc/cg2d_neighbor_fim_request_plaintext_spec.md#neighbor-fim-source-state",
+        "doc/cg2d_neighbor_fim_request_plaintext_evidence.json"
+      ],
+      "boundary": "NFI01两完整原根及唯一外父接线纳管，51B3E0正确完整body/原cached门禁、两轴各两执行Subtract、fresh目标与F32桥、低W32方向、unsigned500/两SDK tick、先Y后X及不按发送结果回滚全保。510B80仅按已批CAB05本机明文格式删除原17写入，保三个Base62字段/原扫描/time32-seed-rand/共享buffer重取/break与发送结果；server split接受17起点却不终止、a62toi遇17返回0为当前UTF-8源码判据，不试包或执行算法，不改服务端/恢复W16/命令混淆/加解密/新增协议。此为具名现格式差异，不宣原17机器码等价；现SDL/MSVC/math/普通算术边界、全部RNG消费者/类型/owner和旧语义保。十三callee只实际提供者绑定、46CDF0缺独立身份不扩验，唯一外父短窗非完整父；所有输入/生产/全callee/正常失败/容量/alias/owner/SDK/机器ABI/画面声音及fIM/完整网络运行待，总SPEC§10不降，RPLAN.24不加保护、默认值、补零、钳制、回滚或异常模型。",
+      "verification_level": "两完整227条676B/五页、25E8十三callee/两个间接GetTickCount/20跳三RET，两个实际入向/唯一外父弃返短窗，原fIM四字节/17唯一写点与现server判据；父body全保/子仅删写及整两CPP/两头精确重放，原字段/RNG/返回/其他源保持，仅必要静态。",
+      "native_provider": {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "cg::network::Sub_510B80",
+        "parameters": "std::int32_t Sub_510B80(\n    const std::uintptr_t socket, const std::int32_t x,\n    const std::int32_t y, const std::int32_t direction)",
+        "return": "S32透传SendProtocolBuffer结果；socket既有原生宽度保持",
+        "calling_convention": "既有约定保持"
+      },
+      "neighbor_fim_plaintext": {
+        "step": "NFI01",
+        "source_snapshot": "Git提交说明：[#] 对齐邻格请求并修复明文整数分隔",
+        "original_instruction_count": 132,
+        "original_code_bytes": 340,
+        "original_page_count": 3,
+        "direct_call_count": 12,
+        "jump_count": 11,
+        "return_count": 2,
+        "inbound_call_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "normal_source_kept": false,
+        "approved_wire_difference": true,
+        "full_fim_network_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

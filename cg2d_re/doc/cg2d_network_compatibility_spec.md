@@ -238,3 +238,10 @@ V01首次补明确open记录，V03/全部功能门禁保持open；只登记限�
 ## CAC05 本次连接故障优先项确认（2026-10-09）
 
 用户在本轮澄清中明确“此前故障已好，继续整体缺口”。本次不再把旧连接中现象当作当前未修复故障，不重复修改明文/LF、认证字段或超时。CAC04既有选人入场反馈保持；本次未提供新版本/环境/运行轨迹，不新增完整网络或登录R门禁通过。全部适用互通、业务/失败/生命周期与总SPEC验收继续保留；本线程不运行客户端/试包或测试。
+
+<a id="neighbor-fim-plaintext-current-20261010"></a>
+## 2026-10-10 NFI01：当前fIM整数分隔补正
+
+沿[已确认本机明文格式](#local-server-plaintext-contract)落实[邻格/fIM局部合同](cg2d_neighbor_fim_request_plaintext_spec.md#neighbor-fim-decision)：现server nrproto_splitString接受0x17下个token起点却只终止空格/LF/CR，nrproto_a62toi遇该非Base62字节返回0；nrproto_serv的RECV_PI=fIM按原x/y/dir读取三字段。因此客户端510B80取消唯一17写入，保普通空格。原time/seed/rand消费/选择扫描、Base62/字段、命令和LF、日志/回调/共享buffer与队列/部分发送/原返回保持，服务端无修改。
+
+这是按CAB05现格式修复遗留非兼容分隔，不宣原17机器码等价，不恢复W16/命令变换/加解密、不新增协议/协商/字段/容量或异常保护。源码静态判据成立，未构建/测试/算法运行/试包/客户端或服务运行/摘要；实际fIM互通及完整网络/登录/所有owner与总SPEC§10继续待验。

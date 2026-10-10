@@ -4814,3 +4814,10 @@ Find命中不补action，未命中才领取/创建，先pub返回/空失败不�
 [当前格查询合同](cg2d_world_object_grid_query_spec.md#world-object-grid-query-source-state)核五完整280条765B，保used W16与非空动作后先mapX1E0比较、真才fresh record.action取mapY1F0，再类别与标志。零/一次/两次Read的原短路与计数/RNG不改，原比较叶一Read/SETZ AL由现bool比较器承接，本组十CALL均TEST AL，另外38调用/高EAX机器ABI不宣全验。
 
 现动态上界和五编号/0-1/必需/可选/排除掩码合同保持；编号不是槽，两个编号父分别观察负S32或仅-1不合并，4704A0两次类别查询都执行的父源保持。五body/所有共享源/十现接线与八旧身份全保，只十注释；五新语义/F与两限定S零I，完整动作生产/输入/alias/owner/SDK/ABI/画面声音及运行仍待。
+
+<a id="neighbor-fim-current-20261010"></a>
+## 2026-10-10 NFI01：类别7格查询的完整邻格父
+
+[完整51B3E0父](cg2d_neighbor_fim_request_plaintext_spec.md#neighbor-fim-source-state)现补独立身份，WGQ01旧2201类别查询和既有读取/算术源保持；父X/Y各两减法/符号与fresh目标、类别7查询、目标减玩家的两F32桥/方向、unsigned500/两SDK tick和先Y后X发送不改。Sub469C90唯一外父只弃返窗，旧1677正常移动合同保持不重验全体。
+
+510B80受当前CAB05明文边界仅撤17字节写，保RNG及共享owner/发送返回，现server静态解析会在17返回0而普通空格可终止字段；不称互通/ABI/全callee通过。两新原身份/三限定S零I，MAP/Yobi只父，NETWORK只子，完整动作生产/输入/alias/owner/SDK/ABI/运行仍待。

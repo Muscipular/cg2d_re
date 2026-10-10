@@ -173,7 +173,7 @@ std::int32_t Sub_510AC0(
     std::uintptr_t socket, std::int32_t x, std::int32_t y,
     std::int32_t item, std::int32_t target);
 
-// 原510B80：fIM三整数、原time/RNG重设及空格0x17替换，再透传发送返回。
+// NFI01：fIM三整数/普通空格，原time/RNG消费与发送返回保持；原17替换不接现明文格式。
 std::int32_t Sub_510B80(
     std::uintptr_t socket, std::int32_t x, std::int32_t y, std::int32_t direction);
 

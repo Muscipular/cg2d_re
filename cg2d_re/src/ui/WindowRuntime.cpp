@@ -8415,6 +8415,7 @@ bool Sub_4C7340(WindowItemSelectorState* const state, const std::int32_t mode)
     return true;
 }
 
+// SEV01：页签提示/点击/绘制与图号原序；中心坐标显式取样，descriptor地址先图号；bool限原AL消费。
 bool Sub_4C7380(
     WindowItemSelectorState* const state, const std::int32_t tab, const std::int32_t events)
 {
@@ -8461,14 +8462,20 @@ bool Sub_4C7380(
         }
         consumed = true;
     }
+    const std::int32_t width = element->width;
     const WindowInstance* const window = gCurrentWindow;
-    const std::int32_t x = element->width / 2 + window->x + element->x + 1;
-    const std::int32_t y = element->height / 2 + window->y + element->y + 1;
+    const std::int32_t windowX = window->x;
+    const std::int32_t elementX = element->x;
+    const std::int32_t x = width / 2 + windowX + elementX + 1;
+    const std::int32_t height = element->height;
+    const std::int32_t windowY = window->y;
+    const std::int32_t elementY = element->y;
+    const std::int32_t y = height / 2 + windowY + elementY + 1;
     const std::int32_t page = state->value60;
     if ((page == 2 || page == 3) && std::bit_cast<std::int8_t>(*state->mode68) == tab) {
-        static_cast<void>(login::detail::DrawGraphic(
-            x, y, 223, images54F5F4[tab * 4 + (hovered ? 3 : 1)],
-            0, &state->descriptors3B8[0]));
+        const render::GraphicDescriptor16* const descriptor = &state->descriptors3B8[0];
+        const std::int32_t image = images54F5F4[tab * 4 + (hovered ? 3 : 1)];
+        static_cast<void>(login::detail::DrawGraphic(x, y, 223, image, 0, descriptor));
     }
     std::int32_t imageIndex;
     if ((events & 8) != 0) {
@@ -8484,6 +8491,7 @@ bool Sub_4C7380(
     return consumed;
 }
 
+// SEV01：原event低BYTE bit2触发声音后翻转BYTE预览开关，图号8/1优先，正确body保持，bool仅原AL。
 bool Sub_4C78A0(WindowItemSelectorState* const state, const std::int32_t events)
 {
     bool consumed = false;
@@ -8496,6 +8504,7 @@ bool Sub_4C78A0(WindowItemSelectorState* const state, const std::int32_t events)
     return consumed;
 }
 
+// SEV01：先翻BYTE装备/回调，失效AL早返保部分写；目标先回调、尾selected先推进/count后取，不钳制数量。
 bool Sub_4C7910(WindowItemSelectorState* const state, const std::int32_t events)
 {
     bool consumed = false;
@@ -8506,16 +8515,25 @@ bool Sub_4C7910(WindowItemSelectorState* const state, const std::int32_t events)
         const std::uint8_t enabled = previous == 0;
         state->value3ED = enabled;
         if (std::bit_cast<std::int8_t>(*mode) > 0) {
-            state->elements00[1]->mouseCallback = enabled == 1
-                ? state->callbacks50[2] : Sub_4B0F10;
+            if (enabled == 1) {
+                WindowElement* const element = state->elements00[1];
+                const WindowElementCallback callback = state->callbacks50[2];
+                element->mouseCallback = callback;
+            } else {
+                state->elements00[1]->mouseCallback = Sub_4B0F10;
+            }
             if (!world::IsValidPetIndex_51C410(state->selectedPet70)) {
                 return false;
             }
-            for (std::int32_t position = 0;
-                 position < world::detail::gPetRuntimeF633F8[state->selectedPet70].values6D8[0];
-                 ++position) {
+            const std::int32_t selected = state->selectedPet70;
+            std::int32_t position = 0;
+            std::int32_t itemSlots = world::detail::gPetRuntimeF633F8[selected].values6D8[0];
+            while (position < itemSlots) {
                 const std::uint8_t visible = state->value3ED == 0;
                 state->elements00[9 + position]->visible = visible;
+                const std::int32_t nextSelected = state->selectedPet70;
+                ++position;
+                itemSlots = world::detail::gPetRuntimeF633F8[nextSelected].values6D8[0];
             }
         }
         consumed = true;
@@ -8524,6 +8542,7 @@ bool Sub_4C7910(WindowItemSelectorState* const state, const std::int32_t events)
     return consumed;
 }
 
+// SEV01：低U16两个方向门槛独立，先正向S32余8再反向减1/原加8；两声效/原顺序保，父固定返回0。
 bool Sub_4C7A10(WindowItemSelectorState* const state, const std::int32_t events)
 {
     bool consumed = false;

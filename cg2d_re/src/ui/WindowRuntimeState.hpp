@@ -461,10 +461,10 @@ void Sub_4C6B10(WindowItemSelectorState* state); // 消费本帧hover，宠物�
 std::int32_t Sub_4C6D90(WindowItemSelectorState* state); // PSP01：同一非拥有预览推进/两轴/队列；掩码替换字节先旧字节，返回/原读取门槛保持。
 std::int32_t Sub_4C71C0(std::int32_t ordinal); // PSP01：五排序对按used W16/索引S16/状态W16计数；不足仍取末扫描项，不新增匹配/索引保护。
 bool Sub_4C7340(WindowItemSelectorState* state, std::int32_t mode); // SPG01：写mode低BYTE后持旧页；页3按新mode切2/3、页2不切；bool仅承接原AL=1，高位ABI待。
-bool Sub_4C7380(WindowItemSelectorState* state, std::int32_t tab, std::int32_t events);
-bool Sub_4C78A0(WindowItemSelectorState* state, std::int32_t events); // 预览显示开关及按钮图。
-bool Sub_4C7910(WindowItemSelectorState* state, std::int32_t events); // 装备开关，索引无效时保留部分改写。
-bool Sub_4C7A10(WindowItemSelectorState* state, std::int32_t events); // 低U16两方向事件独立处理。
+bool Sub_4C7380(WindowItemSelectorState* state, std::int32_t tab, std::int32_t events); // SEV01：页签提示/点击/绘制与图号原序；中心坐标显式取样，descriptor地址先图号；bool限原AL消费。
+bool Sub_4C78A0(WindowItemSelectorState* state, std::int32_t events); // SEV01：原event低BYTE bit2触发声音后翻转BYTE预览开关，图号8/1优先，正确body保持，bool仅原AL。
+bool Sub_4C7910(WindowItemSelectorState* state, std::int32_t events); // SEV01：先翻BYTE装备/回调，失效AL早返保部分写；目标先回调、尾selected先推进/count后取，不钳制数量。
+bool Sub_4C7A10(WindowItemSelectorState* state, std::int32_t events); // SEV01：低U16两个方向门槛独立，先正向S32余8再反向减1/原加8；两声效/原顺序保，父固定返回0。
 void Sub_4C7A90(WindowItemSelectorState* state); // SFD01：首次借mode地址、previous=-1、切页后置initialized；尾逐帧分发，上行两窗口回调固定返回1。
 // ISP01：原local负值返-1，成功后取当前窗口，再按元素X/窗口X取样累加。
 std::int32_t Sub_4C7240(

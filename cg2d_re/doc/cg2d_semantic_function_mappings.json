@@ -228022,6 +228022,1398 @@
         "runtime_verified": false,
         "result_boundary": "原this地址仅拓宽typed state指针，正常返回保持"
       }
+    },
+    {
+      "original_entry": "0x4c7380",
+      "inventory_id": "F:000C7380",
+      "original_role": "页签悬停提示/切页和按钮图像发布",
+      "original_end_exclusive": "0x4c759e",
+      "instruction_count": 194,
+      "function_chunks": [
+        {
+          "start": "0x4c7380",
+          "end_exclusive": "0x4c759e"
+        }
+      ],
+      "status": "SEV01完整按钮事件原根纳管，四组取样/两正确body保持；限定S/全生产消费/callee/owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C7380"
+          ],
+          "relationship": "SEV01完整原根/字段及事件发布，原取样对齐，两正确body保持，仅必要差异"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4C7380"
+          ],
+          "relationship": "SEV01真实参数/返回声明保持，仅合同注释；原返回分界具名，不记全机器ABI等价"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_selector_button_event_spec.md#selector-event-baseline",
+        "doc/cg2d_selector_button_event_spec.md#selector-event-decision",
+        "doc/cg2d_selector_button_event_spec.md#selector-event-acceptance",
+        "doc/cg2d_selector_button_event_spec.md#selector-event-source-state",
+        "doc/cg2d_selector_button_event_evidence.json"
+      ],
+      "boundary": "SEV01四完整原根352条1028B/八页，九E8五目标/46跳九RET，十入CALL/八后邻和S32图表64B有据，不代全部外父。7380入口借element(tab+2)/graphic，eventbit1持hover；原六提示按page0或2/3与S8 mode/tab选择，GBK与MSVC strcpy决议保持。bit2先当前window W32 state bit2000→声51/320（旧第三压参240未作为现二有效参接口恢复）→新page和mode，page0或2/3切1/4，任何page点按consumed1保。原中心width→当前window→windowX→elementX及X，再height→windowY→elementY及Y；同window指针不冻结入口窗口或元素数值；page2/3且S8mode等tab才先descriptor0地址再图表像绘制，尾image8优先2/hover3/新page非0按新mode差+1/否则0，写入口graphic后仅AL返回。78A0低BYTE事件bit2声后翻转BYTE3EC，图index8优先2/1为3/否则1，正确body保。7910声后previous BYTE→mode地址→新enabled发布，正S8mode时enabled1先目标元素后callbacks2，elseNULL；AL范围失败原false早返保已写开关/回调、不更新图/不补回滚。成功循环初读新selected/count，原每次visible BYTE→目标W32写→fresh selected在position++前、count在++后；两样本分开，不冻结全循环或新clamp6。7A10低U16 mask402/804两条件独立，各声后新方向；先S32(direction+1)%8，再减1发布/负时原+8再次发布，保原两声/顺序/字段、不改为else或归一化异常，正确body保。四组四处（两中心/绘制持址与目标/循环尾取序）、八注释，两整源其它全文/两正确body、五类型与十caller body和其它五callee记录保持。六CALL消费低AL（五NEG AL归一/一存AL后归一）；四不消费（7380两父独立覆盖、7A10两父XOR EAX0），不据此高24位/全机器ABI等价。原六提示/64B图表值与返回/发布序保，不加tab范围或动态数量/字体容量保护；全部按钮输入/排序对/宠物/占用/提示/声音/窗口和descriptor生产消费、所有外父/callee/回调及alias-owner寿命/SDK/生成取样/实际操作像素声音与运行待。四新F四adapted/四限定S零I十open；无新API/helper/布局/字段/owner/保护/默认值/补零/新钳制/回滚/异常模型，48有界代码/完整枚举gates/六closure/总SPEC§10、MSVC/WAV-only/明文网络保持。",
+      "verification_level": "pass，四完整连续原根352条1028B/八页、九E8五目标/46跳九RET、十入CALL/64B表；原六坐标/descriptor先图号与目标先回调/循环尾selected先推进-count后取有据；两整源精确差异四组四处/八注释、两正确body/五类型/十caller与现音频接口保；六低AL消费/四不消费分界明确，高位/全ABI/全生产消费和owner、实际操作与运行待",
+      "original_incoming": [
+        {
+          "ea": 4755116,
+          "bytes": "e8cfe40300",
+          "parent": 4755104,
+          "call_target": 5010304,
+          "following": [
+            {
+              "ea": 4755121,
+              "size": 2,
+              "bytes": "f6d8",
+              "asm": "neg     al"
+            },
+            {
+              "ea": 4755123,
+              "size": 2,
+              "bytes": "1bc0",
+              "asm": "sbb     eax, eax"
+            },
+            {
+              "ea": 4755125,
+              "size": 2,
+              "bytes": "f7d8",
+              "asm": "neg     eax"
+            },
+            {
+              "ea": 4755127,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4755128,
+              "size": 8,
+              "bytes": "9090909090909090",
+              "asm": "align 10h"
+            },
+            {
+              "ea": 4755136,
+              "size": 1,
+              "bytes": "51",
+              "asm": "push    ecx"
+            },
+            {
+              "ea": 4755137,
+              "size": 4,
+              "bytes": "8b442408",
+              "asm": "mov     eax, [esp+4+arg_0]"
+            },
+            {
+              "ea": 4755141,
+              "size": 1,
+              "bytes": "53",
+              "asm": "push    ebx"
+            }
+          ]
+        },
+        {
+          "ea": 4755336,
+          "bytes": "e8f3e30300",
+          "parent": 4755136,
+          "call_target": 5010304,
+          "following": [
+            {
+              "ea": 4755341,
+              "size": 4,
+              "bytes": "88442413",
+              "asm": "mov     [esp+14h+var_1], al"
+            },
+            {
+              "ea": 4755345,
+              "size": 2,
+              "bytes": "33c0",
+              "asm": "xor     eax, eax"
+            },
+            {
+              "ea": 4755347,
+              "size": 4,
+              "bytes": "8a4c2413",
+              "asm": "mov     cl, [esp+14h+var_1]"
+            },
+            {
+              "ea": 4755351,
+              "size": 1,
+              "bytes": "5f",
+              "asm": "pop     edi"
+            },
+            {
+              "ea": 4755352,
+              "size": 2,
+              "bytes": "84c9",
+              "asm": "test    cl, cl"
+            },
+            {
+              "ea": 4755354,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            },
+            {
+              "ea": 4755355,
+              "size": 1,
+              "bytes": "5d",
+              "asm": "pop     ebp"
+            },
+            {
+              "ea": 4755356,
+              "size": 3,
+              "bytes": "0f95c0",
+              "asm": "setnz   al"
+            }
+          ]
+        },
+        {
+          "ea": 4823884,
+          "bytes": "e82fd80200",
+          "parent": 4823872,
+          "call_target": 5010304,
+          "following": [
+            {
+              "ea": 4823889,
+              "size": 2,
+              "bytes": "33c0",
+              "asm": "xor     eax, eax"
+            },
+            {
+              "ea": 4823891,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4823892,
+              "size": 12,
+              "bytes": "909090909090909090909090",
+              "asm": "align 10h"
+            },
+            {
+              "ea": 4823904,
+              "size": 4,
+              "bytes": "8b442404",
+              "asm": "mov     eax, [esp+arg_0]"
+            },
+            {
+              "ea": 4823908,
+              "size": 1,
+              "bytes": "53",
+              "asm": "push    ebx"
+            },
+            {
+              "ea": 4823909,
+              "size": 1,
+              "bytes": "55",
+              "asm": "push    ebp"
+            },
+            {
+              "ea": 4823910,
+              "size": 1,
+              "bytes": "56",
+              "asm": "push    esi"
+            },
+            {
+              "ea": 4823911,
+              "size": 1,
+              "bytes": "57",
+              "asm": "push    edi"
+            }
+          ]
+        },
+        {
+          "ea": 4824089,
+          "bytes": "e862d70200",
+          "parent": 4823904,
+          "call_target": 5010304,
+          "following": [
+            {
+              "ea": 4824094,
+              "size": 1,
+              "bytes": "5f",
+              "asm": "pop     edi"
+            },
+            {
+              "ea": 4824095,
+              "size": 2,
+              "bytes": "8bc5",
+              "asm": "mov     eax, ebp"
+            },
+            {
+              "ea": 4824097,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            },
+            {
+              "ea": 4824098,
+              "size": 1,
+              "bytes": "5d",
+              "asm": "pop     ebp"
+            },
+            {
+              "ea": 4824099,
+              "size": 1,
+              "bytes": "5b",
+              "asm": "pop     ebx"
+            },
+            {
+              "ea": 4824100,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4824101,
+              "size": 11,
+              "bytes": "9090909090909090909090",
+              "asm": "align 10h"
+            },
+            {
+              "ea": 4824112,
+              "size": 6,
+              "bytes": "81ec80030000",
+              "asm": "sub     esp, 380h"
+            }
+          ]
+        }
+      ],
+      "selector_button_event": {
+        "step": "SEV01",
+        "source_snapshot": "[#] 补齐选择器按钮事件与结果消费",
+        "original_entry": "0x4c7380",
+        "original_end_exclusive": "0x4c759e",
+        "instruction_count": 194,
+        "code_bytes": 542,
+        "page_count": 4,
+        "direct_calls": 4,
+        "direct_call_targets": [
+          5424208,
+          5010240,
+          5006672,
+          5380880
+        ],
+        "jumps": 28,
+        "returns": 1,
+        "original_incoming": [
+          {
+            "ea": 4755116,
+            "bytes": "e8cfe40300",
+            "parent": 4755104,
+            "call_target": 5010304,
+            "following": [
+              {
+                "ea": 4755121,
+                "size": 2,
+                "bytes": "f6d8",
+                "asm": "neg     al"
+              },
+              {
+                "ea": 4755123,
+                "size": 2,
+                "bytes": "1bc0",
+                "asm": "sbb     eax, eax"
+              },
+              {
+                "ea": 4755125,
+                "size": 2,
+                "bytes": "f7d8",
+                "asm": "neg     eax"
+              },
+              {
+                "ea": 4755127,
+                "size": 1,
+                "bytes": "c3",
+                "asm": "retn"
+              },
+              {
+                "ea": 4755128,
+                "size": 8,
+                "bytes": "9090909090909090",
+                "asm": "align 10h"
+              },
+              {
+                "ea": 4755136,
+                "size": 1,
+                "bytes": "51",
+                "asm": "push    ecx"
+              },
+              {
+                "ea": 4755137,
+                "size": 4,
+                "bytes": "8b442408",
+                "asm": "mov     eax, [esp+4+arg_0]"
+              },
+              {
+                "ea": 4755141,
+                "size": 1,
+                "bytes": "53",
+                "asm": "push    ebx"
+              }
+            ]
+          },
+          {
+            "ea": 4755336,
+            "bytes": "e8f3e30300",
+            "parent": 4755136,
+            "call_target": 5010304,
+            "following": [
+              {
+                "ea": 4755341,
+                "size": 4,
+                "bytes": "88442413",
+                "asm": "mov     [esp+14h+var_1], al"
+              },
+              {
+                "ea": 4755345,
+                "size": 2,
+                "bytes": "33c0",
+                "asm": "xor     eax, eax"
+              },
+              {
+                "ea": 4755347,
+                "size": 4,
+                "bytes": "8a4c2413",
+                "asm": "mov     cl, [esp+14h+var_1]"
+              },
+              {
+                "ea": 4755351,
+                "size": 1,
+                "bytes": "5f",
+                "asm": "pop     edi"
+              },
+              {
+                "ea": 4755352,
+                "size": 2,
+                "bytes": "84c9",
+                "asm": "test    cl, cl"
+              },
+              {
+                "ea": 4755354,
+                "size": 1,
+                "bytes": "5e",
+                "asm": "pop     esi"
+              },
+              {
+                "ea": 4755355,
+                "size": 1,
+                "bytes": "5d",
+                "asm": "pop     ebp"
+              },
+              {
+                "ea": 4755356,
+                "size": 3,
+                "bytes": "0f95c0",
+                "asm": "setnz   al"
+              }
+            ]
+          },
+          {
+            "ea": 4823884,
+            "bytes": "e82fd80200",
+            "parent": 4823872,
+            "call_target": 5010304,
+            "following": [
+              {
+                "ea": 4823889,
+                "size": 2,
+                "bytes": "33c0",
+                "asm": "xor     eax, eax"
+              },
+              {
+                "ea": 4823891,
+                "size": 1,
+                "bytes": "c3",
+                "asm": "retn"
+              },
+              {
+                "ea": 4823892,
+                "size": 12,
+                "bytes": "909090909090909090909090",
+                "asm": "align 10h"
+              },
+              {
+                "ea": 4823904,
+                "size": 4,
+                "bytes": "8b442404",
+                "asm": "mov     eax, [esp+arg_0]"
+              },
+              {
+                "ea": 4823908,
+                "size": 1,
+                "bytes": "53",
+                "asm": "push    ebx"
+              },
+              {
+                "ea": 4823909,
+                "size": 1,
+                "bytes": "55",
+                "asm": "push    ebp"
+              },
+              {
+                "ea": 4823910,
+                "size": 1,
+                "bytes": "56",
+                "asm": "push    esi"
+              },
+              {
+                "ea": 4823911,
+                "size": 1,
+                "bytes": "57",
+                "asm": "push    edi"
+              }
+            ]
+          },
+          {
+            "ea": 4824089,
+            "bytes": "e862d70200",
+            "parent": 4823904,
+            "call_target": 5010304,
+            "following": [
+              {
+                "ea": 4824094,
+                "size": 1,
+                "bytes": "5f",
+                "asm": "pop     edi"
+              },
+              {
+                "ea": 4824095,
+                "size": 2,
+                "bytes": "8bc5",
+                "asm": "mov     eax, ebp"
+              },
+              {
+                "ea": 4824097,
+                "size": 1,
+                "bytes": "5e",
+                "asm": "pop     esi"
+              },
+              {
+                "ea": 4824098,
+                "size": 1,
+                "bytes": "5d",
+                "asm": "pop     ebp"
+              },
+              {
+                "ea": 4824099,
+                "size": 1,
+                "bytes": "5b",
+                "asm": "pop     ebx"
+              },
+              {
+                "ea": 4824100,
+                "size": 1,
+                "bytes": "c3",
+                "asm": "retn"
+              },
+              {
+                "ea": 4824101,
+                "size": 11,
+                "bytes": "9090909090909090909090",
+                "asm": "align 10h"
+              },
+              {
+                "ea": 4824112,
+                "size": 6,
+                "bytes": "81ec80030000",
+                "asm": "sub     esp, 380h"
+              }
+            ]
+          }
+        ],
+        "native_signature": "bool Sub_4C7380(\n    WindowItemSelectorState* const state, const std::int32_t tab, const std::int32_t events)",
+        "source_patch_group_count": 2,
+        "source_changed_point_count": 2,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "bool仅原AL，两父低AL归一/两父不消费，高24位/全ABI待"
+      }
+    },
+    {
+      "original_entry": "0x4c78a0",
+      "inventory_id": "F:000C78A0",
+      "original_role": "预览BYTE开关与第一按钮图号",
+      "original_end_exclusive": "0x4c790d",
+      "instruction_count": 33,
+      "function_chunks": [
+        {
+          "start": "0x4c78a0",
+          "end_exclusive": "0x4c790d"
+        }
+      ],
+      "status": "SEV01完整按钮事件原根纳管，四组取样/两正确body保持；限定S/全生产消费/callee/owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C78A0"
+          ],
+          "relationship": "SEV01完整原根/字段及事件发布，原取样对齐，两正确body保持，仅必要差异"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4C78A0"
+          ],
+          "relationship": "SEV01真实参数/返回声明保持，仅合同注释；原返回分界具名，不记全机器ABI等价"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_selector_button_event_spec.md#selector-event-baseline",
+        "doc/cg2d_selector_button_event_spec.md#selector-event-decision",
+        "doc/cg2d_selector_button_event_spec.md#selector-event-acceptance",
+        "doc/cg2d_selector_button_event_spec.md#selector-event-source-state",
+        "doc/cg2d_selector_button_event_evidence.json"
+      ],
+      "boundary": "SEV01四完整原根352条1028B/八页，九E8五目标/46跳九RET，十入CALL/八后邻和S32图表64B有据，不代全部外父。7380入口借element(tab+2)/graphic，eventbit1持hover；原六提示按page0或2/3与S8 mode/tab选择，GBK与MSVC strcpy决议保持。bit2先当前window W32 state bit2000→声51/320（旧第三压参240未作为现二有效参接口恢复）→新page和mode，page0或2/3切1/4，任何page点按consumed1保。原中心width→当前window→windowX→elementX及X，再height→windowY→elementY及Y；同window指针不冻结入口窗口或元素数值；page2/3且S8mode等tab才先descriptor0地址再图表像绘制，尾image8优先2/hover3/新page非0按新mode差+1/否则0，写入口graphic后仅AL返回。78A0低BYTE事件bit2声后翻转BYTE3EC，图index8优先2/1为3/否则1，正确body保。7910声后previous BYTE→mode地址→新enabled发布，正S8mode时enabled1先目标元素后callbacks2，elseNULL；AL范围失败原false早返保已写开关/回调、不更新图/不补回滚。成功循环初读新selected/count，原每次visible BYTE→目标W32写→fresh selected在position++前、count在++后；两样本分开，不冻结全循环或新clamp6。7A10低U16 mask402/804两条件独立，各声后新方向；先S32(direction+1)%8，再减1发布/负时原+8再次发布，保原两声/顺序/字段、不改为else或归一化异常，正确body保。四组四处（两中心/绘制持址与目标/循环尾取序）、八注释，两整源其它全文/两正确body、五类型与十caller body和其它五callee记录保持。六CALL消费低AL（五NEG AL归一/一存AL后归一）；四不消费（7380两父独立覆盖、7A10两父XOR EAX0），不据此高24位/全机器ABI等价。原六提示/64B图表值与返回/发布序保，不加tab范围或动态数量/字体容量保护；全部按钮输入/排序对/宠物/占用/提示/声音/窗口和descriptor生产消费、所有外父/callee/回调及alias-owner寿命/SDK/生成取样/实际操作像素声音与运行待。四新F四adapted/四限定S零I十open；无新API/helper/布局/字段/owner/保护/默认值/补零/新钳制/回滚/异常模型，48有界代码/完整枚举gates/六closure/总SPEC§10、MSVC/WAV-only/明文网络保持。",
+      "verification_level": "pass，四完整连续原根352条1028B/八页、九E8五目标/46跳九RET、十入CALL/64B表；原六坐标/descriptor先图号与目标先回调/循环尾selected先推进-count后取有据；两整源精确差异四组四处/八注释、两正确body/五类型/十caller与现音频接口保；六低AL消费/四不消费分界明确，高位/全ABI/全生产消费和owner、实际操作与运行待",
+      "original_incoming": [
+        {
+          "ea": 4753722,
+          "bytes": "e861ef0300",
+          "parent": 4753712,
+          "call_target": 5011616,
+          "following": [
+            {
+              "ea": 4753727,
+              "size": 2,
+              "bytes": "f6d8",
+              "asm": "neg     al"
+            },
+            {
+              "ea": 4753729,
+              "size": 2,
+              "bytes": "1bc0",
+              "asm": "sbb     eax, eax"
+            },
+            {
+              "ea": 4753731,
+              "size": 2,
+              "bytes": "f7d8",
+              "asm": "neg     eax"
+            },
+            {
+              "ea": 4753733,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4753734,
+              "size": 10,
+              "bytes": "90909090909090909090",
+              "asm": "align 10h"
+            },
+            {
+              "ea": 4753744,
+              "size": 4,
+              "bytes": "8b442408",
+              "asm": "mov     eax, [esp+arg_4]"
+            },
+            {
+              "ea": 4753748,
+              "size": 5,
+              "bytes": "b9103bcf00",
+              "asm": "mov     ecx, offset stru_CF3B10"
+            },
+            {
+              "ea": 4753753,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax"
+            }
+          ]
+        },
+        {
+          "ea": 4823354,
+          "bytes": "e861df0200",
+          "parent": 4823344,
+          "call_target": 5011616,
+          "following": [
+            {
+              "ea": 4823359,
+              "size": 2,
+              "bytes": "f6d8",
+              "asm": "neg     al"
+            },
+            {
+              "ea": 4823361,
+              "size": 2,
+              "bytes": "1bc0",
+              "asm": "sbb     eax, eax"
+            },
+            {
+              "ea": 4823363,
+              "size": 2,
+              "bytes": "f7d8",
+              "asm": "neg     eax"
+            },
+            {
+              "ea": 4823365,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4823366,
+              "size": 10,
+              "bytes": "90909090909090909090",
+              "asm": "align 10h"
+            },
+            {
+              "ea": 4823376,
+              "size": 4,
+              "bytes": "8b442408",
+              "asm": "mov     eax, [esp+arg_4]"
+            },
+            {
+              "ea": 4823380,
+              "size": 5,
+              "bytes": "b938f3d200",
+              "asm": "mov     ecx, offset unk_D2F338"
+            },
+            {
+              "ea": 4823385,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax"
+            }
+          ]
+        }
+      ],
+      "selector_button_event": {
+        "step": "SEV01",
+        "source_snapshot": "[#] 补齐选择器按钮事件与结果消费",
+        "original_entry": "0x4c78a0",
+        "original_end_exclusive": "0x4c790d",
+        "instruction_count": 33,
+        "code_bytes": 109,
+        "page_count": 1,
+        "direct_calls": 1,
+        "direct_call_targets": [
+          5424208
+        ],
+        "jumps": 3,
+        "returns": 3,
+        "original_incoming": [
+          {
+            "ea": 4753722,
+            "bytes": "e861ef0300",
+            "parent": 4753712,
+            "call_target": 5011616,
+            "following": [
+              {
+                "ea": 4753727,
+                "size": 2,
+                "bytes": "f6d8",
+                "asm": "neg     al"
+              },
+              {
+                "ea": 4753729,
+                "size": 2,
+                "bytes": "1bc0",
+                "asm": "sbb     eax, eax"
+              },
+              {
+                "ea": 4753731,
+                "size": 2,
+                "bytes": "f7d8",
+                "asm": "neg     eax"
+              },
+              {
+                "ea": 4753733,
+                "size": 1,
+                "bytes": "c3",
+                "asm": "retn"
+              },
+              {
+                "ea": 4753734,
+                "size": 10,
+                "bytes": "90909090909090909090",
+                "asm": "align 10h"
+              },
+              {
+                "ea": 4753744,
+                "size": 4,
+                "bytes": "8b442408",
+                "asm": "mov     eax, [esp+arg_4]"
+              },
+              {
+                "ea": 4753748,
+                "size": 5,
+                "bytes": "b9103bcf00",
+                "asm": "mov     ecx, offset stru_CF3B10"
+              },
+              {
+                "ea": 4753753,
+                "size": 1,
+                "bytes": "50",
+                "asm": "push    eax"
+              }
+            ]
+          },
+          {
+            "ea": 4823354,
+            "bytes": "e861df0200",
+            "parent": 4823344,
+            "call_target": 5011616,
+            "following": [
+              {
+                "ea": 4823359,
+                "size": 2,
+                "bytes": "f6d8",
+                "asm": "neg     al"
+              },
+              {
+                "ea": 4823361,
+                "size": 2,
+                "bytes": "1bc0",
+                "asm": "sbb     eax, eax"
+              },
+              {
+                "ea": 4823363,
+                "size": 2,
+                "bytes": "f7d8",
+                "asm": "neg     eax"
+              },
+              {
+                "ea": 4823365,
+                "size": 1,
+                "bytes": "c3",
+                "asm": "retn"
+              },
+              {
+                "ea": 4823366,
+                "size": 10,
+                "bytes": "90909090909090909090",
+                "asm": "align 10h"
+              },
+              {
+                "ea": 4823376,
+                "size": 4,
+                "bytes": "8b442408",
+                "asm": "mov     eax, [esp+arg_4]"
+              },
+              {
+                "ea": 4823380,
+                "size": 5,
+                "bytes": "b938f3d200",
+                "asm": "mov     ecx, offset unk_D2F338"
+              },
+              {
+                "ea": 4823385,
+                "size": 1,
+                "bytes": "50",
+                "asm": "push    eax"
+              }
+            ]
+          }
+        ],
+        "native_signature": "bool Sub_4C78A0(WindowItemSelectorState* const state, const std::int32_t events)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "bool仅原AL，两父低AL归一，高24位/全ABI待"
+      }
+    },
+    {
+      "original_entry": "0x4c7910",
+      "inventory_id": "F:000C7910",
+      "original_role": "装备BYTE开关/回调和动态装备显示",
+      "original_end_exclusive": "0x4c7a09",
+      "instruction_count": 83,
+      "function_chunks": [
+        {
+          "start": "0x4c7910",
+          "end_exclusive": "0x4c7a09"
+        }
+      ],
+      "status": "SEV01完整按钮事件原根纳管，四组取样/两正确body保持；限定S/全生产消费/callee/owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C7910"
+          ],
+          "relationship": "SEV01完整原根/字段及事件发布，原取样对齐，两正确body保持，仅必要差异"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4C7910"
+          ],
+          "relationship": "SEV01真实参数/返回声明保持，仅合同注释；原返回分界具名，不记全机器ABI等价"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_selector_button_event_spec.md#selector-event-baseline",
+        "doc/cg2d_selector_button_event_spec.md#selector-event-decision",
+        "doc/cg2d_selector_button_event_spec.md#selector-event-acceptance",
+        "doc/cg2d_selector_button_event_spec.md#selector-event-source-state",
+        "doc/cg2d_selector_button_event_evidence.json"
+      ],
+      "boundary": "SEV01四完整原根352条1028B/八页，九E8五目标/46跳九RET，十入CALL/八后邻和S32图表64B有据，不代全部外父。7380入口借element(tab+2)/graphic，eventbit1持hover；原六提示按page0或2/3与S8 mode/tab选择，GBK与MSVC strcpy决议保持。bit2先当前window W32 state bit2000→声51/320（旧第三压参240未作为现二有效参接口恢复）→新page和mode，page0或2/3切1/4，任何page点按consumed1保。原中心width→当前window→windowX→elementX及X，再height→windowY→elementY及Y；同window指针不冻结入口窗口或元素数值；page2/3且S8mode等tab才先descriptor0地址再图表像绘制，尾image8优先2/hover3/新page非0按新mode差+1/否则0，写入口graphic后仅AL返回。78A0低BYTE事件bit2声后翻转BYTE3EC，图index8优先2/1为3/否则1，正确body保。7910声后previous BYTE→mode地址→新enabled发布，正S8mode时enabled1先目标元素后callbacks2，elseNULL；AL范围失败原false早返保已写开关/回调、不更新图/不补回滚。成功循环初读新selected/count，原每次visible BYTE→目标W32写→fresh selected在position++前、count在++后；两样本分开，不冻结全循环或新clamp6。7A10低U16 mask402/804两条件独立，各声后新方向；先S32(direction+1)%8，再减1发布/负时原+8再次发布，保原两声/顺序/字段、不改为else或归一化异常，正确body保。四组四处（两中心/绘制持址与目标/循环尾取序）、八注释，两整源其它全文/两正确body、五类型与十caller body和其它五callee记录保持。六CALL消费低AL（五NEG AL归一/一存AL后归一）；四不消费（7380两父独立覆盖、7A10两父XOR EAX0），不据此高24位/全机器ABI等价。原六提示/64B图表值与返回/发布序保，不加tab范围或动态数量/字体容量保护；全部按钮输入/排序对/宠物/占用/提示/声音/窗口和descriptor生产消费、所有外父/callee/回调及alias-owner寿命/SDK/生成取样/实际操作像素声音与运行待。四新F四adapted/四限定S零I十open；无新API/helper/布局/字段/owner/保护/默认值/补零/新钳制/回滚/异常模型，48有界代码/完整枚举gates/六closure/总SPEC§10、MSVC/WAV-only/明文网络保持。",
+      "verification_level": "pass，四完整连续原根352条1028B/八页、九E8五目标/46跳九RET、十入CALL/64B表；原六坐标/descriptor先图号与目标先回调/循环尾selected先推进-count后取有据；两整源精确差异四组四处/八注释、两正确body/五类型/十caller与现音频接口保；六低AL消费/四不消费分界明确，高位/全ABI/全生产消费和owner、实际操作与运行待",
+      "original_incoming": [
+        {
+          "ea": 4753754,
+          "bytes": "e8b1ef0300",
+          "parent": 4753744,
+          "call_target": 5011728,
+          "following": [
+            {
+              "ea": 4753759,
+              "size": 2,
+              "bytes": "f6d8",
+              "asm": "neg     al"
+            },
+            {
+              "ea": 4753761,
+              "size": 2,
+              "bytes": "1bc0",
+              "asm": "sbb     eax, eax"
+            },
+            {
+              "ea": 4753763,
+              "size": 2,
+              "bytes": "f7d8",
+              "asm": "neg     eax"
+            },
+            {
+              "ea": 4753765,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4753766,
+              "size": 10,
+              "bytes": "90909090909090909090",
+              "asm": "align 10h"
+            },
+            {
+              "ea": 4753776,
+              "size": 4,
+              "bytes": "8b442408",
+              "asm": "mov     eax, [esp+arg_4]"
+            },
+            {
+              "ea": 4753780,
+              "size": 5,
+              "bytes": "b9103bcf00",
+              "asm": "mov     ecx, offset stru_CF3B10"
+            },
+            {
+              "ea": 4753785,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax"
+            }
+          ]
+        },
+        {
+          "ea": 4823386,
+          "bytes": "e8b1df0200",
+          "parent": 4823376,
+          "call_target": 5011728,
+          "following": [
+            {
+              "ea": 4823391,
+              "size": 2,
+              "bytes": "f6d8",
+              "asm": "neg     al"
+            },
+            {
+              "ea": 4823393,
+              "size": 2,
+              "bytes": "1bc0",
+              "asm": "sbb     eax, eax"
+            },
+            {
+              "ea": 4823395,
+              "size": 2,
+              "bytes": "f7d8",
+              "asm": "neg     eax"
+            },
+            {
+              "ea": 4823397,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4823398,
+              "size": 10,
+              "bytes": "90909090909090909090",
+              "asm": "align 10h"
+            },
+            {
+              "ea": 4823408,
+              "size": 4,
+              "bytes": "8b442408",
+              "asm": "mov     eax, [esp+arg_4]"
+            },
+            {
+              "ea": 4823412,
+              "size": 5,
+              "bytes": "b938f3d200",
+              "asm": "mov     ecx, offset unk_D2F338"
+            },
+            {
+              "ea": 4823417,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax"
+            }
+          ]
+        }
+      ],
+      "selector_button_event": {
+        "step": "SEV01",
+        "source_snapshot": "[#] 补齐选择器按钮事件与结果消费",
+        "original_entry": "0x4c7910",
+        "original_end_exclusive": "0x4c7a09",
+        "instruction_count": 83,
+        "code_bytes": 249,
+        "page_count": 2,
+        "direct_calls": 2,
+        "direct_call_targets": [
+          5424208,
+          5358608
+        ],
+        "jumps": 9,
+        "returns": 4,
+        "original_incoming": [
+          {
+            "ea": 4753754,
+            "bytes": "e8b1ef0300",
+            "parent": 4753744,
+            "call_target": 5011728,
+            "following": [
+              {
+                "ea": 4753759,
+                "size": 2,
+                "bytes": "f6d8",
+                "asm": "neg     al"
+              },
+              {
+                "ea": 4753761,
+                "size": 2,
+                "bytes": "1bc0",
+                "asm": "sbb     eax, eax"
+              },
+              {
+                "ea": 4753763,
+                "size": 2,
+                "bytes": "f7d8",
+                "asm": "neg     eax"
+              },
+              {
+                "ea": 4753765,
+                "size": 1,
+                "bytes": "c3",
+                "asm": "retn"
+              },
+              {
+                "ea": 4753766,
+                "size": 10,
+                "bytes": "90909090909090909090",
+                "asm": "align 10h"
+              },
+              {
+                "ea": 4753776,
+                "size": 4,
+                "bytes": "8b442408",
+                "asm": "mov     eax, [esp+arg_4]"
+              },
+              {
+                "ea": 4753780,
+                "size": 5,
+                "bytes": "b9103bcf00",
+                "asm": "mov     ecx, offset stru_CF3B10"
+              },
+              {
+                "ea": 4753785,
+                "size": 1,
+                "bytes": "50",
+                "asm": "push    eax"
+              }
+            ]
+          },
+          {
+            "ea": 4823386,
+            "bytes": "e8b1df0200",
+            "parent": 4823376,
+            "call_target": 5011728,
+            "following": [
+              {
+                "ea": 4823391,
+                "size": 2,
+                "bytes": "f6d8",
+                "asm": "neg     al"
+              },
+              {
+                "ea": 4823393,
+                "size": 2,
+                "bytes": "1bc0",
+                "asm": "sbb     eax, eax"
+              },
+              {
+                "ea": 4823395,
+                "size": 2,
+                "bytes": "f7d8",
+                "asm": "neg     eax"
+              },
+              {
+                "ea": 4823397,
+                "size": 1,
+                "bytes": "c3",
+                "asm": "retn"
+              },
+              {
+                "ea": 4823398,
+                "size": 10,
+                "bytes": "90909090909090909090",
+                "asm": "align 10h"
+              },
+              {
+                "ea": 4823408,
+                "size": 4,
+                "bytes": "8b442408",
+                "asm": "mov     eax, [esp+arg_4]"
+              },
+              {
+                "ea": 4823412,
+                "size": 5,
+                "bytes": "b938f3d200",
+                "asm": "mov     ecx, offset unk_D2F338"
+              },
+              {
+                "ea": 4823417,
+                "size": 1,
+                "bytes": "50",
+                "asm": "push    eax"
+              }
+            ]
+          }
+        ],
+        "native_signature": "bool Sub_4C7910(WindowItemSelectorState* const state, const std::int32_t events)",
+        "source_patch_group_count": 2,
+        "source_changed_point_count": 2,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "bool仅原AL，两父低AL归一，失效早返保部分发布，高24位/全ABI待"
+      }
+    },
+    {
+      "original_entry": "0x4c7a10",
+      "inventory_id": "F:000C7A10",
+      "original_role": "预览双向旋转的独立事件处理",
+      "original_end_exclusive": "0x4c7a90",
+      "instruction_count": 42,
+      "function_chunks": [
+        {
+          "start": "0x4c7a10",
+          "end_exclusive": "0x4c7a90"
+        }
+      ],
+      "status": "SEV01完整按钮事件原根纳管，四组取样/两正确body保持；限定S/全生产消费/callee/owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C7A10"
+          ],
+          "relationship": "SEV01完整原根/字段及事件发布，原取样对齐，两正确body保持，仅必要差异"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4C7A10"
+          ],
+          "relationship": "SEV01真实参数/返回声明保持，仅合同注释；原返回分界具名，不记全机器ABI等价"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_selector_button_event_spec.md#selector-event-baseline",
+        "doc/cg2d_selector_button_event_spec.md#selector-event-decision",
+        "doc/cg2d_selector_button_event_spec.md#selector-event-acceptance",
+        "doc/cg2d_selector_button_event_spec.md#selector-event-source-state",
+        "doc/cg2d_selector_button_event_evidence.json"
+      ],
+      "boundary": "SEV01四完整原根352条1028B/八页，九E8五目标/46跳九RET，十入CALL/八后邻和S32图表64B有据，不代全部外父。7380入口借element(tab+2)/graphic，eventbit1持hover；原六提示按page0或2/3与S8 mode/tab选择，GBK与MSVC strcpy决议保持。bit2先当前window W32 state bit2000→声51/320（旧第三压参240未作为现二有效参接口恢复）→新page和mode，page0或2/3切1/4，任何page点按consumed1保。原中心width→当前window→windowX→elementX及X，再height→windowY→elementY及Y；同window指针不冻结入口窗口或元素数值；page2/3且S8mode等tab才先descriptor0地址再图表像绘制，尾image8优先2/hover3/新page非0按新mode差+1/否则0，写入口graphic后仅AL返回。78A0低BYTE事件bit2声后翻转BYTE3EC，图index8优先2/1为3/否则1，正确body保。7910声后previous BYTE→mode地址→新enabled发布，正S8mode时enabled1先目标元素后callbacks2，elseNULL；AL范围失败原false早返保已写开关/回调、不更新图/不补回滚。成功循环初读新selected/count，原每次visible BYTE→目标W32写→fresh selected在position++前、count在++后；两样本分开，不冻结全循环或新clamp6。7A10低U16 mask402/804两条件独立，各声后新方向；先S32(direction+1)%8，再减1发布/负时原+8再次发布，保原两声/顺序/字段、不改为else或归一化异常，正确body保。四组四处（两中心/绘制持址与目标/循环尾取序）、八注释，两整源其它全文/两正确body、五类型与十caller body和其它五callee记录保持。六CALL消费低AL（五NEG AL归一/一存AL后归一）；四不消费（7380两父独立覆盖、7A10两父XOR EAX0），不据此高24位/全机器ABI等价。原六提示/64B图表值与返回/发布序保，不加tab范围或动态数量/字体容量保护；全部按钮输入/排序对/宠物/占用/提示/声音/窗口和descriptor生产消费、所有外父/callee/回调及alias-owner寿命/SDK/生成取样/实际操作像素声音与运行待。四新F四adapted/四限定S零I十open；无新API/helper/布局/字段/owner/保护/默认值/补零/新钳制/回滚/异常模型，48有界代码/完整枚举gates/六closure/总SPEC§10、MSVC/WAV-only/明文网络保持。",
+      "verification_level": "pass，四完整连续原根352条1028B/八页、九E8五目标/46跳九RET、十入CALL/64B表；原六坐标/descriptor先图号与目标先回调/循环尾selected先推进-count后取有据；两整源精确差异四组四处/八注释、两正确body/五类型/十caller与现音频接口保；六低AL消费/四不消费分界明确，高位/全ABI/全生产消费和owner、实际操作与运行待",
+      "original_incoming": [
+        {
+          "ea": 4753786,
+          "bytes": "e891f00300",
+          "parent": 4753776,
+          "call_target": 5011984,
+          "following": [
+            {
+              "ea": 4753791,
+              "size": 2,
+              "bytes": "33c0",
+              "asm": "xor     eax, eax"
+            },
+            {
+              "ea": 4753793,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4753794,
+              "size": 14,
+              "bytes": "9090909090909090909090909090",
+              "asm": "align 10h"
+            },
+            {
+              "ea": 4753808,
+              "size": 4,
+              "bytes": "8b442404",
+              "asm": "mov     eax, [esp+arg_0]"
+            },
+            {
+              "ea": 4753812,
+              "size": 1,
+              "bytes": "53",
+              "asm": "push    ebx"
+            },
+            {
+              "ea": 4753813,
+              "size": 1,
+              "bytes": "56",
+              "asm": "push    esi"
+            },
+            {
+              "ea": 4753814,
+              "size": 3,
+              "bytes": "83ceff",
+              "asm": "or      esi, 0FFFFFFFFh"
+            },
+            {
+              "ea": 4753817,
+              "size": 2,
+              "bytes": "33db",
+              "asm": "xor     ebx, ebx"
+            }
+          ]
+        },
+        {
+          "ea": 4823418,
+          "bytes": "e891e00200",
+          "parent": 4823408,
+          "call_target": 5011984,
+          "following": [
+            {
+              "ea": 4823423,
+              "size": 2,
+              "bytes": "33c0",
+              "asm": "xor     eax, eax"
+            },
+            {
+              "ea": 4823425,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4823426,
+              "size": 14,
+              "bytes": "9090909090909090909090909090",
+              "asm": "align 10h"
+            },
+            {
+              "ea": 4823440,
+              "size": 5,
+              "bytes": "837c2404ff",
+              "asm": "cmp     [esp+arg_0], 0FFFFFFFFh"
+            },
+            {
+              "ea": 4823445,
+              "size": 2,
+              "bytes": "7518",
+              "asm": "jnz     short loc_4999AF"
+            },
+            {
+              "ea": 4823447,
+              "size": 2,
+              "bytes": "6a01",
+              "asm": "push    1"
+            },
+            {
+              "ea": 4823449,
+              "size": 5,
+              "bytes": "b938f3d200",
+              "asm": "mov     ecx, offset unk_D2F338"
+            },
+            {
+              "ea": 4823454,
+              "size": 5,
+              "bytes": "e81dd50200",
+              "asm": "call    sub_4C6EC0"
+            }
+          ]
+        }
+      ],
+      "selector_button_event": {
+        "step": "SEV01",
+        "source_snapshot": "[#] 补齐选择器按钮事件与结果消费",
+        "original_entry": "0x4c7a10",
+        "original_end_exclusive": "0x4c7a90",
+        "instruction_count": 42,
+        "code_bytes": 128,
+        "page_count": 1,
+        "direct_calls": 2,
+        "direct_call_targets": [
+          5424208
+        ],
+        "jumps": 6,
+        "returns": 1,
+        "original_incoming": [
+          {
+            "ea": 4753786,
+            "bytes": "e891f00300",
+            "parent": 4753776,
+            "call_target": 5011984,
+            "following": [
+              {
+                "ea": 4753791,
+                "size": 2,
+                "bytes": "33c0",
+                "asm": "xor     eax, eax"
+              },
+              {
+                "ea": 4753793,
+                "size": 1,
+                "bytes": "c3",
+                "asm": "retn"
+              },
+              {
+                "ea": 4753794,
+                "size": 14,
+                "bytes": "9090909090909090909090909090",
+                "asm": "align 10h"
+              },
+              {
+                "ea": 4753808,
+                "size": 4,
+                "bytes": "8b442404",
+                "asm": "mov     eax, [esp+arg_0]"
+              },
+              {
+                "ea": 4753812,
+                "size": 1,
+                "bytes": "53",
+                "asm": "push    ebx"
+              },
+              {
+                "ea": 4753813,
+                "size": 1,
+                "bytes": "56",
+                "asm": "push    esi"
+              },
+              {
+                "ea": 4753814,
+                "size": 3,
+                "bytes": "83ceff",
+                "asm": "or      esi, 0FFFFFFFFh"
+              },
+              {
+                "ea": 4753817,
+                "size": 2,
+                "bytes": "33db",
+                "asm": "xor     ebx, ebx"
+              }
+            ]
+          },
+          {
+            "ea": 4823418,
+            "bytes": "e891e00200",
+            "parent": 4823408,
+            "call_target": 5011984,
+            "following": [
+              {
+                "ea": 4823423,
+                "size": 2,
+                "bytes": "33c0",
+                "asm": "xor     eax, eax"
+              },
+              {
+                "ea": 4823425,
+                "size": 1,
+                "bytes": "c3",
+                "asm": "retn"
+              },
+              {
+                "ea": 4823426,
+                "size": 14,
+                "bytes": "9090909090909090909090909090",
+                "asm": "align 10h"
+              },
+              {
+                "ea": 4823440,
+                "size": 5,
+                "bytes": "837c2404ff",
+                "asm": "cmp     [esp+arg_0], 0FFFFFFFFh"
+              },
+              {
+                "ea": 4823445,
+                "size": 2,
+                "bytes": "7518",
+                "asm": "jnz     short loc_4999AF"
+              },
+              {
+                "ea": 4823447,
+                "size": 2,
+                "bytes": "6a01",
+                "asm": "push    1"
+              },
+              {
+                "ea": 4823449,
+                "size": 5,
+                "bytes": "b938f3d200",
+                "asm": "mov     ecx, offset unk_D2F338"
+              },
+              {
+                "ea": 4823454,
+                "size": 5,
+                "bytes": "e81dd50200",
+                "asm": "call    sub_4C6EC0"
+              }
+            ]
+          }
+        ],
+        "native_signature": "bool Sub_4C7A10(WindowItemSelectorState* const state, const std::int32_t events)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "bool仅原AL，两父独立XOR EAX0覆盖，不消费；高24位/全ABI待"
+      }
     }
   ]
 }

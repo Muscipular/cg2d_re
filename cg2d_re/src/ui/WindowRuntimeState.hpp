@@ -1531,7 +1531,7 @@ bool Sub_4B1900(
 std::uint8_t Sub_474550(
     WindowInstance* window, std::int32_t index, std::int32_t state,
     std::int32_t maximum, std::uint8_t layer, const char* const* hints,
-    std::uint8_t flags, std::uint32_t color); // 数值面板，返回0/1/3。
+    std::uint8_t flags, std::uint32_t color); // NPI01：数值键/Backspace/四鼠标操作原序，AL返回0/1/3；非Enter/Esc处理器。
 std::int32_t Sub_4AFFE0(std::int32_t index); // S8物品槽，负值归-1。
 std::int32_t Sub_4B00F0(std::int32_t index); // S8宠物槽，负值归-1。
 std::int32_t Sub_4B0A50(std::int32_t index, std::int32_t state); // 公开两组交易槽及数值。

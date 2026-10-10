@@ -7542,6 +7542,7 @@ bool Sub_4B1900(
     return relativeY >= 0 && relativeY < height;
 }
 
+// NPI01：原474550完整540条；元素X/Y先坐标，四绘制按原descriptor/图号先后取样，逐键CryptInt/优先级及AL结果保。
 std::uint8_t Sub_474550(
     WindowInstance* const window, const std::int32_t index, const std::int32_t state,
     const std::int32_t maximum, const std::uint8_t layer, const char* const* const hints,
@@ -7550,8 +7551,10 @@ std::uint8_t Sub_474550(
     WindowElement* const elements = window->elements;
     const std::int32_t windowY = window->y;
     const std::int32_t windowX = window->x;
-    const std::int32_t x = windowX + elements[index].x;
-    const std::int32_t y = windowY + elements[index].y;
+    const std::int32_t elementX = elements[index].x;
+    const std::int32_t elementY = elements[index].y;
+    const std::int32_t x = windowX + elementX;
+    const std::int32_t y = windowY + elementY;
     render::GraphicDescriptor16 descriptor {};
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     descriptor.bytes[13] = 4;
@@ -7581,9 +7584,10 @@ std::uint8_t Sub_474550(
                     selected = digit;
                 }
             }
+            const auto* const digitDescriptor = &descriptor;
+            const std::int32_t digitImage = gNumericKeyImages54F030[digit][imageState];
             static_cast<void>(login::detail::DrawGraphic(
-                left + 10, bottom - 9, layer, gNumericKeyImages54F030[digit][imageState],
-                0, &descriptor));
+                left + 10, bottom - 9, layer, digitImage, 0, digitDescriptor));
         }
     }
     std::int32_t imageState = 0;
@@ -7594,8 +7598,10 @@ std::uint8_t Sub_474550(
             selected = 0;
         }
     }
+    const std::int32_t zeroImage = gNumericKeyImages54F030[0][imageState];
+    const auto* const zeroDescriptor = &descriptor;
     static_cast<void>(login::detail::DrawGraphic(
-        x + 10, y + 68, layer, gNumericKeyImages54F030[0][imageState], 0, &descriptor));
+        x + 10, y + 68, layer, zeroImage, 0, zeroDescriptor));
     imageState = 0;
     if (hit(x + 48, y + 58, x + 69, y + 77)) {
         if ((flags & 1u) != 0) {
@@ -7622,8 +7628,10 @@ std::uint8_t Sub_474550(
         && std::bit_cast<std::int32_t>(window->elements[index].state) <= 0) {
         imageState = 1;
     }
+    const std::int32_t confirmImage = gNumericKeyImages54F030[13][imageState];
+    const auto* const confirmDescriptor = &descriptor;
     static_cast<void>(login::detail::DrawGraphic(
-        x + 58, y + 68, layer, gNumericKeyImages54F030[13][imageState], 0, &descriptor));
+        x + 58, y + 68, layer, confirmImage, 0, confirmDescriptor));
     for (std::int32_t row = 0; row < 3; ++row) {
         const std::int32_t centerY = y + 28 + row * 20;
         imageState = 0;
@@ -7634,9 +7642,10 @@ std::uint8_t Sub_474550(
                 selected = row + 10;
             }
         }
+        const auto* const operationDescriptor = &descriptor;
+        const std::int32_t operationImage = gNumericKeyImages54F030[row + 10][imageState];
         static_cast<void>(login::detail::DrawGraphic(
-            x + 87, centerY, layer, gNumericKeyImages54F030[row + 10][imageState],
-            0, &descriptor));
+            x + 87, centerY, layer, operationImage, 0, operationDescriptor));
     }
     if ((flags & 2u) != 0) {
         for (std::int32_t digit = 0; digit < 10; ++digit) {

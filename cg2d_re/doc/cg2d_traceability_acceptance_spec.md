@@ -2700,3 +2700,9 @@ IDA数组/结构起点xref不代字段指针；原型实际11callback与旧范�
 [WCL01](cg2d_window_close_front_release_spec.md#window-close-source-state)补齐共享关闭按钮、原端返回叶和前置元素三完整原根70条212B/三页，三正确正文保持，仅七合同注释。窗口42关闭只置bit15/声57，前置只置bit13；真实资源回收复用窗口整理→FreeWindow，release返回叶原端只返回1，不能记作完整释放成功。三新F三adapted，INPUT两/UI三/RENDER两成员，三限定S零I九open；完整取消/共享调度/owner、ABI及运行仍待。
 
 语义2322=2274F关联+48有界代码，处置1778/证据1574；INPUT149/UIRUNTIME190/RENDER107。文档关联预期2384/3680=64.78%仅关联率。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
+
+## 2026-10-11 NPI01：数值面板静态合同
+
+[NPI01](cg2d_numeric_panel_input_spec.md#numeric-input-source-state)补齐数值面板474550完整540条1675B/九页，逐键四次CryptInt短路、数字/Backspace优先级、四鼠标操作与AL0/1/3返回有据。两逻辑组五处坐标及绘制取样对齐；42图号和既有业务正文/原上限钳回保持。本根没有Enter/Esc处理，不添加退出键行为。一新F一adapted、三限定S零I八open，完整输入生产消费/owner、ABI及运行待。
+
+语义2323=2275F关联+48有界代码，处置1779/证据1577；INPUT150/UIRUNTIME191/RENDER108。文档关联预期2385/3680=64.81%仅关联率。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。

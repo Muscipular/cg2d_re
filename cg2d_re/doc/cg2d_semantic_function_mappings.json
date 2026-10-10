@@ -234893,6 +234893,217 @@
         "runtime_verified": false,
         "result_boundary": "原hover优先1/否则低BYTE bit5，完整动态消费/ABI待"
       }
+    },
+    {
+      "original_entry": "0x474550",
+      "inventory_id": "F:00074550",
+      "original_role": "共享数值面板/四CryptInt命中、数字Backspace优先与AL结果",
+      "original_end_exclusive": "0x474bdb",
+      "instruction_count": 540,
+      "function_chunks": [
+        {
+          "start": "0x474550",
+          "end_exclusive": "0x474bdb"
+        }
+      ],
+      "status": "NPI01完整数值面板原根纳管，两组五处；限定S，全部事件与数值状态生产消费/owner/ABI/运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_474550"
+          ],
+          "relationship": "NPI01完整数值面板原根，元素坐标/四绘制prepare对齐；命中短路及数字Backspace/原数值发布保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_474550"
+          ],
+          "relationship": "NPI01既有真实声明保持，仅合同注释；原生非拥有callback/返回边界具名"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_numeric_panel_input_spec.md#numeric-input-baseline",
+        "doc/cg2d_numeric_panel_input_spec.md#numeric-input-decision",
+        "doc/cg2d_numeric_panel_input_spec.md#numeric-input-acceptance",
+        "doc/cg2d_numeric_panel_input_spec.md#numeric-input-source-state",
+        "doc/cg2d_numeric_panel_input_evidence.json"
+      ],
+      "boundary": "NPI01仅数值面板474550完整540条1675B/九页，26个E8五目标、64跳三RET。原window.elements→windowY→windowX→elemX→elemY→两坐标，16B descriptor原清零/color+8/mix+13=4；四绘制prepare顺序分两类：九宫格与右侧操作先descriptor地址后image表，0/确认先image表后descriptor地址；现只两逻辑组五处明确持样，不新增绘制或默认字段。九宫格按1..9/三行三列原顺序绘制，0/确认/退一位-最大-清零三操作继续；每个hit独立执行left<=mouseX、mouseX<right、top<=mouseY、mouseY<bottom四次真实CryptInt短路读，不共用坐标快照或减少RNG消费。hover文本沿既有GBK现静态文字来源保，hints指针/42个S32图号表不变；hover/pressed及flags bit1许可零值确认、原非正值声55和确认禁态图号，hit及text读取后重新数量读保持。flags bit2才0..9主数字/小键盘按短路先主键后小键读取并首匹配退出；其后Backspace键8无条件优先退一位/声51/AL1，覆盖鼠标或数字选择，且不受flags bit2限制。没有Enter/Esc读取，不能把本根AL3确认解释键盘取消，也不添这些分支。选0..9元素状态先*10写回→fresh元素再+digit写回→fresh元素S32与传入maximum比并保原上限钳回；选10退一位、11写maximum、12清0，原13只声51/AL3不额外改数量，无选择AL0不声，有操作AL1/声51。四入CALL来自三个父，数量48A950只AL归一/两上限钳回/业务callback消费已由QVC01完整合同复用；另4ABC20两个及4B1260一个仅入CALL/四后邻来源，不据本步验全部父/ABI。四真实提供者/三类型/数值图表及三已有语义记录保持；一新F一adapted，INPUT/UI/RENDER各一成员，三限定S零I八open。全部输入事件生产/共享鼠标与状态、命中和数值目标alias-owner寿命、生成机器读取/完整AL与ABI、画面声效及运行待；正常整数数学/原业务钳回保，不新增溢出回绕模型、下限、空检查、容量/索引保护、补零/回滚、字段/helper/API或owner。WAV-only/MSVC/明文协议与全部完整门禁保持，整体未完成。",
+      "verification_level": "pass，完整540条1675B/九页、26E8五目标/64跳三RET，四CALL三父及168B/42S32表有据；两组五处按各自descriptor/image和元素X-Y原序，两整源精确回放/两注释，hit短路及尾数字Backspace/鲜数量写/AL结果全文保，三类型四提供者/图表及三已有记录保持；完整输入生产消费/owner、生成机器读取/ABI与运行待",
+      "original_incoming": [
+        {
+          "ea": 4762005,
+          "parent": 4761936,
+          "bytes": "e8b69bfeff",
+          "asm": "call    sub_474550",
+          "call_target": 4670800,
+          "following": [
+            {
+              "ea": 4762010,
+              "bytes": "0fbed8",
+              "asm": "movsx   ebx, al"
+            },
+            {
+              "ea": 4762013,
+              "bytes": "a19446cf00",
+              "asm": "mov     eax, gCurrentWindow"
+            },
+            {
+              "ea": 4762018,
+              "bytes": "8d34f6",
+              "asm": "lea     esi, [esi+esi*8]"
+            },
+            {
+              "ea": 4762021,
+              "bytes": "8b1588b7c900",
+              "asm": "mov     edx, gWindowState.field_10+0DC8h"
+            }
+          ]
+        },
+        {
+          "ea": 4897754,
+          "parent": 4897568,
+          "bytes": "e87189fcff",
+          "asm": "call    sub_474550",
+          "call_target": 4670800,
+          "following": [
+            {
+              "ea": 4897759,
+              "bytes": "83c420",
+              "asm": "add     esp, 20h"
+            },
+            {
+              "ea": 4897762,
+              "bytes": "eb74",
+              "asm": "jmp     short loc_4ABC58"
+            },
+            {
+              "ea": 4897764,
+              "bytes": "83ff1f",
+              "asm": "cmp     edi, 1Fh"
+            },
+            {
+              "ea": 4897767,
+              "bytes": "7567",
+              "asm": "jnz     short loc_4ABC50"
+            }
+          ]
+        },
+        {
+          "ea": 4897862,
+          "parent": 4897568,
+          "bytes": "e80589fcff",
+          "asm": "call    sub_474550",
+          "call_target": 4670800,
+          "following": [
+            {
+              "ea": 4897867,
+              "bytes": "83c420",
+              "asm": "add     esp, 20h"
+            },
+            {
+              "ea": 4897870,
+              "bytes": "eb08",
+              "asm": "jmp     short loc_4ABC58"
+            },
+            {
+              "ea": 4897872,
+              "bytes": "8b74240c",
+              "asm": "mov     esi, [esp+190h+var_184]"
+            },
+            {
+              "ea": 4897876,
+              "bytes": "8a44240b",
+              "asm": "mov     al, [esp+190h+var_185]"
+            }
+          ]
+        },
+        {
+          "ea": 4920691,
+          "parent": 4919904,
+          "bytes": "e8d82ffcff",
+          "asm": "call    sub_474550",
+          "call_target": 4670800,
+          "following": [
+            {
+              "ea": 4920696,
+              "bytes": "83c420",
+              "asm": "add     esp, 20h"
+            },
+            {
+              "ea": 4920699,
+              "bytes": "8844246c",
+              "asm": "mov     byte ptr [esp+54h+arg_14], al"
+            },
+            {
+              "ea": 4920703,
+              "bytes": "8bb4248c000000",
+              "asm": "mov     esi, [esp+54h+arg_34]"
+            },
+            {
+              "ea": 4920710,
+              "bytes": "85f6",
+              "asm": "test    esi, esi"
+            }
+          ]
+        }
+      ],
+      "numeric_panel_input": {
+        "step": "NPI01",
+        "source_snapshot": "[#] 补齐数值面板输入与绘制取样合同",
+        "original_entry": "0x474550",
+        "original_end_exclusive": "0x474bdb",
+        "instruction_count": 540,
+        "code_bytes": 1675,
+        "page_count": 9,
+        "direct_calls": 26,
+        "direct_call_targets": [
+          4201904,
+          4202432,
+          4560800,
+          5380880,
+          5424208
+        ],
+        "jumps": 64,
+        "returns": 3,
+        "original_incoming_references": [
+          {
+            "from": 4762005,
+            "type": 17,
+            "iscode": true,
+            "parent": 4761936
+          },
+          {
+            "from": 4897754,
+            "type": 17,
+            "iscode": true,
+            "parent": 4897568
+          },
+          {
+            "from": 4897862,
+            "type": 17,
+            "iscode": true,
+            "parent": 4897568
+          },
+          {
+            "from": 4920691,
+            "type": 17,
+            "iscode": true,
+            "parent": 4919904
+          }
+        ],
+        "native_signature": "std::uint8_t Sub_474550(\n    WindowInstance* const window, const std::int32_t index, const std::int32_t state,\n    const std::int32_t maximum, const std::uint8_t layer, const char* const* const hints,\n    const std::uint8_t flags, const std::uint32_t color)",
+        "source_patch_group_count": 2,
+        "source_changed_point_count": 5,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原AL0/1/3结果具名，不外推高EAX；四CALL只局部来源，两外父全部消费/机器ABI待"
+      }
     }
   ]
 }

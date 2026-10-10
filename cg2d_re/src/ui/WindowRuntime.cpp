@@ -7993,6 +7993,7 @@ std::int32_t Sub_4C6400(
     return gSelectorPetY54F5DC[slot];
 }
 
+// SPG01：玩家页2显示槽6；W32装配模式0显示槽19，两门槛独立，原正文保持。
 void Sub_4C6440(WindowItemSelectorState* const state)
 {
     if (state->value60 == 2) {
@@ -8003,6 +8004,7 @@ void Sub_4C6440(WindowItemSelectorState* const state)
     }
 }
 
+// SPG01：宠物页/名称负重及原动态空位显示保持；只判低AL，不钳制itemSlots或补保护。
 void Sub_4C6470(WindowItemSelectorState* const state)
 {
     if (state->value60 == 3) {
@@ -8023,6 +8025,7 @@ void Sub_4C6470(WindowItemSelectorState* const state)
     }
 }
 
+// SPG01：按原顺序隐藏槽6/7/8/15/16、六装备槽与17；模式0才隐藏19，主元素不改。
 void Sub_4C6500(WindowItemSelectorState* const state)
 {
     state->elements00[6]->visible = 0;
@@ -8039,6 +8042,7 @@ void Sub_4C6500(WindowItemSelectorState* const state)
     }
 }
 
+// SPG01：先发布页再隐藏/新页分发；CC40D4仅低BYTE、四回调先取元素；原五页和写序保持，全机器ABI待。
 void Sub_4C6550(WindowItemSelectorState* const state, const std::int32_t page)
 {
     if (page == 1 && std::bit_cast<std::int8_t>(*state->mode68) > 0) {
@@ -8081,11 +8085,18 @@ void Sub_4C6550(WindowItemSelectorState* const state, const std::int32_t page)
     case 2:
         *state->mode68 = 0;
         Sub_4C6440(state);
-        if (state->value64 != 0 || gItemSelectionModeCC40D4 == 0) {
-            state->elements00[1]->mouseCallback = state->callbacks50[2];
+        if (state->value64 != 0
+            || *reinterpret_cast<const unsigned char*>(&gItemSelectionModeCC40D4) == 0) {
+            WindowElement* const element = state->elements00[1];
+            const WindowElementCallback callback = state->callbacks50[2];
+            element->mouseCallback = callback;
         } else {
-            state->elements00[0]->mouseCallback = state->callbacks50[1];
-            state->elements00[1]->mouseCallback = state->callbacks50[3];
+            WindowElement* const firstElement = state->elements00[0];
+            const WindowElementCallback firstCallback = state->callbacks50[1];
+            firstElement->mouseCallback = firstCallback;
+            WindowElement* const secondElement = state->elements00[1];
+            const WindowElementCallback secondCallback = state->callbacks50[3];
+            secondElement->mouseCallback = secondCallback;
         }
         Sub_4C6AC0(state, -182);
         state->elements00[1]->visible = 1;
@@ -8095,8 +8106,13 @@ void Sub_4C6550(WindowItemSelectorState* const state, const std::int32_t page)
         Sub_4C6AC0(state, -182);
         Sub_4C69B0(state);
         Sub_4C6470(state);
-        state->elements00[1]->mouseCallback =
-            state->value3ED == 1 ? state->callbacks50[2] : Sub_4B0F10;
+        if (state->value3ED == 1) {
+            WindowElement* const element = state->elements00[1];
+            const WindowElementCallback callback = state->callbacks50[2];
+            element->mouseCallback = callback;
+        } else {
+            state->elements00[1]->mouseCallback = Sub_4B0F10;
+        }
         state->elements00[1]->visible = 1;
         static_cast<WindowGraphicData*>(state->elements00[1]->data)->imageNo = 98147;
         break;
@@ -8235,6 +8251,7 @@ void Sub_4C69B0(WindowItemSelectorState* const state)
     weightElement->x = state->elements00[1]->x - weightWidth / 2 + 101;
 }
 
+// SPG01：依原序移动主元素、四按钮及六表坐标；原S32结果与固定循环保持，不新增钳制。
 void Sub_4C6AC0(WindowItemSelectorState* const state, const std::int32_t x)
 {
     state->elements00[1]->x = x;
@@ -8373,6 +8390,7 @@ std::int32_t Sub_4C71C0(const std::int32_t ordinal)
         : std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[position].index);
 }
 
+// SPG01：写mode低BYTE后持旧页；页3按新mode切2/3、页2不切；bool仅承接原AL=1，高位ABI待。
 bool Sub_4C7340(WindowItemSelectorState* const state, const std::int32_t mode)
 {
     *state->mode68 = static_cast<std::uint8_t>(mode);

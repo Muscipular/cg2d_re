@@ -560,3 +560,7 @@ hover244293，再第三次独立检查条件，成立覆盖244292。不把三次
 ## 2026-10-10 SFD01：绑定/初始化/逐帧显示
 
 [SFD01](../cg2d_selector_frame_binding_spec.md#selector-frame-source-state)补齐逐帧分发、两模式元素/回调绑定及首次初始化三完整原根362条1298B/七页，20实际E8/十目标、20跳十RET，五入CALL与三表48B有据。两次按钮绘制明确各自四字段取序、先Y后X及descriptor0共借，三组三处/六注释；绑定与初始化正文正确保持。原四页/step递减/-182业务钳制、非零模式槽19不写及callback0先slot18保持。已知悬停残留EAX经分发/初始化返回，两窗口回调立即MOV EAX,1/RET，局部上行不消费已有依据；全机器ABI/所有callee及alias-owner寿命、实际像素与运行仍待。旧1988/CAC18历史与旧2285/SLC01历史保持追加，两新F/三处置、三限定S零I/十任务open，整体未完成。
+
+## 2026-10-10 SPG01：五页状态与mode切换
+
+[SPG01](../cg2d_selector_page_visibility_spec.md#selector-page-source-state)补齐玩家/宠物显示、隐藏、五页状态切换、位置发布及mode切换六完整原根323条937B/八页，19E8九目标/35跳十一RET，24入CALL与20B五case表有据。两组五处明确CC40D4低BYTE和四回调目标先于回调读取；其余五正文与原动态slot/每轮fresh宠物count、页发布/隐藏/图号及step21、模式页3切换保持。两整源只上述差异/十二注释，三类型与原六坐标表不改。旧1987/CAC18保历史追加、五新F/六处置、三限定S零I/十open；原残留EAX及7340仅AL=1不外推全ABI弃用，全外父/callee、生产消费/alias-owner寿命、生成读取/机器ABI/像素与运行待，整体未完成。

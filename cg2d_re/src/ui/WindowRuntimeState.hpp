@@ -448,19 +448,19 @@ void Sub_4C6EC0(WindowItemSelectorState* state, std::uint8_t mode); // SFD01：�
 std::int32_t Sub_4C63C0(const WindowItemSelectorState* state, std::int32_t slot);
 // SLC01：负slot先返-1；S8 mode0取8项玩家Y表，正mode取6项宠物Y表，其它返-1。
 std::int32_t Sub_4C6400(const WindowItemSelectorState* state, std::int32_t slot);
-void Sub_4C6440(WindowItemSelectorState* state); // 玩家页条件显示槽6/19。
-void Sub_4C6470(WindowItemSelectorState* state); // 宠物页名称/负重和装备空位显示。
-void Sub_4C6500(WindowItemSelectorState* state); // 切页前原序隐藏，不隐藏主元素。
-void Sub_4C6550(WindowItemSelectorState* state, std::int32_t page); // 五态完整转换，原混合返回无人消费。
+void Sub_4C6440(WindowItemSelectorState* state); // SPG01：玩家页2显示槽6；W32装配模式0显示槽19，两门槛独立，原正文保持。
+void Sub_4C6470(WindowItemSelectorState* state); // SPG01：宠物页/名称负重及原动态空位显示保持；只判低AL，不钳制itemSlots或补保护。
+void Sub_4C6500(WindowItemSelectorState* state); // SPG01：按原顺序隐藏槽6/7/8/15/16、六装备槽与17；模式0才隐藏19，主元素不改。
+void Sub_4C6550(WindowItemSelectorState* state, std::int32_t page); // SPG01：先发布页再隐藏/新页分发；CC40D4仅低BYTE、四回调先取元素；原五页和写序保持，全机器ABI待。
 void Sub_4C6790(WindowItemSelectorState* state); // SFD01：原四页分发/业务钳制保持；两按钮按原顺序取样，共借descriptor[0]；已知上行由窗口回调返回1。
 std::int32_t Sub_4C6990(WindowItemSelectorState* state); // 模式S8映射并发布同源宠物索引。
 void Sub_4C69B0(WindowItemSelectorState* state); // 借用宠物名字/负重刷新两文本元素。
-void Sub_4C6AC0(WindowItemSelectorState* state, std::int32_t x); // 原序移动主元素/四按钮/六装备槽。
+void Sub_4C6AC0(WindowItemSelectorState* state, std::int32_t x); // SPG01：依原序移动主元素、四按钮及六表坐标；原S32结果与固定循环保持，不新增钳制。
 // SLC01：两轴先窗口再元素取值，flags/淡入计数只读原BYTE；void不证明原EAX上行等价。
 void Sub_4C6B10(WindowItemSelectorState* state); // 消费本帧hover，宠物物品固定借CF3B10索引。
 std::int32_t Sub_4C6D90(WindowItemSelectorState* state); // 内嵌预览推进及实际绘制返回。
 std::int32_t Sub_4C71C0(std::int32_t ordinal); // 扫描排序对，匹配不足仍取末项S16索引。
-bool Sub_4C7340(WindowItemSelectorState* state, std::int32_t mode); // 写低U8后按旧页2/3切换。
+bool Sub_4C7340(WindowItemSelectorState* state, std::int32_t mode); // SPG01：写mode低BYTE后持旧页；页3按新mode切2/3、页2不切；bool仅承接原AL=1，高位ABI待。
 bool Sub_4C7380(WindowItemSelectorState* state, std::int32_t tab, std::int32_t events);
 bool Sub_4C78A0(WindowItemSelectorState* state, std::int32_t events); // 预览显示开关及按钮图。
 bool Sub_4C7910(WindowItemSelectorState* state, std::int32_t events); // 装备开关，索引无效时保留部分改写。

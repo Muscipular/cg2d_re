@@ -51,9 +51,9 @@ std::int32_t Sub_50E780(std::uintptr_t unusedSocket, std::int32_t value);
 // 原 [0x50E830,0x50E844)：共享 W32 非零直接返回，零时清并回写公会邮件。
 std::int32_t Sub_50E830(std::uintptr_t unusedSocket);
 
-// 原 50F130：门禁后部分重置外部记录、发布计数，再删除同 key 公会邮件；不保存文件。
+// GMR01：原50F130完整gate/五域重置→W16活动统计/W32计数发布→同key公会邮件删除，原返回保。
 std::int32_t Sub_50F130(std::uintptr_t unusedSocket, std::int32_t key);
-// 原 50F190：无全局门禁，解析/插入后依序保存、播音效和追加原字节通知。
+// GMR01：原50F190完整字段/反转义/排序index持有，生产后外部记录名通知/保存/SE/消息原序。
 // dispatcher 实际传四参；第一、第四参数未读取。
 void Sub_50F190(
     std::uintptr_t unusedSocket, std::int32_t key,

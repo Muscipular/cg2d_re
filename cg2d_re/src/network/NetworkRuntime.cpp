@@ -963,6 +963,7 @@ std::int32_t Sub_50E830(const std::uintptr_t)
     return character_select::detail::Sub_519550();
 }
 
+// GMR01：原gate位型早退/记录五域重置→活动计数发布→同key邮件删除，原完整S32返回保。
 std::int32_t Sub_50F130(const std::uintptr_t, const std::int32_t key)
 {
     const std::uint32_t gate = world::gValue9A6E0C;
@@ -981,6 +982,7 @@ std::int32_t Sub_50F130(const std::uintptr_t, const std::int32_t key)
     return world::detail::Sub_5194F0(key);
 }
 
+// GMR01：原字段/反转义→持有排序index→生产→外部记录名通知→存档/SE63/消息，四参未读边界保。
 void Sub_50F190(
     const std::uintptr_t, const std::int32_t key,
     const char* const payload, const std::int32_t)

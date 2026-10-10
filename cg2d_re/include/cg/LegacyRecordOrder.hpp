@@ -52,7 +52,7 @@ const char* BorrowGuildRankText1051518(std::int32_t index) noexcept; // 原30h�
 int CompareOrderedRecords_52FB60(const void* left, const void* right);
 // 原 52FCC0：原位填 0..199 后用上述比较器重排共享运行表。
 void BuildOrderedRecordIndices_52FCC0();
-// 原 50EF50：逐条统计 +8 W16 恰为 1 的记录，返回 0..200。
+// GMR01：原50EF50，200条/+8 W16恰1/S32 count0..200，正文正确保持。
 std::int32_t CountRecordsValue08EqualOne_50EF50() noexcept;
 // 原 50EF20：仅重置已证字段与四个文本首字节，其他字节保留。
 OrderedRecord1051B14* ResetOrderedRecord_50EF20(

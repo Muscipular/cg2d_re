@@ -69842,7 +69842,7 @@
     {
       "original_entry": "0x519550",
       "inventory_id": "F:00119550",
-      "status": "既有邮件/资料/分类本体及真实FILE完整接线已落位；完整CRT启动/运行验收仍待",
+      "status": "既有邮件/资料/分类本体及真实FILE完整接线已落位；完整CRT启动/运行验收仍待；GMR01追加当前完整正常根/实际接线，正确body保持，限定S/运行待",
       "original_end_exclusive": "0x5195BC",
       "instruction_count": 31,
       "original_direct_reference_count": 16,
@@ -69852,6 +69852,13 @@
           "symbols": [
             "Sub_519550"
           ]
+        },
+        {
+          "path": "src/world/MailState.hpp",
+          "symbols": [
+            "Sub_519550"
+          ],
+          "relationship": "GMR01当前真实声明/原参数未读与S32返回边界，正文/签名保持，仅完整合同关联注释"
         }
       ],
       "inbound_evidence": [
@@ -69972,10 +69979,32 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_scene_state.md",
-        "doc/ui_windows/shared_runtime.md"
+        "doc/ui_windows/shared_runtime.md",
+        "doc/cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-baseline",
+        "doc/cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-decision",
+        "doc/cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-acceptance",
+        "doc/cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-source-state",
+        "doc/cg2d_guild_mail_reply_persistence_evidence.json"
       ],
-      "verification_level": "七父272条/39直接入向、32个CRT调用、原路径/mode含NUL字节、传输尺寸/短路/复制/返回次序及限定源码差异静态核对；未执行",
-      "boundary": "未清80H path同源目录格式化guildmail.dat/wb；打开失败沿原EAX0返0，成功写(1,139480H)忽略写返回后直接返回关闭S32结果。公会邮件共享字节区/接收/赠送/排序消费保持，不补写、保护或转码；CRT初始化和运行未验。"
+      "verification_level": "七父272条/39直接入向、32个CRT调用、原路径/mode含NUL字节、传输尺寸/短路/复制/返回次序及限定源码差异静态核对；未执行 当前GMR01：pass，四完整原根136条443B/五页、17实际E8/14目标/六跳四RET、20入向内部2/外18另1实际E9；两回复唯一父弃返/四实参与保存尾跳、文本工作区借用/当前目录和MSVC三桥有据，整六文件精确重放八关联注释/零逻辑组，四正确body/所有其它源保持",
+      "boundary": "未清80H path同源目录格式化guildmail.dat/wb；打开失败沿原EAX0返0，成功写(1,139480H)忽略写返回后直接返回关闭S32结果。公会邮件共享字节区/接收/赠送/排序消费保持，不补写、保护或转码；CRT初始化和运行未验。 当前GMR01：GMR01四完整正常回复/计数/保存根136条443B/五页、17实际E8/14目标/六跳四RET、20E8入向内部2/外18另1实际E9；两回复唯一512E40父局部参数/弃返窗，Rll实际四参数第一/第四不读，明文I/T/I与工作区借用不新释放。删除先gate完整位型早退、记录S32/W16/两BYTE/S32五域重置→原W16==1/S32计数/W32发布→GML邮件删除透传，不整清/加下界/保存或回滚。收信未预清name32/message256/text300，原字段/反转义→持有排序index→kind0生产弃返→该旧index外部记录+18名通知，S32 kind恰-1/其它原格式与当前GBK字节保；随后保存→SE63/320/240→消息(4,3)，原失败不阻断。保存128B路径/实际目录两W32读取、guildmail.dat/wb/两角色139480共享区，fopen失败0、写弃返后fclose S32结果，IDA FILE*类型不事实。四正确body/所有其它源保持，零逻辑组/八关联注释，无新函数/API/类型/布局/owner或保护/默认值/补零/钳制/容量/回滚/异常模型，原门槛/字段零写/文件失败保。旧720/763全部历史格式/字节/引用子记录保，当前MSVC FILE域/原格式明文/WAV-only保持，不复建CRT/改命令或音频调用。只正常源码S，不宣优化后读取/指令/全ABI/数值/并发；完整dispatcher/保存外父、工作区及记录-路径-消息-音频-文件全生产消费/alias-owner和初始化复用/正常寿命、实际包/短写失败/SDK/文本声音画面运行/全生命周期待，枚举/完整gates/六closure/总SPEC§10守恒。",
+      "guild_mail_reply_persistence": {
+        "step": "GMR01",
+        "source_snapshot": "[#] 补齐公会邮件回复与持久化完整合同",
+        "original_instruction_count": 31,
+        "original_code_bytes": 108,
+        "original_page_count": 1,
+        "direct_call_count": 4,
+        "jump_count": 1,
+        "return_count": 1,
+        "native_signature": "std::int32_t Sub_519550()",
+        "native_provider": "src/world/MailState.cpp::Sub_519550",
+        "normal_source_kept": true,
+        "source_patch_group_count": 0,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x4C9060",
@@ -76093,7 +76122,7 @@
     {
       "original_entry": "0x50F190",
       "inventory_id": "F:0010F190",
-      "status": "既有回包提示/命令前缀父的全部格式已接真实核心；真实协议/启动/运行未验",
+      "status": "既有回包提示/命令前缀父的全部格式已接真实核心；真实协议/启动/运行未验；GMR01追加当前完整正常根/实际接线，正确body保持，限定S/运行待",
       "original_end_exclusive": "0x50F273",
       "instruction_count": 73,
       "original_direct_reference_count": 1,
@@ -76103,6 +76132,13 @@
           "symbols": [
             "Sub_50F190"
           ]
+        },
+        {
+          "path": "src/network/NetworkRuntimeDependencies.hpp",
+          "symbols": [
+            "Sub_50F190"
+          ],
+          "relationship": "GMR01当前真实声明/原参数未读与S32返回边界，正文/签名保持，仅完整合同关联注释"
         }
       ],
       "inbound_evidence": [
@@ -76149,10 +76185,15 @@
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_network_runtime.md"
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-baseline",
+        "doc/cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-decision",
+        "doc/cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-acceptance",
+        "doc/cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-source-state",
+        "doc/cg2d_guild_mail_reply_persistence_evidence.json"
       ],
-      "verification_level": "四父完整248条/86直接入向、四格式点/四表达式、六原字节组/两公会格式分支与参数/消息/存档/回写/命令前缀次序、整份源码/JSON限定差异静态核对；未重验原命令变换/校验和/分派/发送/公会存档/音频，未执行",
-      "boundary": "原字段提取/反转义/先存索引/插入保持，%s仍消费该先前索引的外部记录+18而非输入name；S32 kind恰-1选58B0EC、否则58B0C8，在同一256B未清message/表达式格式化。随后保存/原音效/消息顺序保持，未消费参数/失败无保护与既有共享记录不改，不推进音频或重验公会文件。",
+      "verification_level": "四父完整248条/86直接入向、四格式点/四表达式、六原字节组/两公会格式分支与参数/消息/存档/回写/命令前缀次序、整份源码/JSON限定差异静态核对；未重验原命令变换/校验和/分派/发送/公会存档/音频，未执行 当前GMR01：pass，四完整原根136条443B/五页、17实际E8/14目标/六跳四RET、20入向内部2/外18另1实际E9；两回复唯一父弃返/四实参与保存尾跳、文本工作区借用/当前目录和MSVC三桥有据，整六文件精确重放八关联注释/零逻辑组，四正确body/所有其它源保持",
+      "boundary": "原字段提取/反转义/先存索引/插入保持，%s仍消费该先前索引的外部记录+18而非输入name；S32 kind恰-1选58B0EC、否则58B0C8，在同一256B未清message/表达式格式化。随后保存/原音效/消息顺序保持，未消费参数/失败无保护与既有共享记录不改，不推进音频或重验公会文件。 当前GMR01：GMR01四完整正常回复/计数/保存根136条443B/五页、17实际E8/14目标/六跳四RET、20E8入向内部2/外18另1实际E9；两回复唯一512E40父局部参数/弃返窗，Rll实际四参数第一/第四不读，明文I/T/I与工作区借用不新释放。删除先gate完整位型早退、记录S32/W16/两BYTE/S32五域重置→原W16==1/S32计数/W32发布→GML邮件删除透传，不整清/加下界/保存或回滚。收信未预清name32/message256/text300，原字段/反转义→持有排序index→kind0生产弃返→该旧index外部记录+18名通知，S32 kind恰-1/其它原格式与当前GBK字节保；随后保存→SE63/320/240→消息(4,3)，原失败不阻断。保存128B路径/实际目录两W32读取、guildmail.dat/wb/两角色139480共享区，fopen失败0、写弃返后fclose S32结果，IDA FILE*类型不事实。四正确body/所有其它源保持，零逻辑组/八关联注释，无新函数/API/类型/布局/owner或保护/默认值/补零/钳制/容量/回滚/异常模型，原门槛/字段零写/文件失败保。旧720/763全部历史格式/字节/引用子记录保，当前MSVC FILE域/原格式明文/WAV-only保持，不复建CRT/改命令或音频调用。只正常源码S，不宣优化后读取/指令/全ABI/数值/并发；完整dispatcher/保存外父、工作区及记录-路径-消息-音频-文件全生产消费/alias-owner和初始化复用/正常寿命、实际包/短写失败/SDK/文本声音画面运行/全生命周期待，枚举/完整gates/六closure/总SPEC§10守恒。",
       "business_format_branch_evidence": [
         {
           "call_site": "0x50F23A",
@@ -76173,7 +76214,24 @@
           ],
           "relationship": "两原分支汇合于同一sprintf，保留既有条件表达式及每次动态一次"
         }
-      ]
+      ],
+      "guild_mail_reply_persistence": {
+        "step": "GMR01",
+        "source_snapshot": "[#] 补齐公会邮件回复与持久化完整合同",
+        "original_instruction_count": 73,
+        "original_code_bytes": 227,
+        "original_page_count": 2,
+        "direct_call_count": 10,
+        "jump_count": 2,
+        "return_count": 1,
+        "native_signature": "void Sub_50F190(\n    const std::uintptr_t, const std::int32_t key,\n    const char* const payload, const std::int32_t)",
+        "native_provider": "src/network/NetworkRuntime.cpp::Sub_50F190",
+        "normal_source_kept": true,
+        "source_patch_group_count": 0,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x517510",
@@ -208139,6 +208197,150 @@
         "native_signature": "std::int32_t Sub_5194F0(const std::int32_t key)",
         "native_provider": "src/world/MailState.cpp::Sub_5194F0",
         "normal_source_kept": true,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x50f130",
+      "inventory_id": "F:0010F130",
+      "original_role": "删除回复原gate/记录字段及计数/同key邮件删除",
+      "original_end_exclusive": "0x50f182",
+      "instruction_count": 23,
+      "function_chunks": [
+        {
+          "start": "0x50f130",
+          "end_exclusive": "0x50f182"
+        }
+      ],
+      "status": "GMR01完整正常原根独立纳管，正确body保持；限定S/全部数据owner、机器ABI/数值与运行待",
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_50F130"
+          ],
+          "relationship": "既有正确业务正文保持，完整原根/实际调用、字段/返回与接线纳管，仅关联注释"
+        },
+        {
+          "path": "src/network/NetworkRuntimeDependencies.hpp",
+          "symbols": [
+            "Sub_50F130"
+          ],
+          "relationship": "GMR01当前真实声明/原参数未读与S32返回边界，正文/签名保持，仅完整合同关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-baseline",
+        "doc/cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-decision",
+        "doc/cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-acceptance",
+        "doc/cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-source-state",
+        "doc/cg2d_guild_mail_reply_persistence_evidence.json"
+      ],
+      "boundary": "GMR01四完整正常回复/计数/保存根136条443B/五页、17实际E8/14目标/六跳四RET、20E8入向内部2/外18另1实际E9；两回复唯一512E40父局部参数/弃返窗，Rll实际四参数第一/第四不读，明文I/T/I与工作区借用不新释放。删除先gate完整位型早退、记录S32/W16/两BYTE/S32五域重置→原W16==1/S32计数/W32发布→GML邮件删除透传，不整清/加下界/保存或回滚。收信未预清name32/message256/text300，原字段/反转义→持有排序index→kind0生产弃返→该旧index外部记录+18名通知，S32 kind恰-1/其它原格式与当前GBK字节保；随后保存→SE63/320/240→消息(4,3)，原失败不阻断。保存128B路径/实际目录两W32读取、guildmail.dat/wb/两角色139480共享区，fopen失败0、写弃返后fclose S32结果，IDA FILE*类型不事实。四正确body/所有其它源保持，零逻辑组/八关联注释，无新函数/API/类型/布局/owner或保护/默认值/补零/钳制/容量/回滚/异常模型，原门槛/字段零写/文件失败保。旧720/763全部历史格式/字节/引用子记录保，当前MSVC FILE域/原格式明文/WAV-only保持，不复建CRT/改命令或音频调用。只正常源码S，不宣优化后读取/指令/全ABI/数值/并发；完整dispatcher/保存外父、工作区及记录-路径-消息-音频-文件全生产消费/alias-owner和初始化复用/正常寿命、实际包/短写失败/SDK/文本声音画面运行/全生命周期待，枚举/完整gates/六closure/总SPEC§10守恒。",
+      "verification_level": "pass，四完整原根136条443B/五页、17实际E8/14目标/六跳四RET、20入向内部2/外18另1实际E9；两回复唯一父弃返/四实参与保存尾跳、文本工作区借用/当前目录和MSVC三桥有据，整六文件精确重放八关联注释/零逻辑组，四正确body/所有其它源保持",
+      "original_incoming": [
+        {
+          "ea": 5324936,
+          "parent": 5320256,
+          "type": 17,
+          "bytes": "e8a3b0ffff",
+          "asm": "call    sub_50F130"
+        }
+      ],
+      "guild_mail_reply_persistence": {
+        "step": "GMR01",
+        "source_snapshot": "[#] 补齐公会邮件回复与持久化完整合同",
+        "original_instruction_count": 23,
+        "original_code_bytes": 82,
+        "original_page_count": 1,
+        "direct_call_count": 3,
+        "jump_count": 1,
+        "return_count": 1,
+        "native_signature": "std::int32_t Sub_50F130(const std::uintptr_t, const std::int32_t key)",
+        "native_provider": "src/network/NetworkRuntime.cpp::Sub_50F130",
+        "normal_source_kept": true,
+        "source_patch_group_count": 0,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x50ef50",
+      "inventory_id": "F:0010EF50",
+      "original_role": "排序记录200项W16==1/S32活动计数",
+      "original_end_exclusive": "0x50ef6a",
+      "instruction_count": 9,
+      "function_chunks": [
+        {
+          "start": "0x50ef50",
+          "end_exclusive": "0x50ef6a"
+        }
+      ],
+      "status": "GMR01完整正常原根独立纳管，正确body保持；限定S/全部数据owner、机器ABI/数值与运行待",
+      "sources": [
+        {
+          "path": "src/LegacyRecordOrder.cpp",
+          "symbols": [
+            "CountRecordsValue08EqualOne_50EF50"
+          ],
+          "relationship": "既有正确业务正文保持，完整原根/实际调用、字段/返回与接线纳管，仅关联注释"
+        },
+        {
+          "path": "include/cg/LegacyRecordOrder.hpp",
+          "symbols": [
+            "CountRecordsValue08EqualOne_50EF50"
+          ],
+          "relationship": "GMR01当前真实声明/原参数未读与S32返回边界，正文/签名保持，仅完整合同关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-baseline",
+        "doc/cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-decision",
+        "doc/cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-acceptance",
+        "doc/cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-source-state",
+        "doc/cg2d_guild_mail_reply_persistence_evidence.json"
+      ],
+      "boundary": "GMR01四完整正常回复/计数/保存根136条443B/五页、17实际E8/14目标/六跳四RET、20E8入向内部2/外18另1实际E9；两回复唯一512E40父局部参数/弃返窗，Rll实际四参数第一/第四不读，明文I/T/I与工作区借用不新释放。删除先gate完整位型早退、记录S32/W16/两BYTE/S32五域重置→原W16==1/S32计数/W32发布→GML邮件删除透传，不整清/加下界/保存或回滚。收信未预清name32/message256/text300，原字段/反转义→持有排序index→kind0生产弃返→该旧index外部记录+18名通知，S32 kind恰-1/其它原格式与当前GBK字节保；随后保存→SE63/320/240→消息(4,3)，原失败不阻断。保存128B路径/实际目录两W32读取、guildmail.dat/wb/两角色139480共享区，fopen失败0、写弃返后fclose S32结果，IDA FILE*类型不事实。四正确body/所有其它源保持，零逻辑组/八关联注释，无新函数/API/类型/布局/owner或保护/默认值/补零/钳制/容量/回滚/异常模型，原门槛/字段零写/文件失败保。旧720/763全部历史格式/字节/引用子记录保，当前MSVC FILE域/原格式明文/WAV-only保持，不复建CRT/改命令或音频调用。只正常源码S，不宣优化后读取/指令/全ABI/数值/并发；完整dispatcher/保存外父、工作区及记录-路径-消息-音频-文件全生产消费/alias-owner和初始化复用/正常寿命、实际包/短写失败/SDK/文本声音画面运行/全生命周期待，枚举/完整gates/六closure/总SPEC§10守恒。",
+      "verification_level": "pass，四完整原根136条443B/五页、17实际E8/14目标/六跳四RET、20入向内部2/外18另1实际E9；两回复唯一父弃返/四实参与保存尾跳、文本工作区借用/当前目录和MSVC三桥有据，整六文件精确重放八关联注释/零逻辑组，四正确body/所有其它源保持",
+      "original_incoming": [
+        {
+          "ea": 5303865,
+          "parent": 5303376,
+          "type": 17,
+          "bytes": "e812010000",
+          "asm": "call    sub_50EF50"
+        },
+        {
+          "ea": 5304073,
+          "parent": 5303984,
+          "type": 17,
+          "bytes": "e842000000",
+          "asm": "call    sub_50EF50"
+        },
+        {
+          "ea": 5304685,
+          "parent": 5304624,
+          "type": 17,
+          "bytes": "e8defdffff",
+          "asm": "call    sub_50EF50"
+        }
+      ],
+      "guild_mail_reply_persistence": {
+        "step": "GMR01",
+        "source_snapshot": "[#] 补齐公会邮件回复与持久化完整合同",
+        "original_instruction_count": 9,
+        "original_code_bytes": 26,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 2,
+        "return_count": 1,
+        "native_signature": "std::int32_t CountRecordsValue08EqualOne_50EF50() noexcept",
+        "native_provider": "src/LegacyRecordOrder.cpp::CountRecordsValue08EqualOne_50EF50",
+        "normal_source_kept": true,
+        "source_patch_group_count": 0,
         "generated_machine_reads_verified": false,
         "full_lifecycle_closed": false,
         "runtime_verified": false

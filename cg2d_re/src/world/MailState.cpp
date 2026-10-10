@@ -1449,6 +1449,7 @@ std::int32_t Sub_519300()
     return platform::CloseLegacyStream_53B1D0(stream);
 }
 
+// GMR01：原128B路径/完整两角色139480写/写弃返→关闭S32结果，当前MSVC FILE域保。
 std::int32_t Sub_519550()
 {
     char path[128];

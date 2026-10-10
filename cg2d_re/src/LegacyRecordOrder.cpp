@@ -310,6 +310,7 @@ void BuildOrderedRecordIndices_52FCC0()
         &CompareOrderedRecords_52FB60);
 }
 
+// GMR01：原200排序记录W16==1计数，S32结果0..200，正文正确保持。
 std::int32_t CountRecordsValue08EqualOne_50EF50() noexcept
 {
     std::int32_t count = 0;

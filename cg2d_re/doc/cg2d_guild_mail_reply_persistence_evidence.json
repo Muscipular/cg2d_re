@@ -1,0 +1,1884 @@
+{
+  "step": "GMR01",
+  "recorded_on": "2026-10-10",
+  "before_snapshot": "[#] 补齐公会邮件查找与生产并恢复原字段宽度",
+  "after_snapshot": "[#] 补齐公会邮件回复与持久化完整合同",
+  "original_roots": [
+    {
+      "ea": 5304624,
+      "end": 5304706,
+      "name": "sub_50F130",
+      "type": "int __cdecl(int, int)",
+      "chunks": [
+        [
+          5304624,
+          5304706
+        ]
+      ],
+      "instruction_count": 23,
+      "byte_count": 82,
+      "inbound_calls": [
+        {
+          "ea": 5324936,
+          "parent": 5320256,
+          "type": 17,
+          "bytes": "e8a3b0ffff",
+          "asm": "call    sub_50F130"
+        }
+      ],
+      "page_count": 1,
+      "instructions": [
+        {
+          "ea": 5304624,
+          "size": 5,
+          "bytes": "a10c6e9a00",
+          "asm": "mov     eax, dword_9A6E0C",
+          "call_target": null
+        },
+        {
+          "ea": 5304629,
+          "size": 2,
+          "bytes": "85c0",
+          "asm": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": 5304631,
+          "size": 2,
+          "bytes": "7548",
+          "asm": "jnz     short locret_50F181",
+          "call_target": null
+        },
+        {
+          "ea": 5304633,
+          "size": 1,
+          "bytes": "56",
+          "asm": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": 5304634,
+          "size": 4,
+          "bytes": "8b74240c",
+          "asm": "mov     esi, [esp+4+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": 5304638,
+          "size": 1,
+          "bytes": "56",
+          "asm": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": 5304639,
+          "size": 5,
+          "bytes": "e87ca40000",
+          "asm": "call    sub_5195C0",
+          "call_target": 5346752
+        },
+        {
+          "ea": 5304644,
+          "size": 2,
+          "bytes": "8bc8",
+          "asm": "mov     ecx, eax",
+          "call_target": null
+        },
+        {
+          "ea": 5304646,
+          "size": 3,
+          "bytes": "c1e105",
+          "asm": "shl     ecx, 5",
+          "call_target": null
+        },
+        {
+          "ea": 5304649,
+          "size": 2,
+          "bytes": "2bc8",
+          "asm": "sub     ecx, eax",
+          "call_target": null
+        },
+        {
+          "ea": 5304651,
+          "size": 7,
+          "bytes": "8d048d141b0501",
+          "asm": "lea     eax, ds:1051B14h[ecx*4]",
+          "call_target": null
+        },
+        {
+          "ea": 5304658,
+          "size": 6,
+          "bytes": "c700ffffffff",
+          "asm": "mov     dword ptr [eax], 0FFFFFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": 5304664,
+          "size": 6,
+          "bytes": "66c740080000",
+          "asm": "mov     word ptr [eax+8], 0",
+          "call_target": null
+        },
+        {
+          "ea": 5304670,
+          "size": 4,
+          "bytes": "c6401800",
+          "asm": "mov     byte ptr [eax+18h], 0",
+          "call_target": null
+        },
+        {
+          "ea": 5304674,
+          "size": 4,
+          "bytes": "c6402900",
+          "asm": "mov     byte ptr [eax+29h], 0",
+          "call_target": null
+        },
+        {
+          "ea": 5304678,
+          "size": 7,
+          "bytes": "c7400cffffffff",
+          "asm": "mov     dword ptr [eax+0Ch], 0FFFFFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": 5304685,
+          "size": 5,
+          "bytes": "e8defdffff",
+          "asm": "call    sub_50EF50",
+          "call_target": 5304144
+        },
+        {
+          "ea": 5304690,
+          "size": 1,
+          "bytes": "56",
+          "asm": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": 5304691,
+          "size": 5,
+          "bytes": "a310150501",
+          "asm": "mov     dword_1051510, eax",
+          "call_target": null
+        },
+        {
+          "ea": 5304696,
+          "size": 5,
+          "bytes": "e873a30000",
+          "asm": "call    sub_5194F0",
+          "call_target": 5346544
+        },
+        {
+          "ea": 5304701,
+          "size": 3,
+          "bytes": "83c408",
+          "asm": "add     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": 5304704,
+          "size": 1,
+          "bytes": "5e",
+          "asm": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": 5304705,
+          "size": 1,
+          "bytes": "c3",
+          "asm": "retn",
+          "call_target": null
+        }
+      ]
+    },
+    {
+      "ea": 5304720,
+      "end": 5304947,
+      "name": "sub_50F190",
+      "type": "void __cdecl(int, int, unsigned __int8 *)",
+      "chunks": [
+        [
+          5304720,
+          5304947
+        ]
+      ],
+      "instruction_count": 73,
+      "byte_count": 227,
+      "inbound_calls": [
+        {
+          "ea": 5325097,
+          "parent": 5320256,
+          "type": 17,
+          "bytes": "e862b0ffff",
+          "asm": "call    sub_50F190"
+        }
+      ],
+      "page_count": 2,
+      "instructions": [
+        {
+          "ea": 5304720,
+          "size": 6,
+          "bytes": "81ec4c020000",
+          "asm": "sub     esp, 24Ch",
+          "call_target": null
+        },
+        {
+          "ea": 5304726,
+          "size": 4,
+          "bytes": "8d442400",
+          "asm": "lea     eax, [esp+24Ch+var_24C]",
+          "call_target": null
+        },
+        {
+          "ea": 5304730,
+          "size": 1,
+          "bytes": "53",
+          "asm": "push    ebx",
+          "call_target": null
+        },
+        {
+          "ea": 5304731,
+          "size": 1,
+          "bytes": "56",
+          "asm": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": 5304732,
+          "size": 7,
+          "bytes": "8bb42460020000",
+          "asm": "mov     esi, [esp+254h+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": 5304739,
+          "size": 1,
+          "bytes": "57",
+          "asm": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": 5304740,
+          "size": 1,
+          "bytes": "50",
+          "asm": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": 5304741,
+          "size": 2,
+          "bytes": "6a1f",
+          "asm": "push    1Fh",
+          "call_target": null
+        },
+        {
+          "ea": 5304743,
+          "size": 2,
+          "bytes": "6a01",
+          "asm": "push    1",
+          "call_target": null
+        },
+        {
+          "ea": 5304745,
+          "size": 2,
+          "bytes": "6a7c",
+          "asm": "push    7Ch ; '|'",
+          "call_target": null
+        },
+        {
+          "ea": 5304747,
+          "size": 1,
+          "bytes": "56",
+          "asm": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": 5304748,
+          "size": 5,
+          "bytes": "e81fdd0100",
+          "asm": "call    sub_52CED0",
+          "call_target": 5426896
+        },
+        {
+          "ea": 5304753,
+          "size": 7,
+          "bytes": "8d8c2440010000",
+          "asm": "lea     ecx, [esp+26Ch+var_12C]",
+          "call_target": null
+        },
+        {
+          "ea": 5304760,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": 5304761,
+          "size": 5,
+          "bytes": "682b010000",
+          "asm": "push    12Bh",
+          "call_target": null
+        },
+        {
+          "ea": 5304766,
+          "size": 2,
+          "bytes": "6a02",
+          "asm": "push    2",
+          "call_target": null
+        },
+        {
+          "ea": 5304768,
+          "size": 2,
+          "bytes": "6a7c",
+          "asm": "push    7Ch ; '|'",
+          "call_target": null
+        },
+        {
+          "ea": 5304770,
+          "size": 1,
+          "bytes": "56",
+          "asm": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": 5304771,
+          "size": 5,
+          "bytes": "e808dd0100",
+          "asm": "call    sub_52CED0",
+          "call_target": 5426896
+        },
+        {
+          "ea": 5304776,
+          "size": 2,
+          "bytes": "6a03",
+          "asm": "push    3",
+          "call_target": null
+        },
+        {
+          "ea": 5304778,
+          "size": 2,
+          "bytes": "6a7c",
+          "asm": "push    7Ch ; '|'",
+          "call_target": null
+        },
+        {
+          "ea": 5304780,
+          "size": 1,
+          "bytes": "56",
+          "asm": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": 5304781,
+          "size": 5,
+          "bytes": "e8cedd0100",
+          "asm": "call    sub_52CFA0",
+          "call_target": 5427104
+        },
+        {
+          "ea": 5304786,
+          "size": 7,
+          "bytes": "8d942460010000",
+          "asm": "lea     edx, [esp+28Ch+var_12C]",
+          "call_target": null
+        },
+        {
+          "ea": 5304793,
+          "size": 2,
+          "bytes": "8bf0",
+          "asm": "mov     esi, eax",
+          "call_target": null
+        },
+        {
+          "ea": 5304795,
+          "size": 1,
+          "bytes": "52",
+          "asm": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": 5304796,
+          "size": 5,
+          "bytes": "e80fe10100",
+          "asm": "call    Unescape2",
+          "call_target": 5427952
+        },
+        {
+          "ea": 5304801,
+          "size": 7,
+          "bytes": "8bbc2498020000",
+          "asm": "mov     edi, [esp+290h+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": 5304808,
+          "size": 1,
+          "bytes": "57",
+          "asm": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": 5304809,
+          "size": 5,
+          "bytes": "e8d2a30000",
+          "asm": "call    sub_5195C0",
+          "call_target": 5346752
+        },
+        {
+          "ea": 5304814,
+          "size": 2,
+          "bytes": "8bd8",
+          "asm": "mov     ebx, eax",
+          "call_target": null
+        },
+        {
+          "ea": 5304816,
+          "size": 7,
+          "bytes": "8d842468010000",
+          "asm": "lea     eax, [esp+294h+var_12C]",
+          "call_target": null
+        },
+        {
+          "ea": 5304823,
+          "size": 4,
+          "bytes": "8d4c2448",
+          "asm": "lea     ecx, [esp+294h+var_24C]",
+          "call_target": null
+        },
+        {
+          "ea": 5304827,
+          "size": 1,
+          "bytes": "50",
+          "asm": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": 5304828,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": 5304829,
+          "size": 2,
+          "bytes": "6a00",
+          "asm": "push    0",
+          "call_target": null
+        },
+        {
+          "ea": 5304831,
+          "size": 1,
+          "bytes": "57",
+          "asm": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": 5304832,
+          "size": 5,
+          "bytes": "e86ba10000",
+          "asm": "call    sub_519370",
+          "call_target": 5346160
+        },
+        {
+          "ea": 5304837,
+          "size": 3,
+          "bytes": "83c44c",
+          "asm": "add     esp, 4Ch",
+          "call_target": null
+        },
+        {
+          "ea": 5304840,
+          "size": 3,
+          "bytes": "83feff",
+          "asm": "cmp     esi, 0FFFFFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": 5304843,
+          "size": 2,
+          "bytes": "8bd3",
+          "asm": "mov     edx, ebx",
+          "call_target": null
+        },
+        {
+          "ea": 5304845,
+          "size": 2,
+          "bytes": "7514",
+          "asm": "jnz     short loc_50F223",
+          "call_target": null
+        },
+        {
+          "ea": 5304847,
+          "size": 3,
+          "bytes": "c1e205",
+          "asm": "shl     edx, 5",
+          "call_target": null
+        },
+        {
+          "ea": 5304850,
+          "size": 2,
+          "bytes": "2bd3",
+          "asm": "sub     edx, ebx",
+          "call_target": null
+        },
+        {
+          "ea": 5304852,
+          "size": 7,
+          "bytes": "8d04952c1b0501",
+          "asm": "lea     eax, ds:1051B2Ch[edx*4]",
+          "call_target": null
+        },
+        {
+          "ea": 5304859,
+          "size": 1,
+          "bytes": "50",
+          "asm": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": 5304860,
+          "size": 5,
+          "bytes": "68ecb05800",
+          "asm": "push    offset aS_25; \"您收到來自家族 %s 的信件～\"",
+          "call_target": null
+        },
+        {
+          "ea": 5304865,
+          "size": 2,
+          "bytes": "eb12",
+          "asm": "jmp     short loc_50F235",
+          "call_target": null
+        },
+        {
+          "ea": 5304867,
+          "size": 3,
+          "bytes": "c1e205",
+          "asm": "shl     edx, 5",
+          "call_target": null
+        },
+        {
+          "ea": 5304870,
+          "size": 2,
+          "bytes": "2bd3",
+          "asm": "sub     edx, ebx",
+          "call_target": null
+        },
+        {
+          "ea": 5304872,
+          "size": 7,
+          "bytes": "8d04952c1b0501",
+          "asm": "lea     eax, ds:1051B2Ch[edx*4]",
+          "call_target": null
+        },
+        {
+          "ea": 5304879,
+          "size": 1,
+          "bytes": "50",
+          "asm": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": 5304880,
+          "size": 5,
+          "bytes": "68c8b05800",
+          "asm": "push    offset aS_24; \"您收到來自家族成員 %s 的寵物信件～\"",
+          "call_target": null
+        },
+        {
+          "ea": 5304885,
+          "size": 4,
+          "bytes": "8d4c2434",
+          "asm": "lea     ecx, [esp+260h+Buffer]",
+          "call_target": null
+        },
+        {
+          "ea": 5304889,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx; Buffer",
+          "call_target": null
+        },
+        {
+          "ea": 5304890,
+          "size": 5,
+          "bytes": "e8c5c00200",
+          "asm": "call    _sprintf",
+          "call_target": 5485316
+        },
+        {
+          "ea": 5304895,
+          "size": 3,
+          "bytes": "83c40c",
+          "asm": "add     esp, 0Ch",
+          "call_target": null
+        },
+        {
+          "ea": 5304898,
+          "size": 5,
+          "bytes": "e809a30000",
+          "asm": "call    sub_519550",
+          "call_target": 5346640
+        },
+        {
+          "ea": 5304903,
+          "size": 5,
+          "bytes": "68f0000000",
+          "asm": "push    0F0h",
+          "call_target": null
+        },
+        {
+          "ea": 5304908,
+          "size": 5,
+          "bytes": "6840010000",
+          "asm": "push    140h",
+          "call_target": null
+        },
+        {
+          "ea": 5304913,
+          "size": 2,
+          "bytes": "6a3f",
+          "asm": "push    3Fh ; '?'",
+          "call_target": null
+        },
+        {
+          "ea": 5304915,
+          "size": 5,
+          "bytes": "e8f8d10100",
+          "asm": "call    World__PlaySe",
+          "call_target": 5424208
+        },
+        {
+          "ea": 5304920,
+          "size": 2,
+          "bytes": "6a03",
+          "asm": "push    3; int",
+          "call_target": null
+        },
+        {
+          "ea": 5304922,
+          "size": 4,
+          "bytes": "8d54243c",
+          "asm": "lea     edx, [esp+268h+Buffer]",
+          "call_target": null
+        },
+        {
+          "ea": 5304926,
+          "size": 2,
+          "bytes": "6a04",
+          "asm": "push    4; Time",
+          "call_target": null
+        },
+        {
+          "ea": 5304928,
+          "size": 1,
+          "bytes": "52",
+          "asm": "push    edx; int",
+          "call_target": null
+        },
+        {
+          "ea": 5304929,
+          "size": 5,
+          "bytes": "e8eabdf3ff",
+          "asm": "call    World__AppendMsgToCharWindow",
+          "call_target": 4501584
+        },
+        {
+          "ea": 5304934,
+          "size": 3,
+          "bytes": "83c418",
+          "asm": "add     esp, 18h",
+          "call_target": null
+        },
+        {
+          "ea": 5304937,
+          "size": 1,
+          "bytes": "5f",
+          "asm": "pop     edi",
+          "call_target": null
+        },
+        {
+          "ea": 5304938,
+          "size": 1,
+          "bytes": "5e",
+          "asm": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": 5304939,
+          "size": 1,
+          "bytes": "5b",
+          "asm": "pop     ebx",
+          "call_target": null
+        },
+        {
+          "ea": 5304940,
+          "size": 6,
+          "bytes": "81c44c020000",
+          "asm": "add     esp, 24Ch",
+          "call_target": null
+        },
+        {
+          "ea": 5304946,
+          "size": 1,
+          "bytes": "c3",
+          "asm": "retn",
+          "call_target": null
+        }
+      ]
+    },
+    {
+      "ea": 5304144,
+      "end": 5304170,
+      "name": "sub_50EF50",
+      "type": "int()",
+      "chunks": [
+        [
+          5304144,
+          5304170
+        ]
+      ],
+      "instruction_count": 9,
+      "byte_count": 26,
+      "inbound_calls": [
+        {
+          "ea": 5303865,
+          "parent": 5303376,
+          "type": 17,
+          "bytes": "e812010000",
+          "asm": "call    sub_50EF50"
+        },
+        {
+          "ea": 5304073,
+          "parent": 5303984,
+          "type": 17,
+          "bytes": "e842000000",
+          "asm": "call    sub_50EF50"
+        },
+        {
+          "ea": 5304685,
+          "parent": 5304624,
+          "type": 17,
+          "bytes": "e8defdffff",
+          "asm": "call    sub_50EF50"
+        }
+      ],
+      "page_count": 1,
+      "instructions": [
+        {
+          "ea": 5304144,
+          "size": 2,
+          "bytes": "33c0",
+          "asm": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": 5304146,
+          "size": 5,
+          "bytes": "b91c1b0501",
+          "asm": "mov     ecx, offset word_1051B1C",
+          "call_target": null
+        },
+        {
+          "ea": 5304151,
+          "size": 4,
+          "bytes": "66833901",
+          "asm": "cmp     word ptr [ecx], 1",
+          "call_target": null
+        },
+        {
+          "ea": 5304155,
+          "size": 2,
+          "bytes": "7501",
+          "asm": "jnz     short loc_50EF5E",
+          "call_target": null
+        },
+        {
+          "ea": 5304157,
+          "size": 1,
+          "bytes": "40",
+          "asm": "inc     eax",
+          "call_target": null
+        },
+        {
+          "ea": 5304158,
+          "size": 3,
+          "bytes": "83c17c",
+          "asm": "add     ecx, 7Ch ; '|'",
+          "call_target": null
+        },
+        {
+          "ea": 5304161,
+          "size": 6,
+          "bytes": "81f9fc7b0501",
+          "asm": "cmp     ecx, offset unk_1057BFC",
+          "call_target": null
+        },
+        {
+          "ea": 5304167,
+          "size": 2,
+          "bytes": "7cee",
+          "asm": "jl      short loc_50EF57",
+          "call_target": null
+        },
+        {
+          "ea": 5304169,
+          "size": 1,
+          "bytes": "c3",
+          "asm": "retn",
+          "call_target": null
+        }
+      ]
+    },
+    {
+      "ea": 5346640,
+      "end": 5346748,
+      "name": "sub_519550",
+      "type": "FILE *()",
+      "chunks": [
+        [
+          5346640,
+          5346748
+        ]
+      ],
+      "instruction_count": 31,
+      "byte_count": 108,
+      "inbound_calls": [
+        {
+          "ea": 4592939,
+          "parent": 4591600,
+          "type": 17,
+          "bytes": "e820800b00",
+          "asm": "call    sub_519550"
+        },
+        {
+          "ea": 4655023,
+          "parent": 5258880,
+          "type": 17,
+          "bytes": "e89c8d0a00",
+          "asm": "call    sub_519550"
+        },
+        {
+          "ea": 4863526,
+          "parent": 4863488,
+          "type": 17,
+          "bytes": "e8255f0700",
+          "asm": "call    sub_519550"
+        },
+        {
+          "ea": 4863620,
+          "parent": 4863584,
+          "type": 17,
+          "bytes": "e8c75e0700",
+          "asm": "call    sub_519550"
+        },
+        {
+          "ea": 4867633,
+          "parent": 4867616,
+          "type": 17,
+          "bytes": "e81a4f0700",
+          "asm": "call    sub_519550"
+        },
+        {
+          "ea": 4873543,
+          "parent": 4872560,
+          "type": 17,
+          "bytes": "e804380700",
+          "asm": "call    sub_519550"
+        },
+        {
+          "ea": 4874248,
+          "parent": 4872560,
+          "type": 17,
+          "bytes": "e843350700",
+          "asm": "call    sub_519550"
+        },
+        {
+          "ea": 4876402,
+          "parent": 4875344,
+          "type": 17,
+          "bytes": "e8d92c0700",
+          "asm": "call    sub_519550"
+        },
+        {
+          "ea": 4876831,
+          "parent": 4875344,
+          "type": 17,
+          "bytes": "e82c2b0700",
+          "asm": "call    sub_519550"
+        },
+        {
+          "ea": 5153685,
+          "parent": 5153200,
+          "type": 17,
+          "bytes": "e8b6f10200",
+          "asm": "call    sub_519550"
+        },
+        {
+          "ea": 5304898,
+          "parent": 5304720,
+          "type": 17,
+          "bytes": "e809a30000",
+          "asm": "call    sub_519550"
+        },
+        {
+          "ea": 5344612,
+          "parent": 5344432,
+          "type": 17,
+          "bytes": "e8e7070000",
+          "asm": "call    sub_519550"
+        },
+        {
+          "ea": 5433274,
+          "parent": 5432912,
+          "type": 17,
+          "bytes": "e891adfeff",
+          "asm": "call    sub_519550"
+        },
+        {
+          "ea": 5435408,
+          "parent": 5434704,
+          "type": 17,
+          "bytes": "e83ba5feff",
+          "asm": "call    sub_519550"
+        },
+        {
+          "ea": 5451358,
+          "parent": 5304960,
+          "type": 17,
+          "bytes": "e8ed66feff",
+          "asm": "call    sub_519550"
+        }
+      ],
+      "page_count": 1,
+      "instructions": [
+        {
+          "ea": 5346640,
+          "size": 5,
+          "bytes": "a194c30501",
+          "asm": "mov     eax, dword_105C394",
+          "call_target": null
+        },
+        {
+          "ea": 5346645,
+          "size": 6,
+          "bytes": "81ec80000000",
+          "asm": "sub     esp, 80h",
+          "call_target": null
+        },
+        {
+          "ea": 5346651,
+          "size": 4,
+          "bytes": "8d542400",
+          "asm": "lea     edx, [esp+80h+Buffer]",
+          "call_target": null
+        },
+        {
+          "ea": 5346655,
+          "size": 7,
+          "bytes": "8b0c856cc30501",
+          "asm": "mov     ecx, dword_105C36C[eax*4]",
+          "call_target": null
+        },
+        {
+          "ea": 5346662,
+          "size": 1,
+          "bytes": "56",
+          "asm": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": 5346663,
+          "size": 3,
+          "bytes": "c1e108",
+          "asm": "shl     ecx, 8",
+          "call_target": null
+        },
+        {
+          "ea": 5346666,
+          "size": 6,
+          "bytes": "81c198860501",
+          "asm": "add     ecx, offset stru_1058698",
+          "call_target": null
+        },
+        {
+          "ea": 5346672,
+          "size": 5,
+          "bytes": "68b4b65800",
+          "asm": "push    offset aGuildmailDat; \"guildmail.dat\"",
+          "call_target": null
+        },
+        {
+          "ea": 5346677,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": 5346678,
+          "size": 5,
+          "bytes": "6814355500",
+          "asm": "push    offset aSS; \"%s\\\\%s\"",
+          "call_target": null
+        },
+        {
+          "ea": 5346683,
+          "size": 1,
+          "bytes": "52",
+          "asm": "push    edx; Buffer",
+          "call_target": null
+        },
+        {
+          "ea": 5346684,
+          "size": 5,
+          "bytes": "e8831d0200",
+          "asm": "call    _sprintf",
+          "call_target": 5485316
+        },
+        {
+          "ea": 5346689,
+          "size": 4,
+          "bytes": "8d442414",
+          "asm": "lea     eax, [esp+94h+Buffer]",
+          "call_target": null
+        },
+        {
+          "ea": 5346693,
+          "size": 5,
+          "bytes": "681c495500",
+          "asm": "push    offset aWb_0; \"wb\"",
+          "call_target": null
+        },
+        {
+          "ea": 5346698,
+          "size": 1,
+          "bytes": "50",
+          "asm": "push    eax; FileName",
+          "call_target": null
+        },
+        {
+          "ea": 5346699,
+          "size": 5,
+          "bytes": "e8611d0200",
+          "asm": "call    _fopen",
+          "call_target": 5485297
+        },
+        {
+          "ea": 5346704,
+          "size": 2,
+          "bytes": "8bf0",
+          "asm": "mov     esi, eax",
+          "call_target": null
+        },
+        {
+          "ea": 5346706,
+          "size": 3,
+          "bytes": "83c418",
+          "asm": "add     esp, 18h",
+          "call_target": null
+        },
+        {
+          "ea": 5346709,
+          "size": 2,
+          "bytes": "85f6",
+          "asm": "test    esi, esi",
+          "call_target": null
+        },
+        {
+          "ea": 5346711,
+          "size": 2,
+          "bytes": "741b",
+          "asm": "jz      short loc_5195B4",
+          "call_target": null
+        },
+        {
+          "ea": 5346713,
+          "size": 1,
+          "bytes": "56",
+          "asm": "push    esi; Stream",
+          "call_target": null
+        },
+        {
+          "ea": 5346714,
+          "size": 5,
+          "bytes": "6880941300",
+          "asm": "push    139480h; ElementCount",
+          "call_target": null
+        },
+        {
+          "ea": 5346719,
+          "size": 2,
+          "bytes": "6a01",
+          "asm": "push    1; ElementSize",
+          "call_target": null
+        },
+        {
+          "ea": 5346721,
+          "size": 5,
+          "bytes": "68300bde00",
+          "asm": "push    offset dword_DE0B30; Buffer",
+          "call_target": null
+        },
+        {
+          "ea": 5346726,
+          "size": 5,
+          "bytes": "e8d5300200",
+          "asm": "call    _fwrite",
+          "call_target": 5490304
+        },
+        {
+          "ea": 5346731,
+          "size": 1,
+          "bytes": "56",
+          "asm": "push    esi; Stream",
+          "call_target": null
+        },
+        {
+          "ea": 5346732,
+          "size": 5,
+          "bytes": "e81f1c0200",
+          "asm": "call    _fclose",
+          "call_target": 5485008
+        },
+        {
+          "ea": 5346737,
+          "size": 3,
+          "bytes": "83c414",
+          "asm": "add     esp, 14h",
+          "call_target": null
+        },
+        {
+          "ea": 5346740,
+          "size": 1,
+          "bytes": "5e",
+          "asm": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": 5346741,
+          "size": 6,
+          "bytes": "81c480000000",
+          "asm": "add     esp, 80h",
+          "call_target": null
+        },
+        {
+          "ea": 5346747,
+          "size": 1,
+          "bytes": "c3",
+          "asm": "retn",
+          "call_target": null
+        }
+      ]
+    }
+  ],
+  "original_totals": [
+    {
+      "entry": "0x50f130",
+      "end": "0x50f182",
+      "instructions": 23,
+      "bytes": 82,
+      "pages": 1,
+      "direct_calls": 3,
+      "jumps": 1,
+      "returns": 1
+    },
+    {
+      "entry": "0x50f190",
+      "end": "0x50f273",
+      "instructions": 73,
+      "bytes": 227,
+      "pages": 2,
+      "direct_calls": 10,
+      "jumps": 2,
+      "returns": 1
+    },
+    {
+      "entry": "0x50ef50",
+      "end": "0x50ef6a",
+      "instructions": 9,
+      "bytes": 26,
+      "pages": 1,
+      "direct_calls": 0,
+      "jumps": 2,
+      "returns": 1
+    },
+    {
+      "entry": "0x519550",
+      "end": "0x5195bc",
+      "instructions": 31,
+      "bytes": 108,
+      "pages": 1,
+      "direct_calls": 4,
+      "jumps": 1,
+      "returns": 1
+    }
+  ],
+  "original_parent_windows": [
+    {
+      "start": 5324906,
+      "end": 5324956,
+      "call": 5324936,
+      "full_parent_verified": false,
+      "instructions": [
+        {
+          "ea": 5324906,
+          "size": 3,
+          "bytes": "83d8ff",
+          "asm": "sbb     eax, 0FFFFFFFFh"
+        },
+        {
+          "ea": 5324909,
+          "size": 2,
+          "bytes": "85c0",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": 5324911,
+          "size": 2,
+          "bytes": "752c",
+          "asm": "jnz     short loc_51409D"
+        },
+        {
+          "ea": 5324913,
+          "size": 5,
+          "bytes": "a114b65800",
+          "asm": "mov     eax, protocolArgs"
+        },
+        {
+          "ea": 5324918,
+          "size": 3,
+          "bytes": "8b4804",
+          "asm": "mov     ecx, [eax+4]"
+        },
+        {
+          "ea": 5324921,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx"
+        },
+        {
+          "ea": 5324922,
+          "size": 5,
+          "bytes": "e811310000",
+          "asm": "call    sub_517190"
+        },
+        {
+          "ea": 5324927,
+          "size": 7,
+          "bytes": "8b94244c040000",
+          "asm": "mov     edx, [esp+448h+fd]"
+        },
+        {
+          "ea": 5324934,
+          "size": 1,
+          "bytes": "50",
+          "asm": "push    eax"
+        },
+        {
+          "ea": 5324935,
+          "size": 1,
+          "bytes": "52",
+          "asm": "push    edx"
+        },
+        {
+          "ea": 5324936,
+          "size": 5,
+          "bytes": "e8a3b0ffff",
+          "asm": "call    sub_50F130"
+        },
+        {
+          "ea": 5324941,
+          "size": 3,
+          "bytes": "83c40c",
+          "asm": "add     esp, 0Ch"
+        },
+        {
+          "ea": 5324944,
+          "size": 2,
+          "bytes": "33c0",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "ea": 5324946,
+          "size": 1,
+          "bytes": "5f",
+          "asm": "pop     edi"
+        },
+        {
+          "ea": 5324947,
+          "size": 1,
+          "bytes": "5e",
+          "asm": "pop     esi"
+        },
+        {
+          "ea": 5324948,
+          "size": 1,
+          "bytes": "5d",
+          "asm": "pop     ebp"
+        },
+        {
+          "ea": 5324949,
+          "size": 1,
+          "bytes": "5b",
+          "asm": "pop     ebx"
+        },
+        {
+          "ea": 5324950,
+          "size": 6,
+          "bytes": "81c434040000",
+          "asm": "add     esp, 434h"
+        }
+      ],
+      "requested_start": 5324906,
+      "requested_end": 5324953
+    },
+    {
+      "start": 5325069,
+      "end": 5325117,
+      "call": 5325097,
+      "full_parent_verified": false,
+      "instructions": [
+        {
+          "ea": 5325069,
+          "size": 6,
+          "bytes": "8b0d14b65800",
+          "asm": "mov     ecx, protocolArgs"
+        },
+        {
+          "ea": 5325075,
+          "size": 2,
+          "bytes": "8bf8",
+          "asm": "mov     edi, eax"
+        },
+        {
+          "ea": 5325077,
+          "size": 3,
+          "bytes": "8b510c",
+          "asm": "mov     edx, [ecx+0Ch]"
+        },
+        {
+          "ea": 5325080,
+          "size": 1,
+          "bytes": "52",
+          "asm": "push    edx"
+        },
+        {
+          "ea": 5325081,
+          "size": 5,
+          "bytes": "e872300000",
+          "asm": "call    sub_517190"
+        },
+        {
+          "ea": 5325086,
+          "size": 1,
+          "bytes": "50",
+          "asm": "push    eax"
+        },
+        {
+          "ea": 5325087,
+          "size": 7,
+          "bytes": "8b842464040000",
+          "asm": "mov     eax, [esp+460h+fd]"
+        },
+        {
+          "ea": 5325094,
+          "size": 1,
+          "bytes": "57",
+          "asm": "push    edi"
+        },
+        {
+          "ea": 5325095,
+          "size": 1,
+          "bytes": "56",
+          "asm": "push    esi"
+        },
+        {
+          "ea": 5325096,
+          "size": 1,
+          "bytes": "50",
+          "asm": "push    eax"
+        },
+        {
+          "ea": 5325097,
+          "size": 5,
+          "bytes": "e862b0ffff",
+          "asm": "call    sub_50F190"
+        },
+        {
+          "ea": 5325102,
+          "size": 3,
+          "bytes": "83c428",
+          "asm": "add     esp, 28h"
+        },
+        {
+          "ea": 5325105,
+          "size": 2,
+          "bytes": "33c0",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "ea": 5325107,
+          "size": 1,
+          "bytes": "5f",
+          "asm": "pop     edi"
+        },
+        {
+          "ea": 5325108,
+          "size": 1,
+          "bytes": "5e",
+          "asm": "pop     esi"
+        },
+        {
+          "ea": 5325109,
+          "size": 1,
+          "bytes": "5d",
+          "asm": "pop     ebp"
+        },
+        {
+          "ea": 5325110,
+          "size": 1,
+          "bytes": "5b",
+          "asm": "pop     ebx"
+        },
+        {
+          "ea": 5325111,
+          "size": 6,
+          "bytes": "81c434040000",
+          "asm": "add     esp, 434h"
+        }
+      ],
+      "requested_start": 5325067,
+      "requested_end": 5325116
+    },
+    {
+      "start": 5302320,
+      "end": 5302339,
+      "call": 5302334,
+      "full_parent_verified": false,
+      "instructions": [
+        {
+          "ea": 5302320,
+          "size": 5,
+          "bytes": "a10c6e9a00",
+          "asm": "mov     eax, dword_9A6E0C"
+        },
+        {
+          "ea": 5302325,
+          "size": 2,
+          "bytes": "85c0",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": 5302327,
+          "size": 2,
+          "bytes": "750a",
+          "asm": "jnz     short locret_50E843"
+        },
+        {
+          "ea": 5302329,
+          "size": 5,
+          "bytes": "e882ac0000",
+          "asm": "call    sub_5194C0"
+        },
+        {
+          "ea": 5302334,
+          "size": 5,
+          "bytes": "e90dad0000",
+          "asm": "jmp     sub_519550"
+        }
+      ],
+      "requested_start": 5302320,
+      "requested_end": 5302339
+    }
+  ],
+  "source_before": [
+    {
+      "path": "src/network/NetworkRuntime.cpp",
+      "symbol": "Sub_50F130",
+      "signature": "std::int32_t Sub_50F130(const std::uintptr_t, const std::int32_t key)",
+      "source": "std::int32_t Sub_50F130(const std::uintptr_t, const std::int32_t key)\n{\n    const std::uint32_t gate = world::gValue9A6E0C;\n    if (gate != 0) {\n        return std::bit_cast<std::int32_t>(gate);\n    }\n    const std::int32_t index = login::detail::FindActiveOrderedRecordIndex_5195C0(key);\n    auto* const record = login::detail::gOrderedRecords1051B14.data() + index;\n    record->value00 = -1;\n    record->value08 = 0;\n    record->text18[0] = '\\0';\n    record->text18[0x11] = '\\0';\n    record->value0C = -1;\n    login::detail::gOrderedRecordCount1051510 =\n        login::detail::CountRecordsValue08EqualOne_50EF50();\n    return world::detail::Sub_5194F0(key);\n}\n",
+      "line": 966
+    },
+    {
+      "path": "src/network/NetworkRuntime.cpp",
+      "symbol": "Sub_50F190",
+      "signature": "void Sub_50F190(\n    const std::uintptr_t, const std::int32_t key,\n    const char* const payload, const std::int32_t)",
+      "source": "void Sub_50F190(\n    const std::uintptr_t, const std::int32_t key,\n    const char* const payload, const std::int32_t)\n{\n    constexpr char kGuildMailFormat58B0EC[] =\n        \"\\xC4\\xFA\\xCA\\xD5\\xB5\\xBD\\x81\\xED\\xD7\\xD4\\xBC\\xD2\\xD7\\xE5\"\n        \" %s \" \"\\xB5\\xC4\\xD0\\xC5\\xBC\\xFE\\xA1\\xAB\";\n    constexpr char kGuildPetMailFormat58B0C8[] =\n        \"\\xC4\\xFA\\xCA\\xD5\\xB5\\xBD\\x81\\xED\\xD7\\xD4\\xBC\\xD2\\xD7\\xE5\"\n        \"\\xB3\\xC9\\x86\\x54\" \" %s \"\n        \"\\xB5\\xC4\\x8C\\x99\\xCE\\xEF\\xD0\\xC5\\xBC\\xFE\\xA1\\xAB\";\n\n    char name[32];\n    char message[256];\n    char text[300];\n    static_cast<void>(ExtractDelimitedField_52CED0(payload, '|', 1, 31, name));\n    static_cast<void>(ExtractDelimitedField_52CED0(payload, '|', 2, 299, text));\n    const std::int32_t kind = ParseDelimitedInteger_52CFA0(payload, '|', 3);\n    input::UnescapeLegacyTextAndNotify_52D2F0(text);\n    const std::int32_t index = login::detail::FindActiveOrderedRecordIndex_5195C0(key);\n    static_cast<void>(world::detail::Sub_519370(key, 0, name, text));\n    const char* const recordName =\n        (login::detail::gOrderedRecords1051B14.data() + index)->text18;\n    platform::FormatLegacyString_53B304(\n        message, kind == -1 ? kGuildMailFormat58B0EC : kGuildPetMailFormat58B0C8,\n        recordName);\n    static_cast<void>(world::detail::Sub_519550());\n    static_cast<void>(audio::PlaySe_52C450(63, 320));\n    world::detail::Sub_44B050(message, 4, 3);\n}\n",
+      "line": 984
+    },
+    {
+      "path": "src/LegacyRecordOrder.cpp",
+      "symbol": "CountRecordsValue08EqualOne_50EF50",
+      "signature": "std::int32_t CountRecordsValue08EqualOne_50EF50() noexcept",
+      "source": "std::int32_t CountRecordsValue08EqualOne_50EF50() noexcept\n{\n    std::int32_t count = 0;\n    for (const OrderedRecord1051B14& record : gOrderedRecords1051B14) {\n        if (record.value08 == 1) {\n            ++count;\n        }\n    }\n    return count;\n}\n",
+      "line": 313
+    },
+    {
+      "path": "src/world/MailState.cpp",
+      "symbol": "Sub_519550",
+      "signature": "std::int32_t Sub_519550()",
+      "source": "std::int32_t Sub_519550()\n{\n    char path[128];\n    platform::FormatLegacyString_53B304(\n        path, \"%s\\\\%s\", login::detail::ReadSelectedSavedDirectory(), \"guildmail.dat\");\n    platform::LegacyFile* const stream =\n        platform::OpenLegacyStream_53B2F1(path, \"wb\");\n    if (stream == nullptr) {\n        return 0;\n    }\n    static_cast<void>(platform::WriteLegacyStream_53C680(\n        gGuildMailStorageDE0B30.data(), 1,\n        static_cast<std::uint32_t>(gGuildMailStorageDE0B30.size()), stream));\n    return platform::CloseLegacyStream_53B1D0(stream);\n}\n",
+      "line": 1452
+    }
+  ],
+  "unchanged_providers_before": [
+    {
+      "path": "src/network/NetworkRuntime.cpp",
+      "symbol": "DecodeDispatchArgument",
+      "signature": "Value DecodeDispatchArgument(\n    const std::size_t index, const bool workspaceBeforeCapacity)",
+      "source": "Value DecodeDispatchArgument(\n    const std::size_t index, const bool workspaceBeforeCapacity)\n{\n    static_assert(std::is_same_v<Value, std::int32_t> || std::is_same_v<Value, char*>);\n    if constexpr (std::is_same_v<Value, std::int32_t>) {\n        return ParseProtocolInteger_517190(gNetworkRuntimeState.pointerTable58B614[index]);\n    } else {\n        std::uint8_t* const decoded = Sub_5171B0(gNetworkRuntimeState.pointerTable58B614[index]);\n        std::int32_t capacity;\n        std::uint8_t** workspace;\n        // 原85字段分两种基址/容量读取顺序；槽解引用均在两次读取后。\n        if (workspaceBeforeCapacity) {\n            workspace = gNetworkRuntimeState.workspaceSlots;\n            capacity = std::bit_cast<std::int32_t>(gNetworkRuntimeState.bufferLength);\n        } else {\n            capacity = std::bit_cast<std::int32_t>(gNetworkRuntimeState.bufferLength);\n            workspace = gNetworkRuntimeState.workspaceSlots;\n        }\n        std::uint8_t* const destination = workspace[index];\n        return reinterpret_cast<char*>(\n            CopyProtocolBytesAndReturn_517690(destination, capacity, decoded));\n    }\n}\n",
+      "line": 4282,
+      "new_original_identity": false
+    },
+    {
+      "path": "src/network/NetworkRuntime.cpp",
+      "symbol": "DecodeDispatchArguments",
+      "signature": "std::tuple<Values...> DecodeDispatchArguments(\n    std::index_sequence<Indices...>, const std::uint32_t workspaceBeforeCapacityMask)",
+      "source": "std::tuple<Values...> DecodeDispatchArguments(\n    std::index_sequence<Indices...>, const std::uint32_t workspaceBeforeCapacityMask)\n{\n    // bit N对应原第N参数读序；见doc/cg2d_dispatch_account_field_read_spec.md。\n    // 花括号初始化保证先完成第N项，再读取第N+1项及其共享临时区。\n    return std::tuple<Values...> {\n        DecodeDispatchArgument<Values>(\n            Indices + 1,\n            (workspaceBeforeCapacityMask & (1U << (Indices + 1))) != 0U)...\n    };\n}\n",
+      "line": 4307,
+      "new_original_identity": false
+    },
+    {
+      "path": "src/network/NetworkRuntime.cpp",
+      "symbol": "TryDispatchReply",
+      "signature": "bool TryDispatchReply(\n    const char* const head, const char* const command, const std::uintptr_t socket,\n    const std::uint32_t workspaceBeforeCapacityMask = 0U)",
+      "source": "bool TryDispatchReply(\n    const char* const head, const char* const command, const std::uintptr_t socket,\n    const std::uint32_t workspaceBeforeCapacityMask = 0U)\n{\n    // 原108块均先取头U8再取命令U8；每对比较后以同头样本判NUL。\n    auto* receivedBytes = reinterpret_cast<const unsigned char*>(head);\n    auto* commandBytes = reinterpret_cast<const unsigned char*>(command);\n    for (;;) {\n        const unsigned char receivedFirst = receivedBytes[0];\n        const unsigned char commandFirst = commandBytes[0];\n        if (receivedFirst != commandFirst) {\n            return false;\n        }\n        if (receivedFirst == 0) {\n            break;\n        }\n        const unsigned char receivedSecond = receivedBytes[1];\n        const unsigned char commandSecond = commandBytes[1];\n        if (receivedSecond != commandSecond) {\n            return false;\n        }\n        receivedBytes += 2;\n        commandBytes += 2;\n        if (receivedSecond == 0) {\n            break;\n        }\n    }\n    const auto values = DecodeDispatchArguments<Values...>(\n        std::index_sequence_for<Values...> {}, workspaceBeforeCapacityMask);\n    std::apply([socket](const auto... arguments) {\n        static_cast<void>(Callback(socket, arguments...));\n    }, values);\n    return true;\n}\n",
+      "line": 4320,
+      "new_original_identity": false
+    },
+    {
+      "path": "src/LoginSavedState.cpp",
+      "symbol": "ReadSelectedSavedDirectory",
+      "signature": "const char* ReadSelectedSavedDirectory()",
+      "source": "const char* ReadSelectedSavedDirectory()\n{\n    const std::int32_t selected = gSavedState.selected;\n    const std::int32_t physicalSlot = gSavedState.logicalToPhysical[selected];\n    return gSavedState.paths[physicalSlot].text;\n}\n",
+      "line": 1055,
+      "new_original_identity": false
+    },
+    {
+      "path": "src/platform/LegacyStdio.cpp",
+      "symbol": "OpenLegacyStream_53B2F1",
+      "signature": "LegacyFile* OpenLegacyStream_53B2F1(const char* const filename, const char* const mode)",
+      "source": "LegacyFile* OpenLegacyStream_53B2F1(const char* const filename, const char* const mode)\n{\n    return std::fopen(filename, mode);\n}\n",
+      "line": 13,
+      "new_original_identity": false
+    },
+    {
+      "path": "src/platform/LegacyStdio.cpp",
+      "symbol": "WriteLegacyStream_53C680",
+      "signature": "std::uint32_t WriteLegacyStream_53C680(const void* const buffer,\n    const std::uint32_t elementSize, const std::uint32_t elementCount,\n    LegacyFile* const stream)",
+      "source": "std::uint32_t WriteLegacyStream_53C680(const void* const buffer,\n    const std::uint32_t elementSize, const std::uint32_t elementCount,\n    LegacyFile* const stream)\n{\n    return static_cast<std::uint32_t>(std::fwrite(buffer, elementSize, elementCount, stream));\n}\n",
+      "line": 47,
+      "new_original_identity": false
+    },
+    {
+      "path": "src/platform/LegacyStdio.cpp",
+      "symbol": "CloseLegacyStream_53B1D0",
+      "signature": "std::int32_t CloseLegacyStream_53B1D0(LegacyFile* const stream)",
+      "source": "std::int32_t CloseLegacyStream_53B1D0(LegacyFile* const stream)\n{\n    return std::fclose(stream);\n}\n",
+      "line": 165,
+      "new_original_identity": false
+    },
+    {
+      "path": "src/Input.cpp",
+      "symbol": "UnescapeLegacyTextAndNotify_52D2F0",
+      "signature": "char* UnescapeLegacyTextAndNotify_52D2F0(char* const text)",
+      "source": "char* UnescapeLegacyTextAndNotify_52D2F0(char* const text)\n{\n    UnescapeLegacyText_52D150(text);\n    NullSub_509080();\n    return text;\n}\n",
+      "line": 801,
+      "new_original_identity": false
+    }
+  ],
+  "source_bindings": {
+    "src/network/NetworkRuntime.cpp": [
+      "    if (TryDispatchReply<Sub_50F130, I>(head, \"oRut\", socket)) return 0;",
+      "    if (TryDispatchReply<Sub_50F190, I, T, I>(head, \"Rll\", socket, 0x4U)) return 0;"
+    ],
+    "src/world/MailState.cpp": [
+      "alignas(std::uint32_t) std::array<std::byte, 0x139480> gGuildMailStorageDE0B30 {};"
+    ],
+    "include/cg/platform/LegacyStdio.hpp": [
+      "using LegacyFile = std::FILE;"
+    ]
+  },
+  "source_patches": [
+    {
+      "path": "include/cg/LegacyRecordOrder.hpp",
+      "old": "// 原 50EF50：逐条统计 +8 W16 恰为 1 的记录，返回 0..200。",
+      "replacement": "// GMR01：原50EF50，200条/+8 W16恰1/S32 count0..200，正文正确保持。",
+      "line": 0
+    },
+    {
+      "path": "src/LegacyRecordOrder.cpp",
+      "symbol": "CountRecordsValue08EqualOne_50EF50",
+      "old": "std::int32_t CountRecordsValue08EqualOne_50EF50() noexcept\n{\n    std::int32_t count = 0;\n    for (const OrderedRecord1051B14& record : gOrderedRecords1051B14) {\n        if (record.value08 == 1) {\n            ++count;\n        }\n    }\n    return count;\n}\n",
+      "replacement": "// GMR01：原200排序记录W16==1计数，S32结果0..200，正文正确保持。\nstd::int32_t CountRecordsValue08EqualOne_50EF50() noexcept\n{\n    std::int32_t count = 0;\n    for (const OrderedRecord1051B14& record : gOrderedRecords1051B14) {\n        if (record.value08 == 1) {\n            ++count;\n        }\n    }\n    return count;\n}\n",
+      "line": 313
+    },
+    {
+      "path": "src/network/NetworkRuntime.cpp",
+      "symbol": "Sub_50F130",
+      "old": "std::int32_t Sub_50F130(const std::uintptr_t, const std::int32_t key)\n{\n    const std::uint32_t gate = world::gValue9A6E0C;\n    if (gate != 0) {\n        return std::bit_cast<std::int32_t>(gate);\n    }\n    const std::int32_t index = login::detail::FindActiveOrderedRecordIndex_5195C0(key);\n    auto* const record = login::detail::gOrderedRecords1051B14.data() + index;\n    record->value00 = -1;\n    record->value08 = 0;\n    record->text18[0] = '\\0';\n    record->text18[0x11] = '\\0';\n    record->value0C = -1;\n    login::detail::gOrderedRecordCount1051510 =\n        login::detail::CountRecordsValue08EqualOne_50EF50();\n    return world::detail::Sub_5194F0(key);\n}\n",
+      "replacement": "// GMR01：原gate位型早退/记录五域重置→活动计数发布→同key邮件删除，原完整S32返回保。\nstd::int32_t Sub_50F130(const std::uintptr_t, const std::int32_t key)\n{\n    const std::uint32_t gate = world::gValue9A6E0C;\n    if (gate != 0) {\n        return std::bit_cast<std::int32_t>(gate);\n    }\n    const std::int32_t index = login::detail::FindActiveOrderedRecordIndex_5195C0(key);\n    auto* const record = login::detail::gOrderedRecords1051B14.data() + index;\n    record->value00 = -1;\n    record->value08 = 0;\n    record->text18[0] = '\\0';\n    record->text18[0x11] = '\\0';\n    record->value0C = -1;\n    login::detail::gOrderedRecordCount1051510 =\n        login::detail::CountRecordsValue08EqualOne_50EF50();\n    return world::detail::Sub_5194F0(key);\n}\n",
+      "line": 966
+    },
+    {
+      "path": "src/network/NetworkRuntime.cpp",
+      "symbol": "Sub_50F190",
+      "old": "void Sub_50F190(\n    const std::uintptr_t, const std::int32_t key,\n    const char* const payload, const std::int32_t)\n{\n    constexpr char kGuildMailFormat58B0EC[] =\n        \"\\xC4\\xFA\\xCA\\xD5\\xB5\\xBD\\x81\\xED\\xD7\\xD4\\xBC\\xD2\\xD7\\xE5\"\n        \" %s \" \"\\xB5\\xC4\\xD0\\xC5\\xBC\\xFE\\xA1\\xAB\";\n    constexpr char kGuildPetMailFormat58B0C8[] =\n        \"\\xC4\\xFA\\xCA\\xD5\\xB5\\xBD\\x81\\xED\\xD7\\xD4\\xBC\\xD2\\xD7\\xE5\"\n        \"\\xB3\\xC9\\x86\\x54\" \" %s \"\n        \"\\xB5\\xC4\\x8C\\x99\\xCE\\xEF\\xD0\\xC5\\xBC\\xFE\\xA1\\xAB\";\n\n    char name[32];\n    char message[256];\n    char text[300];\n    static_cast<void>(ExtractDelimitedField_52CED0(payload, '|', 1, 31, name));\n    static_cast<void>(ExtractDelimitedField_52CED0(payload, '|', 2, 299, text));\n    const std::int32_t kind = ParseDelimitedInteger_52CFA0(payload, '|', 3);\n    input::UnescapeLegacyTextAndNotify_52D2F0(text);\n    const std::int32_t index = login::detail::FindActiveOrderedRecordIndex_5195C0(key);\n    static_cast<void>(world::detail::Sub_519370(key, 0, name, text));\n    const char* const recordName =\n        (login::detail::gOrderedRecords1051B14.data() + index)->text18;\n    platform::FormatLegacyString_53B304(\n        message, kind == -1 ? kGuildMailFormat58B0EC : kGuildPetMailFormat58B0C8,\n        recordName);\n    static_cast<void>(world::detail::Sub_519550());\n    static_cast<void>(audio::PlaySe_52C450(63, 320));\n    world::detail::Sub_44B050(message, 4, 3);\n}\n",
+      "replacement": "// GMR01：原字段/反转义→持有排序index→生产→外部记录名通知→存档/SE63/消息，四参未读边界保。\nvoid Sub_50F190(\n    const std::uintptr_t, const std::int32_t key,\n    const char* const payload, const std::int32_t)\n{\n    constexpr char kGuildMailFormat58B0EC[] =\n        \"\\xC4\\xFA\\xCA\\xD5\\xB5\\xBD\\x81\\xED\\xD7\\xD4\\xBC\\xD2\\xD7\\xE5\"\n        \" %s \" \"\\xB5\\xC4\\xD0\\xC5\\xBC\\xFE\\xA1\\xAB\";\n    constexpr char kGuildPetMailFormat58B0C8[] =\n        \"\\xC4\\xFA\\xCA\\xD5\\xB5\\xBD\\x81\\xED\\xD7\\xD4\\xBC\\xD2\\xD7\\xE5\"\n        \"\\xB3\\xC9\\x86\\x54\" \" %s \"\n        \"\\xB5\\xC4\\x8C\\x99\\xCE\\xEF\\xD0\\xC5\\xBC\\xFE\\xA1\\xAB\";\n\n    char name[32];\n    char message[256];\n    char text[300];\n    static_cast<void>(ExtractDelimitedField_52CED0(payload, '|', 1, 31, name));\n    static_cast<void>(ExtractDelimitedField_52CED0(payload, '|', 2, 299, text));\n    const std::int32_t kind = ParseDelimitedInteger_52CFA0(payload, '|', 3);\n    input::UnescapeLegacyTextAndNotify_52D2F0(text);\n    const std::int32_t index = login::detail::FindActiveOrderedRecordIndex_5195C0(key);\n    static_cast<void>(world::detail::Sub_519370(key, 0, name, text));\n    const char* const recordName =\n        (login::detail::gOrderedRecords1051B14.data() + index)->text18;\n    platform::FormatLegacyString_53B304(\n        message, kind == -1 ? kGuildMailFormat58B0EC : kGuildPetMailFormat58B0C8,\n        recordName);\n    static_cast<void>(world::detail::Sub_519550());\n    static_cast<void>(audio::PlaySe_52C450(63, 320));\n    world::detail::Sub_44B050(message, 4, 3);\n}\n",
+      "line": 984
+    },
+    {
+      "path": "src/network/NetworkRuntimeDependencies.hpp",
+      "old": "// 原 50F130：门禁后部分重置外部记录、发布计数，再删除同 key 公会邮件；不保存文件。",
+      "replacement": "// GMR01：原50F130完整gate/五域重置→W16活动统计/W32计数发布→同key公会邮件删除，原返回保。",
+      "line": 0
+    },
+    {
+      "path": "src/network/NetworkRuntimeDependencies.hpp",
+      "old": "// 原 50F190：无全局门禁，解析/插入后依序保存、播音效和追加原字节通知。",
+      "replacement": "// GMR01：原50F190完整字段/反转义/排序index持有，生产后外部记录名通知/保存/SE/消息原序。",
+      "line": 0
+    },
+    {
+      "path": "src/world/MailState.cpp",
+      "symbol": "Sub_519550",
+      "old": "std::int32_t Sub_519550()\n{\n    char path[128];\n    platform::FormatLegacyString_53B304(\n        path, \"%s\\\\%s\", login::detail::ReadSelectedSavedDirectory(), \"guildmail.dat\");\n    platform::LegacyFile* const stream =\n        platform::OpenLegacyStream_53B2F1(path, \"wb\");\n    if (stream == nullptr) {\n        return 0;\n    }\n    static_cast<void>(platform::WriteLegacyStream_53C680(\n        gGuildMailStorageDE0B30.data(), 1,\n        static_cast<std::uint32_t>(gGuildMailStorageDE0B30.size()), stream));\n    return platform::CloseLegacyStream_53B1D0(stream);\n}\n",
+      "replacement": "// GMR01：原128B路径/完整两角色139480写/写弃返→关闭S32结果，当前MSVC FILE域保。\nstd::int32_t Sub_519550()\n{\n    char path[128];\n    platform::FormatLegacyString_53B304(\n        path, \"%s\\\\%s\", login::detail::ReadSelectedSavedDirectory(), \"guildmail.dat\");\n    platform::LegacyFile* const stream =\n        platform::OpenLegacyStream_53B2F1(path, \"wb\");\n    if (stream == nullptr) {\n        return 0;\n    }\n    static_cast<void>(platform::WriteLegacyStream_53C680(\n        gGuildMailStorageDE0B30.data(), 1,\n        static_cast<std::uint32_t>(gGuildMailStorageDE0B30.size()), stream));\n    return platform::CloseLegacyStream_53B1D0(stream);\n}\n",
+      "line": 1452
+    },
+    {
+      "path": "src/world/MailState.hpp",
+      "old": "std::int32_t Sub_519550();",
+      "replacement": "std::int32_t Sub_519550(); // GMR01：完整两角色共享区/当前MSVC FILE，写弃返后透传关闭S32结果。",
+      "line": 0
+    }
+  ],
+  "source_patch_group_count": 0,
+  "expected_counts_after": {
+    "semantic_records": 2232,
+    "semantic_function_records": 2184,
+    "semantic_auxiliary_records": 48,
+    "function_document_links": 2294,
+    "function_document_link_percent": 62.34,
+    "function_dispositions": 1669,
+    "evidence_records": 1464,
+    "feature_members": {
+      "FUNC-MAP": 184,
+      "FUNC-UIRUNTIME": 86,
+      "FUNC-NETWORK": 80
+    },
+    "feature_member_inventory_closed": false,
+    "accepted_leaf_features": 0,
+    "closed_tasks": 11,
+    "open_tasks": 49,
+    "closures_open": 6,
+    "global_accepted": false
+  },
+  "verification": {
+    "necessary_static": "pass，四完整原根136条443B/五页、17实际E8/14目标/六跳四RET、20入向内部2/外18另1实际E9；两回复唯一父弃返/四实参与保存尾跳、文本工作区借用/当前目录和MSVC三桥有据，整六文件精确重放八关联注释/零逻辑组，四正确body/所有其它源保持",
+    "registry": "pass，旧720/763保历史追加、两新语义/四F，MAP/UIRUNTIME各四成员/NETWORK两回复、三限定S零I/九开放任务；其余2228旧语义/1665旧F处置/1461旧证据及全政策/门禁/枚举守恒",
+    "measurement": "pass，measure_cg2d.ps1文本汇总终态退出0：3680函数/218导入/3061区间/184叶功能/60任务，非构建/测试/运行",
+    "check": "pass，measure_cg2d.ps1 -Check终态退出0",
+    "derived_scope": "pass，派生仅六metrics/四F/三功能/九任务；2294/3680=62.34%仅关联率，2232=2184F+48X/F1669/E1464，MAP184/UIRUNTIME86/NETWORK80；全部完整门禁/其它字段守恒",
+    "runtime_verified": false,
+    "full_lifecycle_closed": false,
+    "generated_machine_reads_verified": false,
+    "build_or_test_performed": false,
+    "algorithm_samples_executed": false,
+    "digests_computed_or_compared": false
+  },
+  "source_after": [
+    {
+      "path": "src/network/NetworkRuntime.cpp",
+      "symbol": "Sub_50F130",
+      "signature": "std::int32_t Sub_50F130(const std::uintptr_t, const std::int32_t key)",
+      "source": "std::int32_t Sub_50F130(const std::uintptr_t, const std::int32_t key)\n{\n    const std::uint32_t gate = world::gValue9A6E0C;\n    if (gate != 0) {\n        return std::bit_cast<std::int32_t>(gate);\n    }\n    const std::int32_t index = login::detail::FindActiveOrderedRecordIndex_5195C0(key);\n    auto* const record = login::detail::gOrderedRecords1051B14.data() + index;\n    record->value00 = -1;\n    record->value08 = 0;\n    record->text18[0] = '\\0';\n    record->text18[0x11] = '\\0';\n    record->value0C = -1;\n    login::detail::gOrderedRecordCount1051510 =\n        login::detail::CountRecordsValue08EqualOne_50EF50();\n    return world::detail::Sub_5194F0(key);\n}\n",
+      "line": 967
+    },
+    {
+      "path": "src/network/NetworkRuntime.cpp",
+      "symbol": "Sub_50F190",
+      "signature": "void Sub_50F190(\n    const std::uintptr_t, const std::int32_t key,\n    const char* const payload, const std::int32_t)",
+      "source": "void Sub_50F190(\n    const std::uintptr_t, const std::int32_t key,\n    const char* const payload, const std::int32_t)\n{\n    constexpr char kGuildMailFormat58B0EC[] =\n        \"\\xC4\\xFA\\xCA\\xD5\\xB5\\xBD\\x81\\xED\\xD7\\xD4\\xBC\\xD2\\xD7\\xE5\"\n        \" %s \" \"\\xB5\\xC4\\xD0\\xC5\\xBC\\xFE\\xA1\\xAB\";\n    constexpr char kGuildPetMailFormat58B0C8[] =\n        \"\\xC4\\xFA\\xCA\\xD5\\xB5\\xBD\\x81\\xED\\xD7\\xD4\\xBC\\xD2\\xD7\\xE5\"\n        \"\\xB3\\xC9\\x86\\x54\" \" %s \"\n        \"\\xB5\\xC4\\x8C\\x99\\xCE\\xEF\\xD0\\xC5\\xBC\\xFE\\xA1\\xAB\";\n\n    char name[32];\n    char message[256];\n    char text[300];\n    static_cast<void>(ExtractDelimitedField_52CED0(payload, '|', 1, 31, name));\n    static_cast<void>(ExtractDelimitedField_52CED0(payload, '|', 2, 299, text));\n    const std::int32_t kind = ParseDelimitedInteger_52CFA0(payload, '|', 3);\n    input::UnescapeLegacyTextAndNotify_52D2F0(text);\n    const std::int32_t index = login::detail::FindActiveOrderedRecordIndex_5195C0(key);\n    static_cast<void>(world::detail::Sub_519370(key, 0, name, text));\n    const char* const recordName =\n        (login::detail::gOrderedRecords1051B14.data() + index)->text18;\n    platform::FormatLegacyString_53B304(\n        message, kind == -1 ? kGuildMailFormat58B0EC : kGuildPetMailFormat58B0C8,\n        recordName);\n    static_cast<void>(world::detail::Sub_519550());\n    static_cast<void>(audio::PlaySe_52C450(63, 320));\n    world::detail::Sub_44B050(message, 4, 3);\n}\n",
+      "line": 986
+    },
+    {
+      "path": "src/LegacyRecordOrder.cpp",
+      "symbol": "CountRecordsValue08EqualOne_50EF50",
+      "signature": "std::int32_t CountRecordsValue08EqualOne_50EF50() noexcept",
+      "source": "std::int32_t CountRecordsValue08EqualOne_50EF50() noexcept\n{\n    std::int32_t count = 0;\n    for (const OrderedRecord1051B14& record : gOrderedRecords1051B14) {\n        if (record.value08 == 1) {\n            ++count;\n        }\n    }\n    return count;\n}\n",
+      "line": 314
+    },
+    {
+      "path": "src/world/MailState.cpp",
+      "symbol": "Sub_519550",
+      "signature": "std::int32_t Sub_519550()",
+      "source": "std::int32_t Sub_519550()\n{\n    char path[128];\n    platform::FormatLegacyString_53B304(\n        path, \"%s\\\\%s\", login::detail::ReadSelectedSavedDirectory(), \"guildmail.dat\");\n    platform::LegacyFile* const stream =\n        platform::OpenLegacyStream_53B2F1(path, \"wb\");\n    if (stream == nullptr) {\n        return 0;\n    }\n    static_cast<void>(platform::WriteLegacyStream_53C680(\n        gGuildMailStorageDE0B30.data(), 1,\n        static_cast<std::uint32_t>(gGuildMailStorageDE0B30.size()), stream));\n    return platform::CloseLegacyStream_53B1D0(stream);\n}\n",
+      "line": 1453
+    }
+  ],
+  "actual_call_targets": [
+    4501584,
+    5304144,
+    5346160,
+    5346544,
+    5346640,
+    5346752,
+    5424208,
+    5426896,
+    5427104,
+    5427952,
+    5485008,
+    5485297,
+    5485316,
+    5490304
+  ],
+  "inbound_scope": {
+    "total": 20,
+    "internal": 2,
+    "external": 18,
+    "external_tail_jumps": 1,
+    "full_external_parents_newly_verified": false
+  },
+  "record_scope": [
+    {
+      "index": 2230,
+      "inventory_id": "F:0010F130",
+      "symbol": "Sub_50F130",
+      "original_entry": "0x50f130",
+      "new_semantic_identity": true,
+      "normal_body_kept": true
+    },
+    {
+      "index": 763,
+      "inventory_id": "F:0010F190",
+      "symbol": "Sub_50F190",
+      "original_entry": "0x50F190",
+      "new_semantic_identity": false,
+      "normal_body_kept": true
+    },
+    {
+      "index": 2231,
+      "inventory_id": "F:0010EF50",
+      "symbol": "CountRecordsValue08EqualOne_50EF50",
+      "original_entry": "0x50ef50",
+      "new_semantic_identity": true,
+      "normal_body_kept": true
+    },
+    {
+      "index": 720,
+      "inventory_id": "F:00119550",
+      "symbol": "Sub_519550",
+      "original_entry": "0x519550",
+      "new_semantic_identity": false,
+      "normal_body_kept": true
+    }
+  ],
+  "reused_unchanged_semantic_identities": [
+    {
+      "index": 1216,
+      "inventory_id": "F:00112E40",
+      "original_entry": "0x00512E40"
+    },
+    {
+      "index": 2226,
+      "inventory_id": "F:001195C0",
+      "original_entry": "0x5195c0"
+    },
+    {
+      "index": 2228,
+      "inventory_id": "F:00119370",
+      "original_entry": "0x519370"
+    },
+    {
+      "index": 2229,
+      "inventory_id": "F:001194F0",
+      "original_entry": "0x5194f0"
+    },
+    {
+      "index": 392,
+      "inventory_id": "F:0013B1D0",
+      "original_entry": "0x53B1D0"
+    },
+    {
+      "index": 396,
+      "inventory_id": "F:0013B2F1",
+      "original_entry": "0x53B2F1"
+    },
+    {
+      "index": 401,
+      "inventory_id": "F:0013C680",
+      "original_entry": "0x53C680"
+    },
+    {
+      "index": 444,
+      "inventory_id": "F:0013B304",
+      "original_entry": "0x53B304"
+    },
+    {
+      "index": 748,
+      "inventory_id": "F:0004B050",
+      "original_entry": "0x44B050"
+    },
+    {
+      "index": 1248,
+      "inventory_id": "F:0012CED0",
+      "original_entry": "0x52CED0"
+    },
+    {
+      "index": 1250,
+      "inventory_id": "F:0012CFA0",
+      "original_entry": "0x52CFA0"
+    },
+    {
+      "index": 1899,
+      "inventory_id": "F:0012C450",
+      "original_entry": "0x52C450"
+    }
+  ],
+  "external_provider_scope": {
+    "original_unescape_target": "0x52d2f0",
+    "path": "src/Input.cpp",
+    "symbol": "UnescapeLegacyTextAndNotify_52D2F0",
+    "new_original_identity": false,
+    "full_callee_newly_verified": false,
+    "dispatch_and_directory_helpers_new_original_identities": false,
+    "all_external_callees_newly_verified": false
+  },
+  "feature_member_additions": {
+    "FUNC-MAP": [
+      "F:0010F130",
+      "F:0010F190",
+      "F:0010EF50",
+      "F:00119550"
+    ],
+    "FUNC-UIRUNTIME": [
+      "F:0010F130",
+      "F:0010F190",
+      "F:0010EF50",
+      "F:00119550"
+    ],
+    "FUNC-NETWORK": [
+      "F:0010F130",
+      "F:0010F190"
+    ]
+  },
+  "feature_counts_before": {
+    "FUNC-NETWORK": 78,
+    "FUNC-MAP": 180,
+    "FUNC-UIRUNTIME": 82
+  },
+  "tasks_updated": [
+    "G01",
+    "R01",
+    "R04",
+    "U08",
+    "U09",
+    "U10",
+    "U11",
+    "V03",
+    "V04"
+  ]
+}

@@ -2416,3 +2416,9 @@ ANIMATION/YOBI各两个新成员，BATTLE只Play依赖成员；两新语义/F和
 [两完整正常根](cg2d_world_object_bulk_restore_spec.md#world-object-bulk-restore-acceptance)/[原指令与差集](cg2d_world_object_bulk_restore_evidence.json)登记MAP/YOBI两限定S，零I；134条431B/三页、三E8两callee/15跳两RET，五入向/三父短窗及五当前接线。两body全保，仅两CPP/两头关联注释，原1000项界与步长、清引用无释放、补建原Read/Create/先pub/成功再分类型、未知类保创建和原名字/flags尾均有据。
 
 两新语义/F，语义2198→2200、F1629→1631/E1432→1434、MAP149→151/Yobi79→81枚举仍false；六旧身份/所有共享源/三个父保持，七任务open、184叶验收0/60任务11关闭、全部完整gates及六closure/原政策保。全输入/三完整父/正常失败/容量/alias/owner/SDK/ABI/画面声音/运行待，不降总SPEC§10。
+
+## 2026-10-10 WGQ01 世界对象交互格限定验收
+
+[五完整正常根](cg2d_world_object_grid_query_spec.md#world-object-grid-query-acceptance)/[原指令与差集](cg2d_world_object_grid_query_evidence.json)登记MAP/YOBI两限定S零I：280条765B/五页、十E8/42跳十RET，十入向/八父短窗与返回补窗；比较叶另四条15B/一Read，仅本组十AL观察，48全库入向另38及独立身份不外推。五body/共享比较读取源/十现接线及八旧身份保持，整CPP/一头只十注释，原W16各掩码/编号或完整0-1/动态界与Read次数有据。
+
+五新语义/F，语义2200→2205、F1631→1636/E1434→1436、MAP151→156/Yobi81→86枚举仍false；六任务open、184叶验收0/60任务11关闭、全部完整gates及六closure/政策保。完整交互/八完整父/全部比较调用/正常失败/容量/alias/owner/SDK/ABI/画面声音/运行仍待，不降总SPEC§10。

@@ -37217,6 +37217,7 @@ void Sub_445F40(
     record.action->flags |= 0x800u;
 }
 
+// WGQ01：X→fresh Y→类别/必需flags120，返对象编号或-1；保比较读取/RNG与动态上界。
 std::int32_t Sub_445030(
     const std::int32_t x, const std::int32_t y,
     const std::uint16_t category, const std::uint16_t flags)
@@ -37244,6 +37245,7 @@ std::int32_t Sub_445030(
     return -1;
 }
 
+// WGQ01：X→fresh Y→类别，返完整0/1，无额外flags门禁；原主体保持。
 std::int32_t Sub_4450D0(
     const std::int32_t x, const std::int32_t y, const std::uint16_t category)
 {
@@ -37269,6 +37271,7 @@ std::int32_t Sub_4450D0(
     return 0;
 }
 
+// WGQ01：X→fresh Y→类别，返对象编号或-1，无标志门禁；保动态上界。
 std::int32_t Sub_445160(
     const std::int32_t x, const std::int32_t y, const std::uint16_t category)
 {
@@ -37294,6 +37297,7 @@ std::int32_t Sub_445160(
     return -1;
 }
 
+// WGQ01：包含掩码0分别跳过相应W16字段，原X/fresh Y/类别后再检查，返完整0/1。
 std::int32_t Sub_4451F0(
     const std::int32_t x, const std::int32_t y, const std::uint16_t category,
     const std::uint16_t flags42Mask, const std::uint16_t flags120Mask)
@@ -37322,6 +37326,7 @@ std::int32_t Sub_4451F0(
     return 0;
 }
 
+// WGQ01：排除掩码0仍沿原W16字段读取，42失败不取120，返完整0/1；主体保持。
 std::int32_t Sub_4452A0(
     const std::int32_t x, const std::int32_t y, const std::uint16_t category,
     const std::uint16_t excluded42, const std::uint16_t excluded120)

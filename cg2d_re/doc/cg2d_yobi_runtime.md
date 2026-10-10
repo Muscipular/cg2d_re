@@ -4807,3 +4807,10 @@ Find命中不补action，未命中才领取/创建，先pub返回/空失败不�
 [当前合同](cg2d_world_object_bulk_restore_spec.md#world-object-bulk-restore-source-state)确认两个正确正常根及五当前调用保持：三个退出点先YobiClearUp_404D30再446610清占用槽非拥有action/value34，两普通场景点按519A80→455C60→446640补建。五短窗不代三个完整父/清理callee或完整owner，旧1132/1349/1568/1580保持。
 
 446640仅占用且action空进入，两GetVal沿旧219唯一jmp同一Read/计数/RNG，441DB0沿1298；先pub失败空/下一槽，成功used=2和payload.index后四类名字、fresh flags，未知类别仍保创建而跳过尾。类别1/8仅level/name54、类别2/4原nameC9的28/16门槛及WOP01已证"???"四字节，不补title/field1D8/value18。两body/其它源和类型存储保持，只四注释；两新身份/两限定S零I，完整生命周期/输入/owner/SDK/ABI/画面声音运行仍待。
+
+<a id="world-object-grid-query-current-20261010"></a>
+## 2026-10-10 WGQ01：动作坐标的比较消费
+
+[当前格查询合同](cg2d_world_object_grid_query_spec.md#world-object-grid-query-source-state)核五完整280条765B，保used W16与非空动作后先mapX1E0比较、真才fresh record.action取mapY1F0，再类别与标志。零/一次/两次Read的原短路与计数/RNG不改，原比较叶一Read/SETZ AL由现bool比较器承接，本组十CALL均TEST AL，另外38调用/高EAX机器ABI不宣全验。
+
+现动态上界和五编号/0-1/必需/可选/排除掩码合同保持；编号不是槽，两个编号父分别观察负S32或仅-1不合并，4704A0两次类别查询都执行的父源保持。五body/所有共享源/十现接线与八旧身份全保，只十注释；五新语义/F与两限定S零I，完整动作生产/输入/alias/owner/SDK/ABI/画面声音及运行仍待。

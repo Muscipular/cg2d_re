@@ -786,3 +786,10 @@ flags W16非0且objectIndex完整W32位型相等，才清该槽action并停止�
 [两个完整根](cg2d_world_object_bulk_restore_spec.md#world-object-bulk-restore-source-state)/[原指令与差集](cg2d_world_object_bulk_restore_evidence.json)合134条431B/三页、三E8两callee/15跳两RET，五实际入向/三父短窗与五当前接线有据。原游标相差13Ch×1000：清引用只used W16非零的action/value34，不标死/free或改其它字段/计数；批量补建先direction/1C Read/0C Read/image与创建pub，成功used/index之后才四类别名字/flags尾，未知类仍保已创建action，不能提前筛选或回滚。
 
 两个正确body及三个清引用点先404D30、两个普通场景补建点先519A80/455C60的接线保持，仅两CPP/两声明注释。两新语义/F/MAP-Yobi各两成员、两限定S零I，六旧身份/共享工具/其它根全保；七任务/完整gates/成员枚举与六closure开放，所有输入/三完整父/传递callee/容量/正常失败/alias/owner/SDK/ABI与画面声音运行待。
+
+<a id="world-object-grid-query-current-20261010"></a>
+## 2026-10-10 WGQ01：动作交互格与标志查询
+
+[五完整查询根](cg2d_world_object_grid_query_spec.md#world-object-grid-query-source-state)/[原指令与差集](cg2d_world_object_grid_query_evidence.json)合280条765B/五页、十E8唯一401D00/42跳十RET，十入向/八父短窗与返回补窗有据。先used W16/action、X比较、fresh action/Y比较，再W16类别与各掩码；不能以record坐标、预取动作或提前筛选类别/标志替代，实际Read/RNG保持。所有未命中路径尾fresh S32上界，不固定count/cap或动查找游标。
+
+445030必需flags120，mask0失败，返编号或-1；4450D0只类别返0/1；445160只类别返编号或-1；4451F0包含mask0分别跳字段；4452A0排除mask0仍读字段且42失败不取120，两者返完整0/1。五body/十现接线全保，只五CPP/五头注释；比较叶四条15B/一次Read/本组十AL消费成立，原48入向其余38/高EAX ABI及独立身份不外推，旧219/八父八身份保持。五新语义/F/两限定S零I，MAP/Yobi各五成员，六任务/完整gates/枚举及六closure开放，全交互输入/生产/八完整父/正常失败/容量/alias/owner/SDK/ABI/画面声音运行待。

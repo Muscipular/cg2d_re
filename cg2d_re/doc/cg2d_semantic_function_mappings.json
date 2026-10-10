@@ -205882,6 +205882,326 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x445030",
+      "inventory_id": "F:00045030",
+      "original_role": "动作格/类别及必需flags120查询，mask0不命中，返完整对象编号或-1",
+      "original_end_exclusive": "0x4450ca",
+      "instruction_count": 57,
+      "function_chunks": [
+        {
+          "start": "0x445030",
+          "end_exclusive": "0x4450ca"
+        }
+      ],
+      "status": "WGQ01五正确完整查询根/本组比较AL消费及十接线限定S，只十注释；完整输入/owner/运行待",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::world::detail::Sub_445030",
+          "relationship": "动作格/类别及必需flags120查询，mask0不命中，返完整对象编号或-1；既有正确完整正常body保持，非新实现"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbol": "cg::world::detail::Sub_445030",
+          "relationship": "既有S32返回/WORD实参与真实声明保持，只关联注释"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "本入口已有真实直接调用",
+          "relationship": "十查询总调用的当前同源接线保持，本步不改父或伪称八父重新完整取证"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_world_object_grid_query_spec.md#world-object-grid-query-baseline",
+        "doc/cg2d_world_object_grid_query_spec.md#world-object-grid-query-decision",
+        "doc/cg2d_world_object_grid_query_spec.md#world-object-grid-query-acceptance",
+        "doc/cg2d_world_object_grid_query_spec.md#world-object-grid-query-source-state",
+        "doc/cg2d_world_object_grid_query_evidence.json"
+      ],
+      "boundary": "WGQ01五已有正确完整格查询正常body/共享比较器及十真实调用保持，仅五CPP/五头关联注释。初S32上界<=0各自失败，逐槽used W16/action、X比较→fresh action/Y比较→W16类别→各必需/可选/排除标志条件，原Read计数/RNG及零掩码/短路差异、各尾fresh上界/13Ch原步长及现x64数组、编号W32位型或S32完整0/1/-1保持；不改读记录坐标、调用查找游标或加cap/索引/负编号门槛。401D00完整四条15B的一次Read/SETZ AL只对本组十AL消费成立，原48入向另38/全private高EAX ABI不外推、独立身份未登记，401EC0沿旧219同源Read提供者不重验/增加包装。十短窗/返回补窗及十当前接线非八完整父或全交互生命周期；所有输入/生产/正常失败/容量/alias/owner/SDK/机器ABI/声音画面/运行待，总SPEC§10不降，RPLAN.24不增保护、默认值、补零、钳制、输入限制、异常模型或回滚。",
+      "verification_level": "五完整280条765B/五页、十E8唯一401D00/42跳十RET，十实际入向/八父与前十二后十短窗及后22返回补窗；比较叶四条15B/一次Read/本组十AL观察、动态界/五返回掩码/W16差异，五body/全部共享源/父保持和整CPP/一头十注释重放，仅必要静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::world::detail::Sub_445030",
+        "parameters": "std::int32_t Sub_445030(\n    const std::int32_t x, const std::int32_t y,\n    const std::uint16_t category, const std::uint16_t flags)",
+        "return": "对象编号完整W32位型或S32 -1",
+        "calling_convention": "既有约定保持"
+      },
+      "world_object_grid_query": {
+        "step": "WGQ01",
+        "source_snapshot": "Git提交说明：[#] 对齐世界对象交互格查询与比较消费合同",
+        "original_instruction_count": 57,
+        "original_code_bytes": 154,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "jump_count": 8,
+        "return_count": 2,
+        "inbound_call_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_source_kept": true,
+        "equal_leaf_local_al_only": true,
+        "full_interaction_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4450d0",
+      "inventory_id": "F:000450D0",
+      "original_role": "动作格/类别查询，不加flags，返完整0/1",
+      "original_end_exclusive": "0x445151",
+      "instruction_count": 49,
+      "function_chunks": [
+        {
+          "start": "0x4450d0",
+          "end_exclusive": "0x445151"
+        }
+      ],
+      "status": "WGQ01五正确完整查询根/本组比较AL消费及十接线限定S，只十注释；完整输入/owner/运行待",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::world::detail::Sub_4450D0",
+          "relationship": "动作格/类别查询，不加flags，返完整0/1；既有正确完整正常body保持，非新实现"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbol": "cg::world::detail::Sub_4450D0",
+          "relationship": "既有S32返回/WORD实参与真实声明保持，只关联注释"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "本入口已有真实直接调用",
+          "relationship": "十查询总调用的当前同源接线保持，本步不改父或伪称八父重新完整取证"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_world_object_grid_query_spec.md#world-object-grid-query-baseline",
+        "doc/cg2d_world_object_grid_query_spec.md#world-object-grid-query-decision",
+        "doc/cg2d_world_object_grid_query_spec.md#world-object-grid-query-acceptance",
+        "doc/cg2d_world_object_grid_query_spec.md#world-object-grid-query-source-state",
+        "doc/cg2d_world_object_grid_query_evidence.json"
+      ],
+      "boundary": "WGQ01五已有正确完整格查询正常body/共享比较器及十真实调用保持，仅五CPP/五头关联注释。初S32上界<=0各自失败，逐槽used W16/action、X比较→fresh action/Y比较→W16类别→各必需/可选/排除标志条件，原Read计数/RNG及零掩码/短路差异、各尾fresh上界/13Ch原步长及现x64数组、编号W32位型或S32完整0/1/-1保持；不改读记录坐标、调用查找游标或加cap/索引/负编号门槛。401D00完整四条15B的一次Read/SETZ AL只对本组十AL消费成立，原48入向另38/全private高EAX ABI不外推、独立身份未登记，401EC0沿旧219同源Read提供者不重验/增加包装。十短窗/返回补窗及十当前接线非八完整父或全交互生命周期；所有输入/生产/正常失败/容量/alias/owner/SDK/机器ABI/声音画面/运行待，总SPEC§10不降，RPLAN.24不增保护、默认值、补零、钳制、输入限制、异常模型或回滚。",
+      "verification_level": "五完整280条765B/五页、十E8唯一401D00/42跳十RET，十实际入向/八父与前十二后十短窗及后22返回补窗；比较叶四条15B/一次Read/本组十AL观察、动态界/五返回掩码/W16差异，五body/全部共享源/父保持和整CPP/一头十注释重放，仅必要静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::world::detail::Sub_4450D0",
+        "parameters": "std::int32_t Sub_4450D0(\n    const std::int32_t x, const std::int32_t y, const std::uint16_t category)",
+        "return": "S32完整0/1，非比较器原未定义高EAX；不重建x86机器ABI",
+        "calling_convention": "既有约定保持"
+      },
+      "world_object_grid_query": {
+        "step": "WGQ01",
+        "source_snapshot": "Git提交说明：[#] 对齐世界对象交互格查询与比较消费合同",
+        "original_instruction_count": 49,
+        "original_code_bytes": 129,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "jump_count": 7,
+        "return_count": 2,
+        "inbound_call_count": 6,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_source_kept": true,
+        "equal_leaf_local_al_only": true,
+        "full_interaction_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x445160",
+      "inventory_id": "F:00045160",
+      "original_role": "动作格/类别查询，不加flags，返完整对象编号或-1",
+      "original_end_exclusive": "0x4451ec",
+      "instruction_count": 52,
+      "function_chunks": [
+        {
+          "start": "0x445160",
+          "end_exclusive": "0x4451ec"
+        }
+      ],
+      "status": "WGQ01五正确完整查询根/本组比较AL消费及十接线限定S，只十注释；完整输入/owner/运行待",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::world::detail::Sub_445160",
+          "relationship": "动作格/类别查询，不加flags，返完整对象编号或-1；既有正确完整正常body保持，非新实现"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbol": "cg::world::detail::Sub_445160",
+          "relationship": "既有S32返回/WORD实参与真实声明保持，只关联注释"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "本入口已有真实直接调用",
+          "relationship": "十查询总调用的当前同源接线保持，本步不改父或伪称八父重新完整取证"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_world_object_grid_query_spec.md#world-object-grid-query-baseline",
+        "doc/cg2d_world_object_grid_query_spec.md#world-object-grid-query-decision",
+        "doc/cg2d_world_object_grid_query_spec.md#world-object-grid-query-acceptance",
+        "doc/cg2d_world_object_grid_query_spec.md#world-object-grid-query-source-state",
+        "doc/cg2d_world_object_grid_query_evidence.json"
+      ],
+      "boundary": "WGQ01五已有正确完整格查询正常body/共享比较器及十真实调用保持，仅五CPP/五头关联注释。初S32上界<=0各自失败，逐槽used W16/action、X比较→fresh action/Y比较→W16类别→各必需/可选/排除标志条件，原Read计数/RNG及零掩码/短路差异、各尾fresh上界/13Ch原步长及现x64数组、编号W32位型或S32完整0/1/-1保持；不改读记录坐标、调用查找游标或加cap/索引/负编号门槛。401D00完整四条15B的一次Read/SETZ AL只对本组十AL消费成立，原48入向另38/全private高EAX ABI不外推、独立身份未登记，401EC0沿旧219同源Read提供者不重验/增加包装。十短窗/返回补窗及十当前接线非八完整父或全交互生命周期；所有输入/生产/正常失败/容量/alias/owner/SDK/机器ABI/声音画面/运行待，总SPEC§10不降，RPLAN.24不增保护、默认值、补零、钳制、输入限制、异常模型或回滚。",
+      "verification_level": "五完整280条765B/五页、十E8唯一401D00/42跳十RET，十实际入向/八父与前十二后十短窗及后22返回补窗；比较叶四条15B/一次Read/本组十AL观察、动态界/五返回掩码/W16差异，五body/全部共享源/父保持和整CPP/一头十注释重放，仅必要静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::world::detail::Sub_445160",
+        "parameters": "std::int32_t Sub_445160(\n    const std::int32_t x, const std::int32_t y, const std::uint16_t category)",
+        "return": "对象编号完整W32位型或S32 -1",
+        "calling_convention": "既有约定保持"
+      },
+      "world_object_grid_query": {
+        "step": "WGQ01",
+        "source_snapshot": "Git提交说明：[#] 对齐世界对象交互格查询与比较消费合同",
+        "original_instruction_count": 52,
+        "original_code_bytes": 140,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "jump_count": 7,
+        "return_count": 2,
+        "inbound_call_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_source_kept": true,
+        "equal_leaf_local_al_only": true,
+        "full_interaction_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4451f0",
+      "inventory_id": "F:000451F0",
+      "original_role": "动作格/类别及包含flags42/120查询，各mask0分别跳过原字段，返完整0/1",
+      "original_end_exclusive": "0x4452a0",
+      "instruction_count": 63,
+      "function_chunks": [
+        {
+          "start": "0x4451f0",
+          "end_exclusive": "0x4452a0"
+        }
+      ],
+      "status": "WGQ01五正确完整查询根/本组比较AL消费及十接线限定S，只十注释；完整输入/owner/运行待",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::world::detail::Sub_4451F0",
+          "relationship": "动作格/类别及包含flags42/120查询，各mask0分别跳过原字段，返完整0/1；既有正确完整正常body保持，非新实现"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbol": "cg::world::detail::Sub_4451F0",
+          "relationship": "既有S32返回/WORD实参与真实声明保持，只关联注释"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "本入口已有真实直接调用",
+          "relationship": "十查询总调用的当前同源接线保持，本步不改父或伪称八父重新完整取证"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_world_object_grid_query_spec.md#world-object-grid-query-baseline",
+        "doc/cg2d_world_object_grid_query_spec.md#world-object-grid-query-decision",
+        "doc/cg2d_world_object_grid_query_spec.md#world-object-grid-query-acceptance",
+        "doc/cg2d_world_object_grid_query_spec.md#world-object-grid-query-source-state",
+        "doc/cg2d_world_object_grid_query_evidence.json"
+      ],
+      "boundary": "WGQ01五已有正确完整格查询正常body/共享比较器及十真实调用保持，仅五CPP/五头关联注释。初S32上界<=0各自失败，逐槽used W16/action、X比较→fresh action/Y比较→W16类别→各必需/可选/排除标志条件，原Read计数/RNG及零掩码/短路差异、各尾fresh上界/13Ch原步长及现x64数组、编号W32位型或S32完整0/1/-1保持；不改读记录坐标、调用查找游标或加cap/索引/负编号门槛。401D00完整四条15B的一次Read/SETZ AL只对本组十AL消费成立，原48入向另38/全private高EAX ABI不外推、独立身份未登记，401EC0沿旧219同源Read提供者不重验/增加包装。十短窗/返回补窗及十当前接线非八完整父或全交互生命周期；所有输入/生产/正常失败/容量/alias/owner/SDK/机器ABI/声音画面/运行待，总SPEC§10不降，RPLAN.24不增保护、默认值、补零、钳制、输入限制、异常模型或回滚。",
+      "verification_level": "五完整280条765B/五页、十E8唯一401D00/42跳十RET，十实际入向/八父与前十二后十短窗及后22返回补窗；比较叶四条15B/一次Read/本组十AL观察、动态界/五返回掩码/W16差异，五body/全部共享源/父保持和整CPP/一头十注释重放，仅必要静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::world::detail::Sub_4451F0",
+        "parameters": "std::int32_t Sub_4451F0(\n    const std::int32_t x, const std::int32_t y, const std::uint16_t category,\n    const std::uint16_t flags42Mask, const std::uint16_t flags120Mask)",
+        "return": "S32完整0/1，非比较器原未定义高EAX；不重建x86机器ABI",
+        "calling_convention": "既有约定保持"
+      },
+      "world_object_grid_query": {
+        "step": "WGQ01",
+        "source_snapshot": "Git提交说明：[#] 对齐世界对象交互格查询与比较消费合同",
+        "original_instruction_count": 63,
+        "original_code_bytes": 176,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "jump_count": 11,
+        "return_count": 2,
+        "inbound_call_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_source_kept": true,
+        "equal_leaf_local_al_only": true,
+        "full_interaction_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4452a0",
+      "inventory_id": "F:000452A0",
+      "original_role": "动作格/类别及排除flags42/120查询，mask0仍读字段、42失败不取120，返完整0/1",
+      "original_end_exclusive": "0x445346",
+      "instruction_count": 59,
+      "function_chunks": [
+        {
+          "start": "0x4452a0",
+          "end_exclusive": "0x445346"
+        }
+      ],
+      "status": "WGQ01五正确完整查询根/本组比较AL消费及十接线限定S，只十注释；完整输入/owner/运行待",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::world::detail::Sub_4452A0",
+          "relationship": "动作格/类别及排除flags42/120查询，mask0仍读字段、42失败不取120，返完整0/1；既有正确完整正常body保持，非新实现"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbol": "cg::world::detail::Sub_4452A0",
+          "relationship": "既有S32返回/WORD实参与真实声明保持，只关联注释"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "本入口已有真实直接调用",
+          "relationship": "十查询总调用的当前同源接线保持，本步不改父或伪称八父重新完整取证"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_world_object_grid_query_spec.md#world-object-grid-query-baseline",
+        "doc/cg2d_world_object_grid_query_spec.md#world-object-grid-query-decision",
+        "doc/cg2d_world_object_grid_query_spec.md#world-object-grid-query-acceptance",
+        "doc/cg2d_world_object_grid_query_spec.md#world-object-grid-query-source-state",
+        "doc/cg2d_world_object_grid_query_evidence.json"
+      ],
+      "boundary": "WGQ01五已有正确完整格查询正常body/共享比较器及十真实调用保持，仅五CPP/五头关联注释。初S32上界<=0各自失败，逐槽used W16/action、X比较→fresh action/Y比较→W16类别→各必需/可选/排除标志条件，原Read计数/RNG及零掩码/短路差异、各尾fresh上界/13Ch原步长及现x64数组、编号W32位型或S32完整0/1/-1保持；不改读记录坐标、调用查找游标或加cap/索引/负编号门槛。401D00完整四条15B的一次Read/SETZ AL只对本组十AL消费成立，原48入向另38/全private高EAX ABI不外推、独立身份未登记，401EC0沿旧219同源Read提供者不重验/增加包装。十短窗/返回补窗及十当前接线非八完整父或全交互生命周期；所有输入/生产/正常失败/容量/alias/owner/SDK/机器ABI/声音画面/运行待，总SPEC§10不降，RPLAN.24不增保护、默认值、补零、钳制、输入限制、异常模型或回滚。",
+      "verification_level": "五完整280条765B/五页、十E8唯一401D00/42跳十RET，十实际入向/八父与前十二后十短窗及后22返回补窗；比较叶四条15B/一次Read/本组十AL观察、动态界/五返回掩码/W16差异，五body/全部共享源/父保持和整CPP/一头十注释重放，仅必要静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::world::detail::Sub_4452A0",
+        "parameters": "std::int32_t Sub_4452A0(\n    const std::int32_t x, const std::int32_t y, const std::uint16_t category,\n    const std::uint16_t excluded42, const std::uint16_t excluded120)",
+        "return": "S32完整0/1，非比较器原未定义高EAX；不重建x86机器ABI",
+        "calling_convention": "既有约定保持"
+      },
+      "world_object_grid_query": {
+        "step": "WGQ01",
+        "source_snapshot": "Git提交说明：[#] 对齐世界对象交互格查询与比较消费合同",
+        "original_instruction_count": 59,
+        "original_code_bytes": 166,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "jump_count": 9,
+        "return_count": 2,
+        "inbound_call_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_source_kept": true,
+        "equal_leaf_local_al_only": true,
+        "full_interaction_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

@@ -1011,16 +1011,18 @@ void Sub_445F40(
     const char* name);
 void Sub_4462E0(std::int32_t objectIndex); // WLR01：玩家专用/世界删除，按原清理与上界收尾。
 void Sub_4467D0(std::int32_t objectIndex); // WLR01：空action恢复，原坐标读序/借用/字节发布保持。
+// WGQ01：类别/必需flags120命中返对象编号，否则-1；掩码0不命中。
 std::int32_t Sub_445030(
     std::int32_t x, std::int32_t y, std::uint16_t category, std::uint16_t flags);
 std::int32_t Sub_4450D0(
-    std::int32_t x, std::int32_t y, std::uint16_t category); // 返回完整0/1。
+    std::int32_t x, std::int32_t y, std::uint16_t category); // WGQ01：类别命中返完整0/1。
 std::int32_t Sub_445160(
-    std::int32_t x, std::int32_t y, std::uint16_t category); // 命中返回对象编号，否则-1。
-// 原相邻对象查询；包含掩码为0跳过字段，排除掩码为0仍读字段，返回完整0/1。
+    std::int32_t x, std::int32_t y, std::uint16_t category); // WGQ01：命中返对象编号，否则-1。
+// WGQ01：包含掩码0分别跳过对应字段，非零要求原W16交集，返完整0/1。
 std::int32_t Sub_4451F0(
     std::int32_t x, std::int32_t y, std::uint16_t category,
     std::uint16_t flags42Mask, std::uint16_t flags120Mask);
+// WGQ01：排除掩码0仍读取原W16字段，42失败不取120，返完整0/1。
 std::int32_t Sub_4452A0(
     std::int32_t x, std::int32_t y, std::uint16_t category,
     std::uint16_t excluded42, std::uint16_t excluded120);

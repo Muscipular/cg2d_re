@@ -193891,7 +193891,7 @@
       "original_entry": "0x4a6fc0",
       "inventory_id": "F:000A6FC0",
       "original_role": "CAC18仅原分派数据/当前源定义关联：Sub_4A6FC0",
-      "status": "已有真实源码，CAC18补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "status": "已有真实源码，CAC18补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收；CWC01追加完整正常按钮/真实原型绑定，两组四处现场取样，限定S/运行待",
       "sources": [
         {
           "path": "src/ui/WindowRuntime.cpp",
@@ -193899,6 +193899,13 @@
             "cg::ui::detail::Sub_4A6FC0"
           ],
           "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重验全部原父或登记完整F处置。"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4A6FC0"
+          ],
+          "relationship": "CWC01真实内部声明/参数返回与原型边界保持，仅完整合同关联注释"
         }
       ],
       "evidence_documents": [
@@ -193906,10 +193913,15 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-annotation",
         "doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-decision",
         "doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-source-state",
-        "doc/cg2d_unassigned_range_sixth_batch_evidence.json"
+        "doc/cg2d_unassigned_range_sixth_batch_evidence.json",
+        "doc/cg2d_chat_window_control_pipeline_spec.md#chat-control-baseline",
+        "doc/cg2d_chat_window_control_pipeline_spec.md#chat-control-decision",
+        "doc/cg2d_chat_window_control_pipeline_spec.md#chat-control-acceptance",
+        "doc/cg2d_chat_window_control_pipeline_spec.md#chat-control-source-state",
+        "doc/cg2d_chat_window_control_pipeline_evidence.json"
       ],
-      "boundary": "原F来自既有库存及实际取表父；完整X数据用途与源码定义关联分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
-      "verification_level": "仅本批完整X/实际CMP-JA-清零-BYTE-JMP邻窗、全部W32目标code/owner及当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "boundary": "原F来自既有库存及实际取表父；完整X数据用途与源码定义关联分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。 当前CWC01：CWC01三完整输入创建/按钮/滑块根492条1769B/九页、29实际E8/14目标/56跳14RET，四CALL入向内部3/外1；原窗口35 48B原型/20项元素/11实际callback与当前原生定义有据。旧CAC18十二槽表/范围处置保历史，11/12/19绑定后仍按原default/外层返回0，不新增按钮行为。初始化恰-1按当前窗口y/x→mode3创建→新窗口焦点/data context→SetContext→返1；其余设备恰1按两现场窗口更新18/17可见→CWP几何→新窗口y/x→mode2创建弃返→原返1保。按钮两组四处恢复case3/6/13窗口/元素与hover时点及scroll→count→增一，持有仅初始图号/提示范围，不跨请求/SE缓存；门禁/图号/GBK提示、四BVP请求叶及两个按钮位顺序、范围/字号/颜色环与跳4、SE后新颜色发布/寿命180、上下scroll原边界/SE51或55/320/240和consumed保。滑块持实际Find35窗口、原null/count0、scroll→elements→count→4742C0→新count/elements及浮点scroll/span/count除乘/ftol低S32/写y链保，不新造私有ST0或宣全FPU数值。旧1969全来源/表/分类子记录保后追加，两新语义/三F；两个正确body/所有其它源与原型保持，两组四处/六注释，无新函数/API/类型/字段/布局/owner/分配释放或保护/默认值/补零/钳制/容量限制/回滚/异常模型，GBK/明文/MSVC/WAV-only不变。完整窗口父/创建释放绘制、焦点输入元素载荷/请求日志scroll hover范围字号颜色/音效与CTS网络全生产消费及alias-owner寿命、CRT/SDK/FPU数值/机器ABI/优化后读取及实际文字声音画面/全生命周期待，仅限定S，枚举/完整gates/六closure/总SPEC§10保持。",
+      "verification_level": "仅本批完整X/实际CMP-JA-清零-BYTE-JMP邻窗、全部W32目标code/owner及当前带函数体定义；源码不改，不构建/测试/运行/摘要。 当前CWC01：pass，三完整原根492条1769B/九页、29实际E8/14目标/56跳14RET，四CALL入向内部3/外1；原48B窗口35/20项元素及11实际callback和旧12槽分派表与当前不改原型吻合，旧CAC18范围保；整三文件精确重放两组四处/六注释，两个正确body与所有其它source/按钮门槛图号GBK提示/音效颜色发布/返回及浮点链保持，机器ABI/FPU/全owner与运行待",
       "range_sixth_batch_data": {
         "step": "CAC18",
         "source_snapshot": "cg2d-re-unassigned-range-sixth-batch-20261009",
@@ -193920,6 +193932,25 @@
         "full_original_body_recaptured": false,
         "runtime_verified": false,
         "current_definition_line": 29727
+      },
+      "chat_window_control_pipeline": {
+        "step": "CWC01",
+        "source_snapshot": "[#] 补齐聊天窗口控制并恢复按钮现场取样",
+        "original_end_exclusive": "0x4a755c",
+        "original_instruction_count": 400,
+        "original_code_bytes": 1436,
+        "original_page_count": 7,
+        "direct_call_count": 21,
+        "jump_count": 51,
+        "return_count": 10,
+        "native_signature": "std::int32_t Sub_4A6FC0(const std::int32_t index, const std::int32_t state)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4A6FC0",
+        "normal_source_kept": false,
+        "source_patch_group_count": 2,
+        "source_changed_point_count": 4,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
       }
     },
     {
@@ -212365,6 +212396,153 @@
         "normal_source_kept": false,
         "source_patch_group_count": 2,
         "source_changed_point_count": 10,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4a6dd0",
+      "inventory_id": "F:000A6DD0",
+      "original_role": "原聊天输入创建/可见与焦点上下文初始化",
+      "original_end_exclusive": "0x4a6e98",
+      "instruction_count": 51,
+      "function_chunks": [
+        {
+          "start": "0x4a6dd0",
+          "end_exclusive": "0x4a6e98"
+        }
+      ],
+      "status": "CWC01完整正常原根独立纳管，正确body保持；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4A6DD0"
+          ],
+          "relationship": "CWC01完整原根与真实窗口/输入/滑块接线，既有正确body保持，仅关联注释"
+        },
+        {
+          "path": "src/ui/WindowPrototypeDependencies.hpp",
+          "symbols": [
+            "Sub_4A6DD0"
+          ],
+          "relationship": "CWC01真实内部声明/参数返回与原型边界保持，仅完整合同关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_chat_window_control_pipeline_spec.md#chat-control-baseline",
+        "doc/cg2d_chat_window_control_pipeline_spec.md#chat-control-decision",
+        "doc/cg2d_chat_window_control_pipeline_spec.md#chat-control-acceptance",
+        "doc/cg2d_chat_window_control_pipeline_spec.md#chat-control-source-state",
+        "doc/cg2d_chat_window_control_pipeline_evidence.json"
+      ],
+      "boundary": "CWC01三完整输入创建/按钮/滑块根492条1769B/九页、29实际E8/14目标/56跳14RET，四CALL入向内部3/外1；原窗口35 48B原型/20项元素/11实际callback与当前原生定义有据。旧CAC18十二槽表/范围处置保历史，11/12/19绑定后仍按原default/外层返回0，不新增按钮行为。初始化恰-1按当前窗口y/x→mode3创建→新窗口焦点/data context→SetContext→返1；其余设备恰1按两现场窗口更新18/17可见→CWP几何→新窗口y/x→mode2创建弃返→原返1保。按钮两组四处恢复case3/6/13窗口/元素与hover时点及scroll→count→增一，持有仅初始图号/提示范围，不跨请求/SE缓存；门禁/图号/GBK提示、四BVP请求叶及两个按钮位顺序、范围/字号/颜色环与跳4、SE后新颜色发布/寿命180、上下scroll原边界/SE51或55/320/240和consumed保。滑块持实际Find35窗口、原null/count0、scroll→elements→count→4742C0→新count/elements及浮点scroll/span/count除乘/ftol低S32/写y链保，不新造私有ST0或宣全FPU数值。旧1969全来源/表/分类子记录保后追加，两新语义/三F；两个正确body/所有其它源与原型保持，两组四处/六注释，无新函数/API/类型/字段/布局/owner/分配释放或保护/默认值/补零/钳制/容量限制/回滚/异常模型，GBK/明文/MSVC/WAV-only不变。完整窗口父/创建释放绘制、焦点输入元素载荷/请求日志scroll hover范围字号颜色/音效与CTS网络全生产消费及alias-owner寿命、CRT/SDK/FPU数值/机器ABI/优化后读取及实际文字声音画面/全生命周期待，仅限定S，枚举/完整gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，三完整原根492条1769B/九页、29实际E8/14目标/56跳14RET，四CALL入向内部3/外1；原48B窗口35/20项元素及11实际callback和旧12槽分派表与当前不改原型吻合，旧CAC18范围保；整三文件精确重放两组四处/六注释，两个正确body与所有其它source/按钮门槛图号GBK提示/音效颜色发布/返回及浮点链保持，机器ABI/FPU/全owner与运行待",
+      "original_incoming": [],
+      "chat_window_control_pipeline": {
+        "step": "CWC01",
+        "source_snapshot": "[#] 补齐聊天窗口控制并恢复按钮现场取样",
+        "original_end_exclusive": "0x4a6e98",
+        "original_instruction_count": 51,
+        "original_code_bytes": 200,
+        "original_page_count": 1,
+        "direct_call_count": 5,
+        "jump_count": 3,
+        "return_count": 2,
+        "native_signature": "std::int32_t Sub_4A6DD0(const std::int32_t value)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4A6DD0",
+        "normal_source_kept": true,
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4a8140",
+      "inventory_id": "F:000A8140",
+      "original_role": "原窗口35滚动滑块浮点比例与低S32位置",
+      "original_end_exclusive": "0x4a81c5",
+      "instruction_count": 41,
+      "function_chunks": [
+        {
+          "start": "0x4a8140",
+          "end_exclusive": "0x4a81c5"
+        }
+      ],
+      "status": "CWC01完整正常原根独立纳管，正确body保持；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4A8140"
+          ],
+          "relationship": "CWC01完整原根与真实窗口/输入/滑块接线，既有正确body保持，仅关联注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4A8140"
+          ],
+          "relationship": "CWC01真实内部声明/参数返回与原型边界保持，仅完整合同关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_chat_window_control_pipeline_spec.md#chat-control-baseline",
+        "doc/cg2d_chat_window_control_pipeline_spec.md#chat-control-decision",
+        "doc/cg2d_chat_window_control_pipeline_spec.md#chat-control-acceptance",
+        "doc/cg2d_chat_window_control_pipeline_spec.md#chat-control-source-state",
+        "doc/cg2d_chat_window_control_pipeline_evidence.json"
+      ],
+      "boundary": "CWC01三完整输入创建/按钮/滑块根492条1769B/九页、29实际E8/14目标/56跳14RET，四CALL入向内部3/外1；原窗口35 48B原型/20项元素/11实际callback与当前原生定义有据。旧CAC18十二槽表/范围处置保历史，11/12/19绑定后仍按原default/外层返回0，不新增按钮行为。初始化恰-1按当前窗口y/x→mode3创建→新窗口焦点/data context→SetContext→返1；其余设备恰1按两现场窗口更新18/17可见→CWP几何→新窗口y/x→mode2创建弃返→原返1保。按钮两组四处恢复case3/6/13窗口/元素与hover时点及scroll→count→增一，持有仅初始图号/提示范围，不跨请求/SE缓存；门禁/图号/GBK提示、四BVP请求叶及两个按钮位顺序、范围/字号/颜色环与跳4、SE后新颜色发布/寿命180、上下scroll原边界/SE51或55/320/240和consumed保。滑块持实际Find35窗口、原null/count0、scroll→elements→count→4742C0→新count/elements及浮点scroll/span/count除乘/ftol低S32/写y链保，不新造私有ST0或宣全FPU数值。旧1969全来源/表/分类子记录保后追加，两新语义/三F；两个正确body/所有其它源与原型保持，两组四处/六注释，无新函数/API/类型/字段/布局/owner/分配释放或保护/默认值/补零/钳制/容量限制/回滚/异常模型，GBK/明文/MSVC/WAV-only不变。完整窗口父/创建释放绘制、焦点输入元素载荷/请求日志scroll hover范围字号颜色/音效与CTS网络全生产消费及alias-owner寿命、CRT/SDK/FPU数值/机器ABI/优化后读取及实际文字声音画面/全生命周期待，仅限定S，枚举/完整gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，三完整原根492条1769B/九页、29实际E8/14目标/56跳14RET，四CALL入向内部3/外1；原48B窗口35/20项元素及11实际callback和旧12槽分派表与当前不改原型吻合，旧CAC18范围保；整三文件精确重放两组四处/六注释，两个正确body与所有其它source/按钮门槛图号GBK提示/音效颜色发布/返回及浮点链保持，机器ABI/FPU/全owner与运行待",
+      "original_incoming": [
+        {
+          "ea": 4879505,
+          "parent": 4878272,
+          "type": 17,
+          "bytes": "e8aa0c0000",
+          "asm": "call    sub_4A8140"
+        },
+        {
+          "ea": 4879644,
+          "parent": 4878272,
+          "type": 17,
+          "bytes": "e81f0c0000",
+          "asm": "call    sub_4A8140"
+        },
+        {
+          "ea": 4879678,
+          "parent": 4878272,
+          "type": 17,
+          "bytes": "e8fd0b0000",
+          "asm": "call    sub_4A8140"
+        },
+        {
+          "ea": 4882414,
+          "parent": 4881472,
+          "type": 17,
+          "bytes": "e84d010000",
+          "asm": "call    sub_4A8140"
+        }
+      ],
+      "chat_window_control_pipeline": {
+        "step": "CWC01",
+        "source_snapshot": "[#] 补齐聊天窗口控制并恢复按钮现场取样",
+        "original_end_exclusive": "0x4a81c5",
+        "original_instruction_count": 41,
+        "original_code_bytes": 133,
+        "original_page_count": 1,
+        "direct_call_count": 3,
+        "jump_count": 2,
+        "return_count": 2,
+        "native_signature": "void Sub_4A8140()",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4A8140",
+        "normal_source_kept": true,
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
         "generated_machine_reads_verified": false,
         "full_lifecycle_closed": false,
         "runtime_verified": false

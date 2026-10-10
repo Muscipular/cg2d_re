@@ -2508,3 +2508,9 @@ ANIMATION/YOBI各两个新成员，BATTLE只Play依赖成员；两新语义/F和
 [CWP01完整原根](cg2d_chat_window_geometry_production_spec.md#chat-geometry-source-state)/[原码与接线](cg2d_chat_window_geometry_production_evidence.json)覆盖4C9240默认、4C9170设置恢复和4A7C40聊天尺寸/几何，共329条1484B/七页、两E8/两目标/11跳三RET；六外入向仅来源。71项原地址寻址与当前原生表/数组承载保；恢复记录14两首BYTE改真实unsigned char读取、S32字段不变，两请求和及八字体/高度对逐点先取样再运算。三组12处/六注释，默认正确body、所有其它源与尺寸原环/26倍位置补偿/请求归零、现场窗口元素载荷及滑块callee后发布序和返回保持。三新语义/F、INPUT/UIRUNTIME各三成员/MAP两设置根、三限定S零I/九任务open；全文件/窗口父及默认回填/滑块callee、字体载荷请求/宽高/历史绘制owner、SDK/机器ABI/实际尺寸切换文字画面运行待。
 
 未新验证完整文件或窗口父、部分默认回填/滑块callee或编译布局；HBN01旧两身份保持。关联率不称完成率，184叶验收0/60任务关闭11/六closure及总SPEC§10保持。
+
+## 2026-10-10 CWC01 聊天窗口控制的限定证据
+
+[CWC01完整原根](cg2d_chat_window_control_pipeline_spec.md#chat-control-source-state)/[原码与真实绑定](cg2d_chat_window_control_pipeline_evidence.json)覆盖4A6DD0输入创建、4A6FC0按钮和4A8140滑块，共492条1769B/九页、29E8/14目标/56跳14RET；四CALL入向内部3/外1。原窗口35/20项元素与11实际callback保持，旧12槽表/CAC18范围不重复处置，11/12/19默认行为不新增。两组四处恢复三个hover窗口/元素及scroll→count取样；两个正确body、原创建/焦点/可见/返1、按钮环/提示/SE/颜色发布/scroll边界、滑块浮点与低S32位置及GBK/明文/MSVC/WAV-only保。旧1969保历史追加/两新语义三F、INPUT/UIRUNTIME各三成员/NETWORK仅配置生产按钮、三限定S零I/九任务open；全窗口父/创建绘制释放及输入字体日志请求/音效与CTS配置生产消费owner、SDK/FPU/机器ABI/实际输入文字声音画面运行待。
+
+IDA数组/结构起点xref不代字段指针；原型实际11callback与旧范围分别核，八旧身份不重复处置。关联率不称完成率，184叶验收0/60任务关闭11/六closure与总SPEC§10保持。

@@ -143,7 +143,7 @@ std::int32_t Sub_4A4650(std::int32_t value);
 std::int32_t Sub_4A53F0(std::int32_t value);
 void Sub_4A5650();
 std::int32_t Sub_4A56F0(std::int32_t value);
-std::int32_t Sub_4A6DD0(std::int32_t value);
+std::int32_t Sub_4A6DD0(std::int32_t value); // CWC01：见聊天窗口控制完整合同。
 std::int32_t Sub_4A8240(std::int32_t value);
 std::int32_t Sub_4A82C0(std::int32_t value);
 void Sub_4A83D0();

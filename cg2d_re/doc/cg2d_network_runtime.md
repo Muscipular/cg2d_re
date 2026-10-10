@@ -3838,3 +3838,8 @@ NETWORK仅新增该入口一个成员/限定S（另三功能各一S），四旧�
 ## 2026-10-10 CTS01：聊天门禁与六字段发送
 
 [CTS01完整原根](cg2d_chat_send_pipeline_spec.md#chat-send-source-state)/[原码与实际接线](cg2d_chat_send_pipeline_evidence.json)覆盖50C940聊天发送与511900六字段封包，共183条653B/四页、23实际E8/11目标/14跳四RET，另两FF15取tick。恢复两个原短路点options194 BYTE读取，复用既有reader，W16字段/写方不变；原gate/disabled/跟随、1000/180000计时与提示/SE/返回保持。转义→P|%s→mode/range→Y/X→socket→原uSr命令与六字段，每字段capacity→token→新共享buffer→append弃返、末发送S32顺序保；两未清1024区和当前明文/GBK/MSVC/WAV-only不变。旧BTG01提交父发送弃返后原清输入保持，一组两点/四注释，正确封包正文及所有其它源保。旧1075保历史追加/一新语义两F、INPUT/NETWORK各两成员/MAP一个成员，三限定S零I/九任务open；全部数据owner/SDK/机器ABI/真实禁言与互通、文字声音画面运行待。
+
+<a id="chat-control-current-20261010"></a>
+## 2026-10-10 CWC01：聊天输入与按钮/滑块控制
+
+[CWC01完整原根](cg2d_chat_window_control_pipeline_spec.md#chat-control-source-state)/[原码与真实绑定](cg2d_chat_window_control_pipeline_evidence.json)覆盖4A6DD0输入创建、4A6FC0按钮和4A8140滑块，共492条1769B/九页、29E8/14目标/56跳14RET；四CALL入向内部3/外1。原窗口35/20项元素与11实际callback保持，旧12槽表/CAC18范围不重复处置，11/12/19默认行为不新增。两组四处恢复三个hover窗口/元素及scroll→count取样；两个正确body、原创建/焦点/可见/返1、按钮环/提示/SE/颜色发布/scroll边界、滑块浮点与低S32位置及GBK/明文/MSVC/WAV-only保。旧1969保历史追加/两新语义三F、INPUT/UIRUNTIME各三成员/NETWORK仅配置生产按钮、三限定S零I/九任务open；全窗口父/创建绘制释放及输入字体日志请求/音效与CTS配置生产消费owner、SDK/FPU/机器ABI/实际输入文字声音画面运行待。

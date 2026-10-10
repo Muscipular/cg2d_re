@@ -29548,6 +29548,7 @@ WindowInstance* FindWindowById_477490(const std::int32_t id)
     return nullptr;
 }
 
+// CWC01：持有实际窗口/新count与elements，原浮点比例/低S32位置和正常分支保持。
 void Sub_4A8140()
 {
     WindowInstance* const window = FindWindowById_477490(35);
@@ -29712,6 +29713,7 @@ void Sub_4A7C40()
     static_cast<WindowGraphicData*>(window->elements[7].data)->imageNo = color + 245192;
 }
 
+// CWC01：原输入创建/可见性/焦点与context接线、现场坐标和返1保持。
 std::int32_t Sub_4A6DD0(const std::int32_t value)
 {
     if (value == -1) {
@@ -29741,6 +29743,7 @@ std::int32_t Sub_4A6DD0(const std::int32_t value)
     return 1;
 }
 
+// CWC01：原三个hover窗口/元素及scroll→count取样，按钮/SE/发布和返回序保持。
 std::int32_t Sub_4A6FC0(const std::int32_t index, const std::int32_t state)
 {
     if (input::gValueC9A96C == 0) {
@@ -29805,8 +29808,10 @@ std::int32_t Sub_4A6FC0(const std::int32_t index, const std::int32_t state)
         }
         break;
     case 6: {
-        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[6].data);
-        if ((state & 1) != 0) {
+        WindowInstance* const hoverWindow = gCurrentWindow;
+        const bool hovered = (state & 1) != 0;
+        auto* const graphic = static_cast<WindowGraphicData*>(hoverWindow->elements[6].data);
+        if (hovered) {
             std::strcpy(gHoverTextD68AE8.data(),
                 "\xB8\xC4\xD7\x83\xC1\xC4\xCC\xEC\x95\x72\xB5\xC4\xCE\xC4\xD7\xD6"
                 "\xB4\xF3\xD0\xA1\xA1\xA3");
@@ -29841,9 +29846,12 @@ std::int32_t Sub_4A6FC0(const std::int32_t index, const std::int32_t state)
         }
         break;
     }
-    case 3:
-        if ((state & 1) != 0) {
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[3].data)->imageNo = 0x3BDA9;
+    case 3: {
+        WindowInstance* const hoverWindow = gCurrentWindow;
+        const bool hovered = (state & 1) != 0;
+        WindowElement* const hoverElements = hoverWindow->elements;
+        if (hovered) {
+            static_cast<WindowGraphicData*>(hoverElements[3].data)->imageNo = 0x3BDA9;
             std::strcpy(gHoverTextD68AE8.data(),
                 "\xFC\x63\x93\xF4\xBB\xAC\xCA\xF3\xD7\xF3\xE6\x49\xD4\xF6\xBC\xD3"
                 "\xCE\xC4\xD7\xD6\xEF\x40\xCA\xBE\xD7\xD6\x94\xB5\xA3\xAC\xFC\x63"
@@ -29851,7 +29859,7 @@ std::int32_t Sub_4A6FC0(const std::int32_t index, const std::int32_t state)
                 "\xD7\xD6\xD3\x8D\xCF\xA2\xEF\x40\xCA\xBE\xD7\xD6\x94\xB5\xA1\xA3");
             consumed = 1;
         } else {
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[3].data)->imageNo = 0x3BDAA;
+            static_cast<WindowGraphicData*>(hoverElements[3].data)->imageNo = 0x3BDAA;
         }
         if ((state & 0x400) != 0) {
             Sub_4A7730();
@@ -29864,6 +29872,7 @@ std::int32_t Sub_4A6FC0(const std::int32_t index, const std::int32_t state)
             consumed = 1;
         }
         break;
+    }
     case 7: {
         if ((state & 1) != 0) {
             std::strcpy(gHoverTextD68AE8.data(),
@@ -29900,13 +29909,16 @@ std::int32_t Sub_4A6FC0(const std::int32_t index, const std::int32_t state)
         }
         break;
     }
-    case 13:
-        static_cast<WindowGraphicData*>(gCurrentWindow->elements[11].data)->imageNo =
-            (state & 1) != 0 ? 0x3B594 : 0x3B592;
-        consumed = (state & 1) != 0 ? 1 : 0;
+    case 13: {
+        WindowInstance* const hoverWindow = gCurrentWindow;
+        const bool hovered = (state & 1) != 0;
+        static_cast<WindowGraphicData*>(hoverWindow->elements[11].data)->imageNo =
+            hovered ? 0x3B594 : 0x3B592;
+        consumed = hovered ? 1 : 0;
         if ((state & 0x400) != 0) {
-            const std::int32_t scroll = gChatScrollOffsetC9A940 + 1;
+            const std::int32_t previousScroll = gChatScrollOffsetC9A940;
             const std::int32_t count = world::detail::gCountC9A944;
+            const std::int32_t scroll = previousScroll + 1;
             gChatScrollOffsetC9A940 = scroll;
             if (scroll > count) {
                 WindowInstance* const window = gCurrentWindow;
@@ -29920,6 +29932,7 @@ std::int32_t Sub_4A6FC0(const std::int32_t index, const std::int32_t state)
             consumed = 1;
         }
         break;
+    }
     case 14:
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[12].data)->imageNo =
             (state & 1) != 0 ? 0x3B597 : 0x3B595;

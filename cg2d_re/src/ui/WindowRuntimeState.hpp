@@ -1658,8 +1658,8 @@ std::int32_t Sub_4A80F0(std::int32_t index, std::int32_t state); // 拖动后按
 std::int32_t Sub_4A81D0(std::int32_t unused, std::int32_t state); // 首窗口滚轮，零日志只调整滑块Y。
 WindowInstance* FindWindowById_477490(std::int32_t id); // 顺序扫描71显示槽；原循环不跳过空槽。
 void Sub_4A7C40(); // 窗口35宽高循环与完整几何，见window_35.md。 // CWP01：见聊天几何生产完整合同。
-void Sub_4A8140(); // 查显示中的35，按回看比例更新滑块。
-std::int32_t Sub_4A6FC0(std::int32_t index, std::int32_t state); // 聊天宽高、范围、字体、颜色与翻页。
+void Sub_4A8140(); // 查显示中的35，按回看比例更新滑块。 // CWC01：见聊天窗口控制完整合同。
+std::int32_t Sub_4A6FC0(std::int32_t index, std::int32_t state); // 聊天宽高、范围、字体、颜色与翻页。 // CWC01：见聊天窗口控制完整合同。
 extern WindowElementPrototype gWindowElements570CB0[20]; // 几何更新所读五按钮原型坐标。
 void Sub_4740F0(char* destination); // 前10项技能索引的S16槽数，格式化后复制原字节。
 void Sub_4A7590(input::InputContext* context); // 按聊天宽度滚动目标输入并绘制。

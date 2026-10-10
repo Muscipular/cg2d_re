@@ -4746,3 +4746,8 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 ## 2026-10-10 BSTL01：目标移位/HP零与百格技能生产
 
 [完整合同](cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-source-state)补93–98、405E60和41E890八完整323条1106B/九页及384B六类图表。95临时index/encoded先查目标、encoded-mask-count逐项读写与角度首样上限/分支前第二样/负分支第三读共两片段落实；93 Count先alive后、94四目标重取/X先Y/180与50、旧16门禁/推进后入口payload清零、96/97当前目标hidden与source推进、98双图号门禁/26+4技能映射和两次skill、百格共享相位先推进/XY次序/每格fresh相位/最后结果均保持。仅另十六注释，八语义/F/成员、限定I两F/S八正常根，零新函数/API/保护/默认值/额外调用/RNG。原全局无加载值的FF不能当原初值/运行值；完整生产/所有父/ABI/alias/owner/SDK正常失败/容量/数值/RNG/声音画面待，原门禁政策保持。
+
+<a id="battle-combo-copy-runtime-20261010"></a>
+## 2026-10-10 BCPY01：连续动作/多效果执行与独立复制体
+
+[完整合同](cg2d_battle_combo_copy_spec.md#battle-combo-copy-source-state)补99–103/4205F0六完整722条2458B/十五页。18 BYTE表达式、100入口帧样本/102临时HP零复制/103四效果值三取样组及共享游标PE静态初值共22组落实；原 .data节头证明59F9DC位于零尾部，撤销未加载FF当-1的旧说法并改声明0。200B全S8/固定视觉与动态HP、正确最大HP Copy/完整高位、原三位置门禁/七动作及每轮独立载荷生产、三父payload读取/播放后Y先X发布保持。另十三注释，旧shared_battle仅初值/当前来源对齐；六语义/F/成员、限定I三F/S六正常根，零新函数/API/保护/默认值/额外调用/RNG。静态初值不代运行值/间接写者，完整数据/父-callee/ABI/alias/owner/SDK正常失败/容量/数值/RNG/声音画面待，原门禁政策保持。

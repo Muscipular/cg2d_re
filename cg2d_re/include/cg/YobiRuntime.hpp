@@ -456,12 +456,12 @@ YobiAction* NewBattleRangeHit_419390(YobiAction* parent, const BattleEntryEffect
 YobiAction* NewBattleBoomerang_4195F0(YobiAction* parent); // B22C01：原取样/几何发布，同步总回调推进后返回原生T*。
 YobiAction* NewBattleArcShot_419DA0(YobiAction* parent, const BattleEntryEffectRecord* effect,
     std::int32_t imageNo, std::int32_t count, std::int32_t mode);
-YobiAction* NewBattleCastCopy_4205F0(YobiAction* parent); // 独立战斗载荷，不是浅克隆。
+YobiAction* NewBattleCastCopy_4205F0(YobiAction* parent); // BCPY01：独立战斗载荷与父借用，三载荷重取/末坐标发布；非浅克隆。
 void UpdateBattleAction15_406E10(YobiAction* action); // B15P01：独立事件/音效持样，回旋返回发布和258低档/高档循环保原序。
 void UpdateBattleAction18_408170(YobiAction* action); // BSP01：258三图/22050范围，单次门禁和音效event-X；95/3019重播。
 void UpdateBattleAction19_4082F0(YobiAction* action); // BSP01：探测后33速率/22090范围，单次门禁和音效event-X；仅95重播。
 void UpdateBattleAction70_4070E0(YobiAction* action); // BTE01：播放后一次事件/逐轮投射/末声清事件。
-void UpdateBattleAction103_40DBE0(YobiAction* action);
+void UpdateBattleAction103_40DBE0(YobiAction* action); // BCPY01：独立复制体/七动作/效果四值按原序取样。
 void UpdateBattleAction109_40E4B0(YobiAction* action);
 void UpdateBattleAction112_40EB00(YobiAction* action);
 void UpdateBattleAction224_414050(YobiAction* action);
@@ -580,10 +580,10 @@ void UpdateBattleAction95_40D0B0(YobiAction* action); // BSTL01：旧16门禁/�
 void UpdateBattleAction96_40D170(YobiAction* action); // BSTL01：当前目标hidden置0/source推进。
 void UpdateBattleAction97_40D1A0(YobiAction* action); // BSTL01：当前目标hidden置1/source推进。
 void UpdateBattleAction98_40D1D0(YobiAction* action); // BSTL01：双选图门禁/两次skill读取/铺格生产。
-std::int32_t UpdateBattleAction99_40D390(YobiAction* action); // 速率25，推进后清帧索引/剩余帧并返回0。
-void UpdateBattleAction100_40D3C0(YobiAction* action); // S8序列/共享游标，完成后分效果、随机音效并检查下一哨兵。
-std::int32_t UpdateBattleAction101_40D580(YobiAction* action); // 两侧中心汇聚，位置分支逐次重读，到达后转向/推进。
-void UpdateBattleAction102_40D6C0(YobiAction* action); // 旧FF0门禁后完整逐效果伤害/回复处理，固定目标与动态数值目标分开。
+std::int32_t UpdateBattleAction99_40D390(YobiAction* action); // BCPY01：rate25→推进→清两帧字段→返回0。
+void UpdateBattleAction100_40D3C0(YobiAction* action); // BCPY01：入口frameIndex先目标，S8序列/分档/fresh结束哨兵。
+std::int32_t UpdateBattleAction101_40D580(YobiAction* action); // BCPY01：位置逐次重取，两侧中心/面对点及末播放返回。
+void UpdateBattleAction102_40D6C0(YobiAction* action); // BCPY01：完整逐效果伤害/回复与原BYTE消费、动态HP零复制。
 void UpdateBattleAction104_40DC90(YobiAction* action); // 原编码调查消息；保留原CryptInt按值实参前两字，不解码HP/FP。
 std::int32_t UpdateBattleAction105_40DE40(YobiAction* action); // 四阶段绕固定目标定位，推进源后重查位置决定推进该目标。
 void UpdateBattleAction106_40DF50(YobiAction* action); // 只设置角色动作13并推进，不播放。

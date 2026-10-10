@@ -202957,6 +202957,354 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x40d390",
+      "inventory_id": "F:0000D390",
+      "original_role": "rate25/推进后清两帧字段并返0",
+      "original_end_exclusive": "0x40d3b8",
+      "instruction_count": 11,
+      "function_chunks": [
+        {
+          "start": "0x40d390",
+          "end_exclusive": "0x40d3b8"
+        }
+      ],
+      "status": "BCPY01完整正常源/独立合同纳管，100/102/103取样与原PE静态初值落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction99_40D390"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction99_40D390"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_combo_copy_spec.md#battle-combo-copy-baseline",
+        "doc/cg2d_battle_combo_copy_spec.md#battle-combo-copy-decision",
+        "doc/cg2d_battle_combo_copy_spec.md#battle-combo-copy-acceptance",
+        "doc/cg2d_battle_combo_copy_spec.md#battle-combo-copy-source-state",
+        "doc/cg2d_battle_combo_copy_evidence.json"
+      ],
+      "boundary": "BCPY01动作99–103与独立复制体六完整正常源纳管，18 BYTE表达式/三读取片段及100共享游标PE零初值共22组，十三注释。100入口position-frameIndex-target、102负HP临时index/encoded先目标/逐项pub、103四值4-flags-3-position读取恢复；静态初值0由原PE节头证明，未加载FF不作原-1。完整W32/高位、正确最大HP Copy、共享器/原表/其它源与旧记录保持。无新函数/API/保护/默认值/循环cap/声/播放/RNG；完整输入生产/父-callee/ABI/alias/owner/SDK正常失败/容量/数值/RNG及声音画面待，原门禁政策保持。",
+      "verification_level": "六完整722条2458B/十五页、64E8/二十八callee/61跳九RET、九实际CALL/四父/五11Bcase与callback MOV、200B全S8及原PE .data节头/静态零初值有据。当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction99_40D390",
+        "parameters": "非拥有YobiAction*",
+        "return": "std::int32_t；实际0返回"
+      },
+      "battle_combo_copy": {
+        "step": "BCPY01",
+        "source_snapshot": "cg2d-re-battle-combo-copy-20261010",
+        "original_instruction_count": 11,
+        "original_code_bytes": 40,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "callee_count": 1,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "related_data_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40d3c0",
+      "inventory_id": "F:0000D3C0",
+      "original_role": "共享S8序列/入口帧取样/分档与末哨兵",
+      "original_end_exclusive": "0x40d577",
+      "instruction_count": 137,
+      "function_chunks": [
+        {
+          "start": "0x40d3c0",
+          "end_exclusive": "0x40d577"
+        }
+      ],
+      "status": "BCPY01完整正常源/独立合同纳管，100/102/103取样与原PE静态初值落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction100_40D3C0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction100_40D3C0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_combo_copy_spec.md#battle-combo-copy-baseline",
+        "doc/cg2d_battle_combo_copy_spec.md#battle-combo-copy-decision",
+        "doc/cg2d_battle_combo_copy_spec.md#battle-combo-copy-acceptance",
+        "doc/cg2d_battle_combo_copy_spec.md#battle-combo-copy-source-state",
+        "doc/cg2d_battle_combo_copy_evidence.json"
+      ],
+      "boundary": "BCPY01动作99–103与独立复制体六完整正常源纳管，18 BYTE表达式/三读取片段及100共享游标PE零初值共22组，十三注释。100入口position-frameIndex-target、102负HP临时index/encoded先目标/逐项pub、103四值4-flags-3-position读取恢复；静态初值0由原PE节头证明，未加载FF不作原-1。完整W32/高位、正确最大HP Copy、共享器/原表/其它源与旧记录保持。无新函数/API/保护/默认值/循环cap/声/播放/RNG；完整输入生产/父-callee/ABI/alias/owner/SDK正常失败/容量/数值/RNG及声音画面待，原门禁政策保持。",
+      "verification_level": "六完整722条2458B/十五页、64E8/二十八callee/61跳九RET、九实际CALL/四父/五11Bcase与callback MOV、200B全S8及原PE .data节头/静态零初值有据。当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction100_40D3C0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；原实际弃返保持"
+      },
+      "battle_combo_copy": {
+        "step": "BCPY01",
+        "source_snapshot": "cg2d-re-battle-combo-copy-20261010",
+        "original_instruction_count": 137,
+        "original_code_bytes": 439,
+        "original_page_count": 3,
+        "direct_call_count": 10,
+        "callee_count": 8,
+        "jump_count": 14,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 6,
+        "related_data_patch_group_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40d580",
+      "inventory_id": "F:0000D580",
+      "original_role": "两侧中心汇聚/三位置门禁与末播放",
+      "original_end_exclusive": "0x40d6b4",
+      "instruction_count": 85,
+      "function_chunks": [
+        {
+          "start": "0x40d580",
+          "end_exclusive": "0x40d6b4"
+        }
+      ],
+      "status": "BCPY01完整正常源/独立合同纳管，100/102/103取样与原PE静态初值落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction101_40D580"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction101_40D580"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_combo_copy_spec.md#battle-combo-copy-baseline",
+        "doc/cg2d_battle_combo_copy_spec.md#battle-combo-copy-decision",
+        "doc/cg2d_battle_combo_copy_spec.md#battle-combo-copy-acceptance",
+        "doc/cg2d_battle_combo_copy_spec.md#battle-combo-copy-source-state",
+        "doc/cg2d_battle_combo_copy_evidence.json"
+      ],
+      "boundary": "BCPY01动作99–103与独立复制体六完整正常源纳管，18 BYTE表达式/三读取片段及100共享游标PE零初值共22组，十三注释。100入口position-frameIndex-target、102负HP临时index/encoded先目标/逐项pub、103四值4-flags-3-position读取恢复；静态初值0由原PE节头证明，未加载FF不作原-1。完整W32/高位、正确最大HP Copy、共享器/原表/其它源与旧记录保持。无新函数/API/保护/默认值/循环cap/声/播放/RNG；完整输入生产/父-callee/ABI/alias/owner/SDK正常失败/容量/数值/RNG及声音画面待，原门禁政策保持。",
+      "verification_level": "六完整722条2458B/十五页、64E8/二十八callee/61跳九RET、九实际CALL/四父/五11Bcase与callback MOV、200B全S8及原PE .data节头/静态零初值有据。当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction101_40D580",
+        "parameters": "非拥有YobiAction*",
+        "return": "std::int32_t；实际末播放返回"
+      },
+      "battle_combo_copy": {
+        "step": "BCPY01",
+        "source_snapshot": "cg2d-re-battle-combo-copy-20261010",
+        "original_instruction_count": 85,
+        "original_code_bytes": 308,
+        "original_page_count": 2,
+        "direct_call_count": 8,
+        "callee_count": 5,
+        "jump_count": 8,
+        "return_count": 2,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "related_data_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40d6c0",
+      "inventory_id": "F:0000D6C0",
+      "original_role": "完整多效果伤害回复/动态HP与延迟生产",
+      "original_end_exclusive": "0x40dbd5",
+      "instruction_count": 365,
+      "function_chunks": [
+        {
+          "start": "0x40d6c0",
+          "end_exclusive": "0x40dbd5"
+        }
+      ],
+      "status": "BCPY01完整正常源/独立合同纳管，100/102/103取样与原PE静态初值落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction102_40D6C0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction102_40D6C0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_combo_copy_spec.md#battle-combo-copy-baseline",
+        "doc/cg2d_battle_combo_copy_spec.md#battle-combo-copy-decision",
+        "doc/cg2d_battle_combo_copy_spec.md#battle-combo-copy-acceptance",
+        "doc/cg2d_battle_combo_copy_spec.md#battle-combo-copy-source-state",
+        "doc/cg2d_battle_combo_copy_evidence.json"
+      ],
+      "boundary": "BCPY01动作99–103与独立复制体六完整正常源纳管，18 BYTE表达式/三读取片段及100共享游标PE零初值共22组，十三注释。100入口position-frameIndex-target、102负HP临时index/encoded先目标/逐项pub、103四值4-flags-3-position读取恢复；静态初值0由原PE节头证明，未加载FF不作原-1。完整W32/高位、正确最大HP Copy、共享器/原表/其它源与旧记录保持。无新函数/API/保护/默认值/循环cap/声/播放/RNG；完整输入生产/父-callee/ABI/alias/owner/SDK正常失败/容量/数值/RNG及声音画面待，原门禁政策保持。",
+      "verification_level": "六完整722条2458B/十五页、64E8/二十八callee/61跳九RET、九实际CALL/四父/五11Bcase与callback MOV、200B全S8及原PE .data节头/静态零初值有据。当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction102_40D6C0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；原实际弃返保持"
+      },
+      "battle_combo_copy": {
+        "step": "BCPY01",
+        "source_snapshot": "cg2d-re-battle-combo-copy-20261010",
+        "original_instruction_count": 365,
+        "original_code_bytes": 1301,
+        "original_page_count": 6,
+        "direct_call_count": 29,
+        "callee_count": 20,
+        "jump_count": 37,
+        "return_count": 2,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 14,
+        "related_data_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40dbe0",
+      "inventory_id": "F:0000DBE0",
+      "original_role": "每效果独立复制体/七动作及四值生产",
+      "original_end_exclusive": "0x40dc8a",
+      "instruction_count": 70,
+      "function_chunks": [
+        {
+          "start": "0x40dbe0",
+          "end_exclusive": "0x40dc8a"
+        }
+      ],
+      "status": "BCPY01完整正常源/独立合同纳管，100/102/103取样与原PE静态初值落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction103_40DBE0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction103_40DBE0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_combo_copy_spec.md#battle-combo-copy-baseline",
+        "doc/cg2d_battle_combo_copy_spec.md#battle-combo-copy-decision",
+        "doc/cg2d_battle_combo_copy_spec.md#battle-combo-copy-acceptance",
+        "doc/cg2d_battle_combo_copy_spec.md#battle-combo-copy-source-state",
+        "doc/cg2d_battle_combo_copy_evidence.json"
+      ],
+      "boundary": "BCPY01动作99–103与独立复制体六完整正常源纳管，18 BYTE表达式/三读取片段及100共享游标PE零初值共22组，十三注释。100入口position-frameIndex-target、102负HP临时index/encoded先目标/逐项pub、103四值4-flags-3-position读取恢复；静态初值0由原PE节头证明，未加载FF不作原-1。完整W32/高位、正确最大HP Copy、共享器/原表/其它源与旧记录保持。无新函数/API/保护/默认值/循环cap/声/播放/RNG；完整输入生产/父-callee/ABI/alias/owner/SDK正常失败/容量/数值/RNG及声音画面待，原门禁政策保持。",
+      "verification_level": "六完整722条2458B/十五页、64E8/二十八callee/61跳九RET、九实际CALL/四父/五11Bcase与callback MOV、200B全S8及原PE .data节头/静态零初值有据。当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction103_40DBE0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；原实际弃返保持"
+      },
+      "battle_combo_copy": {
+        "step": "BCPY01",
+        "source_snapshot": "cg2d-re-battle-combo-copy-20261010",
+        "original_instruction_count": 70,
+        "original_code_bytes": 170,
+        "original_page_count": 2,
+        "direct_call_count": 12,
+        "callee_count": 5,
+        "jump_count": 1,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 1,
+        "related_data_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4205f0",
+      "inventory_id": "F:000205F0",
+      "original_role": "新独立战斗载荷/三次父载荷读取与正常T*返回",
+      "original_end_exclusive": "0x4206b8",
+      "instruction_count": 54,
+      "function_chunks": [
+        {
+          "start": "0x4205f0",
+          "end_exclusive": "0x4206b8"
+        }
+      ],
+      "status": "BCPY01完整正常源/独立合同纳管，100/102/103取样与原PE静态初值落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::NewBattleCastCopy_4205F0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::NewBattleCastCopy_4205F0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_combo_copy_spec.md#battle-combo-copy-baseline",
+        "doc/cg2d_battle_combo_copy_spec.md#battle-combo-copy-decision",
+        "doc/cg2d_battle_combo_copy_spec.md#battle-combo-copy-acceptance",
+        "doc/cg2d_battle_combo_copy_spec.md#battle-combo-copy-source-state",
+        "doc/cg2d_battle_combo_copy_evidence.json"
+      ],
+      "boundary": "BCPY01动作99–103与独立复制体六完整正常源纳管，18 BYTE表达式/三读取片段及100共享游标PE零初值共22组，十三注释。100入口position-frameIndex-target、102负HP临时index/encoded先目标/逐项pub、103四值4-flags-3-position读取恢复；静态初值0由原PE节头证明，未加载FF不作原-1。完整W32/高位、正确最大HP Copy、共享器/原表/其它源与旧记录保持。无新函数/API/保护/默认值/循环cap/声/播放/RNG；完整输入生产/父-callee/ABI/alias/owner/SDK正常失败/容量/数值/RNG及声音画面待，原门禁政策保持。",
+      "verification_level": "六完整722条2458B/十五页、64E8/二十八callee/61跳九RET、九实际CALL/四父/五11Bcase与callback MOV、200B全S8及原PE .data节头/静态零初值有据。当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::NewBattleCastCopy_4205F0",
+        "parameters": "非拥有YobiAction* parent",
+        "return": "非拥有YobiAction*；原分配失败NULL/正常真实对象"
+      },
+      "battle_combo_copy": {
+        "step": "BCPY01",
+        "source_snapshot": "cg2d-re-battle-combo-copy-20261010",
+        "original_instruction_count": 54,
+        "original_code_bytes": 200,
+        "original_page_count": 1,
+        "direct_call_count": 4,
+        "callee_count": 3,
+        "jump_count": 1,
+        "return_count": 2,
+        "inbound_reference_count": 4,
+        "inbound_direct_call_count": 4,
+        "inbound_parent_count": 3,
+        "source_patch_group_count": 0,
+        "related_data_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

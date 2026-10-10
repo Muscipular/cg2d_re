@@ -39,4 +39,4 @@ BPP真实启用[1]/类型[0]修复保留；本步补完整正常源，不重复�
 <a id="battle-action-114-source-state"></a>
 ## 当前交付
 
-完整动作正常本体及入向已静态纳管，三源片段恢复四原低W8消费点；固定快照 `cg2d-re-battle-action-114-full-source-20261007`。未编译、调试、测试、运行或计算摘要，完整战斗、生命周期及R8未关闭；音频暂停、原格式明文继续。
+完整动作正常本体/入向及三片段四W8是BPR01历史交付，固定快照 `cg2d-re-battle-action-114-full-source-20261007`。2026-10-10 [BCVI01](cg2d_battle_cache_initial_spec.md#battle-cache-initial-source-state)另修当前位置缓存模型静态零初值与一临时HP零复制读序；旧原证据JSON保持历史，不改成当前正文。原缓存容量/完整运行初始化与全部owner/SDK/机器门禁仍待；未编译/调试/测试/运行或计算摘要，音频按当前WAV-only、原格式明文继续。

@@ -157940,14 +157940,14 @@
       "original_role": "UpdateBattleAction114_40F0A0",
       "original_end_exclusive": "0x40f771",
       "instruction_count": 489,
-      "status": "BPR01完整正常动作114本体/实际创建与公共尾已静态对应，四原W8点由三源片段修复；全调用者/生命周期/运行未验",
+      "status": "BPR01完整正常动作114本体/实际创建与公共尾已静态对应，四原W8点由三源片段修复；全调用者/生命周期/运行未验；BCVI01当前1025槽映像覆盖区零初值与一临时HP复制读序修复，原完整容量/运行初始化仍待",
       "sources": [
         {
           "path": "src/YobiRuntime.cpp",
           "symbols": [
             "UpdateBattleAction114_40F0A0"
           ],
-          "relationship": "位置与图号：当前index→position>0回存共享位置/否则补原缓存→freshindex→target借用；initial.flags原MOV W32，bit4/400选110000/110098，否则仅一次RAND(0,2)+110001。 朝向与发布：level>=90以action否则entries[battlePosition]，406190(target,from,1,0)；freshflags W32发布effectFlagsFE4后406390，freshindex==0且level<90才创建名称效果。 名称与缩放：名称20×36B/原两字节比较只消费是否相等，12B三列名称图表按col0零哨兵/匹配取col1，默认110158；419FC0(action,image,0)返回必须消费，两轴分别fresh读取S32 level/10＋各F32scale＋原F32 54D4B4(cdcccc3d)，各自落F32，不共用quotient。 启用与类型：同一22×S32[2]共享pair按+04启用、+00类型；type1..6原六槽switch，其中type4共享分支，41F660(entry,type+110074)返回不消费；禁用则flagsFDC&FFFFFC0F后AppendCast(action,target,142)。BPP源修保持，不重建布局或换生产序。 命中与扣除：hitFlags原一次W32，8→phase31，100→flash1/PlaySe210/phase31；其它在E000清且amount非零时按bit2建110008，再image>=0创建图效果、4208F0、PlaySe267；freshrecord扣readiness，freshentry比较0，负时Construct0→freshentry CopyPayload→Destroy。随后独立freshrecord低W8 bit20才flagsFDC|2/gate1/alive1。 恢复分支：freshflags W32，8000/2000只推进target；4000先推进，freshindex的bit10000000建22459，否则freshamount加readiness→freshentry与maxHp比较/超出时freshentry CopyPayload→freshflags/targetY/amount/targetX、数字(type5,2)。保真实业务0/maxHp限制，非故障防护。 普通分支：其它flags中100000先MarkDeath(effect1054)→读取W32flagsFDC并清bit20→清借用effect1054指针→写回W32；再推进target，freshflags的10000000建22459，否则Y/amount/X与数字(type6,2)。两个数显路径原各一次freshrecord低W8 bit2，源码共用显示尾一次读取建22454，随后4209C0(from,target)。 循环与公共尾：freshindex→record低W8 bit8清且position3非零才W32 targetflags计算14*((flags>>1&1)+1)写valueFD0；439470(action)直到返回1循环结束，最后439340(action)一次。保短路与target借用，不提前amount或增加保护。 入向与暂停：404DB0 case114压action调用/不消费返回到公共尾；源码static_cast<void>包装与break保。52C450历史事实只消费sound/x两个参数，音频仍暂停，不开发音频或把未消费栈参数变接口。"
+          "relationship": "位置与图号：当前index→position>0回存共享位置/否则补原缓存→freshindex→target借用；initial.flags原MOV W32，bit4/400选110000/110098，否则仅一次RAND(0,2)+110001。 朝向与发布：level>=90以action否则entries[battlePosition]，406190(target,from,1,0)；freshflags W32发布effectFlagsFE4后406390，freshindex==0且level<90才创建名称效果。 名称与缩放：名称20×36B/原两字节比较只消费是否相等，12B三列名称图表按col0零哨兵/匹配取col1，默认110158；419FC0(action,image,0)返回必须消费，两轴分别fresh读取S32 level/10＋各F32scale＋原F32 54D4B4(cdcccc3d)，各自落F32，不共用quotient。 启用与类型：同一22×S32[2]共享pair按+04启用、+00类型；type1..6原六槽switch，其中type4共享分支，41F660(entry,type+110074)返回不消费；禁用则flagsFDC&FFFFFC0F后AppendCast(action,target,142)。BPP源修保持，不重建布局或换生产序。 命中与扣除：hitFlags原一次W32，8→phase31，100→flash1/PlaySe210/phase31；其它在E000清且amount非零时按bit2建110008，再image>=0创建图效果、4208F0、PlaySe267；freshrecord扣readiness，freshentry比较0，负时Construct0→freshindex/encoded先查target→encoded-mask-BYTEcount逐项读取发布→Destroy。随后独立freshrecord低W8 bit20才flagsFDC|2/gate1/alive1。 恢复分支：freshflags W32，8000/2000只推进target；4000先推进，freshindex的bit10000000建22459，否则freshamount加readiness→freshentry与maxHp比较/超出时freshentry CopyPayload→freshflags/targetY/amount/targetX、数字(type5,2)。保真实业务0/maxHp限制，非故障防护。 普通分支：其它flags中100000先MarkDeath(effect1054)→读取W32flagsFDC并清bit20→清借用effect1054指针→写回W32；再推进target，freshflags的10000000建22459，否则Y/amount/X与数字(type6,2)。两个数显路径原各一次freshrecord低W8 bit2，源码共用显示尾一次读取建22454，随后4209C0(from,target)。 循环与公共尾：freshindex→record低W8 bit8清且position3非零才W32 targetflags计算14*((flags>>1&1)+1)写valueFD0；439470(action)直到返回1循环结束，最后439340(action)一次。保短路与target借用，不提前amount或增加保护。 入向与暂停：404DB0 case114压action调用/不消费返回到公共尾；源码static_cast<void>包装与break保。52C450历史事实只消费sound/x两个参数，音频按当前WAV-only，不恢复MIDI或把未消费栈参数变接口。"
         }
       ],
       "evidence_documents": [
@@ -157960,9 +157960,11 @@
         "doc/cg2d_battle_action_114_spec.md#battle-action-114-decision",
         "doc/cg2d_battle_action_114_spec.md#battle-action-114-acceptance",
         "doc/cg2d_battle_action_114_spec.md#battle-action-114-source-state",
-        "doc/cg2d_battle_action_114_evidence.json"
+        "doc/cg2d_battle_action_114_evidence.json",
+        "doc/cg2d_battle_cache_initial_spec.md#battle-cache-initial-source-state",
+        "doc/cg2d_battle_cache_initial_evidence.json"
       ],
-      "boundary": "位置与图号：当前index→position>0回存共享位置/否则补原缓存→freshindex→target借用；initial.flags原MOV W32，bit4/400选110000/110098，否则仅一次RAND(0,2)+110001。 朝向与发布：level>=90以action否则entries[battlePosition]，406190(target,from,1,0)；freshflags W32发布effectFlagsFE4后406390，freshindex==0且level<90才创建名称效果。 名称与缩放：名称20×36B/原两字节比较只消费是否相等，12B三列名称图表按col0零哨兵/匹配取col1，默认110158；419FC0(action,image,0)返回必须消费，两轴分别fresh读取S32 level/10＋各F32scale＋原F32 54D4B4(cdcccc3d)，各自落F32，不共用quotient。 启用与类型：同一22×S32[2]共享pair按+04启用、+00类型；type1..6原六槽switch，其中type4共享分支，41F660(entry,type+110074)返回不消费；禁用则flagsFDC&FFFFFC0F后AppendCast(action,target,142)。BPP源修保持，不重建布局或换生产序。 命中与扣除：hitFlags原一次W32，8→phase31，100→flash1/PlaySe210/phase31；其它在E000清且amount非零时按bit2建110008，再image>=0创建图效果、4208F0、PlaySe267；freshrecord扣readiness，freshentry比较0，负时Construct0→freshentry CopyPayload→Destroy。随后独立freshrecord低W8 bit20才flagsFDC|2/gate1/alive1。 恢复分支：freshflags W32，8000/2000只推进target；4000先推进，freshindex的bit10000000建22459，否则freshamount加readiness→freshentry与maxHp比较/超出时freshentry CopyPayload→freshflags/targetY/amount/targetX、数字(type5,2)。保真实业务0/maxHp限制，非故障防护。 普通分支：其它flags中100000先MarkDeath(effect1054)→读取W32flagsFDC并清bit20→清借用effect1054指针→写回W32；再推进target，freshflags的10000000建22459，否则Y/amount/X与数字(type6,2)。两个数显路径原各一次freshrecord低W8 bit2，源码共用显示尾一次读取建22454，随后4209C0(from,target)。 循环与公共尾：freshindex→record低W8 bit8清且position3非零才W32 targetflags计算14*((flags>>1&1)+1)写valueFD0；439470(action)直到返回1循环结束，最后439340(action)一次。保短路与target借用，不提前amount或增加保护。 入向与暂停：404DB0 case114压action调用/不消费返回到公共尾；源码static_cast<void>包装与break保。52C450历史事实只消费sound/x两个参数，音频仍暂停，不开发音频或把未消费栈参数变接口。 40F0A0完整489条1745B/七页、34实际call/57普通内部jump/六槽switch/一ret、唯一4052D9同父404DB0的参数及弃返邻窗；只当前动作完整正常源分支/字段/值与调用阶段静态对应。四原TEST W8点由三个源片段承载，正常旧掩码值相同；保BPP已修启用[1]/类型[0]与所有其它源。依赖本体、全状态生产/所有父与间接alias/owner寿命、SDK/生成机器ABI及x87实际运行精度、RNG/时钟/画面/运行未新验，RPLAN.24不专项异常/保护/模拟或故障等价。",
+      "boundary": "位置与图号：当前index→position>0回存共享位置/否则补原缓存→freshindex→target借用；initial.flags原MOV W32，bit4/400选110000/110098，否则仅一次RAND(0,2)+110001。 朝向与发布：level>=90以action否则entries[battlePosition]，406190(target,from,1,0)；freshflags W32发布effectFlagsFE4后406390，freshindex==0且level<90才创建名称效果。 名称与缩放：名称20×36B/原两字节比较只消费是否相等，12B三列名称图表按col0零哨兵/匹配取col1，默认110158；419FC0(action,image,0)返回必须消费，两轴分别fresh读取S32 level/10＋各F32scale＋原F32 54D4B4(cdcccc3d)，各自落F32，不共用quotient。 启用与类型：同一22×S32[2]共享pair按+04启用、+00类型；type1..6原六槽switch，其中type4共享分支，41F660(entry,type+110074)返回不消费；禁用则flagsFDC&FFFFFC0F后AppendCast(action,target,142)。BPP源修保持，不重建布局或换生产序。 命中与扣除：hitFlags原一次W32，8→phase31，100→flash1/PlaySe210/phase31；其它在E000清且amount非零时按bit2建110008，再image>=0创建图效果、4208F0、PlaySe267；freshrecord扣readiness，freshentry比较0，负时Construct0→freshindex/encoded先查target→encoded-mask-BYTEcount逐项读取发布→Destroy。随后独立freshrecord低W8 bit20才flagsFDC|2/gate1/alive1。 恢复分支：freshflags W32，8000/2000只推进target；4000先推进，freshindex的bit10000000建22459，否则freshamount加readiness→freshentry与maxHp比较/超出时freshentry CopyPayload→freshflags/targetY/amount/targetX、数字(type5,2)。保真实业务0/maxHp限制，非故障防护。 普通分支：其它flags中100000先MarkDeath(effect1054)→读取W32flagsFDC并清bit20→清借用effect1054指针→写回W32；再推进target，freshflags的10000000建22459，否则Y/amount/X与数字(type6,2)。两个数显路径原各一次freshrecord低W8 bit2，源码共用显示尾一次读取建22454，随后4209C0(from,target)。 循环与公共尾：freshindex→record低W8 bit8清且position3非零才W32 targetflags计算14*((flags>>1&1)+1)写valueFD0；439470(action)直到返回1循环结束，最后439340(action)一次。保短路与target借用，不提前amount或增加保护。 入向与暂停：404DB0 case114压action调用/不消费返回到公共尾；源码static_cast<void>包装与break保。52C450历史事实只消费sound/x两个参数，音频按当前WAV-only，不恢复MIDI或把未消费栈参数变接口。 40F0A0完整489条1745B/七页、34实际call/57普通内部jump/六槽switch/一ret、唯一4052D9同父404DB0的参数及弃返邻窗；只当前动作完整正常源分支/字段/值与调用阶段静态对应。四原TEST W8点由三个源片段承载，正常旧掩码值相同；保BPP已修启用[1]/类型[0]与所有其它源。依赖本体、全状态生产/所有父与间接alias/owner寿命、SDK/生成机器ABI及x87实际运行精度、RNG/时钟/画面/运行未新验，RPLAN.24不专项异常/保护/模拟或故障等价。",
       "verification_level": "40F0A0完整489条1745B/七页、34实际call/57普通内部jump/六槽switch/一ret、唯一4052D9同父404DB0的参数及弃返邻窗；只当前动作完整正常源分支/字段/值与调用阶段静态对应。四原TEST W8点由三个源片段承载，正常旧掩码值相同；保BPP已修启用[1]/类型[0]与所有其它源。依赖本体、全状态生产/所有父与间接alias/owner寿命、SDK/生成机器ABI及x87实际运行精度、RNG/时钟/画面/运行未新验，RPLAN.24不专项异常/保护/模拟或故障等价。",
       "range_third_batch": {
         "spec_id": "BPP01",
@@ -158051,6 +158053,18 @@
         "runtime_verified": false,
         "full_lifecycle_closed": false,
         "fault_equivalence_claimed": false
+      },
+      "battle_cache_initial_state": {
+        "step": "BCVI01",
+        "source_snapshot": "cg2d-re-battle-cache-initial-20261010",
+        "cache_model_count": 1025,
+        "cache_model_bytes": 4100,
+        "image_initial_value": 0,
+        "original_capacity_proven": false,
+        "source_copy_patch_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
       }
     },
     {

@@ -504,12 +504,8 @@ constexpr std::array<std::int8_t, 200> kBattleActionSequence5538F4 {
     10, 10, 10, 10, 10, 10, 10, 10, 10, 10, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 };
 std::int32_t gBattleActionSequenceIndex59F9DC = 0;
-// 原59E9D8全1025项均为-1；114按效果索引存位置编号，不是对象地址。
-std::array<std::int32_t, 1025> gBattleEffectPositions59E9D8 = [] {
-    std::array<std::int32_t, 1025> positions;
-    positions.fill(-1);
-    return positions;
-}();
+// BCVI01：现1025个S32位置槽的映像覆盖区为零；114按效果索引存位置编号。
+std::array<std::int32_t, 1025> gBattleEffectPositions59E9D8 {};
 constexpr char kBattleInspectFailure5539BC[] = "\x9F\x6F\xB7\xA8\xD5\x7B\xB2\xE9\xB3\xF6 %s \xB5\xC4\xC7\xE9\x88\xF3";
 constexpr char kBattleInspectHp5539E8[] = "%s \xB5\xC4\xC9\xFA\xC3\xFC\x9E\xE9 %d / %d";
 constexpr char kBattleInspectFp5539D4[] = "%s \xB5\xC4\xC4\xA7\xC1\xA6\x9E\xE9 %d / %d";
@@ -28423,6 +28419,7 @@ void UpdateBattleAction113_40EFE0(YobiAction* const action)
     }
 }
 
+// BCVI01：位置缓存按已证PE静态零初值；临时HP复制index/encoded先目标/逐项发布。
 void UpdateBattleAction114_40F0A0(YobiAction* const action)
 {
     using namespace platform::legacy_crypt_int;
@@ -28517,9 +28514,13 @@ void UpdateBattleAction114_40F0A0(YobiAction* const action)
                 if (Less_401DB0(&compareTarget->readiness, 0)) {
                     platform::LegacyCryptInt temporary;
                     ConstructFromInt_401CC0(&temporary, 0);
+                    const std::int32_t copyEffectIndex = payload->effectRunningC9C;
+                    const std::uint32_t encoded = temporary.encoded;
                     YobiAction* const copyTarget = gBattleAllEntries59E980[
-                        payload->effects1C[payload->effectRunningC9C].position];
-                    CopyPayload(&copyTarget->readiness, &temporary);
+                        payload->effects1C[copyEffectIndex].position];
+                    copyTarget->readiness.encoded = encoded;
+                    copyTarget->readiness.mask = temporary.mask;
+                    copyTarget->readiness.readCount = temporary.readCount;
                     Destroy_401CF0(&temporary);
                 }
                 const std::uint8_t effectFlags = *reinterpret_cast<const std::uint8_t*>(

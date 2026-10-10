@@ -592,7 +592,7 @@ void UpdateBattleAction108_40DF80(YobiAction* action); // 原帧事件触发多�
 void UpdateBattleAction110_40E560(YobiAction* action); // 旧FF0蓄力/接近、两侧清HP、事件等待及独立FD0收尾。
 std::int32_t UpdateBattleAction111_40E970(YobiAction* action); // 阈值散射/反向离场，越界推进后仍移动和播放。
 void UpdateBattleAction113_40EFE0(YobiAction* action); // 抛物线/关联对象定位；原混合EAX未被caller消费。
-void UpdateBattleAction114_40F0A0(YobiAction* action); // 按效果索引回填位置、同源附加效果及动态源对象命中。
+void UpdateBattleAction114_40F0A0(YobiAction* action); // BCVI01：缓存静态零初值/负HP复制原读序，完整动作合同沿BPR01。
 void UpdateBattleAction115_40FB80(YobiAction* action); // 工厂Y=-32，调用后重取目标隐藏，最后phase162。
 void UpdateBattleFactoryAction_40FC10(YobiAction* action); // 31动作共享30种映射；118不创建但仍phase162。
 void UpdateBattleActions127To129_40FF90(YobiAction* action); // 工厂type7/8/9末参0，完成后直接推进。

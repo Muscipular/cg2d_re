@@ -10512,6 +10512,7 @@ std::int32_t Sub_4999D0(const std::int32_t)
     return 1;
 }
 
+// BIP01：原1175条；六BYTE/五grid/区域取序明确，原未加8容量索引/技能经验成本和目标发布保持，全生产消费及运行待。
 std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
 {
     static constexpr std::int32_t kBombType = 51;
@@ -10582,8 +10583,12 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
         for (std::int32_t position = 0; position < 20; ++position) {
             const WindowInstance* const window = gCurrentWindow;
             const WindowElement& element = window->elements[index];
-            const std::int32_t left = element.x + 50 * (position % 5) + window->x + 15;
-            const std::int32_t top = element.y + 50 * (position / 5) + window->y + 48;
+            const std::int32_t elementX = element.x;
+            const std::int32_t windowX = window->x;
+            const std::int32_t left = elementX + 50 * (position % 5) + windowX + 15;
+            const std::int32_t elementY = element.y;
+            const std::int32_t windowY = window->y;
+            const std::int32_t top = elementY + 50 * (position / 5) + windowY + 48;
             const auto& item = items[position + 8];
             if ((events & 0x21u) != 0) {
                 if (occupancy[position + 8] != 0) {
@@ -10669,8 +10674,12 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
             }
             const WindowInstance* const window = gCurrentWindow;
             const WindowElement& element = window->elements[index];
-            const std::int32_t left = element.x + 50 * (position % 5) + window->x + 15;
-            const std::int32_t top = element.y + 50 * (position / 5) + window->y + 48;
+            const std::int32_t elementX = element.x;
+            const std::int32_t windowX = window->x;
+            const std::int32_t left = elementX + 50 * (position % 5) + windowX + 15;
+            const std::int32_t elementY = element.y;
+            const std::int32_t windowY = window->y;
+            const std::int32_t top = elementY + 50 * (position / 5) + windowY + 48;
             if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
                 hovered = position;
                 break;
@@ -10683,7 +10692,7 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
             if (type < 23) {
                 hint = ((type >= 0 && type <= 7) || (type >= 70 && type <= 79))
                     && item.hasDescription != 0 ? canEquip : cannotEquip;
-            } else if ((item.battleUseFlag & 1u) != 0) {
+            } else if ((*reinterpret_cast<const unsigned char*>(&item.battleUseFlag) & 1u) != 0) {
                 if (item.hasDescription != 0) {
                     if (type == kMedicineType) {
                         if ((world::detail::gBattlePlayerFlags5ABCAC & 0x40000u) == 0) {
@@ -10720,7 +10729,7 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
             bool useItem = false;
             if (item.used != 1) {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
-            } else if ((item.battleUseFlag & 1u) != 0 && item.itemType == kBombType) {
+            } else if ((*reinterpret_cast<const unsigned char*>(&item.battleUseFlag) & 1u) != 0 && item.itemType == kBombType) {
                 const std::int32_t cost = readBombCost(items[hovered + 8].level);
                 if (usableLevel < item.level || items[2].used != 0 || items[3].used != 0
                     || world::detail::IsPlayerFpLessThan(cost)
@@ -10738,7 +10747,7 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
                     }
                     // 原49A510以未加8的hover索引读取battleUseFlag。
                     if (occupiedHands == 2 && world::detail::Sub_518C60() == 0
-                        && (items[hovered].battleUseFlag & 8u) != 0) {
+                        && (*reinterpret_cast<const unsigned char*>(&items[hovered].battleUseFlag) & 8u) != 0) {
                         world::detail::Sub_44B050(noSpace, 4, 3);
                         static_cast<void>(audio::PlaySe_52C450(55, 320));
                     } else if (item.hasDescription == 0) {
@@ -10753,7 +10762,7 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
                         world::detail::gBattlePlayerActionState5ABC74 = 1;
                         static_cast<void>(audio::PlaySe_52C450(77, 320));
                     }
-                } else if ((item.battleUseFlag & 1u) == 0) {
+                } else if ((*reinterpret_cast<const unsigned char*>(&item.battleUseFlag) & 1u) == 0) {
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else if (item.hasDescription == 0) {
                     world::detail::Sub_44B050(unidentified, 4, 3);
@@ -10806,7 +10815,7 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
             }
             if (canDrag) {
                 const std::int32_t type = item.itemType;
-                if (((item.battleUseFlag & 1u) != 0
+                if (((*reinterpret_cast<const unsigned char*>(&item.battleUseFlag) & 1u) != 0
                         || (type >= 0 && type <= 7) || (type >= 70 && type <= 79))
                     && (item.itemType != kMedicineType
                         || (world::detail::gBattlePlayerFlags5ABCAC & 0x40000u) == 0)) {
@@ -10834,8 +10843,12 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
         if (source >= 8) {
             const WindowInstance* const window = gCurrentWindow;
             const WindowElement& element = window->elements[index];
-            const std::int32_t left = element.x + 50 * ((source - 8) % 5) + window->x + 15;
-            const std::int32_t top = element.y + 50 * ((source - 8) / 5) + window->y + 48;
+            const std::int32_t elementX = element.x;
+            const std::int32_t windowX = window->x;
+            const std::int32_t left = elementX + 50 * ((source - 8) % 5) + windowX + 15;
+            const std::int32_t elementY = element.y;
+            const std::int32_t windowY = window->y;
+            const std::int32_t top = elementY + 50 * ((source - 8) / 5) + windowY + 48;
             login::detail::DrawGraphicHover(
                 static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
                 static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
@@ -10845,8 +10858,12 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
     if ((events & 1u) != 0 && hovered >= 0) {
         const WindowInstance* const window = gCurrentWindow;
         const WindowElement& element = window->elements[index];
-        const std::int32_t left = element.x + 50 * (hovered % 5) + window->x + 15;
-        const std::int32_t top = element.y + 50 * (hovered / 5) + window->y + 48;
+        const std::int32_t elementX = element.x;
+        const std::int32_t windowX = window->x;
+        const std::int32_t left = elementX + 50 * (hovered % 5) + windowX + 15;
+        const std::int32_t elementY = element.y;
+        const std::int32_t windowY = window->y;
+        const std::int32_t top = elementY + 50 * (hovered / 5) + windowY + 48;
         login::detail::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
@@ -10857,14 +10874,23 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
     }
     if (Sub_475D60() != 0 && (events & 0x20u) != 0 && Sub_475D90() < 8) {
         const WindowInstance* const window = gCurrentWindow;
-        const WindowElement& element = window->elements[index];
-        const std::int32_t left = element.x + window->x;
-        const std::int32_t top = element.y + window->y;
+        const std::uint32_t hoverColor = login::detail::gValueD69768;
+        const WindowElement* const elements = window->elements;
+        const std::int32_t windowY = window->y;
+        const std::int32_t windowX = window->x;
+        const WindowElement& element = elements[index];
+        const std::int32_t elementX = element.x;
+        const std::int32_t height = element.height;
+        const std::int32_t elementY = element.y;
+        const std::int32_t width = element.width;
+        const std::int32_t right = width + windowX + elementX;
+        const std::int32_t bottom = height + windowY + elementY;
+        const std::int32_t top = windowY + elementY;
+        const std::int32_t left = windowX + elementX;
         login::detail::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
-            static_cast<std::uint16_t>(left + element.width),
-            static_cast<std::uint16_t>(top + element.height),
-            223, login::detail::gValueD69768, 0);
+            static_cast<std::uint16_t>(right), static_cast<std::uint16_t>(bottom),
+            223, hoverColor, 0);
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
@@ -10876,8 +10902,12 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
         }
         const WindowInstance* const window = gCurrentWindow;
         const WindowElement& element = window->elements[index];
-        const std::int32_t x = element.x + 50 * (position % 5) + window->x + 39;
-        const std::int32_t y = element.y + 50 * (position / 5) + window->y + 73;
+        const std::int32_t elementX = element.x;
+        const std::int32_t windowX = window->x;
+        const std::int32_t x = elementX + 50 * (position % 5) + windowX + 39;
+        const std::int32_t elementY = element.y;
+        const std::int32_t windowY = window->y;
+        const std::int32_t y = elementY + 50 * (position / 5) + windowY + 73;
         if (item.itemType == kBombType) {
             const std::int32_t level = item.level;
             const std::int32_t cost = readBombCost(level);
@@ -10888,7 +10918,7 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
                     x + 105, y + 93, 223, 22738, 0, nullptr));
             }
         }
-        if ((item.battleUseFlag & 1u) == 0) {
+        if ((*reinterpret_cast<const unsigned char*>(&item.battleUseFlag) & 1u) == 0) {
             const std::int32_t type = item.itemType;
             if (!((type >= 0 && type <= 7) || (type >= 70 && type <= 79))) {
                 static_cast<void>(login::detail::DrawGraphic(

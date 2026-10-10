@@ -106078,7 +106078,7 @@
     {
       "original_entry": "0x499C30",
       "inventory_id": "F:00099C30",
-      "status": "既有战斗物品两计数与三命令真实格式依赖已接；完整物品/窗口/场景和运行未据本步验收",
+      "status": "既有战斗物品两计数与三命令真实格式依赖已接；完整物品/窗口/场景和运行未据本步验收；BIP01完整1175条背包根纳管，六BYTE/六坐标取序明确，目标发布/全部callee及运行待",
       "original_end_exclusive": "0x49AC39",
       "instruction_count": 1175,
       "sources": [
@@ -106088,6 +106088,20 @@
             "Sub_499C30"
           ],
           "relationship": "仅五现格式callee接五原53B304点，其余正文不变"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_499C30"
+          ],
+          "relationship": "BIP01完整1175条背包根，六BYTE/五grid/一区域取序；旧MSVC格式/CAB30与业务保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_499C30"
+          ],
+          "relationship": "BIP01真实S32声明保持，两data绑定/完整业务和目标发布有据，全部callback/ABI/运行待"
         }
       ],
       "evidence_documents": [
@@ -106096,9 +106110,14 @@
         "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
         "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
         "doc/cg2d_window_draw_width_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build",
+        "doc/cg2d_battle_item_interaction_spec.md#battle-item-baseline",
+        "doc/cg2d_battle_item_interaction_spec.md#battle-item-decision",
+        "doc/cg2d_battle_item_interaction_spec.md#battle-item-acceptance",
+        "doc/cg2d_battle_item_interaction_spec.md#battle-item-source-state",
+        "doc/cg2d_battle_item_interaction_evidence.json"
       ],
-      "boundary": "仅五现格式callee接五原53B304点，S32(index,state)签名/原consumed返回及全部正文保持。12B未清countText在S8 gValue57E42C>0与普通两个路径复用，count dword S32>0才%3d，分别沿456780两套原坐标消费；256B未清buffer承接两个Q与一个I。Q255原0FFH常量保持，不是补值；两Q在窗口state|8000和selection[5]=0之后格式/发送、随后写actionState1。I仅原43C560返回0分支重读当前位置、写selectedItem后按hovered+8/currentPosition两个U32位模式输出、5109B0→Flush→actionState1；目标选择分支仍不格式。原事件低U8/S16 target符号扩展/物品与占用数组别名、bomb/装备/描述/medicine条件、鼠标复位、描述图形/悬浮/颜色、音频既有调用和暂停边界不动；不改关联函数，不新增保护或清理，完整物品/窗口14/27/战斗和运行未据本步验收。",
+      "boundary": "仅五现格式callee接五原53B304点，S32(index,state)签名/原consumed返回及全部正文保持。12B未清countText在S8 gValue57E42C>0与普通两个路径复用，count dword S32>0才%3d，分别沿456780两套原坐标消费；256B未清buffer承接两个Q与一个I。Q255原0FFH常量保持，不是补值；两Q在窗口state|8000和selection[5]=0之后格式/发送、随后写actionState1。I仅原43C560返回0分支重读当前位置、写selectedItem后按hovered+8/currentPosition两个U32位模式输出、5109B0→Flush→actionState1；目标选择分支仍不格式。原事件低U8/S16 target符号扩展/物品与占用数组别名、bomb/装备/描述/medicine条件、鼠标复位、描述图形/悬浮/颜色、音频既有调用和暂停边界不动；不改关联函数，不新增保护或清理，完整物品/窗口14/27/战斗和运行未据本步验收。；BIP01战斗背包499C30完整1175条4105B/十九页、62E8十九目标/154跳两RET；两data持址为4C6EC0+50及原型槽3，不造普通CALL/全分发验收。先十五技能按skillId2002取首匹配与十五技术value8C连续正计usableLevel，原十五级S32表及玩家同源W32等级/业务上限保持；原skillIndex/usableLevel初值-1，bomb cost按skill+24+94H*level读S32，level0读experience、不加技能不存在/负等级保护或改变FP/RNG消费。S8mode正时二十玩家slot8..27，每轮fresh窗口/元素，五列四行左15/上48及禁图22738、占用BYTE/used W16、GBK不能装备/使用提示、层223、白/暗两descriptor、count>0的%3d/未清12B和低S16文字保持。普通event60仅dragkind!=2过滤；drop40只手位2/3统计非type7武器，真实518C60空槽/失败或原255u Q命令，窗口8000→选择槽5清0→MSVC格式/当前socket发送→动作1/声57→reset保持。hover21二十格命中、used与type/hasDescription Word/battleUseFlag低BYTE，medicine43/flag40000、bomb51/原level发布/skill成本、手位全空/FP<cost/5ABFCC!=1条件与短路保持；不能用支路原512B姓名复制→中间canUse写→尾cannotUse覆盖完整保，不清理或合并旧副作用。hover改变先页0再hover发布，双击focus27或0且used==1：bomb条件、装备type0..7/70..79及双手/空槽/未鉴定失败，容量bit8按原未加8的hover槽读，不改为实际背包槽。成功装备Q用hover+8 U32；普通使用先窗口8000→当前position S32→target W16按S16扩展为W32→43C560，沿已完整BQI01共享目标发布与原0/1返回，非零先selectedItem=hover+8/声77再pending S32=1和CC4D40 BYTE=1；零分支重新取position，selected发布→I两个U32格式/发送→Flush→动作1/声57再77。当前原命令/字段/LF明文保持，不增加发送失败回滚。单击/拖动bomb成本和used/flag/medicine门槛、48BF10与声51，右键pages快照→新page发布及原业务归零保持；两后框沿source>=8/hover>=0、不新增<28限制；末清textqueue3/593850空文本再逐used槽，bomb、不可使用/装备、未鉴定/medicine三个禁图门槛独立，允许原重复22738，occupancy后白/暗及第二%3d保持。三个逻辑组十二片段：六battleUseFlag低BYTE（五实际背包/一未加8容量索引）、五grid明确elementX→windowX/X→elementY→windowY/Y，区域一处按currentwindow→U32颜色→elements→windowY/X→elementX/height→elementY/width/原四边；均fresh原次数，不新增通用helper/新公共类型。原五MSVC格式点/12B与256B未清、GBK/两16B描述符/固定slot20和全部正常/失败/发布/RNG序保持。两整源仅上述十二片段和一定义/一声明两合同注释；旧900格式/CAB30历史保追加、既有adapted处置只追加合同/refs，不重复F或处置，既有UI成员不重复，其余INPUT/RENDER/NETWORK/BATTLE各加本根；五限定S零I九open。完整技能/物品/占用/目标参数生产、动态callback/窗口/后续pending消费者/所有callee/alias-owner寿命、SDK/生成BYTE/机器ABI/实际战斗操作画面声音与运行待。48有界代码/所有完整枚举gates/六closure/总SPEC§10保持；无新API/helper/结构/字段/owner/保护/补零/默认/新钳制/回滚/异常模型，MSVC/WAV-only/明文网络保持。",
       "original_incoming": [],
       "original_data_references": [
         {
@@ -106214,7 +106233,7 @@
           "relationship": "普通路径原count dword>0，12B同源countText→456780(x-3,y+7,3,1,1)"
         }
       ],
-      "verification_level": "原1175仅统计，只读195新格式/参数/绘制与发送状态邻窗，余980/已过正文/核心不重验；五原点/callee/五现表达式/新554048含NUL字节/S32与U32/原255/12B及256B未清局部/状态和消费者次序/整份源限定静态核对；4C6EC0@4C701A与56C430两data/普通call0仅登记，不推实际绑定；未构建或执行",
+      "verification_level": "原1175仅统计，只读195新格式/参数/绘制与发送状态邻窗，余980/已过正文/核心不重验；五原点/callee/五现表达式/新554048含NUL字节/S32与U32/原255/12B及256B未清局部/状态和消费者次序/整份源限定静态核对；4C6EC0@4C701A与56C430两data/普通call0仅登记，不推实际绑定；未构建或执行；pass，完整连续1175条4105B/十九页、62E8十九目标/154跳两RET，六BYTE/五grid/区域八字段取序、未加8容量索引、五格式点及target S16扩展/selected-pending BYTE-W32发布有据；两整源精确回放/三组十二片段，六类型/六callee、完整BQI01目标选择/BEI01空槽与原型和GBK/MSVC格式保持；旧900/CAB30及既有adapted历史追加，不造新F或处置；全生产消费/后续目标/ABI/owner/实际操作与运行待",
       "latest_window_draw_width": {
         "step": "CAB30",
         "source_snapshot": "cg2d-re-window-draw-width-20261009",
@@ -106225,6 +106244,67 @@
         "whole_cpp_head_plus_expected_exact": true,
         "client_link_verified": true,
         "runtime_verified": false
+      },
+      "battle_item_interaction": {
+        "step": "BIP01",
+        "source_snapshot": "[#] 补齐战斗物品与目标发布合同",
+        "original_entry": "0x499c30",
+        "original_end_exclusive": "0x49ac39",
+        "instruction_count": 1175,
+        "code_bytes": 4105,
+        "page_count": 19,
+        "direct_calls": 62,
+        "direct_call_targets": [
+          5261728,
+          5382528,
+          5380880,
+          5485316,
+          4548480,
+          4676960,
+          4677008,
+          5344352,
+          5310896,
+          5424208,
+          4501584,
+          4678912,
+          4201904,
+          4676928,
+          4678624,
+          4441440,
+          4440160,
+          4767504,
+          4549968
+        ],
+        "jumps": 154,
+        "returns": 2,
+        "original_incoming_references": [
+          {
+            "from": 5009434,
+            "type": 1,
+            "iscode": false,
+            "parent": 5009088,
+            "bytes": "c74150309c4900",
+            "asm": "mov     dword ptr [ecx+50h], offset sub_499C30"
+          },
+          {
+            "from": 5686320,
+            "type": 1,
+            "iscode": false,
+            "parent": null,
+            "bytes": null,
+            "asm": null
+          }
+        ],
+        "native_signature": "std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)",
+        "source_patch_group_count": 3,
+        "source_changed_point_count": 12,
+        "normal_remaining_source_kept": true,
+        "previous_format_and_CAB30_history_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "真实S32 consumed，宠物与普通两RET保持；目标判定复用BQI01原0/1，全部callback/后续目标/机器ABI待"
       }
     },
     {

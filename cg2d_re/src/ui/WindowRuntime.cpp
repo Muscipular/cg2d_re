@@ -7894,6 +7894,7 @@ WindowItemSelectorState* Sub_4C61B0(WindowItemSelectorState* const state)
     return state;
 }
 
+// SLC01：单读并返回同一选择器selectedPet70的完整S32，不做校验或改owner。
 std::int32_t Sub_4C71B0(const WindowItemSelectorState* const state)
 {
     return state->selectedPet70;
@@ -7957,6 +7958,7 @@ void Sub_4C6EC0(WindowItemSelectorState* const state, const std::uint8_t mode)
     }
 }
 
+// SLC01：负slot先返-1；S8 mode0取8项玩家X表，正mode取6项宠物X表，其它返-1。
 std::int32_t Sub_4C63C0(
     const WindowItemSelectorState* const state, const std::int32_t slot)
 {
@@ -7973,6 +7975,7 @@ std::int32_t Sub_4C63C0(
     return gSelectorPetX54F5C4[slot];
 }
 
+// SLC01：负slot先返-1；S8 mode0取8项玩家Y表，正mode取6项宠物Y表，其它返-1。
 std::int32_t Sub_4C6400(
     const WindowItemSelectorState* const state, const std::int32_t slot)
 {
@@ -8230,6 +8233,7 @@ void Sub_4C6AC0(WindowItemSelectorState* const state, const std::int32_t x)
     }
 }
 
+// SLC01：两轴先窗口再元素取值，flags/淡入计数只读原BYTE；void不证明原EAX上行等价。
 void Sub_4C6B10(WindowItemSelectorState* const state)
 {
     if (state->value3ED == 0 || state->hoverIndex3F8 < 0) {
@@ -8239,11 +8243,15 @@ void Sub_4C6B10(WindowItemSelectorState* const state)
     const std::int32_t localX = Sub_4C63C0(state, state->hoverIndex3F8);
     const WindowElement* const horizontalElement = state->elements00[1];
     const WindowInstance* const horizontalWindow = gCurrentWindow;
-    const std::int32_t left = localX + horizontalElement->x + horizontalWindow->x - 24;
+    const std::int32_t windowX = horizontalWindow->x;
+    const std::int32_t elementX = horizontalElement->x;
+    const std::int32_t left = localX + (windowX + elementX) - 24;
     const std::int32_t localY = Sub_4C6400(state, state->hoverIndex3F8);
     const WindowElement* const verticalElement = state->elements00[1];
     const WindowInstance* const verticalWindow = gCurrentWindow;
-    const std::int32_t top = localY + verticalElement->y + verticalWindow->y - 24;
+    const std::int32_t windowY = verticalWindow->y;
+    const std::int32_t elementY = verticalElement->y;
+    const std::int32_t top = localY + (windowY + elementY) - 24;
     login::detail::DrawGraphicHover(
         static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
         static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
@@ -8270,7 +8278,7 @@ void Sub_4C6B10(WindowItemSelectorState* const state)
                 static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
                 223, 249, 0);
-            if ((item->flags & 0x80u) == 0) {
+            if ((*reinterpret_cast<const unsigned char*>(&item->flags) & 0x80u) == 0) {
                 static_cast<void>(login::detail::DrawGraphic(
                     left + 129, top + 117, 223, 22739, 0, &state->descriptors3B8[2]));
             }
@@ -8279,8 +8287,8 @@ void Sub_4C6B10(WindowItemSelectorState* const state)
         } else {
             state->descriptors3B8[2].bytes[11] = 5 * state->hoverCount3A8 >= 256
                 ? 0xFF : static_cast<std::uint8_t>(
-                    5 * static_cast<std::uint8_t>(state->hoverCount3A8));
-            if ((item->flags & 0x80u) == 0) {
+                    5 * (*reinterpret_cast<const unsigned char*>(&state->hoverCount3A8)));
+            if ((*reinterpret_cast<const unsigned char*>(&item->flags) & 0x80u) == 0) {
                 static_cast<void>(login::detail::DrawGraphic(
                     left + 129, top + 117, 223, 22739, 0, &state->descriptors3B8[2]));
             }

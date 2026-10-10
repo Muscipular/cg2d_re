@@ -441,9 +441,12 @@ struct WindowItemSelectorState {
 extern WindowItemSelectorState gItemSelectorCF3B10;
 extern WindowItemSelectorState gItemSelectorD2F338;
 WindowItemSelectorState* Sub_4C61B0(WindowItemSelectorState* state); // 完整构造，不整区清零。
+// SLC01：单读并返回同一选择器selectedPet70的完整S32，不做校验或改owner。
 std::int32_t Sub_4C71B0(const WindowItemSelectorState* state); // 原+70同源S32。
 void Sub_4C6EC0(WindowItemSelectorState* state, std::uint8_t mode); // 完整两种装配，原返回被两caller弃用。
+// SLC01：负slot先返-1；S8 mode0取8项玩家X表，正mode取6项宠物X表，其它返-1。
 std::int32_t Sub_4C63C0(const WindowItemSelectorState* state, std::int32_t slot);
+// SLC01：负slot先返-1；S8 mode0取8项玩家Y表，正mode取6项宠物Y表，其它返-1。
 std::int32_t Sub_4C6400(const WindowItemSelectorState* state, std::int32_t slot);
 void Sub_4C6440(WindowItemSelectorState* state); // 玩家页条件显示槽6/19。
 void Sub_4C6470(WindowItemSelectorState* state); // 宠物页名称/负重和装备空位显示。
@@ -453,6 +456,7 @@ void Sub_4C6790(WindowItemSelectorState* state); // 逐帧展开/切页/装备�
 std::int32_t Sub_4C6990(WindowItemSelectorState* state); // 模式S8映射并发布同源宠物索引。
 void Sub_4C69B0(WindowItemSelectorState* state); // 借用宠物名字/负重刷新两文本元素。
 void Sub_4C6AC0(WindowItemSelectorState* state, std::int32_t x); // 原序移动主元素/四按钮/六装备槽。
+// SLC01：两轴先窗口再元素取值，flags/淡入计数只读原BYTE；void不证明原EAX上行等价。
 void Sub_4C6B10(WindowItemSelectorState* state); // 消费本帧hover，宠物物品固定借CF3B10索引。
 std::int32_t Sub_4C6D90(WindowItemSelectorState* state); // 内嵌预览推进及实际绘制返回。
 std::int32_t Sub_4C71C0(std::int32_t ordinal); // 扫描排序对，匹配不足仍取末项S16索引。

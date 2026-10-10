@@ -642,6 +642,7 @@ void DestroyPlayerRuntimeValues()
     platform::legacy_crypt_int::Destroy_401CF0(&gPlayerRuntime.hp);
 }
 
+// SLC01：原51C410只判断S32索引0..4；已证八调用只消费低W8结果。
 bool IsValidPetIndex_51C410(const std::int32_t index) noexcept
 {
     return index >= 0 && index < 5;

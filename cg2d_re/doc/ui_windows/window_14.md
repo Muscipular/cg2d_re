@@ -552,3 +552,7 @@ hover244293，再第三次独立检查条件，成立覆盖244292。不把三次
 ## 2026-10-10 ISP01：特殊选物完整消费
 
 [ISP01](../cg2d_item_selection_event_pipeline_spec.md#item-selection-source-state)补齐对话29选物入口、两显示回调、列表借用与两坐标六完整原根828条2692B/十六页，43实际E8/22目标、64跳12RET。26直接CALL和八代码回调发布有据，发布不是直接CALL；旧920完整598条取代本轮仅相邻读取范围，但全部旧历史保持。五组八处对齐：主四BYTE源、伴随state BYTE/循环count先取再推进、X/Y元素与窗口取序；入口及列表正确body保，两整源六正文其余/四类型和原字段储宽保持，十二注释。原mode1/2门槛、两独立退出/占用递减/恢复回调、未清256B/独立16B cap15及原发送和绘制/结果保持。五新F/旧920追加、六处置，INPUT/UIRUNTIME各六成员、RENDER两成员，三限定S零I/十任务open；全父/间接回调、物品/宠物/占用/协议与alias-owner寿命、机器ABI/像素与运行待，整体未完成。
+
+## 2026-10-10 SLC01：坐标表到悬停显示
+
+[SLC01](../cg2d_selector_local_coordinate_hover_spec.md#selector-local-source-state)补齐局部X/Y、宠物范围/索引借用及连续悬停显示五完整原根243条771B/八页、九E8五目标/26跳12RET与26直接CALL。四S32坐标表112B与现源逐项一致；八宠物判定消费者七TEST AL/一AND FF，只证明低W8，不记原EAX高24位等价。悬停父四组五处对齐：两轴window坐标先element、两flags BYTE及未饱和alpha计数BYTE；原5*W32>=256饱和255/三descriptor、第一选择器宠物号/原非负门槛与计数/索引尾序保持，四叶正确body不改。四整源仅四组五处/十注释，四类型/表项/字段储宽保持。4C6790一父两CALL首点尾RET转发原残留EAX，当前void保持，完整上行/机器ABI未据本步等价。五新F/五处置，INPUT/UIRUNTIME各五成员、RENDER一成员，三限定S零I/十任务open；全父/callee/生产消费与alias-owner寿命、实际悬停/像素与运行待，整体未完成。

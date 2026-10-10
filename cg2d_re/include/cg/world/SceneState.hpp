@@ -92,6 +92,7 @@ void DestroyPlayerRuntimeValues();
 void ConstructPetRuntimeValues();
 void DestroyPetRuntimeValues();
 // 原51C410：仅校验五槽索引，不检查宠物used。
+// SLC01：原51C410只判断S32索引0..4；已证八调用只消费低W8结果。
 bool IsValidPetIndex_51C410(std::int32_t index) noexcept;
 
 // 原 sub_448240@0x448240；只采样一次 gMapFloor。

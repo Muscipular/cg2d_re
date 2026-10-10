@@ -222945,6 +222945,1169 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x4c63c0",
+      "inventory_id": "F:000C63C0",
+      "original_role": "按S8模式/原slot范围取局部X坐标",
+      "original_end_exclusive": "0x4c63f9",
+      "instruction_count": 19,
+      "function_chunks": [
+        {
+          "start": "0x4c63c0",
+          "end_exclusive": "0x4c63f9"
+        }
+      ],
+      "status": "SLC01完整选择器原根纳管，原局部坐标/范围/索引及悬停取样保持；限定S/全生产消费、上行返回/机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C63C0"
+          ],
+          "relationship": "SLC01完整原根/范围/表或S32结果核对，正确body保持，仅合同注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4C63C0"
+          ],
+          "relationship": "SLC01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_selector_local_coordinate_hover_spec.md#selector-local-baseline",
+        "doc/cg2d_selector_local_coordinate_hover_spec.md#selector-local-decision",
+        "doc/cg2d_selector_local_coordinate_hover_spec.md#selector-local-acceptance",
+        "doc/cg2d_selector_local_coordinate_hover_spec.md#selector-local-source-state",
+        "doc/cg2d_selector_local_coordinate_hover_evidence.json"
+      ],
+      "boundary": "SLC01五完整原根243条771B/八页、九E8五目标/26跳12RET，26实际CALL只核点/四后邻，不代全外父。两local先slot负早返-1不读mode，S8 mode0且slot<8读玩家X/Y，正mode且slot<6读宠物表，其它-1；四S32表112B逐项与源相同，坐标范围不扩大为动态count上限。51C410只S32 0<=index<5，八已证消费者七TEST AL/一AND FF均低W8，新bool限此，不记高24位等价。4C71B0只读同state selectedPet70完整S32；悬停父非零value3ED/非负hover才两local，保entryelement和fresh window，window coord先element，再local+(window+element)-24；初绘框后才读S8mode，mode0玩家，正mode先本state selectedPet非负门槛，再取第一选择器CF3B10宠物号，原未检查<5，不增加校验/容量/保护。used W16和占用BYTE保；两flags只读原BYTE bit80，原22739/图号/243139及三descriptor顺序保。未占用alpha先5*W32 count比较>=256，原饱和255保，否则只读count低BYTE*5取低BYTE写descriptor[2][11]；不冻结两阶段或改W32存储/上三BYTE。末新hover样本，相同prev时先借count/clear hover=-1再count+1，否则count0/prev=hover/hover=-1；初门槛失败只count0，其它mode/pet负早返不新清理。四组五源码处/十注释，四整源其它内容/四叶正确body、四结构/四表/字段储宽保，无新API/helper/布局/字段/owner/保护/默认值/补零/新容量上限/钳制/回滚/异常模型。现悬停void边界保持；其父4C6790首CALL后pop/pop/RET转发原EAX残留，完整上行和机器ABI不记等价。五新F/五adapted、三限定S零I/十任务open，旧ISP及绘框/入队正确记录复用不改。全父/callee、选择器/宠物/占用/窗口/计数和descriptor全生产消费/alias-owner寿命、SDK/生成BYTE访问/机器ABI/实际悬停和像素/运行待，48有界代码和完整枚举gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，五完整原根243条771B/八页、九实际E8五目标/26跳12RET及26CALL/四后邻有据；七TEST AL/一AND FF低W8、悬停父首点尾RET向上保EAX事实明确，未记原高位/上行ABI等价。四表112B逐项符合源、四叶正确body保；父两window先element、两flags BYTE及alpha BYTE/原饱和255和计数索引尾序符合原码。四整源精确差异仅四组五处/十注释，四类型/表项/字段储宽保；全父/callee和生产消费/alias-owner、机器ABI/实际BYTE/悬停像素及运行待",
+      "original_incoming": [
+        {
+          "ea": 5008180,
+          "bytes": "e887f8ffff",
+          "asm": "call    sub_4C63C0",
+          "parent": 5008144,
+          "call_target": 5006272,
+          "following": [
+            {
+              "ea": 5008185,
+              "size": 3,
+              "bytes": "8b4e04",
+              "asm": "mov     ecx, [esi+4]"
+            },
+            {
+              "ea": 5008188,
+              "size": 6,
+              "bytes": "8b159446cf00",
+              "asm": "mov     edx, gCurrentWindow"
+            },
+            {
+              "ea": 5008194,
+              "size": 3,
+              "bytes": "8b520c",
+              "asm": "mov     edx, [edx+0Ch]"
+            },
+            {
+              "ea": 5008197,
+              "size": 3,
+              "bytes": "8b7908",
+              "asm": "mov     edi, [ecx+8]"
+            }
+          ]
+        },
+        {
+          "ea": 5009989,
+          "bytes": "e876f1ffff",
+          "asm": "call    sub_4C63C0",
+          "parent": 5009984,
+          "call_target": 5006272,
+          "following": [
+            {
+              "ea": 5009994,
+              "size": 2,
+              "bytes": "8bc8",
+              "asm": "mov     ecx, eax"
+            },
+            {
+              "ea": 5009996,
+              "size": 2,
+              "bytes": "85c9",
+              "asm": "test    ecx, ecx"
+            },
+            {
+              "ea": 5009998,
+              "size": 2,
+              "bytes": "7c26",
+              "asm": "jl      short loc_4C7276"
+            },
+            {
+              "ea": 5010000,
+              "size": 4,
+              "bytes": "8b442404",
+              "asm": "mov     eax, [esp+arg_0]"
+            }
+          ]
+        }
+      ],
+      "selector_local_hover": {
+        "step": "SLC01",
+        "source_snapshot": "[#] 补齐选择器局部坐标与悬停取样",
+        "original_end_exclusive": "0x4c63f9",
+        "original_instruction_count": 19,
+        "original_code_bytes": 57,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 5,
+        "return_count": 3,
+        "native_signature": "std::int32_t Sub_4C63C0(\n    const WindowItemSelectorState* const state, const std::int32_t slot)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4C63C0",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "result_boundary": "S32表值或原-1",
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4c6400",
+      "inventory_id": "F:000C6400",
+      "original_role": "按S8模式/原slot范围取局部Y坐标",
+      "original_end_exclusive": "0x4c6439",
+      "instruction_count": 19,
+      "function_chunks": [
+        {
+          "start": "0x4c6400",
+          "end_exclusive": "0x4c6439"
+        }
+      ],
+      "status": "SLC01完整选择器原根纳管，原局部坐标/范围/索引及悬停取样保持；限定S/全生产消费、上行返回/机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C6400"
+          ],
+          "relationship": "SLC01完整原根/范围/表或S32结果核对，正确body保持，仅合同注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4C6400"
+          ],
+          "relationship": "SLC01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_selector_local_coordinate_hover_spec.md#selector-local-baseline",
+        "doc/cg2d_selector_local_coordinate_hover_spec.md#selector-local-decision",
+        "doc/cg2d_selector_local_coordinate_hover_spec.md#selector-local-acceptance",
+        "doc/cg2d_selector_local_coordinate_hover_spec.md#selector-local-source-state",
+        "doc/cg2d_selector_local_coordinate_hover_evidence.json"
+      ],
+      "boundary": "SLC01五完整原根243条771B/八页、九E8五目标/26跳12RET，26实际CALL只核点/四后邻，不代全外父。两local先slot负早返-1不读mode，S8 mode0且slot<8读玩家X/Y，正mode且slot<6读宠物表，其它-1；四S32表112B逐项与源相同，坐标范围不扩大为动态count上限。51C410只S32 0<=index<5，八已证消费者七TEST AL/一AND FF均低W8，新bool限此，不记高24位等价。4C71B0只读同state selectedPet70完整S32；悬停父非零value3ED/非负hover才两local，保entryelement和fresh window，window coord先element，再local+(window+element)-24；初绘框后才读S8mode，mode0玩家，正mode先本state selectedPet非负门槛，再取第一选择器CF3B10宠物号，原未检查<5，不增加校验/容量/保护。used W16和占用BYTE保；两flags只读原BYTE bit80，原22739/图号/243139及三descriptor顺序保。未占用alpha先5*W32 count比较>=256，原饱和255保，否则只读count低BYTE*5取低BYTE写descriptor[2][11]；不冻结两阶段或改W32存储/上三BYTE。末新hover样本，相同prev时先借count/clear hover=-1再count+1，否则count0/prev=hover/hover=-1；初门槛失败只count0，其它mode/pet负早返不新清理。四组五源码处/十注释，四整源其它内容/四叶正确body、四结构/四表/字段储宽保，无新API/helper/布局/字段/owner/保护/默认值/补零/新容量上限/钳制/回滚/异常模型。现悬停void边界保持；其父4C6790首CALL后pop/pop/RET转发原EAX残留，完整上行和机器ABI不记等价。五新F/五adapted、三限定S零I/十任务open，旧ISP及绘框/入队正确记录复用不改。全父/callee、选择器/宠物/占用/窗口/计数和descriptor全生产消费/alias-owner寿命、SDK/生成BYTE访问/机器ABI/实际悬停和像素/运行待，48有界代码和完整枚举gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，五完整原根243条771B/八页、九实际E8五目标/26跳12RET及26CALL/四后邻有据；七TEST AL/一AND FF低W8、悬停父首点尾RET向上保EAX事实明确，未记原高位/上行ABI等价。四表112B逐项符合源、四叶正确body保；父两window先element、两flags BYTE及alpha BYTE/原饱和255和计数索引尾序符合原码。四整源精确差异仅四组五处/十注释，四类型/表项/字段储宽保；全父/callee和生产消费/alias-owner、机器ABI/实际BYTE/悬停像素及运行待",
+      "original_incoming": [
+        {
+          "ea": 5008215,
+          "bytes": "e8a4f8ffff",
+          "asm": "call    sub_4C6400",
+          "parent": 5008144,
+          "call_target": 5006336,
+          "following": [
+            {
+              "ea": 5008220,
+              "size": 3,
+              "bytes": "8b4e04",
+              "asm": "mov     ecx, [esi+4]"
+            },
+            {
+              "ea": 5008223,
+              "size": 6,
+              "bytes": "8b159446cf00",
+              "asm": "mov     edx, gCurrentWindow"
+            },
+            {
+              "ea": 5008229,
+              "size": 2,
+              "bytes": "6a00",
+              "asm": "push    0; a7"
+            },
+            {
+              "ea": 5008231,
+              "size": 3,
+              "bytes": "8b5210",
+              "asm": "mov     edx, [edx+10h]"
+            }
+          ]
+        },
+        {
+          "ea": 5010053,
+          "bytes": "e876f1ffff",
+          "asm": "call    sub_4C6400",
+          "parent": 5010048,
+          "call_target": 5006336,
+          "following": [
+            {
+              "ea": 5010058,
+              "size": 2,
+              "bytes": "8bc8",
+              "asm": "mov     ecx, eax"
+            },
+            {
+              "ea": 5010060,
+              "size": 2,
+              "bytes": "85c9",
+              "asm": "test    ecx, ecx"
+            },
+            {
+              "ea": 5010062,
+              "size": 2,
+              "bytes": "7c26",
+              "asm": "jl      short loc_4C72B6"
+            },
+            {
+              "ea": 5010064,
+              "size": 4,
+              "bytes": "8b442404",
+              "asm": "mov     eax, [esp+arg_0]"
+            }
+          ]
+        }
+      ],
+      "selector_local_hover": {
+        "step": "SLC01",
+        "source_snapshot": "[#] 补齐选择器局部坐标与悬停取样",
+        "original_end_exclusive": "0x4c6439",
+        "original_instruction_count": 19,
+        "original_code_bytes": 57,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 5,
+        "return_count": 3,
+        "native_signature": "std::int32_t Sub_4C6400(\n    const WindowItemSelectorState* const state, const std::int32_t slot)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4C6400",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "result_boundary": "S32表值或原-1",
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x51c410",
+      "inventory_id": "F:0011C410",
+      "original_role": "S32宠物索引范围0..4的低W8判定",
+      "original_end_exclusive": "0x51c423",
+      "instruction_count": 9,
+      "function_chunks": [
+        {
+          "start": "0x51c410",
+          "end_exclusive": "0x51c423"
+        }
+      ],
+      "status": "SLC01完整选择器原根纳管，原局部坐标/范围/索引及悬停取样保持；限定S/全生产消费、上行返回/机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "IsValidPetIndex_51C410"
+          ],
+          "relationship": "SLC01完整原根/范围/表或S32结果核对，正确body保持，仅合同注释"
+        },
+        {
+          "path": "include/cg/world/SceneState.hpp",
+          "symbols": [
+            "IsValidPetIndex_51C410"
+          ],
+          "relationship": "SLC01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_selector_local_coordinate_hover_spec.md#selector-local-baseline",
+        "doc/cg2d_selector_local_coordinate_hover_spec.md#selector-local-decision",
+        "doc/cg2d_selector_local_coordinate_hover_spec.md#selector-local-acceptance",
+        "doc/cg2d_selector_local_coordinate_hover_spec.md#selector-local-source-state",
+        "doc/cg2d_selector_local_coordinate_hover_evidence.json"
+      ],
+      "boundary": "SLC01五完整原根243条771B/八页、九E8五目标/26跳12RET，26实际CALL只核点/四后邻，不代全外父。两local先slot负早返-1不读mode，S8 mode0且slot<8读玩家X/Y，正mode且slot<6读宠物表，其它-1；四S32表112B逐项与源相同，坐标范围不扩大为动态count上限。51C410只S32 0<=index<5，八已证消费者七TEST AL/一AND FF均低W8，新bool限此，不记高24位等价。4C71B0只读同state selectedPet70完整S32；悬停父非零value3ED/非负hover才两local，保entryelement和fresh window，window coord先element，再local+(window+element)-24；初绘框后才读S8mode，mode0玩家，正mode先本state selectedPet非负门槛，再取第一选择器CF3B10宠物号，原未检查<5，不增加校验/容量/保护。used W16和占用BYTE保；两flags只读原BYTE bit80，原22739/图号/243139及三descriptor顺序保。未占用alpha先5*W32 count比较>=256，原饱和255保，否则只读count低BYTE*5取低BYTE写descriptor[2][11]；不冻结两阶段或改W32存储/上三BYTE。末新hover样本，相同prev时先借count/clear hover=-1再count+1，否则count0/prev=hover/hover=-1；初门槛失败只count0，其它mode/pet负早返不新清理。四组五源码处/十注释，四整源其它内容/四叶正确body、四结构/四表/字段储宽保，无新API/helper/布局/字段/owner/保护/默认值/补零/新容量上限/钳制/回滚/异常模型。现悬停void边界保持；其父4C6790首CALL后pop/pop/RET转发原EAX残留，完整上行和机器ABI不记等价。五新F/五adapted、三限定S零I/十任务open，旧ISP及绘框/入队正确记录复用不改。全父/callee、选择器/宠物/占用/窗口/计数和descriptor全生产消费/alias-owner寿命、SDK/生成BYTE访问/机器ABI/实际悬停和像素/运行待，48有界代码和完整枚举gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，五完整原根243条771B/八页、九实际E8五目标/26跳12RET及26CALL/四后邻有据；七TEST AL/一AND FF低W8、悬停父首点尾RET向上保EAX事实明确，未记原高位/上行ABI等价。四表112B逐项符合源、四叶正确body保；父两window先element、两flags BYTE及alpha BYTE/原饱和255和计数索引尾序符合原码。四整源精确差异仅四组五处/十注释，四类型/表项/字段储宽保；全父/callee和生产消费/alias-owner、机器ABI/实际BYTE/悬停像素及运行待",
+      "original_incoming": [
+        {
+          "ea": 5006501,
+          "bytes": "e8665f0500",
+          "asm": "call    sub_51C410",
+          "parent": 5006448,
+          "call_target": 5358608,
+          "following": [
+            {
+              "ea": 5006506,
+              "size": 3,
+              "bytes": "83c404",
+              "asm": "add     esp, 4"
+            },
+            {
+              "ea": 5006509,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 5006511,
+              "size": 2,
+              "bytes": "7419",
+              "asm": "jz      short loc_4C64CA"
+            },
+            {
+              "ea": 5006513,
+              "size": 3,
+              "bytes": "8b4670",
+              "asm": "mov     eax, [esi+70h]"
+            }
+          ]
+        },
+        {
+          "ea": 5006709,
+          "bytes": "e8965e0500",
+          "asm": "call    sub_51C410",
+          "parent": 5006672,
+          "call_target": 5358608,
+          "following": [
+            {
+              "ea": 5006714,
+              "size": 3,
+              "bytes": "83c404",
+              "asm": "add     esp, 4"
+            },
+            {
+              "ea": 5006717,
+              "size": 5,
+              "bytes": "25ff000000",
+              "asm": "and     eax, 0FFh"
+            },
+            {
+              "ea": 5006722,
+              "size": 4,
+              "bytes": "89442410",
+              "asm": "mov     [esp+0Ch+arg_0], eax"
+            },
+            {
+              "ea": 5006726,
+              "size": 2,
+              "bytes": "741b",
+              "asm": "jz      short loc_4C65A3"
+            }
+          ]
+        },
+        {
+          "ea": 5006892,
+          "bytes": "e8df5d0500",
+          "asm": "call    sub_51C410",
+          "parent": 5006672,
+          "call_target": 5358608,
+          "following": [
+            {
+              "ea": 5006897,
+              "size": 3,
+              "bytes": "83c404",
+              "asm": "add     esp, 4"
+            },
+            {
+              "ea": 5006900,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 5006902,
+              "size": 2,
+              "bytes": "7442",
+              "asm": "jz      short loc_4C667A"
+            },
+            {
+              "ea": 5006904,
+              "size": 3,
+              "bytes": "8b4670",
+              "asm": "mov     eax, [esi+70h]"
+            }
+          ]
+        },
+        {
+          "ea": 5007283,
+          "bytes": "e8585c0500",
+          "asm": "call    sub_51C410",
+          "parent": 5007248,
+          "call_target": 5358608,
+          "following": [
+            {
+              "ea": 5007288,
+              "size": 3,
+              "bytes": "83c404",
+              "asm": "add     esp, 4"
+            },
+            {
+              "ea": 5007291,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 5007293,
+              "size": 2,
+              "bytes": "741b",
+              "asm": "jz      short loc_4C67DA"
+            },
+            {
+              "ea": 5007295,
+              "size": 3,
+              "bytes": "8b4670",
+              "asm": "mov     eax, [esi+70h]"
+            }
+          ]
+        },
+        {
+          "ea": 5007492,
+          "bytes": "e8875b0500",
+          "asm": "call    sub_51C410",
+          "parent": 5007248,
+          "call_target": 5358608,
+          "following": [
+            {
+              "ea": 5007497,
+              "size": 3,
+              "bytes": "83c404",
+              "asm": "add     esp, 4"
+            },
+            {
+              "ea": 5007500,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 5007502,
+              "size": 2,
+              "bytes": "7508",
+              "asm": "jnz     short loc_4C6898"
+            },
+            {
+              "ea": 5007504,
+              "size": 3,
+              "bytes": "8b4668",
+              "asm": "mov     eax, [esi+68h]"
+            }
+          ]
+        },
+        {
+          "ea": 5007810,
+          "bytes": "e8495a0500",
+          "asm": "call    sub_51C410",
+          "parent": 5007792,
+          "call_target": 5358608,
+          "following": [
+            {
+              "ea": 5007815,
+              "size": 3,
+              "bytes": "83c404",
+              "asm": "add     esp, 4"
+            },
+            {
+              "ea": 5007818,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 5007820,
+              "size": 6,
+              "bytes": "0f84e3000000",
+              "asm": "jz      loc_4C6AB5"
+            },
+            {
+              "ea": 5007826,
+              "size": 3,
+              "bytes": "8b4570",
+              "asm": "mov     eax, [ebp+70h]"
+            }
+          ]
+        },
+        {
+          "ea": 5010158,
+          "bytes": "e81d510500",
+          "asm": "call    sub_51C410",
+          "parent": 5010112,
+          "call_target": 5358608,
+          "following": [
+            {
+              "ea": 5010163,
+              "size": 3,
+              "bytes": "83c404",
+              "asm": "add     esp, 4"
+            },
+            {
+              "ea": 5010166,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 5010168,
+              "size": 2,
+              "bytes": "7504",
+              "asm": "jnz     short loc_4C72FE"
+            },
+            {
+              "ea": 5010170,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            }
+          ]
+        },
+        {
+          "ea": 5011822,
+          "bytes": "e89d4a0500",
+          "asm": "call    sub_51C410",
+          "parent": 5011728,
+          "call_target": 5358608,
+          "following": [
+            {
+              "ea": 5011827,
+              "size": 3,
+              "bytes": "83c404",
+              "asm": "add     esp, 4"
+            },
+            {
+              "ea": 5011830,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 5011832,
+              "size": 2,
+              "bytes": "7505",
+              "asm": "jnz     short loc_4C797F"
+            },
+            {
+              "ea": 5011834,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            }
+          ]
+        }
+      ],
+      "selector_local_hover": {
+        "step": "SLC01",
+        "source_snapshot": "[#] 补齐选择器局部坐标与悬停取样",
+        "original_end_exclusive": "0x51c423",
+        "original_instruction_count": 9,
+        "original_code_bytes": 19,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 2,
+        "return_count": 2,
+        "native_signature": "bool IsValidPetIndex_51C410(const std::int32_t index) noexcept",
+        "native_provider": "src/world/SceneState.cpp::IsValidPetIndex_51C410",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "result_boundary": "bool限原低W8；高24位未记等价",
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4c6b10",
+      "inventory_id": "F:000C6B10",
+      "original_role": "选择器连续悬停/原淡入/物品显示及计数发布",
+      "original_end_exclusive": "0x4c6d8a",
+      "instruction_count": 194,
+      "function_chunks": [
+        {
+          "start": "0x4c6b10",
+          "end_exclusive": "0x4c6d8a"
+        }
+      ],
+      "status": "SLC01完整选择器原根纳管，原局部坐标/范围/索引及悬停取样保持；限定S/全生产消费、上行返回/机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C6B10"
+          ],
+          "relationship": "SLC01原两轴取样/三BYTE读取对齐，原其它副作用保持，void上行ABI未闭"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4C6B10"
+          ],
+          "relationship": "SLC01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_selector_local_coordinate_hover_spec.md#selector-local-baseline",
+        "doc/cg2d_selector_local_coordinate_hover_spec.md#selector-local-decision",
+        "doc/cg2d_selector_local_coordinate_hover_spec.md#selector-local-acceptance",
+        "doc/cg2d_selector_local_coordinate_hover_spec.md#selector-local-source-state",
+        "doc/cg2d_selector_local_coordinate_hover_evidence.json"
+      ],
+      "boundary": "SLC01五完整原根243条771B/八页、九E8五目标/26跳12RET，26实际CALL只核点/四后邻，不代全外父。两local先slot负早返-1不读mode，S8 mode0且slot<8读玩家X/Y，正mode且slot<6读宠物表，其它-1；四S32表112B逐项与源相同，坐标范围不扩大为动态count上限。51C410只S32 0<=index<5，八已证消费者七TEST AL/一AND FF均低W8，新bool限此，不记高24位等价。4C71B0只读同state selectedPet70完整S32；悬停父非零value3ED/非负hover才两local，保entryelement和fresh window，window coord先element，再local+(window+element)-24；初绘框后才读S8mode，mode0玩家，正mode先本state selectedPet非负门槛，再取第一选择器CF3B10宠物号，原未检查<5，不增加校验/容量/保护。used W16和占用BYTE保；两flags只读原BYTE bit80，原22739/图号/243139及三descriptor顺序保。未占用alpha先5*W32 count比较>=256，原饱和255保，否则只读count低BYTE*5取低BYTE写descriptor[2][11]；不冻结两阶段或改W32存储/上三BYTE。末新hover样本，相同prev时先借count/clear hover=-1再count+1，否则count0/prev=hover/hover=-1；初门槛失败只count0，其它mode/pet负早返不新清理。四组五源码处/十注释，四整源其它内容/四叶正确body、四结构/四表/字段储宽保，无新API/helper/布局/字段/owner/保护/默认值/补零/新容量上限/钳制/回滚/异常模型。现悬停void边界保持；其父4C6790首CALL后pop/pop/RET转发原EAX残留，完整上行和机器ABI不记等价。五新F/五adapted、三限定S零I/十任务open，旧ISP及绘框/入队正确记录复用不改。全父/callee、选择器/宠物/占用/窗口/计数和descriptor全生产消费/alias-owner寿命、SDK/生成BYTE访问/机器ABI/实际悬停和像素/运行待，48有界代码和完整枚举gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，五完整原根243条771B/八页、九实际E8五目标/26跳12RET及26CALL/四后邻有据；七TEST AL/一AND FF低W8、悬停父首点尾RET向上保EAX事实明确，未记原高位/上行ABI等价。四表112B逐项符合源、四叶正确body保；父两window先element、两flags BYTE及alpha BYTE/原饱和255和计数索引尾序符合原码。四整源精确差异仅四组五处/十注释，四类型/表项/字段储宽保；全父/callee和生产消费/alias-owner、机器ABI/实际BYTE/悬停像素及运行待",
+      "original_incoming": [
+        {
+          "ea": 5007473,
+          "bytes": "e89a020000",
+          "asm": "call    sub_4C6B10",
+          "parent": 5007248,
+          "call_target": 5008144,
+          "following": [
+            {
+              "ea": 5007478,
+              "size": 1,
+              "bytes": "5f",
+              "asm": "pop     edi"
+            },
+            {
+              "ea": 5007479,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            },
+            {
+              "ea": 5007480,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 5007481,
+              "size": 2,
+              "bytes": "8bce",
+              "asm": "mov     ecx, esi; jumptable 004C67F0 case 3"
+            }
+          ]
+        },
+        {
+          "ea": 5007568,
+          "bytes": "e83b020000",
+          "asm": "call    sub_4C6B10",
+          "parent": 5007248,
+          "call_target": 5008144,
+          "following": [
+            {
+              "ea": 5007573,
+              "size": 2,
+              "bytes": "8bce",
+              "asm": "mov     ecx, esi"
+            },
+            {
+              "ea": 5007575,
+              "size": 5,
+              "bytes": "e8d4000000",
+              "asm": "call    sub_4C69B0"
+            },
+            {
+              "ea": 5007580,
+              "size": 6,
+              "bytes": "8b8ef0030000",
+              "asm": "mov     ecx, [esi+3F0h]"
+            },
+            {
+              "ea": 5007586,
+              "size": 3,
+              "bytes": "8b4604",
+              "asm": "mov     eax, [esi+4]"
+            }
+          ]
+        }
+      ],
+      "selector_local_hover": {
+        "step": "SLC01",
+        "source_snapshot": "[#] 补齐选择器局部坐标与悬停取样",
+        "original_end_exclusive": "0x4c6d8a",
+        "original_instruction_count": 194,
+        "original_code_bytes": 634,
+        "original_page_count": 4,
+        "direct_call_count": 9,
+        "jump_count": 14,
+        "return_count": 3,
+        "native_signature": "void Sub_4C6B10(WindowItemSelectorState* const state)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4C6B10",
+        "source_patch_group_count": 4,
+        "source_changed_point_count": 5,
+        "normal_remaining_source_kept": true,
+        "result_boundary": "现void保；原父尾转发残留EAX/上行ABI待",
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4c71b0",
+      "inventory_id": "F:000C71B0",
+      "original_role": "同state selectedPet70完整S32单读",
+      "original_end_exclusive": "0x4c71b4",
+      "instruction_count": 2,
+      "function_chunks": [
+        {
+          "start": "0x4c71b0",
+          "end_exclusive": "0x4c71b4"
+        }
+      ],
+      "status": "SLC01完整选择器原根纳管，原局部坐标/范围/索引及悬停取样保持；限定S/全生产消费、上行返回/机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C71B0"
+          ],
+          "relationship": "SLC01完整原根/范围/表或S32结果核对，正确body保持，仅合同注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4C71B0"
+          ],
+          "relationship": "SLC01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_selector_local_coordinate_hover_spec.md#selector-local-baseline",
+        "doc/cg2d_selector_local_coordinate_hover_spec.md#selector-local-decision",
+        "doc/cg2d_selector_local_coordinate_hover_spec.md#selector-local-acceptance",
+        "doc/cg2d_selector_local_coordinate_hover_spec.md#selector-local-source-state",
+        "doc/cg2d_selector_local_coordinate_hover_evidence.json"
+      ],
+      "boundary": "SLC01五完整原根243条771B/八页、九E8五目标/26跳12RET，26实际CALL只核点/四后邻，不代全外父。两local先slot负早返-1不读mode，S8 mode0且slot<8读玩家X/Y，正mode且slot<6读宠物表，其它-1；四S32表112B逐项与源相同，坐标范围不扩大为动态count上限。51C410只S32 0<=index<5，八已证消费者七TEST AL/一AND FF均低W8，新bool限此，不记高24位等价。4C71B0只读同state selectedPet70完整S32；悬停父非零value3ED/非负hover才两local，保entryelement和fresh window，window coord先element，再local+(window+element)-24；初绘框后才读S8mode，mode0玩家，正mode先本state selectedPet非负门槛，再取第一选择器CF3B10宠物号，原未检查<5，不增加校验/容量/保护。used W16和占用BYTE保；两flags只读原BYTE bit80，原22739/图号/243139及三descriptor顺序保。未占用alpha先5*W32 count比较>=256，原饱和255保，否则只读count低BYTE*5取低BYTE写descriptor[2][11]；不冻结两阶段或改W32存储/上三BYTE。末新hover样本，相同prev时先借count/clear hover=-1再count+1，否则count0/prev=hover/hover=-1；初门槛失败只count0，其它mode/pet负早返不新清理。四组五源码处/十注释，四整源其它内容/四叶正确body、四结构/四表/字段储宽保，无新API/helper/布局/字段/owner/保护/默认值/补零/新容量上限/钳制/回滚/异常模型。现悬停void边界保持；其父4C6790首CALL后pop/pop/RET转发原EAX残留，完整上行和机器ABI不记等价。五新F/五adapted、三限定S零I/十任务open，旧ISP及绘框/入队正确记录复用不改。全父/callee、选择器/宠物/占用/窗口/计数和descriptor全生产消费/alias-owner寿命、SDK/生成BYTE访问/机器ABI/实际悬停和像素/运行待，48有界代码和完整枚举gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，五完整原根243条771B/八页、九实际E8五目标/26跳12RET及26CALL/四后邻有据；七TEST AL/一AND FF低W8、悬停父首点尾RET向上保EAX事实明确，未记原高位/上行ABI等价。四表112B逐项符合源、四叶正确body保；父两window先element、两flags BYTE及alpha BYTE/原饱和255和计数索引尾序符合原码。四整源精确差异仅四组五处/十注释，四类型/表项/字段储宽保；全父/callee和生产消费/alias-owner、机器ABI/实际BYTE/悬停像素及运行待",
+      "original_incoming": [
+        {
+          "ea": 4753487,
+          "bytes": "e85ce90300",
+          "asm": "call    sub_4C71B0",
+          "parent": 4753408,
+          "call_target": 5009840,
+          "following": [
+            {
+              "ea": 4753492,
+              "size": 1,
+              "bytes": "40",
+              "asm": "inc     eax"
+            },
+            {
+              "ea": 4753493,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax"
+            },
+            {
+              "ea": 4753494,
+              "size": 5,
+              "bytes": "a1b8b2d900",
+              "asm": "mov     eax, s"
+            },
+            {
+              "ea": 4753499,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax"
+            }
+          ]
+        },
+        {
+          "ea": 4753527,
+          "bytes": "e834e90300",
+          "asm": "call    sub_4C71B0",
+          "parent": 4753408,
+          "call_target": 5009840,
+          "following": [
+            {
+              "ea": 4753532,
+              "size": 6,
+              "bytes": "8b0db8b2d900",
+              "asm": "mov     ecx, s"
+            },
+            {
+              "ea": 4753538,
+              "size": 1,
+              "bytes": "40",
+              "asm": "inc     eax"
+            },
+            {
+              "ea": 4753539,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax"
+            },
+            {
+              "ea": 4753540,
+              "size": 1,
+              "bytes": "57",
+              "asm": "push    edi"
+            }
+          ]
+        },
+        {
+          "ea": 4753560,
+          "bytes": "e813e90300",
+          "asm": "call    sub_4C71B0",
+          "parent": 4753408,
+          "call_target": 5009840,
+          "following": [
+            {
+              "ea": 4753565,
+              "size": 1,
+              "bytes": "40",
+              "asm": "inc     eax"
+            },
+            {
+              "ea": 4753566,
+              "size": 5,
+              "bytes": "b9103bcf00",
+              "asm": "mov     ecx, offset stru_CF3B10"
+            },
+            {
+              "ea": 4753571,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax"
+            },
+            {
+              "ea": 4753572,
+              "size": 1,
+              "bytes": "57",
+              "asm": "push    edi"
+            }
+          ]
+        },
+        {
+          "ea": 4753573,
+          "bytes": "e806e90300",
+          "asm": "call    sub_4C71B0",
+          "parent": 4753408,
+          "call_target": 5009840,
+          "following": [
+            {
+              "ea": 4753578,
+              "size": 6,
+              "bytes": "8b15b8b2d900",
+              "asm": "mov     edx, s"
+            },
+            {
+              "ea": 4753584,
+              "size": 1,
+              "bytes": "40",
+              "asm": "inc     eax"
+            },
+            {
+              "ea": 4753585,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax"
+            },
+            {
+              "ea": 4753586,
+              "size": 1,
+              "bytes": "52",
+              "asm": "push    edx"
+            }
+          ]
+        },
+        {
+          "ea": 4756307,
+          "bytes": "e858de0300",
+          "asm": "call    sub_4C71B0",
+          "parent": 4755376,
+          "call_target": 5009840,
+          "following": [
+            {
+              "ea": 4756312,
+              "size": 1,
+              "bytes": "40",
+              "asm": "inc     eax"
+            },
+            {
+              "ea": 4756313,
+              "size": 5,
+              "bytes": "b9c0e89e00",
+              "asm": "mov     ecx, offset gPlayerY"
+            },
+            {
+              "ea": 4756318,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax"
+            },
+            {
+              "ea": 4756319,
+              "size": 1,
+              "bytes": "57",
+              "asm": "push    edi"
+            }
+          ]
+        },
+        {
+          "ea": 4758431,
+          "bytes": "e80cd60300",
+          "asm": "call    sub_4C71B0",
+          "parent": 4757344,
+          "call_target": 5009840,
+          "following": [
+            {
+              "ea": 4758436,
+              "size": 6,
+              "bytes": "8b0db8b2d900",
+              "asm": "mov     ecx, s"
+            },
+            {
+              "ea": 4758442,
+              "size": 1,
+              "bytes": "40",
+              "asm": "inc     eax"
+            },
+            {
+              "ea": 4758443,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax"
+            },
+            {
+              "ea": 4758444,
+              "size": 1,
+              "bytes": "51",
+              "asm": "push    ecx"
+            }
+          ]
+        },
+        {
+          "ea": 4764219,
+          "bytes": "e870bf0300",
+          "asm": "call    sub_4C71B0",
+          "parent": 4764064,
+          "call_target": 5009840,
+          "following": [
+            {
+              "ea": 4764224,
+              "size": 3,
+              "bytes": "8d0cc0",
+              "asm": "lea     ecx, [eax+eax*8]"
+            },
+            {
+              "ea": 4764227,
+              "size": 3,
+              "bytes": "8d14c9",
+              "asm": "lea     edx, [ecx+ecx*8]"
+            },
+            {
+              "ea": 4764230,
+              "size": 6,
+              "bytes": "8b0dfc03d300",
+              "asm": "mov     ecx, dword_D303FC"
+            },
+            {
+              "ea": 4764236,
+              "size": 3,
+              "bytes": "c1e204",
+              "asm": "shl     edx, 4"
+            }
+          ]
+        },
+        {
+          "ea": 4766992,
+          "bytes": "e89bb40300",
+          "asm": "call    sub_4C71B0",
+          "parent": 4766864,
+          "call_target": 5009840,
+          "following": [
+            {
+              "ea": 4766997,
+              "size": 1,
+              "bytes": "40",
+              "asm": "inc     eax"
+            },
+            {
+              "ea": 4766998,
+              "size": 5,
+              "bytes": "b9c0e89e00",
+              "asm": "mov     ecx, offset gPlayerY"
+            },
+            {
+              "ea": 4767003,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax"
+            },
+            {
+              "ea": 4767004,
+              "size": 5,
+              "bytes": "e87f61f7ff",
+              "asm": "call    CryptInt__GetVal"
+            }
+          ]
+        },
+        {
+          "ea": 4767171,
+          "bytes": "e8e8b30300",
+          "asm": "call    sub_4C71B0",
+          "parent": 4766864,
+          "call_target": 5009840,
+          "following": [
+            {
+              "ea": 4767176,
+              "size": 2,
+              "bytes": "8bd6",
+              "asm": "mov     edx, esi"
+            },
+            {
+              "ea": 4767178,
+              "size": 3,
+              "bytes": "8d0cc0",
+              "asm": "lea     ecx, [eax+eax*8]"
+            },
+            {
+              "ea": 4767181,
+              "size": 6,
+              "bytes": "69d25c0c0000",
+              "asm": "imul    edx, 0C5Ch"
+            },
+            {
+              "ea": 4767187,
+              "size": 3,
+              "bytes": "8d0cc9",
+              "asm": "lea     ecx, [ecx+ecx*8]"
+            }
+          ]
+        },
+        {
+          "ea": 4767411,
+          "bytes": "e8f8b20300",
+          "asm": "call    sub_4C71B0",
+          "parent": 4766864,
+          "call_target": 5009840,
+          "following": [
+            {
+              "ea": 4767416,
+              "size": 3,
+              "bytes": "8d0cc0",
+              "asm": "lea     ecx, [eax+eax*8]"
+            },
+            {
+              "ea": 4767419,
+              "size": 3,
+              "bytes": "8d0cc9",
+              "asm": "lea     ecx, [ecx+ecx*8]"
+            },
+            {
+              "ea": 4767422,
+              "size": 3,
+              "bytes": "c1e104",
+              "asm": "shl     ecx, 4"
+            },
+            {
+              "ea": 4767425,
+              "size": 2,
+              "bytes": "03c8",
+              "asm": "add     ecx, eax"
+            }
+          ]
+        },
+        {
+          "ea": 4828369,
+          "bytes": "e8dac40200",
+          "asm": "call    sub_4C71B0",
+          "parent": 4828224,
+          "call_target": 5009840,
+          "following": [
+            {
+              "ea": 4828374,
+              "size": 3,
+              "bytes": "8d0cc0",
+              "asm": "lea     ecx, [eax+eax*8]"
+            },
+            {
+              "ea": 4828377,
+              "size": 4,
+              "bytes": "89742414",
+              "asm": "mov     [esp+14Ch+var_138], esi"
+            },
+            {
+              "ea": 4828381,
+              "size": 3,
+              "bytes": "8d0cc9",
+              "asm": "lea     ecx, [ecx+ecx*8]"
+            },
+            {
+              "ea": 4828384,
+              "size": 3,
+              "bytes": "c1e104",
+              "asm": "shl     ecx, 4"
+            }
+          ]
+        },
+        {
+          "ea": 5008344,
+          "bytes": "e8d3050000",
+          "asm": "call    sub_4C71B0",
+          "parent": 5008144,
+          "call_target": 5009840,
+          "following": [
+            {
+              "ea": 5008349,
+              "size": 3,
+              "bytes": "8d0cc0",
+              "asm": "lea     ecx, [eax+eax*8]"
+            },
+            {
+              "ea": 5008352,
+              "size": 3,
+              "bytes": "8d14c9",
+              "asm": "lea     edx, [ecx+ecx*8]"
+            },
+            {
+              "ea": 5008355,
+              "size": 3,
+              "bytes": "c1e204",
+              "asm": "shl     edx, 4"
+            },
+            {
+              "ea": 5008358,
+              "size": 2,
+              "bytes": "03d0",
+              "asm": "add     edx, eax"
+            }
+          ]
+        }
+      ],
+      "selector_local_hover": {
+        "step": "SLC01",
+        "source_snapshot": "[#] 补齐选择器局部坐标与悬停取样",
+        "original_end_exclusive": "0x4c71b4",
+        "original_instruction_count": 2,
+        "original_code_bytes": 4,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 0,
+        "return_count": 1,
+        "native_signature": "std::int32_t Sub_4C71B0(const WindowItemSelectorState* const state)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4C71B0",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "result_boundary": "S32字段原值",
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

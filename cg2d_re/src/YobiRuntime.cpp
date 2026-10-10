@@ -25176,6 +25176,7 @@ void UpdateBattleAction19_4082F0(YobiAction* const action)
     action->frameEvent = 0;
 }
 
+// BTE01：播放/可能推进后一次事件持样，每轮新图/record投射，末声/清事件。
 void UpdateBattleAction70_4070E0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -25188,7 +25189,8 @@ void UpdateBattleAction70_4070E0(YobiAction* const action)
     if (PlayFrame_517DA0(action, 1) == 1) {
         AdvanceBattleCastState_439340(action);
     }
-    if (action->frameEvent >= 10000 && action->frameEvent < 20000) {
+    const std::int32_t event = action->frameEvent;
+    if (event >= 10000 && event < 20000) {
         do {
             const std::int32_t image = payload->castSkillLevel1044 < 12 ? 110016 : 111055;
             static_cast<void>(NewBattleSpiracleShot_418B70(action, &payload->effects1C[payload->effectRunningC9C], image));
@@ -27101,12 +27103,14 @@ std::int32_t UpdateBattleAction63_40C2E0(YobiAction* const action)
     return PlayFrame_517DA0(action, 0);
 }
 
+// BTE01：仅动作0后推进，无播放/清帧。
 void UpdateBattleAction64_40CBB0(YobiAction* const action)
 {
     action->characterAction = 0;
     AdvanceBattleCastState_439340(action);
 }
 
+// BTE01：旧70/新8/七fresh计数，方向独立读/单圈修正和互斥播放保持。
 std::int32_t UpdateBattleAction65_40C380(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27155,6 +27159,7 @@ std::int32_t UpdateBattleAction65_40C380(YobiAction* const action)
     return PlayFrame_517DA0(action, 0);
 }
 
+// BTE01：独立1014图号，严格终帧推进后才清事件。
 void UpdateBattleAction66_40C480(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27166,6 +27171,7 @@ void UpdateBattleAction66_40C480(YobiAction* const action)
     }
 }
 
+// BTE01：入口事件先持，逐目标启动/效果推进，哨兵处仍推进一次再播放。
 void UpdateBattleAction67_4106B0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -27189,26 +27195,29 @@ void UpdateBattleAction67_4106B0(YobiAction* const action)
     }
 }
 
+// BTE01：浮动创建后fresh低BYTE60h门禁，条件播放后总推进。
 void UpdateBattleAction68_40C0E0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     static_cast<void>(NewBattleFloatingIcon_41F4C0(action, payload->reactionImage1010, 0, 0));
-    if ((payload->flagsFDC & 0x60u) == 0) {
+    if ((static_cast<std::uint8_t>(payload->flagsFDC) & 0x60u) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 1));
     }
     AdvanceBattleCastState_439340(action);
 }
 
+// BTE01：30帧命中创建后fresh低BYTE60h，条件播放后总推进。
 void UpdateBattleAction69_40C120(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     static_cast<void>(NewBattleHitEffect_41F5B0(action, 0, 0, 30, payload->reactionImage1010));
-    if ((payload->flagsFDC & 0x60u) == 0) {
+    if ((static_cast<std::uint8_t>(payload->flagsFDC) & 0x60u) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 1));
     }
     AdvanceBattleCastState_439340(action);
 }
 
+// BTE01：无播放/事件门禁，逐目标启动且哨兵额外推进，再推进源。
 void UpdateBattleAction71_40C4D0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -27225,6 +27234,7 @@ void UpdateBattleAction71_40C4D0(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BTE01：caster当前载荷原00槽递增后推进源，不互换两对象。
 void UpdateBattleAction72_40CAA0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);

@@ -460,7 +460,7 @@ YobiAction* NewBattleCastCopy_4205F0(YobiAction* parent); // 独立战斗载荷�
 void UpdateBattleAction15_406E10(YobiAction* action); // B15P01：独立事件/音效持样，回旋返回发布和258低档/高档循环保原序。
 void UpdateBattleAction18_408170(YobiAction* action); // BSP01：258三图/22050范围，单次门禁和音效event-X；95/3019重播。
 void UpdateBattleAction19_4082F0(YobiAction* action); // BSP01：探测后33速率/22090范围，单次门禁和音效event-X；仅95重播。
-void UpdateBattleAction70_4070E0(YobiAction* action);
+void UpdateBattleAction70_4070E0(YobiAction* action); // BTE01：播放后一次事件/逐轮投射/末声清事件。
 void UpdateBattleAction103_40DBE0(YobiAction* action);
 void UpdateBattleAction109_40E4B0(YobiAction* action);
 void UpdateBattleAction112_40EB00(YobiAction* action);
@@ -548,14 +548,14 @@ void UpdateBattleAction60_40C220(YobiAction* action); // BSA01：仅动作15/推
 void UpdateBattleAction61_40C280(YobiAction* action); // BSA01：动作12终帧推进，不清帧。
 void UpdateBattleAction62_40C2B0(YobiAction* action); // BSA01：动作18终帧推进，不清帧。
 std::int32_t UpdateBattleAction63_40C2E0(YobiAction* action); // BSA01：旧70推进，20/50方向与互斥播放。
-void UpdateBattleAction64_40CBB0(YobiAction* action); // 只设置角色动作0并推进，不播放。
-std::int32_t UpdateBattleAction65_40C380(YobiAction* action); // 八处计时摆动，保留逐次重读与单圈修正。
-void UpdateBattleAction66_40C480(YobiAction* action); // 消费独立1014图号，严格完成时推进后才清事件。
-void UpdateBattleAction67_4106B0(YobiAction* action); // 入口事件门禁，逐目标启动，哨兵处仍推进一次效果。
-void UpdateBattleAction68_40C0E0(YobiAction* action); // 浮动图标创建后重读FDC，条件播放后总推进。
-void UpdateBattleAction69_40C120(YobiAction* action); // 30帧命中特效创建后重读FDC，条件播放后总推进。
-void UpdateBattleAction71_40C4D0(YobiAction* action); // 无播放门禁，启动全部当前效果目标后推进源动作。
-void UpdateBattleAction72_40CAA0(YobiAction* action); // 递增caster载荷原00槽，再推进源动作。
+void UpdateBattleAction64_40CBB0(YobiAction* action); // BTE01：仅动作0/推进，无播放。
+std::int32_t UpdateBattleAction65_40C380(YobiAction* action); // BTE01：旧70/八计数点、fresh方向与互斥播放。
+void UpdateBattleAction66_40C480(YobiAction* action); // BTE01：1014图号/推进后清事件。
+void UpdateBattleAction67_4106B0(YobiAction* action); // BTE01：入口事件/逐目标启动/哨兵额外推进。
+void UpdateBattleAction68_40C0E0(YobiAction* action); // BTE01：创建后BYTE门禁/总推进。
+void UpdateBattleAction69_40C120(YobiAction* action); // BTE01：30帧创建后BYTE门禁/总推进。
+void UpdateBattleAction71_40C4D0(YobiAction* action); // BTE01：逐目标启动/哨兵推进，原无播放。
+void UpdateBattleAction72_40CAA0(YobiAction* action); // BTE01：caster原00计数/源推进。
 void UpdateBattleAction75_40CB10(YobiAction* action); // 1004置1后推进，不播放。
 void UpdateBattleAction76_40CB30(YobiAction* action); // 1004清零后推进，不播放。
 void UpdateBattleAction77_40CB50(YobiAction* action); // 查询设备后只设置对应绘制位，再推进。

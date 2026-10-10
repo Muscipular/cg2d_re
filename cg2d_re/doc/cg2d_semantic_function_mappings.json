@@ -200962,6 +200962,519 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x40cbb0",
+      "inventory_id": "F:0000CBB0",
+      "original_role": "动作0直接推进",
+      "original_end_exclusive": "0x40cbc6",
+      "instruction_count": 6,
+      "function_chunks": [
+        {
+          "start": "0x40cbb0",
+          "end_exclusive": "0x40cbc6"
+        }
+      ],
+      "status": "BTE01完整当前正常源/独立合同纳管，三读取片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction64_40CBB0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction64_40CBB0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-baseline",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-decision",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-acceptance",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-source-state",
+        "doc/cg2d_battle_event_targets_evidence.json"
+      ],
+      "boundary": "BTE01九完整正常根；仅68/69两BYTE与70播放/可能推进后一次事件持样及十八注释，其它六正文/全部签名/数值/调用/源及旧记录保持。65旧70/新8/七fresh门禁、66独立1014/推进后清事件、67/71逐目标/C9C重取/哨兵额外推进、70每轮新图/record/至少一次投射/严格1结束/末声清事件及72caster原00槽/源推进保持。全生产/其它父/全部callee/ABI/alias/owner/SDK正常失败/容量/数值/声音画面运行仍待，原门禁政策保持。",
+      "verification_level": "九完整270条902B/九页、28E8/九callee/28跳十RET、九实际入向/九11Bcase与现源精确差异必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction64_40CBB0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际case弃返保持"
+      },
+      "battle_event_targets": {
+        "step": "BTE01",
+        "source_snapshot": "cg2d-re-battle-event-targets-20261010",
+        "original_instruction_count": 6,
+        "original_code_bytes": 22,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "callee_count": 1,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40c380",
+      "inventory_id": "F:0000C380",
+      "original_role": "八点计时方向摆动与播放返回",
+      "original_end_exclusive": "0x40c475",
+      "instruction_count": 62,
+      "function_chunks": [
+        {
+          "start": "0x40c380",
+          "end_exclusive": "0x40c475"
+        }
+      ],
+      "status": "BTE01完整当前正常源/独立合同纳管，三读取片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction65_40C380"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction65_40C380"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-baseline",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-decision",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-acceptance",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-source-state",
+        "doc/cg2d_battle_event_targets_evidence.json"
+      ],
+      "boundary": "BTE01九完整正常根；仅68/69两BYTE与70播放/可能推进后一次事件持样及十八注释，其它六正文/全部签名/数值/调用/源及旧记录保持。65旧70/新8/七fresh门禁、66独立1014/推进后清事件、67/71逐目标/C9C重取/哨兵额外推进、70每轮新图/record/至少一次投射/严格1结束/末声清事件及72caster原00槽/源推进保持。全生产/其它父/全部callee/ABI/alias/owner/SDK正常失败/容量/数值/声音画面运行仍待，原门禁政策保持。",
+      "verification_level": "九完整270条902B/九页、28E8/九callee/28跳十RET、九实际入向/九11Bcase与现源精确差异必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction65_40C380",
+        "parameters": "非拥有YobiAction*",
+        "return": "std::int32_t；两互斥播放的实际返回"
+      },
+      "battle_event_targets": {
+        "step": "BTE01",
+        "source_snapshot": "cg2d-re-battle-event-targets-20261010",
+        "original_instruction_count": 62,
+        "original_code_bytes": 245,
+        "original_page_count": 1,
+        "direct_call_count": 3,
+        "callee_count": 2,
+        "jump_count": 11,
+        "return_count": 2,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40c480",
+      "inventory_id": "F:0000C480",
+      "original_role": "独立1014图号/推进后清事件",
+      "original_end_exclusive": "0x40c4c3",
+      "instruction_count": 18,
+      "function_chunks": [
+        {
+          "start": "0x40c480",
+          "end_exclusive": "0x40c4c3"
+        }
+      ],
+      "status": "BTE01完整当前正常源/独立合同纳管，三读取片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction66_40C480"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction66_40C480"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-baseline",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-decision",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-acceptance",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-source-state",
+        "doc/cg2d_battle_event_targets_evidence.json"
+      ],
+      "boundary": "BTE01九完整正常根；仅68/69两BYTE与70播放/可能推进后一次事件持样及十八注释，其它六正文/全部签名/数值/调用/源及旧记录保持。65旧70/新8/七fresh门禁、66独立1014/推进后清事件、67/71逐目标/C9C重取/哨兵额外推进、70每轮新图/record/至少一次投射/严格1结束/末声清事件及72caster原00槽/源推进保持。全生产/其它父/全部callee/ABI/alias/owner/SDK正常失败/容量/数值/声音画面运行仍待，原门禁政策保持。",
+      "verification_level": "九完整270条902B/九页、28E8/九callee/28跳十RET、九实际入向/九11Bcase与现源精确差异必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction66_40C480",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际case弃返保持"
+      },
+      "battle_event_targets": {
+        "step": "BTE01",
+        "source_snapshot": "cg2d-re-battle-event-targets-20261010",
+        "original_instruction_count": 18,
+        "original_code_bytes": 67,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 1,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4106b0",
+      "inventory_id": "F:000106B0",
+      "original_role": "入口事件/逐目标启动与哨兵推进",
+      "original_end_exclusive": "0x410730",
+      "instruction_count": 38,
+      "function_chunks": [
+        {
+          "start": "0x4106b0",
+          "end_exclusive": "0x410730"
+        }
+      ],
+      "status": "BTE01完整当前正常源/独立合同纳管，三读取片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction67_4106B0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction67_4106B0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-baseline",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-decision",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-acceptance",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-source-state",
+        "doc/cg2d_battle_event_targets_evidence.json"
+      ],
+      "boundary": "BTE01九完整正常根；仅68/69两BYTE与70播放/可能推进后一次事件持样及十八注释，其它六正文/全部签名/数值/调用/源及旧记录保持。65旧70/新8/七fresh门禁、66独立1014/推进后清事件、67/71逐目标/C9C重取/哨兵额外推进、70每轮新图/record/至少一次投射/严格1结束/末声清事件及72caster原00槽/源推进保持。全生产/其它父/全部callee/ABI/alias/owner/SDK正常失败/容量/数值/声音画面运行仍待，原门禁政策保持。",
+      "verification_level": "九完整270条902B/九页、28E8/九callee/28跳十RET、九实际入向/九11Bcase与现源精确差异必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction67_4106B0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际case弃返保持"
+      },
+      "battle_event_targets": {
+        "step": "BTE01",
+        "source_snapshot": "cg2d-re-battle-event-targets-20261010",
+        "original_instruction_count": 38,
+        "original_code_bytes": 128,
+        "original_page_count": 1,
+        "direct_call_count": 5,
+        "callee_count": 4,
+        "jump_count": 5,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40c0e0",
+      "inventory_id": "F:0000C0E0",
+      "original_role": "浮动图标创建后BYTE门禁",
+      "original_end_exclusive": "0x40c11e",
+      "instruction_count": 24,
+      "function_chunks": [
+        {
+          "start": "0x40c0e0",
+          "end_exclusive": "0x40c11e"
+        }
+      ],
+      "status": "BTE01完整当前正常源/独立合同纳管，三读取片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction68_40C0E0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction68_40C0E0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-baseline",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-decision",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-acceptance",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-source-state",
+        "doc/cg2d_battle_event_targets_evidence.json"
+      ],
+      "boundary": "BTE01九完整正常根；仅68/69两BYTE与70播放/可能推进后一次事件持样及十八注释，其它六正文/全部签名/数值/调用/源及旧记录保持。65旧70/新8/七fresh门禁、66独立1014/推进后清事件、67/71逐目标/C9C重取/哨兵额外推进、70每轮新图/record/至少一次投射/严格1结束/末声清事件及72caster原00槽/源推进保持。全生产/其它父/全部callee/ABI/alias/owner/SDK正常失败/容量/数值/声音画面运行仍待，原门禁政策保持。",
+      "verification_level": "九完整270条902B/九页、28E8/九callee/28跳十RET、九实际入向/九11Bcase与现源精确差异必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction68_40C0E0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际case弃返保持"
+      },
+      "battle_event_targets": {
+        "step": "BTE01",
+        "source_snapshot": "cg2d-re-battle-event-targets-20261010",
+        "original_instruction_count": 24,
+        "original_code_bytes": 62,
+        "original_page_count": 1,
+        "direct_call_count": 3,
+        "callee_count": 3,
+        "jump_count": 1,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40c120",
+      "inventory_id": "F:0000C120",
+      "original_role": "30帧命中创建后BYTE门禁",
+      "original_end_exclusive": "0x40c160",
+      "instruction_count": 25,
+      "function_chunks": [
+        {
+          "start": "0x40c120",
+          "end_exclusive": "0x40c160"
+        }
+      ],
+      "status": "BTE01完整当前正常源/独立合同纳管，三读取片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction69_40C120"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction69_40C120"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-baseline",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-decision",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-acceptance",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-source-state",
+        "doc/cg2d_battle_event_targets_evidence.json"
+      ],
+      "boundary": "BTE01九完整正常根；仅68/69两BYTE与70播放/可能推进后一次事件持样及十八注释，其它六正文/全部签名/数值/调用/源及旧记录保持。65旧70/新8/七fresh门禁、66独立1014/推进后清事件、67/71逐目标/C9C重取/哨兵额外推进、70每轮新图/record/至少一次投射/严格1结束/末声清事件及72caster原00槽/源推进保持。全生产/其它父/全部callee/ABI/alias/owner/SDK正常失败/容量/数值/声音画面运行仍待，原门禁政策保持。",
+      "verification_level": "九完整270条902B/九页、28E8/九callee/28跳十RET、九实际入向/九11Bcase与现源精确差异必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction69_40C120",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际case弃返保持"
+      },
+      "battle_event_targets": {
+        "step": "BTE01",
+        "source_snapshot": "cg2d-re-battle-event-targets-20261010",
+        "original_instruction_count": 25,
+        "original_code_bytes": 64,
+        "original_page_count": 1,
+        "direct_call_count": 3,
+        "callee_count": 3,
+        "jump_count": 1,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4070e0",
+      "inventory_id": "F:000070E0",
+      "original_role": "播放后事件/逐目标投射实际生产",
+      "original_end_exclusive": "0x4071bb",
+      "instruction_count": 64,
+      "function_chunks": [
+        {
+          "start": "0x4070e0",
+          "end_exclusive": "0x4071bb"
+        }
+      ],
+      "status": "BTE01完整当前正常源/独立合同纳管，三读取片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction70_4070E0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction70_4070E0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-baseline",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-decision",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-acceptance",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-source-state",
+        "doc/cg2d_battle_event_targets_evidence.json"
+      ],
+      "boundary": "BTE01九完整正常根；仅68/69两BYTE与70播放/可能推进后一次事件持样及十八注释，其它六正文/全部签名/数值/调用/源及旧记录保持。65旧70/新8/七fresh门禁、66独立1014/推进后清事件、67/71逐目标/C9C重取/哨兵额外推进、70每轮新图/record/至少一次投射/严格1结束/末声清事件及72caster原00槽/源推进保持。全生产/其它父/全部callee/ABI/alias/owner/SDK正常失败/容量/数值/声音画面运行仍待，原门禁政策保持。",
+      "verification_level": "九完整270条902B/九页、28E8/九callee/28跳十RET、九实际入向/九11Bcase与现源精确差异必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction70_4070E0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际case弃返保持"
+      },
+      "battle_event_targets": {
+        "step": "BTE01",
+        "source_snapshot": "cg2d-re-battle-event-targets-20261010",
+        "original_instruction_count": 64,
+        "original_code_bytes": 219,
+        "original_page_count": 1,
+        "direct_call_count": 6,
+        "callee_count": 6,
+        "jump_count": 7,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40c4d0",
+      "inventory_id": "F:0000C4D0",
+      "original_role": "无门禁逐目标启动/哨兵推进",
+      "original_end_exclusive": "0x40c515",
+      "instruction_count": 24,
+      "function_chunks": [
+        {
+          "start": "0x40c4d0",
+          "end_exclusive": "0x40c515"
+        }
+      ],
+      "status": "BTE01完整当前正常源/独立合同纳管，三读取片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction71_40C4D0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction71_40C4D0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-baseline",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-decision",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-acceptance",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-source-state",
+        "doc/cg2d_battle_event_targets_evidence.json"
+      ],
+      "boundary": "BTE01九完整正常根；仅68/69两BYTE与70播放/可能推进后一次事件持样及十八注释，其它六正文/全部签名/数值/调用/源及旧记录保持。65旧70/新8/七fresh门禁、66独立1014/推进后清事件、67/71逐目标/C9C重取/哨兵额外推进、70每轮新图/record/至少一次投射/严格1结束/末声清事件及72caster原00槽/源推进保持。全生产/其它父/全部callee/ABI/alias/owner/SDK正常失败/容量/数值/声音画面运行仍待，原门禁政策保持。",
+      "verification_level": "九完整270条902B/九页、28E8/九callee/28跳十RET、九实际入向/九11Bcase与现源精确差异必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction71_40C4D0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际case弃返保持"
+      },
+      "battle_event_targets": {
+        "step": "BTE01",
+        "source_snapshot": "cg2d-re-battle-event-targets-20261010",
+        "original_instruction_count": 24,
+        "original_code_bytes": 69,
+        "original_page_count": 1,
+        "direct_call_count": 4,
+        "callee_count": 3,
+        "jump_count": 2,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40caa0",
+      "inventory_id": "F:0000CAA0",
+      "original_role": "caster载荷原00计数与源推进",
+      "original_end_exclusive": "0x40caba",
+      "instruction_count": 9,
+      "function_chunks": [
+        {
+          "start": "0x40caa0",
+          "end_exclusive": "0x40caba"
+        }
+      ],
+      "status": "BTE01完整当前正常源/独立合同纳管，三读取片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction72_40CAA0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction72_40CAA0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-baseline",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-decision",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-acceptance",
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-source-state",
+        "doc/cg2d_battle_event_targets_evidence.json"
+      ],
+      "boundary": "BTE01九完整正常根；仅68/69两BYTE与70播放/可能推进后一次事件持样及十八注释，其它六正文/全部签名/数值/调用/源及旧记录保持。65旧70/新8/七fresh门禁、66独立1014/推进后清事件、67/71逐目标/C9C重取/哨兵额外推进、70每轮新图/record/至少一次投射/严格1结束/末声清事件及72caster原00槽/源推进保持。全生产/其它父/全部callee/ABI/alias/owner/SDK正常失败/容量/数值/声音画面运行仍待，原门禁政策保持。",
+      "verification_level": "九完整270条902B/九页、28E8/九callee/28跳十RET、九实际入向/九11Bcase与现源精确差异必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction72_40CAA0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际case弃返保持"
+      },
+      "battle_event_targets": {
+        "step": "BTE01",
+        "source_snapshot": "cg2d-re-battle-event-targets-20261010",
+        "original_instruction_count": 9,
+        "original_code_bytes": 26,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "callee_count": 1,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

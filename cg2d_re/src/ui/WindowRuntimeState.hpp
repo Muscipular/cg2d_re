@@ -1436,7 +1436,7 @@ std::int32_t Sub_4AFF30(std::int32_t index, std::int32_t slot); // 空槽领取�
 std::int32_t Sub_4AFFB0(std::int32_t first, std::int32_t second); // 仅交换选择槽字节。
 std::int32_t Sub_4B0060(std::int32_t index, std::int32_t slot); // 空槽领取并标记宠物。
 std::int32_t Sub_4B00C0(std::int32_t first, std::int32_t second);
-std::int32_t Sub_48BB30(std::int32_t slot); // 物品槽分类0/1/2/3，不是bool。
+std::int32_t Sub_48BB30(std::int32_t slot); // IDE01：signed槽0..7/8..27/100..119分类1/2/3，其它0，真实S32，四CALL只来源/全消费待。
 std::int32_t Sub_48BB70(std::int32_t slot); // 宠物槽分类1/2。
 std::int32_t Sub_48BC60(std::int32_t slot); // DE0B08五个S16索引的首匹配位置。
 void Sub_47D490(); // 仅清D67B00，不改变其他物品状态。
@@ -1472,8 +1472,8 @@ std::int32_t Sub_48D540(
 std::int32_t Sub_4EA670(std::int32_t index); // 原25600技能检查，返回0/1。
 void Sub_48BF30(std::int32_t message, std::int32_t unused, std::int32_t sourceIndex);
 std::int32_t Sub_48C130(std::int32_t sourceIndex, std::int32_t mode);
-void Sub_48BC90(std::int32_t message, std::int32_t unused, std::int32_t sourceIndex);
-std::int32_t Sub_48BF10(std::int32_t sourceIndex, std::int32_t mode); // kind2真实物品拖动。
+void Sub_48BC90(std::int32_t message, std::int32_t unused, std::int32_t sourceIndex); // IDE01：物品回调，两fresh分类/两点击BYTE及descriptor持址，reset/取消后原继续，完整分发及运行待。
+std::int32_t Sub_48BF10(std::int32_t sourceIndex, std::int32_t mode); // IDE01：mode先发布/真实kind2入口及S32透传，十三CALL只来源，完整回调/owner及运行待。
 void Sub_4B1940(
     std::uint8_t* tab, std::int16_t x, std::int16_t y,
     std::int32_t mouseX, std::int32_t mouseY, std::int32_t state,

@@ -5398,6 +5398,7 @@ std::int32_t Sub_4B00C0(const std::int32_t first, const std::int32_t second)
     return first;
 }
 
+// IDE01：原21条；原signed三区间及S32 1/2/3/0保持，正确正文保，四CALL/全部消费者与运行待。
 std::int32_t Sub_48BB30(const std::int32_t slot)
 {
     if (slot >= 0 && slot < 8) {
@@ -6411,6 +6412,7 @@ std::int32_t Sub_48C130(const std::int32_t sourceIndex, const std::int32_t mode)
     return Sub_475DA0(3, sourceIndex, Sub_48BF30);
 }
 
+// IDE01：原189条；动作及两点击BYTE/三descriptor持址明确，两fresh分类/取消后绘制保持，完整owner及运行待。
 void Sub_48BC90(
     const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
 {
@@ -6420,7 +6422,7 @@ void Sub_48BC90(
     descriptor.bytes[13] = 4;
     if (message != 0) {
         if (message == 2 && gItemDragModeCC4C9C != 0
-            && (world::detail::ReadPlayerActionFlags() & 0x80u) == 0
+            && (world::detail::ReadPlayerActionFlagsByte() & 0x80u) == 0
             && world::detail::Sub_440B50() == 0) {
             const std::int32_t group =
                 std::bit_cast<std::int8_t>(gValue57DA28) > 0 && sourceIndex < 6
@@ -6458,7 +6460,7 @@ void Sub_48BC90(
             static_cast<void>(Sub_4763E0());
         }
     }
-    if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
+    if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
         static_cast<void>(Sub_4763E0());
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
             platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX)));
@@ -6466,22 +6468,27 @@ void Sub_48BC90(
             platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY)));
         static_cast<void>(Sub_476490(2, sourceIndex, x, y, Sub_48BC90));
     }
-    if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+    if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 2u) != 0) {
         CancelWindowDrag_476410();
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
     const std::int32_t drawKind = Sub_48BB30(sourceIndex);
     std::int32_t imageNo;
+    const render::GraphicDescriptor16* drawDescriptor;
     if (drawKind == 1) {
-        if (std::bit_cast<std::int8_t>(gValue57DA28) > 0) {
+        const std::int8_t mode = std::bit_cast<std::int8_t>(gValue57DA28);
+        drawDescriptor = &descriptor;
+        if (mode > 0) {
             imageNo = world::detail::gPetRuntimeF633F8[
                 Sub_4C71B0(&gItemSelectorCF3B10)].items6E4[sourceIndex].imageNo;
         } else {
             imageNo = world::detail::gPlayerItemsFDA8A4[sourceIndex].imageNo;
         }
     } else if (drawKind == 2) {
+        drawDescriptor = &descriptor;
         imageNo = world::detail::gPlayerItemsFDA8A4[sourceIndex].imageNo;
     } else if (drawKind == 3) {
+        drawDescriptor = &descriptor;
         std::memcpy(&imageNo,
             gItemDetailStorageCC4D58.data() + (sourceIndex - 100) * 0xC44 + 4, sizeof(imageNo));
     } else {
@@ -6491,9 +6498,10 @@ void Sub_48BC90(
         platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY);
     const std::int32_t x =
         platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX);
-    static_cast<void>(login::detail::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
+    static_cast<void>(login::detail::DrawGraphic(x, y, 230, imageNo, 0, drawDescriptor));
 }
 
+// IDE01：原九条；mode S32先写再真实kind2调用/结果透传，正确正文保，十三父/owner/运行待。
 std::int32_t Sub_48BF10(const std::int32_t sourceIndex, const std::int32_t mode)
 {
     gItemDragModeCC4C9C = mode;

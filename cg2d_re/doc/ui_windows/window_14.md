@@ -584,3 +584,7 @@ hover244293，再第三次独立检查条件，成立覆盖244292。不把三次
 ## 2026-10-10 IER01：完整装备及唯一回复记录
 
 [IER01](../cg2d_equipment_attribute_reply_spec.md#equipment-reply-source-state)补齐库存装备与属性回复两完整根662条2141B/十二页，61E8二十七目标/84跳五RET、七装备data引用及一个回复入CALL有据。四组四处落实两物品低BYTE/动作BYTE接口与selected先于hover写回；原拖放/使用/特殊回调/occupancy/分页/绘图及已批GBK/MSVC格式保持。属性回复正确正文保持，首field失败本根仅清used，既有提取器写首文本首字节NUL、两文本/单空格门槛与field4..27逐项写24值，原TgX分发/当前LF明文沿既有合同。四源限定差异/四注释，旧919格式历史追加、一新F两处置/四限定S零I八open；完整生产消费、callback/callee/网络发送、alias-owner寿命/生成取样与实际操作运行待，整体未完成。
+
+## 2026-10-10 IDE01：物品拖动入口/消息2
+
+[IDE01](../cg2d_item_drag_entry_callback_spec.md#item-drag-source-state)补齐物品拖动入口/回调/分类三完整根219条719B/五页，23E8十一目标/33跳八RET。十七CALL及四后邻、两个callback data持址有据，只登记外父来源。两组六处明确动作和两点击BYTE/三绘制分支descriptor持址；mode先发布/原结果透传、两次fresh分类、失效reset/取消后仍继续绘制、玩家/宠物/C44来源及两轴CryptInt序保持。入口/分类正确正文保，两整源仅六片段/六注释，DLP01真实会话及既有目标消费者保持。三新F三处置/五限定S零I九open；完整调用方/动态回调/数据生产/alias-owner寿命、SDK/生成取样/实际拖放与运行待，整体未完成。

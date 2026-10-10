@@ -261,3 +261,7 @@ UI唯一U8 CC4D40零及私有S32 hover57E430=-2。玩家FP用World窄比较入�
 ## 2026-10-10 BIP01：物品与命令选择接线
 
 [BIP01](../cg2d_battle_item_interaction_spec.md#battle-item-source-state)补齐战斗背包完整1175条4105B/十九页，62E8十九目标/154跳两RET和两data绑定有据。三逻辑组十二片段落实六BYTE、五grid及一区域取序，保未加8的容量标志索引/level0经验成本、十五技能/技术/级限、两Q一I格式及目标pending/直接使用发布序和原失败分支/重复禁图。BQI01目标选择/BEI01空槽真实提供者复用，正文字节不改、不重复取完整根；两整源只十二片段/两注释。旧900格式/CAB30及既有adapted/既有UI成员保历史追加，无新增F/处置；四功能新增本根、五限定S零I九open。完整生产消费/后续目标消费者/所有callee与alias-owner寿命、SDK/生成取样/实际操作运行待，整体未完成。
+
+## 2026-10-10 IDE01：战斗物品拖动来源
+
+[IDE01](../cg2d_item_drag_entry_callback_spec.md#item-drag-source-state)补齐物品拖动入口/回调/分类三完整根219条719B/五页，23E8十一目标/33跳八RET。十七CALL及四后邻、两个callback data持址有据，只登记外父来源。两组六处明确动作和两点击BYTE/三绘制分支descriptor持址；mode先发布/原结果透传、两次fresh分类、失效reset/取消后仍继续绘制、玩家/宠物/C44来源及两轴CryptInt序保持。入口/分类正确正文保，两整源仅六片段/六注释，DLP01真实会话及既有目标消费者保持。三新F三处置/五限定S零I九open；完整调用方/动态回调/数据生产/alias-owner寿命、SDK/生成取样/实际拖放与运行待，整体未完成。

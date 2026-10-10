@@ -230957,6 +230957,905 @@
           }
         ]
       }
+    },
+    {
+      "original_entry": "0x48bf10",
+      "inventory_id": "F:0008BF10",
+      "original_role": "物品kind2拖动入口/全局mode先发布及结果透传",
+      "original_end_exclusive": "0x48bf2e",
+      "instruction_count": 9,
+      "function_chunks": [
+        {
+          "start": "0x48bf10",
+          "end_exclusive": "0x48bf2e"
+        }
+      ],
+      "status": "IDE01完整物品拖动原根纳管，两逻辑组六处/两正确正文保持；限定S/全生产消费callback/owner/ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_48BF10"
+          ],
+          "relationship": "IDE01完整原根对应真实提供者，回调三BYTE/三descriptor持址；入口/分类正确正文保持，仅合同注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_48BF10"
+          ],
+          "relationship": "IDE01真实S32/void签名保持，仅合同注释；原结果分界具名，全callback/ABI待"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_item_drag_entry_callback_spec.md#item-drag-baseline",
+        "doc/cg2d_item_drag_entry_callback_spec.md#item-drag-decision",
+        "doc/cg2d_item_drag_entry_callback_spec.md#item-drag-acceptance",
+        "doc/cg2d_item_drag_entry_callback_spec.md#item-drag-source-state",
+        "doc/cg2d_item_drag_entry_callback_evidence.json"
+      ],
+      "boundary": "IDE01物品拖动入口48BF10九条30B/一页、48BC90回调189条635B/三页、48BB30分类21条54B/一页；合219条719B/五页、23E8十一目标/33跳八RET。入口十三入CALL来自十三父，分类四CALL来自两父（回调两点/另父两点）；十七CALL/各四后邻只登记来源，不代全外父消费。回调两data持址分别入口及本体475490参数，不计普通CALL/整动态分发验收。48BF10先写mode S32→真实475DA0(kind2,sourceIndex,48BC90)，原S32返回透传，失败不回滚mode；现正确正文保持。48BB30原signed槽0..7→1、8..27→2、100..119→3、其它0，完整W32类型非bool，业务区间保、现正确正文保持，不把分类扩成所有调用方拒绝门禁。48BC90原16B descriptor零模板/80FFFFFF/byte13=4保持；message!=0只message2且mode W32非零/动作flags低BYTE80清/440B50零才发送，S8库存mode正且source<6 group=71B0+1否则0；真实玩家Y后X CryptInt→当前socket510CE0原参数/明文，返回不消费，不新增发送失败回滚。message0首次fresh分类后按kind1库存S8mode选择玩家/宠物、kind2玩家、kind3首组CC4D58+(source-100)*C44的used W16，失效只原reset而不提前退出；未知分类也继续鼠标和cursor阶段。鼠标低BYTE bit1先reset→mouseX后Y各原低S16→475490(kind2,source,x,y,同回调)；再fresh低BYTE bit2时原CancelWindowDrag，之后仍RequestCursor(1,0)→第二次fresh分类，不冻结入口分类/mode/bitmap，也不因取消停绘。分类1重取S8mode后先持descriptor地址再按玩家/宠物读S32 image（宠物真实71B0）；分类2先descriptor地址后玩家image，分类3先descriptor地址后CC4D58+4 memcpy S32 image；无匹配原返回。最后mouseY后X各真实CryptInt→DrawGraphic层230/原image/同半透明descriptor。两逻辑组六处仅三BYTE（动作现有字节接口及两独立click取样）与三分支descriptor持址（kind1先mode再地址），非拥有地址/字段位宽与原player/pet/detail区别、S16/S32/调用/读序和正常失败返回保持；两正确正文不改，仅三定义/三声明六注释。DLP01四真实会话提供者与既有SLC/PSP/IER/BEI/BIP及BQU/BQK/BQL源保持，不重取已验完整根；后续目标三消费者已具完整合同，仅定位不虚称本步重验。三新F/三adapted、五限定S零I/九open；十七全调用点的外父/动态回调完整消费、detail/pet/玩家数据生产及共享owner/SDK/生成BYTE/机器ABI/真实拖放取消/画面声效与运行待。不新增API/通用helper/类型/字段/owner/保护/默认值/补零/钳制/回滚/异常模型；MSVC/WAV-only/当前原命令字段LF明文、48有界代码/完整枚举gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，三完整连续根219条719B/五页、23E8十一目标/33跳八RET，十七CALL/四后邻及两data持址；三BYTE/三descriptor地址先image有据，kind1先mode及各fresh分类/鼠标两轴/失效reset-取消后继续保；两整源精确回放/两逻辑组六处、两正确正文/四类型/十提供者及detail声明保持，全部外父/动态callback/owner/生成读取/机器ABI/实际操作与运行待",
+      "original_incoming": [
+        {
+          "ea": 4733774,
+          "size": 5,
+          "bytes": "e8bd830000",
+          "asm": "call    sub_48BF10",
+          "following": [
+            {
+              "ea": 4733779,
+              "size": 5,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4733784,
+              "size": 5,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4733789,
+              "size": 2,
+              "bytes": "6a33",
+              "asm": "push    33h ; '3'"
+            },
+            {
+              "ea": 4733791,
+              "size": 5,
+              "bytes": "e8ec880a00",
+              "asm": "call    World__PlaySe"
+            }
+          ],
+          "parent": 4731216,
+          "call_target": 4767504
+        },
+        {
+          "ea": 4756461,
+          "size": 5,
+          "bytes": "e81e2b0000",
+          "asm": "call    sub_48BF10",
+          "following": [
+            {
+              "ea": 4756466,
+              "size": 5,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4756471,
+              "size": 5,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4756476,
+              "size": 2,
+              "bytes": "6a33",
+              "asm": "push    33h ; '3'"
+            },
+            {
+              "ea": 4756478,
+              "size": 5,
+              "bytes": "e84d300a00",
+              "asm": "call    World__PlaySe"
+            }
+          ],
+          "parent": 4755376,
+          "call_target": 4767504
+        },
+        {
+          "ea": 4758605,
+          "size": 5,
+          "bytes": "e8be220000",
+          "asm": "call    sub_48BF10",
+          "following": [
+            {
+              "ea": 4758610,
+              "size": 5,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4758615,
+              "size": 5,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4758620,
+              "size": 2,
+              "bytes": "6a33",
+              "asm": "push    33h ; '3'"
+            },
+            {
+              "ea": 4758622,
+              "size": 5,
+              "bytes": "e8ed270a00",
+              "asm": "call    World__PlaySe"
+            }
+          ],
+          "parent": 4757344,
+          "call_target": 4767504
+        },
+        {
+          "ea": 4827097,
+          "size": 5,
+          "bytes": "e83217ffff",
+          "asm": "call    sub_48BF10",
+          "following": [
+            {
+              "ea": 4827102,
+              "size": 5,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4827107,
+              "size": 5,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4827112,
+              "size": 2,
+              "bytes": "6a33",
+              "asm": "push    33h ; '3'"
+            },
+            {
+              "ea": 4827114,
+              "size": 5,
+              "bytes": "e8611c0900",
+              "asm": "call    World__PlaySe"
+            }
+          ],
+          "parent": 4824112,
+          "call_target": 4767504
+        },
+        {
+          "ea": 4829919,
+          "size": 5,
+          "bytes": "e82c0cffff",
+          "asm": "call    sub_48BF10",
+          "following": [
+            {
+              "ea": 4829924,
+              "size": 5,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4829929,
+              "size": 5,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4829934,
+              "size": 2,
+              "bytes": "6a33",
+              "asm": "push    33h ; '3'"
+            },
+            {
+              "ea": 4829936,
+              "size": 5,
+              "bytes": "e85b110900",
+              "asm": "call    World__PlaySe"
+            }
+          ],
+          "parent": 4828224,
+          "call_target": 4767504
+        },
+        {
+          "ea": 4875162,
+          "size": 5,
+          "bytes": "e8715bfeff",
+          "asm": "call    sub_48BF10",
+          "following": [
+            {
+              "ea": 4875167,
+              "size": 5,
+              "bytes": "a1c4f0d200",
+              "asm": "mov     eax, stru_D2F0B8.field_C"
+            },
+            {
+              "ea": 4875172,
+              "size": 5,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4875177,
+              "size": 5,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4875182,
+              "size": 2,
+              "bytes": "6a33",
+              "asm": "push    33h ; '3'"
+            }
+          ],
+          "parent": 4875008,
+          "call_target": 4767504
+        },
+        {
+          "ea": 4890778,
+          "size": 5,
+          "bytes": "e8711efeff",
+          "asm": "call    sub_48BF10",
+          "following": [
+            {
+              "ea": 4890783,
+              "size": 5,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4890788,
+              "size": 5,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4890793,
+              "size": 2,
+              "bytes": "6a33",
+              "asm": "push    33h ; '3'"
+            },
+            {
+              "ea": 4890795,
+              "size": 5,
+              "bytes": "e8a0230800",
+              "asm": "call    World__PlaySe"
+            }
+          ],
+          "parent": 4889872,
+          "call_target": 4767504
+        },
+        {
+          "ea": 4892452,
+          "size": 5,
+          "bytes": "e8e717feff",
+          "asm": "call    sub_48BF10",
+          "following": [
+            {
+              "ea": 4892457,
+              "size": 5,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4892462,
+              "size": 5,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4892467,
+              "size": 2,
+              "bytes": "6a33",
+              "asm": "push    33h ; '3'"
+            },
+            {
+              "ea": 4892469,
+              "size": 5,
+              "bytes": "e8161d0800",
+              "asm": "call    World__PlaySe"
+            }
+          ],
+          "parent": 4891600,
+          "call_target": 4767504
+        },
+        {
+          "ea": 4900180,
+          "size": 5,
+          "bytes": "e8b7f9fdff",
+          "asm": "call    sub_48BF10",
+          "following": [
+            {
+              "ea": 4900185,
+              "size": 5,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4900190,
+              "size": 5,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4900195,
+              "size": 2,
+              "bytes": "6a33",
+              "asm": "push    33h ; '3'"
+            },
+            {
+              "ea": 4900197,
+              "size": 5,
+              "bytes": "e8e6fe0700",
+              "asm": "call    World__PlaySe"
+            }
+          ],
+          "parent": 4899472,
+          "call_target": 4767504
+        },
+        {
+          "ea": 4901682,
+          "size": 5,
+          "bytes": "e8d9f3fdff",
+          "asm": "call    sub_48BF10",
+          "following": [
+            {
+              "ea": 4901687,
+              "size": 5,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4901692,
+              "size": 5,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4901697,
+              "size": 2,
+              "bytes": "6a33",
+              "asm": "push    33h ; '3'"
+            },
+            {
+              "ea": 4901699,
+              "size": 5,
+              "bytes": "e808f90700",
+              "asm": "call    World__PlaySe"
+            }
+          ],
+          "parent": 4901008,
+          "call_target": 4767504
+        },
+        {
+          "ea": 4908202,
+          "size": 5,
+          "bytes": "e861dafdff",
+          "asm": "call    sub_48BF10",
+          "following": [
+            {
+              "ea": 4908207,
+              "size": 6,
+              "bytes": "8b0d0cee5700",
+              "asm": "mov     ecx, dword_57EE0C"
+            },
+            {
+              "ea": 4908213,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            },
+            {
+              "ea": 4908216,
+              "size": 6,
+              "bytes": "8a81087bd600",
+              "asm": "mov     al, byte ptr gItemSlotHoverState.field_0[ecx]"
+            },
+            {
+              "ea": 4908222,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            }
+          ],
+          "parent": 4907856,
+          "call_target": 4767504
+        },
+        {
+          "ea": 4922553,
+          "size": 5,
+          "bytes": "e852a2fdff",
+          "asm": "call    sub_48BF10",
+          "following": [
+            {
+              "ea": 4922558,
+              "size": 5,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4922563,
+              "size": 5,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4922568,
+              "size": 2,
+              "bytes": "6a33",
+              "asm": "push    33h ; '3'"
+            },
+            {
+              "ea": 4922570,
+              "size": 5,
+              "bytes": "e881a70700",
+              "asm": "call    World__PlaySe"
+            }
+          ],
+          "parent": 4921664,
+          "call_target": 4767504
+        },
+        {
+          "ea": 4966862,
+          "size": 5,
+          "bytes": "e83df5fcff",
+          "asm": "call    sub_48BF10",
+          "following": [
+            {
+              "ea": 4966867,
+              "size": 5,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4966872,
+              "size": 5,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4966877,
+              "size": 2,
+              "bytes": "6a33",
+              "asm": "push    33h ; '3'"
+            },
+            {
+              "ea": 4966879,
+              "size": 5,
+              "bytes": "e86cfa0600",
+              "asm": "call    World__PlaySe"
+            }
+          ],
+          "parent": 4965984,
+          "call_target": 4767504
+        }
+      ],
+      "item_drag_entry_callback": {
+        "step": "IDE01",
+        "source_snapshot": "[#] 补齐物品拖动入口与回调合同",
+        "original_entry": "0x48bf10",
+        "original_end_exclusive": "0x48bf2e",
+        "instruction_count": 9,
+        "code_bytes": 30,
+        "page_count": 1,
+        "direct_calls": 1,
+        "direct_call_targets": [
+          4677024
+        ],
+        "jumps": 0,
+        "returns": 1,
+        "original_incoming_references": [
+          {
+            "from": 4733774,
+            "type": 17,
+            "iscode": true,
+            "parent": 4731216
+          },
+          {
+            "from": 4756461,
+            "type": 17,
+            "iscode": true,
+            "parent": 4755376
+          },
+          {
+            "from": 4758605,
+            "type": 17,
+            "iscode": true,
+            "parent": 4757344
+          },
+          {
+            "from": 4827097,
+            "type": 17,
+            "iscode": true,
+            "parent": 4824112
+          },
+          {
+            "from": 4829919,
+            "type": 17,
+            "iscode": true,
+            "parent": 4828224
+          },
+          {
+            "from": 4875162,
+            "type": 17,
+            "iscode": true,
+            "parent": 4875008
+          },
+          {
+            "from": 4890778,
+            "type": 17,
+            "iscode": true,
+            "parent": 4889872
+          },
+          {
+            "from": 4892452,
+            "type": 17,
+            "iscode": true,
+            "parent": 4891600
+          },
+          {
+            "from": 4900180,
+            "type": 17,
+            "iscode": true,
+            "parent": 4899472
+          },
+          {
+            "from": 4901682,
+            "type": 17,
+            "iscode": true,
+            "parent": 4901008
+          },
+          {
+            "from": 4908202,
+            "type": 17,
+            "iscode": true,
+            "parent": 4907856
+          },
+          {
+            "from": 4922553,
+            "type": 17,
+            "iscode": true,
+            "parent": 4921664
+          },
+          {
+            "from": 4966862,
+            "type": 17,
+            "iscode": true,
+            "parent": 4965984
+          }
+        ],
+        "native_signature": "std::int32_t Sub_48BF10(const std::int32_t sourceIndex, const std::int32_t mode)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原S32透传真正475DA0结果，13来源点不代所有父消费/全ABI"
+      }
+    },
+    {
+      "original_entry": "0x48bc90",
+      "inventory_id": "F:0008BC90",
+      "original_role": "物品拖动消息/玩家宠物detail读取、鼠标复位取消与光标绘制",
+      "original_end_exclusive": "0x48bf0b",
+      "instruction_count": 189,
+      "function_chunks": [
+        {
+          "start": "0x48bc90",
+          "end_exclusive": "0x48bf0b"
+        }
+      ],
+      "status": "IDE01完整物品拖动原根纳管，两逻辑组六处/两正确正文保持；限定S/全生产消费callback/owner/ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_48BC90"
+          ],
+          "relationship": "IDE01完整原根对应真实提供者，回调三BYTE/三descriptor持址；入口/分类正确正文保持，仅合同注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_48BC90"
+          ],
+          "relationship": "IDE01真实S32/void签名保持，仅合同注释；原结果分界具名，全callback/ABI待"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_item_drag_entry_callback_spec.md#item-drag-baseline",
+        "doc/cg2d_item_drag_entry_callback_spec.md#item-drag-decision",
+        "doc/cg2d_item_drag_entry_callback_spec.md#item-drag-acceptance",
+        "doc/cg2d_item_drag_entry_callback_spec.md#item-drag-source-state",
+        "doc/cg2d_item_drag_entry_callback_evidence.json"
+      ],
+      "boundary": "IDE01物品拖动入口48BF10九条30B/一页、48BC90回调189条635B/三页、48BB30分类21条54B/一页；合219条719B/五页、23E8十一目标/33跳八RET。入口十三入CALL来自十三父，分类四CALL来自两父（回调两点/另父两点）；十七CALL/各四后邻只登记来源，不代全外父消费。回调两data持址分别入口及本体475490参数，不计普通CALL/整动态分发验收。48BF10先写mode S32→真实475DA0(kind2,sourceIndex,48BC90)，原S32返回透传，失败不回滚mode；现正确正文保持。48BB30原signed槽0..7→1、8..27→2、100..119→3、其它0，完整W32类型非bool，业务区间保、现正确正文保持，不把分类扩成所有调用方拒绝门禁。48BC90原16B descriptor零模板/80FFFFFF/byte13=4保持；message!=0只message2且mode W32非零/动作flags低BYTE80清/440B50零才发送，S8库存mode正且source<6 group=71B0+1否则0；真实玩家Y后X CryptInt→当前socket510CE0原参数/明文，返回不消费，不新增发送失败回滚。message0首次fresh分类后按kind1库存S8mode选择玩家/宠物、kind2玩家、kind3首组CC4D58+(source-100)*C44的used W16，失效只原reset而不提前退出；未知分类也继续鼠标和cursor阶段。鼠标低BYTE bit1先reset→mouseX后Y各原低S16→475490(kind2,source,x,y,同回调)；再fresh低BYTE bit2时原CancelWindowDrag，之后仍RequestCursor(1,0)→第二次fresh分类，不冻结入口分类/mode/bitmap，也不因取消停绘。分类1重取S8mode后先持descriptor地址再按玩家/宠物读S32 image（宠物真实71B0）；分类2先descriptor地址后玩家image，分类3先descriptor地址后CC4D58+4 memcpy S32 image；无匹配原返回。最后mouseY后X各真实CryptInt→DrawGraphic层230/原image/同半透明descriptor。两逻辑组六处仅三BYTE（动作现有字节接口及两独立click取样）与三分支descriptor持址（kind1先mode再地址），非拥有地址/字段位宽与原player/pet/detail区别、S16/S32/调用/读序和正常失败返回保持；两正确正文不改，仅三定义/三声明六注释。DLP01四真实会话提供者与既有SLC/PSP/IER/BEI/BIP及BQU/BQK/BQL源保持，不重取已验完整根；后续目标三消费者已具完整合同，仅定位不虚称本步重验。三新F/三adapted、五限定S零I/九open；十七全调用点的外父/动态回调完整消费、detail/pet/玩家数据生产及共享owner/SDK/生成BYTE/机器ABI/真实拖放取消/画面声效与运行待。不新增API/通用helper/类型/字段/owner/保护/默认值/补零/钳制/回滚/异常模型；MSVC/WAV-only/当前原命令字段LF明文、48有界代码/完整枚举gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，三完整连续根219条719B/五页、23E8十一目标/33跳八RET，十七CALL/四后邻及两data持址；三BYTE/三descriptor地址先image有据，kind1先mode及各fresh分类/鼠标两轴/失效reset-取消后继续保；两整源精确回放/两逻辑组六处、两正确正文/四类型/十提供者及detail声明保持，全部外父/动态callback/owner/生成读取/机器ABI/实际操作与运行待",
+      "original_incoming": [],
+      "item_drag_entry_callback": {
+        "step": "IDE01",
+        "source_snapshot": "[#] 补齐物品拖动入口与回调合同",
+        "original_entry": "0x48bc90",
+        "original_end_exclusive": "0x48bf0b",
+        "instruction_count": 189,
+        "code_bytes": 635,
+        "page_count": 3,
+        "direct_calls": 22,
+        "direct_call_targets": [
+          4459344,
+          5009840,
+          4202144,
+          5311712,
+          4766512,
+          4678624,
+          4678800,
+          4678672,
+          5271008,
+          5380880
+        ],
+        "jumps": 27,
+        "returns": 3,
+        "original_incoming_references": [
+          {
+            "from": 4767271,
+            "type": 1,
+            "iscode": false,
+            "parent": 4766864
+          },
+          {
+            "from": 4767512,
+            "type": 1,
+            "iscode": false,
+            "parent": 4767504
+          }
+        ],
+        "native_signature": "void Sub_48BC90(\n    const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)",
+        "source_patch_group_count": 2,
+        "source_changed_point_count": 6,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "现void副作用保持，原三RET混合残留EAX；动态callback全消费/全ABI待"
+      }
+    },
+    {
+      "original_entry": "0x48bb30",
+      "inventory_id": "F:0008BB30",
+      "original_role": "signed物品槽三区间分类S32 1/2/3/0",
+      "original_end_exclusive": "0x48bb66",
+      "instruction_count": 21,
+      "function_chunks": [
+        {
+          "start": "0x48bb30",
+          "end_exclusive": "0x48bb66"
+        }
+      ],
+      "status": "IDE01完整物品拖动原根纳管，两逻辑组六处/两正确正文保持；限定S/全生产消费callback/owner/ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_48BB30"
+          ],
+          "relationship": "IDE01完整原根对应真实提供者，回调三BYTE/三descriptor持址；入口/分类正确正文保持，仅合同注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_48BB30"
+          ],
+          "relationship": "IDE01真实S32/void签名保持，仅合同注释；原结果分界具名，全callback/ABI待"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_item_drag_entry_callback_spec.md#item-drag-baseline",
+        "doc/cg2d_item_drag_entry_callback_spec.md#item-drag-decision",
+        "doc/cg2d_item_drag_entry_callback_spec.md#item-drag-acceptance",
+        "doc/cg2d_item_drag_entry_callback_spec.md#item-drag-source-state",
+        "doc/cg2d_item_drag_entry_callback_evidence.json"
+      ],
+      "boundary": "IDE01物品拖动入口48BF10九条30B/一页、48BC90回调189条635B/三页、48BB30分类21条54B/一页；合219条719B/五页、23E8十一目标/33跳八RET。入口十三入CALL来自十三父，分类四CALL来自两父（回调两点/另父两点）；十七CALL/各四后邻只登记来源，不代全外父消费。回调两data持址分别入口及本体475490参数，不计普通CALL/整动态分发验收。48BF10先写mode S32→真实475DA0(kind2,sourceIndex,48BC90)，原S32返回透传，失败不回滚mode；现正确正文保持。48BB30原signed槽0..7→1、8..27→2、100..119→3、其它0，完整W32类型非bool，业务区间保、现正确正文保持，不把分类扩成所有调用方拒绝门禁。48BC90原16B descriptor零模板/80FFFFFF/byte13=4保持；message!=0只message2且mode W32非零/动作flags低BYTE80清/440B50零才发送，S8库存mode正且source<6 group=71B0+1否则0；真实玩家Y后X CryptInt→当前socket510CE0原参数/明文，返回不消费，不新增发送失败回滚。message0首次fresh分类后按kind1库存S8mode选择玩家/宠物、kind2玩家、kind3首组CC4D58+(source-100)*C44的used W16，失效只原reset而不提前退出；未知分类也继续鼠标和cursor阶段。鼠标低BYTE bit1先reset→mouseX后Y各原低S16→475490(kind2,source,x,y,同回调)；再fresh低BYTE bit2时原CancelWindowDrag，之后仍RequestCursor(1,0)→第二次fresh分类，不冻结入口分类/mode/bitmap，也不因取消停绘。分类1重取S8mode后先持descriptor地址再按玩家/宠物读S32 image（宠物真实71B0）；分类2先descriptor地址后玩家image，分类3先descriptor地址后CC4D58+4 memcpy S32 image；无匹配原返回。最后mouseY后X各真实CryptInt→DrawGraphic层230/原image/同半透明descriptor。两逻辑组六处仅三BYTE（动作现有字节接口及两独立click取样）与三分支descriptor持址（kind1先mode再地址），非拥有地址/字段位宽与原player/pet/detail区别、S16/S32/调用/读序和正常失败返回保持；两正确正文不改，仅三定义/三声明六注释。DLP01四真实会话提供者与既有SLC/PSP/IER/BEI/BIP及BQU/BQK/BQL源保持，不重取已验完整根；后续目标三消费者已具完整合同，仅定位不虚称本步重验。三新F/三adapted、五限定S零I/九open；十七全调用点的外父/动态回调完整消费、detail/pet/玩家数据生产及共享owner/SDK/生成BYTE/机器ABI/真实拖放取消/画面声效与运行待。不新增API/通用helper/类型/字段/owner/保护/默认值/补零/钳制/回滚/异常模型；MSVC/WAV-only/当前原命令字段LF明文、48有界代码/完整枚举gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，三完整连续根219条719B/五页、23E8十一目标/33跳八RET，十七CALL/四后邻及两data持址；三BYTE/三descriptor地址先image有据，kind1先mode及各fresh分类/鼠标两轴/失效reset-取消后继续保；两整源精确回放/两逻辑组六处、两正确正文/四类型/十提供者及detail声明保持，全部外父/动态callback/owner/生成读取/机器ABI/实际操作与运行待",
+      "original_incoming": [
+        {
+          "ea": 4767091,
+          "size": 5,
+          "bytes": "e8b8fdffff",
+          "asm": "call    sub_48BB30",
+          "following": [
+            {
+              "ea": 4767096,
+              "size": 3,
+              "bytes": "83c404",
+              "asm": "add     esp, 4"
+            },
+            {
+              "ea": 4767099,
+              "size": 1,
+              "bytes": "48",
+              "asm": "dec     eax"
+            },
+            {
+              "ea": 4767100,
+              "size": 2,
+              "bytes": "7437",
+              "asm": "jz      short loc_48BDB5"
+            },
+            {
+              "ea": 4767102,
+              "size": 1,
+              "bytes": "48",
+              "asm": "dec     eax"
+            }
+          ],
+          "parent": 4766864,
+          "call_target": 4766512
+        },
+        {
+          "ea": 4767314,
+          "size": 5,
+          "bytes": "e8d9fcffff",
+          "asm": "call    sub_48BB30",
+          "following": [
+            {
+              "ea": 4767319,
+              "size": 3,
+              "bytes": "83c40c",
+              "asm": "add     esp, 0Ch"
+            },
+            {
+              "ea": 4767322,
+              "size": 1,
+              "bytes": "48",
+              "asm": "dec     eax"
+            },
+            {
+              "ea": 4767323,
+              "size": 2,
+              "bytes": "7441",
+              "asm": "jz      short loc_48BE9E"
+            },
+            {
+              "ea": 4767325,
+              "size": 1,
+              "bytes": "48",
+              "asm": "dec     eax"
+            }
+          ],
+          "parent": 4766864,
+          "call_target": 4766512
+        },
+        {
+          "ea": 4925333,
+          "size": 5,
+          "bytes": "e89693fdff",
+          "asm": "call    sub_48BB30",
+          "following": [
+            {
+              "ea": 4925338,
+              "size": 3,
+              "bytes": "83c404",
+              "asm": "add     esp, 4"
+            },
+            {
+              "ea": 4925341,
+              "size": 3,
+              "bytes": "83f802",
+              "asm": "cmp     eax, 2"
+            },
+            {
+              "ea": 4925344,
+              "size": 2,
+              "bytes": "7549",
+              "asm": "jnz     short loc_4B27EB"
+            },
+            {
+              "ea": 4925346,
+              "size": 2,
+              "bytes": "33f6",
+              "asm": "xor     esi, esi"
+            }
+          ],
+          "parent": 4925232,
+          "call_target": 4766512
+        },
+        {
+          "ea": 4925654,
+          "size": 5,
+          "bytes": "e85592fdff",
+          "asm": "call    sub_48BB30",
+          "following": [
+            {
+              "ea": 4925659,
+              "size": 3,
+              "bytes": "83c404",
+              "asm": "add     esp, 4"
+            },
+            {
+              "ea": 4925662,
+              "size": 3,
+              "bytes": "83f802",
+              "asm": "cmp     eax, 2"
+            },
+            {
+              "ea": 4925665,
+              "size": 2,
+              "bytes": "753e",
+              "asm": "jnz     short loc_4B2921"
+            },
+            {
+              "ea": 4925667,
+              "size": 2,
+              "bytes": "8bc7",
+              "asm": "mov     eax, edi"
+            }
+          ],
+          "parent": 4925232,
+          "call_target": 4766512
+        }
+      ],
+      "item_drag_entry_callback": {
+        "step": "IDE01",
+        "source_snapshot": "[#] 补齐物品拖动入口与回调合同",
+        "original_entry": "0x48bb30",
+        "original_end_exclusive": "0x48bb66",
+        "instruction_count": 21,
+        "code_bytes": 54,
+        "page_count": 1,
+        "direct_calls": 0,
+        "direct_call_targets": [],
+        "jumps": 6,
+        "returns": 4,
+        "original_incoming_references": [
+          {
+            "from": 4767091,
+            "type": 17,
+            "iscode": true,
+            "parent": 4766864
+          },
+          {
+            "from": 4767314,
+            "type": 17,
+            "iscode": true,
+            "parent": 4766864
+          },
+          {
+            "from": 4925333,
+            "type": 17,
+            "iscode": true,
+            "parent": 4925232
+          },
+          {
+            "from": 4925654,
+            "type": 17,
+            "iscode": true,
+            "parent": 4925232
+          }
+        ],
+        "native_signature": "std::int32_t Sub_48BB30(const std::int32_t slot)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原完整S32 1/2/3/0分类，回调两个消费保；另父完整消费/全ABI待"
+      }
     }
   ]
 }

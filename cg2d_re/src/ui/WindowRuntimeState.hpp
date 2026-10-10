@@ -898,7 +898,7 @@ std::int32_t Sub_48DD80(std::int32_t index, std::int32_t state); // 宠物详情
 std::int32_t Sub_48E430(std::int32_t index, std::int32_t state); // 宠物详细属性九按钮，9..13发送加点。
 std::int32_t Sub_492430(std::int32_t index, std::int32_t state); // 图鉴列表打开选中详情。
 std::int32_t Sub_492520(std::int32_t index, std::int32_t state); // 单行/十行滚动按钮。
-std::int32_t Sub_492800(std::int32_t index, std::int32_t state); // 拖动结果恰1时反求图鉴起点。
+std::int32_t Sub_492800(std::int32_t index, std::int32_t state); // WSP01：原950参数拖动换算；旧X代码1961。
 std::int32_t Sub_492840(std::int32_t index, std::int32_t state); // 图鉴滚轮，恒返0。
 std::int32_t Sub_492880(std::int32_t index, std::int32_t state); // 图鉴详情四种翻页与旋转。
 void Sub_493A70(std::int32_t offset); // 设置窗口登出侧栏裁剪与两按钮显隐。
@@ -957,7 +957,7 @@ std::int32_t Sub_477540(std::int32_t unusedIndex, std::int32_t state); // 草稿
 std::int32_t Sub_477600(std::int32_t index, std::int32_t state); // 六行称号选择/删除。
 std::int32_t Sub_477710(std::int32_t index, std::int32_t state); // 完整按钮分派与背景清模式。
 std::int32_t Sub_4782A0(std::int32_t unusedIndex, std::int32_t state); // 称号滚轮，恒返0。
-std::int32_t Sub_4782E0(std::int32_t index, std::int32_t state); // 拖动后反求称号页码。
+std::int32_t Sub_4782E0(std::int32_t index, std::int32_t state); // WSP01：原称号拖动页码；旧X代码1959。
 extern WindowInputPrototype gOwnProfileInputPrototype57CEE8; // 窗口58三项/正文的可写输入原型。
 extern WindowInputPrototype gOwnProfileInputPrototype57D118;
 extern WindowInputPrototype gOwnProfileInputPrototype57D348;
@@ -1394,7 +1394,7 @@ extern std::int32_t gProfileCategory1085DA0; // 478330生产，窗口59按0/1/2�
 extern std::int32_t gProfileScrollCA0444; // 窗口59六入口共用的S32页码。
 std::int32_t Sub_4C94F0(std::int32_t index, std::int32_t state); // 十行分类选择，写当前资料。
 std::int32_t Sub_4C96F0(std::int32_t index, std::int32_t state); // 窗口59四滚动/翻页按钮。
-std::int32_t Sub_4C9B80(std::int32_t index, std::int32_t state); // 拖动恰返1才更新页码。
+std::int32_t Sub_4C9B80(std::int32_t index, std::int32_t state); // WSP01：原分类count-10拖动换算；旧X代码1992。
 std::int32_t Sub_4C9BE0(std::int32_t unusedIndex, std::int32_t state); // 三模式滚轮，恒返0。
 std::int32_t Sub_4CB9E0(std::int32_t unusedValue); // 窗口64每帧完整刷新，返回1。
 std::uint32_t Sub_4CB9F0(); // 图号转换、八文本及256B四行提取，返回末行含NUL长度。
@@ -1599,7 +1599,7 @@ std::int32_t Sub_49EE60(std::int32_t index, std::int32_t state); // 滚轮像素
 std::int32_t Sub_49EEB0(std::int32_t index, std::int32_t state); // 取消提示/关闭及按钮三态。
 std::int32_t Sub_49EF60(std::int32_t index, std::int32_t state); // 实际选择回调，随后重读窗口关闭。
 void Sub_485110(WindowElement* element, std::int32_t state, std::uint32_t imageNo); // 元素外扩一像素悬停框。
-std::int32_t Sub_474270(WindowElement* element, std::int32_t maximum); // 像素位置反求数值位置。
+std::int32_t Sub_474270(WindowElement* element, std::int32_t maximum); // WSP01：原整数位置换算及两高度取样，借用字节载荷。
 std::int32_t Sub_4742C0(WindowElement* element, std::int32_t maximum, std::int32_t position);
 std::int32_t Sub_4743B0(
     WindowElement* element, std::int32_t position, std::int32_t maximum,
@@ -1656,7 +1656,7 @@ std::uint8_t Sub_476570(
 std::int32_t Sub_4A7B00();
 // CFD01：聊天点击创建与35槽焦点/当前窗context分离，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
 std::int32_t Sub_4A6EA0(std::int32_t unused, std::int32_t state); // 共用聊天点击，焦点取35槽、上下文写当前窗。
-std::int32_t Sub_4A80F0(std::int32_t index, std::int32_t state); // 拖动后按新日志数量反求回看偏移。
+std::int32_t Sub_4A80F0(std::int32_t index, std::int32_t state); // WSP01：日志数量前后分别取样，返回滚动结果。
 // CFD01：首窗口滚轮按原门槛和调用后新count发布scroll，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
 std::int32_t Sub_4A81D0(std::int32_t unused, std::int32_t state); // 首窗口滚轮，零日志只调整滑块Y。
 WindowInstance* FindWindowById_477490(std::int32_t id); // 顺序扫描71显示槽；原循环不跳过空槽。
@@ -1874,7 +1874,7 @@ std::int32_t Sub_4AEC30(std::int32_t index, std::int32_t state);
 std::int32_t Sub_4AED40(std::int32_t index, std::int32_t state);
 std::int32_t Sub_4AEE00(std::int32_t index, std::int32_t state);
 std::int32_t Sub_4AF000(std::int32_t index, std::int32_t state);
-std::int32_t Sub_4AF090(std::int32_t index, std::int32_t state);
+std::int32_t Sub_4AF090(std::int32_t index, std::int32_t state); // WSP01：滚动恰1时调用既有焦点页依赖。
 std::int32_t Sub_4AF0C0(std::int32_t unused, std::int32_t state);
 std::int32_t Sub_4AF100(std::int32_t index, std::int32_t state);
 std::int32_t Sub_4A3960(std::int32_t mask); // 当前职级-1才拒绝，再读同源权限。
@@ -1888,7 +1888,7 @@ WindowInstance* Sub_4A8330(); // 标旧聊天窗关闭、开另一窗后发布�
 void Sub_4CCED0(); // 窗口65十行序号/名称与活动输入刷新。
 std::int32_t Sub_4CC6E0(std::int32_t index, std::int32_t state); // 删除后重读行，再决定提示或编辑。
 std::int32_t Sub_4CC9B0(std::int32_t index, std::int32_t state); // 六个黑名单按钮及原消费差异。
-std::int32_t Sub_4CCE90(std::int32_t index, std::int32_t state); // 拖动恰1才更新页。
+std::int32_t Sub_4CCE90(std::int32_t index, std::int32_t state); // WSP01：原90参数拖动换算；旧X代码1999。
 login::YobiAction* Sub_4CD150(); // 生产窗口47的清空确认及两个真实回调。
 std::int32_t Sub_4CD1E0(std::int32_t unusedIndex, std::int32_t unusedState);
 std::int32_t Sub_4CD220(std::int32_t unusedIndex, std::int32_t unusedState);

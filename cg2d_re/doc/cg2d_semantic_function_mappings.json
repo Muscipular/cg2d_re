@@ -194870,7 +194870,7 @@
       "original_role": "Sub_4782E0",
       "original_end_exclusive": "0x478319",
       "instruction_count": 21,
-      "status": "已有真实UI回调；CAC08补完整原X代码身份及原型静态绑定，不造F或新增实现/完整软件门禁通过",
+      "status": "已有真实UI回调；CAC08补完整原X代码身份及原型静态绑定，不造F或新增实现/完整软件门禁通过；WSP01补滚动父正常传递合同，原无独立F/code_identity与正确body保持，完整生产消费/ABI/运行仍待",
       "sources": [
         {
           "path": "src/ui/WindowRuntime.cpp",
@@ -194885,6 +194885,20 @@
             "Sub_4782E0"
           ],
           "relationship": "十五32B原型逐项实读与当前真实callback绑定相符；不以IDA item head/显示行猜callback字段。"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4782E0"
+          ],
+          "relationship": "WSP01原滚动父结果传递/现场参数和真实返回，正确body保持，仅关联注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4782E0"
+          ],
+          "relationship": "WSP01原真实声明保持，仅合同注释"
         }
       ],
       "evidence_documents": [
@@ -194892,10 +194906,15 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-annotation",
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
-        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-baseline",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-decision",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-acceptance",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-source-state",
+        "doc/cg2d_window_scroll_position_evidence.json"
       ],
-      "boundary": "原代码片段位于既有X且没有函数owner；保原双S32栈槽及完整S32返回/本批实际RET、内部早退与调用。完整外层分派、所有字段生产/依赖语义、间接alias和owner正常寿命、SDK/机器ABI、窗口运行和全部文本验收未据本批通过；GBK/宋体等获批边界保持。",
-      "verification_level": "本批十一全代码269条868B、十五实际原型480B及当前唯一定义/现有合同有限静态原新定位；全部完整功能/门禁保持。",
+      "boundary": "原代码片段位于既有X且没有函数owner；保原双S32栈槽及完整S32返回/本批实际RET、内部早退与调用。完整外层分派、所有字段生产/依赖语义、间接alias和owner正常寿命、SDK/机器ABI、窗口运行和全部文本验收未据本批通过；GBK/宋体等获批边界保持。；WSP01三新完整F及四既有X代码体合162条431B、十二E8/三目标/十一跳八RET；四滚动原父由旧1959/1961/1992/1999的code_identity与CAC08/18/19完整字节/原型解析，不造F、不重采/登记/改变旧X用途，inventory_id空与48有界记录保持。六父均先滚动并保存完整S32结果：称号非零→元素2/58，图鉴恰1→元素2/950，聊天原statebit3→现场window与count/元素9→调用后fresh count减位置，预设恰1调用4A7B00弃返，资料恰1且mode0..2取原分类count-10/元素2，宠物恰1/元素2/90，原返回和六正确body保持；参数不等推定容量。共同474270原maximum<=0返0，当前height→前项height得span、第一次IDIV半步、之后data+8 S32差值、乘maximum/第二IDIV顺序保，仅一高度取样段明确。两个新父原型和31换算CALL内五/外26有据；七定义/七声明十四注释，两整源其余全文、共享子/类型/owner保，无新API/helper/字段/类型/保护/默认值/补零/钳制/容量限制/回滚/异常模型。三新语义F/三处置、INPUT/UIRUNTIME各三成员、两限定S零I；四旧无F和旧共享2260保历史追加合同来源，九任务open。完整间接绑定/26外父/所有页码模式计数和载荷生产消费/alias-owner寿命、机器ABI/优化后读取/实际拖动画面及全生命周期待，完整枚举/gates/六closure/总SPEC§10保持。",
+      "verification_level": "本批十一全代码269条868B、十五实际原型480B及当前唯一定义/现有合同有限静态原新定位；全部完整功能/门禁保持。；WSP01：pass，三新完整F及四旧完整X代码体162条431B、十二E8/三目标/十一跳八RET有据；六滚动父实际CALL归属四旧code_identity，两个新父原型及31位置换算入向内五/外26有据。原两个IDIV、非正maximum/真实S32结果与业务分支保持；两整源一高度取样段/十四注释精确重放，六父/共享子及其它源码类型保持；四旧无F身份不改，全生产消费/间接绑定owner、机器ABI/优化后读取及运行待",
       "code_identity": {
         "kind": "unassigned_range_fragment",
         "inventory_range_id": "X:00078293-00078320",
@@ -194916,6 +194935,16 @@
         ],
         "scope": "代码身份/原型静态接线纳管，不记完整F处置或软件I/W/S/R通过",
         "runtime_verified": false
+      },
+      "window_scroll_position": {
+        "step": "WSP01",
+        "source_snapshot": "[#] 补齐滚动结果与位置换算传递合同",
+        "code_identity_kept": true,
+        "normal_source_kept": true,
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "runtime_verified": false,
+        "full_lifecycle_closed": false
       }
     },
     {
@@ -194980,7 +195009,7 @@
       "original_role": "Sub_492800",
       "original_end_exclusive": "0x49283d",
       "instruction_count": 21,
-      "status": "已有真实UI回调；CAC08补完整原X代码身份及原型静态绑定，不造F或新增实现/完整软件门禁通过",
+      "status": "已有真实UI回调；CAC08补完整原X代码身份及原型静态绑定，不造F或新增实现/完整软件门禁通过；WSP01补滚动父正常传递合同，原无独立F/code_identity与正确body保持，完整生产消费/ABI/运行仍待",
       "sources": [
         {
           "path": "src/ui/WindowRuntime.cpp",
@@ -194995,6 +195024,20 @@
             "Sub_492800"
           ],
           "relationship": "十五32B原型逐项实读与当前真实callback绑定相符；不以IDA item head/显示行猜callback字段。"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_492800"
+          ],
+          "relationship": "WSP01原滚动父结果传递/现场参数和真实返回，正确body保持，仅关联注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_492800"
+          ],
+          "relationship": "WSP01原真实声明保持，仅合同注释"
         }
       ],
       "evidence_documents": [
@@ -195002,10 +195045,15 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-annotation",
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
-        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-baseline",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-decision",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-acceptance",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-source-state",
+        "doc/cg2d_window_scroll_position_evidence.json"
       ],
-      "boundary": "原代码片段位于既有X且没有函数owner；保原双S32栈槽及完整S32返回/本批实际RET、内部早退与调用。完整外层分派、所有字段生产/依赖语义、间接alias和owner正常寿命、SDK/机器ABI、窗口运行和全部文本验收未据本批通过；GBK/宋体等获批边界保持。",
-      "verification_level": "本批十一全代码269条868B、十五实际原型480B及当前唯一定义/现有合同有限静态原新定位；全部完整功能/门禁保持。",
+      "boundary": "原代码片段位于既有X且没有函数owner；保原双S32栈槽及完整S32返回/本批实际RET、内部早退与调用。完整外层分派、所有字段生产/依赖语义、间接alias和owner正常寿命、SDK/机器ABI、窗口运行和全部文本验收未据本批通过；GBK/宋体等获批边界保持。；WSP01三新完整F及四既有X代码体合162条431B、十二E8/三目标/十一跳八RET；四滚动原父由旧1959/1961/1992/1999的code_identity与CAC08/18/19完整字节/原型解析，不造F、不重采/登记/改变旧X用途，inventory_id空与48有界记录保持。六父均先滚动并保存完整S32结果：称号非零→元素2/58，图鉴恰1→元素2/950，聊天原statebit3→现场window与count/元素9→调用后fresh count减位置，预设恰1调用4A7B00弃返，资料恰1且mode0..2取原分类count-10/元素2，宠物恰1/元素2/90，原返回和六正确body保持；参数不等推定容量。共同474270原maximum<=0返0，当前height→前项height得span、第一次IDIV半步、之后data+8 S32差值、乘maximum/第二IDIV顺序保，仅一高度取样段明确。两个新父原型和31换算CALL内五/外26有据；七定义/七声明十四注释，两整源其余全文、共享子/类型/owner保，无新API/helper/字段/类型/保护/默认值/补零/钳制/容量限制/回滚/异常模型。三新语义F/三处置、INPUT/UIRUNTIME各三成员、两限定S零I；四旧无F和旧共享2260保历史追加合同来源，九任务open。完整间接绑定/26外父/所有页码模式计数和载荷生产消费/alias-owner寿命、机器ABI/优化后读取/实际拖动画面及全生命周期待，完整枚举/gates/六closure/总SPEC§10保持。",
+      "verification_level": "本批十一全代码269条868B、十五实际原型480B及当前唯一定义/现有合同有限静态原新定位；全部完整功能/门禁保持。；WSP01：pass，三新完整F及四旧完整X代码体162条431B、十二E8/三目标/十一跳八RET有据；六滚动父实际CALL归属四旧code_identity，两个新父原型及31位置换算入向内五/外26有据。原两个IDIV、非正maximum/真实S32结果与业务分支保持；两整源一高度取样段/十四注释精确重放，六父/共享子及其它源码类型保持；四旧无F身份不改，全生产消费/间接绑定owner、机器ABI/优化后读取及运行待",
       "code_identity": {
         "kind": "unassigned_range_fragment",
         "inventory_range_id": "X:000927E8-00092840",
@@ -195026,6 +195074,16 @@
         ],
         "scope": "代码身份/原型静态接线纳管，不记完整F处置或软件I/W/S/R通过",
         "runtime_verified": false
+      },
+      "window_scroll_position": {
+        "step": "WSP01",
+        "source_snapshot": "[#] 补齐滚动结果与位置换算传递合同",
+        "code_identity_kept": true,
+        "normal_source_kept": true,
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "runtime_verified": false,
+        "full_lifecycle_closed": false
       }
     },
     {
@@ -196205,7 +196263,7 @@
       "original_role": "Sub_4C9B80",
       "original_end_exclusive": "0x4c9bdb",
       "instruction_count": 32,
-      "status": "已有真实UI回调；CAC18补完整原X代码身份及原型静态绑定，不造F或新增实现/完整软件门禁通过",
+      "status": "已有真实UI回调；CAC18补完整原X代码身份及原型静态绑定，不造F或新增实现/完整软件门禁通过；WSP01补滚动父正常传递合同，原无独立F/code_identity与正确body保持，完整生产消费/ABI/运行仍待",
       "sources": [
         {
           "path": "src/ui/WindowRuntime.cpp",
@@ -196220,6 +196278,20 @@
             "Sub_4C9B80"
           ],
           "relationship": "八个32B原型逐项实读与当前真实callback绑定相符；不以IDA item head或显示行猜callback字段。"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C9B80"
+          ],
+          "relationship": "WSP01原滚动父结果传递/现场参数和真实返回，正确body保持，仅关联注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4C9B80"
+          ],
+          "relationship": "WSP01原真实声明保持，仅合同注释"
         }
       ],
       "evidence_documents": [
@@ -196227,10 +196299,15 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-annotation",
         "doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-decision",
         "doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-source-state",
-        "doc/cg2d_unassigned_range_sixth_batch_evidence.json"
+        "doc/cg2d_unassigned_range_sixth_batch_evidence.json",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-baseline",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-decision",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-acceptance",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-source-state",
+        "doc/cg2d_window_scroll_position_evidence.json"
       ],
-      "boundary": "原代码片段位于既有X且没有IDA函数owner；保原双S32栈槽与完整S32返回/实际RET、内部早退及调用。完整外层分派、字段生产/依赖语义、间接alias和正常owner寿命、SDK/机器ABI、窗口运行与完整成员枚举未据本批通过；GBK/宋体等获批边界保持。",
-      "verification_level": "本批三段全代码142条423B、八个实际原型256B与当前唯一定义/现有合同有限静态原新定位；全部完整功能/门禁保持。",
+      "boundary": "原代码片段位于既有X且没有IDA函数owner；保原双S32栈槽与完整S32返回/实际RET、内部早退及调用。完整外层分派、字段生产/依赖语义、间接alias和正常owner寿命、SDK/机器ABI、窗口运行与完整成员枚举未据本批通过；GBK/宋体等获批边界保持。；WSP01三新完整F及四既有X代码体合162条431B、十二E8/三目标/十一跳八RET；四滚动原父由旧1959/1961/1992/1999的code_identity与CAC08/18/19完整字节/原型解析，不造F、不重采/登记/改变旧X用途，inventory_id空与48有界记录保持。六父均先滚动并保存完整S32结果：称号非零→元素2/58，图鉴恰1→元素2/950，聊天原statebit3→现场window与count/元素9→调用后fresh count减位置，预设恰1调用4A7B00弃返，资料恰1且mode0..2取原分类count-10/元素2，宠物恰1/元素2/90，原返回和六正确body保持；参数不等推定容量。共同474270原maximum<=0返0，当前height→前项height得span、第一次IDIV半步、之后data+8 S32差值、乘maximum/第二IDIV顺序保，仅一高度取样段明确。两个新父原型和31换算CALL内五/外26有据；七定义/七声明十四注释，两整源其余全文、共享子/类型/owner保，无新API/helper/字段/类型/保护/默认值/补零/钳制/容量限制/回滚/异常模型。三新语义F/三处置、INPUT/UIRUNTIME各三成员、两限定S零I；四旧无F和旧共享2260保历史追加合同来源，九任务open。完整间接绑定/26外父/所有页码模式计数和载荷生产消费/alias-owner寿命、机器ABI/优化后读取/实际拖动画面及全生命周期待，完整枚举/gates/六closure/总SPEC§10保持。",
+      "verification_level": "本批三段全代码142条423B、八个实际原型256B与当前唯一定义/现有合同有限静态原新定位；全部完整功能/门禁保持。；WSP01：pass，三新完整F及四旧完整X代码体162条431B、十二E8/三目标/十一跳八RET有据；六滚动父实际CALL归属四旧code_identity，两个新父原型及31位置换算入向内五/外26有据。原两个IDIV、非正maximum/真实S32结果与业务分支保持；两整源一高度取样段/十四注释精确重放，六父/共享子及其它源码类型保持；四旧无F身份不改，全生产消费/间接绑定owner、机器ABI/优化后读取及运行待",
       "code_identity": {
         "kind": "unassigned_range_fragment",
         "inventory_range_id": "X:000C9B64-000C9BE0",
@@ -196251,6 +196328,16 @@
         ],
         "scope": "代码身份/原型静态接线纳管，不记完整F处置或软件I/W/S/R通过",
         "runtime_verified": false
+      },
+      "window_scroll_position": {
+        "step": "WSP01",
+        "source_snapshot": "[#] 补齐滚动结果与位置换算传递合同",
+        "code_identity_kept": true,
+        "normal_source_kept": true,
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "runtime_verified": false,
+        "full_lifecycle_closed": false
       }
     },
     {
@@ -196470,7 +196557,7 @@
       "original_role": "Sub_4CCE90",
       "original_end_exclusive": "0x4cceca",
       "instruction_count": 21,
-      "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过",
+      "status": "已有真实代码；CAC19补完整X片段身份与原表来源，不造F或新增软件/运行通过；WSP01补滚动父正常传递合同，原无独立F/code_identity与正确body保持，完整生产消费/ABI/运行仍待",
       "sources": [
         {
           "path": "src/ui/WindowRuntime.cpp",
@@ -196485,6 +196572,20 @@
             "Sub_4CCE90"
           ],
           "relationship": "五个原32B记录中对应项与当前六数值/source/callback相符；仅本原型静态绑定，不代完整窗口分派/数据/寿命。"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4CCE90"
+          ],
+          "relationship": "WSP01原滚动父结果传递/现场参数和真实返回，正确body保持，仅关联注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4CCE90"
+          ],
+          "relationship": "WSP01原真实声明保持，仅合同注释"
         }
       ],
       "evidence_documents": [
@@ -196492,10 +196593,15 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
         "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
         "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
-        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-baseline",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-decision",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-acceptance",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-source-state",
+        "doc/cg2d_window_scroll_position_evidence.json"
       ],
-      "boundary": "原代码没有IDA函数owner但完整字节/实际RET或尾跳已证；按现有各自签名/返回/动作及RNG顺序有限对照，不将三UI原型、旧选择身份和十八旧键来源混称新端真实分派。完整依赖/生产、未知间接alias/正常owner寿命、SDK/机器ABI与运行仍未闭。",
-      "verification_level": "22段266条877B、五原型160B/十八键记录144B/一旧选择20B与现定义有限静态；完整成员/所有门禁保持。",
+      "boundary": "原代码没有IDA函数owner但完整字节/实际RET或尾跳已证；按现有各自签名/返回/动作及RNG顺序有限对照，不将三UI原型、旧选择身份和十八旧键来源混称新端真实分派。完整依赖/生产、未知间接alias/正常owner寿命、SDK/机器ABI与运行仍未闭。；WSP01三新完整F及四既有X代码体合162条431B、十二E8/三目标/十一跳八RET；四滚动原父由旧1959/1961/1992/1999的code_identity与CAC08/18/19完整字节/原型解析，不造F、不重采/登记/改变旧X用途，inventory_id空与48有界记录保持。六父均先滚动并保存完整S32结果：称号非零→元素2/58，图鉴恰1→元素2/950，聊天原statebit3→现场window与count/元素9→调用后fresh count减位置，预设恰1调用4A7B00弃返，资料恰1且mode0..2取原分类count-10/元素2，宠物恰1/元素2/90，原返回和六正确body保持；参数不等推定容量。共同474270原maximum<=0返0，当前height→前项height得span、第一次IDIV半步、之后data+8 S32差值、乘maximum/第二IDIV顺序保，仅一高度取样段明确。两个新父原型和31换算CALL内五/外26有据；七定义/七声明十四注释，两整源其余全文、共享子/类型/owner保，无新API/helper/字段/类型/保护/默认值/补零/钳制/容量限制/回滚/异常模型。三新语义F/三处置、INPUT/UIRUNTIME各三成员、两限定S零I；四旧无F和旧共享2260保历史追加合同来源，九任务open。完整间接绑定/26外父/所有页码模式计数和载荷生产消费/alias-owner寿命、机器ABI/优化后读取/实际拖动画面及全生命周期待，完整枚举/gates/六closure/总SPEC§10保持。",
+      "verification_level": "22段266条877B、五原型160B/十八键记录144B/一旧选择20B与现定义有限静态；完整成员/所有门禁保持。；WSP01：pass，三新完整F及四旧完整X代码体162条431B、十二E8/三目标/十一跳八RET有据；六滚动父实际CALL归属四旧code_identity，两个新父原型及31位置换算入向内五/外26有据。原两个IDIV、非正maximum/真实S32结果与业务分支保持；两整源一高度取样段/十四注释精确重放，六父/共享子及其它源码类型保持；四旧无F身份不改，全生产消费/间接绑定owner、机器ABI/优化后读取及运行待",
       "code_identity": {
         "kind": "unassigned_range_fragment",
         "inventory_range_id": "X:000CCE6B-000CCED0",
@@ -196517,6 +196623,16 @@
         "original_key_records": [],
         "scope": "原X代码身份/原表来源纳管，不新增完整F处置或软件I/W/S/R通过",
         "runtime_verified": false
+      },
+      "window_scroll_position": {
+        "step": "WSP01",
+        "source_snapshot": "[#] 补齐滚动结果与位置换算传递合同",
+        "code_identity_kept": true,
+        "normal_source_kept": true,
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "runtime_verified": false,
+        "full_lifecycle_closed": false
       }
     },
     {
@@ -215127,7 +215243,7 @@
           "end_exclusive": "0x474270"
         }
       ],
-      "status": "WSB01完整原根纳管，滚动三个取样阶段已明确，正确零回调保持；限定S/全生产消费owner、机器ABI与运行待",
+      "status": "WSB01完整原根纳管，滚动三个取样阶段已明确，正确零回调保持；限定S/全生产消费owner、机器ABI与运行待；WSP01六实际入向原代码来源明确，四旧X身份复用；原IDA owner为空观察保，完整间接/owner/运行待",
       "sources": [
         {
           "path": "src/ui/WindowRuntime.cpp",
@@ -215142,6 +215258,13 @@
             "Sub_4741A0"
           ],
           "relationship": "WSB01真实声明/参数返回保持，仅合同注释"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4741A0"
+          ],
+          "relationship": "WSP01六父原CALL结果传递有据，四旧X来源按code_identity解析；共享滚动body不改"
         }
       ],
       "evidence_documents": [
@@ -215149,10 +215272,15 @@
         "doc/cg2d_window_scroll_callback_spec.md#window-scroll-decision",
         "doc/cg2d_window_scroll_callback_spec.md#window-scroll-acceptance",
         "doc/cg2d_window_scroll_callback_spec.md#window-scroll-source-state",
-        "doc/cg2d_window_scroll_callback_evidence.json"
+        "doc/cg2d_window_scroll_callback_evidence.json",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-baseline",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-decision",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-acceptance",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-source-state",
+        "doc/cg2d_window_scroll_position_evidence.json"
       ],
-      "boundary": "WSB01两个完整原根76条211B/三页、一实际E8到401E60/六跳两RET，七实际CALL及十九代码地址发布有据；四滚动入向原父未归属，保留未知不猜。数据xref为整数组头，按实际item字节与偏移核58项57536B，13项16个32B原型回调槽含滚动地址（15type4/1type1），58项1125槽含零回调地址，只是已知引用项，不代完整间接闭包。滚动原一次data字节地址持样、低BYTE bit1/W32零及3发布、statebit3→结果1、mouseY差后前项height/2更新保持；下界先前项y→当前y并同样本写，上界height→y→前项height→前项y，差值当前y→前项y，各阶段重新取现场数组并写最初data+8，末statebit3零才清原W32 bit1。现有std::byte/memcpy与type1/type4+0/+8关系保持，不强转异型或另造owner。滚动根三个阶段/三段源码及四关联注释，两整源其它全文和三个结构保持；零回调33C0/C3本来只返0，正确body不改，仅限当前窗口签名，不宣所有原调用端/ABI。旧创建/鼠标父/CryptInt身份保持，无新API/helper/类型/字段/保护/默认值/补零/钳制/容量限制/回滚/异常模型，原上下界业务调整保。两新语义F/两adapted处置、INPUT/UIRUNTIME各两成员/两限定S零I/九任务open；全父/间接绑定/表和跨类型载荷生产消费/alias-owner寿命、机器ABI/优化后读取/真实滚动点击画面与全生命周期待，完整枚举/gates/六closure/总SPEC§10保持。",
-      "verification_level": "pass，两完整原根76条211B/三页、一实际E8/六跳两RET、七CALL及十九代码地址发布有据；58整数组57536B内滚动13项/16原型与零回调1125槽有实际偏移，四滚动原父未归属不猜。三个阶段/三段与四注释精确重放，两整源其余全文及三个结构、低BYTE/W32 flags/原载荷地址/零回调body保持；全生产消费/间接绑定owner、机器ABI/优化后读取与运行待",
+      "boundary": "WSB01两个完整原根76条211B/三页、一实际E8到401E60/六跳两RET，七实际CALL及十九代码地址发布有据；四滚动入向原父未归属，保留未知不猜。数据xref为整数组头，按实际item字节与偏移核58项57536B，13项16个32B原型回调槽含滚动地址（15type4/1type1），58项1125槽含零回调地址，只是已知引用项，不代完整间接闭包。滚动原一次data字节地址持样、低BYTE bit1/W32零及3发布、statebit3→结果1、mouseY差后前项height/2更新保持；下界先前项y→当前y并同样本写，上界height→y→前项height→前项y，差值当前y→前项y，各阶段重新取现场数组并写最初data+8，末statebit3零才清原W32 bit1。现有std::byte/memcpy与type1/type4+0/+8关系保持，不强转异型或另造owner。滚动根三个阶段/三段源码及四关联注释，两整源其它全文和三个结构保持；零回调33C0/C3本来只返0，正确body不改，仅限当前窗口签名，不宣所有原调用端/ABI。旧创建/鼠标父/CryptInt身份保持，无新API/helper/类型/字段/保护/默认值/补零/钳制/容量限制/回滚/异常模型，原上下界业务调整保。两新语义F/两adapted处置、INPUT/UIRUNTIME各两成员/两限定S零I/九任务open；全父/间接绑定/表和跨类型载荷生产消费/alias-owner寿命、机器ABI/优化后读取/真实滚动点击画面与全生命周期待，完整枚举/gates/六closure/总SPEC§10保持。；WSP01三新完整F及四既有X代码体合162条431B、十二E8/三目标/十一跳八RET；四滚动原父由旧1959/1961/1992/1999的code_identity与CAC08/18/19完整字节/原型解析，不造F、不重采/登记/改变旧X用途，inventory_id空与48有界记录保持。六父均先滚动并保存完整S32结果：称号非零→元素2/58，图鉴恰1→元素2/950，聊天原statebit3→现场window与count/元素9→调用后fresh count减位置，预设恰1调用4A7B00弃返，资料恰1且mode0..2取原分类count-10/元素2，宠物恰1/元素2/90，原返回和六正确body保持；参数不等推定容量。共同474270原maximum<=0返0，当前height→前项height得span、第一次IDIV半步、之后data+8 S32差值、乘maximum/第二IDIV顺序保，仅一高度取样段明确。两个新父原型和31换算CALL内五/外26有据；七定义/七声明十四注释，两整源其余全文、共享子/类型/owner保，无新API/helper/字段/类型/保护/默认值/补零/钳制/容量限制/回滚/异常模型。三新语义F/三处置、INPUT/UIRUNTIME各三成员、两限定S零I；四旧无F和旧共享2260保历史追加合同来源，九任务open。完整间接绑定/26外父/所有页码模式计数和载荷生产消费/alias-owner寿命、机器ABI/优化后读取/实际拖动画面及全生命周期待，完整枚举/gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，两完整原根76条211B/三页、一实际E8/六跳两RET、七CALL及十九代码地址发布有据；58整数组57536B内滚动13项/16原型与零回调1125槽有实际偏移，四滚动原父未归属不猜。三个阶段/三段与四注释精确重放，两整源其余全文及三个结构、低BYTE/W32 flags/原载荷地址/零回调body保持；全生产消费/间接绑定owner、机器ABI/优化后读取与运行待；WSP01：pass，三新完整F及四旧完整X代码体162条431B、十二E8/三目标/十一跳八RET有据；六滚动父实际CALL归属四旧code_identity，两个新父原型及31位置换算入向内五/外26有据。原两个IDIV、非正maximum/真实S32结果与业务分支保持；两整源一高度取样段/十四注释精确重放，六父/共享子及其它源码类型保持；四旧无F身份不改，全生产消费/间接绑定owner、机器ABI/优化后读取及运行待",
       "original_incoming": [
         {
           "ea": 4686571,
@@ -215233,6 +215361,74 @@
         "generated_machine_reads_verified": false,
         "full_lifecycle_closed": false,
         "runtime_verified": false
+      },
+      "scroll_position_parents": {
+        "step": "WSP01",
+        "bounded_code_sources": [
+          {
+            "call_ea": 4686571,
+            "semantic_index": 1959,
+            "code_identity": {
+              "kind": "unassigned_range_fragment",
+              "inventory_range_id": "X:00078293-00078320",
+              "start": "0x4782e0",
+              "end_exclusive": "0x478319",
+              "evidence_refs": [
+                "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+                "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+              ]
+            },
+            "evidence_file": "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+          },
+          {
+            "call_ea": 4794379,
+            "semantic_index": 1961,
+            "code_identity": {
+              "kind": "unassigned_range_fragment",
+              "inventory_range_id": "X:000927E8-00092840",
+              "start": "0x492800",
+              "end_exclusive": "0x49283d",
+              "evidence_refs": [
+                "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+                "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+              ]
+            },
+            "evidence_file": "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+          },
+          {
+            "call_ea": 5020555,
+            "semantic_index": 1992,
+            "code_identity": {
+              "kind": "unassigned_range_fragment",
+              "inventory_range_id": "X:000C9B64-000C9BE0",
+              "start": "0x4c9b80",
+              "end_exclusive": "0x4c9bdb",
+              "evidence_refs": [
+                "doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-source-state",
+                "doc/cg2d_unassigned_range_sixth_batch_evidence.json"
+              ]
+            },
+            "evidence_file": "doc/cg2d_unassigned_range_sixth_batch_evidence.json"
+          },
+          {
+            "call_ea": 5033627,
+            "semantic_index": 1999,
+            "code_identity": {
+              "kind": "unassigned_range_fragment",
+              "inventory_range_id": "X:000CCE6B-000CCED0",
+              "start": "0x4cce90",
+              "end_exclusive": "0x4cceca",
+              "evidence_refs": [
+                "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+                "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+              ]
+            },
+            "evidence_file": "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+          }
+        ],
+        "shared_body_kept": true,
+        "ida_missing_function_owner_observation_kept": true,
+        "runtime_verified": false
       }
     },
     {
@@ -215300,6 +215496,463 @@
         "normal_remaining_source_kept": true,
         "source_patch_group_count": 0,
         "source_changed_point_count": 0,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4a80f0",
+      "inventory_id": "F:000A80F0",
+      "original_role": "原聊天拖动日志偏移生产",
+      "original_end_exclusive": "0x4a813c",
+      "instruction_count": 26,
+      "function_chunks": [
+        {
+          "start": "0x4a80f0",
+          "end_exclusive": "0x4a813c"
+        }
+      ],
+      "status": "WSP01完整原根纳管，六父传递及一高度取样已明确；原正常body/分支保持；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4A80F0"
+          ],
+          "relationship": "WSP01原statebit3与日志前后count/现场window取样，正确body保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4A80F0"
+          ],
+          "relationship": "WSP01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-baseline",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-decision",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-acceptance",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-source-state",
+        "doc/cg2d_window_scroll_position_evidence.json"
+      ],
+      "boundary": "WSP01三新完整F及四既有X代码体合162条431B、十二E8/三目标/十一跳八RET；四滚动原父由旧1959/1961/1992/1999的code_identity与CAC08/18/19完整字节/原型解析，不造F、不重采/登记/改变旧X用途，inventory_id空与48有界记录保持。六父均先滚动并保存完整S32结果：称号非零→元素2/58，图鉴恰1→元素2/950，聊天原statebit3→现场window与count/元素9→调用后fresh count减位置，预设恰1调用4A7B00弃返，资料恰1且mode0..2取原分类count-10/元素2，宠物恰1/元素2/90，原返回和六正确body保持；参数不等推定容量。共同474270原maximum<=0返0，当前height→前项height得span、第一次IDIV半步、之后data+8 S32差值、乘maximum/第二IDIV顺序保，仅一高度取样段明确。两个新父原型和31换算CALL内五/外26有据；七定义/七声明十四注释，两整源其余全文、共享子/类型/owner保，无新API/helper/字段/类型/保护/默认值/补零/钳制/容量限制/回滚/异常模型。三新语义F/三处置、INPUT/UIRUNTIME各三成员、两限定S零I；四旧无F和旧共享2260保历史追加合同来源，九任务open。完整间接绑定/26外父/所有页码模式计数和载荷生产消费/alias-owner寿命、机器ABI/优化后读取/实际拖动画面及全生命周期待，完整枚举/gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，三新完整F及四旧完整X代码体162条431B、十二E8/三目标/十一跳八RET有据；六滚动父实际CALL归属四旧code_identity，两个新父原型及31位置换算入向内五/外26有据。原两个IDIV、非正maximum/真实S32结果与业务分支保持；两整源一高度取样段/十四注释精确重放，六父/共享子及其它源码类型保持；四旧无F身份不改，全生产消费/间接绑定owner、机器ABI/优化后读取及运行待",
+      "original_incoming": [],
+      "window_scroll_position": {
+        "step": "WSP01",
+        "source_snapshot": "[#] 补齐滚动结果与位置换算传递合同",
+        "original_end_exclusive": "0x4a813c",
+        "original_instruction_count": 26,
+        "original_code_bytes": 76,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "jump_count": 1,
+        "return_count": 1,
+        "native_signature": "std::int32_t Sub_4A80F0(const std::int32_t index, const std::int32_t state)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4A80F0",
+        "normal_remaining_source_kept": true,
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4af090",
+      "inventory_id": "F:000AF090",
+      "original_role": "原预设输入拖动焦点触发",
+      "original_end_exclusive": "0x4af0b3",
+      "instruction_count": 14,
+      "function_chunks": [
+        {
+          "start": "0x4af090",
+          "end_exclusive": "0x4af0b3"
+        }
+      ],
+      "status": "WSP01完整原根纳管，六父传递及一高度取样已明确；原正常body/分支保持；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4AF090"
+          ],
+          "relationship": "WSP01恰1触发既有焦点子并返回原结果，正确body保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4AF090"
+          ],
+          "relationship": "WSP01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-baseline",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-decision",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-acceptance",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-source-state",
+        "doc/cg2d_window_scroll_position_evidence.json"
+      ],
+      "boundary": "WSP01三新完整F及四既有X代码体合162条431B、十二E8/三目标/十一跳八RET；四滚动原父由旧1959/1961/1992/1999的code_identity与CAC08/18/19完整字节/原型解析，不造F、不重采/登记/改变旧X用途，inventory_id空与48有界记录保持。六父均先滚动并保存完整S32结果：称号非零→元素2/58，图鉴恰1→元素2/950，聊天原statebit3→现场window与count/元素9→调用后fresh count减位置，预设恰1调用4A7B00弃返，资料恰1且mode0..2取原分类count-10/元素2，宠物恰1/元素2/90，原返回和六正确body保持；参数不等推定容量。共同474270原maximum<=0返0，当前height→前项height得span、第一次IDIV半步、之后data+8 S32差值、乘maximum/第二IDIV顺序保，仅一高度取样段明确。两个新父原型和31换算CALL内五/外26有据；七定义/七声明十四注释，两整源其余全文、共享子/类型/owner保，无新API/helper/字段/类型/保护/默认值/补零/钳制/容量限制/回滚/异常模型。三新语义F/三处置、INPUT/UIRUNTIME各三成员、两限定S零I；四旧无F和旧共享2260保历史追加合同来源，九任务open。完整间接绑定/26外父/所有页码模式计数和载荷生产消费/alias-owner寿命、机器ABI/优化后读取/实际拖动画面及全生命周期待，完整枚举/gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，三新完整F及四旧完整X代码体162条431B、十二E8/三目标/十一跳八RET有据；六滚动父实际CALL归属四旧code_identity，两个新父原型及31位置换算入向内五/外26有据。原两个IDIV、非正maximum/真实S32结果与业务分支保持；两整源一高度取样段/十四注释精确重放，六父/共享子及其它源码类型保持；四旧无F身份不改，全生产消费/间接绑定owner、机器ABI/优化后读取及运行待",
+      "original_incoming": [],
+      "window_scroll_position": {
+        "step": "WSP01",
+        "source_snapshot": "[#] 补齐滚动结果与位置换算传递合同",
+        "original_end_exclusive": "0x4af0b3",
+        "original_instruction_count": 14,
+        "original_code_bytes": 35,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "jump_count": 1,
+        "return_count": 1,
+        "native_signature": "std::int32_t Sub_4AF090(const std::int32_t index, const std::int32_t state)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4AF090",
+        "normal_remaining_source_kept": true,
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x474270",
+      "inventory_id": "F:00074270",
+      "original_role": "原滚动载荷整数位置换算",
+      "original_end_exclusive": "0x4742a5",
+      "instruction_count": 27,
+      "function_chunks": [
+        {
+          "start": "0x474270",
+          "end_exclusive": "0x4742a5"
+        }
+      ],
+      "status": "WSP01完整原根纳管，六父传递及一高度取样已明确；原正常body/分支保持；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_474270"
+          ],
+          "relationship": "WSP01仅当前/前项height明确取样，原整数换算/data+8与返回保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_474270"
+          ],
+          "relationship": "WSP01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-baseline",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-decision",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-acceptance",
+        "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-source-state",
+        "doc/cg2d_window_scroll_position_evidence.json"
+      ],
+      "boundary": "WSP01三新完整F及四既有X代码体合162条431B、十二E8/三目标/十一跳八RET；四滚动原父由旧1959/1961/1992/1999的code_identity与CAC08/18/19完整字节/原型解析，不造F、不重采/登记/改变旧X用途，inventory_id空与48有界记录保持。六父均先滚动并保存完整S32结果：称号非零→元素2/58，图鉴恰1→元素2/950，聊天原statebit3→现场window与count/元素9→调用后fresh count减位置，预设恰1调用4A7B00弃返，资料恰1且mode0..2取原分类count-10/元素2，宠物恰1/元素2/90，原返回和六正确body保持；参数不等推定容量。共同474270原maximum<=0返0，当前height→前项height得span、第一次IDIV半步、之后data+8 S32差值、乘maximum/第二IDIV顺序保，仅一高度取样段明确。两个新父原型和31换算CALL内五/外26有据；七定义/七声明十四注释，两整源其余全文、共享子/类型/owner保，无新API/helper/字段/类型/保护/默认值/补零/钳制/容量限制/回滚/异常模型。三新语义F/三处置、INPUT/UIRUNTIME各三成员、两限定S零I；四旧无F和旧共享2260保历史追加合同来源，九任务open。完整间接绑定/26外父/所有页码模式计数和载荷生产消费/alias-owner寿命、机器ABI/优化后读取/实际拖动画面及全生命周期待，完整枚举/gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，三新完整F及四旧完整X代码体162条431B、十二E8/三目标/十一跳八RET有据；六滚动父实际CALL归属四旧code_identity，两个新父原型及31位置换算入向内五/外26有据。原两个IDIV、非正maximum/真实S32结果与业务分支保持；两整源一高度取样段/十四注释精确重放，六父/共享子及其它源码类型保持；四旧无F身份不改，全生产消费/间接绑定owner、机器ABI/优化后读取及运行待",
+      "original_incoming": [
+        {
+          "target": 4670064,
+          "ea": 4686600,
+          "parent": null,
+          "type": 17,
+          "bytes": "e863bfffff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 4696074,
+          "parent": 4695968,
+          "type": 17,
+          "bytes": "e8619affff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 4794412,
+          "parent": null,
+          "type": 17,
+          "bytes": "e83f1afeff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 4805158,
+          "parent": 4805056,
+          "type": 17,
+          "bytes": "e845f0fdff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 4844266,
+          "parent": 4844192,
+          "type": 17,
+          "bytes": "e88157fdff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 4846084,
+          "parent": 4845984,
+          "type": 17,
+          "bytes": "e86750fdff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 4864125,
+          "parent": 4864032,
+          "type": 17,
+          "bytes": "e8ee09fdff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 4864159,
+          "parent": 4864032,
+          "type": 17,
+          "bytes": "e8cc09fdff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 4866491,
+          "parent": 4866464,
+          "type": 17,
+          "bytes": "e8b000fdff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 4882721,
+          "parent": 4882672,
+          "type": 17,
+          "bytes": "e84ac1fcff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 4886986,
+          "parent": 4886880,
+          "type": 17,
+          "bytes": "e8a1b0fcff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 4887026,
+          "parent": 4886880,
+          "type": 17,
+          "bytes": "e879b0fcff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 4905541,
+          "parent": 4905456,
+          "type": 17,
+          "bytes": "e82668fcff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 4913915,
+          "parent": 4913888,
+          "type": 17,
+          "bytes": "e87047fcff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 4920040,
+          "parent": 4919904,
+          "type": 17,
+          "bytes": "e8832ffcff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 4935186,
+          "parent": 4935152,
+          "type": 17,
+          "bytes": "e859f4fbff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 4954204,
+          "parent": 4952848,
+          "type": 17,
+          "bytes": "e80faafbff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 4979144,
+          "parent": 4979024,
+          "type": 17,
+          "bytes": "e8a348fbff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 4979290,
+          "parent": 4979024,
+          "type": 17,
+          "bytes": "e81148fbff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 4979397,
+          "parent": 4979024,
+          "type": 17,
+          "bytes": "e8a647fbff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 4988543,
+          "parent": 4987984,
+          "type": 17,
+          "bytes": "e8ec23fbff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 4997423,
+          "parent": 4996864,
+          "type": 17,
+          "bytes": "e83c01fbff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 5020618,
+          "parent": null,
+          "type": 17,
+          "bytes": "e8a1a6faff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 5030803,
+          "parent": 5030720,
+          "type": 17,
+          "bytes": "e8d87efaff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 5033657,
+          "parent": null,
+          "type": 17,
+          "bytes": "e8b273faff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 5035612,
+          "parent": 5035248,
+          "type": 17,
+          "bytes": "e80f6cfaff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 5035643,
+          "parent": 5035248,
+          "type": 17,
+          "bytes": "e8f06bfaff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 5035691,
+          "parent": 5035248,
+          "type": 17,
+          "bytes": "e8c06bfaff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 5036466,
+          "parent": 5035248,
+          "type": 17,
+          "bytes": "e8b968faff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 5036497,
+          "parent": 5035248,
+          "type": 17,
+          "bytes": "e89a68faff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        },
+        {
+          "target": 4670064,
+          "ea": 5036545,
+          "parent": 5035248,
+          "type": 17,
+          "bytes": "e86a68faff",
+          "asm": "call    sub_474270",
+          "actual_call_target": 4670064
+        }
+      ],
+      "window_scroll_position": {
+        "step": "WSP01",
+        "source_snapshot": "[#] 补齐滚动结果与位置换算传递合同",
+        "original_end_exclusive": "0x4742a5",
+        "original_instruction_count": 27,
+        "original_code_bytes": 53,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 1,
+        "return_count": 2,
+        "native_signature": "std::int32_t Sub_474270(WindowElement* const element, const std::int32_t maximum)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_474270",
+        "normal_remaining_source_kept": true,
+        "source_patch_group_count": 1,
+        "source_changed_point_count": 1,
         "generated_machine_reads_verified": false,
         "full_lifecycle_closed": false,
         "runtime_verified": false

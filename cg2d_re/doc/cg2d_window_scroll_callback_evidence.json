@@ -5255,5 +5255,76 @@
     "maintenance_clause": "；WSB01滚动和零回调完整根纳管，上下界/差值三段及整数组引用偏移有据，零回调/三个结构/既有父保持；两新F/两限定S零I/九任务open，所有完整门禁保持。",
     "checklist_clause": "；WSB01滚动/零回调两根纳管，三取样阶段/限定S/零I",
     "checklist_link": "；[WSB01](../doc/cg2d_window_scroll_callback_spec.md#window-scroll-source-state)"
+  },
+  "followup_code_parent_resolution": {
+    "step": "WSP01",
+    "parents": [
+      {
+        "call_ea": 4686571,
+        "semantic_index": 1959,
+        "code_identity": {
+          "kind": "unassigned_range_fragment",
+          "inventory_range_id": "X:00078293-00078320",
+          "start": "0x4782e0",
+          "end_exclusive": "0x478319",
+          "evidence_refs": [
+            "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+            "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+          ]
+        },
+        "evidence_file": "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      },
+      {
+        "call_ea": 4794379,
+        "semantic_index": 1961,
+        "code_identity": {
+          "kind": "unassigned_range_fragment",
+          "inventory_range_id": "X:000927E8-00092840",
+          "start": "0x492800",
+          "end_exclusive": "0x49283d",
+          "evidence_refs": [
+            "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
+            "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+          ]
+        },
+        "evidence_file": "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+      },
+      {
+        "call_ea": 5020555,
+        "semantic_index": 1992,
+        "code_identity": {
+          "kind": "unassigned_range_fragment",
+          "inventory_range_id": "X:000C9B64-000C9BE0",
+          "start": "0x4c9b80",
+          "end_exclusive": "0x4c9bdb",
+          "evidence_refs": [
+            "doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-source-state",
+            "doc/cg2d_unassigned_range_sixth_batch_evidence.json"
+          ]
+        },
+        "evidence_file": "doc/cg2d_unassigned_range_sixth_batch_evidence.json"
+      },
+      {
+        "call_ea": 5033627,
+        "semantic_index": 1999,
+        "code_identity": {
+          "kind": "unassigned_range_fragment",
+          "inventory_range_id": "X:000CCE6B-000CCED0",
+          "start": "0x4cce90",
+          "end_exclusive": "0x4cceca",
+          "evidence_refs": [
+            "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
+            "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+          ]
+        },
+        "evidence_file": "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+      }
+    ],
+    "evidence_refs": [
+      "doc/cg2d_window_scroll_position_spec.md#window-scroll-position-source-state",
+      "doc/cg2d_window_scroll_position_evidence.json"
+    ],
+    "ida_missing_function_owner_observation_kept": true,
+    "runtime_verified": false
   }
 }

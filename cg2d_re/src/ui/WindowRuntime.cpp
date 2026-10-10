@@ -4577,6 +4577,7 @@ std::int32_t Sub_4C96F0(const std::int32_t index, const std::int32_t state)
     }
 }
 
+// WSP01：旧X片段1992；恰1且mode0..2才按原分类count-10更新。
 std::int32_t Sub_4C9B80(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t result = Sub_4741A0(index, state);
@@ -16051,6 +16052,7 @@ std::int32_t Sub_492520(const std::int32_t index, const std::int32_t state)
     }
 }
 
+// WSP01：旧X片段1961；结果恰1才按原950参数换算，不由此推容量。
 std::int32_t Sub_492800(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t result = Sub_4741A0(index, state);
@@ -28712,6 +28714,7 @@ std::int32_t Sub_4AF000(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// WSP01：滚动结果恰1才调用既有焦点页依赖，保留原S32结果。
 std::int32_t Sub_4AF090(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t result = Sub_4741A0(index, state);
@@ -29176,6 +29179,7 @@ std::int32_t Sub_4CC9B0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// WSP01：旧X片段1999；恰1才按原90参数更新，保原X身份与返回。
 std::int32_t Sub_4CCE90(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t consumed = Sub_4741A0(index, state);
@@ -30041,6 +30045,7 @@ std::int32_t Sub_4A82C0(const std::int32_t)
     return 1;
 }
 
+// WSP01：原state bit3控制日志位置换算，换算后重读count；仍返回滚动原结果。
 std::int32_t Sub_4A80F0(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t consumed = Sub_4741A0(index, state);
@@ -39510,12 +39515,15 @@ std::int32_t Sub_49EAA0(const std::int32_t)
     return 1;
 }
 
+// WSP01：先当前/前项高度，再两次整数换算；非正maximum原分支和+8字节载荷保。
 std::int32_t Sub_474270(WindowElement* const element, const std::int32_t maximum)
 {
     if (maximum <= 0) {
         return 0;
     }
-    const std::int32_t span = element->height - (element - 1)->height;
+    const std::int32_t height = element->height;
+    const std::int32_t previousHeight = (element - 1)->height;
+    const std::int32_t span = height - previousHeight;
     const std::int32_t halfStep = span / (maximum * 2);
     const auto* const data = static_cast<const std::byte*>(element->data);
     std::int32_t delta;
@@ -43512,6 +43520,7 @@ std::int32_t Sub_4782A0(const std::int32_t, const std::int32_t state)
     return 0;
 }
 
+// WSP01：旧X片段1959；滚动非零才反求称号页码，原型/代码身份沿CAC08。
 std::int32_t Sub_4782E0(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t result = Sub_4741A0(index, state);

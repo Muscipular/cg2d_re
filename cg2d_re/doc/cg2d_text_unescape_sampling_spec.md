@@ -42,3 +42,19 @@
 ## 当前状态
 
 本步前提交说明“[#] 补齐公会邮件回复与持久化完整合同”；本步拟提交说明“[#] 补齐文本反转义合同并恢复原位取样”。四完整原根/八BYTE映射及两组源码修正、登记、静态汇总/Check和派生范围核对已通过。语义2236=2188F+48X，函数处置1673/证据1467；文档关联2298/3680=62.45%仅关联率，INPUT56/UIRUNTIME90/NETWORK83且枚举均未闭。184叶验收0、60任务关闭11/开放49、六closure开放及所有完整门禁保持。未构建/测试/运行，整体active/未完成。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_text_unescape_sampling_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 补齐文本反转义合同并恢复原位取样」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x52D120 | 0x52D144 | 12/36 |
+| 0x52D150 | 0x52D1A6 | 43/86 |
+| 0x52D2F0 | 0x52D308 | 10/24 |
+| 0x509080 | 0x509081 | 1/1 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`runtime_verified`=false；`generated_machine_reads_verified`=false；`build_or_test_performed`=false；`digests_computed_or_compared`=false；`registry_notes`=初次统计历史记录直接对inventory_id调用startswith遇null，纯读退出；按实际可空字段识别后静态检查通过，不更改任何历史身份。。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

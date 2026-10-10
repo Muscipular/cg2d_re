@@ -40,3 +40,17 @@
 ## 当前状态
 
 本步前提交说明“[#] 补齐方向合同并恢复角度更新取样”；本步拟提交说明“[#] 补齐路径方向生产并恢复分量取样顺序”。统一cg2d_re分支、不打tag。先记SPEC，原取证/源码五取样组、核心静态/登记、文本汇总/Check及派生范围核对通过。语义2210=2162F+48X，文档关联2272/3680=61.74%仅关联率，F处置1641/证据1444，MAP161/Yobi91仍未验收；派生仅六metrics/两F/两功能/六任务变化，184叶验收0、60任务关闭11、六closure开放/全部完整gates及其它字段守恒，整体active/未完成。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_path_direction_heading_producers_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 补齐路径方向生产并恢复分量取样顺序」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x46aa00 | 0x46ab56 | 100/342 |
+| 0x46b580 | 0x46b5b3 | 16/51 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`generated_machine_reads_verified`=false；`runtime_verified`=false。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

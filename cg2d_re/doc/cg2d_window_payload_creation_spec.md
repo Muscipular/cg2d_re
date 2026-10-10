@@ -51,3 +51,16 @@ FreeWindow_471270已由旧1797/BVR01完整纳管并适配，保原身份/处置�
 ## 当前状态
 
 本步前提交说明“[#] 补齐输入模式分发及上下文字段发布合同”；拟提交说明“[#] 补齐窗口载荷创建并恢复动画源槽取样”。源码修正、登记、静态汇总/-Check终态退出0及派生范围核对通过；语义2258=2210F+48X、文档关联2320/3680=63.04%保持，函数处置1700/证据1501，INPUT79/UIRUNTIME115/RENDER85/YOBI102。184叶验收0、60任务关闭11开放49、六closure及完整门禁保持；未构建、测试或运行，整体active/未完成。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_window_payload_creation_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 补齐窗口载荷创建并恢复动画源槽取样」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x471440 | 0x4718C7 | 384/1159 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`runtime_verified`=false；`generated_machine_reads_verified`=false；`build_or_test_performed`=false；`digests_computed_or_compared`=false。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

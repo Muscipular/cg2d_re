@@ -77,3 +77,20 @@ copy.Y先加source graphicOffsetY的S32向零除2，再X转换、Y样本、X发�
 ## 当前状态
 
 五完整原根/实际表项/28B常量及复用696B表已取齐，二十组/十注释落实；必要静态、文本汇总/-Check与派生精确范围通过。语义2167（2119F＋48X）、合同2229/3680=60.57%仅关联率、F1595、E1405限定I/S五F、BATTLE407且枚举false；四新身份，113原1431/equivalent与历史结构保持仅补当前来源，五任务open/原政策门禁保持。未构建/测试/运行/算法/产物/摘要。前态cg2d-re-battle-knockdown-exit-history-20261010，提交引用cg2d-re-battle-knockdown-exit-20261010；整体目标active/未完成。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_battle_knockdown_exit_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 对齐战斗复制体与离场动作的取样顺序」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x40e4b0 | 0x40e55f | 62/175 |
+| 0x40e560 | 0x40e970 | 276/1040 |
+| 0x40e970 | 0x40eafb | 108/395 |
+| 0x40eb00 | 0x40efd4 | 365/1236 |
+| 0x40efe0 | 0x40f093 | 53/179 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`measure`=pass（历史限定检查）；`measure_check`=pass（历史限定检查）；`derived_snapshot`=pass（历史限定检查）。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

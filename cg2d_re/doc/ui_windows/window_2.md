@@ -55,6 +55,6 @@
 <a id="timer-ui-consumption-current-20261010"></a>
 ## 2026-10-10 TUC01：倒计时与转生消费当前合同
 
-[本步SPEC](../cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-source-state)/[完整原码与精确差集](../cg2d_timer_ui_consumption_evidence.json)。4718F0完整298条983B/五页、17实际E8/六跳一RET追加当前对照。原完整零描述符、未预清格式缓冲、直接FP复制及VOID裁决保持，无窗口1提示生产；共享时长恢复小时位→分钟，首窗口仍在描述符发布后，四位三类坐标/后续fresh窗口保持两父时点差异。旧MC格式历史保持，完整原码范围不代原型/路由/机器ABI/画面运行。
+[本步SPEC](../cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-source-state)/[完整原码与精确差集](../cg2d_timer_ui_consumption_spec.md#evidence-archive-20261011)。4718F0完整298条983B/五页、17实际E8/六跳一RET追加当前对照。原完整零描述符、未预清格式缓冲、直接FP复制及VOID裁决保持，无窗口1提示生产；共享时长恢复小时位→分钟，首窗口仍在描述符发布后，四位三类坐标/后续fresh窗口保持两父时点差异。旧MC格式历史保持，完整原码范围不代原型/路由/机器ABI/画面运行。
 
 四根两新语义/四F、UIRUNTIME四成员/BATTLE仅497C80一成员、两限定S零I/九任务open；八正常逻辑组/两文件最小调整，其它语义/源/政策/枚举/完整gates及六closure保持。不构建/测试/运行客户端或算法、产物/摘要或依赖，整体未完成。

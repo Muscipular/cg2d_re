@@ -24,3 +24,16 @@ SEP01仅两个完整外部物品面板4AA3D0/4AC890，共904条2885B/十五页�
 
 语义2330=2282F关联+48有界代码及关联2392/3680=65.00%保持；处置1791/证据1596，INPUT156/UIRUNTIME201/RENDER112，其它保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
 
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_storage_external_item_panels_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 对齐存放物品面板标志与坐标消费」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x4AA3D0 | 0x4AA9BC | 478/1516 |
+| 0x4AC890 | 0x4ACDE9 | 426/1369 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`runtime_verified`=false；`generated_machine_reads_verified`=false；`build_or_test_performed`=false；`digests_computed_or_compared`=false。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

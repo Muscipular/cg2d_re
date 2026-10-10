@@ -705,7 +705,7 @@ read(1,1)版本仍只覆盖原路径参数低字节，未读保持现有地址�
 <a id="yobi-frame-playback-current-20261010"></a>
 ## 2026-10-10 YFPS01：已实现帧播放的共享取样与独立登记
 
-§10保留2026-09-27实现/接线及当时限制的历史。[当前完整合同](cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-source-state)与[两原根/差集](cg2d_yobi_frame_playback_sampling_evidence.json)补517880/517DA0独立身份：766条2590B/十三页、十六E8/六旧callee、九十跳/二十RET、329实际入向CALL/214父。两根既有主体，本步不称首次实现或329完整父已验。
+§10保留2026-09-27实现/接线及当时限制的历史。[当前完整合同](cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-source-state)与[两原根/差集](cg2d_yobi_frame_playback_sampling_spec.md#evidence-archive-20261011)补517880/517DA0独立身份：766条2590B/十三页、十六E8/六旧callee、九十跳/二十RET、329实际入向CALL/214父。两根既有主体，本步不称首次实现或329完整父已验。
 
 四定义只十六源组：共享八组恢复帧取样阶段、原U16 revert仅BYTE消费、门禁持样/加载后fresh模式、原两轴cache/尺寸序及坐标固定图号/先保存Y再发布X；两入口各四组恢复重置方向/循环数及独立静图输出取样和局部图号加载。所有宽度/结构、原正常限制、S32三值返回/严格停播1/隐藏1、音效门禁/已有双参接口和六旧callee保持。使用已有Borrow/FromEntries窄尺寸接口，不新公开底层对象或helper原身份。
 

@@ -33,3 +33,17 @@
 ## 当前状态
 
 前提交“[#] 补齐窗口拖动焦点并恢复取样宽度”；拟提交“[#] 补齐矩形命中与描边比较接线”。源码接线、登记、静态汇总/-Check终态退出0及派生范围核对通过。语义2269=2221F关联+48有界代码、处置1711/证据1513、INPUT88/RENDER86/UIRUNTIME125；文档关联2331/3680=63.34%。184叶验收0、60任务关闭11开放49、六closure和完整门禁保持，整体active/未完成。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_rectangle_hit_hover_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 补齐矩形命中与描边比较接线」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x5049A0 | 0x504A25 | 55/133 |
+| 0x401FC0 | 0x401FD1 | 5/17 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`runtime_verified`=false；`generated_machine_reads_verified`=false；`build_or_test_performed`=false；`digests_computed_or_compared`=false。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

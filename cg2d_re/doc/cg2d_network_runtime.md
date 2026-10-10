@@ -3794,7 +3794,7 @@ Copy原delimiter S8扩展与源U8比较只在源0..127分支，现U8表达在该
 <a id="neighbor-fim-current-20261010"></a>
 ## 2026-10-10 NFI01：fIM整数的普通空格发送
 
-[局部现格式裁决](cg2d_neighbor_fim_request_plaintext_spec.md#neighbor-fim-decision)/[server与当前source](cg2d_neighbor_fim_request_plaintext_evidence.json)发现510B80原17替换遗留在CAB05当前明文链：server split接受17起点但不终止17，a62toi遇非Base62字符返回0，fIM读取x/y/dir原三字段会受损。当前QueuePlaintext只复制字节，无规范化；因此仅删除选中分支17写，普通空格保留，原fIM/Base62/三个字段/容量/扫描/time-seed-rand/fresh buffer/break、日志观察器/LF/NUL/回调结果及队列不改。服务端只读取证、不修parser，不引新协议、外壳或加解密。
+[局部现格式裁决](cg2d_neighbor_fim_request_plaintext_spec.md#neighbor-fim-decision)/[server与当前source](cg2d_neighbor_fim_request_plaintext_spec.md#evidence-archive-20261011)发现510B80原17替换遗留在CAB05当前明文链：server split接受17起点但不终止17，a62toi遇非Base62字符返回0，fIM读取x/y/dir原三字段会受损。当前QueuePlaintext只复制字节，无规范化；因此仅删除选中分支17写，普通空格保留，原fIM/Base62/三个字段/容量/扫描/time-seed-rand/fresh buffer/break、日志观察器/LF/NUL/回调结果及队列不改。服务端只读取证、不修parser，不引新协议、外壳或加解密。
 
 原510B80完整132条340B与51B3E0完整95条336B已纳管，两末端Send物理点只择一、两轴正负分支第二Subtract各择一，不按源码表达式数漏计执行RNG。两新语义/F、NETWORK仅sender限定S（MAP/Yobi只父），零I/新函数，十二旧身份和所有其它源保；七任务/全部完整gates及六closure开放，fIM实际互通/全部数值/owner/SDK/ABI/运行待。
 
@@ -3815,31 +3815,31 @@ NETWORK仅新增该入口一个成员/限定S（另三功能各一S），四旧�
 <a id="guild-mail-lookup-current-20261010"></a>
 ## 2026-10-10 GML01：公会邮件实际数据提供者
 
-[四完整原根](cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-source-state)/[原码与精确差集](cg2d_guild_mail_lookup_production_evidence.json)补5195C0排序W16==1首匹配和5195F0角色邮件W32==1末匹配，原200项/记录7Ch与邮件C88h分开，不能统一非0判定或返回首项。519370真实新增/九次140h倒序移位/kind两BYTE与name后text发布，5194F0末匹配后fresh角色/active-key零写/整槽清零/原返回保持；S32排序计数与分支内角色采样两组修正，无新函数/API/类型/owner或保护/默认值/回滚。四新语义/F、MAP/UIRUNTIME各四成员/NETWORK仅生产删除两成员、三限定S零I/九任务open，SHP两父/全部其它源码和原完整门禁/枚举保。完整外父/数据生产消费与字符串alias-owner、两表初始化寿命、SDK/数值/机器ABI与真实消息/文本画面运行待，整体未完成。
+[四完整原根](cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-source-state)/[原码与精确差集](cg2d_guild_mail_lookup_production_spec.md#evidence-archive-20261011)补5195C0排序W16==1首匹配和5195F0角色邮件W32==1末匹配，原200项/记录7Ch与邮件C88h分开，不能统一非0判定或返回首项。519370真实新增/九次140h倒序移位/kind两BYTE与name后text发布，5194F0末匹配后fresh角色/active-key零写/整槽清零/原返回保持；S32排序计数与分支内角色采样两组修正，无新函数/API/类型/owner或保护/默认值/回滚。四新语义/F、MAP/UIRUNTIME各四成员/NETWORK仅生产删除两成员、三限定S零I/九任务open，SHP两父/全部其它源码和原完整门禁/枚举保。完整外父/数据生产消费与字符串alias-owner、两表初始化寿命、SDK/数值/机器ABI与真实消息/文本画面运行待，整体未完成。
 
 现NetworkRuntime.cpp删除透传Sub_5194F0结果、kind0生产弃Sub_519370返回保持；只核两真实局部接线不宣完整回复/dispatcher、正常失败/收发与生命周期通过。原格式明文和字段、现协议字节/释放、所有网络正文不改。
 
 <a id="guild-mail-reply-current-20261010"></a>
 ## 2026-10-10 GMR01：公会邮件回复、计数与持久化
 
-[四完整原根](cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-source-state)/[原码与接线](cg2d_guild_mail_reply_persistence_evidence.json)纳管50F130/50F190实际回复、50EF50活动计数和519550完整两角色保存，共136条443B/五页、17E8/14目标/六跳四RET。删除原gate位型/五域重置→W16恰1统计/W32计数发布→邮件删除返回保；收信原字段/工作区文本借用/反转义→旧排序index持有→kind0生产→外部记录名格式→存档→SE63/320/240→消息(4,3)保；无per回复文本释放。519550原128B路径/当前MSVC FILE域，写完整139480共享区弃返后透传关闭S32、打开失败0，不能凭IDA FILE*类型改返回。四正确body全部保持，仅八关联注释/零逻辑组；旧720/763保历史子记录追加、两新语义/四F、MAP/UIRUNTIME各四成员/NETWORK两回复、三限定S零I/九任务open。全dispatcher/保存外父、工作区与路径记录/文件音频消息全owner、SDK/数值/机器ABI/文本声音画面和实际文件失败运行待，其它原政策/门禁/枚举/六closure保，整体未完成。
+[四完整原根](cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-source-state)/[原码与接线](cg2d_guild_mail_reply_persistence_spec.md#evidence-archive-20261011)纳管50F130/50F190实际回复、50EF50活动计数和519550完整两角色保存，共136条443B/五页、17E8/14目标/六跳四RET。删除原gate位型/五域重置→W16恰1统计/W32计数发布→邮件删除返回保；收信原字段/工作区文本借用/反转义→旧排序index持有→kind0生产→外部记录名格式→存档→SE63/320/240→消息(4,3)保；无per回复文本释放。519550原128B路径/当前MSVC FILE域，写完整139480共享区弃返后透传关闭S32、打开失败0，不能凭IDA FILE*类型改返回。四正确body全部保持，仅八关联注释/零逻辑组；旧720/763保历史子记录追加、两新语义/四F、MAP/UIRUNTIME各四成员/NETWORK两回复、三限定S零I/九任务open。全dispatcher/保存外父、工作区与路径记录/文件音频消息全owner、SDK/数值/机器ABI/文本声音画面和实际文件失败运行待，其它原政策/门禁/枚举/六closure保，整体未完成。
 
 <a id="text-unescape-current-20261010"></a>
 ## 2026-10-10 UTE01：文本反转义原位取样
 
-[UTE01完整原根](cg2d_text_unescape_sampling_spec.md#text-unescape-source-state)/[原码与映射](cg2d_text_unescape_sampling_evidence.json)覆盖52D120/52D150/52D2F0/509080，共66条147B/四页、三E8/三个内部目标/七跳五RET；316入向内部3/外313只证明来源。原58E944四对BYTE映射与未知字母低BYTE返回保持，恢复S32映射计数、每轮首BYTE持有及后继读取先于索引递增/共尾写。原高bit两BYTE、反斜杠字母、固定入口长度和两S32索引、末NUL及同text返回保；不切换编码或增加空值/容量/末字节检查。包装弃返→真实单RET空操作→同text返回，两正确body保，不新增通知/成功值/API或owner。四新语义/四F、INPUT/UIRUNTIME各四成员/NETWORK三个文本根、三限定S零I/九任务open；全部外调用、文本生产消费/容量与alias-owner寿命、SDK/机器ABI/真实字符消息画面运行待。
+[UTE01完整原根](cg2d_text_unescape_sampling_spec.md#text-unescape-source-state)/[原码与映射](cg2d_text_unescape_sampling_spec.md#evidence-archive-20261011)覆盖52D120/52D150/52D2F0/509080，共66条147B/四页、三E8/三个内部目标/七跳五RET；316入向内部3/外313只证明来源。原58E944四对BYTE映射与未知字母低BYTE返回保持，恢复S32映射计数、每轮首BYTE持有及后继读取先于索引递增/共尾写。原高bit两BYTE、反斜杠字母、固定入口长度和两S32索引、末NUL及同text返回保；不切换编码或增加空值/容量/末字节检查。包装弃返→真实单RET空操作→同text返回，两正确body保，不新增通知/成功值/API或owner。四新语义/四F、INPUT/UIRUNTIME各四成员/NETWORK三个文本根、三限定S零I/九任务open；全部外调用、文本生产消费/容量与alias-owner寿命、SDK/机器ABI/真实字符消息画面运行待。
 
 <a id="text-escape-current-20261010"></a>
 ## 2026-10-10 ETE01：文本转义生产端取样
 
-[ETE01完整原根](cg2d_text_escape_sampling_spec.md#text-escape-source-state)/[原码与映射](cg2d_text_escape_sampling_evidence.json)覆盖52D1B0转义生产/52D2D0包装，共108条310B/三页、两E8/两目标/11跳两RET；112入向内部1/外111仅来源。恢复非地址S32表计数、已读首BYTE持有/后继与索引及计数更新序、匹配字母早退前读取/两写后更新索引三组。原四对BYTE映射、固定入口长度和两S32索引、原容量/调整长度门槛与截断、末NUL/同destination返回保持，不切换编码或加保护。正确包装和InputContext文本便利适配保持，不新增原根/通知/成功值或owner；UTE01四根和所有其它源保。两个新语义/F、INPUT/UIRUNTIME/NETWORK各两成员、三限定S零I/九任务open；全外调用、文本生产消费/容量与alias-owner寿命、SDK/机器ABI/真实截断和字符消息画面运行待。
+[ETE01完整原根](cg2d_text_escape_sampling_spec.md#text-escape-source-state)/[原码与映射](cg2d_text_escape_sampling_spec.md#evidence-archive-20261011)覆盖52D1B0转义生产/52D2D0包装，共108条310B/三页、两E8/两目标/11跳两RET；112入向内部1/外111仅来源。恢复非地址S32表计数、已读首BYTE持有/后继与索引及计数更新序、匹配字母早退前读取/两写后更新索引三组。原四对BYTE映射、固定入口长度和两S32索引、原容量/调整长度门槛与截断、末NUL/同destination返回保持，不切换编码或加保护。正确包装和InputContext文本便利适配保持，不新增原根/通知/成功值或owner；UTE01四根和所有其它源保。两个新语义/F、INPUT/UIRUNTIME/NETWORK各两成员、三限定S零I/九任务open；全外调用、文本生产消费/容量与alias-owner寿命、SDK/机器ABI/真实截断和字符消息画面运行待。
 
 <a id="chat-send-current-20261010"></a>
 ## 2026-10-10 CTS01：聊天门禁与六字段发送
 
-[CTS01完整原根](cg2d_chat_send_pipeline_spec.md#chat-send-source-state)/[原码与实际接线](cg2d_chat_send_pipeline_evidence.json)覆盖50C940聊天发送与511900六字段封包，共183条653B/四页、23实际E8/11目标/14跳四RET，另两FF15取tick。恢复两个原短路点options194 BYTE读取，复用既有reader，W16字段/写方不变；原gate/disabled/跟随、1000/180000计时与提示/SE/返回保持。转义→P|%s→mode/range→Y/X→socket→原uSr命令与六字段，每字段capacity→token→新共享buffer→append弃返、末发送S32顺序保；两未清1024区和当前明文/GBK/MSVC/WAV-only不变。旧BTG01提交父发送弃返后原清输入保持，一组两点/四注释，正确封包正文及所有其它源保。旧1075保历史追加/一新语义两F、INPUT/NETWORK各两成员/MAP一个成员，三限定S零I/九任务open；全部数据owner/SDK/机器ABI/真实禁言与互通、文字声音画面运行待。
+[CTS01完整原根](cg2d_chat_send_pipeline_spec.md#chat-send-source-state)/[原码与实际接线](cg2d_chat_send_pipeline_spec.md#evidence-archive-20261011)覆盖50C940聊天发送与511900六字段封包，共183条653B/四页、23实际E8/11目标/14跳四RET，另两FF15取tick。恢复两个原短路点options194 BYTE读取，复用既有reader，W16字段/写方不变；原gate/disabled/跟随、1000/180000计时与提示/SE/返回保持。转义→P|%s→mode/range→Y/X→socket→原uSr命令与六字段，每字段capacity→token→新共享buffer→append弃返、末发送S32顺序保；两未清1024区和当前明文/GBK/MSVC/WAV-only不变。旧BTG01提交父发送弃返后原清输入保持，一组两点/四注释，正确封包正文及所有其它源保。旧1075保历史追加/一新语义两F、INPUT/NETWORK各两成员/MAP一个成员，三限定S零I/九任务open；全部数据owner/SDK/机器ABI/真实禁言与互通、文字声音画面运行待。
 
 <a id="chat-control-current-20261010"></a>
 ## 2026-10-10 CWC01：聊天输入与按钮/滑块控制
 
-[CWC01完整原根](cg2d_chat_window_control_pipeline_spec.md#chat-control-source-state)/[原码与真实绑定](cg2d_chat_window_control_pipeline_evidence.json)覆盖4A6DD0输入创建、4A6FC0按钮和4A8140滑块，共492条1769B/九页、29E8/14目标/56跳14RET；四CALL入向内部3/外1。原窗口35/20项元素与11实际callback保持，旧12槽表/CAC18范围不重复处置，11/12/19默认行为不新增。两组四处恢复三个hover窗口/元素及scroll→count取样；两个正确body、原创建/焦点/可见/返1、按钮环/提示/SE/颜色发布/scroll边界、滑块浮点与低S32位置及GBK/明文/MSVC/WAV-only保。旧1969保历史追加/两新语义三F、INPUT/UIRUNTIME各三成员/NETWORK仅配置生产按钮、三限定S零I/九任务open；全窗口父/创建绘制释放及输入字体日志请求/音效与CTS配置生产消费owner、SDK/FPU/机器ABI/实际输入文字声音画面运行待。
+[CWC01完整原根](cg2d_chat_window_control_pipeline_spec.md#chat-control-source-state)/[原码与真实绑定](cg2d_chat_window_control_pipeline_spec.md#evidence-archive-20261011)覆盖4A6DD0输入创建、4A6FC0按钮和4A8140滑块，共492条1769B/九页、29E8/14目标/56跳14RET；四CALL入向内部3/外1。原窗口35/20项元素与11实际callback保持，旧12槽表/CAC18范围不重复处置，11/12/19默认行为不新增。两组四处恢复三个hover窗口/元素及scroll→count取样；两个正确body、原创建/焦点/可见/返1、按钮环/提示/SE/颜色发布/scroll边界、滑块浮点与低S32位置及GBK/明文/MSVC/WAV-only保。旧1969保历史追加/两新语义三F、INPUT/UIRUNTIME各三成员/NETWORK仅配置生产按钮、三限定S零I/九任务open；全窗口父/创建绘制释放及输入字体日志请求/音效与CTS配置生产消费owner、SDK/FPU/机器ABI/实际输入文字声音画面运行待。

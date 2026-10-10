@@ -10,7 +10,7 @@
 | 509550 / Sub_509550 | 509550–509642 | 82/242B/2 | 512E40@515F28一CALL |
 | 51D6F0 / Sub_51D6F0 | 51D6F0–51D743 | 20/83B/1 | 已完整51C7D0的十三CALL |
 
-两根102条325B/三页，7个E8五目标、七跳三RET，详见[完整机器指令及源差异](cg2d_map_reply_palette_evidence.json)。原网络父只核调用邻窗：按socket与提取文本调用，返回后清EAX而不消费本根固定1；不以此验完整512E40。当前NetworkRuntime实际TeD一T路由、首socket未读的原参数、既有LF明文接线保持。
+两根102条325B/三页，7个E8五目标、七跳三RET，详见[完整机器指令及源差异](cg2d_map_reply_palette_spec.md#evidence-archive-20261011)。原网络父只核调用邻窗：按socket与提取文本调用，返回后清EAX而不消费本根固定1；不以此验完整512E40。当前NetworkRuntime实际TeD一T路由、首socket未读的原参数、既有LF明文接线保持。
 
 原回复先原位Unescape(payload)，提取field1，分隔ASCII |、容量255、本地256B；不检查提取返回、不预清本地。再Unescape2(text)，strlen大于24才选原???；原name/NUL保持。原5095A0..5095DC与备用分支先REP MOVSD整词拷贝，5095DC发布FF0D4C=-2，5095E6才REP MOVSB余0..3字节。现一次memcpy全部字节再发状态，尾字节时点不同。
 
@@ -46,3 +46,17 @@ GTP01完整458F00在category变化时先读mode，再发布category，仅mode1�
 ## 2026-10-11 PCR01：选择提供者完整原根
 
 [PCR01](cg2d_palette_capability_selection_spec.md#palette-capability-source-state)补齐45C970探测及450B70选择，两完整原根78条232B/两页、2E8一个目标/九跳五RET。移除probe原无的出参初值，Select恢复steps判定先于发布，两组两处/五注释；五固定图号两轮同index重查、原-1/4-index、S16门槛/39上界及拒绝index-接受steps返回保持。一新F/旧171追加、两adapted、MAP193/RENDER120，两限定S零I八open；主表生产/全部父及资源owner/SDK/运行未闭。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_map_reply_palette_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 对齐地图回复文本发布与调色板合同」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x509550 | 0x509642 | 82/242 |
+| 0x51D6F0 | 0x51D743 | 20/83 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`runtime_verified`=false；`generated_machine_reads_verified`=false；`build_or_test_performed`=false；`digests_computed_or_compared`=false。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

@@ -29,3 +29,19 @@ SEV01四完整原根352条1028B/八页，九E8五目标/46跳九RET，十入CALL
 前提交“[#] 补齐选择器构造与固定退出对象合同”；拟提交“[#] 补齐选择器按钮事件与结果消费”。方案已先记录并实施，源码及登记必要静态核对通过；静态汇总/-Check终态均退出0，派生范围核对通过。
 
 语义2302=2254F关联+48有界代码记录，函数处置1753/证据1541，INPUT130/UIRUNTIME167/RENDER96/YOBI107；文档关联2364/3680=64.24%仅关联率。184叶验收0、60任务关闭11开放49、六closure及完整门禁保持。登记、静态汇总/-Check终态均退出0；派生仅六metrics/四F/四功能/十任务变化，完整门禁保持。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_selector_button_event_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 补齐选择器按钮事件与结果消费」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x4C7380 | 0x4C759E | 194/542 |
+| 0x4C78A0 | 0x4C790D | 33/109 |
+| 0x4C7910 | 0x4C7A09 | 83/249 |
+| 0x4C7A10 | 0x4C7A90 | 42/128 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`runtime_verified`=false；`generated_machine_reads_verified`=false；`build_or_test_performed`=false；`digests_computed_or_compared`=false。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

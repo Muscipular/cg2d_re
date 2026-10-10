@@ -320,6 +320,6 @@ IDA已定义247项统计，仅45条原FP来源/后取载荷/共用格式-定位�
 <a id="timer-ui-consumption-current-20261010"></a>
 ## 2026-10-10 TUC01：倒计时与转生消费当前合同
 
-[本步SPEC](../cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-source-state)/[完整原码与精确差集](../cg2d_timer_ui_consumption_evidence.json)。497C80完整119条420B/两页、五E8/十四跳三RET独立身份。原数据引用显示整表56B710，实际第7项+1C指针字节与现同项/window26接线已核，未重验整表。初始元素/图形/门槛、action/payload两个原判空保；仅hover位一次持有，click关闭→选择8→刷新→fresh位置/action/槽106C发R|0或R|1弃返→标死清命令action→动作状态1→SE57/320/240、末图号优先原序保。不将helper自身空分支当新保护删除；载荷/窗口全owner、全部callee/发送失败及画面声音交互运行待。
+[本步SPEC](../cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-source-state)/[完整原码与精确差集](../cg2d_timer_ui_consumption_spec.md#evidence-archive-20261011)。497C80完整119条420B/两页、五E8/十四跳三RET独立身份。原数据引用显示整表56B710，实际第7项+1C指针字节与现同项/window26接线已核，未重验整表。初始元素/图形/门槛、action/payload两个原判空保；仅hover位一次持有，click关闭→选择8→刷新→fresh位置/action/槽106C发R|0或R|1弃返→标死清命令action→动作状态1→SE57/320/240、末图号优先原序保。不将helper自身空分支当新保护删除；载荷/窗口全owner、全部callee/发送失败及画面声音交互运行待。
 
 四根两新语义/四F、UIRUNTIME四成员/BATTLE仅497C80一成员、两限定S零I/九任务open；八正常逻辑组/两文件最小调整，其它语义/源/政策/枚举/完整gates及六closure保持。不构建/测试/运行客户端或算法、产物/摘要或依赖，整体未完成。

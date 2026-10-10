@@ -146,27 +146,27 @@ context分别等于D66CA8/CB03F0/CC46E0/CC2080/D2D828/CA0180之一，
 <a id="text-unescape-current-20261010"></a>
 ## 2026-10-10 UTE01：文本反转义原位取样
 
-[UTE01完整原根](cg2d_text_unescape_sampling_spec.md#text-unescape-source-state)/[原码与映射](cg2d_text_unescape_sampling_evidence.json)覆盖52D120/52D150/52D2F0/509080，共66条147B/四页、三E8/三个内部目标/七跳五RET；316入向内部3/外313只证明来源。原58E944四对BYTE映射与未知字母低BYTE返回保持，恢复S32映射计数、每轮首BYTE持有及后继读取先于索引递增/共尾写。原高bit两BYTE、反斜杠字母、固定入口长度和两S32索引、末NUL及同text返回保；不切换编码或增加空值/容量/末字节检查。包装弃返→真实单RET空操作→同text返回，两正确body保，不新增通知/成功值/API或owner。四新语义/四F、INPUT/UIRUNTIME各四成员/NETWORK三个文本根、三限定S零I/九任务open；全部外调用、文本生产消费/容量与alias-owner寿命、SDK/机器ABI/真实字符消息画面运行待。
+[UTE01完整原根](cg2d_text_unescape_sampling_spec.md#text-unescape-source-state)/[原码与映射](cg2d_text_unescape_sampling_spec.md#evidence-archive-20261011)覆盖52D120/52D150/52D2F0/509080，共66条147B/四页、三E8/三个内部目标/七跳五RET；316入向内部3/外313只证明来源。原58E944四对BYTE映射与未知字母低BYTE返回保持，恢复S32映射计数、每轮首BYTE持有及后继读取先于索引递增/共尾写。原高bit两BYTE、反斜杠字母、固定入口长度和两S32索引、末NUL及同text返回保；不切换编码或增加空值/容量/末字节检查。包装弃返→真实单RET空操作→同text返回，两正确body保，不新增通知/成功值/API或owner。四新语义/四F、INPUT/UIRUNTIME各四成员/NETWORK三个文本根、三限定S零I/九任务open；全部外调用、文本生产消费/容量与alias-owner寿命、SDK/机器ABI/真实字符消息画面运行待。
 
 <a id="text-escape-current-20261010"></a>
 ## 2026-10-10 ETE01：文本转义生产端取样
 
-[ETE01完整原根](cg2d_text_escape_sampling_spec.md#text-escape-source-state)/[原码与映射](cg2d_text_escape_sampling_evidence.json)覆盖52D1B0转义生产/52D2D0包装，共108条310B/三页、两E8/两目标/11跳两RET；112入向内部1/外111仅来源。恢复非地址S32表计数、已读首BYTE持有/后继与索引及计数更新序、匹配字母早退前读取/两写后更新索引三组。原四对BYTE映射、固定入口长度和两S32索引、原容量/调整长度门槛与截断、末NUL/同destination返回保持，不切换编码或加保护。正确包装和InputContext文本便利适配保持，不新增原根/通知/成功值或owner；UTE01四根和所有其它源保。两个新语义/F、INPUT/UIRUNTIME/NETWORK各两成员、三限定S零I/九任务open；全外调用、文本生产消费/容量与alias-owner寿命、SDK/机器ABI/真实截断和字符消息画面运行待。
+[ETE01完整原根](cg2d_text_escape_sampling_spec.md#text-escape-source-state)/[原码与映射](cg2d_text_escape_sampling_spec.md#evidence-archive-20261011)覆盖52D1B0转义生产/52D2D0包装，共108条310B/三页、两E8/两目标/11跳两RET；112入向内部1/外111仅来源。恢复非地址S32表计数、已读首BYTE持有/后继与索引及计数更新序、匹配字母早退前读取/两写后更新索引三组。原四对BYTE映射、固定入口长度和两S32索引、原容量/调整长度门槛与截断、末NUL/同destination返回保持，不切换编码或加保护。正确包装和InputContext文本便利适配保持，不新增原根/通知/成功值或owner；UTE01四根和所有其它源保。两个新语义/F、INPUT/UIRUNTIME/NETWORK各两成员、三限定S零I/九任务open；全外调用、文本生产消费/容量与alias-owner寿命、SDK/机器ABI/真实截断和字符消息画面运行待。
 
 <a id="chat-history-current-20261010"></a>
 ## 2026-10-10 HBN01：聊天历史与输入字节滚动
 
-[HBN01完整原根](cg2d_chat_history_navigation_spec.md#chat-history-source-state)/[原码与接线](cg2d_chat_history_navigation_evidence.json)覆盖44A1B0历史浏览、44B440字节类别和4A80E0宽度，共225条707B/五页、七E8/四目标/34跳八RET；26入向内部4/外22仅来源。原64项289B/尾W32与独立游标S32、Up/Down门槛差异及游标发布/环/恢复、入口context清length→新context清text/caret→当前游标装入→新游标复制未清256B→字节长度/宽度→S16类别→原负滚动归零→新context写field158保持。类别仍按原固定BYTE范围返低BYTE0/1/2，不按GBK重写；宽度同一W32两倍、旧707/708文件与BTG-CTS提交保持。三个正确body不改，仅六注释/零逻辑组，三新语义/F、INPUT/UIRUNTIME各三成员/MAP一个成员、三限定S零I/九任务open；struct/断言文本不代编译布局验收，全输入/文件/宽度owner、SDK/机器ABI/真实上下翻页和字符消息画面运行待。
+[HBN01完整原根](cg2d_chat_history_navigation_spec.md#chat-history-source-state)/[原码与接线](cg2d_chat_history_navigation_spec.md#evidence-archive-20261011)覆盖44A1B0历史浏览、44B440字节类别和4A80E0宽度，共225条707B/五页、七E8/四目标/34跳八RET；26入向内部4/外22仅来源。原64项289B/尾W32与独立游标S32、Up/Down门槛差异及游标发布/环/恢复、入口context清length→新context清text/caret→当前游标装入→新游标复制未清256B→字节长度/宽度→S16类别→原负滚动归零→新context写field158保持。类别仍按原固定BYTE范围返低BYTE0/1/2，不按GBK重写；宽度同一W32两倍、旧707/708文件与BTG-CTS提交保持。三个正确body不改，仅六注释/零逻辑组，三新语义/F、INPUT/UIRUNTIME各三成员/MAP一个成员、三限定S零I/九任务open；struct/断言文本不代编译布局验收，全输入/文件/宽度owner、SDK/机器ABI/真实上下翻页和字符消息画面运行待。
 
 <a id="chat-geometry-current-20261010"></a>
 ## 2026-10-10 CWP01：聊天尺寸生产与设置取样
 
-[CWP01完整原根](cg2d_chat_window_geometry_production_spec.md#chat-geometry-source-state)/[原码与接线](cg2d_chat_window_geometry_production_evidence.json)覆盖4C9240默认、4C9170设置恢复和4A7C40聊天尺寸/几何，共329条1484B/七页、两E8/两目标/11跳三RET；六外入向仅来源。71项原地址寻址与当前原生表/数组承载保；恢复记录14两首BYTE改真实unsigned char读取、S32字段不变，两请求和及八字体/高度对逐点先取样再运算。三组12处/六注释，默认正确body、所有其它源与尺寸原环/26倍位置补偿/请求归零、现场窗口元素载荷及滑块callee后发布序和返回保持。三新语义/F、INPUT/UIRUNTIME各三成员/MAP两设置根、三限定S零I/九任务open；全文件/窗口父及默认回填/滑块callee、字体载荷请求/宽高/历史绘制owner、SDK/机器ABI/实际尺寸切换文字画面运行待。
+[CWP01完整原根](cg2d_chat_window_geometry_production_spec.md#chat-geometry-source-state)/[原码与接线](cg2d_chat_window_geometry_production_spec.md#evidence-archive-20261011)覆盖4C9240默认、4C9170设置恢复和4A7C40聊天尺寸/几何，共329条1484B/七页、两E8/两目标/11跳三RET；六外入向仅来源。71项原地址寻址与当前原生表/数组承载保；恢复记录14两首BYTE改真实unsigned char读取、S32字段不变，两请求和及八字体/高度对逐点先取样再运算。三组12处/六注释，默认正确body、所有其它源与尺寸原环/26倍位置补偿/请求归零、现场窗口元素载荷及滑块callee后发布序和返回保持。三新语义/F、INPUT/UIRUNTIME各三成员/MAP两设置根、三限定S零I/九任务open；全文件/窗口父及默认回填/滑块callee、字体载荷请求/宽高/历史绘制owner、SDK/机器ABI/实际尺寸切换文字画面运行待。
 
 <a id="chat-control-current-20261010"></a>
 ## 2026-10-10 CWC01：聊天输入与按钮/滑块控制
 
-[CWC01完整原根](cg2d_chat_window_control_pipeline_spec.md#chat-control-source-state)/[原码与真实绑定](cg2d_chat_window_control_pipeline_evidence.json)覆盖4A6DD0输入创建、4A6FC0按钮和4A8140滑块，共492条1769B/九页、29E8/14目标/56跳14RET；四CALL入向内部3/外1。原窗口35/20项元素与11实际callback保持，旧12槽表/CAC18范围不重复处置，11/12/19默认行为不新增。两组四处恢复三个hover窗口/元素及scroll→count取样；两个正确body、原创建/焦点/可见/返1、按钮环/提示/SE/颜色发布/scroll边界、滑块浮点与低S32位置及GBK/明文/MSVC/WAV-only保。旧1969保历史追加/两新语义三F、INPUT/UIRUNTIME各三成员/NETWORK仅配置生产按钮、三限定S零I/九任务open；全窗口父/创建绘制释放及输入字体日志请求/音效与CTS配置生产消费owner、SDK/FPU/机器ABI/实际输入文字声音画面运行待。
+[CWC01完整原根](cg2d_chat_window_control_pipeline_spec.md#chat-control-source-state)/[原码与真实绑定](cg2d_chat_window_control_pipeline_spec.md#evidence-archive-20261011)覆盖4A6DD0输入创建、4A6FC0按钮和4A8140滑块，共492条1769B/九页、29E8/14目标/56跳14RET；四CALL入向内部3/外1。原窗口35/20项元素与11实际callback保持，旧12槽表/CAC18范围不重复处置，11/12/19默认行为不新增。两组四处恢复三个hover窗口/元素及scroll→count取样；两个正确body、原创建/焦点/可见/返1、按钮环/提示/SE/颜色发布/scroll边界、滑块浮点与低S32位置及GBK/明文/MSVC/WAV-only保。旧1969保历史追加/两新语义三F、INPUT/UIRUNTIME各三成员/NETWORK仅配置生产按钮、三限定S零I/九任务open；全窗口父/创建绘制释放及输入字体日志请求/音效与CTS配置生产消费owner、SDK/FPU/机器ABI/实际输入文字声音画面运行待。
 
 ## 2026-10-10 CFD01：聊天焦点、滚轮与绘制门禁
 

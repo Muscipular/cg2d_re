@@ -3,7 +3,7 @@
 <a id="font-width-arithmetic-baseline"></a>
 ## 实际差异与原基线
 
-[两原测宽体](cg2d_font_width_arithmetic_evidence.json)为44B2A0..44B2DC的24条/60B及44B2E0..44B32A的33条/74B，共57条/134B；原直接call分别147和6，只保集合/统计，不重验全部父。依据原读取、分支和W32字段核本组正常算术，不重做已证字体创建/释放或GDI消费。
+[两原测宽体](cg2d_font_width_arithmetic_spec.md#evidence-archive-20261011)为44B2A0..44B2DC的24条/60B及44B2E0..44B32A的33条/74B，共57条/134B；原直接call分别147和6，只保集合/统计，不重验全部父。依据原读取、分支和W32字段核本组正常算术，不重做已证字体创建/释放或GDI消费。
 
 现Font.cpp两入口宽度使用U32累加后bit_cast回S32，三参数消费计数亦先U32相加再按S32比较；旧[字体合同](cg2d_font_measure.md)明确把它解释为回绕以避免宿主溢出。该专项回绕承载与最新RPLAN.24“不专项处理/模拟数学溢出”冲突，需要撤销，不能把异常域列为已修复/等价通过。
 
@@ -31,3 +31,17 @@
 [既有两入口](../src/render/Font.cpp)恢复正常S32算术；[声明/字段](../include/cg/render/Font.hpp)及[TextMeasure原owner声明](../src/LoginStateDependencies.hpp)不变。更新原两语义记录，两个adapted处置/两限定I/S证据纳管；不新造测宽本体或扩展到全字体初始化、消费者与生命周期。
 
 固定命名快照：`cg2d-re-font-width-arithmetic-20261005`。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_font_width_arithmetic_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 恢复字体测宽正常算术并撤回绕模拟」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x44b2a0 | 0x44b2dc | 未单列/未单列 |
+| 0x44b2e0 | 0x44b32a | 未单列/未单列 |
+
+原验证范围：两原体/直接引用集合与本组正常算术源增量、旧当前说明/登记；不验全部147/6父/owner/alias/ABI/字形/画面/运行或异常等价。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

@@ -38,3 +38,17 @@
 ## 当前状态
 
 本步前提交说明“[#] 补齐聊天焦点滚轮与绘制门禁完整合同”；拟提交说明“[#] 补齐输入滚动合同并明确宽度取样顺序”。两完整原根、三真实入向、一处宽度取样/五注释精确差异、登记、静态汇总/Check和派生范围核对通过。语义2252=2204F+48X、函数处置1691/证据1486；文档关联2314/3680=62.88%仅关联率，INPUT73/UIRUNTIME106且枚举未闭。184叶验收0、60任务关闭11/开放49、六closure开放和全部完整门禁保持。未构建/测试/运行，整体active/未完成。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_input_scroll_draw_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 补齐输入滚动合同并明确宽度取样顺序」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x4A7590 | 0x4A7638 | 47/168 |
+| 0x4A7640 | 0x4A76DF | 45/159 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`runtime_verified`=false；`generated_machine_reads_verified`=false；`build_or_test_performed`=false；`digests_computed_or_compared`=false。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

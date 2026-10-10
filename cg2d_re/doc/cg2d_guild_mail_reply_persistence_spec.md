@@ -42,3 +42,19 @@
 ## 当前状态
 
 本步前提交说明“[#] 补齐公会邮件查找与生产并恢复原字段宽度”；本步拟提交说明“[#] 补齐公会邮件回复与持久化完整合同”。原完整取证、四正确body保持/八关联注释、核心静态/登记、文本汇总/Check及派生范围核对通过。语义2232=2184F+48X，文档关联2294/3680=62.34%仅关联率，F处置1669/证据1464，MAP184/UIRUNTIME86/NETWORK80仍未验收。派生只改六metrics/四F/三功能/九任务，184叶验收0、60任务关闭11、六closure开放/全部完整gates及其它字段守恒。整体active/未完成。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_guild_mail_reply_persistence_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 补齐公会邮件回复与持久化完整合同」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x50F130 | 0x50F182 | 23/82 |
+| 0x50F190 | 0x50F273 | 73/227 |
+| 0x50EF50 | 0x50EF6A | 9/26 |
+| 0x519550 | 0x5195BC | 31/108 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`runtime_verified`=false；`generated_machine_reads_verified`=false；`build_or_test_performed`=false；`digests_computed_or_compared`=false。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

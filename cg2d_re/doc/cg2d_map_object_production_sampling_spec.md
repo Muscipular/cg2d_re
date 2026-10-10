@@ -9,7 +9,7 @@
 
 十直接callee为444FA0、446130、5183B0、441DB0、446210、401CC0、401CF0、52CED0、52D2F0、4461E0。已有2185/1298/1920/1248语义关联分别为图号判定、实体创建、类别数据角色及字段解析；不把1920数据关联或其余提供者定位当完整callee验收。当前提供者分别位于WorldObjectState.cpp、YobiRuntime.cpp、LegacyCryptInt.cpp、NetworkRuntime.cpp及Input.cpp；原明文协议与当前MSVC CRT边界保持，不重造未独立登记callee。
 
-原完整指令、唯一入向/父局部窗、当前源差集及九个文本解析点见[证据](cg2d_map_object_production_sampling_evidence.json)。
+原完整指令、唯一入向/父局部窗、当前源差集及九个文本解析点见[证据](cg2d_map_object_production_sampling_spec.md#evidence-archive-20261011)。
 
 <a id="map-object-production-decision"></a>
 ## 工程裁决与五组
@@ -75,3 +75,12 @@ Sub4461E0(type)后完整flags W32发布；flags&1000且level位100/40均置位�
 依AGENTS第8条及同分支/不打tag要求，先写本补充再仅修改measure_cg2d.ps1六处历史读取表达式；按固定完整退休提交标题匹配（标题起点与尾空白/结束约束）定位前态，不创建tag/新Git引用，不恢复旧CRT/ASM文件，也不重写149旧附件或旧snapshot名称。三十路径白名单保持，旧CPP/numeric/signal/heap/multibyte当前source禁回退保持，ASM也明确同样禁当前source回退；其他缺路径仍失败。
 
 这是证据可读性修复，不增加功能/原身份/软件证据或降低门禁；源及登记既定五组/六限定I-S保持。集中静态重放汇总器七处逻辑/一注释变化、六实际标题与三十路径、当前来源禁回退及白名单守恒通过，重新汇总/Check均退出0，派生守恒通过。此前两失败与派生失败保记录，不以过去通过代现在。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_map_object_production_sampling_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 对齐地图对象生产并恢复历史源码引用」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`measurement_check`=pass（历史限定检查）；`runtime_verified`=false；`derived_scope`=pass（历史限定检查）。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

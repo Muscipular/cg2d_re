@@ -11,7 +11,7 @@
 | F:00045D20 / Sub_445D20 | 445D20–445F3E | 160 / 542B / 7 | 50BB16，父50B380 |
 | F:00045F40 / Sub_445F40 | 445F40–44612E | 150 / 494B / 7 | 50BCA7，父50B380 |
 
-合516条1738B/十页、27 E8/九callee、22跳/五RET，无switch。三入向/两父只核每CALL前24条、后12条指令短窗，不称完整父或将跨分支指令当动态后继。445A60返回0/1实际参与父分支，另两入口父弃尾EAX，保现void观察边界，不把IDA推断返回当新API。当前消费者为NetworkRuntime.cpp带记录路径及SceneState.cpp类别2/4分流。完整指令、短窗、前后源码和差集见[证据](cg2d_world_object_record_producers_evidence.json)。
+合516条1738B/十页、27 E8/九callee、22跳/五RET，无switch。三入向/两父只核每CALL前24条、后12条指令短窗，不称完整父或将跨分支指令当动态后继。445A60返回0/1实际参与父分支，另两入口父弃尾EAX，保现void观察边界，不把IDA推断返回当新API。当前消费者为NetworkRuntime.cpp带记录路径及SceneState.cpp类别2/4分流。完整指令、短窗、前后源码和差集见[证据](cg2d_world_object_record_producers_spec.md#evidence-archive-20261011)。
 
 九callee均绑定当前真实实现；444FA0/446130/446210/4461E0、441DB0、52CED0复用六已有身份，401CC0/401CF0/52D2F0没有独立语义登记，保当前源码依赖边界，不伪称本步完整叶取证或新增已验身份。原两Construct/Destroy、读取/通知及RNG消费保持。
 
@@ -56,3 +56,18 @@ RPLAN.24不专项处理或模拟异常、越界、溢出，不加保护、输入
 ## 当前状态
 
 本步前Git提交说明“[#] 对齐世界对象删除清理与空引用恢复合同”，完成提交说明“[#] 对齐世界对象记录生产与坐标取样”。统一cg2d_re分支、不打tag，先记SPEC再按工程委托修六组读取并明确三文本缓冲；核心静态、登记、文本汇总、Check及派生范围核对通过。语义2198=2150F+48X，文档关联2260/3680=61.41%仅关联率，F处置1629/证据1432，MAP149/Yobi79/TEXT30枚举及验收仍false；派生仅六metrics/三F/三功能/七任务变化，184叶验收0、60任务关闭11、六closure开放及全部完整gates/其它字段守恒。外部七项及删除暂存保留排除，整体目标active/未完成。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_world_object_record_producers_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 对齐世界对象记录生产与坐标取样」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x445a60 | 0x445d1e | 206/702 |
+| 0x445d20 | 0x445f3e | 160/542 |
+| 0x445f40 | 0x44612e | 150/494 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`measurement_check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`runtime_verified`=false。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

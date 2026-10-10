@@ -12,7 +12,7 @@
 
 合227条676B/五页、25 E8/十三callee、20跳/三RET，无switch；另两个间接GetTickCount CALL共27物理CALL点。父X/Y减法各三物理点是第一调用加正负两分支的第二调用，执行每轴两次；发送器两个末端发送点同样只走一个。不能按源码合并表达式数漏计或把两分支都当执行。469D22只前八/后十条短窗，父下一条重取targetY覆盖EAX，确认现返回全W32但唯一caller弃值，不称469C90重新完整取证。
 
-两现实现、唯一父、原"fIM\0"四字节、IAT GetTickCount加载与两个call edi有据；实际来源SceneState.cpp/NetworkRuntime.cpp、时钟MainLoopSupport.cpp直接Win32 GetTickCount保持。完整指令/当前提供者/服务端片段/差集见[证据](cg2d_neighbor_fim_request_plaintext_evidence.json)。六callees及七发送叶沿既有实际源；其中46CDF0缺独立身份，记真实提供者不伪称本步完整math叶，旧读取/算术/协议/RNG身份保持，51B3E0/510B80本步补独立身份。
+两现实现、唯一父、原"fIM\0"四字节、IAT GetTickCount加载与两个call edi有据；实际来源SceneState.cpp/NetworkRuntime.cpp、时钟MainLoopSupport.cpp直接Win32 GetTickCount保持。完整指令/当前提供者/服务端片段/差集见[证据](cg2d_neighbor_fim_request_plaintext_spec.md#evidence-archive-20261011)。六callees及七发送叶沿既有实际源；其中46CDF0缺独立身份，记真实提供者不伪称本步完整math叶，旧读取/算术/协议/RNG身份保持，51B3E0/510B80本步补独立身份。
 
 <a id="neighbor-fim-decision"></a>
 ## 已确认明文边界与局部裁决
@@ -48,3 +48,17 @@
 ## 当前状态
 
 本步前Git提交说明“[#] 对齐世界对象交互格查询与比较消费合同”，完成提交说明“[#] 对齐邻格请求并修复明文整数分隔”。统一cg2d_re分支、不打tag，先记SPEC，父正确body保持、子只删17写入/保RNG；核心静态、登记、文本汇总、Check及派生范围核对通过。语义2207=2159F+48X，文档关联2269/3680=61.66%仅关联率，F处置1638/证据1439，MAP157/Yobi87/NETWORK74枚举与验收仍false；派生仅六metrics/两F/三功能/七任务变化，184叶验收0、60任务关闭11、六closure开放及全部完整gates/其它字段守恒。首次汇总发现三条具名差异缺description/decision_ref共六登记错误，派生未写；补实际说明/决议锚点后通过，不删差异或改校验器/标准。服务端只读取证，七外部项/删除暂存保留排除，完整fIM互通/运行仍待，整体active/未完成。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_neighbor_fim_request_plaintext_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 对齐邻格请求并修复明文整数分隔」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x51b3e0 | 0x51b530 | 95/336 |
+| 0x510b80 | 0x510cd4 | 132/340 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`measurement_check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`runtime_verified`=false；`measurement_initial_failure`=首次汇总退出1，三条新增S的差异对象各缺description/decision_ref，共六登记错误；派生两文件未写。已补具名说明与实际决议锚点，不删差异或改校验器/门禁。。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

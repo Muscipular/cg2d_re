@@ -561,6 +561,6 @@ D64E13的4FF650生产、普通/战斗完整父链和整体SPEC仍缺。
 <a id="timer-ui-consumption-current-20261010"></a>
 ## 2026-10-10 TUC01：倒计时与转生消费当前合同
 
-[本步SPEC](../cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-source-state)/[完整原码与精确差集](../cg2d_timer_ui_consumption_evidence.json)。47B210完整137条447B/三页、九E8/十六跳三RET独立身份。561B78第6项+1C真实指针/现同项window10接线有据；恢复初始window/elements→单U8动作flag→held图形，使用现ReadPlayerActionFlagsByte，旧W16接口保持给其它消费者。hover位一次持有；原业务短路/失败fresh窗口、锁定初读、持有转生值择opcode62/61、Y→X→freshsocket发送弃返→旧BYTE占用样本→转生发布→占用减/加→SE51及末fresh锁图号优先保，不加门槛/默认值/回滚。原GBK/声音/命令/全部其它源不变，整原型/路由/数据owner/交互运行待。
+[本步SPEC](../cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-source-state)/[完整原码与精确差集](../cg2d_timer_ui_consumption_spec.md#evidence-archive-20261011)。47B210完整137条447B/三页、九E8/十六跳三RET独立身份。561B78第6项+1C真实指针/现同项window10接线有据；恢复初始window/elements→单U8动作flag→held图形，使用现ReadPlayerActionFlagsByte，旧W16接口保持给其它消费者。hover位一次持有；原业务短路/失败fresh窗口、锁定初读、持有转生值择opcode62/61、Y→X→freshsocket发送弃返→旧BYTE占用样本→转生发布→占用减/加→SE51及末fresh锁图号优先保，不加门槛/默认值/回滚。原GBK/声音/命令/全部其它源不变，整原型/路由/数据owner/交互运行待。
 
 四根两新语义/四F、UIRUNTIME四成员/BATTLE仅497C80一成员、两限定S零I/九任务open；八正常逻辑组/两文件最小调整，其它语义/源/政策/枚举/完整gates及六closure保持。不构建/测试/运行客户端或算法、产物/摘要或依赖，整体未完成。

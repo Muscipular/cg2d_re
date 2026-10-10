@@ -9,7 +9,7 @@ F:0010C7A0 / Sub_50C7A0原范围50C7A0–50C7E4（尾不含），完整18条68B/
 
 原gate9A6E0C的55条直接数据引用仅证明53读/两写，不代表53完整消费者：45EBB9/父45EBB0写1、51C59B/父51C430写同源清零值。真实现Source分别SceneState.cpp的Sub_45EBB0和WorldUpdate.cpp::Update，沿已完整BTD01/BTB01旧1606/185；不重复全根或把退出/更新的全部状态称闭合。本步保持两个writer/初始化和所有其它gate消费。
 
-原timerRemaining FDA70C为S32、timerMode FDA710完整S32、timerTick FDA714为U32；现同源字段、GTP已补2215/458F40扣减、无独立原F的两个reader和ConsumeBattlePlayerTimer当前提供者保持。最后清626C14为完整W32零，不猜新的输入或owner用途。完整原码、SDK/唯一父、门槛writer与现同源helper见[证据](cg2d_player_timer_reply_producer_evidence.json)。
+原timerRemaining FDA70C为S32、timerMode FDA710完整S32、timerTick FDA714为U32；现同源字段、GTP已补2215/458F40扣减、无独立原F的两个reader和ConsumeBattlePlayerTimer当前提供者保持。最后清626C14为完整W32零，不猜新的输入或owner用途。完整原码、SDK/唯一父、门槛writer与现同源helper见[证据](cg2d_player_timer_reply_producer_spec.md#evidence-archive-20261011)。
 
 <a id="player-timer-reply-decision"></a>
 ## 正常合同与本线程裁决
@@ -35,3 +35,12 @@ F:0010C7A0 / Sub_50C7A0原范围50C7A0–50C7E4（尾不含），完整18条68B/
 ## 当前状态
 
 本步前提交说明“[#] 补齐游戏校时与倒计时并恢复持有取样”；本步拟提交说明“[#] 补齐倒计时回复生产并恢复缩放发布顺序”。统一cg2d_re分支、不打tag。先记SPEC，原完整取证/源码一组、核心静态/登记、文本汇总/Check及派生范围核对通过。语义2218=2170F+48X，文档关联2280/3680=61.96%仅关联率，F处置1650/证据1454，MAP170/Yobi100/BATTLE424/NETWORK76仍未验收；派生仅六metrics/一F/四功能/八任务变化，184叶验收0、60任务关闭11、六closure开放/全部完整gates及其它字段守恒，整体active/未完成。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_player_timer_reply_producer_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 补齐倒计时回复生产并恢复缩放发布顺序」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`generated_machine_reads_verified`=false；`runtime_verified`=false。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

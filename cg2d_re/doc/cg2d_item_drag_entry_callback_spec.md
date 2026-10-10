@@ -31,3 +31,18 @@ IDE01物品拖动入口48BF10九条30B/一页、48BC90回调189条635B/三页、
 前提交“[#] 补齐战斗物品与目标发布合同”；拟提交“[#] 补齐物品拖动入口与回调合同”。方案先记录，源码对齐/登记及静态汇总/-Check终态退出0/派生范围核对通过。
 
 语义2309=2261F关联+48有界代码记录，函数处置1763/证据1563；INPUT139/UIRUNTIME176/RENDER101/NETWORK93/BATTLE430。文档关联预期2371/3680=64.43%仅关联率；184叶验收0、60任务关闭11开放49、六closure及完整门禁保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_item_drag_entry_callback_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 补齐物品拖动入口与回调合同」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x48BF10 | 0x48BF2E | 9/30 |
+| 0x48BC90 | 0x48BF0B | 189/635 |
+| 0x48BB30 | 0x48BB66 | 21/54 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`runtime_verified`=false；`generated_machine_reads_verified`=false；`build_or_test_performed`=false；`digests_computed_or_compared`=false。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

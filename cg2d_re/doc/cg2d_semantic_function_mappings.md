@@ -2064,7 +2064,7 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 
 ## FWA01 两测宽入口正常算术（2026-10-05）
 
-[具名修正](cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state)与[57条/134B原体](cg2d_font_width_arithmetic_evidence.json)将两个totalWidth和三参数consumed恢复正常S32，撤U32累加/bit_cast回绕。
+[具名修正](cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state)与[57条/134B原体](cg2d_font_width_arithmetic_spec.md#evidence-archive-20261011)将两个totalWidth和三参数consumed恢复正常S32，撤U32累加/bit_cast回绕。
 三参数高位分支先计1、加宽度后共尾再计1，低位仅共尾；直接S32预算比较/返回。空串/maxBytes早退、bit7盲推进、不读尾、度量读序及两参数先读下一边界后加宽度保持，其他字体/默认测宽/调用父不变。
 原两语义同记录补当前状态/几何和限定证据，两adapted处置，语义1251/1247有效ID保持、处置339/3680、E181局部。文本已知成员20→22但仍open，队列/原分母/范围及完整门禁保持。
 147/6直接call仅保集合，不验所有父/owner/alias/生成ABI/字体字形/画面运行；不把数学溢出纳入新验证或称异常等价。

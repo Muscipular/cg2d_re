@@ -95,6 +95,6 @@ native非拥有action，无新空门禁；角>=360减360否则<0加360，仅调�
 <a id="world-direction-current-20261010"></a>
 ## 2026-10-10 WDG01：归一化更新前读取的当前补正
 
-[WDG01](cg2d_world_direction_normalization_sampling_spec.md#world-direction-decision)/[原指令和当前source](cg2d_world_direction_normalization_sampling_evidence.json)明确46F8F0上界比较后46F903另读float，下界比较后46F91E另读float，再加减/F32写回；BOG01实现只保每圈比较采样，却复用了比较值到更新。本次恢复两个局部更新采样，原重复循环、native非拥有float*、F32字段和void返回保持。BOG当时“正确/0补丁/其余七根保持”及旧计量属于历史，保原文/原记录，不沿历史误称当前正确。实际当前声明位于src/world/WorldUpdateDependencies.hpp，1390追加当前来源/纠正证据。
+[WDG01](cg2d_world_direction_normalization_sampling_spec.md#world-direction-decision)/[原指令和当前source](cg2d_world_direction_normalization_sampling_spec.md#evidence-archive-20261011)明确46F8F0上界比较后46F903另读float，下界比较后46F91E另读float，再加减/F32写回；BOG01实现只保每圈比较采样，却复用了比较值到更新。本次恢复两个局部更新采样，原重复循环、native非拥有float*、F32字段和void返回保持。BOG当时“正确/0补丁/其余七根保持”及旧计量属于历史，保原文/原记录，不沿历史误称当前正确。实际当前声明位于src/world/WorldUpdateDependencies.hpp，1390追加当前来源/纠正证据。
 
 46CDF0新增完整独立身份，两个E8复用BOG插值1389和归一化1390，尾跳ftol旧1252由明确本机S64cast承担；primary正确body、插值114条351B及65项可写原表/旧记录保。两本步根合34条112B/两页，与复用依赖证据不重复计数。BATTLE既有成员422保持，只追加1390当前限定S，MAP/Yobi各加primary及normalizer；三S零I、七任务open/完整gates保。源码重新采样不保证优化后机器加载、x87状态/PC53/ABI或全父/表owner/运行；现ACP01/MC01正常数值边界及WAV-only仍沿最新决议，旧音频暂停措辞仅历史。

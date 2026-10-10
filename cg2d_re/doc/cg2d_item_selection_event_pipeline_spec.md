@@ -52,3 +52,21 @@ mode1发511D60，mode2沿%d到未清256B、独立16B cap15转义、target/reques
 ## 当前状态
 
 前提交“[#] 补齐拖动会话生产与清理合同”；拟提交“[#] 补齐选物回调与列表坐标取样”。源码对齐、登记、静态汇总/-Check终态退出0及派生范围核对通过。语义2282=2234F关联+48有界代码、处置1726/证据1520，INPUT103/UIRUNTIME140/RENDER88；文档关联2344/3680=63.70%仅关联率。184叶验收0、60任务关闭11开放49、六closure及完整门禁保持，整体active/未完成。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_item_selection_event_pipeline_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 补齐选物回调与列表坐标取样」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x4888C0 | 0x488921 | 23/97 |
+| 0x489F00 | 0x48A6BE | 598/1982 |
+| 0x48A6C0 | 0x48A82F | 121/367 |
+| 0x4C72C0 | 0x4C733E | 44/126 |
+| 0x4C7240 | 0x4C727C | 21/60 |
+| 0x4C7280 | 0x4C72BC | 21/60 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`runtime_verified`=false；`generated_machine_reads_verified`=false；`build_or_test_performed`=false；`digests_computed_or_compared`=false。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

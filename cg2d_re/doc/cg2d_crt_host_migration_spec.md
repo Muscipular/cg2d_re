@@ -110,7 +110,7 @@ CRT152→154枚举仍open，E728单一局部S只证明身份/来源。一般_pow
 <a id="msvc-crt-scalar-source-state-20261009"></a>
 ## MC01-A 当前源码状态
 
-33个入口已核，其中GetEnv/Atol/Malloc/Free四个此前已交宿主；本次29个入口转MSVC：13个字符串/解析、三内存、三长度/忽略大小写比较、两目录、三32位时间/日历、三字符串格式/扫描、裸字节分配释放两项。旧接口名只是实际服务和定宽适配；不创建原地址跳板。八无当前消费者的解析/数字转换/时区日历/私有比较辅助退休，旧F身份和实现前态保留。源码及SDK声明详见[完整前后态证据](cg2d_msvc_crt_scalar_evidence.json)。
+33个入口已核，其中GetEnv/Atol/Malloc/Free四个此前已交宿主；本次29个入口转MSVC：13个字符串/解析、三内存、三长度/忽略大小写比较、两目录、三32位时间/日历、三字符串格式/扫描、裸字节分配释放两项。旧接口名只是实际服务和定宽适配；不创建原地址跳板。八无当前消费者的解析/数字转换/时区日历/私有比较辅助退休，旧F身份和实现前态保留。源码及SDK声明详见[完整前后态证据](cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011)。
 
 errno/_doserrno每次返回MSVC当前线程真实槽，所有现读写成组替换，截图目录已存在判断同源；不缓存TLS指针。日历九S32逐字段复制，线程局部借用不强转std::tm；time32参数用本机准确类型局部承载，结果保持S32。裸字节malloc/free配对转移，不再使用HeapAlloc/HeapFree。原调用方格式串、输入字段、RNG和协议字节无本步改动。
 
@@ -141,7 +141,7 @@ FILE一经fclose即失效，包括刷新失败的返回路径。当前已证日�
 <a id="msvc-crt-file-source-state-20261009"></a>
 ## MC01-B 当前源码状态
 
-全部现文件指针已统一为规范公共platform头的std::FILE别名，四原struct前置声明与旧私有头已对齐。33实际服务中字符串扫描此前已交MSVC，本次32项文件/流格式/描述符/ctime服务转真实宿主；所有原FILE EOF/错误字段消费已改feof/ferror，六标准流构造引用直接stdin/stdout/stderr。fpos_t按SDK实值__int64保8B数值适配，业务两个W32及创建时间S32不扩宽，fgetpos/_fstat32成功才发布；[_fileno/FILE/描述符前后态及关闭链](cg2d_msvc_crt_file_evidence.json)可追。
+全部现文件指针已统一为规范公共platform头的std::FILE别名，四原struct前置声明与旧私有头已对齐。33实际服务中字符串扫描此前已交MSVC，本次32项文件/流格式/描述符/ctime服务转真实宿主；所有原FILE EOF/错误字段消费已改feof/ferror，六标准流构造引用直接stdin/stdout/stderr。fpos_t按SDK实值__int64保8B数值适配，业务两个W32及创建时间S32不扩宽，fgetpos/_fstat32成功才发布；[_fileno/FILE/描述符前后态及关闭链](cg2d_msvc_crt_file_spec.md#evidence-archive-20261011)可追。
 
 39私有定义退休，含库内缓冲/表/格式字节/低层句柄读写和旧进程入口；其中共享calloc只退休stdio索引表消费者，现通用业务分配保留，53DE8C仅原入口片段、不造新F。37原私有F职责登记host，不造同名函数或原地址调用；其实际服务来源只表示库职责承接，不宣机器ABI一致。93现语义来源/规范声明/旧caller与当前提供者对齐，完整前态沿迁移前固定Git快照及原索引读取，不复制历史链。
 

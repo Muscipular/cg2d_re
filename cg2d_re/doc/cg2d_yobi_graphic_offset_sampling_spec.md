@@ -12,7 +12,7 @@
 | F:001183B0 / world::detail::Sub_5183B0 | 5183B0–5183CB | 9 / 27B / 0 | 1 / 1 |
 | F:00041570 / login::detail::DrawGear_441570，已有1919 | 441570–44177D | 196 / 525B / 13 | 1 / 1 |
 
-合292条795B/七页、十七E8/五唯一callee、二十五跳（含一真实switch JMP）/九RET；94实际入向E8、父集合合22。完整指令、入向、当前定义与差集见[证据](cg2d_yobi_graphic_offset_sampling_evidence.json)。两根在本步也是挂件父的callee，身份只计一次；三个新原身份、已有1919補完整正常范围与F适配处置，原CAC07子记录/入口保历史。
+合292条795B/七页、十七E8/五唯一callee、二十五跳（含一真实switch JMP）/九RET；94实际入向E8、父集合合22。完整指令、入向、当前定义与差集见[证据](cg2d_yobi_graphic_offset_sampling_spec.md#evidence-archive-20261011)。两根在本步也是挂件父的callee，身份只计一次；三个新原身份、已有1919補完整正常范围与F适配处置，原CAC07子记录/入口保历史。
 
 原4415DD六项表复用CAC07的X:0004177D-000417A0完整35B：3B对齐、24B六W32目标、8B NOP；guard为kind-1无符号>5进默认，表六项对应kind1..6。无新R7/X或表重分类。1252 __ftol、160 GetGraphicXY、1256 DrawGearNormal三已有callee身份保持；真实提供者分别为本步明确S64→S32转换、GraphicInfo.cpp和world/MapDrawCache.cpp，不把旧1252样例当本步函数体。
 
@@ -58,3 +58,19 @@ GetXY后axis0用S16 x、axis1用S16 y：经正常double乘F32系数、S64向零�
 ## 当前状态
 
 本步前Git提交说明“[#] 对齐对象帧播放与共享帧取样”，完成提交说明“[#] 对齐图形偏移查询与挂件绘制合同”。统一cg2d_re分支、不打tag。两轴两组/六注释已落实，四完整原根/94实际入向、35B六表与两父局部窗、整CPP/公头精确重放、1919十一当前属性/旧CAC07子记录及所有其它语义/政策守恒通过；静态文本汇总/-Check均退出0。派生仅六metrics/四F/两功能/七任务。结果语义2186（2138F＋48X）、合同2248/3680=61.09%仅关联率、F处置1616/E1419、MAP137/Yobi66枚举均false，184叶完整验收0/任务关闭11/六closure保持。七外部改动保留排除；完整输入/生产/94全部父/传递callee/alias/owner/容量/SDK/机器ABI与声音画面/运行仍待，整体SPEC未完成。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_yobi_graphic_offset_sampling_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 对齐图形偏移查询与挂件绘制合同」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x5182b0 | 0x5182fd | 32/77 |
+| 0x518300 | 0x5183a6 | 55/166 |
+| 0x5183b0 | 0x5183cb | 9/27 |
+| 0x441570 | 0x44177d | 196/525 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`measurement_check`=pass（历史限定检查）；`runtime_verified`=false；`derived_scope`=pass（历史限定检查）。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

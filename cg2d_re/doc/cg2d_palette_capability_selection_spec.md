@@ -10,7 +10,7 @@
 | 45C970 / ProbePaletteCapability_45C970 | 45C970–45CA1B | 62/171B | 十CALL/九父 |
 | 450B70 / SelectPalette | 450B70–450BAD | 16/61B | 四十七CALL/十六父 |
 
-两完整根78条232B/两页，2E8唯一45A8B0、九跳五RET。[原指令与调用后邻窗](cg2d_palette_capability_selection_evidence.json)保两根及引用。十probe调用中九处将EAX发布9A7F64，一处458113只判负；六指令邻窗仅支撑返回消费来源，不能替代九完整父/全部实参、动态别名或生命周期。
+两完整根78条232B/两页，2E8唯一45A8B0、九跳五RET。[原指令与调用后邻窗](cg2d_palette_capability_selection_spec.md#evidence-archive-20261011)保两根及引用。十probe调用中九处将EAX发布9A7F64，一处458113只判负；六指令邻窗仅支撑返回消费来源，不能替代九完整父/全部实参、动态别名或生命周期。
 
 probe在栈上依序写五S32图号99657、245151、22311、22212、22002。本地output原未预置值；每次GetGraphicMapNoIndex实际直接从图号映射表读W32写出参，返回1沿GRP01完整旧根复用，不重复全根。首轮由0查询到第一个非零输出，原TEST后JA只与零比；五项全空返回-1。命中后第二轮从同一个index重新查询，若该次已空才继续后项，末有效项返回4-index，否则-1。现同两轮/重查/返回正确，但output额外初始化为0。
 
@@ -46,3 +46,17 @@ Probe实体在GraphicInfo.cpp，共用映射表写出参；Select在Palette.cpp�
 完整图形资料加载与主表有效内容/owner生存、所有caller/读取者、SDK和机器ABI/生成读取/资源像素及运行仍待。局部源符合不代整条画面或整体完成。
 
 同一cg2d_re分支精确提交、不打tag，保七项外部改动及原暂存删除。不构建、测试、运行、读产物、计算摘要或引依赖；整体active/未完成。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_palette_capability_selection_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 对齐图号探测与调色板选择合同」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x45C970 | 0x45CA1B | 62/171 |
+| 0x450B70 | 0x450BAD | 16/61 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`runtime_verified`=false；`generated_machine_reads_verified`=false；`build_or_test_performed`=false；`digests_computed_or_compared`=false。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

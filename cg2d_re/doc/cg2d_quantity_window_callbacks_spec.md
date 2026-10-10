@@ -7,7 +7,7 @@
 
 QVC01仅窗口42初始化48A8C0/输入激活48A900/数量面板48A950/增加48AA60/减少48AB10五完整原根230条714B/六页；原八个E8六目标、一个间接callback、十九跳五RET（按证据统计校验）。窗口初始化仅value=-1：先currentWindow持址→上限999999999/参数0/callback空→elem2状态0→输入激活(0,2)，所有路径返回1。输入激活bit2调用既有476570(57DA70,0,-100,0)→SetContext(CB0878)→窗口快照→第一次elem0 data发布焦点→第二次同窗口elem0 data发布context，返回0。数量面板currentInput先于actionFlags低BYTE；value14先于currentWindow，调用474550只消费低BYTE，先S32上限钳回后bit1第二比较不补下限；bit2快照非拥有callback，非空调用当前elem[index] S32后重取窗口，随后关闭bit15/声57再重取窗口，无条件用原%9d/MSVC写12B文本返回0/1。增加按钮先窗口/graphic持址→原悬停提示→elem2指针来源，上限S32先当前数量S32，严格小于才+1/声51，否则声55；减少原数量S32>0才-1/声51否则声55；两者原默认→hover→pressed图号顺序，始终返回0。三逻辑组（低BYTE/参数-窗口次序/上限-数量次序）三处源码对齐，初始化/输入激活/减少正确正文保持；不新增保护、下限、补零、回滚、默认值/类型/helper/owner。元素0/2/3/4四callback槽与主原型update只data引用；唯一入CALL从初始化调用输入激活，第三后邻RET外align不纳父代码。关闭按钮/释放仅既有绑定和未变提供者，不据本步记完整原父/取消按键/释放owner闭合；原void业务callback适配仅保副作用，完整机器ABI/动态调度/所有上游与资源寿命、真实画面/声效及运行待。WAV-only/MSVC/明文协议与全部完整门禁保持，整体未完成。
 
-完整指令、来源与元素表见[证据](cg2d_quantity_window_callbacks_evidence.json)。旧937仅26条格式邻窗历史，本步追加83条完整原根及局部合同，历史原样保持，不重复F。
+完整指令、来源与元素表见[证据](cg2d_quantity_window_callbacks_spec.md#evidence-archive-20261011)。旧937仅26条格式邻窗历史，本步追加83条完整原根及局部合同，历史原样保持，不重复F。
 
 <a id="quantity-callback-decision"></a>
 ## 方案及取舍
@@ -26,3 +26,19 @@ QVC01仅窗口42初始化48A8C0/输入激活48A900/数量面板48A950/增加48AA
 
 语义预期2319=2271F关联+48有界代码，处置1775/证据1571；文档关联2381/3680=64.70%仅关联率。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
 
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_quantity_window_callbacks_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 补齐数量确认与增减输入合同」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x48A8C0 | 0x48A8FA | 15/58 |
+| 0x48A900 | 0x48A944 | 19/68 |
+| 0x48A950 | 0x48AA54 | 83/260 |
+| 0x48AA60 | 0x48AB07 | 57/167 |
+| 0x48AB10 | 0x48ABB1 | 56/161 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`runtime_verified`=false；`generated_machine_reads_verified`=false；`build_or_test_performed`=false；`digests_computed_or_compared`=false。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

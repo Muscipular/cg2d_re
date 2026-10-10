@@ -14,7 +14,7 @@
 
 两个循环都扫1000项：清引用原游标从5AC5DC至5F983C、步长13Ch，都是表base加action偏移11Ch；补建从5AC4DC至5F973C、步长13Ch，都是base加coordinate1C偏移1Ch。原base为5AC4C0，末界5F9720；只拓宽已证action指针，当前数组原生步长沿既有x64布局。不能把IDA终点名称或表外成员地址当新容量/SDK返回。
 
-五实际入向/三父43CBB0、50D120、51C7D0，只核每CALL前六/后八条短窗，不称三完整父或把相邻RET/其他分支当动态后继。三清引用CALL前都实际调用404D30，源码三个对应点先YobiClearUp_404D30再Sub_446610；两补建点都在当前普通场景Sub_519A80→Sub_455C60→Sub_446640序。保当前SceneState.cpp接线、三父旧1349/1568/1580及清理旧1132，不代完整父/全owner取证。完整原指令、短窗、当前源码与差集见[证据](cg2d_world_object_bulk_restore_evidence.json)。
+五实际入向/三父43CBB0、50D120、51C7D0，只核每CALL前六/后八条短窗，不称三完整父或把相邻RET/其他分支当动态后继。三清引用CALL前都实际调用404D30，源码三个对应点先YobiClearUp_404D30再Sub_446610；两补建点都在当前普通场景Sub_519A80→Sub_455C60→Sub_446640序。保当前SceneState.cpp接线、三父旧1349/1568/1580及清理旧1132，不代完整父/全owner取证。完整原指令、短窗、当前源码与差集见[证据](cg2d_world_object_bulk_restore_spec.md#evidence-archive-20261011)。
 
 <a id="world-object-bulk-restore-decision"></a>
 ## 工程裁决
@@ -48,3 +48,17 @@ RPLAN.24不专项处理/模拟异常、越界、溢出，不新增保护、默�
 ## 当前状态
 
 本步前Git提交说明“[#] 对齐世界对象记录生产与坐标取样”，完成提交说明“[#] 对齐世界对象整表引用清理与批量补建合同”。统一cg2d_re分支、不打tag，先记SPEC，两个正确body及五接线保持，仅四关联注释；核心静态、登记、文本汇总、Check及派生范围核对通过。语义2200=2152F+48X，文档关联2262/3680=61.47%仅关联率，F处置1631/证据1434，MAP151/Yobi81枚举及验收仍false；派生仅六metrics/两F/两功能/七任务变化，184叶验收0、60任务关闭11、六closure开放及全部完整gates/其它字段守恒。清引用父数措辞已更正为两个父的三个调用点，五总入向/三总父、机器码及正文保持。外部七项及删除暂存保留排除，整体active/未完成。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_world_object_bulk_restore_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 对齐世界对象整表引用清理与批量补建合同」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x446610 | 0x44663b | 10/43 |
+| 0x446640 | 0x4467c4 | 124/388 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`measurement_check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`runtime_verified`=false。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

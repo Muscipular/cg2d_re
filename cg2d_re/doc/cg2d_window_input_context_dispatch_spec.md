@@ -43,3 +43,18 @@ mode3先fontType→renderMode→入口context.field140→y坐标→x坐标，调
 ## 当前状态
 
 本步前提交说明“[#] 补齐数字绘制初始化并明确测宽顺序”；拟提交说明“[#] 补齐输入模式分发及上下文字段发布合同”。三完整原根/四槽旧表、六注释精确差异、旧1935保历史追加、登记、静态汇总/Check与派生范围核对通过。语义2258=2210F+48X、函数处置1699/证据1497，文档关联2320/3680=63.04%仅关联率，INPUT78/UIRUNTIME114且枚举未闭。184叶验收0、60任务关闭11/开放49、六closure开放及全部完整门禁保持；未构建/测试/运行，整体active/未完成。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_window_input_context_dispatch_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 补齐输入模式分发及上下文字段发布合同」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x476570 | 0x47666D | 103/253 |
+| 0x45D720 | 0x45D75B | 13/59 |
+| 0x45D760 | 0x45D797 | 12/55 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`runtime_verified`=false；`generated_machine_reads_verified`=false；`build_or_test_performed`=false；`digests_computed_or_compared`=false。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

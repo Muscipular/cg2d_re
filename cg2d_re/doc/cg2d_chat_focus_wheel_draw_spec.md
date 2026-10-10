@@ -43,3 +43,18 @@
 ## 当前状态
 
 本步前提交说明“[#] 补齐聊天窗口控制并恢复按钮现场取样”；拟提交说明“[#] 补齐聊天焦点滚轮与绘制门禁完整合同”。三完整原根、原35/57五处绑定、六注释精确差异、登记、静态汇总/Check与派生范围核对通过。语义2250=2202F+48X、函数处置1689/证据1484；文档关联2312/3680=62.83%仅关联率，INPUT71/UIRUNTIME104且枚举未闭。184叶验收0、60任务关闭11/开放49、六closure开放及全部完整门禁保持。未构建/测试/运行，整体active/未完成。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_chat_focus_wheel_draw_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 补齐聊天焦点滚轮与绘制门禁完整合同」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x4A6EA0 | 0x4A6FC0 | 72/288 |
+| 0x4A81D0 | 0x4A8240 | 34/112 |
+| 0x4A82C0 | 0x4A82D4 | 6/20 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`runtime_verified`=false；`generated_machine_reads_verified`=false；`build_or_test_performed`=false；`digests_computed_or_compared`=false。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

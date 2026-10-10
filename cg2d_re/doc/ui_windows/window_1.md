@@ -402,25 +402,25 @@ D67650为未加载零区，三窗八个type4原型共借一个U32 flags源；
 <a id="timer-ui-consumption-current-20261010"></a>
 ## 2026-10-10 TUC01：倒计时与转生消费当前合同
 
-[本步SPEC](../cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-source-state)/[完整原码与精确差集](../cg2d_timer_ui_consumption_evidence.json)。470AC0完整463条1710B/八页、21实际E8/40跳2RET追加当前对照。原完整零描述符/未预清格式缓冲与HP/FP、timeWindow持有、时钟F64缩放/提示生产及VOID裁决保；共享时长恢复小时位→分钟、mode后首窗口先于描述符发布、四位三类坐标取样及后续fresh窗口，不合并原读取或改图号/坐标/四次绘制。旧MC格式局部历史保持，当前完整范围不代机器ABI/数值/原型/路由/画面运行。
+[本步SPEC](../cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-source-state)/[完整原码与精确差集](../cg2d_timer_ui_consumption_spec.md#evidence-archive-20261011)。470AC0完整463条1710B/八页、21实际E8/40跳2RET追加当前对照。原完整零描述符/未预清格式缓冲与HP/FP、timeWindow持有、时钟F64缩放/提示生产及VOID裁决保；共享时长恢复小时位→分钟、mode后首窗口先于描述符发布、四位三类坐标取样及后续fresh窗口，不合并原读取或改图号/坐标/四次绘制。旧MC格式局部历史保持，当前完整范围不代机器ABI/数值/原型/路由/画面运行。
 
 四根两新语义/四F、UIRUNTIME四成员/BATTLE仅497C80一成员、两限定S零I/九任务open；八正常逻辑组/两文件最小调整，其它语义/源/政策/枚举/完整gates及六closure保持。不构建/测试/运行客户端或算法、产物/摘要或依赖，整体未完成。
 
 <a id="status-hint-production-current-20261010"></a>
 ## 2026-10-10 SHP01：三项提示生产与完整点击
 
-[本步SPEC](../cg2d_status_hint_production_spec.md#status-hint-production-source-state)/[完整原码](../cg2d_status_hint_production_evidence.json)纳管504B10/504B60/518DA0/518F00/473080/4731B0六查询和4723D0完整点击，共751条2417B/16页、18E8/九目标/115跳15RET；原55F0A0第11/12/13项回调字节/现同项接线有据，XrefsTo仅前一NOP flow不当CALL或据此否认函数指针。六正确查询body保持，原玩家加点优先/五S16配对/伤势目标/反求位置哨兵与三类邮件遍历/发布保持；提示迷你倒序、点击正序不合并，518F00唯一父弃原EAX，现VOID保/机器残值ABI待。
+[本步SPEC](../cg2d_status_hint_production_spec.md#status-hint-production-source-state)/[完整原码](../cg2d_status_hint_production_spec.md#evidence-archive-20261011)纳管504B10/504B60/518DA0/518F00/473080/4731B0六查询和4723D0完整点击，共751条2417B/16页、18E8/九目标/115跳15RET；原55F0A0第11/12/13项回调字节/现同项接线有据，XrefsTo仅前一NOP flow不当CALL或据此否认函数指针。六正确查询body保持，原玩家加点优先/五S16配对/伤势目标/反求位置哨兵与三类邮件遍历/发布保持；提示迷你倒序、点击正序不合并，518F00唯一父弃原EAX，现VOID保/机器残值ABI待。
 
 旧915的三MC格式局部历史保留，当前追加完整点击：八组恢复三hover持有、宠物分档与姓名、两hoverWindow/consumed、重伤窗口与75比较、原target-1/0层级；原门槛、未预清256B/GBK提示/分段复制及fresh伤势、关闭/创建目标和消费返回保持。六新语义/七F、UIRUNTIME七成员/MAP六查询、两限定S零I/九任务open，旧999状态生产/1524窗口创建及全部其它源不改；全字段生产消费/alias-owner、整表/路由、外callee/数值ABI/交互画面运行与全生命周期待，整体未完成。
 
 <a id="guild-mail-lookup-current-20261010"></a>
 ## 2026-10-10 GML01：未读提示的两种查找依赖
 
-[四完整原根](../cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-source-state)/[原码与精确差集](../cg2d_guild_mail_lookup_production_evidence.json)补5195C0排序W16==1首匹配和5195F0角色邮件W32==1末匹配，原200项/记录7Ch与邮件C88h分开，不能统一非0判定或返回首项。519370真实新增/九次140h倒序移位/kind两BYTE与name后text发布，5194F0末匹配后fresh角色/active-key零写/整槽清零/原返回保持；S32排序计数与分支内角色采样两组修正，无新函数/API/类型/owner或保护/默认值/回滚。四新语义/F、MAP/UIRUNTIME各四成员/NETWORK仅生产删除两成员、三限定S零I/九任务open，SHP两父/全部其它源码和原完整门禁/枚举保。完整外父/数据生产消费与字符串alias-owner、两表初始化寿命、SDK/数值/机器ABI与真实消息/文本画面运行待，整体未完成。
+[四完整原根](../cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-source-state)/[原码与精确差集](../cg2d_guild_mail_lookup_production_spec.md#evidence-archive-20261011)补5195C0排序W16==1首匹配和5195F0角色邮件W32==1末匹配，原200项/记录7Ch与邮件C88h分开，不能统一非0判定或返回首项。519370真实新增/九次140h倒序移位/kind两BYTE与name后text发布，5194F0末匹配后fresh角色/active-key零写/整槽清零/原返回保持；S32排序计数与分支内角色采样两组修正，无新函数/API/类型/owner或保护/默认值/回滚。四新语义/F、MAP/UIRUNTIME各四成员/NETWORK仅生产删除两成员、三限定S零I/九任务open，SHP两父/全部其它源码和原完整门禁/枚举保。完整外父/数据生产消费与字符串alias-owner、两表初始化寿命、SDK/数值/机器ABI与真实消息/文本画面运行待，整体未完成。
 
 SHP01的518DA0/518F00完整父与状态生产/点击正文保持，不能用两查询的==1改写父的非0记录门槛，也不将公会首排序位置与邮件末匹配槽混用；提示迷你倒序/定位正序继续保持。
 
 <a id="guild-mail-reply-current-20261010"></a>
 ## 2026-10-10 GMR01：公会邮件回复、计数与持久化
 
-[四完整原根](../cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-source-state)/[原码与接线](../cg2d_guild_mail_reply_persistence_evidence.json)纳管50F130/50F190实际回复、50EF50活动计数和519550完整两角色保存，共136条443B/五页、17E8/14目标/六跳四RET。删除原gate位型/五域重置→W16恰1统计/W32计数发布→邮件删除返回保；收信原字段/工作区文本借用/反转义→旧排序index持有→kind0生产→外部记录名格式→存档→SE63/320/240→消息(4,3)保；无per回复文本释放。519550原128B路径/当前MSVC FILE域，写完整139480共享区弃返后透传关闭S32、打开失败0，不能凭IDA FILE*类型改返回。四正确body全部保持，仅八关联注释/零逻辑组；旧720/763保历史子记录追加、两新语义/四F、MAP/UIRUNTIME各四成员/NETWORK两回复、三限定S零I/九任务open。全dispatcher/保存外父、工作区与路径记录/文件音频消息全owner、SDK/数值/机器ABI/文本声音画面和实际文件失败运行待，其它原政策/门禁/枚举/六closure保，整体未完成。
+[四完整原根](../cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-source-state)/[原码与接线](../cg2d_guild_mail_reply_persistence_spec.md#evidence-archive-20261011)纳管50F130/50F190实际回复、50EF50活动计数和519550完整两角色保存，共136条443B/五页、17E8/14目标/六跳四RET。删除原gate位型/五域重置→W16恰1统计/W32计数发布→邮件删除返回保；收信原字段/工作区文本借用/反转义→旧排序index持有→kind0生产→外部记录名格式→存档→SE63/320/240→消息(4,3)保；无per回复文本释放。519550原128B路径/当前MSVC FILE域，写完整139480共享区弃返后透传关闭S32、打开失败0，不能凭IDA FILE*类型改返回。四正确body全部保持，仅八关联注释/零逻辑组；旧720/763保历史子记录追加、两新语义/四F、MAP/UIRUNTIME各四成员/NETWORK两回复、三限定S零I/九任务open。全dispatcher/保存外父、工作区与路径记录/文件音频消息全owner、SDK/数值/机器ABI/文本声音画面和实际文件失败运行待，其它原政策/门禁/枚举/六closure保，整体未完成。

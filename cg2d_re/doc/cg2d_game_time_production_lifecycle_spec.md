@@ -15,7 +15,7 @@
 
 合149条505B/六页、八E8五callee、十一跳四RET，无switch；另458F40两个原间接GetTickCount物理点，按场景路径只执行一个；458F35为外尾跳458F40，不是普通E8。十二E8入向含PudO→setter/writer两个内部，十外点来自51C7D0/512E40/43CBB0/457020四父；另一个内部尾跳，均按实际字节分类，不把code xref自动算CALL。
 
-全部原/现来源、十二调用短窗、尾跳和两SDK槽见[证据](cg2d_game_time_production_lifecycle_evidence.json)。MHT时段2212、调色板171、MSVC时间2025与四外父旧身份保持；writer197旧来源/边界保历史后追加当前完整证据，不新建同一原身份。原PudO分派按现四I字段交五参数（socket保持既有原生宽度且原未读）实际源有据，不修改命令/字段或明文队列。
+全部原/现来源、十二调用短窗、尾跳和两SDK槽见[证据](cg2d_game_time_production_lifecycle_spec.md#evidence-archive-20261011)。MHT时段2212、调色板171、MSVC时间2025与四外父旧身份保持；writer197旧来源/边界保历史后追加当前完整证据，不新建同一原身份。原PudO分派按现四I字段交五参数（socket保持既有原生宽度且原未读）实际源有据，不修改命令/字段或明文队列。
 
 <a id="game-time-production-decision"></a>
 ## 完整正常合同与局部裁决
@@ -49,3 +49,20 @@ PudO唯一父512E40随后XOR EAX，setter/writer本组调用弃返回，原sette
 ## 当前状态
 
 本步前提交说明“[#] 补齐地图命中与时段分类并恢复边界取样”；本步拟提交说明“[#] 补齐游戏校时与倒计时并恢复持有取样”。统一cg2d_re分支、不打tag。先记SPEC，原完整取证/源码三组、核心静态/登记、文本汇总/Check及派生范围核对通过。语义2217=2169F+48X，文档关联2279/3680=61.93%仅关联率，F处置1649/证据1450，MAP169/Yobi99/BATTLE423/NETWORK75仍未验收；派生仅六metrics/五F/四功能/八任务变化，184叶验收0、60任务关闭11、六closure开放/全部完整gates及其它字段守恒，整体active/未完成。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_game_time_production_lifecycle_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 补齐游戏校时与倒计时并恢复持有取样」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x458f00 | 0x458f3a | 15/58 |
+| 0x50c870 | 0x50c8c8 | 22/88 |
+| 0x458f40 | 0x458fc2 | 33/130 |
+| 0x519eb0 | 0x519eba | 3/10 |
+| 0x458de0 | 0x458ebb | 76/219 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`generated_machine_reads_verified`=false；`runtime_verified`=false。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

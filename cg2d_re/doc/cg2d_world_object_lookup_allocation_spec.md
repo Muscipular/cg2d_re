@@ -13,7 +13,7 @@
 | F:00046210 / Sub_446210，已有1920 | 446210–446247 | 17 / 55B / 0 | 2 |
 | F:000462B0 / FindObjectYobi_4462B0 | 4462B0–4462D4 | 13 / 36B / 1 | 16 |
 
-合144条421B/五页、一E8、28跳（含类别一真实switch JMP）/15 RET，31实际入向E8/十九父。全部原根、引用、当前差集与数据见[证据](cg2d_world_object_lookup_allocation_evidence.json)。唯一出向444FA0同时是本步根，身份只计一次；31父只引用身份，未重验全部父。已完整MOP01/2186的lookup/allocate/flags/category四CALL与SceneState查询现接线保持，不重做该父或其它旧合同。
+合144条421B/五页、一E8、28跳（含类别一真实switch JMP）/15 RET，31实际入向E8/十九父。全部原根、引用、当前差集与数据见[证据](cg2d_world_object_lookup_allocation_spec.md#evidence-archive-20261011)。唯一出向444FA0同时是本步根，身份只计一次；31父只引用身份，未重验全部父。已完整MOP01/2186的lookup/allocate/flags/category四CALL与SceneState查询现接线保持，不重做该父或其它旧合同。
 
 类别数据复用CAC07的X:00046247-000462B0完整105B：1B NOP、20B五W32 target、71B索引表、13B NOP。原kind-1无符号>70默认，低BYTE selector再跳五目标；原全表/guard与当前switch吻合，不新R7/X或重分类。
 
@@ -74,3 +74,20 @@ WorldObjectState.cpp持有同一1000项数组、四S32计数/游标，当前初�
 ## 当前状态
 
 本步前Git提交说明“[#] 对齐地图对象生产并恢复历史源码引用”，完成提交说明“[#] 对齐世界对象查找领取与类型映射合同”。统一cg2d_re分支，不打tag。五正确body保持，只十关联注释，五完整原根/31实际入向、池地址界/1000项与复用105B全表、整CPP/头重放、1920十一当前属性/旧子记录和全部其它旧语义/MOP01/政策、引用/编码及派生守恒静态通过；文本汇总/Check均退出0。结果语义2191（2143F＋48X）、合同2253/3680=61.22%仅关联率、F1622/E1427、MAP142/Yobi72枚举false，派生只六metrics/五F/两功能/六任务。184叶完整验收0/60任务关闭11与六closure及完整gates保。十三本步文件，七外部改动及pelican删除暂存保留排除，统一cg2d_re分支/不打tag。全部输入/生产/31完整父/传递callee/容量/alias/owner/SDK/机器ABI/画面声音与运行仍待，整体SPEC未完成。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_world_object_lookup_allocation_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 对齐世界对象查找领取与类型映射合同」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x444fa0 | 0x445026 | 52/134 |
+| 0x446130 | 0x4461d1 | 49/161 |
+| 0x4461e0 | 0x446203 | 13/35 |
+| 0x446210 | 0x446247 | 17/55 |
+| 0x4462b0 | 0x4462d4 | 13/36 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`measurement_check`=pass（历史限定检查）；`runtime_verified`=false；`derived_scope`=pass（历史限定检查）。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

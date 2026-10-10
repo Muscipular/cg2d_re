@@ -7,7 +7,7 @@
 
 MPR01仅aPc主属性回复509650完整444条1350B/七页与UU附加属性回复509BA0完整232条655B/四页；合676条2005B/十一页、70E8六目标/60跳两RET。两根同9A6E0C W32门槛，主根非零按原S32位模式返回gate，附加根void原残留EAX门槛返回只副作用；当前dispatcher的两个TryDispatchReply<T>接同原命令/文本字段/LF明文并丢callback数值，原512E40两CALL后都XOR EAX,EAX，只局部接线/后邻不记完整dispatcher或机器ABI。flags由payload第1项原Base62，字段2起，仅对应(flags&(bit|1))非零才消费/推进，bit0表示全量而不是任何字段强制默认值；不改字段次序或插无掩码字段。主根六CryptInt依次hp/maxHp/fp/maxFp/value58/value68，掩码3/5/9/11H/2001H/4001H，每项真实ParseInteger→ConstructFromInt→临时mask W32/encoded W32/readCount BYTE依次先取样→按同序目标发布→Destroy→field++，保RNG次数/顺序，不复制vft/reserved或省构造；只现parseCrypt lambda一处加三局部样本，六原点同合同、不新造原F/helper。八values78[0..7] masks20..1000，后十二level/values78[8..13]/valueB8/valuesE4[0..3] masks8000..4000000；gold/valueFC门槛8000001H在两文字处理前持样，先gold/field++，titleIndex100门槛10000001H，然后name/ownTitle两256B未清局部Extract(cap255)→Unescape→strlen<=16才复制原17B目标，太长保旧值但field仍++，原失败提取由现既有提取器边界承接，不加校验/清零。末用同gold门槛再Parse当前field到value15BCC并真实S32透传，未命中返0，gold只变化或仅尾命中时不合并/缺字段回退。附加根firstTargets12S32顺序valuesD4[0..3]/valuesBC[0..5]/value104/valueF4，mask2..1000；2001H只原value00低W16，四middle F8/08/17C/16C从4000..20000，40001H先写walkSpeed，<=0原修正100再写，原action非空才同一次T*经既有SetYobiWalkSpeed直接S32发布+284，不新保护/钳制；last五valuesB0[0..1]/values15BD0[0..2]从80000..800000，三原FF02D0/D4/D8上限不新增限制。所有未命中字段保旧、字段推进/取值失败边界与复制/发布序保持；当前Money getters/UI存取丢钱共借同一PlayerRuntimeSlots，类型/七提供者/SetYobi声明、五既有读取消费源与七语义记录及两个当前路由行保持。两新F两adapted、NETWORK/UI各两成员/YOBI一、三限定S零I八open；完整玩家/名字/数值/资源初始化生产与所有其它消费、shared player/action/textbuf alias-owner寿命、SDK/生成读取和机器ABI、完整回复/互通与实际显示操作运行待。仅一共用取样片段/四注释，附加正确正文保持，不增加输入/容量/索引/空保护、补零/默认/回滚、异常溢出模型、字段/类型/API/helper/owner或新协议；MSVC/WAV-only/明文及全部完整门禁保持，整体未完成。
 
-完整原指令、两个dispatcher CALL和六组CryptInt读写原点见[证据](cg2d_player_attribute_money_reply_evidence.json)。[SDM01存取](cg2d_storage_amount_exchange_spec.md)和[MDR01丢钱](cg2d_money_drop_request_spec.md)的金额getter直达同一玩家owner，当前真实调用/字段来源明确，不以此关闭全部属性或网络/owner/ABI门禁。
+完整原指令、两个dispatcher CALL和六组CryptInt读写原点见[证据](cg2d_player_attribute_money_reply_spec.md#evidence-archive-20261011)。[SDM01存取](cg2d_storage_amount_exchange_spec.md)和[MDR01丢钱](cg2d_money_drop_request_spec.md)的金额getter直达同一玩家owner，当前真实调用/字段来源明确，不以此关闭全部属性或网络/owner/ABI门禁。
 
 <a id="player-money-decision"></a>
 ## 方案及取舍
@@ -26,3 +26,16 @@ MPR01仅aPc主属性回复509650完整444条1350B/七页与UU附加属性回复5
 
 语义2329=2281F关联+48有界代码，处置1787/证据1590；文档关联2391/3680=64.97%仅关联率。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
 
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_player_attribute_money_reply_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 补齐玩家属性与金额回复生产合同」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x509650 | 0x509B96 | 444/1350 |
+| 0x509BA0 | 0x509E2F | 232/655 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`runtime_verified`=false；`generated_machine_reads_verified`=false；`build_or_test_performed`=false；`digests_computed_or_compared`=false。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

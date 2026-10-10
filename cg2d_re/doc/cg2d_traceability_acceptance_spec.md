@@ -2343,49 +2343,49 @@ FUNC-BATTLE/FUNC-UIRUNTIME仅追加来源，U09/R04仅追加引用并保持open�
 
 ## 2026-10-10 BIE01 调查、计时/标死与逐效果正常源限定验收
 
-[完整五根/裁决](cg2d_battle_inspect_exit_spec.md#battle-inspect-exit-decision)和[原指令/整源差集](cg2d_battle_inspect_exit_evidence.json)登记两条FUNC-BATTLE局部I/S。I仅104/105/108四读取组、十三BYTE和一临时HP零复制共十八组；S五完整正常根/实际分派和依赖关系、wsprintfA真实导入来源/61B原格式/70F32及具名有限MSVC/GBK边界。106/107正文保持；原操作数3为寄存器id，原字符串转换视图非原字节，不新登记假callee/导入或数据X。
+[完整五根/裁决](cg2d_battle_inspect_exit_spec.md#battle-inspect-exit-decision)和[原指令/整源差集](cg2d_battle_inspect_exit_spec.md#evidence-archive-20261011)登记两条FUNC-BATTLE局部I/S。I仅104/105/108四读取组、十三BYTE和一临时HP零复制共十八组；S五完整正常根/实际分派和依赖关系、wsprintfA真实导入来源/61B原格式/70F32及具名有限MSVC/GBK边界。106/107正文保持；原操作数3为寄存器id，原字符串转换视图非原字节，不新登记假callee/导入或数据X。
 
 新增五语义/F处置/已知成员，BATTLE枚举仍false；十五既有语义及所有旧记录保持。E1401→1403、语义2158→2163、F1586→1591、BATTLE398→403，五任务仅追加依据继续open；原完整gates/184叶验收0/60任务关闭11与六closure保持。全部生产/其它父和完整callee/机器ABI/alias/owner/SDK/声音画面待，必要静态及文本汇总不代运行，总SPEC§10及执行限制不降低。
 
 ## 2026-10-10 BKE01 复制体、击倒及离场五根限定验收
 
-[五完整正常源/裁决](cg2d_battle_knockdown_exit_spec.md#battle-knockdown-exit-decision)与[原根/数据/整源差集](cg2d_battle_knockdown_exit_evidence.json)登记两FUNC-BATTLE局部I/S：七BYTE、两HP零/三四值传送/一次事件/三Y-X/两运动参数/113两入口或父取样，共二十组。S五完整864条3025B/67E8/实际case和20B表项及28B常量/复用696B表与依赖关联，不代全callee/机器ABI或生命周期。
+[五完整正常源/裁决](cg2d_battle_knockdown_exit_spec.md#battle-knockdown-exit-decision)与[原根/数据/整源差集](cg2d_battle_knockdown_exit_spec.md#evidence-archive-20261011)登记两FUNC-BATTLE局部I/S：七BYTE、两HP零/三四值传送/一次事件/三Y-X/两运动参数/113两入口或父取样，共二十组。S五完整864条3025B/67E8/实际case和20B表项及28B常量/复用696B表与依赖关联，不代全callee/机器ABI或生命周期。
 
 仅109–112四新语义/F处置/成员，113更新既有1431来源与两组，equivalent及历史battle_motion_scale/完整证据保持；二十callee旧记录保持。语义2163→2167、F1591→1595、E1403→1405、BATTLE403→407仍枚举false；五任务仅加来源继续open，全部完整gates/184叶验收0/60任务关闭11和六closure保持。所有真实输入/父/容量/正常失败/alias/owner/SDK与声音画面待，未构建/测试/运行/摘要，不降低总SPEC§10。
 
 ## 2026-10-10 BFW01 工厂等待与施法身份更新限定验收
 
-[四完整正常源/裁决](cg2d_battle_factory_wait_spec.md#battle-factory-wait-decision)和[原根/整源差集](cg2d_battle_factory_wait_evidence.json)登记两FUNC-BATTLE限定I/S。I只139十组：两独立T*门禁取样、98条件属性单读、405三读序和四HP/FP临时复制；S四完整565条2019B/48E8、六实际表项/四case及十五依赖关联。三正确主体和已有1497/40FC10完整共体保持，共体不重复纳管；十既有callee语义记录保持。
+[四完整正常源/裁决](cg2d_battle_factory_wait_spec.md#battle-factory-wait-decision)和[原根/整源差集](cg2d_battle_factory_wait_spec.md#evidence-archive-20261011)登记两FUNC-BATTLE限定I/S。I只139十组：两独立T*门禁取样、98条件属性单读、405三读序和四HP/FP临时复制；S四完整565条2019B/48E8、六实际表项/四case及十五依赖关联。三正确主体和已有1497/40FC10完整共体保持，共体不重复纳管；十既有callee语义记录保持。
 
 四新语义/F处置/成员：语义2167→2171、F1595→1599、E1405→1407、BATTLE407→411且枚举false。五任务仅追加依据继续open，全部完整gates/184叶验收0/60任务关闭11与六closure保持。所有真实生产/其它父和完整callee/容量/机器ABI/alias/owner/SDK/声音画面待，必要静态与文本汇总不代运行，总SPEC§10及执行限制不降低。
 
 ## 2026-10-10 BFL01 场地特效与状态清理限定验收
 
-[六完整正常源/裁决](cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-decision)及[指令/数据/差集](cg2d_battle_field_effect_lifecycle_evidence.json)登记两FUNC-BATTLE限定I/S。I只41FFE0两索引齐取与41FF90一Y转换后偏移，共三组；S六完整233条777B/26E8、四原表项/case、十创建CALL/一callback MOV、440B两模型/4B常量与173B明确清理前缀。141/143旧身份与五旧callee、表/C解析器保持，创建器新身份作145 callee不重复计。
+[六完整正常源/裁决](cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-decision)及[指令/数据/差集](cg2d_battle_field_effect_lifecycle_spec.md#evidence-archive-20261011)登记两FUNC-BATTLE限定I/S。I只41FFE0两索引齐取与41FF90一Y转换后偏移，共三组；S六完整233条777B/26E8、四原表项/case、十创建CALL/一callback MOV、440B两模型/4B常量与173B明确清理前缀。141/143旧身份与五旧callee、表/C解析器保持，创建器新身份作145 callee不重复计。
 
 六新语义/F处置/成员：2171→2177、F1599→1605、E1407→1409、BATTLE411→417枚举false；五任务仅追加依据继续open，所有完整gates/184叶验收0/60任务关闭11及六closure保持。两表只读/旧正常值相同，不称运行故障；前缀不代整个C解析输入、完整父-callee/容量/ABI/alias/owner/SDK/声音画面或运行，总SPEC§10和执行限制不降低。
 
 ## 2026-10-10 BAS01 附属特效开关与共享回调限定验收
 
-[五完整正常源/裁决](cg2d_battle_attached_effect_spec.md#battle-attached-effect-decision)及[原根/差集](cg2d_battle_attached_effect_evidence.json)登记两FUNC-BATTLE限定I/S。I仅41F800共享callback一Y转换后屏幕偏移组；S五完整257条884B/19E8、两原表项/case、39实际CALL入向/两callback MOV与复用35B六表指针/4B常量。四正确主体、所有其它源/已登记动作/五旧callee及原X分类保持，不新R7/数据X或Ftoll函数。
+[五完整正常源/裁决](cg2d_battle_attached_effect_spec.md#battle-attached-effect-decision)及[原根/差集](cg2d_battle_attached_effect_spec.md#evidence-archive-20261011)登记两FUNC-BATTLE限定I/S。I仅41F800共享callback一Y转换后屏幕偏移组；S五完整257条884B/19E8、两原表项/case、39实际CALL入向/两callback MOV与复用35B六表指针/4B常量。四正确主体、所有其它源/已登记动作/五旧callee及原X分类保持，不新R7/数据X或Ftoll函数。
 
 四新语义/F/成员，已有1913从CAC07数据角色关联补完整正常创建/失败/发布及新F处置，旧数据子记录保历史且成员不重计；语义2177→2181、F1605→1610、E1409→1411、BATTLE417→421枚举false。五任务仅追加依据仍open，所有完整gates/184叶验收0/60任务关闭11与六closure保持。所有生产/父-callee/输入/容量/ABI/alias/owner/SDK/声音画面及运行待，总SPEC§10及执行限制不降低。
 
 ## 2026-10-10 YFPS01 对象帧播放限定验收
 
-[两完整合同](cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-acceptance)及[原指令/329 CALL/差集](cg2d_yobi_frame_playback_sampling_evidence.json)补两已有主体独立身份，四定义十六源组与公头参数名/两注释。两完整766条2590B/十六E8/六旧callee、九十跳/二十RET，329实际直接入向/214父；静图局部图号和动画fresh图号、BYTE消费/持样门禁、加载后模式及cache/两轴顺序、阶段帧引用及坐标叠加恢复，不称运行故障或新实现所有父。
+[两完整合同](cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-acceptance)及[原指令/329 CALL/差集](cg2d_yobi_frame_playback_sampling_spec.md#evidence-archive-20261011)补两已有主体独立身份，四定义十六源组与公头参数名/两注释。两完整766条2590B/十六E8/六旧callee、九十跳/二十RET，329实际直接入向/214父；静图局部图号和动画fresh图号、BYTE消费/持样门禁、加载后模式及cache/两轴顺序、阶段帧引用及坐标叠加恢复，不称运行故障或新实现所有父。
 
 ANIMATION/YOBI各两个新成员，BATTLE只Play依赖成员；两新语义/F和四限定I/S两根，六旧callee/全部其它语义/结构与原正常失败保持。语义2181→2183、F1610→1612、E1411→1415、动画9→11/Yobi60→62/BATTLE421→422枚举均false；六任务open、完整gates/184叶/60任务11关闭和六closure保，全部生产/输入/329完整父/容量/ABI/alias/owner/SDK/声音画面/运行待。
 
 ## 2026-10-10 YGOS01 图形偏移与挂件消费限定验收
 
-[四正常根/裁决](cg2d_yobi_graphic_offset_sampling_spec.md#yobi-graphic-offset-decision)及[完整原指令/差集](cg2d_yobi_graphic_offset_sampling_evidence.json)覆盖292条795B/十七E8、25跳含一switch/九RET、94直接入向/22父、两父局部窗与CAC07全35B六表复用。只5182B0两轴两组/六注释，三正确body/六case/两槽/原低BYTE轴/正常S64窄化和三旧callee、帧播放及其他源保持。
+[四正常根/裁决](cg2d_yobi_graphic_offset_sampling_spec.md#yobi-graphic-offset-decision)及[完整原指令/差集](cg2d_yobi_graphic_offset_sampling_spec.md#evidence-archive-20261011)覆盖292条795B/十七E8、25跳含一switch/九RET、94直接入向/22父、两父局部窗与CAC07全35B六表复用。只5182B0两轴两组/六注释，三正确body/六case/两槽/原低BYTE轴/正常S64窄化和三旧callee、帧播放及其他源保持。
 
 三个新原身份、1919由数据关联补完整当前来源/元数据及新F处置，旧CAC07子记录/入口/已知MAP成员保；语义2183→2186、F1612→1616/E1415→1419、MAP134→137/Yobi66均枚举false。MAP/YOBI四限定I只两组/S四正常根、七任务open及完整政策/gates/184叶验收0/60任务11关闭与六closure保持，不代所有数据生产/94全部父/容量/ABI/alias/owner/SDK/声音画面或运行。
 
 ## 2026-10-10 MOP01 地图对象生产限定验收
 
-[裁决/完整正常根](cg2d_map_object_production_sampling_spec.md#map-object-production-acceptance)与[原指令/源差集](cg2d_map_object_production_sampling_evidence.json)登记六MAP/YOBI/TEXT限定I/S。543条1797B/九页、28E8十callee/31跳一RET、唯一十三参调用窗、九解析/九Unescape与四槽复用有据；I五组，TEXT I仅三缓冲组，整源精确重放与其它源/结构/四旧语义保持。六未独立登记callee只当前提供者，不称独立完整验收。
+[裁决/完整正常根](cg2d_map_object_production_sampling_spec.md#map-object-production-acceptance)与[原指令/源差集](cg2d_map_object_production_sampling_spec.md#evidence-archive-20261011)登记六MAP/YOBI/TEXT限定I/S。543条1797B/九页、28E8十callee/31跳一RET、唯一十三参调用窗、九解析/九Unescape与四槽复用有据；I五组，TEXT I仅三缓冲组，整源精确重放与其它源/结构/四旧语义保持。六未独立登记callee只当前提供者，不称独立完整验收。
 
 一新原身份/F，语义2186→2187、F1616→1617/E1419→1425，MAP138/Yobi67/TEXT29均枚举false。七任务open、原184叶验收0/60任务11关闭与六closure、完整gates/政策不改，全部生产/完整唯一父/传递callee/容量/正常失败/alias/owner/SDK/机器ABI/声音画面及运行仍待，总SPEC§10不降。
 
@@ -2395,123 +2395,123 @@ ANIMATION/YOBI各两个新成员，BATTLE只Play依赖成员；两新语义/F和
 
 ## 2026-10-10 WOL01 世界对象基础依赖限定验收
 
-[五完整正常根](cg2d_world_object_lookup_allocation_spec.md#world-object-lookup-acceptance)与[原证/源差集](cg2d_world_object_lookup_allocation_evidence.json)补两MAP/YOBI限定S，无新I。144条421B/五页、一E8/28跳含一switch/十五RET，31实际入向/十九父、原105B全类别表/selector与1000项正常地址界有据；五正确body只十关联注释，其余源/表/字段和MOP01正常父保持。
+[五完整正常根](cg2d_world_object_lookup_allocation_spec.md#world-object-lookup-acceptance)与[原证/源差集](cg2d_world_object_lookup_allocation_spec.md#evidence-archive-20261011)补两MAP/YOBI限定S，无新I。144条421B/五页、一E8/28跳含一switch/十五RET，31实际入向/十九父、原105B全类别表/selector与1000项正常地址界有据；五正确body只十关联注释，其余源/表/字段和MOP01正常父保持。
 
 四新语义、1920从CAC07数据关联补完整正常元数据/来源及新F处置，旧子记录/入口与已知MAP成员保；语义2187→2191、F1617→1622/E1425→1427、MAP138→142/Yobi67→72枚举均false。六任务open、所有完整gates/184叶验收0/60任务11关闭/六closure与原范围政策保，不代全部31父/生产/容量/ABI/alias/owner/SDK/声音画面或运行。
 
 ## 2026-10-10 WLR01 世界对象生命周期限定验收
 
-[四完整正常根](cg2d_world_object_lifecycle_spec.md#world-object-lifecycle-acceptance)/[原指令与共享器差集](cg2d_world_object_lifecycle_evidence.json)登记两MAP/YOBI限定S四根，零I/新函数/业务。328条1066B/八页、26E8六callee/37跳六RET，19实际入向/十七父及19短窗有据；四body/共享八槽-text清理和第三玩家消费者旧1300完全保持，只五CPP/五头关联注释。保两个整表选择性/名称/无释放差异、删除全空旧上界、恢复原Read/Create/字节及失败，六旧语义与所有其它源/结构保。
+[四完整正常根](cg2d_world_object_lifecycle_spec.md#world-object-lifecycle-acceptance)/[原指令与共享器差集](cg2d_world_object_lifecycle_spec.md#evidence-archive-20261011)登记两MAP/YOBI限定S四根，零I/新函数/业务。328条1066B/八页、26E8六callee/37跳六RET，19实际入向/十七父及19短窗有据；四body/共享八槽-text清理和第三玩家消费者旧1300完全保持，只五CPP/五头关联注释。保两个整表选择性/名称/无释放差异、删除全空旧上界、恢复原Read/Create/字节及失败，六旧语义与所有其它源/结构保。
 
 四新语义/F/MAP-Yobi成员；语义2191→2195、F1622→1626/E1427→1429、MAP142→146/Yobi72→76枚举均false，七任务open及全184叶验收0/60任务11关闭、六closure/完整gates与原政策保；所有生产/十九整父/容量/正常失败/传递callee/alias/owner/SDK/机器ABI/声音画面或运行待。
 
 ## 2026-10-10 WOP01 世界对象记录生产限定验收
 
-[三完整根](cg2d_world_object_record_producers_spec.md#world-object-record-producers-acceptance)/[原指令/差集](cg2d_world_object_record_producers_evidence.json)登记MAP/YOBI三根、TEXT的445A60共三限定S，零I。516条1738B/十页、27E8九callee/22跳五RET、三实际入向/两父短窗；六坐标读取组/两局部lambda/三原文本槽已落实，整两CPP/一头唯一差异重放通过。共享工具、其它生产者、两个当前父及六旧身份全保，三未独立登记callee仅当前绑定，不冒充完整叶取证。
+[三完整根](cg2d_world_object_record_producers_spec.md#world-object-record-producers-acceptance)/[原指令/差集](cg2d_world_object_record_producers_spec.md#evidence-archive-20261011)登记MAP/YOBI三根、TEXT的445A60共三限定S，零I。516条1738B/十页、27E8九callee/22跳五RET、三实际入向/两父短窗；六坐标读取组/两局部lambda/三原文本槽已落实，整两CPP/一头唯一差异重放通过。共享工具、其它生产者、两个当前父及六旧身份全保，三未独立登记callee仅当前绑定，不冒充完整叶取证。
 
 三新语义/F，语义2195→2198、F1626→1629/E1429→1432、MAP146→149/Yobi76→79/TEXT29→30，成员枚举仍false；七任务open、184叶验收0/60任务11关闭、六closure与完整gates/原政策保。全部输入/两整父/正常失败/容量/alias/owner/SDK/ABI/画面声音/运行待，不据局部静态降低总SPEC§10。
 
 ## 2026-10-10 WBR01 世界对象整表补建限定验收
 
-[两完整正常根](cg2d_world_object_bulk_restore_spec.md#world-object-bulk-restore-acceptance)/[原指令与差集](cg2d_world_object_bulk_restore_evidence.json)登记MAP/YOBI两限定S，零I；134条431B/三页、三E8两callee/15跳两RET，五入向/三父短窗及五当前接线。两body全保，仅两CPP/两头关联注释，原1000项界与步长、清引用无释放、补建原Read/Create/先pub/成功再分类型、未知类保创建和原名字/flags尾均有据。
+[两完整正常根](cg2d_world_object_bulk_restore_spec.md#world-object-bulk-restore-acceptance)/[原指令与差集](cg2d_world_object_bulk_restore_spec.md#evidence-archive-20261011)登记MAP/YOBI两限定S，零I；134条431B/三页、三E8两callee/15跳两RET，五入向/三父短窗及五当前接线。两body全保，仅两CPP/两头关联注释，原1000项界与步长、清引用无释放、补建原Read/Create/先pub/成功再分类型、未知类保创建和原名字/flags尾均有据。
 
 两新语义/F，语义2198→2200、F1629→1631/E1432→1434、MAP149→151/Yobi79→81枚举仍false；六旧身份/所有共享源/三个父保持，七任务open、184叶验收0/60任务11关闭、全部完整gates及六closure/原政策保。全输入/三完整父/正常失败/容量/alias/owner/SDK/ABI/画面声音/运行待，不降总SPEC§10。
 
 ## 2026-10-10 WGQ01 世界对象交互格限定验收
 
-[五完整正常根](cg2d_world_object_grid_query_spec.md#world-object-grid-query-acceptance)/[原指令与差集](cg2d_world_object_grid_query_evidence.json)登记MAP/YOBI两限定S零I：280条765B/五页、十E8/42跳十RET，十入向/八父短窗与返回补窗；比较叶另四条15B/一Read，仅本组十AL观察，48全库入向另38及独立身份不外推。五body/共享比较读取源/十现接线及八旧身份保持，整CPP/一头只十注释，原W16各掩码/编号或完整0-1/动态界与Read次数有据。
+[五完整正常根](cg2d_world_object_grid_query_spec.md#world-object-grid-query-acceptance)/[原指令与差集](cg2d_world_object_grid_query_spec.md#evidence-archive-20261011)登记MAP/YOBI两限定S零I：280条765B/五页、十E8/42跳十RET，十入向/八父短窗与返回补窗；比较叶另四条15B/一Read，仅本组十AL观察，48全库入向另38及独立身份不外推。五body/共享比较读取源/十现接线及八旧身份保持，整CPP/一头只十注释，原W16各掩码/编号或完整0-1/动态界与Read次数有据。
 
 五新语义/F，语义2200→2205、F1631→1636/E1434→1436、MAP151→156/Yobi81→86枚举仍false；六任务open、184叶验收0/60任务11关闭、全部完整gates及六closure/政策保。完整交互/八完整父/全部比较调用/正常失败/容量/alias/owner/SDK/ABI/画面声音/运行仍待，不降总SPEC§10。
 
 ## 2026-10-10 NFI01 邻格及fIM明文限定验收
 
-[两完整根](cg2d_neighbor_fim_request_plaintext_spec.md#neighbor-fim-acceptance)/[原指令/source/server判据](cg2d_neighbor_fim_request_plaintext_evidence.json)：227条676B/五页、25E8十三callee/两间接tick/20跳三RET；父正确body保持，子按已批CAB05只删17写，原字段/RNG/扫描/返回/tick保，整两CPP/两头精确差集通过。server只读取证，不以解析判据称运行/互通或原17代码等价；十二旧身份保持，46CDF0仅真实提供者不扩验。
+[两完整根](cg2d_neighbor_fim_request_plaintext_spec.md#neighbor-fim-acceptance)/[原指令/source/server判据](cg2d_neighbor_fim_request_plaintext_spec.md#evidence-archive-20261011)：227条676B/五页、25E8十三callee/两间接tick/20跳三RET；父正确body保持，子按已批CAB05只删17写，原字段/RNG/扫描/返回/tick保，整两CPP/两头精确差集通过。server只读取证，不以解析判据称运行/互通或原17代码等价；十二旧身份保持，46CDF0仅真实提供者不扩验。
 
 两新语义/F，语义2205→2207、F1636→1638/E1436→1439，MAP156→157/Yobi86→87只父、NETWORK73→74只sender，成员枚举仍false；三限定S零I，七任务open、184叶验收0/60任务11关闭、完整gates及六closure/原政策保。完整callee/唯一外父/正常失败/容量/alias/owner/SDK/ABI/画面声音及fIM/全网络运行待，不降总SPEC§10。
 
 ## 2026-10-10 WDG01 方向生产与归一化限定验收
 
-[两完整根](cg2d_world_direction_normalization_sampling_spec.md#world-direction-acceptance)/[原字节与源差集](cg2d_world_direction_normalization_sampling_evidence.json)：34条112B/两页、两E8与ftol外尾跳、五跳一RET、20局部调用窗；normalizer只恢复两更新前采样，primary/旧1389插值与65原表保持。一个新语义/F，旧1390及处置追加当前纠正、BOG历史保；十二其它旧身份/source保，未登记六父只真实绑定，不称完整验收。
+[两完整根](cg2d_world_direction_normalization_sampling_spec.md#world-direction-acceptance)/[原字节与源差集](cg2d_world_direction_normalization_sampling_spec.md#evidence-archive-20261011)：34条112B/两页、两E8与ftol外尾跳、五跳一RET、20局部调用窗；normalizer只恢复两更新前采样，primary/旧1389插值与65原表保持。一个新语义/F，旧1390及处置追加当前纠正、BOG历史保；十二其它旧身份/source保，未登记六父只真实绑定，不称完整验收。
 
 语义2207→2208、F1638→1639/E1439→1442；MAP157→159/Yobi87→89各两成员、BATTLE422旧成员只当前S，三限定S零I，七任务open/成员枚举false/184叶验收0/60任务关闭11/六closure及完整门禁守恒。生成机器加载、全父/alias/owner/表生产消费/数值/SDK/ABI/画面与生命周期运行仍待，不降总SPEC§10。
 
 ## 2026-10-10 PDH01 路径方向生产限定验收
 
-[两完整合同](cg2d_path_direction_heading_producers_spec.md#path-heading-acceptance)/[原码与当前差集](cg2d_path_direction_heading_producers_evidence.json)：116条393B/三页、七E8五callee十一跳两RET，五局部窗/两旧父、八S16增量表32B；仅恢复两body五取样组，原分支/返回/RNG及所有其它源/表保。两个新语义/F、MAP159→161/Yobi89→91，各两成员/两限定S零I，语义2208→2210/F1639→1641/E1442→1444。
+[两完整合同](cg2d_path_direction_heading_producers_spec.md#path-heading-acceptance)/[原码与当前差集](cg2d_path_direction_heading_producers_spec.md#evidence-archive-20261011)：116条393B/三页、七E8五callee十一跳两RET，五局部窗/两旧父、八S16增量表32B；仅恢复两body五取样组，原分支/返回/RNG及所有其它源/表保。两个新语义/F、MAP159→161/Yobi89→91，各两成员/两限定S零I，语义2208→2210/F1639→1641/E1442→1444。
 
 四旧身份/全部旧记录保，未独立登记的46AE60/46AD00/4B0F10只列实际提供者，不当完整callee；六任务open/184叶验收0/60任务关闭11/成员枚举false/完整gates及六closure不变。只核源码序，不宣优化后独立机器加载、全部输入/正常失败/owner/SDK/机器ABI/数值/画面运行通过，总SPEC§10保。
 
 ## 2026-10-10 MHT01 地图命中与时段限定验收
 
-[三完整合同](cg2d_map_hit_time_classification_spec.md#map-hit-time-acceptance)/[连续原码及源差集](cg2d_map_hit_time_classification_evidence.json)：81条257B/三页、一E8十七跳六RET，五局部窗/四外点三父；两检测三取样组恢复，time正确body/原PDH父与全部其它源/表保。三新语义/F，MAP161→164/Yobi91→94各三成员，两限定S零I；语义2210→2213/F1641→1644/E1444→1446。
+[三完整合同](cg2d_map_hit_time_classification_spec.md#map-hit-time-acceptance)/[连续原码及源差集](cg2d_map_hit_time_classification_spec.md#evidence-archive-20261011)：81条257B/三页、一E8十七跳六RET，五局部窗/四外点三父；两检测三取样组恢复，time正确body/原PDH父与全部其它源/表保。三新语义/F，MAP161→164/Yobi91→94各三成员，两限定S零I；语义2210→2213/F1641→1644/E1444→1446。
 
 所有旧语义/处置/证据/原政策保持；两未独立时段父只真实绑定。六任务open/184叶验收0/60任务关闭11/完整gates/枚举false及六closure守恒；低BYTE逻辑消费/W16码与hours单W32字段有据，不称实际机器读宽、全父/表与time生产消费-owner/调色板/PudO/SDK/ABI/数值/运行完成，总SPEC§10保。
 
 ## 2026-10-10 GTP01 游戏时间生产限定验收
 
-[五完整合同](cg2d_game_time_production_lifecycle_spec.md#game-time-production-acceptance)/[原码与当前差集](cg2d_game_time_production_lifecycle_evidence.json)：149条505B/六页、八E8/两IAT tick/一外尾跳/十一跳四RET，十二局部入向/四外父；三取样组恢复，writer/outer/setter正确body保持，51CDE9残值透传明确不当全部弃返/ABI通过。四新语义/197完整追加、五新F处置，语义2213→2217/F1644→1649/E1446→1450；MAP164→169/Yobi94→99各五成员、BATTLE422→423仅timer、NETWORK74→75仅PudO，四限定S零I。
+[五完整合同](cg2d_game_time_production_lifecycle_spec.md#game-time-production-acceptance)/[原码与当前差集](cg2d_game_time_production_lifecycle_spec.md#evidence-archive-20261011)：149条505B/六页、八E8/两IAT tick/一外尾跳/十一跳四RET，十二局部入向/四外父；三取样组恢复，writer/outer/setter正确body保持，51CDE9残值透传明确不当全部弃返/ABI通过。四新语义/197完整追加、五新F处置，语义2213→2217/F1644→1649/E1446→1450；MAP164→169/Yobi94→99各五成员、BATTLE422→423仅timer、NETWORK74→75仅PudO，四限定S零I。
 
 全部其它2212旧语义/1644旧F/1446旧证据及七旧依赖身份/源保持，八任务open/184叶验收0/60任务关闭11/枚举false/完整gates与六closure保。原时间/字段/业务归零有据，不宣完整校时/全父/alias-owner/调色板/SDK/机器ABI/数值/画面运行，总SPEC§10不降。
 
 ## 2026-10-10 PTP01 倒计时回复生产限定验收
 
-[完整MTg合同](cg2d_player_timer_reply_producer_spec.md#player-timer-reply-acceptance)/[原指令与源差集](cg2d_player_timer_reply_producer_evidence.json)：18条68B/一页、两跳一RET/单IATtick/唯一父；55门槛直接引用仅出处关联，53完整读者/两旧writer的全生命周期不扩验。首×5在mode前一组与整两文件/两注释差集成立，原gate/负秒/字段/返回、三个无F native helper及全部其它源保。
+[完整MTg合同](cg2d_player_timer_reply_producer_spec.md#player-timer-reply-acceptance)/[原指令与源差集](cg2d_player_timer_reply_producer_spec.md#evidence-archive-20261011)：18条68B/一页、两跳一RET/单IATtick/唯一父；55门槛直接引用仅出处关联，53完整读者/两旧writer的全生命周期不扩验。首×5在mode前一组与整两文件/两注释差集成立，原gate/负秒/字段/返回、三个无F native helper及全部其它源保。
 
 一新语义/F，语义2217→2218/F1649→1650/E1450→1454；MAP169→170/Yobi99→100/BATTLE423→424/NETWORK75→76各一成员、四限定S零I；四旧身份和所有旧台账/政策保，八任务open/184叶验收0/60任务关闭11/原枚举false/完整gates及六closure守恒，不降总SPEC§10。
 
 ## 2026-10-10 TUC01 倒计时界面消费的限定证据
 
-[四完整原根](cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-source-state)/[证据](cg2d_timer_ui_consumption_evidence.json)只核正常源码合同：共享时长小时位/首窗口两时点/三类坐标取样、单U8动作flag及两hover持有八组；原描述符零初始化、HP/FP/提示、转生门槛/命令弃返及字段发布保持。两状态栏旧999/1000保历史追加、两新按钮语义/四F，UIRUNTIME四成员/BATTLE仅497C80一成员、两限定S零I、九任务仍open。全部原枚举/完整gates、184叶验收0/60任务关闭11/六closure及总SPEC§10保持；整父/原型/同源数据owner/所有callee、SDK/数值/机器ABI/交互运行待，原格式明文/MSVC直接CRT/WAV-only保持，不将关联率称完成率。
+[四完整原根](cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-source-state)/[证据](cg2d_timer_ui_consumption_spec.md#evidence-archive-20261011)只核正常源码合同：共享时长小时位/首窗口两时点/三类坐标取样、单U8动作flag及两hover持有八组；原描述符零初始化、HP/FP/提示、转生门槛/命令弃返及字段发布保持。两状态栏旧999/1000保历史追加、两新按钮语义/四F，UIRUNTIME四成员/BATTLE仅497C80一成员、两限定S零I、九任务仍open。全部原枚举/完整gates、184叶验收0/60任务关闭11/六closure及总SPEC§10保持；整父/原型/同源数据owner/所有callee、SDK/数值/机器ABI/交互运行待，原格式明文/MSVC直接CRT/WAV-only保持，不将关联率称完成率。
 
 ## 2026-10-10 SHP01 状态提示生产与点击的限定证据
 
-[七原根](cg2d_status_hint_production_spec.md#status-hint-production-source-state)/[原码与差集](cg2d_status_hint_production_evidence.json)限定正常源码S：六正确查询body保、八点击取样组恢复，五S16配对/原哨兵/三类邮件及相反迷你扫描顺序、原提示门槛/格式/关闭开窗保。旧915保历史追加，六新语义/七F、UIRUNTIME七成员/MAP六查询、两限定S零I/九任务open。三实际回调字节不代整表/全路由，原518F00唯一父弃返与现VOID保不代机器残值ABI；全部数据生产消费-owner/外callee/SDK/数值ABI/文本画面点击运行及全生命周期待。其它原政策/枚举/完整gates/184叶验收0/60任务关闭11/六closure与总SPEC§10保持，关联率不称完成率。
+[七原根](cg2d_status_hint_production_spec.md#status-hint-production-source-state)/[原码与差集](cg2d_status_hint_production_spec.md#evidence-archive-20261011)限定正常源码S：六正确查询body保、八点击取样组恢复，五S16配对/原哨兵/三类邮件及相反迷你扫描顺序、原提示门槛/格式/关闭开窗保。旧915保历史追加，六新语义/七F、UIRUNTIME七成员/MAP六查询、两限定S零I/九任务open。三实际回调字节不代整表/全路由，原518F00唯一父弃返与现VOID保不代机器残值ABI；全部数据生产消费-owner/外callee/SDK/数值ABI/文本画面点击运行及全生命周期待。其它原政策/枚举/完整gates/184叶验收0/60任务关闭11/六closure与总SPEC§10保持，关联率不称完成率。
 
 ## 2026-10-10 GML01 公会邮件查找与生产的限定证据
 
-[四完整原根](cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-source-state)/[原码与精确差集](cg2d_guild_mail_lookup_production_evidence.json)补5195C0排序W16==1首匹配和5195F0角色邮件W32==1末匹配，原200项/记录7Ch与邮件C88h分开，不能统一非0判定或返回首项。519370真实新增/九次140h倒序移位/kind两BYTE与name后text发布，5194F0末匹配后fresh角色/active-key零写/整槽清零/原返回保持；S32排序计数与分支内角色采样两组修正，无新函数/API/类型/owner或保护/默认值/回滚。四新语义/F、MAP/UIRUNTIME各四成员/NETWORK仅生产删除两成员、三限定S零I/九任务open，SHP两父/全部其它源码和原完整门禁/枚举保。完整外父/数据生产消费与字符串alias-owner、两表初始化寿命、SDK/数值/机器ABI与真实消息/文本画面运行待，整体未完成。
+[四完整原根](cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-source-state)/[原码与精确差集](cg2d_guild_mail_lookup_production_spec.md#evidence-archive-20261011)补5195C0排序W16==1首匹配和5195F0角色邮件W32==1末匹配，原200项/记录7Ch与邮件C88h分开，不能统一非0判定或返回首项。519370真实新增/九次140h倒序移位/kind两BYTE与name后text发布，5194F0末匹配后fresh角色/active-key零写/整槽清零/原返回保持；S32排序计数与分支内角色采样两组修正，无新函数/API/类型/owner或保护/默认值/回滚。四新语义/F、MAP/UIRUNTIME各四成员/NETWORK仅生产删除两成员、三限定S零I/九任务open，SHP两父/全部其它源码和原完整门禁/枚举保。完整外父/数据生产消费与字符串alias-owner、两表初始化寿命、SDK/数值/机器ABI与真实消息/文本画面运行待，整体未完成。
 
 原新槽头两写后slot==-1比较只记原事实，正常0..199槽表达保持，不新异常/越界模型或称机器枝流等价；候选519630在5195F0内未造身份。其余语义/处置/证据/政策、184叶验收0/60任务关闭11/六closure和总SPEC§10保持，关联率非完成率。
 
 ## 2026-10-10 GMR01 公会邮件回复与持久化的限定证据
 
-[四完整原根](cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-source-state)/[原码与接线](cg2d_guild_mail_reply_persistence_evidence.json)纳管50F130/50F190实际回复、50EF50活动计数和519550完整两角色保存，共136条443B/五页、17E8/14目标/六跳四RET。删除原gate位型/五域重置→W16恰1统计/W32计数发布→邮件删除返回保；收信原字段/工作区文本借用/反转义→旧排序index持有→kind0生产→外部记录名格式→存档→SE63/320/240→消息(4,3)保；无per回复文本释放。519550原128B路径/当前MSVC FILE域，写完整139480共享区弃返后透传关闭S32、打开失败0，不能凭IDA FILE*类型改返回。四正确body全部保持，仅八关联注释/零逻辑组；旧720/763保历史子记录追加、两新语义/四F、MAP/UIRUNTIME各四成员/NETWORK两回复、三限定S零I/九任务open。全dispatcher/保存外父、工作区与路径记录/文件音频消息全owner、SDK/数值/机器ABI/文本声音画面和实际文件失败运行待，其它原政策/门禁/枚举/六closure保，整体未完成。
+[四完整原根](cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-source-state)/[原码与接线](cg2d_guild_mail_reply_persistence_spec.md#evidence-archive-20261011)纳管50F130/50F190实际回复、50EF50活动计数和519550完整两角色保存，共136条443B/五页、17E8/14目标/六跳四RET。删除原gate位型/五域重置→W16恰1统计/W32计数发布→邮件删除返回保；收信原字段/工作区文本借用/反转义→旧排序index持有→kind0生产→外部记录名格式→存档→SE63/320/240→消息(4,3)保；无per回复文本释放。519550原128B路径/当前MSVC FILE域，写完整139480共享区弃返后透传关闭S32、打开失败0，不能凭IDA FILE*类型改返回。四正确body全部保持，仅八关联注释/零逻辑组；旧720/763保历史子记录追加、两新语义/四F、MAP/UIRUNTIME各四成员/NETWORK两回复、三限定S零I/九任务open。全dispatcher/保存外父、工作区与路径记录/文件音频消息全owner、SDK/数值/机器ABI/文本声音画面和实际文件失败运行待，其它原政策/门禁/枚举/六closure保，整体未完成。
 
 519550旧16直接引用含15实际E8和一个50E83E尾跳，原码/尾跳分别记；两个回复唯一父只有参数与弃返窗，不称整个dispatcher通过。关联率不是完成率，184叶验收0、60任务关闭11及总SPEC§10保持。
 
 ## 2026-10-10 UTE01 文本反转义的限定证据
 
-[UTE01完整原根](cg2d_text_unescape_sampling_spec.md#text-unescape-source-state)/[原码与映射](cg2d_text_unescape_sampling_evidence.json)覆盖52D120/52D150/52D2F0/509080，共66条147B/四页、三E8/三个内部目标/七跳五RET；316入向内部3/外313只证明来源。原58E944四对BYTE映射与未知字母低BYTE返回保持，恢复S32映射计数、每轮首BYTE持有及后继读取先于索引递增/共尾写。原高bit两BYTE、反斜杠字母、固定入口长度和两S32索引、末NUL及同text返回保；不切换编码或增加空值/容量/末字节检查。包装弃返→真实单RET空操作→同text返回，两正确body保，不新增通知/成功值/API或owner。四新语义/四F、INPUT/UIRUNTIME各四成员/NETWORK三个文本根、三限定S零I/九任务open；全部外调用、文本生产消费/容量与alias-owner寿命、SDK/机器ABI/真实字符消息画面运行待。
+[UTE01完整原根](cg2d_text_unescape_sampling_spec.md#text-unescape-source-state)/[原码与映射](cg2d_text_unescape_sampling_spec.md#evidence-archive-20261011)覆盖52D120/52D150/52D2F0/509080，共66条147B/四页、三E8/三个内部目标/七跳五RET；316入向内部3/外313只证明来源。原58E944四对BYTE映射与未知字母低BYTE返回保持，恢复S32映射计数、每轮首BYTE持有及后继读取先于索引递增/共尾写。原高bit两BYTE、反斜杠字母、固定入口长度和两S32索引、末NUL及同text返回保；不切换编码或增加空值/容量/末字节检查。包装弃返→真实单RET空操作→同text返回，两正确body保，不新增通知/成功值/API或owner。四新语义/四F、INPUT/UIRUNTIME各四成员/NETWORK三个文本根、三限定S零I/九任务open；全部外调用、文本生产消费/容量与alias-owner寿命、SDK/机器ABI/真实字符消息画面运行待。
 
 原入向不代完整外父；GMR01收信50F1DC当前调用52D2F0有据，旧763和所有旧身份保持。商店C9A94C及最后11B区间无新用途/生产证据，既有未决保；关联率不称完成率，184叶验收0/60任务关闭11/六closure及总SPEC§10保持。
 
 ## 2026-10-10 ETE01 文本转义生产的限定证据
 
-[ETE01完整原根](cg2d_text_escape_sampling_spec.md#text-escape-source-state)/[原码与映射](cg2d_text_escape_sampling_evidence.json)覆盖52D1B0转义生产/52D2D0包装，共108条310B/三页、两E8/两目标/11跳两RET；112入向内部1/外111仅来源。恢复非地址S32表计数、已读首BYTE持有/后继与索引及计数更新序、匹配字母早退前读取/两写后更新索引三组。原四对BYTE映射、固定入口长度和两S32索引、原容量/调整长度门槛与截断、末NUL/同destination返回保持，不切换编码或加保护。正确包装和InputContext文本便利适配保持，不新增原根/通知/成功值或owner；UTE01四根和所有其它源保。两个新语义/F、INPUT/UIRUNTIME/NETWORK各两成员、三限定S零I/九任务open；全外调用、文本生产消费/容量与alias-owner寿命、SDK/机器ABI/真实截断和字符消息画面运行待。
+[ETE01完整原根](cg2d_text_escape_sampling_spec.md#text-escape-source-state)/[原码与映射](cg2d_text_escape_sampling_spec.md#evidence-archive-20261011)覆盖52D1B0转义生产/52D2D0包装，共108条310B/三页、两E8/两目标/11跳两RET；112入向内部1/外111仅来源。恢复非地址S32表计数、已读首BYTE持有/后继与索引及计数更新序、匹配字母早退前读取/两写后更新索引三组。原四对BYTE映射、固定入口长度和两S32索引、原容量/调整长度门槛与截断、末NUL/同destination返回保持，不切换编码或加保护。正确包装和InputContext文本便利适配保持，不新增原根/通知/成功值或owner；UTE01四根和所有其它源保。两个新语义/F、INPUT/UIRUNTIME/NETWORK各两成员、三限定S零I/九任务open；全外调用、文本生产消费/容量与alias-owner寿命、SDK/机器ABI/真实截断和字符消息画面运行待。
 
 112实际入向不代完整外父，现有便利适配与509080不重复纳入新原身份；旧2236语义/1673F/1467证据保持。关联率不称完成率；184叶验收0/60任务关闭11/六closure及总SPEC§10保持。
 
 ## 2026-10-10 CTS01 聊天发送链的限定证据
 
-[CTS01完整原根](cg2d_chat_send_pipeline_spec.md#chat-send-source-state)/[原码与实际接线](cg2d_chat_send_pipeline_evidence.json)覆盖50C940聊天发送与511900六字段封包，共183条653B/四页、23实际E8/11目标/14跳四RET，另两FF15取tick。恢复两个原短路点options194 BYTE读取，复用既有reader，W16字段/写方不变；原gate/disabled/跟随、1000/180000计时与提示/SE/返回保持。转义→P|%s→mode/range→Y/X→socket→原uSr命令与六字段，每字段capacity→token→新共享buffer→append弃返、末发送S32顺序保；两未清1024区和当前明文/GBK/MSVC/WAV-only不变。旧BTG01提交父发送弃返后原清输入保持，一组两点/四注释，正确封包正文及所有其它源保。旧1075保历史追加/一新语义两F、INPUT/NETWORK各两成员/MAP一个成员，三限定S零I/九任务open；全部数据owner/SDK/机器ABI/真实禁言与互通、文字声音画面运行待。
+[CTS01完整原根](cg2d_chat_send_pipeline_spec.md#chat-send-source-state)/[原码与实际接线](cg2d_chat_send_pipeline_spec.md#evidence-archive-20261011)覆盖50C940聊天发送与511900六字段封包，共183条653B/四页、23实际E8/11目标/14跳四RET，另两FF15取tick。恢复两个原短路点options194 BYTE读取，复用既有reader，W16字段/写方不变；原gate/disabled/跟随、1000/180000计时与提示/SE/返回保持。转义→P|%s→mode/range→Y/X→socket→原uSr命令与六字段，每字段capacity→token→新共享buffer→append弃返、末发送S32顺序保；两未清1024区和当前明文/GBK/MSVC/WAV-only不变。旧BTG01提交父发送弃返后原清输入保持，一组两点/四注释，正确封包正文及所有其它源保。旧1075保历史追加/一新语义两F、INPUT/NETWORK各两成员/MAP一个成员，三限定S零I/九任务open；全部数据owner/SDK/机器ABI/真实禁言与互通、文字声音画面运行待。
 
 两个实际入向不代完整父或数据寿命；BTG01与十二旧提供者身份保持。关联率不称完成率，184叶验收0/60任务关闭11/六closure及总SPEC§10保持。
 
 ## 2026-10-10 HBN01 聊天历史的限定证据
 
-[HBN01完整原根](cg2d_chat_history_navigation_spec.md#chat-history-source-state)/[原码与接线](cg2d_chat_history_navigation_evidence.json)覆盖44A1B0历史浏览、44B440字节类别和4A80E0宽度，共225条707B/五页、七E8/四目标/34跳八RET；26入向内部4/外22仅来源。原64项289B/尾W32与独立游标S32、Up/Down门槛差异及游标发布/环/恢复、入口context清length→新context清text/caret→当前游标装入→新游标复制未清256B→字节长度/宽度→S16类别→原负滚动归零→新context写field158保持。类别仍按原固定BYTE范围返低BYTE0/1/2，不按GBK重写；宽度同一W32两倍、旧707/708文件与BTG-CTS提交保持。三个正确body不改，仅六注释/零逻辑组，三新语义/F、INPUT/UIRUNTIME各三成员/MAP一个成员、三限定S零I/九任务open；struct/断言文本不代编译布局验收，全输入/文件/宽度owner、SDK/机器ABI/真实上下翻页和字符消息画面运行待。
+[HBN01完整原根](cg2d_chat_history_navigation_spec.md#chat-history-source-state)/[原码与接线](cg2d_chat_history_navigation_spec.md#evidence-archive-20261011)覆盖44A1B0历史浏览、44B440字节类别和4A80E0宽度，共225条707B/五页、七E8/四目标/34跳八RET；26入向内部4/外22仅来源。原64项289B/尾W32与独立游标S32、Up/Down门槛差异及游标发布/环/恢复、入口context清length→新context清text/caret→当前游标装入→新游标复制未清256B→字节长度/宽度→S16类别→原负滚动归零→新context写field158保持。类别仍按原固定BYTE范围返低BYTE0/1/2，不按GBK重写；宽度同一W32两倍、旧707/708文件与BTG-CTS提交保持。三个正确body不改，仅六注释/零逻辑组，三新语义/F、INPUT/UIRUNTIME各三成员/MAP一个成员、三限定S零I/九任务open；struct/断言文本不代编译布局验收，全输入/文件/宽度owner、SDK/机器ABI/真实上下翻页和字符消息画面运行待。
 
 旧文件根与六旧提供者身份不重复处置；关联率不称完成率，184叶验收0/60任务关闭11/六closure及总SPEC§10保持。
 
 ## 2026-10-10 CWP01 聊天几何生产的限定证据
 
-[CWP01完整原根](cg2d_chat_window_geometry_production_spec.md#chat-geometry-source-state)/[原码与接线](cg2d_chat_window_geometry_production_evidence.json)覆盖4C9240默认、4C9170设置恢复和4A7C40聊天尺寸/几何，共329条1484B/七页、两E8/两目标/11跳三RET；六外入向仅来源。71项原地址寻址与当前原生表/数组承载保；恢复记录14两首BYTE改真实unsigned char读取、S32字段不变，两请求和及八字体/高度对逐点先取样再运算。三组12处/六注释，默认正确body、所有其它源与尺寸原环/26倍位置补偿/请求归零、现场窗口元素载荷及滑块callee后发布序和返回保持。三新语义/F、INPUT/UIRUNTIME各三成员/MAP两设置根、三限定S零I/九任务open；全文件/窗口父及默认回填/滑块callee、字体载荷请求/宽高/历史绘制owner、SDK/机器ABI/实际尺寸切换文字画面运行待。
+[CWP01完整原根](cg2d_chat_window_geometry_production_spec.md#chat-geometry-source-state)/[原码与接线](cg2d_chat_window_geometry_production_spec.md#evidence-archive-20261011)覆盖4C9240默认、4C9170设置恢复和4A7C40聊天尺寸/几何，共329条1484B/七页、两E8/两目标/11跳三RET；六外入向仅来源。71项原地址寻址与当前原生表/数组承载保；恢复记录14两首BYTE改真实unsigned char读取、S32字段不变，两请求和及八字体/高度对逐点先取样再运算。三组12处/六注释，默认正确body、所有其它源与尺寸原环/26倍位置补偿/请求归零、现场窗口元素载荷及滑块callee后发布序和返回保持。三新语义/F、INPUT/UIRUNTIME各三成员/MAP两设置根、三限定S零I/九任务open；全文件/窗口父及默认回填/滑块callee、字体载荷请求/宽高/历史绘制owner、SDK/机器ABI/实际尺寸切换文字画面运行待。
 
 未新验证完整文件或窗口父、部分默认回填/滑块callee或编译布局；HBN01旧两身份保持。关联率不称完成率，184叶验收0/60任务关闭11/六closure及总SPEC§10保持。
 
 ## 2026-10-10 CWC01 聊天窗口控制的限定证据
 
-[CWC01完整原根](cg2d_chat_window_control_pipeline_spec.md#chat-control-source-state)/[原码与真实绑定](cg2d_chat_window_control_pipeline_evidence.json)覆盖4A6DD0输入创建、4A6FC0按钮和4A8140滑块，共492条1769B/九页、29E8/14目标/56跳14RET；四CALL入向内部3/外1。原窗口35/20项元素与11实际callback保持，旧12槽表/CAC18范围不重复处置，11/12/19默认行为不新增。两组四处恢复三个hover窗口/元素及scroll→count取样；两个正确body、原创建/焦点/可见/返1、按钮环/提示/SE/颜色发布/scroll边界、滑块浮点与低S32位置及GBK/明文/MSVC/WAV-only保。旧1969保历史追加/两新语义三F、INPUT/UIRUNTIME各三成员/NETWORK仅配置生产按钮、三限定S零I/九任务open；全窗口父/创建绘制释放及输入字体日志请求/音效与CTS配置生产消费owner、SDK/FPU/机器ABI/实际输入文字声音画面运行待。
+[CWC01完整原根](cg2d_chat_window_control_pipeline_spec.md#chat-control-source-state)/[原码与真实绑定](cg2d_chat_window_control_pipeline_spec.md#evidence-archive-20261011)覆盖4A6DD0输入创建、4A6FC0按钮和4A8140滑块，共492条1769B/九页、29E8/14目标/56跳14RET；四CALL入向内部3/外1。原窗口35/20项元素与11实际callback保持，旧12槽表/CAC18范围不重复处置，11/12/19默认行为不新增。两组四处恢复三个hover窗口/元素及scroll→count取样；两个正确body、原创建/焦点/可见/返1、按钮环/提示/SE/颜色发布/scroll边界、滑块浮点与低S32位置及GBK/明文/MSVC/WAV-only保。旧1969保历史追加/两新语义三F、INPUT/UIRUNTIME各三成员/NETWORK仅配置生产按钮、三限定S零I/九任务open；全窗口父/创建绘制释放及输入字体日志请求/音效与CTS配置生产消费owner、SDK/FPU/机器ABI/实际输入文字声音画面运行待。
 
 IDA数组/结构起点xref不代字段指针；原型实际11callback与旧范围分别核，八旧身份不重复处置。关联率不称完成率，184叶验收0/60任务关闭11/六closure与总SPEC§10保持。
 
@@ -2794,3 +2794,7 @@ IDA数组/结构起点xref不代字段指针；原型实际11callback与旧范�
 ## 2026-10-11 GDS01：GAP01开发记录简化
 
 按用户最新要求，GAP01独立重复证据移除，原端依据/合同/实际静态结果和未完成验收集中[原SPEC](cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance)，前后源码及旧机器存档沿Git历史。仅改现追踪引用，不批量删除其他历史文件；原局部通过与全部运行/owner门禁保持。引用改写全量回放、静态汇总/-Check终态退出0及派生范围核对通过。
+
+## 2026-10-11 EDS01：证据记录精简
+
+[清单与边界](cg2d_evidence_compaction_spec.md)将79份独立重复快照归档至原SPEC与Git，旧机器字节/源码及登记副本保留历史。当前引用切换到SPEC归档锚点；没有新增函数验收、处置、成员或任务关闭，完整门禁保持。当前引用/登记差异核对通过，静态汇总与-Check均终态退出0，派生数量/任务/完整门禁保持。

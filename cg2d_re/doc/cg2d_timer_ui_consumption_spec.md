@@ -46,3 +46,19 @@ timerRemaining FDA70C为S32、timerMode FDA710为完整S32；沿PTP01/GTP01同�
 ## 当前状态
 
 本步前提交说明“[#] 补齐倒计时回复生产并恢复缩放发布顺序”；本步拟提交说明“[#] 补齐倒计时界面消费并恢复字段取样”。原完整取证、源码八组、核心静态/登记、文本汇总/Check及派生范围核对通过。语义2220=2172F+48X，文档关联2282/3680=62.01%仅关联率，F处置1654/证据1456，UIRUNTIME71/BATTLE425仍未验收。派生只改六metrics/四F/两功能/九任务，184叶验收0、60任务关闭11、六closure开放/全部完整gates及其它字段守恒。整体active/未完成。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_timer_ui_consumption_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 补齐倒计时界面消费并恢复字段取样」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x470AC0 | 0x47116E | 463/1710 |
+| 0x4718F0 | 0x471CC7 | 298/983 |
+| 0x497C80 | 0x497E24 | 119/420 |
+| 0x47B210 | 0x47B3CF | 137/447 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`runtime_verified`=false；`generated_machine_reads_verified`=false；`build_or_test_performed`=false；`digests_computed_or_compared`=false。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

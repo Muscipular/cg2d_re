@@ -15,7 +15,7 @@
 
 共588条2045B/十三页（每页至多64条）、47 CALL（44 E8/二十一唯一直接callee，另三CALL EBX）、57跳五RET，五根无间接JMP。五动作各唯一实际入向CALL/父404DB0，五11B case均push→CALL→JMP40563F。父404DC7读action.phase，404DCA/DCF保257项边界，404DD5实际按40573Ch+phase×4跳转；104–108对应4058DCh起20B五表项，逐项实际落到40526A/275/280/28B/296。107是五条独立根并保T*返回，不把函数内部40E060捏造为入口。
 
-104的40DCD0从IAT54D258读取EBX，该槽数据库名称/类型为wsprintfA及int(*)(LPSTR,LPCSTR,...)；三FFD3为寄存器调用，操作数值3是寄存器编号，不是地址/新F。未加载IAT的FFFFFFFF不作运行函数地址，也不新计导入审查或宿主实现身份。五根原指令/入向/case、真实格式字节及70F32见[证据](cg2d_battle_inspect_exit_evidence.json)。
+104的40DCD0从IAT54D258读取EBX，该槽数据库名称/类型为wsprintfA及int(*)(LPSTR,LPCSTR,...)；三FFD3为寄存器调用，操作数值3是寄存器编号，不是地址/新F。未加载IAT的FFFFFFFF不作运行函数地址，也不新计导入审查或宿主实现身份。五根原指令/入向/case、真实格式字节及70F32见[证据](cg2d_battle_inspect_exit_spec.md#evidence-archive-20261011)。
 
 ## 104：调查消息、原始结构字与结束推进
 
@@ -69,3 +69,20 @@ AH20仅Advance；普通按保存完整100000h先MarkDeath(effect1054)，fresh完
 ## 当前状态
 
 五完整原根及实际20B分派表/61B格式/70F32已取齐，十八组/十注释落实；必要静态、文本汇总/-Check及精确派生范围通过。语义2163（2115F＋48X）、合同2225/3680=60.46%仅关联率、F1591、E1403限定I三F/S五F、BATTLE403且枚举false；十五旧语义/所有其它源与原门禁政策、五任务open保持。未构建/测试/运行/算法/产物/摘要。前态cg2d-re-battle-inspect-exit-history-20261010，提交引用cg2d-re-battle-inspect-exit-20261010；整体目标active/未完成。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_battle_inspect_exit_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 对齐战斗调查与逐效果命中的读取顺序」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x40dc90 | 0x40de3c | 133/428 |
+| 0x40de40 | 0x40df4d | 77/269 |
+| 0x40df50 | 0x40df66 | 6/22 |
+| 0x40df70 | 0x40df7c | 5/12 |
+| 0x40df80 | 0x40e4a2 | 367/1314 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`measure`=pass（历史限定检查）；`measure_check`=pass（历史限定检查）；`derived_snapshot`=pass（历史限定检查）。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

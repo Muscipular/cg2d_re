@@ -751,14 +751,14 @@ flags W16非0且objectIndex完整W32位型相等，才清该槽action并停止�
 <a id="map-object-production-current-20261010"></a>
 ## 2026-10-10 MOP01：445350完整正常对象生产
 
-[原根/差集](cg2d_map_object_production_sampling_evidence.json)与[当前合同](cg2d_map_object_production_sampling_spec.md#map-object-production-source-state)补已有445350：543条1797B/28E8、十callee/唯一十三参入向有据。这里只恢复两坐标取样和四256B文本槽复用，不改变1000项表、WorldObjectRecord/LegacyCryptInt布局、action借用、类别/flags提供者或真实SceneState接线。
+[原根/差集](cg2d_map_object_production_sampling_spec.md#evidence-archive-20261011)与[当前合同](cg2d_map_object_production_sampling_spec.md#map-object-production-source-state)补已有445350：543条1797B/28E8、十callee/唯一十三参入向有据。这里只恢复两坐标取样和四256B文本槽复用，不改变1000项表、WorldObjectRecord/LegacyCryptInt布局、action借用、类别/flags提供者或真实SceneState接线。
 
 第一坐标先BYTE count/encoded/mask齐取，第二先mask/encoded/BYTE count齐取，之后各自同序发布/原同一临时析构；不复制token/reserved。原DB gameY/gameX名称不作换轴依据。记录与action九解析点按四原槽身份恢复，原段号/容量255/16及32字节门槛、type3只记录textB8首字节清零、action尾完整value40保持，仍各自重新解析/借目标。领取/创建失败及旧记录不补action规则保持；唯一原父只调用窗，不代整个接收/生产/寿命。MAP138/Yobi67/TEXT29均枚举false、七任务open/完整门禁保持，全部生产/传递callee/alias/owner/容量/SDK/ABI及画面声音/运行待。
 
 <a id="world-object-lookup-current-20261010"></a>
 ## 2026-10-10 WOL01：查槽、领取与完整类型转换
 
-[五完整合同](cg2d_world_object_lookup_allocation_spec.md#world-object-lookup-source-state)与[原根/数据/差集](cg2d_world_object_lookup_allocation_evidence.json)纳管MOP01依赖：五144条421B/五页、一E8/28跳含类别switch/十五RET，31实际入向/十九父、105B五target/71selector与1000项地址界有据。五正确body/表/字段/存储保持，仅CPP/真实声明各五关联注释。
+[五完整合同](cg2d_world_object_lookup_allocation_spec.md#world-object-lookup-source-state)与[原根/数据/差集](cg2d_world_object_lookup_allocation_spec.md#evidence-archive-20261011)纳管MOP01依赖：五144条421B/五页、一E8/28跳含类别switch/十五RET，31实际入向/十九父、105B五target/71selector与1000项地址界有据。五正确body/表/字段/存储保持，仅CPP/真实声明各五关联注释。
 
 查找固定start/end两轮，used WORD非零才编号W32比较、命中发布查找游标；领取先计数/高水位/前扫和条件回绕，返回旧游标，不写被领槽、used/category/action/文本或分配/RNG，失败不改状态也不加回滚。类型提供者返回完整W32，category由各父写入时才W16截取；FindObjectYobi查槽一次并借原生T*、负返空，保游标副作用，不移owner。
 
@@ -767,7 +767,7 @@ flags W16非0且objectIndex完整W32位型相等，才清该槽action并停止�
 <a id="world-object-lifecycle-current-20261010"></a>
 ## 2026-10-10 WLR01：删除、整表清理与空action恢复
 
-[四完整合同](cg2d_world_object_lifecycle_spec.md#world-object-lifecycle-source-state)与[原指令/绑定/差集](cg2d_world_object_lifecycle_evidence.json)纳管四正确正常根：328条1066B/八页、26E8六callee/37跳六RET，无switch，19实际入向/十七父与19短窗有据；只五CPP/五头关联注释、零I/新函数/逻辑，主体/类型/存储/全其它源保持。
+[四完整合同](cg2d_world_object_lifecycle_spec.md#world-object-lifecycle-source-state)与[原指令/绑定/差集](cg2d_world_object_lifecycle_spec.md#evidence-archive-20261011)纳管四正确正常根：328条1066B/八页、26E8六callee/37跳六RET，无switch，19实际入向/十七父与19短窗有据；只五CPP/五头关联注释、零I/新函数/逻辑，主体/类型/存储/全其它源保持。
 
 删除先玩家专用分流，世界action八附件/text清理后fresh主标死清槽，计数/游标及逆扫上界原序、全空保旧上界；无释放重置全1000槽清原七字段含name首BYTE、无标死/free；占用槽清理只used非零、同一八槽/free/fresh主后清原字段、不清name或未占用槽。空action恢复先direction→1C Read→0C Read→image创建，返回先pub空/失败不回滚，成功index/level/原名称title字节与fresh flags保持。401EA0按旧219唯一jmp同一Read，不加读取/RNG；共享八槽不含34/38、逐槽取样标死清槽，现std::free沿MSVC域，不当主对象立即free/完整owner闭环。
 
@@ -776,82 +776,82 @@ flags W16非0且objectIndex完整W32位型相等，才清该槽action并停止�
 <a id="world-object-record-producers-current-20261010"></a>
 ## 2026-10-10 WOP01：记录生产与更新
 
-[三完整根](cg2d_world_object_record_producers_spec.md#world-object-record-producers-source-state)/[原指令与差集](cg2d_world_object_record_producers_evidence.json)：445A60无action生产与445D20/445F40类别2/4更新合516条1738B/十页，27E8九callee、22跳五RET，三入向/两父短窗有据。六原坐标临时三值先取齐后发布，分别count/encoded/mask、mask/encoded/count与encoded/mask/count，保构造/销毁/RNG及字段宽度。445A60三个独立未初始化256B槽明确为100/200/300，ordinal1/2/3借100/300/200，原解析/通知/容量/门槛保持。
+[三完整根](cg2d_world_object_record_producers_spec.md#world-object-record-producers-source-state)/[原指令与差集](cg2d_world_object_record_producers_spec.md#evidence-archive-20261011)：445A60无action生产与445D20/445F40类别2/4更新合516条1738B/十页，27E8九callee、22跳五RET，三入向/两父短窗有据。六原坐标临时三值先取齐后发布，分别count/encoded/mask、mask/encoded/count与encoded/mask/count，保构造/销毁/RNG及字段宽度。445A60三个独立未初始化256B槽明确为100/200/300，ordinal1/2/3借100/300/200，原解析/通知/容量/门槛保持。
 
 保重复/领取/创建失败及pub、已有记录不补action、名字60/28/16和原四字节"???"、低BYTE flags42与完整flags114、类别2独立附加字段。共享CryptInt工具、其它根、两个当前父和六旧身份保持；三新语义/F与限定S，MAP/Yobi各三成员、TEXT一成员，七任务/完整gates/成员枚举和六closure仍开放。完整输入/两整父/传递callee/正常失败/容量/alias/owner/SDK/ABI/画面声音运行待，总SPEC§10不降。
 
 <a id="world-object-bulk-restore-current-20261010"></a>
 ## 2026-10-10 WBR01：整表清引用与批量补建
 
-[两个完整根](cg2d_world_object_bulk_restore_spec.md#world-object-bulk-restore-source-state)/[原指令与差集](cg2d_world_object_bulk_restore_evidence.json)合134条431B/三页、三E8两callee/15跳两RET，五实际入向/三父短窗与五当前接线有据。原游标相差13Ch×1000：清引用只used W16非零的action/value34，不标死/free或改其它字段/计数；批量补建先direction/1C Read/0C Read/image与创建pub，成功used/index之后才四类别名字/flags尾，未知类仍保已创建action，不能提前筛选或回滚。
+[两个完整根](cg2d_world_object_bulk_restore_spec.md#world-object-bulk-restore-source-state)/[原指令与差集](cg2d_world_object_bulk_restore_spec.md#evidence-archive-20261011)合134条431B/三页、三E8两callee/15跳两RET，五实际入向/三父短窗与五当前接线有据。原游标相差13Ch×1000：清引用只used W16非零的action/value34，不标死/free或改其它字段/计数；批量补建先direction/1C Read/0C Read/image与创建pub，成功used/index之后才四类别名字/flags尾，未知类仍保已创建action，不能提前筛选或回滚。
 
 两个正确body及三个清引用点先404D30、两个普通场景补建点先519A80/455C60的接线保持，仅两CPP/两声明注释。两新语义/F/MAP-Yobi各两成员、两限定S零I，六旧身份/共享工具/其它根全保；七任务/完整gates/成员枚举与六closure开放，所有输入/三完整父/传递callee/容量/正常失败/alias/owner/SDK/ABI与画面声音运行待。
 
 <a id="world-object-grid-query-current-20261010"></a>
 ## 2026-10-10 WGQ01：动作交互格与标志查询
 
-[五完整查询根](cg2d_world_object_grid_query_spec.md#world-object-grid-query-source-state)/[原指令与差集](cg2d_world_object_grid_query_evidence.json)合280条765B/五页、十E8唯一401D00/42跳十RET，十入向/八父短窗与返回补窗有据。先used W16/action、X比较、fresh action/Y比较，再W16类别与各掩码；不能以record坐标、预取动作或提前筛选类别/标志替代，实际Read/RNG保持。所有未命中路径尾fresh S32上界，不固定count/cap或动查找游标。
+[五完整查询根](cg2d_world_object_grid_query_spec.md#world-object-grid-query-source-state)/[原指令与差集](cg2d_world_object_grid_query_spec.md#evidence-archive-20261011)合280条765B/五页、十E8唯一401D00/42跳十RET，十入向/八父短窗与返回补窗有据。先used W16/action、X比较、fresh action/Y比较，再W16类别与各掩码；不能以record坐标、预取动作或提前筛选类别/标志替代，实际Read/RNG保持。所有未命中路径尾fresh S32上界，不固定count/cap或动查找游标。
 
 445030必需flags120，mask0失败，返编号或-1；4450D0只类别返0/1；445160只类别返编号或-1；4451F0包含mask0分别跳字段；4452A0排除mask0仍读字段且42失败不取120，两者返完整0/1。五body/十现接线全保，只五CPP/五头注释；比较叶四条15B/一次Read/本组十AL消费成立，原48入向其余38/高EAX ABI及独立身份不外推，旧219/八父八身份保持。五新语义/F/两限定S零I，MAP/Yobi各五成员，六任务/完整gates/枚举及六closure开放，全交互输入/生产/八完整父/正常失败/容量/alias/owner/SDK/ABI/画面声音运行待。
 
 <a id="neighbor-fim-current-20261010"></a>
 ## 2026-10-10 NFI01：邻格请求完整生产与发送
 
-[两完整根](cg2d_neighbor_fim_request_plaintext_spec.md#neighbor-fim-source-state)/[原指令/提供者/server判据](cg2d_neighbor_fim_request_plaintext_evidence.json)纳管51B3E0/510B80，合227条676B/五页、25E8十三callee/两SDK tick/20跳三RET，唯一外父469C90弃返窗有据。父正确body保持：cached原位型、两轴各两次减法/fresh target、类别7查询、两F32差/方向、unsigned500门禁、先Y后X发/两tick与发送失败仍更新时间；不合并abs/读取或回滚。
+[两完整根](cg2d_neighbor_fim_request_plaintext_spec.md#neighbor-fim-source-state)/[原指令/提供者/server判据](cg2d_neighbor_fim_request_plaintext_spec.md#evidence-archive-20261011)纳管51B3E0/510B80，合227条676B/五页、25E8十三callee/两SDK tick/20跳三RET，唯一外父469C90弃返窗有据。父正确body保持：cached原位型、两轴各两次减法/fresh target、类别7查询、两F32差/方向、unsigned500门禁、先Y后X发/两tick与发送失败仍更新时间；不合并abs/读取或回滚。
 
 子按CAB05现fIM/Base62字段/普通空格/LF只删原17写入，原time/seed/rand、扫描/fresh buffer和发送结果保持；server分词对17不终止、整数遇17返回0为静态判据，不试包/改server或恢复外壳。补两独立身份（WGQ01当时缺51B3E0的历史结论保），MAP/Yobi仅父、NETWORK仅子三S零I，十二旧身份/所有其它源保持；七任务/完整gates/枚举/六closure开放，完整交互与网络/owner/ABI/画面声音运行待。
 
 <a id="world-direction-current-20261010"></a>
 ## 2026-10-10 WDG01：方向生产与归一化更新取样
 
-[两完整原根](cg2d_world_direction_normalization_sampling_spec.md#world-direction-source-state)/[指令、调用窗与精确差集](cg2d_world_direction_normalization_sampling_evidence.json)补46CDF0独立身份，保持两F32分量查表、原112.5F偏移/落F32、同地址归一化/fresh angle、原F32乘数和S64转换。46B580原宽返回透传与AX/W32局部消费区别有据，不降返回类型。
+[两完整原根](cg2d_world_direction_normalization_sampling_spec.md#world-direction-source-state)/[指令、调用窗与精确差集](cg2d_world_direction_normalization_sampling_spec.md#evidence-archive-20261011)补46CDF0独立身份，保持两F32分量查表、原112.5F偏移/落F32、同地址归一化/fresh angle、原F32乘数和S64转换。46B580原宽返回透传与AX/W32局部消费区别有据，不降返回类型。
 
 46F8F0沿BOG旧1390补正上界/下界比较后的两次fresh float更新读取，重复循环/F32发布/void及非拥有指针保；旧BOG“正确/0补丁”为历史，此附记给出当前纠正。34条112B/两页、两E8/一ftol尾跳、五跳一RET与20局部窗；primary/插值/原65项表保持。MAP/Yobi各纳primary/共享归一化两个成员，BATTLE原成员只当前S；三限定S零I、七任务open，完整枚举/gates/closure及全父/表owner/机器加载/ABI/数值/画面运行仍待。
 
 <a id="path-heading-current-20261010"></a>
 ## 2026-10-10 PDH01：路径方向检测与四整数差值桥
 
-[两完整根](cg2d_path_direction_heading_producers_spec.md#path-heading-source-state)/[原指令与五取样组](cg2d_path_direction_heading_producers_evidence.json)纳管46AA00/46B580，合116条393B/三页、七E8五callee十一跳两RET；五入向/两父窗口仅局部消费，原469FC0/46B6F0完整旧合同保持。检测原X→Y Crypt读取/早退Y、fresh S16 pathCount、三callee全S32短路与三状态发布/负heading加8/短路径尾保。
+[两完整根](cg2d_path_direction_heading_producers_spec.md#path-heading-source-state)/[原指令与五取样组](cg2d_path_direction_heading_producers_spec.md#evidence-archive-20261011)纳管46AA00/46B580，合116条393B/三页、七E8五callee十一跳两RET；五入向/两父窗口仅局部消费，原469FC0/46B6F0完整旧合同保持。检测原X→Y Crypt读取/早退Y、fresh S16 pathCount、三callee全S32短路与三状态发布/负heading加8/短路径尾保。
 
 仅恢复增量字段X→Y读取/坐标Y→X更新、两根整数差先成形后Y→X F32桥、两命中nextStep先形成后pub，五组不改布局/owner/表/索引/分支或返回。四整数桥S64透传，两个低W32/两个AX父消费不降返回。原八S16增量表32B/WDG方向叶/全部其它源保，两新语义/F、MAP/Yobi各两成员与两限定S零I、六任务open；三尚无独立身份callee只记实际提供者，全父/全部callee/表生产消费-owner/机器加载/数值/ABI/地图运行待。
 
 <a id="map-hit-time-current-20261010"></a>
 ## 2026-10-10 MHT01：地图命中与时段分类
 
-[三完整根](cg2d_map_hit_time_classification_spec.md#map-hit-time-source-state)/[原码/源差集](cg2d_map_hit_time_classification_evidence.json)纳管46AE60/46AD00/458EC0，合81条257B/三页、一E8十七跳六RET、五入向中一内部/四外点三父。两检测恢复三组边界/整数差/索引序，AE先Y/跨度→Y差→X，乘Y差减left加x；AD先齐取X/Y边界→两差→time→fresh跨度，乘Y差加X差。低BYTE逻辑消费/零扩展W16发布、3/9/11/13/10及6/7/8时段短路与完整S32 0/1保。
+[三完整根](cg2d_map_hit_time_classification_spec.md#map-hit-time-source-state)/[原码/源差集](cg2d_map_hit_time_classification_spec.md#evidence-archive-20261011)纳管46AE60/46AD00/458EC0，合81条257B/三页、一E8十七跳六RET、五入向中一内部/四外点三父。两检测恢复三组边界/整数差/索引序，AE先Y/跨度→Y差→X，乘Y差减left加x；AD先齐取X/Y边界→两差→time→fresh跨度，乘Y差加X差。低BYTE逻辑消费/零扩展W16发布、3/9/11/13/10及6/7/8时段短路与完整S32 0/1保。
 
 time仅读hours0Ch一次，现六W32/24B/非拥有指针与signed门槛正确body保持，不归一化/默认小时或改CRT tm。原PDH父/表/全部其它body与时间生产源保持，458F00/50C870未独立身份只真实绑定。三新语义/F、MAP/Yobi各三成员/两限定S零I，六任务open/完整门禁及枚举守恒；原低BYTE不当现机器读宽通过，完整父/表与time生产消费/owner/调色板/PudO/SDK/数值/ABI/画面运行待。
 
 <a id="game-time-production-current-20261010"></a>
 ## 2026-10-10 GTP01：校时、时段变化与倒计时
 
-[五完整原根](cg2d_game_time_production_lifecycle_spec.md#game-time-production-source-state)/[原码与源差集](cg2d_game_time_production_lifecycle_evidence.json)纳管458F00/50C870/458F40/519EB0与旧writer197，合149条505B/六页、八E8/两IATtick/一外尾跳/十一跳四RET，十二局部入向/四外父。timer只恢复旧tick/remaining先齐取及持有updated判断，保原scene9玩家门槛/scene10、一个执行tick/业务负值归零→mode0→末tick。PudO只恢复持有category交调色板，保对象号/offset/两独立time及旧adjustment使用、六字段/类别发布/调色板之后路径→新adjustment和原返回。
+[五完整原根](cg2d_game_time_production_lifecycle_spec.md#game-time-production-source-state)/[原码与源差集](cg2d_game_time_production_lifecycle_spec.md#evidence-archive-20261011)纳管458F00/50C870/458F40/519EB0与旧writer197，合149条505B/六页、八E8/两IATtick/一外尾跳/十一跳四RET，十二局部入向/四外父。timer只恢复旧tick/remaining先齐取及持有updated判断，保原scene9玩家门槛/scene10、一个执行tick/业务负值归零→mode0→末tick。PudO只恢复持有category交调色板，保对象号/offset/两独立time及旧adjustment使用、六字段/类别发布/调色板之后路径→新adjustment和原返回。
 
 writer/outer/setter正确body保，六W32/24B/分钟先于sTick与末商、完整setter值/PudO adjustment返回保。51CDE9原残值透传，现void API保但不得称全部六父弃返/完整机器ABI等价。四新语义/197追加、五F处置，MAP/Yobi各五成员、BATTLE只timer、NETWORK只PudO四S零I；八任务/枚举/完整gates/六closure开放，所有未变源/七旧身份保，校时/全父/共享owner/SDK/数值/ABI/画面运行待。
 
 <a id="player-timer-reply-current-20261010"></a>
 ## 2026-10-10 PTP01：MTg倒计时输入生产
 
-[完整50C7A0](cg2d_player_timer_reply_producer_spec.md#player-timer-reply-source-state)/[原码/门槛/源差集](cg2d_player_timer_reply_producer_evidence.json)纳管18条68B/一页、两跳一RET/零E8、单IATtick与唯一512E40弃返窗；原gate单读非0返原位型、负S32秒业务置零、mode→remaining→tick→清626C14/同tick返回保持。仅恢复首duration×5在mode发布前、其后×5×5×8普通缩放一组，不改最终毫秒单位/宽度或增上限、默认值/溢出模型。
+[完整50C7A0](cg2d_player_timer_reply_producer_spec.md#player-timer-reply-source-state)/[原码/门槛/源差集](cg2d_player_timer_reply_producer_spec.md#evidence-archive-20261011)纳管18条68B/一页、两跳一RET/零E8、单IATtick与唯一512E40弃返窗；原gate单读非0返原位型、负S32秒业务置零、mode→remaining→tick→清626C14/同tick返回保持。仅恢复首duration×5在mode发布前、其后×5×5×8普通缩放一组，不改最终毫秒单位/宽度或增上限、默认值/溢出模型。
 
 gate55引用的53读/两个旧writer只绑定出处，BTD1606/BTB185与GTP2215同源推进、两个reader/战斗扣减无原F helper保持；不造原身份或称完整消费链通过。一个新语义/F、四功能各一个成员/四限定S零I/八任务open，所有其它source/原完整gates与枚举保，完整MTg/唯一父/53读者/数据生产消费-owner/SDK/数值/ABI/画面运行待。
 
 <a id="status-hint-production-current-20261010"></a>
 ## 2026-10-10 SHP01：提示的宠物与邮件查询
 
-[七完整原根](cg2d_status_hint_production_spec.md#status-hint-production-source-state)/[证据](cg2d_status_hint_production_evidence.json)补实际状态提示提供者：五S16宠物配对、加点位置/受伤原编号/目标偏移/反求位置的正常哨兵，普通60/公会200/迷你20与各十封消息的三类查询。提示迷你从第9封倒序、点击从第0封正序，U16未读类别后W32页、无命中持有备用页以及S32类别后索引/fresh公会selected/key发布保，六body正确不重写或加used/下界门槛。selected原W16符号、配对8B/宠物5110及既有记录/邮件步长只作本步已消费字段证据，不称全部生产/初值/alias-owner冻结。
+[七完整原根](cg2d_status_hint_production_spec.md#status-hint-production-source-state)/[证据](cg2d_status_hint_production_spec.md#evidence-archive-20261011)补实际状态提示提供者：五S16宠物配对、加点位置/受伤原编号/目标偏移/反求位置的正常哨兵，普通60/公会200/迷你20与各十封消息的三类查询。提示迷你从第9封倒序、点击从第0封正序，U16未读类别后W32页、无命中持有备用页以及S32类别后索引/fresh公会selected/key发布保，六body正确不重写或加used/下界门槛。selected原W16符号、配对8B/宠物5110及既有记录/邮件步长只作本步已消费字段证据，不称全部生产/初值/alias-owner冻结。
 
 点击4723D0八正常取样组纠正并保持真实门槛/格式/图号/关闭开窗，旧915保历史追加、六新语义/七F、两限定S零I；UIRUNTIME七成员/MAP六查询，九任务open/其它原门禁与枚举保持。5195F0/5195C0只当前真实提供者，外父/完整排序查找与邮件owner、全部窗口生命周期/ABI/数值/文本和交互运行待，WAV-only/MSVC直接CRT/原格式明文保持，整体未完成。
 
 <a id="guild-mail-lookup-current-20261010"></a>
 ## 2026-10-10 GML01：公会邮件查找、生产与删除
 
-[四完整原根](cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-source-state)/[原码与精确差集](cg2d_guild_mail_lookup_production_evidence.json)补5195C0排序W16==1首匹配和5195F0角色邮件W32==1末匹配，原200项/记录7Ch与邮件C88h分开，不能统一非0判定或返回首项。519370真实新增/九次140h倒序移位/kind两BYTE与name后text发布，5194F0末匹配后fresh角色/active-key零写/整槽清零/原返回保持；S32排序计数与分支内角色采样两组修正，无新函数/API/类型/owner或保护/默认值/回滚。四新语义/F、MAP/UIRUNTIME各四成员/NETWORK仅生产删除两成员、三限定S零I/九任务open，SHP两父/全部其它源码和原完整门禁/枚举保。完整外父/数据生产消费与字符串alias-owner、两表初始化寿命、SDK/数值/机器ABI与真实消息/文本画面运行待，整体未完成。
+[四完整原根](cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-source-state)/[原码与精确差集](cg2d_guild_mail_lookup_production_spec.md#evidence-archive-20261011)补5195C0排序W16==1首匹配和5195F0角色邮件W32==1末匹配，原200项/记录7Ch与邮件C88h分开，不能统一非0判定或返回首项。519370真实新增/九次140h倒序移位/kind两BYTE与name后text发布，5194F0末匹配后fresh角色/active-key零写/整槽清零/原返回保持；S32排序计数与分支内角色采样两组修正，无新函数/API/类型/owner或保护/默认值/回滚。四新语义/F、MAP/UIRUNTIME各四成员/NETWORK仅生产删除两成员、三限定S零I/九任务open，SHP两父/全部其它源码和原完整门禁/枚举保。完整外父/数据生产消费与字符串alias-owner、两表初始化寿命、SDK/数值/机器ABI与真实消息/文本画面运行待，整体未完成。
 
 <a id="guild-mail-reply-current-20261010"></a>
 ## 2026-10-10 GMR01：公会邮件回复、计数与持久化
 
-[四完整原根](cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-source-state)/[原码与接线](cg2d_guild_mail_reply_persistence_evidence.json)纳管50F130/50F190实际回复、50EF50活动计数和519550完整两角色保存，共136条443B/五页、17E8/14目标/六跳四RET。删除原gate位型/五域重置→W16恰1统计/W32计数发布→邮件删除返回保；收信原字段/工作区文本借用/反转义→旧排序index持有→kind0生产→外部记录名格式→存档→SE63/320/240→消息(4,3)保；无per回复文本释放。519550原128B路径/当前MSVC FILE域，写完整139480共享区弃返后透传关闭S32、打开失败0，不能凭IDA FILE*类型改返回。四正确body全部保持，仅八关联注释/零逻辑组；旧720/763保历史子记录追加、两新语义/四F、MAP/UIRUNTIME各四成员/NETWORK两回复、三限定S零I/九任务open。全dispatcher/保存外父、工作区与路径记录/文件音频消息全owner、SDK/数值/机器ABI/文本声音画面和实际文件失败运行待，其它原政策/门禁/枚举/六closure保，整体未完成。
+[四完整原根](cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-source-state)/[原码与接线](cg2d_guild_mail_reply_persistence_spec.md#evidence-archive-20261011)纳管50F130/50F190实际回复、50EF50活动计数和519550完整两角色保存，共136条443B/五页、17E8/14目标/六跳四RET。删除原gate位型/五域重置→W16恰1统计/W32计数发布→邮件删除返回保；收信原字段/工作区文本借用/反转义→旧排序index持有→kind0生产→外部记录名格式→存档→SE63/320/240→消息(4,3)保；无per回复文本释放。519550原128B路径/当前MSVC FILE域，写完整139480共享区弃返后透传关闭S32、打开失败0，不能凭IDA FILE*类型改返回。四正确body全部保持，仅八关联注释/零逻辑组；旧720/763保历史子记录追加、两新语义/四F、MAP/UIRUNTIME各四成员/NETWORK两回复、三限定S零I/九任务open。全dispatcher/保存外父、工作区与路径记录/文件音频消息全owner、SDK/数值/机器ABI/文本声音画面和实际文件失败运行待，其它原政策/门禁/枚举/六closure保，整体未完成。
 
 ## 2026-10-10 CLD01：512项日志消费者与输入末字段别名
 

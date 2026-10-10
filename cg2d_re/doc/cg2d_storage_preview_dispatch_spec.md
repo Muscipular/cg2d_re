@@ -25,3 +25,18 @@ SPD01只存放描述预览链：4A9160完整114条355B/两页，4AC1B0完整19�
 
 语义2332=2284F关联+48有界代码，关联2394/3680=65.05%仅关联率；处置1795/证据1599，INPUT158/UIRUNTIME205/RENDER116，其它保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
 
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_storage_preview_dispatch_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 对齐存放预览分发与描述消费合同」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x4A9160 | 0x4A92C3 | 114/355 |
+| 0x4AC1B0 | 0x4AC1EC | 19/60 |
+| 0x48B350 | 0x48B441 | 65/241 |
+| 0x4AC1EC | 0x4AC1F7 | 3/11 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`runtime_verified`=false；`generated_machine_reads_verified`=false；`build_or_test_performed`=false；`digests_computed_or_compared`=false。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

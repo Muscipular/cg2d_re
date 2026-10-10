@@ -10,7 +10,7 @@
 | F:00117880 / Sub_517880 | 517880–517D9D | 386 / 1309B / 8 | 64 / 37 |
 | F:00117DA0 / PlayFrame_517DA0 | 517DA0–5182A1 | 380 / 1281B / 8 | 265 / 178 |
 
-合766条2590B/十三页、十六E8/六唯一callee、九十跳/二十RET。329入向均由实际E8目标核对，两个父集合合214，不以xref类型代CALL。完整原根、入向及前后源码差集见[证据](cg2d_yobi_frame_playback_sampling_evidence.json)。不称329完整父、所有动态输入或画面已验。
+合766条2590B/十三页、十六E8/六唯一callee、九十跳/二十RET。329入向均由实际E8目标核对，两个父集合合214，不以xref类型代CALL。完整原根、入向及前后源码差集见[证据](cg2d_yobi_frame_playback_sampling_spec.md#evidence-archive-20261011)。不称329完整父、所有动态输入或画面已验。
 
 六已有callee身份160/165/738/1199/1261/1899与提供者保持；分别为GraphicInfo的GetGraphicXY/GetGraphicMapNoIndex、AnimationRuntime的AnimeLoadAction/GetIndex、GraphicDxCache的LoadGraphic和LegacyAudio的PlaySe。已有S16宽高窄读取及BorrowGraphicDxCacheEntries/FromEntries接口保持；不新增公开底层接口、SDK对象或影子资源。
 
@@ -47,3 +47,17 @@ flag W16零保持旧事件，≥10000写事件；1..9999沿原scene9/flags80200�
 ## 当前状态
 
 本步前Git提交说明“[#] 对齐战斗附属特效开关与共享跟随”，完成提交说明“[#] 对齐对象帧播放与共享帧取样”。统一cg2d_re分支，不打tag。十六组与公头参数名/两注释已落实，整CPP/公头精确重放、两完整原根/329入向/六旧callee、登记守恒及必要源静态通过；文本汇总/-Check均退出0。派生只六metrics/两F/三功能/六任务变化；语义2183（2135F＋48X）、合同2245/3680=61.01%仅关联率、F处置1612/E1415，动画11/Yobi62/BATTLE422均枚举false。七项外部改动保留排除。全部完整门禁/184叶验收0/任务关闭11/六closure及运行仍待，整体未完成。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_yobi_frame_playback_sampling_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 对齐对象帧播放与共享帧取样」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x517880 | 0x517d9d | 386/1309 |
+| 0x517da0 | 0x5182a1 | 380/1281 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`measurement_check`=pass（历史限定检查）；`runtime_verified`=false；`registry_and_derived_scope`=pass（历史限定检查）。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

@@ -8558,7 +8558,7 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 <a id="battle-factory-wait-current-20261010"></a>
 ## 2026-10-10 BFW01：工厂等待与139身份更新当前源
 
-沿[四完整合同](../cg2d_battle_factory_wait_spec.md#battle-factory-wait-source-state)和[原指令/整源差集](../cg2d_battle_factory_wait_evidence.json)登记115/127–129/138/139。四完整565条2019B/十一页、48E8/十五callee/98跳四RET、四实际入向和六父表项/四11B case；127–129只一原身份。已有1497/40FC10复用BQG01完整正确源，不重计。
+沿[四完整合同](../cg2d_battle_factory_wait_spec.md#battle-factory-wait-source-state)和[原指令/整源差集](../cg2d_battle_factory_wait_spec.md#evidence-archive-20261011)登记115/127–129/138/139。四完整565条2019B/十一页、48E8/十五callee/98跳四RET、四实际入向和六父表项/四11B case；127–129只一原身份。已有1497/40FC10复用BQG01完整正确源，不重计。
 
 仅139十组：事件/播放后完成两次独立非拥有特效T*持样，98时才单读1048，405等级先持position/查目标再值、图号position先值再目标、装备值先position再目标；四HP/FP构造后fresh position/encoded先目标，encoded发布后才各取mask/BYTEcount并发布/析构，目标token/reserved保持。局部98布尔只承载原分支结果，不为载荷补默认值。三正确主体/工厂共体、原门禁/哨兵/失败/真实循环/RNG/公共推进和独立平铺尾、所有其它源保持。
 
@@ -8567,7 +8567,7 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 <a id="battle-field-effect-current-20261010"></a>
 ## 2026-10-10 BFL01：场地特效及状态清理当前源
 
-沿[六完整合同](../cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-source-state)和[指令/整源差集](../cg2d_battle_field_effect_lifecycle_evidence.json)纳管140/142/144/145及41FFE0/41FF90六完整233条777B/七页、26E8/七callee/十八跳十二RET、四父表项/四11Bcase。创建器十实际CALL/三父，callback仅一字段MOV绑定，不能当CALL。141/143旧BPQ01完整合同/源码/语义保持，不重复计数。
+沿[六完整合同](../cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-source-state)和[指令/整源差集](../cg2d_battle_field_effect_lifecycle_spec.md#evidence-archive-20261011)纳管140/142/144/145及41FFE0/41FF90六完整233条777B/七页、26E8/七callee/十八跳十二RET、四父表项/四11Bcase。创建器十实际CALL/三父，callback仅一字段MOV绑定，不能当CALL。141/143旧BPQ01完整合同/源码/语义保持，不重复计数。
 
 只创建器两索引先齐取坐标和callback Y转换后偏移三组/十二注释；四正确动作、所有其它源、440B两只读模型/4B常量、C解析器和共享器保持。两表正常旧值一致，不称运行故障；场地B0已有对象仅换图返空、新建播放后fresh全局场景发布T*，完整callback两路都投影且不自清B0。438550明确173B前缀包括真实fieldFlags生产/五创建/缺省先标死再fresh清槽，已有源保持，前缀不代整个C输入/全部对象寿命。
 
@@ -8576,7 +8576,7 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 <a id="battle-attached-effect-current-20261010"></a>
 ## 2026-10-10 BAS01：附属特效开关与共享跟随当前源
 
-沿[五完整合同](../cg2d_battle_attached_effect_spec.md#battle-attached-effect-source-state)和[原指令/差集](../cg2d_battle_attached_effect_evidence.json)纳管147/148、41F860/41F800和已有1913/41F660。五完整257条884B/七页、19E8/八callee、十八跳含一真实switch/十RET、39入向CALL/两callback字段MOV，两原表项/两11Bcase、复用CAC07全35B/六指针与1.0F32的4B原常量有据。
+沿[五完整合同](../cg2d_battle_attached_effect_spec.md#battle-attached-effect-source-state)和[原指令/差集](../cg2d_battle_attached_effect_spec.md#evidence-archive-20261011)纳管147/148、41F860/41F800和已有1913/41F660。五完整257条884B/七页、19E8/八callee、十八跳含一真实switch/十RET、39入向CALL/两callback字段MOV，两原表项/两11Bcase、复用CAC07全35B/六指针与1.0F32的4B原常量有据。
 
 共享41F800只Y转换后屏幕Y偏移一组/十注释；两创建者都纳入源核，四正确主体/所有其它源保持。147完整FDC的寄存器AH800判断，创建失败仍fresh置位；148type33与phase162，162已属1437/BPT01不重计。两创建者原1054/105C已有及分配失败返空、减益状态先于分配失败不回滚、原flags发布/父Y+1/播放后fresh父载荷槽发布→借父绑定及投影保持；完整callback父death严格1标死但仍投影，非标死路径Play后重新借父跟随，不自清父槽。设备实际提供者RendererResources.cpp及当前宿主转换边界沿批准视频/CRT数学合同，未新验完整SDK或机器ABI。
 

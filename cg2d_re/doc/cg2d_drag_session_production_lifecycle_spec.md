@@ -44,3 +44,21 @@
 ## 当前状态
 
 前提交“[#] 补齐悬停文本消费并对齐颜色读取”；拟提交“[#] 补齐拖动会话生产与清理合同”。合同对齐、登记、静态汇总/-Check终态退出0及派生范围核对通过。语义2277=2229F关联+48有界代码，处置1720/证据1517、INPUT97/UIRUNTIME134；文档关联2339/3680=63.56%仅关联率。184叶验收0、60任务关闭11开放49、六closure及完整门禁保持，整体active/未完成。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_drag_session_production_lifecycle_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 补齐拖动会话生产与清理合同」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x475DA0 | 0x475DEF | 21/79 |
+| 0x476490 | 0x4764FC | 25/108 |
+| 0x476500 | 0x476562 | 26/98 |
+| 0x4763B0 | 0x4763D5 | 11/37 |
+| 0x4763E0 | 0x476401 | 7/33 |
+| 0x476410 | 0x476490 | 39/128 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`runtime_verified`=false；`generated_machine_reads_verified`=false；`build_or_test_performed`=false；`digests_computed_or_compared`=false。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

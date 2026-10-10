@@ -29,3 +29,21 @@ SPG01六完整原根323条937B/八页，19实际E8九目标、35跳十一RET，2
 前提交“[#] 补齐选择器逐帧分发与元素绑定”；拟提交“[#] 补齐选择器切页与显示合同”。方案已记录并实施，源码及登记必要静态核对通过；静态汇总/-Check终态均退出0，派生范围核对通过。
 
 语义2294=2246F关联+48有界代码记录，函数处置1740/证据1529，INPUT117/UIRUNTIME154/RENDER92；文档关联2356/3680=64.02%仅关联率。184叶验收0、60任务关闭11开放49、六closure及完整门禁保持。登记、静态汇总/-Check终态均退出0；派生仅六metrics/六F/三功能/十任务变化，完整门禁保持。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_selector_page_visibility_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 补齐选择器切页与显示合同」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x4C6440 | 0x4C6461 | 12/33 |
+| 0x4C6470 | 0x4C64FD | 52/141 |
+| 0x4C6500 | 0x4C654B | 30/75 |
+| 0x4C6550 | 0x4C6777 | 177/551 |
+| 0x4C6AC0 | 0x4C6B09 | 28/73 |
+| 0x4C7340 | 0x4C7380 | 24/64 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`runtime_verified`=false；`generated_machine_reads_verified`=false；`build_or_test_performed`=false；`digests_computed_or_compared`=false。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

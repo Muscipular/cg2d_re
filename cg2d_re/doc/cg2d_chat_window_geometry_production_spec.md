@@ -45,3 +45,18 @@
 ## 当前状态
 
 本步前提交说明“[#] 补齐聊天历史浏览与字节滚动完整合同”；拟提交说明“[#] 补齐聊天几何生产并恢复设置字节取样”。三完整原根及三组12处修正、登记、静态汇总/Check和派生范围核对通过，现有字体doubleWidth明确S32，字段与临时取样类型一致。语义2245=2197F+48X，函数处置1683/证据1479；文档关联2307/3680=62.69%仅关联率，INPUT66/UIRUNTIME98/MAP188且枚举未闭。184叶验收0、60任务关闭11/开放49、六closure开放及所有完整门禁保持。未构建/测试/运行，整体active/未完成。
+
+<a id="evidence-archive-20261011"></a>
+## 证据归档（2026-10-11）
+
+原记录：`cg2d_chat_window_geometry_production_evidence.json`，已提交原文由Git历史保存，最近记录提交为「[#] 补齐聊天几何生产并恢复设置字节取样」。源码前后差异、完整指令/依赖/旧台账及重复文档副本不再在工作树另存；本SPEC前述依据、合同和剩余继续有效。
+
+| 原根 | 末界（不含） | 指令/字节 |
+|---|---|---|
+| 0x4C9240 | 0x4C92AD | 26/109 |
+| 0x4C9170 | 0x4C9233 | 40/195 |
+| 0x4A7C40 | 0x4A80DC | 263/1180 |
+
+原验证记录：`necessary_static`=pass（历史限定检查）；`registry`=pass（历史限定检查）；`measurement`=pass（历史限定检查）；`check`=pass（历史限定检查）；`derived_scope`=pass（历史限定检查）；`runtime_verified`=false；`generated_machine_reads_verified`=false；`build_or_test_performed`=false；`digests_computed_or_compared`=false。
+
+本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。

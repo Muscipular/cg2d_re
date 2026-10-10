@@ -153298,7 +153298,7 @@
     {
       "original_entry": "0x46F8F0",
       "inventory_id": "F:0006F8F0",
-      "status": "BOG01完整正常助手/正确实现独立纳管；全父-callee/表生产消费-owner/ABI-PC53与运行未验",
+      "status": "BOG01完整正常助手/正确实现独立纳管；全父-callee/表生产消费-owner/ABI-PC53与运行未验；WDG01当前补正两更新前取样，BOG01原0补丁结论为历史，不代当前正确性",
       "sources": [
         {
           "path": "src/world/SceneState.cpp",
@@ -153313,6 +153313,16 @@
             "Sub_46F8F0"
           ],
           "relationship": "既有声明与native非拥有对象/float*、F32参数及F64/S32返回保；不扩大接口或异常门禁"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "cg::world::detail::Sub_46F8F0",
+          "relationship": "WDG01当前上/下界比较后分别fresh float读取再加减/发布；仅两局部const采样，原非拥有/F32/重复循环/void返回保持"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbol": "cg::world::detail::Sub_46F8F0",
+          "relationship": "WDG01当前实际声明；旧include/cg/world/SceneState.hpp为BOG历史，保旧证据不改历史"
         }
       ],
       "evidence_documents": [
@@ -153320,9 +153330,14 @@
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-acceptance",
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
-        "doc/cg2d_battle_motion_angle_dependency_evidence.json"
+        "doc/cg2d_battle_motion_angle_dependency_evidence.json",
+        "doc/cg2d_world_direction_normalization_sampling_spec.md#world-direction-baseline",
+        "doc/cg2d_world_direction_normalization_sampling_spec.md#world-direction-decision",
+        "doc/cg2d_world_direction_normalization_sampling_spec.md#world-direction-acceptance",
+        "doc/cg2d_world_direction_normalization_sampling_spec.md#world-direction-source-state",
+        "doc/cg2d_world_direction_normalization_sampling_evidence.json"
       ],
-      "boundary": "地址native非拥有、原位型表与数值宽度保；仅正常局部静态，全部父/表生产消费-owner/ABI-PC53及运行未验。",
+      "boundary": "地址native非拥有、原位型表与数值宽度保；仅正常局部静态，全部父/表生产消费-owner/ABI-PC53及运行未验。 WDG01两完整34条112B两页/两E8与原ftol外尾跳、五跳一RET，20入向（内部1/外部19点16父）短窗仅局部消费；primary完整正确body保持，F32原offset/落点/归一化/fresh angle/原乘数与正常S64cast保持，不降返回或换atan2。既有normalizer只恢复上界与下界比较后的两fresh float更新取样，原非拥有float*、F32发布/重复循环保，不造新owner/API或机器加载保证。插值旧1389/65可写原位型表及CAC08区间、ftol旧1252宿主职责/全部其它源保，BOG历史记录保并追加当前纠正。仅本步限定S，不代全父/表生产消费/alias/owner/SDK/数值与生成机器ABI/PC53/画面/运行；全部成员枚举/完整gates/六closure/总SPEC§10保持。已批ACP01/MC01现数学与转换、原格式明文/WAV-only/文本字节边界不变；RPLAN.24不新增保护、默认值、补零、钳制、迭代上限、回滚或异常模型。",
       "instruction_count": 20,
       "function_chunks": [
         {
@@ -153336,7 +153351,7 @@
         "source_body_implemented": true,
         "runtime_verified": false
       },
-      "verification_level": "BOG01完整20条59B/1页/0call-4跳转-1ret，原调用及表位型局部静态，0补丁；宿主数值/全部父与运行未验",
+      "verification_level": "BOG01完整20条59B/1页/0call-4跳转-1ret，原调用及表位型局部静态，0补丁；宿主数值/全部父与运行未验 WDG01当前两更新采样恢复并局部静态通过，不覆盖BOG旧0补丁/源保持历史。",
       "battle_motion_angle_dependency": {
         "spec_id": "BOG01",
         "evidence_refs": [
@@ -153358,6 +153373,29 @@
         "full_original_function_normal_body_reviewed": true,
         "full_runtime_verified": false,
         "preserved_contract": "native非拥有float*，无新空门禁；每圈fresh上界>=360时减原F32 360并存F32重来，否则fresh下界<0加360/F32重来，达到[0,360)原返回；原重复循环保，不改fmod或一次圈调整。"
+      },
+      "world_direction_normalization": {
+        "step": "WDG01",
+        "source_snapshot": "Git提交说明“[#] 补齐方向合同并恢复角度更新取样”",
+        "original_instruction_count": 20,
+        "original_code_bytes": 59,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 4,
+        "return_count": 1,
+        "inbound_call_count": 6,
+        "inbound_parent_count": 6,
+        "source_patch_group_count": 2,
+        "update_read_sites": [
+          "0x46f903",
+          "0x46f91e"
+        ],
+        "new_functions": 0,
+        "normal_source_kept": false,
+        "historical_bog_record_kept": true,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
       }
     },
     {
@@ -206318,6 +206356,66 @@
         "normal_source_kept": false,
         "approved_wire_difference": true,
         "full_fim_network_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x46CDF0",
+      "inventory_id": "F:0006CDF0",
+      "original_role": "两F32分量查表求角，加原F32偏移落F32/归一化后fresh取样乘原F32常量，正常S64向零返回",
+      "original_end_exclusive": "0x46CE25",
+      "instruction_count": 14,
+      "function_chunks": [
+        {
+          "start": "0x46cdf0",
+          "end_exclusive": "0x46ce25"
+        }
+      ],
+      "status": "WDG01完整方向生产纳管，正确body保持；仅限定S，全父/表owner/机器ABI/运行待",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "cg::world::detail::Sub_46CDF0",
+          "relationship": "既有完整body保持，F32参数/原常量/落点及S64返回保"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbol": "cg::world::detail::Sub_46CDF0",
+          "relationship": "当前真实声明；仅关联注释，原参数/返回/约定保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_world_direction_normalization_sampling_spec.md#world-direction-baseline",
+        "doc/cg2d_world_direction_normalization_sampling_spec.md#world-direction-decision",
+        "doc/cg2d_world_direction_normalization_sampling_spec.md#world-direction-acceptance",
+        "doc/cg2d_world_direction_normalization_sampling_spec.md#world-direction-source-state",
+        "doc/cg2d_world_direction_normalization_sampling_evidence.json"
+      ],
+      "boundary": "WDG01两完整34条112B两页/两E8与原ftol外尾跳、五跳一RET，20入向（内部1/外部19点16父）短窗仅局部消费；primary完整正确body保持，F32原offset/落点/归一化/fresh angle/原乘数与正常S64cast保持，不降返回或换atan2。既有normalizer只恢复上界与下界比较后的两fresh float更新取样，原非拥有float*、F32发布/重复循环保，不造新owner/API或机器加载保证。插值旧1389/65可写原位型表及CAC08区间、ftol旧1252宿主职责/全部其它源保，BOG历史记录保并追加当前纠正。仅本步限定S，不代全父/表生产消费/alias/owner/SDK/数值与生成机器ABI/PC53/画面/运行；全部成员枚举/完整gates/六closure/总SPEC§10保持。已批ACP01/MC01现数学与转换、原格式明文/WAV-only/文本字节边界不变；RPLAN.24不新增保护、默认值、补零、钳制、迭代上限、回滚或异常模型。",
+      "verification_level": "两完整根连续原码/原常量、四处F32取样与两发布/两个E8和ftol尾跳，20局部返回窗/19外点16父，65项表位型及整两文件精确重放，仅必要静态；实际生成机器加载/数值/ABI/运行未验。",
+      "native_provider": {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "cg::world::detail::Sub_46CDF0",
+        "parameters": "std::int64_t __cdecl Sub_46CDF0(const float first, const float second)",
+        "return": "S64；多父仅取EAX低W32/一处AX，46B580保原EDX:EAX透传，不降低返回宽度",
+        "runtime_verified": false
+      },
+      "world_direction_normalization": {
+        "step": "WDG01",
+        "source_snapshot": "Git提交说明“[#] 补齐方向合同并恢复角度更新取样”",
+        "original_instruction_count": 14,
+        "original_code_bytes": 53,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "external_tail_jump_count": 1,
+        "jump_count": 1,
+        "return_count": 0,
+        "inbound_call_count": 14,
+        "inbound_parent_count": 11,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_source_kept": true,
+        "full_lifecycle_closed": false,
         "runtime_verified": false
       }
     }

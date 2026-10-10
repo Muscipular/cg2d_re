@@ -8217,14 +8217,15 @@ std::int32_t* __cdecl Sub_46CF20()
     return gValuesC35010 + 65536;
 }
 
-// 原 [0x46F8F0,0x46F92B)；每轮按 360 上界、0 下界顺序重读并原地修正。
+// WDG01：原 [0x46F8F0,0x46F92B)；上/下界比较后各重新取 F32，再加减、写回并重来。
 void __cdecl Sub_46F8F0(float* const value)
 {
     constexpr float kFullTurn = 360.0F;
     for (;;) {
         const float upperValue = *value;
         if (static_cast<double>(upperValue) >= 360.0) {
-            *value = upperValue - kFullTurn;
+            const float updateValue = *value;
+            *value = updateValue - kFullTurn;
             continue;
         }
 
@@ -8232,7 +8233,8 @@ void __cdecl Sub_46F8F0(float* const value)
         if (static_cast<double>(lowerValue) >= 0.0) {
             return;
         }
-        *value = lowerValue + kFullTurn;
+        const float updateValue = *value;
+        *value = updateValue + kFullTurn;
     }
 }
 
@@ -8305,7 +8307,7 @@ double Sub_46FB80(
     return squaredY + squaredX;
 }
 
-// 原 [0x46CDF0,0x46CE25)：角度写回 F32、归一化，再乘原常量截断为 S64。
+// WDG01：原 [0x46CDF0,0x46CE25)；查表加原偏移落 F32、原地归一后重取，乘原常量转 S64。
 std::int64_t __cdecl Sub_46CDF0(const float first, const float second)
 {
     const double direction = Sub_46F970(first, second);

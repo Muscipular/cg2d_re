@@ -840,11 +840,11 @@ std::int32_t __cdecl Sub_468F30();         // 原 [0x468F30,0x468F6F)，按序�
 std::int64_t __cdecl Sub_468F70();         // 原 [0x468F70,0x468FE4)，F32 投影、向零截断后写六槽。
 std::int32_t __cdecl Sub_46CF00(std::int32_t value); // 原 [0x46CF00,0x46CF1A)，读已初始化的共享索引表。
 std::int32_t* __cdecl Sub_46CF20();        // 原 [0x46CF20,0x46CF57)，填表并返回一过尾指针。
-void __cdecl Sub_46F8F0(float* value);      // 原 [0x46F8F0,0x46F92B)，原地归一化到 [0,360)。
+void __cdecl Sub_46F8F0(float* value);      // WDG01：非拥有 F32 指针，比较/更新分别取样，重复归一到 [0,360)。
 double __cdecl Sub_46F930(float angle);     // 原 [0x46F930,0x46F94E)，截断后查 360 项 F64 原表。
 double __cdecl Sub_46F950(float angle);     // 原 [0x46F950,0x46F967)，F32 加 90 后调用 46F930。
 double __cdecl Sub_46F970(float first, float second); // 原 [0x46F970,0x46FACF)，65 项原表插值。
-std::int64_t __cdecl Sub_46CDF0(float first, float second); // 原 [0x46CDF0,0x46CE25)，F32 归一化后 S64 截断。
+std::int64_t __cdecl Sub_46CDF0(float first, float second); // WDG01：原 F32 偏移/落点/乘数与归一化，正常转换返回 S64。
 std::int64_t __cdecl Sub_46B580(
     std::int32_t first, std::int32_t second,
     std::int32_t third, std::int32_t fourth); // 原 [0x46B580,0x46B5B3)，两坐标差返回完整 S64。

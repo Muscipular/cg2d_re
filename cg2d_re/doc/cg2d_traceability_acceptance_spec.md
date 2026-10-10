@@ -2428,3 +2428,9 @@ ANIMATION/YOBI各两个新成员，BATTLE只Play依赖成员；两新语义/F和
 [两完整根](cg2d_neighbor_fim_request_plaintext_spec.md#neighbor-fim-acceptance)/[原指令/source/server判据](cg2d_neighbor_fim_request_plaintext_evidence.json)：227条676B/五页、25E8十三callee/两间接tick/20跳三RET；父正确body保持，子按已批CAB05只删17写，原字段/RNG/扫描/返回/tick保，整两CPP/两头精确差集通过。server只读取证，不以解析判据称运行/互通或原17代码等价；十二旧身份保持，46CDF0仅真实提供者不扩验。
 
 两新语义/F，语义2205→2207、F1636→1638/E1436→1439，MAP156→157/Yobi86→87只父、NETWORK73→74只sender，成员枚举仍false；三限定S零I，七任务open、184叶验收0/60任务11关闭、完整gates及六closure/原政策保。完整callee/唯一外父/正常失败/容量/alias/owner/SDK/ABI/画面声音及fIM/全网络运行待，不降总SPEC§10。
+
+## 2026-10-10 WDG01 方向生产与归一化限定验收
+
+[两完整根](cg2d_world_direction_normalization_sampling_spec.md#world-direction-acceptance)/[原字节与源差集](cg2d_world_direction_normalization_sampling_evidence.json)：34条112B/两页、两E8与ftol外尾跳、五跳一RET、20局部调用窗；normalizer只恢复两更新前采样，primary/旧1389插值与65原表保持。一个新语义/F，旧1390及处置追加当前纠正、BOG历史保；十二其它旧身份/source保，未登记六父只真实绑定，不称完整验收。
+
+语义2207→2208、F1638→1639/E1439→1442；MAP157→159/Yobi87→89各两成员、BATTLE422旧成员只当前S，三限定S零I，七任务open/成员枚举false/184叶验收0/60任务关闭11/六closure及完整门禁守恒。生成机器加载、全父/alias/owner/表生产消费/数值/SDK/ABI/画面与生命周期运行仍待，不降总SPEC§10。

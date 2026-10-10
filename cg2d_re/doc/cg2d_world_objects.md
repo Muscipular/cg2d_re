@@ -800,3 +800,10 @@ flags W16非0且objectIndex完整W32位型相等，才清该槽action并停止�
 [两完整根](cg2d_neighbor_fim_request_plaintext_spec.md#neighbor-fim-source-state)/[原指令/提供者/server判据](cg2d_neighbor_fim_request_plaintext_evidence.json)纳管51B3E0/510B80，合227条676B/五页、25E8十三callee/两SDK tick/20跳三RET，唯一外父469C90弃返窗有据。父正确body保持：cached原位型、两轴各两次减法/fresh target、类别7查询、两F32差/方向、unsigned500门禁、先Y后X发/两tick与发送失败仍更新时间；不合并abs/读取或回滚。
 
 子按CAB05现fIM/Base62字段/普通空格/LF只删原17写入，原time/seed/rand、扫描/fresh buffer和发送结果保持；server分词对17不终止、整数遇17返回0为静态判据，不试包/改server或恢复外壳。补两独立身份（WGQ01当时缺51B3E0的历史结论保），MAP/Yobi仅父、NETWORK仅子三S零I，十二旧身份/所有其它源保持；七任务/完整gates/枚举/六closure开放，完整交互与网络/owner/ABI/画面声音运行待。
+
+<a id="world-direction-current-20261010"></a>
+## 2026-10-10 WDG01：方向生产与归一化更新取样
+
+[两完整原根](cg2d_world_direction_normalization_sampling_spec.md#world-direction-source-state)/[指令、调用窗与精确差集](cg2d_world_direction_normalization_sampling_evidence.json)补46CDF0独立身份，保持两F32分量查表、原112.5F偏移/落F32、同地址归一化/fresh angle、原F32乘数和S64转换。46B580原宽返回透传与AX/W32局部消费区别有据，不降返回类型。
+
+46F8F0沿BOG旧1390补正上界/下界比较后的两次fresh float更新读取，重复循环/F32发布/void及非拥有指针保；旧BOG“正确/0补丁”为历史，此附记给出当前纠正。34条112B/两页、两E8/一ftol尾跳、五跳一RET与20局部窗；primary/插值/原65项表保持。MAP/Yobi各纳primary/共享归一化两个成员，BATTLE原成员只当前S；三限定S零I、七任务open，完整枚举/gates/closure及全父/表owner/机器加载/ABI/数值/画面运行仍待。

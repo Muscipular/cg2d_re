@@ -4821,3 +4821,10 @@ Find命中不补action，未命中才领取/创建，先pub返回/空失败不�
 [完整51B3E0父](cg2d_neighbor_fim_request_plaintext_spec.md#neighbor-fim-source-state)现补独立身份，WGQ01旧2201类别查询和既有读取/算术源保持；父X/Y各两减法/符号与fresh目标、类别7查询、目标减玩家的两F32桥/方向、unsigned500/两SDK tick和先Y后X发送不改。Sub469C90唯一外父只弃返窗，旧1677正常移动合同保持不重验全体。
 
 510B80受当前CAB05明文边界仅撤17字节写，保RNG及共享owner/发送返回，现server静态解析会在17返回0而普通空格可终止字段；不称互通/ABI/全callee通过。两新原身份/三限定S零I，MAP/Yobi只父，NETWORK只子，完整动作生产/输入/alias/owner/SDK/ABI/运行仍待。
+
+<a id="world-direction-current-20261010"></a>
+## 2026-10-10 WDG01：方向与共享角度归一化
+
+[方向生产/共享归一化](cg2d_world_direction_normalization_sampling_spec.md#world-direction-source-state)补独立46CDF0并纠正既有46F8F0两个更新前float采样。原移动/动作父保持，Sub_447070/447230/449670与MoveBattleSequence_420590真实提供者有据，尚无独立身份者只记绑定，不以六局部返回窗称完整父验收。归一化现void保持；方向现S64保，取AX/低W32与46B580透传有区别。
+
+primary和BOG插值/原可写表/ftol host职责不改；上界比较→fresh减→F32发布/回上界，下界fresh比较→fresh加→F32发布/回上界。MAP/Yobi各加两个成员/BATTLE原成员保，三限定S零I；不引保护/默认值/迭代上限，不保证优化器机器读取/并发语义，完整输入/全父/alias-owner/数值/ABI/画面运行未验。

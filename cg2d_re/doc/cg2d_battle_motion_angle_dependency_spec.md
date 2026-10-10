@@ -91,3 +91,10 @@ native非拥有action，无新空门禁；角>=360减360否则<0加360，仅调�
 先落本SPEC再实施两差异、归档原证据，并同步运行文档、语义/分类/登记簿、七项收尾与唯一进度。命名快照：`cg2d-re-battle-motion-angle-dependency-20261006`。九个局部正常函数已纳管；原表/原调用/宽度保持。共同特效父41CD00与各命中回调已有独立记录，不能反向把本步219条引用等同全部父完成。
 
 继续沿真实未完成依赖推进，完整callee/owner、表的全部生产消费、资源重进退出、宿主数值/实际画面及R1/R7/R8仍按总SPEC。网络仅原格式明文，音频暂停；不降低验收标准。
+
+<a id="world-direction-current-20261010"></a>
+## 2026-10-10 WDG01：归一化更新前读取的当前补正
+
+[WDG01](cg2d_world_direction_normalization_sampling_spec.md#world-direction-decision)/[原指令和当前source](cg2d_world_direction_normalization_sampling_evidence.json)明确46F8F0上界比较后46F903另读float，下界比较后46F91E另读float，再加减/F32写回；BOG01实现只保每圈比较采样，却复用了比较值到更新。本次恢复两个局部更新采样，原重复循环、native非拥有float*、F32字段和void返回保持。BOG当时“正确/0补丁/其余七根保持”及旧计量属于历史，保原文/原记录，不沿历史误称当前正确。实际当前声明位于src/world/WorldUpdateDependencies.hpp，1390追加当前来源/纠正证据。
+
+46CDF0新增完整独立身份，两个E8复用BOG插值1389和归一化1390，尾跳ftol旧1252由明确本机S64cast承担；primary正确body、插值114条351B及65项可写原表/旧记录保。两本步根合34条112B/两页，与复用依赖证据不重复计数。BATTLE既有成员422保持，只追加1390当前限定S，MAP/Yobi各加primary及normalizer；三S零I、七任务open/完整gates保。源码重新采样不保证优化后机器加载、x87状态/PC53/ABI或全父/表owner/运行；现ACP01/MC01正常数值边界及WAV-only仍沿最新决议，旧音频暂停措辞仅历史。

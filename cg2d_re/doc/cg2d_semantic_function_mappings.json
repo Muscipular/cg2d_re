@@ -204073,6 +204073,342 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x410730",
+      "inventory_id": "F:00010730",
+      "original_role": "一次入口技能选择type35末参0或61–63先推进动态目标，共同末推进源，无播放。",
+      "original_end_exclusive": "0x4107c0",
+      "instruction_count": 49,
+      "function_chunks": [
+        {
+          "start": "0x410730",
+          "end_exclusive": "0x4107c0"
+        }
+      ],
+      "status": "BFL01六完整正常源纳管，场地创建/回调三读取组已落实；完整输入/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction140_410730",
+          "relationship": "一次入口技能选择type35末参0或61–63先推进动态目标，共同末推进源，无播放。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction140_410730"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-baseline",
+        "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-decision",
+        "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-acceptance",
+        "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-source-state",
+        "doc/cg2d_battle_field_effect_lifecycle_evidence.json"
+      ],
+      "boundary": "BFL01六完整正常根及四原表项/四case、十创建CALL和一callback MOV纳管；只41FFE0两组索引先齐读坐标、41FF90一Y转换后偏移，共三组/十二注释。四正确动作、141/143旧合同、C解析器和两只读表/所有其它源保持；两表正常旧值不错误，不称运行故障。场景B0生产/更新/清理仅本步六根与438550明确前缀，原标死后回调仍投影/不自清B0保持。无新API/字段/默认业务值/保护/循环上限；六新原身份，创建器作145 callee不重计。所有真实输入/生产/父-callee/容量/机器ABI/alias/owner/SDK正常失败和声音画面未验，原完整门禁政策保持。",
+      "verification_level": "六完整233条777B/七页，26E8/七直接callee/18跳12RET、四原表项/四11Bcase、十创建CALL/三父与一callback字段MOV；440B两模型/4B常量及173B C解析清理前缀；当前必要静态，不含构建测试/运行/产物/摘要。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction140_410730",
+        "parameters": "非拥有YobiAction* action",
+        "return": "void；原caller不消费尾EAX"
+      },
+      "battle_field_effect": {
+        "step": "BFL01",
+        "source_snapshot": "Git提交说明：[#] 对齐战斗场地特效与状态清理",
+        "original_instruction_count": 49,
+        "original_code_bytes": 144,
+        "original_page_count": 1,
+        "direct_call_count": 4,
+        "jump_count": 10,
+        "return_count": 2,
+        "inbound_reference_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_previous_values_wrong": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x410f70",
+      "inventory_id": "F:00010F70",
+      "original_role": "无空门禁标死1054，随后完整FDC取样/FFFFFC0F，先清引用再发布旗位、无条件Play和Advance。",
+      "original_end_exclusive": "0x410fb5",
+      "instruction_count": 20,
+      "function_chunks": [
+        {
+          "start": "0x410f70",
+          "end_exclusive": "0x410fb5"
+        }
+      ],
+      "status": "BFL01六完整正常源纳管，场地创建/回调三读取组已落实；完整输入/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction142_410F70",
+          "relationship": "无空门禁标死1054，随后完整FDC取样/FFFFFC0F，先清引用再发布旗位、无条件Play和Advance。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction142_410F70"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-baseline",
+        "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-decision",
+        "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-acceptance",
+        "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-source-state",
+        "doc/cg2d_battle_field_effect_lifecycle_evidence.json"
+      ],
+      "boundary": "BFL01六完整正常根及四原表项/四case、十创建CALL和一callback MOV纳管；只41FFE0两组索引先齐读坐标、41FF90一Y转换后偏移，共三组/十二注释。四正确动作、141/143旧合同、C解析器和两只读表/所有其它源保持；两表正常旧值不错误，不称运行故障。场景B0生产/更新/清理仅本步六根与438550明确前缀，原标死后回调仍投影/不自清B0保持。无新API/字段/默认业务值/保护/循环上限；六新原身份，创建器作145 callee不重计。所有真实输入/生产/父-callee/容量/机器ABI/alias/owner/SDK正常失败和声音画面未验，原完整门禁政策保持。",
+      "verification_level": "六完整233条777B/七页，26E8/七直接callee/18跳12RET、四原表项/四11Bcase、十创建CALL/三父与一callback字段MOV；440B两模型/4B常量及173B C解析清理前缀；当前必要静态，不含构建测试/运行/产物/摘要。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction142_410F70",
+        "parameters": "非拥有YobiAction* action",
+        "return": "void；原caller不消费尾EAX"
+      },
+      "battle_field_effect": {
+        "step": "BFL01",
+        "source_snapshot": "Git提交说明：[#] 对齐战斗场地特效与状态清理",
+        "original_instruction_count": 20,
+        "original_code_bytes": 69,
+        "original_page_count": 1,
+        "direct_call_count": 3,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_previous_values_wrong": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x411240",
+      "inventory_id": "F:00011240",
+      "original_role": "无空门禁标死1068，随后完整FDC取样/FFF03FFF，先清引用再发布旗位、无条件Play和Advance。",
+      "original_end_exclusive": "0x411285",
+      "instruction_count": 20,
+      "function_chunks": [
+        {
+          "start": "0x411240",
+          "end_exclusive": "0x411285"
+        }
+      ],
+      "status": "BFL01六完整正常源纳管，场地创建/回调三读取组已落实；完整输入/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction144_411240",
+          "relationship": "无空门禁标死1068，随后完整FDC取样/FFF03FFF，先清引用再发布旗位、无条件Play和Advance。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction144_411240"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-baseline",
+        "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-decision",
+        "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-acceptance",
+        "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-source-state",
+        "doc/cg2d_battle_field_effect_lifecycle_evidence.json"
+      ],
+      "boundary": "BFL01六完整正常根及四原表项/四case、十创建CALL和一callback MOV纳管；只41FFE0两组索引先齐读坐标、41FF90一Y转换后偏移，共三组/十二注释。四正确动作、141/143旧合同、C解析器和两只读表/所有其它源保持；两表正常旧值不错误，不称运行故障。场景B0生产/更新/清理仅本步六根与438550明确前缀，原标死后回调仍投影/不自清B0保持。无新API/字段/默认业务值/保护/循环上限；六新原身份，创建器作145 callee不重计。所有真实输入/生产/父-callee/容量/机器ABI/alias/owner/SDK正常失败和声音画面未验，原完整门禁政策保持。",
+      "verification_level": "六完整233条777B/七页，26E8/七直接callee/18跳12RET、四原表项/四11Bcase、十创建CALL/三父与一callback字段MOV；440B两模型/4B常量及173B C解析清理前缀；当前必要静态，不含构建测试/运行/产物/摘要。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction144_411240",
+        "parameters": "非拥有YobiAction* action",
+        "return": "void；原caller不消费尾EAX"
+      },
+      "battle_field_effect": {
+        "step": "BFL01",
+        "source_snapshot": "Git提交说明：[#] 对齐战斗场地特效与状态清理",
+        "original_instruction_count": 20,
+        "original_code_bytes": 69,
+        "original_page_count": 1,
+        "direct_call_count": 3,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_previous_values_wrong": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x411290",
+      "inventory_id": "F:00011290",
+      "original_role": "入口一次技能50–53选择四场地图，返回弃置，各路径共同Advance；无匹配不创建，无播放。",
+      "original_end_exclusive": "0x411312",
+      "instruction_count": 44,
+      "function_chunks": [
+        {
+          "start": "0x411290",
+          "end_exclusive": "0x411312"
+        }
+      ],
+      "status": "BFL01六完整正常源纳管，场地创建/回调三读取组已落实；完整输入/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction145_411290",
+          "relationship": "入口一次技能50–53选择四场地图，返回弃置，各路径共同Advance；无匹配不创建，无播放。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction145_411290"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-baseline",
+        "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-decision",
+        "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-acceptance",
+        "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-source-state",
+        "doc/cg2d_battle_field_effect_lifecycle_evidence.json"
+      ],
+      "boundary": "BFL01六完整正常根及四原表项/四case、十创建CALL和一callback MOV纳管；只41FFE0两组索引先齐读坐标、41FF90一Y转换后偏移，共三组/十二注释。四正确动作、141/143旧合同、C解析器和两只读表/所有其它源保持；两表正常旧值不错误，不称运行故障。场景B0生产/更新/清理仅本步六根与438550明确前缀，原标死后回调仍投影/不自清B0保持。无新API/字段/默认业务值/保护/循环上限；六新原身份，创建器作145 callee不重计。所有真实输入/生产/父-callee/容量/机器ABI/alias/owner/SDK正常失败和声音画面未验，原完整门禁政策保持。",
+      "verification_level": "六完整233条777B/七页，26E8/七直接callee/18跳12RET、四原表项/四11Bcase、十创建CALL/三父与一callback字段MOV；440B两模型/4B常量及173B C解析清理前缀；当前必要静态，不含构建测试/运行/产物/摘要。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction145_411290",
+        "parameters": "非拥有YobiAction* action",
+        "return": "void；原caller不消费尾EAX"
+      },
+      "battle_field_effect": {
+        "step": "BFL01",
+        "source_snapshot": "Git提交说明：[#] 对齐战斗场地特效与状态清理",
+        "original_instruction_count": 44,
+        "original_code_bytes": 130,
+        "original_page_count": 1,
+        "direct_call_count": 8,
+        "jump_count": 4,
+        "return_count": 4,
+        "inbound_reference_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_previous_values_wrong": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x41ffe0",
+      "inventory_id": "F:0001FFE0",
+      "original_role": "当前场景B0已有对象仅换图返空；priority2零payload分配失败返空，新建完整callback/flags持样，两组索引齐读坐标，播放后fresh场景发布T*及原投影尾。",
+      "original_end_exclusive": "0x4200fd",
+      "instruction_count": 75,
+      "function_chunks": [
+        {
+          "start": "0x41ffe0",
+          "end_exclusive": "0x4200fd"
+        }
+      ],
+      "status": "BFL01六完整正常源纳管，场地创建/回调三读取组已落实；完整输入/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::NewBattleFieldEffect_41FFE0",
+          "relationship": "当前场景B0已有对象仅换图返空；priority2零payload分配失败返空，新建完整callback/flags持样，两组索引齐读坐标，播放后fresh场景发布T*及原投影尾。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::NewBattleFieldEffect_41FFE0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-baseline",
+        "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-decision",
+        "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-acceptance",
+        "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-source-state",
+        "doc/cg2d_battle_field_effect_lifecycle_evidence.json"
+      ],
+      "boundary": "BFL01六完整正常根及四原表项/四case、十创建CALL和一callback MOV纳管；只41FFE0两组索引先齐读坐标、41FF90一Y转换后偏移，共三组/十二注释。四正确动作、141/143旧合同、C解析器和两只读表/所有其它源保持；两表正常旧值不错误，不称运行故障。场景B0生产/更新/清理仅本步六根与438550明确前缀，原标死后回调仍投影/不自清B0保持。无新API/字段/默认业务值/保护/循环上限；六新原身份，创建器作145 callee不重计。所有真实输入/生产/父-callee/容量/机器ABI/alias/owner/SDK正常失败和声音画面未验，原完整门禁政策保持。",
+      "verification_level": "六完整233条777B/七页，26E8/七直接callee/18跳12RET、四原表项/四11Bcase、十创建CALL/三父与一callback字段MOV；440B两模型/4B常量及173B C解析清理前缀；当前必要静态，不含构建测试/运行/产物/摘要。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::NewBattleFieldEffect_41FFE0",
+        "parameters": "S32 imageNo",
+        "return": "原生非拥有YobiAction*；已有对象/失败返回空，新建返回对象"
+      },
+      "battle_field_effect": {
+        "step": "BFL01",
+        "source_snapshot": "Git提交说明：[#] 对齐战斗场地特效与状态清理",
+        "original_instruction_count": 75,
+        "original_code_bytes": 285,
+        "original_page_count": 2,
+        "direct_call_count": 4,
+        "jump_count": 2,
+        "return_count": 3,
+        "inbound_reference_count": 10,
+        "source_patch_group_count": 2,
+        "new_functions": 0,
+        "normal_previous_values_wrong": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x41ff90",
+      "inventory_id": "F:0001FF90",
+      "original_role": "完整场地callback：当前全局scene.death严格1标死自己，否则播放，两路都投影；Y转换后再读屏幕Y偏移，不清场景B0。",
+      "original_end_exclusive": "0x41ffe0",
+      "instruction_count": 25,
+      "function_chunks": [
+        {
+          "start": "0x41ff90",
+          "end_exclusive": "0x41ffe0"
+        }
+      ],
+      "status": "BFL01六完整正常源纳管，场地创建/回调三读取组已落实；完整输入/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleFieldEffect_41FF90",
+          "relationship": "完整场地callback：当前全局scene.death严格1标死自己，否则播放，两路都投影；Y转换后再读屏幕Y偏移，不清场景B0。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleFieldEffect_41FF90"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-baseline",
+        "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-decision",
+        "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-acceptance",
+        "doc/cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-source-state",
+        "doc/cg2d_battle_field_effect_lifecycle_evidence.json"
+      ],
+      "boundary": "BFL01六完整正常根及四原表项/四case、十创建CALL和一callback MOV纳管；只41FFE0两组索引先齐读坐标、41FF90一Y转换后偏移，共三组/十二注释。四正确动作、141/143旧合同、C解析器和两只读表/所有其它源保持；两表正常旧值不错误，不称运行故障。场景B0生产/更新/清理仅本步六根与438550明确前缀，原标死后回调仍投影/不自清B0保持。无新API/字段/默认业务值/保护/循环上限；六新原身份，创建器作145 callee不重计。所有真实输入/生产/父-callee/容量/机器ABI/alias/owner/SDK正常失败和声音画面未验，原完整门禁政策保持。",
+      "verification_level": "六完整233条777B/七页，26E8/七直接callee/18跳12RET、四原表项/四11Bcase、十创建CALL/三父与一callback字段MOV；440B两模型/4B常量及173B C解析清理前缀；当前必要静态，不含构建测试/运行/产物/摘要。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleFieldEffect_41FF90",
+        "parameters": "非拥有YobiAction* action",
+        "return": "void完整callback，调用边界不消费原EAX"
+      },
+      "battle_field_effect": {
+        "step": "BFL01",
+        "source_snapshot": "Git提交说明：[#] 对齐战斗场地特效与状态清理",
+        "original_instruction_count": 25,
+        "original_code_bytes": 80,
+        "original_page_count": 1,
+        "direct_call_count": 4,
+        "jump_count": 2,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "normal_previous_values_wrong": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

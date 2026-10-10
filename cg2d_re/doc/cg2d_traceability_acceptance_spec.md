@@ -2358,3 +2358,9 @@ FUNC-BATTLE/FUNC-UIRUNTIME仅追加来源，U09/R04仅追加引用并保持open�
 [四完整正常源/裁决](cg2d_battle_factory_wait_spec.md#battle-factory-wait-decision)和[原根/整源差集](cg2d_battle_factory_wait_evidence.json)登记两FUNC-BATTLE限定I/S。I只139十组：两独立T*门禁取样、98条件属性单读、405三读序和四HP/FP临时复制；S四完整565条2019B/48E8、六实际表项/四case及十五依赖关联。三正确主体和已有1497/40FC10完整共体保持，共体不重复纳管；十既有callee语义记录保持。
 
 四新语义/F处置/成员：语义2167→2171、F1595→1599、E1405→1407、BATTLE407→411且枚举false。五任务仅追加依据继续open，全部完整gates/184叶验收0/60任务关闭11与六closure保持。所有真实生产/其它父和完整callee/容量/机器ABI/alias/owner/SDK/声音画面待，必要静态与文本汇总不代运行，总SPEC§10及执行限制不降低。
+
+## 2026-10-10 BFL01 场地特效与状态清理限定验收
+
+[六完整正常源/裁决](cg2d_battle_field_effect_lifecycle_spec.md#battle-field-effect-decision)及[指令/数据/差集](cg2d_battle_field_effect_lifecycle_evidence.json)登记两FUNC-BATTLE限定I/S。I只41FFE0两索引齐取与41FF90一Y转换后偏移，共三组；S六完整233条777B/26E8、四原表项/case、十创建CALL/一callback MOV、440B两模型/4B常量与173B明确清理前缀。141/143旧身份与五旧callee、表/C解析器保持，创建器新身份作145 callee不重复计。
+
+六新语义/F处置/成员：2171→2177、F1599→1605、E1407→1409、BATTLE411→417枚举false；五任务仅追加依据继续open，所有完整gates/184叶验收0/60任务关闭11及六closure保持。两表只读/旧正常值相同，不称运行故障；前缀不代整个C解析输入、完整父-callee/容量/ABI/alias/owner/SDK/声音画面或运行，总SPEC§10和执行限制不降低。

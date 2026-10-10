@@ -401,8 +401,8 @@ void UpdateBattleAttachedEffect_41FB20(YobiAction* action);
 YobiAction* NewBattleAttachedEffect_41FBE0(YobiAction* parent, std::int32_t mode); // 已有槽只换图并返回空。
 void UpdateBattleStatusEffect_41FCD0(YobiAction* action);
 YobiAction* NewBattleStatusEffect_41FE00(YobiAction* parent, std::int32_t imageNo, std::int32_t mode); // 1068发布后执行缩放/下降。
-void UpdateBattleFieldEffect_41FF90(YobiAction* action); // 当前全局场景标死时标死自身，仍执行投影尾。
-YobiAction* NewBattleFieldEffect_41FFE0(std::int32_t imageNo); // B0已有对象仅换图返空，新建播放后重取场景发布T*。
+void UpdateBattleFieldEffect_41FF90(YobiAction* action); // BFL01：当前场景death严格1标死自身，仍投影；Y转换后再取屏幕Y偏移。
+YobiAction* NewBattleFieldEffect_41FFE0(std::int32_t imageNo); // BFL01：B0已有只换图返空；两组索引先齐读坐标，播放后fresh场景发布，原投影尾。
 void UpdateBattleBackgroundFade_421480(YobiAction* action); // 完整五态淡变，同源背景发布与延后标死。
 YobiAction* NewBattleBackgroundFade_421570(
     std::int32_t imageNo, std::uint8_t step, std::int32_t publishBackground);
@@ -598,12 +598,12 @@ void UpdateBattleFactoryAction_40FC10(YobiAction* action); // 31动作共享30�
 void UpdateBattleActions127To129_40FF90(YobiAction* action); // BFW01：完整FDC持样/条件播放，后取phase选7/8/9末参0，全路径推进。
 void UpdateBattleAction138_40FF40(YobiAction* action); // BFW01：完整FDC持样/条件播放，后取1024创建type20，全路径phase162。
 void UpdateBattleAction139_410000(YobiAction* action); // BFW01：事件/完成两次独立特效指针持样，98单次属性；405不同取样/四临时复制原序。
-void UpdateBattleAction140_410730(YobiAction* action); // 技能工厂或61至63先推进目标，最后推进自身。
+void UpdateBattleAction140_410730(YobiAction* action); // BFL01：入口技能持样，特效末参0或先推进61–63目标，最后推进源。
 void UpdateBattleAction141_410E90(YobiAction* action); // 13D8/13DC与技能选择减益图，重读FDC决定播放。
-void UpdateBattleAction142_410F70(YobiAction* action); // 标死1054后重读/清FDC六状态位，无条件播放并推进。
+void UpdateBattleAction142_410F70(YobiAction* action); // BFL01：无空门禁标死1054，fresh完整FDC取样后先清槽再发布掩码值，播放/推进。
 void UpdateBattleAction143_410FC0(YobiAction* action); // 两型状态图号/13E0索引，调用后条件播放并推进。
-void UpdateBattleAction144_411240(YobiAction* action); // 标死1068后清槽/状态位，无条件播放并推进。
-void UpdateBattleAction145_411290(YobiAction* action); // 四技能图号更新场地特效，其他技能只推进。
+void UpdateBattleAction144_411240(YobiAction* action); // BFL01：无空门禁标死1068，fresh完整FDC取样后先清槽再发布掩码值，播放/推进。
+void UpdateBattleAction145_411290(YobiAction* action); // BFL01：一次技能选择四图，创建返回弃置；其它技能亦共同推进，无播放。
 void UpdateBattleAction147_411320(YobiAction* action); // 反转特效开关，创建失败仍按原合同置FDC800。
 void UpdateBattleAction148_40FEF0(YobiAction* action); // 工厂type33，播放后检查1024，最后phase162。
 void UpdateBattleAction154_40F790(YobiAction* action); // type24发布1060，等待特效phase严格1。

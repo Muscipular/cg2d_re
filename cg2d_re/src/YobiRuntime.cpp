@@ -10961,6 +10961,7 @@ YobiAction* NewBattleStatusEffect_41FE00(YobiAction* const parent, const std::in
     return action;
 }
 
+// BFL01：当前场景death严格1标死自身，仍投影；Y转换后再取屏幕Y偏移。
 void UpdateBattleFieldEffect_41FF90(YobiAction* const action)
 {
     if (world::detail::gBattleSceneAction5ABA94->deathFlag == 1) {
@@ -10972,9 +10973,12 @@ void UpdateBattleFieldEffect_41FF90(YobiAction* const action)
     const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
     const float y = action->offset44;
     action->x = x + offsetX;
-    action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
+    const std::int32_t projectedY = static_cast<std::int32_t>(y);
+    const std::int32_t offsetY = static_cast<std::int32_t>(gYobiScreenOffsetY);
+    action->y = projectedY + offsetY;
 }
 
+// BFL01：B0已有只换图返空；两组索引先齐读坐标，播放后fresh场景发布，原投影尾。
 YobiAction* NewBattleFieldEffect_41FFE0(const std::int32_t imageNo)
 {
     using world::detail::gBattleSceneAction5ABA94;
@@ -10994,11 +10998,15 @@ YobiAction* NewBattleFieldEffect_41FFE0(const std::int32_t imageNo)
     action->displayPriority = 7;
     action->framePlayingRate = 100;
     action->flags = flags | 0x40000u;
-    const double x15 = gBattleGraphicPoints553758[gBattlePointIndices5536FC[15]][2];
-    const double x5 = gBattleGraphicPoints553758[gBattlePointIndices5536FC[5]][2];
+    const std::int32_t x15Index = gBattlePointIndices5536FC[15];
+    const std::int32_t x5Index = gBattlePointIndices5536FC[5];
+    const double x15 = gBattleGraphicPoints553758[x15Index][2];
+    const double x5 = gBattleGraphicPoints553758[x5Index][2];
     action->offset40 = static_cast<float>((x5 - x15) * 0.5 + x15);
-    const double y15 = gBattleGraphicPoints553758[gBattlePointIndices5536FC[15]][3];
-    const double y5 = gBattleGraphicPoints553758[gBattlePointIndices5536FC[5]][3];
+    const std::int32_t y15Index = gBattlePointIndices5536FC[15];
+    const std::int32_t y5Index = gBattlePointIndices5536FC[5];
+    const double y15 = gBattleGraphicPoints553758[y15Index][3];
+    const double y5 = gBattleGraphicPoints553758[y5Index][3];
     action->imageNo = imageNo;
     action->direction = 0;
     action->rebirthValue1 = 4;
@@ -28942,6 +28950,7 @@ void UpdateBattleAction139_410000(YobiAction* const action)
     }
 }
 
+// BFL01：入口技能持样，特效末参0或先推进61–63目标，最后推进源。
 void UpdateBattleAction140_410730(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -28994,6 +29003,7 @@ void UpdateBattleAction141_410E90(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BFL01：无空门禁标死1054，fresh完整FDC取样后先清槽再发布掩码值，播放/推进。
 void UpdateBattleAction142_410F70(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -29062,6 +29072,7 @@ void UpdateBattleAction143_410FC0(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BFL01：无空门禁标死1068，fresh完整FDC取样后先清槽再发布掩码值，播放/推进。
 void UpdateBattleAction144_411240(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -29073,6 +29084,7 @@ void UpdateBattleAction144_411240(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BFL01：一次技能选择四图，创建返回弃置；其它技能亦共同推进，无播放。
 void UpdateBattleAction145_411290(YobiAction* const action)
 {
     const std::int32_t skill = static_cast<BattleActorPayload*>(action->payload)->castSkill103C;

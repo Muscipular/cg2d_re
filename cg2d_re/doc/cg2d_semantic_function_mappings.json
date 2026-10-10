@@ -201475,6 +201475,519 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x40cb10",
+      "inventory_id": "F:0000CB10",
+      "original_role": "1004置1后推进",
+      "original_end_exclusive": "0x40cb29",
+      "instruction_count": 7,
+      "function_chunks": [
+        {
+          "start": "0x40cb10",
+          "end_exclusive": "0x40cb29"
+        }
+      ],
+      "status": "BCLC01完整当前正常源/独立合同纳管，正文保持仅注释，零新增实现I；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction75_40CB10"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction75_40CB10"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-baseline",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-decision",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-acceptance",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state",
+        "doc/cg2d_battle_cleanup_controls_evidence.json"
+      ],
+      "boundary": "BCLC01九完整当前正常源全部正文/签名/数值/真实调用正确保持，仅十八合同注释，零消费/算法改动或新实现I。79五引用逐次标死清槽/原三项循环、两完整W32标志先读齐后FDC-FE0发布，80–82独立音效/X取样，83未舍入比较/推进后fresh载荷/FDC置位与共同播放保持；73/74旧BQH身份保持。完整生产/其它父/ABI/alias/owner/SDK正常失败/容量/数值/声音画面仍待，原门禁政策保持。",
+      "verification_level": "九完整166条519B/九页，20E8/五callee/七跳十一RET、九实际CALL/九11Bcase/8B两F32常量与当前正确源必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction75_40CB10",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际分派弃返保持"
+      },
+      "battle_cleanup_controls": {
+        "step": "BCLC01",
+        "source_snapshot": "cg2d-re-battle-cleanup-controls-20261010",
+        "original_instruction_count": 7,
+        "original_code_bytes": 25,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "callee_count": 1,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40cb30",
+      "inventory_id": "F:0000CB30",
+      "original_role": "1004清零后推进",
+      "original_end_exclusive": "0x40cb49",
+      "instruction_count": 7,
+      "function_chunks": [
+        {
+          "start": "0x40cb30",
+          "end_exclusive": "0x40cb49"
+        }
+      ],
+      "status": "BCLC01完整当前正常源/独立合同纳管，正文保持仅注释，零新增实现I；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction76_40CB30"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction76_40CB30"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-baseline",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-decision",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-acceptance",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state",
+        "doc/cg2d_battle_cleanup_controls_evidence.json"
+      ],
+      "boundary": "BCLC01九完整当前正常源全部正文/签名/数值/真实调用正确保持，仅十八合同注释，零消费/算法改动或新实现I。79五引用逐次标死清槽/原三项循环、两完整W32标志先读齐后FDC-FE0发布，80–82独立音效/X取样，83未舍入比较/推进后fresh载荷/FDC置位与共同播放保持；73/74旧BQH身份保持。完整生产/其它父/ABI/alias/owner/SDK正常失败/容量/数值/声音画面仍待，原门禁政策保持。",
+      "verification_level": "九完整166条519B/九页，20E8/五callee/七跳十一RET、九实际CALL/九11Bcase/8B两F32常量与当前正确源必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction76_40CB30",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际分派弃返保持"
+      },
+      "battle_cleanup_controls": {
+        "step": "BCLC01",
+        "source_snapshot": "cg2d-re-battle-cleanup-controls-20261010",
+        "original_instruction_count": 7,
+        "original_code_bytes": 25,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "callee_count": 1,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40cb50",
+      "inventory_id": "F:0000CB50",
+      "original_role": "设备对应绘制位发布后推进",
+      "original_end_exclusive": "0x40cb7f",
+      "instruction_count": 17,
+      "function_chunks": [
+        {
+          "start": "0x40cb50",
+          "end_exclusive": "0x40cb7f"
+        }
+      ],
+      "status": "BCLC01完整当前正常源/独立合同纳管，正文保持仅注释，零新增实现I；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction77_40CB50"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction77_40CB50"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-baseline",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-decision",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-acceptance",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state",
+        "doc/cg2d_battle_cleanup_controls_evidence.json"
+      ],
+      "boundary": "BCLC01九完整当前正常源全部正文/签名/数值/真实调用正确保持，仅十八合同注释，零消费/算法改动或新实现I。79五引用逐次标死清槽/原三项循环、两完整W32标志先读齐后FDC-FE0发布，80–82独立音效/X取样，83未舍入比较/推进后fresh载荷/FDC置位与共同播放保持；73/74旧BQH身份保持。完整生产/其它父/ABI/alias/owner/SDK正常失败/容量/数值/声音画面仍待，原门禁政策保持。",
+      "verification_level": "九完整166条519B/九页，20E8/五callee/七跳十一RET、九实际CALL/九11Bcase/8B两F32常量与当前正确源必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction77_40CB50",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际分派弃返保持"
+      },
+      "battle_cleanup_controls": {
+        "step": "BCLC01",
+        "source_snapshot": "cg2d-re-battle-cleanup-controls-20261010",
+        "original_instruction_count": 17,
+        "original_code_bytes": 47,
+        "original_page_count": 1,
+        "direct_call_count": 3,
+        "callee_count": 2,
+        "jump_count": 1,
+        "return_count": 2,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40cb80",
+      "inventory_id": "F:0000CB80",
+      "original_role": "设备对应绘制位清除后推进",
+      "original_end_exclusive": "0x40cbaf",
+      "instruction_count": 17,
+      "function_chunks": [
+        {
+          "start": "0x40cb80",
+          "end_exclusive": "0x40cbaf"
+        }
+      ],
+      "status": "BCLC01完整当前正常源/独立合同纳管，正文保持仅注释，零新增实现I；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction78_40CB80"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction78_40CB80"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-baseline",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-decision",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-acceptance",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state",
+        "doc/cg2d_battle_cleanup_controls_evidence.json"
+      ],
+      "boundary": "BCLC01九完整当前正常源全部正文/签名/数值/真实调用正确保持，仅十八合同注释，零消费/算法改动或新实现I。79五引用逐次标死清槽/原三项循环、两完整W32标志先读齐后FDC-FE0发布，80–82独立音效/X取样，83未舍入比较/推进后fresh载荷/FDC置位与共同播放保持；73/74旧BQH身份保持。完整生产/其它父/ABI/alias/owner/SDK正常失败/容量/数值/声音画面仍待，原门禁政策保持。",
+      "verification_level": "九完整166条519B/九页，20E8/五callee/七跳十一RET、九实际CALL/九11Bcase/8B两F32常量与当前正确源必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction78_40CB80",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际分派弃返保持"
+      },
+      "battle_cleanup_controls": {
+        "step": "BCLC01",
+        "source_snapshot": "cg2d-re-battle-cleanup-controls-20261010",
+        "original_instruction_count": 17,
+        "original_code_bytes": 47,
+        "original_page_count": 1,
+        "direct_call_count": 3,
+        "callee_count": 2,
+        "jump_count": 1,
+        "return_count": 2,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40cbd0",
+      "inventory_id": "F:0000CBD0",
+      "original_role": "五附属引用清理及两死亡标志清位",
+      "original_end_exclusive": "0x40cc76",
+      "instruction_count": 47,
+      "function_chunks": [
+        {
+          "start": "0x40cbd0",
+          "end_exclusive": "0x40cc76"
+        }
+      ],
+      "status": "BCLC01完整当前正常源/独立合同纳管，正文保持仅注释，零新增实现I；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction79_40CBD0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction79_40CBD0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-baseline",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-decision",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-acceptance",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state",
+        "doc/cg2d_battle_cleanup_controls_evidence.json"
+      ],
+      "boundary": "BCLC01九完整当前正常源全部正文/签名/数值/真实调用正确保持，仅十八合同注释，零消费/算法改动或新实现I。79五引用逐次标死清槽/原三项循环、两完整W32标志先读齐后FDC-FE0发布，80–82独立音效/X取样，83未舍入比较/推进后fresh载荷/FDC置位与共同播放保持；73/74旧BQH身份保持。完整生产/其它父/ABI/alias/owner/SDK正常失败/容量/数值/声音画面仍待，原门禁政策保持。",
+      "verification_level": "九完整166条519B/九页，20E8/五callee/七跳十一RET、九实际CALL/九11Bcase/8B两F32常量与当前正确源必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction79_40CBD0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际分派弃返保持"
+      },
+      "battle_cleanup_controls": {
+        "step": "BCLC01",
+        "source_snapshot": "cg2d-re-battle-cleanup-controls-20261010",
+        "original_instruction_count": 47,
+        "original_code_bytes": 166,
+        "original_page_count": 1,
+        "direct_call_count": 4,
+        "callee_count": 2,
+        "jump_count": 4,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40cc80",
+      "inventory_id": "F:0000CC80",
+      "original_role": "1018独立音效与推进",
+      "original_end_exclusive": "0x40cca7",
+      "instruction_count": 15,
+      "function_chunks": [
+        {
+          "start": "0x40cc80",
+          "end_exclusive": "0x40cca7"
+        }
+      ],
+      "status": "BCLC01完整当前正常源/独立合同纳管，正文保持仅注释，零新增实现I；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction80_40CC80"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction80_40CC80"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-baseline",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-decision",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-acceptance",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state",
+        "doc/cg2d_battle_cleanup_controls_evidence.json"
+      ],
+      "boundary": "BCLC01九完整当前正常源全部正文/签名/数值/真实调用正确保持，仅十八合同注释，零消费/算法改动或新实现I。79五引用逐次标死清槽/原三项循环、两完整W32标志先读齐后FDC-FE0发布，80–82独立音效/X取样，83未舍入比较/推进后fresh载荷/FDC置位与共同播放保持；73/74旧BQH身份保持。完整生产/其它父/ABI/alias/owner/SDK正常失败/容量/数值/声音画面仍待，原门禁政策保持。",
+      "verification_level": "九完整166条519B/九页，20E8/五callee/七跳十一RET、九实际CALL/九11Bcase/8B两F32常量与当前正确源必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction80_40CC80",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际分派弃返保持"
+      },
+      "battle_cleanup_controls": {
+        "step": "BCLC01",
+        "source_snapshot": "cg2d-re-battle-cleanup-controls-20261010",
+        "original_instruction_count": 15,
+        "original_code_bytes": 39,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40ccb0",
+      "inventory_id": "F:0000CCB0",
+      "original_role": "101C独立音效与推进",
+      "original_end_exclusive": "0x40ccd7",
+      "instruction_count": 15,
+      "function_chunks": [
+        {
+          "start": "0x40ccb0",
+          "end_exclusive": "0x40ccd7"
+        }
+      ],
+      "status": "BCLC01完整当前正常源/独立合同纳管，正文保持仅注释，零新增实现I；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction81_40CCB0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction81_40CCB0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-baseline",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-decision",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-acceptance",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state",
+        "doc/cg2d_battle_cleanup_controls_evidence.json"
+      ],
+      "boundary": "BCLC01九完整当前正常源全部正文/签名/数值/真实调用正确保持，仅十八合同注释，零消费/算法改动或新实现I。79五引用逐次标死清槽/原三项循环、两完整W32标志先读齐后FDC-FE0发布，80–82独立音效/X取样，83未舍入比较/推进后fresh载荷/FDC置位与共同播放保持；73/74旧BQH身份保持。完整生产/其它父/ABI/alias/owner/SDK正常失败/容量/数值/声音画面仍待，原门禁政策保持。",
+      "verification_level": "九完整166条519B/九页，20E8/五callee/七跳十一RET、九实际CALL/九11Bcase/8B两F32常量与当前正确源必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction81_40CCB0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际分派弃返保持"
+      },
+      "battle_cleanup_controls": {
+        "step": "BCLC01",
+        "source_snapshot": "cg2d-re-battle-cleanup-controls-20261010",
+        "original_instruction_count": 15,
+        "original_code_bytes": 39,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40cce0",
+      "inventory_id": "F:0000CCE0",
+      "original_role": "1020独立音效与推进",
+      "original_end_exclusive": "0x40cd07",
+      "instruction_count": 15,
+      "function_chunks": [
+        {
+          "start": "0x40cce0",
+          "end_exclusive": "0x40cd07"
+        }
+      ],
+      "status": "BCLC01完整当前正常源/独立合同纳管，正文保持仅注释，零新增实现I；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction82_40CCE0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction82_40CCE0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-baseline",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-decision",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-acceptance",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state",
+        "doc/cg2d_battle_cleanup_controls_evidence.json"
+      ],
+      "boundary": "BCLC01九完整当前正常源全部正文/签名/数值/真实调用正确保持，仅十八合同注释，零消费/算法改动或新实现I。79五引用逐次标死清槽/原三项循环、两完整W32标志先读齐后FDC-FE0发布，80–82独立音效/X取样，83未舍入比较/推进后fresh载荷/FDC置位与共同播放保持；73/74旧BQH身份保持。完整生产/其它父/ABI/alias/owner/SDK正常失败/容量/数值/声音画面仍待，原门禁政策保持。",
+      "verification_level": "九完整166条519B/九页，20E8/五callee/七跳十一RET、九实际CALL/九11Bcase/8B两F32常量与当前正确源必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction82_40CCE0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际分派弃返保持"
+      },
+      "battle_cleanup_controls": {
+        "step": "BCLC01",
+        "source_snapshot": "cg2d-re-battle-cleanup-controls-20261010",
+        "original_instruction_count": 15,
+        "original_code_bytes": 39,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40cd10",
+      "inventory_id": "F:0000CD10",
+      "original_role": "未舍入放大阈值/推进后载荷重取置位",
+      "original_end_exclusive": "0x40cd6c",
+      "instruction_count": 26,
+      "function_chunks": [
+        {
+          "start": "0x40cd10",
+          "end_exclusive": "0x40cd6c"
+        }
+      ],
+      "status": "BCLC01完整当前正常源/独立合同纳管，正文保持仅注释，零新增实现I；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction83_40CD10"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction83_40CD10"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-baseline",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-decision",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-acceptance",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state",
+        "doc/cg2d_battle_cleanup_controls_evidence.json"
+      ],
+      "boundary": "BCLC01九完整当前正常源全部正文/签名/数值/真实调用正确保持，仅十八合同注释，零消费/算法改动或新实现I。79五引用逐次标死清槽/原三项循环、两完整W32标志先读齐后FDC-FE0发布，80–82独立音效/X取样，83未舍入比较/推进后fresh载荷/FDC置位与共同播放保持；73/74旧BQH身份保持。完整生产/其它父/ABI/alias/owner/SDK正常失败/容量/数值/声音画面仍待，原门禁政策保持。",
+      "verification_level": "九完整166条519B/九页，20E8/五callee/七跳十一RET、九实际CALL/九11Bcase/8B两F32常量与当前正确源必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction83_40CD10",
+        "parameters": "非拥有YobiAction*",
+        "return": "std::int32_t；实际末播放返回"
+      },
+      "battle_cleanup_controls": {
+        "step": "BCLC01",
+        "source_snapshot": "cg2d-re-battle-cleanup-controls-20261010",
+        "original_instruction_count": 26,
+        "original_code_bytes": 92,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 1,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

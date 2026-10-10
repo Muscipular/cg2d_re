@@ -4335,7 +4335,8 @@
         "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-baseline",
         "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-baseline",
         "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-baseline",
-        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-baseline"
+        "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-baseline",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -4703,7 +4704,16 @@
         "F:0000C120",
         "F:000070E0",
         "F:0000C4D0",
-        "F:0000CAA0"
+        "F:0000CAA0",
+        "F:0000CB10",
+        "F:0000CB30",
+        "F:0000CB50",
+        "F:0000CB80",
+        "F:0000CBD0",
+        "F:0000CC80",
+        "F:0000CCB0",
+        "F:0000CCE0",
+        "F:0000CD10"
       ],
       "closure_task_ids": [
         "P01",
@@ -5129,7 +5139,9 @@
         "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-source-state",
         "doc/cg2d_battle_scale_animation_evidence.json",
         "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-source-state",
-        "doc/cg2d_battle_event_targets_evidence.json"
+        "doc/cg2d_battle_event_targets_evidence.json",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state",
+        "doc/cg2d_battle_cleanup_controls_evidence.json"
       ]
     },
     {
@@ -59892,6 +59904,45 @@
       "differences": [],
       "result": "pass",
       "recorded_on": "2026-10-10"
+    },
+    {
+      "id": "E-BATTLE-CLEANUP-CONTROLS-FUNC-BATTLE-S-20261010",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:0000CB10",
+        "F:0000CB30",
+        "F:0000CB50",
+        "F:0000CB80",
+        "F:0000CBD0",
+        "F:0000CC80",
+        "F:0000CCB0",
+        "F:0000CCE0",
+        "F:0000CD10"
+      ],
+      "baseline_reference": "BCLC01九完整166条519B/九页、20E8/五callee/七跳十一RET、九实际入向/九case及8B两F32有据。",
+      "implementation_reference": "Git固定引用 cg2d-re-battle-cleanup-controls-20261010",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-baseline",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-decision",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-acceptance",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state",
+        "doc/cg2d_battle_cleanup_controls_evidence.json",
+        "src/YobiRuntime.cpp",
+        "include/cg/YobiRuntime.hpp",
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md",
+        "doc/cg2d_battle_death_exit_spec.md",
+        "doc/cg2d_battle_rebirth_attribute_effects_spec.md",
+        "doc/cg2d_audio_update.md"
+      ],
+      "observation": "全部正文正确保持，仅十八注释；五槽清理/两标志持样、独立音效/X取样和未舍入比较/推进后payload重取保持。",
+      "expected": "原1004/设备对应位、五槽/三项循环与FDC-FE0完整发布、1018/101C/1020和83后置载荷取样正确保。",
+      "actual": "限定S九完整当前正常源/局部分派/常量和清理依赖，零I或新全实现；不代全生产/ABI/owner/SDK/运行。",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-10"
     }
   ],
   "task_acceptance": [
@@ -61142,7 +61193,9 @@
         "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-source-state",
         "doc/cg2d_battle_scale_animation_evidence.json",
         "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-source-state",
-        "doc/cg2d_battle_event_targets_evidence.json"
+        "doc/cg2d_battle_event_targets_evidence.json",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state",
+        "doc/cg2d_battle_cleanup_controls_evidence.json"
       ]
     },
     {
@@ -61866,7 +61919,9 @@
         "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-source-state",
         "doc/cg2d_battle_scale_animation_evidence.json",
         "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-source-state",
-        "doc/cg2d_battle_event_targets_evidence.json"
+        "doc/cg2d_battle_event_targets_evidence.json",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state",
+        "doc/cg2d_battle_cleanup_controls_evidence.json"
       ]
     },
     {
@@ -62168,7 +62223,9 @@
         "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-source-state",
         "doc/cg2d_battle_scale_animation_evidence.json",
         "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-source-state",
-        "doc/cg2d_battle_event_targets_evidence.json"
+        "doc/cg2d_battle_event_targets_evidence.json",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state",
+        "doc/cg2d_battle_cleanup_controls_evidence.json"
       ]
     },
     {
@@ -62331,7 +62388,9 @@
         "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-source-state",
         "doc/cg2d_battle_scale_animation_evidence.json",
         "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-source-state",
-        "doc/cg2d_battle_event_targets_evidence.json"
+        "doc/cg2d_battle_event_targets_evidence.json",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state",
+        "doc/cg2d_battle_cleanup_controls_evidence.json"
       ]
     },
     {
@@ -63022,7 +63081,9 @@
         "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-source-state",
         "doc/cg2d_battle_scale_animation_evidence.json",
         "doc/cg2d_battle_event_targets_spec.md#battle-event-targets-source-state",
-        "doc/cg2d_battle_event_targets_evidence.json"
+        "doc/cg2d_battle_event_targets_evidence.json",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state",
+        "doc/cg2d_battle_cleanup_controls_evidence.json"
       ]
     },
     {
@@ -63119,7 +63180,7 @@
       ]
     }
   ],
-  "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。 GQ01由同一汇总器生成development_gap_queue与看板§5；只列定位/语义身份登记差集，不把缺历史定位当源码未实现，不手改队列。 CRI01无独立函数ID的已证代码片段可按原X区间/实际边界绑定；校验身份与证据后另计，不混入缺身份队列，不增加函数分母。 ACP01-A按最新double/std数学许可迁音频6入口CPP；更新现提供者及两限定静态证据，三ASM历史附件仍由固定Git快照核存在；完整门禁/成员/任务状态与MIDI停止范围保持。 ACP01-M将地图13数学/投影入口迁CPP，8现提供者同步，新增两限定I/S，原CI消费点明示std::pow承接；CRT环境仍待，不关闭完整gates/成员/任务。 ACP01-C完成第三ASM源迁移，22接口/70私有机器ABI退役/5非PUBLIC宿主承接，当前数学现提供者与host/mixed处置同步；新增两限定I/S，三ASM/MASM已移除，原身份/成员/完整gates/任务/六closure不闭合。 HMU01按malloc方向和工程委托统一通用全部模式CRT；9实际提供者/12旧池退休/8类型/10槽，25语义当前提供者与host/adapted处置对齐，3限定静态证据；完整门禁/成员/任务/六closure保持。 2026-10-09 CAC17：按用户要求更新七源/头18处过时注释；代码/声明/字段/调用保持，零新增原身份/语义/处置/软件证据，完整门禁/任务关闭/成员/六closure不变；见plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009。 2026-10-09 CAC18：第六批512原X完整用途和49表307槽/19索引/18对齐/三回调八原型，仅辅助mapped与九已有/26新父数据关联及三无F代码身份；已审区间2021余1040，源码/完整门禁/软件证据/任务状态和六closure保持。 2026-10-09 CAC19：第七批512原X/5733B完整用途；15表97槽/两索引/四对齐/22代码，五原型、十八旧键与一旧选择来源，七旧/六新父仅数据关联。已审区间2533余528，零客户端源码/软件证据增量；完整门禁/任务状态/成员枚举和六closure保持。 2026-10-09 CAC20：528候选全读、527原X用途mapped，已审3060/3061；X:00142E29-00142E34内八字节用途未证留待，不猜填充/排除。九表/输入元数据/PE原节尾/键盘包装/三ABI尾部有据；单一53B4F2受限host职责新增，零客户端源码/软件证据通过，完整门禁/任务状态/成员枚举/六closure保持。 CAC20静态汇总拒绝53B51F无独立现源码的语义代码身份后，撤掉该条；原用途/完整字节和未决实际转入仍保留，不放宽校验。 MC01-A按用户CRT直接使用MSVC新要求先记总范围与分组SPEC，33入口/29新提供者、TLS错误和八退休辅助同步；保原身份/前态、局部静态证据与全部完整门禁，FILE/lowio和C++余组继续。 MC01-B成组迁MSVC FILE/描述符/流格式与状态/ctime/fpos/关闭；39私有定义及旧入口/C表退休，shared calloc仅除stdio消费者；旧映射沿固定快照可读，当前全部门禁/任务状态保持，完整C++余组继续。 MC01-C1退休六组无现组外消费者的私有C++库/NCE头及旧展开适配，实际MSVC标准流/Init/locale和全部业务初始化退出保持；现语义/共享消费与历史附件快照对齐，新增两限定I/S，完整功能门禁/成员闭包/任务状态保持。 MC01-C2浮点文本/数值/环境组退休，实际业务math源及计时除法保持，两真实Shop/NLS intrinsic读移到现有模块；无消费slot/helper/gate/类型退休，新增两限定I/S及精确登记，完整门禁/任务保持。 MC01-C3 private错误/信号/退出/filter/console层退休；三MSVC致命或terminate适配、四数组/实际业务回调与登记保持，_Exit诊断差异具名；两限定I/S、现语义/历史附件对齐，完整门禁/任务不关闭。；2026-10-10 MC01-C4堆策略直接MSVC，三公开服务与真实业务保持；35语义对齐、仅2限定I/S，完整门禁/任务状态不变。；2026-10-10 MC01-C5旧多字节/ctype/argv环境直接MSVC，两Input实际分类与业务命令/数组保持，仅限定I/S；门禁/任务状态不变。；2026-10-10 MC01-C6残留审计退休无消费549147，仅限定S；排序冲突两方案待选择，未计实现/验收。；2026-10-10 MC01-C7两一致排序域std::qsort，新增原_qsort混合身份；仅限定I/S，八待决域及全部完整门禁保持。；2026-10-10旧7/旧8路由待项按已有有界证据对齐为原调用来源待证，不推定缺少分派，不新增I/S或功能通过；完整门禁/任务与CRT排序待决保持。；2026-10-10 BDI01补两既有正确战斗标量依赖独立身份/限定S，源码和新I零；原分母/完整门禁与全部任务状态保持。；2026-10-10 BPHIT01完整既有动作16/唯一真实case16独立身份纳管，正常本体保，仅三注释/一限定S；零新I，完整门禁/任务状态保持。；2026-10-10 BPC01两完整投射创建器/phase16生产与四原取样实修，限定I/S；两F/成员补齐，完整门禁/任务状态保持。 2026-10-10 BPR01：两既有投影根完整合同/原父各阶段重取和本轮标死后继续处理纳管；三个原CALL均不消费创建返回，void保持；正文/签名不改，三注释，新增两语义/F/已知BATTLE成员及一限定S，零新I；最终回收/全资源SDK与运行未验，全部门禁/分母/六closure保持。 2026-10-10 BPRH01：完整既有RangeHit创建/phase16/投影生产纳管，三个取样片段按原阶段持有含同一借用DX表；五原CALL/现四表达式有具体分支对应。新增一语义/F/已知BATTLE成员及限定I/S，零新函数；全数据/资源/父-callee/SDK/最终owner回收及运行待，完整门禁/分母/六closure保持。 2026-10-10 DPCS01：沿RangeHit新关注点补两个已有创建器父Y/payload、SpiracleShot同表/查询和BlastWave图号/查询四组取样；旧BPC01原根复用/旧记录前态固定，两现语义/F处置追加来源，零新函数/身份/成员/分母，仅限定I/S；全部门禁/六closure与完整资源/SDK/owner/运行待项保持。 2026-10-10 BPEX01：阶段17正常移动/矩形超界标死完整叶及唯一分发来源纳管，现正文/签名及所有依赖保持，两注释；调度/父标死/投影后继退出只登记条件性阶段，不称完整owner安全。新增一语义/F/BATTLE成员与一限定S/零新I，全部政策/分母/门禁和六closure及资源/SDK/生命周期运行待项保持。 2026-10-10 BAEL01：追加效果链三完整根/节点与六头引用纳管，正常生产-值查找-清理具体源闭合；仅free current取样一段实修，状态7/9和全部其它源保。三新语义/F/BATTLE成员，限定I仅清理一个F/S三F；全资格/15父/数据/原间接alias、SDK失败/重进退出与最终owner及运行未闭，完整门禁/分母/六closure保持。 2026-10-10 BEMS01：既有816退出M扫描由头查找局部补完整CHT/BST/固定payload-fresh对象/正常计时根，源正确保持，仅两注释；原记录前态固定，零新语义/I，新增一F/BATTLE已知成员与限定S。全部数据/父-callee/场景owner/SDK声音画面和政策/门禁/分母/六closure保持。 2026-10-10 BAES01完整43BD00资格根/54项准入及唯一AL生产门禁纳管，正文保持/两注释，一F与限定S、零新I/函数/成员；原1916/CAC07完整前态及全部门禁保持。 2026-10-10 B20H01完整阶段20正常源/身份及一已知成员纳管，一CPP三低BYTE/一HP归零取样四组修正，限定I/S；图号/RNG/特殊免疫/标死后Move、原分母/全部门禁保持。 2026-10-10 B22H01阶段22回旋命中/五档选图两完整源纳管，主根七组/四注释，I只主根/S两根；独立伤害/恢复/最大HP/3-7当帧延迟与原表/返回/RNG保持，两身份/处置/已知成员，全部门禁保。 2026-10-10 B22L01补完整阶段21/23正确入位退场源，两身份/处置/已知成员，四注释/一限定S零I；固定caster/父载荷/266列表和互斥标死后移动播放/原返回保，完整门禁保持。 2026-10-10 B22C01完整回旋创建与同步推进原根纳管，一CPP十一组读取/发布/两注释，一新身份/处置/已知成员及限定I/S；几何/比例/DX S16/原循环和T*返回保持，完整门禁保。 2026-10-10 B15P01完整动作15回旋/258/范围生产父纳管，一CPP四组事件/child-X pub/普通event-X与两注释，一身份/处置/已知成员及限定I/S；原等级持样/循环/失败/音效保持，完整门禁保。 2026-10-10 BHE01完整命中特效创建/计时回调两根纳管，一CPP两投影尾/四注释，计数持样/字段/失败和返回保持，两身份/处置/已知成员及限定I/S；全部门禁保持。 2026-10-10 BSP01阶段18/19射击生产与完整攻击事件探测三根纳管，一CPP四段单次事件/音效event-X与六注释，三身份/处置/已知成员及限定I/S；探测正确循环/严格终帧优先和原技能/等级/推进/返回保持，完整门禁保。 2026-10-10 B12P01阶段12计时/13载荷坐标移动完整两根纳管，一CPP两低BYTE入口/四注释，两身份/处置/已知成员及限定I/S；原RNG/计数/速率/播放/坐标序保持，既有几何/特效创建回调复用，全部门禁保。 2026-10-10 BIDLE01动作0/1完整待机源纳管，一CPP四低BYTE消费/四注释，原完整W32 FDC持样/归零后fresh读和列表/上一项/互斥Play保；两身份/处置/已知成员及限定I/S，236已完整BQD01复用不重计，完整门禁保。 2026-10-10 B14H01完整阶段14视觉/四类HP-FP与延时根纳管，一CPP六复制/十二BYTE/一音效十九片段及两注释，一身份/处置/已知成员和限定I/S；原字段/选图/两互斥RNG/免疫/14-28当帧延时/FD4尾及正确最大HP封顶/坐标保持，完整门禁保。 BRAE01补两完整效果合同，属性1915保CAC07前态；新一语义/两F处置/一成员/一限定S零I，五任务open，原分母/门禁/政策保持。 BRCP01补五动作/共享距离六完整根，仅动作11三BYTE和十二注释，六语义/F/成员、限定I/S；旧记录/所有政策/门禁及五任务open保持。 BPAW01补七完整播放/计时/目标等待根，仅四BYTE及十四注释；七语义/F/成员、限定I四片段/S七根，五任务open/全部旧身份与门禁政策保持。 BHRC01补六动作/22槽计数七完整根，十WORD/BYTE及十四注释；七语义/F/成员与限定I十表达/S七根，全部旧身份/政策/门禁及五任务open保持。 BSEX01补五动作/散射创建回调七完整根，七表达与十四注释；七语义/F/成员、限定I七表达/S七根，全部旧身份/政策/门禁及五任务open保持。 BWT01补等待/交替/转向八完整根及440B两表，仅37/38两BYTE与十六注释；八语义/F/成员，限定I两表达/S八根，全部旧身份/政策/门禁及五任务open保持。 BDE01补九死亡退场动作与中心创建/回调十一完整根，仅46四消费和二十二注释；十一语义/F/成员、限定I四表达/S十一根，所有旧记录/政策/门禁及五任务open保持。 BSA01补放大/动画十动作与实际扣FP叶十一完整根，正文全保持仅二十二注释；十一语义/F/成员、一限定S零I，所有旧记录/政策/门禁及五open任务保持。 BTE01补帧事件/逐目标启动和投射生产九完整根，仅两BYTE/一次事件及十八注释；九语义/F/成员、限定I三片段/S九根，旧工厂/回调/原政策门禁及五open任务保持。",
+  "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。 GQ01由同一汇总器生成development_gap_queue与看板§5；只列定位/语义身份登记差集，不把缺历史定位当源码未实现，不手改队列。 CRI01无独立函数ID的已证代码片段可按原X区间/实际边界绑定；校验身份与证据后另计，不混入缺身份队列，不增加函数分母。 ACP01-A按最新double/std数学许可迁音频6入口CPP；更新现提供者及两限定静态证据，三ASM历史附件仍由固定Git快照核存在；完整门禁/成员/任务状态与MIDI停止范围保持。 ACP01-M将地图13数学/投影入口迁CPP，8现提供者同步，新增两限定I/S，原CI消费点明示std::pow承接；CRT环境仍待，不关闭完整gates/成员/任务。 ACP01-C完成第三ASM源迁移，22接口/70私有机器ABI退役/5非PUBLIC宿主承接，当前数学现提供者与host/mixed处置同步；新增两限定I/S，三ASM/MASM已移除，原身份/成员/完整gates/任务/六closure不闭合。 HMU01按malloc方向和工程委托统一通用全部模式CRT；9实际提供者/12旧池退休/8类型/10槽，25语义当前提供者与host/adapted处置对齐，3限定静态证据；完整门禁/成员/任务/六closure保持。 2026-10-09 CAC17：按用户要求更新七源/头18处过时注释；代码/声明/字段/调用保持，零新增原身份/语义/处置/软件证据，完整门禁/任务关闭/成员/六closure不变；见plan/cg2d_full_reconstruction_progress.md#source-comment-alignment-20261009。 2026-10-09 CAC18：第六批512原X完整用途和49表307槽/19索引/18对齐/三回调八原型，仅辅助mapped与九已有/26新父数据关联及三无F代码身份；已审区间2021余1040，源码/完整门禁/软件证据/任务状态和六closure保持。 2026-10-09 CAC19：第七批512原X/5733B完整用途；15表97槽/两索引/四对齐/22代码，五原型、十八旧键与一旧选择来源，七旧/六新父仅数据关联。已审区间2533余528，零客户端源码/软件证据增量；完整门禁/任务状态/成员枚举和六closure保持。 2026-10-09 CAC20：528候选全读、527原X用途mapped，已审3060/3061；X:00142E29-00142E34内八字节用途未证留待，不猜填充/排除。九表/输入元数据/PE原节尾/键盘包装/三ABI尾部有据；单一53B4F2受限host职责新增，零客户端源码/软件证据通过，完整门禁/任务状态/成员枚举/六closure保持。 CAC20静态汇总拒绝53B51F无独立现源码的语义代码身份后，撤掉该条；原用途/完整字节和未决实际转入仍保留，不放宽校验。 MC01-A按用户CRT直接使用MSVC新要求先记总范围与分组SPEC，33入口/29新提供者、TLS错误和八退休辅助同步；保原身份/前态、局部静态证据与全部完整门禁，FILE/lowio和C++余组继续。 MC01-B成组迁MSVC FILE/描述符/流格式与状态/ctime/fpos/关闭；39私有定义及旧入口/C表退休，shared calloc仅除stdio消费者；旧映射沿固定快照可读，当前全部门禁/任务状态保持，完整C++余组继续。 MC01-C1退休六组无现组外消费者的私有C++库/NCE头及旧展开适配，实际MSVC标准流/Init/locale和全部业务初始化退出保持；现语义/共享消费与历史附件快照对齐，新增两限定I/S，完整功能门禁/成员闭包/任务状态保持。 MC01-C2浮点文本/数值/环境组退休，实际业务math源及计时除法保持，两真实Shop/NLS intrinsic读移到现有模块；无消费slot/helper/gate/类型退休，新增两限定I/S及精确登记，完整门禁/任务保持。 MC01-C3 private错误/信号/退出/filter/console层退休；三MSVC致命或terminate适配、四数组/实际业务回调与登记保持，_Exit诊断差异具名；两限定I/S、现语义/历史附件对齐，完整门禁/任务不关闭。；2026-10-10 MC01-C4堆策略直接MSVC，三公开服务与真实业务保持；35语义对齐、仅2限定I/S，完整门禁/任务状态不变。；2026-10-10 MC01-C5旧多字节/ctype/argv环境直接MSVC，两Input实际分类与业务命令/数组保持，仅限定I/S；门禁/任务状态不变。；2026-10-10 MC01-C6残留审计退休无消费549147，仅限定S；排序冲突两方案待选择，未计实现/验收。；2026-10-10 MC01-C7两一致排序域std::qsort，新增原_qsort混合身份；仅限定I/S，八待决域及全部完整门禁保持。；2026-10-10旧7/旧8路由待项按已有有界证据对齐为原调用来源待证，不推定缺少分派，不新增I/S或功能通过；完整门禁/任务与CRT排序待决保持。；2026-10-10 BDI01补两既有正确战斗标量依赖独立身份/限定S，源码和新I零；原分母/完整门禁与全部任务状态保持。；2026-10-10 BPHIT01完整既有动作16/唯一真实case16独立身份纳管，正常本体保，仅三注释/一限定S；零新I，完整门禁/任务状态保持。；2026-10-10 BPC01两完整投射创建器/phase16生产与四原取样实修，限定I/S；两F/成员补齐，完整门禁/任务状态保持。 2026-10-10 BPR01：两既有投影根完整合同/原父各阶段重取和本轮标死后继续处理纳管；三个原CALL均不消费创建返回，void保持；正文/签名不改，三注释，新增两语义/F/已知BATTLE成员及一限定S，零新I；最终回收/全资源SDK与运行未验，全部门禁/分母/六closure保持。 2026-10-10 BPRH01：完整既有RangeHit创建/phase16/投影生产纳管，三个取样片段按原阶段持有含同一借用DX表；五原CALL/现四表达式有具体分支对应。新增一语义/F/已知BATTLE成员及限定I/S，零新函数；全数据/资源/父-callee/SDK/最终owner回收及运行待，完整门禁/分母/六closure保持。 2026-10-10 DPCS01：沿RangeHit新关注点补两个已有创建器父Y/payload、SpiracleShot同表/查询和BlastWave图号/查询四组取样；旧BPC01原根复用/旧记录前态固定，两现语义/F处置追加来源，零新函数/身份/成员/分母，仅限定I/S；全部门禁/六closure与完整资源/SDK/owner/运行待项保持。 2026-10-10 BPEX01：阶段17正常移动/矩形超界标死完整叶及唯一分发来源纳管，现正文/签名及所有依赖保持，两注释；调度/父标死/投影后继退出只登记条件性阶段，不称完整owner安全。新增一语义/F/BATTLE成员与一限定S/零新I，全部政策/分母/门禁和六closure及资源/SDK/生命周期运行待项保持。 2026-10-10 BAEL01：追加效果链三完整根/节点与六头引用纳管，正常生产-值查找-清理具体源闭合；仅free current取样一段实修，状态7/9和全部其它源保。三新语义/F/BATTLE成员，限定I仅清理一个F/S三F；全资格/15父/数据/原间接alias、SDK失败/重进退出与最终owner及运行未闭，完整门禁/分母/六closure保持。 2026-10-10 BEMS01：既有816退出M扫描由头查找局部补完整CHT/BST/固定payload-fresh对象/正常计时根，源正确保持，仅两注释；原记录前态固定，零新语义/I，新增一F/BATTLE已知成员与限定S。全部数据/父-callee/场景owner/SDK声音画面和政策/门禁/分母/六closure保持。 2026-10-10 BAES01完整43BD00资格根/54项准入及唯一AL生产门禁纳管，正文保持/两注释，一F与限定S、零新I/函数/成员；原1916/CAC07完整前态及全部门禁保持。 2026-10-10 B20H01完整阶段20正常源/身份及一已知成员纳管，一CPP三低BYTE/一HP归零取样四组修正，限定I/S；图号/RNG/特殊免疫/标死后Move、原分母/全部门禁保持。 2026-10-10 B22H01阶段22回旋命中/五档选图两完整源纳管，主根七组/四注释，I只主根/S两根；独立伤害/恢复/最大HP/3-7当帧延迟与原表/返回/RNG保持，两身份/处置/已知成员，全部门禁保。 2026-10-10 B22L01补完整阶段21/23正确入位退场源，两身份/处置/已知成员，四注释/一限定S零I；固定caster/父载荷/266列表和互斥标死后移动播放/原返回保，完整门禁保持。 2026-10-10 B22C01完整回旋创建与同步推进原根纳管，一CPP十一组读取/发布/两注释，一新身份/处置/已知成员及限定I/S；几何/比例/DX S16/原循环和T*返回保持，完整门禁保。 2026-10-10 B15P01完整动作15回旋/258/范围生产父纳管，一CPP四组事件/child-X pub/普通event-X与两注释，一身份/处置/已知成员及限定I/S；原等级持样/循环/失败/音效保持，完整门禁保。 2026-10-10 BHE01完整命中特效创建/计时回调两根纳管，一CPP两投影尾/四注释，计数持样/字段/失败和返回保持，两身份/处置/已知成员及限定I/S；全部门禁保持。 2026-10-10 BSP01阶段18/19射击生产与完整攻击事件探测三根纳管，一CPP四段单次事件/音效event-X与六注释，三身份/处置/已知成员及限定I/S；探测正确循环/严格终帧优先和原技能/等级/推进/返回保持，完整门禁保。 2026-10-10 B12P01阶段12计时/13载荷坐标移动完整两根纳管，一CPP两低BYTE入口/四注释，两身份/处置/已知成员及限定I/S；原RNG/计数/速率/播放/坐标序保持，既有几何/特效创建回调复用，全部门禁保。 2026-10-10 BIDLE01动作0/1完整待机源纳管，一CPP四低BYTE消费/四注释，原完整W32 FDC持样/归零后fresh读和列表/上一项/互斥Play保；两身份/处置/已知成员及限定I/S，236已完整BQD01复用不重计，完整门禁保。 2026-10-10 B14H01完整阶段14视觉/四类HP-FP与延时根纳管，一CPP六复制/十二BYTE/一音效十九片段及两注释，一身份/处置/已知成员和限定I/S；原字段/选图/两互斥RNG/免疫/14-28当帧延时/FD4尾及正确最大HP封顶/坐标保持，完整门禁保。 BRAE01补两完整效果合同，属性1915保CAC07前态；新一语义/两F处置/一成员/一限定S零I，五任务open，原分母/门禁/政策保持。 BRCP01补五动作/共享距离六完整根，仅动作11三BYTE和十二注释，六语义/F/成员、限定I/S；旧记录/所有政策/门禁及五任务open保持。 BPAW01补七完整播放/计时/目标等待根，仅四BYTE及十四注释；七语义/F/成员、限定I四片段/S七根，五任务open/全部旧身份与门禁政策保持。 BHRC01补六动作/22槽计数七完整根，十WORD/BYTE及十四注释；七语义/F/成员与限定I十表达/S七根，全部旧身份/政策/门禁及五任务open保持。 BSEX01补五动作/散射创建回调七完整根，七表达与十四注释；七语义/F/成员、限定I七表达/S七根，全部旧身份/政策/门禁及五任务open保持。 BWT01补等待/交替/转向八完整根及440B两表，仅37/38两BYTE与十六注释；八语义/F/成员，限定I两表达/S八根，全部旧身份/政策/门禁及五任务open保持。 BDE01补九死亡退场动作与中心创建/回调十一完整根，仅46四消费和二十二注释；十一语义/F/成员、限定I四表达/S十一根，所有旧记录/政策/门禁及五任务open保持。 BSA01补放大/动画十动作与实际扣FP叶十一完整根，正文全保持仅二十二注释；十一语义/F/成员、一限定S零I，所有旧记录/政策/门禁及五open任务保持。 BTE01补帧事件/逐目标启动和投射生产九完整根，仅两BYTE/一次事件及十八注释；九语义/F/成员、限定I三片段/S九根，旧工厂/回调/原政策门禁及五open任务保持。 BCLC01补控制/附属清理/独立音效与放大九完整正确根，仅十八注释；九语义/F/成员、一限定S零I，73/74和全部旧记录/原政策门禁/五open任务保持。",
   "function_dispositions": [
     {
       "disposition": "adapted",
@@ -82827,6 +82888,123 @@
         "doc/cg2d_battle_event_targets_evidence.json"
       ],
       "boundary": "BTE01九完整正常根；仅68/69两BYTE与70播放/可能推进后一次事件持样及十八注释，其它六正文/全部签名/数值/调用/源及旧记录保持。65旧70/新8/七fresh门禁、66独立1014/推进后清事件、67/71逐目标/C9C重取/哨兵额外推进、70每轮新图/record/至少一次投射/严格1结束/末声清事件及72caster原00槽/源推进保持。全生产/其它父/全部callee/ABI/alias/owner/SDK正常失败/容量/数值/声音画面运行仍待，原门禁政策保持。"
+    },
+    {
+      "inventory_id": "F:0000CB10",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-baseline",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-decision",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-acceptance",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state",
+        "doc/cg2d_battle_cleanup_controls_evidence.json"
+      ],
+      "boundary": "BCLC01九完整当前正常源全部正文/签名/数值/真实调用正确保持，仅十八合同注释，零消费/算法改动或新实现I。79五引用逐次标死清槽/原三项循环、两完整W32标志先读齐后FDC-FE0发布，80–82独立音效/X取样，83未舍入比较/推进后fresh载荷/FDC置位与共同播放保持；73/74旧BQH身份保持。完整生产/其它父/ABI/alias/owner/SDK正常失败/容量/数值/声音画面仍待，原门禁政策保持。"
+    },
+    {
+      "inventory_id": "F:0000CB30",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-baseline",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-decision",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-acceptance",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state",
+        "doc/cg2d_battle_cleanup_controls_evidence.json"
+      ],
+      "boundary": "BCLC01九完整当前正常源全部正文/签名/数值/真实调用正确保持，仅十八合同注释，零消费/算法改动或新实现I。79五引用逐次标死清槽/原三项循环、两完整W32标志先读齐后FDC-FE0发布，80–82独立音效/X取样，83未舍入比较/推进后fresh载荷/FDC置位与共同播放保持；73/74旧BQH身份保持。完整生产/其它父/ABI/alias/owner/SDK正常失败/容量/数值/声音画面仍待，原门禁政策保持。"
+    },
+    {
+      "inventory_id": "F:0000CB50",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-baseline",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-decision",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-acceptance",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state",
+        "doc/cg2d_battle_cleanup_controls_evidence.json"
+      ],
+      "boundary": "BCLC01九完整当前正常源全部正文/签名/数值/真实调用正确保持，仅十八合同注释，零消费/算法改动或新实现I。79五引用逐次标死清槽/原三项循环、两完整W32标志先读齐后FDC-FE0发布，80–82独立音效/X取样，83未舍入比较/推进后fresh载荷/FDC置位与共同播放保持；73/74旧BQH身份保持。完整生产/其它父/ABI/alias/owner/SDK正常失败/容量/数值/声音画面仍待，原门禁政策保持。"
+    },
+    {
+      "inventory_id": "F:0000CB80",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-baseline",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-decision",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-acceptance",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state",
+        "doc/cg2d_battle_cleanup_controls_evidence.json"
+      ],
+      "boundary": "BCLC01九完整当前正常源全部正文/签名/数值/真实调用正确保持，仅十八合同注释，零消费/算法改动或新实现I。79五引用逐次标死清槽/原三项循环、两完整W32标志先读齐后FDC-FE0发布，80–82独立音效/X取样，83未舍入比较/推进后fresh载荷/FDC置位与共同播放保持；73/74旧BQH身份保持。完整生产/其它父/ABI/alias/owner/SDK正常失败/容量/数值/声音画面仍待，原门禁政策保持。"
+    },
+    {
+      "inventory_id": "F:0000CBD0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-baseline",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-decision",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-acceptance",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state",
+        "doc/cg2d_battle_cleanup_controls_evidence.json"
+      ],
+      "boundary": "BCLC01九完整当前正常源全部正文/签名/数值/真实调用正确保持，仅十八合同注释，零消费/算法改动或新实现I。79五引用逐次标死清槽/原三项循环、两完整W32标志先读齐后FDC-FE0发布，80–82独立音效/X取样，83未舍入比较/推进后fresh载荷/FDC置位与共同播放保持；73/74旧BQH身份保持。完整生产/其它父/ABI/alias/owner/SDK正常失败/容量/数值/声音画面仍待，原门禁政策保持。"
+    },
+    {
+      "inventory_id": "F:0000CC80",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-baseline",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-decision",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-acceptance",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state",
+        "doc/cg2d_battle_cleanup_controls_evidence.json"
+      ],
+      "boundary": "BCLC01九完整当前正常源全部正文/签名/数值/真实调用正确保持，仅十八合同注释，零消费/算法改动或新实现I。79五引用逐次标死清槽/原三项循环、两完整W32标志先读齐后FDC-FE0发布，80–82独立音效/X取样，83未舍入比较/推进后fresh载荷/FDC置位与共同播放保持；73/74旧BQH身份保持。完整生产/其它父/ABI/alias/owner/SDK正常失败/容量/数值/声音画面仍待，原门禁政策保持。"
+    },
+    {
+      "inventory_id": "F:0000CCB0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-baseline",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-decision",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-acceptance",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state",
+        "doc/cg2d_battle_cleanup_controls_evidence.json"
+      ],
+      "boundary": "BCLC01九完整当前正常源全部正文/签名/数值/真实调用正确保持，仅十八合同注释，零消费/算法改动或新实现I。79五引用逐次标死清槽/原三项循环、两完整W32标志先读齐后FDC-FE0发布，80–82独立音效/X取样，83未舍入比较/推进后fresh载荷/FDC置位与共同播放保持；73/74旧BQH身份保持。完整生产/其它父/ABI/alias/owner/SDK正常失败/容量/数值/声音画面仍待，原门禁政策保持。"
+    },
+    {
+      "inventory_id": "F:0000CCE0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-baseline",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-decision",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-acceptance",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state",
+        "doc/cg2d_battle_cleanup_controls_evidence.json"
+      ],
+      "boundary": "BCLC01九完整当前正常源全部正文/签名/数值/真实调用正确保持，仅十八合同注释，零消费/算法改动或新实现I。79五引用逐次标死清槽/原三项循环、两完整W32标志先读齐后FDC-FE0发布，80–82独立音效/X取样，83未舍入比较/推进后fresh载荷/FDC置位与共同播放保持；73/74旧BQH身份保持。完整生产/其它父/ABI/alias/owner/SDK正常失败/容量/数值/声音画面仍待，原门禁政策保持。"
+    },
+    {
+      "inventory_id": "F:0000CD10",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-baseline",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-decision",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-acceptance",
+        "doc/cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state",
+        "doc/cg2d_battle_cleanup_controls_evidence.json"
+      ],
+      "boundary": "BCLC01九完整当前正常源全部正文/签名/数值/真实调用正确保持，仅十八合同注释，零消费/算法改动或新实现I。79五引用逐次标死清槽/原三项循环、两完整W32标志先读齐后FDC-FE0发布，80–82独立音效/X取样，83未舍入比较/推进后fresh载荷/FDC置位与共同播放保持；73/74旧BQH身份保持。完整生产/其它父/ABI/alias/owner/SDK正常失败/容量/数值/声音画面仍待，原门禁政策保持。"
     }
   ],
   "auxiliary_dispositions": [

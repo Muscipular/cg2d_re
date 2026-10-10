@@ -27243,6 +27243,7 @@ void UpdateBattleAction72_40CAA0(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BCLC01：1004置1后推进，无播放/动作或速率发布。
 void UpdateBattleAction75_40CB10(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27250,6 +27251,7 @@ void UpdateBattleAction75_40CB10(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BCLC01：1004清零后推进，无播放/动作或速率发布。
 void UpdateBattleAction76_40CB30(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27257,6 +27259,7 @@ void UpdateBattleAction76_40CB30(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BCLC01：设备查询后fresh完整flags仅置对应位，再推进。
 void UpdateBattleAction77_40CB50(YobiAction* const action)
 {
     const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
@@ -27264,6 +27267,7 @@ void UpdateBattleAction77_40CB50(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BCLC01：设备查询后fresh完整flags仅清对应位，再推进。
 void UpdateBattleAction78_40CB80(YobiAction* const action)
 {
     const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
@@ -27271,6 +27275,7 @@ void UpdateBattleAction78_40CB80(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BCLC01：1064/106C/三辅助逐槽标死清理，两完整标志先读齐再FDC/FE0发布。
 void UpdateBattleAction79_40CBD0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27299,6 +27304,7 @@ void UpdateBattleAction79_40CBD0(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BCLC01：持X后读取独立1018音效，WAV播放后推进。
 void UpdateBattleAction80_40CC80(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27308,6 +27314,7 @@ void UpdateBattleAction80_40CC80(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BCLC01：持X后读取独立101C音效，WAV播放后推进。
 void UpdateBattleAction81_40CCB0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27317,6 +27324,7 @@ void UpdateBattleAction81_40CCB0(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BCLC01：持X后读取独立1020音效，WAV播放后推进。
 void UpdateBattleAction82_40CCE0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27326,6 +27334,7 @@ void UpdateBattleAction82_40CCE0(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BCLC01：未舍入阈值/正常F32发布，推进后fresh payload/FDC置位，末播放返回。
 std::int32_t UpdateBattleAction83_40CD10(YobiAction* const action)
 {
     const double step = std::bit_cast<float>(0x3BA3D70Au);

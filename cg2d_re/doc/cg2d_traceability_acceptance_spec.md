@@ -2748,3 +2748,9 @@ IDA数组/结构起点xref不代字段指针；原型实际11callback与旧范�
 [SEP01](cg2d_storage_external_item_panels_spec.md#storage-item-panel-source-state)旧971/973补齐两个外部物品面板完整904条2885B/十五页，50E8十六唯一目标/94跳两RET。恢复四处flags低BYTE及两根十二组十四处持址/坐标取样，原短路、窗口38类型门槛、41快捷取回、页数与图后数量消费保持。两原prototype 35/3槽及一个code-offset发布有据；历史追加/两处置、三限定S零I八open，完整owner/全部描绘与请求互通/ABI及运行待。
 
 语义2330=2282F关联+48有界代码及关联2392/3680=65.00%保持；处置1791/证据1596，INPUT156/UIRUNTIME201/RENDER112，其它保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
+
+## 2026-10-11 SPD01：完整预览与描述消费合同
+
+[SPD01](cg2d_storage_preview_dispatch_spec.md#storage-preview-source-state)补齐窗口41/38物品描述预览分发及48B350标题/八行描述消费，含窗口38三条公共尾，共201条667B/六页、21E8十个唯一目标/16跳七RET。恢复两个滚动flags的BYTE读取，两组两处/四注释；W32标题字段和四次鼠标CryptInt、原预览及真实返回保持。两个旧历史追加/两个新F/四处置，三限定S零I八open，全部owner/文字及画面/ABI与运行待。
+
+语义2332=2284F关联+48有界代码，关联2394/3680=65.05%仅关联率；处置1795/证据1599，INPUT158/UIRUNTIME205/RENDER116，其它保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。

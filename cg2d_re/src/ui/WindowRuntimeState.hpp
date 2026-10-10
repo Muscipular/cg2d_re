@@ -1553,7 +1553,7 @@ std::int32_t Sub_48B930(
     const char* footer, std::int8_t footerColor); // 连续NUL分段，空行仍推进，不使用stride。
 std::int32_t Sub_48B450(std::int32_t side, std::int32_t index, std::int32_t page);
 std::int32_t Sub_48B1A0(std::int32_t index, std::int32_t page); // 玩家/所选宠物装备提示。
-std::int32_t Sub_48B350(std::int32_t index, std::int32_t page); // 外部存放物品提示。
+std::int32_t Sub_48B350(std::int32_t index, std::int32_t page); // SPD01：W32标题字段/页*768八行描述，四次CryptInt及真实提示返回保持。
 std::int32_t Sub_48B560(
     std::int32_t index, std::int32_t page, std::int32_t showUnavailable); // 同源商品及可选不可装备提示。
 std::int32_t Sub_48B750(std::int32_t page); // CC3210独立详情提示，缓存数值键400。

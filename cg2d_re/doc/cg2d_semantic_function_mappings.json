@@ -18694,7 +18694,7 @@
     {
       "original_entry": "0x4AC1EC",
       "inventory_id": "F:000AC1EC",
-      "status": "已有命名或父函数合并映射，运行未验",
+      "status": "已有命名或父函数合并映射，运行未验；SPD01完整预览/公共绘图尾合同追加，两滚动BYTE对齐，其它描述与返回保，全owner/ABI/运行待",
       "original_role": "父窗口更新公共尾",
       "original_end_exclusive": "0x4AC1F7",
       "instruction_count": 3,
@@ -18704,13 +18704,65 @@
           "symbols": [
             "Sub_4AC1B0"
           ]
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4AC1B0"
+          ],
+          "relationship": "SPD01公共三条尾与父两个控制边完整对照；既有CPP合并绘图/return1保持，无独立假叶"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/shared_38_41.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_storage_preview_dispatch_spec.md#storage-preview-baseline",
+        "doc/cg2d_storage_preview_dispatch_spec.md#storage-preview-decision",
+        "doc/cg2d_storage_preview_dispatch_spec.md#storage-preview-acceptance",
+        "doc/cg2d_storage_preview_dispatch_spec.md#storage-preview-source-state",
+        "doc/cg2d_storage_preview_dispatch_evidence.json"
       ],
-      "boundary": "原仅调用DrawCurrentWindow后置EAX=1并返回；已并入Sub_4AC1B0共同尾，空叶不产生业务副作用。不按IDA误标的库函数名引入locale功能，不遗漏父分支汇合后的刷新/返回。"
+      "boundary": "原仅调用DrawCurrentWindow后置EAX=1并返回；已并入Sub_4AC1B0共同尾，空叶不产生业务副作用。不按IDA误标的库函数名引入locale功能，不遗漏父分支汇合后的刷新/返回。；SPD01只存放描述预览链：4A9160完整114条355B/两页，4AC1B0完整19条60B/一页及公共4AC1EC完整三条11B/一页，48B350完整65条241B/两页，合201条667B/六页、21E8十个唯一目标/16跳七RET。4AC1B0原两个出口（负preview跳/外部预览后清参落入）都进4AC1EC，再4729B0→EAX1/RET；单看IDA十九条主根不能闭该路径。现同Sub_4AC1B0共用CPP尾保，不按误标locale引库功能，不补独立假叶。old969全部格式历史/old231公共尾历史追加，不重复旧F；两个新F及四adapted。窗口41先普通S32 CC4218→原未清16B/现MSVC%10d→fresh current元素13 text载荷→含NUL复制；再fresh窗口/elements→21载荷flags只原BYTE/bit1命中才474270(held21,2)→真实S32结果写value24；再fresh窗口/elements→26载荷flags只原BYTE/bit1命中才474270(held26,2)→value28。字段flags仍W32，两个读取点用unsigned char视图，两组两处，仅这两处正文对齐。随后S32 actionFlags1C：负跳预览但仍绘图；<200下<100原玩家48B1A0、>=100原存放48B350(index-100,page=value20)，不添index/page上界；>=200先减200发布同field→X CryptInt Less320 AL判断决定x413/0→fresh同field再分index<100为4B3BF0，否则仅原AL减100低BYTE传现4B4140，不擅把其高24bits设新布局或改变BYTE接口。原小步只输入/分派，既有各provider正文/签名及鼠标RNG读序保持；每路径预览后DrawCurrentWindow/返回完整S32 1，源码共用尾合并不漏任一绘图。窗口38同S32 preview负仍共用绘图尾，非负原比较<100取同value20 S32 page→玩家/外部物品预览后同绘图尾；无41滚动或宠物分支。两current prototype原48B/十二W32只对应38/41行，draw槽偏移40持实际入口，当前原生callback接线保持，非所有callback/owner寿命已闭。\n48B350仅固定第一组CC4D58+index*C44记录，不借current side另选组；key=index+100，source不同才鼠标X GetVal→X低W16发布→Y GetVal→Y低W16发布→X Less320→fresh X W16加60/-257→Y Less240→fresh Y W16加60/-174，source相同跳四次CryptInt，不缓存用于两个比较的X/Y明值或改变RNG次数/发布序。401EA0为单JMP401EC0有据，现既有Read_401EC0 provider复用。之后无条件同S32 key发布；一次原W32 record+C40取值后test CH1（bit100）选择+C29 memo/颜色5，否则+C name/原bit9颜色0-1，这里W32读取本来正确保持，不从testCH误推应读BYTE。描述原+29+page*768，96B每行/八行一页；先tooltip X W16快照再Y W16快照，现低S16界面消费，调用48B810(x,y,title,color,lines,96,8,nullptr,0)真实S32返回透传。原两CALL确实来自两个本步主root，清参后绘图/返回邻窗有据；不把有provider名或静态接线当完整文字队列/画面验收。三当前CPP函数只第一根两BYTE改动，另两正确正文/共用尾保；三定义/一个既有声明四注释，无头文件声明的两个callback不新增公头接口。四类型/九实际callee、五唯一global/两个prototype行及七旧记录保持，未改SGM01生产、IDR01描述/SEP01页数发布链，完整数据格式/描述页数—行消费、共享owner-alias寿命/生成读取和机器ABI及所有文字/画面/互通运行待。INPUT两成员/UI和RENDER各四成员，三限定S零I八open；不引新helper/字段/API/类型/owner、index/page/容量/空保护/补零/默认/钳制/回滚或异常模型，MSVC/WAV-only/原命令字段LF明文及全部完整门禁保持，整体未完成。",
+      "verification_level": "；pass，四完整原根/共用尾201条667B/六页、21E8十个唯一目标/16跳七RET，19条主根两个实际控制边到三条公共尾、两prototype draw槽/tooltip两CALL和401EA0单跳有据。两整源精确回放只两BYTE/四注释，另两正确正文/共用尾保；金额格式后fresh载荷、预览/四CryptInt及W32标题/八行描述真实返回保持，四类型/九callee/五global/两prototype行及七旧语义保持，完整owner/文字及画面、生成读取/ABI/互通运行待",
+      "storage_preview_dispatch": {
+        "step": "SPD01",
+        "source_snapshot": "[#] 对齐存放预览分发与描述消费合同",
+        "original_entry": "0x4ac1ec",
+        "original_end_exclusive": "0x4ac1f7",
+        "instruction_count": 3,
+        "code_bytes": 11,
+        "page_count": 1,
+        "direct_calls": 1,
+        "direct_call_targets": [
+          4663728
+        ],
+        "jumps": 0,
+        "returns": 1,
+        "original_incoming_references": [
+          {
+            "ea": 4899305,
+            "type": 21,
+            "code": true,
+            "parent": 4899248
+          },
+          {
+            "ea": 4899255,
+            "type": 19,
+            "code": true,
+            "parent": 4899248
+          }
+        ],
+        "native_signature": "std::int32_t Sub_4AC1B0(const std::int32_t)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原物品提示S32透传/两个窗口所有绘图后S32 1，公共三条尾合并在当前父；完整文字队列/动态owner/生成读取和机器ABI待",
+        "shared_tail_combined_in_native_parent": true
+      }
     },
     {
       "original_entry": "0x4C94D6",
@@ -115859,7 +115911,7 @@
     {
       "original_entry": "0x4A9160",
       "inventory_id": "F:000A9160",
-      "status": "既有存放窗口金额刷新真实格式依赖已接；完整窗口41/数据生产/CRT/画面/运行未据本步验收",
+      "status": "既有存放窗口金额刷新真实格式依赖已接；完整窗口41/数据生产/CRT/画面/运行未据本步验收；SPD01完整预览/公共绘图尾合同追加，两滚动BYTE对齐，其它描述与返回保，全owner/ABI/运行待",
       "original_end_exclusive": "0x4A92C3",
       "instruction_count": 114,
       "sources": [
@@ -115869,13 +115921,25 @@
             "Sub_4A9160"
           ],
           "relationship": "仅一格式callee接一原点，后取窗口载荷及全部滚动/预览/绘图正文保持"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4A9160"
+          ],
+          "relationship": "SPD01完整窗口41滚动/预览分发，旧数量格式历史保，两个BYTE读取对齐"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/window_41.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_storage_preview_dispatch_spec.md#storage-preview-baseline",
+        "doc/cg2d_storage_preview_dispatch_spec.md#storage-preview-decision",
+        "doc/cg2d_storage_preview_dispatch_spec.md#storage-preview-acceptance",
+        "doc/cg2d_storage_preview_dispatch_spec.md#storage-preview-source-state",
+        "doc/cg2d_storage_preview_dispatch_evidence.json"
       ],
-      "boundary": "仅替换4A9175格式callee。保留未用S32形参/真实返回1；入口普通dword CC4218 S32金额按既有586BBC %10d写原未清16B，格式后才重取当前窗口元素13载荷并复制含NUL。两次滚动载荷重取、41状态字段/预览分派及修改、原鼠标CryptInt取值、各实际预览调用、DrawCurrentWindow与全部后续正文保持；不与World金额合并，不预清、缓存载荷、钳制或改变相关方。",
+      "boundary": "仅替换4A9175格式callee。保留未用S32形参/真实返回1；入口普通dword CC4218 S32金额按既有586BBC %10d写原未清16B，格式后才重取当前窗口元素13载荷并复制含NUL。两次滚动载荷重取、41状态字段/预览分派及修改、原鼠标CryptInt取值、各实际预览调用、DrawCurrentWindow与全部后续正文保持；不与World金额合并，不预清、缓存载荷、钳制或改变相关方。；SPD01只存放描述预览链：4A9160完整114条355B/两页，4AC1B0完整19条60B/一页及公共4AC1EC完整三条11B/一页，48B350完整65条241B/两页，合201条667B/六页、21E8十个唯一目标/16跳七RET。4AC1B0原两个出口（负preview跳/外部预览后清参落入）都进4AC1EC，再4729B0→EAX1/RET；单看IDA十九条主根不能闭该路径。现同Sub_4AC1B0共用CPP尾保，不按误标locale引库功能，不补独立假叶。old969全部格式历史/old231公共尾历史追加，不重复旧F；两个新F及四adapted。窗口41先普通S32 CC4218→原未清16B/现MSVC%10d→fresh current元素13 text载荷→含NUL复制；再fresh窗口/elements→21载荷flags只原BYTE/bit1命中才474270(held21,2)→真实S32结果写value24；再fresh窗口/elements→26载荷flags只原BYTE/bit1命中才474270(held26,2)→value28。字段flags仍W32，两个读取点用unsigned char视图，两组两处，仅这两处正文对齐。随后S32 actionFlags1C：负跳预览但仍绘图；<200下<100原玩家48B1A0、>=100原存放48B350(index-100,page=value20)，不添index/page上界；>=200先减200发布同field→X CryptInt Less320 AL判断决定x413/0→fresh同field再分index<100为4B3BF0，否则仅原AL减100低BYTE传现4B4140，不擅把其高24bits设新布局或改变BYTE接口。原小步只输入/分派，既有各provider正文/签名及鼠标RNG读序保持；每路径预览后DrawCurrentWindow/返回完整S32 1，源码共用尾合并不漏任一绘图。窗口38同S32 preview负仍共用绘图尾，非负原比较<100取同value20 S32 page→玩家/外部物品预览后同绘图尾；无41滚动或宠物分支。两current prototype原48B/十二W32只对应38/41行，draw槽偏移40持实际入口，当前原生callback接线保持，非所有callback/owner寿命已闭。\n48B350仅固定第一组CC4D58+index*C44记录，不借current side另选组；key=index+100，source不同才鼠标X GetVal→X低W16发布→Y GetVal→Y低W16发布→X Less320→fresh X W16加60/-257→Y Less240→fresh Y W16加60/-174，source相同跳四次CryptInt，不缓存用于两个比较的X/Y明值或改变RNG次数/发布序。401EA0为单JMP401EC0有据，现既有Read_401EC0 provider复用。之后无条件同S32 key发布；一次原W32 record+C40取值后test CH1（bit100）选择+C29 memo/颜色5，否则+C name/原bit9颜色0-1，这里W32读取本来正确保持，不从testCH误推应读BYTE。描述原+29+page*768，96B每行/八行一页；先tooltip X W16快照再Y W16快照，现低S16界面消费，调用48B810(x,y,title,color,lines,96,8,nullptr,0)真实S32返回透传。原两CALL确实来自两个本步主root，清参后绘图/返回邻窗有据；不把有provider名或静态接线当完整文字队列/画面验收。三当前CPP函数只第一根两BYTE改动，另两正确正文/共用尾保；三定义/一个既有声明四注释，无头文件声明的两个callback不新增公头接口。四类型/九实际callee、五唯一global/两个prototype行及七旧记录保持，未改SGM01生产、IDR01描述/SEP01页数发布链，完整数据格式/描述页数—行消费、共享owner-alias寿命/生成读取和机器ABI及所有文字/画面/互通运行待。INPUT两成员/UI和RENDER各四成员，三限定S零I八open；不引新helper/字段/API/类型/owner、index/page/容量/空保护/补零/默认/钳制/回滚或异常模型，MSVC/WAV-only/原命令字段LF明文及全部完整门禁保持，整体未完成。",
       "original_incoming": [],
       "original_data_references": [
         {
@@ -115914,7 +115978,46 @@
           "relationship": "普通S32金额→未清16B格式→后取当前窗口元素13载荷→复制含NUL；原滚动/预览/绘图及返回1保持"
         }
       ],
-      "verification_level": "原114指令统计，仅32条金额来源/格式/后取元素13/含NUL复制及下一载荷邻窗仅读，余82与已过核心不重验；一原点/callee、普通S32/既有原字节/未清16B/元素13消费/返回限定静态核。call0/data1只登记，不推完整窗口路由，未构建执行。"
+      "verification_level": "原114指令统计，仅32条金额来源/格式/后取元素13/含NUL复制及下一载荷邻窗仅读，余82与已过核心不重验；一原点/callee、普通S32/既有原字节/未清16B/元素13消费/返回限定静态核。call0/data1只登记，不推完整窗口路由，未构建执行。；pass，四完整原根/共用尾201条667B/六页、21E8十个唯一目标/16跳七RET，19条主根两个实际控制边到三条公共尾、两prototype draw槽/tooltip两CALL和401EA0单跳有据。两整源精确回放只两BYTE/四注释，另两正确正文/共用尾保；金额格式后fresh载荷、预览/四CryptInt及W32标题/八行描述真实返回保持，四类型/九callee/五global/两prototype行及七旧语义保持，完整owner/文字及画面、生成读取/ABI/互通运行待",
+      "storage_preview_dispatch": {
+        "step": "SPD01",
+        "source_snapshot": "[#] 对齐存放预览分发与描述消费合同",
+        "original_entry": "0x4a9160",
+        "original_end_exclusive": "0x4a92c3",
+        "instruction_count": 114,
+        "code_bytes": 355,
+        "page_count": 2,
+        "direct_calls": 12,
+        "direct_call_targets": [
+          5485316,
+          4670064,
+          4764064,
+          4663728,
+          4764496,
+          4201904,
+          4930544,
+          4931904
+        ],
+        "jumps": 7,
+        "returns": 4,
+        "original_incoming_references": [
+          {
+            "ea": 5565200,
+            "type": 1,
+            "code": false
+          }
+        ],
+        "native_signature": "std::int32_t Sub_4A9160(const std::int32_t)",
+        "source_patch_group_count": 2,
+        "source_changed_point_count": 2,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原物品提示S32透传/两个窗口所有绘图后S32 1，公共三条尾合并在当前父；完整文字队列/动态owner/生成读取和机器ABI待",
+        "shared_tail_combined_in_native_parent": false
+      }
     },
     {
       "original_entry": "0x4A9D10",
@@ -238671,6 +238774,237 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "result_boundary": "现void用于32行/页数副作用；两原CALL邻窗不消费返回，不伪造确定返回或宣全部机器ABI"
+      }
+    },
+    {
+      "original_entry": "0x4ac1b0",
+      "inventory_id": "F:000AC1B0",
+      "original_role": "窗口38内外物品预览分发/公共尾汇合",
+      "original_end_exclusive": "0x4ac1ec",
+      "instruction_count": 19,
+      "function_chunks": [
+        {
+          "start": "0x4ac1b0",
+          "end_exclusive": "0x4ac1ec"
+        }
+      ],
+      "status": "SPD01完整预览/描述消费原根纳管，正确正文/共用尾保持；限定S，全owner/文字与画面/ABI/运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4AC1B0"
+          ],
+          "relationship": "SPD01完整预览/描述消费原根，正确正文和真实调用/返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_storage_preview_dispatch_spec.md#storage-preview-baseline",
+        "doc/cg2d_storage_preview_dispatch_spec.md#storage-preview-decision",
+        "doc/cg2d_storage_preview_dispatch_spec.md#storage-preview-acceptance",
+        "doc/cg2d_storage_preview_dispatch_spec.md#storage-preview-source-state",
+        "doc/cg2d_storage_preview_dispatch_evidence.json"
+      ],
+      "boundary": "SPD01只存放描述预览链：4A9160完整114条355B/两页，4AC1B0完整19条60B/一页及公共4AC1EC完整三条11B/一页，48B350完整65条241B/两页，合201条667B/六页、21E8十个唯一目标/16跳七RET。4AC1B0原两个出口（负preview跳/外部预览后清参落入）都进4AC1EC，再4729B0→EAX1/RET；单看IDA十九条主根不能闭该路径。现同Sub_4AC1B0共用CPP尾保，不按误标locale引库功能，不补独立假叶。old969全部格式历史/old231公共尾历史追加，不重复旧F；两个新F及四adapted。窗口41先普通S32 CC4218→原未清16B/现MSVC%10d→fresh current元素13 text载荷→含NUL复制；再fresh窗口/elements→21载荷flags只原BYTE/bit1命中才474270(held21,2)→真实S32结果写value24；再fresh窗口/elements→26载荷flags只原BYTE/bit1命中才474270(held26,2)→value28。字段flags仍W32，两个读取点用unsigned char视图，两组两处，仅这两处正文对齐。随后S32 actionFlags1C：负跳预览但仍绘图；<200下<100原玩家48B1A0、>=100原存放48B350(index-100,page=value20)，不添index/page上界；>=200先减200发布同field→X CryptInt Less320 AL判断决定x413/0→fresh同field再分index<100为4B3BF0，否则仅原AL减100低BYTE传现4B4140，不擅把其高24bits设新布局或改变BYTE接口。原小步只输入/分派，既有各provider正文/签名及鼠标RNG读序保持；每路径预览后DrawCurrentWindow/返回完整S32 1，源码共用尾合并不漏任一绘图。窗口38同S32 preview负仍共用绘图尾，非负原比较<100取同value20 S32 page→玩家/外部物品预览后同绘图尾；无41滚动或宠物分支。两current prototype原48B/十二W32只对应38/41行，draw槽偏移40持实际入口，当前原生callback接线保持，非所有callback/owner寿命已闭。\n48B350仅固定第一组CC4D58+index*C44记录，不借current side另选组；key=index+100，source不同才鼠标X GetVal→X低W16发布→Y GetVal→Y低W16发布→X Less320→fresh X W16加60/-257→Y Less240→fresh Y W16加60/-174，source相同跳四次CryptInt，不缓存用于两个比较的X/Y明值或改变RNG次数/发布序。401EA0为单JMP401EC0有据，现既有Read_401EC0 provider复用。之后无条件同S32 key发布；一次原W32 record+C40取值后test CH1（bit100）选择+C29 memo/颜色5，否则+C name/原bit9颜色0-1，这里W32读取本来正确保持，不从testCH误推应读BYTE。描述原+29+page*768，96B每行/八行一页；先tooltip X W16快照再Y W16快照，现低S16界面消费，调用48B810(x,y,title,color,lines,96,8,nullptr,0)真实S32返回透传。原两CALL确实来自两个本步主root，清参后绘图/返回邻窗有据；不把有provider名或静态接线当完整文字队列/画面验收。三当前CPP函数只第一根两BYTE改动，另两正确正文/共用尾保；三定义/一个既有声明四注释，无头文件声明的两个callback不新增公头接口。四类型/九实际callee、五唯一global/两个prototype行及七旧记录保持，未改SGM01生产、IDR01描述/SEP01页数发布链，完整数据格式/描述页数—行消费、共享owner-alias寿命/生成读取和机器ABI及所有文字/画面/互通运行待。INPUT两成员/UI和RENDER各四成员，三限定S零I八open；不引新helper/字段/API/类型/owner、index/page/容量/空保护/补零/默认/钳制/回滚或异常模型，MSVC/WAV-only/原命令字段LF明文及全部完整门禁保持，整体未完成。",
+      "verification_level": "pass，四完整原根/共用尾201条667B/六页、21E8十个唯一目标/16跳七RET，19条主根两个实际控制边到三条公共尾、两prototype draw槽/tooltip两CALL和401EA0单跳有据。两整源精确回放只两BYTE/四注释，另两正确正文/共用尾保；金额格式后fresh载荷、预览/四CryptInt及W32标题/八行描述真实返回保持，四类型/九callee/五global/两prototype行及七旧语义保持，完整owner/文字及画面、生成读取/ABI/互通运行待",
+      "original_incoming": [],
+      "storage_preview_dispatch": {
+        "step": "SPD01",
+        "source_snapshot": "[#] 对齐存放预览分发与描述消费合同",
+        "original_entry": "0x4ac1b0",
+        "original_end_exclusive": "0x4ac1ec",
+        "instruction_count": 19,
+        "code_bytes": 60,
+        "page_count": 1,
+        "direct_calls": 3,
+        "direct_call_targets": [
+          4764064,
+          4663728,
+          4764496
+        ],
+        "jumps": 2,
+        "returns": 1,
+        "original_incoming_references": [
+          {
+            "ea": 5565248,
+            "type": 1,
+            "code": false
+          }
+        ],
+        "native_signature": "std::int32_t Sub_4AC1B0(const std::int32_t)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原物品提示S32透传/两个窗口所有绘图后S32 1，公共三条尾合并在当前父；完整文字队列/动态owner/生成读取和机器ABI待",
+        "shared_tail_combined_in_native_parent": true
+      }
+    },
+    {
+      "original_entry": "0x48b350",
+      "inventory_id": "F:0008B350",
+      "original_role": "外部物品W32标题与八行描述提示桥",
+      "original_end_exclusive": "0x48b441",
+      "instruction_count": 65,
+      "function_chunks": [
+        {
+          "start": "0x48b350",
+          "end_exclusive": "0x48b441"
+        }
+      ],
+      "status": "SPD01完整预览/描述消费原根纳管，正确正文/共用尾保持；限定S，全owner/文字与画面/ABI/运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_48B350"
+          ],
+          "relationship": "SPD01完整预览/描述消费原根，正确正文和真实调用/返回保持，仅合同注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_48B350"
+          ],
+          "relationship": "SPD01既有两S32/真实返回声明保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_storage_preview_dispatch_spec.md#storage-preview-baseline",
+        "doc/cg2d_storage_preview_dispatch_spec.md#storage-preview-decision",
+        "doc/cg2d_storage_preview_dispatch_spec.md#storage-preview-acceptance",
+        "doc/cg2d_storage_preview_dispatch_spec.md#storage-preview-source-state",
+        "doc/cg2d_storage_preview_dispatch_evidence.json"
+      ],
+      "boundary": "SPD01只存放描述预览链：4A9160完整114条355B/两页，4AC1B0完整19条60B/一页及公共4AC1EC完整三条11B/一页，48B350完整65条241B/两页，合201条667B/六页、21E8十个唯一目标/16跳七RET。4AC1B0原两个出口（负preview跳/外部预览后清参落入）都进4AC1EC，再4729B0→EAX1/RET；单看IDA十九条主根不能闭该路径。现同Sub_4AC1B0共用CPP尾保，不按误标locale引库功能，不补独立假叶。old969全部格式历史/old231公共尾历史追加，不重复旧F；两个新F及四adapted。窗口41先普通S32 CC4218→原未清16B/现MSVC%10d→fresh current元素13 text载荷→含NUL复制；再fresh窗口/elements→21载荷flags只原BYTE/bit1命中才474270(held21,2)→真实S32结果写value24；再fresh窗口/elements→26载荷flags只原BYTE/bit1命中才474270(held26,2)→value28。字段flags仍W32，两个读取点用unsigned char视图，两组两处，仅这两处正文对齐。随后S32 actionFlags1C：负跳预览但仍绘图；<200下<100原玩家48B1A0、>=100原存放48B350(index-100,page=value20)，不添index/page上界；>=200先减200发布同field→X CryptInt Less320 AL判断决定x413/0→fresh同field再分index<100为4B3BF0，否则仅原AL减100低BYTE传现4B4140，不擅把其高24bits设新布局或改变BYTE接口。原小步只输入/分派，既有各provider正文/签名及鼠标RNG读序保持；每路径预览后DrawCurrentWindow/返回完整S32 1，源码共用尾合并不漏任一绘图。窗口38同S32 preview负仍共用绘图尾，非负原比较<100取同value20 S32 page→玩家/外部物品预览后同绘图尾；无41滚动或宠物分支。两current prototype原48B/十二W32只对应38/41行，draw槽偏移40持实际入口，当前原生callback接线保持，非所有callback/owner寿命已闭。\n48B350仅固定第一组CC4D58+index*C44记录，不借current side另选组；key=index+100，source不同才鼠标X GetVal→X低W16发布→Y GetVal→Y低W16发布→X Less320→fresh X W16加60/-257→Y Less240→fresh Y W16加60/-174，source相同跳四次CryptInt，不缓存用于两个比较的X/Y明值或改变RNG次数/发布序。401EA0为单JMP401EC0有据，现既有Read_401EC0 provider复用。之后无条件同S32 key发布；一次原W32 record+C40取值后test CH1（bit100）选择+C29 memo/颜色5，否则+C name/原bit9颜色0-1，这里W32读取本来正确保持，不从testCH误推应读BYTE。描述原+29+page*768，96B每行/八行一页；先tooltip X W16快照再Y W16快照，现低S16界面消费，调用48B810(x,y,title,color,lines,96,8,nullptr,0)真实S32返回透传。原两CALL确实来自两个本步主root，清参后绘图/返回邻窗有据；不把有provider名或静态接线当完整文字队列/画面验收。三当前CPP函数只第一根两BYTE改动，另两正确正文/共用尾保；三定义/一个既有声明四注释，无头文件声明的两个callback不新增公头接口。四类型/九实际callee、五唯一global/两个prototype行及七旧记录保持，未改SGM01生产、IDR01描述/SEP01页数发布链，完整数据格式/描述页数—行消费、共享owner-alias寿命/生成读取和机器ABI及所有文字/画面/互通运行待。INPUT两成员/UI和RENDER各四成员，三限定S零I八open；不引新helper/字段/API/类型/owner、index/page/容量/空保护/补零/默认/钳制/回滚或异常模型，MSVC/WAV-only/原命令字段LF明文及全部完整门禁保持，整体未完成。",
+      "verification_level": "pass，四完整原根/共用尾201条667B/六页、21E8十个唯一目标/16跳七RET，19条主根两个实际控制边到三条公共尾、两prototype draw槽/tooltip两CALL和401EA0单跳有据。两整源精确回放只两BYTE/四注释，另两正确正文/共用尾保；金额格式后fresh载荷、预览/四CryptInt及W32标题/八行描述真实返回保持，四类型/九callee/五global/两prototype行及七旧语义保持，完整owner/文字及画面、生成读取/ABI/互通运行待",
+      "original_incoming": [
+        {
+          "ea": 4887107,
+          "parent": 4886880,
+          "bytes": "e80821feff",
+          "window": [
+            {
+              "ea": 4887102,
+              "bytes": "83c09c",
+              "asm": "add     eax, 0FFFFFF9Ch"
+            },
+            {
+              "ea": 4887105,
+              "bytes": "51",
+              "asm": "push    ecx"
+            },
+            {
+              "ea": 4887106,
+              "bytes": "50",
+              "asm": "push    eax"
+            },
+            {
+              "ea": 4887107,
+              "bytes": "e80821feff",
+              "asm": "call    sub_48B350"
+            },
+            {
+              "ea": 4887112,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            },
+            {
+              "ea": 4887115,
+              "bytes": "e86097fcff",
+              "asm": "call    Window__DrawCurrentWindow"
+            },
+            {
+              "ea": 4887120,
+              "bytes": "5f",
+              "asm": "pop     edi"
+            }
+          ]
+        },
+        {
+          "ea": 4899300,
+          "parent": 4899248,
+          "bytes": "e867f1fdff",
+          "window": [
+            {
+              "ea": 4899295,
+              "bytes": "83c09c",
+              "asm": "add     eax, 0FFFFFF9Ch"
+            },
+            {
+              "ea": 4899298,
+              "bytes": "52",
+              "asm": "push    edx"
+            },
+            {
+              "ea": 4899299,
+              "bytes": "50",
+              "asm": "push    eax"
+            },
+            {
+              "ea": 4899300,
+              "bytes": "e867f1fdff",
+              "asm": "call    sub_48B350"
+            },
+            {
+              "ea": 4899305,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            },
+            {
+              "ea": 4899308,
+              "bytes": "e8bf67fcff",
+              "asm": "call    Window__DrawCurrentWindow"
+            },
+            {
+              "ea": 4899313,
+              "bytes": "b801000000",
+              "asm": "mov     eax, 1"
+            }
+          ]
+        }
+      ],
+      "storage_preview_dispatch": {
+        "step": "SPD01",
+        "source_snapshot": "[#] 对齐存放预览分发与描述消费合同",
+        "original_entry": "0x48b350",
+        "original_end_exclusive": "0x48b441",
+        "instruction_count": 65,
+        "code_bytes": 241,
+        "page_count": 2,
+        "direct_calls": 5,
+        "direct_call_targets": [
+          4202144,
+          4201904,
+          4765712
+        ],
+        "jumps": 7,
+        "returns": 1,
+        "original_incoming_references": [
+          {
+            "ea": 4887107,
+            "type": 17,
+            "code": true
+          },
+          {
+            "ea": 4899300,
+            "type": 17,
+            "code": true
+          }
+        ],
+        "native_signature": "std::int32_t Sub_48B350(const std::int32_t index, const std::int32_t page)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原物品提示S32透传/两个窗口所有绘图后S32 1，公共三条尾合并在当前父；完整文字队列/动态owner/生成读取和机器ABI待",
+        "shared_tail_combined_in_native_parent": false
       }
     }
   ]

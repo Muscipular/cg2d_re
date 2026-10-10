@@ -1,0 +1,2317 @@
+{
+  "schema_version": 1,
+  "step": "SPD01",
+  "recorded_on": "2026-10-11",
+  "before_snapshot": "[#] 对齐存放物品面板标志与坐标消费",
+  "after_snapshot": "[#] 对齐存放预览分发与描述消费合同",
+  "record_scope": [
+    {
+      "index": 969,
+      "inventory_id": "F:000A9160",
+      "existing": true,
+      "source_index": 0,
+      "root_index": 0
+    },
+    {
+      "index": 2330,
+      "inventory_id": "F:000AC1B0",
+      "existing": false,
+      "source_index": 1,
+      "root_index": 1
+    },
+    {
+      "index": 2331,
+      "inventory_id": "F:0008B350",
+      "existing": false,
+      "source_index": 2,
+      "root_index": 2
+    },
+    {
+      "index": 231,
+      "inventory_id": "F:000AC1EC",
+      "existing": true,
+      "source_index": 1,
+      "root_index": 3
+    }
+  ],
+  "original_roots": [
+    {
+      "ea": 4886880,
+      "end": 4887235,
+      "instruction_count": 114,
+      "chunks": [
+        [
+          4886880,
+          4887235
+        ]
+      ],
+      "incoming_references": [
+        {
+          "ea": 5565200,
+          "type": 1,
+          "code": false
+        }
+      ],
+      "byte_count": 355,
+      "page_count": 2,
+      "pages": [
+        {
+          "ea": 4886880,
+          "end": 4887235,
+          "offset": 0,
+          "total": 114,
+          "instructions": [
+            {
+              "ea": 4886880,
+              "size": 5,
+              "bytes": "a11842cc00",
+              "asm": "mov     eax, dword_CC4218",
+              "call_target": null
+            },
+            {
+              "ea": 4886885,
+              "size": 3,
+              "bytes": "83ec10",
+              "asm": "sub     esp, 10h",
+              "call_target": null
+            },
+            {
+              "ea": 4886888,
+              "size": 4,
+              "bytes": "8d4c2400",
+              "asm": "lea     ecx, [esp+10h+Buffer]",
+              "call_target": null
+            },
+            {
+              "ea": 4886892,
+              "size": 1,
+              "bytes": "56",
+              "asm": "push    esi",
+              "call_target": null
+            },
+            {
+              "ea": 4886893,
+              "size": 1,
+              "bytes": "57",
+              "asm": "push    edi",
+              "call_target": null
+            },
+            {
+              "ea": 4886894,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax",
+              "call_target": null
+            },
+            {
+              "ea": 4886895,
+              "size": 5,
+              "bytes": "68bc6b5800",
+              "asm": "push    offset a10d; \"%10d\"",
+              "call_target": null
+            },
+            {
+              "ea": 4886900,
+              "size": 1,
+              "bytes": "51",
+              "asm": "push    ecx; Buffer",
+              "call_target": null
+            },
+            {
+              "ea": 4886901,
+              "size": 5,
+              "bytes": "e88a210900",
+              "asm": "call    _sprintf",
+              "call_target": 5485316
+            },
+            {
+              "ea": 4886906,
+              "size": 6,
+              "bytes": "8b159446cf00",
+              "asm": "mov     edx, gCurrentWindow",
+              "call_target": null
+            },
+            {
+              "ea": 4886912,
+              "size": 4,
+              "bytes": "8d7c2414",
+              "asm": "lea     edi, [esp+24h+Buffer]",
+              "call_target": null
+            },
+            {
+              "ea": 4886916,
+              "size": 3,
+              "bytes": "83c9ff",
+              "asm": "or      ecx, 0FFFFFFFFh",
+              "call_target": null
+            },
+            {
+              "ea": 4886919,
+              "size": 3,
+              "bytes": "83c40c",
+              "asm": "add     esp, 0Ch",
+              "call_target": null
+            },
+            {
+              "ea": 4886922,
+              "size": 3,
+              "bytes": "8b422c",
+              "asm": "mov     eax, [edx+2Ch]",
+              "call_target": null
+            },
+            {
+              "ea": 4886925,
+              "size": 6,
+              "bytes": "8b90f0010000",
+              "asm": "mov     edx, [eax+1F0h]",
+              "call_target": null
+            },
+            {
+              "ea": 4886931,
+              "size": 2,
+              "bytes": "33c0",
+              "asm": "xor     eax, eax",
+              "call_target": null
+            },
+            {
+              "ea": 4886933,
+              "size": 2,
+              "bytes": "f2ae",
+              "asm": "repne scasb",
+              "call_target": null
+            },
+            {
+              "ea": 4886935,
+              "size": 2,
+              "bytes": "f7d1",
+              "asm": "not     ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4886937,
+              "size": 2,
+              "bytes": "2bf9",
+              "asm": "sub     edi, ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4886939,
+              "size": 2,
+              "bytes": "8bc1",
+              "asm": "mov     eax, ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4886941,
+              "size": 2,
+              "bytes": "8bf7",
+              "asm": "mov     esi, edi",
+              "call_target": null
+            },
+            {
+              "ea": 4886943,
+              "size": 3,
+              "bytes": "8b7a04",
+              "asm": "mov     edi, [edx+4]",
+              "call_target": null
+            },
+            {
+              "ea": 4886946,
+              "size": 3,
+              "bytes": "c1e902",
+              "asm": "shr     ecx, 2",
+              "call_target": null
+            },
+            {
+              "ea": 4886949,
+              "size": 2,
+              "bytes": "f3a5",
+              "asm": "rep movsd",
+              "call_target": null
+            },
+            {
+              "ea": 4886951,
+              "size": 2,
+              "bytes": "8bc8",
+              "asm": "mov     ecx, eax",
+              "call_target": null
+            },
+            {
+              "ea": 4886953,
+              "size": 3,
+              "bytes": "83e103",
+              "asm": "and     ecx, 3",
+              "call_target": null
+            },
+            {
+              "ea": 4886956,
+              "size": 2,
+              "bytes": "f3a4",
+              "asm": "rep movsb",
+              "call_target": null
+            },
+            {
+              "ea": 4886958,
+              "size": 6,
+              "bytes": "8b0d9446cf00",
+              "asm": "mov     ecx, gCurrentWindow",
+              "call_target": null
+            },
+            {
+              "ea": 4886964,
+              "size": 3,
+              "bytes": "8b412c",
+              "asm": "mov     eax, [ecx+2Ch]",
+              "call_target": null
+            },
+            {
+              "ea": 4886967,
+              "size": 6,
+              "bytes": "8b9010030000",
+              "asm": "mov     edx, [eax+310h]",
+              "call_target": null
+            },
+            {
+              "ea": 4886973,
+              "size": 3,
+              "bytes": "f60201",
+              "asm": "test    byte ptr [edx], 1",
+              "call_target": null
+            },
+            {
+              "ea": 4886976,
+              "size": 2,
+              "bytes": "7415",
+              "asm": "jz      short loc_4A91D7",
+              "call_target": null
+            },
+            {
+              "ea": 4886978,
+              "size": 5,
+              "bytes": "05f4020000",
+              "asm": "add     eax, 2F4h",
+              "call_target": null
+            },
+            {
+              "ea": 4886983,
+              "size": 2,
+              "bytes": "6a02",
+              "asm": "push    2",
+              "call_target": null
+            },
+            {
+              "ea": 4886985,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax",
+              "call_target": null
+            },
+            {
+              "ea": 4886986,
+              "size": 5,
+              "bytes": "e8a1b0fcff",
+              "asm": "call    sub_474270",
+              "call_target": 4670064
+            },
+            {
+              "ea": 4886991,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8",
+              "call_target": null
+            },
+            {
+              "ea": 4886994,
+              "size": 5,
+              "bytes": "a348b7c900",
+              "asm": "mov     gWindowState.field_24+0D74h, eax",
+              "call_target": null
+            },
+            {
+              "ea": 4886999,
+              "size": 5,
+              "bytes": "a19446cf00",
+              "asm": "mov     eax, gCurrentWindow",
+              "call_target": null
+            },
+            {
+              "ea": 4887004,
+              "size": 3,
+              "bytes": "8b402c",
+              "asm": "mov     eax, [eax+2Ch]",
+              "call_target": null
+            },
+            {
+              "ea": 4887007,
+              "size": 6,
+              "bytes": "8b88c4030000",
+              "asm": "mov     ecx, [eax+3C4h]",
+              "call_target": null
+            },
+            {
+              "ea": 4887013,
+              "size": 3,
+              "bytes": "f60101",
+              "asm": "test    byte ptr [ecx], 1",
+              "call_target": null
+            },
+            {
+              "ea": 4887016,
+              "size": 2,
+              "bytes": "7415",
+              "asm": "jz      short loc_4A91FF",
+              "call_target": null
+            },
+            {
+              "ea": 4887018,
+              "size": 5,
+              "bytes": "05a8030000",
+              "asm": "add     eax, 3A8h",
+              "call_target": null
+            },
+            {
+              "ea": 4887023,
+              "size": 2,
+              "bytes": "6a02",
+              "asm": "push    2",
+              "call_target": null
+            },
+            {
+              "ea": 4887025,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax",
+              "call_target": null
+            },
+            {
+              "ea": 4887026,
+              "size": 5,
+              "bytes": "e879b0fcff",
+              "asm": "call    sub_474270",
+              "call_target": 4670064
+            },
+            {
+              "ea": 4887031,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8",
+              "call_target": null
+            },
+            {
+              "ea": 4887034,
+              "size": 5,
+              "bytes": "a34cb7c900",
+              "asm": "mov     gWindowState.field_28+0D74h, eax",
+              "call_target": null
+            },
+            {
+              "ea": 4887039,
+              "size": 5,
+              "bytes": "a140b7c900",
+              "asm": "mov     eax, dword ptr gWindowState.actionState+0D74h",
+              "call_target": null
+            },
+            {
+              "ea": 4887044,
+              "size": 2,
+              "bytes": "85c0",
+              "asm": "test    eax, eax",
+              "call_target": null
+            },
+            {
+              "ea": 4887046,
+              "size": 6,
+              "bytes": "0f8ca7000000",
+              "asm": "jl      loc_4A92B3",
+              "call_target": null
+            },
+            {
+              "ea": 4887052,
+              "size": 5,
+              "bytes": "3dc8000000",
+              "asm": "cmp     eax, 0C8h",
+              "call_target": null
+            },
+            {
+              "ea": 4887057,
+              "size": 2,
+              "bytes": "7d48",
+              "asm": "jge     short loc_4A925B",
+              "call_target": null
+            },
+            {
+              "ea": 4887059,
+              "size": 3,
+              "bytes": "83f864",
+              "asm": "cmp     eax, 64h ; 'd'",
+              "call_target": null
+            },
+            {
+              "ea": 4887062,
+              "size": 2,
+              "bytes": "7d20",
+              "asm": "jge     short loc_4A9238",
+              "call_target": null
+            },
+            {
+              "ea": 4887064,
+              "size": 6,
+              "bytes": "8b1544b7c900",
+              "asm": "mov     edx, gWindowState.field_20+0D74h",
+              "call_target": null
+            },
+            {
+              "ea": 4887070,
+              "size": 1,
+              "bytes": "52",
+              "asm": "push    edx",
+              "call_target": null
+            },
+            {
+              "ea": 4887071,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax",
+              "call_target": null
+            },
+            {
+              "ea": 4887072,
+              "size": 5,
+              "bytes": "e87b1ffeff",
+              "asm": "call    sub_48B1A0",
+              "call_target": 4764064
+            },
+            {
+              "ea": 4887077,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8",
+              "call_target": null
+            },
+            {
+              "ea": 4887080,
+              "size": 5,
+              "bytes": "e88397fcff",
+              "asm": "call    Window__DrawCurrentWindow",
+              "call_target": 4663728
+            },
+            {
+              "ea": 4887085,
+              "size": 1,
+              "bytes": "5f",
+              "asm": "pop     edi",
+              "call_target": null
+            },
+            {
+              "ea": 4887086,
+              "size": 5,
+              "bytes": "b801000000",
+              "asm": "mov     eax, 1",
+              "call_target": null
+            }
+          ]
+        },
+        {
+          "ea": 4886880,
+          "end": 4887235,
+          "offset": 64,
+          "total": 114,
+          "instructions": [
+            {
+              "ea": 4887091,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi",
+              "call_target": null
+            },
+            {
+              "ea": 4887092,
+              "size": 3,
+              "bytes": "83c410",
+              "asm": "add     esp, 10h",
+              "call_target": null
+            },
+            {
+              "ea": 4887095,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn",
+              "call_target": null
+            },
+            {
+              "ea": 4887096,
+              "size": 6,
+              "bytes": "8b0d44b7c900",
+              "asm": "mov     ecx, gWindowState.field_20+0D74h",
+              "call_target": null
+            },
+            {
+              "ea": 4887102,
+              "size": 3,
+              "bytes": "83c09c",
+              "asm": "add     eax, 0FFFFFF9Ch",
+              "call_target": null
+            },
+            {
+              "ea": 4887105,
+              "size": 1,
+              "bytes": "51",
+              "asm": "push    ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4887106,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax",
+              "call_target": null
+            },
+            {
+              "ea": 4887107,
+              "size": 5,
+              "bytes": "e80821feff",
+              "asm": "call    sub_48B350",
+              "call_target": 4764496
+            },
+            {
+              "ea": 4887112,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8",
+              "call_target": null
+            },
+            {
+              "ea": 4887115,
+              "size": 5,
+              "bytes": "e86097fcff",
+              "asm": "call    Window__DrawCurrentWindow",
+              "call_target": 4663728
+            },
+            {
+              "ea": 4887120,
+              "size": 1,
+              "bytes": "5f",
+              "asm": "pop     edi",
+              "call_target": null
+            },
+            {
+              "ea": 4887121,
+              "size": 5,
+              "bytes": "b801000000",
+              "asm": "mov     eax, 1",
+              "call_target": null
+            },
+            {
+              "ea": 4887126,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi",
+              "call_target": null
+            },
+            {
+              "ea": 4887127,
+              "size": 3,
+              "bytes": "83c410",
+              "asm": "add     esp, 10h",
+              "call_target": null
+            },
+            {
+              "ea": 4887130,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn",
+              "call_target": null
+            },
+            {
+              "ea": 4887131,
+              "size": 5,
+              "bytes": "2dc8000000",
+              "asm": "sub     eax, 0C8h",
+              "call_target": null
+            },
+            {
+              "ea": 4887136,
+              "size": 5,
+              "bytes": "6840010000",
+              "asm": "push    140h",
+              "call_target": null
+            },
+            {
+              "ea": 4887141,
+              "size": 5,
+              "bytes": "b9f88cd600",
+              "asm": "mov     ecx, offset mouseX",
+              "call_target": null
+            },
+            {
+              "ea": 4887146,
+              "size": 5,
+              "bytes": "a340b7c900",
+              "asm": "mov     dword ptr gWindowState.actionState+0D74h, eax",
+              "call_target": null
+            },
+            {
+              "ea": 4887151,
+              "size": 2,
+              "bytes": "33f6",
+              "asm": "xor     esi, esi",
+              "call_target": null
+            },
+            {
+              "ea": 4887153,
+              "size": 5,
+              "bytes": "e83a8bf5ff",
+              "asm": "call    CryptInt__lt",
+              "call_target": 4201904
+            },
+            {
+              "ea": 4887158,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al",
+              "call_target": null
+            },
+            {
+              "ea": 4887160,
+              "size": 2,
+              "bytes": "7405",
+              "asm": "jz      short loc_4A927F",
+              "call_target": null
+            },
+            {
+              "ea": 4887162,
+              "size": 5,
+              "bytes": "be9d010000",
+              "asm": "mov     esi, 19Dh",
+              "call_target": null
+            },
+            {
+              "ea": 4887167,
+              "size": 5,
+              "bytes": "a140b7c900",
+              "asm": "mov     eax, dword ptr gWindowState.actionState+0D74h",
+              "call_target": null
+            },
+            {
+              "ea": 4887172,
+              "size": 3,
+              "bytes": "83f864",
+              "asm": "cmp     eax, 64h ; 'd'",
+              "call_target": null
+            },
+            {
+              "ea": 4887175,
+              "size": 2,
+              "bytes": "7d1c",
+              "asm": "jge     short loc_4A92A5",
+              "call_target": null
+            },
+            {
+              "ea": 4887177,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax",
+              "call_target": null
+            },
+            {
+              "ea": 4887178,
+              "size": 2,
+              "bytes": "6a00",
+              "asm": "push    0",
+              "call_target": null
+            },
+            {
+              "ea": 4887180,
+              "size": 1,
+              "bytes": "56",
+              "asm": "push    esi",
+              "call_target": null
+            },
+            {
+              "ea": 4887181,
+              "size": 5,
+              "bytes": "e85ea90000",
+              "asm": "call    sub_4B3BF0",
+              "call_target": 4930544
+            },
+            {
+              "ea": 4887186,
+              "size": 3,
+              "bytes": "83c40c",
+              "asm": "add     esp, 0Ch",
+              "call_target": null
+            },
+            {
+              "ea": 4887189,
+              "size": 5,
+              "bytes": "e81697fcff",
+              "asm": "call    Window__DrawCurrentWindow",
+              "call_target": 4663728
+            },
+            {
+              "ea": 4887194,
+              "size": 1,
+              "bytes": "5f",
+              "asm": "pop     edi",
+              "call_target": null
+            },
+            {
+              "ea": 4887195,
+              "size": 5,
+              "bytes": "b801000000",
+              "asm": "mov     eax, 1",
+              "call_target": null
+            },
+            {
+              "ea": 4887200,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi",
+              "call_target": null
+            },
+            {
+              "ea": 4887201,
+              "size": 3,
+              "bytes": "83c410",
+              "asm": "add     esp, 10h",
+              "call_target": null
+            },
+            {
+              "ea": 4887204,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn",
+              "call_target": null
+            },
+            {
+              "ea": 4887205,
+              "size": 2,
+              "bytes": "2c64",
+              "asm": "sub     al, 64h ; 'd'",
+              "call_target": null
+            },
+            {
+              "ea": 4887207,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax",
+              "call_target": null
+            },
+            {
+              "ea": 4887208,
+              "size": 2,
+              "bytes": "6a00",
+              "asm": "push    0",
+              "call_target": null
+            },
+            {
+              "ea": 4887210,
+              "size": 1,
+              "bytes": "56",
+              "asm": "push    esi",
+              "call_target": null
+            },
+            {
+              "ea": 4887211,
+              "size": 5,
+              "bytes": "e890ae0000",
+              "asm": "call    sub_4B4140",
+              "call_target": 4931904
+            },
+            {
+              "ea": 4887216,
+              "size": 3,
+              "bytes": "83c40c",
+              "asm": "add     esp, 0Ch",
+              "call_target": null
+            },
+            {
+              "ea": 4887219,
+              "size": 5,
+              "bytes": "e8f896fcff",
+              "asm": "call    Window__DrawCurrentWindow",
+              "call_target": 4663728
+            },
+            {
+              "ea": 4887224,
+              "size": 1,
+              "bytes": "5f",
+              "asm": "pop     edi",
+              "call_target": null
+            },
+            {
+              "ea": 4887225,
+              "size": 5,
+              "bytes": "b801000000",
+              "asm": "mov     eax, 1",
+              "call_target": null
+            },
+            {
+              "ea": 4887230,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi",
+              "call_target": null
+            },
+            {
+              "ea": 4887231,
+              "size": 3,
+              "bytes": "83c410",
+              "asm": "add     esp, 10h",
+              "call_target": null
+            },
+            {
+              "ea": 4887234,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn",
+              "call_target": null
+            }
+          ]
+        }
+      ],
+      "inbound_calls": []
+    },
+    {
+      "ea": 4899248,
+      "end": 4899308,
+      "instruction_count": 19,
+      "chunks": [
+        [
+          4899248,
+          4899308
+        ]
+      ],
+      "incoming_references": [
+        {
+          "ea": 5565248,
+          "type": 1,
+          "code": false
+        }
+      ],
+      "byte_count": 60,
+      "page_count": 1,
+      "pages": [
+        {
+          "ea": 4899248,
+          "end": 4899308,
+          "offset": 0,
+          "total": 19,
+          "instructions": [
+            {
+              "ea": 4899248,
+              "size": 5,
+              "bytes": "a144b6c900",
+              "asm": "mov     eax, dword ptr gWindowState.actionState+0C78h",
+              "call_target": null
+            },
+            {
+              "ea": 4899253,
+              "size": 2,
+              "bytes": "85c0",
+              "asm": "test    eax, eax",
+              "call_target": null
+            },
+            {
+              "ea": 4899255,
+              "size": 2,
+              "bytes": "7c33",
+              "asm": "jl      short ?classic@locale@std@@SAABV12@XZ_18; std::locale::classic(void)",
+              "call_target": null
+            },
+            {
+              "ea": 4899257,
+              "size": 3,
+              "bytes": "83f864",
+              "asm": "cmp     eax, 64h ; 'd'",
+              "call_target": null
+            },
+            {
+              "ea": 4899260,
+              "size": 2,
+              "bytes": "7d1b",
+              "asm": "jge     short loc_4AC1D9",
+              "call_target": null
+            },
+            {
+              "ea": 4899262,
+              "size": 6,
+              "bytes": "8b0d48b6c900",
+              "asm": "mov     ecx, gWindowState.field_20+0C78h",
+              "call_target": null
+            },
+            {
+              "ea": 4899268,
+              "size": 1,
+              "bytes": "51",
+              "asm": "push    ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4899269,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax",
+              "call_target": null
+            },
+            {
+              "ea": 4899270,
+              "size": 5,
+              "bytes": "e8d5effdff",
+              "asm": "call    sub_48B1A0",
+              "call_target": 4764064
+            },
+            {
+              "ea": 4899275,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8",
+              "call_target": null
+            },
+            {
+              "ea": 4899278,
+              "size": 5,
+              "bytes": "e8dd67fcff",
+              "asm": "call    Window__DrawCurrentWindow",
+              "call_target": 4663728
+            },
+            {
+              "ea": 4899283,
+              "size": 5,
+              "bytes": "b801000000",
+              "asm": "mov     eax, 1",
+              "call_target": null
+            },
+            {
+              "ea": 4899288,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn",
+              "call_target": null
+            },
+            {
+              "ea": 4899289,
+              "size": 6,
+              "bytes": "8b1548b6c900",
+              "asm": "mov     edx, gWindowState.field_20+0C78h",
+              "call_target": null
+            },
+            {
+              "ea": 4899295,
+              "size": 3,
+              "bytes": "83c09c",
+              "asm": "add     eax, 0FFFFFF9Ch",
+              "call_target": null
+            },
+            {
+              "ea": 4899298,
+              "size": 1,
+              "bytes": "52",
+              "asm": "push    edx",
+              "call_target": null
+            },
+            {
+              "ea": 4899299,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax",
+              "call_target": null
+            },
+            {
+              "ea": 4899300,
+              "size": 5,
+              "bytes": "e867f1fdff",
+              "asm": "call    sub_48B350",
+              "call_target": 4764496
+            },
+            {
+              "ea": 4899305,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8",
+              "call_target": null
+            }
+          ]
+        }
+      ],
+      "inbound_calls": []
+    },
+    {
+      "ea": 4764496,
+      "end": 4764737,
+      "instruction_count": 65,
+      "chunks": [
+        [
+          4764496,
+          4764737
+        ]
+      ],
+      "incoming_references": [
+        {
+          "ea": 4887107,
+          "type": 17,
+          "code": true
+        },
+        {
+          "ea": 4899300,
+          "type": 17,
+          "code": true
+        }
+      ],
+      "byte_count": 241,
+      "page_count": 2,
+      "pages": [
+        {
+          "ea": 4764496,
+          "end": 4764737,
+          "offset": 0,
+          "total": 65,
+          "instructions": [
+            {
+              "ea": 4764496,
+              "size": 4,
+              "bytes": "8b442404",
+              "asm": "mov     eax, [esp+arg_0]",
+              "call_target": null
+            },
+            {
+              "ea": 4764500,
+              "size": 1,
+              "bytes": "56",
+              "asm": "push    esi",
+              "call_target": null
+            },
+            {
+              "ea": 4764501,
+              "size": 3,
+              "bytes": "8d7064",
+              "asm": "lea     esi, [eax+64h]",
+              "call_target": null
+            },
+            {
+              "ea": 4764504,
+              "size": 5,
+              "bytes": "a1fc03d300",
+              "asm": "mov     eax, dword_D303FC",
+              "call_target": null
+            },
+            {
+              "ea": 4764509,
+              "size": 2,
+              "bytes": "3bc6",
+              "asm": "cmp     eax, esi",
+              "call_target": null
+            },
+            {
+              "ea": 4764511,
+              "size": 2,
+              "bytes": "746c",
+              "asm": "jz      short loc_48B3CD",
+              "call_target": null
+            },
+            {
+              "ea": 4764513,
+              "size": 5,
+              "bytes": "b9f88cd600",
+              "asm": "mov     ecx, offset mouseX",
+              "call_target": null
+            },
+            {
+              "ea": 4764518,
+              "size": 5,
+              "bytes": "e8356bf7ff",
+              "asm": "call    CryptInt__GetVal",
+              "call_target": 4202144
+            },
+            {
+              "ea": 4764523,
+              "size": 5,
+              "bytes": "b9088dd600",
+              "asm": "mov     ecx, offset mouseY",
+              "call_target": null
+            },
+            {
+              "ea": 4764528,
+              "size": 6,
+              "bytes": "66a3c046cf00",
+              "asm": "mov     word_CF46C0, ax",
+              "call_target": null
+            },
+            {
+              "ea": 4764534,
+              "size": 5,
+              "bytes": "e8256bf7ff",
+              "asm": "call    CryptInt__GetVal",
+              "call_target": 4202144
+            },
+            {
+              "ea": 4764539,
+              "size": 5,
+              "bytes": "6840010000",
+              "asm": "push    140h",
+              "call_target": null
+            },
+            {
+              "ea": 4764544,
+              "size": 5,
+              "bytes": "b9f88cd600",
+              "asm": "mov     ecx, offset mouseX",
+              "call_target": null
+            },
+            {
+              "ea": 4764549,
+              "size": 6,
+              "bytes": "66a3cc46cf00",
+              "asm": "mov     word_CF46CC, ax",
+              "call_target": null
+            },
+            {
+              "ea": 4764555,
+              "size": 5,
+              "bytes": "e8206af7ff",
+              "asm": "call    CryptInt__lt",
+              "call_target": 4201904
+            },
+            {
+              "ea": 4764560,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al",
+              "call_target": null
+            },
+            {
+              "ea": 4764562,
+              "size": 2,
+              "bytes": "740a",
+              "asm": "jz      short loc_48B39E",
+              "call_target": null
+            },
+            {
+              "ea": 4764564,
+              "size": 8,
+              "bytes": "668305c046cf003c",
+              "asm": "add     word_CF46C0, 3Ch ; '<'",
+              "call_target": null
+            },
+            {
+              "ea": 4764572,
+              "size": 2,
+              "bytes": "eb09",
+              "asm": "jmp     short loc_48B3A7",
+              "call_target": null
+            },
+            {
+              "ea": 4764574,
+              "size": 9,
+              "bytes": "668105c046cf00fffe",
+              "asm": "add     word_CF46C0, 0FEFFh",
+              "call_target": null
+            },
+            {
+              "ea": 4764583,
+              "size": 5,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h",
+              "call_target": null
+            },
+            {
+              "ea": 4764588,
+              "size": 5,
+              "bytes": "b9088dd600",
+              "asm": "mov     ecx, offset mouseY",
+              "call_target": null
+            },
+            {
+              "ea": 4764593,
+              "size": 5,
+              "bytes": "e8fa69f7ff",
+              "asm": "call    CryptInt__lt",
+              "call_target": 4201904
+            },
+            {
+              "ea": 4764598,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al",
+              "call_target": null
+            },
+            {
+              "ea": 4764600,
+              "size": 2,
+              "bytes": "740a",
+              "asm": "jz      short loc_48B3C4",
+              "call_target": null
+            },
+            {
+              "ea": 4764602,
+              "size": 8,
+              "bytes": "668305cc46cf003c",
+              "asm": "add     word_CF46CC, 3Ch ; '<'",
+              "call_target": null
+            },
+            {
+              "ea": 4764610,
+              "size": 2,
+              "bytes": "eb09",
+              "asm": "jmp     short loc_48B3CD",
+              "call_target": null
+            },
+            {
+              "ea": 4764612,
+              "size": 9,
+              "bytes": "668105cc46cf0052ff",
+              "asm": "add     word_CF46CC, 0FF52h",
+              "call_target": null
+            },
+            {
+              "ea": 4764621,
+              "size": 2,
+              "bytes": "8bc6",
+              "asm": "mov     eax, esi",
+              "call_target": null
+            },
+            {
+              "ea": 4764623,
+              "size": 5,
+              "bytes": "a3fc03d300",
+              "asm": "mov     dword_D303FC, eax",
+              "call_target": null
+            },
+            {
+              "ea": 4764628,
+              "size": 3,
+              "bytes": "8d489c",
+              "asm": "lea     ecx, [eax-64h]",
+              "call_target": null
+            },
+            {
+              "ea": 4764631,
+              "size": 3,
+              "bytes": "8d0449",
+              "asm": "lea     eax, [ecx+ecx*2]",
+              "call_target": null
+            },
+            {
+              "ea": 4764634,
+              "size": 3,
+              "bytes": "c1e004",
+              "asm": "shl     eax, 4",
+              "call_target": null
+            },
+            {
+              "ea": 4764637,
+              "size": 2,
+              "bytes": "03c1",
+              "asm": "add     eax, ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4764639,
+              "size": 3,
+              "bytes": "c1e004",
+              "asm": "shl     eax, 4",
+              "call_target": null
+            },
+            {
+              "ea": 4764642,
+              "size": 2,
+              "bytes": "03c1",
+              "asm": "add     eax, ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4764644,
+              "size": 3,
+              "bytes": "c1e002",
+              "asm": "shl     eax, 2",
+              "call_target": null
+            },
+            {
+              "ea": 4764647,
+              "size": 6,
+              "bytes": "8b889859cc00",
+              "asm": "mov     ecx, gInvItemData3.field_C40[eax]",
+              "call_target": null
+            },
+            {
+              "ea": 4764653,
+              "size": 3,
+              "bytes": "f6c501",
+              "asm": "test    ch, 1",
+              "call_target": null
+            },
+            {
+              "ea": 4764656,
+              "size": 2,
+              "bytes": "740d",
+              "asm": "jz      short loc_48B3FF",
+              "call_target": null
+            },
+            {
+              "ea": 4764658,
+              "size": 6,
+              "bytes": "8db08159cc00",
+              "asm": "lea     esi, gInvItemData3.memo[eax]",
+              "call_target": null
+            },
+            {
+              "ea": 4764664,
+              "size": 5,
+              "bytes": "b905000000",
+              "asm": "mov     ecx, 5",
+              "call_target": null
+            },
+            {
+              "ea": 4764669,
+              "size": 2,
+              "bytes": "eb0c",
+              "asm": "jmp     short loc_48B40B",
+              "call_target": null
+            },
+            {
+              "ea": 4764671,
+              "size": 3,
+              "bytes": "c1e909",
+              "asm": "shr     ecx, 9",
+              "call_target": null
+            },
+            {
+              "ea": 4764674,
+              "size": 6,
+              "bytes": "8db0644dcc00",
+              "asm": "lea     esi, gInvItemData3.name[eax]",
+              "call_target": null
+            },
+            {
+              "ea": 4764680,
+              "size": 3,
+              "bytes": "83e101",
+              "asm": "and     ecx, 1",
+              "call_target": null
+            },
+            {
+              "ea": 4764683,
+              "size": 4,
+              "bytes": "8b54240c",
+              "asm": "mov     edx, [esp+4+arg_4]",
+              "call_target": null
+            },
+            {
+              "ea": 4764687,
+              "size": 2,
+              "bytes": "6a00",
+              "asm": "push    0; int",
+              "call_target": null
+            },
+            {
+              "ea": 4764689,
+              "size": 2,
+              "bytes": "6a00",
+              "asm": "push    0; int",
+              "call_target": null
+            },
+            {
+              "ea": 4764691,
+              "size": 2,
+              "bytes": "6a08",
+              "asm": "push    8; int",
+              "call_target": null
+            },
+            {
+              "ea": 4764693,
+              "size": 3,
+              "bytes": "8d1452",
+              "asm": "lea     edx, [edx+edx*2]",
+              "call_target": null
+            },
+            {
+              "ea": 4764696,
+              "size": 2,
+              "bytes": "6a60",
+              "asm": "push    60h ; '`'; int",
+              "call_target": null
+            },
+            {
+              "ea": 4764698,
+              "size": 3,
+              "bytes": "c1e208",
+              "asm": "shl     edx, 8",
+              "call_target": null
+            },
+            {
+              "ea": 4764701,
+              "size": 7,
+              "bytes": "8d8402814dcc00",
+              "asm": "lea     eax, gInvItemData3.desc[edx+eax]",
+              "call_target": null
+            },
+            {
+              "ea": 4764708,
+              "size": 7,
+              "bytes": "668b15c046cf00",
+              "asm": "mov     dx, word_CF46C0",
+              "call_target": null
+            },
+            {
+              "ea": 4764715,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax; Str",
+              "call_target": null
+            },
+            {
+              "ea": 4764716,
+              "size": 1,
+              "bytes": "51",
+              "asm": "push    ecx; int",
+              "call_target": null
+            },
+            {
+              "ea": 4764717,
+              "size": 7,
+              "bytes": "668b0dcc46cf00",
+              "asm": "mov     cx, word_CF46CC",
+              "call_target": null
+            },
+            {
+              "ea": 4764724,
+              "size": 1,
+              "bytes": "56",
+              "asm": "push    esi; int",
+              "call_target": null
+            },
+            {
+              "ea": 4764725,
+              "size": 1,
+              "bytes": "51",
+              "asm": "push    ecx; int",
+              "call_target": null
+            },
+            {
+              "ea": 4764726,
+              "size": 1,
+              "bytes": "52",
+              "asm": "push    edx; int",
+              "call_target": null
+            },
+            {
+              "ea": 4764727,
+              "size": 5,
+              "bytes": "e8d4030000",
+              "asm": "call    sub_48B810",
+              "call_target": 4765712
+            },
+            {
+              "ea": 4764732,
+              "size": 3,
+              "bytes": "83c424",
+              "asm": "add     esp, 24h",
+              "call_target": null
+            },
+            {
+              "ea": 4764735,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi",
+              "call_target": null
+            }
+          ]
+        },
+        {
+          "ea": 4764496,
+          "end": 4764737,
+          "offset": 64,
+          "total": 65,
+          "instructions": [
+            {
+              "ea": 4764736,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn",
+              "call_target": null
+            }
+          ]
+        }
+      ],
+      "inbound_calls": [
+        {
+          "ea": 4887107,
+          "parent": 4886880,
+          "bytes": "e80821feff",
+          "window": [
+            {
+              "ea": 4887102,
+              "bytes": "83c09c",
+              "asm": "add     eax, 0FFFFFF9Ch"
+            },
+            {
+              "ea": 4887105,
+              "bytes": "51",
+              "asm": "push    ecx"
+            },
+            {
+              "ea": 4887106,
+              "bytes": "50",
+              "asm": "push    eax"
+            },
+            {
+              "ea": 4887107,
+              "bytes": "e80821feff",
+              "asm": "call    sub_48B350"
+            },
+            {
+              "ea": 4887112,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            },
+            {
+              "ea": 4887115,
+              "bytes": "e86097fcff",
+              "asm": "call    Window__DrawCurrentWindow"
+            },
+            {
+              "ea": 4887120,
+              "bytes": "5f",
+              "asm": "pop     edi"
+            }
+          ]
+        },
+        {
+          "ea": 4899300,
+          "parent": 4899248,
+          "bytes": "e867f1fdff",
+          "window": [
+            {
+              "ea": 4899295,
+              "bytes": "83c09c",
+              "asm": "add     eax, 0FFFFFF9Ch"
+            },
+            {
+              "ea": 4899298,
+              "bytes": "52",
+              "asm": "push    edx"
+            },
+            {
+              "ea": 4899299,
+              "bytes": "50",
+              "asm": "push    eax"
+            },
+            {
+              "ea": 4899300,
+              "bytes": "e867f1fdff",
+              "asm": "call    sub_48B350"
+            },
+            {
+              "ea": 4899305,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            },
+            {
+              "ea": 4899308,
+              "bytes": "e8bf67fcff",
+              "asm": "call    Window__DrawCurrentWindow"
+            },
+            {
+              "ea": 4899313,
+              "bytes": "b801000000",
+              "asm": "mov     eax, 1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ea": 4899308,
+      "end": 4899319,
+      "instruction_count": 3,
+      "chunks": [
+        [
+          4899308,
+          4899319
+        ]
+      ],
+      "incoming_references": [
+        {
+          "ea": 4899305,
+          "type": 21,
+          "code": true,
+          "parent": 4899248
+        },
+        {
+          "ea": 4899255,
+          "type": 19,
+          "code": true,
+          "parent": 4899248
+        }
+      ],
+      "byte_count": 11,
+      "page_count": 1,
+      "pages": [
+        {
+          "ea": 4899308,
+          "end": 4899319,
+          "offset": 0,
+          "total": 3,
+          "instructions": [
+            {
+              "ea": 4899308,
+              "size": 5,
+              "bytes": "e8bf67fcff",
+              "asm": "call    Window__DrawCurrentWindow",
+              "call_target": 4663728
+            },
+            {
+              "ea": 4899313,
+              "size": 5,
+              "bytes": "b801000000",
+              "asm": "mov     eax, 1",
+              "call_target": null
+            },
+            {
+              "ea": 4899318,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn",
+              "call_target": null
+            }
+          ]
+        }
+      ],
+      "inbound_calls": [],
+      "mapping_boundary": "既有old231，共用尾原三条合并于Sub_4AC1B0；19条主根两控制边必须连到本尾，无独立CPP假叶"
+    }
+  ],
+  "original_totals": [
+    {
+      "instructions": 114,
+      "bytes": 355,
+      "direct_calls": 12,
+      "direct_call_targets": [
+        5485316,
+        4670064,
+        4764064,
+        4663728,
+        4764496,
+        4201904,
+        4930544,
+        4931904
+      ],
+      "jumps": 7,
+      "returns": 4
+    },
+    {
+      "instructions": 19,
+      "bytes": 60,
+      "direct_calls": 3,
+      "direct_call_targets": [
+        4764064,
+        4663728,
+        4764496
+      ],
+      "jumps": 2,
+      "returns": 1
+    },
+    {
+      "instructions": 65,
+      "bytes": 241,
+      "direct_calls": 5,
+      "direct_call_targets": [
+        4202144,
+        4201904,
+        4765712
+      ],
+      "jumps": 7,
+      "returns": 1
+    },
+    {
+      "instructions": 3,
+      "bytes": 11,
+      "direct_calls": 1,
+      "direct_call_targets": [
+        4663728
+      ],
+      "jumps": 0,
+      "returns": 1
+    }
+  ],
+  "original_reference_evidence": {
+    "tooltip_inbound": [
+      {
+        "ea": 4887107,
+        "parent": 4886880,
+        "bytes": "e80821feff",
+        "window": [
+          {
+            "ea": 4887102,
+            "bytes": "83c09c",
+            "asm": "add     eax, 0FFFFFF9Ch"
+          },
+          {
+            "ea": 4887105,
+            "bytes": "51",
+            "asm": "push    ecx"
+          },
+          {
+            "ea": 4887106,
+            "bytes": "50",
+            "asm": "push    eax"
+          },
+          {
+            "ea": 4887107,
+            "bytes": "e80821feff",
+            "asm": "call    sub_48B350"
+          },
+          {
+            "ea": 4887112,
+            "bytes": "83c408",
+            "asm": "add     esp, 8"
+          },
+          {
+            "ea": 4887115,
+            "bytes": "e86097fcff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4887120,
+            "bytes": "5f",
+            "asm": "pop     edi"
+          }
+        ]
+      },
+      {
+        "ea": 4899300,
+        "parent": 4899248,
+        "bytes": "e867f1fdff",
+        "window": [
+          {
+            "ea": 4899295,
+            "bytes": "83c09c",
+            "asm": "add     eax, 0FFFFFF9Ch"
+          },
+          {
+            "ea": 4899298,
+            "bytes": "52",
+            "asm": "push    edx"
+          },
+          {
+            "ea": 4899299,
+            "bytes": "50",
+            "asm": "push    eax"
+          },
+          {
+            "ea": 4899300,
+            "bytes": "e867f1fdff",
+            "asm": "call    sub_48B350"
+          },
+          {
+            "ea": 4899305,
+            "bytes": "83c408",
+            "asm": "add     esp, 8"
+          },
+          {
+            "ea": 4899308,
+            "bytes": "e8bf67fcff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4899313,
+            "bytes": "b801000000",
+            "asm": "mov     eax, 1"
+          }
+        ]
+      }
+    ],
+    "prototype_matches": [
+      {
+        "ea": 5565200,
+        "bytes": "00000000040000001400000019000000370200005301000001010180260000006011570020904a0060914a00d0834a00",
+        "words": [
+          0,
+          4,
+          20,
+          25,
+          567,
+          339,
+          2147549441,
+          38,
+          5706080,
+          4886560,
+          4886880,
+          4883408
+        ],
+        "target": 4886880,
+        "offsets": [
+          40
+        ],
+        "scope": "仅本prototype十二W32/current行，非全动态生命周期"
+      },
+      {
+        "ea": 5565248,
+        "bytes": "00000000040000002c01000052000000370200005301000001010180060000004017570040c14a00b0c14a00f0c04a00",
+        "words": [
+          0,
+          4,
+          300,
+          82,
+          567,
+          339,
+          2147549441,
+          6,
+          5707584,
+          4899136,
+          4899248,
+          4899056
+        ],
+        "target": 4899248,
+        "offsets": [
+          40
+        ],
+        "scope": "仅本prototype十二W32/current行，非全动态生命周期"
+      }
+    ],
+    "crypt_read_thunk": [
+      {
+        "ea": 4202144,
+        "bytes": "e91b000000",
+        "asm": "jmp     sub_401EC0"
+      }
+    ]
+  },
+  "original_shared_exit_edges": [
+    {
+      "ea": 4899305,
+      "type": 21,
+      "code": true,
+      "parent": 4899248
+    },
+    {
+      "ea": 4899255,
+      "type": 19,
+      "code": true,
+      "parent": 4899248
+    }
+  ],
+  "old_records_before": [
+    {
+      "index": 969,
+      "record": {
+        "original_entry": "0x4A9160",
+        "inventory_id": "F:000A9160",
+        "status": "既有存放窗口金额刷新真实格式依赖已接；完整窗口41/数据生产/CRT/画面/运行未据本步验收",
+        "original_end_exclusive": "0x4A92C3",
+        "instruction_count": 114,
+        "sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbols": [
+              "Sub_4A9160"
+            ],
+            "relationship": "仅一格式callee接一原点，后取窗口载荷及全部滚动/预览/绘图正文保持"
+          }
+        ],
+        "evidence_documents": [
+          "doc/ui_windows/window_41.md",
+          "doc/cg2d_stdio_contract.md"
+        ],
+        "boundary": "仅替换4A9175格式callee。保留未用S32形参/真实返回1；入口普通dword CC4218 S32金额按既有586BBC %10d写原未清16B，格式后才重取当前窗口元素13载荷并复制含NUL。两次滚动载荷重取、41状态字段/预览分派及修改、原鼠标CryptInt取值、各实际预览调用、DrawCurrentWindow与全部后续正文保持；不与World金额合并，不预清、缓存载荷、钳制或改变相关方。",
+        "original_incoming": [],
+        "original_data_references": [
+          {
+            "site": "0x54EB10",
+            "parent": null,
+            "code": false,
+            "type": 1
+          }
+        ],
+        "business_call_connections": [
+          {
+            "parent_entry": "0x4A9160",
+            "call_site": "0x4A9175",
+            "source": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4A9160"
+          }
+        ],
+        "business_format_points": [
+          {
+            "parent_entry": "0x4A9160",
+            "call_site": "0x4A9175",
+            "target_entry": "0x53B304",
+            "format_address": "0x586BBC",
+            "format_bytes": "2531306400",
+            "argument_widths": [
+              "S32"
+            ],
+            "source_expression_group": "storage_window_money_refresh",
+            "source_expression": "gStorageValueCC4218",
+            "source_format_expression": "\"%10d\"",
+            "destination_expression": "buffer.data()",
+            "destination_capacity": 16,
+            "original_value_address": "0xCC4218",
+            "original_value_read_site": "0x4A9160",
+            "consumer_element_index": 13,
+            "relationship": "普通S32金额→未清16B格式→后取当前窗口元素13载荷→复制含NUL；原滚动/预览/绘图及返回1保持"
+          }
+        ],
+        "verification_level": "原114指令统计，仅32条金额来源/格式/后取元素13/含NUL复制及下一载荷邻窗仅读，余82与已过核心不重验；一原点/callee、普通S32/既有原字节/未清16B/元素13消费/返回限定静态核。call0/data1只登记，不推完整窗口路由，未构建执行。"
+      }
+    },
+    {
+      "index": 231,
+      "record": {
+        "original_entry": "0x4AC1EC",
+        "inventory_id": "F:000AC1EC",
+        "status": "已有命名或父函数合并映射，运行未验",
+        "original_role": "父窗口更新公共尾",
+        "original_end_exclusive": "0x4AC1F7",
+        "instruction_count": 3,
+        "sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbols": [
+              "Sub_4AC1B0"
+            ]
+          }
+        ],
+        "evidence_documents": [
+          "doc/ui_windows/shared_38_41.md",
+          "doc/cg2d_semantic_function_mappings.md"
+        ],
+        "boundary": "原仅调用DrawCurrentWindow后置EAX=1并返回；已并入Sub_4AC1B0共同尾，空叶不产生业务副作用。不按IDA误标的库函数名引入locale功能，不遗漏父分支汇合后的刷新/返回。"
+      }
+    }
+  ],
+  "source_before": [
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4A9160",
+      "signature": "std::int32_t Sub_4A9160(const std::int32_t)",
+      "position": 585792,
+      "body": "std::int32_t Sub_4A9160(const std::int32_t)\n{\n    std::array<char, 16> buffer;\n    platform::FormatLegacyString_53B304(buffer.data(), \"%10d\", gStorageValueCC4218);\n    auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[13].data);\n    std::strcpy(text->text, buffer.data());\n    WindowElement* elements = gCurrentWindow->elements;\n    const auto* const firstScroll = static_cast<WindowMouseData*>(elements[21].data);\n    if ((firstScroll->flags & 1u) != 0) {\n        gWindowStates[41].value24 = static_cast<std::uint32_t>(Sub_474270(elements + 21, 2));\n    }\n    elements = gCurrentWindow->elements;\n    const auto* const secondScroll = static_cast<WindowMouseData*>(elements[26].data);\n    if ((secondScroll->flags & 1u) != 0) {\n        gWindowStates[41].value28 = static_cast<std::uint32_t>(Sub_474270(elements + 26, 2));\n    }\n    const std::int32_t preview = std::bit_cast<std::int32_t>(gWindowStates[41].actionFlags1C);\n    if (preview >= 0) {\n        if (preview >= 200) {\n            gWindowStates[41].actionFlags1C = static_cast<std::uint32_t>(preview - 200);\n            const bool left = platform::legacy_crypt_int::Less_401DB0(\n                &platform::gLegacyMouseState.mouseX, 320);\n            const std::int32_t x = left ? 413 : 0;\n            const std::int32_t index =\n                std::bit_cast<std::int32_t>(gWindowStates[41].actionFlags1C);\n            if (index < 100) {\n                static_cast<void>(Sub_4B3BF0(x, 0, index));\n            } else {\n                const std::uint8_t externalIndex = static_cast<std::uint8_t>(\n                    static_cast<std::uint8_t>(index) - 100);\n                static_cast<void>(Sub_4B4140(x, 0, externalIndex));\n            }\n        } else {\n            const std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[41].value20);\n            if (preview >= 100) {\n                static_cast<void>(Sub_48B350(preview - 100, page));\n            } else {\n                static_cast<void>(Sub_48B1A0(preview, page));\n            }\n        }\n    }\n    DrawCurrentWindow_4729B0();\n    return 1;\n}\n\n"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4AC1B0",
+      "signature": "std::int32_t Sub_4AC1B0(const std::int32_t)",
+      "position": 588710,
+      "body": "std::int32_t Sub_4AC1B0(const std::int32_t)\n{\n    const std::int32_t preview = std::bit_cast<std::int32_t>(gWindowStates[38].actionFlags1C);\n    if (preview >= 0) {\n        const std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[38].value20);\n        if (preview < 100) {\n            static_cast<void>(Sub_48B1A0(preview, page));\n        } else {\n            static_cast<void>(Sub_48B350(preview - 100, page));\n        }\n    }\n    DrawCurrentWindow_4729B0();\n    return 1;\n}\n\n"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_48B350",
+      "signature": "std::int32_t Sub_48B350(const std::int32_t index, const std::int32_t page)",
+      "position": 525261,
+      "body": "std::int32_t Sub_48B350(const std::int32_t index, const std::int32_t page)\n{\n    const std::int32_t key = index + 100;\n    if (gTooltipSourceD303FC != key) {\n        gTooltipXCF46C0 = static_cast<std::uint16_t>(\n            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX));\n        gTooltipYCF46CC = static_cast<std::uint16_t>(\n            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY));\n        const bool left =\n            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseX, 320);\n        gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));\n        const bool top =\n            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseY, 240);\n        gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));\n    }\n    gTooltipSourceD303FC = key;\n    const char* const record = gItemDetailStorageCC4D58.data() + index * 0xC44;\n    std::uint32_t flags;\n    std::memcpy(&flags, record + 0xC40, sizeof(flags));\n    const char* const title = (flags & 0x100u) != 0 ? record + 0xC29 : record + 0xC;\n    const std::int8_t titleColor = (flags & 0x100u) != 0\n        ? 5 : static_cast<std::int8_t>((flags >> 9) & 1u);\n    const char* const lines = record + 0x29 + page * 768;\n    const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);\n    const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);\n    return Sub_48B810(x, y, title, titleColor, lines, 96, 8, nullptr, 0);\n}\n\n"
+    }
+  ],
+  "source_after": [
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4A9160",
+      "signature": "std::int32_t Sub_4A9160(const std::int32_t)",
+      "position": 585792,
+      "body": "std::int32_t Sub_4A9160(const std::int32_t)\n{\n    std::array<char, 16> buffer;\n    platform::FormatLegacyString_53B304(buffer.data(), \"%10d\", gStorageValueCC4218);\n    auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[13].data);\n    std::strcpy(text->text, buffer.data());\n    WindowElement* elements = gCurrentWindow->elements;\n    const auto* const firstScroll = static_cast<WindowMouseData*>(elements[21].data);\n    if ((*reinterpret_cast<const unsigned char*>(&firstScroll->flags) & 1u) != 0) {\n        gWindowStates[41].value24 = static_cast<std::uint32_t>(Sub_474270(elements + 21, 2));\n    }\n    elements = gCurrentWindow->elements;\n    const auto* const secondScroll = static_cast<WindowMouseData*>(elements[26].data);\n    if ((*reinterpret_cast<const unsigned char*>(&secondScroll->flags) & 1u) != 0) {\n        gWindowStates[41].value28 = static_cast<std::uint32_t>(Sub_474270(elements + 26, 2));\n    }\n    const std::int32_t preview = std::bit_cast<std::int32_t>(gWindowStates[41].actionFlags1C);\n    if (preview >= 0) {\n        if (preview >= 200) {\n            gWindowStates[41].actionFlags1C = static_cast<std::uint32_t>(preview - 200);\n            const bool left = platform::legacy_crypt_int::Less_401DB0(\n                &platform::gLegacyMouseState.mouseX, 320);\n            const std::int32_t x = left ? 413 : 0;\n            const std::int32_t index =\n                std::bit_cast<std::int32_t>(gWindowStates[41].actionFlags1C);\n            if (index < 100) {\n                static_cast<void>(Sub_4B3BF0(x, 0, index));\n            } else {\n                const std::uint8_t externalIndex = static_cast<std::uint8_t>(\n                    static_cast<std::uint8_t>(index) - 100);\n                static_cast<void>(Sub_4B4140(x, 0, externalIndex));\n            }\n        } else {\n            const std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[41].value20);\n            if (preview >= 100) {\n                static_cast<void>(Sub_48B350(preview - 100, page));\n            } else {\n                static_cast<void>(Sub_48B1A0(preview, page));\n            }\n        }\n    }\n    DrawCurrentWindow_4729B0();\n    return 1;\n}\n\n"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4AC1B0",
+      "signature": "std::int32_t Sub_4AC1B0(const std::int32_t)",
+      "position": 588710,
+      "body": "std::int32_t Sub_4AC1B0(const std::int32_t)\n{\n    const std::int32_t preview = std::bit_cast<std::int32_t>(gWindowStates[38].actionFlags1C);\n    if (preview >= 0) {\n        const std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[38].value20);\n        if (preview < 100) {\n            static_cast<void>(Sub_48B1A0(preview, page));\n        } else {\n            static_cast<void>(Sub_48B350(preview - 100, page));\n        }\n    }\n    DrawCurrentWindow_4729B0();\n    return 1;\n}\n\n"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_48B350",
+      "signature": "std::int32_t Sub_48B350(const std::int32_t index, const std::int32_t page)",
+      "position": 525261,
+      "body": "std::int32_t Sub_48B350(const std::int32_t index, const std::int32_t page)\n{\n    const std::int32_t key = index + 100;\n    if (gTooltipSourceD303FC != key) {\n        gTooltipXCF46C0 = static_cast<std::uint16_t>(\n            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX));\n        gTooltipYCF46CC = static_cast<std::uint16_t>(\n            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY));\n        const bool left =\n            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseX, 320);\n        gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));\n        const bool top =\n            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseY, 240);\n        gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));\n    }\n    gTooltipSourceD303FC = key;\n    const char* const record = gItemDetailStorageCC4D58.data() + index * 0xC44;\n    std::uint32_t flags;\n    std::memcpy(&flags, record + 0xC40, sizeof(flags));\n    const char* const title = (flags & 0x100u) != 0 ? record + 0xC29 : record + 0xC;\n    const std::int8_t titleColor = (flags & 0x100u) != 0\n        ? 5 : static_cast<std::int8_t>((flags >> 9) & 1u);\n    const char* const lines = record + 0x29 + page * 768;\n    const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);\n    const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);\n    return Sub_48B810(x, y, title, titleColor, lines, 96, 8, nullptr, 0);\n}\n\n"
+    }
+  ],
+  "source_operations": [
+    [
+      {
+        "old": "(firstScroll->flags & 1u)",
+        "new": "(*reinterpret_cast<const unsigned char*>(&firstScroll->flags) & 1u)",
+        "kind": "firstScroll-low-byte"
+      },
+      {
+        "old": "(secondScroll->flags & 1u)",
+        "new": "(*reinterpret_cast<const unsigned char*>(&secondScroll->flags) & 1u)",
+        "kind": "secondScroll-low-byte"
+      }
+    ],
+    [],
+    []
+  ],
+  "declarations_before": [
+    null,
+    null,
+    {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "symbol": "Sub_48B350",
+      "declaration": "std::int32_t Sub_48B350(std::int32_t index, std::int32_t page); // 外部存放物品提示。"
+    }
+  ],
+  "declarations_after": [
+    null,
+    null,
+    {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "symbol": "Sub_48B350",
+      "declaration": "std::int32_t Sub_48B350(std::int32_t index, std::int32_t page); // SPD01：W32标题字段/页*768八行描述，四次CryptInt及真实提示返回保持。"
+    }
+  ],
+  "definition_comments": [
+    "// SPD01：原4A9160完整114条；两滚动flags只读BYTE，金额/预览/鼠标RNG原序及所有绘制返回1保持。",
+    "// SPD01：原4AC1B0完整19条及4AC1EC三条共享尾；页数/内外物品预览分派后绘制并返回1。",
+    "// SPD01：原48B350完整65条；W32标题字段、四次鼠标CryptInt原序和八行描述/真实返回保持。"
+  ],
+  "structures_before": {
+    "WindowMouseData": {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "text": "struct WindowMouseData {\n    std::uint32_t flags;\n    std::int32_t deltaX;\n    std::int32_t deltaY;\n};"
+    },
+    "WindowTextData": {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "text": "struct WindowTextData {\n    std::array<std::byte, 4> bytes00;\n    char* text;\n};"
+    },
+    "WindowState": {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "text": "struct WindowState {\n    std::uint32_t flags; // 原+00，独立于实例state。\n    std::int32_t x;\n    std::int32_t y;\n    WindowInstance* window; // 原+0C；不沿用原记录0x54步长。\n    std::uint32_t value10;\n    std::uint32_t value14;\n    WindowUserState userState; // 原+18；后续生产者按实际用途激活成员。\n    std::uint32_t actionFlags1C; // 原+1C，窗口42数值面板消费低U8。\n    std::uint32_t value20;\n    std::uint32_t value24;\n    std::uint32_t value28;\n    std::array<std::byte, 36> bytes2C; // 未消费区，不据此冻结未知指针映射。\n    std::uint32_t marker50;\n};"
+    },
+    "WindowPrototype": {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "text": "struct WindowPrototype {\n    std::uint32_t state;\n    std::int32_t layer;\n    std::int32_t defaultX;\n    std::int32_t defaultY;\n    std::int32_t width;\n    std::int32_t height;\n    std::uint32_t flags;\n    std::int32_t elementCount;\n    WindowElementPrototype* elements;\n    WindowCallback update;\n    WindowCallback draw;\n    WindowReleaseCallback release;\n};"
+    }
+  },
+  "reused_sources": {
+    "Sub_474270": {
+      "path": "src/ui/WindowRuntime.cpp",
+      "text": "std::int32_t Sub_474270(WindowElement* const element, const std::int32_t maximum)\n{\n    if (maximum <= 0) {\n        return 0;\n    }\n    const std::int32_t height = element->height;\n    const std::int32_t previousHeight = (element - 1)->height;\n    const std::int32_t span = height - previousHeight;\n    const std::int32_t halfStep = span / (maximum * 2);\n    const auto* const data = static_cast<const std::byte*>(element->data);\n    std::int32_t delta;\n    std::memcpy(&delta, data + offsetof(WindowMouseData, deltaY), sizeof(delta));\n    return (halfStep + delta) * maximum / span;\n}\n"
+    },
+    "Sub_48B1A0": {
+      "path": "src/ui/WindowRuntime.cpp",
+      "text": "std::int32_t Sub_48B1A0(const std::int32_t index, const std::int32_t page)\n{\n    if (gTooltipSourceD303FC != index) {\n        gTooltipXCF46C0 = static_cast<std::uint16_t>(\n            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX));\n        gTooltipYCF46CC = static_cast<std::uint16_t>(\n            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY));\n        const bool left =\n            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseX, 320);\n        gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));\n        const bool top =\n            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseY, 240);\n        gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));\n    }\n    const std::int8_t mode = std::bit_cast<std::int8_t>(gValue57DA28);\n    gTooltipSourceD303FC = index;\n    const bool petEquipment = mode > 0 && index < 6;\n    const world::detail::PlayerItemRecord* record;\n    if (petEquipment) {\n        const std::int32_t petIndex = Sub_4C71B0(&gItemSelectorCF3B10);\n        const std::int32_t itemIndex = gTooltipSourceD303FC;\n        record = &world::detail::gPetRuntimeF633F8[petIndex].items6E4[itemIndex];\n    } else {\n        record = &world::detail::gPlayerItemsFDA8A4[index];\n    }\n    const std::uint16_t flags = record->flags;\n    const char* const title = (flags & 0x100u) != 0\n        ? record->memo.data() : record->name.data();\n    const std::int8_t titleColor = (flags & 0x100u) != 0\n        ? 5 : static_cast<std::int8_t>((flags & 0x200u) >> 9);\n    const char* const lines = reinterpret_cast<const char*>(record)\n        + offsetof(world::detail::PlayerItemRecord, description) + page * 768;\n    if (petEquipment) {\n        const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);\n        const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);\n        return Sub_48B810(x, y, title, titleColor, lines, 96, 8, nullptr, 0);\n    }\n    const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);\n    const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);\n    return Sub_48B810(x, y, title, titleColor, lines, 96, 8, nullptr, 0);\n}\n"
+    },
+    "DrawCurrentWindow_4729B0": {
+      "path": "src/ui/WindowRuntime.cpp",
+      "text": "void DrawCurrentWindow_4729B0()\n{\n    using namespace detail;\n    render::GraphicDescriptor16 descriptor {};\n    WindowInstance* window = gCurrentWindow;\n    for (std::int32_t index = 0; index < window->elementCount; ++index) {\n        WindowElement* const element = &window->elements[index];\n        if (element->visible == 1) {\n            const std::int32_t elementX = element->x;\n            const std::int32_t windowX = window->x;\n            const std::int32_t windowY = window->y;\n            const std::int32_t x = windowX + elementX;\n            const std::int32_t elementY = element->y;\n            const std::int32_t y = windowY + elementY;\n            switch (element->type) {\n            case 1: {\n                const auto* const data = static_cast<const WindowGraphicData*>(element->data);\n                const std::int32_t entryImageNo = data->imageNo;\n                if (entryImageNo == 0) {\n                    break;\n                }\n                std::array<std::uint16_t, 4> rectangle {};\n                static_assert(sizeof(rectangle) == 8);\n                std::uint8_t cropped = 0;\n                if (data->offsetX != 0 || data->offsetY != 0\n                    || data->width != 0 || data->height != 0) {\n                    std::int32_t graphicIndex;\n                    resource::GetGraphicMapNoIndex(entryImageNo, &graphicIndex);\n                    std::int16_t graphicX;\n                    std::int16_t graphicY;\n                    resource::GetGraphicXY(\n                        static_cast<std::uint32_t>(graphicIndex), &graphicX, &graphicY);\n                    std::uint16_t offsetX;\n                    std::memcpy(&offsetX, &data->offsetX, sizeof(offsetX));\n                    rectangle[0] = static_cast<std::uint16_t>(offsetX + graphicX);\n                    std::uint16_t offsetY;\n                    std::memcpy(&offsetY, &data->offsetY, sizeof(offsetY));\n                    rectangle[1] = static_cast<std::uint16_t>(offsetY + graphicY);\n                    std::uint16_t cropWidth;\n                    std::memcpy(&cropWidth, &data->width, sizeof(cropWidth));\n                    rectangle[2] = cropWidth;\n                    std::uint16_t cropHeight;\n                    std::memcpy(&cropHeight, &data->height, sizeof(cropHeight));\n                    rectangle[3] = cropHeight;\n                    cropped = 1;\n                }\n                std::memcpy(descriptor.bytes.data(), rectangle.data(), sizeof(rectangle));\n                std::memcpy(descriptor.bytes.data() + 8, &data->color, sizeof(data->color));\n                descriptor.bytes[12] = cropped;\n                descriptor.bytes[13] = 4;\n                descriptor.bytes[14] = 0;\n                descriptor.bytes[15] = 0;\n                std::int32_t imageNo;\n                std::int32_t drawY;\n                std::int32_t drawX;\n                if (cropped == 0) {\n                    WindowInstance* const drawWindow = gCurrentWindow;\n                    imageNo = data->imageNo;\n                    const std::int32_t drawElementY = element->y;\n                    const std::int32_t drawWindowY = drawWindow->y;\n                    const std::int32_t drawElementX = element->x;\n                    const std::int32_t drawWindowX = drawWindow->x;\n                    drawY = drawElementY + drawWindowY;\n                    drawX = drawElementX + drawWindowX;\n                } else {\n                    imageNo = data->imageNo;\n                    const std::int32_t drawElementY = element->y;\n                    const std::int32_t drawElementX = element->x;\n                    WindowInstance* const drawWindow = gCurrentWindow;\n                    const std::int32_t drawWindowY = drawWindow->y;\n                    drawY = drawWindowY + drawElementY;\n                    const std::int32_t drawWindowX = drawWindow->x;\n                    drawX = drawWindowX + drawElementX;\n                }\n                static_cast<void>(render::DrawGraphic3_520970(\n                    drawX, drawY, 0xDF, imageNo, 0, 1, 0, &descriptor));\n                break;\n            }\n            case 2: {\n                const auto* const data = static_cast<const WindowAnimationData*>(element->data);\n                const std::uint32_t stop = data->value04;\n                login::YobiAction* const action = data->action;\n                static_cast<void>(login::detail::Sub_517880(action, 100, stop != 0, 0));\n                const std::int32_t graphicIndex = login::detail::GetYobiActionField20(action);\n                if (graphicIndex == 0) {\n                    break;\n                }\n                const render::GraphicDescriptor16* const mode =\n                    login::detail::ApplyWindowAnimationDrawMode(action);\n                const std::int32_t offsetY = login::detail::Sub_5182B0(action, 1);\n                WindowInstance* const verticalWindow = gCurrentWindow;\n                const std::int32_t elementY = element->y;\n                const std::int32_t drawY = offsetY + verticalWindow->y + elementY;\n                const std::int32_t offsetX = login::detail::Sub_5182B0(action, 0);\n                WindowInstance* const horizontalWindow = gCurrentWindow;\n                const std::int32_t elementX = element->x;\n                const std::int32_t drawX = offsetX + horizontalWindow->x + elementX;\n                static_cast<void>(render::DrawGraphic2_521DD0(\n                    drawX, drawY, 0xDF, graphicIndex, 0, 0, mode));\n                break;\n            }\n            case 3: {\n                const auto* const data = static_cast<const WindowTextData*>(element->data);\n                const char* const text = data->text;\n                if (text != nullptr) {\n                    const std::int32_t drawY = y - element->height;\n                    const auto color = std::bit_cast<std::int8_t>(\n                        std::to_integer<std::uint8_t>(data->bytes00[0]));\n                    const auto font = std::bit_cast<std::int8_t>(\n                        std::to_integer<std::uint8_t>(data->bytes00[1]));\n                    const std::int32_t drawX = x - element->width;\n                    static_cast<void>(render::DrawText2_456670(\n                        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),\n                        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)),\n                        3, font, color, text, 0));\n                }\n                break;\n            }\n            case 5: {\n                const auto* const data = static_cast<const WindowInputData*>(element->data);\n                if (data == gFocusedElementDataD45F94) {\n                    if (input::gCurrentInputData == &input::gInputContext626AA0) {\n                        if (input::gValueC9A96C == 1) {\n                            Sub_4A7590(data->context);\n                        }\n                    } else if (data != nullptr) {\n                        Sub_4A7640(data->context);\n                    }\n                }\n                break;\n            }\n            case 6:\n                Sub_4A7750(x + 5, y);\n                break;\n            case 7: {\n                const auto* const data = static_cast<const WindowNumberData*>(element->data);\n                if (data != nullptr) {\n                    const std::uint8_t flags = data->flags;\n                    const std::int8_t color = std::bit_cast<std::int8_t>(data->color);\n                    const std::int8_t style = data->style;\n                    const char* const text = data->text;\n                    Sub_4771B0(x, y, text, style, color, flags, 0xDF);\n                }\n                break;\n            }\n            default:\n                break;\n            }\n        }\n        window = gCurrentWindow;\n    }\n    static_cast<void>(render::ClearTextQueueTail_456D50(3));\n    world::detail::Sub_476680();\n}\n"
+    },
+    "Sub_4B3BF0": {
+      "path": "src/ui/WindowRuntime.cpp",
+      "text": "std::int32_t Sub_4B3BF0(\n    const std::int32_t x, const std::int32_t y, const std::int32_t index)\n{\n    render::GraphicDescriptor16 descriptor {};\n    const std::int32_t shortIndex =\n        std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(index));\n    const auto& pet = world::detail::gPetRuntimeF633F8[shortIndex];\n    if (pet.used == 0) {\n        return 0;\n    }\n    const std::uint32_t color = 0xFFFFFFFFu;\n    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));\n    descriptor.bytes[13] = 4;\n    static_cast<void>(render::ClearTextQueueTail_456D50(5));\n    static_cast<void>(render::DrawText_456780(\n        0, 0, 5, 1, 0, input::LegacyText593850(), 0, 0));\n    const char* const title = pet.name6AC.data();\n    if (title != nullptr) {\n        static_cast<void>(render::DrawText_456780(\n            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 60)),\n            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 11)),\n            5, 12, 0, title, 0, 0));\n    }\n    const std::int32_t shortY =\n        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));\n    std::array<char, 100> buffer;\n    for (std::int32_t row = 0; row < 5; ++row) {\n        const std::int32_t value = pet.values70[5 + row];\n        platform::FormatLegacyString_53B304(buffer.data(), \"%10d\", value);\n        static_cast<void>(render::DrawText_456780(\n            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 144)),\n            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(shortY + 23 + row * 15)),\n            5, 12, 0, buffer.data(), 0, 0));\n    }\n    const std::int32_t maximumWeight = pet.values6D8[2];\n    if (maximumWeight > 0) {\n        const std::int32_t weight = pet.values6D8[1];\n        platform::FormatLegacyString_53B304(buffer.data(), \"%3d / %3d\", weight, maximumWeight);\n        static_cast<void>(render::DrawText_456780(\n            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 61)),\n            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 31)),\n            5, 12, 0, buffer.data(), 0, 0));\n    }\n    if (gPreviewActionD67B84 == nullptr) {\n        gPreviewActionD67B84 = login::detail::NewYobiAction_404AE0(2, 0);\n    }\n    const std::int32_t imageNo = pet.imageNo6A0;\n    login::detail::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);\n    static_cast<void>(login::detail::Sub_517880(gPreviewActionD67B84, 100, 0, 0));\n    login::YobiAction* const action = gPreviewActionD67B84;\n    const std::int32_t shortX =\n        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));\n    const render::GraphicDescriptor16* const mode =\n        login::detail::BorrowYobiActionDrawMode(action);\n    const std::int32_t graphicIndex = login::detail::GetYobiActionField20(action);\n    static_cast<void>(render::DrawGraphic2_521DD0(\n        shortX + 70, shortY + 120, 0xE6, graphicIndex, 0, 0, mode));\n    for (std::int32_t row = 0; row < 4; ++row) {\n        const std::int32_t segments = pet.values70[21 + row] / 10;\n        const auto& images = gPetBarImages57E434[row];\n        const std::int32_t barY = shortY + 97 + row * 11;\n        if (segments > 1) {\n            static_cast<void>(render::DrawGraphic3_520970(\n                shortX + 149, barY, 0xE6, images[0], 0, 1, 0, &descriptor));\n            std::int32_t barX = shortX + 155;\n            for (std::int32_t middle = 0; middle < segments - 2; ++middle) {\n                static_cast<void>(render::DrawGraphic3_520970(\n                    barX, barY, 0xE6, images[1], 0, 1, 0, &descriptor));\n                barX += 6;\n            }\n            static_cast<void>(render::DrawGraphic3_520970(\n                barX, barY, 0xE6, images[2], 0, 1, 0, &descriptor));\n        } else if (segments == 1) {\n            static_cast<void>(render::DrawGraphic3_520970(\n                shortX + 149, barY, 0xE6, images[3], 0, 1, 0, &descriptor));\n        }\n    }\n    for (std::int32_t skill = 0; skill < 10; ++skill) {\n        static_cast<void>(Sub_4B3B00(\n            shortX + 10, shortY + 141 + skill * 16, shortIndex, skill));\n    }\n    return render::DrawGraphic3_520970(\n        shortX, shortY, 0xE6, 0x3BA95, 0, 1, 0, &descriptor);\n}\n"
+    },
+    "Sub_4B4140": {
+      "path": "src/ui/WindowRuntime.cpp",
+      "text": "std::int32_t Sub_4B4140(\n    const std::int32_t x, const std::int32_t y, const std::int32_t index)\n{\n    render::GraphicDescriptor16 descriptor {};\n    const std::int32_t shortIndex =\n        std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(index));\n    const char* const record = gPetStorageD64E18.data() + shortIndex * 0x600;\n    std::uint16_t used;\n    std::memcpy(&used, record, sizeof(used));\n    if (used == 0) {\n        return 0;\n    }\n    const std::uint32_t color = 0xFFFFFFFFu;\n    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));\n    descriptor.bytes[13] = 4;\n    static_cast<void>(render::ClearTextQueueTail_456D50(5));\n    static_cast<void>(render::DrawText_456780(\n        0, 0, 5, 1, 0, input::LegacyText593850(), 0, 0));\n    const char* const title = record + 0x5E5;\n    if (title != nullptr) {\n        static_cast<void>(render::DrawText_456780(\n            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 60)),\n            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 11)),\n            5, 12, 0, title, 0, 0));\n    }\n    const std::int32_t shortY =\n        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));\n    std::array<char, 100> buffer;\n    for (std::int32_t row = 0; row < 5; ++row) {\n        std::int32_t value;\n        std::memcpy(&value, record + 0x30 + row * 4, sizeof(value));\n        platform::FormatLegacyString_53B304(buffer.data(), \"%10d\", value);\n        static_cast<void>(render::DrawText_456780(\n            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 144)),\n            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(shortY + 23 + row * 15)),\n            5, 12, 0, buffer.data(), 0, 0));\n    }\n    std::int32_t maximumWeight;\n    std::memcpy(&maximumWeight, record + 0x5FC, sizeof(maximumWeight));\n    if (maximumWeight > 0) {\n        std::int32_t weight;\n        std::memcpy(&weight, record + 0x5F8, sizeof(weight));\n        platform::FormatLegacyString_53B304(buffer.data(), \"%3d / %3d\", weight, maximumWeight);\n        static_cast<void>(render::DrawText_456780(\n            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 61)),\n            31, 5, 12, 0, buffer.data(), 0, 0));\n    }\n    if (gPreviewActionD67B84 == nullptr) {\n        gPreviewActionD67B84 = login::detail::NewYobiAction_404AE0(2, 0);\n    }\n    std::int32_t imageNo;\n    std::memcpy(&imageNo, record + 4, sizeof(imageNo));\n    login::detail::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);\n    static_cast<void>(login::detail::Sub_517880(gPreviewActionD67B84, 100, 0, 0));\n    login::YobiAction* const action = gPreviewActionD67B84;\n    const std::int32_t shortX =\n        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));\n    const render::GraphicDescriptor16* const mode =\n        login::detail::BorrowYobiActionDrawMode(action);\n    const std::int32_t graphicIndex = login::detail::GetYobiActionField20(action);\n    static_cast<void>(render::DrawGraphic2_521DD0(\n        shortX + 70, shortY + 120, 0xE6, graphicIndex, 0, 0, mode));\n    for (std::int32_t row = 0; row < 4; ++row) {\n        std::int32_t value;\n        std::memcpy(&value, record + 0x48 + row * 4, sizeof(value));\n        const std::int32_t segments = value / 10;\n        const auto& images = gPetBarImages57E434[row];\n        const std::int32_t barY = shortY + 97 + row * 11;\n        if (segments > 1) {\n            static_cast<void>(render::DrawGraphic3_520970(\n                shortX + 149, barY, 0xE6, images[0], 0, 1, 0, &descriptor));\n            std::int32_t barX = shortX + 155;\n            for (std::int32_t middle = 0; middle < segments - 2; ++middle) {\n                static_cast<void>(render::DrawGraphic3_520970(\n                    barX, barY, 0xE6, images[1], 0, 1, 0, &descriptor));\n                barX += 6;\n            }\n            static_cast<void>(render::DrawGraphic3_520970(\n                barX, barY, 0xE6, images[2], 0, 1, 0, &descriptor));\n        } else if (segments == 1) {\n            static_cast<void>(render::DrawGraphic3_520970(\n                shortX + 149, barY, 0xE6, images[3], 0, 1, 0, &descriptor));\n        }\n    }\n    for (std::int32_t skill = 0; skill < 10; ++skill) {\n        static_cast<void>(Sub_4B4070(\n            shortX + 10, shortY + 141 + skill * 16, shortIndex, skill));\n    }\n    return render::DrawGraphic3_520970(\n        shortX, shortY, 0xE6, 0x3BA95, 0, 1, 0, &descriptor);\n}\n"
+    },
+    "Sub_48B810": {
+      "path": "src/ui/WindowRuntime.cpp",
+      "text": "std::int32_t Sub_48B810(\n    const std::int32_t x, const std::int32_t y,\n    const char* const title, const std::int8_t titleColor,\n    const char* lines, const std::int32_t stride, const std::int32_t lineCount,\n    const char* const footer, const std::int8_t footerColor)\n{\n    render::GraphicDescriptor16 descriptor {};\n    const std::uint32_t color = 0xFFFFFFFFu;\n    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));\n    descriptor.bytes[13] = 4;\n    static_cast<void>(render::ClearTextQueueTail_456D50(5));\n    static_cast<void>(render::DrawText_456780(\n        0, 0, 5, 1, 0, input::LegacyText593850(), 0, 0));\n    if (title != nullptr) {\n        static_cast<void>(render::DrawText_456780(\n            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 10)),\n            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 10)),\n            5, 12, titleColor, title, 0, 0));\n    }\n    gTooltipColorD67D30 = 0;\n    std::int32_t lineY = 0;\n    for (std::int32_t line = 0; line < lineCount; ++line) {\n        if (*lines != '\\0') {\n            const std::int32_t shortY =\n                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));\n            const std::int32_t shortX =\n                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));\n            static_cast<void>(Sub_4FBA30(\n                shortX + 10, shortY + lineY + 22, 5, 12, 0, lines, 0, 0));\n        }\n        lines += stride;\n        lineY += 13;\n    }\n    if (footer != nullptr) {\n        static_cast<void>(render::DrawText_456780(\n            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 10)),\n            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 127)),\n            5, 12, footerColor, footer, 0, 0));\n    }\n    return render::DrawGraphic3_520970(\n        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),\n        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)),\n        0xE6, 0x3BA5D, 0, 1, 0, &descriptor);\n}\n"
+    },
+    "Less_401DB0": {
+      "path": "src/platform/LegacyCryptInt.cpp",
+      "text": "bool Less_401DB0(LegacyCryptInt* value, std::int32_t maximum)\n{\n    return Read_401EC0(value) < maximum;\n}\n"
+    },
+    "Read_401EC0": {
+      "path": "src/platform/LegacyCryptInt.cpp",
+      "text": "std::int32_t Read_401EC0(LegacyCryptInt* value)\n{\n    const std::uint8_t nextCount =\n        static_cast<std::uint8_t>(value->readCount + std::uint8_t{1});\n    value->readCount = nextCount;\n\n    if (std::bit_cast<std::int8_t>(nextCount) > 20) {\n        const std::int32_t plain = FromBits(value->encoded ^ value->mask);\n        value->readCount = 0;\n        value->mask = NextMask();\n        SetNorVal_401F50(value, plain);\n        return plain;\n    }\n\n    return FromBits(value->encoded ^ value->mask);\n}\n"
+    },
+    "FormatLegacyString_53B304": {
+      "path": "src/platform/LegacyFormat.cpp",
+      "text": "std::int32_t FormatLegacyString_53B304(char* const buffer, const char* const format, ...)\n{\n    std::va_list arguments;\n    va_start(arguments, format);\n    const std::int32_t result = std::vsprintf(buffer, format, arguments);\n    va_end(arguments);\n    return result;\n}\n"
+    }
+  },
+  "globals_before": {
+    "gItemDetailStorageCC4D58": {
+      "path": "src/ui/WindowRuntime.cpp",
+      "text": "std::array<char, 2 * 0xFBF8> gItemDetailStorageCC4D58 {};"
+    },
+    "gStorageValueCC4218": {
+      "path": "src/ui/WindowRuntime.cpp",
+      "text": "std::int32_t gStorageValueCC4218 = 0;"
+    },
+    "gTooltipSourceD303FC": {
+      "path": "src/ui/WindowRuntime.cpp",
+      "text": "std::int32_t gTooltipSourceD303FC = 0;"
+    },
+    "gTooltipXCF46C0": {
+      "path": "src/ui/WindowRuntime.cpp",
+      "text": "std::uint16_t gTooltipXCF46C0 = 0;"
+    },
+    "gTooltipYCF46CC": {
+      "path": "src/ui/WindowRuntime.cpp",
+      "text": "std::uint16_t gTooltipYCF46CC = 0;"
+    }
+  },
+  "prototype_rows_before": {
+    "Sub_4A9160": {
+      "path": "src/ui/WindowPrototypes.cpp",
+      "text": "    {0, 4, 20, 25, 567, 339, 0x80010101u, 38, gWindowElements571160, &Sub_4A9020, &Sub_4A9160, &Sub_4A83D0}, // 41: 54EB10"
+    },
+    "Sub_4AC1B0": {
+      "path": "src/ui/WindowPrototypes.cpp",
+      "text": "    {0, 4, 300, 82, 567, 339, 0x80010101u, 6, gWindowElements571740, &Sub_4AC140, &Sub_4AC1B0, &Sub_4AC0F0}, // 38: 54EB40"
+    }
+  },
+  "reused_records": [
+    {
+      "index": 219,
+      "inventory_id": "F:00001EA0"
+    },
+    {
+      "index": 971,
+      "inventory_id": "F:000AA3D0"
+    },
+    {
+      "index": 973,
+      "inventory_id": "F:000AC890"
+    },
+    {
+      "index": 1584,
+      "inventory_id": "F:00001DB0"
+    },
+    {
+      "index": 1970,
+      "inventory_id": "F:000A84A0"
+    },
+    {
+      "index": 2264,
+      "inventory_id": "F:00074270"
+    },
+    {
+      "index": 2329,
+      "inventory_id": "F:000E02B0"
+    }
+  ],
+  "source_patch_group_count": 2,
+  "source_changed_point_count": 2,
+  "source_comment_count": 4,
+  "source_patch_group_counts": [
+    2,
+    0,
+    0,
+    0
+  ],
+  "source_changed_point_counts": [
+    2,
+    0,
+    0,
+    0
+  ],
+  "feature_member_additions": {
+    "FUNC-INPUT": [
+      "F:000A9160",
+      "F:0008B350"
+    ],
+    "FUNC-UIRUNTIME": [
+      "F:000A9160",
+      "F:000AC1B0",
+      "F:0008B350",
+      "F:000AC1EC"
+    ],
+    "FUNC-RENDER": [
+      "F:000A9160",
+      "F:000AC1B0",
+      "F:0008B350",
+      "F:000AC1EC"
+    ]
+  },
+  "tasks_updated": [
+    "G01",
+    "G02",
+    "R01",
+    "R04",
+    "U10",
+    "U11",
+    "V03",
+    "V04"
+  ],
+  "expected_counts_before": {
+    "semantic_records": 2330,
+    "semantic_F": 2282,
+    "bounded_code_records": 48,
+    "function_dispositions": 1791,
+    "evidence": 1596,
+    "document_linked_functions": 2392,
+    "document_link_rate": "65.00%",
+    "feature_members": {
+      "FUNC-INPUT": 156,
+      "FUNC-UIRUNTIME": 201,
+      "FUNC-RENDER": 112
+    }
+  },
+  "expected_counts_after": {
+    "semantic_records": 2332,
+    "semantic_F": 2284,
+    "bounded_code_records": 48,
+    "function_dispositions": 1795,
+    "evidence": 1599,
+    "document_linked_functions": 2394,
+    "document_link_rate": "65.05%",
+    "feature_members": {
+      "FUNC-INPUT": 158,
+      "FUNC-UIRUNTIME": 205,
+      "FUNC-RENDER": 116
+    }
+  },
+  "execution_policy": {
+    "build": false,
+    "test": false,
+    "client_run": false,
+    "algorithm_samples": false,
+    "artifact_inspection": false,
+    "digests": false,
+    "dependencies": false,
+    "single_thread": true,
+    "same_branch": true,
+    "tags": false
+  },
+  "verification": {
+    "necessary_static": "pass，四完整原根/共用尾201条667B/六页、21E8十个唯一目标/16跳七RET，19条主根两个实际控制边到三条公共尾、两prototype draw槽/tooltip两CALL和401EA0单跳有据。两整源精确回放只两BYTE/四注释，另两正确正文/共用尾保；金额格式后fresh载荷、预览/四CryptInt及W32标题/八行描述真实返回保持，四类型/九callee/五global/两prototype行及七旧语义保持，完整owner/文字及画面、生成读取/ABI/互通运行待",
+    "registry": "pass，旧969-231格式及公共尾历史仅合同追加/两新F四adapted，INPUT两-UI和RENDER各四成员，三限定S零I八open；登记全量差异回放相同，其它旧语义/处置/证据及政策/gates/枚举/六closure保持，七文档和清单严格追加通过",
+    "measurement": "pass，measure_cg2d.ps1静态汇总终态退出0；3680函数/218导入/3061区间/184叶功能/60任务，非构建/运行验收",
+    "check": "pass，measure_cg2d.ps1 -Check终态退出0，当前生成快照/看板与登记一致；完整gates和运行待",
+    "derived_scope": "pass，派生仅六metric/四F/三功能/八任务；2394/3680=65.05%仅关联率，2332=2284F关联+48有界代码/处置1795/证据1599，INPUT158/UIRUNTIME205/RENDER116，其它字段与全部完整门禁保持",
+    "runtime_verified": false,
+    "full_lifecycle_closed": false,
+    "generated_machine_reads_verified": false,
+    "build_or_test_performed": false,
+    "algorithm_samples_executed": false,
+    "digests_computed_or_compared": false
+  },
+  "registration_contract": {
+    "boundary": "SPD01只存放描述预览链：4A9160完整114条355B/两页，4AC1B0完整19条60B/一页及公共4AC1EC完整三条11B/一页，48B350完整65条241B/两页，合201条667B/六页、21E8十个唯一目标/16跳七RET。4AC1B0原两个出口（负preview跳/外部预览后清参落入）都进4AC1EC，再4729B0→EAX1/RET；单看IDA十九条主根不能闭该路径。现同Sub_4AC1B0共用CPP尾保，不按误标locale引库功能，不补独立假叶。old969全部格式历史/old231公共尾历史追加，不重复旧F；两个新F及四adapted。窗口41先普通S32 CC4218→原未清16B/现MSVC%10d→fresh current元素13 text载荷→含NUL复制；再fresh窗口/elements→21载荷flags只原BYTE/bit1命中才474270(held21,2)→真实S32结果写value24；再fresh窗口/elements→26载荷flags只原BYTE/bit1命中才474270(held26,2)→value28。字段flags仍W32，两个读取点用unsigned char视图，两组两处，仅这两处正文对齐。随后S32 actionFlags1C：负跳预览但仍绘图；<200下<100原玩家48B1A0、>=100原存放48B350(index-100,page=value20)，不添index/page上界；>=200先减200发布同field→X CryptInt Less320 AL判断决定x413/0→fresh同field再分index<100为4B3BF0，否则仅原AL减100低BYTE传现4B4140，不擅把其高24bits设新布局或改变BYTE接口。原小步只输入/分派，既有各provider正文/签名及鼠标RNG读序保持；每路径预览后DrawCurrentWindow/返回完整S32 1，源码共用尾合并不漏任一绘图。窗口38同S32 preview负仍共用绘图尾，非负原比较<100取同value20 S32 page→玩家/外部物品预览后同绘图尾；无41滚动或宠物分支。两current prototype原48B/十二W32只对应38/41行，draw槽偏移40持实际入口，当前原生callback接线保持，非所有callback/owner寿命已闭。\n48B350仅固定第一组CC4D58+index*C44记录，不借current side另选组；key=index+100，source不同才鼠标X GetVal→X低W16发布→Y GetVal→Y低W16发布→X Less320→fresh X W16加60/-257→Y Less240→fresh Y W16加60/-174，source相同跳四次CryptInt，不缓存用于两个比较的X/Y明值或改变RNG次数/发布序。401EA0为单JMP401EC0有据，现既有Read_401EC0 provider复用。之后无条件同S32 key发布；一次原W32 record+C40取值后test CH1（bit100）选择+C29 memo/颜色5，否则+C name/原bit9颜色0-1，这里W32读取本来正确保持，不从testCH误推应读BYTE。描述原+29+page*768，96B每行/八行一页；先tooltip X W16快照再Y W16快照，现低S16界面消费，调用48B810(x,y,title,color,lines,96,8,nullptr,0)真实S32返回透传。原两CALL确实来自两个本步主root，清参后绘图/返回邻窗有据；不把有provider名或静态接线当完整文字队列/画面验收。三当前CPP函数只第一根两BYTE改动，另两正确正文/共用尾保；三定义/一个既有声明四注释，无头文件声明的两个callback不新增公头接口。四类型/九实际callee、五唯一global/两个prototype行及七旧记录保持，未改SGM01生产、IDR01描述/SEP01页数发布链，完整数据格式/描述页数—行消费、共享owner-alias寿命/生成读取和机器ABI及所有文字/画面/互通运行待。INPUT两成员/UI和RENDER各四成员，三限定S零I八open；不引新helper/字段/API/类型/owner、index/page/容量/空保护/补零/默认/钳制/回滚或异常模型，MSVC/WAV-only/原命令字段LF明文及全部完整门禁保持，整体未完成。",
+    "old_record_source_additions": {
+      "231": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4AC1B0"
+          ],
+          "relationship": "SPD01公共三条尾与父两个控制边完整对照；既有CPP合并绘图/return1保持，无独立假叶"
+        }
+      ],
+      "969": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4A9160"
+          ],
+          "relationship": "SPD01完整窗口41滚动/预览分发，旧数量格式历史保，两个BYTE读取对齐"
+        }
+      ]
+    },
+    "documentation_additions": {
+      "doc/cg2d_input_render.md": "## 2026-10-11 SPD01：存放描述预览消费\n\n[SPD01](cg2d_storage_preview_dispatch_spec.md#storage-preview-source-state)补齐窗口41/38物品描述预览分发及48B350标题/八行描述消费，含窗口38三条公共尾，共201条667B/六页、21E8十个唯一目标/16跳七RET。恢复两个滚动flags的BYTE读取，两组两处/四注释；W32标题字段和四次鼠标CryptInt、原预览及真实返回保持。两个旧历史追加/两个新F/四处置，三限定S零I八open，全部owner/文字及画面/ABI与运行待。",
+      "doc/cg2d_ui_window_runtime.md": "## 2026-10-11 SPD01：实际物品预览链\n\n[SPD01](cg2d_storage_preview_dispatch_spec.md#storage-preview-source-state)补齐窗口41/38物品描述预览分发及48B350标题/八行描述消费，含窗口38三条公共尾，共201条667B/六页、21E8十个唯一目标/16跳七RET。恢复两个滚动flags的BYTE读取，两组两处/四注释；W32标题字段和四次鼠标CryptInt、原预览及真实返回保持。两个旧历史追加/两个新F/四处置，三限定S零I八open，全部owner/文字及画面/ABI与运行待。",
+      "doc/ui_windows/window_41.md": "## 2026-10-11 SPD01：滚动刷新与物品/宠物预览\n\n[SPD01](../cg2d_storage_preview_dispatch_spec.md#storage-preview-source-state)补齐窗口41/38物品描述预览分发及48B350标题/八行描述消费，含窗口38三条公共尾，共201条667B/六页、21E8十个唯一目标/16跳七RET。恢复两个滚动flags的BYTE读取，两组两处/四注释；W32标题字段和四次鼠标CryptInt、原预览及真实返回保持。两个旧历史追加/两个新F/四处置，三限定S零I八open，全部owner/文字及画面/ABI与运行待。",
+      "doc/ui_windows/window_38.md": "## 2026-10-11 SPD01：物品预览及公共绘图尾\n\n[SPD01](../cg2d_storage_preview_dispatch_spec.md#storage-preview-source-state)补齐窗口41/38物品描述预览分发及48B350标题/八行描述消费，含窗口38三条公共尾，共201条667B/六页、21E8十个唯一目标/16跳七RET。恢复两个滚动flags的BYTE读取，两组两处/四注释；W32标题字段和四次鼠标CryptInt、原预览及真实返回保持。两个旧历史追加/两个新F/四处置，三限定S零I八open，全部owner/文字及画面/ABI与运行待。",
+      "doc/ui_windows/shared_38_41.md": "## 2026-10-11 SPD01：同描述行及shared尾接线\n\n[SPD01](../cg2d_storage_preview_dispatch_spec.md#storage-preview-source-state)补齐窗口41/38物品描述预览分发及48B350标题/八行描述消费，含窗口38三条公共尾，共201条667B/六页、21E8十个唯一目标/16跳七RET。恢复两个滚动flags的BYTE读取，两组两处/四注释；W32标题字段和四次鼠标CryptInt、原预览及真实返回保持。两个旧历史追加/两个新F/四处置，三限定S零I八open，全部owner/文字及画面/ABI与运行待。",
+      "doc/cg2d_traceability_acceptance_spec.md": "## 2026-10-11 SPD01：完整预览与描述消费合同\n\n[SPD01](cg2d_storage_preview_dispatch_spec.md#storage-preview-source-state)补齐窗口41/38物品描述预览分发及48B350标题/八行描述消费，含窗口38三条公共尾，共201条667B/六页、21E8十个唯一目标/16跳七RET。恢复两个滚动flags的BYTE读取，两组两处/四注释；W32标题字段和四次鼠标CryptInt、原预览及真实返回保持。两个旧历史追加/两个新F/四处置，三限定S零I八open，全部owner/文字及画面/ABI与运行待。\n\n语义2332=2284F关联+48有界代码，关联2394/3680=65.05%仅关联率；处置1795/证据1599，INPUT158/UIRUNTIME205/RENDER116，其它保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。",
+      "plan/cg2d_full_reconstruction_progress.md": "<a id=\"storage-preview-progress-20261011\"></a>\n## 131. 2026-10-11 SPD01：物品描述预览分发及消费\n\n[SPD01](../doc/cg2d_storage_preview_dispatch_spec.md#storage-preview-source-state)补齐窗口41/38物品描述预览分发及48B350标题/八行描述消费，含窗口38三条公共尾，共201条667B/六页、21E8十个唯一目标/16跳七RET。恢复两个滚动flags的BYTE读取，两组两处/四注释；W32标题字段和四次鼠标CryptInt、原预览及真实返回保持。两个旧历史追加/两个新F/四处置，三限定S零I八open，全部owner/文字及画面/ABI与运行待。\n\n先记SPEC依子AGENTS第8条裁决。实际描述链为4A9160/4AC1B0→48B350→48B810，4AAB20是宠物滚轮，不纳本步身份。窗口41两次scroll载荷原BYTE测试恢复；标题原W32取值后test CH1/shift9，现W32正确保，避免从testCH误推读取宽度。窗口38十九条主根外部预览后与负preview两条边连4AC1EC公共三条尾，必须完整记录；现CPP合并共用绘图/return1正确保，旧231原名误标locale不引新库逻辑。四次CryptInt及X/Y低W16发布/后比较fresh字段顺序保；页*768和八行/每行96、真实S32提示返回有据，无page/index保护。\n\n旧969金额格式及231公共尾历史只追加，两个新F/四adapted；两个prototype draw槽和tooltip两CALL来源有据，所有动态owner/整个文本队列与画面运行待。\n\n语义2332=2284F关联+48有界代码，关联2394/3680=65.05%仅关联率；处置1795/证据1599，INPUT158/UIRUNTIME205/RENDER116，其它保持。184叶验收0、60任务关闭11开放49、六closure及全部完整门禁保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。\n\n同一cg2d_re分支、不打tag，七外部改动/原删除暂存保持。未构建/测试/运行/产物/摘要/引依赖；整体active/未完成。"
+    },
+    "maintenance_clause": "；SPD01四原根/公共尾完整纳管，两旧历史追加/两新F四处置、两BYTE改动三限定S零I八open，完整门禁保。",
+    "checklist_clause": "；SPD01完整存放预览/八行描述消费，两滚动BYTE及公共绘图尾纳管，三限定S零I",
+    "checklist_link": "；[SPD01](../doc/cg2d_storage_preview_dispatch_spec.md#storage-preview-source-state)"
+  }
+}

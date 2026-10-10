@@ -12045,6 +12045,7 @@ std::int32_t Sub_48B1A0(const std::int32_t index, const std::int32_t page)
     return Sub_48B810(x, y, title, titleColor, lines, 96, 8, nullptr, 0);
 }
 
+// SPD01：原48B350完整65条；W32标题字段、四次鼠标CryptInt原序和八行描述/真实返回保持。
 std::int32_t Sub_48B350(const std::int32_t index, const std::int32_t page)
 {
     const std::int32_t key = index + 100;
@@ -13472,6 +13473,7 @@ std::int32_t Sub_4A9020(const std::int32_t value)
     return 1;
 }
 
+// SPD01：原4A9160完整114条；两滚动flags只读BYTE，金额/预览/鼠标RNG原序及所有绘制返回1保持。
 std::int32_t Sub_4A9160(const std::int32_t)
 {
     std::array<char, 16> buffer;
@@ -13480,12 +13482,12 @@ std::int32_t Sub_4A9160(const std::int32_t)
     std::strcpy(text->text, buffer.data());
     WindowElement* elements = gCurrentWindow->elements;
     const auto* const firstScroll = static_cast<WindowMouseData*>(elements[21].data);
-    if ((firstScroll->flags & 1u) != 0) {
+    if ((*reinterpret_cast<const unsigned char*>(&firstScroll->flags) & 1u) != 0) {
         gWindowStates[41].value24 = static_cast<std::uint32_t>(Sub_474270(elements + 21, 2));
     }
     elements = gCurrentWindow->elements;
     const auto* const secondScroll = static_cast<WindowMouseData*>(elements[26].data);
-    if ((secondScroll->flags & 1u) != 0) {
+    if ((*reinterpret_cast<const unsigned char*>(&secondScroll->flags) & 1u) != 0) {
         gWindowStates[41].value28 = static_cast<std::uint32_t>(Sub_474270(elements + 26, 2));
     }
     const std::int32_t preview = std::bit_cast<std::int32_t>(gWindowStates[41].actionFlags1C);
@@ -13545,6 +13547,7 @@ std::int32_t Sub_4AC140(const std::int32_t)
     return 1;
 }
 
+// SPD01：原4AC1B0完整19条及4AC1EC三条共享尾；页数/内外物品预览分派后绘制并返回1。
 std::int32_t Sub_4AC1B0(const std::int32_t)
 {
     const std::int32_t preview = std::bit_cast<std::int32_t>(gWindowStates[38].actionFlags1C);

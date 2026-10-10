@@ -5577,6 +5577,7 @@ std::int32_t Sub_474170(const std::int32_t, const std::int32_t state)
     return (state & 1) != 0 ? 1 : (static_cast<std::uint8_t>(state) >> 5) & 1;
 }
 
+// IMT01：原88条，source7短路及41/38转义后状态-Y-X/真实返回；旧格式历史及正确正文保，全owner/运行待。
 std::int32_t Sub_4885A0(const std::int32_t amount)
 {
     std::int32_t source = gItemMoveSourceCF46B0;
@@ -5610,6 +5611,7 @@ std::int32_t Sub_4885A0(const std::int32_t amount)
         platform::gConnectionSocket, x, y, value14, userState, 0, buffer + 128);
 }
 
+// IMT01：原97条，Ctrl BYTE/反转开关与count/used门槛、直接source先target/拆分target先source；正确正文保。
 void Sub_4886E0(
     const std::int32_t sourceWindow, const std::int32_t sourceElement,
     const std::int32_t source, const std::int32_t target)
@@ -5650,6 +5652,7 @@ void Sub_4886E0(
     }
 }
 
+// IMT01：原70条，target=-1先声/原门槛与低U8模式、同mode两fresh组读取；正确正文保，全互通待。
 void Sub_488800(
     const std::int32_t sourceMode, const std::int32_t source,
     const std::int32_t targetMode, const std::int32_t target)

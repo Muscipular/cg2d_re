@@ -496,3 +496,7 @@ MIC与GP/黑名单/2048B非NUL快照/S32长度/对象气泡和其他正文保持
 ## 2026-10-10 IDE01：物品message2请求
 
 [IDE01](cg2d_item_drag_entry_callback_spec.md#item-drag-source-state)补齐物品拖动入口/回调/分类三完整根219条719B/五页，23E8十一目标/33跳八RET。十七CALL及四后邻、两个callback data持址有据，只登记外父来源。两组六处明确动作和两点击BYTE/三绘制分支descriptor持址；mode先发布/原结果透传、两次fresh分类、失效reset/取消后仍继续绘制、玩家/宠物/C44来源及两轴CryptInt序保持。入口/分类正确正文保，两整源仅六片段/六注释，DLP01真实会话及既有目标消费者保持。三新F三处置/五限定S零I九open；完整调用方/动态回调/数据生产/alias-owner寿命、SDK/生成取样/实际拖放与运行待，整体未完成。
+
+## 2026-10-11 IMT01：QpfE/物品移动的真实提供者
+
+[IMT01](cg2d_item_move_request_spec.md#item-move-source-state)补齐丢物请求/直接拆分/模式间移动/数量消费四完整原根310条957B/七页，30E8十五目标/28跳八RET，十七CALL/四后邻及一个callback data持址有据。四正文正确保持，仅八合同注释；原四容量先于格式/输出重读、同mode两次fresh组读取、Ctrl和反转开关、直接source先target/拆分target先source、窗口41/38优先及转义后状态/Y-X发送序保持。原S32返回透传与数量lambda只具名副作用边界，不推完整callback ABI/互通。旧934格式历史追加、三新F四处置/三限定S零I八open；完整输入/数量/数据/缓冲区生产、callback/callee/所有外父和alias-owner寿命、SDK/生成读取/实际操作及运行待，整体未完成。

@@ -1440,13 +1440,13 @@ std::int32_t Sub_48BB30(std::int32_t slot); // IDE01：signed槽0..7/8..27/100..
 std::int32_t Sub_48BB70(std::int32_t slot); // 宠物槽分类1/2。
 std::int32_t Sub_48BC60(std::int32_t slot); // DE0B08五个S16索引的首匹配位置。
 void Sub_47D490(); // 仅清D67B00，不改变其他物品状态。
-std::int32_t Sub_4885A0(std::int32_t amount); // 普通移动或窗口41/38文本请求。
+std::int32_t Sub_4885A0(std::int32_t amount); // IMT01：source7短路/重读、41优先38及转义后状态-Y-X取序保持，原S32返回，全callback/ABI待。
 void Sub_4886E0(
     std::int32_t sourceWindow, std::int32_t sourceElement,
-    std::int32_t source, std::int32_t target); // 完整直接移动/数量拆分选择。
+    std::int32_t source, std::int32_t target); // IMT01：完整直接/拆分门槛及两全局不同发布序，原数量callback副作用保持；全数量框/运行待。
 void Sub_488800(
     std::int32_t sourceMode, std::int32_t source,
-    std::int32_t targetMode, std::int32_t target); // 两模式按低U8比较，宠物组借CF3B10。
+    std::int32_t targetMode, std::int32_t target); // IMT01：两低U8模式/原-1及同mode两fresh组读取保持，发送原不消费；全互通待。
 WindowInstance* Sub_48A830(
     std::int32_t sourceWindow, std::int32_t sourceElement, std::int32_t imageNo,
     std::int32_t maximum, std::int32_t value14, std::int32_t initialValue,

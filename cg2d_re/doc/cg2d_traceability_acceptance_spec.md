@@ -2676,3 +2676,9 @@ IDA数组/结构起点xref不代字段指针；原型实际11callback与旧范�
 [IDE01](cg2d_item_drag_entry_callback_spec.md#item-drag-source-state)补齐物品拖动入口/回调/分类三完整根219条719B/五页，23E8十一目标/33跳八RET。十七CALL及四后邻、两个callback data持址有据，只登记外父来源。两组六处明确动作和两点击BYTE/三绘制分支descriptor持址；mode先发布/原结果透传、两次fresh分类、失效reset/取消后仍继续绘制、玩家/宠物/C44来源及两轴CryptInt序保持。入口/分类正确正文保，两整源仅六片段/六注释，DLP01真实会话及既有目标消费者保持。三新F三处置/五限定S零I九open；完整调用方/动态回调/数据生产/alias-owner寿命、SDK/生成取样/实际拖放与运行待，整体未完成。
 
 语义2309=2261F关联+48有界代码记录，函数处置1763/证据1563；INPUT139/UIRUNTIME176/RENDER101/NETWORK93/BATTLE430。文档关联预期2371/3680=64.43%仅关联率；184叶验收0、60任务关闭11开放49、六closure及完整门禁保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
+
+## 2026-10-11 IMT01：完整移动依赖
+
+[IMT01](cg2d_item_move_request_spec.md#item-move-source-state)补齐丢物请求/直接拆分/模式间移动/数量消费四完整原根310条957B/七页，30E8十五目标/28跳八RET，十七CALL/四后邻及一个callback data持址有据。四正文正确保持，仅八合同注释；原四容量先于格式/输出重读、同mode两次fresh组读取、Ctrl和反转开关、直接source先target/拆分target先source、窗口41/38优先及转义后状态/Y-X发送序保持。原S32返回透传与数量lambda只具名副作用边界，不推完整callback ABI/互通。旧934格式历史追加、三新F四处置/三限定S零I八open；完整输入/数量/数据/缓冲区生产、callback/callee/所有外父和alias-owner寿命、SDK/生成读取/实际操作及运行待，整体未完成。
+
+语义2312=2264F关联+48有界代码记录，函数处置1767/证据1566；INPUT142/UIRUNTIME179/NETWORK97，RENDER101/BATTLE430保持。文档关联预期2374/3680=64.51%仅关联率；184叶验收0、60任务关闭11开放49、六closure及完整门禁保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。

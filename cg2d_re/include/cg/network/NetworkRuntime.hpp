@@ -461,7 +461,7 @@ std::int32_t SendIuEPacket_516D70(std::uintptr_t socket);
 // 原[510CE0,510D91)：构造QpfE，依次追加X/Y/组号/物品槽号并发送。
 std::int32_t Sub_510CE0(
     std::uintptr_t socket, std::int32_t x, std::int32_t y,
-    std::int32_t group, std::int32_t index);
+    std::int32_t group, std::int32_t index); // IMT01：QpfE四原字段/独立容量与buffer重读，当前LF明文，S32透传；全owner/互通待。
 
 // 原510A00：Ak物品使用，依次追加X/Y/物品槽号/组号并透传发送结果。
 std::int32_t Sub_510A00(

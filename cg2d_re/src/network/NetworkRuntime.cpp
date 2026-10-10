@@ -3996,6 +3996,7 @@ std::int32_t Sub_512620(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// IMT01：原55条，四S32字段容量先格式/输出重读及S32发送返回，当前原字段/LF明文，正确正文保。
 std::int32_t Sub_510CE0(
     const std::uintptr_t socket, const std::int32_t x, const std::int32_t y,
     const std::int32_t group, const std::int32_t index)

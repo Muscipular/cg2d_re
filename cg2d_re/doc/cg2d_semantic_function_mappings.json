@@ -111836,7 +111836,7 @@
     {
       "original_entry": "0x4885A0",
       "inventory_id": "F:000885A0",
-      "status": "既有物品移动/库存数值回调真实格式依赖已接；完整库存/父路由/运行未据本步验收",
+      "status": "既有物品移动/库存数值回调真实格式依赖已接；完整库存/父路由/运行未据本步验收；IMT01完整88条数量消费根纳管，四正确正文/读取发布与真实返回保持；全callback/callee/ABI/运行待",
       "original_end_exclusive": "0x4886D3",
       "instruction_count": 88,
       "sources": [
@@ -111846,13 +111846,32 @@
             "Sub_4885A0"
           ],
           "relationship": "仅格式callee接对应原点，签名/返回/owner和正文保持"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4885A0"
+          ],
+          "relationship": "IMT01完整88条数量消费根，现正确业务/格式正文保持，只合同注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4885A0"
+          ],
+          "relationship": "IMT01真实S32声明保持，source短路/41-38返回与callback副作用具名，全ABI/owner待"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/shared_items.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_item_move_request_spec.md#item-move-baseline",
+        "doc/cg2d_item_move_request_spec.md#item-move-decision",
+        "doc/cg2d_item_move_request_spec.md#item-move-acceptance",
+        "doc/cg2d_item_move_request_spec.md#item-move-source-state",
+        "doc/cg2d_item_move_request_evidence.json"
       ],
-      "boundary": "仅替换一处格式callee，覆盖窗口41/38两个原点。source/target/amount均S32，I|%d|%d|%d写未清384B buffer，+128为原转义输出、容量255。窗口先41后38，非拥有WindowState*；转义后再读userState/value14，再读Y、X和最终socket发送512620并返回真实S32。source==7短路及清理后重读、双小于100的510EC0、source<8或两窗口不存在返回source保持，未添检查、预清或缓存。",
+      "boundary": "仅替换一处格式callee，覆盖窗口41/38两个原点。source/target/amount均S32，I|%d|%d|%d写未清384B buffer，+128为原转义输出、容量255。窗口先41后38，非拥有WindowState*；转义后再读userState/value14，再读Y、X和最终socket发送512620并返回真实S32。source==7短路及清理后重读、双小于100的510EC0、source<8或两窗口不存在返回source保持，未添检查、预清或缓存。；IMT01丢物请求510CE0完整55条177B/一页、直接/拆分入口4886E0完整97条283B/两页、模式间移动488800完整70条190B/两页及数量消费4885A0完整88条307B/两页；合310条957B/七页，30E8十五目标/28跳八RET。十七入CALL及各四后邻只有来源/局部关系：请求3点2父、拆分10点8父、模式间3点2父、数量消费1点1父及一个callback data持址；不代全外父消费/数量框完整callback与owner验收。510CE0现正确正文保：原QpfE四S32字段x/y/group/index，每项先当前capacity W32按S32位模式→真实517120→重读buffer T*→5170D0，四次独立样本，不冻结buffer/长度或省调用；末重读buffer后传入socket→517480，现S32返回透传。当前517510/517120/5170D0/517480沿已批本机服务端原命令字段/LF明文承接，原编码/外壳只是历史对照，不恢复加密/旧外壳或新增校验协议。4886E0原source/target S32负或相同拒绝保；Ctrl状态原低BYTE bit2清为split，D67AE8 W32非零反转；source<100从唯一玩家count S32否则首组C44+8，target同门槛读used S16，两样本先于后续source/target<8、count>0、used0/split条件。直接分支先source全局再target→4885A0(-1)→声51，split分支先target全局再source→真实48AC60(window,element,原图244309,count,count,0,4885A0callback,1,0,0)；现既有void amount lambda承接真实4885A0副作用，不新造F/amount/失败回滚或把callback返回记全ABI等价。488800原target=-1先声51再source<0/target<-1拒绝，from/to按原低U8比较；from非零同mode先targetGroup后sourceGroup两次fresh71B0+1再516C90，非同sourceGroup/targetGroup0，from0/to非0只目标Group；两mode0不发送，原group/slot/-1数量及发送结果不消费保持，不合并同mode的两次读取或缓存跨分支。4885A0先读source，source7短路不先读target，任一7先47D490再重取source/target；双<100直接510EC0，source<8或41/38窗口均无返回原source，否则先41后38借固定WindowState地址，384B未清I三个S32→原+128输出/255转义→fresh userState W32/value14 W32→玩家Y后X CryptInt→当前socket512620/真实S32返回；不缓存转义前状态，不补窗口/索引/容量/amount保护。四现正确正文全部保持，四定义/四声明八合同注释，没有行为/算法/签名/调用次数变化；旧934格式历史保追加，三新F四adapted、INPUT/UI各三成员/NETWORK四，三限定S零I八open。全物品/数量/键盘/共享窗口与缓冲区生产、拆分callback完整消费/所有外父与callee/alias-owner寿命、SDK/生成取样/机器ABI/完整互通、实际移动拆分/声效/画面与运行待。MSVC/WAV-only/明文网络、48有界代码/完整枚举gates/六closure/总SPEC§10保持，无新API/helper/类型/字段/owner/保护/补零/默认值/新钳制/回滚/异常模型。",
       "original_incoming": [
         {
           "site": "0x4887DF",
@@ -111927,7 +111946,87 @@
           "relationship": "窗口41/38分别原调用，共一现表达式；转义后采样状态，Y→X→最终socket，返回真实发送值"
         }
       ],
-      "verification_level": "原88指令统计，仅读62条新格式/窗口分流/转义至发送邻窗，余26与既有核心不重验；两原点/一现表达式及一个普通调用、一个独立数据引用登记。限定静态核，未构建执行。"
+      "verification_level": "原88指令统计，仅读62条新格式/窗口分流/转义至发送邻窗，余26与既有核心不重验；两原点/一现表达式及一个普通调用、一个独立数据引用登记。限定静态核，未构建执行。；pass，四连续完整根310条957B/七页、30E8十五目标/28跳八RET，十七CALL/四后邻及数量callback data持址有据；Ctrl BYTE/两物品来源和发布序、同mode两fresh Group、四capacity先format/buffer后取、source7短路/41-38转义后状态-Y-X与返回保；四整源精确回放/仅八注释，四正确正文/两类型/九提供者和两边界声明保持；旧934格式历史补完整根，全callback/owner/外父/SDK/生成读取/机器ABI/互通与实际操作运行待",
+      "item_move_request": {
+        "step": "IMT01",
+        "source_snapshot": "[#] 补齐物品搬移与数量请求合同",
+        "original_entry": "0x4885a0",
+        "original_end_exclusive": "0x4886d3",
+        "instruction_count": 88,
+        "code_bytes": 307,
+        "page_count": 2,
+        "direct_calls": 9,
+        "direct_call_targets": [
+          4707472,
+          5312192,
+          5485316,
+          5427920,
+          4202144,
+          5318176
+        ],
+        "jumps": 8,
+        "returns": 2,
+        "original_incoming": [
+          {
+            "ea": 4753375,
+            "size": 5,
+            "bytes": "e8bcfdffff",
+            "asm": "call    sub_4885A0",
+            "following": [
+              {
+                "ea": 4753380,
+                "size": 5,
+                "bytes": "68f0000000",
+                "asm": "push    0F0h"
+              },
+              {
+                "ea": 4753385,
+                "size": 5,
+                "bytes": "6840010000",
+                "asm": "push    140h"
+              },
+              {
+                "ea": 4753390,
+                "size": 2,
+                "bytes": "6a33",
+                "asm": "push    33h ; '3'"
+              },
+              {
+                "ea": 4753392,
+                "size": 5,
+                "bytes": "e85b3c0a00",
+                "asm": "call    World__PlaySe"
+              }
+            ],
+            "parent": 4753120,
+            "call_target": 4752800
+          }
+        ],
+        "native_signature": "std::int32_t Sub_4885A0(const std::int32_t amount)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原S32真实发送值或source早返，数量void lambda只承接副作用，全callback数值/ABI待",
+        "original_incoming_references": [
+          {
+            "from": 4753375,
+            "type": 17,
+            "iscode": true,
+            "parent": 4753120
+          },
+          {
+            "from": 4753315,
+            "type": 1,
+            "iscode": false,
+            "parent": 4753120
+          }
+        ],
+        "previous_format_history_kept": true
+      }
     },
     {
       "original_entry": "0x488E60",
@@ -231855,6 +231954,1420 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "result_boundary": "原完整S32 1/2/3/0分类，回调两个消费保；另父完整消费/全ABI待"
+      }
+    },
+    {
+      "original_entry": "0x510ce0",
+      "inventory_id": "F:00110CE0",
+      "original_role": "QpfE四字段物品丢弃明文请求",
+      "original_end_exclusive": "0x510d91",
+      "instruction_count": 55,
+      "function_chunks": [
+        {
+          "start": "0x510ce0",
+          "end_exclusive": "0x510d91"
+        }
+      ],
+      "status": "IMT01完整移动请求/拆分/模式根纳管，正确正文保持；限定S/全部callback与owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_510CE0"
+          ],
+          "relationship": "IMT01完整原根/字段/发布顺序核对，正确body保持，仅合同注释"
+        },
+        {
+          "path": "include/cg/network/NetworkRuntime.hpp",
+          "symbols": [
+            "Sub_510CE0"
+          ],
+          "relationship": "IMT01真实S32/void参数返回声明保持，仅合同注释；原结果分界具名，不记全机器ABI等价"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_item_move_request_spec.md#item-move-baseline",
+        "doc/cg2d_item_move_request_spec.md#item-move-decision",
+        "doc/cg2d_item_move_request_spec.md#item-move-acceptance",
+        "doc/cg2d_item_move_request_spec.md#item-move-source-state",
+        "doc/cg2d_item_move_request_evidence.json"
+      ],
+      "boundary": "IMT01丢物请求510CE0完整55条177B/一页、直接/拆分入口4886E0完整97条283B/两页、模式间移动488800完整70条190B/两页及数量消费4885A0完整88条307B/两页；合310条957B/七页，30E8十五目标/28跳八RET。十七入CALL及各四后邻只有来源/局部关系：请求3点2父、拆分10点8父、模式间3点2父、数量消费1点1父及一个callback data持址；不代全外父消费/数量框完整callback与owner验收。510CE0现正确正文保：原QpfE四S32字段x/y/group/index，每项先当前capacity W32按S32位模式→真实517120→重读buffer T*→5170D0，四次独立样本，不冻结buffer/长度或省调用；末重读buffer后传入socket→517480，现S32返回透传。当前517510/517120/5170D0/517480沿已批本机服务端原命令字段/LF明文承接，原编码/外壳只是历史对照，不恢复加密/旧外壳或新增校验协议。4886E0原source/target S32负或相同拒绝保；Ctrl状态原低BYTE bit2清为split，D67AE8 W32非零反转；source<100从唯一玩家count S32否则首组C44+8，target同门槛读used S16，两样本先于后续source/target<8、count>0、used0/split条件。直接分支先source全局再target→4885A0(-1)→声51，split分支先target全局再source→真实48AC60(window,element,原图244309,count,count,0,4885A0callback,1,0,0)；现既有void amount lambda承接真实4885A0副作用，不新造F/amount/失败回滚或把callback返回记全ABI等价。488800原target=-1先声51再source<0/target<-1拒绝，from/to按原低U8比较；from非零同mode先targetGroup后sourceGroup两次fresh71B0+1再516C90，非同sourceGroup/targetGroup0，from0/to非0只目标Group；两mode0不发送，原group/slot/-1数量及发送结果不消费保持，不合并同mode的两次读取或缓存跨分支。4885A0先读source，source7短路不先读target，任一7先47D490再重取source/target；双<100直接510EC0，source<8或41/38窗口均无返回原source，否则先41后38借固定WindowState地址，384B未清I三个S32→原+128输出/255转义→fresh userState W32/value14 W32→玩家Y后X CryptInt→当前socket512620/真实S32返回；不缓存转义前状态，不补窗口/索引/容量/amount保护。四现正确正文全部保持，四定义/四声明八合同注释，没有行为/算法/签名/调用次数变化；旧934格式历史保追加，三新F四adapted、INPUT/UI各三成员/NETWORK四，三限定S零I八open。全物品/数量/键盘/共享窗口与缓冲区生产、拆分callback完整消费/所有外父与callee/alias-owner寿命、SDK/生成取样/机器ABI/完整互通、实际移动拆分/声效/画面与运行待。MSVC/WAV-only/明文网络、48有界代码/完整枚举gates/六closure/总SPEC§10保持，无新API/helper/类型/字段/owner/保护/补零/默认值/新钳制/回滚/异常模型。",
+      "verification_level": "pass，四连续完整根310条957B/七页、30E8十五目标/28跳八RET，十七CALL/四后邻及数量callback data持址有据；Ctrl BYTE/两物品来源和发布序、同mode两fresh Group、四capacity先format/buffer后取、source7短路/41-38转义后状态-Y-X与返回保；四整源精确回放/仅八注释，四正确正文/两类型/九提供者和两边界声明保持；旧934格式历史补完整根，全callback/owner/外父/SDK/生成读取/机器ABI/互通与实际操作运行待",
+      "original_incoming": [
+        {
+          "ea": 4767028,
+          "size": 5,
+          "bytes": "e8a74f0800",
+          "asm": "call    sub_510CE0",
+          "following": [
+            {
+              "ea": 4767033,
+              "size": 3,
+              "bytes": "83c414",
+              "asm": "add     esp, 14h"
+            },
+            {
+              "ea": 4767036,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            },
+            {
+              "ea": 4767037,
+              "size": 3,
+              "bytes": "83c410",
+              "asm": "add     esp, 10h"
+            },
+            {
+              "ea": 4767040,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn"
+            }
+          ],
+          "parent": 4766864,
+          "call_target": 5311712
+        },
+        {
+          "ea": 4767073,
+          "size": 5,
+          "bytes": "e87a4f0800",
+          "asm": "call    sub_510CE0",
+          "following": [
+            {
+              "ea": 4767078,
+              "size": 3,
+              "bytes": "83c414",
+              "asm": "add     esp, 14h"
+            },
+            {
+              "ea": 4767081,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            },
+            {
+              "ea": 4767082,
+              "size": 3,
+              "bytes": "83c410",
+              "asm": "add     esp, 10h"
+            },
+            {
+              "ea": 4767085,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn"
+            }
+          ],
+          "parent": 4766864,
+          "call_target": 5311712
+        },
+        {
+          "ea": 5223541,
+          "size": 5,
+          "bytes": "e866580100",
+          "asm": "call    sub_510CE0",
+          "following": [
+            {
+              "ea": 5223546,
+              "size": 3,
+              "bytes": "83c414",
+              "asm": "add     esp, 14h"
+            },
+            {
+              "ea": 5223549,
+              "size": 2,
+              "bytes": "eb05",
+              "asm": "jmp     short loc_4FB484"
+            },
+            {
+              "ea": 5223551,
+              "size": 3,
+              "bytes": "f6c202",
+              "asm": "test    dl, 2"
+            },
+            {
+              "ea": 5223554,
+              "size": 2,
+              "bytes": "7405",
+              "asm": "jz      short loc_4FB489"
+            }
+          ],
+          "parent": 5222128,
+          "call_target": 5311712
+        }
+      ],
+      "item_move_request": {
+        "step": "IMT01",
+        "source_snapshot": "[#] 补齐物品搬移与数量请求合同",
+        "original_entry": "0x510ce0",
+        "original_end_exclusive": "0x510d91",
+        "instruction_count": 55,
+        "code_bytes": 177,
+        "page_count": 1,
+        "direct_calls": 10,
+        "direct_call_targets": [
+          5338384,
+          5337376,
+          5337296,
+          5338240
+        ],
+        "jumps": 0,
+        "returns": 1,
+        "original_incoming": [
+          {
+            "ea": 4767028,
+            "size": 5,
+            "bytes": "e8a74f0800",
+            "asm": "call    sub_510CE0",
+            "following": [
+              {
+                "ea": 4767033,
+                "size": 3,
+                "bytes": "83c414",
+                "asm": "add     esp, 14h"
+              },
+              {
+                "ea": 4767036,
+                "size": 1,
+                "bytes": "5e",
+                "asm": "pop     esi"
+              },
+              {
+                "ea": 4767037,
+                "size": 3,
+                "bytes": "83c410",
+                "asm": "add     esp, 10h"
+              },
+              {
+                "ea": 4767040,
+                "size": 1,
+                "bytes": "c3",
+                "asm": "retn"
+              }
+            ],
+            "parent": 4766864,
+            "call_target": 5311712
+          },
+          {
+            "ea": 4767073,
+            "size": 5,
+            "bytes": "e87a4f0800",
+            "asm": "call    sub_510CE0",
+            "following": [
+              {
+                "ea": 4767078,
+                "size": 3,
+                "bytes": "83c414",
+                "asm": "add     esp, 14h"
+              },
+              {
+                "ea": 4767081,
+                "size": 1,
+                "bytes": "5e",
+                "asm": "pop     esi"
+              },
+              {
+                "ea": 4767082,
+                "size": 3,
+                "bytes": "83c410",
+                "asm": "add     esp, 10h"
+              },
+              {
+                "ea": 4767085,
+                "size": 1,
+                "bytes": "c3",
+                "asm": "retn"
+              }
+            ],
+            "parent": 4766864,
+            "call_target": 5311712
+          },
+          {
+            "ea": 5223541,
+            "size": 5,
+            "bytes": "e866580100",
+            "asm": "call    sub_510CE0",
+            "following": [
+              {
+                "ea": 5223546,
+                "size": 3,
+                "bytes": "83c414",
+                "asm": "add     esp, 14h"
+              },
+              {
+                "ea": 5223549,
+                "size": 2,
+                "bytes": "eb05",
+                "asm": "jmp     short loc_4FB484"
+              },
+              {
+                "ea": 5223551,
+                "size": 3,
+                "bytes": "f6c202",
+                "asm": "test    dl, 2"
+              },
+              {
+                "ea": 5223554,
+                "size": 2,
+                "bytes": "7405",
+                "asm": "jz      short loc_4FB489"
+              }
+            ],
+            "parent": 5222128,
+            "call_target": 5311712
+          }
+        ],
+        "native_signature": "std::int32_t Sub_510CE0(\n    const std::uintptr_t socket, const std::int32_t x, const std::int32_t y,\n    const std::int32_t group, const std::int32_t index)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "真实S32发送结果透传，入CALL不代全部父消费/ABI",
+        "original_incoming_references": [
+          {
+            "from": 4767028,
+            "type": 17,
+            "iscode": true,
+            "parent": 4766864,
+            "bytes": "e8a74f0800"
+          },
+          {
+            "from": 4767073,
+            "type": 17,
+            "iscode": true,
+            "parent": 4766864,
+            "bytes": "e87a4f0800"
+          },
+          {
+            "from": 5223541,
+            "type": 17,
+            "iscode": true,
+            "parent": 5222128,
+            "bytes": "e866580100"
+          }
+        ]
+      }
+    },
+    {
+      "original_entry": "0x4886e0",
+      "inventory_id": "F:000886E0",
+      "original_role": "直接移动/拆分数量门槛及回调入口",
+      "original_end_exclusive": "0x4887fb",
+      "instruction_count": 97,
+      "function_chunks": [
+        {
+          "start": "0x4886e0",
+          "end_exclusive": "0x4887fb"
+        }
+      ],
+      "status": "IMT01完整移动请求/拆分/模式根纳管，正确正文保持；限定S/全部callback与owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4886E0"
+          ],
+          "relationship": "IMT01完整原根/字段/发布顺序核对，正确body保持，仅合同注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4886E0"
+          ],
+          "relationship": "IMT01真实S32/void参数返回声明保持，仅合同注释；原结果分界具名，不记全机器ABI等价"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_item_move_request_spec.md#item-move-baseline",
+        "doc/cg2d_item_move_request_spec.md#item-move-decision",
+        "doc/cg2d_item_move_request_spec.md#item-move-acceptance",
+        "doc/cg2d_item_move_request_spec.md#item-move-source-state",
+        "doc/cg2d_item_move_request_evidence.json"
+      ],
+      "boundary": "IMT01丢物请求510CE0完整55条177B/一页、直接/拆分入口4886E0完整97条283B/两页、模式间移动488800完整70条190B/两页及数量消费4885A0完整88条307B/两页；合310条957B/七页，30E8十五目标/28跳八RET。十七入CALL及各四后邻只有来源/局部关系：请求3点2父、拆分10点8父、模式间3点2父、数量消费1点1父及一个callback data持址；不代全外父消费/数量框完整callback与owner验收。510CE0现正确正文保：原QpfE四S32字段x/y/group/index，每项先当前capacity W32按S32位模式→真实517120→重读buffer T*→5170D0，四次独立样本，不冻结buffer/长度或省调用；末重读buffer后传入socket→517480，现S32返回透传。当前517510/517120/5170D0/517480沿已批本机服务端原命令字段/LF明文承接，原编码/外壳只是历史对照，不恢复加密/旧外壳或新增校验协议。4886E0原source/target S32负或相同拒绝保；Ctrl状态原低BYTE bit2清为split，D67AE8 W32非零反转；source<100从唯一玩家count S32否则首组C44+8，target同门槛读used S16，两样本先于后续source/target<8、count>0、used0/split条件。直接分支先source全局再target→4885A0(-1)→声51，split分支先target全局再source→真实48AC60(window,element,原图244309,count,count,0,4885A0callback,1,0,0)；现既有void amount lambda承接真实4885A0副作用，不新造F/amount/失败回滚或把callback返回记全ABI等价。488800原target=-1先声51再source<0/target<-1拒绝，from/to按原低U8比较；from非零同mode先targetGroup后sourceGroup两次fresh71B0+1再516C90，非同sourceGroup/targetGroup0，from0/to非0只目标Group；两mode0不发送，原group/slot/-1数量及发送结果不消费保持，不合并同mode的两次读取或缓存跨分支。4885A0先读source，source7短路不先读target，任一7先47D490再重取source/target；双<100直接510EC0，source<8或41/38窗口均无返回原source，否则先41后38借固定WindowState地址，384B未清I三个S32→原+128输出/255转义→fresh userState W32/value14 W32→玩家Y后X CryptInt→当前socket512620/真实S32返回；不缓存转义前状态，不补窗口/索引/容量/amount保护。四现正确正文全部保持，四定义/四声明八合同注释，没有行为/算法/签名/调用次数变化；旧934格式历史保追加，三新F四adapted、INPUT/UI各三成员/NETWORK四，三限定S零I八open。全物品/数量/键盘/共享窗口与缓冲区生产、拆分callback完整消费/所有外父与callee/alias-owner寿命、SDK/生成取样/机器ABI/完整互通、实际移动拆分/声效/画面与运行待。MSVC/WAV-only/明文网络、48有界代码/完整枚举gates/六closure/总SPEC§10保持，无新API/helper/类型/字段/owner/保护/补零/默认值/新钳制/回滚/异常模型。",
+      "verification_level": "pass，四连续完整根310条957B/七页、30E8十五目标/28跳八RET，十七CALL/四后邻及数量callback data持址有据；Ctrl BYTE/两物品来源和发布序、同mode两fresh Group、四capacity先format/buffer后取、source7短路/41-38转义后状态-Y-X与返回保；四整源精确回放/仅八注释，四正确正文/两类型/九提供者和两边界声明保持；旧934格式历史补完整根，全callback/owner/外父/SDK/生成读取/机器ABI/互通与实际操作运行待",
+      "original_incoming": [
+        {
+          "ea": 4731520,
+          "size": 5,
+          "bytes": "e85b540000",
+          "asm": "call    sub_4886E0",
+          "following": [
+            {
+              "ea": 4731525,
+              "size": 3,
+              "bytes": "83c410",
+              "asm": "add     esp, 10h"
+            },
+            {
+              "ea": 4731528,
+              "size": 5,
+              "bytes": "e87332ffff",
+              "asm": "call    InvDragReset"
+            },
+            {
+              "ea": 4731533,
+              "size": 4,
+              "bytes": "8b5c2450",
+              "asm": "mov     ebx, [esp+48h+arg_4]"
+            },
+            {
+              "ea": 4731537,
+              "size": 3,
+              "bytes": "83cdff",
+              "asm": "or      ebp, 0FFFFFFFFh"
+            }
+          ],
+          "parent": 4731216,
+          "call_target": 4753120
+        },
+        {
+          "ea": 4755737,
+          "size": 5,
+          "bytes": "e8c2f5ffff",
+          "asm": "call    sub_4886E0",
+          "following": [
+            {
+              "ea": 4755742,
+              "size": 3,
+              "bytes": "83c410",
+              "asm": "add     esp, 10h"
+            },
+            {
+              "ea": 4755745,
+              "size": 5,
+              "bytes": "e8dad3feff",
+              "asm": "call    InvDragReset"
+            },
+            {
+              "ea": 4755750,
+              "size": 7,
+              "bytes": "8b9c2448010000",
+              "asm": "mov     ebx, [esp+140h+arg_4]"
+            },
+            {
+              "ea": 4755757,
+              "size": 3,
+              "bytes": "83ceff",
+              "asm": "or      esi, 0FFFFFFFFh"
+            }
+          ],
+          "parent": 4755376,
+          "call_target": 4753120
+        },
+        {
+          "ea": 4757755,
+          "size": 5,
+          "bytes": "e8e0edffff",
+          "asm": "call    sub_4886E0",
+          "following": [
+            {
+              "ea": 4757760,
+              "size": 3,
+              "bytes": "83c410",
+              "asm": "add     esp, 10h"
+            },
+            {
+              "ea": 4757763,
+              "size": 5,
+              "bytes": "e8f8cbfeff",
+              "asm": "call    InvDragReset"
+            },
+            {
+              "ea": 4757768,
+              "size": 2,
+              "bytes": "eb04",
+              "asm": "jmp     short loc_48990E"
+            },
+            {
+              "ea": 4757770,
+              "size": 4,
+              "bytes": "8b6c2420",
+              "asm": "mov     ebp, [esp+144h+var_124]"
+            }
+          ],
+          "parent": 4757344,
+          "call_target": 4753120
+        },
+        {
+          "ea": 4890181,
+          "size": 5,
+          "bytes": "e896e8fdff",
+          "asm": "call    sub_4886E0",
+          "following": [
+            {
+              "ea": 4890186,
+              "size": 3,
+              "bytes": "83c410",
+              "asm": "add     esp, 10h"
+            },
+            {
+              "ea": 4890189,
+              "size": 5,
+              "bytes": "e8aec6fcff",
+              "asm": "call    InvDragReset"
+            },
+            {
+              "ea": 4890194,
+              "size": 4,
+              "bytes": "8a442450",
+              "asm": "mov     al, byte ptr [esp+48h+arg_4]"
+            },
+            {
+              "ea": 4890198,
+              "size": 3,
+              "bytes": "83cbff",
+              "asm": "or      ebx, 0FFFFFFFFh"
+            }
+          ],
+          "parent": 4889872,
+          "call_target": 4753120
+        },
+        {
+          "ea": 4890706,
+          "size": 5,
+          "bytes": "e889e6fdff",
+          "asm": "call    sub_4886E0",
+          "following": [
+            {
+              "ea": 4890711,
+              "size": 3,
+              "bytes": "83c410",
+              "asm": "add     esp, 10h"
+            },
+            {
+              "ea": 4890714,
+              "size": 5,
+              "bytes": "e9a2000000",
+              "asm": "jmp     loc_4AA101"
+            },
+            {
+              "ea": 4890719,
+              "size": 4,
+              "bytes": "8b44244c",
+              "asm": "mov     eax, [esp+48h+arg_0]"
+            },
+            {
+              "ea": 4890723,
+              "size": 2,
+              "bytes": "85c0",
+              "asm": "test    eax, eax"
+            }
+          ],
+          "parent": 4889872,
+          "call_target": 4753120
+        },
+        {
+          "ea": 4891922,
+          "size": 5,
+          "bytes": "e8c9e1fdff",
+          "asm": "call    sub_4886E0",
+          "following": [
+            {
+              "ea": 4891927,
+              "size": 3,
+              "bytes": "83c410",
+              "asm": "add     esp, 10h"
+            },
+            {
+              "ea": 4891930,
+              "size": 5,
+              "bytes": "e8e1bffcff",
+              "asm": "call    InvDragReset"
+            },
+            {
+              "ea": 4891935,
+              "size": 4,
+              "bytes": "8b5c244c",
+              "asm": "mov     ebx, [esp+44h+arg_4]"
+            },
+            {
+              "ea": 4891939,
+              "size": 2,
+              "bytes": "eb04",
+              "asm": "jmp     short loc_4AA529"
+            }
+          ],
+          "parent": 4891600,
+          "call_target": 4753120
+        },
+        {
+          "ea": 4892387,
+          "size": 5,
+          "bytes": "e8f8dffdff",
+          "asm": "call    sub_4886E0",
+          "following": [
+            {
+              "ea": 4892392,
+              "size": 3,
+              "bytes": "83c410",
+              "asm": "add     esp, 10h"
+            },
+            {
+              "ea": 4892395,
+              "size": 5,
+              "bytes": "e99a000000",
+              "asm": "jmp     loc_4AA78A"
+            },
+            {
+              "ea": 4892400,
+              "size": 2,
+              "bytes": "85d2",
+              "asm": "test    edx, edx"
+            },
+            {
+              "ea": 4892402,
+              "size": 6,
+              "bytes": "0f849a000000",
+              "asm": "jz      loc_4AA792"
+            }
+          ],
+          "parent": 4891600,
+          "call_target": 4753120
+        },
+        {
+          "ea": 4899808,
+          "size": 5,
+          "bytes": "e8fbc2fdff",
+          "asm": "call    sub_4886E0",
+          "following": [
+            {
+              "ea": 4899813,
+              "size": 3,
+              "bytes": "83c410",
+              "asm": "add     esp, 10h"
+            },
+            {
+              "ea": 4899816,
+              "size": 5,
+              "bytes": "e813a1fcff",
+              "asm": "call    InvDragReset"
+            },
+            {
+              "ea": 4899821,
+              "size": 4,
+              "bytes": "8b5c245c",
+              "asm": "mov     ebx, [esp+54h+arg_4]"
+            },
+            {
+              "ea": 4899825,
+              "size": 2,
+              "bytes": "33ff",
+              "asm": "xor     edi, edi"
+            }
+          ],
+          "parent": 4899472,
+          "call_target": 4753120
+        },
+        {
+          "ea": 4901372,
+          "size": 5,
+          "bytes": "e8dfbcfdff",
+          "asm": "call    sub_4886E0",
+          "following": [
+            {
+              "ea": 4901377,
+              "size": 3,
+              "bytes": "83c410",
+              "asm": "add     esp, 10h"
+            },
+            {
+              "ea": 4901380,
+              "size": 5,
+              "bytes": "e8f79afcff",
+              "asm": "call    InvDragReset"
+            },
+            {
+              "ea": 4901385,
+              "size": 4,
+              "bytes": "8b5c2448",
+              "asm": "mov     ebx, [esp+40h+arg_4]"
+            },
+            {
+              "ea": 4901389,
+              "size": 3,
+              "bytes": "83ceff",
+              "asm": "or      esi, 0FFFFFFFFh"
+            }
+          ],
+          "parent": 4901008,
+          "call_target": 4753120
+        },
+        {
+          "ea": 4921942,
+          "size": 5,
+          "bytes": "e8856cfdff",
+          "asm": "call    sub_4886E0",
+          "following": [
+            {
+              "ea": 4921947,
+              "size": 3,
+              "bytes": "83c410",
+              "asm": "add     esp, 10h"
+            },
+            {
+              "ea": 4921950,
+              "size": 5,
+              "bytes": "e89d4afcff",
+              "asm": "call    InvDragReset"
+            },
+            {
+              "ea": 4921955,
+              "size": 2,
+              "bytes": "eb04",
+              "asm": "jmp     short loc_4B1A69"
+            },
+            {
+              "ea": 4921957,
+              "size": 4,
+              "bytes": "8b6c2410",
+              "asm": "mov     ebp, [esp+128h+var_118]"
+            }
+          ],
+          "parent": 4921664,
+          "call_target": 4753120
+        }
+      ],
+      "item_move_request": {
+        "step": "IMT01",
+        "source_snapshot": "[#] 补齐物品搬移与数量请求合同",
+        "original_entry": "0x4886e0",
+        "original_end_exclusive": "0x4887fb",
+        "instruction_count": 97,
+        "code_bytes": 283,
+        "page_count": 2,
+        "direct_calls": 3,
+        "direct_call_targets": [
+          4762720,
+          4752800,
+          5424208
+        ],
+        "jumps": 14,
+        "returns": 2,
+        "original_incoming": [
+          {
+            "ea": 4731520,
+            "size": 5,
+            "bytes": "e85b540000",
+            "asm": "call    sub_4886E0",
+            "following": [
+              {
+                "ea": 4731525,
+                "size": 3,
+                "bytes": "83c410",
+                "asm": "add     esp, 10h"
+              },
+              {
+                "ea": 4731528,
+                "size": 5,
+                "bytes": "e87332ffff",
+                "asm": "call    InvDragReset"
+              },
+              {
+                "ea": 4731533,
+                "size": 4,
+                "bytes": "8b5c2450",
+                "asm": "mov     ebx, [esp+48h+arg_4]"
+              },
+              {
+                "ea": 4731537,
+                "size": 3,
+                "bytes": "83cdff",
+                "asm": "or      ebp, 0FFFFFFFFh"
+              }
+            ],
+            "parent": 4731216,
+            "call_target": 4753120
+          },
+          {
+            "ea": 4755737,
+            "size": 5,
+            "bytes": "e8c2f5ffff",
+            "asm": "call    sub_4886E0",
+            "following": [
+              {
+                "ea": 4755742,
+                "size": 3,
+                "bytes": "83c410",
+                "asm": "add     esp, 10h"
+              },
+              {
+                "ea": 4755745,
+                "size": 5,
+                "bytes": "e8dad3feff",
+                "asm": "call    InvDragReset"
+              },
+              {
+                "ea": 4755750,
+                "size": 7,
+                "bytes": "8b9c2448010000",
+                "asm": "mov     ebx, [esp+140h+arg_4]"
+              },
+              {
+                "ea": 4755757,
+                "size": 3,
+                "bytes": "83ceff",
+                "asm": "or      esi, 0FFFFFFFFh"
+              }
+            ],
+            "parent": 4755376,
+            "call_target": 4753120
+          },
+          {
+            "ea": 4757755,
+            "size": 5,
+            "bytes": "e8e0edffff",
+            "asm": "call    sub_4886E0",
+            "following": [
+              {
+                "ea": 4757760,
+                "size": 3,
+                "bytes": "83c410",
+                "asm": "add     esp, 10h"
+              },
+              {
+                "ea": 4757763,
+                "size": 5,
+                "bytes": "e8f8cbfeff",
+                "asm": "call    InvDragReset"
+              },
+              {
+                "ea": 4757768,
+                "size": 2,
+                "bytes": "eb04",
+                "asm": "jmp     short loc_48990E"
+              },
+              {
+                "ea": 4757770,
+                "size": 4,
+                "bytes": "8b6c2420",
+                "asm": "mov     ebp, [esp+144h+var_124]"
+              }
+            ],
+            "parent": 4757344,
+            "call_target": 4753120
+          },
+          {
+            "ea": 4890181,
+            "size": 5,
+            "bytes": "e896e8fdff",
+            "asm": "call    sub_4886E0",
+            "following": [
+              {
+                "ea": 4890186,
+                "size": 3,
+                "bytes": "83c410",
+                "asm": "add     esp, 10h"
+              },
+              {
+                "ea": 4890189,
+                "size": 5,
+                "bytes": "e8aec6fcff",
+                "asm": "call    InvDragReset"
+              },
+              {
+                "ea": 4890194,
+                "size": 4,
+                "bytes": "8a442450",
+                "asm": "mov     al, byte ptr [esp+48h+arg_4]"
+              },
+              {
+                "ea": 4890198,
+                "size": 3,
+                "bytes": "83cbff",
+                "asm": "or      ebx, 0FFFFFFFFh"
+              }
+            ],
+            "parent": 4889872,
+            "call_target": 4753120
+          },
+          {
+            "ea": 4890706,
+            "size": 5,
+            "bytes": "e889e6fdff",
+            "asm": "call    sub_4886E0",
+            "following": [
+              {
+                "ea": 4890711,
+                "size": 3,
+                "bytes": "83c410",
+                "asm": "add     esp, 10h"
+              },
+              {
+                "ea": 4890714,
+                "size": 5,
+                "bytes": "e9a2000000",
+                "asm": "jmp     loc_4AA101"
+              },
+              {
+                "ea": 4890719,
+                "size": 4,
+                "bytes": "8b44244c",
+                "asm": "mov     eax, [esp+48h+arg_0]"
+              },
+              {
+                "ea": 4890723,
+                "size": 2,
+                "bytes": "85c0",
+                "asm": "test    eax, eax"
+              }
+            ],
+            "parent": 4889872,
+            "call_target": 4753120
+          },
+          {
+            "ea": 4891922,
+            "size": 5,
+            "bytes": "e8c9e1fdff",
+            "asm": "call    sub_4886E0",
+            "following": [
+              {
+                "ea": 4891927,
+                "size": 3,
+                "bytes": "83c410",
+                "asm": "add     esp, 10h"
+              },
+              {
+                "ea": 4891930,
+                "size": 5,
+                "bytes": "e8e1bffcff",
+                "asm": "call    InvDragReset"
+              },
+              {
+                "ea": 4891935,
+                "size": 4,
+                "bytes": "8b5c244c",
+                "asm": "mov     ebx, [esp+44h+arg_4]"
+              },
+              {
+                "ea": 4891939,
+                "size": 2,
+                "bytes": "eb04",
+                "asm": "jmp     short loc_4AA529"
+              }
+            ],
+            "parent": 4891600,
+            "call_target": 4753120
+          },
+          {
+            "ea": 4892387,
+            "size": 5,
+            "bytes": "e8f8dffdff",
+            "asm": "call    sub_4886E0",
+            "following": [
+              {
+                "ea": 4892392,
+                "size": 3,
+                "bytes": "83c410",
+                "asm": "add     esp, 10h"
+              },
+              {
+                "ea": 4892395,
+                "size": 5,
+                "bytes": "e99a000000",
+                "asm": "jmp     loc_4AA78A"
+              },
+              {
+                "ea": 4892400,
+                "size": 2,
+                "bytes": "85d2",
+                "asm": "test    edx, edx"
+              },
+              {
+                "ea": 4892402,
+                "size": 6,
+                "bytes": "0f849a000000",
+                "asm": "jz      loc_4AA792"
+              }
+            ],
+            "parent": 4891600,
+            "call_target": 4753120
+          },
+          {
+            "ea": 4899808,
+            "size": 5,
+            "bytes": "e8fbc2fdff",
+            "asm": "call    sub_4886E0",
+            "following": [
+              {
+                "ea": 4899813,
+                "size": 3,
+                "bytes": "83c410",
+                "asm": "add     esp, 10h"
+              },
+              {
+                "ea": 4899816,
+                "size": 5,
+                "bytes": "e813a1fcff",
+                "asm": "call    InvDragReset"
+              },
+              {
+                "ea": 4899821,
+                "size": 4,
+                "bytes": "8b5c245c",
+                "asm": "mov     ebx, [esp+54h+arg_4]"
+              },
+              {
+                "ea": 4899825,
+                "size": 2,
+                "bytes": "33ff",
+                "asm": "xor     edi, edi"
+              }
+            ],
+            "parent": 4899472,
+            "call_target": 4753120
+          },
+          {
+            "ea": 4901372,
+            "size": 5,
+            "bytes": "e8dfbcfdff",
+            "asm": "call    sub_4886E0",
+            "following": [
+              {
+                "ea": 4901377,
+                "size": 3,
+                "bytes": "83c410",
+                "asm": "add     esp, 10h"
+              },
+              {
+                "ea": 4901380,
+                "size": 5,
+                "bytes": "e8f79afcff",
+                "asm": "call    InvDragReset"
+              },
+              {
+                "ea": 4901385,
+                "size": 4,
+                "bytes": "8b5c2448",
+                "asm": "mov     ebx, [esp+40h+arg_4]"
+              },
+              {
+                "ea": 4901389,
+                "size": 3,
+                "bytes": "83ceff",
+                "asm": "or      esi, 0FFFFFFFFh"
+              }
+            ],
+            "parent": 4901008,
+            "call_target": 4753120
+          },
+          {
+            "ea": 4921942,
+            "size": 5,
+            "bytes": "e8856cfdff",
+            "asm": "call    sub_4886E0",
+            "following": [
+              {
+                "ea": 4921947,
+                "size": 3,
+                "bytes": "83c410",
+                "asm": "add     esp, 10h"
+              },
+              {
+                "ea": 4921950,
+                "size": 5,
+                "bytes": "e89d4afcff",
+                "asm": "call    InvDragReset"
+              },
+              {
+                "ea": 4921955,
+                "size": 2,
+                "bytes": "eb04",
+                "asm": "jmp     short loc_4B1A69"
+              },
+              {
+                "ea": 4921957,
+                "size": 4,
+                "bytes": "8b6c2410",
+                "asm": "mov     ebp, [esp+128h+var_118]"
+              }
+            ],
+            "parent": 4921664,
+            "call_target": 4753120
+          }
+        ],
+        "native_signature": "void Sub_4886E0(\n    const std::int32_t sourceWindow, const std::int32_t sourceElement,\n    const std::int32_t source, const std::int32_t target)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "现void副作用保持，原两个RET/残留EAX，全数量callback/ABI待",
+        "original_incoming_references": [
+          {
+            "from": 4731520,
+            "type": 17,
+            "iscode": true,
+            "parent": 4731216,
+            "bytes": "e85b540000"
+          },
+          {
+            "from": 4755737,
+            "type": 17,
+            "iscode": true,
+            "parent": 4755376,
+            "bytes": "e8c2f5ffff"
+          },
+          {
+            "from": 4757755,
+            "type": 17,
+            "iscode": true,
+            "parent": 4757344,
+            "bytes": "e8e0edffff"
+          },
+          {
+            "from": 4890181,
+            "type": 17,
+            "iscode": true,
+            "parent": 4889872,
+            "bytes": "e896e8fdff"
+          },
+          {
+            "from": 4890706,
+            "type": 17,
+            "iscode": true,
+            "parent": 4889872,
+            "bytes": "e889e6fdff"
+          },
+          {
+            "from": 4891922,
+            "type": 17,
+            "iscode": true,
+            "parent": 4891600,
+            "bytes": "e8c9e1fdff"
+          },
+          {
+            "from": 4892387,
+            "type": 17,
+            "iscode": true,
+            "parent": 4891600,
+            "bytes": "e8f8dffdff"
+          },
+          {
+            "from": 4899808,
+            "type": 17,
+            "iscode": true,
+            "parent": 4899472,
+            "bytes": "e8fbc2fdff"
+          },
+          {
+            "from": 4901372,
+            "type": 17,
+            "iscode": true,
+            "parent": 4901008,
+            "bytes": "e8dfbcfdff"
+          },
+          {
+            "from": 4921942,
+            "type": 17,
+            "iscode": true,
+            "parent": 4921664,
+            "bytes": "e8856cfdff"
+          }
+        ]
+      }
+    },
+    {
+      "original_entry": "0x488800",
+      "inventory_id": "F:00088800",
+      "original_role": "玩家宠物模式间物品移动/原两Group取样",
+      "original_end_exclusive": "0x4888be",
+      "instruction_count": 70,
+      "function_chunks": [
+        {
+          "start": "0x488800",
+          "end_exclusive": "0x4888be"
+        }
+      ],
+      "status": "IMT01完整移动请求/拆分/模式根纳管，正确正文保持；限定S/全部callback与owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_488800"
+          ],
+          "relationship": "IMT01完整原根/字段/发布顺序核对，正确body保持，仅合同注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_488800"
+          ],
+          "relationship": "IMT01真实S32/void参数返回声明保持，仅合同注释；原结果分界具名，不记全机器ABI等价"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_item_move_request_spec.md#item-move-baseline",
+        "doc/cg2d_item_move_request_spec.md#item-move-decision",
+        "doc/cg2d_item_move_request_spec.md#item-move-acceptance",
+        "doc/cg2d_item_move_request_spec.md#item-move-source-state",
+        "doc/cg2d_item_move_request_evidence.json"
+      ],
+      "boundary": "IMT01丢物请求510CE0完整55条177B/一页、直接/拆分入口4886E0完整97条283B/两页、模式间移动488800完整70条190B/两页及数量消费4885A0完整88条307B/两页；合310条957B/七页，30E8十五目标/28跳八RET。十七入CALL及各四后邻只有来源/局部关系：请求3点2父、拆分10点8父、模式间3点2父、数量消费1点1父及一个callback data持址；不代全外父消费/数量框完整callback与owner验收。510CE0现正确正文保：原QpfE四S32字段x/y/group/index，每项先当前capacity W32按S32位模式→真实517120→重读buffer T*→5170D0，四次独立样本，不冻结buffer/长度或省调用；末重读buffer后传入socket→517480，现S32返回透传。当前517510/517120/5170D0/517480沿已批本机服务端原命令字段/LF明文承接，原编码/外壳只是历史对照，不恢复加密/旧外壳或新增校验协议。4886E0原source/target S32负或相同拒绝保；Ctrl状态原低BYTE bit2清为split，D67AE8 W32非零反转；source<100从唯一玩家count S32否则首组C44+8，target同门槛读used S16，两样本先于后续source/target<8、count>0、used0/split条件。直接分支先source全局再target→4885A0(-1)→声51，split分支先target全局再source→真实48AC60(window,element,原图244309,count,count,0,4885A0callback,1,0,0)；现既有void amount lambda承接真实4885A0副作用，不新造F/amount/失败回滚或把callback返回记全ABI等价。488800原target=-1先声51再source<0/target<-1拒绝，from/to按原低U8比较；from非零同mode先targetGroup后sourceGroup两次fresh71B0+1再516C90，非同sourceGroup/targetGroup0，from0/to非0只目标Group；两mode0不发送，原group/slot/-1数量及发送结果不消费保持，不合并同mode的两次读取或缓存跨分支。4885A0先读source，source7短路不先读target，任一7先47D490再重取source/target；双<100直接510EC0，source<8或41/38窗口均无返回原source，否则先41后38借固定WindowState地址，384B未清I三个S32→原+128输出/255转义→fresh userState W32/value14 W32→玩家Y后X CryptInt→当前socket512620/真实S32返回；不缓存转义前状态，不补窗口/索引/容量/amount保护。四现正确正文全部保持，四定义/四声明八合同注释，没有行为/算法/签名/调用次数变化；旧934格式历史保追加，三新F四adapted、INPUT/UI各三成员/NETWORK四，三限定S零I八open。全物品/数量/键盘/共享窗口与缓冲区生产、拆分callback完整消费/所有外父与callee/alias-owner寿命、SDK/生成取样/机器ABI/完整互通、实际移动拆分/声效/画面与运行待。MSVC/WAV-only/明文网络、48有界代码/完整枚举gates/六closure/总SPEC§10保持，无新API/helper/类型/字段/owner/保护/补零/默认值/新钳制/回滚/异常模型。",
+      "verification_level": "pass，四连续完整根310条957B/七页、30E8十五目标/28跳八RET，十七CALL/四后邻及数量callback data持址有据；Ctrl BYTE/两物品来源和发布序、同mode两fresh Group、四capacity先format/buffer后取、source7短路/41-38转义后状态-Y-X与返回保；四整源精确回放/仅八注释，四正确正文/两类型/九提供者和两边界声明保持；旧934格式历史补完整根，全callback/owner/外父/SDK/生成读取/机器ABI/互通与实际操作运行待",
+      "original_incoming": [
+        {
+          "ea": 4755718,
+          "size": 5,
+          "bytes": "e8f5f6ffff",
+          "asm": "call    sub_488800",
+          "following": [
+            {
+              "ea": 4755723,
+              "size": 2,
+              "bytes": "eb11",
+              "asm": "jmp     short loc_48911E"
+            },
+            {
+              "ea": 4755725,
+              "size": 3,
+              "bytes": "83c608",
+              "asm": "add     esi, 8"
+            },
+            {
+              "ea": 4755728,
+              "size": 2,
+              "bytes": "3bc6",
+              "asm": "cmp     eax, esi"
+            },
+            {
+              "ea": 4755730,
+              "size": 2,
+              "bytes": "740d",
+              "asm": "jz      short loc_489121"
+            }
+          ],
+          "parent": 4755376,
+          "call_target": 4753408
+        },
+        {
+          "ea": 4757690,
+          "size": 5,
+          "bytes": "e841efffff",
+          "asm": "call    sub_488800",
+          "following": [
+            {
+              "ea": 4757695,
+              "size": 3,
+              "bytes": "83c410",
+              "asm": "add     esp, 10h"
+            },
+            {
+              "ea": 4757698,
+              "size": 5,
+              "bytes": "e839ccfeff",
+              "asm": "call    InvDragReset"
+            },
+            {
+              "ea": 4757703,
+              "size": 2,
+              "bytes": "eb45",
+              "asm": "jmp     short loc_48990E"
+            },
+            {
+              "ea": 4757705,
+              "size": 4,
+              "bytes": "8b4c2414",
+              "asm": "mov     ecx, [esp+148h+var_134]"
+            }
+          ],
+          "parent": 4757344,
+          "call_target": 4753408
+        },
+        {
+          "ea": 4757727,
+          "size": 5,
+          "bytes": "e81cefffff",
+          "asm": "call    sub_488800",
+          "following": [
+            {
+              "ea": 4757732,
+              "size": 3,
+              "bytes": "83c410",
+              "asm": "add     esp, 10h"
+            },
+            {
+              "ea": 4757735,
+              "size": 5,
+              "bytes": "e814ccfeff",
+              "asm": "call    InvDragReset"
+            },
+            {
+              "ea": 4757740,
+              "size": 2,
+              "bytes": "eb20",
+              "asm": "jmp     short loc_48990E"
+            },
+            {
+              "ea": 4757742,
+              "size": 2,
+              "bytes": "3bc5",
+              "asm": "cmp     eax, ebp"
+            }
+          ],
+          "parent": 4757344,
+          "call_target": 4753408
+        }
+      ],
+      "item_move_request": {
+        "step": "IMT01",
+        "source_snapshot": "[#] 补齐物品搬移与数量请求合同",
+        "original_entry": "0x488800",
+        "original_end_exclusive": "0x4888be",
+        "instruction_count": 70,
+        "code_bytes": 190,
+        "page_count": 2,
+        "direct_calls": 8,
+        "direct_call_targets": [
+          5424208,
+          5009840,
+          5336208
+        ],
+        "jumps": 6,
+        "returns": 3,
+        "original_incoming": [
+          {
+            "ea": 4755718,
+            "size": 5,
+            "bytes": "e8f5f6ffff",
+            "asm": "call    sub_488800",
+            "following": [
+              {
+                "ea": 4755723,
+                "size": 2,
+                "bytes": "eb11",
+                "asm": "jmp     short loc_48911E"
+              },
+              {
+                "ea": 4755725,
+                "size": 3,
+                "bytes": "83c608",
+                "asm": "add     esi, 8"
+              },
+              {
+                "ea": 4755728,
+                "size": 2,
+                "bytes": "3bc6",
+                "asm": "cmp     eax, esi"
+              },
+              {
+                "ea": 4755730,
+                "size": 2,
+                "bytes": "740d",
+                "asm": "jz      short loc_489121"
+              }
+            ],
+            "parent": 4755376,
+            "call_target": 4753408
+          },
+          {
+            "ea": 4757690,
+            "size": 5,
+            "bytes": "e841efffff",
+            "asm": "call    sub_488800",
+            "following": [
+              {
+                "ea": 4757695,
+                "size": 3,
+                "bytes": "83c410",
+                "asm": "add     esp, 10h"
+              },
+              {
+                "ea": 4757698,
+                "size": 5,
+                "bytes": "e839ccfeff",
+                "asm": "call    InvDragReset"
+              },
+              {
+                "ea": 4757703,
+                "size": 2,
+                "bytes": "eb45",
+                "asm": "jmp     short loc_48990E"
+              },
+              {
+                "ea": 4757705,
+                "size": 4,
+                "bytes": "8b4c2414",
+                "asm": "mov     ecx, [esp+148h+var_134]"
+              }
+            ],
+            "parent": 4757344,
+            "call_target": 4753408
+          },
+          {
+            "ea": 4757727,
+            "size": 5,
+            "bytes": "e81cefffff",
+            "asm": "call    sub_488800",
+            "following": [
+              {
+                "ea": 4757732,
+                "size": 3,
+                "bytes": "83c410",
+                "asm": "add     esp, 10h"
+              },
+              {
+                "ea": 4757735,
+                "size": 5,
+                "bytes": "e814ccfeff",
+                "asm": "call    InvDragReset"
+              },
+              {
+                "ea": 4757740,
+                "size": 2,
+                "bytes": "eb20",
+                "asm": "jmp     short loc_48990E"
+              },
+              {
+                "ea": 4757742,
+                "size": 2,
+                "bytes": "3bc5",
+                "asm": "cmp     eax, ebp"
+              }
+            ],
+            "parent": 4757344,
+            "call_target": 4753408
+          }
+        ],
+        "native_signature": "void Sub_488800(\n    const std::int32_t sourceMode, const std::int32_t source,\n    const std::int32_t targetMode, const std::int32_t target)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "现void副作用保持，原三RET/残留EAX，不据本步全部父不消费/ABI",
+        "original_incoming_references": [
+          {
+            "from": 4755718,
+            "type": 17,
+            "iscode": true,
+            "parent": 4755376,
+            "bytes": "e8f5f6ffff"
+          },
+          {
+            "from": 4757690,
+            "type": 17,
+            "iscode": true,
+            "parent": 4757344,
+            "bytes": "e841efffff"
+          },
+          {
+            "from": 4757727,
+            "type": 17,
+            "iscode": true,
+            "parent": 4757344,
+            "bytes": "e81cefffff"
+          }
+        ]
       }
     }
   ]

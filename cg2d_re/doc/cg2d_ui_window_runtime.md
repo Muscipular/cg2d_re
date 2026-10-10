@@ -331,3 +331,7 @@ BVP01七整源/十三正文保持是原命名快照历史；本次只纠正4FA8E
 ## 2026-10-10 WSP01：滚动值到页码生产
 
 [WSP01](cg2d_window_scroll_position_spec.md#window-scroll-position-source-state)补齐两个父及位置换算三完整F原根，复用四既有X代码体，共162条431B/十二E8/十一跳八RET。四曾无IDA父的滚动调用已按旧1959/1961/1992/1999 code_identity解析，保空inventory_id和原X用途，不造F。六父各原非零/恰1/statebit3条件、参数58/950/count/count-10/90和保存S32返回保持；聊天换算后新取count，既有焦点子不改。474270两整数除法和非正maximum分支保持，仅明确先当前/前项height一取样段；两整源十四注释/六父与共享子正文保持。两个新原型和31换算入向内五/外26有据；三新F/三处置、INPUT/UIRUNTIME各三成员、两限定S零I。全部间接绑定/外父/数据生产消费与owner、机器ABI/实际拖动画面和运行仍待，整体未完成。
+
+## 2026-10-10 WWS01：滚轮余量与坐标
+
+[WWS01](cg2d_window_wheel_scroll_spec.md#window-wheel-source-state)补齐4743B0完整89条231B、四E8/两目标/六跳两RET与29实际CALL；F32因子原四BYTE、已批宿主数学/原double-F32落存和转换图保持。三段修正原余量/像素Y持样跨转换、高度/上下界以及尾部flags取样和data+8再+0发布；原入口data借用/wheel零、max及position钳制/余量零、S32返回保持。两整源三段/两注释及三个类型静态差异通过；旧1533 setter/CRT/聊天父复用不改。一新F/一处置，INPUT/UIRUNTIME各一成员，两限定S零I；完整29父/间接绑定/生产消费与owner、宿主数值和滚轮手感/画面、机器ABI及运行仍待，整体未完成。

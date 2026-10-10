@@ -1603,7 +1603,7 @@ std::int32_t Sub_474270(WindowElement* element, std::int32_t maximum); // WSP01�
 std::int32_t Sub_4742C0(WindowElement* element, std::int32_t maximum, std::int32_t position);
 std::int32_t Sub_4743B0(
     WindowElement* element, std::int32_t position, std::int32_t maximum,
-    std::int32_t wheel); // 与4742C0参数顺序不同，保留两次截取与F32余量。
+    std::int32_t wheel); // WWS01：原滚轮像素余量、坐标持样/字节载荷，宿主数学图保持。
 void Sub_4E0100(std::int32_t side, std::int32_t index); // 另一展示副本，逐行复制描述。
 void Sub_4E02B0(std::int32_t index, std::int32_t side, const char* text); // 外部物品描述及页数。
 std::int32_t Sub_4A84A0(const char* text); // 外部存放A/G/I/P完整解析，只有A返回1。

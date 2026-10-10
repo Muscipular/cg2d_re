@@ -215957,6 +215957,299 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x4743b0",
+      "inventory_id": "F:000743B0",
+      "original_role": "原滚轮位置与像素余量生产",
+      "original_end_exclusive": "0x474497",
+      "instruction_count": 89,
+      "function_chunks": [
+        {
+          "start": "0x4743b0",
+          "end_exclusive": "0x474497"
+        }
+      ],
+      "status": "WWS01完整原根纳管，三段坐标持样和字段取序已对齐，现宿主数学图/原钳制保持；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4743B0"
+          ],
+          "relationship": "WWS01三段余量/像素Y持样、边界及flags原取序，其余入口/原数学图/钳制和返回保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4743B0"
+          ],
+          "relationship": "WWS01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_wheel_scroll_spec.md#window-wheel-baseline",
+        "doc/cg2d_window_wheel_scroll_spec.md#window-wheel-decision",
+        "doc/cg2d_window_wheel_scroll_spec.md#window-wheel-acceptance",
+        "doc/cg2d_window_wheel_scroll_spec.md#window-wheel-source-state",
+        "doc/cg2d_window_wheel_scroll_evidence.json"
+      ],
+      "boundary": "WWS01滚轮完整89条231B/两页、四实际E8两目标/六跳两RET、29实际CALL与F32因子3C088889原四BYTE有据。原入口先借data再wheel零返position，负max原置0，两次既有4742C0及position上下限/清余量保持；现double乘积/F32落存/两S32转换/小数乘除图保，53B498沿已有host与已批业务数学边界，不恢复旧x87机器保证或宣数值运行通过。三段源码明确余量Y与像素步进Y持样跨转换、当前/前项height、下界同样本/上界四字段与尾部flags在差值前取样；原写data+8再+0及S32返回保。两整源三段/两注释、三个类型和其它源保持，原1533 setter/聊天父/CRT不改、不重采登记；无新API/helper/类型/布局/字段/owner或保护/默认值/补零/钳制/容量限制/回滚/异常模型，原钳制与业务零保。一新语义F/一处置，INPUT/UIRUNTIME各一成员，两限定S零I/九任务open；29父/间接输入/wheel与位置计数最大值坐标载荷全部生产消费和alias-owner寿命、CRT/SDK/机器ABI/优化后读取/真实滚轮手感像素与全生命周期待，48有界代码/所有完整枚举gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，完整89条231B/两页、四实际E8/两目标/六跳两RET、29实际CALL及F32原因子四BYTE有据；原余量/像素结果持样与高度/上下界/flags取样及发布序明确，三段/两注释、两整源精确重放，三个真实结构/现有宿主数学图和所有原业务钳制/其他源保持。旧1533 setter与CRT host处置复用不改，全父/间接/数值运行/owner、机器ABI与优化后读取待",
+      "original_incoming": [
+        {
+          "ea": 4686531,
+          "parent": null,
+          "type": 17,
+          "bytes": "e8e8c0ffff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 4699818,
+          "parent": 4699776,
+          "type": 17,
+          "bytes": "e8018dffff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 4794470,
+          "parent": 4794432,
+          "type": 17,
+          "bytes": "e8451bfeff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 4806546,
+          "parent": null,
+          "type": 17,
+          "bytes": "e819ecfdff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 4845203,
+          "parent": 4845152,
+          "type": 17,
+          "bytes": "e81855fdff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 4847011,
+          "parent": 4846960,
+          "type": 17,
+          "bytes": "e8084efdff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 4866350,
+          "parent": 4866240,
+          "type": 17,
+          "bytes": "e87d02fdff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 4866402,
+          "parent": 4866240,
+          "type": 17,
+          "bytes": "e84902fdff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 4867593,
+          "parent": 4867552,
+          "type": 17,
+          "bytes": "e8a2fdfcff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 4882983,
+          "parent": 4882896,
+          "type": 17,
+          "bytes": "e884c1fcff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 4893533,
+          "parent": 4893472,
+          "type": 17,
+          "bytes": "e84e98fcff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 4906787,
+          "parent": 4906736,
+          "type": 17,
+          "bytes": "e88864fcff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 4911337,
+          "parent": 4911296,
+          "type": 17,
+          "bytes": "e8c252fcff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 4919997,
+          "parent": 4919904,
+          "type": 17,
+          "bytes": "e8ee30fcff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 4938359,
+          "parent": 4938304,
+          "type": 17,
+          "bytes": "e834e9fbff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 4960611,
+          "parent": null,
+          "type": 17,
+          "bytes": "e84892fbff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 4982869,
+          "parent": 4982784,
+          "type": 17,
+          "bytes": "e8563bfbff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 4982934,
+          "parent": 4982784,
+          "type": 17,
+          "bytes": "e8153bfbff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 4982995,
+          "parent": 4982784,
+          "type": 17,
+          "bytes": "e8d83afbff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 4990867,
+          "parent": 4990816,
+          "type": 17,
+          "bytes": "e8181cfbff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 4999459,
+          "parent": 4999408,
+          "type": 17,
+          "bytes": "e888fafaff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 5020701,
+          "parent": 5020640,
+          "type": 17,
+          "bytes": "e88ea7faff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 5020753,
+          "parent": 5020640,
+          "type": 17,
+          "bytes": "e85aa7faff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 5038388,
+          "parent": null,
+          "type": 17,
+          "bytes": "e87762faff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 5038442,
+          "parent": null,
+          "type": 17,
+          "bytes": "e84162faff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 5038502,
+          "parent": null,
+          "type": 17,
+          "bytes": "e80562faff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 5038556,
+          "parent": null,
+          "type": 17,
+          "bytes": "e8cf61faff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 5039016,
+          "parent": null,
+          "type": 17,
+          "bytes": "e80360faff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        },
+        {
+          "ea": 5039068,
+          "parent": null,
+          "type": 17,
+          "bytes": "e8cf5ffaff",
+          "asm": "call    sub_4743B0",
+          "actual_call_target": 4670384
+        }
+      ],
+      "window_wheel_scroll": {
+        "step": "WWS01",
+        "source_snapshot": "[#] 补齐滚轮滚动并恢复坐标持样",
+        "original_end_exclusive": "0x474497",
+        "original_instruction_count": 89,
+        "original_code_bytes": 231,
+        "original_page_count": 2,
+        "direct_call_count": 4,
+        "jump_count": 6,
+        "return_count": 2,
+        "native_signature": "std::int32_t Sub_4743B0(\n    WindowElement* const element, std::int32_t position, std::int32_t maximum,\n    const std::int32_t wheel)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4743B0",
+        "normal_remaining_source_kept": true,
+        "source_patch_group_count": 3,
+        "source_changed_point_count": 3,
+        "native_math_graph_kept": true,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

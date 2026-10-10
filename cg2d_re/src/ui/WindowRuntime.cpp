@@ -39552,6 +39552,7 @@ std::int32_t Sub_4742C0(
     return delta;
 }
 
+// WWS01：原余量/像素结果持样和边界/flags取样序；现宿主数学图及原钳制保。
 std::int32_t Sub_4743B0(
     WindowElement* const element, std::int32_t position, std::int32_t maximum,
     const std::int32_t wheel)
@@ -39581,20 +39582,32 @@ std::int32_t Sub_4743B0(
         remainder = 0;
     }
     static_cast<void>(Sub_4742C0(element, maximum, position));
-    previous->y += remainder;
-    const std::int32_t span = element->height - previous->height;
+    const std::int32_t remainderY = previous->y + remainder;
+    previous->y = remainderY;
+    const std::int32_t height = element->height;
+    const std::int32_t previousHeight = previous->height;
+    const std::int32_t span = height - previousHeight;
     const double fraction = static_cast<double>(roundedProduct) - static_cast<double>(whole);
     const double pixels = fraction * static_cast<double>(span) / static_cast<double>(maximum);
-    previous->y += static_cast<std::int32_t>(pixels);
-    if (previous->y < element->y) {
-        previous->y = element->y;
+    const std::int32_t step = static_cast<std::int32_t>(pixels);
+    const std::int32_t steppedY = remainderY + step;
+    previous->y = steppedY;
+    const std::int32_t topY = element->y;
+    if (steppedY < topY) {
+        previous->y = topY;
     }
-    if (previous->y + previous->height > element->y + element->height) {
-        previous->y = element->y - previous->height + element->height;
+    const std::int32_t bottomHeight = element->height;
+    const std::int32_t bottomY = element->y;
+    const std::int32_t previousBottomHeight = previous->height;
+    const std::int32_t previousBottomY = previous->y;
+    if (previousBottomY + previousBottomHeight > bottomY + bottomHeight) {
+        previous->y = bottomY - previousBottomHeight + bottomHeight;
     }
-    const std::int32_t delta = previous->y - element->y;
+    const std::int32_t previousY = previous->y;
+    const std::int32_t baseY = element->y;
     std::uint32_t flags;
     std::memcpy(&flags, data + offsetof(WindowMouseData, flags), sizeof(flags));
+    const std::int32_t delta = previousY - baseY;
     flags |= 1u;
     std::memcpy(data + offsetof(WindowMouseData, deltaY), &delta, sizeof(delta));
     std::memcpy(data + offsetof(WindowMouseData, flags), &flags, sizeof(flags));

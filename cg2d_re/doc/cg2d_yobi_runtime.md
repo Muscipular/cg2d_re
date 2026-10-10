@@ -4697,3 +4697,8 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 ## 2026-10-10 BRCP01：回位/追近与共享距离
 
 [完整合同](cg2d_battle_return_chase_spec.md#battle-return-chase-source-state)补五动作2/3/4/6/11及4062A0距离叶六完整321条991B；动作11三BYTE消费恢复，骑乘两级空检查/首项死亡短路/推进后phase46再推进、持W32门禁和末fresh动作播放保。2直接phase0/FDC置1，3/4两次fresh目标与互斥推进-移动，6两组FE8/FEC及所有抵达X先发布再取Y，距离F32平方和/原零门禁/正常S32转换均正文正确保。仅另十二注释，无新函数/API/保护/移动/播放/RNG；六身份/成员与限定I三BYTE/S六根。全部父/callee/ABI/alias/owner、SDK正常失败/容量/数值和声音画面运行未验，完整门禁保。
+
+<a id="battle-play-wait-runtime-20261010"></a>
+## 2026-10-10 BPAW01：播放/计时与目标等待
+
+[完整合同](cg2d_battle_play_wait_spec.md#battle-play-wait-source-state)补5/7/8/9/10/24/25七完整275条888B。7/8严格终帧后fresh FDC、10短路上一项11/bit2及25归零动作后0x60门禁共四BYTE恢复；5旧count先增量发布/推进后清零、24新count先发布/清零后推进、9两次坐标或目标与互斥推进-移动、25X发布后重新查目标/Y发布均正确源保。仅另十四合同注释，所有其它本体/签名/源及BOH01完整方向叶身份/处置保持；七身份/成员与限定I四BYTE/S七正常根，无新函数/API/保护/移动/播放/RNG。全部生产/父-callee/ABI/alias/owner、SDK正常失败/容量/数值与声音画面运行仍待，完整门禁保持。

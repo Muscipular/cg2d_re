@@ -198058,6 +198058,398 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x40cfa0",
+      "inventory_id": "F:0000CFA0",
+      "original_role": "动作5旧FF0计时/推进后清零与末播放",
+      "original_end_exclusive": "0x40d00f",
+      "instruction_count": 32,
+      "function_chunks": [
+        {
+          "start": "0x40cfa0",
+          "end_exclusive": "0x40d00f"
+        }
+      ],
+      "status": "BPAW01完整正常源/独立身份纳管；正确正文保持，仅合同注释，全部数据/父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction5_40CFA0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction5_40CFA0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-baseline",
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-decision",
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-acceptance",
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-source-state",
+        "doc/cg2d_battle_play_wait_evidence.json"
+      ],
+      "boundary": "BPAW01七完整正常根，仅7/8/10/25四BYTE表达及十四注释；正确计数旧/新持样/不同推进清零序、播放严格1后fresh flags/索引、9两次坐标或目标/互斥推进移动、10方向叶短路及25X发布后重新查目标/Y发布保，所有其它源/签名不改。全数据/父-callee/ABI/alias/owner、SDK正常失败/容量/数值与声音画面运行未验，全部门禁/RPLAN.24/MC01保持。",
+      "verification_level": "完整275条888B/八份64条分页、27E8/八callee/21跳十一RET、七11Bcase；四BYTE编码/读取发布与完整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction5_40CFA0",
+        "parameters": "非拥有YobiAction*，固定BattleActorPayload*",
+        "return": "S32实际末PlayFrame返回"
+      },
+      "battle_play_wait": {
+        "step": "BPAW01",
+        "source_snapshot": "cg2d-re-battle-play-wait-20261010",
+        "original_instruction_count": 32,
+        "original_code_bytes": 111,
+        "original_page_count": 1,
+        "direct_call_count": 4,
+        "callee_count": 3,
+        "jump_count": 1,
+        "return_count": 2,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x409410",
+      "inventory_id": "F:00009410",
+      "original_role": "动作7持效果position转向/终帧低BYTE调速推进",
+      "original_end_exclusive": "0x40949b",
+      "instruction_count": 43,
+      "function_chunks": [
+        {
+          "start": "0x409410",
+          "end_exclusive": "0x40949b"
+        }
+      ],
+      "status": "BPAW01完整正常源/独立身份纳管；一处BYTE消费已修，仅合同注释，全部数据/父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction7_409410"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction7_409410"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-baseline",
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-decision",
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-acceptance",
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-source-state",
+        "doc/cg2d_battle_play_wait_evidence.json"
+      ],
+      "boundary": "BPAW01七完整正常根，仅7/8/10/25四BYTE表达及十四注释；正确计数旧/新持样/不同推进清零序、播放严格1后fresh flags/索引、9两次坐标或目标/互斥推进移动、10方向叶短路及25X发布后重新查目标/Y发布保，所有其它源/签名不改。全数据/父-callee/ABI/alias/owner、SDK正常失败/容量/数值与声音画面运行未验，全部门禁/RPLAN.24/MC01保持。",
+      "verification_level": "完整275条888B/八份64条分页、27E8/八callee/21跳十一RET、七11Bcase；四BYTE编码/读取发布与完整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction7_409410",
+        "parameters": "非拥有YobiAction*，固定BattleActorPayload*",
+        "return": "void，实际播放弃返/原控制消费保"
+      },
+      "battle_play_wait": {
+        "step": "BPAW01",
+        "source_snapshot": "cg2d-re-battle-play-wait-20261010",
+        "original_instruction_count": 43,
+        "original_code_bytes": 139,
+        "original_page_count": 1,
+        "direct_call_count": 4,
+        "callee_count": 4,
+        "jump_count": 4,
+        "return_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4094a0",
+      "inventory_id": "F:000094A0",
+      "original_role": "动作8FE8/FEC转向/终帧低BYTE调速推进",
+      "original_end_exclusive": "0x40950a",
+      "instruction_count": 31,
+      "function_chunks": [
+        {
+          "start": "0x4094a0",
+          "end_exclusive": "0x40950a"
+        }
+      ],
+      "status": "BPAW01完整正常源/独立身份纳管；一处BYTE消费已修，仅合同注释，全部数据/父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction8_4094A0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction8_4094A0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-baseline",
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-decision",
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-acceptance",
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-source-state",
+        "doc/cg2d_battle_play_wait_evidence.json"
+      ],
+      "boundary": "BPAW01七完整正常根，仅7/8/10/25四BYTE表达及十四注释；正确计数旧/新持样/不同推进清零序、播放严格1后fresh flags/索引、9两次坐标或目标/互斥推进移动、10方向叶短路及25X发布后重新查目标/Y发布保，所有其它源/签名不改。全数据/父-callee/ABI/alias/owner、SDK正常失败/容量/数值与声音画面运行未验，全部门禁/RPLAN.24/MC01保持。",
+      "verification_level": "完整275条888B/八份64条分页、27E8/八callee/21跳十一RET、七11Bcase；四BYTE编码/读取发布与完整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction8_4094A0",
+        "parameters": "非拥有YobiAction*，固定BattleActorPayload*",
+        "return": "void，实际播放弃返/原控制消费保"
+      },
+      "battle_play_wait": {
+        "step": "BPAW01",
+        "source_snapshot": "cg2d-re-battle-play-wait-20261010",
+        "original_instruction_count": 31,
+        "original_code_bytes": 106,
+        "original_page_count": 1,
+        "direct_call_count": 3,
+        "callee_count": 3,
+        "jump_count": 2,
+        "return_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x409510",
+      "inventory_id": "F:00009510",
+      "original_role": "动作9前两项14回位或两次fresh目标追近",
+      "original_end_exclusive": "0x409605",
+      "instruction_count": 82,
+      "function_chunks": [
+        {
+          "start": "0x409510",
+          "end_exclusive": "0x409605"
+        }
+      ],
+      "status": "BPAW01完整正常源/独立身份纳管；正确正文保持，仅合同注释，全部数据/父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction9_409510"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction9_409510"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-baseline",
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-decision",
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-acceptance",
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-source-state",
+        "doc/cg2d_battle_play_wait_evidence.json"
+      ],
+      "boundary": "BPAW01七完整正常根，仅7/8/10/25四BYTE表达及十四注释；正确计数旧/新持样/不同推进清零序、播放严格1后fresh flags/索引、9两次坐标或目标/互斥推进移动、10方向叶短路及25X发布后重新查目标/Y发布保，所有其它源/签名不改。全数据/父-callee/ABI/alias/owner、SDK正常失败/容量/数值与声音画面运行未验，全部门禁/RPLAN.24/MC01保持。",
+      "verification_level": "完整275条888B/八份64条分页、27E8/八callee/21跳十一RET、七11Bcase；四BYTE编码/读取发布与完整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction9_409510",
+        "parameters": "非拥有YobiAction*，固定BattleActorPayload*",
+        "return": "S32实际末PlayFrame返回"
+      },
+      "battle_play_wait": {
+        "step": "BPAW01",
+        "source_snapshot": "cg2d-re-battle-play-wait-20261010",
+        "original_instruction_count": 82,
+        "original_code_bytes": 245,
+        "original_page_count": 2,
+        "direct_call_count": 10,
+        "callee_count": 7,
+        "jump_count": 4,
+        "return_count": 3,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x409610",
+      "inventory_id": "F:00009610",
+      "original_role": "动作10终帧上一项11门禁与恢复方向/推进",
+      "original_end_exclusive": "0x40967c",
+      "instruction_count": 31,
+      "function_chunks": [
+        {
+          "start": "0x409610",
+          "end_exclusive": "0x40967c"
+        }
+      ],
+      "status": "BPAW01完整正常源/独立身份纳管；一处BYTE消费已修，仅合同注释，全部数据/父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction10_409610"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction10_409610"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-baseline",
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-decision",
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-acceptance",
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-source-state",
+        "doc/cg2d_battle_play_wait_evidence.json"
+      ],
+      "boundary": "BPAW01七完整正常根，仅7/8/10/25四BYTE表达及十四注释；正确计数旧/新持样/不同推进清零序、播放严格1后fresh flags/索引、9两次坐标或目标/互斥推进移动、10方向叶短路及25X发布后重新查目标/Y发布保，所有其它源/签名不改。全数据/父-callee/ABI/alias/owner、SDK正常失败/容量/数值与声音画面运行未验，全部门禁/RPLAN.24/MC01保持。",
+      "verification_level": "完整275条888B/八份64条分页、27E8/八callee/21跳十一RET、七11Bcase；四BYTE编码/读取发布与完整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction10_409610",
+        "parameters": "非拥有YobiAction*，固定BattleActorPayload*",
+        "return": "void，实际播放弃返/原控制消费保"
+      },
+      "battle_play_wait": {
+        "step": "BPAW01",
+        "source_snapshot": "cg2d-re-battle-play-wait-20261010",
+        "original_instruction_count": 31,
+        "original_code_bytes": 108,
+        "original_page_count": 1,
+        "direct_call_count": 3,
+        "callee_count": 3,
+        "jump_count": 4,
+        "return_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x409380",
+      "inventory_id": "F:00009380",
+      "original_role": "动作24新FF0计时/归零后推进无播放",
+      "original_end_exclusive": "0x4093ab",
+      "instruction_count": 12,
+      "function_chunks": [
+        {
+          "start": "0x409380",
+          "end_exclusive": "0x4093ab"
+        }
+      ],
+      "status": "BPAW01完整正常源/独立身份纳管；正确正文保持，仅合同注释，全部数据/父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction24_409380"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction24_409380"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-baseline",
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-decision",
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-acceptance",
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-source-state",
+        "doc/cg2d_battle_play_wait_evidence.json"
+      ],
+      "boundary": "BPAW01七完整正常根，仅7/8/10/25四BYTE表达及十四注释；正确计数旧/新持样/不同推进清零序、播放严格1后fresh flags/索引、9两次坐标或目标/互斥推进移动、10方向叶短路及25X发布后重新查目标/Y发布保，所有其它源/签名不改。全数据/父-callee/ABI/alias/owner、SDK正常失败/容量/数值与声音画面运行未验，全部门禁/RPLAN.24/MC01保持。",
+      "verification_level": "完整275条888B/八份64条分页、27E8/八callee/21跳十一RET、七11Bcase；四BYTE编码/读取发布与完整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction24_409380",
+        "parameters": "非拥有YobiAction*，固定BattleActorPayload*",
+        "return": "void，实际播放弃返/原控制消费保"
+      },
+      "battle_play_wait": {
+        "step": "BPAW01",
+        "source_snapshot": "cg2d-re-battle-play-wait-20261010",
+        "original_instruction_count": 12,
+        "original_code_bytes": 43,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "callee_count": 1,
+        "jump_count": 1,
+        "return_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x406ba0",
+      "inventory_id": "F:00006BA0",
+      "original_role": "动作25目标等待/X后重新查目标发布Y及低BYTE门禁",
+      "original_end_exclusive": "0x406c28",
+      "instruction_count": 44,
+      "function_chunks": [
+        {
+          "start": "0x406ba0",
+          "end_exclusive": "0x406c28"
+        }
+      ],
+      "status": "BPAW01完整正常源/独立身份纳管；一处BYTE消费已修，仅合同注释，全部数据/父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction25_406BA0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction25_406BA0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-baseline",
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-decision",
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-acceptance",
+        "doc/cg2d_battle_play_wait_spec.md#battle-play-wait-source-state",
+        "doc/cg2d_battle_play_wait_evidence.json"
+      ],
+      "boundary": "BPAW01七完整正常根，仅7/8/10/25四BYTE表达及十四注释；正确计数旧/新持样/不同推进清零序、播放严格1后fresh flags/索引、9两次坐标或目标/互斥推进移动、10方向叶短路及25X发布后重新查目标/Y发布保，所有其它源/签名不改。全数据/父-callee/ABI/alias/owner、SDK正常失败/容量/数值与声音画面运行未验，全部门禁/RPLAN.24/MC01保持。",
+      "verification_level": "完整275条888B/八份64条分页、27E8/八callee/21跳十一RET、七11Bcase；四BYTE编码/读取发布与完整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction25_406BA0",
+        "parameters": "非拥有YobiAction*，固定BattleActorPayload*",
+        "return": "void，实际播放弃返/原控制消费保"
+      },
+      "battle_play_wait": {
+        "step": "BPAW01",
+        "source_snapshot": "cg2d-re-battle-play-wait-20261010",
+        "original_instruction_count": 44,
+        "original_code_bytes": 136,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 5,
+        "return_count": 2,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

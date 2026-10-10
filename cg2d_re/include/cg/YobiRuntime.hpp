@@ -490,12 +490,12 @@ void UpdateBattleAction1_406720(YobiAction* action); // BIDLE01：动作归零�
 std::int32_t UpdateBattleAction2_406760(YobiAction* action); // BRCP01：回00/04，X发布/Y取样/phase0，末播放。
 std::int32_t UpdateBattleAction3_406C30(YobiAction* action); // BRCP01：转向后fresh目标；距离<70推进，另一支移动。
 std::int32_t UpdateBattleAction4_406D70(YobiAction* action); // BRCP01：转向后fresh目标；距离<8推进，另一支移动。
-std::int32_t UpdateBattleAction5_40CFA0(YobiAction* action); // 递增FF0但比较旧值，推进后清计数。
+std::int32_t UpdateBattleAction5_40CFA0(YobiAction* action); // BPAW01：比较旧FF0，推进后清零/末播放。
 std::int32_t UpdateBattleAction6_406CD0(YobiAction* action); // BRCP01：FE8/FEC两组取样，抵达X先发布再取Y/推进。
-void UpdateBattleAction7_409410(YobiAction* action); // 起跑，目标-1才按00/04转向。
-void UpdateBattleAction8_4094A0(YobiAction* action); // 起跑，按FE8/FEC转向，严格终帧才推进。
-std::int32_t UpdateBattleAction9_409510(YobiAction* action); // 前两动作14走回位距离5，否则重取目标距离70。
-void UpdateBattleAction10_409610(YobiAction* action); // 收跑终帧按上一动作/当前全局位置恢复方向。
+void UpdateBattleAction7_409410(YobiAction* action); // BPAW01：持position转向；终帧后fresh BYTE调速/推进。
+void UpdateBattleAction8_4094A0(YobiAction* action); // BPAW01：FE8/FEC转向；终帧后fresh BYTE调速/推进。
+std::int32_t UpdateBattleAction9_409510(YobiAction* action); // BPAW01：前两项14回位<5；其它fresh目标<70，未抵达才移动。
+void UpdateBattleAction10_409610(YobiAction* action); // BPAW01：终帧后上一项11/低BYTE门禁，重查本位恢复方向。
 void UpdateBattleAction11_4067F0(YobiAction* action); // BRCP01：骑乘双T*低BYTE短路；回位尾fresh动作播放。
 void UpdateBattleAction12_406930(YobiAction* action); // B12P01：入口低BYTE；Y-X随机、旧FF0周期/held速率与fresh FCC门禁。
 void UpdateBattleAction13_406A80(YobiAction* action); // B12P01：入口低BYTE；先播放/转向/移动，<5后X发布再读Y，末不补播放。
@@ -507,8 +507,8 @@ void UpdateBattleAction20_408410(YobiAction* action); // B20H01：近距命中�
 std::int32_t UpdateBattleAction21_408750(YobiAction* action); // B22L01：两次Y-X取样，距20以内转phase22，移动后返回播放结果。
 std::int32_t UpdateBattleAction22_4087C0(YobiAction* action); // B22H01：回旋命中保独立HP/低BYTE与取样、3/7帧延迟及真实返回。
 std::int32_t UpdateBattleAction23_4090F0(YobiAction* action); // B22L01：固定caster/父载荷与266列表，标死后仍移动/播放并返回其结果。
-void UpdateBattleAction24_409380(YobiAction* action); // 新FF0严格超过20才推进。
-void UpdateBattleAction25_406BA0(YobiAction* action); // 等待目标待机，X/Y分别查目标后保存到10/14。
+void UpdateBattleAction24_409380(YobiAction* action); // BPAW01：新FF0>20，先归零后推进，无播放。
+void UpdateBattleAction25_406BA0(YobiAction* action); // BPAW01：X/Y两次查目标发布；等待归零后fresh BYTE门禁。
 void UpdateBattleAction26_40A9E0(YobiAction* action); // 单次后退/播放，不消费FCC或推进动作。
 std::int32_t UpdateBattleAction27_40AA70(YobiAction* action); // 初始FDC决定时长，减速阶段重读状态。
 std::int32_t UpdateBattleAction28_40ACF0(YobiAction* action); // 132音效后重读计数，14/34/54帧分段。

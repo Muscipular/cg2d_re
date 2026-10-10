@@ -24157,6 +24157,7 @@ std::int32_t UpdateBattleAction4_406D70(YobiAction* const action)
     return PlayFrame_517DA0(action, 0);
 }
 
+// BPAW01：FF0先发布增量再按旧值<16分流，推进后清零，再播放。
 std::int32_t UpdateBattleAction5_40CFA0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -24195,6 +24196,7 @@ std::int32_t UpdateBattleAction6_406CD0(YobiAction* const action)
     return PlayFrame_517DA0(action, 0);
 }
 
+// BPAW01：持一次position选转向；严格终帧后fresh低BYTE调速，再推进。
 void UpdateBattleAction7_409410(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -24209,13 +24211,14 @@ void UpdateBattleAction7_409410(YobiAction* const action)
         TurnBattleToward_406190(action, world::detail::gBattleAllEntries59E980[position], 1, 0.0F);
     }
     if (PlayFrame_517DA0(action, 1) == 1) {
-        if ((payload->flagsFDC & 2u) != 0) {
+        if ((static_cast<std::uint8_t>(payload->flagsFDC) & 2u) != 0) {
             action->framePlayingRate = 200;
         }
         AdvanceBattleCastState_439340(action);
     }
 }
 
+// BPAW01：FEC/FE8先Y后X转向；严格终帧后fresh低BYTE调速/推进。
 void UpdateBattleAction8_4094A0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -24225,13 +24228,14 @@ void UpdateBattleAction8_4094A0(YobiAction* const action)
     const float x = static_cast<float>(payload->moveTargetXFE8);
     TurnBattleTowardPosition_4060D0(action, x, y, 1, 0.0F);
     if (PlayFrame_517DA0(action, 1) == 1) {
-        if ((payload->flagsFDC & 2u) != 0) {
+        if ((static_cast<std::uint8_t>(payload->flagsFDC) & 2u) != 0) {
             action->framePlayingRate = 200;
         }
         AdvanceBattleCastState_439340(action);
     }
 }
 
+// BPAW01：FC4-2为14走回位距离5，否则两次fresh目标距离70；另一支才移动。
 std::int32_t UpdateBattleAction9_409510(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -24263,6 +24267,7 @@ std::int32_t UpdateBattleAction9_409510(YobiAction* const action)
     return PlayFrame_517DA0(action, 0);
 }
 
+// BPAW01：严格终帧才取上一项11/低BYTE门禁，按本位重查全局方向叶后推进。
 void UpdateBattleAction10_409610(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -24270,7 +24275,7 @@ void UpdateBattleAction10_409610(YobiAction* const action)
     action->framePlayingRate = 100;
     if (PlayFrame_517DA0(action, 1) == 1) {
         const std::int32_t previous = payload->castPlayIndexFC4 - 1;
-        if (previous >= 0 && payload->castListCA4[previous] == 11 && (payload->flagsFDC & 2u) == 0) {
+        if (previous >= 0 && payload->castListCA4[previous] == 11 && (static_cast<std::uint8_t>(payload->flagsFDC) & 2u) == 0) {
             Sub_406260(world::detail::gBattleAllEntries59E980[payload->battlePosition18]);
         }
         AdvanceBattleCastState_439340(action);
@@ -26091,6 +26096,7 @@ std::int32_t UpdateBattleAction23_4090F0(YobiAction* const action)
     return PlayFrame_517DA0(action, 0);
 }
 
+// BPAW01：先发布新FF0，严格>20才先归零再推进，不播放。
 void UpdateBattleAction24_409380(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26102,6 +26108,7 @@ void UpdateBattleAction24_409380(YobiAction* const action)
     }
 }
 
+// BPAW01：X发布后fresh查目标/Y发布；等待先归零动作再读低BYTE播放门禁。
 void UpdateBattleAction25_406BA0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -26127,7 +26134,7 @@ void UpdateBattleAction25_406BA0(YobiAction* const action)
         return;
     }
     action->characterAction = 0;
-    if ((payload->flagsFDC & 0x60u) == 0) {
+    if ((static_cast<std::uint8_t>(payload->flagsFDC) & 0x60u) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
     }
 }

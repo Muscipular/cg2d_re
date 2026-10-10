@@ -192874,7 +192874,7 @@
       "original_entry": "0x476570",
       "inventory_id": "F:00076570",
       "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_476570",
-      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收；WIC01完整四模式分发纳管、正确body保持，限定S/全owner与运行待",
       "sources": [
         {
           "path": "src/ui/WindowRuntime.cpp",
@@ -192882,16 +192882,35 @@
             "cg::ui::detail::Sub_476570"
           ],
           "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_476570"
+          ],
+          "relationship": "WIC01完整原根与真实原型/context字段合同，正确正文保持，仅关联注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_476570"
+          ],
+          "relationship": "WIC01真实声明/参数返回保持，仅合同注释"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
-        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json",
+        "doc/cg2d_window_input_context_dispatch_spec.md#input-create-baseline",
+        "doc/cg2d_window_input_context_dispatch_spec.md#input-create-decision",
+        "doc/cg2d_window_input_context_dispatch_spec.md#input-create-acceptance",
+        "doc/cg2d_window_input_context_dispatch_spec.md#input-create-source-state",
+        "doc/cg2d_window_input_context_dispatch_evidence.json"
       ],
-      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
-      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。；WIC01三完整原型分发/context发布原根128条367B/四页、三实际E8/三目标/四跳七RET；80普通入向内2/外78及53外父、四槽旧表/19B范围有据。既有Context T*或RejectedValue W32表示沿明确x64适配保持，不把原FF000000套到native指针。mode0原参数取样调用初始化/返BYTE1；mode1落mode2保未用maxCharPerLine实参及两个新context现场读；mode3颜色取入口context，超3原返1。两叶原field发布序/四BYTE mode/真实context地址返回与未写字节保持，本链更新既有context、不分配载荷。三个正确body全保，仅六关联注释，零逻辑组；无新API/函数/类型/字段/布局/owner/分配释放或保护/默认值/补零/钳制/容量限制/回滚/异常模型。旧1935全CAC08来源/表/范围保后追加、两新语义三F处置、INPUT/UIRUNTIME各三成员/两限定S零I/九任务open。53外父/原型表示与context/输入元素载荷全生产消费和alias-owner寿命、初始化其余依赖/字体IME/CRT/SDK/机器ABI/优化后读取/真实初始化切换焦点编辑与全生命周期待，所有枚举/完整gates/六closure/总SPEC§10保持。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。；WIC01：pass，三完整原根128条367B/四页、三实际E8/三目标/四跳七RET，80普通入向内2/外78及53外父；四槽表及旧19B范围有据。既有x64带标记引用沿已决表示，不套原掩码到native pointer；mode1落2/两现场context、mode3真实context颜色、两叶各字段发布序/四BYTE mode和native context返回保。四整源仅六注释精确重放，三个body/全部其它source和类型表示保持；全父/owner/机器ABI/优化后读取/运行待",
       "range_fifth_batch_data": {
         "step": "CAC08",
         "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
@@ -192902,6 +192921,573 @@
         "full_original_body_recaptured": false,
         "runtime_verified": false,
         "current_definition_line": 43905
+      },
+      "window_input_context_dispatch": {
+        "step": "WIC01",
+        "source_snapshot": "[#] 补齐输入模式分发及上下文字段发布合同",
+        "original_end_exclusive": "0x47666d",
+        "original_instruction_count": 103,
+        "original_code_bytes": 253,
+        "original_page_count": 2,
+        "direct_call_count": 3,
+        "jump_count": 4,
+        "return_count": 5,
+        "original_incoming": [
+          {
+            "ea": 4683199,
+            "parent": 4683072,
+            "type": 17,
+            "bytes": "e8acefffff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4686282,
+            "parent": 4685840,
+            "type": 17,
+            "bytes": "e8a1e3ffff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4689113,
+            "parent": 4688400,
+            "type": 17,
+            "bytes": "e892d8ffff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4689423,
+            "parent": 4688400,
+            "type": 17,
+            "bytes": "e85cd7ffff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4689733,
+            "parent": 4688400,
+            "type": 17,
+            "bytes": "e826d6ffff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4690536,
+            "parent": 4688400,
+            "type": 17,
+            "bytes": "e803d3ffff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4690801,
+            "parent": 4690640,
+            "type": 17,
+            "bytes": "e8fad1ffff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4690998,
+            "parent": 4690640,
+            "type": 17,
+            "bytes": "e835d1ffff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4691195,
+            "parent": 4690640,
+            "type": 17,
+            "bytes": "e870d0ffff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4691388,
+            "parent": 4690640,
+            "type": 17,
+            "bytes": "e8afcfffff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4726592,
+            "parent": 4722848,
+            "type": 17,
+            "bytes": "e82b46ffff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4733084,
+            "parent": 4731216,
+            "type": 17,
+            "bytes": "e8cf2cffff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4737236,
+            "parent": 4736960,
+            "type": 17,
+            "bytes": "e8971cffff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4739260,
+            "parent": null,
+            "type": 17,
+            "bytes": "e8af14ffff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4761874,
+            "parent": 4761856,
+            "type": 17,
+            "bytes": "e859bcfeff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4768617,
+            "parent": 4768224,
+            "type": 17,
+            "bytes": "e802a2feff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4774487,
+            "parent": 4774304,
+            "type": 17,
+            "bytes": "e8148bfeff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4774742,
+            "parent": 4774576,
+            "type": 17,
+            "bytes": "e8158afeff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4774998,
+            "parent": 4774832,
+            "type": 17,
+            "bytes": "e81589feff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4776477,
+            "parent": 4775296,
+            "type": 17,
+            "bytes": "e84e83feff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4776850,
+            "parent": 4775296,
+            "type": 17,
+            "bytes": "e8d981feff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4778044,
+            "parent": 4777008,
+            "type": 17,
+            "bytes": "e82f7dfeff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4778417,
+            "parent": 4777008,
+            "type": 17,
+            "bytes": "e8ba7bfeff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4780211,
+            "parent": 4779168,
+            "type": 17,
+            "bytes": "e8b874feff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4780584,
+            "parent": 4779168,
+            "type": 17,
+            "bytes": "e84373feff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4780996,
+            "parent": 4780928,
+            "type": 17,
+            "bytes": "e8a771feff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4782853,
+            "parent": 4782320,
+            "type": 17,
+            "bytes": "e8666afeff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4783218,
+            "parent": 4782320,
+            "type": 17,
+            "bytes": "e8f968feff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4786799,
+            "parent": 4786048,
+            "type": 17,
+            "bytes": "e8fc5afeff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4787176,
+            "parent": 4786048,
+            "type": 17,
+            "bytes": "e88359feff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4791324,
+            "parent": 4790944,
+            "type": 17,
+            "bytes": "e84f49feff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4791754,
+            "parent": 4790944,
+            "type": 17,
+            "bytes": "e8a147feff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4805342,
+            "parent": 4805056,
+            "type": 17,
+            "bytes": "e88d12feff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4805485,
+            "parent": 4805056,
+            "type": 17,
+            "bytes": "e8fe11feff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4807862,
+            "parent": 4807712,
+            "type": 17,
+            "bytes": "e8b508feff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4835720,
+            "parent": 4835088,
+            "type": 17,
+            "bytes": "e8e39bfdff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4837552,
+            "parent": 4837232,
+            "type": 17,
+            "bytes": "e8bb94fdff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4871393,
+            "parent": 4871152,
+            "type": 17,
+            "bytes": "e88a10fdff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4872147,
+            "parent": 4871920,
+            "type": 17,
+            "bytes": "e8980dfdff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4872461,
+            "parent": 4872416,
+            "type": 17,
+            "bytes": "e85e0cfdff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4874987,
+            "parent": 4874592,
+            "type": 17,
+            "bytes": "e88002fdff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4877553,
+            "parent": 4876992,
+            "type": 17,
+            "bytes": "e87af8fcff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4877803,
+            "parent": 4877776,
+            "type": 17,
+            "bytes": "e880f7fcff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4877962,
+            "parent": 4877776,
+            "type": 17,
+            "bytes": "e8e1f6fcff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4878035,
+            "parent": 4877984,
+            "type": 17,
+            "bytes": "e898f6fcff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4878173,
+            "parent": 4877984,
+            "type": 17,
+            "bytes": "e80ef6fcff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4881199,
+            "parent": 4881152,
+            "type": 17,
+            "bytes": "e83ceafcff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4881269,
+            "parent": 4881152,
+            "type": 17,
+            "bytes": "e8f6e9fcff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4881408,
+            "parent": 4881152,
+            "type": 17,
+            "bytes": "e86be9fcff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4883035,
+            "parent": 4883008,
+            "type": 17,
+            "bytes": "e810e3fcff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4883108,
+            "parent": 4883008,
+            "type": 17,
+            "bytes": "e8c7e2fcff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4887321,
+            "parent": 4887248,
+            "type": 17,
+            "bytes": "e852d2fcff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4905605,
+            "parent": 4905456,
+            "type": 17,
+            "bytes": "e8e68afcff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4907751,
+            "parent": 4907616,
+            "type": 17,
+            "bytes": "e88482fcff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4910675,
+            "parent": 4910592,
+            "type": 17,
+            "bytes": "e81877fcff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4910821,
+            "parent": 4910592,
+            "type": 17,
+            "bytes": "e88676fcff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4910990,
+            "parent": 4910592,
+            "type": 17,
+            "bytes": "e8dd75fcff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4911935,
+            "parent": 4911696,
+            "type": 17,
+            "bytes": "e82c72fcff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4912252,
+            "parent": 4911696,
+            "type": 17,
+            "bytes": "e8ef70fcff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4917764,
+            "parent": 4917728,
+            "type": 17,
+            "bytes": "e8675bfcff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4938483,
+            "parent": 4938448,
+            "type": 17,
+            "bytes": "e8780afcff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4938719,
+            "parent": 4938608,
+            "type": 17,
+            "bytes": "e88c09fcff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 4942170,
+            "parent": 4940448,
+            "type": 17,
+            "bytes": "e811fcfbff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 5022924,
+            "parent": 5022800,
+            "type": 17,
+            "bytes": "e89fc0faff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 5024792,
+            "parent": 5024656,
+            "type": 17,
+            "bytes": "e853b9faff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 5027198,
+            "parent": 5027152,
+            "type": 17,
+            "bytes": "e8edaffaff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 5027357,
+            "parent": 5027280,
+            "type": 17,
+            "bytes": "e84eaffaff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 5028173,
+            "parent": 5028128,
+            "type": 17,
+            "bytes": "e81eacfaff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 5032239,
+            "parent": 5031648,
+            "type": 17,
+            "bytes": "e83c9cfaff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 5032311,
+            "parent": 5031648,
+            "type": 17,
+            "bytes": "e8f49bfaff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 5034297,
+            "parent": 5033680,
+            "type": 17,
+            "bytes": "e83294faff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 5035816,
+            "parent": 5035248,
+            "type": 17,
+            "bytes": "e8438efaff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 5036078,
+            "parent": 5035248,
+            "type": 17,
+            "bytes": "e83d8dfaff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 5045333,
+            "parent": 5045312,
+            "type": 17,
+            "bytes": "e81669faff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 5045492,
+            "parent": 5045408,
+            "type": 17,
+            "bytes": "e87768faff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 5054752,
+            "parent": null,
+            "type": 17,
+            "bytes": "e84b44faff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 5054992,
+            "parent": null,
+            "type": 17,
+            "bytes": "e85b43faff",
+            "asm": "call    sub_476570"
+          },
+          {
+            "ea": 5055109,
+            "parent": 5055072,
+            "type": 17,
+            "bytes": "e8e642faff",
+            "asm": "call    sub_476570"
+          }
+        ],
+        "native_signature": "std::uint8_t Sub_476570(\n    WindowInputPrototype* const prototype, const std::int32_t x,\n    const std::int32_t y, const std::uint32_t mode)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_476570",
+        "normal_source_kept": true,
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
       }
     },
     {
@@ -213814,6 +214400,158 @@
           }
         ],
         "existing_draw_lambda_kept": true,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x45d720",
+      "inventory_id": "F:0005D720",
+      "original_role": "原输入context滚动零/坐标模式颜色发布",
+      "original_end_exclusive": "0x45d75b",
+      "instruction_count": 13,
+      "function_chunks": [
+        {
+          "start": "0x45d720",
+          "end_exclusive": "0x45d75b"
+        }
+      ],
+      "status": "WIC01完整原根纳管，正确字段发布body保持；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_45D720"
+          ],
+          "relationship": "WIC01完整原根与真实原型/context字段合同，正确正文保持，仅关联注释"
+        },
+        {
+          "path": "include/cg/Input.hpp",
+          "symbols": [
+            "Sub_45D720"
+          ],
+          "relationship": "WIC01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_input_context_dispatch_spec.md#input-create-baseline",
+        "doc/cg2d_window_input_context_dispatch_spec.md#input-create-decision",
+        "doc/cg2d_window_input_context_dispatch_spec.md#input-create-acceptance",
+        "doc/cg2d_window_input_context_dispatch_spec.md#input-create-source-state",
+        "doc/cg2d_window_input_context_dispatch_evidence.json"
+      ],
+      "boundary": "WIC01三完整原型分发/context发布原根128条367B/四页、三实际E8/三目标/四跳七RET；80普通入向内2/外78及53外父、四槽旧表/19B范围有据。既有Context T*或RejectedValue W32表示沿明确x64适配保持，不把原FF000000套到native指针。mode0原参数取样调用初始化/返BYTE1；mode1落mode2保未用maxCharPerLine实参及两个新context现场读；mode3颜色取入口context，超3原返1。两叶原field发布序/四BYTE mode/真实context地址返回与未写字节保持，本链更新既有context、不分配载荷。三个正确body全保，仅六关联注释，零逻辑组；无新API/函数/类型/字段/布局/owner/分配释放或保护/默认值/补零/钳制/容量限制/回滚/异常模型。旧1935全CAC08来源/表/范围保后追加、两新语义三F处置、INPUT/UIRUNTIME各三成员/两限定S零I/九任务open。53外父/原型表示与context/输入元素载荷全生产消费和alias-owner寿命、初始化其余依赖/字体IME/CRT/SDK/机器ABI/优化后读取/真实初始化切换焦点编辑与全生命周期待，所有枚举/完整gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，三完整原根128条367B/四页、三实际E8/三目标/四跳七RET，80普通入向内2/外78及53外父；四槽表及旧19B范围有据。既有x64带标记引用沿已决表示，不套原掩码到native pointer；mode1落2/两现场context、mode3真实context颜色、两叶各字段发布序/四BYTE mode和native context返回保。四整源仅六注释精确重放，三个body/全部其它source和类型表示保持；全父/owner/机器ABI/优化后读取/运行待",
+      "original_incoming": [
+        {
+          "ea": 4679187,
+          "parent": 4679024,
+          "type": 17,
+          "bytes": "e80871feff",
+          "asm": "call    sub_45D720"
+        }
+      ],
+      "window_input_context_dispatch": {
+        "step": "WIC01",
+        "source_snapshot": "[#] 补齐输入模式分发及上下文字段发布合同",
+        "original_end_exclusive": "0x45d75b",
+        "original_instruction_count": 13,
+        "original_code_bytes": 59,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 0,
+        "return_count": 1,
+        "original_incoming": [
+          {
+            "ea": 4679187,
+            "parent": 4679024,
+            "type": 17,
+            "bytes": "e80871feff",
+            "asm": "call    sub_45D720"
+          }
+        ],
+        "native_signature": "InputContext* Sub_45D720(\n    InputContext* const context, const std::int32_t x, const std::int32_t y,\n    [[maybe_unused]] const std::int32_t unused,\n    const std::int32_t color, const std::int32_t renderMode)",
+        "native_provider": "src/Input.cpp::Sub_45D720",
+        "normal_source_kept": true,
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x45d760",
+      "inventory_id": "F:0005D760",
+      "original_role": "原输入context坐标颜色模式字体发布",
+      "original_end_exclusive": "0x45d797",
+      "instruction_count": 12,
+      "function_chunks": [
+        {
+          "start": "0x45d760",
+          "end_exclusive": "0x45d797"
+        }
+      ],
+      "status": "WIC01完整原根纳管，正确字段发布body保持；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_45D760"
+          ],
+          "relationship": "WIC01完整原根与真实原型/context字段合同，正确正文保持，仅关联注释"
+        },
+        {
+          "path": "include/cg/Input.hpp",
+          "symbols": [
+            "Sub_45D760"
+          ],
+          "relationship": "WIC01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_input_context_dispatch_spec.md#input-create-baseline",
+        "doc/cg2d_window_input_context_dispatch_spec.md#input-create-decision",
+        "doc/cg2d_window_input_context_dispatch_spec.md#input-create-acceptance",
+        "doc/cg2d_window_input_context_dispatch_spec.md#input-create-source-state",
+        "doc/cg2d_window_input_context_dispatch_evidence.json"
+      ],
+      "boundary": "WIC01三完整原型分发/context发布原根128条367B/四页、三实际E8/三目标/四跳七RET；80普通入向内2/外78及53外父、四槽旧表/19B范围有据。既有Context T*或RejectedValue W32表示沿明确x64适配保持，不把原FF000000套到native指针。mode0原参数取样调用初始化/返BYTE1；mode1落mode2保未用maxCharPerLine实参及两个新context现场读；mode3颜色取入口context，超3原返1。两叶原field发布序/四BYTE mode/真实context地址返回与未写字节保持，本链更新既有context、不分配载荷。三个正确body全保，仅六关联注释，零逻辑组；无新API/函数/类型/字段/布局/owner/分配释放或保护/默认值/补零/钳制/容量限制/回滚/异常模型。旧1935全CAC08来源/表/范围保后追加、两新语义三F处置、INPUT/UIRUNTIME各三成员/两限定S零I/九任务open。53外父/原型表示与context/输入元素载荷全生产消费和alias-owner寿命、初始化其余依赖/字体IME/CRT/SDK/机器ABI/优化后读取/真实初始化切换焦点编辑与全生命周期待，所有枚举/完整gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，三完整原根128条367B/四页、三实际E8/三目标/四跳七RET，80普通入向内2/外78及53外父；四槽表及旧19B范围有据。既有x64带标记引用沿已决表示，不套原掩码到native pointer；mode1落2/两现场context、mode3真实context颜色、两叶各字段发布序/四BYTE mode和native context返回保。四整源仅六注释精确重放，三个body/全部其它source和类型表示保持；全父/owner/机器ABI/优化后读取/运行待",
+      "original_incoming": [
+        {
+          "ea": 4679263,
+          "parent": 4679024,
+          "type": 17,
+          "bytes": "e8fc70feff",
+          "asm": "call    sub_45D760"
+        }
+      ],
+      "window_input_context_dispatch": {
+        "step": "WIC01",
+        "source_snapshot": "[#] 补齐输入模式分发及上下文字段发布合同",
+        "original_end_exclusive": "0x45d797",
+        "original_instruction_count": 12,
+        "original_code_bytes": 55,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 0,
+        "return_count": 1,
+        "original_incoming": [
+          {
+            "ea": 4679263,
+            "parent": 4679024,
+            "type": 17,
+            "bytes": "e8fc70feff",
+            "asm": "call    sub_45D760"
+          }
+        ],
+        "native_signature": "InputContext* Sub_45D760(\n    InputContext* const context, const std::int32_t x, const std::int32_t y,\n    const std::int32_t color, const std::int32_t renderMode,\n    const std::int32_t fontType)",
+        "native_provider": "src/Input.cpp::Sub_45D760",
+        "normal_source_kept": true,
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
         "generated_machine_reads_verified": false,
         "full_lifecycle_closed": false,
         "runtime_verified": false

@@ -119,6 +119,7 @@ InputContext* BorrowLegacyBlacklistContext593858() noexcept
     return &gLegacyInput593850.context;
 }
 
+// WIC01：原滚动零/坐标模式颜色发布序与真实context返回，见doc/cg2d_window_input_context_dispatch_spec.md。
 InputContext* Sub_45D720(
     InputContext* const context, const std::int32_t x, const std::int32_t y,
     [[maybe_unused]] const std::int32_t unused,
@@ -133,6 +134,7 @@ InputContext* Sub_45D720(
     return context;
 }
 
+// WIC01：原坐标颜色模式字体发布序与真实context返回，见doc/cg2d_window_input_context_dispatch_spec.md。
 InputContext* Sub_45D760(
     InputContext* const context, const std::int32_t x, const std::int32_t y,
     const std::int32_t color, const std::int32_t renderMode,

@@ -142,10 +142,12 @@ void InitializeContext_449CF0(
     std::int32_t encrypt);
 
 // 原45D720：清154/158，按Y/X/render/color写入；第四参数不消费。
+// WIC01：原滚动零/坐标模式颜色发布序与真实context返回，见doc/cg2d_window_input_context_dispatch_spec.md。
 InputContext* Sub_45D720(
     InputContext* context, std::int32_t x, std::int32_t y,
     std::int32_t unused, std::int32_t color, std::int32_t renderMode);
 // 原45D760：按X/Y/color/render/font写入，不清154/158。
+// WIC01：原坐标颜色模式字体发布序与真实context返回，见doc/cg2d_window_input_context_dispatch_spec.md。
 InputContext* Sub_45D760(
     InputContext* context, std::int32_t x, std::int32_t y,
     std::int32_t color, std::int32_t renderMode, std::int32_t fontType);

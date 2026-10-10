@@ -1,0 +1,1815 @@
+{
+  "step": "WIC01",
+  "recorded_on": "2026-10-10",
+  "before_snapshot": "[#] 补齐数字绘制初始化并明确测宽顺序",
+  "after_snapshot": "[#] 补齐输入模式分发及上下文字段发布合同",
+  "original_roots": [
+    {
+      "ea": 4679024,
+      "end": 4679277,
+      "chunks": [
+        [
+          4679024,
+          4679277
+        ]
+      ],
+      "instruction_count": 103,
+      "inbound_calls": [
+        {
+          "ea": 4683199,
+          "parent": 4683072,
+          "type": 17,
+          "bytes": "e8acefffff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4686282,
+          "parent": 4685840,
+          "type": 17,
+          "bytes": "e8a1e3ffff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4689113,
+          "parent": 4688400,
+          "type": 17,
+          "bytes": "e892d8ffff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4689423,
+          "parent": 4688400,
+          "type": 17,
+          "bytes": "e85cd7ffff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4689733,
+          "parent": 4688400,
+          "type": 17,
+          "bytes": "e826d6ffff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4690536,
+          "parent": 4688400,
+          "type": 17,
+          "bytes": "e803d3ffff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4690801,
+          "parent": 4690640,
+          "type": 17,
+          "bytes": "e8fad1ffff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4690998,
+          "parent": 4690640,
+          "type": 17,
+          "bytes": "e835d1ffff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4691195,
+          "parent": 4690640,
+          "type": 17,
+          "bytes": "e870d0ffff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4691388,
+          "parent": 4690640,
+          "type": 17,
+          "bytes": "e8afcfffff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4726592,
+          "parent": 4722848,
+          "type": 17,
+          "bytes": "e82b46ffff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4733084,
+          "parent": 4731216,
+          "type": 17,
+          "bytes": "e8cf2cffff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4737236,
+          "parent": 4736960,
+          "type": 17,
+          "bytes": "e8971cffff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4739260,
+          "parent": null,
+          "type": 17,
+          "bytes": "e8af14ffff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4761874,
+          "parent": 4761856,
+          "type": 17,
+          "bytes": "e859bcfeff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4768617,
+          "parent": 4768224,
+          "type": 17,
+          "bytes": "e802a2feff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4774487,
+          "parent": 4774304,
+          "type": 17,
+          "bytes": "e8148bfeff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4774742,
+          "parent": 4774576,
+          "type": 17,
+          "bytes": "e8158afeff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4774998,
+          "parent": 4774832,
+          "type": 17,
+          "bytes": "e81589feff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4776477,
+          "parent": 4775296,
+          "type": 17,
+          "bytes": "e84e83feff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4776850,
+          "parent": 4775296,
+          "type": 17,
+          "bytes": "e8d981feff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4778044,
+          "parent": 4777008,
+          "type": 17,
+          "bytes": "e82f7dfeff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4778417,
+          "parent": 4777008,
+          "type": 17,
+          "bytes": "e8ba7bfeff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4780211,
+          "parent": 4779168,
+          "type": 17,
+          "bytes": "e8b874feff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4780584,
+          "parent": 4779168,
+          "type": 17,
+          "bytes": "e84373feff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4780996,
+          "parent": 4780928,
+          "type": 17,
+          "bytes": "e8a771feff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4782853,
+          "parent": 4782320,
+          "type": 17,
+          "bytes": "e8666afeff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4783218,
+          "parent": 4782320,
+          "type": 17,
+          "bytes": "e8f968feff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4786799,
+          "parent": 4786048,
+          "type": 17,
+          "bytes": "e8fc5afeff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4787176,
+          "parent": 4786048,
+          "type": 17,
+          "bytes": "e88359feff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4791324,
+          "parent": 4790944,
+          "type": 17,
+          "bytes": "e84f49feff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4791754,
+          "parent": 4790944,
+          "type": 17,
+          "bytes": "e8a147feff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4805342,
+          "parent": 4805056,
+          "type": 17,
+          "bytes": "e88d12feff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4805485,
+          "parent": 4805056,
+          "type": 17,
+          "bytes": "e8fe11feff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4807862,
+          "parent": 4807712,
+          "type": 17,
+          "bytes": "e8b508feff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4835720,
+          "parent": 4835088,
+          "type": 17,
+          "bytes": "e8e39bfdff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4837552,
+          "parent": 4837232,
+          "type": 17,
+          "bytes": "e8bb94fdff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4871393,
+          "parent": 4871152,
+          "type": 17,
+          "bytes": "e88a10fdff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4872147,
+          "parent": 4871920,
+          "type": 17,
+          "bytes": "e8980dfdff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4872461,
+          "parent": 4872416,
+          "type": 17,
+          "bytes": "e85e0cfdff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4874987,
+          "parent": 4874592,
+          "type": 17,
+          "bytes": "e88002fdff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4877553,
+          "parent": 4876992,
+          "type": 17,
+          "bytes": "e87af8fcff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4877803,
+          "parent": 4877776,
+          "type": 17,
+          "bytes": "e880f7fcff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4877962,
+          "parent": 4877776,
+          "type": 17,
+          "bytes": "e8e1f6fcff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4878035,
+          "parent": 4877984,
+          "type": 17,
+          "bytes": "e898f6fcff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4878173,
+          "parent": 4877984,
+          "type": 17,
+          "bytes": "e80ef6fcff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4881199,
+          "parent": 4881152,
+          "type": 17,
+          "bytes": "e83ceafcff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4881269,
+          "parent": 4881152,
+          "type": 17,
+          "bytes": "e8f6e9fcff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4881408,
+          "parent": 4881152,
+          "type": 17,
+          "bytes": "e86be9fcff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4883035,
+          "parent": 4883008,
+          "type": 17,
+          "bytes": "e810e3fcff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4883108,
+          "parent": 4883008,
+          "type": 17,
+          "bytes": "e8c7e2fcff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4887321,
+          "parent": 4887248,
+          "type": 17,
+          "bytes": "e852d2fcff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4905605,
+          "parent": 4905456,
+          "type": 17,
+          "bytes": "e8e68afcff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4907751,
+          "parent": 4907616,
+          "type": 17,
+          "bytes": "e88482fcff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4910675,
+          "parent": 4910592,
+          "type": 17,
+          "bytes": "e81877fcff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4910821,
+          "parent": 4910592,
+          "type": 17,
+          "bytes": "e88676fcff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4910990,
+          "parent": 4910592,
+          "type": 17,
+          "bytes": "e8dd75fcff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4911935,
+          "parent": 4911696,
+          "type": 17,
+          "bytes": "e82c72fcff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4912252,
+          "parent": 4911696,
+          "type": 17,
+          "bytes": "e8ef70fcff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4917764,
+          "parent": 4917728,
+          "type": 17,
+          "bytes": "e8675bfcff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4938483,
+          "parent": 4938448,
+          "type": 17,
+          "bytes": "e8780afcff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4938719,
+          "parent": 4938608,
+          "type": 17,
+          "bytes": "e88c09fcff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 4942170,
+          "parent": 4940448,
+          "type": 17,
+          "bytes": "e811fcfbff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 5022924,
+          "parent": 5022800,
+          "type": 17,
+          "bytes": "e89fc0faff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 5024792,
+          "parent": 5024656,
+          "type": 17,
+          "bytes": "e853b9faff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 5027198,
+          "parent": 5027152,
+          "type": 17,
+          "bytes": "e8edaffaff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 5027357,
+          "parent": 5027280,
+          "type": 17,
+          "bytes": "e84eaffaff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 5028173,
+          "parent": 5028128,
+          "type": 17,
+          "bytes": "e81eacfaff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 5032239,
+          "parent": 5031648,
+          "type": 17,
+          "bytes": "e83c9cfaff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 5032311,
+          "parent": 5031648,
+          "type": 17,
+          "bytes": "e8f49bfaff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 5034297,
+          "parent": 5033680,
+          "type": 17,
+          "bytes": "e83294faff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 5035816,
+          "parent": 5035248,
+          "type": 17,
+          "bytes": "e8438efaff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 5036078,
+          "parent": 5035248,
+          "type": 17,
+          "bytes": "e83d8dfaff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 5045333,
+          "parent": 5045312,
+          "type": 17,
+          "bytes": "e81669faff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 5045492,
+          "parent": 5045408,
+          "type": 17,
+          "bytes": "e87768faff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 5054752,
+          "parent": null,
+          "type": 17,
+          "bytes": "e84b44faff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 5054992,
+          "parent": null,
+          "type": 17,
+          "bytes": "e85b43faff",
+          "asm": "call    sub_476570"
+        },
+        {
+          "ea": 5055109,
+          "parent": 5055072,
+          "type": 17,
+          "bytes": "e8e642faff",
+          "asm": "call    sub_476570"
+        }
+      ],
+      "other_references": [],
+      "byte_count": 253,
+      "page_count": 2,
+      "instructions": [
+        {
+          "ea": 4679024,
+          "size": 1,
+          "bytes": "56",
+          "asm": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": 4679025,
+          "size": 4,
+          "bytes": "8b742408",
+          "asm": "mov     esi, [esp+4+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": 4679029,
+          "size": 2,
+          "bytes": "8b06",
+          "asm": "mov     eax, [esi]",
+          "call_target": null
+        },
+        {
+          "ea": 4679031,
+          "size": 2,
+          "bytes": "85c0",
+          "asm": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": 4679033,
+          "size": 2,
+          "bytes": "7504",
+          "asm": "jnz     short loc_47657F",
+          "call_target": null
+        },
+        {
+          "ea": 4679035,
+          "size": 2,
+          "bytes": "32c0",
+          "asm": "xor     al, al",
+          "call_target": null
+        },
+        {
+          "ea": 4679037,
+          "size": 1,
+          "bytes": "5e",
+          "asm": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": 4679038,
+          "size": 1,
+          "bytes": "c3",
+          "asm": "retn",
+          "call_target": null
+        },
+        {
+          "ea": 4679039,
+          "size": 5,
+          "bytes": "a9000000ff",
+          "asm": "test    eax, 0FF000000h",
+          "call_target": null
+        },
+        {
+          "ea": 4679044,
+          "size": 2,
+          "bytes": "7404",
+          "asm": "jz      short loc_47658A",
+          "call_target": null
+        },
+        {
+          "ea": 4679046,
+          "size": 2,
+          "bytes": "32c0",
+          "asm": "xor     al, al",
+          "call_target": null
+        },
+        {
+          "ea": 4679048,
+          "size": 1,
+          "bytes": "5e",
+          "asm": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": 4679049,
+          "size": 1,
+          "bytes": "c3",
+          "asm": "retn",
+          "call_target": null
+        },
+        {
+          "ea": 4679050,
+          "size": 4,
+          "bytes": "8b4c2414",
+          "asm": "mov     ecx, [esp+4+arg_C]",
+          "call_target": null
+        },
+        {
+          "ea": 4679054,
+          "size": 1,
+          "bytes": "53",
+          "asm": "push    ebx",
+          "call_target": null
+        },
+        {
+          "ea": 4679055,
+          "size": 3,
+          "bytes": "83f903",
+          "asm": "cmp     ecx, 3; switch 4 cases",
+          "call_target": null
+        },
+        {
+          "ea": 4679058,
+          "size": 1,
+          "bytes": "57",
+          "asm": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": 4679059,
+          "size": 6,
+          "bytes": "0f87ce000000",
+          "asm": "ja      def_4765A1; jumptable 004765A1 default case",
+          "call_target": null
+        },
+        {
+          "ea": 4679065,
+          "size": 4,
+          "bytes": "8b7c2418",
+          "asm": "mov     edi, [esp+0Ch+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": 4679069,
+          "size": 4,
+          "bytes": "8b5c2414",
+          "asm": "mov     ebx, [esp+0Ch+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": 4679073,
+          "size": 7,
+          "bytes": "ff248d70664700",
+          "asm": "jmp     ds:jpt_4765A1[ecx*4]; switch jump",
+          "call_target": null
+        },
+        {
+          "ea": 4679080,
+          "size": 6,
+          "bytes": "8b8e28020000",
+          "asm": "mov     ecx, [esi+228h]; jumptable 004765A1 case 0",
+          "call_target": null
+        },
+        {
+          "ea": 4679086,
+          "size": 6,
+          "bytes": "8b9624020000",
+          "asm": "mov     edx, [esi+224h]",
+          "call_target": null
+        },
+        {
+          "ea": 4679092,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4679093,
+          "size": 6,
+          "bytes": "8b8e20020000",
+          "asm": "mov     ecx, [esi+220h]",
+          "call_target": null
+        },
+        {
+          "ea": 4679099,
+          "size": 1,
+          "bytes": "52",
+          "asm": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": 4679100,
+          "size": 6,
+          "bytes": "8b961c020000",
+          "asm": "mov     edx, [esi+21Ch]",
+          "call_target": null
+        },
+        {
+          "ea": 4679106,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4679107,
+          "size": 1,
+          "bytes": "52",
+          "asm": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": 4679108,
+          "size": 3,
+          "bytes": "8b5614",
+          "asm": "mov     edx, [esi+14h]",
+          "call_target": null
+        },
+        {
+          "ea": 4679111,
+          "size": 3,
+          "bytes": "8d4e18",
+          "asm": "lea     ecx, [esi+18h]",
+          "call_target": null
+        },
+        {
+          "ea": 4679114,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4679115,
+          "size": 3,
+          "bytes": "8b4e10",
+          "asm": "mov     ecx, [esi+10h]",
+          "call_target": null
+        },
+        {
+          "ea": 4679118,
+          "size": 4,
+          "bytes": "8b7c2428",
+          "asm": "mov     edi, [esp+20h+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": 4679122,
+          "size": 1,
+          "bytes": "52",
+          "asm": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": 4679123,
+          "size": 3,
+          "bytes": "8b560c",
+          "asm": "mov     edx, [esi+0Ch]",
+          "call_target": null
+        },
+        {
+          "ea": 4679126,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4679127,
+          "size": 3,
+          "bytes": "8b4e08",
+          "asm": "mov     ecx, [esi+8]",
+          "call_target": null
+        },
+        {
+          "ea": 4679130,
+          "size": 1,
+          "bytes": "52",
+          "asm": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": 4679131,
+          "size": 4,
+          "bytes": "8b542438",
+          "asm": "mov     edx, [esp+2Ch+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": 4679135,
+          "size": 2,
+          "bytes": "03ca",
+          "asm": "add     ecx, edx",
+          "call_target": null
+        },
+        {
+          "ea": 4679137,
+          "size": 3,
+          "bytes": "8b5604",
+          "asm": "mov     edx, [esi+4]",
+          "call_target": null
+        },
+        {
+          "ea": 4679140,
+          "size": 2,
+          "bytes": "03d7",
+          "asm": "add     edx, edi",
+          "call_target": null
+        },
+        {
+          "ea": 4679142,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4679143,
+          "size": 1,
+          "bytes": "52",
+          "asm": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": 4679144,
+          "size": 1,
+          "bytes": "50",
+          "asm": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": 4679145,
+          "size": 5,
+          "bytes": "e80237fdff",
+          "asm": "call    sub_449CF0",
+          "call_target": 4496624
+        },
+        {
+          "ea": 4679150,
+          "size": 3,
+          "bytes": "83c42c",
+          "asm": "add     esp, 2Ch",
+          "call_target": null
+        },
+        {
+          "ea": 4679153,
+          "size": 2,
+          "bytes": "b001",
+          "asm": "mov     al, 1",
+          "call_target": null
+        },
+        {
+          "ea": 4679155,
+          "size": 1,
+          "bytes": "5f",
+          "asm": "pop     edi",
+          "call_target": null
+        },
+        {
+          "ea": 4679156,
+          "size": 1,
+          "bytes": "5b",
+          "asm": "pop     ebx",
+          "call_target": null
+        },
+        {
+          "ea": 4679157,
+          "size": 1,
+          "bytes": "5e",
+          "asm": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": 4679158,
+          "size": 1,
+          "bytes": "c3",
+          "asm": "retn",
+          "call_target": null
+        },
+        {
+          "ea": 4679159,
+          "size": 3,
+          "bytes": "8b4e0c",
+          "asm": "mov     ecx, [esi+0Ch]; jumptable 004765A1 case 1",
+          "call_target": null
+        },
+        {
+          "ea": 4679162,
+          "size": 3,
+          "bytes": "8b5614",
+          "asm": "mov     edx, [esi+14h]",
+          "call_target": null
+        },
+        {
+          "ea": 4679165,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4679166,
+          "size": 6,
+          "bytes": "8b8e20020000",
+          "asm": "mov     ecx, [esi+220h]",
+          "call_target": null
+        },
+        {
+          "ea": 4679172,
+          "size": 1,
+          "bytes": "52",
+          "asm": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": 4679173,
+          "size": 3,
+          "bytes": "8b5608",
+          "asm": "mov     edx, [esi+8]",
+          "call_target": null
+        },
+        {
+          "ea": 4679176,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4679177,
+          "size": 3,
+          "bytes": "8b4e04",
+          "asm": "mov     ecx, [esi+4]",
+          "call_target": null
+        },
+        {
+          "ea": 4679180,
+          "size": 2,
+          "bytes": "03d7",
+          "asm": "add     edx, edi",
+          "call_target": null
+        },
+        {
+          "ea": 4679182,
+          "size": 2,
+          "bytes": "03cb",
+          "asm": "add     ecx, ebx",
+          "call_target": null
+        },
+        {
+          "ea": 4679184,
+          "size": 1,
+          "bytes": "52",
+          "asm": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": 4679185,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4679186,
+          "size": 1,
+          "bytes": "50",
+          "asm": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": 4679187,
+          "size": 5,
+          "bytes": "e80871feff",
+          "asm": "call    sub_45D720",
+          "call_target": 4577056
+        },
+        {
+          "ea": 4679192,
+          "size": 3,
+          "bytes": "83c418",
+          "asm": "add     esp, 18h",
+          "call_target": null
+        },
+        {
+          "ea": 4679195,
+          "size": 3,
+          "bytes": "8b5604",
+          "asm": "mov     edx, [esi+4]; jumptable 004765A1 case 2",
+          "call_target": null
+        },
+        {
+          "ea": 4679198,
+          "size": 2,
+          "bytes": "8b06",
+          "asm": "mov     eax, [esi]",
+          "call_target": null
+        },
+        {
+          "ea": 4679200,
+          "size": 2,
+          "bytes": "03d3",
+          "asm": "add     edx, ebx",
+          "call_target": null
+        },
+        {
+          "ea": 4679202,
+          "size": 6,
+          "bytes": "899030010000",
+          "asm": "mov     [eax+130h], edx",
+          "call_target": null
+        },
+        {
+          "ea": 4679208,
+          "size": 3,
+          "bytes": "8b4e08",
+          "asm": "mov     ecx, [esi+8]",
+          "call_target": null
+        },
+        {
+          "ea": 4679211,
+          "size": 2,
+          "bytes": "8b16",
+          "asm": "mov     edx, [esi]",
+          "call_target": null
+        },
+        {
+          "ea": 4679213,
+          "size": 2,
+          "bytes": "03cf",
+          "asm": "add     ecx, edi",
+          "call_target": null
+        },
+        {
+          "ea": 4679215,
+          "size": 1,
+          "bytes": "5f",
+          "asm": "pop     edi",
+          "call_target": null
+        },
+        {
+          "ea": 4679216,
+          "size": 1,
+          "bytes": "5b",
+          "asm": "pop     ebx",
+          "call_target": null
+        },
+        {
+          "ea": 4679217,
+          "size": 6,
+          "bytes": "898a34010000",
+          "asm": "mov     [edx+134h], ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4679223,
+          "size": 2,
+          "bytes": "b001",
+          "asm": "mov     al, 1",
+          "call_target": null
+        },
+        {
+          "ea": 4679225,
+          "size": 1,
+          "bytes": "5e",
+          "asm": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": 4679226,
+          "size": 1,
+          "bytes": "c3",
+          "asm": "retn",
+          "call_target": null
+        },
+        {
+          "ea": 4679227,
+          "size": 3,
+          "bytes": "8b4e10",
+          "asm": "mov     ecx, [esi+10h]; jumptable 004765A1 case 3",
+          "call_target": null
+        },
+        {
+          "ea": 4679230,
+          "size": 3,
+          "bytes": "8b560c",
+          "asm": "mov     edx, [esi+0Ch]",
+          "call_target": null
+        },
+        {
+          "ea": 4679233,
+          "size": 4,
+          "bytes": "8b5c2418",
+          "asm": "mov     ebx, [esp+0Ch+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": 4679237,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4679238,
+          "size": 6,
+          "bytes": "8b8840010000",
+          "asm": "mov     ecx, [eax+140h]",
+          "call_target": null
+        },
+        {
+          "ea": 4679244,
+          "size": 1,
+          "bytes": "52",
+          "asm": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": 4679245,
+          "size": 3,
+          "bytes": "8b5608",
+          "asm": "mov     edx, [esi+8]",
+          "call_target": null
+        },
+        {
+          "ea": 4679248,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4679249,
+          "size": 3,
+          "bytes": "8b4e04",
+          "asm": "mov     ecx, [esi+4]",
+          "call_target": null
+        },
+        {
+          "ea": 4679252,
+          "size": 4,
+          "bytes": "8b742420",
+          "asm": "mov     esi, [esp+18h+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": 4679256,
+          "size": 2,
+          "bytes": "03d3",
+          "asm": "add     edx, ebx",
+          "call_target": null
+        },
+        {
+          "ea": 4679258,
+          "size": 2,
+          "bytes": "03ce",
+          "asm": "add     ecx, esi",
+          "call_target": null
+        },
+        {
+          "ea": 4679260,
+          "size": 1,
+          "bytes": "52",
+          "asm": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": 4679261,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4679262,
+          "size": 1,
+          "bytes": "50",
+          "asm": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": 4679263,
+          "size": 5,
+          "bytes": "e8fc70feff",
+          "asm": "call    sub_45D760",
+          "call_target": 4577120
+        },
+        {
+          "ea": 4679268,
+          "size": 3,
+          "bytes": "83c418",
+          "asm": "add     esp, 18h",
+          "call_target": null
+        },
+        {
+          "ea": 4679271,
+          "size": 1,
+          "bytes": "5f",
+          "asm": "pop     edi; jumptable 004765A1 default case",
+          "call_target": null
+        },
+        {
+          "ea": 4679272,
+          "size": 1,
+          "bytes": "5b",
+          "asm": "pop     ebx",
+          "call_target": null
+        },
+        {
+          "ea": 4679273,
+          "size": 2,
+          "bytes": "b001",
+          "asm": "mov     al, 1",
+          "call_target": null
+        },
+        {
+          "ea": 4679275,
+          "size": 1,
+          "bytes": "5e",
+          "asm": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": 4679276,
+          "size": 1,
+          "bytes": "c3",
+          "asm": "retn",
+          "call_target": null
+        }
+      ]
+    },
+    {
+      "ea": 4577056,
+      "end": 4577115,
+      "chunks": [
+        [
+          4577056,
+          4577115
+        ]
+      ],
+      "instruction_count": 13,
+      "inbound_calls": [
+        {
+          "ea": 4679187,
+          "parent": 4679024,
+          "type": 17,
+          "bytes": "e80871feff",
+          "asm": "call    sub_45D720"
+        }
+      ],
+      "other_references": [],
+      "byte_count": 59,
+      "page_count": 1,
+      "instructions": [
+        {
+          "ea": 4577056,
+          "size": 4,
+          "bytes": "8b442404",
+          "asm": "mov     eax, [esp+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": 4577060,
+          "size": 4,
+          "bytes": "8b54240c",
+          "asm": "mov     edx, [esp+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": 4577064,
+          "size": 2,
+          "bytes": "33c9",
+          "asm": "xor     ecx, ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4577066,
+          "size": 6,
+          "bytes": "898854010000",
+          "asm": "mov     [eax+154h], ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4577072,
+          "size": 6,
+          "bytes": "898858010000",
+          "asm": "mov     [eax+158h], ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4577078,
+          "size": 4,
+          "bytes": "8b4c2408",
+          "asm": "mov     ecx, [esp+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": 4577082,
+          "size": 6,
+          "bytes": "899034010000",
+          "asm": "mov     [eax+134h], edx",
+          "call_target": null
+        },
+        {
+          "ea": 4577088,
+          "size": 4,
+          "bytes": "8b542418",
+          "asm": "mov     edx, [esp+arg_14]",
+          "call_target": null
+        },
+        {
+          "ea": 4577092,
+          "size": 6,
+          "bytes": "898830010000",
+          "asm": "mov     [eax+130h], ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4577098,
+          "size": 4,
+          "bytes": "8b4c2414",
+          "asm": "mov     ecx, [esp+arg_10]",
+          "call_target": null
+        },
+        {
+          "ea": 4577102,
+          "size": 6,
+          "bytes": "899038010000",
+          "asm": "mov     [eax+138h], edx",
+          "call_target": null
+        },
+        {
+          "ea": 4577108,
+          "size": 6,
+          "bytes": "898840010000",
+          "asm": "mov     [eax+140h], ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4577114,
+          "size": 1,
+          "bytes": "c3",
+          "asm": "retn",
+          "call_target": null
+        }
+      ]
+    },
+    {
+      "ea": 4577120,
+      "end": 4577175,
+      "chunks": [
+        [
+          4577120,
+          4577175
+        ]
+      ],
+      "instruction_count": 12,
+      "inbound_calls": [
+        {
+          "ea": 4679263,
+          "parent": 4679024,
+          "type": 17,
+          "bytes": "e8fc70feff",
+          "asm": "call    sub_45D760"
+        }
+      ],
+      "other_references": [],
+      "byte_count": 55,
+      "page_count": 1,
+      "instructions": [
+        {
+          "ea": 4577120,
+          "size": 4,
+          "bytes": "8b442404",
+          "asm": "mov     eax, [esp+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": 4577124,
+          "size": 4,
+          "bytes": "8b4c2408",
+          "asm": "mov     ecx, [esp+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": 4577128,
+          "size": 4,
+          "bytes": "8b54240c",
+          "asm": "mov     edx, [esp+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": 4577132,
+          "size": 6,
+          "bytes": "898830010000",
+          "asm": "mov     [eax+130h], ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4577138,
+          "size": 4,
+          "bytes": "8b4c2410",
+          "asm": "mov     ecx, [esp+arg_C]",
+          "call_target": null
+        },
+        {
+          "ea": 4577142,
+          "size": 6,
+          "bytes": "899034010000",
+          "asm": "mov     [eax+134h], edx",
+          "call_target": null
+        },
+        {
+          "ea": 4577148,
+          "size": 4,
+          "bytes": "8b542414",
+          "asm": "mov     edx, [esp+arg_10]",
+          "call_target": null
+        },
+        {
+          "ea": 4577152,
+          "size": 6,
+          "bytes": "898840010000",
+          "asm": "mov     [eax+140h], ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4577158,
+          "size": 4,
+          "bytes": "8b4c2418",
+          "asm": "mov     ecx, [esp+arg_14]",
+          "call_target": null
+        },
+        {
+          "ea": 4577162,
+          "size": 6,
+          "bytes": "899038010000",
+          "asm": "mov     [eax+138h], edx",
+          "call_target": null
+        },
+        {
+          "ea": 4577168,
+          "size": 6,
+          "bytes": "89883c010000",
+          "asm": "mov     [eax+13Ch], ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4577174,
+          "size": 1,
+          "bytes": "c3",
+          "asm": "retn",
+          "call_target": null
+        }
+      ]
+    }
+  ],
+  "original_totals": [
+    {
+      "entry": "0x476570",
+      "end": "0x47666d",
+      "instructions": 103,
+      "bytes": 253,
+      "pages": 2,
+      "direct_calls": 3,
+      "jumps": 4,
+      "returns": 5
+    },
+    {
+      "entry": "0x45d720",
+      "end": "0x45d75b",
+      "instructions": 13,
+      "bytes": 59,
+      "pages": 1,
+      "direct_calls": 0,
+      "jumps": 0,
+      "returns": 1
+    },
+    {
+      "entry": "0x45d760",
+      "end": "0x45d797",
+      "instructions": 12,
+      "bytes": 55,
+      "pages": 1,
+      "direct_calls": 0,
+      "jumps": 0,
+      "returns": 1
+    }
+  ],
+  "original_switch": {
+    "range_start": 4679277,
+    "range_end": 4679296,
+    "bytes": "8d4900a8654700f76547001b6647003b664700",
+    "table_start": 4679280,
+    "targets": [
+      4679080,
+      4679159,
+      4679195,
+      4679227
+    ]
+  },
+  "reused_old_switch_range": {
+    "step": "CAC08",
+    "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
+    "ranges": [
+      "X:0007666D-00076680"
+    ],
+    "association_only": true,
+    "full_original_body_recaptured": false,
+    "runtime_verified": false,
+    "current_definition_line": 43905
+  },
+  "source_before": [
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_476570",
+      "signature": "std::uint8_t Sub_476570(\n    WindowInputPrototype* const prototype, const std::int32_t x,\n    const std::int32_t y, const std::uint32_t mode)",
+      "line": 44030,
+      "source": "std::uint8_t Sub_476570(\n    WindowInputPrototype* const prototype, const std::int32_t x,\n    const std::int32_t y, const std::uint32_t mode)\n{\n    if (prototype->input.kind == WindowInputReferenceKind::RejectedValue) {\n        return 0;\n    }\n    input::InputContext* const context = prototype->input.context;\n    if (context == nullptr) {\n        return 0;\n    }\n    switch (mode) {\n    case 0: {\n        const std::int32_t encrypt = prototype->encrypt;\n        const std::int32_t value224 = prototype->value224;\n        const std::int32_t maxCharPerLine = prototype->maxCharPerLine;\n        const std::int32_t maxLine = prototype->maxLine;\n        const char* const text = prototype->text.data();\n        const std::int32_t color = prototype->color;\n        const std::int32_t fontType = prototype->fontType;\n        const std::int32_t renderMode = prototype->renderMode;\n        const std::int32_t inputY = prototype->y + y;\n        const std::int32_t inputX = prototype->x + x;\n        input::InitializeContext_449CF0(\n            context, inputX, inputY, renderMode, fontType, color, text,\n            maxLine, maxCharPerLine, value224, encrypt);\n        return 1;\n    }\n    case 1: {\n        const std::int32_t renderMode = prototype->renderMode;\n        const std::int32_t color = prototype->color;\n        const std::int32_t maxCharPerLine = prototype->maxCharPerLine;\n        const std::int32_t inputY = prototype->y + y;\n        const std::int32_t inputX = prototype->x + x;\n        input::Sub_45D720(context, inputX, inputY, maxCharPerLine, color, renderMode);\n        [[fallthrough]];\n    }\n    case 2: {\n        const std::int32_t inputX = prototype->x + x;\n        prototype->input.context->field130 = inputX;\n        const std::int32_t inputY = prototype->y + y;\n        prototype->input.context->field134 = inputY;\n        return 1;\n    }\n    case 3: {\n        const std::int32_t fontType = prototype->fontType;\n        const std::int32_t renderMode = prototype->renderMode;\n        const std::int32_t color = context->field140;\n        const std::int32_t inputY = prototype->y + y;\n        const std::int32_t inputX = prototype->x + x;\n        input::Sub_45D760(context, inputX, inputY, color, renderMode, fontType);\n        break;\n    }\n    default:\n        break;\n    }\n    return 1;\n}\n"
+    },
+    {
+      "path": "src/Input.cpp",
+      "symbol": "Sub_45D720",
+      "signature": "InputContext* Sub_45D720(\n    InputContext* const context, const std::int32_t x, const std::int32_t y,\n    [[maybe_unused]] const std::int32_t unused,\n    const std::int32_t color, const std::int32_t renderMode)",
+      "line": 122,
+      "source": "InputContext* Sub_45D720(\n    InputContext* const context, const std::int32_t x, const std::int32_t y,\n    [[maybe_unused]] const std::int32_t unused,\n    const std::int32_t color, const std::int32_t renderMode)\n{\n    context->field154 = 0;\n    context->field158 = 0;\n    context->field134 = y;\n    context->field130 = x;\n    std::memcpy(context->field138, &renderMode, sizeof(renderMode));\n    context->field140 = color;\n    return context;\n}\n"
+    },
+    {
+      "path": "src/Input.cpp",
+      "symbol": "Sub_45D760",
+      "signature": "InputContext* Sub_45D760(\n    InputContext* const context, const std::int32_t x, const std::int32_t y,\n    const std::int32_t color, const std::int32_t renderMode,\n    const std::int32_t fontType)",
+      "line": 136,
+      "source": "InputContext* Sub_45D760(\n    InputContext* const context, const std::int32_t x, const std::int32_t y,\n    const std::int32_t color, const std::int32_t renderMode,\n    const std::int32_t fontType)\n{\n    context->field130 = x;\n    context->field134 = y;\n    context->field140 = color;\n    std::memcpy(context->field138, &renderMode, sizeof(renderMode));\n    context->field13C = fontType;\n    return context;\n}\n"
+    }
+  ],
+  "declarations_before": [
+    {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "symbol": "Sub_476570",
+      "source": "std::uint8_t Sub_476570(\n    WindowInputPrototype* prototype, std::int32_t x, std::int32_t y,\n    std::uint32_t mode);",
+      "line": 1652
+    },
+    {
+      "path": "include/cg/Input.hpp",
+      "symbol": "Sub_45D720",
+      "source": "InputContext* Sub_45D720(\n    InputContext* context, std::int32_t x, std::int32_t y,\n    std::int32_t unused, std::int32_t color, std::int32_t renderMode);",
+      "line": 145
+    },
+    {
+      "path": "include/cg/Input.hpp",
+      "symbol": "Sub_45D760",
+      "source": "InputContext* Sub_45D760(\n    InputContext* context, std::int32_t x, std::int32_t y,\n    std::int32_t color, std::int32_t renderMode, std::int32_t fontType);",
+      "line": 149
+    }
+  ],
+  "source_patches": [
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "line": 44030,
+      "before": "std::uint8_t Sub_476570(\n    WindowInputPrototype* const prototype, const std::int32_t x,\n    const std::int32_t y, const std::uint32_t mode)",
+      "after": "// WIC01：原型四模式、现场context与BYTE结果合同，见doc/cg2d_window_input_context_dispatch_spec.md。\nstd::uint8_t Sub_476570(\n    WindowInputPrototype* const prototype, const std::int32_t x,\n    const std::int32_t y, const std::uint32_t mode)"
+    },
+    {
+      "path": "src/Input.cpp",
+      "line": 122,
+      "before": "InputContext* Sub_45D720(\n    InputContext* const context, const std::int32_t x, const std::int32_t y,\n    [[maybe_unused]] const std::int32_t unused,\n    const std::int32_t color, const std::int32_t renderMode)",
+      "after": "// WIC01：原滚动零/坐标模式颜色发布序与真实context返回，见doc/cg2d_window_input_context_dispatch_spec.md。\nInputContext* Sub_45D720(\n    InputContext* const context, const std::int32_t x, const std::int32_t y,\n    [[maybe_unused]] const std::int32_t unused,\n    const std::int32_t color, const std::int32_t renderMode)"
+    },
+    {
+      "path": "src/Input.cpp",
+      "line": 136,
+      "before": "InputContext* Sub_45D760(\n    InputContext* const context, const std::int32_t x, const std::int32_t y,\n    const std::int32_t color, const std::int32_t renderMode,\n    const std::int32_t fontType)",
+      "after": "// WIC01：原坐标颜色模式字体发布序与真实context返回，见doc/cg2d_window_input_context_dispatch_spec.md。\nInputContext* Sub_45D760(\n    InputContext* const context, const std::int32_t x, const std::int32_t y,\n    const std::int32_t color, const std::int32_t renderMode,\n    const std::int32_t fontType)"
+    },
+    {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "line": 1652,
+      "before": "std::uint8_t Sub_476570(\n    WindowInputPrototype* prototype, std::int32_t x, std::int32_t y,\n    std::uint32_t mode);",
+      "after": "// WIC01：原型四模式、现场context与BYTE结果合同，见doc/cg2d_window_input_context_dispatch_spec.md。\nstd::uint8_t Sub_476570(\n    WindowInputPrototype* prototype, std::int32_t x, std::int32_t y,\n    std::uint32_t mode);"
+    },
+    {
+      "path": "include/cg/Input.hpp",
+      "line": 145,
+      "before": "InputContext* Sub_45D720(\n    InputContext* context, std::int32_t x, std::int32_t y,\n    std::int32_t unused, std::int32_t color, std::int32_t renderMode);",
+      "after": "// WIC01：原滚动零/坐标模式颜色发布序与真实context返回，见doc/cg2d_window_input_context_dispatch_spec.md。\nInputContext* Sub_45D720(\n    InputContext* context, std::int32_t x, std::int32_t y,\n    std::int32_t unused, std::int32_t color, std::int32_t renderMode);"
+    },
+    {
+      "path": "include/cg/Input.hpp",
+      "line": 149,
+      "before": "InputContext* Sub_45D760(\n    InputContext* context, std::int32_t x, std::int32_t y,\n    std::int32_t color, std::int32_t renderMode, std::int32_t fontType);",
+      "after": "// WIC01：原坐标颜色模式字体发布序与真实context返回，见doc/cg2d_window_input_context_dispatch_spec.md。\nInputContext* Sub_45D760(\n    InputContext* context, std::int32_t x, std::int32_t y,\n    std::int32_t color, std::int32_t renderMode, std::int32_t fontType);"
+    }
+  ],
+  "reference_types_source": {
+    "path": "src/ui/WindowRuntimeState.hpp",
+    "source": "// 原输入原型首W32的两种解释；不对原生T*进行原x86高字节测试。\nenum class WindowInputReferenceKind : std::uint8_t {\n    Context,\n    RejectedValue,\n};\n\nstruct WindowInputReference {\n    union {\n        input::InputContext* context;\n        std::uint32_t rejectedValue; // 原高字节非零的拒绝值，低24位也保留。\n    };\n    WindowInputReferenceKind kind;\n};\n\n// 原57E970的0x22C输入原型，不同于窗口type1的图形原型。\nstruct WindowInputPrototype {\n    WindowInputReference input;\n    std::int32_t x;\n    std::int32_t y;\n    std::int32_t renderMode;\n    std::int32_t fontType;\n    std::int32_t color;\n    std::array<char, 0x204> text; // 原+18文本起点至+21C前的字节区，未消费尾部不冻结语义。\n    std::int32_t maxLine;\n    std::int32_t maxCharPerLine;\n    std::int32_t value224;\n    std::int32_t encrypt;\n};\n"
+  },
+  "reference_representation_contract": "doc/ui_windows/shared_runtime.md",
+  "reused_unchanged_semantic_identities": [
+    {
+      "index": 372,
+      "inventory_id": "F:00049CF0",
+      "original_entry": "0x449CF0"
+    },
+    {
+      "index": 2245,
+      "inventory_id": "F:000A6DD0",
+      "original_entry": "0x4a6dd0"
+    },
+    {
+      "index": 2247,
+      "inventory_id": "F:000A6EA0",
+      "original_entry": "0x4a6ea0"
+    }
+  ],
+  "source_patch_group_count": 0,
+  "source_changed_point_count": 0,
+  "source_comment_count": 6,
+  "actual_call_targets": [
+    "0x449cf0",
+    "0x45d720",
+    "0x45d760"
+  ],
+  "inbound_scope": {
+    "total": 80,
+    "internal": 2,
+    "external": 78,
+    "external_parents": 53,
+    "full_external_parents_newly_verified": false
+  },
+  "record_scope": [
+    {
+      "index": 1935,
+      "inventory_id": "F:00076570",
+      "symbol": "Sub_476570",
+      "original_entry": "0x476570",
+      "new_semantic_identity": false,
+      "normal_body_kept": true
+    },
+    {
+      "index": 2256,
+      "inventory_id": "F:0005D720",
+      "symbol": "Sub_45D720",
+      "original_entry": "0x45d720",
+      "new_semantic_identity": true,
+      "normal_body_kept": true
+    },
+    {
+      "index": 2257,
+      "inventory_id": "F:0005D760",
+      "symbol": "Sub_45D760",
+      "original_entry": "0x45d760",
+      "new_semantic_identity": true,
+      "normal_body_kept": true
+    }
+  ],
+  "feature_member_additions": {
+    "FUNC-INPUT": [
+      "F:00076570",
+      "F:0005D720",
+      "F:0005D760"
+    ],
+    "FUNC-UIRUNTIME": [
+      "F:00076570",
+      "F:0005D720",
+      "F:0005D760"
+    ]
+  },
+  "tasks_updated": [
+    "G01",
+    "R01",
+    "R04",
+    "U08",
+    "U09",
+    "U10",
+    "U11",
+    "V03",
+    "V04"
+  ],
+  "expected_counts_after": {
+    "semantic_records": 2258,
+    "semantic_function_records": 2210,
+    "semantic_auxiliary_records": 48,
+    "function_document_links": 2320,
+    "function_document_link_percent": 63.04,
+    "function_dispositions": 1699,
+    "evidence_records": 1497,
+    "feature_members": {
+      "FUNC-INPUT": 78,
+      "FUNC-UIRUNTIME": 114
+    },
+    "feature_member_inventory_closed": false,
+    "accepted_leaf_features": 0,
+    "closed_tasks": 11,
+    "open_tasks": 49,
+    "closures_open": 6,
+    "global_accepted": false
+  },
+  "verification": {
+    "necessary_static": "pass，三完整原根128条367B/四页、三实际E8/三目标/四跳七RET，80普通入向内2/外78及53外父；四槽表及旧19B范围有据。既有x64带标记引用沿已决表示，不套原掩码到native pointer；mode1落2/两现场context、mode3真实context颜色、两叶各字段发布序/四BYTE mode和native context返回保。四整源仅六注释精确重放，三个body/全部其它source和类型表示保持；全父/owner/机器ABI/优化后读取/运行待",
+    "registry": "pass，旧1935全CAC08来源/表/范围子记录保后追加、两新语义三F处置/两限定S零I/INPUT与UIRUNTIME各三成员/九任务open；旧2256语义及其它台账/政策/枚举/完整gates/六closure保持，对应文档与唯一进度仅追加",
+    "measurement": "pass，measure_cg2d.ps1终态退出0：3680函数/218导入/3061区间/184叶功能/60任务，仅静态文本汇总",
+    "check": "pass，measure_cg2d.ps1 -Check终态退出0，生成快照/看板与登记输入一致，仅静态文本检查",
+    "derived_scope": "pass，派生仅六metrics/三F/两功能/九任务；2320/3680=63.04%仅关联率，2258=2210F+48X/F1699/E1497，INPUT78/UIRUNTIME114；其它字段及全部完整门禁保持",
+    "runtime_verified": false,
+    "full_lifecycle_closed": false,
+    "generated_machine_reads_verified": false,
+    "build_or_test_performed": false,
+    "algorithm_samples_executed": false,
+    "digests_computed_or_compared": false
+  },
+  "source_after": [
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_476570",
+      "signature": "std::uint8_t Sub_476570(\n    WindowInputPrototype* const prototype, const std::int32_t x,\n    const std::int32_t y, const std::uint32_t mode)",
+      "line": 44031,
+      "source": "std::uint8_t Sub_476570(\n    WindowInputPrototype* const prototype, const std::int32_t x,\n    const std::int32_t y, const std::uint32_t mode)\n{\n    if (prototype->input.kind == WindowInputReferenceKind::RejectedValue) {\n        return 0;\n    }\n    input::InputContext* const context = prototype->input.context;\n    if (context == nullptr) {\n        return 0;\n    }\n    switch (mode) {\n    case 0: {\n        const std::int32_t encrypt = prototype->encrypt;\n        const std::int32_t value224 = prototype->value224;\n        const std::int32_t maxCharPerLine = prototype->maxCharPerLine;\n        const std::int32_t maxLine = prototype->maxLine;\n        const char* const text = prototype->text.data();\n        const std::int32_t color = prototype->color;\n        const std::int32_t fontType = prototype->fontType;\n        const std::int32_t renderMode = prototype->renderMode;\n        const std::int32_t inputY = prototype->y + y;\n        const std::int32_t inputX = prototype->x + x;\n        input::InitializeContext_449CF0(\n            context, inputX, inputY, renderMode, fontType, color, text,\n            maxLine, maxCharPerLine, value224, encrypt);\n        return 1;\n    }\n    case 1: {\n        const std::int32_t renderMode = prototype->renderMode;\n        const std::int32_t color = prototype->color;\n        const std::int32_t maxCharPerLine = prototype->maxCharPerLine;\n        const std::int32_t inputY = prototype->y + y;\n        const std::int32_t inputX = prototype->x + x;\n        input::Sub_45D720(context, inputX, inputY, maxCharPerLine, color, renderMode);\n        [[fallthrough]];\n    }\n    case 2: {\n        const std::int32_t inputX = prototype->x + x;\n        prototype->input.context->field130 = inputX;\n        const std::int32_t inputY = prototype->y + y;\n        prototype->input.context->field134 = inputY;\n        return 1;\n    }\n    case 3: {\n        const std::int32_t fontType = prototype->fontType;\n        const std::int32_t renderMode = prototype->renderMode;\n        const std::int32_t color = context->field140;\n        const std::int32_t inputY = prototype->y + y;\n        const std::int32_t inputX = prototype->x + x;\n        input::Sub_45D760(context, inputX, inputY, color, renderMode, fontType);\n        break;\n    }\n    default:\n        break;\n    }\n    return 1;\n}\n"
+    },
+    {
+      "path": "src/Input.cpp",
+      "symbol": "Sub_45D720",
+      "signature": "InputContext* Sub_45D720(\n    InputContext* const context, const std::int32_t x, const std::int32_t y,\n    [[maybe_unused]] const std::int32_t unused,\n    const std::int32_t color, const std::int32_t renderMode)",
+      "line": 123,
+      "source": "InputContext* Sub_45D720(\n    InputContext* const context, const std::int32_t x, const std::int32_t y,\n    [[maybe_unused]] const std::int32_t unused,\n    const std::int32_t color, const std::int32_t renderMode)\n{\n    context->field154 = 0;\n    context->field158 = 0;\n    context->field134 = y;\n    context->field130 = x;\n    std::memcpy(context->field138, &renderMode, sizeof(renderMode));\n    context->field140 = color;\n    return context;\n}\n"
+    },
+    {
+      "path": "src/Input.cpp",
+      "symbol": "Sub_45D760",
+      "signature": "InputContext* Sub_45D760(\n    InputContext* const context, const std::int32_t x, const std::int32_t y,\n    const std::int32_t color, const std::int32_t renderMode,\n    const std::int32_t fontType)",
+      "line": 138,
+      "source": "InputContext* Sub_45D760(\n    InputContext* const context, const std::int32_t x, const std::int32_t y,\n    const std::int32_t color, const std::int32_t renderMode,\n    const std::int32_t fontType)\n{\n    context->field130 = x;\n    context->field134 = y;\n    context->field140 = color;\n    std::memcpy(context->field138, &renderMode, sizeof(renderMode));\n    context->field13C = fontType;\n    return context;\n}\n"
+    }
+  ],
+  "declarations_after": [
+    {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "symbol": "Sub_476570",
+      "source": "std::uint8_t Sub_476570(\n    WindowInputPrototype* prototype, std::int32_t x, std::int32_t y,\n    std::uint32_t mode);",
+      "line": 1653
+    },
+    {
+      "path": "include/cg/Input.hpp",
+      "symbol": "Sub_45D720",
+      "source": "InputContext* Sub_45D720(\n    InputContext* context, std::int32_t x, std::int32_t y,\n    std::int32_t unused, std::int32_t color, std::int32_t renderMode);",
+      "line": 146
+    },
+    {
+      "path": "include/cg/Input.hpp",
+      "symbol": "Sub_45D760",
+      "source": "InputContext* Sub_45D760(\n    InputContext* context, std::int32_t x, std::int32_t y,\n    std::int32_t color, std::int32_t renderMode, std::int32_t fontType);",
+      "line": 151
+    }
+  ]
+}

@@ -44027,6 +44027,7 @@ std::int32_t Sub_4741A0(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
+// WIC01：原型四模式、现场context与BYTE结果合同，见doc/cg2d_window_input_context_dispatch_spec.md。
 std::uint8_t Sub_476570(
     WindowInputPrototype* const prototype, const std::int32_t x,
     const std::int32_t y, const std::uint32_t mode)

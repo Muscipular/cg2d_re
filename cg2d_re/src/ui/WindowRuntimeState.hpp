@@ -1649,6 +1649,7 @@ std::int32_t Sub_4E5A40(std::int32_t index, const char* text); // 单宠物属�
 std::int32_t Sub_4E5CD0(std::int32_t index, const char* text); // 只预清第一条技能。
 
 // 原输入原型四模式更新及聊天恢复，复用既有InputContext owner。
+// WIC01：原型四模式、现场context与BYTE结果合同，见doc/cg2d_window_input_context_dispatch_spec.md。
 std::uint8_t Sub_476570(
     WindowInputPrototype* prototype, std::int32_t x, std::int32_t y,
     std::uint32_t mode);

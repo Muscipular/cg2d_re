@@ -179,3 +179,7 @@ context分别等于D66CA8/CB03F0/CC46E0/CC2080/D2D828/CA0180之一，
 ## 2026-10-10 CLD01：日志绘制与输入末字段别名
 
 [CLD01](cg2d_chat_log_line_drawing_spec.md#chat-log-draw-source-state)补齐4A7750完整265条935B原根及一真实入向；普通宽度和每行高度上限两处按原顺序独立取样。512项134H日志、三测宽/原BYTE分行/121H行与逆序绘制、字体回写条件及index0借24项InputContext末field158别名保持，不回绕日志511或新造字段。两处取样/三注释、helper与其它源不改；一新语义F、INPUT/UIRUNTIME/MAP各一成员、三限定S零I。旧四依赖/绘制父身份不改，完整父/全生产消费与alias-owner寿命、机器ABI/实际分行文字颜色画面和运行仍待，整体未完成。
+
+## 2026-10-10 WIC01：原型模式和context发布
+
+[WIC01](cg2d_window_input_context_dispatch_spec.md#input-create-source-state)补齐476570/45D720/45D760三完整原根128条367B、三E8/四跳七RET及80CALL内2/外78/53父来源和四槽旧表。三个正确正文保持：既有x64带标记引用承接原高字节拒绝值，mode1落2并两次新取原型context、mode3颜色取入口context，原坐标/滚动零/四BYTE模式/颜色/字体发布与真实context返回有据；本链不分配新载荷。零逻辑组/六注释，旧1935全CAC08来源/表/范围保后追加，两新语义三F处置、INPUT/UIRUNTIME各三成员/两限定S零I。53外父/原型和context/输入载荷全生产消费与owner寿命、其余依赖/机器ABI/实际初始化切换焦点编辑和运行仍待，整体未完成。

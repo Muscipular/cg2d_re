@@ -59,7 +59,9 @@ void UpdateBattleAfterimage_41E5C0(YobiAction* action); // 递增FF0，新计数
 YobiAction* NewBattleAfterimage_41E5F0(YobiAction* source); // 原克隆路径无失败门禁，复用完整浅复制。
 
 // 471440的type2字段写序；已发布的外层slot逐次借用，原内层失败无空保护。
-void ConfigureWindowElementAction(YobiAction*& slot, const std::int32_t* imageNo);
+// WPL01：只借用槽，源值不写；原交错读取合同见doc/cg2d_window_payload_creation_spec.md。
+void ConfigureWindowElementAction(
+    YobiAction* initialAction, YobiAction*& slot, std::int32_t* const& imageNoSlot);
 // 原4B4863–4B48A4：先转换图号，再逐次借用共享宠物预览槽写字段。
 void ConfigureWindowPetPreview(YobiAction*& slot, std::int32_t imageNo);
 // 原CF3B88/D2F3B0的两个静态内嵌预览；不分配、不进入通用Yobi链。

@@ -162,3 +162,7 @@ BuildProtocolCommand只替换原宿主_itoa调用，继续16进制、原校验�
 ## 2026-10-10 WND01：数字文本步进与图片消费
 
 [WND01](cg2d_window_number_draw_spec.md#number-draw-source-state)补齐4771B0/477460/477170三完整原根255条774B、两E8与38CALL/21父来源，120W32/480B四表与源常量吻合。旧86初始化尾跳、553098原槽及现MSVC构造接线复用，不新建同一身份或恢复私有CRT机制。测宽明确先运行步进乘字节长度再读扣宽；原S8样式/颜色、flags正反字节绘制/四符号/未知BYTE仍步进、descriptor、四S32初始化序和所有其他源保持，七关联注释。三新语义F、UIRUNTIME/RENDER各三成员、两限定S零I；全父/数字载荷字符串图号步进队列生产消费及owner寿命、构造退出时序/机器ABI/真实数字符号像素与运行仍待，整体未完成。
+
+## 2026-10-10 WPL01：窗口输入载荷的外层owner与借用context
+
+[WPL01](cg2d_window_payload_creation_spec.md#window-payload-source-state)补齐471440完整384条1159B、13E8/五目标/40跳五RET及一次update间接、52CALL/21父来源和七槽旧表。七类载荷是既有真实结构：外层由UI管理，type3另own256B文本、type7借字符串、type5借context、type2 action由Yobi管理；旧1797/BVR释放正文保。现有唯一helper改借初始action及现有action/图号槽，恢复首flags目标、延迟图号指针和图号指针→action槽→值的交错，一组三处/四注释；声明/定义/唯一调用同步，其余创建/释放/其它source和类型保持。旧1929全CAC08历史保后追加、一F处置/四域各一成员/四限定S零I；全父/七载荷及嵌套对象生产消费与owner寿命、SDK/机器ABI/实际创建更新释放和运行仍待，整体未完成。

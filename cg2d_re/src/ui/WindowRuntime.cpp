@@ -44258,6 +44258,7 @@ WindowInstance* Sub_5342E0()
     return OpenWindow_471440(64);
 }
 
+// WPL01：七类载荷创建/owner与动画现场源槽，见doc/cg2d_window_payload_creation_spec.md。
 WindowInstance* OpenWindow_471440(const std::int32_t id)
 {
     using namespace detail;
@@ -44334,9 +44335,10 @@ WindowInstance* OpenWindow_471440(const std::int32_t id)
                 auto* const data = static_cast<WindowAnimationData*>(
                     std::calloc(1, sizeof(WindowAnimationData)));
                 if (data != nullptr) {
-                    data->action = login::detail::NewYobiAction_404AE0(2, 0);
+                    login::YobiAction* const action = login::detail::NewYobiAction_404AE0(2, 0);
+                    data->action = action;
                     login::detail::ConfigureWindowElementAction(
-                        data->action, source->source.animationImageNo);
+                        action, data->action, source->source.animationImageNo);
                     data->value04 = 0;
                 }
                 element->data = data;

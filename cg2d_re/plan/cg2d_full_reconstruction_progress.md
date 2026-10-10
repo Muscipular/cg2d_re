@@ -1016,3 +1016,18 @@ PudO唯一改动为持有GetCate返回给调色板，不重读刚pub全局；保
 初按拟名检索x64引用SPEC未找到文件；rg定位已决shared_runtime中的原空/高字节与native标记合同，真实类型在WindowRuntimeState.hpp，当前原型/写方在WindowRuntime.cpp明确定义，未因文件名或native地址猜原门槛。原三根/四页与19B表一次取得后复用；静态核原0FF000000与mode四槽，不新增x64数值地址比较。
 
 同一cg2d_re分支、不打tag，七外部改动及原删除暂存保持。仅必要静态文本，未构建/测试/运行客户端或算法/检查产物/计算摘要/引依赖；53外父、原型标记/所有context/输入载荷全部生产消费与alias-owner寿命、初始化其余依赖/字体IME/CRT/SDK/机器ABI/优化后读取/实际初始化切换焦点编辑与全生命周期待，完整枚举/gates/六closure/总SPEC§10保持，整体active/未完成。
+
+<a id="window-payload-progress-20261010"></a>
+## 97. 2026-10-10 WPL01：窗口创建、七类载荷与动画源槽
+
+[完整创建原根](../doc/cg2d_window_payload_creation_spec.md#window-payload-source-state)覆盖471440，384条1159B/六页、13实际E8/五目标/40跳五RET与一次update间接，52外CALL/21父仅来源。七槽原表/旧41B范围和10/10六原BYTE有据，type5/6共原4B分配段，native仅type5指针槽扩大；旧1929全CAC08来源/表/范围保历史追加，不重分类或新身份。
+
+七载荷结构与原分配/写/释放已对齐：type1六W32、type2 action地址+W32、type3四BYTE+text地址/另256B文本、type4三W32、type5 context地址、type6未消费W32、type7字符串地址+四BYTE。UI持外层，type3文本owned、type7字符串borrowed、type5 context另有owner、type2 action由Yobi管理；旧1797/BVR释放保。不用已核释放代全生命周期或因单W32未知而猜业务。原71槽类别关闭/同id重开/分配失败/字段交错复制/拖动新原型与count、最后实例/状态/坐标旗位/update(-1)/恢复当前窗口及返回保。
+
+一组三处已修：动画flags用新建返回action，清callback后才取原型图号指针槽，再取载荷action槽、读图号值并pub，末新槽写priority DF。已有ConfigureWindowElementAction改为初始action加两现有引用槽，声明/定义/唯一CPP调用同步，不公开私有Yobi布局、不新建API函数/类型/影子槽或owner；四整源一组三处/四注释精确差异通过，其余六类/旧释放/其他body/类型不改，无新保护/默认值/补零/钳制/容量限制/回滚/异常模型，原零/失败分支保。
+
+先记SPEC按第8条裁决。一F处置、INPUT/UIRUNTIME/RENDER/YOBI各一成员、四限定S零I/九任务open，旧2258语义/1699F/1497证据及其它政策/完整门禁保持，登记、静态汇总/-Check终态均退出0、派生范围核对通过：仅一metrics、旧一F、四功能和九任务变化。语义2258=2210F+48X及文档关联2320/3680=63.04%保持，F1700/证据1501，INPUT79/UIRUNTIME115/RENDER85/YOBI102；184叶验收0、60任务关闭11开放49、六closure及其它完整门禁保持。
+
+首轮载荷检索过广输出截断，只用于定位分配/释放行，未代完整证据。结构采集误把公开前置声明当定义而断言，rg确认全部真实结构在WindowRuntimeState.hpp；拟名WindowTypes.hpp不存在，不按其猜布局。原创建六页已完整一次取得；同批读得旧FreeWindow三页，认出已有BVR完整记录后不重复登记/修改，后续复用旧合同。helper原已借action槽，进一步核原初始返回与图号指针读取时点后定位本步边界差异，没有把已修的引用误当新修。
+
+同一cg2d_re分支、不打tag，七外部改动及原删除暂存保持。仅必要静态文本，未构建/测试/运行客户端或算法/检查产物/计算摘要/引依赖；21外父、原型表/七载荷/嵌套文本/context/Yobi/回调全部生产消费和alias-owner寿命、完整死亡回收/资源/CRT/SDK/机器ABI/优化后读取/实际创建更新释放及全生命周期待，完整枚举/gates/六closure/总SPEC§10保持，整体active/未完成。

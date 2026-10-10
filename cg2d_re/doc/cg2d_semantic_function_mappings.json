@@ -192252,7 +192252,7 @@
       "original_entry": "0x471440",
       "inventory_id": "F:00071440",
       "original_role": "CAC08仅原分派数据/当前源定义关联：OpenWindow_471440",
-      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收；WPL01完整创建及动画源槽一组三处取样修正，限定S/全依赖owner与运行待",
       "sources": [
         {
           "path": "src/ui/WindowRuntime.cpp",
@@ -192260,16 +192260,49 @@
             "cg::ui::OpenWindow_471440"
           ],
           "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "OpenWindow_471440"
+          ],
+          "relationship": "WPL01完整七类创建及动画源槽原交错取样，业务分支/布局与owner保持"
+        },
+        {
+          "path": "include/cg/ui/WindowRuntime.hpp",
+          "symbols": [
+            "OpenWindow_471440"
+          ],
+          "relationship": "WPL01真实公共声明/参数返回保持，仅合同注释"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "ConfigureWindowElementAction"
+          ],
+          "relationship": "WPL01既有opaque Yobi helper借初始action/现有action和图号槽保原交错读取，唯一调用和声明同步，不新增原F"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "ConfigureWindowElementAction"
+          ],
+          "relationship": "WPL01既有真实声明保持，更新借槽参数声明及合同注释"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
-        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json",
+        "doc/cg2d_window_payload_creation_spec.md#window-payload-baseline",
+        "doc/cg2d_window_payload_creation_spec.md#window-payload-decision",
+        "doc/cg2d_window_payload_creation_spec.md#window-payload-acceptance",
+        "doc/cg2d_window_payload_creation_spec.md#window-payload-source-state",
+        "doc/cg2d_window_payload_creation_evidence.json"
       ],
-      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
-      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。；WPL01完整窗口创建原根384条1159B/六页、13实际E8/五目标/40跳五RET及一次update间接、52外CALL/21父、七槽旧41B表与10/10六BYTE。七载荷与既有owner类型/分配数量失败/字段复制、71槽类别关闭/同id重开及calloc、拖动每字段新原型与count、末全局实例/状态坐标旗位/临时当前窗口/update(-1)/state.window/恢复当前窗口/返回保。唯一ConfigureWindowElementAction原边界改借初始action与真实action/图号源槽，一组三处保首flags目标、callback后图号槽读及图号指针→action槽→图号值交错；现有三个参数/定义/声明/唯一调用同步，无新API函数或类型/布局/owner/分配释放。type3外层与256文本owned、type7字符串borrowed、type5 context借用、type2外层owned/action Yobi管理，旧1797/BVR正确释放及其它source/类型不改，不以已核释放外推全owner；原calloc零与失败分支保，无新保护/默认值/补零/钳制/容量限制/回滚/异常模型。旧1929所有CAC08来源/表/范围保后追加，一F处置/四域各一成员/四限定S零I/九任务open；21外父/原型表/七载荷及嵌套对象全部生产消费和alias-owner寿命、Yobi完整死亡回收/资源/CRT/SDK/机器ABI/优化后读取/真实创建更新释放与全生命周期待，完整枚举/gates/六closure/总SPEC§10保持。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。；WPL01：pass，完整创建原根384条1159B/六页、13实际E8/五目标/40跳五RET及一次update间接、52外CALL/21父和七槽旧41B表/10/10六BYTE有据。唯一已用helper边界承接初始action与现场action/图号槽，一组三处原交错顺序落实；实参类型匹配现有int32*字段，全部CPP仅一定义/一调用。四整源一组三处/四注释精确重放，其余创建/旧1797释放/其它body和九既有结构不改；指针扩大/原数量失败与owner合同保，完整父/全owner/机器ABI/优化后读取/运行待",
       "range_fifth_batch_data": {
         "step": "CAC08",
         "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
@@ -192280,6 +192313,399 @@
         "full_original_body_recaptured": false,
         "runtime_verified": false,
         "current_definition_line": 44134
+      },
+      "window_payload_creation": {
+        "step": "WPL01",
+        "source_snapshot": "[#] 补齐窗口载荷创建并恢复动画源槽取样",
+        "original_end_exclusive": "0x4718c7",
+        "original_instruction_count": 384,
+        "original_code_bytes": 1159,
+        "original_page_count": 6,
+        "direct_call_count": 13,
+        "unique_direct_call_target_count": 5,
+        "jump_count": 40,
+        "return_count": 5,
+        "original_incoming": [
+          {
+            "ea": 4652026,
+            "parent": 4651984,
+            "type": 17,
+            "bytes": "e841180000",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4652090,
+            "parent": null,
+            "type": 17,
+            "bytes": "e801180000",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4655104,
+            "parent": 5258880,
+            "type": 17,
+            "bytes": "e83b0c0000",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4655138,
+            "parent": 5258880,
+            "type": 17,
+            "bytes": "e8190c0000",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4655165,
+            "parent": 5258880,
+            "type": 17,
+            "bytes": "e8fe0b0000",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4655192,
+            "parent": 5258880,
+            "type": 17,
+            "bytes": "e8e30b0000",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4655557,
+            "parent": 4655488,
+            "type": 17,
+            "bytes": "e8760a0000",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4655591,
+            "parent": 4655488,
+            "type": 17,
+            "bytes": "e8540a0000",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4655618,
+            "parent": 4655488,
+            "type": 17,
+            "bytes": "e8390a0000",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4655645,
+            "parent": 4655488,
+            "type": 17,
+            "bytes": "e81e0a0000",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4655767,
+            "parent": 4655744,
+            "type": 17,
+            "bytes": "e8a4090000",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4657582,
+            "parent": 5258880,
+            "type": 17,
+            "bytes": "e88d020000",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4657589,
+            "parent": 5258880,
+            "type": 17,
+            "bytes": "e886020000",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4657615,
+            "parent": 5258880,
+            "type": 17,
+            "bytes": "e86c020000",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4657633,
+            "parent": 5258880,
+            "type": 17,
+            "bytes": "e85a020000",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4657664,
+            "parent": 5258880,
+            "type": 17,
+            "bytes": "e83b020000",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4657703,
+            "parent": 5258880,
+            "type": 17,
+            "bytes": "e814020000",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4660474,
+            "parent": null,
+            "type": 17,
+            "bytes": "e841f7ffff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4660538,
+            "parent": null,
+            "type": 17,
+            "bytes": "e801f7ffff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4660631,
+            "parent": null,
+            "type": 17,
+            "bytes": "e8a4f6ffff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4660662,
+            "parent": null,
+            "type": 17,
+            "bytes": "e885f6ffff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4662045,
+            "parent": 4662000,
+            "type": 17,
+            "bytes": "e81ef1ffff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4662082,
+            "parent": 4662000,
+            "type": 17,
+            "bytes": "e8f9f0ffff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4662112,
+            "parent": 4662000,
+            "type": 17,
+            "bytes": "e8dbf0ffff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4662161,
+            "parent": 4662000,
+            "type": 17,
+            "bytes": "e8aaf0ffff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4672639,
+            "parent": null,
+            "type": 17,
+            "bytes": "e8bcc7ffff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4672842,
+            "parent": null,
+            "type": 17,
+            "bytes": "e8f1c6ffff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4673058,
+            "parent": null,
+            "type": 17,
+            "bytes": "e819c6ffff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4675879,
+            "parent": 4675792,
+            "type": 17,
+            "bytes": "e814bbffff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4675973,
+            "parent": 4675920,
+            "type": 17,
+            "bytes": "e8b6baffff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4677368,
+            "parent": 4677120,
+            "type": 17,
+            "bytes": "e843b5ffff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4677573,
+            "parent": 4677120,
+            "type": 17,
+            "bytes": "e876b4ffff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4677791,
+            "parent": 4677120,
+            "type": 17,
+            "bytes": "e89cb3ffff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4683719,
+            "parent": 4683536,
+            "type": 17,
+            "bytes": "e8749cffff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4683934,
+            "parent": 4683536,
+            "type": 17,
+            "bytes": "e89d9bffff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4684162,
+            "parent": 4683536,
+            "type": 17,
+            "bytes": "e8b99affff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4686799,
+            "parent": 4686640,
+            "type": 17,
+            "bytes": "e86c90ffff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4687002,
+            "parent": 4686640,
+            "type": 17,
+            "bytes": "e8a18fffff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4687205,
+            "parent": 4686640,
+            "type": 17,
+            "bytes": "e8d68effff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4761688,
+            "parent": 4761648,
+            "type": 17,
+            "bytes": "e8e36bfeff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4781220,
+            "parent": 4781072,
+            "type": 17,
+            "bytes": "e8971ffeff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4781380,
+            "parent": 4781072,
+            "type": 17,
+            "bytes": "e8f71efeff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4781530,
+            "parent": 4781072,
+            "type": 17,
+            "bytes": "e8611efeff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4810451,
+            "parent": 4810416,
+            "type": 17,
+            "bytes": "e868adfdff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4864318,
+            "parent": 4864192,
+            "type": 17,
+            "bytes": "e8fddafcff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4871132,
+            "parent": 4871120,
+            "type": 17,
+            "bytes": "e85fc0fcff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4883275,
+            "parent": 4883248,
+            "type": 17,
+            "bytes": "e8f090fcff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4883313,
+            "parent": 4883248,
+            "type": 17,
+            "bytes": "e8ca90fcff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4883371,
+            "parent": 4883360,
+            "type": 17,
+            "bytes": "e89090fcff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 4899019,
+            "parent": 4899008,
+            "type": 17,
+            "bytes": "e87053fcff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 5026790,
+            "parent": 5026544,
+            "type": 17,
+            "bytes": "e85560faff",
+            "asm": "call    Window__open"
+          },
+          {
+            "ea": 5456610,
+            "parent": 5456608,
+            "type": 17,
+            "bytes": "e859d1f3ff",
+            "asm": "call    Window__open"
+          }
+        ],
+        "original_other_references": [],
+        "native_signature": "WindowInstance* OpenWindow_471440(const std::int32_t id)",
+        "native_provider": "src/ui/WindowRuntime.cpp::OpenWindow_471440",
+        "native_payload_helper": "src/YobiRuntime.cpp::ConfigureWindowElementAction",
+        "native_helper_signature": "void ConfigureWindowElementAction(\n    YobiAction* const initialAction, YobiAction*& slot,\n    std::int32_t* const& imageNoSlot)",
+        "native_helper_caller_count": 1,
+        "old_free_body_kept": true,
+        "normal_source_kept": false,
+        "source_patch_group_count": 1,
+        "source_changed_point_count": 3,
+        "source_comment_count": 4,
+        "full_external_parents_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
       }
     },
     {

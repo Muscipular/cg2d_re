@@ -11,6 +11,7 @@ namespace cg::ui {
 // 游戏UI实例，不是Win32窗口或Yobi；调用方只借用，不承担释放。
 struct WindowInstance;
 
+// WPL01：完整创建/载荷owner合同，见doc/cg2d_window_payload_creation_spec.md。
 WindowInstance* OpenWindow_471440(std::int32_t id); // 完整七类创建；原型表绑定仍是外部依赖。
 WindowInstance* Sub_5342E0(); // DpSY回复打开窗口64，透传借用实例指针。
 login::YobiAction* CreateWindowAnimation_475AA0(

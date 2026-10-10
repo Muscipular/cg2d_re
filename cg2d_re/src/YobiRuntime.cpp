@@ -1845,12 +1845,16 @@ YobiAction* NewBattleAfterimage_41E5F0(YobiAction* const source)
     return action;
 }
 
+// WPL01：借初始action及现有action/图号槽保持原交错读取，见doc/cg2d_window_payload_creation_spec.md。
 void ConfigureWindowElementAction(
-    YobiAction*& slot, const std::int32_t* const imageNo)
+    YobiAction* const initialAction, YobiAction*& slot,
+    std::int32_t* const& imageNoSlot)
 {
-    slot->flags |= 2u;
+    initialAction->flags |= 2u;
     slot->callback = nullptr;
-    slot->imageNo = *imageNo;
+    const std::int32_t* const imageNo = imageNoSlot;
+    YobiAction* const imageAction = slot;
+    imageAction->imageNo = *imageNo;
     slot->displayPriority = 0xDF;
 }
 

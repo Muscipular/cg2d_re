@@ -4860,3 +4860,7 @@ primary和BOG插值/原可写表/ftol host职责不改；上界比较→fresh减
 ## 2026-10-10 WDP01：窗口动画颜色BYTE消费者
 
 [WDP01](cg2d_window_element_draw_pipeline_spec.md#window-draw-source-state)补齐4729B0完整277条846B及七槽分发表/51CALL与34父来源。六组十三处恢复入口坐标、入口图号缓存、四低W16裁剪、两图形坐标路径、数字载荷四字段和四动画颜色BYTE；所有原visible/图号/焦点/context/text/数字null门槛、六业务分发/每元素新窗口count/尾层3清队列与范围提示保持。共用Yobi helper改读选中BYTE，S32存储/其他调用源/GetField20正确body不改，不外推其他父；四整源/四注释精确静态通过。旧1932全部CAC08来源/表/范围子记录保后追加，一F处置/四限定S零I，INPUT/UIRUNTIME/RENDER/YOBI各一成员；51外父/元素载荷/资源动画字体输入日志提示全生产消费及owner寿命、机器ABI/真实像素文字动画与运行仍待，整体未完成。
+
+## 2026-10-10 WPL01：动画载荷配置的原交错源槽
+
+[WPL01](cg2d_window_payload_creation_spec.md#window-payload-source-state)补齐471440完整384条1159B、13E8/五目标/40跳五RET及一次update间接、52CALL/21父来源和七槽旧表。七类载荷是既有真实结构：外层由UI管理，type3另own256B文本、type7借字符串、type5借context、type2 action由Yobi管理；旧1797/BVR释放正文保。现有唯一helper改借初始action及现有action/图号槽，恢复首flags目标、延迟图号指针和图号指针→action槽→值的交错，一组三处/四注释；声明/定义/唯一调用同步，其余创建/释放/其它source和类型保持。旧1929全CAC08历史保后追加、一F处置/四域各一成员/四限定S零I；全父/七载荷及嵌套对象生产消费与owner寿命、SDK/机器ABI/实际创建更新释放和运行仍待，整体未完成。

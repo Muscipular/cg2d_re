@@ -315,3 +315,7 @@ BVP01七整源/十三正文保持是原命名快照历史；本次只纠正4FA8E
 ## 2026-10-10 WIC01：输入原型四模式分发
 
 [WIC01](cg2d_window_input_context_dispatch_spec.md#input-create-source-state)补齐476570/45D720/45D760三完整原根128条367B、三E8/四跳七RET及80CALL内2/外78/53父来源和四槽旧表。三个正确正文保持：既有x64带标记引用承接原高字节拒绝值，mode1落2并两次新取原型context、mode3颜色取入口context，原坐标/滚动零/四BYTE模式/颜色/字体发布与真实context返回有据；本链不分配新载荷。零逻辑组/六注释，旧1935全CAC08来源/表/范围保后追加，两新语义三F处置、INPUT/UIRUNTIME各三成员/两限定S零I。53外父/原型和context/输入载荷全生产消费与owner寿命、其余依赖/机器ABI/实际初始化切换焦点编辑和运行仍待，整体未完成。
+
+## 2026-10-10 WPL01：完整七类载荷创建与owner
+
+[WPL01](cg2d_window_payload_creation_spec.md#window-payload-source-state)补齐471440完整384条1159B、13E8/五目标/40跳五RET及一次update间接、52CALL/21父来源和七槽旧表。七类载荷是既有真实结构：外层由UI管理，type3另own256B文本、type7借字符串、type5借context、type2 action由Yobi管理；旧1797/BVR释放正文保。现有唯一helper改借初始action及现有action/图号槽，恢复首flags目标、延迟图号指针和图号指针→action槽→值的交错，一组三处/四注释；声明/定义/唯一调用同步，其余创建/释放/其它source和类型保持。旧1929全CAC08历史保后追加、一F处置/四域各一成员/四限定S零I；全父/七载荷及嵌套对象生产消费与owner寿命、SDK/机器ABI/实际创建更新释放和运行仍待，整体未完成。

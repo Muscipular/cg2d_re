@@ -8215,6 +8215,7 @@ void Sub_4C6790(WindowItemSelectorState* const state)
     }
 }
 
+// PSP01：同state mode按S8映射，回调返回的S32索引原序发布到selectedPet70并返回。
 std::int32_t Sub_4C6990(WindowItemSelectorState* const state)
 {
     const std::int32_t index = Sub_4C71C0(std::bit_cast<std::int8_t>(*state->mode68));
@@ -8222,6 +8223,7 @@ std::int32_t Sub_4C6990(WindowItemSelectorState* const state)
     return index;
 }
 
+// PSP01：同宠物previous/updated BYTE及名字/负重原序保持；首次测宽先字体后文本，负重先文本后字体。
 void Sub_4C69B0(WindowItemSelectorState* const state)
 {
     if (state->selectedPet70 == -1 || !world::IsValidPetIndex_51C410(state->selectedPet70)) {
@@ -8238,16 +8240,18 @@ void Sub_4C69B0(WindowItemSelectorState* const state)
     auto* const nameData = static_cast<WindowTextData*>(nameElement->data);
     const char* const name = pet->name6BD[0] != '\0' ? pet->name6BD.data() : pet->name6AC.data();
     std::strcpy(nameData->text, name);
-    const std::int32_t nameWidth = login::detail::TextMeasure(
-        nameData->text, std::to_integer<std::uint8_t>(nameData->bytes00[1]));
+    const std::uint8_t nameFont = std::to_integer<std::uint8_t>(nameData->bytes00[1]);
+    const char* const nameText = nameData->text;
+    const std::int32_t nameWidth = login::detail::TextMeasure(nameText, nameFont);
     nameElement->x = state->elements00[1]->x - nameWidth / 2 + 101;
     WindowElement* const weightElement = state->elements00[8];
     const std::int32_t maximumWeight = pet->values6D8[2];
     const std::int32_t weight = pet->values6D8[1];
     auto* const weightData = static_cast<WindowTextData*>(weightElement->data);
     platform::FormatLegacyString_53B304(weightData->text, "\xD8\x93\xD6\xD8:%3d/%3d", weight, maximumWeight);
-    const std::int32_t weightWidth = login::detail::TextMeasure(
-        weightData->text, std::to_integer<std::uint8_t>(weightData->bytes00[1]));
+    const char* const weightText = weightData->text;
+    const std::uint8_t weightFont = std::to_integer<std::uint8_t>(weightData->bytes00[1]);
+    const std::int32_t weightWidth = login::detail::TextMeasure(weightText, weightFont);
     weightElement->x = state->elements00[1]->x - weightWidth / 2 + 101;
 }
 
@@ -8340,6 +8344,7 @@ void Sub_4C6B10(WindowItemSelectorState* const state)
     }
 }
 
+// PSP01：同一非拥有预览推进/两轴/队列；掩码替换字节先旧字节，返回/原读取门槛保持。
 std::int32_t Sub_4C6D90(WindowItemSelectorState* const state)
 {
     const std::int32_t selected = state->selectedPet70;
@@ -8355,7 +8360,7 @@ std::int32_t Sub_4C6D90(WindowItemSelectorState* const state)
         return result;
     }
     const render::GraphicDescriptor16* const descriptor =
-        login::detail::ApplyWindowAnimationDrawMode(preview);
+        login::detail::ApplyWindowAnimationDrawMode(preview, true);
     const std::uint8_t layer = login::detail::GetYobiActionField15(preview);
     const std::int32_t offsetY = login::detail::Sub_5182B0(preview, 1);
     const std::int32_t y = offsetY + gCurrentWindow->y + 163;
@@ -8365,6 +8370,7 @@ std::int32_t Sub_4C6D90(WindowItemSelectorState* const state)
     return render::DrawGraphic2_521DD0(x, y, layer, graphicIndex, 0, 0, descriptor);
 }
 
+// PSP01：五排序对按used W16/索引S16/状态W16计数；不足仍取末扫描项，不新增匹配/索引保护。
 std::int32_t Sub_4C71C0(const std::int32_t ordinal)
 {
     if (ordinal == -1) {

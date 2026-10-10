@@ -41,3 +41,9 @@ type3：原text指针为空就跳过；减元素height，再取BYTE color、BYTE
 ## 当前状态
 
 本步前提交说明“[#] 补齐聊天日志绘制并明确尺寸取样顺序”；拟提交说明“[#] 补齐窗口绘制分发并恢复字段取样合同”。完整原根、七槽旧表、六组十三处/四注释精确差异、旧1932保历史追加、登记、静态汇总/Check与派生范围核对通过。语义2253=2205F+48X及文档关联2315/3680=62.91%保持，函数处置1693/证据1493，INPUT75/UIRUNTIME108/RENDER81/YOBI101且枚举未闭。184叶验收0、60任务关闭11/开放49、六closure开放及全部完整门禁保持；未构建/测试/运行，整体active/未完成。
+
+## 2026-10-10 PSP01：共享helper的两条原取序
+
+[PSP01](cg2d_selector_pet_preview_spec.md#selector-pet-source-state)补齐S8序号发布、五排序对映射、名称负重及同宠物预览四完整原根238条690B/六页，九E8七目标/21跳六RET，八入CALL有据。两测宽分别按原字体→文本、文本→字体取样；预览沿原replacement→previous读取，现detail helper增加取序参数，四个既有单参调用保previous→replacement。四组四处/十注释，四整源其它正文与两正确叶/五类型保持。复用BOT01已核layer BYTE消费，高24位不记整ABI等价。旧892格式与历史追加、三新F/四处置、四限定S零I/十open；全部排序对/宠物/文本/descriptor生产消费、callee/外父及alias-owner寿命、生成取样/机器ABI/预览像素与运行待，整体未完成。
+
+旧WDP01的原窗口动画取序与四个单参调用保持；预览4C6D90原字段读取另有replacement→previous，本步显式true接线。helper未造独立原F，不提升旧所有父/机器ABI或运行验收。

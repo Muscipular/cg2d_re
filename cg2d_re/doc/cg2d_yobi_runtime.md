@@ -4864,3 +4864,7 @@ primary和BOG插值/原可写表/ftol host职责不改；上界比较→fresh减
 ## 2026-10-10 WPL01：动画载荷配置的原交错源槽
 
 [WPL01](cg2d_window_payload_creation_spec.md#window-payload-source-state)补齐471440完整384条1159B、13E8/五目标/40跳五RET及一次update间接、52CALL/21父来源和七槽旧表。七类载荷是既有真实结构：外层由UI管理，type3另own256B文本、type7借字符串、type5借context、type2 action由Yobi管理；旧1797/BVR释放正文保。现有唯一helper改借初始action及现有action/图号槽，恢复首flags目标、延迟图号指针和图号指针→action槽→值的交错，一组三处/四注释；声明/定义/唯一调用同步，其余创建/释放/其它source和类型保持。旧1929全CAC08历史保后追加、一F处置/四域各一成员/四限定S零I；全父/七载荷及嵌套对象生产消费与owner寿命、SDK/机器ABI/实际创建更新释放和运行仍待，整体未完成。
+
+## 2026-10-10 PSP01：选择器预览描述符取序
+
+[PSP01](cg2d_selector_pet_preview_spec.md#selector-pet-source-state)补齐S8序号发布、五排序对映射、名称负重及同宠物预览四完整原根238条690B/六页，九E8七目标/21跳六RET，八入CALL有据。两测宽分别按原字体→文本、文本→字体取样；预览沿原replacement→previous读取，现detail helper增加取序参数，四个既有单参调用保previous→replacement。四组四处/十注释，四整源其它正文与两正确叶/五类型保持。复用BOT01已核layer BYTE消费，高24位不记整ABI等价。旧892格式与历史追加、三新F/四处置、四限定S零I/十open；全部排序对/宠物/文本/descriptor生产消费、callee/外父及alias-owner寿命、生成取样/机器ABI/预览像素与运行待，整体未完成。

@@ -104417,7 +104417,7 @@
     {
       "original_entry": "0x4C69B0",
       "inventory_id": "F:000C69B0",
-      "status": "既有物品选择器宠物负重真实格式依赖已接；完整生产/输入/父路由和运行未据本步验收",
+      "status": "既有物品选择器宠物负重真实格式依赖已接；完整生产/输入/父路由和运行未据本步验收；PSP01完整96条名称/负重原根补证，两测宽取序明确；原格式/文本决议及历史保，全callee/ABI/运行待",
       "original_end_exclusive": "0x4C6AB9",
       "instruction_count": 96,
       "sources": [
@@ -104427,13 +104427,32 @@
             "Sub_4C69B0"
           ],
           "relationship": "仅一格式callee接真实53B304，原指针接口与其他正文保持"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C69B0"
+          ],
+          "relationship": "PSP01完整名称/负重原根补证，两次测宽参数读取取序明确，原MSVC格式及其它业务保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4C69B0"
+          ],
+          "relationship": "PSP01真实void参数/返回保持，仅完整合同注释"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/shared_items.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_selector_pet_preview_spec.md#selector-pet-baseline",
+        "doc/cg2d_selector_pet_preview_spec.md#selector-pet-decision",
+        "doc/cg2d_selector_pet_preview_spec.md#selector-pet-acceptance",
+        "doc/cg2d_selector_pet_preview_spec.md#selector-pet-source-state",
+        "doc/cg2d_selector_pet_preview_evidence.json"
       ],
-      "boundary": "WindowItemSelectorState原生指针与宠物同源owner不变；原selected=-1/有效索引、previous与updated510C门槛、previous发布与updated清0后name6BD或name6AC复制/名称测宽居中保持。负重先取+6E0 maximum再+6DC weight，完整S32压参weight/maximum；元素8 WindowTextData原text借指针写13B原编码格式，后重读text/U8字体字节测宽并再次取元素1 x、S32有符号除2再+101居中。字段宽度/共享状态/指针生命周期/全部正文保持，不算内联复制为StrCpy新引用、不新添保护或改构析/退出登记。",
+      "boundary": "WindowItemSelectorState原生指针与宠物同源owner不变；原selected=-1/有效索引、previous与updated510C门槛、previous发布与updated清0后name6BD或name6AC复制/名称测宽居中保持。负重先取+6E0 maximum再+6DC weight，完整S32压参weight/maximum；元素8 WindowTextData原text借指针写13B原编码格式，后重读text/U8字体字节测宽并再次取元素1 x、S32有符号除2再+101居中。字段宽度/共享状态/指针生命周期/全部正文保持，不算内联复制为StrCpy新引用、不新添保护或改构析/退出登记。；PSP01四完整原根238条690B/六页、九实际E8七目标/21跳六RET、八入CALL/六后邻有据，仅核点不代全外父。6990同state mode读S8，71C0的S32结果写selectedPet70并原返回。71C0只ordinal==-1立即-1；五8B排序对，先matched>=ordinal停止，否则usedW16非零读indexS16、宠物flagsW16==2/1才matched++，轮后position++，结束position--、负返-1否则再读对应S16索引；ordinal0/其它负值与匹配不足原结果保持，不新增保护或固定失败。69B0保selected=-1/AL范围、fresh selected与同宠物previous/updated BYTE门槛、previous先写/updated清0、同非拥有名称元素/data、别名名非空否则原名含NUL复制；名测宽明确U8字体先文本指针，负重原max再weight、格式调用后文本指针先字体；两次fresh元素1 x及S32/2+101居中与两借用目标保持，文本按已批GBK及MC01宿主CRT，不恢复旧Big5/私有复制/格式算法或新增容量保护。6D90保selected负或BYTE3EC0返selected、不加<5；借同preview，读宠物S32图号/写action字段后FrameMove(100,0,0)，graphicIndex0返该result；正图依原掩码及四色BYTE更新后layerU8，两轴依次Y/新windowY+163，再X/elementX/新windowX+101，DrawGraphic2原返回。旧ApplyWindowAnimationDrawMode helper增加detail取序参数：本preview显式true先replacement再previous，已有四单参调用默认false保先previous再replacement，两分支只读后同式发布；mask/flags/通道/desc和同owner及全部其它helper正文保，没有新helper/原F/布局/字段/owner或业务默认值。复用BOT01原521E3C BYTE消费者，只证明layer低BYTE，原PUSH EAX高24位不据此整ABI等价。四组四处（两测宽/一预览接线/一helper取序）、五定义五声明十注释，四整源其余/两正确叶/五类型保持。旧892格式/历史全保追加、三新F四处置、四限定S零I/十任务open；全排序对/宠物/文本/描述符生产消费与所有callee/外父/alias-owner寿命、SDK/生成取样/全机器ABI/真实预览像素及运行仍待，48有界代码/完整枚举gates/六closure/总SPEC§10及WAV-only/明文网络/MSVC保持，无新保护/补零/容量上限/钳制/回滚或异常模型。",
       "original_incoming": [
         {
           "site": "0x4C6702",
@@ -104468,7 +104487,124 @@
           "relationship": "先取宠物+6E0 maximumWeight，再+6DC weight，压参weight/maximumWeight；原元素8 text借指针，格式后重读text与U8字体字节测宽、元素1 x重取后居中"
         }
       ],
-      "verification_level": "原96统计，仅30格式/字段/测宽与坐标消费者邻窗读取，余66/已过前段和核心不重验；一原点/一现callee/13B原格式字节/S32/U8字体与原text重读/借指针/消费者次序及整份源一标识符静态核对，两普通call入向仅登记，完整父/绑定与构析/退出未验；未构建或执行"
+      "verification_level": "原96统计，仅30格式/字段/测宽与坐标消费者邻窗读取，余66/已过前段和核心不重验；一原点/一现callee/13B原格式字节/S32/U8字体与原text重读/借指针/消费者次序及整份源一标识符静态核对，两普通call入向仅登记，完整父/绑定与构析/退出未验；未构建或执行；pass，四完整原根238条690B/六页、九E8七目标/21跳六RET与八入CALL；S8映射/W16对/S16索引/名称负重和预览原序有据，两测宽及helper两取序/显式true四组四处明确；四整源精确差异/十注释、两正确叶/五类型和四旧单参调用保，复用BOT01层低BYTE实际消费；全ABI/owner/生成读取及运行待",
+      "selector_pet_preview": {
+        "step": "PSP01",
+        "source_snapshot": "[#] 补齐宠物选择与预览消费合同",
+        "original_entry": "0x4c69b0",
+        "original_end_exclusive": "0x4c6ab9",
+        "instruction_count": 96,
+        "code_bytes": 265,
+        "page_count": 2,
+        "direct_calls": 4,
+        "direct_call_targets": [
+          5358608,
+          4502176,
+          5485316
+        ],
+        "jumps": 5,
+        "returns": 1,
+        "original_incoming": [
+          {
+            "ea": 5007106,
+            "bytes": "e8a9020000",
+            "parent": 5006672,
+            "call_target": 5007792,
+            "following": [
+              {
+                "ea": 5007111,
+                "size": 2,
+                "bytes": "8bce",
+                "asm": "mov     ecx, esi"
+              },
+              {
+                "ea": 5007113,
+                "size": 5,
+                "bytes": "e862fdffff",
+                "asm": "call    sub_4C6470"
+              },
+              {
+                "ea": 5007118,
+                "size": 7,
+                "bytes": "80beed03000001",
+                "asm": "cmp     byte ptr [esi+3EDh], 1"
+              },
+              {
+                "ea": 5007125,
+                "size": 2,
+                "bytes": "750b",
+                "asm": "jnz     short loc_4C6722"
+              },
+              {
+                "ea": 5007127,
+                "size": 3,
+                "bytes": "8b4e04",
+                "asm": "mov     ecx, [esi+4]"
+              },
+              {
+                "ea": 5007130,
+                "size": 3,
+                "bytes": "8b5658",
+                "asm": "mov     edx, [esi+58h]"
+              }
+            ]
+          },
+          {
+            "ea": 5007575,
+            "bytes": "e8d4000000",
+            "parent": 5007248,
+            "call_target": 5007792,
+            "following": [
+              {
+                "ea": 5007580,
+                "size": 6,
+                "bytes": "8b8ef0030000",
+                "asm": "mov     ecx, [esi+3F0h]"
+              },
+              {
+                "ea": 5007586,
+                "size": 3,
+                "bytes": "8b4604",
+                "asm": "mov     eax, [esi+4]"
+              },
+              {
+                "ea": 5007589,
+                "size": 6,
+                "bytes": "8dbeb8030000",
+                "asm": "lea     edi, [esi+3B8h]"
+              },
+              {
+                "ea": 5007595,
+                "size": 7,
+                "bytes": "8b148d64f55400",
+                "asm": "mov     edx, ds:dword_54F564[ecx*4]"
+              },
+              {
+                "ea": 5007602,
+                "size": 6,
+                "bytes": "8b0d9446cf00",
+                "asm": "mov     ecx, gCurrentWindow"
+              },
+              {
+                "ea": 5007608,
+                "size": 1,
+                "bytes": "57",
+                "asm": "push    edi"
+              }
+            ]
+          }
+        ],
+        "native_signature": "void Sub_4C69B0(WindowItemSelectorState* const state)",
+        "source_patch_group_count": 2,
+        "source_changed_point_count": 2,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "现void保副作用，原混合EAX/全部父ABI待",
+        "previous_format_and_history_kept": true
+      }
     },
     {
       "original_entry": "0x4A9B00",
@@ -226758,6 +226894,753 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "result_boundary": "现bool仅原AL固定1，高24位/全ABI未记等价"
+      }
+    },
+    {
+      "original_entry": "0x4c6990",
+      "inventory_id": "F:000C6990",
+      "original_role": "S8模式序号映射/同state selectedPet发布并返回",
+      "original_end_exclusive": "0x4c69a6",
+      "instruction_count": 10,
+      "function_chunks": [
+        {
+          "start": "0x4c6990",
+          "end_exclusive": "0x4c69a6"
+        }
+      ],
+      "status": "PSP01完整宠物序号/预览原根纳管，两正确叶保持/预览明确原取序；限定S/全部callee与owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C6990"
+          ],
+          "relationship": "PSP01完整原根/字段/发布核对，两正确叶保持/预览明确helper取序，仅必要差异"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4C6990"
+          ],
+          "relationship": "PSP01真实参数/返回声明保持，仅合同注释；原返回分界具名，不记全机器ABI等价"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_selector_pet_preview_spec.md#selector-pet-baseline",
+        "doc/cg2d_selector_pet_preview_spec.md#selector-pet-decision",
+        "doc/cg2d_selector_pet_preview_spec.md#selector-pet-acceptance",
+        "doc/cg2d_selector_pet_preview_spec.md#selector-pet-source-state",
+        "doc/cg2d_selector_pet_preview_evidence.json"
+      ],
+      "boundary": "PSP01四完整原根238条690B/六页、九实际E8七目标/21跳六RET、八入CALL/六后邻有据，仅核点不代全外父。6990同state mode读S8，71C0的S32结果写selectedPet70并原返回。71C0只ordinal==-1立即-1；五8B排序对，先matched>=ordinal停止，否则usedW16非零读indexS16、宠物flagsW16==2/1才matched++，轮后position++，结束position--、负返-1否则再读对应S16索引；ordinal0/其它负值与匹配不足原结果保持，不新增保护或固定失败。69B0保selected=-1/AL范围、fresh selected与同宠物previous/updated BYTE门槛、previous先写/updated清0、同非拥有名称元素/data、别名名非空否则原名含NUL复制；名测宽明确U8字体先文本指针，负重原max再weight、格式调用后文本指针先字体；两次fresh元素1 x及S32/2+101居中与两借用目标保持，文本按已批GBK及MC01宿主CRT，不恢复旧Big5/私有复制/格式算法或新增容量保护。6D90保selected负或BYTE3EC0返selected、不加<5；借同preview，读宠物S32图号/写action字段后FrameMove(100,0,0)，graphicIndex0返该result；正图依原掩码及四色BYTE更新后layerU8，两轴依次Y/新windowY+163，再X/elementX/新windowX+101，DrawGraphic2原返回。旧ApplyWindowAnimationDrawMode helper增加detail取序参数：本preview显式true先replacement再previous，已有四单参调用默认false保先previous再replacement，两分支只读后同式发布；mask/flags/通道/desc和同owner及全部其它helper正文保，没有新helper/原F/布局/字段/owner或业务默认值。复用BOT01原521E3C BYTE消费者，只证明layer低BYTE，原PUSH EAX高24位不据此整ABI等价。四组四处（两测宽/一预览接线/一helper取序）、五定义五声明十注释，四整源其余/两正确叶/五类型保持。旧892格式/历史全保追加、三新F四处置、四限定S零I/十任务open；全排序对/宠物/文本/描述符生产消费与所有callee/外父/alias-owner寿命、SDK/生成取样/全机器ABI/真实预览像素及运行仍待，48有界代码/完整枚举gates/六closure/总SPEC§10及WAV-only/明文网络/MSVC保持，无新保护/补零/容量上限/钳制/回滚或异常模型。",
+      "verification_level": "pass，四完整原根238条690B/六页、九E8七目标/21跳六RET与八入CALL；S8映射/W16对/S16索引/名称负重和预览原序有据，两测宽及helper两取序/显式true四组四处明确；四整源精确差异/十注释、两正确叶/五类型和四旧单参调用保，复用BOT01层低BYTE实际消费；全ABI/owner/生成读取及运行待",
+      "original_incoming": [
+        {
+          "ea": 5006700,
+          "bytes": "e81f040000",
+          "parent": 5006672,
+          "call_target": 5007760,
+          "following": [
+            {
+              "ea": 5006705,
+              "size": 3,
+              "bytes": "8b4e70",
+              "asm": "mov     ecx, [esi+70h]"
+            },
+            {
+              "ea": 5006708,
+              "size": 1,
+              "bytes": "51",
+              "asm": "push    ecx"
+            },
+            {
+              "ea": 5006709,
+              "size": 5,
+              "bytes": "e8965e0500",
+              "asm": "call    sub_51C410"
+            },
+            {
+              "ea": 5006714,
+              "size": 3,
+              "bytes": "83c404",
+              "asm": "add     esp, 4"
+            },
+            {
+              "ea": 5006717,
+              "size": 5,
+              "bytes": "25ff000000",
+              "asm": "and     eax, 0FFh"
+            },
+            {
+              "ea": 5006722,
+              "size": 4,
+              "bytes": "89442410",
+              "asm": "mov     [esp+0Ch+arg_0], eax"
+            }
+          ]
+        },
+        {
+          "ea": 5007274,
+          "bytes": "e8e1010000",
+          "parent": 5007248,
+          "call_target": 5007760,
+          "following": [
+            {
+              "ea": 5007279,
+              "size": 3,
+              "bytes": "8b4e70",
+              "asm": "mov     ecx, [esi+70h]"
+            },
+            {
+              "ea": 5007282,
+              "size": 1,
+              "bytes": "51",
+              "asm": "push    ecx"
+            },
+            {
+              "ea": 5007283,
+              "size": 5,
+              "bytes": "e8585c0500",
+              "asm": "call    sub_51C410"
+            },
+            {
+              "ea": 5007288,
+              "size": 3,
+              "bytes": "83c404",
+              "asm": "add     esp, 4"
+            },
+            {
+              "ea": 5007291,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 5007293,
+              "size": 2,
+              "bytes": "741b",
+              "asm": "jz      short loc_4C67DA"
+            }
+          ]
+        },
+        {
+          "ea": 5007361,
+          "bytes": "e88a010000",
+          "parent": 5007248,
+          "call_target": 5007760,
+          "following": [
+            {
+              "ea": 5007366,
+              "size": 3,
+              "bytes": "8b4e04",
+              "asm": "mov     ecx, [esi+4]"
+            },
+            {
+              "ea": 5007369,
+              "size": 3,
+              "bytes": "8b4108",
+              "asm": "mov     eax, [ecx+8]"
+            },
+            {
+              "ea": 5007372,
+              "size": 5,
+              "bytes": "3d4affffff",
+              "asm": "cmp     eax, 0FFFFFF4Ah"
+            },
+            {
+              "ea": 5007377,
+              "size": 2,
+              "bytes": "7e34",
+              "asm": "jle     short loc_4C6847"
+            },
+            {
+              "ea": 5007379,
+              "size": 3,
+              "bytes": "8b7e6c",
+              "asm": "mov     edi, [esi+6Ch]"
+            },
+            {
+              "ea": 5007382,
+              "size": 2,
+              "bytes": "8bce",
+              "asm": "mov     ecx, esi"
+            }
+          ]
+        },
+        {
+          "ea": 5007483,
+          "bytes": "e810010000",
+          "parent": 5007248,
+          "call_target": 5007760,
+          "following": [
+            {
+              "ea": 5007488,
+              "size": 3,
+              "bytes": "8b5670",
+              "asm": "mov     edx, [esi+70h]"
+            },
+            {
+              "ea": 5007491,
+              "size": 1,
+              "bytes": "52",
+              "asm": "push    edx"
+            },
+            {
+              "ea": 5007492,
+              "size": 5,
+              "bytes": "e8875b0500",
+              "asm": "call    sub_51C410"
+            },
+            {
+              "ea": 5007497,
+              "size": 3,
+              "bytes": "83c404",
+              "asm": "add     esp, 4"
+            },
+            {
+              "ea": 5007500,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 5007502,
+              "size": 2,
+              "bytes": "7508",
+              "asm": "jnz     short loc_4C6898"
+            }
+          ]
+        }
+      ],
+      "selector_pet_preview": {
+        "step": "PSP01",
+        "source_snapshot": "[#] 补齐宠物选择与预览消费合同",
+        "original_entry": "0x4c6990",
+        "original_end_exclusive": "0x4c69a6",
+        "instruction_count": 10,
+        "code_bytes": 22,
+        "page_count": 1,
+        "direct_calls": 1,
+        "direct_call_targets": [
+          5009856
+        ],
+        "jumps": 0,
+        "returns": 1,
+        "original_incoming": [
+          {
+            "ea": 5006700,
+            "bytes": "e81f040000",
+            "parent": 5006672,
+            "call_target": 5007760,
+            "following": [
+              {
+                "ea": 5006705,
+                "size": 3,
+                "bytes": "8b4e70",
+                "asm": "mov     ecx, [esi+70h]"
+              },
+              {
+                "ea": 5006708,
+                "size": 1,
+                "bytes": "51",
+                "asm": "push    ecx"
+              },
+              {
+                "ea": 5006709,
+                "size": 5,
+                "bytes": "e8965e0500",
+                "asm": "call    sub_51C410"
+              },
+              {
+                "ea": 5006714,
+                "size": 3,
+                "bytes": "83c404",
+                "asm": "add     esp, 4"
+              },
+              {
+                "ea": 5006717,
+                "size": 5,
+                "bytes": "25ff000000",
+                "asm": "and     eax, 0FFh"
+              },
+              {
+                "ea": 5006722,
+                "size": 4,
+                "bytes": "89442410",
+                "asm": "mov     [esp+0Ch+arg_0], eax"
+              }
+            ]
+          },
+          {
+            "ea": 5007274,
+            "bytes": "e8e1010000",
+            "parent": 5007248,
+            "call_target": 5007760,
+            "following": [
+              {
+                "ea": 5007279,
+                "size": 3,
+                "bytes": "8b4e70",
+                "asm": "mov     ecx, [esi+70h]"
+              },
+              {
+                "ea": 5007282,
+                "size": 1,
+                "bytes": "51",
+                "asm": "push    ecx"
+              },
+              {
+                "ea": 5007283,
+                "size": 5,
+                "bytes": "e8585c0500",
+                "asm": "call    sub_51C410"
+              },
+              {
+                "ea": 5007288,
+                "size": 3,
+                "bytes": "83c404",
+                "asm": "add     esp, 4"
+              },
+              {
+                "ea": 5007291,
+                "size": 2,
+                "bytes": "84c0",
+                "asm": "test    al, al"
+              },
+              {
+                "ea": 5007293,
+                "size": 2,
+                "bytes": "741b",
+                "asm": "jz      short loc_4C67DA"
+              }
+            ]
+          },
+          {
+            "ea": 5007361,
+            "bytes": "e88a010000",
+            "parent": 5007248,
+            "call_target": 5007760,
+            "following": [
+              {
+                "ea": 5007366,
+                "size": 3,
+                "bytes": "8b4e04",
+                "asm": "mov     ecx, [esi+4]"
+              },
+              {
+                "ea": 5007369,
+                "size": 3,
+                "bytes": "8b4108",
+                "asm": "mov     eax, [ecx+8]"
+              },
+              {
+                "ea": 5007372,
+                "size": 5,
+                "bytes": "3d4affffff",
+                "asm": "cmp     eax, 0FFFFFF4Ah"
+              },
+              {
+                "ea": 5007377,
+                "size": 2,
+                "bytes": "7e34",
+                "asm": "jle     short loc_4C6847"
+              },
+              {
+                "ea": 5007379,
+                "size": 3,
+                "bytes": "8b7e6c",
+                "asm": "mov     edi, [esi+6Ch]"
+              },
+              {
+                "ea": 5007382,
+                "size": 2,
+                "bytes": "8bce",
+                "asm": "mov     ecx, esi"
+              }
+            ]
+          },
+          {
+            "ea": 5007483,
+            "bytes": "e810010000",
+            "parent": 5007248,
+            "call_target": 5007760,
+            "following": [
+              {
+                "ea": 5007488,
+                "size": 3,
+                "bytes": "8b5670",
+                "asm": "mov     edx, [esi+70h]"
+              },
+              {
+                "ea": 5007491,
+                "size": 1,
+                "bytes": "52",
+                "asm": "push    edx"
+              },
+              {
+                "ea": 5007492,
+                "size": 5,
+                "bytes": "e8875b0500",
+                "asm": "call    sub_51C410"
+              },
+              {
+                "ea": 5007497,
+                "size": 3,
+                "bytes": "83c404",
+                "asm": "add     esp, 4"
+              },
+              {
+                "ea": 5007500,
+                "size": 2,
+                "bytes": "84c0",
+                "asm": "test    al, al"
+              },
+              {
+                "ea": 5007502,
+                "size": 2,
+                "bytes": "7508",
+                "asm": "jnz     short loc_4C6898"
+              }
+            ]
+          }
+        ],
+        "native_signature": "std::int32_t Sub_4C6990(WindowItemSelectorState* const state)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "完整S32索引发布并返回"
+      }
+    },
+    {
+      "original_entry": "0x4c71c0",
+      "inventory_id": "F:000C71C0",
+      "original_role": "五排序对有效宠物序号转S16索引",
+      "original_end_exclusive": "0x4c7231",
+      "instruction_count": 44,
+      "function_chunks": [
+        {
+          "start": "0x4c71c0",
+          "end_exclusive": "0x4c7231"
+        }
+      ],
+      "status": "PSP01完整宠物序号/预览原根纳管，两正确叶保持/预览明确原取序；限定S/全部callee与owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C71C0"
+          ],
+          "relationship": "PSP01完整原根/字段/发布核对，两正确叶保持/预览明确helper取序，仅必要差异"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4C71C0"
+          ],
+          "relationship": "PSP01真实参数/返回声明保持，仅合同注释；原返回分界具名，不记全机器ABI等价"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_selector_pet_preview_spec.md#selector-pet-baseline",
+        "doc/cg2d_selector_pet_preview_spec.md#selector-pet-decision",
+        "doc/cg2d_selector_pet_preview_spec.md#selector-pet-acceptance",
+        "doc/cg2d_selector_pet_preview_spec.md#selector-pet-source-state",
+        "doc/cg2d_selector_pet_preview_evidence.json"
+      ],
+      "boundary": "PSP01四完整原根238条690B/六页、九实际E8七目标/21跳六RET、八入CALL/六后邻有据，仅核点不代全外父。6990同state mode读S8，71C0的S32结果写selectedPet70并原返回。71C0只ordinal==-1立即-1；五8B排序对，先matched>=ordinal停止，否则usedW16非零读indexS16、宠物flagsW16==2/1才matched++，轮后position++，结束position--、负返-1否则再读对应S16索引；ordinal0/其它负值与匹配不足原结果保持，不新增保护或固定失败。69B0保selected=-1/AL范围、fresh selected与同宠物previous/updated BYTE门槛、previous先写/updated清0、同非拥有名称元素/data、别名名非空否则原名含NUL复制；名测宽明确U8字体先文本指针，负重原max再weight、格式调用后文本指针先字体；两次fresh元素1 x及S32/2+101居中与两借用目标保持，文本按已批GBK及MC01宿主CRT，不恢复旧Big5/私有复制/格式算法或新增容量保护。6D90保selected负或BYTE3EC0返selected、不加<5；借同preview，读宠物S32图号/写action字段后FrameMove(100,0,0)，graphicIndex0返该result；正图依原掩码及四色BYTE更新后layerU8，两轴依次Y/新windowY+163，再X/elementX/新windowX+101，DrawGraphic2原返回。旧ApplyWindowAnimationDrawMode helper增加detail取序参数：本preview显式true先replacement再previous，已有四单参调用默认false保先previous再replacement，两分支只读后同式发布；mask/flags/通道/desc和同owner及全部其它helper正文保，没有新helper/原F/布局/字段/owner或业务默认值。复用BOT01原521E3C BYTE消费者，只证明layer低BYTE，原PUSH EAX高24位不据此整ABI等价。四组四处（两测宽/一预览接线/一helper取序）、五定义五声明十注释，四整源其余/两正确叶/五类型保持。旧892格式/历史全保追加、三新F四处置、四限定S零I/十任务open；全排序对/宠物/文本/描述符生产消费与所有callee/外父/alias-owner寿命、SDK/生成取样/全机器ABI/真实预览像素及运行仍待，48有界代码/完整枚举gates/六closure/总SPEC§10及WAV-only/明文网络/MSVC保持，无新保护/补零/容量上限/钳制/回滚或异常模型。",
+      "verification_level": "pass，四完整原根238条690B/六页、九E8七目标/21跳六RET与八入CALL；S8映射/W16对/S16索引/名称负重和预览原序有据，两测宽及helper两取序/显式true四组四处明确；四整源精确差异/十注释、两正确叶/五类型和四旧单参调用保，复用BOT01层低BYTE实际消费；全ABI/owner/生成读取及运行待",
+      "original_incoming": [
+        {
+          "ea": 5007772,
+          "bytes": "e81f080000",
+          "parent": 5007760,
+          "call_target": 5009856,
+          "following": [
+            {
+              "ea": 5007777,
+              "size": 3,
+              "bytes": "894670",
+              "asm": "mov     [esi+70h], eax"
+            },
+            {
+              "ea": 5007780,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            },
+            {
+              "ea": 5007781,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 5007782,
+              "size": 10,
+              "bytes": "90909090909090909090",
+              "asm": "align 10h"
+            },
+            {
+              "ea": 5007792,
+              "size": 1,
+              "bytes": "51",
+              "asm": "push    ecx"
+            },
+            {
+              "ea": 5007793,
+              "size": 1,
+              "bytes": "53",
+              "asm": "push    ebx"
+            }
+          ]
+        }
+      ],
+      "selector_pet_preview": {
+        "step": "PSP01",
+        "source_snapshot": "[#] 补齐宠物选择与预览消费合同",
+        "original_entry": "0x4c71c0",
+        "original_end_exclusive": "0x4c7231",
+        "instruction_count": 44,
+        "code_bytes": 113,
+        "page_count": 1,
+        "direct_calls": 0,
+        "direct_call_targets": [],
+        "jumps": 7,
+        "returns": 3,
+        "original_incoming": [
+          {
+            "ea": 5007772,
+            "bytes": "e81f080000",
+            "parent": 5007760,
+            "call_target": 5009856,
+            "following": [
+              {
+                "ea": 5007777,
+                "size": 3,
+                "bytes": "894670",
+                "asm": "mov     [esi+70h], eax"
+              },
+              {
+                "ea": 5007780,
+                "size": 1,
+                "bytes": "5e",
+                "asm": "pop     esi"
+              },
+              {
+                "ea": 5007781,
+                "size": 1,
+                "bytes": "c3",
+                "asm": "retn"
+              },
+              {
+                "ea": 5007782,
+                "size": 10,
+                "bytes": "90909090909090909090",
+                "asm": "align 10h"
+              },
+              {
+                "ea": 5007792,
+                "size": 1,
+                "bytes": "51",
+                "asm": "push    ecx"
+              },
+              {
+                "ea": 5007793,
+                "size": 1,
+                "bytes": "53",
+                "asm": "push    ebx"
+              }
+            ]
+          }
+        ],
+        "native_signature": "std::int32_t Sub_4C71C0(const std::int32_t ordinal)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原-1或重新读末扫描项S16→S32索引，匹配不足不固定失败"
+      }
+    },
+    {
+      "original_entry": "0x4c6d90",
+      "inventory_id": "F:000C6D90",
+      "original_role": "同宠物内嵌预览推进/descriptor改写及入队",
+      "original_end_exclusive": "0x4c6eb2",
+      "instruction_count": 88,
+      "function_chunks": [
+        {
+          "start": "0x4c6d90",
+          "end_exclusive": "0x4c6eb2"
+        }
+      ],
+      "status": "PSP01完整宠物序号/预览原根纳管，两正确叶保持/预览明确原取序；限定S/全部callee与owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C6D90"
+          ],
+          "relationship": "PSP01完整原根/字段/发布核对，两正确叶保持/预览明确helper取序，仅必要差异"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4C6D90"
+          ],
+          "relationship": "PSP01真实参数/返回声明保持，仅合同注释；原返回分界具名，不记全机器ABI等价"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "ApplyWindowAnimationDrawMode"
+          ],
+          "relationship": "PSP01现detail helper增加两原取序；preview true/四旧调用默认false，原字段与其他发布保持，无新原F"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "ApplyWindowAnimationDrawMode"
+          ],
+          "relationship": "PSP01取序参数默认false只保旧调用方式，不作为缺失数据或业务默认值"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_selector_pet_preview_spec.md#selector-pet-baseline",
+        "doc/cg2d_selector_pet_preview_spec.md#selector-pet-decision",
+        "doc/cg2d_selector_pet_preview_spec.md#selector-pet-acceptance",
+        "doc/cg2d_selector_pet_preview_spec.md#selector-pet-source-state",
+        "doc/cg2d_selector_pet_preview_evidence.json"
+      ],
+      "boundary": "PSP01四完整原根238条690B/六页、九实际E8七目标/21跳六RET、八入CALL/六后邻有据，仅核点不代全外父。6990同state mode读S8，71C0的S32结果写selectedPet70并原返回。71C0只ordinal==-1立即-1；五8B排序对，先matched>=ordinal停止，否则usedW16非零读indexS16、宠物flagsW16==2/1才matched++，轮后position++，结束position--、负返-1否则再读对应S16索引；ordinal0/其它负值与匹配不足原结果保持，不新增保护或固定失败。69B0保selected=-1/AL范围、fresh selected与同宠物previous/updated BYTE门槛、previous先写/updated清0、同非拥有名称元素/data、别名名非空否则原名含NUL复制；名测宽明确U8字体先文本指针，负重原max再weight、格式调用后文本指针先字体；两次fresh元素1 x及S32/2+101居中与两借用目标保持，文本按已批GBK及MC01宿主CRT，不恢复旧Big5/私有复制/格式算法或新增容量保护。6D90保selected负或BYTE3EC0返selected、不加<5；借同preview，读宠物S32图号/写action字段后FrameMove(100,0,0)，graphicIndex0返该result；正图依原掩码及四色BYTE更新后layerU8，两轴依次Y/新windowY+163，再X/elementX/新windowX+101，DrawGraphic2原返回。旧ApplyWindowAnimationDrawMode helper增加detail取序参数：本preview显式true先replacement再previous，已有四单参调用默认false保先previous再replacement，两分支只读后同式发布；mask/flags/通道/desc和同owner及全部其它helper正文保，没有新helper/原F/布局/字段/owner或业务默认值。复用BOT01原521E3C BYTE消费者，只证明layer低BYTE，原PUSH EAX高24位不据此整ABI等价。四组四处（两测宽/一预览接线/一helper取序）、五定义五声明十注释，四整源其余/两正确叶/五类型保持。旧892格式/历史全保追加、三新F四处置、四限定S零I/十任务open；全排序对/宠物/文本/描述符生产消费与所有callee/外父/alias-owner寿命、SDK/生成取样/全机器ABI/真实预览像素及运行仍待，48有界代码/完整枚举gates/六closure/总SPEC§10及WAV-only/明文网络/MSVC保持，无新保护/补零/容量上限/钳制/回滚或异常模型。",
+      "verification_level": "pass，四完整原根238条690B/六页、九E8七目标/21跳六RET与八入CALL；S8映射/W16对/S16索引/名称负重和预览原序有据，两测宽及helper两取序/显式true四组四处明确；四整源精确差异/十注释、两正确叶/五类型和四旧单参调用保，复用BOT01层低BYTE实际消费；全ABI/owner/生成读取及运行待",
+      "original_incoming": [
+        {
+          "ea": 5007713,
+          "bytes": "e82a040000",
+          "parent": 5007248,
+          "call_target": 5008784,
+          "following": [
+            {
+              "ea": 5007718,
+              "size": 1,
+              "bytes": "5b",
+              "asm": "pop     ebx"
+            },
+            {
+              "ea": 5007719,
+              "size": 1,
+              "bytes": "5f",
+              "asm": "pop     edi"
+            },
+            {
+              "ea": 5007720,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            },
+            {
+              "ea": 5007721,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 5007722,
+              "size": 2,
+              "bytes": "6a00",
+              "asm": "push    0; jumptable 004C67F0 case 4"
+            },
+            {
+              "ea": 5007724,
+              "size": 2,
+              "bytes": "8bce",
+              "asm": "mov     ecx, esi"
+            }
+          ]
+        }
+      ],
+      "selector_pet_preview": {
+        "step": "PSP01",
+        "source_snapshot": "[#] 补齐宠物选择与预览消费合同",
+        "original_entry": "0x4c6d90",
+        "original_end_exclusive": "0x4c6eb2",
+        "instruction_count": 88,
+        "code_bytes": 290,
+        "page_count": 2,
+        "direct_calls": 4,
+        "direct_call_targets": [
+          5339264,
+          5341872,
+          5381584
+        ],
+        "jumps": 9,
+        "returns": 1,
+        "original_incoming": [
+          {
+            "ea": 5007713,
+            "bytes": "e82a040000",
+            "parent": 5007248,
+            "call_target": 5008784,
+            "following": [
+              {
+                "ea": 5007718,
+                "size": 1,
+                "bytes": "5b",
+                "asm": "pop     ebx"
+              },
+              {
+                "ea": 5007719,
+                "size": 1,
+                "bytes": "5f",
+                "asm": "pop     edi"
+              },
+              {
+                "ea": 5007720,
+                "size": 1,
+                "bytes": "5e",
+                "asm": "pop     esi"
+              },
+              {
+                "ea": 5007721,
+                "size": 1,
+                "bytes": "c3",
+                "asm": "retn"
+              },
+              {
+                "ea": 5007722,
+                "size": 2,
+                "bytes": "6a00",
+                "asm": "push    0; jumptable 004C67F0 case 4"
+              },
+              {
+                "ea": 5007724,
+                "size": 2,
+                "bytes": "8bce",
+                "asm": "mov     ecx, esi"
+              }
+            ]
+          }
+        ],
+        "native_signature": "std::int32_t Sub_4C6D90(WindowItemSelectorState* const state)",
+        "source_patch_group_count": 1,
+        "source_changed_point_count": 1,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原门槛返selected/FrameMove result/队列S32返回；layer仅BYTE消费者有据，全ABI待",
+        "helper_has_separate_original_F": false,
+        "helper_patch_group_count": 1,
+        "helper_previous_order_call_count": 4,
+        "layer_consumer_only_low_BYTE": true
       }
     }
   ]

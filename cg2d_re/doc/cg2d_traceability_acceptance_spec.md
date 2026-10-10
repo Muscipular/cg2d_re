@@ -2628,3 +2628,9 @@ IDA数组/结构起点xref不代字段指针；原型实际11callback与旧范�
 [SPG01](cg2d_selector_page_visibility_spec.md#selector-page-source-state)补齐玩家/宠物显示、隐藏、五页状态切换、位置发布及mode切换六完整原根323条937B/八页，19E8九目标/35跳十一RET，24入CALL与20B五case表有据。两组五处明确CC40D4低BYTE和四回调目标先于回调读取；其余五正文与原动态slot/每轮fresh宠物count、页发布/隐藏/图号及step21、模式页3切换保持。两整源只上述差异/十二注释，三类型与原六坐标表不改。旧1987/CAC18保历史追加、五新F/六处置、三限定S零I/十open；原残留EAX及7340仅AL=1不外推全ABI弃用，全外父/callee、生产消费/alias-owner寿命、生成读取/机器ABI/像素与运行待，整体未完成。
 
 语义2294=2246F关联+48有界代码记录，函数处置1740/证据1529，INPUT117/UIRUNTIME154/RENDER92；文档关联2356/3680=64.02%仅关联率。184叶验收0、60任务关闭11开放49、六closure及完整门禁保持。登记、静态汇总/-Check终态均退出0，派生范围核对通过：仅六metrics/六F/三功能/十任务变化，其它字段与完整门禁保持。
+
+## 2026-10-10 PSP01：四宠物选择/预览原根
+
+[PSP01](cg2d_selector_pet_preview_spec.md#selector-pet-source-state)补齐S8序号发布、五排序对映射、名称负重及同宠物预览四完整原根238条690B/六页，九E8七目标/21跳六RET，八入CALL有据。两测宽分别按原字体→文本、文本→字体取样；预览沿原replacement→previous读取，现detail helper增加取序参数，四个既有单参调用保previous→replacement。四组四处/十注释，四整源其它正文与两正确叶/五类型保持。复用BOT01已核layer BYTE消费，高24位不记整ABI等价。旧892格式与历史追加、三新F/四处置、四限定S零I/十open；全部排序对/宠物/文本/descriptor生产消费、callee/外父及alias-owner寿命、生成取样/机器ABI/预览像素与运行待，整体未完成。
+
+语义2297=2249F关联+48有界代码记录，函数处置1744/证据1533，INPUT121/UIRUNTIME158/RENDER94/YOBI103；文档关联2359/3680=64.10%仅关联率。184叶验收0、60任务关闭11开放49、六closure及完整门禁保持。登记、静态汇总/-Check终态均退出0，派生范围核对通过：仅六metrics/四F/四功能/十任务变化，其它字段与完整门禁保持。

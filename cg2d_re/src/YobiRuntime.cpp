@@ -35328,12 +35328,21 @@ void ClearYobiActionCallback(YobiAction* const action)
 }
 
 // WDP01：原颜色通道按选中BYTE读取；其它父全合同待，见doc/cg2d_window_element_draw_pipeline_spec.md。
-const render::GraphicDescriptor16* ApplyWindowAnimationDrawMode(YobiAction* const action)
+// PSP01：预览显式先替换后旧字节；其余调用沿原先旧后替换，两分支取样后同式发布，无新增字段默认值。
+const render::GraphicDescriptor16* ApplyWindowAnimationDrawMode(
+    YobiAction* const action, const bool replacementBeforePrevious)
 {
     const std::uint8_t mask = action->rebirthValue1;
     if (mask != 0) {
-        const std::uint8_t previous = action->drawMode.bytes[13];
-        const std::uint8_t replacement = action->rebirthValue2;
+        std::uint8_t previous;
+        std::uint8_t replacement;
+        if (replacementBeforePrevious) {
+            replacement = action->rebirthValue2;
+            previous = action->drawMode.bytes[13];
+        } else {
+            previous = action->drawMode.bytes[13];
+            replacement = action->rebirthValue2;
+        }
         action->drawMode.bytes[13] = static_cast<std::uint8_t>(
             (previous & ~mask) | (replacement & mask));
     }

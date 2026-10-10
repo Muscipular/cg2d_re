@@ -453,13 +453,13 @@ void Sub_4C6470(WindowItemSelectorState* state); // SPG01：宠物页/名称负�
 void Sub_4C6500(WindowItemSelectorState* state); // SPG01：按原顺序隐藏槽6/7/8/15/16、六装备槽与17；模式0才隐藏19，主元素不改。
 void Sub_4C6550(WindowItemSelectorState* state, std::int32_t page); // SPG01：先发布页再隐藏/新页分发；CC40D4仅低BYTE、四回调先取元素；原五页和写序保持，全机器ABI待。
 void Sub_4C6790(WindowItemSelectorState* state); // SFD01：原四页分发/业务钳制保持；两按钮按原顺序取样，共借descriptor[0]；已知上行由窗口回调返回1。
-std::int32_t Sub_4C6990(WindowItemSelectorState* state); // 模式S8映射并发布同源宠物索引。
-void Sub_4C69B0(WindowItemSelectorState* state); // 借用宠物名字/负重刷新两文本元素。
+std::int32_t Sub_4C6990(WindowItemSelectorState* state); // PSP01：同state mode按S8映射，回调返回的S32索引原序发布到selectedPet70并返回。
+void Sub_4C69B0(WindowItemSelectorState* state); // PSP01：同宠物previous/updated BYTE及名字/负重原序保持；首次测宽先字体后文本，负重先文本后字体。
 void Sub_4C6AC0(WindowItemSelectorState* state, std::int32_t x); // SPG01：依原序移动主元素、四按钮及六表坐标；原S32结果与固定循环保持，不新增钳制。
 // SLC01：两轴先窗口再元素取值，flags/淡入计数只读原BYTE；void不证明原EAX上行等价。
 void Sub_4C6B10(WindowItemSelectorState* state); // 消费本帧hover，宠物物品固定借CF3B10索引。
-std::int32_t Sub_4C6D90(WindowItemSelectorState* state); // 内嵌预览推进及实际绘制返回。
-std::int32_t Sub_4C71C0(std::int32_t ordinal); // 扫描排序对，匹配不足仍取末项S16索引。
+std::int32_t Sub_4C6D90(WindowItemSelectorState* state); // PSP01：同一非拥有预览推进/两轴/队列；掩码替换字节先旧字节，返回/原读取门槛保持。
+std::int32_t Sub_4C71C0(std::int32_t ordinal); // PSP01：五排序对按used W16/索引S16/状态W16计数；不足仍取末扫描项，不新增匹配/索引保护。
 bool Sub_4C7340(WindowItemSelectorState* state, std::int32_t mode); // SPG01：写mode低BYTE后持旧页；页3按新mode切2/3、页2不切；bool仅承接原AL=1，高位ABI待。
 bool Sub_4C7380(WindowItemSelectorState* state, std::int32_t tab, std::int32_t events);
 bool Sub_4C78A0(WindowItemSelectorState* state, std::int32_t events); // 预览显示开关及按钮图。

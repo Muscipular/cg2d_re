@@ -801,7 +801,8 @@ void ClearYobiActionCallback(YobiAction* action);
 std::int32_t GetYobiActionField20(YobiAction* action);
 // 原472B64–472BD4：先掩码后颜色，原位更新并借用同一对象的描述符。
 // WDP01：共享descriptor的原BYTE通道读取，见doc/cg2d_window_element_draw_pipeline_spec.md。
-const render::GraphicDescriptor16* ApplyWindowAnimationDrawMode(YobiAction* action);
+const render::GraphicDescriptor16* ApplyWindowAnimationDrawMode(
+    YobiAction* action, bool replacementBeforePrevious = false); // PSP01：预览显式先替换后旧字节；其余调用沿原先旧后替换，两分支取样后同式发布，无新增字段默认值。
 // 原宠物预览直接借用+2F8，不执行窗口动画的描述符改写。
 const render::GraphicDescriptor16* BorrowYobiActionDrawMode(const YobiAction* action) noexcept;
 void AddYobiActionDrawFlags(YobiAction* action, std::uint8_t flags) noexcept; // 原+305低U8置位，不清其他位。

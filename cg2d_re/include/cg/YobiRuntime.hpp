@@ -322,8 +322,8 @@ void UpdateBattleArcProjection_418F10(YobiAction* action); // 固定父引用，
 YobiAction* NewBattleArcProjection_418FF0(
     YobiAction* parent, std::int32_t offsetX, std::int32_t offsetY,
     YobiAction* distanceSource, YobiAction* target, std::int32_t imageNo); // 原rand角度，距离分两次有符号除法。
-void UpdateBattleScatterEffect_41E4D0(YobiAction* action); // 移动后播放，严格终帧标死仍投影。
-YobiAction* NewBattleScatterEffect_41E510(YobiAction* parent, std::int32_t imageNo); // 分配成功才依序随机速率/角度/速度。
+void UpdateBattleScatterEffect_41E4D0(YobiAction* action); // BSEX01：移动/终帧标死仍投影，Y取样先于X发布。
+YobiAction* NewBattleScatterEffect_41E510(YobiAction* parent, std::int32_t imageNo); // BSEX01：成功才三RNG；X发布后Y取样/W16零归，再发布Y。
 void UpdateBattlePositionEffect_41E640(YobiAction* action); // PlayFrame(1)严格完成才标死，所有路径投影X/Y。
 YobiAction* NewBattlePositionEffect_41E680(YobiAction* parent, std::int32_t imageNo);
 YobiAction* NewBattleCoordinateEffect_41E720(float x, float y, std::int32_t imageNo); // 无父引用，不提前播放。
@@ -515,11 +515,11 @@ std::int32_t UpdateBattleAction28_40ACF0(YobiAction* action); // BHRC01：132音
 std::int32_t UpdateBattleAction29_40AE50(YobiAction* action); // BHRC01：新count<14后退，>=44归零/推进，末播放。
 std::int32_t UpdateBattleAction30_40AF30(YobiAction* action); // BHRC01：count>=14才fresh完整FDC选14/28阈值。
 std::int32_t UpdateBattleAction31_40B020(YobiAction* action); // BHRC01：偶数旋转/fresh FCC，等待other14，方向后fresh低WORD。
-void UpdateBattleAction32_40B410(YobiAction* action); // 受击动作，严格终帧才推进。
-void UpdateBattleAction33_40B450(YobiAction* action); // 防御动作，严格终帧才推进。
-std::int32_t UpdateBattleAction34_40B5E0(YobiAction* action); // 完整四边反弹退场，播放至非零，不加循环上限。
-std::int32_t UpdateBattleAction35_40B930(YobiAction* action); // 入口FDC决定死亡处理，晚期每帧建尾迹后直线退场。
-void UpdateBattleAction36_40BAD0(YobiAction* action); // 条件播放后重读FF0，新值>=30才推进。
+void UpdateBattleAction32_40B410(YobiAction* action); // BSEX01：8/100，严格终帧才推进。
+void UpdateBattleAction33_40B450(YobiAction* action); // BSEX01：9/100，严格终帧才推进。
+std::int32_t UpdateBattleAction34_40B5E0(YobiAction* action); // BSEX01：低WORD/BYTE、四边反弹退场，播放直到非零。
+std::int32_t UpdateBattleAction35_40B930(YobiAction* action); // BSEX01：持样边界/40次散射，每帧尾迹后直线退场。
+void UpdateBattleAction36_40BAD0(YobiAction* action); // BSEX01：低BYTE门禁/播放后fresh FF0，>=30归零推进。
 void UpdateBattleAction37_40BB20(YobiAction* action); // 同源计时，新值>=60才推进。
 void UpdateBattleAction38_40BB70(YobiAction* action); // 同源计时，新值>=120才推进。
 std::int32_t UpdateBattleAction39_40BBC0(YobiAction* action); // 按36-nameY切换角色动作，尾部固定播放三次。

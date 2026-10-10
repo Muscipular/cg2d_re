@@ -198842,6 +198842,405 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x40b410",
+      "inventory_id": "F:0000B410",
+      "original_role": "动作32动作8严格终帧推进",
+      "original_end_exclusive": "0x40b444",
+      "instruction_count": 15,
+      "function_chunks": [
+        {
+          "start": "0x40b410",
+          "end_exclusive": "0x40b444"
+        }
+      ],
+      "status": "BSEX01完整正常源/独立身份纳管；正确正文保持，仅合同注释，完整父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction32_40B410"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction32_40B410"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-baseline",
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-decision",
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-acceptance",
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-source-state",
+        "doc/cg2d_battle_scatter_exit_evidence.json"
+      ],
+      "boundary": "BSEX01五动作/散射创建回调七完整正常根，仅34/35/36七消费表达（两WORD/五BYTE）与十四注释；完整W32时长/FE0持样发布、40次尝试/34四边优先及两次角度读/单次S16半宽/音效后FD0与直到非零播放、35每帧尾迹/创建后周期和真实三RNG/回调生产/标死后读齐投影保。全部其它源/签名/数值/几何和既有七记录保持；全数据/父-callee/ABI/alias/owner/SDK正常失败/容量/数值/声音画面运行未验，RPLAN.24/MC01及全部门禁保持。",
+      "verification_level": "七完整493条1660B/十一页、34E8/十二callee/52跳九RET、五11Bcase/创建四CALL与回调MOV生产分列、三RNG/40次循环/40B十F32常量；七表达与整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction32_40B410",
+        "parameters": "非拥有YobiAction*",
+        "return": "void，原播放/标死消费保持"
+      },
+      "battle_scatter_exit": {
+        "step": "BSEX01",
+        "source_snapshot": "cg2d-re-battle-scatter-exit-20261010",
+        "original_instruction_count": 15,
+        "original_code_bytes": 52,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 1,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40b450",
+      "inventory_id": "F:0000B450",
+      "original_role": "动作33动作9严格终帧推进",
+      "original_end_exclusive": "0x40b484",
+      "instruction_count": 15,
+      "function_chunks": [
+        {
+          "start": "0x40b450",
+          "end_exclusive": "0x40b484"
+        }
+      ],
+      "status": "BSEX01完整正常源/独立身份纳管；正确正文保持，仅合同注释，完整父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction33_40B450"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction33_40B450"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-baseline",
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-decision",
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-acceptance",
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-source-state",
+        "doc/cg2d_battle_scatter_exit_evidence.json"
+      ],
+      "boundary": "BSEX01五动作/散射创建回调七完整正常根，仅34/35/36七消费表达（两WORD/五BYTE）与十四注释；完整W32时长/FE0持样发布、40次尝试/34四边优先及两次角度读/单次S16半宽/音效后FD0与直到非零播放、35每帧尾迹/创建后周期和真实三RNG/回调生产/标死后读齐投影保。全部其它源/签名/数值/几何和既有七记录保持；全数据/父-callee/ABI/alias/owner/SDK正常失败/容量/数值/声音画面运行未验，RPLAN.24/MC01及全部门禁保持。",
+      "verification_level": "七完整493条1660B/十一页、34E8/十二callee/52跳九RET、五11Bcase/创建四CALL与回调MOV生产分列、三RNG/40次循环/40B十F32常量；七表达与整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction33_40B450",
+        "parameters": "非拥有YobiAction*",
+        "return": "void，原播放/标死消费保持"
+      },
+      "battle_scatter_exit": {
+        "step": "BSEX01",
+        "source_snapshot": "cg2d-re-battle-scatter-exit-20261010",
+        "original_instruction_count": 15,
+        "original_code_bytes": 52,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 1,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40b5e0",
+      "inventory_id": "F:0000B5E0",
+      "original_role": "动作34散射/四边反弹退场与播放至非零",
+      "original_end_exclusive": "0x40b921",
+      "instruction_count": 244,
+      "function_chunks": [
+        {
+          "start": "0x40b5e0",
+          "end_exclusive": "0x40b921"
+        }
+      ],
+      "status": "BSEX01完整正常源/独立身份纳管；3处WORD/BYTE表达已修，仅合同注释，完整父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction34_40B5E0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction34_40B5E0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-baseline",
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-decision",
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-acceptance",
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-source-state",
+        "doc/cg2d_battle_scatter_exit_evidence.json"
+      ],
+      "boundary": "BSEX01五动作/散射创建回调七完整正常根，仅34/35/36七消费表达（两WORD/五BYTE）与十四注释；完整W32时长/FE0持样发布、40次尝试/34四边优先及两次角度读/单次S16半宽/音效后FD0与直到非零播放、35每帧尾迹/创建后周期和真实三RNG/回调生产/标死后读齐投影保。全部其它源/签名/数值/几何和既有七记录保持；全数据/父-callee/ABI/alias/owner/SDK正常失败/容量/数值/声音画面运行未验，RPLAN.24/MC01及全部门禁保持。",
+      "verification_level": "七完整493条1660B/十一页、34E8/十二callee/52跳九RET、五11Bcase/创建四CALL与回调MOV生产分列、三RNG/40次循环/40B十F32常量；七表达与整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction34_40B5E0",
+        "parameters": "非拥有YobiAction*",
+        "return": "S32实际末播放结果（34直到非零）"
+      },
+      "battle_scatter_exit": {
+        "step": "BSEX01",
+        "source_snapshot": "cg2d-re-battle-scatter-exit-20261010",
+        "original_instruction_count": 244,
+        "original_code_bytes": 833,
+        "original_page_count": 4,
+        "direct_call_count": 11,
+        "callee_count": 7,
+        "jump_count": 31,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 3,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40b930",
+      "inventory_id": "F:0000B930",
+      "original_role": "动作35散射/每帧尾迹与直线退场",
+      "original_end_exclusive": "0x40bacf",
+      "instruction_count": 124,
+      "function_chunks": [
+        {
+          "start": "0x40b930",
+          "end_exclusive": "0x40bacf"
+        }
+      ],
+      "status": "BSEX01完整正常源/独立身份纳管；3处WORD/BYTE表达已修，仅合同注释，完整父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction35_40B930"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction35_40B930"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-baseline",
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-decision",
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-acceptance",
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-source-state",
+        "doc/cg2d_battle_scatter_exit_evidence.json"
+      ],
+      "boundary": "BSEX01五动作/散射创建回调七完整正常根，仅34/35/36七消费表达（两WORD/五BYTE）与十四注释；完整W32时长/FE0持样发布、40次尝试/34四边优先及两次角度读/单次S16半宽/音效后FD0与直到非零播放、35每帧尾迹/创建后周期和真实三RNG/回调生产/标死后读齐投影保。全部其它源/签名/数值/几何和既有七记录保持；全数据/父-callee/ABI/alias/owner/SDK正常失败/容量/数值/声音画面运行未验，RPLAN.24/MC01及全部门禁保持。",
+      "verification_level": "七完整493条1660B/十一页、34E8/十二callee/52跳九RET、五11Bcase/创建四CALL与回调MOV生产分列、三RNG/40次循环/40B十F32常量；七表达与整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction35_40B930",
+        "parameters": "非拥有YobiAction*",
+        "return": "S32实际末播放结果（34直到非零）"
+      },
+      "battle_scatter_exit": {
+        "step": "BSEX01",
+        "source_snapshot": "cg2d-re-battle-scatter-exit-20261010",
+        "original_instruction_count": 124,
+        "original_code_bytes": 415,
+        "original_page_count": 2,
+        "direct_call_count": 8,
+        "callee_count": 6,
+        "jump_count": 15,
+        "return_count": 2,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 3,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40bad0",
+      "inventory_id": "F:0000BAD0",
+      "original_role": "动作36条件播放后等待计数30",
+      "original_end_exclusive": "0x40bb18",
+      "instruction_count": 24,
+      "function_chunks": [
+        {
+          "start": "0x40bad0",
+          "end_exclusive": "0x40bb18"
+        }
+      ],
+      "status": "BSEX01完整正常源/独立身份纳管；1处WORD/BYTE表达已修，仅合同注释，完整父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction36_40BAD0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction36_40BAD0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-baseline",
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-decision",
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-acceptance",
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-source-state",
+        "doc/cg2d_battle_scatter_exit_evidence.json"
+      ],
+      "boundary": "BSEX01五动作/散射创建回调七完整正常根，仅34/35/36七消费表达（两WORD/五BYTE）与十四注释；完整W32时长/FE0持样发布、40次尝试/34四边优先及两次角度读/单次S16半宽/音效后FD0与直到非零播放、35每帧尾迹/创建后周期和真实三RNG/回调生产/标死后读齐投影保。全部其它源/签名/数值/几何和既有七记录保持；全数据/父-callee/ABI/alias/owner/SDK正常失败/容量/数值/声音画面运行未验，RPLAN.24/MC01及全部门禁保持。",
+      "verification_level": "七完整493条1660B/十一页、34E8/十二callee/52跳九RET、五11Bcase/创建四CALL与回调MOV生产分列、三RNG/40次循环/40B十F32常量；七表达与整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction36_40BAD0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void，原播放/标死消费保持"
+      },
+      "battle_scatter_exit": {
+        "step": "BSEX01",
+        "source_snapshot": "cg2d-re-battle-scatter-exit-20261010",
+        "original_instruction_count": 24,
+        "original_code_bytes": 72,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 2,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x41e510",
+      "inventory_id": "F:0001E510",
+      "original_role": "散射创建器/分配后真实回调与三RNG/坐标发布",
+      "original_end_exclusive": "0x41e5c0",
+      "instruction_count": 50,
+      "function_chunks": [
+        {
+          "start": "0x41e510",
+          "end_exclusive": "0x41e5c0"
+        }
+      ],
+      "status": "BSEX01完整正常源/独立身份纳管；正确正文保持，仅合同注释，完整父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::NewBattleScatterEffect_41E510"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::NewBattleScatterEffect_41E510"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-baseline",
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-decision",
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-acceptance",
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-source-state",
+        "doc/cg2d_battle_scatter_exit_evidence.json"
+      ],
+      "boundary": "BSEX01五动作/散射创建回调七完整正常根，仅34/35/36七消费表达（两WORD/五BYTE）与十四注释；完整W32时长/FE0持样发布、40次尝试/34四边优先及两次角度读/单次S16半宽/音效后FD0与直到非零播放、35每帧尾迹/创建后周期和真实三RNG/回调生产/标死后读齐投影保。全部其它源/签名/数值/几何和既有七记录保持；全数据/父-callee/ABI/alias/owner/SDK正常失败/容量/数值/声音画面运行未验，RPLAN.24/MC01及全部门禁保持。",
+      "verification_level": "七完整493条1660B/十一页、34E8/十二callee/52跳九RET、五11Bcase/创建四CALL与回调MOV生产分列、三RNG/40次循环/40B十F32常量；七表达与整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::NewBattleScatterEffect_41E510",
+        "parameters": "非拥有parent T*与S32 imageNo",
+        "return": "新T*或分配空"
+      },
+      "battle_scatter_exit": {
+        "step": "BSEX01",
+        "source_snapshot": "cg2d-re-battle-scatter-exit-20261010",
+        "original_instruction_count": 50,
+        "original_code_bytes": 176,
+        "original_page_count": 1,
+        "direct_call_count": 4,
+        "callee_count": 2,
+        "jump_count": 1,
+        "return_count": 2,
+        "inbound_reference_count": 4,
+        "inbound_direct_call_count": 4,
+        "inbound_parent_count": 4,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x41e4d0",
+      "inventory_id": "F:0001E4D0",
+      "original_role": "散射回调/移动终帧标死后仍投影",
+      "original_end_exclusive": "0x41e50c",
+      "instruction_count": 21,
+      "function_chunks": [
+        {
+          "start": "0x41e4d0",
+          "end_exclusive": "0x41e50c"
+        }
+      ],
+      "status": "BSEX01完整正常源/独立身份纳管；正确正文保持，仅合同注释，完整父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleScatterEffect_41E4D0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleScatterEffect_41E4D0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-baseline",
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-decision",
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-acceptance",
+        "doc/cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-source-state",
+        "doc/cg2d_battle_scatter_exit_evidence.json"
+      ],
+      "boundary": "BSEX01五动作/散射创建回调七完整正常根，仅34/35/36七消费表达（两WORD/五BYTE）与十四注释；完整W32时长/FE0持样发布、40次尝试/34四边优先及两次角度读/单次S16半宽/音效后FD0与直到非零播放、35每帧尾迹/创建后周期和真实三RNG/回调生产/标死后读齐投影保。全部其它源/签名/数值/几何和既有七记录保持；全数据/父-callee/ABI/alias/owner/SDK正常失败/容量/数值/声音画面运行未验，RPLAN.24/MC01及全部门禁保持。",
+      "verification_level": "七完整493条1660B/十一页、34E8/十二callee/52跳九RET、五11Bcase/创建四CALL与回调MOV生产分列、三RNG/40次循环/40B十F32常量；七表达与整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleScatterEffect_41E4D0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void，原播放/标死消费保持"
+      },
+      "battle_scatter_exit": {
+        "step": "BSEX01",
+        "source_snapshot": "cg2d-re-battle-scatter-exit-20261010",
+        "original_instruction_count": 21,
+        "original_code_bytes": 60,
+        "original_page_count": 1,
+        "direct_call_count": 5,
+        "callee_count": 4,
+        "jump_count": 1,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 0,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

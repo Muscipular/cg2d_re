@@ -4707,3 +4707,8 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 ## 2026-10-10 BHRC01：受击后退/恢复及22槽活动计数
 
 [完整合同](cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-source-state)补26–31及406360七完整553条1870B/十二页，十消费表达（六WORD/四BYTE）恢复，完整W32时长/阈值移位与高位测试保持。原入口持样/fresh阶段门禁、Count<=1先于FF8清零、创建后周期重取/原减速发布和负值零归、不同FCC阈值及other14等待/方向后FE4重取与末播放返回保；活动计数按全部22槽/完整S32 FF8严格==1，不猜20或加payload保护。仅另十四注释，其余所有源/签名/数值和BNV01旧1354/位置创建处置保持；七身份/成员与限定I十表达/S七根，无新函数/API/保护/RNG。全部生产/父-callee/ABI/alias/owner/SDK正常失败/容量/数值和声音画面运行仍待，完整门禁保持。
+
+<a id="battle-scatter-exit-runtime-20261010"></a>
+## 2026-10-10 BSEX01：终帧/散射创建回调与退场
+
+[完整合同](cg2d_battle_scatter_exit_spec.md#battle-scatter-exit-source-state)补32–36及41E510/41E4D0七完整493条1660B/十一页。34/35入口低WORD/早期fresh BYTE与不同边界fresh-cached BYTE、36完整FDC后AL60共七表达恢复；40次尝试/34原四边优先-S16单次半宽-两角度读取-声后FD0与直到非零真循环、35每帧尾迹/创建后重取周期、分配空无RNG/三原参数序/回调MOV真生产/严格终帧标死后仍读齐投影均正确正文保持。仅另十四注释，全部其它源/签名/数值/几何与既有七记录/真实提供者保持；七新身份/成员与限定I七表达/S七完整根，无新函数/API/保护/额外RNG/声/移动/播放。全部生产/其它父/ABI/alias/owner/SDK正常失败/容量/数值与声音画面运行仍待，完整门禁保持。

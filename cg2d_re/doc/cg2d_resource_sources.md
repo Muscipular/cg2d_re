@@ -464,3 +464,7 @@ auto.dat及读取非零直返、失败重建后仍写回的原流程。七格式
 724已有ID完整历史深拷贝续记，语义1404/1399有效ID及1517关联41.22%不变；分类521→522、RESOURCE40→41枚举open，独立局部I/S E647→649。历史直接定义1/旧FILE属性保持；七open仅引用/进展、60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及其它门禁保持。
 
 仅全根正常局部static；W32比较字非地址不扩宽，不据无直接写引用宣只读或所有alias闭合。私有vector/map沿已有批准宿主承接，不以本根代原容器机制/53AF90或SDK-owner运行。未构建/测试/运行/hash；网络原格式明文、音频暂停，不新加异常/越界/故障或关闭策略。
+
+## 2026-10-11 PCR01：调色板门槛实际来源
+
+[PCR01](cg2d_palette_capability_selection_spec.md#palette-capability-source-state)补齐45C970探测及450B70选择，两完整原根78条232B/两页、2E8一个目标/九跳五RET。移除probe原无的出参初值，Select恢复steps判定先于发布，两组两处/五注释；五固定图号两轮同index重查、原-1/4-index、S16门槛/39上界及拒绝index-接受steps返回保持。一新F/旧171追加、两adapted、MAP193/RENDER120，两限定S零I八open；主表生产/全部父及资源owner/SDK/运行未闭。

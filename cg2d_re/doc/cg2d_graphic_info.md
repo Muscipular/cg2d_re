@@ -221,3 +221,7 @@ read(length U32,1)仅返回1才发布解码目标、沿既有解码并返0/1；
 167/168两个已有原ID完整历史深拷贝续记，旧167 FILE调用事实保；1399语义/1394有效ID/1512关联(41.09%)不变，分类510→512、RESOURCE29→31枚举open、四独立正常局部static I/S E609→613，完整gates空。七open只加当前进展/引用，队列175/R7区间67/3061、60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及其它功能保持。
 
 撤旧接口及旧解码SPEC额外的两两不重叠前提，按原实际取样/字节处理/发布顺序保正常别名，不用附加前提缩原范围；旧限定范围下的历史验证保但不追认当前运行。正常W32/native地址注释按RPLAN.24，不增溢出/越界/补零/钳制/短读修复或异常等价。未构建/调试/测试/运行/hash；全部caller、当前所有正常别名/真实资源内容-调色板/draw/主表FILE owner及画面/R1/R7/R8继续，网络原格式明文/内存CryptInt保/音频暂停。
+
+## 2026-10-11 PCR01：五图号探测等级
+
+[PCR01](cg2d_palette_capability_selection_spec.md#palette-capability-source-state)补齐45C970探测及450B70选择，两完整原根78条232B/两页、2E8一个目标/九跳五RET。移除probe原无的出参初值，Select恢复steps判定先于发布，两组两处/五注释；五固定图号两轮同index重查、原-1/4-index、S16门槛/39上界及拒绝index-接受steps返回保持。一新F/旧171追加、两adapted、MAP193/RENDER120，两限定S零I八open；主表生产/全部父及资源owner/SDK/运行未闭。

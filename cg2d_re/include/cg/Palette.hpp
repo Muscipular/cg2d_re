@@ -57,7 +57,7 @@ extern std::uint8_t gPaletteToneTargets[45][3]; // 原 0x556254：每项 R/G/B�
 extern std::int32_t gPaletteInitialized;     // 原 0x628FD8。
 extern std::int32_t gActivePalette;          // 原 0x628FD0。
 extern std::int32_t gPaletteTransitionSteps; // 原 0x628FD4。
-extern std::int32_t gPaletteCapability;      // 原 0x9A7F64；业务含义仍待上游取证。
+extern std::int32_t gPaletteCapability;      // PCR01：原9A7F64，五图号两轮探测等级-1/0..4；不猜产品版本。
 extern std::int32_t gPaletteChanging;        // 原 0x628FEC。
 extern std::int32_t gLoadedPalette;          // 原 0x5562F4，初值 -1。
 extern std::int32_t gPaletteTransitionActive; // 原 0x62B0A0，初值 0。
@@ -96,7 +96,7 @@ std::int32_t FindNearestPaletteColor_451E90(
 
 // 原 0x450B70；不增加负数索引处理，调用者须保证 index 非负。
 // 返回原 EAX：拒绝时为 index，接受时为 steps，而非成功布尔值。
-std::int32_t SelectPalette(std::int32_t index, std::int32_t steps) noexcept;
+std::int32_t SelectPalette(std::int32_t index, std::int32_t steps) noexcept; // PCR01：S16门槛/39上界，拒绝返index，steps先判定再发布，接受返原steps。
 
 // 原 0x450BB0：按活动索引加载目标并逐帧过渡；保持原 EAX 各路径值。
 int UpdatePalette_450BB0();

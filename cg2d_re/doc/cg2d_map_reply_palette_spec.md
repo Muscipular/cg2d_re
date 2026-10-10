@@ -42,3 +42,7 @@ GTP01完整458F00在category变化时先读mode，再发布category，仅mode1�
 本步源码在world/SceneState.cpp，私有声明在WorldUpdateDependencies.hpp，NetworkRuntime真实TeD生产路由及已核普通场景十三消费调用、GTP01时段副作用保持。两个原根没有新指针字段或owner，不以此完成所有数据来源/调色板表和转换、图形资源寿命、全SDK/机器ABI/生成代码读取/像素或客户端运行。
 
 沿同一cg2d_re分支精确提交、不打tag，保七项用户外部改动和原暂存删除。不构建、测试、运行、检查产物、计算摘要或引依赖；整体active/未完成。
+
+## 2026-10-11 PCR01：选择提供者完整原根
+
+[PCR01](cg2d_palette_capability_selection_spec.md#palette-capability-source-state)补齐45C970探测及450B70选择，两完整原根78条232B/两页、2E8一个目标/九跳五RET。移除probe原无的出参初值，Select恢复steps判定先于发布，两组两处/五注释；五固定图号两轮同index重查、原-1/4-index、S16门槛/39上界及拒绝index-接受steps返回保持。一新F/旧171追加、两adapted、MAP193/RENDER120，两限定S零I八open；主表生产/全部父及资源owner/SDK/运行未闭。

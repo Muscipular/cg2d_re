@@ -112,7 +112,7 @@ std::int32_t GetGraphicFlag2(std::uint32_t index, std::uint16_t* flag);
 std::int32_t GetGraphicMapNoIndex(std::int32_t index, std::int32_t* outSeqNo);
 // 原 [0x45C970, 0x45CA1B)：按固定五个图号两阶段探测，返回 -1 或 4-index。
 // 首轮命中后从同一索引重新查询；调用者负责保存返回值。
-std::int32_t ProbePaletteCapability_45C970();
+std::int32_t ProbePaletteCapability_45C970(); // PCR01：五原图号两轮重查，输出原不预清，返回-1或4-index。
 // 原 [0x45A8D0, 0x45A8F2)：有符号 index < 0 或 index >= gMaxGraphicCount 返回 -1；
 // 否则直接返回 mapNo 的 32 位位模式。
 std::int32_t GetGraphicMapNo(std::int32_t index);

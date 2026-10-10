@@ -15637,7 +15637,7 @@
     {
       "original_entry": "0x450B70",
       "inventory_id": "F:00050B70",
-      "status": "已有图形资源实现映射，完整运行未验",
+      "status": "已有图形资源实现映射，完整运行未验；PCR01完整选择门槛/原steps先判后发布合同追加，原拒绝index-接受steps返回保，资源owner/ABI/运行待",
       "original_role": "调色板选择与过渡步数发布",
       "sources": [
         {
@@ -15645,13 +15645,434 @@
           "symbols": [
             "SelectPalette"
           ]
+        },
+        {
+          "path": "src/Palette.cpp",
+          "symbols": [
+            "SelectPalette"
+          ],
+          "relationship": "PCR01完整16条根，steps先判非正后发布/可选1，原拒绝index和接受steps返回保持"
+        },
+        {
+          "path": "include/cg/Palette.hpp",
+          "symbols": [
+            "SelectPalette",
+            "gPaletteCapability"
+          ],
+          "relationship": "PCR01既有声明不改签名，门槛来源按已证五图号两轮探测等级注释，不猜版本"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_resource_implementation.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_palette_capability_selection_spec.md#palette-capability-baseline",
+        "doc/cg2d_palette_capability_selection_spec.md#palette-capability-decision",
+        "doc/cg2d_palette_capability_selection_spec.md#palette-capability-acceptance",
+        "doc/cg2d_palette_capability_selection_spec.md#palette-capability-source-state",
+        "doc/cg2d_palette_capability_selection_evidence.json"
       ],
-      "boundary": "保留上界39及门槛判定；拒绝返回原index，接受发布活动编号/steps，steps非正只把全局步数改为1，仍返回原steps。不是成功布尔值，不另加负索引修复。"
+      "boundary": "保留上界39及门槛判定；拒绝返回原index，接受发布活动编号/steps，steps非正只把全局步数改为1，仍返回原steps。不是成功布尔值，不另加负索引修复。；PCR01完整45C970图号探测及450B70调色板选择：两根78条232B/两页，2E8唯一45A8B0、九跳五RET；probe十原CALL/九父，Select四十七原CALL/十六父只证引用，十probe结果邻窗九写9A7F64/一判负，不据短窗验全部父。probe固定S32图号99657/245151/22311/22212/22002，原本地output未预清、GetGraphicMapNoIndex每次直接写W32出参/返回1沿GRP01完整旧根保持；首轮从0查至第一个非零（原TEST后JA，仅比零），全空返-1，命中同index在第二轮重新查，若该次已空继续后项，不缓存首轮结果/固定一轮，末第二轮有效index返4-index。原未写输出初值，现去掉多余零初始化，不改正常值、循环/重查次数/失败。Select先S32 index>=39拒绝返回index，否则读130B记录S16 threshold，signed>当次S32 capability拒绝返回index；原无负index保护。接受先active=index，取S32 steps并test同局部，再原全局steps发布，非正覆盖1但返回原steps。现增加局部bool在发布前判定，原标量返回不改成功布尔/钳返回。45物理记录130B原阈值/path与当前源码逐项保持，选择上界39不改45；仅当前正常初表，原填充未冻结新端字符未写域/全owner/资源存在和运行。现9个writer原生S32发布/第十判负源边界及header过时‘业务待取证’改成已证五图号两轮探测等级(-1/0..4)，不猜产品版本或权限服务含义。PCP01 UpdatePalette及RebuildPalette32旧完整数值/资料生产/CRT/WAV-only原命令LF明文保持，不复验/据两个根完成全部图形资料加载/主表生存及全部writer/读取者。两组两处、两定义两decl一全局说明共五注释，四个源文件整文精确回放、同Lookup provider/45表/七旧语义保持。新Probe一F/旧171仅追加，两个新adapted、MAP/RENDER各两新成员，两限定S零I八open；生成读取/完整ABI/SDK/资源owner/像素与总SPEC未闭。不增空/索引/容量保护、默认/新钳制/回滚、私有状态或异常模型。",
+      "verification_level": "；pass，两完整原根78条232B/两页、2E8一个目标/九跳五RET及probe十CALL九父/Select四十七CALL十六父；五原图号/无出参初值/两轮同index重查和原返回、steps先判后pub/S16门槛有据；四整源精确回放两组两处五注释，Lookup及45物理阈值path初表保持；九发布一判负仅邻窗，完整父/主表owner/生成读取/ABI/SDK/运行待",
+      "palette_capability_selection": {
+        "step": "PCR01",
+        "source_snapshot": "[#] 对齐图号探测与调色板选择合同",
+        "original_entry": "0x450b70",
+        "original_end_exclusive": "0x450bad",
+        "instruction_count": 16,
+        "code_bytes": 61,
+        "page_count": 1,
+        "direct_calls": 0,
+        "direct_call_targets": [],
+        "jumps": 3,
+        "returns": 1,
+        "original_incoming_references": [
+          {
+            "ea": 4268523,
+            "type": 17,
+            "code": true,
+            "parent": 4268496,
+            "bytes": "e880e90300",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4553736,
+            "type": 17,
+            "code": true,
+            "parent": 4553488,
+            "bytes": "e8638fffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4553768,
+            "type": 17,
+            "code": true,
+            "parent": 4553488,
+            "bytes": "e8438fffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4553833,
+            "type": 17,
+            "code": true,
+            "parent": 4553488,
+            "bytes": "e8028fffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4553928,
+            "type": 17,
+            "code": true,
+            "parent": 4553488,
+            "bytes": "e8a38effff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4553993,
+            "type": 17,
+            "code": true,
+            "parent": 4553488,
+            "bytes": "e8628effff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4554043,
+            "type": 17,
+            "code": true,
+            "parent": 4553488,
+            "bytes": "e8308effff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4554108,
+            "type": 17,
+            "code": true,
+            "parent": 4553488,
+            "bytes": "e8ef8dffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4554192,
+            "type": 17,
+            "code": true,
+            "parent": 4553488,
+            "bytes": "e89b8dffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4554257,
+            "type": 17,
+            "code": true,
+            "parent": 4553488,
+            "bytes": "e85a8dffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4554307,
+            "type": 17,
+            "code": true,
+            "parent": 4553488,
+            "bytes": "e8288dffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4554372,
+            "type": 17,
+            "code": true,
+            "parent": 4553488,
+            "bytes": "e8e78cffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4554431,
+            "type": 17,
+            "code": true,
+            "parent": 4553488,
+            "bytes": "e8ac8cffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4554474,
+            "type": 17,
+            "code": true,
+            "parent": 4553488,
+            "bytes": "e8818cffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4554658,
+            "type": 17,
+            "code": true,
+            "parent": 4553488,
+            "bytes": "e8c98bffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4554781,
+            "type": 17,
+            "code": true,
+            "parent": 4553488,
+            "bytes": "e84e8bffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4554841,
+            "type": 17,
+            "code": true,
+            "parent": 4553488,
+            "bytes": "e8128bffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4554926,
+            "type": 17,
+            "code": true,
+            "parent": 4553488,
+            "bytes": "e8bd8affff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4554948,
+            "type": 17,
+            "code": true,
+            "parent": 4553488,
+            "bytes": "e8a78affff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4555009,
+            "type": 17,
+            "code": true,
+            "parent": 4553488,
+            "bytes": "e86a8affff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4555049,
+            "type": 17,
+            "code": true,
+            "parent": 4553488,
+            "bytes": "e8428affff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4555820,
+            "type": 17,
+            "code": true,
+            "parent": 4555664,
+            "bytes": "e83f87ffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4556372,
+            "type": 17,
+            "code": true,
+            "parent": 4556272,
+            "bytes": "e81785ffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4558637,
+            "type": 17,
+            "code": true,
+            "parent": 4558592,
+            "bytes": "e83e7cffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4571913,
+            "type": 17,
+            "code": true,
+            "parent": 4571856,
+            "bytes": "e86248ffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4571970,
+            "type": 17,
+            "code": true,
+            "parent": 4571856,
+            "bytes": "e82948ffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4572094,
+            "type": 17,
+            "code": true,
+            "parent": 4571856,
+            "bytes": "e8ad47ffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4572125,
+            "type": 17,
+            "code": true,
+            "parent": 4571856,
+            "bytes": "e88e47ffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4572319,
+            "type": 17,
+            "code": true,
+            "parent": 4571856,
+            "bytes": "e8cc46ffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4572630,
+            "type": 17,
+            "code": true,
+            "parent": 4572576,
+            "bytes": "e89545ffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4572652,
+            "type": 17,
+            "code": true,
+            "parent": 4572576,
+            "bytes": "e87f45ffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4572674,
+            "type": 17,
+            "code": true,
+            "parent": 4572576,
+            "bytes": "e86945ffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4572689,
+            "type": 17,
+            "code": true,
+            "parent": 4572576,
+            "bytes": "e85a45ffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4572770,
+            "type": 17,
+            "code": true,
+            "parent": 4572576,
+            "bytes": "e80945ffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4572916,
+            "type": 17,
+            "code": true,
+            "parent": 4572576,
+            "bytes": "e87744ffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4583192,
+            "type": 17,
+            "code": true,
+            "parent": 4583136,
+            "bytes": "e8531cffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4585182,
+            "type": 17,
+            "code": true,
+            "parent": 4583824,
+            "bytes": "e88d14ffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4585314,
+            "type": 17,
+            "code": true,
+            "parent": 4583824,
+            "bytes": "e80914ffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4587274,
+            "type": 17,
+            "code": true,
+            "parent": 4587168,
+            "bytes": "e8610cffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4587389,
+            "type": 17,
+            "code": true,
+            "parent": 4587168,
+            "bytes": "e8ee0bffff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4591668,
+            "type": 17,
+            "code": true,
+            "parent": 4591600,
+            "bytes": "e837fbfeff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 4606787,
+            "type": 17,
+            "code": true,
+            "parent": 4606016,
+            "bytes": "e828c0feff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 5294252,
+            "type": 17,
+            "code": true,
+            "parent": 5294192,
+            "bytes": "e8bf42f4ff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 5301827,
+            "type": 17,
+            "code": true,
+            "parent": 5301808,
+            "bytes": "e82825f4ff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 5359354,
+            "type": 17,
+            "code": true,
+            "parent": 5358640,
+            "bytes": "e87144f3ff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 5363458,
+            "type": 17,
+            "code": true,
+            "parent": 5363440,
+            "bytes": "e86934f3ff",
+            "asm": "call    sub_450B70"
+          },
+          {
+            "ea": 5363494,
+            "type": 17,
+            "code": true,
+            "parent": 5363440,
+            "bytes": "e84534f3ff",
+            "asm": "call    sub_450B70"
+          }
+        ],
+        "native_signature": "std::int32_t SelectPalette(std::int32_t index, std::int32_t steps) noexcept",
+        "source_patch_group_count": 1,
+        "source_changed_point_count": 1,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "Probe原S32 -1/4-index；Select拒绝返回index、接受返回原steps；全父/主表owner/生成读取/ABI运行待"
+      }
     },
     {
       "original_entry": "0x451220",
@@ -240340,6 +240761,233 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "result_boundary": "现void保副作用，原残留EAX不伪造确定值；十三父CALL弃返回/完整ABI待"
+      }
+    },
+    {
+      "original_entry": "0x45c970",
+      "inventory_id": "F:0005C970",
+      "original_role": "固定五图号两轮探测/原输出与-1或4-index返回",
+      "original_end_exclusive": "0x45ca1b",
+      "instruction_count": 62,
+      "function_chunks": [
+        {
+          "start": "0x45c970",
+          "end_exclusive": "0x45ca1b"
+        }
+      ],
+      "status": "PCR01完整图号探测原根纳管，原未预清/两轮重查及返回保持；限定S，全父/主表/资源owner/ABI运行待",
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "ProbePaletteCapability_45C970"
+          ],
+          "relationship": "PCR01完整图号探测原根，移除原无出参初值，原两轮/同index重查及返回保持"
+        },
+        {
+          "path": "include/cg/GraphicInfo.hpp",
+          "symbols": [
+            "ProbePaletteCapability_45C970"
+          ],
+          "relationship": "PCR01既有真实声明/返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_palette_capability_selection_spec.md#palette-capability-baseline",
+        "doc/cg2d_palette_capability_selection_spec.md#palette-capability-decision",
+        "doc/cg2d_palette_capability_selection_spec.md#palette-capability-acceptance",
+        "doc/cg2d_palette_capability_selection_spec.md#palette-capability-source-state",
+        "doc/cg2d_palette_capability_selection_evidence.json"
+      ],
+      "boundary": "PCR01完整45C970图号探测及450B70调色板选择：两根78条232B/两页，2E8唯一45A8B0、九跳五RET；probe十原CALL/九父，Select四十七原CALL/十六父只证引用，十probe结果邻窗九写9A7F64/一判负，不据短窗验全部父。probe固定S32图号99657/245151/22311/22212/22002，原本地output未预清、GetGraphicMapNoIndex每次直接写W32出参/返回1沿GRP01完整旧根保持；首轮从0查至第一个非零（原TEST后JA，仅比零），全空返-1，命中同index在第二轮重新查，若该次已空继续后项，不缓存首轮结果/固定一轮，末第二轮有效index返4-index。原未写输出初值，现去掉多余零初始化，不改正常值、循环/重查次数/失败。Select先S32 index>=39拒绝返回index，否则读130B记录S16 threshold，signed>当次S32 capability拒绝返回index；原无负index保护。接受先active=index，取S32 steps并test同局部，再原全局steps发布，非正覆盖1但返回原steps。现增加局部bool在发布前判定，原标量返回不改成功布尔/钳返回。45物理记录130B原阈值/path与当前源码逐项保持，选择上界39不改45；仅当前正常初表，原填充未冻结新端字符未写域/全owner/资源存在和运行。现9个writer原生S32发布/第十判负源边界及header过时‘业务待取证’改成已证五图号两轮探测等级(-1/0..4)，不猜产品版本或权限服务含义。PCP01 UpdatePalette及RebuildPalette32旧完整数值/资料生产/CRT/WAV-only原命令LF明文保持，不复验/据两个根完成全部图形资料加载/主表生存及全部writer/读取者。两组两处、两定义两decl一全局说明共五注释，四个源文件整文精确回放、同Lookup provider/45表/七旧语义保持。新Probe一F/旧171仅追加，两个新adapted、MAP/RENDER各两新成员，两限定S零I八open；生成读取/完整ABI/SDK/资源owner/像素与总SPEC未闭。不增空/索引/容量保护、默认/新钳制/回滚、私有状态或异常模型。",
+      "verification_level": "pass，两完整原根78条232B/两页、2E8一个目标/九跳五RET及probe十CALL九父/Select四十七CALL十六父；五原图号/无出参初值/两轮同index重查和原返回、steps先判后pub/S16门槛有据；四整源精确回放两组两处五注释，Lookup及45物理阈值path初表保持；九发布一判负仅邻窗，完整父/主表owner/生成读取/ABI/SDK/运行待",
+      "original_incoming": [
+        {
+          "ea": 4553507,
+          "type": 17,
+          "code": true,
+          "parent": 4553488,
+          "bytes": "e8484e0000",
+          "asm": "call    sub_45C970"
+        },
+        {
+          "ea": 4555027,
+          "type": 17,
+          "code": true,
+          "parent": 4553488,
+          "bytes": "e858480000",
+          "asm": "call    sub_45C970"
+        },
+        {
+          "ea": 4555685,
+          "type": 17,
+          "code": true,
+          "parent": 4555664,
+          "bytes": "e8c6450000",
+          "asm": "call    sub_45C970"
+        },
+        {
+          "ea": 4572601,
+          "type": 17,
+          "code": true,
+          "parent": 4572576,
+          "bytes": "e8b2030000",
+          "asm": "call    sub_45C970"
+        },
+        {
+          "ea": 4573127,
+          "type": 17,
+          "code": true,
+          "parent": 4573120,
+          "bytes": "e8a4010000",
+          "asm": "call    sub_45C970"
+        },
+        {
+          "ea": 4573892,
+          "type": 17,
+          "code": true,
+          "parent": 4573728,
+          "bytes": "e8a7feffff",
+          "asm": "call    sub_45C970"
+        },
+        {
+          "ea": 4585847,
+          "type": 17,
+          "code": true,
+          "parent": 4585840,
+          "bytes": "e8f4cfffff",
+          "asm": "call    sub_45C970"
+        },
+        {
+          "ea": 4591783,
+          "type": 17,
+          "code": true,
+          "parent": 4591600,
+          "bytes": "e8c4b8ffff",
+          "asm": "call    sub_45C970; jumptable 00461013 case 9"
+        },
+        {
+          "ea": 4608807,
+          "type": 17,
+          "code": true,
+          "parent": 4608800,
+          "bytes": "e84476ffff",
+          "asm": "call    sub_45C970"
+        },
+        {
+          "ea": 5359333,
+          "type": 17,
+          "code": true,
+          "parent": 5358640,
+          "bytes": "e88602f4ff",
+          "asm": "call    sub_45C970"
+        }
+      ],
+      "palette_capability_selection": {
+        "step": "PCR01",
+        "source_snapshot": "[#] 对齐图号探测与调色板选择合同",
+        "original_entry": "0x45c970",
+        "original_end_exclusive": "0x45ca1b",
+        "instruction_count": 62,
+        "code_bytes": 171,
+        "page_count": 1,
+        "direct_calls": 2,
+        "direct_call_targets": [
+          4565168
+        ],
+        "jumps": 6,
+        "returns": 4,
+        "original_incoming_references": [
+          {
+            "ea": 4553507,
+            "type": 17,
+            "code": true,
+            "parent": 4553488,
+            "bytes": "e8484e0000",
+            "asm": "call    sub_45C970"
+          },
+          {
+            "ea": 4555027,
+            "type": 17,
+            "code": true,
+            "parent": 4553488,
+            "bytes": "e858480000",
+            "asm": "call    sub_45C970"
+          },
+          {
+            "ea": 4555685,
+            "type": 17,
+            "code": true,
+            "parent": 4555664,
+            "bytes": "e8c6450000",
+            "asm": "call    sub_45C970"
+          },
+          {
+            "ea": 4572601,
+            "type": 17,
+            "code": true,
+            "parent": 4572576,
+            "bytes": "e8b2030000",
+            "asm": "call    sub_45C970"
+          },
+          {
+            "ea": 4573127,
+            "type": 17,
+            "code": true,
+            "parent": 4573120,
+            "bytes": "e8a4010000",
+            "asm": "call    sub_45C970"
+          },
+          {
+            "ea": 4573892,
+            "type": 17,
+            "code": true,
+            "parent": 4573728,
+            "bytes": "e8a7feffff",
+            "asm": "call    sub_45C970"
+          },
+          {
+            "ea": 4585847,
+            "type": 17,
+            "code": true,
+            "parent": 4585840,
+            "bytes": "e8f4cfffff",
+            "asm": "call    sub_45C970"
+          },
+          {
+            "ea": 4591783,
+            "type": 17,
+            "code": true,
+            "parent": 4591600,
+            "bytes": "e8c4b8ffff",
+            "asm": "call    sub_45C970; jumptable 00461013 case 9"
+          },
+          {
+            "ea": 4608807,
+            "type": 17,
+            "code": true,
+            "parent": 4608800,
+            "bytes": "e84476ffff",
+            "asm": "call    sub_45C970"
+          },
+          {
+            "ea": 5359333,
+            "type": 17,
+            "code": true,
+            "parent": 5358640,
+            "bytes": "e88602f4ff",
+            "asm": "call    sub_45C970"
+          }
+        ],
+        "native_signature": "std::int32_t ProbePaletteCapability_45C970()",
+        "source_patch_group_count": 1,
+        "source_changed_point_count": 1,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "Probe原S32 -1/4-index；Select拒绝返回index、接受返回原steps；全父/主表owner/生成读取/ABI运行待"
       }
     }
   ]

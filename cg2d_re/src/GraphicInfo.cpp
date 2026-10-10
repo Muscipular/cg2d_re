@@ -309,6 +309,7 @@ std::int32_t GetGraphicMapNoIndex(std::int32_t index, std::int32_t* outSeqNo)
     return 1;
 }
 
+// PCR01：原45C970完整62条；出参原不预清，两轮同命中index重查，-1/4-index返回保持。
 std::int32_t ProbePaletteCapability_45C970()
 {
     constexpr std::int32_t kGraphicNos[5] {
@@ -319,7 +320,7 @@ std::int32_t ProbePaletteCapability_45C970()
         22002,
     };
 
-    std::int32_t mappedGraphicNo = 0;
+    std::int32_t mappedGraphicNo;
     std::int32_t candidateIndex = 0;
     for (; candidateIndex < 5; ++candidateIndex) {
         GetGraphicMapNoIndex(kGraphicNos[candidateIndex], &mappedGraphicNo);

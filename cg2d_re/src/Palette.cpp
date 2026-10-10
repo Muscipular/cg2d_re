@@ -305,14 +305,16 @@ int ReadPalette(std::int32_t index, PaletteEntry* output)
     return 1;
 }
 
+// PCR01：原450B70完整16条；S16门槛/39上界，steps先局部判非正再发布，原返回保持。
 std::int32_t SelectPalette(std::int32_t index, std::int32_t steps) noexcept
 {
     if (index >= 39 || gPaletteFiles[index].threshold > gPaletteCapability) {
         return index;
     }
     gActivePalette = index;
+    const bool nonPositiveSteps = steps <= 0;
     gPaletteTransitionSteps = steps;
-    if (steps <= 0) {
+    if (nonPositiveSteps) {
         gPaletteTransitionSteps = 1;
     }
     return steps;

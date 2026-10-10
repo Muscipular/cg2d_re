@@ -198450,6 +198450,398 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x40a9e0",
+      "inventory_id": "F:0000A9E0",
+      "original_role": "动作26单次角度反转/移动/播放",
+      "original_end_exclusive": "0x40aa66",
+      "instruction_count": 38,
+      "function_chunks": [
+        {
+          "start": "0x40a9e0",
+          "end_exclusive": "0x40aa66"
+        }
+      ],
+      "status": "BHRC01完整正常源/独立身份纳管；1处WORD/BYTE消费已修，仅合同注释，全部数据/父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction26_40A9E0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction26_40A9E0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-baseline",
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-decision",
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-acceptance",
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-source-state",
+        "doc/cg2d_battle_hit_reaction_evidence.json"
+      ],
+      "boundary": "BHRC01六动作/22槽计数七完整正常根，仅十消费表达（六WORD/四BYTE）和十四注释；原完整W32持样/阈值移位/高位测试、fresh阶段门禁/计数先于FF8清零/创建后周期重取、角度/减速/恢复/对手14等待/播放返回保持，数值正文与其它源/签名不改。全生产/父-callee/ABI/alias/owner、SDK正常失败/容量/数值与声音画面运行未验，RPLAN.24/MC01与全部门禁保持。",
+      "verification_level": "完整553条1870B/十二分页、44E8/七callee/57跳二十一RET、六11Bcase/计数九CALL九父及22槽/FF8完整S32严格==1、16B四F32常量；十消费表达和完整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction26_40A9E0",
+        "parameters": "非拥有YobiAction*，固定BattleActorPayload*",
+        "return": "void，末播放弃返"
+      },
+      "battle_hit_reaction": {
+        "step": "BHRC01",
+        "source_snapshot": "cg2d-re-battle-hit-reaction-20261010",
+        "original_instruction_count": 38,
+        "original_code_bytes": 134,
+        "original_page_count": 1,
+        "direct_call_count": 4,
+        "callee_count": 2,
+        "jump_count": 3,
+        "return_count": 2,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40aa70",
+      "inventory_id": "F:0000AA70",
+      "original_role": "动作27入口持样时长与fresh阶段门禁/恢复",
+      "original_end_exclusive": "0x40ace6",
+      "instruction_count": 186,
+      "function_chunks": [
+        {
+          "start": "0x40aa70",
+          "end_exclusive": "0x40ace6"
+        }
+      ],
+      "status": "BHRC01完整正常源/独立身份纳管；6处WORD/BYTE消费已修，仅合同注释，全部数据/父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction27_40AA70"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction27_40AA70"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-baseline",
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-decision",
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-acceptance",
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-source-state",
+        "doc/cg2d_battle_hit_reaction_evidence.json"
+      ],
+      "boundary": "BHRC01六动作/22槽计数七完整正常根，仅十消费表达（六WORD/四BYTE）和十四注释；原完整W32持样/阈值移位/高位测试、fresh阶段门禁/计数先于FF8清零/创建后周期重取、角度/减速/恢复/对手14等待/播放返回保持，数值正文与其它源/签名不改。全生产/父-callee/ABI/alias/owner、SDK正常失败/容量/数值与声音画面运行未验，RPLAN.24/MC01与全部门禁保持。",
+      "verification_level": "完整553条1870B/十二分页、44E8/七callee/57跳二十一RET、六11Bcase/计数九CALL九父及22槽/FF8完整S32严格==1、16B四F32常量；十消费表达和完整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction27_40AA70",
+        "parameters": "非拥有YobiAction*，固定BattleActorPayload*",
+        "return": "S32实际末PlayFrame返回"
+      },
+      "battle_hit_reaction": {
+        "step": "BHRC01",
+        "source_snapshot": "cg2d-re-battle-hit-reaction-20261010",
+        "original_instruction_count": 186,
+        "original_code_bytes": 630,
+        "original_page_count": 3,
+        "direct_call_count": 12,
+        "callee_count": 5,
+        "jump_count": 20,
+        "return_count": 5,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 6,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40acf0",
+      "inventory_id": "F:0000ACF0",
+      "original_role": "动作28音效后计数/减速和14-34-54恢复",
+      "original_end_exclusive": "0x40ae4b",
+      "instruction_count": 109,
+      "function_chunks": [
+        {
+          "start": "0x40acf0",
+          "end_exclusive": "0x40ae4b"
+        }
+      ],
+      "status": "BHRC01完整正常源/独立身份纳管；正确正文保持，仅合同注释，全部数据/父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction28_40ACF0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction28_40ACF0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-baseline",
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-decision",
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-acceptance",
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-source-state",
+        "doc/cg2d_battle_hit_reaction_evidence.json"
+      ],
+      "boundary": "BHRC01六动作/22槽计数七完整正常根，仅十消费表达（六WORD/四BYTE）和十四注释；原完整W32持样/阈值移位/高位测试、fresh阶段门禁/计数先于FF8清零/创建后周期重取、角度/减速/恢复/对手14等待/播放返回保持，数值正文与其它源/签名不改。全生产/父-callee/ABI/alias/owner、SDK正常失败/容量/数值与声音画面运行未验，RPLAN.24/MC01与全部门禁保持。",
+      "verification_level": "完整553条1870B/十二分页、44E8/七callee/57跳二十一RET、六11Bcase/计数九CALL九父及22槽/FF8完整S32严格==1、16B四F32常量；十消费表达和完整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction28_40ACF0",
+        "parameters": "非拥有YobiAction*，固定BattleActorPayload*",
+        "return": "S32实际末PlayFrame返回"
+      },
+      "battle_hit_reaction": {
+        "step": "BHRC01",
+        "source_snapshot": "cg2d-re-battle-hit-reaction-20261010",
+        "original_instruction_count": 109,
+        "original_code_bytes": 347,
+        "original_page_count": 2,
+        "direct_call_count": 10,
+        "callee_count": 5,
+        "jump_count": 9,
+        "return_count": 4,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40ae50",
+      "inventory_id": "F:0000AE50",
+      "original_role": "动作29计数14后退/44恢复",
+      "original_end_exclusive": "0x40af25",
+      "instruction_count": 59,
+      "function_chunks": [
+        {
+          "start": "0x40ae50",
+          "end_exclusive": "0x40af25"
+        }
+      ],
+      "status": "BHRC01完整正常源/独立身份纳管；1处WORD/BYTE消费已修，仅合同注释，全部数据/父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction29_40AE50"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction29_40AE50"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-baseline",
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-decision",
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-acceptance",
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-source-state",
+        "doc/cg2d_battle_hit_reaction_evidence.json"
+      ],
+      "boundary": "BHRC01六动作/22槽计数七完整正常根，仅十消费表达（六WORD/四BYTE）和十四注释；原完整W32持样/阈值移位/高位测试、fresh阶段门禁/计数先于FF8清零/创建后周期重取、角度/减速/恢复/对手14等待/播放返回保持，数值正文与其它源/签名不改。全生产/父-callee/ABI/alias/owner、SDK正常失败/容量/数值与声音画面运行未验，RPLAN.24/MC01与全部门禁保持。",
+      "verification_level": "完整553条1870B/十二分页、44E8/七callee/57跳二十一RET、六11Bcase/计数九CALL九父及22槽/FF8完整S32严格==1、16B四F32常量；十消费表达和完整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction29_40AE50",
+        "parameters": "非拥有YobiAction*，固定BattleActorPayload*",
+        "return": "S32实际末PlayFrame返回"
+      },
+      "battle_hit_reaction": {
+        "step": "BHRC01",
+        "source_snapshot": "cg2d-re-battle-hit-reaction-20261010",
+        "original_instruction_count": 59,
+        "original_code_bytes": 213,
+        "original_page_count": 1,
+        "direct_call_count": 6,
+        "callee_count": 3,
+        "jump_count": 5,
+        "return_count": 3,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40af30",
+      "inventory_id": "F:0000AF30",
+      "original_role": "动作30后期fresh FDC决定14-28恢复",
+      "original_end_exclusive": "0x40b01c",
+      "instruction_count": 68,
+      "function_chunks": [
+        {
+          "start": "0x40af30",
+          "end_exclusive": "0x40b01c"
+        }
+      ],
+      "status": "BHRC01完整正常源/独立身份纳管；1处WORD/BYTE消费已修，仅合同注释，全部数据/父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction30_40AF30"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction30_40AF30"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-baseline",
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-decision",
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-acceptance",
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-source-state",
+        "doc/cg2d_battle_hit_reaction_evidence.json"
+      ],
+      "boundary": "BHRC01六动作/22槽计数七完整正常根，仅十消费表达（六WORD/四BYTE）和十四注释；原完整W32持样/阈值移位/高位测试、fresh阶段门禁/计数先于FF8清零/创建后周期重取、角度/减速/恢复/对手14等待/播放返回保持，数值正文与其它源/签名不改。全生产/父-callee/ABI/alias/owner、SDK正常失败/容量/数值与声音画面运行未验，RPLAN.24/MC01与全部门禁保持。",
+      "verification_level": "完整553条1870B/十二分页、44E8/七callee/57跳二十一RET、六11Bcase/计数九CALL九父及22槽/FF8完整S32严格==1、16B四F32常量；十消费表达和完整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction30_40AF30",
+        "parameters": "非拥有YobiAction*，固定BattleActorPayload*",
+        "return": "S32实际末PlayFrame返回"
+      },
+      "battle_hit_reaction": {
+        "step": "BHRC01",
+        "source_snapshot": "cg2d-re-battle-hit-reaction-20261010",
+        "original_instruction_count": 68,
+        "original_code_bytes": 236,
+        "original_page_count": 2,
+        "direct_call_count": 6,
+        "callee_count": 3,
+        "jump_count": 5,
+        "return_count": 3,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40b020",
+      "inventory_id": "F:0000B020",
+      "original_role": "动作31旋转/后退与等待对手14退出",
+      "original_end_exclusive": "0x40b130",
+      "instruction_count": 80,
+      "function_chunks": [
+        {
+          "start": "0x40b020",
+          "end_exclusive": "0x40b130"
+        }
+      ],
+      "status": "BHRC01完整正常源/独立身份纳管；1处WORD/BYTE消费已修，仅合同注释，全部数据/父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction31_40B020"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction31_40B020"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-baseline",
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-decision",
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-acceptance",
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-source-state",
+        "doc/cg2d_battle_hit_reaction_evidence.json"
+      ],
+      "boundary": "BHRC01六动作/22槽计数七完整正常根，仅十消费表达（六WORD/四BYTE）和十四注释；原完整W32持样/阈值移位/高位测试、fresh阶段门禁/计数先于FF8清零/创建后周期重取、角度/减速/恢复/对手14等待/播放返回保持，数值正文与其它源/签名不改。全生产/父-callee/ABI/alias/owner、SDK正常失败/容量/数值与声音画面运行未验，RPLAN.24/MC01与全部门禁保持。",
+      "verification_level": "完整553条1870B/十二分页、44E8/七callee/57跳二十一RET、六11Bcase/计数九CALL九父及22槽/FF8完整S32严格==1、16B四F32常量；十消费表达和完整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction31_40B020",
+        "parameters": "非拥有YobiAction*，固定BattleActorPayload*",
+        "return": "S32实际末PlayFrame返回"
+      },
+      "battle_hit_reaction": {
+        "step": "BHRC01",
+        "source_snapshot": "cg2d-re-battle-hit-reaction-20261010",
+        "original_instruction_count": 80,
+        "original_code_bytes": 272,
+        "original_page_count": 2,
+        "direct_call_count": 6,
+        "callee_count": 4,
+        "jump_count": 12,
+        "return_count": 3,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x406360",
+      "inventory_id": "F:00006360",
+      "original_role": "全部22槽/FF8严格等1活动计数",
+      "original_end_exclusive": "0x406386",
+      "instruction_count": 13,
+      "function_chunks": [
+        {
+          "start": "0x406360",
+          "end_exclusive": "0x406386"
+        }
+      ],
+      "status": "BHRC01完整正常源/独立身份纳管；正确正文保持，仅合同注释，全部数据/父/owner/SDK与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::CountBattleActiveEntries_406360"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::CountBattleActiveEntries_406360"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-baseline",
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-decision",
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-acceptance",
+        "doc/cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-source-state",
+        "doc/cg2d_battle_hit_reaction_evidence.json"
+      ],
+      "boundary": "BHRC01六动作/22槽计数七完整正常根，仅十消费表达（六WORD/四BYTE）和十四注释；原完整W32持样/阈值移位/高位测试、fresh阶段门禁/计数先于FF8清零/创建后周期重取、角度/减速/恢复/对手14等待/播放返回保持，数值正文与其它源/签名不改。全生产/父-callee/ABI/alias/owner、SDK正常失败/容量/数值与声音画面运行未验，RPLAN.24/MC01与全部门禁保持。",
+      "verification_level": "完整553条1870B/十二分页、44E8/七callee/57跳二十一RET、六11Bcase/计数九CALL九父及22槽/FF8完整S32严格==1、16B四F32常量；十消费表达和完整源精确差异，仅静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::CountBattleActiveEntries_406360",
+        "parameters": "无参数；唯一22槽全局T*表",
+        "return": "S32实际22槽活动数"
+      },
+      "battle_hit_reaction": {
+        "step": "BHRC01",
+        "source_snapshot": "cg2d-re-battle-hit-reaction-20261010",
+        "original_instruction_count": 13,
+        "original_code_bytes": 38,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "callee_count": 0,
+        "jump_count": 3,
+        "return_count": 1,
+        "inbound_direct_call_count": 9,
+        "inbound_parent_count": 9,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

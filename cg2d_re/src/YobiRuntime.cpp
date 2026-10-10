@@ -23298,6 +23298,7 @@ std::int32_t GetBattleDistance_406300(YobiAction* const first, YobiAction* const
     return static_cast<std::int32_t>(std::sqrt(static_cast<double>(squared)));
 }
 
+// BHRC01：唯一22槽按序fresh T*，非空载荷FF8完整S32严格==1才计数。
 std::int32_t CountBattleActiveEntries_406360()
 {
     std::int32_t count = 0;
@@ -26139,11 +26140,12 @@ void UpdateBattleAction25_406BA0(YobiAction* const action)
     }
 }
 
+// BHRC01：完整FE4后低WORD门禁；角度持样加180/发布/单次减360，移动后播放。
 void UpdateBattleAction26_40A9E0(YobiAction* const action)
 {
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
     action->characterAction = 8;
-    if ((payload->effectFlagsFE4 & 0xC04) != 0) {
+    if ((static_cast<std::uint16_t>(payload->effectFlagsFE4) & 0xC04) != 0) {
         action->characterAction = 9;
     }
     const double angle = static_cast<double>(action->angle50) + 180.0;
@@ -26157,11 +26159,12 @@ void UpdateBattleAction26_40A9E0(YobiAction* const action)
     static_cast<void>(PlayFrame_517DA0(action, 1));
 }
 
+// BHRC01：入口FDC持样与阶段fresh门禁分开；计数先于FF8清零，创建后重取周期。
 std::int32_t UpdateBattleAction27_40AA70(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     action->characterAction = 8;
-    if ((payload->effectFlagsFE4 & 0xC04) != 0) {
+    if ((static_cast<std::uint16_t>(payload->effectFlagsFE4) & 0xC04) != 0) {
         action->characterAction = 9;
     }
     action->framePlayingRate = 50;
@@ -26176,7 +26179,7 @@ std::int32_t UpdateBattleAction27_40AA70(YobiAction* const action)
         if (angle >= 360.0) {
             action->angle50 = static_cast<float>(angle - 360.0);
         }
-        if ((payload->flagsFDC & 2u) != 0) {
+        if ((static_cast<std::uint8_t>(payload->flagsFDC) & 2u) != 0) {
             gYobiUpdateGateMode = 1;
             payload->aliveFF8 = 1;
         }
@@ -26184,7 +26187,7 @@ std::int32_t UpdateBattleAction27_40AA70(YobiAction* const action)
         return PlayFrame_517DA0(action, 1);
     }
     if (count < 14 * initialBit + 34) {
-        if ((payload->effectFlagsFE4 & 2) != 0) {
+        if ((static_cast<std::uint8_t>(payload->effectFlagsFE4) & 2) != 0) {
             const std::int32_t direction = action->direction + 1;
             action->direction = direction;
             if (direction >= 8) {
@@ -26194,7 +26197,7 @@ std::int32_t UpdateBattleAction27_40AA70(YobiAction* const action)
         const std::int32_t threshold = 14 * (static_cast<std::int32_t>((payload->flagsFDC >> 1) & 1u) + 1);
         if (payload->valueFCC == threshold) {
             action->value54 = 5.0F;
-            if ((payload->flagsFDC & 2u) != 0) {
+            if ((static_cast<std::uint8_t>(payload->flagsFDC) & 2u) != 0) {
                 if (CountBattleActiveEntries_406360() <= 1) {
                     gYobiUpdateGateMode = 0;
                 }
@@ -26220,7 +26223,7 @@ std::int32_t UpdateBattleAction27_40AA70(YobiAction* const action)
     }
     if (count >= 14 * initialBit + 54) {
         payload->valueFCC = 0;
-        if ((initialFlags & 2u) == 0) {
+        if ((static_cast<std::uint8_t>(initialFlags) & 2u) == 0) {
             action->value54 = 6.0F;
             action->framePlayingRate = 100;
             AdvanceBattleCastState_439340(action);
@@ -26228,7 +26231,7 @@ std::int32_t UpdateBattleAction27_40AA70(YobiAction* const action)
                 action->value54 = 4.0F;
                 action->framePlayingRate = 100;
             }
-        } else if ((payload->effectFlagsFE4 & 0x3010) != 0) {
+        } else if ((static_cast<std::uint16_t>(payload->effectFlagsFE4) & 0x3010) != 0) {
             action->value54 = 6.0F;
             action->framePlayingRate = 100;
             AdvanceBattleCastState_439340(action);
@@ -26241,6 +26244,7 @@ std::int32_t UpdateBattleAction27_40AA70(YobiAction* const action)
     return PlayFrame_517DA0(action, 1);
 }
 
+// BHRC01：音效后fresh计数，14/34/54分段；原减速先发布/负值归零保持。
 std::int32_t UpdateBattleAction28_40ACF0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26291,11 +26295,12 @@ std::int32_t UpdateBattleAction28_40ACF0(YobiAction* const action)
     return PlayFrame_517DA0(action, 1);
 }
 
+// BHRC01：低WORD入口；新计数<14后退，>=44才归零/推进，末播放。
 std::int32_t UpdateBattleAction29_40AE50(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     action->characterAction = 8;
-    if ((payload->effectFlagsFE4 & 0xC04) != 0) {
+    if ((static_cast<std::uint16_t>(payload->effectFlagsFE4) & 0xC04) != 0) {
         action->characterAction = 9;
     }
     action->framePlayingRate = 50;
@@ -26320,11 +26325,12 @@ std::int32_t UpdateBattleAction29_40AE50(YobiAction* const action)
     return PlayFrame_517DA0(action, 1);
 }
 
+// BHRC01：低WORD入口；计数>=14才fresh完整FDC取14/28阈值，末播放。
 std::int32_t UpdateBattleAction30_40AF30(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     action->characterAction = 8;
-    if ((payload->effectFlagsFE4 & 0xC04) != 0) {
+    if ((static_cast<std::uint16_t>(payload->effectFlagsFE4) & 0xC04) != 0) {
         action->characterAction = 9;
     }
     action->framePlayingRate = 50;
@@ -26349,6 +26355,7 @@ std::int32_t UpdateBattleAction30_40AF30(YobiAction* const action)
     return PlayFrame_517DA0(action, 1);
 }
 
+// BHRC01：持高W32旗/偶数旋转后fresh计数；等待other14，方向后重取低WORD选速度。
 std::int32_t UpdateBattleAction31_40B020(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26378,7 +26385,7 @@ std::int32_t UpdateBattleAction31_40B020(YobiAction* const action)
                 Sub_405CB0(action);
             }
             action->characterAction = 0;
-            action->value54 = (payload->effectFlagsFE4 & 0x1010) != 0 ? 6.0F : 4.0F;
+            action->value54 = (static_cast<std::uint16_t>(payload->effectFlagsFE4) & 0x1010) != 0 ? 6.0F : 4.0F;
             payload->valueFCC = 0;
             AdvanceBattleCastState_439340(action);
         }

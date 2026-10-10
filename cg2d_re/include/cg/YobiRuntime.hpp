@@ -509,12 +509,12 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* action); // B22H01：回旋
 std::int32_t UpdateBattleAction23_4090F0(YobiAction* action); // B22L01：固定caster/父载荷与266列表，标死后仍移动/播放并返回其结果。
 void UpdateBattleAction24_409380(YobiAction* action); // BPAW01：新FF0>20，先归零后推进，无播放。
 void UpdateBattleAction25_406BA0(YobiAction* action); // BPAW01：X/Y两次查目标发布；等待归零后fresh BYTE门禁。
-void UpdateBattleAction26_40A9E0(YobiAction* action); // 单次后退/播放，不消费FCC或推进动作。
-std::int32_t UpdateBattleAction27_40AA70(YobiAction* action); // 初始FDC决定时长，减速阶段重读状态。
-std::int32_t UpdateBattleAction28_40ACF0(YobiAction* action); // 132音效后重读计数，14/34/54帧分段。
-std::int32_t UpdateBattleAction29_40AE50(YobiAction* action); // 新计数<14后退，>=44推进。
-std::int32_t UpdateBattleAction30_40AF30(YobiAction* action); // 新计数>=14才读死亡位，阈值14/28推进。
-std::int32_t UpdateBattleAction31_40B020(YobiAction* action); // 偶数帧旋转，28帧后等other退出动作14。
+void UpdateBattleAction26_40A9E0(YobiAction* action); // BHRC01：低WORD门禁，角度持样反转/移动/播放，无计数推进。
+std::int32_t UpdateBattleAction27_40AA70(YobiAction* action); // BHRC01：入口FDC时长与fresh边界分开；计数先于FF8清零。
+std::int32_t UpdateBattleAction28_40ACF0(YobiAction* action); // BHRC01：132音效后fresh FCC，14/34/54三段与原负速归零。
+std::int32_t UpdateBattleAction29_40AE50(YobiAction* action); // BHRC01：新count<14后退，>=44归零/推进，末播放。
+std::int32_t UpdateBattleAction30_40AF30(YobiAction* action); // BHRC01：count>=14才fresh完整FDC选14/28阈值。
+std::int32_t UpdateBattleAction31_40B020(YobiAction* action); // BHRC01：偶数旋转/fresh FCC，等待other14，方向后fresh低WORD。
 void UpdateBattleAction32_40B410(YobiAction* action); // 受击动作，严格终帧才推进。
 void UpdateBattleAction33_40B450(YobiAction* action); // 防御动作，严格终帧才推进。
 std::int32_t UpdateBattleAction34_40B5E0(YobiAction* action); // 完整四边反弹退场，播放至非零，不加循环上限。
@@ -707,7 +707,7 @@ void TurnBattleToward_406190(
     YobiAction* action, YobiAction* target, std::int32_t updateDirection, float step);
 std::int32_t GetBattleDistanceToPosition_4062A0(YobiAction* action, float x, float y); // BRCP01：先X后Y求差，平方和存F32/正常S32返回。
 std::int32_t GetBattleDistance_406300(YobiAction* first, YobiAction* second); // 平方和先舍入F32再开方。
-std::int32_t CountBattleActiveEntries_406360(); // 扫全部22槽，只计非空且载荷FF8严格等于1。
+std::int32_t CountBattleActiveEntries_406360(); // BHRC01：22槽含20/21，FF8完整S32严格==1，无新payload保护。
 std::int32_t SeedBattleRandom_4065A0(std::int32_t value); // 前20槽非空数乘活动M字节长度与输入，重播同源随机种子。
 void Sub_406260(YobiAction* action); // 载荷反向坐标差转角度，再更新方向。
 void InitBattleCastList_4390E0(std::int32_t index); // 22槽索引，保留禁用/phase13门禁。

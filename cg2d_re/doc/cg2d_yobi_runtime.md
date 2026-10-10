@@ -4702,3 +4702,8 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 ## 2026-10-10 BPAW01：播放/计时与目标等待
 
 [完整合同](cg2d_battle_play_wait_spec.md#battle-play-wait-source-state)补5/7/8/9/10/24/25七完整275条888B。7/8严格终帧后fresh FDC、10短路上一项11/bit2及25归零动作后0x60门禁共四BYTE恢复；5旧count先增量发布/推进后清零、24新count先发布/清零后推进、9两次坐标或目标与互斥推进-移动、25X发布后重新查目标/Y发布均正确源保。仅另十四合同注释，所有其它本体/签名/源及BOH01完整方向叶身份/处置保持；七身份/成员与限定I四BYTE/S七正常根，无新函数/API/保护/移动/播放/RNG。全部生产/父-callee/ABI/alias/owner、SDK正常失败/容量/数值与声音画面运行仍待，完整门禁保持。
+
+<a id="battle-hit-reaction-runtime-20261010"></a>
+## 2026-10-10 BHRC01：受击后退/恢复及22槽活动计数
+
+[完整合同](cg2d_battle_hit_reaction_spec.md#battle-hit-reaction-source-state)补26–31及406360七完整553条1870B/十二页，十消费表达（六WORD/四BYTE）恢复，完整W32时长/阈值移位与高位测试保持。原入口持样/fresh阶段门禁、Count<=1先于FF8清零、创建后周期重取/原减速发布和负值零归、不同FCC阈值及other14等待/方向后FE4重取与末播放返回保；活动计数按全部22槽/完整S32 FF8严格==1，不猜20或加payload保护。仅另十四注释，其余所有源/签名/数值和BNV01旧1354/位置创建处置保持；七身份/成员与限定I十表达/S七根，无新函数/API/保护/RNG。全部生产/父-callee/ABI/alias/owner/SDK正常失败/容量/数值和声音画面运行仍待，完整门禁保持。

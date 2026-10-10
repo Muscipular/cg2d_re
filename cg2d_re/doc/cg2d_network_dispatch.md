@@ -516,3 +516,7 @@ MIC与GP/黑名单/2048B非NUL快照/S32长度/对象气泡和其他正文保持
 ## 2026-10-11 SGM01：存放A/G/I/P数据生产
 
 [SGM01](cg2d_storage_group_data_reply_spec.md#storage-group-source-state)旧1970历史追加存放A/G/I/P完整解析根1002条2900B/十六页，86E8四目标/39跳四RET及双switch表有据。正确正文保持，仅两合同注释；原物品/宠物部分失败续行、I/P字段步进和A/G金额解析后fresh组写入明确。同组金额与存取界面共享原字节区，一个adapted、两限定S零I八open；六CALL同父仅局部消费，完整父/全部数据owner、ABI及互通运行待。
+
+## 2026-10-11 SRD01：BZ正常回复进入完整父
+
+[SRD01](cg2d_storage_reply_dispatch_spec.md#storage-reply-source-state)旧1964历史追加49D2E0完整回复父515条1238B/九页，52E8三十六目标/38跳含三间接分派/30RET及五原表有据。正文正确保，仅两合同注释；三阶段分派、六原存放CALL与四现合并CALL、fresh窗口/creator/global重入及Y-X RNG顺序完整静态核对。BZ当前两bridge/路由保持，一个处置、两限定S零I八open，全部callee/动态owner/机器ABI及互通画面运行待。

@@ -9661,6 +9661,7 @@ void Sub_49DDB0(const char* const text, std::int16_t x, std::int16_t y)
     Sub_49C510(1, imageNo, direction, x, y);
 }
 
+// SRD01：原49D2E0完整515条；三阶段分派/原六处存放解析合并条件、fresh窗口与Y-X RNG/状态发布保持。
 void Sub_49D2E0(
     const std::int32_t type, const std::int32_t value, const std::int32_t request,
     const std::int32_t target, char* const text)

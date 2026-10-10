@@ -26,3 +26,8 @@ SGM01仅外部存放数据解析4A84A0完整1002条2900B/十六页、86E8四目�
 
 语义2329=2281F关联+48有界代码和关联2391/3680=64.97%只关联率保持，处置1788/证据1592。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
 
+## 2026-10-11 SRD01：上层原父合同追加
+
+[SRD01](cg2d_storage_reply_dispatch_spec.md#storage-reply-source-state)旧1964历史追加49D2E0完整回复父515条1238B/九页，52E8三十六目标/38跳含三间接分派/30RET及五原表有据。正文正确保，仅两合同注释；三阶段分派、六原存放CALL与四现合并CALL、fresh窗口/creator/global重入及Y-X RNG顺序完整静态核对。BZ当前两bridge/路由保持，一个处置、两限定S零I八open，全部callee/动态owner/机器ABI及互通画面运行待。
+
+SGM01当时六CALL仅局部来源的历史保持；本轮已核完整父/五表与当前正常合并分支，仍不据此验全部callee/owner或网络互通运行。原六点至当前四点的正常type/mode与fresh判断次序见SRD01，不补新parser或改本SGM01正文。

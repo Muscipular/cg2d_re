@@ -1411,3 +1411,16 @@ PudO唯一改动为持有GetCate返回给调色板，不重读刚pub全局；保
 语义2333=2285F关联+48有界代码，关联2395/3680=65.08%仅关联率；处置1796/证据1601，UIRUNTIME206/RENDER117，其它保持。184叶验收0、60任务关闭11开放49、六closure及所有完整门禁保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
 
 同一cg2d_re分支、不打tag，七外部改动/原删除暂存保持。未构建/测试/运行/产物/摘要/引依赖；整体active/未完成。
+
+<a id="storage-reply-progress-20261011"></a>
+## 133. 2026-10-11 SRD01：回复父完整分派及存放接线
+
+[SRD01](../doc/cg2d_storage_reply_dispatch_spec.md#storage-reply-source-state)旧1964历史追加49D2E0完整回复父515条1238B/九页，52E8三十六目标/38跳含三间接分派/30RET及五原表有据。正文正确保，仅两合同注释；三阶段分派、六原存放CALL与四现合并CALL、fresh窗口/creator/global重入及Y-X RNG顺序完整静态核对。BZ当前两bridge/路由保持，一个处置、两限定S零I八open，全部callee/动态owner/机器ABI及互通画面运行待。
+
+先记SPEC依子AGENTS第8条裁决，当前完整父正文符合原正常分支及原type/request五参数合同，全保，仅两注释。六原parser点来自同类23/33/34和新建23/33/34；现23/33合并mode0/1且各一次，解析→fresh窗口→creator→created/fresh窗口/global读序保，正常合并合同有据。指针创建失败时当前creator可能同步fallback开窗，原后fresh window仍须保；frame created不能因重入先补零。case21原可能两次发布/Y-X/parse/窗口50动画，按fresh global允许重入，均保。
+
+五原表只分派证据，三十六实际定义签名关联并非全部callee全文验收。BZ当前public50E110三门禁/detail50E130关闭特例/正常调用与对象朝向尾、route实际原字段LF明文接线保；唯一原caller有限邻窗不消费本根残留EAX，现void不伪造返回或宣完整ABI。old1964所有CAC18历史保，SGM01仅追加本轮完整父进展。
+
+语义2333=2285F关联+48有界代码及关联2395/3680=65.08%保持；处置1797/证据1603，NETWORK105/UIRUNTIME207，其它保持。184叶验收0、60任务关闭11开放49、六closure及所有完整门禁保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
+
+同一cg2d_re分支、不打tag，七外部改动/原删除暂存保持。未构建/测试/运行/产物/摘要/引依赖；整体active/未完成。

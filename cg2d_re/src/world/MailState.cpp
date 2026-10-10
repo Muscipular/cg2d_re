@@ -1491,6 +1491,7 @@ std::int32_t Sub_5192C0(const std::int32_t number)
     return 0;
 }
 
+// GML01：原selected S16/200邮件槽W32==1最后匹配，无则-1。
 std::int32_t Sub_5195F0(const std::int32_t key)
 {
     const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
@@ -1512,6 +1513,7 @@ std::int32_t Sub_5195F0(const std::int32_t key)
     return result;
 }
 
+// GML01：原末匹配后fresh角色，active/key零写后整C88清零，原S32返回保持。
 std::int32_t Sub_5194F0(const std::int32_t key)
 {
     const std::int32_t index = Sub_5195F0(key);
@@ -1529,6 +1531,7 @@ std::int32_t Sub_5194F0(const std::int32_t key)
     return 0;
 }
 
+// GML01：原查找门槛/分支fresh角色、空槽或九次倒序移位，kind两BYTE及name/text发布序保持。
 std::uintptr_t Sub_519370(
     const std::int32_t key, const std::int32_t kind,
     const char* const name, const char* const text)
@@ -1537,10 +1540,10 @@ std::uintptr_t Sub_519370(
         return 0xFFFFFFFFu;
     }
     const std::int32_t existingIndex = Sub_5195F0(key);
-    const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
-    const std::ptrdiff_t groupOffset = selected * kGuildMailGroupBytes;
     std::byte* entry;
     if (existingIndex == -1) {
+        const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
+        const std::ptrdiff_t groupOffset = selected * kGuildMailGroupBytes;
         std::int32_t index = 0;
         for (; index < 200; ++index) {
             entry = gGuildMailStorageDE0B30.data() + groupOffset
@@ -1560,7 +1563,8 @@ std::uintptr_t Sub_519370(
         std::memcpy(entry, &key, sizeof(key));
         std::memcpy(entry + 4, &active, sizeof(active));
     } else {
-        entry = gGuildMailStorageDE0B30.data() + groupOffset
+        const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
+        entry = gGuildMailStorageDE0B30.data() + selected * kGuildMailGroupBytes
             + static_cast<std::ptrdiff_t>(existingIndex) * kGuildMailEntryBytes;
         for (std::ptrdiff_t message = 9; message != 0; --message) {
             std::memcpy(

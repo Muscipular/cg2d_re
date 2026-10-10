@@ -196,11 +196,11 @@ std::int32_t Sub_519290();
 std::int32_t Sub_5194C0();
 // 原 5192C0：清所选角色的一个普通邮件编号，不检查编号范围，返回 0。
 std::int32_t Sub_5192C0(std::int32_t number);
-// 原 5195F0：扫描全部 200 项，返回 active==1 且 key 相等的最后索引，未命中为 -1。
+// GML01：原5195F0，200槽active W32==1/key最后匹配，selected只取一次，无则-1。
 std::int32_t Sub_5195F0(std::int32_t key);
-// 原 5194F0：查询后重新读取角色号，清该项；未命中返回 -1，命中返回 0。
+// GML01：原5194F0，末匹配后fresh角色/active-key零写及整槽清零，返-1或0。
 std::int32_t Sub_5194F0(std::int32_t key);
-// 原 519370：混合返回 W32 FFFFFFFF、含 NUL 长度或满组末地址+4；不截断地址域。
+// GML01：原519370，查找后分支fresh角色；W32哨兵/含NUL长度或原生满组地址+4。
 std::uintptr_t Sub_519370(
     std::int32_t key, std::int32_t kind, const char* name, const char* text);
 

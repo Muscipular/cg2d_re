@@ -207740,6 +207740,409 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x5195c0",
+      "inventory_id": "F:001195C0",
+      "original_role": "排序记录200项W16==1首匹配S32位置",
+      "original_end_exclusive": "0x5195e6",
+      "instruction_count": 13,
+      "function_chunks": [
+        {
+          "start": "0x5195c0",
+          "end_exclusive": "0x5195e6"
+        }
+      ],
+      "status": "GML01完整正常根独立纳管，S32计数/分支角色源序恢复；限定S/所有父、数据owner与ABI/运行待",
+      "sources": [
+        {
+          "path": "src/LegacyRecordOrder.cpp",
+          "symbols": [
+            "FindActiveOrderedRecordIndex_5195C0"
+          ],
+          "relationship": "既有真实body，限定修正S32排序计数/生产分支角色，原首/末查找和邮件发布/移位/删除保"
+        },
+        {
+          "path": "include/cg/LegacyRecordOrder.hpp",
+          "symbols": [
+            "FindActiveOrderedRecordIndex_5195C0"
+          ],
+          "relationship": "既有S32输入/哨兵及生产混合返回，仅已证地址臂原生宽度，签名保/关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-baseline",
+        "doc/cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-decision",
+        "doc/cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-acceptance",
+        "doc/cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-source-state",
+        "doc/cg2d_guild_mail_lookup_production_evidence.json"
+      ],
+      "boundary": "GML01四完整正常查找/邮件生产删除根170条513B/五页、三E8/两内部目标/十六跳五RET、25入向内部3/外22仅来源。5195C0原200排序项W16==1首匹配/计数返回S32，5195F0原selected S16/200邮件槽W32==1最后匹配与-1哨兵保，不能合并数据域或改非0。生产先两查找后在新槽/已有槽分别fresh selected，首active0槽key后active1/满组原生末地址+4，已有槽九次140h倒序移位；完整S32 kind零标志后低BYTE kind、name含NUL后text含NUL与第二W32长度返回保。删除末匹配后fresh selected/active与key零写/完整C88清零，返回-1或0保。混合uintptr_t只有已证地址臂拓宽，早退W32FFFFFFFF/成功W32长度不变；原新槽头两写后冗余slot-1比较只记录原事实，正常0..199域表达保持，不新异常/越界模型或宣机器枝流验收。仅S32计数/分支角色两组及八关联注释，无新函数/API/类型/布局/owner/输入容量保护/默认值/补零/钳制/回滚/溢出模拟，另外两正确body与其它所有源/表/门槛/RNG保。SHP两完整父与网络删除返回/生产弃返只真实局部接线，不宣所有父/回复/字段与字符串alias-owner及初始化寿命、正常资源/SDK/数值/机器ABI/并发/文本消息画面或生命周期通过；枚举/完整gates/六closure/总SPEC§10守恒，WAV-only/MSVC直接CRT/原格式明文保。519630在5195F0内，不造身份。",
+      "verification_level": "pass，四完整原根170条513B/五页、三实际E8/两内部目标/十六跳五RET、25实际入向内部3/外22仅来源；整四文件精确重放S32排序计数/生产分支角色取样两组及八关联注释，其余两正确body/所有其它源与SHP/网络接线保持",
+      "original_incoming": [
+        {
+          "ea": 4864244,
+          "parent": 4864192,
+          "type": 17,
+          "bytes": "e8c75c0700",
+          "asm": "call    sub_5195C0"
+        },
+        {
+          "ea": 4868354,
+          "parent": 4868256,
+          "type": 17,
+          "bytes": "e8b94c0700",
+          "asm": "call    sub_5195C0"
+        },
+        {
+          "ea": 4868933,
+          "parent": 4868528,
+          "type": 17,
+          "bytes": "e8764a0700",
+          "asm": "call    sub_5195C0"
+        },
+        {
+          "ea": 4870501,
+          "parent": 4870080,
+          "type": 17,
+          "bytes": "e856440700",
+          "asm": "call    sub_5195C0"
+        },
+        {
+          "ea": 5304639,
+          "parent": 5304624,
+          "type": 17,
+          "bytes": "e87ca40000",
+          "asm": "call    sub_5195C0"
+        },
+        {
+          "ea": 5304809,
+          "parent": 5304720,
+          "type": 17,
+          "bytes": "e8d2a30000",
+          "asm": "call    sub_5195C0"
+        },
+        {
+          "ea": 5345300,
+          "parent": 5345024,
+          "type": 17,
+          "bytes": "e8a7050000",
+          "asm": "call    sub_5195C0"
+        },
+        {
+          "ea": 5346168,
+          "parent": 5346160,
+          "type": 17,
+          "bytes": "e843020000",
+          "asm": "call    sub_5195C0"
+        }
+      ],
+      "guild_mail_lookup_production": {
+        "step": "GML01",
+        "source_snapshot": "[#] 补齐公会邮件查找与生产并恢复原字段宽度",
+        "original_instruction_count": 13,
+        "original_code_bytes": 38,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 3,
+        "return_count": 1,
+        "native_signature": "std::int32_t FindActiveOrderedRecordIndex_5195C0(\n    const std::int32_t key) noexcept",
+        "native_provider": "src/LegacyRecordOrder.cpp::FindActiveOrderedRecordIndex_5195C0",
+        "normal_source_kept": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x5195f0",
+      "inventory_id": "F:001195F0",
+      "original_role": "角色邮件200槽W32==1最后匹配S32位置",
+      "original_end_exclusive": "0x519638",
+      "instruction_count": 24,
+      "function_chunks": [
+        {
+          "start": "0x5195f0",
+          "end_exclusive": "0x519638"
+        }
+      ],
+      "status": "GML01完整正常根独立纳管，S32计数/分支角色源序恢复；限定S/所有父、数据owner与ABI/运行待",
+      "sources": [
+        {
+          "path": "src/world/MailState.cpp",
+          "symbols": [
+            "Sub_5195F0"
+          ],
+          "relationship": "既有真实body，限定修正S32排序计数/生产分支角色，原首/末查找和邮件发布/移位/删除保"
+        },
+        {
+          "path": "src/world/MailState.hpp",
+          "symbols": [
+            "Sub_5195F0"
+          ],
+          "relationship": "既有S32输入/哨兵及生产混合返回，仅已证地址臂原生宽度，签名保/关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-baseline",
+        "doc/cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-decision",
+        "doc/cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-acceptance",
+        "doc/cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-source-state",
+        "doc/cg2d_guild_mail_lookup_production_evidence.json"
+      ],
+      "boundary": "GML01四完整正常查找/邮件生产删除根170条513B/五页、三E8/两内部目标/十六跳五RET、25入向内部3/外22仅来源。5195C0原200排序项W16==1首匹配/计数返回S32，5195F0原selected S16/200邮件槽W32==1最后匹配与-1哨兵保，不能合并数据域或改非0。生产先两查找后在新槽/已有槽分别fresh selected，首active0槽key后active1/满组原生末地址+4，已有槽九次140h倒序移位；完整S32 kind零标志后低BYTE kind、name含NUL后text含NUL与第二W32长度返回保。删除末匹配后fresh selected/active与key零写/完整C88清零，返回-1或0保。混合uintptr_t只有已证地址臂拓宽，早退W32FFFFFFFF/成功W32长度不变；原新槽头两写后冗余slot-1比较只记录原事实，正常0..199域表达保持，不新异常/越界模型或宣机器枝流验收。仅S32计数/分支角色两组及八关联注释，无新函数/API/类型/布局/owner/输入容量保护/默认值/补零/钳制/回滚/溢出模拟，另外两正确body与其它所有源/表/门槛/RNG保。SHP两完整父与网络删除返回/生产弃返只真实局部接线，不宣所有父/回复/字段与字符串alias-owner及初始化寿命、正常资源/SDK/数值/机器ABI/并发/文本消息画面或生命周期通过；枚举/完整gates/六closure/总SPEC§10守恒，WAV-only/MSVC直接CRT/原格式明文保。519630在5195F0内，不造身份。",
+      "verification_level": "pass，四完整原根170条513B/五页、三实际E8/两内部目标/十六跳五RET、25实际入向内部3/外22仅来源；整四文件精确重放S32排序计数/生产分支角色取样两组及八关联注释，其余两正确body/所有其它源与SHP/网络接线保持",
+      "original_incoming": [
+        {
+          "ea": 4868379,
+          "parent": 4868256,
+          "type": 17,
+          "bytes": "e8d04c0700",
+          "asm": "call    sub_5195F0"
+        },
+        {
+          "ea": 4868964,
+          "parent": 4868528,
+          "type": 17,
+          "bytes": "e8874a0700",
+          "asm": "call    sub_5195F0"
+        },
+        {
+          "ea": 4870528,
+          "parent": 4870080,
+          "type": 17,
+          "bytes": "e86b440700",
+          "asm": "call    sub_5195F0"
+        },
+        {
+          "ea": 5344789,
+          "parent": 5344672,
+          "type": 17,
+          "bytes": "e8d6070000",
+          "asm": "call    sub_5195F0"
+        },
+        {
+          "ea": 5345137,
+          "parent": 5345024,
+          "type": 17,
+          "bytes": "e87a060000",
+          "asm": "call    sub_5195F0"
+        },
+        {
+          "ea": 5345543,
+          "parent": 5345520,
+          "type": 17,
+          "bytes": "e8e4040000",
+          "asm": "call    sub_5195F0"
+        },
+        {
+          "ea": 5346186,
+          "parent": 5346160,
+          "type": 17,
+          "bytes": "e861020000",
+          "asm": "call    sub_5195F0"
+        },
+        {
+          "ea": 5346549,
+          "parent": 5346544,
+          "type": 17,
+          "bytes": "e8f6000000",
+          "asm": "call    sub_5195F0"
+        }
+      ],
+      "guild_mail_lookup_production": {
+        "step": "GML01",
+        "source_snapshot": "[#] 补齐公会邮件查找与生产并恢复原字段宽度",
+        "original_instruction_count": 24,
+        "original_code_bytes": 72,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 3,
+        "return_count": 1,
+        "native_signature": "std::int32_t Sub_5195F0(const std::int32_t key)",
+        "native_provider": "src/world/MailState.cpp::Sub_5195F0",
+        "normal_source_kept": true,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x519370",
+      "inventory_id": "F:00119370",
+      "original_role": "公会邮件门槛/新槽/九次倒序移位/首消息发布",
+      "original_end_exclusive": "0x5194b1",
+      "instruction_count": 109,
+      "function_chunks": [
+        {
+          "start": "0x519370",
+          "end_exclusive": "0x5194b1"
+        }
+      ],
+      "status": "GML01完整正常根独立纳管，S32计数/分支角色源序恢复；限定S/所有父、数据owner与ABI/运行待",
+      "sources": [
+        {
+          "path": "src/world/MailState.cpp",
+          "symbols": [
+            "Sub_519370"
+          ],
+          "relationship": "既有真实body，限定修正S32排序计数/生产分支角色，原首/末查找和邮件发布/移位/删除保"
+        },
+        {
+          "path": "src/world/MailState.hpp",
+          "symbols": [
+            "Sub_519370"
+          ],
+          "relationship": "既有S32输入/哨兵及生产混合返回，仅已证地址臂原生宽度，签名保/关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-baseline",
+        "doc/cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-decision",
+        "doc/cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-acceptance",
+        "doc/cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-source-state",
+        "doc/cg2d_guild_mail_lookup_production_evidence.json"
+      ],
+      "boundary": "GML01四完整正常查找/邮件生产删除根170条513B/五页、三E8/两内部目标/十六跳五RET、25入向内部3/外22仅来源。5195C0原200排序项W16==1首匹配/计数返回S32，5195F0原selected S16/200邮件槽W32==1最后匹配与-1哨兵保，不能合并数据域或改非0。生产先两查找后在新槽/已有槽分别fresh selected，首active0槽key后active1/满组原生末地址+4，已有槽九次140h倒序移位；完整S32 kind零标志后低BYTE kind、name含NUL后text含NUL与第二W32长度返回保。删除末匹配后fresh selected/active与key零写/完整C88清零，返回-1或0保。混合uintptr_t只有已证地址臂拓宽，早退W32FFFFFFFF/成功W32长度不变；原新槽头两写后冗余slot-1比较只记录原事实，正常0..199域表达保持，不新异常/越界模型或宣机器枝流验收。仅S32计数/分支角色两组及八关联注释，无新函数/API/类型/布局/owner/输入容量保护/默认值/补零/钳制/回滚/溢出模拟，另外两正确body与其它所有源/表/门槛/RNG保。SHP两完整父与网络删除返回/生产弃返只真实局部接线，不宣所有父/回复/字段与字符串alias-owner及初始化寿命、正常资源/SDK/数值/机器ABI/并发/文本消息画面或生命周期通过；枚举/完整gates/六closure/总SPEC§10守恒，WAV-only/MSVC直接CRT/原格式明文保。519630在5195F0内，不造身份。",
+      "verification_level": "pass，四完整原根170条513B/五页、三实际E8/两内部目标/十六跳五RET、25实际入向内部3/外22仅来源；整四文件精确重放S32排序计数/生产分支角色取样两组及八关联注释，其余两正确body/所有其它源与SHP/网络接线保持",
+      "original_incoming": [
+        {
+          "ea": 4872995,
+          "parent": 4872560,
+          "type": 17,
+          "bytes": "e848380700",
+          "asm": "call    sub_519370"
+        },
+        {
+          "ea": 4873268,
+          "parent": 4872560,
+          "type": 17,
+          "bytes": "e837370700",
+          "asm": "call    sub_519370"
+        },
+        {
+          "ea": 4874040,
+          "parent": 4872560,
+          "type": 17,
+          "bytes": "e833340700",
+          "asm": "call    sub_519370"
+        },
+        {
+          "ea": 4876392,
+          "parent": 4875344,
+          "type": 17,
+          "bytes": "e8032b0700",
+          "asm": "call    sub_519370"
+        },
+        {
+          "ea": 5304832,
+          "parent": 5304720,
+          "type": 17,
+          "bytes": "e86ba10000",
+          "asm": "call    sub_519370"
+        },
+        {
+          "ea": 5430971,
+          "parent": 5430496,
+          "type": 17,
+          "bytes": "e8b0b4feff",
+          "asm": "call    sub_519370"
+        },
+        {
+          "ea": 5435389,
+          "parent": 5434704,
+          "type": 17,
+          "bytes": "e86ea3feff",
+          "asm": "call    sub_519370"
+        }
+      ],
+      "guild_mail_lookup_production": {
+        "step": "GML01",
+        "source_snapshot": "[#] 补齐公会邮件查找与生产并恢复原字段宽度",
+        "original_instruction_count": 109,
+        "original_code_bytes": 321,
+        "original_page_count": 2,
+        "direct_call_count": 2,
+        "jump_count": 9,
+        "return_count": 2,
+        "native_signature": "std::uintptr_t Sub_519370(\n    const std::int32_t key, const std::int32_t kind,\n    const char* const name, const char* const text)",
+        "native_provider": "src/world/MailState.cpp::Sub_519370",
+        "normal_source_kept": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x5194f0",
+      "inventory_id": "F:001194F0",
+      "original_role": "公会邮件末匹配后fresh角色及整槽删除",
+      "original_end_exclusive": "0x519542",
+      "instruction_count": 24,
+      "function_chunks": [
+        {
+          "start": "0x5194f0",
+          "end_exclusive": "0x519542"
+        }
+      ],
+      "status": "GML01完整正常根独立纳管，S32计数/分支角色源序恢复；限定S/所有父、数据owner与ABI/运行待",
+      "sources": [
+        {
+          "path": "src/world/MailState.cpp",
+          "symbols": [
+            "Sub_5194F0"
+          ],
+          "relationship": "既有真实body，限定修正S32排序计数/生产分支角色，原首/末查找和邮件发布/移位/删除保"
+        },
+        {
+          "path": "src/world/MailState.hpp",
+          "symbols": [
+            "Sub_5194F0"
+          ],
+          "relationship": "既有S32输入/哨兵及生产混合返回，仅已证地址臂原生宽度，签名保/关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-baseline",
+        "doc/cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-decision",
+        "doc/cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-acceptance",
+        "doc/cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-source-state",
+        "doc/cg2d_guild_mail_lookup_production_evidence.json"
+      ],
+      "boundary": "GML01四完整正常查找/邮件生产删除根170条513B/五页、三E8/两内部目标/十六跳五RET、25入向内部3/外22仅来源。5195C0原200排序项W16==1首匹配/计数返回S32，5195F0原selected S16/200邮件槽W32==1最后匹配与-1哨兵保，不能合并数据域或改非0。生产先两查找后在新槽/已有槽分别fresh selected，首active0槽key后active1/满组原生末地址+4，已有槽九次140h倒序移位；完整S32 kind零标志后低BYTE kind、name含NUL后text含NUL与第二W32长度返回保。删除末匹配后fresh selected/active与key零写/完整C88清零，返回-1或0保。混合uintptr_t只有已证地址臂拓宽，早退W32FFFFFFFF/成功W32长度不变；原新槽头两写后冗余slot-1比较只记录原事实，正常0..199域表达保持，不新异常/越界模型或宣机器枝流验收。仅S32计数/分支角色两组及八关联注释，无新函数/API/类型/布局/owner/输入容量保护/默认值/补零/钳制/回滚/溢出模拟，另外两正确body与其它所有源/表/门槛/RNG保。SHP两完整父与网络删除返回/生产弃返只真实局部接线，不宣所有父/回复/字段与字符串alias-owner及初始化寿命、正常资源/SDK/数值/机器ABI/并发/文本消息画面或生命周期通过；枚举/完整gates/六closure/总SPEC§10守恒，WAV-only/MSVC直接CRT/原格式明文保。519630在5195F0内，不造身份。",
+      "verification_level": "pass，四完整原根170条513B/五页、三实际E8/两内部目标/十六跳五RET、25实际入向内部3/外22仅来源；整四文件精确重放S32排序计数/生产分支角色取样两组及八关联注释，其余两正确body/所有其它源与SHP/网络接线保持",
+      "original_incoming": [
+        {
+          "ea": 5304696,
+          "parent": 5304624,
+          "type": 17,
+          "bytes": "e873a30000",
+          "asm": "call    sub_5194F0"
+        },
+        {
+          "ea": 5437278,
+          "parent": 5437040,
+          "type": 17,
+          "bytes": "e88d9dfeff",
+          "asm": "call    sub_5194F0"
+        }
+      ],
+      "guild_mail_lookup_production": {
+        "step": "GML01",
+        "source_snapshot": "[#] 补齐公会邮件查找与生产并恢复原字段宽度",
+        "original_instruction_count": 24,
+        "original_code_bytes": 82,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "jump_count": 1,
+        "return_count": 1,
+        "native_signature": "std::int32_t Sub_5194F0(const std::int32_t key)",
+        "native_provider": "src/world/MailState.cpp::Sub_5194F0",
+        "normal_source_kept": true,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

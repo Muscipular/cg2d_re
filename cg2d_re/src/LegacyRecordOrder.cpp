@@ -469,13 +469,14 @@ std::uintptr_t UpdateOrderedRecordBatch_50EC50(
     return world::detail::PruneGuildMailAgainstOrderedRecords_50EE4A(selected);
 }
 
+// GML01：原200排序项W16==1首匹配，计数/返回S32，无则-1。
 std::int32_t FindActiveOrderedRecordIndex_5195C0(
     const std::int32_t key) noexcept
 {
-    for (std::size_t index = 0; index < gOrderedRecords1051B14.size(); ++index) {
+    for (std::int32_t index = 0; index < 200; ++index) {
         const OrderedRecord1051B14& record = gOrderedRecords1051B14[index];
         if (record.value08 == 1 && record.value0C == key) {
-            return static_cast<std::int32_t>(index);
+            return index;
         }
     }
     return -1;

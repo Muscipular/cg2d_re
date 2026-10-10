@@ -412,3 +412,10 @@ D67650为未加载零区，三窗八个type4原型共借一个U32 flags源；
 [本步SPEC](../cg2d_status_hint_production_spec.md#status-hint-production-source-state)/[完整原码](../cg2d_status_hint_production_evidence.json)纳管504B10/504B60/518DA0/518F00/473080/4731B0六查询和4723D0完整点击，共751条2417B/16页、18E8/九目标/115跳15RET；原55F0A0第11/12/13项回调字节/现同项接线有据，XrefsTo仅前一NOP flow不当CALL或据此否认函数指针。六正确查询body保持，原玩家加点优先/五S16配对/伤势目标/反求位置哨兵与三类邮件遍历/发布保持；提示迷你倒序、点击正序不合并，518F00唯一父弃原EAX，现VOID保/机器残值ABI待。
 
 旧915的三MC格式局部历史保留，当前追加完整点击：八组恢复三hover持有、宠物分档与姓名、两hoverWindow/consumed、重伤窗口与75比较、原target-1/0层级；原门槛、未预清256B/GBK提示/分段复制及fresh伤势、关闭/创建目标和消费返回保持。六新语义/七F、UIRUNTIME七成员/MAP六查询、两限定S零I/九任务open，旧999状态生产/1524窗口创建及全部其它源不改；全字段生产消费/alias-owner、整表/路由、外callee/数值ABI/交互画面运行与全生命周期待，整体未完成。
+
+<a id="guild-mail-lookup-current-20261010"></a>
+## 2026-10-10 GML01：未读提示的两种查找依赖
+
+[四完整原根](../cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-source-state)/[原码与精确差集](../cg2d_guild_mail_lookup_production_evidence.json)补5195C0排序W16==1首匹配和5195F0角色邮件W32==1末匹配，原200项/记录7Ch与邮件C88h分开，不能统一非0判定或返回首项。519370真实新增/九次140h倒序移位/kind两BYTE与name后text发布，5194F0末匹配后fresh角色/active-key零写/整槽清零/原返回保持；S32排序计数与分支内角色采样两组修正，无新函数/API/类型/owner或保护/默认值/回滚。四新语义/F、MAP/UIRUNTIME各四成员/NETWORK仅生产删除两成员、三限定S零I/九任务open，SHP两父/全部其它源码和原完整门禁/枚举保。完整外父/数据生产消费与字符串alias-owner、两表初始化寿命、SDK/数值/机器ABI与真实消息/文本画面运行待，整体未完成。
+
+SHP01的518DA0/518F00完整父与状态生产/点击正文保持，不能用两查询的==1改写父的非0记录门槛，也不将公会首排序位置与邮件末匹配槽混用；提示迷你倒序/定位正序继续保持。

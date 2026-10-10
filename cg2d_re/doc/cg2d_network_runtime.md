@@ -3811,3 +3811,10 @@ Copy原delimiter S8扩展与源U8比较只在源0..127分支，现U8表达在该
 [完整50C7A0](cg2d_player_timer_reply_producer_spec.md#player-timer-reply-source-state)现补独立身份，TryDispatchReply<Sub_50C7A0,I,I>的MTg/seconds/mode及既有socket原实接保持；原唯一512E40父随后XOR EAX，入口仍完整返回gate非0位型或单SDK tick，非bool/固定成功。只恢复首duration×5在mode pub前与其后缩放表达，原负时长业务、四字段发布与清626C14/参数/原协议/明文不改。
 
 NETWORK仅新增该入口一个成员/限定S（另三功能各一S），四旧身份/source/所有其它台账保持，八任务及完整gates/枚举开放；不宣实际MTg互通、全部门槛/owner/机器ABI或运行通过。
+
+<a id="guild-mail-lookup-current-20261010"></a>
+## 2026-10-10 GML01：公会邮件实际数据提供者
+
+[四完整原根](cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-source-state)/[原码与精确差集](cg2d_guild_mail_lookup_production_evidence.json)补5195C0排序W16==1首匹配和5195F0角色邮件W32==1末匹配，原200项/记录7Ch与邮件C88h分开，不能统一非0判定或返回首项。519370真实新增/九次140h倒序移位/kind两BYTE与name后text发布，5194F0末匹配后fresh角色/active-key零写/整槽清零/原返回保持；S32排序计数与分支内角色采样两组修正，无新函数/API/类型/owner或保护/默认值/回滚。四新语义/F、MAP/UIRUNTIME各四成员/NETWORK仅生产删除两成员、三限定S零I/九任务open，SHP两父/全部其它源码和原完整门禁/枚举保。完整外父/数据生产消费与字符串alias-owner、两表初始化寿命、SDK/数值/机器ABI与真实消息/文本画面运行待，整体未完成。
+
+现NetworkRuntime.cpp删除透传Sub_5194F0结果、kind0生产弃Sub_519370返回保持；只核两真实局部接线不宣完整回复/dispatcher、正常失败/收发与生命周期通过。原格式明文和字段、现协议字节/释放、所有网络正文不改。

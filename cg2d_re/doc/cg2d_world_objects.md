@@ -842,3 +842,8 @@ gate55引用的53读/两个旧writer只绑定出处，BTD1606/BTB185与GTP2215�
 [七完整原根](cg2d_status_hint_production_spec.md#status-hint-production-source-state)/[证据](cg2d_status_hint_production_evidence.json)补实际状态提示提供者：五S16宠物配对、加点位置/受伤原编号/目标偏移/反求位置的正常哨兵，普通60/公会200/迷你20与各十封消息的三类查询。提示迷你从第9封倒序、点击从第0封正序，U16未读类别后W32页、无命中持有备用页以及S32类别后索引/fresh公会selected/key发布保，六body正确不重写或加used/下界门槛。selected原W16符号、配对8B/宠物5110及既有记录/邮件步长只作本步已消费字段证据，不称全部生产/初值/alias-owner冻结。
 
 点击4723D0八正常取样组纠正并保持真实门槛/格式/图号/关闭开窗，旧915保历史追加、六新语义/七F、两限定S零I；UIRUNTIME七成员/MAP六查询，九任务open/其它原门禁与枚举保持。5195F0/5195C0只当前真实提供者，外父/完整排序查找与邮件owner、全部窗口生命周期/ABI/数值/文本和交互运行待，WAV-only/MSVC直接CRT/原格式明文保持，整体未完成。
+
+<a id="guild-mail-lookup-current-20261010"></a>
+## 2026-10-10 GML01：公会邮件查找、生产与删除
+
+[四完整原根](cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-source-state)/[原码与精确差集](cg2d_guild_mail_lookup_production_evidence.json)补5195C0排序W16==1首匹配和5195F0角色邮件W32==1末匹配，原200项/记录7Ch与邮件C88h分开，不能统一非0判定或返回首项。519370真实新增/九次140h倒序移位/kind两BYTE与name后text发布，5194F0末匹配后fresh角色/active-key零写/整槽清零/原返回保持；S32排序计数与分支内角色采样两组修正，无新函数/API/类型/owner或保护/默认值/回滚。四新语义/F、MAP/UIRUNTIME各四成员/NETWORK仅生产删除两成员、三限定S零I/九任务open，SHP两父/全部其它源码和原完整门禁/枚举保。完整外父/数据生产消费与字符串alias-owner、两表初始化寿命、SDK/数值/机器ABI与真实消息/文本画面运行待，整体未完成。

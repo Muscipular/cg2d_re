@@ -66,7 +66,7 @@ std::uintptr_t UpdateOrderedRecords_50EEB0(
 // 返回门禁W32、零或表末key游标；第一参数不读取，yuD派发已接，完整业务/运行未验。
 std::uintptr_t UpdateOrderedRecordBatch_50EC50(
     std::uintptr_t ignoredSocket, const char* text);
-// 原 5195C0：仅查找 +8 W16 为 1 且 +0xC 与 key 相等的首条索引。
+// GML01：原5195C0，200项/+8 W16==1/+C key首匹配，S32计数/返回，无则-1。
 std::int32_t FindActiveOrderedRecordIndex_5195C0(std::int32_t key) noexcept;
 
 } // namespace cg::login::detail

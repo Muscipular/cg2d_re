@@ -2466,3 +2466,9 @@ ANIMATION/YOBI各两个新成员，BATTLE只Play依赖成员；两新语义/F和
 ## 2026-10-10 SHP01 状态提示生产与点击的限定证据
 
 [七原根](cg2d_status_hint_production_spec.md#status-hint-production-source-state)/[原码与差集](cg2d_status_hint_production_evidence.json)限定正常源码S：六正确查询body保、八点击取样组恢复，五S16配对/原哨兵/三类邮件及相反迷你扫描顺序、原提示门槛/格式/关闭开窗保。旧915保历史追加，六新语义/七F、UIRUNTIME七成员/MAP六查询、两限定S零I/九任务open。三实际回调字节不代整表/全路由，原518F00唯一父弃返与现VOID保不代机器残值ABI；全部数据生产消费-owner/外callee/SDK/数值ABI/文本画面点击运行及全生命周期待。其它原政策/枚举/完整gates/184叶验收0/60任务关闭11/六closure与总SPEC§10保持，关联率不称完成率。
+
+## 2026-10-10 GML01 公会邮件查找与生产的限定证据
+
+[四完整原根](cg2d_guild_mail_lookup_production_spec.md#guild-mail-lookup-source-state)/[原码与精确差集](cg2d_guild_mail_lookup_production_evidence.json)补5195C0排序W16==1首匹配和5195F0角色邮件W32==1末匹配，原200项/记录7Ch与邮件C88h分开，不能统一非0判定或返回首项。519370真实新增/九次140h倒序移位/kind两BYTE与name后text发布，5194F0末匹配后fresh角色/active-key零写/整槽清零/原返回保持；S32排序计数与分支内角色采样两组修正，无新函数/API/类型/owner或保护/默认值/回滚。四新语义/F、MAP/UIRUNTIME各四成员/NETWORK仅生产删除两成员、三限定S零I/九任务open，SHP两父/全部其它源码和原完整门禁/枚举保。完整外父/数据生产消费与字符串alias-owner、两表初始化寿命、SDK/数值/机器ABI与真实消息/文本画面运行待，整体未完成。
+
+原新槽头两写后slot==-1比较只记原事实，正常0..199槽表达保持，不新异常/越界模型或称机器枝流等价；候选519630在5195F0内未造身份。其余语义/处置/证据/政策、184叶验收0/60任务关闭11/六closure和总SPEC§10保持，关联率非完成率。

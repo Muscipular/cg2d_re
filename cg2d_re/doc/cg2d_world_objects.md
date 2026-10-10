@@ -779,3 +779,10 @@ flags W16非0且objectIndex完整W32位型相等，才清该槽action并停止�
 [三完整根](cg2d_world_object_record_producers_spec.md#world-object-record-producers-source-state)/[原指令与差集](cg2d_world_object_record_producers_evidence.json)：445A60无action生产与445D20/445F40类别2/4更新合516条1738B/十页，27E8九callee、22跳五RET，三入向/两父短窗有据。六原坐标临时三值先取齐后发布，分别count/encoded/mask、mask/encoded/count与encoded/mask/count，保构造/销毁/RNG及字段宽度。445A60三个独立未初始化256B槽明确为100/200/300，ordinal1/2/3借100/300/200，原解析/通知/容量/门槛保持。
 
 保重复/领取/创建失败及pub、已有记录不补action、名字60/28/16和原四字节"???"、低BYTE flags42与完整flags114、类别2独立附加字段。共享CryptInt工具、其它根、两个当前父和六旧身份保持；三新语义/F与限定S，MAP/Yobi各三成员、TEXT一成员，七任务/完整gates/成员枚举和六closure仍开放。完整输入/两整父/传递callee/正常失败/容量/alias/owner/SDK/ABI/画面声音运行待，总SPEC§10不降。
+
+<a id="world-object-bulk-restore-current-20261010"></a>
+## 2026-10-10 WBR01：整表清引用与批量补建
+
+[两个完整根](cg2d_world_object_bulk_restore_spec.md#world-object-bulk-restore-source-state)/[原指令与差集](cg2d_world_object_bulk_restore_evidence.json)合134条431B/三页、三E8两callee/15跳两RET，五实际入向/三父短窗与五当前接线有据。原游标相差13Ch×1000：清引用只used W16非零的action/value34，不标死/free或改其它字段/计数；批量补建先direction/1C Read/0C Read/image与创建pub，成功used/index之后才四类别名字/flags尾，未知类仍保已创建action，不能提前筛选或回滚。
+
+两个正确body及三个清引用点先404D30、两个普通场景补建点先519A80/455C60的接线保持，仅两CPP/两声明注释。两新语义/F/MAP-Yobi各两成员、两限定S零I，六旧身份/共享工具/其它根全保；七任务/完整gates/成员枚举与六closure开放，所有输入/三完整父/传递callee/容量/正常失败/alias/owner/SDK/ABI与画面声音运行待。

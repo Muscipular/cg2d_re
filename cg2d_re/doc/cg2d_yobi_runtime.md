@@ -4800,3 +4800,10 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 [记录生产合同](cg2d_world_object_record_producers_spec.md#world-object-record-producers-source-state)核445A60/445D20/445F40三完整根；本源两个类别根各两坐标三值读取在首发布前完成。445D20沿原mask→encoded→count，445F40沿原encoded→mask→count；各入口局部lambda只承接两个展开点，共享AssignFromInt/CopyPayload与所有其它消费者不改，Construct/Destroy及RNG消费不增减。
 
 Find命中不补action，未命中才领取/创建，先pub返回/空失败不回滚；成功原used/index/category/objectIndex/value34，随后原image/字段/两坐标/方向/名字/flags及专用附加字段，fresh action与名字门槛/原"???"保。三入向只短窗，六旧语义/两个当前父保持；三新身份/限定S零I，完整生产/主payload寿命/owner/SDK/ABI与画面声音/运行待。
+
+<a id="world-object-bulk-restore-current-20261010"></a>
+## 2026-10-10 WBR01：动作清引用与整表补建接线
+
+[当前合同](cg2d_world_object_bulk_restore_spec.md#world-object-bulk-restore-source-state)确认两个正确正常根及五当前调用保持：三个退出点先YobiClearUp_404D30再446610清占用槽非拥有action/value34，两普通场景点按519A80→455C60→446640补建。五短窗不代三个完整父/清理callee或完整owner，旧1132/1349/1568/1580保持。
+
+446640仅占用且action空进入，两GetVal沿旧219唯一jmp同一Read/计数/RNG，441DB0沿1298；先pub失败空/下一槽，成功used=2和payload.index后四类名字、fresh flags，未知类别仍保创建而跳过尾。类别1/8仅level/name54、类别2/4原nameC9的28/16门槛及WOP01已证"???"四字节，不补title/field1D8/value18。两body/其它源和类型存储保持，只四注释；两新身份/两限定S零I，完整生命周期/输入/owner/SDK/ABI/画面声音运行仍待。

@@ -36,6 +36,7 @@ static_assert(sizeof(gMapActorDrawKeys) == 0x4B0);
 
 } // namespace
 
+// WBR01：只清占用槽action/value34，无释放/标死；两个父的三个调用点先YobiClearUp。
 void Sub_446610()
 {
     for (auto& record : gWorldObjects) {

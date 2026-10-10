@@ -1035,7 +1035,7 @@ void Sub_470670(); // 家族邀请，读取同源职级权限低U8。
 void Sub_4FA8E0(std::int32_t index); // 既有弃返回调用的动作命令接口。
 std::uintptr_t RequestEmoteWithResult_4FA8E0(std::int32_t index); // 旧随机快捷键需要的原生action地址/完整W32混合返回。
 void Sub_446470(); // WLR01：只清引用/原字段的整表重置，无释放或标死。
-void Sub_446610(); // 全表仅对占用项清action、写value34=-1。
+void Sub_446610(); // WBR01：全表仅占用项清action/value34，无标死/free或计数重置。
 void* __cdecl Sub_46ADA0();               // 原 [0x46ADA0,0x46AE53)，仅透传 51D5B0 的返回位型。
 std::int32_t __cdecl Sub_46AC90();        // 原 [0x46AC90,0x46AD00)，type 2 的真实后继。
 std::int32_t __cdecl Sub_46AEA0();        // 原 [0x46AEA0,0x46AF24)，type 3 的真实后继。
@@ -1235,7 +1235,7 @@ std::int32_t Sub_51BEC0(); // 原 51BEC0：按动作 bit1 返回同一动作值�
 std::int8_t Sub_51BE50(std::int32_t requested); // 原 51BE50：去重、klF 发送及低 S8 返回。
 void* __cdecl Sub_51D5B0();               // 原 [0x51D5B0,0x51D63A)；非空链尾返指针，空链 EAX 未定义；46ADA0 透传位型。
 void __cdecl Sub_4464D0(); // WLR01：已占用槽附件/text清理后fresh主标死，保名称。
-void Sub_446640(); // 普通场景全1000槽补建；四类名称门槛与附加标志按原序处理。
+void Sub_446640(); // WBR01：全1000槽补建，原四类名字/flags尾；未知类创建仍保。
 std::uint32_t Sub_51D750();              // 原 0x51D750；完整 EAX 写入/返回，六调用点均弃值。
 // 原 [51D640,51D6E3)：场景地图画入 Back 后复制到 Temp，返回同次 tick。
 std::uint32_t Sub_51D640();

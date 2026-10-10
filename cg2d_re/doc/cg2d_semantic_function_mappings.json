@@ -205756,6 +205756,132 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x446610",
+      "inventory_id": "F:00046610",
+      "original_role": "全1000槽只对used W16非零依次清非拥有action/value34=-1，无标死/free或其它字段/计数重置",
+      "original_end_exclusive": "0x44663b",
+      "instruction_count": 10,
+      "function_chunks": [
+        {
+          "start": "0x446610",
+          "end_exclusive": "0x44663b"
+        }
+      ],
+      "status": "WBR01两个正确完整根与五接线限定S，只四注释；完整输入/owner/运行待",
+      "sources": [
+        {
+          "path": "src/world/WorldObjectState.cpp",
+          "symbol": "cg::world::detail::Sub_446610",
+          "relationship": "全1000槽只对used W16非零依次清非拥有action/value34=-1，无标死/free或其它字段/计数重置；既有正确完整正常body保持，非新实现"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbol": "cg::world::detail::Sub_446610",
+          "relationship": "既有真实void声明/类型保持，只关联注释"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "Sub_50D120/DrawBattleScene_43CBB0",
+          "relationship": "已有三清引用/两补建真实调用与原前序保持，本步不改父或伪称重新完整取证"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_world_object_bulk_restore_spec.md#world-object-bulk-restore-baseline",
+        "doc/cg2d_world_object_bulk_restore_spec.md#world-object-bulk-restore-decision",
+        "doc/cg2d_world_object_bulk_restore_spec.md#world-object-bulk-restore-acceptance",
+        "doc/cg2d_world_object_bulk_restore_spec.md#world-object-bulk-restore-source-state",
+        "doc/cg2d_world_object_bulk_restore_evidence.json"
+      ],
+      "boundary": "WBR01两个已有正确正常根及五真实接线保持，只有两CPP/两声明关联注释。原1000项指针界/13Ch步长和x64既有原生数组、used/category W16、direction/1C Read/0C Read/image创建、先pub返回/空失败不回滚、成功used/index与四类名字/flags、未知类保创建和其它字段保持。清引用非标死/free，不合并446470/4464D0/4467D0；两个父的三个清引用点先404D30、两补建点先519A80/455C60的同源序保持，只五短窗/当前接线不代三完整父或完整owner。两callee及三个旧父/清理六旧身份不重取/重判；全部输入/正常失败/容量/alias/owner/SDK/机器ABI/声音画面/运行待，总SPEC§10不降，RPLAN.24不增保护、默认值、补零、钳制、输入限制、异常模型或回滚。",
+      "verification_level": "两完整134条431B/三页、三E8两callee/15跳两RET，五实际入向/三父及五前六后八短窗；原1000项边界/字段宽度和五当前接线、两完整正确body/未知类创建保留/原Read/Create/名字flags及整两CPP/一头四注释重放，仅必要静态。",
+      "native_provider": {
+        "path": "src/world/WorldObjectState.cpp",
+        "symbol": "cg::world::detail::Sub_446610",
+        "parameters": "void Sub_446610()",
+        "return": "现void，两个父的三个调用点弃清引用尾表外成员地址，不外推x86机器ABI",
+        "calling_convention": "既有约定保持"
+      },
+      "world_object_bulk_restore": {
+        "step": "WBR01",
+        "source_snapshot": "Git提交说明：[#] 对齐世界对象整表引用清理与批量补建合同",
+        "original_instruction_count": 10,
+        "original_code_bytes": 43,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 2,
+        "return_count": 1,
+        "inbound_call_count": 3,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_source_kept": true,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x446640",
+      "inventory_id": "F:00046640",
+      "original_role": "全1000槽已占用且action空才原两Read/创建pub，成功used/index后四类名字/flags；未知类仍保创建，只跳过名字/flags尾",
+      "original_end_exclusive": "0x4467c4",
+      "instruction_count": 124,
+      "function_chunks": [
+        {
+          "start": "0x446640",
+          "end_exclusive": "0x4467c4"
+        }
+      ],
+      "status": "WBR01两个正确完整根与五接线限定S，只四注释；完整输入/owner/运行待",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::world::detail::Sub_446640",
+          "relationship": "全1000槽已占用且action空才原两Read/创建pub，成功used/index后四类名字/flags；未知类仍保创建，只跳过名字/flags尾；既有正确完整正常body保持，非新实现"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbol": "cg::world::detail::Sub_446640",
+          "relationship": "既有真实void声明/类型保持，只关联注释"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "DrawNormalScene_51C7D0",
+          "relationship": "已有三清引用/两补建真实调用与原前序保持，本步不改父或伪称重新完整取证"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_world_object_bulk_restore_spec.md#world-object-bulk-restore-baseline",
+        "doc/cg2d_world_object_bulk_restore_spec.md#world-object-bulk-restore-decision",
+        "doc/cg2d_world_object_bulk_restore_spec.md#world-object-bulk-restore-acceptance",
+        "doc/cg2d_world_object_bulk_restore_spec.md#world-object-bulk-restore-source-state",
+        "doc/cg2d_world_object_bulk_restore_evidence.json"
+      ],
+      "boundary": "WBR01两个已有正确正常根及五真实接线保持，只有两CPP/两声明关联注释。原1000项指针界/13Ch步长和x64既有原生数组、used/category W16、direction/1C Read/0C Read/image创建、先pub返回/空失败不回滚、成功used/index与四类名字/flags、未知类保创建和其它字段保持。清引用非标死/free，不合并446470/4464D0/4467D0；两个父的三个清引用点先404D30、两补建点先519A80/455C60的同源序保持，只五短窗/当前接线不代三完整父或完整owner。两callee及三个旧父/清理六旧身份不重取/重判；全部输入/正常失败/容量/alias/owner/SDK/机器ABI/声音画面/运行待，总SPEC§10不降，RPLAN.24不增保护、默认值、补零、钳制、输入限制、异常模型或回滚。",
+      "verification_level": "两完整134条431B/三页、三E8两callee/15跳两RET，五实际入向/三父及五前六后八短窗；原1000项边界/字段宽度和五当前接线、两完整正确body/未知类创建保留/原Read/Create/名字flags及整两CPP/一头四注释重放，仅必要静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::world::detail::Sub_446640",
+        "parameters": "void Sub_446640()",
+        "return": "现void/原void，真实普通场景补建，不新API",
+        "calling_convention": "既有约定保持"
+      },
+      "world_object_bulk_restore": {
+        "step": "WBR01",
+        "source_snapshot": "Git提交说明：[#] 对齐世界对象整表引用清理与批量补建合同",
+        "original_instruction_count": 124,
+        "original_code_bytes": 388,
+        "original_page_count": 2,
+        "direct_call_count": 3,
+        "jump_count": 13,
+        "return_count": 1,
+        "inbound_call_count": 2,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_source_kept": true,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

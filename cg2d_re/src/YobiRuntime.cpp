@@ -36878,6 +36878,7 @@ void Sub_4467D0(const std::int32_t objectIndex)
     action->flags |= flags;
 }
 
+// WBR01：批量补建空action；未知类别仍保创建，仅跳过名字/flags尾，原主体保持。
 void Sub_446640()
 {
     for (std::size_t index = 0; index < kWorldObjectCapacity; ++index) {

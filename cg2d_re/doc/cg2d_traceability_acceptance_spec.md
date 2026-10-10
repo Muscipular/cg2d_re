@@ -2410,3 +2410,9 @@ ANIMATION/YOBI各两个新成员，BATTLE只Play依赖成员；两新语义/F和
 [三完整根](cg2d_world_object_record_producers_spec.md#world-object-record-producers-acceptance)/[原指令/差集](cg2d_world_object_record_producers_evidence.json)登记MAP/YOBI三根、TEXT的445A60共三限定S，零I。516条1738B/十页、27E8九callee/22跳五RET、三实际入向/两父短窗；六坐标读取组/两局部lambda/三原文本槽已落实，整两CPP/一头唯一差异重放通过。共享工具、其它生产者、两个当前父及六旧身份全保，三未独立登记callee仅当前绑定，不冒充完整叶取证。
 
 三新语义/F，语义2195→2198、F1626→1629/E1429→1432、MAP146→149/Yobi76→79/TEXT29→30，成员枚举仍false；七任务open、184叶验收0/60任务11关闭、六closure与完整gates/原政策保。全部输入/两整父/正常失败/容量/alias/owner/SDK/ABI/画面声音/运行待，不据局部静态降低总SPEC§10。
+
+## 2026-10-10 WBR01 世界对象整表补建限定验收
+
+[两完整正常根](cg2d_world_object_bulk_restore_spec.md#world-object-bulk-restore-acceptance)/[原指令与差集](cg2d_world_object_bulk_restore_evidence.json)登记MAP/YOBI两限定S，零I；134条431B/三页、三E8两callee/15跳两RET，五入向/三父短窗及五当前接线。两body全保，仅两CPP/两头关联注释，原1000项界与步长、清引用无释放、补建原Read/Create/先pub/成功再分类型、未知类保创建和原名字/flags尾均有据。
+
+两新语义/F，语义2198→2200、F1629→1631/E1432→1434、MAP149→151/Yobi79→81枚举仍false；六旧身份/所有共享源/三个父保持，七任务open、184叶验收0/60任务11关闭、全部完整gates及六closure/原政策保。全输入/三完整父/正常失败/容量/alias/owner/SDK/ABI/画面声音/运行待，不降总SPEC§10。

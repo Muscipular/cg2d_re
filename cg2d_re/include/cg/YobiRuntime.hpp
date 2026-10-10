@@ -520,15 +520,15 @@ void UpdateBattleAction33_40B450(YobiAction* action); // BSEX01：9/100，严格
 std::int32_t UpdateBattleAction34_40B5E0(YobiAction* action); // BSEX01：低WORD/BYTE、四边反弹退场，播放直到非零。
 std::int32_t UpdateBattleAction35_40B930(YobiAction* action); // BSEX01：持样边界/40次散射，每帧尾迹后直线退场。
 void UpdateBattleAction36_40BAD0(YobiAction* action); // BSEX01：低BYTE门禁/播放后fresh FF0，>=30归零推进。
-void UpdateBattleAction37_40BB20(YobiAction* action); // 同源计时，新值>=60才推进。
-void UpdateBattleAction38_40BB70(YobiAction* action); // 同源计时，新值>=120才推进。
-std::int32_t UpdateBattleAction39_40BBC0(YobiAction* action); // 按36-nameY切换角色动作，尾部固定播放三次。
-void UpdateBattleAction40_40BD40(YobiAction* action); // 载荷方向恢复后推进，不播放。
+void UpdateBattleAction37_40BB20(YobiAction* action); // BWT01：低BYTE门禁/播放后fresh计数，>=60归零推进。
+void UpdateBattleAction38_40BB70(YobiAction* action); // BWT01：低BYTE门禁/播放后fresh计数，>=120归零推进。
+std::int32_t UpdateBattleAction39_40BBC0(YobiAction* action); // BWT01：36短路/原声和两方向，末连续三播放。
+void UpdateBattleAction40_40BD40(YobiAction* action); // BWT01：恢复方向后推进，不增播放。
 void ConsumeBattleFpCost_405B60(YobiAction* action); // 正1008扣源FP，负结果按原三字段写序归零，最后1008=-1。
-void UpdateBattleAction41_40BD60(YobiAction* action); // 按100C映射原坐标记录的+08/+0C转向后推进。
-void UpdateBattleAction42_40BDB0(YobiAction* action); // 固定100C目标，读取其浮点Y/X转向后推进。
-std::int32_t UpdateBattleAction43_40BE30(YobiAction* action); // 可选other转向后站立播放，不推进。
-void UpdateBattleAction44_40BDF0(YobiAction* action); // 当前效果目标朝向源对象，再推进源对象。
+void UpdateBattleAction41_40BD60(YobiAction* action); // BWT01：静态两22项表，固定point先Y后X。
+void UpdateBattleAction42_40BDB0(YobiAction* action); // BWT01：全局目标先Y后X，转向本对象。
+std::int32_t UpdateBattleAction43_40BE30(YobiAction* action); // BWT01：有other才转向，共同100/0/播放返回。
+void UpdateBattleAction44_40BDF0(YobiAction* action); // BWT01：目标朝本对象转向，推进本对象。
 void UpdateBattleAction45_40B130(YobiAction* action); // 临时CryptInt零按mask/encoded/count写HP，再销毁/推进。
 void UpdateBattleAction46_40B200(YobiAction* action); // 完整倒地分支，保留骑乘短路及105C/1054/1068/1058清理顺序。
 void UpdateBattleAction47_40B3F0(YobiAction* action); // FDC置死亡位后推进。

@@ -26578,10 +26578,11 @@ void UpdateBattleAction36_40BAD0(YobiAction* const action)
     }
 }
 
+// BWT01：完整FDC后低BYTE；条件播放后fresh FF0，新值>=60归零/推进。
 void UpdateBattleAction37_40BB20(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
-    if ((payload->flagsFDC & 0x60u) == 0) {
+    if ((static_cast<std::uint8_t>(payload->flagsFDC) & 0x60u) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
     }
     const std::int32_t count = payload->valueFF0 + 1;
@@ -26592,10 +26593,11 @@ void UpdateBattleAction37_40BB20(YobiAction* const action)
     }
 }
 
+// BWT01：完整FDC后低BYTE；条件播放后fresh FF0，新值>=120归零/推进。
 void UpdateBattleAction38_40BB70(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
-    if ((payload->flagsFDC & 0x60u) == 0) {
+    if ((static_cast<std::uint8_t>(payload->flagsFDC) & 0x60u) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
     }
     const std::int32_t count = payload->valueFF0 + 1;
@@ -26606,6 +26608,7 @@ void UpdateBattleAction38_40BB70(YobiAction* const action)
     }
 }
 
+// BWT01：原声前X持样/声后重取、间隔36短路、两次方向和连续三播放保持。
 std::int32_t UpdateBattleAction39_40BBC0(YobiAction* const action)
 {
     if (action->nameX == 0) {
@@ -26656,6 +26659,7 @@ std::int32_t UpdateBattleAction39_40BBC0(YobiAction* const action)
     return PlayFrame_517DA0(action, 1);
 }
 
+// BWT01：方向恢复后推进，原无播放/计数或动作发布。
 void UpdateBattleAction40_40BD40(YobiAction* const action)
 {
     Sub_406260(action);
@@ -26685,6 +26689,7 @@ void ConsumeBattleFpCost_405B60(YobiAction* const action)
     }
 }
 
+// BWT01：固定一次目标索引/point，先Y后X，两原22项S32只读表保持。
 void UpdateBattleAction41_40BD60(YobiAction* const action)
 {
     using world::detail::gBattleGraphicPoints553758;
@@ -26697,6 +26702,7 @@ void UpdateBattleAction41_40BD60(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BWT01：固定一次全局目标，先F32 Y后X转向本对象，再推进。
 void UpdateBattleAction42_40BDB0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26707,6 +26713,7 @@ void UpdateBattleAction42_40BDB0(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BWT01：仅非空other才转向；共同rate100/动作0/PlayFrame(0)返回保持。
 std::int32_t UpdateBattleAction43_40BE30(YobiAction* const action)
 {
     YobiAction* const other = action->battleOpponent10;
@@ -26718,6 +26725,7 @@ std::int32_t UpdateBattleAction43_40BE30(YobiAction* const action)
     return PlayFrame_517DA0(action, 0);
 }
 
+// BWT01：由目标朝本对象转向，再推进本对象，不交换两T*。
 void UpdateBattleAction44_40BDF0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);

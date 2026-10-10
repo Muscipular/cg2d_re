@@ -199241,6 +199241,462 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x40bb20",
+      "inventory_id": "F:0000BB20",
+      "original_role": "条件播放后等待60帧",
+      "original_end_exclusive": "0x40bb68",
+      "instruction_count": 24,
+      "function_chunks": [
+        {
+          "start": "0x40bb20",
+          "end_exclusive": "0x40bb68"
+        }
+      ],
+      "status": "BWT01完整当前源/正常合同纳管；37/38低BYTE消费修正，其余正文保持，完整生产/owner/SDK与运行仍未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction37_40BB20"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction37_40BB20"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-baseline",
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-decision",
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-acceptance",
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-source-state",
+        "doc/cg2d_battle_wait_turn_evidence.json"
+      ],
+      "boundary": "BWT01八完整正常根与合计440B的两张静态表；仅37/38各一低BYTE消费及十六注释，其余正文/签名/数值/真实调用与旧语义保持。39原36短路、声前持X/声后fresh X、两方向增量/三连续播放及44目标转向/本对象推进保持。完整输入生产/其它父/ABI/alias/owner/SDK正常失败/数值和声音画面运行仍待，RPLAN.24/MC01及完整门禁保持。",
+      "verification_level": "八完整242条768B/九页、25E8/六callee/十三跳八RET、八11Bcase；两表440B/110 S32全值及原正常取样/发布/源精确差异，必要静态，不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction37_40BB20",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际case弃返保持"
+      },
+      "battle_wait_turn": {
+        "step": "BWT01",
+        "source_snapshot": "cg2d-re-battle-wait-turn-20261010",
+        "original_instruction_count": 24,
+        "original_code_bytes": 72,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 2,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40bb70",
+      "inventory_id": "F:0000BB70",
+      "original_role": "条件播放后等待120帧",
+      "original_end_exclusive": "0x40bbb8",
+      "instruction_count": 24,
+      "function_chunks": [
+        {
+          "start": "0x40bb70",
+          "end_exclusive": "0x40bbb8"
+        }
+      ],
+      "status": "BWT01完整当前源/正常合同纳管；37/38低BYTE消费修正，其余正文保持，完整生产/owner/SDK与运行仍未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction38_40BB70"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction38_40BB70"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-baseline",
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-decision",
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-acceptance",
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-source-state",
+        "doc/cg2d_battle_wait_turn_evidence.json"
+      ],
+      "boundary": "BWT01八完整正常根与合计440B的两张静态表；仅37/38各一低BYTE消费及十六注释，其余正文/签名/数值/真实调用与旧语义保持。39原36短路、声前持X/声后fresh X、两方向增量/三连续播放及44目标转向/本对象推进保持。完整输入生产/其它父/ABI/alias/owner/SDK正常失败/数值和声音画面运行仍待，RPLAN.24/MC01及完整门禁保持。",
+      "verification_level": "八完整242条768B/九页、25E8/六callee/十三跳八RET、八11Bcase；两表440B/110 S32全值及原正常取样/发布/源精确差异，必要静态，不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction38_40BB70",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际case弃返保持"
+      },
+      "battle_wait_turn": {
+        "step": "BWT01",
+        "source_snapshot": "cg2d-re-battle-wait-turn-20261010",
+        "original_instruction_count": 24,
+        "original_code_bytes": 72,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 2,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40bbc0",
+      "inventory_id": "F:0000BBC0",
+      "original_role": "交替动作/两方向递增/三次播放",
+      "original_end_exclusive": "0x40bd3a",
+      "instruction_count": 110,
+      "function_chunks": [
+        {
+          "start": "0x40bbc0",
+          "end_exclusive": "0x40bd3a"
+        }
+      ],
+      "status": "BWT01完整当前源/正常合同纳管；37/38低BYTE消费修正，其余正文保持，完整生产/owner/SDK与运行仍未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction39_40BBC0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction39_40BBC0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-baseline",
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-decision",
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-acceptance",
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-source-state",
+        "doc/cg2d_battle_wait_turn_evidence.json"
+      ],
+      "boundary": "BWT01八完整正常根与合计440B的两张静态表；仅37/38各一低BYTE消费及十六注释，其余正文/签名/数值/真实调用与旧语义保持。39原36短路、声前持X/声后fresh X、两方向增量/三连续播放及44目标转向/本对象推进保持。完整输入生产/其它父/ABI/alias/owner/SDK正常失败/数值和声音画面运行仍待，RPLAN.24/MC01及完整门禁保持。",
+      "verification_level": "八完整242条768B/九页、25E8/六callee/十三跳八RET、八11Bcase；两表440B/110 S32全值及原正常取样/发布/源精确差异，必要静态，不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction39_40BBC0",
+        "parameters": "非拥有YobiAction*",
+        "return": "std::int32_t，末播放返回"
+      },
+      "battle_wait_turn": {
+        "step": "BWT01",
+        "source_snapshot": "cg2d-re-battle-wait-turn-20261010",
+        "original_instruction_count": 110,
+        "original_code_bytes": 378,
+        "original_page_count": 2,
+        "direct_call_count": 11,
+        "callee_count": 4,
+        "jump_count": 8,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40bd40",
+      "inventory_id": "F:0000BD40",
+      "original_role": "方向恢复后推进",
+      "original_end_exclusive": "0x40bd56",
+      "instruction_count": 9,
+      "function_chunks": [
+        {
+          "start": "0x40bd40",
+          "end_exclusive": "0x40bd56"
+        }
+      ],
+      "status": "BWT01完整当前源/正常合同纳管；37/38低BYTE消费修正，其余正文保持，完整生产/owner/SDK与运行仍未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction40_40BD40"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction40_40BD40"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-baseline",
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-decision",
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-acceptance",
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-source-state",
+        "doc/cg2d_battle_wait_turn_evidence.json"
+      ],
+      "boundary": "BWT01八完整正常根与合计440B的两张静态表；仅37/38各一低BYTE消费及十六注释，其余正文/签名/数值/真实调用与旧语义保持。39原36短路、声前持X/声后fresh X、两方向增量/三连续播放及44目标转向/本对象推进保持。完整输入生产/其它父/ABI/alias/owner/SDK正常失败/数值和声音画面运行仍待，RPLAN.24/MC01及完整门禁保持。",
+      "verification_level": "八完整242条768B/九页、25E8/六callee/十三跳八RET、八11Bcase；两表440B/110 S32全值及原正常取样/发布/源精确差异，必要静态，不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction40_40BD40",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际case弃返保持"
+      },
+      "battle_wait_turn": {
+        "step": "BWT01",
+        "source_snapshot": "cg2d-re-battle-wait-turn-20261010",
+        "original_instruction_count": 9,
+        "original_code_bytes": 22,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40bd60",
+      "inventory_id": "F:0000BD60",
+      "original_role": "静态目标坐标转向",
+      "original_end_exclusive": "0x40bda1",
+      "instruction_count": 21,
+      "function_chunks": [
+        {
+          "start": "0x40bd60",
+          "end_exclusive": "0x40bda1"
+        }
+      ],
+      "status": "BWT01完整当前源/正常合同纳管；37/38低BYTE消费修正，其余正文保持，完整生产/owner/SDK与运行仍未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction41_40BD60"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction41_40BD60"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-baseline",
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-decision",
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-acceptance",
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-source-state",
+        "doc/cg2d_battle_wait_turn_evidence.json"
+      ],
+      "boundary": "BWT01八完整正常根与合计440B的两张静态表；仅37/38各一低BYTE消费及十六注释，其余正文/签名/数值/真实调用与旧语义保持。39原36短路、声前持X/声后fresh X、两方向增量/三连续播放及44目标转向/本对象推进保持。完整输入生产/其它父/ABI/alias/owner/SDK正常失败/数值和声音画面运行仍待，RPLAN.24/MC01及完整门禁保持。",
+      "verification_level": "八完整242条768B/九页、25E8/六callee/十三跳八RET、八11Bcase；两表440B/110 S32全值及原正常取样/发布/源精确差异，必要静态，不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction41_40BD60",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际case弃返保持"
+      },
+      "battle_wait_turn": {
+        "step": "BWT01",
+        "source_snapshot": "cg2d-re-battle-wait-turn-20261010",
+        "original_instruction_count": 21,
+        "original_code_bytes": 65,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40bdb0",
+      "inventory_id": "F:0000BDB0",
+      "original_role": "全局目标坐标转向",
+      "original_end_exclusive": "0x40bde2",
+      "instruction_count": 18,
+      "function_chunks": [
+        {
+          "start": "0x40bdb0",
+          "end_exclusive": "0x40bde2"
+        }
+      ],
+      "status": "BWT01完整当前源/正常合同纳管；37/38低BYTE消费修正，其余正文保持，完整生产/owner/SDK与运行仍未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction42_40BDB0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction42_40BDB0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-baseline",
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-decision",
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-acceptance",
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-source-state",
+        "doc/cg2d_battle_wait_turn_evidence.json"
+      ],
+      "boundary": "BWT01八完整正常根与合计440B的两张静态表；仅37/38各一低BYTE消费及十六注释，其余正文/签名/数值/真实调用与旧语义保持。39原36短路、声前持X/声后fresh X、两方向增量/三连续播放及44目标转向/本对象推进保持。完整输入生产/其它父/ABI/alias/owner/SDK正常失败/数值和声音画面运行仍待，RPLAN.24/MC01及完整门禁保持。",
+      "verification_level": "八完整242条768B/九页、25E8/六callee/十三跳八RET、八11Bcase；两表440B/110 S32全值及原正常取样/发布/源精确差异，必要静态，不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction42_40BDB0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际case弃返保持"
+      },
+      "battle_wait_turn": {
+        "step": "BWT01",
+        "source_snapshot": "cg2d-re-battle-wait-turn-20261010",
+        "original_instruction_count": 18,
+        "original_code_bytes": 50,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40be30",
+      "inventory_id": "F:0000BE30",
+      "original_role": "可选对手转向后站立播放",
+      "original_end_exclusive": "0x40be6b",
+      "instruction_count": 19,
+      "function_chunks": [
+        {
+          "start": "0x40be30",
+          "end_exclusive": "0x40be6b"
+        }
+      ],
+      "status": "BWT01完整当前源/正常合同纳管；37/38低BYTE消费修正，其余正文保持，完整生产/owner/SDK与运行仍未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction43_40BE30"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction43_40BE30"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-baseline",
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-decision",
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-acceptance",
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-source-state",
+        "doc/cg2d_battle_wait_turn_evidence.json"
+      ],
+      "boundary": "BWT01八完整正常根与合计440B的两张静态表；仅37/38各一低BYTE消费及十六注释，其余正文/签名/数值/真实调用与旧语义保持。39原36短路、声前持X/声后fresh X、两方向增量/三连续播放及44目标转向/本对象推进保持。完整输入生产/其它父/ABI/alias/owner/SDK正常失败/数值和声音画面运行仍待，RPLAN.24/MC01及完整门禁保持。",
+      "verification_level": "八完整242条768B/九页、25E8/六callee/十三跳八RET、八11Bcase；两表440B/110 S32全值及原正常取样/发布/源精确差异，必要静态，不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction43_40BE30",
+        "parameters": "非拥有YobiAction*",
+        "return": "std::int32_t，末播放返回"
+      },
+      "battle_wait_turn": {
+        "step": "BWT01",
+        "source_snapshot": "cg2d-re-battle-wait-turn-20261010",
+        "original_instruction_count": 19,
+        "original_code_bytes": 59,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 1,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40bdf0",
+      "inventory_id": "F:0000BDF0",
+      "original_role": "目标朝当前对象转向",
+      "original_end_exclusive": "0x40be22",
+      "instruction_count": 17,
+      "function_chunks": [
+        {
+          "start": "0x40bdf0",
+          "end_exclusive": "0x40be22"
+        }
+      ],
+      "status": "BWT01完整当前源/正常合同纳管；37/38低BYTE消费修正，其余正文保持，完整生产/owner/SDK与运行仍未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction44_40BDF0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction44_40BDF0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-baseline",
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-decision",
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-acceptance",
+        "doc/cg2d_battle_wait_turn_spec.md#battle-wait-turn-source-state",
+        "doc/cg2d_battle_wait_turn_evidence.json"
+      ],
+      "boundary": "BWT01八完整正常根与合计440B的两张静态表；仅37/38各一低BYTE消费及十六注释，其余正文/签名/数值/真实调用与旧语义保持。39原36短路、声前持X/声后fresh X、两方向增量/三连续播放及44目标转向/本对象推进保持。完整输入生产/其它父/ABI/alias/owner/SDK正常失败/数值和声音画面运行仍待，RPLAN.24/MC01及完整门禁保持。",
+      "verification_level": "八完整242条768B/九页、25E8/六callee/十三跳八RET、八11Bcase；两表440B/110 S32全值及原正常取样/发布/源精确差异，必要静态，不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction44_40BDF0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际case弃返保持"
+      },
+      "battle_wait_turn": {
+        "step": "BWT01",
+        "source_snapshot": "cg2d-re-battle-wait-turn-20261010",
+        "original_instruction_count": 17,
+        "original_code_bytes": 50,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

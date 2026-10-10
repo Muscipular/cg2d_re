@@ -1693,7 +1693,7 @@ std::int32_t Sub_476490(
     WindowDragCallback callback);
 void Sub_476500(); // 仅阶段4/5调用message3后完整清理。
 std::int32_t Sub_472D20(); // 窗口拖动/焦点命中，返回两位处理掩码。
-std::int32_t Sub_4730A0(); // 原表压紧、关闭释放及按2000标记前插排序。
+std::int32_t Sub_4730A0(); // WCR01：71槽压紧/关闭/前插，两个标记判断用同一W32 state。
 void Sub_473E40(); // 每轮窗口处理前的鼠标阶段推进。
 std::int32_t Sub_503CB0(); // 73ECBC先减后负值归2，返回归位前结果。
 std::int32_t Sub_503CD0(); // 名称模式S16递增，保存标量后持久化。

@@ -43817,6 +43817,7 @@ void Sub_4744A0()
     }
 }
 
+// WCR01：71槽整理共用原state样本分流；关闭后压紧、等层前插与计数见对应SPEC。
 std::int32_t Sub_4730A0()
 {
     std::int32_t count = 0;
@@ -43834,7 +43835,8 @@ std::int32_t Sub_4730A0()
             gWindows[source] = nullptr;
             continue;
         }
-        if ((window->state & 0x8000u) != 0) {
+        const std::uint32_t state = window->state;
+        if ((state & 0x8000u) != 0) {
             FreeWindow_471270(window);
             for (std::size_t target = index; target + 1 < kWindowCount; ++target) {
                 gWindows[target] = gWindows[target + 1];
@@ -43844,7 +43846,7 @@ std::int32_t Sub_4730A0()
                 continue;
             }
         } else {
-            if ((window->state & 0x2000u) != 0) {
+            if ((state & 0x2000u) != 0) {
                 std::size_t target = index;
                 while (target > 0) {
                     WindowInstance* const previous = gWindows[target - 1];
@@ -44947,10 +44949,12 @@ void FreeWindow_471270(WindowInstance* const window)
     std::free(window);
 }
 
+// WCR01：发布及bit1写沿同一状态记录地址，清槽由既有472190调用父负责。
 void CloseWindow_472160(WindowInstance* const window)
 {
-    detail::gCurrentWindowState = &detail::gWindowStates[window->id];
-    detail::gCurrentWindowState->flags |= 2u;
+    detail::WindowState* const state = &detail::gWindowStates[window->id];
+    detail::gCurrentWindowState = state;
+    state->flags |= 2u;
     FreeWindow_471270(window);
 }
 

@@ -214982,6 +214982,138 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x4730a0",
+      "inventory_id": "F:000730A0",
+      "original_role": "原窗口表压紧关闭与标记前插排序",
+      "original_end_exclusive": "0x4731ae",
+      "instruction_count": 90,
+      "function_chunks": [
+        {
+          "start": "0x4730a0",
+          "end_exclusive": "0x4731ae"
+        }
+      ],
+      "status": "WCR01完整原根纳管，两组原状态取样与同记录发布已对齐；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4730A0"
+          ],
+          "relationship": "WCR01两个状态判定共用原W32样本，其余压紧/释放后左移/前插和计数保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4730A0"
+          ],
+          "relationship": "WCR01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_compact_close_spec.md#window-compact-close-baseline",
+        "doc/cg2d_window_compact_close_spec.md#window-compact-close-decision",
+        "doc/cg2d_window_compact_close_spec.md#window-compact-close-acceptance",
+        "doc/cg2d_window_compact_close_spec.md#window-compact-close-source-state",
+        "doc/cg2d_window_compact_close_evidence.json"
+      ],
+      "boundary": "WCR01两完整原根102条312B/三页、两实际E8同一471270目标/16跳两RET，无间接；各一真实E8入向分别旧1233更新和旧1798全关闭父，旧1797释放复用，原身份/正文保持。71槽空位向后填入再处理、关闭后左移并清末槽、不计关闭对象；原同一W32 state先判8000未命中再判2000，前项S32 layer小于当前才停、等层也后移，每轮新读当前layer，重排末fresh state只清2000并计数，真实S32返回保持。直接关闭从实例id取真实状态记录地址，发布全局后仍经同一保存地址flags|2再Free，不负责清槽；native只扩大已证地址，不冻原54H布局。两个既有body两组/三处取样及四注释，三整源其余全文和两个真实结构不改；无新API/helper/类型/字段/布局/owner/保护/默认值/补零/钳制/容量限制/回滚/异常模型。两新语义F/两adapted处置、UIRUNTIME两成员/一限定S零I/九任务open；全窗口状态和表生产消费、全部回调/alias-owner寿命、完整场景/资源/CRT/SDK/生成机器ABI/优化后读取/实际关闭重排与全生命周期待，完整枚举/gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，两完整原根102条312B/三页、两实际E8同一释放目标/16跳两RET及各一真实入向有据；71原指针槽/W32 state同样本两分支、重排末fresh清位与S32 layer保持，直接关闭同记录地址发布/置flags有据。三整源两组/三处/四注释精确重放，两个真实结构及其余完整父/释放/创建和全部其它源码保持；完整生产消费owner、机器ABI/优化后读取及运行待",
+      "original_incoming": [
+        {
+          "ea": 4669345,
+          "bytes": "e8faf0ffff",
+          "asm": "call    Window__sortLayer",
+          "parent": 4669312
+        }
+      ],
+      "window_compact_close": {
+        "step": "WCR01",
+        "source_snapshot": "[#] 补齐窗口整理关闭并保留状态取样",
+        "original_end_exclusive": "0x4731ae",
+        "original_instruction_count": 90,
+        "original_code_bytes": 270,
+        "original_page_count": 2,
+        "direct_call_count": 1,
+        "jump_count": 16,
+        "return_count": 1,
+        "native_signature": "std::int32_t Sub_4730A0()",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4730A0",
+        "normal_remaining_source_kept": true,
+        "source_patch_group_count": 1,
+        "source_changed_point_count": 2,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x472160",
+      "inventory_id": "F:00072160",
+      "original_role": "原单窗口状态记录发布与释放",
+      "original_end_exclusive": "0x47218a",
+      "instruction_count": 12,
+      "function_chunks": [
+        {
+          "start": "0x472160",
+          "end_exclusive": "0x47218a"
+        }
+      ],
+      "status": "WCR01完整原根纳管，两组原状态取样与同记录发布已对齐；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "CloseWindow_472160"
+          ],
+          "relationship": "WCR01全局发布和flags置bit1沿同一原记录地址，其余释放与父清槽保持"
+        },
+        {
+          "path": "include/cg/ui/WindowRuntime.hpp",
+          "symbols": [
+            "CloseWindow_472160"
+          ],
+          "relationship": "WCR01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_compact_close_spec.md#window-compact-close-baseline",
+        "doc/cg2d_window_compact_close_spec.md#window-compact-close-decision",
+        "doc/cg2d_window_compact_close_spec.md#window-compact-close-acceptance",
+        "doc/cg2d_window_compact_close_spec.md#window-compact-close-source-state",
+        "doc/cg2d_window_compact_close_evidence.json"
+      ],
+      "boundary": "WCR01两完整原根102条312B/三页、两实际E8同一471270目标/16跳两RET，无间接；各一真实E8入向分别旧1233更新和旧1798全关闭父，旧1797释放复用，原身份/正文保持。71槽空位向后填入再处理、关闭后左移并清末槽、不计关闭对象；原同一W32 state先判8000未命中再判2000，前项S32 layer小于当前才停、等层也后移，每轮新读当前layer，重排末fresh state只清2000并计数，真实S32返回保持。直接关闭从实例id取真实状态记录地址，发布全局后仍经同一保存地址flags|2再Free，不负责清槽；native只扩大已证地址，不冻原54H布局。两个既有body两组/三处取样及四注释，三整源其余全文和两个真实结构不改；无新API/helper/类型/字段/布局/owner/保护/默认值/补零/钳制/容量限制/回滚/异常模型。两新语义F/两adapted处置、UIRUNTIME两成员/一限定S零I/九任务open；全窗口状态和表生产消费、全部回调/alias-owner寿命、完整场景/资源/CRT/SDK/生成机器ABI/优化后读取/实际关闭重排与全生命周期待，完整枚举/gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，两完整原根102条312B/三页、两实际E8同一释放目标/16跳两RET及各一真实入向有据；71原指针槽/W32 state同样本两分支、重排末fresh清位与S32 layer保持，直接关闭同记录地址发布/置flags有据。三整源两组/三处/四注释精确重放，两个真实结构及其余完整父/释放/创建和全部其它源码保持；完整生产消费owner、机器ABI/优化后读取及运行待",
+      "original_incoming": [
+        {
+          "ea": 4661662,
+          "bytes": "e8bdffffff",
+          "asm": "call    Windows__close",
+          "parent": 4661648
+        }
+      ],
+      "window_compact_close": {
+        "step": "WCR01",
+        "source_snapshot": "[#] 补齐窗口整理关闭并保留状态取样",
+        "original_end_exclusive": "0x47218a",
+        "original_instruction_count": 12,
+        "original_code_bytes": 42,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "jump_count": 0,
+        "return_count": 1,
+        "native_signature": "void CloseWindow_472160(WindowInstance* const window)",
+        "native_provider": "src/ui/WindowRuntime.cpp::CloseWindow_472160",
+        "normal_remaining_source_kept": true,
+        "source_patch_group_count": 1,
+        "source_changed_point_count": 1,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

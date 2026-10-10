@@ -319,3 +319,7 @@ BVP01七整源/十三正文保持是原命名快照历史；本次只纠正4FA8E
 ## 2026-10-10 WPL01：完整七类载荷创建与owner
 
 [WPL01](cg2d_window_payload_creation_spec.md#window-payload-source-state)补齐471440完整384条1159B、13E8/五目标/40跳五RET及一次update间接、52CALL/21父来源和七槽旧表。七类载荷是既有真实结构：外层由UI管理，type3另own256B文本、type7借字符串、type5借context、type2 action由Yobi管理；旧1797/BVR释放正文保。现有唯一helper改借初始action及现有action/图号槽，恢复首flags目标、延迟图号指针和图号指针→action槽→值的交错，一组三处/四注释；声明/定义/唯一调用同步，其余创建/释放/其它source和类型保持。旧1929全CAC08历史保后追加、一F处置/四域各一成员/四限定S零I；全父/七载荷及嵌套对象生产消费与owner寿命、SDK/机器ABI/实际创建更新释放和运行仍待，整体未完成。
+
+## 2026-10-10 WCR01：窗口表整理和直接关闭
+
+[WCR01](cg2d_window_compact_close_spec.md#window-compact-close-source-state)补齐4730A0/472160两完整原根102条312B、两实际E8同一释放目标/16跳两RET和两个真实父入向。整理根两个状态分支共用原W32样本，直接关闭发布和flags置bit1使用同一保存记录地址；71槽压紧、关闭后左移清末、等层前插/每轮新layer、重排末fresh清位、S32计数及既有释放/父正文保持。两组/三处/四注释，三整源及两个结构静态差异通过；两新语义F、两adapted处置、UIRUNTIME两成员和一限定S零I，九任务仍open。完整状态/窗口表生产消费与回调alias-owner寿命、机器ABI/优化后读取、实际关闭重排和运行仍待，整体未完成。

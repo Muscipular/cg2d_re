@@ -1734,3 +1734,7 @@ BVP01七整源/十三正文保持是原命名快照历史；本次只纠正4FA8E
 ## 2026-10-10 WIC01：既有引用表示与字段发布完整根
 
 [WIC01](../cg2d_window_input_context_dispatch_spec.md#input-create-source-state)补齐476570/45D720/45D760三完整原根128条367B、三E8/四跳七RET及80CALL内2/外78/53父来源和四槽旧表。三个正确正文保持：既有x64带标记引用承接原高字节拒绝值，mode1落2并两次新取原型context、mode3颜色取入口context，原坐标/滚动零/四BYTE模式/颜色/字体发布与真实context返回有据；本链不分配新载荷。零逻辑组/六注释，旧1935全CAC08来源/表/范围保后追加，两新语义三F处置、INPUT/UIRUNTIME各三成员/两限定S零I。53外父/原型和context/输入载荷全生产消费与owner寿命、其余依赖/机器ABI/实际初始化切换焦点编辑和运行仍待，整体未完成。
+
+## 2026-10-10 WCR01：整理、状态取样与关闭接线
+
+[WCR01](../cg2d_window_compact_close_spec.md#window-compact-close-source-state)补齐4730A0/472160两完整原根102条312B、两实际E8同一释放目标/16跳两RET和两个真实父入向。整理根两个状态分支共用原W32样本，直接关闭发布和flags置bit1使用同一保存记录地址；71槽压紧、关闭后左移清末、等层前插/每轮新layer、重排末fresh清位、S32计数及既有释放/父正文保持。两组/三处/四注释，三整源及两个结构静态差异通过；两新语义F、两adapted处置、UIRUNTIME两成员和一限定S零I，九任务仍open。完整状态/窗口表生产消费与回调alias-owner寿命、机器ABI/优化后读取、实际关闭重排和运行仍待，整体未完成。

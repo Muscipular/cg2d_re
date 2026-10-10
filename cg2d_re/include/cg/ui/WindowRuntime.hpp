@@ -27,7 +27,7 @@ std::int32_t ReadDragItemIndex_584DA4() noexcept; // 原S32拖动编号，初值
 std::int32_t ReadChatInputByteWidth_4A80E0(); // 原C9A930两倍，供历史翻页计算原字节滚动量。 // HBN01：见历史浏览/字节滚动完整合同。
 
 void FreeWindow_471270(WindowInstance* window); // release回调、记录回存、七类元素释放。
-void CloseWindow_472160(WindowInstance* window); // 记录置bit1后释放，不清gWindows槽。
+void CloseWindow_472160(WindowInstance* window); // WCR01：同记录地址发布/置bit1再释放，不清表槽。
 std::int32_t CloseAllWindows_472190(); // 完整关闭与观察退出请求，返回0或发送结果。
 void ProcessSceneWindows_503E80(); // 场景切换的标记、关闭、保存和三路重开；原caller弃返回。
 std::int32_t UpdateWindows_473F80(); // 完整鼠标/窗口/快捷键/预设输入父循环，返回1。

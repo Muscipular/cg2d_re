@@ -4779,3 +4779,10 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 [完整合同](cg2d_map_object_production_sampling_spec.md#map-object-production-source-state)补445350完整543条1797B/九页、28E8十callee/31跳一RET，唯一50B894十三参调用/51B740映射→生产→查询局部窗及九字段/九Unescape有据。已有本体只五组/两关联注释：两坐标分别BYTE/encoded/mask及mask/encoded/BYTE先齐取再发布；四256B槽按原var100/200/300/400身份重用。记录非3段1/2/4用300/200/400，记录3段1用400；action非3段1/2/3/4用400/200/300/100，action3段1用100。既有解析器缺字段首字节处理保持，不清缓冲或猜未写字节。
 
 原新建专属方向门禁/空返回与领取不回滚、used/category低W16及payload.index、共同记录字段/flags42低BYTE、flags114完整保存/二次发布、两阶段原字节/NUL与独立action重取/尾完整value40保持。原结构、两Construct/Destroy/RNG、所有其它源及四旧callee保持；六未独立登记callee只定位真实提供者，不称全callee完成。一新语义/F、MAP/Yobi/TEXT各一成员及六限定I/S，TEXT I只三缓冲组；七任务仍open，全部生产/唯一完整父/容量/alias/owner/SDK/机器ABI/声音画面与运行待，原总门禁不降。
+
+<a id="world-object-lookup-current-20261010"></a>
+## 2026-10-10 WOL01：地图对象生产所依赖的查找与借用
+
+[五正常合同](cg2d_world_object_lookup_allocation_spec.md#world-object-lookup-source-state)补编号查槽、领取、flags/category提供者及FindObjectYobi完整根；144条421B/一E8、31真实入向/十九父及原105B类别数据有据。当前MOP01四callee和SceneState生产后查询保持；全YobiRuntime/SceneState与对象/载荷布局不改，只WorldObjectState和真实声明十注释，五正确body/所有原状态与返回保持。
+
+领取只推进计数/游标，不清记录或写used/action/坐标，成功发布由原父完成，创建失败不加回滚；查找used W16非零而非严格2、两段原start/end持样，借用返回不接管owner；原完整W32映射由父分别消费，category提供者不缩W16。四新原身份与1920完整当前补充、五F/两限定S五根、MAP四/Yobi五成员枚举false，六任务open/完整政策保持；全部生产/31完整父/alias/owner/SDK/ABI与运行待。

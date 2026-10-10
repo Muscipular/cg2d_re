@@ -2392,3 +2392,9 @@ ANIMATION/YOBI各两个新成员，BATTLE只Play依赖成员；两新语义/F和
 ### MOP01无tag历史附件定位
 
 本步初次汇总/Check各149条旧附件路径失败、派生未写，旧快照不作当前通过。按[补充裁决](cg2d_map_object_production_sampling_spec.md#map-object-production-history-reference)只改六处历史读取及ASM当前source禁回退：六唯一退休提交的直接前态三十白名单文件已核存在，旧证据/快照名称不重写，不创建tag、恢复退休源或扩大白名单/当前source豁免。原全部验收状态与五组/六限定I-S保持；七逻辑/一注释整工具重放、六实际标题/30路径及current source严格门禁、重新汇总/Check和派生守恒均通过。
+
+## 2026-10-10 WOL01 世界对象基础依赖限定验收
+
+[五完整正常根](cg2d_world_object_lookup_allocation_spec.md#world-object-lookup-acceptance)与[原证/源差集](cg2d_world_object_lookup_allocation_evidence.json)补两MAP/YOBI限定S，无新I。144条421B/五页、一E8/28跳含一switch/十五RET，31实际入向/十九父、原105B全类别表/selector与1000项正常地址界有据；五正确body只十关联注释，其余源/表/字段和MOP01正常父保持。
+
+四新语义、1920从CAC07数据关联补完整正常元数据/来源及新F处置，旧子记录/入口与已知MAP成员保；语义2187→2191、F1617→1622/E1425→1427、MAP138→142/Yobi67→72枚举均false。六任务open、所有完整gates/184叶验收0/60任务11关闭/六closure与原范围政策保，不代全部31父/生产/容量/ABI/alias/owner/SDK/声音画面或运行。

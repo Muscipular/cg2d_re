@@ -754,3 +754,12 @@ flags W16非0且objectIndex完整W32位型相等，才清该槽action并停止�
 [原根/差集](cg2d_map_object_production_sampling_evidence.json)与[当前合同](cg2d_map_object_production_sampling_spec.md#map-object-production-source-state)补已有445350：543条1797B/28E8、十callee/唯一十三参入向有据。这里只恢复两坐标取样和四256B文本槽复用，不改变1000项表、WorldObjectRecord/LegacyCryptInt布局、action借用、类别/flags提供者或真实SceneState接线。
 
 第一坐标先BYTE count/encoded/mask齐取，第二先mask/encoded/BYTE count齐取，之后各自同序发布/原同一临时析构；不复制token/reserved。原DB gameY/gameX名称不作换轴依据。记录与action九解析点按四原槽身份恢复，原段号/容量255/16及32字节门槛、type3只记录textB8首字节清零、action尾完整value40保持，仍各自重新解析/借目标。领取/创建失败及旧记录不补action规则保持；唯一原父只调用窗，不代整个接收/生产/寿命。MAP138/Yobi67/TEXT29均枚举false、七任务open/完整门禁保持，全部生产/传递callee/alias/owner/容量/SDK/ABI及画面声音/运行待。
+
+<a id="world-object-lookup-current-20261010"></a>
+## 2026-10-10 WOL01：查槽、领取与完整类型转换
+
+[五完整合同](cg2d_world_object_lookup_allocation_spec.md#world-object-lookup-source-state)与[原根/数据/差集](cg2d_world_object_lookup_allocation_evidence.json)纳管MOP01依赖：五144条421B/五页、一E8/28跳含类别switch/十五RET，31实际入向/十九父、105B五target/71selector与1000项地址界有据。五正确body/表/字段/存储保持，仅CPP/真实声明各五关联注释。
+
+查找固定start/end两轮，used WORD非零才编号W32比较、命中发布查找游标；领取先计数/高水位/前扫和条件回绕，返回旧游标，不写被领槽、used/category/action/文本或分配/RNG，失败不改状态也不加回滚。类型提供者返回完整W32，category由各父写入时才W16截取；FindObjectYobi查槽一次并借原生T*、负返空，保游标副作用，不移owner。
+
+四新语义、1920从数据角色关联补55B完整正常范围/来源及新F处置，旧CAC07子记录/入口/原MAP成员保持；五新F、MAP四/Yobi五成员和两限定S五根，零I/新函数/接口/逻辑。MOP01正常生产与无tag历史附件规则保，六任务open/全部完整gates/枚举/closure及政策保。全部原输入/生产/31完整父/传递callee/容量/alias/owner/SDK/机器ABI/画面声音和运行待，总SPEC§10不降。

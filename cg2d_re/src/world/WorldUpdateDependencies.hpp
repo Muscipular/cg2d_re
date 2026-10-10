@@ -860,8 +860,8 @@ std::int32_t __cdecl Sub_50C8D0(
     const char* text); // 原 [0x50C8D0,0x50C8F5)，透传 zA 请求返回。
 extern std::int32_t gValueFDA6F8; // 4631D0确认已写、5199A0同源W32读取；不是联系人索引的一过尾元素。
 void Sub_5199A0(); // 六块同源重置及设置/称号/配方恢复；唯一caller不消费原残留EAX。
-std::int32_t Sub_444FA0(std::int32_t objectIndex); // 原编号查槽，命中更新查找游标。
-login::YobiAction* FindObjectYobi_4462B0(std::int32_t objectIndex); // 复用原查槽后借用action。
+std::int32_t Sub_444FA0(std::int32_t objectIndex); // WOL01：两段编号查槽，命中更新查找游标。
+login::YobiAction* FindObjectYobi_4462B0(std::int32_t objectIndex); // WOL01：查槽一次/负返空，非负借用action。
 void Sub_50AEF0(std::uintptr_t unusedSocket, const char* payload); // 最多五组对象HP/FP，无全局门禁。
 void Sub_50B380(std::uintptr_t socket, const char* payload); // 完整TAB对象批量回复，socket未用。
 void Sub_50BCD0(std::uintptr_t socket, const char* payload); // 逗号动作批量回复，先观察拦截。
@@ -978,9 +978,9 @@ login::YobiAction* Sub_51B080(); // 解散地图五槽；返回51A5B0的非拥�
 void Sub_51B0F0(); // 仅清地图五槽的非拥有action，不释放或清占用。
 void Sub_46AFE0(
     std::int32_t index, std::int32_t x, std::int32_t y); // 移除后的五槽路径续接。
-std::int32_t Sub_446130(); // 原空槽领取，返回旧游标；不在此处标记占用。
-std::uint32_t Sub_4461E0(std::int32_t type); // 原类型转flags114，返回完整W32。
-std::uint32_t Sub_446210(std::int32_t type); // 原71项跳表转换，写category时才截低W16。
+std::int32_t Sub_446130(); // WOL01：空槽领取返回旧游标，只推进计数/游标，保持记录。
+std::uint32_t Sub_4461E0(std::int32_t type); // WOL01：类型转flags114，返回完整W32。
+std::uint32_t Sub_446210(std::int32_t type); // WOL01：71索引/五目标完整W32返回，父写category才截低W16。
 std::int32_t Sub_5183B0(std::int32_t imageNo); // 原图号[100000,200000)判断，不读取资源表。
 std::int32_t Sub_440B50(); // 原当前场景U32闭区间250..252门禁。
 void Sub_4468F0(); // 原普通场景51D246：只清三值去重计数，不清表。

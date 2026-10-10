@@ -73,6 +73,7 @@ std::int32_t Sub_446900(
     return 0;
 }
 
+// WOL01：完整两段查槽，start/end各持样一次，used W16非零/编号W32命中后发布查找游标。
 std::int32_t Sub_444FA0(const std::int32_t objectIndex)
 {
     const std::int32_t start = gWorldObjectFindCursor;
@@ -94,12 +95,14 @@ std::int32_t Sub_444FA0(const std::int32_t objectIndex)
     return -1;
 }
 
+// WOL01：一次真实查槽后借用原生action指针，保查槽游标副作用，不转移所有权。
 login::YobiAction* FindObjectYobi_4462B0(const std::int32_t objectIndex)
 {
     const std::int32_t index = Sub_444FA0(objectIndex);
     return index < 0 ? nullptr : gWorldObjects[index].action;
 }
 
+// WOL01：只推进计数/高水位/空槽游标并返回旧槽，不写记录或标占用/分配资源。
 std::int32_t Sub_446130()
 {
     if (gWorldObjectUsedCount >= 1000) {
@@ -130,6 +133,7 @@ std::int32_t Sub_446130()
     return selected;
 }
 
+// WOL01：原类型到完整W32旗位的正常映射，无全局发布/资源或RNG消费。
 std::uint32_t Sub_4461E0(const std::int32_t type)
 {
     switch (type) {
@@ -143,6 +147,7 @@ std::uint32_t Sub_4461E0(const std::int32_t type)
     }
 }
 
+// WOL01：已有1920/CAC07五target/71selector补完整正常入口；低W16仅由写入父消费。
 std::uint32_t Sub_446210(const std::int32_t type)
 {
     switch (type) {

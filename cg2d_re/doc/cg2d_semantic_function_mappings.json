@@ -204999,6 +204999,71 @@
         "doc/cg2d_yobi_graphic_offset_sampling_spec.md#yobi-graphic-offset-source-state",
         "doc/cg2d_yobi_graphic_offset_sampling_evidence.json"
       ]
+    },
+    {
+      "original_entry": "0x445350",
+      "inventory_id": "F:00045350",
+      "original_role": "地图对象按编号查找/新建及共同记录与action生产，双坐标/CryptInt、九文本解析的原四槽复用与flag类型阶段",
+      "original_end_exclusive": "0x445a55",
+      "instruction_count": 543,
+      "function_chunks": [
+        {
+          "start": "0x445350",
+          "end_exclusive": "0x445a55"
+        }
+      ],
+      "status": "MOP01已有完整正常生产根及五组取样/缓冲身份限定静态，完整生产/owner/运行待",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::world::detail::Sub_445350",
+          "relationship": "唯一真实对象生产/更新，五组读取与原局部文本复用；不首次新建整条地图链"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbol": "cg::world::detail::Sub_445350",
+          "relationship": "既有真实十三参数声明，类型/接口保持"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "cg::world::detail::Sub_50B380",
+          "relationship": "既有映射图号后非玩家实体十三参调用→查询接线全文保持，仅原父局部窗；不验整个解析父"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_object_production_sampling_spec.md#map-object-production-baseline",
+        "doc/cg2d_map_object_production_sampling_spec.md#map-object-production-decision",
+        "doc/cg2d_map_object_production_sampling_spec.md#map-object-production-acceptance",
+        "doc/cg2d_map_object_production_sampling_spec.md#map-object-production-source-state",
+        "doc/cg2d_map_object_production_sampling_evidence.json"
+      ],
+      "boundary": "MOP01已有445350完整正常对象生产/更新纳管，五组恢复两坐标BYTE/W32/W32与W32/W32/BYTE先齐取再各自发布、四256B文本槽及记录/action跨阶段原复用；一CPP/一头关联注释。原两Construct/Destroy与RNG、低BYTEflags42/完整flags114及action重取、两阶段九解析/九Unescape/各原字节门槛和原type3特例/正常失败保持，零新函数/API/布局/owner/容量限制/保护/默认值/补零或异常模型。唯一十三参入向及十callee真实提供者有据，四旧语义/其它源守恒，其余六callee无独立语义不称新验；不代完整唯一父/输入/所有生产/传递callee/容量/alias/owner/SDK/机器ABI/声音画面/运行，原完整政策和总SPEC§10不降。",
+      "verification_level": "完整543条1797B/九页、28E8十目标/31跳一RET；唯一50B894入向/父局部十三push、九字段/九Unescape与四原缓冲关系，五源组/整CPP和头精确重放，仅必要静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::world::detail::Sub_445350",
+        "parameters": "十S32值/三const char*借用，十三参数；record.action为原生非拥有YobiAction*",
+        "return": "void；唯一父未消费尾EAX，随后重新查询对象"
+      },
+      "map_object_production_sampling": {
+        "step": "MOP01",
+        "source_snapshot": "Git提交说明：[#] 对齐地图对象生产并恢复历史源码引用",
+        "original_instruction_count": 543,
+        "original_code_bytes": 1797,
+        "original_page_count": 9,
+        "direct_call_count": 28,
+        "unique_direct_callee_count": 10,
+        "jump_count": 31,
+        "return_count": 1,
+        "inbound_call_count": 1,
+        "source_patch_group_count": 5,
+        "coordinate_patch_group_count": 2,
+        "text_buffer_patch_group_count": 3,
+        "new_functions": 0,
+        "normal_previous_values_wrong": false,
+        "runtime_verified": false,
+        "full_lifecycle_closed": false
+      }
     }
   ]
 }

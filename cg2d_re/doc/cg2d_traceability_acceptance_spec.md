@@ -2382,3 +2382,13 @@ ANIMATION/YOBI各两个新成员，BATTLE只Play依赖成员；两新语义/F和
 [四正常根/裁决](cg2d_yobi_graphic_offset_sampling_spec.md#yobi-graphic-offset-decision)及[完整原指令/差集](cg2d_yobi_graphic_offset_sampling_evidence.json)覆盖292条795B/十七E8、25跳含一switch/九RET、94直接入向/22父、两父局部窗与CAC07全35B六表复用。只5182B0两轴两组/六注释，三正确body/六case/两槽/原低BYTE轴/正常S64窄化和三旧callee、帧播放及其他源保持。
 
 三个新原身份、1919由数据关联补完整当前来源/元数据及新F处置，旧CAC07子记录/入口/已知MAP成员保；语义2183→2186、F1612→1616/E1415→1419、MAP134→137/Yobi66均枚举false。MAP/YOBI四限定I只两组/S四正常根、七任务open及完整政策/gates/184叶验收0/60任务11关闭与六closure保持，不代所有数据生产/94全部父/容量/ABI/alias/owner/SDK/声音画面或运行。
+
+## 2026-10-10 MOP01 地图对象生产限定验收
+
+[裁决/完整正常根](cg2d_map_object_production_sampling_spec.md#map-object-production-acceptance)与[原指令/源差集](cg2d_map_object_production_sampling_evidence.json)登记六MAP/YOBI/TEXT限定I/S。543条1797B/九页、28E8十callee/31跳一RET、唯一十三参调用窗、九解析/九Unescape与四槽复用有据；I五组，TEXT I仅三缓冲组，整源精确重放与其它源/结构/四旧语义保持。六未独立登记callee只当前提供者，不称独立完整验收。
+
+一新原身份/F，语义2186→2187、F1616→1617/E1419→1425，MAP138/Yobi67/TEXT29均枚举false。七任务open、原184叶验收0/60任务11关闭与六closure、完整gates/政策不改，全部生产/完整唯一父/传递callee/容量/正常失败/alias/owner/SDK/机器ABI/声音画面及运行仍待，总SPEC§10不降。
+
+### MOP01无tag历史附件定位
+
+本步初次汇总/Check各149条旧附件路径失败、派生未写，旧快照不作当前通过。按[补充裁决](cg2d_map_object_production_sampling_spec.md#map-object-production-history-reference)只改六处历史读取及ASM当前source禁回退：六唯一退休提交的直接前态三十白名单文件已核存在，旧证据/快照名称不重写，不创建tag、恢复退休源或扩大白名单/当前source豁免。原全部验收状态与五组/六限定I-S保持；七逻辑/一注释整工具重放、六实际标题/30路径及current source严格门禁、重新汇总/Check和派生守恒均通过。

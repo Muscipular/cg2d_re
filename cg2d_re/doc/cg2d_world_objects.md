@@ -747,3 +747,10 @@ flags W16非0且objectIndex完整W32位型相等，才清该槽action并停止�
 新增实现直接借用既有记录/action/payload，布局、工厂、单项4467D0和其他
 生产/释放函数未改。类别1/8不补title复制，其他类别不额外合并flags，
 没有将单项与全表行为统一化。仅静态核对，不构建、测试或运行地图对象链。
+
+<a id="map-object-production-current-20261010"></a>
+## 2026-10-10 MOP01：445350完整正常对象生产
+
+[原根/差集](cg2d_map_object_production_sampling_evidence.json)与[当前合同](cg2d_map_object_production_sampling_spec.md#map-object-production-source-state)补已有445350：543条1797B/28E8、十callee/唯一十三参入向有据。这里只恢复两坐标取样和四256B文本槽复用，不改变1000项表、WorldObjectRecord/LegacyCryptInt布局、action借用、类别/flags提供者或真实SceneState接线。
+
+第一坐标先BYTE count/encoded/mask齐取，第二先mask/encoded/BYTE count齐取，之后各自同序发布/原同一临时析构；不复制token/reserved。原DB gameY/gameX名称不作换轴依据。记录与action九解析点按四原槽身份恢复，原段号/容量255/16及32字节门槛、type3只记录textB8首字节清零、action尾完整value40保持，仍各自重新解析/借目标。领取/创建失败及旧记录不补action规则保持；唯一原父只调用窗，不代整个接收/生产/寿命。MAP138/Yobi67/TEXT29均枚举false、七任务open/完整门禁保持，全部生产/传递callee/alias/owner/容量/SDK/ABI及画面声音/运行待。

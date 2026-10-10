@@ -36922,6 +36922,7 @@ void Sub_446640()
     }
 }
 
+// MOP01：完整对象生产/更新；两坐标三值先取、四256B文本槽原复用关系沿SPEC，原失败/字段宽度保持。
 void Sub_445350(
     const std::int32_t objectIndex, const std::int32_t imageNo,
     const std::int32_t mapX, const std::int32_t mapY,
@@ -36961,14 +36962,20 @@ void Sub_445350(
     record.level2C = level;
     platform::LegacyCryptInt temporary;
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapX);
-    record.coordinate0C.readCount = temporary.readCount;
-    record.coordinate0C.encoded = temporary.encoded;
-    record.coordinate0C.mask = temporary.mask;
+    const std::uint8_t firstReadCount = temporary.readCount;
+    const std::uint32_t firstEncoded = temporary.encoded;
+    const std::uint32_t firstMask = temporary.mask;
+    record.coordinate0C.readCount = firstReadCount;
+    record.coordinate0C.encoded = firstEncoded;
+    record.coordinate0C.mask = firstMask;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapY);
-    record.coordinate1C.mask = temporary.mask;
-    record.coordinate1C.encoded = temporary.encoded;
-    record.coordinate1C.readCount = temporary.readCount;
+    const std::uint32_t secondMask = temporary.mask;
+    const std::uint32_t secondEncoded = temporary.encoded;
+    const std::uint8_t secondReadCount = temporary.readCount;
+    record.coordinate1C.mask = secondMask;
+    record.coordinate1C.encoded = secondEncoded;
+    record.coordinate1C.readCount = secondReadCount;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     record.direction = selectedDirection;
     if (flag1 != 0) {
@@ -36981,34 +36988,34 @@ void Sub_445350(
         std::memmove(record.name54.data(), name, std::strlen(name) + 1);
     }
 
-    char first[256];
-    char second[256];
-    char third[256];
-    char fourth[256];
+    char text100[256]; // 原var_100：action第4段/type3第1段。
+    char text200[256]; // 原var_200：记录/action第2段共用。
+    char text300[256]; // 原var_300：记录第1段/action第3段共用。
+    char text400[256]; // 原var_400：记录第4段/type3第1段、action普通第1段共用。
     if (type != 3) {
-        network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, first);
-        input::UnescapeLegacyTextAndNotify_52D2F0(first);
-        if (std::strlen(first) <= 16) {
-            std::memmove(record.title65.data(), first, std::strlen(first) + 1);
+        network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, text300);
+        input::UnescapeLegacyTextAndNotify_52D2F0(text300);
+        if (std::strlen(text300) <= 16) {
+            std::memmove(record.title65.data(), text300, std::strlen(text300) + 1);
         }
-        network::ExtractDelimitedField_52CED0(titles, '|', 2, 255, second);
-        input::UnescapeLegacyTextAndNotify_52D2F0(second);
-        if (std::strlen(second) <= 32) {
-            std::memmove(record.text76.data(), second, std::strlen(second) + 1);
+        network::ExtractDelimitedField_52CED0(titles, '|', 2, 255, text200);
+        input::UnescapeLegacyTextAndNotify_52D2F0(text200);
+        if (std::strlen(text200) <= 32) {
+            std::memmove(record.text76.data(), text200, std::strlen(text200) + 1);
         }
-        network::ExtractDelimitedField_52CED0(titles, '|', 4, 255, fourth);
-        input::UnescapeLegacyTextAndNotify_52D2F0(fourth);
-        if (std::strlen(fourth) <= 16) {
-            std::memmove(record.text128.data(), fourth, std::strlen(fourth) + 1);
+        network::ExtractDelimitedField_52CED0(titles, '|', 4, 255, text400);
+        input::UnescapeLegacyTextAndNotify_52D2F0(text400);
+        if (std::strlen(text400) <= 16) {
+            std::memmove(record.text128.data(), text400, std::strlen(text400) + 1);
         }
         if (std::strlen(extraText) <= 16) {
             std::memmove(record.textB8.data(), extraText, std::strlen(extraText) + 1);
         }
     } else {
-        network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, first);
-        input::UnescapeLegacyTextAndNotify_52D2F0(first);
-        if (std::strlen(first) <= 16) {
-            std::memmove(record.title65.data(), first, std::strlen(first) + 1);
+        network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, text400);
+        input::UnescapeLegacyTextAndNotify_52D2F0(text400);
+        if (std::strlen(text400) <= 16) {
+            std::memmove(record.title65.data(), text400, std::strlen(text400) + 1);
         }
         record.textB8[0] = '\0';
     }
@@ -37036,40 +37043,40 @@ void Sub_445350(
 
     // 原action阶段独立重新解析，不能复用记录阶段的文本或补写记录第3段。
     if (type != 3) {
-        network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, first);
-        input::UnescapeLegacyTextAndNotify_52D2F0(first);
-        if (std::strlen(first) <= 16) {
+        network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, text400);
+        input::UnescapeLegacyTextAndNotify_52D2F0(text400);
+        if (std::strlen(text400) <= 16) {
             char* const destination = record.action->titleE1.data();
-            std::memmove(destination, first, std::strlen(first) + 1);
+            std::memmove(destination, text400, std::strlen(text400) + 1);
         }
-        network::ExtractDelimitedField_52CED0(titles, '|', 2, 255, second);
-        input::UnescapeLegacyTextAndNotify_52D2F0(second);
-        if (std::strlen(second) <= 32) {
+        network::ExtractDelimitedField_52CED0(titles, '|', 2, 255, text200);
+        input::UnescapeLegacyTextAndNotify_52D2F0(text200);
+        if (std::strlen(text200) <= 32) {
             char* const destination = record.action->text102.data();
-            std::memmove(destination, second, std::strlen(second) + 1);
+            std::memmove(destination, text200, std::strlen(text200) + 1);
         }
-        network::ExtractDelimitedField_52CED0(titles, '|', 3, 255, third);
-        input::UnescapeLegacyTextAndNotify_52D2F0(third);
-        if (std::strlen(third) <= 32) {
+        network::ExtractDelimitedField_52CED0(titles, '|', 3, 255, text300);
+        input::UnescapeLegacyTextAndNotify_52D2F0(text300);
+        if (std::strlen(text300) <= 32) {
             char* const destination = record.action->text123.data();
-            std::memmove(destination, third, std::strlen(third) + 1);
+            std::memmove(destination, text300, std::strlen(text300) + 1);
         }
-        network::ExtractDelimitedField_52CED0(titles, '|', 4, 255, fourth);
-        input::UnescapeLegacyTextAndNotify_52D2F0(fourth);
-        if (std::strlen(fourth) <= 16) {
+        network::ExtractDelimitedField_52CED0(titles, '|', 4, 255, text100);
+        input::UnescapeLegacyTextAndNotify_52D2F0(text100);
+        if (std::strlen(text100) <= 16) {
             char* const destination = record.action->text31C.data();
-            std::memmove(destination, fourth, std::strlen(fourth) + 1);
+            std::memmove(destination, text100, std::strlen(text100) + 1);
         }
         if (std::strlen(extraText) <= 16) {
             char* const destination = record.action->text144.data();
             std::memmove(destination, extraText, std::strlen(extraText) + 1);
         }
     } else {
-        network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, first);
-        input::UnescapeLegacyTextAndNotify_52D2F0(first);
-        if (std::strlen(first) <= 16) {
+        network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, text100);
+        input::UnescapeLegacyTextAndNotify_52D2F0(text100);
+        if (std::strlen(text100) <= 16) {
             char* const destination = record.action->titleE1.data();
-            std::memmove(destination, first, std::strlen(first) + 1);
+            std::memmove(destination, text100, std::strlen(text100) + 1);
         }
     }
     record.action->field1D8 = value40;

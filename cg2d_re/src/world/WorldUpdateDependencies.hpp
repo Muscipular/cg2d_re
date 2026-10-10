@@ -986,7 +986,7 @@ std::int32_t Sub_440B50(); // 原当前场景U32闭区间250..252门禁。
 void Sub_4468F0(); // 原普通场景51D246：只清三值去重计数，不清表。
 std::int32_t Sub_446900(
     std::int32_t graphicIndex, std::int32_t mapX, std::int32_t mapY);
-// 原实体生产/更新；方向归零门槛仅新建生效，记录和action文本分两轮处理。
+// 原445350完整实体生产/更新；仅新建方向门禁、两坐标取样与四文本槽两阶段复用沿MOP01 SPEC。
 void Sub_445350(
     std::int32_t objectIndex, std::int32_t imageNo, std::int32_t mapX,
     std::int32_t mapY, std::int32_t direction, const char* name,

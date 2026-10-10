@@ -29,12 +29,12 @@ function Check-Path([string]$path, [string]$owner) {
         $errors.Add("$owner 路径越出本线：$path"); return
     }
     $exists = Test-Path -LiteralPath $target -PathType Leaf
-    # ACP01：三份已迁CPP的旧ASM附件仅在固定迁移前快照核存在，历史证据不改写。
+    # MOP01：仅历史附件按固定退休提交的直接前态读取，白名单/旧证据保持，不依赖tag。
     $relativePath = ($path -split '#',2)[0]
     $historicalAsm = @('src/platform/LegacyAudioMath.asm',
         'src/platform/MapEffectMath.asm', 'src/platform/LegacyFloatEnvironment.asm')
-    if (-not $exists -and $relativePath -cin $historicalAsm) {
-        & git -C $projectRoot cat-file -e ("cg2d-re-asm-history-20261009:cg2d_re/" + $relativePath) 2>$null
+    if (-not $exists -and $relativePath -cin $historicalAsm -and -not $currentSemanticSource) {
+        & git -C $projectRoot cat-file -e ("HEAD^{/^\[#\] 按标准数学近似合同将音频ASM迁为CPP([[:space:]]|$)}^:cg2d_re/" + $relativePath) 2>$null
         $exists = $LASTEXITCODE -eq 0
     }
     # MC01-C1：六私有C++库/NCE头退休；仅历史附件可读前态，当前语义source不得回退。
@@ -46,7 +46,7 @@ function Check-Path([string]$path, [string]$owner) {
         'src/platform/LegacyException.cpp', 'src/platform/LegacyException.hpp',
         'src/platform/NativeCppException.hpp')
     if (-not $exists -and $relativePath -cin $historicalCpp -and -not $currentSemanticSource) {
-        & git -C $projectRoot cat-file -e ("cg2d-re-msvc-crt-cpp-history-20261010:cg2d_re/" + $relativePath) 2>$null
+        & git -C $projectRoot cat-file -e ("HEAD^{/^\[#\] 将C[+][+]私有库对象收敛到MSVC标准库([[:space:]]|$)}^:cg2d_re/" + $relativePath) 2>$null
         $exists = $LASTEXITCODE -eq 0
     }
     # MC01-C2：浮点文本/数值/环境组仅保历史附件；真实业务读取已迁既有模块。
@@ -55,26 +55,26 @@ function Check-Path([string]$path, [string]$owner) {
         'src/platform/LegacyFloatEnvironment.cpp', 'src/platform/LegacyFloatEnvironment.hpp',
         'src/platform/LegacyFloatMath.cpp')
     if (-not $exists -and $relativePath -cin $historicalNumeric -and -not $currentSemanticSource) {
-        & git -C $projectRoot cat-file -e ("cg2d-re-msvc-crt-numeric-history-20261010:cg2d_re/" + $relativePath) 2>$null
+        & git -C $projectRoot cat-file -e ("HEAD^{/^\[#\] 将浮点格式与数值私有职责交由MSVC承接([[:space:]]|$)}^:cg2d_re/" + $relativePath) 2>$null
         $exists = $LASTEXITCODE -eq 0
     }
     # MC01-C3：旧信号表/raise/filter退休，历史附件独立于当前source校验。
     $historicalSignal = @('src/platform/LegacySignal.cpp', 'src/platform/LegacySignal.hpp')
     if (-not $exists -and $relativePath -cin $historicalSignal -and -not $currentSemanticSource) {
-        & git -C $projectRoot cat-file -e ("cg2d-re-msvc-crt-exit-history-20261010:cg2d_re/" + $relativePath) 2>$null
+        & git -C $projectRoot cat-file -e ("HEAD^{/^\[#\] 将错误信号与私有退出设施收敛到MSVC([[:space:]]|$)}^:cg2d_re/" + $relativePath) 2>$null
         $exists = $LASTEXITCODE -eq 0
     }
     # MC01-C4：私有Heap包装/模式/handler退休，历史附件核固定前态，当前source禁回退。
     $historicalHeap = @('src/platform/LegacyHeap.cpp', 'src/platform/LegacyHeap.hpp')
     if (-not $exists -and $relativePath -cin $historicalHeap -and -not $currentSemanticSource) {
-        & git -C $projectRoot cat-file -e ("cg2d-re-msvc-crt-heap-history-20261010:cg2d_re/" + $relativePath) 2>$null
+        & git -C $projectRoot cat-file -e ("HEAD^{/^\[#\] 将通用堆策略与初始化收敛到MSVC([[:space:]]|$)}^:cg2d_re/" + $relativePath) 2>$null
         $exists = $LASTEXITCODE -eq 0
     }
     # MC01-C5：旧多字节/NLS/ctype存储退休，仅历史附件可核前态，当前source禁回退。
     $historicalMultibyte = @('src/platform/LegacyMultibyte.cpp', 'src/platform/LegacyMultibyte.hpp',
         'src/platform/LegacyStringCompareState.hpp')
     if (-not $exists -and $relativePath -cin $historicalMultibyte -and -not $currentSemanticSource) {
-        & git -C $projectRoot cat-file -e ("cg2d-re-msvc-crt-multibyte-history-20261010:cg2d_re/" + $relativePath) 2>$null
+        & git -C $projectRoot cat-file -e ("HEAD^{/^\[#\] 将多字节与私有参数准备设施收敛到MSVC([[:space:]]|$)}^:cg2d_re/" + $relativePath) 2>$null
         $exists = $LASTEXITCODE -eq 0
     }
     Require $exists "$owner 引用不存在：$path"

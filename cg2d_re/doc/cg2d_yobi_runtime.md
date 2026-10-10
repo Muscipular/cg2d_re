@@ -4772,3 +4772,10 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 缩放查询原kind系数先确定再GetXY，纠正旧注释而不移动正确switch；正常S64→S32转换沿1252，不造新Ftoll或旧x87 ABI。六kind挂件两槽固定父payload、借child/descriptor、Y→X与各自offset/before/batch保持，原12物理查询经现四调用表达式承接，不制造八遗漏。动画图号判定属world::detail，无新公头；只445350局部方向门禁接线有据，不代全父。
 
 三新原身份、1919从数据关联补完整正常根及新F处置，原range_fourth_batch_data/入口和原MAP成员保持；MAP三/Yobi四新成员、四限定I只两组/S四根及七任务open，全部完整gates/枚举/closure保。全部生产/94完整父/传递callee/容量/ABI/alias/owner/SDK/声音画面及运行未验，WAV-only/SDL/CRT与RPLAN.24及总SPEC§10不降。
+
+<a id="map-object-production-current-20261010"></a>
+## 2026-10-10 MOP01：地图实体完整生产与四槽文本复用
+
+[完整合同](cg2d_map_object_production_sampling_spec.md#map-object-production-source-state)补445350完整543条1797B/九页、28E8十callee/31跳一RET，唯一50B894十三参调用/51B740映射→生产→查询局部窗及九字段/九Unescape有据。已有本体只五组/两关联注释：两坐标分别BYTE/encoded/mask及mask/encoded/BYTE先齐取再发布；四256B槽按原var100/200/300/400身份重用。记录非3段1/2/4用300/200/400，记录3段1用400；action非3段1/2/3/4用400/200/300/100，action3段1用100。既有解析器缺字段首字节处理保持，不清缓冲或猜未写字节。
+
+原新建专属方向门禁/空返回与领取不回滚、used/category低W16及payload.index、共同记录字段/flags42低BYTE、flags114完整保存/二次发布、两阶段原字节/NUL与独立action重取/尾完整value40保持。原结构、两Construct/Destroy/RNG、所有其它源及四旧callee保持；六未独立登记callee只定位真实提供者，不称全callee完成。一新语义/F、MAP/Yobi/TEXT各一成员及六限定I/S，TEXT I只三缓冲组；七任务仍open，全部生产/唯一完整父/容量/alias/owner/SDK/机器ABI/声音画面与运行待，原总门禁不降。

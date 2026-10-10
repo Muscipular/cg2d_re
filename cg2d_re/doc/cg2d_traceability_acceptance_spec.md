@@ -2340,3 +2340,9 @@ F:00078330新增adapted，1937已有映射加本步原根/差集，无新F或语
 [结构分析](cg2d_payload_structure_spec.md#payload-structure-source-state)与[原类型/指令](cg2d_payload_structure_evidence.json)只证明当前Yobi通用指针槽和战斗结构的局部类型关系、分配/复制范围、数组步长及未映射区域。数据库现声明不代原源语言或完整布局；原13E8h不代新x64 sizeof，四块未映射区域不称已修复或未使用。
 
 FUNC-BATTLE/FUNC-UIRUNTIME仅追加来源，U09/R04仅追加引用并保持open。零源码/身份/处置/成员变化，零新软件I/W/S/R通过，原1401证据、2158语义、1586处置和完整门禁保持。必要静态与文本汇总不代完整生产/alias/owner或运行，执行限制及整体SPEC§10不降低。
+
+## 2026-10-10 BIE01 调查、计时/标死与逐效果正常源限定验收
+
+[完整五根/裁决](cg2d_battle_inspect_exit_spec.md#battle-inspect-exit-decision)和[原指令/整源差集](cg2d_battle_inspect_exit_evidence.json)登记两条FUNC-BATTLE局部I/S。I仅104/105/108四读取组、十三BYTE和一临时HP零复制共十八组；S五完整正常根/实际分派和依赖关系、wsprintfA真实导入来源/61B原格式/70F32及具名有限MSVC/GBK边界。106/107正文保持；原操作数3为寄存器id，原字符串转换视图非原字节，不新登记假callee/导入或数据X。
+
+新增五语义/F处置/已知成员，BATTLE枚举仍false；十五既有语义及所有旧记录保持。E1401→1403、语义2158→2163、F1586→1591、BATTLE398→403，五任务仅追加依据继续open；原完整gates/184叶验收0/60任务关闭11与六closure保持。全部生产/其它父和完整callee/机器ABI/alias/owner/SDK/声音画面待，必要静态及文本汇总不代运行，总SPEC§10及执行限制不降低。

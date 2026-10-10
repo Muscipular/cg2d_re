@@ -584,11 +584,11 @@ std::int32_t UpdateBattleAction99_40D390(YobiAction* action); // BCPY01：rate25
 void UpdateBattleAction100_40D3C0(YobiAction* action); // BCPY01：入口frameIndex先目标，S8序列/分档/fresh结束哨兵。
 std::int32_t UpdateBattleAction101_40D580(YobiAction* action); // BCPY01：位置逐次重取，两侧中心/面对点及末播放返回。
 void UpdateBattleAction102_40D6C0(YobiAction* action); // BCPY01：完整逐效果伤害/回复与原BYTE消费、动态HP零复制。
-void UpdateBattleAction104_40DC90(YobiAction* action); // 原编码调查消息；保留原CryptInt按值实参前两字，不解码HP/FP。
-std::int32_t UpdateBattleAction105_40DE40(YobiAction* action); // 四阶段绕固定目标定位，推进源后重查位置决定推进该目标。
-void UpdateBattleAction106_40DF50(YobiAction* action); // 只设置角色动作13并推进，不播放。
-YobiAction* UpdateBattleAction107_40DF70(YobiAction* action); // 只标死并返回原生对象指针。
-void UpdateBattleAction108_40DF80(YobiAction* action); // 原帧事件触发多目标命中；普通免疫仅按flags判断。
+void UpdateBattleAction104_40DC90(YobiAction* action); // BIE01：先读全局玩家位，成功分支重取；按原CryptInt前两W32显示并保额外效果推进。
+std::int32_t UpdateBattleAction105_40DE40(YobiAction* action); // BIE01：游标先源位置，两次门禁独立；旧计数>=120后推进源/入口目标，末播放返回。
+void UpdateBattleAction106_40DF50(YobiAction* action); // BIE01：完整动作106仅角色动作13→Advance，无播放/速率/帧清零。
+YobiAction* UpdateBattleAction107_40DF70(YobiAction* action); // BIE01：完整动作107调用MarkDeath并返回真实T*；物理释放沿scheduler。
+void UpdateBattleAction108_40DF80(YobiAction* action); // BIE01：入口事件持样/逐效果do，13 BYTE与临时HP复制读序；免疫只按完整flags。
 void UpdateBattleAction110_40E560(YobiAction* action); // 旧FF0蓄力/接近、两侧清HP、事件等待及独立FD0收尾。
 std::int32_t UpdateBattleAction111_40E970(YobiAction* action); // 阈值散射/反向离场，越界推进后仍移动和播放。
 void UpdateBattleAction113_40EFE0(YobiAction* action); // 抛物线/关联对象定位；原混合EAX未被caller消费。

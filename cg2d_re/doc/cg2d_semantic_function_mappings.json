@@ -203319,6 +203319,291 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x40dc90",
+      "inventory_id": "F:0000DC90",
+      "original_role": "先全局玩家位再源载荷/位置，成功分支独立fresh全局；逐项16B结构原始前两W32显示、同name借用、逐项推进及结束额外推进；有限格式MSVC与GBK边界具名。",
+      "original_end_exclusive": "0x40de3c",
+      "instruction_count": 133,
+      "function_chunks": [
+        {
+          "start": "0x40dc90",
+          "end_exclusive": "0x40de3c"
+        }
+      ],
+      "status": "BIE01完整正常源/独立合同纳管，104/105/108十八取样/消费组落实，106/107正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction104_40DC90",
+          "relationship": "先全局玩家位再源载荷/位置，成功分支独立fresh全局；逐项16B结构原始前两W32显示、同name借用、逐项推进及结束额外推进；有限格式MSVC与GBK边界具名。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction104_40DC90"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_inspect_exit_spec.md#battle-inspect-exit-baseline",
+        "doc/cg2d_battle_inspect_exit_spec.md#battle-inspect-exit-decision",
+        "doc/cg2d_battle_inspect_exit_spec.md#battle-inspect-exit-acceptance",
+        "doc/cg2d_battle_inspect_exit_spec.md#battle-inspect-exit-source-state",
+        "doc/cg2d_battle_inspect_exit_evidence.json"
+      ],
+      "boundary": "BIE01动作104–108五完整正常根/独立身份纳管；104/105四读取组、108十三BYTE表达式/原十四点及临时HP零复制一组共十八组，十注释。原CryptInt原始实参字与有限std::sprintf/已批准GBK、旧计数/入口固定目标、107T*标死和108完整免疫/高位/固定视觉与动态HP/实际调用/RNG保持。无新函数/API/保护/默认值/循环cap；完整所有生产/父-callee/ABI/alias/owner/SDK正常失败/容量/数值及声音画面仍待，原门禁政策保持。",
+      "verification_level": "五完整588条2045B/十三页、44E8/21直接callee及三FFD3真实IAT来源、57跳五RET、五入向/一父/五11Bcase、61B原格式及70F32；当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction104_40DC90",
+        "parameters": "非拥有YobiAction* action",
+        "return": "void；原caller不消费尾EAX"
+      },
+      "battle_inspect_exit": {
+        "step": "BIE01",
+        "source_snapshot": "cg2d-re-battle-inspect-exit-20261010",
+        "original_instruction_count": 133,
+        "original_code_bytes": 428,
+        "original_page_count": 3,
+        "direct_call_count": 8,
+        "register_call_count": 3,
+        "jump_count": 8,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 2,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40de40",
+      "inventory_id": "F:0000DE40",
+      "original_role": "入口固定target，游标先源位置的两独立门禁；四区段70坐标/旧120阈值/推进源后仍推进入口目标，末Play0 S32。",
+      "original_end_exclusive": "0x40df4d",
+      "instruction_count": 77,
+      "function_chunks": [
+        {
+          "start": "0x40de40",
+          "end_exclusive": "0x40df4d"
+        }
+      ],
+      "status": "BIE01完整正常源/独立合同纳管，104/105/108十八取样/消费组落实，106/107正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction105_40DE40",
+          "relationship": "入口固定target，游标先源位置的两独立门禁；四区段70坐标/旧120阈值/推进源后仍推进入口目标，末Play0 S32。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction105_40DE40"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_inspect_exit_spec.md#battle-inspect-exit-baseline",
+        "doc/cg2d_battle_inspect_exit_spec.md#battle-inspect-exit-decision",
+        "doc/cg2d_battle_inspect_exit_spec.md#battle-inspect-exit-acceptance",
+        "doc/cg2d_battle_inspect_exit_spec.md#battle-inspect-exit-source-state",
+        "doc/cg2d_battle_inspect_exit_evidence.json"
+      ],
+      "boundary": "BIE01动作104–108五完整正常根/独立身份纳管；104/105四读取组、108十三BYTE表达式/原十四点及临时HP零复制一组共十八组，十注释。原CryptInt原始实参字与有限std::sprintf/已批准GBK、旧计数/入口固定目标、107T*标死和108完整免疫/高位/固定视觉与动态HP/实际调用/RNG保持。无新函数/API/保护/默认值/循环cap；完整所有生产/父-callee/ABI/alias/owner/SDK正常失败/容量/数值及声音画面仍待，原门禁政策保持。",
+      "verification_level": "五完整588条2045B/十三页、44E8/21直接callee及三FFD3真实IAT来源、57跳五RET、五入向/一父/五11Bcase、61B原格式及70F32；当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction105_40DE40",
+        "parameters": "非拥有YobiAction* action",
+        "return": "S32，PlayFrame返回"
+      },
+      "battle_inspect_exit": {
+        "step": "BIE01",
+        "source_snapshot": "cg2d-re-battle-inspect-exit-20261010",
+        "original_instruction_count": 77,
+        "original_code_bytes": 269,
+        "original_page_count": 2,
+        "direct_call_count": 4,
+        "register_call_count": 0,
+        "jump_count": 9,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 2,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40df50",
+      "inventory_id": "F:0000DF50",
+      "original_role": "仅角色动作13→Advance；无播放/速率/帧修改，正确完整正文保持。",
+      "original_end_exclusive": "0x40df66",
+      "instruction_count": 6,
+      "function_chunks": [
+        {
+          "start": "0x40df50",
+          "end_exclusive": "0x40df66"
+        }
+      ],
+      "status": "BIE01完整正常源/独立合同纳管，104/105/108十八取样/消费组落实，106/107正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction106_40DF50",
+          "relationship": "仅角色动作13→Advance；无播放/速率/帧修改，正确完整正文保持。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction106_40DF50"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_inspect_exit_spec.md#battle-inspect-exit-baseline",
+        "doc/cg2d_battle_inspect_exit_spec.md#battle-inspect-exit-decision",
+        "doc/cg2d_battle_inspect_exit_spec.md#battle-inspect-exit-acceptance",
+        "doc/cg2d_battle_inspect_exit_spec.md#battle-inspect-exit-source-state",
+        "doc/cg2d_battle_inspect_exit_evidence.json"
+      ],
+      "boundary": "BIE01动作104–108五完整正常根/独立身份纳管；104/105四读取组、108十三BYTE表达式/原十四点及临时HP零复制一组共十八组，十注释。原CryptInt原始实参字与有限std::sprintf/已批准GBK、旧计数/入口固定目标、107T*标死和108完整免疫/高位/固定视觉与动态HP/实际调用/RNG保持。无新函数/API/保护/默认值/循环cap；完整所有生产/父-callee/ABI/alias/owner/SDK正常失败/容量/数值及声音画面仍待，原门禁政策保持。",
+      "verification_level": "五完整588条2045B/十三页、44E8/21直接callee及三FFD3真实IAT来源、57跳五RET、五入向/一父/五11Bcase、61B原格式及70F32；当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction106_40DF50",
+        "parameters": "非拥有YobiAction* action",
+        "return": "void；原caller不消费尾EAX"
+      },
+      "battle_inspect_exit": {
+        "step": "BIE01",
+        "source_snapshot": "cg2d-re-battle-inspect-exit-20261010",
+        "original_instruction_count": 6,
+        "original_code_bytes": 22,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "register_call_count": 0,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40df70",
+      "inventory_id": "F:0000DF70",
+      "original_role": "仅MarkDeath并返回真实YobiAction*，不当物理释放，正确完整正文保持。",
+      "original_end_exclusive": "0x40df7c",
+      "instruction_count": 5,
+      "function_chunks": [
+        {
+          "start": "0x40df70",
+          "end_exclusive": "0x40df7c"
+        }
+      ],
+      "status": "BIE01完整正常源/独立合同纳管，104/105/108十八取样/消费组落实，106/107正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction107_40DF70",
+          "relationship": "仅MarkDeath并返回真实YobiAction*，不当物理释放，正确完整正文保持。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction107_40DF70"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_inspect_exit_spec.md#battle-inspect-exit-baseline",
+        "doc/cg2d_battle_inspect_exit_spec.md#battle-inspect-exit-decision",
+        "doc/cg2d_battle_inspect_exit_spec.md#battle-inspect-exit-acceptance",
+        "doc/cg2d_battle_inspect_exit_spec.md#battle-inspect-exit-source-state",
+        "doc/cg2d_battle_inspect_exit_evidence.json"
+      ],
+      "boundary": "BIE01动作104–108五完整正常根/独立身份纳管；104/105四读取组、108十三BYTE表达式/原十四点及临时HP零复制一组共十八组，十注释。原CryptInt原始实参字与有限std::sprintf/已批准GBK、旧计数/入口固定目标、107T*标死和108完整免疫/高位/固定视觉与动态HP/实际调用/RNG保持。无新函数/API/保护/默认值/循环cap；完整所有生产/父-callee/ABI/alias/owner/SDK正常失败/容量/数值及声音画面仍待，原门禁政策保持。",
+      "verification_level": "五完整588条2045B/十三页、44E8/21直接callee及三FFD3真实IAT来源、57跳五RET、五入向/一父/五11Bcase、61B原格式及70F32；当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction107_40DF70",
+        "parameters": "非拥有YobiAction* action",
+        "return": "原生非拥有YobiAction*，MarkDeath返回"
+      },
+      "battle_inspect_exit": {
+        "step": "BIE01",
+        "source_snapshot": "cg2d-re-battle-inspect-exit-20261010",
+        "original_instruction_count": 5,
+        "original_code_bytes": 12,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "register_call_count": 0,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40df80",
+      "inventory_id": "F:0000DF80",
+      "original_role": "持入口event与逐效果do，固定视觉/动态HP，十三BYTE/临时HP零index-encoded先目标逐项pub，完整免疫与属性/延迟/严格效果终止及公共终帧。",
+      "original_end_exclusive": "0x40e4a2",
+      "instruction_count": 367,
+      "function_chunks": [
+        {
+          "start": "0x40df80",
+          "end_exclusive": "0x40e4a2"
+        }
+      ],
+      "status": "BIE01完整正常源/独立合同纳管，104/105/108十八取样/消费组落实，106/107正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction108_40DF80",
+          "relationship": "持入口event与逐效果do，固定视觉/动态HP，十三BYTE/临时HP零index-encoded先目标逐项pub，完整免疫与属性/延迟/严格效果终止及公共终帧。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction108_40DF80"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_inspect_exit_spec.md#battle-inspect-exit-baseline",
+        "doc/cg2d_battle_inspect_exit_spec.md#battle-inspect-exit-decision",
+        "doc/cg2d_battle_inspect_exit_spec.md#battle-inspect-exit-acceptance",
+        "doc/cg2d_battle_inspect_exit_spec.md#battle-inspect-exit-source-state",
+        "doc/cg2d_battle_inspect_exit_evidence.json"
+      ],
+      "boundary": "BIE01动作104–108五完整正常根/独立身份纳管；104/105四读取组、108十三BYTE表达式/原十四点及临时HP零复制一组共十八组，十注释。原CryptInt原始实参字与有限std::sprintf/已批准GBK、旧计数/入口固定目标、107T*标死和108完整免疫/高位/固定视觉与动态HP/实际调用/RNG保持。无新函数/API/保护/默认值/循环cap；完整所有生产/父-callee/ABI/alias/owner/SDK正常失败/容量/数值及声音画面仍待，原门禁政策保持。",
+      "verification_level": "五完整588条2045B/十三页、44E8/21直接callee及三FFD3真实IAT来源、57跳五RET、五入向/一父/五11Bcase、61B原格式及70F32；当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction108_40DF80",
+        "parameters": "非拥有YobiAction* action",
+        "return": "void；原caller不消费尾EAX"
+      },
+      "battle_inspect_exit": {
+        "step": "BIE01",
+        "source_snapshot": "cg2d-re-battle-inspect-exit-20261010",
+        "original_instruction_count": 367,
+        "original_code_bytes": 1314,
+        "original_page_count": 6,
+        "direct_call_count": 30,
+        "register_call_count": 0,
+        "jump_count": 40,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 14,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

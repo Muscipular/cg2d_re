@@ -439,3 +439,7 @@ BVP01七整源/十三正文保持是原命名快照历史；本次只纠正4FA8E
 ## 2026-10-11 SGM01：两组存放数据与金额
 
 [SGM01](cg2d_storage_group_data_reply_spec.md#storage-group-source-state)旧1970历史追加存放A/G/I/P完整解析根1002条2900B/十六页，86E8四目标/39跳四RET及双switch表有据。正确正文保持，仅两合同注释；原物品/宠物部分失败续行、I/P字段步进和A/G金额解析后fresh组写入明确。同组金额与存取界面共享原字节区，一个adapted、两限定S零I八open；六CALL同父仅局部消费，完整父/全部数据owner、ABI及互通运行待。
+
+## 2026-10-11 IDR01：描述行及页数生产
+
+[IDR01](cg2d_item_description_rows_spec.md#item-description-source-state)补齐4E02B0完整物品描述生产根83条202B/两页，一E8/九跳两RET。正确正文保，仅两合同注释；32行、仅行首清零、last前一行回扫及S32页数发布明确。两CALL同SGM01父和两个消费者页数邻窗有据；一个新F/处置，UI一成员/一限定S零I八open，完整消费者/owner/ABI及运行待。

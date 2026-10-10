@@ -238311,6 +238311,200 @@
         "runtime_verified": false,
         "result_boundary": "现void副作用保，原gate/flags/末parse残留EAX；当前dispatcherdiscard不代全ABI"
       }
+    },
+    {
+      "original_entry": "0x4e02b0",
+      "inventory_id": "F:000E02B0",
+      "original_role": "外部物品描述32行生产/回扫空行及S32页数发布",
+      "original_end_exclusive": "0x4e037a",
+      "instruction_count": 83,
+      "function_chunks": [
+        {
+          "start": "0x4e02b0",
+          "end_exclusive": "0x4e037a"
+        }
+      ],
+      "status": "IDR01完整描述生产根纳管，正确正文只两注释；限定S，完整消费/绘制/owner/ABI/运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4E02B0"
+          ],
+          "relationship": "IDR01完整描述生产根，32行/last前一行回扫和S32页数正确正文保持，仅合同注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4E02B0"
+          ],
+          "relationship": "IDR01既有void及三参数声明保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_item_description_rows_spec.md#item-description-baseline",
+        "doc/cg2d_item_description_rows_spec.md#item-description-decision",
+        "doc/cg2d_item_description_rows_spec.md#item-description-acceptance",
+        "doc/cg2d_item_description_rows_spec.md#item-description-source-state",
+        "doc/cg2d_item_description_rows_evidence.json"
+      ],
+      "boundary": "IDR01只完整4E02B0描述生产根83条202B/两页，一E8到既有LSP01分行叶、九跳两RET。原side/index三参数按已证索引*C44+side*FBF8定位同CC4D58字节区，描述从+29，固定32行/每行96B，每次以capacity3072/width32调用503AB0；非零result更新last，零只row[0]清零，不清整行/复用私有描述区。既有分行叶正常空行也返回1，保留首U8取样/首写后尾读与正常NUL；不依据空字符串擅改成功判定。回扫从last前一行开始，last>0且该行strlen为0才递减，保留这个原顺序，不从最后成功行开始；原地址零分支仅异常域不新增指针保护。末last<0写S32零，否则last/8+1写+C3C，不扩大字段/变BYTE或把未证间隔冻结成新struct。当前完整正文正确全部保持，仅定义/声明两注释；同一非拥有原字节区、WriteTradeValue模板/分行叶/SGM01生产父、现唯一全局/声明和两消费源保持。两原CALL来自SGM01同4A84A0父，均side0与index/text，前五后四邻有据，当前共用readItem一个调用覆盖A/I条件差别，父既有完整合同保持。4AA3D0/4AC890两个消费者只C3C W32取用邻窗：先W16 used门槛、取page/页数、加1写page并原比较回零；当前分别窗口41/38，没有由本根宣两完整消费者或全部绘制/owner寿命通过。现void用于页数副作用、两个原调用邻窗未消费返回，不伪造确定返回或宣全部机器ABI。一个新F/adapted、UI一成员/一限定S零I八open，LSP01和SGM01记录及历史保。全部数据生产消费/描述绘制与交互/共享owner-alias寿命、SDK/生成读取和ABI、互通画面运行待；不引新helper/字段/API/owner、索引/容量/空保护、补零/默认/新钳制/回滚或异常模型；MSVC/WAV-only/原字段命令LF明文及全部完整门禁保，整体未完成。",
+      "verification_level": "pass，完整83条202B/两页、一E8/九跳两RET和两CALL同SGM01父/side0参数邻窗有据；两个消费者仅W16 used与W32页数取用邻窗，不宣完整父。两整源精确回放/只两注释，正确正文/三提供者和父/两消费源/分行声明/两全局定义声明保持；32行、仅行首清零、last前一行回扫与S32页数生产原合同纳管，全部生产消费/owner/ABI及运行待",
+      "original_incoming": [
+        {
+          "ea": 4884157,
+          "parent": 4883616,
+          "bytes": "e8ee7b0300",
+          "asm": "call    sub_4E02B0",
+          "window": [
+            {
+              "ea": 4884145,
+              "bytes": "8b542428",
+              "asm": "mov     edx, [esp+438h+var_410]"
+            },
+            {
+              "ea": 4884149,
+              "bytes": "8d4c2438",
+              "asm": "lea     ecx, [esp+438h+var_400]"
+            },
+            {
+              "ea": 4884153,
+              "bytes": "51",
+              "asm": "push    ecx"
+            },
+            {
+              "ea": 4884154,
+              "bytes": "6a00",
+              "asm": "push    0"
+            },
+            {
+              "ea": 4884156,
+              "bytes": "52",
+              "asm": "push    edx"
+            },
+            {
+              "ea": 4884157,
+              "bytes": "e8ee7b0300",
+              "asm": "call    sub_4E02B0"
+            },
+            {
+              "ea": 4884162,
+              "bytes": "83c424",
+              "asm": "add     esp, 24h"
+            },
+            {
+              "ea": 4884165,
+              "bytes": "8b442418",
+              "asm": "mov     eax, [esp+420h+var_408]"
+            },
+            {
+              "ea": 4884169,
+              "bytes": "83c007",
+              "asm": "add     eax, 7"
+            },
+            {
+              "ea": 4884172,
+              "bytes": "50",
+              "asm": "push    eax"
+            }
+          ]
+        },
+        {
+          "ea": 4885542,
+          "parent": 4883616,
+          "bytes": "e885760300",
+          "asm": "call    sub_4E02B0",
+          "window": [
+            {
+              "ea": 4885530,
+              "bytes": "8b542414",
+              "asm": "mov     edx, [esp+424h+var_410]"
+            },
+            {
+              "ea": 4885534,
+              "bytes": "8d4c2424",
+              "asm": "lea     ecx, [esp+424h+var_400]"
+            },
+            {
+              "ea": 4885538,
+              "bytes": "51",
+              "asm": "push    ecx"
+            },
+            {
+              "ea": 4885539,
+              "bytes": "6a00",
+              "asm": "push    0"
+            },
+            {
+              "ea": 4885541,
+              "bytes": "52",
+              "asm": "push    edx"
+            },
+            {
+              "ea": 4885542,
+              "bytes": "e885760300",
+              "asm": "call    sub_4E02B0"
+            },
+            {
+              "ea": 4885547,
+              "bytes": "83c410",
+              "asm": "add     esp, 10h"
+            },
+            {
+              "ea": 4885550,
+              "bytes": "8b742414",
+              "asm": "mov     esi, [esp+420h+var_40C]"
+            },
+            {
+              "ea": 4885554,
+              "bytes": "8b7c2410",
+              "asm": "mov     edi, [esp+420h+var_410]"
+            },
+            {
+              "ea": 4885558,
+              "bytes": "83c306",
+              "asm": "add     ebx, 6"
+            }
+          ]
+        }
+      ],
+      "item_description_rows": {
+        "step": "IDR01",
+        "source_snapshot": "[#] 补齐物品描述行与页数生产合同",
+        "original_entry": "0x4e02b0",
+        "original_end_exclusive": "0x4e037a",
+        "instruction_count": 83,
+        "code_bytes": 202,
+        "page_count": 2,
+        "direct_calls": 1,
+        "direct_call_targets": [
+          5257904
+        ],
+        "jumps": 9,
+        "returns": 2,
+        "original_incoming_references": [
+          {
+            "ea": 4884157,
+            "type": 17,
+            "code": true
+          },
+          {
+            "ea": 4885542,
+            "type": 17,
+            "code": true
+          }
+        ],
+        "native_signature": "void Sub_4E02B0(\n    const std::int32_t index, const std::int32_t side, const char* const text)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "source_comment_count": 2,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "现void用于32行/页数副作用；两原CALL邻窗不消费返回，不伪造确定返回或宣全部机器ABI"
+      }
     }
   ]
 }

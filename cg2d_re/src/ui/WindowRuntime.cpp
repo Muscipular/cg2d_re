@@ -14989,6 +14989,7 @@ std::int32_t Sub_4AC890(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// IDR01：原4E02B0完整83条；32行提取、仅行首清零及从last前一行回扫/S32页数发布保持。
 void Sub_4E02B0(
     const std::int32_t index, const std::int32_t side, const char* const text)
 {

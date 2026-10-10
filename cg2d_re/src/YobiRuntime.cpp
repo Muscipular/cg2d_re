@@ -10718,6 +10718,7 @@ YobiAction* NewBattleOffsetFollowEffect_419CF0(
     return action;
 }
 
+// BDE01：固定parent严格标死仍执行共同投影尾，不清1064或立即释放。
 void UpdateBattleCenteredEffect_41F950(YobiAction* const action)
 {
     YobiAction* const parent = action->battleAttachmentParent10;
@@ -10740,6 +10741,7 @@ void UpdateBattleCenteredEffect_41F950(YobiAction* const action)
     action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
 }
 
+// BDE01：已有1064/分配空早返；两S16向零除2、播放后发布与投影读齐保持。
 YobiAction* NewBattleCenteredEffect_41FA00(YobiAction* const parent, const std::int32_t imageNo)
 {
     if (static_cast<BattleActorPayload*>(parent->payload)->centeredEffect1064 != nullptr) {
@@ -26735,6 +26737,7 @@ void UpdateBattleAction44_40BDF0(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BDE01：临时零先读齐三字段，再mask/encoded/BYTE count发布、销毁、推进。
 void UpdateBattleAction45_40B130(YobiAction* const action)
 {
     using namespace platform::legacy_crypt_int;
@@ -26751,6 +26754,7 @@ void UpdateBattleAction45_40B130(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BDE01：完整高位/骑乘BYTE短路/低WORD缩放，三附属清理后保不同退出分支。
 void UpdateBattleAction46_40B200(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26765,13 +26769,13 @@ void UpdateBattleAction46_40B200(YobiAction* const action)
         bool dead = false;
         if (first != nullptr) {
             const auto* const firstPayload = static_cast<const BattleActorPayload*>(first->payload);
-            dead = firstPayload != nullptr && (firstPayload->flagsFDC & 2u) != 0;
+            dead = firstPayload != nullptr && (static_cast<std::uint8_t>(firstPayload->flagsFDC) & 2u) != 0;
         }
         if (!dead) {
             YobiAction* const second = carrier->second04;
             if (second != nullptr) {
                 const auto* const secondPayload = static_cast<const BattleActorPayload*>(second->payload);
-                dead = secondPayload != nullptr && (secondPayload->flagsFDC & 2u) != 0;
+                dead = secondPayload != nullptr && (static_cast<std::uint8_t>(secondPayload->flagsFDC) & 2u) != 0;
             }
         }
         if (dead) {
@@ -26787,7 +26791,7 @@ void UpdateBattleAction46_40B200(YobiAction* const action)
     if (PlayFrame_517DA0(action, 1) != 1) {
         return;
     }
-    if ((payload->flagsFDC & 0x1000u) != 0) {
+    if ((static_cast<std::uint16_t>(payload->flagsFDC) & 0x1000u) != 0) {
         action->scaleX = 1.0F;
         action->scaleY = 1.0F;
         payload->flagsFDC &= ~0x1000u;
@@ -26811,7 +26815,7 @@ void UpdateBattleAction46_40B200(YobiAction* const action)
         action->phase = 219;
         return;
     }
-    if ((payload->flagsFDC & 0xCu) != 0) {
+    if ((static_cast<std::uint8_t>(payload->flagsFDC) & 0xCu) != 0) {
         static_cast<void>(NewBattleCenteredEffect_41FA00(action, 110169));
         static_cast<void>(audio::PlaySe_52C450(215, action->x));
         payload->stateFE0 |= 2u;
@@ -26827,6 +26831,7 @@ void UpdateBattleAction46_40B200(YobiAction* const action)
     action->phase = 48;
 }
 
+// BDE01：完整W32 FDC置2后推进，不缩窄发布。
 void UpdateBattleAction47_40B3F0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26834,6 +26839,7 @@ void UpdateBattleAction47_40B3F0(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BDE01：两设备路径的旧alpha/调用后fresh alpha及8/4/255门禁保持。
 void UpdateBattleAction48_40B490(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26874,6 +26880,7 @@ void UpdateBattleAction48_40B490(YobiAction* const action)
     SetYobiActionField30F(action, alpha < 4 ? 0 : static_cast<std::uint8_t>(alpha - 4));
 }
 
+// BDE01：完整1024严格==2才清零/切51。
 void UpdateBattleAction49_40B5B0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26883,6 +26890,7 @@ void UpdateBattleAction49_40B5B0(YobiAction* const action)
     }
 }
 
+// BDE01：动作10后严格终帧才推进，不增rate写入。
 void UpdateBattleAction50_40B3C0(YobiAction* const action)
 {
     action->characterAction = 10;
@@ -26891,6 +26899,7 @@ void UpdateBattleAction50_40B3C0(YobiAction* const action)
     }
 }
 
+// BDE01：先清对应全局战斗槽，再标死并返回原T*。
 YobiAction* UpdateBattleAction51_40BE70(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26898,6 +26907,7 @@ YobiAction* UpdateBattleAction51_40BE70(YobiAction* const action)
     return MarkDeath(action);
 }
 
+// BDE01：先BYTE后固定caster，13/47/51目标及启动位置逐次重取。
 void UpdateBattleAction52_40BE90(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -26919,6 +26929,7 @@ void UpdateBattleAction52_40BE90(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BDE01：未舍入缩放与创建后fresh零判定，清理/推进后共同播放返回。
 std::int32_t UpdateBattleAction53_40BF20(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);

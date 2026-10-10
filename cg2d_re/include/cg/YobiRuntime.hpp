@@ -390,13 +390,13 @@ YobiAction* NewBattleHitEffect_41F5B0(
 YobiAction* NewBattleDebuffEffect_41F660(YobiAction* parent, std::int32_t imageNo); // 分配前更新FDC/13CC/13D0，失败不回滚。
 void UpdateBattleDebuffEffect_41F800(YobiAction* action); // 1054/105C共用父对象跟随回调。
 YobiAction* NewBattleReverseEffect_41F860(YobiAction* parent, std::int32_t imageNo); // 105C已有引用返回空。
-void UpdateBattleCenteredEffect_41F950(YobiAction* action); // 父标死仍执行公共坐标投影尾。
+void UpdateBattleCenteredEffect_41F950(YobiAction* action); // BDE01：父严格标死后仍共同投影尾。
 void UpdateBattleOffsetFollowEffect_419CB0(YobiAction* action); // 父标死仍按屏幕坐标/S32偏移跟随并播放。
 void UpdateBattleTransitionEffect_419BE0(YobiAction* action); // phase0播放严格完成才置phase1/隐藏，不自动标死。
 YobiAction* NewBattleTransitionEffect_419C10(YobiAction* parent, std::int32_t imageNo);
 YobiAction* NewBattleOffsetFollowEffect_419CF0(
     YobiAction* parent, std::int32_t offsetX, std::int32_t offsetY, std::int32_t imageNo); // 播放后按浮点坐标加偏移投影。
-YobiAction* NewBattleCenteredEffect_41FA00(YobiAction* parent, std::int32_t imageNo); // 1064已有引用时返回空，不换图。
+YobiAction* NewBattleCenteredEffect_41FA00(YobiAction* parent, std::int32_t imageNo); // BDE01：1064已有即空返，S16半宽高/播放后发布/投影。
 void UpdateBattleAttachedEffect_41FB20(YobiAction* action);
 YobiAction* NewBattleAttachedEffect_41FBE0(YobiAction* parent, std::int32_t mode); // 已有槽只换图并返回空。
 void UpdateBattleStatusEffect_41FCD0(YobiAction* action);
@@ -529,15 +529,15 @@ void UpdateBattleAction41_40BD60(YobiAction* action); // BWT01：静态两22项�
 void UpdateBattleAction42_40BDB0(YobiAction* action); // BWT01：全局目标先Y后X，转向本对象。
 std::int32_t UpdateBattleAction43_40BE30(YobiAction* action); // BWT01：有other才转向，共同100/0/播放返回。
 void UpdateBattleAction44_40BDF0(YobiAction* action); // BWT01：目标朝本对象转向，推进本对象。
-void UpdateBattleAction45_40B130(YobiAction* action); // 临时CryptInt零按mask/encoded/count写HP，再销毁/推进。
-void UpdateBattleAction46_40B200(YobiAction* action); // 完整倒地分支，保留骑乘短路及105C/1054/1068/1058清理顺序。
-void UpdateBattleAction47_40B3F0(YobiAction* action); // FDC置死亡位后推进。
-void UpdateBattleAction48_40B490(YobiAction* action); // 两设备退场分支，完成后直接切49或51，不通用推进。
-void UpdateBattleAction49_40B5B0(YobiAction* action); // 1024严格为2才清零并切51。
-void UpdateBattleAction50_40B3C0(YobiAction* action); // 倒地播放严格完成才推进，不修改速率。
-YobiAction* UpdateBattleAction51_40BE70(YobiAction* action); // 先清原战斗槽，再返回MarkDeath结果。
-void UpdateBattleAction52_40BE90(YobiAction* action); // 固定caster，宠物目标逐次重取追加13/47/51并启动。
-std::int32_t UpdateBattleAction53_40BF20(YobiAction* action); // 未舍入缩小、type22特效与完成清理，尾部总播放。
+void UpdateBattleAction45_40B130(YobiAction* action); // BDE01：三字段读齐/按原序发布、临时销毁后推进。
+void UpdateBattleAction46_40B200(YobiAction* action); // BDE01：骑乘短路/缩放/清理及不同219-48-创建推进分支。
+void UpdateBattleAction47_40B3F0(YobiAction* action); // BDE01：整FDC置2后推进。
+void UpdateBattleAction48_40B490(YobiAction* action); // BDE01：两设备退场，旧alpha前置/新alpha重取。
+void UpdateBattleAction49_40B5B0(YobiAction* action); // BDE01：1024严格2才清零/切51。
+void UpdateBattleAction50_40B3C0(YobiAction* action); // BDE01：仅动作10/严格终帧推进。
+YobiAction* UpdateBattleAction51_40BE70(YobiAction* action); // BDE01：清全局槽先标死，保T*返回。
+void UpdateBattleAction52_40BE90(YobiAction* action); // BDE01：固定caster/逐次目标，追加13-47-51后启动。
+std::int32_t UpdateBattleAction53_40BF20(YobiAction* action); // BDE01：未舍入缩放/创建后重读，末共同播放返回。
 std::int32_t UpdateBattleAction54_40BFE0(YobiAction* action); // 未舍入放大、type23特效，完成时重查设备清标志。
 void UpdateBattleAction55_40C0C0(YobiAction* action); // 播放、实际FP扣减、推进依次执行。
 void UpdateBattleAction56_40C160(YobiAction* action); // 攻击严格完成后清帧索引/剩余帧/事件再推进。

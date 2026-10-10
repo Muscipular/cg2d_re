@@ -199697,6 +199697,644 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x40b130",
+      "inventory_id": "F:0000B130",
+      "original_role": "临时CryptInt零复制与推进",
+      "original_end_exclusive": "0x40b178",
+      "instruction_count": 20,
+      "function_chunks": [
+        {
+          "start": "0x40b130",
+          "end_exclusive": "0x40b178"
+        }
+      ],
+      "status": "BDE01完整当前正常源/独立合同纳管；46四宽度消费，其余正文保持，完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction45_40B130"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction45_40B130"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-baseline",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-decision",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-acceptance",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-source-state",
+        "doc/cg2d_battle_death_exit_evidence.json"
+      ],
+      "boundary": "BDE01九完整动作及中心创建/回调十一根；仅46四消费（两骑乘BYTE、一WORD缩放门禁、尾BYTE0Ch）与二十二注释，所有其它正文/签名/数值/真实调用/提供者和旧记录保持。不同清理/完成分支、原8-4-255/alpha门禁、宠物逐次目标重取、未舍入缩放/创建后重读与两S16向零除2/播放后发布/标死后投影保持。全输入/其它父/ABI/alias/owner/SDK正常失败/容量/数值与声音画面运行仍待，原政策/完整门禁保持。",
+      "verification_level": "十一完整522条1671B/十四取证批次，44E8/十六callee/38跳二十一RET、九11Bcase/十二CALL四父与callback MOV生产、8B两F32及当前源精确差异必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction45_40B130",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际分派/回调消费保持"
+      },
+      "battle_death_exit": {
+        "step": "BDE01",
+        "source_snapshot": "cg2d-re-battle-death-exit-20261010",
+        "original_instruction_count": 20,
+        "original_code_bytes": 72,
+        "original_page_count": 1,
+        "capture_mode": "最多64条分页",
+        "direct_call_count": 3,
+        "callee_count": 3,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40b200",
+      "inventory_id": "F:0000B200",
+      "original_role": "倒地/骑乘门禁与分支清理",
+      "original_end_exclusive": "0x40b3b9",
+      "instruction_count": 139,
+      "function_chunks": [
+        {
+          "start": "0x40b200",
+          "end_exclusive": "0x40b3b9"
+        }
+      ],
+      "status": "BDE01完整当前正常源/独立合同纳管；46四宽度消费，其余正文保持，完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction46_40B200"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction46_40B200"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-baseline",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-decision",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-acceptance",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-source-state",
+        "doc/cg2d_battle_death_exit_evidence.json"
+      ],
+      "boundary": "BDE01九完整动作及中心创建/回调十一根；仅46四消费（两骑乘BYTE、一WORD缩放门禁、尾BYTE0Ch）与二十二注释，所有其它正文/签名/数值/真实调用/提供者和旧记录保持。不同清理/完成分支、原8-4-255/alpha门禁、宠物逐次目标重取、未舍入缩放/创建后重读与两S16向零除2/播放后发布/标死后投影保持。全输入/其它父/ABI/alias/owner/SDK正常失败/容量/数值与声音画面运行仍待，原政策/完整门禁保持。",
+      "verification_level": "十一完整522条1671B/十四取证批次，44E8/十六callee/38跳二十一RET、九11Bcase/十二CALL四父与callback MOV生产、8B两F32及当前源精确差异必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction46_40B200",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际分派/回调消费保持"
+      },
+      "battle_death_exit": {
+        "step": "BDE01",
+        "source_snapshot": "cg2d-re-battle-death-exit-20261010",
+        "original_instruction_count": 139,
+        "original_code_bytes": 441,
+        "original_page_count": 3,
+        "capture_mode": "最多64条分页",
+        "direct_call_count": 10,
+        "callee_count": 5,
+        "jump_count": 18,
+        "return_count": 5,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 4,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40b3f0",
+      "inventory_id": "F:0000B3F0",
+      "original_role": "完整死亡标志发布后推进",
+      "original_end_exclusive": "0x40b406",
+      "instruction_count": 7,
+      "function_chunks": [
+        {
+          "start": "0x40b3f0",
+          "end_exclusive": "0x40b406"
+        }
+      ],
+      "status": "BDE01完整当前正常源/独立合同纳管；46四宽度消费，其余正文保持，完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction47_40B3F0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction47_40B3F0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-baseline",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-decision",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-acceptance",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-source-state",
+        "doc/cg2d_battle_death_exit_evidence.json"
+      ],
+      "boundary": "BDE01九完整动作及中心创建/回调十一根；仅46四消费（两骑乘BYTE、一WORD缩放门禁、尾BYTE0Ch）与二十二注释，所有其它正文/签名/数值/真实调用/提供者和旧记录保持。不同清理/完成分支、原8-4-255/alpha门禁、宠物逐次目标重取、未舍入缩放/创建后重读与两S16向零除2/播放后发布/标死后投影保持。全输入/其它父/ABI/alias/owner/SDK正常失败/容量/数值与声音画面运行仍待，原政策/完整门禁保持。",
+      "verification_level": "十一完整522条1671B/十四取证批次，44E8/十六callee/38跳二十一RET、九11Bcase/十二CALL四父与callback MOV生产、8B两F32及当前源精确差异必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction47_40B3F0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际分派/回调消费保持"
+      },
+      "battle_death_exit": {
+        "step": "BDE01",
+        "source_snapshot": "cg2d-re-battle-death-exit-20261010",
+        "original_instruction_count": 7,
+        "original_code_bytes": 22,
+        "original_page_count": 1,
+        "capture_mode": "最多64条分页",
+        "direct_call_count": 1,
+        "callee_count": 1,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40b490",
+      "inventory_id": "F:0000B490",
+      "original_role": "不同设备退场/完成分支",
+      "original_end_exclusive": "0x40b5a1",
+      "instruction_count": 87,
+      "function_chunks": [
+        {
+          "start": "0x40b490",
+          "end_exclusive": "0x40b5a1"
+        }
+      ],
+      "status": "BDE01完整当前正常源/独立合同纳管；46四宽度消费，其余正文保持，完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction48_40B490"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction48_40B490"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-baseline",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-decision",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-acceptance",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-source-state",
+        "doc/cg2d_battle_death_exit_evidence.json"
+      ],
+      "boundary": "BDE01九完整动作及中心创建/回调十一根；仅46四消费（两骑乘BYTE、一WORD缩放门禁、尾BYTE0Ch）与二十二注释，所有其它正文/签名/数值/真实调用/提供者和旧记录保持。不同清理/完成分支、原8-4-255/alpha门禁、宠物逐次目标重取、未舍入缩放/创建后重读与两S16向零除2/播放后发布/标死后投影保持。全输入/其它父/ABI/alias/owner/SDK正常失败/容量/数值与声音画面运行仍待，原政策/完整门禁保持。",
+      "verification_level": "十一完整522条1671B/十四取证批次，44E8/十六callee/38跳二十一RET、九11Bcase/十二CALL四父与callback MOV生产、8B两F32及当前源精确差异必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction48_40B490",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际分派/回调消费保持"
+      },
+      "battle_death_exit": {
+        "step": "BDE01",
+        "source_snapshot": "cg2d-re-battle-death-exit-20261010",
+        "original_instruction_count": 87,
+        "original_code_bytes": 273,
+        "original_page_count": 2,
+        "capture_mode": "最多64条分页",
+        "direct_call_count": 5,
+        "callee_count": 4,
+        "jump_count": 6,
+        "return_count": 5,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40b5b0",
+      "inventory_id": "F:0000B5B0",
+      "original_role": "完成状态2后切退场",
+      "original_end_exclusive": "0x40b5d2",
+      "instruction_count": 7,
+      "function_chunks": [
+        {
+          "start": "0x40b5b0",
+          "end_exclusive": "0x40b5d2"
+        }
+      ],
+      "status": "BDE01完整当前正常源/独立合同纳管；46四宽度消费，其余正文保持，完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction49_40B5B0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction49_40B5B0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-baseline",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-decision",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-acceptance",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-source-state",
+        "doc/cg2d_battle_death_exit_evidence.json"
+      ],
+      "boundary": "BDE01九完整动作及中心创建/回调十一根；仅46四消费（两骑乘BYTE、一WORD缩放门禁、尾BYTE0Ch）与二十二注释，所有其它正文/签名/数值/真实调用/提供者和旧记录保持。不同清理/完成分支、原8-4-255/alpha门禁、宠物逐次目标重取、未舍入缩放/创建后重读与两S16向零除2/播放后发布/标死后投影保持。全输入/其它父/ABI/alias/owner/SDK正常失败/容量/数值与声音画面运行仍待，原政策/完整门禁保持。",
+      "verification_level": "十一完整522条1671B/十四取证批次，44E8/十六callee/38跳二十一RET、九11Bcase/十二CALL四父与callback MOV生产、8B两F32及当前源精确差异必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction49_40B5B0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际分派/回调消费保持"
+      },
+      "battle_death_exit": {
+        "step": "BDE01",
+        "source_snapshot": "cg2d-re-battle-death-exit-20261010",
+        "original_instruction_count": 7,
+        "original_code_bytes": 34,
+        "original_page_count": 1,
+        "capture_mode": "最多64条分页",
+        "direct_call_count": 0,
+        "callee_count": 0,
+        "jump_count": 1,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40b3c0",
+      "inventory_id": "F:0000B3C0",
+      "original_role": "倒地播放完成后推进",
+      "original_end_exclusive": "0x40b3ea",
+      "instruction_count": 14,
+      "function_chunks": [
+        {
+          "start": "0x40b3c0",
+          "end_exclusive": "0x40b3ea"
+        }
+      ],
+      "status": "BDE01完整当前正常源/独立合同纳管；46四宽度消费，其余正文保持，完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction50_40B3C0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction50_40B3C0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-baseline",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-decision",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-acceptance",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-source-state",
+        "doc/cg2d_battle_death_exit_evidence.json"
+      ],
+      "boundary": "BDE01九完整动作及中心创建/回调十一根；仅46四消费（两骑乘BYTE、一WORD缩放门禁、尾BYTE0Ch）与二十二注释，所有其它正文/签名/数值/真实调用/提供者和旧记录保持。不同清理/完成分支、原8-4-255/alpha门禁、宠物逐次目标重取、未舍入缩放/创建后重读与两S16向零除2/播放后发布/标死后投影保持。全输入/其它父/ABI/alias/owner/SDK正常失败/容量/数值与声音画面运行仍待，原政策/完整门禁保持。",
+      "verification_level": "十一完整522条1671B/十四取证批次，44E8/十六callee/38跳二十一RET、九11Bcase/十二CALL四父与callback MOV生产、8B两F32及当前源精确差异必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction50_40B3C0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际分派/回调消费保持"
+      },
+      "battle_death_exit": {
+        "step": "BDE01",
+        "source_snapshot": "cg2d-re-battle-death-exit-20261010",
+        "original_instruction_count": 14,
+        "original_code_bytes": 42,
+        "original_page_count": 1,
+        "capture_mode": "最多64条分页",
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 1,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40be70",
+      "inventory_id": "F:0000BE70",
+      "original_role": "战斗槽清理与标死返回",
+      "original_end_exclusive": "0x40be8d",
+      "instruction_count": 8,
+      "function_chunks": [
+        {
+          "start": "0x40be70",
+          "end_exclusive": "0x40be8d"
+        }
+      ],
+      "status": "BDE01完整当前正常源/独立合同纳管；46四宽度消费，其余正文保持，完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction51_40BE70"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction51_40BE70"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-baseline",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-decision",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-acceptance",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-source-state",
+        "doc/cg2d_battle_death_exit_evidence.json"
+      ],
+      "boundary": "BDE01九完整动作及中心创建/回调十一根；仅46四消费（两骑乘BYTE、一WORD缩放门禁、尾BYTE0Ch）与二十二注释，所有其它正文/签名/数值/真实调用/提供者和旧记录保持。不同清理/完成分支、原8-4-255/alpha门禁、宠物逐次目标重取、未舍入缩放/创建后重读与两S16向零除2/播放后发布/标死后投影保持。全输入/其它父/ABI/alias/owner/SDK正常失败/容量/数值与声音画面运行仍待，原政策/完整门禁保持。",
+      "verification_level": "十一完整522条1671B/十四取证批次，44E8/十六callee/38跳二十一RET、九11Bcase/十二CALL四父与callback MOV生产、8B两F32及当前源精确差异必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction51_40BE70",
+        "parameters": "非拥有YobiAction*",
+        "return": "YobiAction*；真实返回保持"
+      },
+      "battle_death_exit": {
+        "step": "BDE01",
+        "source_snapshot": "cg2d-re-battle-death-exit-20261010",
+        "original_instruction_count": 8,
+        "original_code_bytes": 29,
+        "original_page_count": 1,
+        "capture_mode": "最多64条分页",
+        "direct_call_count": 1,
+        "callee_count": 1,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40be90",
+      "inventory_id": "F:0000BE90",
+      "original_role": "宠物逐次追加/启动后推进",
+      "original_end_exclusive": "0x40bf14",
+      "instruction_count": 47,
+      "function_chunks": [
+        {
+          "start": "0x40be90",
+          "end_exclusive": "0x40bf14"
+        }
+      ],
+      "status": "BDE01完整当前正常源/独立合同纳管；46四宽度消费，其余正文保持，完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction52_40BE90"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction52_40BE90"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-baseline",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-decision",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-acceptance",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-source-state",
+        "doc/cg2d_battle_death_exit_evidence.json"
+      ],
+      "boundary": "BDE01九完整动作及中心创建/回调十一根；仅46四消费（两骑乘BYTE、一WORD缩放门禁、尾BYTE0Ch）与二十二注释，所有其它正文/签名/数值/真实调用/提供者和旧记录保持。不同清理/完成分支、原8-4-255/alpha门禁、宠物逐次目标重取、未舍入缩放/创建后重读与两S16向零除2/播放后发布/标死后投影保持。全输入/其它父/ABI/alias/owner/SDK正常失败/容量/数值与声音画面运行仍待，原政策/完整门禁保持。",
+      "verification_level": "十一完整522条1671B/十四取证批次，44E8/十六callee/38跳二十一RET、九11Bcase/十二CALL四父与callback MOV生产、8B两F32及当前源精确差异必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction52_40BE90",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际分派/回调消费保持"
+      },
+      "battle_death_exit": {
+        "step": "BDE01",
+        "source_snapshot": "cg2d-re-battle-death-exit-20261010",
+        "original_instruction_count": 47,
+        "original_code_bytes": 132,
+        "original_page_count": 1,
+        "capture_mode": "最多64条分页",
+        "direct_call_count": 7,
+        "callee_count": 4,
+        "jump_count": 2,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40bf20",
+      "inventory_id": "F:0000BF20",
+      "original_role": "缩放/type22创建与公共播放",
+      "original_end_exclusive": "0x40bfd3",
+      "instruction_count": 58,
+      "function_chunks": [
+        {
+          "start": "0x40bf20",
+          "end_exclusive": "0x40bfd3"
+        }
+      ],
+      "status": "BDE01完整当前正常源/独立合同纳管；46四宽度消费，其余正文保持，完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction53_40BF20"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction53_40BF20"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-baseline",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-decision",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-acceptance",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-source-state",
+        "doc/cg2d_battle_death_exit_evidence.json"
+      ],
+      "boundary": "BDE01九完整动作及中心创建/回调十一根；仅46四消费（两骑乘BYTE、一WORD缩放门禁、尾BYTE0Ch）与二十二注释，所有其它正文/签名/数值/真实调用/提供者和旧记录保持。不同清理/完成分支、原8-4-255/alpha门禁、宠物逐次目标重取、未舍入缩放/创建后重读与两S16向零除2/播放后发布/标死后投影保持。全输入/其它父/ABI/alias/owner/SDK正常失败/容量/数值与声音画面运行仍待，原政策/完整门禁保持。",
+      "verification_level": "十一完整522条1671B/十四取证批次，44E8/十六callee/38跳二十一RET、九11Bcase/十二CALL四父与callback MOV生产、8B两F32及当前源精确差异必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction53_40BF20",
+        "parameters": "非拥有YobiAction*",
+        "return": "std::int32_t；末播放返回"
+      },
+      "battle_death_exit": {
+        "step": "BDE01",
+        "source_snapshot": "cg2d-re-battle-death-exit-20261010",
+        "original_instruction_count": 58,
+        "original_code_bytes": 179,
+        "original_page_count": 1,
+        "capture_mode": "最多64条分页",
+        "direct_call_count": 5,
+        "callee_count": 5,
+        "jump_count": 6,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x41fa00",
+      "inventory_id": "F:0001FA00",
+      "original_role": "中心附属效果完整创建/发布",
+      "original_end_exclusive": "0x41fb16",
+      "instruction_count": 82,
+      "function_chunks": [
+        {
+          "start": "0x41fa00",
+          "end_exclusive": "0x41fb16"
+        }
+      ],
+      "status": "BDE01完整当前正常源/独立合同纳管；46四宽度消费，其余正文保持，完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::NewBattleCenteredEffect_41FA00"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::NewBattleCenteredEffect_41FA00"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-baseline",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-decision",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-acceptance",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-source-state",
+        "doc/cg2d_battle_death_exit_evidence.json"
+      ],
+      "boundary": "BDE01九完整动作及中心创建/回调十一根；仅46四消费（两骑乘BYTE、一WORD缩放门禁、尾BYTE0Ch）与二十二注释，所有其它正文/签名/数值/真实调用/提供者和旧记录保持。不同清理/完成分支、原8-4-255/alpha门禁、宠物逐次目标重取、未舍入缩放/创建后重读与两S16向零除2/播放后发布/标死后投影保持。全输入/其它父/ABI/alias/owner/SDK正常失败/容量/数值与声音画面运行仍待，原政策/完整门禁保持。",
+      "verification_level": "十一完整522条1671B/十四取证批次，44E8/十六callee/38跳二十一RET、九11Bcase/十二CALL四父与callback MOV生产、8B两F32及当前源精确差异必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::NewBattleCenteredEffect_41FA00",
+        "parameters": "非拥有YobiAction* parent，S32 imageNo",
+        "return": "YobiAction*；真实返回保持"
+      },
+      "battle_death_exit": {
+        "step": "BDE01",
+        "source_snapshot": "cg2d-re-battle-death-exit-20261010",
+        "original_instruction_count": 82,
+        "original_code_bytes": 278,
+        "original_page_count": 1,
+        "capture_mode": "完整根实读",
+        "direct_call_count": 5,
+        "callee_count": 4,
+        "jump_count": 2,
+        "return_count": 3,
+        "inbound_reference_count": 3,
+        "inbound_direct_call_count": 3,
+        "inbound_parent_count": 3,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x41f950",
+      "inventory_id": "F:0001F950",
+      "original_role": "中心附属效果固定父/投影回调",
+      "original_end_exclusive": "0x41f9f9",
+      "instruction_count": 53,
+      "function_chunks": [
+        {
+          "start": "0x41f950",
+          "end_exclusive": "0x41f9f9"
+        }
+      ],
+      "status": "BDE01完整当前正常源/独立合同纳管；46四宽度消费，其余正文保持，完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleCenteredEffect_41F950"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleCenteredEffect_41F950"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-baseline",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-decision",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-acceptance",
+        "doc/cg2d_battle_death_exit_spec.md#battle-death-exit-source-state",
+        "doc/cg2d_battle_death_exit_evidence.json"
+      ],
+      "boundary": "BDE01九完整动作及中心创建/回调十一根；仅46四消费（两骑乘BYTE、一WORD缩放门禁、尾BYTE0Ch）与二十二注释，所有其它正文/签名/数值/真实调用/提供者和旧记录保持。不同清理/完成分支、原8-4-255/alpha门禁、宠物逐次目标重取、未舍入缩放/创建后重读与两S16向零除2/播放后发布/标死后投影保持。全输入/其它父/ABI/alias/owner/SDK正常失败/容量/数值与声音画面运行仍待，原政策/完整门禁保持。",
+      "verification_level": "十一完整522条1671B/十四取证批次，44E8/十六callee/38跳二十一RET、九11Bcase/十二CALL四父与callback MOV生产、8B两F32及当前源精确差异必要静态；不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleCenteredEffect_41F950",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际分派/回调消费保持"
+      },
+      "battle_death_exit": {
+        "step": "BDE01",
+        "source_snapshot": "cg2d-re-battle-death-exit-20261010",
+        "original_instruction_count": 53,
+        "original_code_bytes": 169,
+        "original_page_count": 1,
+        "capture_mode": "完整根实读",
+        "direct_call_count": 5,
+        "callee_count": 4,
+        "jump_count": 2,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 0,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

@@ -707,3 +707,7 @@ kind2为玩家背包，kind3为外部表。首轮used为0调用4763E0，但继�
 ## 2026-10-11 TQN01：交易面板数量callback
 
 [TQN01](../cg2d_trade_quantity_panel_spec.md#trade-quantity-source-state)旧949格式历史追加共享交易面板4B1260完整524条1693B/九页，31E8十一目标/一个间接业务callback、41跳一RET。五逻辑组六处低宽坐标/滚动标志、滚动值先元素与前一滚动框坐标取样对齐；原数值确认结果、callback哨兵适配、四格式及S32 0/2返回保持。一处置、INPUT/UI/RENDER各一成员，三限定S零I八open；完整共享生产消费/业务callback、owner/ABI及交易运行待。
+
+## 2026-10-11 SGM01：完整存放记录字段
+
+[SGM01](../cg2d_storage_group_data_reply_spec.md#storage-group-source-state)旧1970历史追加存放A/G/I/P完整解析根1002条2900B/十六页，86E8四目标/39跳四RET及双switch表有据。正确正文保持，仅两合同注释；原物品/宠物部分失败续行、I/P字段步进和A/G金额解析后fresh组写入明确。同组金额与存取界面共享原字节区，一个adapted、两限定S零I八open；六CALL同父仅局部消费，完整父/全部数据owner、ABI及互通运行待。

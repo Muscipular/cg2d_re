@@ -15010,6 +15010,7 @@ void Sub_4E02B0(
     WriteTradeValue(record, 0xC3C, last < 0 ? std::int32_t{0} : last / 8 + 1);
 }
 
+// SGM01：原4A84A0完整1002条；A/G/I/P及记录失败续行、金额解析后fresh组写入保，仅A返回S32 1。
 std::int32_t Sub_4A84A0(const char* const text)
 {
     char buffer[1024];

@@ -435,3 +435,7 @@ BVP01七整源/十三正文保持是原命名快照历史；本次只纠正4FA8E
 ## 2026-10-11 MPR01：玩家金额与三上限生产
 
 [MPR01](cg2d_player_attribute_money_reply_spec.md#player-money-source-state)补齐主属性aPc和附加属性UU两个完整回复根676条2005B/十一页，70E8六目标/60跳两RET。主根六CryptInt的临时三字段先取样后发布已对齐；原掩码/字段推进、当前金额和三上限、文本长度门槛及步速同步保持。两新F两adapted、三限定S零I八open；当前金额读取/存取与丢钱消费共用真实PlayerRuntimeSlots，完整数据/owner、ABI及回复互通运行待。
+
+## 2026-10-11 SGM01：两组存放数据与金额
+
+[SGM01](cg2d_storage_group_data_reply_spec.md#storage-group-source-state)旧1970历史追加存放A/G/I/P完整解析根1002条2900B/十六页，86E8四目标/39跳四RET及双switch表有据。正确正文保持，仅两合同注释；原物品/宠物部分失败续行、I/P字段步进和A/G金额解析后fresh组写入明确。同组金额与存取界面共享原字节区，一个adapted、两限定S零I八open；六CALL同父仅局部消费，完整父/全部数据owner、ABI及互通运行待。

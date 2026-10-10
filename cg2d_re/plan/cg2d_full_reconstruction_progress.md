@@ -977,3 +977,16 @@ PudO唯一改动为持有GetCate返回给调色板，不重读刚pub全局；保
 源码采集初误用不存在的SceneState.hpp，纯读失败；rg定位真实WorldUpdateDependencies.hpp后成功。一次过量元数据输出截断不作为证据，改为只读必要字段后取得完整JSON；原MCP五页一次取得后复用，未重新载入数据库或改取证。
 
 同一cg2d_re分支、不打tag，七外部改动及原删除暂存保持。仅必要静态文本，未构建/测试/运行客户端或算法/检查产物/计算摘要/引依赖；全绘制父、日志/字体/宽高/输入末字段生产消费和alias-owner寿命、CRT/SDK/机器ABI/优化后读取/实际分行文字颜色画面及全生命周期待，完整枚举/gates/六closure/总SPEC§10保持，整体active/未完成。
+
+<a id="window-draw-progress-20261010"></a>
+## 94. 2026-10-10 WDP01：窗口元素绘制完整分发
+
+[完整原根](../doc/cg2d_window_element_draw_pipeline_spec.md#window-draw-source-state)覆盖4729B0，277条846B/五页、15实际E8/13目标/30跳一RET，51外CALL/34父仅定位。七槽1..7原表及旧X:00072CFE-00072D20的34B邻域复用，不重分类；type4与不可见/超范围仍原公共下一元素。
+
+六组十三处已实现：入口坐标四字段序；type1缓存入口imageNo用于资源索引，四裁剪槽以memcpy仅取低W16而存储/写方保S32；不裁剪与裁剪各自新窗口/图号/元素坐标取样；type7 flags→color→style→text；既有Yobi drawMode helper四颜色通道按选中BYTE读取、S32 color2与各条件/写序保。原descriptor零字节/模式、空指针/visible/焦点/context/图号门槛、动画两偏移callee后新窗口、文字低坐标字体颜色/输入滚动/日志/数字分发、每元素新当前窗口和count、尾清层3/范围提示及返回保持。四整源六组十三处/四关联注释精确差集通过，GetField20和其它body/调用源/布局保持；没有新API/函数/类型/字段/owner/分配释放或保护/默认值/补零/钳制/容量限制/回滚/异常模型。
+
+先记SPEC按第8条裁决。旧1932全部CAC08来源/表/范围子记录保历史追加完整元数据，不新身份；一F处置，INPUT/UIRUNTIME/RENDER/YOBI各一成员、四限定S零I/九任务open；旧2253语义/1692F/1489证据和其它政策/门禁保持，登记、静态汇总/Check终态均退出0、派生范围核对通过：仅一metrics/旧一F/四功能/九任务变化。语义2253=2205F+48X及文档关联2315/3680=62.91%保持，F1693/证据1493，INPUT75/UIRUNTIME108/RENDER81/YOBI101；184叶验收0/60任务关闭11开放49/六closure及其它完整门禁保持。
+
+原字段采集先检公开Yobi头未找到内部color2定义，rg定位实际YobiRuntime.cpp的S32 color2/BYTE flags，未假定类型。数字字段静态断言初按整函数找首个同字节opcode，误匹配入口type读取而退出；按实际case7地址界限定序后通过，原完整五页和分表一次取得后复用，不改原证据或降低检查。
+
+同一cg2d_re分支、不打tag，七外部改动及原删除暂存保持。仅必要静态文本，未构建/测试/运行客户端或算法/检查产物/计算摘要/引依赖；51外父、元素及六载荷创建释放/资源/动画/字体/输入/日志/提示全部生产消费和alias-owner寿命、CRT/SDK/机器ABI/优化后读取/实际文字像素动画及全生命周期待，完整枚举/gates/六closure/总SPEC§10保持，整体active/未完成。

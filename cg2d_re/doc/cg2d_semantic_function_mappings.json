@@ -192354,7 +192354,7 @@
       "original_entry": "0x4729b0",
       "inventory_id": "F:000729B0",
       "original_role": "CAC08仅原分派数据/当前源定义关联：DrawCurrentWindow_4729B0",
-      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收；WDP01完整父正常合同与六组十三处取样修正，限定S/全依赖owner与运行待",
       "sources": [
         {
           "path": "src/ui/WindowRuntime.cpp",
@@ -192362,16 +192362,50 @@
             "cg::ui::DrawCurrentWindow_4729B0"
           ],
           "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "DrawCurrentWindow_4729B0"
+          ],
+          "relationship": "WDP01完整父分发、原低W16和现场取样，现有业务门槛/布局保持"
+        },
+        {
+          "path": "include/cg/ui/WindowRuntime.hpp",
+          "symbols": [
+            "DrawCurrentWindow_4729B0"
+          ],
+          "relationship": "WDP01真实公共声明/参数返回保持，仅合同注释"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "ApplyWindowAnimationDrawMode",
+            "GetYobiActionField20"
+          ],
+          "relationship": "WDP01既有抽取helper恢复四颜色BYTE读取，GetField20正确body保持；不新增原F身份或宣其他父完整"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "ApplyWindowAnimationDrawMode"
+          ],
+          "relationship": "WDP01既有真实声明保持，仅BYTE合同注释"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-decision",
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-source-state",
-        "doc/cg2d_unassigned_range_fifth_batch_evidence.json"
+        "doc/cg2d_unassigned_range_fifth_batch_evidence.json",
+        "doc/cg2d_window_element_draw_pipeline_spec.md#window-draw-baseline",
+        "doc/cg2d_window_element_draw_pipeline_spec.md#window-draw-decision",
+        "doc/cg2d_window_element_draw_pipeline_spec.md#window-draw-acceptance",
+        "doc/cg2d_window_element_draw_pipeline_spec.md#window-draw-source-state",
+        "doc/cg2d_window_element_draw_pipeline_evidence.json"
       ],
-      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
-      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
+      "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。；WDP01完整窗口绘制父277条846B/五页、15实际E8/13目标/30跳一RET、51外CALL/34父及七分派表/旧34B范围。六组十三处恢复入口coords、type1入口图号缓存/四低W16裁剪/两路径新窗口坐标、type7 flags→color→style→text和四动画color2 BYTE通道；四关联注释。既有descriptor零写入、图号/visible/焦点/context/文字或数字载荷null门槛、资源/Yobi/图形/文字/输入/日志分发/每元素新窗口和count/尾层3清队列及提示/返回保持。共用Yobi helper按原BYTE选通道，S32 color2/写方/其它调用源和GetField20正确body保持，不外推全部其他父合同。旧1932/CAC08所有来源/表/范围子记录保后追加完整元数据，一F处置、INPUT/UIRUNTIME/RENDER/YOBI各一成员、四限定S零I/九任务open；没有新身份/API/函数/类型/布局/owner/分配释放或保护/默认值/补零/钳制/容量限制/回滚/异常模型。51父/元素和六载荷创建释放及资源/动画/字体/输入/日志/提示全生产消费与alias-owner寿命、CRT/SDK/机器ABI/优化后读取/真实文字像素动画/全生命周期待，所有枚举/完整gates/六closure/总SPEC§10保持。",
+      "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。；WDP01：pass，完整原根277条846B/五页、15实际E8/13目标/30跳一RET、51外CALL/34父及七表项目标/旧34B范围有据；原入口/图形两路径/数字字段读取序、四裁剪W16与四动画颜色BYTE已落实。四整源六组十三处/四注释精确重放，GetField20和其它body/调用源/布局保持；原空指针/焦点/visible与尾两callee保，旧1932及范围保历史；全部外父/owner/机器ABI/优化后读取/画面运行待",
       "range_fifth_batch_data": {
         "step": "CAC08",
         "source_snapshot": "cg2d-re-unassigned-range-fifth-batch-20261009",
@@ -192382,6 +192416,390 @@
         "full_original_body_recaptured": false,
         "runtime_verified": false,
         "current_definition_line": 44938
+      },
+      "window_element_draw_pipeline": {
+        "step": "WDP01",
+        "source_snapshot": "[#] 补齐窗口绘制分发并恢复字段取样合同",
+        "original_end_exclusive": "0x472cfe",
+        "original_instruction_count": 277,
+        "original_code_bytes": 846,
+        "original_page_count": 5,
+        "direct_call_count": 15,
+        "unique_direct_call_target_count": 13,
+        "jump_count": 30,
+        "return_count": 1,
+        "original_incoming": [
+          {
+            "ea": 4651968,
+            "parent": 4651968,
+            "type": 17,
+            "bytes": "e8eb2d0000",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4696750,
+            "parent": 4695968,
+            "type": 17,
+            "bytes": "e8fd7effff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4697119,
+            "parent": 4695968,
+            "type": 17,
+            "bytes": "e88c7dffff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4697317,
+            "parent": 4695968,
+            "type": 17,
+            "bytes": "e8c67cffff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4697759,
+            "parent": 4695968,
+            "type": 17,
+            "bytes": "e80c7bffff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4698029,
+            "parent": 4695968,
+            "type": 17,
+            "bytes": "e8fe79ffff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4698286,
+            "parent": 4695968,
+            "type": 17,
+            "bytes": "e8fd78ffff",
+            "asm": "call    Window__DrawCurrentWindow; jumptable 0047A82F default case"
+          },
+          {
+            "ea": 4727151,
+            "parent": 4726784,
+            "type": 17,
+            "bytes": "e83c08ffff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4750445,
+            "parent": 4750208,
+            "type": 17,
+            "bytes": "e83eadfeff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4750624,
+            "parent": 4750208,
+            "type": 17,
+            "bytes": "e88bacfeff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4750674,
+            "parent": 4750208,
+            "type": 17,
+            "bytes": "e859acfeff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4754486,
+            "parent": 4754192,
+            "type": 17,
+            "bytes": "e8759dfeff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4775093,
+            "parent": 4775088,
+            "type": 17,
+            "bytes": "e8f64cfeff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4799993,
+            "parent": 4799993,
+            "type": 17,
+            "bytes": "e8b2ebfdff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4805493,
+            "parent": 4805056,
+            "type": 17,
+            "bytes": "e836d6fdff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4805536,
+            "parent": 4805056,
+            "type": 17,
+            "bytes": "e80bd6fdff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4812115,
+            "parent": 4812112,
+            "type": 17,
+            "bytes": "e858bcfdff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4822835,
+            "parent": 4822720,
+            "type": 17,
+            "bytes": "e87892fdff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4823088,
+            "parent": 4823088,
+            "type": 17,
+            "bytes": "e87b91fdff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4823787,
+            "parent": 4823504,
+            "type": 17,
+            "bytes": "e8c08efdff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4832688,
+            "parent": 4832688,
+            "type": 17,
+            "bytes": "e8fb6bfdff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4836753,
+            "parent": 4836048,
+            "type": 17,
+            "bytes": "e81a5cfdff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4844285,
+            "parent": 4844192,
+            "type": 17,
+            "bytes": "e8ae3efdff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4846103,
+            "parent": 4845984,
+            "type": 17,
+            "bytes": "e89437fdff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4849218,
+            "parent": 4849216,
+            "type": 17,
+            "bytes": "e8692bfdff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4852167,
+            "parent": 4852144,
+            "type": 17,
+            "bytes": "e8e41ffdff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4866469,
+            "parent": 4866464,
+            "type": 17,
+            "bytes": "e806e8fcff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4867669,
+            "parent": 4867664,
+            "type": 17,
+            "bytes": "e856e3fcff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4883145,
+            "parent": 4883136,
+            "type": 17,
+            "bytes": "e8e2a6fcff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4887080,
+            "parent": 4886880,
+            "type": 17,
+            "bytes": "e88397fcff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4887115,
+            "parent": 4886880,
+            "type": 17,
+            "bytes": "e86097fcff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4887189,
+            "parent": 4886880,
+            "type": 17,
+            "bytes": "e81697fcff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4887219,
+            "parent": 4886880,
+            "type": 17,
+            "bytes": "e8f896fcff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4899278,
+            "parent": 4899248,
+            "type": 17,
+            "bytes": "e8dd67fcff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4899308,
+            "parent": 4899308,
+            "type": 17,
+            "bytes": "e8bf67fcff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4905613,
+            "parent": 4905456,
+            "type": 17,
+            "bytes": "e81e4ffcff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4910114,
+            "parent": 4910096,
+            "type": 17,
+            "bytes": "e8893dfcff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4917529,
+            "parent": 4917456,
+            "type": 17,
+            "bytes": "e89220fcff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4917562,
+            "parent": 4917456,
+            "type": 17,
+            "bytes": "e87120fcff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4917671,
+            "parent": 4917456,
+            "type": 17,
+            "bytes": "e80420fcff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4917705,
+            "parent": 4917456,
+            "type": 17,
+            "bytes": "e8e21ffcff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4934562,
+            "parent": 4934544,
+            "type": 17,
+            "bytes": "e809defbff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4954874,
+            "parent": 4954576,
+            "type": 17,
+            "bytes": "e8b18efbff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4979518,
+            "parent": 4979024,
+            "type": 17,
+            "bytes": "e86d2efbff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4979591,
+            "parent": 4979024,
+            "type": 17,
+            "bytes": "e8242efbff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4988818,
+            "parent": 4988608,
+            "type": 17,
+            "bytes": "e8190afbff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 4997714,
+            "parent": 4997504,
+            "type": 17,
+            "bytes": "e859e7faff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 5004207,
+            "parent": 5004144,
+            "type": 17,
+            "bytes": "e8fccdfaff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 5037248,
+            "parent": 5036816,
+            "type": 17,
+            "bytes": "e8eb4cfaff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 5037396,
+            "parent": 5036816,
+            "type": 17,
+            "bytes": "e8574cfaff",
+            "asm": "call    Window__DrawCurrentWindow"
+          },
+          {
+            "ea": 5037551,
+            "parent": 5036816,
+            "type": 17,
+            "bytes": "e8bc4bfaff",
+            "asm": "call    Window__DrawCurrentWindow"
+          }
+        ],
+        "original_other_references": [],
+        "native_signature": "void DrawCurrentWindow_4729B0()",
+        "native_provider": "src/ui/WindowRuntime.cpp::DrawCurrentWindow_4729B0",
+        "native_draw_mode_helper": "src/YobiRuntime.cpp::ApplyWindowAnimationDrawMode",
+        "get_field20_body_kept": true,
+        "normal_source_kept": false,
+        "source_patch_group_count": 6,
+        "source_changed_point_count": 13,
+        "source_comment_count": 4,
+        "full_external_parents_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
       }
     },
     {

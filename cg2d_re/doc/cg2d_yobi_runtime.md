@@ -4856,3 +4856,7 @@ primary和BOG插值/原可写表/ftol host职责不改；上界比较→fresh减
 [MTg生产](cg2d_player_timer_reply_producer_spec.md#player-timer-reply-source-state)将首×5恢复到完整mode发布前，其后×5×5×8发布S32毫秒；原负秒归零/全部S32 mode、单SDKtick/输入零与完整U32 gate或tick返回保。GTP按帧扣减和ConsumeBattlePlayerTimer及两个native reader正确现源保持，无新owner/字段或原F；尚不把四战斗调用/状态栏/转生按钮及原gate53读者算完整验收。
 
 一个新身份/F，MAP/Yobi/BATTLE/NETWORK各一成员、四限定S零I/八任务open；原两个gate writer1606/185、唯一网络父1216与SDK/全部其它源保，完整收发/数值/机器ABI/alias-owner/画面运行待，总SPEC§10保持。
+
+## 2026-10-10 WDP01：窗口动画颜色BYTE消费者
+
+[WDP01](cg2d_window_element_draw_pipeline_spec.md#window-draw-source-state)补齐4729B0完整277条846B及七槽分发表/51CALL与34父来源。六组十三处恢复入口坐标、入口图号缓存、四低W16裁剪、两图形坐标路径、数字载荷四字段和四动画颜色BYTE；所有原visible/图号/焦点/context/text/数字null门槛、六业务分发/每元素新窗口count/尾层3清队列与范围提示保持。共用Yobi helper改读选中BYTE，S32存储/其他调用源/GetField20正确body不改，不外推其他父；四整源/四注释精确静态通过。旧1932全部CAC08来源/表/范围子记录保后追加，一F处置/四限定S零I，INPUT/UIRUNTIME/RENDER/YOBI各一成员；51外父/元素载荷/资源动画字体输入日志提示全生产消费及owner寿命、机器ABI/真实像素文字动画与运行仍待，整体未完成。

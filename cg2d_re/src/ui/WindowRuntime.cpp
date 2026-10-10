@@ -45056,6 +45056,7 @@ void CloseWindowsByCategory_472240(const std::uint32_t mask)
     }
 }
 
+// WDP01：完整元素分发、低W16裁剪与现场取样；见doc/cg2d_window_element_draw_pipeline_spec.md。
 void DrawCurrentWindow_4729B0()
 {
     using namespace detail;
@@ -45064,12 +45065,17 @@ void DrawCurrentWindow_4729B0()
     for (std::int32_t index = 0; index < window->elementCount; ++index) {
         WindowElement* const element = &window->elements[index];
         if (element->visible == 1) {
-            const std::int32_t x = window->x + element->x;
-            const std::int32_t y = window->y + element->y;
+            const std::int32_t elementX = element->x;
+            const std::int32_t windowX = window->x;
+            const std::int32_t windowY = window->y;
+            const std::int32_t x = windowX + elementX;
+            const std::int32_t elementY = element->y;
+            const std::int32_t y = windowY + elementY;
             switch (element->type) {
             case 1: {
                 const auto* const data = static_cast<const WindowGraphicData*>(element->data);
-                if (data->imageNo == 0) {
+                const std::int32_t entryImageNo = data->imageNo;
+                if (entryImageNo == 0) {
                     break;
                 }
                 std::array<std::uint16_t, 4> rectangle {};
@@ -45078,17 +45084,23 @@ void DrawCurrentWindow_4729B0()
                 if (data->offsetX != 0 || data->offsetY != 0
                     || data->width != 0 || data->height != 0) {
                     std::int32_t graphicIndex;
-                    resource::GetGraphicMapNoIndex(data->imageNo, &graphicIndex);
+                    resource::GetGraphicMapNoIndex(entryImageNo, &graphicIndex);
                     std::int16_t graphicX;
                     std::int16_t graphicY;
                     resource::GetGraphicXY(
                         static_cast<std::uint32_t>(graphicIndex), &graphicX, &graphicY);
-                    rectangle[0] = static_cast<std::uint16_t>(
-                        static_cast<std::uint16_t>(data->offsetX) + graphicX);
-                    rectangle[1] = static_cast<std::uint16_t>(
-                        static_cast<std::uint16_t>(data->offsetY) + graphicY);
-                    rectangle[2] = static_cast<std::uint16_t>(data->width);
-                    rectangle[3] = static_cast<std::uint16_t>(data->height);
+                    std::uint16_t offsetX;
+                    std::memcpy(&offsetX, &data->offsetX, sizeof(offsetX));
+                    rectangle[0] = static_cast<std::uint16_t>(offsetX + graphicX);
+                    std::uint16_t offsetY;
+                    std::memcpy(&offsetY, &data->offsetY, sizeof(offsetY));
+                    rectangle[1] = static_cast<std::uint16_t>(offsetY + graphicY);
+                    std::uint16_t cropWidth;
+                    std::memcpy(&cropWidth, &data->width, sizeof(cropWidth));
+                    rectangle[2] = cropWidth;
+                    std::uint16_t cropHeight;
+                    std::memcpy(&cropHeight, &data->height, sizeof(cropHeight));
+                    rectangle[3] = cropHeight;
                     cropped = 1;
                 }
                 std::memcpy(descriptor.bytes.data(), rectangle.data(), sizeof(rectangle));
@@ -45097,10 +45109,28 @@ void DrawCurrentWindow_4729B0()
                 descriptor.bytes[13] = 4;
                 descriptor.bytes[14] = 0;
                 descriptor.bytes[15] = 0;
-                WindowInstance* const drawWindow = gCurrentWindow;
-                const std::int32_t imageNo = data->imageNo;
-                const std::int32_t drawY = drawWindow->y + element->y;
-                const std::int32_t drawX = drawWindow->x + element->x;
+                std::int32_t imageNo;
+                std::int32_t drawY;
+                std::int32_t drawX;
+                if (cropped == 0) {
+                    WindowInstance* const drawWindow = gCurrentWindow;
+                    imageNo = data->imageNo;
+                    const std::int32_t drawElementY = element->y;
+                    const std::int32_t drawWindowY = drawWindow->y;
+                    const std::int32_t drawElementX = element->x;
+                    const std::int32_t drawWindowX = drawWindow->x;
+                    drawY = drawElementY + drawWindowY;
+                    drawX = drawElementX + drawWindowX;
+                } else {
+                    imageNo = data->imageNo;
+                    const std::int32_t drawElementY = element->y;
+                    const std::int32_t drawElementX = element->x;
+                    WindowInstance* const drawWindow = gCurrentWindow;
+                    const std::int32_t drawWindowY = drawWindow->y;
+                    drawY = drawWindowY + drawElementY;
+                    const std::int32_t drawWindowX = drawWindow->x;
+                    drawX = drawWindowX + drawElementX;
+                }
                 static_cast<void>(render::DrawGraphic3_520970(
                     drawX, drawY, 0xDF, imageNo, 0, 1, 0, &descriptor));
                 break;
@@ -45164,9 +45194,11 @@ void DrawCurrentWindow_4729B0()
             case 7: {
                 const auto* const data = static_cast<const WindowNumberData*>(element->data);
                 if (data != nullptr) {
-                    Sub_4771B0(
-                        x, y, data->text, data->style,
-                        std::bit_cast<std::int8_t>(data->color), data->flags, 0xDF);
+                    const std::uint8_t flags = data->flags;
+                    const std::int8_t color = std::bit_cast<std::int8_t>(data->color);
+                    const std::int8_t style = data->style;
+                    const char* const text = data->text;
+                    Sub_4771B0(x, y, text, style, color, flags, 0xDF);
                 }
                 break;
             }

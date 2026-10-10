@@ -35323,6 +35323,7 @@ void ClearYobiActionCallback(YobiAction* const action)
     action->callback = nullptr;
 }
 
+// WDP01：原颜色通道按选中BYTE读取；其它父全合同待，见doc/cg2d_window_element_draw_pipeline_spec.md。
 const render::GraphicDescriptor16* ApplyWindowAnimationDrawMode(YobiAction* const action)
 {
     const std::uint8_t mask = action->rebirthValue1;
@@ -35333,21 +35334,19 @@ const render::GraphicDescriptor16* ApplyWindowAnimationDrawMode(YobiAction* cons
             (previous & ~mask) | (replacement & mask));
     }
     const std::uint8_t flags = action->batchType;
+    const auto* const colorBytes = reinterpret_cast<const unsigned char*>(&action->color2);
     if (flags != 0) {
         if ((flags & 1u) != 0) {
-            action->drawMode.bytes[10] = static_cast<std::uint8_t>(
-                std::bit_cast<std::uint32_t>(action->color2) >> 16);
+            action->drawMode.bytes[10] = colorBytes[2];
         }
         if ((flags & 2u) != 0) {
-            action->drawMode.bytes[9] = static_cast<std::uint8_t>(
-                std::bit_cast<std::uint32_t>(action->color2) >> 8);
+            action->drawMode.bytes[9] = colorBytes[1];
         }
         if ((flags & 4u) != 0) {
-            action->drawMode.bytes[8] = static_cast<std::uint8_t>(action->color2);
+            action->drawMode.bytes[8] = colorBytes[0];
         }
         if ((flags & 8u) != 0) {
-            action->drawMode.bytes[11] = static_cast<std::uint8_t>(
-                std::bit_cast<std::uint32_t>(action->color2) >> 24);
+            action->drawMode.bytes[11] = colorBytes[3];
         }
     }
     return &action->drawMode;

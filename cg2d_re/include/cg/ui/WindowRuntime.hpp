@@ -46,6 +46,7 @@ void InitializeItemSelectors();
 std::int32_t InitializeLegacyStallBrowsePetValues_4CD240();
 void ConstructStallBrowsePetValues(); // 原CRT 5530A4，浏览区五宠物各六CryptInt顺序构造。
 void DestroyStallBrowsePetValues(); // 原4CD270退出链，记录与成员都逆序，不释放浏览区。
+// WDP01：完整分发与字段取样合同，见doc/cg2d_window_element_draw_pipeline_spec.md。
 void DrawCurrentWindow_4729B0(); // 严格visible==1的七类分派，尾部清文本层3并绘范围提示。
 
 // 对话BZ回复：三重门禁、关闭/完整路由及对象朝向，socket保持未使用实参。

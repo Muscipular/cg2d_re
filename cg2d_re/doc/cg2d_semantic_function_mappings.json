@@ -109371,7 +109371,7 @@
     {
       "original_entry": "0x489760",
       "inventory_id": "F:00089760",
-      "status": "既有装备页悬浮一真实格式依赖已接；完整库存/装备/父路由/运行未据本步验收",
+      "status": "既有装备页悬浮一真实格式依赖已接；完整库存/装备/父路由/运行未据本步验收；IER01完整584条装备根纳管，四读取合同明确，真实consumed/全callee/ABI/运行待",
       "original_end_exclusive": "0x489EDF",
       "instruction_count": 584,
       "sources": [
@@ -109381,13 +109381,32 @@
             "Sub_489760"
           ],
           "relationship": "仅两现callee接一共用原悬浮call，固定item借用及完整装备正文保持"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_489760"
+          ],
+          "relationship": "IER01完整584条装备根，四字段读取序/宽明确；既有全部MSVC格式与业务保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_489760"
+          ],
+          "relationship": "IER01真实S32声明保持，七data绑定及原完整返回有据，全callback/callee/ABI待"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/window_14.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_equipment_attribute_reply_spec.md#equipment-reply-baseline",
+        "doc/cg2d_equipment_attribute_reply_spec.md#equipment-reply-decision",
+        "doc/cg2d_equipment_attribute_reply_spec.md#equipment-reply-acceptance",
+        "doc/cg2d_equipment_attribute_reply_spec.md#equipment-reply-source-state",
+        "doc/cg2d_equipment_attribute_reply_evidence.json"
       ],
-      "boundary": "仅两现callee接489DA8一原点，S32(index,state)/consumed返回与完整正文保持。4C72C0借出的items/count、清hover前固定item T*与hitIndex不重算；used门槛后写value10，memo非空且Word flags100才借name T*加[kok]，否则flags200借memo T*加[han]，第二分支不增加memo非空门槛。256B buffer不预清、两分支共原call，格式后含NUL复制D68AE8。原装备提示/模式/U8占用/事件/拖拽/使用发包/右键翻页/绘框/末逐槽绘制及音频暂停保持，不加数量显示/文本层清理或保护，不改关联方/缓存owner，不据本步验收完整库存/装备/窗口14/父路由/画面或运行。",
+      "boundary": "仅两现callee接489DA8一原点，S32(index,state)/consumed返回与完整正文保持。4C72C0借出的items/count、清hover前固定item T*与hitIndex不重算；used门槛后写value10，memo非空且Word flags100才借name T*加[kok]，否则flags200借memo T*加[han]，第二分支不增加memo非空门槛。256B buffer不预清、两分支共原call，格式后含NUL复制D68AE8。原装备提示/模式/U8占用/事件/拖拽/使用发包/右键翻页/绘框/末逐槽绘制及音频暂停保持，不加数量显示/文本层清理或保护，不改关联方/缓存owner，不据本步验收完整库存/装备/窗口14/父路由/画面或运行。；IER01库存装备489760及属性回复510490两完整根662条2141B/十二页、61E8二十七目标/84跳五RET，七装备data引用（六代码内持址/一原型槽17）及一个回复入CALL原516B47有据。489760先真实4C72C0借items/count、低AL失败返S32零；原两16B descriptor初始化/FF与80FF/byte13=4保持。低BYTE事件60门禁仅dragkind!=2或source>=100时清两bit/consumed1；drop40按五坐标/动态count逐槽无占用及48半开命中、S8模式/6边界分别同group搬移或跨group调用，原每出口reset及参数/失败结果不消费保持。hover21写原3F8后固定item/命中索引，BYTE模式选八玩家/六宠物GBK提示、原后续清hover不重算固定item；bit2发布窗口2000，无hover且回复used S32非零时声51→fresh窗口/3FC1/槽17回调489EE0后返既有consumed。悬浮改变先clear页，再selectedItem S32快照→发布hover；双击按原Word used/低BYTE canUseInField、特殊图26569双fresh窗口callback/声77/U8占用递增/原reset与475DA0；普通物品动作标志按BYTE已有接口、440B50、S8mode，发布selected后宠物group或玩家Y后X CryptInt原明文请求，现网络/参数/声效和原reset保。hover单击/右键页递增与原pages业务归零、拖框/原hitIndex绘框、used/Word flags100-200两[kok]/[han]共MSVC格式/未清256B保持。末动态count逐used槽x/y→低BYTE flags80→原图22739→fresh occupancy后暗图或普通图，不补索引/count保护、补零或新的失败回滚。四组四处仅两物品字段低BYTE、动作BYTE既有接口及selected在hover发布前取样；其它装备正文与提示表、两descriptor/owner、共享item和完整已批MSVC格式保持。510490正文正确保、unusedSocket地址宽度和借text T*不改：首逗号field1 max31失败先由既有提取器写text04首字节NUL，再本根只used0，不清其余字段；成功used1先于text04反转义，field2 max31失败由既有提取器写text25首字节NUL、返回弃→text25反转义→仅单空格加NUL比较相等才hasText24=0（空串为1），field3→value48 S32，按field4..27顺序写24S32值，无全局门禁/清空整记录/新字段校验。原回复分发先maxlen→workspace→text解码→callback/socket，返回残留由dispatcher后OR EAX-1覆盖；现TgX既有TryDispatchReply弃callback返回与当前本机服务端原命令/原字段/LF明文保持，不以原dispatcher-1证明当前完整分发结果或机器ABI。七装备data不是CALL，不据本步全父/原型/回调分发验收；回复入CALL仅邻窗，装备固定借用/全数据生产、动态callback/slot/拖拽与所有callee/网络send/失败、alias-owner寿命、SDK/生成BYTE/实际操作图像声音和运行待。两定义/两声明四合同注释，四源全文限定diff及正确回复/类型/既有callee/分发/原型绑定保持；旧919格式历史追加、一新F两adapted/四限定S零I八open，48有界代码/所有完整枚举gates/六closure/总SPEC§10保持；MSVC/WAV-only/明文网络保，无新公开API/helper/布局/字段/owner/保护/默认值/补零/新钳制/回滚/异常模型。",
       "original_incoming": [],
       "original_data_references": [
         {
@@ -109472,7 +109491,114 @@
           "relationship": "489D89跳489DA3，name/memo两原T*变体共一489DA8 call；256B未清同源buffer→D68AE8含NUL复制，item固定借用/Word标志门槛保持"
         }
       ],
-      "verification_level": "原584统计/只读47格式、memo来源/Word门槛和共享消费邻窗，余537/已过正文与核心不重验；一原点/两现表达式/489D89共用跳转、两既有原格式字节、借用T*及源指针/消费次序、整份源仅两标识符限定静态核对。七data/普通caller0只登记，不推完整绑定，未构建执行。"
+      "verification_level": "原584统计/只读47格式、memo来源/Word门槛和共享消费邻窗，余537/已过正文与核心不重验；一原点/两现表达式/489D89共用跳转、两既有原格式字节、借用T*及源指针/消费次序、整份源仅两标识符限定静态核对。七data/普通caller0只登记，不推完整绑定，未构建执行。；pass，两完整连续原根662条2141B/十二页、61E8二十七目标/84跳五RET，七装备data持址/槽17与回复516B47邻窗及返回覆写有据；四整源精确回放/四读取合同，正确回复/五类型/八callee、动作BYTE实际提供者/分发/原型和GBK/格式保持；旧919历史和三个解析/反转义记录不覆盖，全ABI/生产消费/owner/实际操作与运行待",
+      "equipment_attribute_reply": {
+        "step": "IER01",
+        "source_snapshot": "[#] 补齐装备交互与属性回复合同",
+        "original_entry": "0x489760",
+        "original_end_exclusive": "0x489edf",
+        "instruction_count": 584,
+        "code_bytes": 1919,
+        "page_count": 10,
+        "direct_calls": 55,
+        "direct_call_targets": [
+          5010112,
+          4676960,
+          4677008,
+          4676976,
+          4676992,
+          5009984,
+          5010048,
+          4678912,
+          4753408,
+          4753120,
+          5261728,
+          5424208,
+          4676928,
+          4678624,
+          4677024,
+          4459344,
+          5009840,
+          5336208,
+          4202144,
+          5310976,
+          4767504,
+          5382528,
+          5485316,
+          5380880
+        ],
+        "jumps": 77,
+        "returns": 3,
+        "original_incoming": [],
+        "native_signature": "std::int32_t Sub_489760(const std::int32_t index, const std::int32_t state)",
+        "source_patch_group_count": 4,
+        "source_changed_point_count": 4,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "真实S32 consumed返回，入口items失败0/属性早返及最终consumed均保持；data回调全分发/机器ABI待",
+        "original_incoming_references": [
+          {
+            "from": 4752728,
+            "type": 1,
+            "iscode": false,
+            "parent": 4752656,
+            "bytes": null,
+            "asm": null
+          },
+          {
+            "from": 4753881,
+            "type": 1,
+            "iscode": false,
+            "parent": 4753808,
+            "bytes": null,
+            "asm": null
+          },
+          {
+            "from": 4753979,
+            "type": 1,
+            "iscode": false,
+            "parent": 4753808,
+            "bytes": null,
+            "asm": null
+          },
+          {
+            "from": 4754080,
+            "type": 1,
+            "iscode": false,
+            "parent": 4753808,
+            "bytes": null,
+            "asm": null
+          },
+          {
+            "from": 4759939,
+            "type": 1,
+            "iscode": false,
+            "parent": 4759296,
+            "bytes": null,
+            "asm": null
+          },
+          {
+            "from": 5009820,
+            "type": 1,
+            "iscode": false,
+            "parent": 5009088,
+            "bytes": null,
+            "asm": null
+          },
+          {
+            "from": 5647576,
+            "type": 1,
+            "iscode": false,
+            "parent": null,
+            "bytes": null,
+            "asm": null
+          }
+        ],
+        "previous_format_history_kept": true
+      }
     },
     {
       "original_entry": "0x489F00",
@@ -229698,6 +229824,187 @@
             "parent": null,
             "bytes": "0100000002010000080000000b0000000b0000000100000048c35600b01f4c0007000000c60000001f00000000000000000000000100000020c45600009b490007000000630000001f00000000000000000000000100000028c45600209b490001000000080000000000000014010000fd0000000100000060c35600309c490002000000afffffffa300000000000000000000000100000018c45600100f4b0003000000afffffff1c000000000000000000000000000000702c5600100f4b0003000000afffffff30000000000000000000000000000000782c5600100f4b00000000008effffffbc000000210000001100000000000000000000003099490000000000afffffffbc00000021000000110000000000000000000000509949000000000087ffffff490000004e000000710000000000000000000000709949000100000056ffffff49000000300000003000000000000000f0c35600100f4b0001000000d7ffffff49000000300000003000000000000000f0c35600100f4b000100000056ffffff7b000000300000003000000000000000f0c35600100f4b0001000000d7ffffff7b000000300000003000000000000000f0c35600100f4b000100000056ffffff17000000300000003000000000000000f0c35600100f4b0001000000d7ffffff17000000300000003000000000000000f0c35600100f4b00010000000200000011000000130000002e0000000100000078c35600409b490001000000020000003e000000130000002e00000001000000a8c35600609b490001000000020000006b000000130000002e00000001000000c0c35600609b4900010000000200000098000000130000002e00000001000000d8c35600609b4900010000003bffffff11000000d4000000d20000000100000090c3560040ac4900000000004001000007000000120000004e000000010000000000000070414700",
             "asm": "UI_Button <1, 258, 8, 11, 11, 1, offset stru_56C348, \\"
+          }
+        ]
+      }
+    },
+    {
+      "original_entry": "0x510490",
+      "inventory_id": "F:00110490",
+      "original_role": "唯一属性回复27字段生产",
+      "original_end_exclusive": "0x51056e",
+      "instruction_count": 78,
+      "function_chunks": [
+        {
+          "start": "0x510490",
+          "end_exclusive": "0x51056e"
+        }
+      ],
+      "status": "IER01完整78条属性回复原根纳管，正确正文保持；限定S/全生产消费与owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_510490"
+          ],
+          "relationship": "IER01完整原根/字段/发布顺序核对，正确body保持，仅合同注释"
+        },
+        {
+          "path": "src/network/NetworkRuntimeDependencies.hpp",
+          "symbols": [
+            "Sub_510490"
+          ],
+          "relationship": "IER01真实地址参数/void副作用声明保持，仅合同注释；原返回由分发父覆盖，仅本处不记全机器ABI等价"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_equipment_attribute_reply_spec.md#equipment-reply-baseline",
+        "doc/cg2d_equipment_attribute_reply_spec.md#equipment-reply-decision",
+        "doc/cg2d_equipment_attribute_reply_spec.md#equipment-reply-acceptance",
+        "doc/cg2d_equipment_attribute_reply_spec.md#equipment-reply-source-state",
+        "doc/cg2d_equipment_attribute_reply_evidence.json"
+      ],
+      "boundary": "IER01库存装备489760及属性回复510490两完整根662条2141B/十二页、61E8二十七目标/84跳五RET，七装备data引用（六代码内持址/一原型槽17）及一个回复入CALL原516B47有据。489760先真实4C72C0借items/count、低AL失败返S32零；原两16B descriptor初始化/FF与80FF/byte13=4保持。低BYTE事件60门禁仅dragkind!=2或source>=100时清两bit/consumed1；drop40按五坐标/动态count逐槽无占用及48半开命中、S8模式/6边界分别同group搬移或跨group调用，原每出口reset及参数/失败结果不消费保持。hover21写原3F8后固定item/命中索引，BYTE模式选八玩家/六宠物GBK提示、原后续清hover不重算固定item；bit2发布窗口2000，无hover且回复used S32非零时声51→fresh窗口/3FC1/槽17回调489EE0后返既有consumed。悬浮改变先clear页，再selectedItem S32快照→发布hover；双击按原Word used/低BYTE canUseInField、特殊图26569双fresh窗口callback/声77/U8占用递增/原reset与475DA0；普通物品动作标志按BYTE已有接口、440B50、S8mode，发布selected后宠物group或玩家Y后X CryptInt原明文请求，现网络/参数/声效和原reset保。hover单击/右键页递增与原pages业务归零、拖框/原hitIndex绘框、used/Word flags100-200两[kok]/[han]共MSVC格式/未清256B保持。末动态count逐used槽x/y→低BYTE flags80→原图22739→fresh occupancy后暗图或普通图，不补索引/count保护、补零或新的失败回滚。四组四处仅两物品字段低BYTE、动作BYTE既有接口及selected在hover发布前取样；其它装备正文与提示表、两descriptor/owner、共享item和完整已批MSVC格式保持。510490正文正确保、unusedSocket地址宽度和借text T*不改：首逗号field1 max31失败先由既有提取器写text04首字节NUL，再本根只used0，不清其余字段；成功used1先于text04反转义，field2 max31失败由既有提取器写text25首字节NUL、返回弃→text25反转义→仅单空格加NUL比较相等才hasText24=0（空串为1），field3→value48 S32，按field4..27顺序写24S32值，无全局门禁/清空整记录/新字段校验。原回复分发先maxlen→workspace→text解码→callback/socket，返回残留由dispatcher后OR EAX-1覆盖；现TgX既有TryDispatchReply弃callback返回与当前本机服务端原命令/原字段/LF明文保持，不以原dispatcher-1证明当前完整分发结果或机器ABI。七装备data不是CALL，不据本步全父/原型/回调分发验收；回复入CALL仅邻窗，装备固定借用/全数据生产、动态callback/slot/拖拽与所有callee/网络send/失败、alias-owner寿命、SDK/生成BYTE/实际操作图像声音和运行待。两定义/两声明四合同注释，四源全文限定diff及正确回复/类型/既有callee/分发/原型绑定保持；旧919格式历史追加、一新F两adapted/四限定S零I八open，48有界代码/所有完整枚举gates/六closure/总SPEC§10保持；MSVC/WAV-only/明文网络保，无新公开API/helper/布局/字段/owner/保护/默认值/补零/新钳制/回滚/异常模型。",
+      "verification_level": "pass，两完整连续原根662条2141B/十二页、61E8二十七目标/84跳五RET，七装备data持址/槽17与回复516B47邻窗及返回覆写有据；四整源精确回放/四读取合同，正确回复/五类型/八callee、动作BYTE实际提供者/分发/原型和GBK/格式保持；旧919历史和三个解析/反转义记录不覆盖，全ABI/生产消费/owner/实际操作与运行待",
+      "original_incoming": [
+        {
+          "ea": 5335879,
+          "size": 5,
+          "bytes": "e84499ffff",
+          "asm": "call    sub_510490",
+          "parent": 5320256,
+          "call_target": 5309584,
+          "following": [
+            {
+              "ea": 5335884,
+              "size": 3,
+              "bytes": "83c418",
+              "asm": "add     esp, 18h"
+            },
+            {
+              "ea": 5335887,
+              "size": 1,
+              "bytes": "5f",
+              "asm": "pop     edi"
+            },
+            {
+              "ea": 5335888,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            },
+            {
+              "ea": 5335889,
+              "size": 1,
+              "bytes": "5d",
+              "asm": "pop     ebp"
+            },
+            {
+              "ea": 5335890,
+              "size": 3,
+              "bytes": "83c8ff",
+              "asm": "or      eax, 0FFFFFFFFh"
+            },
+            {
+              "ea": 5335893,
+              "size": 1,
+              "bytes": "5b",
+              "asm": "pop     ebx"
+            },
+            {
+              "ea": 5335894,
+              "size": 6,
+              "bytes": "81c434040000",
+              "asm": "add     esp, 434h"
+            }
+          ]
+        }
+      ],
+      "equipment_attribute_reply": {
+        "step": "IER01",
+        "source_snapshot": "[#] 补齐装备交互与属性回复合同",
+        "original_entry": "0x510490",
+        "original_end_exclusive": "0x51056e",
+        "instruction_count": 78,
+        "code_bytes": 222,
+        "page_count": 2,
+        "direct_calls": 6,
+        "direct_call_targets": [
+          5426896,
+          5427952,
+          5427104
+        ],
+        "jumps": 7,
+        "returns": 2,
+        "original_incoming": [
+          {
+            "ea": 5335879,
+            "size": 5,
+            "bytes": "e84499ffff",
+            "asm": "call    sub_510490",
+            "parent": 5320256,
+            "call_target": 5309584,
+            "following": [
+              {
+                "ea": 5335884,
+                "size": 3,
+                "bytes": "83c418",
+                "asm": "add     esp, 18h"
+              },
+              {
+                "ea": 5335887,
+                "size": 1,
+                "bytes": "5f",
+                "asm": "pop     edi"
+              },
+              {
+                "ea": 5335888,
+                "size": 1,
+                "bytes": "5e",
+                "asm": "pop     esi"
+              },
+              {
+                "ea": 5335889,
+                "size": 1,
+                "bytes": "5d",
+                "asm": "pop     ebp"
+              },
+              {
+                "ea": 5335890,
+                "size": 3,
+                "bytes": "83c8ff",
+                "asm": "or      eax, 0FFFFFFFFh"
+              },
+              {
+                "ea": 5335893,
+                "size": 1,
+                "bytes": "5b",
+                "asm": "pop     ebx"
+              },
+              {
+                "ea": 5335894,
+                "size": 6,
+                "bytes": "81c434040000",
+                "asm": "add     esp, 434h"
+              }
+            ]
+          }
+        ],
+        "native_signature": "void Sub_510490(const std::uintptr_t, const char* const text)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "现void副作用保持，原残留EAX由516B47后dispatcher OR EAX-1覆盖；仅此点不记全ABI",
+        "original_incoming_references": [
+          {
+            "from": 5335879,
+            "type": 17,
+            "iscode": true,
+            "parent": 5320256
           }
         ]
       }

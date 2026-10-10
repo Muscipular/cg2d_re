@@ -64,7 +64,7 @@ void Sub_510460(
     std::uintptr_t unusedSocket, std::int32_t firstGroup, std::int32_t firstIndex,
     std::int32_t secondGroup, std::int32_t secondIndex);
 // 原510490：无全局门禁，生产world唯一F7C950前缀，固定消费27字段。
-void Sub_510490(std::uintptr_t unusedSocket, const char* text);
+void Sub_510490(std::uintptr_t unusedSocket, const char* text); // IER01：唯一属性回复记录生产，void副作用接口保持；原返回在分发父覆盖，全ABI/运行待。
 
 // 原 sub_4038A0@0x4038A0：就地变换 text；key3/key5 参与逐轮计算，
 // 第二、四参数未读取；返回末轮方向，零轮返回 0。

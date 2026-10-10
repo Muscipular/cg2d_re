@@ -495,7 +495,7 @@ std::int32_t Sub_488D30(std::int32_t index, std::int32_t state); // 丢钱数量
 std::int32_t Sub_488E60(std::int32_t unusedIndex, std::int32_t unusedState);
 std::int32_t Sub_488E80(std::int32_t unusedIndex, std::int32_t unusedState);
 std::int32_t Sub_488FB0(std::int32_t index, std::int32_t state); // 普通背包完整交互/绘制。
-std::int32_t Sub_489760(std::int32_t index, std::int32_t state); // 玩家/宠物装备完整交互。
+std::int32_t Sub_489760(std::int32_t index, std::int32_t state); // IER01：库存装备完整原根，四读取合同对齐；原S32返回/全部callee与运行待。
 std::int32_t Sub_489EE0(std::int32_t unusedIndex, std::int32_t state);
 bool Sub_4C75A0(WindowItemSelectorState* selector, std::int32_t state); // SAP01：附加属性页/回调恢复，bool仅原AL，两父低AL归一；完整业务生产/运行待。
 

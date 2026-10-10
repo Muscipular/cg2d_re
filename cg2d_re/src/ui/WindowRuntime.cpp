@@ -11373,6 +11373,7 @@ std::int32_t Sub_488FB0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// IER01：原584条；装备拖放/使用/显示保持，两物品BYTE及动作BYTE明确，selected先于hover写回；全生产消费/运行待。
 std::int32_t Sub_489760(const std::int32_t index, const std::int32_t state)
 {
     static constexpr const char* playerHints[] {
@@ -11481,11 +11482,12 @@ std::int32_t Sub_489760(const std::int32_t index, const std::int32_t state)
     if (gEquipmentHover57DA68 != hovered) {
         gWindowStates[14].value14 = 0;
     }
+    const std::int32_t selectedItem = gSelectedItemCB1DF4;
     gEquipmentHover57DA68 = hovered;
-    if (gSelectedItemCB1DF4 < 0 && hovered >= 0
+    if (selectedItem < 0 && hovered >= 0
         && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
         if (Sub_475D40() == 14 || Sub_475D40() == 0) {
-            if (item->used != 0 && (item->canUseInField & 1u) != 0) {
+            if (item->used != 0 && (*reinterpret_cast<const unsigned char*>(&item->canUseInField) & 1u) != 0) {
                 if (item->imageNo == 26569) {
                     WindowInstance* const window = gCurrentWindow;
                     gItemSelectionModeCC40D4 = 1;
@@ -11498,7 +11500,7 @@ std::int32_t Sub_489760(const std::int32_t index, const std::int32_t state)
                     static_cast<void>(Sub_4763E0());
                     static_cast<void>(Sub_475DA0(1, 0, nullptr));
                 } else {
-                    if ((world::detail::ReadPlayerActionFlags() & 0x80u) == 0
+                    if ((world::detail::ReadPlayerActionFlagsByte() & 0x80u) == 0
                         && world::detail::Sub_440B50() == 0) {
                         const std::int8_t mode = std::bit_cast<std::int8_t>(gValue57DA28);
                         gSelectedItemCB0A44 = hovered;
@@ -11581,7 +11583,7 @@ std::int32_t Sub_489760(const std::int32_t index, const std::int32_t state)
         }
         const std::int32_t x = Sub_4C7240(&gItemSelectorCF3B10, index, position, 0);
         const std::int32_t y = Sub_4C7280(&gItemSelectorCF3B10, index, position, 0);
-        if ((record.flags & 0x80u) == 0) {
+        if ((*reinterpret_cast<const unsigned char*>(&record.flags) & 0x80u) == 0) {
             static_cast<void>(login::detail::DrawGraphic(
                 x + 105, y + 93, 223, 22739, 0, &descriptor));
         }

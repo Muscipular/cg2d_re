@@ -480,3 +480,7 @@ MIC与GP/黑名单/2048B非NUL快照/S32长度/对象气泡和其他正文保持
 既有TryDispatchReply只改一个头比较片段：先取头U8再取命令U8、不符false，匹配才同头样本判NUL；非NUL取第二对、比较后两地址各加2，再判同第二样本NUL或回环。原107×24及iKe25比较块全2593条6307B/648跳零CALL、108含NUL标记433B均有原证；原TEST零/非零由既有bool合同消费，不另造原函数身份。
 
 108命令源行/顺序/类型/读序掩码、全部解码/tuple/回调、末三继续路径和原接收头生产全文保持。只记局部108比较及共享接线，不称整个5779条分派/所有callee、正常寿命或机器互通已验。
+
+## 2026-10-10 IER01：TgX属性记录生产
+
+[IER01](cg2d_equipment_attribute_reply_spec.md#equipment-reply-source-state)补齐库存装备与属性回复两完整根662条2141B/十二页，61E8二十七目标/84跳五RET、七装备data引用及一个回复入CALL有据。四组四处落实两物品低BYTE/动作BYTE接口与selected先于hover写回；原拖放/使用/特殊回调/occupancy/分页/绘图及已批GBK/MSVC格式保持。属性回复正确正文保持，首field失败本根仅清used，既有提取器写首文本首字节NUL、两文本/单空格门槛与field4..27逐项写24值，原TgX分发/当前LF明文沿既有合同。四源限定差异/四注释，旧919格式历史追加、一新F两处置/四限定S零I八open；完整生产消费、callback/callee/网络发送、alias-owner寿命/生成取样与实际操作运行待，整体未完成。

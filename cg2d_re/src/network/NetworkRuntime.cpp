@@ -1024,6 +1024,7 @@ void Sub_510460(
     world::detail::Sub_51B630(firstGroup, firstIndex, secondGroup, secondIndex);
 }
 
+// IER01：原78条；首字段失败只used0，成功两文本/单空格及24属性按原序写唯一记录；当前TgX明文分发保持，运行待。
 void Sub_510490(const std::uintptr_t, const char* const text)
 {
     auto& record = world::detail::gReplyRecordF7C950;

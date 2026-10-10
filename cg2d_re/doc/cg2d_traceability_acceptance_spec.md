@@ -2652,3 +2652,9 @@ IDA数组/结构起点xref不代字段指针；原型实际11callback与旧范�
 [SAP01](cg2d_selector_attribute_pet_tab_spec.md#selector-attribute-source-state)补齐附加属性显示与两宠物页签三完整原根391条1176B/八页、十三E8五目标/39跳六RET。24项384B属性表、两22B包装父及六原型callback数据槽有据。两组四处明确descriptor持址和三种文字坐标读取序，原24项/14行/第8换列/512B未清及GBK/MSVC格式保持；两页签正确正文保持，库存成功低AL归一、战斗成功恒0分界明确。六外层注释及一局部枚举说明，不改公开接口、类型、caller及原型绑定。旧921格式历史追加、两新F/三处置/三限定S零I十open；完整生产消费/回调分发、callee/alias-owner寿命、生成取样/实际画面交互与运行待，整体未完成。
 
 语义2304=2256F关联+48有界代码记录，函数处置1756/证据1544，INPUT133/UIRUNTIME170/RENDER97；文档关联预期2366/3680=64.29%仅关联率。184叶验收0、60任务关闭11开放49、六closure及完整门禁保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
+
+## 2026-10-10 IER01：装备与属性回复原根
+
+[IER01](cg2d_equipment_attribute_reply_spec.md#equipment-reply-source-state)补齐库存装备与属性回复两完整根662条2141B/十二页，61E8二十七目标/84跳五RET、七装备data引用及一个回复入CALL有据。四组四处落实两物品低BYTE/动作BYTE接口与selected先于hover写回；原拖放/使用/特殊回调/occupancy/分页/绘图及已批GBK/MSVC格式保持。属性回复正确正文保持，首field失败本根仅清used，既有提取器写首文本首字节NUL、两文本/单空格门槛与field4..27逐项写24值，原TgX分发/当前LF明文沿既有合同。四源限定差异/四注释，旧919格式历史追加、一新F两处置/四限定S零I八open；完整生产消费、callback/callee/网络发送、alias-owner寿命/生成取样与实际操作运行待，整体未完成。
+
+语义2305=2257F关联+48有界代码记录，函数处置1758/证据1548，INPUT134/UIRUNTIME172/RENDER98/NETWORK90；文档关联预期2367/3680=64.32%仅关联率。184叶验收0、60任务关闭11开放49、六closure及完整门禁保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。

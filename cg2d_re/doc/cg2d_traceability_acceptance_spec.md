@@ -2592,3 +2592,9 @@ IDA数组/结构起点xref不代字段指针；原型实际11callback与旧范�
 [RHL01](cg2d_rectangle_hit_hover_spec.md#rectangle-hit-hover-source-state)补齐5049A0/401FC0两完整原根60条150B、六实际E8/四目标、五跳三RET。矩形根135实际CALL/102父纳盘；比较叶16CALL/三父均仅消费AL，不提升全父验收。单组四处接回现有比较器，四次原短路/读取及RNG、半开边界、负layer仍命中和可描边后S32 1保持；比较叶正确body不改，四整源仅两已有头/四调用/四注释。旧Less/绘框和悬停父复用不改；原SETLE只覆盖AL，高24位不记等价。两新F/两处置，INPUT两成员、RENDER/UIRUNTIME各一成员，三限定S零I、十任务open。完整父/所有图像和坐标生产消费、队列及alias-owner寿命、机器ABI/像素与运行仍待，整体未完成。
 
 语义2269=2221F关联+48有界代码记录，函数处置1711/证据1513，INPUT88/RENDER86/UIRUNTIME125，枚举未闭；文档关联2331/3680=63.34%仅关联率。184叶验收0、60任务关闭11开放49、六closure和完整门禁保持。登记、静态汇总/-Check终态均退出0及派生范围核对通过：仅六metrics/两F/三功能/十任务变化，其余字段与完整门禁保持。
+
+## 2026-10-10 HWT01：悬停消费及两IME叶
+
+[HWT01](cg2d_hover_text_consumption_spec.md#hover-text-consumption-source-state)补齐窗口6悬停消费4731E0及IME查询/描述借用459090/4590D0三完整原根237条910B、五实际E8/四目标、两IAT调用、十跳三RET。4734F0是旧822根内共用尾，仅现平台helper，不造原F；窗口6原型+36真实main绑定复用并保持，五IME实际CALL有据。两处颜色源明确低BYTE访问，存储仍S32/W32；主/副标题含NUL复制、原payload借用跨复制、逐项fresh窗口显示、IME尾和四槽清理及S32 1保持。三IME正文正确不改，四整源只两BYTE源/八注释；旧822保全历史追加完整合同，两新F/三处置，INPUT/UIRUNTIME各三成员，两限定S零I/十任务open。三API进口仍unassessed，不据调用点提升完整进口验收；全生产消费/容量和alias-owner寿命、SDK/机器ABI/实际输入显示与运行仍待，整体未完成。
+
+语义2271=2223F关联+48有界代码记录，函数处置1714/证据1515，INPUT91/UIRUNTIME128；文档关联2333/3680=63.40%仅关联率。184叶验收0、60任务关闭11开放49、六closure及完整枚举/门禁保持。登记、静态汇总/-Check终态均退出0及派生范围核对通过：仅六metrics/两新F及旧822/两功能/十任务变化，其余字段与完整门禁保持。

@@ -96849,7 +96849,7 @@
     {
       "original_entry": "0x4731E0",
       "inventory_id": "F:000731E0",
-      "status": "已有窗口6父正文与原型main绑定，两真实标记查找已接；完整显示清理/运行未验",
+      "status": "已有窗口6父正文与原型main绑定，两真实标记查找已接；完整显示清理/运行未验；HWT01完整230条窗口6显示/复制/清理合同已补，两BYTE颜色读取对齐；限定S/完整生产消费及运行待",
       "original_role": "窗口6共享悬停文本更新回调",
       "original_end_exclusive": "0x473559",
       "instruction_count": 230,
@@ -96870,6 +96870,27 @@
             "gWindowPrototypeRecords"
           ],
           "relationship": "窗口6原型main指针&Sub_4731E0既有绑定保持"
+        },
+        {
+          "path": "src/platform/ImeLifecycle.cpp",
+          "symbols": [
+            "BorrowWindowImeDescription_4734F0"
+          ],
+          "relationship": "HWT01原4731E0共用尾平台承载，不是独立原F；三个调用和唯一描述owner保持"
+        },
+        {
+          "path": "src/ui/WindowPrototypeDependencies.hpp",
+          "symbols": [
+            "Sub_4731E0"
+          ],
+          "relationship": "HWT01原型main真实声明/参数返回保持，仅合同注释"
+        },
+        {
+          "path": "src/platform/ImeLifecycle.hpp",
+          "symbols": [
+            "BorrowWindowImeDescription_4734F0"
+          ],
+          "relationship": "HWT01平台helper真实声明，根内尾段身份明确"
         }
       ],
       "search_call_connections": [
@@ -96924,10 +96945,47 @@
       },
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
-        "doc/cg2d_sub_507140.md"
+        "doc/cg2d_sub_507140.md",
+        "doc/cg2d_hover_text_consumption_spec.md#hover-text-consumption-baseline",
+        "doc/cg2d_hover_text_consumption_spec.md#hover-text-consumption-decision",
+        "doc/cg2d_hover_text_consumption_spec.md#hover-text-consumption-acceptance",
+        "doc/cg2d_hover_text_consumption_spec.md#hover-text-consumption-source-state",
+        "doc/cg2d_hover_text_consumption_evidence.json"
       ],
-      "verification_level": "原230条统计/34查找邻读取、4732B7/4732F7实际call/两needle字节与原型54E330数据xref/main54E354原字节及现窗口6绑定静态核对；整份WindowRuntime只两标识符，原型/头/其他父正文保持，余196条与完整回调不重验，未执行",
-      "boundary": "本步仅查找真实依赖：同一共享D68AE8先han后kok，既有非空门禁、命中后strlen减5位置写NUL及1/5字段发布、窗口元素显示/数据/绘制/清理正文逐字保持，不以匹配位置重写截尾、不补保护或其他依赖。原型6 main绑定是数据引用，不增加直接call计数或重造调度；完整显示/清理/资源与运行仍待，不因新记录计入语义索引而称整个父已验收。"
+      "verification_level": "原230条统计/34查找邻读取、4732B7/4732F7实际call/两needle字节与原型54E330数据xref/main54E354原字节及现窗口6绑定静态核对；整份WindowRuntime只两标识符，原型/头/其他父正文保持，余196条与完整回调不重验，未执行；pass，三完整原根237条910B/六页、五实际E8四目标/两IAT调用/十跳三RET及五IME实际CALL有据；4734F0根内共用尾/旧窗口6原型绑定保持。核三含NUL复制的elements/strlen/payload阶段、两颜色W8源、副标题空visible保持、fresh逐项显示、IME调用序及四槽清理/S32返回；四整源只两BYTE源/八注释，三个IME正确body、三个类型/五悬停槽储宽、原型及100B唯一owner保持。进口仍unassessed；全生产消费/容量/父与alias-owner、机器ABI/像素和运行待",
+      "boundary": "本步仅查找真实依赖：同一共享D68AE8先han后kok，既有非空门禁、命中后strlen减5位置写NUL及1/5字段发布、窗口元素显示/数据/绘制/清理正文逐字保持，不以匹配位置重写截尾、不补保护或其他依赖。原型6 main绑定是数据引用，不增加直接call计数或重造调度；完整显示/清理/资源与运行仍待，不因新记录计入语义索引而称整个父已验收。；HWT01三完整原根237条910B/六页、五E8四目标/两IAT调用/十跳三RET；旧822窗口6完整消费及两新IME叶。4734F0是原4731E0共用尾，平台helper不另造F。窗口6原型54E330+36/54E354绑定复用，当前14元素真实source保持；五IME实际CALL只核点/父，不代全外父。原gate==1或空主串显示默认组，否则han优先kok、原strlen-5截尾/1或5保；同一main/title elements地址在长度读取前取得，payload在长度后取得，text地址借用跨原含NUL复制，颜色在复制后只读原W8源，S32储宽/上三字节保持。副标题空不新清visible；每项显示fresh取窗口。IME尾先查询布局/ImmIsIME完整BOOL（返回丢弃），再256B未使用键表采样，再借唯一100B描述、保存当前elements/长度后payload、含NUL复制到9；随后主串首BYTE/主值W32/副串首BYTE/副值W32顺清，返回S32 1。原宿主CRT长度和复制承接MC01，不造容量或截断/null检查。四整源只两BYTE源和八注释，三个IME正确body、真实声明/类型/原型/唯一owner保持，无新API/helper/字段/布局/owner/保护/补零/默认值/容量限制/钳制/回滚/异常模型；两新F/旧822历史追加、三adapted、两域各三成员/两限定S零I/十任务open。ImmIsIME/GetKeyboardLayout/GetKeyboardState三import仍unassessed；完整shared文本/IME生产消费与容量、全父/回调alias-owner寿命、SDK/机器ABI/实际BYTE访问/画面与运行待，48有界记录和完整门禁/六closure/总SPEC§10保持。",
+      "hover_text_consumption": {
+        "step": "HWT01",
+        "source_snapshot": "[#] 补齐悬停文本消费并对齐颜色读取",
+        "original_end_exclusive": "0x473559",
+        "original_instruction_count": 230,
+        "original_code_bytes": 889,
+        "original_page_count": 4,
+        "direct_call_count": 4,
+        "indirect_import_call_count": 1,
+        "jump_count": 10,
+        "return_count": 1,
+        "native_signature": "std::int32_t Sub_4731E0(const std::int32_t)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4731E0",
+        "source_patch_group_count": 1,
+        "source_changed_point_count": 2,
+        "normal_remaining_source_kept": true,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "original_incoming_references": [
+          {
+            "from": 5563184,
+            "type": 1,
+            "iscode": false,
+            "parent": null,
+            "asm": null
+          }
+        ],
+        "prototype_binding_reused": true,
+        "native_tail_helper": "src/platform/ImeLifecycle.cpp::BorrowWindowImeDescription_4734F0",
+        "native_tail_is_independent_original_function": false
+      }
     },
     {
       "original_entry": "0x507140",
@@ -217908,6 +217966,173 @@
         "source_changed_point_count": 0,
         "normal_remaining_source_kept": true,
         "result_boundary": "bool限已证AL消费者；原EAX高24位未记等价",
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x459090",
+      "inventory_id": "F:00059090",
+      "original_role": "原当前键盘布局IME判定，返回完整Win32 BOOL",
+      "original_end_exclusive": "0x45909f",
+      "instruction_count": 5,
+      "function_chunks": [
+        {
+          "start": "0x459090",
+          "end_exclusive": "0x45909f"
+        }
+      ],
+      "status": "HWT01完整原IME叶纳管，正确正文/原BOOL或描述借用保持；限定S/全父、owner、SDK ABI与运行待",
+      "sources": [
+        {
+          "path": "src/platform/ImeLifecycle.cpp",
+          "symbols": [
+            "IsImeKeyboardLayout_459090"
+          ],
+          "relationship": "HWT01完整原根正常调用/返回与唯一owner已核，正确body不改，仅合同注释"
+        },
+        {
+          "path": "src/platform/ImeLifecycle.hpp",
+          "symbols": [
+            "IsImeKeyboardLayout_459090"
+          ],
+          "relationship": "HWT01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_hover_text_consumption_spec.md#hover-text-consumption-baseline",
+        "doc/cg2d_hover_text_consumption_spec.md#hover-text-consumption-decision",
+        "doc/cg2d_hover_text_consumption_spec.md#hover-text-consumption-acceptance",
+        "doc/cg2d_hover_text_consumption_spec.md#hover-text-consumption-source-state",
+        "doc/cg2d_hover_text_consumption_evidence.json"
+      ],
+      "boundary": "HWT01三完整原根237条910B/六页、五E8四目标/两IAT调用/十跳三RET；旧822窗口6完整消费及两新IME叶。4734F0是原4731E0共用尾，平台helper不另造F。窗口6原型54E330+36/54E354绑定复用，当前14元素真实source保持；五IME实际CALL只核点/父，不代全外父。原gate==1或空主串显示默认组，否则han优先kok、原strlen-5截尾/1或5保；同一main/title elements地址在长度读取前取得，payload在长度后取得，text地址借用跨原含NUL复制，颜色在复制后只读原W8源，S32储宽/上三字节保持。副标题空不新清visible；每项显示fresh取窗口。IME尾先查询布局/ImmIsIME完整BOOL（返回丢弃），再256B未使用键表采样，再借唯一100B描述、保存当前elements/长度后payload、含NUL复制到9；随后主串首BYTE/主值W32/副串首BYTE/副值W32顺清，返回S32 1。原宿主CRT长度和复制承接MC01，不造容量或截断/null检查。四整源只两BYTE源和八注释，三个IME正确body、真实声明/类型/原型/唯一owner保持，无新API/helper/字段/布局/owner/保护/补零/默认值/容量限制/钳制/回滚/异常模型；两新F/旧822历史追加、三adapted、两域各三成员/两限定S零I/十任务open。ImmIsIME/GetKeyboardLayout/GetKeyboardState三import仍unassessed；完整shared文本/IME生产消费与容量、全父/回调alias-owner寿命、SDK/机器ABI/实际BYTE访问/画面与运行待，48有界记录和完整门禁/六closure/总SPEC§10保持。",
+      "verification_level": "pass，三完整原根237条910B/六页、五实际E8四目标/两IAT调用/十跳三RET及五IME实际CALL有据；4734F0根内共用尾/旧窗口6原型绑定保持。核三含NUL复制的elements/strlen/payload阶段、两颜色W8源、副标题空visible保持、fresh逐项显示、IME调用序及四槽清理/S32返回；四整源只两BYTE源/八注释，三个IME正确body、三个类型/五悬停槽储宽、原型及100B唯一owner保持。进口仍unassessed；全生产消费/容量/父与alias-owner、机器ABI/像素和运行待",
+      "original_incoming": [
+        {
+          "ea": 4498494,
+          "type": 17,
+          "iscode": true,
+          "parent": 4498448,
+          "bytes": "e84dec0000",
+          "asm": "call    sub_459090",
+          "call_target": 4558992
+        },
+        {
+          "ea": 4559008,
+          "type": 17,
+          "iscode": true,
+          "parent": 4559008,
+          "bytes": "e8ebffffff",
+          "asm": "call    sub_459090",
+          "call_target": 4558992
+        },
+        {
+          "ea": 4559122,
+          "type": 17,
+          "iscode": true,
+          "parent": 4559072,
+          "bytes": "e879ffffff",
+          "asm": "call    sub_459090",
+          "call_target": 4558992
+        },
+        {
+          "ea": 4666608,
+          "type": 17,
+          "iscode": true,
+          "parent": 4665824,
+          "bytes": "e89b5bfeff",
+          "asm": "call    sub_459090",
+          "call_target": 4558992
+        }
+      ],
+      "hover_text_consumption": {
+        "step": "HWT01",
+        "source_snapshot": "[#] 补齐悬停文本消费并对齐颜色读取",
+        "original_end_exclusive": "0x45909f",
+        "original_instruction_count": 5,
+        "original_code_bytes": 15,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "indirect_import_call_count": 1,
+        "jump_count": 0,
+        "return_count": 1,
+        "native_signature": "std::int32_t IsImeKeyboardLayout_459090() noexcept",
+        "native_provider": "src/platform/ImeLifecycle.cpp::IsImeKeyboardLayout_459090",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4590d0",
+      "inventory_id": "F:000590D0",
+      "original_role": "原唯一100B IME描述地址借用",
+      "original_end_exclusive": "0x4590d6",
+      "instruction_count": 2,
+      "function_chunks": [
+        {
+          "start": "0x4590d0",
+          "end_exclusive": "0x4590d6"
+        }
+      ],
+      "status": "HWT01完整原IME叶纳管，正确正文/原BOOL或描述借用保持；限定S/全父、owner、SDK ABI与运行待",
+      "sources": [
+        {
+          "path": "src/platform/ImeLifecycle.cpp",
+          "symbols": [
+            "BorrowImeDescription_4590D0"
+          ],
+          "relationship": "HWT01完整原根正常调用/返回与唯一owner已核，正确body不改，仅合同注释"
+        },
+        {
+          "path": "src/platform/ImeLifecycle.hpp",
+          "symbols": [
+            "BorrowImeDescription_4590D0"
+          ],
+          "relationship": "HWT01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_hover_text_consumption_spec.md#hover-text-consumption-baseline",
+        "doc/cg2d_hover_text_consumption_spec.md#hover-text-consumption-decision",
+        "doc/cg2d_hover_text_consumption_spec.md#hover-text-consumption-acceptance",
+        "doc/cg2d_hover_text_consumption_spec.md#hover-text-consumption-source-state",
+        "doc/cg2d_hover_text_consumption_evidence.json"
+      ],
+      "boundary": "HWT01三完整原根237条910B/六页、五E8四目标/两IAT调用/十跳三RET；旧822窗口6完整消费及两新IME叶。4734F0是原4731E0共用尾，平台helper不另造F。窗口6原型54E330+36/54E354绑定复用，当前14元素真实source保持；五IME实际CALL只核点/父，不代全外父。原gate==1或空主串显示默认组，否则han优先kok、原strlen-5截尾/1或5保；同一main/title elements地址在长度读取前取得，payload在长度后取得，text地址借用跨原含NUL复制，颜色在复制后只读原W8源，S32储宽/上三字节保持。副标题空不新清visible；每项显示fresh取窗口。IME尾先查询布局/ImmIsIME完整BOOL（返回丢弃），再256B未使用键表采样，再借唯一100B描述、保存当前elements/长度后payload、含NUL复制到9；随后主串首BYTE/主值W32/副串首BYTE/副值W32顺清，返回S32 1。原宿主CRT长度和复制承接MC01，不造容量或截断/null检查。四整源只两BYTE源和八注释，三个IME正确body、真实声明/类型/原型/唯一owner保持，无新API/helper/字段/布局/owner/保护/补零/默认值/容量限制/钳制/回滚/异常模型；两新F/旧822历史追加、三adapted、两域各三成员/两限定S零I/十任务open。ImmIsIME/GetKeyboardLayout/GetKeyboardState三import仍unassessed；完整shared文本/IME生产消费与容量、全父/回调alias-owner寿命、SDK/机器ABI/实际BYTE访问/画面与运行待，48有界记录和完整门禁/六closure/总SPEC§10保持。",
+      "verification_level": "pass，三完整原根237条910B/六页、五实际E8四目标/两IAT调用/十跳三RET及五IME实际CALL有据；4734F0根内共用尾/旧窗口6原型绑定保持。核三含NUL复制的elements/strlen/payload阶段、两颜色W8源、副标题空visible保持、fresh逐项显示、IME调用序及四槽清理/S32返回；四整源只两BYTE源/八注释，三个IME正确body、三个类型/五悬停槽储宽、原型及100B唯一owner保持。进口仍unassessed；全生产消费/容量/父与alias-owner、机器ABI/像素和运行待",
+      "original_incoming": [
+        {
+          "ea": 4666624,
+          "type": 17,
+          "iscode": true,
+          "parent": 4665824,
+          "bytes": "e8cb5bfeff",
+          "asm": "call    sub_4590D0",
+          "call_target": 4559056
+        }
+      ],
+      "hover_text_consumption": {
+        "step": "HWT01",
+        "source_snapshot": "[#] 补齐悬停文本消费并对齐颜色读取",
+        "original_end_exclusive": "0x4590d6",
+        "original_instruction_count": 2,
+        "original_code_bytes": 6,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "indirect_import_call_count": 0,
+        "jump_count": 0,
+        "return_count": 1,
+        "native_signature": "char* BorrowImeDescription_4590D0() noexcept",
+        "native_provider": "src/platform/ImeLifecycle.cpp::BorrowImeDescription_4590D0",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
         "generated_machine_reads_verified": false,
         "full_lifecycle_closed": false,
         "runtime_verified": false

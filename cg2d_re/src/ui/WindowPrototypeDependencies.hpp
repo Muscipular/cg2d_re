@@ -79,6 +79,7 @@ extern WindowElementPrototype gWindowElements57BB08[43];
 std::int32_t Sub_46FBA0(std::int32_t value);
 std::int32_t Sub_470A80(std::int32_t value);
 std::int32_t Sub_470AB0(std::int32_t value);
+// HWT01：窗口6按原显示/复制阶段消费共享悬停文本，颜色只读低BYTE，尾部清槽并返S32 1。
 std::int32_t Sub_4731E0(std::int32_t value);
 void Sub_474310();
 void Sub_474360();

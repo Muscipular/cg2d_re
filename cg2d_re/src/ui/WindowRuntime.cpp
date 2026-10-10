@@ -41122,6 +41122,7 @@ std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
 }
 
 // 原4731E0：窗口6主更新；忽略参数，复制描述后仅清共享缓冲首字节。
+// HWT01：窗口6按原显示/复制阶段消费共享悬停文本，颜色只读低BYTE，尾部清槽并返S32 1。
 std::int32_t Sub_4731E0(const std::int32_t)
 {
     if (gWindow6HoverD2EA70 == 1 || gHoverTextD68AE8[0] == '\0') {
@@ -41149,7 +41150,7 @@ std::int32_t Sub_4731E0(const std::int32_t)
         const std::size_t mainLength = std::strlen(gHoverTextD68AE8.data()) + 1;
         auto* const mainText = static_cast<WindowTextData*>(mainElements[11].data);
         std::memcpy(mainText->text, gHoverTextD68AE8.data(), mainLength);
-        mainText->bytes00[0] = std::byte{static_cast<std::uint8_t>(gHoverObjectValueD68AC8)};
+        mainText->bytes00[0] = *reinterpret_cast<const std::byte*>(&gHoverObjectValueD68AC8);
         if (std::strlen(gHoverTitleD68BF4.data()) != 0) {
             gCurrentWindow->elements[12].visible = 1;
         }
@@ -41157,7 +41158,7 @@ std::int32_t Sub_4731E0(const std::int32_t)
         const std::size_t titleLength = std::strlen(gHoverTitleD68BF4.data()) + 1;
         auto* const titleText = static_cast<WindowTextData*>(titleElements[12].data);
         std::memcpy(titleText->text, gHoverTitleD68BF4.data(), titleLength);
-        titleText->bytes00[0] = std::byte{static_cast<std::uint8_t>(gHoverTitleValueD69748)};
+        titleText->bytes00[0] = *reinterpret_cast<const std::byte*>(&gHoverTitleValueD69748);
         for (std::int32_t index = 1; index <= 7; ++index) {
             gCurrentWindow->elements[index].visible = 0;
         }

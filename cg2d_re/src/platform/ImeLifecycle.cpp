@@ -57,6 +57,7 @@ void ShutdownIme_459040()
     }
 }
 
+// HWT01：当前线程布局先查询，再返回ImmIsIME完整Win32 BOOL，不转bool或补默认值。
 std::int32_t IsImeKeyboardLayout_459090() noexcept
 {
     const HKL keyboardLayout = GetKeyboardLayout(0);
@@ -85,11 +86,13 @@ std::int32_t ResetImeOpenStatus_4590A0() noexcept
     return std::bit_cast<std::int32_t>(result);
 }
 
+// HWT01：原4590D0借用唯一100B IME描述，保原可写char*地址和owner。
 char* BorrowImeDescription_4590D0() noexcept
 {
     return gImeDescription;
 }
 
+// HWT01：这是4731E0共用尾的窄平台helper；保IME查询、256B未用键表采样和描述借用顺序。
 const char* BorrowWindowImeDescription_4734F0() noexcept
 {
     static_cast<void>(IsImeKeyboardLayout_459090());

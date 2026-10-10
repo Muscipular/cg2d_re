@@ -968,7 +968,7 @@
     {
       "original_entry": "0x488420",
       "inventory_id": "F:00088420",
-      "status": "两选择器CRT六入口前缀及真实登记/共享源码接线已实现；十成员EH/整表/宿主迁移与运行未闭",
+      "status": "两选择器CRT六入口前缀及真实登记/共享源码接线已实现；十成员EH/整表/宿主迁移与运行未闭；SIC01完整原包装/共享正常十成员与EH边界补证，固定对象与已存MSVC登记保持；全EH/全应用owner/机器ABI及运行待",
       "sources": [
         {
           "path": "src/YobiRuntime.cpp",
@@ -995,15 +995,35 @@
             "ReleaseLegacyFirstItemSelectorAtExit_488420"
           ],
           "relationship": "原固定this构造尾调或无参整体退出前缀，原内嵌预览沿已有非拥有静态引用"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ReleaseLegacyFirstItemSelectorAtExit_488420"
+          ],
+          "relationship": "SIC01完整原包装/共享退出及固定对象正常合同补证，正确body与旧历史保持"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "BorrowWindowSelectorPreview",
+            "DestroyWindowSelectorPreview"
+          ],
+          "relationship": "SIC01同一两个静态owner的已有真实helper，正常成员顺序有据，完整EH/全应用owner/运行未闭"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/shared_items.md",
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_ui_input_lifecycle_spec.md",
-        "doc/cg2d_ui_input_lifecycle_evidence.json"
+        "doc/cg2d_ui_input_lifecycle_evidence.json",
+        "doc/cg2d_selector_construction_exit_spec.md#selector-construction-baseline",
+        "doc/cg2d_selector_construction_exit_spec.md#selector-construction-decision",
+        "doc/cg2d_selector_construction_exit_spec.md#selector-construction-acceptance",
+        "doc/cg2d_selector_construction_exit_spec.md#selector-construction-source-state",
+        "doc/cg2d_selector_construction_exit_evidence.json"
       ],
-      "boundary": "由InitializeItemSelectors在CF3B10构造后独立登记的回调调用既有十槽逆序析构；不free或清UI选择，不与D2F338合并登记。；2026-10-04六独立原入口/构造和退出前缀源码落位，两个CRT项分别构造后53B406登记整体无参callback/完整S32；构造只绑定已有CF3B10/D2F338内嵌+78静态预览（索引0/1）再4C61B0真实this返回，退出从固定静态地址复用488430对应十槽共享源码，不改为读取可变preview槽。新原前缀/登记20条，488420含73条既有共享/EH体，六函数原计93条，共享体不重新实现或记新原身份；无新对象/RNG、once、预清/保护、回滚或额外析构。旧宿主适配和共享算法保持，整Cpp90仍extern/未启用；十成员EH/SDK、实际生命周期迁移及完整启动退出运行未闭。；本组实际活动路径已统一到具名Init/即时宿主登记；选择器固定退出目标不从可改preview槽重取。原正常成员/数组源码及原合并归属保持，原完整EH/SEH、跨模块/快速退出与SDK运行仍待，聚合指令存在不代验收。",
+      "boundary": "由InitializeItemSelectors在CF3B10构造后独立登记的回调调用既有十槽逆序析构；不free或清UI选择，不与D2F338合并登记。；2026-10-04六独立原入口/构造和退出前缀源码落位，两个CRT项分别构造后53B406登记整体无参callback/完整S32；构造只绑定已有CF3B10/D2F338内嵌+78静态预览（索引0/1）再4C61B0真实this返回，退出从固定静态地址复用488430对应十槽共享源码，不改为读取可变preview槽。新原前缀/登记20条，488420含73条既有共享/EH体，六函数原计93条，共享体不重新实现或记新原身份；无新对象/RNG、once、预清/保护、回滚或额外析构。旧宿主适配和共享算法保持，整Cpp90仍extern/未启用；十成员EH/SDK、实际生命周期迁移及完整启动退出运行未闭。；本组实际活动路径已统一到具名Init/即时宿主登记；选择器固定退出目标不从可改preview槽重取。原正常成员/数组源码及原合并归属保持，原完整EH/SEH、跨模块/快速退出与SDK运行仍待，聚合指令存在不代验收。；SIC01五原根/七chunk完整FuncItems220条1049B/八页，20实际E8两目标、24跳两RET；构造139条661B两chunk含29条136B EH，退出488420为75条358B两chunk含29条136B EH。其主chunk另有48842A..30六B间隙（90*6）被前缀JMP跨过，区间跨度与实际指令字节分开，不造F/X或验收。488430是488420内共享尾，499920尾入，不新增原F。两构造wrapper固定CF3B10/D2F338并tailJMP61B0；现绑定唯一静态预览0/1，正常typed this返回保。61B0入口持同非拥有preview地址，十Cry按170/180/190/1A0/1B0/1C0/1E0/1F0/200/210构造并尾取flags|2；initialized0/value64=0/step21/previous=-1/selected=-1、两BYTE开关1/两图索引0→同preview flags/callback及固定F5E988技能源S32图号/layerDF/direction5→hover两索引-1/两原4B区清0/count0/末BYTE0→三16B descriptor正常初值保持：首FFFFFFFF/另两80FFFFFF、BYTE13=4，余依现零模板。原54ED50初始16B全零有据，Xrefs为空不证明全alias不可改，不新增模板冻结、补零或整体清对象，动态来源/alias完整闭包待。唯一一组一处持址贯穿Construct/Finish；两整CPP/两头其余全文、四wrapper与四helper正确body及类型/储宽保持，五定义/五真实声明十注释，匿名wrapper无公头不造声明。退出借固定静态0/1不重读可改state.preview，十Cry按210..170逆序，不free/清选择/合并owner，不进入通用Yobi链；两现构造后独立std::atexit及First→Second旧初始化body保持，Crypto叶/十RNG消费顺序不改。四旧114/116/5/117全历史追加、一新F五adapted/四限定S零I/十任务open；旧MSVC CRT/SDL/WAV-only/明文网络和48有界代码/完整枚举gates/六closure/总SPEC§10保持。完整原EH/SEH/机器ABI仅捕获边界、不记异常等价或再造私有CRT处理器；全部正常字段/模板/skill/preview生产消费、间接alias和跨模块/快速退出/SDK与生成字段访问、全应用顺序/实际生命周期及运行未闭，无新API/helper/结构/字段/owner/保护/默认值/新钳制/回滚/异常模型。",
       "instruction_count": 75,
       "function_chunks": [
         {
@@ -1015,7 +1035,7 @@
           "end_exclusive": "0x54B938"
         }
       ],
-      "verification_level": "；本轮六函数新20条/6call尾调/2callback/2共享引用/固定内嵌地址边界新增静态，既有构析算法不重核，非EH或运行通过",
+      "verification_level": "；本轮六函数新20条/6call尾调/2callback/2共享引用/固定内嵌地址边界新增静态，既有构析算法不重核，非EH或运行通过；pass，五完整原根七chunk的220条1049B/八页、20E8两目标/24跳两RET，双EH各29条136B及六B间隙/跨度分界有据；两构造固定this/两退出共体、十成员构造/逆析与三descriptor正常初值保持，一组入口持址/十注释，四整源精确差异及四wrapper/四helper/五类型/宿主登记和Crypto叶源保持；模板初值不代alias不可变，完整EH/ABI/全应用owner与运行待",
       "item_selector_crt_incoming_callback_references": [
         {
           "parent_entry": "0x4883F0",
@@ -1081,6 +1101,48 @@
         "must_remove_module_calls_on_whole_application_order_migration": true,
         "runtime_verified": false,
         "boundary": "D02/D03实际宿主承接四项私有退出登记；数字步进只有原尾调，不新增退出。固定选择器退出不重读可改preview槽，其他原owner/字段/值/RNG/数组/成员源码保持；全应用原序/快速退出、完整成员EH/数组SEH/SDK和运行未闭。"
+      },
+      "selector_construction_exit": {
+        "step": "SIC01",
+        "source_snapshot": "[#] 补齐选择器构造与固定退出对象合同",
+        "original_entry": "0x488420",
+        "original_end_exclusive": "0x488504",
+        "instruction_count": 75,
+        "code_bytes": 358,
+        "chunk_span_bytes": 364,
+        "page_count": 2,
+        "original_chunks": [
+          [
+            4752416,
+            4752644
+          ],
+          [
+            5552304,
+            5552440
+          ]
+        ],
+        "direct_calls": 10,
+        "direct_call_targets": [
+          4201712
+        ],
+        "jumps": 11,
+        "returns": 1,
+        "original_incoming": [],
+        "native_signature": "void ReleaseLegacyFirstItemSelectorAtExit_488420()",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "fixed_preview_owner_indices": [
+          0
+        ],
+        "helpers_have_separate_original_F": false,
+        "full_machine_abi_verified": false,
+        "full_EH_SEH_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "现固定整体无参退出void；原残留EAX/机器ABI/实际CRT退出未记等价",
+        "previous_all_history_kept": true
       }
     },
     {
@@ -11480,7 +11542,7 @@
     {
       "original_entry": "0x488400",
       "inventory_id": "F:00088400",
-      "status": "两选择器CRT六入口前缀及真实登记/共享源码接线已实现；十成员EH/整表/宿主迁移与运行未闭",
+      "status": "两选择器CRT六入口前缀及真实登记/共享源码接线已实现；十成员EH/整表/宿主迁移与运行未闭；SIC01完整原包装/共享正常十成员与EH边界补证，固定对象与已存MSVC登记保持；全EH/全应用owner/机器ABI及运行待",
       "original_role": "首个物品选择器构造包装",
       "sources": [
         {
@@ -11503,14 +11565,35 @@
             "ConstructLegacyFirstItemSelector_488400"
           ],
           "relationship": "原固定this构造尾调或无参整体退出前缀，原内嵌预览沿已有非拥有静态引用"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ConstructLegacyFirstItemSelector_488400"
+          ],
+          "relationship": "SIC01完整原包装/共享退出及固定对象正常合同补证，正确body与旧历史保持"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "BorrowWindowSelectorPreview",
+            "ConstructWindowSelectorPreview",
+            "FinishWindowSelectorPreview"
+          ],
+          "relationship": "SIC01同一两个静态owner的已有真实helper，正常成员顺序有据，完整EH/全应用owner/运行未闭"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/shared_items.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_selector_construction_exit_spec.md#selector-construction-baseline",
+        "doc/cg2d_selector_construction_exit_spec.md#selector-construction-decision",
+        "doc/cg2d_selector_construction_exit_spec.md#selector-construction-acceptance",
+        "doc/cg2d_selector_construction_exit_spec.md#selector-construction-source-state",
+        "doc/cg2d_selector_construction_exit_evidence.json"
       ],
-      "boundary": "原设置ECX=CF3B10后尾跳4C61B0；由InitializeItemSelectors借用第0项唯一静态预览并调用完整Sub_4C61B0承接，不新建owner。；2026-10-04六独立原入口/构造和退出前缀源码落位，两个CRT项分别构造后53B406登记整体无参callback/完整S32；构造只绑定已有CF3B10/D2F338内嵌+78静态预览（索引0/1）再4C61B0真实this返回，退出从固定静态地址复用488430对应十槽共享源码，不改为读取可变preview槽。新原前缀/登记20条，488420含73条既有共享/EH体，六函数原计93条，共享体不重新实现或记新原身份；无新对象/RNG、once、预清/保护、回滚或额外析构。旧宿主适配和共享算法保持，整Cpp90仍extern/未启用；十成员EH/SDK、实际生命周期迁移及完整启动退出运行未闭。",
+      "boundary": "原设置ECX=CF3B10后尾跳4C61B0；由InitializeItemSelectors借用第0项唯一静态预览并调用完整Sub_4C61B0承接，不新建owner。；2026-10-04六独立原入口/构造和退出前缀源码落位，两个CRT项分别构造后53B406登记整体无参callback/完整S32；构造只绑定已有CF3B10/D2F338内嵌+78静态预览（索引0/1）再4C61B0真实this返回，退出从固定静态地址复用488430对应十槽共享源码，不改为读取可变preview槽。新原前缀/登记20条，488420含73条既有共享/EH体，六函数原计93条，共享体不重新实现或记新原身份；无新对象/RNG、once、预清/保护、回滚或额外析构。旧宿主适配和共享算法保持，整Cpp90仍extern/未启用；十成员EH/SDK、实际生命周期迁移及完整启动退出运行未闭。；SIC01五原根/七chunk完整FuncItems220条1049B/八页，20实际E8两目标、24跳两RET；构造139条661B两chunk含29条136B EH，退出488420为75条358B两chunk含29条136B EH。其主chunk另有48842A..30六B间隙（90*6）被前缀JMP跨过，区间跨度与实际指令字节分开，不造F/X或验收。488430是488420内共享尾，499920尾入，不新增原F。两构造wrapper固定CF3B10/D2F338并tailJMP61B0；现绑定唯一静态预览0/1，正常typed this返回保。61B0入口持同非拥有preview地址，十Cry按170/180/190/1A0/1B0/1C0/1E0/1F0/200/210构造并尾取flags|2；initialized0/value64=0/step21/previous=-1/selected=-1、两BYTE开关1/两图索引0→同preview flags/callback及固定F5E988技能源S32图号/layerDF/direction5→hover两索引-1/两原4B区清0/count0/末BYTE0→三16B descriptor正常初值保持：首FFFFFFFF/另两80FFFFFF、BYTE13=4，余依现零模板。原54ED50初始16B全零有据，Xrefs为空不证明全alias不可改，不新增模板冻结、补零或整体清对象，动态来源/alias完整闭包待。唯一一组一处持址贯穿Construct/Finish；两整CPP/两头其余全文、四wrapper与四helper正确body及类型/储宽保持，五定义/五真实声明十注释，匿名wrapper无公头不造声明。退出借固定静态0/1不重读可改state.preview，十Cry按210..170逆序，不free/清选择/合并owner，不进入通用Yobi链；两现构造后独立std::atexit及First→Second旧初始化body保持，Crypto叶/十RNG消费顺序不改。四旧114/116/5/117全历史追加、一新F五adapted/四限定S零I/十任务open；旧MSVC CRT/SDL/WAV-only/明文网络和48有界代码/完整枚举gates/六closure/总SPEC§10保持。完整原EH/SEH/机器ABI仅捕获边界、不记异常等价或再造私有CRT处理器；全部正常字段/模板/skill/preview生产消费、间接alias和跨模块/快速退出/SDK与生成字段访问、全应用顺序/实际生命周期及运行未闭，无新API/helper/结构/字段/owner/保护/默认值/新钳制/回滚/异常模型。",
       "instruction_count": 2,
       "function_chunks": [
         {
@@ -11518,7 +11601,7 @@
           "end_exclusive": "0x48840A"
         }
       ],
-      "verification_level": "；本轮六函数新20条/6call尾调/2callback/2共享引用/固定内嵌地址边界新增静态，既有构析算法不重核，非EH或运行通过",
+      "verification_level": "；本轮六函数新20条/6call尾调/2callback/2共享引用/固定内嵌地址边界新增静态，既有构析算法不重核，非EH或运行通过；pass，五完整原根七chunk的220条1049B/八页、20E8两目标/24跳两RET，双EH各29条136B及六B间隙/跨度分界有据；两构造固定this/两退出共体、十成员构造/逆析与三descriptor正常初值保持，一组入口持址/十注释，四整源精确差异及四wrapper/四helper/五类型/宿主登记和Crypto叶源保持；模板初值不代alias不可变，完整EH/ABI/全应用owner与运行待",
       "item_selector_crt_internal_call_connections": [
         {
           "parent_entry": "0x488400",
@@ -11560,7 +11643,51 @@
           "bridge_symbol": "login::detail::BorrowWindowSelectorPreview",
           "relationship": "原内嵌对象已有x64非拥有引用边界，借唯一静态地址不分配/构造新对象；原端无此额外调用，故不计原数值call"
         }
-      ]
+      ],
+      "selector_construction_exit": {
+        "step": "SIC01",
+        "source_snapshot": "[#] 补齐选择器构造与固定退出对象合同",
+        "original_entry": "0x488400",
+        "original_end_exclusive": "0x48840a",
+        "instruction_count": 2,
+        "code_bytes": 10,
+        "chunk_span_bytes": 10,
+        "page_count": 1,
+        "original_chunks": [
+          [
+            4752384,
+            4752394
+          ]
+        ],
+        "direct_calls": 0,
+        "direct_call_targets": [],
+        "jumps": 1,
+        "returns": 0,
+        "original_incoming": [
+          {
+            "from": 4752368,
+            "type": 17,
+            "parent": 4752368,
+            "bytes": "e80b000000",
+            "asm": "call    unknown_libname_44; Microsoft VisualC 2-14/net runtime"
+          }
+        ],
+        "native_signature": "detail::WindowItemSelectorState* ConstructLegacyFirstItemSelector_488400()",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "fixed_preview_owner_indices": [
+          0
+        ],
+        "helpers_have_separate_original_F": false,
+        "full_machine_abi_verified": false,
+        "full_EH_SEH_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原this地址仅拓宽typed state指针，正常返回保持",
+        "previous_all_history_kept": true
+      }
     },
     {
       "original_entry": "0x4998F0",
@@ -11745,7 +11872,7 @@
     {
       "original_entry": "0x499900",
       "inventory_id": "F:00099900",
-      "status": "两选择器CRT六入口前缀及真实登记/共享源码接线已实现；十成员EH/整表/宿主迁移与运行未闭",
+      "status": "两选择器CRT六入口前缀及真实登记/共享源码接线已实现；十成员EH/整表/宿主迁移与运行未闭；SIC01完整原包装/共享正常十成员与EH边界补证，固定对象与已存MSVC登记保持；全EH/全应用owner/机器ABI及运行待",
       "original_role": "第二物品选择器构造包装",
       "sources": [
         {
@@ -11768,14 +11895,35 @@
             "ConstructLegacySecondItemSelector_499900"
           ],
           "relationship": "原固定this构造尾调或无参整体退出前缀，原内嵌预览沿已有非拥有静态引用"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ConstructLegacySecondItemSelector_499900"
+          ],
+          "relationship": "SIC01完整原包装/共享退出及固定对象正常合同补证，正确body与旧历史保持"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "BorrowWindowSelectorPreview",
+            "ConstructWindowSelectorPreview",
+            "FinishWindowSelectorPreview"
+          ],
+          "relationship": "SIC01同一两个静态owner的已有真实helper，正常成员顺序有据，完整EH/全应用owner/运行未闭"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/shared_items.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_selector_construction_exit_spec.md#selector-construction-baseline",
+        "doc/cg2d_selector_construction_exit_spec.md#selector-construction-decision",
+        "doc/cg2d_selector_construction_exit_spec.md#selector-construction-acceptance",
+        "doc/cg2d_selector_construction_exit_spec.md#selector-construction-source-state",
+        "doc/cg2d_selector_construction_exit_evidence.json"
       ],
-      "boundary": "原设置ECX=D2F338后尾跳同一4C61B0；InitializeItemSelectors借用第1项唯一静态预览再调用完整构造，保留与第一对象的独立存储。；2026-10-04六独立原入口/构造和退出前缀源码落位，两个CRT项分别构造后53B406登记整体无参callback/完整S32；构造只绑定已有CF3B10/D2F338内嵌+78静态预览（索引0/1）再4C61B0真实this返回，退出从固定静态地址复用488430对应十槽共享源码，不改为读取可变preview槽。新原前缀/登记20条，488420含73条既有共享/EH体，六函数原计93条，共享体不重新实现或记新原身份；无新对象/RNG、once、预清/保护、回滚或额外析构。旧宿主适配和共享算法保持，整Cpp90仍extern/未启用；十成员EH/SDK、实际生命周期迁移及完整启动退出运行未闭。",
+      "boundary": "原设置ECX=D2F338后尾跳同一4C61B0；InitializeItemSelectors借用第1项唯一静态预览再调用完整构造，保留与第一对象的独立存储。；2026-10-04六独立原入口/构造和退出前缀源码落位，两个CRT项分别构造后53B406登记整体无参callback/完整S32；构造只绑定已有CF3B10/D2F338内嵌+78静态预览（索引0/1）再4C61B0真实this返回，退出从固定静态地址复用488430对应十槽共享源码，不改为读取可变preview槽。新原前缀/登记20条，488420含73条既有共享/EH体，六函数原计93条，共享体不重新实现或记新原身份；无新对象/RNG、once、预清/保护、回滚或额外析构。旧宿主适配和共享算法保持，整Cpp90仍extern/未启用；十成员EH/SDK、实际生命周期迁移及完整启动退出运行未闭。；SIC01五原根/七chunk完整FuncItems220条1049B/八页，20实际E8两目标、24跳两RET；构造139条661B两chunk含29条136B EH，退出488420为75条358B两chunk含29条136B EH。其主chunk另有48842A..30六B间隙（90*6）被前缀JMP跨过，区间跨度与实际指令字节分开，不造F/X或验收。488430是488420内共享尾，499920尾入，不新增原F。两构造wrapper固定CF3B10/D2F338并tailJMP61B0；现绑定唯一静态预览0/1，正常typed this返回保。61B0入口持同非拥有preview地址，十Cry按170/180/190/1A0/1B0/1C0/1E0/1F0/200/210构造并尾取flags|2；initialized0/value64=0/step21/previous=-1/selected=-1、两BYTE开关1/两图索引0→同preview flags/callback及固定F5E988技能源S32图号/layerDF/direction5→hover两索引-1/两原4B区清0/count0/末BYTE0→三16B descriptor正常初值保持：首FFFFFFFF/另两80FFFFFF、BYTE13=4，余依现零模板。原54ED50初始16B全零有据，Xrefs为空不证明全alias不可改，不新增模板冻结、补零或整体清对象，动态来源/alias完整闭包待。唯一一组一处持址贯穿Construct/Finish；两整CPP/两头其余全文、四wrapper与四helper正确body及类型/储宽保持，五定义/五真实声明十注释，匿名wrapper无公头不造声明。退出借固定静态0/1不重读可改state.preview，十Cry按210..170逆序，不free/清选择/合并owner，不进入通用Yobi链；两现构造后独立std::atexit及First→Second旧初始化body保持，Crypto叶/十RNG消费顺序不改。四旧114/116/5/117全历史追加、一新F五adapted/四限定S零I/十任务open；旧MSVC CRT/SDL/WAV-only/明文网络和48有界代码/完整枚举gates/六closure/总SPEC§10保持。完整原EH/SEH/机器ABI仅捕获边界、不记异常等价或再造私有CRT处理器；全部正常字段/模板/skill/preview生产消费、间接alias和跨模块/快速退出/SDK与生成字段访问、全应用顺序/实际生命周期及运行未闭，无新API/helper/结构/字段/owner/保护/默认值/新钳制/回滚/异常模型。",
       "instruction_count": 2,
       "function_chunks": [
         {
@@ -11783,7 +11931,7 @@
           "end_exclusive": "0x49990A"
         }
       ],
-      "verification_level": "；本轮六函数新20条/6call尾调/2callback/2共享引用/固定内嵌地址边界新增静态，既有构析算法不重核，非EH或运行通过",
+      "verification_level": "；本轮六函数新20条/6call尾调/2callback/2共享引用/固定内嵌地址边界新增静态，既有构析算法不重核，非EH或运行通过；pass，五完整原根七chunk的220条1049B/八页、20E8两目标/24跳两RET，双EH各29条136B及六B间隙/跨度分界有据；两构造固定this/两退出共体、十成员构造/逆析与三descriptor正常初值保持，一组入口持址/十注释，四整源精确差异及四wrapper/四helper/五类型/宿主登记和Crypto叶源保持；模板初值不代alias不可变，完整EH/ABI/全应用owner与运行待",
       "item_selector_crt_internal_call_connections": [
         {
           "parent_entry": "0x499900",
@@ -11825,12 +11973,56 @@
           "bridge_symbol": "login::detail::BorrowWindowSelectorPreview",
           "relationship": "原内嵌对象已有x64非拥有引用边界，借唯一静态地址不分配/构造新对象；原端无此额外调用，故不计原数值call"
         }
-      ]
+      ],
+      "selector_construction_exit": {
+        "step": "SIC01",
+        "source_snapshot": "[#] 补齐选择器构造与固定退出对象合同",
+        "original_entry": "0x499900",
+        "original_end_exclusive": "0x49990a",
+        "instruction_count": 2,
+        "code_bytes": 10,
+        "chunk_span_bytes": 10,
+        "page_count": 1,
+        "original_chunks": [
+          [
+            4823296,
+            4823306
+          ]
+        ],
+        "direct_calls": 0,
+        "direct_call_targets": [],
+        "jumps": 1,
+        "returns": 0,
+        "original_incoming": [
+          {
+            "from": 4823280,
+            "type": 17,
+            "parent": 4823280,
+            "bytes": "e80b000000",
+            "asm": "call    unknown_libname_45; Microsoft VisualC 2-14/net runtime"
+          }
+        ],
+        "native_signature": "detail::WindowItemSelectorState* ConstructLegacySecondItemSelector_499900()",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "fixed_preview_owner_indices": [
+          1
+        ],
+        "helpers_have_separate_original_F": false,
+        "full_machine_abi_verified": false,
+        "full_EH_SEH_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原this地址仅拓宽typed state指针，正常返回保持",
+        "previous_all_history_kept": true
+      }
     },
     {
       "original_entry": "0x499920",
       "inventory_id": "F:00099920",
-      "status": "两选择器CRT六入口前缀及真实登记/共享源码接线已实现；十成员EH/整表/宿主迁移与运行未闭",
+      "status": "两选择器CRT六入口前缀及真实登记/共享源码接线已实现；十成员EH/整表/宿主迁移与运行未闭；SIC01完整原包装/共享正常十成员与EH边界补证，固定对象与已存MSVC登记保持；全EH/全应用owner/机器ABI及运行待",
       "original_role": "第二物品选择器退出包装",
       "sources": [
         {
@@ -11860,6 +12052,21 @@
             "ReleaseLegacySecondItemSelectorAtExit_499920"
           ],
           "relationship": "原固定this构造尾调或无参整体退出前缀，原内嵌预览沿已有非拥有静态引用"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ReleaseLegacySecondItemSelectorAtExit_499920"
+          ],
+          "relationship": "SIC01完整原包装/共享退出及固定对象正常合同补证，正确body与旧历史保持"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "BorrowWindowSelectorPreview",
+            "DestroyWindowSelectorPreview"
+          ],
+          "relationship": "SIC01同一两个静态owner的已有真实helper，正常成员顺序有据，完整EH/全应用owner/运行未闭"
         }
       ],
       "evidence_documents": [
@@ -11867,9 +12074,14 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_ui_input_lifecycle_spec.md",
-        "doc/cg2d_ui_input_lifecycle_evidence.json"
+        "doc/cg2d_ui_input_lifecycle_evidence.json",
+        "doc/cg2d_selector_construction_exit_spec.md#selector-construction-baseline",
+        "doc/cg2d_selector_construction_exit_spec.md#selector-construction-decision",
+        "doc/cg2d_selector_construction_exit_spec.md#selector-construction-acceptance",
+        "doc/cg2d_selector_construction_exit_spec.md#selector-construction-source-state",
+        "doc/cg2d_selector_construction_exit_evidence.json"
       ],
-      "boundary": "原设置ECX=D2F338后尾跳488430公共析构；第二项退出回调使用同源preview调用DestroyWindowSelectorPreview，只按十槽逆序析构，不释放静态对象或清选择。；2026-10-04六独立原入口/构造和退出前缀源码落位，两个CRT项分别构造后53B406登记整体无参callback/完整S32；构造只绑定已有CF3B10/D2F338内嵌+78静态预览（索引0/1）再4C61B0真实this返回，退出从固定静态地址复用488430对应十槽共享源码，不改为读取可变preview槽。新原前缀/登记20条，488420含73条既有共享/EH体，六函数原计93条，共享体不重新实现或记新原身份；无新对象/RNG、once、预清/保护、回滚或额外析构。旧宿主适配和共享算法保持，整Cpp90仍extern/未启用；十成员EH/SDK、实际生命周期迁移及完整启动退出运行未闭。；本组实际活动路径已统一到具名Init/即时宿主登记；选择器固定退出目标不从可改preview槽重取。原正常成员/数组源码及原合并归属保持，原完整EH/SEH、跨模块/快速退出与SDK运行仍待，聚合指令存在不代验收。",
+      "boundary": "原设置ECX=D2F338后尾跳488430公共析构；第二项退出回调使用同源preview调用DestroyWindowSelectorPreview，只按十槽逆序析构，不释放静态对象或清选择。；2026-10-04六独立原入口/构造和退出前缀源码落位，两个CRT项分别构造后53B406登记整体无参callback/完整S32；构造只绑定已有CF3B10/D2F338内嵌+78静态预览（索引0/1）再4C61B0真实this返回，退出从固定静态地址复用488430对应十槽共享源码，不改为读取可变preview槽。新原前缀/登记20条，488420含73条既有共享/EH体，六函数原计93条，共享体不重新实现或记新原身份；无新对象/RNG、once、预清/保护、回滚或额外析构。旧宿主适配和共享算法保持，整Cpp90仍extern/未启用；十成员EH/SDK、实际生命周期迁移及完整启动退出运行未闭。；本组实际活动路径已统一到具名Init/即时宿主登记；选择器固定退出目标不从可改preview槽重取。原正常成员/数组源码及原合并归属保持，原完整EH/SEH、跨模块/快速退出与SDK运行仍待，聚合指令存在不代验收。；SIC01五原根/七chunk完整FuncItems220条1049B/八页，20实际E8两目标、24跳两RET；构造139条661B两chunk含29条136B EH，退出488420为75条358B两chunk含29条136B EH。其主chunk另有48842A..30六B间隙（90*6）被前缀JMP跨过，区间跨度与实际指令字节分开，不造F/X或验收。488430是488420内共享尾，499920尾入，不新增原F。两构造wrapper固定CF3B10/D2F338并tailJMP61B0；现绑定唯一静态预览0/1，正常typed this返回保。61B0入口持同非拥有preview地址，十Cry按170/180/190/1A0/1B0/1C0/1E0/1F0/200/210构造并尾取flags|2；initialized0/value64=0/step21/previous=-1/selected=-1、两BYTE开关1/两图索引0→同preview flags/callback及固定F5E988技能源S32图号/layerDF/direction5→hover两索引-1/两原4B区清0/count0/末BYTE0→三16B descriptor正常初值保持：首FFFFFFFF/另两80FFFFFF、BYTE13=4，余依现零模板。原54ED50初始16B全零有据，Xrefs为空不证明全alias不可改，不新增模板冻结、补零或整体清对象，动态来源/alias完整闭包待。唯一一组一处持址贯穿Construct/Finish；两整CPP/两头其余全文、四wrapper与四helper正确body及类型/储宽保持，五定义/五真实声明十注释，匿名wrapper无公头不造声明。退出借固定静态0/1不重读可改state.preview，十Cry按210..170逆序，不free/清选择/合并owner，不进入通用Yobi链；两现构造后独立std::atexit及First→Second旧初始化body保持，Crypto叶/十RNG消费顺序不改。四旧114/116/5/117全历史追加、一新F五adapted/四限定S零I/十任务open；旧MSVC CRT/SDL/WAV-only/明文网络和48有界代码/完整枚举gates/六closure/总SPEC§10保持。完整原EH/SEH/机器ABI仅捕获边界、不记异常等价或再造私有CRT处理器；全部正常字段/模板/skill/preview生产消费、间接alias和跨模块/快速退出/SDK与生成字段访问、全应用顺序/实际生命周期及运行未闭，无新API/helper/结构/字段/owner/保护/默认值/新钳制/回滚/异常模型。",
       "instruction_count": 2,
       "function_chunks": [
         {
@@ -11877,7 +12089,7 @@
           "end_exclusive": "0x49992A"
         }
       ],
-      "verification_level": "；本轮六函数新20条/6call尾调/2callback/2共享引用/固定内嵌地址边界新增静态，既有构析算法不重核，非EH或运行通过",
+      "verification_level": "；本轮六函数新20条/6call尾调/2callback/2共享引用/固定内嵌地址边界新增静态，既有构析算法不重核，非EH或运行通过；pass，五完整原根七chunk的220条1049B/八页、20E8两目标/24跳两RET，双EH各29条136B及六B间隙/跨度分界有据；两构造固定this/两退出共体、十成员构造/逆析与三descriptor正常初值保持，一组入口持址/十注释，四整源精确差异及四wrapper/四helper/五类型/宿主登记和Crypto叶源保持；模板初值不代alias不可变，完整EH/ABI/全应用owner与运行待",
       "item_selector_crt_incoming_callback_references": [
         {
           "parent_entry": "0x4998F0",
@@ -11943,6 +12155,42 @@
         "must_remove_module_calls_on_whole_application_order_migration": true,
         "runtime_verified": false,
         "boundary": "D02/D03实际宿主承接四项私有退出登记；数字步进只有原尾调，不新增退出。固定选择器退出不重读可改preview槽，其他原owner/字段/值/RNG/数组/成员源码保持；全应用原序/快速退出、完整成员EH/数组SEH/SDK和运行未闭。"
+      },
+      "selector_construction_exit": {
+        "step": "SIC01",
+        "source_snapshot": "[#] 补齐选择器构造与固定退出对象合同",
+        "original_entry": "0x499920",
+        "original_end_exclusive": "0x49992a",
+        "instruction_count": 2,
+        "code_bytes": 10,
+        "chunk_span_bytes": 10,
+        "page_count": 1,
+        "original_chunks": [
+          [
+            4823328,
+            4823338
+          ]
+        ],
+        "direct_calls": 0,
+        "direct_call_targets": [],
+        "jumps": 1,
+        "returns": 0,
+        "original_incoming": [],
+        "native_signature": "void ReleaseLegacySecondItemSelectorAtExit_499920()",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "fixed_preview_owner_indices": [
+          1
+        ],
+        "helpers_have_separate_original_F": false,
+        "full_machine_abi_verified": false,
+        "full_EH_SEH_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "现固定整体无参退出void；原残留EAX/机器ABI/实际CRT退出未记等价",
+        "previous_all_history_kept": true
       }
     },
     {
@@ -227641,6 +227889,138 @@
         "helper_patch_group_count": 1,
         "helper_previous_order_call_count": 4,
         "layer_consumer_only_low_BYTE": true
+      }
+    },
+    {
+      "original_entry": "0x4c61b0",
+      "inventory_id": "F:000C61B0",
+      "original_role": "选择器完整构造/静态预览十成员与字段初始化",
+      "original_end_exclusive": "0x4c63bd",
+      "instruction_count": 139,
+      "function_chunks": [
+        {
+          "start": "0x4c61b0",
+          "end_exclusive": "0x4c63bd"
+        },
+        {
+          "start": "0x54b940",
+          "end_exclusive": "0x54b9c8"
+        }
+      ],
+      "status": "SIC01完整选择器构造原根纳管，入口持址贯穿两helper，正常字段/原序保持；限定S/全生产消费与EH、owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C61B0"
+          ],
+          "relationship": "SIC01完整两chunk原根，唯一持址差异，正常字段发布及this返回保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4C61B0"
+          ],
+          "relationship": "SIC01真实typed this声明保持，仅合同注释"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "ConstructWindowSelectorPreview",
+            "FinishWindowSelectorPreview"
+          ],
+          "relationship": "SIC01对应构造内原十Cry/flags快照与正常字段尾，现helper不新增原F，入口持同预览地址"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "ConstructWindowSelectorPreview",
+            "FinishWindowSelectorPreview"
+          ],
+          "relationship": "SIC01真实helper声明/字段合同，仅注释，类型与签名不变"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_selector_construction_exit_spec.md#selector-construction-baseline",
+        "doc/cg2d_selector_construction_exit_spec.md#selector-construction-decision",
+        "doc/cg2d_selector_construction_exit_spec.md#selector-construction-acceptance",
+        "doc/cg2d_selector_construction_exit_spec.md#selector-construction-source-state",
+        "doc/cg2d_selector_construction_exit_evidence.json"
+      ],
+      "boundary": "SIC01五原根/七chunk完整FuncItems220条1049B/八页，20实际E8两目标、24跳两RET；构造139条661B两chunk含29条136B EH，退出488420为75条358B两chunk含29条136B EH。其主chunk另有48842A..30六B间隙（90*6）被前缀JMP跨过，区间跨度与实际指令字节分开，不造F/X或验收。488430是488420内共享尾，499920尾入，不新增原F。两构造wrapper固定CF3B10/D2F338并tailJMP61B0；现绑定唯一静态预览0/1，正常typed this返回保。61B0入口持同非拥有preview地址，十Cry按170/180/190/1A0/1B0/1C0/1E0/1F0/200/210构造并尾取flags|2；initialized0/value64=0/step21/previous=-1/selected=-1、两BYTE开关1/两图索引0→同preview flags/callback及固定F5E988技能源S32图号/layerDF/direction5→hover两索引-1/两原4B区清0/count0/末BYTE0→三16B descriptor正常初值保持：首FFFFFFFF/另两80FFFFFF、BYTE13=4，余依现零模板。原54ED50初始16B全零有据，Xrefs为空不证明全alias不可改，不新增模板冻结、补零或整体清对象，动态来源/alias完整闭包待。唯一一组一处持址贯穿Construct/Finish；两整CPP/两头其余全文、四wrapper与四helper正确body及类型/储宽保持，五定义/五真实声明十注释，匿名wrapper无公头不造声明。退出借固定静态0/1不重读可改state.preview，十Cry按210..170逆序，不free/清选择/合并owner，不进入通用Yobi链；两现构造后独立std::atexit及First→Second旧初始化body保持，Crypto叶/十RNG消费顺序不改。四旧114/116/5/117全历史追加、一新F五adapted/四限定S零I/十任务open；旧MSVC CRT/SDL/WAV-only/明文网络和48有界代码/完整枚举gates/六closure/总SPEC§10保持。完整原EH/SEH/机器ABI仅捕获边界、不记异常等价或再造私有CRT处理器；全部正常字段/模板/skill/preview生产消费、间接alias和跨模块/快速退出/SDK与生成字段访问、全应用顺序/实际生命周期及运行未闭，无新API/helper/结构/字段/owner/保护/默认值/新钳制/回滚/异常模型。",
+      "verification_level": "pass，五完整原根七chunk的220条1049B/八页、20E8两目标/24跳两RET，双EH各29条136B及六B间隙/跨度分界有据；两构造固定this/两退出共体、十成员构造/逆析与三descriptor正常初值保持，一组入口持址/十注释，四整源精确差异及四wrapper/四helper/五类型/宿主登记和Crypto叶源保持；模板初值不代alias不可变，完整EH/ABI/全应用owner与运行待",
+      "original_incoming": [
+        {
+          "from": 4752389,
+          "type": 19,
+          "parent": 4752384,
+          "bytes": "e9a6dd0300",
+          "asm": "jmp     sub_4C61B0"
+        },
+        {
+          "from": 4823301,
+          "type": 19,
+          "parent": 4823296,
+          "bytes": "e9a6c80200",
+          "asm": "jmp     sub_4C61B0"
+        }
+      ],
+      "selector_construction_exit": {
+        "step": "SIC01",
+        "source_snapshot": "[#] 补齐选择器构造与固定退出对象合同",
+        "original_entry": "0x4c61b0",
+        "original_end_exclusive": "0x4c63bd",
+        "instruction_count": 139,
+        "code_bytes": 661,
+        "chunk_span_bytes": 661,
+        "page_count": 3,
+        "original_chunks": [
+          [
+            5005744,
+            5006269
+          ],
+          [
+            5552448,
+            5552584
+          ]
+        ],
+        "direct_calls": 10,
+        "direct_call_targets": [
+          4201584
+        ],
+        "jumps": 10,
+        "returns": 1,
+        "original_incoming": [
+          {
+            "from": 4752389,
+            "type": 19,
+            "parent": 4752384,
+            "bytes": "e9a6dd0300",
+            "asm": "jmp     sub_4C61B0"
+          },
+          {
+            "from": 4823301,
+            "type": 19,
+            "parent": 4823296,
+            "bytes": "e9a6c80200",
+            "asm": "jmp     sub_4C61B0"
+          }
+        ],
+        "native_signature": "WindowItemSelectorState* Sub_4C61B0(WindowItemSelectorState* const state)",
+        "source_patch_group_count": 1,
+        "source_changed_point_count": 1,
+        "normal_remaining_source_kept": true,
+        "fixed_preview_owner_indices": [
+          0,
+          1
+        ],
+        "helpers_have_separate_original_F": false,
+        "full_machine_abi_verified": false,
+        "full_EH_SEH_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原this地址仅拓宽typed state指针，正常返回保持"
       }
     }
   ]

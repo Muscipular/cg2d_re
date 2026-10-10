@@ -4868,3 +4868,7 @@ primary和BOG插值/原可写表/ftol host职责不改；上界比较→fresh减
 ## 2026-10-10 PSP01：选择器预览描述符取序
 
 [PSP01](cg2d_selector_pet_preview_spec.md#selector-pet-source-state)补齐S8序号发布、五排序对映射、名称负重及同宠物预览四完整原根238条690B/六页，九E8七目标/21跳六RET，八入CALL有据。两测宽分别按原字体→文本、文本→字体取样；预览沿原replacement→previous读取，现detail helper增加取序参数，四个既有单参调用保previous→replacement。四组四处/十注释，四整源其它正文与两正确叶/五类型保持。复用BOT01已核layer BYTE消费，高24位不记整ABI等价。旧892格式与历史追加、三新F/四处置、四限定S零I/十open；全部排序对/宠物/文本/descriptor生产消费、callee/外父及alias-owner寿命、生成取样/机器ABI/预览像素与运行待，整体未完成。
+
+## 2026-10-10 SIC01：静态预览十成员构造/析构
+
+[SIC01](cg2d_selector_construction_exit_spec.md#selector-construction-source-state)补齐选择器完整构造及两个固定构造/退出包装五原根，220条1049B/八页、20E8两目标/24跳两RET。构造/共享退出各有29条136B EH；488420主chunk另有六B间隙，指令字节与跨度分开，488430为其内部共享尾，不造F。同预览十成员构造和逆序析构、flags/开关/图号/三descriptor发布保持，仅一组一处在构造入口持址供Construct/Finish。两静态对象0/1独立，退出固定借用，不重读可改preview；四包装/四helper及两独立std::atexit正确body保持，十注释。四旧历史追加、一新F五处置、四限定S零I/十open；零模板初值有据，空Xrefs不代不可变或alias闭包，完整EH/ABI/全生产消费、全应用正常owner与快速退出/真实生命周期和运行仍待，整体未完成。

@@ -7865,9 +7865,11 @@ std::int32_t Sub_48B450(
     return Sub_48B810(x, y, title, titleColor, lines, 96, 8, nullptr, 0);
 }
 
+// SIC01：入口预览地址贯穿十成员构造与字段发布；原初始化/三descriptor及this返回保持，整对象不清零。
 WindowItemSelectorState* Sub_4C61B0(WindowItemSelectorState* const state)
 {
-    const std::uint32_t flags = login::detail::ConstructWindowSelectorPreview(state->preview);
+    login::YobiAction* const preview = state->preview;
+    const std::uint32_t flags = login::detail::ConstructWindowSelectorPreview(preview);
     state->initialized3E8 = 0;
     state->value64 = 0;
     state->step6C = 21;
@@ -7877,7 +7879,7 @@ WindowItemSelectorState* Sub_4C61B0(WindowItemSelectorState* const state)
     state->value3ED = 1;
     state->imageIndex3F0 = 0;
     state->imageIndex3F4 = 0;
-    login::detail::FinishWindowSelectorPreview(state->preview, flags);
+    login::detail::FinishWindowSelectorPreview(preview, flags);
     state->hoverIndex3B0 = -1;
     state->hoverIndex3F8 = -1;
     state->bytes3B4.fill(std::byte{0});

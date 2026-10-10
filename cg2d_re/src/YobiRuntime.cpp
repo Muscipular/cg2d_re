@@ -35375,11 +35375,13 @@ void ConfigureWindowPetPreview(YobiAction*& slot, const std::int32_t imageNo)
     slot->direction = 5;
 }
 
+// SIC01：只借两个既有静态预览的同一地址，原owner索引0/1由具名构造/退出入口固定。
 YobiAction* BorrowWindowSelectorPreview(const std::int32_t index) noexcept
 {
     return &gWindowSelectorPreviews[index];
 }
 
+// SIC01：同静态预览十CryptInt按原170..210次序构造/RNG，尾取flags|2快照，不构造通用Yobi对象。
 std::uint32_t ConstructWindowSelectorPreview(YobiAction* const action)
 {
     platform::legacy_crypt_int::ConstructZero_401C70(&action->readiness);
@@ -35395,6 +35397,7 @@ std::uint32_t ConstructWindowSelectorPreview(YobiAction* const action)
     return action->flags | 2u;
 }
 
+// SIC01：同预览flags/callback/固定技能源图号/layer/direction原序发布，不补影子值或读负宠物槽。
 void FinishWindowSelectorPreview(YobiAction* const action, const std::uint32_t flags)
 {
     action->flags = flags;
@@ -35410,6 +35413,7 @@ void FinishWindowSelectorPreview(YobiAction* const action, const std::uint32_t f
     action->direction = 5;
 }
 
+// SIC01：固定退出对象仅十CryptInt逆序析构；不释放静态owner、不清UI槽，完整EH/运行待。
 void DestroyWindowSelectorPreview(YobiAction* const action)
 {
     platform::legacy_crypt_int::Destroy_401CF0(&action->mapY210);

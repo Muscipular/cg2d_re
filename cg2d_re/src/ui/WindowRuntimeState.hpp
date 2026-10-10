@@ -440,7 +440,7 @@ struct WindowItemSelectorState {
 
 extern WindowItemSelectorState gItemSelectorCF3B10;
 extern WindowItemSelectorState gItemSelectorD2F338;
-WindowItemSelectorState* Sub_4C61B0(WindowItemSelectorState* state); // 完整构造，不整区清零。
+WindowItemSelectorState* Sub_4C61B0(WindowItemSelectorState* state); // SIC01：入口预览地址贯穿十成员构造与字段发布；原初始化/三descriptor及this返回保持，整对象不清零。
 // SLC01：单读并返回同一选择器selectedPet70的完整S32，不做校验或改owner。
 std::int32_t Sub_4C71B0(const WindowItemSelectorState* state); // 原+70同源S32。
 void Sub_4C6EC0(WindowItemSelectorState* state, std::uint8_t mode); // SFD01：低BYTE模式装配非拥有元素/四回调；逐次借当前窗口，非零模式槽19不写，发布次序保持。

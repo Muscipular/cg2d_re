@@ -1,0 +1,3016 @@
+{
+  "schema_version": 1,
+  "step": "SIC01",
+  "recorded_on": "2026-10-10",
+  "before_snapshot": "[#] 补齐宠物选择与预览消费合同",
+  "after_snapshot": "[#] 补齐选择器构造与固定退出对象合同",
+  "record_scope": [
+    {
+      "inventory_id": "F:000C61B0",
+      "index": 2297,
+      "existing": false,
+      "source_index": 0,
+      "declaration_index": 0
+    },
+    {
+      "inventory_id": "F:00088400",
+      "index": 114,
+      "existing": true,
+      "source_index": 1,
+      "declaration_index": null
+    },
+    {
+      "inventory_id": "F:00099900",
+      "index": 116,
+      "existing": true,
+      "source_index": 2,
+      "declaration_index": null
+    },
+    {
+      "inventory_id": "F:00088420",
+      "index": 5,
+      "existing": true,
+      "source_index": 3,
+      "declaration_index": null
+    },
+    {
+      "inventory_id": "F:00099920",
+      "index": 117,
+      "existing": true,
+      "source_index": 4,
+      "declaration_index": null
+    }
+  ],
+  "old_records_before": [
+    {
+      "index": 114,
+      "record": {
+        "original_entry": "0x488400",
+        "inventory_id": "F:00088400",
+        "status": "两选择器CRT六入口前缀及真实登记/共享源码接线已实现；十成员EH/整表/宿主迁移与运行未闭",
+        "original_role": "首个物品选择器构造包装",
+        "sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbols": [
+              "InitializeItemSelectors"
+            ],
+            "relationship": "；旧宿主/共享职责关联保留，新增入口直接提供者另列"
+          },
+          {
+            "path": "src/platform/LegacyMouse.cpp",
+            "symbols": [
+              "ItemSelectorsStaticInitializer"
+            ],
+            "relationship": "；旧宿主/共享职责关联保留，新增入口直接提供者另列"
+          },
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbols": [
+              "ConstructLegacyFirstItemSelector_488400"
+            ],
+            "relationship": "原固定this构造尾调或无参整体退出前缀，原内嵌预览沿已有非拥有静态引用"
+          }
+        ],
+        "evidence_documents": [
+          "doc/ui_windows/shared_items.md",
+          "doc/cg2d_semantic_function_mappings.md",
+          "doc/cg2d_startup_flow.md"
+        ],
+        "boundary": "原设置ECX=CF3B10后尾跳4C61B0；由InitializeItemSelectors借用第0项唯一静态预览并调用完整Sub_4C61B0承接，不新建owner。；2026-10-04六独立原入口/构造和退出前缀源码落位，两个CRT项分别构造后53B406登记整体无参callback/完整S32；构造只绑定已有CF3B10/D2F338内嵌+78静态预览（索引0/1）再4C61B0真实this返回，退出从固定静态地址复用488430对应十槽共享源码，不改为读取可变preview槽。新原前缀/登记20条，488420含73条既有共享/EH体，六函数原计93条，共享体不重新实现或记新原身份；无新对象/RNG、once、预清/保护、回滚或额外析构。旧宿主适配和共享算法保持，整Cpp90仍extern/未启用；十成员EH/SDK、实际生命周期迁移及完整启动退出运行未闭。",
+        "instruction_count": 2,
+        "function_chunks": [
+          {
+            "start": "0x488400",
+            "end_exclusive": "0x48840A"
+          }
+        ],
+        "verification_level": "；本轮六函数新20条/6call尾调/2callback/2共享引用/固定内嵌地址边界新增静态，既有构析算法不重核，非EH或运行通过",
+        "item_selector_crt_internal_call_connections": [
+          {
+            "parent_entry": "0x488400",
+            "call_site": "0x488405",
+            "target_entry": "0x4C61B0",
+            "target_symbol": "detail::Sub_4C61B0",
+            "target_source": "src/ui/WindowRuntime.cpp",
+            "source": "src/ui/WindowRuntime.cpp",
+            "symbol": "ConstructLegacyFirstItemSelector_488400",
+            "transfer": "jmp",
+            "original_this_address": "0xCF3B10",
+            "arguments": "&detail::gItemSelectorCF3B10",
+            "relationship": "绑定原+78唯一静态预览引用后真实尾调目标源码，返回真实typed选择器；无新owner/随机或原调用假地址"
+          }
+        ],
+        "item_selector_crt_parent_call_connections": [
+          {
+            "parent_entry": "0x4883F0",
+            "call_site": "0x4883F0",
+            "target_entry": "0x488400",
+            "target_symbol": "ConstructLegacyFirstItemSelector_488400",
+            "source": "src/ui/WindowRuntime.cpp",
+            "symbol": "InitializeLegacyFirstItemSelector_4883F0",
+            "transfer": "call",
+            "arguments": "无参；真实选择器返回不设成功门禁",
+            "relationship": "原本项构造后独立登记，完整S32/失败不补回滚或析构"
+          }
+        ],
+        "item_selector_native_preview_bindings": [
+          {
+            "parent_entry": "0x488400",
+            "original_this_address": "0xCF3B10",
+            "original_preview_offset": "0x78",
+            "native_state": "detail::gItemSelectorCF3B10",
+            "native_preview_index": 0,
+            "source": "src/ui/WindowRuntime.cpp",
+            "symbol": "ConstructLegacyFirstItemSelector_488400",
+            "bridge_source": "src/YobiRuntime.cpp",
+            "bridge_symbol": "login::detail::BorrowWindowSelectorPreview",
+            "relationship": "原内嵌对象已有x64非拥有引用边界，借唯一静态地址不分配/构造新对象；原端无此额外调用，故不计原数值call"
+          }
+        ]
+      }
+    },
+    {
+      "index": 116,
+      "record": {
+        "original_entry": "0x499900",
+        "inventory_id": "F:00099900",
+        "status": "两选择器CRT六入口前缀及真实登记/共享源码接线已实现；十成员EH/整表/宿主迁移与运行未闭",
+        "original_role": "第二物品选择器构造包装",
+        "sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbols": [
+              "InitializeItemSelectors"
+            ],
+            "relationship": "；旧宿主/共享职责关联保留，新增入口直接提供者另列"
+          },
+          {
+            "path": "src/platform/LegacyMouse.cpp",
+            "symbols": [
+              "ItemSelectorsStaticInitializer"
+            ],
+            "relationship": "；旧宿主/共享职责关联保留，新增入口直接提供者另列"
+          },
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbols": [
+              "ConstructLegacySecondItemSelector_499900"
+            ],
+            "relationship": "原固定this构造尾调或无参整体退出前缀，原内嵌预览沿已有非拥有静态引用"
+          }
+        ],
+        "evidence_documents": [
+          "doc/ui_windows/shared_items.md",
+          "doc/cg2d_semantic_function_mappings.md",
+          "doc/cg2d_startup_flow.md"
+        ],
+        "boundary": "原设置ECX=D2F338后尾跳同一4C61B0；InitializeItemSelectors借用第1项唯一静态预览再调用完整构造，保留与第一对象的独立存储。；2026-10-04六独立原入口/构造和退出前缀源码落位，两个CRT项分别构造后53B406登记整体无参callback/完整S32；构造只绑定已有CF3B10/D2F338内嵌+78静态预览（索引0/1）再4C61B0真实this返回，退出从固定静态地址复用488430对应十槽共享源码，不改为读取可变preview槽。新原前缀/登记20条，488420含73条既有共享/EH体，六函数原计93条，共享体不重新实现或记新原身份；无新对象/RNG、once、预清/保护、回滚或额外析构。旧宿主适配和共享算法保持，整Cpp90仍extern/未启用；十成员EH/SDK、实际生命周期迁移及完整启动退出运行未闭。",
+        "instruction_count": 2,
+        "function_chunks": [
+          {
+            "start": "0x499900",
+            "end_exclusive": "0x49990A"
+          }
+        ],
+        "verification_level": "；本轮六函数新20条/6call尾调/2callback/2共享引用/固定内嵌地址边界新增静态，既有构析算法不重核，非EH或运行通过",
+        "item_selector_crt_internal_call_connections": [
+          {
+            "parent_entry": "0x499900",
+            "call_site": "0x499905",
+            "target_entry": "0x4C61B0",
+            "target_symbol": "detail::Sub_4C61B0",
+            "target_source": "src/ui/WindowRuntime.cpp",
+            "source": "src/ui/WindowRuntime.cpp",
+            "symbol": "ConstructLegacySecondItemSelector_499900",
+            "transfer": "jmp",
+            "original_this_address": "0xD2F338",
+            "arguments": "&detail::gItemSelectorD2F338",
+            "relationship": "绑定原+78唯一静态预览引用后真实尾调目标源码，返回真实typed选择器；无新owner/随机或原调用假地址"
+          }
+        ],
+        "item_selector_crt_parent_call_connections": [
+          {
+            "parent_entry": "0x4998F0",
+            "call_site": "0x4998F0",
+            "target_entry": "0x499900",
+            "target_symbol": "ConstructLegacySecondItemSelector_499900",
+            "source": "src/ui/WindowRuntime.cpp",
+            "symbol": "InitializeLegacySecondItemSelector_4998F0",
+            "transfer": "call",
+            "arguments": "无参；真实选择器返回不设成功门禁",
+            "relationship": "原本项构造后独立登记，完整S32/失败不补回滚或析构"
+          }
+        ],
+        "item_selector_native_preview_bindings": [
+          {
+            "parent_entry": "0x499900",
+            "original_this_address": "0xD2F338",
+            "original_preview_offset": "0x78",
+            "native_state": "detail::gItemSelectorD2F338",
+            "native_preview_index": 1,
+            "source": "src/ui/WindowRuntime.cpp",
+            "symbol": "ConstructLegacySecondItemSelector_499900",
+            "bridge_source": "src/YobiRuntime.cpp",
+            "bridge_symbol": "login::detail::BorrowWindowSelectorPreview",
+            "relationship": "原内嵌对象已有x64非拥有引用边界，借唯一静态地址不分配/构造新对象；原端无此额外调用，故不计原数值call"
+          }
+        ]
+      }
+    },
+    {
+      "index": 5,
+      "record": {
+        "original_entry": "0x488420",
+        "inventory_id": "F:00088420",
+        "status": "两选择器CRT六入口前缀及真实登记/共享源码接线已实现；十成员EH/整表/宿主迁移与运行未闭",
+        "sources": [
+          {
+            "path": "src/YobiRuntime.cpp",
+            "symbols": [
+              "DestroyWindowSelectorPreview"
+            ],
+            "relationship": "；旧宿主/共享职责关联保留，新增入口直接提供者另列"
+          },
+          {
+            "path": "src/platform/LegacyMouse.cpp",
+            "symbols": [],
+            "relationship": "；旧宿主/共享职责关联保留，新增入口直接提供者另列"
+          },
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbols": [
+              "InitializeItemSelectors"
+            ],
+            "relationship": "；旧宿主/共享职责关联保留，新增入口直接提供者另列"
+          },
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbols": [
+              "ReleaseLegacyFirstItemSelectorAtExit_488420"
+            ],
+            "relationship": "原固定this构造尾调或无参整体退出前缀，原内嵌预览沿已有非拥有静态引用"
+          }
+        ],
+        "evidence_documents": [
+          "doc/ui_windows/shared_items.md",
+          "doc/cg2d_startup_flow.md",
+          "doc/cg2d_ui_input_lifecycle_spec.md",
+          "doc/cg2d_ui_input_lifecycle_evidence.json"
+        ],
+        "boundary": "由InitializeItemSelectors在CF3B10构造后独立登记的回调调用既有十槽逆序析构；不free或清UI选择，不与D2F338合并登记。；2026-10-04六独立原入口/构造和退出前缀源码落位，两个CRT项分别构造后53B406登记整体无参callback/完整S32；构造只绑定已有CF3B10/D2F338内嵌+78静态预览（索引0/1）再4C61B0真实this返回，退出从固定静态地址复用488430对应十槽共享源码，不改为读取可变preview槽。新原前缀/登记20条，488420含73条既有共享/EH体，六函数原计93条，共享体不重新实现或记新原身份；无新对象/RNG、once、预清/保护、回滚或额外析构。旧宿主适配和共享算法保持，整Cpp90仍extern/未启用；十成员EH/SDK、实际生命周期迁移及完整启动退出运行未闭。；本组实际活动路径已统一到具名Init/即时宿主登记；选择器固定退出目标不从可改preview槽重取。原正常成员/数组源码及原合并归属保持，原完整EH/SEH、跨模块/快速退出与SDK运行仍待，聚合指令存在不代验收。",
+        "instruction_count": 75,
+        "function_chunks": [
+          {
+            "start": "0x488420",
+            "end_exclusive": "0x488504"
+          },
+          {
+            "start": "0x54B8B0",
+            "end_exclusive": "0x54B938"
+          }
+        ],
+        "verification_level": "；本轮六函数新20条/6call尾调/2callback/2共享引用/固定内嵌地址边界新增静态，既有构析算法不重核，非EH或运行通过",
+        "item_selector_crt_incoming_callback_references": [
+          {
+            "parent_entry": "0x4883F0",
+            "reference_site": "0x488410",
+            "callback_entry": "0x488420",
+            "callback_symbol": "ReleaseLegacyFirstItemSelectorAtExit_488420",
+            "source": "src/ui/WindowRuntime.cpp",
+            "symbol": "InitializeLegacyFirstItemSelector_4883F0",
+            "relationship": "原每选择器整体无参退出地址；十成员共享逆序体源码沿既有实现"
+          }
+        ],
+        "item_selector_crt_shared_body_references": [
+          {
+            "parent_entry": "0x488420",
+            "branch_site": "0x488425",
+            "original_shared_body_entry": "0x488430",
+            "original_owner_entry": "0x488420",
+            "native_source": "src/YobiRuntime.cpp",
+            "native_symbol": "login::detail::DestroyWindowSelectorPreview",
+            "source": "src/ui/WindowRuntime.cpp",
+            "symbol": "ReleaseLegacyFirstItemSelectorAtExit_488420",
+            "original_this_address": "0xCF3B10",
+            "original_preview_offset": "0x78",
+            "native_preview_index": 0,
+            "relationship": "原固定this前缀尾入同一十槽析构/EH体；native沿同一固定预览复用已有源码，原共享体73条不重复实现/重核；非伪数值call，EH/SDK实际运行门禁保持"
+          }
+        ],
+        "ui_input_lifecycle_contract": {
+          "decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision",
+          "module_source": "src/platform/LegacyMouse.cpp",
+          "module_types": [
+            "WindowNumberSpacingStaticInitializer",
+            "ItemSelectorsStaticInitializer",
+            "StallBrowsePetsStaticInitializer",
+            "LegacyMouseStaticInitializer"
+          ],
+          "init_provider_count": 5,
+          "host_immediate_registration_count": 4,
+          "direct_module_init_count": 3,
+          "indirect_module_init_count": 2,
+          "canonical_forwarder": "InitializeItemSelectors",
+          "automatic_destructor_adapters_removed": 2,
+          "selector_exit_fixed_owner": true,
+          "selector_exit_rereads_mutable_preview_slot": false,
+          "selector_original_fixed_owner_addresses": [
+            "0xCF3B10",
+            "0xD2F338"
+          ],
+          "original_preview_embedded_offset": "0x78",
+          "number_spacing_has_exit_registration": false,
+          "owner_data_unchanged": true,
+          "value_rng_algorithms_unchanged": true,
+          "array_and_member_algorithms_unchanged": true,
+          "init_original_instruction_count": 17,
+          "supplemental_registration_instruction_count": 8,
+          "supplemental_registration_owners": [
+            "0x4CD250",
+            "0x506350"
+          ],
+          "member_eh_and_array_seh_closed": false,
+          "full_cpp_table_defined": false,
+          "whole_application_order_closed": false,
+          "must_remove_module_calls_on_whole_application_order_migration": true,
+          "runtime_verified": false,
+          "boundary": "D02/D03实际宿主承接四项私有退出登记；数字步进只有原尾调，不新增退出。固定选择器退出不重读可改preview槽，其他原owner/字段/值/RNG/数组/成员源码保持；全应用原序/快速退出、完整成员EH/数组SEH/SDK和运行未闭。"
+        }
+      }
+    },
+    {
+      "index": 117,
+      "record": {
+        "original_entry": "0x499920",
+        "inventory_id": "F:00099920",
+        "status": "两选择器CRT六入口前缀及真实登记/共享源码接线已实现；十成员EH/整表/宿主迁移与运行未闭",
+        "original_role": "第二物品选择器退出包装",
+        "sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbols": [
+              "InitializeItemSelectors"
+            ],
+            "relationship": "；旧宿主/共享职责关联保留，新增入口直接提供者另列"
+          },
+          {
+            "path": "src/platform/LegacyMouse.cpp",
+            "symbols": [
+              "ItemSelectorsStaticInitializer"
+            ],
+            "relationship": "；旧宿主/共享职责关联保留，新增入口直接提供者另列"
+          },
+          {
+            "path": "src/YobiRuntime.cpp",
+            "symbols": [
+              "DestroyWindowSelectorPreview"
+            ],
+            "relationship": "；旧宿主/共享职责关联保留，新增入口直接提供者另列"
+          },
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbols": [
+              "ReleaseLegacySecondItemSelectorAtExit_499920"
+            ],
+            "relationship": "原固定this构造尾调或无参整体退出前缀，原内嵌预览沿已有非拥有静态引用"
+          }
+        ],
+        "evidence_documents": [
+          "doc/ui_windows/shared_items.md",
+          "doc/cg2d_semantic_function_mappings.md",
+          "doc/cg2d_startup_flow.md",
+          "doc/cg2d_ui_input_lifecycle_spec.md",
+          "doc/cg2d_ui_input_lifecycle_evidence.json"
+        ],
+        "boundary": "原设置ECX=D2F338后尾跳488430公共析构；第二项退出回调使用同源preview调用DestroyWindowSelectorPreview，只按十槽逆序析构，不释放静态对象或清选择。；2026-10-04六独立原入口/构造和退出前缀源码落位，两个CRT项分别构造后53B406登记整体无参callback/完整S32；构造只绑定已有CF3B10/D2F338内嵌+78静态预览（索引0/1）再4C61B0真实this返回，退出从固定静态地址复用488430对应十槽共享源码，不改为读取可变preview槽。新原前缀/登记20条，488420含73条既有共享/EH体，六函数原计93条，共享体不重新实现或记新原身份；无新对象/RNG、once、预清/保护、回滚或额外析构。旧宿主适配和共享算法保持，整Cpp90仍extern/未启用；十成员EH/SDK、实际生命周期迁移及完整启动退出运行未闭。；本组实际活动路径已统一到具名Init/即时宿主登记；选择器固定退出目标不从可改preview槽重取。原正常成员/数组源码及原合并归属保持，原完整EH/SEH、跨模块/快速退出与SDK运行仍待，聚合指令存在不代验收。",
+        "instruction_count": 2,
+        "function_chunks": [
+          {
+            "start": "0x499920",
+            "end_exclusive": "0x49992A"
+          }
+        ],
+        "verification_level": "；本轮六函数新20条/6call尾调/2callback/2共享引用/固定内嵌地址边界新增静态，既有构析算法不重核，非EH或运行通过",
+        "item_selector_crt_incoming_callback_references": [
+          {
+            "parent_entry": "0x4998F0",
+            "reference_site": "0x499910",
+            "callback_entry": "0x499920",
+            "callback_symbol": "ReleaseLegacySecondItemSelectorAtExit_499920",
+            "source": "src/ui/WindowRuntime.cpp",
+            "symbol": "InitializeLegacySecondItemSelector_4998F0",
+            "relationship": "原每选择器整体无参退出地址；十成员共享逆序体源码沿既有实现"
+          }
+        ],
+        "item_selector_crt_shared_body_references": [
+          {
+            "parent_entry": "0x499920",
+            "branch_site": "0x499925",
+            "original_shared_body_entry": "0x488430",
+            "original_owner_entry": "0x488420",
+            "native_source": "src/YobiRuntime.cpp",
+            "native_symbol": "login::detail::DestroyWindowSelectorPreview",
+            "source": "src/ui/WindowRuntime.cpp",
+            "symbol": "ReleaseLegacySecondItemSelectorAtExit_499920",
+            "original_this_address": "0xD2F338",
+            "original_preview_offset": "0x78",
+            "native_preview_index": 1,
+            "relationship": "原固定this前缀尾入同一十槽析构/EH体；native沿同一固定预览复用已有源码，原共享体73条不重复实现/重核；非伪数值call，EH/SDK实际运行门禁保持"
+          }
+        ],
+        "ui_input_lifecycle_contract": {
+          "decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision",
+          "module_source": "src/platform/LegacyMouse.cpp",
+          "module_types": [
+            "WindowNumberSpacingStaticInitializer",
+            "ItemSelectorsStaticInitializer",
+            "StallBrowsePetsStaticInitializer",
+            "LegacyMouseStaticInitializer"
+          ],
+          "init_provider_count": 5,
+          "host_immediate_registration_count": 4,
+          "direct_module_init_count": 3,
+          "indirect_module_init_count": 2,
+          "canonical_forwarder": "InitializeItemSelectors",
+          "automatic_destructor_adapters_removed": 2,
+          "selector_exit_fixed_owner": true,
+          "selector_exit_rereads_mutable_preview_slot": false,
+          "selector_original_fixed_owner_addresses": [
+            "0xCF3B10",
+            "0xD2F338"
+          ],
+          "original_preview_embedded_offset": "0x78",
+          "number_spacing_has_exit_registration": false,
+          "owner_data_unchanged": true,
+          "value_rng_algorithms_unchanged": true,
+          "array_and_member_algorithms_unchanged": true,
+          "init_original_instruction_count": 17,
+          "supplemental_registration_instruction_count": 8,
+          "supplemental_registration_owners": [
+            "0x4CD250",
+            "0x506350"
+          ],
+          "member_eh_and_array_seh_closed": false,
+          "full_cpp_table_defined": false,
+          "whole_application_order_closed": false,
+          "must_remove_module_calls_on_whole_application_order_migration": true,
+          "runtime_verified": false,
+          "boundary": "D02/D03实际宿主承接四项私有退出登记；数字步进只有原尾调，不新增退出。固定选择器退出不重读可改preview槽，其他原owner/字段/值/RNG/数组/成员源码保持；全应用原序/快速退出、完整成员EH/数组SEH/SDK和运行未闭。"
+        }
+      }
+    }
+  ],
+  "original_roots": [
+    {
+      "ea": 5005744,
+      "end": 5006269,
+      "instruction_count": 139,
+      "chunks": [
+        [
+          5005744,
+          5006269
+        ],
+        [
+          5552448,
+          5552584
+        ]
+      ],
+      "incoming_references": [
+        {
+          "from": 4752389,
+          "type": 19,
+          "parent": 4752384,
+          "bytes": "e9a6dd0300",
+          "asm": "jmp     sub_4C61B0"
+        },
+        {
+          "from": 4823301,
+          "type": 19,
+          "parent": 4823296,
+          "bytes": "e9a6c80200",
+          "asm": "jmp     sub_4C61B0"
+        }
+      ],
+      "byte_count": 661,
+      "page_count": 3,
+      "pages": [
+        {
+          "ea": 5005744,
+          "end": 5006269,
+          "offset": 0,
+          "total": 139,
+          "instructions": [
+            {
+              "ea": 5005744,
+              "size": 2,
+              "bytes": "6aff",
+              "asm": "push    0FFFFFFFFh",
+              "call_target": null
+            },
+            {
+              "ea": 5005746,
+              "size": 5,
+              "bytes": "68beb95400",
+              "asm": "push    offset SEH_4C61B0",
+              "call_target": null
+            },
+            {
+              "ea": 5005751,
+              "size": 6,
+              "bytes": "64a100000000",
+              "asm": "mov     eax, large fs:0",
+              "call_target": null
+            },
+            {
+              "ea": 5005757,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax",
+              "call_target": null
+            },
+            {
+              "ea": 5005758,
+              "size": 7,
+              "bytes": "64892500000000",
+              "asm": "mov     large fs:0, esp",
+              "call_target": null
+            },
+            {
+              "ea": 5005765,
+              "size": 1,
+              "bytes": "51",
+              "asm": "push    ecx",
+              "call_target": null
+            },
+            {
+              "ea": 5005766,
+              "size": 1,
+              "bytes": "53",
+              "asm": "push    ebx",
+              "call_target": null
+            },
+            {
+              "ea": 5005767,
+              "size": 1,
+              "bytes": "56",
+              "asm": "push    esi",
+              "call_target": null
+            },
+            {
+              "ea": 5005768,
+              "size": 2,
+              "bytes": "8bf1",
+              "asm": "mov     esi, ecx",
+              "call_target": null
+            },
+            {
+              "ea": 5005770,
+              "size": 1,
+              "bytes": "57",
+              "asm": "push    edi",
+              "call_target": null
+            },
+            {
+              "ea": 5005771,
+              "size": 3,
+              "bytes": "8d7e78",
+              "asm": "lea     edi, [esi+78h]",
+              "call_target": null
+            },
+            {
+              "ea": 5005774,
+              "size": 4,
+              "bytes": "897c240c",
+              "asm": "mov     [esp+1Ch+var_10], edi",
+              "call_target": null
+            },
+            {
+              "ea": 5005778,
+              "size": 6,
+              "bytes": "8d8f70010000",
+              "asm": "lea     ecx, [edi+170h]",
+              "call_target": null
+            },
+            {
+              "ea": 5005784,
+              "size": 5,
+              "bytes": "e893baf3ff",
+              "asm": "call    sub_401C70",
+              "call_target": 4201584
+            },
+            {
+              "ea": 5005789,
+              "size": 2,
+              "bytes": "33db",
+              "asm": "xor     ebx, ebx",
+              "call_target": null
+            },
+            {
+              "ea": 5005791,
+              "size": 6,
+              "bytes": "8d8f80010000",
+              "asm": "lea     ecx, [edi+180h]",
+              "call_target": null
+            },
+            {
+              "ea": 5005797,
+              "size": 4,
+              "bytes": "895c2418",
+              "asm": "mov     [esp+1Ch+var_4], ebx",
+              "call_target": null
+            },
+            {
+              "ea": 5005801,
+              "size": 5,
+              "bytes": "e882baf3ff",
+              "asm": "call    sub_401C70",
+              "call_target": 4201584
+            },
+            {
+              "ea": 5005806,
+              "size": 6,
+              "bytes": "8d8f90010000",
+              "asm": "lea     ecx, [edi+190h]",
+              "call_target": null
+            },
+            {
+              "ea": 5005812,
+              "size": 5,
+              "bytes": "c644241801",
+              "asm": "mov     byte ptr [esp+1Ch+var_4], 1",
+              "call_target": null
+            },
+            {
+              "ea": 5005817,
+              "size": 5,
+              "bytes": "e872baf3ff",
+              "asm": "call    sub_401C70",
+              "call_target": 4201584
+            },
+            {
+              "ea": 5005822,
+              "size": 6,
+              "bytes": "8d8fa0010000",
+              "asm": "lea     ecx, [edi+1A0h]",
+              "call_target": null
+            },
+            {
+              "ea": 5005828,
+              "size": 5,
+              "bytes": "c644241802",
+              "asm": "mov     byte ptr [esp+1Ch+var_4], 2",
+              "call_target": null
+            },
+            {
+              "ea": 5005833,
+              "size": 5,
+              "bytes": "e862baf3ff",
+              "asm": "call    sub_401C70",
+              "call_target": 4201584
+            },
+            {
+              "ea": 5005838,
+              "size": 6,
+              "bytes": "8d8fb0010000",
+              "asm": "lea     ecx, [edi+1B0h]",
+              "call_target": null
+            },
+            {
+              "ea": 5005844,
+              "size": 5,
+              "bytes": "c644241803",
+              "asm": "mov     byte ptr [esp+1Ch+var_4], 3",
+              "call_target": null
+            },
+            {
+              "ea": 5005849,
+              "size": 5,
+              "bytes": "e852baf3ff",
+              "asm": "call    sub_401C70",
+              "call_target": 4201584
+            },
+            {
+              "ea": 5005854,
+              "size": 6,
+              "bytes": "8d8fc0010000",
+              "asm": "lea     ecx, [edi+1C0h]",
+              "call_target": null
+            },
+            {
+              "ea": 5005860,
+              "size": 5,
+              "bytes": "c644241804",
+              "asm": "mov     byte ptr [esp+1Ch+var_4], 4",
+              "call_target": null
+            },
+            {
+              "ea": 5005865,
+              "size": 5,
+              "bytes": "e842baf3ff",
+              "asm": "call    sub_401C70",
+              "call_target": 4201584
+            },
+            {
+              "ea": 5005870,
+              "size": 6,
+              "bytes": "8d8fe0010000",
+              "asm": "lea     ecx, [edi+1E0h]",
+              "call_target": null
+            },
+            {
+              "ea": 5005876,
+              "size": 5,
+              "bytes": "c644241805",
+              "asm": "mov     byte ptr [esp+1Ch+var_4], 5",
+              "call_target": null
+            },
+            {
+              "ea": 5005881,
+              "size": 5,
+              "bytes": "e832baf3ff",
+              "asm": "call    sub_401C70",
+              "call_target": 4201584
+            },
+            {
+              "ea": 5005886,
+              "size": 6,
+              "bytes": "8d8ff0010000",
+              "asm": "lea     ecx, [edi+1F0h]",
+              "call_target": null
+            },
+            {
+              "ea": 5005892,
+              "size": 5,
+              "bytes": "c644241806",
+              "asm": "mov     byte ptr [esp+1Ch+var_4], 6",
+              "call_target": null
+            },
+            {
+              "ea": 5005897,
+              "size": 5,
+              "bytes": "e822baf3ff",
+              "asm": "call    sub_401C70",
+              "call_target": 4201584
+            },
+            {
+              "ea": 5005902,
+              "size": 6,
+              "bytes": "8d8f00020000",
+              "asm": "lea     ecx, [edi+200h]",
+              "call_target": null
+            },
+            {
+              "ea": 5005908,
+              "size": 5,
+              "bytes": "c644241807",
+              "asm": "mov     byte ptr [esp+1Ch+var_4], 7",
+              "call_target": null
+            },
+            {
+              "ea": 5005913,
+              "size": 5,
+              "bytes": "e812baf3ff",
+              "asm": "call    sub_401C70",
+              "call_target": 4201584
+            },
+            {
+              "ea": 5005918,
+              "size": 6,
+              "bytes": "8d8f10020000",
+              "asm": "lea     ecx, [edi+210h]",
+              "call_target": null
+            },
+            {
+              "ea": 5005924,
+              "size": 5,
+              "bytes": "c644241808",
+              "asm": "mov     byte ptr [esp+1Ch+var_4], 8",
+              "call_target": null
+            },
+            {
+              "ea": 5005929,
+              "size": 5,
+              "bytes": "e802baf3ff",
+              "asm": "call    sub_401C70",
+              "call_target": 4201584
+            },
+            {
+              "ea": 5005934,
+              "size": 6,
+              "bytes": "8bbe9c000000",
+              "asm": "mov     edi, [esi+9Ch]",
+              "call_target": null
+            },
+            {
+              "ea": 5005940,
+              "size": 5,
+              "bytes": "b9983af600",
+              "asm": "mov     ecx, offset gPetData.baseImageNo",
+              "call_target": null
+            },
+            {
+              "ea": 5005945,
+              "size": 3,
+              "bytes": "83c8ff",
+              "asm": "or      eax, 0FFFFFFFFh",
+              "call_target": null
+            },
+            {
+              "ea": 5005948,
+              "size": 3,
+              "bytes": "83cf02",
+              "asm": "or      edi, 2",
+              "call_target": null
+            },
+            {
+              "ea": 5005951,
+              "size": 6,
+              "bytes": "81e910510000",
+              "asm": "sub     ecx, 5110h",
+              "call_target": null
+            },
+            {
+              "ea": 5005957,
+              "size": 6,
+              "bytes": "899ee8030000",
+              "asm": "mov     [esi+3E8h], ebx",
+              "call_target": null
+            },
+            {
+              "ea": 5005963,
+              "size": 3,
+              "bytes": "895e64",
+              "asm": "mov     [esi+64h], ebx",
+              "call_target": null
+            },
+            {
+              "ea": 5005966,
+              "size": 7,
+              "bytes": "c7466c15000000",
+              "asm": "mov     dword ptr [esi+6Ch], 15h",
+              "call_target": null
+            },
+            {
+              "ea": 5005973,
+              "size": 3,
+              "bytes": "894674",
+              "asm": "mov     [esi+74h], eax",
+              "call_target": null
+            },
+            {
+              "ea": 5005976,
+              "size": 3,
+              "bytes": "894670",
+              "asm": "mov     [esi+70h], eax",
+              "call_target": null
+            },
+            {
+              "ea": 5005979,
+              "size": 7,
+              "bytes": "c686ec03000001",
+              "asm": "mov     byte ptr [esi+3ECh], 1",
+              "call_target": null
+            },
+            {
+              "ea": 5005986,
+              "size": 7,
+              "bytes": "c686ed03000001",
+              "asm": "mov     byte ptr [esi+3EDh], 1",
+              "call_target": null
+            },
+            {
+              "ea": 5005993,
+              "size": 6,
+              "bytes": "899ef0030000",
+              "asm": "mov     [esi+3F0h], ebx",
+              "call_target": null
+            },
+            {
+              "ea": 5005999,
+              "size": 6,
+              "bytes": "899ef4030000",
+              "asm": "mov     [esi+3F4h], ebx",
+              "call_target": null
+            },
+            {
+              "ea": 5006005,
+              "size": 6,
+              "bytes": "89be9c000000",
+              "asm": "mov     [esi+9Ch], edi",
+              "call_target": null
+            },
+            {
+              "ea": 5006011,
+              "size": 6,
+              "bytes": "899e80000000",
+              "asm": "mov     [esi+80h], ebx",
+              "call_target": null
+            },
+            {
+              "ea": 5006017,
+              "size": 2,
+              "bytes": "8b11",
+              "asm": "mov     edx, [ecx]",
+              "call_target": null
+            },
+            {
+              "ea": 5006019,
+              "size": 7,
+              "bytes": "c6868d000000df",
+              "asm": "mov     byte ptr [esi+8Dh], 0DFh",
+              "call_target": null
+            },
+            {
+              "ea": 5006026,
+              "size": 6,
+              "bytes": "899620030000",
+              "asm": "mov     [esi+320h], edx",
+              "call_target": null
+            },
+            {
+              "ea": 5006032,
+              "size": 10,
+              "bytes": "c7863003000005000000",
+              "asm": "mov     dword ptr [esi+330h], 5",
+              "call_target": null
+            },
+            {
+              "ea": 5006042,
+              "size": 6,
+              "bytes": "8986b0030000",
+              "asm": "mov     [esi+3B0h], eax",
+              "call_target": null
+            },
+            {
+              "ea": 5006048,
+              "size": 6,
+              "bytes": "8986f8030000",
+              "asm": "mov     [esi+3F8h], eax",
+              "call_target": null
+            }
+          ]
+        },
+        {
+          "ea": 5005744,
+          "end": 5006269,
+          "offset": 64,
+          "total": 139,
+          "instructions": [
+            {
+              "ea": 5006054,
+              "size": 6,
+              "bytes": "899eb4030000",
+              "asm": "mov     [esi+3B4h], ebx",
+              "call_target": null
+            },
+            {
+              "ea": 5006060,
+              "size": 6,
+              "bytes": "899ea8030000",
+              "asm": "mov     [esi+3A8h], ebx",
+              "call_target": null
+            },
+            {
+              "ea": 5006066,
+              "size": 6,
+              "bytes": "899eac030000",
+              "asm": "mov     [esi+3ACh], ebx",
+              "call_target": null
+            },
+            {
+              "ea": 5006072,
+              "size": 6,
+              "bytes": "889efc030000",
+              "asm": "mov     [esi+3FCh], bl",
+              "call_target": null
+            },
+            {
+              "ea": 5006078,
+              "size": 6,
+              "bytes": "8b1550ed5400",
+              "asm": "mov     edx, ds:dword_54ED50",
+              "call_target": null
+            },
+            {
+              "ea": 5006084,
+              "size": 6,
+              "bytes": "8d8eb8030000",
+              "asm": "lea     ecx, [esi+3B8h]",
+              "call_target": null
+            },
+            {
+              "ea": 5006090,
+              "size": 6,
+              "bytes": "8996b8030000",
+              "asm": "mov     [esi+3B8h], edx",
+              "call_target": null
+            },
+            {
+              "ea": 5006096,
+              "size": 6,
+              "bytes": "8b1554ed5400",
+              "asm": "mov     edx, ds:dword_54ED54",
+              "call_target": null
+            },
+            {
+              "ea": 5006102,
+              "size": 3,
+              "bytes": "895104",
+              "asm": "mov     [ecx+4], edx",
+              "call_target": null
+            },
+            {
+              "ea": 5006105,
+              "size": 6,
+              "bytes": "8b1558ed5400",
+              "asm": "mov     edx, ds:dword_54ED58",
+              "call_target": null
+            },
+            {
+              "ea": 5006111,
+              "size": 3,
+              "bytes": "895108",
+              "asm": "mov     [ecx+8], edx",
+              "call_target": null
+            },
+            {
+              "ea": 5006114,
+              "size": 6,
+              "bytes": "8b155ced5400",
+              "asm": "mov     edx, ds:dword_54ED5C",
+              "call_target": null
+            },
+            {
+              "ea": 5006120,
+              "size": 3,
+              "bytes": "89510c",
+              "asm": "mov     [ecx+0Ch], edx",
+              "call_target": null
+            },
+            {
+              "ea": 5006123,
+              "size": 6,
+              "bytes": "8986c0030000",
+              "asm": "mov     [esi+3C0h], eax",
+              "call_target": null
+            },
+            {
+              "ea": 5006129,
+              "size": 7,
+              "bytes": "c686c503000004",
+              "asm": "mov     byte ptr [esi+3C5h], 4",
+              "call_target": null
+            },
+            {
+              "ea": 5006136,
+              "size": 6,
+              "bytes": "8b0d50ed5400",
+              "asm": "mov     ecx, ds:dword_54ED50",
+              "call_target": null
+            },
+            {
+              "ea": 5006142,
+              "size": 6,
+              "bytes": "8d86c8030000",
+              "asm": "lea     eax, [esi+3C8h]",
+              "call_target": null
+            },
+            {
+              "ea": 5006148,
+              "size": 1,
+              "bytes": "5f",
+              "asm": "pop     edi",
+              "call_target": null
+            },
+            {
+              "ea": 5006149,
+              "size": 2,
+              "bytes": "8908",
+              "asm": "mov     [eax], ecx",
+              "call_target": null
+            },
+            {
+              "ea": 5006151,
+              "size": 6,
+              "bytes": "8b1554ed5400",
+              "asm": "mov     edx, ds:dword_54ED54",
+              "call_target": null
+            },
+            {
+              "ea": 5006157,
+              "size": 3,
+              "bytes": "895004",
+              "asm": "mov     [eax+4], edx",
+              "call_target": null
+            },
+            {
+              "ea": 5006160,
+              "size": 6,
+              "bytes": "8b0d58ed5400",
+              "asm": "mov     ecx, ds:dword_54ED58",
+              "call_target": null
+            },
+            {
+              "ea": 5006166,
+              "size": 3,
+              "bytes": "894808",
+              "asm": "mov     [eax+8], ecx",
+              "call_target": null
+            },
+            {
+              "ea": 5006169,
+              "size": 6,
+              "bytes": "8b155ced5400",
+              "asm": "mov     edx, ds:dword_54ED5C",
+              "call_target": null
+            },
+            {
+              "ea": 5006175,
+              "size": 6,
+              "bytes": "8d8ed8030000",
+              "asm": "lea     ecx, [esi+3D8h]",
+              "call_target": null
+            },
+            {
+              "ea": 5006181,
+              "size": 3,
+              "bytes": "89500c",
+              "asm": "mov     [eax+0Ch], edx",
+              "call_target": null
+            },
+            {
+              "ea": 5006184,
+              "size": 5,
+              "bytes": "b8ffffff80",
+              "asm": "mov     eax, 80FFFFFFh",
+              "call_target": null
+            },
+            {
+              "ea": 5006189,
+              "size": 6,
+              "bytes": "8986d0030000",
+              "asm": "mov     [esi+3D0h], eax",
+              "call_target": null
+            },
+            {
+              "ea": 5006195,
+              "size": 7,
+              "bytes": "c686d503000004",
+              "asm": "mov     byte ptr [esi+3D5h], 4",
+              "call_target": null
+            },
+            {
+              "ea": 5006202,
+              "size": 6,
+              "bytes": "8b1550ed5400",
+              "asm": "mov     edx, ds:dword_54ED50",
+              "call_target": null
+            },
+            {
+              "ea": 5006208,
+              "size": 2,
+              "bytes": "8911",
+              "asm": "mov     [ecx], edx",
+              "call_target": null
+            },
+            {
+              "ea": 5006210,
+              "size": 6,
+              "bytes": "8b1554ed5400",
+              "asm": "mov     edx, ds:dword_54ED54",
+              "call_target": null
+            },
+            {
+              "ea": 5006216,
+              "size": 3,
+              "bytes": "895104",
+              "asm": "mov     [ecx+4], edx",
+              "call_target": null
+            },
+            {
+              "ea": 5006219,
+              "size": 6,
+              "bytes": "8b1558ed5400",
+              "asm": "mov     edx, ds:dword_54ED58",
+              "call_target": null
+            },
+            {
+              "ea": 5006225,
+              "size": 3,
+              "bytes": "895108",
+              "asm": "mov     [ecx+8], edx",
+              "call_target": null
+            },
+            {
+              "ea": 5006228,
+              "size": 6,
+              "bytes": "8b155ced5400",
+              "asm": "mov     edx, ds:dword_54ED5C",
+              "call_target": null
+            },
+            {
+              "ea": 5006234,
+              "size": 3,
+              "bytes": "89510c",
+              "asm": "mov     [ecx+0Ch], edx",
+              "call_target": null
+            },
+            {
+              "ea": 5006237,
+              "size": 4,
+              "bytes": "8b4c240c",
+              "asm": "mov     ecx, [esp+18h+var_C]",
+              "call_target": null
+            },
+            {
+              "ea": 5006241,
+              "size": 6,
+              "bytes": "8986e0030000",
+              "asm": "mov     [esi+3E0h], eax",
+              "call_target": null
+            },
+            {
+              "ea": 5006247,
+              "size": 7,
+              "bytes": "c686e503000004",
+              "asm": "mov     byte ptr [esi+3E5h], 4",
+              "call_target": null
+            },
+            {
+              "ea": 5006254,
+              "size": 2,
+              "bytes": "8bc6",
+              "asm": "mov     eax, esi",
+              "call_target": null
+            },
+            {
+              "ea": 5006256,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi",
+              "call_target": null
+            },
+            {
+              "ea": 5006257,
+              "size": 1,
+              "bytes": "5b",
+              "asm": "pop     ebx",
+              "call_target": null
+            },
+            {
+              "ea": 5006258,
+              "size": 7,
+              "bytes": "64890d00000000",
+              "asm": "mov     large fs:0, ecx",
+              "call_target": null
+            },
+            {
+              "ea": 5006265,
+              "size": 3,
+              "bytes": "83c410",
+              "asm": "add     esp, 10h",
+              "call_target": null
+            },
+            {
+              "ea": 5006268,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn",
+              "call_target": null
+            },
+            {
+              "ea": 5552448,
+              "size": 3,
+              "bytes": "8b4df0",
+              "asm": "mov     ecx, [ebp-10h]",
+              "call_target": null
+            },
+            {
+              "ea": 5552451,
+              "size": 6,
+              "bytes": "81c170010000",
+              "asm": "add     ecx, 170h",
+              "call_target": null
+            },
+            {
+              "ea": 5552457,
+              "size": 5,
+              "bytes": "e9a263ebff",
+              "asm": "jmp     CryptInt_delete",
+              "call_target": null
+            },
+            {
+              "ea": 5552462,
+              "size": 3,
+              "bytes": "8b4df0",
+              "asm": "mov     ecx, [ebp-10h]",
+              "call_target": null
+            },
+            {
+              "ea": 5552465,
+              "size": 6,
+              "bytes": "81c180010000",
+              "asm": "add     ecx, 180h",
+              "call_target": null
+            },
+            {
+              "ea": 5552471,
+              "size": 5,
+              "bytes": "e99463ebff",
+              "asm": "jmp     CryptInt_delete",
+              "call_target": null
+            },
+            {
+              "ea": 5552476,
+              "size": 3,
+              "bytes": "8b4df0",
+              "asm": "mov     ecx, [ebp-10h]",
+              "call_target": null
+            },
+            {
+              "ea": 5552479,
+              "size": 6,
+              "bytes": "81c190010000",
+              "asm": "add     ecx, 190h",
+              "call_target": null
+            },
+            {
+              "ea": 5552485,
+              "size": 5,
+              "bytes": "e98663ebff",
+              "asm": "jmp     CryptInt_delete",
+              "call_target": null
+            },
+            {
+              "ea": 5552490,
+              "size": 3,
+              "bytes": "8b4df0",
+              "asm": "mov     ecx, [ebp-10h]",
+              "call_target": null
+            },
+            {
+              "ea": 5552493,
+              "size": 6,
+              "bytes": "81c1a0010000",
+              "asm": "add     ecx, 1A0h",
+              "call_target": null
+            },
+            {
+              "ea": 5552499,
+              "size": 5,
+              "bytes": "e97863ebff",
+              "asm": "jmp     CryptInt_delete",
+              "call_target": null
+            },
+            {
+              "ea": 5552504,
+              "size": 3,
+              "bytes": "8b4df0",
+              "asm": "mov     ecx, [ebp-10h]",
+              "call_target": null
+            },
+            {
+              "ea": 5552507,
+              "size": 6,
+              "bytes": "81c1b0010000",
+              "asm": "add     ecx, 1B0h",
+              "call_target": null
+            },
+            {
+              "ea": 5552513,
+              "size": 5,
+              "bytes": "e96a63ebff",
+              "asm": "jmp     CryptInt_delete",
+              "call_target": null
+            },
+            {
+              "ea": 5552518,
+              "size": 3,
+              "bytes": "8b4df0",
+              "asm": "mov     ecx, [ebp-10h]",
+              "call_target": null
+            },
+            {
+              "ea": 5552521,
+              "size": 6,
+              "bytes": "81c1c0010000",
+              "asm": "add     ecx, 1C0h",
+              "call_target": null
+            },
+            {
+              "ea": 5552527,
+              "size": 5,
+              "bytes": "e95c63ebff",
+              "asm": "jmp     CryptInt_delete",
+              "call_target": null
+            }
+          ]
+        },
+        {
+          "ea": 5005744,
+          "end": 5006269,
+          "offset": 128,
+          "total": 139,
+          "instructions": [
+            {
+              "ea": 5552532,
+              "size": 3,
+              "bytes": "8b4df0",
+              "asm": "mov     ecx, [ebp-10h]",
+              "call_target": null
+            },
+            {
+              "ea": 5552535,
+              "size": 6,
+              "bytes": "81c1e0010000",
+              "asm": "add     ecx, 1E0h",
+              "call_target": null
+            },
+            {
+              "ea": 5552541,
+              "size": 5,
+              "bytes": "e94e63ebff",
+              "asm": "jmp     CryptInt_delete",
+              "call_target": null
+            },
+            {
+              "ea": 5552546,
+              "size": 3,
+              "bytes": "8b4df0",
+              "asm": "mov     ecx, [ebp-10h]",
+              "call_target": null
+            },
+            {
+              "ea": 5552549,
+              "size": 6,
+              "bytes": "81c1f0010000",
+              "asm": "add     ecx, 1F0h",
+              "call_target": null
+            },
+            {
+              "ea": 5552555,
+              "size": 5,
+              "bytes": "e94063ebff",
+              "asm": "jmp     CryptInt_delete",
+              "call_target": null
+            },
+            {
+              "ea": 5552560,
+              "size": 3,
+              "bytes": "8b4df0",
+              "asm": "mov     ecx, [ebp-10h]",
+              "call_target": null
+            },
+            {
+              "ea": 5552563,
+              "size": 6,
+              "bytes": "81c100020000",
+              "asm": "add     ecx, 200h",
+              "call_target": null
+            },
+            {
+              "ea": 5552569,
+              "size": 5,
+              "bytes": "e93263ebff",
+              "asm": "jmp     CryptInt_delete",
+              "call_target": null
+            },
+            {
+              "ea": 5552574,
+              "size": 5,
+              "bytes": "b8900a5500",
+              "asm": "mov     eax, offset stru_550A90",
+              "call_target": null
+            },
+            {
+              "ea": 5552579,
+              "size": 5,
+              "bytes": "e9bbfbfeff",
+              "asm": "jmp     ___CxxFrameHandler",
+              "call_target": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ea": 4752384,
+      "end": 4752394,
+      "instruction_count": 2,
+      "chunks": [
+        [
+          4752384,
+          4752394
+        ]
+      ],
+      "incoming_references": [
+        {
+          "from": 4752368,
+          "type": 17,
+          "parent": 4752368,
+          "bytes": "e80b000000",
+          "asm": "call    unknown_libname_44; Microsoft VisualC 2-14/net runtime"
+        }
+      ],
+      "byte_count": 10,
+      "page_count": 1,
+      "pages": [
+        {
+          "ea": 4752384,
+          "end": 4752394,
+          "offset": 0,
+          "total": 2,
+          "instructions": [
+            {
+              "ea": 4752384,
+              "size": 5,
+              "bytes": "b9103bcf00",
+              "asm": "mov     ecx, offset stru_CF3B10",
+              "call_target": null
+            },
+            {
+              "ea": 4752389,
+              "size": 5,
+              "bytes": "e9a6dd0300",
+              "asm": "jmp     sub_4C61B0",
+              "call_target": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ea": 4823296,
+      "end": 4823306,
+      "instruction_count": 2,
+      "chunks": [
+        [
+          4823296,
+          4823306
+        ]
+      ],
+      "incoming_references": [
+        {
+          "from": 4823280,
+          "type": 17,
+          "parent": 4823280,
+          "bytes": "e80b000000",
+          "asm": "call    unknown_libname_45; Microsoft VisualC 2-14/net runtime"
+        }
+      ],
+      "byte_count": 10,
+      "page_count": 1,
+      "pages": [
+        {
+          "ea": 4823296,
+          "end": 4823306,
+          "offset": 0,
+          "total": 2,
+          "instructions": [
+            {
+              "ea": 4823296,
+              "size": 5,
+              "bytes": "b938f3d200",
+              "asm": "mov     ecx, offset unk_D2F338",
+              "call_target": null
+            },
+            {
+              "ea": 4823301,
+              "size": 5,
+              "bytes": "e9a6c80200",
+              "asm": "jmp     sub_4C61B0",
+              "call_target": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ea": 4752416,
+      "end": 4752644,
+      "instruction_count": 75,
+      "chunks": [
+        [
+          4752416,
+          4752644
+        ],
+        [
+          5552304,
+          5552440
+        ]
+      ],
+      "incoming_references": [],
+      "byte_count": 358,
+      "page_count": 2,
+      "pages": [
+        {
+          "ea": 4752416,
+          "end": 4752644,
+          "offset": 0,
+          "total": 75,
+          "instructions": [
+            {
+              "ea": 4752416,
+              "size": 5,
+              "bytes": "b9103bcf00",
+              "asm": "mov     ecx, offset stru_CF3B10",
+              "call_target": null
+            },
+            {
+              "ea": 4752421,
+              "size": 5,
+              "bytes": "e906000000",
+              "asm": "jmp     loc_488430",
+              "call_target": null
+            },
+            {
+              "ea": 4752432,
+              "size": 2,
+              "bytes": "6aff",
+              "asm": "push    0FFFFFFFFh",
+              "call_target": null
+            },
+            {
+              "ea": 4752434,
+              "size": 5,
+              "bytes": "682eb95400",
+              "asm": "push    offset loc_54B92E",
+              "call_target": null
+            },
+            {
+              "ea": 4752439,
+              "size": 6,
+              "bytes": "64a100000000",
+              "asm": "mov     eax, large fs:0",
+              "call_target": null
+            },
+            {
+              "ea": 4752445,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax",
+              "call_target": null
+            },
+            {
+              "ea": 4752446,
+              "size": 7,
+              "bytes": "64892500000000",
+              "asm": "mov     large fs:0, esp",
+              "call_target": null
+            },
+            {
+              "ea": 4752453,
+              "size": 1,
+              "bytes": "51",
+              "asm": "push    ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4752454,
+              "size": 1,
+              "bytes": "56",
+              "asm": "push    esi",
+              "call_target": null
+            },
+            {
+              "ea": 4752455,
+              "size": 3,
+              "bytes": "8d7178",
+              "asm": "lea     esi, [ecx+78h]",
+              "call_target": null
+            },
+            {
+              "ea": 4752458,
+              "size": 4,
+              "bytes": "89742404",
+              "asm": "mov     [esp+14h+var_10], esi",
+              "call_target": null
+            },
+            {
+              "ea": 4752462,
+              "size": 6,
+              "bytes": "8d8e10020000",
+              "asm": "lea     ecx, [esi+210h]",
+              "call_target": null
+            },
+            {
+              "ea": 4752468,
+              "size": 8,
+              "bytes": "c744241008000000",
+              "asm": "mov     [esp+14h+var_4], 8",
+              "call_target": null
+            },
+            {
+              "ea": 4752476,
+              "size": 5,
+              "bytes": "e88f98f7ff",
+              "asm": "call    CryptInt_delete",
+              "call_target": 4201712
+            },
+            {
+              "ea": 4752481,
+              "size": 6,
+              "bytes": "8d8e00020000",
+              "asm": "lea     ecx, [esi+200h]",
+              "call_target": null
+            },
+            {
+              "ea": 4752487,
+              "size": 5,
+              "bytes": "c644241007",
+              "asm": "mov     byte ptr [esp+14h+var_4], 7",
+              "call_target": null
+            },
+            {
+              "ea": 4752492,
+              "size": 5,
+              "bytes": "e87f98f7ff",
+              "asm": "call    CryptInt_delete",
+              "call_target": 4201712
+            },
+            {
+              "ea": 4752497,
+              "size": 6,
+              "bytes": "8d8ef0010000",
+              "asm": "lea     ecx, [esi+1F0h]",
+              "call_target": null
+            },
+            {
+              "ea": 4752503,
+              "size": 5,
+              "bytes": "c644241006",
+              "asm": "mov     byte ptr [esp+14h+var_4], 6",
+              "call_target": null
+            },
+            {
+              "ea": 4752508,
+              "size": 5,
+              "bytes": "e86f98f7ff",
+              "asm": "call    CryptInt_delete",
+              "call_target": 4201712
+            },
+            {
+              "ea": 4752513,
+              "size": 6,
+              "bytes": "8d8ee0010000",
+              "asm": "lea     ecx, [esi+1E0h]",
+              "call_target": null
+            },
+            {
+              "ea": 4752519,
+              "size": 5,
+              "bytes": "c644241005",
+              "asm": "mov     byte ptr [esp+14h+var_4], 5",
+              "call_target": null
+            },
+            {
+              "ea": 4752524,
+              "size": 5,
+              "bytes": "e85f98f7ff",
+              "asm": "call    CryptInt_delete",
+              "call_target": 4201712
+            },
+            {
+              "ea": 4752529,
+              "size": 6,
+              "bytes": "8d8ec0010000",
+              "asm": "lea     ecx, [esi+1C0h]",
+              "call_target": null
+            },
+            {
+              "ea": 4752535,
+              "size": 5,
+              "bytes": "c644241004",
+              "asm": "mov     byte ptr [esp+14h+var_4], 4",
+              "call_target": null
+            },
+            {
+              "ea": 4752540,
+              "size": 5,
+              "bytes": "e84f98f7ff",
+              "asm": "call    CryptInt_delete",
+              "call_target": 4201712
+            },
+            {
+              "ea": 4752545,
+              "size": 6,
+              "bytes": "8d8eb0010000",
+              "asm": "lea     ecx, [esi+1B0h]",
+              "call_target": null
+            },
+            {
+              "ea": 4752551,
+              "size": 5,
+              "bytes": "c644241003",
+              "asm": "mov     byte ptr [esp+14h+var_4], 3",
+              "call_target": null
+            },
+            {
+              "ea": 4752556,
+              "size": 5,
+              "bytes": "e83f98f7ff",
+              "asm": "call    CryptInt_delete",
+              "call_target": 4201712
+            },
+            {
+              "ea": 4752561,
+              "size": 6,
+              "bytes": "8d8ea0010000",
+              "asm": "lea     ecx, [esi+1A0h]",
+              "call_target": null
+            },
+            {
+              "ea": 4752567,
+              "size": 5,
+              "bytes": "c644241002",
+              "asm": "mov     byte ptr [esp+14h+var_4], 2",
+              "call_target": null
+            },
+            {
+              "ea": 4752572,
+              "size": 5,
+              "bytes": "e82f98f7ff",
+              "asm": "call    CryptInt_delete",
+              "call_target": 4201712
+            },
+            {
+              "ea": 4752577,
+              "size": 6,
+              "bytes": "8d8e90010000",
+              "asm": "lea     ecx, [esi+190h]",
+              "call_target": null
+            },
+            {
+              "ea": 4752583,
+              "size": 5,
+              "bytes": "c644241001",
+              "asm": "mov     byte ptr [esp+14h+var_4], 1",
+              "call_target": null
+            },
+            {
+              "ea": 4752588,
+              "size": 5,
+              "bytes": "e81f98f7ff",
+              "asm": "call    CryptInt_delete",
+              "call_target": 4201712
+            },
+            {
+              "ea": 4752593,
+              "size": 6,
+              "bytes": "8d8e80010000",
+              "asm": "lea     ecx, [esi+180h]",
+              "call_target": null
+            },
+            {
+              "ea": 4752599,
+              "size": 5,
+              "bytes": "c644241000",
+              "asm": "mov     byte ptr [esp+14h+var_4], 0",
+              "call_target": null
+            },
+            {
+              "ea": 4752604,
+              "size": 5,
+              "bytes": "e80f98f7ff",
+              "asm": "call    CryptInt_delete",
+              "call_target": 4201712
+            },
+            {
+              "ea": 4752609,
+              "size": 6,
+              "bytes": "8d8e70010000",
+              "asm": "lea     ecx, [esi+170h]",
+              "call_target": null
+            },
+            {
+              "ea": 4752615,
+              "size": 8,
+              "bytes": "c7442410ffffffff",
+              "asm": "mov     [esp+14h+var_4], 0FFFFFFFFh",
+              "call_target": null
+            },
+            {
+              "ea": 4752623,
+              "size": 5,
+              "bytes": "e8fc97f7ff",
+              "asm": "call    CryptInt_delete",
+              "call_target": 4201712
+            },
+            {
+              "ea": 4752628,
+              "size": 4,
+              "bytes": "8b4c2408",
+              "asm": "mov     ecx, [esp+14h+var_C]",
+              "call_target": null
+            },
+            {
+              "ea": 4752632,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi",
+              "call_target": null
+            },
+            {
+              "ea": 4752633,
+              "size": 7,
+              "bytes": "64890d00000000",
+              "asm": "mov     large fs:0, ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4752640,
+              "size": 3,
+              "bytes": "83c410",
+              "asm": "add     esp, 10h",
+              "call_target": null
+            },
+            {
+              "ea": 4752643,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn",
+              "call_target": null
+            },
+            {
+              "ea": 5552304,
+              "size": 3,
+              "bytes": "8b4df0",
+              "asm": "mov     ecx, [ebp-10h]",
+              "call_target": null
+            },
+            {
+              "ea": 5552307,
+              "size": 6,
+              "bytes": "81c170010000",
+              "asm": "add     ecx, 170h",
+              "call_target": null
+            },
+            {
+              "ea": 5552313,
+              "size": 5,
+              "bytes": "e93264ebff",
+              "asm": "jmp     CryptInt_delete",
+              "call_target": null
+            },
+            {
+              "ea": 5552318,
+              "size": 3,
+              "bytes": "8b4df0",
+              "asm": "mov     ecx, [ebp-10h]",
+              "call_target": null
+            },
+            {
+              "ea": 5552321,
+              "size": 6,
+              "bytes": "81c180010000",
+              "asm": "add     ecx, 180h",
+              "call_target": null
+            },
+            {
+              "ea": 5552327,
+              "size": 5,
+              "bytes": "e92464ebff",
+              "asm": "jmp     CryptInt_delete",
+              "call_target": null
+            },
+            {
+              "ea": 5552332,
+              "size": 3,
+              "bytes": "8b4df0",
+              "asm": "mov     ecx, [ebp-10h]",
+              "call_target": null
+            },
+            {
+              "ea": 5552335,
+              "size": 6,
+              "bytes": "81c190010000",
+              "asm": "add     ecx, 190h",
+              "call_target": null
+            },
+            {
+              "ea": 5552341,
+              "size": 5,
+              "bytes": "e91664ebff",
+              "asm": "jmp     CryptInt_delete",
+              "call_target": null
+            },
+            {
+              "ea": 5552346,
+              "size": 3,
+              "bytes": "8b4df0",
+              "asm": "mov     ecx, [ebp-10h]",
+              "call_target": null
+            },
+            {
+              "ea": 5552349,
+              "size": 6,
+              "bytes": "81c1a0010000",
+              "asm": "add     ecx, 1A0h",
+              "call_target": null
+            },
+            {
+              "ea": 5552355,
+              "size": 5,
+              "bytes": "e90864ebff",
+              "asm": "jmp     CryptInt_delete",
+              "call_target": null
+            },
+            {
+              "ea": 5552360,
+              "size": 3,
+              "bytes": "8b4df0",
+              "asm": "mov     ecx, [ebp-10h]",
+              "call_target": null
+            },
+            {
+              "ea": 5552363,
+              "size": 6,
+              "bytes": "81c1b0010000",
+              "asm": "add     ecx, 1B0h",
+              "call_target": null
+            },
+            {
+              "ea": 5552369,
+              "size": 5,
+              "bytes": "e9fa63ebff",
+              "asm": "jmp     CryptInt_delete",
+              "call_target": null
+            },
+            {
+              "ea": 5552374,
+              "size": 3,
+              "bytes": "8b4df0",
+              "asm": "mov     ecx, [ebp-10h]",
+              "call_target": null
+            },
+            {
+              "ea": 5552377,
+              "size": 6,
+              "bytes": "81c1c0010000",
+              "asm": "add     ecx, 1C0h",
+              "call_target": null
+            },
+            {
+              "ea": 5552383,
+              "size": 5,
+              "bytes": "e9ec63ebff",
+              "asm": "jmp     CryptInt_delete",
+              "call_target": null
+            }
+          ]
+        },
+        {
+          "ea": 4752416,
+          "end": 4752644,
+          "offset": 64,
+          "total": 75,
+          "instructions": [
+            {
+              "ea": 5552388,
+              "size": 3,
+              "bytes": "8b4df0",
+              "asm": "mov     ecx, [ebp-10h]",
+              "call_target": null
+            },
+            {
+              "ea": 5552391,
+              "size": 6,
+              "bytes": "81c1e0010000",
+              "asm": "add     ecx, 1E0h",
+              "call_target": null
+            },
+            {
+              "ea": 5552397,
+              "size": 5,
+              "bytes": "e9de63ebff",
+              "asm": "jmp     CryptInt_delete",
+              "call_target": null
+            },
+            {
+              "ea": 5552402,
+              "size": 3,
+              "bytes": "8b4df0",
+              "asm": "mov     ecx, [ebp-10h]",
+              "call_target": null
+            },
+            {
+              "ea": 5552405,
+              "size": 6,
+              "bytes": "81c1f0010000",
+              "asm": "add     ecx, 1F0h",
+              "call_target": null
+            },
+            {
+              "ea": 5552411,
+              "size": 5,
+              "bytes": "e9d063ebff",
+              "asm": "jmp     CryptInt_delete",
+              "call_target": null
+            },
+            {
+              "ea": 5552416,
+              "size": 3,
+              "bytes": "8b4df0",
+              "asm": "mov     ecx, [ebp-10h]",
+              "call_target": null
+            },
+            {
+              "ea": 5552419,
+              "size": 6,
+              "bytes": "81c100020000",
+              "asm": "add     ecx, 200h",
+              "call_target": null
+            },
+            {
+              "ea": 5552425,
+              "size": 5,
+              "bytes": "e9c263ebff",
+              "asm": "jmp     CryptInt_delete",
+              "call_target": null
+            },
+            {
+              "ea": 5552430,
+              "size": 5,
+              "bytes": "b8280a5500",
+              "asm": "mov     eax, offset stru_550A28",
+              "call_target": null
+            },
+            {
+              "ea": 5552435,
+              "size": 5,
+              "bytes": "e94bfcfeff",
+              "asm": "jmp     ___CxxFrameHandler",
+              "call_target": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ea": 4823328,
+      "end": 4823338,
+      "instruction_count": 2,
+      "chunks": [
+        [
+          4823328,
+          4823338
+        ]
+      ],
+      "incoming_references": [],
+      "byte_count": 10,
+      "page_count": 1,
+      "pages": [
+        {
+          "ea": 4823328,
+          "end": 4823338,
+          "offset": 0,
+          "total": 2,
+          "instructions": [
+            {
+              "ea": 4823328,
+              "size": 5,
+              "bytes": "b938f3d200",
+              "asm": "mov     ecx, offset unk_D2F338",
+              "call_target": null
+            },
+            {
+              "ea": 4823333,
+              "size": 5,
+              "bytes": "e906ebfeff",
+              "asm": "jmp     loc_488430",
+              "call_target": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "original_totals": [
+    {
+      "instructions": 139,
+      "bytes": 661,
+      "direct_calls": 10,
+      "direct_call_targets": [
+        4201584
+      ],
+      "jumps": 10,
+      "returns": 1,
+      "relative_transfers": [
+        {
+          "ea": 5005784,
+          "bytes": "e893baf3ff",
+          "target": 4201584,
+          "kind": "call"
+        },
+        {
+          "ea": 5005801,
+          "bytes": "e882baf3ff",
+          "target": 4201584,
+          "kind": "call"
+        },
+        {
+          "ea": 5005817,
+          "bytes": "e872baf3ff",
+          "target": 4201584,
+          "kind": "call"
+        },
+        {
+          "ea": 5005833,
+          "bytes": "e862baf3ff",
+          "target": 4201584,
+          "kind": "call"
+        },
+        {
+          "ea": 5005849,
+          "bytes": "e852baf3ff",
+          "target": 4201584,
+          "kind": "call"
+        },
+        {
+          "ea": 5005865,
+          "bytes": "e842baf3ff",
+          "target": 4201584,
+          "kind": "call"
+        },
+        {
+          "ea": 5005881,
+          "bytes": "e832baf3ff",
+          "target": 4201584,
+          "kind": "call"
+        },
+        {
+          "ea": 5005897,
+          "bytes": "e822baf3ff",
+          "target": 4201584,
+          "kind": "call"
+        },
+        {
+          "ea": 5005913,
+          "bytes": "e812baf3ff",
+          "target": 4201584,
+          "kind": "call"
+        },
+        {
+          "ea": 5005929,
+          "bytes": "e802baf3ff",
+          "target": 4201584,
+          "kind": "call"
+        },
+        {
+          "ea": 5552457,
+          "bytes": "e9a263ebff",
+          "target": 4201712,
+          "kind": "jmp"
+        },
+        {
+          "ea": 5552471,
+          "bytes": "e99463ebff",
+          "target": 4201712,
+          "kind": "jmp"
+        },
+        {
+          "ea": 5552485,
+          "bytes": "e98663ebff",
+          "target": 4201712,
+          "kind": "jmp"
+        },
+        {
+          "ea": 5552499,
+          "bytes": "e97863ebff",
+          "target": 4201712,
+          "kind": "jmp"
+        },
+        {
+          "ea": 5552513,
+          "bytes": "e96a63ebff",
+          "target": 4201712,
+          "kind": "jmp"
+        },
+        {
+          "ea": 5552527,
+          "bytes": "e95c63ebff",
+          "target": 4201712,
+          "kind": "jmp"
+        },
+        {
+          "ea": 5552541,
+          "bytes": "e94e63ebff",
+          "target": 4201712,
+          "kind": "jmp"
+        },
+        {
+          "ea": 5552555,
+          "bytes": "e94063ebff",
+          "target": 4201712,
+          "kind": "jmp"
+        },
+        {
+          "ea": 5552569,
+          "bytes": "e93263ebff",
+          "target": 4201712,
+          "kind": "jmp"
+        },
+        {
+          "ea": 5552579,
+          "bytes": "e9bbfbfeff",
+          "target": 5485955,
+          "kind": "jmp"
+        }
+      ]
+    },
+    {
+      "instructions": 2,
+      "bytes": 10,
+      "direct_calls": 0,
+      "direct_call_targets": [],
+      "jumps": 1,
+      "returns": 0,
+      "relative_transfers": [
+        {
+          "ea": 4752389,
+          "bytes": "e9a6dd0300",
+          "target": 5005744,
+          "kind": "jmp"
+        }
+      ]
+    },
+    {
+      "instructions": 2,
+      "bytes": 10,
+      "direct_calls": 0,
+      "direct_call_targets": [],
+      "jumps": 1,
+      "returns": 0,
+      "relative_transfers": [
+        {
+          "ea": 4823301,
+          "bytes": "e9a6c80200",
+          "target": 5005744,
+          "kind": "jmp"
+        }
+      ]
+    },
+    {
+      "instructions": 75,
+      "bytes": 358,
+      "direct_calls": 10,
+      "direct_call_targets": [
+        4201712
+      ],
+      "jumps": 11,
+      "returns": 1,
+      "relative_transfers": [
+        {
+          "ea": 4752421,
+          "bytes": "e906000000",
+          "target": 4752432,
+          "kind": "jmp"
+        },
+        {
+          "ea": 4752476,
+          "bytes": "e88f98f7ff",
+          "target": 4201712,
+          "kind": "call"
+        },
+        {
+          "ea": 4752492,
+          "bytes": "e87f98f7ff",
+          "target": 4201712,
+          "kind": "call"
+        },
+        {
+          "ea": 4752508,
+          "bytes": "e86f98f7ff",
+          "target": 4201712,
+          "kind": "call"
+        },
+        {
+          "ea": 4752524,
+          "bytes": "e85f98f7ff",
+          "target": 4201712,
+          "kind": "call"
+        },
+        {
+          "ea": 4752540,
+          "bytes": "e84f98f7ff",
+          "target": 4201712,
+          "kind": "call"
+        },
+        {
+          "ea": 4752556,
+          "bytes": "e83f98f7ff",
+          "target": 4201712,
+          "kind": "call"
+        },
+        {
+          "ea": 4752572,
+          "bytes": "e82f98f7ff",
+          "target": 4201712,
+          "kind": "call"
+        },
+        {
+          "ea": 4752588,
+          "bytes": "e81f98f7ff",
+          "target": 4201712,
+          "kind": "call"
+        },
+        {
+          "ea": 4752604,
+          "bytes": "e80f98f7ff",
+          "target": 4201712,
+          "kind": "call"
+        },
+        {
+          "ea": 4752623,
+          "bytes": "e8fc97f7ff",
+          "target": 4201712,
+          "kind": "call"
+        },
+        {
+          "ea": 5552313,
+          "bytes": "e93264ebff",
+          "target": 4201712,
+          "kind": "jmp"
+        },
+        {
+          "ea": 5552327,
+          "bytes": "e92464ebff",
+          "target": 4201712,
+          "kind": "jmp"
+        },
+        {
+          "ea": 5552341,
+          "bytes": "e91664ebff",
+          "target": 4201712,
+          "kind": "jmp"
+        },
+        {
+          "ea": 5552355,
+          "bytes": "e90864ebff",
+          "target": 4201712,
+          "kind": "jmp"
+        },
+        {
+          "ea": 5552369,
+          "bytes": "e9fa63ebff",
+          "target": 4201712,
+          "kind": "jmp"
+        },
+        {
+          "ea": 5552383,
+          "bytes": "e9ec63ebff",
+          "target": 4201712,
+          "kind": "jmp"
+        },
+        {
+          "ea": 5552397,
+          "bytes": "e9de63ebff",
+          "target": 4201712,
+          "kind": "jmp"
+        },
+        {
+          "ea": 5552411,
+          "bytes": "e9d063ebff",
+          "target": 4201712,
+          "kind": "jmp"
+        },
+        {
+          "ea": 5552425,
+          "bytes": "e9c263ebff",
+          "target": 4201712,
+          "kind": "jmp"
+        },
+        {
+          "ea": 5552435,
+          "bytes": "e94bfcfeff",
+          "target": 5485955,
+          "kind": "jmp"
+        }
+      ]
+    },
+    {
+      "instructions": 2,
+      "bytes": 10,
+      "direct_calls": 0,
+      "direct_call_targets": [],
+      "jumps": 1,
+      "returns": 0,
+      "relative_transfers": [
+        {
+          "ea": 4823333,
+          "bytes": "e906ebfeff",
+          "target": 4752432,
+          "kind": "jmp"
+        }
+      ]
+    }
+  ],
+  "descriptor_template": {
+    "ea": 5565776,
+    "size": 16,
+    "bytes": "00000000000000000000000000000000"
+  },
+  "instruction_gaps": [
+    {
+      "ea": 4752426,
+      "size": 6,
+      "bytes": "909090909090",
+      "asm": "align 10h"
+    }
+  ],
+  "template_direct_refs_empty_does_not_prove_immutability": true,
+  "source_before": [
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4C61B0",
+      "signature": "WindowItemSelectorState* Sub_4C61B0(WindowItemSelectorState* const state)",
+      "position": 339242,
+      "body": "WindowItemSelectorState* Sub_4C61B0(WindowItemSelectorState* const state)\n{\n    const std::uint32_t flags = login::detail::ConstructWindowSelectorPreview(state->preview);\n    state->initialized3E8 = 0;\n    state->value64 = 0;\n    state->step6C = 21;\n    state->previousPet74 = -1;\n    state->selectedPet70 = -1;\n    state->value3EC = 1;\n    state->value3ED = 1;\n    state->imageIndex3F0 = 0;\n    state->imageIndex3F4 = 0;\n    login::detail::FinishWindowSelectorPreview(state->preview, flags);\n    state->hoverIndex3B0 = -1;\n    state->hoverIndex3F8 = -1;\n    state->bytes3B4.fill(std::byte{0});\n    state->hoverCount3A8 = 0;\n    state->bytes3AC.fill(std::byte{0});\n    state->value3FC = 0;\n    for (std::size_t index = 0; index < state->descriptors3B8.size(); ++index) {\n        auto& descriptor = state->descriptors3B8[index];\n        descriptor.bytes.fill(0);\n        const std::uint32_t color = index == 0 ? 0xFFFFFFFFu : 0x80FFFFFFu;\n        std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));\n        descriptor.bytes[13] = 4;\n    }\n    return state;\n}\n"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "ConstructLegacyFirstItemSelector_488400",
+      "signature": "detail::WindowItemSelectorState* ConstructLegacyFirstItemSelector_488400()",
+      "position": 1925907,
+      "body": "detail::WindowItemSelectorState* ConstructLegacyFirstItemSelector_488400()\n{\n    detail::gItemSelectorCF3B10.preview = login::detail::BorrowWindowSelectorPreview(0);\n    return detail::Sub_4C61B0(&detail::gItemSelectorCF3B10);\n}\n"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "ConstructLegacySecondItemSelector_499900",
+      "signature": "detail::WindowItemSelectorState* ConstructLegacySecondItemSelector_499900()",
+      "position": 1926378,
+      "body": "detail::WindowItemSelectorState* ConstructLegacySecondItemSelector_499900()\n{\n    detail::gItemSelectorD2F338.preview = login::detail::BorrowWindowSelectorPreview(1);\n    return detail::Sub_4C61B0(&detail::gItemSelectorD2F338);\n}\n"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "ReleaseLegacyFirstItemSelectorAtExit_488420",
+      "signature": "void ReleaseLegacyFirstItemSelectorAtExit_488420()",
+      "position": 1926186,
+      "body": "void ReleaseLegacyFirstItemSelectorAtExit_488420()\n{\n    login::detail::DestroyWindowSelectorPreview(login::detail::BorrowWindowSelectorPreview(0));\n}\n"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "ReleaseLegacySecondItemSelectorAtExit_499920",
+      "signature": "void ReleaseLegacySecondItemSelectorAtExit_499920()",
+      "position": 1926658,
+      "body": "void ReleaseLegacySecondItemSelectorAtExit_499920()\n{\n    login::detail::DestroyWindowSelectorPreview(login::detail::BorrowWindowSelectorPreview(1));\n}\n"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "ConstructWindowSelectorPreview",
+      "signature": "std::uint32_t ConstructWindowSelectorPreview(YobiAction* const action)",
+      "position": 1675861,
+      "body": "std::uint32_t ConstructWindowSelectorPreview(YobiAction* const action)\n{\n    platform::legacy_crypt_int::ConstructZero_401C70(&action->readiness);\n    platform::legacy_crypt_int::ConstructZero_401C70(&action->maxHp);\n    platform::legacy_crypt_int::ConstructZero_401C70(&action->value190);\n    platform::legacy_crypt_int::ConstructZero_401C70(&action->value1A0);\n    platform::legacy_crypt_int::ConstructZero_401C70(&action->barValue1B0);\n    platform::legacy_crypt_int::ConstructZero_401C70(&action->barMaximum1C0);\n    platform::legacy_crypt_int::ConstructZero_401C70(&action->mapX1E0);\n    platform::legacy_crypt_int::ConstructZero_401C70(&action->mapY1F0);\n    platform::legacy_crypt_int::ConstructZero_401C70(&action->mapX200);\n    platform::legacy_crypt_int::ConstructZero_401C70(&action->mapY210);\n    return action->flags | 2u;\n}\n"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "FinishWindowSelectorPreview",
+      "signature": "void FinishWindowSelectorPreview(YobiAction* const action, const std::uint32_t flags)",
+      "position": 1676700,
+      "body": "void FinishWindowSelectorPreview(YobiAction* const action, const std::uint32_t flags)\n{\n    action->flags = flags;\n    action->callback = nullptr;\n    // 原固定来源F5E988归技能块，不建立负宠物槽或独立影子值。\n    static_assert(0x3C + 3 * 0x94 + 0x19 + 83 == 0x264);\n    std::int32_t imageNo;\n    std::memcpy(&imageNo,\n        world::detail::gSkillsF1BAFC[14].techniques3C[3].description.data() + 83,\n        sizeof(imageNo));\n    action->displayPriority = 0xDF;\n    action->imageNo = imageNo;\n    action->direction = 5;\n}\n"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "DestroyWindowSelectorPreview",
+      "signature": "void DestroyWindowSelectorPreview(YobiAction* const action)",
+      "position": 1677199,
+      "body": "void DestroyWindowSelectorPreview(YobiAction* const action)\n{\n    platform::legacy_crypt_int::Destroy_401CF0(&action->mapY210);\n    platform::legacy_crypt_int::Destroy_401CF0(&action->mapX200);\n    platform::legacy_crypt_int::Destroy_401CF0(&action->mapY1F0);\n    platform::legacy_crypt_int::Destroy_401CF0(&action->mapX1E0);\n    platform::legacy_crypt_int::Destroy_401CF0(&action->barMaximum1C0);\n    platform::legacy_crypt_int::Destroy_401CF0(&action->barValue1B0);\n    platform::legacy_crypt_int::Destroy_401CF0(&action->value1A0);\n    platform::legacy_crypt_int::Destroy_401CF0(&action->value190);\n    platform::legacy_crypt_int::Destroy_401CF0(&action->maxHp);\n    platform::legacy_crypt_int::Destroy_401CF0(&action->readiness);\n}\n"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "BorrowWindowSelectorPreview",
+      "signature": "YobiAction* BorrowWindowSelectorPreview(const std::int32_t index) noexcept",
+      "position": 1675737,
+      "body": "YobiAction* BorrowWindowSelectorPreview(const std::int32_t index) noexcept\n{\n    return &gWindowSelectorPreviews[index];\n}\n"
+    }
+  ],
+  "source_after": [
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4C61B0",
+      "signature": "WindowItemSelectorState* Sub_4C61B0(WindowItemSelectorState* const state)",
+      "position": 339242,
+      "body": "WindowItemSelectorState* Sub_4C61B0(WindowItemSelectorState* const state)\n{\n    login::YobiAction* const preview = state->preview;\n    const std::uint32_t flags = login::detail::ConstructWindowSelectorPreview(preview);\n    state->initialized3E8 = 0;\n    state->value64 = 0;\n    state->step6C = 21;\n    state->previousPet74 = -1;\n    state->selectedPet70 = -1;\n    state->value3EC = 1;\n    state->value3ED = 1;\n    state->imageIndex3F0 = 0;\n    state->imageIndex3F4 = 0;\n    login::detail::FinishWindowSelectorPreview(preview, flags);\n    state->hoverIndex3B0 = -1;\n    state->hoverIndex3F8 = -1;\n    state->bytes3B4.fill(std::byte{0});\n    state->hoverCount3A8 = 0;\n    state->bytes3AC.fill(std::byte{0});\n    state->value3FC = 0;\n    for (std::size_t index = 0; index < state->descriptors3B8.size(); ++index) {\n        auto& descriptor = state->descriptors3B8[index];\n        descriptor.bytes.fill(0);\n        const std::uint32_t color = index == 0 ? 0xFFFFFFFFu : 0x80FFFFFFu;\n        std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));\n        descriptor.bytes[13] = 4;\n    }\n    return state;\n}\n"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "ConstructLegacyFirstItemSelector_488400",
+      "signature": "detail::WindowItemSelectorState* ConstructLegacyFirstItemSelector_488400()",
+      "position": 1925907,
+      "body": "detail::WindowItemSelectorState* ConstructLegacyFirstItemSelector_488400()\n{\n    detail::gItemSelectorCF3B10.preview = login::detail::BorrowWindowSelectorPreview(0);\n    return detail::Sub_4C61B0(&detail::gItemSelectorCF3B10);\n}\n"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "ConstructLegacySecondItemSelector_499900",
+      "signature": "detail::WindowItemSelectorState* ConstructLegacySecondItemSelector_499900()",
+      "position": 1926378,
+      "body": "detail::WindowItemSelectorState* ConstructLegacySecondItemSelector_499900()\n{\n    detail::gItemSelectorD2F338.preview = login::detail::BorrowWindowSelectorPreview(1);\n    return detail::Sub_4C61B0(&detail::gItemSelectorD2F338);\n}\n"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "ReleaseLegacyFirstItemSelectorAtExit_488420",
+      "signature": "void ReleaseLegacyFirstItemSelectorAtExit_488420()",
+      "position": 1926186,
+      "body": "void ReleaseLegacyFirstItemSelectorAtExit_488420()\n{\n    login::detail::DestroyWindowSelectorPreview(login::detail::BorrowWindowSelectorPreview(0));\n}\n"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "ReleaseLegacySecondItemSelectorAtExit_499920",
+      "signature": "void ReleaseLegacySecondItemSelectorAtExit_499920()",
+      "position": 1926658,
+      "body": "void ReleaseLegacySecondItemSelectorAtExit_499920()\n{\n    login::detail::DestroyWindowSelectorPreview(login::detail::BorrowWindowSelectorPreview(1));\n}\n"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "ConstructWindowSelectorPreview",
+      "signature": "std::uint32_t ConstructWindowSelectorPreview(YobiAction* const action)",
+      "position": 1675861,
+      "body": "std::uint32_t ConstructWindowSelectorPreview(YobiAction* const action)\n{\n    platform::legacy_crypt_int::ConstructZero_401C70(&action->readiness);\n    platform::legacy_crypt_int::ConstructZero_401C70(&action->maxHp);\n    platform::legacy_crypt_int::ConstructZero_401C70(&action->value190);\n    platform::legacy_crypt_int::ConstructZero_401C70(&action->value1A0);\n    platform::legacy_crypt_int::ConstructZero_401C70(&action->barValue1B0);\n    platform::legacy_crypt_int::ConstructZero_401C70(&action->barMaximum1C0);\n    platform::legacy_crypt_int::ConstructZero_401C70(&action->mapX1E0);\n    platform::legacy_crypt_int::ConstructZero_401C70(&action->mapY1F0);\n    platform::legacy_crypt_int::ConstructZero_401C70(&action->mapX200);\n    platform::legacy_crypt_int::ConstructZero_401C70(&action->mapY210);\n    return action->flags | 2u;\n}\n"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "FinishWindowSelectorPreview",
+      "signature": "void FinishWindowSelectorPreview(YobiAction* const action, const std::uint32_t flags)",
+      "position": 1676700,
+      "body": "void FinishWindowSelectorPreview(YobiAction* const action, const std::uint32_t flags)\n{\n    action->flags = flags;\n    action->callback = nullptr;\n    // 原固定来源F5E988归技能块，不建立负宠物槽或独立影子值。\n    static_assert(0x3C + 3 * 0x94 + 0x19 + 83 == 0x264);\n    std::int32_t imageNo;\n    std::memcpy(&imageNo,\n        world::detail::gSkillsF1BAFC[14].techniques3C[3].description.data() + 83,\n        sizeof(imageNo));\n    action->displayPriority = 0xDF;\n    action->imageNo = imageNo;\n    action->direction = 5;\n}\n"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "DestroyWindowSelectorPreview",
+      "signature": "void DestroyWindowSelectorPreview(YobiAction* const action)",
+      "position": 1677199,
+      "body": "void DestroyWindowSelectorPreview(YobiAction* const action)\n{\n    platform::legacy_crypt_int::Destroy_401CF0(&action->mapY210);\n    platform::legacy_crypt_int::Destroy_401CF0(&action->mapX200);\n    platform::legacy_crypt_int::Destroy_401CF0(&action->mapY1F0);\n    platform::legacy_crypt_int::Destroy_401CF0(&action->mapX1E0);\n    platform::legacy_crypt_int::Destroy_401CF0(&action->barMaximum1C0);\n    platform::legacy_crypt_int::Destroy_401CF0(&action->barValue1B0);\n    platform::legacy_crypt_int::Destroy_401CF0(&action->value1A0);\n    platform::legacy_crypt_int::Destroy_401CF0(&action->value190);\n    platform::legacy_crypt_int::Destroy_401CF0(&action->maxHp);\n    platform::legacy_crypt_int::Destroy_401CF0(&action->readiness);\n}\n"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "BorrowWindowSelectorPreview",
+      "signature": "YobiAction* BorrowWindowSelectorPreview(const std::int32_t index) noexcept",
+      "position": 1675737,
+      "body": "YobiAction* BorrowWindowSelectorPreview(const std::int32_t index) noexcept\n{\n    return &gWindowSelectorPreviews[index];\n}\n"
+    }
+  ],
+  "declarations_before": [
+    {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "symbol": "Sub_4C61B0",
+      "position": 22907,
+      "declaration": "WindowItemSelectorState* Sub_4C61B0(WindowItemSelectorState* state); // 完整构造，不整区清零。"
+    },
+    {
+      "path": "include/cg/YobiRuntime.hpp",
+      "symbol": "ConstructWindowSelectorPreview",
+      "position": 2189,
+      "declaration": "std::uint32_t ConstructWindowSelectorPreview(YobiAction* action); // 十CryptInt，返回flags|2快照。"
+    },
+    {
+      "path": "include/cg/YobiRuntime.hpp",
+      "symbol": "FinishWindowSelectorPreview",
+      "position": 2281,
+      "declaration": "void FinishWindowSelectorPreview(YobiAction* action, std::uint32_t flags);"
+    },
+    {
+      "path": "include/cg/YobiRuntime.hpp",
+      "symbol": "DestroyWindowSelectorPreview",
+      "position": 2356,
+      "declaration": "void DestroyWindowSelectorPreview(YobiAction* action); // 只逆序析构十CryptInt。"
+    },
+    {
+      "path": "include/cg/YobiRuntime.hpp",
+      "symbol": "BorrowWindowSelectorPreview",
+      "position": 2119,
+      "declaration": "YobiAction* BorrowWindowSelectorPreview(std::int32_t index) noexcept;"
+    }
+  ],
+  "declarations_after": [
+    {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "symbol": "Sub_4C61B0",
+      "position": 22907,
+      "declaration": "WindowItemSelectorState* Sub_4C61B0(WindowItemSelectorState* state); // SIC01：入口预览地址贯穿十成员构造与字段发布；原初始化/三descriptor及this返回保持，整对象不清零。"
+    },
+    {
+      "path": "include/cg/YobiRuntime.hpp",
+      "symbol": "ConstructWindowSelectorPreview",
+      "position": 2189,
+      "declaration": "std::uint32_t ConstructWindowSelectorPreview(YobiAction* action); // SIC01：同静态预览十CryptInt按原170..210次序构造/RNG，尾取flags|2快照，不构造通用Yobi对象。"
+    },
+    {
+      "path": "include/cg/YobiRuntime.hpp",
+      "symbol": "FinishWindowSelectorPreview",
+      "position": 2281,
+      "declaration": "void FinishWindowSelectorPreview(YobiAction* action, std::uint32_t flags); // SIC01：同预览flags/callback/固定技能源图号/layer/direction原序发布，不补影子值或读负宠物槽。"
+    },
+    {
+      "path": "include/cg/YobiRuntime.hpp",
+      "symbol": "DestroyWindowSelectorPreview",
+      "position": 2356,
+      "declaration": "void DestroyWindowSelectorPreview(YobiAction* action); // SIC01：固定退出对象仅十CryptInt逆序析构；不释放静态owner、不清UI槽，完整EH/运行待。"
+    },
+    {
+      "path": "include/cg/YobiRuntime.hpp",
+      "symbol": "BorrowWindowSelectorPreview",
+      "position": 2119,
+      "declaration": "YobiAction* BorrowWindowSelectorPreview(std::int32_t index) noexcept; // SIC01：只借两个既有静态预览的同一地址，原owner索引0/1由具名构造/退出入口固定。"
+    }
+  ],
+  "definition_comments": [
+    "// SIC01：入口预览地址贯穿十成员构造与字段发布；原初始化/三descriptor及this返回保持，整对象不清零。",
+    "",
+    "",
+    "",
+    "",
+    "// SIC01：同静态预览十CryptInt按原170..210次序构造/RNG，尾取flags|2快照，不构造通用Yobi对象。",
+    "// SIC01：同预览flags/callback/固定技能源图号/layer/direction原序发布，不补影子值或读负宠物槽。",
+    "// SIC01：固定退出对象仅十CryptInt逆序析构；不释放静态owner、不清UI槽，完整EH/运行待。",
+    "// SIC01：只借两个既有静态预览的同一地址，原owner索引0/1由具名构造/退出入口固定。"
+  ],
+  "preserved_initializer_bodies": {
+    "InitializeLegacyFirstItemSelector_4883F0": "std::int32_t InitializeLegacyFirstItemSelector_4883F0()\n{\n    ConstructLegacyFirstItemSelector_488400();\n    return std::atexit(ReleaseLegacyFirstItemSelectorAtExit_488420);\n}\n",
+    "InitializeLegacySecondItemSelector_4998F0": "std::int32_t InitializeLegacySecondItemSelector_4998F0()\n{\n    ConstructLegacySecondItemSelector_499900();\n    return std::atexit(ReleaseLegacySecondItemSelectorAtExit_499920);\n}\n",
+    "InitializeItemSelectors": "void InitializeItemSelectors()\n{\n    static_cast<void>(InitializeLegacyFirstItemSelector_4883F0());\n    static_cast<void>(InitializeLegacySecondItemSelector_4998F0());\n}\n"
+  },
+  "object_declarations_and_uses": [
+    "static std::array<YobiAction, 2> gWindowSelectorPreviews {};",
+    "    return &gWindowSelectorPreviews[index];"
+  ],
+  "crypt_sources_unchanged": {
+    "ConstructZero_401C70": {
+      "path": "src/platform/LegacyCryptInt.cpp",
+      "text": "LegacyCryptInt* ConstructZero_401C70(LegacyCryptInt* storage)\n{\n    storage->legacyVftToken = kLegacyCryptIntVftToken;\n    storage->mask = NextMask();\n    storage->readCount = 0;\n    SetNorVal_401F50(storage, 0);\n    return storage;\n}\n"
+    },
+    "Destroy_401CF0": {
+      "path": "src/platform/LegacyCryptInt.cpp",
+      "text": "void Destroy_401CF0(LegacyCryptInt* value)\n{\n    value->legacyVftToken = kLegacyCryptIntVftToken;\n}\n"
+    }
+  },
+  "reused_records": [
+    {
+      "index": 113,
+      "inventory_id": "F:000883F0",
+      "evidence_documents": [
+        "doc/ui_windows/shared_items.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_ui_input_lifecycle_spec.md",
+        "doc/cg2d_ui_input_lifecycle_evidence.json",
+        "doc/cg2d_active_initializer_order_spec.md",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
+        "doc/cg2d_msvc_crt_exit_evidence.json"
+      ]
+    },
+    {
+      "index": 115,
+      "inventory_id": "F:000998F0",
+      "evidence_documents": [
+        "doc/ui_windows/shared_items.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_ui_input_lifecycle_spec.md",
+        "doc/cg2d_ui_input_lifecycle_evidence.json",
+        "doc/cg2d_active_initializer_order_spec.md",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
+        "doc/cg2d_msvc_crt_exit_evidence.json"
+      ]
+    }
+  ],
+  "structures_before": {
+    "WindowItemSelectorState": {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "text": "struct WindowItemSelectorState {\n    std::array<WindowElement*, 20> elements00; // 4C6EC0绑定的非拥有元素，非零模式保留槽19。\n    std::array<WindowElementCallback, 4> callbacks50; // 4C6550写回元素mouseCallback。\n    std::int32_t value60; // 4C6550发布的数值页状态，4C75A0仅在2时绘制。\n    std::int32_t value64;\n    std::uint8_t* mode68; // 借用57DA28/57E42C，消费者按S8解释。\n    std::int32_t step6C;\n    std::int32_t selectedPet70;\n    std::int32_t previousPet74;\n    login::YobiAction* preview; // 借用原内嵌+78的静态对象，不负责释放。\n    std::int32_t hoverCount3A8;\n    std::array<std::byte, 4> bytes3AC;\n    std::int32_t hoverIndex3B0;\n    std::array<std::byte, 4> bytes3B4;\n    std::array<render::GraphicDescriptor16, 3> descriptors3B8;\n    std::int32_t initialized3E8; // 7A90首次切页后置1，库存更新/释放及构造清零。\n    std::uint8_t value3EC;\n    std::uint8_t value3ED;\n    std::int32_t imageIndex3F0;\n    std::int32_t imageIndex3F4;\n    std::int32_t hoverIndex3F8;\n    std::uint8_t value3FC;\n};\n"
+    },
+    "WindowElement": {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "text": "struct WindowElement {\n    std::int32_t type;\n    std::uint32_t state;\n    std::int32_t x;\n    std::int32_t y;\n    std::int32_t width;\n    std::int32_t height;\n    std::int32_t visible;\n    void* data; // 原+1C，七类数据共用；后续按type解释，不是地址数值。\n    WindowElementCallback mouseCallback; // 原+20。\n};\n"
+    },
+    "WindowTextData": {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "text": "struct WindowTextData {\n    std::array<std::byte, 4> bytes00;\n    char* text;\n};\n"
+    },
+    "PetRuntimeRecord": {
+      "path": "src/world/WorldUpdateDependencies.hpp",
+      "text": "struct PetRuntimeRecord {\n    std::uint16_t used; // 原+0占用。\n    std::uint16_t value02; // 主回复掩码200001。\n    std::uint16_t value04; // 主回复掩码5。\n    std::array<std::byte, 2> bytes06;\n    std::int32_t value08; // 主回复掩码201。\n    std::array<platform::LegacyCryptInt, 6> values0C; // HP/最大HP/FP/最大FP/+4C/+5C。\n    std::int32_t lvFlag6C; // 原F63464；50CF70写入完整W32。\n    std::array<std::int32_t, 26> values70; // 原+70..+D4，两回复共享。\n    std::array<PetTechniqueRecord, 10> techniquesD8;\n    std::array<SkillPairRecord, 10> techniquePairs650; // 5185C0只生成索引，不排序。\n    std::int32_t imageNo6A0;\n    std::int32_t value6A4;\n    std::array<std::byte, 2> bytes6A8;\n    std::uint16_t flags6AA; // 不含跟随bit0x10的状态。\n    std::array<char, 17> name6AC;\n    std::array<char, 17> name6BD;\n    std::array<std::byte, 2> bytes6CE;\n    std::int32_t value6D0; // 518580复制到索引对。\n    std::int32_t follow6D4;\n    std::array<std::int32_t, 3> values6D8;\n    std::array<PlayerItemRecord, 6> items6E4; // 原51B630复用的六条C5C物品。\n    std::uint8_t updated510C; // 仅50A6B0尾部置1。\n    std::array<std::byte, 3> bytes510D;\n};\n"
+    },
+    "PetPairRecord": {
+      "path": "src/world/WorldUpdateDependencies.hpp",
+      "text": "struct PetPairRecord {\n    std::uint16_t used;\n    std::uint16_t index;\n    std::int32_t value;\n};\n"
+    }
+  },
+  "source_patch_group_count": 1,
+  "source_changed_point_count": 1,
+  "source_comment_count": 10,
+  "source_patch_group_counts": [
+    1,
+    0,
+    0,
+    0,
+    0
+  ],
+  "source_changed_point_counts": [
+    1,
+    0,
+    0,
+    0,
+    0
+  ],
+  "anonymous_wrappers_have_no_public_declarations": true,
+  "helpers_have_separate_original_functions": false,
+  "feature_member_additions": {
+    "FUNC-INPUT": [
+      "F:000C61B0",
+      "F:00088400",
+      "F:00099900",
+      "F:00088420",
+      "F:00099920"
+    ],
+    "FUNC-UIRUNTIME": [
+      "F:000C61B0",
+      "F:00088400",
+      "F:00099900",
+      "F:00088420",
+      "F:00099920"
+    ],
+    "FUNC-RENDER": [
+      "F:000C61B0"
+    ],
+    "FUNC-YOBI": [
+      "F:000C61B0",
+      "F:00088420",
+      "F:00099920"
+    ]
+  },
+  "tasks_updated": [
+    "G01",
+    "G02",
+    "R01",
+    "R04",
+    "U08",
+    "U09",
+    "U10",
+    "U11",
+    "V03",
+    "V04"
+  ],
+  "expected_counts_before": {
+    "semantic_records": 2297,
+    "semantic_F": 2249,
+    "bounded_code_records": 48,
+    "function_dispositions": 1744,
+    "evidence": 1533,
+    "document_linked_functions": 2359,
+    "document_link_rate": "64.10%",
+    "feature_members": {
+      "FUNC-INPUT": 121,
+      "FUNC-UIRUNTIME": 158,
+      "FUNC-RENDER": 94,
+      "FUNC-YOBI": 103
+    }
+  },
+  "expected_counts_after": {
+    "semantic_records": 2298,
+    "semantic_F": 2250,
+    "bounded_code_records": 48,
+    "function_dispositions": 1749,
+    "evidence": 1537,
+    "document_linked_functions": 2360,
+    "document_link_rate": "64.13%",
+    "feature_members": {
+      "FUNC-INPUT": 126,
+      "FUNC-UIRUNTIME": 163,
+      "FUNC-RENDER": 95,
+      "FUNC-YOBI": 106
+    }
+  },
+  "execution_policy": {
+    "build": false,
+    "test": false,
+    "client_run": false,
+    "algorithm_samples": false,
+    "artifact_inspection": false,
+    "digests": false,
+    "dependencies": false,
+    "single_thread": true,
+    "same_branch": true,
+    "tags": false
+  },
+  "verification": {
+    "necessary_static": "pass，五完整原根七chunk的220条1049B/八页、20E8两目标/24跳两RET，双EH各29条136B及六B间隙/跨度分界有据；两构造固定this/两退出共体、十成员构造/逆析与三descriptor正常初值保持，一组入口持址/十注释，四整源精确差异及四wrapper/四helper/五类型/宿主登记和Crypto叶源保持；模板初值不代alias不可变，完整EH/ABI/全应用owner与运行待",
+    "registry": "pass，四旧语义全历史只追加/一新F五adapted，INPUT/UIRUNTIME各五成员/RENDER一成员/YOBI三成员、四限定S零I/十open任务；登记全量差异回放相同，其它全部旧语义/处置/证据及政策/gates/枚举/六closure保持，七文档与清单严格追加通过",
+    "measurement": "pass，measure_cg2d.ps1静态汇总终态退出0；3680函数/218导入/3061区间/184叶功能/60任务，非构建/运行验收",
+    "check": "pass，measure_cg2d.ps1 -Check终态退出0，当前登记与派生看板/快照一致，非软件验收",
+    "derived_scope": "pass，派生仅六metrics/五本轮F/四功能/十任务；2360/3680=64.13%仅关联率，2298=2250F关联+48有界代码/处置1749/证据1537，INPUT126/UIRUNTIME163/RENDER95/YOBI106，其它字段与全部完整门禁保持",
+    "runtime_verified": false,
+    "full_lifecycle_closed": false,
+    "generated_machine_reads_verified": false,
+    "build_or_test_performed": false,
+    "algorithm_samples_executed": false,
+    "digests_computed_or_compared": false
+  },
+  "registration_contract": {
+    "boundary": "SIC01五原根/七chunk完整FuncItems220条1049B/八页，20实际E8两目标、24跳两RET；构造139条661B两chunk含29条136B EH，退出488420为75条358B两chunk含29条136B EH。其主chunk另有48842A..30六B间隙（90*6）被前缀JMP跨过，区间跨度与实际指令字节分开，不造F/X或验收。488430是488420内共享尾，499920尾入，不新增原F。两构造wrapper固定CF3B10/D2F338并tailJMP61B0；现绑定唯一静态预览0/1，正常typed this返回保。61B0入口持同非拥有preview地址，十Cry按170/180/190/1A0/1B0/1C0/1E0/1F0/200/210构造并尾取flags|2；initialized0/value64=0/step21/previous=-1/selected=-1、两BYTE开关1/两图索引0→同preview flags/callback及固定F5E988技能源S32图号/layerDF/direction5→hover两索引-1/两原4B区清0/count0/末BYTE0→三16B descriptor正常初值保持：首FFFFFFFF/另两80FFFFFF、BYTE13=4，余依现零模板。原54ED50初始16B全零有据，Xrefs为空不证明全alias不可改，不新增模板冻结、补零或整体清对象，动态来源/alias完整闭包待。唯一一组一处持址贯穿Construct/Finish；两整CPP/两头其余全文、四wrapper与四helper正确body及类型/储宽保持，五定义/五真实声明十注释，匿名wrapper无公头不造声明。退出借固定静态0/1不重读可改state.preview，十Cry按210..170逆序，不free/清选择/合并owner，不进入通用Yobi链；两现构造后独立std::atexit及First→Second旧初始化body保持，Crypto叶/十RNG消费顺序不改。四旧114/116/5/117全历史追加、一新F五adapted/四限定S零I/十任务open；旧MSVC CRT/SDL/WAV-only/明文网络和48有界代码/完整枚举gates/六closure/总SPEC§10保持。完整原EH/SEH/机器ABI仅捕获边界、不记异常等价或再造私有CRT处理器；全部正常字段/模板/skill/preview生产消费、间接alias和跨模块/快速退出/SDK与生成字段访问、全应用顺序/实际生命周期及运行未闭，无新API/helper/结构/字段/owner/保护/默认值/新钳制/回滚/异常模型。",
+    "old_record_source_additions": {
+      "F:00088400": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ConstructLegacyFirstItemSelector_488400"
+          ],
+          "relationship": "SIC01完整原包装/共享退出及固定对象正常合同补证，正确body与旧历史保持"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "BorrowWindowSelectorPreview",
+            "ConstructWindowSelectorPreview",
+            "FinishWindowSelectorPreview"
+          ],
+          "relationship": "SIC01同一两个静态owner的已有真实helper，正常成员顺序有据，完整EH/全应用owner/运行未闭"
+        }
+      ],
+      "F:00099900": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ConstructLegacySecondItemSelector_499900"
+          ],
+          "relationship": "SIC01完整原包装/共享退出及固定对象正常合同补证，正确body与旧历史保持"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "BorrowWindowSelectorPreview",
+            "ConstructWindowSelectorPreview",
+            "FinishWindowSelectorPreview"
+          ],
+          "relationship": "SIC01同一两个静态owner的已有真实helper，正常成员顺序有据，完整EH/全应用owner/运行未闭"
+        }
+      ],
+      "F:00088420": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ReleaseLegacyFirstItemSelectorAtExit_488420"
+          ],
+          "relationship": "SIC01完整原包装/共享退出及固定对象正常合同补证，正确body与旧历史保持"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "BorrowWindowSelectorPreview",
+            "DestroyWindowSelectorPreview"
+          ],
+          "relationship": "SIC01同一两个静态owner的已有真实helper，正常成员顺序有据，完整EH/全应用owner/运行未闭"
+        }
+      ],
+      "F:00099920": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ReleaseLegacySecondItemSelectorAtExit_499920"
+          ],
+          "relationship": "SIC01完整原包装/共享退出及固定对象正常合同补证，正确body与旧历史保持"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "BorrowWindowSelectorPreview",
+            "DestroyWindowSelectorPreview"
+          ],
+          "relationship": "SIC01同一两个静态owner的已有真实helper，正常成员顺序有据，完整EH/全应用owner/运行未闭"
+        }
+      ]
+    },
+    "constructor_helper_sources": [
+      {
+        "path": "src/YobiRuntime.cpp",
+        "symbols": [
+          "ConstructWindowSelectorPreview",
+          "FinishWindowSelectorPreview"
+        ],
+        "relationship": "SIC01对应构造内原十Cry/flags快照与正常字段尾，现helper不新增原F，入口持同预览地址"
+      },
+      {
+        "path": "include/cg/YobiRuntime.hpp",
+        "symbols": [
+          "ConstructWindowSelectorPreview",
+          "FinishWindowSelectorPreview"
+        ],
+        "relationship": "SIC01真实helper声明/字段合同，仅注释，类型与签名不变"
+      }
+    ],
+    "documentation_additions": {
+      "doc/cg2d_input_render.md": "## 2026-10-10 SIC01：选择器构造与对象来源\n\n[SIC01](cg2d_selector_construction_exit_spec.md#selector-construction-source-state)补齐选择器完整构造及两个固定构造/退出包装五原根，220条1049B/八页、20E8两目标/24跳两RET。构造/共享退出各有29条136B EH；488420主chunk另有六B间隙，指令字节与跨度分开，488430为其内部共享尾，不造F。同预览十成员构造和逆序析构、flags/开关/图号/三descriptor发布保持，仅一组一处在构造入口持址供Construct/Finish。两静态对象0/1独立，退出固定借用，不重读可改preview；四包装/四helper及两独立std::atexit正确body保持，十注释。四旧历史追加、一新F五处置、四限定S零I/十open；零模板初值有据，空Xrefs不代不可变或alias闭包，完整EH/ABI/全生产消费、全应用正常owner与快速退出/真实生命周期和运行仍待，整体未完成。",
+      "doc/cg2d_ui_window_runtime.md": "## 2026-10-10 SIC01：初始化字段与固定退出对象\n\n[SIC01](cg2d_selector_construction_exit_spec.md#selector-construction-source-state)补齐选择器完整构造及两个固定构造/退出包装五原根，220条1049B/八页、20E8两目标/24跳两RET。构造/共享退出各有29条136B EH；488420主chunk另有六B间隙，指令字节与跨度分开，488430为其内部共享尾，不造F。同预览十成员构造和逆序析构、flags/开关/图号/三descriptor发布保持，仅一组一处在构造入口持址供Construct/Finish。两静态对象0/1独立，退出固定借用，不重读可改preview；四包装/四helper及两独立std::atexit正确body保持，十注释。四旧历史追加、一新F五处置、四限定S零I/十open；零模板初值有据，空Xrefs不代不可变或alias闭包，完整EH/ABI/全生产消费、全应用正常owner与快速退出/真实生命周期和运行仍待，整体未完成。",
+      "doc/ui_windows/window_14.md": "## 2026-10-10 SIC01：选择器固定预览生命周期\n\n[SIC01](../cg2d_selector_construction_exit_spec.md#selector-construction-source-state)补齐选择器完整构造及两个固定构造/退出包装五原根，220条1049B/八页、20E8两目标/24跳两RET。构造/共享退出各有29条136B EH；488420主chunk另有六B间隙，指令字节与跨度分开，488430为其内部共享尾，不造F。同预览十成员构造和逆序析构、flags/开关/图号/三descriptor发布保持，仅一组一处在构造入口持址供Construct/Finish。两静态对象0/1独立，退出固定借用，不重读可改preview；四包装/四helper及两独立std::atexit正确body保持，十注释。四旧历史追加、一新F五处置、四限定S零I/十open；零模板初值有据，空Xrefs不代不可变或alias闭包，完整EH/ABI/全生产消费、全应用正常owner与快速退出/真实生命周期和运行仍待，整体未完成。",
+      "doc/cg2d_yobi_runtime.md": "## 2026-10-10 SIC01：静态预览十成员构造/析构\n\n[SIC01](cg2d_selector_construction_exit_spec.md#selector-construction-source-state)补齐选择器完整构造及两个固定构造/退出包装五原根，220条1049B/八页、20E8两目标/24跳两RET。构造/共享退出各有29条136B EH；488420主chunk另有六B间隙，指令字节与跨度分开，488430为其内部共享尾，不造F。同预览十成员构造和逆序析构、flags/开关/图号/三descriptor发布保持，仅一组一处在构造入口持址供Construct/Finish。两静态对象0/1独立，退出固定借用，不重读可改preview；四包装/四helper及两独立std::atexit正确body保持，十注释。四旧历史追加、一新F五处置、四限定S零I/十open；零模板初值有据，空Xrefs不代不可变或alias闭包，完整EH/ABI/全生产消费、全应用正常owner与快速退出/真实生命周期和运行仍待，整体未完成。",
+      "doc/cg2d_ui_input_lifecycle_spec.md": "## 2026-10-10 SIC01：完整正常成员与EH边界\n\n[SIC01](cg2d_selector_construction_exit_spec.md#selector-construction-source-state)补齐选择器完整构造及两个固定构造/退出包装五原根，220条1049B/八页、20E8两目标/24跳两RET。构造/共享退出各有29条136B EH；488420主chunk另有六B间隙，指令字节与跨度分开，488430为其内部共享尾，不造F。同预览十成员构造和逆序析构、flags/开关/图号/三descriptor发布保持，仅一组一处在构造入口持址供Construct/Finish。两静态对象0/1独立，退出固定借用，不重读可改preview；四包装/四helper及两独立std::atexit正确body保持，十注释。四旧历史追加、一新F五处置、四限定S零I/十open；零模板初值有据，空Xrefs不代不可变或alias闭包，完整EH/ABI/全生产消费、全应用正常owner与快速退出/真实生命周期和运行仍待，整体未完成。\n\n既有具名构造后独立MSVC atexit、固定退出对象和First→Second顺序源码保持，不恢复私有CRT/主动新增析构。完整异常/快速退出、全应用正常顺序与SDK/运行仍待；两个helper的原代码属于同构造或共享析构，不新增原函数身份。",
+      "doc/cg2d_traceability_acceptance_spec.md": "## 2026-10-10 SIC01：五构造/退出原根\n\n[SIC01](cg2d_selector_construction_exit_spec.md#selector-construction-source-state)补齐选择器完整构造及两个固定构造/退出包装五原根，220条1049B/八页、20E8两目标/24跳两RET。构造/共享退出各有29条136B EH；488420主chunk另有六B间隙，指令字节与跨度分开，488430为其内部共享尾，不造F。同预览十成员构造和逆序析构、flags/开关/图号/三descriptor发布保持，仅一组一处在构造入口持址供Construct/Finish。两静态对象0/1独立，退出固定借用，不重读可改preview；四包装/四helper及两独立std::atexit正确body保持，十注释。四旧历史追加、一新F五处置、四限定S零I/十open；零模板初值有据，空Xrefs不代不可变或alias闭包，完整EH/ABI/全生产消费、全应用正常owner与快速退出/真实生命周期和运行仍待，整体未完成。\n\n语义2298=2250F关联+48有界代码记录，函数处置1749/证据1537，INPUT126/UIRUNTIME163/RENDER95/YOBI106；文档关联2360/3680=64.13%仅关联率。184叶验收0、60任务关闭11开放49、六closure及完整门禁保持。登记、静态汇总/-Check终态均退出0，派生范围核对通过：仅六metrics/五F/四功能/十任务变化，其它字段与完整门禁保持。",
+      "plan/cg2d_full_reconstruction_progress.md": "<a id=\"selector-construction-progress-20261010\"></a>\n## 111. 2026-10-10 SIC01：选择器构造、固定预览与退出\n\n[SIC01](../doc/cg2d_selector_construction_exit_spec.md#selector-construction-source-state)补齐选择器完整构造及两个固定构造/退出包装五原根，220条1049B/八页、20E8两目标/24跳两RET。构造/共享退出各有29条136B EH；488420主chunk另有六B间隙，指令字节与跨度分开，488430为其内部共享尾，不造F。同预览十成员构造和逆序析构、flags/开关/图号/三descriptor发布保持，仅一组一处在构造入口持址供Construct/Finish。两静态对象0/1独立，退出固定借用，不重读可改preview；四包装/四helper及两独立std::atexit正确body保持，十注释。四旧历史追加、一新F五处置、四限定S零I/十open；零模板初值有据，空Xrefs不代不可变或alias闭包，完整EH/ABI/全生产消费、全应用正常owner与快速退出/真实生命周期和运行仍待，整体未完成。\n\n先记SPEC依第8条裁决。首次完整核61B0和共享488420各两chunk，分开正常110/46条与EH各29条；三个2条包装保。488430不在函数起点，已核属488420共享尾，不造额外F。原16B模板全零只证明已打开原初值，Xrefs为空不证明不可变，不扩大冻结或补默认值。唯一源码调整保持入口preview地址跨两个既有helper，四包装/四helper及原初始化字段/独立宿主登记正确正文保；全EH/全生命周期未记通过。\n\n语义2298=2250F关联+48有界代码记录，函数处置1749/证据1537，INPUT126/UIRUNTIME163/RENDER95/YOBI106；文档关联2360/3680=64.13%仅关联率。184叶验收0、60任务关闭11开放49、六closure及完整门禁保持。登记、静态汇总/-Check终态均退出0，派生范围核对通过：仅六metrics/五F/四功能/十任务变化，其它字段与完整门禁保持。\n\n同一cg2d_re分支、不打tag，七外部改动与原删除暂存保持。只做必要静态文本，未构建/测试/运行客户端或算法/检查产物/计算摘要/引依赖；全生产消费/alias-owner和模板/skill来源、全应用/快速退出/机器ABI/SDK/实际生命周期及运行待，整体active/未完成。"
+    },
+    "maintenance_clause": "；SIC01五选择器构造/固定退出原根纳管，一组入口持址/十注释、四旧历史追加/一新F五处置/四限定S零I十open；双EH/六B间隙和模板初值界限具名，全门禁保。",
+    "checklist_clause": "；SIC01五构造/固定退出根与双EH边界纳管，一组持址/四限定S/零I",
+    "checklist_link": "；[SIC01](../doc/cg2d_selector_construction_exit_spec.md#selector-construction-source-state)"
+  }
+}

@@ -55,3 +55,9 @@ LegacyMouse.cpp浏览宠物/鼠标适配保类型和位置，改调用对应Init
 五根、两固定选择器退出、两合并登记载体4CD250/506350及53C8CD共10已有记录同步，1152语义/1149有效ID、18pending/4分类引用保持。五根adapted使已审68→73/3680；300原唯一指令只支撑本组固定owner/归属，完整十成员/鼠标EH与数组SEH/SDK仍未闭，合并块不新增F身份。
 
 归档E-UI-INPUT-LIFECYCLE-I/W/S-20261004三限定局部证据，累计27条，实现固定至Git命名快照cg2d-re-ui-input-lifecycle-source-20261004。C02/C04仍open，关闭源码任务10项、叶验收0/182及完整功能门禁不提升。全应用原序/其余owner/快速退出、完整成员EH/数组SEH/SDK运行仍待；无构建/产物检查/新增或执行测试/运行或文件摘要，音频暂停及原网络格式明文不变。
+
+## 2026-10-10 SIC01：完整正常成员与EH边界
+
+[SIC01](cg2d_selector_construction_exit_spec.md#selector-construction-source-state)补齐选择器完整构造及两个固定构造/退出包装五原根，220条1049B/八页、20E8两目标/24跳两RET。构造/共享退出各有29条136B EH；488420主chunk另有六B间隙，指令字节与跨度分开，488430为其内部共享尾，不造F。同预览十成员构造和逆序析构、flags/开关/图号/三descriptor发布保持，仅一组一处在构造入口持址供Construct/Finish。两静态对象0/1独立，退出固定借用，不重读可改preview；四包装/四helper及两独立std::atexit正确body保持，十注释。四旧历史追加、一新F五处置、四限定S零I/十open；零模板初值有据，空Xrefs不代不可变或alias闭包，完整EH/ABI/全生产消费、全应用正常owner与快速退出/真实生命周期和运行仍待，整体未完成。
+
+既有具名构造后独立MSVC atexit、固定退出对象和First→Second顺序源码保持，不恢复私有CRT/主动新增析构。完整异常/快速退出、全应用正常顺序与SDK/运行仍待；两个helper的原代码属于同构造或共享析构，不新增原函数身份。

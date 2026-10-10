@@ -26668,6 +26668,7 @@ void UpdateBattleAction40_40BD40(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BSA01：仅正cost实际扣FP/比较，负值三字段零归，临时销毁后固定payload记-1。
 void ConsumeBattleFpCost_405B60(YobiAction* const action)
 {
     using namespace platform::legacy_crypt_int;
@@ -26959,6 +26960,7 @@ std::int32_t UpdateBattleAction53_40BF20(YobiAction* const action)
     return PlayFrame_517DA0(action, 1);
 }
 
+// BSA01：未舍入放大/type23/创建后精确1，完成时重查设备和fresh flags。
 std::int32_t UpdateBattleAction54_40BFE0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26990,6 +26992,7 @@ std::int32_t UpdateBattleAction54_40BFE0(YobiAction* const action)
     return PlayFrame_517DA0(action, 1);
 }
 
+// BSA01：播放弃返后实际扣FP，再推进，无终帧门禁。
 void UpdateBattleAction55_40C0C0(YobiAction* const action)
 {
     static_cast<void>(PlayFrame_517DA0(action, 1));
@@ -26997,6 +27000,7 @@ void UpdateBattleAction55_40C0C0(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BSA01：动作5严格终帧，按index/remain/event顺序清零后推进。
 void UpdateBattleAction56_40C160(YobiAction* const action)
 {
     action->characterAction = 5;
@@ -27008,6 +27012,7 @@ void UpdateBattleAction56_40C160(YobiAction* const action)
     }
 }
 
+// BSA01：动作13严格终帧，仅清index/remain，保事件。
 void UpdateBattleAction57_40C1A0(YobiAction* const action)
 {
     action->characterAction = 13;
@@ -27018,6 +27023,7 @@ void UpdateBattleAction57_40C1A0(YobiAction* const action)
     }
 }
 
+// BSA01：动作14严格终帧，仅清index/remain，保事件。
 void UpdateBattleAction58_40C1E0(YobiAction* const action)
 {
     action->characterAction = 14;
@@ -27028,6 +27034,7 @@ void UpdateBattleAction58_40C1E0(YobiAction* const action)
     }
 }
 
+// BSA01：动作15严格终帧，仅清index/remain，保事件。
 void UpdateBattleAction59_40C240(YobiAction* const action)
 {
     action->characterAction = 15;
@@ -27038,12 +27045,14 @@ void UpdateBattleAction59_40C240(YobiAction* const action)
     }
 }
 
+// BSA01：动作15后直接推进，无播放/清帧。
 void UpdateBattleAction60_40C220(YobiAction* const action)
 {
     action->characterAction = 15;
     AdvanceBattleCastState_439340(action);
 }
 
+// BSA01：动作12严格终帧后推进，不清帧状态。
 void UpdateBattleAction61_40C280(YobiAction* const action)
 {
     action->characterAction = 12;
@@ -27052,6 +27061,7 @@ void UpdateBattleAction61_40C280(YobiAction* const action)
     }
 }
 
+// BSA01：动作18严格终帧后推进，不清帧状态。
 void UpdateBattleAction62_40C2B0(YobiAction* const action)
 {
     action->characterAction = 18;
@@ -27060,6 +27070,7 @@ void UpdateBattleAction62_40C2B0(YobiAction* const action)
     }
 }
 
+// BSA01：旧70/新20/fresh50，方向两次独立读，一次wrap后互斥播放返回。
 std::int32_t UpdateBattleAction63_40C2E0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);

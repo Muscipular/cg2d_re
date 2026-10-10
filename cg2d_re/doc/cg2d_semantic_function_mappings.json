@@ -200335,6 +200335,633 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x40bfe0",
+      "inventory_id": "F:0000BFE0",
+      "original_role": "放大/type23创建与设备重查清理",
+      "original_end_exclusive": "0x40c0b8",
+      "instruction_count": 67,
+      "function_chunks": [
+        {
+          "start": "0x40bfe0",
+          "end_exclusive": "0x40c0b8"
+        }
+      ],
+      "status": "BSA01完整当前正确正常源/独立合同纳管，仅注释，零新增实现I；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction54_40BFE0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction54_40BFE0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-baseline",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-decision",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-acceptance",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-source-state",
+        "doc/cg2d_battle_scale_animation_evidence.json"
+      ],
+      "boundary": "BSA01十动作及405B60扣FP十一完整正常源；全部正文/签名/数值/真实调用正确保持，仅二十二注释，零消费/算法改动或新实现I。54两独立设备/未舍入上限/创建后精确W32一、55真实扣FP与原负值零归/三字段复制、56–62不同清帧职责、63旧70/新20/fresh50及两次方向读和互斥播放保持。完整输入/其它父/ABI/alias/owner/SDK正常失败/容量/数值和声音画面运行未验，原门禁政策保持。",
+      "verification_level": "十一完整259条841B/十二页，30E8/十一callee/21跳十二RET、十11Bcase/十一实际入向两父、8B两F32位模式、现正确源全保持；必要静态，不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction54_40BFE0",
+        "parameters": "非拥有YobiAction*",
+        "return": "std::int32_t；实际末播放返回"
+      },
+      "battle_scale_animation": {
+        "step": "BSA01",
+        "source_snapshot": "cg2d-re-battle-scale-animation-20261010",
+        "original_instruction_count": 67,
+        "original_code_bytes": 216,
+        "original_page_count": 2,
+        "direct_call_count": 7,
+        "callee_count": 6,
+        "jump_count": 8,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40c0c0",
+      "inventory_id": "F:0000C0C0",
+      "original_role": "播放后扣FP并推进",
+      "original_end_exclusive": "0x40c0de",
+      "instruction_count": 12,
+      "function_chunks": [
+        {
+          "start": "0x40c0c0",
+          "end_exclusive": "0x40c0de"
+        }
+      ],
+      "status": "BSA01完整当前正确正常源/独立合同纳管，仅注释，零新增实现I；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction55_40C0C0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction55_40C0C0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-baseline",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-decision",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-acceptance",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-source-state",
+        "doc/cg2d_battle_scale_animation_evidence.json"
+      ],
+      "boundary": "BSA01十动作及405B60扣FP十一完整正常源；全部正文/签名/数值/真实调用正确保持，仅二十二注释，零消费/算法改动或新实现I。54两独立设备/未舍入上限/创建后精确W32一、55真实扣FP与原负值零归/三字段复制、56–62不同清帧职责、63旧70/新20/fresh50及两次方向读和互斥播放保持。完整输入/其它父/ABI/alias/owner/SDK正常失败/容量/数值和声音画面运行未验，原门禁政策保持。",
+      "verification_level": "十一完整259条841B/十二页，30E8/十一callee/21跳十二RET、十11Bcase/十一实际入向两父、8B两F32位模式、现正确源全保持；必要静态，不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction55_40C0C0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际分派/调用弃返保持"
+      },
+      "battle_scale_animation": {
+        "step": "BSA01",
+        "source_snapshot": "cg2d-re-battle-scale-animation-20261010",
+        "original_instruction_count": 12,
+        "original_code_bytes": 30,
+        "original_page_count": 1,
+        "direct_call_count": 3,
+        "callee_count": 3,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40c160",
+      "inventory_id": "F:0000C160",
+      "original_role": "攻击终帧清三帧状态",
+      "original_end_exclusive": "0x40c19e",
+      "instruction_count": 18,
+      "function_chunks": [
+        {
+          "start": "0x40c160",
+          "end_exclusive": "0x40c19e"
+        }
+      ],
+      "status": "BSA01完整当前正确正常源/独立合同纳管，仅注释，零新增实现I；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction56_40C160"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction56_40C160"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-baseline",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-decision",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-acceptance",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-source-state",
+        "doc/cg2d_battle_scale_animation_evidence.json"
+      ],
+      "boundary": "BSA01十动作及405B60扣FP十一完整正常源；全部正文/签名/数值/真实调用正确保持，仅二十二注释，零消费/算法改动或新实现I。54两独立设备/未舍入上限/创建后精确W32一、55真实扣FP与原负值零归/三字段复制、56–62不同清帧职责、63旧70/新20/fresh50及两次方向读和互斥播放保持。完整输入/其它父/ABI/alias/owner/SDK正常失败/容量/数值和声音画面运行未验，原门禁政策保持。",
+      "verification_level": "十一完整259条841B/十二页，30E8/十一callee/21跳十二RET、十11Bcase/十一实际入向两父、8B两F32位模式、现正确源全保持；必要静态，不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction56_40C160",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际分派/调用弃返保持"
+      },
+      "battle_scale_animation": {
+        "step": "BSA01",
+        "source_snapshot": "cg2d-re-battle-scale-animation-20261010",
+        "original_instruction_count": 18,
+        "original_code_bytes": 62,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 1,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40c1a0",
+      "inventory_id": "F:0000C1A0",
+      "original_role": "动作13终帧清两帧状态",
+      "original_end_exclusive": "0x40c1d8",
+      "instruction_count": 17,
+      "function_chunks": [
+        {
+          "start": "0x40c1a0",
+          "end_exclusive": "0x40c1d8"
+        }
+      ],
+      "status": "BSA01完整当前正确正常源/独立合同纳管，仅注释，零新增实现I；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction57_40C1A0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction57_40C1A0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-baseline",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-decision",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-acceptance",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-source-state",
+        "doc/cg2d_battle_scale_animation_evidence.json"
+      ],
+      "boundary": "BSA01十动作及405B60扣FP十一完整正常源；全部正文/签名/数值/真实调用正确保持，仅二十二注释，零消费/算法改动或新实现I。54两独立设备/未舍入上限/创建后精确W32一、55真实扣FP与原负值零归/三字段复制、56–62不同清帧职责、63旧70/新20/fresh50及两次方向读和互斥播放保持。完整输入/其它父/ABI/alias/owner/SDK正常失败/容量/数值和声音画面运行未验，原门禁政策保持。",
+      "verification_level": "十一完整259条841B/十二页，30E8/十一callee/21跳十二RET、十11Bcase/十一实际入向两父、8B两F32位模式、现正确源全保持；必要静态，不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction57_40C1A0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际分派/调用弃返保持"
+      },
+      "battle_scale_animation": {
+        "step": "BSA01",
+        "source_snapshot": "cg2d-re-battle-scale-animation-20261010",
+        "original_instruction_count": 17,
+        "original_code_bytes": 56,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 1,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40c1e0",
+      "inventory_id": "F:0000C1E0",
+      "original_role": "动作14终帧清两帧状态",
+      "original_end_exclusive": "0x40c218",
+      "instruction_count": 17,
+      "function_chunks": [
+        {
+          "start": "0x40c1e0",
+          "end_exclusive": "0x40c218"
+        }
+      ],
+      "status": "BSA01完整当前正确正常源/独立合同纳管，仅注释，零新增实现I；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction58_40C1E0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction58_40C1E0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-baseline",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-decision",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-acceptance",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-source-state",
+        "doc/cg2d_battle_scale_animation_evidence.json"
+      ],
+      "boundary": "BSA01十动作及405B60扣FP十一完整正常源；全部正文/签名/数值/真实调用正确保持，仅二十二注释，零消费/算法改动或新实现I。54两独立设备/未舍入上限/创建后精确W32一、55真实扣FP与原负值零归/三字段复制、56–62不同清帧职责、63旧70/新20/fresh50及两次方向读和互斥播放保持。完整输入/其它父/ABI/alias/owner/SDK正常失败/容量/数值和声音画面运行未验，原门禁政策保持。",
+      "verification_level": "十一完整259条841B/十二页，30E8/十一callee/21跳十二RET、十11Bcase/十一实际入向两父、8B两F32位模式、现正确源全保持；必要静态，不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction58_40C1E0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际分派/调用弃返保持"
+      },
+      "battle_scale_animation": {
+        "step": "BSA01",
+        "source_snapshot": "cg2d-re-battle-scale-animation-20261010",
+        "original_instruction_count": 17,
+        "original_code_bytes": 56,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 1,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40c240",
+      "inventory_id": "F:0000C240",
+      "original_role": "动作15终帧清两帧状态",
+      "original_end_exclusive": "0x40c278",
+      "instruction_count": 17,
+      "function_chunks": [
+        {
+          "start": "0x40c240",
+          "end_exclusive": "0x40c278"
+        }
+      ],
+      "status": "BSA01完整当前正确正常源/独立合同纳管，仅注释，零新增实现I；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction59_40C240"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction59_40C240"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-baseline",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-decision",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-acceptance",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-source-state",
+        "doc/cg2d_battle_scale_animation_evidence.json"
+      ],
+      "boundary": "BSA01十动作及405B60扣FP十一完整正常源；全部正文/签名/数值/真实调用正确保持，仅二十二注释，零消费/算法改动或新实现I。54两独立设备/未舍入上限/创建后精确W32一、55真实扣FP与原负值零归/三字段复制、56–62不同清帧职责、63旧70/新20/fresh50及两次方向读和互斥播放保持。完整输入/其它父/ABI/alias/owner/SDK正常失败/容量/数值和声音画面运行未验，原门禁政策保持。",
+      "verification_level": "十一完整259条841B/十二页，30E8/十一callee/21跳十二RET、十11Bcase/十一实际入向两父、8B两F32位模式、现正确源全保持；必要静态，不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction59_40C240",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际分派/调用弃返保持"
+      },
+      "battle_scale_animation": {
+        "step": "BSA01",
+        "source_snapshot": "cg2d-re-battle-scale-animation-20261010",
+        "original_instruction_count": 17,
+        "original_code_bytes": 56,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 1,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40c220",
+      "inventory_id": "F:0000C220",
+      "original_role": "动作15直接推进",
+      "original_end_exclusive": "0x40c236",
+      "instruction_count": 6,
+      "function_chunks": [
+        {
+          "start": "0x40c220",
+          "end_exclusive": "0x40c236"
+        }
+      ],
+      "status": "BSA01完整当前正确正常源/独立合同纳管，仅注释，零新增实现I；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction60_40C220"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction60_40C220"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-baseline",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-decision",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-acceptance",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-source-state",
+        "doc/cg2d_battle_scale_animation_evidence.json"
+      ],
+      "boundary": "BSA01十动作及405B60扣FP十一完整正常源；全部正文/签名/数值/真实调用正确保持，仅二十二注释，零消费/算法改动或新实现I。54两独立设备/未舍入上限/创建后精确W32一、55真实扣FP与原负值零归/三字段复制、56–62不同清帧职责、63旧70/新20/fresh50及两次方向读和互斥播放保持。完整输入/其它父/ABI/alias/owner/SDK正常失败/容量/数值和声音画面运行未验，原门禁政策保持。",
+      "verification_level": "十一完整259条841B/十二页，30E8/十一callee/21跳十二RET、十11Bcase/十一实际入向两父、8B两F32位模式、现正确源全保持；必要静态，不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction60_40C220",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际分派/调用弃返保持"
+      },
+      "battle_scale_animation": {
+        "step": "BSA01",
+        "source_snapshot": "cg2d-re-battle-scale-animation-20261010",
+        "original_instruction_count": 6,
+        "original_code_bytes": 22,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "callee_count": 1,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40c280",
+      "inventory_id": "F:0000C280",
+      "original_role": "动作12终帧推进",
+      "original_end_exclusive": "0x40c2aa",
+      "instruction_count": 14,
+      "function_chunks": [
+        {
+          "start": "0x40c280",
+          "end_exclusive": "0x40c2aa"
+        }
+      ],
+      "status": "BSA01完整当前正确正常源/独立合同纳管，仅注释，零新增实现I；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction61_40C280"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction61_40C280"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-baseline",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-decision",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-acceptance",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-source-state",
+        "doc/cg2d_battle_scale_animation_evidence.json"
+      ],
+      "boundary": "BSA01十动作及405B60扣FP十一完整正常源；全部正文/签名/数值/真实调用正确保持，仅二十二注释，零消费/算法改动或新实现I。54两独立设备/未舍入上限/创建后精确W32一、55真实扣FP与原负值零归/三字段复制、56–62不同清帧职责、63旧70/新20/fresh50及两次方向读和互斥播放保持。完整输入/其它父/ABI/alias/owner/SDK正常失败/容量/数值和声音画面运行未验，原门禁政策保持。",
+      "verification_level": "十一完整259条841B/十二页，30E8/十一callee/21跳十二RET、十11Bcase/十一实际入向两父、8B两F32位模式、现正确源全保持；必要静态，不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction61_40C280",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际分派/调用弃返保持"
+      },
+      "battle_scale_animation": {
+        "step": "BSA01",
+        "source_snapshot": "cg2d-re-battle-scale-animation-20261010",
+        "original_instruction_count": 14,
+        "original_code_bytes": 42,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 1,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40c2b0",
+      "inventory_id": "F:0000C2B0",
+      "original_role": "动作18终帧推进",
+      "original_end_exclusive": "0x40c2da",
+      "instruction_count": 14,
+      "function_chunks": [
+        {
+          "start": "0x40c2b0",
+          "end_exclusive": "0x40c2da"
+        }
+      ],
+      "status": "BSA01完整当前正确正常源/独立合同纳管，仅注释，零新增实现I；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction62_40C2B0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction62_40C2B0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-baseline",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-decision",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-acceptance",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-source-state",
+        "doc/cg2d_battle_scale_animation_evidence.json"
+      ],
+      "boundary": "BSA01十动作及405B60扣FP十一完整正常源；全部正文/签名/数值/真实调用正确保持，仅二十二注释，零消费/算法改动或新实现I。54两独立设备/未舍入上限/创建后精确W32一、55真实扣FP与原负值零归/三字段复制、56–62不同清帧职责、63旧70/新20/fresh50及两次方向读和互斥播放保持。完整输入/其它父/ABI/alias/owner/SDK正常失败/容量/数值和声音画面运行未验，原门禁政策保持。",
+      "verification_level": "十一完整259条841B/十二页，30E8/十一callee/21跳十二RET、十11Bcase/十一实际入向两父、8B两F32位模式、现正确源全保持；必要静态，不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction62_40C2B0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际分派/调用弃返保持"
+      },
+      "battle_scale_animation": {
+        "step": "BSA01",
+        "source_snapshot": "cg2d-re-battle-scale-animation-20261010",
+        "original_instruction_count": 14,
+        "original_code_bytes": 42,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 1,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40c2e0",
+      "inventory_id": "F:0000C2E0",
+      "original_role": "旧计数门禁/方向变化及播放返回",
+      "original_end_exclusive": "0x40c379",
+      "instruction_count": 44,
+      "function_chunks": [
+        {
+          "start": "0x40c2e0",
+          "end_exclusive": "0x40c379"
+        }
+      ],
+      "status": "BSA01完整当前正确正常源/独立合同纳管，仅注释，零新增实现I；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction63_40C2E0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction63_40C2E0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-baseline",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-decision",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-acceptance",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-source-state",
+        "doc/cg2d_battle_scale_animation_evidence.json"
+      ],
+      "boundary": "BSA01十动作及405B60扣FP十一完整正常源；全部正文/签名/数值/真实调用正确保持，仅二十二注释，零消费/算法改动或新实现I。54两独立设备/未舍入上限/创建后精确W32一、55真实扣FP与原负值零归/三字段复制、56–62不同清帧职责、63旧70/新20/fresh50及两次方向读和互斥播放保持。完整输入/其它父/ABI/alias/owner/SDK正常失败/容量/数值和声音画面运行未验，原门禁政策保持。",
+      "verification_level": "十一完整259条841B/十二页，30E8/十一callee/21跳十二RET、十11Bcase/十一实际入向两父、8B两F32位模式、现正确源全保持；必要静态，不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction63_40C2E0",
+        "parameters": "非拥有YobiAction*",
+        "return": "std::int32_t；实际末播放返回"
+      },
+      "battle_scale_animation": {
+        "step": "BSA01",
+        "source_snapshot": "cg2d-re-battle-scale-animation-20261010",
+        "original_instruction_count": 44,
+        "original_code_bytes": 153,
+        "original_page_count": 1,
+        "direct_call_count": 3,
+        "callee_count": 2,
+        "jump_count": 5,
+        "return_count": 2,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x405b60",
+      "inventory_id": "F:00005B60",
+      "original_role": "正cost实际扣FP/负值零归与消费完成发布",
+      "original_end_exclusive": "0x405bca",
+      "instruction_count": 33,
+      "function_chunks": [
+        {
+          "start": "0x405b60",
+          "end_exclusive": "0x405bca"
+        }
+      ],
+      "status": "BSA01完整当前正确正常源/独立合同纳管，仅注释，零新增实现I；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::ConsumeBattleFpCost_405B60"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::ConsumeBattleFpCost_405B60"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-baseline",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-decision",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-acceptance",
+        "doc/cg2d_battle_scale_animation_spec.md#battle-scale-animation-source-state",
+        "doc/cg2d_battle_scale_animation_evidence.json"
+      ],
+      "boundary": "BSA01十动作及405B60扣FP十一完整正常源；全部正文/签名/数值/真实调用正确保持，仅二十二注释，零消费/算法改动或新实现I。54两独立设备/未舍入上限/创建后精确W32一、55真实扣FP与原负值零归/三字段复制、56–62不同清帧职责、63旧70/新20/fresh50及两次方向读和互斥播放保持。完整输入/其它父/ABI/alias/owner/SDK正常失败/容量/数值和声音画面运行未验，原门禁政策保持。",
+      "verification_level": "十一完整259条841B/十二页，30E8/十一callee/21跳十二RET、十11Bcase/十一实际入向两父、8B两F32位模式、现正确源全保持；必要静态，不含运行",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::ConsumeBattleFpCost_405B60",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；实际分派/调用弃返保持"
+      },
+      "battle_scale_animation": {
+        "step": "BSA01",
+        "source_snapshot": "cg2d-re-battle-scale-animation-20261010",
+        "original_instruction_count": 33,
+        "original_code_bytes": 106,
+        "original_page_count": 1,
+        "direct_call_count": 4,
+        "callee_count": 4,
+        "jump_count": 2,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

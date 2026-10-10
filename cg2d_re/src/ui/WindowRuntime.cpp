@@ -39846,6 +39846,7 @@ std::int32_t Sub_475D90()
     return gDragSourceIndex57C114;
 }
 
+// DLP01：仅phase0且kind非零启动阶段1，按原焦点/回调/来源写序发布，返S32 0/1。
 std::int32_t Sub_475DA0(
     const std::int32_t kind, const std::int32_t sourceIndex, const WindowDragCallback callback)
 {
@@ -39863,6 +39864,7 @@ std::int32_t Sub_475DA0(
     return 1;
 }
 
+// DLP01：仅phase0且kind非零启动阶段3，坐标保S16，原焦点与回调写序保持，返S32 0/1。
 std::int32_t Sub_476490(
     const std::int32_t kind, const std::int32_t sourceIndex,
     const std::int16_t x, const std::int16_t y, const WindowDragCallback callback)
@@ -39883,6 +39885,7 @@ std::int32_t Sub_476490(
     return 1;
 }
 
+// DLP01：入口phase4/5才可选回调message3，之后按原八槽顺序清理；不重验回调后phase。
 void Sub_476500()
 {
     const std::int32_t phase = gMousePhase57C128;
@@ -39903,6 +39906,7 @@ void Sub_476500()
     gFocusElementIndex57C124 = -1;
 }
 
+// DLP01：已有kind才绑定两个S32焦点槽，不改变会话阶段，返S32 0/1。
 std::int32_t Sub_4763B0(
     const std::int32_t windowId, const std::int32_t elementIndex)
 {
@@ -39914,6 +39918,7 @@ std::int32_t Sub_4763B0(
     return 1;
 }
 
+// DLP01：只清焦点索引/kind/焦点窗口/回调/phase五槽，来源及两坐标保持，返S32 0。
 std::int32_t Sub_4763E0()
 {
     gFocusElementIndex57C124 = -1;
@@ -44902,6 +44907,7 @@ std::int32_t Sub_4AFF00()
     return audio::PlaySe_52C450(57, 320);
 }
 
+// DLP01：非零phase才取消，可选message1/4后重取phase；八槽清理末按该样本进入2/6。
 void CancelWindowDrag_476410()
 {
     using namespace detail;

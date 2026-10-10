@@ -347,3 +347,7 @@ BVP01七整源/十三正文保持是原命名快照历史；本次只纠正4FA8E
 ## 2026-10-10 HWT01：窗口6完整消费
 
 [HWT01](cg2d_hover_text_consumption_spec.md#hover-text-consumption-source-state)补齐窗口6悬停消费4731E0及IME查询/描述借用459090/4590D0三完整原根237条910B、五实际E8/四目标、两IAT调用、十跳三RET。4734F0是旧822根内共用尾，仅现平台helper，不造原F；窗口6原型+36真实main绑定复用并保持，五IME实际CALL有据。两处颜色源明确低BYTE访问，存储仍S32/W32；主/副标题含NUL复制、原payload借用跨复制、逐项fresh窗口显示、IME尾和四槽清理及S32 1保持。三IME正文正确不改，四整源只两BYTE源/八注释；旧822保全历史追加完整合同，两新F/三处置，INPUT/UIRUNTIME各三成员，两限定S零I/十任务open。三API进口仍unassessed，不据调用点提升完整进口验收；全生产消费/容量和alias-owner寿命、SDK/机器ABI/实际输入显示与运行仍待，整体未完成。
+
+## 2026-10-10 DLP01：会话启动/绑定/退出阶段
+
+[DLP01](cg2d_drag_session_production_lifecycle_spec.md#drag-session-source-state)补齐475DA0/476490两个会话生产、4763B0焦点绑定、4763E0五槽重置、476410取消及476500完成六完整原根129条483B/六页、零E8/两实际寄存器回调、十三跳十一RET；116直接CALL/50父只核点与四条后邻，不代完整外父/返回消费。阶段1/3生产的原焦点/回调/来源及S16坐标写序、已有kind的两槽绑定、五槽重置保来源/坐标、取消回调后新phase到2/6及完成入口4/5到0保持。六正文正确不改，三整源仅十二定义/声明注释；四S32结果与两void当前适配保持，原残留EAX/全部父机器ABI仍待。六新F/六处置，INPUT/UIRUNTIME各六成员，两限定S零I/十任务open；全事件生产消费/全部回调和payload/alias-owner寿命、真实拖动/退出与运行待，整体未完成。

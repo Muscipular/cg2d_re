@@ -218137,6 +218137,4206 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x475da0",
+      "inventory_id": "F:00075DA0",
+      "original_role": "阶段1拖动会话生产",
+      "original_end_exclusive": "0x475def",
+      "instruction_count": 21,
+      "function_chunks": [
+        {
+          "start": "0x475da0",
+          "end_exclusive": "0x475def"
+        }
+      ],
+      "status": "DLP01完整会话原根纳管，正确body/原生产与清理保持，注释补合同；限定S/全父、回调owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_475DA0"
+          ],
+          "relationship": "DLP01完整原阶段/字段宽度和写序已核，正确body保持，仅合同注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_475DA0"
+          ],
+          "relationship": "DLP01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_drag_session_production_lifecycle_spec.md#drag-session-baseline",
+        "doc/cg2d_drag_session_production_lifecycle_spec.md#drag-session-decision",
+        "doc/cg2d_drag_session_production_lifecycle_spec.md#drag-session-acceptance",
+        "doc/cg2d_drag_session_production_lifecycle_spec.md#drag-session-source-state",
+        "doc/cg2d_drag_session_production_lifecycle_evidence.json"
+      ],
+      "boundary": "DLP01仅六完整原拖动会话生产/绑定/重置/取消/完成根129条483B/六页，零E8/两寄存器回调/十三跳十一RET，116实际直接CALL/50父与四后邻指令有据，不代全父/所有返回消费或间接目标。475DA0/476490入口phase0且kind非零才按原序发阶段1/3，两个当前焦点S32取样时点和S16 x/y保；4763B0已有kind才写两个焦点槽并S32返0/1；4763E0依焦点索引-1、kind0、焦点窗口0、callback空、phase0，仅五槽/S32返0，来源和坐标不清。476410入口phase0早退，保存callback，阶段1消息1其它消息4，回调后新读phase，按原清kind/source/callback/S16x/y/focusWin/focusIndex再phase==1?2:6；无callback沿入口phase。476500入口4/5才保存callback可选消息3，之后原清kind/source/callback/S16x/y/focusWin/phase0/focusIndex-1，不再检查回调新phase。两间接回调message/flags0/source及结果弃用保；两个void适配只保当前CPP边界，原EAX残留/全部父消费和机器ABI未记等价。六正确body/实参数返回及共享八槽十个声明/原WindowDragCallback、其它source保，三整源仅十二注释、零body补丁/零I；无新API/helper/字段/布局/owner/保护/补零/默认值/钳制/容量限制/回滚/异常模型。六新F/六adapted、两域各六成员/两限定S/十任务open；旧鼠标分发和更新父复用不改，全事件生产消费及全部原父/间接路由/回调payload和alias-owner寿命、SDK/机器ABI/真实拖动取消完成/退出与运行待，48有界记录及完整枚举gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，六完整原根129条483B/六页、零E8/两寄存器回调/十三跳十一RET及116实际CALL/五十父与四后邻有据；六正确body保，原阶段1/3发布取样、kind两槽绑定、五槽重置保来源/坐标、取消回调后新phase及完成不重验phase/八槽写序保持。三整源仅十二注释精确差异，十共享声明/真实回调类型保持，零body补丁/零I；四S32结果保持，两void原EAX残留/全父消费和机器ABI未记等价；完整父/回调payload与alias-owner/实际拖动和运行待",
+      "original_incoming": [
+        {
+          "ea": 4691884,
+          "bytes": "e8efc5ffff",
+          "parent": 4691872,
+          "asm": "call    sub_475DA0",
+          "call_target": 4677024,
+          "following": [
+            {
+              "ea": 4691889,
+              "size": 3,
+              "bytes": "83c40c",
+              "asm": "add     esp, 0Ch"
+            },
+            {
+              "ea": 4691892,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4691893,
+              "size": 11,
+              "bytes": "9090909090909090909090",
+              "asm": "align 10h"
+            },
+            {
+              "ea": 4691904,
+              "size": 5,
+              "bytes": "a054975f00",
+              "asm": "mov     al, byte_5F9754"
+            }
+          ]
+        },
+        {
+          "ea": 4710204,
+          "bytes": "e85f7effff",
+          "parent": 4710192,
+          "asm": "call    sub_475DA0",
+          "call_target": 4677024,
+          "following": [
+            {
+              "ea": 4710209,
+              "size": 3,
+              "bytes": "83c40c",
+              "asm": "add     esp, 0Ch"
+            },
+            {
+              "ea": 4710212,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4710213,
+              "size": 11,
+              "bytes": "9090909090909090909090",
+              "asm": "align 10h"
+            },
+            {
+              "ea": 4710224,
+              "size": 1,
+              "bytes": "51",
+              "asm": "push    ecx"
+            }
+          ]
+        },
+        {
+          "ea": 4753679,
+          "bytes": "e88cd4feff",
+          "parent": 4753600,
+          "asm": "call    sub_475DA0",
+          "call_target": 4677024,
+          "following": [
+            {
+              "ea": 4753684,
+              "size": 2,
+              "bytes": "6a00",
+              "asm": "push    0"
+            },
+            {
+              "ea": 4753686,
+              "size": 2,
+              "bytes": "6a0e",
+              "asm": "push    0Eh"
+            },
+            {
+              "ea": 4753688,
+              "size": 5,
+              "bytes": "e893dafeff",
+              "asm": "call    sub_4763B0"
+            },
+            {
+              "ea": 4753693,
+              "size": 3,
+              "bytes": "83c418",
+              "asm": "add     esp, 18h"
+            }
+          ]
+        },
+        {
+          "ea": 4756211,
+          "bytes": "e8a8cafeff",
+          "parent": 4755376,
+          "asm": "call    sub_475DA0",
+          "call_target": 4677024,
+          "following": [
+            {
+              "ea": 4756216,
+              "size": 3,
+              "bytes": "83c418",
+              "asm": "add     esp, 18h"
+            },
+            {
+              "ea": 4756219,
+              "size": 5,
+              "bytes": "e954010000",
+              "asm": "jmp     loc_489454"
+            },
+            {
+              "ea": 4756224,
+              "size": 7,
+              "bytes": "f6058ea8fd0080",
+              "asm": "test    gPlayerDataVal.charActionState, 80h"
+            },
+            {
+              "ea": 4756231,
+              "size": 6,
+              "bytes": "0f85a1000000",
+              "asm": "jnz     loc_4893AE"
+            }
+          ]
+        },
+        {
+          "ea": 4758365,
+          "bytes": "e83ec2feff",
+          "parent": 4757344,
+          "asm": "call    sub_475DA0",
+          "call_target": 4677024,
+          "following": [
+            {
+              "ea": 4758370,
+              "size": 3,
+              "bytes": "83c418",
+              "asm": "add     esp, 18h"
+            },
+            {
+              "ea": 4758373,
+              "size": 5,
+              "bytes": "e932010000",
+              "asm": "jmp     loc_489C9C"
+            },
+            {
+              "ea": 4758378,
+              "size": 7,
+              "bytes": "f6058ea8fd0080",
+              "asm": "test    gPlayerDataVal.charActionState, 80h"
+            },
+            {
+              "ea": 4758385,
+              "size": 6,
+              "bytes": "0f85b6000000",
+              "asm": "jnz     loc_489C2D"
+            }
+          ]
+        },
+        {
+          "ea": 4767525,
+          "bytes": "e8769efeff",
+          "parent": 4767504,
+          "asm": "call    sub_475DA0",
+          "call_target": 4677024,
+          "following": [
+            {
+              "ea": 4767530,
+              "size": 3,
+              "bytes": "83c40c",
+              "asm": "add     esp, 0Ch"
+            },
+            {
+              "ea": 4767533,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4767534,
+              "size": 2,
+              "bytes": "9090",
+              "asm": "align 10h"
+            },
+            {
+              "ea": 4767536,
+              "size": 3,
+              "bytes": "83ec10",
+              "asm": "sub     esp, 10h"
+            }
+          ]
+        },
+        {
+          "ea": 4768069,
+          "bytes": "e8569cfeff",
+          "parent": 4768048,
+          "asm": "call    sub_475DA0",
+          "call_target": 4677024,
+          "following": [
+            {
+              "ea": 4768074,
+              "size": 3,
+              "bytes": "83c40c",
+              "asm": "add     esp, 0Ch"
+            },
+            {
+              "ea": 4768077,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4768078,
+              "size": 2,
+              "bytes": "9090",
+              "asm": "align 10h"
+            },
+            {
+              "ea": 4768080,
+              "size": 2,
+              "bytes": "33c0",
+              "asm": "xor     eax, eax"
+            }
+          ]
+        },
+        {
+          "ea": 4781739,
+          "bytes": "e8f066feff",
+          "parent": 4781712,
+          "asm": "call    sub_475DA0",
+          "call_target": 4677024,
+          "following": [
+            {
+              "ea": 4781744,
+              "size": 3,
+              "bytes": "83c40c",
+              "asm": "add     esp, 0Ch"
+            },
+            {
+              "ea": 4781747,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4781748,
+              "size": 12,
+              "bytes": "909090909090909090909090",
+              "asm": "align 10h"
+            },
+            {
+              "ea": 4781760,
+              "size": 6,
+              "bytes": "81ec04010000",
+              "asm": "sub     esp, 104h"
+            }
+          ]
+        },
+        {
+          "ea": 4925212,
+          "bytes": "e87f36fcff",
+          "parent": 4925200,
+          "asm": "call    sub_475DA0",
+          "call_target": 4677024,
+          "following": [
+            {
+              "ea": 4925217,
+              "size": 3,
+              "bytes": "83c40c",
+              "asm": "add     esp, 0Ch"
+            },
+            {
+              "ea": 4925220,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4925221,
+              "size": 11,
+              "bytes": "9090909090909090909090",
+              "asm": "align 10h"
+            },
+            {
+              "ea": 4925232,
+              "size": 6,
+              "bytes": "81ec0c010000",
+              "asm": "sub     esp, 10Ch"
+            }
+          ]
+        },
+        {
+          "ea": 4927324,
+          "bytes": "e83f2efcff",
+          "parent": 4927312,
+          "asm": "call    sub_475DA0",
+          "call_target": 4677024,
+          "following": [
+            {
+              "ea": 4927329,
+              "size": 3,
+              "bytes": "83c40c",
+              "asm": "add     esp, 0Ch"
+            },
+            {
+              "ea": 4927332,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4927333,
+              "size": 11,
+              "bytes": "9090909090909090909090",
+              "asm": "align 10h"
+            },
+            {
+              "ea": 4927344,
+              "size": 3,
+              "bytes": "83ec14",
+              "asm": "sub     esp, 14h"
+            }
+          ]
+        },
+        {
+          "ea": 4943276,
+          "bytes": "e8efeffbff",
+          "parent": 4943264,
+          "asm": "call    sub_475DA0",
+          "call_target": 4677024,
+          "following": [
+            {
+              "ea": 4943281,
+              "size": 3,
+              "bytes": "83c40c",
+              "asm": "add     esp, 0Ch"
+            },
+            {
+              "ea": 4943284,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4943285,
+              "size": 11,
+              "bytes": "9090909090909090909090",
+              "asm": "align 10h"
+            },
+            {
+              "ea": 4943296,
+              "size": 5,
+              "bytes": "a1c83ecc00",
+              "asm": "mov     eax, dword_CC3EC8"
+            }
+          ]
+        }
+      ],
+      "drag_session": {
+        "step": "DLP01",
+        "source_snapshot": "[#] 补齐拖动会话生产与清理合同",
+        "original_end_exclusive": "0x475def",
+        "original_instruction_count": 21,
+        "original_code_bytes": 79,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "indirect_call_count": 0,
+        "jump_count": 2,
+        "return_count": 3,
+        "native_signature": "std::int32_t Sub_475DA0(\n    const std::int32_t kind, const std::int32_t sourceIndex, const WindowDragCallback callback)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_475DA0",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_source_body_kept": true,
+        "result_boundary": "S32原0/1",
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x476490",
+      "inventory_id": "F:00076490",
+      "original_role": "阶段3带S16坐标会话生产",
+      "original_end_exclusive": "0x4764fc",
+      "instruction_count": 25,
+      "function_chunks": [
+        {
+          "start": "0x476490",
+          "end_exclusive": "0x4764fc"
+        }
+      ],
+      "status": "DLP01完整会话原根纳管，正确body/原生产与清理保持，注释补合同；限定S/全父、回调owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_476490"
+          ],
+          "relationship": "DLP01完整原阶段/字段宽度和写序已核，正确body保持，仅合同注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_476490"
+          ],
+          "relationship": "DLP01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_drag_session_production_lifecycle_spec.md#drag-session-baseline",
+        "doc/cg2d_drag_session_production_lifecycle_spec.md#drag-session-decision",
+        "doc/cg2d_drag_session_production_lifecycle_spec.md#drag-session-acceptance",
+        "doc/cg2d_drag_session_production_lifecycle_spec.md#drag-session-source-state",
+        "doc/cg2d_drag_session_production_lifecycle_evidence.json"
+      ],
+      "boundary": "DLP01仅六完整原拖动会话生产/绑定/重置/取消/完成根129条483B/六页，零E8/两寄存器回调/十三跳十一RET，116实际直接CALL/50父与四后邻指令有据，不代全父/所有返回消费或间接目标。475DA0/476490入口phase0且kind非零才按原序发阶段1/3，两个当前焦点S32取样时点和S16 x/y保；4763B0已有kind才写两个焦点槽并S32返0/1；4763E0依焦点索引-1、kind0、焦点窗口0、callback空、phase0，仅五槽/S32返0，来源和坐标不清。476410入口phase0早退，保存callback，阶段1消息1其它消息4，回调后新读phase，按原清kind/source/callback/S16x/y/focusWin/focusIndex再phase==1?2:6；无callback沿入口phase。476500入口4/5才保存callback可选消息3，之后原清kind/source/callback/S16x/y/focusWin/phase0/focusIndex-1，不再检查回调新phase。两间接回调message/flags0/source及结果弃用保；两个void适配只保当前CPP边界，原EAX残留/全部父消费和机器ABI未记等价。六正确body/实参数返回及共享八槽十个声明/原WindowDragCallback、其它source保，三整源仅十二注释、零body补丁/零I；无新API/helper/字段/布局/owner/保护/补零/默认值/钳制/容量限制/回滚/异常模型。六新F/六adapted、两域各六成员/两限定S/十任务open；旧鼠标分发和更新父复用不改，全事件生产消费及全部原父/间接路由/回调payload和alias-owner寿命、SDK/机器ABI/真实拖动取消完成/退出与运行待，48有界记录及完整枚举gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，六完整原根129条483B/六页、零E8/两寄存器回调/十三跳十一RET及116实际CALL/五十父与四后邻有据；六正确body保，原阶段1/3发布取样、kind两槽绑定、五槽重置保来源/坐标、取消回调后新phase及完成不重验phase/八槽写序保持。三整源仅十二注释精确差异，十共享声明/真实回调类型保持，零body补丁/零I；四S32结果保持，两void原EAX残留/全父消费和机器ABI未记等价；完整父/回调payload与alias-owner/实际拖动和运行待",
+      "original_incoming": [
+        {
+          "ea": 4691776,
+          "bytes": "e84bcdffff",
+          "parent": 4691712,
+          "asm": "call    MouseEvent__setupEventCallback",
+          "call_target": 4678800,
+          "following": [
+            {
+              "ea": 4691781,
+              "size": 3,
+              "bytes": "83c414",
+              "asm": "add     esp, 14h"
+            },
+            {
+              "ea": 4691784,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            },
+            {
+              "ea": 4691785,
+              "size": 7,
+              "bytes": "f6059c8dd60001",
+              "asm": "test    byte ptr gMouseClickState, 1"
+            },
+            {
+              "ea": 4691792,
+              "size": 2,
+              "bytes": "7405",
+              "asm": "jz      short loc_479757"
+            }
+          ]
+        },
+        {
+          "ea": 4710021,
+          "bytes": "e80686ffff",
+          "parent": 4709888,
+          "asm": "call    MouseEvent__setupEventCallback",
+          "call_target": 4678800,
+          "following": [
+            {
+              "ea": 4710026,
+              "size": 3,
+              "bytes": "83c414",
+              "asm": "add     esp, 14h"
+            },
+            {
+              "ea": 4710029,
+              "size": 1,
+              "bytes": "5f",
+              "asm": "pop     edi"
+            },
+            {
+              "ea": 4710030,
+              "size": 7,
+              "bytes": "f6059c8dd60002",
+              "asm": "test    byte ptr gMouseClickState, 2"
+            },
+            {
+              "ea": 4710037,
+              "size": 2,
+              "bytes": "7405",
+              "asm": "jz      short loc_47DE9C"
+            }
+          ]
+        },
+        {
+          "ea": 4767281,
+          "bytes": "e85aa6feff",
+          "parent": 4766864,
+          "asm": "call    MouseEvent__setupEventCallback",
+          "call_target": 4678800,
+          "following": [
+            {
+              "ea": 4767286,
+              "size": 3,
+              "bytes": "83c414",
+              "asm": "add     esp, 14h"
+            },
+            {
+              "ea": 4767289,
+              "size": 1,
+              "bytes": "5f",
+              "asm": "pop     edi"
+            },
+            {
+              "ea": 4767290,
+              "size": 7,
+              "bytes": "f6059c8dd60002",
+              "asm": "test    byte ptr gMouseClickState, 2"
+            },
+            {
+              "ea": 4767297,
+              "size": 2,
+              "bytes": "7405",
+              "asm": "jz      short loc_48BE48"
+            }
+          ]
+        },
+        {
+          "ea": 4767717,
+          "bytes": "e8a6a4feff",
+          "parent": 4767536,
+          "asm": "call    MouseEvent__setupEventCallback",
+          "call_target": 4678800,
+          "following": [
+            {
+              "ea": 4767722,
+              "size": 3,
+              "bytes": "83c414",
+              "asm": "add     esp, 14h"
+            },
+            {
+              "ea": 4767725,
+              "size": 2,
+              "bytes": "eb3f",
+              "asm": "jmp     short loc_48C02E"
+            },
+            {
+              "ea": 4767727,
+              "size": 2,
+              "bytes": "a801",
+              "asm": "test    al, 1"
+            },
+            {
+              "ea": 4767729,
+              "size": 2,
+              "bytes": "742d",
+              "asm": "jz      short loc_48C020"
+            }
+          ]
+        },
+        {
+          "ea": 4767768,
+          "bytes": "e873a4feff",
+          "parent": 4767536,
+          "asm": "call    MouseEvent__setupEventCallback",
+          "call_target": 4678800,
+          "following": [
+            {
+              "ea": 4767773,
+              "size": 3,
+              "bytes": "83c414",
+              "asm": "add     esp, 14h"
+            },
+            {
+              "ea": 4767776,
+              "size": 7,
+              "bytes": "f6059c8dd60002",
+              "asm": "test    byte ptr gMouseClickState, 2"
+            },
+            {
+              "ea": 4767783,
+              "size": 2,
+              "bytes": "7405",
+              "asm": "jz      short loc_48C02E"
+            },
+            {
+              "ea": 4767785,
+              "size": 5,
+              "bytes": "e8e2a3feff",
+              "asm": "call    sub_476410"
+            }
+          ]
+        },
+        {
+          "ea": 4781690,
+          "bytes": "e8116efeff",
+          "parent": 4781600,
+          "asm": "call    MouseEvent__setupEventCallback",
+          "call_target": 4678800,
+          "following": [
+            {
+              "ea": 4781695,
+              "size": 3,
+              "bytes": "83c414",
+              "asm": "add     esp, 14h"
+            },
+            {
+              "ea": 4781698,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            },
+            {
+              "ea": 4781699,
+              "size": 2,
+              "bytes": "6a00",
+              "asm": "push    0"
+            },
+            {
+              "ea": 4781701,
+              "size": 2,
+              "bytes": "6a01",
+              "asm": "push    1"
+            }
+          ]
+        },
+        {
+          "ea": 4925084,
+          "bytes": "e8ef3dfcff",
+          "parent": 4924880,
+          "asm": "call    MouseEvent__setupEventCallback",
+          "call_target": 4678800,
+          "following": [
+            {
+              "ea": 4925089,
+              "size": 3,
+              "bytes": "83c414",
+              "asm": "add     esp, 14h"
+            },
+            {
+              "ea": 4925092,
+              "size": 1,
+              "bytes": "5f",
+              "asm": "pop     edi"
+            },
+            {
+              "ea": 4925093,
+              "size": 7,
+              "bytes": "f6059c8dd60002",
+              "asm": "test    byte ptr gMouseClickState, 2"
+            },
+            {
+              "ea": 4925100,
+              "size": 2,
+              "bytes": "7405",
+              "asm": "jz      short loc_4B26B3"
+            }
+          ]
+        },
+        {
+          "ea": 4927178,
+          "bytes": "e8c135fcff",
+          "parent": 4926976,
+          "asm": "call    MouseEvent__setupEventCallback",
+          "call_target": 4678800,
+          "following": [
+            {
+              "ea": 4927183,
+              "size": 3,
+              "bytes": "83c414",
+              "asm": "add     esp, 14h"
+            },
+            {
+              "ea": 4927186,
+              "size": 1,
+              "bytes": "5f",
+              "asm": "pop     edi"
+            },
+            {
+              "ea": 4927187,
+              "size": 7,
+              "bytes": "f6059c8dd60002",
+              "asm": "test    byte ptr gMouseClickState, 2"
+            },
+            {
+              "ea": 4927194,
+              "size": 2,
+              "bytes": "7405",
+              "asm": "jz      short loc_4B2EE1"
+            }
+          ]
+        },
+        {
+          "ea": 4943147,
+          "bytes": "e860f7fbff",
+          "parent": 4942928,
+          "asm": "call    MouseEvent__setupEventCallback",
+          "call_target": 4678800,
+          "following": [
+            {
+              "ea": 4943152,
+              "size": 3,
+              "bytes": "83c414",
+              "asm": "add     esp, 14h"
+            },
+            {
+              "ea": 4943155,
+              "size": 1,
+              "bytes": "5f",
+              "asm": "pop     edi"
+            },
+            {
+              "ea": 4943156,
+              "size": 7,
+              "bytes": "f6059c8dd60002",
+              "asm": "test    byte ptr gMouseClickState, 2"
+            },
+            {
+              "ea": 4943163,
+              "size": 2,
+              "bytes": "7405",
+              "asm": "jz      short loc_4B6D42"
+            }
+          ]
+        }
+      ],
+      "drag_session": {
+        "step": "DLP01",
+        "source_snapshot": "[#] 补齐拖动会话生产与清理合同",
+        "original_end_exclusive": "0x4764fc",
+        "original_instruction_count": 25,
+        "original_code_bytes": 108,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "indirect_call_count": 0,
+        "jump_count": 2,
+        "return_count": 3,
+        "native_signature": "std::int32_t Sub_476490(\n    const std::int32_t kind, const std::int32_t sourceIndex,\n    const std::int16_t x, const std::int16_t y, const WindowDragCallback callback)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_476490",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_source_body_kept": true,
+        "result_boundary": "S32原0/1",
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x476500",
+      "inventory_id": "F:00076500",
+      "original_role": "阶段4/5完成回调及八槽清理",
+      "original_end_exclusive": "0x476562",
+      "instruction_count": 26,
+      "function_chunks": [
+        {
+          "start": "0x476500",
+          "end_exclusive": "0x476562"
+        }
+      ],
+      "status": "DLP01完整会话原根纳管，正确body/原生产与清理保持，注释补合同；限定S/全父、回调owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_476500"
+          ],
+          "relationship": "DLP01完整原阶段/字段宽度和写序已核，正确body保持，仅合同注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_476500"
+          ],
+          "relationship": "DLP01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_drag_session_production_lifecycle_spec.md#drag-session-baseline",
+        "doc/cg2d_drag_session_production_lifecycle_spec.md#drag-session-decision",
+        "doc/cg2d_drag_session_production_lifecycle_spec.md#drag-session-acceptance",
+        "doc/cg2d_drag_session_production_lifecycle_spec.md#drag-session-source-state",
+        "doc/cg2d_drag_session_production_lifecycle_evidence.json"
+      ],
+      "boundary": "DLP01仅六完整原拖动会话生产/绑定/重置/取消/完成根129条483B/六页，零E8/两寄存器回调/十三跳十一RET，116实际直接CALL/50父与四后邻指令有据，不代全父/所有返回消费或间接目标。475DA0/476490入口phase0且kind非零才按原序发阶段1/3，两个当前焦点S32取样时点和S16 x/y保；4763B0已有kind才写两个焦点槽并S32返0/1；4763E0依焦点索引-1、kind0、焦点窗口0、callback空、phase0，仅五槽/S32返0，来源和坐标不清。476410入口phase0早退，保存callback，阶段1消息1其它消息4，回调后新读phase，按原清kind/source/callback/S16x/y/focusWin/focusIndex再phase==1?2:6；无callback沿入口phase。476500入口4/5才保存callback可选消息3，之后原清kind/source/callback/S16x/y/focusWin/phase0/focusIndex-1，不再检查回调新phase。两间接回调message/flags0/source及结果弃用保；两个void适配只保当前CPP边界，原EAX残留/全部父消费和机器ABI未记等价。六正确body/实参数返回及共享八槽十个声明/原WindowDragCallback、其它source保，三整源仅十二注释、零body补丁/零I；无新API/helper/字段/布局/owner/保护/补零/默认值/钳制/容量限制/回滚/异常模型。六新F/六adapted、两域各六成员/两限定S/十任务open；旧鼠标分发和更新父复用不改，全事件生产消费及全部原父/间接路由/回调payload和alias-owner寿命、SDK/机器ABI/真实拖动取消完成/退出与运行待，48有界记录及完整枚举gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，六完整原根129条483B/六页、零E8/两寄存器回调/十三跳十一RET及116实际CALL/五十父与四后邻有据；六正确body保，原阶段1/3发布取样、kind两槽绑定、五槽重置保来源/坐标、取消回调后新phase及完成不重验phase/八槽写序保持。三整源仅十二注释精确差异，十共享声明/真实回调类型保持，零body补丁/零I；四S32结果保持，两void原EAX残留/全父消费和机器ABI未记等价；完整父/回调payload与alias-owner/实际拖动和运行待",
+      "original_incoming": [
+        {
+          "ea": 4700339,
+          "bytes": "e848acffff",
+          "parent": 4700192,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4700344,
+              "size": 2,
+              "bytes": "8bfb",
+              "asm": "mov     edi, ebx"
+            },
+            {
+              "ea": 4700346,
+              "size": 3,
+              "bytes": "83e702",
+              "asm": "and     edi, 2"
+            },
+            {
+              "ea": 4700349,
+              "size": 4,
+              "bytes": "897c2420",
+              "asm": "mov     [esp+18h+arg_4], edi"
+            },
+            {
+              "ea": 4700353,
+              "size": 2,
+              "bytes": "7421",
+              "asm": "jz      short loc_47B8E4"
+            }
+          ]
+        },
+        {
+          "ea": 4731528,
+          "bytes": "e87332ffff",
+          "parent": 4731216,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4731533,
+              "size": 4,
+              "bytes": "8b5c2450",
+              "asm": "mov     ebx, [esp+48h+arg_4]"
+            },
+            {
+              "ea": 4731537,
+              "size": 3,
+              "bytes": "83cdff",
+              "asm": "or      ebp, 0FFFFFFFFh"
+            },
+            {
+              "ea": 4731540,
+              "size": 3,
+              "bytes": "f6c321",
+              "asm": "test    bl, 21h"
+            },
+            {
+              "ea": 4731543,
+              "size": 6,
+              "bytes": "0f8481000000",
+              "asm": "jz      loc_48331E"
+            }
+          ]
+        },
+        {
+          "ea": 4735113,
+          "bytes": "e87224ffff",
+          "parent": 4734640,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4735118,
+              "size": 4,
+              "bytes": "8b6c242c",
+              "asm": "mov     ebp, [esp+28h+arg_0]"
+            },
+            {
+              "ea": 4735122,
+              "size": 5,
+              "bytes": "e9f3020000",
+              "asm": "jmp     loc_48438A"
+            },
+            {
+              "ea": 4735127,
+              "size": 6,
+              "bytes": "8b156823cc00",
+              "asm": "mov     edx, gSkillIndex"
+            },
+            {
+              "ea": 4735133,
+              "size": 5,
+              "bytes": "a138d6d200",
+              "asm": "mov     eax, gTechIndex"
+            }
+          ]
+        },
+        {
+          "ea": 4735222,
+          "bytes": "e80524ffff",
+          "parent": 4734640,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4735227,
+              "size": 4,
+              "bytes": "8b6c242c",
+              "asm": "mov     ebp, [esp+28h+arg_0]"
+            },
+            {
+              "ea": 4735231,
+              "size": 5,
+              "bytes": "e986020000",
+              "asm": "jmp     loc_48438A"
+            },
+            {
+              "ea": 4735236,
+              "size": 3,
+              "bytes": "83ff05",
+              "asm": "cmp     edi, 5"
+            },
+            {
+              "ea": 4735239,
+              "size": 6,
+              "bytes": "0f8ddf010000",
+              "asm": "jge     loc_4842EC"
+            }
+          ]
+        },
+        {
+          "ea": 4735553,
+          "bytes": "e8ba22ffff",
+          "parent": 4734640,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4735558,
+              "size": 4,
+              "bytes": "8b6c242c",
+              "asm": "mov     ebp, [esp+28h+arg_0]"
+            },
+            {
+              "ea": 4735562,
+              "size": 5,
+              "bytes": "e93b010000",
+              "asm": "jmp     loc_48438A"
+            },
+            {
+              "ea": 4735567,
+              "size": 2,
+              "bytes": "3c09",
+              "asm": "cmp     al, 9"
+            },
+            {
+              "ea": 4735569,
+              "size": 6,
+              "bytes": "0f8587000000",
+              "asm": "jnz     loc_4842DE"
+            }
+          ]
+        },
+        {
+          "ea": 4735724,
+          "bytes": "e80f22ffff",
+          "parent": 4734640,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4735729,
+              "size": 4,
+              "bytes": "8b6c242c",
+              "asm": "mov     ebp, [esp+28h+arg_0]"
+            },
+            {
+              "ea": 4735733,
+              "size": 5,
+              "bytes": "e990000000",
+              "asm": "jmp     loc_48438A"
+            },
+            {
+              "ea": 4735738,
+              "size": 5,
+              "bytes": "e8611affff",
+              "asm": "call    sub_475D60"
+            },
+            {
+              "ea": 4735743,
+              "size": 3,
+              "bytes": "83f80a",
+              "asm": "cmp     eax, 0Ah"
+            }
+          ]
+        },
+        {
+          "ea": 4735877,
+          "bytes": "e87621ffff",
+          "parent": 4734640,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4735882,
+              "size": 5,
+              "bytes": "a050d6d200",
+              "asm": "mov     al, byte_D2D650"
+            },
+            {
+              "ea": 4735887,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 4735889,
+              "size": 6,
+              "bytes": "0f85d0000000",
+              "asm": "jnz     loc_484467"
+            },
+            {
+              "ea": 4735895,
+              "size": 2,
+              "bytes": "33f6",
+              "asm": "xor     esi, esi"
+            }
+          ]
+        },
+        {
+          "ea": 4737244,
+          "bytes": "e81f1cffff",
+          "parent": 4736960,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4737249,
+              "size": 6,
+              "bytes": "8b15c060d400",
+              "asm": "mov     edx, dword_D460C0"
+            },
+            {
+              "ea": 4737255,
+              "size": 2,
+              "bytes": "3bd7",
+              "asm": "cmp     edx, edi"
+            },
+            {
+              "ea": 4737257,
+              "size": 6,
+              "bytes": "0f8c76020000",
+              "asm": "jl      loc_484B65"
+            },
+            {
+              "ea": 4737263,
+              "size": 6,
+              "bytes": "8b0d6823cc00",
+              "asm": "mov     ecx, gSkillIndex"
+            }
+          ]
+        },
+        {
+          "ea": 4755745,
+          "bytes": "e8dad3feff",
+          "parent": 4755376,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4755750,
+              "size": 7,
+              "bytes": "8b9c2448010000",
+              "asm": "mov     ebx, [esp+140h+arg_4]"
+            },
+            {
+              "ea": 4755757,
+              "size": 3,
+              "bytes": "83ceff",
+              "asm": "or      esi, 0FFFFFFFFh"
+            },
+            {
+              "ea": 4755760,
+              "size": 3,
+              "bytes": "f6c321",
+              "asm": "test    bl, 21h"
+            },
+            {
+              "ea": 4755763,
+              "size": 6,
+              "bytes": "0f848c000000",
+              "asm": "jz      loc_4891C5"
+            }
+          ]
+        },
+        {
+          "ea": 4757650,
+          "bytes": "e869ccfeff",
+          "parent": 4757344,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4757655,
+              "size": 2,
+              "bytes": "eb75",
+              "asm": "jmp     short loc_48990E"
+            },
+            {
+              "ea": 4757657,
+              "size": 2,
+              "bytes": "85ed",
+              "asm": "test    ebp, ebp"
+            },
+            {
+              "ea": 4757659,
+              "size": 2,
+              "bytes": "7c66",
+              "asm": "jl      short loc_489903"
+            },
+            {
+              "ea": 4757661,
+              "size": 5,
+              "bytes": "a028da5700",
+              "asm": "mov     al, byte_57DA28"
+            }
+          ]
+        },
+        {
+          "ea": 4757698,
+          "bytes": "e839ccfeff",
+          "parent": 4757344,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4757703,
+              "size": 2,
+              "bytes": "eb45",
+              "asm": "jmp     short loc_48990E"
+            },
+            {
+              "ea": 4757705,
+              "size": 4,
+              "bytes": "8b4c2414",
+              "asm": "mov     ecx, [esp+148h+var_134]"
+            },
+            {
+              "ea": 4757709,
+              "size": 1,
+              "bytes": "51",
+              "asm": "push    ecx"
+            },
+            {
+              "ea": 4757710,
+              "size": 2,
+              "bytes": "eb28",
+              "asm": "jmp     short loc_4898F8"
+            }
+          ]
+        },
+        {
+          "ea": 4757735,
+          "bytes": "e814ccfeff",
+          "parent": 4757344,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4757740,
+              "size": 2,
+              "bytes": "eb20",
+              "asm": "jmp     short loc_48990E"
+            },
+            {
+              "ea": 4757742,
+              "size": 2,
+              "bytes": "3bc5",
+              "asm": "cmp     eax, ebp"
+            },
+            {
+              "ea": 4757744,
+              "size": 2,
+              "bytes": "7411",
+              "asm": "jz      short loc_489903"
+            },
+            {
+              "ea": 4757746,
+              "size": 4,
+              "bytes": "8b442410",
+              "asm": "mov     eax, [esp+144h+var_134]"
+            }
+          ]
+        },
+        {
+          "ea": 4757763,
+          "bytes": "e8f8cbfeff",
+          "parent": 4757344,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4757768,
+              "size": 2,
+              "bytes": "eb04",
+              "asm": "jmp     short loc_48990E"
+            },
+            {
+              "ea": 4757770,
+              "size": 4,
+              "bytes": "8b6c2420",
+              "asm": "mov     ebp, [esp+144h+var_124]"
+            },
+            {
+              "ea": 4757774,
+              "size": 7,
+              "bytes": "8a84244c010000",
+              "asm": "mov     al, byte ptr [esp+144h+arg_4]"
+            },
+            {
+              "ea": 4757781,
+              "size": 3,
+              "bytes": "83cbff",
+              "asm": "or      ebx, 0FFFFFFFFh"
+            }
+          ]
+        },
+        {
+          "ea": 4768347,
+          "bytes": "e8a0a2feff",
+          "parent": 4768224,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4768352,
+              "size": 4,
+              "bytes": "8b54241c",
+              "asm": "mov     edx, [esp+14h+arg_4]"
+            },
+            {
+              "ea": 4768356,
+              "size": 2,
+              "bytes": "8bea",
+              "asm": "mov     ebp, edx"
+            },
+            {
+              "ea": 4768358,
+              "size": 3,
+              "bytes": "83e501",
+              "asm": "and     ebp, 1"
+            },
+            {
+              "ea": 4768361,
+              "size": 2,
+              "bytes": "742d",
+              "asm": "jz      short loc_48C298"
+            }
+          ]
+        },
+        {
+          "ea": 4782229,
+          "bytes": "e8666cfeff",
+          "parent": 4781760,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4782234,
+              "size": 2,
+              "bytes": "33ed",
+              "asm": "xor     ebp, ebp"
+            },
+            {
+              "ea": 4782236,
+              "size": 3,
+              "bytes": "f6c304",
+              "asm": "test    bl, 4"
+            },
+            {
+              "ea": 4782239,
+              "size": 2,
+              "bytes": "7437",
+              "asm": "jz      short loc_48F8D8"
+            },
+            {
+              "ea": 4782241,
+              "size": 4,
+              "bytes": "396c2410",
+              "asm": "cmp     [esp+114h+var_104], ebp"
+            }
+          ]
+        },
+        {
+          "ea": 4825334,
+          "bytes": "e805c4fdff",
+          "parent": 4824112,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4825339,
+              "size": 3,
+              "bytes": "83cdff",
+              "asm": "or      ebp, 0FFFFFFFFh"
+            },
+            {
+              "ea": 4825342,
+              "size": 7,
+              "bytes": "8a842498030000",
+              "asm": "mov     al, byte ptr [esp+390h+arg_4]"
+            },
+            {
+              "ea": 4825349,
+              "size": 2,
+              "bytes": "8bfd",
+              "asm": "mov     edi, ebp"
+            },
+            {
+              "ea": 4825351,
+              "size": 2,
+              "bytes": "a821",
+              "asm": "test    al, 21h"
+            }
+          ]
+        },
+        {
+          "ea": 4829140,
+          "bytes": "e827b5fdff",
+          "parent": 4828224,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4829145,
+              "size": 7,
+              "bytes": "8bac2450010000",
+              "asm": "mov     ebp, [esp+14Ch+arg_0]"
+            },
+            {
+              "ea": 4829152,
+              "size": 3,
+              "bytes": "83ceff",
+              "asm": "or      esi, 0FFFFFFFFh"
+            },
+            {
+              "ea": 4829155,
+              "size": 3,
+              "bytes": "f6c321",
+              "asm": "test    bl, 21h"
+            },
+            {
+              "ea": 4829158,
+              "size": 4,
+              "bytes": "89742410",
+              "asm": "mov     [esp+14Ch+var_13C], esi"
+            }
+          ]
+        },
+        {
+          "ea": 4875140,
+          "bytes": "e87701fdff",
+          "parent": 4875008,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4875145,
+              "size": 3,
+              "bytes": "f6c302",
+              "asm": "test    bl, 2"
+            },
+            {
+              "ea": 4875148,
+              "size": 2,
+              "bytes": "7447",
+              "asm": "jz      short loc_4A63D5"
+            },
+            {
+              "ea": 4875150,
+              "size": 5,
+              "bytes": "a1c4f0d200",
+              "asm": "mov     eax, stru_D2F0B8.field_C"
+            },
+            {
+              "ea": 4875155,
+              "size": 2,
+              "bytes": "85c0",
+              "asm": "test    eax, eax"
+            }
+          ]
+        },
+        {
+          "ea": 4890189,
+          "bytes": "e8aec6fcff",
+          "parent": 4889872,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4890194,
+              "size": 4,
+              "bytes": "8a442450",
+              "asm": "mov     al, byte ptr [esp+48h+arg_4]"
+            },
+            {
+              "ea": 4890198,
+              "size": 3,
+              "bytes": "83cbff",
+              "asm": "or      ebx, 0FFFFFFFFh"
+            },
+            {
+              "ea": 4890201,
+              "size": 2,
+              "bytes": "a821",
+              "asm": "test    al, 21h"
+            },
+            {
+              "ea": 4890203,
+              "size": 6,
+              "bytes": "0f848c000000",
+              "asm": "jz      loc_4A9EED"
+            }
+          ]
+        },
+        {
+          "ea": 4891861,
+          "bytes": "e826c0fcff",
+          "parent": 4891600,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4891866,
+              "size": 4,
+              "bytes": "8b5c244c",
+              "asm": "mov     ebx, [esp+44h+arg_4]"
+            },
+            {
+              "ea": 4891870,
+              "size": 2,
+              "bytes": "eb49",
+              "asm": "jmp     short loc_4AA529"
+            },
+            {
+              "ea": 4891872,
+              "size": 2,
+              "bytes": "85c9",
+              "asm": "test    ecx, ecx"
+            },
+            {
+              "ea": 4891874,
+              "size": 2,
+              "bytes": "7c36",
+              "asm": "jl      short loc_4AA51A"
+            }
+          ]
+        },
+        {
+          "ea": 4891930,
+          "bytes": "e8e1bffcff",
+          "parent": 4891600,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4891935,
+              "size": 4,
+              "bytes": "8b5c244c",
+              "asm": "mov     ebx, [esp+44h+arg_4]"
+            },
+            {
+              "ea": 4891939,
+              "size": 2,
+              "bytes": "eb04",
+              "asm": "jmp     short loc_4AA529"
+            },
+            {
+              "ea": 4891941,
+              "size": 4,
+              "bytes": "8b7c2448",
+              "asm": "mov     edi, [esp+44h+arg_0]"
+            },
+            {
+              "ea": 4891945,
+              "size": 3,
+              "bytes": "83cdff",
+              "asm": "or      ebp, 0FFFFFFFFh"
+            }
+          ]
+        },
+        {
+          "ea": 4894888,
+          "bytes": "e853b4fcff",
+          "parent": 4894400,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4894893,
+              "size": 7,
+              "bytes": "8b9424a8000000",
+              "asm": "mov     edx, [esp+0A0h+arg_4]"
+            },
+            {
+              "ea": 4894900,
+              "size": 3,
+              "bytes": "83e201",
+              "asm": "and     edx, 1"
+            },
+            {
+              "ea": 4894903,
+              "size": 4,
+              "bytes": "8954241c",
+              "asm": "mov     [esp+0A0h+var_84], edx"
+            },
+            {
+              "ea": 4894907,
+              "size": 2,
+              "bytes": "7453",
+              "asm": "jz      short loc_4AB110"
+            }
+          ]
+        },
+        {
+          "ea": 4896794,
+          "bytes": "e8e1acfcff",
+          "parent": 4896528,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4896799,
+              "size": 7,
+              "bytes": "8b942424020000",
+              "asm": "mov     edx, [esp+21Ch+arg_4]"
+            },
+            {
+              "ea": 4896806,
+              "size": 2,
+              "bytes": "8bca",
+              "asm": "mov     ecx, edx"
+            },
+            {
+              "ea": 4896808,
+              "size": 3,
+              "bytes": "83e101",
+              "asm": "and     ecx, 1"
+            },
+            {
+              "ea": 4896811,
+              "size": 4,
+              "bytes": "894c2414",
+              "asm": "mov     [esp+21Ch+var_208], ecx"
+            }
+          ]
+        },
+        {
+          "ea": 4899775,
+          "bytes": "e83ca1fcff",
+          "parent": 4899472,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4899780,
+              "size": 4,
+              "bytes": "8b5c245c",
+              "asm": "mov     ebx, [esp+54h+arg_4]"
+            },
+            {
+              "ea": 4899784,
+              "size": 2,
+              "bytes": "33ff",
+              "asm": "xor     edi, edi"
+            },
+            {
+              "ea": 4899786,
+              "size": 2,
+              "bytes": "eb3e",
+              "asm": "jmp     short loc_4AC40A"
+            },
+            {
+              "ea": 4899788,
+              "size": 2,
+              "bytes": "85c9",
+              "asm": "test    ecx, ecx"
+            }
+          ]
+        },
+        {
+          "ea": 4899816,
+          "bytes": "e813a1fcff",
+          "parent": 4899472,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4899821,
+              "size": 4,
+              "bytes": "8b5c245c",
+              "asm": "mov     ebx, [esp+54h+arg_4]"
+            },
+            {
+              "ea": 4899825,
+              "size": 2,
+              "bytes": "33ff",
+              "asm": "xor     edi, edi"
+            },
+            {
+              "ea": 4899827,
+              "size": 2,
+              "bytes": "eb15",
+              "asm": "jmp     short loc_4AC40A"
+            },
+            {
+              "ea": 4899829,
+              "size": 4,
+              "bytes": "8b742458",
+              "asm": "mov     esi, [esp+54h+arg_0]"
+            }
+          ]
+        },
+        {
+          "ea": 4899833,
+          "bytes": "e802a1fcff",
+          "parent": 4899472,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4899838,
+              "size": 4,
+              "bytes": "8b5c245c",
+              "asm": "mov     ebx, [esp+54h+arg_4]"
+            },
+            {
+              "ea": 4899842,
+              "size": 2,
+              "bytes": "33ff",
+              "asm": "xor     edi, edi"
+            },
+            {
+              "ea": 4899844,
+              "size": 2,
+              "bytes": "eb04",
+              "asm": "jmp     short loc_4AC40A"
+            },
+            {
+              "ea": 4899846,
+              "size": 4,
+              "bytes": "8b742458",
+              "asm": "mov     esi, [esp+54h+arg_0]"
+            }
+          ]
+        },
+        {
+          "ea": 4901380,
+          "bytes": "e8f79afcff",
+          "parent": 4901008,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4901385,
+              "size": 4,
+              "bytes": "8b5c2448",
+              "asm": "mov     ebx, [esp+40h+arg_4]"
+            },
+            {
+              "ea": 4901389,
+              "size": 3,
+              "bytes": "83ceff",
+              "asm": "or      esi, 0FFFFFFFFh"
+            },
+            {
+              "ea": 4901392,
+              "size": 3,
+              "bytes": "f6c321",
+              "asm": "test    bl, 21h"
+            },
+            {
+              "ea": 4901395,
+              "size": 6,
+              "bytes": "0f8499000000",
+              "asm": "jz      loc_4ACAB2"
+            }
+          ]
+        },
+        {
+          "ea": 4908172,
+          "bytes": "e86f80fcff",
+          "parent": 4907856,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4908177,
+              "size": 4,
+              "bytes": "8a442428",
+              "asm": "mov     al, byte ptr [esp+20h+arg_4]"
+            },
+            {
+              "ea": 4908181,
+              "size": 2,
+              "bytes": "a801",
+              "asm": "test    al, 1"
+            },
+            {
+              "ea": 4908183,
+              "size": 2,
+              "bytes": "745f",
+              "asm": "jz      short loc_4AE4F8"
+            },
+            {
+              "ea": 4908185,
+              "size": 2,
+              "bytes": "a802",
+              "asm": "test    al, 2"
+            }
+          ]
+        },
+        {
+          "ea": 4921912,
+          "bytes": "e8c34afcff",
+          "parent": 4921664,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4921917,
+              "size": 2,
+              "bytes": "eb2a",
+              "asm": "jmp     short loc_4B1A69"
+            },
+            {
+              "ea": 4921919,
+              "size": 2,
+              "bytes": "85ed",
+              "asm": "test    ebp, ebp"
+            },
+            {
+              "ea": 4921921,
+              "size": 2,
+              "bytes": "7c1b",
+              "asm": "jl      short loc_4B1A5E"
+            },
+            {
+              "ea": 4921923,
+              "size": 4,
+              "bytes": "8b4c2410",
+              "asm": "mov     ecx, [esp+128h+var_118]"
+            }
+          ]
+        },
+        {
+          "ea": 4921950,
+          "bytes": "e89d4afcff",
+          "parent": 4921664,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4921955,
+              "size": 2,
+              "bytes": "eb04",
+              "asm": "jmp     short loc_4B1A69"
+            },
+            {
+              "ea": 4921957,
+              "size": 4,
+              "bytes": "8b6c2410",
+              "asm": "mov     ebp, [esp+128h+var_118]"
+            },
+            {
+              "ea": 4921961,
+              "size": 7,
+              "bytes": "8b84242c010000",
+              "asm": "mov     eax, [esp+128h+arg_0]"
+            },
+            {
+              "ea": 4921968,
+              "size": 3,
+              "bytes": "803800",
+              "asm": "cmp     byte ptr [eax], 0"
+            }
+          ]
+        },
+        {
+          "ea": 4923702,
+          "bytes": "e8c543fcff",
+          "parent": 4923488,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4923707,
+              "size": 4,
+              "bytes": "8b5c2438",
+              "asm": "mov     ebx, [esp+20h+arg_14]"
+            },
+            {
+              "ea": 4923711,
+              "size": 4,
+              "bytes": "8b542424",
+              "asm": "mov     edx, [esp+20h+arg_0]"
+            },
+            {
+              "ea": 4923715,
+              "size": 3,
+              "bytes": "803a01",
+              "asm": "cmp     byte ptr [edx], 1"
+            },
+            {
+              "ea": 4923718,
+              "size": 6,
+              "bytes": "0f8529030000",
+              "asm": "jnz     loc_4B2475"
+            }
+          ]
+        },
+        {
+          "ea": 4925419,
+          "bytes": "e8103dfcff",
+          "parent": 4925232,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4925424,
+              "size": 3,
+              "bytes": "f6c320",
+              "asm": "test    bl, 20h"
+            },
+            {
+              "ea": 4925427,
+              "size": 6,
+              "bytes": "0f84f5050000",
+              "asm": "jz      loc_4B2DEE"
+            },
+            {
+              "ea": 4925433,
+              "size": 8,
+              "bytes": "0fbf8c2428010000",
+              "asm": "movsx   ecx, [esp+11Ch+arg_8]"
+            },
+            {
+              "ea": 4925441,
+              "size": 6,
+              "bytes": "8b156897d600",
+              "asm": "mov     edx, gHoverImageSeq"
+            }
+          ]
+        },
+        {
+          "ea": 4925729,
+          "bytes": "e8da3bfcff",
+          "parent": 4925232,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4925734,
+              "size": 7,
+              "bytes": "8b9c2434010000",
+              "asm": "mov     ebx, [esp+11Ch+arg_14]"
+            },
+            {
+              "ea": 4925741,
+              "size": 2,
+              "bytes": "8bc3",
+              "asm": "mov     eax, ebx"
+            },
+            {
+              "ea": 4925743,
+              "size": 3,
+              "bytes": "83cdff",
+              "asm": "or      ebp, 0FFFFFFFFh"
+            },
+            {
+              "ea": 4925746,
+              "size": 3,
+              "bytes": "83e021",
+              "asm": "and     eax, 21h"
+            }
+          ]
+        },
+        {
+          "ea": 4927512,
+          "bytes": "e8e334fcff",
+          "parent": 4927344,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4927517,
+              "size": 3,
+              "bytes": "f6c320",
+              "asm": "test    bl, 20h"
+            },
+            {
+              "ea": 4927520,
+              "size": 6,
+              "bytes": "0f8400040000",
+              "asm": "jz      loc_4B3426"
+            },
+            {
+              "ea": 4927526,
+              "size": 5,
+              "bytes": "0fbf4c2430",
+              "asm": "movsx   ecx, word ptr [esp+24h+arg_8]"
+            },
+            {
+              "ea": 4927531,
+              "size": 6,
+              "bytes": "8b156897d600",
+              "asm": "mov     edx, gHoverImageSeq"
+            }
+          ]
+        },
+        {
+          "ea": 4927763,
+          "bytes": "e8e833fcff",
+          "parent": 4927344,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4927768,
+              "size": 4,
+              "bytes": "8b5c243c",
+              "asm": "mov     ebx, [esp+24h+arg_14]"
+            },
+            {
+              "ea": 4927772,
+              "size": 4,
+              "bytes": "8b542428",
+              "asm": "mov     edx, [esp+24h+arg_0]"
+            },
+            {
+              "ea": 4927776,
+              "size": 3,
+              "bytes": "803a01",
+              "asm": "cmp     byte ptr [edx], 1"
+            },
+            {
+              "ea": 4927779,
+              "size": 6,
+              "bytes": "0f85fd020000",
+              "asm": "jnz     loc_4B3426"
+            }
+          ]
+        },
+        {
+          "ea": 4965123,
+          "bytes": "e8f8a1fbff",
+          "parent": 4964912,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4965128,
+              "size": 7,
+              "bytes": "8b942430010000",
+              "asm": "mov     edx, [esp+128h+arg_4]"
+            },
+            {
+              "ea": 4965135,
+              "size": 3,
+              "bytes": "83e201",
+              "asm": "and     edx, 1"
+            },
+            {
+              "ea": 4965138,
+              "size": 4,
+              "bytes": "89542414",
+              "asm": "mov     [esp+128h+var_114], edx"
+            },
+            {
+              "ea": 4965142,
+              "size": 2,
+              "bytes": "7441",
+              "asm": "jz      short loc_4BC359"
+            }
+          ]
+        },
+        {
+          "ea": 4968599,
+          "bytes": "e86494fbff",
+          "parent": 4968160,
+          "asm": "call    InvDragReset",
+          "call_target": 4678912,
+          "following": [
+            {
+              "ea": 4968604,
+              "size": 5,
+              "bytes": "e8bf8cfbff",
+              "asm": "call    sub_475D60"
+            },
+            {
+              "ea": 4968609,
+              "size": 2,
+              "bytes": "85c0",
+              "asm": "test    eax, eax"
+            },
+            {
+              "ea": 4968611,
+              "size": 2,
+              "bytes": "7454",
+              "asm": "jz      short loc_4BD0F9"
+            },
+            {
+              "ea": 4968613,
+              "size": 3,
+              "bytes": "f6c320",
+              "asm": "test    bl, 20h"
+            }
+          ]
+        }
+      ],
+      "drag_session": {
+        "step": "DLP01",
+        "source_snapshot": "[#] 补齐拖动会话生产与清理合同",
+        "original_end_exclusive": "0x476562",
+        "original_instruction_count": 26,
+        "original_code_bytes": 98,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "indirect_call_count": 1,
+        "jump_count": 3,
+        "return_count": 1,
+        "native_signature": "void Sub_476500()",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_476500",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_source_body_kept": true,
+        "result_boundary": "现void；原EAX残留/全父消费待",
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4763b0",
+      "inventory_id": "F:000763B0",
+      "original_role": "已有kind的两S32焦点绑定",
+      "original_end_exclusive": "0x4763d5",
+      "instruction_count": 11,
+      "function_chunks": [
+        {
+          "start": "0x4763b0",
+          "end_exclusive": "0x4763d5"
+        }
+      ],
+      "status": "DLP01完整会话原根纳管，正确body/原生产与清理保持，注释补合同；限定S/全父、回调owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4763B0"
+          ],
+          "relationship": "DLP01完整原阶段/字段宽度和写序已核，正确body保持，仅合同注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4763B0"
+          ],
+          "relationship": "DLP01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_drag_session_production_lifecycle_spec.md#drag-session-baseline",
+        "doc/cg2d_drag_session_production_lifecycle_spec.md#drag-session-decision",
+        "doc/cg2d_drag_session_production_lifecycle_spec.md#drag-session-acceptance",
+        "doc/cg2d_drag_session_production_lifecycle_spec.md#drag-session-source-state",
+        "doc/cg2d_drag_session_production_lifecycle_evidence.json"
+      ],
+      "boundary": "DLP01仅六完整原拖动会话生产/绑定/重置/取消/完成根129条483B/六页，零E8/两寄存器回调/十三跳十一RET，116实际直接CALL/50父与四后邻指令有据，不代全父/所有返回消费或间接目标。475DA0/476490入口phase0且kind非零才按原序发阶段1/3，两个当前焦点S32取样时点和S16 x/y保；4763B0已有kind才写两个焦点槽并S32返0/1；4763E0依焦点索引-1、kind0、焦点窗口0、callback空、phase0，仅五槽/S32返0，来源和坐标不清。476410入口phase0早退，保存callback，阶段1消息1其它消息4，回调后新读phase，按原清kind/source/callback/S16x/y/focusWin/focusIndex再phase==1?2:6；无callback沿入口phase。476500入口4/5才保存callback可选消息3，之后原清kind/source/callback/S16x/y/focusWin/phase0/focusIndex-1，不再检查回调新phase。两间接回调message/flags0/source及结果弃用保；两个void适配只保当前CPP边界，原EAX残留/全部父消费和机器ABI未记等价。六正确body/实参数返回及共享八槽十个声明/原WindowDragCallback、其它source保，三整源仅十二注释、零body补丁/零I；无新API/helper/字段/布局/owner/保护/补零/默认值/钳制/容量限制/回滚/异常模型。六新F/六adapted、两域各六成员/两限定S/十任务open；旧鼠标分发和更新父复用不改，全事件生产消费及全部原父/间接路由/回调payload和alias-owner寿命、SDK/机器ABI/真实拖动取消完成/退出与运行待，48有界记录及完整枚举gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，六完整原根129条483B/六页、零E8/两寄存器回调/十三跳十一RET及116实际CALL/五十父与四后邻有据；六正确body保，原阶段1/3发布取样、kind两槽绑定、五槽重置保来源/坐标、取消回调后新phase及完成不重验phase/八槽写序保持。三整源仅十二注释精确差异，十共享声明/真实回调类型保持，零body补丁/零I；四S32结果保持，两void原EAX残留/全父消费和机器ABI未记等价；完整父/回调payload与alias-owner/实际拖动和运行待",
+      "original_incoming": [
+        {
+          "ea": 4753688,
+          "bytes": "e893dafeff",
+          "parent": 4753600,
+          "asm": "call    sub_4763B0",
+          "call_target": 4678576,
+          "following": [
+            {
+              "ea": 4753693,
+              "size": 3,
+              "bytes": "83c418",
+              "asm": "add     esp, 18h"
+            },
+            {
+              "ea": 4753696,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4753697,
+              "size": 15,
+              "bytes": "909090909090909090909090909090",
+              "asm": "align 10h"
+            },
+            {
+              "ea": 4753712,
+              "size": 4,
+              "bytes": "8b442408",
+              "asm": "mov     eax, [esp+arg_4]"
+            }
+          ]
+        }
+      ],
+      "drag_session": {
+        "step": "DLP01",
+        "source_snapshot": "[#] 补齐拖动会话生产与清理合同",
+        "original_end_exclusive": "0x4763d5",
+        "original_instruction_count": 11,
+        "original_code_bytes": 37,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "indirect_call_count": 0,
+        "jump_count": 1,
+        "return_count": 2,
+        "native_signature": "std::int32_t Sub_4763B0(\n    const std::int32_t windowId, const std::int32_t elementIndex)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4763B0",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_source_body_kept": true,
+        "result_boundary": "S32原0/1",
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4763e0",
+      "inventory_id": "F:000763E0",
+      "original_role": "仅五槽的通用会话重置",
+      "original_end_exclusive": "0x476401",
+      "instruction_count": 7,
+      "function_chunks": [
+        {
+          "start": "0x4763e0",
+          "end_exclusive": "0x476401"
+        }
+      ],
+      "status": "DLP01完整会话原根纳管，正确body/原生产与清理保持，注释补合同；限定S/全父、回调owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4763E0"
+          ],
+          "relationship": "DLP01完整原阶段/字段宽度和写序已核，正确body保持，仅合同注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4763E0"
+          ],
+          "relationship": "DLP01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_drag_session_production_lifecycle_spec.md#drag-session-baseline",
+        "doc/cg2d_drag_session_production_lifecycle_spec.md#drag-session-decision",
+        "doc/cg2d_drag_session_production_lifecycle_spec.md#drag-session-acceptance",
+        "doc/cg2d_drag_session_production_lifecycle_spec.md#drag-session-source-state",
+        "doc/cg2d_drag_session_production_lifecycle_evidence.json"
+      ],
+      "boundary": "DLP01仅六完整原拖动会话生产/绑定/重置/取消/完成根129条483B/六页，零E8/两寄存器回调/十三跳十一RET，116实际直接CALL/50父与四后邻指令有据，不代全父/所有返回消费或间接目标。475DA0/476490入口phase0且kind非零才按原序发阶段1/3，两个当前焦点S32取样时点和S16 x/y保；4763B0已有kind才写两个焦点槽并S32返0/1；4763E0依焦点索引-1、kind0、焦点窗口0、callback空、phase0，仅五槽/S32返0，来源和坐标不清。476410入口phase0早退，保存callback，阶段1消息1其它消息4，回调后新读phase，按原清kind/source/callback/S16x/y/focusWin/focusIndex再phase==1?2:6；无callback沿入口phase。476500入口4/5才保存callback可选消息3，之后原清kind/source/callback/S16x/y/focusWin/phase0/focusIndex-1，不再检查回调新phase。两间接回调message/flags0/source及结果弃用保；两个void适配只保当前CPP边界，原EAX残留/全部父消费和机器ABI未记等价。六正确body/实参数返回及共享八槽十个声明/原WindowDragCallback、其它source保，三整源仅十二注释、零body补丁/零I；无新API/helper/字段/布局/owner/保护/补零/默认值/钳制/容量限制/回滚/异常模型。六新F/六adapted、两域各六成员/两限定S/十任务open；旧鼠标分发和更新父复用不改，全事件生产消费及全部原父/间接路由/回调payload和alias-owner寿命、SDK/机器ABI/真实拖动取消完成/退出与运行待，48有界记录及完整枚举gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，六完整原根129条483B/六页、零E8/两寄存器回调/十三跳十一RET及116实际CALL/五十父与四后邻有据；六正确body保，原阶段1/3发布取样、kind两槽绑定、五槽重置保来源/坐标、取消回调后新phase及完成不重验phase/八槽写序保持。三整源仅十二注释精确差异，十共享声明/真实回调类型保持，零body补丁/零I；四S32结果保持，两void原EAX残留/全父消费和机器ABI未记等价；完整父/回调payload与alias-owner/实际拖动和运行待",
+      "original_incoming": [
+        {
+          "ea": 4667442,
+          "bytes": "e8a92b0000",
+          "parent": 4666720,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4667447,
+              "size": 1,
+              "bytes": "5f",
+              "asm": "pop     edi"
+            },
+            {
+              "ea": 4667448,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            },
+            {
+              "ea": 4667449,
+              "size": 1,
+              "bytes": "5d",
+              "asm": "pop     ebp"
+            },
+            {
+              "ea": 4667450,
+              "size": 1,
+              "bytes": "5b",
+              "asm": "pop     ebx"
+            }
+          ]
+        },
+        {
+          "ea": 4669574,
+          "bytes": "e855230000",
+          "parent": 4669312,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4669579,
+              "size": 6,
+              "bytes": "8b0d9446cf00",
+              "asm": "mov     ecx, gCurrentWindow"
+            },
+            {
+              "ea": 4669585,
+              "size": 2,
+              "bytes": "33f6",
+              "asm": "xor     esi, esi"
+            },
+            {
+              "ea": 4669587,
+              "size": 1,
+              "bytes": "56",
+              "asm": "push    esi"
+            },
+            {
+              "ea": 4669588,
+              "size": 3,
+              "bytes": "ff5134",
+              "asm": "call    dword ptr [ecx+34h]"
+            }
+          ]
+        },
+        {
+          "ea": 4691739,
+          "bytes": "e8c0ccffff",
+          "parent": 4691712,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4691744,
+              "size": 5,
+              "bytes": "b9f88cd600",
+              "asm": "mov     ecx, offset mouseX"
+            },
+            {
+              "ea": 4691749,
+              "size": 5,
+              "bytes": "e87687f8ff",
+              "asm": "call    CryptInt__GetVal"
+            },
+            {
+              "ea": 4691754,
+              "size": 5,
+              "bytes": "b9088dd600",
+              "asm": "mov     ecx, offset mouseY"
+            },
+            {
+              "ea": 4691759,
+              "size": 2,
+              "bytes": "8bf0",
+              "asm": "mov     esi, eax"
+            }
+          ]
+        },
+        {
+          "ea": 4700381,
+          "bytes": "e8feaaffff",
+          "parent": 4700192,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4700386,
+              "size": 2,
+              "bytes": "eb2d",
+              "asm": "jmp     short loc_47B911"
+            },
+            {
+              "ea": 4700388,
+              "size": 3,
+              "bytes": "f6c301",
+              "asm": "test    bl, 1"
+            },
+            {
+              "ea": 4700391,
+              "size": 2,
+              "bytes": "7462",
+              "asm": "jz      short loc_47B94B"
+            },
+            {
+              "ea": 4700393,
+              "size": 3,
+              "bytes": "f6c304",
+              "asm": "test    bl, 4"
+            }
+          ]
+        },
+        {
+          "ea": 4709984,
+          "bytes": "e87b85ffff",
+          "parent": 4709888,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4709989,
+              "size": 5,
+              "bytes": "b9f88cd600",
+              "asm": "mov     ecx, offset mouseX"
+            },
+            {
+              "ea": 4709994,
+              "size": 5,
+              "bytes": "e83140f8ff",
+              "asm": "call    CryptInt__GetVal"
+            },
+            {
+              "ea": 4709999,
+              "size": 5,
+              "bytes": "b9088dd600",
+              "asm": "mov     ecx, offset mouseY"
+            },
+            {
+              "ea": 4710004,
+              "size": 2,
+              "bytes": "8bf8",
+              "asm": "mov     edi, eax"
+            }
+          ]
+        },
+        {
+          "ea": 4731906,
+          "bytes": "e8d92fffff",
+          "parent": 4731216,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4731911,
+              "size": 5,
+              "bytes": "a050d6d200",
+              "asm": "mov     al, byte_D2D650"
+            },
+            {
+              "ea": 4731916,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al"
+            },
+            {
+              "ea": 4731918,
+              "size": 6,
+              "bytes": "0f8502020000",
+              "asm": "jnz     loc_483616"
+            },
+            {
+              "ea": 4731924,
+              "size": 2,
+              "bytes": "33c9",
+              "asm": "xor     ecx, ecx"
+            }
+          ]
+        },
+        {
+          "ea": 4752759,
+          "bytes": "e864defeff",
+          "parent": 4752656,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4752764,
+              "size": 7,
+              "bytes": "833d001858001d",
+              "asm": "cmp     dword_581800, 1Dh"
+            },
+            {
+              "ea": 4752771,
+              "size": 2,
+              "bytes": "750a",
+              "asm": "jnz     short loc_48858F"
+            },
+            {
+              "ea": 4752773,
+              "size": 10,
+              "bytes": "c70500185800ffffffff",
+              "asm": "mov     dword_581800, 0FFFFFFFFh"
+            },
+            {
+              "ea": 4752783,
+              "size": 10,
+              "bytes": "c705f83ecf0000000000",
+              "asm": "mov     stru_CF3B10.field_3E8, 0"
+            }
+          ]
+        },
+        {
+          "ea": 4754030,
+          "bytes": "e86dd9feff",
+          "parent": 4753808,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4754035,
+              "size": 7,
+              "bytes": "803dd440cc0002",
+              "asm": "cmp     byte_CC40D4, 2"
+            },
+            {
+              "ea": 4754042,
+              "size": 2,
+              "bytes": "754a",
+              "asm": "jnz     short loc_488AC6"
+            },
+            {
+              "ea": 4754044,
+              "size": 7,
+              "bytes": "833d001858001d",
+              "asm": "cmp     dword_581800, 1Dh"
+            },
+            {
+              "ea": 4754051,
+              "size": 2,
+              "bytes": "7441",
+              "asm": "jz      short loc_488AC6"
+            }
+          ]
+        },
+        {
+          "ea": 4754113,
+          "bytes": "e81ad9feff",
+          "parent": 4753808,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4754118,
+              "size": 5,
+              "bytes": "a184b7c900",
+              "asm": "mov     eax, gWindowState.window+0DC8h"
+            },
+            {
+              "ea": 4754123,
+              "size": 6,
+              "bytes": "893558aec900",
+              "asm": "mov     gWindowState.field_10+498h, esi"
+            },
+            {
+              "ea": 4754129,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            },
+            {
+              "ea": 4754130,
+              "size": 2,
+              "bytes": "3bc3",
+              "asm": "cmp     eax, ebx"
+            }
+          ]
+        },
+        {
+          "ea": 4756200,
+          "bytes": "e8f3d0feff",
+          "parent": 4755376,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4756205,
+              "size": 2,
+              "bytes": "6a00",
+              "asm": "push    0"
+            },
+            {
+              "ea": 4756207,
+              "size": 2,
+              "bytes": "6a00",
+              "asm": "push    0"
+            },
+            {
+              "ea": 4756209,
+              "size": 2,
+              "bytes": "6a01",
+              "asm": "push    1"
+            },
+            {
+              "ea": 4756211,
+              "size": 5,
+              "bytes": "e8a8cafeff",
+              "asm": "call    sub_475DA0"
+            }
+          ]
+        },
+        {
+          "ea": 4756368,
+          "bytes": "e84bd0feff",
+          "parent": 4755376,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4756373,
+              "size": 5,
+              "bytes": "e9ba000000",
+              "asm": "jmp     loc_489454"
+            },
+            {
+              "ea": 4756378,
+              "size": 5,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4756383,
+              "size": 5,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4756388,
+              "size": 2,
+              "bytes": "6a37",
+              "asm": "push    37h ; '7'"
+            }
+          ]
+        },
+        {
+          "ea": 4756398,
+          "bytes": "e82dd0feff",
+          "parent": 4755376,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4756403,
+              "size": 5,
+              "bytes": "e99c000000",
+              "asm": "jmp     loc_489454"
+            },
+            {
+              "ea": 4756408,
+              "size": 3,
+              "bytes": "f6c301",
+              "asm": "test    bl, 1"
+            },
+            {
+              "ea": 4756411,
+              "size": 6,
+              "bytes": "0f849b000000",
+              "asm": "jz      loc_48945C"
+            },
+            {
+              "ea": 4756417,
+              "size": 2,
+              "bytes": "85f6",
+              "asm": "test    esi, esi"
+            }
+          ]
+        },
+        {
+          "ea": 4758354,
+          "bytes": "e889c8feff",
+          "parent": 4757344,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4758359,
+              "size": 2,
+              "bytes": "6a00",
+              "asm": "push    0"
+            },
+            {
+              "ea": 4758361,
+              "size": 2,
+              "bytes": "6a00",
+              "asm": "push    0"
+            },
+            {
+              "ea": 4758363,
+              "size": 2,
+              "bytes": "6a01",
+              "asm": "push    1"
+            },
+            {
+              "ea": 4758365,
+              "size": 5,
+              "bytes": "e83ec2feff",
+              "asm": "call    sub_475DA0"
+            }
+          ]
+        },
+        {
+          "ea": 4758473,
+          "bytes": "e812c8feff",
+          "parent": 4757344,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4758478,
+              "size": 5,
+              "bytes": "e9c9000000",
+              "asm": "jmp     loc_489C9C"
+            },
+            {
+              "ea": 4758483,
+              "size": 2,
+              "bytes": "6a00",
+              "asm": "push    0"
+            },
+            {
+              "ea": 4758485,
+              "size": 1,
+              "bytes": "53",
+              "asm": "push    ebx"
+            },
+            {
+              "ea": 4758486,
+              "size": 5,
+              "bytes": "b9c0e89e00",
+              "asm": "mov     ecx, offset gPlayerY"
+            }
+          ]
+        },
+        {
+          "ea": 4758543,
+          "bytes": "e8ccc7feff",
+          "parent": 4757344,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4758548,
+              "size": 5,
+              "bytes": "e983000000",
+              "asm": "jmp     loc_489C9C"
+            },
+            {
+              "ea": 4758553,
+              "size": 5,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4758558,
+              "size": 5,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4758563,
+              "size": 2,
+              "bytes": "6a37",
+              "asm": "push    37h ; '7'"
+            }
+          ]
+        },
+        {
+          "ea": 4758573,
+          "bytes": "e8aec7feff",
+          "parent": 4757344,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4758578,
+              "size": 2,
+              "bytes": "eb68",
+              "asm": "jmp     short loc_489C9C"
+            },
+            {
+              "ea": 4758580,
+              "size": 4,
+              "bytes": "8b44241c",
+              "asm": "mov     eax, [esp+144h+var_128]"
+            },
+            {
+              "ea": 4758584,
+              "size": 2,
+              "bytes": "85c0",
+              "asm": "test    eax, eax"
+            },
+            {
+              "ea": 4758586,
+              "size": 2,
+              "bytes": "7468",
+              "asm": "jz      short loc_489CA4"
+            }
+          ]
+        },
+        {
+          "ea": 4760218,
+          "bytes": "e841c1feff",
+          "parent": 4759296,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4760223,
+              "size": 8,
+              "bytes": "c744241801000000",
+              "asm": "mov     [esp+14Ch+var_134], 1"
+            },
+            {
+              "ea": 4760231,
+              "size": 7,
+              "bytes": "f6059c8dd60002",
+              "asm": "test    byte ptr gMouseClickState, 2"
+            },
+            {
+              "ea": 4760238,
+              "size": 2,
+              "bytes": "7457",
+              "asm": "jz      short loc_48A307"
+            },
+            {
+              "ea": 4760240,
+              "size": 6,
+              "bytes": "8b0d9446cf00",
+              "asm": "mov     ecx, gCurrentWindow"
+            }
+          ]
+        },
+        {
+          "ea": 4760322,
+          "bytes": "e8d9c0feff",
+          "parent": 4759296,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4760327,
+              "size": 6,
+              "bytes": "8b0d440acb00",
+              "asm": "mov     ecx, dword_CB0A44"
+            },
+            {
+              "ea": 4760333,
+              "size": 4,
+              "bytes": "8d54241c",
+              "asm": "lea     edx, [esp+14Ch+var_130]"
+            },
+            {
+              "ea": 4760337,
+              "size": 2,
+              "bytes": "8bc1",
+              "asm": "mov     eax, ecx"
+            },
+            {
+              "ea": 4760339,
+              "size": 1,
+              "bytes": "52",
+              "asm": "push    edx"
+            }
+          ]
+        },
+        {
+          "ea": 4767229,
+          "bytes": "e8dea5feff",
+          "parent": 4766864,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4767234,
+              "size": 7,
+              "bytes": "f6059c8dd60001",
+              "asm": "test    byte ptr gMouseClickState, 1"
+            },
+            {
+              "ea": 4767241,
+              "size": 2,
+              "bytes": "742f",
+              "asm": "jz      short loc_48BE3A"
+            },
+            {
+              "ea": 4767243,
+              "size": 1,
+              "bytes": "57",
+              "asm": "push    edi"
+            },
+            {
+              "ea": 4767244,
+              "size": 5,
+              "bytes": "e8cfa5feff",
+              "asm": "call    MouseEvent__reset"
+            }
+          ]
+        },
+        {
+          "ea": 4767244,
+          "bytes": "e8cfa5feff",
+          "parent": 4766864,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4767249,
+              "size": 5,
+              "bytes": "b9f88cd600",
+              "asm": "mov     ecx, offset mouseX"
+            },
+            {
+              "ea": 4767254,
+              "size": 5,
+              "bytes": "e88560f7ff",
+              "asm": "call    CryptInt__GetVal"
+            },
+            {
+              "ea": 4767259,
+              "size": 5,
+              "bytes": "b9088dd600",
+              "asm": "mov     ecx, offset mouseY"
+            },
+            {
+              "ea": 4767264,
+              "size": 2,
+              "bytes": "8bf8",
+              "asm": "mov     edi, eax"
+            }
+          ]
+        },
+        {
+          "ea": 4767657,
+          "bytes": "e832a4feff",
+          "parent": 4767536,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4767662,
+              "size": 5,
+              "bytes": "a11cead200",
+              "asm": "mov     eax, dword_D2EA1C"
+            },
+            {
+              "ea": 4767667,
+              "size": 2,
+              "bytes": "85c0",
+              "asm": "test    eax, eax"
+            },
+            {
+              "ea": 4767669,
+              "size": 5,
+              "bytes": "a09c8dd600",
+              "asm": "mov     al, byte ptr gMouseClickState"
+            },
+            {
+              "ea": 4767674,
+              "size": 2,
+              "bytes": "7533",
+              "asm": "jnz     short loc_48BFEF"
+            }
+          ]
+        },
+        {
+          "ea": 4767680,
+          "bytes": "e81ba4feff",
+          "parent": 4767536,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4767685,
+              "size": 5,
+              "bytes": "b9f88cd600",
+              "asm": "mov     ecx, offset mouseX"
+            },
+            {
+              "ea": 4767690,
+              "size": 5,
+              "bytes": "e8d15ef7ff",
+              "asm": "call    CryptInt__GetVal"
+            },
+            {
+              "ea": 4767695,
+              "size": 5,
+              "bytes": "b9088dd600",
+              "asm": "mov     ecx, offset mouseY"
+            },
+            {
+              "ea": 4767700,
+              "size": 2,
+              "bytes": "8bf8",
+              "asm": "mov     edi, eax"
+            }
+          ]
+        },
+        {
+          "ea": 4767731,
+          "bytes": "e8e8a3feff",
+          "parent": 4767536,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4767736,
+              "size": 5,
+              "bytes": "b9f88cd600",
+              "asm": "mov     ecx, offset mouseX"
+            },
+            {
+              "ea": 4767741,
+              "size": 5,
+              "bytes": "e89e5ef7ff",
+              "asm": "call    CryptInt__GetVal"
+            },
+            {
+              "ea": 4767746,
+              "size": 5,
+              "bytes": "b9088dd600",
+              "asm": "mov     ecx, offset mouseY"
+            },
+            {
+              "ea": 4767751,
+              "size": 2,
+              "bytes": "8bf8",
+              "asm": "mov     edi, eax"
+            }
+          ]
+        },
+        {
+          "ea": 4768625,
+          "bytes": "e86aa0feff",
+          "parent": 4768224,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4768630,
+              "size": 8,
+              "bytes": "c744241001000000",
+              "asm": "mov     [esp+14h+var_4], 1"
+            },
+            {
+              "ea": 4768638,
+              "size": 2,
+              "bytes": "eb45",
+              "asm": "jmp     short loc_48C3C5"
+            },
+            {
+              "ea": 4768640,
+              "size": 2,
+              "bytes": "85ed",
+              "asm": "test    ebp, ebp"
+            },
+            {
+              "ea": 4768642,
+              "size": 2,
+              "bytes": "7441",
+              "asm": "jz      short loc_48C3C5"
+            }
+          ]
+        },
+        {
+          "ea": 4781649,
+          "bytes": "e88a6dfeff",
+          "parent": 4781600,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4781654,
+              "size": 5,
+              "bytes": "b9f88cd600",
+              "asm": "mov     ecx, offset mouseX"
+            },
+            {
+              "ea": 4781659,
+              "size": 5,
+              "bytes": "e84028f7ff",
+              "asm": "call    CryptInt__GetVal"
+            },
+            {
+              "ea": 4781664,
+              "size": 5,
+              "bytes": "b9088dd600",
+              "asm": "mov     ecx, offset mouseY"
+            },
+            {
+              "ea": 4781669,
+              "size": 2,
+              "bytes": "8bf0",
+              "asm": "mov     esi, eax"
+            }
+          ]
+        },
+        {
+          "ea": 4823560,
+          "bytes": "e8d3c9fdff",
+          "parent": 4823504,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4823565,
+              "size": 2,
+              "bytes": "eb19",
+              "asm": "jmp     short loc_499A28"
+            },
+            {
+              "ea": 4823567,
+              "size": 2,
+              "bytes": "85c0",
+              "asm": "test    eax, eax"
+            },
+            {
+              "ea": 4823569,
+              "size": 2,
+              "bytes": "7515",
+              "asm": "jnz     short loc_499A28"
+            },
+            {
+              "ea": 4823571,
+              "size": 7,
+              "bytes": "f6059c8dd60002",
+              "asm": "test    byte ptr gMouseClickState, 2"
+            }
+          ]
+        },
+        {
+          "ea": 4826280,
+          "bytes": "e833bffdff",
+          "parent": 4824112,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4826285,
+              "size": 4,
+              "bytes": "896c241c",
+              "asm": "mov     [esp+390h+var_374], ebp"
+            },
+            {
+              "ea": 4826289,
+              "size": 5,
+              "bytes": "e992030000",
+              "asm": "jmp     loc_49A848"
+            },
+            {
+              "ea": 4826294,
+              "size": 3,
+              "bytes": "663bcd",
+              "asm": "cmp     cx, bp"
+            },
+            {
+              "ea": 4826297,
+              "size": 2,
+              "bytes": "75d9",
+              "asm": "jnz     short loc_49A494"
+            }
+          ]
+        },
+        {
+          "ea": 4826512,
+          "bytes": "e84bbefdff",
+          "parent": 4824112,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4826517,
+              "size": 4,
+              "bytes": "896c241c",
+              "asm": "mov     [esp+390h+var_374], ebp"
+            },
+            {
+              "ea": 4826521,
+              "size": 5,
+              "bytes": "e9aa020000",
+              "asm": "jmp     loc_49A848"
+            },
+            {
+              "ea": 4826526,
+              "size": 3,
+              "bytes": "663bcd",
+              "asm": "cmp     cx, bp"
+            },
+            {
+              "ea": 4826529,
+              "size": 6,
+              "bytes": "0f85edfeffff",
+              "asm": "jnz     loc_49A494"
+            }
+          ]
+        },
+        {
+          "ea": 4826592,
+          "bytes": "e8fbbdfdff",
+          "parent": 4824112,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4826597,
+              "size": 4,
+              "bytes": "896c241c",
+              "asm": "mov     [esp+390h+var_374], ebp"
+            },
+            {
+              "ea": 4826601,
+              "size": 5,
+              "bytes": "e95a020000",
+              "asm": "jmp     loc_49A848"
+            },
+            {
+              "ea": 4826606,
+              "size": 7,
+              "bytes": "83becc17fe002b",
+              "asm": "cmp     (gPlayerDataVal.Items.itemType+62E0h)[esi], 2Bh ; '+'"
+            },
+            {
+              "ea": 4826613,
+              "size": 2,
+              "bytes": "7510",
+              "asm": "jnz     short loc_49A607"
+            }
+          ]
+        },
+        {
+          "ea": 4826711,
+          "bytes": "e884bdfdff",
+          "parent": 4824112,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4826716,
+              "size": 4,
+              "bytes": "896c241c",
+              "asm": "mov     [esp+390h+var_374], ebp"
+            },
+            {
+              "ea": 4826720,
+              "size": 5,
+              "bytes": "e9e3010000",
+              "asm": "jmp     loc_49A848"
+            },
+            {
+              "ea": 4826725,
+              "size": 6,
+              "bytes": "8b15a4bc5a00",
+              "asm": "mov     edx, gMyPostion"
+            },
+            {
+              "ea": 4826731,
+              "size": 3,
+              "bytes": "8d4708",
+              "asm": "lea     eax, [edi+8]"
+            }
+          ]
+        },
+        {
+          "ea": 4826827,
+          "bytes": "e810bdfdff",
+          "parent": 4824112,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4826832,
+              "size": 4,
+              "bytes": "896c241c",
+              "asm": "mov     [esp+390h+var_374], ebp"
+            },
+            {
+              "ea": 4826836,
+              "size": 5,
+              "bytes": "e96f010000",
+              "asm": "jmp     loc_49A848"
+            },
+            {
+              "ea": 4826841,
+              "size": 5,
+              "bytes": "bd01000000",
+              "asm": "mov     ebp, 1"
+            },
+            {
+              "ea": 4826846,
+              "size": 4,
+              "bytes": "896c241c",
+              "asm": "mov     [esp+390h+var_374], ebp"
+            }
+          ]
+        },
+        {
+          "ea": 4829766,
+          "bytes": "e895b1fdff",
+          "parent": 4828224,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4829771,
+              "size": 4,
+              "bytes": "897c2418",
+              "asm": "mov     [esp+14Ch+var_134], edi"
+            },
+            {
+              "ea": 4829775,
+              "size": 5,
+              "bytes": "e9e2000000",
+              "asm": "jmp     loc_49B336"
+            },
+            {
+              "ea": 4829780,
+              "size": 2,
+              "bytes": "6a03",
+              "asm": "push    3; int"
+            },
+            {
+              "ea": 4829782,
+              "size": 2,
+              "bytes": "6a04",
+              "asm": "push    4; Time"
+            }
+          ]
+        },
+        {
+          "ea": 4829814,
+          "bytes": "e865b1fdff",
+          "parent": 4828224,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4829819,
+              "size": 4,
+              "bytes": "897c2418",
+              "asm": "mov     [esp+14Ch+var_134], edi"
+            },
+            {
+              "ea": 4829823,
+              "size": 5,
+              "bytes": "e9b2000000",
+              "asm": "jmp     loc_49B336"
+            },
+            {
+              "ea": 4829828,
+              "size": 5,
+              "bytes": "bf01000000",
+              "asm": "mov     edi, 1"
+            },
+            {
+              "ea": 4829833,
+              "size": 5,
+              "bytes": "e852b1fdff",
+              "asm": "call    MouseEvent__reset"
+            }
+          ]
+        },
+        {
+          "ea": 4829833,
+          "bytes": "e852b1fdff",
+          "parent": 4828224,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4829838,
+              "size": 4,
+              "bytes": "897c2418",
+              "asm": "mov     [esp+14Ch+var_134], edi"
+            },
+            {
+              "ea": 4829842,
+              "size": 5,
+              "bytes": "e99f000000",
+              "asm": "jmp     loc_49B336"
+            },
+            {
+              "ea": 4829847,
+              "size": 5,
+              "bytes": "bf01000000",
+              "asm": "mov     edi, 1"
+            },
+            {
+              "ea": 4829852,
+              "size": 4,
+              "bytes": "897c2418",
+              "asm": "mov     [esp+14Ch+var_134], edi"
+            }
+          ]
+        },
+        {
+          "ea": 4890608,
+          "bytes": "e8ebc3fcff",
+          "parent": 4889872,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4890613,
+              "size": 2,
+              "bytes": "33c9",
+              "asm": "xor     ecx, ecx"
+            },
+            {
+              "ea": 4890615,
+              "size": 5,
+              "bytes": "b8584dcc00",
+              "asm": "mov     eax, offset gInvItemData3"
+            },
+            {
+              "ea": 4890620,
+              "size": 4,
+              "bytes": "66833800",
+              "asm": "cmp     word ptr [eax], 0"
+            },
+            {
+              "ea": 4890624,
+              "size": 2,
+              "bytes": "7426",
+              "asm": "jz      short loc_4AA028"
+            }
+          ]
+        },
+        {
+          "ea": 4892290,
+          "bytes": "e859bdfcff",
+          "parent": 4891600,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4892295,
+              "size": 2,
+              "bytes": "33c9",
+              "asm": "xor     ecx, ecx"
+            },
+            {
+              "ea": 4892297,
+              "size": 5,
+              "bytes": "b8840bfe00",
+              "asm": "mov     eax, (offset gPlayerDataVal.Items.use+62E0h)"
+            },
+            {
+              "ea": 4892302,
+              "size": 4,
+              "bytes": "66833800",
+              "asm": "cmp     word ptr [eax], 0"
+            },
+            {
+              "ea": 4892306,
+              "size": 2,
+              "bytes": "7426",
+              "asm": "jz      short loc_4AA6BA"
+            }
+          ]
+        },
+        {
+          "ea": 4895072,
+          "bytes": "e87bb2fcff",
+          "parent": 4894400,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4895077,
+              "size": 2,
+              "bytes": "33f6",
+              "asm": "xor     esi, esi"
+            },
+            {
+              "ea": 4895079,
+              "size": 5,
+              "bytes": "b8184ed600",
+              "asm": "mov     eax, offset word_D64E18"
+            },
+            {
+              "ea": 4895084,
+              "size": 4,
+              "bytes": "66833800",
+              "asm": "cmp     word ptr [eax], 0"
+            },
+            {
+              "ea": 4895088,
+              "size": 2,
+              "bytes": "7412",
+              "asm": "jz      short loc_4AB184"
+            }
+          ]
+        },
+        {
+          "ea": 4896949,
+          "bytes": "e826abfcff",
+          "parent": 4896528,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4896954,
+              "size": 2,
+              "bytes": "33f6",
+              "asm": "xor     esi, esi"
+            },
+            {
+              "ea": 4896956,
+              "size": 5,
+              "bytes": "b90a0bde00",
+              "asm": "mov     ecx, offset gPetPairs.index"
+            },
+            {
+              "ea": 4896961,
+              "size": 3,
+              "bytes": "0fbf01",
+              "asm": "movsx   eax, word ptr [ecx]"
+            },
+            {
+              "ea": 4896964,
+              "size": 3,
+              "bytes": "8d14c0",
+              "asm": "lea     edx, [eax+eax*8]"
+            }
+          ]
+        },
+        {
+          "ea": 4925032,
+          "bytes": "e8733dfcff",
+          "parent": 4924880,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4925037,
+              "size": 7,
+              "bytes": "f6059c8dd60001",
+              "asm": "test    byte ptr gMouseClickState, 1"
+            },
+            {
+              "ea": 4925044,
+              "size": 2,
+              "bytes": "742f",
+              "asm": "jz      short loc_4B26A5"
+            },
+            {
+              "ea": 4925046,
+              "size": 1,
+              "bytes": "57",
+              "asm": "push    edi"
+            },
+            {
+              "ea": 4925047,
+              "size": 5,
+              "bytes": "e8643dfcff",
+              "asm": "call    MouseEvent__reset"
+            }
+          ]
+        },
+        {
+          "ea": 4925047,
+          "bytes": "e8643dfcff",
+          "parent": 4924880,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4925052,
+              "size": 5,
+              "bytes": "b9f88cd600",
+              "asm": "mov     ecx, offset mouseX"
+            },
+            {
+              "ea": 4925057,
+              "size": 5,
+              "bytes": "e81af8f4ff",
+              "asm": "call    CryptInt__GetVal"
+            },
+            {
+              "ea": 4925062,
+              "size": 5,
+              "bytes": "b9088dd600",
+              "asm": "mov     ecx, offset mouseY"
+            },
+            {
+              "ea": 4925067,
+              "size": 2,
+              "bytes": "8bf8",
+              "asm": "mov     edi, eax"
+            }
+          ]
+        },
+        {
+          "ea": 4927126,
+          "bytes": "e84535fcff",
+          "parent": 4926976,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4927131,
+              "size": 7,
+              "bytes": "f6059c8dd60001",
+              "asm": "test    byte ptr gMouseClickState, 1"
+            },
+            {
+              "ea": 4927138,
+              "size": 2,
+              "bytes": "742f",
+              "asm": "jz      short loc_4B2ED3"
+            },
+            {
+              "ea": 4927140,
+              "size": 1,
+              "bytes": "57",
+              "asm": "push    edi"
+            },
+            {
+              "ea": 4927141,
+              "size": 5,
+              "bytes": "e83635fcff",
+              "asm": "call    MouseEvent__reset"
+            }
+          ]
+        },
+        {
+          "ea": 4927141,
+          "bytes": "e83635fcff",
+          "parent": 4926976,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4927146,
+              "size": 5,
+              "bytes": "b9f88cd600",
+              "asm": "mov     ecx, offset mouseX"
+            },
+            {
+              "ea": 4927151,
+              "size": 5,
+              "bytes": "e8eceff4ff",
+              "asm": "call    CryptInt__GetVal"
+            },
+            {
+              "ea": 4927156,
+              "size": 5,
+              "bytes": "b9088dd600",
+              "asm": "mov     ecx, offset mouseY"
+            },
+            {
+              "ea": 4927161,
+              "size": 2,
+              "bytes": "8bf8",
+              "asm": "mov     edi, eax"
+            }
+          ]
+        },
+        {
+          "ea": 4943095,
+          "bytes": "e8e4f6fbff",
+          "parent": 4942928,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4943100,
+              "size": 7,
+              "bytes": "f6059c8dd60001",
+              "asm": "test    byte ptr gMouseClickState, 1"
+            },
+            {
+              "ea": 4943107,
+              "size": 2,
+              "bytes": "742f",
+              "asm": "jz      short loc_4B6D34"
+            },
+            {
+              "ea": 4943109,
+              "size": 1,
+              "bytes": "57",
+              "asm": "push    edi"
+            },
+            {
+              "ea": 4943110,
+              "size": 5,
+              "bytes": "e8d5f6fbff",
+              "asm": "call    MouseEvent__reset"
+            }
+          ]
+        },
+        {
+          "ea": 4943110,
+          "bytes": "e8d5f6fbff",
+          "parent": 4942928,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4943115,
+              "size": 5,
+              "bytes": "b9f88cd600",
+              "asm": "mov     ecx, offset mouseX"
+            },
+            {
+              "ea": 4943120,
+              "size": 5,
+              "bytes": "e88bb1f4ff",
+              "asm": "call    CryptInt__GetVal"
+            },
+            {
+              "ea": 4943125,
+              "size": 5,
+              "bytes": "b9088dd600",
+              "asm": "mov     ecx, offset mouseY"
+            },
+            {
+              "ea": 4943130,
+              "size": 2,
+              "bytes": "8bf8",
+              "asm": "mov     edi, eax"
+            }
+          ]
+        },
+        {
+          "ea": 4959386,
+          "bytes": "e841b7fbff",
+          "parent": 4958800,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4959391,
+              "size": 5,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h"
+            },
+            {
+              "ea": 4959396,
+              "size": 5,
+              "bytes": "6840010000",
+              "asm": "push    140h"
+            },
+            {
+              "ea": 4959401,
+              "size": 2,
+              "bytes": "6a33",
+              "asm": "push    33h ; '3'"
+            },
+            {
+              "ea": 4959403,
+              "size": 5,
+              "bytes": "e8a0170700",
+              "asm": "call    World__PlaySe"
+            }
+          ]
+        },
+        {
+          "ea": 4965228,
+          "bytes": "e86fa0fbff",
+          "parent": 4964912,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4965233,
+              "size": 7,
+              "bytes": "0fbe8bdc03cb00",
+              "asm": "movsx   ecx, byte ptr dword_CB03DC[ebx]"
+            },
+            {
+              "ea": 4965240,
+              "size": 5,
+              "bytes": "ba01000000",
+              "asm": "mov     edx, 1"
+            },
+            {
+              "ea": 4965245,
+              "size": 7,
+              "bytes": "c683dc03cb00ff",
+              "asm": "mov     byte ptr dword_CB03DC[ebx], 0FFh"
+            },
+            {
+              "ea": 4965252,
+              "size": 3,
+              "bytes": "8d0489",
+              "asm": "lea     eax, [ecx+ecx*4]"
+            }
+          ]
+        },
+        {
+          "ea": 4966541,
+          "bytes": "e84e9bfbff",
+          "parent": 4965984,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4966546,
+              "size": 5,
+              "bytes": "e99f010000",
+              "asm": "jmp     loc_4BCA36"
+            },
+            {
+              "ea": 4966551,
+              "size": 3,
+              "bytes": "83fe14",
+              "asm": "cmp     esi, 14h"
+            },
+            {
+              "ea": 4966554,
+              "size": 4,
+              "bytes": "89742410",
+              "asm": "mov     [esp+12Ch+var_11C], esi"
+            },
+            {
+              "ea": 4966558,
+              "size": 2,
+              "bytes": "7dd9",
+              "asm": "jge     short loc_4BC879"
+            }
+          ]
+        },
+        {
+          "ea": 4966625,
+          "bytes": "e8fa9afbff",
+          "parent": 4965984,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4966630,
+              "size": 5,
+              "bytes": "e94b010000",
+              "asm": "jmp     loc_4BCA36"
+            },
+            {
+              "ea": 4966635,
+              "size": 6,
+              "bytes": "8b88145ccf00",
+              "asm": "mov     ecx, gShopItemsSell.maxCount[eax]"
+            },
+            {
+              "ea": 4966641,
+              "size": 6,
+              "bytes": "8896dc03cb00",
+              "asm": "mov     byte ptr dword_CB03DC[esi], dl"
+            },
+            {
+              "ea": 4966647,
+              "size": 2,
+              "bytes": "85c9",
+              "asm": "test    ecx, ecx"
+            }
+          ]
+        },
+        {
+          "ea": 4966741,
+          "bytes": "e8869afbff",
+          "parent": 4965984,
+          "asm": "call    MouseEvent__reset",
+          "call_target": 4678624,
+          "following": [
+            {
+              "ea": 4966746,
+              "size": 5,
+              "bytes": "e9d7000000",
+              "asm": "jmp     loc_4BCA36"
+            },
+            {
+              "ea": 4966751,
+              "size": 2,
+              "bytes": "85d2",
+              "asm": "test    edx, edx"
+            },
+            {
+              "ea": 4966753,
+              "size": 6,
+              "bytes": "0f84d7000000",
+              "asm": "jz      loc_4BCA3E"
+            },
+            {
+              "ea": 4966759,
+              "size": 2,
+              "bytes": "85ed",
+              "asm": "test    ebp, ebp"
+            }
+          ]
+        }
+      ],
+      "drag_session": {
+        "step": "DLP01",
+        "source_snapshot": "[#] 补齐拖动会话生产与清理合同",
+        "original_end_exclusive": "0x476401",
+        "original_instruction_count": 7,
+        "original_code_bytes": 33,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "indirect_call_count": 0,
+        "jump_count": 0,
+        "return_count": 1,
+        "native_signature": "std::int32_t Sub_4763E0()",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4763E0",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_source_body_kept": true,
+        "result_boundary": "S32原0",
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x476410",
+      "inventory_id": "F:00076410",
+      "original_role": "回调后取新phase的取消与2/6发布",
+      "original_end_exclusive": "0x476490",
+      "instruction_count": 39,
+      "function_chunks": [
+        {
+          "start": "0x476410",
+          "end_exclusive": "0x476490"
+        }
+      ],
+      "status": "DLP01完整会话原根纳管，正确body/原生产与清理保持，注释补合同；限定S/全父、回调owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "CancelWindowDrag_476410"
+          ],
+          "relationship": "DLP01完整原阶段/字段宽度和写序已核，正确body保持，仅合同注释"
+        },
+        {
+          "path": "include/cg/ui/WindowRuntime.hpp",
+          "symbols": [
+            "CancelWindowDrag_476410"
+          ],
+          "relationship": "DLP01真实声明/参数返回保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_drag_session_production_lifecycle_spec.md#drag-session-baseline",
+        "doc/cg2d_drag_session_production_lifecycle_spec.md#drag-session-decision",
+        "doc/cg2d_drag_session_production_lifecycle_spec.md#drag-session-acceptance",
+        "doc/cg2d_drag_session_production_lifecycle_spec.md#drag-session-source-state",
+        "doc/cg2d_drag_session_production_lifecycle_evidence.json"
+      ],
+      "boundary": "DLP01仅六完整原拖动会话生产/绑定/重置/取消/完成根129条483B/六页，零E8/两寄存器回调/十三跳十一RET，116实际直接CALL/50父与四后邻指令有据，不代全父/所有返回消费或间接目标。475DA0/476490入口phase0且kind非零才按原序发阶段1/3，两个当前焦点S32取样时点和S16 x/y保；4763B0已有kind才写两个焦点槽并S32返0/1；4763E0依焦点索引-1、kind0、焦点窗口0、callback空、phase0，仅五槽/S32返0，来源和坐标不清。476410入口phase0早退，保存callback，阶段1消息1其它消息4，回调后新读phase，按原清kind/source/callback/S16x/y/focusWin/focusIndex再phase==1?2:6；无callback沿入口phase。476500入口4/5才保存callback可选消息3，之后原清kind/source/callback/S16x/y/focusWin/phase0/focusIndex-1，不再检查回调新phase。两间接回调message/flags0/source及结果弃用保；两个void适配只保当前CPP边界，原EAX残留/全部父消费和机器ABI未记等价。六正确body/实参数返回及共享八槽十个声明/原WindowDragCallback、其它source保，三整源仅十二注释、零body补丁/零I；无新API/helper/字段/布局/owner/保护/补零/默认值/钳制/容量限制/回滚/异常模型。六新F/六adapted、两域各六成员/两限定S/十任务open；旧鼠标分发和更新父复用不改，全事件生产消费及全部原父/间接路由/回调payload和alias-owner寿命、SDK/机器ABI/真实拖动取消完成/退出与运行待，48有界记录及完整枚举gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，六完整原根129条483B/六页、零E8/两寄存器回调/十三跳十一RET及116实际CALL/五十父与四后邻有据；六正确body保，原阶段1/3发布取样、kind两槽绑定、五槽重置保来源/坐标、取消回调后新phase及完成不重验phase/八槽写序保持。三整源仅十二注释精确差异，十共享声明/真实回调类型保持，零body补丁/零I；四S32结果保持，两void原EAX残留/全父消费和机器ABI未记等价；完整父/回调payload与alias-owner/实际拖动和运行待",
+      "original_incoming": [
+        {
+          "ea": 4657875,
+          "bytes": "e838510000",
+          "parent": 4657776,
+          "asm": "call    sub_476410",
+          "call_target": 4678672,
+          "following": [
+            {
+              "ea": 4657880,
+              "size": 3,
+              "bytes": "8b4628",
+              "asm": "mov     eax, [esi+28h]"
+            },
+            {
+              "ea": 4657883,
+              "size": 1,
+              "bytes": "55",
+              "asm": "push    ebp"
+            },
+            {
+              "ea": 4657884,
+              "size": 2,
+              "bytes": "33ed",
+              "asm": "xor     ebp, ebp"
+            },
+            {
+              "ea": 4657886,
+              "size": 2,
+              "bytes": "3bc3",
+              "asm": "cmp     eax, ebx"
+            }
+          ]
+        },
+        {
+          "ea": 4691794,
+          "bytes": "e8b9ccffff",
+          "parent": 4691712,
+          "asm": "call    sub_476410",
+          "call_target": 4678672,
+          "following": [
+            {
+              "ea": 4691799,
+              "size": 2,
+              "bytes": "6a00",
+              "asm": "push    0"
+            },
+            {
+              "ea": 4691801,
+              "size": 2,
+              "bytes": "6a01",
+              "asm": "push    1"
+            },
+            {
+              "ea": 4691803,
+              "size": 5,
+              "bytes": "e880d60800",
+              "asm": "call    sub_506DE0"
+            },
+            {
+              "ea": 4691808,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            }
+          ]
+        },
+        {
+          "ea": 4709969,
+          "bytes": "e8ba85ffff",
+          "parent": 4709888,
+          "asm": "call    sub_476410",
+          "call_target": 4678672,
+          "following": [
+            {
+              "ea": 4709974,
+              "size": 7,
+              "bytes": "f6059c8dd60001",
+              "asm": "test    byte ptr gMouseClickState, 1"
+            },
+            {
+              "ea": 4709981,
+              "size": 2,
+              "bytes": "742f",
+              "asm": "jz      short loc_47DE8E"
+            },
+            {
+              "ea": 4709983,
+              "size": 1,
+              "bytes": "57",
+              "asm": "push    edi"
+            },
+            {
+              "ea": 4709984,
+              "size": 5,
+              "bytes": "e87b85ffff",
+              "asm": "call    MouseEvent__reset"
+            }
+          ]
+        },
+        {
+          "ea": 4710039,
+          "bytes": "e87485ffff",
+          "parent": 4709888,
+          "asm": "call    sub_476410",
+          "call_target": 4678672,
+          "following": [
+            {
+              "ea": 4710044,
+              "size": 2,
+              "bytes": "6a00",
+              "asm": "push    0"
+            },
+            {
+              "ea": 4710046,
+              "size": 2,
+              "bytes": "6a01",
+              "asm": "push    1"
+            },
+            {
+              "ea": 4710048,
+              "size": 5,
+              "bytes": "e83b8f0800",
+              "asm": "call    sub_506DE0"
+            },
+            {
+              "ea": 4710053,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            }
+          ]
+        },
+        {
+          "ea": 4767299,
+          "bytes": "e8c8a5feff",
+          "parent": 4766864,
+          "asm": "call    sub_476410",
+          "call_target": 4678672,
+          "following": [
+            {
+              "ea": 4767304,
+              "size": 2,
+              "bytes": "6a00",
+              "asm": "push    0"
+            },
+            {
+              "ea": 4767306,
+              "size": 2,
+              "bytes": "6a01",
+              "asm": "push    1"
+            },
+            {
+              "ea": 4767308,
+              "size": 5,
+              "bytes": "e88faf0700",
+              "asm": "call    sub_506DE0"
+            },
+            {
+              "ea": 4767313,
+              "size": 1,
+              "bytes": "56",
+              "asm": "push    esi"
+            }
+          ]
+        },
+        {
+          "ea": 4767785,
+          "bytes": "e8e2a3feff",
+          "parent": 4767536,
+          "asm": "call    sub_476410",
+          "call_target": 4678672,
+          "following": [
+            {
+              "ea": 4767790,
+              "size": 2,
+              "bytes": "6a00",
+              "asm": "push    0"
+            },
+            {
+              "ea": 4767792,
+              "size": 2,
+              "bytes": "6a01",
+              "asm": "push    1"
+            },
+            {
+              "ea": 4767794,
+              "size": 5,
+              "bytes": "e8a9ad0700",
+              "asm": "call    sub_506DE0"
+            },
+            {
+              "ea": 4767799,
+              "size": 5,
+              "bytes": "a11cead200",
+              "asm": "mov     eax, dword_D2EA1C"
+            }
+          ]
+        },
+        {
+          "ea": 4925102,
+          "bytes": "e85d3dfcff",
+          "parent": 4924880,
+          "asm": "call    sub_476410",
+          "call_target": 4678672,
+          "following": [
+            {
+              "ea": 4925107,
+              "size": 2,
+              "bytes": "6a00",
+              "asm": "push    0"
+            },
+            {
+              "ea": 4925109,
+              "size": 2,
+              "bytes": "6a01",
+              "asm": "push    1"
+            },
+            {
+              "ea": 4925111,
+              "size": 5,
+              "bytes": "e824470500",
+              "asm": "call    sub_506DE0"
+            },
+            {
+              "ea": 4925116,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            }
+          ]
+        },
+        {
+          "ea": 4927196,
+          "bytes": "e82f35fcff",
+          "parent": 4926976,
+          "asm": "call    sub_476410",
+          "call_target": 4678672,
+          "following": [
+            {
+              "ea": 4927201,
+              "size": 2,
+              "bytes": "6a00",
+              "asm": "push    0"
+            },
+            {
+              "ea": 4927203,
+              "size": 2,
+              "bytes": "6a01",
+              "asm": "push    1"
+            },
+            {
+              "ea": 4927205,
+              "size": 5,
+              "bytes": "e8f63e0500",
+              "asm": "call    sub_506DE0"
+            },
+            {
+              "ea": 4927210,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            }
+          ]
+        },
+        {
+          "ea": 4943165,
+          "bytes": "e8cef6fbff",
+          "parent": 4942928,
+          "asm": "call    sub_476410",
+          "call_target": 4678672,
+          "following": [
+            {
+              "ea": 4943170,
+              "size": 2,
+              "bytes": "6a00",
+              "asm": "push    0"
+            },
+            {
+              "ea": 4943172,
+              "size": 2,
+              "bytes": "6a01",
+              "asm": "push    1"
+            },
+            {
+              "ea": 4943174,
+              "size": 5,
+              "bytes": "e895000500",
+              "asm": "call    sub_506DE0"
+            },
+            {
+              "ea": 4943179,
+              "size": 3,
+              "bytes": "83c408",
+              "asm": "add     esp, 8"
+            }
+          ]
+        }
+      ],
+      "drag_session": {
+        "step": "DLP01",
+        "source_snapshot": "[#] 补齐拖动会话生产与清理合同",
+        "original_end_exclusive": "0x476490",
+        "original_instruction_count": 39,
+        "original_code_bytes": 128,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "indirect_call_count": 1,
+        "jump_count": 5,
+        "return_count": 1,
+        "native_signature": "void CancelWindowDrag_476410()",
+        "native_provider": "src/ui/WindowRuntime.cpp::CancelWindowDrag_476410",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_source_body_kept": true,
+        "result_boundary": "现void；原EAX残留/全父消费待",
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

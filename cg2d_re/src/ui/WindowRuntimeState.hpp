@@ -1678,7 +1678,9 @@ std::int32_t Sub_472F00(
     std::int32_t left, std::int32_t top, std::int32_t width, std::int32_t height);
 void Sub_473560(std::int32_t index); // 固定元素派发鼠标事件，回调后重读共享阶段。
 std::int32_t Sub_4741A0(std::int32_t index, std::int32_t state); // WSB01：低BYTE/W32标志与前项垂直滚动，保原边界取样序。
+// DLP01：只清焦点索引/kind/焦点窗口/回调/phase五槽，来源及两坐标保持，返S32 0。
 std::int32_t Sub_4763E0(); // 通用鼠标重置，不清来源索引/坐标。
+// DLP01：已有kind才绑定两个S32焦点槽，不改变会话阶段，返S32 0/1。
 std::int32_t Sub_4763B0(std::int32_t windowId, std::int32_t elementIndex); // 已有kind才写焦点两槽。
 std::int32_t Sub_475D50(); // 同源焦点元素。
 std::int32_t Sub_475D40(); // 同源焦点窗口，不是当前窗口。
@@ -1686,11 +1688,14 @@ std::int32_t Sub_475D60(); // 同源拖动种类。
 std::int32_t Sub_475D70(); // 同源落点X，S16扩展。
 std::int32_t Sub_475D80(); // 同源落点Y，S16扩展。
 std::int32_t Sub_475D90(); // 同源来源索引。
+// DLP01：仅phase0且kind非零启动阶段1，按原焦点/回调/来源写序发布，返S32 0/1。
 std::int32_t Sub_475DA0(
     std::int32_t kind, std::int32_t sourceIndex, WindowDragCallback callback);
+// DLP01：仅phase0且kind非零启动阶段3，坐标保S16，原焦点与回调写序保持，返S32 0/1。
 std::int32_t Sub_476490(
     std::int32_t kind, std::int32_t sourceIndex, std::int16_t x, std::int16_t y,
     WindowDragCallback callback);
+// DLP01：入口phase4/5才可选回调message3，之后按原八槽顺序清理；不重验回调后phase。
 void Sub_476500(); // 仅阶段4/5调用message3后完整清理。
 std::int32_t Sub_472D20(); // WDF01：完整拖动/焦点两位结果，原宽度和现场取样见SPEC。
 std::int32_t Sub_4730A0(); // WCR01：71槽压紧/关闭/前插，两个标记判断用同一W32 state。

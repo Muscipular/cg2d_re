@@ -237723,6 +237723,295 @@
         "runtime_verified": false,
         "result_boundary": "真实S32发送结果透传，69入CALL只来源，所有父/互通/机器ABI待"
       }
+    },
+    {
+      "original_entry": "0x488cf0",
+      "inventory_id": "F:00088CF0",
+      "original_role": "丢钱数量回调/动作BYTE与场景门槛-Y-X发送",
+      "original_end_exclusive": "0x488d2d",
+      "instruction_count": 18,
+      "function_chunks": [
+        {
+          "start": "0x488cf0",
+          "end_exclusive": "0x488d2d"
+        }
+      ],
+      "status": "MDR01三完整丢钱数量/按钮/请求原根纳管，一处BYTE/两正确正文保持；限定S，全callback/owner/ABI/互通运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_488CF0"
+          ],
+          "relationship": "MDR01完整丢钱数量/按钮/请求原根，动作BYTE getter对齐；三fresh匹配和三字段读取发布保"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_488CF0"
+          ],
+          "relationship": "MDR01既有真实声明保持，仅合同注释；原生非拥有callback/返回边界具名"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_money_drop_request_spec.md#money-drop-baseline",
+        "doc/cg2d_money_drop_request_spec.md#money-drop-decision",
+        "doc/cg2d_money_drop_request_spec.md#money-drop-acceptance",
+        "doc/cg2d_money_drop_request_spec.md#money-drop-source-state",
+        "doc/cg2d_money_drop_request_evidence.json"
+      ],
+      "boundary": "MDR01仅丢钱数量回调488CF0完整18条61B/一页、按钮488D30完整91条291B/两页、woz发送510DA0完整44条142B/一页；合153条494B/四页，14E8九目标、15跳三RET。488CF0先原FDA88E单BYTE bit80测试，置位即短路不调场景；清位后真实440B50零才玩家Y后X两个CryptInt读取→当前socket/amount送510DA0。现只本处旧W16接口改既有ReadPlayerActionFlagsByte，不改共享W16接口或其它消费者，不加门槛/默认/下限/回滚。原回调最后残留EAX来自场景/发送或未定入口寄存器，现void只承副作用，既有窗口原生非拥有callback类型保持，不能宣完整机器返回/ABI等价。488D30完整正确正文保：入口held graphic先hover现GBK提示；click时先window42非空/sourceWindow14/sourceElement==index三短路匹配，有匹配原SE55，否则fresh player gold单次样本传14/index/244310/amount/amount/0及真实488CF0callback、flags1/mode0/actionFlags0到已完整48AC60；无论两支都consumed1。其后第二fresh三项匹配才再取gold→value10后value14；同held graphic默认244291→hover244293→第三fresh匹配244292，最后S32 consumed0/1，不把三次匹配合并缓存，也不跨创建/声效冻结金额/窗口或改图号目标。原488DCD持488CF0为data push，不伪造CALL；主元素562CD8(24项)slot1的+28绑488D30，回调仅data项/一槽，没有普通入CALL。woz原字节776F7A00/三S32字段x/y/amount，各当前capacity W32位模式S32→真实整数token→fresh输出buffer T* Append，三次独立容量/地址，末freshbuffer及传入socket→真实发送S32透传；当前原命令字段/LF明文沿已批准本机服务端，旧编码/外壳仅历史不恢复加密。发送两入CALL两个父，只E8及四有限后邻：本回调488D24返回前丢结果；另一父只定位，RET外align/下一函数不纳本父，全部外父/数值消费与ABI待。三新F三adapted，INPUT/UI各两成员、NETWORK两/RENDER一，四限定S零I八open；按钮/请求生产已源接线，但完整金额生产/请求回复、数量确认及共享窗口/input/Yobi/协议buf alias-owner寿命、SDK/生成读取和机器ABI、完整网络互通/画面声效及实际操作运行待。三类型十提供者/三旧声明、24元素表及六已有根保持，无新API/helper/字段/owner、索引/容量/空保护、补零/默认/钳制/回滚或异常数学模型。WAV-only/MSVC/明文及全部完整门禁保，整体未完成。",
+      "verification_level": "pass，三连续完整根153条494B/四页、14E8九目标/15跳三RET，data callback/24表slot1及两CALL两个父有限后邻/woz字节有据；一处现BYTE getter，原场景短路/Y-X金额及三fresh窗口匹配、三容量/token/fresh输出保；四整源一处/六注释，两个正确正文、三类型十提供者/三旧声明/24表与六旧记录保持；所有父/完整callback、共享金额输入和协议生产消费/owner/SDK、生成读取/ABI及互通运行待",
+      "original_incoming": [],
+      "money_drop_request": {
+        "step": "MDR01",
+        "source_snapshot": "[#] 补齐丢钱数量回调与请求合同",
+        "original_entry": "0x488cf0",
+        "original_end_exclusive": "0x488d2d",
+        "instruction_count": 18,
+        "code_bytes": 61,
+        "page_count": 1,
+        "direct_calls": 4,
+        "direct_call_targets": [
+          4202144,
+          4459344,
+          5311904
+        ],
+        "jumps": 2,
+        "returns": 1,
+        "original_incoming_references": [
+          {
+            "from": 4754893,
+            "type": 1,
+            "iscode": false,
+            "parent": 4754736
+          }
+        ],
+        "native_signature": "void Sub_488CF0(const std::int32_t amount)",
+        "source_patch_group_count": 1,
+        "source_changed_point_count": 1,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "现void只承副作用，原残留EAX与全动态数量callback机器ABI待"
+      }
+    },
+    {
+      "original_entry": "0x488d30",
+      "inventory_id": "F:00088D30",
+      "original_role": "丢钱按钮/数量框三fresh匹配与金额同步和图号",
+      "original_end_exclusive": "0x488e53",
+      "instruction_count": 91,
+      "function_chunks": [
+        {
+          "start": "0x488d30",
+          "end_exclusive": "0x488e53"
+        }
+      ],
+      "status": "MDR01三完整丢钱数量/按钮/请求原根纳管，一处BYTE/两正确正文保持；限定S，全callback/owner/ABI/互通运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_488D30"
+          ],
+          "relationship": "MDR01完整丢钱数量/按钮/请求原根，动作BYTE getter对齐；三fresh匹配和三字段读取发布保"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_488D30"
+          ],
+          "relationship": "MDR01既有真实声明保持，仅合同注释；原生非拥有callback/返回边界具名"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_money_drop_request_spec.md#money-drop-baseline",
+        "doc/cg2d_money_drop_request_spec.md#money-drop-decision",
+        "doc/cg2d_money_drop_request_spec.md#money-drop-acceptance",
+        "doc/cg2d_money_drop_request_spec.md#money-drop-source-state",
+        "doc/cg2d_money_drop_request_evidence.json"
+      ],
+      "boundary": "MDR01仅丢钱数量回调488CF0完整18条61B/一页、按钮488D30完整91条291B/两页、woz发送510DA0完整44条142B/一页；合153条494B/四页，14E8九目标、15跳三RET。488CF0先原FDA88E单BYTE bit80测试，置位即短路不调场景；清位后真实440B50零才玩家Y后X两个CryptInt读取→当前socket/amount送510DA0。现只本处旧W16接口改既有ReadPlayerActionFlagsByte，不改共享W16接口或其它消费者，不加门槛/默认/下限/回滚。原回调最后残留EAX来自场景/发送或未定入口寄存器，现void只承副作用，既有窗口原生非拥有callback类型保持，不能宣完整机器返回/ABI等价。488D30完整正确正文保：入口held graphic先hover现GBK提示；click时先window42非空/sourceWindow14/sourceElement==index三短路匹配，有匹配原SE55，否则fresh player gold单次样本传14/index/244310/amount/amount/0及真实488CF0callback、flags1/mode0/actionFlags0到已完整48AC60；无论两支都consumed1。其后第二fresh三项匹配才再取gold→value10后value14；同held graphic默认244291→hover244293→第三fresh匹配244292，最后S32 consumed0/1，不把三次匹配合并缓存，也不跨创建/声效冻结金额/窗口或改图号目标。原488DCD持488CF0为data push，不伪造CALL；主元素562CD8(24项)slot1的+28绑488D30，回调仅data项/一槽，没有普通入CALL。woz原字节776F7A00/三S32字段x/y/amount，各当前capacity W32位模式S32→真实整数token→fresh输出buffer T* Append，三次独立容量/地址，末freshbuffer及传入socket→真实发送S32透传；当前原命令字段/LF明文沿已批准本机服务端，旧编码/外壳仅历史不恢复加密。发送两入CALL两个父，只E8及四有限后邻：本回调488D24返回前丢结果；另一父只定位，RET外align/下一函数不纳本父，全部外父/数值消费与ABI待。三新F三adapted，INPUT/UI各两成员、NETWORK两/RENDER一，四限定S零I八open；按钮/请求生产已源接线，但完整金额生产/请求回复、数量确认及共享窗口/input/Yobi/协议buf alias-owner寿命、SDK/生成读取和机器ABI、完整网络互通/画面声效及实际操作运行待。三类型十提供者/三旧声明、24元素表及六已有根保持，无新API/helper/字段/owner、索引/容量/空保护、补零/默认/钳制/回滚或异常数学模型。WAV-only/MSVC/明文及全部完整门禁保，整体未完成。",
+      "verification_level": "pass，三连续完整根153条494B/四页、14E8九目标/15跳三RET，data callback/24表slot1及两CALL两个父有限后邻/woz字节有据；一处现BYTE getter，原场景短路/Y-X金额及三fresh窗口匹配、三容量/token/fresh输出保；四整源一处/六注释，两个正确正文、三类型十提供者/三旧声明/24表与六旧记录保持；所有父/完整callback、共享金额输入和协议生产消费/owner/SDK、生成读取/ABI及互通运行待",
+      "original_incoming": [],
+      "money_drop_request": {
+        "step": "MDR01",
+        "source_snapshot": "[#] 补齐丢钱数量回调与请求合同",
+        "original_entry": "0x488d30",
+        "original_end_exclusive": "0x488e53",
+        "instruction_count": 91,
+        "code_bytes": 291,
+        "page_count": 2,
+        "direct_calls": 2,
+        "direct_call_targets": [
+          4762720,
+          5424208
+        ],
+        "jumps": 13,
+        "returns": 1,
+        "original_incoming_references": [
+          {
+            "from": 5647576,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          }
+        ],
+        "native_signature": "std::int32_t Sub_488D30(const std::int32_t index, const std::int32_t state)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原完整S32 consumed0/1，data槽动态消费与机器ABI待"
+      }
+    },
+    {
+      "original_entry": "0x510da0",
+      "inventory_id": "F:00110DA0",
+      "original_role": "woz三S32金额请求/三容量-token-fresh输出及S32返回",
+      "original_end_exclusive": "0x510e2e",
+      "instruction_count": 44,
+      "function_chunks": [
+        {
+          "start": "0x510da0",
+          "end_exclusive": "0x510e2e"
+        }
+      ],
+      "status": "MDR01三完整丢钱数量/按钮/请求原根纳管，一处BYTE/两正确正文保持；限定S，全callback/owner/ABI/互通运行待",
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_510DA0"
+          ],
+          "relationship": "MDR01完整丢钱数量/按钮/请求原根，动作BYTE getter对齐；三fresh匹配和三字段读取发布保"
+        },
+        {
+          "path": "include/cg/network/NetworkRuntime.hpp",
+          "symbols": [
+            "Sub_510DA0"
+          ],
+          "relationship": "MDR01既有真实声明保持，仅合同注释；原生非拥有callback/返回边界具名"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_money_drop_request_spec.md#money-drop-baseline",
+        "doc/cg2d_money_drop_request_spec.md#money-drop-decision",
+        "doc/cg2d_money_drop_request_spec.md#money-drop-acceptance",
+        "doc/cg2d_money_drop_request_spec.md#money-drop-source-state",
+        "doc/cg2d_money_drop_request_evidence.json"
+      ],
+      "boundary": "MDR01仅丢钱数量回调488CF0完整18条61B/一页、按钮488D30完整91条291B/两页、woz发送510DA0完整44条142B/一页；合153条494B/四页，14E8九目标、15跳三RET。488CF0先原FDA88E单BYTE bit80测试，置位即短路不调场景；清位后真实440B50零才玩家Y后X两个CryptInt读取→当前socket/amount送510DA0。现只本处旧W16接口改既有ReadPlayerActionFlagsByte，不改共享W16接口或其它消费者，不加门槛/默认/下限/回滚。原回调最后残留EAX来自场景/发送或未定入口寄存器，现void只承副作用，既有窗口原生非拥有callback类型保持，不能宣完整机器返回/ABI等价。488D30完整正确正文保：入口held graphic先hover现GBK提示；click时先window42非空/sourceWindow14/sourceElement==index三短路匹配，有匹配原SE55，否则fresh player gold单次样本传14/index/244310/amount/amount/0及真实488CF0callback、flags1/mode0/actionFlags0到已完整48AC60；无论两支都consumed1。其后第二fresh三项匹配才再取gold→value10后value14；同held graphic默认244291→hover244293→第三fresh匹配244292，最后S32 consumed0/1，不把三次匹配合并缓存，也不跨创建/声效冻结金额/窗口或改图号目标。原488DCD持488CF0为data push，不伪造CALL；主元素562CD8(24项)slot1的+28绑488D30，回调仅data项/一槽，没有普通入CALL。woz原字节776F7A00/三S32字段x/y/amount，各当前capacity W32位模式S32→真实整数token→fresh输出buffer T* Append，三次独立容量/地址，末freshbuffer及传入socket→真实发送S32透传；当前原命令字段/LF明文沿已批准本机服务端，旧编码/外壳仅历史不恢复加密。发送两入CALL两个父，只E8及四有限后邻：本回调488D24返回前丢结果；另一父只定位，RET外align/下一函数不纳本父，全部外父/数值消费与ABI待。三新F三adapted，INPUT/UI各两成员、NETWORK两/RENDER一，四限定S零I八open；按钮/请求生产已源接线，但完整金额生产/请求回复、数量确认及共享窗口/input/Yobi/协议buf alias-owner寿命、SDK/生成读取和机器ABI、完整网络互通/画面声效及实际操作运行待。三类型十提供者/三旧声明、24元素表及六已有根保持，无新API/helper/字段/owner、索引/容量/空保护、补零/默认/钳制/回滚或异常数学模型。WAV-only/MSVC/明文及全部完整门禁保，整体未完成。",
+      "verification_level": "pass，三连续完整根153条494B/四页、14E8九目标/15跳三RET，data callback/24表slot1及两CALL两个父有限后邻/woz字节有据；一处现BYTE getter，原场景短路/Y-X金额及三fresh窗口匹配、三容量/token/fresh输出保；四整源一处/六注释，两个正确正文、三类型十提供者/三旧声明/24表与六旧记录保持；所有父/完整callback、共享金额输入和协议生产消费/owner/SDK、生成读取/ABI及互通运行待",
+      "original_incoming": [
+        {
+          "ea": 4754724,
+          "parent": 4754672,
+          "iscode": true,
+          "bytes": "e877800800",
+          "asm": "call    sub_510DA0",
+          "call_target": 5311904,
+          "following": [
+            {
+              "ea": 4754729,
+              "bytes": "83c410",
+              "asm": "add     esp, 10h"
+            },
+            {
+              "ea": 4754732,
+              "bytes": "c3",
+              "asm": "retn"
+            },
+            {
+              "ea": 4754733,
+              "bytes": "909090",
+              "asm": "align 10h"
+            },
+            {
+              "ea": 4754736,
+              "bytes": "51",
+              "asm": "push    ecx"
+            }
+          ]
+        },
+        {
+          "ea": 5226460,
+          "parent": 5225280,
+          "iscode": true,
+          "bytes": "e8bf4d0100",
+          "asm": "call    sub_510DA0",
+          "call_target": 5311904,
+          "following": [
+            {
+              "ea": 5226465,
+              "bytes": "83c410",
+              "asm": "add     esp, 10h"
+            },
+            {
+              "ea": 5226468,
+              "bytes": "891d18d6d200",
+              "asm": "mov     dword_D2D618, ebx"
+            },
+            {
+              "ea": 5226474,
+              "bytes": "e9cc000000",
+              "asm": "jmp     loc_4FC0BB"
+            },
+            {
+              "ea": 5226479,
+              "bytes": "8d8c24a4000000",
+              "asm": "lea     ecx, [esp+304h+var_260]"
+            }
+          ]
+        }
+      ],
+      "money_drop_request": {
+        "step": "MDR01",
+        "source_snapshot": "[#] 补齐丢钱数量回调与请求合同",
+        "original_entry": "0x510da0",
+        "original_end_exclusive": "0x510e2e",
+        "instruction_count": 44,
+        "code_bytes": 142,
+        "page_count": 1,
+        "direct_calls": 8,
+        "direct_call_targets": [
+          5337296,
+          5337376,
+          5338240,
+          5338384
+        ],
+        "jumps": 0,
+        "returns": 1,
+        "original_incoming_references": [
+          {
+            "from": 4754724,
+            "type": 17,
+            "iscode": true,
+            "parent": 4754672
+          },
+          {
+            "from": 5226460,
+            "type": 17,
+            "iscode": true,
+            "parent": 5225280
+          }
+        ],
+        "native_signature": "std::int32_t Sub_510DA0(\n    const std::uintptr_t socket, const std::int32_t x,\n    const std::int32_t y, const std::int32_t amount)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "真实S32发送结果透传，两入CALL仅局部来源/全外父与ABI待"
+      }
     }
   ]
 }

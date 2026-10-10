@@ -8942,9 +8942,10 @@ std::int32_t Sub_488C50(const std::int32_t index, const std::int32_t state)
     return 1;
 }
 
+// MDR01：原488CF0完整18条；动作BYTE bit7/场景门槛原短路，玩家Y后X→woz金额；void只承副作用，全callback ABI待。
 void Sub_488CF0(const std::int32_t amount)
 {
-    if ((world::detail::ReadPlayerActionFlags() & 0x80u) == 0
+    if ((world::detail::ReadPlayerActionFlagsByte() & 0x80u) == 0
         && world::detail::Sub_440B50() == 0) {
         const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
         const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
@@ -8952,6 +8953,7 @@ void Sub_488CF0(const std::int32_t amount)
     }
 }
 
+// MDR01：原488D30完整91条；held graphic/三fresh窗口匹配，开框后重读金额、图号优先序及S32 0/1保持。
 std::int32_t Sub_488D30(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);

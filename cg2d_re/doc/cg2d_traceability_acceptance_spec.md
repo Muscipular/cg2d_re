@@ -2718,3 +2718,9 @@ IDA数组/结构起点xref不代字段指针；原型实际11callback与旧范�
 [SDM01](cg2d_storage_amount_exchange_spec.md#storage-amount-source-state)补齐存取金额4ABB20及xD发送512620两个完整原根310条1075B/六页；两正确正文保持，仅四合同注释。原存/取上限、AL确认和钳回、转义后字段/Y-X发送及发送后fresh金额记录/清槽/双文本有据，xD五整数+文本各保六次容量和输出取样。旧894格式历史追加、一新F两adapted、三限定S零I八open；69CALL/58父仅局部来源，完整金额/协议生产消费与owner、ABI及互通运行待。
 
 语义2324=2276F关联+48有界代码，处置1782/证据1583；INPUT152/UIRUNTIME193/NETWORK99，RENDER109保持。文档关联预期2386/3680=64.84%仅关联率。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
+
+## 2026-10-11 MDR01：完整丢钱数量合同
+
+[MDR01](cg2d_money_drop_request_spec.md#money-drop-source-state)补齐丢钱回调/按钮和woz发送三完整原根153条494B/四页，14E8九目标/15跳三RET。仅动作标志改既有BYTE读取一处；按钮/发送正确正文保持，三次fresh窗口匹配、金额同步和三字段容量/token/输出原序保。六合同注释/三新F三adapted、四限定S零I八open；完整回调/共享数据owner、ABI与互通运行待。
+
+语义2327=2279F关联+48有界代码，处置1785/证据1587；INPUT154/UIRUNTIME195/NETWORK101/RENDER110。文档关联预期2389/3680=64.92%仅关联率。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。

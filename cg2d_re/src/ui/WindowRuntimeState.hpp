@@ -490,8 +490,8 @@ std::int32_t Sub_488970(std::int32_t unusedIndex, std::int32_t state);
 std::int32_t Sub_488EA0(std::int32_t unusedIndex, std::int32_t state);
 std::int32_t Sub_488EC0(std::int32_t index, std::int32_t state); // SAP01：库存宠物页签，原低AL归一为S32，五对/无效图处理保持。
 std::int32_t Sub_488C50(std::int32_t index, std::int32_t state); // 库存关闭按钮。
-void Sub_488CF0(std::int32_t amount); // 数量窗回调，经玩家动作/场景门禁发送丢钱。
-std::int32_t Sub_488D30(std::int32_t index, std::int32_t state); // 丢钱数量窗开关及金额同步。
+void Sub_488CF0(std::int32_t amount); // MDR01：原动作BYTE/场景门槛短路，Y-X发送金额，void副作用/完整ABI待。
+std::int32_t Sub_488D30(std::int32_t index, std::int32_t state); // MDR01：三次fresh窗口匹配/实时金额同步，held graphic及0/1返回保。
 std::int32_t Sub_488E60(std::int32_t unusedIndex, std::int32_t unusedState);
 std::int32_t Sub_488E80(std::int32_t unusedIndex, std::int32_t unusedState);
 std::int32_t Sub_488FB0(std::int32_t index, std::int32_t state); // 普通背包完整交互/绘制。

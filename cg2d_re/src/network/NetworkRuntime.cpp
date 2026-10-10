@@ -4145,6 +4145,7 @@ std::int32_t SendBattlePacket_5109B0(
         socket, reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// MDR01：原510DA0完整44条；woz三个S32，各容量先token/fresh输出，末真实S32发送结果，原字段/LF明文。
 std::int32_t Sub_510DA0(
     const std::uintptr_t socket, const std::int32_t x,
     const std::int32_t y, const std::int32_t amount)

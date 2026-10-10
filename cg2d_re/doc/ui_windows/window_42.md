@@ -129,3 +129,7 @@ nameX/nameY保留调用来源，counter清W16。mode低U8为0时横向半宽已�
 ## 2026-10-11 NPI01：数量面板键盘与确认来源
 
 [NPI01](../cg2d_numeric_panel_input_spec.md#numeric-input-source-state)补齐数值面板474550完整540条1675B/九页，逐键四次CryptInt短路、数字/Backspace优先级、四鼠标操作与AL0/1/3返回有据。两逻辑组五处坐标及绘制取样对齐；42图号和既有业务正文/原上限钳回保持。本根没有Enter/Esc处理，不添加退出键行为。一新F一adapted、三限定S零I八open，完整输入生产消费/owner、ABI及运行待。
+
+## 2026-10-11 MDR01：丢钱数量消费来源
+
+[MDR01](../cg2d_money_drop_request_spec.md#money-drop-source-state)补齐丢钱回调/按钮和woz发送三完整原根153条494B/四页，14E8九目标/15跳三RET。仅动作标志改既有BYTE读取一处；按钮/发送正确正文保持，三次fresh窗口匹配、金额同步和三字段容量/token/输出原序保。六合同注释/三新F三adapted、四限定S零I八open；完整回调/共享数据owner、ABI与互通运行待。

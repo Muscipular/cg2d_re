@@ -450,7 +450,7 @@ std::int32_t Sub_510EC0(
 
 // 原510DA0：woz丢钱请求，按X/Y/数量逐字段追加并透传发送返回。
 std::int32_t Sub_510DA0(
-    std::uintptr_t socket, std::int32_t x, std::int32_t y, std::int32_t amount);
+    std::uintptr_t socket, std::int32_t x, std::int32_t y, std::int32_t amount); // MDR01：woz三个S32/三容量和输出取样，真实S32发送结果透传。
 
 // 原5109B0：Rg战斗请求，转义一项原字节文本并透传发送结果。
 std::int32_t SendBattlePacket_5109B0(std::uintptr_t socket, const char* text);

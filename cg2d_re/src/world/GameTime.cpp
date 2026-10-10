@@ -12,6 +12,7 @@ std::uint32_t gValue73ED40 = 0;
 std::uint32_t gValue73ED4C = 0;
 std::uint32_t gValue73ED68 = 0;
 
+// GTP01：原 [0x458DE0,0x458EBB)；六 W32 按 year/month/day/hours/minutes/sTick 发布，返 phase 商。
 int UpdateGameTime(GameTime* output)
 {
     const std::uint32_t now = static_cast<std::uint32_t>(platform::ReadLegacyTime32_53BA26(nullptr));

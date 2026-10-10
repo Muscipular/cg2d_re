@@ -3797,3 +3797,10 @@ Copy原delimiter S8扩展与源U8比较只在源0..127分支，现U8表达在该
 [局部现格式裁决](cg2d_neighbor_fim_request_plaintext_spec.md#neighbor-fim-decision)/[server与当前source](cg2d_neighbor_fim_request_plaintext_evidence.json)发现510B80原17替换遗留在CAB05当前明文链：server split接受17起点但不终止17，a62toi遇非Base62字符返回0，fIM读取x/y/dir原三字段会受损。当前QueuePlaintext只复制字节，无规范化；因此仅删除选中分支17写，普通空格保留，原fIM/Base62/三个字段/容量/扫描/time-seed-rand/fresh buffer/break、日志观察器/LF/NUL/回调结果及队列不改。服务端只读取证、不修parser，不引新协议、外壳或加解密。
 
 原510B80完整132条340B与51B3E0完整95条336B已纳管，两末端Send物理点只择一、两轴正负分支第二Subtract各择一，不按源码表达式数漏计执行RNG。两新语义/F、NETWORK仅sender限定S（MAP/Yobi只父），零I/新函数，十二旧身份和所有其它源保；七任务/全部完整gates及六closure开放，fIM实际互通/全部数值/owner/SDK/ABI/运行待。
+
+<a id="game-time-production-current-20261010"></a>
+## 2026-10-10 GTP01：PudO校时的完整回复消费
+
+[50C870及实际依赖](cg2d_game_time_production_lifecycle_spec.md#game-time-production-source-state)完整纳管；当前TryDispatchReply的PudO四I/socket实接保持，不改命令/Base62字段/明文或队列，512E40随后XOR EAX有据，PudO原S32 adjustment仍返回。先对象号/offset/两个独立time/六字段writer与旧adjustment→GetCate并持有→类别发布/调色板0→path→新adjustment，唯一该父改动为调色板参数使用持有category，不重读刚写的全局槽。
+
+四新语义/197完整追加、五F与四限定S零I，NETWORK只PudO新增成员，所有现协议/调色板/CRT源保持，不称已互通或机器返回/时钟环境/owner运行通过；完整网络/校时/输入和SDK-ABI待，原格式明文/WAV-only与总SPEC§10不降。

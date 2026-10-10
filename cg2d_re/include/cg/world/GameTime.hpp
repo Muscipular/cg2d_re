@@ -28,7 +28,7 @@ extern std::uint32_t gValue73ED40; // 原 0x50C8C2 写入，完整业务角色�
 extern std::uint32_t gValue73ED4C; // 原 0x50C880 写入。
 extern std::uint32_t gValue73ED68; // 原 0x50C890 写入，与输出对象不重叠。
 
-// 原 [0x458DE0,0x458EBB)；返回末次相位除以 192 的商，不是更新成功标志。
+// GTP01：原 [0x458DE0,0x458EBB)；六 W32 原写序/两独立采样合同，返回末次 phase/192 商。
 // output 须指向有效 GameTime；写入顺序为 year/month/day/hours/minutes/sTick。
 int UpdateGameTime(GameTime* output);
 

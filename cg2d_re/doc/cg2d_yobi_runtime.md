@@ -4842,3 +4842,10 @@ primary和BOG插值/原可写表/ftol host职责不改；上界比较→fresh减
 [PDH真实检测依赖](cg2d_map_hit_time_classification_spec.md#map-hit-time-source-state)现补46AE60/46AD00与共同458EC0三个完整身份；原PDH2208父、方向/差值生产和所有其它源保持。两检测恢复S16边界采样/普通索引表达序，AD时段调用后才fresh取跨度；原命中低BYTE/独立W16检测码发布、类别与时段短路及全S32返回保。hours单W32位型按S32门槛分类正确源保，GameTime布局/实际生产者不改。
 
 五原入向只局部窗，458F00/50C870当前提供者有据而缺独立身份不伪称全父。MAP/Yobi各三成员、两限定S零I/六任务open；完整gates/枚举/六closure保，不称优化机器读宽/并发、time或命中表owner、数值/SDK/ABI/画面与生命周期运行通过。
+
+<a id="game-time-production-current-20261010"></a>
+## 2026-10-10 GTP01：同源玩家倒计时与校时生产
+
+[倒计时/校时五根](cg2d_game_time_production_lifecycle_spec.md#game-time-production-source-state)恢复timer旧U32 tick→S32 remaining先齐取，原W32差后持有updated发布/判负，保负值归零/mode清零/末tick与场景9有效玩家、场景10路径。原两个SDK物理点只择一执行，现单统一调用不增加采样；outer末尾总推进，不以时段是否变化阻断。PudO持有category/保两独立time与最后adjustment，旧writer197及setter完整正确body保。
+
+现两个推进接口/DrawNormalScene为void不证明原寄存器弃返，51CDE9有残值透传，其完整上层机器ABI待R04；两直接battle父窗覆盖EAX而不改旧1349。四新身份/旧197追加/五处置、MAP/Yobi各五成员/BATTLE仅timer/NETWORK仅PudO四S零I、八任务open；原MHT、调色板/CRT/共享源/四外父旧合同保，所有owner/数值/SDK/画面运行未验。

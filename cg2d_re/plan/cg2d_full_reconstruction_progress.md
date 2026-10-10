@@ -800,3 +800,14 @@ FFC/104C/13D4三4B槽及1081–1083三字节尚未独立映射，现浅复制结
 首轮纯读来源采集后按不存在name字段检索功能退出1，无写入；改现title字段，UIRUNTIME字面含TIME不作时段功能证据。整文件静态重放初次假定AE索引片段全文件唯一而退出1、无写入，相邻叶共享表达；改为具名函数内唯一重放并继续核整四文件，确认未改相邻body、不降标准。原MCP成功页/窗与当前三源保持。
 
 统一cg2d_re分支、不打tag，七外部项/删除暂存保留排除。未构建/测试/运行客户端或算法/产物/摘要或引依赖；现U16元素取低U8只逻辑消费，不称实际机器读取宽度/独立加载或并发语义验收。三个完整父/全部输入/地图表生产消费/alias-owner、共享time写入与寿命、调色板/PudO完整接线/SDK/数值/机器ABI/画面与全生命周期待，整体active/未完成。
+
+<a id="game-time-production-progress-20261010"></a>
+## 79. 2026-10-10 GTP01：业务校时与同源倒计时
+
+[五完整原根](../doc/cg2d_game_time_production_lifecycle_spec.md#game-time-production-source-state)纳管458F00/50C870/458F40/519EB0四新身份及旧writer197完整追加，共149条505B/六页、八E8五callee/两IATtick/一外尾跳/十一跳四RET；十二E8入向（内部2/外10点四父）另一内部尾跳，实际CALL/JMP有据不按xref猜。MHT时段2212、palette171、MSVCtime2025及四外父七旧身份保持。timer两个物理SDK点按scene9有效玩家/scene10择一执行，现统一一次采样/原场景门槛保；恢复旧tick/remaining先齐取与持有updated发布/判负两组，原负remaining归零→mode0→末tick保，不误当新异常保护或删除旧业务。
+
+PudO唯一改动为持有GetCate返回给调色板，不重读刚pub全局；保对象号/offset/两独立time（writer内部再采一次）/旧adjustment使用、六W32/24B写序、类别发布/调色板之后path→新adjustment与完整S32返回。writer/outer/setter正确body保持，原year/month/day/hours/minutes/sTick序/末phase商、对象号位型/原值返、outer持有mode与3600过渡后总进timer有据。四新语义、197保旧历史追加，五新增F处置、MAP/Yobi各五成员/BATTLE仅timer/NETWORK仅PudO四限定S零I，八任务open/其它旧语义与所有未变源/政策/枚举/完整gates/六closure保。核心静态、登记、文本汇总/Check及派生范围核对通过；语义2217=2169F+48X，文档关联2279/3680=61.93%仅关联率，F处置1649/证据1450，MAP169/Yobi99/BATTLE423/NETWORK75仍未验收。派生仅六metrics/五F/四功能/八任务变化，184叶验收0、60任务关闭11、六closure开放/全部完整gates及其它字段守恒。
+
+51CDE9后pop/ret真实残值透传，不能称outer六调用全弃返；现DrawNormalScene及时间推进void API保，原scene/null/SDK残值的完整上层机器ABI待R04，不造0/成功/tick返回。旧game_time宽读输出截断，后续只追加当前合同不重复旧CRT历史或覆盖；两个推测头路径不存在，实际字段S32 remaining/mode、U32 tick直接从SceneState定义定位，不猜布局。原MCP页/窗、当前SDK/明文PudO分派与原字段/RNG保持。
+
+统一cg2d_re分支、不打tag，七外部项/删除暂存保留排除。未构建/测试/运行客户端或算法/产物/摘要或引依赖；只核源序/局部返回观察，不保证优化后独立读取/并发、原SDK/ABI或全功能等价。四完整父/全部输入与正常失败/共享玩家-time生产消费/alias-owner、调色板/PudO完整校时/SDK/数值/机器ABI/画面及全生命周期待，整体active/未完成。

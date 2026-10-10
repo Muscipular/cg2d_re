@@ -17424,19 +17424,69 @@
     {
       "original_entry": "0x458DE0",
       "inventory_id": "F:00058DE0",
-      "status": "已有命名本体映射，完整依赖及运行未验",
+      "status": "已有命名本体映射，完整依赖及运行未验；GTP01补完整原根/限定S与处置，旧197历史保，body保持，全owner/数值/ABI/运行待",
       "sources": [
         {
           "path": "src/world/GameTime.cpp",
           "symbols": [
             "UpdateGameTime"
           ]
+        },
+        {
+          "path": "src/world/GameTime.cpp",
+          "symbol": "cg::world::UpdateGameTime",
+          "relationship": "独立time32采样与原U32时间分解，六W32按year/month/day/hours/minutes/sTick发布，返回末phase/192商；既有实际实现，无新函数/API/布局"
+        },
+        {
+          "path": "include/cg/world/GameTime.hpp",
+          "symbol": "cg::world::UpdateGameTime",
+          "relationship": "当前真实声明/原参数与返回类型保，仅关联注释"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_game_time.md"
+        "doc/cg2d_game_time.md",
+        "doc/cg2d_game_time_production_lifecycle_spec.md#game-time-production-baseline",
+        "doc/cg2d_game_time_production_lifecycle_spec.md#game-time-production-decision",
+        "doc/cg2d_game_time_production_lifecycle_spec.md#game-time-production-acceptance",
+        "doc/cg2d_game_time_production_lifecycle_spec.md#game-time-production-source-state",
+        "doc/cg2d_game_time_production_lifecycle_evidence.json"
       ],
-      "boundary": "读取既有W32时间边界，保留U32时间分解及year/month/day/hours/minutes/sTick写序；24B输出中minutes先于低地址sTick写，返回最后phase/192的商，非成功布尔值。"
+      "boundary": "读取既有W32时间边界，保留U32时间分解及year/month/day/hours/minutes/sTick写序；24B输出中minutes先于低地址sTick写，返回最后phase/192的商，非成功布尔值。 GTP01五完整149条505B六页/八E8五callee、两IAT tick与一外尾跳、十一跳四RET，十二入向中两内部/十外点四父，加内部尾跳。两场景SDK各一个执行tick，恢复timer旧tick/remaining先取齐、持有updated发布/判负；保原负remaining归零→mode0→tick发布。PudO只恢复持有category交调色板，保对象号/offset/time采样/六字段writer/类别发布/调色板/路径/最后adjustment原序及两个独立time，writer用旧adjustment，返新adjustment。outer/setter/writer正确body保，六W32/24B、原min先于sTick/末商返回与唯一U32对象号/S32透传保持。现void接口保但51CDE9原残值仍透传，不能宣全部六调用弃返或机器返回ABI一致；仅副作用和局部消费S，原scene/null/SDK残值的上层完整消费待R04。MHT2212/调色板171/MSVC时间2025和全部旧语义/未变父/source保持，MSVC库内机制按已批MC01，不重建CRT或私有mul-high。四全父/输入/共享玩家-time生产消费/alias-owner、校时/调色板/SDK/数值/机器ABI/画面/全生命周期待；枚举/完整gates/六closure/总SPEC§10守恒。WAV-only/原格式明文/现文本字节与普通整数边界保，RPLAN.24不增保护、默认值、补零、钳制、索引容量限制、回滚或异常模型。",
+      "original_role": "独立time32采样与原U32时间分解，六W32按year/month/day/hours/minutes/sTick发布，返回末phase/192商",
+      "original_end_exclusive": "0x458ebb",
+      "instruction_count": 76,
+      "function_chunks": [
+        {
+          "start": "0x458de0",
+          "end_exclusive": "0x458ebb"
+        }
+      ],
+      "verification_level": "五完整连续原码/八实际E8五callee/两IAT tick/一外尾跳、十一跳四RET/十二局部调用窗；三组取样恢复与整四文件精确差集、writer原分解/六字段序及正确body保持；51CDE9残值透传明确未验全部ABI，仅必要静态。",
+      "native_provider": {
+        "path": "src/world/GameTime.cpp",
+        "symbol": "cg::world::UpdateGameTime",
+        "parameters": "int UpdateGameTime(GameTime* output)",
+        "return": "MSVC int/S32末phase/192商；两实际caller弃值，不当bool成功",
+        "runtime_verified": false
+      },
+      "game_time_production_lifecycle": {
+        "step": "GTP01",
+        "source_snapshot": "Git提交说明“[#] 补齐游戏校时与倒计时并恢复持有取样”",
+        "original_instruction_count": 76,
+        "original_code_bytes": 219,
+        "original_page_count": 2,
+        "direct_call_count": 1,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_call_count": 2,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_source_kept": true,
+        "generated_machine_reads_verified": false,
+        "full_return_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x50FC30",
@@ -206715,6 +206765,246 @@
         "new_functions": 0,
         "normal_source_kept": true,
         "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x458f00",
+      "inventory_id": "F:00058F00",
+      "original_role": "时段变化后持有mode/category，可选3600调色板过渡，末尾总进入同源倒计时",
+      "original_end_exclusive": "0x458f3a",
+      "instruction_count": 15,
+      "function_chunks": [
+        {
+          "start": "0x458f00",
+          "end_exclusive": "0x458f3a"
+        }
+      ],
+      "status": "GTP01完整正常根独立纳管，三组取样恢复/正确源保；仅限定S，全父/数值/owner/完整机器ABI/运行待",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "cg::world::detail::Sub_458F00",
+          "relationship": "时段变化后持有mode/category，可选3600调色板过渡，末尾总进入同源倒计时；既有实际实现，无新函数/API/布局"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbol": "cg::world::detail::Sub_458F00",
+          "relationship": "当前真实声明/原参数与返回类型保，仅关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_game_time_production_lifecycle_spec.md#game-time-production-baseline",
+        "doc/cg2d_game_time_production_lifecycle_spec.md#game-time-production-decision",
+        "doc/cg2d_game_time_production_lifecycle_spec.md#game-time-production-acceptance",
+        "doc/cg2d_game_time_production_lifecycle_spec.md#game-time-production-source-state",
+        "doc/cg2d_game_time_production_lifecycle_evidence.json"
+      ],
+      "boundary": "GTP01五完整149条505B六页/八E8五callee、两IAT tick与一外尾跳、十一跳四RET，十二入向中两内部/十外点四父，加内部尾跳。两场景SDK各一个执行tick，恢复timer旧tick/remaining先取齐、持有updated发布/判负；保原负remaining归零→mode0→tick发布。PudO只恢复持有category交调色板，保对象号/offset/time采样/六字段writer/类别发布/调色板/路径/最后adjustment原序及两个独立time，writer用旧adjustment，返新adjustment。outer/setter/writer正确body保，六W32/24B、原min先于sTick/末商返回与唯一U32对象号/S32透传保持。现void接口保但51CDE9原残值仍透传，不能宣全部六调用弃返或机器返回ABI一致；仅副作用和局部消费S，原scene/null/SDK残值的上层完整消费待R04。MHT2212/调色板171/MSVC时间2025和全部旧语义/未变父/source保持，MSVC库内机制按已批MC01，不重建CRT或私有mul-high。四全父/输入/共享玩家-time生产消费/alias-owner、校时/调色板/SDK/数值/机器ABI/画面/全生命周期待；枚举/完整gates/六closure/总SPEC§10守恒。WAV-only/原格式明文/现文本字节与普通整数边界保，RPLAN.24不增保护、默认值、补零、钳制、索引容量限制、回滚或异常模型。",
+      "verification_level": "五完整连续原码/八实际E8五callee/两IAT tick/一外尾跳、十一跳四RET/十二局部调用窗；三组取样恢复与整四文件精确差集、writer原分解/六字段序及正确body保持；51CDE9残值透传明确未验全部ABI，仅必要静态。",
+      "native_provider": {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "cg::world::detail::Sub_458F00",
+        "parameters": "void __cdecl Sub_458F00()",
+        "return": "现既有void副作用API，原尾跳至timer；51CDE9透传的SDK/scene/null残值与完整ABI未验",
+        "runtime_verified": false
+      },
+      "game_time_production_lifecycle": {
+        "step": "GTP01",
+        "source_snapshot": "Git提交说明“[#] 补齐游戏校时与倒计时并恢复持有取样”",
+        "original_instruction_count": 15,
+        "original_code_bytes": 58,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "jump_count": 3,
+        "return_count": 0,
+        "inbound_call_count": 6,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_source_kept": true,
+        "generated_machine_reads_verified": false,
+        "full_return_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x50c870",
+      "inventory_id": "F:0010C870",
+      "original_role": "原PudO四整数与socket回复：对象号/offset/独立time采样/时间写入/持有category调色板，之后路径/adjustment发布并返adjustment",
+      "original_end_exclusive": "0x50c8c8",
+      "instruction_count": 22,
+      "function_chunks": [
+        {
+          "start": "0x50c870",
+          "end_exclusive": "0x50c8c8"
+        }
+      ],
+      "status": "GTP01完整正常根独立纳管，三组取样恢复/正确源保；仅限定S，全父/数值/owner/完整机器ABI/运行待",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "cg::world::detail::Sub_50C870",
+          "relationship": "原PudO四整数与socket回复：对象号/offset/独立time采样/时间写入/持有category调色板，之后路径/adjustment发布并返adjustment；既有实际实现，无新函数/API/布局"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbol": "cg::world::detail::Sub_50C870",
+          "relationship": "当前真实声明/原参数与返回类型保，仅关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_game_time_production_lifecycle_spec.md#game-time-production-baseline",
+        "doc/cg2d_game_time_production_lifecycle_spec.md#game-time-production-decision",
+        "doc/cg2d_game_time_production_lifecycle_spec.md#game-time-production-acceptance",
+        "doc/cg2d_game_time_production_lifecycle_spec.md#game-time-production-source-state",
+        "doc/cg2d_game_time_production_lifecycle_evidence.json"
+      ],
+      "boundary": "GTP01五完整149条505B六页/八E8五callee、两IAT tick与一外尾跳、十一跳四RET，十二入向中两内部/十外点四父，加内部尾跳。两场景SDK各一个执行tick，恢复timer旧tick/remaining先取齐、持有updated发布/判负；保原负remaining归零→mode0→tick发布。PudO只恢复持有category交调色板，保对象号/offset/time采样/六字段writer/类别发布/调色板/路径/最后adjustment原序及两个独立time，writer用旧adjustment，返新adjustment。outer/setter/writer正确body保，六W32/24B、原min先于sTick/末商返回与唯一U32对象号/S32透传保持。现void接口保但51CDE9原残值仍透传，不能宣全部六调用弃返或机器返回ABI一致；仅副作用和局部消费S，原scene/null/SDK残值的上层完整消费待R04。MHT2212/调色板171/MSVC时间2025和全部旧语义/未变父/source保持，MSVC库内机制按已批MC01，不重建CRT或私有mul-high。四全父/输入/共享玩家-time生产消费/alias-owner、校时/调色板/SDK/数值/机器ABI/画面/全生命周期待；枚举/完整gates/六closure/总SPEC§10守恒。WAV-only/原格式明文/现文本字节与普通整数边界保，RPLAN.24不增保护、默认值、补零、钳制、索引容量限制、回滚或异常模型。",
+      "verification_level": "五完整连续原码/八实际E8五callee/两IAT tick/一外尾跳、十一跳四RET/十二局部调用窗；三组取样恢复与整四文件精确差集、writer原分解/六字段序及正确body保持；51CDE9残值透传明确未验全部ABI，仅必要静态。",
+      "native_provider": {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "cg::world::detail::Sub_50C870",
+        "parameters": "std::int32_t __cdecl Sub_50C870(\n    const std::uintptr_t, const std::int32_t playerValue,\n    const std::int32_t timeOffset, const std::int32_t pathValue,\n    const std::int32_t adjustment)",
+        "return": "完整S32 adjustment，唯一512E40随后XOR EAX；socket原未读/既有原生宽度保",
+        "runtime_verified": false
+      },
+      "game_time_production_lifecycle": {
+        "step": "GTP01",
+        "source_snapshot": "Git提交说明“[#] 补齐游戏校时与倒计时并恢复持有取样”",
+        "original_instruction_count": 22,
+        "original_code_bytes": 88,
+        "original_page_count": 1,
+        "direct_call_count": 5,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_call_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "normal_source_kept": false,
+        "generated_machine_reads_verified": false,
+        "full_return_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x458f40",
+      "inventory_id": "F:00058F40",
+      "original_role": "场景9有效玩家/场景10倒计时：单执行SDKtick，mode非0才旧tick/remaining先齐取，持有更新值判负/原归零，末tick发布",
+      "original_end_exclusive": "0x458fc2",
+      "instruction_count": 33,
+      "function_chunks": [
+        {
+          "start": "0x458f40",
+          "end_exclusive": "0x458fc2"
+        }
+      ],
+      "status": "GTP01完整正常根独立纳管，三组取样恢复/正确源保；仅限定S，全父/数值/owner/完整机器ABI/运行待",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "cg::world::detail::Sub_458F40",
+          "relationship": "场景9有效玩家/场景10倒计时：单执行SDKtick，mode非0才旧tick/remaining先齐取，持有更新值判负/原归零，末tick发布；既有实际实现，无新函数/API/布局"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbol": "cg::world::detail::Sub_458F40",
+          "relationship": "当前真实声明/原参数与返回类型保，仅关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_game_time_production_lifecycle_spec.md#game-time-production-baseline",
+        "doc/cg2d_game_time_production_lifecycle_spec.md#game-time-production-decision",
+        "doc/cg2d_game_time_production_lifecycle_spec.md#game-time-production-acceptance",
+        "doc/cg2d_game_time_production_lifecycle_spec.md#game-time-production-source-state",
+        "doc/cg2d_game_time_production_lifecycle_evidence.json"
+      ],
+      "boundary": "GTP01五完整149条505B六页/八E8五callee、两IAT tick与一外尾跳、十一跳四RET，十二入向中两内部/十外点四父，加内部尾跳。两场景SDK各一个执行tick，恢复timer旧tick/remaining先取齐、持有updated发布/判负；保原负remaining归零→mode0→tick发布。PudO只恢复持有category交调色板，保对象号/offset/time采样/六字段writer/类别发布/调色板/路径/最后adjustment原序及两个独立time，writer用旧adjustment，返新adjustment。outer/setter/writer正确body保，六W32/24B、原min先于sTick/末商返回与唯一U32对象号/S32透传保持。现void接口保但51CDE9原残值仍透传，不能宣全部六调用弃返或机器返回ABI一致；仅副作用和局部消费S，原scene/null/SDK残值的上层完整消费待R04。MHT2212/调色板171/MSVC时间2025和全部旧语义/未变父/source保持，MSVC库内机制按已批MC01，不重建CRT或私有mul-high。四全父/输入/共享玩家-time生产消费/alias-owner、校时/调色板/SDK/数值/机器ABI/画面/全生命周期待；枚举/完整gates/六closure/总SPEC§10守恒。WAV-only/原格式明文/现文本字节与普通整数边界保，RPLAN.24不增保护、默认值、补零、钳制、索引容量限制、回滚或异常模型。",
+      "verification_level": "五完整连续原码/八实际E8五callee/两IAT tick/一外尾跳、十一跳四RET/十二局部调用窗；三组取样恢复与整四文件精确差集、writer原分解/六字段序及正确body保持；51CDE9残值透传明确未验全部ABI，仅必要静态。",
+      "native_provider": {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "cg::world::detail::Sub_458F40",
+        "parameters": "void __cdecl Sub_458F40()",
+        "return": "现既有void同源推进；两个直接外父窗口覆写EAX，outer一处残值透传/完整ABI待",
+        "runtime_verified": false
+      },
+      "game_time_production_lifecycle": {
+        "step": "GTP01",
+        "source_snapshot": "Git提交说明“[#] 补齐游戏校时与倒计时并恢复持有取样”",
+        "original_instruction_count": 33,
+        "original_code_bytes": 130,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 8,
+        "return_count": 1,
+        "inbound_call_count": 2,
+        "source_patch_group_count": 2,
+        "new_functions": 0,
+        "normal_source_kept": false,
+        "generated_machine_reads_verified": false,
+        "full_return_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x519eb0",
+      "inventory_id": "F:00119EB0",
+      "original_role": "玩家唯一W32对象号位型写入，完整S32值透传，无对象创建/新owner",
+      "original_end_exclusive": "0x519eba",
+      "instruction_count": 3,
+      "function_chunks": [
+        {
+          "start": "0x519eb0",
+          "end_exclusive": "0x519eba"
+        }
+      ],
+      "status": "GTP01完整正常根独立纳管，三组取样恢复/正确源保；仅限定S，全父/数值/owner/完整机器ABI/运行待",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "cg::world::detail::Sub_519EB0",
+          "relationship": "玩家唯一W32对象号位型写入，完整S32值透传，无对象创建/新owner；既有实际实现，无新函数/API/布局"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbol": "cg::world::detail::Sub_519EB0",
+          "relationship": "当前真实声明/原参数与返回类型保，仅关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_game_time_production_lifecycle_spec.md#game-time-production-baseline",
+        "doc/cg2d_game_time_production_lifecycle_spec.md#game-time-production-decision",
+        "doc/cg2d_game_time_production_lifecycle_spec.md#game-time-production-acceptance",
+        "doc/cg2d_game_time_production_lifecycle_spec.md#game-time-production-source-state",
+        "doc/cg2d_game_time_production_lifecycle_evidence.json"
+      ],
+      "boundary": "GTP01五完整149条505B六页/八E8五callee、两IAT tick与一外尾跳、十一跳四RET，十二入向中两内部/十外点四父，加内部尾跳。两场景SDK各一个执行tick，恢复timer旧tick/remaining先取齐、持有updated发布/判负；保原负remaining归零→mode0→tick发布。PudO只恢复持有category交调色板，保对象号/offset/time采样/六字段writer/类别发布/调色板/路径/最后adjustment原序及两个独立time，writer用旧adjustment，返新adjustment。outer/setter/writer正确body保，六W32/24B、原min先于sTick/末商返回与唯一U32对象号/S32透传保持。现void接口保但51CDE9原残值仍透传，不能宣全部六调用弃返或机器返回ABI一致；仅副作用和局部消费S，原scene/null/SDK残值的上层完整消费待R04。MHT2212/调色板171/MSVC时间2025和全部旧语义/未变父/source保持，MSVC库内机制按已批MC01，不重建CRT或私有mul-high。四全父/输入/共享玩家-time生产消费/alias-owner、校时/调色板/SDK/数值/机器ABI/画面/全生命周期待；枚举/完整gates/六closure/总SPEC§10守恒。WAV-only/原格式明文/现文本字节与普通整数边界保，RPLAN.24不增保护、默认值、补零、钳制、索引容量限制、回滚或异常模型。",
+      "verification_level": "五完整连续原码/八实际E8五callee/两IAT tick/一外尾跳、十一跳四RET/十二局部调用窗；三组取样恢复与整四文件精确差集、writer原分解/六字段序及正确body保持；51CDE9残值透传明确未验全部ABI，仅必要静态。",
+      "native_provider": {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "cg::world::detail::Sub_519EB0",
+        "parameters": "std::int32_t __cdecl Sub_519EB0(const std::int32_t value)",
+        "return": "完整S32 value原样返回，同时按原W32位型写对象号",
+        "runtime_verified": false
+      },
+      "game_time_production_lifecycle": {
+        "step": "GTP01",
+        "source_snapshot": "Git提交说明“[#] 补齐游戏校时与倒计时并恢复持有取样”",
+        "original_instruction_count": 3,
+        "original_code_bytes": 10,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_call_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_source_kept": true,
+        "generated_machine_reads_verified": false,
+        "full_return_abi_verified": false,
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }

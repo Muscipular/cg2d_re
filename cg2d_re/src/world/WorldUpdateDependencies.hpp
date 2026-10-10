@@ -807,13 +807,13 @@ std::int32_t __cdecl Sub_5093F0(
 std::int32_t __cdecl Sub_509550(
     std::uintptr_t socket, char* payload); // 原 [0x509550,0x509642)，地图回复文本与数值发布。
 void __cdecl Sub_51D6F0(); // 原 [0x51D6F0,0x51D743)，消费回复索引并选择调色板。
-void __cdecl Sub_458F40(); // 原 [0x458F40,0x458FC2)，同源玩家时钟推进，场景9要求玩家T*。
-void __cdecl Sub_458F00(); // 原 [0x458F00,0x458F3A)，类别变化后可选调色板过渡并进入 458F40。
-std::int32_t __cdecl Sub_519EB0(std::int32_t value); // 原 [0x519EB0,0x519EBA)，真实 FDA880 写回依赖。
+void __cdecl Sub_458F40(); // GTP01：同源倒计时旧字段先齐取/持有判负，场景9要求玩家 T*。
+void __cdecl Sub_458F00(); // GTP01：类别变化后可选过渡，末尾总推进同源倒计时；原残值 ABI 待。
+std::int32_t __cdecl Sub_519EB0(std::int32_t value); // GTP01：真实玩家 W32 对象号写回/原 S32 透传。
 std::int32_t __cdecl Sub_50C870(
     std::uintptr_t socket, std::int32_t playerValue,
     std::int32_t timeOffset, std::int32_t pathValue,
-    std::int32_t adjustment); // 原 [0x50C870,0x50C8C8)，时间与地图配置回复。
+    std::int32_t adjustment); // GTP01：PudO 校时，持有 category，两 time/旧 adjustment 与最后 S32 返回保。
 std::int32_t __cdecl Sub_469030(); // 原 [0x469030,0x4691C9)，地图装载、第四平面与斜向绘制。
 extern std::uint32_t gValue55DA88; // 原地图窗口重建标志，初值 1；46C760/46CF60 共用。
 // 原 46C840：三平面窗口读取及两类地图颜色生产；不改变玩家坐标。

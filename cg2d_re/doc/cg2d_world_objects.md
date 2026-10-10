@@ -821,3 +821,10 @@ flags W16非0且objectIndex完整W32位型相等，才清该槽action并停止�
 [三完整根](cg2d_map_hit_time_classification_spec.md#map-hit-time-source-state)/[原码/源差集](cg2d_map_hit_time_classification_evidence.json)纳管46AE60/46AD00/458EC0，合81条257B/三页、一E8十七跳六RET、五入向中一内部/四外点三父。两检测恢复三组边界/整数差/索引序，AE先Y/跨度→Y差→X，乘Y差减left加x；AD先齐取X/Y边界→两差→time→fresh跨度，乘Y差加X差。低BYTE逻辑消费/零扩展W16发布、3/9/11/13/10及6/7/8时段短路与完整S32 0/1保。
 
 time仅读hours0Ch一次，现六W32/24B/非拥有指针与signed门槛正确body保持，不归一化/默认小时或改CRT tm。原PDH父/表/全部其它body与时间生产源保持，458F00/50C870未独立身份只真实绑定。三新语义/F、MAP/Yobi各三成员/两限定S零I，六任务open/完整门禁及枚举守恒；原低BYTE不当现机器读宽通过，完整父/表与time生产消费/owner/调色板/PudO/SDK/数值/ABI/画面运行待。
+
+<a id="game-time-production-current-20261010"></a>
+## 2026-10-10 GTP01：校时、时段变化与倒计时
+
+[五完整原根](cg2d_game_time_production_lifecycle_spec.md#game-time-production-source-state)/[原码与源差集](cg2d_game_time_production_lifecycle_evidence.json)纳管458F00/50C870/458F40/519EB0与旧writer197，合149条505B/六页、八E8/两IATtick/一外尾跳/十一跳四RET，十二局部入向/四外父。timer只恢复旧tick/remaining先齐取及持有updated判断，保原scene9玩家门槛/scene10、一个执行tick/业务负值归零→mode0→末tick。PudO只恢复持有category交调色板，保对象号/offset/两独立time及旧adjustment使用、六字段/类别发布/调色板之后路径→新adjustment和原返回。
+
+writer/outer/setter正确body保，六W32/24B/分钟先于sTick与末商、完整setter值/PudO adjustment返回保。51CDE9原残值透传，现void API保但不得称全部六父弃返/完整机器ABI等价。四新语义/197追加、五F处置，MAP/Yobi各五成员、BATTLE只timer、NETWORK只PudO四S零I；八任务/枚举/完整gates/六closure开放，所有未变源/七旧身份保，校时/全父/共享owner/SDK/数值/ABI/画面运行待。

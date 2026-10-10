@@ -2446,3 +2446,9 @@ ANIMATION/YOBI各两个新成员，BATTLE只Play依赖成员；两新语义/F和
 [三完整合同](cg2d_map_hit_time_classification_spec.md#map-hit-time-acceptance)/[连续原码及源差集](cg2d_map_hit_time_classification_evidence.json)：81条257B/三页、一E8十七跳六RET，五局部窗/四外点三父；两检测三取样组恢复，time正确body/原PDH父与全部其它源/表保。三新语义/F，MAP161→164/Yobi91→94各三成员，两限定S零I；语义2210→2213/F1641→1644/E1444→1446。
 
 所有旧语义/处置/证据/原政策保持；两未独立时段父只真实绑定。六任务open/184叶验收0/60任务关闭11/完整gates/枚举false及六closure守恒；低BYTE逻辑消费/W16码与hours单W32字段有据，不称实际机器读宽、全父/表与time生产消费-owner/调色板/PudO/SDK/ABI/数值/运行完成，总SPEC§10保。
+
+## 2026-10-10 GTP01 游戏时间生产限定验收
+
+[五完整合同](cg2d_game_time_production_lifecycle_spec.md#game-time-production-acceptance)/[原码与当前差集](cg2d_game_time_production_lifecycle_evidence.json)：149条505B/六页、八E8/两IAT tick/一外尾跳/十一跳四RET，十二局部入向/四外父；三取样组恢复，writer/outer/setter正确body保持，51CDE9残值透传明确不当全部弃返/ABI通过。四新语义/197完整追加、五新F处置，语义2213→2217/F1644→1649/E1446→1450；MAP164→169/Yobi94→99各五成员、BATTLE422→423仅timer、NETWORK74→75仅PudO，四限定S零I。
+
+全部其它2212旧语义/1644旧F/1446旧证据及七旧依赖身份/源保持，八任务open/184叶验收0/60任务关闭11/枚举false/完整gates与六closure保。原时间/字段/业务归零有据，不宣完整校时/全父/alias-owner/调色板/SDK/机器ABI/数值/画面运行，总SPEC§10不降。

@@ -7079,6 +7079,7 @@ void __cdecl Sub_51D6F0()
     }
 }
 
+// GTP01：原 [0x458F40,0x458FC2)；旧 tick/remaining 先齐取，持有 ADD 结果判断，保原归零/tick 发布。
 void __cdecl Sub_458F40()
 {
     const std::int32_t scene = gCurrentSceneType;
@@ -7091,10 +7092,13 @@ void __cdecl Sub_458F40()
     }
     const std::uint32_t tick = platform::ReadTickCount32();
     if (gPlayerRuntime.timerMode10 != 0) {
+        const std::uint32_t previousTick = gPlayerRuntime.timerTick14;
+        const std::int32_t remaining = gPlayerRuntime.timerRemaining0C;
         const std::int32_t delta =
-            std::bit_cast<std::int32_t>(gPlayerRuntime.timerTick14 - tick);
-        gPlayerRuntime.timerRemaining0C += delta;
-        if (gPlayerRuntime.timerRemaining0C < 0) {
+            std::bit_cast<std::int32_t>(previousTick - tick);
+        const std::int32_t updated = remaining + delta;
+        gPlayerRuntime.timerRemaining0C = updated;
+        if (updated < 0) {
             gPlayerRuntime.timerRemaining0C = 0;
             gPlayerRuntime.timerMode10 = 0;
         }
@@ -7102,7 +7106,7 @@ void __cdecl Sub_458F40()
     gPlayerRuntime.timerTick14 = tick;
 }
 
-// 原 [0x458F00,0x458F3A)：类别变化后可选调色板过渡，末尾总是进入 458F40。
+// GTP01：原 [0x458F00,0x458F3A)；持有时段/模式、原过渡 3600，末尾总推进倒计时。
 void __cdecl Sub_458F00()
 {
     const std::int32_t category = GetCate_458EC0(&gCgTime);
@@ -7116,14 +7120,14 @@ void __cdecl Sub_458F00()
     Sub_458F40();
 }
 
-// 原 519EB0：写入玩家首块的唯一 W32 对象号槽并原样返回。
+// GTP01：原 [0x519EB0,0x519EBA)；只写玩家唯一 W32 对象号，完整 S32 原样返回。
 std::int32_t __cdecl Sub_519EB0(const std::int32_t value)
 {
     gPlayerRuntime.objectIndex = std::bit_cast<std::uint32_t>(value);
     return value;
 }
 
-// 原 [0x50C870,0x50C8C8)：两次独立取时，调色板后才发布路径与调整值。
+// GTP01：原 [0x50C870,0x50C8C8)；保两次 time/旧 adjustment，持有时段交调色板后再发布两字段。
 std::int32_t __cdecl Sub_50C870(
     const std::uintptr_t, const std::int32_t playerValue,
     const std::int32_t timeOffset, const std::int32_t pathValue,
@@ -7134,8 +7138,9 @@ std::int32_t __cdecl Sub_50C870(
     gValue73ED68 = std::bit_cast<std::uint32_t>(
         platform::ReadLegacyTime32_53BA26(nullptr));
     static_cast<void>(UpdateGameTime(&gCgTime));
-    gValue73ED48 = GetCate_458EC0(&gCgTime);
-    static_cast<void>(render::SelectPalette(gValue73ED48, 0));
+    const std::int32_t category = GetCate_458EC0(&gCgTime);
+    gValue73ED48 = category;
+    static_cast<void>(render::SelectPalette(category, 0));
     gValue9E0434 = pathValue;
     gValue73ED40 = std::bit_cast<std::uint32_t>(adjustment);
     return adjustment;

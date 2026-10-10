@@ -73858,7 +73858,11 @@
       ],
       "evidence_documents": [
         "doc/cg2d_animation_runtime.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
       ],
       "verification_level": "七父完整876条/八入向、22文件格式调用与一处坐标槽传址、十二共享数据引用、EOF低U8/原字节/失败/短读/关闭/返回及限定源码差异静态核对；不重验分配/槽链/排序/播放，未执行",
       "boundary": "既有退出父按九动画槽关闭非空LegacyFile后清同一槽，再直接透传45B630主表活动槽清理结果。坐标文件、主表布局、活动数据释放和槽链正文不改，不据本步称完整资源退出验收。",
@@ -73869,7 +73873,12 @@
           "parent_entry": "0x45BEF0",
           "access_type": 1
         }
-      ]
+      ],
+      "acl01_source_state": {
+        "reference": "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
+        "boundary": "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。",
+        "verification_level": "已完成新增片段的限定静态；十根273条830B，已有两原根复用ATP01，源码三清理/三索引片段和17注释。仅S，不构建/测试/运行/摘要；用户最新要求先补缺失，后续差异核对暂停。"
+      }
     },
     {
       "original_entry": "0x45BF20",
@@ -73907,7 +73916,11 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
       ],
       "verification_level": "七父完整876条/八入向、22文件格式调用与一处坐标槽传址、十二共享数据引用、EOF低U8/原字节/失败/短读/关闭/返回及限定源码差异静态核对；不重验分配/槽链/排序/播放，未执行",
       "boundary": "既有退出父按九W32关闭标志非零时关闭对应动画槽（45BF2D的9A3A20），不判流空、不清文件槽，仅清关闭标志，然后直接透传45B740。它不关闭9A2988坐标流，不按函数名补回收；原标志生产/指针残留与完整生命周期/运行仍待。",
@@ -73942,6 +73955,11 @@
         "record_index": 743,
         "original_entry": "0x45BF20",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "acl01_source_state": {
+        "reference": "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
+        "boundary": "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。",
+        "verification_level": "已完成新增片段的限定静态；十根273条830B，已有两原根复用ATP01，源码三清理/三索引片段和17注释。仅S，不构建/测试/运行/摘要；用户最新要求先补缺失，后续差异核对暂停。"
       }
     },
     {
@@ -147416,10 +147434,19 @@
         "doc/cg2d_animation_pointer_spec.md#animation-pointer-decision",
         "doc/cg2d_animation_pointer_spec.md#animation-pointer-acceptance",
         "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state",
-        "doc/cg2d_animation_pointer_evidence.json"
+        "doc/cg2d_animation_pointer_evidence.json",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
       ],
       "verification_level": "本次两完整78/78共156条452B，仅清理正常取样/释放/清空序及x64类型承载静态，完整父/alias/P4生产/所有owner寿命/SDK/运行未验",
-      "boundary": "非负索引沿原低U16 count重取逐项释放帧，free后重取主表/索引/actionList清同一引用；再释放/清子表、清listNode，条件释放/清坐标、index=−1返回1；负索引0，不新加子表空/索引保护。 只正常域，不评数学异常/越界安全或故障等价，完整加载/播放/场景/退出、所有alias/借用失效、实际机器/ABI/SDK/分配失败及画面未验。"
+      "boundary": "非负索引沿原低U16 count重取逐项释放帧，free后重取主表/索引/actionList清同一引用；再释放/清子表、清listNode，条件释放/清坐标、index=−1返回1；负索引0，不新加子表空/索引保护。 只正常域，不评数学异常/越界安全或故障等价，完整加载/播放/场景/退出、所有alias/借用失效、实际机器/ABI/SDK/分配失败及画面未验。",
+      "acl01_source_state": {
+        "reference": "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
+        "boundary": "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。",
+        "verification_level": "已完成新增片段的限定静态；十根273条830B，已有两原根复用ATP01，源码三清理/三索引片段和17注释。仅S，不构建/测试/运行/摘要；用户最新要求先补缺失，后续差异核对暂停。"
+      }
     },
     {
       "original_entry": "0x45b650",
@@ -147462,10 +147489,19 @@
         "doc/cg2d_animation_pointer_spec.md#animation-pointer-decision",
         "doc/cg2d_animation_pointer_spec.md#animation-pointer-acceptance",
         "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state",
-        "doc/cg2d_animation_pointer_evidence.json"
+        "doc/cg2d_animation_pointer_evidence.json",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
       ],
       "verification_level": "本次两完整78/78共156条452B，仅清理正常取样/释放/清空序及x64类型承载静态，完整父/alias/P4生产/所有owner寿命/SDK/运行未验",
-      "boundary": "P4按原低U16 count释放子项+18帧引用，free后重取同一cache/索引/子表清引用；再释放/清子表、清values[4]，条件释放/清buffer，index=−1返回1；使用独立CacheActionEntry，仅已证24B前缀/原生帧引用，不猜P4字段/帧格式。 只正常域，不评数学异常/越界安全或故障等价，完整加载/播放/场景/退出、所有alias/借用失效、实际机器/ABI/SDK/分配失败及画面未验。"
+      "boundary": "P4按原低U16 count释放子项+18帧引用，free后重取同一cache/索引/子表清引用；再释放/清子表、清values[4]，条件释放/清buffer，index=−1返回1；使用独立CacheActionEntry，仅已证24B前缀/原生帧引用，不猜P4字段/帧格式。 只正常域，不评数学异常/越界安全或故障等价，完整加载/播放/场景/退出、所有alias/借用失效、实际机器/ABI/SDK/分配失败及画面未验。",
+      "acl01_source_state": {
+        "reference": "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
+        "boundary": "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。",
+        "verification_level": "已完成新增片段的限定静态；十根273条830B，已有两原根复用ATP01，源码三清理/三索引片段和17注释。仅S，不构建/测试/运行/摘要；用户最新要求先补缺失，后续差异核对暂停。"
+      }
     },
     {
       "original_entry": "0x46f1d0",
@@ -241224,6 +241260,176 @@
         "runtime_verified": false,
         "result_boundary": "分配真实S32 0/1；释放现void保副作用不造残留EAX，完整owner/资源内容/生成读取和ABI运行待"
       }
+    },
+    {
+      "original_entry": "0x45B630",
+      "inventory_id": "F:0005B630",
+      "status": "ACL01限定源码合同已落实；完整功能与运行未验",
+      "original_end_exclusive": "0x45B64C",
+      "instruction_count": 10,
+      "sources": [
+        {
+          "path": "src/AnimationCleanup.cpp",
+          "symbols": [
+            "Sub_45B630"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
+      ],
+      "boundary": "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。",
+      "verification_level": "已完成新增片段的限定静态；十根273条830B，已有两原根复用ATP01，源码三清理/三索引片段和17注释。仅S，不构建/测试/运行/摘要；用户最新要求先补缺失，后续差异核对暂停。"
+    },
+    {
+      "original_entry": "0x45B740",
+      "inventory_id": "F:0005B740",
+      "status": "ACL01限定源码合同已落实；完整功能与运行未验",
+      "original_end_exclusive": "0x45B75C",
+      "instruction_count": 10,
+      "sources": [
+        {
+          "path": "src/AnimationCleanup.cpp",
+          "symbols": [
+            "Sub_45B740"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
+      ],
+      "boundary": "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。",
+      "verification_level": "已完成新增片段的限定静态；十根273条830B，已有两原根复用ATP01，源码三清理/三索引片段和17注释。仅S，不构建/测试/运行/摘要；用户最新要求先补缺失，后续差异核对暂停。"
+    },
+    {
+      "original_entry": "0x45B530",
+      "inventory_id": "F:0005B530",
+      "status": "ACL01限定源码合同已落实；完整功能与运行未验",
+      "original_end_exclusive": "0x45B583",
+      "instruction_count": 26,
+      "sources": [
+        {
+          "path": "src/AnimationList.cpp",
+          "symbols": [
+            "Sub_45B530"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
+      ],
+      "boundary": "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。",
+      "verification_level": "已完成新增片段的限定静态；十根273条830B，已有两原根复用ATP01，源码三清理/三索引片段和17注释。仅S，不构建/测试/运行/摘要；用户最新要求先补缺失，后续差异核对暂停。",
+      "inbound_evidence": [
+        {
+          "address": "0x45B7A8",
+          "parent_entry": "0x45B760"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x45B590",
+      "inventory_id": "F:0005B590",
+      "status": "ACL01限定源码合同已落实；完整功能与运行未验",
+      "original_end_exclusive": "0x45B5AF",
+      "instruction_count": 8,
+      "sources": [
+        {
+          "path": "src/AnimationList.cpp",
+          "symbols": [
+            "Sub_45B590"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
+      ],
+      "boundary": "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。",
+      "verification_level": "已完成新增片段的限定静态；十根273条830B，已有两原根复用ATP01，源码三清理/三索引片段和17注释。仅S，不构建/测试/运行/摘要；用户最新要求先补缺失，后续差异核对暂停。",
+      "inbound_evidence": [
+        {
+          "address": "0x45B5C1",
+          "parent_entry": "0x45B5B0"
+        },
+        {
+          "address": "0x45B60A",
+          "parent_entry": "0x45B5D0"
+        },
+        {
+          "address": "0x45B850",
+          "parent_entry": "0x45B760"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x45B5B0",
+      "inventory_id": "F:0005B5B0",
+      "status": "ACL01限定源码合同已落实；完整功能与运行未验",
+      "original_end_exclusive": "0x45B5CC",
+      "instruction_count": 10,
+      "sources": [
+        {
+          "path": "src/AnimationList.cpp",
+          "symbols": [
+            "Sub_45B5B0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
+      ],
+      "boundary": "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。",
+      "verification_level": "已完成新增片段的限定静态；十根273条830B，已有两原根复用ATP01，源码三清理/三索引片段和17注释。仅S，不构建/测试/运行/摘要；用户最新要求先补缺失，后续差异核对暂停。",
+      "inbound_evidence": [
+        {
+          "address": "0x45B790",
+          "parent_entry": "0x45B760"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x45B5D0",
+      "inventory_id": "F:0005B5D0",
+      "status": "ACL01限定源码合同已落实；完整功能与运行未验",
+      "original_end_exclusive": "0x45B622",
+      "instruction_count": 22,
+      "sources": [
+        {
+          "path": "src/AnimationList.cpp",
+          "symbols": [
+            "Sub_45B5D0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
+      ],
+      "boundary": "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。",
+      "verification_level": "已完成新增片段的限定静态；十根273条830B，已有两原根复用ATP01，源码三清理/三索引片段和17注释。仅S，不构建/测试/运行/摘要；用户最新要求先补缺失，后续差异核对暂停。",
+      "inbound_evidence": [
+        {
+          "address": "0x45BB36",
+          "parent_entry": "0x45BB20"
+        }
+      ]
     }
   ]
 }

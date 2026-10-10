@@ -4,70 +4,126 @@
 #include "platform/LegacyStdio.hpp"
 
 #include <cstdlib>
+#include <cstring>
 
 namespace cg::resource::animation {
 
+// ACL01：原45B440完整78条复用ATP01；index/held table条件重取、同快照free/原末发布保持。
 std::int32_t Sub_45B440(std::int32_t* const slotIndex)
 {
-    if (*slotIndex < 0) {
+    std::int32_t index = *slotIndex;
+    if (index < 0) {
         return 0;
     }
 
-    for (std::uint32_t action = 0;
-         action < gAnimateRecords9A4A58[*slotIndex].count; ++action) {
-        auto* const list = static_cast<detail::ActionEntry*>(
-            gAnimateRecords9A4A58[*slotIndex].actionList);
-        if (list[action].frames != nullptr) {
-            std::free(list[action].frames);
-            static_cast<detail::ActionEntry*>(
-                gAnimateRecords9A4A58[*slotIndex].actionList)[action].frames = nullptr;
+    AnimateRecord* table = gAnimateRecords9A4A58;
+    AnimateRecord* record = &table[index];
+    std::uint16_t count = record->count;
+    std::int32_t action = 0;
+    if (count != 0) {
+        for (;;) {
+            detail::ActionEntry* const list = record->actionList;
+            detail::FrameEntry* const frames = list[action].frames;
+            if (frames != nullptr) {
+                std::free(frames);
+                index = *slotIndex;
+                table = gAnimateRecords9A4A58;
+                table[index].actionList[action].frames = nullptr;
+                table = gAnimateRecords9A4A58;
+            }
+            index = *slotIndex;
+            ++action;
+            record = &table[index];
+            count = record->count;
+            if (action >= count) {
+                break;
+            }
         }
     }
 
-    if (gAnimateRecords9A4A58[*slotIndex].actionList != nullptr) {
-        std::free(gAnimateRecords9A4A58[*slotIndex].actionList);
+    index = *slotIndex;
+    detail::ActionEntry* const list = table[index].actionList;
+    if (list != nullptr) {
+        std::free(list);
+        table = gAnimateRecords9A4A58;
     }
-    gAnimateRecords9A4A58[*slotIndex].actionList = nullptr;
-    gAnimateRecords9A4A58[*slotIndex].listNode = nullptr;
-    if (gAnimateRecords9A4A58[*slotIndex].coordinates != nullptr) {
-        std::free(gAnimateRecords9A4A58[*slotIndex].coordinates);
+    index = *slotIndex;
+    table[index].actionList = nullptr;
+    index = *slotIndex;
+    table = gAnimateRecords9A4A58;
+    table[index].listNode = nullptr;
+    index = *slotIndex;
+    table = gAnimateRecords9A4A58;
+    detail::CoordinateEntry* const coordinates = table[index].coordinates;
+    if (coordinates != nullptr) {
+        std::free(coordinates);
     }
-    gAnimateRecords9A4A58[*slotIndex].coordinates = nullptr;
+    index = *slotIndex;
+    table = gAnimateRecords9A4A58;
+    table[index].coordinates = nullptr;
     *slotIndex = -1;
     return 1;
 }
 
+// ACL01：原45B650完整78条复用ATP01；count单W16，held table/条件重取与同快照free，不猜P4生产。
 std::int32_t Sub_45B650(std::int32_t* const slotIndex)
 {
-    if (*slotIndex < 0) {
+    std::int32_t index = *slotIndex;
+    if (index < 0) {
         return 0;
     }
 
-    for (std::uint32_t action = 0;
-         action < (gAnimateCache9A4A5C[*slotIndex].values[1] & 0xFFFFu);
-         ++action) {
-        auto* const list = static_cast<detail::CacheActionEntry*>(
-            gAnimateCache9A4A5C[*slotIndex].actionList);
-        if (list[action].frames != nullptr) {
-            std::free(list[action].frames);
-            static_cast<detail::CacheActionEntry*>(
-                gAnimateCache9A4A5C[*slotIndex].actionList)[action].frames = nullptr;
+    AnimeCacheRecord* table = gAnimateCache9A4A5C;
+    AnimeCacheRecord* record = &table[index];
+    std::uint16_t count;
+    std::memcpy(&count, &record->values[1], sizeof(count));
+    std::int32_t action = 0;
+    if (count != 0) {
+        for (;;) {
+            detail::CacheActionEntry* const list = record->actionList;
+            void* const frames = list[action].frames;
+            if (frames != nullptr) {
+                std::free(frames);
+                index = *slotIndex;
+                table = gAnimateCache9A4A5C;
+                table[index].actionList[action].frames = nullptr;
+                table = gAnimateCache9A4A5C;
+            }
+            index = *slotIndex;
+            ++action;
+            record = &table[index];
+            std::memcpy(&count, &record->values[1], sizeof(count));
+            if (action >= count) {
+                break;
+            }
         }
     }
 
-    if (gAnimateCache9A4A5C[*slotIndex].actionList != nullptr) {
-        std::free(gAnimateCache9A4A5C[*slotIndex].actionList);
+    index = *slotIndex;
+    detail::CacheActionEntry* const list = table[index].actionList;
+    if (list != nullptr) {
+        std::free(list);
+        table = gAnimateCache9A4A5C;
     }
-    gAnimateCache9A4A5C[*slotIndex].actionList = nullptr;
-    gAnimateCache9A4A5C[*slotIndex].values[4] = 0;
-    if (gAnimateCache9A4A5C[*slotIndex].buffer != nullptr) {
-        std::free(gAnimateCache9A4A5C[*slotIndex].buffer);
+    index = *slotIndex;
+    table[index].actionList = nullptr;
+    index = *slotIndex;
+    table = gAnimateCache9A4A5C;
+    table[index].values[4] = 0;
+    index = *slotIndex;
+    table = gAnimateCache9A4A5C;
+    void* const buffer = table[index].buffer;
+    if (buffer != nullptr) {
+        std::free(buffer);
     }
-    gAnimateCache9A4A5C[*slotIndex].buffer = nullptr;
+    index = *slotIndex;
+    table = gAnimateCache9A4A5C;
+    table[index].buffer = nullptr;
     *slotIndex = -1;
     return 1;
 }
 
+// ACL01：原45B630完整10条；固定256个实际主槽清理，返回最后一次S32结果，正文保持。
 std::int32_t Sub_45B630()
 {
     std::int32_t result = 0;
@@ -77,6 +133,7 @@ std::int32_t Sub_45B630()
     return result;
 }
 
+// ACL01：原45B740完整10条；固定256个实际P4槽清理，返回最后一次S32结果，正文保持。
 std::int32_t Sub_45B740()
 {
     std::int32_t result = 0;
@@ -86,17 +143,20 @@ std::int32_t Sub_45B740()
     return result;
 }
 
+// ACL01：原45BEF0完整15条；九FILE一次取样/同值关闭后清槽，再scan主表，返回真实末值。
 std::int32_t AnimeUnload_45BEF0()
 {
     for (platform::LegacyFile*& file : detail::gAnimateFiles9A3A20) {
-        if (file != nullptr) {
-            platform::CloseLegacyStream_53B1D0(file);
+        platform::LegacyFile* const current = file;
+        if (current != nullptr) {
+            platform::CloseLegacyStream_53B1D0(current);
             file = nullptr;
         }
     }
     return Sub_45B630();
 }
 
+// ACL01：原45BF20完整16条；九标志关闭后scanP4，MC01-B已批清FILE owner差异保持。
 std::int32_t Sub_45BF20()
 {
     for (std::size_t slot = 0; slot < detail::gFileCloseFlags9A29D0.size(); ++slot) {

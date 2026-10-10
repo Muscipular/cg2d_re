@@ -253,3 +253,7 @@ GraphicRead的九个共享图形文件槽及其生产/定位/读取/释放仍是
 ## 2026-10-11 GAP01：四块分配与前三块释放
 
 [GAP01](cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state)补齐4574E0分配及457670释放，两完整原根135条444B/三页、12E8四目标/十一跳三RET，分配原证复用ACB01。五组五定位/四注释恢复容量先取/分配返回持值、P1判空先于P4pub、失败和终止同指针free/清零count先取；原九路径失败继续、四块大小/正常清零、失败与终止仅释放前三块且不清槽保持。旧735追加/新free一F、旧处置350追加/新adapted一，RESOURCE45/RENDER122，两限定S零I八open；完整owner/所有主表借用/SDK与运行待。
+
+## 2026-10-11 ACL01：动画释放接线
+
+[ACL01](cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state)收尾既有清理/主索引改动，保MSVC FILE具名owner适配与实际退出序。图形索引由45A6C0释放的原调用邻窗已有依据；P4外层释放责任与全部资源借用寿命仍未闭，不补猜测释放。后续先补实际缺失，暂不核对已有实现差异。

@@ -99,11 +99,11 @@ extern void* gCleanupAllocation9A4A54;
 
 namespace cg::resource::animation {
 
-std::int32_t Sub_45B440(std::int32_t* slotIndex);
-std::int32_t Sub_45B590(detail::MainSlot* slot);
-std::int32_t Sub_45B5B0(detail::MainSlot* slot);
-std::int32_t Sub_45B5D0();
-detail::MainSlot* Sub_45B530();
+std::int32_t Sub_45B440(std::int32_t* slotIndex); // ACL01：真实slotIndex/0或1，held table按原条件重取。
+std::int32_t Sub_45B590(detail::MainSlot* slot); // ACL01：持尾前驱按原序挂链，返回零。
+std::int32_t Sub_45B5B0(detail::MainSlot* slot); // ACL01：前后指针先取齐，再摘链/挂尾。
+std::int32_t Sub_45B5D0(); // ACL01：原256主槽及两哨兵初始化，正文保持。
+detail::MainSlot* Sub_45B530(); // ACL01：清理非零后取齐数量/字节，返回真实oldest或空。
 
 // 原 45C150：仅在有文件/action、无已加载坐标且 count 非零时加载；保留计数门禁。
 std::int32_t CoordInit_45C150(std::int32_t index);

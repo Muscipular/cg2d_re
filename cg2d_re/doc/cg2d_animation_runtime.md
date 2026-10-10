@@ -710,3 +710,7 @@ read(1,1)版本仍只覆盖原路径参数低字节，未读保持现有地址�
 四定义只十六源组：共享八组恢复帧取样阶段、原U16 revert仅BYTE消费、门禁持样/加载后fresh模式、原两轴cache/尺寸序及坐标固定图号/先保存Y再发布X；两入口各四组恢复重置方向/循环数及独立静图输出取样和局部图号加载。所有宽度/结构、原正常限制、S32三值返回/严格停播1/隐藏1、音效门禁/已有双参接口和六旧callee保持。使用已有Borrow/FromEntries窄尺寸接口，不新公开底层对象或helper原身份。
 
 两新语义/F；ANIMATION与YOBI各加两已知成员/四限定I/S，BATTLE仅Play依赖成员、无新完整gate。六任务仍open，全部member枚举/完整B/I/W/S/R/184叶和六closure保持；所有数据生产、全部父-callee/输入/容量/ABI/alias/owner/SDK及WAV声音/像素画面待。不构建/测试/运行/产物/摘要，不降低总SPEC§10。
+
+## 2026-10-11 ACL01：清理与主索引链
+
+[ACL01](cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state)记录两槽清理、两扫描、两卸载和四主索引根；此前完成的六片段/17注释与限定静态结果已登记。主/P4未知生产、全部借用和owner寿命及完整运行仍待；后续按用户要求先补缺失，暂停差异核对。

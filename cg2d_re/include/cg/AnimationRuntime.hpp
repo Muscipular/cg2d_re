@@ -85,7 +85,7 @@ void CoordLoadInit_45C040(char* const* dataPaths, char* const* infoPaths);
 std::int32_t AnimeLoadAction_45B760(std::int32_t index);
 
 // 原退出链：先关九个动画文件并清主表活动槽，再按标志处理文件及 P4 活动槽。
-std::int32_t AnimeUnload_45BEF0();
-std::int32_t Sub_45BF20();
+std::int32_t AnimeUnload_45BEF0(); // ACL01：九FILE关闭清槽后256主槽清理，真实末返回。
+std::int32_t Sub_45BF20(); // ACL01：九flag关闭后256P4槽清理，已批FILE引用清空保。
 
 } // namespace cg::resource::animation

@@ -3532,7 +3532,8 @@
         "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-baseline",
         "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-baseline",
         "doc/cg2d_startup_flow.md#window-resource-module-baseline-20261009",
-        "doc/cg2d_graphic_allocation_release_spec.md"
+        "doc/cg2d_graphic_allocation_release_spec.md",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline"
       ],
       "original_inventory_ids": [
         "F:000597E0",
@@ -3579,7 +3580,17 @@
         "F:0004CD80",
         "F:0004D490",
         "F:00065790",
-        "F:00057670"
+        "F:00057670",
+        "F:0005B440",
+        "F:0005B650",
+        "F:0005B630",
+        "F:0005B740",
+        "F:0005BEF0",
+        "F:0005BF20",
+        "F:0005B530",
+        "F:0005B590",
+        "F:0005B5B0",
+        "F:0005B5D0"
       ],
       "closure_task_ids": [
         "G01",
@@ -3610,7 +3621,8 @@
         "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-decision",
         "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-decision",
         "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
-        "doc/cg2d_startup_flow.md#window-resource-module-decision-20261009"
+        "doc/cg2d_startup_flow.md#window-resource-module-decision-20261009",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -3631,7 +3643,8 @@
         "BOR01已有1237/分类/RESOURCE成员续记，完整94条286B及7008B hidden初值1752项一致；数量-取得表/record-loaded阶段恢复，原SDK/释放根保持，全部父-队列两池owner/正常alias/实际SDK及R1/R7/R8运行待",
         "BPF01既有1204正常S32计数与无用bit头实修，104项/原回收和基址、唯一公共尾保持；21条86B/11条40B父窗局部纳盘，域成员不增。完整绘制父/所有上游与正常alias-owner/寿命、SDK-ABI/链接和全模式像素运行、R1/R7/R8仍待",
         "BUY01两已有变换/清理根526条1769B/八页、22direct/八indirect/30跳转/11返回、四引用四父；两原已取绘制窗50条159B复用BUX01证据，两新场景窗22条93B和两23B NN_NOP用途。既有代码正确保、源码改动0，无新增I；两F adapted与LOOP/RENDER/RESOURCE各限定S，旧未接线描述纠正。原host私有树/T*键/SDK仅获批边界，完整所有父/callee/COM语义之外业务、owner/alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理、模拟或记等价。",
-        "CAC11实际原图标/十一鼠标光标资源实例装载及真实WinMain两加载点已编码，现同源窗类/句柄和SetCursor借用不变；本域仅该原入口已知成员，非新功能分母或闭枚举。当前磁盘资源与IDB不能互代，权限/匹配/像素热点/全部加载成功失败及SDK/正常寿命/完整启动输入资源和运行继续待，局部静态不提升完整门禁。"
+        "CAC11实际原图标/十一鼠标光标资源实例装载及真实WinMain两加载点已编码，现同源窗类/句柄和SetCursor借用不变；本域仅该原入口已知成员，非新功能分母或闭枚举。当前磁盘资源与IDB不能互代，权限/匹配/像素热点/全部加载成功失败及SDK/正常寿命/完整启动输入资源和运行继续待，局部静态不提升完整门禁。",
+        "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -3657,7 +3670,8 @@
         "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-source-state",
         "doc/cg2d_startup_flow.md#window-resource-module-source-state-20261009",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-baseline",
-        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance"
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
       ]
     },
     {
@@ -3677,7 +3691,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
         "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
-        "doc/cg2d_yobi_frame_playback_sampling_spec.md"
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline"
       ],
       "original_inventory_ids": [
         "F:000574E0",
@@ -3690,7 +3705,15 @@
         "F:0005B650",
         "F:0013C112",
         "F:00117880",
-        "F:00117DA0"
+        "F:00117DA0",
+        "F:0005B630",
+        "F:0005B740",
+        "F:0005BEF0",
+        "F:0005BF20",
+        "F:0005B530",
+        "F:0005B590",
+        "F:0005B5B0",
+        "F:0005B5D0"
       ],
       "closure_task_ids": [
         "G01",
@@ -3708,14 +3731,16 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
-        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
         "ACB01撤早期P1额外零哨兵，恢复原固定20500项/容量重读清零，原包含上界/正常查询和四分配序保持；四身份局部纳管，完整加载/播放/场景/退出/alias/所有owner寿命/实际分配失败/机器/SDK/画面运行未验，异常不保护或模拟",
         "ATP01五具名指针/三分配/P4独立子项和两清理读取已落码，原布局/发布/正常控制/释放顺序保持；两清理与两生产四身份局部纳管，P4前缀/帧/缓冲生产和完整初始化加载播放退出/alias/所有owner寿命/实际分配失败/ABI/SDK/画面运行未验，异常不保护或模拟",
         "MC01-B已成组迁移实际MSVC FILE/描述符及流格式/状态/关闭；已证owner失效处理已接。完整CRT对象/初始化退出余组、业务/owner/SDK运行仍未验。",
-        "MC01-C7动画/渲染两一致比较域实际std::qsort已接，完整原生记录/参数/比较器及业务发布/保留项不变；库算法/比较交换次序和同键顺序按MSVC，只限定源码。八非一致调用继续待C6，全部业务正常结果/owner/SDK/像素与运行未验。"
+        "MC01-C7动画/渲染两一致比较域实际std::qsort已接，完整原生记录/参数/比较器及业务发布/保留项不变；库算法/比较交换次序和同键顺序按MSVC，只限定源码。八非一致调用继续待C6，全部业务正常结果/owner/SDK/像素与运行未验。",
+        "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -3723,7 +3748,8 @@
         "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
         "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state",
         "doc/cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-baseline",
-        "doc/cg2d_yobi_frame_playback_sampling_spec.md#evidence-archive-20261011"
+        "doc/cg2d_yobi_frame_playback_sampling_spec.md#evidence-archive-20261011",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
       ]
     },
     {
@@ -67866,6 +67892,80 @@
       "differences": [],
       "result": "pass",
       "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-ANIMATION-CLEANUP-CHAIN-FUNC-ANIMATION-S-20261011",
+      "feature_id": "FUNC-ANIMATION",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:0005B440",
+        "F:0005B650",
+        "F:0005B630",
+        "F:0005B740",
+        "F:0005BEF0",
+        "F:0005BF20",
+        "F:0005B530",
+        "F:0005B590",
+        "F:0005B5B0",
+        "F:0005B5D0"
+      ],
+      "baseline_reference": "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+      "implementation_reference": "[#] 对齐动画清理与索引链合同",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
+        "src/AnimationCleanup.cpp",
+        "src/AnimationList.cpp",
+        "src/AnimationRuntimeState.hpp",
+        "include/cg/AnimationRuntime.hpp"
+      ],
+      "observation": "十完整原根273条830B；两原根复用ATP01，六源码定位片段/17注释此前静态通过。",
+      "expected": "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。",
+      "actual": "已完成新增片段的限定静态；十根273条830B，已有两原根复用ATP01，源码三清理/三索引片段和17注释。仅S，不构建/测试/运行/摘要；用户最新要求先补缺失，后续差异核对暂停。",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-ANIMATION-CLEANUP-CHAIN-FUNC-RESOURCE-S-20261011",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:0005B440",
+        "F:0005B650",
+        "F:0005B630",
+        "F:0005B740",
+        "F:0005BEF0",
+        "F:0005BF20",
+        "F:0005B530",
+        "F:0005B590",
+        "F:0005B5B0",
+        "F:0005B5D0"
+      ],
+      "baseline_reference": "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+      "implementation_reference": "[#] 对齐动画清理与索引链合同",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
+        "src/AnimationCleanup.cpp",
+        "src/AnimationList.cpp",
+        "src/AnimationRuntimeState.hpp",
+        "include/cg/AnimationRuntime.hpp"
+      ],
+      "observation": "十完整原根273条830B；两原根复用ATP01，六源码定位片段/17注释此前静态通过。",
+      "expected": "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。",
+      "actual": "已完成新增片段的限定静态；十根273条830B，已有两原根复用ATP01，源码三清理/三索引片段和17注释。仅S，不构建/测试/运行/摘要；用户最新要求先补缺失，后续差异核对暂停。",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
     }
   ],
   "task_acceptance": [
@@ -68338,7 +68438,11 @@
         "doc/cg2d_palette_capability_selection_spec.md#palette-capability-source-state",
         "doc/cg2d_palette_capability_selection_spec.md#evidence-archive-20261011",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state",
-        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance"
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
       ]
     },
     {
@@ -69145,7 +69249,11 @@
         "doc/cg2d_palette_capability_selection_spec.md#palette-capability-source-state",
         "doc/cg2d_palette_capability_selection_spec.md#evidence-archive-20261011",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state",
-        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance"
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
       ]
     },
     {
@@ -69658,7 +69766,11 @@
         "doc/cg2d_palette_capability_selection_spec.md#palette-capability-source-state",
         "doc/cg2d_palette_capability_selection_spec.md#evidence-archive-20261011",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state",
-        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance"
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
       ]
     },
     {
@@ -70666,7 +70778,11 @@
         "doc/cg2d_palette_capability_selection_spec.md#palette-capability-source-state",
         "doc/cg2d_palette_capability_selection_spec.md#evidence-archive-20261011",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state",
-        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance"
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
       ]
     },
     {
@@ -71126,7 +71242,11 @@
         "doc/cg2d_palette_capability_selection_spec.md#palette-capability-source-state",
         "doc/cg2d_palette_capability_selection_spec.md#evidence-archive-20261011",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state",
-        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance"
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
       ]
     },
     {
@@ -71409,7 +71529,11 @@
         "doc/cg2d_palette_capability_selection_spec.md#palette-capability-source-state",
         "doc/cg2d_palette_capability_selection_spec.md#evidence-archive-20261011",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state",
-        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance"
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
       ]
     },
     {
@@ -71973,7 +72097,11 @@
         "doc/cg2d_palette_capability_selection_spec.md#palette-capability-source-state",
         "doc/cg2d_palette_capability_selection_spec.md#evidence-archive-20261011",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state",
-        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance"
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
       ]
     },
     {
@@ -72272,7 +72400,11 @@
         "doc/cg2d_item_drag_entry_callback_spec.md#item-drag-source-state",
         "doc/cg2d_item_drag_entry_callback_spec.md#evidence-archive-20261011",
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state",
-        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance"
+        "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
       ]
     },
     {
@@ -76689,7 +76821,11 @@
         "doc/cg2d_animation_pointer_spec.md#animation-pointer-decision",
         "doc/cg2d_animation_pointer_spec.md#animation-pointer-acceptance",
         "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state",
-        "doc/cg2d_animation_pointer_evidence.json"
+        "doc/cg2d_animation_pointer_evidence.json",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
       ]
     },
     {
@@ -76701,7 +76837,11 @@
         "doc/cg2d_animation_pointer_spec.md#animation-pointer-decision",
         "doc/cg2d_animation_pointer_spec.md#animation-pointer-acceptance",
         "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state",
-        "doc/cg2d_animation_pointer_evidence.json"
+        "doc/cg2d_animation_pointer_evidence.json",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
       ]
     },
     {
@@ -95384,6 +95524,102 @@
         "doc/cg2d_graphic_allocation_release_spec.md#graphic-allocation-source-state"
       ],
       "boundary": "GAP01完整GraphicAlloc4574E0(116条391B，原指令复用ACB01已核存档、不重取全根)与释放457670(19条53B)：两根135条444B/三页、12E8四目标/十一跳三RET。原唯一分配CALL457782父4576B0后TEST EAX，释放CALL457A72父457A40后直接456530；两个邻窗及当前父全源保持不代完整应用初终验。九Info指针逐项rb打开，非空同FILE快照关闭，失败继续，探测后五S32/W32容量常量发布，现正常路径与原同，不改变首次固定20500 P1分配或额外清零撤除ACB01。四真实std::malloc MSVC域：P1返回保存→读当次graphic count→发布P1→按刚读capacity分配P2；P2返回保存→重读当次graphic count→发布P2→按此count分配P3→发布P3；P4数量读当次animate count分配，返回仍持值，先取已发布P1并判空，再发布P4，随后原短路判断P1/P2/P3/持有P4。不把P4发布后从槽再读结果。当前恢复这两容量先于共享pub及P1取样/判断先于P4pub。原任一空失败：仅P1非空时free held P1，随后fresh P2读/判空/free同指针，再fresh P3读/判空/free同指针，返回S32 0；不释放P4、不清任一槽、不释放映射表、不回滚。成功四清零依序P1/P2/P3/P4，P1用之前held P1/先读当次animate count，后各块先读当次对应count再fresh pointer再memset，完整native sizeof原已证布局，非地址S32容量保持。现显式各count/pointer取样以消除C++函数实参求值序未表达，不引异常/溢出模型。success返回S32 1，原父正常处理不变。释放根每块各一次读取P1/P2/P3、判非空再同快照free，前块free后才取后一槽；原P4/图号map索引不释放/三槽不清，现按原保，void仅副作用不伪造残留EAX。malloc申请/数量策略/宿主sizeof按HMU/ACB/DX批准不称原x86字节和失败时机相同；与其余map STL被动owner构析/GraphicInit主表非拥有首见指针和全部场景借用寿命独立。两源五组五定位片段四注释，四已有值/指针类型、九路径/两个stdio提供者、两当前父以及旧ACB01/GRP01/DX原证保持，source code不新建helper/接口/句柄或shadow owner。旧735仅追加、释放新F一、旧处置350只追加/新adapted一；RESOURCE已有alloc成员仅加free，RENDER加两，两限定S零I八open；全部资源内容/owner重入退出/主表mapIndex及P4真实释放责任/SDK/机器ABI/生成读取和画面运行仍未闭。网络原字段LF明文/WAV-only/MSVC保持，不增保护/默认/新钳制/零写/回滚/异常模型，整体未完成。"
+    },
+    {
+      "inventory_id": "F:0005B630",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
+      ],
+      "boundary": "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。"
+    },
+    {
+      "inventory_id": "F:0005B740",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
+      ],
+      "boundary": "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。"
+    },
+    {
+      "inventory_id": "F:0005BEF0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
+      ],
+      "boundary": "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。"
+    },
+    {
+      "inventory_id": "F:0005BF20",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
+      ],
+      "boundary": "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。"
+    },
+    {
+      "inventory_id": "F:0005B530",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
+      ],
+      "boundary": "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。"
+    },
+    {
+      "inventory_id": "F:0005B590",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
+      ],
+      "boundary": "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。"
+    },
+    {
+      "inventory_id": "F:0005B5B0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
+      ],
+      "boundary": "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。"
+    },
+    {
+      "inventory_id": "F:0005B5D0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
+      ],
+      "boundary": "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。"
     }
   ],
   "auxiliary_dispositions": [

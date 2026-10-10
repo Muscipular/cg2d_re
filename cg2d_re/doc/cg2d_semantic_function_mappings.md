@@ -4273,3 +4273,7 @@ X:00143383-00143390的7B实际代码对应Cg2dApplyLegacyConditionalSignX87，�
 既有173/F:00065790绑定唯一真实WinMain与新增私有ResolveWindowResourceInstance。[当前装载/接线](cg2d_startup_flow.md#window-resource-module-source-state-20261009)与[164/605B、11原W16及整源前后态](cg2d_window_resource_module_evidence.json)对应；仅资源实参借资源module，当前instance仍注册新端窗口过程和创建窗口。原SDK共享图标/光标及资源映像进程寿命，现窗类/十一句柄和SetCursor消费保持。
 
 只一CPP新增实际装载器与两实参替换，原ID/重叠存储、启动/协议/文字和SDL3-WAV保持；一adapted处置/三局部STARTUP I/W/S，不增语义或原函数分母。三域补该原WinMain已知成员且枚举false，当前安装文件不代选定IDA原资源基线，权限/格式/匹配/像素热点、SDK正常借用和完整启动运行/退出仍未闭，R8继续。
+
+## 2026-10-11 ACL01：既有开发小步收尾
+
+[当前合同](cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state)纳管十个清理/索引根，新增六语义和八处置；原四语义/两处置仅追加本步依据。总语义2347、F处置1814，仅限定静态，不代表完整功能验收。后续先补缺失，暂停差异核对。

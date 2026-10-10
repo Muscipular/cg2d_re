@@ -1450,7 +1450,7 @@ void Sub_488800(
 WindowInstance* Sub_48A830(
     std::int32_t sourceWindow, std::int32_t sourceElement, std::int32_t imageNo,
     std::int32_t maximum, std::int32_t value14, std::int32_t initialValue,
-    WindowValueCallback callback); // 窗口42发布，回调按原生指针保存。
+    WindowValueCallback callback); // QIP01：窗口42按原两次持址发布；callback原生非拥有，返回先取样。
 std::int32_t Sub_48A8C0(std::int32_t value);
 std::int32_t Sub_48A900(std::int32_t unusedIndex, std::int32_t state);
 std::int32_t Sub_48A950(std::int32_t index, std::int32_t state);

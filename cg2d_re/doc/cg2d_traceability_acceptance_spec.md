@@ -2682,3 +2682,9 @@ IDA数组/结构起点xref不代字段指针；原型实际11callback与旧范�
 [IMT01](cg2d_item_move_request_spec.md#item-move-source-state)补齐丢物请求/直接拆分/模式间移动/数量消费四完整原根310条957B/七页，30E8十五目标/28跳八RET，十七CALL/四后邻及一个callback data持址有据。四正文正确保持，仅八合同注释；原四容量先于格式/输出重读、同mode两次fresh组读取、Ctrl和反转开关、直接source先target/拆分target先source、窗口41/38优先及转义后状态/Y-X发送序保持。原S32返回透传与数量lambda只具名副作用边界，不推完整callback ABI/互通。旧934格式历史追加、三新F四处置/三限定S零I八open；完整输入/数量/数据/缓冲区生产、callback/callee/所有外父和alias-owner寿命、SDK/生成读取/实际操作及运行待，整体未完成。
 
 语义2312=2264F关联+48有界代码记录，函数处置1767/证据1566；INPUT142/UIRUNTIME179/NETWORK97，RENDER101/BATTLE430保持。文档关联预期2374/3680=64.51%仅关联率；184叶验收0、60任务关闭11开放49、六closure及完整门禁保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
+
+## 2026-10-11 QIP01：数量创建合同
+
+[QIP01](cg2d_quantity_window_creation_spec.md#quantity-source-state)补齐数量框创建、展开与窗口42状态发布三个完整原根282条873B/五页；低BYTE flags与两次窗口指针取样两组三处对齐，动画正确正文保持。callback持址、两CryptInt、S16完成判定/W16末增和原失败直发布有据。三新F三adapted、YOBI/UI各三成员，两限定S零I八open；确认/取消/关闭及完整callback/owner/ABI、画面声音与运行待，整体未完成。
+
+语义2315=2267F关联+48有界代码，处置1770/证据1568；YOBI110/UIRUNTIME182，其它保持。文档关联预期2377/3680=64.59%仅关联率。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。

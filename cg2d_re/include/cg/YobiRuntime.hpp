@@ -80,7 +80,7 @@ YobiAction* Sub_48AC60(
     std::int32_t sourceWindow, std::int32_t sourceElement, std::int32_t imageNo,
     std::int32_t maximum, std::int32_t value14, std::int32_t initialValue,
     void (*callback)(std::int32_t), std::uint32_t flags, std::uint32_t mode,
-    std::uint32_t actionFlags);
+    std::uint32_t actionFlags); // QIP01：失败直发布/返回空；低BYTE标志与两CryptInt原序。
 
 // 原窗口41/38的完整展开创建；失败仍发布，kind成功路径按低S16传递。
 YobiAction* Sub_4ABEF0(

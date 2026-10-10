@@ -5430,6 +5430,7 @@ void Sub_47D490()
     gValueD67B00 = 0;
 }
 
+// QIP01：原48A830完整37条；原窗口42复用/开启，元素6图号、状态窗口及返回指针分时取样。
 WindowInstance* Sub_48A830(
     const std::int32_t sourceWindow, const std::int32_t sourceElement,
     const std::int32_t imageNo, const std::int32_t maximum, const std::int32_t value14,
@@ -5442,13 +5443,15 @@ WindowInstance* Sub_48A830(
         gWindowStates[42].window = OpenWindow_471440(42);
     }
     static_cast<WindowGraphicData*>(gWindowStates[42].window->elements[6].data)->imageNo = imageNo;
+    WindowInstance* const stateWindow = gWindowStates[42].window;
     gWindowStates[42].value10 = static_cast<std::uint32_t>(maximum);
     gWindowStates[42].value14 = static_cast<std::uint32_t>(value14);
     gWindowStates[42].userState.callback = callback;
-    gWindowStates[42].window->elements[2].state = static_cast<std::uint32_t>(initialValue);
+    stateWindow->elements[2].state = static_cast<std::uint32_t>(initialValue);
+    WindowInstance* const result = gWindowStates[42].window;
     gWindowStates[42].value20 = static_cast<std::uint32_t>(sourceWindow);
     gWindowStates[42].value24 = static_cast<std::uint32_t>(sourceElement);
-    return gWindowStates[42].window;
+    return result;
 }
 
 std::int32_t Sub_48A8C0(const std::int32_t value)

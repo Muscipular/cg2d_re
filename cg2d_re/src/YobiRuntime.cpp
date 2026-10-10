@@ -1941,6 +1941,7 @@ YobiAction* Sub_475950(
     return action;
 }
 
+// QIP01：原48ABC0完整59条；描边后更新半宽/半高，S16计数>=10发布/标死，再无条件W16自增。
 void Sub_48ABC0(YobiAction* const action)
 {
     auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);
@@ -1977,6 +1978,7 @@ void Sub_48ABC0(YobiAction* const action)
     ++payload->counter;
 }
 
+// QIP01：原48AC60完整186条；actionFlags先发布，旧窗关闭与失败直发布保，低BYTE flags/两CryptInt原序。
 YobiAction* Sub_48AC60(
     const std::int32_t sourceWindow, const std::int32_t sourceElement,
     const std::int32_t imageNo, const std::int32_t maximum, const std::int32_t value14,
@@ -1996,7 +1998,8 @@ YobiAction* Sub_48AC60(
         return nullptr;
     }
     const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[42];
-    const std::uint32_t windowFlags = ui::detail::gWindowStates[42].flags;
+    const auto windowFlags = reinterpret_cast<const unsigned char*>(
+        &ui::detail::gWindowStates[42].flags)[0];
     std::int32_t x = prototype->defaultX;
     std::int32_t y = prototype->defaultY;
     const std::int32_t width = prototype->width;

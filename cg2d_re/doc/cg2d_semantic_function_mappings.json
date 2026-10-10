@@ -233369,6 +233369,361 @@
           }
         ]
       }
+    },
+    {
+      "original_entry": "0x48ac60",
+      "inventory_id": "F:0008AC60",
+      "original_role": "数量框展开创建/原失败直发布及两CryptInt",
+      "original_end_exclusive": "0x48ae9a",
+      "instruction_count": 186,
+      "function_chunks": [
+        {
+          "start": "0x48ac60",
+          "end_exclusive": "0x48ae9a"
+        }
+      ],
+      "status": "QIP01三完整数量创建原根纳管，两组三处；限定S，确认/取消/关闭及全callback/owner/ABI/运行待",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_48AC60"
+          ],
+          "relationship": "QIP01完整数量创建原根，低BYTE/指针取样对齐；原计数/两CryptInt/未写字段保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_48AC60"
+          ],
+          "relationship": "QIP01既有真实声明保持，仅合同注释；原生非拥有callback/返回边界具名"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_quantity_window_creation_spec.md#quantity-baseline",
+        "doc/cg2d_quantity_window_creation_spec.md#quantity-decision",
+        "doc/cg2d_quantity_window_creation_spec.md#quantity-acceptance",
+        "doc/cg2d_quantity_window_creation_spec.md#quantity-source-state",
+        "doc/cg2d_quantity_window_creation_evidence.json"
+      ],
+      "boundary": "QIP01仅数量框创建48AC60/动画48ABC0/发布48A830三个完整原根282条873B/五页。创建actionFlags W32先发布→声56→真实new(3,24H)→旧窗bit15/声57→原失败直接发布并返回空；成功prototype持址先于flags低BYTE→原四S32尺寸→低BYTE flags/低BYTE mode，两CryptInt构造复制析构原序及非拥有callback保持。24H既有WindowOpeningPayload结构不改，不补未写半高/模式其它字段。动画描边四坐标低U16→半宽/半高增量，counter按S16>=10才callback快照→mapY后mapX真实CryptInt读取→七参数发布→标死，末无条件W16自增；现void与原残留EAX分界具名，完整机器ABI/所有调度消费待。发布窗口42已存在清bit15/声57否则真实OpenWindow(42)，图号写elem6→maximum先窗口指针取样→value10/value14/callback→该窗口elem2初值→返回窗口取样→sourceWindow/sourceElement，返回该快照；仅补低BYTE及两个指针取样组三处，不新增保护/清零/默认/回滚/字段/公开helper。四入CALL、各四后邻及一个动画data持址仅来源/局部消费，不代两外父完整或动态callback寿命。当前WAV-only/原命令字段LF明文/MSVC CRT及所有完整门禁保持；数量确认/取消/关闭、共享窗口与载荷owner、生成机器读取/ABI、SDK/声音/画面及实际运行待，整体未完成。",
+      "verification_level": "pass，三连续完整根282条873B/五页，15E8九目标/九跳五RET，四入CALL各四后邻及一个data持址；低BYTE flags/两窗口指针取样，两CryptInt原序、S16完成/W16末增与原失败直发布保；四整源精确回放/两组三处五注释，动画正确正文/六类型六提供者保持；数量确认取消关闭及全callback/owner/ABI/生成机器读取/运行待",
+      "original_incoming": [
+        {
+          "ea": 4753350,
+          "parent": 4753120,
+          "iscode": true,
+          "type": 17,
+          "bytes": "e895240000",
+          "asm": "call    sub_48AC60",
+          "call_target": 4762720,
+          "following": [
+            {
+              "ea": 4753355,
+              "bytes": "83c428",
+              "asm": "add     esp, 28h"
+            },
+            {
+              "ea": 4753358,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            },
+            {
+              "ea": 4753359,
+              "bytes": "5b",
+              "asm": "pop     ebx"
+            },
+            {
+              "ea": 4753360,
+              "bytes": "c3",
+              "asm": "retn"
+            }
+          ]
+        },
+        {
+          "ea": 4754909,
+          "parent": 4754736,
+          "iscode": true,
+          "type": 17,
+          "bytes": "e87e1e0000",
+          "asm": "call    sub_48AC60",
+          "call_target": 4762720,
+          "following": [
+            {
+              "ea": 4754914,
+              "bytes": "83c428",
+              "asm": "add     esp, 28h"
+            },
+            {
+              "ea": 4754917,
+              "bytes": "c744241001000000",
+              "asm": "mov     [esp+14h+var_4], 1"
+            },
+            {
+              "ea": 4754925,
+              "bytes": "8b442410",
+              "asm": "mov     eax, [esp+14h+var_4]"
+            },
+            {
+              "ea": 4754929,
+              "bytes": "8b0d84b7c900",
+              "asm": "mov     ecx, gWindowState.window+0DC8h"
+            }
+          ]
+        }
+      ],
+      "quantity_window_creation": {
+        "step": "QIP01",
+        "source_snapshot": "[#] 补齐数量框创建与状态发布合同",
+        "original_entry": "0x48ac60",
+        "original_end_exclusive": "0x48ae9a",
+        "instruction_count": 186,
+        "code_bytes": 570,
+        "page_count": 3,
+        "direct_calls": 8,
+        "direct_call_targets": [
+          4201664,
+          4201712,
+          4213472,
+          4761648,
+          5424208
+        ],
+        "jumps": 6,
+        "returns": 3,
+        "original_incoming_references": [
+          {
+            "from": 4753350,
+            "type": 17,
+            "iscode": true,
+            "parent": 4753120
+          },
+          {
+            "from": 4754909,
+            "type": 17,
+            "iscode": true,
+            "parent": 4754736
+          }
+        ],
+        "native_signature": "YobiAction* Sub_48AC60(\n    const std::int32_t sourceWindow, const std::int32_t sourceElement,\n    const std::int32_t imageNo, const std::int32_t maximum, const std::int32_t value14,\n    const std::int32_t initialValue, const ui::WindowValueCallback callback,\n    const std::uint32_t flags, const std::uint32_t mode, const std::uint32_t actionFlags)",
+        "source_patch_group_count": 1,
+        "source_changed_point_count": 1,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "真实action指针或失败空指针；两外父完整消费/机器ABI待"
+      }
+    },
+    {
+      "original_entry": "0x48abc0",
+      "inventory_id": "F:0008ABC0",
+      "original_role": "数量框展开动画/计数完成状态发布及标死",
+      "original_end_exclusive": "0x48ac5f",
+      "instruction_count": 59,
+      "function_chunks": [
+        {
+          "start": "0x48abc0",
+          "end_exclusive": "0x48ac5f"
+        }
+      ],
+      "status": "QIP01三完整数量创建原根纳管，两组三处；限定S，确认/取消/关闭及全callback/owner/ABI/运行待",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_48ABC0"
+          ],
+          "relationship": "QIP01完整数量创建原根，低BYTE/指针取样对齐；原计数/两CryptInt/未写字段保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_quantity_window_creation_spec.md#quantity-baseline",
+        "doc/cg2d_quantity_window_creation_spec.md#quantity-decision",
+        "doc/cg2d_quantity_window_creation_spec.md#quantity-acceptance",
+        "doc/cg2d_quantity_window_creation_spec.md#quantity-source-state",
+        "doc/cg2d_quantity_window_creation_evidence.json"
+      ],
+      "boundary": "QIP01仅数量框创建48AC60/动画48ABC0/发布48A830三个完整原根282条873B/五页。创建actionFlags W32先发布→声56→真实new(3,24H)→旧窗bit15/声57→原失败直接发布并返回空；成功prototype持址先于flags低BYTE→原四S32尺寸→低BYTE flags/低BYTE mode，两CryptInt构造复制析构原序及非拥有callback保持。24H既有WindowOpeningPayload结构不改，不补未写半高/模式其它字段。动画描边四坐标低U16→半宽/半高增量，counter按S16>=10才callback快照→mapY后mapX真实CryptInt读取→七参数发布→标死，末无条件W16自增；现void与原残留EAX分界具名，完整机器ABI/所有调度消费待。发布窗口42已存在清bit15/声57否则真实OpenWindow(42)，图号写elem6→maximum先窗口指针取样→value10/value14/callback→该窗口elem2初值→返回窗口取样→sourceWindow/sourceElement，返回该快照；仅补低BYTE及两个指针取样组三处，不新增保护/清零/默认/回滚/字段/公开helper。四入CALL、各四后邻及一个动画data持址仅来源/局部消费，不代两外父完整或动态callback寿命。当前WAV-only/原命令字段LF明文/MSVC CRT及所有完整门禁保持；数量确认/取消/关闭、共享窗口与载荷owner、生成机器读取/ABI、SDK/声音/画面及实际运行待，整体未完成。",
+      "verification_level": "pass，三连续完整根282条873B/五页，15E8九目标/九跳五RET，四入CALL各四后邻及一个data持址；低BYTE flags/两窗口指针取样，两CryptInt原序、S16完成/W16末增与原失败直发布保；四整源精确回放/两组三处五注释，动画正确正文/六类型六提供者保持；数量确认取消关闭及全callback/owner/ABI/生成机器读取/运行待",
+      "original_incoming": [],
+      "quantity_window_creation": {
+        "step": "QIP01",
+        "source_snapshot": "[#] 补齐数量框创建与状态发布合同",
+        "original_entry": "0x48abc0",
+        "original_end_exclusive": "0x48ac5f",
+        "instruction_count": 59,
+        "code_bytes": 159,
+        "page_count": 1,
+        "direct_calls": 5,
+        "direct_call_targets": [
+          4202144,
+          4214016,
+          4761648,
+          5382528
+        ],
+        "jumps": 1,
+        "returns": 1,
+        "original_incoming_references": [
+          {
+            "from": 4762915,
+            "type": 1,
+            "iscode": false,
+            "parent": 4762720
+          }
+        ],
+        "native_signature": "void Sub_48ABC0(YobiAction* const action)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "现void保副作用，原残留EAX不伪造确定值；全调度/ABI待"
+      }
+    },
+    {
+      "original_entry": "0x48a830",
+      "inventory_id": "F:0008A830",
+      "original_role": "窗口42复用或开启/七参数状态发布及返回",
+      "original_end_exclusive": "0x48a8c0",
+      "instruction_count": 37,
+      "function_chunks": [
+        {
+          "start": "0x48a830",
+          "end_exclusive": "0x48a8c0"
+        }
+      ],
+      "status": "QIP01三完整数量创建原根纳管，两组三处；限定S，确认/取消/关闭及全callback/owner/ABI/运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_48A830"
+          ],
+          "relationship": "QIP01完整数量创建原根，低BYTE/指针取样对齐；原计数/两CryptInt/未写字段保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_48A830"
+          ],
+          "relationship": "QIP01既有真实声明保持，仅合同注释；原生非拥有callback/返回边界具名"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_quantity_window_creation_spec.md#quantity-baseline",
+        "doc/cg2d_quantity_window_creation_spec.md#quantity-decision",
+        "doc/cg2d_quantity_window_creation_spec.md#quantity-acceptance",
+        "doc/cg2d_quantity_window_creation_spec.md#quantity-source-state",
+        "doc/cg2d_quantity_window_creation_evidence.json"
+      ],
+      "boundary": "QIP01仅数量框创建48AC60/动画48ABC0/发布48A830三个完整原根282条873B/五页。创建actionFlags W32先发布→声56→真实new(3,24H)→旧窗bit15/声57→原失败直接发布并返回空；成功prototype持址先于flags低BYTE→原四S32尺寸→低BYTE flags/低BYTE mode，两CryptInt构造复制析构原序及非拥有callback保持。24H既有WindowOpeningPayload结构不改，不补未写半高/模式其它字段。动画描边四坐标低U16→半宽/半高增量，counter按S16>=10才callback快照→mapY后mapX真实CryptInt读取→七参数发布→标死，末无条件W16自增；现void与原残留EAX分界具名，完整机器ABI/所有调度消费待。发布窗口42已存在清bit15/声57否则真实OpenWindow(42)，图号写elem6→maximum先窗口指针取样→value10/value14/callback→该窗口elem2初值→返回窗口取样→sourceWindow/sourceElement，返回该快照；仅补低BYTE及两个指针取样组三处，不新增保护/清零/默认/回滚/字段/公开helper。四入CALL、各四后邻及一个动画data持址仅来源/局部消费，不代两外父完整或动态callback寿命。当前WAV-only/原命令字段LF明文/MSVC CRT及所有完整门禁保持；数量确认/取消/关闭、共享窗口与载荷owner、生成机器读取/ABI、SDK/声音/画面及实际运行待，整体未完成。",
+      "verification_level": "pass，三连续完整根282条873B/五页，15E8九目标/九跳五RET，四入CALL各四后邻及一个data持址；低BYTE flags/两窗口指针取样，两CryptInt原序、S16完成/W16末增与原失败直发布保；四整源精确回放/两组三处五注释，动画正确正文/六类型六提供者保持；数量确认取消关闭及全callback/owner/ABI/生成机器读取/运行待",
+      "original_incoming": [
+        {
+          "ea": 4762696,
+          "parent": 4762560,
+          "iscode": true,
+          "type": 17,
+          "bytes": "e8e3fbffff",
+          "asm": "call    sub_48A830",
+          "call_target": 4761648,
+          "following": [
+            {
+              "ea": 4762701,
+              "bytes": "57",
+              "asm": "push    edi"
+            },
+            {
+              "ea": 4762702,
+              "bytes": "e8ada0f7ff",
+              "asm": "call    Yobi__MarkDeath"
+            },
+            {
+              "ea": 4762707,
+              "bytes": "83c420",
+              "asm": "add     esp, 20h"
+            },
+            {
+              "ea": 4762710,
+              "bytes": "66ff4602",
+              "asm": "inc     word ptr [esi+2]"
+            }
+          ]
+        },
+        {
+          "ea": 4762840,
+          "parent": 4762720,
+          "iscode": true,
+          "type": 17,
+          "bytes": "e853fbffff",
+          "asm": "call    sub_48A830",
+          "call_target": 4761648,
+          "following": [
+            {
+              "ea": 4762845,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch"
+            },
+            {
+              "ea": 4762848,
+              "bytes": "33c0",
+              "asm": "xor     eax, eax"
+            },
+            {
+              "ea": 4762850,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            },
+            {
+              "ea": 4762851,
+              "bytes": "5b",
+              "asm": "pop     ebx"
+            }
+          ]
+        }
+      ],
+      "quantity_window_creation": {
+        "step": "QIP01",
+        "source_snapshot": "[#] 补齐数量框创建与状态发布合同",
+        "original_entry": "0x48a830",
+        "original_end_exclusive": "0x48a8c0",
+        "instruction_count": 37,
+        "code_bytes": 144,
+        "page_count": 1,
+        "direct_calls": 2,
+        "direct_call_targets": [
+          4658240,
+          5424208
+        ],
+        "jumps": 2,
+        "returns": 1,
+        "original_incoming_references": [
+          {
+            "from": 4762696,
+            "type": 17,
+            "iscode": true,
+            "parent": 4762560
+          },
+          {
+            "from": 4762840,
+            "type": 17,
+            "iscode": true,
+            "parent": 4762720
+          }
+        ],
+        "native_signature": "WindowInstance* Sub_48A830(\n    const std::int32_t sourceWindow, const std::int32_t sourceElement,\n    const std::int32_t imageNo, const std::int32_t maximum, const std::int32_t value14,\n    const std::int32_t initialValue, const WindowValueCallback callback)",
+        "source_patch_group_count": 1,
+        "source_changed_point_count": 2,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原窗口返回快照保持，两个父discard；全部consumer/ABI待"
+      }
     }
   ]
 }

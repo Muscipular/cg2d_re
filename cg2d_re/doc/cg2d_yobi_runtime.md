@@ -4876,3 +4876,7 @@ primary和BOG插值/原可写表/ftol host职责不改；上界比较→fresh减
 ## 2026-10-10 SEV01：预览双方向旋转
 
 [SEV01](cg2d_selector_button_event_spec.md#selector-event-source-state)补齐页签、预览开关、装备开关及双方向旋转四完整原根352条1028B/八页，九E8五目标/46跳九RET，十入CALL/64B图表有据。四组四处对齐中心取样/descriptor先图号、目标先回调和循环尾selected先推进/count后取；两正确body/五类型/十caller和既有声效接口保持，八注释。原失效宠物索引false早返保开关/回调部分写、双旋转条件独立及两声/方向原余数保持。六CALL仅消费AL、四CALL不消费，未记高位或全机器ABI等价。四新F四处置/四限定S零I/十open；全生产消费、所有外父/callee/alias-owner寿命、实际按钮/声音像素及运行仍待，整体未完成。
+
+## 2026-10-11 QIP01：数量展开创建与完成发布
+
+[QIP01](cg2d_quantity_window_creation_spec.md#quantity-source-state)补齐数量框创建、展开与窗口42状态发布三个完整原根282条873B/五页；低BYTE flags与两次窗口指针取样两组三处对齐，动画正确正文保持。callback持址、两CryptInt、S16完成判定/W16末增和原失败直发布有据。三新F三adapted、YOBI/UI各三成员，两限定S零I八open；确认/取消/关闭及完整callback/owner/ABI、画面声音与运行待，整体未完成。

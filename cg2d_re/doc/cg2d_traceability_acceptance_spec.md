@@ -2766,3 +2766,9 @@ IDA数组/结构起点xref不代字段指针；原型实际11callback与旧范�
 [SRD01](cg2d_storage_reply_dispatch_spec.md#storage-reply-source-state)旧1964历史追加49D2E0完整回复父515条1238B/九页，52E8三十六目标/38跳含三间接分派/30RET及五原表有据。正文正确保，仅两合同注释；三阶段分派、六原存放CALL与四现合并CALL、fresh窗口/creator/global重入及Y-X RNG顺序完整静态核对。BZ当前两bridge/路由保持，一个处置、两限定S零I八open，全部callee/动态owner/机器ABI及互通画面运行待。
 
 语义2333=2285F关联+48有界代码及关联2395/3680=65.08%保持；处置1797/证据1603，NETWORK105/UIRUNTIME207，其它保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
+
+## 2026-10-11 SOA01：完整存放开窗动作合同
+
+[SOA01](cg2d_storage_opening_actions_spec.md#storage-opening-source-state)补齐窗口41/38两个creator及两个完成callback，四完整原根416条1208B/八页、24E8九目标/12跳八RET。恢复两处saved flags BYTE、四CryptInt先取后发布及两个mode1中心X持值，八组八处/六注释；两正确callback、失败同步开窗但仍返空、原S16完成/W16末递增保持。四新F/处置、两限定S零I八open，完整manager/owner/ABI与画面运行待。
+
+语义2337=2289F关联+48有界代码，关联2399/3680=65.19%仅关联率；处置1801/证据1605，UIRUNTIME211/YOBI115，其它保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。

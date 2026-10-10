@@ -85,10 +85,10 @@ YobiAction* Sub_48AC60(
 // 原窗口41/38的完整展开创建；失败仍发布，kind成功路径按低S16传递。
 YobiAction* Sub_4ABEF0(
     std::int32_t kind, std::int32_t value14, std::int32_t userState,
-    std::uint32_t flags, std::uint32_t mode);
+    std::uint32_t flags, std::uint32_t mode); // SOA01：真实action指针，原失败同步开41并返空，低BYTE和临时CryptInt原序保持。
 YobiAction* Sub_4ACE80(
     std::int32_t kind, std::int32_t value14, std::int32_t userState,
-    std::int32_t phase, std::uint32_t flags, std::uint32_t mode);
+    std::int32_t phase, std::uint32_t flags, std::uint32_t mode); // SOA01：真实action指针，原失败同步开38并返空，低BYTE和临时CryptInt原序保持。
 
 // 三种地图角色生产者共用的 x64 payload 分配，不改变通用 404AE0 的尺寸合同。
 YobiAction* NewMapCharaAction();

@@ -1,0 +1,3610 @@
+{
+  "schema_version": 1,
+  "step": "SOA01",
+  "recorded_on": "2026-10-11",
+  "before_snapshot": "[#] 补齐窗口回复父完整分派合同",
+  "after_snapshot": "[#] 对齐存放开窗动作临时值与完成合同",
+  "record_scope": [
+    {
+      "index": 2333,
+      "inventory_id": "F:000ABEF0",
+      "existing": false,
+      "source_index": 0
+    },
+    {
+      "index": 2334,
+      "inventory_id": "F:000ACE80",
+      "existing": false,
+      "source_index": 1
+    },
+    {
+      "index": 2335,
+      "inventory_id": "F:000ABE60",
+      "existing": false,
+      "source_index": 2
+    },
+    {
+      "index": 2336,
+      "inventory_id": "F:000ACDF0",
+      "existing": false,
+      "source_index": 3
+    }
+  ],
+  "original_roots": [
+    {
+      "ea": 4898544,
+      "end": 4899006,
+      "instruction_count": 154,
+      "chunks": [
+        [
+          4898544,
+          4899006
+        ]
+      ],
+      "incoming_references": [
+        {
+          "ea": 4838283,
+          "type": 17,
+          "code": true
+        },
+        {
+          "ea": 4838355,
+          "type": 17,
+          "code": true
+        },
+        {
+          "ea": 4838994,
+          "type": 17,
+          "code": true
+        }
+      ],
+      "byte_count": 462,
+      "page_count": 3,
+      "pages": [
+        {
+          "ea": 4898544,
+          "end": 4899006,
+          "offset": 0,
+          "total": 154,
+          "instructions": [
+            {
+              "ea": 4898544,
+              "size": 3,
+              "bytes": "83ec18",
+              "asm": "sub     esp, 18h",
+              "call_target": null
+            },
+            {
+              "ea": 4898547,
+              "size": 1,
+              "bytes": "57",
+              "asm": "push    edi",
+              "call_target": null
+            },
+            {
+              "ea": 4898548,
+              "size": 5,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h",
+              "call_target": null
+            },
+            {
+              "ea": 4898553,
+              "size": 5,
+              "bytes": "6840010000",
+              "asm": "push    140h",
+              "call_target": null
+            },
+            {
+              "ea": 4898558,
+              "size": 2,
+              "bytes": "6a38",
+              "asm": "push    38h ; '8'",
+              "call_target": null
+            },
+            {
+              "ea": 4898560,
+              "size": 5,
+              "bytes": "e84b050800",
+              "asm": "call    World__PlaySe",
+              "call_target": 5424208
+            },
+            {
+              "ea": 4898565,
+              "size": 2,
+              "bytes": "6a24",
+              "asm": "push    24h ; '$'",
+              "call_target": null
+            },
+            {
+              "ea": 4898567,
+              "size": 2,
+              "bytes": "6a03",
+              "asm": "push    3",
+              "call_target": null
+            },
+            {
+              "ea": 4898569,
+              "size": 5,
+              "bytes": "e8d28bf5ff",
+              "asm": "call    YobiAction__new",
+              "call_target": 4213472
+            },
+            {
+              "ea": 4898574,
+              "size": 2,
+              "bytes": "8bf8",
+              "asm": "mov     edi, eax",
+              "call_target": null
+            },
+            {
+              "ea": 4898576,
+              "size": 2,
+              "bytes": "33d2",
+              "asm": "xor     edx, edx",
+              "call_target": null
+            },
+            {
+              "ea": 4898578,
+              "size": 3,
+              "bytes": "83c414",
+              "asm": "add     esp, 14h",
+              "call_target": null
+            },
+            {
+              "ea": 4898581,
+              "size": 2,
+              "bytes": "3bfa",
+              "asm": "cmp     edi, edx",
+              "call_target": null
+            },
+            {
+              "ea": 4898583,
+              "size": 2,
+              "bytes": "751e",
+              "asm": "jnz     short loc_4ABF37",
+              "call_target": null
+            },
+            {
+              "ea": 4898585,
+              "size": 4,
+              "bytes": "8b442428",
+              "asm": "mov     eax, [esp+1Ch+arg_8]",
+              "call_target": null
+            },
+            {
+              "ea": 4898589,
+              "size": 4,
+              "bytes": "8b4c2424",
+              "asm": "mov     ecx, [esp+1Ch+arg_4]",
+              "call_target": null
+            },
+            {
+              "ea": 4898593,
+              "size": 4,
+              "bytes": "8b542420",
+              "asm": "mov     edx, [esp+1Ch+arg_0]",
+              "call_target": null
+            },
+            {
+              "ea": 4898597,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax",
+              "call_target": null
+            },
+            {
+              "ea": 4898598,
+              "size": 1,
+              "bytes": "51",
+              "asm": "push    ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4898599,
+              "size": 1,
+              "bytes": "52",
+              "asm": "push    edx",
+              "call_target": null
+            },
+            {
+              "ea": 4898600,
+              "size": 5,
+              "bytes": "e873c4ffff",
+              "asm": "call    sub_4A83A0",
+              "call_target": 4883360
+            },
+            {
+              "ea": 4898605,
+              "size": 3,
+              "bytes": "83c40c",
+              "asm": "add     esp, 0Ch",
+              "call_target": null
+            },
+            {
+              "ea": 4898608,
+              "size": 2,
+              "bytes": "33c0",
+              "asm": "xor     eax, eax",
+              "call_target": null
+            },
+            {
+              "ea": 4898610,
+              "size": 1,
+              "bytes": "5f",
+              "asm": "pop     edi",
+              "call_target": null
+            },
+            {
+              "ea": 4898611,
+              "size": 3,
+              "bytes": "83c418",
+              "asm": "add     esp, 18h",
+              "call_target": null
+            },
+            {
+              "ea": 4898614,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn",
+              "call_target": null
+            },
+            {
+              "ea": 4898615,
+              "size": 5,
+              "bytes": "a1d4c15700",
+              "asm": "mov     eax, gWindowProto+0A4h",
+              "call_target": null
+            },
+            {
+              "ea": 4898620,
+              "size": 1,
+              "bytes": "53",
+              "asm": "push    ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4898621,
+              "size": 7,
+              "bytes": "f60524b7c90001",
+              "asm": "test    byte ptr gWindowState.flag+0D74h, 1",
+              "call_target": null
+            },
+            {
+              "ea": 4898628,
+              "size": 3,
+              "bytes": "8b580c",
+              "asm": "mov     ebx, [eax+0Ch]",
+              "call_target": null
+            },
+            {
+              "ea": 4898631,
+              "size": 3,
+              "bytes": "8b4810",
+              "asm": "mov     ecx, [eax+10h]",
+              "call_target": null
+            },
+            {
+              "ea": 4898634,
+              "size": 1,
+              "bytes": "55",
+              "asm": "push    ebp",
+              "call_target": null
+            },
+            {
+              "ea": 4898635,
+              "size": 3,
+              "bytes": "8b6808",
+              "asm": "mov     ebp, [eax+8]",
+              "call_target": null
+            },
+            {
+              "ea": 4898638,
+              "size": 3,
+              "bytes": "8b4014",
+              "asm": "mov     eax, [eax+14h]",
+              "call_target": null
+            },
+            {
+              "ea": 4898641,
+              "size": 1,
+              "bytes": "56",
+              "asm": "push    esi",
+              "call_target": null
+            },
+            {
+              "ea": 4898642,
+              "size": 4,
+              "bytes": "894c2410",
+              "asm": "mov     [esp+28h+var_18], ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4898646,
+              "size": 4,
+              "bytes": "89442414",
+              "asm": "mov     [esp+28h+var_14], eax",
+              "call_target": null
+            },
+            {
+              "ea": 4898650,
+              "size": 2,
+              "bytes": "740c",
+              "asm": "jz      short loc_4ABF68",
+              "call_target": null
+            },
+            {
+              "ea": 4898652,
+              "size": 6,
+              "bytes": "8b2d28b7c900",
+              "asm": "mov     ebp, gWindowState.x+0D74h",
+              "call_target": null
+            },
+            {
+              "ea": 4898658,
+              "size": 6,
+              "bytes": "8b1d2cb7c900",
+              "asm": "mov     ebx, gWindowState.y+0D74h",
+              "call_target": null
+            },
+            {
+              "ea": 4898664,
+              "size": 3,
+              "bytes": "8b770c",
+              "asm": "mov     esi, [edi+0Ch]",
+              "call_target": null
+            },
+            {
+              "ea": 4898667,
+              "size": 4,
+              "bytes": "834f2406",
+              "asm": "or      dword ptr [edi+24h], 6",
+              "call_target": null
+            },
+            {
+              "ea": 4898671,
+              "size": 7,
+              "bytes": "c7470860be4a00",
+              "asm": "mov     dword ptr [edi+8], offset sub_4ABE60",
+              "call_target": null
+            },
+            {
+              "ea": 4898678,
+              "size": 4,
+              "bytes": "c64715df",
+              "asm": "mov     byte ptr [edi+15h], 0DFh",
+              "call_target": null
+            },
+            {
+              "ea": 4898682,
+              "size": 3,
+              "bytes": "89561c",
+              "asm": "mov     [esi+1Ch], edx",
+              "call_target": null
+            },
+            {
+              "ea": 4898685,
+              "size": 4,
+              "bytes": "66895620",
+              "asm": "mov     [esi+20h], dx",
+              "call_target": null
+            },
+            {
+              "ea": 4898689,
+              "size": 5,
+              "bytes": "f644243801",
+              "asm": "test    [esp+28h+arg_C], 1",
+              "call_target": null
+            },
+            {
+              "ea": 4898694,
+              "size": 2,
+              "bytes": "7406",
+              "asm": "jz      short loc_4ABF8E",
+              "call_target": null
+            },
+            {
+              "ea": 4898696,
+              "size": 6,
+              "bytes": "66c746200100",
+              "asm": "mov     word ptr [esi+20h], 1",
+              "call_target": null
+            },
+            {
+              "ea": 4898702,
+              "size": 3,
+              "bytes": "896f30",
+              "asm": "mov     [edi+30h], ebp",
+              "call_target": null
+            },
+            {
+              "ea": 4898705,
+              "size": 3,
+              "bytes": "895f34",
+              "asm": "mov     [edi+34h], ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4898708,
+              "size": 3,
+              "bytes": "894e04",
+              "asm": "mov     [esi+4], ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4898711,
+              "size": 4,
+              "bytes": "8b4c2430",
+              "asm": "mov     ecx, [esp+28h+arg_4]",
+              "call_target": null
+            },
+            {
+              "ea": 4898715,
+              "size": 3,
+              "bytes": "894608",
+              "asm": "mov     [esi+8], eax",
+              "call_target": null
+            },
+            {
+              "ea": 4898718,
+              "size": 5,
+              "bytes": "668b44242c",
+              "asm": "mov     ax, word ptr [esp+28h+arg_0]",
+              "call_target": null
+            },
+            {
+              "ea": 4898723,
+              "size": 1,
+              "bytes": "51",
+              "asm": "push    ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4898724,
+              "size": 4,
+              "bytes": "8d4c241c",
+              "asm": "lea     ecx, [esp+2Ch+var_10]",
+              "call_target": null
+            },
+            {
+              "ea": 4898728,
+              "size": 3,
+              "bytes": "668906",
+              "asm": "mov     [esi], ax",
+              "call_target": null
+            },
+            {
+              "ea": 4898731,
+              "size": 5,
+              "bytes": "e8105df5ff",
+              "asm": "call    CryptInt_Init",
+              "call_target": 4201664
+            },
+            {
+              "ea": 4898736,
+              "size": 4,
+              "bytes": "8a4c2424",
+              "asm": "mov     cl, [esp+28h+var_4]",
+              "call_target": null
+            },
+            {
+              "ea": 4898740,
+              "size": 4,
+              "bytes": "8b54241c",
+              "asm": "mov     edx, [esp+28h+var_C]",
+              "call_target": null
+            },
+            {
+              "ea": 4898744,
+              "size": 4,
+              "bytes": "8b442420",
+              "asm": "mov     eax, [esp+28h+var_8]",
+              "call_target": null
+            },
+            {
+              "ea": 4898748,
+              "size": 6,
+              "bytes": "888fec010000",
+              "asm": "mov     [edi+1ECh], cl",
+              "call_target": null
+            },
+            {
+              "ea": 4898754,
+              "size": 4,
+              "bytes": "8d4c2418",
+              "asm": "lea     ecx, [esp+28h+var_10]",
+              "call_target": null
+            }
+          ]
+        },
+        {
+          "ea": 4898544,
+          "end": 4899006,
+          "offset": 64,
+          "total": 154,
+          "instructions": [
+            {
+              "ea": 4898758,
+              "size": 6,
+              "bytes": "8997e4010000",
+              "asm": "mov     [edi+1E4h], edx",
+              "call_target": null
+            },
+            {
+              "ea": 4898764,
+              "size": 6,
+              "bytes": "8987e8010000",
+              "asm": "mov     [edi+1E8h], eax",
+              "call_target": null
+            },
+            {
+              "ea": 4898770,
+              "size": 5,
+              "bytes": "e8195df5ff",
+              "asm": "call    CryptInt_delete",
+              "call_target": 4201712
+            },
+            {
+              "ea": 4898775,
+              "size": 4,
+              "bytes": "8b542434",
+              "asm": "mov     edx, [esp+28h+arg_8]",
+              "call_target": null
+            },
+            {
+              "ea": 4898779,
+              "size": 4,
+              "bytes": "8d4c2418",
+              "asm": "lea     ecx, [esp+28h+var_10]",
+              "call_target": null
+            },
+            {
+              "ea": 4898783,
+              "size": 1,
+              "bytes": "52",
+              "asm": "push    edx",
+              "call_target": null
+            },
+            {
+              "ea": 4898784,
+              "size": 5,
+              "bytes": "e8db5cf5ff",
+              "asm": "call    CryptInt_Init",
+              "call_target": 4201664
+            },
+            {
+              "ea": 4898789,
+              "size": 4,
+              "bytes": "8b4c2420",
+              "asm": "mov     ecx, [esp+28h+var_8]",
+              "call_target": null
+            },
+            {
+              "ea": 4898793,
+              "size": 4,
+              "bytes": "8b44241c",
+              "asm": "mov     eax, [esp+28h+var_C]",
+              "call_target": null
+            },
+            {
+              "ea": 4898797,
+              "size": 4,
+              "bytes": "8a542424",
+              "asm": "mov     dl, [esp+28h+var_4]",
+              "call_target": null
+            },
+            {
+              "ea": 4898801,
+              "size": 6,
+              "bytes": "898ff8010000",
+              "asm": "mov     [edi+1F8h], ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4898807,
+              "size": 4,
+              "bytes": "8d4c2418",
+              "asm": "lea     ecx, [esp+28h+var_10]",
+              "call_target": null
+            },
+            {
+              "ea": 4898811,
+              "size": 6,
+              "bytes": "8987f4010000",
+              "asm": "mov     [edi+1F4h], eax",
+              "call_target": null
+            },
+            {
+              "ea": 4898817,
+              "size": 6,
+              "bytes": "8897fc010000",
+              "asm": "mov     [edi+1FCh], dl",
+              "call_target": null
+            },
+            {
+              "ea": 4898823,
+              "size": 5,
+              "bytes": "e8e45cf5ff",
+              "asm": "call    CryptInt_delete",
+              "call_target": 4201712
+            },
+            {
+              "ea": 4898828,
+              "size": 4,
+              "bytes": "8a44243c",
+              "asm": "mov     al, [esp+28h+arg_10]",
+              "call_target": null
+            },
+            {
+              "ea": 4898832,
+              "size": 2,
+              "bytes": "33c9",
+              "asm": "xor     ecx, ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4898834,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al",
+              "call_target": null
+            },
+            {
+              "ea": 4898836,
+              "size": 4,
+              "bytes": "66894e02",
+              "asm": "mov     [esi+2], cx",
+              "call_target": null
+            },
+            {
+              "ea": 4898840,
+              "size": 2,
+              "bytes": "754a",
+              "asm": "jnz     short loc_4AC064",
+              "call_target": null
+            },
+            {
+              "ea": 4898842,
+              "size": 4,
+              "bytes": "8b442410",
+              "asm": "mov     eax, [esp+28h+var_18]",
+              "call_target": null
+            },
+            {
+              "ea": 4898846,
+              "size": 1,
+              "bytes": "99",
+              "asm": "cdq",
+              "call_target": null
+            },
+            {
+              "ea": 4898847,
+              "size": 2,
+              "bytes": "2bc2",
+              "asm": "sub     eax, edx",
+              "call_target": null
+            },
+            {
+              "ea": 4898849,
+              "size": 2,
+              "bytes": "d1f8",
+              "asm": "sar     eax, 1",
+              "call_target": null
+            },
+            {
+              "ea": 4898851,
+              "size": 2,
+              "bytes": "03c5",
+              "asm": "add     eax, ebp",
+              "call_target": null
+            },
+            {
+              "ea": 4898853,
+              "size": 3,
+              "bytes": "89460c",
+              "asm": "mov     [esi+0Ch], eax",
+              "call_target": null
+            },
+            {
+              "ea": 4898856,
+              "size": 4,
+              "bytes": "8b442414",
+              "asm": "mov     eax, [esp+28h+var_14]",
+              "call_target": null
+            },
+            {
+              "ea": 4898860,
+              "size": 1,
+              "bytes": "99",
+              "asm": "cdq",
+              "call_target": null
+            },
+            {
+              "ea": 4898861,
+              "size": 2,
+              "bytes": "2bc2",
+              "asm": "sub     eax, edx",
+              "call_target": null
+            },
+            {
+              "ea": 4898863,
+              "size": 2,
+              "bytes": "d1f8",
+              "asm": "sar     eax, 1",
+              "call_target": null
+            },
+            {
+              "ea": 4898865,
+              "size": 2,
+              "bytes": "03c3",
+              "asm": "add     eax, ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4898867,
+              "size": 3,
+              "bytes": "894610",
+              "asm": "mov     [esi+10h], eax",
+              "call_target": null
+            },
+            {
+              "ea": 4898870,
+              "size": 3,
+              "bytes": "894f38",
+              "asm": "mov     [edi+38h], ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4898873,
+              "size": 3,
+              "bytes": "8b4e10",
+              "asm": "mov     ecx, [esi+10h]",
+              "call_target": null
+            },
+            {
+              "ea": 4898876,
+              "size": 5,
+              "bytes": "b867666666",
+              "asm": "mov     eax, 66666667h",
+              "call_target": null
+            },
+            {
+              "ea": 4898881,
+              "size": 2,
+              "bytes": "2bcb",
+              "asm": "sub     ecx, ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4898883,
+              "size": 2,
+              "bytes": "f7e9",
+              "asm": "imul    ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4898885,
+              "size": 3,
+              "bytes": "c1fa02",
+              "asm": "sar     edx, 2",
+              "call_target": null
+            },
+            {
+              "ea": 4898888,
+              "size": 2,
+              "bytes": "8bc2",
+              "asm": "mov     eax, edx",
+              "call_target": null
+            },
+            {
+              "ea": 4898890,
+              "size": 3,
+              "bytes": "c1e81f",
+              "asm": "shr     eax, 1Fh",
+              "call_target": null
+            },
+            {
+              "ea": 4898893,
+              "size": 2,
+              "bytes": "03d0",
+              "asm": "add     edx, eax",
+              "call_target": null
+            },
+            {
+              "ea": 4898895,
+              "size": 2,
+              "bytes": "8bc7",
+              "asm": "mov     eax, edi",
+              "call_target": null
+            },
+            {
+              "ea": 4898897,
+              "size": 3,
+              "bytes": "89573c",
+              "asm": "mov     [edi+3Ch], edx",
+              "call_target": null
+            },
+            {
+              "ea": 4898900,
+              "size": 3,
+              "bytes": "8b4e0c",
+              "asm": "mov     ecx, [esi+0Ch]",
+              "call_target": null
+            },
+            {
+              "ea": 4898903,
+              "size": 2,
+              "bytes": "2bcd",
+              "asm": "sub     ecx, ebp",
+              "call_target": null
+            },
+            {
+              "ea": 4898905,
+              "size": 3,
+              "bytes": "894e14",
+              "asm": "mov     [esi+14h], ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4898908,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi",
+              "call_target": null
+            },
+            {
+              "ea": 4898909,
+              "size": 1,
+              "bytes": "5d",
+              "asm": "pop     ebp",
+              "call_target": null
+            },
+            {
+              "ea": 4898910,
+              "size": 1,
+              "bytes": "5b",
+              "asm": "pop     ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4898911,
+              "size": 1,
+              "bytes": "5f",
+              "asm": "pop     edi",
+              "call_target": null
+            },
+            {
+              "ea": 4898912,
+              "size": 3,
+              "bytes": "83c418",
+              "asm": "add     esp, 18h",
+              "call_target": null
+            },
+            {
+              "ea": 4898915,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn",
+              "call_target": null
+            },
+            {
+              "ea": 4898916,
+              "size": 2,
+              "bytes": "3c01",
+              "asm": "cmp     al, 1",
+              "call_target": null
+            },
+            {
+              "ea": 4898918,
+              "size": 2,
+              "bytes": "754c",
+              "asm": "jnz     short loc_4AC0B4",
+              "call_target": null
+            },
+            {
+              "ea": 4898920,
+              "size": 4,
+              "bytes": "8b442410",
+              "asm": "mov     eax, [esp+28h+var_18]",
+              "call_target": null
+            },
+            {
+              "ea": 4898924,
+              "size": 1,
+              "bytes": "99",
+              "asm": "cdq",
+              "call_target": null
+            },
+            {
+              "ea": 4898925,
+              "size": 2,
+              "bytes": "2bc2",
+              "asm": "sub     eax, edx",
+              "call_target": null
+            },
+            {
+              "ea": 4898927,
+              "size": 2,
+              "bytes": "d1f8",
+              "asm": "sar     eax, 1",
+              "call_target": null
+            },
+            {
+              "ea": 4898929,
+              "size": 3,
+              "bytes": "8d0c28",
+              "asm": "lea     ecx, [eax+ebp]",
+              "call_target": null
+            },
+            {
+              "ea": 4898932,
+              "size": 4,
+              "bytes": "8b442414",
+              "asm": "mov     eax, [esp+28h+var_14]",
+              "call_target": null
+            },
+            {
+              "ea": 4898936,
+              "size": 1,
+              "bytes": "99",
+              "asm": "cdq",
+              "call_target": null
+            },
+            {
+              "ea": 4898937,
+              "size": 2,
+              "bytes": "2bc2",
+              "asm": "sub     eax, edx",
+              "call_target": null
+            },
+            {
+              "ea": 4898939,
+              "size": 3,
+              "bytes": "894e0c",
+              "asm": "mov     [esi+0Ch], ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4898942,
+              "size": 2,
+              "bytes": "d1f8",
+              "asm": "sar     eax, 1",
+              "call_target": null
+            }
+          ]
+        },
+        {
+          "ea": 4898544,
+          "end": 4899006,
+          "offset": 128,
+          "total": 154,
+          "instructions": [
+            {
+              "ea": 4898944,
+              "size": 2,
+              "bytes": "03c3",
+              "asm": "add     eax, ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4898946,
+              "size": 2,
+              "bytes": "2bcd",
+              "asm": "sub     ecx, ebp",
+              "call_target": null
+            },
+            {
+              "ea": 4898948,
+              "size": 3,
+              "bytes": "894610",
+              "asm": "mov     [esi+10h], eax",
+              "call_target": null
+            },
+            {
+              "ea": 4898951,
+              "size": 5,
+              "bytes": "b867666666",
+              "asm": "mov     eax, 66666667h",
+              "call_target": null
+            },
+            {
+              "ea": 4898956,
+              "size": 2,
+              "bytes": "f7e9",
+              "asm": "imul    ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4898958,
+              "size": 3,
+              "bytes": "c1fa02",
+              "asm": "sar     edx, 2",
+              "call_target": null
+            },
+            {
+              "ea": 4898961,
+              "size": 2,
+              "bytes": "8bc2",
+              "asm": "mov     eax, edx",
+              "call_target": null
+            },
+            {
+              "ea": 4898963,
+              "size": 3,
+              "bytes": "c1e81f",
+              "asm": "shr     eax, 1Fh",
+              "call_target": null
+            },
+            {
+              "ea": 4898966,
+              "size": 2,
+              "bytes": "03d0",
+              "asm": "add     edx, eax",
+              "call_target": null
+            },
+            {
+              "ea": 4898968,
+              "size": 5,
+              "bytes": "b867666666",
+              "asm": "mov     eax, 66666667h",
+              "call_target": null
+            },
+            {
+              "ea": 4898973,
+              "size": 3,
+              "bytes": "895738",
+              "asm": "mov     [edi+38h], edx",
+              "call_target": null
+            },
+            {
+              "ea": 4898976,
+              "size": 3,
+              "bytes": "8b7610",
+              "asm": "mov     esi, [esi+10h]",
+              "call_target": null
+            },
+            {
+              "ea": 4898979,
+              "size": 2,
+              "bytes": "2bf3",
+              "asm": "sub     esi, ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4898981,
+              "size": 2,
+              "bytes": "f7ee",
+              "asm": "imul    esi",
+              "call_target": null
+            },
+            {
+              "ea": 4898983,
+              "size": 3,
+              "bytes": "c1fa02",
+              "asm": "sar     edx, 2",
+              "call_target": null
+            },
+            {
+              "ea": 4898986,
+              "size": 2,
+              "bytes": "8bca",
+              "asm": "mov     ecx, edx",
+              "call_target": null
+            },
+            {
+              "ea": 4898988,
+              "size": 3,
+              "bytes": "c1e91f",
+              "asm": "shr     ecx, 1Fh",
+              "call_target": null
+            },
+            {
+              "ea": 4898991,
+              "size": 2,
+              "bytes": "03d1",
+              "asm": "add     edx, ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4898993,
+              "size": 3,
+              "bytes": "89573c",
+              "asm": "mov     [edi+3Ch], edx",
+              "call_target": null
+            },
+            {
+              "ea": 4898996,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi",
+              "call_target": null
+            },
+            {
+              "ea": 4898997,
+              "size": 1,
+              "bytes": "5d",
+              "asm": "pop     ebp",
+              "call_target": null
+            },
+            {
+              "ea": 4898998,
+              "size": 2,
+              "bytes": "8bc7",
+              "asm": "mov     eax, edi",
+              "call_target": null
+            },
+            {
+              "ea": 4899000,
+              "size": 1,
+              "bytes": "5b",
+              "asm": "pop     ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4899001,
+              "size": 1,
+              "bytes": "5f",
+              "asm": "pop     edi",
+              "call_target": null
+            },
+            {
+              "ea": 4899002,
+              "size": 3,
+              "bytes": "83c418",
+              "asm": "add     esp, 18h",
+              "call_target": null
+            },
+            {
+              "ea": 4899005,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn",
+              "call_target": null
+            }
+          ]
+        }
+      ],
+      "inbound_calls": [
+        {
+          "ea": 4838283,
+          "parent": 4838112,
+          "type": 17,
+          "code": true,
+          "bytes": "e860eb0000",
+          "asm": "call    sub_4ABEF0"
+        },
+        {
+          "ea": 4838355,
+          "parent": 4838112,
+          "type": 17,
+          "code": true,
+          "bytes": "e818eb0000",
+          "asm": "call    sub_4ABEF0"
+        },
+        {
+          "ea": 4838994,
+          "parent": 4838112,
+          "type": 17,
+          "code": true,
+          "bytes": "e899e80000",
+          "asm": "call    sub_4ABEF0"
+        }
+      ],
+      "incoming_offset_references": []
+    },
+    {
+      "ea": 4902528,
+      "end": 4903002,
+      "instruction_count": 158,
+      "chunks": [
+        [
+          4902528,
+          4903002
+        ]
+      ],
+      "incoming_references": [
+        {
+          "ea": 4838429,
+          "type": 17,
+          "code": true
+        },
+        {
+          "ea": 4839225,
+          "type": 17,
+          "code": true
+        }
+      ],
+      "byte_count": 474,
+      "page_count": 3,
+      "pages": [
+        {
+          "ea": 4902528,
+          "end": 4903002,
+          "offset": 0,
+          "total": 158,
+          "instructions": [
+            {
+              "ea": 4902528,
+              "size": 3,
+              "bytes": "83ec18",
+              "asm": "sub     esp, 18h",
+              "call_target": null
+            },
+            {
+              "ea": 4902531,
+              "size": 1,
+              "bytes": "56",
+              "asm": "push    esi",
+              "call_target": null
+            },
+            {
+              "ea": 4902532,
+              "size": 5,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h",
+              "call_target": null
+            },
+            {
+              "ea": 4902537,
+              "size": 5,
+              "bytes": "6840010000",
+              "asm": "push    140h",
+              "call_target": null
+            },
+            {
+              "ea": 4902542,
+              "size": 2,
+              "bytes": "6a38",
+              "asm": "push    38h ; '8'",
+              "call_target": null
+            },
+            {
+              "ea": 4902544,
+              "size": 5,
+              "bytes": "e8bbf50700",
+              "asm": "call    World__PlaySe",
+              "call_target": 5424208
+            },
+            {
+              "ea": 4902549,
+              "size": 2,
+              "bytes": "6a24",
+              "asm": "push    24h ; '$'",
+              "call_target": null
+            },
+            {
+              "ea": 4902551,
+              "size": 2,
+              "bytes": "6a03",
+              "asm": "push    3",
+              "call_target": null
+            },
+            {
+              "ea": 4902553,
+              "size": 5,
+              "bytes": "e8427cf5ff",
+              "asm": "call    YobiAction__new",
+              "call_target": 4213472
+            },
+            {
+              "ea": 4902558,
+              "size": 2,
+              "bytes": "8bf0",
+              "asm": "mov     esi, eax",
+              "call_target": null
+            },
+            {
+              "ea": 4902560,
+              "size": 2,
+              "bytes": "33d2",
+              "asm": "xor     edx, edx",
+              "call_target": null
+            },
+            {
+              "ea": 4902562,
+              "size": 3,
+              "bytes": "83c414",
+              "asm": "add     esp, 14h",
+              "call_target": null
+            },
+            {
+              "ea": 4902565,
+              "size": 2,
+              "bytes": "3bf2",
+              "asm": "cmp     esi, edx",
+              "call_target": null
+            },
+            {
+              "ea": 4902567,
+              "size": 2,
+              "bytes": "7523",
+              "asm": "jnz     short loc_4ACECC",
+              "call_target": null
+            },
+            {
+              "ea": 4902569,
+              "size": 4,
+              "bytes": "8b44242c",
+              "asm": "mov     eax, [esp+1Ch+arg_C]",
+              "call_target": null
+            },
+            {
+              "ea": 4902573,
+              "size": 4,
+              "bytes": "8b4c2428",
+              "asm": "mov     ecx, [esp+1Ch+arg_8]",
+              "call_target": null
+            },
+            {
+              "ea": 4902577,
+              "size": 4,
+              "bytes": "8b542424",
+              "asm": "mov     edx, [esp+1Ch+arg_4]",
+              "call_target": null
+            },
+            {
+              "ea": 4902581,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax",
+              "call_target": null
+            },
+            {
+              "ea": 4902582,
+              "size": 4,
+              "bytes": "8b442424",
+              "asm": "mov     eax, [esp+20h+arg_0]",
+              "call_target": null
+            },
+            {
+              "ea": 4902586,
+              "size": 1,
+              "bytes": "51",
+              "asm": "push    ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4902587,
+              "size": 1,
+              "bytes": "52",
+              "asm": "push    edx",
+              "call_target": null
+            },
+            {
+              "ea": 4902588,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax",
+              "call_target": null
+            },
+            {
+              "ea": 4902589,
+              "size": 5,
+              "bytes": "e8fef1ffff",
+              "asm": "call    sub_4AC0C0",
+              "call_target": 4899008
+            },
+            {
+              "ea": 4902594,
+              "size": 3,
+              "bytes": "83c410",
+              "asm": "add     esp, 10h",
+              "call_target": null
+            },
+            {
+              "ea": 4902597,
+              "size": 2,
+              "bytes": "33c0",
+              "asm": "xor     eax, eax",
+              "call_target": null
+            },
+            {
+              "ea": 4902599,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi",
+              "call_target": null
+            },
+            {
+              "ea": 4902600,
+              "size": 3,
+              "bytes": "83c418",
+              "asm": "add     esp, 18h",
+              "call_target": null
+            },
+            {
+              "ea": 4902603,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn",
+              "call_target": null
+            },
+            {
+              "ea": 4902604,
+              "size": 5,
+              "bytes": "a1c8c15700",
+              "asm": "mov     eax, gWindowProto+98h",
+              "call_target": null
+            },
+            {
+              "ea": 4902609,
+              "size": 1,
+              "bytes": "53",
+              "asm": "push    ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4902610,
+              "size": 7,
+              "bytes": "f60528b6c90001",
+              "asm": "test    byte ptr gWindowState.flag+0C78h, 1",
+              "call_target": null
+            },
+            {
+              "ea": 4902617,
+              "size": 3,
+              "bytes": "8b580c",
+              "asm": "mov     ebx, [eax+0Ch]",
+              "call_target": null
+            },
+            {
+              "ea": 4902620,
+              "size": 3,
+              "bytes": "8b4810",
+              "asm": "mov     ecx, [eax+10h]",
+              "call_target": null
+            },
+            {
+              "ea": 4902623,
+              "size": 1,
+              "bytes": "55",
+              "asm": "push    ebp",
+              "call_target": null
+            },
+            {
+              "ea": 4902624,
+              "size": 3,
+              "bytes": "8b6808",
+              "asm": "mov     ebp, [eax+8]",
+              "call_target": null
+            },
+            {
+              "ea": 4902627,
+              "size": 3,
+              "bytes": "8b4014",
+              "asm": "mov     eax, [eax+14h]",
+              "call_target": null
+            },
+            {
+              "ea": 4902630,
+              "size": 1,
+              "bytes": "57",
+              "asm": "push    edi",
+              "call_target": null
+            },
+            {
+              "ea": 4902631,
+              "size": 4,
+              "bytes": "894c2410",
+              "asm": "mov     [esp+28h+var_18], ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4902635,
+              "size": 4,
+              "bytes": "89442414",
+              "asm": "mov     [esp+28h+var_14], eax",
+              "call_target": null
+            },
+            {
+              "ea": 4902639,
+              "size": 2,
+              "bytes": "740c",
+              "asm": "jz      short loc_4ACEFD",
+              "call_target": null
+            },
+            {
+              "ea": 4902641,
+              "size": 6,
+              "bytes": "8b2d2cb6c900",
+              "asm": "mov     ebp, gWindowState.x+0C78h",
+              "call_target": null
+            },
+            {
+              "ea": 4902647,
+              "size": 6,
+              "bytes": "8b1d30b6c900",
+              "asm": "mov     ebx, gWindowState.y+0C78h",
+              "call_target": null
+            },
+            {
+              "ea": 4902653,
+              "size": 3,
+              "bytes": "8b7e0c",
+              "asm": "mov     edi, [esi+0Ch]",
+              "call_target": null
+            },
+            {
+              "ea": 4902656,
+              "size": 4,
+              "bytes": "834e2406",
+              "asm": "or      dword ptr [esi+24h], 6",
+              "call_target": null
+            },
+            {
+              "ea": 4902660,
+              "size": 7,
+              "bytes": "c74608f0cd4a00",
+              "asm": "mov     dword ptr [esi+8], offset sub_4ACDF0",
+              "call_target": null
+            },
+            {
+              "ea": 4902667,
+              "size": 4,
+              "bytes": "c64615df",
+              "asm": "mov     byte ptr [esi+15h], 0DFh",
+              "call_target": null
+            },
+            {
+              "ea": 4902671,
+              "size": 3,
+              "bytes": "89571c",
+              "asm": "mov     [edi+1Ch], edx",
+              "call_target": null
+            },
+            {
+              "ea": 4902674,
+              "size": 4,
+              "bytes": "66895720",
+              "asm": "mov     [edi+20h], dx",
+              "call_target": null
+            },
+            {
+              "ea": 4902678,
+              "size": 5,
+              "bytes": "f644243c01",
+              "asm": "test    [esp+28h+arg_10], 1",
+              "call_target": null
+            },
+            {
+              "ea": 4902683,
+              "size": 2,
+              "bytes": "7406",
+              "asm": "jz      short loc_4ACF23",
+              "call_target": null
+            },
+            {
+              "ea": 4902685,
+              "size": 6,
+              "bytes": "66c747200100",
+              "asm": "mov     word ptr [edi+20h], 1",
+              "call_target": null
+            },
+            {
+              "ea": 4902691,
+              "size": 4,
+              "bytes": "8b542438",
+              "asm": "mov     edx, [esp+28h+arg_C]",
+              "call_target": null
+            },
+            {
+              "ea": 4902695,
+              "size": 3,
+              "bytes": "896e30",
+              "asm": "mov     [esi+30h], ebp",
+              "call_target": null
+            },
+            {
+              "ea": 4902698,
+              "size": 3,
+              "bytes": "895e34",
+              "asm": "mov     [esi+34h], ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4902701,
+              "size": 3,
+              "bytes": "894f04",
+              "asm": "mov     [edi+4], ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4902704,
+              "size": 5,
+              "bytes": "668b4c242c",
+              "asm": "mov     cx, word ptr [esp+28h+arg_0]",
+              "call_target": null
+            },
+            {
+              "ea": 4902709,
+              "size": 3,
+              "bytes": "894708",
+              "asm": "mov     [edi+8], eax",
+              "call_target": null
+            },
+            {
+              "ea": 4902712,
+              "size": 4,
+              "bytes": "8b442430",
+              "asm": "mov     eax, [esp+28h+arg_4]",
+              "call_target": null
+            },
+            {
+              "ea": 4902716,
+              "size": 3,
+              "bytes": "66890f",
+              "asm": "mov     [edi], cx",
+              "call_target": null
+            },
+            {
+              "ea": 4902719,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax",
+              "call_target": null
+            },
+            {
+              "ea": 4902720,
+              "size": 4,
+              "bytes": "8d4c241c",
+              "asm": "lea     ecx, [esp+2Ch+var_10]",
+              "call_target": null
+            },
+            {
+              "ea": 4902724,
+              "size": 3,
+              "bytes": "89562c",
+              "asm": "mov     [esi+2Ch], edx",
+              "call_target": null
+            },
+            {
+              "ea": 4902727,
+              "size": 5,
+              "bytes": "e8744df5ff",
+              "asm": "call    CryptInt_Init",
+              "call_target": 4201664
+            },
+            {
+              "ea": 4902732,
+              "size": 4,
+              "bytes": "8b4c241c",
+              "asm": "mov     ecx, [esp+28h+var_C]",
+              "call_target": null
+            }
+          ]
+        },
+        {
+          "ea": 4902528,
+          "end": 4903002,
+          "offset": 64,
+          "total": 158,
+          "instructions": [
+            {
+              "ea": 4902736,
+              "size": 4,
+              "bytes": "8b542420",
+              "asm": "mov     edx, [esp+28h+var_8]",
+              "call_target": null
+            },
+            {
+              "ea": 4902740,
+              "size": 4,
+              "bytes": "8a442424",
+              "asm": "mov     al, [esp+28h+var_4]",
+              "call_target": null
+            },
+            {
+              "ea": 4902744,
+              "size": 6,
+              "bytes": "898ee4010000",
+              "asm": "mov     [esi+1E4h], ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4902750,
+              "size": 4,
+              "bytes": "8d4c2418",
+              "asm": "lea     ecx, [esp+28h+var_10]",
+              "call_target": null
+            },
+            {
+              "ea": 4902754,
+              "size": 6,
+              "bytes": "8996e8010000",
+              "asm": "mov     [esi+1E8h], edx",
+              "call_target": null
+            },
+            {
+              "ea": 4902760,
+              "size": 6,
+              "bytes": "8886ec010000",
+              "asm": "mov     [esi+1ECh], al",
+              "call_target": null
+            },
+            {
+              "ea": 4902766,
+              "size": 5,
+              "bytes": "e87d4df5ff",
+              "asm": "call    CryptInt_delete",
+              "call_target": 4201712
+            },
+            {
+              "ea": 4902771,
+              "size": 4,
+              "bytes": "8b4c2434",
+              "asm": "mov     ecx, [esp+28h+arg_8]",
+              "call_target": null
+            },
+            {
+              "ea": 4902775,
+              "size": 1,
+              "bytes": "51",
+              "asm": "push    ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4902776,
+              "size": 4,
+              "bytes": "8d4c241c",
+              "asm": "lea     ecx, [esp+2Ch+var_10]",
+              "call_target": null
+            },
+            {
+              "ea": 4902780,
+              "size": 5,
+              "bytes": "e83f4df5ff",
+              "asm": "call    CryptInt_Init",
+              "call_target": 4201664
+            },
+            {
+              "ea": 4902785,
+              "size": 4,
+              "bytes": "8a4c2424",
+              "asm": "mov     cl, [esp+28h+var_4]",
+              "call_target": null
+            },
+            {
+              "ea": 4902789,
+              "size": 4,
+              "bytes": "8b54241c",
+              "asm": "mov     edx, [esp+28h+var_C]",
+              "call_target": null
+            },
+            {
+              "ea": 4902793,
+              "size": 4,
+              "bytes": "8b442420",
+              "asm": "mov     eax, [esp+28h+var_8]",
+              "call_target": null
+            },
+            {
+              "ea": 4902797,
+              "size": 6,
+              "bytes": "888efc010000",
+              "asm": "mov     [esi+1FCh], cl",
+              "call_target": null
+            },
+            {
+              "ea": 4902803,
+              "size": 4,
+              "bytes": "8d4c2418",
+              "asm": "lea     ecx, [esp+28h+var_10]",
+              "call_target": null
+            },
+            {
+              "ea": 4902807,
+              "size": 6,
+              "bytes": "8996f4010000",
+              "asm": "mov     [esi+1F4h], edx",
+              "call_target": null
+            },
+            {
+              "ea": 4902813,
+              "size": 6,
+              "bytes": "8986f8010000",
+              "asm": "mov     [esi+1F8h], eax",
+              "call_target": null
+            },
+            {
+              "ea": 4902819,
+              "size": 5,
+              "bytes": "e8484df5ff",
+              "asm": "call    CryptInt_delete",
+              "call_target": 4201712
+            },
+            {
+              "ea": 4902824,
+              "size": 4,
+              "bytes": "8a442440",
+              "asm": "mov     al, [esp+28h+arg_14]",
+              "call_target": null
+            },
+            {
+              "ea": 4902828,
+              "size": 2,
+              "bytes": "33c9",
+              "asm": "xor     ecx, ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4902830,
+              "size": 2,
+              "bytes": "84c0",
+              "asm": "test    al, al",
+              "call_target": null
+            },
+            {
+              "ea": 4902832,
+              "size": 4,
+              "bytes": "66894f02",
+              "asm": "mov     [edi+2], cx",
+              "call_target": null
+            },
+            {
+              "ea": 4902836,
+              "size": 2,
+              "bytes": "754a",
+              "asm": "jnz     short loc_4AD000",
+              "call_target": null
+            },
+            {
+              "ea": 4902838,
+              "size": 4,
+              "bytes": "8b442410",
+              "asm": "mov     eax, [esp+28h+var_18]",
+              "call_target": null
+            },
+            {
+              "ea": 4902842,
+              "size": 1,
+              "bytes": "99",
+              "asm": "cdq",
+              "call_target": null
+            },
+            {
+              "ea": 4902843,
+              "size": 2,
+              "bytes": "2bc2",
+              "asm": "sub     eax, edx",
+              "call_target": null
+            },
+            {
+              "ea": 4902845,
+              "size": 2,
+              "bytes": "d1f8",
+              "asm": "sar     eax, 1",
+              "call_target": null
+            },
+            {
+              "ea": 4902847,
+              "size": 2,
+              "bytes": "03c5",
+              "asm": "add     eax, ebp",
+              "call_target": null
+            },
+            {
+              "ea": 4902849,
+              "size": 3,
+              "bytes": "89470c",
+              "asm": "mov     [edi+0Ch], eax",
+              "call_target": null
+            },
+            {
+              "ea": 4902852,
+              "size": 4,
+              "bytes": "8b442414",
+              "asm": "mov     eax, [esp+28h+var_14]",
+              "call_target": null
+            },
+            {
+              "ea": 4902856,
+              "size": 1,
+              "bytes": "99",
+              "asm": "cdq",
+              "call_target": null
+            },
+            {
+              "ea": 4902857,
+              "size": 2,
+              "bytes": "2bc2",
+              "asm": "sub     eax, edx",
+              "call_target": null
+            },
+            {
+              "ea": 4902859,
+              "size": 2,
+              "bytes": "d1f8",
+              "asm": "sar     eax, 1",
+              "call_target": null
+            },
+            {
+              "ea": 4902861,
+              "size": 2,
+              "bytes": "03c3",
+              "asm": "add     eax, ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4902863,
+              "size": 3,
+              "bytes": "894710",
+              "asm": "mov     [edi+10h], eax",
+              "call_target": null
+            },
+            {
+              "ea": 4902866,
+              "size": 3,
+              "bytes": "894e38",
+              "asm": "mov     [esi+38h], ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4902869,
+              "size": 3,
+              "bytes": "8b4f10",
+              "asm": "mov     ecx, [edi+10h]",
+              "call_target": null
+            },
+            {
+              "ea": 4902872,
+              "size": 5,
+              "bytes": "b867666666",
+              "asm": "mov     eax, 66666667h",
+              "call_target": null
+            },
+            {
+              "ea": 4902877,
+              "size": 2,
+              "bytes": "2bcb",
+              "asm": "sub     ecx, ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4902879,
+              "size": 2,
+              "bytes": "f7e9",
+              "asm": "imul    ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4902881,
+              "size": 3,
+              "bytes": "c1fa02",
+              "asm": "sar     edx, 2",
+              "call_target": null
+            },
+            {
+              "ea": 4902884,
+              "size": 2,
+              "bytes": "8bc2",
+              "asm": "mov     eax, edx",
+              "call_target": null
+            },
+            {
+              "ea": 4902886,
+              "size": 3,
+              "bytes": "c1e81f",
+              "asm": "shr     eax, 1Fh",
+              "call_target": null
+            },
+            {
+              "ea": 4902889,
+              "size": 2,
+              "bytes": "03d0",
+              "asm": "add     edx, eax",
+              "call_target": null
+            },
+            {
+              "ea": 4902891,
+              "size": 2,
+              "bytes": "8bc6",
+              "asm": "mov     eax, esi",
+              "call_target": null
+            },
+            {
+              "ea": 4902893,
+              "size": 3,
+              "bytes": "89563c",
+              "asm": "mov     [esi+3Ch], edx",
+              "call_target": null
+            },
+            {
+              "ea": 4902896,
+              "size": 3,
+              "bytes": "8b4f0c",
+              "asm": "mov     ecx, [edi+0Ch]",
+              "call_target": null
+            },
+            {
+              "ea": 4902899,
+              "size": 2,
+              "bytes": "2bcd",
+              "asm": "sub     ecx, ebp",
+              "call_target": null
+            },
+            {
+              "ea": 4902901,
+              "size": 3,
+              "bytes": "894f14",
+              "asm": "mov     [edi+14h], ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4902904,
+              "size": 1,
+              "bytes": "5f",
+              "asm": "pop     edi",
+              "call_target": null
+            },
+            {
+              "ea": 4902905,
+              "size": 1,
+              "bytes": "5d",
+              "asm": "pop     ebp",
+              "call_target": null
+            },
+            {
+              "ea": 4902906,
+              "size": 1,
+              "bytes": "5b",
+              "asm": "pop     ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4902907,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi",
+              "call_target": null
+            },
+            {
+              "ea": 4902908,
+              "size": 3,
+              "bytes": "83c418",
+              "asm": "add     esp, 18h",
+              "call_target": null
+            },
+            {
+              "ea": 4902911,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn",
+              "call_target": null
+            },
+            {
+              "ea": 4902912,
+              "size": 2,
+              "bytes": "3c01",
+              "asm": "cmp     al, 1",
+              "call_target": null
+            },
+            {
+              "ea": 4902914,
+              "size": 2,
+              "bytes": "754c",
+              "asm": "jnz     short loc_4AD050",
+              "call_target": null
+            },
+            {
+              "ea": 4902916,
+              "size": 4,
+              "bytes": "8b442410",
+              "asm": "mov     eax, [esp+28h+var_18]",
+              "call_target": null
+            },
+            {
+              "ea": 4902920,
+              "size": 1,
+              "bytes": "99",
+              "asm": "cdq",
+              "call_target": null
+            },
+            {
+              "ea": 4902921,
+              "size": 2,
+              "bytes": "2bc2",
+              "asm": "sub     eax, edx",
+              "call_target": null
+            },
+            {
+              "ea": 4902923,
+              "size": 2,
+              "bytes": "d1f8",
+              "asm": "sar     eax, 1",
+              "call_target": null
+            },
+            {
+              "ea": 4902925,
+              "size": 3,
+              "bytes": "8d0c28",
+              "asm": "lea     ecx, [eax+ebp]",
+              "call_target": null
+            },
+            {
+              "ea": 4902928,
+              "size": 4,
+              "bytes": "8b442414",
+              "asm": "mov     eax, [esp+28h+var_14]",
+              "call_target": null
+            }
+          ]
+        },
+        {
+          "ea": 4902528,
+          "end": 4903002,
+          "offset": 128,
+          "total": 158,
+          "instructions": [
+            {
+              "ea": 4902932,
+              "size": 1,
+              "bytes": "99",
+              "asm": "cdq",
+              "call_target": null
+            },
+            {
+              "ea": 4902933,
+              "size": 2,
+              "bytes": "2bc2",
+              "asm": "sub     eax, edx",
+              "call_target": null
+            },
+            {
+              "ea": 4902935,
+              "size": 3,
+              "bytes": "894f0c",
+              "asm": "mov     [edi+0Ch], ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4902938,
+              "size": 2,
+              "bytes": "d1f8",
+              "asm": "sar     eax, 1",
+              "call_target": null
+            },
+            {
+              "ea": 4902940,
+              "size": 2,
+              "bytes": "03c3",
+              "asm": "add     eax, ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4902942,
+              "size": 2,
+              "bytes": "2bcd",
+              "asm": "sub     ecx, ebp",
+              "call_target": null
+            },
+            {
+              "ea": 4902944,
+              "size": 3,
+              "bytes": "894710",
+              "asm": "mov     [edi+10h], eax",
+              "call_target": null
+            },
+            {
+              "ea": 4902947,
+              "size": 5,
+              "bytes": "b867666666",
+              "asm": "mov     eax, 66666667h",
+              "call_target": null
+            },
+            {
+              "ea": 4902952,
+              "size": 2,
+              "bytes": "f7e9",
+              "asm": "imul    ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4902954,
+              "size": 3,
+              "bytes": "c1fa02",
+              "asm": "sar     edx, 2",
+              "call_target": null
+            },
+            {
+              "ea": 4902957,
+              "size": 2,
+              "bytes": "8bc2",
+              "asm": "mov     eax, edx",
+              "call_target": null
+            },
+            {
+              "ea": 4902959,
+              "size": 3,
+              "bytes": "c1e81f",
+              "asm": "shr     eax, 1Fh",
+              "call_target": null
+            },
+            {
+              "ea": 4902962,
+              "size": 2,
+              "bytes": "03d0",
+              "asm": "add     edx, eax",
+              "call_target": null
+            },
+            {
+              "ea": 4902964,
+              "size": 5,
+              "bytes": "b867666666",
+              "asm": "mov     eax, 66666667h",
+              "call_target": null
+            },
+            {
+              "ea": 4902969,
+              "size": 3,
+              "bytes": "895638",
+              "asm": "mov     [esi+38h], edx",
+              "call_target": null
+            },
+            {
+              "ea": 4902972,
+              "size": 3,
+              "bytes": "8b7f10",
+              "asm": "mov     edi, [edi+10h]",
+              "call_target": null
+            },
+            {
+              "ea": 4902975,
+              "size": 2,
+              "bytes": "2bfb",
+              "asm": "sub     edi, ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4902977,
+              "size": 2,
+              "bytes": "f7ef",
+              "asm": "imul    edi",
+              "call_target": null
+            },
+            {
+              "ea": 4902979,
+              "size": 3,
+              "bytes": "c1fa02",
+              "asm": "sar     edx, 2",
+              "call_target": null
+            },
+            {
+              "ea": 4902982,
+              "size": 2,
+              "bytes": "8bca",
+              "asm": "mov     ecx, edx",
+              "call_target": null
+            },
+            {
+              "ea": 4902984,
+              "size": 3,
+              "bytes": "c1e91f",
+              "asm": "shr     ecx, 1Fh",
+              "call_target": null
+            },
+            {
+              "ea": 4902987,
+              "size": 2,
+              "bytes": "03d1",
+              "asm": "add     edx, ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4902989,
+              "size": 3,
+              "bytes": "89563c",
+              "asm": "mov     [esi+3Ch], edx",
+              "call_target": null
+            },
+            {
+              "ea": 4902992,
+              "size": 1,
+              "bytes": "5f",
+              "asm": "pop     edi",
+              "call_target": null
+            },
+            {
+              "ea": 4902993,
+              "size": 1,
+              "bytes": "5d",
+              "asm": "pop     ebp",
+              "call_target": null
+            },
+            {
+              "ea": 4902994,
+              "size": 2,
+              "bytes": "8bc6",
+              "asm": "mov     eax, esi",
+              "call_target": null
+            },
+            {
+              "ea": 4902996,
+              "size": 1,
+              "bytes": "5b",
+              "asm": "pop     ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4902997,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi",
+              "call_target": null
+            },
+            {
+              "ea": 4902998,
+              "size": 3,
+              "bytes": "83c418",
+              "asm": "add     esp, 18h",
+              "call_target": null
+            },
+            {
+              "ea": 4903001,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn",
+              "call_target": null
+            }
+          ]
+        }
+      ],
+      "inbound_calls": [
+        {
+          "ea": 4838429,
+          "parent": 4838112,
+          "type": 17,
+          "code": true,
+          "bytes": "e85efa0000",
+          "asm": "call    sub_4ACE80"
+        },
+        {
+          "ea": 4839225,
+          "parent": 4838112,
+          "type": 17,
+          "code": true,
+          "bytes": "e842f70000",
+          "asm": "call    sub_4ACE80"
+        }
+      ],
+      "incoming_offset_references": []
+    },
+    {
+      "ea": 4898400,
+      "end": 4898534,
+      "instruction_count": 51,
+      "chunks": [
+        [
+          4898400,
+          4898534
+        ]
+      ],
+      "incoming_references": [
+        {
+          "ea": 4898671,
+          "type": 1,
+          "code": true
+        }
+      ],
+      "byte_count": 134,
+      "page_count": 1,
+      "pages": [
+        {
+          "ea": 4898400,
+          "end": 4898534,
+          "offset": 0,
+          "total": 51,
+          "instructions": [
+            {
+              "ea": 4898400,
+              "size": 1,
+              "bytes": "53",
+              "asm": "push    ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4898401,
+              "size": 1,
+              "bytes": "55",
+              "asm": "push    ebp",
+              "call_target": null
+            },
+            {
+              "ea": 4898402,
+              "size": 1,
+              "bytes": "56",
+              "asm": "push    esi",
+              "call_target": null
+            },
+            {
+              "ea": 4898403,
+              "size": 1,
+              "bytes": "57",
+              "asm": "push    edi",
+              "call_target": null
+            },
+            {
+              "ea": 4898404,
+              "size": 4,
+              "bytes": "8b7c2414",
+              "asm": "mov     edi, [esp+10h+arg_0]",
+              "call_target": null
+            },
+            {
+              "ea": 4898408,
+              "size": 2,
+              "bytes": "6a00",
+              "asm": "push    0; a7",
+              "call_target": null
+            },
+            {
+              "ea": 4898410,
+              "size": 2,
+              "bytes": "6a00",
+              "asm": "push    0; a6",
+              "call_target": null
+            },
+            {
+              "ea": 4898412,
+              "size": 5,
+              "bytes": "68d4000000",
+              "asm": "push    0D4h; a5",
+              "call_target": null
+            },
+            {
+              "ea": 4898417,
+              "size": 3,
+              "bytes": "8b770c",
+              "asm": "mov     esi, [edi+0Ch]",
+              "call_target": null
+            },
+            {
+              "ea": 4898420,
+              "size": 3,
+              "bytes": "8b5618",
+              "asm": "mov     edx, [esi+18h]",
+              "call_target": null
+            },
+            {
+              "ea": 4898423,
+              "size": 3,
+              "bytes": "8b4610",
+              "asm": "mov     eax, [esi+10h]",
+              "call_target": null
+            },
+            {
+              "ea": 4898426,
+              "size": 3,
+              "bytes": "8b5e14",
+              "asm": "mov     ebx, [esi+14h]",
+              "call_target": null
+            },
+            {
+              "ea": 4898429,
+              "size": 3,
+              "bytes": "8b4e0c",
+              "asm": "mov     ecx, [esi+0Ch]",
+              "call_target": null
+            },
+            {
+              "ea": 4898432,
+              "size": 3,
+              "bytes": "8d2c10",
+              "asm": "lea     ebp, [eax+edx]",
+              "call_target": null
+            },
+            {
+              "ea": 4898435,
+              "size": 2,
+              "bytes": "2bc2",
+              "asm": "sub     eax, edx",
+              "call_target": null
+            },
+            {
+              "ea": 4898437,
+              "size": 1,
+              "bytes": "55",
+              "asm": "push    ebp; a4",
+              "call_target": null
+            },
+            {
+              "ea": 4898438,
+              "size": 3,
+              "bytes": "8d2c19",
+              "asm": "lea     ebp, [ecx+ebx]",
+              "call_target": null
+            },
+            {
+              "ea": 4898441,
+              "size": 1,
+              "bytes": "55",
+              "asm": "push    ebp; a3",
+              "call_target": null
+            },
+            {
+              "ea": 4898442,
+              "size": 2,
+              "bytes": "2bcb",
+              "asm": "sub     ecx, ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4898444,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax; a2",
+              "call_target": null
+            },
+            {
+              "ea": 4898445,
+              "size": 1,
+              "bytes": "51",
+              "asm": "push    ecx; a1",
+              "call_target": null
+            },
+            {
+              "ea": 4898446,
+              "size": 5,
+              "bytes": "e8ed620700",
+              "asm": "call    Renderer__DrawGraphic_Hover",
+              "call_target": 5382528
+            },
+            {
+              "ea": 4898451,
+              "size": 3,
+              "bytes": "8b4738",
+              "asm": "mov     eax, [edi+38h]",
+              "call_target": null
+            },
+            {
+              "ea": 4898454,
+              "size": 3,
+              "bytes": "8b5e14",
+              "asm": "mov     ebx, [esi+14h]",
+              "call_target": null
+            },
+            {
+              "ea": 4898457,
+              "size": 3,
+              "bytes": "8b5618",
+              "asm": "mov     edx, [esi+18h]",
+              "call_target": null
+            },
+            {
+              "ea": 4898460,
+              "size": 2,
+              "bytes": "03d8",
+              "asm": "add     ebx, eax",
+              "call_target": null
+            },
+            {
+              "ea": 4898462,
+              "size": 3,
+              "bytes": "895e14",
+              "asm": "mov     [esi+14h], ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4898465,
+              "size": 3,
+              "bytes": "8b4f3c",
+              "asm": "mov     ecx, [edi+3Ch]",
+              "call_target": null
+            },
+            {
+              "ea": 4898468,
+              "size": 3,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch",
+              "call_target": null
+            },
+            {
+              "ea": 4898471,
+              "size": 2,
+              "bytes": "03d1",
+              "asm": "add     edx, ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4898473,
+              "size": 5,
+              "bytes": "66837e020a",
+              "asm": "cmp     word ptr [esi+2], 0Ah",
+              "call_target": null
+            },
+            {
+              "ea": 4898478,
+              "size": 3,
+              "bytes": "895618",
+              "asm": "mov     [esi+18h], edx",
+              "call_target": null
+            },
+            {
+              "ea": 4898481,
+              "size": 2,
+              "bytes": "7c2a",
+              "asm": "jl      short loc_4ABEDD",
+              "call_target": null
+            },
+            {
+              "ea": 4898483,
+              "size": 6,
+              "bytes": "8d8ff0010000",
+              "asm": "lea     ecx, [edi+1F0h]",
+              "call_target": null
+            },
+            {
+              "ea": 4898489,
+              "size": 5,
+              "bytes": "e8e25ff5ff",
+              "asm": "call    CryptInt__GetVal",
+              "call_target": 4202144
+            },
+            {
+              "ea": 4898494,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax",
+              "call_target": null
+            },
+            {
+              "ea": 4898495,
+              "size": 6,
+              "bytes": "8d8fe0010000",
+              "asm": "lea     ecx, [edi+1E0h]",
+              "call_target": null
+            },
+            {
+              "ea": 4898501,
+              "size": 5,
+              "bytes": "e8d65ff5ff",
+              "asm": "call    CryptInt__GetVal",
+              "call_target": 4202144
+            },
+            {
+              "ea": 4898506,
+              "size": 3,
+              "bytes": "0fbf16",
+              "asm": "movsx   edx, word ptr [esi]",
+              "call_target": null
+            },
+            {
+              "ea": 4898509,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax",
+              "call_target": null
+            },
+            {
+              "ea": 4898510,
+              "size": 1,
+              "bytes": "52",
+              "asm": "push    edx",
+              "call_target": null
+            },
+            {
+              "ea": 4898511,
+              "size": 5,
+              "bytes": "e8ccc4ffff",
+              "asm": "call    sub_4A83A0",
+              "call_target": 4883360
+            },
+            {
+              "ea": 4898516,
+              "size": 1,
+              "bytes": "57",
+              "asm": "push    edi",
+              "call_target": null
+            },
+            {
+              "ea": 4898517,
+              "size": 5,
+              "bytes": "e8268ef5ff",
+              "asm": "call    Yobi__MarkDeath",
+              "call_target": 4214016
+            },
+            {
+              "ea": 4898522,
+              "size": 3,
+              "bytes": "83c410",
+              "asm": "add     esp, 10h",
+              "call_target": null
+            },
+            {
+              "ea": 4898525,
+              "size": 4,
+              "bytes": "66ff4602",
+              "asm": "inc     word ptr [esi+2]",
+              "call_target": null
+            },
+            {
+              "ea": 4898529,
+              "size": 1,
+              "bytes": "5f",
+              "asm": "pop     edi",
+              "call_target": null
+            },
+            {
+              "ea": 4898530,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi",
+              "call_target": null
+            },
+            {
+              "ea": 4898531,
+              "size": 1,
+              "bytes": "5d",
+              "asm": "pop     ebp",
+              "call_target": null
+            },
+            {
+              "ea": 4898532,
+              "size": 1,
+              "bytes": "5b",
+              "asm": "pop     ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4898533,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn",
+              "call_target": null
+            }
+          ]
+        }
+      ],
+      "inbound_calls": [],
+      "incoming_offset_references": [
+        {
+          "ea": 4898671,
+          "parent": 4898544,
+          "type": 1,
+          "code": true,
+          "bytes": "c7470860be4a00",
+          "asm": "mov     dword ptr [edi+8], offset sub_4ABE60"
+        }
+      ]
+    },
+    {
+      "ea": 4902384,
+      "end": 4902522,
+      "instruction_count": 53,
+      "chunks": [
+        [
+          4902384,
+          4902522
+        ]
+      ],
+      "incoming_references": [
+        {
+          "ea": 4902660,
+          "type": 1,
+          "code": true
+        }
+      ],
+      "byte_count": 138,
+      "page_count": 1,
+      "pages": [
+        {
+          "ea": 4902384,
+          "end": 4902522,
+          "offset": 0,
+          "total": 53,
+          "instructions": [
+            {
+              "ea": 4902384,
+              "size": 1,
+              "bytes": "53",
+              "asm": "push    ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4902385,
+              "size": 1,
+              "bytes": "55",
+              "asm": "push    ebp",
+              "call_target": null
+            },
+            {
+              "ea": 4902386,
+              "size": 1,
+              "bytes": "56",
+              "asm": "push    esi",
+              "call_target": null
+            },
+            {
+              "ea": 4902387,
+              "size": 1,
+              "bytes": "57",
+              "asm": "push    edi",
+              "call_target": null
+            },
+            {
+              "ea": 4902388,
+              "size": 4,
+              "bytes": "8b7c2414",
+              "asm": "mov     edi, [esp+10h+arg_0]",
+              "call_target": null
+            },
+            {
+              "ea": 4902392,
+              "size": 2,
+              "bytes": "6a00",
+              "asm": "push    0; a7",
+              "call_target": null
+            },
+            {
+              "ea": 4902394,
+              "size": 2,
+              "bytes": "6a00",
+              "asm": "push    0; a6",
+              "call_target": null
+            },
+            {
+              "ea": 4902396,
+              "size": 5,
+              "bytes": "68d4000000",
+              "asm": "push    0D4h; a5",
+              "call_target": null
+            },
+            {
+              "ea": 4902401,
+              "size": 3,
+              "bytes": "8b770c",
+              "asm": "mov     esi, [edi+0Ch]",
+              "call_target": null
+            },
+            {
+              "ea": 4902404,
+              "size": 3,
+              "bytes": "8b5618",
+              "asm": "mov     edx, [esi+18h]",
+              "call_target": null
+            },
+            {
+              "ea": 4902407,
+              "size": 3,
+              "bytes": "8b4610",
+              "asm": "mov     eax, [esi+10h]",
+              "call_target": null
+            },
+            {
+              "ea": 4902410,
+              "size": 3,
+              "bytes": "8b5e14",
+              "asm": "mov     ebx, [esi+14h]",
+              "call_target": null
+            },
+            {
+              "ea": 4902413,
+              "size": 3,
+              "bytes": "8b4e0c",
+              "asm": "mov     ecx, [esi+0Ch]",
+              "call_target": null
+            },
+            {
+              "ea": 4902416,
+              "size": 3,
+              "bytes": "8d2c10",
+              "asm": "lea     ebp, [eax+edx]",
+              "call_target": null
+            },
+            {
+              "ea": 4902419,
+              "size": 2,
+              "bytes": "2bc2",
+              "asm": "sub     eax, edx",
+              "call_target": null
+            },
+            {
+              "ea": 4902421,
+              "size": 1,
+              "bytes": "55",
+              "asm": "push    ebp; a4",
+              "call_target": null
+            },
+            {
+              "ea": 4902422,
+              "size": 3,
+              "bytes": "8d2c19",
+              "asm": "lea     ebp, [ecx+ebx]",
+              "call_target": null
+            },
+            {
+              "ea": 4902425,
+              "size": 1,
+              "bytes": "55",
+              "asm": "push    ebp; a3",
+              "call_target": null
+            },
+            {
+              "ea": 4902426,
+              "size": 2,
+              "bytes": "2bcb",
+              "asm": "sub     ecx, ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4902428,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax; a2",
+              "call_target": null
+            },
+            {
+              "ea": 4902429,
+              "size": 1,
+              "bytes": "51",
+              "asm": "push    ecx; a1",
+              "call_target": null
+            },
+            {
+              "ea": 4902430,
+              "size": 5,
+              "bytes": "e85d530700",
+              "asm": "call    Renderer__DrawGraphic_Hover",
+              "call_target": 5382528
+            },
+            {
+              "ea": 4902435,
+              "size": 3,
+              "bytes": "8b4738",
+              "asm": "mov     eax, [edi+38h]",
+              "call_target": null
+            },
+            {
+              "ea": 4902438,
+              "size": 3,
+              "bytes": "8b5e14",
+              "asm": "mov     ebx, [esi+14h]",
+              "call_target": null
+            },
+            {
+              "ea": 4902441,
+              "size": 3,
+              "bytes": "8b5618",
+              "asm": "mov     edx, [esi+18h]",
+              "call_target": null
+            },
+            {
+              "ea": 4902444,
+              "size": 2,
+              "bytes": "03d8",
+              "asm": "add     ebx, eax",
+              "call_target": null
+            },
+            {
+              "ea": 4902446,
+              "size": 3,
+              "bytes": "895e14",
+              "asm": "mov     [esi+14h], ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4902449,
+              "size": 3,
+              "bytes": "8b4f3c",
+              "asm": "mov     ecx, [edi+3Ch]",
+              "call_target": null
+            },
+            {
+              "ea": 4902452,
+              "size": 3,
+              "bytes": "83c41c",
+              "asm": "add     esp, 1Ch",
+              "call_target": null
+            },
+            {
+              "ea": 4902455,
+              "size": 2,
+              "bytes": "03d1",
+              "asm": "add     edx, ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4902457,
+              "size": 5,
+              "bytes": "66837e020a",
+              "asm": "cmp     word ptr [esi+2], 0Ah",
+              "call_target": null
+            },
+            {
+              "ea": 4902462,
+              "size": 3,
+              "bytes": "895618",
+              "asm": "mov     [esi+18h], edx",
+              "call_target": null
+            },
+            {
+              "ea": 4902465,
+              "size": 2,
+              "bytes": "7c2e",
+              "asm": "jl      short loc_4ACE71",
+              "call_target": null
+            },
+            {
+              "ea": 4902467,
+              "size": 3,
+              "bytes": "8b572c",
+              "asm": "mov     edx, [edi+2Ch]",
+              "call_target": null
+            },
+            {
+              "ea": 4902470,
+              "size": 6,
+              "bytes": "8d8ff0010000",
+              "asm": "lea     ecx, [edi+1F0h]",
+              "call_target": null
+            },
+            {
+              "ea": 4902476,
+              "size": 1,
+              "bytes": "52",
+              "asm": "push    edx",
+              "call_target": null
+            },
+            {
+              "ea": 4902477,
+              "size": 5,
+              "bytes": "e84e50f5ff",
+              "asm": "call    CryptInt__GetVal",
+              "call_target": 4202144
+            },
+            {
+              "ea": 4902482,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax",
+              "call_target": null
+            },
+            {
+              "ea": 4902483,
+              "size": 6,
+              "bytes": "8d8fe0010000",
+              "asm": "lea     ecx, [edi+1E0h]",
+              "call_target": null
+            },
+            {
+              "ea": 4902489,
+              "size": 5,
+              "bytes": "e84250f5ff",
+              "asm": "call    CryptInt__GetVal",
+              "call_target": 4202144
+            },
+            {
+              "ea": 4902494,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax",
+              "call_target": null
+            },
+            {
+              "ea": 4902495,
+              "size": 3,
+              "bytes": "0fbf06",
+              "asm": "movsx   eax, word ptr [esi]",
+              "call_target": null
+            },
+            {
+              "ea": 4902498,
+              "size": 1,
+              "bytes": "50",
+              "asm": "push    eax",
+              "call_target": null
+            },
+            {
+              "ea": 4902499,
+              "size": 5,
+              "bytes": "e858f2ffff",
+              "asm": "call    sub_4AC0C0",
+              "call_target": 4899008
+            },
+            {
+              "ea": 4902504,
+              "size": 1,
+              "bytes": "57",
+              "asm": "push    edi",
+              "call_target": null
+            },
+            {
+              "ea": 4902505,
+              "size": 5,
+              "bytes": "e8927ef5ff",
+              "asm": "call    Yobi__MarkDeath",
+              "call_target": 4214016
+            },
+            {
+              "ea": 4902510,
+              "size": 3,
+              "bytes": "83c414",
+              "asm": "add     esp, 14h",
+              "call_target": null
+            },
+            {
+              "ea": 4902513,
+              "size": 4,
+              "bytes": "66ff4602",
+              "asm": "inc     word ptr [esi+2]",
+              "call_target": null
+            },
+            {
+              "ea": 4902517,
+              "size": 1,
+              "bytes": "5f",
+              "asm": "pop     edi",
+              "call_target": null
+            },
+            {
+              "ea": 4902518,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi",
+              "call_target": null
+            },
+            {
+              "ea": 4902519,
+              "size": 1,
+              "bytes": "5d",
+              "asm": "pop     ebp",
+              "call_target": null
+            },
+            {
+              "ea": 4902520,
+              "size": 1,
+              "bytes": "5b",
+              "asm": "pop     ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4902521,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn",
+              "call_target": null
+            }
+          ]
+        }
+      ],
+      "inbound_calls": [],
+      "incoming_offset_references": [
+        {
+          "ea": 4902660,
+          "parent": 4902528,
+          "type": 1,
+          "code": true,
+          "bytes": "c74608f0cd4a00",
+          "asm": "mov     dword ptr [esi+8], offset sub_4ACDF0"
+        }
+      ]
+    }
+  ],
+  "original_totals": [
+    {
+      "instructions": 154,
+      "bytes": 462,
+      "direct_calls": 7,
+      "direct_call_targets": [
+        5424208,
+        4213472,
+        4883360,
+        4201664,
+        4201712
+      ],
+      "jumps": 5,
+      "returns": 3
+    },
+    {
+      "instructions": 158,
+      "bytes": 474,
+      "direct_calls": 7,
+      "direct_call_targets": [
+        5424208,
+        4213472,
+        4899008,
+        4201664,
+        4201712
+      ],
+      "jumps": 5,
+      "returns": 3
+    },
+    {
+      "instructions": 51,
+      "bytes": 134,
+      "direct_calls": 5,
+      "direct_call_targets": [
+        5382528,
+        4202144,
+        4883360,
+        4214016
+      ],
+      "jumps": 1,
+      "returns": 1
+    },
+    {
+      "instructions": 53,
+      "bytes": 138,
+      "direct_calls": 5,
+      "direct_call_targets": [
+        5382528,
+        4202144,
+        4899008,
+        4214016
+      ],
+      "jumps": 1,
+      "returns": 1
+    }
+  ],
+  "original_copy_orders": [
+    {
+      "source": 0,
+      "mapX": [
+        "readCount",
+        "encoded",
+        "mask"
+      ],
+      "mapY": [
+        "mask",
+        "encoded",
+        "readCount"
+      ]
+    },
+    {
+      "source": 1,
+      "mapX": [
+        "encoded",
+        "mask",
+        "readCount"
+      ],
+      "mapY": [
+        "readCount",
+        "encoded",
+        "mask"
+      ]
+    }
+  ],
+  "source_before": [
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "Sub_4ABEF0",
+      "signature": "YobiAction* Sub_4ABEF0(\n    const std::int32_t kind, const std::int32_t value14, const std::int32_t userState,\n    const std::uint32_t flags, const std::uint32_t mode)",
+      "position": 83024,
+      "body": "YobiAction* Sub_4ABEF0(\n    const std::int32_t kind, const std::int32_t value14, const std::int32_t userState,\n    const std::uint32_t flags, const std::uint32_t mode)\n{\n    static_cast<void>(audio::PlaySe_52C450(56, 320));\n    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(WindowOpeningPayload));\n    if (action == nullptr) {\n        static_cast<void>(ui::detail::Sub_4A83A0(kind, value14, userState));\n        return nullptr;\n    }\n    const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[41];\n    const bool savedPosition = (ui::detail::gWindowStates[41].flags & 1u) != 0;\n    std::int32_t y = prototype->defaultY;\n    const std::int32_t width = prototype->width;\n    std::int32_t x = prototype->defaultX;\n    const std::int32_t height = prototype->height;\n    if (savedPosition) {\n        x = ui::detail::gWindowStates[41].x;\n        y = ui::detail::gWindowStates[41].y;\n    }\n    auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);\n    action->flags |= 6u;\n    action->callback = Sub_4ABE60;\n    action->displayPriority = 0xDF;\n    payload->value1C = 0;\n    payload->flag20 = 0;\n    if ((static_cast<std::uint8_t>(flags) & 1u) != 0) {\n        payload->flag20 = 1;\n    }\n    action->x = x;\n    action->y = y;\n    payload->width = width;\n    payload->height = height;\n    payload->id = static_cast<std::uint16_t>(kind);\n    platform::LegacyCryptInt temporary;\n    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value14);\n    action->mapX1E0.readCount = temporary.readCount;\n    action->mapX1E0.encoded = temporary.encoded;\n    action->mapX1E0.mask = temporary.mask;\n    platform::legacy_crypt_int::Destroy_401CF0(&temporary);\n    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, userState);\n    action->mapY1F0.mask = temporary.mask;\n    action->mapY1F0.encoded = temporary.encoded;\n    action->mapY1F0.readCount = temporary.readCount;\n    platform::legacy_crypt_int::Destroy_401CF0(&temporary);\n    payload->counter = 0;\n    const auto lowMode = static_cast<std::uint8_t>(mode);\n    if (lowMode == 0) {\n        payload->centerX = width / 2 + x;\n        payload->centerY = height / 2 + y;\n        action->deltaX = 0;\n        action->deltaY = (payload->centerY - y) / 10;\n        payload->halfWidth = payload->centerX - x;\n    } else if (lowMode == 1) {\n        payload->centerX = width / 2 + x;\n        payload->centerY = height / 2 + y;\n        action->deltaX = (payload->centerX - x) / 10;\n        action->deltaY = (payload->centerY - y) / 10;\n    }\n    return action;\n}\n\n"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "Sub_4ACE80",
+      "signature": "YobiAction* Sub_4ACE80(\n    const std::int32_t kind, const std::int32_t value14, const std::int32_t userState,\n    const std::int32_t phase, const std::uint32_t flags, const std::uint32_t mode)",
+      "position": 87128,
+      "body": "YobiAction* Sub_4ACE80(\n    const std::int32_t kind, const std::int32_t value14, const std::int32_t userState,\n    const std::int32_t phase, const std::uint32_t flags, const std::uint32_t mode)\n{\n    static_cast<void>(audio::PlaySe_52C450(56, 320));\n    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(WindowOpeningPayload));\n    if (action == nullptr) {\n        static_cast<void>(ui::detail::Sub_4AC0C0(kind, value14, userState, phase));\n        return nullptr;\n    }\n    const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[38];\n    const bool savedPosition = (ui::detail::gWindowStates[38].flags & 1u) != 0;\n    std::int32_t y = prototype->defaultY;\n    const std::int32_t width = prototype->width;\n    std::int32_t x = prototype->defaultX;\n    const std::int32_t height = prototype->height;\n    if (savedPosition) {\n        x = ui::detail::gWindowStates[38].x;\n        y = ui::detail::gWindowStates[38].y;\n    }\n    auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);\n    action->flags |= 6u;\n    action->callback = Sub_4ACDF0;\n    action->displayPriority = 0xDF;\n    payload->value1C = 0;\n    payload->flag20 = 0;\n    if ((static_cast<std::uint8_t>(flags) & 1u) != 0) {\n        payload->flag20 = 1;\n    }\n    action->x = x;\n    action->y = y;\n    payload->width = width;\n    payload->height = height;\n    payload->id = static_cast<std::uint16_t>(kind);\n    action->phase = phase;\n    platform::LegacyCryptInt temporary;\n    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value14);\n    action->mapX1E0.encoded = temporary.encoded;\n    action->mapX1E0.mask = temporary.mask;\n    action->mapX1E0.readCount = temporary.readCount;\n    platform::legacy_crypt_int::Destroy_401CF0(&temporary);\n    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, userState);\n    action->mapY1F0.readCount = temporary.readCount;\n    action->mapY1F0.encoded = temporary.encoded;\n    action->mapY1F0.mask = temporary.mask;\n    platform::legacy_crypt_int::Destroy_401CF0(&temporary);\n    payload->counter = 0;\n    const auto lowMode = static_cast<std::uint8_t>(mode);\n    if (lowMode == 0) {\n        payload->centerX = width / 2 + x;\n        payload->centerY = height / 2 + y;\n        action->deltaX = 0;\n        action->deltaY = (payload->centerY - y) / 10;\n        payload->halfWidth = payload->centerX - x;\n    } else if (lowMode == 1) {\n        payload->centerX = width / 2 + x;\n        payload->centerY = height / 2 + y;\n        action->deltaX = (payload->centerX - x) / 10;\n        action->deltaY = (payload->centerY - y) / 10;\n    }\n    return action;\n}\n\n"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "Sub_4ABE60",
+      "signature": "void Sub_4ABE60(YobiAction* const action)",
+      "position": 81557,
+      "body": "void Sub_4ABE60(YobiAction* const action)\n{\n    auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);\n    const std::int32_t halfHeight = payload->halfHeight;\n    const std::int32_t centerY = payload->centerY;\n    const std::int32_t halfWidth = payload->halfWidth;\n    const std::int32_t centerX = payload->centerX;\n    DrawGraphicHover(\n        static_cast<std::uint16_t>(centerX - halfWidth),\n        static_cast<std::uint16_t>(centerY - halfHeight),\n        static_cast<std::uint16_t>(centerX + halfWidth),\n        static_cast<std::uint16_t>(centerY + halfHeight), 0xD4, 0, 0);\n    const std::int32_t deltaX = action->deltaX;\n    const std::int32_t previousWidth = payload->halfWidth;\n    const std::int32_t previousHeight = payload->halfHeight;\n    payload->halfWidth = previousWidth + deltaX;\n    const std::int32_t deltaY = action->deltaY;\n    const bool complete = std::bit_cast<std::int16_t>(payload->counter) >= 10;\n    payload->halfHeight = previousHeight + deltaY;\n    if (complete) {\n        const std::int32_t userState =\n            platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);\n        const std::int32_t value14 =\n            platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);\n        const std::int32_t kind = std::bit_cast<std::int16_t>(payload->id);\n        static_cast<void>(ui::detail::Sub_4A83A0(kind, value14, userState));\n        static_cast<void>(MarkDeath(action));\n    }\n    ++payload->counter;\n}\n\n"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "Sub_4ACDF0",
+      "signature": "void Sub_4ACDF0(YobiAction* const action)",
+      "position": 85604,
+      "body": "void Sub_4ACDF0(YobiAction* const action)\n{\n    auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);\n    const std::int32_t halfHeight = payload->halfHeight;\n    const std::int32_t centerY = payload->centerY;\n    const std::int32_t halfWidth = payload->halfWidth;\n    const std::int32_t centerX = payload->centerX;\n    DrawGraphicHover(\n        static_cast<std::uint16_t>(centerX - halfWidth),\n        static_cast<std::uint16_t>(centerY - halfHeight),\n        static_cast<std::uint16_t>(centerX + halfWidth),\n        static_cast<std::uint16_t>(centerY + halfHeight), 0xD4, 0, 0);\n    const std::int32_t deltaX = action->deltaX;\n    const std::int32_t previousWidth = payload->halfWidth;\n    const std::int32_t previousHeight = payload->halfHeight;\n    payload->halfWidth = previousWidth + deltaX;\n    const std::int32_t deltaY = action->deltaY;\n    const bool complete = std::bit_cast<std::int16_t>(payload->counter) >= 10;\n    payload->halfHeight = previousHeight + deltaY;\n    if (complete) {\n        const std::int32_t phase = action->phase;\n        const std::int32_t userState =\n            platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);\n        const std::int32_t value14 =\n            platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);\n        const std::int32_t kind = std::bit_cast<std::int16_t>(payload->id);\n        static_cast<void>(ui::detail::Sub_4AC0C0(kind, value14, userState, phase));\n        static_cast<void>(MarkDeath(action));\n    }\n    ++payload->counter;\n}\n\n"
+    }
+  ],
+  "source_after": [
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "Sub_4ABEF0",
+      "signature": "YobiAction* Sub_4ABEF0(\n    const std::int32_t kind, const std::int32_t value14, const std::int32_t userState,\n    const std::uint32_t flags, const std::uint32_t mode)",
+      "position": 83024,
+      "body": "YobiAction* Sub_4ABEF0(\n    const std::int32_t kind, const std::int32_t value14, const std::int32_t userState,\n    const std::uint32_t flags, const std::uint32_t mode)\n{\n    static_cast<void>(audio::PlaySe_52C450(56, 320));\n    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(WindowOpeningPayload));\n    if (action == nullptr) {\n        static_cast<void>(ui::detail::Sub_4A83A0(kind, value14, userState));\n        return nullptr;\n    }\n    const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[41];\n    const bool savedPosition = (*reinterpret_cast<const unsigned char*>(\n        &ui::detail::gWindowStates[41].flags) & 1u) != 0;\n    std::int32_t y = prototype->defaultY;\n    const std::int32_t width = prototype->width;\n    std::int32_t x = prototype->defaultX;\n    const std::int32_t height = prototype->height;\n    if (savedPosition) {\n        x = ui::detail::gWindowStates[41].x;\n        y = ui::detail::gWindowStates[41].y;\n    }\n    auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);\n    action->flags |= 6u;\n    action->callback = Sub_4ABE60;\n    action->displayPriority = 0xDF;\n    payload->value1C = 0;\n    payload->flag20 = 0;\n    if ((static_cast<std::uint8_t>(flags) & 1u) != 0) {\n        payload->flag20 = 1;\n    }\n    action->x = x;\n    action->y = y;\n    payload->width = width;\n    payload->height = height;\n    payload->id = static_cast<std::uint16_t>(kind);\n    platform::LegacyCryptInt temporary;\n    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value14);\n    const std::uint8_t value14ReadCount = temporary.readCount;\n    const std::uint32_t value14Encoded = temporary.encoded;\n    const std::uint32_t value14Mask = temporary.mask;\n    action->mapX1E0.readCount = value14ReadCount;\n    action->mapX1E0.encoded = value14Encoded;\n    action->mapX1E0.mask = value14Mask;\n    platform::legacy_crypt_int::Destroy_401CF0(&temporary);\n    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, userState);\n    const std::uint32_t userStateMask = temporary.mask;\n    const std::uint32_t userStateEncoded = temporary.encoded;\n    const std::uint8_t userStateReadCount = temporary.readCount;\n    action->mapY1F0.mask = userStateMask;\n    action->mapY1F0.encoded = userStateEncoded;\n    action->mapY1F0.readCount = userStateReadCount;\n    platform::legacy_crypt_int::Destroy_401CF0(&temporary);\n    payload->counter = 0;\n    const auto lowMode = static_cast<std::uint8_t>(mode);\n    if (lowMode == 0) {\n        payload->centerX = width / 2 + x;\n        payload->centerY = height / 2 + y;\n        action->deltaX = 0;\n        action->deltaY = (payload->centerY - y) / 10;\n        payload->halfWidth = payload->centerX - x;\n    } else if (lowMode == 1) {\n        const std::int32_t centerX = width / 2 + x;\n        payload->centerX = centerX;\n        payload->centerY = height / 2 + y;\n        action->deltaX = (centerX - x) / 10;\n        action->deltaY = (payload->centerY - y) / 10;\n    }\n    return action;\n}\n\n"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "Sub_4ACE80",
+      "signature": "YobiAction* Sub_4ACE80(\n    const std::int32_t kind, const std::int32_t value14, const std::int32_t userState,\n    const std::int32_t phase, const std::uint32_t flags, const std::uint32_t mode)",
+      "position": 87128,
+      "body": "YobiAction* Sub_4ACE80(\n    const std::int32_t kind, const std::int32_t value14, const std::int32_t userState,\n    const std::int32_t phase, const std::uint32_t flags, const std::uint32_t mode)\n{\n    static_cast<void>(audio::PlaySe_52C450(56, 320));\n    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(WindowOpeningPayload));\n    if (action == nullptr) {\n        static_cast<void>(ui::detail::Sub_4AC0C0(kind, value14, userState, phase));\n        return nullptr;\n    }\n    const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[38];\n    const bool savedPosition = (*reinterpret_cast<const unsigned char*>(\n        &ui::detail::gWindowStates[38].flags) & 1u) != 0;\n    std::int32_t y = prototype->defaultY;\n    const std::int32_t width = prototype->width;\n    std::int32_t x = prototype->defaultX;\n    const std::int32_t height = prototype->height;\n    if (savedPosition) {\n        x = ui::detail::gWindowStates[38].x;\n        y = ui::detail::gWindowStates[38].y;\n    }\n    auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);\n    action->flags |= 6u;\n    action->callback = Sub_4ACDF0;\n    action->displayPriority = 0xDF;\n    payload->value1C = 0;\n    payload->flag20 = 0;\n    if ((static_cast<std::uint8_t>(flags) & 1u) != 0) {\n        payload->flag20 = 1;\n    }\n    action->x = x;\n    action->y = y;\n    payload->width = width;\n    payload->height = height;\n    payload->id = static_cast<std::uint16_t>(kind);\n    action->phase = phase;\n    platform::LegacyCryptInt temporary;\n    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value14);\n    const std::uint32_t value14Encoded = temporary.encoded;\n    const std::uint32_t value14Mask = temporary.mask;\n    const std::uint8_t value14ReadCount = temporary.readCount;\n    action->mapX1E0.encoded = value14Encoded;\n    action->mapX1E0.mask = value14Mask;\n    action->mapX1E0.readCount = value14ReadCount;\n    platform::legacy_crypt_int::Destroy_401CF0(&temporary);\n    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, userState);\n    const std::uint8_t userStateReadCount = temporary.readCount;\n    const std::uint32_t userStateEncoded = temporary.encoded;\n    const std::uint32_t userStateMask = temporary.mask;\n    action->mapY1F0.readCount = userStateReadCount;\n    action->mapY1F0.encoded = userStateEncoded;\n    action->mapY1F0.mask = userStateMask;\n    platform::legacy_crypt_int::Destroy_401CF0(&temporary);\n    payload->counter = 0;\n    const auto lowMode = static_cast<std::uint8_t>(mode);\n    if (lowMode == 0) {\n        payload->centerX = width / 2 + x;\n        payload->centerY = height / 2 + y;\n        action->deltaX = 0;\n        action->deltaY = (payload->centerY - y) / 10;\n        payload->halfWidth = payload->centerX - x;\n    } else if (lowMode == 1) {\n        const std::int32_t centerX = width / 2 + x;\n        payload->centerX = centerX;\n        payload->centerY = height / 2 + y;\n        action->deltaX = (centerX - x) / 10;\n        action->deltaY = (payload->centerY - y) / 10;\n    }\n    return action;\n}\n\n"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "Sub_4ABE60",
+      "signature": "void Sub_4ABE60(YobiAction* const action)",
+      "position": 81557,
+      "body": "void Sub_4ABE60(YobiAction* const action)\n{\n    auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);\n    const std::int32_t halfHeight = payload->halfHeight;\n    const std::int32_t centerY = payload->centerY;\n    const std::int32_t halfWidth = payload->halfWidth;\n    const std::int32_t centerX = payload->centerX;\n    DrawGraphicHover(\n        static_cast<std::uint16_t>(centerX - halfWidth),\n        static_cast<std::uint16_t>(centerY - halfHeight),\n        static_cast<std::uint16_t>(centerX + halfWidth),\n        static_cast<std::uint16_t>(centerY + halfHeight), 0xD4, 0, 0);\n    const std::int32_t deltaX = action->deltaX;\n    const std::int32_t previousWidth = payload->halfWidth;\n    const std::int32_t previousHeight = payload->halfHeight;\n    payload->halfWidth = previousWidth + deltaX;\n    const std::int32_t deltaY = action->deltaY;\n    const bool complete = std::bit_cast<std::int16_t>(payload->counter) >= 10;\n    payload->halfHeight = previousHeight + deltaY;\n    if (complete) {\n        const std::int32_t userState =\n            platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);\n        const std::int32_t value14 =\n            platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);\n        const std::int32_t kind = std::bit_cast<std::int16_t>(payload->id);\n        static_cast<void>(ui::detail::Sub_4A83A0(kind, value14, userState));\n        static_cast<void>(MarkDeath(action));\n    }\n    ++payload->counter;\n}\n\n"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "Sub_4ACDF0",
+      "signature": "void Sub_4ACDF0(YobiAction* const action)",
+      "position": 85604,
+      "body": "void Sub_4ACDF0(YobiAction* const action)\n{\n    auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);\n    const std::int32_t halfHeight = payload->halfHeight;\n    const std::int32_t centerY = payload->centerY;\n    const std::int32_t halfWidth = payload->halfWidth;\n    const std::int32_t centerX = payload->centerX;\n    DrawGraphicHover(\n        static_cast<std::uint16_t>(centerX - halfWidth),\n        static_cast<std::uint16_t>(centerY - halfHeight),\n        static_cast<std::uint16_t>(centerX + halfWidth),\n        static_cast<std::uint16_t>(centerY + halfHeight), 0xD4, 0, 0);\n    const std::int32_t deltaX = action->deltaX;\n    const std::int32_t previousWidth = payload->halfWidth;\n    const std::int32_t previousHeight = payload->halfHeight;\n    payload->halfWidth = previousWidth + deltaX;\n    const std::int32_t deltaY = action->deltaY;\n    const bool complete = std::bit_cast<std::int16_t>(payload->counter) >= 10;\n    payload->halfHeight = previousHeight + deltaY;\n    if (complete) {\n        const std::int32_t phase = action->phase;\n        const std::int32_t userState =\n            platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);\n        const std::int32_t value14 =\n            platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);\n        const std::int32_t kind = std::bit_cast<std::int16_t>(payload->id);\n        static_cast<void>(ui::detail::Sub_4AC0C0(kind, value14, userState, phase));\n        static_cast<void>(MarkDeath(action));\n    }\n    ++payload->counter;\n}\n\n"
+    }
+  ],
+  "source_operations": [
+    [
+      {
+        "old": "(ui::detail::gWindowStates[41].flags & 1u)",
+        "new": "(*reinterpret_cast<const unsigned char*>(\n        &ui::detail::gWindowStates[41].flags) & 1u)",
+        "kind": "saved-position-byte"
+      },
+      {
+        "old": "    action->mapX1E0.readCount = temporary.readCount;\n    action->mapX1E0.encoded = temporary.encoded;\n    action->mapX1E0.mask = temporary.mask;",
+        "new": "    const std::uint8_t value14ReadCount = temporary.readCount;\n    const std::uint32_t value14Encoded = temporary.encoded;\n    const std::uint32_t value14Mask = temporary.mask;\n    action->mapX1E0.readCount = value14ReadCount;\n    action->mapX1E0.encoded = value14Encoded;\n    action->mapX1E0.mask = value14Mask;",
+        "kind": "crypt-value14-sample-before-publish"
+      },
+      {
+        "old": "    action->mapY1F0.mask = temporary.mask;\n    action->mapY1F0.encoded = temporary.encoded;\n    action->mapY1F0.readCount = temporary.readCount;",
+        "new": "    const std::uint32_t userStateMask = temporary.mask;\n    const std::uint32_t userStateEncoded = temporary.encoded;\n    const std::uint8_t userStateReadCount = temporary.readCount;\n    action->mapY1F0.mask = userStateMask;\n    action->mapY1F0.encoded = userStateEncoded;\n    action->mapY1F0.readCount = userStateReadCount;",
+        "kind": "crypt-userState-sample-before-publish"
+      },
+      {
+        "old": "    } else if (lowMode == 1) {\n        payload->centerX = width / 2 + x;\n        payload->centerY = height / 2 + y;\n        action->deltaX = (payload->centerX - x) / 10;",
+        "new": "    } else if (lowMode == 1) {\n        const std::int32_t centerX = width / 2 + x;\n        payload->centerX = centerX;\n        payload->centerY = height / 2 + y;\n        action->deltaX = (centerX - x) / 10;",
+        "kind": "mode1-held-center-x"
+      }
+    ],
+    [
+      {
+        "old": "(ui::detail::gWindowStates[38].flags & 1u)",
+        "new": "(*reinterpret_cast<const unsigned char*>(\n        &ui::detail::gWindowStates[38].flags) & 1u)",
+        "kind": "saved-position-byte"
+      },
+      {
+        "old": "    action->mapX1E0.encoded = temporary.encoded;\n    action->mapX1E0.mask = temporary.mask;\n    action->mapX1E0.readCount = temporary.readCount;",
+        "new": "    const std::uint32_t value14Encoded = temporary.encoded;\n    const std::uint32_t value14Mask = temporary.mask;\n    const std::uint8_t value14ReadCount = temporary.readCount;\n    action->mapX1E0.encoded = value14Encoded;\n    action->mapX1E0.mask = value14Mask;\n    action->mapX1E0.readCount = value14ReadCount;",
+        "kind": "crypt-value14-sample-before-publish"
+      },
+      {
+        "old": "    action->mapY1F0.readCount = temporary.readCount;\n    action->mapY1F0.encoded = temporary.encoded;\n    action->mapY1F0.mask = temporary.mask;",
+        "new": "    const std::uint8_t userStateReadCount = temporary.readCount;\n    const std::uint32_t userStateEncoded = temporary.encoded;\n    const std::uint32_t userStateMask = temporary.mask;\n    action->mapY1F0.readCount = userStateReadCount;\n    action->mapY1F0.encoded = userStateEncoded;\n    action->mapY1F0.mask = userStateMask;",
+        "kind": "crypt-userState-sample-before-publish"
+      },
+      {
+        "old": "    } else if (lowMode == 1) {\n        payload->centerX = width / 2 + x;\n        payload->centerY = height / 2 + y;\n        action->deltaX = (payload->centerX - x) / 10;",
+        "new": "    } else if (lowMode == 1) {\n        const std::int32_t centerX = width / 2 + x;\n        payload->centerX = centerX;\n        payload->centerY = height / 2 + y;\n        action->deltaX = (centerX - x) / 10;",
+        "kind": "mode1-held-center-x"
+      }
+    ],
+    [],
+    []
+  ],
+  "declarations_before": [
+    {
+      "path": "include/cg/YobiRuntime.hpp",
+      "symbol": "Sub_4ABEF0",
+      "declaration": "YobiAction* Sub_4ABEF0(\n    std::int32_t kind, std::int32_t value14, std::int32_t userState,\n    std::uint32_t flags, std::uint32_t mode);"
+    },
+    {
+      "path": "include/cg/YobiRuntime.hpp",
+      "symbol": "Sub_4ACE80",
+      "declaration": "YobiAction* Sub_4ACE80(\n    std::int32_t kind, std::int32_t value14, std::int32_t userState,\n    std::int32_t phase, std::uint32_t flags, std::uint32_t mode);"
+    },
+    null,
+    null
+  ],
+  "declarations_after": [
+    {
+      "path": "include/cg/YobiRuntime.hpp",
+      "symbol": "Sub_4ABEF0",
+      "declaration": "YobiAction* Sub_4ABEF0(\n    std::int32_t kind, std::int32_t value14, std::int32_t userState,\n    std::uint32_t flags, std::uint32_t mode); // SOA01：真实action指针，原失败同步开41并返空，低BYTE和临时CryptInt原序保持。"
+    },
+    {
+      "path": "include/cg/YobiRuntime.hpp",
+      "symbol": "Sub_4ACE80",
+      "declaration": "YobiAction* Sub_4ACE80(\n    std::int32_t kind, std::int32_t value14, std::int32_t userState,\n    std::int32_t phase, std::uint32_t flags, std::uint32_t mode); // SOA01：真实action指针，原失败同步开38并返空，低BYTE和临时CryptInt原序保持。"
+    },
+    null,
+    null
+  ],
+  "definition_comments": [
+    "// SOA01：原4ABEF0完整154条；保存位只读BYTE，两CryptInt先取后发布/原mode1持中心X，失败同步开41保持。",
+    "// SOA01：原4ACE80完整158条；保存位只读BYTE，两CryptInt先取后发布/原mode1持中心X，phase及失败同步开38保持。",
+    "// SOA01：原4ABE60完整51条；半尺寸原取样、S16计数完成时Y-X读值开41/标死，末W16递增保持。",
+    "// SOA01：原4ACDF0完整53条；半尺寸原取样、phase先持值再Y-X读值开38/标死，末W16递增保持。"
+  ],
+  "structures_before": {
+    "LegacyCryptInt": {
+      "path": "include/cg/platform/LegacyCryptInt.hpp",
+      "text": "struct LegacyCryptInt {\n    std::uint32_t legacyVftToken;\n    std::uint32_t encoded;\n    std::uint32_t mask;\n    std::uint8_t readCount;\n    std::uint8_t reserved[3];\n};"
+    },
+    "WindowState": {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "text": "struct WindowState {\n    std::uint32_t flags; // 原+00，独立于实例state。\n    std::int32_t x;\n    std::int32_t y;\n    WindowInstance* window; // 原+0C；不沿用原记录0x54步长。\n    std::uint32_t value10;\n    std::uint32_t value14;\n    WindowUserState userState; // 原+18；后续生产者按实际用途激活成员。\n    std::uint32_t actionFlags1C; // 原+1C，窗口42数值面板消费低U8。\n    std::uint32_t value20;\n    std::uint32_t value24;\n    std::uint32_t value28;\n    std::array<std::byte, 36> bytes2C; // 未消费区，不据此冻结未知指针映射。\n    std::uint32_t marker50;\n};"
+    },
+    "WindowPrototype": {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "text": "struct WindowPrototype {\n    std::uint32_t state;\n    std::int32_t layer;\n    std::int32_t defaultX;\n    std::int32_t defaultY;\n    std::int32_t width;\n    std::int32_t height;\n    std::uint32_t flags;\n    std::int32_t elementCount;\n    WindowElementPrototype* elements;\n    WindowCallback update;\n    WindowCallback draw;\n    WindowReleaseCallback release;\n};"
+    },
+    "YobiAction": {
+      "path": "src/YobiRuntime.cpp",
+      "text": "struct YobiAction {\n    YobiAction* prev;\n    YobiAction* next;\n    YobiCallback callback;\n    void* payload;\n    union {\n        YobiAction** completionSlot10; // 原+10，444260/4441A0的非拥有完成回写槽。\n        YobiAction* observationParent10; // 同一原+10，43F290/43FE00的非拥有观察父节点。\n        YobiAction* battleAttachmentParent10; // 同一原+10，附件/特效/粒子发射器的非拥有父引用。\n        YobiAction* battleOpponent10; // 同一原+10，416DD0/412900的非拥有对象引用；412900另快照原值。\n        YobiAction* battleCastEffect10; // 同一原+10，413400保存创建返回的非拥有施法特效。\n    };\n    std::uint8_t priority;\n    std::uint8_t displayPriority;\n    std::int32_t cacheIndex;\n    std::int32_t deathFlag;\n    std::int32_t graphicIndex;\n    std::uint32_t flags;\n    std::int32_t counter28; // 原+28，440440退出轨迹的独立计数。\n    union {\n        std::int32_t phase; // 原+2C，普通对象的S32阶段。\n        ui::WindowValueCallback numberWindowCallback2C; // 48AC60数量族的非拥有函数指针。\n    };\n    std::int32_t x;\n    std::int32_t y;\n    std::int32_t deltaX; // 原+38；窗口横向步长，41F570/41FB20复用为计数。\n    std::int32_t deltaY; // 原+3C；窗口/排序字段，41F570复用为寿命上限，不与y合并。\n    float offset40; // 原+40；448A50/448BF0/449A00的投影后横向偏移。\n    float offset44; // 原+44；对应纵向偏移，不与屏幕y合并。\n    float effectAcceleration48; // 原+48，420D50/41A310写0.2，41A7D0写0.1，41A200从4C扣除；4087C0/4090F0复用为回旋转向步长。\n    std::uint32_t value4CBits; // 原+4C；41F4C0/41F5B0写C1000000，41F450/41A200按F32消费。\n    float angle50; // 原+50；本对象族创建清零，449160另作角度。\n    float value54; // 原+54；三路对象速度及其他回调的幅值，共用F32。\n    std::int32_t field58; // 原 +58，与 +2B8 的 direction 独立。\n    float scaleX;\n    float scaleY;\n    std::array<char, 64> displayName; // 原 +64..+A3；41EB10 按 64B 复制，保留原编码。\n    std::int32_t nameX;              // 原 +A4；DrawText2消费低S16，41A7D0作S32生成计数。\n    std::int32_t nameY;              // 原+A8；下落族作终点，41B440帧事件族作S32消退计数。\n    float nameOffsetAC; // 原+AC，伤害数字创建/更新投影到nameX。\n    float nameOffsetB0; // 原+B0，伤害数字创建/更新投影到nameY。\n    float battleTurnStepB4; // 原+B4；41C3B0/4219D0转向步长，40F800复用为F32目标缩放。\n    float numberVelocityB8; // 原+B8，41F1A0写-8，41F110更新独立数字速度。\n    std::int8_t nameColor;           // 原 +BC。\n    std::int8_t nameFontType;        // 原 +BD。\n    std::int8_t nameLayer;           // 原 +BE；DrawText2 的 renderMode。\n    std::int32_t nameValueC0;        // 原 +C0；DrawText2 仅消费低 S8。\n    std::array<char, 29> nameC4; // 原 +C4..+E0；445D20允许28B及NUL，不是+64绘制文本。\n    std::array<char, 33> titleE1; // 原+E1..101；41EB10复制33B，51A090仍最多写16B及NUL。\n    std::array<char, 33> text102;\n    std::array<char, 33> text123;\n    std::array<char, 17> text144; // 原+144；445350复制长度<=16的独立原字节文本。\n    std::array<std::byte, 25> bytes155; // 原+155..16D，41EB10复制原字节，业务用途未定。\n    platform::LegacyCryptInt readiness; // 原 +170；地图实体将同一槽用于 HP。\n    platform::LegacyCryptInt maxHp; // 原 +180；不与 +170 合并。\n    platform::LegacyCryptInt value190; // 原+190/+1A0，选择对象静态构造各自初始化。\n    platform::LegacyCryptInt value1A0;\n    platform::LegacyCryptInt barValue1B0; // 原+1B0；442F70同步玩家/宠物FP，43DB60绘第二条。\n    platform::LegacyCryptInt barMaximum1C0; // 原+1C0；同步最大FP，读取仍消费计数/RNG。\n    union {\n        std::int32_t field1D0; // 原+1D0数值路径，宽度保持S32。\n        YobiAction** windowCompletionSlot1D0; // 475950/4758D0非拥有完成槽。\n    };\n    std::int32_t value1D4; // 原+1D4；观察父节点主队列索引/子节点轨迹计数，共用S32。\n    std::int32_t field1D8; // 原 +1D8；51A090 写入完整第四参数。\n    std::int32_t counter1DC; // 原+1DC，442F70图标/420300序列特效计数。\n    platform::LegacyCryptInt mapX1E0; // 原+1E0/+1F0当前位置；420100族复用为序号/计时。\n    platform::LegacyCryptInt mapY1F0; // 46DD90仍按X→Y读取坐标并乘64。\n    platform::LegacyCryptInt mapX200; // 原 +200/+210 移动目标；46DE50先赋这组，不合并载荷。\n    platform::LegacyCryptInt mapY210;\n    std::array<std::int32_t, 10> pathX220; // 原 +220..+247，路径X。\n    std::array<std::int32_t, 10> pathY248; // 原 +248..+26F，路径Y。\n    std::uint16_t field270; // 原 +270；路径按S16消费，地图创建只清本W16。\n    std::uint16_t field272; // 原 +272；移动动作标志，不与路径计数合并。\n    float worldX; // 原 +274/+278，地图投影输入，与 CryptInt 两组坐标独立。\n    float worldY;\n    std::uint32_t field27C;\n    std::uint32_t field280;\n    std::int32_t walkSpeed;\n    std::array<std::uint16_t, 4> fields288; // 原+288/+28A/+28C/+28E；423800相册匹配按序消费。\n    std::array<std::byte, 20> bytes290; // 原+290..2A3的五W32复制范围；不作为本机地址存储。\n    std::int32_t framePlayingRate;\n    std::int32_t imageNo; // 原+2A8；420100族以此槽分派阶段，图形序号另存graphicIndex。\n    std::int32_t characterAction;\n    std::int32_t direction;\n    std::int32_t lastImageNo;       // 原 +2AC：上次播放图号。\n    std::int32_t lastCharacterAction; // 原 +2B4：上次动作。\n    std::int32_t lastDirection;     // 原 +2BC：上次方向。\n    std::uint32_t frameIndex;       // 原 +2C0：以 U32 与帧数比较。\n    std::int32_t frameRemain;       // 原 +2C4：非零则递减，本轮不取新帧。\n    std::int32_t graphicOffsetX;    // 原 +2C8：图形偏移叠加帧坐标。\n    std::int32_t graphicOffsetY;    // 原 +2CC。\n    std::int32_t frameEvent;        // 原+2D0：播放flag>=10000写入；完成族清零，帧事件族消费，41BB00作命中标记。\n    std::int32_t hidden;            // 原 +2D4：仅严格等于 1 时跳过播放。\n    std::uint32_t field2D8;         // 原+2D8；41EB10复制，410E30/4124E0另清零，独立位型。\n    std::uint32_t completedLoops;   // 原 +2DC。\n    std::int32_t playRevert;        // 原 +2E0：保留 caller 完整 W32。\n    std::int32_t field2E4;          // 原 +2E4；51A5B0 比较完整 W32 是否为2。\n    std::int32_t imageNo2E8;        // 原+2E8，442F70第一附件图号。\n    std::uint8_t refresh2EC;        // 原+2EC，创建第一附件时清零。\n    std::int32_t frameX;            // 原 +2F0：帧坐标叠加坐标文件偏移。\n    std::int32_t frameY;            // 原 +2F4。\n    render::GraphicDescriptor16 drawMode;\n    std::uint8_t batchType;\n    std::int32_t color2;\n    std::uint8_t rebirthValue1;\n    std::uint8_t rebirthValue2;\n    std::int32_t mapOffsetX; // 原 +314/+318；46CF60 写 .cut 偏移，46DD90 在 FrameMove 后读取。\n    std::int32_t mapOffsetY;\n    std::array<char, 17> text31C; // 原 +31C；51A090 第四文本的独立槽。\n};"
+    },
+    "WindowOpeningPayload": {
+      "path": "src/YobiRuntime.cpp",
+      "text": "struct WindowOpeningPayload {\n    std::uint16_t id; // 通用展开为窗口编号，存放41/38族为kind，回调按S16读取。\n    std::uint16_t counter;\n    std::int32_t width;\n    std::int32_t height;\n    std::int32_t centerX;\n    std::int32_t centerY;\n    std::int32_t halfWidth;\n    std::int32_t halfHeight;\n    std::int32_t value1C;\n    std::uint16_t flag20;\n    std::array<std::byte, 2> bytes22;\n};"
+    }
+  },
+  "reused_sources": {
+    "NewYobiAction_404AE0": {
+      "path": "src/YobiRuntime.cpp",
+      "text": "YobiAction* NewYobiAction_404AE0(\n    const std::uint8_t priority,\n    const std::uint32_t payloadSize)\n{\n    auto* const action = static_cast<YobiAction*>(\n        std::calloc(std::size_t{1}, sizeof(YobiAction)));\n    if (action == nullptr) {\n        platform::ShowLegacyMessage(\n            kActionAllocationText,\n            kConfirmCaption,\n            0);\n        platform::ShowLegacyMessage(\n            kActionPayloadText,\n            kActionAllocationCaption,\n            0);\n        return nullptr;\n    }\n\n    if (payloadSize != 0) {\n        void* const payload = std::calloc(std::size_t{1}, payloadSize);\n        const bool missingPayload = payload == nullptr;\n        action->payload = payload;\n        if (missingPayload) {\n            std::free(action);\n            platform::ShowLegacyMessage(\n                kYobiAllocationText,\n                kYobiAllocationCaption,\n                0);\n            return nullptr;\n        }\n        std::memset(payload, 0, payloadSize);\n    }\n\n    action->callback = nullptr;\n    action->priority = priority;\n    action->graphicIndex = -1;\n    action->cacheIndex = -2;\n    action->framePlayingRate = 100;\n    action->scaleX = 1.0F;\n    action->scaleY = 1.0F;\n    // 原404BB2–404BE0逐项W16/W32发布；不能仅借calloc省略显式零写。\n    const std::uint16_t descriptorZero = 0;\n    const std::uint32_t descriptorColor = 0xFFFFFFFFu;\n    std::memcpy(action->drawMode.bytes.data(), &descriptorZero, sizeof(descriptorZero));\n    std::memcpy(action->drawMode.bytes.data() + 2, &descriptorZero, sizeof(descriptorZero));\n    std::memcpy(action->drawMode.bytes.data() + 4, &descriptorZero, sizeof(descriptorZero));\n    std::memcpy(action->drawMode.bytes.data() + 6, &descriptorZero, sizeof(descriptorZero));\n    std::memcpy(action->drawMode.bytes.data() + 8, &descriptorColor, sizeof(descriptorColor));\n    action->drawMode.bytes[12] = 0;\n    action->drawMode.bytes[13] = 0;\n    std::memcpy(action->drawMode.bytes.data() + 14, &descriptorZero, sizeof(descriptorZero));\n    action->batchType = 0;\n    action->color2 = -1;\n    action->rebirthValue1 = 0;\n    action->rebirthValue2 = 0;\n    action->walkSpeed = 100;\n\n    YobiAction* const start = gYobiActionStart;\n    YobiAction* const end = gYobiActionEnd;\n    YobiAction* insertionPoint = start->next;\n    YobiAction* const stop = end->next;\n    if (insertionPoint != stop) {\n        while (insertionPoint->priority <= priority) {\n            insertionPoint = insertionPoint->next;\n            if (insertionPoint == stop) {\n                return action;\n            }\n        }\n\n        YobiAction* const previous = insertionPoint->prev;\n        action->next = insertionPoint;\n        action->prev = previous;\n        YobiAction* const currentPrevious = insertionPoint->prev;\n        currentPrevious->next = action;\n        insertionPoint->prev = action;\n    }\n    return action;\n}\n"
+    },
+    "MarkDeath": {
+      "path": "src/YobiRuntime.cpp",
+      "text": "YobiAction* MarkDeath(YobiAction* const action)\n{\n    if (action != nullptr) {\n        action->deathFlag = 1;\n    }\n    return action;\n}\n"
+    },
+    "ConstructFromInt_401CC0": {
+      "path": "src/platform/LegacyCryptInt.cpp",
+      "text": "LegacyCryptInt* ConstructFromInt_401CC0(\n    LegacyCryptInt* storage,\n    std::int32_t value)\n{\n    storage->legacyVftToken = kLegacyCryptIntVftToken;\n    storage->mask = NextMask();\n    storage->readCount = 0;\n    SetNorVal_401F50(storage, value);\n    return storage;\n}\n"
+    },
+    "Destroy_401CF0": {
+      "path": "src/platform/LegacyCryptInt.cpp",
+      "text": "void Destroy_401CF0(LegacyCryptInt* value)\n{\n    value->legacyVftToken = kLegacyCryptIntVftToken;\n}\n"
+    },
+    "Read_401EC0": {
+      "path": "src/platform/LegacyCryptInt.cpp",
+      "text": "std::int32_t Read_401EC0(LegacyCryptInt* value)\n{\n    const std::uint8_t nextCount =\n        static_cast<std::uint8_t>(value->readCount + std::uint8_t{1});\n    value->readCount = nextCount;\n\n    if (std::bit_cast<std::int8_t>(nextCount) > 20) {\n        const std::int32_t plain = FromBits(value->encoded ^ value->mask);\n        value->readCount = 0;\n        value->mask = NextMask();\n        SetNorVal_401F50(value, plain);\n        return plain;\n    }\n\n    return FromBits(value->encoded ^ value->mask);\n}\n"
+    },
+    "PlaySe_52C450": {
+      "path": "src/LegacyAudio.cpp",
+      "text": "std::int32_t __cdecl PlaySe_52C450(\n    const std::int32_t seNo, const std::int32_t screenX)\n{\n    gLastSeNo58D4FC = seNo;\n    if (gValue10507D4 != 0 || platform::gEnableSound == 0\n        || seNo < 0 || seNo > 500 || !gSdlAudioBackend.IsOpen()) {\n        return -1;\n    }\n\n    SoundEffectDefinition& effect =\n        gSoundEffects103E7B0[static_cast<std::size_t>(seNo)];\n    if (effect.sampleIndex == -1) {\n        return -1;\n    }\n    if (effect.cooldown != 0) {\n        return 0;\n    }\n\n    gNextSeChannel105082C =\n        static_cast<std::int32_t>(\n            static_cast<std::uint32_t>(gNextSeChannel105082C) & 0x3Fu);\n    const std::size_t channelIndex =\n        static_cast<std::size_t>(gNextSeChannel105082C);\n    SoundChannelState& channel = gSoundChannels104D0C8[channelIndex];\n    if (channel.currentSeNo == seNo) {\n        static_cast<void>(gSdlAudioBackend.RewindChannel(channelIndex));\n    } else {\n        const std::int32_t previous = channel.currentSeNo;\n        channel.currentSeNo = seNo;\n        if (previous != -2 && gSdlAudioBackend.HasChannel(channelIndex)) {\n            gSdlAudioBackend.ReleaseChannel(channelIndex);\n        }\n        if (!gSdlAudioBackend.PrepareChannel(\n                static_cast<std::size_t>(gNextSeChannel105082C),\n                static_cast<std::size_t>(effect.sampleIndex))) {\n            gSoundChannels104D0C8[static_cast<std::size_t>(\n                gNextSeChannel105082C)].currentSeNo = -2;\n            return -1;\n        }\n    }\n\n    const std::int32_t panIndex = platform::gUseStereo == 0\n        ? 64\n        : (std::clamp)(screenX / 5, 0, 127);\n    // 原52C58F先取当前通道，再取音量；各属性调用后重新取通道。\n    const std::int32_t volumeChannel = gNextSeChannel105082C;\n    const std::int32_t effectVolume = effect.volume;\n    const std::int32_t scaledVolume = (effectVolume * 127) / 127;\n    const std::int32_t volumeIndex =\n        (scaledVolume * platform::gEffectVolume) / 15;\n    static_cast<void>(gSdlAudioBackend.SetChannelVolume(\n        static_cast<std::size_t>(volumeChannel),\n        gSoundVolValue10505D0[static_cast<std::size_t>(volumeIndex)]));\n    const std::int32_t panChannel = gNextSeChannel105082C;\n    const std::int32_t panValue =\n        gPanVal103CFBC[static_cast<std::size_t>(panIndex)];\n    static_cast<void>(gSdlAudioBackend.SetChannelPan(\n        static_cast<std::size_t>(panChannel), panValue));\n    // 原52C601只读一次音高，非零时按基频→通道→频率表取样。\n    const std::int32_t pitchIndex = effect.pitchIndex;\n    if (pitchIndex != 0) {\n        const std::int32_t baseFrequency = effect.baseFrequency;\n        const std::int32_t frequencyChannel = gNextSeChannel105082C;\n        const std::uint32_t frequency =\n            gPitchFrequencies58D3D4[static_cast<std::size_t>(\n                baseFrequency + pitchIndex)];\n        static_cast<void>(gSdlAudioBackend.SetChannelFrequency(\n            static_cast<std::size_t>(frequencyChannel), frequency));\n    }\n    static_cast<void>(gSdlAudioBackend.PlayChannel(\n        static_cast<std::size_t>(gNextSeChannel105082C), false));\n\n    std::uint32_t next =\n        static_cast<std::uint32_t>(gNextSeChannel105082C);\n    do {\n        next = (next + 1u) & 0x3Fu;\n    } while (gSoundChannels104D0C8[next].value30 != 0);\n    effect.cooldown = 5;\n    gNextSeChannel105082C = static_cast<std::int32_t>(next);\n    return 0;\n}\n"
+    },
+    "DrawGraphicHover": {
+      "path": "src/DrawGraphicHover.cpp",
+      "text": "void DrawGraphicHover(\n    const std::uint16_t left,\n    const std::uint16_t top,\n    const std::uint16_t right,\n    const std::uint16_t bottom,\n    const std::uint8_t layer,\n    const std::uint32_t imageNo,\n    const std::int32_t step)\n{\n    const std::uint32_t packedX =\n        (static_cast<std::uint32_t>(left) << 16U)\n        | static_cast<std::uint32_t>(right);\n    const std::uint32_t packedY =\n        (static_cast<std::uint32_t>(top) << 16U)\n        | static_cast<std::uint32_t>(bottom);\n\n    std::uint32_t encodedImageNo = imageNo;\n    switch (step) {\n    case 0:\n        encodedImageNo |= 0xA0000000U;\n        break;\n    case 1:\n        encodedImageNo |= 0x90000000U;\n        break;\n    case 2:\n        encodedImageNo |= 0xC0000000U;\n        break;\n    default:\n        break;\n    }\n\n    const std::int32_t index = DrawGraphic(\n        std::bit_cast<std::int32_t>(packedX),\n        std::bit_cast<std::int32_t>(packedY),\n        layer,\n        std::bit_cast<std::int32_t>(encodedImageNo),\n        0,\n        nullptr);\n    SetPendingGraphicBatchTypeAtLegacyIndex(index, std::uint8_t{2});\n}\n"
+    },
+    "Sub_4A83A0": {
+      "path": "src/ui/WindowRuntime.cpp",
+      "text": "WindowInstance* Sub_4A83A0(\n    const std::int32_t kind, const std::int32_t value14, const std::int32_t userState)\n{\n    gWindowStates[41].value10 = static_cast<std::uint32_t>(kind);\n    WindowInstance* const window = OpenWindow_471440(41);\n    gWindowStates[41].window = window;\n    gWindowStates[41].value14 = static_cast<std::uint32_t>(value14);\n    gWindowStates[41].userState.value = static_cast<std::uint32_t>(userState);\n    return window;\n}\n"
+    },
+    "Sub_4AC0C0": {
+      "path": "src/ui/WindowRuntime.cpp",
+      "text": "WindowInstance* Sub_4AC0C0(\n    const std::int32_t kind, const std::int32_t value14,\n    const std::int32_t userState, const std::int32_t)\n{\n    gWindowStates[38].value10 = static_cast<std::uint32_t>(kind);\n    WindowInstance* const window = OpenWindow_471440(38);\n    gWindowStates[38].window = window;\n    gWindowStates[38].value14 = static_cast<std::uint32_t>(value14);\n    gWindowStates[38].userState.value = static_cast<std::uint32_t>(userState);\n    return window;\n}\n"
+    }
+  },
+  "caller_sources_before": {
+    "Sub_49D2E0": {
+      "path": "src/ui/WindowRuntime.cpp",
+      "text": "void Sub_49D2E0(\n    const std::int32_t type, const std::int32_t value, const std::int32_t request,\n    const std::int32_t target, char* const text)\n{\n    std::int32_t currentType = world::detail::gValue581800;\n    login::YobiAction* created = nullptr;\n    if (currentType >= 0) {\n        switch (request) {\n        case 326:\n        case 327:\n        case 369:\n        case 388:\n        case 389:\n        case 390:\n            if (type != 32) {\n                CloseWindowsByCategory_472240(2);\n                CloseWindowsByCategory_472240(3);\n                currentType = -1;\n                world::detail::gValue581800 = -1;\n            }\n            break;\n        default:\n            break;\n        }\n    }\n    bool enterNewType = false;\n    if (type == currentType) {\n        switch (currentType) {\n        case 21: {\n            world::detail::gValue581800 = type;\n            gDialogValueCF4E5C = value;\n            world::detail::gDialogRequestCC21E0 = request;\n            world::detail::gDialogTargetD2DE6C = target;\n            const std::int32_t y =\n                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);\n            const std::int32_t x =\n                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);\n            static_cast<void>(Sub_4D3020(x, y));\n            static_cast<void>(Sub_4B6970(value, text));\n            static_cast<void>(CreateWindowAnimation_475AA0(50, 1, 0, nullptr));\n            break;\n        }\n        case 23:\n        case 33:\n            if (Sub_4A84A0(text) != 0) {\n                if (gWindowStates[41].window != nullptr) {\n                    break;\n                }\n                created = login::detail::Sub_4ABEF0(type == 33 ? 1 : 0, request, target, 1, 0);\n                if (created != nullptr) {\n                    break;\n                }\n            }\n            if (gWindowStates[41].window == nullptr) {\n                enterNewType = true;\n            }\n            break;\n        case 34:\n            if (Sub_4A84A0(text) != 0) {\n                if (gWindowStates[38].window != nullptr) {\n                    break;\n                }\n                created = login::detail::Sub_4ACE80(0, request, target, 0, 1, 0);\n                if (created != nullptr) {\n                    break;\n                }\n            }\n            if (gWindowStates[38].window == nullptr) {\n                enterNewType = true;\n            }\n            break;\n        case 32:\n            if (gWindowStates[51].window == nullptr) {\n                enterNewType = true;\n            } else {\n                Sub_4AD470(text);\n            }\n            break;\n        default:\n            break;\n        }\n    }\n    if (!enterNewType && world::detail::gValue581800 >= 0) {\n        return;\n    }\n    world::detail::gValue581800 = type;\n    gDialogValueCF4E5C = value;\n    world::detail::gDialogRequestCC21E0 = request;\n    world::detail::gDialogTargetD2DE6C = target;\n    const std::int32_t y =\n        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);\n    const std::int32_t x =\n        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);\n    static_cast<void>(Sub_4D3020(x, y));\n    switch (type) {\n    case 0:\n    case 1:\n    case 2:\n    case 35:\n        static_cast<void>(Sub_49DF30(96, 108, 448, 240, 245300, value, request, target, text));\n        return;\n    case 10:\n    case 11:\n        static_cast<void>(Sub_49DF30(32, 12, 576, 432, 245300, value, request, target, text));\n        return;\n    case 5:\n        static_cast<void>(Sub_4A0140(text));\n        return;\n    case 6:\n        static_cast<void>(Sub_4B6E00(text));\n        return;\n    case 7:\n        static_cast<void>(Sub_4B70D0(text));\n        return;\n    case 16:\n        static_cast<void>(Sub_4A0640(text));\n        return;\n    case 17:\n        static_cast<void>(Sub_4BD540(text));\n        return;\n    case 18:\n        static_cast<void>(Sub_4BD680(text));\n        return;\n    case 19:\n        static_cast<void>(Sub_49E400(96, 108, 448, 240, 245300, value, request, target, text));\n        return;\n    case 20:\n        static_cast<void>(Sub_4B7AB0(text));\n        return;\n    case 21:\n        static_cast<void>(Sub_4B6970(value, text));\n        static_cast<void>(CreateWindowAnimation_475AA0(50, 1, 0, nullptr));\n        return;\n    case 22:\n        static_cast<void>(Sub_4B7EE0(text));\n        return;\n    case 23:\n    case 33:\n        if (Sub_4A84A0(text) != 0 && gWindowStates[41].window == nullptr) {\n            created = login::detail::Sub_4ABEF0(type == 33 ? 1 : 0, request, target, 1, 0);\n        }\n        if (created == nullptr && gWindowStates[41].window == nullptr) {\n            world::detail::gValue581800 = -1;\n        }\n        return;\n    case 24:\n        static_cast<void>(Sub_4BD810(text));\n        return;\n    case 25:\n        Sub_4BDD90(text);\n        return;\n    case 26:\n    case 44:\n        Sub_4BE200(text);\n        return;\n    case 27:\n        static_cast<void>(Sub_4A0790(text));\n        return;\n    case 28:\n        static_cast<void>(Sub_4B74E0(text));\n        return;\n    case 29:\n        static_cast<void>(Sub_4888C0(text));\n        return;\n    case 30:\n        static_cast<void>(Sub_4A0850(text));\n        return;\n    case 31:\n        static_cast<void>(Sub_4B77E0(text));\n        return;\n    case 32:\n        static_cast<void>(Sub_4AD180(request, target, text));\n        return;\n    case 34:\n        if (Sub_4A84A0(text) != 0 && gWindowStates[38].window == nullptr) {\n            created = login::detail::Sub_4ACE80(0, request, target, 0, 1, 0);\n        }\n        if (created == nullptr && gWindowStates[38].window == nullptr) {\n            world::detail::gValue581800 = -1;\n        }\n        return;\n    case 36:\n        static_cast<void>(Sub_4C5790(request, target, text));\n        return;\n    case 37:\n        static_cast<void>(Sub_4C6060(value, request, target, text));\n        return;\n    case 42:\n        static_cast<void>(Sub_4BDAD0(text));\n        return;\n    case 43:\n        Sub_4BDF70(text);\n        return;\n    case 45:\n        static_cast<void>(Sub_4A0300(text));\n        return;\n    case 46:\n        static_cast<void>(Sub_4C13B0(text));\n        return;\n    case 47:\n        static_cast<void>(Sub_4A04A0(text));\n        return;\n    case 48:\n        static_cast<void>(Sub_4C3550(text));\n        return;\n    default:\n        return;\n    }\n}\n"
+    }
+  },
+  "prototype_rows_before": {
+    "Sub_4A9160": {
+      "path": "src/ui/WindowPrototypes.cpp",
+      "text": "    {0, 4, 20, 25, 567, 339, 0x80010101u, 38, gWindowElements571160, &Sub_4A9020, &Sub_4A9160, &Sub_4A83D0}, // 41: 54EB10"
+    },
+    "Sub_4AC1B0": {
+      "path": "src/ui/WindowPrototypes.cpp",
+      "text": "    {0, 4, 300, 82, 567, 339, 0x80010101u, 6, gWindowElements571740, &Sub_4AC140, &Sub_4AC1B0, &Sub_4AC0F0}, // 38: 54EB40"
+    }
+  },
+  "reused_records": [
+    {
+      "index": 219,
+      "inventory_id": "F:00001EA0"
+    },
+    {
+      "index": 222,
+      "inventory_id": "F:00004D00"
+    },
+    {
+      "index": 1129,
+      "inventory_id": "F:00004AE0"
+    },
+    {
+      "index": 1964,
+      "inventory_id": "F:0009D2E0"
+    },
+    {
+      "index": 1970,
+      "inventory_id": "F:000A84A0"
+    }
+  ],
+  "source_patch_group_count": 8,
+  "source_changed_point_count": 8,
+  "source_comment_count": 6,
+  "source_patch_group_counts": [
+    4,
+    4,
+    0,
+    0
+  ],
+  "source_changed_point_counts": [
+    4,
+    4,
+    0,
+    0
+  ],
+  "feature_member_additions": {
+    "FUNC-UIRUNTIME": [
+      "F:000ABEF0",
+      "F:000ACE80",
+      "F:000ABE60",
+      "F:000ACDF0"
+    ],
+    "FUNC-YOBI": [
+      "F:000ABEF0",
+      "F:000ACE80",
+      "F:000ABE60",
+      "F:000ACDF0"
+    ]
+  },
+  "tasks_updated": [
+    "G01",
+    "G02",
+    "R01",
+    "R04",
+    "U10",
+    "U11",
+    "V03",
+    "V04"
+  ],
+  "expected_counts_before": {
+    "semantic_records": 2333,
+    "semantic_F": 2285,
+    "bounded_code_records": 48,
+    "function_dispositions": 1797,
+    "evidence": 1603,
+    "document_linked_functions": 2395,
+    "document_link_rate": "65.08%",
+    "feature_members": {
+      "FUNC-UIRUNTIME": 207,
+      "FUNC-YOBI": 111
+    }
+  },
+  "expected_counts_after": {
+    "semantic_records": 2337,
+    "semantic_F": 2289,
+    "bounded_code_records": 48,
+    "function_dispositions": 1801,
+    "evidence": 1605,
+    "document_linked_functions": 2399,
+    "document_link_rate": "65.19%",
+    "feature_members": {
+      "FUNC-UIRUNTIME": 211,
+      "FUNC-YOBI": 115
+    }
+  },
+  "execution_policy": {
+    "build": false,
+    "test": false,
+    "client_run": false,
+    "algorithm_samples": false,
+    "artifact_inspection": false,
+    "digests": false,
+    "dependencies": false,
+    "single_thread": true,
+    "same_branch": true,
+    "tags": false
+  },
+  "verification": {
+    "necessary_static": "pass，四完整原根416条1208B/八页、24E8九目标/12跳八RET及五CALL/两code-offset来源；两整源精确回放八组八处六注释、两正确callback/五类型九提供者一父两prototype行五旧语义保持；只源码合同，生成读取/全manager owner/ABI/运行待",
+    "registry": "pass，四新F四adapted，YOBI/UI各四成员、两限定S零I八open；登记全量差异回放相同，其它旧语义/处置/证据及政策/gates/枚举/六closure保持，六文档和清单严格追加通过",
+    "measurement": "pass，measure_cg2d.ps1静态汇总终态退出0；3680函数/218导入/3061区间/184叶功能/60任务，非构建/运行验收",
+    "check": "pass，measure_cg2d.ps1 -Check终态退出0，当前生成快照/看板与登记一致；完整gates和运行待",
+    "derived_scope": "pass，派生仅六metrics/四本轮F/两功能/八任务；2399/3680=65.19%仅关联率，2337=2289F关联+48有界代码/处置1801/证据1605，YOBI115/UIRUNTIME211，其它字段与全部完整门禁保持",
+    "runtime_verified": false,
+    "full_lifecycle_closed": false,
+    "generated_machine_reads_verified": false,
+    "build_or_test_performed": false,
+    "algorithm_samples_executed": false,
+    "digests_computed_or_compared": false
+  },
+  "registration_contract": {
+    "boundary": "SOA01四完整原根：4ABEF0(154条462B/三页)、4ACE80(158条474B/三页)、4ABE60(51条134B/一页)、4ACDF0(53条138B/一页)，共416条1208B/八页、24E8九唯一目标/12跳八RET。两creator原五CALL均同49D2E0（41三点/38两点），callback各仅一个creator MOV offset发布；这里只证明本族及来源，不据单引用宣不可变或完整动态调度。四新F四adapted，UI-YOBI各四成员，两限定S零I八open。原动作priority3/payload size24H，现sizeof(WindowOpeningPayload)承接已存在纯标量36B struct；其id/counter W16，width/height/centerX-centerY/halfWidth-halfHeight/value1C S32、flag20 W16及bytes22未写域保，本四根value1C仅清S32零，不当完成槽指针或拓宽到uintptr_t，不据本族冻结所有其它族用途。NewAction/MarkDeath当前真实manager及通用MSVC分配族复用，不新增影子owner或接口。\n两creator先声56/X320（原三参中的Y240仍沿已核音频接口）→真实NewYobiAction(priority3,size36)，失败原各三/四S32参数直接Sub4A83A0(kind,value14,userState)或4AC0C0(kind,value14,userState,phase)，弃开窗callee结果，返回空action，故SRD01检查created空后仍fresh window的原因有完整本族原证；不将同步fallback成功伪成action成功指针。成功后一次prototype41/38指针，savedPosition只读原flags低BYTE；原先defaultY→width→defaultX→height S32取样，命中保存位才原x→y覆盖，不移窗口保存flag到helper或合宽字段。action/payload非拥有原指针保，action flags W32 OR6→callback真实指针→displayPriority BYTE DF，payload value1C S32零→flag20 W16零，入flags只低BYTE bit1命中写flag20=1；action x/y S32、payload width/height S32及kind低W16按原发布，38另phase S32在首CryptInt构造前发布。\n四临时CryptInt原encoded在+4、mask在+8、readCount BYTE+C，不交换语义字段。先Construct(value14)/RNG，再一次取全三临时字段后按原顺序发布mapX，Destroy；再Construct(userState)/RNG，取全三字段后按原序发布mapY，Destroy。41的X读/写序count→encoded→mask，Y序mask→encoded→count；38的X序encoded→mask→count，Y序count→encoded→mask。原source三读先于任何target三写，现恢复四组先取临时后发布，写序本来正确不交换；vftToken/reserved不复制或补零，不改变构造/析构或随机次数。counter末清W16零，mode仅低BYTE：0原宽/高除2加pos发布centerX-Y→action deltaX0→fresh centerY算deltaY/10→fresh centerX算halfWidth；1原centerX新算值持寄存器，发布centerX-Y后用持值算deltaX/10，再fresh centerY算deltaY/10，本步恢复持值不重读centerX；原不在mode1写halfWidth、其它mode不写centers/deltas及本族不写halfHeight，保既有真实allocator的清零，不在creator补默认或新钳制。两个返回真实新action指针/失败空，不改callee/源协议参数。\n两callback正确body全部保，只注释：先held payload，S32 halfHeight→centerY→halfWidth→centerX，现Hover传低W16矩形/层D4/image0/step0，图后fresh deltaX→previousHalfWidth→previousHalfHeight，发布halfWidth增量，再fresh deltaY，先按counter低S16>=10比较，再halfHeight发布，原完成与末递增不同阶段不能互换。完成41先Read(mapY)userState再Read(mapX)value14，再kind低S16→4A83A0；38先持phase S32，之后同Y→X→kind→4AC0C0。开窗副作用后MarkDeath，再末counter W16++，不立即free/重复开窗守卫或按指针变化重取payload；原callback残留EAX随阶段不同，现void只保副作用，全部machine callback ABI待。两callback并不消费本族value1C/flag20，不为其添加完成槽、保护或私有状态。原dispatcher是否每帧及全manager释放/初始队列owner待完整闭环，本族callback发布与实际执行/回收验收分别记录。\n两creator合八组八处：两个saved BYTE、四Crypt先取后发布、两个mode1持centerX；四定义/两既有声明六注释，无公头decl的两个callback不新增接口。两整源精确回放/两正确callback、五类型/九真实provider/一个SRD01父/两个prototype行及五旧语义保持，结构字段宽度及原正常失败/读取发布保持；不据本族重验所有provider或关真实调度/owner/SDK/生成读取及完整ABI/画面运行。MSVC/WAV-only/原命令字段LF明文与所有完整门禁保，不引新helper/类型/字段/API/owner、空/容量/index保护、补零/新默认/钳制/回滚或异常模型，整体未完成。",
+    "documentation_additions": {
+      "doc/cg2d_ui_window_runtime.md": "## 2026-10-11 SOA01：存放开窗动作及完成回调\n\n[SOA01](cg2d_storage_opening_actions_spec.md#storage-opening-source-state)补齐窗口41/38两个creator及两个完成callback，四完整原根416条1208B/八页、24E8九目标/12跳八RET。恢复两处saved flags BYTE、四CryptInt先取后发布及两个mode1中心X持值，八组八处/六注释；两正确callback、失败同步开窗但仍返空、原S16完成/W16末递增保持。四新F/处置、两限定S零I八open，完整manager/owner/ABI与画面运行待。",
+      "doc/cg2d_yobi_runtime.md": "## 2026-10-11 SOA01：载荷生产与完成消费\n\n[SOA01](cg2d_storage_opening_actions_spec.md#storage-opening-source-state)补齐窗口41/38两个creator及两个完成callback，四完整原根416条1208B/八页、24E8九目标/12跳八RET。恢复两处saved flags BYTE、四CryptInt先取后发布及两个mode1中心X持值，八组八处/六注释；两正确callback、失败同步开窗但仍返空、原S16完成/W16末递增保持。四新F/处置、两限定S零I八open，完整manager/owner/ABI与画面运行待。",
+      "doc/ui_windows/shared_38_41.md": "## 2026-10-11 SOA01：异步动作与同步失败开窗\n\n[SOA01](../cg2d_storage_opening_actions_spec.md#storage-opening-source-state)补齐窗口41/38两个creator及两个完成callback，四完整原根416条1208B/八页、24E8九目标/12跳八RET。恢复两处saved flags BYTE、四CryptInt先取后发布及两个mode1中心X持值，八组八处/六注释；两正确callback、失败同步开窗但仍返空、原S16完成/W16末递增保持。四新F/处置、两限定S零I八open，完整manager/owner/ABI与画面运行待。",
+      "doc/cg2d_storage_reply_dispatch_spec.md": "## 2026-10-11 SOA01：创建结果与fallback来源补齐\n\n[SOA01](cg2d_storage_opening_actions_spec.md#storage-opening-source-state)补齐窗口41/38两个creator及两个完成callback，四完整原根416条1208B/八页、24E8九目标/12跳八RET。恢复两处saved flags BYTE、四CryptInt先取后发布及两个mode1中心X持值，八组八处/六注释；两正确callback、失败同步开窗但仍返空、原S16完成/W16末递增保持。四新F/处置、两限定S零I八open，完整manager/owner/ABI与画面运行待。\n\nSRD01当时只完整父/当前callee来源的历史保；本族现已由完整原creator证实失败时同步开窗口但返回空action，原后fresh window判断必须保，完整manager和窗口owner寿命仍待。",
+      "doc/cg2d_traceability_acceptance_spec.md": "## 2026-10-11 SOA01：完整存放开窗动作合同\n\n[SOA01](cg2d_storage_opening_actions_spec.md#storage-opening-source-state)补齐窗口41/38两个creator及两个完成callback，四完整原根416条1208B/八页、24E8九目标/12跳八RET。恢复两处saved flags BYTE、四CryptInt先取后发布及两个mode1中心X持值，八组八处/六注释；两正确callback、失败同步开窗但仍返空、原S16完成/W16末递增保持。四新F/处置、两限定S零I八open，完整manager/owner/ABI与画面运行待。\n\n语义2337=2289F关联+48有界代码，关联2399/3680=65.19%仅关联率；处置1801/证据1605，UIRUNTIME211/YOBI115，其它保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。",
+      "plan/cg2d_full_reconstruction_progress.md": "<a id=\"storage-opening-progress-20261011\"></a>\n## 134. 2026-10-11 SOA01：存放开窗动作及完成回调\n\n[SOA01](../doc/cg2d_storage_opening_actions_spec.md#storage-opening-source-state)补齐窗口41/38两个creator及两个完成callback，四完整原根416条1208B/八页、24E8九目标/12跳八RET。恢复两处saved flags BYTE、四CryptInt先取后发布及两个mode1中心X持值，八组八处/六注释；两正确callback、失败同步开窗但仍返空、原S16完成/W16末递增保持。四新F/处置、两限定S零I八open，完整manager/owner/ABI与画面运行待。\n\n先记SPEC依子AGENTS第8条裁决。本族既有WindowOpeningPayload为纯标量36B struct，value1C在四根仅写S32零而非完成槽指针；不扩所有其它族布局。本族完成通过counter S16>=10→Y/X两Read→同步开窗→MarkDeath，末W16++，两callback正确保。失败创建action本族原root直接同步fallback开窗却返回空，补齐SRD01正常created空仍需fresh window的真实原因。\n\n两saved flags原BYTE恢复；四CryptInt字段按实际结构+4 encoded/+8 mask/+C count，原三临时读先于三目标写，现恢复先取后发布，保已有正确写序/构造析构及RNG次数，不误换encoded-mask。mode1原持centerX不从payload重读；mode0/其它mode原未写字段和现真实allocator初值保，不在creator补默认。\n\n两整源仅八组八处/六注释，五类型/九provider/一个已核父/两prototype行及五旧语义保持。真实manager队列插入/全生命周期及SDK/生成读取/ABI与窗口画面仍待，不借callback地址接线宣已执行或回收。\n\n语义2337=2289F关联+48有界代码，关联2399/3680=65.19%仅关联率；处置1801/证据1605，UIRUNTIME211/YOBI115，其它保持。184叶验收0、60任务关闭11开放49、六closure及所有完整门禁保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。\n\n同一cg2d_re分支、不打tag，七外部改动/原删除暂存保持。未构建/测试/运行/产物/摘要/引依赖；整体active/未完成。"
+    },
+    "maintenance_clause": "；SOA01四完整存放开窗动作/完成root、八组八处四新F处置、两限定S零I八open，完整manager及owner门禁保。",
+    "checklist_clause": "；SOA01完整存放创建/完成及同步fallback，低BYTE/四Crypt临时与中心持值对齐，两限定S零I",
+    "checklist_link": "；[SOA01](../doc/cg2d_storage_opening_actions_spec.md#storage-opening-source-state)"
+  }
+}

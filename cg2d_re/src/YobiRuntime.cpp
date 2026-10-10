@@ -2053,6 +2053,7 @@ YobiAction* Sub_48AC60(
     return action;
 }
 
+// SOA01：原4ABE60完整51条；半尺寸原取样、S16计数完成时Y-X读值开41/标死，末W16递增保持。
 void Sub_4ABE60(YobiAction* const action)
 {
     auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);
@@ -2084,6 +2085,7 @@ void Sub_4ABE60(YobiAction* const action)
     ++payload->counter;
 }
 
+// SOA01：原4ABEF0完整154条；保存位只读BYTE，两CryptInt先取后发布/原mode1持中心X，失败同步开41保持。
 YobiAction* Sub_4ABEF0(
     const std::int32_t kind, const std::int32_t value14, const std::int32_t userState,
     const std::uint32_t flags, const std::uint32_t mode)
@@ -2095,7 +2097,8 @@ YobiAction* Sub_4ABEF0(
         return nullptr;
     }
     const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[41];
-    const bool savedPosition = (ui::detail::gWindowStates[41].flags & 1u) != 0;
+    const bool savedPosition = (*reinterpret_cast<const unsigned char*>(
+        &ui::detail::gWindowStates[41].flags) & 1u) != 0;
     std::int32_t y = prototype->defaultY;
     const std::int32_t width = prototype->width;
     std::int32_t x = prototype->defaultX;
@@ -2120,14 +2123,20 @@ YobiAction* Sub_4ABEF0(
     payload->id = static_cast<std::uint16_t>(kind);
     platform::LegacyCryptInt temporary;
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value14);
-    action->mapX1E0.readCount = temporary.readCount;
-    action->mapX1E0.encoded = temporary.encoded;
-    action->mapX1E0.mask = temporary.mask;
+    const std::uint8_t value14ReadCount = temporary.readCount;
+    const std::uint32_t value14Encoded = temporary.encoded;
+    const std::uint32_t value14Mask = temporary.mask;
+    action->mapX1E0.readCount = value14ReadCount;
+    action->mapX1E0.encoded = value14Encoded;
+    action->mapX1E0.mask = value14Mask;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, userState);
-    action->mapY1F0.mask = temporary.mask;
-    action->mapY1F0.encoded = temporary.encoded;
-    action->mapY1F0.readCount = temporary.readCount;
+    const std::uint32_t userStateMask = temporary.mask;
+    const std::uint32_t userStateEncoded = temporary.encoded;
+    const std::uint8_t userStateReadCount = temporary.readCount;
+    action->mapY1F0.mask = userStateMask;
+    action->mapY1F0.encoded = userStateEncoded;
+    action->mapY1F0.readCount = userStateReadCount;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     payload->counter = 0;
     const auto lowMode = static_cast<std::uint8_t>(mode);
@@ -2138,14 +2147,16 @@ YobiAction* Sub_4ABEF0(
         action->deltaY = (payload->centerY - y) / 10;
         payload->halfWidth = payload->centerX - x;
     } else if (lowMode == 1) {
-        payload->centerX = width / 2 + x;
+        const std::int32_t centerX = width / 2 + x;
+        payload->centerX = centerX;
         payload->centerY = height / 2 + y;
-        action->deltaX = (payload->centerX - x) / 10;
+        action->deltaX = (centerX - x) / 10;
         action->deltaY = (payload->centerY - y) / 10;
     }
     return action;
 }
 
+// SOA01：原4ACDF0完整53条；半尺寸原取样、phase先持值再Y-X读值开38/标死，末W16递增保持。
 void Sub_4ACDF0(YobiAction* const action)
 {
     auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);
@@ -2178,6 +2189,7 @@ void Sub_4ACDF0(YobiAction* const action)
     ++payload->counter;
 }
 
+// SOA01：原4ACE80完整158条；保存位只读BYTE，两CryptInt先取后发布/原mode1持中心X，phase及失败同步开38保持。
 YobiAction* Sub_4ACE80(
     const std::int32_t kind, const std::int32_t value14, const std::int32_t userState,
     const std::int32_t phase, const std::uint32_t flags, const std::uint32_t mode)
@@ -2189,7 +2201,8 @@ YobiAction* Sub_4ACE80(
         return nullptr;
     }
     const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[38];
-    const bool savedPosition = (ui::detail::gWindowStates[38].flags & 1u) != 0;
+    const bool savedPosition = (*reinterpret_cast<const unsigned char*>(
+        &ui::detail::gWindowStates[38].flags) & 1u) != 0;
     std::int32_t y = prototype->defaultY;
     const std::int32_t width = prototype->width;
     std::int32_t x = prototype->defaultX;
@@ -2215,14 +2228,20 @@ YobiAction* Sub_4ACE80(
     action->phase = phase;
     platform::LegacyCryptInt temporary;
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value14);
-    action->mapX1E0.encoded = temporary.encoded;
-    action->mapX1E0.mask = temporary.mask;
-    action->mapX1E0.readCount = temporary.readCount;
+    const std::uint32_t value14Encoded = temporary.encoded;
+    const std::uint32_t value14Mask = temporary.mask;
+    const std::uint8_t value14ReadCount = temporary.readCount;
+    action->mapX1E0.encoded = value14Encoded;
+    action->mapX1E0.mask = value14Mask;
+    action->mapX1E0.readCount = value14ReadCount;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, userState);
-    action->mapY1F0.readCount = temporary.readCount;
-    action->mapY1F0.encoded = temporary.encoded;
-    action->mapY1F0.mask = temporary.mask;
+    const std::uint8_t userStateReadCount = temporary.readCount;
+    const std::uint32_t userStateEncoded = temporary.encoded;
+    const std::uint32_t userStateMask = temporary.mask;
+    action->mapY1F0.readCount = userStateReadCount;
+    action->mapY1F0.encoded = userStateEncoded;
+    action->mapY1F0.mask = userStateMask;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     payload->counter = 0;
     const auto lowMode = static_cast<std::uint8_t>(mode);
@@ -2233,9 +2252,10 @@ YobiAction* Sub_4ACE80(
         action->deltaY = (payload->centerY - y) / 10;
         payload->halfWidth = payload->centerX - x;
     } else if (lowMode == 1) {
-        payload->centerX = width / 2 + x;
+        const std::int32_t centerX = width / 2 + x;
+        payload->centerX = centerX;
         payload->centerY = height / 2 + y;
-        action->deltaX = (payload->centerX - x) / 10;
+        action->deltaX = (centerX - x) / 10;
         action->deltaY = (payload->centerY - y) / 10;
     }
     return action;

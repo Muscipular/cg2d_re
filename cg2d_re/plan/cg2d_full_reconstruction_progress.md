@@ -1424,3 +1424,18 @@ PudO唯一改动为持有GetCate返回给调色板，不重读刚pub全局；保
 语义2333=2285F关联+48有界代码及关联2395/3680=65.08%保持；处置1797/证据1603，NETWORK105/UIRUNTIME207，其它保持。184叶验收0、60任务关闭11开放49、六closure及所有完整门禁保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
 
 同一cg2d_re分支、不打tag，七外部改动/原删除暂存保持。未构建/测试/运行/产物/摘要/引依赖；整体active/未完成。
+
+<a id="storage-opening-progress-20261011"></a>
+## 134. 2026-10-11 SOA01：存放开窗动作及完成回调
+
+[SOA01](../doc/cg2d_storage_opening_actions_spec.md#storage-opening-source-state)补齐窗口41/38两个creator及两个完成callback，四完整原根416条1208B/八页、24E8九目标/12跳八RET。恢复两处saved flags BYTE、四CryptInt先取后发布及两个mode1中心X持值，八组八处/六注释；两正确callback、失败同步开窗但仍返空、原S16完成/W16末递增保持。四新F/处置、两限定S零I八open，完整manager/owner/ABI与画面运行待。
+
+先记SPEC依子AGENTS第8条裁决。本族既有WindowOpeningPayload为纯标量36B struct，value1C在四根仅写S32零而非完成槽指针；不扩所有其它族布局。本族完成通过counter S16>=10→Y/X两Read→同步开窗→MarkDeath，末W16++，两callback正确保。失败创建action本族原root直接同步fallback开窗却返回空，补齐SRD01正常created空仍需fresh window的真实原因。
+
+两saved flags原BYTE恢复；四CryptInt字段按实际结构+4 encoded/+8 mask/+C count，原三临时读先于三目标写，现恢复先取后发布，保已有正确写序/构造析构及RNG次数，不误换encoded-mask。mode1原持centerX不从payload重读；mode0/其它mode原未写字段和现真实allocator初值保，不在creator补默认。
+
+两整源仅八组八处/六注释，五类型/九provider/一个已核父/两prototype行及五旧语义保持。真实manager队列插入/全生命周期及SDK/生成读取/ABI与窗口画面仍待，不借callback地址接线宣已执行或回收。
+
+语义2337=2289F关联+48有界代码，关联2399/3680=65.19%仅关联率；处置1801/证据1605，UIRUNTIME211/YOBI115，其它保持。184叶验收0、60任务关闭11开放49、六closure及所有完整门禁保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
+
+同一cg2d_re分支、不打tag，七外部改动/原删除暂存保持。未构建/测试/运行/产物/摘要/引依赖；整体active/未完成。

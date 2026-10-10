@@ -239457,6 +239457,347 @@
         "runtime_verified": false,
         "result_boundary": "原最后DrawGraphic3背景入队S32返回透传；九CALL八父只来源，所有动态owner/ABI待"
       }
+    },
+    {
+      "original_entry": "0x4abef0",
+      "inventory_id": "F:000ABEF0",
+      "original_role": "窗口41开窗动作创建/同步失败开窗及两CryptInt",
+      "original_end_exclusive": "0x4ac0be",
+      "instruction_count": 154,
+      "function_chunks": [
+        {
+          "start": "0x4abef0",
+          "end_exclusive": "0x4ac0be"
+        }
+      ],
+      "status": "SOA01四完整存放开窗原根纳管，八组八处；限定S，完整manager/owner/ABI及窗口运行待",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_4ABEF0"
+          ],
+          "relationship": "SOA01完整存放开窗原根；两creator低BYTE/四CryptInt临时/中心持值对齐，两完成callback正确正文保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_4ABEF0"
+          ],
+          "relationship": "SOA01既有真实声明保持，仅合同注释；原生非拥有callback/返回边界具名"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_storage_opening_actions_spec.md#storage-opening-baseline",
+        "doc/cg2d_storage_opening_actions_spec.md#storage-opening-decision",
+        "doc/cg2d_storage_opening_actions_spec.md#storage-opening-acceptance",
+        "doc/cg2d_storage_opening_actions_spec.md#storage-opening-source-state",
+        "doc/cg2d_storage_opening_actions_evidence.json"
+      ],
+      "boundary": "SOA01四完整原根：4ABEF0(154条462B/三页)、4ACE80(158条474B/三页)、4ABE60(51条134B/一页)、4ACDF0(53条138B/一页)，共416条1208B/八页、24E8九唯一目标/12跳八RET。两creator原五CALL均同49D2E0（41三点/38两点），callback各仅一个creator MOV offset发布；这里只证明本族及来源，不据单引用宣不可变或完整动态调度。四新F四adapted，UI-YOBI各四成员，两限定S零I八open。原动作priority3/payload size24H，现sizeof(WindowOpeningPayload)承接已存在纯标量36B struct；其id/counter W16，width/height/centerX-centerY/halfWidth-halfHeight/value1C S32、flag20 W16及bytes22未写域保，本四根value1C仅清S32零，不当完成槽指针或拓宽到uintptr_t，不据本族冻结所有其它族用途。NewAction/MarkDeath当前真实manager及通用MSVC分配族复用，不新增影子owner或接口。\n两creator先声56/X320（原三参中的Y240仍沿已核音频接口）→真实NewYobiAction(priority3,size36)，失败原各三/四S32参数直接Sub4A83A0(kind,value14,userState)或4AC0C0(kind,value14,userState,phase)，弃开窗callee结果，返回空action，故SRD01检查created空后仍fresh window的原因有完整本族原证；不将同步fallback成功伪成action成功指针。成功后一次prototype41/38指针，savedPosition只读原flags低BYTE；原先defaultY→width→defaultX→height S32取样，命中保存位才原x→y覆盖，不移窗口保存flag到helper或合宽字段。action/payload非拥有原指针保，action flags W32 OR6→callback真实指针→displayPriority BYTE DF，payload value1C S32零→flag20 W16零，入flags只低BYTE bit1命中写flag20=1；action x/y S32、payload width/height S32及kind低W16按原发布，38另phase S32在首CryptInt构造前发布。\n四临时CryptInt原encoded在+4、mask在+8、readCount BYTE+C，不交换语义字段。先Construct(value14)/RNG，再一次取全三临时字段后按原顺序发布mapX，Destroy；再Construct(userState)/RNG，取全三字段后按原序发布mapY，Destroy。41的X读/写序count→encoded→mask，Y序mask→encoded→count；38的X序encoded→mask→count，Y序count→encoded→mask。原source三读先于任何target三写，现恢复四组先取临时后发布，写序本来正确不交换；vftToken/reserved不复制或补零，不改变构造/析构或随机次数。counter末清W16零，mode仅低BYTE：0原宽/高除2加pos发布centerX-Y→action deltaX0→fresh centerY算deltaY/10→fresh centerX算halfWidth；1原centerX新算值持寄存器，发布centerX-Y后用持值算deltaX/10，再fresh centerY算deltaY/10，本步恢复持值不重读centerX；原不在mode1写halfWidth、其它mode不写centers/deltas及本族不写halfHeight，保既有真实allocator的清零，不在creator补默认或新钳制。两个返回真实新action指针/失败空，不改callee/源协议参数。\n两callback正确body全部保，只注释：先held payload，S32 halfHeight→centerY→halfWidth→centerX，现Hover传低W16矩形/层D4/image0/step0，图后fresh deltaX→previousHalfWidth→previousHalfHeight，发布halfWidth增量，再fresh deltaY，先按counter低S16>=10比较，再halfHeight发布，原完成与末递增不同阶段不能互换。完成41先Read(mapY)userState再Read(mapX)value14，再kind低S16→4A83A0；38先持phase S32，之后同Y→X→kind→4AC0C0。开窗副作用后MarkDeath，再末counter W16++，不立即free/重复开窗守卫或按指针变化重取payload；原callback残留EAX随阶段不同，现void只保副作用，全部machine callback ABI待。两callback并不消费本族value1C/flag20，不为其添加完成槽、保护或私有状态。原dispatcher是否每帧及全manager释放/初始队列owner待完整闭环，本族callback发布与实际执行/回收验收分别记录。\n两creator合八组八处：两个saved BYTE、四Crypt先取后发布、两个mode1持centerX；四定义/两既有声明六注释，无公头decl的两个callback不新增接口。两整源精确回放/两正确callback、五类型/九真实provider/一个SRD01父/两个prototype行及五旧语义保持，结构字段宽度及原正常失败/读取发布保持；不据本族重验所有provider或关真实调度/owner/SDK/生成读取及完整ABI/画面运行。MSVC/WAV-only/原命令字段LF明文与所有完整门禁保，不引新helper/类型/字段/API/owner、空/容量/index保护、补零/新默认/钳制/回滚或异常模型，整体未完成。",
+      "verification_level": "pass，四完整原根416条1208B/八页、24E8九目标/12跳八RET及五CALL/两code-offset来源；两整源精确回放八组八处六注释、两正确callback/五类型九提供者一父两prototype行五旧语义保持；只源码合同，生成读取/全manager owner/ABI/运行待",
+      "original_incoming": [
+        {
+          "ea": 4838283,
+          "parent": 4838112,
+          "type": 17,
+          "code": true,
+          "bytes": "e860eb0000",
+          "asm": "call    sub_4ABEF0"
+        },
+        {
+          "ea": 4838355,
+          "parent": 4838112,
+          "type": 17,
+          "code": true,
+          "bytes": "e818eb0000",
+          "asm": "call    sub_4ABEF0"
+        },
+        {
+          "ea": 4838994,
+          "parent": 4838112,
+          "type": 17,
+          "code": true,
+          "bytes": "e899e80000",
+          "asm": "call    sub_4ABEF0"
+        }
+      ],
+      "storage_opening_actions": {
+        "step": "SOA01",
+        "source_snapshot": "[#] 对齐存放开窗动作临时值与完成合同",
+        "original_entry": "0x4abef0",
+        "original_end_exclusive": "0x4ac0be",
+        "instruction_count": 154,
+        "code_bytes": 462,
+        "page_count": 3,
+        "direct_calls": 7,
+        "direct_call_targets": [
+          5424208,
+          4213472,
+          4883360,
+          4201664,
+          4201712
+        ],
+        "jumps": 5,
+        "returns": 3,
+        "original_incoming_references": [
+          {
+            "ea": 4838283,
+            "type": 17,
+            "code": true
+          },
+          {
+            "ea": 4838355,
+            "type": 17,
+            "code": true
+          },
+          {
+            "ea": 4838994,
+            "type": 17,
+            "code": true
+          }
+        ],
+        "native_signature": "YobiAction* Sub_4ABEF0(\n    const std::int32_t kind, const std::int32_t value14, const std::int32_t userState,\n    const std::uint32_t flags, const std::uint32_t mode)",
+        "source_patch_group_count": 4,
+        "source_changed_point_count": 4,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "真实action指针或原失败同步开41后空指针；SRD01父消费已核/完整ABI待"
+      }
+    },
+    {
+      "original_entry": "0x4ace80",
+      "inventory_id": "F:000ACE80",
+      "original_role": "窗口38开窗动作创建/phase及两CryptInt",
+      "original_end_exclusive": "0x4ad05a",
+      "instruction_count": 158,
+      "function_chunks": [
+        {
+          "start": "0x4ace80",
+          "end_exclusive": "0x4ad05a"
+        }
+      ],
+      "status": "SOA01四完整存放开窗原根纳管，八组八处；限定S，完整manager/owner/ABI及窗口运行待",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_4ACE80"
+          ],
+          "relationship": "SOA01完整存放开窗原根；两creator低BYTE/四CryptInt临时/中心持值对齐，两完成callback正确正文保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_4ACE80"
+          ],
+          "relationship": "SOA01既有真实声明保持，仅合同注释；原生非拥有callback/返回边界具名"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_storage_opening_actions_spec.md#storage-opening-baseline",
+        "doc/cg2d_storage_opening_actions_spec.md#storage-opening-decision",
+        "doc/cg2d_storage_opening_actions_spec.md#storage-opening-acceptance",
+        "doc/cg2d_storage_opening_actions_spec.md#storage-opening-source-state",
+        "doc/cg2d_storage_opening_actions_evidence.json"
+      ],
+      "boundary": "SOA01四完整原根：4ABEF0(154条462B/三页)、4ACE80(158条474B/三页)、4ABE60(51条134B/一页)、4ACDF0(53条138B/一页)，共416条1208B/八页、24E8九唯一目标/12跳八RET。两creator原五CALL均同49D2E0（41三点/38两点），callback各仅一个creator MOV offset发布；这里只证明本族及来源，不据单引用宣不可变或完整动态调度。四新F四adapted，UI-YOBI各四成员，两限定S零I八open。原动作priority3/payload size24H，现sizeof(WindowOpeningPayload)承接已存在纯标量36B struct；其id/counter W16，width/height/centerX-centerY/halfWidth-halfHeight/value1C S32、flag20 W16及bytes22未写域保，本四根value1C仅清S32零，不当完成槽指针或拓宽到uintptr_t，不据本族冻结所有其它族用途。NewAction/MarkDeath当前真实manager及通用MSVC分配族复用，不新增影子owner或接口。\n两creator先声56/X320（原三参中的Y240仍沿已核音频接口）→真实NewYobiAction(priority3,size36)，失败原各三/四S32参数直接Sub4A83A0(kind,value14,userState)或4AC0C0(kind,value14,userState,phase)，弃开窗callee结果，返回空action，故SRD01检查created空后仍fresh window的原因有完整本族原证；不将同步fallback成功伪成action成功指针。成功后一次prototype41/38指针，savedPosition只读原flags低BYTE；原先defaultY→width→defaultX→height S32取样，命中保存位才原x→y覆盖，不移窗口保存flag到helper或合宽字段。action/payload非拥有原指针保，action flags W32 OR6→callback真实指针→displayPriority BYTE DF，payload value1C S32零→flag20 W16零，入flags只低BYTE bit1命中写flag20=1；action x/y S32、payload width/height S32及kind低W16按原发布，38另phase S32在首CryptInt构造前发布。\n四临时CryptInt原encoded在+4、mask在+8、readCount BYTE+C，不交换语义字段。先Construct(value14)/RNG，再一次取全三临时字段后按原顺序发布mapX，Destroy；再Construct(userState)/RNG，取全三字段后按原序发布mapY，Destroy。41的X读/写序count→encoded→mask，Y序mask→encoded→count；38的X序encoded→mask→count，Y序count→encoded→mask。原source三读先于任何target三写，现恢复四组先取临时后发布，写序本来正确不交换；vftToken/reserved不复制或补零，不改变构造/析构或随机次数。counter末清W16零，mode仅低BYTE：0原宽/高除2加pos发布centerX-Y→action deltaX0→fresh centerY算deltaY/10→fresh centerX算halfWidth；1原centerX新算值持寄存器，发布centerX-Y后用持值算deltaX/10，再fresh centerY算deltaY/10，本步恢复持值不重读centerX；原不在mode1写halfWidth、其它mode不写centers/deltas及本族不写halfHeight，保既有真实allocator的清零，不在creator补默认或新钳制。两个返回真实新action指针/失败空，不改callee/源协议参数。\n两callback正确body全部保，只注释：先held payload，S32 halfHeight→centerY→halfWidth→centerX，现Hover传低W16矩形/层D4/image0/step0，图后fresh deltaX→previousHalfWidth→previousHalfHeight，发布halfWidth增量，再fresh deltaY，先按counter低S16>=10比较，再halfHeight发布，原完成与末递增不同阶段不能互换。完成41先Read(mapY)userState再Read(mapX)value14，再kind低S16→4A83A0；38先持phase S32，之后同Y→X→kind→4AC0C0。开窗副作用后MarkDeath，再末counter W16++，不立即free/重复开窗守卫或按指针变化重取payload；原callback残留EAX随阶段不同，现void只保副作用，全部machine callback ABI待。两callback并不消费本族value1C/flag20，不为其添加完成槽、保护或私有状态。原dispatcher是否每帧及全manager释放/初始队列owner待完整闭环，本族callback发布与实际执行/回收验收分别记录。\n两creator合八组八处：两个saved BYTE、四Crypt先取后发布、两个mode1持centerX；四定义/两既有声明六注释，无公头decl的两个callback不新增接口。两整源精确回放/两正确callback、五类型/九真实provider/一个SRD01父/两个prototype行及五旧语义保持，结构字段宽度及原正常失败/读取发布保持；不据本族重验所有provider或关真实调度/owner/SDK/生成读取及完整ABI/画面运行。MSVC/WAV-only/原命令字段LF明文与所有完整门禁保，不引新helper/类型/字段/API/owner、空/容量/index保护、补零/新默认/钳制/回滚或异常模型，整体未完成。",
+      "verification_level": "pass，四完整原根416条1208B/八页、24E8九目标/12跳八RET及五CALL/两code-offset来源；两整源精确回放八组八处六注释、两正确callback/五类型九提供者一父两prototype行五旧语义保持；只源码合同，生成读取/全manager owner/ABI/运行待",
+      "original_incoming": [
+        {
+          "ea": 4838429,
+          "parent": 4838112,
+          "type": 17,
+          "code": true,
+          "bytes": "e85efa0000",
+          "asm": "call    sub_4ACE80"
+        },
+        {
+          "ea": 4839225,
+          "parent": 4838112,
+          "type": 17,
+          "code": true,
+          "bytes": "e842f70000",
+          "asm": "call    sub_4ACE80"
+        }
+      ],
+      "storage_opening_actions": {
+        "step": "SOA01",
+        "source_snapshot": "[#] 对齐存放开窗动作临时值与完成合同",
+        "original_entry": "0x4ace80",
+        "original_end_exclusive": "0x4ad05a",
+        "instruction_count": 158,
+        "code_bytes": 474,
+        "page_count": 3,
+        "direct_calls": 7,
+        "direct_call_targets": [
+          5424208,
+          4213472,
+          4899008,
+          4201664,
+          4201712
+        ],
+        "jumps": 5,
+        "returns": 3,
+        "original_incoming_references": [
+          {
+            "ea": 4838429,
+            "type": 17,
+            "code": true
+          },
+          {
+            "ea": 4839225,
+            "type": 17,
+            "code": true
+          }
+        ],
+        "native_signature": "YobiAction* Sub_4ACE80(\n    const std::int32_t kind, const std::int32_t value14, const std::int32_t userState,\n    const std::int32_t phase, const std::uint32_t flags, const std::uint32_t mode)",
+        "source_patch_group_count": 4,
+        "source_changed_point_count": 4,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "真实action指针或原失败同步开38后空指针；SRD01父消费已核/完整ABI待"
+      }
+    },
+    {
+      "original_entry": "0x4abe60",
+      "inventory_id": "F:000ABE60",
+      "original_role": "窗口41开窗动画/计数完成开窗及标死",
+      "original_end_exclusive": "0x4abee6",
+      "instruction_count": 51,
+      "function_chunks": [
+        {
+          "start": "0x4abe60",
+          "end_exclusive": "0x4abee6"
+        }
+      ],
+      "status": "SOA01四完整存放开窗原根纳管，八组八处；限定S，完整manager/owner/ABI及窗口运行待",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_4ABE60"
+          ],
+          "relationship": "SOA01完整存放开窗原根；两creator低BYTE/四CryptInt临时/中心持值对齐，两完成callback正确正文保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_storage_opening_actions_spec.md#storage-opening-baseline",
+        "doc/cg2d_storage_opening_actions_spec.md#storage-opening-decision",
+        "doc/cg2d_storage_opening_actions_spec.md#storage-opening-acceptance",
+        "doc/cg2d_storage_opening_actions_spec.md#storage-opening-source-state",
+        "doc/cg2d_storage_opening_actions_evidence.json"
+      ],
+      "boundary": "SOA01四完整原根：4ABEF0(154条462B/三页)、4ACE80(158条474B/三页)、4ABE60(51条134B/一页)、4ACDF0(53条138B/一页)，共416条1208B/八页、24E8九唯一目标/12跳八RET。两creator原五CALL均同49D2E0（41三点/38两点），callback各仅一个creator MOV offset发布；这里只证明本族及来源，不据单引用宣不可变或完整动态调度。四新F四adapted，UI-YOBI各四成员，两限定S零I八open。原动作priority3/payload size24H，现sizeof(WindowOpeningPayload)承接已存在纯标量36B struct；其id/counter W16，width/height/centerX-centerY/halfWidth-halfHeight/value1C S32、flag20 W16及bytes22未写域保，本四根value1C仅清S32零，不当完成槽指针或拓宽到uintptr_t，不据本族冻结所有其它族用途。NewAction/MarkDeath当前真实manager及通用MSVC分配族复用，不新增影子owner或接口。\n两creator先声56/X320（原三参中的Y240仍沿已核音频接口）→真实NewYobiAction(priority3,size36)，失败原各三/四S32参数直接Sub4A83A0(kind,value14,userState)或4AC0C0(kind,value14,userState,phase)，弃开窗callee结果，返回空action，故SRD01检查created空后仍fresh window的原因有完整本族原证；不将同步fallback成功伪成action成功指针。成功后一次prototype41/38指针，savedPosition只读原flags低BYTE；原先defaultY→width→defaultX→height S32取样，命中保存位才原x→y覆盖，不移窗口保存flag到helper或合宽字段。action/payload非拥有原指针保，action flags W32 OR6→callback真实指针→displayPriority BYTE DF，payload value1C S32零→flag20 W16零，入flags只低BYTE bit1命中写flag20=1；action x/y S32、payload width/height S32及kind低W16按原发布，38另phase S32在首CryptInt构造前发布。\n四临时CryptInt原encoded在+4、mask在+8、readCount BYTE+C，不交换语义字段。先Construct(value14)/RNG，再一次取全三临时字段后按原顺序发布mapX，Destroy；再Construct(userState)/RNG，取全三字段后按原序发布mapY，Destroy。41的X读/写序count→encoded→mask，Y序mask→encoded→count；38的X序encoded→mask→count，Y序count→encoded→mask。原source三读先于任何target三写，现恢复四组先取临时后发布，写序本来正确不交换；vftToken/reserved不复制或补零，不改变构造/析构或随机次数。counter末清W16零，mode仅低BYTE：0原宽/高除2加pos发布centerX-Y→action deltaX0→fresh centerY算deltaY/10→fresh centerX算halfWidth；1原centerX新算值持寄存器，发布centerX-Y后用持值算deltaX/10，再fresh centerY算deltaY/10，本步恢复持值不重读centerX；原不在mode1写halfWidth、其它mode不写centers/deltas及本族不写halfHeight，保既有真实allocator的清零，不在creator补默认或新钳制。两个返回真实新action指针/失败空，不改callee/源协议参数。\n两callback正确body全部保，只注释：先held payload，S32 halfHeight→centerY→halfWidth→centerX，现Hover传低W16矩形/层D4/image0/step0，图后fresh deltaX→previousHalfWidth→previousHalfHeight，发布halfWidth增量，再fresh deltaY，先按counter低S16>=10比较，再halfHeight发布，原完成与末递增不同阶段不能互换。完成41先Read(mapY)userState再Read(mapX)value14，再kind低S16→4A83A0；38先持phase S32，之后同Y→X→kind→4AC0C0。开窗副作用后MarkDeath，再末counter W16++，不立即free/重复开窗守卫或按指针变化重取payload；原callback残留EAX随阶段不同，现void只保副作用，全部machine callback ABI待。两callback并不消费本族value1C/flag20，不为其添加完成槽、保护或私有状态。原dispatcher是否每帧及全manager释放/初始队列owner待完整闭环，本族callback发布与实际执行/回收验收分别记录。\n两creator合八组八处：两个saved BYTE、四Crypt先取后发布、两个mode1持centerX；四定义/两既有声明六注释，无公头decl的两个callback不新增接口。两整源精确回放/两正确callback、五类型/九真实provider/一个SRD01父/两个prototype行及五旧语义保持，结构字段宽度及原正常失败/读取发布保持；不据本族重验所有provider或关真实调度/owner/SDK/生成读取及完整ABI/画面运行。MSVC/WAV-only/原命令字段LF明文与所有完整门禁保，不引新helper/类型/字段/API/owner、空/容量/index保护、补零/新默认/钳制/回滚或异常模型，整体未完成。",
+      "verification_level": "pass，四完整原根416条1208B/八页、24E8九目标/12跳八RET及五CALL/两code-offset来源；两整源精确回放八组八处六注释、两正确callback/五类型九提供者一父两prototype行五旧语义保持；只源码合同，生成读取/全manager owner/ABI/运行待",
+      "original_incoming": [],
+      "storage_opening_actions": {
+        "step": "SOA01",
+        "source_snapshot": "[#] 对齐存放开窗动作临时值与完成合同",
+        "original_entry": "0x4abe60",
+        "original_end_exclusive": "0x4abee6",
+        "instruction_count": 51,
+        "code_bytes": 134,
+        "page_count": 1,
+        "direct_calls": 5,
+        "direct_call_targets": [
+          5382528,
+          4202144,
+          4883360,
+          4214016
+        ],
+        "jumps": 1,
+        "returns": 1,
+        "original_incoming_references": [
+          {
+            "ea": 4898671,
+            "type": 1,
+            "code": true
+          }
+        ],
+        "native_signature": "void Sub_4ABE60(YobiAction* const action)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "现void保副作用，原残留EAX不伪造确定值；完整调度/ABI待"
+      }
+    },
+    {
+      "original_entry": "0x4acdf0",
+      "inventory_id": "F:000ACDF0",
+      "original_role": "窗口38开窗动画/phase与计数完成开窗及标死",
+      "original_end_exclusive": "0x4ace7a",
+      "instruction_count": 53,
+      "function_chunks": [
+        {
+          "start": "0x4acdf0",
+          "end_exclusive": "0x4ace7a"
+        }
+      ],
+      "status": "SOA01四完整存放开窗原根纳管，八组八处；限定S，完整manager/owner/ABI及窗口运行待",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_4ACDF0"
+          ],
+          "relationship": "SOA01完整存放开窗原根；两creator低BYTE/四CryptInt临时/中心持值对齐，两完成callback正确正文保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_storage_opening_actions_spec.md#storage-opening-baseline",
+        "doc/cg2d_storage_opening_actions_spec.md#storage-opening-decision",
+        "doc/cg2d_storage_opening_actions_spec.md#storage-opening-acceptance",
+        "doc/cg2d_storage_opening_actions_spec.md#storage-opening-source-state",
+        "doc/cg2d_storage_opening_actions_evidence.json"
+      ],
+      "boundary": "SOA01四完整原根：4ABEF0(154条462B/三页)、4ACE80(158条474B/三页)、4ABE60(51条134B/一页)、4ACDF0(53条138B/一页)，共416条1208B/八页、24E8九唯一目标/12跳八RET。两creator原五CALL均同49D2E0（41三点/38两点），callback各仅一个creator MOV offset发布；这里只证明本族及来源，不据单引用宣不可变或完整动态调度。四新F四adapted，UI-YOBI各四成员，两限定S零I八open。原动作priority3/payload size24H，现sizeof(WindowOpeningPayload)承接已存在纯标量36B struct；其id/counter W16，width/height/centerX-centerY/halfWidth-halfHeight/value1C S32、flag20 W16及bytes22未写域保，本四根value1C仅清S32零，不当完成槽指针或拓宽到uintptr_t，不据本族冻结所有其它族用途。NewAction/MarkDeath当前真实manager及通用MSVC分配族复用，不新增影子owner或接口。\n两creator先声56/X320（原三参中的Y240仍沿已核音频接口）→真实NewYobiAction(priority3,size36)，失败原各三/四S32参数直接Sub4A83A0(kind,value14,userState)或4AC0C0(kind,value14,userState,phase)，弃开窗callee结果，返回空action，故SRD01检查created空后仍fresh window的原因有完整本族原证；不将同步fallback成功伪成action成功指针。成功后一次prototype41/38指针，savedPosition只读原flags低BYTE；原先defaultY→width→defaultX→height S32取样，命中保存位才原x→y覆盖，不移窗口保存flag到helper或合宽字段。action/payload非拥有原指针保，action flags W32 OR6→callback真实指针→displayPriority BYTE DF，payload value1C S32零→flag20 W16零，入flags只低BYTE bit1命中写flag20=1；action x/y S32、payload width/height S32及kind低W16按原发布，38另phase S32在首CryptInt构造前发布。\n四临时CryptInt原encoded在+4、mask在+8、readCount BYTE+C，不交换语义字段。先Construct(value14)/RNG，再一次取全三临时字段后按原顺序发布mapX，Destroy；再Construct(userState)/RNG，取全三字段后按原序发布mapY，Destroy。41的X读/写序count→encoded→mask，Y序mask→encoded→count；38的X序encoded→mask→count，Y序count→encoded→mask。原source三读先于任何target三写，现恢复四组先取临时后发布，写序本来正确不交换；vftToken/reserved不复制或补零，不改变构造/析构或随机次数。counter末清W16零，mode仅低BYTE：0原宽/高除2加pos发布centerX-Y→action deltaX0→fresh centerY算deltaY/10→fresh centerX算halfWidth；1原centerX新算值持寄存器，发布centerX-Y后用持值算deltaX/10，再fresh centerY算deltaY/10，本步恢复持值不重读centerX；原不在mode1写halfWidth、其它mode不写centers/deltas及本族不写halfHeight，保既有真实allocator的清零，不在creator补默认或新钳制。两个返回真实新action指针/失败空，不改callee/源协议参数。\n两callback正确body全部保，只注释：先held payload，S32 halfHeight→centerY→halfWidth→centerX，现Hover传低W16矩形/层D4/image0/step0，图后fresh deltaX→previousHalfWidth→previousHalfHeight，发布halfWidth增量，再fresh deltaY，先按counter低S16>=10比较，再halfHeight发布，原完成与末递增不同阶段不能互换。完成41先Read(mapY)userState再Read(mapX)value14，再kind低S16→4A83A0；38先持phase S32，之后同Y→X→kind→4AC0C0。开窗副作用后MarkDeath，再末counter W16++，不立即free/重复开窗守卫或按指针变化重取payload；原callback残留EAX随阶段不同，现void只保副作用，全部machine callback ABI待。两callback并不消费本族value1C/flag20，不为其添加完成槽、保护或私有状态。原dispatcher是否每帧及全manager释放/初始队列owner待完整闭环，本族callback发布与实际执行/回收验收分别记录。\n两creator合八组八处：两个saved BYTE、四Crypt先取后发布、两个mode1持centerX；四定义/两既有声明六注释，无公头decl的两个callback不新增接口。两整源精确回放/两正确callback、五类型/九真实provider/一个SRD01父/两个prototype行及五旧语义保持，结构字段宽度及原正常失败/读取发布保持；不据本族重验所有provider或关真实调度/owner/SDK/生成读取及完整ABI/画面运行。MSVC/WAV-only/原命令字段LF明文与所有完整门禁保，不引新helper/类型/字段/API/owner、空/容量/index保护、补零/新默认/钳制/回滚或异常模型，整体未完成。",
+      "verification_level": "pass，四完整原根416条1208B/八页、24E8九目标/12跳八RET及五CALL/两code-offset来源；两整源精确回放八组八处六注释、两正确callback/五类型九提供者一父两prototype行五旧语义保持；只源码合同，生成读取/全manager owner/ABI/运行待",
+      "original_incoming": [],
+      "storage_opening_actions": {
+        "step": "SOA01",
+        "source_snapshot": "[#] 对齐存放开窗动作临时值与完成合同",
+        "original_entry": "0x4acdf0",
+        "original_end_exclusive": "0x4ace7a",
+        "instruction_count": 53,
+        "code_bytes": 138,
+        "page_count": 1,
+        "direct_calls": 5,
+        "direct_call_targets": [
+          5382528,
+          4202144,
+          4899008,
+          4214016
+        ],
+        "jumps": 1,
+        "returns": 1,
+        "original_incoming_references": [
+          {
+            "ea": 4902660,
+            "type": 1,
+            "code": true
+          }
+        ],
+        "native_signature": "void Sub_4ACDF0(YobiAction* const action)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "现void保副作用，原残留EAX不伪造确定值；完整调度/ABI待"
+      }
     }
   ]
 }

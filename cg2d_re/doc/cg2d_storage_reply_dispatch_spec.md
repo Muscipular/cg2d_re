@@ -28,3 +28,8 @@ SRD01仅完整49D2E0父根515条1238B/九页，52E8三十六唯一目标/38跳�
 
 语义2333=2285F关联+48有界代码及关联2395/3680=65.08%保持；处置1797/证据1603，NETWORK105/UIRUNTIME207，其它保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
 
+## 2026-10-11 SOA01：创建结果与fallback来源补齐
+
+[SOA01](cg2d_storage_opening_actions_spec.md#storage-opening-source-state)补齐窗口41/38两个creator及两个完成callback，四完整原根416条1208B/八页、24E8九目标/12跳八RET。恢复两处saved flags BYTE、四CryptInt先取后发布及两个mode1中心X持值，八组八处/六注释；两正确callback、失败同步开窗但仍返空、原S16完成/W16末递增保持。四新F/处置、两限定S零I八open，完整manager/owner/ABI与画面运行待。
+
+SRD01当时只完整父/当前callee来源的历史保；本族现已由完整原creator证实失败时同步开窗口但返回空action，原后fresh window判断必须保，完整manager和窗口owner寿命仍待。

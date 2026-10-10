@@ -499,6 +499,7 @@ void Sub_5191C0(
     std::memcpy(entry + 0x14, text, std::strlen(text) + 1);
 }
 
+// SHP01：原三类未读提示，迷你倒序；U16类别后发布W32页，未命中持有备用页。
 std::int32_t Sub_518DA0()
 {
     const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
@@ -564,6 +565,7 @@ std::int32_t Sub_518DA0()
     return 0;
 }
 
+// SHP01：原三类未读定位，迷你正序；先S32类别再索引，公会fresh字符/key，唯一父弃返。
 void Sub_518F00(std::int32_t* const category, std::int32_t* const index)
 {
     const std::ptrdiff_t selected = login::gSelectedCharacterIndex;

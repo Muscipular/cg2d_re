@@ -2462,3 +2462,7 @@ ANIMATION/YOBI各两个新成员，BATTLE只Play依赖成员；两新语义/F和
 ## 2026-10-10 TUC01 倒计时界面消费的限定证据
 
 [四完整原根](cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-source-state)/[证据](cg2d_timer_ui_consumption_evidence.json)只核正常源码合同：共享时长小时位/首窗口两时点/三类坐标取样、单U8动作flag及两hover持有八组；原描述符零初始化、HP/FP/提示、转生门槛/命令弃返及字段发布保持。两状态栏旧999/1000保历史追加、两新按钮语义/四F，UIRUNTIME四成员/BATTLE仅497C80一成员、两限定S零I、九任务仍open。全部原枚举/完整gates、184叶验收0/60任务关闭11/六closure及总SPEC§10保持；整父/原型/同源数据owner/所有callee、SDK/数值/机器ABI/交互运行待，原格式明文/MSVC直接CRT/WAV-only保持，不将关联率称完成率。
+
+## 2026-10-10 SHP01 状态提示生产与点击的限定证据
+
+[七原根](cg2d_status_hint_production_spec.md#status-hint-production-source-state)/[原码与差集](cg2d_status_hint_production_evidence.json)限定正常源码S：六正确查询body保、八点击取样组恢复，五S16配对/原哨兵/三类邮件及相反迷你扫描顺序、原提示门槛/格式/关闭开窗保。旧915保历史追加，六新语义/七F、UIRUNTIME七成员/MAP六查询、两限定S零I/九任务open。三实际回调字节不代整表/全路由，原518F00唯一父弃返与现VOID保不代机器残值ABI；全部数据生产消费-owner/外callee/SDK/数值ABI/文本画面点击运行及全生命周期待。其它原政策/枚举/完整gates/184叶验收0/60任务关闭11/六closure与总SPEC§10保持，关联率不称完成率。

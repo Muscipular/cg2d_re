@@ -835,3 +835,10 @@ writer/outer/setter正确body保，六W32/24B/分钟先于sTick与末商、完�
 [完整50C7A0](cg2d_player_timer_reply_producer_spec.md#player-timer-reply-source-state)/[原码/门槛/源差集](cg2d_player_timer_reply_producer_evidence.json)纳管18条68B/一页、两跳一RET/零E8、单IATtick与唯一512E40弃返窗；原gate单读非0返原位型、负S32秒业务置零、mode→remaining→tick→清626C14/同tick返回保持。仅恢复首duration×5在mode发布前、其后×5×5×8普通缩放一组，不改最终毫秒单位/宽度或增上限、默认值/溢出模型。
 
 gate55引用的53读/两个旧writer只绑定出处，BTD1606/BTB185与GTP2215同源推进、两个reader/战斗扣减无原F helper保持；不造原身份或称完整消费链通过。一个新语义/F、四功能各一个成员/四限定S零I/八任务open，所有其它source/原完整gates与枚举保，完整MTg/唯一父/53读者/数据生产消费-owner/SDK/数值/ABI/画面运行待。
+
+<a id="status-hint-production-current-20261010"></a>
+## 2026-10-10 SHP01：提示的宠物与邮件查询
+
+[七完整原根](cg2d_status_hint_production_spec.md#status-hint-production-source-state)/[证据](cg2d_status_hint_production_evidence.json)补实际状态提示提供者：五S16宠物配对、加点位置/受伤原编号/目标偏移/反求位置的正常哨兵，普通60/公会200/迷你20与各十封消息的三类查询。提示迷你从第9封倒序、点击从第0封正序，U16未读类别后W32页、无命中持有备用页以及S32类别后索引/fresh公会selected/key发布保，六body正确不重写或加used/下界门槛。selected原W16符号、配对8B/宠物5110及既有记录/邮件步长只作本步已消费字段证据，不称全部生产/初值/alias-owner冻结。
+
+点击4723D0八正常取样组纠正并保持真实门槛/格式/图号/关闭开窗，旧915保历史追加、六新语义/七F、两限定S零I；UIRUNTIME七成员/MAP六查询，九任务open/其它原门禁与枚举保持。5195F0/5195C0只当前真实提供者，外父/完整排序查找与邮件owner、全部窗口生命周期/ABI/数值/文本和交互运行待，WAV-only/MSVC直接CRT/原格式明文保持，整体未完成。

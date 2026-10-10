@@ -405,3 +405,10 @@ D67650为未加载零区，三窗八个type4原型共借一个U32 flags源；
 [本步SPEC](../cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-source-state)/[完整原码与精确差集](../cg2d_timer_ui_consumption_evidence.json)。470AC0完整463条1710B/八页、21实际E8/40跳2RET追加当前对照。原完整零描述符/未预清格式缓冲与HP/FP、timeWindow持有、时钟F64缩放/提示生产及VOID裁决保；共享时长恢复小时位→分钟、mode后首窗口先于描述符发布、四位三类坐标取样及后续fresh窗口，不合并原读取或改图号/坐标/四次绘制。旧MC格式局部历史保持，当前完整范围不代机器ABI/数值/原型/路由/画面运行。
 
 四根两新语义/四F、UIRUNTIME四成员/BATTLE仅497C80一成员、两限定S零I/九任务open；八正常逻辑组/两文件最小调整，其它语义/源/政策/枚举/完整gates及六closure保持。不构建/测试/运行客户端或算法、产物/摘要或依赖，整体未完成。
+
+<a id="status-hint-production-current-20261010"></a>
+## 2026-10-10 SHP01：三项提示生产与完整点击
+
+[本步SPEC](../cg2d_status_hint_production_spec.md#status-hint-production-source-state)/[完整原码](../cg2d_status_hint_production_evidence.json)纳管504B10/504B60/518DA0/518F00/473080/4731B0六查询和4723D0完整点击，共751条2417B/16页、18E8/九目标/115跳15RET；原55F0A0第11/12/13项回调字节/现同项接线有据，XrefsTo仅前一NOP flow不当CALL或据此否认函数指针。六正确查询body保持，原玩家加点优先/五S16配对/伤势目标/反求位置哨兵与三类邮件遍历/发布保持；提示迷你倒序、点击正序不合并，518F00唯一父弃原EAX，现VOID保/机器残值ABI待。
+
+旧915的三MC格式局部历史保留，当前追加完整点击：八组恢复三hover持有、宠物分档与姓名、两hoverWindow/consumed、重伤窗口与75比较、原target-1/0层级；原门槛、未预清256B/GBK提示/分段复制及fresh伤势、关闭/创建目标和消费返回保持。六新语义/七F、UIRUNTIME七成员/MAP六查询、两限定S零I/九任务open，旧999状态生产/1524窗口创建及全部其它源不改；全字段生产消费/alias-owner、整表/路由、外callee/数值ABI/交互画面运行与全生命周期待，整体未完成。

@@ -185,7 +185,7 @@ std::int32_t Sub_495EB0(std::int32_t index, std::int32_t unused); // 固定文�
 std::int32_t Sub_495F70(std::int32_t index); // 清18B后选中指定字节，Y/X快照交4D3020。
 std::int32_t Sub_495FC0(); // 按四W32/一W16清唯一18B选择区，返回0。
 std::int32_t Sub_495FE0(std::int32_t index, std::int32_t state); // 情绪窗18按钮，请求被拒仍更新选择并发声。
-std::int32_t Sub_4723D0(std::int32_t index, std::int32_t state); // 窗口1伤势/新邮件/加点提示及打开对应详情。
+std::int32_t Sub_4723D0(std::int32_t index, std::int32_t state); // SHP01：三项提示完整点击/取样序，原门槛和关闭开窗保持。
 void Sub_470AC0(); // TUC01：窗口1HP/FP、时钟/四位倒计时/提示原生产序；机器ABI与运行待。
 void Sub_4718F0(); // TUC01：窗口2直接FP复制/四位倒计时，首窗口取样晚于描述符发布。
 std::int32_t Sub_471CD0(std::int32_t unused, std::int32_t state); // 状态栏1点击切2，调用后发布保存模式。
@@ -193,8 +193,8 @@ std::int32_t Sub_471D10(std::int32_t unused, std::int32_t state); // 状态栏2�
 std::int32_t Sub_471D60(std::int32_t unused, std::int32_t state); // 状态栏3按场景返回2或1。
 std::int32_t Sub_471DD0(std::int32_t unused, std::int32_t state); // 仅hover命中消费。
 std::int32_t Sub_471DF0(std::int32_t index, std::int32_t state); // 六选项命中区操作前15项图形，发送后SE51。
-std::int32_t Sub_473080(); // 玩家伤势优先；否则宠物原编号+10，未命中-1。
-std::int32_t Sub_4731B0(std::int32_t index); // 宠物原编号反求首个S16配对位置，不查used。
+std::int32_t Sub_473080(); // SHP01：玩家伤势优先返0，否则宠物原编号+10/未命中-1。
+std::int32_t Sub_4731B0(std::int32_t index); // SHP01：五个S16配对首匹配位置，无则-1，不查used。
 std::int32_t Sub_4972B0(std::int32_t index, std::int32_t state); // 攻击选择，原目标标志475H。
 std::int32_t Sub_4973C0(std::int32_t index, std::int32_t state); // 防御G命令及玩家动作完成。
 void Sub_4974C0(std::int32_t skillIndex, std::int32_t technique); // CC4230真实双参数命令回调。

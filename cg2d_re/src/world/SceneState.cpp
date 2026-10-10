@@ -8732,6 +8732,7 @@ std::int32_t ReadPlayerInjury() noexcept
     return gPlayerRuntime.valueF4;
 }
 
+// SHP01：原玩家正加点优先，否则五S16配对首个宠物非零加点位置；返回5/6原哨兵。
 std::int32_t Sub_504B10()
 {
     if (gValueD2F788 > 0) {
@@ -8746,6 +8747,7 @@ std::int32_t Sub_504B10()
     return 6;
 }
 
+// SHP01：原五S16配对首个受伤宠物编号，未命中-1，不检查used。
 std::int32_t Sub_504B60()
 {
     for (std::int32_t position = 0; position < 5; ++position) {

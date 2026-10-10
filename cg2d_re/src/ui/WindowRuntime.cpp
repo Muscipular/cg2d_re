@@ -40820,6 +40820,7 @@ std::int32_t Sub_471DF0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// SHP01：原玩家伤势优先返0，否则宠物编号+10或-1。
 std::int32_t Sub_473080()
 {
     if (world::detail::ReadPlayerInjury() != 0) {
@@ -40829,6 +40830,7 @@ std::int32_t Sub_473080()
     return pet == -1 ? -1 : pet + 10;
 }
 
+// SHP01：原五S16配对首个编号匹配位置，无则-1。
 std::int32_t Sub_4731B0(const std::int32_t index)
 {
     for (std::int32_t position = 0; position < 5; ++position) {
@@ -40841,6 +40843,7 @@ std::int32_t Sub_4731B0(const std::int32_t index)
     return -1;
 }
 
+// SHP01：原三项提示/关闭开窗；hover持有及姓名/分档/窗口读取序，原业务门槛保持。
 std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
@@ -40848,7 +40851,8 @@ std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
     switch (index) {
     case 13: {
         const std::int32_t candidate = world::detail::Sub_504B10();
-        if ((state & 1) != 0) {
+        const bool hover = (state & 1) != 0;
+        if (hover) {
             if (gLoginWindowRuntime.statusHasPointsD66E24 != 0) {
                 if (candidate <= 4) {
                     const std::int16_t petIndex =
@@ -40869,9 +40873,10 @@ std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
         if (gLoginWindowRuntime.statusHasPointsD66E24 == 0) {
             return 0;
         }
-        if ((state & 1) != 0) {
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[13].data)->imageNo = 0x3B955;
+        if (hover) {
+            WindowInstance* const hoverWindow = gCurrentWindow;
             consumed = 1;
+            static_cast<WindowGraphicData*>(hoverWindow->elements[13].data)->imageNo = 0x3B955;
         }
         if ((state & 2) != 0) {
             if (candidate <= 4) {
@@ -40902,7 +40907,8 @@ std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
     }
     case 12: {
         const std::int32_t hasMail = gLoginWindowRuntime.statusHasMailCC4B5C;
-        if ((state & 1) != 0) {
+        const bool hover = (state & 1) != 0;
+        if (hover) {
             std::strcpy(gHoverTextD68AE8.data(), hasMail != 0 ? kStatusNewMail556D24 : kStatusNoMail556D14);
             if (hasMail == 0) {
                 return 0;
@@ -40911,9 +40917,10 @@ std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
         if (hasMail == 0) {
             return 0;
         }
-        if ((state & 1) != 0) {
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[12].data)->imageNo = 0x3B951;
+        if (hover) {
+            WindowInstance* const hoverWindow = gCurrentWindow;
             consumed = 1;
+            static_cast<WindowGraphicData*>(hoverWindow->elements[12].data)->imageNo = 0x3B951;
         }
         if ((state & 2) != 0) {
             world::detail::Sub_518F00(
@@ -40933,8 +40940,9 @@ std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
     case 11: {
         const std::int32_t target = Sub_473080();
         std::int32_t injury = world::detail::ReadPlayerInjury();
+        const bool hover = (state & 1) != 0;
         const std::int32_t petIndex = target - 10;
-        if ((state & 1) != 0) {
+        if (hover) {
             if (injury != 0) {
                 const char* const text = injury <= 25 ? kStatusPlayerInjury556E00
                     : injury <= 50 ? kStatusPlayerInjury556DF0
@@ -40945,10 +40953,20 @@ std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
             } else {
                 const auto& pet = world::detail::gPetRuntimeF633F8[petIndex];
                 const std::int32_t petInjury = pet.values70[25];
-                const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
-                const char* const format = petInjury <= 25 ? kStatusPetInjury556DB4
-                    : petInjury <= 50 ? kStatusPetInjury556DA0
-                    : petInjury <= 75 ? kStatusPetInjury556D8C : kStatusPetInjury556D78;
+                const char* name;
+                const char* format;
+                if (petInjury <= 25) {
+                    format = kStatusPetInjury556DB4;
+                    name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
+                } else if (petInjury <= 50) {
+                    format = kStatusPetInjury556DA0;
+                    name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
+                } else {
+                    const char nameFirst = pet.name6BD[0];
+                    const bool critical = petInjury > 75;
+                    name = nameFirst != '\0' ? pet.name6BD.data() : pet.name6AC.data();
+                    format = critical ? kStatusPetInjury556D78 : kStatusPetInjury556D8C;
+                }
                 platform::FormatLegacyString_53B304(buffer, format, name);
                 const std::size_t length = std::strlen(buffer) + 1;
                 const std::size_t bulk = length & ~std::size_t{3};
@@ -40960,37 +40978,50 @@ std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
         if (gLoginWindowRuntime.statusHasInjuryD046C8 == 0) {
             return 0;
         }
-        if ((state & 1) != 0) {
-            const std::int32_t image = injury == 0 ? 0x3B942
-                : injury <= 25 ? 0x3B945
-                : injury <= 50 ? 0x3B948
-                : injury <= 75 ? 0x3B94B : 0x3B94E;
-            static_cast<WindowGraphicData*>(gCurrentWindow->elements[11].data)->imageNo = image;
+        if (hover) {
+            WindowInstance* imageWindow;
+            std::int32_t image;
+            if (injury == 0) {
+                imageWindow = gCurrentWindow;
+                image = 0x3B942;
+            } else if (injury <= 25) {
+                imageWindow = gCurrentWindow;
+                image = 0x3B945;
+            } else if (injury <= 50) {
+                imageWindow = gCurrentWindow;
+                image = 0x3B948;
+            } else {
+                imageWindow = gCurrentWindow;
+                image = injury <= 75 ? 0x3B94B : 0x3B94E;
+            }
+            static_cast<WindowGraphicData*>(imageWindow->elements[11].data)->imageNo = image;
             consumed = 1;
         }
         if ((state & 2) != 0) {
-            if (target == 0) {
-                WindowInstance* const attributes = gWindowStates[8].window;
-                if (attributes != nullptr) {
-                    attributes->state |= 0x8000u;
+            if (target != -1) {
+                if (target == 0) {
+                    WindowInstance* const attributes = gWindowStates[8].window;
+                    if (attributes != nullptr) {
+                        attributes->state |= 0x8000u;
+                    }
+                    WindowInstance* const titles = gWindowStates[9].window;
+                    if (titles != nullptr) {
+                        titles->state |= 0x8000u;
+                    }
+                    static_cast<void>(CreateWindowAnimation_475AA0(7, 1, 0, nullptr));
+                } else {
+                    WindowInstance* const attributes = gWindowStates[17].window;
+                    if (attributes != nullptr) {
+                        attributes->state |= 0x8000u;
+                    }
+                    WindowInstance* const skills = gWindowStates[18].window;
+                    if (skills != nullptr) {
+                        skills->state |= 0x8000u;
+                    }
+                    gLoginWindowRuntime.selectedPetCC3E5C = Sub_4731B0(petIndex);
+                    gLoginWindowRuntime.valueD673D0 = 5;
+                    static_cast<void>(CreateWindowAnimation_475AA0(16, 1, 0, nullptr));
                 }
-                WindowInstance* const titles = gWindowStates[9].window;
-                if (titles != nullptr) {
-                    titles->state |= 0x8000u;
-                }
-                static_cast<void>(CreateWindowAnimation_475AA0(7, 1, 0, nullptr));
-            } else if (target != -1) {
-                WindowInstance* const attributes = gWindowStates[17].window;
-                if (attributes != nullptr) {
-                    attributes->state |= 0x8000u;
-                }
-                WindowInstance* const skills = gWindowStates[18].window;
-                if (skills != nullptr) {
-                    skills->state |= 0x8000u;
-                }
-                gLoginWindowRuntime.selectedPetCC3E5C = Sub_4731B0(petIndex);
-                gLoginWindowRuntime.valueD673D0 = 5;
-                static_cast<void>(CreateWindowAnimation_475AA0(16, 1, 0, nullptr));
             }
             consumed = 1;
         }

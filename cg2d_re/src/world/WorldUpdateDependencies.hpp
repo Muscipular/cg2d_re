@@ -1170,8 +1170,8 @@ std::int32_t ReadPlayerTimerRemaining0C() noexcept; // 原FDA70C，转生按钮�
 std::int32_t ReadPlayerTimerMode10() noexcept; // 原FDA710完整S32，状态栏时长数字选择图号。
 void ConsumeBattlePlayerTimer(std::int32_t seconds); // 原43BBCE..43BBF2，先扣毫秒再按S32负值清零。
 std::int32_t ReadPlayerInjury() noexcept; // 原FDA7F4，属性选择列表使用同一伤势。
-std::int32_t Sub_504B10(); // 玩家正加点返回5，宠物非零加点返回首个配对位置，无则6。
-std::int32_t Sub_504B60(); // 五配对中首个受伤宠物的原编号，不检查used，无则-1。
+std::int32_t Sub_504B10(); // SHP01：玩家正加点返5；五S16配对首个宠物非零加点位置，无则6。
+std::int32_t Sub_504B60(); // SHP01：五S16配对首个受伤宠物原编号，无则-1，不检查used。
 std::int32_t ReadPlayerAttribute(std::int32_t index) noexcept; // 原FDA7E4四S32，窗口7逐条取值。
 std::int32_t ReadPlayerValue78(std::int32_t index) noexcept; // 原FDA778..FDA7AC的14项，窗口8逐值读取。
 std::int32_t ReadPlayerValueB0(std::int32_t index) noexcept; // 原FDA7B0/B4两项，不与values78拼接。

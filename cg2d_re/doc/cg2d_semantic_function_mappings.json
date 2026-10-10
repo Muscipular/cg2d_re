@@ -108498,7 +108498,7 @@
     {
       "original_entry": "0x4723D0",
       "inventory_id": "F:000723D0",
-      "status": "既有状态栏加点/伤势三真实格式依赖已接；完整交互/父路由和运行未据本步验收",
+      "status": "既有状态栏加点/伤势三真实格式依赖已接；完整交互/父路由和运行未据本步验收；SHP01追加完整根，八点击取样组恢复，限定S/全owner与运行待",
       "original_end_exclusive": "0x4729A1",
       "instruction_count": 450,
       "sources": [
@@ -108508,13 +108508,25 @@
             "Sub_4723D0"
           ],
           "relationship": "仅三格式callee接三原点，保留既有状态栏hover/事件与来源消费正文"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4723D0"
+          ],
+          "relationship": "SHP01当前真实声明/借用字段与原哨兵，签名及非地址宽度保，仅关联注释"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/window_1.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-baseline",
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-decision",
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-acceptance",
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-source-state",
+        "doc/cg2d_status_hint_production_evidence.json"
       ],
-      "boundary": "仅三现callee接47246D/472488/4727E8，S32(index,state)/consumed及全部分支返回与正文保持。共用未清256B buffer；index13 hover按原D66E24门槛、candidate<=4宠物/其余玩家两独立原call，借自定义名或基础名T*后读宠物lvFlag6C S32，玩家读D2F788 S32，格式后共用原D68AE8含NUL复制，再按原重新读门槛决定消费/开窗。index11玩家伤势为0且target!=-1才取宠物，原伤势S32四档25/50/75和两名称来源共4727E8一点；先复制对齐4B主体→重新读玩家伤势→复制余字节，别改成一次复制或提前快照。原伤势/加点图号、邮件指针/发布顺序、窗口关闭/创建、关联函数均保持，不加保护/预清/缓存，不据本步验收完整状态栏/邮件/开窗/父路由/画面或运行。",
+      "boundary": "仅三现callee接47246D/472488/4727E8，S32(index,state)/consumed及全部分支返回与正文保持。共用未清256B buffer；index13 hover按原D66E24门槛、candidate<=4宠物/其余玩家两独立原call，借自定义名或基础名T*后读宠物lvFlag6C S32，玩家读D2F788 S32，格式后共用原D68AE8含NUL复制，再按原重新读门槛决定消费/开窗。index11玩家伤势为0且target!=-1才取宠物，原伤势S32四档25/50/75和两名称来源共4727E8一点；先复制对齐4B主体→重新读玩家伤势→复制余字节，别改成一次复制或提前快照。原伤势/加点图号、邮件指针/发布顺序、窗口关闭/创建、关联函数均保持，不加保护/预清/缓存，不据本步验收完整状态栏/邮件/开窗/父路由/画面或运行。 当前SHP01：SHP01七完整正常原根751条2417B/16页，18实际E8/9目标/115跳15RET、18入向（内部5/外13来源）；六查询正确body保：玩家加点优先/五S16宠物配对的加点位置与伤势编号/目标0及编号+10/首匹配位置，完整S32哨兵保。普通60/公会200/迷你20与各10消息的原遍历、U16未读类别/W32页、未命中备用页、两S32*类别后索引与fresh公会selected/key保；提示迷你倒序/点击定位正序不合并。旧915三MC格式/未预清256B/GBK字节/分段复制与fresh伤势、原提示gate/图号/窗口关闭创建保，八组恢复hover一次持有、宠物分档/姓名、hoverWindow/consumed、重伤窗口/75比较和原target-1/0层级。三原型实际项pointer已核，XrefsTo仅NOP flow不误记CALL；仅地址native化，非地址宽度不变。5195F0/5195C0只当前提供者/本父观察，旧1524开窗及999状态生产/444MSVC边界保持不重验全体。无新函数/API/类型/布局/owner或保护/默认值/补零/钳制/容量/回滚/异常溢出模型，原业务门槛/哨兵/旧窗判空保。只正常源码S，不宣优化后读取/指令/机器ABI/数值/并发；原518F00残值由唯一父弃返、现VOID接口保。完整其它父/三整原型/selected-宠物-联系人-邮件全生产消费/alias-owner、外callee及全部开窗/SDK/文本画面交互运行与全生命周期待；枚举/完整gates/六closure及总SPEC§10保持，WAV-only/MSVC直接CRT/原格式明文保持。",
       "original_incoming": [],
       "original_data_references": [],
       "original_flow_references": [
@@ -108625,7 +108637,23 @@
           "relationship": "index11 hover/玩家伤势为0/target!=-1；宠物伤势S32按四档选择，借自定义名或基础名T*，全部格式/名字分支原跳至4727E3或4727E8共一call。格式后测strlen+1、主体按4B复制、重读玩家伤势、再余字节复制顺序保持"
         }
       ],
-      "verification_level": "原450仅统计，只读115格式/参数/消费邻窗及39个四档起始/共享复制新指令，共154，余296/已过正文及核心不重验。六格式沿window_1既有逐字节原证，不重读，新增登记到53B304格式池；三真实点/三现callee、四伤势格式共一call、T*/S32来源和复制中重读顺序、整份源仅三标识符限定静态核对。4723CF仅前方NOP自然流type21，普通caller/data均0；55F0A0元素11/12/13绑定沿既有窗口1合同，不据静态call xref缺失推无真实调用，未重验完整绑定或执行。"
+      "verification_level": "原450仅统计，只读115格式/参数/消费邻窗及39个四档起始/共享复制新指令，共154，余296/已过正文及核心不重验。六格式沿window_1既有逐字节原证，不重读，新增登记到53B304格式池；三真实点/三现callee、四伤势格式共一call、T*/S32来源和复制中重读顺序、整份源仅三标识符限定静态核对。4723CF仅前方NOP自然流type21，普通caller/data均0；55F0A0元素11/12/13绑定沿既有窗口1合同，不据静态call xref缺失推无真实调用，未重验完整绑定或执行。 当前SHP01：pass，七完整原根751条2417B/16页、18实际E8/9目标/115跳15RET，18入向（内部5/外13来源）；三原型实际项与现window1接线、字段步长/宽度/真实提供者有据，整六文件精确重放单点击body八逻辑组/十四关联注释，其余六查询body/所有其它源保持",
+      "status_hint_production": {
+        "step": "SHP01",
+        "source_snapshot": "[#] 补齐状态提示生产并恢复点击取样顺序",
+        "original_instruction_count": 450,
+        "original_code_bytes": 1489,
+        "original_page_count": 8,
+        "direct_call_count": 14,
+        "jump_count": 74,
+        "return_count": 2,
+        "native_signature": "std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4723D0",
+        "normal_source_kept": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x4AAEC0",
@@ -207240,6 +207268,474 @@
         "native_signature": "std::int32_t Sub_47B210(const std::int32_t index, const std::int32_t state)",
         "native_provider": "src/ui/WindowRuntime.cpp::Sub_47B210",
         "normal_source_kept": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x504b10",
+      "inventory_id": "F:00104B10",
+      "original_role": "玩家加点优先与五宠物S16配对首个加点位置",
+      "original_end_exclusive": "0x504b56",
+      "instruction_count": 25,
+      "function_chunks": [
+        {
+          "start": "0x504b10",
+          "end_exclusive": "0x504b56"
+        }
+      ],
+      "status": "SHP01完整正常查询根独立纳管，正确body保持；限定S/全生产消费-owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_504B10"
+          ],
+          "relationship": "既有真实查询body正确保持，完整根/原读序及哨兵有据，仅关联注释"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_504B10"
+          ],
+          "relationship": "SHP01当前真实声明/借用字段与原哨兵，签名及非地址宽度保，仅关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-baseline",
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-decision",
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-acceptance",
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-source-state",
+        "doc/cg2d_status_hint_production_evidence.json"
+      ],
+      "boundary": "SHP01七完整正常原根751条2417B/16页，18实际E8/9目标/115跳15RET、18入向（内部5/外13来源）；六查询正确body保：玩家加点优先/五S16宠物配对的加点位置与伤势编号/目标0及编号+10/首匹配位置，完整S32哨兵保。普通60/公会200/迷你20与各10消息的原遍历、U16未读类别/W32页、未命中备用页、两S32*类别后索引与fresh公会selected/key保；提示迷你倒序/点击定位正序不合并。旧915三MC格式/未预清256B/GBK字节/分段复制与fresh伤势、原提示gate/图号/窗口关闭创建保，八组恢复hover一次持有、宠物分档/姓名、hoverWindow/consumed、重伤窗口/75比较和原target-1/0层级。三原型实际项pointer已核，XrefsTo仅NOP flow不误记CALL；仅地址native化，非地址宽度不变。5195F0/5195C0只当前提供者/本父观察，旧1524开窗及999状态生产/444MSVC边界保持不重验全体。无新函数/API/类型/布局/owner或保护/默认值/补零/钳制/容量/回滚/异常溢出模型，原业务门槛/哨兵/旧窗判空保。只正常源码S，不宣优化后读取/指令/机器ABI/数值/并发；原518F00残值由唯一父弃返、现VOID接口保。完整其它父/三整原型/selected-宠物-联系人-邮件全生产消费/alias-owner、外callee及全部开窗/SDK/文本画面交互运行与全生命周期待；枚举/完整gates/六closure及总SPEC§10保持，WAV-only/MSVC直接CRT/原格式明文保持。",
+      "verification_level": "pass，七完整原根751条2417B/16页、18实际E8/9目标/115跳15RET，18入向（内部5/外13来源）；三原型实际项与现window1接线、字段步长/宽度/真实提供者有据，整六文件精确重放单点击body八逻辑组/十四关联注释，其余六查询body/所有其它源保持",
+      "original_incoming": [
+        {
+          "ea": 4656891,
+          "parent": 4655808,
+          "type": 17,
+          "bytes": "e8103c0900",
+          "asm": "call    sub_504B10"
+        },
+        {
+          "ea": 4662272,
+          "parent": 4662224,
+          "type": 17,
+          "bytes": "e80b270900",
+          "asm": "call    sub_504B10"
+        }
+      ],
+      "status_hint_production": {
+        "step": "SHP01",
+        "source_snapshot": "[#] 补齐状态提示生产并恢复点击取样顺序",
+        "original_instruction_count": 25,
+        "original_code_bytes": 70,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 3,
+        "return_count": 2,
+        "native_signature": "std::int32_t Sub_504B10()",
+        "native_provider": "src/world/SceneState.cpp::Sub_504B10",
+        "normal_source_kept": true,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x504b60",
+      "inventory_id": "F:00104B60",
+      "original_role": "五宠物S16配对首个受伤原编号",
+      "original_end_exclusive": "0x504b91",
+      "instruction_count": 17,
+      "function_chunks": [
+        {
+          "start": "0x504b60",
+          "end_exclusive": "0x504b91"
+        }
+      ],
+      "status": "SHP01完整正常查询根独立纳管，正确body保持；限定S/全生产消费-owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_504B60"
+          ],
+          "relationship": "既有真实查询body正确保持，完整根/原读序及哨兵有据，仅关联注释"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_504B60"
+          ],
+          "relationship": "SHP01当前真实声明/借用字段与原哨兵，签名及非地址宽度保，仅关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-baseline",
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-decision",
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-acceptance",
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-source-state",
+        "doc/cg2d_status_hint_production_evidence.json"
+      ],
+      "boundary": "SHP01七完整正常原根751条2417B/16页，18实际E8/9目标/115跳15RET、18入向（内部5/外13来源）；六查询正确body保：玩家加点优先/五S16宠物配对的加点位置与伤势编号/目标0及编号+10/首匹配位置，完整S32哨兵保。普通60/公会200/迷你20与各10消息的原遍历、U16未读类别/W32页、未命中备用页、两S32*类别后索引与fresh公会selected/key保；提示迷你倒序/点击定位正序不合并。旧915三MC格式/未预清256B/GBK字节/分段复制与fresh伤势、原提示gate/图号/窗口关闭创建保，八组恢复hover一次持有、宠物分档/姓名、hoverWindow/consumed、重伤窗口/75比较和原target-1/0层级。三原型实际项pointer已核，XrefsTo仅NOP flow不误记CALL；仅地址native化，非地址宽度不变。5195F0/5195C0只当前提供者/本父观察，旧1524开窗及999状态生产/444MSVC边界保持不重验全体。无新函数/API/类型/布局/owner或保护/默认值/补零/钳制/容量/回滚/异常溢出模型，原业务门槛/哨兵/旧窗判空保。只正常源码S，不宣优化后读取/指令/机器ABI/数值/并发；原518F00残值由唯一父弃返、现VOID接口保。完整其它父/三整原型/selected-宠物-联系人-邮件全生产消费/alias-owner、外callee及全部开窗/SDK/文本画面交互运行与全生命周期待；枚举/完整gates/六closure及总SPEC§10保持，WAV-only/MSVC直接CRT/原格式明文保持。",
+      "verification_level": "pass，七完整原根751条2417B/16页、18实际E8/9目标/115跳15RET，18入向（内部5/外13来源）；三原型实际项与现window1接线、字段步长/宽度/真实提供者有据，整六文件精确重放单点击body八逻辑组/十四关联注释，其余六查询body/所有其它源保持",
+      "original_incoming": [
+        {
+          "ea": 4656923,
+          "parent": 4655808,
+          "type": 17,
+          "bytes": "e8403c0900",
+          "asm": "call    sub_504B60"
+        },
+        {
+          "ea": 4665484,
+          "parent": 4665472,
+          "type": 17,
+          "bytes": "e8cf1a0900",
+          "asm": "call    sub_504B60"
+        }
+      ],
+      "status_hint_production": {
+        "step": "SHP01",
+        "source_snapshot": "[#] 补齐状态提示生产并恢复点击取样顺序",
+        "original_instruction_count": 17,
+        "original_code_bytes": 49,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 2,
+        "return_count": 1,
+        "native_signature": "std::int32_t Sub_504B60()",
+        "native_provider": "src/world/SceneState.cpp::Sub_504B60",
+        "normal_source_kept": true,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x518da0",
+      "inventory_id": "F:00118DA0",
+      "original_role": "普通/公会/迷你三类未读提示类别与页生产",
+      "original_end_exclusive": "0x518efc",
+      "instruction_count": 107,
+      "function_chunks": [
+        {
+          "start": "0x518da0",
+          "end_exclusive": "0x518efc"
+        }
+      ],
+      "status": "SHP01完整正常查询根独立纳管，正确body保持；限定S/全生产消费-owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/world/MailState.cpp",
+          "symbols": [
+            "Sub_518DA0"
+          ],
+          "relationship": "既有真实查询body正确保持，完整根/原读序及哨兵有据，仅关联注释"
+        },
+        {
+          "path": "src/world/MailState.hpp",
+          "symbols": [
+            "Sub_518DA0"
+          ],
+          "relationship": "SHP01当前真实声明/借用字段与原哨兵，签名及非地址宽度保，仅关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-baseline",
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-decision",
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-acceptance",
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-source-state",
+        "doc/cg2d_status_hint_production_evidence.json"
+      ],
+      "boundary": "SHP01七完整正常原根751条2417B/16页，18实际E8/9目标/115跳15RET、18入向（内部5/外13来源）；六查询正确body保：玩家加点优先/五S16宠物配对的加点位置与伤势编号/目标0及编号+10/首匹配位置，完整S32哨兵保。普通60/公会200/迷你20与各10消息的原遍历、U16未读类别/W32页、未命中备用页、两S32*类别后索引与fresh公会selected/key保；提示迷你倒序/点击定位正序不合并。旧915三MC格式/未预清256B/GBK字节/分段复制与fresh伤势、原提示gate/图号/窗口关闭创建保，八组恢复hover一次持有、宠物分档/姓名、hoverWindow/consumed、重伤窗口/75比较和原target-1/0层级。三原型实际项pointer已核，XrefsTo仅NOP flow不误记CALL；仅地址native化，非地址宽度不变。5195F0/5195C0只当前提供者/本父观察，旧1524开窗及999状态生产/444MSVC边界保持不重验全体。无新函数/API/类型/布局/owner或保护/默认值/补零/钳制/容量/回滚/异常溢出模型，原业务门槛/哨兵/旧窗判空保。只正常源码S，不宣优化后读取/指令/机器ABI/数值/并发；原518F00残值由唯一父弃返、现VOID接口保。完整其它父/三整原型/selected-宠物-联系人-邮件全生产消费/alias-owner、外callee及全部开窗/SDK/文本画面交互运行与全生命周期待；枚举/完整gates/六closure及总SPEC§10保持，WAV-only/MSVC直接CRT/原格式明文保持。",
+      "verification_level": "pass，七完整原根751条2417B/16页、18实际E8/9目标/115跳15RET，18入向（内部5/外13来源）；三原型实际项与现window1接线、字段步长/宽度/真实提供者有据，整六文件精确重放单点击body八逻辑组/十四关联注释，其余六查询body/所有其它源保持",
+      "original_incoming": [
+        {
+          "ea": 4656953,
+          "parent": 4655808,
+          "type": 17,
+          "bytes": "e8627e0a00",
+          "asm": "call    sub_518DA0"
+        },
+        {
+          "ea": 4852119,
+          "parent": 4852080,
+          "type": 17,
+          "bytes": "e804840700",
+          "asm": "call    sub_518DA0"
+        },
+        {
+          "ea": 4867638,
+          "parent": 4867616,
+          "type": 17,
+          "bytes": "e865470700",
+          "asm": "call    sub_518DA0"
+        },
+        {
+          "ea": 5155855,
+          "parent": 5155488,
+          "type": 17,
+          "bytes": "e88ce10200",
+          "asm": "call    sub_518DA0"
+        },
+        {
+          "ea": 5161431,
+          "parent": 5161424,
+          "type": 17,
+          "bytes": "e8c4cb0200",
+          "asm": "call    sub_518DA0"
+        },
+        {
+          "ea": 5299502,
+          "parent": 5299312,
+          "type": 17,
+          "bytes": "e86db00000",
+          "asm": "call    sub_518DA0"
+        },
+        {
+          "ea": 5306510,
+          "parent": 5306352,
+          "type": 17,
+          "bytes": "e80d950000",
+          "asm": "call    sub_518DA0"
+        },
+        {
+          "ea": 5359678,
+          "parent": 5359568,
+          "type": 17,
+          "bytes": "e85dc5ffff",
+          "asm": "call    sub_518DA0"
+        },
+        {
+          "ea": 5361570,
+          "parent": 5359568,
+          "type": 17,
+          "bytes": "e8f9bdffff",
+          "asm": "call    sub_518DA0"
+        },
+        {
+          "ea": 5433279,
+          "parent": 5432912,
+          "type": 17,
+          "bytes": "e8dca5feff",
+          "asm": "call    sub_518DA0"
+        },
+        {
+          "ea": 5438711,
+          "parent": 5438704,
+          "type": 17,
+          "bytes": "e8a490feff",
+          "asm": "call    sub_518DA0"
+        }
+      ],
+      "status_hint_production": {
+        "step": "SHP01",
+        "source_snapshot": "[#] 补齐状态提示生产并恢复点击取样顺序",
+        "original_instruction_count": 107,
+        "original_code_bytes": 348,
+        "original_page_count": 2,
+        "direct_call_count": 1,
+        "jump_count": 17,
+        "return_count": 2,
+        "native_signature": "std::int32_t Sub_518DA0()",
+        "native_provider": "src/world/MailState.cpp::Sub_518DA0",
+        "normal_source_kept": true,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x518f00",
+      "inventory_id": "F:00118F00",
+      "original_role": "三类未读点击定位：类别后索引/原正序迷你消息",
+      "original_end_exclusive": "0x51908b",
+      "instruction_count": 126,
+      "function_chunks": [
+        {
+          "start": "0x518f00",
+          "end_exclusive": "0x51908b"
+        }
+      ],
+      "status": "SHP01完整正常查询根独立纳管，正确body保持；限定S/全生产消费-owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/world/MailState.cpp",
+          "symbols": [
+            "Sub_518F00"
+          ],
+          "relationship": "既有真实查询body正确保持，完整根/原读序及哨兵有据，仅关联注释"
+        },
+        {
+          "path": "src/world/MailState.hpp",
+          "symbols": [
+            "Sub_518F00"
+          ],
+          "relationship": "SHP01当前真实声明/借用字段与原哨兵，签名及非地址宽度保，仅关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-baseline",
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-decision",
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-acceptance",
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-source-state",
+        "doc/cg2d_status_hint_production_evidence.json"
+      ],
+      "boundary": "SHP01七完整正常原根751条2417B/16页，18实际E8/9目标/115跳15RET、18入向（内部5/外13来源）；六查询正确body保：玩家加点优先/五S16宠物配对的加点位置与伤势编号/目标0及编号+10/首匹配位置，完整S32哨兵保。普通60/公会200/迷你20与各10消息的原遍历、U16未读类别/W32页、未命中备用页、两S32*类别后索引与fresh公会selected/key保；提示迷你倒序/点击定位正序不合并。旧915三MC格式/未预清256B/GBK字节/分段复制与fresh伤势、原提示gate/图号/窗口关闭创建保，八组恢复hover一次持有、宠物分档/姓名、hoverWindow/consumed、重伤窗口/75比较和原target-1/0层级。三原型实际项pointer已核，XrefsTo仅NOP flow不误记CALL；仅地址native化，非地址宽度不变。5195F0/5195C0只当前提供者/本父观察，旧1524开窗及999状态生产/444MSVC边界保持不重验全体。无新函数/API/类型/布局/owner或保护/默认值/补零/钳制/容量/回滚/异常溢出模型，原业务门槛/哨兵/旧窗判空保。只正常源码S，不宣优化后读取/指令/机器ABI/数值/并发；原518F00残值由唯一父弃返、现VOID接口保。完整其它父/三整原型/selected-宠物-联系人-邮件全生产消费/alias-owner、外callee及全部开窗/SDK/文本画面交互运行与全生命周期待；枚举/完整gates/六closure及总SPEC§10保持，WAV-only/MSVC直接CRT/原格式明文保持。",
+      "verification_level": "pass，七完整原根751条2417B/16页、18实际E8/9目标/115跳15RET，18入向（内部5/外13来源）；三原型实际项与现window1接线、字段步长/宽度/真实提供者有据，整六文件精确重放单点击body八逻辑组/十四关联注释，其余六查询body/所有其它源保持",
+      "original_incoming": [
+        {
+          "ea": 4662792,
+          "parent": 4662224,
+          "type": 17,
+          "bytes": "e8f3680a00",
+          "asm": "call    sub_518F00"
+        }
+      ],
+      "status_hint_production": {
+        "step": "SHP01",
+        "source_snapshot": "[#] 补齐状态提示生产并恢复点击取样顺序",
+        "original_instruction_count": 126,
+        "original_code_bytes": 395,
+        "original_page_count": 2,
+        "direct_call_count": 2,
+        "jump_count": 15,
+        "return_count": 4,
+        "native_signature": "void Sub_518F00(std::int32_t* const category, std::int32_t* const index)",
+        "native_provider": "src/world/MailState.cpp::Sub_518F00",
+        "normal_source_kept": true,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x473080",
+      "inventory_id": "F:00073080",
+      "original_role": "玩家或宠物伤势目标原编号偏移",
+      "original_end_exclusive": "0x47309e",
+      "instruction_count": 12,
+      "function_chunks": [
+        {
+          "start": "0x473080",
+          "end_exclusive": "0x47309e"
+        }
+      ],
+      "status": "SHP01完整正常查询根独立纳管，正确body保持；限定S/全生产消费-owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_473080"
+          ],
+          "relationship": "既有真实查询body正确保持，完整根/原读序及哨兵有据，仅关联注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_473080"
+          ],
+          "relationship": "SHP01当前真实声明/借用字段与原哨兵，签名及非地址宽度保，仅关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-baseline",
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-decision",
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-acceptance",
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-source-state",
+        "doc/cg2d_status_hint_production_evidence.json"
+      ],
+      "boundary": "SHP01七完整正常原根751条2417B/16页，18实际E8/9目标/115跳15RET、18入向（内部5/外13来源）；六查询正确body保：玩家加点优先/五S16宠物配对的加点位置与伤势编号/目标0及编号+10/首匹配位置，完整S32哨兵保。普通60/公会200/迷你20与各10消息的原遍历、U16未读类别/W32页、未命中备用页、两S32*类别后索引与fresh公会selected/key保；提示迷你倒序/点击定位正序不合并。旧915三MC格式/未预清256B/GBK字节/分段复制与fresh伤势、原提示gate/图号/窗口关闭创建保，八组恢复hover一次持有、宠物分档/姓名、hoverWindow/consumed、重伤窗口/75比较和原target-1/0层级。三原型实际项pointer已核，XrefsTo仅NOP flow不误记CALL；仅地址native化，非地址宽度不变。5195F0/5195C0只当前提供者/本父观察，旧1524开窗及999状态生产/444MSVC边界保持不重验全体。无新函数/API/类型/布局/owner或保护/默认值/补零/钳制/容量/回滚/异常溢出模型，原业务门槛/哨兵/旧窗判空保。只正常源码S，不宣优化后读取/指令/机器ABI/数值/并发；原518F00残值由唯一父弃返、现VOID接口保。完整其它父/三整原型/selected-宠物-联系人-邮件全生产消费/alias-owner、外callee及全部开窗/SDK/文本画面交互运行与全生命周期待；枚举/完整gates/六closure及总SPEC§10保持，WAV-only/MSVC直接CRT/原格式明文保持。",
+      "verification_level": "pass，七完整原根751条2417B/16页、18实际E8/9目标/115跳15RET，18入向（内部5/外13来源）；三原型实际项与现window1接线、字段步长/宽度/真实提供者有据，整六文件精确重放单点击body八逻辑组/十四关联注释，其余六查询body/所有其它源保持",
+      "original_incoming": [
+        {
+          "ea": 4663018,
+          "parent": 4662224,
+          "type": 17,
+          "bytes": "e891090000",
+          "asm": "call    sub_473080"
+        }
+      ],
+      "status_hint_production": {
+        "step": "SHP01",
+        "source_snapshot": "[#] 补齐状态提示生产并恢复点击取样顺序",
+        "original_instruction_count": 12,
+        "original_code_bytes": 30,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "jump_count": 2,
+        "return_count": 3,
+        "native_signature": "std::int32_t Sub_473080()",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_473080",
+        "normal_source_kept": true,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4731b0",
+      "inventory_id": "F:000731B0",
+      "original_role": "宠物原编号反求五配对首匹配位置",
+      "original_end_exclusive": "0x4731d4",
+      "instruction_count": 14,
+      "function_chunks": [
+        {
+          "start": "0x4731b0",
+          "end_exclusive": "0x4731d4"
+        }
+      ],
+      "status": "SHP01完整正常查询根独立纳管，正确body保持；限定S/全生产消费-owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4731B0"
+          ],
+          "relationship": "既有真实查询body正确保持，完整根/原读序及哨兵有据，仅关联注释"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4731B0"
+          ],
+          "relationship": "SHP01当前真实声明/借用字段与原哨兵，签名及非地址宽度保，仅关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-baseline",
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-decision",
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-acceptance",
+        "doc/cg2d_status_hint_production_spec.md#status-hint-production-source-state",
+        "doc/cg2d_status_hint_production_evidence.json"
+      ],
+      "boundary": "SHP01七完整正常原根751条2417B/16页，18实际E8/9目标/115跳15RET、18入向（内部5/外13来源）；六查询正确body保：玩家加点优先/五S16宠物配对的加点位置与伤势编号/目标0及编号+10/首匹配位置，完整S32哨兵保。普通60/公会200/迷你20与各10消息的原遍历、U16未读类别/W32页、未命中备用页、两S32*类别后索引与fresh公会selected/key保；提示迷你倒序/点击定位正序不合并。旧915三MC格式/未预清256B/GBK字节/分段复制与fresh伤势、原提示gate/图号/窗口关闭创建保，八组恢复hover一次持有、宠物分档/姓名、hoverWindow/consumed、重伤窗口/75比较和原target-1/0层级。三原型实际项pointer已核，XrefsTo仅NOP flow不误记CALL；仅地址native化，非地址宽度不变。5195F0/5195C0只当前提供者/本父观察，旧1524开窗及999状态生产/444MSVC边界保持不重验全体。无新函数/API/类型/布局/owner或保护/默认值/补零/钳制/容量/回滚/异常溢出模型，原业务门槛/哨兵/旧窗判空保。只正常源码S，不宣优化后读取/指令/机器ABI/数值/并发；原518F00残值由唯一父弃返、现VOID接口保。完整其它父/三整原型/selected-宠物-联系人-邮件全生产消费/alias-owner、外callee及全部开窗/SDK/文本画面交互运行与全生命周期待；枚举/完整gates/六closure及总SPEC§10保持，WAV-only/MSVC直接CRT/原格式明文保持。",
+      "verification_level": "pass，七完整原根751条2417B/16页、18实际E8/9目标/115跳15RET，18入向（内部5/外13来源）；三原型实际项与现window1接线、字段步长/宽度/真实提供者有据，整六文件精确重放单点击body八逻辑组/十四关联注释，其余六查询body/所有其它源保持",
+      "original_incoming": [
+        {
+          "ea": 4663654,
+          "parent": 4662224,
+          "type": 17,
+          "bytes": "e845080000",
+          "asm": "call    sub_4731B0"
+        }
+      ],
+      "status_hint_production": {
+        "step": "SHP01",
+        "source_snapshot": "[#] 补齐状态提示生产并恢复点击取样顺序",
+        "original_instruction_count": 14,
+        "original_code_bytes": 36,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 2,
+        "return_count": 1,
+        "native_signature": "std::int32_t Sub_4731B0(const std::int32_t index)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4731B0",
+        "normal_source_kept": true,
         "generated_machine_reads_verified": false,
         "full_lifecycle_closed": false,
         "runtime_verified": false

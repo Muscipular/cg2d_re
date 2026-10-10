@@ -147,3 +147,8 @@ context分别等于D66CA8/CB03F0/CC46E0/CC2080/D2D828/CA0180之一，
 ## 2026-10-10 UTE01：文本反转义原位取样
 
 [UTE01完整原根](cg2d_text_unescape_sampling_spec.md#text-unescape-source-state)/[原码与映射](cg2d_text_unescape_sampling_evidence.json)覆盖52D120/52D150/52D2F0/509080，共66条147B/四页、三E8/三个内部目标/七跳五RET；316入向内部3/外313只证明来源。原58E944四对BYTE映射与未知字母低BYTE返回保持，恢复S32映射计数、每轮首BYTE持有及后继读取先于索引递增/共尾写。原高bit两BYTE、反斜杠字母、固定入口长度和两S32索引、末NUL及同text返回保；不切换编码或增加空值/容量/末字节检查。包装弃返→真实单RET空操作→同text返回，两正确body保，不新增通知/成功值/API或owner。四新语义/四F、INPUT/UIRUNTIME各四成员/NETWORK三个文本根、三限定S零I/九任务open；全部外调用、文本生产消费/容量与alias-owner寿命、SDK/机器ABI/真实字符消息画面运行待。
+
+<a id="text-escape-current-20261010"></a>
+## 2026-10-10 ETE01：文本转义生产端取样
+
+[ETE01完整原根](cg2d_text_escape_sampling_spec.md#text-escape-source-state)/[原码与映射](cg2d_text_escape_sampling_evidence.json)覆盖52D1B0转义生产/52D2D0包装，共108条310B/三页、两E8/两目标/11跳两RET；112入向内部1/外111仅来源。恢复非地址S32表计数、已读首BYTE持有/后继与索引及计数更新序、匹配字母早退前读取/两写后更新索引三组。原四对BYTE映射、固定入口长度和两S32索引、原容量/调整长度门槛与截断、末NUL/同destination返回保持，不切换编码或加保护。正确包装和InputContext文本便利适配保持，不新增原根/通知/成功值或owner；UTE01四根和所有其它源保。两个新语义/F、INPUT/UIRUNTIME/NETWORK各两成员、三限定S零I/九任务open；全外调用、文本生产消费/容量与alias-owner寿命、SDK/机器ABI/真实截断和字符消息画面运行待。

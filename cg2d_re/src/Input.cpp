@@ -681,6 +681,7 @@ std::int32_t Sub_45E770(const char* const text)
 }
 
 // 原 [0x52D1B0,0x52D2C6)：原字节表按输入/转义字母交错存放。
+// ETE01：原首BYTE持有/后继与索引更新序，转义字母早退前读取，两写后更新索引。
 char* EscapeLegacyText_52D1B0(
     const char* const source,
     char* const destination,
@@ -702,27 +703,36 @@ char* EscapeLegacyText_52D1B0(
                 if (nextWidth >= capacity || used >= adjustedLength) {
                     break;
                 }
-                destination[destinationIndex++] = source[sourceIndex++];
-                destination[destinationIndex++] = source[sourceIndex];
-                nextWidth += 2;
-                used += 2;
+                destination[destinationIndex] = static_cast<char>(current);
+                ++destinationIndex;
+                ++nextWidth;
+                const char next = source[sourceIndex + 1];
+                ++used;
+                ++sourceIndex;
+                destination[destinationIndex] = next;
+                ++destinationIndex;
+                ++nextWidth;
+                ++used;
             } else {
-                std::size_t pair = 0;
+                std::int32_t pair = 0;
                 while (pair < 4
                     && current != kEscapePairs58E944[pair * 2]) {
                     ++pair;
                 }
                 if (pair == 4) {
-                    destination[destinationIndex++] = source[sourceIndex];
+                    destination[destinationIndex] = static_cast<char>(current);
+                    ++destinationIndex;
                     ++nextWidth;
                     ++used;
                 } else {
+                    const char letter = static_cast<char>(
+                        kEscapePairs58E944[pair * 2 + 1]);
                     if (nextWidth >= capacity) {
                         break;
                     }
-                    destination[destinationIndex++] = '\\';
-                    destination[destinationIndex++] = static_cast<char>(
-                        kEscapePairs58E944[pair * 2 + 1]);
+                    destination[destinationIndex] = '\\';
+                    destination[destinationIndex + 1] = letter;
+                    destinationIndex += 2;
                     nextWidth += 2;
                     used += 2;
                     ++adjustedLength;
@@ -739,6 +749,7 @@ char* EscapeLegacyText_52D1B0(
 }
 
 // 原 [0x52D2D0,0x52D2F0)：空叶不消费上下文，后继完整透传缓冲指针。
+// ETE01：真实空操作未读source，先空操作再转义并透传destination，正确正文保持。
 char* EscapeLegacyTextAndNotify_52D2D0(
     const char* const source,
     char* const destination,
@@ -748,6 +759,7 @@ char* EscapeLegacyTextAndNotify_52D2D0(
     return EscapeLegacyText_52D1B0(source, destination, capacity);
 }
 
+// ETE01：现有InputContext::text便利适配，同一52D2D0原根，不新增原身份。
 char* EscapeInputText_52D2D0(
     const InputContext* const context,
     char* const destination,

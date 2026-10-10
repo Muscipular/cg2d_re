@@ -162,14 +162,14 @@ std::int32_t Sub_45E770(const char* text);
 
 // 原 sub_52D1B0：旧文本字节转义，始终返回目标缓冲指针。
 char* EscapeLegacyText_52D1B0(
-    const char* source, char* destination, std::int32_t capacity);
+    const char* source, char* destination, std::int32_t capacity); // ETE01：见文本转义完整正常合同。
 
 // 原 sub_52D2D0 实际透传字符地址；玩家短称号不具有完整 InputContext 布局。
 char* EscapeLegacyTextAndNotify_52D2D0(
-    const char* source, char* destination, std::int32_t capacity);
+    const char* source, char* destination, std::int32_t capacity); // ETE01：见文本转义完整正常合同。
 // 既有输入上下文调用边界，委派同一原字节入口。
 char* EscapeInputText_52D2D0(
-    const InputContext* context, char* destination, std::int32_t capacity);
+    const InputContext* context, char* destination, std::int32_t capacity); // ETE01：见文本转义完整正常合同。
 
 // 原 52D150/52D2F0：原位还原旧字节转义；包装随后调用空叶并透传原指针。
 char* UnescapeLegacyText_52D150(char* text); // UTE01：原位BYTE取样/固定S32长度与计数，同text返回。

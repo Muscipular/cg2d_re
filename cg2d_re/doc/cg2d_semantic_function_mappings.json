@@ -210789,6 +210789,915 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x52d1b0",
+      "inventory_id": "F:0012D1B0",
+      "original_role": "固定入口字节长度与原容量/截断门槛的转义生产",
+      "original_end_exclusive": "0x52d2c6",
+      "instruction_count": 95,
+      "function_chunks": [
+        {
+          "start": "0x52d1b0",
+          "end_exclusive": "0x52d2c6"
+        }
+      ],
+      "status": "ETE01完整正常原根独立纳管，三逻辑组/包装与便利适配body保；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "EscapeLegacyText_52D1B0"
+          ],
+          "relationship": "ETE01完整原根对应实际提供者；恢复S32表计数和原BYTE读取/写入与计数更新序"
+        },
+        {
+          "path": "include/cg/Input.hpp",
+          "symbols": [
+            "EscapeLegacyText_52D1B0"
+          ],
+          "relationship": "现有公开声明/签名保持，仅ETE01完整合同关联注释"
+        },
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "kEscapePairs58E944"
+          ],
+          "relationship": "UTE01共用同一实际表，原八BYTE与当前literal保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_text_escape_sampling_spec.md#text-escape-baseline",
+        "doc/cg2d_text_escape_sampling_spec.md#text-escape-decision",
+        "doc/cg2d_text_escape_sampling_spec.md#text-escape-acceptance",
+        "doc/cg2d_text_escape_sampling_spec.md#text-escape-source-state",
+        "doc/cg2d_text_escape_sampling_evidence.json"
+      ],
+      "boundary": "ETE01两完整原根108条310B/三页、两个实际E8/两个目标/11跳两RET，112入向内部1/外111仅来源；58E944八BYTE四对映射/未匹配原字节保。三逻辑组恢复非地址S32表计数、首BYTE持有/后继与索引及nextWidth/used更新序、匹配字母早退前读取及两BYTE写后索引更新。固定入口长度/两索引S32、原容量与调整长度门槛/截断/末NUL/同destination返回保；正确包装与现有InputContext文本便利适配保持，便利适配不造第三原根。原空操作509080单RET/参数未读已证，不加通知/成功值或扩改签名。六关联注释，无新函数/API/类型/布局/owner、保护/默认值/补零/钳制/容量限制/回滚或异常模型；当前GBK/原格式明文/MSVC/WAV-only及UTE01四根/所有其它源保持。全部111外调用、文本生产消费/容量/alias-owner寿命、SDK/机器ABI/数值/优化后读取与实际截断/字符消息画面及全生命周期待；只限定S，枚举/完整gates/六closure/总SPEC§10不变。",
+      "verification_level": "pass，两完整原根108条310B/三页、两个实际E8/两个目标/11跳两RET、112入向内部1/外111仅来源，原八BYTE表与当前literal有据；整两文件精确重放S32表计数/原首BYTE及后继与更新序/匹配字母早退前读取及两写后更新三组和六注释，包装/便利适配正确body、UTE01四根与所有其它source保持",
+      "original_incoming": [
+        {
+          "ea": 4840447,
+          "parent": 4839984,
+          "type": 17,
+          "bytes": "e8acf50800",
+          "asm": "call    sub_52D1B0"
+        },
+        {
+          "ea": 4873670,
+          "parent": 4872560,
+          "type": 17,
+          "bytes": "e8e5730800",
+          "asm": "call    sub_52D1B0"
+        },
+        {
+          "ea": 4873693,
+          "parent": 4872560,
+          "type": 17,
+          "bytes": "e8ce730800",
+          "asm": "call    sub_52D1B0"
+        },
+        {
+          "ea": 4907192,
+          "parent": 4906816,
+          "type": 17,
+          "bytes": "e8f3f00700",
+          "asm": "call    sub_52D1B0"
+        },
+        {
+          "ea": 5023633,
+          "parent": 5023472,
+          "type": 17,
+          "bytes": "e81a2a0600",
+          "asm": "call    sub_52D1B0"
+        },
+        {
+          "ea": 5023838,
+          "parent": 5023472,
+          "type": 17,
+          "bytes": "e84d290600",
+          "asm": "call    sub_52D1B0"
+        },
+        {
+          "ea": 5024043,
+          "parent": 5023472,
+          "type": 17,
+          "bytes": "e880280600",
+          "asm": "call    sub_52D1B0"
+        },
+        {
+          "ea": 5027750,
+          "parent": 5027488,
+          "type": 17,
+          "bytes": "e8051a0600",
+          "asm": "call    sub_52D1B0"
+        },
+        {
+          "ea": 5027776,
+          "parent": 5027488,
+          "type": 17,
+          "bytes": "e8eb190600",
+          "asm": "call    sub_52D1B0"
+        },
+        {
+          "ea": 5427942,
+          "parent": 5427920,
+          "type": 17,
+          "bytes": "e8c5feffff",
+          "asm": "call    sub_52D1B0"
+        }
+      ],
+      "text_escape_sampling": {
+        "step": "ETE01",
+        "source_snapshot": "[#] 补齐文本转义生产合同并恢复读取顺序",
+        "original_instruction_count": 95,
+        "original_code_bytes": 278,
+        "original_page_count": 2,
+        "direct_call_count": 0,
+        "jump_count": 11,
+        "return_count": 1,
+        "native_signature": "char* EscapeLegacyText_52D1B0(\n    const char* const source,\n    char* const destination,\n    const std::int32_t capacity)",
+        "native_provider": "src/Input.cpp::EscapeLegacyText_52D1B0",
+        "normal_source_kept": false,
+        "source_patch_group_count": 3,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x52d2d0",
+      "inventory_id": "F:0012D2D0",
+      "original_role": "真实空操作后转义并透传destination",
+      "original_end_exclusive": "0x52d2f0",
+      "instruction_count": 13,
+      "function_chunks": [
+        {
+          "start": "0x52d2d0",
+          "end_exclusive": "0x52d2f0"
+        }
+      ],
+      "status": "ETE01完整正常原根独立纳管，三逻辑组/包装与便利适配body保；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "EscapeLegacyTextAndNotify_52D2D0",
+            "EscapeInputText_52D2D0"
+          ],
+          "relationship": "ETE01完整原根对应实际提供者；正确包装及现有文本便利适配正文保持，仅关联注释，不新增原根"
+        },
+        {
+          "path": "include/cg/Input.hpp",
+          "symbols": [
+            "EscapeLegacyTextAndNotify_52D2D0",
+            "EscapeInputText_52D2D0"
+          ],
+          "relationship": "现有公开声明/签名保持，仅ETE01完整合同关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_text_escape_sampling_spec.md#text-escape-baseline",
+        "doc/cg2d_text_escape_sampling_spec.md#text-escape-decision",
+        "doc/cg2d_text_escape_sampling_spec.md#text-escape-acceptance",
+        "doc/cg2d_text_escape_sampling_spec.md#text-escape-source-state",
+        "doc/cg2d_text_escape_sampling_evidence.json"
+      ],
+      "boundary": "ETE01两完整原根108条310B/三页、两个实际E8/两个目标/11跳两RET，112入向内部1/外111仅来源；58E944八BYTE四对映射/未匹配原字节保。三逻辑组恢复非地址S32表计数、首BYTE持有/后继与索引及nextWidth/used更新序、匹配字母早退前读取及两BYTE写后索引更新。固定入口长度/两索引S32、原容量与调整长度门槛/截断/末NUL/同destination返回保；正确包装与现有InputContext文本便利适配保持，便利适配不造第三原根。原空操作509080单RET/参数未读已证，不加通知/成功值或扩改签名。六关联注释，无新函数/API/类型/布局/owner、保护/默认值/补零/钳制/容量限制/回滚或异常模型；当前GBK/原格式明文/MSVC/WAV-only及UTE01四根/所有其它源保持。全部111外调用、文本生产消费/容量/alias-owner寿命、SDK/机器ABI/数值/优化后读取与实际截断/字符消息画面及全生命周期待；只限定S，枚举/完整gates/六closure/总SPEC§10不变。",
+      "verification_level": "pass，两完整原根108条310B/三页、两个实际E8/两个目标/11跳两RET、112入向内部1/外111仅来源，原八BYTE表与当前literal有据；整两文件精确重放S32表计数/原首BYTE及后继与更新序/匹配字母早退前读取及两写后更新三组和六注释，包装/便利适配正确body、UTE01四根与所有其它source保持",
+      "original_incoming": [
+        {
+          "ea": 4684441,
+          "parent": 4683536,
+          "type": 17,
+          "bytes": "e832580b00",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4752946,
+          "parent": 4752800,
+          "type": 17,
+          "bytes": "e8994c0a00",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4753032,
+          "parent": 4752800,
+          "type": 17,
+          "bytes": "e8434c0a00",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4760071,
+          "parent": 4759296,
+          "type": 17,
+          "bytes": "e8c4300a00",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4766727,
+          "parent": 4766608,
+          "type": 17,
+          "bytes": "e8c4160a00",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4775506,
+          "parent": 4775296,
+          "type": 17,
+          "bytes": "e879f40900",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4777210,
+          "parent": 4777008,
+          "type": 17,
+          "bytes": "e8d1ed0900",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4779370,
+          "parent": 4779168,
+          "type": 17,
+          "bytes": "e861e50900",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4840083,
+          "parent": 4839984,
+          "type": 17,
+          "bytes": "e838f80800",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4840101,
+          "parent": 4839984,
+          "type": 17,
+          "bytes": "e826f80800",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4840322,
+          "parent": 4839984,
+          "type": 17,
+          "bytes": "e849f70800",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4840387,
+          "parent": 4839984,
+          "type": 17,
+          "bytes": "e808f70800",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4840606,
+          "parent": 4839984,
+          "type": 17,
+          "bytes": "e82df60800",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4840764,
+          "parent": 4839984,
+          "type": 17,
+          "bytes": "e88ff50800",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4849907,
+          "parent": 4849856,
+          "type": 17,
+          "bytes": "e8d8d10800",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4850355,
+          "parent": 4850304,
+          "type": 17,
+          "bytes": "e818d00800",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4850771,
+          "parent": 4850720,
+          "type": 17,
+          "bytes": "e878ce0800",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4851181,
+          "parent": 4851136,
+          "type": 17,
+          "bytes": "e8decc0800",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4851521,
+          "parent": 4851456,
+          "type": 17,
+          "bytes": "e88acb0800",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4863756,
+          "parent": 4863664,
+          "type": 17,
+          "bytes": "e8bf9b0800",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4872832,
+          "parent": 4872560,
+          "type": 17,
+          "bytes": "e84b780800",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4873121,
+          "parent": 4872560,
+          "type": 17,
+          "bytes": "e82a770800",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4873383,
+          "parent": 4872560,
+          "type": 17,
+          "bytes": "e824760800",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4873754,
+          "parent": 4872560,
+          "type": 17,
+          "bytes": "e8b1740800",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4873939,
+          "parent": 4872560,
+          "type": 17,
+          "bytes": "e8f8730800",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4874137,
+          "parent": 4872560,
+          "type": 17,
+          "bytes": "e832730800",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4876266,
+          "parent": 4875344,
+          "type": 17,
+          "bytes": "e8e16a0800",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4876695,
+          "parent": 4875344,
+          "type": 17,
+          "bytes": "e834690800",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4883473,
+          "parent": 4883408,
+          "type": 17,
+          "bytes": "e8ba4e0800",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4897060,
+          "parent": 4896528,
+          "type": 17,
+          "bytes": "e8a7190800",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4897976,
+          "parent": 4897568,
+          "type": 17,
+          "bytes": "e813160800",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4898128,
+          "parent": 4897568,
+          "type": 17,
+          "bytes": "e87b150800",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4907143,
+          "parent": 4906816,
+          "type": 17,
+          "bytes": "e844f20700",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4914103,
+          "parent": 4913936,
+          "type": 17,
+          "bytes": "e814d70700",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4914343,
+          "parent": 4914176,
+          "type": 17,
+          "bytes": "e824d60700",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4914623,
+          "parent": 4914416,
+          "type": 17,
+          "bytes": "e80cd50700",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4939319,
+          "parent": 4938800,
+          "type": 17,
+          "bytes": "e894740700",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4939581,
+          "parent": 4938800,
+          "type": 17,
+          "bytes": "e88e730700",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4955594,
+          "parent": 4954896,
+          "type": 17,
+          "bytes": "e801350700",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4955841,
+          "parent": 4954896,
+          "type": 17,
+          "bytes": "e80a340700",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4979752,
+          "parent": 4979648,
+          "type": 17,
+          "bytes": "e8a3d60600",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4980059,
+          "parent": 4979888,
+          "type": 17,
+          "bytes": "e870d50600",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4980170,
+          "parent": 4979888,
+          "type": 17,
+          "bytes": "e801d50600",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4983219,
+          "parent": 4983056,
+          "type": 17,
+          "bytes": "e818c90600",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4983638,
+          "parent": 4983376,
+          "type": 17,
+          "bytes": "e875c70600",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4984375,
+          "parent": 4983984,
+          "type": 17,
+          "bytes": "e894c40600",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4989267,
+          "parent": 4989024,
+          "type": 17,
+          "bytes": "e878b10600",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 4997987,
+          "parent": 4997744,
+          "type": 17,
+          "bytes": "e8688f0600",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5005279,
+          "parent": 5005184,
+          "type": 17,
+          "bytes": "e8ec720600",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5022328,
+          "parent": 5022112,
+          "type": 17,
+          "bytes": "e853300600",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5023696,
+          "parent": 5023472,
+          "type": 17,
+          "bytes": "e8fb2a0600",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5023901,
+          "parent": 5023472,
+          "type": 17,
+          "bytes": "e82e2a0600",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5024106,
+          "parent": 5023472,
+          "type": 17,
+          "bytes": "e861290600",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5024454,
+          "parent": 5024192,
+          "type": 17,
+          "bytes": "e805280600",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5027845,
+          "parent": 5027488,
+          "type": 17,
+          "bytes": "e8c61a0600",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5046403,
+          "parent": 5045872,
+          "type": 17,
+          "bytes": "e848d20500",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5046503,
+          "parent": 5045872,
+          "type": 17,
+          "bytes": "e8e4d10500",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5046594,
+          "parent": 5045872,
+          "type": 17,
+          "bytes": "e889d10500",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5059331,
+          "parent": 5059088,
+          "type": 17,
+          "bytes": "e8c89f0500",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5059930,
+          "parent": 5059600,
+          "type": 17,
+          "bytes": "e8719d0500",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5065786,
+          "parent": 5065296,
+          "type": 17,
+          "bytes": "e891860500",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5066812,
+          "parent": 5066496,
+          "type": 17,
+          "bytes": "e88f820500",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5067658,
+          "parent": 5067344,
+          "type": 17,
+          "bytes": "e8417f0500",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5071889,
+          "parent": 5071520,
+          "type": 17,
+          "bytes": "e8ba6e0500",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5073020,
+          "parent": 5072656,
+          "type": 17,
+          "bytes": "e84f6a0500",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5073808,
+          "parent": 5073504,
+          "type": 17,
+          "bytes": "e83b670500",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5075005,
+          "parent": 5074592,
+          "type": 17,
+          "bytes": "e88e620500",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5076739,
+          "parent": 5076080,
+          "type": 17,
+          "bytes": "e8c85b0500",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5079356,
+          "parent": 5078048,
+          "type": 17,
+          "bytes": "e88f510500",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5083001,
+          "parent": 5082528,
+          "type": 17,
+          "bytes": "e852430500",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5089130,
+          "parent": 5088640,
+          "type": 17,
+          "bytes": "e8612b0500",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5095183,
+          "parent": 5094704,
+          "type": 17,
+          "bytes": "e8bc130500",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5096420,
+          "parent": 5096080,
+          "type": 17,
+          "bytes": "e8e70e0500",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5102819,
+          "parent": 5102368,
+          "type": 17,
+          "bytes": "e8e8f50400",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5108931,
+          "parent": 5108480,
+          "type": 17,
+          "bytes": "e808de0400",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5110475,
+          "parent": 5109552,
+          "type": 17,
+          "bytes": "e800d80400",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5110900,
+          "parent": 5109552,
+          "type": 17,
+          "bytes": "e857d60400",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5113546,
+          "parent": 5112704,
+          "type": 17,
+          "bytes": "e801cc0400",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5151451,
+          "parent": 5150688,
+          "type": 17,
+          "bytes": "e8f0370400",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5153608,
+          "parent": 5153200,
+          "type": 17,
+          "bytes": "e8832f0400",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5157933,
+          "parent": 5157312,
+          "type": 17,
+          "bytes": "e89e1e0400",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5252002,
+          "parent": 5251024,
+          "type": 17,
+          "bytes": "e829af0200",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5294651,
+          "parent": 5294400,
+          "type": 17,
+          "bytes": "e890080200",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5348063,
+          "parent": 5347968,
+          "type": 17,
+          "bytes": "e8ec370100",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5348172,
+          "parent": 5347968,
+          "type": 17,
+          "bytes": "e87f370100",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5348287,
+          "parent": 5347968,
+          "type": 17,
+          "bytes": "e80c370100",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5430904,
+          "parent": 5430496,
+          "type": 17,
+          "bytes": "e853f4ffff",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5435326,
+          "parent": 5434704,
+          "type": 17,
+          "bytes": "e80de3ffff",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5446161,
+          "parent": 5442464,
+          "type": 17,
+          "bytes": "e8bab8ffff",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5446333,
+          "parent": 5442464,
+          "type": 17,
+          "bytes": "e80eb8ffff",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5446542,
+          "parent": 5442464,
+          "type": 17,
+          "bytes": "e83db7ffff",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5446773,
+          "parent": 5442464,
+          "type": 17,
+          "bytes": "e856b6ffff",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5447094,
+          "parent": 5442464,
+          "type": 17,
+          "bytes": "e815b5ffff",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5447352,
+          "parent": 5442464,
+          "type": 17,
+          "bytes": "e813b4ffff",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5455099,
+          "parent": 5454976,
+          "type": 17,
+          "bytes": "e8d095ffff",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5455202,
+          "parent": 5454976,
+          "type": 17,
+          "bytes": "e86995ffff",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5455305,
+          "parent": 5454976,
+          "type": 17,
+          "bytes": "e80295ffff",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5455385,
+          "parent": 5454976,
+          "type": 17,
+          "bytes": "e8b294ffff",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5455933,
+          "parent": 5454976,
+          "type": 17,
+          "bytes": "e88e92ffff",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5456011,
+          "parent": 5454976,
+          "type": 17,
+          "bytes": "e84092ffff",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5456089,
+          "parent": 5454976,
+          "type": 17,
+          "bytes": "e8f291ffff",
+          "asm": "call    sub_52D2D0"
+        },
+        {
+          "ea": 5456150,
+          "parent": 5454976,
+          "type": 17,
+          "bytes": "e8b591ffff",
+          "asm": "call    sub_52D2D0"
+        }
+      ],
+      "text_escape_sampling": {
+        "step": "ETE01",
+        "source_snapshot": "[#] 补齐文本转义生产合同并恢复读取顺序",
+        "original_instruction_count": 13,
+        "original_code_bytes": 32,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "jump_count": 0,
+        "return_count": 1,
+        "native_signature": "char* EscapeLegacyTextAndNotify_52D2D0(\n    const char* const source,\n    char* const destination,\n    const std::int32_t capacity)",
+        "native_provider": "src/Input.cpp::EscapeLegacyTextAndNotify_52D2D0",
+        "normal_source_kept": true,
+        "source_patch_group_count": 0,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

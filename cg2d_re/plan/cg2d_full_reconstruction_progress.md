@@ -1339,3 +1339,14 @@ PudO唯一改动为持有GetCate返回给调色板，不重读刚pub全局；保
 语义2327=2279F关联+48有界代码，处置1785/证据1587；INPUT154/UIRUNTIME195/NETWORK101/RENDER110。文档关联预期2389/3680=64.92%仅关联率。184叶验收0、60任务关闭11开放49、六closure及全部完整门禁保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
 
 同一cg2d_re分支、不打tag，七外部改动/原删除暂存保持。未构建/测试/运行/检查产物/摘要/引依赖；整体active/未完成。
+
+<a id="player-money-progress-20261011"></a>
+## 127. 2026-10-11 MPR01：玩家属性/金额/上限回复
+
+[MPR01](../doc/cg2d_player_attribute_money_reply_spec.md#player-money-source-state)补齐主属性aPc和附加属性UU两个完整回复根676条2005B/十一页，70E8六目标/60跳两RET。主根六CryptInt的临时三字段先取样后发布已对齐；原掩码/字段推进、当前金额和三上限、文本长度门槛及步速同步保持。两新F两adapted、三限定S零I八open；当前金额读取/存取与丢钱消费共用真实PlayerRuntimeSlots，完整数据/owner、ABI及回复互通运行待。
+
+先记SPEC依子AGENTS第8条裁决。主根六CryptInt原均先读临时mask/encoded/count三个样本再发布，现共用lambda只补该阶段，不合并RNG/构造析构或改目标字段；两数据owner及附加根正确正文保，原非正步速改100是业务门槛必须保持，不能据RPLAN.24删除。flags bit0原全量，各门槛命中才推进，不补缺字段/过长文字或callback结果。主S32 gate/tail返回与附加void残留分界、当前aPc/UU原字段LF接线具名，两个入CALL后清EAX只局部，不记完整dispatcher通过。
+
+语义2329=2281F关联+48有界代码，处置1787/证据1590；NETWORK103/UIRUNTIME197/YOBI111，INPUT154/RENDER110保持。文档关联预期2391/3680=64.97%仅关联率。184叶验收0、60任务关闭11开放49、六closure及全部完整门禁保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
+
+同一cg2d_re分支、不打tag，七外部改动/原删除暂存保持。未构建/测试/运行/检查产物/摘要/引依赖；整体active/未完成。

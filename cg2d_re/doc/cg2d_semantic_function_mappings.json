@@ -238012,6 +238012,216 @@
         "runtime_verified": false,
         "result_boundary": "真实S32发送结果透传，两入CALL仅局部来源/全外父与ABI待"
       }
+    },
+    {
+      "original_entry": "0x509650",
+      "inventory_id": "F:00109650",
+      "original_role": "aPc玩家主属性/六CryptInt及当前金额与双尾门槛",
+      "original_end_exclusive": "0x509b96",
+      "instruction_count": 444,
+      "function_chunks": [
+        {
+          "start": "0x509650",
+          "end_exclusive": "0x509b96"
+        }
+      ],
+      "status": "MPR01两完整玩家属性/金额回复原根纳管，一共用取样片段/附加正确正文保；限定S，全生产消费/owner/ABI/互通运行待",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_509650"
+          ],
+          "relationship": "MPR01完整玩家回复原根，六CryptInt先临时取样后发布；原掩码/字段推进和金额/上限生产保持"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_509650"
+          ],
+          "relationship": "MPR01既有真实声明保持，仅合同注释；原生非拥有callback/返回边界具名"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_attribute_money_reply_spec.md#player-money-baseline",
+        "doc/cg2d_player_attribute_money_reply_spec.md#player-money-decision",
+        "doc/cg2d_player_attribute_money_reply_spec.md#player-money-acceptance",
+        "doc/cg2d_player_attribute_money_reply_spec.md#player-money-source-state",
+        "doc/cg2d_player_attribute_money_reply_evidence.json"
+      ],
+      "boundary": "MPR01仅aPc主属性回复509650完整444条1350B/七页与UU附加属性回复509BA0完整232条655B/四页；合676条2005B/十一页、70E8六目标/60跳两RET。两根同9A6E0C W32门槛，主根非零按原S32位模式返回gate，附加根void原残留EAX门槛返回只副作用；当前dispatcher的两个TryDispatchReply<T>接同原命令/文本字段/LF明文并丢callback数值，原512E40两CALL后都XOR EAX,EAX，只局部接线/后邻不记完整dispatcher或机器ABI。flags由payload第1项原Base62，字段2起，仅对应(flags&(bit|1))非零才消费/推进，bit0表示全量而不是任何字段强制默认值；不改字段次序或插无掩码字段。主根六CryptInt依次hp/maxHp/fp/maxFp/value58/value68，掩码3/5/9/11H/2001H/4001H，每项真实ParseInteger→ConstructFromInt→临时mask W32/encoded W32/readCount BYTE依次先取样→按同序目标发布→Destroy→field++，保RNG次数/顺序，不复制vft/reserved或省构造；只现parseCrypt lambda一处加三局部样本，六原点同合同、不新造原F/helper。八values78[0..7] masks20..1000，后十二level/values78[8..13]/valueB8/valuesE4[0..3] masks8000..4000000；gold/valueFC门槛8000001H在两文字处理前持样，先gold/field++，titleIndex100门槛10000001H，然后name/ownTitle两256B未清局部Extract(cap255)→Unescape→strlen<=16才复制原17B目标，太长保旧值但field仍++，原失败提取由现既有提取器边界承接，不加校验/清零。末用同gold门槛再Parse当前field到value15BCC并真实S32透传，未命中返0，gold只变化或仅尾命中时不合并/缺字段回退。附加根firstTargets12S32顺序valuesD4[0..3]/valuesBC[0..5]/value104/valueF4，mask2..1000；2001H只原value00低W16，四middle F8/08/17C/16C从4000..20000，40001H先写walkSpeed，<=0原修正100再写，原action非空才同一次T*经既有SetYobiWalkSpeed直接S32发布+284，不新保护/钳制；last五valuesB0[0..1]/values15BD0[0..2]从80000..800000，三原FF02D0/D4/D8上限不新增限制。所有未命中字段保旧、字段推进/取值失败边界与复制/发布序保持；当前Money getters/UI存取丢钱共借同一PlayerRuntimeSlots，类型/七提供者/SetYobi声明、五既有读取消费源与七语义记录及两个当前路由行保持。两新F两adapted、NETWORK/UI各两成员/YOBI一、三限定S零I八open；完整玩家/名字/数值/资源初始化生产与所有其它消费、shared player/action/textbuf alias-owner寿命、SDK/生成读取和机器ABI、完整回复/互通与实际显示操作运行待。仅一共用取样片段/四注释，附加正确正文保持，不增加输入/容量/索引/空保护、补零/默认/回滚、异常溢出模型、字段/类型/API/helper/owner或新协议；MSVC/WAV-only/明文及全部完整门禁保持，整体未完成。",
+      "verification_level": "pass，两连续完整根676条2005B/十一页、70E8六目标/60跳两RET，两入CALL后原XOR归零/当前aPc-UU路由；六临时CryptInt组三读先三写及31/23项掩码/推进、金额共用尾gate/两文字长度/步速与W16及三上限有据；两整源一共用片段/四注释、附加正确正文/两类型七提供者与一声明、五读取消费源/七旧语义和两路由保持；全玩家/回复生产消费与owner/SDK、生成取样/机器ABI及互通运行待",
+      "original_incoming": [
+        {
+          "ea": 5327156,
+          "parent": 5320256,
+          "bytes": "e8174dffff",
+          "asm": "call    sub_509650",
+          "call_target": 5281360,
+          "following": [
+            {
+              "ea": 5327161,
+              "bytes": "83c418",
+              "asm": "add     esp, 18h"
+            },
+            {
+              "ea": 5327164,
+              "bytes": "33c0",
+              "asm": "xor     eax, eax"
+            },
+            {
+              "ea": 5327166,
+              "bytes": "5f",
+              "asm": "pop     edi"
+            },
+            {
+              "ea": 5327167,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            }
+          ]
+        }
+      ],
+      "player_attribute_money_reply": {
+        "step": "MPR01",
+        "source_snapshot": "[#] 补齐玩家属性与金额回复生产合同",
+        "original_entry": "0x509650",
+        "original_end_exclusive": "0x509b96",
+        "instruction_count": 444,
+        "code_bytes": 1350,
+        "page_count": 7,
+        "direct_calls": 46,
+        "direct_call_targets": [
+          4201664,
+          4201712,
+          5426896,
+          5427104,
+          5427408,
+          5427952
+        ],
+        "jumps": 34,
+        "returns": 1,
+        "original_incoming_references": [
+          {
+            "from": 5327156,
+            "type": 17,
+            "iscode": true,
+            "parent": 5320256
+          }
+        ],
+        "native_signature": "std::int32_t Sub_509650(\n    const std::uintptr_t /*socket*/, const char* const payload)",
+        "source_patch_group_count": 1,
+        "source_changed_point_count": 1,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原gate S32或尾字段真实S32/未命中0，dispatcher后清EAX；全机器ABI待"
+      }
+    },
+    {
+      "original_entry": "0x509ba0",
+      "inventory_id": "F:00109BA0",
+      "original_role": "UU附加属性/W16 tribe、步速及三S32金额上限",
+      "original_end_exclusive": "0x509e2f",
+      "instruction_count": 232,
+      "function_chunks": [
+        {
+          "start": "0x509ba0",
+          "end_exclusive": "0x509e2f"
+        }
+      ],
+      "status": "MPR01两完整玩家属性/金额回复原根纳管，一共用取样片段/附加正确正文保；限定S，全生产消费/owner/ABI/互通运行待",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_509BA0"
+          ],
+          "relationship": "MPR01完整玩家回复原根，六CryptInt先临时取样后发布；原掩码/字段推进和金额/上限生产保持"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_509BA0"
+          ],
+          "relationship": "MPR01既有真实声明保持，仅合同注释；原生非拥有callback/返回边界具名"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_attribute_money_reply_spec.md#player-money-baseline",
+        "doc/cg2d_player_attribute_money_reply_spec.md#player-money-decision",
+        "doc/cg2d_player_attribute_money_reply_spec.md#player-money-acceptance",
+        "doc/cg2d_player_attribute_money_reply_spec.md#player-money-source-state",
+        "doc/cg2d_player_attribute_money_reply_evidence.json"
+      ],
+      "boundary": "MPR01仅aPc主属性回复509650完整444条1350B/七页与UU附加属性回复509BA0完整232条655B/四页；合676条2005B/十一页、70E8六目标/60跳两RET。两根同9A6E0C W32门槛，主根非零按原S32位模式返回gate，附加根void原残留EAX门槛返回只副作用；当前dispatcher的两个TryDispatchReply<T>接同原命令/文本字段/LF明文并丢callback数值，原512E40两CALL后都XOR EAX,EAX，只局部接线/后邻不记完整dispatcher或机器ABI。flags由payload第1项原Base62，字段2起，仅对应(flags&(bit|1))非零才消费/推进，bit0表示全量而不是任何字段强制默认值；不改字段次序或插无掩码字段。主根六CryptInt依次hp/maxHp/fp/maxFp/value58/value68，掩码3/5/9/11H/2001H/4001H，每项真实ParseInteger→ConstructFromInt→临时mask W32/encoded W32/readCount BYTE依次先取样→按同序目标发布→Destroy→field++，保RNG次数/顺序，不复制vft/reserved或省构造；只现parseCrypt lambda一处加三局部样本，六原点同合同、不新造原F/helper。八values78[0..7] masks20..1000，后十二level/values78[8..13]/valueB8/valuesE4[0..3] masks8000..4000000；gold/valueFC门槛8000001H在两文字处理前持样，先gold/field++，titleIndex100门槛10000001H，然后name/ownTitle两256B未清局部Extract(cap255)→Unescape→strlen<=16才复制原17B目标，太长保旧值但field仍++，原失败提取由现既有提取器边界承接，不加校验/清零。末用同gold门槛再Parse当前field到value15BCC并真实S32透传，未命中返0，gold只变化或仅尾命中时不合并/缺字段回退。附加根firstTargets12S32顺序valuesD4[0..3]/valuesBC[0..5]/value104/valueF4，mask2..1000；2001H只原value00低W16，四middle F8/08/17C/16C从4000..20000，40001H先写walkSpeed，<=0原修正100再写，原action非空才同一次T*经既有SetYobiWalkSpeed直接S32发布+284，不新保护/钳制；last五valuesB0[0..1]/values15BD0[0..2]从80000..800000，三原FF02D0/D4/D8上限不新增限制。所有未命中字段保旧、字段推进/取值失败边界与复制/发布序保持；当前Money getters/UI存取丢钱共借同一PlayerRuntimeSlots，类型/七提供者/SetYobi声明、五既有读取消费源与七语义记录及两个当前路由行保持。两新F两adapted、NETWORK/UI各两成员/YOBI一、三限定S零I八open；完整玩家/名字/数值/资源初始化生产与所有其它消费、shared player/action/textbuf alias-owner寿命、SDK/生成读取和机器ABI、完整回复/互通与实际显示操作运行待。仅一共用取样片段/四注释，附加正确正文保持，不增加输入/容量/索引/空保护、补零/默认/回滚、异常溢出模型、字段/类型/API/helper/owner或新协议；MSVC/WAV-only/明文及全部完整门禁保持，整体未完成。",
+      "verification_level": "pass，两连续完整根676条2005B/十一页、70E8六目标/60跳两RET，两入CALL后原XOR归零/当前aPc-UU路由；六临时CryptInt组三读先三写及31/23项掩码/推进、金额共用尾gate/两文字长度/步速与W16及三上限有据；两整源一共用片段/四注释、附加正确正文/两类型七提供者与一声明、五读取消费源/七旧语义和两路由保持；全玩家/回复生产消费与owner/SDK、生成取样/机器ABI及互通运行待",
+      "original_incoming": [
+        {
+          "ea": 5327280,
+          "parent": 5320256,
+          "bytes": "e8eb51ffff",
+          "asm": "call    sub_509BA0",
+          "call_target": 5282720,
+          "following": [
+            {
+              "ea": 5327285,
+              "bytes": "83c418",
+              "asm": "add     esp, 18h"
+            },
+            {
+              "ea": 5327288,
+              "bytes": "33c0",
+              "asm": "xor     eax, eax"
+            },
+            {
+              "ea": 5327290,
+              "bytes": "5f",
+              "asm": "pop     edi"
+            },
+            {
+              "ea": 5327291,
+              "bytes": "5e",
+              "asm": "pop     esi"
+            }
+          ]
+        }
+      ],
+      "player_attribute_money_reply": {
+        "step": "MPR01",
+        "source_snapshot": "[#] 补齐玩家属性与金额回复生产合同",
+        "original_entry": "0x509ba0",
+        "original_end_exclusive": "0x509e2f",
+        "instruction_count": 232,
+        "code_bytes": 655,
+        "page_count": 4,
+        "direct_calls": 24,
+        "direct_call_targets": [
+          5427104,
+          5427408
+        ],
+        "jumps": 26,
+        "returns": 1,
+        "original_incoming_references": [
+          {
+            "from": 5327280,
+            "type": 17,
+            "iscode": true,
+            "parent": 5320256
+          }
+        ],
+        "native_signature": "void Sub_509BA0(const std::uintptr_t, const char* const payload)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "现void副作用保，原gate/flags/末parse残留EAX；当前dispatcherdiscard不代全ABI"
+      }
     }
   ]
 }

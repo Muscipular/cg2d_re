@@ -596,3 +596,7 @@ hover244293，再第三次独立检查条件，成立覆盖244292。不把三次
 ## 2026-10-11 MDR01：丢钱按钮数量链
 
 [MDR01](../cg2d_money_drop_request_spec.md#money-drop-source-state)补齐丢钱回调/按钮和woz发送三完整原根153条494B/四页，14E8九目标/15跳三RET。仅动作标志改既有BYTE读取一处；按钮/发送正确正文保持，三次fresh窗口匹配、金额同步和三字段容量/token/输出原序保。六合同注释/三新F三adapted、四限定S零I八open；完整回调/共享数据owner、ABI与互通运行待。
+
+## 2026-10-11 MPR01：金额/属性回复生产来源
+
+[MPR01](../cg2d_player_attribute_money_reply_spec.md#player-money-source-state)补齐主属性aPc和附加属性UU两个完整回复根676条2005B/十一页，70E8六目标/60跳两RET。主根六CryptInt的临时三字段先取样后发布已对齐；原掩码/字段推进、当前金额和三上限、文本长度门槛及步速同步保持。两新F两adapted、三限定S零I八open；当前金额读取/存取与丢钱消费共用真实PlayerRuntimeSlots，完整数据/owner、ABI及回复互通运行待。

@@ -4880,3 +4880,7 @@ primary和BOG插值/原可写表/ftol host职责不改；上界比较→fresh减
 ## 2026-10-11 QIP01：数量展开创建与完成发布
 
 [QIP01](cg2d_quantity_window_creation_spec.md#quantity-source-state)补齐数量框创建、展开与窗口42状态发布三个完整原根282条873B/五页；低BYTE flags与两次窗口指针取样两组三处对齐，动画正确正文保持。callback持址、两CryptInt、S16完成判定/W16末增和原失败直发布有据。三新F三adapted、YOBI/UI各三成员，两限定S零I八open；确认/取消/关闭及完整callback/owner/ABI、画面声音与运行待，整体未完成。
+
+## 2026-10-11 MPR01：步速回复同action发布
+
+[MPR01](cg2d_player_attribute_money_reply_spec.md#player-money-source-state)补齐主属性aPc和附加属性UU两个完整回复根676条2005B/十一页，70E8六目标/60跳两RET。主根六CryptInt的临时三字段先取样后发布已对齐；原掩码/字段推进、当前金额和三上限、文本长度门槛及步速同步保持。两新F两adapted、三限定S零I八open；当前金额读取/存取与丢钱消费共用真实PlayerRuntimeSlots，完整数据/owner、ABI及回复互通运行待。

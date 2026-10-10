@@ -3171,6 +3171,7 @@ void Sub_50D000(
     gValueFF0D32 = 0;
 }
 
+// MPR01：原509650完整444条；掩码推进及六CryptInt/RNG、先三临时值后发布、金额双尾门槛/名字长度和S32返回保。
 std::int32_t Sub_509650(
     const std::uintptr_t /*socket*/, const char* const payload)
 {
@@ -3188,9 +3189,12 @@ std::int32_t Sub_509650(
                 network::ParseDelimitedInteger_52CFA0(payload, '|', field);
             platform::LegacyCryptInt temporary;
             platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, parsed);
-            target->mask = temporary.mask;
-            target->encoded = temporary.encoded;
-            target->readCount = temporary.readCount;
+            const std::uint32_t maskValue = temporary.mask;
+            const std::uint32_t encodedValue = temporary.encoded;
+            const std::uint8_t readCountValue = temporary.readCount;
+            target->mask = maskValue;
+            target->encoded = encodedValue;
+            target->readCount = readCountValue;
             platform::legacy_crypt_int::Destroy_401CF0(&temporary);
             ++field;
         }
@@ -3267,6 +3271,7 @@ std::int32_t Sub_509650(
     return 0;
 }
 
+// MPR01：原509BA0完整232条；附加属性按掩码顺序、W16 tribe/三S32金额上限及原步速修正/同action发布保。
 void Sub_509BA0(const std::uintptr_t, const char* const payload)
 {
     if (gValue9A6E0C != 0) {

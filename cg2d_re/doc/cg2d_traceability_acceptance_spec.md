@@ -2724,3 +2724,9 @@ IDA数组/结构起点xref不代字段指针；原型实际11callback与旧范�
 [MDR01](cg2d_money_drop_request_spec.md#money-drop-source-state)补齐丢钱回调/按钮和woz发送三完整原根153条494B/四页，14E8九目标/15跳三RET。仅动作标志改既有BYTE读取一处；按钮/发送正确正文保持，三次fresh窗口匹配、金额同步和三字段容量/token/输出原序保。六合同注释/三新F三adapted、四限定S零I八open；完整回调/共享数据owner、ABI与互通运行待。
 
 语义2327=2279F关联+48有界代码，处置1785/证据1587；INPUT154/UIRUNTIME195/NETWORK101/RENDER110。文档关联预期2389/3680=64.92%仅关联率。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
+
+## 2026-10-11 MPR01：玩家回复字段合同
+
+[MPR01](cg2d_player_attribute_money_reply_spec.md#player-money-source-state)补齐主属性aPc和附加属性UU两个完整回复根676条2005B/十一页，70E8六目标/60跳两RET。主根六CryptInt的临时三字段先取样后发布已对齐；原掩码/字段推进、当前金额和三上限、文本长度门槛及步速同步保持。两新F两adapted、三限定S零I八open；当前金额读取/存取与丢钱消费共用真实PlayerRuntimeSlots，完整数据/owner、ABI及回复互通运行待。
+
+语义2329=2281F关联+48有界代码，处置1787/证据1590；NETWORK103/UIRUNTIME197/YOBI111，INPUT154/RENDER110保持。文档关联预期2391/3680=64.97%仅关联率。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。

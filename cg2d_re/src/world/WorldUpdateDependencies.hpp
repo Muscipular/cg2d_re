@@ -392,8 +392,8 @@ void Sub_44B050(const char* text, std::int32_t color, std::int32_t fontType);
 std::int32_t Sub_4A76E0();
 
 // 原[509650,509B96)，玩家属性掩码回复，socket未用。
-std::int32_t Sub_509650(std::uintptr_t socket, const char* payload);
-void Sub_509BA0(std::uintptr_t unusedSocket, const char* payload); // 附加属性按掩码消费，步速同步同源action。
+std::int32_t Sub_509650(std::uintptr_t socket, const char* payload); // MPR01：aPc掩码主属性，六CryptInt原序/金额和双尾字段，真实S32分界。
+void Sub_509BA0(std::uintptr_t unusedSocket, const char* payload); // MPR01：UU掩码附加属性/三金额上限、原步速修正和action发布，void副作用/完整ABI待。
 void Sub_509E30(std::uintptr_t unusedSocket, std::int32_t value, char* text); // 先写低U8，再原位反转义职业名。
 const char* BorrowPlayerJobName() noexcept; // F1BAE0职业名，同源28B字段只读借用。
 

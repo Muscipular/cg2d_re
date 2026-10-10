@@ -2458,3 +2458,7 @@ ANIMATION/YOBI各两个新成员，BATTLE只Play依赖成员；两新语义/F和
 [完整MTg合同](cg2d_player_timer_reply_producer_spec.md#player-timer-reply-acceptance)/[原指令与源差集](cg2d_player_timer_reply_producer_evidence.json)：18条68B/一页、两跳一RET/单IATtick/唯一父；55门槛直接引用仅出处关联，53完整读者/两旧writer的全生命周期不扩验。首×5在mode前一组与整两文件/两注释差集成立，原gate/负秒/字段/返回、三个无F native helper及全部其它源保。
 
 一新语义/F，语义2217→2218/F1649→1650/E1450→1454；MAP169→170/Yobi99→100/BATTLE423→424/NETWORK75→76各一成员、四限定S零I；四旧身份和所有旧台账/政策保，八任务open/184叶验收0/60任务关闭11/原枚举false/完整gates及六closure守恒，不降总SPEC§10。
+
+## 2026-10-10 TUC01 倒计时界面消费的限定证据
+
+[四完整原根](cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-source-state)/[证据](cg2d_timer_ui_consumption_evidence.json)只核正常源码合同：共享时长小时位/首窗口两时点/三类坐标取样、单U8动作flag及两hover持有八组；原描述符零初始化、HP/FP/提示、转生门槛/命令弃返及字段发布保持。两状态栏旧999/1000保历史追加、两新按钮语义/四F，UIRUNTIME四成员/BATTLE仅497C80一成员、两限定S零I、九任务仍open。全部原枚举/完整gates、184叶验收0/60任务关闭11/六closure及总SPEC§10保持；整父/原型/同源数据owner/所有callee、SDK/数值/机器ABI/交互运行待，原格式明文/MSVC直接CRT/WAV-only保持，不将关联率称完成率。

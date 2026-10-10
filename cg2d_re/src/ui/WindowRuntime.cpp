@@ -35994,6 +35994,7 @@ std::int32_t Sub_497B80(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// TUC01：原战斗转生门槛/载荷判空保持；持有 hover，刷新后重取命令状态，发送弃返。
 std::int32_t Sub_497C80(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const element = &gCurrentWindow->elements[index];
@@ -36022,8 +36023,9 @@ std::int32_t Sub_497C80(const std::int32_t index, const std::int32_t state)
     if (rebirth == nullptr) {
         return 0;
     }
+    const bool hover = (state & 1) != 0;
     std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
+    if (hover) {
         std::strcpy(gHoverTextD68AE8.data(),
             *rebirth != nullptr ? kSkillDisableRebirth5864B4 : kSkillEnableRebirth5864A0);
     }
@@ -36044,7 +36046,7 @@ std::int32_t Sub_497C80(const std::int32_t index, const std::int32_t state)
         consumed = 1;
     }
     graphic->imageNo = 0x3B9CD;
-    if ((state & 1) != 0) {
+    if (hover) {
         graphic->imageNo = 0x3B9CF;
     }
     if (world::detail::gBattleSelectionModes5ABC7C[8] != 0) {
@@ -37599,10 +37601,14 @@ std::int32_t Sub_47A5C0()
     }
 }
 
+// TUC01：初始元素→单字节动作标志→图形；持有 hover，Y/X发送后按原序发布转生/占用。
 std::int32_t Sub_47B210(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
-    if ((world::detail::ReadPlayerActionFlags() & 0x80u) != 0
+    WindowInstance* const initialWindow = gCurrentWindow;
+    WindowElement* const elements = initialWindow->elements;
+    const std::uint8_t actionFlags = world::detail::ReadPlayerActionFlagsByte();
+    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    if ((actionFlags & 0x80u) != 0
         || world::detail::Sub_440B50() != 0
         || world::detail::ReadPlayerValue08() == 0
         || world::detail::ReadPlayerTimerRemaining0C() <= 0
@@ -37611,7 +37617,8 @@ std::int32_t Sub_47B210(const std::int32_t index, const std::int32_t state)
         return 0;
     }
     const std::uint8_t rebirth = gValue5F9754;
-    if ((state & 1) != 0) {
+    const bool hover = (state & 1) != 0;
+    if (hover) {
         std::strcpy(gHoverTextD68AE8.data(), rebirth != 0
             ? kSkillDisableRebirth5864B4 : kSkillEnableRebirth5864A0);
     }
@@ -37632,7 +37639,7 @@ std::int32_t Sub_47B210(const std::int32_t index, const std::int32_t state)
         consumed = 1;
     }
     graphic->imageNo = 0x3B57A;
-    if ((state & 1) != 0) {
+    if (hover) {
         graphic->imageNo = 0x3B57C;
     }
     if ((state & 8) != 0) {
@@ -40192,25 +40199,52 @@ void FormatStatusBarVitals(char* const buffer)
     }
 }
 
+// TUC01：两状态栏四位倒计时；首窗口及各位坐标按原取样序，原单位/图号/门槛保持。
 void DrawStatusBarTimer(const std::int32_t firstElement, render::GraphicDescriptor16* const descriptor)
 {
     const std::int32_t duration = world::detail::ReadPlayerTimerRemaining0C();
     const std::int32_t hours = duration / 3600000;
+    const std::int32_t hoursTens = hours / 10;
+    const std::int32_t hoursUnits = hours % 10;
     const std::int32_t minutes = (duration - hours * 3600000) / 60000;
-    const std::int32_t digits[4] {hours / 10, hours % 10, minutes / 10, minutes % 10};
+    const std::int32_t digits[4] {hoursTens, hoursUnits, minutes / 10, minutes % 10};
     gCurrentWindow->elements[firstElement].visible = 0;
     gCurrentWindow->elements[firstElement + 1].visible = 0;
     gCurrentWindow->elements[firstElement + 2].visible = 0;
     const std::int32_t mode = world::detail::ReadPlayerTimerMode10();
+    WindowInstance* firstWindow;
+    if (firstElement == 8) {
+        firstWindow = gCurrentWindow;
+    }
     const std::uint32_t color = 0xFFFFFFFFu;
     std::memcpy(descriptor->bytes.data() + 8, &color, sizeof(color));
     descriptor->bytes[13] = 4;
+    if (firstElement != 8) {
+        firstWindow = gCurrentWindow;
+    }
     const std::int32_t baseImage = mode != 0 ? 0x3B6A0 : 0x3B664;
     for (std::int32_t digit = 0; digit < 4; ++digit) {
-        WindowInstance* const window = gCurrentWindow;
+        WindowInstance* const window = digit == 0 ? firstWindow : gCurrentWindow;
         const WindowElement& element = window->elements[firstElement + (digit == 0 ? 0 : digit - 1)];
-        const std::int32_t y = element.y + window->y + 3;
-        const std::int32_t x = element.x + window->x + (digit == 0 ? -6 : 1);
+        std::int32_t elementY;
+        std::int32_t elementX;
+        std::int32_t windowY;
+        if (digit == 0) {
+            elementY = element.y;
+            elementX = element.x;
+            windowY = window->y;
+        } else if (digit < 3) {
+            windowY = window->y;
+            elementY = element.y;
+            elementX = element.x;
+        } else {
+            elementY = element.y;
+            windowY = window->y;
+            elementX = element.x;
+        }
+        const std::int32_t y = elementY + windowY + 3;
+        const std::int32_t windowX = window->x;
+        const std::int32_t x = elementX + windowX + (digit == 0 ? -6 : 1);
         static_cast<void>(login::detail::DrawGraphic(x, y, 0xDF, baseImage + digits[digit], 0, descriptor));
     }
 }
@@ -40621,6 +40655,7 @@ std::int32_t Sub_470AB0(const std::int32_t)
     return 1;
 }
 
+// TUC01：原窗口1完整根；描述符原零初始化、HP/FP/时钟/提示生产保持，四位消费见共用 helper。
 void Sub_470AC0()
 {
     render::GraphicDescriptor16 descriptor {};
@@ -40681,6 +40716,7 @@ void Sub_470AC0()
         mailBlink ? 0x3B94F : 0x3B950;
 }
 
+// TUC01：原窗口2完整根；直接FP复制/原零描述符保持，仅消费四位倒计时。
 void Sub_4718F0()
 {
     render::GraphicDescriptor16 descriptor {};

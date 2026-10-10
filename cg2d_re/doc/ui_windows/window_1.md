@@ -398,3 +398,10 @@ D67650为未加载零区，三窗八个type4原型共借一个U32 flags源；
 局部 SPEC 与裁决：仅共用helper四现格式callee接两父共六原点，本父正文自身无stdio且不改动。原scene10/位置<20/初始action非空才战斗路径，不增加非负位置或后续指针门槛；最大HP只用初始action、当前HP重新读位置/action，普通回退各按World最大后当前。HP两S32/%4d/%4d写未清256B后含NUL复制唯一D40B18/24B，再各按原最大FP后当前FP独立读取；两分支汇入同一当前FP读取/格式点，现两个FP表达式不重复计原点。FP结果由本父strlen(buffer)+1→固定当前timeWindow→memcpy到D45D50，之后沿该窗口时钟图形，唯一D45D50/28B及原timer/时长/提示/闪烁等全部正文和void裁决保持。所有getter和场景/指针/宽度合同沿既有已核，不合并位置/值采样、缓存HP阶段action、预清、保护/钳制、改全局owner或替换关联方。
 
 原463指令统计，仅97条场景/指针或回退来源-两HP/共享FP格式/含NUL复制与相邻消费新邻窗仅读，余366与已过timer/提示/前段/核心不重验；本父三原点/两HP表达式及两FP表达式共享单点，共helper四现callee/两原父/六原点，S32对/既有%4d/%4d/256B及同源24-28B/复制时点差异和void裁决限定静态核。普通call1/data0按当前IDA尾函数身份登记，不重归caller目录，未构建执行。 共用helper只被两父各一次调用，本父不改动；完整状态/画面/运行未据本步验收。
+
+<a id="timer-ui-consumption-current-20261010"></a>
+## 2026-10-10 TUC01：倒计时与转生消费当前合同
+
+[本步SPEC](../cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-source-state)/[完整原码与精确差集](../cg2d_timer_ui_consumption_evidence.json)。470AC0完整463条1710B/八页、21实际E8/40跳2RET追加当前对照。原完整零描述符/未预清格式缓冲与HP/FP、timeWindow持有、时钟F64缩放/提示生产及VOID裁决保；共享时长恢复小时位→分钟、mode后首窗口先于描述符发布、四位三类坐标取样及后续fresh窗口，不合并原读取或改图号/坐标/四次绘制。旧MC格式局部历史保持，当前完整范围不代机器ABI/数值/原型/路由/画面运行。
+
+四根两新语义/四F、UIRUNTIME四成员/BATTLE仅497C80一成员、两限定S零I/九任务open；八正常逻辑组/两文件最小调整，其它语义/源/政策/枚举/完整gates及六closure保持。不构建/测试/运行客户端或算法、产物/摘要或依赖，整体未完成。

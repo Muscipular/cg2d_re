@@ -117657,7 +117657,7 @@
     {
       "original_entry": "0x470AC0",
       "inventory_id": "F:00070AC0",
-      "status": "既有状态栏生命/FP真实格式依赖已接；完整状态生产/父路由/CRT/画面/运行未据本步验收",
+      "status": "既有状态栏生命/FP真实格式依赖已接；完整状态生产/父路由/CRT/画面/运行未据本步验收；TUC01追加完整根正常合同，当前时长取样纠正，限定S/运行待",
       "original_end_exclusive": "0x47116E",
       "instruction_count": 463,
       "sources": [
@@ -117668,13 +117668,25 @@
             "FormatStatusBarVitals"
           ],
           "relationship": "本父无stdio/全文不变，唯一个共用helper四表达式承接两父各三原格式点"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "DrawStatusBarTimer"
+          ],
+          "relationship": "TUC01恢复原四位时长消费的小时位/首窗口/坐标取样，共用本机helper无独立原F；两HUD父正文及格式helper保持"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/window_1.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-baseline",
+        "doc/cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-decision",
+        "doc/cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-acceptance",
+        "doc/cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-source-state",
+        "doc/cg2d_timer_ui_consumption_evidence.json"
       ],
-      "boundary": "仅共用helper四现格式callee接两父共六原点，本父正文自身无stdio且不改动。原scene10/位置<20/初始action非空才战斗路径，不增加非负位置或后续指针门槛；最大HP只用初始action、当前HP重新读位置/action，普通回退各按World最大后当前。HP两S32/%4d/%4d写未清256B后含NUL复制唯一D40B18/24B，再各按原最大FP后当前FP独立读取；两分支汇入同一当前FP读取/格式点，现两个FP表达式不重复计原点。FP结果由本父strlen(buffer)+1→固定当前timeWindow→memcpy到D45D50，之后沿该窗口时钟图形，唯一D45D50/28B及原timer/时长/提示/闪烁等全部正文和void裁决保持。所有getter和场景/指针/宽度合同沿既有已核，不合并位置/值采样、缓存HP阶段action、预清、保护/钳制、改全局owner或替换关联方。",
+      "boundary": "仅共用helper四现格式callee接两父共六原点，本父正文自身无stdio且不改动。原scene10/位置<20/初始action非空才战斗路径，不增加非负位置或后续指针门槛；最大HP只用初始action、当前HP重新读位置/action，普通回退各按World最大后当前。HP两S32/%4d/%4d写未清256B后含NUL复制唯一D40B18/24B，再各按原最大FP后当前FP独立读取；两分支汇入同一当前FP读取/格式点，现两个FP表达式不重复计原点。FP结果由本父strlen(buffer)+1→固定当前timeWindow→memcpy到D45D50，之后沿该窗口时钟图形，唯一D45D50/28B及原timer/时长/提示/闪烁等全部正文和void裁决保持。所有getter和场景/指针/宽度合同沿既有已核，不合并位置/值采样、缓存HP阶段action、预清、保护/钳制、改全局owner或替换关联方。 当前TUC01：TUC01四完整正常原根1017条3560B/18页，52E8/14目标/76跳9RET；两个状态栏descriptor原完整零/未预清256B格式缓冲与HP/FP、时钟/提示生产/VOID裁决保持，共用无原F时长helper恢复小时位→分钟、首窗口两时点及三类坐标取样序。两按钮真实原型项接线保持；497C80原action/payload双空分支、hover持有与刷新后重取R命令/发送弃返、标死清槽/状态/SE；47B210先借元素→单U8动作flag→图形，原业务短路、hover持有、Y/X/opcode发送弃返后BYTE转生/占用发布及图号锁定优先保。仅八逻辑组/两文件精确差集，无新函数/API/类型/布局/owner，未改其它源或重验全callee。原型整表/两父全路由/同源数据全部生产消费与alias-owner、渲染/网络/音频/交互、SDK/数值/机器ABI/并发/生命周期待；枚举、全gates/六closure与总SPEC§10保持。RPLAN.24不增保护/容量/门槛/默认值/补零/钳制/回滚或异常溢出模型，原业务初始化/门槛不删，WAV-only/MSVC直接CRT/原格式明文与GBK字节保。",
       "original_incoming": [
         {
           "site": "0x470A9F",
@@ -117799,12 +117811,28 @@
           "relationship": "两分支分别先最大FP后当前FP，原在当前读取/格式阶段汇入单点；现两个FP表达式算一个原点，同一未清256B后由原父按其原复制方式消费：strlen(buffer)+1→固定当前timeWindow→memcpy到D45D50，之后沿该窗口时钟图形"
         }
       ],
-      "verification_level": "原463指令统计，仅97条场景/指针或回退来源-两HP/共享FP格式/含NUL复制与相邻消费新邻窗仅读，余366与已过timer/提示/前段/核心不重验；本父三原点/两HP表达式及两FP表达式共享单点，共helper四现callee/两原父/六原点，S32对/既有%4d/%4d/256B及同源24-28B/复制时点差异和void裁决限定静态核。普通call1/data0按当前IDA尾函数身份登记，不重归caller目录，未构建执行。"
+      "verification_level": "原463指令统计，仅97条场景/指针或回退来源-两HP/共享FP格式/含NUL复制与相邻消费新邻窗仅读，余366与已过timer/提示/前段/核心不重验；本父三原点/两HP表达式及两FP表达式共享单点，共helper四现callee/两原父/六原点，S32对/既有%4d/%4d/256B及同源24-28B/复制时点差异和void裁决限定静态核。普通call1/data0按当前IDA尾函数身份登记，不重归caller目录，未构建执行。 当前TUC01：pass，四完整原根1017条3560B/18页、52实际E8/14目标/76跳9RET，两父短窗及两原型实际项/现接线；整两文件精确重放八逻辑组及关联注释，两HUD正文/所有其它源与既有提供者保持，仅源码正常合同",
+      "timer_ui_consumption": {
+        "step": "TUC01",
+        "source_snapshot": "[#] 补齐倒计时界面消费并恢复字段取样",
+        "original_instruction_count": 463,
+        "original_code_bytes": 1710,
+        "original_page_count": 8,
+        "direct_call_count": 21,
+        "jump_count": 40,
+        "return_count": 2,
+        "native_signature": "void Sub_470AC0()",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_470AC0",
+        "normal_source_kept": true,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x4718F0",
       "inventory_id": "F:000718F0",
-      "status": "既有状态栏生命/FP真实格式依赖已接；完整状态生产/父路由/CRT/画面/运行未据本步验收",
+      "status": "既有状态栏生命/FP真实格式依赖已接；完整状态生产/父路由/CRT/画面/运行未据本步验收；TUC01追加完整根正常合同，当前时长取样纠正，限定S/运行待",
       "original_end_exclusive": "0x471CC7",
       "instruction_count": 298,
       "sources": [
@@ -117815,13 +117843,25 @@
             "FormatStatusBarVitals"
           ],
           "relationship": "本父无stdio/全文不变，唯一个共用helper四表达式承接两父各三原格式点"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "DrawStatusBarTimer"
+          ],
+          "relationship": "TUC01恢复原四位时长消费的小时位/首窗口/坐标取样，共用本机helper无独立原F；两HUD父正文及格式helper保持"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/window_2.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-baseline",
+        "doc/cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-decision",
+        "doc/cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-acceptance",
+        "doc/cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-source-state",
+        "doc/cg2d_timer_ui_consumption_evidence.json"
       ],
-      "boundary": "仅共用helper四现格式callee接两父共六原点，本父正文自身无stdio且不改动。原scene10/位置<20/初始action非空才战斗路径，不增加非负位置或后续指针门槛；最大HP只用初始action、当前HP重新读位置/action，普通回退各按World最大后当前。HP两S32/%4d/%4d写未清256B后含NUL复制唯一D40B18/24B，再各按原最大FP后当前FP独立读取；两分支汇入同一当前FP读取/格式点，现两个FP表达式不重复计原点。FP结果由本父strcpy直接到D45D50，不在复制前新增当前窗口采样，随后时长数字，唯一D45D50/28B及原timer/时长/提示/闪烁等全部正文和void裁决保持。所有getter和场景/指针/宽度合同沿既有已核，不合并位置/值采样、缓存HP阶段action、预清、保护/钳制、改全局owner或替换关联方。",
+      "boundary": "仅共用helper四现格式callee接两父共六原点，本父正文自身无stdio且不改动。原scene10/位置<20/初始action非空才战斗路径，不增加非负位置或后续指针门槛；最大HP只用初始action、当前HP重新读位置/action，普通回退各按World最大后当前。HP两S32/%4d/%4d写未清256B后含NUL复制唯一D40B18/24B，再各按原最大FP后当前FP独立读取；两分支汇入同一当前FP读取/格式点，现两个FP表达式不重复计原点。FP结果由本父strcpy直接到D45D50，不在复制前新增当前窗口采样，随后时长数字，唯一D45D50/28B及原timer/时长/提示/闪烁等全部正文和void裁决保持。所有getter和场景/指针/宽度合同沿既有已核，不合并位置/值采样、缓存HP阶段action、预清、保护/钳制、改全局owner或替换关联方。 当前TUC01：TUC01四完整正常原根1017条3560B/18页，52E8/14目标/76跳9RET；两个状态栏descriptor原完整零/未预清256B格式缓冲与HP/FP、时钟/提示生产/VOID裁决保持，共用无原F时长helper恢复小时位→分钟、首窗口两时点及三类坐标取样序。两按钮真实原型项接线保持；497C80原action/payload双空分支、hover持有与刷新后重取R命令/发送弃返、标死清槽/状态/SE；47B210先借元素→单U8动作flag→图形，原业务短路、hover持有、Y/X/opcode发送弃返后BYTE转生/占用发布及图号锁定优先保。仅八逻辑组/两文件精确差集，无新函数/API/类型/布局/owner，未改其它源或重验全callee。原型整表/两父全路由/同源数据全部生产消费与alias-owner、渲染/网络/音频/交互、SDK/数值/机器ABI/并发/生命周期待；枚举、全gates/六closure与总SPEC§10保持。RPLAN.24不增保护/容量/门槛/默认值/补零/钳制/回滚或异常溢出模型，原业务初始化/门槛不删，WAV-only/MSVC直接CRT/原格式明文与GBK字节保。",
       "original_incoming": [
         {
           "site": "0x470AB0",
@@ -117946,7 +117986,23 @@
           "relationship": "两分支分别先最大FP后当前FP，原在当前读取/格式阶段汇入单点；现两个FP表达式算一个原点，同一未清256B后由原父按其原复制方式消费：strcpy直接到D45D50，不在复制前新增当前窗口采样，随后时长数字"
         }
       ],
-      "verification_level": "原298指令统计，仅97条场景/指针或回退来源-两HP/共享FP格式/含NUL复制与相邻消费新邻窗仅读，余201与已过timer/提示/前段/核心不重验；本父三原点/两HP表达式及两FP表达式共享单点，共helper四现callee/两原父/六原点，S32对/既有%4d/%4d/256B及同源24-28B/复制时点差异和void裁决限定静态核。普通call1/data0按当前IDA尾函数身份登记，不重归caller目录，未构建执行。"
+      "verification_level": "原298指令统计，仅97条场景/指针或回退来源-两HP/共享FP格式/含NUL复制与相邻消费新邻窗仅读，余201与已过timer/提示/前段/核心不重验；本父三原点/两HP表达式及两FP表达式共享单点，共helper四现callee/两原父/六原点，S32对/既有%4d/%4d/256B及同源24-28B/复制时点差异和void裁决限定静态核。普通call1/data0按当前IDA尾函数身份登记，不重归caller目录，未构建执行。 当前TUC01：pass，四完整原根1017条3560B/18页、52实际E8/14目标/76跳9RET，两父短窗及两原型实际项/现接线；整两文件精确重放八逻辑组及关联注释，两HUD正文/所有其它源与既有提供者保持，仅源码正常合同",
+      "timer_ui_consumption": {
+        "step": "TUC01",
+        "source_snapshot": "[#] 补齐倒计时界面消费并恢复字段取样",
+        "original_instruction_count": 298,
+        "original_code_bytes": 983,
+        "original_page_count": 5,
+        "direct_call_count": 17,
+        "jump_count": 6,
+        "return_count": 1,
+        "native_signature": "void Sub_4718F0()",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4718F0",
+        "normal_source_kept": true,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x4D3410",
@@ -207063,6 +207119,126 @@
         "inbound_call_count": 1,
         "source_patch_group_count": 1,
         "new_functions": 0,
+        "normal_source_kept": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x497c80",
+      "inventory_id": "F:00097C80",
+      "original_role": "窗口26战斗转生按钮：原可见性/载荷门槛、刷新后R命令及选择/动作/图号",
+      "original_end_exclusive": "0x497e24",
+      "instruction_count": 119,
+      "function_chunks": [
+        {
+          "start": "0x497c80",
+          "end_exclusive": "0x497e24"
+        }
+      ],
+      "status": "TUC01完整正常根纳管，原业务门槛/发送发布保持，字段取样恢复；限定S/机器ABI、数据owner与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_497C80"
+          ],
+          "relationship": "既有真实按钮body，仅恢复原取样序/hover持有，命令发送/字段发布/返回及门槛保持"
+        },
+        {
+          "path": "src/ui/WindowPrototypes.cpp",
+          "symbols": [
+            "gWindowElements56B710"
+          ],
+          "relationship": "仅第7/6项原回调实际指针与现窗口26/10接线，整表/类型/owner未据本步验收"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-baseline",
+        "doc/cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-decision",
+        "doc/cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-acceptance",
+        "doc/cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-source-state",
+        "doc/cg2d_timer_ui_consumption_evidence.json"
+      ],
+      "boundary": "TUC01四完整正常原根1017条3560B/18页，52E8/14目标/76跳9RET；两个状态栏descriptor原完整零/未预清256B格式缓冲与HP/FP、时钟/提示生产/VOID裁决保持，共用无原F时长helper恢复小时位→分钟、首窗口两时点及三类坐标取样序。两按钮真实原型项接线保持；497C80原action/payload双空分支、hover持有与刷新后重取R命令/发送弃返、标死清槽/状态/SE；47B210先借元素→单U8动作flag→图形，原业务短路、hover持有、Y/X/opcode发送弃返后BYTE转生/占用发布及图号锁定优先保。仅八逻辑组/两文件精确差集，无新函数/API/类型/布局/owner，未改其它源或重验全callee。原型整表/两父全路由/同源数据全部生产消费与alias-owner、渲染/网络/音频/交互、SDK/数值/机器ABI/并发/生命周期待；枚举、全gates/六closure与总SPEC§10保持。RPLAN.24不增保护/容量/门槛/默认值/补零/钳制/回滚或异常溢出模型，原业务初始化/门槛不删，WAV-only/MSVC直接CRT/原格式明文与GBK字节保。",
+      "verification_level": "pass，四完整原根1017条3560B/18页、52实际E8/14目标/76跳9RET，两父短窗及两原型实际项/现接线；整两文件精确重放八逻辑组及关联注释，两HUD正文/所有其它源与既有提供者保持，仅源码正常合同",
+      "original_incoming": {
+        "direct_calls": 0,
+        "data_item_references": 1,
+        "actual_callback_pointer": "0x56b80c"
+      },
+      "timer_ui_consumption": {
+        "step": "TUC01",
+        "source_snapshot": "[#] 补齐倒计时界面消费并恢复字段取样",
+        "original_instruction_count": 119,
+        "original_code_bytes": 420,
+        "original_page_count": 2,
+        "direct_call_count": 5,
+        "jump_count": 14,
+        "return_count": 3,
+        "native_signature": "std::int32_t Sub_497C80(const std::int32_t index, const std::int32_t state)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_497C80",
+        "normal_source_kept": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x47b210",
+      "inventory_id": "F:0007B210",
+      "original_role": "窗口10转生开关：原单U8动作门槛、Y/X/opcode发送后发布转生/占用及图号锁定",
+      "original_end_exclusive": "0x47b3cf",
+      "instruction_count": 137,
+      "function_chunks": [
+        {
+          "start": "0x47b210",
+          "end_exclusive": "0x47b3cf"
+        }
+      ],
+      "status": "TUC01完整正常根纳管，原业务门槛/发送发布保持，字段取样恢复；限定S/机器ABI、数据owner与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_47B210"
+          ],
+          "relationship": "既有真实按钮body，仅恢复原取样序/hover持有，命令发送/字段发布/返回及门槛保持"
+        },
+        {
+          "path": "src/ui/WindowPrototypes.cpp",
+          "symbols": [
+            "gWindowElements561B78"
+          ],
+          "relationship": "仅第7/6项原回调实际指针与现窗口26/10接线，整表/类型/owner未据本步验收"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-baseline",
+        "doc/cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-decision",
+        "doc/cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-acceptance",
+        "doc/cg2d_timer_ui_consumption_spec.md#timer-ui-consumption-source-state",
+        "doc/cg2d_timer_ui_consumption_evidence.json"
+      ],
+      "boundary": "TUC01四完整正常原根1017条3560B/18页，52E8/14目标/76跳9RET；两个状态栏descriptor原完整零/未预清256B格式缓冲与HP/FP、时钟/提示生产/VOID裁决保持，共用无原F时长helper恢复小时位→分钟、首窗口两时点及三类坐标取样序。两按钮真实原型项接线保持；497C80原action/payload双空分支、hover持有与刷新后重取R命令/发送弃返、标死清槽/状态/SE；47B210先借元素→单U8动作flag→图形，原业务短路、hover持有、Y/X/opcode发送弃返后BYTE转生/占用发布及图号锁定优先保。仅八逻辑组/两文件精确差集，无新函数/API/类型/布局/owner，未改其它源或重验全callee。原型整表/两父全路由/同源数据全部生产消费与alias-owner、渲染/网络/音频/交互、SDK/数值/机器ABI/并发/生命周期待；枚举、全gates/六closure与总SPEC§10保持。RPLAN.24不增保护/容量/门槛/默认值/补零/钳制/回滚或异常溢出模型，原业务初始化/门槛不删，WAV-only/MSVC直接CRT/原格式明文与GBK字节保。",
+      "verification_level": "pass，四完整原根1017条3560B/18页、52实际E8/14目标/76跳9RET，两父短窗及两原型实际项/现接线；整两文件精确重放八逻辑组及关联注释，两HUD正文/所有其它源与既有提供者保持，仅源码正常合同",
+      "original_incoming": {
+        "direct_calls": 0,
+        "data_item_references": 1,
+        "actual_callback_pointer": "0x561c54"
+      },
+      "timer_ui_consumption": {
+        "step": "TUC01",
+        "source_snapshot": "[#] 补齐倒计时界面消费并恢复字段取样",
+        "original_instruction_count": 137,
+        "original_code_bytes": 447,
+        "original_page_count": 3,
+        "direct_call_count": 9,
+        "jump_count": 16,
+        "return_count": 3,
+        "native_signature": "std::int32_t Sub_47B210(const std::int32_t index, const std::int32_t state)",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_47B210",
         "normal_source_kept": false,
         "generated_machine_reads_verified": false,
         "full_lifecycle_closed": false,

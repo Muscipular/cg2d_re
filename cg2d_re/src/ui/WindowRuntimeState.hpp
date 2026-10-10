@@ -186,8 +186,8 @@ std::int32_t Sub_495F70(std::int32_t index); // 清18B后选中指定字节，Y/
 std::int32_t Sub_495FC0(); // 按四W32/一W16清唯一18B选择区，返回0。
 std::int32_t Sub_495FE0(std::int32_t index, std::int32_t state); // 情绪窗18按钮，请求被拒仍更新选择并发声。
 std::int32_t Sub_4723D0(std::int32_t index, std::int32_t state); // 窗口1伤势/新邮件/加点提示及打开对应详情。
-void Sub_470AC0(); // 窗口1完整HP/FP、时间图形、时长数字和提示状态刷新。
-void Sub_4718F0(); // 窗口2仅HP/FP和四位时长数字，不推进提示状态。
+void Sub_470AC0(); // TUC01：窗口1HP/FP、时钟/四位倒计时/提示原生产序；机器ABI与运行待。
+void Sub_4718F0(); // TUC01：窗口2直接FP复制/四位倒计时，首窗口取样晚于描述符发布。
 std::int32_t Sub_471CD0(std::int32_t unused, std::int32_t state); // 状态栏1点击切2，调用后发布保存模式。
 std::int32_t Sub_471D10(std::int32_t unused, std::int32_t state); // 状态栏2点击切3。
 std::int32_t Sub_471D60(std::int32_t unused, std::int32_t state); // 状态栏3按场景返回2或1。
@@ -203,7 +203,7 @@ std::int32_t Sub_497770(std::int32_t index, std::int32_t state); // 物品选择
 std::int32_t Sub_497900(std::int32_t index, std::int32_t state); // 宠物选择及28窗口关闭。
 std::int32_t Sub_497A60(std::int32_t index, std::int32_t state); // P命令，使用九槽中的槽6。
 std::int32_t Sub_497B80(std::int32_t index, std::int32_t state); // E命令，使用槽7，无已用技能门禁。
-std::int32_t Sub_497C80(std::int32_t index, std::int32_t state); // 转生可见性及刷新后重取R命令状态。
+std::int32_t Sub_497C80(std::int32_t index, std::int32_t state); // TUC01：原载荷判空/hover持有，刷新后重取R命令状态。
 void Sub_497E30(std::int32_t technique); // 宠物命令，保留重复查询与负参数略过。
 void Sub_497FF0(std::int32_t technique); // 骑乘命令，清选择模式并保留骑乘快照写序。
 std::int32_t Sub_498160(std::int32_t index, std::int32_t state); // 宠物/骑乘技能窗开关。
@@ -222,7 +222,7 @@ void Sub_49B670(
     std::uint8_t textLayer, std::int32_t graphicLayer,
     const render::GraphicDescriptor16* descriptor); // 快照数值与宠物属性行，唯一caller弃返回。
 std::int32_t Sub_47B110(std::int32_t index, std::int32_t state); // 固定入口窗口的返回按钮。
-std::int32_t Sub_47B210(std::int32_t index, std::int32_t state); // 转生开关，发送后改同源占用字节。
+std::int32_t Sub_47B210(std::int32_t index, std::int32_t state); // TUC01：先借元素再读U8动作标志；Y/X发送后更新同源占用。
 std::int32_t Sub_47C950(std::int32_t index, std::int32_t state); // 无可用宠物技能时略过，通知-1。
 std::int32_t Sub_47A5C0(); // 战斗返回：模式4退列表，0/3/5/6关闭。
 std::int32_t Sub_47B3D0(std::int32_t index, std::int32_t state); // 前一行，bit400。

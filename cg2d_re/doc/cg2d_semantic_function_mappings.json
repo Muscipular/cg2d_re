@@ -234138,6 +234138,761 @@
           }
         ]
       }
+    },
+    {
+      "original_entry": "0x4c1fb0",
+      "inventory_id": "F:000C1FB0",
+      "original_role": "共享关闭按钮/同窗口和graphic持址及关闭标记",
+      "original_end_exclusive": "0x4c2053",
+      "instruction_count": 53,
+      "function_chunks": [
+        {
+          "start": "0x4c1fb0",
+          "end_exclusive": "0x4c2053"
+        }
+      ],
+      "status": "WCL01三完整关闭/前置/返回原根纳管，正确正文/七注释；限定S，全部动态callback/owner/ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C1FB0"
+          ],
+          "relationship": "WCL01完整关闭/前置/返回原根，正确正文保持，只合同注释；不额外释放或业务取消"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4C1FB0"
+          ],
+          "relationship": "WCL01既有真实声明保持，仅合同注释；原生非拥有callback/返回边界具名"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_close_front_release_spec.md#window-close-baseline",
+        "doc/cg2d_window_close_front_release_spec.md#window-close-decision",
+        "doc/cg2d_window_close_front_release_spec.md#window-close-acceptance",
+        "doc/cg2d_window_close_front_release_spec.md#window-close-source-state",
+        "doc/cg2d_window_close_front_release_evidence.json"
+      ],
+      "boundary": "WCL01仅共享关闭按钮4C1FB0完整53条163B/一页、release/存档共用返回叶4A4210完整两条6B/一页、窗口前置元素474170完整15条43B/一页；合70条212B/三页、一个E8目标52C450、六跳四RET。三业务正文正确保持，仅三个定义/三声明及既有release适配七注释。关闭按钮先当前窗口/目标graphic持址，hover提示沿已批静态文字迁GBK现源保持，bit2置同窗口bit15→SE57→result1，之后仍向held graphic按默认3B538→hover3B53A→pressed3B539发布图号，返回0/1；不立即free、不业务callback/取消发送、不跨SE换目标。4A4210原端仅MOV EAX,1/RET，所有原参数不消费，既有void ReleaseWindow适配只弃真实返回；不能把这个既有原端常量叶说成缺失资源实现，也不能把返回1计全释放成功。存档父5201B0唯一CALL后TEST EAX/JZ局部关系，不代完整存档父/机器ABI。前置474170 bit2置当前window bit13，bit1优先返回1，否则原state低BYTE bit5返回0/1；图层前置不等于立即关闭。两按钮持址都仅data引用：关闭29个data引用项/29匹配槽，前置26项/28匹配槽；返回叶34项/36匹配槽；除窗口42两个元素+28和原型release+2C有已证布局，其余只记录指针对齐匹配，不外推全部slot消费/owner。窗口42真实元素1关闭/7前置、prototype release指向既有适配保持。实际关闭回收复用完整WCR01整理4730A0/BVR01释放471270/WRS01更新473F80：下一整理读bit15调用真实FreeWindow，release先于fresh id/state坐标/flags/焦点清理与七类元素释放；本步对应三提供者及四已有记录全文保持、不重复原根/身份验收。三新F三adapted，INPUT两/UI三/RENDER两成员，三限定S零I九open；仍待全调度/全部上游和回调消费、键盘取消路径、窗口/输入/Yobi owner完整寿命、生成取样/机器ABI与资源SDK及画面声效运行。所有完整门禁和WAV-only/MSVC/明文协议保持；无新API/helper/字段/owner/保护/补零/钳制/回滚/假成功体，整体未完成。",
+      "verification_level": "pass，三连续完整根70条212B/三页、一个E8/六跳四RET；唯一存档CALL局部消费/29-34-26 data项及29-36-28匹配槽，窗口42两元素与release槽有据；三整源只七注释/三正确正文、两类型三提供者及原型表保持，关闭/前置/返回和真正整理释放职责明确；全共享动态callback/owner、机器ABI及运行待",
+      "original_incoming": [],
+      "window_close_front_release": {
+        "step": "WCL01",
+        "source_snapshot": "[#] 补齐窗口关闭前置与释放返回合同",
+        "original_entry": "0x4c1fb0",
+        "original_end_exclusive": "0x4c2053",
+        "instruction_count": 53,
+        "code_bytes": 163,
+        "page_count": 1,
+        "direct_calls": 1,
+        "direct_call_targets": [
+          5424208
+        ],
+        "jumps": 4,
+        "returns": 1,
+        "original_incoming_references": [
+          {
+            "from": 5638208,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5643128,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5645856,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5646640,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5648624,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5649664,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5664808,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5667560,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5686320,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5687296,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5692216,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5700976,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5702136,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5702424,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5708264,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5712632,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5713808,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5717376,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5720296,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5724552,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5727624,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5730968,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5732264,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5737672,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5740304,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5741352,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5742704,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5743696,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5746368,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          }
+        ],
+        "native_signature": "std::int32_t Sub_4C1FB0(const std::int32_t index, const std::int32_t state)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原0/1返回，全部data回调分发及ABI待"
+      }
+    },
+    {
+      "original_entry": "0x4a4210",
+      "inventory_id": "F:000A4210",
+      "original_role": "窗口release及存档共用的原端常量1返回叶",
+      "original_end_exclusive": "0x4a4216",
+      "instruction_count": 2,
+      "function_chunks": [
+        {
+          "start": "0x4a4210",
+          "end_exclusive": "0x4a4216"
+        }
+      ],
+      "status": "WCL01三完整关闭/前置/返回原根纳管，正确正文/七注释；限定S，全部动态callback/owner/ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4A4210"
+          ],
+          "relationship": "WCL01完整关闭/前置/返回原根，正确正文保持，只合同注释；不额外释放或业务取消"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4A4210"
+          ],
+          "relationship": "WCL01既有真实声明保持，仅合同注释；原生非拥有callback/返回边界具名"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_close_front_release_spec.md#window-close-baseline",
+        "doc/cg2d_window_close_front_release_spec.md#window-close-decision",
+        "doc/cg2d_window_close_front_release_spec.md#window-close-acceptance",
+        "doc/cg2d_window_close_front_release_spec.md#window-close-source-state",
+        "doc/cg2d_window_close_front_release_evidence.json"
+      ],
+      "boundary": "WCL01仅共享关闭按钮4C1FB0完整53条163B/一页、release/存档共用返回叶4A4210完整两条6B/一页、窗口前置元素474170完整15条43B/一页；合70条212B/三页、一个E8目标52C450、六跳四RET。三业务正文正确保持，仅三个定义/三声明及既有release适配七注释。关闭按钮先当前窗口/目标graphic持址，hover提示沿已批静态文字迁GBK现源保持，bit2置同窗口bit15→SE57→result1，之后仍向held graphic按默认3B538→hover3B53A→pressed3B539发布图号，返回0/1；不立即free、不业务callback/取消发送、不跨SE换目标。4A4210原端仅MOV EAX,1/RET，所有原参数不消费，既有void ReleaseWindow适配只弃真实返回；不能把这个既有原端常量叶说成缺失资源实现，也不能把返回1计全释放成功。存档父5201B0唯一CALL后TEST EAX/JZ局部关系，不代完整存档父/机器ABI。前置474170 bit2置当前window bit13，bit1优先返回1，否则原state低BYTE bit5返回0/1；图层前置不等于立即关闭。两按钮持址都仅data引用：关闭29个data引用项/29匹配槽，前置26项/28匹配槽；返回叶34项/36匹配槽；除窗口42两个元素+28和原型release+2C有已证布局，其余只记录指针对齐匹配，不外推全部slot消费/owner。窗口42真实元素1关闭/7前置、prototype release指向既有适配保持。实际关闭回收复用完整WCR01整理4730A0/BVR01释放471270/WRS01更新473F80：下一整理读bit15调用真实FreeWindow，release先于fresh id/state坐标/flags/焦点清理与七类元素释放；本步对应三提供者及四已有记录全文保持、不重复原根/身份验收。三新F三adapted，INPUT两/UI三/RENDER两成员，三限定S零I九open；仍待全调度/全部上游和回调消费、键盘取消路径、窗口/输入/Yobi owner完整寿命、生成取样/机器ABI与资源SDK及画面声效运行。所有完整门禁和WAV-only/MSVC/明文协议保持；无新API/helper/字段/owner/保护/补零/钳制/回滚/假成功体，整体未完成。",
+      "verification_level": "pass，三连续完整根70条212B/三页、一个E8/六跳四RET；唯一存档CALL局部消费/29-34-26 data项及29-36-28匹配槽，窗口42两元素与release槽有据；三整源只七注释/三正确正文、两类型三提供者及原型表保持，关闭/前置/返回和真正整理释放职责明确；全共享动态callback/owner、机器ABI及运行待",
+      "original_incoming": [
+        {
+          "ea": 5374384,
+          "parent": 5374384,
+          "iscode": true,
+          "bytes": "e85b40f8ff",
+          "asm": "call    sub_4A4210",
+          "following": [
+            {
+              "ea": 5374389,
+              "bytes": "85c0",
+              "asm": "test    eax, eax"
+            },
+            {
+              "ea": 5374391,
+              "bytes": "7436",
+              "asm": "jz      short loc_5201EF"
+            }
+          ],
+          "branch_target": 4866576
+        }
+      ],
+      "window_close_front_release": {
+        "step": "WCL01",
+        "source_snapshot": "[#] 补齐窗口关闭前置与释放返回合同",
+        "original_entry": "0x4a4210",
+        "original_end_exclusive": "0x4a4216",
+        "instruction_count": 2,
+        "code_bytes": 6,
+        "page_count": 1,
+        "direct_calls": 0,
+        "direct_call_targets": [],
+        "jumps": 0,
+        "returns": 1,
+        "original_incoming_references": [
+          {
+            "from": 5374384,
+            "type": 17,
+            "iscode": true,
+            "parent": 5374384
+          },
+          {
+            "from": 5562944,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5562992,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5563040,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5563088,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5563136,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5563184,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5563664,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5563712,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5563904,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5563952,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5564048,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5564096,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5564144,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5564192,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5564240,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5564288,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5564336,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5564384,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5564432,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5564480,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5564576,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5564624,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5564816,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5564864,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5564912,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5565056,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5565104,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5565152,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5565344,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5565792,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5565984,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5566032,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5566080,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5566128,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          }
+        ],
+        "native_signature": "std::int32_t Sub_4A4210(const std::int32_t) noexcept",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原完整S32常量1，当前void release适配弃返回；全部存档/窗口父ABI待"
+      }
+    },
+    {
+      "original_entry": "0x474170",
+      "inventory_id": "F:00074170",
+      "original_role": "窗口前置元素/bit13和hover优先返回",
+      "original_end_exclusive": "0x47419b",
+      "instruction_count": 15,
+      "function_chunks": [
+        {
+          "start": "0x474170",
+          "end_exclusive": "0x47419b"
+        }
+      ],
+      "status": "WCL01三完整关闭/前置/返回原根纳管，正确正文/七注释；限定S，全部动态callback/owner/ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_474170"
+          ],
+          "relationship": "WCL01完整关闭/前置/返回原根，正确正文保持，只合同注释；不额外释放或业务取消"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_474170"
+          ],
+          "relationship": "WCL01既有真实声明保持，仅合同注释；原生非拥有callback/返回边界具名"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_close_front_release_spec.md#window-close-baseline",
+        "doc/cg2d_window_close_front_release_spec.md#window-close-decision",
+        "doc/cg2d_window_close_front_release_spec.md#window-close-acceptance",
+        "doc/cg2d_window_close_front_release_spec.md#window-close-source-state",
+        "doc/cg2d_window_close_front_release_evidence.json"
+      ],
+      "boundary": "WCL01仅共享关闭按钮4C1FB0完整53条163B/一页、release/存档共用返回叶4A4210完整两条6B/一页、窗口前置元素474170完整15条43B/一页；合70条212B/三页、一个E8目标52C450、六跳四RET。三业务正文正确保持，仅三个定义/三声明及既有release适配七注释。关闭按钮先当前窗口/目标graphic持址，hover提示沿已批静态文字迁GBK现源保持，bit2置同窗口bit15→SE57→result1，之后仍向held graphic按默认3B538→hover3B53A→pressed3B539发布图号，返回0/1；不立即free、不业务callback/取消发送、不跨SE换目标。4A4210原端仅MOV EAX,1/RET，所有原参数不消费，既有void ReleaseWindow适配只弃真实返回；不能把这个既有原端常量叶说成缺失资源实现，也不能把返回1计全释放成功。存档父5201B0唯一CALL后TEST EAX/JZ局部关系，不代完整存档父/机器ABI。前置474170 bit2置当前window bit13，bit1优先返回1，否则原state低BYTE bit5返回0/1；图层前置不等于立即关闭。两按钮持址都仅data引用：关闭29个data引用项/29匹配槽，前置26项/28匹配槽；返回叶34项/36匹配槽；除窗口42两个元素+28和原型release+2C有已证布局，其余只记录指针对齐匹配，不外推全部slot消费/owner。窗口42真实元素1关闭/7前置、prototype release指向既有适配保持。实际关闭回收复用完整WCR01整理4730A0/BVR01释放471270/WRS01更新473F80：下一整理读bit15调用真实FreeWindow，release先于fresh id/state坐标/flags/焦点清理与七类元素释放；本步对应三提供者及四已有记录全文保持、不重复原根/身份验收。三新F三adapted，INPUT两/UI三/RENDER两成员，三限定S零I九open；仍待全调度/全部上游和回调消费、键盘取消路径、窗口/输入/Yobi owner完整寿命、生成取样/机器ABI与资源SDK及画面声效运行。所有完整门禁和WAV-only/MSVC/明文协议保持；无新API/helper/字段/owner/保护/补零/钳制/回滚/假成功体，整体未完成。",
+      "verification_level": "pass，三连续完整根70条212B/三页、一个E8/六跳四RET；唯一存档CALL局部消费/29-34-26 data项及29-36-28匹配槽，窗口42两元素与release槽有据；三整源只七注释/三正确正文、两类型三提供者及原型表保持，关闭/前置/返回和真正整理释放职责明确；全共享动态callback/owner、机器ABI及运行待",
+      "original_incoming": [],
+      "window_close_front_release": {
+        "step": "WCL01",
+        "source_snapshot": "[#] 补齐窗口关闭前置与释放返回合同",
+        "original_entry": "0x474170",
+        "original_end_exclusive": "0x47419b",
+        "instruction_count": 15,
+        "code_bytes": 43,
+        "page_count": 1,
+        "direct_calls": 0,
+        "direct_call_targets": [],
+        "jumps": 2,
+        "returns": 2,
+        "original_incoming_references": [
+          {
+            "from": 5638208,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5643128,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5646304,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5646640,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5647576,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5648624,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5649664,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5664808,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5683640,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5686320,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5687296,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5692216,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5700976,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5702136,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5702424,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5706080,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5707584,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5709592,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5717376,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5724552,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5727624,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5730968,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5732264,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5737672,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5740304,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          },
+          {
+            "from": 5742704,
+            "type": 1,
+            "iscode": false,
+            "parent": null
+          }
+        ],
+        "native_signature": "std::int32_t Sub_474170(const std::int32_t, const std::int32_t state)",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "原hover优先1/否则低BYTE bit5，完整动态消费/ABI待"
+      }
     }
   ]
 }

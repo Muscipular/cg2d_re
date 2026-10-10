@@ -1828,6 +1828,7 @@ std::int32_t Sub_4B0F10(const std::int32_t, const std::int32_t)
     return 0;
 }
 
+// WCL01：原4A4210完整两条只返回1；窗口release适配/存档共用，实际资源回收由FreeWindow执行。
 std::int32_t Sub_4A4210(const std::int32_t) noexcept
 {
     return 1;
@@ -5581,6 +5582,7 @@ std::int32_t Sub_48AB10(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// WCL01：原474170完整15条；bit2置当前窗口bit13，hover优先返回1，否则低BYTE bit5，正确正文保持。
 std::int32_t Sub_474170(const std::int32_t, const std::int32_t state)
 {
     if ((state & 2) != 0) {
@@ -7699,6 +7701,7 @@ std::int32_t Sub_4B09E0(const std::int32_t, const std::int32_t state)
     return 0;
 }
 
+// WCL01：原4C1FB0完整53条；持同窗口/graphic，bit2仅置关闭位与SE57，图号优先序保，返回0/1。
 std::int32_t Sub_4C1FB0(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;

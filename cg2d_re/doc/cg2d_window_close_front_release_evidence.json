@@ -1,0 +1,2647 @@
+{
+  "schema_version": 1,
+  "step": "WCL01",
+  "recorded_on": "2026-10-11",
+  "before_snapshot": "[#] 补齐数量确认与增减输入合同",
+  "after_snapshot": "[#] 补齐窗口关闭前置与释放返回合同",
+  "record_scope": [
+    {
+      "index": 2319,
+      "inventory_id": "F:000C1FB0",
+      "existing": false,
+      "source_index": 0
+    },
+    {
+      "index": 2320,
+      "inventory_id": "F:000A4210",
+      "existing": false,
+      "source_index": 1
+    },
+    {
+      "index": 2321,
+      "inventory_id": "F:00074170",
+      "existing": false,
+      "source_index": 2
+    }
+  ],
+  "original_roots": [
+    {
+      "ea": 4988848,
+      "end": 4989011,
+      "instruction_count": 53,
+      "chunks": [
+        [
+          4988848,
+          4989011
+        ]
+      ],
+      "incoming_references": [
+        {
+          "from": 5638208,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5643128,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5645856,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5646640,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5648624,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5649664,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5664808,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5667560,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5686320,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5687296,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5692216,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5700976,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5702136,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5702424,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5708264,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5712632,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5713808,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5717376,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5720296,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5724552,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5727624,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5730968,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5732264,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5737672,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5740304,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5741352,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5742704,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5743696,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5746368,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        }
+      ],
+      "byte_count": 163,
+      "page_count": 1,
+      "pages": [
+        {
+          "ea": 4988848,
+          "end": 4989011,
+          "offset": 0,
+          "total": 53,
+          "instructions": [
+            {
+              "ea": 4988848,
+              "size": 1,
+              "bytes": "51",
+              "asm": "push    ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4988849,
+              "size": 4,
+              "bytes": "8b442408",
+              "asm": "mov     eax, [esp+4+arg_0]",
+              "call_target": null
+            },
+            {
+              "ea": 4988853,
+              "size": 6,
+              "bytes": "8b159446cf00",
+              "asm": "mov     edx, gCurrentWindow",
+              "call_target": null
+            },
+            {
+              "ea": 4988859,
+              "size": 1,
+              "bytes": "53",
+              "asm": "push    ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4988860,
+              "size": 1,
+              "bytes": "55",
+              "asm": "push    ebp",
+              "call_target": null
+            },
+            {
+              "ea": 4988861,
+              "size": 3,
+              "bytes": "8b4a2c",
+              "asm": "mov     ecx, [edx+2Ch]",
+              "call_target": null
+            },
+            {
+              "ea": 4988864,
+              "size": 4,
+              "bytes": "8b6c2414",
+              "asm": "mov     ebp, [esp+0Ch+arg_4]",
+              "call_target": null
+            },
+            {
+              "ea": 4988868,
+              "size": 3,
+              "bytes": "8d04c0",
+              "asm": "lea     eax, [eax+eax*8]",
+              "call_target": null
+            },
+            {
+              "ea": 4988871,
+              "size": 3,
+              "bytes": "83e501",
+              "asm": "and     ebp, 1",
+              "call_target": null
+            },
+            {
+              "ea": 4988874,
+              "size": 1,
+              "bytes": "57",
+              "asm": "push    edi",
+              "call_target": null
+            },
+            {
+              "ea": 4988875,
+              "size": 8,
+              "bytes": "c744240c00000000",
+              "asm": "mov     [esp+10h+var_4], 0",
+              "call_target": null
+            },
+            {
+              "ea": 4988883,
+              "size": 4,
+              "bytes": "8b5c811c",
+              "asm": "mov     ebx, [ecx+eax*4+1Ch]",
+              "call_target": null
+            },
+            {
+              "ea": 4988887,
+              "size": 2,
+              "bytes": "7427",
+              "asm": "jz      short loc_4C2000",
+              "call_target": null
+            },
+            {
+              "ea": 4988889,
+              "size": 5,
+              "bytes": "bf1c335500",
+              "asm": "mov     edi, offset asc_55331C; \"關閉這個視窗。\"",
+              "call_target": null
+            },
+            {
+              "ea": 4988894,
+              "size": 3,
+              "bytes": "83c9ff",
+              "asm": "or      ecx, 0FFFFFFFFh",
+              "call_target": null
+            },
+            {
+              "ea": 4988897,
+              "size": 2,
+              "bytes": "33c0",
+              "asm": "xor     eax, eax",
+              "call_target": null
+            },
+            {
+              "ea": 4988899,
+              "size": 1,
+              "bytes": "56",
+              "asm": "push    esi",
+              "call_target": null
+            },
+            {
+              "ea": 4988900,
+              "size": 2,
+              "bytes": "f2ae",
+              "asm": "repne scasb",
+              "call_target": null
+            },
+            {
+              "ea": 4988902,
+              "size": 2,
+              "bytes": "f7d1",
+              "asm": "not     ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4988904,
+              "size": 2,
+              "bytes": "2bf9",
+              "asm": "sub     edi, ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4988906,
+              "size": 2,
+              "bytes": "8bc1",
+              "asm": "mov     eax, ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4988908,
+              "size": 2,
+              "bytes": "8bf7",
+              "asm": "mov     esi, edi",
+              "call_target": null
+            },
+            {
+              "ea": 4988910,
+              "size": 5,
+              "bytes": "bfe88ad600",
+              "asm": "mov     edi, offset byte_D68AE8",
+              "call_target": null
+            },
+            {
+              "ea": 4988915,
+              "size": 3,
+              "bytes": "c1e902",
+              "asm": "shr     ecx, 2",
+              "call_target": null
+            },
+            {
+              "ea": 4988918,
+              "size": 2,
+              "bytes": "f3a5",
+              "asm": "rep movsd",
+              "call_target": null
+            },
+            {
+              "ea": 4988920,
+              "size": 2,
+              "bytes": "8bc8",
+              "asm": "mov     ecx, eax",
+              "call_target": null
+            },
+            {
+              "ea": 4988922,
+              "size": 3,
+              "bytes": "83e103",
+              "asm": "and     ecx, 3",
+              "call_target": null
+            },
+            {
+              "ea": 4988925,
+              "size": 2,
+              "bytes": "f3a4",
+              "asm": "rep movsb",
+              "call_target": null
+            },
+            {
+              "ea": 4988927,
+              "size": 1,
+              "bytes": "5e",
+              "asm": "pop     esi",
+              "call_target": null
+            },
+            {
+              "ea": 4988928,
+              "size": 5,
+              "bytes": "f644241802",
+              "asm": "test    byte ptr [esp+10h+arg_4], 2",
+              "call_target": null
+            },
+            {
+              "ea": 4988933,
+              "size": 2,
+              "bytes": "7426",
+              "asm": "jz      short loc_4C202D",
+              "call_target": null
+            },
+            {
+              "ea": 4988935,
+              "size": 2,
+              "bytes": "8b3a",
+              "asm": "mov     edi, [edx]",
+              "call_target": null
+            },
+            {
+              "ea": 4988937,
+              "size": 5,
+              "bytes": "68f0000000",
+              "asm": "push    0F0h",
+              "call_target": null
+            },
+            {
+              "ea": 4988942,
+              "size": 6,
+              "bytes": "81cf00800000",
+              "asm": "or      edi, 8000h",
+              "call_target": null
+            },
+            {
+              "ea": 4988948,
+              "size": 5,
+              "bytes": "6840010000",
+              "asm": "push    140h",
+              "call_target": null
+            },
+            {
+              "ea": 4988953,
+              "size": 2,
+              "bytes": "6a39",
+              "asm": "push    39h ; '9'",
+              "call_target": null
+            },
+            {
+              "ea": 4988955,
+              "size": 2,
+              "bytes": "893a",
+              "asm": "mov     [edx], edi",
+              "call_target": null
+            },
+            {
+              "ea": 4988957,
+              "size": 5,
+              "bytes": "e82ea40600",
+              "asm": "call    World__PlaySe",
+              "call_target": 5424208
+            },
+            {
+              "ea": 4988962,
+              "size": 3,
+              "bytes": "83c40c",
+              "asm": "add     esp, 0Ch",
+              "call_target": null
+            },
+            {
+              "ea": 4988965,
+              "size": 8,
+              "bytes": "c744240c01000000",
+              "asm": "mov     [esp+10h+var_4], 1",
+              "call_target": null
+            },
+            {
+              "ea": 4988973,
+              "size": 2,
+              "bytes": "85ed",
+              "asm": "test    ebp, ebp",
+              "call_target": null
+            },
+            {
+              "ea": 4988975,
+              "size": 6,
+              "bytes": "c70338b50300",
+              "asm": "mov     dword ptr [ebx], 3B538h",
+              "call_target": null
+            },
+            {
+              "ea": 4988981,
+              "size": 2,
+              "bytes": "7406",
+              "asm": "jz      short loc_4C203D",
+              "call_target": null
+            },
+            {
+              "ea": 4988983,
+              "size": 6,
+              "bytes": "c7033ab50300",
+              "asm": "mov     dword ptr [ebx], 3B53Ah",
+              "call_target": null
+            },
+            {
+              "ea": 4988989,
+              "size": 5,
+              "bytes": "f644241808",
+              "asm": "test    byte ptr [esp+10h+arg_4], 8",
+              "call_target": null
+            },
+            {
+              "ea": 4988994,
+              "size": 2,
+              "bytes": "7406",
+              "asm": "jz      short loc_4C204A",
+              "call_target": null
+            },
+            {
+              "ea": 4988996,
+              "size": 6,
+              "bytes": "c70339b50300",
+              "asm": "mov     dword ptr [ebx], 3B539h",
+              "call_target": null
+            },
+            {
+              "ea": 4989002,
+              "size": 4,
+              "bytes": "8b44240c",
+              "asm": "mov     eax, [esp+10h+var_4]",
+              "call_target": null
+            },
+            {
+              "ea": 4989006,
+              "size": 1,
+              "bytes": "5f",
+              "asm": "pop     edi",
+              "call_target": null
+            },
+            {
+              "ea": 4989007,
+              "size": 1,
+              "bytes": "5d",
+              "asm": "pop     ebp",
+              "call_target": null
+            },
+            {
+              "ea": 4989008,
+              "size": 1,
+              "bytes": "5b",
+              "asm": "pop     ebx",
+              "call_target": null
+            },
+            {
+              "ea": 4989009,
+              "size": 1,
+              "bytes": "59",
+              "asm": "pop     ecx",
+              "call_target": null
+            },
+            {
+              "ea": 4989010,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn",
+              "call_target": null
+            }
+          ]
+        }
+      ],
+      "inbound_calls": []
+    },
+    {
+      "ea": 4866576,
+      "end": 4866582,
+      "instruction_count": 2,
+      "chunks": [
+        [
+          4866576,
+          4866582
+        ]
+      ],
+      "incoming_references": [
+        {
+          "from": 5374384,
+          "type": 17,
+          "iscode": true,
+          "parent": 5374384
+        },
+        {
+          "from": 5562944,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5562992,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5563040,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5563088,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5563136,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5563184,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5563664,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5563712,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5563904,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5563952,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5564048,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5564096,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5564144,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5564192,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5564240,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5564288,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5564336,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5564384,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5564432,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5564480,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5564576,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5564624,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5564816,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5564864,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5564912,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5565056,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5565104,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5565152,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5565344,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5565792,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5565984,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5566032,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5566080,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5566128,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        }
+      ],
+      "byte_count": 6,
+      "page_count": 1,
+      "pages": [
+        {
+          "ea": 4866576,
+          "end": 4866582,
+          "offset": 0,
+          "total": 2,
+          "instructions": [
+            {
+              "ea": 4866576,
+              "size": 5,
+              "bytes": "b801000000",
+              "asm": "mov     eax, 1",
+              "call_target": null
+            },
+            {
+              "ea": 4866581,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn",
+              "call_target": null
+            }
+          ]
+        }
+      ],
+      "inbound_calls": [
+        {
+          "ea": 5374384,
+          "parent": 5374384,
+          "iscode": true,
+          "bytes": "e85b40f8ff",
+          "asm": "call    sub_4A4210",
+          "following": [
+            {
+              "ea": 5374389,
+              "bytes": "85c0",
+              "asm": "test    eax, eax"
+            },
+            {
+              "ea": 5374391,
+              "bytes": "7436",
+              "asm": "jz      short loc_5201EF"
+            }
+          ],
+          "branch_target": 4866576
+        }
+      ]
+    },
+    {
+      "ea": 4669808,
+      "end": 4669851,
+      "instruction_count": 15,
+      "chunks": [
+        [
+          4669808,
+          4669851
+        ]
+      ],
+      "incoming_references": [
+        {
+          "from": 5638208,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5643128,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5646304,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5646640,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5647576,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5648624,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5649664,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5664808,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5683640,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5686320,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5687296,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5692216,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5700976,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5702136,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5702424,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5706080,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5707584,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5709592,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5717376,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5724552,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5727624,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5730968,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5732264,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5737672,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5740304,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        },
+        {
+          "from": 5742704,
+          "type": 1,
+          "iscode": false,
+          "parent": null
+        }
+      ],
+      "byte_count": 43,
+      "page_count": 1,
+      "pages": [
+        {
+          "ea": 4669808,
+          "end": 4669851,
+          "offset": 0,
+          "total": 15,
+          "instructions": [
+            {
+              "ea": 4669808,
+              "size": 4,
+              "bytes": "8b442408",
+              "asm": "mov     eax, [esp+arg_4]",
+              "call_target": null
+            },
+            {
+              "ea": 4669812,
+              "size": 2,
+              "bytes": "a802",
+              "asm": "test    al, 2",
+              "call_target": null
+            },
+            {
+              "ea": 4669814,
+              "size": 2,
+              "bytes": "740d",
+              "asm": "jz      short loc_474185",
+              "call_target": null
+            },
+            {
+              "ea": 4669816,
+              "size": 6,
+              "bytes": "8b0d9446cf00",
+              "asm": "mov     ecx, gCurrentWindow",
+              "call_target": null
+            },
+            {
+              "ea": 4669822,
+              "size": 2,
+              "bytes": "8b11",
+              "asm": "mov     edx, [ecx]",
+              "call_target": null
+            },
+            {
+              "ea": 4669824,
+              "size": 3,
+              "bytes": "80ce20",
+              "asm": "or      dh, 20h",
+              "call_target": null
+            },
+            {
+              "ea": 4669827,
+              "size": 2,
+              "bytes": "8911",
+              "asm": "mov     [ecx], edx",
+              "call_target": null
+            },
+            {
+              "ea": 4669829,
+              "size": 2,
+              "bytes": "a801",
+              "asm": "test    al, 1",
+              "call_target": null
+            },
+            {
+              "ea": 4669831,
+              "size": 2,
+              "bytes": "7406",
+              "asm": "jz      short loc_47418F",
+              "call_target": null
+            },
+            {
+              "ea": 4669833,
+              "size": 5,
+              "bytes": "b801000000",
+              "asm": "mov     eax, 1",
+              "call_target": null
+            },
+            {
+              "ea": 4669838,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn",
+              "call_target": null
+            },
+            {
+              "ea": 4669839,
+              "size": 5,
+              "bytes": "25ff000000",
+              "asm": "and     eax, 0FFh",
+              "call_target": null
+            },
+            {
+              "ea": 4669844,
+              "size": 3,
+              "bytes": "c1e805",
+              "asm": "shr     eax, 5",
+              "call_target": null
+            },
+            {
+              "ea": 4669847,
+              "size": 3,
+              "bytes": "83e001",
+              "asm": "and     eax, 1",
+              "call_target": null
+            },
+            {
+              "ea": 4669850,
+              "size": 1,
+              "bytes": "c3",
+              "asm": "retn",
+              "call_target": null
+            }
+          ]
+        }
+      ],
+      "inbound_calls": []
+    }
+  ],
+  "original_totals": [
+    {
+      "instructions": 53,
+      "bytes": 163,
+      "direct_calls": 1,
+      "direct_call_targets": [
+        5424208
+      ],
+      "jumps": 4,
+      "returns": 1
+    },
+    {
+      "instructions": 2,
+      "bytes": 6,
+      "direct_calls": 0,
+      "direct_call_targets": [],
+      "jumps": 0,
+      "returns": 1
+    },
+    {
+      "instructions": 15,
+      "bytes": 43,
+      "direct_calls": 0,
+      "direct_call_targets": [],
+      "jumps": 2,
+      "returns": 2
+    }
+  ],
+  "original_references": [
+    {
+      "target": 4988848,
+      "refs": [
+        {
+          "ea": 5638208,
+          "iscode": false,
+          "item_head": 5638208,
+          "item_end": 5639584,
+          "slots": [
+            {
+              "slot": 5639324,
+              "bytes": "b01f4c00",
+              "offset": 1116
+            }
+          ]
+        },
+        {
+          "ea": 5643128,
+          "iscode": false,
+          "item_head": 5643128,
+          "item_end": 5644088,
+          "slots": [
+            {
+              "slot": 5643156,
+              "bytes": "b01f4c00",
+              "offset": 28
+            }
+          ]
+        },
+        {
+          "ea": 5645856,
+          "iscode": false,
+          "item_head": 5645856,
+          "item_end": 5645888,
+          "slots": [
+            {
+              "slot": 5645884,
+              "bytes": "b01f4c00",
+              "offset": 28
+            }
+          ]
+        },
+        {
+          "ea": 5646640,
+          "iscode": false,
+          "item_head": 5646640,
+          "item_end": 5647088,
+          "slots": [
+            {
+              "slot": 5646668,
+              "bytes": "b01f4c00",
+              "offset": 28
+            }
+          ]
+        },
+        {
+          "ea": 5648624,
+          "iscode": false,
+          "item_head": 5648624,
+          "item_end": 5648880,
+          "slots": [
+            {
+              "slot": 5648684,
+              "bytes": "b01f4c00",
+              "offset": 60
+            }
+          ]
+        },
+        {
+          "ea": 5649664,
+          "iscode": false,
+          "item_head": 5649664,
+          "item_end": 5657952,
+          "slots": [
+            {
+              "slot": 5649692,
+              "bytes": "b01f4c00",
+              "offset": 28
+            }
+          ]
+        },
+        {
+          "ea": 5664808,
+          "iscode": false,
+          "item_head": 5664808,
+          "item_end": 5667080,
+          "slots": [
+            {
+              "slot": 5664836,
+              "bytes": "b01f4c00",
+              "offset": 28
+            }
+          ]
+        },
+        {
+          "ea": 5667560,
+          "iscode": false,
+          "item_head": 5667560,
+          "item_end": 5667592,
+          "slots": [
+            {
+              "slot": 5667588,
+              "bytes": "b01f4c00",
+              "offset": 28
+            }
+          ]
+        },
+        {
+          "ea": 5686320,
+          "iscode": false,
+          "item_head": 5686320,
+          "item_end": 5687024,
+          "slots": [
+            {
+              "slot": 5686348,
+              "bytes": "b01f4c00",
+              "offset": 28
+            }
+          ]
+        },
+        {
+          "ea": 5687296,
+          "iscode": false,
+          "item_head": 5687296,
+          "item_end": 5687552,
+          "slots": [
+            {
+              "slot": 5687324,
+              "bytes": "b01f4c00",
+              "offset": 28
+            }
+          ]
+        },
+        {
+          "ea": 5692216,
+          "iscode": false,
+          "item_head": 5692216,
+          "item_end": 5695768,
+          "slots": [
+            {
+              "slot": 5692532,
+              "bytes": "b01f4c00",
+              "offset": 316
+            }
+          ]
+        },
+        {
+          "ea": 5700976,
+          "iscode": false,
+          "item_head": 5700976,
+          "item_end": 5701648,
+          "slots": [
+            {
+              "slot": 5701004,
+              "bytes": "b01f4c00",
+              "offset": 28
+            }
+          ]
+        },
+        {
+          "ea": 5702136,
+          "iscode": false,
+          "item_head": 5702136,
+          "item_end": 5702424,
+          "slots": [
+            {
+              "slot": 5702164,
+              "bytes": "b01f4c00",
+              "offset": 28
+            }
+          ]
+        },
+        {
+          "ea": 5702424,
+          "iscode": false,
+          "item_head": 5702424,
+          "item_end": 5702840,
+          "slots": [
+            {
+              "slot": 5702452,
+              "bytes": "b01f4c00",
+              "offset": 28
+            }
+          ]
+        },
+        {
+          "ea": 5708264,
+          "iscode": false,
+          "item_head": 5708264,
+          "item_end": 5709096,
+          "slots": [
+            {
+              "slot": 5708324,
+              "bytes": "b01f4c00",
+              "offset": 60
+            }
+          ]
+        },
+        {
+          "ea": 5712632,
+          "iscode": false,
+          "item_head": 5712632,
+          "item_end": 5713272,
+          "slots": [
+            {
+              "slot": 5712692,
+              "bytes": "b01f4c00",
+              "offset": 60
+            }
+          ]
+        },
+        {
+          "ea": 5713808,
+          "iscode": false,
+          "item_head": 5713808,
+          "item_end": 5714992,
+          "slots": [
+            {
+              "slot": 5713836,
+              "bytes": "b01f4c00",
+              "offset": 28
+            }
+          ]
+        },
+        {
+          "ea": 5717376,
+          "iscode": false,
+          "item_head": 5717376,
+          "item_end": 5719488,
+          "slots": [
+            {
+              "slot": 5717436,
+              "bytes": "b01f4c00",
+              "offset": 60
+            }
+          ]
+        },
+        {
+          "ea": 5720296,
+          "iscode": false,
+          "item_head": 5720296,
+          "item_end": 5720616,
+          "slots": [
+            {
+              "slot": 5720356,
+              "bytes": "b01f4c00",
+              "offset": 60
+            }
+          ]
+        },
+        {
+          "ea": 5724552,
+          "iscode": false,
+          "item_head": 5724552,
+          "item_end": 5726792,
+          "slots": [
+            {
+              "slot": 5724612,
+              "bytes": "b01f4c00",
+              "offset": 60
+            }
+          ]
+        },
+        {
+          "ea": 5727624,
+          "iscode": false,
+          "item_head": 5727624,
+          "item_end": 5729864,
+          "slots": [
+            {
+              "slot": 5727684,
+              "bytes": "b01f4c00",
+              "offset": 60
+            }
+          ]
+        },
+        {
+          "ea": 5730968,
+          "iscode": false,
+          "item_head": 5730968,
+          "item_end": 5731992,
+          "slots": [
+            {
+              "slot": 5730996,
+              "bytes": "b01f4c00",
+              "offset": 28
+            }
+          ]
+        },
+        {
+          "ea": 5732264,
+          "iscode": false,
+          "item_head": 5732264,
+          "item_end": 5737448,
+          "slots": [
+            {
+              "slot": 5737348,
+              "bytes": "b01f4c00",
+              "offset": 5084
+            }
+          ]
+        },
+        {
+          "ea": 5737672,
+          "iscode": false,
+          "item_head": 5737672,
+          "item_end": 5739944,
+          "slots": [
+            {
+              "slot": 5737700,
+              "bytes": "b01f4c00",
+              "offset": 28
+            }
+          ]
+        },
+        {
+          "ea": 5740304,
+          "iscode": false,
+          "item_head": 5740304,
+          "item_end": 5741008,
+          "slots": [
+            {
+              "slot": 5740748,
+              "bytes": "b01f4c00",
+              "offset": 444
+            }
+          ]
+        },
+        {
+          "ea": 5741352,
+          "iscode": false,
+          "item_head": 5741352,
+          "item_end": 5741864,
+          "slots": [
+            {
+              "slot": 5741380,
+              "bytes": "b01f4c00",
+              "offset": 28
+            }
+          ]
+        },
+        {
+          "ea": 5742704,
+          "iscode": false,
+          "item_head": 5742704,
+          "item_end": 5743376,
+          "slots": [
+            {
+              "slot": 5743116,
+              "bytes": "b01f4c00",
+              "offset": 412
+            }
+          ]
+        },
+        {
+          "ea": 5743696,
+          "iscode": false,
+          "item_head": 5743696,
+          "item_end": 5745968,
+          "slots": [
+            {
+              "slot": 5743724,
+              "bytes": "b01f4c00",
+              "offset": 28
+            }
+          ]
+        },
+        {
+          "ea": 5746368,
+          "iscode": false,
+          "item_head": 5746368,
+          "item_end": 5747168,
+          "slots": [
+            {
+              "slot": 5746556,
+              "bytes": "b01f4c00",
+              "offset": 188
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "target": 4866576,
+      "refs": [
+        {
+          "ea": 5374384,
+          "parent": 5374384,
+          "iscode": true,
+          "bytes": "e85b40f8ff",
+          "asm": "call    sub_4A4210",
+          "following": [
+            {
+              "ea": 5374389,
+              "bytes": "85c0",
+              "asm": "test    eax, eax"
+            },
+            {
+              "ea": 5374391,
+              "bytes": "7436",
+              "asm": "jz      short loc_5201EF"
+            }
+          ],
+          "branch_target": 4866576
+        },
+        {
+          "ea": 5562944,
+          "iscode": false,
+          "item_head": 5562944,
+          "item_end": 5562992,
+          "slots": [
+            {
+              "slot": 5562988,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5562992,
+          "iscode": false,
+          "item_head": 5562992,
+          "item_end": 5563040,
+          "slots": [
+            {
+              "slot": 5563036,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5563040,
+          "iscode": false,
+          "item_head": 5563040,
+          "item_end": 5563088,
+          "slots": [
+            {
+              "slot": 5563084,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5563088,
+          "iscode": false,
+          "item_head": 5563088,
+          "item_end": 5563136,
+          "slots": [
+            {
+              "slot": 5563132,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5563136,
+          "iscode": false,
+          "item_head": 5563136,
+          "item_end": 5563184,
+          "slots": [
+            {
+              "slot": 5563172,
+              "bytes": "10424a00",
+              "offset": 36
+            },
+            {
+              "slot": 5563180,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5563184,
+          "iscode": false,
+          "item_head": 5563184,
+          "item_end": 5563232,
+          "slots": [
+            {
+              "slot": 5563228,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5563664,
+          "iscode": false,
+          "item_head": 5563664,
+          "item_end": 5563712,
+          "slots": [
+            {
+              "slot": 5563708,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5563712,
+          "iscode": false,
+          "item_head": 5563712,
+          "item_end": 5563760,
+          "slots": [
+            {
+              "slot": 5563756,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5563904,
+          "iscode": false,
+          "item_head": 5563904,
+          "item_end": 5563952,
+          "slots": [
+            {
+              "slot": 5563948,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5563952,
+          "iscode": false,
+          "item_head": 5563952,
+          "item_end": 5564000,
+          "slots": [
+            {
+              "slot": 5563996,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5564048,
+          "iscode": false,
+          "item_head": 5564048,
+          "item_end": 5564096,
+          "slots": [
+            {
+              "slot": 5564092,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5564096,
+          "iscode": false,
+          "item_head": 5564096,
+          "item_end": 5564144,
+          "slots": [
+            {
+              "slot": 5564140,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5564144,
+          "iscode": false,
+          "item_head": 5564144,
+          "item_end": 5564192,
+          "slots": [
+            {
+              "slot": 5564188,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5564192,
+          "iscode": false,
+          "item_head": 5564192,
+          "item_end": 5564240,
+          "slots": [
+            {
+              "slot": 5564236,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5564240,
+          "iscode": false,
+          "item_head": 5564240,
+          "item_end": 5564288,
+          "slots": [
+            {
+              "slot": 5564276,
+              "bytes": "10424a00",
+              "offset": 36
+            },
+            {
+              "slot": 5564284,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5564288,
+          "iscode": false,
+          "item_head": 5564288,
+          "item_end": 5564336,
+          "slots": [
+            {
+              "slot": 5564332,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5564336,
+          "iscode": false,
+          "item_head": 5564336,
+          "item_end": 5564384,
+          "slots": [
+            {
+              "slot": 5564380,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5564384,
+          "iscode": false,
+          "item_head": 5564384,
+          "item_end": 5564432,
+          "slots": [
+            {
+              "slot": 5564428,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5564432,
+          "iscode": false,
+          "item_head": 5564432,
+          "item_end": 5564480,
+          "slots": [
+            {
+              "slot": 5564476,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5564480,
+          "iscode": false,
+          "item_head": 5564480,
+          "item_end": 5564528,
+          "slots": [
+            {
+              "slot": 5564524,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5564576,
+          "iscode": false,
+          "item_head": 5564576,
+          "item_end": 5564624,
+          "slots": [
+            {
+              "slot": 5564620,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5564624,
+          "iscode": false,
+          "item_head": 5564624,
+          "item_end": 5564672,
+          "slots": [
+            {
+              "slot": 5564668,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5564816,
+          "iscode": false,
+          "item_head": 5564816,
+          "item_end": 5564864,
+          "slots": [
+            {
+              "slot": 5564860,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5564864,
+          "iscode": false,
+          "item_head": 5564864,
+          "item_end": 5564912,
+          "slots": [
+            {
+              "slot": 5564908,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5564912,
+          "iscode": false,
+          "item_head": 5564912,
+          "item_end": 5564960,
+          "slots": [
+            {
+              "slot": 5564956,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5565056,
+          "iscode": false,
+          "item_head": 5565056,
+          "item_end": 5565104,
+          "slots": [
+            {
+              "slot": 5565100,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5565104,
+          "iscode": false,
+          "item_head": 5565104,
+          "item_end": 5565152,
+          "slots": [
+            {
+              "slot": 5565148,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5565152,
+          "iscode": false,
+          "item_head": 5565152,
+          "item_end": 5565200,
+          "slots": [
+            {
+              "slot": 5565196,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5565344,
+          "iscode": false,
+          "item_head": 5565344,
+          "item_end": 5565392,
+          "slots": [
+            {
+              "slot": 5565388,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5565792,
+          "iscode": false,
+          "item_head": 5565792,
+          "item_end": 5565840,
+          "slots": [
+            {
+              "slot": 5565836,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5565984,
+          "iscode": false,
+          "item_head": 5565984,
+          "item_end": 5566032,
+          "slots": [
+            {
+              "slot": 5566028,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5566032,
+          "iscode": false,
+          "item_head": 5566032,
+          "item_end": 5566080,
+          "slots": [
+            {
+              "slot": 5566076,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5566080,
+          "iscode": false,
+          "item_head": 5566080,
+          "item_end": 5566128,
+          "slots": [
+            {
+              "slot": 5566124,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        },
+        {
+          "ea": 5566128,
+          "iscode": false,
+          "item_head": 5566128,
+          "item_end": 5566176,
+          "slots": [
+            {
+              "slot": 5566172,
+              "bytes": "10424a00",
+              "offset": 44
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "target": 4669808,
+      "refs": [
+        {
+          "ea": 5638208,
+          "iscode": false,
+          "item_head": 5638208,
+          "item_end": 5639584,
+          "slots": [
+            {
+              "slot": 5639580,
+              "bytes": "70414700",
+              "offset": 1372
+            }
+          ]
+        },
+        {
+          "ea": 5643128,
+          "iscode": false,
+          "item_head": 5643128,
+          "item_end": 5644088,
+          "slots": [
+            {
+              "slot": 5644084,
+              "bytes": "70414700",
+              "offset": 956
+            }
+          ]
+        },
+        {
+          "ea": 5646304,
+          "iscode": false,
+          "item_head": 5646304,
+          "item_end": 5646336,
+          "slots": [
+            {
+              "slot": 5646332,
+              "bytes": "70414700",
+              "offset": 28
+            }
+          ]
+        },
+        {
+          "ea": 5646640,
+          "iscode": false,
+          "item_head": 5646640,
+          "item_end": 5647088,
+          "slots": [
+            {
+              "slot": 5647084,
+              "bytes": "70414700",
+              "offset": 444
+            }
+          ]
+        },
+        {
+          "ea": 5647576,
+          "iscode": false,
+          "item_head": 5647576,
+          "item_end": 5648344,
+          "slots": [
+            {
+              "slot": 5648308,
+              "bytes": "70414700",
+              "offset": 732
+            },
+            {
+              "slot": 5648340,
+              "bytes": "70414700",
+              "offset": 764
+            }
+          ]
+        },
+        {
+          "ea": 5648624,
+          "iscode": false,
+          "item_head": 5648624,
+          "item_end": 5648880,
+          "slots": [
+            {
+              "slot": 5648876,
+              "bytes": "70414700",
+              "offset": 252
+            }
+          ]
+        },
+        {
+          "ea": 5649664,
+          "iscode": false,
+          "item_head": 5649664,
+          "item_end": 5657952,
+          "slots": [
+            {
+              "slot": 5657948,
+              "bytes": "70414700",
+              "offset": 8284
+            }
+          ]
+        },
+        {
+          "ea": 5664808,
+          "iscode": false,
+          "item_head": 5664808,
+          "item_end": 5667080,
+          "slots": [
+            {
+              "slot": 5667076,
+              "bytes": "70414700",
+              "offset": 2268
+            }
+          ]
+        },
+        {
+          "ea": 5683640,
+          "iscode": false,
+          "item_head": 5683640,
+          "item_end": 5685752,
+          "slots": [
+            {
+              "slot": 5685716,
+              "bytes": "70414700",
+              "offset": 2076
+            },
+            {
+              "slot": 5685748,
+              "bytes": "70414700",
+              "offset": 2108
+            }
+          ]
+        },
+        {
+          "ea": 5686320,
+          "iscode": false,
+          "item_head": 5686320,
+          "item_end": 5687024,
+          "slots": [
+            {
+              "slot": 5687020,
+              "bytes": "70414700",
+              "offset": 700
+            }
+          ]
+        },
+        {
+          "ea": 5687296,
+          "iscode": false,
+          "item_head": 5687296,
+          "item_end": 5687552,
+          "slots": [
+            {
+              "slot": 5687548,
+              "bytes": "70414700",
+              "offset": 252
+            }
+          ]
+        },
+        {
+          "ea": 5692216,
+          "iscode": false,
+          "item_head": 5692216,
+          "item_end": 5695768,
+          "slots": [
+            {
+              "slot": 5695764,
+              "bytes": "70414700",
+              "offset": 3548
+            }
+          ]
+        },
+        {
+          "ea": 5700976,
+          "iscode": false,
+          "item_head": 5700976,
+          "item_end": 5701648,
+          "slots": [
+            {
+              "slot": 5701644,
+              "bytes": "70414700",
+              "offset": 668
+            }
+          ]
+        },
+        {
+          "ea": 5702136,
+          "iscode": false,
+          "item_head": 5702136,
+          "item_end": 5702424,
+          "slots": [
+            {
+              "slot": 5702420,
+              "bytes": "70414700",
+              "offset": 284
+            }
+          ]
+        },
+        {
+          "ea": 5702424,
+          "iscode": false,
+          "item_head": 5702424,
+          "item_end": 5702840,
+          "slots": [
+            {
+              "slot": 5702836,
+              "bytes": "70414700",
+              "offset": 412
+            }
+          ]
+        },
+        {
+          "ea": 5706080,
+          "iscode": false,
+          "item_head": 5706080,
+          "item_end": 5707296,
+          "slots": [
+            {
+              "slot": 5707292,
+              "bytes": "70414700",
+              "offset": 1212
+            }
+          ]
+        },
+        {
+          "ea": 5707584,
+          "iscode": false,
+          "item_head": 5707584,
+          "item_end": 5707776,
+          "slots": [
+            {
+              "slot": 5707772,
+              "bytes": "70414700",
+              "offset": 188
+            }
+          ]
+        },
+        {
+          "ea": 5709592,
+          "iscode": false,
+          "item_head": 5709592,
+          "item_end": 5712024,
+          "slots": [
+            {
+              "slot": 5712020,
+              "bytes": "70414700",
+              "offset": 2428
+            }
+          ]
+        },
+        {
+          "ea": 5717376,
+          "iscode": false,
+          "item_head": 5717376,
+          "item_end": 5719488,
+          "slots": [
+            {
+              "slot": 5719484,
+              "bytes": "70414700",
+              "offset": 2108
+            }
+          ]
+        },
+        {
+          "ea": 5724552,
+          "iscode": false,
+          "item_head": 5724552,
+          "item_end": 5726792,
+          "slots": [
+            {
+              "slot": 5726788,
+              "bytes": "70414700",
+              "offset": 2236
+            }
+          ]
+        },
+        {
+          "ea": 5727624,
+          "iscode": false,
+          "item_head": 5727624,
+          "item_end": 5729864,
+          "slots": [
+            {
+              "slot": 5729860,
+              "bytes": "70414700",
+              "offset": 2236
+            }
+          ]
+        },
+        {
+          "ea": 5730968,
+          "iscode": false,
+          "item_head": 5730968,
+          "item_end": 5731992,
+          "slots": [
+            {
+              "slot": 5731988,
+              "bytes": "70414700",
+              "offset": 1020
+            }
+          ]
+        },
+        {
+          "ea": 5732264,
+          "iscode": false,
+          "item_head": 5732264,
+          "item_end": 5737448,
+          "slots": [
+            {
+              "slot": 5737444,
+              "bytes": "70414700",
+              "offset": 5180
+            }
+          ]
+        },
+        {
+          "ea": 5737672,
+          "iscode": false,
+          "item_head": 5737672,
+          "item_end": 5739944,
+          "slots": [
+            {
+              "slot": 5739940,
+              "bytes": "70414700",
+              "offset": 2268
+            }
+          ]
+        },
+        {
+          "ea": 5740304,
+          "iscode": false,
+          "item_head": 5740304,
+          "item_end": 5741008,
+          "slots": [
+            {
+              "slot": 5741004,
+              "bytes": "70414700",
+              "offset": 700
+            }
+          ]
+        },
+        {
+          "ea": 5742704,
+          "iscode": false,
+          "item_head": 5742704,
+          "item_end": 5743376,
+          "slots": [
+            {
+              "slot": 5743372,
+              "bytes": "70414700",
+              "offset": 668
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "source_before": [
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4C1FB0",
+      "position": 332219,
+      "signature": "std::int32_t Sub_4C1FB0(const std::int32_t index, const std::int32_t state)",
+      "body": "std::int32_t Sub_4C1FB0(const std::int32_t index, const std::int32_t state)\n{\n    WindowInstance* const window = gCurrentWindow;\n    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);\n    const bool hover = (state & 1) != 0;\n    if (hover) {\n        std::strcpy(gHoverTextD68AE8.data(),\n            \"\\xEA\\x50\\xE9\\x5D\\xDF\\x40\\x82\\x80\\xD2\\x95\\xB4\\xB0\\xA1\\xA3\");\n    }\n    std::int32_t result = 0;\n    if ((state & 2) != 0) {\n        window->state |= 0x8000u;\n        static_cast<void>(audio::PlaySe_52C450(57, 320));\n        result = 1;\n    }\n    graphic->imageNo = 0x3B538;\n    if (hover) {\n        graphic->imageNo = 0x3B53A;\n    }\n    if ((state & 8) != 0) {\n        graphic->imageNo = 0x3B539;\n    }\n    return result;\n}\n"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4A4210",
+      "position": 79022,
+      "signature": "std::int32_t Sub_4A4210(const std::int32_t) noexcept",
+      "body": "std::int32_t Sub_4A4210(const std::int32_t) noexcept\n{\n    return 1;\n}\n"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_474170",
+      "position": 236792,
+      "signature": "std::int32_t Sub_474170(const std::int32_t, const std::int32_t state)",
+      "body": "std::int32_t Sub_474170(const std::int32_t, const std::int32_t state)\n{\n    if ((state & 2) != 0) {\n        gCurrentWindow->state |= 0x2000u;\n    }\n    return (state & 1) != 0 ? 1 : (static_cast<std::uint8_t>(state) >> 5) & 1;\n}\n"
+    }
+  ],
+  "source_after": [
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4C1FB0",
+      "position": 332219,
+      "signature": "std::int32_t Sub_4C1FB0(const std::int32_t index, const std::int32_t state)",
+      "body": "std::int32_t Sub_4C1FB0(const std::int32_t index, const std::int32_t state)\n{\n    WindowInstance* const window = gCurrentWindow;\n    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);\n    const bool hover = (state & 1) != 0;\n    if (hover) {\n        std::strcpy(gHoverTextD68AE8.data(),\n            \"\\xEA\\x50\\xE9\\x5D\\xDF\\x40\\x82\\x80\\xD2\\x95\\xB4\\xB0\\xA1\\xA3\");\n    }\n    std::int32_t result = 0;\n    if ((state & 2) != 0) {\n        window->state |= 0x8000u;\n        static_cast<void>(audio::PlaySe_52C450(57, 320));\n        result = 1;\n    }\n    graphic->imageNo = 0x3B538;\n    if (hover) {\n        graphic->imageNo = 0x3B53A;\n    }\n    if ((state & 8) != 0) {\n        graphic->imageNo = 0x3B539;\n    }\n    return result;\n}\n"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4A4210",
+      "position": 79022,
+      "signature": "std::int32_t Sub_4A4210(const std::int32_t) noexcept",
+      "body": "std::int32_t Sub_4A4210(const std::int32_t) noexcept\n{\n    return 1;\n}\n"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_474170",
+      "signature": "std::int32_t Sub_474170(const std::int32_t, const std::int32_t state)",
+      "body": "std::int32_t Sub_474170(const std::int32_t, const std::int32_t state)\n{\n    if ((state & 2) != 0) {\n        gCurrentWindow->state |= 0x2000u;\n    }\n    return (state & 1) != 0 ? 1 : (static_cast<std::uint8_t>(state) >> 5) & 1;\n}\n",
+      "position": 236792
+    }
+  ],
+  "declarations_before": [
+    {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "symbol": "Sub_4C1FB0",
+      "position": 87414,
+      "declaration": "std::int32_t Sub_4C1FB0(std::int32_t index, std::int32_t state); // 关闭入口固定窗口。"
+    },
+    {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "symbol": "Sub_4A4210",
+      "position": 93484,
+      "declaration": "std::int32_t Sub_4A4210(std::int32_t unused) noexcept; // 原mov eax,1/ret，存档/窗口共用。"
+    },
+    {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "symbol": "Sub_474170",
+      "position": 82244,
+      "declaration": "std::int32_t Sub_474170(std::int32_t unusedIndex, std::int32_t state);"
+    }
+  ],
+  "declarations_after": [
+    {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "symbol": "Sub_4C1FB0",
+      "position": 87414,
+      "declaration": "std::int32_t Sub_4C1FB0(std::int32_t index, std::int32_t state); // WCL01：持同窗口/graphic置关闭位，返回0/1，未在本回调释放。"
+    },
+    {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "symbol": "Sub_4A4210",
+      "position": 93484,
+      "declaration": "std::int32_t Sub_4A4210(std::int32_t unused) noexcept; // WCL01：原mov eax,1/ret；release适配不执行资源回收，存档共用。"
+    },
+    {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "symbol": "Sub_474170",
+      "position": 82244,
+      "declaration": "std::int32_t Sub_474170(std::int32_t unusedIndex, std::int32_t state); // WCL01：bit2置bit13，hover优先，否则低BYTE bit5。"
+    }
+  ],
+  "definition_comments": [
+    "// WCL01：原4C1FB0完整53条；持同窗口/graphic，bit2仅置关闭位与SE57，图号优先序保，返回0/1。",
+    "// WCL01：原4A4210完整两条只返回1；窗口release适配/存档共用，实际资源回收由FreeWindow执行。",
+    "// WCL01：原474170完整15条；bit2置当前窗口bit13，hover优先返回1，否则低BYTE bit5，正确正文保持。"
+  ],
+  "wrapper_before": {
+    "path": "src/ui/WindowPrototypes.cpp",
+    "symbol": "ReleaseWindow_4A4210",
+    "position": 88186,
+    "body": "void ReleaseWindow_4A4210()\n{\n    static_cast<void>(Sub_4A4210(0));\n}\n"
+  },
+  "wrapper_comment": "// WCL01：窗口release家族丢弃原4A4210常量1；真实七类资源回收留在FreeWindow，非此适配。",
+  "structures_before": {
+    "WindowInstance": {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "text": "struct WindowInstance {\n    std::uint32_t state; // 原+00；关闭请求置bit15。\n    std::int32_t id;\n    std::int32_t layer;\n    std::int32_t x;\n    std::int32_t y;\n    std::int32_t width;\n    std::int32_t height;\n    std::int32_t dragMouseX1C;\n    std::int32_t dragMouseY20;\n    std::uint32_t flags;\n    std::int32_t elementCount;\n    WindowElement* elements; // 原+2C。\n    WindowCallback update; // 原+30。\n    WindowCallback draw; // 原+34。\n    WindowReleaseCallback release; // 原+38。\n    std::int32_t secondaryCount; // 原+3C。\n    std::array<WindowDragRect, 10> dragRects40; // 原[+40,+E0)。\n};"
+    },
+    "WindowElement": {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "text": "struct WindowElement {\n    std::int32_t type;\n    std::uint32_t state;\n    std::int32_t x;\n    std::int32_t y;\n    std::int32_t width;\n    std::int32_t height;\n    std::int32_t visible;\n    void* data; // 原+1C，七类数据共用；后续按type解释，不是地址数值。\n    WindowElementCallback mouseCallback; // 原+20。\n};"
+    }
+  },
+  "reused_sources": {
+    "Sub_4730A0": {
+      "path": "src/ui/WindowRuntime.cpp",
+      "text": "std::int32_t Sub_4730A0()\n{\n    std::int32_t count = 0;\n    for (std::size_t index = 0; index < kWindowCount;) {\n        WindowInstance* const window = gWindows[index];\n        if (window == nullptr) {\n            std::size_t source = index;\n            while (source < kWindowCount && gWindows[source] == nullptr) {\n                ++source;\n            }\n            if (source == kWindowCount) {\n                break;\n            }\n            gWindows[index] = gWindows[source];\n            gWindows[source] = nullptr;\n            continue;\n        }\n        const std::uint32_t state = window->state;\n        if ((state & 0x8000u) != 0) {\n            FreeWindow_471270(window);\n            for (std::size_t target = index; target + 1 < kWindowCount; ++target) {\n                gWindows[target] = gWindows[target + 1];\n            }\n            gWindows[kWindowCount - 1] = nullptr;\n            if (index + 1 != kWindowCount) {\n                continue;\n            }\n        } else {\n            if ((state & 0x2000u) != 0) {\n                std::size_t target = index;\n                while (target > 0) {\n                    WindowInstance* const previous = gWindows[target - 1];\n                    if (previous->layer < window->layer) {\n                        break;\n                    }\n                    gWindows[target] = previous;\n                    --target;\n                }\n                gWindows[target] = window;\n                window->state &= ~std::uint32_t{0x2000};\n            }\n            ++count;\n        }\n        ++index;\n    }\n    return count;\n}\n"
+    },
+    "FreeWindow_471270": {
+      "path": "src/ui/WindowRuntime.cpp",
+      "text": "void FreeWindow_471270(WindowInstance* const window)\n{\n    using namespace detail;\n    window->release();\n    gCurrentWindowState = &gWindowStates[window->id];\n    gCurrentWindowState->x = window->x;\n    gCurrentWindowState->y = window->y;\n    gCurrentWindowState->flags &= ~std::uint32_t{0x80};\n    gCurrentWindowState->flags |= 1u;\n    gCurrentWindowState->window = nullptr;\n    const std::int32_t focusWindowId = gFocusWindowId57C120;\n    const std::int32_t windowId = window->id;\n    if (focusWindowId == windowId) {\n        CancelWindowDrag_476410();\n    }\n    for (std::int32_t index = 0; index < window->elementCount; ++index) {\n        WindowElement* const element = &window->elements[index];\n        switch (element->type) {\n        case 1:\n        case 5: {\n            void* const focusedData = gFocusedElementDataD45F94;\n            void* const elementData = element->data;\n            if (elementData == focusedData) {\n                static_cast<void>(Sub_4A7B00());\n            }\n            if (void* const data = window->elements[index].data; data != nullptr) {\n                std::free(data);\n                window->elements[index].data = nullptr;\n            }\n            break;\n        }\n        case 2: {\n            const auto* const data = static_cast<const WindowAnimationData*>(element->data);\n            if (data != nullptr) {\n                login::detail::MarkDeathUnchecked(data->action);\n                std::free(window->elements[index].data);\n                window->elements[index].data = nullptr;\n            }\n            break;\n        }\n        case 3: {\n            auto* const data = static_cast<WindowTextData*>(element->data);\n            auto* const textToFree = data->text;\n            if (textToFree != nullptr) {\n                std::free(textToFree);\n                static_cast<WindowTextData*>(window->elements[index].data)->text = nullptr;\n            }\n            if (void* const current = window->elements[index].data; current != nullptr) {\n                std::free(current);\n                window->elements[index].data = nullptr;\n            }\n            break;\n        }\n        case 4:\n        case 6:\n        case 7: {\n            void* const data = element->data;\n            if (data != nullptr) {\n                std::free(data);\n                window->elements[index].data = nullptr;\n            }\n            break;\n        }\n        default:\n            break;\n        }\n    }\n    WindowElement* const elementsToFree = window->elements;\n    if (elementsToFree != nullptr) {\n        std::free(elementsToFree);\n    }\n    window->elements = nullptr;\n    std::free(window);\n}\n"
+    },
+    "UpdateWindows_473F80": {
+      "path": "src/ui/WindowRuntime.cpp",
+      "text": "std::int32_t UpdateWindows_473F80()\n{\n    using namespace detail;\n    std::int32_t carried = 1;\n    world::detail::gValueC8A77C = 0;\n    world::detail::gValueC8A780 = 0;\n    gWindowHasFocusCA0AB4 = 0;\n    Sub_473E40();\n    const std::int32_t count = Sub_4730A0();\n    const bool hasWindows = count > 0;\n    gWindowUpdateCountCC4844 = count;\n    if (hasWindows) {\n        std::int32_t index = 0;\n        for (;;) {\n            WindowInstance* window = gWindows[index];\n            gCurrentWindow = window;\n            gCurrentWindowState = &gWindowStates[window->id];\n            gCurrentWindowIdD67A1C = window->id;\n            const std::int32_t focused = Sub_472D20();\n            std::int32_t updateResult = gCurrentWindow->update(carried);\n            window = gCurrentWindow;\n            std::int32_t elementIndex = 0;\n            gCurrentElementIndex57C12C = 0;\n            while (elementIndex < window->elementCount) {\n                if (window->elements[elementIndex].visible == 1) {\n                    Sub_473560(elementIndex);\n                    window = gCurrentWindow;\n                    elementIndex = gCurrentElementIndex57C12C;\n                }\n                ++elementIndex;\n                gCurrentElementIndex57C12C = elementIndex;\n            }\n            const bool hasFocus = focused != 0;\n            gCurrentElementIndex57C12C = -1;\n            if (hasFocus) {\n                const std::int32_t phase = gMousePhase57C128;\n                *reinterpret_cast<unsigned char*>(\n                    &platform::gLegacyMouseState.valueD68DB4) = 212;\n                const bool releaseDrag = phase == 4;\n                gWindowHasFocusCA0AB4 = 1;\n                if (releaseDrag) {\n                    const WindowDragCallback callback = gDragCallback57C118;\n                    if (callback != nullptr) {\n                        callback(4, 0, gDragSourceIndex57C114);\n                    }\n                    static_cast<void>(Sub_4763E0());\n                    window = gCurrentWindow;\n                }\n                updateResult = 0;\n            }\n            carried = window->draw(updateResult);\n            const std::int32_t currentCount = gWindowUpdateCountCC4844;\n            ++index;\n            if (index >= currentCount) {\n                break;\n            }\n        }\n    }\n    ProcessWindowShortcuts_4C7AE0();\n    static_cast<void>(input::ProcessPresetHotkeys_44B340());\n    const std::int32_t phase = gMousePhase57C128;\n    gCurrentWindowIdD67A1C = 0;\n    if (phase == 1\n        && static_cast<std::uint8_t>(platform::gLegacyMouseState.valueD68DB4) < 212u) {\n        world::detail::gValueC8A780 = 1;\n        *reinterpret_cast<unsigned char*>(\n            &platform::gLegacyMouseState.valueD68DB4) = 212;\n    }\n    return 1;\n}\n"
+    }
+  },
+  "reused_records": [
+    {
+      "index": 1233,
+      "inventory_id": "F:00073F80"
+    },
+    {
+      "index": 1797,
+      "inventory_id": "F:00071270"
+    },
+    {
+      "index": 1899,
+      "inventory_id": "F:0012C450"
+    },
+    {
+      "index": 2258,
+      "inventory_id": "F:000730A0"
+    }
+  ],
+  "window42_elements_before": "WindowElementPrototype gWindowElements5630F0[8] {\n    {5, 0, 0, 126, 136, 1, {.unusedValue = 0}, &Sub_48A900},\n    {1, 106, 8, 11, 11, 1, {.graphic = &gWindowGraphic563080}, &Sub_4C1FB0},\n    {0, 18, 46, 106, 85, 1, {.unusedValue = 0}, &Sub_48A950},\n    {1, 92, 29, 11, 11, 1, {.graphic = &gWindowGraphic5630B0}, &Sub_48AA60},\n    {1, 105, 29, 11, 11, 1, {.graphic = &gWindowGraphic5630C8}, &Sub_48AB10},\n    {7, 85, 30, 0, 0, 1, {.number = &gWindowNumber5630E8}, &Sub_4B0F10},\n    {1, 0, 0, 126, 136, 1, {.graphic = &gWindowGraphic563098}, &Sub_4B0F10},\n    {0, 128, 7, 18, 78, 1, {.unusedValue = 0}, &Sub_474170},\n};",
+  "window42_prototype_before": "    {0, 4, 100, 100, 126, 136, 0x80010101u, 8, gWindowElements5630F0, &Sub_48A8C0, &Sub_46FBC0, &ReleaseWindow_4A4210}, // 42: 54E510",
+  "source_patch_group_count": 0,
+  "source_changed_point_count": 0,
+  "source_comment_count": 7,
+  "source_patch_group_counts": [
+    0,
+    0,
+    0
+  ],
+  "source_changed_point_counts": [
+    0,
+    0,
+    0
+  ],
+  "feature_member_additions": {
+    "FUNC-INPUT": [
+      "F:000C1FB0",
+      "F:00074170"
+    ],
+    "FUNC-UIRUNTIME": [
+      "F:000C1FB0",
+      "F:000A4210",
+      "F:00074170"
+    ],
+    "FUNC-RENDER": [
+      "F:000C1FB0",
+      "F:00074170"
+    ]
+  },
+  "tasks_updated": [
+    "G01",
+    "G02",
+    "R01",
+    "R04",
+    "U10",
+    "U11",
+    "V03",
+    "V04",
+    "U04"
+  ],
+  "expected_counts_before": {
+    "semantic_records": 2319,
+    "semantic_F": 2271,
+    "bounded_code_records": 48,
+    "function_dispositions": 1775,
+    "evidence": 1571,
+    "document_linked_functions": 2381,
+    "document_link_rate": "64.70%",
+    "feature_members": {
+      "FUNC-INPUT": 147,
+      "FUNC-UIRUNTIME": 187,
+      "FUNC-RENDER": 105
+    }
+  },
+  "expected_counts_after": {
+    "semantic_records": 2322,
+    "semantic_F": 2274,
+    "bounded_code_records": 48,
+    "function_dispositions": 1778,
+    "evidence": 1574,
+    "document_linked_functions": 2384,
+    "document_link_rate": "64.78%",
+    "feature_members": {
+      "FUNC-INPUT": 149,
+      "FUNC-UIRUNTIME": 190,
+      "FUNC-RENDER": 107
+    }
+  },
+  "execution_policy": {
+    "build": false,
+    "test": false,
+    "client_run": false,
+    "algorithm_samples": false,
+    "artifact_inspection": false,
+    "digests": false,
+    "dependencies": false,
+    "single_thread": true,
+    "same_branch": true,
+    "tags": false
+  },
+  "verification": {
+    "necessary_static": "pass，三连续完整根70条212B/三页、一个E8/六跳四RET；唯一存档CALL局部消费/29-34-26 data项及29-36-28匹配槽，窗口42两元素与release槽有据；三整源只七注释/三正确正文、两类型三提供者及原型表保持，关闭/前置/返回和真正整理释放职责明确；全共享动态callback/owner、机器ABI及运行待",
+    "registry": "pass，三新F三adapted，INPUT/RENDER各两成员、UI三成员，三限定S零I九open；登记全量差异回放相同，其它旧语义/处置/证据及政策/gates/枚举/六closure保持，五文档和清单严格追加通过",
+    "measurement": "pass，measure_cg2d.ps1静态汇总终态退出0；3680函数/218导入/3061区间/184叶功能/60任务，非构建/运行验收",
+    "check": "pass，measure_cg2d.ps1 -Check终态退出0，当前生成快照/看板与登记一致；完整gates和运行待",
+    "derived_scope": "pass，派生仅六metrics/三本轮F/三功能/九任务；2384/3680=64.78%仅关联率，2322=2274F关联+48有界代码/处置1778/证据1574，INPUT149/UIRUNTIME190/RENDER107，其它字段与全部完整门禁保持",
+    "runtime_verified": false,
+    "full_lifecycle_closed": false,
+    "generated_machine_reads_verified": false,
+    "build_or_test_performed": false,
+    "algorithm_samples_executed": false,
+    "digests_computed_or_compared": false
+  },
+  "registration_contract": {
+    "boundary": "WCL01仅共享关闭按钮4C1FB0完整53条163B/一页、release/存档共用返回叶4A4210完整两条6B/一页、窗口前置元素474170完整15条43B/一页；合70条212B/三页、一个E8目标52C450、六跳四RET。三业务正文正确保持，仅三个定义/三声明及既有release适配七注释。关闭按钮先当前窗口/目标graphic持址，hover提示沿已批静态文字迁GBK现源保持，bit2置同窗口bit15→SE57→result1，之后仍向held graphic按默认3B538→hover3B53A→pressed3B539发布图号，返回0/1；不立即free、不业务callback/取消发送、不跨SE换目标。4A4210原端仅MOV EAX,1/RET，所有原参数不消费，既有void ReleaseWindow适配只弃真实返回；不能把这个既有原端常量叶说成缺失资源实现，也不能把返回1计全释放成功。存档父5201B0唯一CALL后TEST EAX/JZ局部关系，不代完整存档父/机器ABI。前置474170 bit2置当前window bit13，bit1优先返回1，否则原state低BYTE bit5返回0/1；图层前置不等于立即关闭。两按钮持址都仅data引用：关闭29个data引用项/29匹配槽，前置26项/28匹配槽；返回叶34项/36匹配槽；除窗口42两个元素+28和原型release+2C有已证布局，其余只记录指针对齐匹配，不外推全部slot消费/owner。窗口42真实元素1关闭/7前置、prototype release指向既有适配保持。实际关闭回收复用完整WCR01整理4730A0/BVR01释放471270/WRS01更新473F80：下一整理读bit15调用真实FreeWindow，release先于fresh id/state坐标/flags/焦点清理与七类元素释放；本步对应三提供者及四已有记录全文保持、不重复原根/身份验收。三新F三adapted，INPUT两/UI三/RENDER两成员，三限定S零I九open；仍待全调度/全部上游和回调消费、键盘取消路径、窗口/输入/Yobi owner完整寿命、生成取样/机器ABI与资源SDK及画面声效运行。所有完整门禁和WAV-only/MSVC/明文协议保持；无新API/helper/字段/owner/保护/补零/钳制/回滚/假成功体，整体未完成。",
+    "documentation_additions": {
+      "doc/cg2d_input_render.md": "## 2026-10-11 WCL01：共享关闭/前置按钮\n\n[WCL01](cg2d_window_close_front_release_spec.md#window-close-source-state)补齐共享关闭按钮、原端返回叶和前置元素三完整原根70条212B/三页，三正确正文保持，仅七合同注释。窗口42关闭只置bit15/声57，前置只置bit13；真实资源回收复用窗口整理→FreeWindow，release返回叶原端只返回1，不能记作完整释放成功。三新F三adapted，INPUT两/UI三/RENDER两成员，三限定S零I九open；完整取消/共享调度/owner、ABI及运行仍待。",
+      "doc/cg2d_ui_window_runtime.md": "## 2026-10-11 WCL01：关闭标记与实际回收\n\n[WCL01](cg2d_window_close_front_release_spec.md#window-close-source-state)补齐共享关闭按钮、原端返回叶和前置元素三完整原根70条212B/三页，三正确正文保持，仅七合同注释。窗口42关闭只置bit15/声57，前置只置bit13；真实资源回收复用窗口整理→FreeWindow，release返回叶原端只返回1，不能记作完整释放成功。三新F三adapted，INPUT两/UI三/RENDER两成员，三限定S零I九open；完整取消/共享调度/owner、ABI及运行仍待。",
+      "doc/ui_windows/window_42.md": "## 2026-10-11 WCL01：数量框关闭/前置/release\n\n[WCL01](../cg2d_window_close_front_release_spec.md#window-close-source-state)补齐共享关闭按钮、原端返回叶和前置元素三完整原根70条212B/三页，三正确正文保持，仅七合同注释。窗口42关闭只置bit15/声57，前置只置bit13；真实资源回收复用窗口整理→FreeWindow，release返回叶原端只返回1，不能记作完整释放成功。三新F三adapted，INPUT两/UI三/RENDER两成员，三限定S零I九open；完整取消/共享调度/owner、ABI及运行仍待。",
+      "doc/cg2d_traceability_acceptance_spec.md": "## 2026-10-11 WCL01：共享关闭释放边界\n\n[WCL01](cg2d_window_close_front_release_spec.md#window-close-source-state)补齐共享关闭按钮、原端返回叶和前置元素三完整原根70条212B/三页，三正确正文保持，仅七合同注释。窗口42关闭只置bit15/声57，前置只置bit13；真实资源回收复用窗口整理→FreeWindow，release返回叶原端只返回1，不能记作完整释放成功。三新F三adapted，INPUT两/UI三/RENDER两成员，三限定S零I九open；完整取消/共享调度/owner、ABI及运行仍待。\n\n语义2322=2274F关联+48有界代码，处置1778/证据1574；INPUT149/UIRUNTIME190/RENDER107。文档关联预期2384/3680=64.78%仅关联率。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。",
+      "plan/cg2d_full_reconstruction_progress.md": "<a id=\"window-close-progress-20261011\"></a>\n## 121. 2026-10-11 WCL01：关闭/前置与release返回叶\n\n[WCL01](../doc/cg2d_window_close_front_release_spec.md#window-close-source-state)补齐共享关闭按钮、原端返回叶和前置元素三完整原根70条212B/三页，三正确正文保持，仅七合同注释。窗口42关闭只置bit15/声57，前置只置bit13；真实资源回收复用窗口整理→FreeWindow，release返回叶原端只返回1，不能记作完整释放成功。三新F三adapted，INPUT两/UI三/RENDER两成员，三限定S零I九open；完整取消/共享调度/owner、ABI及运行仍待。\n\n先记SPEC依子AGENTS第8条裁决，三现有正文与完整原证相符，保真实实现，仅具名原身份/状态位/返回与回收分界；不为常量返回原叶添加推测释放或取消业务。窗口42两个callback及release适配绑定保持，其他指针匹配只作引用定位，不宣完整外表owner；WCR/BVR/WRS原根复用不重复取证/计数。\n\n语义2322=2274F关联+48有界代码，处置1778/证据1574；INPUT149/UIRUNTIME190/RENDER107。文档关联预期2384/3680=64.78%仅关联率。184叶验收0、60任务关闭11开放49、六closure及全部完整门禁保持。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。\n\n同一cg2d_re分支、不打tag；七外部改动及既有暂存删除保持。未构建/测试/运行/检查产物/摘要/引依赖；整体active/未完成。"
+    },
+    "maintenance_clause": "；WCL01三关闭/前置/返回叶完整根、三正确正文/七注释，三新F三处置/三限定S零I九open；完整门禁保持。",
+    "checklist_clause": "；WCL01共享关闭/前置/返回叶三完整根，实际回收链复用，三限定S零I",
+    "checklist_link": "；[WCL01](../doc/cg2d_window_close_front_release_spec.md#window-close-source-state)"
+  }
+}

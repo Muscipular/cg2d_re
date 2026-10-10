@@ -2694,3 +2694,9 @@ IDA数组/结构起点xref不代字段指针；原型实际11callback与旧范�
 [QVC01](cg2d_quantity_window_callbacks_spec.md#quantity-callback-source-state)补齐数量初始化、输入激活、确认面板和增减按钮五完整原根230条714B/六页；三读取合同对齐，三正确正文保持，五定义/五声明十注释。原callback非空调用后重取窗口，关闭/声效后再次重取窗口并格式化；保两次原上限钳回及增减门槛。旧937格式历史追加、四新F五adapted，INPUT/UI各五成员/RENDER四成员，三限定S零I八open；完整取消/关闭/释放owner及全callback/ABI/运行待。
 
 语义2319=2271F关联+48有界代码，处置1775/证据1571；INPUT147/UIRUNTIME187/RENDER105。文档关联预期2381/3680=64.70%仅关联率。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。
+
+## 2026-10-11 WCL01：共享关闭释放边界
+
+[WCL01](cg2d_window_close_front_release_spec.md#window-close-source-state)补齐共享关闭按钮、原端返回叶和前置元素三完整原根70条212B/三页，三正确正文保持，仅七合同注释。窗口42关闭只置bit15/声57，前置只置bit13；真实资源回收复用窗口整理→FreeWindow，release返回叶原端只返回1，不能记作完整释放成功。三新F三adapted，INPUT两/UI三/RENDER两成员，三限定S零I九open；完整取消/共享调度/owner、ABI及运行仍待。
+
+语义2322=2274F关联+48有界代码，处置1778/证据1574；INPUT149/UIRUNTIME190/RENDER107。文档关联预期2384/3680=64.78%仅关联率。登记、静态汇总/-Check终态退出0及派生范围核对通过；仅本步静态合同，整体未完成。

@@ -1467,6 +1467,7 @@ std::int32_t gWindowAnimationImage57B458 = 100000;
 std::uint32_t gWindowMouseFlagsD67A10 = 0;
 
 // 同一4A4210在原表也用于release；仅适配未消费返回值，不转换函数指针。
+// WCL01：窗口release家族丢弃原4A4210常量1；真实七类资源回收留在FreeWindow，非此适配。
 void ReleaseWindow_4A4210()
 {
     static_cast<void>(Sub_4A4210(0));

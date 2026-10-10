@@ -1456,7 +1456,7 @@ std::int32_t Sub_48A900(std::int32_t unusedIndex, std::int32_t state); // QVC01�
 std::int32_t Sub_48A950(std::int32_t index, std::int32_t state); // QVC01：确认回调后复读取窗/关闭/格式，返回0或1。
 std::int32_t Sub_48AA60(std::int32_t index, std::int32_t state); // QVC01：增加数量先上限后数值，原图号/声效。
 std::int32_t Sub_48AB10(std::int32_t index, std::int32_t state); // QVC01：减少数量S32正值门槛，原图号/声效。
-std::int32_t Sub_474170(std::int32_t unusedIndex, std::int32_t state);
+std::int32_t Sub_474170(std::int32_t unusedIndex, std::int32_t state); // WCL01：bit2置bit13，hover优先，否则低BYTE bit5。
 std::int32_t Sub_474BE0(std::int32_t index, std::int32_t state); // 窗口7资料切页及前后排请求。
 std::int32_t Sub_475E00(std::int32_t index, std::int32_t state); // 窗口8入口六值快照、加点及切页。
 void Sub_48BB90(
@@ -1538,7 +1538,7 @@ std::int32_t Sub_4B0A50(std::int32_t index, std::int32_t state); // 公开两组
 std::int32_t Sub_4B0CF0(std::int32_t index, std::int32_t state); // 撤回公开，无计时门禁。
 std::int32_t Sub_4B0DB0(std::int32_t index, std::int32_t state); // 确认/撤销确认，共享500ms门槛。
 std::int32_t Sub_4B09E0(std::int32_t unusedIndex, std::int32_t state); // 交易输入激活/聊天恢复。
-std::int32_t Sub_4C1FB0(std::int32_t index, std::int32_t state); // 关闭入口固定窗口。
+std::int32_t Sub_4C1FB0(std::int32_t index, std::int32_t state); // WCL01：持同窗口/graphic置关闭位，返回0/1，未在本回调释放。
 std::int32_t Sub_4FBA30(
     std::int32_t x, std::int32_t y, std::uint8_t renderMode,
     std::int32_t fontType, std::int8_t color, const char* text,
@@ -1627,7 +1627,7 @@ void Sub_4E5DA0(std::int32_t side, std::int32_t first, std::int32_t second); // 
 void Sub_4E1840(std::int32_t side, std::int32_t first, std::int32_t second); // 展示整条换位。
 void Sub_48BA60(std::int32_t first, std::int32_t second); // UI迁移后再交换同源悬停字节。
 std::int32_t Sub_4B0F10(std::int32_t index, std::int32_t events); // WSB01：原完整零返回事件回调。
-std::int32_t Sub_4A4210(std::int32_t unused) noexcept; // 原mov eax,1/ret，存档/窗口共用。
+std::int32_t Sub_4A4210(std::int32_t unused) noexcept; // WCL01：原mov eax,1/ret；release适配不执行资源回收，存档共用。
 void Sub_4B0000(std::int32_t first, std::int32_t second); // 窗口43的20个槽号及28B标记。
 void Sub_47DCD0(std::int32_t first, std::int32_t second); // 窗口11选择/材料及两组标记。
 std::int32_t Sub_47DC20(std::int32_t index); // 六槽/单选两路释放，单选尾接聊天恢复。

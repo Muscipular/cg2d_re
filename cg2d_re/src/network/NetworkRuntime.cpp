@@ -3075,6 +3075,7 @@ std::int32_t Sub_5118B0(
 }
 
 // 原 [0x511900,0x5119F7)：六项各自先读容量，格式化后重读输出缓冲。
+// CTS01：原六字段逐项容量→token→新buffer→append，末发送S32透传。
 std::int32_t Sub_511900(
     const std::uintptr_t socket,
     const std::int32_t first,

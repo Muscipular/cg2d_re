@@ -2986,6 +2986,7 @@ std::int32_t Sub_50E210(
     return audio::PlaySe_52C450(sound, 320);
 }
 
+// CTS01：原两点选项低BYTE现场读取，计时/转义/六字段发送与原返回序保持。
 std::int32_t Sub_50C940(
     const input::InputContext* const context, const std::int32_t color)
 {
@@ -2994,13 +2995,13 @@ std::int32_t Sub_50C940(
     const std::uint8_t disabled = gChatDisabledDA3B4C;
     const bool restricted = disabled != 0
         || (gate == 0 && gValueFF0D36 != 0
-            && (static_cast<std::uint8_t>(gPlayerRuntime.options194) & 8u) != 0);
+            && (ReadPlayerOptions194LowByte() & 8u) != 0);
     if (restricted) {
         const std::uint32_t tick = platform::ReadTickCount32();
         if (tick - gChatCurrentTickDA3B40 > 180000u) {
             gChatDisabledDA3B4C = 0;
         } else if (gChatGateDA3B54 != 0 || gValueFF0D36 == 0
-                   || (static_cast<std::uint8_t>(gPlayerRuntime.options194) & 8u) == 0) {
+                   || (ReadPlayerOptions194LowByte() & 8u) == 0) {
             Sub_44B050(kChatDisabledText58AFEC, 4, 3);
             const std::int32_t sound = platform::gValue554644;
             if (sound != 0) {

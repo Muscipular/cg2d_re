@@ -870,7 +870,7 @@ std::uint32_t Sub_50BFA0(std::uintptr_t socket, std::int32_t value); // 玩家�
 std::uint16_t Sub_50BFC0(
     std::uintptr_t socket, std::int32_t value); // 玩家+1A0低W16写入；原返回仅定义AX。
 std::int32_t Sub_50C940(
-    const input::InputContext* context, std::int32_t color); // 聊天时间/选项门禁后转义发送。
+    const input::InputContext* context, std::int32_t color); // 聊天时间/选项门禁后转义发送。 // CTS01：见聊天发送完整合同。
 std::uint32_t Sub_50C7A0(
     std::uintptr_t socket, std::int32_t seconds, std::int32_t mode); // PTP01：原首缩放/mode/剩余缩放/单 tick 序，返完整 gate/tick。
 std::int32_t Sub_50CE10(std::uintptr_t socket, const char* text); // 系统提示及可选内嵌音效。

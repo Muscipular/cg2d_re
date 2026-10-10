@@ -327,3 +327,8 @@ C9A930并返回S32的两倍，不引入字体度量或钳制。实际父入口�
 IME/聊天空早返、历史真实低W8/S8/普通S32推进与64环、去重/复制及449FA0后现场context、颜色先读/游标-1/50C940、三次新context清length/caret/text及末再取样、六context CR、四原格式/未清256B/名单AL/清序/提示与切换/phase20保持。父按键顺序/Tab空叶及两chunk音频原调用保持且暂停，网络原格式明文保持。
 
 完整父54条194B/双chunk、Enter175条591B/三页，合229条785B/四页/21direct二十目标/44jump四RET；分派十九点三父，Enter唯一45974B。766原格式字段保后追加，父新1613/INPUT27→29，两局部I-S各26来源。两个新1B只对齐用途，尾13B已有RPA01整对象保持，不造尾F/重复R7或改相邻加解密叶排除。全部父/provider/正常寿命/ABI/运行未验。
+
+<a id="chat-send-current-20261010"></a>
+## 2026-10-10 CTS01：聊天门禁与六字段发送
+
+[CTS01完整原根](cg2d_chat_send_pipeline_spec.md#chat-send-source-state)/[原码与实际接线](cg2d_chat_send_pipeline_evidence.json)覆盖50C940聊天发送与511900六字段封包，共183条653B/四页、23实际E8/11目标/14跳四RET，另两FF15取tick。恢复两个原短路点options194 BYTE读取，复用既有reader，W16字段/写方不变；原gate/disabled/跟随、1000/180000计时与提示/SE/返回保持。转义→P|%s→mode/range→Y/X→socket→原uSr命令与六字段，每字段capacity→token→新共享buffer→append弃返、末发送S32顺序保；两未清1024区和当前明文/GBK/MSVC/WAV-only不变。旧BTG01提交父发送弃返后原清输入保持，一组两点/四注释，正确封包正文及所有其它源保。旧1075保历史追加/一新语义两F、INPUT/NETWORK各两成员/MAP一个成员，三限定S零I/九任务open；全部数据owner/SDK/机器ABI/真实禁言与互通、文字声音画面运行待。

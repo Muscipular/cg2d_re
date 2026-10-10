@@ -299,7 +299,7 @@ std::int32_t Sub_511900(
     const char* text,
     std::int32_t fourth,
     std::int32_t fifth,
-    std::int32_t sixth);
+    std::int32_t sixth); // CTS01：见聊天发送完整合同。
 
 // 原 sub_511A00@[0x511A00,0x511A48)：构造 dcMv、追加一个整数并发送。
 std::int32_t Sub_511A00(std::uintptr_t socket, std::int32_t value);

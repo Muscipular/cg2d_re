@@ -3833,3 +3833,8 @@ NETWORK仅新增该入口一个成员/限定S（另三功能各一S），四旧�
 ## 2026-10-10 ETE01：文本转义生产端取样
 
 [ETE01完整原根](cg2d_text_escape_sampling_spec.md#text-escape-source-state)/[原码与映射](cg2d_text_escape_sampling_evidence.json)覆盖52D1B0转义生产/52D2D0包装，共108条310B/三页、两E8/两目标/11跳两RET；112入向内部1/外111仅来源。恢复非地址S32表计数、已读首BYTE持有/后继与索引及计数更新序、匹配字母早退前读取/两写后更新索引三组。原四对BYTE映射、固定入口长度和两S32索引、原容量/调整长度门槛与截断、末NUL/同destination返回保持，不切换编码或加保护。正确包装和InputContext文本便利适配保持，不新增原根/通知/成功值或owner；UTE01四根和所有其它源保。两个新语义/F、INPUT/UIRUNTIME/NETWORK各两成员、三限定S零I/九任务open；全外调用、文本生产消费/容量与alias-owner寿命、SDK/机器ABI/真实截断和字符消息画面运行待。
+
+<a id="chat-send-current-20261010"></a>
+## 2026-10-10 CTS01：聊天门禁与六字段发送
+
+[CTS01完整原根](cg2d_chat_send_pipeline_spec.md#chat-send-source-state)/[原码与实际接线](cg2d_chat_send_pipeline_evidence.json)覆盖50C940聊天发送与511900六字段封包，共183条653B/四页、23实际E8/11目标/14跳四RET，另两FF15取tick。恢复两个原短路点options194 BYTE读取，复用既有reader，W16字段/写方不变；原gate/disabled/跟随、1000/180000计时与提示/SE/返回保持。转义→P|%s→mode/range→Y/X→socket→原uSr命令与六字段，每字段capacity→token→新共享buffer→append弃返、末发送S32顺序保；两未清1024区和当前明文/GBK/MSVC/WAV-only不变。旧BTG01提交父发送弃返后原清输入保持，一组两点/四注释，正确封包正文及所有其它源保。旧1075保历史追加/一新语义两F、INPUT/NETWORK各两成员/MAP一个成员，三限定S零I/九任务open；全部数据owner/SDK/机器ABI/真实禁言与互通、文字声音画面运行待。

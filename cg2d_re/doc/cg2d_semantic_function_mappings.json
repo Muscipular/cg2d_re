@@ -129829,7 +129829,7 @@
       "original_entry": "0x50C940",
       "inventory_id": "F:0010C940",
       "original_role": "聊天输入转义后命令格式",
-      "status": "已有父正文及一真实格式接线；全量生产消费/实际收发/运行未验",
+      "status": "已有父正文及一真实格式接线；全量生产消费/实际收发/运行未验；CTS01追加完整正常聊天门禁/计时/文本生产与实际六字段消费者，恢复两点BYTE读取，限定S/运行待",
       "original_end_exclusive": "0x50CAD6",
       "instruction_count": 106,
       "original_direct_reference_count": 1,
@@ -129841,6 +129841,13 @@
             "Sub_50C940"
           ],
           "relationship": "既有父原格式处仅标准callee转53B304；原门禁与生产消费时序不动"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_50C940"
+          ],
+          "relationship": "CTS01真实声明/完整参数与返回边界保持，仅完整合同关联注释"
         }
       ],
       "business_call_connections": [
@@ -129890,10 +129897,33 @@
       ],
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_chat_send_pipeline_spec.md#chat-send-baseline",
+        "doc/cg2d_chat_send_pipeline_spec.md#chat-send-decision",
+        "doc/cg2d_chat_send_pipeline_spec.md#chat-send-acceptance",
+        "doc/cg2d_chat_send_pipeline_spec.md#chat-send-source-state",
+        "doc/cg2d_chat_send_pipeline_evidence.json"
       ],
-      "verification_level": "106条统计仅读38格式邻指令；一个真实call/参数采样/新字节、源码一callee静态对应，余68条/入向caller/其他分支与完整父不重验，未执行。",
-      "boundary": "既有禁言/接收gate与时间门槛、color4→5保持；借调用者InputContext先52D2D0至未清1024B escaped/cap1024，P|%s写另未清1024B packet；之后新mode/range→独立原401EA0 Y后X→新socket→511900返完整S32，忽略转义返回/原时间回绕/失败及声音调用不改。不添加保护、转码或恢复cipher叶。本次只格式callee及WorldUpdate一已有内部声明头，唯一owner、全部其他正文保持；不恢复音频或加解密，不把局部类型/入向/源登记代替原父、容量全链/CRT及总PLAN验收。"
+      "verification_level": "106条统计仅读38格式邻指令；一个真实call/参数采样/新字节、源码一callee静态对应，余68条/入向caller/其他分支与完整父不重验，未执行。 当前CTS01：pass，两完整原根183条653B/四页、23实际E8/11目标/14跳四RET与两FF15 GetTickCount、两入向内部1/外1及原命令/格式/提示容量有据；旧BTG01父只关联发送/清理窗口，真实W16存储/已有BYTE reader两短路现场接线，一组两点/四注释整四文件精确差集，511900正确body与所有其它source/UTE-ETE/BTG01保持",
+      "boundary": "既有禁言/接收gate与时间门槛、color4→5保持；借调用者InputContext先52D2D0至未清1024B escaped/cap1024，P|%s写另未清1024B packet；之后新mode/range→独立原401EA0 Y后X→新socket→511900返完整S32，忽略转义返回/原时间回绕/失败及声音调用不改。不添加保护、转码或恢复cipher叶。本次只格式callee及WorldUpdate一已有内部声明头，唯一owner、全部其他正文保持；不恢复音频或加解密，不把局部类型/入向/源登记代替原父、容量全链/CRT及总PLAN验收。 当前CTS01：CTS01两完整聊天发送/六字段封包根183条653B/四页，23实际E8/11目标/14跳四RET，另两FF15 GetTickCount；两入向内部1/外1，BTG01父仅关联发送与清理窗口。原色4→5、gate W32/disabled BYTE/跟随W16/选项BYTE、U32 tick普通previous→tick→新previous→current/1000门槛、受限180000及原0/1写、提示/SE74/320/240/配置零或S32音效返保持。一个逻辑组两点复用现有ReadPlayerOptions194LowByte，恢复原BYTE而非读W16后截，两个原短路现场分别读取；字段W16和全部写方保持，不造reader/API/身份或跨分支缓存。两未清1024区/转义→P|%s→新mode/range→Y/X getter→新socket→六字段，命令uSr及当前明文合同保。每字段先新capacity W32/S32→token→新共享buffer→append弃返，末新buffer/socket→发送S32；511900正确body和全部其它source/UTE-ETE/BTG01保。旧1075格式/字节/来源/接线子记录保历史追加、一新语义/两F，四关联注释；无新函数/struct/类型/布局/owner、分配释放/保护/默认值/补零/钳制/容量限制/回滚或异常模型，发送早返后旧父仍按原清输入，GBK/MSVC/WAV-only不变。全输入与收信gate生产、历史/输入/文本工作区/协议共享buffer全部生产消费及alias-owner寿命、时钟/SDK/机器ABI/数值/优化后读取/并发、真实禁言/连续发送/服务器互通/文字声音画面与全生命周期待，限定S不代完整gates/枚举/六closure/总SPEC§10。",
+      "chat_send_pipeline": {
+        "step": "CTS01",
+        "source_snapshot": "[#] 补齐聊天发送合同并恢复选项字节取样",
+        "original_instruction_count": 106,
+        "original_code_bytes": 406,
+        "original_page_count": 2,
+        "direct_call_count": 9,
+        "indirect_call_count": 2,
+        "jump_count": 14,
+        "return_count": 3,
+        "native_signature": "std::int32_t Sub_50C940(\n    const input::InputContext* const context, const std::int32_t color)",
+        "native_provider": "src/world/SceneState.cpp::Sub_50C940",
+        "normal_source_kept": false,
+        "source_patch_group_count": 1,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x455C90",
@@ -211692,6 +211722,72 @@
         "return_count": 1,
         "native_signature": "char* EscapeLegacyTextAndNotify_52D2D0(\n    const char* const source,\n    char* const destination,\n    const std::int32_t capacity)",
         "native_provider": "src/Input.cpp::EscapeLegacyTextAndNotify_52D2D0",
+        "normal_source_kept": true,
+        "source_patch_group_count": 0,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x511900",
+      "inventory_id": "F:00111900",
+      "original_role": "原uSr六字段逐项封包及发送",
+      "original_end_exclusive": "0x5119f7",
+      "instruction_count": 77,
+      "function_chunks": [
+        {
+          "start": "0x511900",
+          "end_exclusive": "0x5119f7"
+        }
+      ],
+      "status": "CTS01完整正常原根独立纳管，六字段正确body保持；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_511900"
+          ],
+          "relationship": "CTS01完整原根/实际六字段容量与token/共享buffer/发送顺序，对应既有正确正文，仅关联注释"
+        },
+        {
+          "path": "include/cg/network/NetworkRuntime.hpp",
+          "symbols": [
+            "Sub_511900"
+          ],
+          "relationship": "CTS01真实声明/完整参数与返回边界保持，仅完整合同关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_chat_send_pipeline_spec.md#chat-send-baseline",
+        "doc/cg2d_chat_send_pipeline_spec.md#chat-send-decision",
+        "doc/cg2d_chat_send_pipeline_spec.md#chat-send-acceptance",
+        "doc/cg2d_chat_send_pipeline_spec.md#chat-send-source-state",
+        "doc/cg2d_chat_send_pipeline_evidence.json"
+      ],
+      "boundary": "CTS01两完整聊天发送/六字段封包根183条653B/四页，23实际E8/11目标/14跳四RET，另两FF15 GetTickCount；两入向内部1/外1，BTG01父仅关联发送与清理窗口。原色4→5、gate W32/disabled BYTE/跟随W16/选项BYTE、U32 tick普通previous→tick→新previous→current/1000门槛、受限180000及原0/1写、提示/SE74/320/240/配置零或S32音效返保持。一个逻辑组两点复用现有ReadPlayerOptions194LowByte，恢复原BYTE而非读W16后截，两个原短路现场分别读取；字段W16和全部写方保持，不造reader/API/身份或跨分支缓存。两未清1024区/转义→P|%s→新mode/range→Y/X getter→新socket→六字段，命令uSr及当前明文合同保。每字段先新capacity W32/S32→token→新共享buffer→append弃返，末新buffer/socket→发送S32；511900正确body和全部其它source/UTE-ETE/BTG01保。旧1075格式/字节/来源/接线子记录保历史追加、一新语义/两F，四关联注释；无新函数/struct/类型/布局/owner、分配释放/保护/默认值/补零/钳制/容量限制/回滚或异常模型，发送早返后旧父仍按原清输入，GBK/MSVC/WAV-only不变。全输入与收信gate生产、历史/输入/文本工作区/协议共享buffer全部生产消费及alias-owner寿命、时钟/SDK/机器ABI/数值/优化后读取/并发、真实禁言/连续发送/服务器互通/文字声音画面与全生命周期待，限定S不代完整gates/枚举/六closure/总SPEC§10。",
+      "verification_level": "pass，两完整原根183条653B/四页、23实际E8/11目标/14跳四RET与两FF15 GetTickCount、两入向内部1/外1及原命令/格式/提示容量有据；旧BTG01父只关联发送/清理窗口，真实W16存储/已有BYTE reader两短路现场接线，一组两点/四注释整四文件精确差集，511900正确body与所有其它source/UTE-ETE/BTG01保持",
+      "original_incoming": [
+        {
+          "ea": 5294736,
+          "parent": 5294400,
+          "type": 17,
+          "bytes": "e86b4e0000",
+          "asm": "call    sub_511900"
+        }
+      ],
+      "chat_send_pipeline": {
+        "step": "CTS01",
+        "source_snapshot": "[#] 补齐聊天发送合同并恢复选项字节取样",
+        "original_instruction_count": 77,
+        "original_code_bytes": 247,
+        "original_page_count": 2,
+        "direct_call_count": 14,
+        "indirect_call_count": 0,
+        "jump_count": 0,
+        "return_count": 1,
+        "native_signature": "std::int32_t Sub_511900(\n    const std::uintptr_t socket,\n    const std::int32_t first,\n    const std::int32_t second,\n    const char* const text,\n    const std::int32_t fourth,\n    const std::int32_t fifth,\n    const std::int32_t sixth)",
+        "native_provider": "src/network/NetworkRuntime.cpp::Sub_511900",
         "normal_source_kept": true,
         "source_patch_group_count": 0,
         "generated_machine_reads_verified": false,

@@ -8137,3 +8137,8 @@ BUO01必要静态已通过：完整Scene只两数据初始化改原768B/512常�
 ## 2026-10-10 战斗标量依赖身份补齐（BDI01）
 
 [专项合同](cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-source-state)与[完整原根/现源](cg2d_battle_scalar_dependencies_evidence.json)纳管既有404D90图号选择、405B40配对位置。两13条31B的正常S32门禁/返回与现正文正确保持，三图号表15项一致；只拓宽真实非拥有指针，零源码改动/新实现I。33原入向仅定位，不代完整父、表/载荷生产与借用寿命、SDK/画面运行或完整战斗/UI通过；RPLAN.24和全部门禁保持。
+
+<a id="chat-send-current-20261010"></a>
+## 2026-10-10 CTS01：聊天门禁与六字段发送
+
+[CTS01完整原根](cg2d_chat_send_pipeline_spec.md#chat-send-source-state)/[原码与实际接线](cg2d_chat_send_pipeline_evidence.json)覆盖50C940聊天发送与511900六字段封包，共183条653B/四页、23实际E8/11目标/14跳四RET，另两FF15取tick。恢复两个原短路点options194 BYTE读取，复用既有reader，W16字段/写方不变；原gate/disabled/跟随、1000/180000计时与提示/SE/返回保持。转义→P|%s→mode/range→Y/X→socket→原uSr命令与六字段，每字段capacity→token→新共享buffer→append弃返、末发送S32顺序保；两未清1024区和当前明文/GBK/MSVC/WAV-only不变。旧BTG01提交父发送弃返后原清输入保持，一组两点/四注释，正确封包正文及所有其它源保。旧1075保历史追加/一新语义两F、INPUT/NETWORK各两成员/MAP一个成员，三限定S零I/九任务open；全部数据owner/SDK/机器ABI/真实禁言与互通、文字声音画面运行待。

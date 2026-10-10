@@ -208345,6 +208345,2450 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x52d120",
+      "inventory_id": "F:0012D120",
+      "original_role": "四对BYTE映射首匹配及未知字母低BYTE返回",
+      "original_end_exclusive": "0x52d144",
+      "instruction_count": 12,
+      "function_chunks": [
+        {
+          "start": "0x52d120",
+          "end_exclusive": "0x52d144"
+        }
+      ],
+      "status": "UTE01完整正常原根独立纳管，两逻辑组/两个正确body保；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "DecodeEscapeLetter_52D120"
+          ],
+          "relationship": "UTE01完整原根对应实际提供者，保原BYTE映射/字段宽度/读取发布和返回；恢复非地址S32计数或原位读取写入顺序"
+        },
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "kEscapePairs58E944"
+          ],
+          "relationship": "匿名namespace内真实映射提供者及原八BYTE literal，不造公共声明"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_text_unescape_sampling_spec.md#text-unescape-baseline",
+        "doc/cg2d_text_unescape_sampling_spec.md#text-unescape-decision",
+        "doc/cg2d_text_unescape_sampling_spec.md#text-unescape-acceptance",
+        "doc/cg2d_text_unescape_sampling_spec.md#text-unescape-source-state",
+        "doc/cg2d_text_unescape_sampling_evidence.json"
+      ],
+      "boundary": "UTE01四完整原根66条147B/四页、三实际E8/三个内部目标/七跳五RET，316入向内部3/外313仅来源；原58E944八BYTE四对映射及未知字母低BYTE返回保。两逻辑组：映射S32计数与原位首BYTE持有、后继读取先于索引递增/同一尾写；固定入口strlen长度S32、destination/source各S32、原高bit两BYTE/反斜杠/末NUL/同text返回保。包装弃反转义返→真实空操作→同text返回，两个正确body保；原NOP仅RET，不造成功值/通知/新签名。四定义/三公开声明七关联注释，无新函数/API/类型/布局/owner、保护/默认值/补零/钳制/容量/回滚或异常模型，当前GBK/原格式明文/MSVC/WAV-only保持。全部313外调用、文本生产消费/容量与alias-owner寿命、SDK/机器ABI/数值/优化后读取及真实字符消息画面运行待；只限定S，完整gates/枚举/六closure/总SPEC§10不变。商店模式与最后11B区间无新事实，不补值/降级分类。",
+      "verification_level": "pass，四完整原根66条147B/四页、三E8/三个内部目标/七跳五RET、316入向内部3/外313仅来源，八BYTE原表与当前literal有据；整两文件精确重放S32映射计数/原位BYTE取样两组及七注释，另外两正确body/所有其它source与商店未决/区间状态保",
+      "original_incoming": [
+        {
+          "ea": 5427594,
+          "parent": 5427536,
+          "type": 17,
+          "bytes": "e891ffffff",
+          "asm": "call    sub_52D120"
+        }
+      ],
+      "text_unescape_sampling": {
+        "step": "UTE01",
+        "source_snapshot": "[#] 补齐文本反转义合同并恢复原位取样",
+        "original_instruction_count": 12,
+        "original_code_bytes": 36,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 2,
+        "return_count": 2,
+        "native_signature": "char DecodeEscapeLetter_52D120(const char letter)",
+        "native_provider": "src/Input.cpp::DecodeEscapeLetter_52D120",
+        "normal_source_kept": false,
+        "source_patch_group_count": 1,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x52d150",
+      "inventory_id": "F:0012D150",
+      "original_role": "S32长度和索引的原位两BYTE/转义/普通字节消费",
+      "original_end_exclusive": "0x52d1a6",
+      "instruction_count": 43,
+      "function_chunks": [
+        {
+          "start": "0x52d150",
+          "end_exclusive": "0x52d1a6"
+        }
+      ],
+      "status": "UTE01完整正常原根独立纳管，两逻辑组/两个正确body保；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "UnescapeLegacyText_52D150"
+          ],
+          "relationship": "UTE01完整原根对应实际提供者，保原BYTE映射/字段宽度/读取发布和返回；恢复非地址S32计数或原位读取写入顺序"
+        },
+        {
+          "path": "include/cg/Input.hpp",
+          "symbols": [
+            "UnescapeLegacyText_52D150"
+          ],
+          "relationship": "现有公共声明与签名保持，仅UTE01完整合同关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_text_unescape_sampling_spec.md#text-unescape-baseline",
+        "doc/cg2d_text_unescape_sampling_spec.md#text-unescape-decision",
+        "doc/cg2d_text_unescape_sampling_spec.md#text-unescape-acceptance",
+        "doc/cg2d_text_unescape_sampling_spec.md#text-unescape-source-state",
+        "doc/cg2d_text_unescape_sampling_evidence.json"
+      ],
+      "boundary": "UTE01四完整原根66条147B/四页、三实际E8/三个内部目标/七跳五RET，316入向内部3/外313仅来源；原58E944八BYTE四对映射及未知字母低BYTE返回保。两逻辑组：映射S32计数与原位首BYTE持有、后继读取先于索引递增/同一尾写；固定入口strlen长度S32、destination/source各S32、原高bit两BYTE/反斜杠/末NUL/同text返回保。包装弃反转义返→真实空操作→同text返回，两个正确body保；原NOP仅RET，不造成功值/通知/新签名。四定义/三公开声明七关联注释，无新函数/API/类型/布局/owner、保护/默认值/补零/钳制/容量/回滚或异常模型，当前GBK/原格式明文/MSVC/WAV-only保持。全部313外调用、文本生产消费/容量与alias-owner寿命、SDK/机器ABI/数值/优化后读取及真实字符消息画面运行待；只限定S，完整gates/枚举/六closure/总SPEC§10不变。商店模式与最后11B区间无新事实，不补值/降级分类。",
+      "verification_level": "pass，四完整原根66条147B/四页、三E8/三个内部目标/七跳五RET、316入向内部3/外313仅来源，八BYTE原表与当前literal有据；整两文件精确重放S32映射计数/原位BYTE取样两组及七注释，另外两正确body/所有其它source与商店未决/区间状态保",
+      "original_incoming": [
+        {
+          "ea": 4361159,
+          "parent": 4355184,
+          "type": 17,
+          "bytes": "e884451000",
+          "asm": "call    Unescape"
+        },
+        {
+          "ea": 4425022,
+          "parent": 4424896,
+          "type": 17,
+          "bytes": "e80d4c0f00",
+          "asm": "call    Unescape"
+        },
+        {
+          "ea": 4425331,
+          "parent": 4425040,
+          "type": 17,
+          "bytes": "e8d84a0f00",
+          "asm": "call    Unescape"
+        },
+        {
+          "ea": 4427862,
+          "parent": 4427744,
+          "type": 17,
+          "bytes": "e8f5400f00",
+          "asm": "call    Unescape"
+        },
+        {
+          "ea": 4429550,
+          "parent": 4429424,
+          "type": 17,
+          "bytes": "e85d3a0f00",
+          "asm": "call    Unescape"
+        },
+        {
+          "ea": 4438312,
+          "parent": 4438208,
+          "type": 17,
+          "bytes": "e823180f00",
+          "asm": "call    Unescape"
+        },
+        {
+          "ea": 4942222,
+          "parent": 4942192,
+          "type": 17,
+          "bytes": "e8bd670700",
+          "asm": "call    Unescape"
+        },
+        {
+          "ea": 5021257,
+          "parent": 5021248,
+          "type": 17,
+          "bytes": "e802330600",
+          "asm": "call    Unescape"
+        },
+        {
+          "ea": 5022544,
+          "parent": 5022512,
+          "type": 17,
+          "bytes": "e8fb2d0600",
+          "asm": "call    Unescape"
+        },
+        {
+          "ea": 5024881,
+          "parent": 5024864,
+          "type": 17,
+          "bytes": "e8da240600",
+          "asm": "call    Unescape"
+        },
+        {
+          "ea": 5281121,
+          "parent": 5281104,
+          "type": 17,
+          "bytes": "e8ea3b0200",
+          "asm": "call    Unescape"
+        },
+        {
+          "ea": 5289368,
+          "parent": 5288832,
+          "type": 17,
+          "bytes": "e8b31b0200",
+          "asm": "call    Unescape"
+        },
+        {
+          "ea": 5297633,
+          "parent": 5297408,
+          "type": 17,
+          "bytes": "e86afb0100",
+          "asm": "call    Unescape"
+        },
+        {
+          "ea": 5303545,
+          "parent": 5303376,
+          "type": 17,
+          "bytes": "e852e40100",
+          "asm": "call    Unescape"
+        },
+        {
+          "ea": 5304318,
+          "parent": 5304176,
+          "type": 17,
+          "bytes": "e84de10100",
+          "asm": "call    Unescape"
+        },
+        {
+          "ea": 5427958,
+          "parent": 5427952,
+          "type": 17,
+          "bytes": "e855feffff",
+          "asm": "call    Unescape"
+        }
+      ],
+      "text_unescape_sampling": {
+        "step": "UTE01",
+        "source_snapshot": "[#] 补齐文本反转义合同并恢复原位取样",
+        "original_instruction_count": 43,
+        "original_code_bytes": 86,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "jump_count": 5,
+        "return_count": 1,
+        "native_signature": "char* UnescapeLegacyText_52D150(char* const text)",
+        "native_provider": "src/Input.cpp::UnescapeLegacyText_52D150",
+        "normal_source_kept": false,
+        "source_patch_group_count": 1,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x52d2f0",
+      "inventory_id": "F:0012D2F0",
+      "original_role": "反转义弃返后原空操作并返回同text",
+      "original_end_exclusive": "0x52d308",
+      "instruction_count": 10,
+      "function_chunks": [
+        {
+          "start": "0x52d2f0",
+          "end_exclusive": "0x52d308"
+        }
+      ],
+      "status": "UTE01完整正常原根独立纳管，两逻辑组/两个正确body保；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "UnescapeLegacyTextAndNotify_52D2F0"
+          ],
+          "relationship": "UTE01完整原根对应实际提供者，保原BYTE映射/字段宽度/读取发布和返回；正确正文保持，仅关联注释"
+        },
+        {
+          "path": "include/cg/Input.hpp",
+          "symbols": [
+            "UnescapeLegacyTextAndNotify_52D2F0"
+          ],
+          "relationship": "现有公共声明与签名保持，仅UTE01完整合同关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_text_unescape_sampling_spec.md#text-unescape-baseline",
+        "doc/cg2d_text_unescape_sampling_spec.md#text-unescape-decision",
+        "doc/cg2d_text_unescape_sampling_spec.md#text-unescape-acceptance",
+        "doc/cg2d_text_unescape_sampling_spec.md#text-unescape-source-state",
+        "doc/cg2d_text_unescape_sampling_evidence.json"
+      ],
+      "boundary": "UTE01四完整原根66条147B/四页、三实际E8/三个内部目标/七跳五RET，316入向内部3/外313仅来源；原58E944八BYTE四对映射及未知字母低BYTE返回保。两逻辑组：映射S32计数与原位首BYTE持有、后继读取先于索引递增/同一尾写；固定入口strlen长度S32、destination/source各S32、原高bit两BYTE/反斜杠/末NUL/同text返回保。包装弃反转义返→真实空操作→同text返回，两个正确body保；原NOP仅RET，不造成功值/通知/新签名。四定义/三公开声明七关联注释，无新函数/API/类型/布局/owner、保护/默认值/补零/钳制/容量/回滚或异常模型，当前GBK/原格式明文/MSVC/WAV-only保持。全部313外调用、文本生产消费/容量与alias-owner寿命、SDK/机器ABI/数值/优化后读取及真实字符消息画面运行待；只限定S，完整gates/枚举/六closure/总SPEC§10不变。商店模式与最后11B区间无新事实，不补值/降级分类。",
+      "verification_level": "pass，四完整原根66条147B/四页、三E8/三个内部目标/七跳五RET、316入向内部3/外313仅来源，八BYTE原表与当前literal有据；整两文件精确重放S32映射计数/原位BYTE取样两组及七注释，另外两正确body/所有其它source与商店未决/区间状态保",
+      "original_incoming": [
+        {
+          "ea": 4449090,
+          "parent": 4447488,
+          "type": 17,
+          "bytes": "e8a9ef0e00",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4478320,
+          "parent": 4477776,
+          "type": 17,
+          "bytes": "e87b7d0e00",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4478421,
+          "parent": 4477776,
+          "type": 17,
+          "bytes": "e8167d0e00",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4478516,
+          "parent": 4477776,
+          "type": 17,
+          "bytes": "e8b77c0e00",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4478679,
+          "parent": 4477776,
+          "type": 17,
+          "bytes": "e8147c0e00",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4478979,
+          "parent": 4477776,
+          "type": 17,
+          "bytes": "e8e87a0e00",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4479080,
+          "parent": 4477776,
+          "type": 17,
+          "bytes": "e8837a0e00",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4479187,
+          "parent": 4477776,
+          "type": 17,
+          "bytes": "e8187a0e00",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4479294,
+          "parent": 4477776,
+          "type": 17,
+          "bytes": "e8ad790e00",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4479467,
+          "parent": 4477776,
+          "type": 17,
+          "bytes": "e800790e00",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4480083,
+          "parent": 4479584,
+          "type": 17,
+          "bytes": "e898760e00",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4480178,
+          "parent": 4479584,
+          "type": 17,
+          "bytes": "e839760e00",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4841309,
+          "parent": 4841264,
+          "type": 17,
+          "bytes": "e88ef30800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4842681,
+          "parent": 4842496,
+          "type": 17,
+          "bytes": "e832ee0800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4843610,
+          "parent": 4843520,
+          "type": 17,
+          "bytes": "e891ea0800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4850038,
+          "parent": 4849984,
+          "type": 17,
+          "bytes": "e875d10800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4850068,
+          "parent": 4849984,
+          "type": 17,
+          "bytes": "e857d10800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4850486,
+          "parent": 4850432,
+          "type": 17,
+          "bytes": "e8b5cf0800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4850516,
+          "parent": 4850432,
+          "type": 17,
+          "bytes": "e897cf0800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4850902,
+          "parent": 4850848,
+          "type": 17,
+          "bytes": "e815ce0800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4850932,
+          "parent": 4850848,
+          "type": 17,
+          "bytes": "e8f7cd0800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4851317,
+          "parent": 4851264,
+          "type": 17,
+          "bytes": "e876cc0800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4851347,
+          "parent": 4851264,
+          "type": 17,
+          "bytes": "e858cc0800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4851653,
+          "parent": 4851600,
+          "type": 17,
+          "bytes": "e826cb0800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4851683,
+          "parent": 4851600,
+          "type": 17,
+          "bytes": "e808cb0800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4851845,
+          "parent": 4851792,
+          "type": 17,
+          "bytes": "e866ca0800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4851916,
+          "parent": 4851792,
+          "type": 17,
+          "bytes": "e81fca0800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4883669,
+          "parent": 4883616,
+          "type": 17,
+          "bytes": "e8164e0800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4883927,
+          "parent": 4883616,
+          "type": 17,
+          "bytes": "e8144d0800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4884048,
+          "parent": 4883616,
+          "type": 17,
+          "bytes": "e89b4c0800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4884140,
+          "parent": 4883616,
+          "type": 17,
+          "bytes": "e83f4c0800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4884313,
+          "parent": 4883616,
+          "type": 17,
+          "bytes": "e8924b0800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4884648,
+          "parent": 4883616,
+          "type": 17,
+          "bytes": "e8434a0800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4884966,
+          "parent": 4883616,
+          "type": 17,
+          "bytes": "e805490800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4885313,
+          "parent": 4883616,
+          "type": 17,
+          "bytes": "e8aa470800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4885421,
+          "parent": 4883616,
+          "type": 17,
+          "bytes": "e83e470800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4885525,
+          "parent": 4883616,
+          "type": 17,
+          "bytes": "e8d6460800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4885651,
+          "parent": 4883616,
+          "type": 17,
+          "bytes": "e858460800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4885996,
+          "parent": 4883616,
+          "type": 17,
+          "bytes": "e8ff440800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4886315,
+          "parent": 4883616,
+          "type": 17,
+          "bytes": "e8c0430800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4903374,
+          "parent": 4903296,
+          "type": 17,
+          "bytes": "e81d010800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4903445,
+          "parent": 4903296,
+          "type": 17,
+          "bytes": "e8d6000800",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4904101,
+          "parent": 4904048,
+          "type": 17,
+          "bytes": "e846fe0700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4904221,
+          "parent": 4904048,
+          "type": 17,
+          "bytes": "e8cefd0700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4942372,
+          "parent": 4942192,
+          "type": 17,
+          "bytes": "e8c7680700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4942487,
+          "parent": 4942192,
+          "type": 17,
+          "bytes": "e854680700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4943421,
+          "parent": 4943360,
+          "type": 17,
+          "bytes": "e8ae640700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4943451,
+          "parent": 4943360,
+          "type": 17,
+          "bytes": "e890640700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4943522,
+          "parent": 4943360,
+          "type": 17,
+          "bytes": "e849640700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4943593,
+          "parent": 4943360,
+          "type": 17,
+          "bytes": "e802640700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4943720,
+          "parent": 4943360,
+          "type": 17,
+          "bytes": "e883630700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4943879,
+          "parent": 4943360,
+          "type": 17,
+          "bytes": "e8e4620700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4944141,
+          "parent": 4944080,
+          "type": 17,
+          "bytes": "e8de610700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4944171,
+          "parent": 4944080,
+          "type": 17,
+          "bytes": "e8c0610700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4944440,
+          "parent": 4944080,
+          "type": 17,
+          "bytes": "e8b3600700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4944656,
+          "parent": 4944080,
+          "type": 17,
+          "bytes": "e8db5f0700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4944754,
+          "parent": 4944080,
+          "type": 17,
+          "bytes": "e8795f0700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4945180,
+          "parent": 4945120,
+          "type": 17,
+          "bytes": "e8cf5d0700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4945210,
+          "parent": 4945120,
+          "type": 17,
+          "bytes": "e8b15d0700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4945281,
+          "parent": 4945120,
+          "type": 17,
+          "bytes": "e86a5d0700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4945352,
+          "parent": 4945120,
+          "type": 17,
+          "bytes": "e8235d0700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4945436,
+          "parent": 4945120,
+          "type": 17,
+          "bytes": "e8cf5c0700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4945532,
+          "parent": 4945120,
+          "type": 17,
+          "bytes": "e86f5c0700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4945736,
+          "parent": 4945120,
+          "type": 17,
+          "bytes": "e8a35b0700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4945962,
+          "parent": 4945888,
+          "type": 17,
+          "bytes": "e8c15a0700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4946010,
+          "parent": 4945888,
+          "type": 17,
+          "bytes": "e8915a0700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4946081,
+          "parent": 4945888,
+          "type": 17,
+          "bytes": "e84a5a0700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4946152,
+          "parent": 4945888,
+          "type": 17,
+          "bytes": "e8035a0700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4946223,
+          "parent": 4945888,
+          "type": 17,
+          "bytes": "e8bc590700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4946324,
+          "parent": 4945888,
+          "type": 17,
+          "bytes": "e857590700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4946403,
+          "parent": 4945888,
+          "type": 17,
+          "bytes": "e808590700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4946669,
+          "parent": 4946608,
+          "type": 17,
+          "bytes": "e8fe570700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4947044,
+          "parent": 4946608,
+          "type": 17,
+          "bytes": "e887560700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4947259,
+          "parent": 4946608,
+          "type": 17,
+          "bytes": "e8b0550700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4947357,
+          "parent": 4946608,
+          "type": 17,
+          "bytes": "e84e550700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4947741,
+          "parent": 4947680,
+          "type": 17,
+          "bytes": "e8ce530700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4948116,
+          "parent": 4947680,
+          "type": 17,
+          "bytes": "e857520700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4948331,
+          "parent": 4947680,
+          "type": 17,
+          "bytes": "e880510700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4948429,
+          "parent": 4947680,
+          "type": 17,
+          "bytes": "e81e510700",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4969855,
+          "parent": 4969792,
+          "type": 17,
+          "bytes": "e86cfd0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4969885,
+          "parent": 4969792,
+          "type": 17,
+          "bytes": "e84efd0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4969953,
+          "parent": 4969792,
+          "type": 17,
+          "bytes": "e80afd0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4969983,
+          "parent": 4969792,
+          "type": 17,
+          "bytes": "e8ecfc0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4970176,
+          "parent": 4970112,
+          "type": 17,
+          "bytes": "e82bfc0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4970206,
+          "parent": 4970112,
+          "type": 17,
+          "bytes": "e80dfc0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4970302,
+          "parent": 4970112,
+          "type": 17,
+          "bytes": "e8adfb0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4970576,
+          "parent": 4970512,
+          "type": 17,
+          "bytes": "e89bfa0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4970606,
+          "parent": 4970512,
+          "type": 17,
+          "bytes": "e87dfa0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4970677,
+          "parent": 4970512,
+          "type": 17,
+          "bytes": "e836fa0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4970748,
+          "parent": 4970512,
+          "type": 17,
+          "bytes": "e8eff90600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4970877,
+          "parent": 4970512,
+          "type": 17,
+          "bytes": "e86ef90600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4971030,
+          "parent": 4970512,
+          "type": 17,
+          "bytes": "e8d5f80600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4971280,
+          "parent": 4971216,
+          "type": 17,
+          "bytes": "e8dbf70600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4971310,
+          "parent": 4971216,
+          "type": 17,
+          "bytes": "e8bdf70600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4971381,
+          "parent": 4971216,
+          "type": 17,
+          "bytes": "e876f70600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4971452,
+          "parent": 4971216,
+          "type": 17,
+          "bytes": "e82ff70600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4971581,
+          "parent": 4971216,
+          "type": 17,
+          "bytes": "e8aef60600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4971734,
+          "parent": 4971216,
+          "type": 17,
+          "bytes": "e815f60600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4971997,
+          "parent": 4971920,
+          "type": 17,
+          "bytes": "e80ef50600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4972027,
+          "parent": 4971920,
+          "type": 17,
+          "bytes": "e8f0f40600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4972168,
+          "parent": 4971920,
+          "type": 17,
+          "bytes": "e863f40600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4972477,
+          "parent": 4972400,
+          "type": 17,
+          "bytes": "e82ef30600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4972507,
+          "parent": 4972400,
+          "type": 17,
+          "bytes": "e810f30600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4972578,
+          "parent": 4972400,
+          "type": 17,
+          "bytes": "e8c9f20600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4972649,
+          "parent": 4972400,
+          "type": 17,
+          "bytes": "e882f20600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4972805,
+          "parent": 4972400,
+          "type": 17,
+          "bytes": "e8e6f10600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4973133,
+          "parent": 4973056,
+          "type": 17,
+          "bytes": "e89ef00600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4973163,
+          "parent": 4973056,
+          "type": 17,
+          "bytes": "e880f00600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4973260,
+          "parent": 4973056,
+          "type": 17,
+          "bytes": "e81ff00600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4973426,
+          "parent": 4973056,
+          "type": 17,
+          "bytes": "e879ef0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4985844,
+          "parent": 4985776,
+          "type": 17,
+          "bytes": "e8f7be0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4985874,
+          "parent": 4985776,
+          "type": 17,
+          "bytes": "e8d9be0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4985945,
+          "parent": 4985776,
+          "type": 17,
+          "bytes": "e892be0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4986016,
+          "parent": 4985776,
+          "type": 17,
+          "bytes": "e84bbe0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4986163,
+          "parent": 4985776,
+          "type": 17,
+          "bytes": "e8b8bd0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4986422,
+          "parent": 4985776,
+          "type": 17,
+          "bytes": "e8b5bc0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4994452,
+          "parent": 4994384,
+          "type": 17,
+          "bytes": "e8579d0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4994482,
+          "parent": 4994384,
+          "type": 17,
+          "bytes": "e8399d0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4994553,
+          "parent": 4994384,
+          "type": 17,
+          "bytes": "e8f29c0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4994624,
+          "parent": 4994384,
+          "type": 17,
+          "bytes": "e8ab9c0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4994695,
+          "parent": 4994384,
+          "type": 17,
+          "bytes": "e8649c0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4994766,
+          "parent": 4994384,
+          "type": 17,
+          "bytes": "e81d9c0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4994837,
+          "parent": 4994384,
+          "type": 17,
+          "bytes": "e8d69b0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4994908,
+          "parent": 4994384,
+          "type": 17,
+          "bytes": "e88f9b0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4995073,
+          "parent": 4994384,
+          "type": 17,
+          "bytes": "e8ea9a0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 4995283,
+          "parent": 4994384,
+          "type": 17,
+          "bytes": "e8189a0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5003233,
+          "parent": 5003152,
+          "type": 17,
+          "bytes": "e80a7b0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5003263,
+          "parent": 5003152,
+          "type": 17,
+          "bytes": "e8ec7a0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5005505,
+          "parent": 5005408,
+          "type": 17,
+          "bytes": "e82a720600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5022673,
+          "parent": 5022512,
+          "type": 17,
+          "bytes": "e81a2f0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5022703,
+          "parent": 5022512,
+          "type": 17,
+          "bytes": "e8fc2e0600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5024926,
+          "parent": 5024864,
+          "type": 17,
+          "bytes": "e84d260600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5025010,
+          "parent": 5024864,
+          "type": 17,
+          "bytes": "e8f9250600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5025076,
+          "parent": 5024864,
+          "type": 17,
+          "bytes": "e8b7250600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5025142,
+          "parent": 5024864,
+          "type": 17,
+          "bytes": "e875250600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5025241,
+          "parent": 5024864,
+          "type": 17,
+          "bytes": "e812250600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5025325,
+          "parent": 5024864,
+          "type": 17,
+          "bytes": "e8be240600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5025406,
+          "parent": 5024864,
+          "type": 17,
+          "bytes": "e86d240600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5025472,
+          "parent": 5024864,
+          "type": 17,
+          "bytes": "e82b240600",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5041837,
+          "parent": 5041504,
+          "type": 17,
+          "bytes": "e83ee40500",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5041984,
+          "parent": 5041504,
+          "type": 17,
+          "bytes": "e8abe30500",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5042243,
+          "parent": 5041504,
+          "type": 17,
+          "bytes": "e8a8e20500",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5043104,
+          "parent": 5041504,
+          "type": 17,
+          "bytes": "e84bdf0500",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5043214,
+          "parent": 5041504,
+          "type": 17,
+          "bytes": "e8ddde0500",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5043849,
+          "parent": 5041504,
+          "type": 17,
+          "bytes": "e862dc0500",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5128893,
+          "parent": 5128224,
+          "type": 17,
+          "bytes": "e82e900400",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5130640,
+          "parent": 5130336,
+          "type": 17,
+          "bytes": "e85b890400",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5134513,
+          "parent": 5134384,
+          "type": 17,
+          "bytes": "e83a7a0400",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5134623,
+          "parent": 5134384,
+          "type": 17,
+          "bytes": "e8cc790400",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5134681,
+          "parent": 5134384,
+          "type": 17,
+          "bytes": "e892790400",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5134995,
+          "parent": 5134912,
+          "type": 17,
+          "bytes": "e858780400",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5135302,
+          "parent": 5134912,
+          "type": 17,
+          "bytes": "e825770400",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5135687,
+          "parent": 5135568,
+          "type": 17,
+          "bytes": "e8a4750400",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5166949,
+          "parent": 5166768,
+          "type": 17,
+          "bytes": "e886fb0300",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5175801,
+          "parent": 5175120,
+          "type": 17,
+          "bytes": "e8f2d80300",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5178235,
+          "parent": 5177856,
+          "type": 17,
+          "bytes": "e870cf0300",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5193159,
+          "parent": 5192176,
+          "type": 17,
+          "bytes": "e824950300",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5281151,
+          "parent": 5281104,
+          "type": 17,
+          "bytes": "e86c3d0200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5282503,
+          "parent": 5281360,
+          "type": 17,
+          "bytes": "e824380200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5282606,
+          "parent": 5281360,
+          "type": 17,
+          "bytes": "e8bd370200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5283401,
+          "parent": 5283376,
+          "type": 17,
+          "bytes": "e8a2340200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5283597,
+          "parent": 5283504,
+          "type": 17,
+          "bytes": "e8de330200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5284232,
+          "parent": 5284128,
+          "type": 17,
+          "bytes": "e863310200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5284267,
+          "parent": 5284128,
+          "type": 17,
+          "bytes": "e840310200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5284675,
+          "parent": 5284608,
+          "type": 17,
+          "bytes": "e8a82f0200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5285319,
+          "parent": 5284832,
+          "type": 17,
+          "bytes": "e8242d0200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5286595,
+          "parent": 5285552,
+          "type": 17,
+          "bytes": "e828280200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5286708,
+          "parent": 5285552,
+          "type": 17,
+          "bytes": "e8b7270200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5288319,
+          "parent": 5288144,
+          "type": 17,
+          "bytes": "e86c210200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5288357,
+          "parent": 5288144,
+          "type": 17,
+          "bytes": "e846210200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5289325,
+          "parent": 5288832,
+          "type": 17,
+          "bytes": "e87e1d0200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5289536,
+          "parent": 5288832,
+          "type": 17,
+          "bytes": "e8ab1c0200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5290729,
+          "parent": 5288832,
+          "type": 17,
+          "bytes": "e802180200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5292069,
+          "parent": 5291984,
+          "type": 17,
+          "bytes": "e8c6120200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5292242,
+          "parent": 5291984,
+          "type": 17,
+          "bytes": "e819120200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5292505,
+          "parent": 5291984,
+          "type": 17,
+          "bytes": "e812110200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5292750,
+          "parent": 5292640,
+          "type": 17,
+          "bytes": "e81d100200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5292982,
+          "parent": 5292640,
+          "type": 17,
+          "bytes": "e8350f0200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5293248,
+          "parent": 5292640,
+          "type": 17,
+          "bytes": "e82b0e0200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5293581,
+          "parent": 5293440,
+          "type": 17,
+          "bytes": "e8de0c0200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5293677,
+          "parent": 5293440,
+          "type": 17,
+          "bytes": "e87e0c0200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5293834,
+          "parent": 5293440,
+          "type": 17,
+          "bytes": "e8e10b0200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5294913,
+          "parent": 5294816,
+          "type": 17,
+          "bytes": "e8aa070200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5295691,
+          "parent": 5295632,
+          "type": 17,
+          "bytes": "e8a0040200",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5297695,
+          "parent": 5297408,
+          "type": 17,
+          "bytes": "e8ccfc0100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5298103,
+          "parent": 5297984,
+          "type": 17,
+          "bytes": "e834fb0100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5298201,
+          "parent": 5297984,
+          "type": 17,
+          "bytes": "e8d2fa0100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5298450,
+          "parent": 5298368,
+          "type": 17,
+          "bytes": "e8d9f90100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5298547,
+          "parent": 5298368,
+          "type": 17,
+          "bytes": "e878f90100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5298817,
+          "parent": 5298656,
+          "type": 17,
+          "bytes": "e86af80100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5298919,
+          "parent": 5298656,
+          "type": 17,
+          "bytes": "e804f80100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5299134,
+          "parent": 5298656,
+          "type": 17,
+          "bytes": "e82df70100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5299223,
+          "parent": 5298656,
+          "type": 17,
+          "bytes": "e8d4f60100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5299380,
+          "parent": 5299312,
+          "type": 17,
+          "bytes": "e837f60100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5300120,
+          "parent": 5299584,
+          "type": 17,
+          "bytes": "e853f30100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5300156,
+          "parent": 5299584,
+          "type": 17,
+          "bytes": "e82ff30100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5301287,
+          "parent": 5301232,
+          "type": 17,
+          "bytes": "e8c4ee0100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5302468,
+          "parent": 5302352,
+          "type": 17,
+          "bytes": "e827ea0100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5302574,
+          "parent": 5302352,
+          "type": 17,
+          "bytes": "e8bde90100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5302800,
+          "parent": 5302352,
+          "type": 17,
+          "bytes": "e8dbe80100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5302897,
+          "parent": 5302352,
+          "type": 17,
+          "bytes": "e87ae80100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5302994,
+          "parent": 5302352,
+          "type": 17,
+          "bytes": "e819e80100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5303249,
+          "parent": 5303104,
+          "type": 17,
+          "bytes": "e81ae70100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5303585,
+          "parent": 5303376,
+          "type": 17,
+          "bytes": "e8cae50100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5303694,
+          "parent": 5303376,
+          "type": 17,
+          "bytes": "e85de50100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5304358,
+          "parent": 5304176,
+          "type": 17,
+          "bytes": "e8c5e20100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5304460,
+          "parent": 5304176,
+          "type": 17,
+          "bytes": "e85fe20100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5304796,
+          "parent": 5304720,
+          "type": 17,
+          "bytes": "e80fe10100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5305136,
+          "parent": 5304992,
+          "type": 17,
+          "bytes": "e8bbdf0100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5305492,
+          "parent": 5305424,
+          "type": 17,
+          "bytes": "e857de0100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5305599,
+          "parent": 5305424,
+          "type": 17,
+          "bytes": "e8ecdd0100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5305692,
+          "parent": 5305424,
+          "type": 17,
+          "bytes": "e88fdd0100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5305779,
+          "parent": 5305424,
+          "type": 17,
+          "bytes": "e838dd0100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5305883,
+          "parent": 5305424,
+          "type": 17,
+          "bytes": "e8d0dc0100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5305990,
+          "parent": 5305424,
+          "type": 17,
+          "bytes": "e865dc0100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5306097,
+          "parent": 5305424,
+          "type": 17,
+          "bytes": "e8fadb0100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5306190,
+          "parent": 5305424,
+          "type": 17,
+          "bytes": "e89ddb0100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5306443,
+          "parent": 5306352,
+          "type": 17,
+          "bytes": "e8a0da0100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5306719,
+          "parent": 5306592,
+          "type": 17,
+          "bytes": "e88cd90100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5307095,
+          "parent": 5306848,
+          "type": 17,
+          "bytes": "e814d80100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5307131,
+          "parent": 5306848,
+          "type": 17,
+          "bytes": "e8f0d70100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5307164,
+          "parent": 5306848,
+          "type": 17,
+          "bytes": "e8cfd70100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5307224,
+          "parent": 5306848,
+          "type": 17,
+          "bytes": "e893d70100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5307263,
+          "parent": 5306848,
+          "type": 17,
+          "bytes": "e86cd70100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5308895,
+          "parent": 5308752,
+          "type": 17,
+          "bytes": "e80cd10100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5309142,
+          "parent": 5308752,
+          "type": 17,
+          "bytes": "e815d00100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5309413,
+          "parent": 5308752,
+          "type": 17,
+          "bytes": "e806cf0100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5309635,
+          "parent": 5309584,
+          "type": 17,
+          "bytes": "e828ce0100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5309662,
+          "parent": 5309584,
+          "type": 17,
+          "bytes": "e80dce0100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5343578,
+          "parent": 5343344,
+          "type": 17,
+          "bytes": "e891490100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5349628,
+          "parent": 5349520,
+          "type": 17,
+          "bytes": "e8ef310100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5349720,
+          "parent": 5349520,
+          "type": 17,
+          "bytes": "e893310100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5349812,
+          "parent": 5349520,
+          "type": 17,
+          "bytes": "e837310100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5349910,
+          "parent": 5349520,
+          "type": 17,
+          "bytes": "e8d5300100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5350129,
+          "parent": 5349520,
+          "type": 17,
+          "bytes": "e8fa2f0100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5350237,
+          "parent": 5349520,
+          "type": 17,
+          "bytes": "e88e2f0100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5350339,
+          "parent": 5349520,
+          "type": 17,
+          "bytes": "e8282f0100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5350441,
+          "parent": 5349520,
+          "type": 17,
+          "bytes": "e8c22e0100",
+          "asm": "call    Unescape2"
+        },
+        {
+          "ea": 5353910,
+          "parent": 5353904,
+          "type": 17,
+          "bytes": "e835210100",
+          "asm": "call    Unescape2"
+        }
+      ],
+      "text_unescape_sampling": {
+        "step": "UTE01",
+        "source_snapshot": "[#] 补齐文本反转义合同并恢复原位取样",
+        "original_instruction_count": 10,
+        "original_code_bytes": 24,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "jump_count": 0,
+        "return_count": 1,
+        "native_signature": "char* UnescapeLegacyTextAndNotify_52D2F0(char* const text)",
+        "native_provider": "src/Input.cpp::UnescapeLegacyTextAndNotify_52D2F0",
+        "normal_source_kept": true,
+        "source_patch_group_count": 0,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x509080",
+      "inventory_id": "F:00109080",
+      "original_role": "单RET真实空操作，不读取所传参数",
+      "original_end_exclusive": "0x509081",
+      "instruction_count": 1,
+      "function_chunks": [
+        {
+          "start": "0x509080",
+          "end_exclusive": "0x509081"
+        }
+      ],
+      "status": "UTE01完整正常原根独立纳管，两逻辑组/两个正确body保；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "NullSub_509080"
+          ],
+          "relationship": "UTE01完整原根对应实际提供者，保原BYTE映射/字段宽度/读取发布和返回；正确正文保持，仅关联注释"
+        },
+        {
+          "path": "include/cg/Input.hpp",
+          "symbols": [
+            "NullSub_509080"
+          ],
+          "relationship": "现有公共声明与签名保持，仅UTE01完整合同关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_text_unescape_sampling_spec.md#text-unescape-baseline",
+        "doc/cg2d_text_unescape_sampling_spec.md#text-unescape-decision",
+        "doc/cg2d_text_unescape_sampling_spec.md#text-unescape-acceptance",
+        "doc/cg2d_text_unescape_sampling_spec.md#text-unescape-source-state",
+        "doc/cg2d_text_unescape_sampling_evidence.json"
+      ],
+      "boundary": "UTE01四完整原根66条147B/四页、三实际E8/三个内部目标/七跳五RET，316入向内部3/外313仅来源；原58E944八BYTE四对映射及未知字母低BYTE返回保。两逻辑组：映射S32计数与原位首BYTE持有、后继读取先于索引递增/同一尾写；固定入口strlen长度S32、destination/source各S32、原高bit两BYTE/反斜杠/末NUL/同text返回保。包装弃反转义返→真实空操作→同text返回，两个正确body保；原NOP仅RET，不造成功值/通知/新签名。四定义/三公开声明七关联注释，无新函数/API/类型/布局/owner、保护/默认值/补零/钳制/容量/回滚或异常模型，当前GBK/原格式明文/MSVC/WAV-only保持。全部313外调用、文本生产消费/容量与alias-owner寿命、SDK/机器ABI/数值/优化后读取及真实字符消息画面运行待；只限定S，完整gates/枚举/六closure/总SPEC§10不变。商店模式与最后11B区间无新事实，不补值/降级分类。",
+      "verification_level": "pass，四完整原根66条147B/四页、三E8/三个内部目标/七跳五RET、316入向内部3/外313仅来源，八BYTE原表与当前literal有据；整两文件精确重放S32映射计数/原位BYTE取样两组及七注释，另外两正确body/所有其它source与商店未决/区间状态保",
+      "original_incoming": [
+        {
+          "ea": 4425028,
+          "parent": 4424896,
+          "type": 17,
+          "bytes": "e8370b0d00",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4427868,
+          "parent": 4427744,
+          "type": 17,
+          "bytes": "e81f000d00",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4429556,
+          "parent": 4429424,
+          "type": 17,
+          "bytes": "e887f90c00",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4438318,
+          "parent": 4438208,
+          "type": 17,
+          "bytes": "e84dd70c00",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4443524,
+          "parent": 4443056,
+          "type": 17,
+          "bytes": "e8f7c20c00",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4443627,
+          "parent": 4443056,
+          "type": 17,
+          "bytes": "e890c20c00",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4443655,
+          "parent": 4443056,
+          "type": 17,
+          "bytes": "e874c20c00",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4497849,
+          "parent": 4497840,
+          "type": 17,
+          "bytes": "e8c2ee0b00",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4560701,
+          "parent": 4560592,
+          "type": 17,
+          "bytes": "e83ef90a00",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4572255,
+          "parent": 4571856,
+          "type": 17,
+          "bytes": "e81ccc0a00",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4572852,
+          "parent": 4572576,
+          "type": 17,
+          "bytes": "e8c7c90a00",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4585135,
+          "parent": 4583824,
+          "type": 17,
+          "bytes": "e8cc990a00",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4592456,
+          "parent": 4591600,
+          "type": 17,
+          "bytes": "e8337d0a00",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4593074,
+          "parent": 4591600,
+          "type": 17,
+          "bytes": "e8c97a0a00",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4593316,
+          "parent": 4591600,
+          "type": 17,
+          "bytes": "e8d7790a00",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4597658,
+          "parent": 4597408,
+          "type": 17,
+          "bytes": "e8e1680a00",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4646058,
+          "parent": 4646048,
+          "type": 17,
+          "bytes": "e8d1ab0900",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4646063,
+          "parent": 4646048,
+          "type": 17,
+          "bytes": "e8ccab0900",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4724572,
+          "parent": 4722848,
+          "type": 17,
+          "bytes": "e81f790800",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4724855,
+          "parent": 4722848,
+          "type": 17,
+          "bytes": "e804780800",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4725179,
+          "parent": 4722848,
+          "type": 17,
+          "bytes": "e8c0760800",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4725651,
+          "parent": 4722848,
+          "type": 17,
+          "bytes": "e8e8740800",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4725957,
+          "parent": 4722848,
+          "type": 17,
+          "bytes": "e8b6730800",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4729344,
+          "parent": 4727408,
+          "type": 17,
+          "bytes": "e87b660800",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4729744,
+          "parent": 4727408,
+          "type": 17,
+          "bytes": "e8eb640800",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4747537,
+          "parent": 4747296,
+          "type": 17,
+          "bytes": "e86a1f0800",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4748271,
+          "parent": 4748000,
+          "type": 17,
+          "bytes": "e88c1c0800",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4754481,
+          "parent": 4754192,
+          "type": 17,
+          "bytes": "e84a040800",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4823782,
+          "parent": 4823504,
+          "type": 17,
+          "bytes": "e895f50600",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4867643,
+          "parent": 4867616,
+          "type": 17,
+          "bytes": "e8404a0600",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4867823,
+          "parent": 4867680,
+          "type": 17,
+          "bytes": "e88c490600",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 4868002,
+          "parent": 4867856,
+          "type": 17,
+          "bytes": "e8d9480600",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5021448,
+          "parent": 5021448,
+          "type": 17,
+          "bytes": "e873f10300",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5025639,
+          "parent": 5025632,
+          "type": 17,
+          "bytes": "e814e10300",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5176657,
+          "parent": 5176176,
+          "type": 17,
+          "bytes": "e82a930100",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5179169,
+          "parent": 5178464,
+          "type": 17,
+          "bytes": "e85a890100",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5186828,
+          "parent": 5186720,
+          "type": 17,
+          "bytes": "e86f6b0100",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5189715,
+          "parent": 5188144,
+          "type": 17,
+          "bytes": "e828600100",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5189771,
+          "parent": 5188144,
+          "type": 17,
+          "bytes": "e8f05f0100",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5199001,
+          "parent": 5198288,
+          "type": 17,
+          "bytes": "e8e23b0100",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5199181,
+          "parent": 5198288,
+          "type": 17,
+          "bytes": "e82e3b0100",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5218914,
+          "parent": 5218384,
+          "type": 17,
+          "bytes": "e819ee0000",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5267235,
+          "parent": 5266464,
+          "type": 17,
+          "bytes": "e858310000",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5323468,
+          "parent": 5320256,
+          "type": 17,
+          "bytes": "e8af55ffff",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5323570,
+          "parent": 5320256,
+          "type": 17,
+          "bytes": "e84955ffff",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5329006,
+          "parent": 5320256,
+          "type": 17,
+          "bytes": "e80d40ffff",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5334206,
+          "parent": 5320256,
+          "type": 17,
+          "bytes": "e8bd2bffff",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5334326,
+          "parent": 5320256,
+          "type": 17,
+          "bytes": "e8452bffff",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5334450,
+          "parent": 5320256,
+          "type": 17,
+          "bytes": "e8c92affff",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5347828,
+          "parent": 5347744,
+          "type": 17,
+          "bytes": "e887f6feff",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5359056,
+          "parent": 5358640,
+          "type": 17,
+          "bytes": "e8abcafeff",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5360454,
+          "parent": 5359568,
+          "type": 17,
+          "bytes": "e835c5feff",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5361099,
+          "parent": 5359568,
+          "type": 17,
+          "bytes": "e8b0c2feff",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5361141,
+          "parent": 5359568,
+          "type": 17,
+          "bytes": "e886c2feff",
+          "asm": "call    nullsub_1; jumptable 0051C7FB case 252"
+        },
+        {
+          "ea": 5361253,
+          "parent": 5359568,
+          "type": 17,
+          "bytes": "e816c2feff",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5361343,
+          "parent": 5359568,
+          "type": 17,
+          "bytes": "e8bcc1feff",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5362301,
+          "parent": 5359568,
+          "type": 17,
+          "bytes": "e8febdfeff",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5374322,
+          "parent": 5374304,
+          "type": 17,
+          "bytes": "e8098ffeff",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5427926,
+          "parent": 5427920,
+          "type": 17,
+          "bytes": "e8a5bdfdff",
+          "asm": "call    nullsub_1"
+        },
+        {
+          "ea": 5427964,
+          "parent": 5427952,
+          "type": 17,
+          "bytes": "e87fbdfdff",
+          "asm": "call    nullsub_1"
+        }
+      ],
+      "text_unescape_sampling": {
+        "step": "UTE01",
+        "source_snapshot": "[#] 补齐文本反转义合同并恢复原位取样",
+        "original_instruction_count": 1,
+        "original_code_bytes": 1,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 0,
+        "return_count": 1,
+        "native_signature": "void NullSub_509080() noexcept",
+        "native_provider": "src/Input.cpp::NullSub_509080",
+        "normal_source_kept": true,
+        "source_patch_group_count": 0,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

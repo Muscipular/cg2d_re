@@ -2478,3 +2478,9 @@ ANIMATION/YOBI各两个新成员，BATTLE只Play依赖成员；两新语义/F和
 [四完整原根](cg2d_guild_mail_reply_persistence_spec.md#guild-mail-reply-source-state)/[原码与接线](cg2d_guild_mail_reply_persistence_evidence.json)纳管50F130/50F190实际回复、50EF50活动计数和519550完整两角色保存，共136条443B/五页、17E8/14目标/六跳四RET。删除原gate位型/五域重置→W16恰1统计/W32计数发布→邮件删除返回保；收信原字段/工作区文本借用/反转义→旧排序index持有→kind0生产→外部记录名格式→存档→SE63/320/240→消息(4,3)保；无per回复文本释放。519550原128B路径/当前MSVC FILE域，写完整139480共享区弃返后透传关闭S32、打开失败0，不能凭IDA FILE*类型改返回。四正确body全部保持，仅八关联注释/零逻辑组；旧720/763保历史子记录追加、两新语义/四F、MAP/UIRUNTIME各四成员/NETWORK两回复、三限定S零I/九任务open。全dispatcher/保存外父、工作区与路径记录/文件音频消息全owner、SDK/数值/机器ABI/文本声音画面和实际文件失败运行待，其它原政策/门禁/枚举/六closure保，整体未完成。
 
 519550旧16直接引用含15实际E8和一个50E83E尾跳，原码/尾跳分别记；两个回复唯一父只有参数与弃返窗，不称整个dispatcher通过。关联率不是完成率，184叶验收0、60任务关闭11及总SPEC§10保持。
+
+## 2026-10-10 UTE01 文本反转义的限定证据
+
+[UTE01完整原根](cg2d_text_unescape_sampling_spec.md#text-unescape-source-state)/[原码与映射](cg2d_text_unescape_sampling_evidence.json)覆盖52D120/52D150/52D2F0/509080，共66条147B/四页、三E8/三个内部目标/七跳五RET；316入向内部3/外313只证明来源。原58E944四对BYTE映射与未知字母低BYTE返回保持，恢复S32映射计数、每轮首BYTE持有及后继读取先于索引递增/共尾写。原高bit两BYTE、反斜杠字母、固定入口长度和两S32索引、末NUL及同text返回保；不切换编码或增加空值/容量/末字节检查。包装弃返→真实单RET空操作→同text返回，两正确body保，不新增通知/成功值/API或owner。四新语义/四F、INPUT/UIRUNTIME各四成员/NETWORK三个文本根、三限定S零I/九任务open；全部外调用、文本生产消费/容量与alias-owner寿命、SDK/机器ABI/真实字符消息画面运行待。
+
+原入向不代完整外父；GMR01收信50F1DC当前调用52D2F0有据，旧763和所有旧身份保持。商店C9A94C及最后11B区间无新用途/生产证据，既有未决保；关联率不称完成率，184叶验收0/60任务关闭11/六closure及总SPEC§10保持。

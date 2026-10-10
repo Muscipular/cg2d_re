@@ -6,7 +6,7 @@
 namespace cg {
 
 // 原 nullsub_1@[0x509080,0x509081)：唯一指令为 retn，不读取参数且不定义返回值。
-void NullSub_509080() noexcept;
+void NullSub_509080() noexcept; // UTE01：原单RET/参数未读，真实空操作；机器残值ABI待。
 
 } // namespace cg
 
@@ -172,8 +172,8 @@ char* EscapeInputText_52D2D0(
     const InputContext* context, char* destination, std::int32_t capacity);
 
 // 原 52D150/52D2F0：原位还原旧字节转义；包装随后调用空叶并透传原指针。
-char* UnescapeLegacyText_52D150(char* text);
-char* UnescapeLegacyTextAndNotify_52D2F0(char* text);
+char* UnescapeLegacyText_52D150(char* text); // UTE01：原位BYTE取样/固定S32长度与计数，同text返回。
+char* UnescapeLegacyTextAndNotify_52D2F0(char* text); // UTE01：反转义/原空操作/同text，非新增通知。
 
 // 原503AB0：按旧字节列宽提取指定行，CR/LF分开处理，0x01跳到下个8行边界。
 std::int32_t ExtractLegacyLine_503AB0(

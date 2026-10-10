@@ -142,3 +142,8 @@ context分别等于D66CA8/CB03F0/CC46E0/CC2080/D2D828/CA0180之一，
 按[BSX01裁决](cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-decision)，45E770首BYTE一次取current、同样本供NUL和分类，末尾cursor[1]先取再++cursor。撤for门禁／循环体重复读取，不改0x81 unsigned两字节状态／尾字节跳过、非尾7C或5C返回完整1、空串／末lead遇NUL完整0，const文本不写且不建owner／新规则。
 
 原25条57B／一页、无call／八jump／两RET，十实际CALL在七父；新增1602单真F、INPUT26→27及CHARACTER17→18真实消费绑定，两域各局部I-S。7B相邻NOP只用途。其它整个Input、所有消费者及接口保持；原姓名20 00／81 40 00字节正确保，不据编码猜测合并字节规则。全部原父／输入文本生产消费／正常alias-owner寿命与运行未验。
+
+<a id="text-unescape-current-20261010"></a>
+## 2026-10-10 UTE01：文本反转义原位取样
+
+[UTE01完整原根](cg2d_text_unescape_sampling_spec.md#text-unescape-source-state)/[原码与映射](cg2d_text_unescape_sampling_evidence.json)覆盖52D120/52D150/52D2F0/509080，共66条147B/四页、三E8/三个内部目标/七跳五RET；316入向内部3/外313只证明来源。原58E944四对BYTE映射与未知字母低BYTE返回保持，恢复S32映射计数、每轮首BYTE持有及后继读取先于索引递增/共尾写。原高bit两BYTE、反斜杠字母、固定入口长度和两S32索引、末NUL及同text返回保；不切换编码或增加空值/容量/末字节检查。包装弃返→真实单RET空操作→同text返回，两正确body保，不新增通知/成功值/API或owner。四新语义/四F、INPUT/UIRUNTIME各四成员/NETWORK三个文本根、三限定S零I/九任务open；全部外调用、文本生产消费/容量与alias-owner寿命、SDK/机器ABI/真实字符消息画面运行待。

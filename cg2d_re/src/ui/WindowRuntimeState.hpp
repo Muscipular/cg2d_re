@@ -1692,7 +1692,7 @@ std::int32_t Sub_476490(
     std::int32_t kind, std::int32_t sourceIndex, std::int16_t x, std::int16_t y,
     WindowDragCallback callback);
 void Sub_476500(); // 仅阶段4/5调用message3后完整清理。
-std::int32_t Sub_472D20(); // 窗口拖动/焦点命中，返回两位处理掩码。
+std::int32_t Sub_472D20(); // WDF01：完整拖动/焦点两位结果，原宽度和现场取样见SPEC。
 std::int32_t Sub_4730A0(); // WCR01：71槽压紧/关闭/前插，两个标记判断用同一W32 state。
 void Sub_473E40(); // 每轮窗口处理前的鼠标阶段推进。
 std::int32_t Sub_503CB0(); // 73ECBC先减后负值归2，返回归位前结果。

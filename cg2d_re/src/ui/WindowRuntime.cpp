@@ -39924,68 +39924,86 @@ std::int32_t Sub_4763E0()
     return 0;
 }
 
+// WDF01：同一拖动W32样本/四BYTE消费与矩形/焦点原取序；结果为1/2掩码。
 std::int32_t Sub_472D20()
 {
     const std::int32_t initialPhase = gMousePhase57C128;
     WindowInstance* window = gCurrentWindow;
     std::int32_t result = 0;
-    if (initialPhase != 1 && (window->state & 2u) == 0) {
+    if (initialPhase != 1) {
         const std::uint32_t state = window->state;
-        if ((state & 0x800u) != 0) {
-            if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.heldButtons) & 1u) != 0) {
-                std::int32_t* const x = &window->x;
-                const std::int32_t deltaX = platform::legacy_crypt_int::Subtract_401E60(
-                    &platform::gLegacyMouseState.mouseX, window->dragMouseX1C);
-                *x += deltaX;
-                window = gCurrentWindow;
-                std::int32_t* const y = &window->y;
-                const std::int32_t deltaY = platform::legacy_crypt_int::Subtract_401E60(
-                    &platform::gLegacyMouseState.mouseY, window->dragMouseY20);
-                *y += deltaY;
-                const std::int32_t mouseX = platform::legacy_crypt_int::Read_401EC0(
-                    &platform::gLegacyMouseState.mouseX);
-                gCurrentWindow->dragMouseX1C = mouseX;
-                const std::int32_t mouseY = platform::legacy_crypt_int::Read_401EC0(
-                    &platform::gLegacyMouseState.mouseY);
-                gCurrentWindow->dragMouseY20 = mouseY;
-            } else {
-                window->state = state & ~std::uint32_t{0x800};
-            }
-            result = 2;
-            window = gCurrentWindow;
-        } else if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
-            for (std::int32_t index = 0; index < window->secondaryCount; ++index) {
-                const WindowDragRect& rect = window->dragRects40[index];
-                const std::int32_t left = window->x + rect.x;
-                const std::int32_t top = window->y + rect.y;
-                const std::int32_t height = rect.height;
-                const std::int32_t width = rect.width;
-                if (gWindowHasFocusCA0AB4 == 0) {
-                    if (Sub_472F00(left, top, width, height) != 0) {
-                        const std::int32_t mouseX = platform::legacy_crypt_int::Read_401EC0(
-                            &platform::gLegacyMouseState.mouseX);
-                        gCurrentWindow->dragMouseX1C = mouseX;
-                        const std::int32_t mouseY = platform::legacy_crypt_int::Read_401EC0(
-                            &platform::gLegacyMouseState.mouseY);
-                        gCurrentWindow->dragMouseY20 = mouseY;
-                        gCurrentWindow->state |= 0x800u;
-                        result |= 2;
-                    }
+        if ((state & 2u) == 0) {
+            if ((state & 0x800u) != 0) {
+                if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.heldButtons) & 1u) != 0) {
+                    std::int32_t* const x = &window->x;
+                    const std::int32_t deltaX = platform::legacy_crypt_int::Subtract_401E60(
+                        &platform::gLegacyMouseState.mouseX, window->dragMouseX1C);
+                    *x += deltaX;
                     window = gCurrentWindow;
+                    std::int32_t* const y = &window->y;
+                    const std::int32_t deltaY = platform::legacy_crypt_int::Subtract_401E60(
+                        &platform::gLegacyMouseState.mouseY, window->dragMouseY20);
+                    *y += deltaY;
+                    const std::int32_t mouseX = platform::legacy_crypt_int::Read_401EC0(
+                        &platform::gLegacyMouseState.mouseX);
+                    gCurrentWindow->dragMouseX1C = mouseX;
+                    const std::int32_t mouseY = platform::legacy_crypt_int::Read_401EC0(
+                        &platform::gLegacyMouseState.mouseY);
+                    gCurrentWindow->dragMouseY20 = mouseY;
+                } else {
+                    window->state = state & ~std::uint32_t{0x800};
+                }
+                result = 2;
+                window = gCurrentWindow;
+            } else if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
+                std::int32_t count = window->secondaryCount;
+                for (std::int32_t index = 0; index < count; ++index) {
+                    const WindowDragRect& rect = window->dragRects40[index];
+                    const std::int32_t rectX = rect.x;
+                    const std::int32_t windowX = window->x;
+                    const std::int32_t rectY = rect.y;
+                    const std::int32_t windowY = window->y;
+                    const std::int32_t left = rectX + windowX;
+                    const std::int32_t height = rect.height;
+                    const std::int32_t top = rectY + windowY;
+                    const bool focusAvailable = gWindowHasFocusCA0AB4 == 0;
+                    const std::int32_t width = rect.width;
+                    if (focusAvailable) {
+                        if (Sub_472F00(left, top, width, height) != 0) {
+                            const std::int32_t mouseX = platform::legacy_crypt_int::Read_401EC0(
+                                &platform::gLegacyMouseState.mouseX);
+                            gCurrentWindow->dragMouseX1C = mouseX;
+                            const std::int32_t mouseY = platform::legacy_crypt_int::Read_401EC0(
+                                &platform::gLegacyMouseState.mouseY);
+                            gCurrentWindow->dragMouseY20 = mouseY;
+                            gCurrentWindow->state |= 0x800u;
+                            result |= 2;
+                        }
+                        window = gCurrentWindow;
+                    }
+                    count = window->secondaryCount;
                 }
             }
         }
     }
-    if ((window->state & 1u) == 0) {
+    if ((*reinterpret_cast<const unsigned char*>(&window->state) & 1u) == 0) {
         const std::int32_t phase = gMousePhase57C128;
         if (phase == 1 || phase == 4) {
-            if (Sub_472F00(window->x, window->y, window->width, window->height) != 0) {
+            const std::int32_t height = window->height;
+            const std::int32_t width = window->width;
+            const std::int32_t y = window->y;
+            const std::int32_t x = window->x;
+            if (Sub_472F00(x, y, width, height) != 0) {
                 result |= 1;
             }
         } else if (gWindowHasFocusCA0AB4 == 0) {
-            if (Sub_472F00(window->x, window->y, window->width, window->height) != 0) {
+            const std::int32_t height = window->height;
+            const std::int32_t width = window->width;
+            const std::int32_t y = window->y;
+            const std::int32_t x = window->x;
+            if (Sub_472F00(x, y, width, height) != 0) {
                 result |= 1;
-                if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
+                if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
                     gCurrentWindow->state |= 0x2000u;
                 }
             }

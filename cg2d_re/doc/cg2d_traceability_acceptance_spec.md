@@ -2580,3 +2580,9 @@ IDA数组/结构起点xref不代字段指针；原型实际11callback与旧范�
 [WWS01](cg2d_window_wheel_scroll_spec.md#window-wheel-source-state)补齐4743B0完整89条231B、四E8/两目标/六跳两RET与29实际CALL；F32因子原四BYTE、已批宿主数学/原double-F32落存和转换图保持。三段修正原余量/像素Y持样跨转换、高度/上下界以及尾部flags取样和data+8再+0发布；原入口data借用/wheel零、max及position钳制/余量零、S32返回保持。两整源三段/两注释及三个类型静态差异通过；旧1533 setter/CRT/聊天父复用不改。一新F/一处置，INPUT/UIRUNTIME各一成员，两限定S零I；完整29父/间接绑定/生产消费与owner、宿主数值和滚轮手感/画面、机器ABI及运行仍待，整体未完成。
 
 语义2266=2218F关联+48有界代码记录，函数处置1708/证据1508，INPUT85/UIRUNTIME123且枚举未闭；文档关联2328/3680=63.26%仅关联率。九任务open、184叶验收0、六closure和完整门禁保持，登记、静态汇总/-Check终态退出0及派生范围核对通过。
+
+## 2026-10-10 WDF01：拖动焦点完整父
+
+[WDF01](cg2d_window_drag_focus_spec.md#window-drag-focus-source-state)补齐472D20完整152条466B、九E8/三目标/十八跳两RET和唯一更新父CALL。四组明确原一次W32 state/phase门槛、四低BYTE消费、矩形字段/focus/count和两全窗height-width-y-x取样；W32储宽和正确坐标调用后值/held目标地址/new窗口写回保持。Read_401EC0对应原401EA0，旧219/矩形命中/更新父复用不改。两整源四组/两注释与两个类型静态差异通过，原bit800/2000和结果1/2、无新增十项上限保持；一新F/一处置，INPUT/UIRUNTIME各一成员，两限定S零I/九任务open。完整输入生产消费/所有Crypto和父/owner、机器ABI与生成BYTE访问、实际拖动焦点及运行仍待，整体未完成。
+
+语义2267=2219F关联+48有界代码记录，函数处置1709/证据1510，INPUT86/UIRUNTIME124且枚举未闭；文档关联2329/3680=63.29%仅关联率。九任务open、184叶验收0、六closure及完整门禁保持，登记、静态汇总/-Check终态退出0及派生范围核对通过。

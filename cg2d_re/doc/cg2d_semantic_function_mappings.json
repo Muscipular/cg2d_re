@@ -202501,6 +202501,462 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x40cf70",
+      "inventory_id": "F:0000CF70",
+      "original_role": "活动数量门禁后清alive推进",
+      "original_end_exclusive": "0x40cf9d",
+      "instruction_count": 16,
+      "function_chunks": [
+        {
+          "start": "0x40cf70",
+          "end_exclusive": "0x40cf9d"
+        }
+      ],
+      "status": "BSTL01完整正常源/独立合同纳管，95/角度两取样片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction93_40CF70"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction93_40CF70"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-baseline",
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-decision",
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-acceptance",
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-source-state",
+        "doc/cg2d_battle_skill_tiles_evidence.json"
+      ],
+      "boundary": "BSTL01动作93–98/共享技能百格绘制与单圈角度八完整正常源纳管，仅95临时HP零复制index/encoded先查目标、405E60分支前第二角度持样两片段实修，十六注释。其它全部正文/签名/数值/调用、384B表/共享phase定义/复制器及旧源保持，无新函数/API/保护/默认值/循环上限/声/播放/RNG。原全局未加载字节不当运行值，完整效果/HP/技能/phase生产、全部父/callee/ABI/alias/owner/SDK正常失败/容量/数值/RNG/声音画面待，原政策门禁保持。",
+      "verification_level": "八完整323条1106B/九页、20E8/十一callee/52跳十RET、十七实际CALL/九父/六11Bcase，384B图表全96值及12B三F32常量有据。当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction93_40CF70",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；原实际弃返保持"
+      },
+      "battle_skill_tiles": {
+        "step": "BSTL01",
+        "source_snapshot": "cg2d-re-battle-skill-tiles-20261010",
+        "original_instruction_count": 16,
+        "original_code_bytes": 45,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 1,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40d010",
+      "inventory_id": "F:0000D010",
+      "original_role": "逐轴独立目标移位/反角度/五十步进",
+      "original_end_exclusive": "0x40d0ab",
+      "instruction_count": 43,
+      "function_chunks": [
+        {
+          "start": "0x40d010",
+          "end_exclusive": "0x40d0ab"
+        }
+      ],
+      "status": "BSTL01完整正常源/独立合同纳管，95/角度两取样片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction94_40D010"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction94_40D010"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-baseline",
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-decision",
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-acceptance",
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-source-state",
+        "doc/cg2d_battle_skill_tiles_evidence.json"
+      ],
+      "boundary": "BSTL01动作93–98/共享技能百格绘制与单圈角度八完整正常源纳管，仅95临时HP零复制index/encoded先查目标、405E60分支前第二角度持样两片段实修，十六注释。其它全部正文/签名/数值/调用、384B表/共享phase定义/复制器及旧源保持，无新函数/API/保护/默认值/循环上限/声/播放/RNG。原全局未加载字节不当运行值，完整效果/HP/技能/phase生产、全部父/callee/ABI/alias/owner/SDK正常失败/容量/数值/RNG/声音画面待，原政策门禁保持。",
+      "verification_level": "八完整323条1106B/九页、20E8/十一callee/52跳十RET、十七实际CALL/九父/六11Bcase，384B图表全96值及12B三F32常量有据。当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction94_40D010",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；原实际弃返保持"
+      },
+      "battle_skill_tiles": {
+        "step": "BSTL01",
+        "source_snapshot": "cg2d-re-battle-skill-tiles-20261010",
+        "original_instruction_count": 43,
+        "original_code_bytes": 155,
+        "original_page_count": 1,
+        "direct_call_count": 4,
+        "callee_count": 4,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40d0b0",
+      "inventory_id": "F:0000D0B0",
+      "original_role": "旧16门禁/推进后HP归零",
+      "original_end_exclusive": "0x40d162",
+      "instruction_count": 49,
+      "function_chunks": [
+        {
+          "start": "0x40d0b0",
+          "end_exclusive": "0x40d162"
+        }
+      ],
+      "status": "BSTL01完整正常源/独立合同纳管，95/角度两取样片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction95_40D0B0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction95_40D0B0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-baseline",
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-decision",
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-acceptance",
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-source-state",
+        "doc/cg2d_battle_skill_tiles_evidence.json"
+      ],
+      "boundary": "BSTL01动作93–98/共享技能百格绘制与单圈角度八完整正常源纳管，仅95临时HP零复制index/encoded先查目标、405E60分支前第二角度持样两片段实修，十六注释。其它全部正文/签名/数值/调用、384B表/共享phase定义/复制器及旧源保持，无新函数/API/保护/默认值/循环上限/声/播放/RNG。原全局未加载字节不当运行值，完整效果/HP/技能/phase生产、全部父/callee/ABI/alias/owner/SDK正常失败/容量/数值/RNG/声音画面待，原政策门禁保持。",
+      "verification_level": "八完整323条1106B/九页、20E8/十一callee/52跳十RET、十七实际CALL/九父/六11Bcase，384B图表全96值及12B三F32常量有据。当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction95_40D0B0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；原实际弃返保持"
+      },
+      "battle_skill_tiles": {
+        "step": "BSTL01",
+        "source_snapshot": "cg2d-re-battle-skill-tiles-20261010",
+        "original_instruction_count": 49,
+        "original_code_bytes": 178,
+        "original_page_count": 1,
+        "direct_call_count": 5,
+        "callee_count": 5,
+        "jump_count": 2,
+        "return_count": 2,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40d170",
+      "inventory_id": "F:0000D170",
+      "original_role": "当前目标hidden置0后source推进",
+      "original_end_exclusive": "0x40d19d",
+      "instruction_count": 11,
+      "function_chunks": [
+        {
+          "start": "0x40d170",
+          "end_exclusive": "0x40d19d"
+        }
+      ],
+      "status": "BSTL01完整正常源/独立合同纳管，95/角度两取样片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction96_40D170"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction96_40D170"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-baseline",
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-decision",
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-acceptance",
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-source-state",
+        "doc/cg2d_battle_skill_tiles_evidence.json"
+      ],
+      "boundary": "BSTL01动作93–98/共享技能百格绘制与单圈角度八完整正常源纳管，仅95临时HP零复制index/encoded先查目标、405E60分支前第二角度持样两片段实修，十六注释。其它全部正文/签名/数值/调用、384B表/共享phase定义/复制器及旧源保持，无新函数/API/保护/默认值/循环上限/声/播放/RNG。原全局未加载字节不当运行值，完整效果/HP/技能/phase生产、全部父/callee/ABI/alias/owner/SDK正常失败/容量/数值/RNG/声音画面待，原政策门禁保持。",
+      "verification_level": "八完整323条1106B/九页、20E8/十一callee/52跳十RET、十七实际CALL/九父/六11Bcase，384B图表全96值及12B三F32常量有据。当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction96_40D170",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；原实际弃返保持"
+      },
+      "battle_skill_tiles": {
+        "step": "BSTL01",
+        "source_snapshot": "cg2d-re-battle-skill-tiles-20261010",
+        "original_instruction_count": 11,
+        "original_code_bytes": 45,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "callee_count": 1,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40d1a0",
+      "inventory_id": "F:0000D1A0",
+      "original_role": "当前目标hidden置1后source推进",
+      "original_end_exclusive": "0x40d1cd",
+      "instruction_count": 11,
+      "function_chunks": [
+        {
+          "start": "0x40d1a0",
+          "end_exclusive": "0x40d1cd"
+        }
+      ],
+      "status": "BSTL01完整正常源/独立合同纳管，95/角度两取样片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction97_40D1A0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction97_40D1A0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-baseline",
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-decision",
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-acceptance",
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-source-state",
+        "doc/cg2d_battle_skill_tiles_evidence.json"
+      ],
+      "boundary": "BSTL01动作93–98/共享技能百格绘制与单圈角度八完整正常源纳管，仅95临时HP零复制index/encoded先查目标、405E60分支前第二角度持样两片段实修，十六注释。其它全部正文/签名/数值/调用、384B表/共享phase定义/复制器及旧源保持，无新函数/API/保护/默认值/循环上限/声/播放/RNG。原全局未加载字节不当运行值，完整效果/HP/技能/phase生产、全部父/callee/ABI/alias/owner/SDK正常失败/容量/数值/RNG/声音画面待，原政策门禁保持。",
+      "verification_level": "八完整323条1106B/九页、20E8/十一callee/52跳十RET、十七实际CALL/九父/六11Bcase，384B图表全96值及12B三F32常量有据。当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction97_40D1A0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；原实际弃返保持"
+      },
+      "battle_skill_tiles": {
+        "step": "BSTL01",
+        "source_snapshot": "cg2d-re-battle-skill-tiles-20261010",
+        "original_instruction_count": 11,
+        "original_code_bytes": 45,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "callee_count": 1,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40d1d0",
+      "inventory_id": "F:0000D1D0",
+      "original_role": "双创建门禁/两次技能读取/铺格生产",
+      "original_end_exclusive": "0x40d38e",
+      "instruction_count": 128,
+      "function_chunks": [
+        {
+          "start": "0x40d1d0",
+          "end_exclusive": "0x40d38e"
+        }
+      ],
+      "status": "BSTL01完整正常源/独立合同纳管，95/角度两取样片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction98_40D1D0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction98_40D1D0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-baseline",
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-decision",
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-acceptance",
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-source-state",
+        "doc/cg2d_battle_skill_tiles_evidence.json"
+      ],
+      "boundary": "BSTL01动作93–98/共享技能百格绘制与单圈角度八完整正常源纳管，仅95临时HP零复制index/encoded先查目标、405E60分支前第二角度持样两片段实修，十六注释。其它全部正文/签名/数值/调用、384B表/共享phase定义/复制器及旧源保持，无新函数/API/保护/默认值/循环上限/声/播放/RNG。原全局未加载字节不当运行值，完整效果/HP/技能/phase生产、全部父/callee/ABI/alias/owner/SDK正常失败/容量/数值/RNG/声音画面待，原政策门禁保持。",
+      "verification_level": "八完整323条1106B/九页、20E8/十一callee/52跳十RET、十七实际CALL/九父/六11Bcase，384B图表全96值及12B三F32常量有据。当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction98_40D1D0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；原实际弃返保持"
+      },
+      "battle_skill_tiles": {
+        "step": "BSTL01",
+        "source_snapshot": "cg2d-re-battle-skill-tiles-20261010",
+        "original_instruction_count": 128,
+        "original_code_bytes": 446,
+        "original_page_count": 2,
+        "direct_call_count": 6,
+        "callee_count": 4,
+        "jump_count": 41,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x41e890",
+      "inventory_id": "F:0001E890",
+      "original_role": "共享相位先推进/百格逐项提交",
+      "original_end_exclusive": "0x41e915",
+      "instruction_count": 47,
+      "function_chunks": [
+        {
+          "start": "0x41e890",
+          "end_exclusive": "0x41e915"
+        }
+      ],
+      "status": "BSTL01完整正常源/独立合同纳管，95/角度两取样片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::DrawBattleTiledEffect_41E890"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::DrawBattleTiledEffect_41E890"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-baseline",
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-decision",
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-acceptance",
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-source-state",
+        "doc/cg2d_battle_skill_tiles_evidence.json"
+      ],
+      "boundary": "BSTL01动作93–98/共享技能百格绘制与单圈角度八完整正常源纳管，仅95临时HP零复制index/encoded先查目标、405E60分支前第二角度持样两片段实修，十六注释。其它全部正文/签名/数值/调用、384B表/共享phase定义/复制器及旧源保持，无新函数/API/保护/默认值/循环上限/声/播放/RNG。原全局未加载字节不当运行值，完整效果/HP/技能/phase生产、全部父/callee/ABI/alias/owner/SDK正常失败/容量/数值/RNG/声音画面待，原政策门禁保持。",
+      "verification_level": "八完整323条1106B/九页、20E8/十一callee/52跳十RET、十七实际CALL/九父/六11Bcase，384B图表全96值及12B三F32常量有据。当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::DrawBattleTiledEffect_41E890",
+        "parameters": "std::int32_t type；六图类生产有据",
+        "return": "std::int32_t；实际最后DrawGraphic结果"
+      },
+      "battle_skill_tiles": {
+        "step": "BSTL01",
+        "source_snapshot": "cg2d-re-battle-skill-tiles-20261010",
+        "original_instruction_count": 47,
+        "original_code_bytes": 133,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "callee_count": 1,
+        "jump_count": 6,
+        "return_count": 1,
+        "inbound_reference_count": 7,
+        "inbound_direct_call_count": 7,
+        "inbound_parent_count": 4,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x405e60",
+      "inventory_id": "F:00005E60",
+      "original_role": "首角度上限/第二持样/负值重取的一次归一化",
+      "original_end_exclusive": "0x405e9b",
+      "instruction_count": 18,
+      "function_chunks": [
+        {
+          "start": "0x405e60",
+          "end_exclusive": "0x405e9b"
+        }
+      ],
+      "status": "BSTL01完整正常源/独立合同纳管，95/角度两取样片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::NormalizeBattleAngle_405E60"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::NormalizeBattleAngle_405E60"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-baseline",
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-decision",
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-acceptance",
+        "doc/cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-source-state",
+        "doc/cg2d_battle_skill_tiles_evidence.json"
+      ],
+      "boundary": "BSTL01动作93–98/共享技能百格绘制与单圈角度八完整正常源纳管，仅95临时HP零复制index/encoded先查目标、405E60分支前第二角度持样两片段实修，十六注释。其它全部正文/签名/数值/调用、384B表/共享phase定义/复制器及旧源保持，无新函数/API/保护/默认值/循环上限/声/播放/RNG。原全局未加载字节不当运行值，完整效果/HP/技能/phase生产、全部父/callee/ABI/alias/owner/SDK正常失败/容量/数值/RNG/声音画面待，原政策门禁保持。",
+      "verification_level": "八完整323条1106B/九页、20E8/十一callee/52跳十RET、十七实际CALL/九父/六11Bcase，384B图表全96值及12B三F32常量有据。当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::NormalizeBattleAngle_405E60",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；原实际弃返保持"
+      },
+      "battle_skill_tiles": {
+        "step": "BSTL01",
+        "source_snapshot": "cg2d-re-battle-skill-tiles-20261010",
+        "original_instruction_count": 18,
+        "original_code_bytes": 59,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "callee_count": 0,
+        "jump_count": 2,
+        "return_count": 2,
+        "inbound_reference_count": 4,
+        "inbound_direct_call_count": 4,
+        "inbound_parent_count": 4,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

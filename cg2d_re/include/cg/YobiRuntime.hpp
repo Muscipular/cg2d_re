@@ -353,7 +353,7 @@ union BattleEffectThirdArgument {
 YobiAction* NewBattleEffect_41CD00(
     YobiAction* source, std::int32_t offsetX, BattleEffectThirdArgument third,
     std::uint32_t type, std::int32_t blend, std::int32_t link); // 完整48类及已有对象公共尾。
-std::int32_t DrawBattleTiledEffect_41E890(std::int32_t type); // 共享相位先推进，按列/行提交100格，返回末次结果。
+std::int32_t DrawBattleTiledEffect_41E890(std::int32_t type); // BSTL01：共享相位先推进，X外Y内100格/每格fresh相位/末次返回。
 void UpdateBattleTiledEffect_41E920(YobiAction* action); // 独立58相位/1D4反向，绘制后判寿命且仍自增。
 YobiAction* NewBattleTiledEffect_41E9D0(std::int32_t type, std::int32_t lifetime); // maxHp/readiness依次临时构造赋值。
 // 工厂初始化：仅借用现有对象与真实回调，空action/source原样返回，不分配/播放。
@@ -574,12 +574,12 @@ void UpdateBattleAction89_40C8F0(YobiAction* action); // BRAF01：仅启用0/推
 void UpdateBattleAction90_40C910(YobiAction* action); // BRAF01：逐目标/事件重取/同帧延迟减1/四边界退出。
 std::int32_t UpdateBattleAction91_40CF30(YobiAction* action); // BRAF01：对象flags置2→推进→播放返回。
 std::int32_t UpdateBattleAction92_40CF50(YobiAction* action); // BRAF01：对象flags清2→推进→播放返回。
-void UpdateBattleAction93_40CF70(YobiAction* action); // 先计全部22槽，再按结果清更新门并清自身FF8。
-void UpdateBattleAction94_40D010(YobiAction* action); // 分别重取目标X/Y/角度，后移50后重取目标转向。
-void UpdateBattleAction95_40D0B0(YobiAction* action); // 旧FF0<16才移动，否则推进后重取目标并清HP。
-void UpdateBattleAction96_40D170(YobiAction* action); // 当前效果目标hidden=0，再推进源动作。
-void UpdateBattleAction97_40D1A0(YobiAction* action); // 当前效果目标hidden=1，再推进源动作。
-void UpdateBattleAction98_40D1D0(YobiAction* action); // 事件/完成两次独立特效；平铺尾重读技能判断type5。
+void UpdateBattleAction93_40CF70(YobiAction* action); // BSTL01：活动数量先判，再清alive并推进。
+void UpdateBattleAction94_40D010(YobiAction* action); // BSTL01：四次独立目标读取/单圈角度/50步进。
+void UpdateBattleAction95_40D0B0(YobiAction* action); // BSTL01：旧16门禁/推进后清FF0与原HP零复制读序。
+void UpdateBattleAction96_40D170(YobiAction* action); // BSTL01：当前目标hidden置0/source推进。
+void UpdateBattleAction97_40D1A0(YobiAction* action); // BSTL01：当前目标hidden置1/source推进。
+void UpdateBattleAction98_40D1D0(YobiAction* action); // BSTL01：双选图门禁/两次skill读取/铺格生产。
 std::int32_t UpdateBattleAction99_40D390(YobiAction* action); // 速率25，推进后清帧索引/剩余帧并返回0。
 void UpdateBattleAction100_40D3C0(YobiAction* action); // S8序列/共享游标，完成后分效果、随机音效并检查下一哨兵。
 std::int32_t UpdateBattleAction101_40D580(YobiAction* action); // 两侧中心汇聚，位置分支逐次重读，到达后转向/推进。
@@ -694,7 +694,7 @@ void Sub_43C040(); // 命令初始化逐槽清flags bit40，不改变其他位�
 void DrawBattleEntryHover_43C0A0(std::int32_t index); // 固定可选对象，按DX尺寸和播放偏移画框。
 std::int32_t GetSelectedBattleEntry_43C120(); // 返回单体/邻接/阵营/全体目标编号，先快照目标位与命中。
 void Sub_405CB0(YobiAction* action); // 角度只校正一圈，按八个不等宽区间写方向。
-void NormalizeBattleAngle_405E60(YobiAction* action); // 仅修正一圈，不更新direction。
+void NormalizeBattleAngle_405E60(YobiAction* action); // BSTL01：上限首样/第二角度持样/负值重取，一次加减360。
 void MoveBattleByAngle_405EA0(YobiAction* action); // X存回F32后才计算Y，角度/速度按原序读取。
 std::int8_t GetBattleRelativeDirection_405ED0(
     float sourceX, float sourceY, float targetX, float targetY,

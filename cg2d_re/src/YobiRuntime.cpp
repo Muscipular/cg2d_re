@@ -8959,6 +8959,7 @@ YobiAction* NewBattleEffect_41CD00(
     return action;
 }
 
+// BSTL01：共享相位先推进/15和0反向；X外Y内100格，每格fresh相位，返回末结果。
 std::int32_t DrawBattleTiledEffect_41E890(const std::int32_t type)
 {
     if (gBattleTiledEffectReverse59F9F0 == 0) {
@@ -23129,11 +23130,14 @@ void Sub_405CB0(YobiAction* const action)
     }
 }
 
+// BSTL01：首角度比较上限、分支前第二角度持样，负分支第三次重取；仅修一圈。
 void NormalizeBattleAngle_405E60(YobiAction* const action)
 {
-    if (action->angle50 >= 360.0F) {
-        action->angle50 = static_cast<float>(static_cast<double>(action->angle50) - 360.0);
-    } else if (!(action->angle50 >= 0.0F)) {
+    const float upperAngle = action->angle50;
+    const float currentAngle = action->angle50;
+    if (upperAngle >= 360.0F) {
+        action->angle50 = static_cast<float>(static_cast<double>(currentAngle) - 360.0);
+    } else if (!(currentAngle >= 0.0F)) {
         action->angle50 = static_cast<float>(static_cast<double>(action->angle50) + 360.0);
     }
 }
@@ -27604,6 +27608,7 @@ std::int32_t UpdateBattleAction92_40CF50(YobiAction* const action)
     return PlayFrame_517DA0(action, 0);
 }
 
+// BSTL01：先Count<=1再alive清零与推进，入口payload固定。
 void UpdateBattleAction93_40CF70(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27614,6 +27619,7 @@ void UpdateBattleAction93_40CF70(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BSTL01：X发布后fresh Y/angle/目标，单圈归一化后50步进及重取转向。
 void UpdateBattleAction94_40D010(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -27633,6 +27639,7 @@ void UpdateBattleAction94_40D010(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BSTL01：旧FF0的16门禁；推进后入口载荷清零，临时index/encoded先查目标。
 void UpdateBattleAction95_40D0B0(YobiAction* const action)
 {
     using namespace platform::legacy_crypt_int;
@@ -27651,13 +27658,18 @@ void UpdateBattleAction95_40D0B0(YobiAction* const action)
         payload->valueFF0 = 0;
         platform::LegacyCryptInt temporary;
         ConstructFromInt_401CC0(&temporary, 0);
+        const std::int32_t effectIndex = payload->effectRunningC9C;
+        const std::uint32_t encoded = temporary.encoded;
         YobiAction* const target = world::detail::gBattleAllEntries59E980[
-            payload->effects1C[payload->effectRunningC9C].position];
-        CopyPayload(&target->readiness, &temporary);
+            payload->effects1C[effectIndex].position];
+        target->readiness.encoded = encoded;
+        target->readiness.mask = temporary.mask;
+        target->readiness.readCount = temporary.readCount;
         Destroy_401CF0(&temporary);
     }
 }
 
+// BSTL01：当前动态目标hidden=0后仅推进source。
 void UpdateBattleAction96_40D170(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27666,6 +27678,7 @@ void UpdateBattleAction96_40D170(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BSTL01：当前动态目标hidden=1后仅推进source。
 void UpdateBattleAction97_40D1A0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27674,6 +27687,7 @@ void UpdateBattleAction97_40D1A0(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BSTL01：入口事件与终帧独立选图，附属门禁后两次skill及共享铺格生产。
 void UpdateBattleAction98_40D1D0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;

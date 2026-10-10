@@ -4741,3 +4741,8 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 ## 2026-10-10 BRAF01：缩放恢复/范围处理与震动
 
 [完整合同](cg2d_battle_restore_area_spec.md#battle-restore-area-source-state)补84–92九完整552条1872B/十四页和696B三列表。84/85入口载荷尾门禁、86两效果低BYTE及负HP临时index/encoded先查目标、encoded-mask-count逐项读写共五片段落实；原未舍入缩放/新载荷清位、2002名称选图、固定视觉与动态HP/phase目标、十位置逐次阵营RNG和270计数、同源震动、90事件/目标重取及FD0当帧4→3/四边界退出、91/92对象flags与末返回均保持。另十八注释，九语义/F/成员、限定I三F五片段/S九正常根，零新函数/API/保护/默认值/额外声/播放/RNG。完整生产/其它父/ABI/alias/owner/SDK正常失败/容量/数值/RNG与声音画面仍待，原门禁政策保持。
+
+<a id="battle-skill-tiles-runtime-20261010"></a>
+## 2026-10-10 BSTL01：目标移位/HP零与百格技能生产
+
+[完整合同](cg2d_battle_skill_tiles_spec.md#battle-skill-tiles-source-state)补93–98、405E60和41E890八完整323条1106B/九页及384B六类图表。95临时index/encoded先查目标、encoded-mask-count逐项读写与角度首样上限/分支前第二样/负分支第三读共两片段落实；93 Count先alive后、94四目标重取/X先Y/180与50、旧16门禁/推进后入口payload清零、96/97当前目标hidden与source推进、98双图号门禁/26+4技能映射和两次skill、百格共享相位先推进/XY次序/每格fresh相位/最后结果均保持。仅另十六注释，八语义/F/成员、限定I两F/S八正常根，零新函数/API/保护/默认值/额外调用/RNG。原全局无加载值的FF不能当原初值/运行值；完整生产/所有父/ABI/alias/owner/SDK正常失败/容量/数值/RNG/声音画面待，原门禁政策保持。

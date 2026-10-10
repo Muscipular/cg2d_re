@@ -37084,6 +37084,7 @@ void Sub_445350(
     record.action->field1D8 = value40;
 }
 
+// WOP01：类别2记录更新；两坐标mask/encoded/count先取齐，保创建失败与fresh action序。
 void Sub_445D20(
     const std::int32_t objectIndex, const std::int32_t imageNo,
     const std::int32_t mapX, const std::int32_t mapY,
@@ -37113,14 +37114,17 @@ void Sub_445D20(
     auto& record = gWorldObjects[static_cast<std::size_t>(index)];
     record.imageNo = static_cast<std::uint32_t>(imageNo);
     record.value48 = value48;
-    // 原445D20的mask写入先于encoded，不能复用相反写序的AssignFromInt。
+    // 原445D20两段均先取mask/encoded/count，再按同序发布；不改共享AssignFromInt。
     const auto assignCoordinate = [](
         platform::LegacyCryptInt& target, const std::int32_t value) {
         platform::LegacyCryptInt temporary;
         platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value);
-        target.mask = temporary.mask;
-        target.encoded = temporary.encoded;
-        target.readCount = temporary.readCount;
+        const std::uint32_t mask = temporary.mask;
+        const std::uint32_t encoded = temporary.encoded;
+        const std::uint8_t readCount = temporary.readCount;
+        target.mask = mask;
+        target.encoded = encoded;
+        target.readCount = readCount;
         platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     };
     assignCoordinate(record.coordinate0C, mapX);
@@ -37148,6 +37152,7 @@ void Sub_445D20(
     static_cast<login::detail::MapActorPayload*>(record.action->payload)->value18 = value50;
 }
 
+// WOP01：类别4记录更新；两坐标encoded/mask/count先取齐，不补类别2专用字段。
 void Sub_445F40(
     const std::int32_t objectIndex, const std::int32_t imageNo,
     const std::int32_t mapX, const std::int32_t mapY,
@@ -37177,8 +37182,20 @@ void Sub_445F40(
     auto& record = gWorldObjects[static_cast<std::size_t>(index)];
     record.imageNo = static_cast<std::uint32_t>(imageNo);
     record.value4C = value4C;
-    platform::legacy_crypt_int::AssignFromInt(&record.coordinate0C, mapX);
-    platform::legacy_crypt_int::AssignFromInt(&record.coordinate1C, mapY);
+    const auto assignCoordinate = [](
+        platform::LegacyCryptInt& target, const std::int32_t value) {
+        platform::LegacyCryptInt temporary;
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value);
+        const std::uint32_t encoded = temporary.encoded;
+        const std::uint32_t mask = temporary.mask;
+        const std::uint8_t readCount = temporary.readCount;
+        target.encoded = encoded;
+        target.mask = mask;
+        target.readCount = readCount;
+        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    };
+    assignCoordinate(record.coordinate0C, mapX);
+    assignCoordinate(record.coordinate1C, mapY);
     record.direction = direction;
     if (std::strlen(name) <= 60) {
         std::memmove(record.nameC9.data(), name, std::strlen(name) + 1);

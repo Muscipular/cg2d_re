@@ -205579,6 +205579,183 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x445a60",
+      "inventory_id": "F:00045A60",
+      "original_role": "无action记录生产，重复/领取失败返0，原类别/字段/两坐标/三个标题槽及低BYTE标志写入后返1",
+      "original_end_exclusive": "0x445d1e",
+      "instruction_count": 206,
+      "function_chunks": [
+        {
+          "start": "0x445a60",
+          "end_exclusive": "0x445d1e"
+        }
+      ],
+      "status": "WOP01既有三完整记录根六取样组落实/原文本缓冲明确，限定S；完整生产/owner/运行待",
+      "sources": [
+        {
+          "path": "src/world/WorldObjectState.cpp",
+          "symbol": "cg::world::detail::Sub_445A60",
+          "relationship": "无action记录生产，重复/领取失败返0，原类别/字段/两坐标/三个标题槽及低BYTE标志写入后返1；局部两原坐标取样组修复，既有正常/失败其余正文保持"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbol": "cg::world::detail::Sub_445A60",
+          "relationship": "既有真实声明/类型/参数保持，只关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_world_object_record_producers_spec.md#world-object-record-producers-baseline",
+        "doc/cg2d_world_object_record_producers_spec.md#world-object-record-producers-decision",
+        "doc/cg2d_world_object_record_producers_spec.md#world-object-record-producers-acceptance",
+        "doc/cg2d_world_object_record_producers_spec.md#world-object-record-producers-source-state",
+        "doc/cg2d_world_object_record_producers_evidence.json"
+      ],
+      "boundary": "WOP01三个已有真实记录生产根局部恢复六组CryptInt三成员先取齐再发布，保持各入口/两轴原读取与写入序、构造/销毁及RNG消费；明确445A60三个独立未初始化文本缓冲100/300/200与原ordinal1/2/3，保解析容量/通知/长度门槛和含NUL字节。共享CryptInt工具和全部其它消费者保持；两个当前父及原正常/失败/字段宽度/借用/创建pub无回滚、category/flags与专用附加字段保持。三实际入向短窗/两父非完整父，九callee仅当前绑定，六旧语义保持/三无独立身份不伪称完整叶或新增已验。完整生产/输入/正常失败/容量/alias/owner/SDK/机器ABI/声音画面/运行待，总SPEC§10不降；RPLAN.24不加保护、默认值、补零、钳制、输入限制、异常模型或回滚。",
+      "verification_level": "三完整516条1738B/十页、27E8九callee/22跳五RET、三实际入向/两父及三短窗；六组读取宽度/原绝对目标及发布序、两种局部lambda展开、三文本槽和原四字节名字常量；整两CPP/一头唯一差异重放及全部其它源/工具/结构/父保持，仅必要静态。",
+      "native_provider": {
+        "path": "src/world/WorldObjectState.cpp",
+        "symbol": "cg::world::detail::Sub_445A60",
+        "parameters": "std::int32_t Sub_445A60(\n    const std::int32_t objectIndex, const std::int32_t imageNo,\n    const std::int32_t mapX, const std::int32_t mapY,\n    const std::int32_t direction, const char* const name,\n    const char* const titles, const std::int32_t level,\n    const std::uint16_t value40, const std::int32_t flag1,\n    const std::int32_t flag2, const std::int32_t type)",
+        "return": "现S32 0/1，原父实际判断",
+        "calling_convention": "既有约定保持"
+      },
+      "world_object_record_production": {
+        "step": "WOP01",
+        "source_snapshot": "Git提交说明：[#] 对齐世界对象记录生产与坐标取样",
+        "original_instruction_count": 206,
+        "original_code_bytes": 702,
+        "original_page_count": 4,
+        "direct_call_count": 13,
+        "jump_count": 8,
+        "return_count": 3,
+        "inbound_call_count": 1,
+        "source_patch_group_count": 2,
+        "new_public_functions": 0,
+        "normal_source_kept": false,
+        "remaining_body_kept": true,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x445d20",
+      "inventory_id": "F:00045D20",
+      "original_role": "类别2已有记录更新/缺记录才创建，保领取与失败，坐标mask/encoded/count持样、名字28门槛和附加value48/value50",
+      "original_end_exclusive": "0x445f3e",
+      "instruction_count": 160,
+      "function_chunks": [
+        {
+          "start": "0x445d20",
+          "end_exclusive": "0x445f3e"
+        }
+      ],
+      "status": "WOP01既有三完整记录根六取样组落实/原文本缓冲明确，限定S；完整生产/owner/运行待",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::world::detail::Sub_445D20",
+          "relationship": "类别2已有记录更新/缺记录才创建，保领取与失败，坐标mask/encoded/count持样、名字28门槛和附加value48/value50；局部两原坐标取样组修复，既有正常/失败其余正文保持"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbol": "cg::world::detail::Sub_445D20",
+          "relationship": "既有真实声明/类型/参数保持，只关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_world_object_record_producers_spec.md#world-object-record-producers-baseline",
+        "doc/cg2d_world_object_record_producers_spec.md#world-object-record-producers-decision",
+        "doc/cg2d_world_object_record_producers_spec.md#world-object-record-producers-acceptance",
+        "doc/cg2d_world_object_record_producers_spec.md#world-object-record-producers-source-state",
+        "doc/cg2d_world_object_record_producers_evidence.json"
+      ],
+      "boundary": "WOP01三个已有真实记录生产根局部恢复六组CryptInt三成员先取齐再发布，保持各入口/两轴原读取与写入序、构造/销毁及RNG消费；明确445A60三个独立未初始化文本缓冲100/300/200与原ordinal1/2/3，保解析容量/通知/长度门槛和含NUL字节。共享CryptInt工具和全部其它消费者保持；两个当前父及原正常/失败/字段宽度/借用/创建pub无回滚、category/flags与专用附加字段保持。三实际入向短窗/两父非完整父，九callee仅当前绑定，六旧语义保持/三无独立身份不伪称完整叶或新增已验。完整生产/输入/正常失败/容量/alias/owner/SDK/机器ABI/声音画面/运行待，总SPEC§10不降；RPLAN.24不加保护、默认值、补零、钳制、输入限制、异常模型或回滚。",
+      "verification_level": "三完整516条1738B/十页、27E8九callee/22跳五RET、三实际入向/两父及三短窗；六组读取宽度/原绝对目标及发布序、两种局部lambda展开、三文本槽和原四字节名字常量；整两CPP/一头唯一差异重放及全部其它源/工具/结构/父保持，仅必要静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::world::detail::Sub_445D20",
+        "parameters": "void Sub_445D20(\n    const std::int32_t objectIndex, const std::int32_t imageNo,\n    const std::int32_t mapX, const std::int32_t mapY,\n    const std::int32_t direction, const std::int32_t value48,\n    const char* const name, const std::int32_t value50)",
+        "return": "现void观察边界，原父弃尾EAX，不外推x86机器ABI",
+        "calling_convention": "既有约定保持"
+      },
+      "world_object_record_production": {
+        "step": "WOP01",
+        "source_snapshot": "Git提交说明：[#] 对齐世界对象记录生产与坐标取样",
+        "original_instruction_count": 160,
+        "original_code_bytes": 542,
+        "original_page_count": 3,
+        "direct_call_count": 7,
+        "jump_count": 7,
+        "return_count": 1,
+        "inbound_call_count": 1,
+        "source_patch_group_count": 2,
+        "new_public_functions": 0,
+        "normal_source_kept": false,
+        "remaining_body_kept": true,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x445f40",
+      "inventory_id": "F:00045F40",
+      "original_role": "类别4已有记录更新/缺记录才创建，保领取与失败，坐标encoded/mask/count持样、名字16门槛和flags尾",
+      "original_end_exclusive": "0x44612e",
+      "instruction_count": 150,
+      "function_chunks": [
+        {
+          "start": "0x445f40",
+          "end_exclusive": "0x44612e"
+        }
+      ],
+      "status": "WOP01既有三完整记录根六取样组落实/原文本缓冲明确，限定S；完整生产/owner/运行待",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::world::detail::Sub_445F40",
+          "relationship": "类别4已有记录更新/缺记录才创建，保领取与失败，坐标encoded/mask/count持样、名字16门槛和flags尾；局部两原坐标取样组修复，既有正常/失败其余正文保持"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbol": "cg::world::detail::Sub_445F40",
+          "relationship": "既有真实声明/类型/参数保持，只关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_world_object_record_producers_spec.md#world-object-record-producers-baseline",
+        "doc/cg2d_world_object_record_producers_spec.md#world-object-record-producers-decision",
+        "doc/cg2d_world_object_record_producers_spec.md#world-object-record-producers-acceptance",
+        "doc/cg2d_world_object_record_producers_spec.md#world-object-record-producers-source-state",
+        "doc/cg2d_world_object_record_producers_evidence.json"
+      ],
+      "boundary": "WOP01三个已有真实记录生产根局部恢复六组CryptInt三成员先取齐再发布，保持各入口/两轴原读取与写入序、构造/销毁及RNG消费；明确445A60三个独立未初始化文本缓冲100/300/200与原ordinal1/2/3，保解析容量/通知/长度门槛和含NUL字节。共享CryptInt工具和全部其它消费者保持；两个当前父及原正常/失败/字段宽度/借用/创建pub无回滚、category/flags与专用附加字段保持。三实际入向短窗/两父非完整父，九callee仅当前绑定，六旧语义保持/三无独立身份不伪称完整叶或新增已验。完整生产/输入/正常失败/容量/alias/owner/SDK/机器ABI/声音画面/运行待，总SPEC§10不降；RPLAN.24不加保护、默认值、补零、钳制、输入限制、异常模型或回滚。",
+      "verification_level": "三完整516条1738B/十页、27E8九callee/22跳五RET、三实际入向/两父及三短窗；六组读取宽度/原绝对目标及发布序、两种局部lambda展开、三文本槽和原四字节名字常量；整两CPP/一头唯一差异重放及全部其它源/工具/结构/父保持，仅必要静态。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::world::detail::Sub_445F40",
+        "parameters": "void Sub_445F40(\n    const std::int32_t objectIndex, const std::int32_t imageNo,\n    const std::int32_t mapX, const std::int32_t mapY,\n    const std::int32_t direction, const std::int32_t value4C,\n    const char* const name)",
+        "return": "现void观察边界，原父弃尾EAX，不外推x86机器ABI",
+        "calling_convention": "既有约定保持"
+      },
+      "world_object_record_production": {
+        "step": "WOP01",
+        "source_snapshot": "Git提交说明：[#] 对齐世界对象记录生产与坐标取样",
+        "original_instruction_count": 150,
+        "original_code_bytes": 494,
+        "original_page_count": 3,
+        "direct_call_count": 7,
+        "jump_count": 7,
+        "return_count": 1,
+        "inbound_call_count": 1,
+        "source_patch_group_count": 2,
+        "new_public_functions": 0,
+        "normal_source_kept": false,
+        "remaining_body_kept": true,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

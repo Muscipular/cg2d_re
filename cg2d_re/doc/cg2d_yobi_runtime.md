@@ -4793,3 +4793,10 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 [当前四根合同](cg2d_world_object_lifecycle_spec.md#world-object-lifecycle-source-state)补世界删除/占用槽整表清理各八child标死后逐槽清指针、text1C free后清槽、fresh主标死/世界action清槽，与无释放整表重置/空action恢复四完整328条1066B。共享ClearMapActorAttachments与519D50旧1300是同一既有提供者，正确body/第三消费者保持、不新原helper身份；公头旧仅玩家范围的说明已补两世界消费者及34/38不清边界。
 
 两个GetVal按219唯一jmp401EC0交现Read，方向及1C→0C→image读取/创建顺序和原Read计数/RNG保；成功使用原生payload/record.action借用，恢复名称title原字节/无新长度门槛，末fresh flags保持。只十关联注释，四正常body/共享器/所有其它源及类型字段不改；四原身份/两限定S零I、七任务open及完整政策保，主/payload实际销毁、全创建清理/19全部父/alias/owner/SDK/ABI与画面声音/运行仍待。
+
+<a id="world-object-record-producers-current-20261010"></a>
+## 2026-10-10 WOP01：类别2/4记录的动作更新
+
+[记录生产合同](cg2d_world_object_record_producers_spec.md#world-object-record-producers-source-state)核445A60/445D20/445F40三完整根；本源两个类别根各两坐标三值读取在首发布前完成。445D20沿原mask→encoded→count，445F40沿原encoded→mask→count；各入口局部lambda只承接两个展开点，共享AssignFromInt/CopyPayload与所有其它消费者不改，Construct/Destroy及RNG消费不增减。
+
+Find命中不补action，未命中才领取/创建，先pub返回/空失败不回滚；成功原used/index/category/objectIndex/value34，随后原image/字段/两坐标/方向/名字/flags及专用附加字段，fresh action与名字门槛/原"???"保。三入向只短窗，六旧语义/两个当前父保持；三新身份/限定S零I，完整生产/主payload寿命/owner/SDK/ABI与画面声音/运行待。

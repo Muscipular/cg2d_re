@@ -993,17 +993,18 @@ void Sub_445350(
     const char* titles, const char* extraText, std::int32_t level,
     std::int32_t value40, std::int32_t flag1, std::int32_t flag2,
     std::int32_t type);
-// 原只生产无action记录；编号已存在或领取失败返回0，完成记录写入返回1。
+// WOP01：只生产无action记录；已存在/领取失败返0，原字段/文本生产完成返1。
 std::int32_t Sub_445A60(
     std::int32_t objectIndex, std::int32_t imageNo, std::int32_t mapX,
     std::int32_t mapY, std::int32_t direction, const char* name,
     const char* titles, std::int32_t level, std::uint16_t value40,
     std::int32_t flag1, std::int32_t flag2, std::int32_t type);
-// 原类别2/4对象生产或更新；已有记录不补建action，创建失败不回滚领取。
+// WOP01：类别2生产或更新；已有记录不补建action，保领取/创建失败及两坐标取样序。
 void Sub_445D20(
     std::int32_t objectIndex, std::int32_t imageNo, std::int32_t mapX,
     std::int32_t mapY, std::int32_t direction, std::int32_t value48,
     const char* name, std::int32_t value50);
+// WOP01：类别4生产或更新；原两坐标先取齐再发布，保原名字门槛和flags尾。
 void Sub_445F40(
     std::int32_t objectIndex, std::int32_t imageNo, std::int32_t mapX,
     std::int32_t mapY, std::int32_t direction, std::int32_t value4C,

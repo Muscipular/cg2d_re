@@ -166,6 +166,7 @@ std::uint32_t Sub_446210(const std::int32_t type)
     }
 }
 
+// WOP01：无action记录生产，原两坐标三值先持样后发布；保三个独立文本缓冲。
 std::int32_t Sub_445A60(
     const std::int32_t objectIndex, const std::int32_t imageNo,
     const std::int32_t mapX, const std::int32_t mapY,
@@ -191,14 +192,20 @@ std::int32_t Sub_445A60(
     record.level2C = level;
     platform::LegacyCryptInt temporary;
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapX);
-    record.coordinate0C.readCount = temporary.readCount;
-    record.coordinate0C.encoded = temporary.encoded;
-    record.coordinate0C.mask = temporary.mask;
+    const std::uint8_t xReadCount = temporary.readCount;
+    const std::uint32_t xEncoded = temporary.encoded;
+    const std::uint32_t xMask = temporary.mask;
+    record.coordinate0C.readCount = xReadCount;
+    record.coordinate0C.encoded = xEncoded;
+    record.coordinate0C.mask = xMask;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapY);
-    record.coordinate1C.mask = temporary.mask;
-    record.coordinate1C.encoded = temporary.encoded;
-    record.coordinate1C.readCount = temporary.readCount;
+    const std::uint32_t yMask = temporary.mask;
+    const std::uint32_t yEncoded = temporary.encoded;
+    const std::uint8_t yReadCount = temporary.readCount;
+    record.coordinate1C.mask = yMask;
+    record.coordinate1C.encoded = yEncoded;
+    record.coordinate1C.readCount = yReadCount;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     record.direction = direction;
     // 原两处只写+42低W8；+43高字节与其他清理入口仍共享同一W16。
@@ -211,22 +218,23 @@ std::int32_t Sub_445A60(
     if (std::strlen(name) <= 16) {
         std::memmove(record.name54.data(), name, std::strlen(name) + 1);
     }
-    char first[256];
-    char second[256];
-    char third[256];
-    network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, first);
-    if (std::strlen(first) <= 16) {
-        std::memmove(record.title65.data(), first, std::strlen(first) + 1);
+    // 原var_100/var_200/var_300；ordinal1/2/3分别借100/300/200。
+    char text100[256];
+    char text200[256];
+    char text300[256];
+    network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, text100);
+    if (std::strlen(text100) <= 16) {
+        std::memmove(record.title65.data(), text100, std::strlen(text100) + 1);
     }
-    network::ExtractDelimitedField_52CED0(titles, '|', 2, 255, second);
-    input::UnescapeLegacyTextAndNotify_52D2F0(second);
-    if (std::strlen(second) <= 32) {
-        std::memmove(record.text76.data(), second, std::strlen(second) + 1);
+    network::ExtractDelimitedField_52CED0(titles, '|', 2, 255, text300);
+    input::UnescapeLegacyTextAndNotify_52D2F0(text300);
+    if (std::strlen(text300) <= 32) {
+        std::memmove(record.text76.data(), text300, std::strlen(text300) + 1);
     }
-    network::ExtractDelimitedField_52CED0(titles, '|', 3, 255, third);
-    input::UnescapeLegacyTextAndNotify_52D2F0(third);
-    if (std::strlen(third) <= 32) {
-        std::memmove(record.text97.data(), third, std::strlen(third) + 1);
+    network::ExtractDelimitedField_52CED0(titles, '|', 3, 255, text200);
+    input::UnescapeLegacyTextAndNotify_52D2F0(text200);
+    if (std::strlen(text200) <= 32) {
+        std::memmove(record.text97.data(), text200, std::strlen(text200) + 1);
     }
     record.flags114 = Sub_4461E0(type);
     return 1;

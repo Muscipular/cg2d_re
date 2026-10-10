@@ -2404,3 +2404,9 @@ ANIMATION/YOBI各两个新成员，BATTLE只Play依赖成员；两新语义/F和
 [四完整正常根](cg2d_world_object_lifecycle_spec.md#world-object-lifecycle-acceptance)/[原指令与共享器差集](cg2d_world_object_lifecycle_evidence.json)登记两MAP/YOBI限定S四根，零I/新函数/业务。328条1066B/八页、26E8六callee/37跳六RET，19实际入向/十七父及19短窗有据；四body/共享八槽-text清理和第三玩家消费者旧1300完全保持，只五CPP/五头关联注释。保两个整表选择性/名称/无释放差异、删除全空旧上界、恢复原Read/Create/字节及失败，六旧语义与所有其它源/结构保。
 
 四新语义/F/MAP-Yobi成员；语义2191→2195、F1622→1626/E1427→1429、MAP142→146/Yobi72→76枚举均false，七任务open及全184叶验收0/60任务11关闭、六closure/完整gates与原政策保；所有生产/十九整父/容量/正常失败/传递callee/alias/owner/SDK/机器ABI/声音画面或运行待。
+
+## 2026-10-10 WOP01 世界对象记录生产限定验收
+
+[三完整根](cg2d_world_object_record_producers_spec.md#world-object-record-producers-acceptance)/[原指令/差集](cg2d_world_object_record_producers_evidence.json)登记MAP/YOBI三根、TEXT的445A60共三限定S，零I。516条1738B/十页、27E8九callee/22跳五RET、三实际入向/两父短窗；六坐标读取组/两局部lambda/三原文本槽已落实，整两CPP/一头唯一差异重放通过。共享工具、其它生产者、两个当前父及六旧身份全保，三未独立登记callee仅当前绑定，不冒充完整叶取证。
+
+三新语义/F，语义2195→2198、F1626→1629/E1429→1432、MAP146→149/Yobi76→79/TEXT29→30，成员枚举仍false；七任务open、184叶验收0/60任务11关闭、六closure与完整gates/原政策保。全部输入/两整父/正常失败/容量/alias/owner/SDK/ABI/画面声音/运行待，不据局部静态降低总SPEC§10。

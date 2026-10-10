@@ -729,3 +729,12 @@ FFC/104C/13D4三4B槽及1081–1083三字节尚未独立映射，现浅复制结
 四新语义/F/MAP-Yobi各四成员、两限定S四根，零I/函数/API/布局/业务；六旧callee、第三玩家1300与全部其它源/MOP01/WOL01及原完整政策守恒。401EA0初疑按旧219唯一jmp401EC0澄清，直接Read是同一读取，未增加/修改计数/RNG。七任务open/全部完整gates/枚举与六closure保。核心静态、登记、文本汇总、Check及派生范围核对通过；语义2195=2147F+48X，文档关联2257/3680=61.33%仅关联率，F处置1626、证据1429，MAP146/Yobi76仍未验收。派生仅六metrics/四F/两功能/七任务变化，184叶验收0、60任务关闭11、六closure开放及其余字段守恒。
 
 十九CALL短窗可含其他分支，未当完整父或动态后继；标准free实际由同一共享器std::free承接，不误用705旧其他样例或引新Ftoll/私有ABI。统一cg2d_re分支、不打tag，六无tag历史规则和七外部改动/外部pelican删除暂存保持。无构建/测试/运行/算法/产物/摘要或新依赖，全部数据/十九整父/传递callee/正常失败/容量/alias/owner/SDK/机器ABI及声音画面待，整体active/未完成。
+
+<a id="world-object-record-producers-progress-20261010"></a>
+## 72. 2026-10-10 WOP01：世界对象记录生产与坐标取样
+
+[三完整合同](../doc/cg2d_world_object_record_producers_spec.md#world-object-record-producers-source-state)核无action记录445A60与类别2/4更新445D20/445F40，合516条1738B/十页、27E8九callee/22跳五RET，无switch；三实际入向/两父仅前24/后12条短窗，不当完整父或跨分支动态后继。六原CryptInt三成员持样后发布已修，各入口两轴count/encoded/mask、mask/encoded/count、encoded/mask/count与W8/W32原序保持，构造/销毁及RNG消费不增减；445A60三个独立未初始化256B文本槽100/200/300与ordinal1/2/3→100/300/200明确，原解析/通知/255与16/32门槛和含NUL字节保持。
+
+原重复/领取失败/创建pub与已有槽不补action、名字60/28/16及原四字节"???"、低BYTE flags42/完整flags114与专用附加字段保持。共享CryptInt工具、全部其它生产者/结构/两个当前父与六旧身份保持；九callee均现真实绑定，401CC0/401CF0/52D2F0无独立登记，不伪称本步完整叶或新增已验。三新语义/F、MAP/Yobi各三成员/TEXT一成员、三限定S零I，七任务open及完整gates/成员枚举与六closure保。核心静态、登记、文本汇总、Check及派生范围核对通过；语义2198=2150F+48X，文档关联2260/3680=61.41%仅关联率，F处置1629/证据1432，MAP149/Yobi79/TEXT30仍未验收。派生仅六metrics/三F/三功能/七任务变化，184叶验收0、60任务关闭11、六closure开放及全部其它字段守恒。
+
+统一cg2d_re分支、不打tag，七外部项及删除暂存保留排除，六无tag历史规则保持；全程只读当前IDA，无构建/测试/运行客户端或算法/产物/摘要、新依赖或异常模拟。全部输入/两整父/传递callee/正常失败/容量/alias/owner/SDK/机器ABI与声音画面运行待，整体active/未完成。

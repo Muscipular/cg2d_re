@@ -772,3 +772,10 @@ flags W16非0且objectIndex完整W32位型相等，才清该槽action并停止�
 删除先玩家专用分流，世界action八附件/text清理后fresh主标死清槽，计数/游标及逆扫上界原序、全空保旧上界；无释放重置全1000槽清原七字段含name首BYTE、无标死/free；占用槽清理只used非零、同一八槽/free/fresh主后清原字段、不清name或未占用槽。空action恢复先direction→1C Read→0C Read→image创建，返回先pub空/失败不回滚，成功index/level/原名称title字节与fresh flags保持。401EA0按旧219唯一jmp同一Read，不加读取/RNG；共享八槽不含34/38、逐槽取样标死清槽，现std::free沿MSVC域，不当主对象立即free/完整owner闭环。
 
 四新语义/F及MAP/Yobi各四成员、两限定S四根，六旧callee/第三玩家1300及MOP01/WOL01保；七任务open、全部完整gates/成员枚举与六closure保。所有数据/19完整父/传递callee/容量/alias/owner/SDK/机器ABI/正常失败与声音画面运行待，总SPEC§10不降。
+
+<a id="world-object-record-producers-current-20261010"></a>
+## 2026-10-10 WOP01：记录生产与更新
+
+[三完整根](cg2d_world_object_record_producers_spec.md#world-object-record-producers-source-state)/[原指令与差集](cg2d_world_object_record_producers_evidence.json)：445A60无action生产与445D20/445F40类别2/4更新合516条1738B/十页，27E8九callee、22跳五RET，三入向/两父短窗有据。六原坐标临时三值先取齐后发布，分别count/encoded/mask、mask/encoded/count与encoded/mask/count，保构造/销毁/RNG及字段宽度。445A60三个独立未初始化256B槽明确为100/200/300，ordinal1/2/3借100/300/200，原解析/通知/容量/门槛保持。
+
+保重复/领取/创建失败及pub、已有记录不补action、名字60/28/16和原四字节"???"、低BYTE flags42与完整flags114、类别2独立附加字段。共享CryptInt工具、其它根、两个当前父和六旧身份保持；三新语义/F与限定S，MAP/Yobi各三成员、TEXT一成员，七任务/完整gates/成员枚举和六closure仍开放。完整输入/两整父/传递callee/正常失败/容量/alias/owner/SDK/ABI/画面声音运行待，总SPEC§10不降。

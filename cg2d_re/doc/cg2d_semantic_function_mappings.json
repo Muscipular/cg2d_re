@@ -201988,6 +201988,519 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x40cd70",
+      "inventory_id": "F:0000CD70",
+      "original_role": "未舍入缩小恢复/新载荷清位与入口BYTE门禁",
+      "original_end_exclusive": "0x40cddb",
+      "instruction_count": 33,
+      "function_chunks": [
+        {
+          "start": "0x40cd70",
+          "end_exclusive": "0x40cddb"
+        }
+      ],
+      "status": "BRAF01完整正常源/独立合同纳管，84/85/86五取样片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction84_40CD70"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction84_40CD70"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-baseline",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-decision",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-acceptance",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-source-state",
+        "doc/cg2d_battle_restore_area_evidence.json"
+      ],
+      "boundary": "BRAF01动作84–92九完整当前正常源纳管，仅84/85尾及86两效果BYTE消费、86临时HP零复制index/encoded先查目标共五片段实修，十八注释。其它全部正文/签名/数值/实际调用/父RNG序、696B三列表/目录/共享复制器和旧源保持，无新函数/API/保护/默认值。完整名字/技能/效果/HP/震动/延迟生产、其它父/callee/ABI/alias/owner、SDK正常失败/容量/数值/RNG结果及声音画面仍待，原门禁政策保持。",
+      "verification_level": "九完整552条1872B/十四页、53E8/二十一callee/47跳九RET、九实际入向/九11Bcase，24B六F32常量及696B三列表全174值有据。当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction84_40CD70",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；原实际弃返保持"
+      },
+      "battle_restore_area": {
+        "step": "BRAF01",
+        "source_snapshot": "cg2d-re-battle-restore-area-20261010",
+        "original_instruction_count": 33,
+        "original_code_bytes": 107,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 2,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40cde0",
+      "inventory_id": "F:0000CDE0",
+      "original_role": "放大旋转/2002名称三列表选图",
+      "original_end_exclusive": "0x40cf30",
+      "instruction_count": 104,
+      "function_chunks": [
+        {
+          "start": "0x40cde0",
+          "end_exclusive": "0x40cf30"
+        }
+      ],
+      "status": "BRAF01完整正常源/独立合同纳管，84/85/86五取样片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction85_40CDE0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction85_40CDE0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-baseline",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-decision",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-acceptance",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-source-state",
+        "doc/cg2d_battle_restore_area_evidence.json"
+      ],
+      "boundary": "BRAF01动作84–92九完整当前正常源纳管，仅84/85尾及86两效果BYTE消费、86临时HP零复制index/encoded先查目标共五片段实修，十八注释。其它全部正文/签名/数值/实际调用/父RNG序、696B三列表/目录/共享复制器和旧源保持，无新函数/API/保护/默认值。完整名字/技能/效果/HP/震动/延迟生产、其它父/callee/ABI/alias/owner、SDK正常失败/容量/数值/RNG结果及声音画面仍待，原门禁政策保持。",
+      "verification_level": "九完整552条1872B/十四页、53E8/二十一callee/47跳九RET、九实际入向/九11Bcase，24B六F32常量及696B三列表全174值有据。当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction85_40CDE0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；原实际弃返保持"
+      },
+      "battle_restore_area": {
+        "step": "BRAF01",
+        "source_snapshot": "cg2d-re-battle-restore-area-20261010",
+        "original_instruction_count": 104,
+        "original_code_bytes": 336,
+        "original_page_count": 2,
+        "direct_call_count": 4,
+        "callee_count": 3,
+        "jump_count": 16,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40c520",
+      "inventory_id": "F:0000C520",
+      "original_role": "逐效果视觉及动态HP/phase目标与临时复制读序",
+      "original_end_exclusive": "0x40c779",
+      "instruction_count": 165,
+      "function_chunks": [
+        {
+          "start": "0x40c520",
+          "end_exclusive": "0x40c779"
+        }
+      ],
+      "status": "BRAF01完整正常源/独立合同纳管，84/85/86五取样片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction86_40C520"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction86_40C520"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-baseline",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-decision",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-acceptance",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-source-state",
+        "doc/cg2d_battle_restore_area_evidence.json"
+      ],
+      "boundary": "BRAF01动作84–92九完整当前正常源纳管，仅84/85尾及86两效果BYTE消费、86临时HP零复制index/encoded先查目标共五片段实修，十八注释。其它全部正文/签名/数值/实际调用/父RNG序、696B三列表/目录/共享复制器和旧源保持，无新函数/API/保护/默认值。完整名字/技能/效果/HP/震动/延迟生产、其它父/callee/ABI/alias/owner、SDK正常失败/容量/数值/RNG结果及声音画面仍待，原门禁政策保持。",
+      "verification_level": "九完整552条1872B/十四页、53E8/二十一callee/47跳九RET、九实际入向/九11Bcase，24B六F32常量及696B三列表全174值有据。当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction86_40C520",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；原实际弃返保持"
+      },
+      "battle_restore_area": {
+        "step": "BRAF01",
+        "source_snapshot": "cg2d-re-battle-restore-area-20261010",
+        "original_instruction_count": 165,
+        "original_code_bytes": 601,
+        "original_page_count": 3,
+        "direct_call_count": 16,
+        "callee_count": 14,
+        "jump_count": 8,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 3,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40c780",
+      "inventory_id": "F:0000C780",
+      "original_role": "十位置逐次阵营随机/270计数与播放返回",
+      "original_end_exclusive": "0x40c8c6",
+      "instruction_count": 106,
+      "function_chunks": [
+        {
+          "start": "0x40c780",
+          "end_exclusive": "0x40c8c6"
+        }
+      ],
+      "status": "BRAF01完整正常源/独立合同纳管，84/85/86五取样片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction87_40C780"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction87_40C780"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-baseline",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-decision",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-acceptance",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-source-state",
+        "doc/cg2d_battle_restore_area_evidence.json"
+      ],
+      "boundary": "BRAF01动作84–92九完整当前正常源纳管，仅84/85尾及86两效果BYTE消费、86临时HP零复制index/encoded先查目标共五片段实修，十八注释。其它全部正文/签名/数值/实际调用/父RNG序、696B三列表/目录/共享复制器和旧源保持，无新函数/API/保护/默认值。完整名字/技能/效果/HP/震动/延迟生产、其它父/callee/ABI/alias/owner、SDK正常失败/容量/数值/RNG结果及声音画面仍待，原门禁政策保持。",
+      "verification_level": "九完整552条1872B/十四页、53E8/二十一callee/47跳九RET、九实际入向/九11Bcase，24B六F32常量及696B三列表全174值有据。当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction87_40C780",
+        "parameters": "非拥有YobiAction*",
+        "return": "std::int32_t；实际末播放返回"
+      },
+      "battle_restore_area": {
+        "step": "BRAF01",
+        "source_snapshot": "cg2d-re-battle-restore-area-20261010",
+        "original_instruction_count": 106,
+        "original_code_bytes": 326,
+        "original_page_count": 2,
+        "direct_call_count": 16,
+        "callee_count": 5,
+        "jump_count": 8,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40c8d0",
+      "inventory_id": "F:0000C8D0",
+      "original_role": "震动振幅6及启用后推进",
+      "original_end_exclusive": "0x40c8f0",
+      "instruction_count": 7,
+      "function_chunks": [
+        {
+          "start": "0x40c8d0",
+          "end_exclusive": "0x40c8f0"
+        }
+      ],
+      "status": "BRAF01完整正常源/独立合同纳管，84/85/86五取样片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction88_40C8D0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction88_40C8D0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-baseline",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-decision",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-acceptance",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-source-state",
+        "doc/cg2d_battle_restore_area_evidence.json"
+      ],
+      "boundary": "BRAF01动作84–92九完整当前正常源纳管，仅84/85尾及86两效果BYTE消费、86临时HP零复制index/encoded先查目标共五片段实修，十八注释。其它全部正文/签名/数值/实际调用/父RNG序、696B三列表/目录/共享复制器和旧源保持，无新函数/API/保护/默认值。完整名字/技能/效果/HP/震动/延迟生产、其它父/callee/ABI/alias/owner、SDK正常失败/容量/数值/RNG结果及声音画面仍待，原门禁政策保持。",
+      "verification_level": "九完整552条1872B/十四页、53E8/二十一callee/47跳九RET、九实际入向/九11Bcase，24B六F32常量及696B三列表全174值有据。当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction88_40C8D0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；原实际弃返保持"
+      },
+      "battle_restore_area": {
+        "step": "BRAF01",
+        "source_snapshot": "cg2d-re-battle-restore-area-20261010",
+        "original_instruction_count": 7,
+        "original_code_bytes": 32,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "callee_count": 1,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40c8f0",
+      "inventory_id": "F:0000C8F0",
+      "original_role": "仅停止震动启用后推进",
+      "original_end_exclusive": "0x40c906",
+      "instruction_count": 6,
+      "function_chunks": [
+        {
+          "start": "0x40c8f0",
+          "end_exclusive": "0x40c906"
+        }
+      ],
+      "status": "BRAF01完整正常源/独立合同纳管，84/85/86五取样片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction89_40C8F0"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction89_40C8F0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-baseline",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-decision",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-acceptance",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-source-state",
+        "doc/cg2d_battle_restore_area_evidence.json"
+      ],
+      "boundary": "BRAF01动作84–92九完整当前正常源纳管，仅84/85尾及86两效果BYTE消费、86临时HP零复制index/encoded先查目标共五片段实修，十八注释。其它全部正文/签名/数值/实际调用/父RNG序、696B三列表/目录/共享复制器和旧源保持，无新函数/API/保护/默认值。完整名字/技能/效果/HP/震动/延迟生产、其它父/callee/ABI/alias/owner、SDK正常失败/容量/数值/RNG结果及声音画面仍待，原门禁政策保持。",
+      "verification_level": "九完整552条1872B/十四页、53E8/二十一callee/47跳九RET、九实际入向/九11Bcase，24B六F32常量及696B三列表全174值有据。当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction89_40C8F0",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；原实际弃返保持"
+      },
+      "battle_restore_area": {
+        "step": "BRAF01",
+        "source_snapshot": "cg2d-re-battle-restore-area-20261010",
+        "original_instruction_count": 6,
+        "original_code_bytes": 22,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "callee_count": 1,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40c910",
+      "inventory_id": "F:0000C910",
+      "original_role": "逐目标事件重取/当帧延迟与正常越界退出",
+      "original_end_exclusive": "0x40ca98",
+      "instruction_count": 109,
+      "function_chunks": [
+        {
+          "start": "0x40c910",
+          "end_exclusive": "0x40ca98"
+        }
+      ],
+      "status": "BRAF01完整正常源/独立合同纳管，84/85/86五取样片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction90_40C910"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction90_40C910"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-baseline",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-decision",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-acceptance",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-source-state",
+        "doc/cg2d_battle_restore_area_evidence.json"
+      ],
+      "boundary": "BRAF01动作84–92九完整当前正常源纳管，仅84/85尾及86两效果BYTE消费、86临时HP零复制index/encoded先查目标共五片段实修，十八注释。其它全部正文/签名/数值/实际调用/父RNG序、696B三列表/目录/共享复制器和旧源保持，无新函数/API/保护/默认值。完整名字/技能/效果/HP/震动/延迟生产、其它父/callee/ABI/alias/owner、SDK正常失败/容量/数值/RNG结果及声音画面仍待，原门禁政策保持。",
+      "verification_level": "九完整552条1872B/十四页、53E8/二十一callee/47跳九RET、九实际入向/九11Bcase，24B六F32常量及696B三列表全174值有据。当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction90_40C910",
+        "parameters": "非拥有YobiAction*",
+        "return": "void；原实际弃返保持"
+      },
+      "battle_restore_area": {
+        "step": "BRAF01",
+        "source_snapshot": "cg2d-re-battle-restore-area-20261010",
+        "original_instruction_count": 109,
+        "original_code_bytes": 392,
+        "original_page_count": 2,
+        "direct_call_count": 9,
+        "callee_count": 7,
+        "jump_count": 13,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40cf30",
+      "inventory_id": "F:0000CF30",
+      "original_role": "完整对象flags置2后推进播放返回",
+      "original_end_exclusive": "0x40cf4c",
+      "instruction_count": 11,
+      "function_chunks": [
+        {
+          "start": "0x40cf30",
+          "end_exclusive": "0x40cf4c"
+        }
+      ],
+      "status": "BRAF01完整正常源/独立合同纳管，84/85/86五取样片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction91_40CF30"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction91_40CF30"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-baseline",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-decision",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-acceptance",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-source-state",
+        "doc/cg2d_battle_restore_area_evidence.json"
+      ],
+      "boundary": "BRAF01动作84–92九完整当前正常源纳管，仅84/85尾及86两效果BYTE消费、86临时HP零复制index/encoded先查目标共五片段实修，十八注释。其它全部正文/签名/数值/实际调用/父RNG序、696B三列表/目录/共享复制器和旧源保持，无新函数/API/保护/默认值。完整名字/技能/效果/HP/震动/延迟生产、其它父/callee/ABI/alias/owner、SDK正常失败/容量/数值/RNG结果及声音画面仍待，原门禁政策保持。",
+      "verification_level": "九完整552条1872B/十四页、53E8/二十一callee/47跳九RET、九实际入向/九11Bcase，24B六F32常量及696B三列表全174值有据。当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction91_40CF30",
+        "parameters": "非拥有YobiAction*",
+        "return": "std::int32_t；实际末播放返回"
+      },
+      "battle_restore_area": {
+        "step": "BRAF01",
+        "source_snapshot": "cg2d-re-battle-restore-area-20261010",
+        "original_instruction_count": 11,
+        "original_code_bytes": 28,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x40cf50",
+      "inventory_id": "F:0000CF50",
+      "original_role": "完整对象flags清2后推进播放返回",
+      "original_end_exclusive": "0x40cf6c",
+      "instruction_count": 11,
+      "function_chunks": [
+        {
+          "start": "0x40cf50",
+          "end_exclusive": "0x40cf6c"
+        }
+      ],
+      "status": "BRAF01完整正常源/独立合同纳管，84/85/86五取样片段落实，其余正文保持；完整生产/owner/SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "cg::login::detail::UpdateBattleAction92_40CF50"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbol": "cg::login::detail::UpdateBattleAction92_40CF50"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-baseline",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-decision",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-acceptance",
+        "doc/cg2d_battle_restore_area_spec.md#battle-restore-area-source-state",
+        "doc/cg2d_battle_restore_area_evidence.json"
+      ],
+      "boundary": "BRAF01动作84–92九完整当前正常源纳管，仅84/85尾及86两效果BYTE消费、86临时HP零复制index/encoded先查目标共五片段实修，十八注释。其它全部正文/签名/数值/实际调用/父RNG序、696B三列表/目录/共享复制器和旧源保持，无新函数/API/保护/默认值。完整名字/技能/效果/HP/震动/延迟生产、其它父/callee/ABI/alias/owner、SDK正常失败/容量/数值/RNG结果及声音画面仍待，原门禁政策保持。",
+      "verification_level": "九完整552条1872B/十四页、53E8/二十一callee/47跳九RET、九实际入向/九11Bcase，24B六F32常量及696B三列表全174值有据。当前源必要静态，不含运行。",
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::UpdateBattleAction92_40CF50",
+        "parameters": "非拥有YobiAction*",
+        "return": "std::int32_t；实际末播放返回"
+      },
+      "battle_restore_area": {
+        "step": "BRAF01",
+        "source_snapshot": "cg2d-re-battle-restore-area-20261010",
+        "original_instruction_count": 11,
+        "original_code_bytes": 28,
+        "original_page_count": 1,
+        "direct_call_count": 2,
+        "callee_count": 2,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_reference_count": 1,
+        "inbound_direct_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

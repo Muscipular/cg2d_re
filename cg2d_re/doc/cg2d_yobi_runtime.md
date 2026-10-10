@@ -4737,3 +4737,7 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 ## 2026-10-10 BCLC01：控制/附属清理与独立音效
 
 [完整合同](cg2d_battle_cleanup_controls_spec.md#battle-cleanup-controls-source-state)补75–83九完整166条519B/九页。75/76的1004、77/78设备后fresh完整绘制位、79五槽逐次标死清理/三项循环及两W32先读齐-FDC/FE0发布、80–82独立1018/101C/1020/X取样、83未舍入阈值/推进后fresh payload-FDC置位均正确源保持，仅十八注释。73/74已有BQH01保持不重计；九语义/F/成员、一限定S零I/新函数/API/保护/额外声/播放/RNG，所有其它源/签名/数值/调用与旧记录/原政策门禁保持。完整生产/其它父/ABI/alias/owner/SDK正常失败/容量/数值及声音画面仍待，标死清槽不代free/寿命通过。
+<a id="battle-restore-area-runtime-20261010"></a>
+## 2026-10-10 BRAF01：缩放恢复/范围处理与震动
+
+[完整合同](cg2d_battle_restore_area_spec.md#battle-restore-area-source-state)补84–92九完整552条1872B/十四页和696B三列表。84/85入口载荷尾门禁、86两效果低BYTE及负HP临时index/encoded先查目标、encoded-mask-count逐项读写共五片段落实；原未舍入缩放/新载荷清位、2002名称选图、固定视觉与动态HP/phase目标、十位置逐次阵营RNG和270计数、同源震动、90事件/目标重取及FD0当帧4→3/四边界退出、91/92对象flags与末返回均保持。另十八注释，九语义/F/成员、限定I三F五片段/S九正常根，零新函数/API/保护/默认值/额外声/播放/RNG。完整生产/其它父/ABI/alias/owner/SDK正常失败/容量/数值/RNG与声音画面仍待，原门禁政策保持。

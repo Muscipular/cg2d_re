@@ -27350,6 +27350,7 @@ std::int32_t UpdateBattleAction83_40CD10(YobiAction* const action)
     return PlayFrame_517DA0(action, 0);
 }
 
+// BRAF01：未舍入缩小/推进后新payload清位，尾BYTE播放门禁仍从入口payload取。
 void UpdateBattleAction84_40CD70(YobiAction* const action)
 {
     const double step = std::bit_cast<float>(0x3C23D70Au);
@@ -27364,11 +27365,12 @@ void UpdateBattleAction84_40CD70(YobiAction* const action)
         auto* const currentPayload = static_cast<BattleActorPayload*>(action->payload);
         currentPayload->flagsFDC &= ~0x1000u;
     }
-    if ((payload->flagsFDC & 0x60u) == 0) {
+    if ((static_cast<std::uint8_t>(payload->flagsFDC) & 0x60u) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
     }
 }
 
+// BRAF01：未舍入放大/独立方向，2002原名称-三列表选图，入口payload尾BYTE门禁。
 void UpdateBattleAction85_40CDE0(YobiAction* const action)
 {
     using world::detail::gBattleNamedEffects5ABCE0;
@@ -27404,11 +27406,12 @@ void UpdateBattleAction85_40CDE0(YobiAction* const action)
         }
         AdvanceBattleCastState_439340(action);
     }
-    if ((payload->flagsFDC & 0x60u) == 0) {
+    if ((static_cast<std::uint8_t>(payload->flagsFDC) & 0x60u) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
     }
 }
 
+// BRAF01：固定视觉target与动态HP/phase目标、两BYTE及临时index/encoded查找前持样。
 void UpdateBattleAction86_40C520(YobiAction* const action)
 {
     using namespace platform::legacy_crypt_int;
@@ -27424,7 +27427,7 @@ void UpdateBattleAction86_40C520(YobiAction* const action)
         targetPayload->effectFlagsFE4 = std::bit_cast<std::int32_t>(
             payload->effects1C[payload->effectRunningC9C].flags);
         ApplyBattleEffectFlags_406390(payload->battlePosition18, action);
-        if ((payload->effects1C[payload->effectRunningC9C].flags & 0x20u) != 0) {
+        if ((static_cast<std::uint8_t>(payload->effects1C[payload->effectRunningC9C].flags) & 0x20u) != 0) {
             targetPayload->flagsFDC |= 2u;
             gYobiUpdateGateMode = 1;
             targetPayload->aliveFF8 = 1;
@@ -27445,7 +27448,7 @@ void UpdateBattleAction86_40C520(YobiAction* const action)
             const std::int32_t amount = payload->effects1C[effectIndex].position3;
             const std::int32_t y = target->y - 80;
             static_cast<void>(NewBattleNumber_41F1A0(x, y, amount, 6, 2, flags));
-            if ((payload->effects1C[payload->effectRunningC9C].flags & 2u) != 0) {
+            if ((static_cast<std::uint8_t>(payload->effects1C[payload->effectRunningC9C].flags) & 2u) != 0) {
                 static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
             }
             static_cast<void>(NewBattleAttributeEffects_4209C0(action, target));
@@ -27458,9 +27461,13 @@ void UpdateBattleAction86_40C520(YobiAction* const action)
             if (Less_401DB0(&compareTarget->readiness, 0)) {
                 platform::LegacyCryptInt temporary;
                 ConstructFromInt_401CC0(&temporary, 0);
+                const std::int32_t copyEffectIndex = payload->effectRunningC9C;
+                const std::uint32_t encoded = temporary.encoded;
                 YobiAction* const copyTarget = gBattleAllEntries59E980[
-                    payload->effects1C[payload->effectRunningC9C].position];
-                CopyPayload(&copyTarget->readiness, &temporary);
+                    payload->effects1C[copyEffectIndex].position];
+                copyTarget->readiness.encoded = encoded;
+                copyTarget->readiness.mask = temporary.mask;
+                copyTarget->readiness.readCount = temporary.readCount;
                 Destroy_401CF0(&temporary);
             }
         }
@@ -27477,6 +27484,7 @@ void UpdateBattleAction86_40C520(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BRAF01：十位置逐次阵营，父gate/image/Y/X/创建后声RNG序与270门禁保持。
 std::int32_t UpdateBattleAction87_40C780(YobiAction* const action)
 {
     using world::detail::gBattleGraphicPoints553758;
@@ -27516,6 +27524,7 @@ std::int32_t UpdateBattleAction87_40C780(YobiAction* const action)
     return PlayFrame_517DA0(action, 0);
 }
 
+// BRAF01：同源振幅6/启用1后推进，无播放。
 void UpdateBattleAction88_40C8D0(YobiAction* const action)
 {
     gYobiScreenOffsetMaximumAmplitude = 6;
@@ -27523,12 +27532,14 @@ void UpdateBattleAction88_40C8D0(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// BRAF01：仅同源启用0后推进，不清振幅。
 void UpdateBattleAction89_40C8F0(YobiAction* const action)
 {
     gYobiScreenOffsetRising = 0;
     AdvanceBattleCastState_439340(action);
 }
 
+// BRAF01：转向后事件/目标重取，FD0设4当帧减1，原四边界及额外推进保持。
 void UpdateBattleAction90_40C910(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -27577,6 +27588,7 @@ void UpdateBattleAction90_40C910(YobiAction* const action)
     }
 }
 
+// BRAF01：完整对象flags置2、先推进后PlayFrame(0)返回。
 std::int32_t UpdateBattleAction91_40CF30(YobiAction* const action)
 {
     action->flags |= 2u;
@@ -27584,6 +27596,7 @@ std::int32_t UpdateBattleAction91_40CF30(YobiAction* const action)
     return PlayFrame_517DA0(action, 0);
 }
 
+// BRAF01：完整对象flags清2、先推进后PlayFrame(0)返回。
 std::int32_t UpdateBattleAction92_40CF50(YobiAction* const action)
 {
     action->flags &= ~2u;

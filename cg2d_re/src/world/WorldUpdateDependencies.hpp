@@ -754,7 +754,7 @@ void Sub_476680();                         // 原 [476680,476739)：玩家范围
 void Sub_44A410();                         // 原 0x44A410，输入光标闪烁/排队。
 void __cdecl Sub_449DA0();                 // 原 [0x449DA0,0x449F9C)。
 std::int32_t __cdecl Sub_46A9E0();         // 原 [0x46A9E0,0x46A9F4)，清三槽、返回 0。
-std::int32_t __cdecl Sub_46AA00();         // 原 [0x46AA00,0x46AB56)，方向分类并写 pending。
+std::int32_t __cdecl Sub_46AA00();         // PDH01：路径方向/两整数差与 F32 桥，保 S32 早退 Y 和 pending 发布。
 void __cdecl Sub_46BC90();                // 原 [0x46BC90,0x46BCE4)，三组路径 W16 同步左移。
 void __cdecl Sub_46ABD0();                // 原 [0x46ABD0,0x46AC0A)，最多搬运两项方向。
 std::uint16_t Sub_46AC10(); // 方向文本生成/发送，仅承接原AX返回位型。
@@ -847,7 +847,7 @@ double __cdecl Sub_46F970(float first, float second); // 原 [0x46F970,0x46FACF)
 std::int64_t __cdecl Sub_46CDF0(float first, float second); // WDG01：原 F32 偏移/落点/乘数与归一化，正常转换返回 S64。
 std::int64_t __cdecl Sub_46B580(
     std::int32_t first, std::int32_t second,
-    std::int32_t third, std::int32_t fourth); // 原 [0x46B580,0x46B5B3)，两坐标差返回完整 S64。
+    std::int32_t third, std::int32_t fourth); // PDH01：两整数差先取齐，Y/X 各落 F32，原方向 S64 透传。
 std::int32_t __cdecl Sub_46B5C0(
     std::int32_t x, std::int32_t y,
     std::int32_t firstX, std::int32_t firstY,

@@ -4828,3 +4828,10 @@ Find命中不补action，未命中才领取/创建，先pub返回/空失败不�
 [方向生产/共享归一化](cg2d_world_direction_normalization_sampling_spec.md#world-direction-source-state)补独立46CDF0并纠正既有46F8F0两个更新前float采样。原移动/动作父保持，Sub_447070/447230/449670与MoveBattleSequence_420590真实提供者有据，尚无独立身份者只记绑定，不以六局部返回窗称完整父验收。归一化现void保持；方向现S64保，取AX/低W32与46B580透传有区别。
 
 primary和BOG插值/原可写表/ftol host职责不改；上界比较→fresh减→F32发布/回上界，下界fresh比较→fresh加→F32发布/回上界。MAP/Yobi各加两个成员/BATTLE原成员保，三限定S零I；不引保护/默认值/迭代上限，不保证优化器机器读取/并发语义，完整输入/全父/alias-owner/数值/ABI/画面运行未验。
+
+<a id="path-heading-current-20261010"></a>
+## 2026-10-10 PDH01：方向分量与路径检测生产
+
+[46AA00/46B580](cg2d_path_direction_heading_producers_spec.md#path-heading-source-state)两完整生产根补独立身份，WDG01方向叶/旧1390角度取样保持；原S16增量表先X字段后Y字段/先Y坐标后X坐标，两根先取齐S32差再Y/X转换F32，两个命中分支nextStep先形成再发布。原路径参数/RNG、早退Y、fresh count、三callee短路、pending写宽/序与S64透传保，不添加保护、默认方向或异常模型。
+
+五局部入向来自469FC0/46B6F0，前者弃检测返、后者两点低W32/两点AX，不能外推全父/机器ABI验收。MAP/Yobi各两新成员、两限定S零I/六任务open；全部旧语义、真实UI零回调提供者及表/source保持，三缺独立身份叶继续沿实际依赖推进，完整输入/owner/数值/SDK/ABI/画面运行未验。

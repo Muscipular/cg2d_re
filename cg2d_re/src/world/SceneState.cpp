@@ -7879,7 +7879,7 @@ std::int32_t __cdecl Sub_46A9E0()
     return 0;
 }
 
-// 原 [0x46AA00,0x46AB56)：按路径方向检测并写 pending，保留早退 Y 返回。
+// PDH01：原 [0x46AA00,0x46AB56)；X/Y 字段取样后先 Y 更新，两整数差再落 F32，保早退 Y/pending 序。
 std::int32_t __cdecl Sub_46AA00()
 {
     std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
@@ -7896,12 +7896,16 @@ std::int32_t __cdecl Sub_46AA00()
         const std::int16_t direction =
             std::bit_cast<std::int16_t>(
                 gPendingDirections9A86D4[static_cast<std::size_t>(step)]);
-        const DirectionDelta delta =
-            gDirectionDeltas55D9DC[static_cast<std::size_t>(direction)];
-        x += delta.x;
-        y += delta.y;
-        const float differenceY = static_cast<float>(y - previousY);
-        const float differenceX = static_cast<float>(x - previousX);
+        const std::int32_t deltaX =
+            gDirectionDeltas55D9DC[static_cast<std::size_t>(direction)].x;
+        const std::int32_t deltaY =
+            gDirectionDeltas55D9DC[static_cast<std::size_t>(direction)].y;
+        y += deltaY;
+        x += deltaX;
+        const std::int32_t differenceYInt = y - previousY;
+        const std::int32_t differenceXInt = x - previousX;
+        const float differenceY = static_cast<float>(differenceYInt);
+        const float differenceX = static_cast<float>(differenceXInt);
         const std::int32_t heading = std::bit_cast<std::int32_t>(
             static_cast<std::uint32_t>(
                 Sub_46CDF0(differenceX, differenceY)));
@@ -7920,15 +7924,17 @@ std::int32_t __cdecl Sub_46AA00()
         }
         if (Sub_46AD00(x, y) != 0) {
             result = 1;
+            const std::int32_t nextStep = step + 1;
             gValueC82230 = 1;
-            gValueC82234 = static_cast<std::int16_t>(step + 1);
+            gValueC82234 = static_cast<std::int16_t>(nextStep);
             gValueC82236 = 1;
             break;
         }
         if (Sub_4B0F10() != 0) {
             result = 1;
+            const std::int32_t nextStep = step + 1;
             gValueC82230 = 1;
-            gValueC82234 = static_cast<std::int16_t>(step + 1);
+            gValueC82234 = static_cast<std::int16_t>(nextStep);
             gValueC82236 = 2;
             break;
         }
@@ -8319,15 +8325,17 @@ std::int64_t __cdecl Sub_46CDF0(const float first, const float second)
         static_cast<double>(angle) * static_cast<double>(multiplier));
 }
 
-// 原 [0x46B580,0x46B5B3)：先写 Y 差 F32，再写 X 差 F32 并透传方向 S64。
+// PDH01：原 [0x46B580,0x46B5B3)；先算 Y/X 两整数差，再依次落 F32，透传方向 S64。
 std::int64_t __cdecl Sub_46B580(
     const std::int32_t first,
     const std::int32_t second,
     const std::int32_t third,
     const std::int32_t fourth)
 {
-    const float differenceY = static_cast<float>(fourth - second);
-    const float differenceX = static_cast<float>(third - first);
+    const std::int32_t differenceYInt = fourth - second;
+    const std::int32_t differenceXInt = third - first;
+    const float differenceY = static_cast<float>(differenceYInt);
+    const float differenceX = static_cast<float>(differenceXInt);
     return Sub_46CDF0(differenceX, differenceY);
 }
 

@@ -807,3 +807,10 @@ flags W16非0且objectIndex完整W32位型相等，才清该槽action并停止�
 [两完整原根](cg2d_world_direction_normalization_sampling_spec.md#world-direction-source-state)/[指令、调用窗与精确差集](cg2d_world_direction_normalization_sampling_evidence.json)补46CDF0独立身份，保持两F32分量查表、原112.5F偏移/落F32、同地址归一化/fresh angle、原F32乘数和S64转换。46B580原宽返回透传与AX/W32局部消费区别有据，不降返回类型。
 
 46F8F0沿BOG旧1390补正上界/下界比较后的两次fresh float更新读取，重复循环/F32发布/void及非拥有指针保；旧BOG“正确/0补丁”为历史，此附记给出当前纠正。34条112B/两页、两E8/一ftol尾跳、五跳一RET与20局部窗；primary/插值/原65项表保持。MAP/Yobi各纳primary/共享归一化两个成员，BATTLE原成员只当前S；三限定S零I、七任务open，完整枚举/gates/closure及全父/表owner/机器加载/ABI/数值/画面运行仍待。
+
+<a id="path-heading-current-20261010"></a>
+## 2026-10-10 PDH01：路径方向检测与四整数差值桥
+
+[两完整根](cg2d_path_direction_heading_producers_spec.md#path-heading-source-state)/[原指令与五取样组](cg2d_path_direction_heading_producers_evidence.json)纳管46AA00/46B580，合116条393B/三页、七E8五callee十一跳两RET；五入向/两父窗口仅局部消费，原469FC0/46B6F0完整旧合同保持。检测原X→Y Crypt读取/早退Y、fresh S16 pathCount、三callee全S32短路与三状态发布/负heading加8/短路径尾保。
+
+仅恢复增量字段X→Y读取/坐标Y→X更新、两根整数差先成形后Y→X F32桥、两命中nextStep先形成后pub，五组不改布局/owner/表/索引/分支或返回。四整数桥S64透传，两个低W32/两个AX父消费不降返回。原八S16增量表32B/WDG方向叶/全部其它源保，两新语义/F、MAP/Yobi各两成员与两限定S零I、六任务open；三尚无独立身份callee只记实际提供者，全父/全部callee/表生产消费-owner/机器加载/数值/ABI/地图运行待。

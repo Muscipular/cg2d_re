@@ -2434,3 +2434,9 @@ ANIMATION/YOBI各两个新成员，BATTLE只Play依赖成员；两新语义/F和
 [两完整根](cg2d_world_direction_normalization_sampling_spec.md#world-direction-acceptance)/[原字节与源差集](cg2d_world_direction_normalization_sampling_evidence.json)：34条112B/两页、两E8与ftol外尾跳、五跳一RET、20局部调用窗；normalizer只恢复两更新前采样，primary/旧1389插值与65原表保持。一个新语义/F，旧1390及处置追加当前纠正、BOG历史保；十二其它旧身份/source保，未登记六父只真实绑定，不称完整验收。
 
 语义2207→2208、F1638→1639/E1439→1442；MAP157→159/Yobi87→89各两成员、BATTLE422旧成员只当前S，三限定S零I，七任务open/成员枚举false/184叶验收0/60任务关闭11/六closure及完整门禁守恒。生成机器加载、全父/alias/owner/表生产消费/数值/SDK/ABI/画面与生命周期运行仍待，不降总SPEC§10。
+
+## 2026-10-10 PDH01 路径方向生产限定验收
+
+[两完整合同](cg2d_path_direction_heading_producers_spec.md#path-heading-acceptance)/[原码与当前差集](cg2d_path_direction_heading_producers_evidence.json)：116条393B/三页、七E8五callee十一跳两RET，五局部窗/两旧父、八S16增量表32B；仅恢复两body五取样组，原分支/返回/RNG及所有其它源/表保。两个新语义/F、MAP159→161/Yobi89→91，各两成员/两限定S零I，语义2208→2210/F1639→1641/E1442→1444。
+
+四旧身份/全部旧记录保，未独立登记的46AE60/46AD00/4B0F10只列实际提供者，不当完整callee；六任务open/184叶验收0/60任务关闭11/成员枚举false/完整gates及六closure不变。只核源码序，不宣优化后独立机器加载、全部输入/正常失败/owner/SDK/机器ABI/数值/画面运行通过，总SPEC§10保。

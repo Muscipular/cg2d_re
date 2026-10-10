@@ -1664,7 +1664,9 @@ void Sub_4A8140(); // 查显示中的35，按回看比例更新滑块。 // CWC0
 std::int32_t Sub_4A6FC0(std::int32_t index, std::int32_t state); // 聊天宽高、范围、字体、颜色与翻页。 // CWC01：见聊天窗口控制完整合同。
 extern WindowElementPrototype gWindowElements570CB0[20]; // 几何更新所读五按钮原型坐标。
 void Sub_4740F0(char* destination); // 前10项技能索引的S16槽数，格式化后复制原字节。
+// CIG01：IME测量后先字体宽度再聊天单位取样；见doc/cg2d_input_scroll_draw_spec.md。
 void Sub_4A7590(input::InputContext* context); // 按聊天宽度滚动目标输入并绘制。
+// CIG01：固定1024宽度及滚动绘制正文保持；见doc/cg2d_input_scroll_draw_spec.md。
 void Sub_4A7640(input::InputContext* context); // 按固定1024像素滚动目标输入并绘制。
 void Sub_4A7750(std::int32_t x, std::int32_t y); // 原字节分行、底部逆序绘制及前项字体回写。
 std::int32_t Sub_46FBC0(std::int32_t unused); // 原默认draw回调，完整绘制后返回1。

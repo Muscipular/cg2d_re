@@ -1502,6 +1502,7 @@ std::int32_t& PreviousChatFont(const std::int32_t index)
 }
 
 // 两个原入口只在宽度来源上不同；测量IME及取宽度仍由各入口按序执行。
+// CIG01：共享两原根的现场偏移/宽度与低BYTE步长合同；见doc/cg2d_input_scroll_draw_spec.md。
 void ScrollInputAndDraw(input::InputContext* const context, const std::int32_t width)
 {
     const std::int32_t caret = context->caretByteOffset;
@@ -30121,14 +30122,18 @@ std::int32_t Sub_4A82E0()
     return 0;
 }
 
+// CIG01：IME测量后先字体宽度再聊天单位取样；见doc/cg2d_input_scroll_draw_spec.md。
 void Sub_4A7590(input::InputContext* const context)
 {
     const std::int32_t font = input::gCurrentInputData->field13C;
     static_cast<void>(login::detail::TextMeasure(platform::gImeComposition, font));
-    const std::int32_t width = render::gFontMetrics[9].doubleWidth * gChatWidthUnitsC9A930;
+    const std::int32_t fontWidth = render::gFontMetrics[9].doubleWidth;
+    const std::int32_t widthUnits = gChatWidthUnitsC9A930;
+    const std::int32_t width = fontWidth * widthUnits;
     ScrollInputAndDraw(context, width);
 }
 
+// CIG01：固定1024宽度及滚动绘制正文保持；见doc/cg2d_input_scroll_draw_spec.md。
 void Sub_4A7640(input::InputContext* const context)
 {
     const std::int32_t font = input::gCurrentInputData->field13C;

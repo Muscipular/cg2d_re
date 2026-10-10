@@ -1,0 +1,971 @@
+{
+  "step": "CIG01",
+  "recorded_on": "2026-10-10",
+  "before_snapshot": "[#] 补齐聊天焦点滚轮与绘制门禁完整合同",
+  "after_snapshot": "[#] 补齐输入滚动合同并明确宽度取样顺序",
+  "original_roots": [
+    {
+      "ea": 4879760,
+      "end": 4879928,
+      "chunks": [
+        [
+          4879760,
+          4879928
+        ]
+      ],
+      "instruction_count": 47,
+      "inbound_calls": [
+        {
+          "ea": 4664450,
+          "parent": 4663728,
+          "type": 17,
+          "bytes": "e809490300",
+          "asm": "call    sub_4A7590"
+        },
+        {
+          "ea": 4878259,
+          "parent": 4877984,
+          "type": 17,
+          "bytes": "e8d8050000",
+          "asm": "call    sub_4A7590"
+        }
+      ],
+      "other_references": [],
+      "byte_count": 168,
+      "page_count": 1,
+      "instructions": [
+        {
+          "ea": 4879760,
+          "size": 5,
+          "bytes": "a1046c6200",
+          "asm": "mov     eax, gCurrentInputData",
+          "call_target": null
+        },
+        {
+          "ea": 4879765,
+          "size": 1,
+          "bytes": "56",
+          "asm": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": 4879766,
+          "size": 6,
+          "bytes": "8b883c010000",
+          "asm": "mov     ecx, [eax+13Ch]",
+          "call_target": null
+        },
+        {
+          "ea": 4879772,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4879773,
+          "size": 5,
+          "bytes": "68e0ed7300",
+          "asm": "push    offset gImeInputStr",
+          "call_target": null
+        },
+        {
+          "ea": 4879778,
+          "size": 5,
+          "bytes": "e8f93cfaff",
+          "asm": "call    TextMeasure",
+          "call_target": 4502176
+        },
+        {
+          "ea": 4879783,
+          "size": 6,
+          "bytes": "8b154c905500",
+          "asm": "mov     edx, gFontList.doubleWidth+0D8h",
+          "call_target": null
+        },
+        {
+          "ea": 4879789,
+          "size": 4,
+          "bytes": "8b742410",
+          "asm": "mov     esi, [esp+0Ch+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": 4879793,
+          "size": 7,
+          "bytes": "0faf1530a9c900",
+          "asm": "imul    edx, dword_C9A930",
+          "call_target": null
+        },
+        {
+          "ea": 4879800,
+          "size": 6,
+          "bytes": "8b8628010000",
+          "asm": "mov     eax, [esi+128h]",
+          "call_target": null
+        },
+        {
+          "ea": 4879806,
+          "size": 6,
+          "bytes": "8b8e58010000",
+          "asm": "mov     ecx, [esi+158h]",
+          "call_target": null
+        },
+        {
+          "ea": 4879812,
+          "size": 3,
+          "bytes": "83c408",
+          "asm": "add     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": 4879815,
+          "size": 2,
+          "bytes": "3bc1",
+          "asm": "cmp     eax, ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4879817,
+          "size": 6,
+          "bytes": "899654010000",
+          "asm": "mov     [esi+154h], edx",
+          "call_target": null
+        },
+        {
+          "ea": 4879823,
+          "size": 2,
+          "bytes": "7d17",
+          "asm": "jge     short loc_4A75E8",
+          "call_target": null
+        },
+        {
+          "ea": 4879825,
+          "size": 6,
+          "bytes": "898658010000",
+          "asm": "mov     [esi+158h], eax",
+          "call_target": null
+        },
+        {
+          "ea": 4879831,
+          "size": 1,
+          "bytes": "56",
+          "asm": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": 4879832,
+          "size": 5,
+          "bytes": "e8c3f2faff",
+          "asm": "call    Renderer__DrawInputText",
+          "call_target": 4548768
+        },
+        {
+          "ea": 4879837,
+          "size": 3,
+          "bytes": "83c404",
+          "asm": "add     esp, 4",
+          "call_target": null
+        },
+        {
+          "ea": 4879840,
+          "size": 1,
+          "bytes": "5e",
+          "asm": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": 4879841,
+          "size": 1,
+          "bytes": "c3",
+          "asm": "retn",
+          "call_target": null
+        },
+        {
+          "ea": 4879842,
+          "size": 6,
+          "bytes": "898658010000",
+          "asm": "mov     [esi+158h], eax",
+          "call_target": null
+        },
+        {
+          "ea": 4879848,
+          "size": 6,
+          "bytes": "8b8e58010000",
+          "asm": "mov     ecx, [esi+158h]",
+          "call_target": null
+        },
+        {
+          "ea": 4879854,
+          "size": 6,
+          "bytes": "8b8628010000",
+          "asm": "mov     eax, [esi+128h]",
+          "call_target": null
+        },
+        {
+          "ea": 4879860,
+          "size": 2,
+          "bytes": "2bc1",
+          "asm": "sub     eax, ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4879862,
+          "size": 2,
+          "bytes": "78df",
+          "asm": "js      short loc_4A75D7",
+          "call_target": null
+        },
+        {
+          "ea": 4879864,
+          "size": 1,
+          "bytes": "50",
+          "asm": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": 4879865,
+          "size": 6,
+          "bytes": "8b863c010000",
+          "asm": "mov     eax, [esi+13Ch]",
+          "call_target": null
+        },
+        {
+          "ea": 4879871,
+          "size": 2,
+          "bytes": "03ce",
+          "asm": "add     ecx, esi",
+          "call_target": null
+        },
+        {
+          "ea": 4879873,
+          "size": 1,
+          "bytes": "50",
+          "asm": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": 4879874,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4879875,
+          "size": 5,
+          "bytes": "e8d83cfaff",
+          "asm": "call    Font__measure",
+          "call_target": 4502240
+        },
+        {
+          "ea": 4879880,
+          "size": 3,
+          "bytes": "83c40c",
+          "asm": "add     esp, 0Ch",
+          "call_target": null
+        },
+        {
+          "ea": 4879883,
+          "size": 6,
+          "bytes": "398654010000",
+          "asm": "cmp     [esi+154h], eax",
+          "call_target": null
+        },
+        {
+          "ea": 4879889,
+          "size": 2,
+          "bytes": "7dc4",
+          "asm": "jge     short loc_4A75D7",
+          "call_target": null
+        },
+        {
+          "ea": 4879891,
+          "size": 6,
+          "bytes": "8b8e58010000",
+          "asm": "mov     ecx, [esi+158h]",
+          "call_target": null
+        },
+        {
+          "ea": 4879897,
+          "size": 3,
+          "bytes": "8a1431",
+          "asm": "mov     dl, [ecx+esi]",
+          "call_target": null
+        },
+        {
+          "ea": 4879900,
+          "size": 1,
+          "bytes": "52",
+          "asm": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": 4879901,
+          "size": 5,
+          "bytes": "e82e3cfaff",
+          "asm": "call    sub_44B250",
+          "call_target": 4502096
+        },
+        {
+          "ea": 4879906,
+          "size": 3,
+          "bytes": "83c404",
+          "asm": "add     esp, 4",
+          "call_target": null
+        },
+        {
+          "ea": 4879909,
+          "size": 3,
+          "bytes": "83f802",
+          "asm": "cmp     eax, 2",
+          "call_target": null
+        },
+        {
+          "ea": 4879912,
+          "size": 6,
+          "bytes": "8b8658010000",
+          "asm": "mov     eax, [esi+158h]",
+          "call_target": null
+        },
+        {
+          "ea": 4879918,
+          "size": 2,
+          "bytes": "7403",
+          "asm": "jz      short loc_4A7633",
+          "call_target": null
+        },
+        {
+          "ea": 4879920,
+          "size": 1,
+          "bytes": "40",
+          "asm": "inc     eax",
+          "call_target": null
+        },
+        {
+          "ea": 4879921,
+          "size": 2,
+          "bytes": "ebaf",
+          "asm": "jmp     short loc_4A75E2",
+          "call_target": null
+        },
+        {
+          "ea": 4879923,
+          "size": 3,
+          "bytes": "83c002",
+          "asm": "add     eax, 2",
+          "call_target": null
+        },
+        {
+          "ea": 4879926,
+          "size": 2,
+          "bytes": "ebaa",
+          "asm": "jmp     short loc_4A75E2",
+          "call_target": null
+        }
+      ]
+    },
+    {
+      "ea": 4879936,
+      "end": 4880095,
+      "chunks": [
+        [
+          4879936,
+          4880095
+        ]
+      ],
+      "instruction_count": 45,
+      "inbound_calls": [
+        {
+          "ea": 4664467,
+          "parent": 4663728,
+          "type": 17,
+          "bytes": "e8a8490300",
+          "asm": "call    sub_4A7640"
+        }
+      ],
+      "other_references": [],
+      "byte_count": 159,
+      "page_count": 1,
+      "instructions": [
+        {
+          "ea": 4879936,
+          "size": 5,
+          "bytes": "a1046c6200",
+          "asm": "mov     eax, gCurrentInputData",
+          "call_target": null
+        },
+        {
+          "ea": 4879941,
+          "size": 1,
+          "bytes": "56",
+          "asm": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": 4879942,
+          "size": 6,
+          "bytes": "8b883c010000",
+          "asm": "mov     ecx, [eax+13Ch]",
+          "call_target": null
+        },
+        {
+          "ea": 4879948,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4879949,
+          "size": 5,
+          "bytes": "68e0ed7300",
+          "asm": "push    offset gImeInputStr",
+          "call_target": null
+        },
+        {
+          "ea": 4879954,
+          "size": 5,
+          "bytes": "e8493cfaff",
+          "asm": "call    TextMeasure",
+          "call_target": 4502176
+        },
+        {
+          "ea": 4879959,
+          "size": 4,
+          "bytes": "8b742410",
+          "asm": "mov     esi, [esp+0Ch+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": 4879963,
+          "size": 3,
+          "bytes": "83c408",
+          "asm": "add     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": 4879966,
+          "size": 6,
+          "bytes": "8b8628010000",
+          "asm": "mov     eax, [esi+128h]",
+          "call_target": null
+        },
+        {
+          "ea": 4879972,
+          "size": 6,
+          "bytes": "8b8e58010000",
+          "asm": "mov     ecx, [esi+158h]",
+          "call_target": null
+        },
+        {
+          "ea": 4879978,
+          "size": 2,
+          "bytes": "3bc1",
+          "asm": "cmp     eax, ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4879980,
+          "size": 10,
+          "bytes": "c7865401000000040000",
+          "asm": "mov     dword ptr [esi+154h], 400h",
+          "call_target": null
+        },
+        {
+          "ea": 4879990,
+          "size": 2,
+          "bytes": "7d17",
+          "asm": "jge     short loc_4A768F",
+          "call_target": null
+        },
+        {
+          "ea": 4879992,
+          "size": 6,
+          "bytes": "898658010000",
+          "asm": "mov     [esi+158h], eax",
+          "call_target": null
+        },
+        {
+          "ea": 4879998,
+          "size": 1,
+          "bytes": "56",
+          "asm": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": 4879999,
+          "size": 5,
+          "bytes": "e81cf2faff",
+          "asm": "call    Renderer__DrawInputText",
+          "call_target": 4548768
+        },
+        {
+          "ea": 4880004,
+          "size": 3,
+          "bytes": "83c404",
+          "asm": "add     esp, 4",
+          "call_target": null
+        },
+        {
+          "ea": 4880007,
+          "size": 1,
+          "bytes": "5e",
+          "asm": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": 4880008,
+          "size": 1,
+          "bytes": "c3",
+          "asm": "retn",
+          "call_target": null
+        },
+        {
+          "ea": 4880009,
+          "size": 6,
+          "bytes": "898658010000",
+          "asm": "mov     [esi+158h], eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880015,
+          "size": 6,
+          "bytes": "8b8e58010000",
+          "asm": "mov     ecx, [esi+158h]",
+          "call_target": null
+        },
+        {
+          "ea": 4880021,
+          "size": 6,
+          "bytes": "8b8628010000",
+          "asm": "mov     eax, [esi+128h]",
+          "call_target": null
+        },
+        {
+          "ea": 4880027,
+          "size": 2,
+          "bytes": "2bc1",
+          "asm": "sub     eax, ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4880029,
+          "size": 2,
+          "bytes": "78df",
+          "asm": "js      short loc_4A767E",
+          "call_target": null
+        },
+        {
+          "ea": 4880031,
+          "size": 6,
+          "bytes": "8b963c010000",
+          "asm": "mov     edx, [esi+13Ch]",
+          "call_target": null
+        },
+        {
+          "ea": 4880037,
+          "size": 1,
+          "bytes": "50",
+          "asm": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880038,
+          "size": 2,
+          "bytes": "03ce",
+          "asm": "add     ecx, esi",
+          "call_target": null
+        },
+        {
+          "ea": 4880040,
+          "size": 1,
+          "bytes": "52",
+          "asm": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": 4880041,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4880042,
+          "size": 5,
+          "bytes": "e8313cfaff",
+          "asm": "call    Font__measure",
+          "call_target": 4502240
+        },
+        {
+          "ea": 4880047,
+          "size": 3,
+          "bytes": "83c40c",
+          "asm": "add     esp, 0Ch",
+          "call_target": null
+        },
+        {
+          "ea": 4880050,
+          "size": 6,
+          "bytes": "398654010000",
+          "asm": "cmp     [esi+154h], eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880056,
+          "size": 2,
+          "bytes": "7dc4",
+          "asm": "jge     short loc_4A767E",
+          "call_target": null
+        },
+        {
+          "ea": 4880058,
+          "size": 6,
+          "bytes": "8b8658010000",
+          "asm": "mov     eax, [esi+158h]",
+          "call_target": null
+        },
+        {
+          "ea": 4880064,
+          "size": 3,
+          "bytes": "8a0c30",
+          "asm": "mov     cl, [eax+esi]",
+          "call_target": null
+        },
+        {
+          "ea": 4880067,
+          "size": 1,
+          "bytes": "51",
+          "asm": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": 4880068,
+          "size": 5,
+          "bytes": "e8873bfaff",
+          "asm": "call    sub_44B250",
+          "call_target": 4502096
+        },
+        {
+          "ea": 4880073,
+          "size": 3,
+          "bytes": "83c404",
+          "asm": "add     esp, 4",
+          "call_target": null
+        },
+        {
+          "ea": 4880076,
+          "size": 3,
+          "bytes": "83f802",
+          "asm": "cmp     eax, 2",
+          "call_target": null
+        },
+        {
+          "ea": 4880079,
+          "size": 6,
+          "bytes": "8b8658010000",
+          "asm": "mov     eax, [esi+158h]",
+          "call_target": null
+        },
+        {
+          "ea": 4880085,
+          "size": 2,
+          "bytes": "7403",
+          "asm": "jz      short loc_4A76DA",
+          "call_target": null
+        },
+        {
+          "ea": 4880087,
+          "size": 1,
+          "bytes": "40",
+          "asm": "inc     eax",
+          "call_target": null
+        },
+        {
+          "ea": 4880088,
+          "size": 2,
+          "bytes": "ebaf",
+          "asm": "jmp     short loc_4A7689",
+          "call_target": null
+        },
+        {
+          "ea": 4880090,
+          "size": 3,
+          "bytes": "83c002",
+          "asm": "add     eax, 2",
+          "call_target": null
+        },
+        {
+          "ea": 4880093,
+          "size": 2,
+          "bytes": "ebaa",
+          "asm": "jmp     short loc_4A7689",
+          "call_target": null
+        }
+      ]
+    }
+  ],
+  "original_totals": [
+    {
+      "entry": "0x4a7590",
+      "end": "0x4a7638",
+      "instructions": 47,
+      "bytes": 168,
+      "pages": 1,
+      "direct_calls": 4,
+      "jumps": 6,
+      "returns": 1
+    },
+    {
+      "entry": "0x4a7640",
+      "end": "0x4a76df",
+      "instructions": 45,
+      "bytes": 159,
+      "pages": 1,
+      "direct_calls": 4,
+      "jumps": 6,
+      "returns": 1
+    }
+  ],
+  "source_before": [
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4A7590",
+      "signature": "void Sub_4A7590(input::InputContext* const context)",
+      "line": 30124,
+      "source": "void Sub_4A7590(input::InputContext* const context)\n{\n    const std::int32_t font = input::gCurrentInputData->field13C;\n    static_cast<void>(login::detail::TextMeasure(platform::gImeComposition, font));\n    const std::int32_t width = render::gFontMetrics[9].doubleWidth * gChatWidthUnitsC9A930;\n    ScrollInputAndDraw(context, width);\n}\n"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4A7640",
+      "signature": "void Sub_4A7640(input::InputContext* const context)",
+      "line": 30132,
+      "source": "void Sub_4A7640(input::InputContext* const context)\n{\n    const std::int32_t font = input::gCurrentInputData->field13C;\n    static_cast<void>(login::detail::TextMeasure(platform::gImeComposition, font));\n    ScrollInputAndDraw(context, 1024);\n}\n"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "ScrollInputAndDraw",
+      "signature": "void ScrollInputAndDraw(input::InputContext* const context, const std::int32_t width)",
+      "line": 1505,
+      "source": "void ScrollInputAndDraw(input::InputContext* const context, const std::int32_t width)\n{\n    const std::int32_t caret = context->caretByteOffset;\n    const std::int32_t offset = context->field158;\n    context->field154 = width;\n    if (caret < offset) {\n        context->field158 = caret;\n    } else {\n        for (;;) {\n            const std::int32_t currentOffset = context->field158;\n            const std::int32_t length = context->caretByteOffset - currentOffset;\n            if (length < 0) {\n                break;\n            }\n            const std::int32_t textWidth = render::Font::measure(\n                context->text + currentOffset, context->field13C, length);\n            if (context->field154 >= textWidth) {\n                break;\n            }\n            const std::uint8_t value = static_cast<std::uint8_t>(\n                context->text[context->field158]);\n            context->field158 += (value & 0x80u) != 0 ? 2 : 1;\n        }\n    }\n    render::DrawInputText_4568A0(context);\n}\n"
+    }
+  ],
+  "declarations_before": [
+    {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "symbol": "Sub_4A7590",
+      "line": 1667,
+      "source": "void Sub_4A7590(input::InputContext* context); // 按聊天宽度滚动目标输入并绘制。"
+    },
+    {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "symbol": "Sub_4A7640",
+      "line": 1668,
+      "source": "void Sub_4A7640(input::InputContext* context); // 按固定1024像素滚动目标输入并绘制。"
+    }
+  ],
+  "source_patches": [
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "before": "void Sub_4A7590(input::InputContext* const context)",
+      "after": "// CIG01：IME测量后先字体宽度再聊天单位取样；见doc/cg2d_input_scroll_draw_spec.md。\nvoid Sub_4A7590(input::InputContext* const context)",
+      "line": 30124
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "before": "void Sub_4A7640(input::InputContext* const context)",
+      "after": "// CIG01：固定1024宽度及滚动绘制正文保持；见doc/cg2d_input_scroll_draw_spec.md。\nvoid Sub_4A7640(input::InputContext* const context)",
+      "line": 30132
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "before": "void ScrollInputAndDraw(input::InputContext* const context, const std::int32_t width)",
+      "after": "// CIG01：共享两原根的现场偏移/宽度与低BYTE步长合同；见doc/cg2d_input_scroll_draw_spec.md。\nvoid ScrollInputAndDraw(input::InputContext* const context, const std::int32_t width)",
+      "line": 1505
+    },
+    {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "before": "void Sub_4A7590(input::InputContext* context); // 按聊天宽度滚动目标输入并绘制。",
+      "after": "// CIG01：IME测量后先字体宽度再聊天单位取样；见doc/cg2d_input_scroll_draw_spec.md。\nvoid Sub_4A7590(input::InputContext* context); // 按聊天宽度滚动目标输入并绘制。",
+      "line": 1667
+    },
+    {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "before": "void Sub_4A7640(input::InputContext* context); // 按固定1024像素滚动目标输入并绘制。",
+      "after": "// CIG01：固定1024宽度及滚动绘制正文保持；见doc/cg2d_input_scroll_draw_spec.md。\nvoid Sub_4A7640(input::InputContext* context); // 按固定1024像素滚动目标输入并绘制。",
+      "line": 1668
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "before": "    const std::int32_t width = render::gFontMetrics[9].doubleWidth * gChatWidthUnitsC9A930;",
+      "after": "    const std::int32_t fontWidth = render::gFontMetrics[9].doubleWidth;\n    const std::int32_t widthUnits = gChatWidthUnitsC9A930;\n    const std::int32_t width = fontWidth * widthUnits;",
+      "line": 30128
+    }
+  ],
+  "width_patch": {
+    "path": "src/ui/WindowRuntime.cpp",
+    "before": "    const std::int32_t width = render::gFontMetrics[9].doubleWidth * gChatWidthUnitsC9A930;",
+    "after": "    const std::int32_t fontWidth = render::gFontMetrics[9].doubleWidth;\n    const std::int32_t widthUnits = gChatWidthUnitsC9A930;\n    const std::int32_t width = fontWidth * widthUnits;",
+    "line": 30128
+  },
+  "reused_unchanged_semantic_identities": [
+    {
+      "index": 189,
+      "inventory_id": "F:0004B2A0",
+      "original_entry": "0x44B2A0"
+    },
+    {
+      "index": 190,
+      "inventory_id": "F:0004B2E0",
+      "original_entry": "0x44B2E0"
+    },
+    {
+      "index": 225,
+      "inventory_id": "F:0004B250",
+      "original_entry": "0x44B250"
+    },
+    {
+      "index": 807,
+      "inventory_id": "F:000568A0",
+      "original_entry": "0x4568A0"
+    },
+    {
+      "index": 1932,
+      "inventory_id": "F:000729B0",
+      "original_entry": "0x4729b0"
+    },
+    {
+      "index": 2247,
+      "inventory_id": "F:000A6EA0",
+      "original_entry": "0x4a6ea0"
+    }
+  ],
+  "source_patch_group_count": 1,
+  "source_changed_point_count": 1,
+  "source_comment_count": 5,
+  "actual_call_targets": [
+    "0x44b2a0",
+    "0x4568a0",
+    "0x44b2e0",
+    "0x44b250",
+    "0x44b2a0",
+    "0x4568a0",
+    "0x44b2e0",
+    "0x44b250"
+  ],
+  "inbound_scope": {
+    "total": 3,
+    "internal": 0,
+    "external": 3,
+    "full_external_parents_newly_verified": false
+  },
+  "record_scope": [
+    {
+      "index": 2250,
+      "inventory_id": "F:000A7590",
+      "symbol": "Sub_4A7590",
+      "original_entry": "0x4a7590",
+      "new_semantic_identity": true,
+      "normal_body_kept": false
+    },
+    {
+      "index": 2251,
+      "inventory_id": "F:000A7640",
+      "symbol": "Sub_4A7640",
+      "original_entry": "0x4a7640",
+      "new_semantic_identity": true,
+      "normal_body_kept": true
+    }
+  ],
+  "feature_member_additions": {
+    "FUNC-INPUT": [
+      "F:000A7590",
+      "F:000A7640"
+    ],
+    "FUNC-UIRUNTIME": [
+      "F:000A7590",
+      "F:000A7640"
+    ]
+  },
+  "tasks_updated": [
+    "G01",
+    "R01",
+    "R04",
+    "U08",
+    "U09",
+    "U10",
+    "U11",
+    "V03",
+    "V04"
+  ],
+  "expected_counts_after": {
+    "semantic_records": 2252,
+    "semantic_function_records": 2204,
+    "semantic_auxiliary_records": 48,
+    "function_document_links": 2314,
+    "function_document_link_percent": 62.88,
+    "function_dispositions": 1691,
+    "evidence_records": 1486,
+    "feature_members": {
+      "FUNC-INPUT": 73,
+      "FUNC-UIRUNTIME": 106
+    },
+    "feature_member_inventory_closed": false,
+    "accepted_leaf_features": 0,
+    "closed_tasks": 11,
+    "open_tasks": 49,
+    "closures_open": 6,
+    "global_accepted": false
+  },
+  "verification": {
+    "necessary_static": "pass，两完整原根92条327B/两页、八实际E8/四目标/十二跳两RET及三外入向有据；聊天原字体宽度读取先于宽度单位，现一组一处依次S32取样。两整源精确重放五注释/一处；固定入口和共享滚动body、全部其它源码保持。当前context测IME/实参context滚动独立，原width/caret/offset发布、低BYTE bit7步长和统一绘制保持；旧依赖/点击父身份复用，完整绘制父/全owner/机器ABI/优化后读取/运行待",
+    "registry": "pass，旧2250语义/1689F/1484证据及六旧依赖/父身份保持；两新语义F、两限定S零I，INPUT/UIRUNTIME各两个成员和九任务open，只追加对应文档与唯一进度；其它台账/政策/枚举/闭合和全部完整门禁保持",
+    "measurement": "pass，measure_cg2d.ps1终态退出0：3680函数/218导入/3061区间/184叶功能/60任务，仅静态文本汇总",
+    "check": "pass，measure_cg2d.ps1 -Check终态退出0，生成快照/看板与登记输入一致，仅静态文本检查",
+    "derived_scope": "pass，派生仅六metrics/两F/两功能/九任务；2314/3680=62.88%仅关联率，2252=2204F+48X/F1691/E1486，INPUT73/UIRUNTIME106；其它字段及全部完整门禁保持",
+    "runtime_verified": false,
+    "full_lifecycle_closed": false,
+    "generated_machine_reads_verified": false,
+    "build_or_test_performed": false,
+    "algorithm_samples_executed": false,
+    "digests_computed_or_compared": false
+  },
+  "source_after": [
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4A7590",
+      "signature": "void Sub_4A7590(input::InputContext* const context)",
+      "line": 30126,
+      "source": "void Sub_4A7590(input::InputContext* const context)\n{\n    const std::int32_t font = input::gCurrentInputData->field13C;\n    static_cast<void>(login::detail::TextMeasure(platform::gImeComposition, font));\n    const std::int32_t fontWidth = render::gFontMetrics[9].doubleWidth;\n    const std::int32_t widthUnits = gChatWidthUnitsC9A930;\n    const std::int32_t width = fontWidth * widthUnits;\n    ScrollInputAndDraw(context, width);\n}\n"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4A7640",
+      "signature": "void Sub_4A7640(input::InputContext* const context)",
+      "line": 30137,
+      "source": "void Sub_4A7640(input::InputContext* const context)\n{\n    const std::int32_t font = input::gCurrentInputData->field13C;\n    static_cast<void>(login::detail::TextMeasure(platform::gImeComposition, font));\n    ScrollInputAndDraw(context, 1024);\n}\n"
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "ScrollInputAndDraw",
+      "signature": "void ScrollInputAndDraw(input::InputContext* const context, const std::int32_t width)",
+      "line": 1506,
+      "source": "void ScrollInputAndDraw(input::InputContext* const context, const std::int32_t width)\n{\n    const std::int32_t caret = context->caretByteOffset;\n    const std::int32_t offset = context->field158;\n    context->field154 = width;\n    if (caret < offset) {\n        context->field158 = caret;\n    } else {\n        for (;;) {\n            const std::int32_t currentOffset = context->field158;\n            const std::int32_t length = context->caretByteOffset - currentOffset;\n            if (length < 0) {\n                break;\n            }\n            const std::int32_t textWidth = render::Font::measure(\n                context->text + currentOffset, context->field13C, length);\n            if (context->field154 >= textWidth) {\n                break;\n            }\n            const std::uint8_t value = static_cast<std::uint8_t>(\n                context->text[context->field158]);\n            context->field158 += (value & 0x80u) != 0 ? 2 : 1;\n        }\n    }\n    render::DrawInputText_4568A0(context);\n}\n"
+    }
+  ],
+  "declarations_after": [
+    {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "symbol": "Sub_4A7590",
+      "line": 1668,
+      "source": "void Sub_4A7590(input::InputContext* context); // 按聊天宽度滚动目标输入并绘制。"
+    },
+    {
+      "path": "src/ui/WindowRuntimeState.hpp",
+      "symbol": "Sub_4A7640",
+      "line": 1670,
+      "source": "void Sub_4A7640(input::InputContext* context); // 按固定1024像素滚动目标输入并绘制。"
+    }
+  ]
+}

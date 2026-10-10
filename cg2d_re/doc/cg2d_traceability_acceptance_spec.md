@@ -2520,3 +2520,9 @@ IDA数组/结构起点xref不代字段指针；原型实际11callback与旧范�
 [CFD01](cg2d_chat_focus_wheel_draw_spec.md#chat-focus-source-state)补齐4A6EA0/4A81D0/4A82C0三完整原根112条420B及窗口35/57五处真实绑定。创建原AL与现BYTE返回、348B复制、窗口35槽焦点/当前窗context分离、首窗口滚轮与调用后新count、共用绘制门禁和原返回有据。三个正确body、旧1788切换和原型保持；零逻辑组/六注释，三新语义F、INPUT两/UIRUNTIME三成员、两限定S零I。全门禁写方、窗口父/创建释放绘制、4A7590/4743B0、输入/鼠标/日志/元素全生产消费和owner寿命、机器ABI/实际交互画面与运行仍待，整体未完成。
 
 当前登记语义2250=2202F+48X、F处置1689/证据1484；INPUT71/UIRUNTIME104且枚举未闭。文档关联2312/3680=62.83%，只表示关联。九任务open、184叶验收0、六closure及全部完整门禁保持；登记、静态汇总/Check终态退出0，派生范围核对通过。
+
+## 2026-10-10 CIG01：两输入滚动完整根
+
+[CIG01](cg2d_input_scroll_draw_spec.md#input-scroll-source-state)补齐4A7590/4A7640两个完整原根92条327B及三真实入向；明确聊天宽度先字体9 S32宽度、再聊天单位的一处读取序。全局当前context测IME与实参context滚动分离，固定1024入口/既有ScrollInputAndDraw body和所有其他源保持；原caret/offset/width发布、每轮新偏移及低BYTE bit7步长、绘制同一实参有据。两新语义F、INPUT/UIRUNTIME各两成员、两限定S零I，旧依赖与点击父证据复用；完整绘制父、字体/IME/输入/偏移全生产消费和alias-owner寿命、机器ABI/优化后读取/实际交互文字画面与运行仍待，整体未完成。
+
+语义2252=2204F+48X、函数处置1691/证据1486，INPUT73/UIRUNTIME106且枚举未闭。文档关联2314/3680=62.88%，仅关联率；九任务open、184叶验收0、六closure及所有完整门禁保持，登记、静态汇总/Check终态退出0、派生范围核对通过。

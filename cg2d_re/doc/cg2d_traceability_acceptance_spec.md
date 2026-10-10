@@ -2440,3 +2440,9 @@ ANIMATION/YOBI各两个新成员，BATTLE只Play依赖成员；两新语义/F和
 [两完整合同](cg2d_path_direction_heading_producers_spec.md#path-heading-acceptance)/[原码与当前差集](cg2d_path_direction_heading_producers_evidence.json)：116条393B/三页、七E8五callee十一跳两RET，五局部窗/两旧父、八S16增量表32B；仅恢复两body五取样组，原分支/返回/RNG及所有其它源/表保。两个新语义/F、MAP159→161/Yobi89→91，各两成员/两限定S零I，语义2208→2210/F1639→1641/E1442→1444。
 
 四旧身份/全部旧记录保，未独立登记的46AE60/46AD00/4B0F10只列实际提供者，不当完整callee；六任务open/184叶验收0/60任务关闭11/成员枚举false/完整gates及六closure不变。只核源码序，不宣优化后独立机器加载、全部输入/正常失败/owner/SDK/机器ABI/数值/画面运行通过，总SPEC§10保。
+
+## 2026-10-10 MHT01 地图命中与时段限定验收
+
+[三完整合同](cg2d_map_hit_time_classification_spec.md#map-hit-time-acceptance)/[连续原码及源差集](cg2d_map_hit_time_classification_evidence.json)：81条257B/三页、一E8十七跳六RET，五局部窗/四外点三父；两检测三取样组恢复，time正确body/原PDH父与全部其它源/表保。三新语义/F，MAP161→164/Yobi91→94各三成员，两限定S零I；语义2210→2213/F1641→1644/E1444→1446。
+
+所有旧语义/处置/证据/原政策保持；两未独立时段父只真实绑定。六任务open/184叶验收0/60任务关闭11/完整gates/枚举false及六closure守恒；低BYTE逻辑消费/W16码与hours单W32字段有据，不称实际机器读宽、全父/表与time生产消费-owner/调色板/PudO/SDK/ABI/数值/运行完成，总SPEC§10保。

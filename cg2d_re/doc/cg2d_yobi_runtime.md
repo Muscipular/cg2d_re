@@ -4835,3 +4835,10 @@ primary和BOG插值/原可写表/ftol host职责不改；上界比较→fresh减
 [46AA00/46B580](cg2d_path_direction_heading_producers_spec.md#path-heading-source-state)两完整生产根补独立身份，WDG01方向叶/旧1390角度取样保持；原S16增量表先X字段后Y字段/先Y坐标后X坐标，两根先取齐S32差再Y/X转换F32，两个命中分支nextStep先形成再发布。原路径参数/RNG、早退Y、fresh count、三callee短路、pending写宽/序与S64透传保，不添加保护、默认方向或异常模型。
 
 五局部入向来自469FC0/46B6F0，前者弃检测返、后者两点低W32/两点AX，不能外推全父/机器ABI验收。MAP/Yobi各两新成员、两限定S零I/六任务open；全部旧语义、真实UI零回调提供者及表/source保持，三缺独立身份叶继续沿实际依赖推进，完整输入/owner/数值/SDK/ABI/画面运行未验。
+
+<a id="map-hit-time-current-20261010"></a>
+## 2026-10-10 MHT01：路径检测依赖与时段叶
+
+[PDH真实检测依赖](cg2d_map_hit_time_classification_spec.md#map-hit-time-source-state)现补46AE60/46AD00与共同458EC0三个完整身份；原PDH2208父、方向/差值生产和所有其它源保持。两检测恢复S16边界采样/普通索引表达序，AD时段调用后才fresh取跨度；原命中低BYTE/独立W16检测码发布、类别与时段短路及全S32返回保。hours单W32位型按S32门槛分类正确源保，GameTime布局/实际生产者不改。
+
+五原入向只局部窗，458F00/50C870当前提供者有据而缺独立身份不伪称全父。MAP/Yobi各三成员、两限定S零I/六任务open；完整gates/枚举/六closure保，不称优化机器读宽/并发、time或命中表owner、数值/SDK/ABI/画面与生命周期运行通过。

@@ -38,6 +38,7 @@ int UpdateGameTime(GameTime* output)
     return static_cast<int>(phase / 192u);
 }
 
+// MHT01：原 [0x458EC0,0x458EF6)；单读 hours 位型，按原有符号门槛分类，完整 body 保持。
 std::int32_t GetCate_458EC0(const GameTime* time)
 {
     // 保留 hours 的原位模式，后续仅按有符号值判断。

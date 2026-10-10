@@ -32,7 +32,7 @@ extern std::uint32_t gValue73ED68; // 原 0x50C890 写入，与输出对象不�
 // output 须指向有效 GameTime；写入顺序为 year/month/day/hours/minutes/sTick。
 int UpdateGameTime(GameTime* output);
 
-// 原 GetCate@0x458EC0；将 hours 字段按有符号小时值分类。
+// MHT01：原 GetCate@0x458EC0；单读 hours W32，保有符号 19/24/0/4/7/16 分类门槛。
 // time 须指向有效 GameTime；仅读取 hours 一次，不做取值归一化。
 std::int32_t GetCate_458EC0(const GameTime* time);
 

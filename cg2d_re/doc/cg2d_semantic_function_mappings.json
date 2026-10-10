@@ -206538,6 +206538,186 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x46ae60",
+      "inventory_id": "F:0006AE60",
+      "original_role": "原Y边界/跨度→Y差→X边界/原乘减加索引，命中低BYTE==2返回完整S32 0/1",
+      "original_end_exclusive": "0x46ae94",
+      "instruction_count": 13,
+      "function_chunks": [
+        {
+          "start": "0x46ae60",
+          "end_exclusive": "0x46ae94"
+        }
+      ],
+      "status": "MHT01完整正常根独立纳管，检测取样恢复/time正确源保；仅限定S，全父/owner/机器ABI/运行待",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "cg::world::detail::Sub_46AE60",
+          "relationship": "原Y边界/跨度→Y差→X边界/原乘减加索引，命中低BYTE==2返回完整S32 0/1；既有实际实现，无新函数/API/布局"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbol": "cg::world::detail::Sub_46AE60",
+          "relationship": "当前真实声明与参数/返回保持，仅关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_hit_time_classification_spec.md#map-hit-time-baseline",
+        "doc/cg2d_map_hit_time_classification_spec.md#map-hit-time-decision",
+        "doc/cg2d_map_hit_time_classification_spec.md#map-hit-time-acceptance",
+        "doc/cg2d_map_hit_time_classification_spec.md#map-hit-time-source-state",
+        "doc/cg2d_map_hit_time_classification_evidence.json"
+      ],
+      "boundary": "MHT01三完整81条257B/三页、一E8十七跳六RET，五入向（内部1/外4点3父）局部消费；两检测恢复三组边界/整数差/索引表达序，time正确完整body保持。原边界/跨度S16符号扩展、命中W16元素低BYTE逻辑消费/零扩展W16码发布和3/9/11/13/10/6/7/8短路，全S32 0/1保；GameTime六W32/24B及hours0Ch一次W32位型按S32门槛保，非拥有const指针不改tm/SDK布局或归一化。仅原语义与源序S，现U16表取低U8不宣实际机器读取宽度/独立加载/并发或ABI一致；原PDH父/所有其它body/表/时间生产者保。三外父、全部输入/地图表生产消费/alias-owner、共享time写入/寿命、调色板/PudO接线、SDK/数值/机器ABI/画面/完整生命周期待。原成员枚举/完整gates/六closure/总SPEC§10守恒，WAV-only/原格式明文/MSVC直接CRT及已批普通整数/ACP01数学与文本字节边界保；RPLAN.24不增保护、默认值、补零、钳制、索引容量限制、回滚或异常模型。",
+      "verification_level": "三完整连续原码/唯一实际E8/十七跳六RET、五局部窗/四外点三父，边界S16/低BYTE-W16发布、hours单W32/signed门槛与整四文件精确差集；仅必要静态，数值/实际机器加载宽度与ABI/运行未验。",
+      "native_provider": {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "cg::world::detail::Sub_46AE60",
+        "parameters": "std::int32_t __cdecl Sub_46AE60(const std::int32_t x, const std::int32_t y)",
+        "return": "完整S32 0/1，唯一父TEST EAX全宽观察",
+        "runtime_verified": false
+      },
+      "map_hit_time_classification": {
+        "step": "MHT01",
+        "source_snapshot": "Git提交说明“[#] 补齐地图命中与时段分类并恢复边界取样”",
+        "original_instruction_count": 13,
+        "original_code_bytes": 52,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 0,
+        "return_count": 1,
+        "inbound_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 1,
+        "new_functions": 0,
+        "normal_source_kept": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x46ad00",
+      "inventory_id": "F:0006AD00",
+      "original_role": "原X/Y边界先齐取/两差，时段后fresh跨度/乘加索引，低BYTE先比3再W16发布，原类别/时段命中返回完整S32 0/1",
+      "original_end_exclusive": "0x46ad97",
+      "instruction_count": 47,
+      "function_chunks": [
+        {
+          "start": "0x46ad00",
+          "end_exclusive": "0x46ad97"
+        }
+      ],
+      "status": "MHT01完整正常根独立纳管，检测取样恢复/time正确源保；仅限定S，全父/owner/机器ABI/运行待",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "cg::world::detail::Sub_46AD00",
+          "relationship": "原X/Y边界先齐取/两差，时段后fresh跨度/乘加索引，低BYTE先比3再W16发布，原类别/时段命中返回完整S32 0/1；既有实际实现，无新函数/API/布局"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbol": "cg::world::detail::Sub_46AD00",
+          "relationship": "当前真实声明与参数/返回保持，仅关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_hit_time_classification_spec.md#map-hit-time-baseline",
+        "doc/cg2d_map_hit_time_classification_spec.md#map-hit-time-decision",
+        "doc/cg2d_map_hit_time_classification_spec.md#map-hit-time-acceptance",
+        "doc/cg2d_map_hit_time_classification_spec.md#map-hit-time-source-state",
+        "doc/cg2d_map_hit_time_classification_evidence.json"
+      ],
+      "boundary": "MHT01三完整81条257B/三页、一E8十七跳六RET，五入向（内部1/外4点3父）局部消费；两检测恢复三组边界/整数差/索引表达序，time正确完整body保持。原边界/跨度S16符号扩展、命中W16元素低BYTE逻辑消费/零扩展W16码发布和3/9/11/13/10/6/7/8短路，全S32 0/1保；GameTime六W32/24B及hours0Ch一次W32位型按S32门槛保，非拥有const指针不改tm/SDK布局或归一化。仅原语义与源序S，现U16表取低U8不宣实际机器读取宽度/独立加载/并发或ABI一致；原PDH父/所有其它body/表/时间生产者保。三外父、全部输入/地图表生产消费/alias-owner、共享time写入/寿命、调色板/PudO接线、SDK/数值/机器ABI/画面/完整生命周期待。原成员枚举/完整gates/六closure/总SPEC§10守恒，WAV-only/原格式明文/MSVC直接CRT及已批普通整数/ACP01数学与文本字节边界保；RPLAN.24不增保护、默认值、补零、钳制、索引容量限制、回滚或异常模型。",
+      "verification_level": "三完整连续原码/唯一实际E8/十七跳六RET、五局部窗/四外点三父，边界S16/低BYTE-W16发布、hours单W32/signed门槛与整四文件精确差集；仅必要静态，数值/实际机器加载宽度与ABI/运行未验。",
+      "native_provider": {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "cg::world::detail::Sub_46AD00",
+        "parameters": "std::int32_t __cdecl Sub_46AD00(const std::int32_t x, const std::int32_t y)",
+        "return": "完整S32 0/1，唯一父TEST EAX全宽观察",
+        "runtime_verified": false
+      },
+      "map_hit_time_classification": {
+        "step": "MHT01",
+        "source_snapshot": "Git提交说明“[#] 补齐地图命中与时段分类并恢复边界取样”",
+        "original_instruction_count": 47,
+        "original_code_bytes": 151,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "jump_count": 12,
+        "return_count": 2,
+        "inbound_call_count": 1,
+        "inbound_parent_count": 1,
+        "source_patch_group_count": 2,
+        "new_functions": 0,
+        "normal_source_kept": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x458ec0",
+      "inventory_id": "F:00058EC0",
+      "original_role": "GameTime hours偏移0Ch单W32位型按S32门槛分类，19..23或0..3类2、后h<7类3、余h>=16类1否则0，无归一化",
+      "original_end_exclusive": "0x458ef6",
+      "instruction_count": 21,
+      "function_chunks": [
+        {
+          "start": "0x458ec0",
+          "end_exclusive": "0x458ef6"
+        }
+      ],
+      "status": "MHT01完整正常根独立纳管，检测取样恢复/time正确源保；仅限定S，全父/owner/机器ABI/运行待",
+      "sources": [
+        {
+          "path": "src/world/GameTime.cpp",
+          "symbol": "cg::world::GetCate_458EC0",
+          "relationship": "GameTime hours偏移0Ch单W32位型按S32门槛分类，19..23或0..3类2、后h<7类3、余h>=16类1否则0，无归一化；既有实际实现，无新函数/API/布局"
+        },
+        {
+          "path": "include/cg/world/GameTime.hpp",
+          "symbol": "cg::world::GetCate_458EC0",
+          "relationship": "当前真实声明与参数/返回保持，仅关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_hit_time_classification_spec.md#map-hit-time-baseline",
+        "doc/cg2d_map_hit_time_classification_spec.md#map-hit-time-decision",
+        "doc/cg2d_map_hit_time_classification_spec.md#map-hit-time-acceptance",
+        "doc/cg2d_map_hit_time_classification_spec.md#map-hit-time-source-state",
+        "doc/cg2d_map_hit_time_classification_evidence.json"
+      ],
+      "boundary": "MHT01三完整81条257B/三页、一E8十七跳六RET，五入向（内部1/外4点3父）局部消费；两检测恢复三组边界/整数差/索引表达序，time正确完整body保持。原边界/跨度S16符号扩展、命中W16元素低BYTE逻辑消费/零扩展W16码发布和3/9/11/13/10/6/7/8短路，全S32 0/1保；GameTime六W32/24B及hours0Ch一次W32位型按S32门槛保，非拥有const指针不改tm/SDK布局或归一化。仅原语义与源序S，现U16表取低U8不宣实际机器读取宽度/独立加载/并发或ABI一致；原PDH父/所有其它body/表/时间生产者保。三外父、全部输入/地图表生产消费/alias-owner、共享time写入/寿命、调色板/PudO接线、SDK/数值/机器ABI/画面/完整生命周期待。原成员枚举/完整gates/六closure/总SPEC§10守恒，WAV-only/原格式明文/MSVC直接CRT及已批普通整数/ACP01数学与文本字节边界保；RPLAN.24不增保护、默认值、补零、钳制、索引容量限制、回滚或异常模型。",
+      "verification_level": "三完整连续原码/唯一实际E8/十七跳六RET、五局部窗/四外点三父，边界S16/低BYTE-W16发布、hours单W32/signed门槛与整四文件精确差集；仅必要静态，数值/实际机器加载宽度与ABI/运行未验。",
+      "native_provider": {
+        "path": "src/world/GameTime.cpp",
+        "symbol": "cg::world::GetCate_458EC0",
+        "parameters": "std::int32_t GetCate_458EC0(const GameTime* time)",
+        "return": "S32原category2/3/1/0；三父按完整EAX消费，不改bool或默认小时",
+        "runtime_verified": false
+      },
+      "map_hit_time_classification": {
+        "step": "MHT01",
+        "source_snapshot": "Git提交说明“[#] 补齐地图命中与时段分类并恢复边界取样”",
+        "original_instruction_count": 21,
+        "original_code_bytes": 54,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 5,
+        "return_count": 3,
+        "inbound_call_count": 3,
+        "inbound_parent_count": 3,
+        "source_patch_group_count": 0,
+        "new_functions": 0,
+        "normal_source_kept": true,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

@@ -5823,13 +5823,14 @@ std::int32_t __cdecl Sub_468C00(
     return left;
 }
 
-// 原 [0x46AE60,0x46AE94)：仅读 hit WORD 的低 U8 比较。
+// MHT01：原 [0x46AE60,0x46AE94)；Y/跨度取样后求 Y 差再取 X，原低 BYTE 比较返完整 0/1。
 std::int32_t __cdecl Sub_46AE60(const std::int32_t x, const std::int32_t y)
 {
     const std::int32_t top = gMapYStart;
     const std::int32_t span = gMapSpanX;
+    const std::int32_t localY = y - top;
     const std::int32_t left = gMapXStart;
-    const std::int32_t index = x - left + span * (y - top);
+    const std::int32_t index = span * localY - left + x;
     return static_cast<std::uint8_t>(gMapHitArray[static_cast<std::size_t>(index)]) == 2;
 }
 
@@ -7804,13 +7805,16 @@ std::int32_t __cdecl Sub_46D9C0(
     return 0;
 }
 
-// 原 [0x46AD00,0x46AD97)：分类前无条件写独立的低 U8 探测值。
+// MHT01：原 [0x46AD00,0x46AD97)；先取齐 X/Y 边界，time 后 fresh 跨度，保低 BYTE/W16 发布与分类序。
 std::int32_t __cdecl Sub_46AD00(const std::int32_t x, const std::int32_t y)
 {
-    const std::int32_t localX = x - gMapXStart;
-    const std::int32_t localY = y - gMapYStart;
+    const std::int32_t left = gMapXStart;
+    const std::int32_t top = gMapYStart;
+    const std::int32_t localX = x - left;
+    const std::int32_t localY = y - top;
     const std::int32_t category = GetCate_458EC0(&gCgTime);
-    const std::int32_t index = localX + gMapSpanX * localY;
+    const std::int32_t span = gMapSpanX;
+    const std::int32_t index = span * localY + localX;
     const std::uint8_t value =
         static_cast<std::uint8_t>(gMapHitArray[static_cast<std::size_t>(index)]);
     const bool isThree = value == 3;

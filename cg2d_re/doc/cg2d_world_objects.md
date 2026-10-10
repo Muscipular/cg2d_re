@@ -814,3 +814,10 @@ flags W16非0且objectIndex完整W32位型相等，才清该槽action并停止�
 [两完整根](cg2d_path_direction_heading_producers_spec.md#path-heading-source-state)/[原指令与五取样组](cg2d_path_direction_heading_producers_evidence.json)纳管46AA00/46B580，合116条393B/三页、七E8五callee十一跳两RET；五入向/两父窗口仅局部消费，原469FC0/46B6F0完整旧合同保持。检测原X→Y Crypt读取/早退Y、fresh S16 pathCount、三callee全S32短路与三状态发布/负heading加8/短路径尾保。
 
 仅恢复增量字段X→Y读取/坐标Y→X更新、两根整数差先成形后Y→X F32桥、两命中nextStep先形成后pub，五组不改布局/owner/表/索引/分支或返回。四整数桥S64透传，两个低W32/两个AX父消费不降返回。原八S16增量表32B/WDG方向叶/全部其它源保，两新语义/F、MAP/Yobi各两成员与两限定S零I、六任务open；三尚无独立身份callee只记实际提供者，全父/全部callee/表生产消费-owner/机器加载/数值/ABI/地图运行待。
+
+<a id="map-hit-time-current-20261010"></a>
+## 2026-10-10 MHT01：地图命中与时段分类
+
+[三完整根](cg2d_map_hit_time_classification_spec.md#map-hit-time-source-state)/[原码/源差集](cg2d_map_hit_time_classification_evidence.json)纳管46AE60/46AD00/458EC0，合81条257B/三页、一E8十七跳六RET、五入向中一内部/四外点三父。两检测恢复三组边界/整数差/索引序，AE先Y/跨度→Y差→X，乘Y差减left加x；AD先齐取X/Y边界→两差→time→fresh跨度，乘Y差加X差。低BYTE逻辑消费/零扩展W16发布、3/9/11/13/10及6/7/8时段短路与完整S32 0/1保。
+
+time仅读hours0Ch一次，现六W32/24B/非拥有指针与signed门槛正确body保持，不归一化/默认小时或改CRT tm。原PDH父/表/全部其它body与时间生产源保持，458F00/50C870未独立身份只真实绑定。三新语义/F、MAP/Yobi各三成员/两限定S零I，六任务open/完整门禁及枚举守恒；原低BYTE不当现机器读宽通过，完整父/表与time生产消费/owner/调色板/PudO/SDK/数值/ABI/画面运行待。

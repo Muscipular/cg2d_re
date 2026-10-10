@@ -1,0 +1,1347 @@
+{
+  "step": "MHT01",
+  "recorded_on": "2026-10-10",
+  "before_snapshot": "Git提交说明“[#] 补齐路径方向生产并恢复分量取样顺序”",
+  "after_snapshot": "Git提交说明“[#] 补齐地图命中与时段分类并恢复边界取样”",
+  "original_roots": [
+    {
+      "entry": "0x46ae60",
+      "end": "0x46ae94",
+      "name": "sub_46AE60",
+      "type": "BOOL __cdecl(int, int)",
+      "chunks": [
+        [
+          "0x46ae60",
+          "0x46ae94"
+        ]
+      ],
+      "instruction_count": 13,
+      "byte_count": 52,
+      "page_count": 1,
+      "instructions": [
+        {
+          "ea": "0x46ae60",
+          "size": 7,
+          "bytes": "0fbf0560ef9d00",
+          "asm": "movsx   eax, gMapY_Start",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ae67",
+          "size": 4,
+          "bytes": "8b4c2408",
+          "asm": "mov     ecx, [esp+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ae6b",
+          "size": 7,
+          "bytes": "0fbf15e0869a00",
+          "asm": "movsx   edx, word_9A86E0",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ae72",
+          "size": 2,
+          "bytes": "2bc8",
+          "asm": "sub     ecx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ae74",
+          "size": 7,
+          "bytes": "0fbf0564ef9d00",
+          "asm": "movsx   eax, gMapX_Start",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ae7b",
+          "size": 3,
+          "bytes": "0fafca",
+          "asm": "imul    ecx, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ae7e",
+          "size": 2,
+          "bytes": "2bc8",
+          "asm": "sub     ecx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ae80",
+          "size": 4,
+          "bytes": "8b442404",
+          "asm": "mov     eax, [esp+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ae84",
+          "size": 2,
+          "bytes": "03c8",
+          "asm": "add     ecx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ae86",
+          "size": 2,
+          "bytes": "33c0",
+          "asm": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ae88",
+          "size": 8,
+          "bytes": "803c4d4cd49e0002",
+          "asm": "cmp     byte ptr gMapHitArray.data[ecx*2], 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ae90",
+          "size": 3,
+          "bytes": "0f94c0",
+          "asm": "setz    al",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ae93",
+          "size": 1,
+          "bytes": "c3",
+          "asm": "retn",
+          "call_target": null
+        }
+      ],
+      "calls": [],
+      "jump_count": 0,
+      "ret_count": 1,
+      "xrefs": [
+        {
+          "ea": "0x46aa83",
+          "parent": "0x46aa00",
+          "type": 17,
+          "bytes": "e8d8030000",
+          "asm": "call    sub_46AE60"
+        }
+      ]
+    },
+    {
+      "entry": "0x46ad00",
+      "end": "0x46ad97",
+      "name": "sub_46AD00",
+      "type": "BOOL __cdecl(int, int)",
+      "chunks": [
+        [
+          "0x46ad00",
+          "0x46ad97"
+        ]
+      ],
+      "instruction_count": 47,
+      "byte_count": 151,
+      "page_count": 1,
+      "instructions": [
+        {
+          "ea": "0x46ad00",
+          "size": 7,
+          "bytes": "0fbf0564ef9d00",
+          "asm": "movsx   eax, gMapX_Start",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad07",
+          "size": 7,
+          "bytes": "0fbf0d60ef9d00",
+          "asm": "movsx   ecx, gMapY_Start",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad0e",
+          "size": 1,
+          "bytes": "56",
+          "asm": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad0f",
+          "size": 4,
+          "bytes": "8b742408",
+          "asm": "mov     esi, [esp+4+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad13",
+          "size": 1,
+          "bytes": "57",
+          "asm": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad14",
+          "size": 4,
+          "bytes": "8b7c2410",
+          "asm": "mov     edi, [esp+8+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad18",
+          "size": 5,
+          "bytes": "6850ed7300",
+          "asm": "push    offset gCgTime",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad1d",
+          "size": 2,
+          "bytes": "2bf0",
+          "asm": "sub     esi, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad1f",
+          "size": 2,
+          "bytes": "2bf9",
+          "asm": "sub     edi, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad21",
+          "size": 5,
+          "bytes": "e89ae1feff",
+          "asm": "call    Time__GetCate",
+          "call_target": "0x458ec0"
+        },
+        {
+          "ea": "0x46ad26",
+          "size": 7,
+          "bytes": "0fbf15e0869a00",
+          "asm": "movsx   edx, word_9A86E0",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad2d",
+          "size": 3,
+          "bytes": "0fafd7",
+          "asm": "imul    edx, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad30",
+          "size": 2,
+          "bytes": "03d6",
+          "asm": "add     edx, esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad32",
+          "size": 3,
+          "bytes": "83c404",
+          "asm": "add     esp, 4",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad35",
+          "size": 7,
+          "bytes": "8a0c554cd49e00",
+          "asm": "mov     cl, byte ptr gMapHitArray.data[edx*2]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad3c",
+          "size": 1,
+          "bytes": "5f",
+          "asm": "pop     edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad3d",
+          "size": 6,
+          "bytes": "81e1ff000000",
+          "asm": "and     ecx, 0FFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad43",
+          "size": 1,
+          "bytes": "5e",
+          "asm": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad44",
+          "size": 4,
+          "bytes": "6683f903",
+          "asm": "cmp     cx, 3",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad48",
+          "size": 7,
+          "bytes": "66890d4aad9d00",
+          "asm": "mov     word_9DAD4A, cx",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad4f",
+          "size": 2,
+          "bytes": "7423",
+          "asm": "jz      short loc_46AD74",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad51",
+          "size": 4,
+          "bytes": "6683f909",
+          "asm": "cmp     cx, 9",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad55",
+          "size": 2,
+          "bytes": "741d",
+          "asm": "jz      short loc_46AD74",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad57",
+          "size": 4,
+          "bytes": "6683f90b",
+          "asm": "cmp     cx, 0Bh",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad5b",
+          "size": 2,
+          "bytes": "7417",
+          "asm": "jz      short loc_46AD74",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad5d",
+          "size": 4,
+          "bytes": "6683f90d",
+          "asm": "cmp     cx, 0Dh",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad61",
+          "size": 2,
+          "bytes": "7411",
+          "asm": "jz      short loc_46AD74",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad63",
+          "size": 4,
+          "bytes": "6683f90a",
+          "asm": "cmp     cx, 0Ah",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad67",
+          "size": 2,
+          "bytes": "740b",
+          "asm": "jz      short loc_46AD74",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad69",
+          "size": 4,
+          "bytes": "6683f906",
+          "asm": "cmp     cx, 6",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad6d",
+          "size": 2,
+          "bytes": "750b",
+          "asm": "jnz     short loc_46AD7A",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad6f",
+          "size": 3,
+          "bytes": "83f803",
+          "asm": "cmp     eax, 3",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad72",
+          "size": 2,
+          "bytes": "7520",
+          "asm": "jnz     short loc_46AD94",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad74",
+          "size": 5,
+          "bytes": "b801000000",
+          "asm": "mov     eax, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad79",
+          "size": 1,
+          "bytes": "c3",
+          "asm": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad7a",
+          "size": 4,
+          "bytes": "6683f907",
+          "asm": "cmp     cx, 7",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad7e",
+          "size": 2,
+          "bytes": "7509",
+          "asm": "jnz     short loc_46AD89",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad80",
+          "size": 2,
+          "bytes": "85c0",
+          "asm": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad82",
+          "size": 2,
+          "bytes": "74f0",
+          "asm": "jz      short loc_46AD74",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad84",
+          "size": 3,
+          "bytes": "83f801",
+          "asm": "cmp     eax, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad87",
+          "size": 2,
+          "bytes": "ebe9",
+          "asm": "jmp     short loc_46AD72",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad89",
+          "size": 4,
+          "bytes": "6683f908",
+          "asm": "cmp     cx, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad8d",
+          "size": 2,
+          "bytes": "7505",
+          "asm": "jnz     short loc_46AD94",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad8f",
+          "size": 3,
+          "bytes": "83f802",
+          "asm": "cmp     eax, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad92",
+          "size": 2,
+          "bytes": "74e0",
+          "asm": "jz      short loc_46AD74",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad94",
+          "size": 2,
+          "bytes": "33c0",
+          "asm": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ad96",
+          "size": 1,
+          "bytes": "c3",
+          "asm": "retn",
+          "call_target": null
+        }
+      ],
+      "calls": [
+        {
+          "ea": "0x46ad21",
+          "target": "0x458ec0",
+          "bytes": "e89ae1feff"
+        }
+      ],
+      "jump_count": 12,
+      "ret_count": 2,
+      "xrefs": [
+        {
+          "ea": "0x46aa91",
+          "parent": "0x46aa00",
+          "type": 17,
+          "bytes": "e86a020000",
+          "asm": "call    sub_46AD00"
+        }
+      ]
+    },
+    {
+      "entry": "0x458ec0",
+      "end": "0x458ef6",
+      "name": "Time::GetCate",
+      "type": "int __cdecl(tm_cg *a1)",
+      "chunks": [
+        [
+          "0x458ec0",
+          "0x458ef6"
+        ]
+      ],
+      "instruction_count": 21,
+      "byte_count": 54,
+      "page_count": 1,
+      "instructions": [
+        {
+          "ea": "0x458ec0",
+          "size": 4,
+          "bytes": "8b442404",
+          "asm": "mov     eax, [esp+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x458ec4",
+          "size": 3,
+          "bytes": "8b400c",
+          "asm": "mov     eax, [eax+0Ch]",
+          "call_target": null
+        },
+        {
+          "ea": "0x458ec7",
+          "size": 3,
+          "bytes": "83f813",
+          "asm": "cmp     eax, 13h",
+          "call_target": null
+        },
+        {
+          "ea": "0x458eca",
+          "size": 2,
+          "bytes": "7c05",
+          "asm": "jl      short loc_458ED1",
+          "call_target": null
+        },
+        {
+          "ea": "0x458ecc",
+          "size": 3,
+          "bytes": "83f818",
+          "asm": "cmp     eax, 18h",
+          "call_target": null
+        },
+        {
+          "ea": "0x458ecf",
+          "size": 2,
+          "bytes": "7c09",
+          "asm": "jl      short loc_458EDA",
+          "call_target": null
+        },
+        {
+          "ea": "0x458ed1",
+          "size": 2,
+          "bytes": "85c0",
+          "asm": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x458ed3",
+          "size": 2,
+          "bytes": "7c0b",
+          "asm": "jl      short loc_458EE0",
+          "call_target": null
+        },
+        {
+          "ea": "0x458ed5",
+          "size": 3,
+          "bytes": "83f804",
+          "asm": "cmp     eax, 4",
+          "call_target": null
+        },
+        {
+          "ea": "0x458ed8",
+          "size": 2,
+          "bytes": "7d06",
+          "asm": "jge     short loc_458EE0",
+          "call_target": null
+        },
+        {
+          "ea": "0x458eda",
+          "size": 5,
+          "bytes": "b802000000",
+          "asm": "mov     eax, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x458edf",
+          "size": 1,
+          "bytes": "c3",
+          "asm": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x458ee0",
+          "size": 3,
+          "bytes": "83f807",
+          "asm": "cmp     eax, 7",
+          "call_target": null
+        },
+        {
+          "ea": "0x458ee3",
+          "size": 2,
+          "bytes": "7d06",
+          "asm": "jge     short loc_458EEB",
+          "call_target": null
+        },
+        {
+          "ea": "0x458ee5",
+          "size": 5,
+          "bytes": "b803000000",
+          "asm": "mov     eax, 3",
+          "call_target": null
+        },
+        {
+          "ea": "0x458eea",
+          "size": 1,
+          "bytes": "c3",
+          "asm": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x458eeb",
+          "size": 2,
+          "bytes": "33c9",
+          "asm": "xor     ecx, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x458eed",
+          "size": 3,
+          "bytes": "83f810",
+          "asm": "cmp     eax, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x458ef0",
+          "size": 3,
+          "bytes": "0f9dc1",
+          "asm": "setnl   cl",
+          "call_target": null
+        },
+        {
+          "ea": "0x458ef3",
+          "size": 2,
+          "bytes": "8bc1",
+          "asm": "mov     eax, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x458ef5",
+          "size": 1,
+          "bytes": "c3",
+          "asm": "retn",
+          "call_target": null
+        }
+      ],
+      "calls": [],
+      "jump_count": 5,
+      "ret_count": 3,
+      "xrefs": [
+        {
+          "ea": "0x458f05",
+          "parent": "0x458f00",
+          "type": 17,
+          "bytes": "e8b6ffffff",
+          "asm": "call    Time__GetCate"
+        },
+        {
+          "ea": "0x46ad21",
+          "parent": "0x46ad00",
+          "type": 17,
+          "bytes": "e89ae1feff",
+          "asm": "call    Time__GetCate"
+        },
+        {
+          "ea": "0x50c89f",
+          "parent": "0x50c870",
+          "type": 17,
+          "bytes": "e81cc6f4ff",
+          "asm": "call    Time__GetCate"
+        }
+      ]
+    }
+  ],
+  "original_call_windows": [
+    {
+      "root": 4632160,
+      "call": 4631171,
+      "parent": 4631040,
+      "parent_name": "sub_46AA00",
+      "instructions": [
+        {
+          "ea": 4631162,
+          "size": 5,
+          "bytes": "e871230000",
+          "asm": "call    sub_46CDF0"
+        },
+        {
+          "ea": 4631167,
+          "size": 1,
+          "bytes": "57",
+          "asm": "push    edi"
+        },
+        {
+          "ea": 4631168,
+          "size": 1,
+          "bytes": "56",
+          "asm": "push    esi"
+        },
+        {
+          "ea": 4631169,
+          "size": 2,
+          "bytes": "8be8",
+          "asm": "mov     ebp, eax"
+        },
+        {
+          "ea": 4631171,
+          "size": 5,
+          "bytes": "e8d8030000",
+          "asm": "call    sub_46AE60"
+        },
+        {
+          "ea": 4631176,
+          "size": 3,
+          "bytes": "83c410",
+          "asm": "add     esp, 10h"
+        },
+        {
+          "ea": 4631179,
+          "size": 2,
+          "bytes": "85c0",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": 4631181,
+          "size": 2,
+          "bytes": "753c",
+          "asm": "jnz     short loc_46AACB"
+        },
+        {
+          "ea": 4631183,
+          "size": 1,
+          "bytes": "57",
+          "asm": "push    edi"
+        },
+        {
+          "ea": 4631184,
+          "size": 1,
+          "bytes": "56",
+          "asm": "push    esi"
+        },
+        {
+          "ea": 4631185,
+          "size": 5,
+          "bytes": "e86a020000",
+          "asm": "call    sub_46AD00"
+        },
+        {
+          "ea": 4631190,
+          "size": 3,
+          "bytes": "83c408",
+          "asm": "add     esp, 8"
+        },
+        {
+          "ea": 4631193,
+          "size": 2,
+          "bytes": "85c0",
+          "asm": "test    eax, eax"
+        }
+      ],
+      "full_parent_verified": false
+    },
+    {
+      "root": 4631808,
+      "call": 4631185,
+      "parent": 4631040,
+      "parent_name": "sub_46AA00",
+      "instructions": [
+        {
+          "ea": 4631179,
+          "size": 2,
+          "bytes": "85c0",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": 4631181,
+          "size": 2,
+          "bytes": "753c",
+          "asm": "jnz     short loc_46AACB"
+        },
+        {
+          "ea": 4631183,
+          "size": 1,
+          "bytes": "57",
+          "asm": "push    edi"
+        },
+        {
+          "ea": 4631184,
+          "size": 1,
+          "bytes": "56",
+          "asm": "push    esi"
+        },
+        {
+          "ea": 4631185,
+          "size": 5,
+          "bytes": "e86a020000",
+          "asm": "call    sub_46AD00"
+        },
+        {
+          "ea": 4631190,
+          "size": 3,
+          "bytes": "83c408",
+          "asm": "add     esp, 8"
+        },
+        {
+          "ea": 4631193,
+          "size": 2,
+          "bytes": "85c0",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": 4631195,
+          "size": 2,
+          "bytes": "755e",
+          "asm": "jnz     short loc_46AAFB"
+        },
+        {
+          "ea": 4631197,
+          "size": 5,
+          "bytes": "e86e640400",
+          "asm": "call    NULL_FUNC"
+        },
+        {
+          "ea": 4631202,
+          "size": 2,
+          "bytes": "85c0",
+          "asm": "test    eax, eax"
+        },
+        {
+          "ea": 4631204,
+          "size": 2,
+          "bytes": "7571",
+          "asm": "jnz     short loc_46AB17"
+        },
+        {
+          "ea": 4631206,
+          "size": 4,
+          "bytes": "8b442410",
+          "asm": "mov     eax, [esp+1Ch+var_C]"
+        },
+        {
+          "ea": 4631210,
+          "size": 1,
+          "bytes": "43",
+          "asm": "inc     ebx"
+        }
+      ],
+      "full_parent_verified": false
+    },
+    {
+      "root": 4558528,
+      "call": 4558597,
+      "parent": 4558592,
+      "parent_name": "sub_458F00",
+      "instructions": [
+        {
+          "ea": 4558592,
+          "size": 5,
+          "bytes": "6850ed7300",
+          "asm": "push    offset gCgTime"
+        },
+        {
+          "ea": 4558597,
+          "size": 5,
+          "bytes": "e8b6ffffff",
+          "asm": "call    Time__GetCate"
+        },
+        {
+          "ea": 4558602,
+          "size": 6,
+          "bytes": "8b0d48ed7300",
+          "asm": "mov     ecx, dword_73ED48"
+        },
+        {
+          "ea": 4558608,
+          "size": 3,
+          "bytes": "83c404",
+          "asm": "add     esp, 4"
+        },
+        {
+          "ea": 4558611,
+          "size": 2,
+          "bytes": "3bc8",
+          "asm": "cmp     ecx, eax"
+        },
+        {
+          "ea": 4558613,
+          "size": 2,
+          "bytes": "741e",
+          "asm": "jz      short loc_458F35"
+        },
+        {
+          "ea": 4558615,
+          "size": 6,
+          "bytes": "8b0d44ed7300",
+          "asm": "mov     ecx, dword_73ED44"
+        },
+        {
+          "ea": 4558621,
+          "size": 5,
+          "bytes": "a348ed7300",
+          "asm": "mov     dword_73ED48, eax"
+        },
+        {
+          "ea": 4558626,
+          "size": 3,
+          "bytes": "83f901",
+          "asm": "cmp     ecx, 1"
+        },
+        {
+          "ea": 4558629,
+          "size": 2,
+          "bytes": "750e",
+          "asm": "jnz     short loc_458F35"
+        }
+      ],
+      "full_parent_verified": false
+    },
+    {
+      "root": 4558528,
+      "call": 4631841,
+      "parent": 4631808,
+      "parent_name": "sub_46AD00",
+      "instructions": [
+        {
+          "ea": 4631828,
+          "size": 4,
+          "bytes": "8b7c2410",
+          "asm": "mov     edi, [esp+8+arg_4]"
+        },
+        {
+          "ea": 4631832,
+          "size": 5,
+          "bytes": "6850ed7300",
+          "asm": "push    offset gCgTime"
+        },
+        {
+          "ea": 4631837,
+          "size": 2,
+          "bytes": "2bf0",
+          "asm": "sub     esi, eax"
+        },
+        {
+          "ea": 4631839,
+          "size": 2,
+          "bytes": "2bf9",
+          "asm": "sub     edi, ecx"
+        },
+        {
+          "ea": 4631841,
+          "size": 5,
+          "bytes": "e89ae1feff",
+          "asm": "call    Time__GetCate"
+        },
+        {
+          "ea": 4631846,
+          "size": 7,
+          "bytes": "0fbf15e0869a00",
+          "asm": "movsx   edx, word_9A86E0"
+        },
+        {
+          "ea": 4631853,
+          "size": 3,
+          "bytes": "0fafd7",
+          "asm": "imul    edx, edi"
+        },
+        {
+          "ea": 4631856,
+          "size": 2,
+          "bytes": "03d6",
+          "asm": "add     edx, esi"
+        },
+        {
+          "ea": 4631858,
+          "size": 3,
+          "bytes": "83c404",
+          "asm": "add     esp, 4"
+        },
+        {
+          "ea": 4631861,
+          "size": 7,
+          "bytes": "8a0c554cd49e00",
+          "asm": "mov     cl, byte ptr gMapHitArray.data[edx*2]"
+        },
+        {
+          "ea": 4631868,
+          "size": 1,
+          "bytes": "5f",
+          "asm": "pop     edi"
+        },
+        {
+          "ea": 4631869,
+          "size": 6,
+          "bytes": "81e1ff000000",
+          "asm": "and     ecx, 0FFh"
+        },
+        {
+          "ea": 4631875,
+          "size": 1,
+          "bytes": "5e",
+          "asm": "pop     esi"
+        }
+      ],
+      "full_parent_verified": false
+    },
+    {
+      "root": 4558528,
+      "call": 5294239,
+      "parent": 5294192,
+      "parent_name": "sub_50C870",
+      "instructions": [
+        {
+          "ea": 5294219,
+          "size": 5,
+          "bytes": "6850ed7300",
+          "asm": "push    offset gCgTime"
+        },
+        {
+          "ea": 5294224,
+          "size": 5,
+          "bytes": "a368ed7300",
+          "asm": "mov     dword_73ED68, eax"
+        },
+        {
+          "ea": 5294229,
+          "size": 5,
+          "bytes": "e846c5f4ff",
+          "asm": "call    World__UpdateNRTime"
+        },
+        {
+          "ea": 5294234,
+          "size": 5,
+          "bytes": "6850ed7300",
+          "asm": "push    offset gCgTime"
+        },
+        {
+          "ea": 5294239,
+          "size": 5,
+          "bytes": "e81cc6f4ff",
+          "asm": "call    Time__GetCate"
+        },
+        {
+          "ea": 5294244,
+          "size": 2,
+          "bytes": "6a00",
+          "asm": "push    0"
+        },
+        {
+          "ea": 5294246,
+          "size": 1,
+          "bytes": "50",
+          "asm": "push    eax"
+        },
+        {
+          "ea": 5294247,
+          "size": 5,
+          "bytes": "a348ed7300",
+          "asm": "mov     dword_73ED48, eax"
+        },
+        {
+          "ea": 5294252,
+          "size": 5,
+          "bytes": "e8bf42f4ff",
+          "asm": "call    sub_450B70"
+        },
+        {
+          "ea": 5294257,
+          "size": 4,
+          "bytes": "8b542428",
+          "asm": "mov     edx, [esp+18h+arg_C]"
+        },
+        {
+          "ea": 5294261,
+          "size": 4,
+          "bytes": "8b44242c",
+          "asm": "mov     eax, [esp+18h+arg_10]"
+        },
+        {
+          "ea": 5294265,
+          "size": 3,
+          "bytes": "83c418",
+          "asm": "add     esp, 18h"
+        },
+        {
+          "ea": 5294268,
+          "size": 6,
+          "bytes": "891534049e00",
+          "asm": "mov     dword_9E0434, edx"
+        }
+      ],
+      "full_parent_verified": false
+    }
+  ],
+  "source_before": [
+    {
+      "path": "src/world/SceneState.cpp",
+      "symbol": "Sub_46AE60",
+      "signature": "std::int32_t __cdecl Sub_46AE60(const std::int32_t x, const std::int32_t y)",
+      "source": "std::int32_t __cdecl Sub_46AE60(const std::int32_t x, const std::int32_t y)\n{\n    const std::int32_t top = gMapYStart;\n    const std::int32_t span = gMapSpanX;\n    const std::int32_t left = gMapXStart;\n    const std::int32_t index = x - left + span * (y - top);\n    return static_cast<std::uint8_t>(gMapHitArray[static_cast<std::size_t>(index)]) == 2;\n}\n",
+      "line": 5827
+    },
+    {
+      "path": "src/world/SceneState.cpp",
+      "symbol": "Sub_46AD00",
+      "signature": "std::int32_t __cdecl Sub_46AD00(const std::int32_t x, const std::int32_t y)",
+      "source": "std::int32_t __cdecl Sub_46AD00(const std::int32_t x, const std::int32_t y)\n{\n    const std::int32_t localX = x - gMapXStart;\n    const std::int32_t localY = y - gMapYStart;\n    const std::int32_t category = GetCate_458EC0(&gCgTime);\n    const std::int32_t index = localX + gMapSpanX * localY;\n    const std::uint8_t value =\n        static_cast<std::uint8_t>(gMapHitArray[static_cast<std::size_t>(index)]);\n    const bool isThree = value == 3;\n    gLastDetectedCode = value;\n    if (isThree || value == 9 || value == 11 || value == 13 || value == 10) {\n        return 1;\n    }\n    if (value == 6) {\n        return category == 3;\n    }\n    if (value == 7) {\n        return category == 0 || category == 1;\n    }\n    return value == 8 && category == 2;\n}\n",
+      "line": 7808
+    },
+    {
+      "path": "src/world/GameTime.cpp",
+      "symbol": "GetCate_458EC0",
+      "signature": "std::int32_t GetCate_458EC0(const GameTime* time)",
+      "source": "std::int32_t GetCate_458EC0(const GameTime* time)\n{\n    // 保留 hours 的原位模式，后续仅按有符号值判断。\n    const std::int32_t h = std::bit_cast<std::int32_t>(time->hours);\n    if (19 <= h && h < 24) {\n        return 2;\n    }\n    if (0 <= h && h < 4) {\n        return 2;\n    }\n    if (h < 7) {\n        return 3;\n    }\n    if (h >= 16) {\n        return 1;\n    }\n    return 0;\n}\n",
+      "line": 41
+    }
+  ],
+  "current_parent_source": {
+    "parents": [
+      {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "Sub_458F00",
+        "signature": "void __cdecl Sub_458F00()",
+        "source": "void __cdecl Sub_458F00()\n{\n    const std::int32_t category = GetCate_458EC0(&gCgTime);\n    if (gValue73ED48 != category) {\n        const std::int32_t mode = gValue73ED44;\n        gValue73ED48 = category;\n        if (mode == 1) {\n            static_cast<void>(render::SelectPalette(category, 3600));\n        }\n    }\n    Sub_458F40();\n}\n",
+        "line": 7105
+      },
+      {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "Sub_50C870",
+        "signature": "std::int32_t __cdecl Sub_50C870(\n    const std::uintptr_t, const std::int32_t playerValue,\n    const std::int32_t timeOffset, const std::int32_t pathValue,\n    const std::int32_t adjustment)",
+        "source": "std::int32_t __cdecl Sub_50C870(\n    const std::uintptr_t, const std::int32_t playerValue,\n    const std::int32_t timeOffset, const std::int32_t pathValue,\n    const std::int32_t adjustment)\n{\n    static_cast<void>(Sub_519EB0(playerValue));\n    gValue73ED4C = std::bit_cast<std::uint32_t>(timeOffset);\n    gValue73ED68 = std::bit_cast<std::uint32_t>(\n        platform::ReadLegacyTime32_53BA26(nullptr));\n    static_cast<void>(UpdateGameTime(&gCgTime));\n    gValue73ED48 = GetCate_458EC0(&gCgTime);\n    static_cast<void>(render::SelectPalette(gValue73ED48, 0));\n    gValue9E0434 = pathValue;\n    gValue73ED40 = std::bit_cast<std::uint32_t>(adjustment);\n    return adjustment;\n}\n",
+        "line": 7126
+      }
+    ],
+    "time_header": "#pragma once\n\n#include <cstddef>\n#include <cstdint>\n\nnamespace cg::world {\n\n// 原 tm_cg@0x73ED50；六个 32 位值，不采用 CRT tm 或 Win32 SYSTEMTIME 布局。\nstruct GameTime {\n    std::uint32_t year;\n    std::uint32_t month;\n    std::uint32_t day;\n    std::uint32_t hours;\n    std::uint32_t sTick;\n    std::uint32_t minutes;\n};\nstatic_assert(sizeof(GameTime) == 24);\nstatic_assert(offsetof(GameTime, year) == 0);\nstatic_assert(offsetof(GameTime, month) == 4);\nstatic_assert(offsetof(GameTime, day) == 8);\nstatic_assert(offsetof(GameTime, hours) == 12);\nstatic_assert(offsetof(GameTime, sTick) == 16);\nstatic_assert(offsetof(GameTime, minutes) == 20);\n\nextern GameTime gCgTime;\nextern std::uint32_t gValue559508; // 原静态字节 0x3AE805E7，时间计算基值。\nextern std::uint32_t gValue73ED40; // 原 0x50C8C2 写入，完整业务角色仍待上游核对。\nextern std::uint32_t gValue73ED4C; // 原 0x50C880 写入。\nextern std::uint32_t gValue73ED68; // 原 0x50C890 写入，与输出对象不重叠。\n\n// 原 [0x458DE0,0x458EBB)；返回末次相位除以 192 的商，不是更新成功标志。\n// output 须指向有效 GameTime；写入顺序为 year/month/day/hours/minutes/sTick。\nint UpdateGameTime(GameTime* output);\n\n// 原 GetCate@0x458EC0；将 hours 字段按有符号小时值分类。\n// time 须指向有效 GameTime；仅读取 hours 一次，不做取值归一化。\nstd::int32_t GetCate_458EC0(const GameTime* time);\n\n} // namespace cg::world\n",
+    "time_header_path": "include/cg/world/GameTime.hpp"
+  },
+  "original_totals": {
+    "instruction_count": 81,
+    "byte_count": 257,
+    "page_count": 3,
+    "direct_calls": 1,
+    "unique_callees": 1,
+    "jump_count": 17,
+    "ret_count": 6,
+    "inbound_calls": 5,
+    "external_calls": 4,
+    "external_parents": 3,
+    "full_external_parents_verified": false
+  },
+  "source_patch_group_counts": [
+    1,
+    2,
+    0
+  ],
+  "verification": {
+    "necessary_static": "pass，三完整81条257B/三页/一实际E8十七跳六RET，五窗/四外点三父；S16边界/跨度、原低BYTE/W16发布与hours单W32/signed门槛，整四文件精确重放三取样组/六关联注释，time body及全部其它源保持",
+    "registry": "pass，三新身份/F、两限定S零I、MAP164/Yobi94各三成员与六开放任务；全部2210旧语义/1641旧处置/1444旧证据和原完整政策/门禁保持",
+    "measurement": "pass，measure_cg2d.ps1文本汇总退出0，3680函数/218导入/3061区间/184叶功能/60任务，非构建/测试/运行",
+    "check": "pass，measure_cg2d.ps1 -Check退出0",
+    "derived_scope": "pass，派生仅六metrics/三F/两功能/六任务；2275/3680=61.82%仅关联率，2213=2165F+48X/F1644/E1446，MAP164/Yobi94；全部完整门禁/其它字段守恒",
+    "generated_machine_reads_verified": false,
+    "runtime_verified": false,
+    "full_lifecycle_closed": false
+  },
+  "expected_counts_after": {
+    "semantic_records": 2213,
+    "semantic_F": 2165,
+    "semantic_X": 48,
+    "function_dispositions": 1644,
+    "evidence": 1446,
+    "document_links": 2275,
+    "document_link_percent": 61.82,
+    "MAP": 164,
+    "Yobi": 94
+  },
+  "tool_notes": [
+    "纯读首轮来源采集成功后，时段功能检索误用name字段退出1，无写入；改读现schema的title，并确认没有独立时段功能，UIRUNTIME不能因字面含TIME误当时段枚举。三源码采集与原分页保持。",
+    "静态整文件重放首次假定AE索引片段全文件唯一而退出1，无写入；相邻叶有同式，改为具名函数内唯一替换后仍核整四文件，未放宽差集或原合同。"
+  ],
+  "source_after": [
+    {
+      "path": "src/world/SceneState.cpp",
+      "symbol": "Sub_46AE60",
+      "signature": "std::int32_t __cdecl Sub_46AE60(const std::int32_t x, const std::int32_t y)",
+      "source": "std::int32_t __cdecl Sub_46AE60(const std::int32_t x, const std::int32_t y)\n{\n    const std::int32_t top = gMapYStart;\n    const std::int32_t span = gMapSpanX;\n    const std::int32_t localY = y - top;\n    const std::int32_t left = gMapXStart;\n    const std::int32_t index = span * localY - left + x;\n    return static_cast<std::uint8_t>(gMapHitArray[static_cast<std::size_t>(index)]) == 2;\n}\n",
+      "line": 5827
+    },
+    {
+      "path": "src/world/SceneState.cpp",
+      "symbol": "Sub_46AD00",
+      "signature": "std::int32_t __cdecl Sub_46AD00(const std::int32_t x, const std::int32_t y)",
+      "source": "std::int32_t __cdecl Sub_46AD00(const std::int32_t x, const std::int32_t y)\n{\n    const std::int32_t left = gMapXStart;\n    const std::int32_t top = gMapYStart;\n    const std::int32_t localX = x - left;\n    const std::int32_t localY = y - top;\n    const std::int32_t category = GetCate_458EC0(&gCgTime);\n    const std::int32_t span = gMapSpanX;\n    const std::int32_t index = span * localY + localX;\n    const std::uint8_t value =\n        static_cast<std::uint8_t>(gMapHitArray[static_cast<std::size_t>(index)]);\n    const bool isThree = value == 3;\n    gLastDetectedCode = value;\n    if (isThree || value == 9 || value == 11 || value == 13 || value == 10) {\n        return 1;\n    }\n    if (value == 6) {\n        return category == 3;\n    }\n    if (value == 7) {\n        return category == 0 || category == 1;\n    }\n    return value == 8 && category == 2;\n}\n",
+      "line": 7809
+    },
+    {
+      "path": "src/world/GameTime.cpp",
+      "symbol": "GetCate_458EC0",
+      "signature": "std::int32_t GetCate_458EC0(const GameTime* time)",
+      "source": "std::int32_t GetCate_458EC0(const GameTime* time)\n{\n    // 保留 hours 的原位模式，后续仅按有符号值判断。\n    const std::int32_t h = std::bit_cast<std::int32_t>(time->hours);\n    if (19 <= h && h < 24) {\n        return 2;\n    }\n    if (0 <= h && h < 4) {\n        return 2;\n    }\n    if (h < 7) {\n        return 3;\n    }\n    if (h >= 16) {\n        return 1;\n    }\n    return 0;\n}\n",
+      "line": 42
+    }
+  ],
+  "source_patches": {
+    "cpp_comments": [
+      {
+        "old": "// 原 [0x46AE60,0x46AE94)：仅读 hit WORD 的低 U8 比较。",
+        "replacement": "// MHT01：原 [0x46AE60,0x46AE94)；Y/跨度取样后求 Y 差再取 X，原低 BYTE 比较返完整 0/1。"
+      },
+      {
+        "old": "// 原 [0x46AD00,0x46AD97)：分类前无条件写独立的低 U8 探测值。",
+        "replacement": "// MHT01：原 [0x46AD00,0x46AD97)；先取齐 X/Y 边界，time 后 fresh 跨度，保低 BYTE/W16 发布与分类序。"
+      }
+    ],
+    "body_patches": [
+      {
+        "symbol": "Sub_46AE60",
+        "old": "    const std::int32_t top = gMapYStart;\n    const std::int32_t span = gMapSpanX;\n    const std::int32_t left = gMapXStart;\n    const std::int32_t index = x - left + span * (y - top);",
+        "replacement": "    const std::int32_t top = gMapYStart;\n    const std::int32_t span = gMapSpanX;\n    const std::int32_t localY = y - top;\n    const std::int32_t left = gMapXStart;\n    const std::int32_t index = span * localY - left + x;"
+      },
+      {
+        "symbol": "Sub_46AD00",
+        "old": "    const std::int32_t localX = x - gMapXStart;\n    const std::int32_t localY = y - gMapYStart;",
+        "replacement": "    const std::int32_t left = gMapXStart;\n    const std::int32_t top = gMapYStart;\n    const std::int32_t localX = x - left;\n    const std::int32_t localY = y - top;"
+      },
+      {
+        "symbol": "Sub_46AD00",
+        "old": "    const std::int32_t index = localX + gMapSpanX * localY;",
+        "replacement": "    const std::int32_t span = gMapSpanX;\n    const std::int32_t index = span * localY + localX;"
+      }
+    ],
+    "time_comment": {
+      "old": "std::int32_t GetCate_458EC0(const GameTime* time)\n{",
+      "replacement": "// MHT01：原 [0x458EC0,0x458EF6)；单读 hours 位型，按原有符号门槛分类，完整 body 保持。\nstd::int32_t GetCate_458EC0(const GameTime* time)\n{"
+    },
+    "header_comments": [
+      {
+        "old": "std::int32_t __cdecl Sub_46AE60(std::int32_t x, std::int32_t y); // 原 [0x46AE60,0x46AE94)，判 hit 低字节。",
+        "replacement": "std::int32_t __cdecl Sub_46AE60(std::int32_t x, std::int32_t y); // MHT01：原边界/索引序与命中低 BYTE，返 S32 0/1。"
+      },
+      {
+        "old": "std::int32_t __cdecl Sub_46AD00(std::int32_t x, std::int32_t y); // 原 [0x46AD00,0x46AD97)，分类并写 9DAD4A。",
+        "replacement": "std::int32_t __cdecl Sub_46AD00(std::int32_t x, std::int32_t y); // MHT01：time 后跨度/低 BYTE，保 W16 分类发布和原短路序。"
+      }
+    ],
+    "time_header_comment": {
+      "old": "// 原 GetCate@0x458EC0；将 hours 字段按有符号小时值分类。",
+      "replacement": "// MHT01：原 GetCate@0x458EC0；单读 hours W32，保有符号 19/24/0/4/7/16 分类门槛。"
+    }
+  },
+  "record_scope": [
+    {
+      "index": 2210,
+      "inventory_id": "F:0006AE60",
+      "symbol": "Sub_46AE60",
+      "path": "src/world/SceneState.cpp",
+      "source_patch_group_count": 1
+    },
+    {
+      "index": 2211,
+      "inventory_id": "F:0006AD00",
+      "symbol": "Sub_46AD00",
+      "path": "src/world/SceneState.cpp",
+      "source_patch_group_count": 2
+    },
+    {
+      "index": 2212,
+      "inventory_id": "F:00058EC0",
+      "symbol": "GetCate_458EC0",
+      "path": "src/world/GameTime.cpp",
+      "source_patch_group_count": 0
+    }
+  ],
+  "direct_call_mapping": [
+    {
+      "original_entry": "0x458ec0",
+      "index": 2212,
+      "inventory_id": "F:00058EC0",
+      "path": "src/world/GameTime.cpp",
+      "symbol": "GetCate_458EC0",
+      "full_callee_newly_verified": true,
+      "body_changed": false
+    }
+  ],
+  "external_parent_bindings": [
+    {
+      "original_entry": "0x46aa00",
+      "index": 2208,
+      "inventory_id": "F:0006AA00",
+      "path": "src/world/SceneState.cpp",
+      "symbol": "Sub_46AA00",
+      "independent_semantic_identity_present": true,
+      "full_parent_newly_verified": false
+    },
+    {
+      "original_entry": "0x458f00",
+      "path": "src/world/SceneState.cpp",
+      "symbol": "Sub_458F00",
+      "independent_semantic_identity_present": false,
+      "full_parent_newly_verified": false
+    },
+    {
+      "original_entry": "0x50c870",
+      "path": "src/world/SceneState.cpp",
+      "symbol": "Sub_50C870",
+      "independent_semantic_identity_present": false,
+      "full_parent_newly_verified": false
+    }
+  ],
+  "reused_unchanged_semantic_identities": [
+    {
+      "index": 2208,
+      "inventory_id": "F:0006AA00",
+      "original_entry": "0x46aa00"
+    }
+  ],
+  "feature_member_additions": {
+    "FUNC-MAP": [
+      "F:0006AE60",
+      "F:0006AD00",
+      "F:00058EC0"
+    ],
+    "FUNC-YOBI": [
+      "F:0006AE60",
+      "F:0006AD00",
+      "F:00058EC0"
+    ]
+  },
+  "feature_counts_before": {
+    "FUNC-MAP": 161,
+    "FUNC-YOBI": 91
+  },
+  "tasks_updated": [
+    "G01",
+    "R01",
+    "R04",
+    "U09",
+    "U10",
+    "V04"
+  ]
+}

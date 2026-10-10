@@ -212150,6 +212150,225 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x4c9240",
+      "inventory_id": "F:000C9240",
+      "original_role": "原71项原型默认坐标及共享聊天尺寸/设置",
+      "original_end_exclusive": "0x4c92ad",
+      "instruction_count": 26,
+      "function_chunks": [
+        {
+          "start": "0x4c9240",
+          "end_exclusive": "0x4c92ad"
+        }
+      ],
+      "status": "CWP01完整正常原根独立纳管，三取样组/默认body保；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C9240"
+          ],
+          "relationship": "CWP01完整原根对应真实默认/恢复/几何生产，BYTE与共享字段现场取样和原发布/返回边界"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4C9240"
+          ],
+          "relationship": "真实内部声明/签名保持，仅CWP01完整合同关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_chat_window_geometry_production_spec.md#chat-geometry-baseline",
+        "doc/cg2d_chat_window_geometry_production_spec.md#chat-geometry-decision",
+        "doc/cg2d_chat_window_geometry_production_spec.md#chat-geometry-acceptance",
+        "doc/cg2d_chat_window_geometry_production_spec.md#chat-geometry-source-state",
+        "doc/cg2d_chat_window_geometry_production_evidence.json"
+      ],
+      "boundary": "CWP01三完整默认/设置恢复/聊天几何根329条1484B/七页、两实际E8/两目标/11跳三RET，六入向均外部仅来源。原71项指针表及保存记录地址步进/当前size_t仅寻址，默认坐标/宽12高4与0/FF设置和返0保；恢复先保存x/y→部分默认回填弃返→交错读取发布设置/演员状态恰1和返1保。两原保存记录14 value08/value0C首BYTE改unsigned char真实读取，S32字段/写方/文件格式不改；原两请求和先高度/高度请求、宽度/宽度请求读取，八字体/高度对逐点独立取样，不跨写或callee缓存。高度4..26/宽12..37原环及26倍字体位置补偿、两新请求判±1/请求归零、现场当前窗口/元素/载荷、inputWidth/背景/命中/滚动轨道/按钮与滑块callee后新窗口宽和五模板位置/颜色图号序保。三组12处/六注释，默认正确body/所有其它source和门槛发布/返回保持，无新函数/API/类型/字段/布局/owner/分配释放或保护/默认值/补零/钳制/容量限制/回滚/异常模型；S32正常像素表达、GBK/明文/MSVC/WAV-only不变。完整文件/窗口父、初始化和请求/模板生产、部分默认回填与滑块callee、保存/窗口/元素/载荷/字体/宽高及历史绘制全生产消费和alias-owner寿命、CRT/SDK/机器ABI/数值/优化后读取/实际尺寸切换文字画面及全生命周期待，只限定S，枚举/完整gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，三完整原根329条1484B/七页、两实际E8/两目标/11跳三RET、六入向均外部仅来源，71项地址寻址与原保存字段两BYTE有据；整两文件精确重放三组12处/六注释，默认正确body和全部其它source/字段/尺寸环/窗口载荷及返回保持，只源码取样/正常合同，不宣优化后读取、编译布局或全owner/运行",
+      "original_incoming": [
+        {
+          "ea": 5017698,
+          "parent": 5017696,
+          "type": 17,
+          "bytes": "e8d9010000",
+          "asm": "call    sub_4C9240"
+        },
+        {
+          "ea": 5017727,
+          "parent": 5017696,
+          "type": 17,
+          "bytes": "e8bc010000",
+          "asm": "call    sub_4C9240"
+        },
+        {
+          "ea": 5017850,
+          "parent": 5017696,
+          "type": 17,
+          "bytes": "e841010000",
+          "asm": "call    sub_4C9240"
+        },
+        {
+          "ea": 5017872,
+          "parent": 5017696,
+          "type": 17,
+          "bytes": "e82b010000",
+          "asm": "call    sub_4C9240"
+        }
+      ],
+      "chat_window_geometry_production": {
+        "step": "CWP01",
+        "source_snapshot": "[#] 补齐聊天几何生产并恢复设置字节取样",
+        "original_instruction_count": 26,
+        "original_code_bytes": 109,
+        "original_page_count": 1,
+        "direct_call_count": 0,
+        "jump_count": 1,
+        "return_count": 1,
+        "native_signature": "std::int32_t Sub_4C9240()",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4C9240",
+        "normal_source_kept": true,
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4c9170",
+      "inventory_id": "F:000C9170",
+      "original_role": "原保存坐标/两BYTE与S32设置交错回填",
+      "original_end_exclusive": "0x4c9233",
+      "instruction_count": 40,
+      "function_chunks": [
+        {
+          "start": "0x4c9170",
+          "end_exclusive": "0x4c9233"
+        }
+      ],
+      "status": "CWP01完整正常原根独立纳管，三取样组/默认body保；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C9170"
+          ],
+          "relationship": "CWP01完整原根对应真实默认/恢复/几何生产，BYTE与共享字段现场取样和原发布/返回边界"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4C9170"
+          ],
+          "relationship": "真实内部声明/签名保持，仅CWP01完整合同关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_chat_window_geometry_production_spec.md#chat-geometry-baseline",
+        "doc/cg2d_chat_window_geometry_production_spec.md#chat-geometry-decision",
+        "doc/cg2d_chat_window_geometry_production_spec.md#chat-geometry-acceptance",
+        "doc/cg2d_chat_window_geometry_production_spec.md#chat-geometry-source-state",
+        "doc/cg2d_chat_window_geometry_production_evidence.json"
+      ],
+      "boundary": "CWP01三完整默认/设置恢复/聊天几何根329条1484B/七页、两实际E8/两目标/11跳三RET，六入向均外部仅来源。原71项指针表及保存记录地址步进/当前size_t仅寻址，默认坐标/宽12高4与0/FF设置和返0保；恢复先保存x/y→部分默认回填弃返→交错读取发布设置/演员状态恰1和返1保。两原保存记录14 value08/value0C首BYTE改unsigned char真实读取，S32字段/写方/文件格式不改；原两请求和先高度/高度请求、宽度/宽度请求读取，八字体/高度对逐点独立取样，不跨写或callee缓存。高度4..26/宽12..37原环及26倍字体位置补偿、两新请求判±1/请求归零、现场当前窗口/元素/载荷、inputWidth/背景/命中/滚动轨道/按钮与滑块callee后新窗口宽和五模板位置/颜色图号序保。三组12处/六注释，默认正确body/所有其它source和门槛发布/返回保持，无新函数/API/类型/字段/布局/owner/分配释放或保护/默认值/补零/钳制/容量限制/回滚/异常模型；S32正常像素表达、GBK/明文/MSVC/WAV-only不变。完整文件/窗口父、初始化和请求/模板生产、部分默认回填与滑块callee、保存/窗口/元素/载荷/字体/宽高及历史绘制全生产消费和alias-owner寿命、CRT/SDK/机器ABI/数值/优化后读取/实际尺寸切换文字画面及全生命周期待，只限定S，枚举/完整gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，三完整原根329条1484B/七页、两实际E8/两目标/11跳三RET、六入向均外部仅来源，71项地址寻址与原保存字段两BYTE有据；整两文件精确重放三组12处/六注释，默认正确body和全部其它source/字段/尺寸环/窗口载荷及返回保持，只源码取样/正常合同，不宣优化后读取、编译布局或全owner/运行",
+      "original_incoming": [
+        {
+          "ea": 5017841,
+          "parent": 5017696,
+          "type": 17,
+          "bytes": "e87a000000",
+          "asm": "call    sub_4C9170"
+        }
+      ],
+      "chat_window_geometry_production": {
+        "step": "CWP01",
+        "source_snapshot": "[#] 补齐聊天几何生产并恢复设置字节取样",
+        "original_instruction_count": 40,
+        "original_code_bytes": 195,
+        "original_page_count": 1,
+        "direct_call_count": 1,
+        "jump_count": 1,
+        "return_count": 1,
+        "native_signature": "std::int32_t Sub_4C9170()",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4C9170",
+        "normal_source_kept": false,
+        "source_patch_group_count": 1,
+        "source_changed_point_count": 2,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4a7c40",
+      "inventory_id": "F:000A7C40",
+      "original_role": "原聊天宽高循环及完整窗口/元素/载荷几何生产",
+      "original_end_exclusive": "0x4a80dc",
+      "instruction_count": 263,
+      "function_chunks": [
+        {
+          "start": "0x4a7c40",
+          "end_exclusive": "0x4a80dc"
+        }
+      ],
+      "status": "CWP01完整正常原根独立纳管，三取样组/默认body保；限定S/全生产消费owner、机器ABI与运行待",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4A7C40"
+          ],
+          "relationship": "CWP01完整原根对应真实默认/恢复/几何生产，BYTE与共享字段现场取样和原发布/返回边界"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_4A7C40"
+          ],
+          "relationship": "真实内部声明/签名保持，仅CWP01完整合同关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_chat_window_geometry_production_spec.md#chat-geometry-baseline",
+        "doc/cg2d_chat_window_geometry_production_spec.md#chat-geometry-decision",
+        "doc/cg2d_chat_window_geometry_production_spec.md#chat-geometry-acceptance",
+        "doc/cg2d_chat_window_geometry_production_spec.md#chat-geometry-source-state",
+        "doc/cg2d_chat_window_geometry_production_evidence.json"
+      ],
+      "boundary": "CWP01三完整默认/设置恢复/聊天几何根329条1484B/七页、两实际E8/两目标/11跳三RET，六入向均外部仅来源。原71项指针表及保存记录地址步进/当前size_t仅寻址，默认坐标/宽12高4与0/FF设置和返0保；恢复先保存x/y→部分默认回填弃返→交错读取发布设置/演员状态恰1和返1保。两原保存记录14 value08/value0C首BYTE改unsigned char真实读取，S32字段/写方/文件格式不改；原两请求和先高度/高度请求、宽度/宽度请求读取，八字体/高度对逐点独立取样，不跨写或callee缓存。高度4..26/宽12..37原环及26倍字体位置补偿、两新请求判±1/请求归零、现场当前窗口/元素/载荷、inputWidth/背景/命中/滚动轨道/按钮与滑块callee后新窗口宽和五模板位置/颜色图号序保。三组12处/六注释，默认正确body/所有其它source和门槛发布/返回保持，无新函数/API/类型/字段/布局/owner/分配释放或保护/默认值/补零/钳制/容量限制/回滚/异常模型；S32正常像素表达、GBK/明文/MSVC/WAV-only不变。完整文件/窗口父、初始化和请求/模板生产、部分默认回填与滑块callee、保存/窗口/元素/载荷/字体/宽高及历史绘制全生产消费和alias-owner寿命、CRT/SDK/机器ABI/数值/优化后读取/实际尺寸切换文字画面及全生命周期待，只限定S，枚举/完整gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，三完整原根329条1484B/七页、两实际E8/两目标/11跳三RET、六入向均外部仅来源，71项地址寻址与原保存字段两BYTE有据；整两文件精确重放三组12处/六注释，默认正确body和全部其它source/字段/尺寸环/窗口载荷及返回保持，只源码取样/正常合同，不宣优化后读取、编译布局或全owner/运行",
+      "original_incoming": [
+        {
+          "ea": 4877937,
+          "parent": 4877776,
+          "type": 17,
+          "bytes": "e8ca0d0000",
+          "asm": "call    sub_4A7C40"
+        }
+      ],
+      "chat_window_geometry_production": {
+        "step": "CWP01",
+        "source_snapshot": "[#] 补齐聊天几何生产并恢复设置字节取样",
+        "original_instruction_count": 263,
+        "original_code_bytes": 1180,
+        "original_page_count": 5,
+        "direct_call_count": 1,
+        "jump_count": 9,
+        "return_count": 1,
+        "native_signature": "void Sub_4A7C40()",
+        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4A7C40",
+        "normal_source_kept": false,
+        "source_patch_group_count": 2,
+        "source_changed_point_count": 10,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

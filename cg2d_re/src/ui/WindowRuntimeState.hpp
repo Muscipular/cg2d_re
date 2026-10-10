@@ -1657,7 +1657,7 @@ std::int32_t Sub_4A6EA0(std::int32_t unused, std::int32_t state); // 共用聊�
 std::int32_t Sub_4A80F0(std::int32_t index, std::int32_t state); // 拖动后按新日志数量反求回看偏移。
 std::int32_t Sub_4A81D0(std::int32_t unused, std::int32_t state); // 首窗口滚轮，零日志只调整滑块Y。
 WindowInstance* FindWindowById_477490(std::int32_t id); // 顺序扫描71显示槽；原循环不跳过空槽。
-void Sub_4A7C40(); // 窗口35宽高循环与完整几何，见window_35.md。
+void Sub_4A7C40(); // 窗口35宽高循环与完整几何，见window_35.md。 // CWP01：见聊天几何生产完整合同。
 void Sub_4A8140(); // 查显示中的35，按回看比例更新滑块。
 std::int32_t Sub_4A6FC0(std::int32_t index, std::int32_t state); // 聊天宽高、范围、字体、颜色与翻页。
 extern WindowElementPrototype gWindowElements570CB0[20]; // 几何更新所读五按钮原型坐标。
@@ -1692,10 +1692,10 @@ void Sub_473E40(); // 每轮窗口处理前的鼠标阶段推进。
 std::int32_t Sub_503CB0(); // 73ECBC先减后负值归2，返回归位前结果。
 std::int32_t Sub_503CD0(); // 名称模式S16递增，保存标量后持久化。
 std::int32_t Sub_4A6D80(); // 聊天初始范围、回看、数量、调整请求和颜色。
-std::int32_t Sub_4C9240(); // 原型默认坐标和设置默认值，不清窗口实例。
+std::int32_t Sub_4C9240(); // 原型默认坐标和设置默认值，不清窗口实例。 // CWP01：见聊天几何生产完整合同。
 std::int32_t Sub_4C93A0(); // 文件三处x与固定原型比较，首差异返回1。
 std::int32_t Sub_4C93E0(); // 原文件长度尾部修复，不增加索引保护。
-std::int32_t Sub_4C9170(); // 文件坐标和设置回填，共用原UI/世界状态。
+std::int32_t Sub_4C9170(); // 文件坐标和设置回填，共用原UI/世界状态。 // CWP01：见聊天几何生产完整合同。
 std::int32_t Sub_4C9060(); // WinSaveDate完整加载/默认回退，保留双打开与返回差别。
 std::int32_t Sub_4C92B0(); // 仅清521CH设置文件区。
 std::uint32_t Sub_4C92D0(); // 原序捕获窗口设置，返回窗口33的marker快照。

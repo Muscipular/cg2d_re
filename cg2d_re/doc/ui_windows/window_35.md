@@ -252,3 +252,8 @@ world中的同名4B0F10无参包装不算UI重复定义。三源码/头文件剥
 35列入元素与主绑定齐备编号；完整35/57开窗与切换、显示数组有效性、
 真实输入/历史回看及画面仍未验收。未构建、测试、运行或检查产物；
 未对齐全局SPEC、未压缩日志。
+
+<a id="chat-geometry-current-20261010"></a>
+## 2026-10-10 CWP01：聊天尺寸生产与设置取样
+
+[CWP01完整原根](../cg2d_chat_window_geometry_production_spec.md#chat-geometry-source-state)/[原码与接线](../cg2d_chat_window_geometry_production_evidence.json)覆盖4C9240默认、4C9170设置恢复和4A7C40聊天尺寸/几何，共329条1484B/七页、两E8/两目标/11跳三RET；六外入向仅来源。71项原地址寻址与当前原生表/数组承载保；恢复记录14两首BYTE改真实unsigned char读取、S32字段不变，两请求和及八字体/高度对逐点先取样再运算。三组12处/六注释，默认正确body、所有其它源与尺寸原环/26倍位置补偿/请求归零、现场窗口元素载荷及滑块callee后发布序和返回保持。三新语义/F、INPUT/UIRUNTIME各三成员/MAP两设置根、三限定S零I/九任务open；全文件/窗口父及默认回填/滑块callee、字体载荷请求/宽高/历史绘制owner、SDK/机器ABI/实际尺寸切换文字画面运行待。

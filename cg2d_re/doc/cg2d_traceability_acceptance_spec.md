@@ -2502,3 +2502,9 @@ ANIMATION/YOBI各两个新成员，BATTLE只Play依赖成员；两新语义/F和
 [HBN01完整原根](cg2d_chat_history_navigation_spec.md#chat-history-source-state)/[原码与接线](cg2d_chat_history_navigation_evidence.json)覆盖44A1B0历史浏览、44B440字节类别和4A80E0宽度，共225条707B/五页、七E8/四目标/34跳八RET；26入向内部4/外22仅来源。原64项289B/尾W32与独立游标S32、Up/Down门槛差异及游标发布/环/恢复、入口context清length→新context清text/caret→当前游标装入→新游标复制未清256B→字节长度/宽度→S16类别→原负滚动归零→新context写field158保持。类别仍按原固定BYTE范围返低BYTE0/1/2，不按GBK重写；宽度同一W32两倍、旧707/708文件与BTG-CTS提交保持。三个正确body不改，仅六注释/零逻辑组，三新语义/F、INPUT/UIRUNTIME各三成员/MAP一个成员、三限定S零I/九任务open；struct/断言文本不代编译布局验收，全输入/文件/宽度owner、SDK/机器ABI/真实上下翻页和字符消息画面运行待。
 
 旧文件根与六旧提供者身份不重复处置；关联率不称完成率，184叶验收0/60任务关闭11/六closure及总SPEC§10保持。
+
+## 2026-10-10 CWP01 聊天几何生产的限定证据
+
+[CWP01完整原根](cg2d_chat_window_geometry_production_spec.md#chat-geometry-source-state)/[原码与接线](cg2d_chat_window_geometry_production_evidence.json)覆盖4C9240默认、4C9170设置恢复和4A7C40聊天尺寸/几何，共329条1484B/七页、两E8/两目标/11跳三RET；六外入向仅来源。71项原地址寻址与当前原生表/数组承载保；恢复记录14两首BYTE改真实unsigned char读取、S32字段不变，两请求和及八字体/高度对逐点先取样再运算。三组12处/六注释，默认正确body、所有其它源与尺寸原环/26倍位置补偿/请求归零、现场窗口元素载荷及滑块callee后发布序和返回保持。三新语义/F、INPUT/UIRUNTIME各三成员/MAP两设置根、三限定S零I/九任务open；全文件/窗口父及默认回填/滑块callee、字体载荷请求/宽高/历史绘制owner、SDK/机器ABI/实际尺寸切换文字画面运行待。
+
+未新验证完整文件或窗口父、部分默认回填/滑块callee或编译布局；HBN01旧两身份保持。关联率不称完成率，184叶验收0/60任务关闭11/六closure及总SPEC§10保持。

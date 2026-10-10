@@ -15076,6 +15076,7 @@ std::int32_t Sub_503CD0()
     return login::detail::Sub_520200();
 }
 
+// CWP01：原71项默认坐标/设置与返回保持，地址索引仅作原生寻址。
 std::int32_t Sub_4C9240()
 {
     for (std::size_t index = 0; index < kWindowCount; ++index) {
@@ -15133,6 +15134,7 @@ std::int32_t Sub_4C93E0()
     return 1;
 }
 
+// CWP01：原两设置BYTE现场读取，完整S32字段/交错发布与返回保持。
 std::int32_t Sub_4C9170()
 {
     for (std::size_t index = 0; index < kWindowCount; ++index) {
@@ -15140,9 +15142,9 @@ std::int32_t Sub_4C9170()
         gWindowStates[index].y = gWindowSavedDataD40B30.records[index].y;
     }
     static_cast<void>(Sub_4C93E0());
-    const auto firstByte = static_cast<std::uint8_t>(gWindowSavedDataD40B30.records[14].value08);
+    const auto firstByte = *reinterpret_cast<const unsigned char*>(&gWindowSavedDataD40B30.records[14].value08);
     const std::int32_t valueCF4AAC = gWindowSavedDataD40B30.records[24].value08;
-    const auto secondByte = static_cast<std::uint8_t>(gWindowSavedDataD40B30.records[14].value0C);
+    const auto secondByte = *reinterpret_cast<const unsigned char*>(&gWindowSavedDataD40B30.records[14].value0C);
     gValue57DA28 = firstByte;
     const std::int32_t width = gWindowSavedDataD40B30.records[35].value08;
     gValueCF4AAC = valueCF4AAC;
@@ -29571,16 +29573,21 @@ void Sub_4A8140()
     elements[8].y = elements[14].y - position - 14;
 }
 
+// CWP01：原请求/字体高度各点顺序取样，尺寸环/现场窗口载荷及完整几何保持。
 void Sub_4A7C40()
 {
-    const std::int32_t height = gChatHeightUnitsC9A938 + gChatHeightRequestC9A93C;
+    const std::int32_t previousHeight = gChatHeightUnitsC9A938;
+    const std::int32_t heightRequest = gChatHeightRequestC9A93C;
+    const std::int32_t height = previousHeight + heightRequest;
     gChatHeightUnitsC9A938 = height;
     if (height > 26) {
         gChatHeightUnitsC9A938 = 4;
     } else if (height < 4) {
         gChatHeightUnitsC9A938 = 26;
     }
-    const std::int32_t width = gChatWidthUnitsC9A930 + gChatWidthRequestC9A934;
+    const std::int32_t previousWidth = gChatWidthUnitsC9A930;
+    const std::int32_t widthRequest = gChatWidthRequestC9A934;
+    const std::int32_t width = previousWidth + widthRequest;
     gChatHeightRequestC9A93C = 0;
     gChatWidthUnitsC9A930 = width;
     if (width > 37) {
@@ -29618,8 +29625,9 @@ void Sub_4A7C40()
     gCurrentWindow->elements[16].x = inputWidth;
     graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[17].data);
     graphic->width = dragWidth;
+    const std::int32_t backgroundRows = gChatHeightUnitsC9A938 - 1;
     const std::int32_t backgroundHeight =
-        (gChatHeightUnitsC9A938 - 1) * render::gFontMetrics[9].doubleWidth;
+        backgroundRows * render::gFontMetrics[9].doubleWidth;
     graphic->height = backgroundHeight;
     gCurrentWindow->elements[17].y = -backgroundHeight;
     WindowElement* elements = gCurrentWindow->elements;
@@ -29640,30 +29648,37 @@ void Sub_4A7C40()
     const std::int32_t scrollX = inputWidth + 97;
     hitWindow->elements[2].height = hitHeight + 16;
     gCurrentWindow->elements[9].x = scrollX;
-    const std::int32_t scrollY = 17 - render::gFontMetrics[9].doubleWidth * gChatHeightUnitsC9A938;
+    const std::int32_t scrollFontWidth = render::gFontMetrics[9].doubleWidth;
+    const std::int32_t scrollY = 17 - scrollFontWidth * gChatHeightUnitsC9A938;
     gCurrentWindow->elements[9].y = scrollY;
     gCurrentWindow->elements[9].width = 14;
+    const std::int32_t scrollHeightFontWidth = render::gFontMetrics[9].doubleWidth;
     const std::int32_t scrollHeight =
-        render::gFontMetrics[9].doubleWidth * gChatHeightUnitsC9A938 - 28;
+        scrollHeightFontWidth * gChatHeightUnitsC9A938 - 28;
     gCurrentWindow->elements[9].height = scrollHeight;
     gCurrentWindow->elements[10].x = scrollX;
-    const std::int32_t trackY = 17 - render::gFontMetrics[9].doubleWidth * gChatHeightUnitsC9A938;
+    const std::int32_t trackYFontWidth = render::gFontMetrics[9].doubleWidth;
+    const std::int32_t trackY = 17 - trackYFontWidth * gChatHeightUnitsC9A938;
     gCurrentWindow->elements[10].y = trackY;
     gCurrentWindow->elements[10].width = 14;
+    const std::int32_t trackHeightFontWidth = render::gFontMetrics[9].doubleWidth;
     const std::int32_t trackHeight =
-        render::gFontMetrics[9].doubleWidth * gChatHeightUnitsC9A938 - 28;
+        trackHeightFontWidth * gChatHeightUnitsC9A938 - 28;
     gCurrentWindow->elements[10].height = trackHeight;
     static_cast<WindowGraphicData*>(gCurrentWindow->elements[10].data)->width = 14;
+    const std::int32_t trackGraphicFontWidth = render::gFontMetrics[9].doubleWidth;
     const std::int32_t trackGraphicHeight =
-        render::gFontMetrics[9].doubleWidth * gChatHeightUnitsC9A938 - 28;
+        trackGraphicFontWidth * gChatHeightUnitsC9A938 - 28;
     static_cast<WindowGraphicData*>(gCurrentWindow->elements[10].data)->height = trackGraphicHeight;
     gCurrentWindow->elements[11].x = scrollX;
-    const std::int32_t upY = 4 - render::gFontMetrics[9].doubleWidth * gChatHeightUnitsC9A938;
+    const std::int32_t upFontWidth = render::gFontMetrics[9].doubleWidth;
+    const std::int32_t upY = 4 - upFontWidth * gChatHeightUnitsC9A938;
     gCurrentWindow->elements[11].y = upY;
     gCurrentWindow->elements[12].x = scrollX;
     gCurrentWindow->elements[12].y = -12;
     gCurrentWindow->elements[13].x = scrollX;
-    const std::int32_t upHitY = -render::gFontMetrics[9].doubleWidth * gChatHeightUnitsC9A938;
+    const std::int32_t upHitFontWidth = render::gFontMetrics[9].doubleWidth;
+    const std::int32_t upHitY = -upHitFontWidth * gChatHeightUnitsC9A938;
     gCurrentWindow->elements[13].y = upHitY;
     gCurrentWindow->elements[14].x = scrollX;
     gCurrentWindow->elements[14].y = -11;

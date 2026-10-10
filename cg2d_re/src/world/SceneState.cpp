@@ -8678,6 +8678,7 @@ std::int32_t GetBattlePetPosition_405B40(const std::int32_t position)
     return position - 5;
 }
 
+// BEI01：原九条，唯一玩家item区8..27逐used W16统计；现正确正文保持，十九调用点的完整外父/owner与运行待。
 std::int32_t Sub_518C60()
 {
     std::int32_t count = 0;

@@ -508,7 +508,7 @@ std::int32_t Sub_499B20(std::int32_t unusedIndex, std::int32_t unusedState);
 std::int32_t Sub_499B40(std::int32_t unusedIndex, std::int32_t state); // 战斗页签忽略内部返回。
 std::int32_t Sub_499B60(std::int32_t index, std::int32_t state); // SAP01：战斗宠物页签，成功忽略4C7380结果返回S32零，无效图处理保持。
 std::int32_t Sub_499C30(std::int32_t index, std::int32_t state);
-std::int32_t Sub_49AC40(std::int32_t index, std::int32_t state); // 战斗装备页及宠物禁用页。
+std::int32_t Sub_49AC40(std::int32_t index, std::int32_t state); // BEI01：战斗装备/宠物禁用页完整原根，三BYTE及区域描边取序明确，全callback/命令与运行待。
 std::int32_t Sub_49B610(std::int32_t unusedIndex, std::int32_t state); // D2F338附加属性页包装。
 
 // 原CB1398等固定81B对话行；创建入口只借用，不负责释放。

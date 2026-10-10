@@ -10924,6 +10924,7 @@ std::int32_t Sub_49B610(const std::int32_t, const std::int32_t state)
     return Sub_4C75A0(&gItemSelectorD2F338, state) ? 1 : 0;
 }
 
+// BEI01：原755条，三BYTE及区域描边取序明确；宠物禁用/玩家装备/原两Q命令保持，全生产消费及运行待。
 std::int32_t Sub_49AC40(const std::int32_t index, const std::int32_t state)
 {
     static constexpr char noSpace[] = "\xCE\xEF\xC6\xB7\x99\xDA\xCE\xBB\xB2\xBB\xD7\xE3\xA3\xA1";
@@ -11003,7 +11004,8 @@ std::int32_t Sub_49AC40(const std::int32_t index, const std::int32_t state)
                     ++occupiedHands;
                 }
                 if (occupiedHands == 2 && world::detail::Sub_518C60() == 0
-                    && (world::detail::gPlayerItemsFDA8A4[source].battleUseFlag & 8u) != 0) {
+                    && (*reinterpret_cast<const unsigned char*>(
+                        &world::detail::gPlayerItemsFDA8A4[source].battleUseFlag) & 8u) != 0) {
                     world::detail::Sub_44B050(noSpace, 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else if (world::detail::gPlayerItemsFDA8A4[source].hasDescription == 0) {
@@ -11058,7 +11060,7 @@ std::int32_t Sub_49AC40(const std::int32_t index, const std::int32_t state)
                 ? "\xBF\xC9\xD1\x62\x82\xE4\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"
                 : "\x9F\x6F\xB7\xA8\xD1\x62\x82\xE4\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3";
         } else {
-            hint = (item->battleUseFlag & 1u) != 0 && item->hasDescription != 0
+            hint = (*reinterpret_cast<const unsigned char*>(&item->battleUseFlag) & 1u) != 0 && item->hasDescription != 0
                 ? "\xBF\xC9\xCA\xB9\xD3\xC3\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"
                 : "\x9F\x6F\xB7\xA8\xCA\xB9\xD3\xC3\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3";
         }
@@ -11136,14 +11138,23 @@ std::int32_t Sub_49AC40(const std::int32_t index, const std::int32_t state)
             const std::int32_t type = items[source].itemType;
             if ((type >= 0 && type <= 7) || (type >= 70 && type <= 79)) {
                 const WindowInstance* const window = gCurrentWindow;
-                const WindowElement& element = window->elements[index];
-                const std::int32_t left = element.x + window->x;
-                const std::int32_t top = element.y + window->y;
+                const std::uint32_t hoverColor = login::detail::gValueD69768;
+                const WindowElement* const elements = window->elements;
+                const std::int32_t windowY = window->y;
+                const std::int32_t windowX = window->x;
+                const WindowElement& element = elements[index];
+                const std::int32_t elementX = element.x;
+                const std::int32_t height = element.height;
+                const std::int32_t elementY = element.y;
+                const std::int32_t width = element.width;
+                const std::int32_t right = width + windowX + elementX;
+                const std::int32_t bottom = height + windowY + elementY;
+                const std::int32_t top = windowY + elementY;
+                const std::int32_t left = windowX + elementX;
                 login::detail::DrawGraphicHover(
                     static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
-                    static_cast<std::uint16_t>(left + element.width),
-                    static_cast<std::uint16_t>(top + element.height),
-                    223, login::detail::gValueD69768, 0);
+                    static_cast<std::uint16_t>(right), static_cast<std::uint16_t>(bottom),
+                    223, hoverColor, 0);
             }
         }
     }
@@ -11160,7 +11171,7 @@ std::int32_t Sub_49AC40(const std::int32_t index, const std::int32_t state)
         if (record.hasDescription == 0) {
             static_cast<void>(login::detail::DrawGraphic(x + 105, y + 93, 223, 22738, 0, nullptr));
         }
-        if ((record.flags & 0x80u) == 0) {
+        if ((*reinterpret_cast<const unsigned char*>(&record.flags) & 0x80u) == 0) {
             static_cast<void>(login::detail::DrawGraphic(x + 105, y + 93, 223, 22739, 0, &descriptor));
         }
         if (occupancy[position] != 0) {

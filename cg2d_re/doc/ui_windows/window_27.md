@@ -253,3 +253,7 @@ UI唯一U8 CC4D40零及私有S32 hover57E430=-2。玩家FP用World窄比较入�
 ## 2026-10-10 SAP01：战斗宠物页签返回
 
 [SAP01](../cg2d_selector_attribute_pet_tab_spec.md#selector-attribute-source-state)补齐附加属性显示与两宠物页签三完整原根391条1176B/八页、十三E8五目标/39跳六RET。24项384B属性表、两22B包装父及六原型callback数据槽有据。两组四处明确descriptor持址和三种文字坐标读取序，原24项/14行/第8换列/512B未清及GBK/MSVC格式保持；两页签正确正文保持，库存成功低AL归一、战斗成功恒0分界明确。六外层注释及一局部枚举说明，不改公开接口、类型、caller及原型绑定。旧921格式历史追加、两新F/三处置/三限定S零I十open；完整生产消费/回调分发、callee/alias-owner寿命、生成取样/实际画面交互与运行待，整体未完成。
+
+## 2026-10-10 BEI01：完整装备/宠物禁用页
+
+[BEI01](../cg2d_battle_equipment_interaction_spec.md#battle-equipment-source-state)补齐战斗装备与背包空槽两个完整原根764条2531B/十三页，56E8十八目标/103跳五RET。四组四处明确三BYTE及区域描边颜色/窗口/元素读取序；保原宠物禁用页、玩家拖放/卸武器、容量/未鉴定/无武器失败提示、两个Q命令和发布序，末两次独立禁图不合并。空槽正确正文保持，slot8..27/used W16，仅统计唯一玩家区。两data回调与十九空槽入CALL/后邻有据，其余十七调用点/十五外父仅来源登记。四源限定diff/四注释、旧924格式历史追加、一新F两处置/五限定S零I九open；全数据生产/动态callback/19外父和命令、callee/alias-owner寿命/SDK/生成取样、实际交互像素声音与运行待，整体未完成。

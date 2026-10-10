@@ -230,3 +230,7 @@ BuildProtocolCommand只替换原宿主_itoa调用，继续16进制、原校验�
 ## 2026-10-10 IER01：装备事件与回复消费
 
 [IER01](cg2d_equipment_attribute_reply_spec.md#equipment-reply-source-state)补齐库存装备与属性回复两完整根662条2141B/十二页，61E8二十七目标/84跳五RET、七装备data引用及一个回复入CALL有据。四组四处落实两物品低BYTE/动作BYTE接口与selected先于hover写回；原拖放/使用/特殊回调/occupancy/分页/绘图及已批GBK/MSVC格式保持。属性回复正确正文保持，首field失败本根仅清used，既有提取器写首文本首字节NUL、两文本/单空格门槛与field4..27逐项写24值，原TgX分发/当前LF明文沿既有合同。四源限定差异/四注释，旧919格式历史追加、一新F两处置/四限定S零I八open；完整生产消费、callback/callee/网络发送、alias-owner寿命/生成取样与实际操作运行待，整体未完成。
+
+## 2026-10-10 BEI01：战斗装备事件
+
+[BEI01](cg2d_battle_equipment_interaction_spec.md#battle-equipment-source-state)补齐战斗装备与背包空槽两个完整原根764条2531B/十三页，56E8十八目标/103跳五RET。四组四处明确三BYTE及区域描边颜色/窗口/元素读取序；保原宠物禁用页、玩家拖放/卸武器、容量/未鉴定/无武器失败提示、两个Q命令和发布序，末两次独立禁图不合并。空槽正确正文保持，slot8..27/used W16，仅统计唯一玩家区。两data回调与十九空槽入CALL/后邻有据，其余十七调用点/十五外父仅来源登记。四源限定diff/四注释、旧924格式历史追加、一新F两处置/五限定S零I九open；全数据生产/动态callback/19外父和命令、callee/alias-owner寿命/SDK/生成取样、实际交互像素声音与运行待，整体未完成。

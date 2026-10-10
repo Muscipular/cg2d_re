@@ -110250,7 +110250,7 @@
     {
       "original_entry": "0x49AC40",
       "inventory_id": "F:0009AC40",
-      "status": "既有战斗装备两真实Q命令格式依赖已接；完整战斗/父路由/运行未据本步验收",
+      "status": "既有战斗装备两真实Q命令格式依赖已接；完整战斗/父路由/运行未据本步验收；BEI01完整755条战斗装备根纳管，三BYTE/区域取序明确，真实consumed/全callee/ABI/运行待",
       "original_end_exclusive": "0x49B606",
       "instruction_count": 755,
       "sources": [
@@ -110260,13 +110260,32 @@
             "Sub_49AC40"
           ],
           "relationship": "仅两命令格式callee接原点，保留全部装备成功/失败与消费正文"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_49AC40"
+          ],
+          "relationship": "BEI01完整755条战斗装备根，三BYTE与区域描边取序明确；既有MSVC两Q格式及业务保持"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_49AC40"
+          ],
+          "relationship": "BEI01真实S32声明保持，两data绑定/完整业务返回有据，全部callback/ABI/运行待"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/window_27.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_battle_equipment_interaction_spec.md#battle-equipment-baseline",
+        "doc/cg2d_battle_equipment_interaction_spec.md#battle-equipment-decision",
+        "doc/cg2d_battle_equipment_interaction_spec.md#battle-equipment-acceptance",
+        "doc/cg2d_battle_equipment_interaction_spec.md#battle-equipment-source-state",
+        "doc/cg2d_battle_equipment_interaction_evidence.json"
       ],
-      "boundary": "仅两现callee接49AFA4/49B217两原点，S32(index,state)/consumed返回及全部正文保持。554048原Q|%X|/尾分隔符、source完整32位转U32与原固定255u两参数独立，256B buffer不预清。各成功分支窗口8000→选择槽5清0→格式→按当前socket5109B0发送→动作状态1和原后续调用保持；drop末476500/双击reset、失败/提示/消费/借用items与固定item/坐标/图形/分页与音频暂停均不动，不加Flush/预清/保护/缓存，不改关联方，不据本步验收完整装备/战斗/命令/父路由/画面或运行。",
+      "boundary": "仅两现callee接49AFA4/49B217两原点，S32(index,state)/consumed返回及全部正文保持。554048原Q|%X|/尾分隔符、source完整32位转U32与原固定255u两参数独立，256B buffer不预清。各成功分支窗口8000→选择槽5清0→格式→按当前socket5109B0发送→动作状态1和原后续调用保持；drop末476500/双击reset、失败/提示/消费/借用items与固定item/坐标/图形/分页与音频暂停均不动，不加Flush/预清/保护/缓存，不改关联方，不据本步验收完整装备/战斗/命令/父路由/画面或运行。；BEI01战斗装备49AC40完整755条2502B/十二页与空槽518C60完整九条29B/一页；合764条2531B/十三页，56E8十八目标/103跳五RET。装备两data引用：4C6EC0原持址及原型槽20，不造普通CALL；空槽十九入CALL/后邻仅登记来源，本父两完整消费分别全S32零判/与武器数比较，其余十七调用点/十五外父完整合同待。49AC40原items/count低AL失败返S32零及两16B白/半透明descriptor/byte13=4保持；S8mode正时一次pet/slot数，原动态slot循环先x/y后used W16，低BYTE事件21/occupancy门槛、命中GBK禁用提示/bit1框、原used-slot禁图22738和占用图/暗descriptor，原跳过路径/consumed与返回保，不新增slot上限或新保护。玩家event60原dragkind!=2或source>=100过滤、drop40来源>=count、来源used==1及itemType0..7/70..79原门槛；双手used==1计数、真实空槽零及battleUseFlag低BYTE bit8才容量提示，否则未鉴定提示或成功窗口8000→选择槽5清0→未清256B Q|%X|来源U32→当前socket发送→动作1/声77→drag reset，发送结果原不消费，不补失败回滚/flush。hover21动态count命中/consumed1，固定item和命中索引；bit2窗口2000后无hover且回复used非零声51→fresh窗口/3FC1/槽20属性回调49B610早返，提示按原used/type/hasDescription Word及battleUseFlag低BYTE bit1/已批GBK。双击只手位2/3统计非type7武器，真实空槽<weapons容量提示、weapons0无武器提示，否则窗口8000→选择槽5清0→原255u Q命令→发送→动作1/声57；focus和reset/consumed及失败提示原序保。单击48BF10/声51与右键原页递增/pages业务归零、拖框/hover框和末逐槽used/禁图及未鉴定独立重复22738、flags低BYTE bit80后22739/occupancy/暗或普通image均保持；不合并原两次禁图。区域描边一次当前window→hoverColor U32→elements T*→windowY/X→elementX/height→elementY/width，再算原四边/低U16/层223/heldcolor；不缓存其它描边或改绘制入口。四组四处：battleUseFlag两BYTE、flags一BYTE及区域描边持样/读取序；Word字段储宽、GBK/MSVC两格式点/原command字节、其余正文/owner保持。518C60现正确正文保：唯一玩家item区原FDA8A4/strideC5C，原FE0B84从slot8到FF02B4排除slot28，共20项，逐used W16==0累加S32，忽略occupancy/其它字段，不复用宠物item区、不增加钳制/默认。两根定义/两声明四合同注释、四源全文限定diff及正确空槽/类型/既有callee/原型保持；旧924格式历史追加、一新F两adapted/五限定S零I九open。全输入/物品/宠物生产/19外父/动态callback分发、命令与callee/SDK/alias-owner寿命、生成BYTE/机器ABI/实际战斗操作画面声音与运行待；无新公开API/helper/结构/字段/owner/保护/补零/默认值/新业务钳制/回滚/异常模型，MSVC/WAV-only/当前原命令字段LF明文网络、48有界代码/完整枚举gates/六closure/总SPEC§10保持。",
       "original_incoming": [],
       "original_data_references": [
         {
@@ -110326,7 +110345,68 @@
           "relationship": "原手位武器非零成功分支push FF为U32，关闭/清选择→同buffer格式→发送→动作1/SE57/reset；FF是原值，不作新补值"
         }
       ],
-      "verification_level": "原755统计/只读72格式、参数和关闭-选择-发送-动作消费邻窗，余683及已过正文/核心不重验；两原点/两现callee、554048已登记字节、U32来源槽与原FF/未清256B及消费次序、整份源仅两标识符限定静态核对。4C6EC0@4C7027与56C430两data/普通caller0只登记，不推完整绑定，未构建执行。"
+      "verification_level": "原755统计/只读72格式、参数和关闭-选择-发送-动作消费邻窗，余683及已过正文/核心不重验；两原点/两现callee、554048已登记字节、U32来源槽与原FF/未清256B及消费次序、整份源仅两标识符限定静态核对。4C6EC0@4C7027与56C430两data/普通caller0只登记，不推完整绑定，未构建执行。；pass，两完整连续原根764条2531B/十三页、56E8十八目标/103跳五RET，三BYTE/区域八字段取序、slot8..27逐used W16/S32返回及十九CALL来源/两个完整本父消费、两data绑定有据；四整源精确回放/四取样合同，正确空槽/五类型/六callee/U32颜色提供者/原型和GBK/MSVC格式保持；旧924历史及既有库存/回复记录不覆盖，十九调用点的完整外父/命令/callback/ABI/owner/实际操作与运行待",
+      "battle_equipment_interaction": {
+        "step": "BEI01",
+        "source_snapshot": "[#] 补齐战斗装备与背包空槽合同",
+        "original_entry": "0x49ac40",
+        "original_end_exclusive": "0x49b606",
+        "instruction_count": 755,
+        "code_bytes": 2502,
+        "page_count": 12,
+        "direct_calls": 56,
+        "direct_call_targets": [
+          5010112,
+          5009840,
+          5009984,
+          5010048,
+          5261728,
+          5382528,
+          5380880,
+          4676960,
+          4677008,
+          5344352,
+          4501584,
+          5424208,
+          5485316,
+          5310896,
+          4678912,
+          4676928,
+          4678624,
+          4767504
+        ],
+        "jumps": 101,
+        "returns": 4,
+        "original_incoming": [],
+        "native_signature": "std::int32_t Sub_49AC40(const std::int32_t index, const std::int32_t state)",
+        "source_patch_group_count": 4,
+        "source_changed_point_count": 4,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "真实S32 consumed，入口失败0/宠物页末/属性早返及玩家页末四RET保持；data回调全分发/机器ABI待",
+        "original_incoming_references": [
+          {
+            "from": 5009447,
+            "type": 1,
+            "iscode": false,
+            "parent": 5009088,
+            "bytes": "c7415840ac4900",
+            "asm": "mov     dword ptr [ecx+58h], offset sub_49AC40"
+          },
+          {
+            "from": 5686320,
+            "type": 1,
+            "iscode": false,
+            "parent": null,
+            "bytes": null,
+            "asm": null
+          }
+        ],
+        "previous_format_history_kept": true
+      }
     },
     {
       "original_entry": "0x4B0290",
@@ -230005,6 +230085,795 @@
             "type": 17,
             "iscode": true,
             "parent": 5320256
+          }
+        ]
+      }
+    },
+    {
+      "original_entry": "0x518c60",
+      "inventory_id": "F:00118C60",
+      "original_role": "玩家背包8..27空槽S32统计",
+      "original_end_exclusive": "0x518c7d",
+      "instruction_count": 9,
+      "function_chunks": [
+        {
+          "start": "0x518c60",
+          "end_exclusive": "0x518c7d"
+        }
+      ],
+      "status": "BEI01完整九条玩家空槽原根纳管，正确正文保持；限定S/全生产消费与owner、机器ABI及运行待",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_518C60"
+          ],
+          "relationship": "BEI01完整原根/字段/发布顺序核对，正确body保持，仅合同注释"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_518C60"
+          ],
+          "relationship": "BEI01真实无参/S32计数声明保持，仅合同注释；原十九CALL/本父消费有据，不记全机器ABI等价"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_equipment_interaction_spec.md#battle-equipment-baseline",
+        "doc/cg2d_battle_equipment_interaction_spec.md#battle-equipment-decision",
+        "doc/cg2d_battle_equipment_interaction_spec.md#battle-equipment-acceptance",
+        "doc/cg2d_battle_equipment_interaction_spec.md#battle-equipment-source-state",
+        "doc/cg2d_battle_equipment_interaction_evidence.json"
+      ],
+      "boundary": "BEI01战斗装备49AC40完整755条2502B/十二页与空槽518C60完整九条29B/一页；合764条2531B/十三页，56E8十八目标/103跳五RET。装备两data引用：4C6EC0原持址及原型槽20，不造普通CALL；空槽十九入CALL/后邻仅登记来源，本父两完整消费分别全S32零判/与武器数比较，其余十七调用点/十五外父完整合同待。49AC40原items/count低AL失败返S32零及两16B白/半透明descriptor/byte13=4保持；S8mode正时一次pet/slot数，原动态slot循环先x/y后used W16，低BYTE事件21/occupancy门槛、命中GBK禁用提示/bit1框、原used-slot禁图22738和占用图/暗descriptor，原跳过路径/consumed与返回保，不新增slot上限或新保护。玩家event60原dragkind!=2或source>=100过滤、drop40来源>=count、来源used==1及itemType0..7/70..79原门槛；双手used==1计数、真实空槽零及battleUseFlag低BYTE bit8才容量提示，否则未鉴定提示或成功窗口8000→选择槽5清0→未清256B Q|%X|来源U32→当前socket发送→动作1/声77→drag reset，发送结果原不消费，不补失败回滚/flush。hover21动态count命中/consumed1，固定item和命中索引；bit2窗口2000后无hover且回复used非零声51→fresh窗口/3FC1/槽20属性回调49B610早返，提示按原used/type/hasDescription Word及battleUseFlag低BYTE bit1/已批GBK。双击只手位2/3统计非type7武器，真实空槽<weapons容量提示、weapons0无武器提示，否则窗口8000→选择槽5清0→原255u Q命令→发送→动作1/声57；focus和reset/consumed及失败提示原序保。单击48BF10/声51与右键原页递增/pages业务归零、拖框/hover框和末逐槽used/禁图及未鉴定独立重复22738、flags低BYTE bit80后22739/occupancy/暗或普通image均保持；不合并原两次禁图。区域描边一次当前window→hoverColor U32→elements T*→windowY/X→elementX/height→elementY/width，再算原四边/低U16/层223/heldcolor；不缓存其它描边或改绘制入口。四组四处：battleUseFlag两BYTE、flags一BYTE及区域描边持样/读取序；Word字段储宽、GBK/MSVC两格式点/原command字节、其余正文/owner保持。518C60现正确正文保：唯一玩家item区原FDA8A4/strideC5C，原FE0B84从slot8到FF02B4排除slot28，共20项，逐used W16==0累加S32，忽略occupancy/其它字段，不复用宠物item区、不增加钳制/默认。两根定义/两声明四合同注释、四源全文限定diff及正确空槽/类型/既有callee/原型保持；旧924格式历史追加、一新F两adapted/五限定S零I九open。全输入/物品/宠物生产/19外父/动态callback分发、命令与callee/SDK/alias-owner寿命、生成BYTE/机器ABI/实际战斗操作画面声音与运行待；无新公开API/helper/结构/字段/owner/保护/补零/默认值/新业务钳制/回滚/异常模型，MSVC/WAV-only/当前原命令字段LF明文网络、48有界代码/完整枚举gates/六closure/总SPEC§10保持。",
+      "verification_level": "pass，两完整连续原根764条2531B/十三页、56E8十八目标/103跳五RET，三BYTE/区域八字段取序、slot8..27逐used W16/S32返回及十九CALL来源/两个完整本父消费、两data绑定有据；四整源精确回放/四取样合同，正确空槽/五类型/六callee/U32颜色提供者/原型和GBK/MSVC格式保持；旧924历史及既有库存/回复记录不覆盖，十九调用点的完整外父/命令/callback/ABI/owner/实际操作与运行待",
+      "original_incoming": [
+        {
+          "ea": 4701581,
+          "size": 5,
+          "bytes": "e8cece0900",
+          "asm": "call    sub_518C60",
+          "following": [
+            {
+              "ea": 4701586,
+              "size": 2,
+              "bytes": "85c0",
+              "asm": "test    eax, eax"
+            }
+          ],
+          "parent": 4701184,
+          "call_target": 5344352
+        },
+        {
+          "ea": 4703770,
+          "size": 5,
+          "bytes": "e841c60900",
+          "asm": "call    sub_518C60",
+          "following": [
+            {
+              "ea": 4703775,
+              "size": 2,
+              "bytes": "85c0",
+              "asm": "test    eax, eax"
+            }
+          ],
+          "parent": 4703600,
+          "call_target": 5344352
+        },
+        {
+          "ea": 4745237,
+          "size": 5,
+          "bytes": "e846240900",
+          "asm": "call    sub_518C60",
+          "following": [
+            {
+              "ea": 4745242,
+              "size": 2,
+              "bytes": "85c0",
+              "asm": "test    eax, eax"
+            }
+          ],
+          "parent": 4743232,
+          "call_target": 5344352
+        },
+        {
+          "ea": 4746634,
+          "size": 5,
+          "bytes": "e8d11e0900",
+          "asm": "call    sub_518C60",
+          "following": [
+            {
+              "ea": 4746639,
+              "size": 2,
+              "bytes": "85c0",
+              "asm": "test    eax, eax"
+            }
+          ],
+          "parent": 4746480,
+          "call_target": 5344352
+        },
+        {
+          "ea": 4825181,
+          "size": 5,
+          "bytes": "e8feeb0700",
+          "asm": "call    sub_518C60",
+          "following": [
+            {
+              "ea": 4825186,
+              "size": 2,
+              "bytes": "3bc5",
+              "asm": "cmp     eax, ebp"
+            }
+          ],
+          "parent": 4824112,
+          "call_target": 5344352
+        },
+        {
+          "ea": 4826360,
+          "size": 5,
+          "bytes": "e863e70700",
+          "asm": "call    sub_518C60",
+          "following": [
+            {
+              "ea": 4826365,
+              "size": 2,
+              "bytes": "85c0",
+              "asm": "test    eax, eax"
+            }
+          ],
+          "parent": 4824112,
+          "call_target": 5344352
+        },
+        {
+          "ea": 4828984,
+          "size": 5,
+          "bytes": "e823dd0700",
+          "asm": "call    sub_518C60",
+          "following": [
+            {
+              "ea": 4828989,
+              "size": 2,
+              "bytes": "85c0",
+              "asm": "test    eax, eax"
+            }
+          ],
+          "parent": 4828224,
+          "call_target": 5344352
+        },
+        {
+          "ea": 4829655,
+          "size": 5,
+          "bytes": "e884da0700",
+          "asm": "call    sub_518C60",
+          "following": [
+            {
+              "ea": 4829660,
+              "size": 2,
+              "bytes": "3bc6",
+              "asm": "cmp     eax, esi"
+            }
+          ],
+          "parent": 4828224,
+          "call_target": 5344352
+        },
+        {
+          "ea": 4956299,
+          "size": 5,
+          "bytes": "e8d0eb0500",
+          "asm": "call    sub_518C60",
+          "following": [
+            {
+              "ea": 4956304,
+              "size": 6,
+              "bytes": "390574afc800",
+              "asm": "cmp     dword_C8AF74, eax"
+            }
+          ],
+          "parent": 4955968,
+          "call_target": 5344352
+        },
+        {
+          "ea": 4960933,
+          "size": 5,
+          "bytes": "e8b6d90500",
+          "asm": "call    sub_518C60",
+          "following": [
+            {
+              "ea": 4960938,
+              "size": 2,
+              "bytes": "03f0",
+              "asm": "add     esi, eax"
+            }
+          ],
+          "parent": 4960720,
+          "call_target": 5344352
+        },
+        {
+          "ea": 4961066,
+          "size": 5,
+          "bytes": "e831d90500",
+          "asm": "call    sub_518C60",
+          "following": [
+            {
+              "ea": 4961071,
+              "size": 2,
+              "bytes": "03d8",
+              "asm": "add     ebx, eax"
+            }
+          ],
+          "parent": 4960720,
+          "call_target": 5344352
+        },
+        {
+          "ea": 4962549,
+          "size": 5,
+          "bytes": "e866d30500",
+          "asm": "call    sub_518C60",
+          "following": [
+            {
+              "ea": 4962554,
+              "size": 2,
+              "bytes": "03f0",
+              "asm": "add     esi, eax"
+            }
+          ],
+          "parent": 4962016,
+          "call_target": 5344352
+        },
+        {
+          "ea": 4989523,
+          "size": 5,
+          "bytes": "e8086a0500",
+          "asm": "call    sub_518C60",
+          "following": [
+            {
+              "ea": 4989528,
+              "size": 6,
+              "bytes": "3905c80aca00",
+              "asm": "cmp     dword_CA0AC8, eax"
+            }
+          ],
+          "parent": 4989360,
+          "call_target": 5344352
+        },
+        {
+          "ea": 4998253,
+          "size": 5,
+          "bytes": "e8ee470500",
+          "asm": "call    sub_518C60",
+          "following": [
+            {
+              "ea": 4998258,
+              "size": 6,
+              "bytes": "3905444ecf00",
+              "asm": "cmp     dword_CF4E44, eax"
+            }
+          ],
+          "parent": 4998080,
+          "call_target": 5344352
+        },
+        {
+          "ea": 5063226,
+          "size": 5,
+          "bytes": "e8214a0400",
+          "asm": "call    sub_518C60",
+          "following": [
+            {
+              "ea": 5063231,
+              "size": 6,
+              "bytes": "8b975417ca00",
+              "asm": "mov     edx, dword_CA1754[edi]"
+            }
+          ],
+          "parent": 5060336,
+          "call_target": 5344352
+        },
+        {
+          "ea": 5085854,
+          "size": 5,
+          "bytes": "e8bdf10300",
+          "asm": "call    sub_518C60",
+          "following": [
+            {
+              "ea": 5085859,
+              "size": 6,
+              "bytes": "8b150c1acc00",
+              "asm": "mov     edx, dword ptr byte_CC1A00+0Ch"
+            }
+          ],
+          "parent": 5083680,
+          "call_target": 5344352
+        },
+        {
+          "ea": 5092011,
+          "size": 5,
+          "bytes": "e8b0d90300",
+          "asm": "call    sub_518C60",
+          "following": [
+            {
+              "ea": 5092016,
+              "size": 6,
+              "bytes": "8b15fc49cf00",
+              "asm": "mov     edx, dword_CF49FC"
+            }
+          ],
+          "parent": 5089856,
+          "call_target": 5344352
+        },
+        {
+          "ea": 5168648,
+          "size": 5,
+          "bytes": "e853ae0200",
+          "asm": "call    sub_518C60",
+          "following": [
+            {
+              "ea": 5168653,
+              "size": 2,
+              "bytes": "85c0",
+              "asm": "test    eax, eax"
+            }
+          ],
+          "parent": 5167904,
+          "call_target": 5344352
+        },
+        {
+          "ea": 5241469,
+          "size": 5,
+          "bytes": "e8de910100",
+          "asm": "call    sub_518C60",
+          "following": [
+            {
+              "ea": 5241474,
+              "size": 2,
+              "bytes": "85c0",
+              "asm": "test    eax, eax"
+            }
+          ],
+          "parent": 5240400,
+          "call_target": 5344352
+        }
+      ],
+      "battle_equipment_interaction": {
+        "step": "BEI01",
+        "source_snapshot": "[#] 补齐战斗装备与背包空槽合同",
+        "original_entry": "0x518c60",
+        "original_end_exclusive": "0x518c7d",
+        "instruction_count": 9,
+        "code_bytes": 29,
+        "page_count": 1,
+        "direct_calls": 0,
+        "direct_call_targets": [],
+        "jumps": 2,
+        "returns": 1,
+        "original_incoming": [
+          {
+            "ea": 4701581,
+            "size": 5,
+            "bytes": "e8cece0900",
+            "asm": "call    sub_518C60",
+            "following": [
+              {
+                "ea": 4701586,
+                "size": 2,
+                "bytes": "85c0",
+                "asm": "test    eax, eax"
+              }
+            ],
+            "parent": 4701184,
+            "call_target": 5344352
+          },
+          {
+            "ea": 4703770,
+            "size": 5,
+            "bytes": "e841c60900",
+            "asm": "call    sub_518C60",
+            "following": [
+              {
+                "ea": 4703775,
+                "size": 2,
+                "bytes": "85c0",
+                "asm": "test    eax, eax"
+              }
+            ],
+            "parent": 4703600,
+            "call_target": 5344352
+          },
+          {
+            "ea": 4745237,
+            "size": 5,
+            "bytes": "e846240900",
+            "asm": "call    sub_518C60",
+            "following": [
+              {
+                "ea": 4745242,
+                "size": 2,
+                "bytes": "85c0",
+                "asm": "test    eax, eax"
+              }
+            ],
+            "parent": 4743232,
+            "call_target": 5344352
+          },
+          {
+            "ea": 4746634,
+            "size": 5,
+            "bytes": "e8d11e0900",
+            "asm": "call    sub_518C60",
+            "following": [
+              {
+                "ea": 4746639,
+                "size": 2,
+                "bytes": "85c0",
+                "asm": "test    eax, eax"
+              }
+            ],
+            "parent": 4746480,
+            "call_target": 5344352
+          },
+          {
+            "ea": 4825181,
+            "size": 5,
+            "bytes": "e8feeb0700",
+            "asm": "call    sub_518C60",
+            "following": [
+              {
+                "ea": 4825186,
+                "size": 2,
+                "bytes": "3bc5",
+                "asm": "cmp     eax, ebp"
+              }
+            ],
+            "parent": 4824112,
+            "call_target": 5344352
+          },
+          {
+            "ea": 4826360,
+            "size": 5,
+            "bytes": "e863e70700",
+            "asm": "call    sub_518C60",
+            "following": [
+              {
+                "ea": 4826365,
+                "size": 2,
+                "bytes": "85c0",
+                "asm": "test    eax, eax"
+              }
+            ],
+            "parent": 4824112,
+            "call_target": 5344352
+          },
+          {
+            "ea": 4828984,
+            "size": 5,
+            "bytes": "e823dd0700",
+            "asm": "call    sub_518C60",
+            "following": [
+              {
+                "ea": 4828989,
+                "size": 2,
+                "bytes": "85c0",
+                "asm": "test    eax, eax"
+              }
+            ],
+            "parent": 4828224,
+            "call_target": 5344352
+          },
+          {
+            "ea": 4829655,
+            "size": 5,
+            "bytes": "e884da0700",
+            "asm": "call    sub_518C60",
+            "following": [
+              {
+                "ea": 4829660,
+                "size": 2,
+                "bytes": "3bc6",
+                "asm": "cmp     eax, esi"
+              }
+            ],
+            "parent": 4828224,
+            "call_target": 5344352
+          },
+          {
+            "ea": 4956299,
+            "size": 5,
+            "bytes": "e8d0eb0500",
+            "asm": "call    sub_518C60",
+            "following": [
+              {
+                "ea": 4956304,
+                "size": 6,
+                "bytes": "390574afc800",
+                "asm": "cmp     dword_C8AF74, eax"
+              }
+            ],
+            "parent": 4955968,
+            "call_target": 5344352
+          },
+          {
+            "ea": 4960933,
+            "size": 5,
+            "bytes": "e8b6d90500",
+            "asm": "call    sub_518C60",
+            "following": [
+              {
+                "ea": 4960938,
+                "size": 2,
+                "bytes": "03f0",
+                "asm": "add     esi, eax"
+              }
+            ],
+            "parent": 4960720,
+            "call_target": 5344352
+          },
+          {
+            "ea": 4961066,
+            "size": 5,
+            "bytes": "e831d90500",
+            "asm": "call    sub_518C60",
+            "following": [
+              {
+                "ea": 4961071,
+                "size": 2,
+                "bytes": "03d8",
+                "asm": "add     ebx, eax"
+              }
+            ],
+            "parent": 4960720,
+            "call_target": 5344352
+          },
+          {
+            "ea": 4962549,
+            "size": 5,
+            "bytes": "e866d30500",
+            "asm": "call    sub_518C60",
+            "following": [
+              {
+                "ea": 4962554,
+                "size": 2,
+                "bytes": "03f0",
+                "asm": "add     esi, eax"
+              }
+            ],
+            "parent": 4962016,
+            "call_target": 5344352
+          },
+          {
+            "ea": 4989523,
+            "size": 5,
+            "bytes": "e8086a0500",
+            "asm": "call    sub_518C60",
+            "following": [
+              {
+                "ea": 4989528,
+                "size": 6,
+                "bytes": "3905c80aca00",
+                "asm": "cmp     dword_CA0AC8, eax"
+              }
+            ],
+            "parent": 4989360,
+            "call_target": 5344352
+          },
+          {
+            "ea": 4998253,
+            "size": 5,
+            "bytes": "e8ee470500",
+            "asm": "call    sub_518C60",
+            "following": [
+              {
+                "ea": 4998258,
+                "size": 6,
+                "bytes": "3905444ecf00",
+                "asm": "cmp     dword_CF4E44, eax"
+              }
+            ],
+            "parent": 4998080,
+            "call_target": 5344352
+          },
+          {
+            "ea": 5063226,
+            "size": 5,
+            "bytes": "e8214a0400",
+            "asm": "call    sub_518C60",
+            "following": [
+              {
+                "ea": 5063231,
+                "size": 6,
+                "bytes": "8b975417ca00",
+                "asm": "mov     edx, dword_CA1754[edi]"
+              }
+            ],
+            "parent": 5060336,
+            "call_target": 5344352
+          },
+          {
+            "ea": 5085854,
+            "size": 5,
+            "bytes": "e8bdf10300",
+            "asm": "call    sub_518C60",
+            "following": [
+              {
+                "ea": 5085859,
+                "size": 6,
+                "bytes": "8b150c1acc00",
+                "asm": "mov     edx, dword ptr byte_CC1A00+0Ch"
+              }
+            ],
+            "parent": 5083680,
+            "call_target": 5344352
+          },
+          {
+            "ea": 5092011,
+            "size": 5,
+            "bytes": "e8b0d90300",
+            "asm": "call    sub_518C60",
+            "following": [
+              {
+                "ea": 5092016,
+                "size": 6,
+                "bytes": "8b15fc49cf00",
+                "asm": "mov     edx, dword_CF49FC"
+              }
+            ],
+            "parent": 5089856,
+            "call_target": 5344352
+          },
+          {
+            "ea": 5168648,
+            "size": 5,
+            "bytes": "e853ae0200",
+            "asm": "call    sub_518C60",
+            "following": [
+              {
+                "ea": 5168653,
+                "size": 2,
+                "bytes": "85c0",
+                "asm": "test    eax, eax"
+              }
+            ],
+            "parent": 5167904,
+            "call_target": 5344352
+          },
+          {
+            "ea": 5241469,
+            "size": 5,
+            "bytes": "e8de910100",
+            "asm": "call    sub_518C60",
+            "following": [
+              {
+                "ea": 5241474,
+                "size": 2,
+                "bytes": "85c0",
+                "asm": "test    eax, eax"
+              }
+            ],
+            "parent": 5240400,
+            "call_target": 5344352
+          }
+        ],
+        "native_signature": "std::int32_t Sub_518C60()",
+        "source_patch_group_count": 0,
+        "source_changed_point_count": 0,
+        "normal_remaining_source_kept": true,
+        "full_machine_abi_verified": false,
+        "generated_machine_reads_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "result_boundary": "真实S32零至20统计used W16；两本父完整零判/比较保持，十九来源不代全外父/机器ABI",
+        "original_incoming_references": [
+          {
+            "from": 4701581,
+            "type": 17,
+            "iscode": true,
+            "parent": 4701184
+          },
+          {
+            "from": 4703770,
+            "type": 17,
+            "iscode": true,
+            "parent": 4703600
+          },
+          {
+            "from": 4745237,
+            "type": 17,
+            "iscode": true,
+            "parent": 4743232
+          },
+          {
+            "from": 4746634,
+            "type": 17,
+            "iscode": true,
+            "parent": 4746480
+          },
+          {
+            "from": 4825181,
+            "type": 17,
+            "iscode": true,
+            "parent": 4824112
+          },
+          {
+            "from": 4826360,
+            "type": 17,
+            "iscode": true,
+            "parent": 4824112
+          },
+          {
+            "from": 4828984,
+            "type": 17,
+            "iscode": true,
+            "parent": 4828224
+          },
+          {
+            "from": 4829655,
+            "type": 17,
+            "iscode": true,
+            "parent": 4828224
+          },
+          {
+            "from": 4956299,
+            "type": 17,
+            "iscode": true,
+            "parent": 4955968
+          },
+          {
+            "from": 4960933,
+            "type": 17,
+            "iscode": true,
+            "parent": 4960720
+          },
+          {
+            "from": 4961066,
+            "type": 17,
+            "iscode": true,
+            "parent": 4960720
+          },
+          {
+            "from": 4962549,
+            "type": 17,
+            "iscode": true,
+            "parent": 4962016
+          },
+          {
+            "from": 4989523,
+            "type": 17,
+            "iscode": true,
+            "parent": 4989360
+          },
+          {
+            "from": 4998253,
+            "type": 17,
+            "iscode": true,
+            "parent": 4998080
+          },
+          {
+            "from": 5063226,
+            "type": 17,
+            "iscode": true,
+            "parent": 5060336
+          },
+          {
+            "from": 5085854,
+            "type": 17,
+            "iscode": true,
+            "parent": 5083680
+          },
+          {
+            "from": 5092011,
+            "type": 17,
+            "iscode": true,
+            "parent": 5089856
+          },
+          {
+            "from": 5168648,
+            "type": 17,
+            "iscode": true,
+            "parent": 5167904
+          },
+          {
+            "from": 5241469,
+            "type": 17,
+            "iscode": true,
+            "parent": 5240400
           }
         ]
       }

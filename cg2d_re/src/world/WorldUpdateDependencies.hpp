@@ -1308,7 +1308,7 @@ extern std::int32_t gBattleSelectedItem5ABC48; // 499C30发布真实物品槽，
 extern std::int32_t gBattleItemTargetPending5ABCC4; // 499C30请求选目标，497100/497770处理。
 extern std::int32_t gBattleBombLevelD67B2C; // 仅炸弹hover发布，41D4FE动画读取。
 std::int32_t GetBattlePetPosition_405B40(std::int32_t position);
-std::int32_t Sub_518C60(); // 玩家背包8..27空槽数，仅检查used==0。
+std::int32_t Sub_518C60(); // BEI01：玩家slot8..27逐used W16统计空槽，S32返回；十九调用点仅来源/本父两消费有据，全owner/运行待。
 extern std::uint32_t gBattlePlayerFlags5ABCAC;
 extern std::uint32_t gBattleSkillFlags5ABC04;
 extern std::uint32_t gBattlePetSkillFlags5ABB78;

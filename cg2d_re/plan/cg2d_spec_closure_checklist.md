@@ -164,3 +164,5 @@ BMSA02继续核创建失败/父借用/退场，已将43BAA0消息种类kind从si
 BMSA03已恢复动作16的五个原直接BYTE效果flags测试，见[逐点合同](../doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte)。只改五读取表达式，保数显后的fresh索引、amount短路、原入口/目标保护和其它完整W32快照；旧BPHIT01结论明确修正遗漏。全部传递消费者、资源/owner及运行仍待，五任务/六closure和完整门禁保持。
 
 BMSA04已恢复动作16归零回写的“效果索引→临时encoded→位置/目标→逐字段读写→析构”，见[取样与游标合同](../doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-zero-copy)。只展开本根一个调用端，通用CryptInt及正确上限回拷保持；原指令确认439470/43BC90哨兵和返回正确，现两叶不改。仅F072E0限定I/S，不重复计两叶或关闭完整数值/资源/alias-owner/ABI/运行验收；开放任务与六closure保持。
+
+BMSA05完成ITM七个既有消费者的限定完成链对照，见[资源与等待逐项表](../doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-item-completion)。数显后fresh类型、phase37、162严格完成回写、71哨兵后额外推进、73目标先行、138失败仍等待及37/38的>=60/120更新计数对应，源码无本步改动、仅一限定S。完整数据/所有callee与资源失败、最终owner/alias、机器ABI及运行保持待验，零新I/身份/成员及所有完整门禁保持。

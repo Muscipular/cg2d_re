@@ -172,3 +172,5 @@ BMSA06补SKL控制/附加记录及RID公共尾的[实际字段合同](../doc/cg2
 BMSA07恢复RID的423B37/4241AA/4241F2三个原BYTE标志读取，见[预读与移交合同](../doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-byte-transfer)。S32/W32字段/第二预读寄存器测试、20/19计数差异及原角色创建失败/载体发布/226延后恢复保持；只三读取和三注释，已有811与处置补当前引用，零新身份/成员。完整595条RID、阶段226/所有资源/alias-owner和机器ABI/运行仍待，全部任务/门禁/六closure保持。
 
 BMSA08补RID[数值/属性/坐标阶段表](../doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-value-setup)：八临时完整取样/发布、四旧rider交替读写、U16属性、两种列表复位序及首位置/scene scale对应，原差异不改成一致。源码无本步改动，零新I，仅一限定S；未推进CryptInt算法或把片段当完整595条/所有资源与owner/ABI/运行通过，任务/门禁/六closure保持。
+
+BMSA09补RID[回退、空槽与创建接线](../doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-control-flow)：三类拒绝恢复入口游标，原角色空槽先Finish再fresh递增子状态，成功在全部追加后发布预读游标并继续扫描；工厂空返回与RID原无判空、双对象停更／载体先挂后写保持。已有224/226/227及回收合同不重复计数；源码保持、零新I，一限定S。实际资源／创建失败、全部owner／别名、SDK生成ABI和运行仍待，任务／门禁／六closure保持。

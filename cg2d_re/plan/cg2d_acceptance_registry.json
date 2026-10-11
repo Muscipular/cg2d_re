@@ -5408,7 +5408,8 @@
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-item-completion",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-byte-transfer",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-value-setup"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-value-setup",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-control-flow"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -68645,6 +68646,31 @@
       "differences": [],
       "result": "pass",
       "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-BMSA09-BATTLE-S-20261011",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:000239D0"
+      ],
+      "baseline_reference": "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-control-flow",
+      "implementation_reference": "[#] 记录RID回退与创建接线验收",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-control-flow",
+        "src/YobiRuntime.cpp#ParseBattleMRide_4239D0",
+        "doc/cg2d_battle_copy_sampling_spec.md",
+        "doc/cg2d_battle_ride_exit_sampling_spec.md",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md"
+      ],
+      "observation": "当前原会话完整反编译辅助导航，入口/停更/载体及四返回实际指令确认三类拒绝回存入口、原角色空槽Finish后fresh子状态发布、双新对象暂callback空与载体先挂后写；成功全部追加后回存预读游标并循环。13直接引用均同父427470，595条2260B仅复用统计，动作224/226/227和回收旧完整合同不重复计。",
+      "expected": "保原取头返回忽略、预读/实际消费差异、三类回退与空槽特例、角色创建原无调用端判空、两对象停更及延后共享槽发布；不添初始化、保护、回滚或默认成功，不提前成功游标或子状态取样。",
+      "actual": "当前RID所述字段/分支与发布顺序对应，原工厂空返回与调用端直接使用保持；整个源码无本步改动、零新I/身份/成员/处置，已有RID只追加本项限定S。只证明控制和创建接线对应，所有callee、实际资源失败/owner与别名、SDK机器ABI、真实收发与画面声音运行仍待。",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
     }
   ],
   "task_acceptance": [
@@ -96476,9 +96502,10 @@
         "doc/cg2d_semantic_function_mappings.json#/records/811",
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-byte-transfer",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-value-setup"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-value-setup",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-control-flow"
       ],
-      "boundary": "已有语义811/真实RID正文及595条库存统计保持，不重复身份。本步仅消息种类kind原EDI32取样/递增/22门禁，将size_t恢复S32及固定25项size比较同型化；只两行，无新增校验、补零/钳制/保护、容量或RNG/失败策略。原其余RID/字符/预读回退/角色分配更新/数值/音效和接口保持；适配处置不等于完整RID、全部父-callee/正常失败/资源、alias-owner/机器ABI或运行通过，全部适用门禁保持。 BMSA07补三处标志BYTE内存读取与载体三注释，S32/W32字段及第二预读寄存器位测试保持；原第一/第二新角色原无分配守卫和226延后共享槽发布保持，仅所述源级关系，不代完整owner/失败/运行。"
+      "boundary": "已有语义811/真实RID正文及595条库存统计保持，不重复身份。本步仅消息种类kind原EDI32取样/递增/22门禁，将size_t恢复S32及固定25项size比较同型化；只两行，无新增校验、补零/钳制/保护、容量或RNG/失败策略。原其余RID/字符/预读回退/角色分配更新/数值/音效和接口保持；适配处置不等于完整RID、全部父-callee/正常失败/资源、alias-owner/机器ABI或运行通过，全部适用门禁保持。 BMSA07补三处标志BYTE内存读取与载体三注释，S32/W32字段及第二预读寄存器位测试保持；原第一/第二新角色原无分配守卫和226延后共享槽发布保持，仅所述源级关系，不代完整owner/失败/运行。 BMSA09补原三类回退/空槽Finish后子状态发布、两新对象停更与载体先挂后写/成功游标回存关系；仅限定S，原无调用端分配守卫及其它全部字段/接口保持，不代实际失败/所有callee与owner/资源/ABI/运行。"
     }
   ],
   "auxiliary_dispositions": [

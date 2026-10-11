@@ -84892,7 +84892,7 @@
     {
       "original_entry": "0x4239D0",
       "inventory_id": "F:000239D0",
-      "status": "RID消息种类与三处标志内存读取恢复原宽度；其他依赖及完整运行未验",
+      "status": "RID消息种类与三处标志内存读取恢复原宽度；其他依赖及完整运行未验；BMSA09入口回退/空槽结束及双对象创建停更/成功游标发布有限静态对应，实际失败与完整寿命运行未验",
       "original_end_exclusive": "0x4242A4",
       "instruction_count": 595,
       "original_direct_reference_count": 13,
@@ -84945,10 +84945,11 @@
         "doc/ui_windows/shared_battle.md",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-byte-transfer",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-value-setup"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-value-setup",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-control-flow"
       ],
-      "verification_level": "父595条统计，只读查找/循环相邻28条、真实参数/引用类型/25项原头与当前表；整份源码七标识符、核心/头保持及两合同追加/JSON限定增量静态核对，不重验其余父正文/调用方，未构建或执行；BMSA06只新增入口导航/头扫描EDI宽度与当前两行源差异的静态核对，595条既有统计不重计完整验收；BMSA07枚举45窄访问并核423B37/4241AA/4241F2三标志读取及预读/载体/226邻窗，源三读取/三注释差集，不把595条统计作新完整验收；BMSA08仅RID调用端八临时发布/四旧rider已存值复制、属性U16/列表及坐标源级片段与原指令对应，正文不改，零新I",
-      "boundary": "本步仅M头表查找交真实53BE40；4B header/25项3B旧头顺序/首次命中或失配及现有游标/计数/参与者/动作/音效/RNG/owner/生命周期逐字保持。整份YobiRuntime仅七标识符替换、核心与声明不改，不初始化、转码、加保护或触碰424620待批var_50；其他依赖/数据生产/完整战斗/跨板块运行验收仍待，音频/加解密不恢复。 BMSA06补充：此前七标识符/正文保持是当时查找迁移状态；现仅kind从size_t恢复S32并将固定25项size比较同型化，原EDI32/首命中/22分流有据。所有其余RID本体、接口/容量/预读回退/角色/构造析构/音效/RNG保持，完整父-callee/资源/alias-owner/ABI及运行待验。 BMSA07仅恢复预读首S32快照的BYTE读取、first/second FDC的BYTE读取，第二预读完整返回/TEST AL保持；原预读20/实际19与回退/成功预读游标发布不改。载体三注释补RID写入关联，无结构/owner变化，其余全体保持；不外推RID/阶段226/资源与所有alias-owner、机器ABI或运行。 BMSA08补数值设置：八临时三样本先取齐后pub，其中首barMaximum为encoded-mask-count而其它七处count-encoded-mask；四旧rider复制则逐字段交替读写，不统一帮助器。U16属性/两不同列表复位序、first坐标/scene scale归属及旧rider两次槽取样对应；完整595条与所有子依赖/owner/ABI运行仍待。"
+      "verification_level": "父595条统计，只读查找/循环相邻28条、真实参数/引用类型/25项原头与当前表；整份源码七标识符、核心/头保持及两合同追加/JSON限定增量静态核对，不重验其余父正文/调用方，未构建或执行；BMSA06只新增入口导航/头扫描EDI宽度与当前两行源差异的静态核对，595条既有统计不重计完整验收；BMSA07枚举45窄访问并核423B37/4241AA/4241F2三标志读取及预读/载体/226邻窗，源三读取/三注释差集，不把595条统计作新完整验收；BMSA08仅RID调用端八临时发布/四旧rider已存值复制、属性U16/列表及坐标源级片段与原指令对应，正文不改，零新I；BMSA09完整反编译导航、入口/停更/载体和四返回原指令及13个同父直接引用对照，复用595条/2260B库存统计与BCS01/BRA01/YLC01，不重复计完整原体；整个源码保持，仅控制/创建接线限定S",
+      "boundary": "本步仅M头表查找交真实53BE40；4B header/25项3B旧头顺序/首次命中或失配及现有游标/计数/参与者/动作/音效/RNG/owner/生命周期逐字保持。整份YobiRuntime仅七标识符替换、核心与声明不改，不初始化、转码、加保护或触碰424620待批var_50；其他依赖/数据生产/完整战斗/跨板块运行验收仍待，音频/加解密不恢复。 BMSA06补充：此前七标识符/正文保持是当时查找迁移状态；现仅kind从size_t恢复S32并将固定25项size比较同型化，原EDI32/首命中/22分流有据。所有其余RID本体、接口/容量/预读回退/角色/构造析构/音效/RNG保持，完整父-callee/资源/alias-owner/ABI及运行待验。 BMSA07仅恢复预读首S32快照的BYTE读取、first/second FDC的BYTE读取，第二预读完整返回/TEST AL保持；原预读20/实际19与回退/成功预读游标发布不改。载体三注释补RID写入关联，无结构/owner变化，其余全体保持；不外推RID/阶段226/资源与所有alias-owner、机器ABI或运行。 BMSA08补数值设置：八临时三样本先取齐后pub，其中首barMaximum为encoded-mask-count而其它七处count-encoded-mask；四旧rider复制则逐字段交替读写，不统一帮助器。U16属性/两不同列表复位序、first坐标/scene scale归属及旧rider两次槽取样对应；完整595条与所有子依赖/owner/ABI运行仍待。 BMSA09补三类拒绝恢复入口游标、原共享角色空槽先Finish再fresh递增子状态并返回、双新对象停更/未直接发布共享槽、载体先挂后写及全部追加后发布预读游标再循环。原工厂空返回与RID调用端无判空保持；不新增保护/回滚，不代全部callee、实际资源失败、owner/别名、SDK生成ABI或运行。"
     },
     {
       "original_entry": "0x427470",

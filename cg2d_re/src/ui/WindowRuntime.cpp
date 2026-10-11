@@ -35508,11 +35508,11 @@ void Sub_479EA0(WindowInstance* const window, const std::int32_t skillIndex)
     while (end < 15) {
         gBattleSkillRowsD3FABC[end++] = -1;
     }
-    // 原479FA9固定读取末尾字节，不改成逐行非负判断；负配对索引按RPLAN.24处理。
+    // 原479FA9固定读取末尾字节；479FBE允许配对-1别名读取末条技能记录的U16。
     const std::int8_t countGate = gBattleSkillRowsD3FABC[end];
     std::int32_t count = 0;
     for (std::int32_t index = 0; index < 15; ++index) {
-        if (countGate >= 0 && world::detail::gSkillPairsF63370[gBattleSkillRowsD3FABC[index]].used != 0) {
+        if (countGate >= 0 && world::detail::ReadSkillPairUsed(gBattleSkillRowsD3FABC[index]) != 0) {
             ++count;
         }
     }

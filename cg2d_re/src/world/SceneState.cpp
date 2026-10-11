@@ -381,8 +381,8 @@ struct MapCharaSceneSlots {
     std::int16_t valueC8A760;
     std::int16_t valueC8A762;
     login::YobiAction* actionC8A764;
-    std::uint32_t valueC8A768 {0xFFFFFFFFu}; // 原.data两W32均全1，413070仅覆写命中半字。
-    std::uint32_t valueC8A76C {0xFFFFFFFFu};
+    std::uint32_t valueC8A768 {}; // 原PE未初始化区装载清零；413070仅覆写命中半字。
+    std::uint32_t valueC8A76C {};
     float value55DE9C {5.0F};
     std::int16_t value55DEA0 {315};
     std::int16_t value55DEA2 {-1};
@@ -3357,6 +3357,18 @@ void Sub_509E30(const std::uintptr_t, const std::int32_t value, char* const text
 std::array<SkillRuntimeRecord, 15>& gSkillsF1BAFC = gSkillRuntimeSlots.skills;
 std::array<SkillPairRecord, 15>& gSkillPairsF63370 = gSkillRuntimeSlots.pairs;
 std::uint16_t gValueDA3B20 = 0;
+
+std::uint16_t ReadSkillPairUsed(const std::int8_t pairIndex)
+{
+    const auto* const storage = reinterpret_cast<const std::byte*>(&gSkillRuntimeSlots);
+    const std::ptrdiff_t offset =
+        static_cast<std::ptrdiff_t>(offsetof(SkillRuntimeSlots, pairs))
+        + static_cast<std::ptrdiff_t>(pairIndex)
+            * static_cast<std::ptrdiff_t>(sizeof(SkillPairRecord));
+    std::uint16_t used;
+    std::memcpy(&used, storage + offset, sizeof(used));
+    return used;
+}
 
 std::int32_t Sub_504F10(const std::int32_t value, const std::int32_t mode)
 {

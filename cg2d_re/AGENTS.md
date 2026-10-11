@@ -1,5 +1,8 @@
 # cg2d_re 子项目规则
 
+> **2026-10-11 最新函数工作流**：后续判断函数实现状态和选取补码入口，只以[IDA 全量函数实现表](plan/cg2d_ida_function_implementation_table.md)为准；日志、旧语义/处置台账、快照及差集队列仅保留历史或定位线索，不作为状态依据。先完成全部 3680 行当前源码标记，再补声明/定义上方的已证地址注释，随后按表补未实现及缺接线/数据生产的功能。按[本阶段 SPEC](doc/cg2d_ida_function_implementation_table_spec.md)执行。
+> **本批核表分工例外**：用户已允许独立会话或子 Agent 持续核对全量表，并澄清“串行是指 IDA”。本批核表可委派一个子 Agent，覆盖第11条的对应禁止约定；同一 IDA 会话仍由一个线程独占查询、串行交接，禁止并发查询或另开数据库。业务编码、地址注释、验证和提交由本线程负责，其他范围不自动恢复委派。
+
 > 2026-10-04压缩合并，保留当前有效约束；原文见Git命名快照 `cg2d-re-rules-history-20261004-before-compression`。第8条继续承载工程委托，历史引用不改。
 > 入口：[总SPEC](plan/cg2d_full_reconstruction_plan.md) · [最新决议](doc/cg2d_closure_decisions_spec.md) · [收尾任务](plan/cg2d_spec_closure_checklist.md) · [唯一进度](plan/cg2d_full_reconstruction_progress.md)。
 

@@ -1,5 +1,8 @@
 # cg2d 完整还原独立执行计划
 
+> **2026-10-11 当前阶段目标**：先按当前 cg2d.exe IDA 的全部 3680 个入口完成[函数实现全量表](cg2d_ida_function_implementation_table.md)，逐项标记当前正文或真实承接及缺项；该表成为判断实现状态和选择补码入口的唯一依据，不再依据旧日志、旧台账或历史差集队列。然后在本线函数声明/定义上方补已证原地址注释，随后依表优先补未实现函数及缺接线、缺数据生产的功能。表已列齐但状态仍在核对，当前是草稿；不等于全部函数已实现或验收通过。
+> 本批全量核对允许一个子 Agent 持续处理；**串行限制针对同一 IDA 会话**，查询归属必须交接，本线程与子 Agent 不同时查询同一数据库。其余执行限制、事实不足先跳过及整体 §10 门禁保持；具体状态、注释和分工规则见[本阶段 SPEC](../doc/cg2d_ida_function_implementation_table_spec.md)。整体目标继续 active，阶段目标和并行例外按用户最新指令生效。
+
 > 2026-10-09最新CRT要求：[MC01](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009)直接采用MSVC UCRT/VCRuntime/STL，覆盖旧自实现保留约束；标量及FILE/lowio/流格式已迁；MC01-C1已退休无现组外消费者的私有C++对象组，采用真实MSVC库对象，MC01-C2旧浮点格式/数值/环境组也已退休，C3错误/信号/私有退出设施及C4堆策略已交MSVC；C5旧ctype/多字节/转换及私有argv/环境已收敛，C6已退休无消费多BYTE回退，C7动画/渲染两一致排序已MSVC，剩七组/八调用比较关系待选择，继续核实际CRT/业务边界。已批准库内差异不记原体等价，全部适用业务/owner与运行门禁保持。
 
 > 2026-10-09通用堆：[HMU01](../doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state)按用户malloc方向与既有工程委托成组统一标准分配族，退役无当前CPP消费者的CRT私有池；旧请求数量/失败处理器已由MC01-C4覆盖为直接MSVC合同；实际业务U32参数与owner及独立分配域边界保持。只完成本组源码与静态接线，不降低§10完整owner、SDK和真实流程门禁。

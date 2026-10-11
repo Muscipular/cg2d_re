@@ -1,5 +1,7 @@
 # 功能追踪、度量与验收 SPEC
 
+> **2026-10-11 函数实施状态来源调整**：用户指定[IDA 全量函数实现表](../plan/cg2d_ida_function_implementation_table.md)为后续函数实现状态和补码选项的唯一依据，按[对应 SPEC](cg2d_ida_function_implementation_table_spec.md)核当前源码。下文旧语义/处置、快照和差集队列仍保留历史及验收关联，不能替代该表判断是否缺实现。验收登记簿继续承担 B/I/W/S/R 等完整门禁，不因新的正文存在性表格升级门禁或关闭功能。
+
 > 2026-10-04：按用户“构建一个可度量，可验收的体系”采用本方案。属于现有工程委托的文档/度量建设，不增加业务范围，不解除执行限制。
 > 上位：[总SPEC](../plan/cg2d_full_reconstruction_plan.md)、[具名裁决](cg2d_closure_decisions_spec.md)。实际推进只写[唯一进度](../plan/cg2d_full_reconstruction_progress.md)。
 

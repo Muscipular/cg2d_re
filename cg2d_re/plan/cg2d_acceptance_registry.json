@@ -3,6 +3,12 @@
   "epoch": "2026-10-04.1",
   "catalog_revision": 2,
   "scope": "已知合同导入的追踪目录，不代表全功能枚举闭合。路径相对cg2d_re。域不计叶功能。",
+  "function_implementation_authority": {
+    "table": "plan/cg2d_ida_function_implementation_table.md",
+    "specification": "doc/cg2d_ida_function_implementation_table_spec.md",
+    "effective_on": "2026-10-11",
+    "decision": "按用户要求，后续函数实现状态和补码入口只以全量表为准；旧日志、语义/处置台账、快照和差集队列仅作历史或定位线索。完整功能验收仍使用本登记簿的独立门禁，不以正文存在或表格核对代替。"
+  },
   "inventory_expected": {
     "functions": 3680,
     "imports": 218,

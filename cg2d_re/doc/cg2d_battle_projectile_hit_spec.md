@@ -4,6 +4,8 @@
 
 2026-10-11逐项验收补充：[BMSA03](cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte)发现40731D/407AD8/407D79/407FED/408083五条直接BYTE测试，旧源码先读完整W32再掩码；现明确恢复五个低字节读取，保fresh游标/数值显示之后取样及全部其它分支。下文“本体/字段宽度保持、只改注释”指当时有界结果，由本节修正这五处遗漏；完整owner、资源、生成机器访问和运行仍待。
 
+同日[BMSA04](cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-zero-copy)补407A92先取效果索引、407A98先取临时encoded再查目标的归零回写顺序；仅本根调用端展开三字段逐读逐写，通用CryptInt及正确的407D06上限回拷保持。下文“负值构造零临时、fresh目标复制”及body保持为此前有界结果，以本补充为当前源级顺序；两个效果游标叶的哨兵/返回已有真实指令，保持。
+
 <a id="battle-projectile-hit-baseline"></a>
 ## 原基线与实际调用
 

@@ -5403,7 +5403,8 @@
         "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-baseline",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-zero-copy"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -68387,6 +68388,62 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-BMSA04-BATTLE-I-20261011",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:000072E0"
+      ],
+      "baseline_reference": "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-zero-copy",
+      "implementation_reference": "[#] 对齐战斗归零回写的取样顺序",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-zero-copy",
+        "doc/cg2d_battle_projectile_hit_spec.md#battle-projectile-hit-source-state",
+        "src/YobiRuntime.cpp#UpdateBattleAction16_4072E0"
+      ],
+      "observation": "407A92先读效果索引，407A98先读临时encoded，再读position/目标对象并写encoded，随后mask及W8 readCount各独立读写；旧调用端先查目标再通过CopyPayload读encoded。439470/43BC90完整指令确认哨兵及第三次返回，当前两个效果叶正确。",
+      "expected": "只恢复动作16归零调用端两个样本及三字段逐读逐写，原构造/析构/RNG、扣减/比较及后续BYTE死亡发布保持；407D06上限回拷正确，不更改通用数值模块或两个游标接口。",
+      "actual": "保存S32 copyEffectIndex后保存U32 zeroEncoded，再按已取索引查fresh目标并写encoded；mask和W8 count各读取再写回，保原析构。整源除这一个片段全部保持，两个效果叶正文逐字未改。限定源级静态，不代所有传递消费者、owner/资源、ABI及运行。",
+      "differences": [
+        {
+          "description": "动作16负值归零的CopyPayload调用在本根展开，恢复临时encoded先于目标position/对象查表的取样与其后三字段发布顺序；数值模块和其它CopyPayload消费者不改。",
+          "decision_ref": "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-zero-copy"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-BMSA04-BATTLE-S-20261011",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:000072E0"
+      ],
+      "baseline_reference": "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-zero-copy",
+      "implementation_reference": "[#] 对齐战斗归零回写的取样顺序",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-zero-copy",
+        "doc/cg2d_battle_projectile_hit_spec.md#battle-projectile-hit-source-state",
+        "src/YobiRuntime.cpp#UpdateBattleAction16_4072E0"
+      ],
+      "observation": "407A92先读效果索引，407A98先读临时encoded，再读position/目标对象并写encoded，随后mask及W8 readCount各独立读写；旧调用端先查目标再通过CopyPayload读encoded。439470/43BC90完整指令确认哨兵及第三次返回，当前两个效果叶正确。",
+      "expected": "只恢复动作16归零调用端两个样本及三字段逐读逐写，原构造/析构/RNG、扣减/比较及后续BYTE死亡发布保持；407D06上限回拷正确，不更改通用数值模块或两个游标接口。",
+      "actual": "保存S32 copyEffectIndex后保存U32 zeroEncoded，再按已取索引查fresh目标并写encoded；mask和W8 count各读取再写回，保原析构。整源除这一个片段全部保持，两个效果叶正文逐字未改。限定源级静态，不代所有传递消费者、owner/资源、ABI及运行。",
+      "differences": [
+        {
+          "description": "动作16负值归零的CopyPayload调用在本根展开，恢复临时encoded先于目标position/对象查表的取样与其后三字段发布顺序；数值模块和其它CopyPayload消费者不改。",
+          "decision_ref": "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-zero-copy"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
     }
   ],
   "task_acceptance": [
@@ -91452,9 +91509,10 @@
         "doc/cg2d_battle_projectile_hit_spec.md#battle-projectile-hit-acceptance",
         "doc/cg2d_battle_projectile_hit_spec.md#battle-projectile-hit-source-state",
         "doc/cg2d_battle_projectile_hit_evidence.json",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-zero-copy"
       ],
-      "boundary": "BPHIT01原action/payload空及首索引0..199检查、bit20000000/距离70与普通20两命中、图/随机六原点到两源码表达式、状态分类/HP/CryptInt/附属清理/延迟双播放和phase17正常合同保。非拥有action/payload/effect1054只拓宽指针；本体和callee/分发/声明签名全保持，仅三注释；24callee全部consumer/owner/SDK/数值机器ABI及画面声音运行未验。 RPLAN.24不专项异常/回绕/故障等价，全部完整门禁保持。 BMSA03补充：前述仅注释/本体保持是BPHIT01当时态，本轮按五条直接TEST BYTE恢复五个低字节读取；其它正文/原保护和全部完整门禁保持，不扩大为机器访问或完整业务通过。"
+      "boundary": "BPHIT01原action/payload空及首索引0..199检查、bit20000000/距离70与普通20两命中、图/随机六原点到两源码表达式、状态分类/HP/CryptInt/附属清理/延迟双播放和phase17正常合同保。非拥有action/payload/effect1054只拓宽指针；本体和callee/分发/声明签名全保持，仅三注释；24callee全部consumer/owner/SDK/数值机器ABI及画面声音运行未验。 RPLAN.24不专项异常/回绕/故障等价，全部完整门禁保持。 BMSA03补充：前述仅注释/本体保持是BPHIT01当时态，本轮按五条直接TEST BYTE恢复五个低字节读取；其它正文/原保护和全部完整门禁保持，不扩大为机器访问或完整业务通过。 BMSA04补407A92效果索引→407A98临时encoded→位置/目标查表→逐字段读写→析构，仅归零调用端展开；通用CryptInt、原构造/RNG、上限回拷和正确游标叶正文保持，不代完整数值/别名-owner/资源/ABI或运行。"
     },
     {
       "inventory_id": "F:00018B70",

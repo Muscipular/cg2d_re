@@ -162,3 +162,5 @@ R01/R04/U08/U09/V03/V04仍开放；尚缺各主体/全部传递消费者的完�
 BMSA02继续核创建失败/父借用/退场，已将43BAA0消息种类kind从size_t恢复32位及同型25项比较，见[修正与失败传播](../doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter)。只修这个有原指令依据的宽度差异；普通特效空返回后的162等待、既有1200恢复及异常访问顺序保持，不擅补成功或保护。全部技能效果、资源和owner/alias寿命及运行仍待，不据两限定I/S关闭完整门禁。
 
 BMSA03已恢复动作16的五个原直接BYTE效果flags测试，见[逐点合同](../doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte)。只改五读取表达式，保数显后的fresh索引、amount短路、原入口/目标保护和其它完整W32快照；旧BPHIT01结论明确修正遗漏。全部传递消费者、资源/owner及运行仍待，五任务/六closure和完整门禁保持。
+
+BMSA04已恢复动作16归零回写的“效果索引→临时encoded→位置/目标→逐字段读写→析构”，见[取样与游标合同](../doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-zero-copy)。只展开本根一个调用端，通用CryptInt及正确上限回拷保持；原指令确认439470/43BC90哨兵和返回正确，现两叶不改。仅F072E0限定I/S，不重复计两叶或关闭完整数值/资源/alias-owner/ABI/运行验收；开放任务与六closure保持。

@@ -25440,9 +25440,13 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                         payload->effects1C[payload->effectRunningC9C].position]->readiness, 0)) {
                     platform::LegacyCryptInt temporary;
                     ConstructFromInt_401CC0(&temporary, 0);
+                    const std::int32_t copyEffectIndex = payload->effectRunningC9C;
+                    const std::uint32_t zeroEncoded = temporary.encoded;
                     YobiAction* const copyTarget = gBattleAllEntries59E980[
-                        payload->effects1C[payload->effectRunningC9C].position];
-                    CopyPayload(&copyTarget->readiness, &temporary);
+                        payload->effects1C[copyEffectIndex].position];
+                    copyTarget->readiness.encoded = zeroEncoded;
+                    copyTarget->readiness.mask = temporary.mask;
+                    copyTarget->readiness.readCount = temporary.readCount;
                     Destroy_401CF0(&temporary);
                 }
                 if ((*reinterpret_cast<const unsigned char*>(

@@ -580,3 +580,26 @@ state2 的 37 编号沿 BMN01，当前列表仍为 19..31、61..63、83、400..4
 本轮还核原入口4072ED/4072F8的action/payload判空、407304/40730C的负索引及>=200门禁、40739D/4074F9的目标判空，当前均有原依据，保留；这些不是新保护。提前命中的双推进和清FCC/1024、普通数值/属性调用、效果游标在附加读取后的重新取样、延迟双播放、MarkDeath与phase17不改。
 
 采用现有unsigned char读取风格，不新增宏/helper/API、默认值、RNG/音效调用或保护。五处明确源码读取宽度的修复不宣称编译后的访问指令、运行错误或完整投射/战斗验收。BPHIT01旧有界证据保留，“字段宽度保持”的旧结论由本节修正遗漏，所有其它正常分支和完整owner/资源/ABI/运行仍待。
+
+<a id="battle-m-skill-item-acceptance-zero-copy"></a>
+## BMSA04：动作16归零回写与效果游标
+
+2026-10-11，继续核4072E0数值消费。原407A8D构造零临时之后，取样/发布顺序如下；这不是临时对象构造、解码或随机算法的改造。
+
+| 原指令 | 原取样/发布 | 实施方案 |
+|---|---|---|
+| 407A92 | 读取效果索引C9C | 保存S32 copyEffectIndex |
+| 407A98 | 读取临时encoded W32 | 保存U32 zeroEncoded，时点在目标position/对象查表之前 |
+| 407A9F/407AA3 | 按已取索引读取position，再查目标 | 用copyEffectIndex定位copyTarget，不缓存比较前的目标 |
+| 407AAA | 写目标readiness.encoded | 发布zeroEncoded |
+| 407AB0/407AB9 | 读临时mask W32，再写目标mask | 独立读写，不提前收齐三个字段 |
+| 407ABC/407AC0 | 读临时readCount W8，再写目标readCount | 保原字节字段及最后发布 |
+| 407AC7 | 析构临时 | 原构造/析构及全部RNG消费保持 |
+
+当前动作16先完整查目标，再通过CopyPayload读取临时encoded，漏掉407A98先于position/对象查表的取样顺序。按子AGENTS第8条既有工程委托，先记本节方案，再只在本根归零调用端展开三字段回写，恢复两个样本及逐字段读写；不改通用CryptInt或CopyPayload、结构/容量/接口、比较与扣减、原负值归零业务、后续BYTE死亡门禁或其它调用。407D06–407D38的上限回拷原先fresh索引/位置/对象，再encoded→发布、mask→发布、readCount→发布，现CopyPayload已对应，保持这一分支。
+
+同时重新只读两个效果叶的完整原指令：439470为18条47B，43BC90为34条109B。439491实际读推进后position，439495比较-1，439499/43949C生成并返回1/0；null入口的EAX为0。43BCF2第三次Advance之后没有再改EAX，返回第三次结果。两份反编译伪代码把根标为void并隐藏了返回，不能据此删除现有哨兵读取或改接口。现两个正文正确保持；Aux依固定payload但四输出之间各fresh C9C，允许输出与游标别名，不增加sentinel早退。此结论与既有[Advance合同](cg2d_battle_event_production_sampling_spec.md)及[Aux合同](cg2d_battle_flags_aux_icon_consumer_spec.md)一致。
+
+原Advance有73个直接CALL/43父，Aux有13个直接CALL/12父；本次只据入向定位，不把它们计作完整父验收。现Aux的13处表达式均弃用返回，仍执行第三次推进；原各入CALL后的邻窗只辅助定位，不证明所有父body/返回消费者已通过。
+
+本步只修动作16一个归零回写片段；仅登记F:000072E0限定I/S，两个正确效果叶不重复新增身份/实现/完整验收。其它所有源码、flags五个BYTE、上限回拷、数显/音效/图标、归零构造析构保持。必要静态只证明源级取样/发布和登记一致，不宣生成机器访问、实际故障或完整技能/道具、owner/alias、资源、ABI和运行通过；整体门禁保持开放。

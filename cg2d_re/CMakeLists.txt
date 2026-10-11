@@ -180,6 +180,12 @@ target_link_libraries(cg2d_re_client PRIVATE cg2d_re_startup cg2d_re_render)
 # 保留实际归档成员和入口的链接证据；不以源码未引用推断原端可达性。
 target_link_options(cg2d_re_client PRIVATE "/MAP:$<TARGET_FILE_DIR:cg2d_re_client>/cg2d_re_client.map")
 
+# CSD01：客户端构建完成后带上已链接的 SDL 动态库，见宿主客户端目标 SPEC。
+add_custom_command(TARGET cg2d_re_client POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "$<TARGET_FILE:SDL3::SDL3>" "$<TARGET_FILE_DIR:cg2d_re_client>"
+    VERBATIM)
+
 # 用户要求一次性转换固定MIDI；本工具不参与默认构建或客户端链接。
 add_executable(cg2d_re_midi_to_wav EXCLUDE_FROM_ALL
     src/tools/MidiToWav.cpp src/tools/LegacyMidiSynth.cpp)

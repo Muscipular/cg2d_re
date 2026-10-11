@@ -24919,8 +24919,19 @@ std::int32_t Sub_4C0A50(const std::int32_t index, const std::int32_t state)
     if (selected == 0) {
         gWindow54MessageC9FCE0 = -1;
     }
+    // 原4C0A97：候选-1先读D67420的U16，别名为商店价格文本D673EC+34。
+    std::uint16_t used;
+    if (selected == -1) {
+        std::memcpy(&used, gShopPriceTextsD673EC.data() + 0x34, sizeof(used));
+    } else {
+        used = gWindow54PetOptionsD67448[selected].used;
+    }
+    if (used == 0) {
+        graphic->imageNo = 243101;
+        return 0;
+    }
     const Window54PetOption& option = gWindow54PetOptionsD67448[selected];
-    if (option.used == 0 || option.allowed == 0) {
+    if (option.allowed == 0) {
         graphic->imageNo = 243101;
         return 0;
     }

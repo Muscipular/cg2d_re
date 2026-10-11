@@ -3843,3 +3843,9 @@ NETWORK仅新增该入口一个成员/限定S（另三功能各一S），四旧�
 ## 2026-10-10 CWC01：聊天输入与按钮/滑块控制
 
 [CWC01完整原根](cg2d_chat_window_control_pipeline_spec.md#chat-control-source-state)/[原码与真实绑定](cg2d_chat_window_control_pipeline_spec.md#evidence-archive-20261011)覆盖4A6DD0输入创建、4A6FC0按钮和4A8140滑块，共492条1769B/九页、29E8/14目标/56跳14RET；四CALL入向内部3/外1。原窗口35/20项元素与11实际callback保持，旧12槽表/CAC18范围不重复处置，11/12/19默认行为不新增。两组四处恢复三个hover窗口/元素及scroll→count取样；两个正确body、原创建/焦点/可见/返1、按钮环/提示/SE/颜色发布/scroll边界、滑块浮点与低S32位置及GBK/明文/MSVC/WAV-only保。旧1969保历史追加/两新语义三F、INPUT/UIRUNTIME各三成员/NETWORK仅配置生产按钮、三限定S零I/九任务open；全窗口父/创建绘制释放及输入字体日志请求/音效与CTS配置生产消费owner、SDK/FPU/机器ABI/实际输入文字声音画面运行待。
+
+## 2026-10-11 NLD01：连接入口的地址查询与JFVf依赖
+
+[NLD01](cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-source-state)补507D90、512800的独立正常合同及原库存处置。地址读取36条93B／JFVf55条177B均有原证，两个唯一508360入向复用NWI01父归档；两既有CPP正文不能记新实现。查询两索引门禁、193步长／含NUL地址复制／atoi低W16端口／-1与0返回保持，不读available或生产记录。
+
+JFVf指针及字段实际顺序为摘要、账号、口令、适配器；仅纠正512800参数／capacity／token、公开声明及父账号副本的反写名称，并明确三个独立64B文本owner。四轮容量→转义→新缓冲→追加、末发送S32和父复制／诊断全保；当前CAB05原命令／四字段／LF明文不改，不计算摘要。两语义／两adapted，NETWORK108→110／LOGIN16→18，各域一限定S零I；所有任务、完整508360／512E40和全部门禁保持，全部callee／owner／SDK机器ABI／互通运行仍待。

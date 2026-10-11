@@ -18,9 +18,9 @@ extern std::int32_t gValueD69794;                       // 原 0xD69794，仅 50
 extern std::array<LoginServerRecord, 800> gValueD69798; // 原 0xD69798，映像零填充。
 extern std::array<std::int32_t, 60> gValueD9F2D4;       // 原 0xD9F2D4，映像零填充。
 extern std::int16_t gValue58AD94;                       // 原 0x58AD94，映像初值 -1。
-extern char gValueDA38DC[64];                           // 原 0xDA38DC，映像零填充。
-extern char gValueDA3A1C[64];                           // 原 0xDA3A1C，映像零填充。
-extern char gValueDA3A5C[64];                           // 原 0xDA3A5C，映像零填充。
+extern char gValueDA38DC[64];                           // 原DA38DC，账号输入／NLD01第2文本，映像零填充。
+extern char gValueDA3A1C[64];                           // 原DA3A1C，既有摘要／NLD01第1文本，映像零填充。
+extern char gValueDA3A5C[64];                           // 原DA3A5C，口令输入／NLD01第3文本，映像零填充。
 extern std::int16_t gValueDA3B24;                       // 原 0xDA3B24，映像零填充。
 
 // 原 LoginScene::Process@0x45FEA0。

@@ -243166,6 +243166,153 @@
         "all_parents_verified": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x507D90",
+      "inventory_id": "F:00107D90",
+      "original_end_exclusive": "0x507DED",
+      "original_role": "从唯一800项服务器表复制地址和低W16十进制端口，不检查可用标志",
+      "status": "NLD01：完整正常查询及既有CPP独立纳管，正文保持；全部生产消费／owner／ABI运行未验",
+      "instruction_count": 36,
+      "sources": [
+        {
+          "path": "src/LoginScene.cpp",
+          "symbols": [
+            "cg::login::detail::GetServerAddressInfo_507D90"
+          ],
+          "relationship": "S32索引两门禁／0xC1表步长、含NUL地址复制、+80十进制端口低W16写及两个返回；正文保持仅合同注释"
+        },
+        {
+          "path": "src/LoginStateDependencies.hpp",
+          "symbols": [
+            "GetServerAddressInfo_507D90"
+          ],
+          "relationship": "原索引及借用输出／U16端口声明保持，仅合同注释"
+        },
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_508360"
+          ],
+          "relationship": "唯一已存在地址查询调用，负返回映射-2；本轮仅另一登录账号副本改名，查询调用保持"
+        },
+        {
+          "path": "include/cg/LoginScene.hpp",
+          "symbols": [
+            "LoginServerRecord",
+            "gValueD69798"
+          ],
+          "relationship": "唯一记录／800项真实存储；容量／布局不改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-baseline",
+        "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-decision",
+        "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-source-state",
+        "doc/cg2d_login_scene.md",
+        "doc/cg2d_command_options.md"
+      ],
+      "native_provider": {
+        "path": "src/LoginScene.cpp",
+        "symbol": "cg::login::detail::GetServerAddressInfo_507D90",
+        "parameters": "S32 serverIndex／借用char* serverAddress／借用U16* port",
+        "return": "S32 -1不写输出／0成功",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "完整36条93B／单atoi CALL／两跳两RET，唯一5083A7入向；现查询正文和表owner合同保持，仅有限静态，不外推完整连接",
+      "boundary": "NLD01仅两个已存在正常根的独立纳管及账号／口令名称更正；封包字节、参数位置、字段宽度和读取／发布／调用／返回保持，零新函数／接口／owner。完整508360／512E40、全部callee／父、正常失败传播和全alias-owner寿命、SDK机器ABI及明文互通／运行仍待；总SPEC及完整门禁／任务保持，不构建测试运行产物摘要或引依赖。",
+      "login_connect_dependencies": {
+        "step": "NLD01",
+        "spec": "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-source-state",
+        "original_code_bytes": 93,
+        "original_call_count": 1,
+        "original_jump_count": 2,
+        "original_return_count": 2,
+        "original_inbound_call_count": 1,
+        "source_body_changed": false,
+        "full_original_normal_body_read": true,
+        "availability_check_added": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x512800",
+      "inventory_id": "F:00112800",
+      "original_end_exclusive": "0x5128B1",
+      "original_role": "JFVf四个借用文本按摘要／账号／口令／适配器原序组包并返回发送结果",
+      "status": "NLD01：完整正常组包及既有CPP独立纳管，账号口令名称更正；四字段字节／调用原序保持，完整登录／ABI运行未验",
+      "instruction_count": 55,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "cg::network::Sub_512800"
+          ],
+          "relationship": "四独立capacity→转义→新共享buffer→追加，末发送S32透传；第二／三文本及对应capacity/token只改为正确account/password名称"
+        },
+        {
+          "path": "include/cg/network/NetworkRuntime.hpp",
+          "symbols": [
+            "Sub_512800"
+          ],
+          "relationship": "五参既有声明的account/password名称及JFVf注释更正，类型／位置保持"
+        },
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_508360"
+          ],
+          "relationship": "DA38DC的44B账号副本由passwordCopy更名accountCopy，所有复制和实参位置保持；原父339条归档复用"
+        },
+        {
+          "path": "include/cg/LoginScene.hpp",
+          "symbols": [
+            "gValueDA38DC",
+            "gValueDA3A1C",
+            "gValueDA3A5C"
+          ],
+          "relationship": "三个独立64B owner的已有定义／容量不变，只明确账号／摘要／口令来源"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-baseline",
+        "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-decision",
+        "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-source-state",
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_winsock_import_binding_spec.md",
+        "doc/cg2d_dispatch_account_field_read_spec.md",
+        "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract"
+      ],
+      "native_provider": {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "cg::network::Sub_512800",
+        "parameters": "原生socket／借用const char* digest/account/password/adapterId",
+        "return": "末SendProtocolBuffer_517480完整S32",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "完整55条177B／10CALL／零跳一RET，唯一508743入向；原四轮与现命名更正限定静态、当前CAB05明文边界，不代全部发送callee／父／互通验收",
+      "boundary": "NLD01仅两个已存在正常根的独立纳管及账号／口令名称更正；封包字节、参数位置、字段宽度和读取／发布／调用／返回保持，零新函数／接口／owner。完整508360／512E40、全部callee／父、正常失败传播和全alias-owner寿命、SDK机器ABI及明文互通／运行仍待；总SPEC及完整门禁／任务保持，不构建测试运行产物摘要或引依赖。",
+      "login_connect_dependencies": {
+        "step": "NLD01",
+        "spec": "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-source-state",
+        "original_code_bytes": 177,
+        "original_call_count": 10,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_change_kind": "仅参数与局部变量更名，指针／字段／容量及调用顺序不变",
+        "wire_order": [
+          "digest",
+          "account",
+          "password",
+          "adapter_id"
+        ],
+        "full_original_normal_body_read": true,
+        "runtime_verified": false
+      }
     }
   ]
 }

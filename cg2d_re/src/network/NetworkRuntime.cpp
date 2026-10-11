@@ -2097,12 +2097,12 @@ std::int32_t Sub_512AB0(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
-// 原 [0x512800,0x5128B1)：四轮独立采容量、转义后重读输出缓冲。
+// NLD01／原512800：摘要、账号、口令、适配器四轮独立采容量，转义后重读输出缓冲。
 std::int32_t Sub_512800(
     const std::uintptr_t socket,
     const char* const executableDigest,
-    const char* const password,
     const char* const account,
+    const char* const password,
     const char* const adapterId)
 {
     static_cast<void>(BuildProtocolCommand_517510(
@@ -2117,22 +2117,22 @@ std::int32_t Sub_512800(
         reinterpret_cast<const char*>(digestToken),
         digestCapacity));
 
-    const std::int32_t passwordCapacity = std::bit_cast<std::int32_t>(
-        gNetworkRuntimeState.bufferLength);
-    std::uint8_t* const passwordToken = FormatProtocolTextToken_517160(password);
-    static_cast<void>(AppendProtocolText_5170D0(
-        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
-        reinterpret_cast<const char*>(passwordToken),
-        passwordCapacity));
-
     const std::int32_t accountCapacity = std::bit_cast<std::int32_t>(
         gNetworkRuntimeState.bufferLength);
-    std::uint8_t* const accountToken =
-        FormatProtocolTextToken_517160(account);
+    std::uint8_t* const accountToken = FormatProtocolTextToken_517160(account);
     static_cast<void>(AppendProtocolText_5170D0(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
         reinterpret_cast<const char*>(accountToken),
         accountCapacity));
+
+    const std::int32_t passwordCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const passwordToken =
+        FormatProtocolTextToken_517160(password);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(passwordToken),
+        passwordCapacity));
 
     const std::int32_t adapterCapacity = std::bit_cast<std::int32_t>(
         gNetworkRuntimeState.bufferLength);

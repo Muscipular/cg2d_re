@@ -12,7 +12,7 @@ namespace cg::login::detail {
 std::int32_t TextMeasure(const char* text, std::int32_t fontType);
 std::int32_t MeasureDefaultText_44B260(const char* text); // 非空入口快照字体0双宽/单宽，无字节预算。
 
-// sub_508360@0x508360 的直接目标；只声明真实调用契约。
+// NLD01／原507D90：508360直接查询唯一服务器表，失败-1不写输出，成功复制地址／写U16端口。
 std::int32_t GetServerAddressInfo_507D90(
     std::int32_t serverIndex,
     char* serverAddress,

@@ -455,6 +455,7 @@ static_assert(sizeof(gValueD9F2D4) == 60 * sizeof(std::int32_t));
 
 namespace detail {
 
+// NLD01：负索引／>=800返回-1；地址含NUL复制、atoi低W16端口，成功0，不读available。
 std::int32_t GetServerAddressInfo_507D90(
     std::int32_t serverIndex,
     char* serverAddress,

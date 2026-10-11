@@ -182,3 +182,9 @@ BMSA11补[动画返回及等待／终结传播](../doc/cg2d_battle_m_skill_item_
 MC01-C9按用户先补未处理IDA函数的最新顺序，纳管[26个剩余CRT异常辅助入口](../doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state)。旧栈/FS/FuncInfo及库内展开交已批MSVC/compiler/VCRuntime，不重导原体或补空包装；C3真实数组/成员业务构析及5405F5消费保持。26既有语义/26host/26CRT成员、一限定S零I，现CPP与构建配置保持，无新源码功能或任务关闭；C06及全部SDK/传播/owner/运行门禁保持。资源验收先暂停，启动参数不作为本批前置条件。
 
 LDT01依台账处理[lDuJ及未纳管创建/图号依赖](../doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state)：三完整正常原根474条1524B/两W32表、12字段/两mode分流和唯一父覆盖返回有据。一个既有lambda恢复四次临时同槽复用/三样本全取齐再发布，其余回复/图号算法/载荷与接口保持；一旧语义追加两新、三adapted，NETWORK补两/MAP两/YOBI一，各限定S无I。未把初译正文存在当全部还原完成；完整callee/后续模式/资源/alias-owner、SDK生成ABI及实际收发/画面运行继续未闭，全部任务/六closure和总SPEC§10保持。
+
+## 2026-10-11 NLD01进展：登录连接的两项未纳管依赖
+
+[NLD01](../doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-source-state)补507D90／512800独立语义和adapted处置，NETWORK／LOGIN各两成员与一个限定S。两个正确既有根91条270B有据，仅纠正JFVf账号／口令参数、局部／父副本和来源注释，封包位置／字节／原容量／四轮取样／失败返回全保；不新增I或把初译正文算本轮新增函数。
+
+R01／R04／U09／U10／G01／V03／V04只追加证据引用，仍open。508360已有局部合同和真实依赖，本轮不发布完整父处置；512E40完整根、地址表全生产消费、全部callee及owner／alias／机器ABI／实际明文互通运行仍待，总SPEC全部门禁保持。

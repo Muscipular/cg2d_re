@@ -10307,7 +10307,8 @@
       "baseline_documents": [
         "doc/ui_windows/legacy_pet_skill_catalog.md",
         "doc/cg2d_pet_catalog_production_spec.md",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline"
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/ui_windows/legacy_pet_skill_catalog.md#legacy-catalog-table-pointer-relations-20261012"
       ],
       "original_inventory_ids": [
         "F:000D7470"
@@ -10345,7 +10346,8 @@
       "baseline_documents": [
         "doc/ui_windows/legacy_pet_skill_catalog.md",
         "doc/cg2d_pet_catalog_production_spec.md",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline"
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/ui_windows/legacy_pet_skill_catalog.md#legacy-catalog-table-pointer-relations-20261012"
       ],
       "original_inventory_ids": [
         "F:000D7C20"
@@ -10383,7 +10385,8 @@
       "baseline_documents": [
         "doc/ui_windows/legacy_pet_skill_catalog.md",
         "doc/cg2d_pet_catalog_production_spec.md",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline"
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/ui_windows/legacy_pet_skill_catalog.md#legacy-catalog-table-pointer-relations-20261012"
       ],
       "original_inventory_ids": [
         "F:000D8230"
@@ -86441,7 +86444,8 @@
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
+        "doc/ui_windows/legacy_pet_skill_catalog.md#legacy-catalog-table-pointer-relations-20261012"
       ],
       "boundary": "宠物技能目录4D7470：原0x4d75ab..0x4d75b8四条13B，一次取gLegacyPetSkillCatalogActionD67C5C，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
     },
@@ -86453,7 +86457,8 @@
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
+        "doc/ui_windows/legacy_pet_skill_catalog.md#legacy-catalog-table-pointer-relations-20261012"
       ],
       "boundary": "候选宠物4D7C20：原0x4d7ce2..0x4d7cef四条13B，一次取gLegacyPetSkillPetActionD67C60，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
     },
@@ -86465,7 +86470,8 @@
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
+        "doc/ui_windows/legacy_pet_skill_catalog.md#legacy-catalog-table-pointer-relations-20261012"
       ],
       "boundary": "宠物技能槽4D8230：原0x4d82f7..0x4d8304四条13B，一次取gLegacyPetSkillSlotsActionD67C64，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
     },

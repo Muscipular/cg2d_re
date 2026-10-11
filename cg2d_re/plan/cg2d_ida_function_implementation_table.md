@@ -2153,12 +2153,12 @@
 | 2130 | 0x004D6E70 | `sub_4D6E70` | 有正文 | `src/LegacyUiRecord.cpp:2719 — Sub_4D6E70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2131 | 0x004D6EA0 | `sub_4D6EA0` | 有正文 | `src/LegacyUiRecord.cpp:2730 — Sub_4D6EA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2132 | 0x004D7440 | `sub_4D7440` | 有正文 | `src/LegacyCatalogWindows.cpp:192 — Sub_4D7440` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2133 | 0x004D7470 | `sub_4D7470` | 部分实现 | `src/LegacyCatalogWindows.cpp:204 — Sub_4D7470` | 正文已有；CA0478 数组仅有 extern 声明，当前未见定义／生产；C8AF84 页数仅初值与读取，容量和原生产待证；不以数组初值代运行期数据；本轮原IDA限定检索仅见首条已证记录及相关计数／图号的读取、取地址引用，未定位生产者；不外推间接写入不存在；本轮已加载IDA各段的十个已证W32地址字面量检索只命中同30处消费指令，未发现未建xref的地址存储槽；仍不排除动态地址／间接写入 |
+| 2133 | 0x004D7470 | `sub_4D7470` | 部分实现 | `src/LegacyCatalogWindows.cpp:204 — Sub_4D7470` | 正文已有；CA0478 数组仅有 extern 声明，当前未见定义／生产；C8AF84 页数仅初值与读取，容量和原生产待证；不以数组初值代运行期数据；本轮原IDA限定检索仅见首条已证记录及相关计数／图号的读取、取地址引用，未定位生产者；不外推间接写入不存在；本轮已加载IDA各段的十个已证W32地址字面量检索只命中同30处消费指令，未发现未建xref的地址存储槽；仍不排除动态地址／间接写入；LBR01原57C368表第80项(ID58)的57C9AC槽实际存本入口，槽为db而未建立入口xref；当前LegacyAudio.cpp:391同位只存地址编号，旧表实际调度仍待证 |
 | 2134 | 0x004D7BF0 | `sub_4D7BF0` | 有正文 | `src/LegacyCatalogWindows.cpp:355 — Sub_4D7BF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2135 | 0x004D7C20 | `sub_4D7C20` | 部分实现 | `src/LegacyCatalogWindows.cpp:366 — Sub_4D7C20` | 正文已有；消费 CA0478 目录，但当前数组仅有 extern 声明，未见定义／生产；旧目录容量与生产待证；不以数组初值代运行期数据；本轮原IDA限定检索仅见首条已证记录及相关计数／图号的读取、取地址引用，未定位生产者；不外推间接写入不存在；本轮已加载IDA各段的十个已证W32地址字面量检索只命中同30处消费指令，未发现未建xref的地址存储槽；仍不排除动态地址／间接写入 |
+| 2135 | 0x004D7C20 | `sub_4D7C20` | 部分实现 | `src/LegacyCatalogWindows.cpp:366 — Sub_4D7C20` | 正文已有；消费 CA0478 目录，但当前数组仅有 extern 声明，未见定义／生产；旧目录容量与生产待证；不以数组初值代运行期数据；本轮原IDA限定检索仅见首条已证记录及相关计数／图号的读取、取地址引用，未定位生产者；不外推间接写入不存在；本轮已加载IDA各段的十个已证W32地址字面量检索只命中同30处消费指令，未发现未建xref的地址存储槽；仍不排除动态地址／间接写入；LBR01原57C368表第81项(ID59)的57C9C0槽实际存本入口，槽为db而未建立入口xref；当前LegacyAudio.cpp:392同位只存地址编号，旧表实际调度仍待证 |
 | 2136 | 0x004D8200 | `sub_4D8200` | 有正文 | `src/LegacyCatalogWindows.cpp:497 — Sub_4D8200` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2137 | 0x004D8230 | `sub_4D8230` | 部分实现 | `src/LegacyCatalogWindows.cpp:508 — Sub_4D8230` | 正文已有；消费 CA0478 目录，但当前数组仅有 extern 声明，未见定义／生产；旧目录容量与生产待证；不以数组初值代运行期数据；本轮原IDA限定检索仅见首条已证记录及相关计数／图号的读取、取地址引用，未定位生产者；不外推间接写入不存在；本轮已加载IDA各段的十个已证W32地址字面量检索只命中同30处消费指令，未发现未建xref的地址存储槽；仍不排除动态地址／间接写入 |
-| 2138 | 0x004D88C0 | `sub_4D88C0` | 部分实现 | `src/LegacyCatalogWindows.cpp:648 — Sub_4D88C0` | 正文已有；消费 CA0478 目录，但当前数组仅有 extern 声明，未见定义／生产；旧目录容量与生产待证；不以数组初值代运行期数据；本轮原IDA限定检索仅见首条已证记录及相关计数／图号的读取、取地址引用，未定位生产者；不外推间接写入不存在；本轮已加载IDA各段的十个已证W32地址字面量检索只命中同30处消费指令，未发现未建xref的地址存储槽；仍不排除动态地址／间接写入 |
+| 2137 | 0x004D8230 | `sub_4D8230` | 部分实现 | `src/LegacyCatalogWindows.cpp:508 — Sub_4D8230` | 正文已有；消费 CA0478 目录，但当前数组仅有 extern 声明，未见定义／生产；旧目录容量与生产待证；不以数组初值代运行期数据；本轮原IDA限定检索仅见首条已证记录及相关计数／图号的读取、取地址引用，未定位生产者；不外推间接写入不存在；本轮已加载IDA各段的十个已证W32地址字面量检索只命中同30处消费指令，未发现未建xref的地址存储槽；仍不排除动态地址／间接写入；LBR01原57C368表第82项(ID60)的57C9D4槽实际存本入口，槽为db而未建立入口xref；当前LegacyAudio.cpp:393同位只存地址编号，旧表实际调度仍待证 |
+| 2138 | 0x004D88C0 | `sub_4D88C0` | 部分实现 | `src/LegacyCatalogWindows.cpp:648 — Sub_4D88C0` | 正文已有；消费 CA0478 目录，但当前数组仅有 extern 声明，未见定义／生产；旧目录容量与生产待证；不以数组初值代运行期数据；本轮原IDA限定检索仅见首条已证记录及相关计数／图号的读取、取地址引用，未定位生产者；不外推间接写入不存在；本轮已加载IDA各段的十个已证W32地址字面量检索只命中同30处消费指令，未发现未建xref的地址存储槽；仍不排除动态地址／间接写入；LBR01原57C368表第83项(ID61)的57C9E8槽实际存本入口，槽为db而未建立入口xref；当前LegacyAudio.cpp:394同位只存地址编号，旧表实际调度仍待证 |
 | 2139 | 0x004D8D70 | `sub_4D8D70` | 有正文 | `src/LegacyUiRecord.cpp:3320 — Sub_4D8D70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2140 | 0x004D8DA0 | `sub_4D8DA0` | 有正文 | `src/LegacyUiRecord.cpp:3331 — Sub_4D8DA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2141 | 0x004D91E0 | `sub_4D91E0` | 有正文 | `src/LegacyUiRecord.cpp:3450 — Sub_4D91E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2203,7 +2203,7 @@
 | 2180 | 0x004E4A50 | `sub_4E4A50` | 有正文 | `src/LegacyUiRecord.cpp:3158 — Sub_4E4A50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2181 | 0x004E4E60 | `sub_4E4E60` | 有正文 | `src/ui/WindowRuntime.cpp:12919 — Sub_4E4E60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2182 | 0x004E4E80 | `sub_4E4E80` | 有正文 | `src/ui/WindowRuntime.cpp:12959 — Sub_4E4E80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2183 | 0x004E4EA0 | `sub_4E4EA0` | 部分实现 | `src/LegacyCatalogWindows.cpp:102 — Sub_4E4EA0` | 正文已有；CB1D1C 名单仅 extern，当前未见定义／生产；数量 D30134 与页数 CF46D0 仅初值与读取，容量和原生产待证；不以数组初值代运行期数据；本轮原IDA限定检索仅见首条已证记录及相关计数／图号的读取、取地址引用，未定位生产者；不外推间接写入不存在；本轮已加载IDA各段的十个已证W32地址字面量检索只命中同30处消费指令，未发现未建xref的地址存储槽；仍不排除动态地址／间接写入 |
+| 2183 | 0x004E4EA0 | `sub_4E4EA0` | 部分实现 | `src/LegacyCatalogWindows.cpp:102 — Sub_4E4EA0` | 正文已有；CB1D1C 名单仅 extern，当前未见定义／生产；数量 D30134 与页数 CF46D0 仅初值与读取，容量和原生产待证；不以数组初值代运行期数据；本轮原IDA限定检索仅见首条已证记录及相关计数／图号的读取、取地址引用，未定位生产者；不外推间接写入不存在；本轮已加载IDA各段的十个已证W32地址字面量检索只命中同30处消费指令，未发现未建xref的地址存储槽；仍不排除动态地址／间接写入；LBR01原57C368表第48项(ID51)的57C72C槽实际存本入口，槽为db而未建立入口xref；当前LegacyAudio.cpp:359同位只存地址编号，旧表实际调度仍待证 |
 | 2184 | 0x004E52B0 | `sub_4E52B0` | 有正文 | `src/ui/WindowRuntime.cpp:12999 — Sub_4E52B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2185 | 0x004E54E0 | `sub_4E54E0` | 有正文 | `src/ui/WindowRuntime.cpp:2098 — Sub_4E54E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2186 | 0x004E5600 | `sub_4E5600` | 有正文 | `src/ui/WindowRuntime.cpp:2129 — Sub_4E5600` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -3175,7 +3175,7 @@
 | 3152 | 0x0053B406 | `_atexit` | 有承接 | `src/platform/LegacyCryptInt.cpp:33 — InitializeLegacyStartupValues_401C10；src/platform/MainLoopSupport.cpp:245 — InitializeLegacyProtectionChecksum1_404120` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3153 | 0x0053B418 | `___onexitinit` | 有承接 | `src/platform/ClientEntry.cpp:242 — WinMain；src/platform/LegacyRuntimeError.cpp:9 — TerminateLegacyRuntime_540A5C` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3154 | 0x0053B447 | `sub_53B447` | 有承接 | `CMakeLists.txt:166 — 宿主CRT启动；src/platform/ClientEntry.cpp:242 — WinMain；src/platform/LegacyFormat.cpp:22 — std::vfprintf；src/platform/LegacyScan.cpp:8 — std::vfscanf` | 原53C8CD在C／C++初始化前从58F864间接调用；旧六回调／CPU探测／x87默认精度随MC01-C2退休，当前MSVC整体启动／格式／扫描服务；不新增旧回调槽或声明硬件状态等价 |
-| 3155 | 0x0053B45E | `nullsub_6` | 待确认 | `—` | 原入口为单RET；仅58F868／58F86C两数据槽引用，本轮两槽无已建消费xref，不能称已证启动表；具体原职责／当前承接仍待证，不猜不可达／不适用或造空回调；已加载各段的本入口W32地址字面量只命中上述两槽，未找到新增引用，不外推动态目标不存在 |
+| 3155 | 0x0053B45E | `nullsub_6` | 待确认 | `—` | 原入口为单RET；仅58F868／58F86C两数据槽引用，本轮两槽无已建消费xref，不能称已证启动表；具体原职责／当前承接仍待证，不猜不可达／不适用或造空回调；已加载各段的本入口W32地址字面量只命中上述两槽，未找到新增引用，不外推动态目标不存在；当前IDA无FUNC_LIB标记且类型为void()（来源未确认），不能按邻接库函数推库身份／当前关系 |
 | 3156 | 0x0053B45F | `__cfltcvt_init_7` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3157 | 0x0053B498 | `__ftol` | 有承接 | `src/Palette.cpp:138 — TruncatedLowByte；src/render/LegacyTextureDrawing.cpp:132 — TruncateTextureCoordinate` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3158 | 0x0053B4BF | `sub_53B4BF` | 有正文 | `src/platform/MainLoopSupport.cpp:660 — SeedRandom_53B4BF` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -3261,7 +3261,7 @@
 | 3238 | 0x0053DDB5 | `start` | 有承接 | `src/platform/ClientEntry.cpp:242 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3239 | 0x0053DEAB | `__amsg_exit` | 有承接 | `src/platform/ClientEntry.cpp:242 — WinMain；src/platform/LegacyStringCompare.cpp:10 — ClassifyLegacySpace_53BDEF` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3240 | 0x0053DED0 | `_fast_error_exit` | 有承接 | `src/platform/ClientEntry.cpp:242 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3241 | 0x0053DEF3 | `nullsub_7` | 待确认 | `—` | 原入口单RET且当前无已建入引用；无依据对应格式输出，移除该候选；具体原职责／当前关系仍待证，不猜原不可达／不适用或造空回调；已加载各段的本入口W32地址字面量无命中，仍不外推动态目标不存在 |
+| 3241 | 0x0053DEF3 | `nullsub_7` | 待确认 | `—` | 原入口单RET且当前无已建入引用；无依据对应格式输出，移除该候选；具体原职责／当前关系仍待证，不猜原不可达／不适用或造空回调；已加载各段的本入口W32地址字面量无命中，仍不外推动态目标不存在；当前IDA无FUNC_LIB标记且类型为void()（来源未确认），不能按邻接库函数推库身份／当前关系 |
 | 3242 | 0x0053DEF4 | `__input` | 有承接 | `src/platform/LegacyScan.cpp:8 — ScanLegacyInput_53DEF4` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3243 | 0x0053E919 | `__hextodec` | 有承接 | `src/platform/ClientEntry.cpp:242 — WinMain；src/platform/LegacyStringCompare.cpp:10 — ClassifyLegacySpace_53BDEF` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3244 | 0x0053E950 | `_fgetc_0` | 有承接 | `src/platform/LegacyStdio.cpp:26 — ReadLegacyStreamByte_53C8B3` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |

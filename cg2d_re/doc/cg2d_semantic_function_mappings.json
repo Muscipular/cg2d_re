@@ -121756,7 +121756,8 @@
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
         "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
-        "doc/cg2d_client_link_sdl_audio_evidence.json"
+        "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "doc/ui_windows/legacy_pet_skill_catalog.md#legacy-catalog-table-pointer-relations-20261012"
       ],
       "boundary": "只替换五处原格式接口，保留绝对发送索引与相对选择发布差异、16B/16B/cap15及读序、256B共用显示、每行96B/U16门槛/+4值/+8费用S32、各次新页号/金额/价格与格式后布局。原失败/翻页/预览/关闭/SE返回/完整尾返回保持；CA0478容量与生产、CC3E64图号、C8AF84页数仍仅外部声明，D45F74既有定义不再报缺，旧路由/运行未闭合。；2026-10-04依据PE.data载入填零尾证据建立已消费S32槽真实唯一存储；仅装载初值0，不添加运行时复位/补值/生产，未定数组继续extern，既有全部正文/读取/发送及后续重读保持。 宠物技能目录4D7470：原0x4d75ab..0x4d75b8四条13B，一次取gLegacyPetSkillCatalogActionD67C5C，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 BVZ01六技能/宠物技能页面一CPP六片段实修：消除opaque YobiAction::flags直接访问，恢复共享预览一次持样、同样本判空并以既有SetYobiActionFlag2(false)清W32 bit1。原六阶段24条78B及四零寄存器上下文有据，六完整父其余正文、生产/关闭、格式/字节/消费者和原生helper/头保持；无新函数/API/helper/owner或保护，六已有原新追加/六adapted F，六页各一实际父与限定I-S。仅本阶段，不重验全部父/旧外路由或正常owner-alias寿命/画面运行；原格式明文、音频暂停及RPLAN.24保持。",
       "original_incoming": [],
@@ -122025,6 +122026,33 @@
         "source_check_ref": "doc/cg2d_client_link_sdl_audio_evidence.json",
         "runtime_verified": false,
         "full_feature_accepted": false
+      },
+      "original_table_pointer_binding_lbr01": {
+        "table_start": "0x57C368",
+        "table_end_exclusive": "0x57CB24",
+        "record_bytes": 20,
+        "record_count": 99,
+        "record_index": 80,
+        "window_id": 58,
+        "id_slot": "0x57C9A8",
+        "function_slot": "0x57C9AC",
+        "raw_little_endian_w32_value": "0x4D7470",
+        "category_w32": 2,
+        "runtime_action_w32": 0,
+        "tail_w32": 0,
+        "ida_function_xref_created": false,
+        "observation_kind": "loaded_data_w32_pointer_not_function_entry_xref",
+        "current_identity_table": {
+          "path": "src/LegacyAudio.cpp",
+          "line": 391,
+          "symbol": "gSoundRecords57C368",
+          "field": "handlerToken",
+          "callable_native_callback": false
+        },
+        "original_table_callback_dispatch_proved": false,
+        "capacity_or_production_proved": false,
+        "runtime_verified": false,
+        "evidence_reference": "doc/ui_windows/legacy_pet_skill_catalog.md#legacy-catalog-table-pointer-relations-20261012"
       }
     },
     {
@@ -122072,7 +122100,8 @@
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
         "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
-        "doc/cg2d_client_link_sdl_audio_evidence.json"
+        "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "doc/ui_windows/legacy_pet_skill_catalog.md#legacy-catalog-table-pointer-relations-20261012"
       ],
       "boundary": "只替换五格式标识符；相对行16B/独立转义16B/cap15、发送后才发布C8A94C、取消原共享593850不变。64B共用显示、目录96B各次页号/相对选择/+4值/+8费用、五候选40B/used绘制而allowed只影响原颜色与点击、名称前颜色快照和名称绘后数值S32、原完整返回保持。目录三外部缺口/真实旧路由与运行未闭合。；2026-10-04依据PE.data载入填零尾证据建立已消费S32槽真实唯一存储；仅装载初值0，不添加运行时复位/补值/生产，未定数组继续extern，既有全部正文/读取/发送及后续重读保持。 候选宠物4D7C20：原0x4d7ce2..0x4d7cef四条13B，一次取gLegacyPetSkillPetActionD67C60，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 BVZ01六技能/宠物技能页面一CPP六片段实修：消除opaque YobiAction::flags直接访问，恢复共享预览一次持样、同样本判空并以既有SetYobiActionFlag2(false)清W32 bit1。原六阶段24条78B及四零寄存器上下文有据，六完整父其余正文、生产/关闭、格式/字节/消费者和原生helper/头保持；无新函数/API/helper/owner或保护，六已有原新追加/六adapted F，六页各一实际父与限定I-S。仅本阶段，不重验全部父/旧外路由或正常owner-alias寿命/画面运行；原格式明文、音频暂停及RPLAN.24保持。",
       "original_incoming": [],
@@ -122304,6 +122333,33 @@
         "source_check_ref": "doc/cg2d_client_link_sdl_audio_evidence.json",
         "runtime_verified": false,
         "full_feature_accepted": false
+      },
+      "original_table_pointer_binding_lbr01": {
+        "table_start": "0x57C368",
+        "table_end_exclusive": "0x57CB24",
+        "record_bytes": 20,
+        "record_count": 99,
+        "record_index": 81,
+        "window_id": 59,
+        "id_slot": "0x57C9BC",
+        "function_slot": "0x57C9C0",
+        "raw_little_endian_w32_value": "0x4D7C20",
+        "category_w32": 2,
+        "runtime_action_w32": 0,
+        "tail_w32": 0,
+        "ida_function_xref_created": false,
+        "observation_kind": "loaded_data_w32_pointer_not_function_entry_xref",
+        "current_identity_table": {
+          "path": "src/LegacyAudio.cpp",
+          "line": 392,
+          "symbol": "gSoundRecords57C368",
+          "field": "handlerToken",
+          "callable_native_callback": false
+        },
+        "original_table_callback_dispatch_proved": false,
+        "capacity_or_production_proved": false,
+        "runtime_verified": false,
+        "evidence_reference": "doc/ui_windows/legacy_pet_skill_catalog.md#legacy-catalog-table-pointer-relations-20261012"
       }
     },
     {
@@ -122351,7 +122407,8 @@
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
         "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
-        "doc/cg2d_client_link_sdl_audio_evidence.json"
+        "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "doc/ui_windows/legacy_pet_skill_catalog.md#legacy-catalog-table-pointer-relations-20261012"
       ],
       "boundary": "只替换五原格式接口，同64B共用未清缓冲/五S32；目录96B各次新页号/选择/+4值/+8价、候选40B名称绘后新选择/+4值、92B技能槽名称绘后+4值、说明后独立金额、各格式后Y/X和原字体保持。十槽点击依slots、绘名/值依used、可用图独立依slots、hover说明不查used的区别保持；原确认页关联关闭、预览/网络/副作用与完整返回不动。目录三外部缺口、原路由及运行未闭合。；2026-10-04依据PE.data载入填零尾证据建立已消费S32槽真实唯一存储；仅装载初值0，不添加运行时复位/补值/生产，未定数组继续extern，既有全部正文/读取/发送及后续重读保持。 宠物技能槽4D8230：原0x4d82f7..0x4d8304四条13B，一次取gLegacyPetSkillSlotsActionD67C64，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 BVZ01六技能/宠物技能页面一CPP六片段实修：消除opaque YobiAction::flags直接访问，恢复共享预览一次持样、同样本判空并以既有SetYobiActionFlag2(false)清W32 bit1。原六阶段24条78B及四零寄存器上下文有据，六完整父其余正文、生产/关闭、格式/字节/消费者和原生helper/头保持；无新函数/API/helper/owner或保护，六已有原新追加/六adapted F，六页各一实际父与限定I-S。仅本阶段，不重验全部父/旧外路由或正常owner-alias寿命/画面运行；原格式明文、音频暂停及RPLAN.24保持。",
       "original_incoming": [],
@@ -122586,6 +122643,33 @@
         "source_check_ref": "doc/cg2d_client_link_sdl_audio_evidence.json",
         "runtime_verified": false,
         "full_feature_accepted": false
+      },
+      "original_table_pointer_binding_lbr01": {
+        "table_start": "0x57C368",
+        "table_end_exclusive": "0x57CB24",
+        "record_bytes": 20,
+        "record_count": 99,
+        "record_index": 82,
+        "window_id": 60,
+        "id_slot": "0x57C9D0",
+        "function_slot": "0x57C9D4",
+        "raw_little_endian_w32_value": "0x4D8230",
+        "category_w32": 2,
+        "runtime_action_w32": 0,
+        "tail_w32": 0,
+        "ida_function_xref_created": false,
+        "observation_kind": "loaded_data_w32_pointer_not_function_entry_xref",
+        "current_identity_table": {
+          "path": "src/LegacyAudio.cpp",
+          "line": 393,
+          "symbol": "gSoundRecords57C368",
+          "field": "handlerToken",
+          "callable_native_callback": false
+        },
+        "original_table_callback_dispatch_proved": false,
+        "capacity_or_production_proved": false,
+        "runtime_verified": false,
+        "evidence_reference": "doc/ui_windows/legacy_pet_skill_catalog.md#legacy-catalog-table-pointer-relations-20261012"
       }
     },
     {
@@ -122607,7 +122691,8 @@
         "doc/ui_windows/legacy_pet_skill_catalog.md",
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
-        "doc/cg2d_client_link_sdl_audio_evidence.json"
+        "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "doc/ui_windows/legacy_pet_skill_catalog.md#legacy-catalog-table-pointer-relations-20261012"
       ],
       "boundary": "只替换六原格式标识符；槽号S32/未清16B直接mode0发送无转义，三非拥有T*名和两个S32金额/费用共用未清256B。96B目录/40B候选/92B槽字段与各次选择读取、技能/槽真实buffer测宽、宠物固定588320示例测宽却画真实buffer、空槽仅原strcpy、原各次布局/前缀空白/按钮副作用/完整返回保持。目录三外部缺口/旧路由与运行不宣闭合。",
       "original_incoming": [],
@@ -122799,6 +122884,33 @@
         "source_check_ref": "doc/cg2d_client_link_sdl_audio_evidence.json",
         "runtime_verified": false,
         "full_feature_accepted": false
+      },
+      "original_table_pointer_binding_lbr01": {
+        "table_start": "0x57C368",
+        "table_end_exclusive": "0x57CB24",
+        "record_bytes": 20,
+        "record_count": 99,
+        "record_index": 83,
+        "window_id": 61,
+        "id_slot": "0x57C9E4",
+        "function_slot": "0x57C9E8",
+        "raw_little_endian_w32_value": "0x4D88C0",
+        "category_w32": 2,
+        "runtime_action_w32": 0,
+        "tail_w32": 0,
+        "ida_function_xref_created": false,
+        "observation_kind": "loaded_data_w32_pointer_not_function_entry_xref",
+        "current_identity_table": {
+          "path": "src/LegacyAudio.cpp",
+          "line": 394,
+          "symbol": "gSoundRecords57C368",
+          "field": "handlerToken",
+          "callable_native_callback": false
+        },
+        "original_table_callback_dispatch_proved": false,
+        "capacity_or_production_proved": false,
+        "runtime_verified": false,
+        "evidence_reference": "doc/ui_windows/legacy_pet_skill_catalog.md#legacy-catalog-table-pointer-relations-20261012"
       }
     },
     {
@@ -123023,7 +123135,8 @@
         "doc/cg2d_trade_target_production_spec.md#trade-target-production-source-state",
         "doc/cg2d_trade_target_production_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#client-link-sdl-audio-source-state",
-        "doc/cg2d_client_link_sdl_audio_evidence.json"
+        "doc/cg2d_client_link_sdl_audio_evidence.json",
+        "doc/ui_windows/legacy_pet_skill_catalog.md#legacy-catalog-table-pointer-relations-20261012"
       ],
       "boundary": "只替换页码原4E5126，586D48 %d/%d/两S32/未清128B；CF46D0>1布局快照、标题后新读CC3208页号/CF46D0页数、格式后新Y/X、另读页号及原各次扫描/绘制缓存、CC4D48发布后发送后重读选择/借原名称4E5620、提示和完整尾返回不动。CC3208已有唯一定义不报缺；CB1D1C名单容量/生产、D30134总数、CF46D0页数三项继续外部未闭合，不注册或补空数据。；2026-10-04依据PE.data载入填零尾证据建立已消费S32槽真实唯一存储；仅装载初值0，不添加运行时复位/补值/生产，未定数组继续extern，既有全部正文/读取/发送及后续重读保持。 TTP01三生产字段定点采集工具/方案已准备，当前原端未在调试，容量/写者未证；基类补完整断点范围冲突检查。未安装/执行采集，不增加客户端功能或完整门禁，动态许可须独立恢复。",
       "original_incoming": [],
@@ -123139,6 +123252,33 @@
         "source_check_ref": "doc/cg2d_client_link_sdl_audio_evidence.json",
         "runtime_verified": false,
         "full_feature_accepted": false
+      },
+      "original_table_pointer_binding_lbr01": {
+        "table_start": "0x57C368",
+        "table_end_exclusive": "0x57CB24",
+        "record_bytes": 20,
+        "record_count": 99,
+        "record_index": 48,
+        "window_id": 51,
+        "id_slot": "0x57C728",
+        "function_slot": "0x57C72C",
+        "raw_little_endian_w32_value": "0x4E4EA0",
+        "category_w32": 2,
+        "runtime_action_w32": 0,
+        "tail_w32": 0,
+        "ida_function_xref_created": false,
+        "observation_kind": "loaded_data_w32_pointer_not_function_entry_xref",
+        "current_identity_table": {
+          "path": "src/LegacyAudio.cpp",
+          "line": 359,
+          "symbol": "gSoundRecords57C368",
+          "field": "handlerToken",
+          "callable_native_callback": false
+        },
+        "original_table_callback_dispatch_proved": false,
+        "capacity_or_production_proved": false,
+        "runtime_verified": false,
+        "evidence_reference": "doc/ui_windows/legacy_pet_skill_catalog.md#legacy-catalog-table-pointer-relations-20261012"
       }
     },
     {

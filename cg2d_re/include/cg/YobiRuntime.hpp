@@ -444,12 +444,12 @@ void AppendBattleSkillTail_424500(
     YobiAction* scene, std::int32_t position, std::uint32_t flags,
     std::int32_t mode, std::int32_t target);
 
-// 原1C起的16B效果值记录；仅传数值，不含底层对象指针。
+// 原1C起的16B数值记录；按动作解释字段，见BMSA06控制/附加记录合同，不含对象指针。
 struct BattleEntryEffectRecord {
-    std::int32_t position; // 原记录+00，-1为队列哨兵。
-    std::uint32_t flags; // 原记录+04。
-    std::int32_t position3; // 原记录+08，4393A0/439400写入。
-    std::int32_t position4; // 原记录+0C，仅439400写入。
+    std::int32_t position; // 原记录+00；命中目标、245特效类型或-1队列哨兵。
+    std::uint32_t flags; // 原记录+04，保持完整W32标志。
+    std::int32_t position3; // 原记录+08；数值/附加图号，245用作寿命输入。
+    std::int32_t position4; // 原记录+0C；图号/附加值，三字段4393A0不写此字段。
 };
 void UpdateBattleActor_404DB0(YobiAction* action); // 完整257槽与固定入口载荷公共尾，场景7直接返回。
 YobiAction* NewBattleSpiracleShot_418B70(YobiAction* parent, const BattleEntryEffectRecord* effect, std::int32_t imageNo);

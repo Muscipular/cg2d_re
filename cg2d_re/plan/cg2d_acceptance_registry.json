@@ -5405,7 +5405,8 @@
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-zero-copy",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-item-completion"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-item-completion",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -5839,7 +5840,8 @@
         "F:0008BF10",
         "F:0008BC90",
         "F:00019C10",
-        "F:000217F0"
+        "F:000217F0",
+        "F:000239D0"
       ],
       "closure_task_ids": [
         "P01",
@@ -6301,7 +6303,8 @@
         "doc/cg2d_battle_item_interaction_spec.md#battle-item-baseline",
         "doc/cg2d_battle_item_interaction_spec.md#evidence-archive-20261011",
         "doc/cg2d_item_drag_entry_callback_spec.md#item-drag-baseline",
-        "doc/cg2d_item_drag_entry_callback_spec.md#evidence-archive-20261011"
+        "doc/cg2d_item_drag_entry_callback_spec.md#evidence-archive-20261011",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid"
       ]
     },
     {
@@ -68481,6 +68484,84 @@
       "differences": [],
       "result": "pass",
       "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-BMSA06-BATTLE-I-20261011",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:000239D0"
+      ],
+      "baseline_reference": "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid",
+      "implementation_reference": "[#] 对齐技能效果记录语义与RID索引宽度",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid",
+        "doc/cg2d_battle_attack_targets_spec.md#attack-target-source-closure",
+        "doc/cg2d_battle_m_attack_targets_call_sampling_spec.md",
+        "doc/cg2d_battle_m_skill_entry_waiting_sampling_spec.md",
+        "src/YobiRuntime.cpp#ParseBattleMRide_4239D0",
+        "src/YobiRuntime.cpp#AppendBattleEffectList_4393A0",
+        "src/YobiRuntime.cpp#AppendBattleEffect_439400",
+        "src/YobiRuntime.cpp#AppendBattleAuxEffects_43BC10",
+        "src/YobiRuntime.cpp#AdvanceBattleEffectAndCast_40CAF0",
+        "src/YobiRuntime.cpp#UpdateBattleAction245_418580",
+        "include/cg/YobiRuntime.hpp#BattleEntryEffectRecord"
+      ],
+      "observation": "RID种类原4239FD/423A1B/423A24为EDI32清零/递增/比较22，当前原size_t扩64。P01实际levelIndex>=9/skill-257六槽表与257/259/260/262控制type2/0/1/3、flag0/寿命15及阶段74/245关系可追；五小根128条394B/8直接CALL，Aux追加两附加及主记录副本，第三次推进回副本。",
+      "expected": "仅RID kind和25项比较恢复S32；其余原预读/游标回退/首匹配/角色/失败及接口保持。字段按动作区分命中目标/245类型、数值/图号/寿命，三字段写入器不补第四字段；Aux复制及推进完整顺序保持，不新增私有队列或guard。",
+      "actual": "整CPP仅RID两个表达式；公开头仅五合同注释，类型/顺序/16B布局与所有其它body/声明保持。有限记录生产/消费及等待尾有据，五正确小根未改；实际4256ED/425702/425727为CALL，不误用ctree的4256AF跳转地址。I仅kind实现修正，注释不计新I；S不代完整595条RID/3089条P01、全部SKL模式/别名-owner/资源/ABI或运行。",
+      "differences": [
+        {
+          "description": "RID消息种类kind从x64 size_t恢复原32位，并将固定25项size比较转换同型；只声明及比较两行，正常范围0..25不变，不声称观察到运行故障。",
+          "decision_ref": "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-BMSA06-BATTLE-S-20261011",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:000239D0",
+        "F:00024620",
+        "F:000393A0",
+        "F:00039400",
+        "F:0003BC10",
+        "F:0000CAF0",
+        "F:00018580"
+      ],
+      "baseline_reference": "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid",
+      "implementation_reference": "[#] 对齐技能效果记录语义与RID索引宽度",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid",
+        "doc/cg2d_battle_attack_targets_spec.md#attack-target-source-closure",
+        "doc/cg2d_battle_m_attack_targets_call_sampling_spec.md",
+        "doc/cg2d_battle_m_skill_entry_waiting_sampling_spec.md",
+        "src/YobiRuntime.cpp#ParseBattleMRide_4239D0",
+        "src/YobiRuntime.cpp#AppendBattleEffectList_4393A0",
+        "src/YobiRuntime.cpp#AppendBattleEffect_439400",
+        "src/YobiRuntime.cpp#AppendBattleAuxEffects_43BC10",
+        "src/YobiRuntime.cpp#AdvanceBattleEffectAndCast_40CAF0",
+        "src/YobiRuntime.cpp#UpdateBattleAction245_418580",
+        "include/cg/YobiRuntime.hpp#BattleEntryEffectRecord"
+      ],
+      "observation": "RID种类原4239FD/423A1B/423A24为EDI32清零/递增/比较22，当前原size_t扩64。P01实际levelIndex>=9/skill-257六槽表与257/259/260/262控制type2/0/1/3、flag0/寿命15及阶段74/245关系可追；五小根128条394B/8直接CALL，Aux追加两附加及主记录副本，第三次推进回副本。",
+      "expected": "仅RID kind和25项比较恢复S32；其余原预读/游标回退/首匹配/角色/失败及接口保持。字段按动作区分命中目标/245类型、数值/图号/寿命，三字段写入器不补第四字段；Aux复制及推进完整顺序保持，不新增私有队列或guard。",
+      "actual": "整CPP仅RID两个表达式；公开头仅五合同注释，类型/顺序/16B布局与所有其它body/声明保持。有限记录生产/消费及等待尾有据，五正确小根未改；实际4256ED/425702/425727为CALL，不误用ctree的4256AF跳转地址。I仅kind实现修正，注释不计新I；S不代完整595条RID/3089条P01、全部SKL模式/别名-owner/资源/ABI或运行。",
+      "differences": [
+        {
+          "description": "RID消息种类kind从x64 size_t恢复原32位，并将固定25项size比较转换同型；只声明及比较两行，正常范围0..25不变，不声称观察到运行故障。",
+          "decision_ref": "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
     }
   ],
   "task_acceptance": [
@@ -70295,7 +70376,8 @@
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid"
       ]
     },
     {
@@ -71322,7 +71404,8 @@
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid"
       ]
     },
     {
@@ -71793,7 +71876,8 @@
         "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid"
       ]
     },
     {
@@ -72086,7 +72170,8 @@
         "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid"
       ]
     },
     {
@@ -72966,7 +73051,8 @@
         "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid"
       ]
     },
     {
@@ -73145,7 +73231,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_battle_attack_targets_spec.md#attack-target-source-closure",
-        "doc/cg2d_local_determinism_spec.md"
+        "doc/cg2d_local_determinism_spec.md",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid"
       ]
     },
     {
@@ -78389,7 +78476,8 @@
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision",
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-acceptance",
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
-        "doc/cg2d_battle_queue_readiness_sampling_evidence.json"
+        "doc/cg2d_battle_queue_readiness_sampling_evidence.json",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid"
       ]
     },
     {
@@ -78449,7 +78537,8 @@
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-decision",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-acceptance",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
-        "doc/cg2d_battle_reset_append_baseline_evidence.json"
+        "doc/cg2d_battle_reset_append_baseline_evidence.json",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid"
       ]
     },
     {
@@ -78697,7 +78786,8 @@
       "evidence_refs": [
         "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-baseline",
         "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-decision",
-        "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state"
+        "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid"
       ],
       "boundary": "已批准x64 native非拥有T*承载、S32/W32/16B值语义保持；既有完整正确正常本体与原消费者合同纳管，仅局部I/S，全部owner/ABI-SDK/运行未验"
     },
@@ -80684,7 +80774,8 @@
         "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-decision",
         "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-acceptance",
         "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-source-state",
-        "doc/cg2d_battle_shared_cast_arc_sampling_evidence.json"
+        "doc/cg2d_battle_shared_cast_arc_sampling_evidence.json",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid"
       ],
       "boundary": "245：fixed payload/currentIndex，same record.position3 S32寿命先、position S32类型后，NewTiled(type,lifetime)→439470→439340，原实参次序和正常源正确体保持。 七完整原根729条2516B/十四页、60call/26入口/77普通内部jump/十二ret，七唯一404DB0入向21邻窗/56B、238/239两个实际共用表项与三F32常数。七物理身份覆盖八逻辑状态，不重复计共体/不新R7。只238/239五片段和241一片段共六：归零index/encoded先position/共享目标；三W8源表达式承接四真实原W8点，属性共用表达式对应两原路径；speed先零比较再phase239、声事件先X。正常旧值一致，不称并发/数值或机器故障。其它五完整正确体/共享helper、W32寄存器旗位/原HP图标/Attribute接收者、两播放/原循环和额外推进/状态/返回/RNG及真实失败/非空分支保持。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。"
     },
@@ -80854,7 +80945,8 @@
         "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-decision",
         "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-acceptance",
         "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state",
-        "doc/cg2d_battle_participant_turn_name_sampling_evidence.json"
+        "doc/cg2d_battle_participant_turn_name_sampling_evidence.json",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid"
       ],
       "boundary": "40CAF0：439470(source)弃返，随后439340(source)，顺序和源正确体保持。原唯一父404DB0 case74弃返，没有按第一个返回新增条件，也没有提前缓存施法状态；局部正常源不承诺生成机器ABI。 六完整原根171条467B/六页、13call/8callee、19普通内部jump/六ret；八原入向来自404DB0/43CBB0，两推进父与六场景消费父各捕一个实际前指令/call/后指令，八窗24条107B。另存场景局部返回比较/EBP=1初始化窗，父switch仅邻近观察、不新增R7分类或父完整验收。只三个源体五片段：43C910/43CA50低W8 FDC、43C9A0两独立低W8全局读取与共享两阵营投影的四S32操作数原序/F32 Y后X发布；四新W8表达式对四原点，投影一源片段承接两物理路径，正常旧值一致。20槽共享span/前后fresh指针/两阵营顺序/返回消费/正确名字Y前X后和逐槽颜色继承、两个正确推进体保。不外推生成机器ABI/实际x87/其它全部生产与owner寿命/递归父/画面运行；R7/任务完整门禁保，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。"
     },
@@ -96291,6 +96383,17 @@
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state"
       ]
+    },
+    {
+      "inventory_id": "F:000239D0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid",
+        "doc/cg2d_semantic_function_mappings.json#/records/811",
+        "doc/cg2d_legacy_string_compare.md"
+      ],
+      "boundary": "已有语义811/真实RID正文及595条库存统计保持，不重复身份。本步仅消息种类kind原EDI32取样/递增/22门禁，将size_t恢复S32及固定25项size比较同型化；只两行，无新增校验、补零/钳制/保护、容量或RNG/失败策略。原其余RID/字符/预读回退/角色分配更新/数值/音效和接口保持；适配处置不等于完整RID、全部父-callee/正常失败/资源、alias-owner/机器ABI或运行通过，全部适用门禁保持。"
     }
   ],
   "auxiliary_dispositions": [

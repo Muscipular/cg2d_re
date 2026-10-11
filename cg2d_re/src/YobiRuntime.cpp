@@ -21998,8 +21998,8 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
     for (;;) {
         const std::int32_t initialOffset = scene->packetOffset64;
         static_cast<void>(GetBattleMObjectHeader_423960(action, header.data()));
-        std::size_t kind = 0;
-        while (kind < kBattleMHeaders553E94.size()
+        std::int32_t kind = 0;
+        while (kind < static_cast<std::int32_t>(kBattleMHeaders553E94.size())
             && platform::StrStr_53BE40(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
             ++kind;
         }

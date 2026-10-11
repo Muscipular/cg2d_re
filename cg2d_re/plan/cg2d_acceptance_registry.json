@@ -1211,7 +1211,9 @@
         "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state",
         "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-source-state",
         "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
-        "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012"
+        "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012",
+        "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012",
+        "doc/cg2d_msvc_crt_file_spec.md#win32-error-current-service-20261012"
       ],
       "historical_cpp_blockers_before_mc01c1": {
         "git_snapshot": "cg2d-re-msvc-crt-cpp-history-20261010",
@@ -69226,6 +69228,82 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-12"
+    },
+    {
+      "id": "E-MCH01-CRT-S-20261012",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:0013C3EA",
+        "F:00141A43",
+        "F:00141A70",
+        "F:00141BB8",
+        "F:00141C88",
+        "F:0014275C",
+        "F:001428A0",
+        "F:001428F6",
+        "F:001429B8",
+        "F:00142A0F",
+        "F:00142A54",
+        "F:00142C5C",
+        "F:00142D80"
+      ],
+      "baseline_reference": "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012",
+      "implementation_reference": "[#] 核定私有堆与系统错误入口的MSVC承接",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
+        "src/platform/LegacyMemory.cpp",
+        "src/platform/LegacyTime.cpp",
+        "src/platform/LegacyLowIo.cpp",
+        "CMakeLists.txt",
+        "plan/cg2d_ida_function_implementation_table.md"
+      ],
+      "observation": "全量表十三项范围待确认；原入引用和Win32堆／虚存CALL摘要及PE／OS／环境选择读点确认在旧CRT分配／释放／扩容／容量／启动链。当前实际标准分配族及宿主CRT启动配置可定位。",
+      "expected": "根据真实调用／角色及当前服务明确整体承接，保原ID／业务定宽消费／owner；不凭地址段归CRT，不造旧池／选择器／错误表或同名假体，不声称库内划分和原ABI等价。",
+      "actual": "全量表十四项明确当前标准库／宿主服务范围并核为有承接；十三旧语义只补来源，一错误语义新增，既有host／CRT553成员保。源码／头／配置全文未变，限定关系S不代全部业务owner／错误消费／失败／寿命／运行通过。",
+      "differences": [
+        {
+          "description": "已批准的MSVC堆策略／初始化／元数据／失败及文件错误映射／TLS／参数校验替代旧库内机制；业务输入／返回消费、owner及运行仍待。",
+          "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-12"
+    },
+    {
+      "id": "E-MCE01-CRT-S-20261012",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:00142F44"
+      ],
+      "baseline_reference": "doc/cg2d_msvc_crt_file_spec.md#win32-error-current-service-20261012",
+      "implementation_reference": "[#] 核定私有堆与系统错误入口的MSVC承接",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_msvc_crt_file_spec.md#win32-error-current-service-20261012",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
+        "src/platform/LegacyMemory.cpp",
+        "src/platform/LegacyTime.cpp",
+        "src/platform/LegacyLowIo.cpp",
+        "CMakeLists.txt",
+        "plan/cg2d_ida_function_implementation_table.md"
+      ],
+      "observation": "原542F44为26条103B的系统错误→DOS错误／errno更新，九旧文件／目录父有据；当前MSVC文件／目录服务及同线程错误访问可定位。",
+      "expected": "根据真实调用／角色及当前服务明确整体承接，保原ID／业务定宽消费／owner；不凭地址段归CRT，不造旧池／选择器／错误表或同名假体，不声称库内划分和原ABI等价。",
+      "actual": "全量表十四项明确当前标准库／宿主服务范围并核为有承接；十三旧语义只补来源，一错误语义新增，既有host／CRT553成员保。源码／头／配置全文未变，限定关系S不代全部业务owner／错误消费／失败／寿命／运行通过。",
+      "differences": [
+        {
+          "description": "已批准的MSVC堆策略／初始化／元数据／失败及文件错误映射／TLS／参数校验替代旧库内机制；业务输入／返回消费、owner及运行仍待。",
+          "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-12"
     }
   ],
   "task_acceptance": [
@@ -69775,7 +69853,9 @@
         "doc/cg2d_msvc_crt_exit_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
-        "doc/cg2d_msvc_crt_heap_evidence.json"
+        "doc/cg2d_msvc_crt_heap_evidence.json",
+        "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012",
+        "doc/cg2d_msvc_crt_file_spec.md#win32-error-current-service-20261012"
       ],
       "task_id": "C08",
       "state": "open"
@@ -69815,7 +69895,9 @@
         "doc/cg2d_msvc_crt_heap_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
-        "doc/cg2d_msvc_crt_multibyte_evidence.json"
+        "doc/cg2d_msvc_crt_multibyte_evidence.json",
+        "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012",
+        "doc/cg2d_msvc_crt_file_spec.md#win32-error-current-service-20261012"
       ],
       "task_id": "C11",
       "state": "open"
@@ -69840,7 +69922,9 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
         "doc/cg2d_msvc_crt_exit_evidence.json",
         "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state",
-        "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012"
+        "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012",
+        "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012",
+        "doc/cg2d_msvc_crt_file_spec.md#win32-error-current-service-20261012"
       ],
       "task_id": "C06",
       "state": "open"
@@ -69924,7 +70008,9 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
         "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
-        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
+        "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012",
+        "doc/cg2d_msvc_crt_file_spec.md#win32-error-current-service-20261012"
       ],
       "task_id": "C01",
       "state": "open"
@@ -70534,7 +70620,9 @@
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-decision",
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-source-state",
         "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-source-state",
-        "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012"
+        "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012",
+        "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012",
+        "doc/cg2d_msvc_crt_file_spec.md#win32-error-current-service-20261012"
       ]
     },
     {
@@ -71227,7 +71315,9 @@
         "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
         "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
         "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
-        "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state"
+        "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
+        "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012",
+        "doc/cg2d_msvc_crt_file_spec.md#win32-error-current-service-20261012"
       ]
     },
     {
@@ -75704,7 +75794,8 @@
         "doc/cg2d_heap_malloc_unification_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
-        "doc/cg2d_msvc_crt_heap_evidence.json"
+        "doc/cg2d_msvc_crt_heap_evidence.json",
+        "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012"
       ],
       "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
       "previous_disposition_before_mc01c4": {
@@ -75831,7 +75922,8 @@
         "doc/cg2d_heap_malloc_unification_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
-        "doc/cg2d_msvc_crt_heap_evidence.json"
+        "doc/cg2d_msvc_crt_heap_evidence.json",
+        "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012"
       ],
       "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
       "previous_disposition_before_mc01c4": {
@@ -88257,7 +88349,8 @@
         "doc/cg2d_heap_malloc_unification_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
-        "doc/cg2d_msvc_crt_heap_evidence.json"
+        "doc/cg2d_msvc_crt_heap_evidence.json",
+        "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012"
       ],
       "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
       "previous_disposition_before_mc01c4": {
@@ -88295,7 +88388,8 @@
         "doc/cg2d_heap_malloc_unification_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
-        "doc/cg2d_msvc_crt_heap_evidence.json"
+        "doc/cg2d_msvc_crt_heap_evidence.json",
+        "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012"
       ],
       "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
       "previous_disposition_before_mc01c4": {
@@ -88371,7 +88465,8 @@
         "doc/cg2d_heap_malloc_unification_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
-        "doc/cg2d_msvc_crt_heap_evidence.json"
+        "doc/cg2d_msvc_crt_heap_evidence.json",
+        "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012"
       ],
       "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
       "previous_disposition_before_mc01c4": {
@@ -88390,7 +88485,8 @@
         "doc/cg2d_heap_malloc_unification_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
-        "doc/cg2d_msvc_crt_heap_evidence.json"
+        "doc/cg2d_msvc_crt_heap_evidence.json",
+        "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012"
       ],
       "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
       "previous_disposition_before_mc01c4": {
@@ -88409,7 +88505,8 @@
         "doc/cg2d_heap_malloc_unification_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
-        "doc/cg2d_msvc_crt_heap_evidence.json"
+        "doc/cg2d_msvc_crt_heap_evidence.json",
+        "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012"
       ],
       "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
       "previous_disposition_before_mc01c4": {
@@ -88428,7 +88525,8 @@
         "doc/cg2d_heap_malloc_unification_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
-        "doc/cg2d_msvc_crt_heap_evidence.json"
+        "doc/cg2d_msvc_crt_heap_evidence.json",
+        "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012"
       ],
       "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
       "previous_disposition_before_mc01c4": {
@@ -88447,7 +88545,8 @@
         "doc/cg2d_heap_malloc_unification_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
-        "doc/cg2d_msvc_crt_heap_evidence.json"
+        "doc/cg2d_msvc_crt_heap_evidence.json",
+        "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012"
       ],
       "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
       "previous_disposition_before_mc01c4": {
@@ -88466,7 +88565,8 @@
         "doc/cg2d_heap_malloc_unification_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
-        "doc/cg2d_msvc_crt_heap_evidence.json"
+        "doc/cg2d_msvc_crt_heap_evidence.json",
+        "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012"
       ],
       "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
       "previous_disposition_before_mc01c4": {
@@ -88485,7 +88585,8 @@
         "doc/cg2d_heap_malloc_unification_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
-        "doc/cg2d_msvc_crt_heap_evidence.json"
+        "doc/cg2d_msvc_crt_heap_evidence.json",
+        "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012"
       ],
       "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。",
       "previous_disposition_before_mc01c4": {
@@ -89341,7 +89442,8 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_msvc_crt_file_spec.md#win32-error-current-service-20261012"
       ],
       "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
     },
@@ -92049,7 +92151,8 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
-        "doc/cg2d_msvc_crt_heap_evidence.json"
+        "doc/cg2d_msvc_crt_heap_evidence.json",
+        "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012"
       ],
       "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。"
     },
@@ -92060,7 +92163,8 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
-        "doc/cg2d_msvc_crt_heap_evidence.json"
+        "doc/cg2d_msvc_crt_heap_evidence.json",
+        "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012"
       ],
       "boundary": "MC01-C4：通用堆直接采用MSVC；旧模式/数量预处理/私有handler与重复heap初始化退休，原业务U32参数/实际返回消费和owner保持。零请求、乘积/上界校验、物理容量、对齐、errno和new-mode由本机库持有，不称旧数值/失败时机等价；SDK/全部业务owner/正常结果与运行未验。"
     },

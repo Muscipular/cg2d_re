@@ -1,6 +1,6 @@
 # MSVC FILE/stdio/lowio宿主合同（MC01-B）
 
-本SPEC整理自既有已提交记录，承接用户“CRT直接使用MSVC”的决议，不新增迁移或验收。[总合同](cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009)及各入口已具名边界继续有效。
+本SPEC正文整理自既有已提交记录，承接用户“CRT直接使用MSVC”的决议，不新增迁移。[总合同](cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009)及各入口已具名边界继续有效；后附MCE01只核全量表的错误转换职责关系，不提升完整验收。
 
 ## 实施范围
 
@@ -56,3 +56,13 @@
 原验证记录：`build`=false；`tests`=false；`runtime`=false；`hash`=false。
 
 本次仅整理文档和引用，不重新核对已通过且未变化的函数，不新增构建/运行或功能验收。完整业务、生命周期、ABI/SDK及运行门禁保持原状态。
+
+<a id="win32-error-current-service-20261012"></a>
+
+## MCE01：542F44系统错误到errno的当前承接（2026-10-12）
+
+全量表该项此前提供者未定。本轮原只读26条／103B及九处入引用确认：先将输入W32系统错误写1085FE4，再按591E80..591FE8的8B表项查对应errno写1085FE0；未命中时按13h..24h映射13、BCh..CAh映射8，其余22。九引用来自旧mkdir／fstat／close／sopen／chdir／lseek／write／read／lseeki64，都是旧CRT文件／目录服务的错误转换，不凭名称或地址猜分类。
+
+当前CreateLegacyDirectory／ChangeLegacyDirectory实际调用::_mkdir／::_chdir，文件时间通过::_fileno→::_fstat32，描述符打开／关闭直接::_open／::_close；错误由同一MSVC服务持有。LegacyErrno_1085FE0／LegacyDosError_1085FE4实际访问当前线程errno／_doserrno。按CRT直接MSVC边界，由这些公共文件／目录／错误服务整体承接，不新增独立dosmaperr包装、不手写旧错误表或维护影子错误槽。
+
+本步源码／头／构建配置保持，表中该项有承接、给出真实提供者，原ID／既有host保留。当前MSVC的错误映射／TLS／参数校验不是原表逐项或原机器ABI等价声明；业务返回／错误消费、全部文件owner／正常失败／寿命及SDK／运行继续待验，全部任务和完整门禁保持。不构建／测试／运行／查产物／摘要或引依赖。

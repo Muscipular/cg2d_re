@@ -52,3 +52,26 @@
 ## 5. 源码状态
 
 成组方案已按工程委托确定并实施：九个真实CPP/SDK提供者保留，全部通用模式统一标准分配族，公开两直转调及两个初始化caller保持原文；头/源删除12旧池接口、8布局类型及10状态槽。LegacyHeap.hpp由154行收敛为28行，CPP由821行收敛为141行。数量策略、handler门禁及借用堆查询按上述合同保留；原体仅历史，当前未编译/链接/运行。
+
+<a id="private-heap-current-services-20261012"></a>
+
+## MCH01：十三项私有堆入口的当前服务边界（2026-10-12）
+
+本节只核全量表的十三项待确认，当前实施沿后续MC01-C4的“直接MSVC”决议；上文HMU01的LegacyHeap接口、模式及手工handler／初始化保留文字是该时点历史，不恢复已退休代码。原调用引用及Win32堆／虚存CALL摘要已只读取证，不重导或复刻私有池算法。
+
+| 原入口及已证调用链 | 当前整体提供者 |
+|---|---|
+| 53C3EA：仅旧__nh_malloc调用，向旧小块分配／542A54或HeapAlloc分派 | 当前Malloc_53C3AC／AllocateLegacyByteBuffer真实std::malloc；不复刻旧堆模式分派 |
+| 541A43：仅541A70调用，取当前模块MZ／PE头两字节 | 与541A70的旧堆选择器一起由MSVC启动／堆策略承接，不提供独立模块头API |
+| 541A70：仅541BB8调用，涉及OS版本、__MSVCRT_HEAP_SELECT／__GLOBAL_HEAP_SELECTED、模块名及541A43 | 当前MSVC启动／分配库的堆策略；原环境选择／模块头策略退休 |
+| 541BB8：仅旧start调用，HeapCreate后分派旧两池初始化、失败HeapDestroy | 当前CMake的MSVC／WIN32客户端采用宿主CRT进入WinMain，没有私有ENTRY；真实标准分配族由宿主堆初始化支持，不新建旧heap owner |
+| 541C88：仅旧free／realloc消费，内含VirtualFree／HeapFree及移动元数据 | 当前std::free／std::realloc整体承接块释放／扩容职责 |
+| 54275C：旧启动及542A54调用，涉及HeapAlloc／VirtualAlloc reserve／commit／失败清理 | 当前标准分配族和宿主初始化整体承接，不复刻私有区域／页布局 |
+| 5428A0／5428F6：由5428F6／542A0F逐层转入，原VirtualFree／HeapFree释放链 | 当前std::free／std::realloc整体处理库内回收，未声称新库保留旧叶划分 |
+| 5429B8：旧free／realloc／msize消费；542A0F：旧free／realloc消费并转5428F6 | 当前std::free／std::realloc／::_msize按各实际调用边界处理；旧块定位／元数据职责退休，不推定旧容量／对齐等价 |
+| 542A54：旧calloc／53C3EA／realloc消费，转542C5C／54275C并涉及VirtualAlloc | 当前std::malloc／std::calloc／std::realloc整体承接库内分配职责 |
+| 542C5C：仅542A54内两处消费；542D80：仅旧realloc消费 | 相应标准分配／扩容服务整体承接内部辅助，不给辅助函数猜唯一新入口 |
+
+实际提供者为LegacyTime.cpp的std::malloc／std::free，LegacyMemory.cpp的std::malloc／std::calloc／std::realloc／std::free／::_msize及CMake的MSVC宿主启动配置。只核这些真实服务及原库内调用关系，不把文件存在或原地址段当承接证明；13行分别明确服务范围，原ID和已有host／CRT成员保留。
+
+本步源码／头／构建配置不改，不模拟旧池、选择器、heap句柄或失败28分支，不恢复LegacyHeap.hpp／cpp。MSVC内部零请求／校验／容量／对齐／errno／new-mode和失败策略沿MC01-C4获批边界；业务U32参数／真实返回消费及各owner仍须独立验收，不借承接关系关闭C01／C06／C08／C11／V02或完整门禁。不构建／测试／运行／查产物／摘要或引依赖。

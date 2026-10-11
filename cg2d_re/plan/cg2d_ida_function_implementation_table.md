@@ -6,14 +6,14 @@
 | 状态 | 实际入口数 |
 |---|---:|
 | 有正文 | 2911 |
-| 有承接 | 623 |
+| 有承接 | 637 |
 | 部分实现 | 5 |
 | 未实现 | 0 |
-| 待确认 | 27 |
+| 待确认 | 13 |
 | 已排除 | 113 |
 | 不适用 | 1 |
 
-静态验证：3680 行的入口与当前 IDA 地址集合、当前名称逐项一致；序号连续、入口唯一有序、状态合法，3950 处当前源码提供者引用的路径、行号和符号／操作已核可读；UTF-8 无 BOM／LF。此验证不替代行为差异、接线或运行验收。
+静态验证：3680 行的入口与当前 IDA 地址集合、当前名称逐项一致；序号连续、入口唯一有序、状态合法，3966 处当前源码提供者引用的路径、行号和符号／操作已核可读；UTF-8 无 BOM／LF。此验证不替代行为差异、接线或运行验收。
 
 所有 3680 行均已标记。待确认表示当前对应关系或具体承接证据不足，既不猜为未实现，也不算已有实现；未实现数为零只表示本轮尚未确认缺正文入口，不表示不存在开发缺口。部分实现行已明确当前源码的数据定义／生产缺项。
 
@@ -3220,7 +3220,7 @@
 | 3197 | 0x0053C2F0 | `_strchr` | 有承接 | `src/platform/LegacyTime.cpp:125 — StrChr_53C2F0` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3198 | 0x0053C3AC | `_malloc` | 有承接 | `src/platform/LegacyTime.cpp:58 — Malloc_53C3AC` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3199 | 0x0053C3BE | `__nh_malloc` | 有承接 | `src/platform/LegacyMemory.cpp:55 — AllocateLegacyByteBuffer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3200 | 0x0053C3EA | `sub_53C3EA` | 待确认 | `src/platform/LegacyMemory.cpp:55 — AllocateLegacyByteBuffer` | 当前库使用候选已定位；原入口的精确库身份／承接职责尚待证，不以候选调用方正文判已实现 |
+| 3200 | 0x0053C3EA | `sub_53C3EA` | 有承接 | `src/platform/LegacyMemory.cpp:57 — std::malloc(byteCount)` | 原仅__nh_malloc调用并转旧两池／HeapAlloc；实际std::malloc整体承接分配及已批库内策略，不复刻模式，业务／owner／运行未验 |
 | 3201 | 0x0053C45E | `??_L@YGXPAXIHP6EX0@Z1@Z` | 有承接 | `src/platform/LegacyRuntimeExit.cpp:44 — ConstructLegacyArray_53C45E` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3202 | 0x0053C4E0 | `??_M@YGXPAXIHP6EX0@Z@Z` | 有承接 | `src/platform/LegacyRuntimeExit.cpp:67 — DestroyLegacyArray_53C4E0` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3203 | 0x0053C560 | `?__ArrayUnwind@@YGXPAXIHP6EX0@Z@Z` | 有承接 | `src/platform/LegacyRuntimeExit.cpp:23 — UnwindLegacyArray_53C560` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
@@ -3330,28 +3330,28 @@
 | 3307 | 0x00541955 | `__isctype` | 有承接 | `src/platform/ClientEntry.cpp:242 — WinMain；src/platform/LegacyStringCompare.cpp:10 — ClassifyLegacySpace_53BDEF` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3308 | 0x005419D0 | `_memset` | 有承接 | `src/platform/LegacyMemory.cpp:41 — FillLegacyMemory_5419D0` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3309 | 0x00541A28 | `__callnewh` | 有承接 | `src/platform/LegacyMemory.cpp:55 — AllocateLegacyByteBuffer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3310 | 0x00541A43 | `sub_541A43` | 待确认 | `src/platform/LegacyMemory.cpp:55 — AllocateLegacyByteBuffer` | 当前库使用候选已定位；原入口的精确库身份／承接职责尚待证，不以候选调用方正文判已实现 |
-| 3311 | 0x00541A70 | `sub_541A70` | 待确认 | `src/platform/LegacyMemory.cpp:55 — AllocateLegacyByteBuffer` | 当前库使用候选已定位；原入口的精确库身份／承接职责尚待证，不以候选调用方正文判已实现 |
-| 3312 | 0x00541BB8 | `sub_541BB8` | 待确认 | `src/platform/LegacyMemory.cpp:55 — AllocateLegacyByteBuffer` | 当前库使用候选已定位；原入口的精确库身份／承接职责尚待证，不以候选调用方正文判已实现 |
+| 3310 | 0x00541A43 | `sub_541A43` | 有承接 | `src/platform/LegacyMemory.cpp:57 — std::malloc(byteCount)；CMakeLists.txt:166 — 宿主Windows CRT进入WinMain` | 原仅堆选择器541A70使用的模块MZ／PE两字节读取；旧选择机制随MSVC启动／堆策略承接，不新增模块头API，非原机制等价／运行通过 |
+| 3311 | 0x00541A70 | `sub_541A70` | 有承接 | `src/platform/LegacyMemory.cpp:57 — std::malloc(byteCount)；CMakeLists.txt:166 — 宿主Windows CRT进入WinMain` | 原仅541BB8调用的OS／环境／模块堆选择；当前MSVC启动与实际标准分配库整体承接，不复刻旧环境选择器，业务／启动／运行未验 |
+| 3312 | 0x00541BB8 | `sub_541BB8` | 有承接 | `src/platform/LegacyMemory.cpp:57 — std::malloc(byteCount)；CMakeLists.txt:166 — 宿主Windows CRT进入WinMain` | 原仅旧start调用的HeapCreate／池初始化／失败HeapDestroy；当前MSVC宿主启动及实际标准分配族承接，不造旧heap或失败28分支，启动／SDK／运行未验 |
 | 3313 | 0x00541C15 | `___sbh_heap_init` | 有承接 | `src/platform/LegacyMemory.cpp:55 — AllocateLegacyByteBuffer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3314 | 0x00541C5D | `___sbh_find_block` | 有承接 | `src/platform/LegacyMemory.cpp:60 — FreeLegacyByteBuffer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3315 | 0x00541C88 | `sub_541C88` | 待确认 | `src/platform/LegacyMemory.cpp:60 — FreeLegacyByteBuffer` | 当前库使用候选已定位；原入口的精确库身份／承接职责尚待证，不以候选调用方正文判已实现 |
+| 3315 | 0x00541C88 | `sub_541C88` | 有承接 | `src/platform/LegacyMemory.cpp:62 — std::free(memory)；src/platform/LegacyMemory.cpp:29 — std::realloc(memory, byteCount)` | 原只在旧free／realloc内消费的私有回收／元数据辅助；实际std::free／std::realloc整体承接，不宣原虚存策略等价，完整owner／失败／运行未验 |
 | 3316 | 0x00541FB1 | `___sbh_alloc_block` | 有承接 | `src/platform/LegacyMemory.cpp:55 — AllocateLegacyByteBuffer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3317 | 0x005422BA | `___sbh_alloc_new_region` | 有承接 | `src/platform/LegacyMemory.cpp:55 — AllocateLegacyByteBuffer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3318 | 0x0054236B | `___sbh_alloc_new_group` | 有承接 | `src/platform/LegacyMemory.cpp:55 — AllocateLegacyByteBuffer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3319 | 0x00542466 | `___sbh_resize_block` | 有承接 | `src/platform/LegacyMemory.cpp:55 — AllocateLegacyByteBuffer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3320 | 0x0054275C | `sub_54275C` | 待确认 | `src/platform/LegacyMemory.cpp:55 — AllocateLegacyByteBuffer` | 当前库使用候选已定位；原入口的精确库身份／承接职责尚待证，不以候选调用方正文判已实现 |
-| 3321 | 0x005428A0 | `sub_5428A0` | 待确认 | `src/platform/LegacyMemory.cpp:60 — FreeLegacyByteBuffer` | 当前库使用候选已定位；原入口的精确库身份／承接职责尚待证，不以候选调用方正文判已实现 |
-| 3322 | 0x005428F6 | `sub_5428F6` | 待确认 | `src/platform/LegacyMemory.cpp:60 — FreeLegacyByteBuffer` | 当前库使用候选已定位；原入口的精确库身份／承接职责尚待证，不以候选调用方正文判已实现 |
-| 3323 | 0x005429B8 | `sub_5429B8` | 待确认 | `src/platform/LegacyMemory.cpp:60 — FreeLegacyByteBuffer` | 当前库使用候选已定位；原入口的精确库身份／承接职责尚待证，不以候选调用方正文判已实现 |
-| 3324 | 0x00542A0F | `sub_542A0F` | 待确认 | `src/platform/LegacyMemory.cpp:60 — FreeLegacyByteBuffer` | 当前库使用候选已定位；原入口的精确库身份／承接职责尚待证，不以候选调用方正文判已实现 |
-| 3325 | 0x00542A54 | `sub_542A54` | 待确认 | `src/platform/LegacyMemory.cpp:55 — AllocateLegacyByteBuffer` | 当前库使用候选已定位；原入口的精确库身份／承接职责尚待证，不以候选调用方正文判已实现 |
-| 3326 | 0x00542C5C | `sub_542C5C` | 待确认 | `src/platform/LegacyMemory.cpp:55 — AllocateLegacyByteBuffer` | 当前库使用候选已定位；原入口的精确库身份／承接职责尚待证，不以候选调用方正文判已实现 |
-| 3327 | 0x00542D80 | `sub_542D80` | 待确认 | `src/platform/LegacyMemory.cpp:55 — AllocateLegacyByteBuffer` | 当前库使用候选已定位；原入口的精确库身份／承接职责尚待证，不以候选调用方正文判已实现 |
+| 3320 | 0x0054275C | `sub_54275C` | 有承接 | `src/platform/LegacyMemory.cpp:57 — std::malloc(byteCount)；src/platform/LegacyMemory.cpp:22 — std::calloc(count, size)；src/platform/LegacyMemory.cpp:29 — std::realloc(memory, byteCount)` | 原启动及542A54消费的私有区域／页初始化与失败回收；实际标准分配族／宿主启动整体承接，不复刻旧页／块布局，全部owner／运行未验 |
+| 3321 | 0x005428A0 | `sub_5428A0` | 有承接 | `src/platform/LegacyMemory.cpp:62 — std::free(memory)；src/platform/LegacyMemory.cpp:29 — std::realloc(memory, byteCount)` | 原仅5428F6转入的私有虚存／HeapFree释放链；实际标准释放／扩容库整体承接，不宣当前库保留旧划分，owner／正常寿命／运行未验 |
+| 3322 | 0x005428F6 | `sub_5428F6` | 有承接 | `src/platform/LegacyMemory.cpp:62 — std::free(memory)；src/platform/LegacyMemory.cpp:29 — std::realloc(memory, byteCount)` | 原仅542A0F转入并调用5428A0的私有decommit／释放辅助；实际std::free／std::realloc整体承接，不模拟旧元数据，owner／失败／运行未验 |
+| 3323 | 0x005429B8 | `sub_5429B8` | 有承接 | `src/platform/LegacyMemory.cpp:62 — std::free(memory)；src/platform/LegacyMemory.cpp:29 — std::realloc(memory, byteCount)；src/platform/LegacyMemory.cpp:14 — ::_msize(memory)` | 原仅旧free／realloc／msize消费的块定位辅助；相应实际MSVC公共服务整体承接，不推定旧物理容量／对齐或原体等价，owner／运行未验 |
+| 3324 | 0x00542A0F | `sub_542A0F` | 有承接 | `src/platform/LegacyMemory.cpp:62 — std::free(memory)；src/platform/LegacyMemory.cpp:29 — std::realloc(memory, byteCount)` | 原仅旧free／realloc消费并转5428F6的回收辅助；实际标准服务整体承接，不新建池状态或包装，完整owner／失败／运行未验 |
+| 3325 | 0x00542A54 | `sub_542A54` | 有承接 | `src/platform/LegacyMemory.cpp:57 — std::malloc(byteCount)；src/platform/LegacyMemory.cpp:22 — std::calloc(count, size)；src/platform/LegacyMemory.cpp:29 — std::realloc(memory, byteCount)` | 原旧calloc／分配／realloc消费并转542C5C／54275C的私有分配链；实际标准分配族整体承接，库内策略沿MC01-C4，完整owner／运行未验 |
+| 3326 | 0x00542C5C | `sub_542C5C` | 有承接 | `src/platform/LegacyMemory.cpp:57 — std::malloc(byteCount)；src/platform/LegacyMemory.cpp:22 — std::calloc(count, size)；src/platform/LegacyMemory.cpp:29 — std::realloc(memory, byteCount)` | 原仅542A54内两处调用的私有分配辅助；实际标准分配族整体承接，不伪称同名新叶或旧算法等价，owner／SDK／运行未验 |
+| 3327 | 0x00542D80 | `sub_542D80` | 有承接 | `src/platform/LegacyMemory.cpp:29 — std::realloc(memory, byteCount)` | 原仅旧realloc消费的私有扩容辅助；实际std::realloc整体承接，不复刻旧元数据／同名接口，完整块内容／失败／owner／运行未验 |
 | 3328 | 0x00542E34 | `__except_handler3` | 有承接 | `src/platform/LegacyMouse.cpp:80 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:101 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3329 | 0x00542EF1 | `__seh_longjmp_unwind@4` | 有承接 | `src/platform/LegacyMouse.cpp:80 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:101 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3330 | 0x00542F10 | `__allmul` | 有承接 | `src/platform/LegacyScan.cpp:8 — ScanLegacyInput_53DEF4` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3331 | 0x00542F44 | `sub_542F44` | 待确认 | `—` | 原入口已核边界／调用摘要；当前对应提供者仍不足，不凭 CRT 地址段推定承接 |
+| 3331 | 0x00542F44 | `sub_542F44` | 有承接 | `src/platform/LegacyTime.cpp:20 — errno；src/platform/LegacyTime.cpp:25 — _doserrno；src/platform/LegacyTime.cpp:139 — ::_mkdir(path)；src/platform/LegacyLowIo.cpp:24 — ::_close(descriptor)` | 原九个旧文件／目录父的系统错误→DOS错误／errno转换，当前实际MSVC文件／目录服务及同线程错误访问整体承接，不手写旧表／影子槽，业务错误消费／owner／运行未验 |
 | 3332 | 0x00543097 | `zerotoxdone` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3333 | 0x005430E2 | `_expbigret` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3334 | 0x0054310E | `__ffexpm1` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |

@@ -1,5 +1,7 @@
 # R1：原函数与现有公共实现的显式映射
 
+> 2026-10-12 MCH01／MCE01：全量表十三项旧堆支撑及542F44错误转换已明确当前标准分配族／MSVC启动和文件／目录／线程错误服务，见[堆边界](cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012)、[错误边界](cg2d_msvc_crt_file_spec.md#win32-error-current-service-20261012)。旧池选择／元数据及错误表不复刻；原身份／host／实际成员保持，业务owner／失败／错误消费／SDK和运行门禁未闭，源码未改。
+
 > 2026-10-12 MCT01：全量表五项私有日历关系已核，由现有::_localtime32／::_mktime32公共服务整体承接，见[原引用与实际边界](cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012)。不新增旧时区／DST／GMT包装，不宣称新DLL保留原五叶划分；业务定宽字段／借用对象和完整日期／失败／寿命／运行门禁保持，源码未改。
 
 > 2026-10-12 AWR01：全量表三项待确认的454FE0／455100／455260已核为当前固定WAV预载／清理承接，见[具体原职责与提供者](cg2d_client_link_sdl_audio_spec.md#wav-bank-entry-providers-20261012)。旧Collection／乐器下载／Loader机制不进入客户端，离线来源只保历史，不恢复开发；三原身份与分母、WAV质量及完整资源／设备／声音／寿命／运行门禁保持。

@@ -200,3 +200,7 @@ R01／R04／U09／U10／G01／V03／V04只追加证据引用，仍open。508360�
 ## 2026-10-12 MCT01进展：核定五项私有日历公共服务边界
 
 按全量表五项待确认核[MCT01](../doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012)：13处入引用均落在旧localtime／本地日期转时间戳链内，实际::_localtime32／::_mktime32整体提供相应时区／DST／日历转换；不把GMT叶伪称直接::_gmtime32调用或新建独立UTC接口，不复刻私有算法／全局／机器ABI。五行有承接及具体提供者已明确，五原ID／既有host和CRT553成员保持，新增五个语义职责关系和一限定S。C06／U10／V03只补引用仍open，源码／头／构建配置和全部完整门禁不变，业务日期／失败／借用寿命及SDK／运行仍待。
+
+## 2026-10-12 MCH01／MCE01进展：核定旧堆与系统错误的整体服务
+
+按全量表核[十三项私有堆](../doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012)及[542F44错误转换](../doc/cg2d_msvc_crt_file_spec.md#win32-error-current-service-20261012)：原malloc／calloc／free／realloc／msize／CRT启动链及九个文件／目录父有据，现标准分配族／宿主启动和MSVC文件／线程错误服务已明确。十四行有承接，保原身份、既有host及CRT553成员；十三旧语义来源补关系，一错误语义新增，两限定S零新增I。C01／C06／C08／C11／V02／V03只补引用仍open，源码／头／构建配置及完整业务owner／正常失败／错误消费／SDK／运行门禁保持，不重建私有池或旧错误表。

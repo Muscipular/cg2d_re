@@ -4858,7 +4858,8 @@
         "doc/cg2d_quantity_window_creation_spec.md",
         "doc/cg2d_player_attribute_money_reply_spec.md",
         "doc/cg2d_storage_opening_actions_spec.md",
-        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state"
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state"
       ],
       "original_inventory_ids": [
         "F:000D6640",
@@ -4975,7 +4976,8 @@
         "F:000ABEF0",
         "F:000ACE80",
         "F:000ABE60",
-        "F:000ACDF0"
+        "F:000ACDF0",
+        "F:00019C10"
       ],
       "closure_task_ids": [
         "U09",
@@ -5393,7 +5395,8 @@
         "doc/cg2d_battle_equipment_interaction_spec.md",
         "doc/cg2d_battle_item_interaction_spec.md",
         "doc/cg2d_item_drag_entry_callback_spec.md",
-        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state"
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -5825,7 +5828,8 @@
         "F:00118C60",
         "F:00099C30",
         "F:0008BF10",
-        "F:0008BC90"
+        "F:0008BC90",
+        "F:00019C10"
       ],
       "closure_task_ids": [
         "P01",
@@ -68095,6 +68099,66 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-TRANSITION-PAYLOAD-STORAGE-YOBI-S-20261011",
+      "feature_id": "FUNC-YOBI",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:00019C10"
+      ],
+      "baseline_reference": "doc/cg2d_payload_structure_spec.md#transition-payload-storage-decision",
+      "implementation_reference": "[#] 补齐过渡特效载荷尾部存储",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-decision",
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
+        "doc/ui_windows/shared_battle.md",
+        "src/YobiRuntime.cpp#BattleTransitionEffectPayload",
+        "src/YobiRuntime.cpp#NewBattleTransitionEffect_419C10"
+      ],
+      "observation": "原419C11请求12B、419C32写首个W32父引用；现结构补8B尾并沿唯一sizeof请求和通用清零承接。",
+      "expected": "只恢复原尾字节的存储，父引用按已证T*拓宽；不猜字段或地址属性，不增加业务赋值/坐标/owner，不改创建器、回调及三调用点。",
+      "actual": "一数组/一断言/说明之外源文本保持，8B存储及唯一sizeof请求/通用清零关联静态通过；断言未编译求值，完整字段/alias及生命周期/运行未验。",
+      "differences": [
+        {
+          "description": "独立过渡载荷原生sizeof随尾8B存储扩大，原首父T*拓宽保持；不推尾部业务或地址类型。",
+          "decision_ref": "doc/cg2d_payload_structure_spec.md#transition-payload-storage-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-TRANSITION-PAYLOAD-STORAGE-BATTLE-S-20261011",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:00019C10"
+      ],
+      "baseline_reference": "doc/cg2d_payload_structure_spec.md#transition-payload-storage-decision",
+      "implementation_reference": "[#] 补齐过渡特效载荷尾部存储",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-decision",
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
+        "doc/ui_windows/shared_battle.md",
+        "src/YobiRuntime.cpp#BattleTransitionEffectPayload",
+        "src/YobiRuntime.cpp#NewBattleTransitionEffect_419C10"
+      ],
+      "observation": "原419C11请求12B、419C32写首个W32父引用；现结构补8B尾并沿唯一sizeof请求和通用清零承接。",
+      "expected": "只恢复原尾字节的存储，父引用按已证T*拓宽；不猜字段或地址属性，不增加业务赋值/坐标/owner，不改创建器、回调及三调用点。",
+      "actual": "一数组/一断言/说明之外源文本保持，8B存储及唯一sizeof请求/通用清零关联静态通过；断言未编译求值，完整字段/alias及生命周期/运行未验。",
+      "differences": [
+        {
+          "description": "独立过渡载荷原生sizeof随尾8B存储扩大，原首父T*拓宽保持；不推尾部业务或地址类型。",
+          "decision_ref": "doc/cg2d_payload_structure_spec.md#transition-payload-storage-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
     }
   ],
   "task_acceptance": [
@@ -69902,7 +69966,8 @@
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
-        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state"
       ]
     },
     {
@@ -69947,7 +70012,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
         "doc/cg2d_msvc_crt_exit_evidence.json",
-        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state"
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state"
       ]
     },
     {
@@ -70061,7 +70127,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
         "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
         "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
-        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state"
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state"
       ]
     },
     {
@@ -70919,7 +70986,8 @@
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
         "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
-        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state"
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state"
       ]
     },
     {
@@ -71385,7 +71453,8 @@
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
         "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
-        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state"
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state"
       ]
     },
     {
@@ -71673,7 +71742,8 @@
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
-        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state"
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state"
       ]
     },
     {
@@ -72548,7 +72618,8 @@
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
         "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
-        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state"
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state"
       ]
     },
     {
@@ -77567,7 +77638,8 @@
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-acceptance",
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
         "doc/cg2d_yobi_allocation_sampling_evidence.json",
-        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state"
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state"
       ]
     },
     {
@@ -95790,6 +95862,16 @@
         "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
       ],
       "boundary": "MC01-C8用户授权std::sort/qsort＋COMP替代剩余七组/八调用；同键0/有效项在前，保既有主键与字段方向。地图同深度统一非零批次优先再索引、联系人/公会非零状态优先，具名接受这些关系、库比较交换次序及等价项排列变化。六CPP本组外正文保持，旧私有分区/小段排序/交换提供者退休，库内排序与移动交已安装MSVC。未编译/测试/运行，完整业务和SDK/owner/画面门禁未关闭。"
+    },
+    {
+      "inventory_id": "F:00019C10",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-decision",
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
+        "doc/ui_windows/shared_battle.md"
+      ]
     }
   ],
   "auxiliary_dispositions": [

@@ -136164,7 +136164,7 @@
           "0x404C42"
         ]
       ],
-      "status": "YAS01动作分配/描述符默认发布/插链四片段取样实修，既有语义追加；完整父/载荷和owner寿命运行未验；BPST01-A四段用途未定字节承载已落码，字段语义/别名及运行未验",
+      "status": "YAS01动作分配/描述符默认发布/插链四片段取样实修，既有语义追加；完整父/载荷和owner寿命运行未验；BPST01-A四段用途未定字节承载已落码，字段语义/别名及运行未验；BPST01-B过渡尾8B的sizeof消费者已承接，完整用途/别名及运行未验",
       "sources": [
         {
           "path": "src/YobiRuntime.cpp",
@@ -136203,7 +136203,8 @@
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-acceptance",
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
         "doc/cg2d_yobi_allocation_sampling_evidence.json",
-        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state"
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state"
       ],
       "boundary": "U8 priority/U32 payloadSize；action/可选载荷真实分配、失败消息/释放与再次清零、稳定优先级插入；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。；YAS01载荷返回先判空结果再发布/同指针清零，descriptor五W16零/一W32 FFFFFFFF/两W8零按原序；start→end→两next，action.next/prev发布后复读point.prev再接前驱next。U8 priority/U32 payloadSize、原calloc/free域/两失败消息和释放、同值FIFO/缓存stop及到stop未链接返回保持，不新增FF输入限制/失败回退/异常保护或回绕及故障模拟/称等价。完整113调用点实参/载荷类型和全部callee/对象资源生产/所有链别名与未插链对象和owner重进退出/借用失效/SDK/ABI/PC53/时钟RNG/完整画面运行未验。",
       "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。；YAS01追加当前完整118条354B/113type17call/86已知父+1未归属调用点及四具名源片段全文精确重放，载荷同快照/原失败、描述符原宽度显式发布和首尾/前驱读序有限静态；不验所有父实参/载荷/SDK及owner寿命或运行；BPST01-A四数组15B/13 sizeof分配点和一浅复制关联限定静态，本组外正文保持，未编译或运行",
@@ -136807,6 +136808,13 @@
         "source_storage_implemented": true,
         "field_semantics_verified": false,
         "all_writers_and_aliases_verified": false,
+        "runtime_verified": false
+      },
+      "transition_payload_storage": {
+        "spec_ref": "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
+        "role": "通用请求/清零正文保持，419C10的原生sizeof请求包含用途未定尾8B。",
+        "storage_consumer_connected": true,
+        "tail_semantics_verified": false,
         "runtime_verified": false
       }
     },
@@ -241704,6 +241712,51 @@
       },
       "boundary": "MC01-C8用户授权std::sort/qsort＋COMP替代剩余七组/八调用；同键0/有效项在前，保既有主键与字段方向。地图同深度统一非零批次优先再索引、联系人/公会非零状态优先，具名接受这些关系、库比较交换次序及等价项排列变化。六CPP本组外正文保持，旧私有分区/小段排序/交换提供者退休，库内排序与移动交已安装MSVC。未编译/测试/运行，完整业务和SDK/owner/画面门禁未关闭。",
       "verification_level": "只验证本组标准排序接线及私有实现退休，不复刻库内shortsort/原机器ABI，也不声称全业务验收"
+    },
+    {
+      "original_entry": "0x419C10",
+      "inventory_id": "F:00019C10",
+      "original_end_exclusive": "0x419CA6",
+      "original_entry_chunk_end": "0x419CA6",
+      "instruction_count": 45,
+      "function_chunks": [
+        {
+          "start": "0x419C10",
+          "end_exclusive": "0x419CA6"
+        }
+      ],
+      "status": "BPST01-B过渡特效尾8B已承载，既有创建器独立身份纳管；完整字段/别名/寿命及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "cg::login::detail::NewBattleTransitionEffect_419C10",
+            "BattleTransitionEffectPayload"
+          ],
+          "relationship": "已有完整创建器/原生首父引用，本组仅补原分配尾8B，既有sizeof请求自动包含。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/shared_battle.md",
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-decision",
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state"
+      ],
+      "boundary": "原12B分配/首W32父写有证，尾+4..+BH按8B用途未定存储承接；已证父指针原生拓宽。原创建器/回调与三父调用保持，不借419CF0坐标语义、不加业务初始化或新owner；未知尾部地址属性及全部alias/生命周期继续待证。",
+      "verification_level": "原库存/当前IDA边界45条150B、请求/首W32写/绑定邻窗及17条回调定位；创建完整原证复用shared_battle。本组仅尾8B/原生sizeof表达式及唯一请求/通用清零的静态关联，原正文保持；未编译求值断言、测试或运行。",
+      "native_signature": "YobiAction* NewBattleTransitionEffect_419C10(YobiAction* const parent, const std::int32_t imageNo)",
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "NewBattleTransitionEffect_419C10",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "transition_payload_storage": {
+        "spec_ref": "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
+        "storage_implemented": true,
+        "tail_semantics_verified": false,
+        "all_aliases_and_address_properties_verified": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

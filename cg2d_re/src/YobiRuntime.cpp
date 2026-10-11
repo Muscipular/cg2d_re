@@ -336,10 +336,12 @@ struct BattleFollowOffsetPayload {
 };
 static_assert(sizeof(BattleFollowOffsetPayload) == sizeof(YobiAction*) + 2 * sizeof(std::int32_t));
 
-// 原419C10请求12B，仅首个父引用已证；419BE0不消费载荷，不冻结其余未写字节。
+// 原419C10请求12B；父引用原生拓宽，尾8B保留分配足迹，419BE0不消费载荷。
 struct BattleTransitionEffectPayload {
     YobiAction* parent00;
+    std::array<std::byte, 8> bytes04; // 原+4..+BH：用途及地址属性未定，只沿通用清零保留存储。
 };
+static_assert(sizeof(BattleTransitionEffectPayload) == sizeof(YobiAction*) + 8);
 
 // 4113A0栈上立即数表；有效类型为1..4，按type-1索引，不伪造未写的第0行。
 constexpr std::array<std::int32_t, 4> kRebirthEnterSounds4116DE {425, 427, 429, 431};

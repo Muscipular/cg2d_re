@@ -2,7 +2,7 @@
 
 日期：2026-10-11。依据用户“逐项验收”，本线程恢复这条战斗封包链的静态核查。沿总 SPEC §10；不构建、不测试、不运行客户端或算法样例，不检查编译产物、不计算摘要，不修改 IDA 数据库，不创建源码、指令或原字节 JSON 副本。
 
-当前已推进至下文 BMSA10：分派对照、退场索引、投射命中字节读取及归零回写已核；随后补验 ITM 完成链、SKL 附加记录、RID 字段和控制分支，以及技能98状态分支的后续消费。各批“没有源码改动”等结论仅指该批。完整技能效果、资源、寿命与运行仍未验完。
+当前已推进至下文 BMSA11：分派对照、退场索引、投射命中字节读取及归零回写已核；随后补验 ITM 完成链、SKL 附加记录、RID 字段和控制分支、技能98状态分支，以及动画返回值的后续消费。各批“没有源码改动”等结论仅指该批。完整技能效果、资源、寿命与运行仍未验完。
 
 <a id="battle-m-skill-item-acceptance-scope"></a>
 ## 范围与判定
@@ -734,7 +734,7 @@ RID 的字段取样沿 BMSA06—08；共享角色槽的后续恢复沿 [BRA01](c
 | StatusTargets 的 live mode 在0..5 | 目标分别写castSkill103C、castSkillLevel1044后追加119；追加后fresh结果旗位有80000才重新写当前skill及value1048、追加141 | 沿[BNA01](cg2d_battle_m_skill98_mode17_status_sampling_spec.md)；value1048来自后一次live mode，不用最初分派快照替代 |
 | 动作119 | 404DB0分派到40FC10；value1024==0才以type4、link1调用41CD00；返回值弃置，所有路径转162 | 沿[BQG01](cg2d_battle_factory_batch_exit_sampling_spec.md)；创建失败不伪造完成 |
 | 工厂type4 | 读取目标castSkillLevel1044；已证12项tier为3/3/3/2/2/2/1/1/1/0/0/0，图为110071+tier，level>=12用111063；绑定41A160，link1先绑定父再写其value1024=1 | 沿[BNZ01](cg2d_battle_effect_factory_sampling_spec.md)；等级决定过渡图，不读取value1048；不新增索引保护 |
-| 完成回调及动作162 | 41A160仅在PlayFrame(1)==1时，父非空且其value1024非0才写2，然后标死效果；162严格等2才清1024、hidden和2D8，再推进动作 | 沿[BOA01](cg2d_battle_completion_scale_sampling_spec.md)和[BPT01](cg2d_battle_resource_copy_spec.md)；分配失败／未完成仍等待，返回值不改成一般非0 |
+| 完成回调及动作162 | 41A160仅在PlayFrame(1)==1时，父非空且其value1024非0才写2，然后标死效果；162严格等2才清1024、hidden和2D8，再推进动作 | 沿[BOA01](cg2d_battle_completion_scale_sampling_spec.md)和[BPT01](cg2d_battle_resource_copy_spec.md)；返回0／-1不触发回写，分配失败仍转162等待；返回1的资源缺失分支另见BMSA11 |
 | 动作141 | value13D8==3优先走type19/20或不创建；其它情况下当前skill==98才以value1048+110075请求附属图 | 沿[BPQ01](cg2d_battle_action_141_143_spec.md)；六模式表只适用此skill98分支，不把value13D8==3的分支覆盖掉 |
 | 附属创建41F660 | effect1054已有对象即返回空；空槽分支先写对应flagsFDC和13D0／13CC，再分配；失败不回滚，成功播放后fresh写父1054并绑定借用父指针 | 沿[BAS01](cg2d_battle_attached_effect_spec.md)；动作141弃置工厂返回，随后按fresh低BYTE flags的60门禁播放，再推进一次 |
 | 附属回调41F800 | 借用父deathFlag严格为1则标死自身；否则播放后重新借父跟随坐标；两路继续投影，不在此清父1054或直接释放 | 沿BAS01及[YLC01](cg2d_yobi_cleanup_sampling_spec.md)；全部父／附属先后释放与借用失效仍未关闭 |
@@ -751,3 +751,23 @@ RID 的字段取样沿 BMSA06—08；共享角色槽的后续恢复沿 [BRA01](c
 | 5 | 110080 | 200H | 6 |
 
 当前所查源码对应，零本步源码修改。只七个已登记消费者新增一项跨链限定S；父427470的既有812仅补本节关系引用，仍不新增处置／成员或宣称完整父通过；已知回调41F800补本节引用后进入候选关联，其原成员／适配处置保持。资源图号有选择依据不等于当前资源存在、动画能完成或画面正确；实际分配失败、所有owner／别名寿命、SDK生成ABI及收发／画面／声音运行仍待，全部任务和整体门禁保持。
+
+<a id="battle-m-skill-item-acceptance-frame-result"></a>
+## BMSA11：动画返回值与等待／终结传播
+
+2026-10-11，复用[YFPS01](cg2d_yobi_frame_playback_sampling_spec.md#yobi-frame-playback-decision)的完整原正常返回合同，核当前PlayFrame、完成回调41A160、等待动作162及ITM模式7的动作205。没有新IDA指令或完整根计数；实现保持，公开头补一条返回合同注释。本节细化BMSA10的“完成”含义，不把返回1记为资源播放成功。
+
+| PlayFrame条件，按实际判断次序 | 返回值 | 所查调用端实际结果 |
+|---|---:|---|
+| 空对象／hidden严格1；remain非0递减；图号<=999；静图分支 | 0 | 41A160不回写、不标死；205不清帧、不推进 |
+| 动画图号超过上界；查询索引<0 | 1 | 41A160走原终结分支；205清frameIndex／frameRemain并推进，即使未应用动画帧 |
+| AnimeLoadAction返回0 | -1 | 41A160及205都不进入严格==1分支；不能按一般非0处理 |
+| 装载返回非0后，低U16动作数为0；或方向／动作匹配失败 | 1 | 同上述终结；不从本分支推断磁盘count为0时也一定返回1，装载失败判断在前 |
+| 选中动作且frameIndex>=frameCount、stopAtEnd严格1 | 1 | 先写remain255／completedLoops1，再返回；所查两调用端均传1 |
+| 帧正常应用，或其它stopAtEnd值的回绕 | 0 | 继续播放；该回绕不生成所查完成分支 |
+
+41A160的终结仍要求返回严格1：父非空且value1024非0才写2，随后标死自身；父为空或1024为0也仍标死。动作162只在1024严格2时清字段并推进。动作205先设characterAction=16，返回严格1才清帧并推进。三个消费者沿[BOA01](cg2d_battle_completion_scale_sampling_spec.md)、[BPT01](cg2d_battle_resource_copy_spec.md)、[BPX01](cg2d_battle_transition_effect_sampling_spec.md)，本节只验所述跨调用返回传播，不改原缺索引／缺动作的终结策略或加载失败等待。
+
+资源路径还受binfolder、资源名称参数和工作目录影响；已有[资源来源记录](cg2d_resource_sources.md)明确实际资源集未冻结。用户本轮指定游戏目录为H:\Games\cgmsv_21.2a\CrossGate7.1.0；已确认目录及data\argument.ini、bin存在，配置／启动参数来源及具体资源记录尚待只读核查。具体图号存在、动作／方向／帧表内容、像素／音频及运行仍待验；严格1的源码门禁不能代替这些证据。
+
+四既有根只补本节引用与一个跨链限定S，零新实现／函数身份／处置／成员或任务关闭。全部owner／别名、SDK生成ABI及运行门禁保持，整体SPEC未完成。

@@ -176,3 +176,5 @@ BMSA08补RID[数值/属性/坐标阶段表](../doc/cg2d_battle_m_skill_item_acce
 BMSA09补RID[回退、空槽与创建接线](../doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-control-flow)：三类拒绝恢复入口游标，原角色空槽先Finish再fresh递增子状态，成功在全部追加后发布预读游标并继续扫描；工厂空返回与RID原无判空、双对象停更／载体先挂后写保持。已有224/226/227及回收合同不重复计数；源码保持、零新I，一限定S。实际资源／创建失败、全部owner／别名、SDK生成ABI和运行仍待，任务／门禁／六closure保持。
 
 BMSA10补技能98状态分支的[119／141跨链消费表](../doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-status-consumption)：等级选择type4过渡图并经1024的1→2完成回写／162等待，mode另供141的受条件约束六附属图；value13D8==3优先分支、1054已有返空和先写旗位／后分配失败不回滚保持。复用既有原证，当前源码无本步修改，只七既有消费者一限定S／八记录关系引用，父812仍无新处置或成员，已知回调41F800仅新增候选关联；资源实际可用、全部owner／别名及ABI／运行未验，全任务／门禁保持。
+
+BMSA11补[动画返回及等待／终结传播](../doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-frame-result)：PlayFrame缺索引／缺动作也返回1，装载失败为-1；41A160／205严格1才终结，162严格1024==2才推进。细化BMSA10完成含义、保原分支与返回，不将终结记为资源实际播放；实现保持，公头仅一注释，四旧根一限定S。用户已给出实际游戏目录，配置／启动参数及索引记录待核；资源内容、全部owner／别名及ABI／运行仍待，任务／门禁保持。

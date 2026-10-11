@@ -136,7 +136,8 @@
         "doc/cg2d_msvc_crt_heap_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
-        "doc/cg2d_msvc_crt_multibyte_evidence.json"
+        "doc/cg2d_msvc_crt_multibyte_evidence.json",
+        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -260,7 +261,9 @@
         "F:000FD9F0",
         "F:000FDE10",
         "F:00057B10",
-        "F:00065790"
+        "F:00065790",
+        "F:00106350",
+        "F:00106530"
       ],
       "closure_task_ids": [
         "C02",
@@ -69384,6 +69387,68 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-12"
+    },
+    {
+      "id": "E-MUP01-STARTUP-I-20261012",
+      "feature_id": "FUNC-STARTUP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:00106340",
+        "F:00106350",
+        "F:00106530"
+      ],
+      "baseline_reference": "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012",
+      "implementation_reference": "[#] 接回鼠标构造的完成前缀清理",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012",
+        "src/platform/LegacyMouse.cpp",
+        "src/platform/LegacyCryptInt.cpp",
+        "plan/cg2d_ida_function_implementation_table.md"
+      ],
+      "observation": "原506530两成员逆序叶有八个父EH展开跳转；当前正常退出存在而构造途中完成前缀清理缺失。",
+      "expected": "同一十成员原序构造，每次成功后才记完成；C++异常时仅逆析完成前缀，全成功取消，正常atexit仍唯一且时点／返回不变；无未完成清理／异常吞掉／登记失败补偿／额外RNG。",
+      "actual": "局部非拥有指针数组＋完成计数析构真实接线；仅鼠标构造函数局部修改，成功路径十次真实构造及原正常退出／登记保，关联地址和表定位同步。限定静态不代全SEH／二次异常／owner／SDK／运行通过。",
+      "differences": [
+        {
+          "description": "原x86 FS／C++ EH元数据由当前MSVC编译器承接；仅实现原完成前缀业务清理，不声明机器ABI或故障等价。",
+          "decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-12"
+    },
+    {
+      "id": "E-MUP01-STARTUP-S-20261012",
+      "feature_id": "FUNC-STARTUP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:00106340",
+        "F:00106350",
+        "F:00106530"
+      ],
+      "baseline_reference": "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012",
+      "implementation_reference": "[#] 接回鼠标构造的完成前缀清理",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012",
+        "src/platform/LegacyMouse.cpp",
+        "src/platform/LegacyCryptInt.cpp",
+        "plan/cg2d_ida_function_implementation_table.md"
+      ],
+      "observation": "原506530两成员逆序叶有八个父EH展开跳转；当前正常退出存在而构造途中完成前缀清理缺失。",
+      "expected": "同一十成员原序构造，每次成功后才记完成；C++异常时仅逆析完成前缀，全成功取消，正常atexit仍唯一且时点／返回不变；无未完成清理／异常吞掉／登记失败补偿／额外RNG。",
+      "actual": "局部非拥有指针数组＋完成计数析构真实接线；仅鼠标构造函数局部修改，成功路径十次真实构造及原正常退出／登记保，关联地址和表定位同步。限定静态不代全SEH／二次异常／owner／SDK／运行通过。",
+      "differences": [
+        {
+          "description": "原x86 FS／C++ EH元数据由当前MSVC编译器承接；仅实现原完成前缀业务清理，不声明机器ABI或故障等价。",
+          "decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-12"
     }
   ],
   "task_acceptance": [
@@ -69533,7 +69598,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
         "doc/cg2d_msvc_crt_multibyte_evidence.json",
-        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
+        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012",
+        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012"
       ]
     },
     {
@@ -69592,7 +69658,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
         "doc/cg2d_msvc_crt_multibyte_evidence.json",
-        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
+        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012",
+        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012"
       ]
     },
     {
@@ -70441,7 +70508,8 @@
         "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-source-state",
         "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012",
         "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012",
-        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
+        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012",
+        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012"
       ]
     },
     {
@@ -70712,7 +70780,8 @@
         "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012",
         "doc/cg2d_msvc_crt_file_spec.md#win32-error-current-service-20261012",
         "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012",
-        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
+        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012",
+        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012"
       ]
     },
     {
@@ -74734,7 +74803,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure"
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure",
+        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012"
       ]
     },
     {
@@ -97700,6 +97770,24 @@
         "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-source-state"
       ],
       "boundary": "三报告读取／清零叶内联于活动QueuePlaintextProtocolBytes，共用既有S32报告值／U32截止owner；只完成NWR01限定接线，不声称原包装机器ABI、403E50整根、全owner或运行通过。实施状态只以全量表为准。"
+    },
+    {
+      "inventory_id": "F:00106350",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012"
+      ],
+      "boundary": "MUP01实际鼠标十成员完成前缀C++异常清理；正常构造／退出／RNG保，原EH机器ABI用编译器，不关闭SEH／二次异常／完整owner／SDK／运行"
+    },
+    {
+      "inventory_id": "F:00106530",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012"
+      ],
+      "boundary": "MUP01实际鼠标十成员完成前缀C++异常清理；正常构造／退出／RNG保，原EH机器ABI用编译器，不关闭SEH／二次异常／完整owner／SDK／运行"
     }
   ],
   "auxiliary_dispositions": [

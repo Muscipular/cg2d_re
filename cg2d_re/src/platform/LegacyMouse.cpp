@@ -472,11 +472,30 @@ namespace {
 // 原506350固定D68CF8→506460；仅十个CryptInt按原序构造，不动鼠标其他字段。
 LegacyCryptInt* ConstructLegacyMouseRuntime_506350()
 {
-    legacy_crypt_int::ConstructZero_401C70(&gLegacyMouseState.mouseX);
-    legacy_crypt_int::ConstructZero_401C70(&gLegacyMouseState.mouseY);
-    for (LegacyCryptInt& coordinate : gLegacyMouseState.buttonCoordinates) {
-        legacy_crypt_int::ConstructZero_401C70(&coordinate);
+    struct MouseConstructionPrefix final {
+        LegacyCryptInt* values[10] {
+            &gLegacyMouseState.mouseX, &gLegacyMouseState.mouseY,
+            &gLegacyMouseState.buttonCoordinates[0], &gLegacyMouseState.buttonCoordinates[1],
+            &gLegacyMouseState.buttonCoordinates[2], &gLegacyMouseState.buttonCoordinates[3],
+            &gLegacyMouseState.buttonCoordinates[4], &gLegacyMouseState.buttonCoordinates[5],
+            &gLegacyMouseState.buttonCoordinates[6], &gLegacyMouseState.buttonCoordinates[7],
+        };
+        std::size_t completed = 0;
+
+        // 关联原入口：0x00506530；已完成成员逆序清理，见MUP01。
+        ~MouseConstructionPrefix()
+        {
+            while (completed != 0) {
+                legacy_crypt_int::Destroy_401CF0(values[--completed]);
+            }
+        }
+    } constructed;
+
+    for (LegacyCryptInt* value : constructed.values) {
+        legacy_crypt_int::ConstructZero_401C70(value);
+        ++constructed.completed;
     }
+    constructed.completed = 0;
     return &gLegacyMouseState.mouseX;
 }
 

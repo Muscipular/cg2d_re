@@ -10358,7 +10358,8 @@
         "doc/cg2d_active_initializer_order_spec.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
-        "doc/cg2d_msvc_crt_exit_evidence.json"
+        "doc/cg2d_msvc_crt_exit_evidence.json",
+        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012"
       ],
       "boundary": "原5530F8先调506350，再尾跳506360登记506370退出；现有同一静态对象承接正常构造后登记及逆序析构。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。；D02/D03本组活动路径更新：四具名Init即时宿主登记原固定退出，数字步进仅具名尾调；选择器规范包装转调两Init，退出固定借两个原内嵌owner，不再重读可改preview槽。浏览/鼠标两模块自动析构取消，类型/位置和原构析/值/RNG/数组/成员源码保持；无新owner/补值/保护/回滚/once。原17根+8所属登记指令不拆合并F身份，完整成员EH/数组SEH/全应用序/快速退出/SDK与运行未闭。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "instruction_count": 2,
@@ -10563,7 +10564,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_ui_input_lifecycle_spec.md",
-        "doc/cg2d_ui_input_lifecycle_evidence.json"
+        "doc/cg2d_ui_input_lifecycle_evidence.json",
+        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012"
       ],
       "boundary": "元数据含506360/370/380/460及54BA70/54BAD0异常块；正常构造+00..+90每10H一次，退出反序。异常展开不能由正常逆序循环自动认定已接线。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。；本组实际活动路径已统一到具名Init/即时宿主登记；选择器固定退出目标不从可改preview槽重取。原正常成员/数组源码及原合并归属保持，原完整EH/SEH、跨模块/快速退出与SDK运行仍待，聚合指令存在不代验收。",
       "instruction_count": 162,
@@ -10653,28 +10655,41 @@
     {
       "original_entry": "0x506530",
       "inventory_id": "F:00106530",
-      "status": "基本析构操作已映射，原异常接线仍待",
+      "status": "MUP01已接构造完成前缀的C++异常清理，实施状态以全量表为准；完整SEH／owner／SDK／运行未验",
       "original_role": "鼠标双对象析构叶及异常清理",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "LegacyMouseStaticInitializer"
-          ]
+            "ConstructLegacyMouseRuntime_506350"
+          ],
+          "relationship": "实际局部MouseConstructionPrefix析构在构造途中C++展开逆序清理已完成前缀；完整成功后取消，再由原父正常登记退出"
         },
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
             "Destroy_401CF0"
-          ]
+          ],
+          "relationship": "复用既有成员销毁动作，不改变其正文、RNG或字段"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_mouse.md",
         "doc/cg2d_scene_state.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012"
       ],
-      "boundary": "原+10后+00两次析构；直接引用来自506350的异常清理块。现有正常退出循环包含同顺序的基本操作，但原异常调用来源尚未由此闭合，不标完整实现。"
+      "boundary": "原两成员+10／+00逆序叶经八展开跳转用于已完成对清理；当前局部非拥有指针数组和完成计数真实接C++异常前缀析构，构造成功后取消，未完成成员不清理。原FS／EH元数据和机器ABI由编译器持有，全部SEH故障／二次异常／完整业务owner／SDK／运行未验；不把正常退出代异常接线，不补atexit登记失败或快速退出。",
+      "current_provider": {
+        "kind": "cpp_local_completed_prefix_cleanup",
+        "path": "src/platform/LegacyMouse.cpp",
+        "line": 486,
+        "symbol": "ConstructLegacyMouseRuntime_506350",
+        "original_single_leaf_body_recreated": false,
+        "runtime_verified": false,
+        "spec_reference": "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012"
+      },
+      "verification_level": "当前IDA只读506530原主段及EH尾、八入跳转和父构造成功状态／偏移；限定源码静态核指针序、完成计数、逆析／成功取消和原登记序，未构建／测试／运行／查产物／摘要。"
     },
     {
       "original_entry": "0x5183D0",

@@ -6,10 +6,10 @@
 | 状态 | 实际入口数 |
 |---|---:|
 | 有正文 | 2911 |
-| 有承接 | 647 |
+| 有承接 | 648 |
 | 部分实现 | 5 |
 | 未实现 | 0 |
-| 待确认 | 3 |
+| 待确认 | 2 |
 | 已排除 | 113 |
 | 不适用 | 1 |
 
@@ -2467,9 +2467,9 @@
 | 2444 | 0x00505BC0 | `sub_505BC0` | 有正文 | `src/LegacyUiRecord.cpp:13579 — Sub_505BC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2445 | 0x00505C20 | `sub_505C20` | 有正文 | `src/LegacyUiRecord.cpp:13618 — Sub_505C20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2446 | 0x005062A0 | `sub_5062A0` | 有正文 | `src/LegacyUiRecord.cpp:13597 — Sub_5062A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2447 | 0x00506340 | `sub_506340` | 有正文 | `src/platform/LegacyMouse.cpp:497 — InitializeLegacyMouseRuntime_506340` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2448 | 0x00506350 | `unknown_libname_47` | 有正文 | `src/platform/LegacyMouse.cpp:473 — ConstructLegacyMouseRuntime_506350` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2449 | 0x00506530 | `sub_506530` | 待确认 | `src/platform/LegacyMouse.cpp:484 — ReleaseLegacyMouseRuntimeAtExit_506370` | 原为 506350 构造展开引用的两成员清理叶；当前整体正常退出存在，异常展开的对应承接尚待证，不以正常退出替代本叶 |
+| 2447 | 0x00506340 | `sub_506340` | 有正文 | `src/platform/LegacyMouse.cpp:516 — InitializeLegacyMouseRuntime_506340` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2448 | 0x00506350 | `unknown_libname_47` | 有正文 | `src/platform/LegacyMouse.cpp:473 — ConstructLegacyMouseRuntime_506350` | 正文已有，MUP01补已完成十成员前缀的C++异常清理；X／Y／八按钮原序及成功后登记保持，完整业务／SEH／二次异常／owner／SDK／运行未验 |
+| 2449 | 0x00506530 | `sub_506530` | 有承接 | `src/platform/LegacyMouse.cpp:486 — ConstructLegacyMouseRuntime_506350局部MouseConstructionPrefix析构；src/platform/LegacyCryptInt.cpp:76 — Destroy_401CF0` | 原506350八个展开跳转引用本两成员逆序叶；现局部完成计数在每次构造返回后推进，异常时逆序清理完成前缀，成功取消局部清理后才正常atexit登记；MUP01实际接线，不以正常退出替代；原SEH／二次异常／完整owner／SDK／运行未验 |
 | 2450 | 0x00506580 | `sub_506580` | 有正文 | `src/platform/LegacyMouseTracker.cpp:165 — ResetLegacyMouseTracker_506580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2451 | 0x005066D0 | `sub_5066D0` | 有正文 | `src/platform/LegacyMouseTracker.cpp:236 — ResetLegacyMouseTrackerDefaults_5066D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2452 | 0x005066F0 | `sub_5066F0` | 有正文 | `src/platform/LegacyMouseTracker.cpp:43 — InsertAfter_5066F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2478,15 +2478,15 @@
 | 2455 | 0x00506780 | `sub_506780` | 有正文 | `src/platform/LegacyMouseTracker.cpp:97 — EvictActiveTail_506780` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2456 | 0x005067A0 | `sub_5067A0` | 有正文 | `src/platform/LegacyMouseTracker.cpp:108 — AllocateAndActivate_5067A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2457 | 0x005067F0 | `sub_5067F0` | 有正文 | `src/platform/LegacyMouseTracker.cpp:255 — TrackLegacyMouseDown_5067F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2458 | 0x00506870 | `sub_506870` | 有正文 | `src/platform/LegacyMouse.cpp:504 — ResetLegacyMouseState_506870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2459 | 0x00506890 | `MouseEvent::Reset_0` | 有正文 | `src/platform/LegacyMouse.cpp:513 — ResetLegacyMousePosition_506890` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2460 | 0x00506900 | `MouseEvent::UpdateLDown` | 有正文 | `src/platform/LegacyMouse.cpp:536 — UpdateLegacyMouseLeftDown_506900` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2461 | 0x005069E0 | `MouseEvent::UpdateLUp` | 有正文 | `src/platform/LegacyMouse.cpp:579 — UpdateLegacyMouseLeftUp_5069E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2462 | 0x00506A90 | `MouseEvent::UpdateLDbClick` | 有正文 | `src/platform/LegacyMouse.cpp:615 — UpdateLegacyMouseLeftDoubleClick_506A90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2463 | 0x00506B50 | `MouseEvent::UpdateRDown` | 有正文 | `src/platform/LegacyMouse.cpp:652 — UpdateLegacyMouseRightDown_506B50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2464 | 0x00506C40 | `sub_506C40` | 有正文 | `src/platform/LegacyMouse.cpp:695 — UpdateLegacyMouseRightUp_506C40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2465 | 0x00506CF0 | `sub_506CF0` | 有正文 | `src/platform/LegacyMouse.cpp:731 — UpdateLegacyMouseRightDoubleClick_506CF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2466 | 0x00506DB0 | `sub_506DB0` | 有正文 | `src/platform/LegacyMouse.cpp:768 — AddLegacyMouseWheelDelta_506DB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2458 | 0x00506870 | `sub_506870` | 有正文 | `src/platform/LegacyMouse.cpp:523 — ResetLegacyMouseState_506870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2459 | 0x00506890 | `MouseEvent::Reset_0` | 有正文 | `src/platform/LegacyMouse.cpp:532 — ResetLegacyMousePosition_506890` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2460 | 0x00506900 | `MouseEvent::UpdateLDown` | 有正文 | `src/platform/LegacyMouse.cpp:555 — UpdateLegacyMouseLeftDown_506900` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2461 | 0x005069E0 | `MouseEvent::UpdateLUp` | 有正文 | `src/platform/LegacyMouse.cpp:598 — UpdateLegacyMouseLeftUp_5069E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2462 | 0x00506A90 | `MouseEvent::UpdateLDbClick` | 有正文 | `src/platform/LegacyMouse.cpp:634 — UpdateLegacyMouseLeftDoubleClick_506A90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2463 | 0x00506B50 | `MouseEvent::UpdateRDown` | 有正文 | `src/platform/LegacyMouse.cpp:671 — UpdateLegacyMouseRightDown_506B50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2464 | 0x00506C40 | `sub_506C40` | 有正文 | `src/platform/LegacyMouse.cpp:714 — UpdateLegacyMouseRightUp_506C40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2465 | 0x00506CF0 | `sub_506CF0` | 有正文 | `src/platform/LegacyMouse.cpp:750 — UpdateLegacyMouseRightDoubleClick_506CF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2466 | 0x00506DB0 | `sub_506DB0` | 有正文 | `src/platform/LegacyMouse.cpp:787 — AddLegacyMouseWheelDelta_506DB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2467 | 0x00506DD0 | `sub_506DD0` | 有正文 | `src/platform/LegacyCursor.cpp:189 — ResetLegacyMouseTail_506DD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2468 | 0x00506DE0 | `sub_506DE0` | 有正文 | `src/platform/LegacyCursor.cpp:170 — RequestCursorState_506DE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2469 | 0x00506E00 | `World::CursorUpdate` | 有正文 | `src/platform/LegacyCursor.cpp:195 — UpdateCursor_506E00` | 实际非占位正文已定位；完整业务／接线／运行未验 |

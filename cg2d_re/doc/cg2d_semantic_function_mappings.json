@@ -52983,11 +52983,11 @@
     {
       "original_entry": "0x53B526",
       "inventory_id": "F:0013B526",
-      "status": "原异常ABI叶全本体已取证；新端承接及等价验收未完成",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x53B52D",
       "instruction_count": 4,
       "original_direct_reference_count": 2,
-      "verification_level": "完整指令；入向是否完整见inbound_evidence_complete",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence_complete": true,
       "inbound_evidence": [
         {
@@ -52999,21 +52999,59 @@
           "parent_entry": "0x540980"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
       ],
-      "boundary": "POP/POP/XCHG/JMP四条，重排栈并把this放ECX后尾跳；由5407BC和540980调用，不能以空包装替代。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 489,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x53B52D",
       "inventory_id": "F:0013B52D",
-      "status": "原异常ABI叶全本体已取证；新端承接及等价验收未完成",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x53B534",
       "instruction_count": 4,
       "original_direct_reference_count": 1,
-      "verification_level": "完整指令；入向是否完整见inbound_evidence_complete",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence_complete": true,
       "inbound_evidence": [
         {
@@ -53021,21 +53059,59 @@
           "parent_entry": "0x5407BC"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
       ],
-      "boundary": "与53B526同形但为独立四条入口；唯一5407BC调用，不因同形取消身份。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 490,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x53B534",
       "inventory_id": "F:0013B534",
-      "status": "原异常ABI叶全本体已取证；新端承接及等价验收未完成",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x53B583",
       "instruction_count": 29,
       "original_direct_reference_count": 2,
-      "verification_level": "完整指令；入向是否完整见inbound_evidence_complete",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence_complete": true,
       "inbound_evidence": [
         {
@@ -53047,21 +53123,59 @@
           "parent_entry": "0x54060B"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
       ],
-      "boundary": "保存FS链，调用RtlUnwind，再清异常标志低位02H并接回先前节点；两父属于异常嵌套处理链。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 491,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x53B583",
       "inventory_id": "F:0013B583",
-      "status": "原异常ABI叶全本体已取证；新端承接及等价验收未完成",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x53B5B9",
       "instruction_count": 27,
       "original_direct_reference_count": 71,
-      "verification_level": "完整指令；入向是否完整见inbound_evidence_complete",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence_complete": false,
       "inbound_evidence": [
         {
@@ -53085,21 +53199,59 @@
           "parent_entry": "0x467F30"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
       ],
-      "boundary": "EAX携带FuncInfo，补三个0参数后以八参数调540210并透传返回；71入向仅取样5项，不把样本当全业务覆盖。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 492,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x53B5B9",
       "inventory_id": "F:0013B5B9",
-      "status": "原CRT异常调用链边界已定位；完整语义与新端承接待核",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x53B60D",
       "instruction_count": 26,
       "original_direct_reference_count": 1,
-      "verification_level": "边界、代码指令数、call及外向jmp位置；未逐条验证完整语义",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence_complete": true,
       "inbound_evidence": [
         {
@@ -53107,21 +53259,59 @@
           "parent_entry": "0x540686"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
       ],
-      "boundary": "由540686调用，在53B5F9调540A10设置帧后执行处理块；完整寄存器/保护帧语义待核。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 493,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x53B60D",
       "inventory_id": "F:0013B60D",
-      "status": "原CRT异常调用链边界已定位；完整语义与新端承接待核",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x53B632",
       "instruction_count": 16,
       "original_direct_reference_count": 1,
-      "verification_level": "边界、代码指令数、call及外向jmp位置；未逐条验证完整语义",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence_complete": true,
       "inbound_evidence": [
         {
@@ -53129,21 +53319,59 @@
           "parent_entry": "0x53B5B9"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
       ],
-      "boundary": "地址由53B5B9引用，在53B628调540210；其guard处理完整分支未核，不以名称当已实现。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 494,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x53B632",
       "inventory_id": "F:0013B632",
-      "status": "原CRT异常调用链边界已定位；完整语义与新端承接待核",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x53B6E6",
       "instruction_count": 56,
       "original_direct_reference_count": 1,
-      "verification_level": "边界、代码指令数、call及外向jmp位置；未逐条验证完整语义",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence_complete": true,
       "inbound_evidence": [
         {
@@ -53151,21 +53379,59 @@
           "parent_entry": "0x540452"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
       ],
-      "boundary": "由540452调用，53B6AC经1086060间接调用转换回调；原注册/失败/返回语义继续待核。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 495,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x53B6E6",
       "inventory_id": "F:0013B6E6",
-      "status": "原CRT异常调用链边界已定位；完整语义与新端承接待核",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x53B75B",
       "instruction_count": 47,
       "original_direct_reference_count": 1,
-      "verification_level": "边界、代码指令数、call及外向jmp位置；未逐条验证完整语义",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence_complete": true,
       "inbound_evidence": [
         {
@@ -53173,12 +53439,50 @@
           "parent_entry": "0x53B632"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
       ],
-      "boundary": "由53B632引用，调用540210、53B534并有[ebx+18H]间接尾跳；完整保护逻辑待核。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 496,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x53B75B",
@@ -53256,11 +53560,11 @@
     {
       "original_entry": "0x53B7D8",
       "inventory_id": "F:0013B7D8",
-      "status": "原异常ABI叶全本体已取证；新端承接及等价验收未完成",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x53B7F8",
       "instruction_count": 18,
       "original_direct_reference_count": 1,
-      "verification_level": "完整指令；入向是否完整见inbound_evidence_complete",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence_complete": true,
       "inbound_evidence": [
         {
@@ -53268,21 +53572,59 @@
           "parent_entry": "0x542E34"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
       ],
-      "boundary": "向RtlUnwind传目标帧、固定续行地址和两个0，再恢复寄存器；唯一542E34调用。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 498,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x53B7F8",
       "inventory_id": "F:0013B7F8",
-      "status": "原异常ABI叶全本体已取证；新端承接及等价验收未完成",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x53B81A",
       "instruction_count": 9,
       "original_direct_reference_count": 2,
-      "verification_level": "完整指令；入向是否完整见inbound_evidence_complete",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence_complete": true,
       "inbound_evidence": [
         {
@@ -53294,21 +53636,59 @@
           "parent_entry": "0x53B882"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
       ],
-      "boundary": "异常标志与6相交为0返回1；否则把帧写入调度输出并返回3；地址由局部展开与异常终止检查引用。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 499,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x53B81A",
       "inventory_id": "F:0013B81A",
-      "status": "原CRT异常调用链边界已定位；完整语义与新端承接待核",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x53B882",
       "instruction_count": 33,
       "original_direct_reference_count": 4,
-      "verification_level": "边界、代码指令数、call及外向jmp位置；未逐条验证完整语义",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence_complete": true,
       "inbound_evidence": [
         {
@@ -53328,21 +53708,59 @@
           "parent_entry": "0x542EF1"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
       ],
-      "boundary": "来自540686、542E34两处和542EF1，内部调NLG通知及scope表函数指针；完整状态更新/清理顺序待核。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 500,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x53B882",
       "inventory_id": "F:0013B882",
-      "status": "原异常ABI叶全本体已取证；新端承接及等价验收未完成",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x53B8A5",
       "instruction_count": 10,
       "original_direct_reference_count": 1,
-      "verification_level": "完整指令；入向是否完整见inbound_evidence_complete",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence_complete": true,
       "inbound_evidence": [
         {
@@ -53350,21 +53768,59 @@
           "parent_entry": "0x540686"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
       ],
-      "boundary": "读FS:0，只有handler身份及嵌套状态一致才返1，否则0；不是固定返回的无操作入口。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 501,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x53B8A5",
       "inventory_id": "F:0013B8A5",
-      "status": "原异常ABI叶全本体已取证；新端承接及等价验收未完成",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x53B8AE",
       "instruction_count": 4,
       "original_direct_reference_count": 2,
-      "verification_level": "完整指令；入向是否完整见inbound_evidence_complete",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence_complete": true,
       "inbound_evidence": [
         {
@@ -53376,21 +53832,59 @@
           "parent_entry": "0x540A10"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
       ],
-      "boundary": "四条前缀保存EBX/ECX并选择58F874，尾跳共享NLG正文；该独立入口不当成无效填充。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 502,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x53B8AE",
       "inventory_id": "F:0013B8AE",
-      "status": "原异常ABI叶全本体已取证；新端承接及等价验收未完成",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x53B8C6",
       "instruction_count": 10,
       "original_direct_reference_count": 2,
-      "verification_level": "完整指令；入向是否完整见inbound_evidence_complete",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence_complete": true,
       "inbound_evidence": [
         {
@@ -53402,21 +53896,59 @@
           "parent_entry": "0x542E34"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
       ],
-      "boundary": "经EBP读取通知参数，按+8/+4/+0C向58F874发布ECX/EAX/EBP，恢复寄存器并ret4；不创建新端影子通知槽。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 503,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x542E34",
       "inventory_id": "F:00142E34",
-      "status": "原CRT异常调用链边界已定位；完整语义与新端承接待核",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x542EF1",
       "instruction_count": 73,
       "original_direct_reference_count": 14,
-      "verification_level": "边界、代码指令数、call及外向jmp位置；未逐条验证完整语义",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence_complete": false,
       "inbound_evidence": [
         {
@@ -53439,38 +53971,114 @@
           "parent_entry": "0x53DDB5"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
       ],
-      "boundary": "原SEH handler入口，内部执行scope表过滤/清理并调用全局展开、局部展开及NLG通知；14引用只输出5个样本，完整分派未验。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 504,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x542EF1",
       "inventory_id": "F:00142EF1",
-      "status": "原CRT异常调用链边界已定位；完整语义与新端承接待核",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x542F0C",
       "instruction_count": 11,
       "original_direct_reference_count": 0,
-      "verification_level": "边界、代码指令数、call及外向jmp位置；未逐条验证完整语义",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence_complete": true,
       "inbound_evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
       ],
-      "boundary": "调用53B81A的展开辅助，当前直接入向为0；不能据此判不可达或排除，完整调用方式继续待。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 505,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x54AC98",
       "inventory_id": "F:0014AC98",
-      "status": "原异常ABI叶全本体已取证；新端承接及等价验收未完成",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x54ACB7",
       "instruction_count": 10,
       "original_direct_reference_count": 32,
-      "verification_level": "完整指令；入向是否完整见inbound_evidence_complete",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence_complete": false,
       "inbound_evidence": [
         {
@@ -53494,21 +54102,59 @@
           "parent_entry": "0x54859F"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
       ],
-      "boundary": "以栈和EAX建立FS:0异常注册及EBP，重新压返回地址再ret；32引用只取样5项，不把它实现成普通C++函数。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 506,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x54AB1C",
       "inventory_id": "F:0014AB1C",
-      "status": "原异常ABI叶全本体已取证；新端承接及等价验收未完成",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x54AB22",
       "instruction_count": 1,
       "original_direct_reference_count": 2,
-      "verification_level": "完整指令；入向是否完整见inbound_evidence_complete",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence_complete": true,
       "inbound_evidence": [
         {
@@ -53520,21 +54166,59 @@
           "parent_entry": "0x53B7D8"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
       ],
-      "boundary": "单条间接尾跳__imp_RtlUnwind，两调用来自53B534/53B7D8；仅确认系统导入转发，未承诺新端x64异常现场等价。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 507,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x540210",
       "inventory_id": "F:00140210",
-      "status": "原异常核心调用边界已定位；完整语义、新端承接及验收待核",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x5402AB",
       "instruction_count": 61,
       "original_direct_reference_count": 3,
-      "verification_level": "边界、代码指令数及调用位置；不计全本体语义通过",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence": [
         {
           "address": "0x53B5A4",
@@ -53549,11 +54233,49 @@
           "parent_entry": "0x53B6E6"
         }
       ],
-      "sources": [],
-      "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
       ],
-      "boundary": "三入向来自帧处理器与两种guard，调用540AB2、540557、5402AB并含间接回调；完整异常码分派和FuncInfo状态仍待逐条核定。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 508,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x5402AB",
@@ -53626,22 +54348,60 @@
     {
       "original_entry": "0x540452",
       "inventory_id": "F:00140452",
-      "status": "原异常核心调用边界已定位；完整语义、新端承接及验收待核",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x5404FA",
       "instruction_count": 67,
       "original_direct_reference_count": 1,
-      "verification_level": "边界、代码指令数及调用位置；不计全本体语义通过",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence": [
         {
           "address": "0x540443",
           "parent_entry": "0x5402AB"
         }
       ],
-      "sources": [],
-      "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
       ],
-      "boundary": "唯一5402AB调用，调用转换器53B632、try范围53B75B及捕获54060B；外来异常门禁和返回语义未全验。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 510,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x5404FA",
@@ -53720,11 +54480,11 @@
     {
       "original_entry": "0x540557",
       "inventory_id": "F:00140557",
-      "status": "原异常核心调用边界已定位；完整语义、新端承接及验收待核",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x5405F5",
       "instruction_count": 56,
       "original_direct_reference_count": 2,
-      "verification_level": "边界、代码指令数及调用位置；不计全本体语义通过",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence": [
         {
           "address": "0x540244",
@@ -53735,11 +54495,49 @@
           "parent_entry": "0x54060B"
         }
       ],
-      "sources": [],
-      "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
       ],
-      "boundary": "来自540210/54060B；调540AB2、设置帧540A10及异常过滤5405F5。完整unwind状态推进和失败处理待核。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 512,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x5405F5",
@@ -53834,11 +54632,11 @@
     {
       "original_entry": "0x54060B",
       "inventory_id": "F:0014060B",
-      "status": "原异常核心调用边界已定位；完整语义、新端承接及验收待核",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x540686",
       "instruction_count": 50,
       "original_direct_reference_count": 2,
-      "verification_level": "边界、代码指令数及调用位置；不计全本体语义通过",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence": [
         {
           "address": "0x5403FC",
@@ -53849,51 +54647,165 @@
           "parent_entry": "0x540452"
         }
       ],
-      "sources": [],
-      "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
       ],
-      "boundary": "来自查找与外来异常处理；顺次出现BuildCatchObject、嵌套展开、状态展开、捕获块及续行跳转调用，完整条件/参数仍待。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 514,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x540686",
       "inventory_id": "F:00140686",
-      "status": "原异常核心调用边界已定位；完整语义、新端承接及验收待核",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x540792",
       "instruction_count": 89,
       "original_direct_reference_count": 1,
-      "verification_level": "边界、代码指令数及调用位置；不计全本体语义通过",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence": [
         {
           "address": "0x54066E",
           "parent_entry": "0x54060B"
         }
       ],
-      "sources": [],
-      "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
       ],
-      "boundary": "唯一54060B调用；调CallCatchBlock2、重抛过滤、局部展开、abnormal_termination及对象清理候选540980；完整嵌套与生命周期待核。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 515,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x540792",
       "inventory_id": "F:00140792",
-      "status": "原异常核心叶全本体已取证；新端承接与等价验收未完成",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x5407BC",
       "instruction_count": 15,
       "original_direct_reference_count": 1,
-      "verification_level": "完整指令及直接入向；54B123另核已加载模板",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence": [
         {
           "address": "0x540725",
           "parent_entry": "0x540686"
         }
       ],
-      "sources": [],
-      "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
       ],
-      "boundary": "只有异常代码E06D7363、参数数3、魔数19930520、记录+1C为0同时满足才返1，否则0。不能仅按代码判重抛或照搬到x64四参数记录。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 516,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x5407BC",
@@ -53966,11 +54878,11 @@
     {
       "original_entry": "0x540980",
       "inventory_id": "F:00140980",
-      "status": "原异常核心调用边界已定位；完整语义、新端承接及验收待核",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x5409E7",
       "instruction_count": 39,
       "original_direct_reference_count": 2,
-      "verification_level": "边界、代码指令数及调用位置；不计全本体语义通过",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence": [
         {
           "address": "0x54041B",
@@ -53981,11 +54893,49 @@
           "parent_entry": "0x540686"
         }
       ],
-      "sources": [],
-      "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
       ],
-      "boundary": "来自5402AB/540686，间接成员调用经53B526并有终止尾跳；具体对象清理门禁与状态保持待核。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 518,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x5409E7",
@@ -54070,11 +55020,11 @@
     {
       "original_entry": "0x540A10",
       "inventory_id": "F:00140A10",
-      "status": "原异常核心叶全本体已取证；新端承接与等价验收未完成",
+      "status": "MC01-C9：旧CRT异常辅助入口按已批MSVC/compiler/VCRuntime承接，原体不再重建；完整业务/SDK传播和运行未验",
       "original_end_exclusive": "0x540A5C",
       "instruction_count": 34,
       "original_direct_reference_count": 2,
-      "verification_level": "完整指令及直接入向；54B123另核已加载模板",
+      "verification_level": "已有原身份/职责及当前26旧入口零消费、MSVC构建/标准对象来源的限定静态；零新原体取证、源码实现或运行验收。",
       "inbound_evidence": [
         {
           "address": "0x53B5F9",
@@ -54085,11 +55035,49 @@
           "parent_entry": "0x540557"
         }
       ],
-      "sources": [],
-      "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+      "sources": [
+        {
+          "path": "CMakeLists.txt",
+          "symbols": [
+            "cg2d_re_core",
+            "cg2d_re_startup",
+            "cg2d_re_render",
+            "cg2d_re_client"
+          ],
+          "relationship": "强制Windows/MSVC/x64的现有宿主构建边界；异常辅助职责由编译器/VCRuntime产生，不是旧入口直接定义或调用。"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer"
+          ],
+          "relationship": "MC01-C1已使用的真实MSVC标准流/locale对象边界；此处只关联库内部异常职责，不新增旧对象或捕获包装。"
+        }
       ],
-      "boundary": "切EBP到注册节点+0C、前后各作NLG通知、中间call传入地址并保留ESI/EDI；后通知代码100H转换为2。不能以普通函数调用表达旧帧访问。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。",
+      "previous_mapping_before_mc01c9": {
+        "git_commit_description": "[#] 明确战斗动画终结返回与资源验收边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "record_index": 520,
+        "boundary": "完整旧记录/调用边界/原条数及旧未决状态保存在该Git版本，不内嵌复制源码、指令或原字节。"
+      },
+      "current_provider": {
+        "kind": "msvc_compiler_vcruntime_sdk",
+        "component": "已安装MSVC编译器/VCRuntime与Windows展开边界",
+        "responsibility": "旧CRT异常辅助的库内职责；当前对象使用宿主生成现场及处理机制",
+        "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "source_body_of_original_private_function_implemented": false,
+        "old_x86_metadata_compatible": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x540AB2",

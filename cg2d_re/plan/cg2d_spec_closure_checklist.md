@@ -178,3 +178,5 @@ BMSA09补RID[回退、空槽与创建接线](../doc/cg2d_battle_m_skill_item_acc
 BMSA10补技能98状态分支的[119／141跨链消费表](../doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-status-consumption)：等级选择type4过渡图并经1024的1→2完成回写／162等待，mode另供141的受条件约束六附属图；value13D8==3优先分支、1054已有返空和先写旗位／后分配失败不回滚保持。复用既有原证，当前源码无本步修改，只七既有消费者一限定S／八记录关系引用，父812仍无新处置或成员，已知回调41F800仅新增候选关联；资源实际可用、全部owner／别名及ABI／运行未验，全任务／门禁保持。
 
 BMSA11补[动画返回及等待／终结传播](../doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-frame-result)：PlayFrame缺索引／缺动作也返回1，装载失败为-1；41A160／205严格1才终结，162严格1024==2才推进。细化BMSA10完成含义、保原分支与返回，不将终结记为资源实际播放；实现保持，公头仅一注释，四旧根一限定S。用户已给出实际游戏目录，配置／启动参数及索引记录待核；资源内容、全部owner／别名及ABI／运行仍待，任务／门禁保持。
+
+MC01-C9按用户先补未处理IDA函数的最新顺序，纳管[26个剩余CRT异常辅助入口](../doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state)。旧栈/FS/FuncInfo及库内展开交已批MSVC/compiler/VCRuntime，不重导原体或补空包装；C3真实数组/成员业务构析及5405F5消费保持。26既有语义/26host/26CRT成员、一限定S零I，现CPP与构建配置保持，无新源码功能或任务关闭；C06及全部SDK/传播/owner/运行门禁保持。资源验收先暂停，启动参数不作为本批前置条件。

@@ -483,7 +483,10 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
         "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
-        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
       ],
       "original_inventory_ids": [
         "F:00001C10",
@@ -1012,7 +1015,33 @@
         "F:0013BE17",
         "F:0013C112",
         "F:0013C266",
-        "F:0013C2B4"
+        "F:0013C2B4",
+        "F:0013B526",
+        "F:0013B52D",
+        "F:0013B534",
+        "F:0013B583",
+        "F:0013B5B9",
+        "F:0013B60D",
+        "F:0013B632",
+        "F:0013B6E6",
+        "F:0013B7D8",
+        "F:0013B7F8",
+        "F:0013B81A",
+        "F:0013B882",
+        "F:0013B8A5",
+        "F:0013B8AE",
+        "F:00140210",
+        "F:00140452",
+        "F:00140557",
+        "F:0014060B",
+        "F:00140686",
+        "F:00140792",
+        "F:00140980",
+        "F:00140A10",
+        "F:00142E34",
+        "F:00142EF1",
+        "F:0014AB1C",
+        "F:0014AC98"
       ],
       "closure_task_ids": [
         "C01",
@@ -68787,6 +68816,63 @@
       "differences": [],
       "result": "pass",
       "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-MSVC-EXCEPTION-RUNTIME-CRT-S-20261011",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:0013B526",
+        "F:0013B52D",
+        "F:0013B534",
+        "F:0013B583",
+        "F:0013B5B9",
+        "F:0013B60D",
+        "F:0013B632",
+        "F:0013B6E6",
+        "F:0013B7D8",
+        "F:0013B7F8",
+        "F:0013B81A",
+        "F:0013B882",
+        "F:0013B8A5",
+        "F:0013B8AE",
+        "F:00140210",
+        "F:00140452",
+        "F:00140557",
+        "F:0014060B",
+        "F:00140686",
+        "F:00140792",
+        "F:00140980",
+        "F:00140A10",
+        "F:00142E34",
+        "F:00142EF1",
+        "F:0014AB1C",
+        "F:0014AC98"
+      ],
+      "baseline_reference": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+      "implementation_reference": "[#] 补齐剩余CRT异常入口的MSVC处置",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
+        "doc/cg2d_startup_flow.md",
+        "CMakeLists.txt",
+        "src/platform/LegacyMouse.cpp"
+      ],
+      "observation": "26原CRT异常辅助身份已有历史职责/调用边界，当前尚无处置；当前src/include未见其旧入口定义或调用，现标准对象及MSVC/x64提供者边界已在。",
+      "expected": "依已批CRT直接MSVC，将旧栈/FS/FuncInfo/异常记录及私有运行库辅助交编译器/VCRuntime；不造旧现场、空体或固定成功。不退休C3数组/成员业务构析及5405F5消费，不称旧本体/ABI或运行等价。",
+      "actual": "26既有语义补当前来源及历史版本，26host/26CRT成员纳管；零新函数身份/CPP实现/新I，仅本项限定S。原未全验事实保历史，完整成员EH/硬件SEH、SDK/业务寿命和运行仍待。",
+      "differences": [
+        {
+          "description": "库内调用约定、异常现场与展开机制采用当前MSVC/VCRuntime及Windows边界",
+          "decision_ref": "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
     }
   ],
   "task_acceptance": [
@@ -69395,7 +69481,8 @@
         "doc/cg2d_msvc_crt_numeric_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
-        "doc/cg2d_msvc_crt_exit_evidence.json"
+        "doc/cg2d_msvc_crt_exit_evidence.json",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
       ],
       "task_id": "C06",
       "state": "open"
@@ -70602,7 +70689,8 @@
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
       ]
     },
     {
@@ -71630,7 +71718,8 @@
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
       ]
     },
     {
@@ -96636,6 +96725,292 @@
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-control-flow"
       ],
       "boundary": "已有语义811/真实RID正文及595条库存统计保持，不重复身份。本步仅消息种类kind原EDI32取样/递增/22门禁，将size_t恢复S32及固定25项size比较同型化；只两行，无新增校验、补零/钳制/保护、容量或RNG/失败策略。原其余RID/字符/预读回退/角色分配更新/数值/音效和接口保持；适配处置不等于完整RID、全部父-callee/正常失败/资源、alias-owner/机器ABI或运行通过，全部适用门禁保持。 BMSA07补三处标志BYTE内存读取与载体三注释，S32/W32字段及第二预读寄存器位测试保持；原第一/第二新角色原无分配守卫和226延后共享槽发布保持，仅所述源级关系，不代完整owner/失败/运行。 BMSA09补原三类回退/空槽Finish后子状态发布、两新对象停更与载体先挂后写/成功游标回存关系；仅限定S，原无调用端分配守卫及其它全部字段/接口保持，不代实际失败/所有callee与owner/资源/ABI/运行。"
+    },
+    {
+      "inventory_id": "F:0013B526",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:0013B52D",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:0013B534",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:0013B583",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:0013B5B9",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:0013B60D",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:0013B632",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:0013B6E6",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:0013B7D8",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:0013B7F8",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:0013B81A",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:0013B882",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:0013B8A5",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:0013B8AE",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:00140210",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:00140452",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:00140557",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:0014060B",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:00140686",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:00140792",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:00140980",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:00140A10",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:00142E34",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:00142EF1",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:0014AB1C",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:0014AC98",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+      ],
+      "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
     }
   ],
   "auxiliary_dispositions": [
